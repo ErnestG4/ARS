@@ -1,136 +1,185 @@
 # Arithmetic Resonance Spectrograph (ARS)
 
-Most signal analysis tools ask "what frequencies are present?" This tool asks a different question: **what universality class of randomness does this signal exhibit?** It converts arbitrary sequences — zero heights, prime gaps, neural spike times — into a spectrum via Farey rational passage-time analysis, then classifies that spectrum against the predictions of random matrix theory (Poisson, GOE, GUE). The Farey PLL bank is the spectrograph; the RMT classifier is the readout.
+A calibrated multi-scale RMT readout for arbitrary time series.
 
-A measurement instrument for dynamical level statistics of arithmetic signals. Built around a parallel Farey bank of phase-locked loops driven by chirp synthesis from a sequence of "frequencies" t_k (zero heights, prime gaps, random matrix eigenvalues, neural zero-crossings, ...).
+ARS classifies the universality class of a signal's level statistics — Poisson
+(integrable), GOE (time-reversal symmetric chaotic), or GUE (quantum chaotic) —
+without requiring direct access to the underlying spectrum. It embeds a sequence
+into a chirp signal, runs a GPU-parallel bank of Farey-rational phase-locked loops
+against it, and extracts passage-time spacings that are unfolded and compared
+against random matrix theory predictions.
 
-The intended question: do the Riemann ζ zeros — and other arithmetic structures — exhibit the universality class of quantum chaos (GUE), and can that be detected through their FM coupling structure with a real instrument?
-
-The answer found by this tool: **yes for ζ**. See RESULTS.md for the methods, calibration, and full cross-signal table.
-
----
-
-## Headline result
-
-Riemann ζ zeros' analytical passage-time NNS through the calibrated metric follows the Wigner GUE distribution, and the fit improves at higher zero heights as the GUE conjecture predicts:
-
-| zeros sampled | n pooled spacings | KS to Wigner GUE |
-|---|---|---|
-| first 2,000 | 49,181 | 0.032 |
-| first 100,000 | 1,845,065 | 0.015 |
-| heights ≈ 1,100,000 (Odlyzko zeros6 high chunk) | 450,184 | 0.012 |
-
-GUE eigenvalues, GOE eigenvalues, Poisson uniform, and a Poisson density control all classify to their predicted classes with KS ≤ 0.025 — the metric is calibrated.
-
-The same instrument is also applied to primes (Cramér-asymptotic Poisson behaviour observed), Liouville function support, twin primes, Gaussian prime norms, and a sample of resting-state EEG θ-band zero-crossings. Full table in RESULTS.md §7.
-
-### Secondary result: GUE→GOE projection theorem
-
-A time-symmetric detector (the Farey PLL bank operating on lock-onset times) folds GUE statistics onto GOE statistics, quantified at ~0.13 KS shift. This is characterized analytically and confirmed experimentally. The measured NNS reports GOE; the underlying eigenvalue statistics are GUE. See RESULTS.md §6.5.
+The instrument is validated against the Riemann ζ zeros, whose universality class
+(GUE, per the Montgomery-Odlyzko conjecture) is established to extraordinary
+confidence by direct methods. Reproducing that result via a novel measurement chain
+is the calibration. The intended application is signals where direct level-sequence
+access is unavailable — audio, neural spike trains, sensor streams — and where
+the underlying arithmetic or dynamical structure is unknown.
 
 ---
 
 ## Architecture
 
 ```
-Signal input  (chirp from a t_k list, or raw audio / numeric)
+Sequence t_k  (zero heights, prime gaps, spike times, ...)
      ↓
-Farey PLL bank  (one PLL per p:q ≤ Q_max, GPU-parallel via CuPy)
+Chirp:  x(t) = Σ_k cos(t_k · log(t+1)) / √t_k
      ↓
-Lock/slip time series  (binary, per PLL, per sample)
+Farey PLL bank  (one PLL per rational p:q ≤ Q_max, GPU-parallel via CuPy)
      ↓
-Intermittency extractor  (dwell times, lock onsets, Stern-Brocot depth)
-     ↓
-Universality analyzer  (NNS / Σ²(L) / pair correlation / SFF)
-     ↓
-Classification  (Wigner GOE / GUE / Poisson / sub-class)
+Two pipelines:
+
+  ANALYTICAL (primary, calibrated)
+  Passage times  t*_{k,p/q} = t_k / (f_ref · p/q) − 1
+  → unfolded NNS → KS distances → universality class
+
+  MEASURED (secondary, subject to instrument bias)
+  Lock-onset times → NNS → classification
+  Note: time-symmetric peak detection folds GUE onto GOE (~0.13 KS shift,
+  observed empirically; consistent with Dyson's threefold way but not
+  proven rigorously here)
 ```
 
-Two parallel pipelines:
+---
 
-- **Measured**: chirp → PLL bank → lock-onset NNS. Subject to instrument bias (folds GUE → GOE through time-symmetric peak detection; see RESULTS.md §6.5).
-- **Analytical**: t_k list → passage-time NNS via PLL selection function. Bypasses chirp/PLL dynamics; this is the calibrated primary metric.
+## Calibration
+
+All three calibration anchors classify correctly with KS ≤ 0.025:
+
+| signal | best fit | KS_min | n spacings |
+|---|---|---|---|
+| GUE eigenvalues (R=2 semicircle unfolding) | GUE | 0.022 | 13,971 |
+| GOE eigenvalues | GOE | 0.021 | 13,965 |
+| Poisson uniform | Poisson | 0.018 | 17,628 |
+
+ζ zeros — validation target (GUE fit tightens with height, consistent with
+asymptotic universality):
+
+| zeros | n spacings | KS_GUE | KS_GOE |
+|---|---|---|---|
+| first 2,000 | 49,181 | 0.032 | 0.100 |
+| first 100,000 (Odlyzko zeros1) | 1,845,065 | 0.015 | 0.081 |
+| heights ≈ 1.1M (Odlyzko zeros6) | 450,184 | 0.012 | 0.079 |
+
+This replicates the Montgomery-Odlyzko result via the passage-time metric.
+Odlyzko's direct computation remains the authoritative result; these numbers
+confirm the instrument reads correctly on a known system.
+
+---
+
+## Cross-signal survey
+
+| signal | best fit | KS_min | n | notes |
+|---|---|---|---|---|
+| primes ≤ 10⁶ | Poisson | 0.156 | 2.68M | Cramér heuristic reproduced |
+| twin primes ≤ 10⁷ | Poisson | 0.057 | 1.16M | faster convergence than primes |
+| Gaussian prime norms ≤ 10⁵ | Poisson | 0.184 | 164k | |
+| Liouville ±1 support | unclassifiable | — | — | integer-floor spacing problem |
+| EEG θ zero-crossings | GUE-best | 0.190 | 341 | proof of concept only — see below |
+
+**EEG caveat**: n=341 spacings from one channel of one subject. This demonstrates
+that the pipeline runs end-to-end on neural data and returns sensible output.
+It is not a claim about brain states or neural universality class. A proper study
+would require multiple subjects, multiple conditions, and careful protocol design.
+
+---
+
+## When to use this vs. direct NNS
+
+Direct NNS on the unfolded sequence is simpler, faster, and gives better statistics
+when the level sequence is directly accessible. Use ARS when:
+
+- The sequence is embedded in a continuous signal and levels are not directly
+  observable
+- Multi-scale rational structure is of interest (different Farey rationals probe
+  different frequency neighborhoods simultaneously)
+- You want to compare heterogeneous signal types on a common metric
+
+For ζ zeros specifically, Odlyzko's direct approach is preferable. ARS is
+validated here because the answer is known; it is designed for cases where it
+isn't.
 
 ---
 
 ## Quickstart
 
 ```bash
-# Install dependencies (CuPy optional but recommended for GPU)
 pip install -r requirements.txt
 
-# Fast demo: classify ζ zeros + GUE/GOE/Poisson controls
-# Uses first 2000 zeros from mpmath (synthesized in ~30s)
+# Fast demo: ζ + GUE/GOE/Poisson controls (~30s, no external data needed)
 python3 run_analytical_nns.py
+# → GUE classification of ζ, KS=0.034, n=18,529 spacings
 
-# → Wigner GUE classification of ζ, KS = 0.034 at n = 18,529 spacings
-
-# Full survey — primes, twin primes, Liouville, Gaussian prime norms, EEG
-# (requires external data, see below)
+# Full cross-signal survey (requires external data — see RESULTS.md §9)
 python3 run_phase5.py
 ```
 
-For the large-scale results (n = 1.84M spacings), download the Odlyzko tables first — see External data below.
+---
+
+## External data
+
+Place in `data/` before running large-scale analyses:
+
+- **Odlyzko ζ tables**: `zeros1`, `zeros6` from
+  https://www-users.cse.umn.edu/~odlyzko/zeta_tables/
+- **PhysioNet EEG**: `S001R01.edf` etc. from
+  https://physionet.org/files/eegmmidb/1.0.0/
+
+ζ zeros can also be computed on demand via `mpmath.zetazero` (used by the
+quickstart demo).
 
 ---
 
 ## File layout
 
 ```
-criticality_tool/
-├── README.md                   # this file
-├── RESULTS.md                  # full methods, calibration, results
-├── CRITICALITY_BRIEF.md        # original spec the tool was built against
-├── CITATION.cff                # machine-readable citation
-├── LICENSE                     # AGPL-3.0-or-later
+├── README.md
+├── RESULTS.md              # full methods, calibration, all results, limitations
+├── CRITICALITY_BRIEF.md    # original specification
+├── CITATION.cff
+├── LICENSE                 # AGPL-3.0-or-later
 ├── requirements.txt
 │
-├── pll_bank.py                 # PLL bank — CPU + CuPy GPU
-├── intermittency.py            # dwell extraction, power-law MLE, Stern-Brocot depth
-├── universality.py             # NNS / Σ²(L) / pair correlation / SFF
-├── signal_gen.py               # ζ, GUE/GOE chirps, Poisson-FM null
+├── pll_bank.py             # Farey PLL bank, CPU + CuPy GPU
+├── intermittency.py        # dwell extraction, power-law MLE, Stern-Brocot depth
+├── universality.py         # NNS, Σ²(L), pair correlation, SFF
+├── signal_gen.py           # signal generators
 │
-├── run_analytical_nns.py       # calibrated primary metric (start here)
-├── run_full_sweep.py           # 3000-cell parameter sweep
-├── run_zeta_phase2.py          # Phase 2 intermittency on ζ
-├── run_phase3.py               # NNS / Σ² / SFF
-├── run_decisive.py             # 1000-zero × 300s headline run
-├── run_controls.py             # selection-bias + time-reversal controls
-├── run_calibration.py          # GUE/GOE chirp calibration
-├── run_envelope_diagnosis.py   # chirp envelope analysis
-├── run_analytical_nns.py       # the calibrated metric (primary)
-├── run_phase4.py               # cross-signal — first batch
-├── run_phase5.py               # cross-signal — wider batch + EEG
+├── run_analytical_nns.py   # primary calibrated metric — start here
+├── run_full_sweep.py       # 3000-cell parameter sweep
+├── run_decisive.py         # 1000-zero × 300s PLL run
+├── run_controls.py         # selection-bias + time-reversal controls
+├── run_calibration.py      # GUE/GOE chirp calibration
+├── run_phase3.py           # NNS / Σ² / SFF
+├── run_phase4.py           # cross-signal first batch
+├── run_phase5.py           # cross-signal wider batch + EEG
 │
 ├── tests/
-│   ├── test_pll.py             # Phase 1 acceptance
-│   ├── test_pll_gpu.py         # GPU↔CPU parity
-│   └── test_intermittency.py   # Phase 2 acceptance
-└── plots/                      # research figures (16 panels, see RESULTS.md)
+│   ├── test_pll.py         # Phase 1 acceptance
+│   ├── test_pll_gpu.py     # GPU↔CPU parity
+│   └── test_intermittency.py
 ```
-
-Runner scripts are idempotent and can be re-run independently.
-
----
-
-## External data
-
-Not included — download separately and place in `data/`:
-
-- **Odlyzko ζ-zero tables**: `zeros1` (100k zeros) and `zeros6` (2M zeros) from https://www-users.cse.umn.edu/~odlyzko/zeta_tables/
-- **PhysioNet EEG**: e.g. `S001R01.edf` from https://physionet.org/files/eegmmidb/1.0.0/S001/
-
-Or compute ζ zeros on demand via `mpmath.zetazero` — the quickstart demo uses this path.
 
 ---
 
 ## Hardware
 
-Tested on:
-- **CPU**: AMD Ryzen 9 5900x 24-thread (joblib parallel)
-- **GPU**: NVIDIA RTX 4090 (CuPy, CUDA 12)
+- **CPU**: AMD Ryzen 9 5900x, 24 threads (joblib parallel)
+- **GPU**: NVIDIA RTX 4090, CuPy + CUDA 12
 
-The PLL bank GPU kernel achieves ~82M PLL-samples/sec on the 4090. CPU fallback works on any modern x86_64 host.
+PLL bank throughput: ~82M PLL-samples/sec on the 4090. CPU fallback available.
+
+---
+
+## Related work
+
+The connection between phase-locking, the Riemann zeta function, and prime number
+theory has been developed analytically by M. Planat and collaborators (FEMTO-ST,
+2002–2026), particularly the arithmetic of 1/f noise in PLLs and connections to
+the Mangoldt function, Arnold map, and Bost-Connes quantum statistical mechanics.
+ARS provides a complementary empirical approach: the Farey PLL bank as a
+measurement instrument applied to external signals rather than as an oscillator
+whose noise is being analyzed.
 
 ---
 
@@ -138,22 +187,11 @@ The PLL bank GPU kernel achieves ~82M PLL-samples/sec on the 4090. CPU fallback 
 
 AGPL-3.0-or-later. See LICENSE.
 
----
-
 ## Citation
 
-See CITATION.cff. If you use this tool in research, please cite it — it helps establish provenance for the metric.
-
----
+See CITATION.cff.
 
 ## Status
 
-Research code. The metric is calibrated; the headline ζ result is robust across multiple zero-height regimes and consistent with the random matrix theory conjecture. See RESULTS.md §10 for known limitations.
-
-This codebase is the basis for an in-progress writeup. Issues, patches, and reproductions welcome.
-
----
-
-## Related work
-
-The connection between phase-locking, the Riemann zeta function, and prime number theory has been developed analytically by M. Planat and collaborators (FEMTO-ST, 2002–2026). This tool provides a complementary empirical approach: rather than deriving the arithmetic structure of PLL noise analytically, it uses the Farey PLL bank as a measurement instrument applied to external signals.
+Research code. Calibrated and reproducible; see RESULTS.md §10 for known
+limitations. In-progress writeup. Issues, reproductions, and patches welcome.
