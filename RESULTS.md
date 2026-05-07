@@ -1026,7 +1026,77 @@ Condition deltas remain tiny (KS_GUE varies only 0.014 between
 eyes-open and eyes-closed) — confirms that θ-band zero-crossing rate
 is not a strong cognitive-state classifier in this metric.
 
-### 7.ter.4  Caveats and follow-ups
+### 7.ter.5  Phase 8 — Fungal mycelium spike statistics (Adamatzky data)
+
+`run_fungal_nns.py` applies the analytical-NNS pipeline to 18 long
+electrical recordings (60–360 h each, 8 differential channels, 1 Hz)
+of *Pleurotus ostreatus* and grain-substrate fruiting bodies released
+publicly by Adamatzky / unconv-comp lab.
+
+**Spike detection**: per channel, 1-h rolling-median baseline subtraction,
+threshold-cross at the lowest σ ∈ {3, 4, 6} that produces 20–150 spikes
+(min ISI 120 s, min spike width 10 s).  18/18 files loaded; 35 of the
+8×18 = 144 (file, channel) units crossed the 20-spike threshold.
+
+**Pooled NNS (direct, 35 units, 1,470 inter-spike spacings):**
+
+| metric                | value | reference (Poisson) | reference (Wigner GUE) |
+|-----------------------|-------|---------------------|------------------------|
+| KS_Poisson            | 0.400 | 0.022 (calibrator)  | —                      |
+| KS_GOE                | 0.590 | —                   | —                      |
+| KS_GUE                | 0.641 | —                   | 0.022 (calibrator)     |
+| **mass<0.3**          | **0.654** | 0.259 (analytic) | ~0.10 (analytic)       |
+| best                  | Poiss | —                   | —                      |
+
+The Farey-bank passage-time pool (62,706 spacings across all PLL
+bands) reproduces the same shape: KS_P = 0.39, mass<0.3 = 0.65.
+
+**Interpretation**: fungal spike timing is **strongly clustered
+(super-Poissonian)**, even more than earthquakes (mass<0.3 = 0.33).
+65 % of normalised inter-spike intervals are shorter than 0.3 of the
+mean — bursty point-process structure, no random-matrix universality.
+KS_min = 0.40 is far above any clean-classification threshold, so the
+"best=Poisson" label is the metric's most-charitable Wigner-form
+neighbour rather than a real Poisson identification.
+
+**ISI two-population check** (Adamatzky 2020 reports peaks near
+2.6 min and 14 min):
+
+| target peak  | events in ±0.5 min window | observed peak | observed count |
+|--------------|---------------------------|---------------|----------------|
+| 2.6 min      | 432 events                | 2.2 min       | 155 (primary)  |
+| 14 min       |  30 events                | (5.8 min, 9.8 min smaller secondaries) | 36, 21 |
+
+The fast peak Adamatzky reports near 2.6 min is reproduced (broader,
+centred slightly earlier at 2.2 min with this detector); the slow
+14-min peak is much weaker in the pooled distribution (only 30 events
+in a wide window vs 432 at the fast peak).  Mean ISI = 178 min is
+inflated by the long inter-burst gaps, while median ISI = 10 min
+matches the within-burst timescale.
+
+**Comparison to neural and arithmetic signals:**
+
+| signal class                | mass<0.3 | best  | KS_min | what it is             |
+|-----------------------------|----------|-------|--------|------------------------|
+| Wigner GUE eigenvalues      | 0.10     | GUE   | 0.022  | level repulsion        |
+| ζ zeros (heights ~10⁶)      | 0.024    | GUE   | 0.012  | arithmetic, level rep. |
+| LMFDB EC L-functions        | 0.024    | GUE   | 0.012  | arithmetic, level rep. |
+| EEG θ-band zero-crossings   | 0.001    | "GUE" | 0.18   | bandpass artifact      |
+| USGS earthquakes M ≥ 4.5    | 0.33     | Poiss | 0.075  | clustered point proc.  |
+| Mertens M(x) sign changes   | 0.93     | Poiss | 0.32   | sparse arithmetic seq. |
+| **Fungal spikes**           | **0.65** | **Poiss** | **0.40** | **bursty point proc.** |
+
+Fungal spike timing sits between earthquakes and Mertens sign-changes
+on the clustering axis — *more* bursty than earthquake aftershocks,
+*less* than the integer-floor-bound Mertens sign-change positions.
+A living network with no nervous system produces a clearly-clustered
+point process, distinct from random-matrix universality and distinct
+from any neural quasi-periodicity artefact.
+
+Output: `plots/29_fungal_nns.png`, `plots/30_fungal_isi.png`,
+`data/fungal_results.json`.
+
+### 7.ter.6  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

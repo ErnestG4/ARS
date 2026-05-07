@@ -115,6 +115,7 @@ among the three Wigner forms', not GUE-class dynamics.
   data/earthquake_results.json                  (6,549 bytes)
   data/eeg_full_results.json                    (155,780 bytes)
   data/eeg_results.json                         (17,951 bytes)
+  data/fungal_results.json                      (41,742 bytes)
   data/lmfdb_edge_results.json                  (3,820 bytes)
   data/lmfdb_extend_results.json                (32,093 bytes)
   data/lmfdb_results.json                       (32,401 bytes)
@@ -153,6 +154,8 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/26_second_order.png                      (143,963 bytes)
   plots/27_pair_correlation.png                  (112,114 bytes)
   plots/28_eeg_full.png                          (99,716 bytes)
+  plots/29_fungal_nns.png                        (67,637 bytes)
+  plots/30_fungal_isi.png                        (30,052 bytes)
 ```
 
 ## Pipeline state
