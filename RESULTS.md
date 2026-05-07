@@ -1311,7 +1311,62 @@ from a Poisson process at the largest scale tested.
 Output: `plots/33_primes_scaling.png` (both curves on the same axes,
 Poisson reference dashed at F = 1), `data/primes_scaling.json`.
 
-### 7.ter.10  Caveats and follow-ups
+### 7.ter.10  p-adic engine validation: design limitation surfaced
+
+`run_padic_finance.py` queues a real-data slot at
+`data/financial_settlements.csv` and falls through to a synthetic
+suite when no such file exists.  The synthetics were designed to
+have unambiguous prime-base asymmetry: weekly periodic (period 7),
+monthly periodic (period ≈ 30 = 2·3·5), quarterly (period ≈ 91 = 7·13),
+plus Poisson-with-weekly-injection and pure-Poisson controls.
+
+| signal                              | best   | peak_q | p=2   | p=3   | p=5   | p=7   | p=11  | p=13  |
+|-------------------------------------|--------|--------|-------|-------|-------|-------|-------|-------|
+| (a) weekly periodic + jitter        | GUE    | 2      | 0.339 | 0.339 | 0.339 | 0.339 | 0.338 | 0.338 |
+| (b) monthly periodic + jitter       | GUE    | 6      | 0.372 | 0.372 | 0.372 | 0.372 | 0.371 | 0.371 |
+| (d) mixed W+M+Q                     | GOE    | 2      | 0.205 | 0.205 | 0.205 | 0.205 | 0.205 | 0.205 |
+| (e) Poisson + weekly injection      | Poiss  | 9      | 0.034 | 0.034 | 0.034 | 0.034 | 0.034 | 0.033 |
+| (f) Poisson background only         | Poiss  | 2      | 0.013 | 0.013 | 0.013 | 0.013 | 0.013 | 0.013 |
+
+**Result** — KS_min ties across all primes to 3 decimal places on
+every row, including the signal-in-noise case (e) where the engine
+*should* fire if it works.  This confirms the §7.ter.8 limitation
+note: the current p-adic engine does not actually discriminate.
+
+**Cause** — the implementation pools normalised passage-time spacings
+across all Farey rationals with `p | q`.  These sets overlap heavily:
+q = 6 contributes to both p = 2 and p = 3 pools, q = 10 to p = 2 and
+p = 5, etc.  Pooled NNS shapes are dominated by the bulk universality
+of the underlying signal, not by the prime selector.
+
+**Two redesigns are queued** for a future toolkit pass:
+
+1. **Pure-p-power filter**: restrict to q ∈ {p, p², p³, …}.  At
+   q_max = 16 this gives clean disjoint subsets {2, 4, 8, 16},
+   {3, 9}, {5}, {7}, {11}, {13} — but very few PLL bands per prime,
+   so statistical power per band is low.
+2. **Ramanujan-amplitude based**: aggregate `|a_q|` over q's with each
+   prime as a factor, normalised by total amplitude.  Reuses the
+   Ramanujan-Fourier engine which already runs.  More likely to
+   surface period-p arithmetic (weekly = 7, etc.).
+
+Until the redesign lands, the p-adic engine should be reported as
+"ties for arithmetic and stationary periodic signals" and not as a
+discriminator.
+
+**Secondary finding** — `peak_q` from the Ramanujan-Fourier engine
+does *not* land on the injected period in these synthetics
+(peak_q = 2 for weekly, 6 for monthly, 9 for noise-injected weekly).
+Reason: the engine normalises intervals to unit mean *before* the RF
+transform, which collapses a strictly periodic signal's f(n) to a
+constant — every a_q for q ≥ 2 reduces to noise.  A `normalize=False`
+mode or an alternative indicator-function input on raw event times
+would be needed to detect injected periodicity directly.
+
+Outputs: `plots/34_padic_finance.png`, `data/padic_finance_results.json`,
+`run_padic_finance.py` (queued for real data input).
+
+### 7.ter.11  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

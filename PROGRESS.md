@@ -40,20 +40,63 @@ Output: `plots/33_primes_scaling.png`, `data/primes_scaling.json`.
 
 ---
 
-### Queued: p-adic engine validation
+## 2026-05-07 13:55 — p-adic engine validation: design limitation surfaced ⚠
 
-The Phase-9 limitation note (§7.ter.8) — p-adic dominance ties at
-q_max=16 because bulk Wigner GUE smooths over p-adic asymmetry —
-predicts the engine *will* fire on signals with genuine prime-base
-asymmetry comparable to bulk variation.  Targets to throw at it when
-data is at hand:
+`run_padic_finance.py` is queued and ready to consume real data at
+`data/financial_settlements.csv`.  Falling through to a synthetic
+suite that exercises the predicted p-adic asymmetry (weekly 7-day,
+monthly 30=2·3·5, quarterly 91=7·13, plus Poisson+weekly-injection
+and Poisson-only controls) revealed:
 
-- Financial time series with periodic settlement / option-expiry
-  structure (preferred 7-day, 30-day, quarterly bases).
-- Biological oscillators with known dominant frequency on a particular
-  prime base (e.g. circadian + harmonics).
-- Digit sequences of irrationals (π, e, √2) in different prime bases —
-  the p-adic profile should pick up base-p as the dominant prime.
+**Result: the p-adic engine as currently implemented does not
+discriminate even on signals designed to have prime-base asymmetry.**
+
+| signal                              | n     | best   | peak_q | p=2   | p=3   | p=5   | p=7   | p=11  | p=13  |
+|-------------------------------------|-------|--------|--------|-------|-------|-------|-------|-------|-------|
+| (a) weekly periodic + jitter        | 259   | GUE    | 2      | 0.339 | 0.339 | 0.339 | 0.339 | 0.338 | 0.338 |
+| (b) monthly periodic + jitter       | 59    | GUE    | 6      | 0.372 | 0.372 | 0.372 | 0.372 | 0.371 | 0.371 |
+| (d) mixed W+M+Q                     | 339   | GOE    | 2      | 0.205 | 0.205 | 0.205 | 0.205 | 0.205 | 0.205 |
+| (e) Poisson + weekly injection      | 1,172 | Poiss  | 9      | 0.034 | 0.034 | 0.034 | 0.034 | 0.034 | 0.033 |
+| (f) Poisson background only         | 1,094 | Poiss  | 2      | 0.013 | 0.013 | 0.013 | 0.013 | 0.013 | 0.013 |
+
+KS_min ties across all primes to 3 decimal places in every row.
+
+**Why** — the current implementation pools normalised passage-time
+spacings across all Farey rationals where `p | q`.  These sets
+*overlap heavily*: e.g. q = 6 has both 2 | 6 and 3 | 6, so q = 6
+contributes to both the p = 2 and p = 3 pools.  At q_max = 16, only
+q ∈ {p, p², p³, …} discriminate cleanly — singletons for most primes.
+Pooling across the larger overlapping sets washes out the asymmetry.
+
+**Engine redesign would help, not implementation tuning.**  Two
+options for a v2 p-adic profile:
+
+1. **Pure-p-power filter**: keep only q ∈ {p, p², p³, …}.  At q_max =
+   16 this gives q = 2, 4, 8, 16 for p = 2; q = 3, 9 for p = 3; q = 5
+   for p = 5; q = 7 for p = 7; q = 11; q = 13.  Cleaner separation
+   but very few PLL bands per prime, statistical power suffers.
+
+2. **Ramanujan-amplitude-based**: aggregate `|a_q|` for q with each
+   prime as factor, normalise by total.  Uses Ramanujan-Fourier
+   coefficients (which already exist in the toolkit) instead of
+   passage-time NNS.  More likely to surface period-7 weekly signals.
+
+Both are queued for a future toolkit pass.  The current engine should
+be reported as "ties for arithmetic and stationary periodic signals"
+and not as a discriminator.
+
+**Secondary finding** — Ramanujan-Fourier engine's `peak_q` does not
+land on the injected period (peak_q = 2 for weekly, 6 for monthly, 9
+for the noise-injected weekly).  This is because the engine
+normalises intervals to unit mean before the RF transform, so for a
+strictly periodic signal the f(n) sequence is constant and a_q
+collapses to zero for q ≥ 2 — the apparent peak_q is just noise.
+Detecting injected periodicity would require `normalize=False` or
+re-defining the input as the indicator function on raw event times.
+
+Output: `plots/34_padic_finance.png`, `data/padic_finance_results.json`,
+`run_padic_finance.py` (queued for real data input at
+`data/financial_settlements.csv`).
 
 ---
 
