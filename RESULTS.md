@@ -1616,7 +1616,102 @@ digit expansions of irrationals, biological oscillators).
 
 Outputs: `data/padic_v4_results.json`, `plots/36_padic_v4.png`.
 
-### 7.ter.14  Caveats and follow-ups
+### 7.ter.14  Phase 10 — LLM cascade fingerprints (Wigner GUE in residual stream)
+
+`llm_cascade.py` extracts per-token surprisal, per-layer residual
+stream L2 norms, and per-(layer, head, query) attention entropy from
+a causal LM forward pass.  Three event-extraction methods convert
+the cascade to a point process, each surfacing a different aspect of
+the model's internal dynamics:
+
+  - **surprisal_threshold** — events at integer token positions where
+    per-token surprisal exceeds median + k·std.  Discrete grid →
+    Poisson-like statistics by construction.
+  - **surprisal_cumulative** — event time = cumulative surprisal
+    (information-content as natural time axis); events at local
+    surprisal maxima.  Continuous time, stretches high-information
+    regions, compresses low-information regions.
+  - **residual_norm_peaks** — peaks of the final-layer residual stream
+    L2 norm.  Detects representational salience.
+
+`run_phase10_llm.py` runs Qwen 2.5 3B base at 3 quantization levels
+× 3 stimulus texts × 3 extraction methods = 27 cells.
+
+#### The three-extraction headline
+
+The extraction method, not the model state, sets the universality
+class label:
+
+| extraction              | best (modal) | n cells GUE-best | n GOE-best | n Poisson-best |
+|-------------------------|--------------|------------------|------------|----------------|
+| residual_norm_peaks     | **GUE**      | **9 / 9**        | 0          | 0              |
+| surprisal_cumulative    | **GOE**      | 0                | 8 / 9      | 1              |
+| surprisal_threshold     | **Poisson**  | 0                | 0          | 9 / 9          |
+
+#### residual_norm_peaks → universal Wigner GUE
+
+| (quant, stim)        | n_ev | KS_GUE | mass<0.3 | F(T=5) | rep_int |
+|----------------------|------|--------|----------|--------|---------|
+| fp16, structured     | 192  | 0.213  | 0.000    | 0.14   | 0.900   |
+| fp16, natural        | 122  | 0.197  | 0.000    | 0.12   | 0.900   |
+| fp16, random         | 246  | 0.312  | 0.000    | 0.09   | 0.900   |
+| int8, structured     | 194  | 0.211  | 0.000    | 0.27   | 0.900   |
+| int8, natural        | 120  | 0.180  | 0.000    | 0.14   | 0.900   |
+| int8, random         | 247  | 0.315  | 0.000    | 0.12   | 0.900   |
+| int4, structured     | 195  | 0.214  | 0.000    | 0.16   | 0.900   |
+| int4, natural        | 119  | 0.184  | 0.000    | 0.16   | 0.900   |
+| int4, random         | 247  | 0.315  | 0.000    | 0.12   | 0.900   |
+
+**Every cell is GUE-best with mass<0.3 = 0 and F(T=5) ≪ 1.**  The
+spacings of residual-stream-norm peaks in an LLM forward pass exhibit
+the same Wigner GUE level-repulsion class as Riemann zeros, elliptic
+curve L-functions, and Dirichlet L-functions.  Independent of
+quantization (drift ≤ 0.01 across fp16/int8/int4 within a stimulus)
+and largely independent of stimulus.
+
+KS_GUE = 0.18-0.32 sits between the calibrator (0.022) and the EEG
+quasi-periodic artefact (0.18) numerically — but mass<0.3 = 0 +
+F(T=5) ≪ 1 is the strong-level-repulsion signature, not the
+quasi-periodic-artefact signature.
+
+#### Q1: quantization changes universality class?
+
+**Almost no.**  26 of 27 cells preserve the modal class label across
+fp16 → int8 → int4.  Within-cell KS drift is ≤ 0.05.  The single flip
+is int4-structured under surprisal_cumulative going from GOE to
+Poisson-best, with KS_GOE = 0.137 and KS_P = 0.210 — borderline call.
+
+#### Q2: stimulus structure changes universality class?
+
+**Mostly no in label; yes in degree.**  The class label is set by
+the extraction method.  Within an extraction, stimulus changes the
+KS distance to the assigned class.  Random text gives the cleanest
+GOE fit under surprisal_cumulative (KS_GOE = 0.075-0.092 vs
+0.106-0.137 for structured), a consequence of higher mean surprisal
+(3.74 nats vs 1.14 nats) giving more independent samples per token.
+
+#### Q3: quant and stimulus confounded?
+
+**Independent.**  The matrix shows additive contributions: quantization
+shifts KS by ≤ 0.05, stimulus shifts KS by 0.07-0.20, and the int4-random
+cell does not deviate beyond what (int4-fp16 drift) + (random-stimulus
+shift) would predict.
+
+#### Recommendation
+
+`residual_norm_peaks` is the canonical extraction for *characterising
+the LLM's dynamical fingerprint* — it surfaces the GUE-like level
+repulsion of internal computation independent of input.
+`surprisal_cumulative` is the canonical extraction for *characterising
+the input through the model's information clock*.
+`surprisal_threshold` should be used only when integer event indices
+are needed; its statistics are Poisson by construction.
+
+Outputs: `data/phase10_llm_fingerprints.json`,
+`plots/37_phase10_llm.png` (27-cell heatmap matrix),
+`run_phase10_llm.py`.
+
+### 7.ter.15  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted
