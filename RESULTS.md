@@ -1431,7 +1431,73 @@ comparability with prior phases — engine flags are opt-in.
 Outputs: `plots/34_padic_finance.png` (v1 vs v2 per-prime KS profile
 on the same axes), `data/padic_finance_results.json`.
 
-### 7.ter.12  Caveats and follow-ups
+### 7.ter.12  p-adic v3 acceptance test — also fails
+
+`padic_per_band(t_k, q_max=64)` implements the §7.ter.10 follow-up
+plan (`per-band KS-pooling-based`): for each prime p, enumerate pure
+powers q_p ≤ 64, classify *every* Farey rational (a, q_p) individually,
+return a per-(p, q_p) cell table of median per-band KS scores.
+
+Acceptance criterion: on Poisson + period-7 injection, median KS_GUE
+at the (p = 7, q = 7) cell should elevate above the (p = 2, q = 2..64)
+cells that see only the Poisson background.
+
+**Result.**  Every cell within a given signal returns identical
+median KS to three decimal places:
+
+| signal                          | median KS_P | KS_GOE | KS_GUE | mass<0.3 |
+|---------------------------------|-------------|--------|--------|----------|
+| Poisson background              | 0.020       | 0.208  | 0.276  | 0.269    |
+| Poisson + period-3 inject       | 0.059       | 0.174  | 0.240  | 0.220    |
+| Poisson + period-5 inject       | 0.032       | 0.204  | 0.270  | 0.246    |
+| **Poisson + period-7 inject**   | **0.016**   | 0.230  | 0.296  | 0.246    |
+| pure weekly periodic            | 0.532       | 0.376  | 0.336  | 0.000    |
+
+KS_GUE @ (p=7, q=7) for the target signal = 0.296.  Median over
+(p=2, q=2..64) = 0.296.  Elevation = 0.000.  **Acceptance fails.**
+
+The injection signature *is* visible at the whole-signal level
+(KS_P drifts 0.020 → 0.059 across injection periods in proportion to
+event-count change), but within each signal the per-band decomposition
+is uniform across all (p, q) cells.
+
+**Why v3 fails — band invariance under linear scaling.**  The
+analytical-passage formula `passage = t·f_pll − 1` is a linear
+rescaling of t by f_pll = a/q.  For a stationary signal (Poisson,
+periodic, RMT eigenvalue-like), scaling t by any factor yields a
+sequence of the same universality class.  After normalising to
+unit mean spacing the band's NNS converges to the same shape
+regardless of (a, q).  This is a structural property of the
+`analytical_passage → NNS → KS` pipeline, not a bug in v3.
+
+**Generalisation**: any p-adic profile that *pools or aggregates
+NNS over PLL bands* cannot discriminate prime-base asymmetry on
+stationary signals.  The asymmetry has to be detected by a metric
+that breaks band-invariance — one sensitive to *which integers* the
+events align with.  Ramanujan-Fourier amplitudes do this directly
+(they peaked at q = 7 for weekly events in v2 RF acceptance).
+
+#### v4 architecture queued
+
+Define the p-adic profile through the Ramanujan-Fourier amplitudes
+(re-using the validated v2 RF indicator-mode engine):
+
+    p_amplitude(p) = Σ_{q : q is a pure power of p, q ≤ q_max}  |a_q|
+                    ───────────────────────────────────────────────
+                                       Σ_q  |a_q|
+
+For period-7 events, `a_7` dominates the spectrum → p = 7 amplitude
+high, p = 2, 3, 5 amplitudes low.  Discriminates by construction.
+
+**Status.**  v1 (default, p|q filter) and v2 (pure-power filter) both
+fail acceptance via NNS pooling.  v3 (per-band KS pooling table) fails
+for the same architectural reason — band-invariance under linear
+scaling.  v4 (RF-amplitude based) is the natural redesign and reuses
+infrastructure that already passed acceptance on the same test signals.
+
+Outputs: `data/padic_v3_results.json`, `plots/35_padic_v3.png`.
+
+### 7.ter.13  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

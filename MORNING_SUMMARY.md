@@ -123,6 +123,7 @@ among the three Wigner forms', not GUE-class dynamics.
   data/lmfdb_zeros_h1000.json                   (3,234,057 bytes)
   data/mertens_liouville_results.json           (1,136 bytes)
   data/padic_finance_results.json               (14,527 bytes)
+  data/padic_v3_results.json                    (28,196 bytes)
   data/pair_correlation_results.json            (13,195 bytes)
   data/phase9_extended_fingerprints.json        (24,825 bytes)
   data/phase9_fingerprints.json                 (17,486 bytes)
@@ -164,6 +165,7 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/32_phase9_extended.png                   (112,823 bytes)
   plots/33_primes_scaling.png                    (79,488 bytes)
   plots/34_padic_finance.png                     (82,431 bytes)
+  plots/35_padic_v3.png                          (57,961 bytes)
 ```
 
 ## Pipeline state

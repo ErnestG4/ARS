@@ -227,6 +227,74 @@ def _is_p_power(q: int, p: int) -> bool:
     return True
 
 
+def padic_per_band(t_k: np.ndarray,
+                    primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
+                    q_max: int = 64, fc_ref: float = 1.0) -> dict:
+    """
+    p-adic engine v3 — per-band Wigner-fit table on pure-p-power Farey
+    rationals.
+
+    For each prime p, enumerate the pure powers q_p ∈ {p, p², p³, …}
+    with q_p ≤ q_max.  For each q_p, classify *every* Farey rational
+    (a, q_p) individually (NOT pool them).  Aggregate by prime+q with
+    median KS scores per (p, q) cell — this preserves the asymmetry
+    that pooling washes out.
+
+    The acceptance criterion: for Poisson + period-7 injection,
+    median KS_GUE at (p=7, q=7) cell should be visibly elevated above
+    the (p=2, q=2..64) cells that see only the Poisson background.
+
+    Returns dict keyed by prime → list of per-q cells, each with:
+        q, n_bands, median_ks_p, median_ks_o, median_ks_u, median_mass03,
+        max_ks_u, median_n, bands (per-band detailed classifications)
+    """
+    t = np.asarray(t_k, dtype=np.float64)
+    pairs = farey_rationals(q_max)
+    by_q = {}                                 # q → list of (a, q) pairs
+    for a, q in pairs:
+        by_q.setdefault(q, []).append((a, q))
+
+    table: dict[int, list[dict]] = {}
+    for p in primes:
+        per_q = []
+        q_pow = p
+        while q_pow <= q_max:
+            bands = []
+            for a, q in by_q.get(q_pow, []):
+                f_pll = fc_ref * a / q
+                if f_pll <= 0: continue
+                passage = np.sort(t * f_pll - 1.0)
+                passage = passage[passage > 0]
+                if passage.size < 5: continue
+                sp = np.diff(passage)
+                if sp.size == 0 or sp.mean() <= 0: continue
+                cl = _classify(sp / sp.mean())
+                cl['a'] = int(a); cl['q'] = int(q)
+                bands.append(cl)
+            if bands:
+                ks_p = np.array([b.get('ks_p', np.nan) for b in bands], dtype=np.float64)
+                ks_o = np.array([b.get('ks_o', np.nan) for b in bands], dtype=np.float64)
+                ks_u = np.array([b.get('ks_u', np.nan) for b in bands], dtype=np.float64)
+                mass = np.array([b.get('mass03', np.nan) for b in bands], dtype=np.float64)
+                n_arr = np.array([b.get('n', 0) for b in bands], dtype=np.int64)
+                per_q.append(dict(
+                    q=int(q_pow), n_bands=len(bands),
+                    median_ks_p=float(np.nanmedian(ks_p)),
+                    median_ks_o=float(np.nanmedian(ks_o)),
+                    median_ks_u=float(np.nanmedian(ks_u)),
+                    median_mass03=float(np.nanmedian(mass)),
+                    max_ks_u=float(np.nanmax(ks_u)),
+                    max_ks_p=float(np.nanmax(ks_p)),
+                    median_n=int(np.median(n_arr)),
+                    bands=bands,
+                ))
+            q_pow *= p
+        if per_q:
+            table[int(p)] = per_q
+    return dict(per_band_table=table, q_max=q_max,
+                filter_mode='pure_power_per_band')
+
+
 def padic_profile(t_k: np.ndarray, primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
                   q_max: int = 8, fc_ref: float = 1.0,
                   pure_power: bool = False) -> dict:
@@ -471,7 +539,7 @@ def full_analysis(t_k, label: str = '', fc_ref: float = 1.0,
                 fingerprint_vector=fp, fingerprint_keys=fp_keys)
 
 
-__all__ = ['ramanujan_fourier', 'padic_profile', 'fano_curve',
-           'pair_correlation_full', 'sb_directional_split',
+__all__ = ['ramanujan_fourier', 'padic_profile', 'padic_per_band',
+           'fano_curve', 'pair_correlation_full', 'sb_directional_split',
            'full_analysis', 'ramanujan_sum_array',
            'euler_phi', 'mobius']
