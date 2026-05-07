@@ -6,6 +6,7 @@ Running tally of autonomous work while user sleeps.  Latest entry at top.
 This file is the chronological work-log.
 
 ### Completed autonomous analyses (newest at top of detailed log below)
+- ✅ LMFDB extend (h=1000) + edge re-test (11:58) — 2.5M pooled spacings, KS_GUE=0.012 (was 0.015 at h=200); edge γ_1 normalised KS=0.941 unchanged
 - ✅ EEG full-cohort 32-subject NNS (11:18) — confirms 3-subject 0.18 KS_GUE was stable, not noise; mass<0.3 ≈ 0.001 ⇒ quasi-periodic, NOT pure GUE
 - ✅ Dirichlet q=150 family + edge re-test (05:39) — 630 chars, **Sp vs U normalised γ_1: KS=0.213, p=0.001** (sharper than q=80)
 - ✅ Pair correlation R₂(r) cross-family (05:35) — **clean GUE level repulsion in arithmetic, clustering in earthquakes**
@@ -17,8 +18,22 @@ This file is the chronological work-log.
 - ✅ Mertens / Liouville sign-change NNS (04:46) — Mertens Poisson-clustered, Liouville degenerate (Pólya)
 
 ### Running
-- 🔄 LMFDB extend (PID 13451) — curve ~24/87, ETA ~2 h (auto-trigger queued: re-run edge test on h=1000 zeros)
-- 🔄 Sleep EEG download (one file) — slow, may timeout
+- (none — all overnight processes complete)
+
+### Final LMFDB extend (h=1000, completed 11:58)
+
+| group              | n_curves | n_pooled  | KS_P  | KS_GOE | KS_GUE | gap    | best |
+|--------------------|----------|-----------|-------|--------|--------|--------|------|
+| all curves         | 87       | 2,508,764 | 0.290 | 0.077  | **0.012** | +0.065 | GUE  |
+| root_number = +1   | 70       | 2,008,306 | 0.291 | 0.079  | 0.012  | +0.067 | GUE  |
+| root_number = −1   | 17       |   500,458 | 0.284 | 0.070  | 0.014  | +0.056 | GUE  |
+
+Sharper than h=200's 0.015 — every additional decade of zeros pulls
+the bulk closer to Wigner GUE.  Edge γ_1 normalised KS = 0.941 (p ≈ 0)
+unchanged from h=200 (γ_1 doesn't depend on deeper zeros, by
+construction).  N_zeros ∈ {10,15,20,30,50} windows of pooled NNS show
+no statistically-significant Sp/U separation in this metric (KS ≈ 0.04
+for all windows).
 
 ### Completed since last summary
 - ✅ Dirichlet q=150 (PID 15387) finished at 05:38 — 630 characters, 4M pooled spacings, all GUE-best in bulk

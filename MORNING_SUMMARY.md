@@ -116,8 +116,10 @@ among the three Wigner forms', not GUE-class dynamics.
   data/eeg_full_results.json                    (155,780 bytes)
   data/eeg_results.json                         (17,951 bytes)
   data/lmfdb_edge_results.json                  (3,820 bytes)
+  data/lmfdb_extend_results.json                (32,093 bytes)
   data/lmfdb_results.json                       (32,401 bytes)
-  data/lmfdb_zeros.json                         (494,859 bytes)
+  data/lmfdb_zeros.json                         (3,234,057 bytes)
+  data/lmfdb_zeros_h1000.json                   (3,234,057 bytes)
   data/mertens_liouville_results.json           (1,136 bytes)
   data/pair_correlation_results.json            (13,195 bytes)
   data/second_order_results.json                (17,566 bytes)
@@ -142,6 +144,7 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/17_lmfdb_family.png                      (103,623 bytes)
   plots/18_eeg_depth.png                         (99,187 bytes)
   plots/19_lmfdb_edge.png                        (119,248 bytes)
+  plots/20_lmfdb_extend.png                      (95,181 bytes)
   plots/21_mertens_liouville.png                 (130,040 bytes)
   plots/22_dirichlet_family.png                  (98,888 bytes)
   plots/23_earthquake_nns.png                    (163,483 bytes)
@@ -154,7 +157,4 @@ among the three Wigner forms', not GUE-class dynamics.
 
 ## Pipeline state
 
-Background processes running:
-```
-  13451    07:01:05 python3 run_lmfdb_extend.py
-```
+All overnight processes complete.
