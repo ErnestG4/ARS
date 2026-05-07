@@ -125,6 +125,7 @@ among the three Wigner forms', not GUE-class dynamics.
   data/pair_correlation_results.json            (13,195 bytes)
   data/phase9_extended_fingerprints.json        (24,825 bytes)
   data/phase9_fingerprints.json                 (17,486 bytes)
+  data/primes_scaling.json                      (2,839 bytes)
   data/second_order_results.json                (17,566 bytes)
   data/zeta_height_convergence.json             (7,187 bytes)
 
@@ -160,6 +161,7 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/30_fungal_isi.png                        (30,052 bytes)
   plots/31_phase9_table.png                      (95,181 bytes)
   plots/32_phase9_extended.png                   (112,823 bytes)
+  plots/33_primes_scaling.png                    (79,488 bytes)
 ```
 
 ## Pipeline state

@@ -1277,7 +1277,41 @@ increasing N.
 Outputs: `data/phase9_extended_fingerprints.json`,
 `plots/32_phase9_extended.png`.
 
-### 7.ter.9  Caveats and follow-ups
+### 7.ter.9  Hardy-Littlewood: primes & twin primes Fano scaling
+
+`run_primes_scaling.py` sieves once at N = 10⁸ and computes Fano
+F(T=1, 5, 20) on the logarithmically-unfolded sequence at five cutoffs
+{10⁴, 10⁵, 10⁶, 10⁷, 10⁸}, for both primes and the lower-of-pair
+twin primes.
+
+| N    | π(N)        | primes F(T=5) | π₂(N)   | twin F(T=5) |
+|------|-------------|---------------|---------|-------------|
+| 10⁴  | 1,229       | 0.369         | 205     | 0.662       |
+| 10⁵  | 9,592       | 0.477         | 1,224   | **0.835**   |
+| 10⁶  | 78,498      | 0.560         | 8,169   | 0.826       |
+| 10⁷  | 664,579     | 0.619         | 58,980  | 0.839       |
+| 10⁸  | 5,761,455   | 0.660         | 440,312 | 0.873       |
+
+**Twin primes converge to Poisson F = 1 visibly faster than primes.**
+Twin F(T=5) is already at 0.835 at N = 10⁵ and stays in 0.83–0.87
+through N = 10⁸ (within ~13 % of Poisson).  Primes climb monotonically
+from 0.48 to 0.66 over the same range — still ~30 % below Poisson at
+the largest N.
+
+This is the visual Hardy-Littlewood story: twin primes are sparser
+(2C₂ × x / (log x)² conjectured density, vs primes' x / log x), so
+the Cramér-random baseline fits them at smaller N.  Primes carry
+heavier residual arithmetic structure that decays more slowly with
+N — the F(T=5) curve approaches 1 logarithmically, not algebraically.
+
+F(T=20) for twins exceeds 1 at N = 10⁵ (slight super-Poisson, finite-n
+fluctuation), then settles at 0.91–0.92 — visually indistinguishable
+from a Poisson process at the largest scale tested.
+
+Output: `plots/33_primes_scaling.png` (both curves on the same axes,
+Poisson reference dashed at F = 1), `data/primes_scaling.json`.
+
+### 7.ter.10  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

@@ -8,6 +8,55 @@ For consolidated current results: `MORNING_SUMMARY.md` + `RESULTS.md`.
 
 ---
 
+## 2026-05-07 13:48 — Hardy-Littlewood: primes & twin primes Fano scaling ✅
+
+`run_primes_scaling.py` sieves once at 10⁸ and computes Fano F(T=1, 5,
+20) on the logarithmically-unfolded sequence at five cutoffs.
+
+| N    | primes π(N) | F(T=1) | F(T=5) | F(T=20) | twin π₂(N) | twin F(T=1) | F(T=5) | F(T=20) |
+|------|-------------|--------|--------|---------|------------|-------------|--------|---------|
+| 10⁴  | 1,229       | 0.572  | 0.369  | 0.215   | 205        | 0.804       | 0.662  | 0.950   |
+| 10⁵  | 9,592       | 0.643  | 0.477  | 0.333   | 1,224      | 0.782       | 0.835  | 1.044   |
+| 10⁶  | 78,498      | 0.691  | 0.560  | 0.452   | 8,169      | 0.826       | 0.826  | 0.969   |
+| 10⁷  | 664,579     | 0.736  | 0.619  | 0.528   | 58,980     | 0.867       | 0.839  | 0.909   |
+| 10⁸  | 5,761,455   | 0.758  | 0.660  | 0.580   | 440,312    | 0.895       | 0.873  | 0.918   |
+
+**Twin primes converge to Poisson F=1 visibly faster than primes.**
+F(T=5) for twins is at 0.835 already at N=10⁵ and stays in 0.83–0.87
+through 10⁸; primes climb from 0.48 at 10⁵ to 0.66 at 10⁸ — still
+~30 % below Poisson.
+
+This is the Hardy-Littlewood story: twin primes are sparser and more
+"thinned" by the conjectured 2C₂ × x/(log x)² density, so the
+Cramér-random baseline is a closer fit at smaller N.  Primes carry
+heavier residual arithmetic structure that decays more slowly.
+F(T=20) for twins crosses above 1 at N=10⁵ (slight super-Poisson, n
+fluctuation) and settles at 0.91–0.92 — visually indistinguishable
+from a Poisson process at this scale.
+
+Sieve to 10⁸ in 0.7s, total run 16.8s.
+
+Output: `plots/33_primes_scaling.png`, `data/primes_scaling.json`.
+
+---
+
+### Queued: p-adic engine validation
+
+The Phase-9 limitation note (§7.ter.8) — p-adic dominance ties at
+q_max=16 because bulk Wigner GUE smooths over p-adic asymmetry —
+predicts the engine *will* fire on signals with genuine prime-base
+asymmetry comparable to bulk variation.  Targets to throw at it when
+data is at hand:
+
+- Financial time series with periodic settlement / option-expiry
+  structure (preferred 7-day, 30-day, quarterly bases).
+- Biological oscillators with known dominant frequency on a particular
+  prime base (e.g. circadian + harmonics).
+- Digit sequences of irrationals (π, e, √2) in different prime bases —
+  the p-adic profile should pick up base-p as the dominant prime.
+
+---
+
 ## 2026-05-07 13:43 — Phase 9 extended: arithmetic family fingerprints + primes scaling ✅
 
 `run_phase9_extended.py` runs `full_analysis(q_max=16)` on the
