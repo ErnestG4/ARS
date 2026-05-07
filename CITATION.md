@@ -1,6 +1,6 @@
 # Citation
 
-If you use `criticality_tool` in research or downstream work, please cite
+If you use `ARS` in research or downstream work, please cite
 the codebase and the underlying methods.
 
 ## Contact
@@ -13,12 +13,12 @@ Until the accompanying paper is published, please cite this repository
 directly.  Suggested BibTeX entry:
 
 ```bibtex
-@software{criticality_tool_2026,
+@software{ARS_2026,
   author       = {combust},
-  title        = {criticality\_tool: A Farey PLL bank for measuring
+  title        = {ARS: A Farey PLL bank for measuring
                   dynamical level statistics of arithmetic signals},
   year         = {2026},
-  url          = {https://codeberg.org/combust/criticality_tool},
+  url          = {https://codeberg.org/combust/ARS},
   note         = {Calibrated against Wigner GUE/GOE/Poisson via analytical
                   passage-time NNS.  Headline result: Riemann ζ zeros'
                   passage-time NNS classifies as Wigner GUE with KS = 0.012
