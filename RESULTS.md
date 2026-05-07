@@ -1093,6 +1093,63 @@ A living network with no nervous system produces a clearly-clustered
 point process, distinct from random-matrix universality and distinct
 from any neural quasi-periodicity artefact.
 
+#### Fundamental caveat: observation-window vs coherence-timescale mismatch
+
+The 60–93 hour recording window is likely **shorter than the slow
+coherence timescale of the mycelial network**.  The super-Poisson
+result above characterises the *fast* perturbation-response dynamics
+(spike bursts spaced 2–14 minutes apart, mean ISI 178 minutes
+inflated by long inter-burst gaps).  It cannot speak to whether the
+mycelial network exhibits GUE-class coherence at *longer*
+timescales — week to months — where slow growth, fluid-pressure
+cycles, and substrate-resource modulation operate.
+
+The two-timescale prediction is concrete: zoom out far enough and a
+system that looks super-Poisson at the fast timescale may show
+level-repelling (Wigner-class) statistics in the **inter-burst-cluster
+intervals** at the slow timescale.  The fungal network may simultaneously
+be coherent at the week scale and driven at the hour scale; both
+properties true, both visible only at the right resolution.
+
+The right next experiment is multi-week recordings on the same
+electrode geometry — ideally a continuous month-plus capture so the
+analysis window contains O(10²–10³) burst clusters separated by
+slow-cycle intervals.  At that resolution the inter-burst-cluster
+spacing distribution would either continue as Poisson-clustered
+(no slow coherence) or emerge as Wigner-like (the network has a
+slow level-repelling mode).
+
+#### Methodological note: ARS readings are resolution-dependent
+
+This is not a fungal-specific caveat — it is a **methodological
+property of the framework**.  ARS gives a universality-class label
+that is correct *at the temporal resolution of the input*.  The
+same physical system, recorded at different observation windows,
+can yield different fingerprints, each accurate at its own scale:
+
+- short window catching only the fast process → fingerprint of the
+  fast process
+- long window catching only the envelope of slow cycles → fingerprint
+  of the slow process
+- full window covering both → fingerprint dominated by whichever has
+  more events in the recording, with the other appearing as
+  multi-scale structure in `Σ²(L)` and `R₂(r)` rather than in the NNS
+  shape
+
+This is consistent with how RMT itself works on physical signals:
+GUE statistics show in *unfolded* zero positions of L-functions
+where the unfolding correctly normalises out the smooth growth
+density; before unfolding, the same zeros look highly structured.
+For physical point processes, "unfolding" is implicit in the choice
+of recording window — events sparser than the window can't be
+characterised, events denser than the resolution become indistinguishable.
+
+A clean reading requires that the recording window contain a
+statistically meaningful number of events at the timescale being
+characterised, and that no slower process modulates the local rate
+within the window.  These are minimum-N preconditions for any RMT
+classification, not just for fungi.
+
 Output: `plots/29_fungal_nns.png`, `plots/30_fungal_isi.png`,
 `data/fungal_results.json`.
 

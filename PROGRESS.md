@@ -541,6 +541,47 @@ Section §7.ter.7 in `RESULTS.md`.
 
 ---
 
+## 2026-05-07 15:50 — Fungal section: timescale-resolution caveat (paper note) ✏
+
+Added to RESULTS.md §7.ter.5 a more fundamental caveat than the
+sample-size note that was there.  The 60–93 hour recording window
+is likely shorter than the slow coherence timescale of the mycelial
+network; the super-Poisson result characterises *fast*
+perturbation-response dynamics (bursts at 2–14 min) but cannot
+speak to whether the network exhibits GUE-class coherence at
+*longer* timescales (weeks–months).
+
+Two-timescale prediction: zoom out far enough and a system that
+looks super-Poisson at the fast timescale may show level-repelling
+statistics in the inter-burst-cluster intervals at the slow
+timescale.  The mycelial network may simultaneously be coherent at
+the week scale and driven at the hour scale.  Both true, both
+visible only at the right observation window.
+
+Right next experiment: continuous month-plus recordings on the same
+electrode geometry, with O(10²–10³) burst clusters in the analysis
+window so the inter-burst-cluster spacing distribution can be
+fingerprinted.  Either it stays Poisson-clustered (no slow coherence)
+or emerges Wigner-like (network has a slow level-repelling mode).
+
+### Methodological note (paper material)
+
+ARS readings are **resolution-dependent in a predictable way** —
+the universality-class label is correct *at the temporal resolution
+of the input*.  Same system, different recording windows, can yield
+different fingerprints, each accurate at its own scale.  Consistent
+with how RMT on L-function zeros requires unfolding to surface bulk
+GUE; for physical point processes, "unfolding" is implicit in the
+choice of recording window.  A clean reading requires the window to
+contain enough events at the timescale being characterised and no
+slower process modulating the local rate within the window — these
+are minimum-N preconditions for any RMT classification, not
+fungal-specific.
+
+This is worth its own paragraph in the methods section of the paper.
+
+---
+
 ## 2026-05-07 12:54 — Fungal mycelium spike statistics ✅
 
 `run_fungal_nns.py` applies analytical-NNS to 18 long electrical

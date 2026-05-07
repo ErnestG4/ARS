@@ -127,6 +127,7 @@ among the three Wigner forms', not GUE-class dynamics.
   data/padic_v4_results.json                    (12,856 bytes)
   data/pair_correlation_results.json            (13,195 bytes)
   data/phase10_llm_fingerprints.json            (97,114 bytes)
+  data/phase11_model_family.json                (12,029 bytes)
   data/phase9_extended_fingerprints.json        (24,825 bytes)
   data/phase9_fingerprints.json                 (17,486 bytes)
   data/primes_scaling.json                      (2,839 bytes)
@@ -170,6 +171,7 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/35_padic_v3.png                          (57,961 bytes)
   plots/36_padic_v4.png                          (89,053 bytes)
   plots/37_phase10_llm.png                       (248,231 bytes)
+  plots/38_phase11_models.png                    (87,097 bytes)
 ```
 
 ## Pipeline state
