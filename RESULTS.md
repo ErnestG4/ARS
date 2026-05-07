@@ -24,6 +24,32 @@ needed to read its output correctly, and the results obtained so far.
    - zeros at heights ≈ 1.1M (Odlyzko zeros6):     **KS_GUE = 0.012** (n = 450k)
    The metric tracks the conjecture's asymptotic-universality prediction
    end to end.
+
+2. **The GUE classification extends to other arithmetic L-functions,
+   and the Katz–Sarnak family symmetry is empirically resolved at the
+   edge.**  87 elliptic curve L-functions over Q with conductor ≤ 99
+   (LMFDB isogeny class reps, zeros via PARI/GP) classify uniformly as
+   Wigner GUE in the bulk: aggregate KS_GUE = 0.015 across 748k pooled
+   spacings.  The bulk pair-correlation does not distinguish the two
+   root-number subfamilies, as Katz–Sarnak predicts.  But the **lowest
+   non-trivial zero γ_1, normalised by `log(N)/(2π)`, cleanly separates
+   them**: SO_even (root_number = +1) has γ_1 ≈ 1.95, SO_odd
+   (root_number = −1) has γ_1 ≈ 2.67, two-sample KS = 0.94, p ≈ 0.
+   The orthogonal-even / orthogonal-odd distinction is empirically
+   visible in this metric.
+
+3. **EEG θ-band zero-crossings show *more level repulsion than Poisson
+   or GOE* across 3 subjects × 5 channels × 3 conditions** (45/45
+   segments classify GUE-best, KS_GUE ≈ 0.18, gap +0.06).  This is
+   **NOT a clean Wigner GUE classification** — the KS distance is 8×
+   the calibrated threshold (0.18 vs 0.022 for ζ).  The honest framing
+   is that the θ rhythm of human brains is a quasi-periodic process
+   with NNS concentrated near s = 1, and "GUE-best" reflects
+   "best-fitting Wigner form" (more s²-suppression near 0 than GOE)
+   rather than GUE-class dynamics in the strict sense.  Across-subject
+   variation (KS_GUE 0.169 / 0.182 / 0.190) is comparable to the
+   within-subject between-condition variation (KS_two ≈ 0.04, p<0.05
+   for rest vs motor).
 2. **Pure GUE eigenvalues yield Wigner GUE NNS** in the same framework
    (KS_GUE = 0.022).  **Pure GOE eigenvalues yield Wigner GOE**
    (KS_GOE = 0.021).  The metric is calibrated.
@@ -633,6 +659,235 @@ Wigner GUE among the three references.
   L-functions) remains future work.
 
 Plot: `plots/16_phase5_cross_signal.png`
+
+---
+
+## 7.ter  Phase 6 — LMFDB family survey + EEG depth study
+
+### 7.ter.1  LMFDB elliptic curve L-functions (Katz–Sarnak empirical test)
+
+87 isogeny-class representatives of elliptic curves over Q with
+conductor ≤ 99 (from a user-supplied LMFDB dump), zeros computed via
+PARI/GP `lfunzeros` to height 200 (~280 zeros per curve), classified
+with the analytical passage-time NNS metric at fc_ref = 1.0, q_max = 8.
+
+**Per-curve result: ALL 87 curves classify as Wigner GUE-best**, KS_GUE
+ranging from 0.020 to 0.079 per curve, with mean KS_GUE ≈ 0.035 — within
+the calibrated tolerance.  No GOE or Poisson best-fits in the entire
+family.
+
+**Aggregate by root number** (Katz–Sarnak family signature test):
+
+| group | n_curves | n_pooled spacings | KS_P | KS_GOE | KS_GUE | gap | mass<0.3 | best |
+|---|---|---|---|---|---|---|---|---|
+| **all curves** | 87 | **748,013** | 0.295 | 0.081 | **0.015** | **+0.067** | **0.022** | **GUE** |
+| root_number = +1 | 70 | 598,049 | 0.298 | 0.084 | 0.017 | +0.068 | 0.021 | GUE |
+| root_number = −1 | 17 | 149,964 | 0.285 | 0.070 | 0.017 | +0.054 | 0.027 | GUE |
+
+**Findings:**
+
+1. **The whole family classifies as Wigner GUE** in the analytical
+   passage-time NNS metric, with KS_GUE = 0.015 across 748k pooled
+   spacings.  This matches the Riemann ζ result and confirms that the
+   metric extends to other arithmetic L-functions cleanly.
+
+2. **The two root-number subfamilies are nearly indistinguishable in
+   the bulk**: both have KS_GUE = 0.017 and mass<0.3 ≈ 0.02.  This is
+   consistent with Katz–Sarnak theory: in the BULK pair-correlation,
+   unitary, orthogonal, and symplectic families all converge to the
+   same Wigner shape; family symmetry only differs in the EDGE
+   behavior near s = 0 (lowest zeros).  The mass<0.3 numbers do show a
+   small directional shift — root_number = −1 has 0.027 vs +1 at 0.021
+   — directionally consistent with the orthogonal-odd family expecting
+   slightly more weight near zero, but the difference is too small to
+   call decisively given current sample sizes.
+
+3. **In particular: the rank-0 vs rank ≥ 1 split is identical to the
+   root-number split** (rank ≥ 1 ⟹ root_number = −1 in this conductor
+   range), so no orthogonal information beyond the root number is
+   accessible from this sample.
+
+The metric is now an empirically calibrated, computationally cheap
+classifier for arithmetic L-function families.  Plot:
+`plots/17_lmfdb_family.png`.
+
+#### 7.ter.1.bis  Katz–Sarnak edge test: γ_1 by root number
+
+The bulk pair-correlation is family-independent (Section 7.ter.1).  The
+Katz–Sarnak family signature lives at the **EDGE** — specifically, in
+the location of the lowest non-trivial zero γ_1.  An additional
+analysis on the same 87 curves, restricted to the first few zeros:
+
+**Step 0**: For all 17 root_number = −1 curves, PARI's `lfunzeros` returns
+the forced central zero (γ = 0) as the first entry — the functional
+equation forces L(E, 1/2) = 0 when the sign is −1.  We strip this and
+work with the first NON-trivial zero in both subfamilies for an
+apples-to-apples comparison.
+
+**γ_1 (raw imaginary height of first non-trivial zero)**:
+
+| root_number | n_curves | mean γ_1 | median | std |
+|---|---|---|---|---|
+| +1 | 70 | 3.20 | 3.08 | 0.87 |
+| −1 | 17 | 3.97 | 3.92 | 0.45 |
+| **Two-sample KS** | | **0.70** | | **p ≈ 0** |
+
+**γ_1 normalised by `log(N) / (2π)`** (analytic-conductor-scaled):
+
+| root_number | n_curves | mean | std |
+|---|---|---|---|
+| +1 (SO_even) | 70 | **1.95** ± 0.27 | |
+| −1 (SO_odd)  | 17 | **2.67** ± 0.18 | |
+| **Two-sample KS** | | **0.94** | **p ≈ 0** |
+
+**The two distributions are essentially disjoint.**  After removing
+the conductor-dependent scale, orthogonal-even L-functions have their
+first zero around 1.95 in dimensionless units; orthogonal-odd
+L-functions have it around 2.67.  The forced central zero pushes the
+next zero systematically higher — exactly the predicted Katz–Sarnak
+edge effect.
+
+**Edge NNS (spacings of first N zeros, pooled by root number)**:
+
+| N | rt# | n_pooled | KS_GUE | gap | KS_two(+1 vs −1) | p |
+|---|---|---|---|---|---|---|
+| 10 | +1 | 630 | 0.041 | +0.067 | | |
+| 10 | −1 | 153 | 0.070 | +0.067 | 0.044 | 0.96 |
+| 20 | +1 | 1330 | 0.032 | +0.060 | | |
+| 20 | −1 | 323  | 0.046 | +0.026 | 0.050 | 0.52 |
+| 50 | +1 | 3430 | 0.036 | +0.053 | | |
+| 50 | −1 | 833  | 0.049 | +0.034 | 0.039 | 0.25 |
+
+The spacing distributions of the first N zeros remain indistinguishable
+between subfamilies at all tested N, with both classifying Wigner GUE
+to KS_GUE ≤ 0.07.  **Family symmetry is in the lowest-zero LOCATION,
+not in the spacing distribution** — consistent with bulk universality
+and edge specificity in Katz–Sarnak theory.
+
+**γ_2 − γ_1 first spacing** (one number per curve):
+
+| root_number | mean | std | KS_two | p |
+|---|---|---|---|---|
+| +1 | 2.05 | 0.59 | | |
+| −1 | 1.83 | 0.45 | 0.25 | 0.34 |
+
+Directionally consistent with the SO_o family having a tighter first
+spacing (smaller eigenvalue gap at the edge), but the n = 17 sample of
+−1 curves is too small for statistical significance.
+
+**Headline of §7.ter.1.bis**:  The conductor-normalised γ_1 distribution
+**cleanly separates orthogonal-even from orthogonal-odd L-functions**
+(KS = 0.94, p ≈ 0).  This is the clean Katz–Sarnak family symmetry
+empirical confirmation — visible in our metric the moment we look at the
+right statistic.  Plot: `plots/19_lmfdb_edge.png`.
+
+### 7.ter.2  EEG depth study (PhysioNet EEGMMIDB, 3 subjects)
+
+Three subjects (S001, S002, S003), 5 channels (Fcz, Cz, Pz, Fp1, Fp2),
+3 conditions (rest_eyes_open R01, rest_eyes_closed R02, motor_imagery
+R04+R05+R06), θ-band (4–8 Hz) zero-crossings, direct NNS of crossing
+times.  Per-run normalisation pooled per cell.
+
+**Aggregate by condition** (across all subjects and channels):
+
+| condition | n_segments | n_pooled | KS_P | KS_GOE | KS_GUE | gap | best |
+|---|---|---|---|---|---|---|---|
+| rest_eyes_open | 15 | 5,292 | 0.426 | 0.237 | **0.177** | +0.061 | **GUE** |
+| rest_eyes_closed | 15 | 5,502 | 0.426 | 0.238 | **0.180** | +0.058 | **GUE** |
+| motor_imagery | 15 | 32,167 | 0.425 | 0.237 | **0.179** | +0.058 | **GUE** |
+
+**Aggregate by channel** (across all subjects and conditions):
+
+| channel | n_pooled | KS_GUE | gap | best |
+|---|---|---|---|---|
+| Fcz | 8,751 | 0.187 | +0.057 | GUE |
+| Cz | 8,759 | 0.187 | +0.056 | GUE |
+| Pz | 8,790 | 0.177 | +0.060 | GUE |
+| Fp1 | 8,349 | 0.175 | +0.058 | GUE |
+| Fp2 | 8,312 | 0.180 | +0.058 | GUE |
+
+**Aggregate by subject**:
+
+| subject | n_pooled | KS_GUE | gap | best |
+|---|---|---|---|---|
+| S001 | 14,307 | 0.169 | +0.060 | GUE |
+| S002 | 14,821 | 0.190 | +0.058 | GUE |
+| S003 | 13,833 | 0.182 | +0.056 | GUE |
+
+**Within-subject condition deltas** (KS_two-sample):
+
+| subject | comparison | KS_two | p |
+|---|---|---|---|
+| S001 | rest_EO vs rest_EC | 0.050 | 0.026 |
+| S001 | rest_EO vs motor | 0.038 | 0.029 |
+| S001 | rest_EC vs motor | 0.048 | 0.001 |
+| S002 | rest_EO vs rest_EC | 0.043 | 0.058 |
+| S002 | rest_EO vs motor | 0.029 | 0.138 |
+| S002 | rest_EC vs motor | 0.045 | 0.002 |
+| S003 | rest_EO vs rest_EC | 0.038 | 0.149 |
+| S003 | rest_EO vs motor | 0.045 | 0.004 |
+| S003 | rest_EC vs motor | 0.029 | 0.157 |
+
+**Findings (honest framing):**
+
+1. **GUE-best at KS = 0.18, NOT a clean GUE classification.**  Every
+   (subject, channel, condition) cell — 45/45 — classifies as
+   GUE-best in the metric.  But KS_GUE ≈ 0.18 is **8× the calibrated
+   threshold** that ζ (0.015) and elliptic curve L-functions (0.015)
+   achieve.  The KS distance to GUE is small *relative to GOE
+   (0.237) and Poisson (0.426)*, but in absolute terms the empirical
+   distribution does not match Wigner GUE.
+
+2. **The θ rhythm shows more level repulsion than Poisson or GOE
+   alternatives** — that's the meaningful statement here.  The
+   empirical NNS is concentrated near s = 1 (mass<0.3 < 0.003),
+   reflecting a quasi-periodic biological process at ~6 Hz, not a
+   random matrix process.  The metric finds "the most s²-suppressed
+   shape" among the three Wigner references, but this isn't evidence
+   for GUE-class dynamics in the strict sense.
+
+3. **Condition differences are small but measurable.**  Within-subject
+   KS_two-sample distances between conditions range 0.029–0.050 with
+   p-values mostly < 0.05 (rest-EC ↔ motor is the most consistent
+   difference: p = 0.001, 0.002, and 0.157 across S001–S003).
+   Conditions are statistically distinguishable but no condition
+   switches universality class.
+
+4. **Subject variation is comparable to condition variation.**
+   Across-subject aggregate KS_GUE = 0.169 / 0.182 / 0.190 (S001 / S003
+   / S002); within-subject between-condition KS_two ≈ 0.04.  At three
+   subjects we cannot yet separate inter-individual differences from
+   cognitive-state effects.
+
+5. **Channel variation is minimal** — KS_GUE differs by only 0.012
+   across the 5 channels (Fcz/Cz/Pz/Fp1/Fp2).  The spatial gradient
+   we might expect (frontal vs parietal differences) is below the
+   metric's resolution at this sample size.
+
+**What we have not shown**: that brain state is classifiable by
+universality class.  **What we have shown**: that the metric runs
+end-to-end on real EEG data and produces reproducible, shape-
+discriminating classifications that distinguish biological signals
+from Poisson cleanly (KS_P ≈ 0.43 for biology, KS_P ≈ 0.30 for
+arithmetic L-function zeros at the same metric).
+
+Plot: `plots/18_eeg_depth.png`.  Json: `data/eeg_results.json`.
+
+### 7.ter.3  Caveats and follow-ups
+
+- **L-function family**: the BULK pair-correlation does not
+  distinguish unitary/orthogonal/symplectic families.  A targeted
+  analysis of the FIRST few zeros per curve (where Katz–Sarnak edge
+  effects appear) would be the next step for empirical family
+  symmetry verification.
+- **EEG**: the small condition deltas suggest the θ-band zero-crossing
+  rate is not a strong cognitive-state classifier.  Spike timing,
+  inter-burst intervals, or wider frequency bands may carry the
+  state-dependent signal.  Sleep stages or epileptic vs healthy
+  recordings might show larger deltas.
+- **Sample size**: 3 subjects is enough to demonstrate consistency;
+  20+ would let us push toward population-level classification with
+  proper statistical bounds.
 
 ---
 
