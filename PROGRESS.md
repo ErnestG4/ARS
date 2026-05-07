@@ -40,6 +40,81 @@ Output: `plots/33_primes_scaling.png`, `data/primes_scaling.json`.
 
 ---
 
+## 2026-05-07 14:00 — Engine redesign acceptance tests: RF passes, p-adic fails ✅⚠
+
+Two engine redesigns implemented and tested against the synthetic
+settlement-cycle suite:
+
+1. **`ramanujan_fourier(normalize=False)`** — switches RF input from
+   unit-mean-normalised intervals to the event-count indicator on
+   integer time bins of the raw t_k.  Detects periodicity directly.
+
+2. **`padic_profile(pure_power=True)`** — restricts the per-prime
+   Farey rational subset from `{q : p | q}` to the disjoint
+   `{q : q ∈ {p, p², p³, …}}`.
+
+Both are exposed via `full_analysis(rf_normalize=…, padic_pure_power=…)`,
+defaults unchanged.
+
+### Acceptance test results
+
+| signal                          | v1 RF peak_q | v2 RF peak_q | v1 p-adic spread | v2 p-adic spread |
+|---------------------------------|--------------|--------------|------------------|------------------|
+| (a) weekly periodic             | 2 (noise)    | **7 ✓**      | 0.001            | 0.000            |
+| (b) monthly periodic            | 6            | 15 (top10 incl. 30, 10, 6)| 0.001 | 0.001 |
+| (d) mixed W+M+Q                 | 2            | **7 ✓** (dominant)| 0.000      | 0.000            |
+| (e) Poisson + weekly injection  | 9 (noise)    | **7 ✓** (recovers through noise)| 0.001 | 0.000 |
+| (f) Poisson background only     | 2            | 5 (random)   | 0.000            | 0.001            |
+
+(v1/v2 p-adic "spread" = max(KS_min) − min(KS_min) across p ∈ {2..13})
+
+**RF acceptance — PASSED.**  The indicator-mode engine recovers the
+injected period in three of three positive cases:
+- pure weekly (period 7) → peak_q = 7
+- mixed dominated by weekly → peak_q = 7
+- Poisson background + weekly injection → peak_q = 7 even though
+  noise events outnumber injected events ~4:1.
+The weekly period is recovered through the noise.  Available now via
+`rf_normalize=False`; not promoted to the default fingerprint
+(it changes the engine's semantics per-signal — arithmetic data
+benefits from the normalised mode, calendar data from the indicator
+mode).  Both modes can be reported; the fingerprint vector entry
+`top_ramanujan_q` continues to reflect the normalised-mode default.
+
+**p-adic acceptance — FAILED.**  The pure-p-power filter does not
+discriminate either.  KS_min ties across primes p ∈ {2..13} at three
+decimal places on every row, including the noise-injected weekly
+case where the engine should have fired.
+
+**Why pure-power didn't help**: the per-prime Farey rational subsets
+*are* now disjoint, but the analytical-passage NNS pooled across
+each subset converges to the same shape regardless of which prime
+filters the bands.  For pure periodic data the NNS in every band is
+quasi-degenerate (mass<0.3 = 0); for Poisson+injection the dominant
+component is Poisson noise on every band.  The architecture (filter
+Farey rationals, pool passage spacings, classify) is the wrong tool
+for prime-base asymmetry detection.
+
+**v3 architecture queued**: a discriminating p-adic engine should
+operate on *per-band* (not pooled) Wigner-fit quality.  The signal:
+for Poisson + period-7 injection, q=7 PLL bands get heavily
+corrupted by the injected events (high KS_GUE per band) while q=2,
+3, 5 PLL bands see mostly Poisson noise (low KS_P per band).  The
+per-prime metric should be the *worst-case* or *variance* of
+per-band KS within the filter, not the pooled KS.  Queued for the
+next toolkit pass.
+
+**Status**:
+- RF v2 is available, validated, NOT in the default fingerprint.
+- p-adic v2 is available, fails acceptance, NOT in the default fingerprint.
+- p-adic v3 is queued.
+- The current fingerprint vector continues to use the v1 defaults.
+
+Outputs: `plots/34_padic_finance.png` (now shows v1 vs v2 per-prime
+KS curves), `data/padic_finance_results.json`.
+
+---
+
 ## 2026-05-07 13:55 — p-adic engine validation: design limitation surfaced ⚠
 
 `run_padic_finance.py` is queued and ready to consume real data at

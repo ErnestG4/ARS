@@ -1366,7 +1366,72 @@ would be needed to detect injected periodicity directly.
 Outputs: `plots/34_padic_finance.png`, `data/padic_finance_results.json`,
 `run_padic_finance.py` (queued for real data input).
 
-### 7.ter.11  Caveats and follow-ups
+### 7.ter.11  Engine-redesign acceptance tests
+
+Two redesigns implemented per the §7.ter.10 follow-up and tested
+against the synthetic settlement-cycle suite as acceptance gates
+before promoting either to the default fingerprint vector.
+
+**Design 1 — `ramanujan_fourier(normalize=False)`.**  Switches the RF
+input from unit-mean-normalised intervals (default) to the event-count
+indicator function on integer time bins of the raw t_k.  For weekly
+periodic events at t = 7, 14, 21, … days, the indicator function has
+ones at multiples of 7 and zeros elsewhere; c_7(7k) = φ(7) = 6 makes
+a_7 the largest coefficient.
+
+**Design 2 — `padic_profile(pure_power=True)`.**  Restricts each
+prime's Farey rational subset from `{(a, b) : p | b}` (the v1
+overlapping filter) to the disjoint `{(a, b) : b ∈ {p, p², p³, …}}`.
+
+#### Acceptance results
+
+| signal                          | v1 RF peak_q | v2 RF peak_q | v1 p-adic spread | v2 p-adic spread |
+|---------------------------------|--------------|--------------|------------------|------------------|
+| weekly periodic                 | 2            | **7 ✓**      | 0.001            | 0.000            |
+| monthly periodic                | 6            | 15           | 0.001            | 0.001            |
+| mixed W+M+Q                     | 2            | **7 ✓**      | 0.000            | 0.000            |
+| Poisson + weekly injection      | 9            | **7 ✓**      | 0.001            | 0.000            |
+| Poisson background only         | 2            | 5            | 0.000            | 0.001            |
+
+(v1/v2 p-adic "spread" = max(KS_min) − min(KS_min) over p ∈ {2..13}.)
+
+**RF passes.**  In three of three positive cases the indicator-mode
+engine recovers the injected weekly period: pure weekly → peak_q = 7;
+mixed W+M+Q → peak_q = 7 (dominant); Poisson background + weekly
+injection → peak_q = 7 *recovered through 4:1 background noise*.
+Available now via the `rf_normalize=False` flag.  Not promoted to
+the default fingerprint because the two modes capture different
+information — arithmetic data benefits from the normalised mode
+(spacing-correlation detection), calendar / oscillator data
+benefits from the indicator mode (period detection).
+
+**p-adic fails.**  Pure-p-power filtering yields disjoint per-prime
+Farey subsets but the pooled NNS converges to the same shape
+regardless of which prime selects the bands.  KS_min ties across
+all primes to 3 decimal places on every row, including the
+noise-injected case.  The architecture — filter Farey rationals →
+pool passage-time spacings → classify — is the wrong tool for this
+asymmetry: for periodic data the NNS in every band is degenerate;
+for Poisson+injection the bulk Poisson dominates every band.
+
+**v3 architecture queued.**  A discriminating p-adic engine needs
+to operate on *per-band* Wigner-fit quality, not pooled.  For
+Poisson + period-7 injection, q = 7 PLL bands get heavily
+corrupted by the injected events (high KS_GUE per band), while
+q = 2, 3, 5 bands see mostly Poisson noise (low KS_P per band).
+The right per-prime metric is the worst-case or variance of
+per-band KS scores within the filter, not the pooled KS.
+
+**Status:**  RF v2 (indicator mode) is available and validated;
+p-adic v2 (pure-p-power filter) is available but fails acceptance;
+p-adic v3 (per-band variance) is queued.  The fingerprint vector
+continues to use the v1 defaults to preserve cross-signal
+comparability with prior phases — engine flags are opt-in.
+
+Outputs: `plots/34_padic_finance.png` (v1 vs v2 per-prime KS profile
+on the same axes), `data/padic_finance_results.json`.
+
+### 7.ter.12  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

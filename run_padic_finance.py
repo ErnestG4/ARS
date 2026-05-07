@@ -126,24 +126,40 @@ cases = [
                                                     size=int(SPAN_DAYS * 0.6)))),
 ]
 
+def _run_engine(label, raw, mode_label, **flags):
+    """Run full_analysis on raw t (days) with the given engine flags;
+    return a row dict for the comparison table."""
+    res = full_analysis(raw, label=f"{label} [{mode_label}]", **flags)
+    p = res['primary_nns']
+    pa = res['padic_profile']
+    r = res['ramanujan']
+    bp = pa.get('best_by_prime', {})
+    print(f"\n[{label}]  ({mode_label})  n={res['n_events']:,}  best={p['best']}  "
+          f"KS_GUE={p['ks_u']:.3f}  mass<0.3={p['mass03']:.3f}")
+    print(f"   RF mode={r.get('mode')}  peak_q={r.get('peak_q', 0)}  "
+          f"top10_q={r.get('top10_q', [])[:5]}…")
+    print(f"   p-adic filter={pa.get('filter_mode')}  dominant_prime={pa.get('dominant_prime', 0)}")
+    print("   p-adic KS_min by prime:  " +
+          "  ".join(f"p={pp}: {b.get('ks_min', 1):.3f}" for pp, b in bp.items()))
+    return res
+
+
 results = {}
 for label, raw in cases:
     if raw.size < 50:
         print(f"  {label}: insufficient ({raw.size})")
         continue
+    # v1 — current toolkit defaults (normalize=True, p|q filter, unit-mean t)
     t_unit = normalize_to_unit_mean(raw)
-    res = full_analysis(t_unit, label=label, q_max=Q_MAX)
-    results[label] = res
-    p = res['primary_nns']
-    pa = res['padic_profile']
-    r = res['ramanujan']
-    bp = pa.get('best_by_prime', {})
-    print(f"\n[{label}]  n={res['n_events']:,}  best={p['best']}  "
-          f"KS_GUE={p['ks_u']:.3f}  mass<0.3={p['mass03']:.3f}")
-    print(f"   peak_q={r.get('peak_q', 0)}   "
-          f"top10_q={r.get('top10_q', [])[:5]}…")
-    print("   p-adic KS_min by prime:  " +
-          "  ".join(f"p={pp}: {b.get('ks_min', 1):.3f}" for pp, b in bp.items()))
+    results[f"{label} v1"] = _run_engine(label, t_unit, "v1 default",
+                                          q_max=Q_MAX,
+                                          rf_normalize=True,
+                                          padic_pure_power=False)
+    # v2 — redesigned engines on RAW t (in days)
+    results[f"{label} v2"] = _run_engine(label, raw, "v2 redesign",
+                                          q_max=Q_MAX,
+                                          rf_normalize=False,
+                                          padic_pure_power=True)
 
 
 # ─── Real-data path ──────────────────────────────────────────────────────────

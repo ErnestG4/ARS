@@ -128,29 +128,56 @@ def _direct_nns(t_k: np.ndarray) -> dict:
 # ─── Engine 1 — Ramanujan-Fourier spectrum ───────────────────────────────────
 
 def ramanujan_fourier(t_k: np.ndarray, q_max: int = 200,
-                      normalize: bool = True) -> dict:
+                      normalize: bool = True,
+                      n_bins: int | None = None) -> dict:
     """
-    Compute Ramanujan-Fourier coefficients a_q for the inter-event interval
-    sequence f(n) = t_k[n+1] - t_k[n].
+    Compute Ramanujan-Fourier coefficients a_q.
 
-    a_q = (1/φ(q)) · (1/N) · Σ_n  f(n) · c_q(n)
+    normalize=True (default):
+        f(n) = (t_k[n+1] - t_k[n]) / mean(intervals).  RF detects
+        spacing-correlation patterns; insensitive to absolute period.
+        a_q = (1/φ(q)) · E_n[f(n) · c_q(n)]
 
-    Returns the full spectrum (q = 1..q_max) and the top-10 resonance orders.
+    normalize=False:
+        f(n) = indicator function on uniform integer bins of the raw t_k.
+        Specifically, f(n) = #{k : floor(t_k - t_min) == n} for
+        n = 0..n_bins-1.  Detects integer-period structure of the
+        original event times (e.g. weekly = 7, monthly = 30) when t_k is
+        in days; defaults n_bins = int(t.max() - t.min()) + 1, i.e. 1 bin
+        per t-unit.  Pass `n_bins` explicitly to control bin width.
     """
     t = np.sort(np.asarray(t_k, dtype=np.float64))
-    intervals = np.diff(t)
-    intervals = intervals[intervals > 0]
-    if intervals.size < 5:
+    if t.size < 5:
         return dict(q_values=[], amplitudes=[], top10_q=[], peak_q=0,
-                    error='insufficient intervals')
+                    error='insufficient (<5 events)', mode=('normalised' if normalize else 'indicator'))
+
     if normalize:
+        intervals = np.diff(t)
+        intervals = intervals[intervals > 0]
+        if intervals.size < 5:
+            return dict(q_values=[], amplitudes=[], top10_q=[], peak_q=0,
+                        error='insufficient intervals', mode='normalised')
         intervals = intervals / intervals.mean()
-    N = intervals.size
+        f = intervals
+        N = intervals.size
+        mode = 'normalised'
+    else:
+        if n_bins is None:
+            n_bins = int(np.ceil(t.max() - t.min())) + 1
+        if n_bins < 5:
+            return dict(q_values=[], amplitudes=[], top10_q=[], peak_q=0,
+                        error=f'n_bins={n_bins} < 5', mode='indicator')
+        bin_idx = np.clip(np.floor(t - t.min()).astype(np.int64),
+                          0, n_bins - 1)
+        f = np.zeros(n_bins, dtype=np.float64)
+        np.add.at(f, bin_idx, 1.0)
+        N = n_bins
+        mode = 'indicator'
 
     a = np.zeros(q_max, dtype=np.float64)
     for q in range(1, q_max + 1):
         c = ramanujan_sum_array(q, N)
-        a[q - 1] = float(np.mean(intervals * c)) / _phi(q)
+        a[q - 1] = float(np.mean(f * c)) / _phi(q)
 
     abs_a = np.abs(a)
     # Rank q ≥ 2 by amplitude (q = 1 is the DC term, mean of intervals)
@@ -166,7 +193,8 @@ def ramanujan_fourier(t_k: np.ndarray, q_max: int = 200,
                 amplitudes=abs_a.tolist(),
                 top10_q=top10_q, top10_amplitudes=top10_amp,
                 peak_q=peak_q,
-                a0=float(a[0]))
+                a0=float(a[0]),
+                mode=mode, n_bins=int(N) if not normalize else None)
 
 
 # ─── Engine 2 — p-adic sensitivity profile ───────────────────────────────────
@@ -190,18 +218,40 @@ def _analytical_passage(t_k: np.ndarray, fc_ref: float, pq_pairs):
     return pooled_arr, info
 
 
+def _is_p_power(q: int, p: int) -> bool:
+    """True iff q == p^k for some k ≥ 1."""
+    if q < p: return False
+    while q > 1:
+        if q % p != 0: return False
+        q //= p
+    return True
+
+
 def padic_profile(t_k: np.ndarray, primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
-                  q_max: int = 8, fc_ref: float = 1.0) -> dict:
+                  q_max: int = 8, fc_ref: float = 1.0,
+                  pure_power: bool = False) -> dict:
     """
-    For each prime p, run analytical NNS using only Farey rationals whose
-    denominator q has p | q (p-adic valuation ≥ 1).
+    For each prime p, run analytical NNS on a subset of Farey rationals.
+
+    pure_power=False (default, "p-adic-divisible" filter):
+        subset = {(a, b) ∈ Farey(q_max) : p | b}
+        Pools heavily overlap across primes (q=6 ∈ both p=2 and p=3 pools)
+        — engine ties on most signals.
+
+    pure_power=True ("pure-p-power" filter):
+        subset = {(a, b) ∈ Farey(q_max) : b ∈ {p, p², p³, …}}
+        Disjoint per-prime subsets → cleaner discrimination, but few
+        bands when p is large (e.g. p=11 has only q=11 at q_max=16).
     """
     pairs = farey_rationals(q_max)
     out = {}
     best_by_prime = {}
     ks_min_overall = (None, 1.0)
     for p in primes:
-        sub = [(a, b) for (a, b) in pairs if b % p == 0]
+        if pure_power:
+            sub = [(a, b) for (a, b) in pairs if _is_p_power(b, p)]
+        else:
+            sub = [(a, b) for (a, b) in pairs if b % p == 0]
         if not sub:
             out[int(p)] = dict(n_pairs=0, classification=dict(best='insufficient'))
             continue
@@ -209,7 +259,7 @@ def padic_profile(t_k: np.ndarray, primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
                                             fc_ref, sub)
         cl = _classify(pooled)
         out[int(p)] = dict(n_pairs=len(sub), n_pooled=int(pooled.size),
-                           classification=cl)
+                           classification=cl, q_values=sorted({b for _, b in sub}))
         ks_min = min(cl.get('ks_p', 1), cl.get('ks_o', 1), cl.get('ks_u', 1))
         best_by_prime[int(p)] = dict(best=cl.get('best', 'insufficient'),
                                      ks_min=ks_min)
@@ -218,7 +268,8 @@ def padic_profile(t_k: np.ndarray, primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
     dominant = ks_min_overall[0] if ks_min_overall[0] is not None else 0
     return dict(primes=list(primes), per_prime=out,
                 best_by_prime=best_by_prime,
-                dominant_prime=int(dominant))
+                dominant_prime=int(dominant),
+                filter_mode='pure_power' if pure_power else 'p_divides_q')
 
 
 # ─── Engine 3 — Multiscale Fano factor F(T) ──────────────────────────────────
@@ -362,10 +413,19 @@ def sb_directional_split(t_k: np.ndarray, q_max: int = 8,
 def full_analysis(t_k, label: str = '', fc_ref: float = 1.0,
                   q_max: int = 8, ramanujan_q_max: int = 200,
                   pair_r_max: float = 10.0,
-                  pair_n_bins: int = 100) -> dict:
+                  pair_n_bins: int = 100,
+                  rf_normalize: bool = True,
+                  rf_n_bins: int | None = None,
+                  padic_pure_power: bool = False) -> dict:
     """
     Run all five engines + a primary direct NNS classification, and
     pack into a fingerprint dict.
+
+    Optional engine-redesign flags:
+        rf_normalize=True   — RF on unit-mean-normalised intervals (default).
+        rf_normalize=False  — RF on event-count indicator (period detection).
+        padic_pure_power=False — Farey rationals with p | q (default).
+        padic_pure_power=True  — Farey rationals with q ∈ {p, p², …}.
 
     Returns dict with keys:
         label, n_events,
@@ -379,8 +439,10 @@ def full_analysis(t_k, label: str = '', fc_ref: float = 1.0,
                     error='insufficient (<20 events)')
 
     primary = _direct_nns(t)
-    ram = ramanujan_fourier(t, q_max=ramanujan_q_max)
-    pad = padic_profile(t, q_max=q_max, fc_ref=fc_ref)
+    ram = ramanujan_fourier(t, q_max=ramanujan_q_max,
+                             normalize=rf_normalize, n_bins=rf_n_bins)
+    pad = padic_profile(t, q_max=q_max, fc_ref=fc_ref,
+                         pure_power=padic_pure_power)
     fan = fano_curve(t)
     pc = pair_correlation_full(t, r_max=pair_r_max, n_bins=pair_n_bins)
     sbs = sb_directional_split(t, q_max=q_max, fc_ref=fc_ref)
