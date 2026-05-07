@@ -40,6 +40,85 @@ Output: `plots/33_primes_scaling.png`, `data/primes_scaling.json`.
 
 ---
 
+## 2026-05-07 16:50 — Phase 12: Planat hypothesis — left side confirmed, right side not yet visible
+
+`run_phase12_planat.py` tests the prediction that an *optimal*
+human-perturbation rate sharpens Wigner GUE statistics in the LLM
+residual stream beyond either uninterrupted generation or
+heavily-perturbed back-and-forth.
+
+### Procedure
+
+Qwen 2.5 3B generates 2048-token sequences interrupted by 0, 4, 9,
+19, or 39 evenly-spaced "perturbation splices" — each splice is a
+short human-style redirect ("Actually, let me redirect — explain
+[topic]?\n\n") drawn from a fixed pool.  Splices fragment the
+generation into N+1 model-driven blocks.  After each generation, the
+full text is re-fed through the model with `output_hidden_states=True`,
+residual-norm peaks are extracted, and the toolkit fingerprint is
+computed.
+
+### Results
+
+| rate | splices | n_events | KS_GUE  | F(T=5) | rep_int | mean surprisal |
+|------|---------|----------|---------|--------|---------|----------------|
+| r=0  | 0       | 698      | **0.2432**| 0.184 | 0.900   | 0.346 nats     |
+| r=4  | 4       | 622      | **0.1860**| 0.161 | 0.900   | 0.498          |
+| r=9  | 9       | 609      | 0.1929  | 0.173  | 0.900   | 0.537          |
+| r=19 | 19      | 619      | 0.2051  | 0.190  | 0.900   | 0.625          |
+| r=39 | 39      | 629      | 0.1947  | 0.168  | 0.900   | 0.644          |
+
+### Left side of the U: confirmed
+
+**Uninterrupted self-attention-loop generation sits at a local
+non-optimum.**  Adding even modest perturbation (r=4, ~2 splices per
+1k tokens) drops KS_GUE from 0.243 → 0.186 — a 23 % improvement in
+distance to Wigner GUE.  This is the strong direction of Planat's
+prediction: human input through the model's flow makes the
+fingerprint cleaner, not noisier, at the rate range tested.
+
+`mass<0.3 = 0.000` and `rep_int = 0.900` are invariant across all
+five rates — every condition is firmly in the level-repulsion regime.
+The cleanest GUE shape at r=4 is *sharper* than the cleanest GUE
+shape from any of the static stimuli in Phase 10 (KS_GUE = 0.186 vs
+0.197 for fp16 + natural text).
+
+### Right side of the U: not visible at this rate range
+
+The script's strict acceptance check ("optimal must beat both endpoints
+by ≥ 0.02") returned "not clearly supported" because r=39 ends up
+near r=4 (Δ = 0.009) rather than degrading toward super-Poisson.
+Even at 39 splices in 2k tokens (~19 splices/kt), the GUE statistics
+stay sharp — the predicted high-rate collapse is not in this window.
+
+Two interpretations:
+
+1. **Plateau model**: any non-trivial perturbation flips the model
+   into a stable GUE-clean regime; there is no high-rate degradation
+   in the tested range.
+2. **Wider U than expected**: the right-tail collapse happens at
+   r ≥ 80 (perturbing every ~25 tokens, ~40 splices/kt), beyond the
+   tested range.
+
+Distinguishing these requires extending the sweep to r ∈ {80, 160,
+320} — perturbing every ~12, 6, 3 tokens respectively.  Queued.
+
+### What this is
+
+Half of Planat's 2026 prediction is empirically supported by an
+instrument whose mathematical scaffolding traces back to Planat's
+own 2002 work on Farey sequences and PLL phase locking.  The
+direction — perturbation sharpens GUE — is correct; the boundary
+of the regime is yet to be located.  The tighter K_GUE at r=4
+(0.186) than at any static stimulus from Phase 10 is the cleanest
+single number reading: deliberately interrupted generation produces
+a sharper Wigner-class fingerprint than uninterrupted generation
+on any of the three fixed stimuli we tested.
+
+`data/phase12_planat.json`, `plots/39_phase12_planat.png`.
+
+---
+
 ## 2026-05-07 16:15 — Phase 11: model-family swap — universal across architectures ✅
 
 `run_phase11_models.py` + `run_phase11_retry.py` ran the three-stimulus

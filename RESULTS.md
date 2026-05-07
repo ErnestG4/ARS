@@ -1870,7 +1870,86 @@ but distinguishable from the Wigner profile elsewhere.
 Output: `data/phase11_model_family.json`, `plots/38_phase11_models.png`,
 `run_phase11_models.py`, `run_phase11_retry.py`.
 
-### 7.ter.16  Caveats and follow-ups
+### 7.ter.16  Phase 12 — Planat hypothesis: human perturbation and GUE sharpness
+
+`run_phase12_planat.py` tests the conjecture that an optimal
+human-perturbation rate sharpens Wigner GUE statistics in the LLM
+residual stream beyond either uninterrupted generation or
+heavily-perturbed back-and-forth.
+
+#### Procedure
+
+Qwen 2.5 3B generates 2048-token sequences interrupted by N ∈ {0, 4,
+9, 19, 39} evenly-spaced "perturbation splices" — short human-style
+redirects ("Actually, let me redirect — explain [topic]?\n\n") drawn
+from a fixed phrase × topic pool.  Each splice fragments the generation
+into N+1 model-driven blocks.  The full text is then re-fed through
+the model with `output_hidden_states=True`, residual-norm peaks
+extracted, and the toolkit fingerprint computed.
+
+#### Results
+
+| rate | splices | n_events | KS_GUE   | KS_GOE | F(T=5) | rep_int | mean surprisal |
+|------|---------|----------|----------|--------|--------|---------|----------------|
+| r=0  | 0       | 698      | **0.2432** | 0.306  | 0.184  | 0.900   | 0.346 nats     |
+| r=4  | 4       | 622      | **0.1860** | 0.251  | 0.161  | 0.900   | 0.498          |
+| r=9  | 9       | 609      | 0.1929   | 0.243  | 0.173  | 0.900   | 0.537          |
+| r=19 | 19      | 619      | 0.2051   | 0.246  | 0.190  | 0.900   | 0.625          |
+| r=39 | 39      | 629      | 0.1947   | 0.253  | 0.168  | 0.900   | 0.644          |
+
+#### Left side of the U: confirmed
+
+**Uninterrupted self-attention-loop generation sits at a local
+non-optimum.**  Adding even modest perturbation (r = 4, ~2 splices
+per 1k tokens) drops KS_GUE from 0.243 to 0.186 — a 23 % improvement
+in distance to Wigner GUE.
+
+`mass<0.3 = 0.000` and `repulsion_integral = 0.900` are invariant
+across all five rates — every condition is firmly in the
+level-repulsion regime.  The cleanest GUE shape at r = 4 (KS_GUE =
+0.186) is *sharper* than the cleanest GUE shape from any static
+stimulus in Phase 10 (best was 0.197 for Qwen fp16 on natural text).
+
+This is the strong direction of Planat's 2026 prediction:
+*deliberately interrupted generation produces a sharper Wigner-class
+fingerprint than uninterrupted generation*, measured by an
+instrument whose mathematical scaffolding traces back to Planat's
+own 2002 work on Farey sequences and PLL phase locking.
+
+#### Right side of the U: not visible at the tested rate range
+
+KS_GUE stays in the 0.18-0.21 plateau across all four perturbed
+rates — no monotone degradation toward super-Poisson is observed
+even at r = 39 (~19 splices/kt).  The predicted right-tail collapse
+is not in this window.
+
+Two interpretations remain consistent with the data:
+
+1. **Plateau model**: any non-trivial perturbation flips the model
+   into a stable GUE-clean regime.  Low-rate-only sharpening, no
+   high-rate degradation.
+
+2. **Wider U than expected**: the right-tail collapse happens at
+   higher rates than tested (r ≥ 80, perturbing every ~25 tokens
+   or denser), beyond the current sweep.
+
+Distinguishing requires extending to r ∈ {80, 160, 320} (perturbing
+every ~12, 6, 3 tokens respectively).  Queued for a follow-up.
+
+#### Synthesis
+
+Half of Planat's 2026 prediction is empirically supported.  The
+direction — perturbation sharpens GUE — is correct.  The boundary
+of the regime is yet to be located.  The cleanest single-number
+reading: KS_GUE = 0.186 at r = 4 (Planat-perturbed) is the sharpest
+Wigner-class fingerprint we have measured on transformer LLM
+internal computation, lower than every static-stimulus condition in
+Phase 10.
+
+Output: `data/phase12_planat.json`, `plots/39_phase12_planat.png`,
+`run_phase12_planat.py`.
+
+### 7.ter.17  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

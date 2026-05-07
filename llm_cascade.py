@@ -50,7 +50,10 @@ def extract_cascade(text: str,
                     quantization: Optional[str] = None,
                     max_seq_len: int = 4096,
                     device: str = "cuda",
-                    keep_attention: bool = False) -> dict:
+                    keep_attention: bool = False,
+                    compute_attention: bool = True,
+                    preloaded_model=None,
+                    preloaded_tokenizer=None) -> dict:
     """Forward `text` through a causal LM, return cascade signals.
 
     quantization: None | "int8" | "int4".
@@ -58,32 +61,46 @@ def extract_cascade(text: str,
         Off by default — output_attentions=True scales O(L·H·T²) and
         explodes memory at long T.  Attention entropy is computed
         before discard, so the summary signal is preserved.
+    compute_attention: when False, skip output_attentions=True on the
+        forward pass (saves ~L·H·T²·dtype bytes — ~5 GB for Qwen 2.5 3B
+        at T=2048).  Use when only surprisal + hidden_norms are needed
+        downstream.  Sets attn_entropy to a zero stub.
+    preloaded_model / preloaded_tokenizer: optional already-loaded
+        pair to reuse (avoids the OOM caused by holding two copies of
+        a multi-GB model on a single GPU).  When provided, this
+        function does NOT free them on exit — caller owns lifecycle.
     """
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    owns_model = preloaded_model is None
+    if preloaded_tokenizer is not None:
+        tokenizer = preloaded_tokenizer
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    load_kwargs = dict(
-        torch_dtype=torch.float16,
-        device_map=device,
-        trust_remote_code=True,
-        attn_implementation="eager",   # required for output_attentions
-    )
-    if quantization == "int8":
-        load_kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
-        load_kwargs.pop("torch_dtype")
-    elif quantization == "int4":
-        load_kwargs["quantization_config"] = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_quant_type="nf4",
+    if preloaded_model is not None:
+        model = preloaded_model
+    else:
+        load_kwargs = dict(
+            torch_dtype=torch.float16,
+            device_map=device,
+            trust_remote_code=True,
+            attn_implementation="eager",   # required for output_attentions
         )
-        load_kwargs.pop("torch_dtype")
-
-    model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
+        if quantization == "int8":
+            load_kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
+            load_kwargs.pop("torch_dtype")
+        elif quantization == "int4":
+            load_kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_quant_type="nf4",
+            )
+            load_kwargs.pop("torch_dtype")
+        model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
     model.eval()
     model_dev = next(model.parameters()).device
 
@@ -94,7 +111,7 @@ def extract_cascade(text: str,
     with torch.no_grad():
         out = model(
             ids,
-            output_attentions=True,
+            output_attentions=compute_attention,
             output_hidden_states=True,
         )
 
@@ -116,11 +133,14 @@ def extract_cascade(text: str,
 
     # Attention entropy per (layer, head, query_token).
     # a is [batch=1, heads, T, T]; for each query t, entropy of attention
-    # distribution over keys.
-    attn_entropy = np.stack([
-        -(a[0].float() * (a[0].float() + 1e-12).log()).sum(-1).cpu().numpy()
-        for a in out.attentions
-    ])  # [n_layers, n_heads, T]
+    # distribution over keys.  Skipped when compute_attention=False.
+    if compute_attention and out.attentions is not None:
+        attn_entropy = np.stack([
+            -(a[0].float() * (a[0].float() + 1e-12).log()).sum(-1).cpu().numpy()
+            for a in out.attentions
+        ])  # [n_layers, n_heads, T]
+    else:
+        attn_entropy = np.zeros((0, 0, ids.shape[1]), dtype=np.float64)
 
     result = dict(
         surprisal=surprisal,
@@ -134,9 +154,12 @@ def extract_cascade(text: str,
     if keep_attention:
         result["attentions"] = [a[0].float().cpu().numpy() for a in out.attentions]
 
-    # Free model + GPU memory aggressively (caller may run another model next)
-    del out, model, tokenizer, ids, inputs, logits, targets
-    torch.cuda.empty_cache() if device == "cuda" else None
+    # Free per-call buffers; only delete the model+tokenizer if WE loaded them.
+    del out, ids, inputs, logits, targets
+    if owns_model:
+        del model, tokenizer
+    if device == "cuda":
+        torch.cuda.empty_cache()
     return result
 
 
