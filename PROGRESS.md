@@ -8,6 +8,46 @@ For consolidated current results: `MORNING_SUMMARY.md` + `RESULTS.md`.
 
 ---
 
+## 2026-05-07 13:30 — Phase 9: arithmetic_toolkit + periodic table ✅
+
+`arithmetic_toolkit.py` packages five engines (Ramanujan-Fourier
+spectrum, p-adic sensitivity profile, multiscale Fano F(T), pair
+correlation R₂(r) + repulsion integral, Stern-Brocot directional
+split) plus `full_analysis(t_k, label)` which runs all five and
+returns a 10-D fingerprint vector.
+
+`run_phase9.py` validates on six reference signals.  The fingerprint
+table cleanly separates three regimes:
+
+| signal              | best    | KS_GUE | mass<0.3 | F(T=5) | rep_int |
+|---------------------|---------|--------|----------|--------|---------|
+| ζ zeros (2000)      | GUE     | 0.041  | 0.014    | 0.083  | 0.425   |
+| GOE eigenvalues     | GOE     | 0.100  | 0.079    | 0.348  | 0.171   |
+| Poisson uniform     | Poisson | 0.285  | 0.260    | 0.988  | 0.040   |
+| Primes ≤ 10⁶        | Poisson | 0.234  | 0.135    | 0.560  | 0.204   |
+| USGS earthquakes    | Poisson | 0.344  | 0.333    | 3.747  | 0.000   |
+| Fungal spikes       | Poisson | 0.641  | 0.655    | 7.727  | 0.000   |
+
+- **Level-repelling** (ζ, GOE): F(T=5) sub-1, rep_int large
+- **Random** (Poisson): F(T=5) ≈ 1, rep_int near zero
+- **Clustered** (fungal, earthquakes): F(T=5) >> 1, rep_int = 0
+
+Primes show a fingerprint we hadn't seen before: F(T) = 0.69 / 0.56
+sub-Poisson, repulsion_integral = 0.204 (comparable to GOE's 0.17).
+The Phase-5 KS-only metric flagged primes as Poisson-best; F<1 says
+there's residual arithmetic structure on top of the Cramér-random
+baseline.
+
+Stern-Brocot symmetry KS ≤ 0.002 across all six (every signal is
+sub/super-unison symmetric, expected for stationary).  p-adic
+dominance not strongly informative at q_max = 8 (only p ∈ {2,3,5,7}
+have any Farey rationals; KS_min nearly identical across them).
+
+Outputs: `data/phase9_fingerprints.json`, `plots/31_phase9_table.png`.
+Section §7.ter.7 in `RESULTS.md`.
+
+---
+
 ## 2026-05-07 12:54 — Fungal mycelium spike statistics ✅
 
 `run_fungal_nns.py` applies analytical-NNS to 18 long electrical

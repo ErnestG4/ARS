@@ -143,6 +143,8 @@ quickstart demo).
 ├── pll_bank.py             # Farey PLL bank, CPU + CuPy GPU
 ├── intermittency.py        # dwell extraction, power-law MLE, Stern-Brocot depth
 ├── universality.py         # NNS, Σ²(L), pair correlation, SFF
+├── arithmetic_toolkit.py   # 5-engine fingerprint: Ramanujan-Fourier, p-adic
+│                           #   profile, multiscale Fano, R₂(r), SB-split
 ├── signal_gen.py           # signal generators
 │
 ├── run_analytical_nns.py   # primary calibrated metric — start here

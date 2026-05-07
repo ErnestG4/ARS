@@ -1096,7 +1096,90 @@ from any neural quasi-periodicity artefact.
 Output: `plots/29_fungal_nns.png`, `plots/30_fungal_isi.png`,
 `data/fungal_results.json`.
 
-### 7.ter.6  Caveats and follow-ups
+### 7.ter.7  Phase 9 — Periodic table of point processes (arithmetic_toolkit)
+
+`arithmetic_toolkit.py` packages five engines that operate on any
+sorted point-process `t_k`:
+
+1. **Ramanujan-Fourier spectrum** — coefficients `a_q = (1/φ(q)) ·
+   E[f(n) · c_q(n)]` of the inter-event interval sequence, q = 1..200,
+   computed via Hölder's identity for c_q(n).  Reports the top-10
+   resonance orders and a peak_q.
+2. **p-adic sensitivity profile** — for each prime p ∈ {2,3,5,7,11,13},
+   run analytical NNS on the subset of Farey rationals whose
+   denominator q has p | q.  Different primes weight different
+   p-adic substructures of the signal.
+3. **Multiscale Fano factor F(T)** — Var(N(T))/Mean(N(T)) on a
+   geometric grid of window sizes.  Reports F at T = 1, 5, 20 in
+   units of mean spacing; GUE has F→0 at small T, Poisson has F=1,
+   clustered processes have F>1 with peaks at characteristic scales.
+4. **Pair correlation R₂(r) + repulsion integral** — companion to
+   §7.ter.3.  The single number `repulsion_integral = ∫₀¹ (1−R₂(r)) dr`
+   summarises total level repulsion at small r.
+5. **Stern-Brocot directional split** — analytical NNS run separately
+   on Farey rationals with p/q < 1 (sub-unison, SB-left) and p/q > 1
+   (super-unison, SB-right), with a two-sample KS testing
+   sub/super-unison symmetry.  Stationary processes pass; directional
+   processes (e.g. financial price series) fail.
+
+`full_analysis(t_k, label)` runs all five plus the primary direct-NNS
+classification and packs them into a 10-dimensional fingerprint vector:
+
+`[KS_GUE, KS_GOE, KS_Poisson, mass<0.3, F(T=1), F(T=5),
+  repulsion_integral, top_ramanujan_q, sb_symmetry_ks,
+  padic_dominant_prime]`
+
+#### Validation runs
+
+`run_phase9.py` applies `full_analysis` to six reference signals.
+The six fingerprints (Phase-9 periodic table):
+
+| signal                       | best    | KS_GUE | KS_GOE | KS_P | mass<0.3 | F(T=1) | F(T=5) | rep_int | top_q |
+|------------------------------|---------|--------|--------|------|----------|--------|--------|---------|-------|
+| ζ zeros (first 2000)         | GUE     | **0.041** | 0.108  | 0.316| 0.014    | 0.374  | **0.083** | **0.425** | 2     |
+| GOE eigenvalues (N=2000)     | GOE     | 0.100  | **0.036** | 0.203| 0.079    | 0.475  | 0.348  | 0.171   | 4     |
+| Poisson uniform              | Poisson | 0.285  | 0.221  | **0.020** | 0.260    | 0.987  | 0.988  | 0.040   | 2     |
+| **Fungal spikes (pooled)**   | Poisson | 0.641  | 0.590  | 0.400| **0.655**| **4.303**| **7.727** | 0.000   | 2     |
+| **USGS earthquakes M≥4.5**   | Poisson | 0.344  | 0.281  | 0.075| 0.333    | 1.760  | 3.747  | 0.000   | 10    |
+| Primes ≤ 10⁶ (logarithm-unfold) | Poisson | 0.234  | 0.167  | 0.149| 0.135    | 0.691  | 0.560  | 0.204   | 2     |
+
+**Three classes are clearly separated:**
+
+- **Level-repelling (ζ, GOE)**: F(T=5) sub-1 (0.08, 0.35), repulsion
+  integral large (0.42, 0.17), KS to its assigned Wigner class small
+  (0.04, 0.04).  ζ shows the cleanest GUE signature on every metric.
+- **Random (Poisson)**: F(T) ≈ 1 at all scales (0.99 at T=1 and T=5),
+  repulsion integral near zero (0.04), mass<0.3 ≈ 0.26.
+- **Clustered (fungal, earthquakes)**: F(T) ≫ 1, growing with scale
+  (T=1 → T=5 → T=20: fungal 4.3 → 7.7 → 10.5; earthquakes 1.8 → 3.7 →
+  7.9), repulsion integral zero (no level repulsion), mass<0.3 large
+  (0.65 fungal, 0.33 earthquakes).  Fungal is the most strongly
+  clustered signal we have analyzed.
+
+**Primes ≤ 10⁶** sit between Poisson and weakly-repelling: F(T) sub-1
+(0.69, 0.56), repulsion_integral = 0.204 (positive, comparable to GOE
+at 0.17).  This is the asymptotic-Poisson convergence at finite N
+showing residual arithmetic structure on top of the random baseline —
+worth reporting separately because the Phase-5 KS-only metric flagged
+primes as Poisson-best, missing the F<1 fingerprint.
+
+**Stern-Brocot symmetry** ≤ 0.002 across all six signals (KS two-sample
+between left and right subtree NNS distributions): every signal here is
+**directionally symmetric** — sub-unison and super-unison Farey bands
+agree.  This is the expected pass for stationary point processes; the
+test will register as a flag (asymmetry > 0.05) on directional series
+like trended financial data or biological signals with preferred
+phases.
+
+**p-adic dominance is not strongly informative at q_max = 8** (only
+p ∈ {2, 3, 5, 7} have any Farey rationals, and their KS_min values are
+near-identical for most signals).  Re-running with q_max = 16 or
+larger is the natural extension if p-adic discrimination matters for
+a target signal.
+
+Outputs: `data/phase9_fingerprints.json`, `plots/31_phase9_table.png`.
+
+### 7.ter.8  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

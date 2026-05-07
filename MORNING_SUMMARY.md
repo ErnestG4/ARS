@@ -123,6 +123,7 @@ among the three Wigner forms', not GUE-class dynamics.
   data/lmfdb_zeros_h1000.json                   (3,234,057 bytes)
   data/mertens_liouville_results.json           (1,136 bytes)
   data/pair_correlation_results.json            (13,195 bytes)
+  data/phase9_fingerprints.json                 (17,486 bytes)
   data/second_order_results.json                (17,566 bytes)
   data/zeta_height_convergence.json             (7,187 bytes)
 
@@ -156,6 +157,7 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/28_eeg_full.png                          (99,716 bytes)
   plots/29_fungal_nns.png                        (67,637 bytes)
   plots/30_fungal_isi.png                        (30,052 bytes)
+  plots/31_phase9_table.png                      (95,181 bytes)
 ```
 
 ## Pipeline state
