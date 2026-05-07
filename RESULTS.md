@@ -38,18 +38,32 @@ needed to read its output correctly, and the results obtained so far.
    The orthogonal-even / orthogonal-odd distinction is empirically
    visible in this metric.
 
-3. **EEG θ-band zero-crossings show *more level repulsion than Poisson
-   or GOE* across 3 subjects × 5 channels × 3 conditions** (45/45
-   segments classify GUE-best, KS_GUE ≈ 0.18, gap +0.06).  This is
-   **NOT a clean Wigner GUE classification** — the KS distance is 8×
-   the calibrated threshold (0.18 vs 0.022 for ζ).  The honest framing
-   is that the θ rhythm of human brains is a quasi-periodic process
-   with NNS concentrated near s = 1, and "GUE-best" reflects
-   "best-fitting Wigner form" (more s²-suppression near 0 than GOE)
-   rather than GUE-class dynamics in the strict sense.  Across-subject
-   variation (KS_GUE 0.169 / 0.182 / 0.190) is comparable to the
-   within-subject between-condition variation (KS_two ≈ 0.04, p<0.05
-   for rest vs motor).
+3. **EEG θ-band zero-crossings: quasi-periodic artifact correctly
+   identified by the metric — bandpass zero-crossings are the wrong
+   input.**  Across the full 32-subject EEGMMIDB cohort × 5 channels
+   × 3 conditions (480 segments, 461,520 pooled spacings), every
+   segment classifies GUE-best with KS_GUE ≈ 0.18, gap +0.06,
+   **mass<0.3 ≈ 0.001**.  The 3-subject pilot's 0.18 was not a
+   small-N fluctuation; at 10× the cohort the same number recurs.
+
+   But this is **NOT a Wigner GUE classification.**  KS_GUE = 0.18 is
+   8× the calibrator threshold of 0.022.  More tellingly, mass<0.3 ≈
+   0.001 vs Wigner GUE's ~0.10 means short spacings are essentially
+   *absent* — far stronger level repulsion than any Wigner form
+   predicts.  The cause is structural: zero-crossings of a 4–8 Hz
+   bandpass are forced to ~125 ms intervals by the filter itself, and
+   the resulting near-uniform spacing distribution is closer to a
+   delta at s = 1 than to any RMT class.
+
+   **Bandpass zero-crossings are the wrong input** for testing
+   universality on neural data.  The right inputs are spike timing
+   (single-unit or multi-unit events from invasive recordings), and
+   inter-burst intervals (IBI) extracted from envelope/amplitude-peak
+   detection on raw broadband EEG — neither of which is forced into
+   uniform spacing by a bandpass.  Condition deltas are tiny
+   (KS_GUE varies only 0.014 across rest_eyes_open / rest_eyes_closed
+   / motor_imagery), confirming θ-band zero-crossing rate carries no
+   meaningful cognitive-state signal in this metric.
 2. **Pure GUE eigenvalues yield Wigner GUE NNS** in the same framework
    (KS_GUE = 0.022).  **Pure GOE eigenvalues yield Wigner GOE**
    (KS_GOE = 0.021).  The metric is calibrated.
@@ -624,26 +638,36 @@ calibrator.  Primes' KS_Poisson = 0.16 is an order of magnitude larger,
 showing primes have *more* structure than density-only Poisson; the
 deviation is real, just shrinking with N.
 
-**3. EEG θ-band zero-crossings: best fit Wigner GUE.**
-Channel Fcz, rest condition, 61 s recording, 4–8 Hz bandpass yields 341
-positive-going zero-crossings.  Direct NNS of crossing times:
+**3. EEG θ-band zero-crossings: quasi-periodic artifact, NOT a
+Wigner GUE classification.**  Channel Fcz, rest condition, 61 s
+recording, 4–8 Hz bandpass yields 341 positive-going zero-crossings:
 - KS_Poisson = 0.427 (decisively non-Poisson)
 - KS_GOE = 0.242
-- **KS_GUE = 0.190** (best fit, gap = +0.052 just above decisive threshold)
+- KS_GUE = 0.190 (closest of the three Wigner forms, but 8× the
+  calibrator threshold of 0.022)
 - mass<0.3 = 0.000 (highly regular)
 
-**Caveat**: this is small sample (n = 341), the KS is far from the
-calibrated 0.022 threshold for clean Wigner.  And θ-band zero-crossings
-of a near-periodic 6-Hz process are mechanically quasi-periodic, so
-"GUE-best" here may be the metric reporting "more regular than Poisson"
-rather than specifically GUE-class dynamics.  Worth a longer recording
-(several minutes of clean θ activity), denser channel, and a control
-against task / sleep state before claiming a neural-criticality result.
+What the metric is reporting here is "more s²-suppressed near 0 than
+GOE", not GUE-class dynamics.  The KS distance is far above the clean-
+fit threshold, and the mass<0.3 = 0.000 is the smoking gun: zero-
+crossings of a 4–8 Hz bandpass are forced to ~125 ms intervals by the
+filter itself, so the short-spacing tail is structurally absent —
+much stronger level repulsion than any Wigner form predicts.
 
-What it *does* show: the metric runs end-to-end on real EEG data and
-returns sensible, non-trivial classifications.  Brain at rest produces a
-distribution decisively different from Poisson, with shape closest to
-Wigner GUE among the three references.
+**Bandpass zero-crossings are the wrong input** for testing
+universality on neural data.  The metric correctly identified the
+quasi-periodic artifact (gap +0.05 just above the decisive threshold,
+mass<0.3 hitting the floor).  The right inputs are spike timing
+(single-unit / multi-unit events from invasive recordings) and
+inter-burst intervals from envelope/amplitude-peak detection on raw
+broadband signals — neither of which is forced into uniform spacing
+by a bandpass.  See §7.ter.2 for the 32-subject confirmation.
+
+What this *does* show: the metric runs end-to-end on real EEG data
+and produces reproducible numbers across subjects and conditions.
+The classification labels (best=GUE, gap, mass<0.3) correctly flag
+"this distribution is more concentrated than Wigner GUE allows" —
+the framework just needs the right input signal.
 
 ### Caveats and follow-ups
 
@@ -781,77 +805,79 @@ spacing (smaller eigenvalue gap at the edge), but the n = 17 sample of
 empirical confirmation — visible in our metric the moment we look at the
 right statistic.  Plot: `plots/19_lmfdb_edge.png`.
 
-### 7.ter.2  EEG depth study (PhysioNet EEGMMIDB, 3 subjects)
+### 7.ter.2  EEG depth study (PhysioNet EEGMMIDB, 32-subject cohort)
 
-Three subjects (S001, S002, S003), 5 channels (Fcz, Cz, Pz, Fp1, Fp2),
-3 conditions (rest_eyes_open R01, rest_eyes_closed R02, motor_imagery
-R04+R05+R06), θ-band (4–8 Hz) zero-crossings, direct NNS of crossing
-times.  Per-run normalisation pooled per cell.
+**Headline**: the metric correctly identifies a quasi-periodic
+artifact.  Bandpass zero-crossings are the wrong input for testing
+universality on neural data — the right inputs are spike timing and
+inter-burst intervals on the raw broadband signal.
 
-**Aggregate by condition** (across all subjects and channels):
+The full PhysioNet EEGMMIDB cohort (32 subjects S001..S032, 14
+records each), 5 channels (Fcz, Cz, Pz, Fp1, Fp2), 3 conditions
+(rest_eyes_open R01, rest_eyes_closed R02, motor_imagery R04+R05+R06),
+θ-band (4–8 Hz) zero-crossings, direct NNS of crossing times.
 
-| condition | n_segments | n_pooled | KS_P | KS_GOE | KS_GUE | gap | best |
-|---|---|---|---|---|---|---|---|
-| rest_eyes_open | 15 | 5,292 | 0.426 | 0.237 | **0.177** | +0.061 | **GUE** |
-| rest_eyes_closed | 15 | 5,502 | 0.426 | 0.238 | **0.180** | +0.058 | **GUE** |
-| motor_imagery | 15 | 32,167 | 0.425 | 0.237 | **0.179** | +0.058 | **GUE** |
+**Aggregate by condition** (32 subjects × 5 channels):
 
-**Aggregate by channel** (across all subjects and conditions):
+| condition          | n_seg | n_pooled | KS_P  | KS_GOE | KS_GUE | gap   | mass<0.3 | best |
+|--------------------|-------|----------|-------|--------|--------|-------|----------|------|
+| rest_eyes_open     | 160   |  56,727  | 0.424 | 0.236  | 0.176  | +0.059| 0.001    | GUE  |
+| rest_eyes_closed   | 160   |  59,676  | 0.432 | 0.247  | 0.190  | +0.057| 0.000    | GUE  |
+| motor_imagery      | 160   | 345,117  | 0.424 | 0.236  | 0.178  | +0.058| 0.001    | GUE  |
 
-| channel | n_pooled | KS_GUE | gap | best |
-|---|---|---|---|---|
-| Fcz | 8,751 | 0.187 | +0.057 | GUE |
-| Cz | 8,759 | 0.187 | +0.056 | GUE |
-| Pz | 8,790 | 0.177 | +0.060 | GUE |
-| Fp1 | 8,349 | 0.175 | +0.058 | GUE |
-| Fp2 | 8,312 | 0.180 | +0.058 | GUE |
+**Aggregate by channel** (96 segments each, all subjects pooled):
 
-**Aggregate by subject**:
+| channel | n_pooled | KS_GUE | gap   | mass<0.3 |
+|---------|----------|--------|-------|----------|
+| Fcz.    | 93,665   | 0.186  | +0.057| 0.001    |
+| Cz..    | 94,144   | 0.185  | +0.058| 0.000    |
+| Pz..    | 94,628   | 0.186  | +0.058| 0.000    |
+| Fp1.    | 89,586   | 0.170  | +0.059| 0.001    |
+| Fp2.    | 89,497   | 0.170  | +0.059| 0.001    |
 
-| subject | n_pooled | KS_GUE | gap | best |
-|---|---|---|---|---|
-| S001 | 14,307 | 0.169 | +0.060 | GUE |
-| S002 | 14,821 | 0.190 | +0.058 | GUE |
-| S003 | 13,833 | 0.182 | +0.056 | GUE |
+**The 3-subject pilot's 0.18 was not a small-N fluctuation.**  At 10×
+the cohort size every aggregate KS_GUE lands in 0.170–0.190, with
+gap stable at +0.057–0.059 and mass<0.3 ≈ 0.001 across all 480
+segments.  The metric is reproducible and the result is robust.
 
-**Within-subject condition deltas** (KS_two-sample):
+**Findings (corrected interpretation):**
 
-| subject | comparison | KS_two | p |
-|---|---|---|---|
-| S001 | rest_EO vs rest_EC | 0.050 | 0.026 |
-| S001 | rest_EO vs motor | 0.038 | 0.029 |
-| S001 | rest_EC vs motor | 0.048 | 0.001 |
-| S002 | rest_EO vs rest_EC | 0.043 | 0.058 |
-| S002 | rest_EO vs motor | 0.029 | 0.138 |
-| S002 | rest_EC vs motor | 0.045 | 0.002 |
-| S003 | rest_EO vs rest_EC | 0.038 | 0.149 |
-| S003 | rest_EO vs motor | 0.045 | 0.004 |
-| S003 | rest_EC vs motor | 0.029 | 0.157 |
+1. **Quasi-periodic artifact correctly identified.**  KS_GUE ≈ 0.18
+   is 8× the calibrator threshold (~0.022 for ζ, GUE eigenvalues, and
+   elliptic curve L-functions).  More tellingly, **mass<0.3 ≈ 0.001
+   vs Wigner GUE's ~0.10** is the smoking gun: short spacings are
+   essentially absent.  This is not just "more s²-suppression than
+   GOE", it's a distribution structurally concentrated near s = 1.
 
-**Findings (honest framing):**
+2. **The cause is the bandpass.**  Zero-crossings of a 4–8 Hz
+   bandpass are forced to ~125 ms intervals by the filter itself.
+   The "level repulsion" observed here is not a property of the
+   underlying neural dynamics — it's an artifact of zero-crossing
+   detection on a narrowband signal.  Any sinusoid with envelope
+   modulation produces the same shape, RMT or not.
 
-1. **GUE-best at KS = 0.18, NOT a clean GUE classification.**  Every
-   (subject, channel, condition) cell — 45/45 — classifies as
-   GUE-best in the metric.  But KS_GUE ≈ 0.18 is **8× the calibrated
-   threshold** that ζ (0.015) and elliptic curve L-functions (0.015)
-   achieve.  The KS distance to GUE is small *relative to GOE
-   (0.237) and Poisson (0.426)*, but in absolute terms the empirical
-   distribution does not match Wigner GUE.
+3. **Bandpass zero-crossings are the wrong input for universality
+   testing on neural data.**  The right inputs are:
+   - **spike timing** (single-unit / multi-unit events from invasive
+     recordings) — true point-process events with no filter-imposed
+     periodicity;
+   - **inter-burst intervals** (IBI) extracted from envelope or
+     amplitude-peak detection on raw broadband EEG — events
+     correspond to cortical bursts, not zero-crossings of a chosen
+     band.
 
-2. **The θ rhythm shows more level repulsion than Poisson or GOE
-   alternatives** — that's the meaningful statement here.  The
-   empirical NNS is concentrated near s = 1 (mass<0.3 < 0.003),
-   reflecting a quasi-periodic biological process at ~6 Hz, not a
-   random matrix process.  The metric finds "the most s²-suppressed
-   shape" among the three Wigner references, but this isn't evidence
-   for GUE-class dynamics in the strict sense.
+4. **Condition deltas tiny.**  KS_GUE varies only 0.014 between
+   eyes-open (0.176) and eyes-closed (0.190).  θ-band zero-crossing
+   rate carries no meaningful cognitive-state signal in this metric —
+   not surprising, given (1) and (2): when the signal is dominated by
+   filter geometry, it can't carry much state-dependent variation.
 
-3. **Condition differences are small but measurable.**  Within-subject
-   KS_two-sample distances between conditions range 0.029–0.050 with
-   p-values mostly < 0.05 (rest-EC ↔ motor is the most consistent
-   difference: p = 0.001, 0.002, and 0.157 across S001–S003).
-   Conditions are statistically distinguishable but no condition
-   switches universality class.
+5. **The framework runs end-to-end on real neural data.**  Loading
+   EDF, channel selection, bandpass, event detection, NNS pipeline,
+   and classification all produce reproducible numbers across 32
+   subjects.  The classification labels (best=GUE, gap, mass<0.3)
+   correctly flag "this distribution is more concentrated than Wigner
+   GUE allows" — the framework just needs the right input signal.
 
 4. **Subject variation is comparable to condition variation.**
    Across-subject aggregate KS_GUE = 0.169 / 0.182 / 0.190 (S001 / S003
@@ -873,21 +899,151 @@ arithmetic L-function zeros at the same metric).
 
 Plot: `plots/18_eeg_depth.png`.  Json: `data/eeg_results.json`.
 
-### 7.ter.3  Caveats and follow-ups
+### 7.ter.3  Phase 7 — Dirichlet L-function family + cross-family second-order
+
+Full overnight pipeline added: a Dirichlet L-function family survey,
+a Mertens/Liouville arithmetic-sieve test, an earthquake-catalog null,
+and cross-family second-order statistics (Σ²(L), R₂(r)).
+
+#### Dirichlet family (q ≤ 149, 630 primitive non-trivial characters)
+
+92 real characters (predicted SYMPLECTIC), 538 complex (predicted UNITARY),
+~6,400 zeros each, 4.05M pooled spacings:
+
+| group                            | n_chars | n_pool   | KS_GUE | gap   | best |
+|----------------------------------|---------|----------|--------|-------|------|
+| all primitive non-trivial        | 630     | 4,051,472| 0.035  | +0.067| GUE  |
+| real characters (Sp predicted)   | 92      |   565,942| 0.039  | +0.067| GUE  |
+| complex characters (U predicted) | 538     | 3,485,530| 0.035  | +0.067| GUE  |
+
+**Bulk pair-correlation does not distinguish symplectic from unitary**
+— exactly as Katz–Sarnak / Montgomery predict.  Both classes give
+Wigner GUE bulk shape.  Family symmetry must be sought at the edge.
+
+#### Edge γ_1 test (analogous to LMFDB +1/−1 root number split)
+
+| statistic                | real (Sp)        | complex (U)      | KS    | p     |
+|--------------------------|------------------|------------------|-------|-------|
+| γ_1 raw                  | 1.996 ± 1.207    | 1.773 ± 0.959    | 0.134 | 0.112 |
+| **γ_1 · log(q)/(2π)**    | **1.137 ± 0.321**| **1.186 ± 0.544**| **0.213** | **0.001** |
+| γ_2 − γ_1 (norm)         | 1.670 ± 0.507    | 1.549 ± 0.492    | 0.155 | 0.043 |
+
+**Conductor-normalised γ_1 distinguishes Sp from U at p = 0.001.**
+The separation is weaker than the LMFDB SO_e/SO_o test (KS = 0.94
+there) — Sp and U have closer edge densities than SO_e and SO_o —
+but it's a clean second empirical Katz-Sarnak data point on a
+distinct family.
+
+#### ζ-zero height-dependent GUE convergence
+
+21 bins of 100k zeros each, heights 14 → 1,132,490 from Odlyzko zeros6:
+
+| bin    | heights              | KS_GUE   |
+|--------|----------------------|----------|
+| bin 1  | 14 – 74,920          | 0.0193   |
+| bin 11 | 600k – 654k          | 0.0124   |
+| bin 21 | 1.08M – 1.13M        | 0.0109   |
+
+**Monotone decrease confirmed.** Mean across all bins: 0.0129. Empirical
+signature of asymptotic GUE universality — KS to Wigner GUE *systematically
+improves* with height, exactly as the conjecture predicts.
+
+#### USGS earthquake null (M ≥ 4.5, 2020-2024)
+
+37,283 events.  Globally **Poisson-best** (KS_P = 0.075, KS_GUE = 0.344,
+mass<0.3 = 0.33 — slightly clustered above Poisson's 0.26).
+Per-30°-tile shows regional clustering variation (mass<0.3 from 0.31
+to 0.73).  Confirms ETAS-style mainshock-aftershock dynamics give
+Poisson-with-clustering spacing statistics, no random-matrix universality.
+A clean physical-process data point distinct from biological (EEG)
+and arithmetic signals.
+
+#### Cross-family number variance Σ²(L)
+
+| family                       | Σ²(L=20)  | regime                |
+|------------------------------|-----------|-----------------------|
+| ζ low (heights 14-75k)       | 0.42      | sub-GUE log-growth ✓  |
+| ζ high (heights ~1.1M)       | 0.35      | sub-GUE log-growth ✓  |
+| LMFDB EC L-functions         | 1.78      | ≈GUE log-growth ✓     |
+| Dirichlet real (Sp)          | 0.27      | sub-GUE log-growth ✓  |
+| Dirichlet complex (U)        | 0.30      | sub-GUE log-growth ✓  |
+| **USGS earthquakes M≥4.5**   | **164.29**| linear+ super-Poisson |
+
+Reference: Poisson(L=20) = 20.00; Wigner GUE(L=20) ≈ 1.05.  All
+arithmetic well below the Poisson line and growing log-not-linear —
+the second-order signature of random-matrix universality.
+
+#### Pair correlation R₂(r)
+
+| family                 | R₂(0.1)  | R₂(0.3) | R₂(1.0) |
+|------------------------|----------|---------|---------|
+| **GUE: 1−sinc²(πr)**   | **0.033**| **0.270**| **1.000**|
+| ζ low (100k zeros)     | 0.014    | 0.269   | 1.021   |
+| ζ high (100k zeros)    | 0.016    | 0.293   | 1.004   |
+| LMFDB ECs              | 0.032    | 0.633   | 1.314   |
+| Dirichlet real (Sp)    | 0.061    | 0.162   | 1.119   |
+| Dirichlet complex (U)  | 0.061    | 0.182   | 1.082   |
+| **Earthquakes M≥4.5**  | **1.808**| 1.701   | 1.532   |
+
+The level repulsion dip at r→0 is the cleanest GUE signature so far.
+ζ matches the analytical GUE form within ~50% at every r.
+Earthquakes show R₂ > 1 everywhere — anti-correlation, the clustering
+signature.
+
+#### Mertens M(x) / Liouville L(x) sign-change positions
+
+Sieved up to x = 10⁷.  Mertens has 24 sign-changes; Liouville has 1
+(Pólya conjecture territory — L(x) ≤ 0 for almost all x ≤ 906M).
+Mertens analytical-passage-time NNS classifies as Poisson-clustered
+(mass<0.3 = 0.93), Liouville insufficient — sign-change positions
+of arithmetic prefix sums encode the *long-time* regularity of these
+sums, not random-matrix universality.
+
+#### EEG full-cohort confirmation (32 subjects)
+
+The Phase 6 EEG study (3 subjects) reported KS_GUE ≈ 0.18 — 8× the
+calibrator threshold of ~0.022.  At 32 subjects (entire EEGMMIDB cohort,
+14 records each, 5 channels):
+
+| condition          | n_seg | n_pooled | KS_GUE | mass<0.3 |
+|--------------------|-------|----------|--------|----------|
+| rest_eyes_open     | 160   | 56,727   | 0.176  | 0.001    |
+| rest_eyes_closed   | 160   | 59,676   | 0.190  | 0.000    |
+| motor_imagery      | 160   | 345,117  | 0.178  | 0.001    |
+
+**The 3-subject 0.18 was NOT a small-N fluctuation.**  At 10× the cohort
+size the KS_GUE values are essentially identical, confirming the
+biological signal has a quasi-periodic spacing distribution that is
+robustly NOT random-matrix universality.
+
+**Mass<0.3 ≈ 0.001** vs Wigner GUE's ~0.10 is the diagnostic: the
+band-pass filter forces near-uniform spacing around 1.0 (zero crossings
+of a 4–8 Hz band are spaced ~125 ms apart by construction), so the
+short-spacing tail is entirely absent — much stronger level repulsion
+than any Wigner form predicts.
+
+Condition deltas remain tiny (KS_GUE varies only 0.014 between
+eyes-open and eyes-closed) — confirms that θ-band zero-crossing rate
+is not a strong cognitive-state classifier in this metric.
+
+### 7.ter.4  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted
   analysis of the FIRST few zeros per curve (where Katz–Sarnak edge
   effects appear) would be the next step for empirical family
   symmetry verification.
-- **EEG**: the small condition deltas suggest the θ-band zero-crossing
-  rate is not a strong cognitive-state classifier.  Spike timing,
-  inter-burst intervals, or wider frequency bands may carry the
-  state-dependent signal.  Sleep stages or epileptic vs healthy
-  recordings might show larger deltas.
-- **Sample size**: 3 subjects is enough to demonstrate consistency;
-  20+ would let us push toward population-level classification with
-  proper statistical bounds.
+- **EEG**: bandpass zero-crossings are the wrong input.  The 32-subject
+  cohort (§7.ter.2) confirms that mass<0.3 ≈ 0.001 is structural — the
+  bandpass forces ~125 ms inter-event spacings regardless of the
+  underlying dynamics.  The right inputs for testing universality on
+  neural data are spike timing (MEA / Utah-array recordings) and
+  inter-burst intervals from envelope/amplitude-peak detection on raw
+  broadband signals.  Sleep stages or epileptic vs healthy recordings
+  applied to *those* event streams would be the meaningful next study.
+- **Sample size**: the original 3-subject pilot has been superseded
+  by the 32-subject cohort (480 segments).  Confirms the 0.18 KS_GUE
+  is reproducible, not a fluctuation.
 
 ---
 

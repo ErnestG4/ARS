@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+.venv/
+venv/
+
+# Synthesised chirp signals — large, regenerable from cached zero lists
+signals_cache/
+
+# External datasets — download separately, see README.md
+data/
+
+# Bulk PhysioNet / LMFDB downloads (multi-GB, fetched separately)
+physionet.org/
+*.zip
+lmfdb_ec_curvedata_*.txt
+odlyzko_zeros*.txt
+
+# Intermediate analysis artifacts (regenerable from scripts)
+*.pkl
+*.h5
+*.npy
+
+# Auto-generated figures (regenerable from scripts)
+plots/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

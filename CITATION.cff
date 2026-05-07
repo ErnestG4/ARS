@@ -1,0 +1,72 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite as below."
+title: "ARS — Arithmetic Resonance Spectrograph"
+abstract: >
+  A calibrated multi-scale random-matrix-theory readout for arbitrary time
+  series. Embeds a sequence into a chirp signal, runs a GPU-parallel bank
+  of Farey-rational phase-locked loops against it, and extracts passage-time
+  spacings that are unfolded and compared against random matrix theory
+  predictions (Wigner GOE / GUE / Poisson). Validated against the Riemann
+  ζ zeros and the Katz–Sarnak family symmetry of elliptic curve L-functions.
+authors:
+  - name: combust
+    email: combust@thespot.chat
+version: "0.1"
+date-released: 2026-05-07
+license: AGPL-3.0-or-later
+keywords:
+  - random matrix theory
+  - Riemann zeta function
+  - L-functions
+  - Katz-Sarnak
+  - phase-locked loop
+  - Farey sequence
+  - level statistics
+  - GUE
+  - quantum chaos
+
+references:
+  - type: article
+    authors:
+      - family-names: Wigner
+        given-names: E.
+    title: "Statistical properties of real symmetric matrices with many dimensions"
+    journal: "Canadian Mathematical Congress Proceedings"
+    year: 1957
+  - type: article
+    authors:
+      - family-names: Montgomery
+        given-names: H.
+    title: "The pair correlation of zeros of the zeta function"
+    journal: "Analytic Number Theory, Proc. Sympos. Pure Math."
+    year: 1973
+  - type: article
+    authors:
+      - family-names: Odlyzko
+        given-names: A. M.
+    title: "On the distribution of spacings between zeros of the zeta function"
+    journal: "Math. Comp."
+    volume: 48
+    year: 1989
+  - type: book
+    authors:
+      - family-names: Katz
+        given-names: N. M.
+      - family-names: Sarnak
+        given-names: P.
+    title: "Random Matrices, Frobenius Eigenvalues, and Monodromy"
+    publisher:
+      name: "American Mathematical Society"
+    year: 1999
+  - type: article
+    authors:
+      - family-names: Clauset
+        given-names: A.
+      - family-names: Shalizi
+        given-names: C. R.
+      - family-names: Newman
+        given-names: M. E. J.
+    title: "Power-law distributions in empirical data"
+    journal: "SIAM Review"
+    volume: 51
+    year: 2009
