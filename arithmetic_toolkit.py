@@ -295,6 +295,82 @@ def padic_per_band(t_k: np.ndarray,
                 filter_mode='pure_power_per_band')
 
 
+def padic_amplitude_v4(t_k: np.ndarray,
+                        primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
+                        q_max: int = 200,
+                        n_bins: int | None = None) -> dict:
+    """
+    p-adic amplitude profile via Ramanujan-Fourier decomposition (v4).
+
+    Reuses the validated v2 RF engine (normalize=False — indicator
+    function on integer time bins of raw t_k) to compute |a_q| for
+    q = 1..q_max.  For each prime p, sums |a_q| over q ∈ {p, p², p³, …}
+    and normalises by total RF power (excluding the q = 1 DC term).
+
+    Returns
+    -------
+    {
+      'per_prime':       {p: {amplitude, normalised, q_powers}},
+      'total_power':     float,
+      'q_max':           int,
+      'dominant_prime':  int     # arg-max of normalised amplitude
+    }
+
+    A peak at p means the signal has Ramanujan-Fourier power
+    concentrated at q's that are pure powers of p — i.e., genuine
+    p-adic resonance structure in the original event times.
+
+    Side-steps the band-invariance pathology of v1-v3 by *not* pooling
+    PLL passage NNS (which is invariant under linear time-scaling for
+    stationary signals).  Detection happens entirely in the RF spectrum.
+    """
+    rf = ramanujan_fourier(t_k, q_max=q_max, normalize=False, n_bins=n_bins)
+    amps = rf.get('amplitudes')
+    if not amps:
+        return dict(error='RF returned no spectrum',
+                    per_prime={}, total_power=0.0, dominant_prime=0)
+    amps = np.asarray(amps, dtype=np.float64)   # |a_q| for q = 1..q_max
+    total_power = float(np.sum(amps[1:])) + 1e-12   # exclude DC
+
+    # Mean RF amplitude across all q ≥ 2 — the "noise floor" reference.
+    mean_amp_all = float(np.mean(amps[1:])) + 1e-12
+
+    out: dict[int, dict] = {}
+    dom_sum = (None, -1.0)
+    dom_per_q = (None, -1.0)
+    for p in primes:
+        q_pows: list[int] = []
+        q_pow = p
+        while q_pow <= q_max:
+            q_pows.append(q_pow); q_pow *= p
+        if not q_pows:
+            out[int(p)] = dict(amplitude=0.0, normalised=0.0,
+                               normalised_per_q=0.0, q_powers=[])
+            continue
+        p_power = float(sum(amps[q - 1] for q in q_pows))
+        mean_p = p_power / len(q_pows)
+        normed_sum = p_power / total_power
+        # Per-q normalisation — divides out the "more bands → bigger sum"
+        # confound that biases v4-sum toward small primes (which have more
+        # pure-power bands ≤ q_max).  Compares mean per-band amplitude to
+        # the global mean noise floor.
+        normed_per_q = mean_p / mean_amp_all
+        out[int(p)] = dict(amplitude=p_power, normalised=normed_sum,
+                           normalised_per_q=normed_per_q,
+                           mean_amplitude=mean_p,
+                           q_powers=q_pows)
+        if normed_sum > dom_sum[1]:
+            dom_sum = (int(p), normed_sum)
+        if normed_per_q > dom_per_q[1]:
+            dom_per_q = (int(p), normed_per_q)
+    return dict(per_prime=out, total_power=total_power,
+                mean_amplitude=mean_amp_all,
+                q_max=q_max,
+                rf_n_bins=rf.get('n_bins'),
+                dominant_prime=int(dom_sum[0]) if dom_sum[0] is not None else 0,
+                dominant_prime_per_q=int(dom_per_q[0]) if dom_per_q[0] is not None else 0)
+
+
 def padic_profile(t_k: np.ndarray, primes: Sequence[int] = (2, 3, 5, 7, 11, 13),
                   q_max: int = 8, fc_ref: float = 1.0,
                   pure_power: bool = False) -> dict:
@@ -540,6 +616,7 @@ def full_analysis(t_k, label: str = '', fc_ref: float = 1.0,
 
 
 __all__ = ['ramanujan_fourier', 'padic_profile', 'padic_per_band',
+           'padic_amplitude_v4',
            'fano_curve', 'pair_correlation_full', 'sb_directional_split',
            'full_analysis', 'ramanujan_sum_array',
            'euler_phi', 'mobius']
