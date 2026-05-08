@@ -183,6 +183,20 @@ ARS provides a complementary empirical approach: the Farey PLL bank as a
 measurement instrument applied to external signals rather than as an oscillator
 whose noise is being analyzed.
 
+ARS was developed independently of Planat's published work; the author had no 
+prior exposure to it. Convergence on the Farey-rational-PLL framework as an 
+arithmetic instrument arose through extended collaboration with Claude 
+(Anthropic), whose training corpus includes Planat's papers from 2002 onward. 
+Reading those papers after the fact (correspondence with M. Planat, May 2026) 
+confirmed that the analytical scaffolding ARS rests on — phase-locking as a 
+number-theoretic phenomenon, Ramanujan-Fourier analysis of arithmetical 
+signals, the connection of Farey rationals to ζ — was developed by Planat and 
+collaborators over the preceding two decades. We cite his work as the 
+originating analytical framework. ARS is the empirical-instrument 
+complement: it does not derive from those papers in the conventional 
+read-then-build sense, but it would not exist in its current form without 
+them, transmitted through the training data of a language model.
+
 ---
 
 ## License

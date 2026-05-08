@@ -2354,7 +2354,91 @@ Outputs: `data/phase13_calibrators.json`, `plots/40_phase13_calibrators.png`,
 `run_phase13_calibrators.py` (v1, standard sweep),
 `run_phase13_calibrators_v2.py` (extension with uniform-jitter family).
 
-### 7.ter.20  Caveats and follow-ups
+### 7.ter.20  Phase 13 Tier 3A — Layer-depth sweep: the fingerprint is set at layer 0
+
+`run_phase13_layer_sweep.py` runs Qwen 2.5 3B fp16 forward on the
+natural stimulus with `output_hidden_states=True`, then for each of
+the 37 hidden states (embedding output + 36 decoder layers) extracts
+residual-norm peaks via `scipy.signal.find_peaks(prominence=0.3)` and
+runs `full_analysis` on the peak-position point process.
+
+Diagnostic prediction (from the §7.ter.19 reinterpretation):
+  - if the near-uniform peak structure is **present at layer 0**, it is
+    an extraction-pipeline-on-token-rhythm artifact — set by the
+    natural autocorrelation of the embedding-norm signal, not by any
+    decoder computation;
+  - if it **emerges with depth**, it is computation-driven and we'd
+    expect a sharp transition at a specific layer.
+
+#### Result
+
+| layer | n_ev | best | KS_GUE | mass<0.3 | F(T=5) | rep_int | mean_norm |
+|-------|------|------|--------|----------|--------|---------|-----------|
+| 0 (emb) | 40   | GOE  | 0.226  | 0.026    | 0.555  | **0.900** | 1.06     |
+| 1       | 121  | GUE  | 0.186  | 0.000    | 0.133  | **0.900** | 20.67    |
+| 6       | 124  | GUE  | 0.203  | 0.000    | 0.289  | **0.900** | 35.72    |
+| 12      | 123  | GUE  | 0.183  | 0.000    | 0.183  | **0.900** | 60.41    |
+| 18      | 109  | GUE  | 0.174  | 0.000    | 0.248  | **0.900** | 71.67    |
+| 24      | 110  | GUE  | 0.177  | 0.000    | 0.270  | **0.900** | 83.63    |
+| 30      | 123  | GUE  | 0.189  | 0.000    | 0.233  | **0.900** | 152.63   |
+| 36 (last) | 122 | GUE | 0.197  | 0.000    | 0.117  | **0.900** | 159.37   |
+
+(All 37 layers shown in `data/phase13_layer_sweep.json`.)
+
+**rep_int = 0.900 in every layer including layer 0** (embedding output,
+before any decoder block has run).  mass<0.3 = 0 at every layer 1–36
+(layer 0 has 0.026 — slightly above zero because the embedding-norm
+signal varies less and peak detection picks up fewer events at the
+prominence threshold).  KS_GUE bounces in 0.16–0.22 with no trend
+in layer index.  F(T=5) varies layer-to-layer but stays sub-Poisson.
+
+The mean residual norm grows monotonically through the stack
+(1.06 → 159 from layer 0 to layer 36), confirming that the residual
+stream does accumulate representational magnitude — that part of the
+Phase 10/11 picture is correct.  But the **fingerprint shape of the
+peak-position point process is stable from layer 0 onward**.
+
+#### Diagnostic verdict
+
+Per the prediction in §7.ter.19: the near-uniform peak structure is
+**present at every layer including the pre-decoder embedding output**.
+This rules out the "computation-driven internal dynamics"
+interpretation.
+
+**Conclusion**:
+
+> The "level repulsion" fingerprint of LLM residual-norm peaks
+> reported in Phase 10/11 is an artifact of `scipy.signal.find_peaks`
+> with prominence threshold 0.3 operating on a 1D signal whose
+> natural autocorrelation rhythm is set by the embedding lookup, not
+> by any random-matrix-like internal dynamics.  The decoder layers
+> preserve this rhythm but do not generate it.  Architecturally
+> invariant because the rhythm is a property of natural-language
+> tokenization × prominence-thresholded peak detection, not of the
+> trained transformer weights.
+
+#### What this means for the Phase 12 Planat result
+
+The Phase 12 perturbation sweep showed KS_GUE dropping from 0.243
+(uninterrupted) to 0.186 (r=4 splices/2k tokens) with rep_int = 0.900
+held constant.  Under the layer-0 finding, that's a small
+shape-shift in *which uniform-jitter neighbour the fingerprint sits
+near*, not a change in universality class.  It does not represent
+the LLM's internal dynamics moving toward a Wigner shape; it
+represents the splice tokens re-modulating the residual-norm signal's
+autocorrelation slightly.  The Planat-2026-prediction reading should
+not survive this finding.
+
+#### Files
+
+`data/phase13_layer_sweep.json`, `plots/41_phase13_layer_sweep.png`,
+`run_phase13_layer_sweep.py`.  Tier 3B (MLP-vs-attention sublayer)
+and Tier 3C (base-vs-instruct) are now expected to confirm the same
+layer-0 pattern at finer granularity; running them would be redundant
+unless we want to localise the rhythm-source within the embedding
+layer.
+
+### 7.ter.21  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted
