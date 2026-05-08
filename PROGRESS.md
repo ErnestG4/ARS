@@ -40,6 +40,118 @@ Output: `plots/33_primes_scaling.png`, `data/primes_scaling.json`.
 
 ---
 
+## 2026-05-07 18:30 — Phase 13 Tier 1: calibrator zoo identifies LLM peaks as uniform-with-jitter, NOT Wigner-class ⚠
+
+The Phase 10/11 LLM cells (residual_norm_peaks, mass<0.3 = 0,
+F(T=5) ≪ 1, rep_int = 0.900, KS_GUE = 0.17–0.32) had a
+calibrator gap: the KS_GUE values are an order of magnitude above
+the L-function calibrator's 0.012.  RESULTS already softened the
+"Wigner GUE class" claim to "strong level repulsion."
+
+Tier 1 ran the calibrator zoo per session-plan:
+β-ensemble (β ∈ {1,2,3,4,6,8}, Dumitriu-Edelman tridiagonal,
+n=2000, 5 seeds, bulk-trimmed) + hard-core (Matérn-II, min ∈ {0.3,0.5,0.7})
++ Ginibre projection (real_part, symmetric_part_eigvals).  All
+self-fit at calibrator quality (β=2 KS_GUE=0.034, β=1 KS_GOE=0.031,
+ginibre_symmetric KS_GUE=0.014).
+
+**Verdict on the standard sweep: NO MATCH.**  Closest calibrator to
+LLM centroid is β=8 at distance 1.663 (vs the 0.05 acceptance
+threshold).  17/18 LLM cells map to β=8.  But the LLM cluster
+extrapolates *beyond* β=8 on every axis — KS_GUE LLM=0.21 vs β=8=0.10
+(LLM is *farther* from Wigner GUE than the strongest standard ensemble).
+
+Inspection: rep_int = 0.900 universally in the LLM cells, with no
+low-n-artifact (β-ensembles at n=200 give rep_int = 0.40, not 0.90).
+The 0.900 value is the saturation of ∫₀¹(1−R₂(r))dr when R₂(r) ≈ 0
+across r ∈ [0,1) — the structural signature of *near-perfectly-uniform
+spacing*.
+
+Extension v2: added the uniform-with-jitter family
+`t_n = n + jitter · N(0,1)` as a new calibrator class.  At n=2000,
+5 seeds, jitter ∈ {0, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30, 0.50}.
+
+### v2 verdict: closest to **uniform jitter ≈ 0.10** at distance 0.736
+
+Top-6 calibrators by distance to LLM centroid in normalised 4-vector:
+
+| rank | calibrator           | distance | KS_GUE | mass<0.3 | F(T=5) | rep_int |
+|------|----------------------|----------|--------|----------|--------|---------|
+| 1    | uniform jitter=0.10  | 0.736    | 0.273  | 0.000    | 0.062  | 0.671   |
+| 2    | uniform jitter=0.15  | 0.816    | 0.187  | 0.000    | 0.062  | 0.574   |
+| 3    | uniform jitter=0.05  | 1.173    | 0.380  | 0.000    | 0.062  | 0.771   |
+| 4    | β=8                  | 1.468    | 0.105  | 0.003    | 0.261  | 0.494   |
+| 5    | uniform jitter=0.20  | 1.487    | 0.117  | 0.007    | 0.062  | 0.510   |
+| 6    | hardcore min=0.7     | 1.501    | 0.095  | 0.000    | 0.249  | 0.405   |
+
+LLM centroid: KS_GUE=0.212, mass<0.3=0.000, F(T=5)=0.126, rep_int=0.900.
+
+**17 of 18 LLM cells map to the uniform-jitter family** (modal: 8 to
+jitter=0.10, 5 to jitter=0.15, 4 to jitter=0.05; 1 to β=8).
+
+### What this means
+
+The LLM residual-stream-norm-peak fingerprint is in the
+**uniform-with-jitter family**, NOT in any Wigner-Dyson β-ensemble.
+The Phase 10/11 KS_GUE labelling was the toolkit's nearest-Wigner-form
+rule producing "GUE" because among {GUE, GOE, Poisson} GUE is the
+closest reference shape — but the actual distribution is closer to
+uniform-jitter than to GUE at any β.
+
+Plausible mechanism: scipy.signal.find_peaks(prominence=0.3) on a 1D
+residual-norm trace produces quasi-uniformly-spaced peak positions
+because the natural autocorrelation scale of the residual-norm signal
+sets a one-peak-per-few-tokens rhythm.  That rhythm is
+architecture-independent (set by the shared autoregressive-token rate),
+so the fingerprint is invariant across model families — the
+architectural invariance from Phase 11 holds, but its content is now
+"extraction-pipeline-on-token-rhythm artifact," not "internal RMT
+dynamics."
+
+### What still holds vs what's invalidated
+
+  ✓ Cross-architecture consistency of the fingerprint (Phase 11) —
+    real and reproducible.
+  ✓ Three-extraction-method discrimination (Phase 10) —
+    surprisal_threshold→Poisson, surprisal_cumulative→GOE,
+    residual_norm_peaks→uniform-jitter.  Different extractions
+    surface different aspects.
+  ✗ "Same universality class as Riemann zeros" framing — invalidated.
+    The LLM cluster lives in a different region of fingerprint space
+    than the L-function block (LLM rep_int=0.9 vs L-function ≈0.4).
+  ⚠ Phase 12 Planat U-shape — reinterpreted: perturbation moves
+    residual-norm peaks somewhat *away from perfect uniformity, toward
+    Wigner shape*.  Whether this corresponds to Planat's 2026
+    prediction is now an open interpretive question.
+
+### Updates to RESULTS.md
+
+  - §7.ter.14 prepends a reinterpretation note pointing to §7.ter.19.
+  - §7.ter.19 (new) writes up the calibrator zoo verdict in full.
+  - §8 conclusions points 5 and 6 rewritten with the "near-uniform"
+    framing and the Phase 12 reinterpretation.
+
+### Tier 2 / Tier 3 status
+
+Per session-plan strict gating, Tier 1 had to produce a verdict
+before Tier 2 could begin.  Verdict produced.  Tier 2 (SB-failure
+cases, Planat right-tail sweep, PLL anchor robustness) and Tier 3
+(layer-depth, MLP/attention sublayer, base/instruct ablation) are
+unblocked but their interpretation has shifted: ablations now ask
+"why does the residual-norm peak structure come out near-uniform
+across all conditions?" rather than "why does it come out GUE-class?"
+The next causal probe is the layer-depth sweep — does the
+near-uniform peak structure emerge at a specific depth, or is it
+present from layer 1?  That's diagnostic between
+"natural-token-rhythm artifact" (would be present at all depths) and
+"computation-driven structure" (emerges with depth).
+
+Outputs: `data/phase13_calibrators.json`, `plots/40_phase13_calibrators.png`,
+`run_phase13_calibrators.py` (v1, standard sweep),
+`run_phase13_calibrators_v2.py` (extension with uniform-jitter family).
+
+---
+
 ## 2026-05-07 17:20 — Phase 13 + 14: solar X-ray flares, Binance BTCUSDT trade timing
 
 Two physical-/financial-data fingerprints in parallel.

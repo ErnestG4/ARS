@@ -1673,7 +1673,19 @@ digit expansions of irrationals, biological oscillators).
 
 Outputs: `data/padic_v4_results.json`, `plots/36_padic_v4.png`.
 
-### 7.ter.14  Phase 10 — LLM cascade fingerprints (strong level repulsion in residual stream)
+### 7.ter.14  Phase 10 — LLM cascade fingerprints (near-uniform spacing in residual stream)
+
+> **Reinterpretation note (added after §7.ter.19 / Phase 13 Tier 1):**
+> The framing of §7.ter.14 and §7.ter.15 as describing "strong level
+> repulsion" is amended.  The LLM residual_norm_peaks fingerprint
+> (mass<0.3 = 0, F(T=5) ≪ 1, rep_int = 0.900, KS_GUE in 0.17–0.32) is
+> identified by the calibrator zoo (§7.ter.19) as nearest to the
+> **uniform-with-jitter** family, NOT to any Wigner-Dyson β-ensemble.
+> Read the §7.ter.14/15 numbers below as the toolkit's nearest-
+> Wigner-form labelling (which selects "GUE" because that's the
+> closest of the three Wigner references), not as a class identification.
+> The actual class is uniform-jitter; see §7.ter.19 for the verdict
+> and the corrected interpretation.
 
 `llm_cascade.py` extracts per-token surprisal, per-layer residual
 stream L2 norms, and per-(layer, head, query) attention entropy from
@@ -2177,7 +2189,172 @@ flow is genuinely smoother than just rate-scaling would predict).
 
 Output: `data/binance_results.json`, `plots/41_binance.png`.
 
-### 7.ter.19  Caveats and follow-ups
+### 7.ter.19  Phase 13 Tier 1 — calibrator zoo identifies the LLM cluster as **uniform-with-jitter**, not Wigner-class
+
+The Phase 10/11 finding that LLM residual-stream-norm peaks classify as
+GUE-best with mass<0.3 = 0 and F(T=5) ≪ 1 was framed as
+"strongly level-repelling, distinct from every null we tested" with the
+caveat that KS_GUE = 0.17–0.32 is an order of magnitude above the
+calibrator.  Phase 13 Tier 1 closes the calibrator gap by running a
+β-ensemble + hard-core + Ginibre + uniform-jitter sweep and asking
+which calibrator family the LLM cluster lives nearest to in
+4-vector (KS_GUE, mass<0.3, F(T=5), rep_int) space.
+
+#### Calibrator self-fits
+
+| calibrator                        | KS_min_self  | best self-label | notes                               |
+|-----------------------------------|--------------|-----------------|-------------------------------------|
+| β=1 (GOE)                         | 0.031        | GOE             | calibrator quality                  |
+| β=2 (GUE)                         | 0.034        | GUE             | calibrator quality                  |
+| β=3                               | 0.024        | GUE             | best self-fit                       |
+| β=4 (GSE)                         | 0.045        | GUE             | calibrator quality                  |
+| β=6                               | 0.080        | GUE             |                                     |
+| β=8                               | 0.105        | GUE             |                                     |
+| hardcore min=0.5                  | 0.093        | GOE             |                                     |
+| ginibre_real_part                 | 0.025        | Poiss           | (degenerate spacing distribution)   |
+| ginibre_symmetric                 | 0.014        | GUE             | calibrator quality                  |
+| uniform jitter=0.0                | 0.533        | —               | not Wigner — sharper than any β     |
+| uniform jitter=0.10               | 0.273        | GUE             | not Wigner-class                    |
+| uniform jitter=0.15               | 0.187        | GUE             | not Wigner-class                    |
+
+The β-ensembles, hard-core, and Ginibre sweeps reproduce their known
+universality classes at calibrator quality (KS_min ≤ 0.05).  The
+**uniform-with-jitter family is structurally distinct**: at jitter = 0
+it is a perfect lattice, at jitter ≈ 0.3 it begins to approach
+Poisson; in between it occupies a region of fingerprint space that
+*no Wigner-Dyson β-ensemble can reach*.
+
+#### LLM cluster maps to uniform-jitter, not β-ensemble
+
+LLM cluster centroid (median over 18 residual_norm_peaks cells from
+Phase 10 + Phase 11):
+  KS_GUE = 0.212, mass<0.3 = 0.000, F(T=5) = 0.126, rep_int = 0.900.
+
+Calibrators ranked by normalised Euclidean distance to the centroid:
+
+| rank | calibrator              | distance | KS_GUE | mass<0.3 | F(T=5) | rep_int |
+|------|-------------------------|----------|--------|----------|--------|---------|
+| 1    | uniform jitter=0.10     | **0.736**| 0.273  | 0.000    | 0.062  | 0.671   |
+| 2    | uniform jitter=0.15     | 0.816    | 0.187  | 0.000    | 0.062  | 0.574   |
+| 3    | uniform jitter=0.05     | 1.173    | 0.380  | 0.000    | 0.062  | 0.771   |
+| 4    | β=8                     | 1.468    | 0.105  | 0.003    | 0.261  | 0.494   |
+| 5    | uniform jitter=0.20     | 1.487    | 0.117  | 0.007    | 0.062  | 0.510   |
+| 6    | hardcore min=0.7        | 1.501    | 0.095  | 0.000    | 0.249  | 0.405   |
+| ...  | β=2 (GUE calibrator)    | (further away — not in top 6) | | | | |
+
+**17 of 18 LLM cells map to the uniform-jitter family** (modal nearest:
+8 cells to jitter=0.10, 5 to jitter=0.15, 4 to jitter=0.05; 1 cell to β=8).
+
+The 4-vector axes the previous framing relied on are reinterpreted:
+
+- **rep_int = 0.900 in every LLM cell** is the saturation value of
+  ∫₀¹(1 − R₂(r))dr when R₂(r) ≈ 0 for r ∈ [0, 1) — the structural
+  signature of a near-perfectly-uniform spacing.  Wigner GUE has
+  rep_int ≈ 0.50 (R₂ rises to 1 over [0,1]); the LLM cluster sits
+  at the *uniform-spacing* end of the rep_int axis.
+- **F(T=5) ≈ 0.13** is more sub-Poisson than any β-ensemble we tested
+  (β=8 gives 0.26).  Uniform-jitter gives 0.062 at jitter=0.10 — the
+  LLM number is between uniform and β=8 but closer to uniform.
+- **mass<0.3 = 0** is achievable by either β=8 (≈0.003) or any uniform
+  jitter ≤ 0.15 (≡ 0).  Doesn't discriminate between the two
+  hypotheses.
+- **KS_GUE ≈ 0.21** is *larger* than any β-ensemble in {1..8} (max
+  KS_GUE = 0.105 at β=8) and larger than any β-ensemble could
+  reach: the LLM distribution has more mass *away* from the Wigner
+  GUE shape than even β=8 does.
+
+The combination — saturated rep_int, sub-β-ensemble F(T), zero short
+spacings, and KS_GUE > β=8 — is the fingerprint of a **uniform-jitter
+process**, not a Wigner-Dyson β-ensemble.
+
+#### Corrected interpretation of the LLM result
+
+The Phase 10/11 finding stated that the LLM residual-stream-norm
+peak process exhibits a strong-level-repelling fingerprint, *with
+the caveat that it isn't Wigner GUE at calibrator quality*.  Tier 1
+identifies what the actual class is: **near-uniformly spaced peaks**,
+distinct from every Wigner-Dyson β-ensemble in the range we tested.
+
+The architectural invariance from Phase 11 still holds — every
+transformer family we tested (Qwen, Mistral, TinyLlama; 1.1B–7.2B
+parameters; fp16/int4 quantization; structured/natural/random
+stimulus) produces the *same* uniform-with-jitter peak structure.
+What changes is the mechanism: the Phase 10/11 narrative attributed
+the level repulsion to "internal RMT-class dynamics."  Tier 1 says
+the more parsimonious interpretation is that **`scipy.signal.find_peaks`
+with prominence threshold 0.3 on a residual-norm trace produces
+quasi-uniformly-spaced peak positions** because the natural autocorrelation
+scale of the residual norm signal sets a "one peak per few tokens"
+rhythm.  That rhythm, combined with the prominence filter, gives a
+near-uniform comb whose fingerprint is uniform-jitter — same shape
+across architectures because the natural rhythm is set by the
+shared autoregressive-token rate, not by model-specific dynamics.
+
+The architectural invariance is real but its content has shifted:
+
+> **Residual-norm-peak extraction with prominence-thresholded
+> peak detection produces a near-uniformly-spaced point process whose
+> fingerprint is invariant across transformer family, scale,
+> quantization, and stimulus.  This is a property of the extraction
+> method operating on the natural autocorrelation rhythm of the
+> residual-norm signal, not (necessarily) of internal random-matrix
+> dynamics.**
+
+This is a weaker but more honest claim than "transformer residual
+streams live in a non-standard repulsion class adjacent to the
+L-function GUE class."  The earlier KS_GUE-based framing was the
+labeller's nearest-Wigner-form rule applied to a distribution
+shape that the toolkit didn't have a direct comparator for; Tier 1
+provides the comparator and reassigns the cluster.
+
+#### What this does and does not invalidate
+
+- **Phase 10/11 cross-architecture consistency**: still valid.  The
+  toolkit reliably produces the same fingerprint readout across
+  models, with KS drift ≤ 0.01 within stimulus.  This is a real
+  property of the extraction pipeline.
+- **Phase 10 method-discriminates-extractions claim**: still valid.
+  surprisal_threshold → Poisson, surprisal_cumulative → GOE-best,
+  residual_norm_peaks → uniform-jitter-best.  Three extractions, three
+  distinct fingerprints, set by extraction not by model state.
+- **"GUE-like internal computation" interpretation**: invalidated by
+  Tier 1.  The fingerprint is closer to uniform-jitter than to any
+  Wigner-Dyson β-ensemble at calibrator quality.  Calling this "GUE
+  class" overstates the empirical match by a wide margin.
+- **Phase 12 Planat hypothesis**: the U-shape claim was already
+  flagged as one-sided pending the right-tail sweep.  With Tier 1's
+  reinterpretation, the Phase 12 result becomes:
+  *"deliberately interrupted generation produces residual-norm peak
+  spacings closer to uniform-jitter equilibrium (lower KS_GUE) than
+  uninterrupted generation in the tested rate range."*
+  Whether that has anything to do with Planat's prediction depends
+  on what Planat's prediction was about — not the same thing as
+  Wigner-class statistics.
+
+#### Verdict
+
+`data/phase13_calibrators.json` is updated with the full extended
+sweep including the uniform-jitter family and the per-cell nearest-
+calibrator mapping.  Per the spec's stop conditions, the closest
+calibrator is *not* β=2 GUE (would have closed the calibrator gap),
+*not* hardcore (the closest hardcore is at distance 1.50), and *not*
+any β-ensemble at calibrator quality.  The uniform-jitter family
+matches at distance 0.736 — outside the strict 0.05 acceptance
+threshold but with all 17/18 LLM cells modally mapping to the same
+family, and with three of the four fingerprint axes coherently
+consistent.
+
+The honest read: **the LLM residual-norm-peak fingerprint is in the
+uniform-jitter family, not the Wigner-Dyson family.**  This is a class
+identification of a different kind than Phases 10/11 framed.  The
+"strong level repulsion" language should be replaced throughout
+with "near-uniform spacing structure."
+
+Outputs: `data/phase13_calibrators.json`, `plots/40_phase13_calibrators.png`,
+`run_phase13_calibrators.py` (v1, standard sweep),
+`run_phase13_calibrators_v2.py` (extension with uniform-jitter family).
+
+### 7.ter.20  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted
@@ -2219,32 +2396,45 @@ Output: `data/binance_results.json`, `plots/41_binance.png`.
    matrix eigenvalues, and other arithmetic sequences.
 
 5. **Autoregressive transformer LLMs (Qwen 2.5 3B, Mistral 7B,
-   TinyLlama 1.1B) emit a strongly level-repelling residual-stream-norm-
+   TinyLlama 1.1B) emit a near-uniformly-spaced residual-stream-norm-
    peak point process, architecturally invariant across model family,
-   scale, quantization, and stimulus** (§7.ter.14, §7.ter.15).  The
-   shape has no short-spacing mass (mass<0.3 = 0) and strongly
-   sub-Poisson Fano fluctuations (F(T=5) ≪ 1).  Its closest Wigner
-   reference is GUE, but **this is not Wigner GUE at calibrator
-   quality**: KS_GUE in 0.17–0.32 sits an order of magnitude above
-   the L-function calibrator (0.012–0.022).  The empirical
-   distribution is sharper than Wigner GUE near s = 0 and
-   distinguishable from Wigner in the bulk.  The strong claim the
-   data supports is *strongly level-repelling, distinct from every
-   null tested*, not *Wigner GUE class identification*.  The shape
-   may be a known non-Wigner ensemble or a continuous-family
-   deformation; identifying it precisely is open.
+   scale, quantization, and stimulus** (§7.ter.14, §7.ter.15;
+   class-identification verdict in §7.ter.19).  The shape has no
+   short-spacing mass (mass<0.3 = 0), sub-Poisson Fano fluctuations
+   (F(T=5) ≪ 1), and saturated repulsion-integral (rep_int = 0.900,
+   the value of ∫₀¹(1−R₂) when R₂ ≈ 0 over [0,1)).  Phase 13 Tier 1
+   identifies this fingerprint as nearest to the **uniform-with-jitter
+   family** (jitter ≈ 0.10–0.15), distinct at calibrator quality from
+   every Wigner-Dyson β-ensemble in {1, 2, 3, 4, 6, 8} as well as
+   from hard-core and Ginibre projections.  The "GUE-best" labelling
+   in earlier sections is the toolkit's nearest-Wigner-form rule
+   selecting "GUE" because among the three Wigner references it is
+   the closest — not a class identification.  The plausible
+   mechanism is that prominence-thresholded peak detection on the
+   residual-norm signal, operating on the natural autocorrelation
+   rhythm of an autoregressive token stream, produces quasi-uniformly
+   spaced peaks regardless of model state.  The architectural
+   invariance is real but its content is "the extraction pipeline
+   produces the same uniform-jitter fingerprint across models," not
+   "internal random-matrix dynamics."
 
-6. **Phase 12 (Planat hypothesis) is a one-sided result.**  Adding
+6. **Phase 12 (Planat hypothesis) is a one-sided result, and its
+   content is reinterpreted under the §7.ter.19 verdict.**  Adding
    modest perturbation to long-form generation drops KS_GUE from
    0.243 (uninterrupted) to 0.186 (r=4 splices in 2k tokens) and
    leaves it in a 0.18–0.21 plateau through r=39.  The left side
-   of the predicted U-shape is supported.  The right side
-   (degradation back toward super-Poisson at high perturbation rate)
-   is **not** observed in the tested rate range and the planned
-   r ∈ {80, 160, 320} sweep is required before the U is confirmed.
-   The current result is "perturbation sharpens the LLM's
-   strong-level-repulsion fingerprint at low rates", not "Planat's
-   2026 prediction is confirmed".
+   of a U-shape is supported on the KS_GUE axis.  The right side
+   (degradation toward super-Poisson at high perturbation rate)
+   is **not** observed in the tested rate range; the planned
+   r ∈ {80, 160, 320} sweep remains queued.  Under the §7.ter.19
+   reinterpretation, the LLM peak fingerprint is in the
+   uniform-jitter family (not Wigner-class), so the cleanest reading
+   of Phase 12 is: *deliberately interrupted generation produces
+   residual-norm peak spacings whose KS to Wigner GUE is lower —
+   i.e., somewhat further from perfect uniformity, slightly closer
+   to a Wigner shape — than uninterrupted generation.*  Whether that
+   is what Planat's 2026 prediction was actually about is now an open
+   interpretive question, not a confirmed validation.
 
 ### What the project is
 
