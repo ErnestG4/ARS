@@ -2974,16 +2974,11 @@ is empirically refuted.  Two slot-based candidates were tested:
   primes show, indicating that the LLM-and-primes alignment is not a
   generic side-effect of slot-based extraction.
 
-**(C) Architecture-consistent at the CI level (4-architecture follow-up).**
-A cross-architecture σ̂ panel was added on the Phase 11 cached models,
-residual_norm_peaks extractor, NATURAL_TEXT stimulus.  Phi-3-mini-4k
-initially hit a `rope_scaling['type']` KeyError because the HF-cached
-remote modeling code is older than transformers 5.8 (which renamed
-the key to `rope_type`); the fix is loading Phi-3 with
-`trust_remote_code=False` so the in-tree `Phi3ForCausalLM` is used
-instead.  Synthetic uniform σ=0.10 and σ=0.15 controls passed
-(|err| ≤ 0.009) before the architecture sweep and again before the
-Phi-3 retry — estimator is stable across sessions.
+**(C) Cross-architecture σ̂ on residual_norm_peaks: same value at the
+CI level — but see (D) for the mechanism.**
+A 4-architecture σ̂ panel (Qwen 2.5 3B, Phi-3-mini-4k-instruct,
+TinyLlama 1.1B, Mistral 7B v0.1) under residual_norm_peaks +
+NATURAL_TEXT:
 
 | architecture            | σ̂      | 95 % CI         |
 |-------------------------|--------|-----------------|
@@ -2992,37 +2987,110 @@ Phi-3 retry — estimator is stable across sessions.
 | TinyLlama 1.1B          | 0.087  | [0.062, 0.112]  |
 | Mistral 7B v0.1         | 0.094  | [0.065, 0.131]  |
 
-Point-estimate spread (max − min) = 0.029, just above the ±0.02
-"tight invariance" threshold; the four CIs share a common overlap
-region of **[0.065, 0.090]** (width 0.025), so all four architectures
-are statistically compatible at α=0.05.  Three of four (Qwen, Phi-3,
-TinyLlama) fall fully inside the Tier 4 primes-LLM cluster region
-[0.04, 0.09]; Mistral's point estimate sits 0.004 above the upper
-edge of that region but its CI still covers it heavily.  Reading:
-**the σ̂ ≈ 0.05-0.09 region is not a Qwen-specific artifact — four
-distinct autoregressive-transformer architectures (Qwen, Phi, Llama,
-Mistral lineages) land at compatible σ̂ values, and all four CIs
-intersect the primes/twin-primes σ̂ band**.  The point-estimate spread
-(0.029) sits within the seed-noise CI width (≈ 0.05), consistent
-with architecture-invariance at the resolution this estimator gives.
-Notably, Phi-3 and TinyLlama returned the same point estimate
-σ̂ = 0.087 despite Phi-3 having ≈ 3.5× more parameters and a different
-attention/MLP block design — suggesting σ̂ at this resolution is
-insensitive to model-size and microarchitecture variation within the
-autoregressive-transformer class.
+Point-estimate spread (max − min) = 0.029.  All four CIs share a
+common overlap region of [0.065, 0.090].  Phi-3 and TinyLlama
+returned identical point estimates and identical CIs to three
+decimals.  An initial reading of this as "σ̂ insensitive to model
+size and microarchitecture variation" was over-reading what the
+metric does — the actual mechanism is documented in (D).
 
-The panel does not reach "tight invariance" (spread ≤ 0.02) and does
-not collapse to "spread > 0.05" — the honest read is **architecture-
-consistent at the CI level** with residual point-estimate variation
-that future runs at larger n could try to resolve.
+The honest read of (C) is therefore:
+**residual_norm_peaks σ̂ recovery is architecture-blind on integer-
+position event sets**.  This is a re-derivation of §7.ter.19's
+finding (the LLM's near-uniform rhythm is set by
+`find_peaks(prominence=0.3)` autocorrelation rather than by model
+dynamics) at higher metric resolution.  It does *not* establish
+architectural invariance of internal model structure — it confirms
+that the metric used here can't tell the architectures apart through
+this extractor, because the gap distribution downstream of
+`find_peaks` is dominated by the input-text autocorrelation × the
+prominence threshold rather than by which architecture produced the
+underlying 1D residual-norm trace.
 
-The Tier 4 finding (A) — primes / twin primes / LLM σ̂ CIs overlap
-in 0.04-0.09 — is therefore strengthened: the LLM CI on Qwen 2.5 3B
-already overlapped the primes CI, and this follow-up confirms σ̂
-recovery on Phi-3, TinyLlama, and Mistral hits the same CI-overlap
-region at the same resolution.  The "single-LLM caveat" is relaxed
-but not eliminated; broader claims (every transformer architecture,
-every quantization, every stimulus, every extractor) remain unverified.
+**(D) Metric-saturation diagnostic (added retroactively after the
+3-decimal Phi-3 / TinyLlama coincidence flagged the over-reading).**
+Direct inspection of `joint_q_profile` output across the four
+architectures shows that **`rep_int_q` is a near-scalar signal-level
+summary, not a q-resolved curve**.  Even on the calibrator's continuous
+synthetic uniform_jitter signals (σ=0.05, 0.10, 0.15, 0.20),
+`rep_int_q` has standard deviation across q≈30 of ≈ 0.0001 — the
+"q-curve" is essentially flat at the per-signal value.  This is a
+property of the metric (the pair-correlation repulsion integral over
+r ∈ [0, 1]) and is consistent with the calibrator's design: for any
+uniform-jitter-class signal, level repulsion is statistically
+homogeneous along the unfolded axis, so the integral is q-independent.
+
+For integer-position event sets — `find_peaks(prominence=0.3)` on a
+1D residual-norm trace produces such a set — the scalar saturates at
+specific values (0.7500 for Qwen, 0.7000 for Phi-3 and TinyLlama)
+that reflect the gap-distribution geometry, not the specific peak
+identities.  Phi-3 and TinyLlama have different events (Jaccard 0.16,
+n=133 vs 127) but the same *gap statistics* under
+`find_peaks(prominence=0.3)` on the same NATURAL_TEXT input → the same
+pair-correlation repulsion integral → the same `rep_int_q` to floating-
+point precision → the same σ̂ to floating-point precision.
+
+What σ̂ is actually doing in this regime: the recovery routine inverts
+the calibrator's anchor curve (rep_int_q anchor → σ anchor) to map a
+signal's `rep_int_q` to "where in the uniform-jitter calibrator family
+the signal sits in pair-correlation space".  This is a meaningful
+*calibrator-relative descriptor* but is **not** a recovery of an
+underlying continuous-σ generative parameter unless the signal is
+known to be uniform-jitter-class (e.g., the synthetic controls).
+
+Implications for the Tier 4 finding (A) (primes / twin primes / LLM
+σ̂ CIs overlap):
+- The numbers are correct as computed.  Primes (continuous, log-
+  unfolded) and the LLM peaks (integer-positioned) both produce
+  rep_int_q values that map through the calibrator to the same
+  σ̂ neighbourhood.  That is empirically true and worth reporting.
+- The *interpretation* "primes and LLMs occupy the same region of
+  BR_artifact at σ̂ resolution" is fine as a calibrator-relative
+  comparison but should not be read as "fitted continuous-σ parameters
+  of two underlying generative processes coincide".  Primes have a
+  continuous-σ readout because their unfolded positions are continuous;
+  the LLM peaks have a quantized-scalar readout because the events are
+  integer-valued.  The two values being close means their pair-
+  correlation rep integrals are close; whether that signals a deeper
+  structural correspondence between the prime and LLM signals or just
+  two different routes to the same scalar is open and probably
+  un-decidable from this metric alone.
+
+Implications for the Tier 4 finding (B) (slot-based candidates land
+at distinct σ̂ from primes/LLM):
+- `tokenization_rhythm` events are integer character positions →
+  same metric-saturation regime as the LLM.  Its σ̂ = 0.198 is a
+  calibrator-relative descriptor, not a continuous-σ parameter.  The
+  finding that tokenization_rhythm rep_int_q maps to a different
+  calibrator-region than LLM rep_int_q is still empirical and useful;
+  the claim that "BR_artifact is not the generic regime of slot-based
+  extraction" survives because the metric distinguishes the two.
+- `quantized_periodic` is integer base + Gaussian jitter (continuous);
+  its σ̂ = 0.100 is a continuous-σ readout that happens to recover the
+  built-in jitter parameter (truth = 0.10).  Its position relative to
+  LLM σ̂ is a meaningful between-class distance.
+
+Where the finding still holds, where it doesn't:
+- (A) primes-LLM neighbourhood: holds as a calibrator-relative
+  descriptor, weakened from "shared continuous-σ region" to "shared
+  pair-correlation rep-integral neighbourhood".
+- (B) slot-based candidates distinct from primes/LLM: holds.
+- (C) cross-architecture σ̂ similarity: re-interpreted as metric-
+  blindness (rederivation of §7.ter.19), not as architectural
+  invariance of model internals.
+- New methodological caveat: σ̂ recovery on integer-position event
+  sets should be read as a calibrator-relative descriptor, not as
+  parameter recovery.
+
+The σ̂ extractor × architecture matrix proposed for the next session
+should therefore include both integer-position and continuous-position
+extractors per architecture; if the integer-position extractors give
+the same σ̂ across architectures (predicted by (D)) and the continuous-
+position extractors give a non-trivial spread, that's the cleanest
+demonstration of the metric-saturation phenomenon and bounds what the
+σ̂ recovery is actually telling us about model internals.
+
+Diagnostic script: `diagnose_phase17_sigma_saturation.py` (text-only).
 
 #### Methodological summary
 
@@ -3049,28 +3117,31 @@ signals**:
   generic slot-based candidates land in a distinguishably wider σ
   region.
 
-The σ̂ similarity is statistically established at the CI level
-across four architectures (Qwen 2.5 3B, Phi-3-mini-4k-instruct,
-TinyLlama 1.1B, Mistral 7B v0.1) on the residual_norm_peaks
-extractor — all four CIs share a common region of [0.065, 0.090],
-and three of four sit fully inside the primes-LLM cluster region
-[0.04, 0.09].  Whether the same numeric σ̂ ≈ 0.05-0.09 has
-theoretical grounding, and whether the architecture-consistency
-tightens further on a wider panel or under a per-architecture seed-
-variance protocol, remain flagged as open questions.
+The σ̂ similarity across the four architectures (Qwen 2.5 3B,
+Phi-3-mini-4k-instruct, TinyLlama 1.1B, Mistral 7B v0.1) on
+residual_norm_peaks reflects metric saturation on integer-position
+event sets, not a model-intrinsic invariance — see findings (C) and
+(D).  The primes / twin primes / LLM σ̂ neighbourhood is real as a
+calibrator-relative descriptor but should not be over-read as
+"fitted continuous-σ parameters of three underlying generative
+processes coincide".  Whether the same calibrator-relative
+neighbourhood holds under continuous-position extractors (planned
+σ̂ extractor × architecture matrix) is the cleanest test of what
+the recovery is actually telling us about model internals.
 
 #### Open questions
 
-1. **Architecture invariance of σ̂ — confirmed at CI level across
-   four architectures.**  The 4-architecture panel (Qwen / Phi-3 /
-   TinyLlama / Mistral, residual_norm_peaks, natural stimulus)
-   returned σ̂ values that share a common CI overlap region of
-   [0.065, 0.090] with a point-estimate spread of 0.029 — consistent
-   with architecture-invariance at CI resolution but not yet at point-
-   estimate resolution.  Tightening would require larger n per
-   architecture, repeated seeds per architecture for a per-architecture
-   variance estimate, or architectures beyond the Phase 11 cached
-   panel (e.g., Llama 3.2 3B Instruct, Mistral v0.3, Gemma).
+1. **σ̂ recovery on integer-position event sets is a calibrator-
+   relative descriptor, not a continuous-σ parameter recovery.**
+   Documented at finding (D).  The cross-architecture similarity at
+   residual_norm_peaks (Qwen 0.065 / Phi-3 0.087 / TinyLlama 0.087 /
+   Mistral 0.094, three of four CIs identical to 3 decimals) is the
+   metric-saturation regime, not architectural invariance of model
+   internals.  Open: what does σ̂ recovery look like under
+   continuous-position extractors per architecture (slots-with-jitter,
+   surprisal_cumulative, layer-KL on continuous flow rather than
+   peak-detected events)?  The σ̂ extractor × architecture matrix
+   queued as the next session is the natural test.
 
 2. **Theoretical grounding of σ̂ ≈ 0.05-0.09 for primes.**  The
    Cramér model predicts primes asymptotically Poisson; the joint-
@@ -3120,6 +3191,7 @@ Outputs:
 `run_phase17_limits.py`, `run_phase17_real_signal_recovery.py`,
 `run_phase17_arch_invariance.py`, `run_phase17_arch_addon.py`,
 `run_phase17_arch_phi3_retry.py`,
+`diagnose_phase17_sigma_saturation.py`,
 `tests/test_bulk_recovery.py` (6 / 6 pass),
 `data/phase17_pure_recovery.parquet`,
 `data/phase17_mixed_recovery.parquet`,
