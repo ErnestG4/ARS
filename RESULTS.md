@@ -3092,6 +3092,112 @@ demonstration of the metric-saturation phenomenon and bounds what the
 
 Diagnostic script: `diagnose_phase17_sigma_saturation.py` (text-only).
 
+**(E) Extractor × architecture σ̂ matrix — direct test of (D).**
+The next-session matrix that finding (D) suggested was run as
+`run_phase17_extractor_arch_matrix.py` + Mistral-standalone addon,
+applying seven LLM extractors to four architectures (Qwen 2.5 3B,
+Phi-3-mini-4k-instruct, TinyLlama 1.1B, Mistral 7B v0.1) under a
+single forward pass per architecture.  Synthetic σ=0.10 / σ=0.15
+controls passed (|err| ≤ 0.009) before the sweep.
+
+| extractor                            | family       | Qwen   | Phi-3  | TinyLlama | Mistral | spread (valid cells) | verdict |
+|--------------------------------------|--------------|--------|--------|-----------|---------|----------------------|---------|
+| residual_norm_peaks                  | find_peaks   | 0.065  | 0.087  | 0.087     | 0.094   | 0.029                | nearly saturated |
+| attention_entropy_peaks              | find_peaks   | 0.166  | 0.169  | 0.154     | 0.171   | **0.017**            | **saturated** |
+| layer_kl_divergence_events           | threshold    | UP     | flag   | flag      | UP      | (no valid cells)     | calibrator out-of-domain everywhere |
+| attention_target_jumps               | by-construct | 0.087  | flag   | UP        | UP      | (1 valid cell)       | mostly invalid |
+| attention_sink_events                | by-construct | UP     | flag   | flag      | UP      | (no valid cells)     | calibrator out-of-domain everywhere |
+| attention_argmax_sink                | by-construct | 0.065  | 0.043  | 0.020     | 0.020   | 0.045                | intermediate (discrete snap) |
+| attention_multi_head_sink_consensus  | by-construct | 0.043  | 0.043  | 0.020     | 0.020   | 0.023                | intermediate (discrete snap) |
+
+Legend: `flag` = flagged out-of-domain (rep_int_q below the
+calibrator's σ=0.50 anchor at 0.384); `UP` = underpowered
+(n_events < 50 — extractor produced too few events for stable
+recovery).
+
+**Three findings from the matrix:**
+
+1. **find_peaks extractors saturate as predicted.**  Both
+   `residual_norm_peaks` (spread 0.029 across four archs) and
+   `attention_entropy_peaks` (spread 0.017) produce nearly identical
+   σ̂ across the four architectures.  This is the empirical signature
+   of metric-saturation finding (D): when the events come from
+   `find_peaks(prominence=0.3)` on a 1D model trace driven by
+   NATURAL_TEXT, the gap distribution is set by the input-text
+   autocorrelation × the prominence threshold, not by which
+   architecture produced the underlying trace.  The §7.ter.19
+   "find_peaks-is-doing-the-work" reading at joint-plane resolution
+   reproduces at σ̂ resolution.
+
+2. **By-construction extractors produce a discrete-snap σ̂ pattern,
+   not continuous architectural variation.**  Both `attention_argmax_sink`
+   and `attention_multi_head_sink_consensus` return σ̂ values drawn
+   from a small discrete set {0.020, 0.043, 0.065}, with rep_int_q
+   landing at exactly 0.85, 0.80, or 0.75 — the calibrator's anchor
+   spacing.  The architectural clustering that emerges (TinyLlama +
+   Mistral both at 0.020 / Qwen + Phi-3 at 0.043-0.065) is real but
+   reflects a *binary* split on whether each architecture's
+   sink-attention events have rep_int_q above or below ≈ 0.825, not
+   a continuous architectural fingerprint.  By-construction
+   extractors *do* discriminate architectures more than find_peaks
+   extractors do, but the recovery routine maps that discrimination
+   onto a small set of calibrator-anchor neighbourhoods rather than
+   onto a continuous-σ axis.  σ̂ in this regime is a coarse
+   architectural categorical, not a continuous parameter.
+
+3. **Three of seven extractors hit the calibrator's out-of-domain
+   boundary** (`layer_kl_divergence_events`, `attention_target_jumps`,
+   `attention_sink_events`): for the cells that produced enough
+   events, rep_int_q ≈ 0.34, just below the calibrator's σ=0.50
+   anchor at 0.384.  These extractors generate events too tightly
+   clustered — `layer_kl_divergence_events` triggers in tight bursts
+   within consecutive tokens, and the sink-event extractors trigger
+   on sink-mass plateaus that produce densely-spaced run-end events.
+   The recovery flags these correctly as out-of-domain (σ̂ pinned to
+   the σ=0.50 boundary).  Diagnostically informative — these events
+   are not in the BR_artifact regime — but doesn't yield comparable
+   σ̂ across architectures.
+
+**Implications for §7.ter.23 overall:**
+
+- (D) is empirically confirmed: σ̂ recovery on integer-position event
+  sets from find_peaks-style extraction is metric-blind to model
+  variation, with σ̂ values determined by the gap-distribution geometry
+  rather than model-specific structure.  The §7.ter.19 mechanism
+  reproduces at σ̂ resolution.
+
+- (C) ("cross-architecture σ̂ similarity") was correctly retracted
+  to "metric-blindness on integer-position events".  The matrix
+  shows this explicitly: changing the extraction mechanism while
+  keeping the architecture fixed changes σ̂ by 0.04-0.16 (residual_norm
+  0.087 vs entropy_peaks 0.169 vs argmax_sink 0.020 for TinyLlama),
+  while changing the architecture while keeping a find_peaks extractor
+  fixed changes σ̂ by ≤ 0.029.  σ̂ is far more sensitive to extractor
+  choice than to architecture.
+
+- The Tier 4 finding (A) (primes-LLM σ̂ overlap at 0.04-0.09) survives
+  as a calibrator-relative descriptor under a single fixed extractor
+  (residual_norm_peaks), but the matrix shows the σ̂ value depends
+  much more strongly on the extractor than on the architecture or
+  the domain.  Comparing primes (one specific extraction:
+  log-unfolded prime sequence) to the LLM (one specific extraction:
+  residual_norm_peaks) was always an extractor-conditional
+  comparison.  Other extractors on the LLM (entropy_peaks at 0.166,
+  argmax_sink at 0.020) put the LLM in entirely different calibrator-
+  region neighbourhoods.
+
+- Open: are there continuous-position extractors on LLM internal
+  state that would give a non-saturated σ̂ readout?  All seven
+  extractors here output discrete event positions on the integer
+  token grid.  A surprisal-cumulative threshold-passage extractor on
+  a continuous-time unfolding might be the natural next test.
+
+Outputs: `run_phase17_extractor_arch_matrix.py`,
+`run_phase17_mistral_addon.py`,
+`finalize_phase17_extractor_matrix.py`,
+`data/phase17_extractor_arch_sigma.parquet`,
+`plots/49d_phase17_extractor_arch_heatmap.png`.
+
 #### Methodological summary
 
 The joint plane localises class identity (Phase 15); the extractor
@@ -3192,6 +3298,9 @@ Outputs:
 `run_phase17_arch_invariance.py`, `run_phase17_arch_addon.py`,
 `run_phase17_arch_phi3_retry.py`,
 `diagnose_phase17_sigma_saturation.py`,
+`run_phase17_extractor_arch_matrix.py`,
+`run_phase17_mistral_addon.py`,
+`finalize_phase17_extractor_matrix.py`,
 `tests/test_bulk_recovery.py` (6 / 6 pass),
 `data/phase17_pure_recovery.parquet`,
 `data/phase17_mixed_recovery.parquet`,
@@ -3202,7 +3311,8 @@ Outputs:
 `plots/48_phase17_mixed_recovery.png`,
 `plots/49_phase17_recovery_curves.png`,
 `plots/49b_phase17_real_signal_sigma_distribution.png`,
-`plots/49c_phase17_arch_invariance.png`.
+`plots/49c_phase17_arch_invariance.png`,
+`plots/49d_phase17_extractor_arch_heatmap.png`.
 
 ### 7.ter.24  Caveats and follow-ups
 
