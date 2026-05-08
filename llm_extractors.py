@@ -109,6 +109,71 @@ def extract_attention_sink_events(cascade: dict, n_sink: int = 4,
     return upcross.astype(np.float64)
 
 
+def extract_attention_argmax_sink(cascade: dict, n_sink: int = 4,
+                                   layer: int = -1) -> np.ndarray:
+    """Events at token positions where argmax-attention target IS a sink
+    (BOS / system) token.  Categorical event detection — no continuous-
+    signal threshold, no autocorrelated trace.  Distinct from
+    threshold_crossing on continuous signals."""
+    if 'attentions' not in cascade or not cascade['attentions']:
+        return np.zeros(0)
+    a = cascade['attentions'][layer]
+    if a.ndim != 3 or a.shape[-1] <= n_sink:
+        return np.zeros(0)
+    a_mean = a.mean(axis=0)                    # [T, T] query × key
+    targets = a_mean.argmax(axis=1)            # [T]
+    is_sink = targets < n_sink
+    events = np.where(is_sink)[0]
+    return events.astype(np.float64)
+
+
+def extract_attention_sink_residency_runs(cascade: dict, n_sink: int = 4,
+                                           theta: float = 0.3,
+                                           min_run_length: int = 3,
+                                           layer: int = -1) -> np.ndarray:
+    """Events at the **start** of contiguous runs where attention mass
+    on sink tokens ≥ θ for ≥ min_run_length consecutive tokens.
+    Run-onset detection — duration-conditional, distinct from
+    point-threshold upcrossings."""
+    if 'attentions' not in cascade or not cascade['attentions']:
+        return np.zeros(0)
+    a = cascade['attentions'][layer]
+    if a.ndim != 3 or a.shape[-1] <= n_sink:
+        return np.zeros(0)
+    a_mean = a.mean(axis=0)
+    sink_mass = a_mean[:, :n_sink].sum(axis=1)
+    above = sink_mass >= theta
+    if above.sum() < min_run_length:
+        return np.zeros(0)
+    # Identify run boundaries
+    diff = np.diff(np.concatenate([[False], above, [False]]).astype(np.int8))
+    starts = np.where(diff == 1)[0]
+    ends   = np.where(diff == -1)[0]
+    long_runs = (ends - starts) >= min_run_length
+    return starts[long_runs].astype(np.float64)
+
+
+def extract_attention_multi_head_sink_consensus(cascade: dict,
+                                                  n_sink: int = 4,
+                                                  consensus_frac: float = 0.5,
+                                                  layer: int = -1) -> np.ndarray:
+    """Events at positions where ≥ ⌈H·consensus_frac⌉ of the H attention
+    heads concentrate argmax on sink tokens simultaneously.  Multi-head
+    consensus — operates on per-head distribution, not aggregated trace."""
+    if 'attentions' not in cascade or not cascade['attentions']:
+        return np.zeros(0)
+    a = cascade['attentions'][layer]            # [heads, T, T]
+    if a.ndim != 3 or a.shape[-1] <= n_sink:
+        return np.zeros(0)
+    H = a.shape[0]
+    M = int(np.ceil(consensus_frac * H))
+    targets = a.argmax(axis=2)                  # [heads, T]
+    sink_per_head = targets < n_sink            # [heads, T]
+    consensus_count = sink_per_head.sum(axis=0) # [T]
+    is_consensus = consensus_count >= M
+    return np.where(is_consensus)[0].astype(np.float64)
+
+
 def extract_layer_kl_divergence_events(cascade: dict, k: float = 1.0,
                                         window: int = 50) -> np.ndarray:
     """Events where summed KL divergence between consecutive layers'
@@ -140,11 +205,14 @@ def extract_layer_kl_divergence_events(cascade: dict, k: float = 1.0,
 # ─── Registry ────────────────────────────────────────────────────────────────
 
 LLM_EXTRACTORS = {
-    'residual_norm_peaks':       extract_residual_norm_peaks,
-    'attention_entropy_peaks':   extract_attention_entropy_peaks,
-    'attention_target_jumps':    extract_attention_target_jumps,
-    'attention_sink_events':     extract_attention_sink_events,
-    'layer_kl_divergence_events': extract_layer_kl_divergence_events,
+    'residual_norm_peaks':                   extract_residual_norm_peaks,
+    'attention_entropy_peaks':               extract_attention_entropy_peaks,
+    'attention_target_jumps':                extract_attention_target_jumps,
+    'attention_sink_events':                 extract_attention_sink_events,
+    'layer_kl_divergence_events':            extract_layer_kl_divergence_events,
+    'attention_argmax_sink':                 extract_attention_argmax_sink,
+    'attention_sink_residency_runs':         extract_attention_sink_residency_runs,
+    'attention_multi_head_sink_consensus':   extract_attention_multi_head_sink_consensus,
 }
 
 

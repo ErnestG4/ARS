@@ -2214,22 +2214,26 @@ Output: `data/binance_results.json`, `plots/41_binance.png`.
 
 ### 7.ter.19  Phase 10/11/12 reinterpretation — extraction-pipeline artifact
 
-> **Updated by §7.ter.22 (Phase 16A).**  The artifact reading below is
-> confirmed by four of five attention-based extractors in Phase 16A,
-> including two by-construction discrete-event extractors
-> (`attention_target_jumps`, `layer_kl_divergence_events`).  But a
-> fifth extractor (`attention_sink_events`) — also by-construction,
-> reading attention concentration on system / BOS tokens — does
-> classify the LLM as TR (Wigner-class) at calibrator-adjacent
-> quality.  The original §7.ter.19 closing claim that no
-> by-construction extractor produces a Wigner-class reading is
-> superseded.  The corrected reading: ARS reads LLM *attention-change*
-> dynamics as BR_artifact (consistent with the find_peaks mechanism),
-> but reads LLM *attention-state-occupancy* dynamics as Wigner-class.
-> Both are real properties of the network; the universality-class
-> question is extractor-conditional.  See §7.ter.22 for the Phase 16
-> invariance matrix and the principled-vs-induced framework that
-> resolves this.
+> **Updated by §7.ter.22 (Phase 16A) and amended again by Phase 16A.2.**
+> Phase 16A's Branch (iii) reading of "state-based extractor disagrees,
+> reads LLM as TR" is **retracted** by Phase 16A.2 (Verdict C): three
+> additional state-based extractors of distinct mechanisms
+> (`attention_argmax_sink`, `attention_sink_residency_runs`,
+> `attention_multi_head_sink_consensus`) all classify the LLM as
+> BR_artifact at strong KS values (KS_GUE = 0.51, 0.53; rep_int = 0.75,
+> 0.80) — or are underpowered.  The original `attention_sink_events`
+> TR reading was reading threshold *upcrossings* — a change event
+> masquerading as state-based.  Across **all 8 attention-based
+> extractors of every distinct mechanism we have tested** (residual-norm
+> peaks, attention-entropy peaks, target jumps, layer KL divergence,
+> upcrossings of sink mass, argmax-target sink, sustained-residency run
+> onsets, multi-head consensus on sink), the LLM internal-state
+> classification is **invariably BR_artifact** at the joint-plane
+> resolution.  The original artifact reading in this section
+> (find_peaks on residual-norm trace at layer 0) is confirmed and
+> generalised: nothing about how we extract events from a transformer
+> forward pass produces a Wigner-class reading.  See §7.ter.22 for the
+> full invariance matrix and the principled-vs-induced framework.
 
 **The Phase 10/11/12 LLM finding via residual-stream-norm peaks is an
 extraction-pipeline artifact, not a property of transformer internal
@@ -2564,6 +2568,32 @@ Outputs: `data/phase15_zeta_joint.parquet`,
 `plots/43_phase15_cross_signal_quadrants.png`.
 
 ### 7.ter.22  Phase 16 — Boundary-extractor invariance and the principled-vs-induced BR_artifact distinction
+
+> **Phase 16A.2 verdict (added after the original §7.ter.22 was written):**
+> The original §7.ter.22 reported a Branch (iii) "by-construction
+> extractors split" verdict for the LLM, with `attention_sink_events`
+> giving a TR reading and four other extractors giving BR_artifact.
+> Phase 16A.2 corroborated that result by adding three more state-based
+> extractors of distinct mechanisms (`attention_argmax_sink`,
+> `attention_sink_residency_runs`, `attention_multi_head_sink_consensus`).
+> Verdict: **C — original `attention_sink_events` TR reading was
+> extractor-induced artifact.**  Two of three new state-based extractors
+> classified the LLM as BR_artifact at strong KS values
+> (KS_GUE = 0.507 and 0.534, rep_int = 0.750 and 0.800); the third was
+> underpowered.  The original TR reading came from threshold *upcrossings*
+> of sink-mass — a change-event in disguise — while the new extractors
+> detect actual state occupancy (argmax IS in sink, multi-head consensus
+> on sink, sustained residency runs).  **The state-vs-change framing in
+> the rest of §7.ter.22 should be read with this correction: all
+> extractors of every distinct mechanism we have tested classify the LLM
+> as BR_artifact.**  No genuine state-based extractor produced a Wigner-
+> class reading.  The §7.ter.19 finding is strengthened:
+> LLM internal-state classification is robustly BR_artifact across every
+> extractor and every mechanism tested (5 change-based + 3 state-based +
+> 2 controls = 9/9 BR_artifact, with the 1 holdout retracted under
+> Phase 16A.2's 3-mechanism corroboration test).
+> See `data/phase16a2_state_matrix.parquet` and
+> `plots/46_phase16a2_state_extractors.png` for the corroboration data.
 
 Phase 15 identified BR_artifact as a distinct quadrant in the joint
 RF/NNS plane occupied by both the LLM residual-norm-peak fingerprint
