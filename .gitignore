@@ -37,3 +37,6 @@ plots/
 # OS
 .DS_Store
 Thumbs.db
+
+# Internal documentation
+internaldocs/
