@@ -187,6 +187,8 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/42_phase15_joint_scatter.png             (152,220 bytes)
   plots/42b_phase15_median_trajectories.png      (94,471 bytes)
   plots/43_phase15_cross_signal_quadrants.png    (71,917 bytes)
+  plots/44_phase16_invariance_heatmap.png        (80,945 bytes)
+  plots/45_phase16a_attention_quadrants.png      (65,581 bytes)
 ```
 
 ## Pipeline state
