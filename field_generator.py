@@ -95,11 +95,20 @@ def generate(class_name: str, params: dict, n_events: int = 2000,
 
 
 def generate_mixed(component_specs: list[dict], n_events: int = 2000,
-                    seed: int = 0) -> np.ndarray:
+                    seed: int = 0,
+                    target_span: float = None) -> np.ndarray:
     """Generate a mixed-class field by superposing component point processes.
 
     `component_specs`: list of {'class': str, 'params': dict, 'weight': float}.
     Total events ≈ n_events; per-component count ∝ weight.
+
+    Each component is generated on its natural time scale, then *all
+    components* are rescaled together to share a common time span.
+    The natural time-scale relationships (e.g., a periodic-q=7 component
+    keeping its event-at-multiples-of-7 structure) are preserved relative
+    to one another.  Final t_k is sorted but **not** unit-mean-normalised,
+    so component-internal periodicities remain visible to RF on the
+    integer-bin indicator.
     """
     rng = np.random.default_rng(seed)
     streams = []
@@ -108,19 +117,26 @@ def generate_mixed(component_specs: list[dict], n_events: int = 2000,
     for i, c in enumerate(component_specs):
         n_c = int(round(n_events * weights[i]))
         if n_c < 5: continue
-        # use distinct seeds so streams are independent
         sub = generate(c['class'], c.get('params', {}),
                         n_events=n_c, seed=seed + 1000 * (i + 1))
-        # Rescale each stream to share a common time origin and unit-mean
-        if sub.size > 1:
-            sp = np.diff(sub); sp = sp[sp > 0]
-            if sp.size and sp.mean() > 0:
-                sub = sub / sp.mean()
         streams.append(sub)
     if not streams:
         return np.zeros(0)
-    pooled = np.sort(np.concatenate(streams))
-    # Ensure monotone strict (resolve ties)
+    # Find the longest natural time span across components and rescale
+    # each stream to that span (preserves relative time scales after
+    # placing all components on a common axis [0, span]).
+    if target_span is None:
+        target_span = max(float(s[-1] - s[0]) for s in streams if s.size > 1)
+    rescaled = []
+    for s in streams:
+        if s.size < 2: continue
+        natural_span = float(s[-1] - s[0])
+        if natural_span > 0:
+            # Map to [0, target_span] preserving internal structure
+            rescaled.append((s - s[0]) * (target_span / natural_span))
+        else:
+            rescaled.append(s)
+    pooled = np.sort(np.concatenate(rescaled))
     return np.maximum.accumulate(pooled + 1e-9 * np.arange(pooled.size))
 
 

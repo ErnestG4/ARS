@@ -255,8 +255,76 @@ def recover_uniform_jitter_sigma(jdf: pd.DataFrame,
     return sigma_hat, (max(0.0, float(lo)), float(hi)), flagged
 
 
+def recover_spectral_decomposition(jdf: pd.DataFrame,
+                                    rf_peak_factor: float = 4.0,
+                                    rep_int_low: float = 0.10,
+                                    rep_int_mid: float = 0.55) -> dict:
+    """Heuristic decomposition of a mixed-field joint_q_profile into
+    component class+parameter tuples.
+
+    Two sub-procedures:
+      1. Locate RF resonance peaks for periodic-component detection —
+         q values where |a_q| exceeds rf_peak_factor × the per-q median
+         (excluding q=1 DC) are flagged as periodic-component candidates.
+      2. Segment q into rep_int_q bands ([0, rep_int_low),
+         [rep_int_low, rep_int_mid), [rep_int_mid, ∞)) corresponding
+         to (Poisson-like, Wigner-like, BR_artifact-like).  For each
+         band, apply the Tier 1 estimator.
+
+    Returns
+    -------
+    dict with keys:
+      `rf_peaks`: list of {'q': int, 'amplitude': float, 'rel': float}
+      `bands`:    list of {'q_range': (q_lo, q_hi), 'class': str,
+                            'params': dict, 'fraction': float}
+      `n_components`: int (count of distinct components found)
+    """
+    well = jdf[~jdf['underpowered']].copy()
+    if len(well) < 5:
+        return dict(rf_peaks=[], bands=[], n_components=0,
+                     error='insufficient well-powered q')
+
+    # ─── RF peak detection (excluding q=1 DC) ──────────────────────────────
+    rf_q2 = well[well['q'] >= 2]
+    rf_med = float(rf_q2['rf_amplitude_q'].median())
+    rf_peaks_df = rf_q2[rf_q2['rf_amplitude_q'] > rf_peak_factor * rf_med]
+    rf_peaks = [
+        {'q': int(r['q']),
+          'amplitude': float(r['rf_amplitude_q']),
+          'rel_to_median': float(r['rf_amplitude_q'] / (rf_med + 1e-12))}
+        for _, r in rf_peaks_df.iterrows()
+    ]
+
+    # ─── rep_int_q band segmentation ───────────────────────────────────────
+    well = well.assign(_band=pd.cut(well['rep_int_q'],
+                                       bins=[-np.inf, rep_int_low,
+                                              rep_int_mid, np.inf],
+                                       labels=['poisson', 'wigner',
+                                                'br_artifact']))
+    bands = []
+    for label, sub in well.groupby('_band', observed=True):
+        if len(sub) < 3: continue
+        q_arr = sub['q'].to_numpy()
+        q_lo, q_hi = int(q_arr.min()), int(q_arr.max())
+        frac = len(sub) / len(well)
+        params = {}
+        if label == 'wigner':
+            beta_hat, _, _ = recover_wigner_beta(sub)
+            params = dict(beta_hat=beta_hat)
+        elif label == 'br_artifact':
+            sigma_hat, _, _ = recover_uniform_jitter_sigma(sub)
+            params = dict(sigma_hat=sigma_hat)
+        # Poisson band has no joint_q-recoverable params (rate from raw t_k)
+        bands.append(dict(q_range=(q_lo, q_hi), class_=str(label),
+                            params=params, fraction=float(frac)))
+
+    return dict(rf_peaks=rf_peaks, bands=bands,
+                 n_components=len(rf_peaks) + len(bands))
+
+
 __all__ = [
     'recover_poisson_rate', 'recover_wigner_beta',
     'recover_periodic_q', 'recover_periodic_jitter',
     'recover_uniform_jitter_sigma',
+    'recover_spectral_decomposition',
 ]
