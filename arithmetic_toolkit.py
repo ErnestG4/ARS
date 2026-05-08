@@ -615,8 +615,198 @@ def full_analysis(t_k, label: str = '', fc_ref: float = 1.0,
                 fingerprint_vector=fp, fingerprint_keys=fp_keys)
 
 
+def joint_q_profile(t_k, q_max: int = 200, min_events_per_q: int = 30,
+                    fc_ref: float = 1.0,
+                    rf_n_bins: int | None = None):
+    """
+    Joint per-denominator profile combining the two q-indexed engines:
+
+      - Ramanujan-Fourier amplitude `|a_q|` from the indicator-mode RF
+        (ramanujan_fourier with normalize=False) — measures resonance
+        strength at integer-period q in the raw event-time grid.
+      - Per-q-band passage-time level statistics, pooled across all
+        Farey rationals (a, q) with denominator q (a coprime to q).
+
+    Each q yields one row of the returned DataFrame.  Bands with
+    `n_events_q < min_events_per_q` are flagged via the `underpowered`
+    column; downstream visualisation and aggregation should respect
+    the flag.
+
+    Pooling choice: events are pooled by *denominator q* (across all
+    coprime numerators), matching the RF coefficient indexing.  A
+    per-(p,q) breakdown is available via `padic_per_band`.
+
+    Returns a pandas DataFrame with columns:
+        q, rf_amplitude_q, rf_amplitude_q_normalized,
+        n_events_q, ks_gue_q, ks_goe_q, ks_p_q, mass_lt_0_3_q,
+        rep_int_q, F_T1_q, F_T5_q, n_pq_bands, underpowered
+    """
+    import pandas as pd
+    t = np.sort(np.asarray(t_k, dtype=np.float64))
+
+    # 1. RF amplitudes (indicator mode — period-detection on raw grid)
+    rf = ramanujan_fourier(t, q_max=q_max, normalize=False, n_bins=rf_n_bins)
+    rf_amps = np.abs(np.asarray(rf.get('amplitudes', []), dtype=np.float64))
+    if rf_amps.size != q_max:
+        rf_amps = np.full(q_max, np.nan)
+    rf_total = float(np.sum(rf_amps[1:])) + 1e-12   # exclude DC
+    rf_mean = rf_total / max(1, q_max - 1)
+
+    # 2. Group Farey rationals by denominator
+    pairs = farey_rationals(q_max)
+    by_q: dict[int, list[int]] = {}
+    for (a, q) in pairs:
+        by_q.setdefault(q, []).append(a)
+
+    rows = []
+    for q in range(1, q_max + 1):
+        a_list = by_q.get(q, [])
+        # Pool unit-mean-normalised passage spacings across all
+        # (a, q) with this denominator.
+        pooled_sp_chunks = []
+        n_events_q = 0
+        for a in a_list:
+            f_pll = fc_ref * a / q
+            if f_pll <= 0: continue
+            passage = np.sort(t * f_pll - 1.0)
+            passage = passage[passage > 0]
+            if passage.size < 2: continue
+            sp = np.diff(passage)
+            if sp.size and sp.mean() > 0:
+                pooled_sp_chunks.append(sp / sp.mean())
+                n_events_q += int(passage.size)
+        pooled_sp = (np.concatenate(pooled_sp_chunks)
+                      if pooled_sp_chunks else np.zeros(0))
+
+        # Classification on pooled normalised spacings
+        if pooled_sp.size >= 5:
+            cl = _classify(pooled_sp)
+        else:
+            cl = dict(best='insufficient', ks_p=np.nan, ks_o=np.nan,
+                       ks_u=np.nan, mass03=np.nan, n=int(pooled_sp.size))
+
+        # F(T) and rep_int via a synthetic cumulative sequence built
+        # from the pooled spacings (preserves spacing distribution
+        # while giving fano_curve / pair_correlation a usable t array).
+        if pooled_sp.size >= 50:
+            t_synth = np.cumsum(pooled_sp)
+            fan = fano_curve(t_synth)
+            pc = pair_correlation_full(t_synth, r_max=5.0, n_bins=50)
+            F1 = float(fan.get('F_at_1', np.nan))
+            F5 = float(fan.get('F_at_5', np.nan))
+            rep = float(pc.get('repulsion_integral', np.nan))
+        else:
+            F1 = F5 = np.nan
+            rep = np.nan
+
+        rf_amp_q = float(rf_amps[q - 1]) if q - 1 < rf_amps.size else np.nan
+        rf_amp_q_normed = rf_amp_q / rf_mean if rf_mean > 0 else np.nan
+
+        rows.append(dict(
+            q=int(q),
+            rf_amplitude_q=rf_amp_q,
+            rf_amplitude_q_normalized=rf_amp_q_normed,
+            n_events_q=int(n_events_q),
+            ks_gue_q=float(cl.get('ks_u', np.nan)),
+            ks_goe_q=float(cl.get('ks_o', np.nan)),
+            ks_p_q=float(cl.get('ks_p', np.nan)),
+            mass_lt_0_3_q=float(cl.get('mass03', np.nan)),
+            rep_int_q=rep,
+            F_T1_q=F1,
+            F_T5_q=F5,
+            n_pq_bands=len(a_list),
+            underpowered=bool(n_events_q < min_events_per_q),
+        ))
+
+    return pd.DataFrame(rows)
+
+
+def joint_quadrant_diagnostic(joint_df,
+                              rep_int_low: float = 0.10,
+                              rep_int_mid: float = 0.55,
+                              rf_spike_factor: float = 5.0,
+                              ks_gue_calibrator: float = 0.10):
+    """Classify each q-band of a `joint_q_profile` DataFrame into a
+    quadrant + supplementary-diagnostic label.
+
+    Quadrant assignment (axes from Tier 2 calibrator scatter, Phase 15):
+
+      BL   low rep_int (< rep_int_low) AND no RF spike   → Poisson noise
+      TR   mid rep_int (rep_int_low..rep_int_mid) AND no RF spike  → Wigner-class
+      BR   high rep_int (≥ rep_int_mid) AND no RF spike  → uniform-like;
+           further classified BR_artifact vs BR_novel by Σ²(L) /
+           ks-vs-n correlation diagnostics (see below)
+      TL   RF spike at this q (|a_q| > rf_spike_factor × median(|a_q|))
+           AND high rep_int                              → periodic at q
+
+    Ambiguous: any row that doesn't satisfy a clean rule lands in
+    `ambiguous`.
+
+    BR sub-labelling.  Within BR (low RF, high rep_int):
+      `BR_artifact`: KS_GUE_q ≥ ks_gue_calibrator AND
+                     KS_GUE distribution roughly stable across n_events_q
+                     (the toolkit's nearest-Wigner-form rule fitting a
+                     non-Wigner shape — produces stable but non-clean KS).
+      `BR_novel`:    KS_GUE_q < ks_gue_calibrator (the band actually fits
+                     Wigner GUE well despite saturated rep_int — currently
+                     not produced by any calibrator; reserved for genuine
+                     surprises).
+
+    Returns the input DataFrame extended with three new columns:
+      `quadrant`, `rf_spike`, `quadrant_confidence`.
+
+    The aggregate verdict (per-class quadrant occupancy fractions) is
+    available by groupby downstream; this function operates per-row.
+    """
+    import pandas as pd
+    df = joint_df.copy()
+
+    # RF spike per row: |a_q| > rf_spike_factor × the median |a_q| at q ≥ 2
+    rf_q2_plus = df.loc[df['q'] >= 2, 'rf_amplitude_q']
+    rf_med = float(rf_q2_plus.median()) if len(rf_q2_plus) else 0.0
+    df['rf_spike'] = (df['q'] >= 2) & (df['rf_amplitude_q'] > rf_spike_factor * rf_med)
+
+    quadrants = []
+    confidence = []
+    for _, row in df.iterrows():
+        rep = row.get('rep_int_q', np.nan)
+        ks_u = row.get('ks_gue_q', np.nan)
+        spike = bool(row['rf_spike'])
+        underpwr = bool(row.get('underpowered', False))
+        if np.isnan(rep) or underpwr:
+            quadrants.append('ambiguous')
+            confidence.append('underpowered' if underpwr else 'missing_data')
+            continue
+        if spike:
+            if rep >= rep_int_low:
+                quadrants.append('TL')
+                confidence.append('clean')
+            else:
+                quadrants.append('ambiguous')
+                confidence.append('rf_spike_low_rep_int')
+            continue
+        # No RF spike: classify by rep_int axis only
+        if rep < rep_int_low:
+            quadrants.append('BL')
+            confidence.append('clean')
+        elif rep < rep_int_mid:
+            quadrants.append('TR')
+            confidence.append('clean')
+        else:
+            # BR — distinguish artifact vs novel via KS_GUE quality
+            if not np.isnan(ks_u) and ks_u < ks_gue_calibrator:
+                quadrants.append('BR_novel')
+                confidence.append('clean')
+            else:
+                quadrants.append('BR_artifact')
+                confidence.append('clean')
+    df['quadrant'] = quadrants
+    df['quadrant_confidence'] = confidence
+    return df
+
+
 __all__ = ['ramanujan_fourier', 'padic_profile', 'padic_per_band',
            'padic_amplitude_v4',
            'fano_curve', 'pair_correlation_full', 'sb_directional_split',
-           'full_analysis', 'ramanujan_sum_array',
-           'euler_phi', 'mobius']
+           'full_analysis', 'joint_q_profile', 'joint_quadrant_diagnostic',
+           'ramanujan_sum_array', 'euler_phi', 'mobius']
