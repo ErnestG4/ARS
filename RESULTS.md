@@ -2379,7 +2379,173 @@ reinterpreted in §7.ter.19.  All other phases use event timestamps from
 catalogs, sieves, or direct numerical computation, and are not subject to
 the find_peaks artifact.
 
-### 7.ter.21  Caveats and follow-ups
+### 7.ter.21  Phase 15 — RF/NNS dual view (`joint_q_profile`)
+
+The Ramanujan-Fourier engine (§7.ter.7 Engine 1) and the passage-time
+NNS engine (Engines via `analytical_passage` per Farey rational) both
+index by denominator q.  RF measures resonance amplitude `|a_q|`;
+passage-time NNS measures level statistics for events that lock through
+PLLs with denominator q.  Planat's framing makes them dual representations
+of the same underlying structure.  Phase 15 makes the duality
+computational.
+
+#### Tier 1 — `joint_q_profile`
+
+```python
+joint_q_profile(t_k, q_max=200, min_events_per_q=30, fc_ref=1.0)
+```
+
+Returns a pandas DataFrame, one row per `q ∈ {1, …, q_max}`, with
+`rf_amplitude_q` (from `ramanujan_fourier(normalize=False)`),
+`n_events_q` (passage-time pool across all coprime numerators at fixed
+q), per-q level statistics (`KS_GUE/GOE/Poiss`, `mass<0.3`, `F(T=1)`,
+`F(T=5)`, `rep_int`) computed on the pooled unit-mean-normalised
+passage spacings, plus `n_pq_bands` and `underpowered`.  Six acceptance
+tests in `tests/test_joint_q_profile.py` pass (engine consistency
+against `ramanujan_fourier` to floating-point precision; sanity on
+Poisson, periodic q=7, β=2 GUE; `underpowered` flag semantics; schema).
+Canonical reference output for ζ first 2000 zeros at
+`data/phase15_zeta_joint.parquet` (200/200 well-powered, KS_GUE median
+0.041, rep_int_q median 0.425).
+
+#### Tier 2 — calibrator scatter
+
+`run_phase15_calibrators.py` runs 9 classes × 5 seeds at n=2000,
+q_max=200 into `data/phase15_calibrator_joint.parquet` (8,200 rows).
+Per-class signatures:
+
+| class                  | rep_int | KS_GUE | RF (q≥2)   |
+|------------------------|---------|--------|------------|
+| Poisson                | 0.025   | 0.282  | flat low   |
+| GOE β=1                | 0.311   | 0.093  | flat low   |
+| GUE β=2                | 0.368   | 0.035  | flat low   |
+| GSE β=4                | 0.430   | 0.044  | flat low   |
+| ζ first 2000           | 0.425   | 0.041  | flat low   |
+| uniform jitter=0.10    | 0.671   | 0.272  | flat low   |
+| periodic q=7           | 0.850   | 0.506  | spike q=7  |
+| periodic q=12          | 0.850   | 0.517  | spike q=12 |
+| mixed q7+q12+Poisson   | 0.183   | 0.260  | spikes     |
+
+A k-NN classifier (k=5) trained on per-q points from seeds {0,1,2}
+and tested on held-out seeds {3,4} achieves **per-q accuracy = 1.000
+across 8 classes** (chance level 0.125).  The joint plane perfectly
+separates the calibrator pool — Tier 2 acceptance fully met.
+
+#### Tier 3 — quadrant diagnostic
+
+`joint_quadrant_diagnostic` assigns each q-band to one of:
+
+| quadrant     | rep_int    | RF spike | reading                              |
+|--------------|------------|----------|--------------------------------------|
+| BL           | < 0.10     | no       | Poisson noise                        |
+| TR           | 0.10–0.55  | no       | Wigner-class                         |
+| BR_artifact  | > 0.55     | no       | uniform-with-jitter (LLM regime)     |
+| TL           | any        | yes      | periodic resonance at this q         |
+| BR_novel     | > 0.55     | no, KS_GUE < 0.10 | reserved for surprises    |
+
+Calibrator occupancy fractions (well-powered q-bands):
+
+| signal               | primary quadrant | %    |
+|----------------------|------------------|------|
+| Poisson              | BL               | 95.9 |
+| GOE / GUE / GSE / ζ  | TR               | 95–97|
+| uniform_jitter=0.10  | **BR_artifact**  | 96.4 |
+| periodic q=7         | BR_artifact      | 95.4 (+ TL spike at q=7 = 4.6) |
+| periodic q=12        | BR_artifact      | 93.8 (+ TL spike at q=12 = 6.2) |
+| BR_novel total       |                  | 0.0  |
+
+All three Tier 3 acceptance criteria hold: BR_artifact correctly
+flags uniform-jitter; BR_novel doesn't fire on any calibrator; every
+class hits ≥93% in its predicted quadrant.
+
+#### Tier 5 — cross-domain re-runs
+
+`run_phase15_cross_signal.py` applies `joint_q_profile` +
+`joint_quadrant_diagnostic` to every signal class previously
+characterised by ARS:
+
+| signal                   | n      | rep_int_q | KS_GUE_q | primary       | %    |
+|--------------------------|--------|-----------|----------|---------------|------|
+| ζ first 2000             | 2,000  | 0.425     | 0.041    | TR            | 97.0 |
+| ζ high ~10⁶              | 2,000  | 0.412     | **0.015**| TR            | 97.5 |
+| LMFDB EC L-functions     | 10,000 | 0.438     | 0.036    | TR            | 95.0 |
+| Dirichlet L (q ≤ 149)    | 10,000 | 0.443     | 0.056    | TR            | 95.5 |
+| Primes ≤ 10⁶             | 2,000  | 0.732     | 0.334    | **BR_artifact**| 95.5 |
+| Twin primes ≤ 10⁷        | 2,000  | 0.629     | 0.241    | **BR_artifact**| 95.5 |
+| USGS earthquakes M ≥ 4.5 | 2,000  | 0.236     | 0.049    | TR            | 95.5 |
+| Fungal pool (Adamatzky)  | 1,470  | 0.000     | 0.641    | BL            | 97.0 |
+| Solar X-ray flares M+    | 2,000  | 0.000     | 0.604    | BL            | 95.5 |
+| Binance BTCUSDT day 1    | 2,000  | 0.018     | 0.150    | BL            | 92.5 |
+
+Three findings the 1D views did not surface as cleanly:
+
+**(A) The four arithmetic L-function families form the cleanest TR
+cluster in the cross-signal table.**  rep_int_q ∈ [0.41, 0.44],
+KS_GUE_q ∈ [0.015, 0.06].  This is the family-universal Wigner GUE
+reading, now at joint-plane resolution.  ζ-high (heights ~10⁶)
+gives the lowest KS_GUE we have measured anywhere in the project at
+joint-plane resolution.
+
+**(B) Primes ≤ 10⁶ and twin primes ≤ 10⁷ both land in BR_artifact** —
+the same quadrant as `uniform_jitter_0.10` and the LLM peak process
+of §7.ter.19.  rep_int_q = 0.73 / 0.63 (saturated near 1), KS_GUE_q =
+0.33 / 0.24 (poor Wigner fit), no RF spikes.  The interpretation:
+log-density-unfolded primes have a near-uniformly-spaced pattern with
+mild irregularity — distinct from a clean Poisson process, distinct
+from Wigner GUE, and quantitatively in the same regime as the LLM
+artifact.  This refines Phase 9-extended's "Cramér convergence"
+reading: primes don't approach Poisson directly through finite N;
+they pass through a uniform-with-jitter regime that the joint view
+identifies as such.
+
+**(C) Earthquakes reclassify to TR under the joint view despite
+super-Poisson clustering in §7.ter.17.**  The subsample-and-pool
+path of `joint_q_profile` (each event used in ~80 (a, q) passage
+projections per q-band, then unit-mean-normalised) smooths out the
+ETAS aftershock structure; the residual per-q spacing distribution
+fits Wigner shape (KS_GUE_q = 0.049).  This is a *methodological*
+finding: the joint reading is not invariant to event-density
+subsampling on clustered signals — large-window Σ²(L) and the 1D KS
+to Poisson are the right diagnostics for clustering, joint_q_profile
+is the right diagnostic for class identification when no clustering
+is suspected.
+
+#### Methodological summary
+
+The joint view does three things the 1D views do not:
+
+1. **Identifies BR_artifact (uniform-with-jitter regime) as a distinct
+   quadrant**, not collapsible to Poisson or Wigner.  This lands the
+   LLM diagnosis (§7.ter.19) on a labelled point in calibrated
+   fingerprint space rather than as "not what we thought."
+
+2. **Localizes periodic resonances to their characteristic q via the
+   TL quadrant**, even when surrounding bands are saturated.
+   `periodic q=7` puts 4.6% of its q-bands in TL at exactly q=7.
+
+3. **Surfaces the L-function family universality at calibrator
+   quality** without per-family analysis — the four arithmetic
+   families cluster within 0.03 in both axes.
+
+Open question for the analytical literature: for known classes
+(β-ensembles), is there a closed-form correspondence between the
+RF coefficient `|a_q|` and the per-q-band passage-time
+repulsion-integral `rep_int_q`?  The empirical scatter at calibrator
+quality (5 seeds × β ∈ {1, 2, 4}) gives a clean test target —
+see `data/phase15_calibrator_joint.parquet`.  If derivable, the
+predicted joint distribution per class becomes the analytical
+reference; if empirical-only, the calibrator pool itself is the
+operational reference.
+
+Outputs: `data/phase15_zeta_joint.parquet`,
+`data/phase15_calibrator_joint.parquet`,
+`data/phase15_quadrant_diagnostic.json`,
+`data/phase15_cross_signal_joint.parquet`,
+`plots/42_phase15_joint_scatter.png`,
+`plots/42b_phase15_median_trajectories.png`,
+`plots/43_phase15_cross_signal_quadrants.png`.
+
+### 7.ter.22  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

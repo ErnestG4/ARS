@@ -132,6 +132,8 @@ among the three Wigner forms', not GUE-class dynamics.
   data/phase12_planat.json                      (16,333 bytes)
   data/phase13_calibrators.json                 (16,873 bytes)
   data/phase13_layer_sweep.json                 (12,507 bytes)
+  data/phase15_quadrant_diagnostic.json         (1,185 bytes)
+  data/phase15_seeds.json                       (730 bytes)
   data/phase9_extended_fingerprints.json        (24,825 bytes)
   data/phase9_fingerprints.json                 (17,486 bytes)
   data/primes_scaling.json                      (2,839 bytes)
@@ -182,6 +184,9 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/40_solar_flares.png                      (263,873 bytes)
   plots/41_binance.png                           (123,469 bytes)
   plots/41_phase13_layer_sweep.png               (148,155 bytes)
+  plots/42_phase15_joint_scatter.png             (152,220 bytes)
+  plots/42b_phase15_median_trajectories.png      (94,471 bytes)
+  plots/43_phase15_cross_signal_quadrants.png    (71,917 bytes)
 ```
 
 ## Pipeline state
