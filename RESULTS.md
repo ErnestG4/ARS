@@ -3148,15 +3148,34 @@ recovery).
 3. **Three of seven extractors hit the calibrator's out-of-domain
    boundary** (`layer_kl_divergence_events`, `attention_target_jumps`,
    `attention_sink_events`): for the cells that produced enough
-   events, rep_int_q ≈ 0.34, just below the calibrator's σ=0.50
-   anchor at 0.384.  These extractors generate events too tightly
-   clustered — `layer_kl_divergence_events` triggers in tight bursts
-   within consecutive tokens, and the sink-event extractors trigger
-   on sink-mass plateaus that produce densely-spaced run-end events.
-   The recovery flags these correctly as out-of-domain (σ̂ pinned to
-   the σ=0.50 boundary).  Diagnostically informative — these events
-   are not in the BR_artifact regime — but doesn't yield comparable
-   σ̂ across architectures.
+   events, rep_int_q lands at 0.330-0.382 — straddling the calibrator's
+   σ=0.50 anchor at 0.384.  Per-cell breakdown: `layer_kl_divergence`
+   is architecture-invariant on its 2 valid cells (Phi-3 0.340,
+   TinyLlama 0.342); `attention_target_jumps` is architecture-
+   discriminative (Qwen 0.700 vs Phi-3 0.350); `attention_sink_events`
+   shows mild spread (Phi-3 0.382, TinyLlama 0.330).  The recovery
+   flags these correctly as out-of-domain for the uniform-jitter family
+   and the joint-plane reading at rep_int_q ≈ 0.34 sits in the TR
+   (Wigner-class) quadrant.  This *could* be read as "these three
+   extractors capture a Wigner-class signal in LLM attention dynamics
+   that the find_peaks extractors miss".  Finding (F) tests that
+   reading by mechanism-induction.
+
+**On the architectural-pairing observation in (2).**  The
+TinyLlama+Mistral cluster (both σ̂=0.020, rep_int_q=0.85) vs
+Qwen+Phi-3 cluster (σ̂ in 0.043-0.065, rep_int_q in 0.75-0.80)
+under attention_argmax_sink and attention_multi_head_sink_consensus
+is consistent across two extractors and is information — but the
+discrete-snap to calibrator anchors means the metric can't quantify
+the architectural difference precisely.  At this resolution it's a
+binary-categorical reading ("does this architecture's sink-attention
+land above or below rep_int_q ≈ 0.825?").  Whether the pairing
+reflects something about Mistral and Llama-family vs Qwen and Phi
+families having different attention-block lineages or just a
+coincidence of how the calibrator grid bins them is open.
+A finer-grained measurement (continuous-σ recovery via a denser
+calibrator anchor table or a different metric entirely) would be
+needed to resolve.
 
 **Implications for §7.ter.23 overall:**
 
@@ -3197,6 +3216,68 @@ Outputs: `run_phase17_extractor_arch_matrix.py`,
 `finalize_phase17_extractor_matrix.py`,
 `data/phase17_extractor_arch_sigma.parquet`,
 `plots/49d_phase17_extractor_arch_heatmap.png`.
+
+**(F) Falsification of the (E)-(3) "Wigner-class attention dynamics"
+reading via threshold-mechanism induction on Poisson noise.**
+The (E)-(3) observation (three extractors land near the σ=0.50 calibrator
+boundary with TR-quadrant assignment) tempted a "these extractors are
+reading something genuinely level-repelling that find_peaks misses"
+interpretation.  This would have repeated the §7.ter.19 →
+σ̂-cluster → matrix-correction arc one more time.  Phase 16 Tier 1
+provides the disciplined falsification: feed iid Poisson-structured
+input through the same threshold mechanism and see whether TR fires.
+
+The two of three extractors with explicit threshold mechanisms
+(`layer_kl_divergence_events` and `attention_sink_events`) both apply
+moving-mean + k·σ → up-crossings to a 1D positive signal.  Test:
+generate iid 1D signal of length T=1024, apply the same threshold
+filter, measure rep_int_q + quadrant on the output events, 5 seeds.
+
+| input signal     | mechanism          | rep_int_q.med | range            | quadrant   | n_events |
+|------------------|--------------------|---------------|------------------|------------|----------|
+| iid_exponential  | threshold_upcross  | **0.338**     | [0.278, 0.375]   | **TR**     | ≈131     |
+| iid_poisson      | threshold_upcross  | 0.450         | [0.364, 0.450]   | TR         | ≈154     |
+| iid_uniform      | threshold_upcross  | 0.500         | [0.500, 0.537]   | TR         | ≈174     |
+| iid_uniform_argmax | argmax_jump      | 0.850         | [0.850, 0.850]   | BR_artifact| ≈993     |
+| sticky_argmax_p=0.1 | argmax_jump     | 0.150         | [0.109, 0.169]   | TR         | ≈106     |
+
+**iid exponential noise through the threshold-upcross filter produces
+rep_int_q = 0.338 ± 0.05 with TR quadrant assignment** — virtually
+identical to the LLM cells (Phi-3 0.340, TinyLlama 0.342) on
+`layer_kl_divergence_events`.  The LLM "out-of-domain" readings on
+threshold-style attention extractors are **mechanism-induced**, not
+substantive measurements of LLM internal level repulsion.  This is the
+direct §7.ter.19/Phase 16 Tier 1 pattern manifesting at the σ̂ +
+joint-quadrant level on attention-derived 1D signals: the
+threshold-upcross filter applied to any positive iid signal gives
+TR-classified events with rep_int_q in the 0.33-0.50 range.
+
+The argmax-jump mechanism (`attention_target_jumps`) is *not*
+induced-TR: iid-uniform argmax gives BR_artifact at 0.85, sticky
+argmax gives TR at 0.15.  The LLM Qwen reading of 0.700 sits closer
+to "uniform-random argmax" than Phi-3's 0.350.  Phi-3's argmax
+sequence is more autocorrelated (closer to sticky) than Qwen's at the
+final layer.  This is potentially a real architectural reading on the
+target_jumps mechanism, but not a Wigner-class one — just a graded
+"how random is the argmax sequence" descriptor.
+
+The (E)-(3) reading is therefore **partially retracted**:
+- `layer_kl_divergence_events` and `attention_sink_events` rep_int_q ≈ 0.34
+  readings are mechanism-induced TR.  No substantive LLM-attended
+  level-repulsion claim.
+- `attention_target_jumps` survives as a non-induced reading; its
+  rep_int_q values (0.700 / 0.350 across two valid cells) reflect actual
+  argmax-sequence autocorrelation differences between Qwen and Phi-3,
+  not extractor-induced TR.
+
+Net: §7.ter.23 (E) finding (3) is reduced from "three extractors out-
+of-domain" to "two of three extractors are mechanism-induced TR
+artifacts; one is a real-but-low-resolution architectural argmax-
+randomness descriptor".  This was the disciplined check the §7.ter.19
+arc was teaching us to run.
+
+Outputs: `run_phase17_threshold_induction.py`,
+`data/phase17_threshold_induction.parquet`.
 
 #### Methodological summary
 
