@@ -1673,7 +1673,7 @@ digit expansions of irrationals, biological oscillators).
 
 Outputs: `data/padic_v4_results.json`, `plots/36_padic_v4.png`.
 
-### 7.ter.14  Phase 10 — LLM cascade fingerprints (Wigner GUE in residual stream)
+### 7.ter.14  Phase 10 — LLM cascade fingerprints (strong level repulsion in residual stream)
 
 `llm_cascade.py` extracts per-token surprisal, per-layer residual
 stream L2 norms, and per-(layer, head, query) attention entropy from
@@ -1705,7 +1705,7 @@ class label:
 | surprisal_cumulative    | **GOE**      | 0                | 8 / 9      | 1              |
 | surprisal_threshold     | **Poisson**  | 0                | 0          | 9 / 9          |
 
-#### residual_norm_peaks → universal Wigner GUE
+#### residual_norm_peaks → strong level repulsion, GUE-best label
 
 | (quant, stim)        | n_ev | KS_GUE | mass<0.3 | F(T=5) | rep_int |
 |----------------------|------|--------|----------|--------|---------|
@@ -1719,17 +1719,39 @@ class label:
 | int4, natural        | 119  | 0.184  | 0.000    | 0.16   | 0.900   |
 | int4, random         | 247  | 0.315  | 0.000    | 0.12   | 0.900   |
 
-**Every cell is GUE-best with mass<0.3 = 0 and F(T=5) ≪ 1.**  The
-spacings of residual-stream-norm peaks in an LLM forward pass exhibit
-the same Wigner GUE level-repulsion class as Riemann zeros, elliptic
-curve L-functions, and Dirichlet L-functions.  Independent of
-quantization (drift ≤ 0.01 across fp16/int8/int4 within a stimulus)
-and largely independent of stimulus.
+#### What this finding does and does not claim
 
-KS_GUE = 0.18-0.32 sits between the calibrator (0.022) and the EEG
-quasi-periodic artefact (0.18) numerically — but mass<0.3 = 0 +
-F(T=5) ≪ 1 is the strong-level-repulsion signature, not the
-quasi-periodic-artefact signature.
+Every cell labels GUE-best, with mass<0.3 = 0 and F(T=5) ≪ 1.  Both
+of those are unambiguous: the spacings of residual-stream-norm peaks
+have **strong level repulsion**, distinct from every null we tested
+(Poisson process, EEG quasi-periodic artefact, primes, earthquakes,
+fungal spikes).  Stable across quantization (KS drift ≤ 0.01 within
+a stimulus) and largely stable across stimulus.
+
+The conservative claim — the one the data here support — is:
+
+> **Residual-stream-norm peaks of autoregressive transformers form a
+> strongly level-repelling point process, distinct in every measured
+> fingerprint axis from clustered, Poisson, and quasi-periodic
+> processes.**
+
+The stronger claim that the residual stream lives in *the same Wigner
+GUE class as Riemann zeros* is **not** what the data show.  KS_GUE
+values 0.18-0.32 are an order of magnitude worse than the calibrator
+(0.022 on synthetic GUE eigenvalues, 0.012 on ζ zeros at heights
+~10⁶), and the empirical NNS profile is sharper than Wigner near s = 0
+(mass<0.3 = 0 vs Wigner GUE's ~0.10) but distinguishable from Wigner
+elsewhere — the closest-fitting Wigner reference happens to be GUE,
+but the empirical distribution is *not Wigner GUE at calibrator
+quality*.
+
+The likely physical reading: this is a distinct shape on the
+clustering ↔ level-repulsion axis — more level-repelling than Wigner
+GUE near zero, with a plateau or heavier tail at intermediate
+spacings, no short-spacing mass, and strongly sub-Poisson fluctuation
+statistics.  Calling it "GUE" via the metric's nearest-Wigner-form
+rule is an honest report of *what the labeller does*; calling it
+"the GUE class of L-function zeros" overstates the empirical match.
 
 #### Q1: quantization changes universality class?
 
@@ -1768,7 +1790,7 @@ Outputs: `data/phase10_llm_fingerprints.json`,
 `plots/37_phase10_llm.png` (27-cell heatmap matrix),
 `run_phase10_llm.py`.
 
-### 7.ter.15  Phase 11 — Model-family swap: GUE statistics are architecturally universal
+### 7.ter.15  Phase 11 — Model-family swap: strong level repulsion is architecturally universal
 
 `run_phase11_models.py` + `run_phase11_retry.py` apply the canonical
 extraction (residual_norm_peaks) plus the secondary cross-check
@@ -1786,7 +1808,7 @@ for a third architecture.  Mistral 7B fp16 OOMs on a 24-GB card with
 seq_len = 2048 + `output_attentions=True` (32 layers × 32 heads × 2048²
 attention storage exceeds the budget); loaded in int4 + seq_len = 1024.
 
-#### residual_norm_peaks — universal Wigner GUE
+#### residual_norm_peaks — strong level repulsion across architectures
 
 | model               | n params | stim       | best | KS_GUE | mass<0.3 | F(T=5) | rep_int |
 |---------------------|----------|------------|------|--------|----------|--------|---------|
@@ -1800,20 +1822,30 @@ attention storage exceeds the budget); loaded in int4 + seq_len = 1024.
 | TinyLlama 1.1B      | 1.1B     | natural    | GUE  | 0.170  | 0.000    | 0.087  | 0.900   |
 | TinyLlama 1.1B      | 1.1B     | random     | GUE  | 0.275  | 0.000    | 0.117  | 0.900   |
 
-**All 9 cells classify GUE-best with mass<0.3 = 0 and rep_int = 0.900.**
-The Wigner GUE level-repulsion class of residual-stream-norm peaks
-is invariant across:
+**All 9 cells label GUE-best with mass<0.3 = 0 and rep_int = 0.900.**
+The strong-level-repulsion fingerprint (mass<0.3 = 0, F(T=5) ≪ 1,
+nearest-Wigner-form = GUE, KS_GUE in 0.17–0.32) is invariant across:
   - architecture (Qwen / Mistral / Llama),
   - parameter scale (1.1B → 3.0B → 7.2B, factor of ~7),
   - quantization (fp16 vs int4),
   - training corpus (each model trained on a different mix),
   - stimulus type (math proof, news article, random words).
 
-Whatever produces this — attention pattern × residual stream geometry,
-layer-by-layer representational accumulation, the rotary-positional
-geometry shared by these architectures — it is **architecturally
-universal across autoregressive transformers**.  Phase 10 was not a
-Qwen-specific finding.
+The architectural invariance is the strong direction of this result:
+the same fingerprint shape appears in every transformer family we
+tested.  Whatever produces it — attention pattern × residual stream
+geometry, layer-by-layer representational accumulation, the
+rotary-positional geometry shared by these architectures — it is
+common to autoregressive transformers as a class.  Phase 10 was not
+Qwen-specific.
+
+The same caveat carried from §7.ter.14 applies here in full: KS_GUE
+values 0.17–0.32 are an order of magnitude worse than the L-function
+calibrator (0.012).  The architectural invariance is of *the
+strong-level-repelling shape with mass<0.3 = 0*, not of *Wigner GUE
+at calibrator quality*.  The shape is closer to Wigner GUE than to
+GOE or Poisson, but it is a distinct shape with a sharper s → 0
+edge.
 
 #### surprisal_cumulative — model and stimulus dependent
 
@@ -1839,38 +1871,51 @@ structured input.
 
 #### Synthesis
 
-Combining Phase 10 + Phase 11: the *dynamical fingerprint of an
-autoregressive transformer* — measured at the residual-stream-norm-peak
-extraction — is a **universal Wigner GUE invariant** across the
+Combining Phase 10 + Phase 11: the residual-stream-norm-peak
+extraction surfaces a **strongly level-repelling, architecturally
+invariant fingerprint** of autoregressive transformers — same shape
+(mass<0.3 = 0, F(T=5) ≪ 1, nearest-Wigner-form GUE) across the
 contemporary architecture / scale / quantization / training-data
-diversity sampled here.  This places transformer LLM internal
-computation in the same universality class as Riemann zeros, elliptic
-curve L-functions, Dirichlet L-functions, and synthetic GUE matrix
-eigenvalues.
+diversity sampled here.
 
-The cross-signal mass<0.3 ladder updated:
+The fingerprint sits between the L-function block and the synthetic
+GUE eigenvalue calibrator on the level-repulsion axis — *more*
+sharply level-repelling near s = 0 than Wigner GUE (mass<0.3 = 0 vs
+~0.10 for Wigner) but with a bulk shape that does not match Wigner
+GUE at calibrator quality (KS_GUE ~0.2 vs 0.022 for the calibrator
+or 0.012 for ζ).  Whether this shape is *another* known random-matrix
+ensemble (e.g. the chiral GUE class, or one of the β-ensemble
+deformations), a continuous family deformation, or simply an
+empirical regime that has no closed-form RMT counterpart is open.
+A targeted comparison against analytical CDFs from chiral GUE / GSE
+/ β-ensembles is the natural next test.
 
-| signal class                       | mass<0.3 | best | KS_min |
-|------------------------------------|----------|------|--------|
-| Wigner GUE eigenvalues (synthetic) | 0.10     | GUE  | 0.022  |
-| ζ zeros (heights ~10⁶)             | 0.024    | GUE  | 0.012  |
-| LMFDB EC L-functions (h=1000)      | 0.024    | GUE  | 0.012  |
-| Dirichlet L (q ≤ 149)              | 0.016    | GUE  | 0.035  |
-| **LLM residual-stream peaks (any model)** | **0.000** | **GUE** | **0.17-0.32** |
-| Poisson process (calibrator)       | 0.259    | Poiss| 0.022  |
-| USGS earthquakes M ≥ 4.5           | 0.33     | Poiss| 0.075  |
-| Fungal spikes (fast timescale)     | 0.65     | Poiss| 0.40   |
+The cross-signal mass<0.3 ladder, with the LLM block placed on its
+own row to flag the sharper-than-Wigner shape:
+
+| signal class                       | mass<0.3 | best | KS_min | reading |
+|------------------------------------|----------|------|--------|---------|
+| **LLM residual-stream peaks (any model)** | **0.000** | GUE  | 0.17–0.32 | sharper than Wigner GUE near s=0; not Wigner GUE in the bulk |
+| Dirichlet L (q ≤ 149)              | 0.016    | GUE  | 0.035  | clean Wigner GUE |
+| ζ zeros (heights ~10⁶)             | 0.024    | GUE  | 0.012  | clean Wigner GUE |
+| LMFDB EC L-functions (h=1000)      | 0.024    | GUE  | 0.012  | clean Wigner GUE |
+| Wigner GUE eigenvalues (synthetic) | 0.10     | GUE  | 0.022  | calibrator |
+| Poisson process (calibrator)       | 0.259    | Poiss| 0.022  | calibrator |
+| USGS earthquakes M ≥ 4.5           | 0.33     | Poiss| 0.075  | weak clustering |
+| Fungal spikes (fast timescale)     | 0.65     | Poiss| 0.40   | strong clustering |
 
 LLM residual-norm peaks have *zero* short-spacing mass — even more
-strongly level-repelling than synthetic GUE eigenvalues.  KS_min is
-larger because the empirical distribution has heavier tails than
-Wigner; the level-repulsion shape is sharper than GUE near s = 0
-but distinguishable from the Wigner profile elsewhere.
+sharply level-repelling near s = 0 than synthetic GUE eigenvalues.
+KS_min to Wigner GUE is large because the empirical distribution has
+a different bulk shape (heavier tails than Wigner) — the
+level-repulsion edge is sharper than GUE near s = 0 but the bulk is
+distinguishable from Wigner.  The shape is its own thing, not Wigner
+GUE at calibrator quality.
 
 Output: `data/phase11_model_family.json`, `plots/38_phase11_models.png`,
 `run_phase11_models.py`, `run_phase11_retry.py`.
 
-### 7.ter.16  Phase 12 — Planat hypothesis: human perturbation and GUE sharpness
+### 7.ter.16  Phase 12 — Planat hypothesis: a one-sided result
 
 `run_phase12_planat.py` tests the conjecture that an optimal
 human-perturbation rate sharpens Wigner GUE statistics in the LLM
@@ -1938,13 +1983,34 @@ every ~12, 6, 3 tokens respectively).  Queued for a follow-up.
 
 #### Synthesis
 
-Half of Planat's 2026 prediction is empirically supported.  The
-direction — perturbation sharpens GUE — is correct.  The boundary
-of the regime is yet to be located.  The cleanest single-number
-reading: KS_GUE = 0.186 at r = 4 (Planat-perturbed) is the sharpest
-Wigner-class fingerprint we have measured on transformer LLM
-internal computation, lower than every static-stimulus condition in
-Phase 10.
+The result is **one-sided** at present.  The left side of Planat's
+proposed U-shape — sub-baseline KS_GUE for some non-zero perturbation
+rate — is supported by these five rate cells (r=4 sits 0.057 below
+r=0 and ≥ 0.011 below r=19 and r=39).  The right side of the
+proposed U — degradation back toward super-Poisson at high
+perturbation rate — is **not** supported by the cells we ran; KS_GUE
+flattens into a 0.18–0.21 plateau through r=39, with no monotone
+collapse trend.
+
+Two interpretations remain compatible with this data:
+  (i) the response is a step (low-rate plateau), not a U, and
+      Planat's full prediction is half-right;
+  (ii) the U is wider than the tested range and the right tail begins
+      at r ≥ 80 (perturbing every ~25 tokens or denser).
+
+The **planned right-tail sweep at r ∈ {80, 160, 320}** is the
+discriminator.  Until that sweep is done, the appropriate framing is:
+*deliberately interrupted generation produces a sharper
+strong-level-repulsion fingerprint than uninterrupted generation in
+this rate range; whether that sharpening is followed by collapse at
+higher rates is an open question*.  Calling Phase 12 a confirmation
+of Planat's prediction would overstate what these five cells show.
+
+Note: the same calibration caveat from §7.ter.14 applies — KS_GUE =
+0.186 at r=4 is "sharper" only relative to the other LLM cells and
+to r=0; it is still an order of magnitude above the L-function
+calibrator (0.012).  This is the lowest LLM KS_GUE we have measured,
+not a clean Wigner GUE classification.
 
 Output: `data/phase12_planat.json`, `plots/39_phase12_planat.png`,
 `run_phase12_planat.py`.
@@ -2151,6 +2217,58 @@ Output: `data/binance_results.json`, `plots/41_binance.png`.
    It bypasses the PLL bias and gives clean Wigner GUE/GOE/Poisson
    classification for arbitrary t_k lists, including ζ zeros, random
    matrix eigenvalues, and other arithmetic sequences.
+
+5. **Autoregressive transformer LLMs (Qwen 2.5 3B, Mistral 7B,
+   TinyLlama 1.1B) emit a strongly level-repelling residual-stream-norm-
+   peak point process, architecturally invariant across model family,
+   scale, quantization, and stimulus** (§7.ter.14, §7.ter.15).  The
+   shape has no short-spacing mass (mass<0.3 = 0) and strongly
+   sub-Poisson Fano fluctuations (F(T=5) ≪ 1).  Its closest Wigner
+   reference is GUE, but **this is not Wigner GUE at calibrator
+   quality**: KS_GUE in 0.17–0.32 sits an order of magnitude above
+   the L-function calibrator (0.012–0.022).  The empirical
+   distribution is sharper than Wigner GUE near s = 0 and
+   distinguishable from Wigner in the bulk.  The strong claim the
+   data supports is *strongly level-repelling, distinct from every
+   null tested*, not *Wigner GUE class identification*.  The shape
+   may be a known non-Wigner ensemble or a continuous-family
+   deformation; identifying it precisely is open.
+
+6. **Phase 12 (Planat hypothesis) is a one-sided result.**  Adding
+   modest perturbation to long-form generation drops KS_GUE from
+   0.243 (uninterrupted) to 0.186 (r=4 splices in 2k tokens) and
+   leaves it in a 0.18–0.21 plateau through r=39.  The left side
+   of the predicted U-shape is supported.  The right side
+   (degradation back toward super-Poisson at high perturbation rate)
+   is **not** observed in the tested rate range and the planned
+   r ∈ {80, 160, 320} sweep is required before the U is confirmed.
+   The current result is "perturbation sharpens the LLM's
+   strong-level-repulsion fingerprint at low rates", not "Planat's
+   2026 prediction is confirmed".
+
+### What the project is
+
+ARS is a **measurement instrument** — a multi-scale RMT readout for
+arbitrary point processes — built from existing components (Farey
+sequences and Stern–Brocot enumeration from 19th-century number
+theory; phase-locked loops from 20th-century radio engineering;
+random-matrix universality from late-20th-century mathematical
+physics; Ramanujan-Fourier expansion from Planat 2002).  The project's
+contribution is:
+
+  - calibrating these components into a single end-to-end pipeline,
+  - validating that pipeline against ζ zeros and random-matrix
+    eigenvalues,
+  - applying it to a wide family of arithmetic, physical,
+    biological, financial, and AI-internal point processes,
+  - reporting the universality-class fingerprints that result and
+    the cross-signal structure that emerges (the "periodic table"
+    in §7.ter.7).
+
+Calling ARS a "new mathematical tool" overstates what it is.  It is
+a calibrated assembly of well-studied components, useful precisely
+because the components are individually well-understood and can be
+audited independently.
 
 ### Limitations
 
