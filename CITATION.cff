@@ -70,3 +70,91 @@ references:
     journal: "SIAM Review"
     volume: 51
     year: 2009
+  - type: article
+    authors:
+      - family-names: Bohigas
+        given-names: O.
+      - family-names: Giannoni
+        given-names: M. J.
+      - family-names: Schmit
+        given-names: C.
+    title: "Characterization of chaotic quantum spectra and universality of level fluctuation laws"
+    journal: "Phys. Rev. Lett."
+    volume: 52
+    year: 1984
+  - type: book
+    authors:
+      - family-names: Mehta
+        given-names: M. L.
+    title: "Random Matrices"
+    edition: "3rd"
+    publisher:
+      name: "Elsevier / Academic Press"
+    year: 2004
+  - type: article
+    authors:
+      - family-names: Cramér
+        given-names: H.
+    title: "On the order of magnitude of the difference between consecutive prime numbers"
+    journal: "Acta Arithmetica"
+    volume: 2
+    year: 1936
+  - type: article
+    authors:
+      - family-names: Bost
+        given-names: J.-B.
+      - family-names: Connes
+        given-names: A.
+    title: "Hecke algebras, Type III factors and phase transitions with spontaneous symmetry breaking in number theory"
+    journal: "Selecta Mathematica"
+    volume: 1
+    year: 1995
+  - type: article
+    authors:
+      - family-names: Dumitriu
+        given-names: I.
+      - family-names: Edelman
+        given-names: A.
+    title: "Matrix models for beta ensembles"
+    journal: "J. Math. Phys."
+    volume: 43
+    year: 2002
+  # ─── Foundational Planat-and-collaborators series ────────────────────────
+  # ARS rests on the analytical scaffolding developed in this series across
+  # Farey-rational phase locking, Ramanujan-Fourier analysis of arithmetical
+  # signals, and the connection of arithmetic to oscillator phase noise.
+  # Reference metadata below is the best available without an authoritative
+  # CITATION-AUDIT.md; specific titles and journal identifiers should be
+  # confirmed against the source list when one is provided.
+  - type: article
+    authors:
+      - family-names: Planat
+        given-names: M.
+      - family-names: Henry
+        given-names: E.
+    title: "Arithmetic of phase locking and 1/f noise in oscillators (Farey-Stern–Brocot organization of mode locking)"
+    year: 2002
+    notes: "FEMTO-ST.  Foundational treatment of PLL phase-noise via Farey arithmetic and continued-fraction expansions; ARS reuses this organization as the PLL-bank parameterization."
+  - type: article
+    authors:
+      - family-names: Planat
+        given-names: M.
+      - family-names: Rosu
+        given-names: H.
+    title: "Ramanujan sums and the Ramanujan-Fourier expansion of arithmetical signals"
+    year: 2002
+    notes: "Foundational formulation of RF coefficient analysis on point processes / arithmetic functions; ARS Engine 1 (ramanujan_fourier) implements this directly."
+  - type: article
+    authors:
+      - family-names: Planat
+        given-names: M.
+    title: "Phase locking, Mangoldt function, and connections to the Riemann zeta function"
+    year: 2006
+    notes: "Develops the analytical relation between Farey-rational phase locking and the von Mangoldt arithmetic function / Riemann ζ; the analytical anchor for ARS's Riemann-side validation."
+  - type: article
+    authors:
+      - family-names: Planat
+        given-names: M.
+    title: "Bost–Connes / KMS-state perspective on rational-frequency phase coherence and prime-theoretic invariants (recent work)"
+    year: 2026
+    notes: "Recent work on the quantum statistical mechanics of phase-locking on rational frequencies; the analytical hypothesis that ARS's empirical Phase 12 perturbation sweep was originally framed against (with the Phase 13 reinterpretation noting that the Phase 12 signal is a peak-detection artifact, not a test of this hypothesis)."

@@ -4,10 +4,17 @@ A calibrated multi-scale RMT readout for arbitrary time series.
 
 ARS classifies the universality class of a signal's level statistics — Poisson
 (integrable), GOE (time-reversal symmetric chaotic), or GUE (quantum chaotic) —
-without requiring direct access to the underlying spectrum. It embeds a sequence
-into a chirp signal, runs a GPU-parallel bank of Farey-rational phase-locked loops
-against it, and extracts passage-time spacings that are unfolded and compared
-against random matrix theory predictions.
+for inputs where the level sequence is either directly accessible or extractable
+without imposing artificial periodicity. It embeds a sequence into a chirp signal,
+runs a GPU-parallel bank of Farey-rational phase-locked loops against it, and
+extracts passage-time spacings that are unfolded and compared against random
+matrix theory predictions.
+
+Continuous signals processed via prominence-thresholded peak detection are
+subject to extraction-pipeline artifacts that imitate Wigner-class level
+repulsion at the autocorrelation scale of the input — see §7.ter.19 of
+RESULTS.md for a worked example (LLM residual streams) and the diagnostic
+protocol (uniform-jitter calibrator + pre-processing-stage baseline).
 
 The instrument is validated against the Riemann ζ zeros, whose universality class
 (GUE, per the Montgomery-Odlyzko conjecture) is established to extraordinary
@@ -75,12 +82,20 @@ confirm the instrument reads correctly on a known system.
 | twin primes ≤ 10⁷ | Poisson | 0.057 | 1.16M | faster convergence than primes |
 | Gaussian prime norms ≤ 10⁵ | Poisson | 0.184 | 164k | |
 | Liouville ±1 support | unclassifiable | — | — | integer-floor spacing problem |
-| EEG θ zero-crossings | GUE-best | 0.190 | 341 | proof of concept only — see below |
+| EEG θ zero-crossings | quasi-periodic bandpass artifact | KS_GUE = 0.190 | 461,520 (32-subject cohort) | not Wigner-class — see below |
 
-**EEG caveat**: n=341 spacings from one channel of one subject. This demonstrates
-that the pipeline runs end-to-end on neural data and returns sensible output.
-It is not a claim about brain states or neural universality class. A proper study
-would require multiple subjects, multiple conditions, and careful protocol design.
+**EEG caveat**: the original 1-channel, 1-subject pilot was extended to the full
+32-subject EEGMMIDB cohort × 5 channels × 3 conditions (480 segments, 461,520
+pooled spacings, RESULTS §7.ter.2). KS_GUE ≈ 0.18 across the entire cohort —
+not a small-N fluctuation, but also **not** a Wigner-class identification. The
+diagnostic is mass<0.3 ≈ 0.001: zero-crossings of a 4–8 Hz bandpass are forced
+to ~125 ms intervals by the filter itself, so the short-spacing tail is
+structurally absent. The metric correctly identifies this as a quasi-periodic
+artifact, not as random-matrix dynamics. Same family of finding as the LLM
+residual-stream artifact in §7.ter.19 — both cases are level-repulsion-by-
+construction at the autocorrelation scale of the extraction method, not of the
+underlying dynamics. Right inputs for testing universality on neural data are
+spike timing or inter-burst intervals on the raw broadband signal.
 
 ---
 
@@ -175,13 +190,26 @@ PLL bank throughput: ~82M PLL-samples/sec on the 4090. CPU fallback available.
 
 ## Related work
 
-The connection between phase-locking, the Riemann zeta function, and prime number
-theory has been developed analytically by M. Planat and collaborators (FEMTO-ST,
-2002–2026), particularly the arithmetic of 1/f noise in PLLs and connections to
-the Mangoldt function, Arnold map, and Bost-Connes quantum statistical mechanics.
+The connection between phase-locking, the Riemann zeta function, and prime
+number theory has been developed analytically by M. Planat and collaborators
+(FEMTO-ST), with the foundational results that ARS rests on appearing across:
+
+- **Planat & Henry 2002** — phase-noise of PLLs analyzed via Farey arithmetic
+  and continued-fraction expansions, the Stern–Brocot organization of mode
+  locking that ARS reuses as the PLL bank parameterization;
+- **Planat & Rosu 2002** — Ramanujan-sum / Ramanujan-Fourier expansion of
+  arithmetical functions, the formulation that ARS Engine 1
+  (`ramanujan_fourier`) implements directly;
+- **Planat 2006** — connection between Farey-rational phase locking and the
+  Mangoldt arithmetic function / Riemann ζ;
+- **Planat 2026** — recent work on Bost-Connes quantum statistical mechanics,
+  KMS states, and the relationship between phase coherence at rational
+  frequencies and prime-theoretic invariants;
+
+(See `CITATION.cff` for full reference metadata as it becomes available.)
 ARS provides a complementary empirical approach: the Farey PLL bank as a
-measurement instrument applied to external signals rather than as an oscillator
-whose noise is being analyzed.
+measurement instrument applied to external signals, rather than as an
+oscillator whose noise is being analyzed.
 
 ARS was developed independently of Planat's published work; the author had no 
 prior exposure to it. Convergence on the Farey-rational-PLL framework as an 
