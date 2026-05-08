@@ -1949,7 +1949,169 @@ Phase 10.
 Output: `data/phase12_planat.json`, `plots/39_phase12_planat.png`,
 `run_phase12_planat.py`.
 
-### 7.ter.17  Caveats and follow-ups
+### 7.ter.17  Phase 13 — Solar X-ray flare statistics (1986-2023, GOES Plutino catalog)
+
+`run_phase13_solar.py` applies `full_analysis` to the Plutino 2024 GOES
+flare catalog (358,885 flares, 1986-01-04 → 2023-04-30, 37.32 yr) at
+six stratifications: all flares, C+, M+, X-only, solar-max years, and
+solar-min years.  Then a targeted Ramanujan-Fourier resonance scan on
+the M+X subset to compare with Planat's 2009 amplitude-spectrum result.
+
+#### Fingerprint matrix
+
+| stratum       | n        | best    | KS_GUE | KS_GOE | KS_P  | mass<0.3 | F(T=1) | F(T=5) | rep_int | top_q | mean_dt   |
+|---------------|----------|---------|--------|--------|-------|----------|--------|--------|---------|-------|-----------|
+| all_flares    | 358,885  | Poisson | 0.383  | 0.379  | 0.190 | 0.295    | 1.40   | 4.37   | 0.892   | 3     | 0.91 h    |
+| C_and_above   | 207,171  | Poisson | 0.705  | 0.617  | 0.401 | 0.601    | 2.86   | 11.41  | 0.900   | 10    | 1.58 h    |
+| M_and_above   | 9,750    | Poisson | 0.710  | 0.664  | 0.477 | 0.727    | 9.42   | 30.11  | 0.900   | 15    | 33.5 h    |
+| X_only        | 542      | Poisson | 0.672  | 0.632  | 0.475 | 0.697    | 5.61   | 11.89  | 0.900   | 11    | 602 h     |
+| solar_max     | 169,959  | Poisson | 1.000  | 0.687  | 0.472 | 0.673    | 3.36   | 14.28  | 0.900   | 3     | 1.77 h    |
+| solar_min     | 20,129   | Poisson | 0.822  | 0.855  | 0.705 | 0.917    | 17.77  | 76.39  | 0.900   | 18    | 15.2 h    |
+
+**All six strata are super-Poissonian and clustered.**  Best label is
+Poisson in every case but KS_P sits in 0.19-0.71 — far above the 0.022
+calibrator — so this is the metric reporting "least-bad of three Wigner
+references" rather than a clean Poisson identification.  mass<0.3 climbs
+from 0.295 (all flares) to 0.917 (solar_min), and F(T=5) climbs from
+4.4 to 76.4 across the same axis — the more we filter to *rare* flares
+or *quiet-sun* intervals, the more clustered the resulting bursts look.
+
+The two filtering directions (intensity threshold and solar-cycle phase)
+both push toward stronger clustering by reducing the rate while
+preserving the burst structure.  Comparing the cross-signal mass<0.3
+ladder, solar_min (0.917) is close to Mertens M(x) sign-changes (0.93)
+on the clustering axis — both are sparse arithmetic-/physics-driven
+event streams with long quiet stretches.
+
+#### Solar-cycle Fano comparison on M+X subsets
+
+| window     | best    | KS_GUE | mass<0.3 | F(T=1) | F(T=5)  | F(T=20)  |
+|------------|---------|--------|----------|--------|---------|----------|
+| solar_max M+X (n=6,429) | Poisson | 0.779 | 0.824 | 14.64 | 48.64 | 124.99 |
+| solar_min M+X (n=142)   | Poisson | 0.864 | 0.879 | 20.49 | 30.73 | 40.13  |
+
+Solar_max F(T) grows nearly linearly with T — sustained super-Poisson
+clustering at every measured scale, consistent with continuous active-
+region driving over the 3-year solar peak windows.  Solar_min F(T)
+*saturates* by T ≈ 5 (sparse bursts with large quiet gaps) — the
+process has a finite correlation length set by the rare active regions
+that survive into low-cycle years.
+
+**Same universality class (Poisson-best, super-Poisson F),
+different growth shape.**  This is the "different driving rate, same
+class" outcome — informative but not a class change.
+
+#### Ramanujan-Fourier resonance scan (M+X, Planat 2009 comparison)
+
+n = 9,750 events, 9,749 inter-flare intervals.  Mean interval 1.40 d,
+median 0.118 d, std 12.29 d.
+
+**Planat formulation** (a_q on unit-mean-normalised intervals):
+
+| q   | |a_q|    | period interpretation (q × mean_interval = q × 1.40 d) |
+|-----|---------|---------------------------------------------------------|
+| 15  | 0.0771  | 21 d                                                     |
+| 10  | 0.0631  | 14 d                                                     |
+| 50  | 0.0582  | 70 d                                                     |
+| 75  | 0.0578  | 105 d                                                    |
+| 150 | 0.0550  | 210 d                                                    |
+| 25  | 0.0548  | 35 d                                                     |
+| 172 | 0.0526  | 240 d                                                    |
+| 9   | 0.0519  | 13 d                                                     |
+| 86  | 0.0504  | 120 d                                                    |
+| 30  | 0.0476  | 42 d                                                     |
+
+**Indicator-function formulation** (a_q on event-count grid at 1-day
+bins, q in days):  top q = [2, 86, 43, 6, 3, 129, 5, 10, 7, 14].  The
+Carrington rotation period (27 d) is not directly in the top 10 but
+its sub-multiples and multiples are — q = 86 ≈ 3 × 27 + 5, q = 43 ≈
+1.6 × 27, q = 14 ≈ 27/2.  The exact 27-day peak is washed out by the
+short-period burst structure dominating the day-grid indicator.
+
+The 21-day period in the Planat-mode top-resonance list is consistent
+with a sub-Carrington feature (rotation/2 from active-region durations)
+and the 105/210-day peaks plausibly reflect quasi-periodic active-region
+emergence patterns.  These are interpretive — full Bayesian period
+attribution is a separate study.
+
+Output: `data/solar_flare_results.json`, `plots/40_solar_flares.png`.
+
+### 7.ter.18  Phase 14 — Binance BTCUSDT trade-timing microstructure
+
+`run_phase14_binance.py` applies `full_analysis` to the Binance spot
+BTCUSDT 7-day trade-timestamp point process (2024-01-01 → 2024-01-07,
+11,970,886 trades, ms-resolution).  Subsampled to every 10th trade
+(1.2M events) for speed.
+
+#### Fingerprint matrix
+
+| stratum                  | n        | best    | KS_GUE | KS_GOE | KS_P  | mass<0.3 | F(T=1) | F(T=5) | rep_int | mean_dt   |
+|--------------------------|----------|---------|--------|--------|-------|----------|--------|--------|---------|-----------|
+| full_week_pooled         | 1,197,089| Poisson | 0.486  | 0.437  | 0.271 | 0.503    | 13.55  | 28.92  | 0.000   | 505 ms    |
+| seller_taker (isBM=True) | 654,749  | Poisson | 0.518  | 0.476  | 0.330 | 0.543    | 18.84  | 40.94  | 0.000   | 924 ms    |
+| buyer_taker  (isBM=False)| 542,341  | Poisson | 0.471  | 0.423  | 0.262 | 0.491    | 12.63  | 23.23  | 0.000   | 1115 ms   |
+| day_01 (Mon, Jan 1)      | 111,463  | Poisson | 0.424  | 0.378  | 0.238 | 0.446    | 8.43   | 13.73  | 0.000   | 775 ms    |
+| day_02 (Tue)             | 224,754  | Poisson | 0.450  | 0.398  | 0.224 | 0.465    | 7.80   | 13.65  | 0.000   | 384 ms    |
+| day_03 (Wed)             | 265,805  | Poisson | 0.502  | 0.447  | 0.255 | 0.510    | 15.15  | 33.90  | 0.000   | 325 ms    |
+| day_04 (Thu)             | 181,995  | Poisson | 0.458  | 0.408  | 0.245 | 0.476    | 12.11  | 25.17  | 0.000   | 475 ms    |
+| day_05 (Fri)             | 206,485  | Poisson | 0.507  | 0.460  | 0.298 | 0.528    | 20.11  | 40.18  | 0.000   | 418 ms    |
+| day_06 (Sat)             |  95,665  | Poisson | 0.420  | 0.376  | 0.243 | 0.444    | 7.70   | 12.85  | 0.000   | 903 ms    |
+| day_07 (Sun)             | 110,926  | Poisson | 0.476  | 0.435  | 0.301 | 0.501    | 12.30  | 20.71  | 0.000   | 779 ms    |
+
+**All strata classify Poisson-best, all are super-Poissonian and
+clustered.**  KS_P sits in 0.22-0.33 (above the 0.022 calibrator),
+mass<0.3 in 0.44-0.54 (well above Poisson's 0.26), F(T=5) in 13-41.
+**`rep_int = 0.000` in every stratum** — *no level repulsion at any
+scale*.  This is qualitatively distinct from the solar-flare set
+where rep_int saturated at 0.89-0.90 (a sign that pair-correlation
+saw mostly noise rather than signal at the fixed r-grid).  Trade
+timing has cleaner coarse-grain Poissonian-with-clustering
+statistics than solar flares; the trade-frequency variation across
+sub-second timescales is genuine clustering with no hidden GUE
+mode.
+
+#### Buyer-taker vs seller-taker asymmetry
+
+The maker-side split *does* differentiate the two sides of the order
+book — but in clustering *strength*, not in universality class:
+
+| side                      | KS_P  | mass<0.3 | F(T=1) | F(T=5) | mean_dt |
+|---------------------------|-------|----------|--------|--------|---------|
+| seller_taker (aggressive sells hit bid) | 0.330 | 0.543 | 18.84 | **40.94** | 924 ms |
+| buyer_taker  (aggressive buys hit ask)  | 0.262 | 0.491 | 12.63 | **23.23** | 1115 ms |
+| ratio (seller / buyer)                  | 1.26× | 1.11×    | 1.49×  | **1.76×**  | 0.83×   |
+
+**Seller-side trades are 1.76× more clustered than buyer-side at
+T=5·mean_dt scale.**  Both sides are super-Poisson, but the
+aggressive-sell side bursts in tighter clusters than the
+aggressive-buy side.  Interpretive read: aggressive selling tends
+to come in panic / liquidation bursts (correlated with rapid
+price drops), while aggressive buying is closer to a Poisson stream
+of independent demand.  The asymmetry is real and measurable, but
+it is a magnitude difference within Poisson-best, not a category
+flip from clustered to level-repelling.
+
+This invalidates one of the original hypotheses framed when queueing
+this experiment ("one side might be regularly spaced and the other
+clustered") and replaces it with a more specific finding: **same
+universality class, asymmetric clustering rate, with sells more
+clustered than buys**.  The two sides do encode different aggregate
+flow processes, just both within the super-Poisson regime.
+
+#### Day-of-week variation
+
+F(T=5) ranges 12.85 (Saturday) to 40.18 (Friday) — Friday and
+Wednesday are the most-clustered days, Saturday and Monday the
+least.  Same universality class everywhere; the trading-week rhythm
+modulates clustering depth without changing the regime.  Mean
+inter-trade gap ranges 325 ms (Wed) to 1115 ms (week-pooled
+buyer-taker) — clustering is monotone with rate, but only roughly
+(day_06 Sat has 903 ms but lowest F(T=5), suggesting weekend trade
+flow is genuinely smoother than just rate-scaling would predict).
+
+Output: `data/binance_results.json`, `plots/41_binance.png`.
+
+### 7.ter.19  Caveats and follow-ups
 
 - **L-function family**: the BULK pair-correlation does not
   distinguish unitary/orthogonal/symplectic families.  A targeted

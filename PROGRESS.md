@@ -40,6 +40,92 @@ Output: `plots/33_primes_scaling.png`, `data/primes_scaling.json`.
 
 ---
 
+## 2026-05-07 17:20 — Phase 13 + 14: solar X-ray flares, Binance BTCUSDT trade timing
+
+Two physical-/financial-data fingerprints in parallel.
+
+### Phase 13 — solar flares (1986-2023, 358,885 events)
+
+| stratum     | n      | KS_P  | mass<0.3 | F(T=5) | rep_int | top RF q |
+|-------------|--------|-------|----------|--------|---------|----------|
+| all_flares  | 358,885| 0.190 | 0.295    | 4.37   | 0.892   | 3        |
+| C+          | 207,171| 0.401 | 0.601    | 11.41  | 0.900   | 10       |
+| M+          | 9,750  | 0.477 | 0.727    | 30.11  | 0.900   | 15       |
+| X-only      | 542    | 0.475 | 0.697    | 11.89  | 0.900   | 11       |
+| solar_max   | 169,959| 0.472 | 0.673    | 14.28  | 0.900   | 3        |
+| solar_min   | 20,129 | 0.705 | 0.917    | 76.39  | 0.900   | 18       |
+
+All Poisson-best, all heavily clustered (super-Poisson F).  More
+selective filters → stronger clustering.  solar_min mass<0.3 = 0.917
+matches Mertens M(x) sign-changes (0.93) on the clustering ladder.
+
+**Solar-cycle Fano comparison on M+X**: solar_max F(T) grows linearly
+to F(T=20)=125 (sustained driving), solar_min saturates at F(T=20)=40
+(sparse bursts with quiet gaps).  Same class, different growth shape.
+
+**Ramanujan-Fourier resonance scan on M+X intervals (Planat 2009
+comparison)**: top resonance q = {15, 10, 50, 75, 150} on
+unit-mean-normalised intervals.  In days: 21d, 14d, 70d, 105d, 210d.
+Indicator-mode peaks at q={86, 43, 129} ≈ Carrington rotation
+multiples but no clean 27d peak — the day-grid is dominated by the
+short-period burst structure.
+
+### Phase 14 — Binance BTCUSDT 7-day, 12M trades (subsampled to 1.2M)
+
+| stratum         | n       | KS_P  | mass<0.3 | F(T=5)  | rep_int |
+|-----------------|---------|-------|----------|---------|---------|
+| full_week_pooled| 1.20M   | 0.271 | 0.503    | 28.92   | 0.000   |
+| seller_taker    | 654,749 | 0.330 | 0.543    | **40.94** | 0.000   |
+| buyer_taker     | 542,341 | 0.262 | 0.491    | **23.23** | 0.000   |
+
+**All Poisson-best, all super-Poissonian clustered, rep_int = 0
+across every stratum.**
+
+**Buyer-taker / seller-taker asymmetry — same class, different
+clustering rate**: F(T=5) ratio = 1.76×, mass<0.3 ratio = 1.11×.
+Aggressive sells happen in tighter bursts than aggressive buys
+(panic / liquidation vs Poissonian demand).  This invalidates the
+original hypothesis ("one side regularly spaced, other clustered")
+and replaces it with: same universality class, asymmetric
+clustering depth, sells more clustered than buys.
+
+Per-day (Mon-Sun): F(T=5) ranges 12.85 (Sat) to 40.18 (Fri).  Same
+class, modulated depth by trading-week rhythm.
+
+`rep_int = 0.000` for all Binance strata (vs 0.89-0.90 for solar
+flares) is a clean qualitative difference: trade timing has cleaner
+super-Poisson statistics with no hidden level-repelling mode at the
+sub-second scale, while solar flares saturate the rep_int ceiling
+because the pair-correlation r-grid sees mostly noise at their hour-
+scale events.
+
+### Cross-signal mass<0.3 ladder updated
+
+| signal class                    | mass<0.3 | best    | KS_min |
+|---------------------------------|----------|---------|--------|
+| Wigner GUE eigenvalues (calib.) | 0.10     | GUE     | 0.022  |
+| ζ zeros (heights ~10⁶)          | 0.024    | GUE     | 0.012  |
+| LMFDB EC L-functions (h=1000)   | 0.024    | GUE     | 0.012  |
+| Dirichlet L (q ≤ 149)           | 0.016    | GUE     | 0.035  |
+| LLM residual-stream peaks       | 0.000    | GUE     | 0.17-0.32 |
+| LLM cumulative-surprisal events | 0.000    | GOE     | 0.10-0.21 |
+| Poisson process (calib.)        | 0.259    | Poiss   | 0.022  |
+| Solar all_flares                | 0.295    | Poiss   | 0.190  |
+| **Binance buyer-taker**         | **0.491**| Poiss   | 0.262  |
+| **Binance full week pooled**    | **0.503**| Poiss   | 0.271  |
+| **Binance seller-taker**        | **0.543**| Poiss   | 0.330  |
+| Solar C+                        | 0.601    | Poiss   | 0.401  |
+| Fungal spikes (fast timescale)  | 0.65     | Poiss   | 0.40   |
+| Solar X-only                    | 0.697    | Poiss   | 0.475  |
+| Solar M+                        | 0.727    | Poiss   | 0.477  |
+| Solar solar_min                 | 0.917    | Poiss   | 0.705  |
+| Mertens M(x) sign changes       | 0.93     | Poiss   | 0.32   |
+
+Outputs: `data/solar_flare_results.json`, `plots/40_solar_flares.png`,
+`data/binance_results.json`, `plots/41_binance.png`.
+
+---
+
 ## 2026-05-07 16:50 — Phase 12: Planat hypothesis — left side confirmed, right side not yet visible
 
 `run_phase12_planat.py` tests the prediction that an *optimal*

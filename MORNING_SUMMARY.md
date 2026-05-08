@@ -109,6 +109,7 @@ among the three Wigner forms', not GUE-class dynamics.
 ## Files written this session
 
 ```
+  data/binance_results.json                     (26,792 bytes)
   data/dirichlet_edge_results.json              (902 bytes)
   data/dirichlet_results.json                   (261,886 bytes)
   data/dirichlet_zeros.json                     (2,731,083 bytes)
@@ -133,6 +134,7 @@ among the three Wigner forms', not GUE-class dynamics.
   data/phase9_fingerprints.json                 (17,486 bytes)
   data/primes_scaling.json                      (2,839 bytes)
   data/second_order_results.json                (17,566 bytes)
+  data/solar_flare_results.json                 (24,366 bytes)
   data/zeta_height_convergence.json             (7,187 bytes)
 
   plots/01_F_curves.png                          (272,743 bytes)
@@ -174,6 +176,8 @@ among the three Wigner forms', not GUE-class dynamics.
   plots/37_phase10_llm.png                       (248,231 bytes)
   plots/38_phase11_models.png                    (179,162 bytes)
   plots/39_phase12_planat.png                    (79,081 bytes)
+  plots/40_solar_flares.png                      (263,873 bytes)
+  plots/41_binance.png                           (123,469 bytes)
 ```
 
 ## Pipeline state
