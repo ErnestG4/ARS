@@ -1,241 +1,200 @@
-# Arithmetic Resonance Spectrograph (ARS)
+# Arithmetic Resonance Spectrometer (ARS)
 
-A calibrated multi-scale RMT readout for arbitrary time series.
+Python implementation of a point-process universality classifier based on the
+Farey-rational phase-locked loop framework developed by M. Planat and
+collaborators (FEMTO-ST, 2002–2026).
 
-ARS classifies the universality class of a signal's level statistics — Poisson
-(integrable), GOE (time-reversal symmetric chaotic), or GUE (quantum chaotic) —
-for inputs where the level sequence is either directly accessible or extractable
-without imposing artificial periodicity. It embeds a sequence into a chirp signal,
-runs a GPU-parallel bank of Farey-rational phase-locked loops against it, and
-extracts passage-time spacings that are unfolded and compared against random
-matrix theory predictions.
+## What this is
 
-Continuous signals processed via prominence-thresholded peak detection are
-subject to extraction-pipeline artifacts that imitate Wigner-class level
-repulsion at the autocorrelation scale of the input — see §7.ter.19 of
-RESULTS.md for a worked example (LLM residual streams) and the diagnostic
-protocol (uniform-jitter calibrator + pre-processing-stage baseline).
+A toolkit that takes a point process (sorted event timestamps) and classifies
+its spacing statistics against a set of universality classes (Poisson, Wigner
+GOE/GUE/GSE, periodic, uniform-with-jitter) by measuring passage-time
+nearest-neighbour spacings through a bank of Farey-rational phase-locked
+loops. The output is a fingerprint vector locating the signal in a 2D plane
+defined by the repulsion integral and Ramanujan-Fourier amplitude, plus a
+quadrant-diagnostic assignment.
 
-The instrument is validated against the Riemann ζ zeros, whose universality class
-(GUE, per the Montgomery-Odlyzko conjecture) is established to extraordinary
-confidence by direct methods. Reproducing that result via a novel measurement chain
-is the calibration. The intended application is signals where direct level-sequence
-access is unavailable — audio, neural spike trains, sensor streams — and where
-the underlying arithmetic or dynamical structure is unknown.
+A calibration and falsification protocol is included for distinguishing
+classifications that reflect signal structure from classifications that
+reflect extraction-pipeline artifact.
 
----
+The framework's analytical content (Farey rationals as PLL natural
+frequencies, the Mangoldt-function and Bost-Connes connections) is not
+original to this codebase. ARS is an applied implementation; it does not
+contribute new theoretical mathematics.
 
-## Architecture
+## What has been validated
 
+These specific measurements have been reproduced at the precision indicated:
+
+- Riemann ζ first 2,000 zeros at joint-plane resolution: KS_GUE = 0.041.
+  Riemann ζ at heights ~10⁶: KS_GUE = 0.012–0.015. Consistent with the
+  GUE conjecture and Odlyzko's tabulated zeros.
+
+- Dirichlet L-functions, q ≤ 149, 630 primitive non-trivial characters,
+  4.05M pooled spacings: bulk GUE classification, conductor-normalised γ₁
+  distinguishing Sp from U at p = 0.001. Consistent with Katz–Sarnak
+  family symmetry predictions.
+
+- LMFDB elliptic curve L-functions, 87 curves, ~10,000 zeros: bulk GUE,
+  edge separation by root number. Consistent with established
+  characterisations.
+
+- USGS earthquake catalog M ≥ 4.5: classified as Poisson-clustered
+  (mass<0.3 = 0.33). Consistent with ETAS aftershock dynamics.
+
+- Adamatzky fungal mycelium spike recordings, 1,470 events from 35 units:
+  classified as super-Poissonian (mass<0.3 = 0.65) on the dataset tested.
+
+- EEG θ-band zero-crossings (PhysioNet EEGMMIDB, 32 subjects):
+  mass<0.3 ≈ 0.001, identified as bandpass filter artifact rather than
+  spacing statistic of the underlying signal.
+
+- σ̂ recovery on synthetic uniform_jitter signals: median relative error
+  ≤ 10% across the calibrator family at n_events ≥ 200; CI coverage ≥ 80%.
+
+- Pure-class parameter recovery on synthetic Poisson, Wigner (β=1, 2, 4),
+  periodic, and uniform_jitter inputs: passes specified acceptance
+  thresholds at n_events ≥ 200 (Wigner classes require n_events ≥ 1000).
+
+These measurements reproduce statistics consistent with prior results in
+the corresponding literatures. They are reported as instrument-validation
+outputs. They do not extend those literatures.
+
+## Known failure modes
+
+The toolkit has been characterised to fail in these specific ways. Each
+failure mode was diagnosed during development; details are in the indicated
+RESULTS.md sections.
+
+- **Continuous-trace inputs with peak-detection extraction.**
+  `scipy.signal.find_peaks(prominence=0.3)` applied to autocorrelated
+  continuous traces produces spacing statistics determined by the input's
+  autocorrelation length, not by the signal's underlying dynamics.
+  Classifications on such inputs reflect the extractor. (§7.ter.19.)
+
+- **Threshold-upcrossing extractors on near-iid input.** Applied to iid
+  exponential noise, threshold-upcrossing event extractors produce
+  rep_int_q ≈ 0.34, which falls in the TR (Wigner-class) quadrant of the
+  diagnostic. Any TR reading from a threshold-style extractor must be
+  cross-checked by applying the same extractor to noise of equivalent
+  statistical character. (Finding F, §7.ter.23.)
+
+- **rep_int_q is a signal-level scalar.** On continuous synthetic
+  uniform_jitter inputs, the per-q variation in rep_int_q is at
+  floating-point noise level (std ~10⁻⁴). The joint plane is therefore
+  effectively 1D for inputs in the BR_artifact regime; the
+  Ramanujan-Fourier amplitude axis carries the discriminative information
+  when periodic structure is present. (§7.ter.22 amendment.)
+
+- **σ̂ recovery interprets gap distribution position in the calibrator
+  family.** For signals that are point processes by construction (primes,
+  ζ zeros, synthetic ensembles), σ̂ describes their gap distribution. For
+  signals extracted from continuous traces via peak detection, σ̂
+  describes the extractor's gap distribution rather than a property of
+  the underlying signal.
+
+- **Sample-size requirements vary by class.** Wigner-class β̂ recovery
+  requires n_events ≥ 1000 for ≥ 80% CI coverage. Other classes require
+  n_events ≥ 200. (§7.ter.23 Tier 3.)
+
+- **Mixed-class spectral decomposition is partial.** Periodic-component
+  identification via Ramanujan-Fourier peak detection works (4/4 cases on
+  the test panel). Per-component class assignment via rep_int_q
+  segmentation does not separate Poisson + uniform-jitter components in
+  pooled mixed-stream data.
+
+- **Integer-spacing structural confound.** When the underlying t_k is
+  integer-valued and dense, the minimum normalised spacing is bounded
+  above zero by arithmetic, and mass<0.3 = 0 occurs for structural rather
+  than dynamical reasons. The diagnosis flag in `joint_q_profile` reports
+  this when detectable.
+
+## Application to LLM internal states
+
+The toolkit was applied to transformer residual stream activations and
+attention dynamics across four architectures (Qwen 2.5 3B, Phi-3-mini-4k,
+TinyLlama 1.1B, Mistral 7B v0.1) and across eight extractor mechanisms.
+After three rounds of artifact diagnosis, no measurement was obtained
+that could be attributed to the model rather than to the extraction
+pipeline.
+
+Specific provisional findings retracted during development:
+
+- Wigner-class classification on residual_norm_peaks: retracted as
+  find_peaks autocorrelation rhythm (§7.ter.19).
+- Cross-architecture σ̂ invariance: retracted as metric-blindness on
+  integer-position event sequences (§7.ter.22 amendment).
+- Wigner-class reading on three by-construction extractors at
+  rep_int_q ≈ 0.34: retracted as threshold-upcrossing TR induction
+  (Finding F, §7.ter.23).
+
+The negative result is bounded to the extractors and architectures tested
+above. It does not generalise to RMT analysis of LLM weight matrices
+(Staats et al. 2024, Martin & Mahoney 2018–2024), which uses different
+methodology and is outside the scope of this work.
+
+## How to use
+
+See `METHODS.md` for the protocol, including calibrator-zoo construction,
+extractor-invariance testing, and induction-on-noise falsification. See
+`RESULTS.md` for the empirical context in which each measurement was
+produced.
+
+Installation:
 ```
-Sequence t_k  (zero heights, prime gaps, spike times, ...)
-     ↓
-Chirp:  x(t) = Σ_k cos(t_k · log(t+1)) / √t_k
-     ↓
-Farey PLL bank  (one PLL per rational p:q ≤ Q_max, GPU-parallel via CuPy)
-     ↓
-Two pipelines:
-
-  ANALYTICAL (primary, calibrated)
-  Passage times  t*_{k,p/q} = t_k / (f_ref · p/q) − 1
-  → unfolded NNS → KS distances → universality class
-
-  MEASURED (secondary, subject to instrument bias)
-  Lock-onset times → NNS → classification
-  Note: time-symmetric peak detection folds GUE onto GOE (~0.13 KS shift,
-  observed empirically; consistent with Dyson's threefold way but not
-  proven rigorously here)
-```
-
----
-
-## Calibration
-
-All three calibration anchors classify correctly with KS ≤ 0.025:
-
-| signal | best fit | KS_min | n spacings |
-|---|---|---|---|
-| GUE eigenvalues (R=2 semicircle unfolding) | GUE | 0.022 | 13,971 |
-| GOE eigenvalues | GOE | 0.021 | 13,965 |
-| Poisson uniform | Poisson | 0.018 | 17,628 |
-
-ζ zeros — validation target (GUE fit tightens with height, consistent with
-asymptotic universality):
-
-| zeros | n spacings | KS_GUE | KS_GOE |
-|---|---|---|---|
-| first 2,000 | 49,181 | 0.032 | 0.100 |
-| first 100,000 (Odlyzko zeros1) | 1,845,065 | 0.015 | 0.081 |
-| heights ≈ 1.1M (Odlyzko zeros6) | 450,184 | 0.012 | 0.079 |
-
-This replicates the Montgomery-Odlyzko result via the passage-time metric.
-Odlyzko's direct computation remains the authoritative result; these numbers
-confirm the instrument reads correctly on a known system.
-
----
-
-## Cross-signal survey
-
-| signal | best fit | KS_min | n | notes |
-|---|---|---|---|---|
-| primes ≤ 10⁶ | Poisson | 0.156 | 2.68M | Cramér heuristic reproduced |
-| twin primes ≤ 10⁷ | Poisson | 0.057 | 1.16M | faster convergence than primes |
-| Gaussian prime norms ≤ 10⁵ | Poisson | 0.184 | 164k | |
-| Liouville ±1 support | unclassifiable | — | — | integer-floor spacing problem |
-| EEG θ zero-crossings | quasi-periodic bandpass artifact | KS_GUE = 0.190 | 461,520 (32-subject cohort) | not Wigner-class — see below |
-
-**EEG caveat**: the original 1-channel, 1-subject pilot was extended to the full
-32-subject EEGMMIDB cohort × 5 channels × 3 conditions (480 segments, 461,520
-pooled spacings, RESULTS §7.ter.2). KS_GUE ≈ 0.18 across the entire cohort —
-not a small-N fluctuation, but also **not** a Wigner-class identification. The
-diagnostic is mass<0.3 ≈ 0.001: zero-crossings of a 4–8 Hz bandpass are forced
-to ~125 ms intervals by the filter itself, so the short-spacing tail is
-structurally absent. The metric correctly identifies this as a quasi-periodic
-artifact, not as random-matrix dynamics. Same family of finding as the LLM
-residual-stream artifact in §7.ter.19 — both cases are level-repulsion-by-
-construction at the autocorrelation scale of the extraction method, not of the
-underlying dynamics. Right inputs for testing universality on neural data are
-spike timing or inter-burst intervals on the raw broadband signal.
-
----
-
-## When to use this vs. direct NNS
-
-Direct NNS on the unfolded sequence is simpler, faster, and gives better statistics
-when the level sequence is directly accessible. Use ARS when:
-
-- The sequence is embedded in a continuous signal and levels are not directly
-  observable
-- Multi-scale rational structure is of interest (different Farey rationals probe
-  different frequency neighborhoods simultaneously)
-- You want to compare heterogeneous signal types on a common metric
-
-For ζ zeros specifically, Odlyzko's direct approach is preferable. ARS is
-validated here because the answer is known; it is designed for cases where it
-isn't.
-
----
-
-## Quickstart
-
-```bash
 pip install -r requirements.txt
-
-# Fast demo: ζ + GUE/GOE/Poisson controls (~30s, no external data needed)
-python3 run_analytical_nns.py
-# → GUE classification of ζ, KS=0.034, n=18,529 spacings
-
-# Full cross-signal survey (requires external data — see RESULTS.md §9)
-python3 run_phase5.py
 ```
 
----
-
-## External data
-
-Place in `data/` before running large-scale analyses:
-
-- **Odlyzko ζ tables**: `zeros1`, `zeros6` from
-  https://www-users.cse.umn.edu/~odlyzko/zeta_tables/
-- **PhysioNet EEG**: `S001R01.edf` etc. from
-  https://physionet.org/files/eegmmidb/1.0.0/
-
-ζ zeros can also be computed on demand via `mpmath.zetazero` (used by the
-quickstart demo).
-
----
-
-## File layout
-
+Minimal example:
 ```
-├── README.md
-├── RESULTS.md              # full methods, calibration, all results, limitations
-├── CRITICALITY_BRIEF.md    # original specification
-├── CITATION.cff
-├── LICENSE                 # AGPL-3.0-or-later
-├── requirements.txt
-│
-├── pll_bank.py             # Farey PLL bank, CPU + CuPy GPU
-├── intermittency.py        # dwell extraction, power-law MLE, Stern-Brocot depth
-├── universality.py         # NNS, Σ²(L), pair correlation, SFF
-├── arithmetic_toolkit.py   # 5-engine fingerprint: Ramanujan-Fourier, p-adic
-│                           #   profile, multiscale Fano, R₂(r), SB-split
-├── signal_gen.py           # signal generators
-│
-├── run_analytical_nns.py   # primary calibrated metric — start here
-├── run_full_sweep.py       # 3000-cell parameter sweep
-├── run_decisive.py         # 1000-zero × 300s PLL run
-├── run_controls.py         # selection-bias + time-reversal controls
-├── run_calibration.py      # GUE/GOE chirp calibration
-├── run_phase3.py           # NNS / Σ² / SFF
-├── run_phase4.py           # cross-signal first batch
-├── run_phase5.py           # cross-signal wider batch + EEG
-│
-├── tests/
-│   ├── test_pll.py         # Phase 1 acceptance
-│   ├── test_pll_gpu.py     # GPU↔CPU parity
-│   └── test_intermittency.py
+from arithmetic_toolkit import full_analysis, joint_q_profile
+
+# t_k is a sorted numpy array of event timestamps
+result = joint_q_profile(t_k, q_max=200)
 ```
-
----
-
-## Hardware
-
-- **CPU**: AMD Ryzen 9 5900x, 24 threads (joblib parallel)
-- **GPU**: NVIDIA RTX 4090, CuPy + CUDA 12
-
-PLL bank throughput: ~82M PLL-samples/sec on the 4090. CPU fallback available.
-
----
 
 ## Related work
 
-The connection between phase-locking, the Riemann zeta function, and prime
-number theory has been developed analytically by M. Planat and collaborators
-(FEMTO-ST), with the foundational results that ARS rests on appearing across:
+The Farey-rational-PLL framework is developed in:
 
-- **Planat & Henry 2002** — phase-noise of PLLs analyzed via Farey arithmetic
-  and continued-fraction expansions, the Stern–Brocot organization of mode
-  locking that ARS reuses as the PLL bank parameterization;
-- **Planat & Rosu 2002** — Ramanujan-sum / Ramanujan-Fourier expansion of
-  arithmetical functions, the formulation that ARS Engine 1
-  (`ramanujan_fourier`) implements directly;
-- **Planat 2006** — connection between Farey-rational phase locking and the
-  Mangoldt arithmetic function / Riemann ζ;
-- **Planat 2026** — recent work on Bost-Connes quantum statistical mechanics,
-  KMS states, and the relationship between phase coherence at rational
-  frequencies and prime-theoretic invariants;
+- Planat, M. & Henry, E. (2002). The arithmetic of 1/f noise in a
+  phase-locked loop. *Applied Physics Letters* 80(13), 2413–2415.
+- Planat, M. & Rosu, H. (2002). Ramanujan sums for signal processing of
+  low-frequency noise. *Physical Review E* 66, 056128.
+- Planat, M. (2006). Huyghens, Bohr, Riemann and Galois: Phase-Locking.
+  *International Journal of Modern Physics B* 20, 1833–1850.
+- Planat, M. (2026). Painlevé Confluence and 1/f Phase-Locking Dynamics.
+  *Machine Learning and Knowledge Extraction* 8(3), 73.
 
-(See `CITATION.cff` for full reference metadata as it becomes available.)
-ARS provides a complementary empirical approach: the Farey PLL bank as a
-measurement instrument applied to external signals, rather than as an
-oscillator whose noise is being analyzed.
+Standard random-matrix-theory references applied here:
 
-ARS was developed independently of Planat's published work; the author had no 
-prior exposure to it. Convergence on the Farey-rational-PLL framework as an 
-arithmetic instrument arose through extended collaboration with Claude 
-(Anthropic), whose training corpus includes Planat's papers from 2002 onward. 
-Reading those papers after the fact (correspondence with M. Planat, May 2026) 
-confirmed that the analytical scaffolding ARS rests on — phase-locking as a 
-number-theoretic phenomenon, Ramanujan-Fourier analysis of arithmetical 
-signals, the connection of Farey rationals to ζ — was developed by Planat and 
-collaborators over the preceding two decades. We cite his work as the 
-originating analytical framework. ARS is the empirical-instrument 
-complement: it does not derive from those papers in the conventional 
-read-then-build sense, but it would not exist in its current form without 
-them, transmitted through the training data of a language model.
+- Bohigas, O., Giannoni, M.-J. & Schmit, C. (1984). Characterization of
+  chaotic quantum spectra and universality of level fluctuation laws.
+  *Physical Review Letters* 52, 1.
+- Mehta, M. L. (2004). *Random Matrices* (3rd ed.).
+- Odlyzko, A. M. (1987, 2001). On the distribution of spacings between
+  zeros of the zeta function. (Tabulated zeros and analyses.)
+- Katz, N. & Sarnak, P. (1999). *Random Matrices, Frobenius Eigenvalues,
+  and Monodromy*.
+- Dumitriu, I. & Edelman, A. (2002). Matrix models for beta ensembles.
+- Cramér, H. (1936). On the order of magnitude of the difference between
+  consecutive prime numbers.
 
----
+## Provenance
+
+This toolkit was developed through extended dialogue with Claude
+(Anthropic) without prior exposure to Planat's published work. The
+convergence on the Farey-rational-PLL framework occurred during dialogue
+with a model whose training corpus included Planat's papers from 2002
+onward. Subsequent reading of those papers (correspondence with M. Planat,
+May 2026) confirmed that the analytical scaffolding the toolkit
+implements was developed by Planat and collaborators over the preceding
+two decades. ARS is an applied implementation of an existing framework,
+arrived at through an unusual transmission path; it does not derive from
+those papers in the conventional read-then-build sense, and it does not
+extend the framework analytically.
 
 ## License
 
-AGPL-3.0-or-later. See LICENSE.
-
-## Citation
-
-See CITATION.cff.
-
-## Status
-
-Research code. Calibrated and reproducible; see RESULTS.md §10 for known
-limitations. In-progress writeup. Issues, reproductions, and patches welcome.
+See `LICENSE`.

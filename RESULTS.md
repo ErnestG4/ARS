@@ -1,97 +1,46 @@
-# Criticality Tool — Results
+# RESULTS
 
-A measurement instrument for **dynamical level statistics** of arithmetic
-signals.  Built on a Farey bank of phase-locked loops driven by chirp
-synthesis from a sequence of "frequencies" t_k (zero heights, prime gaps,
-random matrix eigenvalues, etc.).  The intended question: do the Riemann ζ
-zeros — and other arithmetic structures — exhibit the universality class
-of quantum chaos (GUE), and can that be detected through their FM coupling
-structure with a real instrument?
+This document is the empirical log for the Arithmetic Resonance
+Spectrometer (ARS).  It records, in chronological order of development,
+the measurements made with the toolkit and the diagnoses that produced
+each result.  The body sections (§3 through §7.ter) are working notes
+preserved for traceability — they include intermediate findings that
+were later retracted.  **For the finalized list of validated outputs,
+failure modes, and limitations, see §8.**
 
-This document records the working state of the tool, the calibration
-needed to read its output correctly, and the results obtained so far.
-
----
+The toolkit is described in `README.md`; the protocol it implements is
+in `METHODS.md`.
 
 ## TL;DR
 
-1. **Riemann ζ zeros' analytical passage-time NNS through the Farey PLL
-   bank's selection function follows the Wigner GUE distribution**, and
-   **the fit improves at higher zero heights** as the GUE conjecture
-   predicts:
-   - first 2,000 zeros (heights 14 → 2,400):       KS_GUE = 0.032 (n = 49k)
-   - first 100,000 zeros (heights 14 → 75k):       KS_GUE = 0.015 (n = 1.84M)
-   - zeros at heights ≈ 1.1M (Odlyzko zeros6):     **KS_GUE = 0.012** (n = 450k)
-   The metric tracks the conjecture's asymptotic-universality prediction
-   end to end.
+The toolkit was validated against signals with established universality
+classifications (Riemann ζ, LMFDB elliptic curve L-functions, Dirichlet
+L-functions, GUE/GOE eigenvalue ensembles, USGS earthquakes) and
+reproduced statistics consistent with prior literature on the inputs
+tested.  Application to LLM internal state produced no measurement
+attributable to the model rather than to the extraction pipeline; three
+provisional findings produced during development were retracted under
+calibration and induction-on-noise tests.
 
-2. **The GUE classification extends to other arithmetic L-functions,
-   and the Katz–Sarnak family symmetry is empirically resolved at the
-   edge.**  87 elliptic curve L-functions over Q with conductor ≤ 99
-   (LMFDB isogeny class reps, zeros via PARI/GP) classify uniformly as
-   Wigner GUE in the bulk: aggregate KS_GUE = 0.015 across 748k pooled
-   spacings.  The bulk pair-correlation does not distinguish the two
-   root-number subfamilies, as Katz–Sarnak predicts.  But the **lowest
-   non-trivial zero γ_1, normalised by `log(N)/(2π)`, cleanly separates
-   them**: SO_even (root_number = +1) has γ_1 ≈ 1.95, SO_odd
-   (root_number = −1) has γ_1 ≈ 2.67, two-sample KS = 0.94, p ≈ 0.
-   The orthogonal-even / orthogonal-odd distinction is empirically
-   visible in this metric.
-
-3. **EEG θ-band zero-crossings: quasi-periodic artifact correctly
-   identified by the metric — bandpass zero-crossings are the wrong
-   input.**  Across the full 32-subject EEGMMIDB cohort × 5 channels
-   × 3 conditions (480 segments, 461,520 pooled spacings), every
-   segment classifies GUE-best with KS_GUE ≈ 0.18, gap +0.06,
-   **mass<0.3 ≈ 0.001**.  The 3-subject pilot's 0.18 was not a
-   small-N fluctuation; at 10× the cohort the same number recurs.
-
-   But this is **NOT a Wigner GUE classification.**  KS_GUE = 0.18 is
-   8× the calibrator threshold of 0.022.  More tellingly, mass<0.3 ≈
-   0.001 vs Wigner GUE's ~0.10 means short spacings are essentially
-   *absent* — far stronger level repulsion than any Wigner form
-   predicts.  The cause is structural: zero-crossings of a 4–8 Hz
-   bandpass are forced to ~125 ms intervals by the filter itself, and
-   the resulting near-uniform spacing distribution is closer to a
-   delta at s = 1 than to any RMT class.
-
-   **Bandpass zero-crossings are the wrong input** for testing
-   universality on neural data.  The right inputs are spike timing
-   (single-unit or multi-unit events from invasive recordings), and
-   inter-burst intervals (IBI) extracted from envelope/amplitude-peak
-   detection on raw broadband EEG — neither of which is forced into
-   uniform spacing by a bandpass.  Condition deltas are tiny
-   (KS_GUE varies only 0.014 across rest_eyes_open / rest_eyes_closed
-   / motor_imagery), confirming θ-band zero-crossing rate carries no
-   meaningful cognitive-state signal in this metric.
-2. **Pure GUE eigenvalues yield Wigner GUE NNS** in the same framework
-   (KS_GUE = 0.022).  **Pure GOE eigenvalues yield Wigner GOE**
-   (KS_GOE = 0.021).  The metric is calibrated.
-3. **The PLL detector itself projects GUE → GOE.**  Going from analytical
-   to PLL-measured ζ NNS shifts the gap from +0.065 (GUE) to −0.066
-   (GOE) — a ~0.13 KS shift driven by the detector's time-symmetric
-   amplitude-peak detection.
-4. **Per-PLL Fano factor F < 1 for ζ** (0.957 ± 0.130 over 28 qualifying
-   PLLs at 1000 zeros × 300 s) — robust signature of level repulsion at
-   the per-PLL level.
-5. **Both null hypotheses are clearly rejected** by the metric.  White
-   noise produces zero locks anywhere in the parameter space (F = NaN,
-   no events).  Poisson-frequency-FM null at the same cell yields
-   F_per_PLL = 2.43, mass<0.3 = 36.6%, KS_Poisson best-fit — clearly
-   clustered, not level-repelling.
+The full validated-outputs list and the diagnosed failure modes are in
+§8.  The ARS toolkit is an applied implementation of the Farey-rational
+PLL framework (Planat et al., 2002–2026) and does not extend that
+framework analytically.
 
 ---
 
-## 1. The Question
+## 1. Scope
 
-The Riemann zeros are conjectured to follow GUE statistics in their
-unfolded spacings.  This is one of the strongest links between number
-theory and quantum chaos / random matrix theory.  We want a **dynamical
-detector** that reveals this universality class — not a static spacing
-statistic, but a **time-domain signature** built from the same data.  If
-we can detect GUE in ζ this way, the same detector can be applied to
-other arithmetic signals (primes, Möbius, etc.) and to physical signals
-(neural oscillations, audio) to compare classes.
+The toolkit takes a sorted point process (event timestamps t_k) and
+classifies its spacing statistics against Poisson, Wigner GOE/GUE/GSE,
+periodic, and uniform-with-jitter universality classes.  The intended
+applications are signals where the level sequence is directly
+accessible (eigenvalues, zero heights) or extractable without imposing
+artificial periodicity (prime gaps, earthquake catalogs).  Inputs that
+are extracted from continuous traces by peak detection require the
+artifact-diagnostic protocol described in METHODS.md before
+classifications can be trusted; see §7.ter.19 and §8 for worked
+examples.
 
 ---
 
@@ -3418,162 +3367,221 @@ Outputs:
 
 ## 8. Conclusions and limitations
 
-### Conclusions
+### Validated outputs
 
-1. **Strong validation on the arithmetic side.**  The Riemann ζ analytical
-   passage-time NNS through the Farey PLL bank's selection function follows
-   Wigner GUE at calibrator quality across 1.84M pooled spacings (KS_GUE =
-   0.015 at the first 100k zeros, 0.012 at heights ~1.1M — fit *improves*
-   with height, exactly as the GUE conjecture predicts).  The classification
-   extends to other arithmetic L-functions: 87 LMFDB elliptic curve
-   L-functions classify uniformly as bulk Wigner GUE (KS_GUE = 0.012 across
-   2.5M pooled spacings at zero-height 1000), with the SO_e/SO_o family
-   symmetry empirically resolved at the lowest non-trivial zero
-   (γ_1 normalised KS = 0.94, p ≈ 0).  Dirichlet L-functions over q ≤ 149
-   (630 primitive non-trivial characters, 4M pooled spacings) classify as
-   bulk GUE with the Sp/U edge separation at γ_1 normalised KS = 0.21,
-   p = 0.001.  The Phase 9 fingerprint vector correctly separates
-   level-repelling, random, and clustered signal classes on synthetic
-   calibrators and on real arithmetic data.
+The toolkit produces the following measurements at the precision indicated,
+on the inputs specified.
 
-2. **Correct classification of physical and biological signals.**  USGS
-   earthquakes M ≥ 4.5 (37,283 events over 5 years) classify as
-   Poisson-clustered with mass<0.3 = 0.33 and pair-correlation R₂(0.1) =
-   1.95 (anti-correlation), consistent with ETAS aftershock dynamics.
-   Adamatzky fungal mycelium spikes (35 (file, channel) units, 1,470
-   inter-spike spacings) classify as strongly clustered (mass<0.3 = 0.65)
-   with characteristic two-timescale structure (2.2 min fast peak, slow
-   inter-burst clustering visible in the ISI distribution).  EEG θ-band
-   zero-crossings (32-subject EEGMMIDB cohort, 480 segments, 461,520
-   spacings) are correctly identified as a quasi-periodic bandpass
-   artifact (mass<0.3 ≈ 0.001), not as RMT-class neural dynamics.  Solar
-   X-ray flares (358,885 events over 37 years) and Binance BTCUSDT trade
-   timing (12M trades, 7 days) classify as super-Poissonian clustered
-   processes with the buyer-taker / seller-taker microstructure asymmetry
-   visible at F(T=5) = 23.2 vs 40.9 (same class, asymmetric clustering depth).
+#### Arithmetic signals
 
-3. **Successfully diagnosed false positive on LLM internal states.**  The
-   Phase 10/11/12 finding originally framed as Wigner GUE-class level
-   repulsion in transformer residual streams was diagnosed via the Tier 1
-   calibrator zoo and Tier 3A layer-depth sweep as an extraction-pipeline
-   artifact.  The fingerprint is uniform-with-jitter (not Wigner-class) and
-   is present at layer 0 — the embedding output, before any decoder block
-   has fired.  Documented in §7.ter.19 with the methodological lesson:
-   prominence-thresholded peak detection on continuous, autocorrelated 1D
-   signals produces quasi-uniformly-spaced events at the input's
-   autocorrelation scale, regardless of underlying dynamics; class
-   identification on such inputs requires a uniform-jitter calibrator and a
-   pre-processing-stage baseline as part of the protocol.
+- Riemann ζ first 2,000 zeros (Odlyzko): KS_GUE_q = 0.041, rep_int_q = 0.425.
+  ζ at heights ~10⁶: KS_GUE_q = 0.012–0.015. (§7.ter.7, §7.ter.21.)
 
-4. **What ARS is.**  A calibrated cross-domain measurement instrument for
-   classifying point-process universality class via passage-time NNS
-   through a Farey-rational PLL bank.  ARS does not derive new mathematics
-   — it is an applied engineering combination of established random-matrix
-   machinery (Bohigas–Giannoni–Schmit 1984; Mehta 2004; Wigner 1957) and
-   the phase-locking / Farey-arithmetic framework analytically developed
-   by Planat and collaborators (FEMTO-ST, 2002–2026), with the
-   Ramanujan-Fourier engine following Planat & Rosu's formulation.  The
-   contribution is empirical: a calibrated instrument that produces
-   correct, reproducible classifications on signals where the answer is
-   independently knowable (ζ zeros, RMT eigenvalues, β-ensembles), and
-   that successfully self-diagnoses false positives via the
-   calibrator + ablation protocol on signals where the answer is not.
+- LMFDB elliptic curve L-functions, 87 curves, ~10,000 zeros: bulk GUE,
+  edge separation by root number. (§7.ter.4.)
+
+- Dirichlet L-functions, q ≤ 149, 630 primitive non-trivial characters,
+  4.05M pooled spacings: bulk GUE, conductor-normalised γ₁ Sp/U
+  separation at p = 0.001. (§7.ter.3.)
+
+- Primes ≤ 10⁶, log-density unfolding: σ̂ = 0.048, 95% CI [0.023, 0.073];
+  twin primes ≤ 10⁷: σ̂ = 0.093, 95% CI [0.068, 0.118]. (§7.ter.23 Tier 4.)
+
+These reproduce statistics that are consistent with the GUE conjecture
+for ζ and with Katz–Sarnak family-symmetry predictions for L-function
+families. They are reported as instrument-validation outputs. They do
+not extend the corresponding literatures.
+
+#### Physical and biological signals
+
+- USGS earthquake catalog, M ≥ 4.5: Poisson-clustered classification,
+  mass<0.3 = 0.33. Consistent with ETAS aftershock dynamics. (§7.ter.4.)
+
+- Adamatzky fungal mycelium spike pool, 1,470 events: super-Poissonian
+  classification, mass<0.3 = 0.65 on the dataset tested. (§7.ter.5.)
+
+- Solar X-ray flares (NOAA GOES, M+ class): Poisson-clustered. (§7.ter.13.)
+
+- Binance BTCUSDT trade timing (one trading day): essentially random
+  (BL quadrant). (§7.ter.14.)
+
+- EEG θ-band zero-crossings (PhysioNet EEGMMIDB, 32 subjects):
+  mass<0.3 ≈ 0.001, identified as bandpass filter artifact rather than
+  a property of the underlying neural signal. (§7.ter.6.)
+
+These classifications reproduce or are consistent with prior
+characterisations in the corresponding domain literatures on the specific
+datasets tested. Generalisation to those domains broadly requires more
+data than was used here.
+
+#### Synthetic calibrators
+
+- Pure-class parameter recovery on synthetic Poisson, Wigner (β=1, 2, 4),
+  periodic, and uniform_jitter signals: passes acceptance criteria
+  (CI coverage ≥ 80%, median relative error ≤ 10%) at n_events ≥ 200,
+  with Wigner classes requiring n_events ≥ 1000 for stable β̂ recovery.
+  (§7.ter.23 Tiers 1, 3.)
+
+- 8-class joint-plane classification under k-NN (k=5) with seeds {0,1,2}
+  trained, {3,4} held out: 100% per-q accuracy on the calibrator pool.
+  (§7.ter.21.)
+
+### Failure modes diagnosed during development
+
+Three failure modes of the classification pipeline were identified during
+development. Each is documented at the section indicated, with the
+specific empirical test that produced the diagnosis.
+
+#### find_peaks autocorrelation rhythm (§7.ter.19)
+
+`scipy.signal.find_peaks(prominence=0.3)` applied to autocorrelated
+continuous traces produces quasi-uniformly-spaced events at the
+autocorrelation length of the input, regardless of the input's underlying
+dynamics. Spacing-statistics classifications on such inputs reflect the
+extractor's gap structure rather than the signal.
+
+Diagnosis: layer-depth sweep on a transformer (Phase 11 panel) showed
+the classifying signature (rep_int_q = 0.900, mass<0.3 = 0) was already
+present at the embedding output, before any decoder block had fired.
+
+#### Metric-resolution collapse for σ̂ recovery (§7.ter.22 amendment)
+
+The repulsion integral (`rep_int_q`) is empirically a signal-level scalar
+on continuous synthetic uniform_jitter inputs. Its per-q variation is at
+floating-point noise level. The "joint plane" therefore has effectively
+1D discriminative content for inputs in the BR_artifact regime.
+
+σ̂ recovery on such inputs returns the position of the input's gap
+distribution within the synthetic uniform_jitter calibrator family. For
+inputs that are point processes by construction, this position reflects
+the actual gap distribution. For inputs extracted from continuous traces
+via peak detection, the position reflects the extractor's gap
+distribution.
+
+Diagnosis: direct inspection of joint_q_profile output on synthetic
+uniform_jitter signals showed std(rep_int_q across q) ≈ 10⁻⁴, with the
+"per-q" values landing exactly on calibrator-grid anchor values for
+many real-signal inputs.
+
+#### Threshold-upcrossing TR induction (Finding F, §7.ter.23)
+
+Threshold-style event extractors applied to iid exponential noise
+produce rep_int_q ≈ 0.34, which falls in the TR (Wigner-class) quadrant
+of the diagnostic. TR readings from threshold-style extractors must
+therefore be cross-checked by applying the same extractor to noise of
+equivalent statistical character.
+
+Diagnosis: induction-on-Poisson test (Phase 16 Tier 1 paradigm) applied
+to layer_kl_divergence and attention_sink_events, both of which had
+initially produced rep_int_q ≈ 0.34 on LLM input and might have been
+read as Wigner-class evidence absent the falsification step.
+
+### Application to LLM internal states
+
+The toolkit was applied to transformer residual stream activations and
+attention dynamics across four architectures (Qwen 2.5 3B,
+Phi-3-mini-4k-instruct, TinyLlama 1.1B, Mistral 7B v0.1) and eight
+extractor mechanisms (residual_norm_peaks, attention_entropy_peaks,
+attention_target_jumps, attention_sink_events, layer_kl_divergence,
+attention_argmax_sink, attention_sink_residency_runs,
+attention_multi_head_sink_consensus). The intermediate findings produced
+during this work, and the corresponding diagnoses that retracted them,
+are documented in §7.ter.19 through §7.ter.23.
+
+After the diagnoses, no measurement remains that can be attributed to
+the model rather than to the extraction methodology. The negative result
+is bounded:
+
+- It applies to extraction of point processes from transformer internal
+  state via the specific extractor mechanisms tested.
+- It does not address RMT analysis of LLM weight matrices
+  (Staats et al. 2024; Martin & Mahoney 2018–2024), which uses different
+  methodology and is outside this work's scope.
+- It does not exclude the possibility that other extraction methodologies
+  not tested here might produce measurable structure.
+
+`attention_target_jumps` produced architecture-discriminating output
+(Qwen 0.70 vs Phi-3 0.35 in rep_int_q) that reflects argmax-sequence
+autocorrelation properties. This is a low-resolution architectural
+descriptor; it does not constitute a universality-class finding.
+
+### Claims not made in this document
+
+The following claims appeared in intermediate states during development
+and were retracted under further verification. They are listed here so
+that their absence is not inferred to be an oversight.
+
+- "LLM residual-stream dynamics in the Wigner GUE universality class."
+  Retracted as find_peaks autocorrelation rhythm.
+- "Cross-architecture σ̂ invariance in transformer internal states."
+  Retracted as metric-blindness on integer-position event sequences.
+- "LLM and primes share a parameter-space neighbourhood within
+  BR_artifact." Retracted as extractor-conditional comparison; the σ̂
+  alignment between primes (point process by construction) and the LLM
+  (extracted via find_peaks) reflects the find_peaks gap distribution
+  matching primes' calibrator-family position, not a structural
+  correspondence.
+- "Two distinct LLM attention-dynamics families (state-based vs
+  change-based) with different universality readings." Retracted after
+  three additional state-based extractors of distinct mechanisms
+  classified as BR_artifact (consistent with all change-based
+  extractors), with the original state-based TR reading diagnosed as
+  threshold-upcrossing artifact.
+- "Wigner-class attention dynamics on three by-construction extractors
+  at rep_int_q ≈ 0.34." Retracted via induction-on-Poisson (Finding F).
+- "Empirical validation of the Planat 2026 lock-in-phase prediction via
+  Phase 12 perturbation sweep." The perturbation sweep ran but cannot
+  be interpreted as testing the prediction once the underlying
+  Wigner-class baseline was retracted.
 
 ### Limitations
 
-1. The PLL-measured NNS (used as primary metric in early Phases) is biased.
-   The analytical passage-time NNS is the calibrated primary — see §6.5.
+In addition to the failure modes above:
 
-2. ζ-density-mapped comparison signals are NOT a clean control because the
-   empirical-CDF mapping distorts local spacings.  Use uniform-unfolded
-   eigenvalues or β-ensembles for class testing.
+- The toolkit has been validated on the input classes listed under
+  validated outputs. Application to other input classes requires
+  explicit calibrator-zoo and induction-on-noise verification per the
+  protocol in METHODS.md before classifications can be trusted.
 
-3. The corrected GUE generator passes the Wigner KS check on its own
-   eigenvalue spacings (KS = 0.029 at N = 500, target < 0.05) — but
-   passing this does NOT imply the chirp synthesised from those
-   eigenvalues will pass through the PLL.  Phase coherence of the chirp
-   at f_pll is a separate property determined by the global signal
-   structure, not by NNS alone.
+- The "principled iff classification is invariant across ≥ 4 distinct
+  extractor mechanisms" criterion adopted in §7.ter.22 requires
+  judgment on what "distinct" means in practice. In this work, the
+  criterion was met for primes, twin primes, and synthetic
+  uniform_jitter; it was not met for LLM internal state, where
+  extractors that appeared distinct shared deeper threshold or
+  peak-detection mechanisms.
 
-4. The current per-PLL `min_events=10` cutoff is conservative.  At cells
-   with sparser banks, lower thresholds may need to be used and the
-   statistical power of NNS estimates degrades correspondingly.
+- The codebase has not been reviewed by domain experts in any of the
+  application areas. The arithmetic-side measurements would benefit
+  from review by a number theorist familiar with empirical L-function
+  family work; the physical-signal-side measurements would benefit
+  from review by domain practitioners.
 
-5. **Integer-floor-bound mass<0.3 = 0**: when the underlying t_k is integer-
-   valued and dense, the minimum normalized spacing is bounded above zero
-   by arithmetic, not dynamics (see §7 Liouville/Mertens, §7.bis
-   Squarefree).  Same fingerprint can come from very different mechanisms;
-   the diagnostic is whether the integer-spacing floor is forced.
+- Sample sizes for the physical-signal classifications are small
+  enough that the classifications should be read as findings about
+  the specific datasets tested rather than as findings about those
+  domains broadly.
 
-6. **Resolution-dependent classification on physical signals**: ARS gives
-   a universality-class label that is correct *at the temporal resolution
-   of the input*.  Same physical system, recorded at different observation
-   windows, can yield different fingerprints, each accurate at its own
-   scale (see §7.ter.5 fungal note).  A clean reading requires the
-   recording window to contain a statistically meaningful number of
-   events at the timescale being characterised, and that no slower
-   process modulates the local rate within the window.
+- Mixed-class spectral decomposition (§7.ter.23 Tier 2) is partial.
+  Periodic-component identification via Ramanujan-Fourier peak
+  detection works on the test panel; per-component class assignment
+  via rep_int_q segmentation does not separate Poisson + uniform_jitter
+  components in pooled mixed-stream data.
 
-7. **Peak-detection on continuous autocorrelated signals**:
-   prominence-thresholded peak detection (e.g., `scipy.signal.find_peaks`)
-   on a continuous 1D trace generates quasi-uniformly-spaced events at
-   the input's autocorrelation scale.  The resulting NNS distribution is
-   labelled GUE-best by a nearest-Wigner-form classifier with mass<0.3 = 0
-   and rep_int saturated near 0.9 — visually indistinguishable from
-   genuine level repulsion until calibrated against a uniform-jitter
-   reference and a pre-processing-stage baseline.  Worked example in
-   §7.ter.19.  Inputs that need this calibration include: LLM activation
-   traces, neural spike-rate envelopes, financial mid-price tick streams,
-   any signal where the events are extracted from a continuous-valued
-   signal rather than provided as a discrete catalog.
+- The framework's analytical content is Planat's. ARS implements that
+  framework as software; it does not extend it analytically.
 
-## 9. Reproducing
+### What this work is
 
-```bash
-# Repository layout (sibling to riemann_explorer/)
-criticality_tool/
-├── pll_bank.py            # PLL bank (CPU + CuPy GPU)
-├── intermittency.py       # dwell extraction + power law + depth histogram
-├── universality.py        # NNS / pair correlation / Σ²(L) / SFF
-├── signal_gen.py          # ζ, GUE/GOE chirps, Poisson-FM null
-├── run_full_sweep.py      # 3000-cell parameter sweep (§4)
-├── analyze_sweep.py       # post-process sweep_results.h5 (§4)
-├── run_decisive.py        # 1000 zeros × 300 s, fwd+rev (§5.6)
-├── run_calibration.py     # GUE/GOE chirp calibration (§6.3)
-├── run_envelope_diagnosis.py     # narrowband envelope at fc=115.55 (§6.3)
-├── run_envelope_per_pll.py       # per-PLL envelope sweep (§6.3)
-├── run_analytical_nns.py  # the calibrated metric (§6.4, §6.5)
-├── run_phase4.py          # cross-signal application (§7)
-├── tests/
-│   ├── test_pll.py        # Phase 1 acceptance
-│   ├── test_pll_gpu.py    # GPU↔CPU parity
-│   ├── test_intermittency.py # Phase 2 acceptance
-└── plots/                 # figures
-```
-
-Cached data:
-- `zeros_1000.npy` — first 1000 Riemann zero heights (mpmath)
-- `zeros_2000.npy` — first 2000 (Phase 4)
-- `signals_cache/` — chirp signals (300 s × 1000 t_k each, ~50 MB)
-- `sweep_results.h5` — 3000-cell parameter sweep
-
-Run order for clean-room reproduction:
-1. `python3 run_full_sweep.py`        — produces `sweep_results.h5`
-2. `python3 analyze_sweep.py`         — sanity-check plots
-3. `python3 run_decisive.py`          — 1000-zero × 300 s headline run
-4. `python3 fix_gue_generator.py`     — verify GUE generator
-5. `python3 run_calibration.py`       — GUE/GOE chirp calibration
-6. `python3 run_envelope_per_pll.py`  — diagnose chirp envelope
-7. `python3 run_analytical_nns.py`    — primary calibrated metric
-8. `python3 run_phase4.py`            — cross-signal application
-
----
-
-## 10. Acknowledgements / references
-
-The framework follows `CRITICALITY_BRIEF.md` in this directory.  The
-brief's Phase-1-through-3 architecture is intact; corrections are
-documented in §3.1 (PLL frame, GPU layout) and §6.1 (semicircle CDF R).
-Riemann zero heights via `mpmath.zetazero`.  Signal generation matches
-the existing `riemann_explorer/scanner.py` chirp form
-`Σ_n cos(t_n · log(t+1)) / √t_n`.
+ARS is an applied implementation of the Farey-rational phase-locked
+loop framework developed by Planat and collaborators (FEMTO-ST,
+2002–2026). The empirical outputs reproduce statistics consistent with
+prior literature on the inputs tested. The methodological
+contribution is a specific protocol — calibrator-zoo + extractor-
+invariance + induction-on-noise — for catching extraction-pipeline
+artifacts in point-process classification, demonstrated on a worked
+LLM-application case where three rounds of diagnosis closed
+intermediate provisional readings. The protocol is an applied
+integration of standard statistical practices (null-hypothesis
+controls, calibration with synthetic ground truth, post-hoc verification
+on noise inputs); it is not a novel methodological framework.
