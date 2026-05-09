@@ -32,7 +32,13 @@ frame requires:
 - The **extractor-invariance test** checks whether a classification depends on
   the readout method or survives across multiple structurally-distinct
   methods. If invariant, the property is field-attributable. If not, the
-  apparatus is contributing.
+  apparatus is contributing. As of Phase 19, mechanism-distinctness is
+  itself an empirical test (§7.ter.26): two extractors count as
+  mechanism-distinct only if they classify at least one calibrator class
+  differently, robustly across resamples. Description-distinctness alone
+  is no longer sufficient; the criterion now requires ≥ 4 extractors that
+  pass the pairwise empirical-distinctness test before "principled" is
+  applied.
 - The **induction-on-noise falsification** asks whether the apparatus
   produces the same apparent finding when given input of equivalent
   statistical character that is known not to contain the structure being

@@ -2518,6 +2518,33 @@ Outputs: `data/phase15_zeta_joint.parquet`,
 
 ### 7.ter.22  Phase 16 — Boundary-extractor invariance and the principled-vs-induced BR_artifact distinction
 
+> **Phase 19 verdict (added after the §7.ter.22 / Phase 16A.2 chain):**
+> The §7.ter.22 "principled iff classification is invariant across ≥ 4
+> distinct extractor mechanisms" criterion is operationalised
+> empirically in §7.ter.26 via the pairwise mechanism-distinctness
+> test on the calibrator panel.  Under the empirical criterion:
+>
+>   - The general-extractor claims (BR_artifact principled, primes
+>     principled BR_artifact, ζ principled TR) all SURVIVE: each
+>     supporting extractor is in its own equivalence class, so the
+>     original 6/6 and 5/6 invariance counts equal the
+>     mechanism-distinct counts.
+>
+>   - The LLM "universally BR_artifact across attention extractors"
+>     claim formally survives (5 mechanism classes ≥ 4) but with a
+>     reduced supporting count: the 8 attention extractors collapse
+>     into 5 mechanism classes on the calibrator panel.  The 4-member
+>     shared class — `attention_sink_events`,
+>     `layer_kl_divergence_events`, `attention_argmax_sink`,
+>     `attention_multi_head_sink_consensus` — confirms quantitatively
+>     the §7.ter.23 retrospective that several "distinct" attention
+>     extractors share an underlying mechanism.  The LLM finding's
+>     broader retraction in §7.ter.23 / §8 stands and is independent
+>     of the per-criterion count.
+>
+> See §7.ter.26 for the methodology, the full equivalence-class
+> structure, and the per-claim verdict.
+
 > **Phase 16A.2 verdict (added after the original §7.ter.22 was written):**
 > The original §7.ter.22 reported a Branch (iii) "by-construction
 > extractors split" verdict for the LLM, with `attention_sink_events`
@@ -3543,6 +3570,179 @@ Outputs:
 `data/phase18_control_validation.parquet`,
 `plots/50_phase18_surrogate_catch_matrix.png`,
 `plots/51_phase18_finding_survival.png`.
+
+---
+
+### 7.ter.26  Phase 19 — Mechanism-distinctness as empirical test for the principled-vs-induced criterion
+
+#### Motivation
+
+The "principled iff classification is invariant across ≥ 4 distinct
+extractor mechanisms" criterion (§7.ter.22) is only as reliable as the
+notion of "distinct."  Surface-description distinctness (different
+names, different code paths) can fail to capture mechanism distinctness
+when extractors share an underlying threshold-on-continuous-derived-
+signal step — exactly the failure mode diagnosed retrospectively at
+§7.ter.23 for the eight attention extractors that initially appeared
+to give an 8-mechanism principled BR_artifact reading on the LLM.
+
+Phase 19 operationalises distinctness empirically:
+
+> **A pair of extractors (A, B) is demonstrably distinct iff there
+> is at least one calibrator class for which A and B produce different
+> per-q quadrant assignments under `joint_quadrant_diagnostic`, robustly
+> across calibrator-level resamples (≥ 4 of 5 seeds at α ≈ 0.05).**
+
+This converts distinctness from a description-based judgment to a
+falsifiable empirical test, with a finite calibrator panel and a
+reproducible computation.
+
+#### Methodology
+
+`extractor_distinctness.py` provides:
+
+  - `distinct_pair(a, b, calibrator_panel, n_seeds=5, seed_threshold=4)`
+    — the headline API.  Returns a dict with `distinct`, the disagreeing
+    calibrator class (if any), per-class agreement breakdown, and the
+    strongest disagreement count across calibrators.
+  - `STANDARD_CALIBRATORS` — the 8-class calibrator panel from Phase 15
+    / Phase 17 (Poisson, Wigner GOE/GUE/GSE, ζ first 1000 zeros,
+    uniform_jitter σ=0.10, periodic q=7 with σ=0.05 jitter, mixed
+    q=7+q=12+Poisson).
+  - Adapters `extractor_for_events` and `extractor_for_continuous` that
+    wrap the project's general extractors into the unified
+    `f(t_k) → events` callable signature.
+
+For LLM-specific extractors that operate on transformer cascades rather
+than raw point processes, `run_phase19_distinctness_matrix.py` adds
+`synthesize_cascade_from_events(t_k, T)` — a synthetic-cascade
+constructor that encodes a calibrator's events as residual-norm peaks,
+attention-argmax-to-sink at event positions, and per-layer KL spikes,
+giving each LLM extractor enough signal to read while inheriting the
+input calibrator's marginal IEI structure.
+
+The test passes Tier 1 acceptance (`tests/test_distinctness.py`, 3 / 3):
+
+  - **Known-equivalent pair**: `find_peaks_prominence` at prom=0.30 vs
+    prom=0.31 → `distinct = False` (no robust disagreement).
+  - **Known-distinct pair**: `direct_events` vs `find_peaks_prominence`
+    → `distinct = True` with disagreeing class = "poisson" (the
+    canonical §7.ter.19 mechanism: find_peaks induces a non-BL reading
+    on Poisson input where direct_events correctly reads BL).
+  - **Borderline pair**: `threshold_crossing` at k=1.0 vs k=2.0 →
+    `distinct = True` (disagreement on Poisson; differing thresholds
+    yield distinguishably different event-density regimes on
+    autocorrelated synthetic continuous signals).
+
+#### Pairwise distinctness matrix and equivalence classes
+
+`run_phase19_distinctness_matrix.py` runs all 91 pairs in the project's
+14-extractor panel (6 general + 8 LLM-specific) on the 8-class calibrator
+panel × 5 seeds.  Equivalence classes via union-find on not-distinct
+edges.
+
+| general extractor               | equivalence class size |
+|---------------------------------|------------------------|
+| `direct_events`                 | 1                      |
+| `pll_passage`                   | 1                      |
+| `find_peaks_prominence`         | 1                      |
+| `derivative_zeros`              | 1                      |
+| `threshold_crossing`            | 1                      |
+| `modular_bin_events`            | 1                      |
+
+All six general extractors are mutually mechanism-distinct under the
+empirical test — the original Phase 16 Tier 1 distinctness panel is
+empirically validated.
+
+| LLM-specific extractor                       | equivalence class    |
+|----------------------------------------------|-----------------------|
+| `residual_norm_peaks`                        | own (1 member)        |
+| `attention_entropy_peaks`                    | own (1 member)        |
+| `attention_target_jumps`                     | own (1 member)        |
+| `attention_sink_residency_runs`              | own (1 member)        |
+| `attention_sink_events`                      | shared (4 members)    |
+| `layer_kl_divergence_events`                 | shared (4 members)    |
+| `attention_argmax_sink`                      | shared (4 members)    |
+| `attention_multi_head_sink_consensus`        | shared (4 members)    |
+
+The eight attention extractors collapse into **five** mechanism classes,
+not eight.  The four-member shared class
+(`attention_sink_events`, `layer_kl_divergence_events`,
+`attention_argmax_sink`, `attention_multi_head_sink_consensus`) all
+read attention concentration on sink tokens via different surface
+mechanisms but produce the same per-q quadrant assignments on the
+calibrator panel — confirming the §7.ter.23 retrospective that several
+attention extractors share an underlying mechanism.  The full pairwise
+matrix is in `data/phase19_distinctness_matrix.parquet`; the
+equivalence-class diagram is at
+`plots/52_phase19_extractor_equivalence.png`.
+
+The total panel partitions into **11 equivalence classes** (10 singletons
++ the 4-member sink-attention class).
+
+#### Re-validation of existing principled findings
+
+`run_phase19_finding_revalidation.py` applies the empirical criterion
+to each principled claim by counting the number of equivalence classes
+spanned by its supporting extractors.
+
+| claim                          | source           | supporting | classes | verdict   |
+|--------------------------------|------------------|-----------:|--------:|-----------|
+| BR_artifact is principled      | §7.ter.22 Tier 1 | 6          | 6       | SURVIVES  |
+| Primes are principled BR_artifact | §7.ter.22 Tier 1 | 6      | 6       | SURVIVES  |
+| ζ zeros are principled TR      | §7.ter.22 Tier 1 | 5          | 5       | SURVIVES  |
+| LLM universally BR_artifact    | §7.ter.22 / 16A.2 | 8         | 5       | SURVIVES  |
+
+The first three (general-extractor) claims survive cleanly: every
+supporting extractor is in its own equivalence class, so the original
+"6/6" and "5/6" extractor-invariance counts equal the
+mechanism-distinct count.
+
+The LLM claim survives the formal ≥ 4 criterion (5 mechanism classes
+≥ 4) but with a substantively reduced count: the 8 attention extractors
+originally cited correspond to only 5 demonstrably distinct mechanisms.
+This is the quantitative form of the implicit retraction in §7.ter.23.
+The LLM finding's broader retraction (no measurement remains attributable
+to the model rather than to extraction methodology, per §8) stands and
+is independent of the per-criterion distinctness count.
+
+#### Operational guidance
+
+Any future invariance claim must verify pairwise mechanism-distinctness
+on the calibrator panel before applying the "principled" qualifier.
+Description-distinctness is no longer sufficient.  The criterion's
+operational form going forward:
+
+> A classification is **principled** iff it is invariant across at
+> least four extractors that pass the pairwise empirical-distinctness
+> test on the standard calibrator panel.
+
+The standard calibrator panel (8 classes, 5 seeds) is fixed; expanding
+it would require a new phase, since adding calibrators could reveal
+new disagreements and re-shuffle equivalence classes.
+
+#### Open questions
+
+  - Calibrator panels designed specifically to discriminate between
+    candidate extractors would tighten the equivalence-class structure.
+    The current panel was chosen for joint-plane class spread
+    (§7.ter.4 / Phase 15 calibrator zoo); a discriminator-targeted
+    panel is filed as follow-up.
+  - Computational cost grows quadratically in the extractor count;
+    the 14-extractor panel ran in ~5 minutes wall-clock.  At ~30
+    extractors the run would scale to ~25 minutes, still tractable;
+    beyond that, sub-quadratic shortcuts (e.g., comparing each new
+    extractor only to the existing equivalence-class representatives)
+    would be appropriate.
+
+Outputs:
+`extractor_distinctness.py`,
+`tests/test_distinctness.py` (3 / 3 pass),
+`run_phase19_distinctness_matrix.py`,
+`run_phase19_finding_revalidation.py`,
+`data/phase19_distinctness_matrix.parquet`,
+`data/phase19_finding_revalidation.parquet`,
+`plots/52_phase19_extractor_equivalence.png`.
 
 ---
 

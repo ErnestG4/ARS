@@ -90,27 +90,49 @@ property of the underlying signal.
 ### 2. Extractor-invariance
 
 When the input is a point process extracted from a continuous trace,
-the classification must be invariant across at least four distinct
-extractor mechanisms before it is reported as a property of the
-underlying signal.  "Distinct" means mechanisms that differ in their
-detection criterion, not just in parameter settings of the same
-mechanism.
+the classification must be invariant across at least four
+**empirically mechanism-distinct** extractors before it is reported as
+a property of the underlying signal.  "Mechanism-distinct" is an
+empirical property as of Phase 19 (§7.ter.26):
 
-Examples of extractor families that are not mutually distinct:
+> A pair of extractors (A, B) is demonstrably distinct iff there is at
+> least one calibrator class for which A and B produce different
+> per-q quadrant assignments under `joint_quadrant_diagnostic`,
+> robustly across calibrator-level resamples (≥ 4 of 5 seeds at
+> α ≈ 0.05).
+
+Description-distinctness (different names, different code paths) is
+not sufficient; the test must be run on the standard 8-class calibrator
+panel before invariance can be claimed.
+
+Examples of extractor families that are not mutually distinct (verified
+empirically in Phase 19):
 
 - `find_peaks(prominence=0.3)` and `find_peaks(prominence=0.5)`
-  (same mechanism, different parameter)
-- threshold-upcrossings on signal A vs threshold-upcrossings on signal B
-  (same threshold mechanism)
+  — same mechanism, different parameter; pairwise test returns
+  `distinct = False`.
+- The four LLM attention extractors `attention_sink_events`,
+  `layer_kl_divergence_events`, `attention_argmax_sink`,
+  `attention_multi_head_sink_consensus` collapse into a single
+  equivalence class on the calibrator panel — they read attention
+  concentration on sink tokens via different surface mechanisms but
+  share the underlying threshold-on-derived-signal step.
 
-Examples of extractor families that are distinct:
+Examples of extractor families that are distinct (verified empirically):
 
-- find_peaks vs threshold-upcrossings vs argmax-position-jumps vs
-  by-construction categorical (e.g., "argmax target IS in sink set")
+- The six general-panel extractors (`direct_events`, `pll_passage`,
+  `find_peaks_prominence`, `derivative_zeros`, `threshold_crossing`,
+  `modular_bin_events`) are mutually mechanism-distinct under the
+  empirical test.
+
+The empirical-distinctness API is in `extractor_distinctness.py`;
+`run_phase19_distinctness_matrix.py` produces the full pairwise matrix
+for the project's extractor panel.
 
 An extractor-invariance pass is necessary but not sufficient.  See
 §7.ter.20 for the framework's distinction between "principled" (passes
-extractor-invariance) and "induced" (does not pass) classifications.
+extractor-invariance with ≥ 4 mechanism-distinct extractors) and
+"induced" (does not pass) classifications.
 
 ### 3. Induction-on-noise falsification
 
