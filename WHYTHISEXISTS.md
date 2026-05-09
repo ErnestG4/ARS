@@ -36,7 +36,15 @@ frame requires:
 - The **induction-on-noise falsification** asks whether the apparatus
   produces the same apparent finding when given input of equivalent
   statistical character that is known not to contain the structure being
-  claimed. If yes, the finding is mechanism-induced.
+  claimed. If yes, the finding is mechanism-induced. As of Phase 18 the
+  protocol is multi-order: first-order matched noise (marginal +
+  autocorrelation length + event count) is supplemented by three
+  higher-order surrogates (phase-randomised, Hawkes-matched, cumulant-
+  matched), each preserving a different higher-order property of the
+  input. A finding has to survive surrogates that match what they
+  match before it can be attributed to anything outside that match.
+  See §7.ter.25 for the methodology and the per-finding survival
+  pattern.
 
 These three tools applied together make the boundary-readout problem
 operationally tractable. None of them are novel — they are applied

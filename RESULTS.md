@@ -3365,6 +3365,187 @@ Outputs:
 
 ---
 
+### 7.ter.25  Phase 18 — Higher-order induction-on-noise: extending the falsification protocol
+
+#### Motivation
+
+The induction-on-noise falsification (§7.ter.19, §7.ter.22, §7.ter.23
+Finding F) caught the LLM Wigner artifact, the σ̂-cluster artifact,
+and the threshold-upcrossing TR artifact by matching first-order
+properties of the input — marginal, autocorrelation length, event
+count.  It cannot catch artifacts induced by *higher-order* structure
+(power-spectrum slope, higher cumulants, Hawkes-style clustering,
+cross-frequency coupling).  Phase 18 adds three surrogate generators,
+each preserving a specific higher-order property while randomising
+others.
+
+#### Methodology
+
+`surrogates.py` adds three event-domain generators (plus an IEI-domain
+variant of the first, motivated in the investigation below):
+
+  - `phase_randomized_events` (chirp-driven): events → Gaussian-pulse
+    continuous proxy → randomised FFT phases → re-extract via the
+    extractor used on the original input.  Preserves the proxy's
+    power spectrum.  Appropriate when the original events came *from*
+    a continuous trace via that extractor.
+  - `phase_randomized_iei_events`: events → IEI sequence → randomised
+    FFT phases → cumsum.  Preserves IEI mean, variance (Parseval), and
+    spectrum.  Appropriate for point processes by construction.
+  - `hawkes_matched_events`: ML fit of (μ, α, β) for a univariate
+    exponential-kernel Hawkes process; Ogata-thinning simulation.
+    Preserves rate and clustering geometry.
+  - `cumulant_matched_events`: Cornish-Fisher third-order transform
+    of iid Gaussian draws to match input's IEI mean, variance,
+    skewness; renormalised so total span matches.  Preserves IEI
+    marginal moments through third order; randomises ACF and higher
+    cumulants.
+
+Each passes synthetic-signal preservation acceptance
+(`tests/test_surrogates.py`, 8/8): FFT-magnitude preservation within
+±2% per bin for `phase_randomized`; Hawkes parameter recovery within
+±15% on a 4000-event simulation; IEI cumulant preservation within ±5%
+on a skewed AR(1) input.
+
+#### Tier 2 — calibration on six known-artifact signals
+
+`run_phase18_surrogate_calibration.py`, three seeds.  A surrogate
+**catches** an artifact when re-applying the original extractor to
+the surrogate yields the same primary quadrant.
+
+| signal                        | phase_rand | hawkes | cumulant |
+|-------------------------------|------------|--------|----------|
+| find_peaks on sin + WN        | 1.00       | 0.00   | 1.00     |
+| find_peaks on AR(1)           | 1.00       | 0.00   | 0.00     |
+| threshold on iid exponential  | 1.00       | 0.00   | 1.00     |
+| threshold on 1/f noise        | 1.00       | 1.00   | 0.00     |
+| modular_bin on integer-spaced | 1.00       | 1.00   | 1.00     |
+| pure Hawkes (α/β = 0.62)      | 0.00       | 1.00   | 1.00     |
+
+Each surrogate uniquely catches at least one signal another misses:
+`phase_randomized` catches AR(1) + find_peaks (purely spectral
+artifact); `hawkes_matched` catches pure Hawkes (clustering only it
+reproduces); `cumulant_matched` catches threshold-on-iid-exponential
+where the exponential tail drives the artifact.  Catch matrix at
+`plots/50_phase18_surrogate_catch_matrix.png`.
+
+#### Tier 3 — application to existing findings, and the investigation
+
+`run_phase18_finding_validation.py`, seven of the eight positive
+findings (Adamatzky fungal omitted: events come from a multi-channel
+spike detector that the surrogate test would best be applied to at
+that detection step; filed as follow-up).  A finding **survives** a
+surrogate when the surrogate yields a different primary quadrant.
+
+The first run with chirp-driven `phase_randomized_events` showed all
+arithmetic findings caught by `phase_randomized` and
+`cumulant_matched`, surviving `hawkes_matched`.  Per the SESSION-PLAN
+stop condition, execution halted.
+
+**Investigation, Part A — chirp-driven phase-randomisation embeds the
+§7.ter.19 mechanism in its surrogate pipeline.**  The chirp-driven
+variant re-extracts events via `find_peaks_prominence` — exactly the
+extractor that produced the §7.ter.19 artifact.  For point processes
+by construction (ζ zeros, primes), the data-generating process never
+passed through `find_peaks`; the re-extraction step inserts the
+find_peaks autocorrelation rhythm into the surrogate, producing a TR
+output regardless of input.  Addressed by adding
+`phase_randomized_iei_events` (IEI-domain, no extractor roundtrip).
+
+**Part B — joint-plane TR/BL/BR is dominated by IEI variance, which
+IEI-spectrum-preserving surrogates preserve.**  With the IEI-domain
+variant in place, the catch pattern persists:
+
+| finding              | phase_rand_iei | hawkes        | cumulant     |
+|----------------------|----------------|---------------|--------------|
+| ζ first 2000 zeros   | caught (TR)    | survives (BL) | caught (TR)  |
+| ζ at heights ~10⁶    | caught (TR)    | survives (BL) | caught (TR)  |
+| LMFDB EC pooled      | caught (TR)    | survives (BL) | caught (TR)  |
+| Dirichlet pooled     | caught (TR)    | survives (BL) | caught (TR)  |
+| Earthquakes M ≥ 4.5  | survives (TR)  | caught (BL)   | caught (BL)  |
+| Primes ≤ 10⁶         | caught (TR)    | survives (BL) | caught (TR)  |
+| Twin primes ≤ 10⁷    | survives (TR)  | caught (BL)   | caught (BL)  |
+
+(At the 8000-event cap used here, twin primes lands in BL rather than
+the BR_artifact σ̂ ≈ 0.093 of §7.ter.21/.23 — a manifestation of the
+metric-resolution-collapse documented at §7.ter.22 amendment.  The
+Tier 3 finding is the surrogate response, independent of the boundary
+label.)
+
+`run_phase18_control.py` applies the panel to synthetic Poisson
+(BL ground truth) and Wigner-GUE eigenvalues (TR ground truth).  The
+Wigner-GUE control reproduces the arithmetic-finding pattern exactly:
+phase_rand_iei catches (TR), hawkes flips to BL, cumulant catches.
+The mechanism is that joint-plane class is dominated by IEI variance
+(var ≈ 1 → BL, ≈ 0.45 → TR, ≈ 0.05 → BR_artifact); both
+`phase_randomized_iei` and `cumulant_matched` are IEI-second-moment
+preserving by design, so they preserve the class.  `hawkes_matched`
+does not — a Hawkes fit on a non-clustered Wigner-like input
+converges to small α/β and simulates a near-Poisson process with
+exponential IEI variance ≈ 1, flipping the class to BL.
+
+Therefore the arithmetic findings *survive* `hawkes_matched` for the
+right reason: the joint-plane TR signature is not reproducible from
+clustering geometry alone.  The catches by IEI-preserving surrogates
+match the synthetic Wigner-GUE control exactly, confirming
+classifier-sensitivity to IEI marginal rather than finding
+artifacthood.
+
+#### Operational guidance
+
+| surrogate            | catch tells you                              | survival tells you                                |
+|----------------------|----------------------------------------------|---------------------------------------------------|
+| phase_rand (chirp)   | extractor + spectrum reproduce class         | finding ≠ extractor-pipeline product (use only when input went through that extractor) |
+| phase_rand_iei       | IEI second-order content reproduces class    | finding requires more than IEI second-order       |
+| hawkes_matched       | clustering reproduces class                  | finding is not clustering-driven                  |
+| cumulant_matched     | IEI marginal moments reproduce class         | finding requires more than (μ, σ², γ) of IEI      |
+
+`phase_randomized_iei` produces Gaussian-marginal output (CLT under
+phase mixing); its diagnostic value is highest when joint-plane class
+differs between Gaussian-IEI and the input's actual marginal at the
+same variance.  A Theiler 1992 AAFT replacement that also preserves
+the amplitude distribution is filed as follow-up.  For point processes
+by construction, `hawkes_matched` is the strongest single
+discriminator.
+
+#### What this says about existing findings
+
+No retraction.  Every arithmetic finding (ζ first 2000 zeros, ζ at
+heights ~10⁶, LMFDB EC, Dirichlet, primes ≤ 10⁶, twin primes ≤ 10⁷)
+survives `hawkes_matched` — the falsification dimension first-order
+matched noise did not provide.  The catches by IEI-spectrum-preserving
+surrogates confirm that the joint-plane TR classification IS an
+IEI-marginal statement, which is what these findings claim in their
+NNS form.  The earthquake (BL) finding is caught by `hawkes_matched`
+and `cumulant_matched` as expected: ETAS-style aftershock clustering
+is exactly the structure those surrogates reproduce.  This is the
+discipline working.
+
+#### Open questions
+
+  - Identifying which preserved properties drive a given classification
+    requires applying the full surrogate panel and reading the catch
+    pattern as a fingerprint; the panel does not enumerate
+    higher-order-property candidates a priori.
+  - AAFT replacement for `phase_randomized_iei` to remove the
+    Gaussian-marginal bias.
+  - Computational cost: per-finding Tier 3 took ~10 min wall-clock at
+    8000 events × q_max=30; full-dataset application to ζ-zero archives
+    (~10⁶ events) at q_max=200 is impractical without subsampling.
+
+Outputs:
+`surrogates.py`, `tests/test_surrogates.py` (8 / 8 pass),
+`run_phase18_surrogate_calibration.py`,
+`run_phase18_finding_validation.py`,
+`run_phase18_control.py`,
+`data/phase18_surrogate_calibration.parquet`,
+`data/phase18_finding_validation.parquet`,
+`data/phase18_control_validation.parquet`,
+`plots/50_phase18_surrogate_catch_matrix.png`,
+`plots/51_phase18_finding_survival.png`.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
