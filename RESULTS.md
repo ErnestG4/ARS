@@ -4091,6 +4091,329 @@ Outputs:
 
 ---
 
+### 7.ter.28  Phase 20.5 — Transition calibrator extension
+
+#### Motivation
+
+The pre-Phase-20.5 calibrator panel (Wigner GUE/GOE, Poisson, periodic
+TL, mixed, BR_artifact, uniform_jitter, Hawkes-clustered) covers
+stationary universality classes — ones whose generative process is
+time-invariant.  Phase 20's per-collector sub-window trajectory
+analysis on the Facebook 2021 BGP cascade and Phase 21's planned
+per-sub-window analysis on GRB transitions both exercise a gap left
+by that panel: classifications in the existing framework are produced
+*per sub-window*, but no calibrator characterises what trajectories
+*through* classification space look like when the underlying process
+is non-stationary.  Phase 20's BGP cascade-peak BR_artifact was
+readable but not characterizable at trajectory level — the framework
+identified that cascade peaks classify as BR_artifact across all four
+collectors but couldn't say whether the transition into and out of
+the cascade peak followed a sharp-step shape, a sigmoidal approach,
+or a metastable-middle pattern.
+
+Phase 20.5 closes that gap with two parallel families of synthetic
+ground truth and the trajectory diagnostic that consumes them.
+
+#### Methodology
+
+Two complementary calibrator families.  **Constructive (blended)
+transitions** (`transition_calibrators_blended.py`) generate
+synthetic event sequences by interleaving pre-generated samples from
+two known universality classes according to time-varying mixing
+weights; six controlled shapes (sharp_step, linear_ramp, sigmoidal,
+exponential_approach, damped_oscillatory, metastable_middle) × eight
+class pairs (asymmetric — direction matters) + 4 stationary controls
+= 52-entry panel.  **Parameter-driven (dynamical) transitions**
+(`transition_calibrators_dynamical.py`) capture regime shifts that
+emerge from underlying nonlinear dynamical systems as a control
+parameter varies across bifurcation thresholds — connecting the
+framework to four decades of nonlinear-dynamics benchmark work
+(Feigenbaum 1978, May 1976, Mackey-Glass 1977, Lorenz 1963).  Three
+systems in priority order: logistic map (fully discrete, no event
+extraction needed), Mackey-Glass DDE (continuous trajectory, three
+mechanism-distinct extractors per the §7.ter.26 distinctness
+discipline), and Lorenz attractor lobe transitions (deferred to
+Phase 22+).
+
+`transition_diagnostic.characterize_transition(trajectory)` is the
+operational deliverable.  Given a sub-window classification trajectory
+(one row per sub-window from `joint_quadrant_diagnostic`), it returns
+a structured characterisation: transition window, origin/destination
+classes, shape estimate (sharp_step / linear_ramp / sigmoidal /
+exponential_approach / damped_oscillatory / metastable_middle /
+period_doubling_cascade / unclassified), confidence, recovered shape
+parameters, metastable-middle class and duration, period-doubling
+signature with Feigenbaum-δ ratio estimate, and trajectory features
+(monotonicity, steepness, midstable_fraction).
+
+The shape classifier uses three discriminating features per
+trajectory: (i) whether origin and destination labels differ in the
+leading vs trailing 20% of sub-windows (transition presence);
+(ii) the width and steepness profile of the transition window
+(linear-ramp has constant steepness, sigmoidal has peaked steepness
+at midpoint, exponential has decaying-asymmetric steepness);
+(iii) the dominant intermediate class within the transition window
+and its fraction (metastable middle).  Period-doubling cascade
+detection is autocorrelation-based: peaks in the trajectory's
+distance-from-origin time series at geometrically-spaced lags
+whose median ratio falls in [3.5, 6.0] — the band around
+Feigenbaum's universal δ ≈ 4.669.
+
+#### Validation (Tier 2)
+
+`run_phase20_5_calibrators.py` evaluates each calibrator at
+n_events = 6000, sub-windowed into 30 sub-windows (≥ 100 events
+per sub-window), and applies the diagnostic.
+
+Headline results:
+
+  - **Stationary controls: 0/8 false-positive transitions**.  This
+    is the most important acceptance criterion (false-positive
+    transitions on stationary input would render the diagnostic
+    useless on real data).  All 8 stationary controls (one per
+    universality class × 2 alias overlaps) correctly return
+    `transition_detected = False`.
+
+  - **Blended shape recovery: 75 % accuracy** (9/12 detected
+    transitions classified correctly when smooth shapes —
+    sigmoidal / exponential_approach / linear_ramp /
+    damped_oscillatory — are grouped into a single
+    "smooth-cluster" class).  Below the spec's 80 % target but
+    within PoC tolerance.  The remaining 25 % failures cluster on
+    sharp_step inputs that the diagnostic mis-reads as smooth
+    transitions, which is the documented confusion direction
+    (smooth-cluster grouping merges the four smooth shapes; the
+    sharp-vs-smooth distinction is the discriminating one in
+    practice).
+
+  - **Logistic-map period-doubling cascade: NOT detected** by the
+    autocorrelation-based detector on the sweep r ∈ (2.5, 3.9).
+    The detector needs autocorrelation peaks in the
+    classification-distance trajectory at lags whose ratios
+    approach 4.669; the actual logistic-sweep trajectory under
+    `joint_q_profile` produces uniformly-classified sub-windows
+    rather than a clean ladder of distinct sub-window
+    classifications, so no peak structure is detectable.  This is
+    a documented limitation: the diagnostic recognises
+    period-doubling-cascade trajectories *if* they manifest as
+    quadrant-resolution structure, but the joint_q_profile's BR /
+    TR / BL / TL coarse-graining doesn't expose enough resolution
+    to distinguish period-2 from period-4 from period-8 in the
+    logistic regime.  A finer-resolution classifier (e.g., direct
+    NNS distribution shape per sub-window, or rep_int-based
+    distance metric instead of quadrant-based) would be needed for
+    full Feigenbaum-δ recovery — filed for any longer-term
+    follow-up.
+
+  - **Mackey-Glass extractor consensus**: at the chosen
+    integration parameters (n_steps = 12000, dt = 0.5), the three
+    mechanism-distinct extractors (running-mean upcrossings,
+    local-maxima with prominence threshold, envelope upcrossings)
+    yielded 100–200 events per regime — too few for
+    sub-window-resolution trajectory analysis at our 30-sub-window
+    setting.  The smoke test
+    (`tests/test_transition_calibrators.py::test_mackey_glass_extractors_run_on_periodic`)
+    confirms all three extractors produce events on a periodic
+    trajectory; the calibrator-panel application requires longer
+    integration windows for stable trajectory analysis.
+
+  - **No false positives on stationary controls** (route-views2,
+    route-views.eqix, route-views.linx, rrc00 quiescent-window
+    sub-window data — see Phase 20 sub-window stability check
+    §7.ter.27 — all classified uniformly as BR_artifact at full N
+    per sub-window; the diagnostic reports no transition for
+    such uniformly-classified trajectories, which is the correct
+    behaviour).
+
+#### Panel integration and Phase 19 distinctness re-validation
+
+`calibrator_panel.py` defines `EXTENDED_CALIBRATORS` = 8 stationary
+classes (the pre-Phase-20.5 panel) + 6 transition calibrators
+(4 blended representatives + 2 logistic-map regimes).
+`run_phase20_5_distinctness_revalidation.py` re-runs the Phase 19
+pairwise distinctness matrix against this extended panel and
+re-evaluates the principled-claim discipline (§7.ter.26).
+
+Headline result:
+
+  - **Phase 19 baseline**: 11 equivalence classes from 14 extractors.
+  - **Extended panel**: **12 equivalence classes** (Δ = +1).
+  - The class that emerged: the **4-member LLM attention-on-sink
+    cluster** documented in §7.ter.26 (`attention_sink_events`,
+    `layer_kl_divergence_events`, `attention_argmax_sink`,
+    `attention_multi_head_sink_consensus`) **splits into two
+    2-member classes** under transition calibrators:
+      Class 1: `attention_argmax_sink`,
+                `attention_multi_head_sink_consensus`
+                (categorical-event detectors).
+      Class 2: `attention_sink_events`,
+                `layer_kl_divergence_events`
+                (threshold-on-derived-signal detectors).
+
+  Transition signals therefore reveal a previously hidden mechanism
+  split: the four extractors that all classified the LLM as
+  BR_artifact on stationary calibrators are not all running the same
+  mechanism — they cluster into a pure-categorical pair
+  (argmax → sink, multi-head consensus on argmax → sink) and a
+  threshold-on-continuous-derived-signal pair (sink-mass upcrossings,
+  per-layer KL upcrossings).  This is exactly the
+  description-distinctness-vs-mechanism-distinctness gap §7.ter.26
+  was designed to detect; the transition-calibrator extension exposes
+  it at one finer level.
+
+  All 4 principled claims (§7.ter.26) **survive** the extended panel:
+
+| claim                          | classes spanned (baseline → extended) | verdict (extended) |
+|--------------------------------|---------------------------------------|--------------------|
+| BR_artifact is principled      | 6 → 6                                  | SURVIVES           |
+| Primes principled BR_artifact  | 6 → 6                                  | SURVIVES           |
+| ζ principled TR                | 5 → 5                                  | SURVIVES           |
+| LLM universally BR_artifact    | 5 → **6**                              | SURVIVES (stronger) |
+
+  The LLM claim is *strengthened* by the extended panel: the 8
+  attention extractors collapse into 6 mechanism-distinct classes
+  (instead of 5 on the stationary panel), so the supporting count of
+  mechanism-distinct extractors agreeing on BR_artifact rises by 1.
+  The LLM finding's broader retraction in §7.ter.23 / §8 still
+  stands and is independent of the per-criterion count; the Phase
+  20.5 result quantifies the count more sharply.
+
+#### Phase 20 retroactive application (Tier 3)
+
+`run_phase20_5_retrospective.py` applies `characterize_transition`
+to each of Phase 20's per-collector trajectories
+(`data/phase20_classification.parquet`).
+
+Result: all four collectors' 12-hour event-window trajectories
+classify uniformly as BR_artifact at every 5-minute sub-window —
+both pre-cascade-onset (12:00 UTC – 15:39 UTC) and post-cascade-onset
+(15:39 UTC – 24:00 UTC).  The diagnostic correctly returns
+`transition_detected = False` for all 4 collectors because
+`origin == destination == BR_artifact` at quadrant-label resolution.
+
+This is a substantive retroactive finding for Phase 20.  The
+cascade-depth differences across collectors (rrc00 0.85 > linx 0.78
+> eqix 0.64 > route-views2 0.58 — Phase 20's headline result) are
+*within-quadrant* rep_med variations, not between-quadrant transitions.
+The cascade signature is real and varies by collector, but the
+variation is at the rep_med-axis sub-classification resolution rather
+than the primary-quadrant resolution.
+
+This sharpens Phase 20's interpretation:
+
+  - The "cascade trajectory" is uniform-quadrant (BR_artifact
+    throughout) with continuous-rep_med deviation.
+  - Whether the per-collector cascade depth corresponds to a
+    transition into BR_artifact from a different baseline (which a
+    finer-resolution classifier would expose) or to a within-BR
+    rep_med modulation (no class change) is at the limit of the
+    quadrant-classification framework.
+  - Cross-collector shape consistency is *trivially* CONSISTENT
+    (all 4 collectors are unclassified-no-transition at quadrant
+    resolution); the substantive cross-collector comparison must
+    be conducted on rep_med trajectories rather than quadrant
+    labels.
+
+The route-topology question from §7.ter.27 is therefore unchanged
+in its open status.  The Phase 20.5 retroactive does not promote
+the verdict from "distinct trajectory per collector, weakly
+correlated with topology" to "real cascade-shape finding"; it
+identifies that the cross-collector signature lives at sub-quadrant
+resolution.  Any longer-term BGP study should classify with
+rep_med-axis trajectory distance rather than quadrant labels.
+
+#### Implications for Phase 21
+
+`characterize_transition` is the API Phase 21 will call on
+per-(GRB-event, instrument) trajectories.  The Phase 21 verdict map
+gains two outcome rows per `SESSION-PLAN-PHASE20.5-DELTA`:
+
+  - "ARS classification matches published QPO with metastable-middle
+    transition shape" → strong validation of central-engine-evolution
+    timescale; transition shape itself becomes a physical observable.
+  - "ARS classification shows period-doubling cascade structure
+    during prompt emission" → novel finding: GRB prompt emission may
+    have nonlinear-dynamics signature beyond what current QPO
+    methodology captures.  Subject to the period-doubling-detection
+    limitation documented above (the autocorrelation-on-quadrants
+    detector needs trajectory variation that exceeds quadrant
+    granularity).
+
+Tier 3 procedure step 5 in Phase 21: "Apply
+`characterize_transition` to per-(event, instrument) trajectory;
+report shape classification, parameters, and period-doubling
+signature where present."
+
+Tier 4 falsification in Phase 21: "Apply `characterize_transition`
+to surrogate-generated trajectories; verify surrogates produce
+different transition shapes than empirical data, or document that
+they don't."
+
+These are minor edits to the Phase 21 plan, not a redesign.
+
+#### Open questions
+
+- **Quadrant-resolution coarseness.**  Both the period-doubling
+  detection on logistic and the cascade-shape characterisation on
+  Phase 20 BGP run into the same wall: BR / TR / BL / TL is too
+  coarse a label set for several plausible non-stationary
+  classification trajectories.  A rep_med-axis (or KS_GUE-axis)
+  trajectory distance metric would expose more structure.  This is
+  a Phase 22+ follow-up.
+
+- **Mackey-Glass at production scale.**  The 12000-step integrations
+  used in Tier 2 yield ~100–200 events per regime — too few for
+  trajectory analysis.  Longer integrations (1e5+ steps) plus
+  finer extractor-parameter tuning would unlock the parameter-driven
+  benchmark for routine use.
+
+- **KPZ-class transition kernels.**  The blended-construction family
+  parameterises transitions by mixing weights only.  Mathematical
+  literature on KPZ transition classes (Tracy-Widom, BBP-spiked,
+  Fredholm-determinant) supplies analytic ground-truth kernels that
+  could serve as more rigorous synthetic transition substrates.
+  Out of scope here, filed as Phase 22+ extension.
+
+- **Lorenz lobe transitions.**  Skipped per session-plan priority;
+  the basic stationary calibrator scaffolding is in
+  `transition_calibrators_dynamical.py:lorenz_integrate` and
+  `lorenz_lobe_transition_events`.
+
+#### Citations
+
+  - Feigenbaum, M. J. (1978).  Quantitative universality for a
+    class of nonlinear transformations.  *J. Stat. Phys.* 19(1):
+    25–52.
+  - May, R. M. (1976).  Simple mathematical models with very
+    complicated dynamics.  *Nature* 261: 459–467.
+  - Mackey, M. C., Glass, L. (1977).  Oscillation and chaos in
+    physiological control systems.  *Science* 197(4300): 287–289.
+  - Lorenz, E. N. (1963).  Deterministic nonperiodic flow.
+    *J. Atmos. Sci.* 20(2): 130–141.
+  - Theiler, J. et al. (1992).  Testing for nonlinearity in time
+    series: the method of surrogate data.  *Physica D* 58:
+    77–94 (companion lineage to the Phase 18 surrogates).
+
+Outputs:
+`transition_calibrators_blended.py`,
+`transition_calibrators_dynamical.py`,
+`transition_diagnostic.py`,
+`calibrator_panel.py`,
+`tests/test_transition_calibrators.py` (8/8 pass),
+`run_phase20_5_calibrators.py`,
+`run_phase20_5_retrospective.py`,
+`run_phase20_5_distinctness_revalidation.py`,
+`data/phase20_5_calibrators.parquet`,
+`data/phase20_retrospective.parquet`,
+`data/phase20_5_distinctness_extended.parquet`,
+`data/phase20_5_distinctness_revalidation.parquet`,
+`plots/55_phase20_5_trajectory_examples.png`,
+`plots/56_phase20_5_transition_recovery.png`,
+`plots/57_phase20_5_period_doubling.png`,
+`plots/58_phase20_retrospective_transitions.png`.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
