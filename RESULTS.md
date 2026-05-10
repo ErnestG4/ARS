@@ -5516,6 +5516,224 @@ caveat-resolution state.
 
 ---
 
+### 7.ter.32  Phase 23 — GRB unblock: targeted 909 Hz QPO replication on GRB 230307A
+
+#### Frame
+
+Phase 21 closed (§7.ter.29) with a methodology-only verdict on the
+ARS application to GRB QPO replication: lightcurve-modulated Poisson
+surrogate reproduces the empirical classification on all four panel
+events; published QPO frequencies fall just outside the framework's
+q-coverage at the sub-window resolution used in Tier 3.
+`GRB_NEXT_STEPS.md` (Phase 21 closing document) identified the
+operative methodology block as q_max = 30 + 2.0 s sub-windows, and
+specified the next-step time-slice adjustment: **targeted 909 Hz
+replication on GRB 230307A at q_max = 50 with 100 ms sub-windows in
+the published Chen 2025 claim window (45–47 s post-trigger)**.
+
+Phase 23 implements that adjustment exactly.
+
+#### Methodology
+
+`phase23/run_phase23_targeted.py`:
+- sub-window:        100 ms     (down from 2.0 s in Phase 21 Tier 3)
+- q_max:             50         (up from 30 in Phase 21 Tier 3)
+- analysis window:   [−5, +60] s post-trigger
+- target QPO:        909 Hz (Chen et al. 2025), claim window 45–47 s
+- surrogates:        lightcurve-modulated Poisson, 5 seeds (up from 3)
+
+Pre-run checks:
+- Calibrator zoo (Phase 22a panel): 8/8 in spec.
+- GRB 230307A pooled events from `data/phase21_grb_panel/GRB230307A.parquet`
+  (11,055,634 events on disk, 4,110,498 in [−5, +60] s analysis window,
+  pooled rate ~63 K events/s window-mean).
+
+Trajectory: 650 sub-windows of 100 ms each, classified via
+`joint_q_profile` + `joint_quadrant_diagnostic` at q_max=50 with
+12-worker multiprocessing.  ~18 minutes per trajectory wall-time.
+
+#### Headline result — 909 Hz q-band inside vs outside claim window
+
+For each well-powered sub-window with the local-rate-mapped 909 Hz
+q-band falling within q ∈ [2, q_max], extract `rep_int_q` and
+`rf_amplitude_q` at that q-band.  Compare inside-claim-window
+(45–47 s, ~20 sub-windows) vs outside (~386 sub-windows) for real
+and surrogate.
+
+| condition       | n   | median rep_int @ 909 Hz q | quadrants @ 909 Hz q |
+|-----------------|-----|---------------------------|----------------------|
+| real, inside    |  20 | 0.053 | {BL: 20} |
+| real, outside   | 386 | 0.055 | {BL: 347, TR: 35, ambiguous: 4} |
+| surr, inside    | 100 | 0.037 | {BL: 100} |
+| surr, outside   | 1929 | 0.041 | {BL: 1906, ambiguous: 16, TR: 7} |
+
+Inside − outside delta: real −0.001, surrogate −0.004.
+
+**Verdict on the published Chen 2025 909 Hz QPO replication: FAIL
+(substantive).**  The time-slice adjustment lifts the q-resolution
+(q_target = 19.5 at the actual pooled rate, well within q_max=50)
+and sub-window-resolution (20 sub-windows inside the 2 s claim)
+ceilings identified in Phase 21.  ARS detects no signature
+distinguishing the QPO claim window from surrounding sub-windows
+at the 909 Hz q-band.  The blocking issue is not q-resolution; the
+adjustment confirms the absence of a detectable QPO signature at
+the published claim by lifting the methodology limits and finding
+no signal nonetheless.
+
+Per the Phase 23 brief acceptance criteria, this is "Adjustment
+applies cleanly but doesn't resolve the prior phase's blocking
+issue."
+
+#### Side-finding — broadband TR signature at t = 26–30 s
+
+In aggregating the 35 real "TR sub-windows at the 909 Hz q-band"
+from the headline analysis, the per-q distribution showed the TR
+sub-windows are NOT 909-Hz-specific: they are sub-windows where
+ALL 50 q-bands classify as TR uniformly.  Time distribution:
+22 of 40 well-powered sub-windows in [26, 30) s post-trigger
+(GRB 230307A's late prompt, T90 = 34.6 s) classify as TR.  The
+lightcurve-modulated Poisson surrogate at the Phase 21/23 default
+21 ms smoothing produces 10 % TR in the same region.
+
+**Smoothing-window diagnostic** (`phase23/run_phase23_smoothing_diag.py`,
+2 seeds × 4 smoothing windows from 1 ms to 101 ms):
+
+| config                    | smoothing_ms | TR_frac in [26, 30) s |
+|---------------------------|--------------|------------------------|
+| real                      | —            | **55.0 %**             |
+| lc_smooth_1               | 1            |  5.0 %                 |
+| lc_smooth_5               | 5            |  8.8 %                 |
+| lc_smooth_21 (default)    | 21           | 10.0 %                 |
+| lc_smooth_101             | 101          | 10.0 %                 |
+
+The lightcurve-modulated Poisson surrogate produces 5–15 % TR in
+[26, 30) s **regardless of smoothing window**.  Even the unsmoothed
+surrogate (window=1, preserving every 1 ms-bin rate variation
+exactly, sampling within-bin event positions uniformly) cannot
+reproduce real's 55 % TR.  The TR signature is not a
+surrogate-smoothing artifact.
+
+**Per-detector test** (`phase23/run_phase23_per_detector.py`):
+
+| detector | rate (events/s) | TR / 40 |
+|----------|-----------------|---------|
+| n2       |  1,138          | 29 (72.5 %) |
+| n5       |    978          | 25 (62.5 %) |
+| b0, nb   |  ~2,200         | 10 each (25 %) |
+| n0, n1   |  ~2,400         |  9 each (22.5 %) |
+| n8, n9   |  ~2,600         |  6 each (15 %) |
+| n7       |  3,067          |  4 (10 %) |
+| n6       |  3,120          |  2 (5 %) |
+| na       | 11,062          |  2 (5 %) |
+| b1       |  5,736          |  0 (0 %) |
+| pooled   | 39,766          | 22 (55 %) |
+
+**The TR signature is present per-detector**, ruling out the
+multi-detector-pooling-artifact hypothesis (cross-detector timing
+offsets at sub-1 ms scale).  4 of 12 detectors show TR ≥ 22.5 %,
+and 2 (n2, n5) show TR > 60 %.
+
+**Inverse correlation between detector event rate and TR fraction.**
+The two lowest-rate detectors (n2, n5) show the highest TR
+fractions; the highest-rate detectors (na, b1) show the lowest.
+This is the *opposite* of the deadtime hypothesis (Phase 21 §7.ter.29
+lesson 5: scintillator deadtime BL → TR at ≥ 200 K / s) which
+predicts TR↑ with rate↑.  Deadtime is ruled out as the operative
+mechanism.
+
+The most plausible remaining hypothesis is detector-specific energy-
+band sensitivity: in Fermi GBM, lower-rate-on-this-burst detectors
+are at higher incidence angle and sample a different effective
+energy spectrum (off-axis response biases toward different energy
+distributions than on-axis).  The TR signature being concentrated
+in low-rate detectors is consistent with the sub-millisecond
+clustering being **energy-spectrum-dependent** — the right *kind*
+of signal for a magnetar-modulated emission process (Chen 2025
+predicts an energy-dependent QPO from the central engine), although
+the broadband (all q-bands) nature of the TR means this is not a
+narrowband QPO claim in itself.
+
+#### Net interpretation
+
+Phase 23 produces:
+
+  - a **substantive FAIL** on the targeted Chen 2025 909 Hz QPO
+    replication (the headline test the brief asked for),
+  - a **methodologically robust side-finding** of broadband TR
+    spacing structure in GRB 230307A's late-prompt window at
+    t = 26–30 s that survives both the lightcurve-modulated Poisson
+    surrogate at all tested smoothing windows AND per-detector
+    decomposition,
+  - **inverse-rate detector dependence** that rules out deadtime
+    artifacts and is consistent with energy-band-dependent emission
+    (the magnetar-modulation prediction's structural signature).
+
+The broadband TR signature is not by itself a positive replication
+of the published Chen 2025 QPO claim — it's a different observation
+with a different time location (26–30 s, not 45–47 s) and a
+different spectral character (broadband, not narrowband).  But it
+is a real per-detector pattern that survives the Phase 21 surrogate
+floor and has a structural feature (detector-rate inverse
+correlation) that rules out the simplest instrumental explanation.
+
+#### Time-slice-adjustment evaluation
+
+Adjustment applies cleanly.  Calibrator zoo unchanged.  Pipeline
+structure preserved; Phase 21's `run_phase21_classification.py`
+patterns extended at finer resolution.  The adjustment's
+methodological intent is fulfilled: the q-coverage and sub-window
+resolution ceilings identified in Phase 21 are lifted, and the
+resulting analysis at the published claim's natural q-band gives a
+clean null verdict.  The blocking issue for Chen 2025 909 Hz
+replication is NOT q-coverage; it is the absence of any detectable
+ARS signature at that specific claim, which finer resolution
+confirms rather than uncovers.
+
+#### Recommended next-step direction
+
+Two distinct future-work items, with different acceptance criteria:
+
+1. **Per-(detector, energy_channel) stratified targeted
+   classification on the [26, 30) s broadband-TR region.**  Phase 23
+   ruled out pooling and deadtime as operative mechanisms; the
+   remaining hypothesis is energy-band sensitivity.  An energy-
+   stratified analysis would either confirm (the TR signature is
+   localised to specific energy channels, consistent with magnetar-
+   modulated emission) or falsify (the TR signature is uniform
+   across energy channels, consistent with a generic detector-
+   geometry effect).  Compute cost ~1-2 hours.
+
+2. **Reconsider ARS-on-GRB-QPO viability at the broader question
+   level.**  Phase 23's substantive FAIL on the targeted Chen 2025
+   replication closes the most accessible methodology-tuning escape
+   route from Phase 21's null verdict.  The remaining options are:
+     - a different ARS axis (energy-stratified trajectories;
+       per-detector cross-correlations) that the Farey-bank /
+       NNS classifier doesn't presently compute,
+     - a different signal class (not GRB QPOs).
+   Phase 23 closes the within-current-axis pursuit of the published
+   GRB QPO claims; further work in this direction needs new
+   methodology, not just finer resolution.
+
+#### Outputs
+
+Code under `phase23/`: run_phase23_targeted.py,
+run_phase23_smoothing_diag.py, run_phase23_per_detector.py,
+run_phase23_writeup.py, run_phase23_energy_strat.py (drafted but
+not run; activated for the per-(detector, energy_channel)
+stratification follow-up).
+
+Data under `data/phase23_results/`:
+phase23_targeted_classification.parquet,
+phase23_targeted_surrogate_classification.parquet,
+phase23_targeted_qpo_comparison.parquet,
+phase23_smoothing_diag.parquet,
+phase23_per_detector.parquet,
+PHASE23_FINDINGS.md,
+PHASE23_VS_PHASE21.md.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
