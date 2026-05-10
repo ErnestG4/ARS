@@ -213,6 +213,13 @@ def _simulate_hawkes(
         # Degenerate / non-stationary: fall back to homogeneous Poisson at μ.
         n_exp = max(1, int(mu * T))
         return np.sort(rng.uniform(0, T, size=n_exp))
+    if alpha == 0:
+        # Pure Poisson process at rate μ — no self-excitation to compute.
+        # Direct sampler avoids the O(n²) Ogata loop, which is critical
+        # at high rates (Phase 20 topology-aware fits with the sanity
+        # guard fallback set α = 0 and rate up to ~700/sec).
+        n_exp = rng.poisson(mu * T)
+        return np.sort(rng.uniform(0, T, size=int(n_exp)))
     events = []
     t = 0.0
     while t < T:

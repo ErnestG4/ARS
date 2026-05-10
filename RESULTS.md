@@ -4414,6 +4414,345 @@ Outputs:
 
 ---
 
+### 7.ter.29  Phase 21 — GRB timing PoC
+
+#### Motivation
+
+GRB timing structure was the original motivating question for this
+toolkit's design.  The slice-through-higher-field framing applies
+cleanly: a burst is a brief deterministic astrophysical event, the
+readout is necessarily partial through whichever instruments
+happened to be online and pointing the right way, and multiple
+detectors provide natural vantage-point multiplicity.  Photon
+arrival timestamps are point processes by construction; no
+continuous-trace extraction is needed (in contrast with the LLM
+applications retracted in §7.ter.19–.23).
+
+The phase is not greenfield.  GRB QPO detection has become an
+unexpectedly active sub-field over 2024–2025.  Chen, Zhang et al.
+(2025) reported a 909 Hz QPO in GRB 230307A as evidence for a
+millisecond-magnetar central engine; Castro-Tirado et al. (2021)
+reported high-frequency QPOs at 836, 1444, 2132, and 4250 Hz in
+GRB 200415A (a magnetar giant flare from the Sculptor galaxy);
+Israel, Strohmayer, and Watts (2005–2006) established the lineage
+in the galactic SGR 1806-20 giant flare with QPO modes at 18, 26,
+30, 92, 150, 625, and 1837 Hz.  Bing Zhang's 2025 framing paper
+"On the Duration of Gamma-Ray Bursts" reset the duration-shaping
+discussion around four factors with merger-driven long GRBs
+demolishing the simple short-vs-long classification.
+
+This toolkit's contribution is methodologically complementary, not
+replacement: classifying timing into the joint plane (subsuming
+QPO detection as the TL/periodic-resonance-quadrant case),
+falsifying at multiple orders (Phase 18 surrogates + the
+GRB-specific lightcurve-modulated Poisson surrogate added here),
+and applying the transition diagnostic per QPO-claim window
+(Phase 20.5).
+
+#### Methodology
+
+`grb_pipeline.py` pulls TTE files from HEASARC's public Fermi GBM
+trigger archive
+(`heasarc.gsfc.nasa.gov/FTP/fermi/data/gbm/triggers/`) for the
+priority-1 / priority-2 / priority-3 events, parses each FITS file
+to a `(time_us, energy_ch)` per-detector table, and selects "burst
+detectors" — those whose prompt-window event rate exceeds 2× the
+pre-trigger background rate.  No specialised tooling required:
+`astropy.io.fits` plus standard URL fetching; no `gbm-data-tools`,
+no `pybgpstream`-style external dependency.
+
+The acquired panel:
+
+| event       | trigger ID    | category                         | n events (pooled) | n burst detectors |
+|-------------|---------------|----------------------------------|-------------------|-------------------|
+| GRB230307A  | bn230307656   | extragalactic, magnetar candidate | 11.06 M           | 12                |
+| GRB200415A  | bn200415367   | extragalactic MGF (Sculptor)     | 11.24 M           | 14 (fallback)     |
+| GRB221009A  | bn221009553   | long GRB (BOAT)                  | 45.85 M           | 14                |
+| GRB211211A  | bn211211549   | extragalactic merger / kilonova  | 5.35 M            | 5                 |
+
+(SGR 1806-20 is observed natively by RHESSI, not Fermi GBM —
+RHESSI archival access via HEASARC is left as a follow-up; the
+priority-1 MGF case is covered by GRB 200415A in this run.)
+
+`run_phase21_calibrators.py` characterises three calibration
+elements before any prompt-window classification is interpreted:
+
+  - **Detector deadtime artifact**: synthetic Poisson at varying
+    rate, deletions inside the deadtime window
+    (Fermi GBM 2.6 μs, BATSE 5 μs, RHESSI 6 μs).  At
+    rate = 200,000 events/s the joint-plane reading shifts from BL
+    (Poisson, rep_med ≈ 0.04) to TR (Wigner-class, rep_med ≈ 0.45)
+    purely from deadtime — i.e., high-rate scintillator detectors
+    can fake a Wigner signature even on uncorrelated input.  This
+    is a generic high-count-rate scintillator artifact.
+
+  - **Per-event quiescent baseline**: the pre-trigger window
+    (T-200 s to T-1 s) of every event in the panel classifies as
+    BL with rep_med ≈ 0.017–0.022, indistinguishable from
+    homogeneous Poisson.  Background-period gamma-ray flux is
+    Poisson-class at the joint-plane resolution.  This is the
+    operational reference for "GRB at rest."
+
+  - **MGF positive control on GRB 200415A**: the prompt window
+    (T0 to T0+0.139 s) was scanned at q_max = 300 to span the
+    Castro-Tirado 2021 published QPO frequencies (836, 1444, 2132,
+    4250 Hz).  At the empirical mean event spacing of 17.0 μs
+    (corresponding to a 59 K events/s pooled-detector rate during
+    the prompt), the q-bands corresponding to those frequencies
+    are q ≈ 70.5 / 40.8 / 27.7 / 13.9 respectively.  Of the
+    elevated RF-amplitude q-bands found by the scan, **q = 74
+    appears with rf_amplitude_q = 0.0044** — the closest match in
+    the elevated set to the 836 Hz mode's predicted q = 70.5.  No
+    elevated RF amplitudes are found at the q-bands corresponding
+    to the higher-frequency modes (1444 / 2132 / 4250 Hz) in this
+    pooled-detector scan.  This is a *partial* MGF positive
+    control: the lowest published mode is suggestive of a match
+    at the q-band level; the higher modes are not.
+
+#### Tier 3 — per-event multi-resolution trajectory
+
+`run_phase21_classification.py` runs the joint plane per
+sub-window for each event, with sub-window resolution adapted to
+the event's category:
+
+| event        | sub-window | window relative to T0 | n sub-windows | n well-powered |
+|--------------|------------|-----------------------|---------------|----------------|
+| GRB230307A   | 2 s        | [-30, 64.6]           | 48            | 48             |
+| GRB200415A   | 20 ms      | [-1.0, 1.139]         | 107           | 107            |
+| GRB221009A   | 10 s       | [-30, 360]            | 39            | 39             |
+| GRB211211A   | 2 s        | [-30, 81.4]           | 56            | 56             |
+
+The headline result mirrors the Phase 20.5 retroactive finding on
+BGP: **all four events classify uniformly as BL throughout their
+prompt and surrounding windows at the joint-plane quadrant
+resolution.**  `transition_diagnostic.characterize_transition`
+returns `transition_detected = False, origin = destination = BL`
+for every event.  The trajectories vary at the rep_med
+sub-quadrant level (rep_med shifts of 0.005–0.025 across the
+prompt window for each event), but the primary-quadrant label
+does not transition.
+
+The published QPO claims fall *just outside* the joint-plane's
+natural q-range at the chosen sub-window sizes:
+
+| event      | published QPO Hz | resolved q (rate / f_hz) | inside q_max=30? |
+|------------|------------------|---------------------------|-------------------|
+| GRB230307A | 909.0 (Chen 2025)| 41                        | no (close miss)   |
+| GRB200415A | 2132 (Castro 2021)| 31                       | no (close miss)   |
+| GRB221009A | (no claim)        | n/a                      | n/a              |
+| GRB211211A | 22.5 (Xiao 2022)  | 646                      | no (rate mismatch)|
+
+The framework's q-band index corresponds to "events per QPO
+period" in unit-mean-spacing units; for it to detect a published
+QPO frequency, the event count in the analysis window divided by
+the QPO period must fall inside [2, q_max].  At q_max=30 with
+the chosen sub-window sizes, both 230307A's 909 Hz and 200415A's
+2132 Hz are at q ≈ 31–41 — just above the cutoff.  This is a
+methodology-resolution result, not a positive or negative finding
+about the QPO claims themselves.
+
+#### Tier 4 — falsification
+
+`run_phase21_falsification.py` applies the Phase 18 surrogate
+panel plus the GRB-specific lightcurve-modulated Poisson
+surrogate to each event's QPO/prompt window.  Per-event results
+on the headline classification metric (rep_med at q_qpo or
+median):
+
+| event       | ORIGINAL  | phase_rand_iei | cumulant_matched | lightcurve_modulated_Poisson |
+|-------------|-----------|----------------|------------------|------------------------------|
+| GRB230307A  | BL (0.025)| TR (×3 seeds)  | BL (×3)          | **BL (×3)**                  |
+| GRB200415A  | BL (0.074)| TR (×3)        | BL (×3)          | **BL (×3)**                  |
+| GRB221009A  | BL (0.016)| TR (×3)        | BL (×3)          | **BL (×3)**                  |
+| GRB211211A  | BL (0.020)| TR (×3)        | BL (×3)          | **BL (×3)**                  |
+
+The headline Tier 4 finding: **the lightcurve-modulated Poisson
+surrogate reproduces the empirical BL classification with
+rep_med within the original's range on every event, every seed.**
+The framework's reading of the prompt-emission timing is
+structurally captured by an inhomogeneous Poisson process whose
+rate matches the empirical lightcurve.  At the joint-plane
+quadrant + q_max=30 resolution, **no detectable timing signature
+beyond the rate envelope** survives this falsification.
+
+The Phase 18 surrogates show the expected pattern (per §7.ter.25
+lessons): `phase_randomized_iei` flips the classification to TR
+(IEI second-order preservation in a way that pushes Gaussianised
+output into TR territory); `cumulant_matched` preserves BL (IEI
+marginal moments preserve the BL signature).  These are
+classifier-sensitivity results, not finding-artifacthood results.
+
+#### Phase 19 mechanism-distinctness implication
+
+Per the user-flagged observation at Tier 2: **all gamma-ray
+photon detectors share the categorical-event-detection mechanism
+class** (scintillator + photomultiplier + deadtime + categorical
+energy channeling) and do not constitute mechanism-distinct
+extractors under the §7.ter.26 empirical-distinctness criterion.
+Fermi GBM (NaI/BGO + PMT), BATSE (NaI + PMT), Swift BAT (CdZnTe),
+GECAM (LaBr3), Konus-Wind (NaI), RHESSI (Ge) are all
+description-distinct but mechanism-equivalent at the joint-plane
+discrimination level.  By analogy with the Phase 19 finding that
+8 description-distinct LLM attention extractors collapsed into
+5–6 mechanism classes, all GRB gamma photon detectors are
+expected to collapse into a single mechanism equivalence class.
+
+**Implication.**  Cross-instrument agreement on a published QPO
+claim is *one mechanism's testimony at multiple vantage points*,
+not multi-mechanism corroboration.  The §7.ter.26 principled
+discipline (≥ 4 mechanism-distinct extractors agreeing) cannot be
+satisfied within the GRB photon-detector panel; saturation is
+fundamental.  Genuinely multi-mechanism corroboration of a GRB
+timing signature would require a different detection class —
+gravitational-wave timing, neutrino arrival timing, or
+optical-counterpart photometric timing — none currently at the
+temporal resolution required for ms-class QPO verification.
+
+This is not a retraction of cross-instrument GRB analyses.  It is
+the calibrated upper bound on what cross-instrument agreement
+*can* establish: the same scintillator-PMT-deadtime mechanism
+reads the same timing signature at multiple geometrically-
+displaced vantage points (rules out detector-specific artifacts;
+vantage-point agreement on the same physical event), but is not
+Phase 19-principled.
+
+#### Verdict
+
+Per the revised verdict map (Tier 4 ground rules), the empirical
+input is:
+
+  - **Quadrant classification doesn't shift** during published QPO
+    windows on any of the four events — the cascade-shape /
+    transition signature lives at sub-quadrant resolution, *if it
+    exists at all in the framework's q-range at our chosen
+    sub-window sizes.*  This is the Phase 20.5 lesson reproduced
+    on a different domain.
+  - **Lightcurve-modulated Poisson reproduces the empirical BL
+    classification on every event.**  At the joint-plane
+    resolution we operated at, the QPO/prompt-window reading is
+    fully accounted for by the empirical rate envelope.
+  - **MGF positive control is partial**: 836 Hz mode in
+    GRB 200415A produces an elevated RF-amplitude at q = 74
+    (predicted q = 70.5) on the full prompt-window scan at q_max
+    = 300; higher-frequency modes (1444 / 2132 / 4250 Hz) do not
+    register elevated RF amplitudes at their predicted q-bands.
+  - **The published QPO frequencies for 230307A (909 Hz) and
+    200415A's 2132 Hz mode** are at q-bands just above q_max = 30
+    at the sub-window sizes used in Tier 3.  The framework's
+    q-resolution at this compute budget does not span the
+    published claims' frequencies.
+
+The verdict closest to the data: **methodology-resolution result,
+no positive QPO-claim replication, lightcurve-modulated Poisson
+reproduces the empirical reading.**  The Phase 21 PoC does not
+support a positive ARS-replicates-published-QPO finding at the
+joint-plane resolution.  This is the intended methodology-only
+outcome; the lessons that transfer are documented below.
+
+#### Methodological lessons
+
+1. **Lightcurve-modulated Poisson surrogate as transferable
+   falsification tool.**  Any cascade-driven photon-counting
+   measurement (GRBs, X-ray binaries, AGN flares, astrophysical
+   transients) can use this surrogate to test whether timing
+   structure is reproducible from the rate envelope alone.  The
+   implementation in `lightcurve_modulated_surrogate.py` is
+   ~50 lines of Python.
+
+2. **Quadrant-resolution coarseness, again.**  Phase 20.5
+   identified that cross-domain timing signatures live at
+   sub-quadrant rep_med resolution; Phase 21 reproduces this on
+   GRB data.  A finer-resolution classifier (rep_med-axis
+   trajectory distance, energy-band stratified classifications)
+   would be needed for any positive cascade-shape finding on
+   GRB-class timing.
+
+3. **q-range vs published-QPO-frequency mismatch.**  The
+   joint-plane framework's natural detection range (q ∈ [2, q_max])
+   corresponds to particular sub-window sizes for each QPO
+   frequency.  For the 909 Hz / 2132 Hz claims to fall inside
+   q_max = 30, sub-window sizes need to be ~50–100 ms.  This is a
+   methodology-tuning result for any future application targeting
+   specific QPO frequencies.
+
+4. **Mechanism-distinctness saturation.**  All gamma photon
+   detectors collapse into a single mechanism equivalence class
+   under the §7.ter.26 empirical-distinctness criterion.
+   Cross-instrument GRB agreement is not Phase 19-principled.
+   This is the calibrated upper bound on what photon-detector
+   panels can establish.
+
+5. **Per-instrument deadtime as artifact source.**  Synthetic
+   Poisson at high rate with deadtime produces TR-class signatures
+   purely from the deadtime cutoff.  Any joint-plane reading on
+   high-rate scintillator data must subtract this baseline before
+   non-Poisson structure is reported.
+
+#### Open questions
+
+  - **SGR 1806-20 / RHESSI archival access.**  The galactic-MGF
+    ground-truth case originally observed by RHESSI is not in the
+    Fermi GBM trigger archive.  HEASARC has RHESSI archival data
+    via a different path; integrating that requires additional
+    pipeline work and is filed for any longer-term study.
+
+  - **Fine-q QPO replication.**  At q_max = 50 with 100 ms
+    sub-windows on GRB 230307A, the 909 Hz QPO falls inside the
+    detection range.  A targeted run with this configuration is a
+    next-step that could promote the verdict from "methodology
+    resolution" to "QPO replication attempted."  Compute cost:
+    ~30 min wall-time per event.
+
+  - **Energy-band stratification.**  The Tier 3 sub-windowing
+    pools across detector NaI/BGO and across PHA channels.  An
+    energy-stratified analysis would test whether the QPO signal
+    is energy-dependent (predicted by the magnetar-central-engine
+    interpretation).
+
+#### Citations
+
+GRB QPO lineage:
+
+  - Chen, R.-C., Zhang, B.-B. et al. (2025).  Nature Astronomy 9:
+    1701–1713.  [909 Hz QPO in GRB 230307A]
+  - Castro-Tirado, A. J. et al. (2021).  Nature 600: 621–624.
+    [GRB 200415A high-frequency QPOs]
+  - Xiao, S. et al. (2022a).  [GRB 211211A precursor QPO]
+  - Zhang, B. (2025).  arXiv:2501.00239.  [GRB duration framing]
+
+Magnetar giant flare lineage:
+
+  - Israel, G. L. et al. (2005).  [SGR 1806-20 QPOs]
+  - Strohmayer, T. E. & Watts, A. L. (2005, 2006).  [SGR 1900+14,
+    1806-20 QPO analysis]
+  - Watts, A. L. & Strohmayer, T. E. (2006).  [1837 Hz]
+
+Methodology-internal:
+
+  - §7.ter.25 (Phase 18 — higher-order surrogates)
+  - §7.ter.26 (Phase 19 — mechanism-distinctness)
+  - §7.ter.27 (Phase 20 — BGP cascade dynamics)
+  - §7.ter.28 (Phase 20.5 — transition calibrator extension)
+
+Outputs:
+`grb_pipeline.py`, `run_phase21_acquire.py`,
+`run_phase21_calibrators.py`, `run_phase21_classification.py`,
+`run_phase21_falsification.py`,
+`lightcurve_modulated_surrogate.py`,
+`data/phase21_grb_panel/{event}.parquet` × 4,
+`data/phase21_grb_panel/detector_geometry.parquet`,
+`data/phase21_calibrators.parquet`,
+`data/phase21_classification.parquet`,
+`data/phase21_qpo_comparison.parquet`,
+`data/phase21_falsification.parquet`,
+`plots/58_phase21_deadtime.png`,
+`plots/59_phase21_quiescent_baseline.png`,
+`plots/60_phase21_trajectory_per_event.png`,
+`plots/62_phase21_surrogate_survival.png`,
+`GRB_NEXT_STEPS.md`.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
