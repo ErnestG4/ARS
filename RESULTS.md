@@ -5911,6 +5911,184 @@ template (166 MB).
 
 ---
 
+### 7.ter.34  Phase 24 (Full) — multi-session Allen Visual Coding awake-mouse-V1 replication
+
+#### Frame
+
+Phase 24 triage on a single Allen Brain Observatory session (732592105)
+established that the Phase 22a interface configuration applies cleanly
+to awake mouse V1 data and produces direction-replication of the H1
+headline at ~58 % of pvc-11 magnitude.  Triage flagged three findings
+for multi-session resolution: H2 natural-movie non-replication
+(substrate-rate-regime hypothesis), F1/F0 ↔ rep_med sign-flip
+(substrate-systematic vs session-noise vs Cre-line-specific), and DSI
+strengthening (replicated multi-session vs single-session noise).
+
+Phase 24 (Full) ran the multi-session test on the 12
+brain_observatory_1.1 sessions with ≥ 80 V1 units after Allen-default
+QC: 5 wt, 4 Vip-Cre, 2 Sst-Cre, 1 Pvalb-Cre.  The interface
+configuration was held fixed (Phase 22a defaults).
+
+#### Methodology
+
+Calibrator zoo verified 8/8 in spec.
+
+Per-session H1: Spearman partial correlation of {ks_gue_med, rep_med}
+vs {OSI, DSI, F1/F0} controlling for mean firing rate.  72 (session,
+metric, descriptor) cells across 12 sessions.
+
+(k_thresh, w) sensitivity grid: 12 (k, w) combinations × 12 sessions
+× 3 conditions = 432 real-only ARS calls.  Identified per-session
+rate-matched (k, w) closest to pvc-11 monkey1_natural_movie's 24.3 Hz
+reference rate.
+
+Per-session H2: surrogate battery (rate_matched_poisson + cell_shuffle
++ ln_evoked where stimulus templates apply) at default (k=5, w=5ms)
+AND rate-matched (per-session) configurations.  5 seeds each.
+
+Multi-session Fisher-Z meta-analysis (fixed and random effect, with
+DerSimonian-Laird τ²) overall and stratified by Cre line and by
+per-session firing-rate quartile.
+
+#### H1 verdict: LOCKED cross-species cross-state
+
+| descriptor | ARS metric  | Allen meta-fix | Allen meta-rand | I² | pvc-11 ref |
+|------------|-------------|----------------|-----------------|-----|------------|
+| OSI        | ks_gue_med  | **+0.363**     | +0.364          | 43% | +0.720     |
+| OSI        | rep_med     | −0.211         | −0.211          |  7% | −0.324     |
+| DSI        | ks_gue_med  | +0.269         | +0.268          | 26% | +0.223     |
+| DSI        | rep_med     | −0.222         | −0.222          | 27% | −0.060     |
+
+All 12 Allen sessions show positive OSI ↔ ks_gue_med partial
+correlation (range +0.16 to +0.60; 10 of 12 significant at p < 0.05).
+Per-Cre-line: wt +0.336, Vip +0.342, Sst +0.416 — sign-consistent
+across all genotypes.  Per-rate-quartile: +0.255 to +0.457 — H1 is
+rate-regime-robust.
+
+The Phase 22a H1 OSI ↔ ks_gue_med headline is **substrate-general**.
+The anesthesia caveat is removed.
+
+#### DSI verdict: REPLICATED with stronger Allen magnitude
+
+DSI ↔ ks_gue_med: Allen meta-fix +0.269 vs pvc-11 +0.223 — Allen
+20 % *stronger*.  Triage's single-session +0.385 is consistent
+across sessions.  Biologically plausible (mouse V1 has documented
+heavier direction selectivity than macaque V1).
+
+DSI ↔ rep_med: Allen meta-fix −0.222 vs pvc-11 −0.060 — Allen 4×
+stronger negative correlation.  The triage single-session reading
+(−0.370) replicates and extends.
+
+DSI is added to the cross-validated H1 axis as a biologically-grounded
+species-difference observation.
+
+#### F1/F0 ↔ rep_med verdict: SUBSTRATE-SYSTEMATIC SIGN-FLIP
+
+| Cre line | n_sess | meta-fix ρ | I² |
+|----------|--------|------------|-----|
+| overall  | 12     | **−0.183** | 29% |
+| wt       | 5      | −0.117     | 45% |
+| Vip      | 4      | −0.253     | 28% |
+| Sst      | 2      | −0.251     |  0% |
+
+All 12 Allen sessions show negative F1/F0 ↔ rep_med correlation
+(opposite sign to pvc-11's +0.388).  All Cre lines same direction.
+This is **substrate-systematic**, not session-noise or Cre-line-
+specific.
+
+The Phase 22a F1/F0 finding is bounded to anesthetised macaque V1.
+In awake mouse V1, the correlation runs in the opposite direction —
+a substantive substrate difference reportable as a separate finding.
+
+#### H2 verdict: PVC-11-SPECIFIC
+
+| condition          | default (k=5, w=5ms) | rate-matched (per-session k, w) |
+|--------------------|----------------------|----------------------------------|
+| natural_movie_one  | **3 / 12 PASS**      | **1 / 8 PASS**                   |
+| drifting_pooled    | 5 / 12 PASS          | 6 / 8 PASS                       |
+| spontaneous        | 3 / 12 PASS          | 4 / 8 PASS                       |
+
+The triage substrate-rate-regime hypothesis predicted that
+rate-matching to pvc-11 would *increase* the Allen H2 PASS rate
+on natural_movie_one.  Empirically: rate-matching produces *fewer*
+PASSes (1/8) than default (3/12).  **The substrate-rate-regime
+hypothesis is falsified.**
+
+The pvc-11 monkey1_natural_movie headline H2 finding (clean
+strict-survival across all 30 q-bands and all 3 surrogates) does
+not generalise to awake mouse V1 at any tested interface
+configuration.
+
+The Phase 22a H2 claim's appropriate post-Phase-24 scope:
+**bounded to anesthetised macaque V1 + specific stimulus +
+specific recording**, with the rate_matched_poisson + cell_shuffle
++ ln_evoked surrogate set passing on the specific pvc-11
+monkey1_natural_movie + monkey2_gratings_movie recordings.
+Multi-session awake-mouse-V1 does not share the structural
+feature that produced the pvc-11 H2 finding.
+
+#### Net effect on Phase 22a interpretations
+
+The strongest version of Phase 22a's claims surviving Phase 24
+multi-session falsification:
+
+  1. ARS continuous metrics (`ks_gue_med`, `rep_med`) carry a
+     firing-rate-controlled signal correlating with V1 functional
+     categories OSI and DSI, in awake mouse V1 and anesthetised
+     macaque V1, with magnitudes attenuated in the awake mouse
+     replication.  **Substrate-general, cross-species, cross-state.**
+  2. The F1/F0 ↔ rep_med correlation is sign-opposite between
+     anesthetised macaque V1 and awake mouse V1 — a substantive
+     substrate difference, not noise.  **Substrate-bounded
+     observations on each side.**
+  3. The pvc-11 H2 population-event finding on
+     monkey1_natural_movie does not have a substrate-general
+     analogue in Allen mouse V1.  H2 claims should be scoped to
+     the specific recordings + interface configuration where they
+     were observed.  **Pvc-11-specific.**
+
+#### Methodological notes
+
+- allensdk fails to install on Python 3.12 (the existing project
+  venv); Phase 24 uses direct S3 + pynwb 3.1.3.  Loader at
+  `phase24/loader.py` is reusable.
+- Stimulus templates for natural_movie_one are stored separately
+  from the session NWB; loaded as numpy arrays (despite the .h5
+  extension) and downsampled spatially (factor 8) for the LN-evoked
+  surrogate's STA fit.
+- Per-session H2 surrogates run at two configurations (default and
+  per-session rate-matched) — this is the substrate-rate-regime
+  test that the triage flagged as the leading explanation for H2
+  non-replication, and it is now falsified.
+- 7 of the 12 NWB downloads required clean-restart due to
+  parallel-curl interleaving corruption during initial fetch
+  attempts.  All 12 verified against Allen S3 expected sizes
+  before analysis.
+
+#### Outputs
+
+Code under `phase24/`:  loader.py, run_sensitivity_grid.py,
+run_per_session_h1.py, run_per_session_h2.py, run_meta_analysis.py,
+run_verdicts.py.
+
+Data under `data/phase24_results/`:
+sensitivity_grid.parquet, rate_matched_configs.parquet,
+per_session_h1_ars.parquet, per_session_h1_functional.parquet,
+per_session_h1_crossval.parquet, per_session_h2_population.parquet,
+per_session_h2_surrogate.parquet, per_session_h2_survival.parquet,
+per_session_h2_population_default.parquet (default-only first pass),
+h1_meta_overall.parquet, h1_meta_by_cre.parquet,
+h1_meta_by_rate_quartile.parquet, PHASE24_FULL_FINDINGS.md.
+
+PHASE22A_FINDINGS.md in `data/phase22a_results/` is updated in-place
+with a Phase 24 (Full) update note recording scope changes.
+
+Cache under `/home/combust/fmexplorer/allen_cache/`: 12 session NWBs
+(~32 GB total), per-session analysis_metrics CSVs, manifests,
+natural_movie_one template (166 MB).
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -5954,6 +6132,77 @@ not extend the corresponding literatures.
 - EEG θ-band zero-crossings (PhysioNet EEGMMIDB, 32 subjects):
   mass<0.3 ≈ 0.001, identified as bandpass filter artifact rather than
   a property of the underlying neural signal. (§7.ter.6.)
+
+- CRCNS pvc-11 macaque V1 (Smith & Kohn): per-unit ARS spike-train
+  classification produces predominantly BL (Poisson) verdicts
+  (1,144 / 1,159 H1-passing pairs), the expected V1 single-unit
+  result.  Continuous ARS metrics (`ks_gue_med`, `rep_med`) carry a
+  firing-rate-controlled signal correlating with V1 functional
+  categories (OSI: ρ_partial = +0.720 with `ks_gue_med`, n=210,
+  p < 1e-37; F1/F0: ρ_partial = +0.388 with `rep_med`, p = 6e-9).
+  Phase 22b confirms within-recording (meta-fixed ρ = +0.742, no
+  between-recording confound) and within-SNR-tertile (T1/T2/T3 =
+  +0.672 / +0.742 / +0.532, sort-quality robust); the H1 finding is
+  locked.  Population-event NNS structure on monkey1_natural_movie
+  and monkey2_gratings_movie survives the required Aitchison-null
+  surrogate conjunction (rate-matched, cell-shuffle, LN-evoked) at
+  all 30 q-bands at 7 surrogate seeds (Phase 22b Pass E);
+  monkey1_spontaneous survives the spontaneous-required (rate-matched,
+  cell-shuffle, state-modulated) at q=6.  The H2 finding is locked
+  at the LN-Poisson elimination floor.  Phase 22b Pass D (history-
+  coupled GLM surrogate as a stricter elimination target) was
+  inconclusive due to GLM-fit fragility at 5 ms bins on natural-
+  movie data; the additional-elimination claim is an open
+  future-work item, not part of the validated output.
+  (§7.ter.30, §7.ter.31.)
+
+- Allen Brain Observatory Visual Coding Neuropixels (single-session
+  awake-mouse-V1 triage): the Phase 22a interface configuration
+  applied to Allen session 732592105 (wt/wt, P100, 111 V1 units
+  after QC) replicates the H1 OSI ↔ ks_gue_med headline in
+  direction at ~58% of pvc-11 magnitude (partial ρ = +0.417,
+  p < 1e-4, n=91); the F1/F0 ↔ rep_med second-order finding
+  shows opposite-sign correlation (Allen −0.222 vs pvc-11 +0.388);
+  the H2 natural_movie_one finding does NOT replicate (Allen
+  produces BR_artifact with rep_med 0.700 where pvc-11 monkey1
+  produced TR with rep_med 0.250).  Triage findings; see Phase 24
+  (Full) for multi-session resolution.  (§7.ter.33.)
+
+- Allen Brain Observatory Visual Coding Neuropixels (multi-session
+  Phase 24 (Full) replication, 12 sessions, 5 wt + 4 Vip-Cre +
+  2 Sst-Cre + 1 Pvalb-Cre): cross-species cross-state replication
+  of the Phase 22a H1 OSI ↔ ks_gue_med headline at meta-fixed
+  ρ = +0.363 (50% of pvc-11's +0.720, all 12 sessions positive,
+  10 of 12 significant; I² = 43%).  DSI ↔ ks_gue_med replicates
+  with stronger Allen magnitude (+0.269 vs pvc-11 +0.223;
+  biologically plausible given mouse V1's heavier direction
+  selectivity).  F1/F0 ↔ rep_med shows substrate-systematic sign-
+  flip across all 12 sessions and all Cre lines (meta-fix −0.183
+  vs pvc-11 +0.388, I² = 29%) — bounded substrate observation,
+  not noise.  H2 natural_movie population-event finding does not
+  replicate at default (3/12 PASS) or rate-matched (1/8 PASS,
+  worse than default) configurations; the substrate-rate-regime
+  hypothesis is falsified, and the Phase 22a H2 claim is bounded
+  to anesthetised macaque V1 + specific stimulus + specific
+  recording.  (§7.ter.34.)
+
+- CRCNS GRB 230307A (Chen 2025 909 Hz QPO claim): Phase 23 targeted
+  replication at the GRB_NEXT_STEPS-specified time-slice adjustment
+  (100 ms sub-windows, q_max=50) detects no signature distinguishing
+  the published 45–47 s claim window from surrounding sub-windows
+  at the 909 Hz q-band (real and lightcurve-modulated Poisson
+  surrogate both ~zero rep_int_q delta).  Phase 21's methodology-
+  only verdict on the published QPO claim is reaffirmed: the
+  time-slice adjustment was applied cleanly but did not produce a
+  positive ARS-replicates-published-QPO finding.  Side-finding:
+  a broadband TR signature in GRB 230307A's late-prompt window
+  (t = 26–30 s post-trigger) survives the lightcurve-modulated
+  Poisson surrogate at all tested smoothing windows from 1 ms to
+  101 ms AND per-detector decomposition, with inverse-rate
+  detector dependence that rules out deadtime artifacts.  This is
+  an observation, not a claim of QPO replication; the next-step
+  diagnosis is per-(detector, energy_channel) stratification.
+  (§7.ter.32.)
 
 These classifications reproduce or are consistent with prior
 characterisations in the corresponding domain literatures on the specific
