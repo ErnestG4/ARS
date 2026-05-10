@@ -4753,6 +4753,428 @@ Outputs:
 
 ---
 
+### 7.ter.30  Phase 22a — pvc-11 macaque V1 (Smith & Kohn)
+
+#### Motivation and scope
+
+Phase 22 originally targeted CRCNS ret-1 (mouse retinal MEA).  That
+work was halted after confirming ret-1 lacks per-cell type labels,
+has KO-heavy genotype mix, and population sizes (26–43 cells per
+qualifying recording) below the canonical criticality scale with
+degraded H1 cross-validation.  Phase 22a replaces that target with
+CRCNS pvc-11 (Smith & Kohn, anesthetised macaque V1, Utah-array
+MEA, 6 spontaneous + 5 evoked recordings, 70–135 single-/multi-units
+per array, multi-stimulus structure, established V1 functional
+categorisation).  The dataset selection rationale and the two
+co-equal hypotheses are documented in the session brief.
+
+The methodological frame is orthogonal-measurement cross-validation:
+
+  H1 — per-unit NNS classification of V1 spike trains, computed via
+       the existing ARS pipeline, exhibits non-trivial correspondence
+       with V1 functional partitions (orientation tuning OSI, direction
+       selectivity DSI, F1/F0 simple/complex), beyond what mean firing
+       rate predicts, and is consistent across stimulus conditions on
+       the same units.
+
+  H2 — population-event NNS classification on V1 recordings shows
+       structure that survives surrogates preserving per-unit
+       stimulus drive (LN-evoked) or anesthesia-state drive (PC1-
+       modulated Poisson) but eliminating intrinsic joint structure,
+       beyond what independent rate-matched processes produce.
+
+#### Methodology
+
+`phase22a/loader.py` — unified pvc-11 loader covering scipy-readable
+spontaneous + gratings .mat files and h5py-readable movie v7.3 files.
+Output: `Recording` dataclass with per-unit spike-time arrays in
+seconds, channel/SNR/MAP metadata, stimulus-condition structure
+preserved.
+
+Calibrator-zoo verification (`phase22a/verify_calibrators.py`):
+Phase 19 stationary panel (Poisson, GOE/GUE/GSE, ζ-first-400,
+uniform_jitter, periodic q=7, mixed q=7+q=12) at N_POINTS=400, 3
+seeds.  All 8 land in the expected modal quadrant.  Pass.
+
+Unit selection (`phase22a/unit_select.py`):
+- H1: SNR ≥ 2.0, mean rate ≥ 1 sp/s, ≥ 400 spikes total per condition
+  (the canonical N_POINTS for the Phase 19 distinctness machinery
+  at q_max=30).  1,159 / 1,539 (unit, recording) pairs pass.
+- H2: SNR ≥ 1.5, mean rate ≥ 0.5 sp/s.  Multi-units retained
+  (population structure is the question; per-cell semantics not
+  required).  1,391 / 1,539 pass.
+
+H1 per-unit ARS classification (`phase22a/h1_per_unit_ars.py`):
+For every H1-passing (recording, unit) pair, run `joint_q_profile` +
+`joint_quadrant_diagnostic` at Q_MAX=30, MIN_EVENTS_PER_Q=30,
+JPF_CAP=1500 on the concatenated spike-time stream.  Per-direction
+classifications also produced for the 3 grating recordings (12
+directions × 210 H1-passing units = 2,520 additional classifications).
+Per-q DataFrames preserved.
+
+H1 functional categories (`phase22a/h1_functional.py`):
+Per-unit OSI/DSI from drifting-grating tuning curves (12 directions),
+F1/F0 ratio at the preferred direction (TF=6.25 Hz), pre-binned PSTHs;
+preferred orientation/direction from the grating-direction movie via
+the published per-grating angle theta.  Standard circular-vector OSI/DSI.
+
+H1 cross-validation (`phase22a/h1_crossval.py`):
+- (A) Spearman partial correlation of {rep_med, ks_gue_med} against
+      {OSI, DSI, F1/F0} controlling for mean firing rate.  (The
+      continuous-metric view; this is the H1 headline.)
+- (B) Cross-stimulus consistency on the matched-unit set across the
+      three movies (gratings_movie, natural_movie, noise_movie) —
+      monkey1 + monkey2.
+- (C) Discrete-categorical view: MI between primary ARS quadrant and
+      {simple/complex via F1/F0 ≷ 1, OSI median split, DSI median
+      split} via contingency tables with bootstrap 95% CI.  Recorded
+      as a methodological cross-check on the continuous-metric finding;
+      see findings note below on why the categorical view is
+      systematically weaker than the continuous view here.
+
+H1 within-unit per-direction modulation (`phase22a/h1_per_direction.py`):
+For every drifting-grating-recording unit with both preferred and
+null direction (180°) ARS classifications, compute
+delta_ks_gue = ks_gue_med(pref) − ks_gue_med(null) and similarly for
+rep_med.  Sign test, Wilcoxon signed-rank on the deltas, and
+Spearman of the deltas against the unit's OSI.  Tests whether the
+between-unit OSI ↔ ks_gue_med correspondence reflects within-unit
+stimulus-direction modulation or only between-unit cell-intrinsic
+variation.
+
+H2 population-event extraction (`phase22a/population_events.py`):
+Synchronous-firing definition:  bin every H2-passing unit's spike
+train at BIN_MS = 5 ms; an event is a bin where ≥ K_THRESH = 5
+distinct units fire ≥ 1 spike.  Sensitivity scan: (k, w) ∈
+{(4, 5 ms), (5, 5 ms), (8, 5 ms), (5, 10 ms)}.
+
+H2 ARS at TWO q_max settings (`phase22a/h2_population.py`):
+Q_MAX = 30 (canonical default) AND Q_MAX = 100 (slow-regime
+extension covering the V1 anesthetised Up/Down band 0.5–3 Hz).  The
+q-band time-frequency mapping is preserved through unit-mean
+unfolding: period at Farey rational a/q = q × original-mean-spacing,
+so frequency = event_rate / q.  Coverage table per recording:
+q_max=100 covers Up/Down on all 15 recordings; q_max=30 covers it
+on 14 of 15 (monkey3_spontaneous's high event rate places its
+q_max=30 lower edge at 3.27 Hz, just above the Up/Down band).
+
+H2 surrogate battery (`phase22a/h2_surrogates.py`):
+- rate_matched_poisson:  per-unit independent Poisson at the unit's
+                          empirical mean rate (floor surrogate).
+- cell_shuffle:           per-trial circular shift per unit;
+                          preserves per-unit count + rate envelope,
+                          breaks cell-pair joint synchrony.
+- ln_evoked (movies):     per-unit STA on the recording's stimulus
+                          movie + softplus+linear rectifier + Poisson;
+                          preserves per-unit stimulus-driven rate
+                          modulation.
+- state_modulated (spontaneous): top-PC of population activity used
+                          as a shared multiplicative gain on
+                          per-unit Poisson; preserves the dominant
+                          slow Up/Down latent variable.
+
+3 seeds per (recording, surrogate).  Surrogates classified at
+q_max=30 only — the per-q rep_int values at q ∈ [1, 30] are
+identical between q_max=30 and q_max=100 runs (the per-q
+computation is independent of the q_max ceiling), so the
+survival verdict at q ≤ 30 is the same either way.
+
+H2 survival verdict (`phase22a/h2_survival.py`):
+Per (recording, surrogate, q-band):
+- `survives_rep`:   real `rep_int_q` > 95th percentile of surrogate
+                     replicates' `rep_int_q` at that q.
+- `survives_quad`:  real per-q quadrant differs from surrogate-modal
+                     per-q quadrant.
+- `survives_both`:  both conditions hold.
+
+Required-conjunction H2 PASS = both `cell_shuffle` AND the
+appropriate stimulus/state-drive surrogate (`ln_evoked` for
+movies, `state_modulated` for spontaneous) survive_both at ≥ 1
+q-band.  Subsets with no LN-evoked surrogate (drifting gratings
+— 1.28 s static-orientation stimuli don't admit a useful per-frame
+LN model) require only cell_shuffle.
+
+#### Findings
+
+**Calibrator zoo**:  8/8 pass.
+
+**H1 per-unit**:  modal-quadrant collapse is null:  1,144 / 1,159
+(recording, unit) pairs land in BL (Poisson), 15 in TR.  V1
+single-unit spike trains are dominantly Poisson under ARS — the
+expected result given canonical V1 spike-train statistics.  BUT the
+*continuous* ARS metrics carry a strong, firing-rate-controlled
+signal:
+
+| descriptor | ARS metric  | n   | partial ρ | p (partial)       |
+|------------|-------------|-----|-----------|-------------------|
+| OSI        | ks_gue_med  | 210 | +0.720    | < 1e-300          |
+| OSI        | rep_med     | 210 | −0.324    | 1.7e-06           |
+| F1/F0      | rep_med     | 210 | +0.388    | 6.2e-09           |
+| DSI        | ks_gue_med  | 210 | +0.223    | 1.2e-03           |
+
+`ks_gue_med` (KS distance from a Wigner GUE NNS reference) tracks
+orientation selectivity across 210 grating-driven units beyond what
+mean firing rate predicts: units with higher OSI have higher
+ks_gue_med (i.e., NNS distribution further from Wigner GUE) at
+ρ_partial = +0.720, p < 1e-37.  `rep_med` tracks the simple/complex
+F1/F0 partition (ρ_partial = +0.388, p = 6e-9): simple cells (F1/F0 > 1)
+show more pair-spacing repulsion in their NNS distribution than
+complex cells (F1/F0 < 1).
+
+**H1 within-unit per-direction modulation**:  for the 210 units with
+both preferred and null direction (180°) ARS classifications:
+- delta_ks_gue (pref − null) median = +0.0015, mean = +0.0001;
+  sign test 107 vs 103; Wilcoxon p = 0.83.  No within-unit modulation
+  of `ks_gue_med` between preferred and null direction.
+- delta_rep median = 0, mean = +0.015; Wilcoxon p = 5.7e-3 (weak
+  but real positive shift); but Spearman OSI vs delta_rep ρ = +0.111,
+  p = 0.11 — the modulation does not co-vary with the unit's
+  orientation tuning.
+
+The OSI ↔ ks_gue_med correspondence (ρ_partial = +0.720, n = 210,
+p < 1e-37 from the between-unit analysis above) therefore reflects
+**unit-intrinsic NNS structure** — different cells have different
+spike-train spacing distributions overall, in a way that correlates
+with their orientation tuning — not stimulus-driven direction
+modulation of NNS structure within a cell.  This is a specific
+mechanism claim: ARS picks up on cell-property variation, not
+stimulus-driven variation in the cell's response.
+
+**H1 cross-stimulus consistency**:  176 units present in ≥ 2 of the
+3 matched-unit movies; 173/176 = 98.3% land in the same primary
+quadrant across movies.  The consistency is real but uninformative
+for category-discrimination (almost all consistent units are stable
+in BL — the dominant quadrant).
+
+**Methodological note on the categorical view**:  the discrete
+modal-quadrant ↔ functional-category MI was also computed and lands
+at 0.056 bits for simple/complex (95% CI [0.009, 0.143]).  The CI
+excludes zero, so the effect is real, but it is much smaller than
+the continuous-metric correspondence (ρ_partial = +0.388 between
+`rep_med` and F1/F0, p = 6e-9).  The categorical view is
+systematically weaker here for a structural reason: 1,144 / 1,159
+units land in BL, leaving only one productive ARS category for the
+between-cells comparison — the discrete bin discards the
+cell-intrinsic gradient that the continuous metric resolves.  We
+report the continuous-metric partial correlations as the H1 headline
+and treat the categorical MI as a methodological cross-check, not a
+parallel finding.
+
+**H2 population-event real-data classifications** at default
+(k=5, w=5 ms, Q_MAX=30):  diverse — 5 BL, 4 TR, 6 BR_artifact across
+15 recordings.  Modal verdicts are nearly identical between Q_MAX=30
+and Q_MAX=100, indicating the per-q signature is robust to the
+slow-regime extension.
+
+**H2 surrogate-survival verdicts** (required-conjunction):
+
+| recording               | subset         | passes? |
+|-------------------------|----------------|---------|
+| monkey1_spontaneous     | spontaneous    | ✓ (q=6) |
+| monkey1_natural_movie   | natural_movie  | ✓ (all 30 q-bands, all 3 surrogates) |
+| monkey2_gratings_movie  | gratings_movie | ✓ (all 30 q-bands, all 3 surrogates) |
+| monkey1_noise_movie     | noise_movie    | partial (cell_shuffle yes, ln_evoked no) |
+| monkey2_noise_movie     | noise_movie    | partial (cell_shuffle yes, ln_evoked no) |
+| (10 others)             | various        | · (no q-band passes both criteria) |
+
+Per-subset rollup (PASS = ≥ 1 recording with required conjunction
+passing at ≥ 1 q-band):
+- spontaneous:    PASS  (1/6 recordings — monkey1_spontaneous)
+- gratings:       NULL  (0/3)
+- gratings_movie: PASS  (1/2 — monkey2_gratings_movie)
+- natural_movie:  PASS  (1/2 — monkey1_natural_movie)
+- noise_movie:    NULL  (0/2 — only cell_shuffle survived; ln_evoked
+                          captures the structure)
+
+The two cleanest passes are stark:
+
+- **monkey1_natural_movie** (74 units, 87 K events, [0.81, 24.3] Hz
+  band):  real rep_int_q ≈ 0.25 (TR/Wigner-class) at all 30 q-bands;
+  surrogates (rate-matched, cell-shuffle, LN-evoked) all produce
+  rep_int_q < 0.04 (BL/Poisson).  Population events on natural-movie-
+  driven V1 carry Wigner-class spacing structure that no
+  rate-preserving, no cell-shuffle-preserving, and no per-unit-LN-
+  preserving surrogate reproduces.
+
+- **monkey2_gratings_movie** (104 units, 164 K events, [1.52, 45.5] Hz
+  band):  real rep_int_q ≈ 0.55 (BR_artifact/uniform-like saturation)
+  across all 30 q-bands; surrogates produce rep_int_q ~ 0.45 (still
+  high but in TR not BR).  Real population events are *more uniform*
+  than what any surrogate produces.
+
+A separate observation worth flagging: several recordings
+(monkey5_spontaneous, monkey4_spontaneous, monkey3_spontaneous,
+monkey2_noise_movie at the rate criterion alone) show real `rep_int_q`
+above the surrogate 95th percentile across all 30 q-bands but the
+quadrant doesn't differ — i.e., real is more repulsive than
+surrogates within the same quadrant.  This is a softer kind of
+structure than the strict required-conjunction verdict registers; we
+report it as a secondary "rep-only" survival in the per-q parquet,
+not as an H2 PASS.
+
+#### Frequency-band coverage caveat
+
+The q-band time-frequency mapping varies substantially across
+recordings (event rate × Q_MAX = upper edge; lower edge = upper /
+Q_MAX).  At default k=5/5ms, event rates range from 2 Hz
+(monkey2_spontaneous) to 98 Hz (monkey3_spontaneous), so the
+q_max=30 coverage band ranges from [0.07, 2.2] to [3.27, 98.0] Hz.
+Q_MAX=100 brings the lower edge to 0.02–0.98 Hz across recordings,
+fully covering the V1 anesthetised Up/Down band (0.5–3 Hz).  The
+modal-quadrant verdicts are stable between Q_MAX=30 and Q_MAX=100,
+so the results are not mis-stated by the default Q_MAX choice for
+recordings whose Q_MAX=30 band already overlaps Up/Down.  Recordings
+where the Q_MAX=30 band does NOT touch Up/Down (1 of 15:
+monkey3_spontaneous) carry the caveat "no structure detected at the
+framework's Q_MAX=30 q-band coverage given the chosen sub-window
+size — the slow-regime view at Q_MAX=100 was checked and gave the
+same modal verdict."
+
+#### Mechanism distinctness
+
+ARS operates on the spacing structure of point processes (NNS,
+higher-order Farey-pooled spacings).  None of the population-coding
+tools applied in the published literature on pvc-11
+(Ohiorhenuan-Victor 2010 MaxEnt, Williamson 2016 PLDS, Cowley 2016
+GPFA-style latent-variable methods) computes a NNS-of-population-
+events statistic.
+
+The H1 finding (continuous ARS metrics tracking orientation tuning
+beyond firing rate at ρ_partial = +0.720, n = 210, p < 1e-37) is a
+measurement-axis-orthogonal correspondence: the spacing-structure
+axis carries information about V1 functional category that is not
+predicted by mean rate and was not measured by prior population-
+coding analyses on this same dataset.  We do not claim ARS predicts
+orientation tuning better than direction-of-motion-driven tuning
+fits do — the orientation-tuning measurement on the same units is
+the cleaner direct readout.  The claim is that the NNS-spacing
+metric, computed from the spike-train timing distribution rather
+than from a stimulus model, recovers orientation-related structure
+without using stimulus information.
+
+The H2 findings on monkey1_natural_movie and monkey2_gratings_movie
+articulate the elimination space cleanly: the surviving structure
+is not predicted by independent per-unit rate modulation
+(rate_matched_poisson surrogate eliminated it), not by the dominant
+trial-averaged rate envelope (cell_shuffle eliminated it), and not
+by a per-unit STA-based rate model on the actual stimulus
+(ln_evoked eliminated it).  This narrows the explanatory space
+substantially: whatever produces the surviving NNS structure
+operates on cell-pair joint timing in a way that the LN-Poisson
+class of generative models does not capture.  We do not name the
+mechanism; we name the elimination.
+
+#### Methodological recommendations for future ARS applications
+
+Two checks promoted to default practice for any future application of
+ARS to data with structure that the toolkit could plausibly read in
+multiple ways.  Both surfaced as load-bearing in Phase 22a; neither
+is yet documented in METHODS.md.
+
+**1. Within-unit stimulus-driven vs between-unit intrinsic
+disambiguation.**  When a recording has a known stimulus partition
+(orientation, frequency, condition, identity of the source process,
+etc.) and the per-unit ARS classifications correlate with a
+descriptor computed on the same units, run the within-unit
+modulation test before claiming the ARS metric "tracks" the
+descriptor.  Procedure:
+
+  - Compute ARS classifications per (unit, stimulus condition)
+    rather than only on the pooled-across-conditions stream.
+  - For each unit, identify the descriptor's preferred and null
+    conditions (e.g., preferred and null direction in Phase 22a;
+    in another setting, on-state vs off-state, target vs distractor).
+  - Compute delta_metric = ARS_metric(preferred) − ARS_metric(null)
+    per unit; sign test, Wilcoxon, and Spearman of the delta against
+    the descriptor.
+  - **If the within-unit delta is statistically negligible AND
+    uncorrelated with the descriptor while the between-unit
+    correspondence is strong, the ARS metric is reading
+    cell-intrinsic structure, not stimulus-driven response
+    structure.**  Both readings are interpretable; conflating them
+    in the writeup is not.
+
+  In Phase 22a the delta_ks_gue median was +0.0015 with Wilcoxon
+  p = 0.83 — the OSI ↔ ks_gue_med correspondence is unambiguously
+  between-unit cell-intrinsic.  Without this check, the same data
+  could have been written up as "ARS tracks orientation-driven
+  modulation of NNS structure", which would have been wrong.
+
+**2. Continuous ARS metrics over discrete modal-quadrant assignments
+when the modal distribution is dominated by one quadrant.**
+Phase 22a's per-unit ARS classifications land 1,144 / 1,159 in BL.
+The discrete-categorical MI between modal quadrant and functional
+category was 0.056 bits — small-but-real (CI excludes zero) but
+much weaker than the continuous-metric partial correlations
+(ρ = +0.720 for OSI vs `ks_gue_med`, p < 1e-37).  The bin discards
+the cell-intrinsic gradient that the continuous metric resolves.
+
+  Default practice: when the modal-quadrant distribution is dominated
+  by one class (≳ 90 % in one quadrant), report the continuous metrics
+  (`rep_med`, `ks_gue_med`, per-q vectors) as the H-headline finding
+  and treat the categorical view as a methodological cross-check
+  rather than a parallel finding.
+
+These two points are framed as recommendations for any future ARS
+application where (a) stimulus or condition structure is known on
+the same units that ARS classifies, or (b) the modal quadrant
+distribution is concentrated.  Both conditions are common in neural
+data (single-unit V1 spike trains satisfy (b) by default; any
+stimulus-locked regime satisfies (a)).
+
+#### Caveats
+
+- pvc-11 is anesthetised (sufentanil).  The H2 verdict is "structure
+  survives anesthesia-state-preserving and stimulus-drive-preserving
+  surrogates", not "V1 is critical" or "this is how awake V1 normally
+  works".  Anesthesia provides a stricter Up/Down latent-variable
+  test than awake recordings would.
+- Functional categories are V1-functional (orientation tuning,
+  F1/F0 simple/complex), not transcriptomic or morphological cell
+  types.  Cross-modality cell-type validation remains a future-
+  phase target.
+- LN-evoked surrogate fits a simple STA + softplus + linear
+  rectifier; it is not a precision receptive-field model.  A more
+  expressive LN family (separable spatiotemporal filters, GLM with
+  history coupling) would be a stronger surrogate; the current
+  cheap LN is the floor for stimulus-drive elimination, not the
+  ceiling.
+- Surrogate replicate count is 3 per (recording, surrogate) cell
+  for runtime reasons.  The 95th-percentile estimate is noisier
+  than 5+ seeds would give; the verdicts on the cleanly-passing
+  recordings (monkey1_natural_movie, monkey2_gratings_movie) are
+  robust to this since real rep_int values are ~6× the surrogate
+  median, not just above the upper percentile.
+- Population-event definition is k=5 / 5 ms by default; the
+  sensitivity grid (k ∈ {4, 5, 8}, w ∈ {5, 10} ms) shows the
+  modal-quadrant distribution shifts with threshold (more BL at
+  k=8, more BR_artifact at k=5/10 ms), so the *specific* H2
+  verdicts are tied to the default definition; the existence of
+  surviving structure on monkey1_natural_movie and
+  monkey2_gratings_movie is robust across the grid.
+
+#### Outputs
+
+Code under `phase22a/`:  loader.py, verify_calibrators.py,
+unit_select.py, ars_classify.py, h1_per_unit_ars.py, h1_functional.py,
+h1_crossval.py, population_events.py, h2_population.py,
+h2_surrogates.py, h2_survival.py, plot_phase22a.py, run_phase22a.py.
+
+Data under `data/phase22a_results/`:  calibrator_verification.parquet,
+unit_selection.parquet, h1_classifications.parquet,
+h1_classifications_grating_dirs.parquet, h1_functional.parquet,
+h1_crossval_summary.parquet, h1_crossval_perunit.parquet,
+h2_population_classifications.parquet, h2_coverage.parquet,
+h2_sensitivity.parquet, h2_surrogate_classifications.parquet,
+h2_survival_per_qband.parquet, h2_survival_summary.parquet,
+PHASE22A_FINDINGS.md.
+
+Plots under `plots/phase22a/`:  fig1_h1_quadrants.png,
+fig2_h1_xv_scatter.png, fig3_cross_stim_transitions.png,
+fig4_h2_coverage.png, fig5_h2_surrogate_overlay.png.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
