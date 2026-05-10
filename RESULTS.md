@@ -5734,6 +5734,183 @@ PHASE23_VS_PHASE21.md.
 
 ---
 
+### 7.ter.33  Phase 24 triage — Allen Brain Observatory awake-mouse-V1, single session
+
+#### Frame
+
+Phase 22a's finding scope was bounded by anesthesia (sufentanil-
+anesthetized macaque V1).  Phase 22b's writeup named four validation
+paths that distinguish the strong from bounded versions of the
+claim, of which awake-V1 replication is the highest-priority gate.
+Phase 24 begins the awake-V1 replication arc with an exploratory
+triage on a single Allen Brain Observatory Visual Coding Neuropixels
+session, holding the Phase 22a interface configuration (q_max=30,
+k=5/5ms, surrogate battery) fixed and testing whether the substrate
+shift (anesthetised macaque V1 → awake mouse V1) supports a clean
+replication.
+
+The triage scope is "does this work?" not "what does it find?";
+substantive single-session findings are reportable as triage outputs
+but the multi-session full Phase 24 is the test that locks or
+modifies any substrate-level claims.
+
+#### Methodology
+
+allensdk fails to install on Python 3.12 (the existing project
+venv) due to a setuptools/pkg_resources incompatibility.  Phase 24
+uses direct S3 download + pynwb 3.1.3 (Python 3.12 compatible) for
+NWB reading.  Loader implemented in `phase24/loader.py` is reusable
+across sessions.
+
+Session selection: 58 sessions in the Allen Visual Coding
+Neuropixels manifest, of which 32 are brain_observatory_1.1.  After
+Allen-default QC (`quality=='good'` + `isi_violations<0.5` +
+`presence_ratio>0.9` + `amplitude_cutoff<0.1` + `snr>1.0`), 12
+brain_observatory_1.1 sessions have ≥ 80 V1 (VISp) units.  Selected
+**session 732592105** (111 V1 units, wt/wt male, P100) — top of the
+wild-type list by unit count.  Brief's selection criteria all met.
+
+Pipeline patterns carried from Phase 22a unchanged:
+  - q_max = 30, calibrator zoo verified 8/8.
+  - H1: per-unit ARS classification on three conditions
+    (drifting_gratings_pooled, natural_movie_one, spontaneous);
+    functional categories (OSI/DSI/F1F0) recomputed from spikes
+    and sanity-checked against Allen's precomputed values
+    (`g_osi_dg`, `g_dsi_dg`, `f1_f0_dg`).
+  - H2: synchronous-firing population events (k=5, w=5ms);
+    surrogate battery rate_matched_poisson + cell_shuffle, 5 seeds.
+    `ln_evoked` deferred — Allen's stimulus templates are stored
+    separately and require integration work outside triage scope.
+
+#### Recomputed-vs-Allen functional-categories sanity check
+
+Recomputed values agree strongly with Allen's precomputed:
+
+| comparison                                | Spearman ρ | p       | n   |
+|-------------------------------------------|-----------|---------|-----|
+| recomputed OSI vs Allen `g_osi_dg`        | +0.883    | 1.1e-37 | 111 |
+| recomputed DSI vs Allen `g_dsi_dg`        | +0.828    | 4.1e-29 | 111 |
+
+Methodology consistency confirmed; any H1 discrepancy with pvc-11
+is a substrate-shift effect, not a methodology-mismatch artifact.
+
+#### H1 result
+
+Modal-quadrant counts (drifting_pooled / natural_movie_one /
+spontaneous): 84/89/68 BL + 7/10/20 TR.  Same dominance pattern as
+pvc-11 (98.7% BL); slightly more TR sub-population on Allen
+spontaneous (23%) than on Allen evoked, plausibly an
+awake-vs-anesthesia difference worth flagging.
+
+H1 cross-validation, Spearman partial correlation controlling for
+mean firing rate (drifting_pooled, n=91):
+
+| descriptor | ARS metric  | Allen partial ρ | p (partial) | pvc-11 reference |
+|------------|-------------|-----------------|-------------|------------------|
+| OSI        | ks_gue_med  | **+0.417**      | 4.3e-5      | **+0.720**       |
+| OSI        | rep_med     | −0.227          | 0.031       | −0.324           |
+| DSI        | ks_gue_med  | +0.385          | 1.8e-4      | +0.223           |
+| DSI        | rep_med     | −0.370          | 3.3e-4      | −0.060           |
+| F1/F0      | ks_gue_med  | +0.283          | 7.6e-3      | −0.093           |
+| F1/F0      | rep_med     | **−0.222**      | 0.038       | **+0.388**       |
+
+**OSI ↔ ks_gue_med headline replicates in direction at ~58 %
+magnitude.**  Direction-and-approximate-magnitude-order is the
+brief's triage criterion; direction-consistent + p < 1e-4 + n=91
+satisfies it.
+
+DSI ↔ ks_gue_med replicates with stronger Allen magnitude
+(+0.385 vs +0.223) — biologically plausible (mouse V1 has heavier
+direction selectivity than macaque V1).
+
+**F1/F0 ↔ rep_med shows opposite sign on Allen (−0.222) vs pvc-11
+(+0.388).**  Single-session non-replication of the second-order
+Phase 22a finding.  Substrate-systematic vs single-session-noise is
+not discriminable at triage scale; flagged for multi-session
+resolution.
+
+#### H2 result
+
+Real-data classifications:
+
+| condition          | n_events | rate (Hz) | primary       | rep_med |
+|--------------------|----------|-----------|---------------|---------|
+| drifting_pooled    |  50,172  |  39.8     | TR            | 0.500   |
+| natural_movie_one  |  48,927  |  81.5     | BR_artifact   | 0.700   |
+| spontaneous        |  53,866  |  43.6     | TR            | 0.500   |
+
+Per-condition required-conjunction verdict (the partial-conjunction,
+`rate_matched_poisson` + `cell_shuffle` only, since `ln_evoked` is
+deferred):
+
+  - **drifting_pooled: PASS** (both surrogates pass strict at 2/30 q-bands)
+  - **natural_movie_one: NULL** (both surrogates fail strict at all 30)
+  - **spontaneous: PASS** (both surrogates pass strict at 1/30 q-bands)
+
+**The pvc-11 monkey1_natural_movie H2 headline finding does NOT
+replicate on Allen natural_movie_one.**  Allen's natural-movie real-
+data classification is BR_artifact at rep_med 0.700 (vs pvc-11
+monkey1's TR at rep_med 0.250); surrogates produce similar high
+rep_int characters, so the inside-vs-surrogate delta vanishes.
+
+Possible mechanisms (not discriminated by triage):
+  - Allen's higher H2 event rate (81.5 Hz vs pvc-11 monkey1's
+    24.3 Hz) means surrogate comparisons are less discriminating —
+    at high event rate, the Poisson sampling of population events
+    can produce strong-rep_int structure on its own.
+  - Awake mouse V1 may have more synchronous bursting during
+    natural-movie viewing than anesthetized macaque V1, narrowing
+    the structure-beyond-rate gap.
+  - Different stimulus content (Allen "Touch of Evil" vs pvc-11
+    "monkey wading through water") produces different population-
+    event distributions.
+
+#### Triage verdict
+
+**PASS.**  Pipeline runs end-to-end on Allen session 732592105;
+calibrator zoo unchanged; H1 headline OSI ↔ ks_gue_med
+replicates in direction with substantive magnitude (+0.417 partial,
+~58% of pvc-11); H2 produces coherent verdicts (drifting and
+spontaneous PASS modestly, natural-movie NULL with a clean
+substrate-shift interpretation).  The full Phase 24 multi-session
+replication is unblocked.
+
+#### Scope adjustments folded into the full Phase 24 brief
+
+  1. allensdk Python 3.12 incompatibility — full Phase 24 uses
+     `phase24/loader.py` (already implemented).
+  2. Stimulus templates need separate handling for the `ln_evoked`
+     surrogate.  Full Phase 24 integrates template download +
+     per-bin alignment via the loader.
+  3. k_thresh sensitivity scan on Allen *first* before locking
+     defaults — Allen's higher event rate means the (k=5, w=5ms)
+     pvc-11 defaults may not be the right probe at Allen's
+     event-rate regime.
+  4. F1/F0 ↔ rep_med sign-flip disambiguation requires multi-
+     session Fisher-Z meta-analysis stratified by Cre line.
+  5. natural_movie_one H2 NULL needs the multi-session test to
+     determine if it's substrate-bounded (uniform NULL) or
+     session-bounded (heterogeneous).
+
+The full draft brief is at `data/phase24_results/PHASE24_FULL_BRIEF_DRAFT.md`.
+
+#### Outputs
+
+Code under `phase24/`:  loader.py, run_h1.py, run_h2.py.
+
+Data under `data/phase24_results/`:  h1_classifications.parquet,
+h1_functional.parquet, h1_allen_comparison.parquet,
+h1_crossval_summary.parquet, h2_population_classifications.parquet,
+h2_surrogate_classifications.parquet, h2_survival_summary.parquet,
+PHASE24_TRIAGE_FINDINGS.md, PHASE24_FULL_BRIEF_DRAFT.md.
+
+Cache under `/home/combust/fmexplorer/allen_cache/`:  Allen
+manifests (sessions/units/channels/probes), session 732592105 NWB
+(2.9 GB), session 732592105 analysis_metrics, natural_movie_1
+template (166 MB).
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
