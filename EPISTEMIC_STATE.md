@@ -288,6 +288,33 @@ per-window, washes out at full-recording).  **Disciplines cleared:**
 per-window RF engine at q_max=200, cross-Cre-line replication (4/4
 positive), within-substrate consistency (mean z positive across 60+
 windows), surrogate-Poisson per-window via z-score baseline.
+**Disambiguation status: DATA_PATHWAY_BOUNDED (Phase 32c,
+2026-05-11).**  The substrate-vs-state disambiguation for the
+cross-substrate p=7 asymmetry requires awake-macaque-V1 spike-sorted
+public data with recording structure comparable to pvc-11 / Allen
+(≥ ~30 simultaneously recorded V1 units, multi-minute conditions
+covering natural-movie or equivalent + spontaneous + gratings).
+**Phase 32c surveyed the public-data pathway and found this comparator
+does not currently exist** under the bounded-ingestion constraint.
+Chen 2022 / TVSD provide MUAe only (would trigger §7.ter.19 failure
+mode); Cadena 2019 / Coen-Cagli 2015 provide spike-sorted units but
+60-ms image-flash structure with no per-window natural-movie
+equivalent and ~10 units per session; CRCNS pvc-5 has the right
+structure (spike-sorted multi-electrode V1 + 15 min spontaneous +
+gratings) but awake/anesthetised state is ambiguous in public
+metadata.  Four forward options enumerated in Phase 32c (§7.ter.43):
+(1) accept the confound permanently in framing; (2) partial test on
+Cadena 2019 with recording-structure-mismatch caveat (~3 days);
+(3) verify pvc-5 state via Chu et al. 2014 paywall access (~1 hour)
+and run if awake (~1-2 days); (4) wait for Neuropixels-NHP field
+maturity (12-24 months) or pursue lab collaboration.  **Option 3 is
+the cheapest next step and is currently pending.**  Until Option 3
+resolves or Option 2 runs, the cross-substrate p=7 finding's
+species-vs-state interpretation remains structurally undecidable
+with current public data, *not* merely "awake-macaque data would
+help if we had it" — the data-pathway bound is the load-bearing
+constraint, and the publication framing must reflect that.
+
 **Disciplines newly emphasised:** cross-Cre-line replication (4/4
 genetically distinct cell populations positive: Pvalb +3.81, Sst +2.90,
 Vip +1.97, wt +1.75) is the discipline that makes the awake-mouse-V1
@@ -336,35 +363,58 @@ and monkey2_noise_movie's p=2 mean z = +8.16 — both surfaced by
 Phase 32a's broader-prime extraction — constitute a separate finding
 category worth its own discipline pass.
 
-### Cross-engine substrate-systematic pattern (hypothesis, discipline outstanding)
+### Cross-engine substrate-systematic pattern (Allen INDEPENDENT_AXES; pvc-11 underpowered)
 
-The pattern — *not* yet a finding — is that the NNS engine (F1/F0 ↔
-rep_med) and the RF engine (p=7 enrichment) point in the same
-substrate-systematic direction: pvc-11 anesthetised macaque V1 on one
-side, Allen awake mouse V1 on the other.  **Engine: cross-engine NNS +
-RF.**  **Mechanism status: open.**  The status of the *cross-engine*
-claim itself is *hypothesis*, not locked, because the discipline that
-would distinguish "two engines viewing one underlying axis" from
-"coincidental co-direction of two independent substrate-axes" has not
-been run.  **Disciplines cleared:** the engine-individual disciplines
-for F1/F0 and p=7 separately (listed in their own entries above), but
-those clear the per-engine findings, not the cross-engine claim.
-**The cross-engine claim has zero disciplines specifically cleared.**
-**Outstanding:** explicit cross-engine correlation analysis — within
-each session, do the units that contribute most to the F1/F0 ↔ rep_med
-signal also contribute most to the p=7 enrichment?  Within each
-substrate, does the inter-recording variation in NNS substrate-position
-correlate with inter-recording variation in RF substrate-position?
-Until that runs, the cross-engine entry is a hypothesis with a clear
-next discipline, not a multi-discipline-cleared finding.  **Open:**
-coincidence vs shared-axis is *the* core question, not a refinement.
-If shared-axis: the §7.ter.10 band-invariance result becomes
-interesting — it says the NNS engine can't see arithmetic structure
-on stationary signals, so why does it co-direct with the RF arithmetic-
-structure engine?  If coincidence: the substrate divergence has at
-least two independent axes that happen to point the same way, and the
-publication framing has to engage that multiplicity rather than collapse
-it.
+The pattern is that the NNS engine (F1/F0 ↔ rep_med) and the RF engine
+(p=7 enrichment) point in the same substrate-systematic direction:
+pvc-11 anesthetised macaque V1 on one side, Allen awake mouse V1 on
+the other.  **Engine: cross-engine NNS + RF.**  **Mechanism status:
+ruled-out-as-SHARED_AXIS on Allen; pvc-11 underpowered.**
+
+**Phase 32b ran the cross-engine correlation discipline (2026-05-11).**
+Per-recording (pvc-11) and per-session (Allen) Spearman ρ between the
+within-recording/within-session F1/F0 ↔ rep_med ρ and the per-recording
+/per-session p=7 score, then cross-recording/cross-session Spearman of
+the two.  On Allen: **ρ = −0.086, p = 0.872** (n = 6 sessions with
+per-window p-adic), robust across four scoring variants (|ρ| ≤ 0.093
+all four).  Pearson r = −0.355 (p = 0.489) — directionally larger but
+not significant at n = 6.  On pvc-11: ρ = +1.000 on n = 3 recordings,
+which is the only Spearman value achievable when three points
+rank-align and is **uninformative** at this sample size (exact-
+permutation minimum p ≈ 0.167).  The n = 3 limit is intrinsic: F1/F0
+requires drifting-grating stimulus, and only the 3 pure-gratings
+recordings (monkey1/2/3_gratings) have F1/F0 measured.
+
+**Verdict on Allen: INDEPENDENT_AXES.**  Sessions that contribute most
+to the F1/F0 ↔ rep_med negative-direction Allen finding are **not**
+preferentially the same sessions that contribute most to the per-
+window p=7 Allen finding.  The two engines are reading independent
+substrate-systematic axes that happen to share direction — not
+projections of one underlying substrate-systematic axis.
+
+**Verdict on pvc-11: UNDERPOWERED at the per-recording level.**  The
+analysis cannot be run on more than 3 recordings without a different
+NNS-engine substrate-systematic statistic or a per-cell-level
+decomposition that conflates within-recording and between-recording
+variation.
+
+**Disciplines cleared:** within-substrate Spearman on Allen (n=6, four
+scoring variants).  **Outstanding:** per-cell cross-engine analysis
+(units within recordings — n = 1,159 pvc-11 + 1,094 Allen — has
+adequate power on both substrates, with the within-vs-between
+recording confound to handle), pvc-11 substitute NNS-engine
+substrate-systematic statistic that doesn't require gratings stimulus.
+**Open:** the publication framing implication is load-bearing.
+Pre-Phase-32b the cross-engine direction match could be cited as
+second-engine corroboration of the substrate-systematic finding (a
+stronger claim).  Post-Phase-32b on Allen, the cross-engine direction
+match is **two independent findings about the same substrate**, not
+corroboration of one finding.  The substrate differs on at least two
+axes simultaneously rather than on one axis viewed by two engines.
+The §7.ter.10 band-invariance question raised previously — "why do
+two formally distinct engines pick out the same substrate axis?" —
+gains a partial answer: because the substrate differs on multiple
+axes, not because the two engines collapse to one measurement.
 
 ---
 
@@ -633,6 +683,147 @@ as the "tested-and-cleanly-applies" envelope.  Findings outside the
 latter are exploratory until the application's extractor/pipeline has
 been calibrator-vetted.
 
+### §7.ter.19 as dataset-selection discipline (not just within-analysis)
+
+§7.ter.19 originally surfaced as a **within-analysis** discipline:
+when applying `scipy.signal.find_peaks(prominence=0.3)` (or any peak-
+detection extractor) to autocorrelated continuous traces, the spacing
+statistics reflect the extractor's gap structure, not the signal's
+dynamics.  The diagnostic move was "check the extractor on noise of
+equivalent statistical character before trusting the classification."
+The Phase 32c experience demonstrated that the same failure mode
+operates **one level up** — as a **dataset-selection** discipline.
+When a candidate dataset provides only continuous traces (MUAe / MUA
+envelope / LFP) and no spike-sorted single units, *running the ARS
+pipeline on that data requires a peak-detection extractor by
+construction*.  The choice to use such a dataset commits the analysis
+to the §7.ter.19 failure mode before any analysis-time discipline can
+be applied.
+
+Concretely: Chen 2022 (1024-channel awake macaque V1+V4 resting state,
+21-42 min sessions) and Papale 2024 TVSD (31 Utah arrays awake V1/V4/IT)
+both provide MUAe / MUA only.  They are nominally attractive (1000+
+channels of awake macaque V1, substantial recording durations,
+publicly available CC-BY 4.0) but **using them forces the failure
+mode**.  No within-analysis discipline can recover.  The dataset-
+selection move is to **rule them out** before the pipeline runs, not
+to attempt classification and then notice the artifact.
+
+The generalization: a dataset's compatibility with the ARS pipeline
+is determined by **whether its native output is spike-sorted single
+units (compatible) or continuous-trace aggregate signal (forces
+peak-detection, §7.ter.19-flagged)**.  This is a hard gate, not a
+soft preference.  Datasets that would require user-side spike-sorting
+(Kilosort + manual curation on raw `.ns6` or NWB ephys) are
+"compatible-after-substantial-preprocessing," not "directly
+compatible."  Phase 32c made this filter explicit; future cross-
+substrate / cross-domain phases should apply it at the data-selection
+stage rather than discovering it mid-analysis.
+
+**How this propagates beyond the immediate question:** for any
+future ARS application to a domain with multi-electrode population
+recording — cortex (other regions / species), retina, hippocampus,
+striatum, motor cortex, etc. — the dataset-selection question to ask
+first is "does this dataset publish spike-sorted unit-level output,
+or only multi-unit / LFP aggregate signal?"  The latter is a hard
+no-go without user-side sorting work.  This bound is more constraining
+than the field's general sense of "what's available," because most
+public neural-recording releases (especially recent high-channel-count
+ones) prioritize MUA/LFP publication over spike-sorted-unit
+publication.  The ARS-compatible subset of the public-data ecosystem
+is smaller than the public-data ecosystem.
+
+### Cross-domain extension and published-data-product compatibility (Phase 33a)
+
+Phase 33a (2026-05-11) extended the §7.ter.19 dataset-selection
+discipline from neural-domain MUA-vs-spike-sorted to a **cross-domain
+generalisation about published data products**.  The test substrate
+was the NANOGrav 15-year pulsar timing array — a domain chosen for
+its well-characterised substrate physics (neutron star rotational
+dynamics) and its stationarity-by-construction.  The verdict:
+**STRUCTURAL_MISMATCH at the published-product level.**
+
+A NANOGrav TOA is not a single pulse arrival.  It is a template-
+matched timestamp derived from a folded-and-averaged pulse profile,
+where folding has already aggregated ~10⁴-10⁵ individual pulses
+within a 10-second sub-integration into one phase-reference
+measurement, and the 30-minute observation epoch then contributes ~50
+TOAs at different frequency channels and sub-bands.  Per-pulsar TOA
+count: hundreds-to-tens-of-thousands over a 15-year baseline.
+
+The empirical pilot (5 representative NANOGrav pulsars: B1855+09,
+J0030+0451, J0613-0200, J1909-3744, J0740+6620; direct-statistics
+implementation per §7.ter.10 band-invariance, no full Farey
+decomposition) tested two extraction modes:
+
+  - **Mode A (raw TOAs as events):** CV 9.7–14.7 (vs 1.0 Poisson),
+    mass<0.3 = 96–98 %, median normalized spacing = 0.0000.  z_KS in
+    the hundreds-to-thousands.  The signature is *not* pulsar physics
+    — it is the radio-backend frequency-channel structure of the
+    receivers, which produces ~50 near-coincident TOAs per observation
+    by construction.
+  - **Mode B (epoch-collapsed):** CV 1.2–2.5, KS_Poisson z = +5 to
+    +25.  Still non-Poisson, but the deviation now reflects
+    telescope-scheduling cadence (monthly-ish observation blocks
+    irregular due to weather, semester time allocation, Arecibo's
+    2020 collapse) — also not pulsar physics.
+
+In both modes, ARS produces strong "signal" against rate-matched
+Poisson, but the signal sources are identifiable as apparatus
+structure (radio-backend grid; telescope-scheduling cadence) rather
+than substrate physics.  Pulsar dynamics are captured by (a) the
+folded pulse profile within each observation, and (b) the timing
+residual series sampled at the irregular TOA epochs — neither of
+which is the inter-TOA spacing distribution that ARS reads.
+
+**The generalisation Phase 33a establishes:** the §7.ter.19
+compatibility gate operates not just at "is this MUAe vs spike-sorted"
+but at **any published-data-product level where the aggregation has
+already happened upstream**.  Pulsar-timing collaborations publish
+folded-template-matched TOAs because the GW-detection question lives
+in residuals, not in pulse spacings.  Neural-recording labs publish
+spike-sorted units or MUAe depending on the lab's primary analysis
+question.  Both ecosystems record at event-level resolution; both
+mostly don't publish at that resolution.  **ARS's compatibility
+envelope is determined by the published-product layer, not by the
+recording-resolution layer.**
+
+Concretely: extending ARS to a new cross-domain substrate requires
+asking *whether the published data product preserves the event-level
+resolution at which ARS's measurement model applies*, before asking
+whether the substrate physics is interesting.  Substrates whose
+published products are pre-aggregated (folded-template TOAs,
+LFP/MUAe, calcium-imaging ΔF/F, fMRI BOLD) are dataset-selection-
+incompatible regardless of how attractive the substrate physics is.
+Substrates whose published products are event-level (neural spike-
+sorted units, financial transaction timestamps, GRB photon counts,
+radio interferometer photon timestamps from short-burst events, raw
+single-pulse pulsar archives) are dataset-selection-compatible.
+
+This is a hard gate at the cross-domain-survey stage.  Phase 33a's
+pilot demonstrates empirically that running ARS on an aggregated
+published product produces strong-looking signal that is entirely
+apparatus structure — exactly the boundary-readout failure mode the
+tool was built to catch, instantiated at the dataset-selection level
+instead of the within-analysis level.
+
+**What this does not foreclose:**
+  - **Cross-pulsar Hellings-Downs-analog analysis** on residuals is a
+    real cross-domain extension target, but requires correlation
+    methodology ARS doesn't currently have — different framework, not
+    a new application of the two-engine pipeline.
+  - **Per-pulse arrival point processes from raw radio archives**
+    would be a clean structural match.  Compatible-after-substantial-
+    preprocessing (PRESTO/PSRCHIVE pipeline work).  Same shape as
+    "Chen 2022 spike-sort-yourself" awake-macaque-V1.
+  - **Single-pulse pulsar literature** (giant pulses, nulling
+    pulsars, mode-switchers) sometimes publishes per-pulse data and
+    would be a clean structural match for a different cross-domain
+    phase.
+  - **Other pulsar-timing arrays** (EPTA, PPTA, IPTA, MeerTime,
+    CHIME/Pulsar) all face the same published-product structural
+    mismatch.  The bound generalises across pulsar-timing consortia.
+
 ---
 
 ## Bounded or exploratory findings
@@ -731,41 +922,78 @@ test.
 ## Open questions across findings
 
 The temporal-coherence-asymmetry mechanism story is the largest live
-open question, and Phase 32a (2026-05-11) narrowed it from three-axis
-to two-axis.  pvc-11 anesthetised macaque V1 carries long-coherence
-p=7 structure (full-recording visible, per-window null in 14/15
-recordings); Allen awake mouse V1 carries short-coherence p=7 structure
-(per-window visible in natural_movie_one across all Cre lines,
-full-recording null).  **Phase 32a ruled out stimulus content as the
-load-bearing axis** (pvc-11 natural-movie per-window p=7 is null at
-mean z = −0.253, 0/10 windows z>2, against Allen's +3.49 / 19/30).
-The remaining candidate mediating axes — species (macaque vs mouse)
-and state (anesthetised vs awake) — remain confounded in the
-pvc-11/Allen comparison.  The natural test is **awake macaque V1 or
-anesthetised mouse V1**, which would disambiguate.  Awake-macaque-V1
-data with matched recording duration and population size is the
-load-bearing missing comparator.  Without it, the species-vs-state
-interpretation remains a candidate rather than a tested mechanism.
-**A secondary observation surfaced by Phase 32a:** the cross-substrate
-axis is prime-specific, not presence-vs-absence — both substrates
-carry per-window p=2 enrichment during movies (pvc-11 mean z = +2.53
-on natural-movie, +5.15 PER_WINDOW_STATIONARY on monkey2_gratings_movie;
+open question, and Phases 32a–c progressively narrowed and bounded it.
+pvc-11 anesthetised macaque V1 carries long-coherence p=7 structure
+(full-recording visible, per-window null in 14/15 recordings); Allen
+awake mouse V1 carries short-coherence p=7 structure (per-window
+visible in natural_movie_one across all Cre lines, full-recording
+null).  **Phase 32a ruled out stimulus content as the load-bearing
+axis** (pvc-11 natural-movie per-window p=7 is null at mean z =
+−0.253, 0/10 windows z>2, against Allen's +3.49 / 19/30).  The
+remaining candidate mediating axes — species (macaque vs mouse) and
+state (anesthetised vs awake) — remain confounded in the pvc-11/Allen
+comparison.  The natural test is **awake macaque V1 or anesthetised
+mouse V1**.  **Phase 32c (2026-05-11) surveyed the public-data pathway
+for awake macaque V1** with comparable recording structure (spike-
+sorted single units, ≥ ~30 V1 units per session, conditions covering
+natural-movie or equivalent + spontaneous + gratings).  Verdict:
+**MIXED, leaning DATA_AVAILABLE_BUT_INCOMPATIBLE for bounded-effort
+ingestion.**  Every awake-macaque-V1 dataset evaluated has at least
+one disqualifying feature: Chen 2022 (1024-channel V1+V4 awake
+resting state) and TVSD/Papale 2024 (31 Utah arrays awake V1/V4/IT)
+provide MUAe / MUA only — no spike-sorted single units — and using
+them would trigger the §7.ter.19 peak-detection failure mode.
+Cadena 2019 and Coen-Cagli 2015 provide spike-sorted awake V1 but use
+60-ms image-flash trial paradigms with no per-window natural-movie
+equivalent and ~10 units per session.  CRCNS pvc-5 has the right
+structural match (spike-sorted multi-electrode V1 + 15 min spontaneous
++ gratings) but awake-vs-anesthetised state is ambiguous in public
+metadata (likely anesthetised given the Chu et al. 2014 methodology
+profile).  The substrate-vs-state confound is **DATA_PATHWAY_BOUNDED** — not
+"awake-macaque data would help if we had it," but "spike-sorted
+public awake-macaque V1 with comparable recording structure does not
+currently exist."  Four forward options surface from Phase 32c:
+(1) accept the confound and frame the cross-substrate p=7 finding
+permanently as "anesthetised-macaque vs awake-mouse" without
+species-vs-state disambiguation; (2) partial test on Cadena 2019 with
+recording-structure-mismatch caveat (full-recording p=7 only, not
+per-window); (3) verify pvc-5 state (paywall access to Chu et al.
+2014) and run if awake; (4) wait for Neuropixels-NHP field maturity
+(12-24 months) or pursue direct lab collaboration — external-
+engagement decision.  **Option 3 is the cheapest next step (~1 hour
+of paper reading) and is currently pending.**  The bottleneck is not
+recording technology but the spike-sorted-public-data ecosystem; the
+§7.ter.19 hard compatibility gate (now formalized as a dataset-
+selection discipline, not just a within-analysis one) makes
+"convenient" MUA-only datasets unusable without methodology compromise.
+**A secondary observation from Phase 32a:** the cross-substrate axis
+is prime-specific, not presence-vs-absence — both substrates carry
+per-window p=2 enrichment during movies (pvc-11 mean z = +2.53 on
+natural-movie, +5.15 PER_WINDOW_STATIONARY on monkey2_gratings_movie;
 Allen +7.92).  The p=7 axis is the substrate-systematic one; p=2 is
 substrate-shared.  A per-prime substrate-systematic profile may be a
 more interpretable framing than p=7 in isolation.
 
 Whether F1/F0 substrate-systematic and p-adic substrate-systematic
 share an underlying biological mechanism or are independent
-substrate-axes is the second large open question.  Both engines land on
-the same pvc-11-positive / Allen-negative direction with the same
-substrate split.  An explicit cross-engine correlation analysis — do
-the units/sessions that contribute most to one signal also contribute
-most to the other — is the missing discipline.  If yes, the substrate
-difference has one axis viewed by two engines.  If no, the substrate
-difference has multiple axes that happen to project onto the same
-direction in the two engine outputs.  This is also the answer to "what
-is the right deflationary alternative the publication needs to engage
-with."
+substrate-axes is now partly resolved.  **Phase 32b ran the cross-
+engine correlation discipline on Allen (n = 6 sessions): ρ = −0.086,
+INDEPENDENT_AXES.**  Sessions that contribute most to F1/F0 ↔ rep_med
+are not the sessions that contribute most to per-window p=7.  On the
+substrate where the test has power, the two engines are reading
+independent substrate-systematic axes that happen to share direction
+— not projections of one underlying axis.  pvc-11 remains underpowered
+at the per-recording level (n = 3 gratings recordings carry F1/F0;
+the movie + spontaneous variants don't have F1/F0 by stimulus
+construction).  The remaining open question is whether **per-cell
+decomposition** (units within recordings; n = 1,159 pvc-11 + 1,094
+Allen) would surface a within-recording cross-engine correlation that
+the cross-recording analysis missed.  That is the natural Phase 32c
+if the question stays load-bearing.  The publication framing
+implication is already real on Allen: the substrate differs on at
+least two axes simultaneously, not one axis viewed by two engines —
+the cross-engine direction match is two findings, not corroboration
+of one.
 
 The OSI / DSI / ks_gue_med triangle has internal structure that has
 not been mapped, and this is the most mechanism-suggestive finding-
