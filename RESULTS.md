@@ -7196,6 +7196,29 @@ structure during natural-movie viewing; anesthetised macaque V1
 produces longer-coherence-time p=7 structure visible at full-recording
 scope but absent at per-window resolution.**
 
+##### Follow-up 16: Kuramoto per-window p-adic — synthetic control
+
+Apply per-window p-adic at q_max=200 to Phase 30 Kuramoto aggregates
+at K_factors {0, K_c, 2 K_c} (N=100, T=1200 s, seed=0).
+
+**Verdict: PER_WINDOW_NULL across all K, all primes.**
+
+| K_factor | p=2 mean z | p=3 mean z | p=5 mean z | p=7 mean z | p=11 mean z | p=13 mean z |
+|---|---|---|---|---|---|---|
+| 0.0 | −1.41 | −0.13 | −1.84 | +0.80 | −1.47 | +1.13 |
+| 1.0 | −1.04 | −0.24 | −1.49 | +0.86 | −1.16 | +1.01 |
+| 2.0 | −1.42 | −0.13 | −1.83 | +0.87 | −1.25 | +1.07 |
+
+All primes show n z>2 ∈ {0, 1} (out of 5 windows per K_factor).  No
+STATIONARY (z>2 in ≥4/5) on any prime at any K.
+
+**Kuramoto produces neither pvc-11-style long-term p=7 coherence
+(full-recording aggregation) nor Allen-style short-term natural-movie
+p=7 + multi-prime structure (per-window).**  Reinforces the Phase 30
+NO_MECHANISTIC_MATCH verdict at per-window scope.  The Kuramoto-class
+synthetic doesn't match either real-V1 substrate's p-adic temporal
+structure at either temporal scope.
+
 ##### Follow-up 15: DSI monkey2 sign-flip diagnostic — NOT_SIGNIFICANT
 
 monkey2_gratings DSI ↔ ks_gue_med rate-tertile correlations:
