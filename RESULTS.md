@@ -7171,6 +7171,31 @@ The Round-3 P7_PVC11_SPECIFIC claim now requires scope qualification:
 P7_PVC11_SPECIFIC at full-recording scope; **P7_ALLEN_SPECIFIC at
 per-window scope** (natural_movie_one specifically).
 
+**Cross-Cre-line replication (6 Allen sessions: 2 wt, 2 Vip, 2 Sst,
+1 Pvalb; 90 cells total):** the Allen per-window p=7 finding in
+natural_movie_one **replicates across Cre lines**:
+
+| cre_line | drifting_pooled | natural_movie_one | spontaneous |
+|---|---|---|---|
+| Pvalb | +0.73 | **+3.81** | +0.72 |
+| Sst   | +0.15 | **+2.90** | +0.25 |
+| Vip   | +0.34 | **+3.62** | −0.14 |
+| wt    | +0.99 | **+4.10** | −0.38 |
+
+Across 6 sessions × natural_movie_one = 30 cells, 19/30 windows show
+p=7 z>2 (mean +3.49).  Specific high-magnitude session: Pvalb 797828357
+natural_movie_one p=7 z = +4.6 / +5.3 / +5.3 / +2.4 / +1.5
+(PER_WINDOW_STATIONARY 4/5).  Allen natural_movie_one is per-window-
+rich on multiple primes (p=2, p=3, p=5, p=7, p=11, p=13 each STATIONARY
+in at least one session × natural_movie_one cell).  **Substantively
+different from pvc-11**, where per-window stationarity is sparse and
+concentrated on p=7 only in monkey1_spontaneous.
+
+**Awake mouse V1 produces rapidly-fluctuating multi-prime temporal
+structure during natural-movie viewing; anesthetised macaque V1
+produces longer-coherence-time p=7 structure visible at full-recording
+scope but absent at per-window resolution.**
+
 ##### Follow-up 15: DSI monkey2 sign-flip diagnostic — NOT_SIGNIFICANT
 
 monkey2_gratings DSI ↔ ks_gue_med rate-tertile correlations:
