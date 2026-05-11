@@ -7196,6 +7196,31 @@ structure during natural-movie viewing; anesthetised macaque V1
 produces longer-coherence-time p=7 structure visible at full-recording
 scope but absent at per-window resolution.**
 
+**Full 12-session Allen per-window replication (180 cells):**
+
+| condition | n | mean z(p=7) | z>2 |
+|---|---|---|---|
+| drifting_pooled | 60 | +0.64 | 11/60 (18 %) |
+| **natural_movie_one** | 60 | **+2.19** | **28/60 (47 %)** |
+| spontaneous | 60 | +0.18 | 2/60 (3 %) |
+
+Per-cre-line × natural_movie_one mean z(p=7) — all 4 Cre lines positive:
+
+| Cre | n_sessions | drifting | natural_movie_one | spontaneous |
+|---|---|---|---|---|
+| Pvalb | 1 | 0.73 | **3.81** | 0.72 |
+| Sst | 2 | 0.15 | **2.90** | 0.25 |
+| Vip | 4 | 0.97 | **1.97** | 0.05 |
+| wt | 5 | 0.56 | **1.75** | 0.14 |
+
+**Allen natural_movie_one per-window p=7 enrichment is robust across
+all 12 sessions and all 4 Cre lines.**  47 % of windows show z>2.
+Mean z = +2.19 across 60 natural_movie_one windows.  Pvalb strongest
+(+3.81); wt weakest (+1.75) but still positive.
+
+The cross-substrate p-adic temporal-scope finding now stands on a
+12-session Allen + 15-recording pvc-11 footing.
+
 ##### Follow-up 17: monkey1_spontaneous p=7 temporal granularity
 
 The only pvc-11 recording with PER_WINDOW_STATIONARY_P7 at 5 windows
