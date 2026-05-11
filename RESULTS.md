@@ -7196,6 +7196,31 @@ structure during natural-movie viewing; anesthetised macaque V1
 produces longer-coherence-time p=7 structure visible at full-recording
 scope but absent at per-window resolution.**
 
+##### Follow-up 17: monkey1_spontaneous p=7 temporal granularity
+
+The only pvc-11 recording with PER_WINDOW_STATIONARY_P7 at 5 windows
+(monkey1_spontaneous; 4/5 z>2, mean z=+3.25) tested at finer
+resolutions:
+
+| n_windows | window duration | z>2 | mean z | verdict |
+|---|---|---|---|---|
+| 5 | 247 s | 4/5 | +3.25 | PER_WINDOW_STATIONARY |
+| 10 | 123 s | 6/10 | +3.07 | PER_WINDOW_MIXTURE |
+| 20 | 62 s | 7/20 | +1.41 | PER_WINDOW_RARE |
+
+**p=7 coherence time in monkey1_spontaneous is approximately 60-120s**
+— the signal degrades from STATIONARY at 247s windows to RARE at 62s
+windows.  Notably the late portion of the recording (windows 15-19 in
+the 20-window analysis: 4/5 above z=2) shows signal localization,
+suggesting p=7 enrichment concentrates in particular time regions
+of the spontaneous recording rather than uniformly distributed.
+
+Interpretation: the V1 p=7 structure in monkey1_spontaneous operates
+at roughly the minute timescale, consistent with slow-wave / up-state
+oscillation cycling under anesthesia.  Sub-minute windows lose
+statistical power AND/OR the structure has a coherence time longer
+than 62s.
+
 ##### Follow-up 16: Kuramoto per-window p-adic — synthetic control
 
 Apply per-window p-adic at q_max=200 to Phase 30 Kuramoto aggregates
