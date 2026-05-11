@@ -6219,6 +6219,141 @@ the co-finding's methodological implication.
 
 ---
 
+### 7.ter.36  Phase 26 — Per-(detector, energy_channel) stratification on GRB 230307A late-prompt TR region
+
+#### Frame
+
+Phase 23's substantive-fail on the Chen 2025 909 Hz QPO claim was
+accompanied by a side-finding: in the t = 26-30 s late-prompt region
+of GRB 230307A, 22 of 40 100ms sub-windows classified as TR
+uniformly across 50 q-bands; the lightcurve-modulated Poisson
+surrogate produced only 5-15 % TR at the same region.  The per-
+detector follow-up showed an inverse-rate-vs-TR pattern (n2/n5 low
+rates → 72/62 % TR; na/b1 high rates → 5/0 % TR).  Phase 23
+proposed: detector-specific energy-band sensitivity (off-axis
+detectors sample different effective spectra).
+
+Phase 26 tests the energy-band hypothesis directly via per-(detector,
+energy_channel) stratification on the same t = 26-30 s window.  The
+H_energy_band hypothesis predicted three signatures: (1) within-
+detector TR variation across energy channels, (2) cross-detector
+aspect-correlation of variation pattern at fixed energy, (3) rate-
+dependence reduction once energy is controlled for.
+
+Calibrator zoo (8/8) re-verified before Phase 26.
+
+#### Methods
+
+  - 8 equally-populated quantile bands per detector × 12 detectors =
+    96 cells.  Each cell stores its median photon energy via the TTE
+    EBOUNDS-derived per-channel E_GEO_MEAN.
+  - Per-cell ARS classification at 100 ms sub-windows × q_max=50
+    (Phase 23 time-slice adjustment).
+  - Per-cell lightcurve-modulated Poisson surrogate, 5 seeds.
+  - Aspect angles computed from TRIGDAT OB_CALC table's spacecraft-
+    frame source direction (TR_SCAZ = 168°, TR_SCZEN = 155°) combined
+    with Meegan et al. 2009 detector-pointing constants.
+  - Cross-checks: sub-window stability (drop-one), detector-pooling
+    persistence (per-cell aggregate vs Phase 23 pooled), time-window
+    control on [10, 14) s.
+  - Statistical tests: within-detector Kruskal-Wallis (FDR α=0.05),
+    cross-detector Spearman aspect-correlation at energy-aligned
+    buckets (NaI only), rate-dependence-vs-attenuation within energy.
+
+#### Primary verdict — H_energy_band: FALSIFIED
+
+All three predicted signatures fail:
+
+  - Within-detector energy variation: 0 / 11 detectors significant
+    after FDR correction.
+  - Cross-detector aspect-correlation: mean Spearman ρ across 4
+    energy buckets = +0.076; no bucket reaches p<0.05.  Verdict NULL.
+  - Rate-dependence reduction: mean within-bucket |ρ| = 0.41 vs
+    pooled |ρ| = 0.25; attenuation = −0.16 (negative — within-bucket
+    rate correlation is *stronger*, not weaker, than pooled).
+    Verdict NOT_ATTENUATED.
+
+The TR signature is not specifically about energy-band sensitivity,
+detector aspect angle, or spectral incidence.
+
+#### Reframed mechanism: per-cell rate dependence of ARS classification
+
+  - Across all 83 well-powered (detector, band) cells in [26, 30) s:
+    Spearman ρ(per-cell event rate, TR fraction) = **−0.483**
+    (p = 4 × 10⁻⁶).
+  - In the [10, 14) s control window (93 well-powered cells):
+    ρ = **−0.888** (p = 2 × 10⁻³²).  Same inverse-rate pattern;
+    stronger because the control window's rate range is wider.
+  - Mean TR fraction: [26, 30) s = 81 %; [10, 14) s control = 46 %.
+    The late-prompt's apparent TR-density is a consequence of dimmer
+    emission pushing per-cell rates into the TR-favorable range
+    (~ 1000-3000 events/s); at higher rates (> 5000/s) ARS
+    classifies BR/BL (rate-saturation, consistent with Phase 21's
+    BR_artifact lesson).
+
+The Phase 23 side-finding's "[26-30 s] broadband TR" framing is
+confirmed at per-cell resolution but reinterpreted: it's a
+**rate-regime feature of the ARS metric**, not a unique astrophysical
+property of the late-prompt time window.
+
+#### Detector-pooling persistence
+
+Per-(detector, band) aggregate TR fractions are 60-80 % higher than
+Phase 23's pooled per-detector measurements for nearly every detector.
+Pooling pushes per-bin event counts into the rate-saturated regime
+where ARS classifies BR/BL; per-cell resolution reveals the underlying
+TR structure.  This is a methodological observation about ARS at
+high event rates per sub-window, not GRB-230307A-specific.
+
+#### Per-cell surrogate behaviour
+
+At per-cell rates, the lightcurve-modulated Poisson surrogate
+reproduces most of the per-cell TR signal: 47 / 83 cells have real TR
+above the surrogate 95th percentile; 30 / 83 are within the surrogate
+p05-p95 band; mean real-minus-surrogate TR fraction = +9.4 %.
+Phase 23's pooled comparison (real 55 % vs surrogate 5-15 %) was a
+pooled-rate-regime phenomenon — both real and surrogate are in the
+TR-favorable rate range per-cell, so the surrogate succeeds where the
+pooled version failed.
+
+#### Methodological implication
+
+For future GRB analyses with the ARS framework:
+
+  1. **Per-cell rate is the dominant axis of variation** in
+     ARS-on-GRB analyses.  Cross-detector and cross-time comparisons
+     should rate-match cells before attributing differences to
+     spectral or geometric features.
+  2. **Pooling can mask per-cell structure** when the pooled rate
+     pushes ARS into the BR-saturated regime.  Report at the per-
+     (detector, energy_band) resolution wherever feasible.
+  3. **Surrogate floor must match the analysis resolution.**  A
+     surrogate that fails at pooled rate may succeed at per-cell rate.
+
+Phase 23's primary verdict on the Chen 2025 909 Hz QPO claim
+(substantive FAIL) is unchanged.  Phase 26 only revisits the
+side-finding's mechanism characterisation.
+
+#### Outputs
+
+Code: `phase26/aspect_angles.py`, `phase26/energy_binning.py`,
+`phase26/per_cell_classify.py`, `phase26/per_cell_surrogate.py`,
+`phase26/cross_checks.py`, `phase26/statistical_tests.py`,
+`phase26/run_phase26.py`.
+
+Data under `data/phase26_results/`: detector_aspect.parquet,
+energy_bands.parquet, per_cell_{subwindow_classifications,
+tr_summary, surrogate_seeds, surrogate_summary, survival}.parquet,
+subwindow_stability.parquet, detector_pooling_persistence.parquet,
+control_per_cell_*.parquet, test{1,2,3}_*.parquet,
+aggregate_verdict.json, PHASE26_FINDINGS.md.
+
+Auxiliary data: `data/phase21_grb_panel/raw/bn230307656_aux/`
+contains TRIGDAT (aspect-angle source) and BCAT (downloaded but
+not used).
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -6338,10 +6473,21 @@ not extend the corresponding literatures.
   (t = 26–30 s post-trigger) survives the lightcurve-modulated
   Poisson surrogate at all tested smoothing windows from 1 ms to
   101 ms AND per-detector decomposition, with inverse-rate
-  detector dependence that rules out deadtime artifacts.  This is
-  an observation, not a claim of QPO replication; the next-step
-  diagnosis is per-(detector, energy_channel) stratification.
-  (§7.ter.32.)
+  detector dependence that rules out deadtime artifacts.  Phase 26
+  per-(detector, energy_channel) stratification (8 quantile bands per
+  detector × 12 detectors) FALSIFIES the energy-band-sensitivity
+  hypothesis: 0/11 detectors show significant within-detector energy
+  variation after FDR correction, cross-detector aspect-correlation
+  at energy-aligned bands is null (mean ρ = +0.076), and rate-
+  dependence within energy buckets is *not* attenuated relative to
+  pooled.  The TR signature is reframed as a per-cell rate-regime
+  feature of the ARS metric (Spearman ρ(per-cell rate, TR fraction)
+  = −0.48 in [26, 30) s and −0.89 in [10, 14) s control window).
+  At per-cell rate, the lightcurve-modulated Poisson surrogate
+  reproduces most of the TR signal — Phase 23's pooled-vs-surrogate
+  failure was a rate-regime phenomenon, not the discovery of
+  irreducible non-Poisson structure.  Phase 23's primary verdict
+  on the QPO claim is unchanged.  (§7.ter.32, §7.ter.36.)
 
 These classifications reproduce or are consistent with prior
 characterisations in the corresponding domain literatures on the specific
