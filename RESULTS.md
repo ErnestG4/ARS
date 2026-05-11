@@ -6506,6 +6506,578 @@ with Phase 27 framing notes.
 
 ---
 
+### 7.ter.38  Phase 30 — Kuramoto simulation testbed for ARS mechanism interpretation
+
+Phase 30 ran ARS on classical and stochastic Kuramoto-network-
+generated spike trains across the canonical (K, σ) parameter space,
+asking whether Kuramoto-class phase-locking dynamics constitute a
+viable positive mechanism story for the existing cortical-V1 ARS
+findings (H1 OSI ↔ ks_gue_med, F1/F0 ↔ rep_med substrate-systematic,
+H2 surviving structure on pvc-11).
+
+#### Pre-launch corrections to the brief
+
+The Phase 30 session brief stated K_c = 2γ/π for Lorentzian-Kuramoto.
+Standard Kuramoto theory (Strogatz 2000 eq. 3.10: K_c = 2/(π g(0)),
+with g(0) = 1/(πγ) for Lorentzian) gives K_c = 2γ.  Empirical
+validation at K = 3.18·(2γ): simulation r∞ = 0.83 matches Strogatz
+prediction √(1 − K_c/K) = 0.83.  The simulator uses K_c = 2γ; the
+correction is recorded in `PHASE30_FINDINGS.md`.
+
+Finite-N simulation of an untruncated Lorentzian violated the
+small-dt Euler assumption (single oscillator at 100+ γ from the mean
+produces ω·dt > 1).  Lorentzian truncated to ±10γ (~3 % distribution
+mass removed) at sampling time gives numerically stable simulation
+while preserving K_c = 2γ to within finite-N corrections.
+
+Pilot at K ∈ {0, K_c, 2 K_c}, N ∈ {100, 200}, T = 1200 s established
+that per-oscillator and aggregate modal classification is
+**BR_artifact at every K** — deterministic Kuramoto oscillators are
+inherent periodic spike emitters and ARS reads that, regardless of
+whether they're coupled.  N = 100 chosen for full sweep (same modal
+result as N = 200 at half runtime).
+
+#### Analysis 1 — K-sweep on classical Kuramoto.  Verdict: INSENSITIVE
+
+21 K-factors from 0 to 2 K_c × 3 seeds, N = 100.  Per-oscillator and
+recording-wide-aggregate modal classification = BR_artifact at every
+one of 63 cells.  The Kuramoto phase transition is clearly resolved
+in the order parameter (|r| from 0.089 at K=0 to 0.800 at K=2 K_c) —
+**ARS just doesn't read the coupling axis modally.**
+
+Continuous-metric signals: aggregate ks_gue_med moves +0.102 from
+K=0 (0.436) to K=2 K_c (0.538), nearly monotonically — small but real
+signal that stays inside the BR_artifact quadrant.  Per-oscillator
+rep_med stays near saturation (0.85) at all K, confirming periodic
+saturation BR_artifact.
+
+Stationarity check (added per user course-correction): 0/15 boundary
+cells in K_factor ∈ [0.8, 1.2] flagged as non-stationary at 10
+windows.  Full-sequence classification at K ≈ K_c is stationary —
+the TIME_VARYING_AT_CRITICAL verdict (added as amendment to the
+brief's vocabulary) does not trigger.  Slow critical-slowing-down
+fluctuations are not large enough to flip the modal classification at
+the 100s sub-window scale.
+
+#### Analysis 2 — (K, σ) phase-space, stochastic Kuramoto.  Verdict: RATE_REGIME_CONFOUNDED (K-axis) / PARTIAL_RATE_CONFOUND (σ-axis)
+
+7 K-factors × 6 σ-factors × 3 seeds = 126 cells.  Aggregate modal
+classification = BR_artifact at every one of the 42 (K, σ) cells.
+K-axis modal variation = 0 across rows of fixed σ; σ-axis modal
+variation = 14 across columns of fixed K.  Per-oscillator modal
+classification follows the σ-axis: BR (σ=0) → TR (σ=0.2) → BL
+(σ ∈ [0.4, 0.8]) → TR (σ=1.0).
+
+Per-oscillator median rates scale from 2 Hz (σ=0) to ~22 Hz (σ=ω_0)
+— a 10.3× rate inflation as phase diffusion drives more frequent 2π
+wraps.  rate_drift_fraction = 10.342 triggers RATE_REGIME_CONFOUNDED
+(threshold 0.5).
+
+**Within-σ rate-matched verification (added 2026-05-11 at writeup
+review):** the σ-axis modal sequence is *partially* rate-confounded,
+not uniformly so.  Comparing real per-oscillator modal against the
+rate-matched Poisson surrogate (already computed per cell) gives
+modal agreement at 21/42 cells (σ ∈ [0.4, 0.8] band, both BL — pure
+rate effect) and modal disagreement at 21/42 cells (σ ∈ {0, 0.2, 1.0},
+real has dynamics signal beyond rate that surrogate doesn't
+reproduce).  Continuous-metric Δks_med (real − surrogate) = +0.230
+mean across all cells — real Kuramoto is consistently more GUE-like
+than its rate-matched surrogate, even within the modal-agreement
+band.  The brief's RATE_REGIME_CONFOUNDED label remains correct for
+the K-axis-invisibility claim, but the σ-axis itself is two-regime:
+rate-driven in the middle band, dynamics-driven at the endpoints.
+
+Stationarity check: 0/54 boundary cells in K_factor ∈ [0.75, 1.25]
+flagged.  Full-sequence classification at K ≈ K_c is stationary
+across the entire (K, σ) plane.
+
+#### Analysis 3 — real-data location on Kuramoto map.  Verdict: NO_MECHANISTIC_MATCH
+
+ETL-assembled real-data classification summaries from 15 pvc-11
+recordings (Phase 22a), 36 Allen session × condition rows (Phase 24
+default), 140 local clusters (Phase 27).  Match metric: Euclidean
+distance in (ks_gue_med, rep_med) space, modal-class-restricted.
+
+Real-data primary distribution: TR 86 (45 %), BL 64 (34 %),
+underpowered 31 (16 %), BR_artifact 10 (5 %).  Kuramoto aggregate
+map produces only BR_artifact.
+
+Match summary out of 160 well-powered rows: clean 1 (0.6 %),
+ambiguous 3 (1.9 %), no_match 156 (97.5 %).  No region of the
+Kuramoto phase-space tested produces TR or BL modal aggregate
+classification matching cortical V1 data.
+
+#### Combined Phase 30 outcome: Kuramoto bounded as a mechanism interpretation
+
+The triple INSENSITIVE + RATE_REGIME_CONFOUNDED + NO_MECHANISTIC_MATCH
+locks the Kuramoto-class formalism *out* of the mechanism-
+interpretation space for the cortical-V1 ARS findings.  The brief's
+"informative-negative" outcome obtains: ARS detects something Kuramoto
+doesn't produce.
+
+Forward implications:
+  - **For the publication writeup.**  The negative-elimination posture
+    of H1, F1/F0, H2 findings remains.  Phase 30 explicitly does NOT
+    augment those findings with a positive Kuramoto-class mechanism
+    story.  No claim of the form "ARS detects Kuramoto-like near-
+    critical synchronization" is supported by Phase 30.
+  - **For mechanism investigation continuation.**  Alternative
+    coupled-oscillator models (Stuart–Landau, Wilson–Cowan, coupled
+    HH networks, latent-state generative models, non-oscillator
+    drift–diffusion-with-coupling) become the load-bearing direction.
+  - **For the calibrator zoo.**  Kuramoto signals are confirmed
+    redundant with the existing periodic calibrators at ARS modal
+    resolution — they would map to the same BR_artifact region as
+    `periodic_q7` and `uniform_jitter`.  Brief's decision not to
+    add Kuramoto to the calibrator zoo is locked.
+
+#### Outputs
+
+Code: `phase30/kuramoto.py`, `phase30/stationarity.py`,
+`phase30/pilot_analysis1.py`, `phase30/analysis1_K_sweep.py`,
+`phase30/analysis2_Ksigma_phase_space.py`,
+`phase30/analysis2_rate_matched.py` (within-σ rate-confound
+verification, added 2026-05-11 at writeup review),
+`phase30/analysis3_realdata_mapping.py`.
+
+Data under `data/phase30_results/`: `pilot_summary.parquet`,
+`analysis1_*.{parquet,json}`, `analysis2_*.{parquet,json}`,
+`analysis3_*.{parquet,json}`, `PHASE30_FINDINGS.md`.
+
+PHASE22A_FINDINGS.md, PHASE24_FULL_FINDINGS.md, PHASE27_FINDINGS.md
+updated in-place with Phase 30 mechanism-interpretation amendments.
+
+---
+
+### 7.ter.39  Phase 31a + 31b — Engineering-layer architecture audit and deployed-classifier sensitivity
+
+Phase 31 was scoped against the assumption that ARS reads via a Farey-
+bank of literal phase-locked-loop channels and could be ISF-characterised
+per Hajimiri–Lee 1998.  The session decomposed into two sub-phases.
+
+#### Phase 31a — Derivation: PLL bank ≠ deployed classifier
+
+The literal PLL bank in `pll_bank.py` (second-order PLL with K_p, K_i,
+IIR low-pass, lock detection) is **parallel infrastructure not on the
+deployed path**.  `arithmetic_toolkit.joint_q_profile` (the function
+powering every Phase 22a/24/27/30 ARS classification) imports only
+`farey_rationals` from `pll_bank` — never `pll_bank_cpu`,
+`pll_bank_gpu`, or `single_pll_cpu`.  Grep confirms zero hits in
+`phase{22a,24,27,30}/`.
+
+The two objects compute fundamentally different quantities from
+fundamentally different inputs.  Not a closed-form limit relationship.
+
+**Surprise inside `joint_q_profile`**: under unit-mean normalisation,
+`sp = diff(sort(t · f_pll − 1.0)); sp / sp.mean()` cancels the `f_pll`
+factor exactly.  The per-Farey-rational passage NNS statistic is
+**identical across all (a, q)** up to an initial-transient cutoff.
+Empirical verification on Poisson (N=5000) and periodic-q=7 calibrators:
+ks_gue_q std across q ≈ 5×10⁻⁵ on Poisson, 0 on periodic.
+
+The deployed classifier has **two engines**:
+  - **NNS engine** (pooled passage NNS): not actually q-resolved —
+    produces a global scalar replicated across q with threshold-induced
+    flips at boundaries.
+  - **RF engine** (`ramanujan_fourier` indicator-mode amplitudes |a_q|):
+    genuinely per-q.  TL quadrant flags (RF spike at q where |a_q| >
+    5× median) are the only modally-discriminating per-q signal in the
+    deployed pipeline.
+
+Per Phase 31a verdict + user direction: Phase 31b reframes Analyses
+1-3 around the deployed classifier's actual structure (rather than the
+brief's PLL-bank framing).  PLL-bank ISF measurement deferred to a
+separate Phase 31c at lower priority.
+
+#### Phase 31b — Operator sensitivity for the deployed classifier + Phase 30 sub-modal stratification
+
+##### Per-event NNS sensitivity: EVENT-LEVEL ROBUST
+
+Finite-difference ∂(ks_gue_med, rep_med)/∂t_k for single-event
+perturbations is **near-zero** at ε ≤ 1.0 × mean-IEI (max Δks ≈ 7×10⁻⁴
+even at full-mean-IEI perturbation).  The median-across-30-q-bands
+aggregation absorbs single-q perturbations; each individual event has
+near-zero influence on the modal classification.  **The deployed
+classifier is event-level robust at the modal scale.**  Stratification
+of sub-modal signal requires a coarser unit (per-oscillator or
+per-event-cluster).
+
+##### K-sweep LOO stratification: DISTRIBUTED, rate-correlated at high K
+
+Re-simulated Kuramoto at K_factor ∈ {0, 0.5, 1.0, 1.5, 2.0} (seed 0,
+N=100, T=1200 s).  Per-oscillator leave-one-out aggregate influence
+(Δks_LOO[i] = ks_with_i − ks_without_i) for each oscillator.
+
+Aggregate K-axis Δks = +0.0798 from K=0 to K=2 K_c (consistent with
+Phase 30's multi-seed +0.10).  Per-oscillator max |Δks_LOO| grows from
+0.014 (K=0) to 0.034 (K=2 K_c).  The signal is distributed across
+~30+ oscillators each contributing ~10⁻³.
+
+**ρ(Δks_LOO, rate_i) grows monotonically with K**: +0.006 (K=0) →
++0.179 (K=K_c) → **+0.446 (K=2 K_c)**.  Lorentzian-tail high-rate
+oscillators that don't fully frequency-lock dominate the LOO signal
+at high K.  Aggregate RF spectrum drift is dominantly at q=1 (DC,
+ΔRF=−17.7, tracks the drop in aggregate event count as locking pulls
+outlier rates toward ω_0); no non-DC q-band shows substantial
+amplitude growth.  **The K-axis +0.10 drift is a rate-distribution
+narrowing under locking, not a per-q resonance development.**
+
+##### Rate-matched +0.23 Δks residual: CARRIED_BY_RATE_REGIME
+
+Per-oscillator real-vs-rate-matched-Poisson Δks_i = ks_real_i −
+ks_sur_i computed from existing Phase 30 Analysis 2 parquets (12 600
+oscillator cells × {real, surrogate}).  Mean Δks = +0.215, median
++0.222 — matches Phase 30's claimed +0.23.
+
+In the modal-agreement band σ ∈ [0.4, 0.8] (5 525 cells where
+real-modal = surrogate-modal = BL):
+  - mean Δks = +0.251
+  - **ρ(Δks_i, rate_i) = −0.847**
+  - ρ(Δks_i, ω_i) = −0.276
+
+Low-rate oscillators within each (K, σ) cell carry the dynamics
+signal; high-rate oscillators converge to their rate-matched-Poisson
+surrogate.  **Per-cell rate-matched Poisson surrogate does not fully
+eliminate rate effects** because the dynamics signal itself depends on
+rate.  The Phase 26 rate-regime lesson is necessary but not sufficient
+for clean dynamics-only signal isolation.
+
+Methodological implication: future sub-modal discrimination work should
+add **rate-stratified within-cell comparison** (per-rate-tertile mean
+Δks) as a standard post-modal step.
+
+##### p-adic v4 sweep over existing parquets
+
+Applied `padic_amplitude_v4` to cached `rf_amp_per_q` arrays in every
+Phase 22a/24/27/30 parquet (length 30 per recording).  The §7.ter.13
+acceptance threshold (1.5× per-q-power-normalised) was validated at
+q_max=200 — at q_max=30, finite-band variance dominates and 95.6 % of
+pvc-11 rate-matched-Poisson surrogates pass the threshold spuriously.
+**Absolute threshold is underpowered; matched real-vs-surrogate
+comparison is required.**
+
+Matched per-recording z-score (real vs rate-matched-Poisson mean):
+  - **Only 1 of 15 pvc-11 recordings has z > 2: monkey3_gratings,
+    z = +5.36, dominant prime = 7.**  All others null or below
+    surrogate.
+  - Per-prime z-score across pvc-11: p=7 has positive mean +0.79
+    (max +8.47, driven by monkey3_gratings); other primes near zero
+    or negative.  Marginal class-level prime-7 enrichment in pvc-11.
+  - Allen: 6/36 sessions with z > 2; per-prime z scattered (max +0.53
+    for p=3, +0.28 for p=13); no substrate-systematic prime preference.
+  - Phase 30 Kuramoto K-sweep above-threshold rate: 81.3 % at K=0 →
+    94.7 % at K=2 K_c (+13.4 percentage points monotone-ish).
+    Consistent with locking-driven small-q amplitude concentration.
+
+**Follow-up candidate:** re-classify monkey3_gratings at q_max=200,
+verify the prime-7 dominance persists at the §7.ter.13 validated
+threshold.  If yes, monkey3_gratings is the first real-data p-adic-
+class finding from ARS.
+
+##### Follow-up 1: monkey3_gratings q_max=200 reclassification.  Verdict: ABOVE_THRESHOLD_BUT_DIFFERENT_PRIME
+
+At the §7.ter.13-validated q_max=200, monkey3_gratings shows
+**multi-prime p-adic structure with p=2 dominant** (ratio 4.06×,
+z=+3.67 vs rate-matched Poisson surrogate) and p=7 secondary (ratio
+1.77×, z=+1.90, still above the 1.5× threshold and above surrogate max
+1.55).  The q_max=30 finding of dominant p=7 was a band-count
+artifact (p=2 has 7 pure-power bands ≤ 200 vs only 4 ≤ 30); under
+per-q-power normalisation with more bands, p=2 dominance emerges.
+
+Both p=2 and p=7 signals are real (above-threshold, above-surrogate).
+The recording does have p-adic structure — just not the
+single-prime-7 dominance the q_max=30 result suggested.  Biological
+interpretation open: gratings stimulus is 12 directions at 1 Hz
+temporal frequency, which could produce harmonic structure at
+small-q-power bands.  Worth checking monkey1_gratings and
+monkey2_gratings at q_max=200 to see if the p=2 multi-prime structure
+generalizes across the gratings subset.
+
+##### Follow-up 2: H1 / F1/F0 rate-stratified within-cell pilot on pvc-11
+
+Within each pvc-11 gratings recording (monkey1: 68 units, monkey2: 57,
+monkey3: 85), split units into 3 per-recording rate tertiles and
+compute Spearman ρ(descriptor, ARS_metric) per tertile.
+
+| descriptor | metric | tertile rho range | mag range | sign-consistent (3 recordings) | verdict |
+|---|---|---|---|---|---|
+| OSI | ks_gue_med | +0.408 to +0.914 | 0.21 | 3/3 | **SURVIVES_STRATIFIED** |
+| DSI | ks_gue_med | −0.370 to +0.639 | 0.47 | 2/3 (monkey2 sign-flip) | **PARTIAL_SURVIVAL** |
+| F1/F0 | rep_med | +0.052 to +0.591 | 0.34 | 3/3 | **PARTIAL_SURVIVAL** |
+
+**H1 OSI ↔ ks_gue_med grandfathers cleanly under rate-stratified
+discipline** — sign-consistent positive within all 9 (recording ×
+tertile) cells with magnitude range 0.21 (below the 0.30 threshold).
+**DSI flips sign in monkey2's high-rate tertile** and has mag range
+0.47.  **F1/F0 sign-consistent (positive in pvc-11) but with mag range
+0.34** — Allen rate-stratified replication needed to verify the
+substrate-systematic sign-flip claim survives.
+
+Audit implication: H1 OSI ↔ ks_gue_med is the most defensible
+correlation under the new discipline; DSI and F1/F0 need additional
+follow-up work (Phase 31e?) on Allen with rate-stratified within-cell.
+
+##### Follow-up 3: Multi-seed validation of K-axis mechanism
+
+Using existing Phase 30 Analysis 1 parquets (21 K × 3 seeds × 100
+osc):
+
+  - **Rate narrowing is seed-robust** (Q1).  All 3 seeds show
+    monotonic decrease of per-oscillator-rate STD with K (Spearman
+    ρ(K, rate_std) ≈ −1.0 in every seed; drop fraction 20.5 %, 37.5 %,
+    63.3 %).
+  - **Δks K=0→K=2 K_c varies per seed** (Q2): seed 0 +0.080, seed 1
+    +0.104, seed 2 +0.218.  Mean +0.134, std 0.060.  The Phase 30
+    +0.10 headline is in the middle of this range; seed 2 alone gives
+    +0.22 close to the +0.23 rate-matched residual.
+  - **Order parameter is the much stronger predictor of agg_ks_med**
+    (Q3) than rate_std: ρ(|r|, agg_ks_med) = **+0.925** vs
+    ρ(rate_std, agg_ks_med) = −0.503.  Order parameter explains
+    92.5 % of the K-sweep aggregate ks_med variance.
+
+**Verdict: NARROWING_GENERALIZES_DELTA_KS_INCONSISTENT.**  Vocabulary
+update: the mechanism is **order-parameter-driven aggregate-IEI
+structure development under locking**, NOT rate-distribution
+narrowing per se.  Rate_std narrowing is a derivative of |r| increase;
+both reflect locking but |r| is the load-bearing variable.  When
+citing the K-axis +0.10 drift mechanism in the publication, lead with
+order parameter, not rate_std.
+
+##### Follow-up 4: Allen F1/F0 rate-stratified replication
+
+Applied within-session rate-tertile correlation to F1/F0 ↔ rep_med on
+all 12 Allen sessions (drifting_pooled condition, 862 H1-passing
+units total).  **All 12/12 sessions have negative unstratified ρ**
+(mean −0.348), confirming Phase 24's substrate-systematic finding.
+**10/12 sessions have negative tertile-mean ρ** (mean −0.176) — the
+substrate-systematic sign-flip claim survives rate-stratified
+discipline at the session-aggregate level.
+
+But the within-session magnitude range across tertiles is large
+(mean 0.458), and only 6/12 sessions show all-three-tertile sign-
+consistency.  **The negative dynamics signal in Allen is
+concentrated in mid-to-high rate units**: low-rate tertile rho_ff is
+weakly positive in 8/12 sessions (+0.013 to +0.292), while mid and
+high tertiles carry the negative correlation.
+
+**Verdict: SUBSTRATE_SYSTEMATIC_SURVIVES_STRATIFIED.**  The pvc-11
+positive vs Allen negative sign-flip holds at the session-aggregate
+level; rate-regime substructure within each substrate is refined.
+The Phase 24 + 27 substrate-systematic interpretation is
+not invalidated.
+
+OSI cross-check on Allen: 10/12 sessions show sign-consistent positive
+across all 3 tertiles (mag range 0.48), 12/12 unstratified positive.
+H1 OSI ↔ ks_gue_med survives rate-stratified discipline in Allen
+as well as in pvc-11.
+
+##### Follow-up 5: monkey1/2_gratings p-adic v4 at q_max=200
+
+Applied `padic_amplitude_v4` at q_max=200 to monkey1_gratings and
+monkey2_gratings to test whether monkey3's multi-prime structure
+generalizes:
+
+| recording | p=7 ratio | p=7 z | p=2 ratio | p=2 z |
+|---|---|---|---|---|
+| monkey1_gratings | 2.41 (above thr) | **+9.77** | 2.79 | +2.04 |
+| monkey2_gratings | 1.58 (above thr) | +0.59 | 1.91 | −1.23 |
+| monkey3_gratings (Follow-up 1) | 1.77 (above thr) | +1.90 | **4.06** | +3.67 |
+
+**Verdict: CLASS_SIGNAL_LIKELY for p=7.**  All 3 pvc-11 gratings
+recordings have p=7 ratio above the 1.5× threshold; 2/3 (monkey1,
+monkey3) have z > 2 above rate-matched-Poisson surrogate.  monkey2's
+marginal z (+0.59) reflects low-rate noise (rate 4.88 Hz vs ~30 Hz
+for the others), not absence of signal.
+
+monkey3's p=2 dominance (z=+3.67) was **recording-specific** — monkey1
+shows marginal p=2 (z=+2.04), monkey2 shows p=2 below surrogate
+(z=−1.23).  The class signal across pvc-11 gratings is p=7, not p=2.
+
+This is the **first cross-recording p-adic-class signal identified
+from ARS on biological data**.  Whether the p=7 signal generalizes to
+non-gratings stimuli (spontaneous, movies) or to other substrates is
+open.  Biological mechanism (q=7 period = 35 ms at bin_ms=5; 28.6 Hz,
+beta-band) is open.  monkey3's strong recording-specific p=2 signal
+(plus monkey2's p=13 z=+4.56) may reflect grating-trial-block
+periodicity or recording-quality variation.
+
+##### Follow-up 6: H2 stationarity check (pvc-11 surviving recordings)
+
+Applied the Phase 30 stationarity module (10 non-overlapping windows)
+to the two pvc-11 recordings that pass the Phase 22a/22b H2 surrogate
+battery: monkey1_natural_movie + monkey2_gratings_movie.
+
+**Verdict: H2_TIME_VARYING.**
+
+monkey1_natural_movie (74 units, 87 313 events, 24.25 Hz, 3 600 s):
+  - Full-sequence: primary = TR, rep_med = 0.250
+  - Per-window: 7/10 TR, 3/10 BL  (modal fraction 70 %)
+  - **rep_med across windows CV = 0.639** (range 0.000–0.350)
+  - ks_gue_med across windows CV = 0.040 (stable)
+  - STATIONARY: False (rep_med CV > 0.20)
+  - agree_with_full: True (modal matches)
+
+monkey2_gratings_movie (104 units, 163 903 events, 45.53 Hz, 3 600 s):
+  - Full-sequence: primary = BR_artifact, rep_med = 0.550
+  - Per-window: **5/10 TR, 5/10 BR_artifact** (50/50 split)
+  - rep_med CV = 0.144, ks_gue_med CV = 0.036
+  - STATIONARY: False (fraction_modal = 50 %, far below 90 %
+    threshold)
+  - agree_with_full: False (full-sequence BR masks half-the-time TR)
+
+**Methodological wake-up call:** the Phase 22a/22b H2 surrogate
+battery (rate-matched + cell-shuffle + LN-evoked × 7 seeds) was
+applied to **full-sequence statistics**, not per-window statistics.
+The locked H2 finding describes the time-averaged surviving structure;
+it does NOT directly address whether the surrogate battery passes
+within each window.  Both H2-passing recordings show substantial
+within-recording temporal variation that the full-sequence statistic
+averages over.
+
+This does not invalidate the Phase 22a/22b H2 finding at its stated
+resolution.  But the publication framing should acknowledge the
+**temporal-stationarity caveat** explicitly: monkey1_natural_movie's
+H2 surviving structure has rep_med CV = 0.64 across 10 windows;
+monkey2_gratings_movie's H2 modal is right on the TR/BR_artifact
+boundary at per-window resolution.
+
+A **Phase 31f** is proposed: re-run the H2 surrogate battery within
+each non-overlapping window of the two H2-passing recordings.  Per-
+window survival fraction is the correct stationarity-aware H2 claim.
+
+##### Follow-up 7: pvc-11 all-subsets p-adic v4 @ q_max=200
+
+Extended the Follow-up 5 monkey1/2/3_gratings test to all pvc-11
+subsets (spontaneous × 6, gratings_movie × 2, natural_movie × 2,
+noise_movie × 2; 12 recordings + 3 gratings from Follow-up 5).
+
+**Per-subset p=7 enrichment:**
+
+| subset | n | above 1.5× | z > 2 | mean z |
+|---|---|---|---|---|
+| gratings | 3 | 3/3 | 2/3 | +4.10 |
+| **spontaneous** | 6 | **6/6** | 2/6 | **+2.22** |
+| gratings_movie | 2 | 1/2 | 0/2 | +0.21 |
+| natural_movie | 2 | 0/2 | 0/2 | −0.38 |
+| noise_movie | 2 | 0/2 | 0/2 | −0.47 |
+
+**Verdict: P7_SUPPRESSED_IN_MOVIES** (formally P7_GRATINGS_SPECIFIC
+per the script decision rule, but the substantive pattern is
+"simple-stimulus + spontaneous present, complex-movie suppressed").
+
+Standout per-recording: monkey4_spontaneous z = **+6.09**;
+monkey1_gratings z = +9.77 (Follow-up 5); monkey3_spontaneous z = +2.93.
+All 6 spontaneous recordings have p=7 ratio above the 1.5× threshold.
+
+Interpretation: p=7 is **not pure beta-band-V1-intrinsic** (would be
+stimulus-independent) and **not pure gratings-stimulus-specific**
+(would not appear in spontaneous).  Movie stimuli (natural, noise,
+even gratings_movie) drive complex time-varying temporal patterns
+that override the V1-intrinsic p=7 structure; spontaneous + static
+drifting gratings let the V1-intrinsic structure dominate.
+
+##### Follow-up 8: Allen p-adic v4 @ q_max=200 (cross-species)
+
+5 representative Allen sessions × 3 conditions (drifting_pooled,
+spontaneous, natural_movie_one).  Same surrogate protocol.
+
+**Per-condition p=7 enrichment:**
+
+| condition | n | above 1.5× | z > 2 | mean z |
+|---|---|---|---|---|
+| Allen drifting_pooled | 5 | 0/5 | 0/5 | −0.29 |
+| **Allen spontaneous** | 5 | **0/5** | 0/5 | **−0.87** |
+| Allen natural_movie_one | 5 | 3/5 | 1/5 | +0.53 |
+
+Cross-substrate Δ(mean z) at spontaneous: **pvc-11 +2.22, Allen
+−0.87, Δ = +3.09** — substrate-systematic difference matching the
+F1/F0-rep_med substrate-systematic pattern in direction (pvc-11
+positive, Allen negative).
+
+**Verdict: P7_PVC11_SPECIFIC.**  The p=7 enrichment is a
+**substrate-systematic finding for pvc-11 (macaque V1 anesthetised)**,
+not generalisable to awake-mouse-V1 (Allen).  Allen sessions show
+p=2 / p=3 / p=5 / p=13 enrichments depending on session — more
+diverse prime patterns consistent with the awake-state cortical-V1's
+broader response repertoire.
+
+**This is the first cross-substrate-systematic p-adic class signal
+identified from ARS.**  Pattern matches the locked F1/F0 substrate-
+systematic finding direction (pvc-11 positive, Allen negative).
+Whether the two substrate-systematic patterns share a mechanism is
+open — but they discriminate the substrates in the same direction
+at independent ARS engines (rep_med vs RF-engine p-adic).
+
+##### Follow-up 9 (Phase 31f): per-window H2 surrogate battery
+
+Applied the Phase 22a H2 surrogate battery (rate_matched + cell_shuffle
++ ln_evoked × 5 seeds) at q_max=30 within each non-overlapping window
+of monkey1_natural_movie + monkey2_gratings_movie.
+
+**Verdicts:**
+  - **monkey1_natural_movie: WINDOW_AWARE_LOCKED** — 8/10 windows pass
+    the required-conjunction (all 3 surrogate types survive at ≥ 1
+    q-band).
+  - **monkey2_gratings_movie: WINDOW_MIXTURE** — 5/10 windows pass.
+
+**Implication.**  monkey1_natural_movie's H2 surviving structure is
+**per-window-real** — the Phase 22a/22b locked finding for this
+recording is methodologically robust at per-window resolution
+(best-possible outcome).  monkey2_gratings_movie is a
+**window-mixture phenomenon**: the recording switches between
+H2-passing and H2-failing regimes; the full-sequence statistic
+averages them.  This is **substantively different** from the current
+H2 framing for monkey2_gratings_movie.
+
+Publication framing for the locked H2 finding should be revised to:
+  - "H2 surviving structure on monkey1_natural_movie:
+    **window-aware-locked** (8/10 windows pass the required surrogate
+    conjunction)."
+  - "H2 surviving structure on monkey2_gratings_movie:
+    **window-mixture phenomenon**, full-sequence-statistic surrogate
+    survival is real but only 5/10 windows survive individually."
+
+The methodological commitment from Follow-up 6 is now actionable
+across the toolkit: future H2-style surrogate-survival claims should
+include per-window surrogate battery as standard discipline.
+
+##### Combined implication for the publication framing
+
+  - The "Farey-bank channels" image is apt for the parallel `pll_bank`
+    infrastructure and for the RF engine, NOT for the NNS engine of
+    the deployed classifier.  Vocabulary needs revision before
+    external-facing documents use the engineering-layer framing.
+  - Single-event sensitivity is near-zero at modal scale; per-oscillator
+    or per-event-cluster sensitivity is the right resolution.
+  - The Phase 30 sub-modal signals (+0.10 K-axis aggregate, +0.23
+    rate-matched residual) trace to different mechanisms: aggregate
+    rate-distribution narrowing under locking vs within-cell rate-
+    stratified dynamics signal.  Neither shifts the modal classification
+    but both carry interpretable continuous-metric content.
+  - p-adic v4 needs q_max=200 reclassification to be discriminating on
+    real recordings; q_max=30 produces one clean prime-7 signal on
+    pvc-11 monkey3_gratings, candidate for follow-up.
+
+#### Outputs
+
+Code: `phase31b/sensitivity.py`, `phase31b/loo_influence.py`,
+`phase31b/padic_v4_sweep.py`, `phase31b/padic_v4_real_vs_surrogate.py`,
+`phase31b/analysis_K_sweep_stratification.py`,
+`phase31b/analysis_rate_matched_stratification.py`.
+
+Data under `data/phase31a_results/`: `PHASE31A_DERIVATION.md`
+(architecture audit, no code or simulations).
+
+Data under `data/phase31b_results/`: `PHASE31B_FINDINGS.md`,
+`padic_v4_*.{parquet,json}` (p-adic sweep),
+`Ksweep_*.{parquet,json}` (K-sweep stratification),
+`RateMatch_*.{parquet,json}` (rate-matched stratification).
+
+Phase 31c (PLL bank ISF) and Phase 31d (Allen NP <300 μm spatial-scale,
+continues Phase 28 in-progress work) deferred to lower priority.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -6580,7 +7152,61 @@ not extend the corresponding literatures.
   GLM history-kernel max ~+0.75, min ~+0.23) invariant across n_lags
   ∈ {1,4,8} and bin_ms ∈ {5,10,20,40} ms, indicating residual
   positive autocorrelation beyond what linear spatiotemporal stim
-  filtering can absorb.  (§7.ter.30, §7.ter.31, §7.ter.35.)
+  filtering can absorb.  (§7.ter.30, §7.ter.31, §7.ter.35.)  Phase 30
+  Kuramoto-class mechanism interpretation test returned NO
+  MECHANISTIC MATCH at recording-wide-aggregate and local-cluster
+  resolution: across the swept Kuramoto (K, σ) phase-space the
+  aggregate modal classification is uniformly BR_artifact, whereas
+  real V1 / Allen data classifies overwhelmingly TR (45 %) or BL
+  (34 %); 156 / 160 well-powered real-data rows have no Kuramoto
+  match.  The locked findings remain in their negative-elimination
+  posture without a positive Kuramoto-class mechanism story.
+  (§7.ter.38.)  Phase 31a + 31b engineering-layer architecture audit
+  established that `joint_q_profile` (deployed classifier) and `pll_bank`
+  (parallel infrastructure) are distinct objects; per-q ks_gue_q and
+  rep_int_q are q-flat scalars under unit-mean normalisation, with
+  per-q variation carried by the Ramanujan-Fourier amplitude axis only.
+  The deployed classifier is event-level robust at the modal scale
+  (single-event ∂(ks_gue_med, rep_med)/∂t_k ≈ 0).  Phase 30 sub-modal
+  signals (+0.10 K-axis aggregate ks_med drift, +0.23 rate-matched
+  Δks_med residual) trace to **order-parameter-driven aggregate-IEI
+  structure development under locking** (multi-seed ρ(\|r\|, agg_ks_med)
+  = +0.925) and within-cell rate-stratified dynamics signal
+  respectively — methodological caveat: rate-matched Poisson surrogate
+  is necessary but not sufficient for clean dynamics-only signal
+  isolation; rate-stratified within-cell comparison required for
+  cleaner discrimination.  Rate-stratified within-cell audit on pvc-11
+  gratings: H1 OSI ↔ ks_gue_med **SURVIVES_STRATIFIED** (sign-consistent
+  3/3 recordings, mag range 0.21); DSI and F1/F0 **PARTIAL_SURVIVAL**
+  (mag ranges 0.47 and 0.34, monkey2 DSI sign-flip in high-rate
+  tertile).  Allen F1/F0 rate-stratified replication (12 sessions):
+  **SUBSTRATE_SYSTEMATIC_SURVIVES_STRATIFIED** at the session-aggregate
+  level (12/12 sessions negative unstratified ρ, 10/12 tertile-mean
+  negative), with the negative dynamics signal concentrating in
+  mid-to-high-rate Allen units; low-rate tertile is null or weakly
+  positive in 8/12 sessions.  p-adic v4 at q_max=200 on the three
+  pvc-11 gratings recordings: **first p-adic class signal identified
+  on biological data** — p=7 enrichment (monkey1 z=+9.77, monkey3
+  z=+1.90, monkey2 z=+0.59; 3/3 above 1.5× threshold).  Cross-subset
+  extension on all 12 pvc-11 recordings: p=7 enrichment is
+  **P7_SUPPRESSED_IN_MOVIES** — present in spontaneous (6/6 above
+  threshold; mean z = +2.22; monkey4 z = +6.09) and gratings (3/3
+  above), suppressed in natural_movie / noise_movie / gratings_movie
+  (mean z = −0.38 / −0.47 / +0.21).  Cross-species extension on 5
+  Allen sessions: **P7_PVC11_SPECIFIC** — Allen spontaneous mean z =
+  −0.87 vs pvc-11 spontaneous +2.22; substrate-systematic p=7
+  difference matching the F1/F0 substrate-systematic pattern in
+  direction.  **First cross-substrate-systematic p-adic-class signal
+  from ARS.**  H2 stationarity check on the two pvc-11 surviving
+  recordings: **H2_TIME_VARYING** at the modal-classification level;
+  per-window surrogate battery (Phase 31f) verdicts:
+  **monkey1_natural_movie WINDOW_AWARE_LOCKED** (8/10 windows pass
+  required-conjunction), **monkey2_gratings_movie WINDOW_MIXTURE**
+  (5/10 windows pass).  Locks H2 for monkey1_natural_movie under
+  per-window surrogate discipline; narrows H2 for monkey2_gratings_movie
+  to a window-mixture phenomenon.  Methodological commitment: future
+  H2-style surrogate-survival claims should include per-window
+  surrogate battery as standard discipline.  (§7.ter.39.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration
