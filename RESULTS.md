@@ -7041,6 +7041,98 @@ The methodological commitment from Follow-up 6 is now actionable
 across the toolkit: future H2-style surrogate-survival claims should
 include per-window surrogate battery as standard discipline.
 
+##### Follow-up 10: pvc-11 all-recordings per-window p-adic v4 @ q_max=200
+
+Apply padic_amplitude_v4 within each non-overlapping window (N=5) of
+all 15 pvc-11 recordings.  Per-prime stationarity classification per
+recording: STATIONARY (z>2 in ≥4/5), MIXTURE (2-3/5), RARE (1/5),
+NULL (0/5).
+
+**Verdict: P7_FULL_RECORDING_AGGREGATION.**
+
+Per-prime stationarity across 15 recordings:
+
+| prime | STAT | MIX | RARE | NULL |
+|---|---|---|---|---|
+| p=2 | 1 | **10** | 4 | 0 |
+| p=3 | 3 | 3 | 4 | 5 |
+| p=5 | 0 | 3 | 7 | 5 |
+| **p=7** | **1** | 3 | 2 | **9** |
+| p=11 | 1 | 4 | 5 | 5 |
+| p=13 | 0 | 2 | 2 | 11 |
+
+**The strongest full-recording p=7 signal (monkey1_gratings z=+9.77)
+is NOT per-window-stationary**: per-window z scores are -1.50, +1.27,
+-1.43, +1.90, -1.83 (0/5 above z=2); per-window dominant primes are
+[5, 2, 5, 7, 3] (no consistent prime).  All 3 gratings recordings
+have ZERO PER_WINDOW_STATIONARY signals on any prime.
+
+**Only monkey1_spontaneous shows PER_WINDOW_STATIONARY_P7** (4/5
+windows z>2; mean z=+3.25).  The p=7 enrichment finding is largely
+a full-recording-aggregation phenomenon, not a per-window-stable signal.
+
+**p=2 is the most-consistently elevated prime across pvc-11** (MIX in
+10/15 recordings; NULL in 0/15).  Consistent with q=2 = 10ms periodicity
+in 5ms-binned population events.
+
+**Same methodological pattern as H2 monkey2_gratings_movie
+WINDOW_MIXTURE finding.**  Future ARS p-adic claims should be reported
+at per-window resolution by default; full-recording-statistic claims
+require explicit scope-aware framing.
+
+##### Follow-up 11: Allen full 12-session p-adic v4 @ q_max=200
+
+12 sessions × 3 conditions = 36 (session, condition) cells.  Verdict:
+**P7_PVC11_SPECIFIC_CONFIRMED.**
+
+Per-condition mean z(p=7): drifting_pooled +0.09 (5/12 above 1.5×);
+spontaneous −0.14 (6/12 above 1.5×); natural_movie_one −0.44 (4/12
+above 1.5×); 0 cells with z>2 in drifting + spontaneous; 1 cell in
+natural_movie (Vip session).
+
+Allen dominant prime distribution (36 cells): p=2 (18), p=3 (10),
+p=5 (6), p=7 (2).  Allen V1 is p=2-dominant; p=7 is rare (2/36).
+
+**Substrate-systematic Δ at spontaneous: pvc-11 mean z=+2.22 vs
+Allen mean z=−0.14 → Δ=+2.36.**  Cross-substrate p=7 difference
+holds at full-recording scope across the full 12-session Allen cohort.
+
+##### Follow-up 12: Allen F1/F0 per-session rate-tertile profile heterogeneity
+
+12 Allen sessions classified by per-session rate-tertile rho_ff profile:
+
+  - ALL_NEGATIVE: 4 sessions (uniform negative across tertiles)
+  - CANONICAL_LOW_POS_MID_HIGH_NEG: 3 sessions
+  - CANONICAL_LOW_NULL_MID_HIGH_NEG: 2 sessions
+  - OTHER_+−0: 3 sessions
+
+5/12 (canonical) show mid-to-high negative concentration; 4/12 are
+uniformly negative across tertiles.  **The mid-to-high-rate-concentration
+claim is session-heterogeneous, not uniform across Allen.**  Cre-line
+does not clearly predict profile at this n.
+
+##### Follow-up 13: Movie p=7 suppression is content-driven, not rate-driven
+
+Within-monkey rate-matched comparison (monkey1 across 5 subsets):
+
+| recording | rate(Hz) | z(p=7) | real_p7 |
+|---|---|---|---|
+| monkey1_gratings | 27.93 | **+9.77** | 2.41 |
+| monkey1_gratings_movie | 11.94 | +1.62 | 1.68 |
+| monkey1_natural_movie | 24.25 | **−0.96** | 0.69 |
+| monkey1_noise_movie | 20.08 | −0.72 | 1.04 |
+| monkey1_spontaneous | 41.84 | +1.91 | 2.39 |
+
+monkey1_gratings (27.93 Hz, z=+9.77) and monkey1_natural_movie (24.25
+Hz, z=−0.96) have rates within ~15 % of each other but differ by ~11
+z-score units in p=7.  monkey1_spontaneous at 41.84 Hz (higher rate)
+maintains positive z.  Rate-matched and rate-monotonicity analysis
+rules out rate as the driver.
+
+**Verdict: CONTENT_DRIVEN movie p=7 suppression.**  Movie stimuli
+disrupt the V1-intrinsic p=7 structure regardless of rate; spontaneous
++ static gratings let it persist.
+
 ##### Combined implication for the publication framing
 
   - The "Farey-bank channels" image is apt for the parallel `pll_bank`
@@ -7204,9 +7296,20 @@ not extend the corresponding literatures.
   required-conjunction), **monkey2_gratings_movie WINDOW_MIXTURE**
   (5/10 windows pass).  Locks H2 for monkey1_natural_movie under
   per-window surrogate discipline; narrows H2 for monkey2_gratings_movie
-  to a window-mixture phenomenon.  Methodological commitment: future
-  H2-style surrogate-survival claims should include per-window
-  surrogate battery as standard discipline.  (§7.ter.39.)
+  to a window-mixture phenomenon.  Round 4 follow-ups (per-window
+  p-adic + Allen extensions): **p=7 class signal is full-recording-
+  aggregation, not per-window-stationary** in 9/15 pvc-11 recordings
+  (PER_WINDOW_NULL); only monkey1_spontaneous is PER_WINDOW_STATIONARY
+  on p=7.  Allen full 12-session p-adic confirmed **P7_PVC11_SPECIFIC**
+  (Allen p=7 mean z=−0.14 spontaneous vs pvc-11 +2.22; substrate-
+  systematic Δ=+2.36 holds across full Allen cohort).  Allen F1/F0
+  per-session profile heterogeneous (5/12 canonical mid+high-negative;
+  4/12 all-negative; 3/12 other).  Movie p=7 suppression is
+  **content-driven, not rate-driven** (monkey1_gratings 27.93Hz z=+9.77
+  vs monkey1_natural_movie 24.25Hz z=−0.96 at matched rate).
+  Methodological commitment: future H2-style and p-adic surrogate-
+  survival claims should include per-window surrogate battery as
+  standard discipline.  (§7.ter.39.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration
