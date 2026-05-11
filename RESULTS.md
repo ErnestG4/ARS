@@ -6354,6 +6354,158 @@ not used).
 
 ---
 
+### 7.ter.37  Phase 27 — Pre-publication framing analyses (F1/F0 rate-matched check, ARS vs FA loadings, spatial-scale ARS)
+
+#### Frame
+
+Three lit-review-driven analyses to resolve framing questions before
+publication drafting:
+
+  1. F1/F0 ↔ rep_med substrate-systematic sign flip (Phase 24 Full,
+     pvc-11 +0.388 vs Allen −0.183) tested against Hietanen et al.
+     2013's F1/F0 spike-count bias.  If the substrates sit in
+     different firing-rate regimes, the F1/F0 measurement itself is
+     biased differently and downstream metrics inherit the bias.
+  2. ARS per-unit metrics' empirical orthogonality to Williamson
+     2016 factor-analysis loadings on pvc-11 in-vivo data.  The
+     orthogonality claim against existing population-coding methods
+     is structural by construction (different sufficient statistics);
+     empirical confirmation on the same data is the load-bearing
+     demonstration.
+  3. ARS spatial-scale dependence on pvc-11 Utah-array data,
+     engaging with Ohiorhenuan 2010's finding that high-order
+     correlations are local (<300 μm) but not distant (>800 μm).
+     Spatial-resolution caveat: Utah pitch is 400 μm; no between-
+     channel pairs are within Ohiorhenuan's 300 μm threshold;
+     analysis is bounded to the 400-600 μm regime.
+
+Calibrator zoo (8/8) re-verified before Phase 27.
+
+#### Analysis 1 — F1/F0 rate-matched check: SUBSTRATE-SYSTEMATIC
+
+Method 0 (firing-rate distributions): pvc-11 median 4.51 sp/s vs
+Allen 4.09 sp/s; 90 % of pvc-11 and 76 % of Allen units lie in the
+overlap region [1.39, 15.27] sp/s.  Distributions statistically
+differ at log-rate (KS p=4×10⁻⁷) but overlap substantially.
+
+Method A (within-substrate spike-count tertile partial correlations):
+pvc-11 9/9 tertile bins show ρ_partial > 0 (range +0.114 to +0.343).
+Allen 25/36 tertile bins show ρ_partial < 0 (69 %).
+
+Method B (rate-matched cross-substrate, ±20 % tolerance, n=210
+matched pairs at median 3.9 sp/s): pvc-11 ρ_partial = **+0.298**
+(p<0.001), Allen ρ_partial = **−0.222** (p=0.001), Δρ = **+0.520**.
+
+Method C (Fisher-Z meta with spike-count covariate): pvc-11 meta-fix
++0.279 → +0.279 (0.000 attenuation); Allen meta-fix −0.184 → −0.142
+(−0.042 attenuation).  Spike-count linear-covariate correction is
+minor.
+
+**Verdict: SUBSTRATE-SYSTEMATIC.**  Hietanen 2013 spike-count bias
+contributes at most −0.04 attenuation in Allen and zero in pvc-11.
+The F1/F0 ↔ rep_med sign flip survives rate-matching and is a
+substrate-systematic biological observation, not a measurement
+artifact.
+
+#### Analysis 2 — ARS vs Williamson FA loadings: SUBSUMED (ks_gue_med) / ORTHOGONAL (rep_med)
+
+Williamson 2016-style FA on the two H2 pvc-11 sessions (200 ms bin
+width, square-root variance-stabilising transform, CV-selected
+dimensionality n_factors=8 on both sessions).
+
+Per-session R² regressing each ARS metric on the 8 FA loadings:
+
+| session | R²(rep_med) | R²(ks_gue_med) |
+|---|---|---|
+| monkey1_natural_movie  | 0.098 | **0.800** |
+| monkey2_gratings_movie | 0.249 | **0.726** |
+
+Cross-pair correlation: per-session mean\|ρ\| = 0.208/0.261;
+max\|ρ\| = 0.590/0.698.
+
+**Verdict: SUBSUMED for ks_gue_med, ORTHOGONAL for rep_med.**  The
+H1 load-bearing metric ks_gue_med is substantially captured by FA
+loadings (R² > 0.6, above SUBSUMED threshold).  The H2 metric
+rep_med is largely orthogonal (R² < 0.3, within ORTHOGONAL
+threshold).  Caveat: in-sample R² is overfit-biased upward with 8
+factors and 74-104 units per session, but the gap from the
+ORTHOGONAL threshold (0.3) is large enough on ks_gue_med (0.73-0.80)
+that the SUBSUMED verdict is robust to plausible overfit corrections.
+
+Publication framing implication: H1's "OSI ↔ ks_gue_med"
+correspondence cannot be claimed orthogonal to FA-specifically on
+pvc-11.  H2's rep_med-based elimination space remains in the
+orthogonality regime.
+
+#### Analysis 3 — ARS spatial-scale on pvc-11: CONTRA-OHIORHENUAN (bounded to 400-600 μm)
+
+Utah-array spatial layout: 400 μm pitch, 96 active channels, 74-104
+units per H2 session.  For each unit, build local cluster = units
+within 600 μm radius (captures NN 400 μm and diagonal ≈565 μm
+neighbours); dedupe identical-membership clusters; skip clusters
+< 3 members.  Per-cluster population events at k_thresh =
+clip(ceil(0.5 × n_members), 2, 6); ARS classify at q_max=30; per-
+cluster rate-matched Poisson surrogate (5 seeds, Phase 26 lesson).
+
+Local-vs-recording-wide comparison:
+
+| session | local modal | local rep_med | local ks_gue_med | rwide modal | rwide rep_med | rwide ks_gue_med | Δ rep_med | Δ ks_gue_med |
+|---|---|---|---|---|---|---|---|---|
+| monkey1_natural_movie  | BL | 0.088 | 0.337 | TR          | 0.250 | 0.662 | −0.162 | −0.325 |
+| monkey2_gratings_movie | TR | 0.138 | 0.334 | BR_artifact | 0.550 | 0.623 | −0.412 | −0.289 |
+
+Per-cluster rate-matched Poisson surrogate produces similar local-
+scale classifications (modal BL across both sessions).
+
+**Verdict: CONTRA-OHIORHENUAN, bounded to the 400-600 μm regime.**
+At Utah-accessible scales, ARS shows the *opposite* of Ohiorhenuan
+2010's local-rich prediction: recording-wide aggregate carries more
+structure than local clusters.  The H2 surviving structure is a
+recording-wide population-aggregate phenomenon at pvc-11's
+resolution, not a local-cluster phenomenon.
+
+**Required spatial-resolution caveat:** Utah pitch (400 μm) makes
+no between-channel pair within Ohiorhenuan's 300 μm threshold.
+The verdict is bounded to the 400-600 μm regime; whether ARS
+detects local-rich structure at <300 μm (Ohiorhenuan's actual claim)
+is inaccessible at pvc-11 resolution.  Future investigation with
+multi-tetrode / Neuropixels density could test this regime.
+
+#### Combined publication framing implications
+
+The combination is PARTIALLY-CONFIRMED + SUBSUMED-FOR-H1 + CONTRA-
+OHIORHENUAN.  Three adjustments to publication framing:
+
+  - **F1/F0 finding:** unchanged in scope — still SUBSTRATE-
+    SYSTEMATIC.  Cite Hietanen 2013 for the per-cell-rate-control
+    caveat that motivated the check.
+  - **Orthogonality framing:** distinguish at metric level —
+    rep_med orthogonal to FA loadings; ks_gue_med substantially
+    captured by FA loadings on pvc-11 noise-correlation regime data.
+    H1's orthogonality claim against FA-specifically is weakened;
+    H2's elimination-space orthogonality claim against FA is
+    preserved.
+  - **Ohiorhenuan engagement:** writeup should NOT claim ARS
+    confirms / extends / competes with Ohiorhenuan 2010 on the
+    local-rich finding.  At Utah-accessible scales ARS shows the
+    opposite pattern.  Spatial-resolution caveat explicitly in
+    writeup: their relevant <300 μm regime is inaccessible at
+    pvc-11 pitch.
+
+#### Outputs
+
+Code: `phase27/analysis1_f1f0_rate_matched.py`,
+`phase27/analysis2_ars_vs_fa.py`, `phase27/analysis3_spatial_scale.py`.
+
+Data under `data/phase27_results/`: `analysis1_*.{parquet,json}`,
+`analysis2_*.{parquet,json}`, `analysis3_*.{parquet,json}`,
+`PHASE27_FINDINGS.md`.
+
+PHASE22A_FINDINGS.md and PHASE24_FULL_FINDINGS.md updated in-place
+with Phase 27 framing notes.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
