@@ -6089,6 +6089,136 @@ natural_movie_one template (166 MB).
 
 ---
 
+### 7.ter.35  Phase 25 — Multi-frame STA Pass D revisit on pvc-11 monkey1_natural_movie
+
+#### Frame
+
+Phase 22b Pass D attempted a per-unit Pillow-style history-coupled GLM
+as a stricter Aitchison-null surrogate against the pvc-11
+monkey1_natural_movie H2 finding.  Neither tested variant produced a
+faithful surrogate at 5 ms bins: the canonical (non-positive history)
+variant collapsed both history and stim kernels to ~0; the
+unconstrained variant routed stim autocorrelation into the history
+kernel and ran away with positive feedback (~17× real-rate over-shoot).
+Phase 22b's working diagnosis: the single-frame STA failed to model
+slow stim temporal autocorrelation (~30-40 ms), which the
+unconstrained history kernel then mis-fit as intrinsic spike-train
+coupling.
+
+Phase 25 tests the two prospective fixes proposed by the Phase 22b
+findings doc:
+
+  1. multi-frame spatiotemporal STA (n_lags ∈ {1, 4, 8} bins of past
+     stim — n_lags=1 reproduces Phase 22b's spatial-only baseline);
+  2. coarser bin widths (bin_ms ∈ {5, 10, 20, 40} ms);
+
+at both `canonical` (Pillow non-positive history) and `unconstrained`
+variants — a 3 × 4 × 2 = 24-cell configuration grid.
+
+Calibrator zoo (8/8) re-verified before Phase 25.
+
+#### Refined fit-quality verdict vocabulary
+
+Phase 25 refines the binary PASS/FAIL of Phase 22b into a four-way
+methodological characterization:
+
+  - **FIT-PROPER** — biologically-reasonable history kernel
+    (refractory negative lobe, non-trivial L2), non-collapsed stim
+    kernel, surrogate rate within ±1.5× real, median dev_explained
+    > 0.005.  Survival-testable for H_PassD.
+  - **FIT-DEGENERATE-BY-RESOLUTION** — bin width / lag structure
+    makes the model class incapable of representing what's there
+    (canonical-variant collapse).
+  - **FIT-PATHOLOGICAL-BY-CONSTRAINT** — converges but to a bio-
+    implausible optimum (unconstrained history-kernel uniformly
+    positive runaway).
+  - **FIT-OTHER** — unidentified failure modes.
+
+Verdict aggregation uses cell-level kernel-statistic medians, which
+is robust to L-BFGS per-unit non-convergence (a symptom of runaway-
+induced ill-conditioning in the unconstrained variant, not a separate
+failure mode).
+
+#### Fit-quality grid — 24 cells, 0 FIT-PROPER
+
+Canonical cells (12 of 12): **all FIT-DEGENERATE-BY-RESOLUTION**.
+History kernel collapses to zero (hist_l2 = 0.000) under the
+non-positive softplus parameterisation + L2 ridge at every (n_lags,
+bin_ms) cell.  Stim L2 *does* grow with n_lags at coarse bins (40 ms ×
+1→4→8 lags: 0.028 → 0.049 → 0.075), confirming multi-frame STA absorbs
+more stim variance, but the history kernel does not recover.
+
+Unconstrained cells (12 of 12): **all FIT-PATHOLOGICAL-BY-CONSTRAINT**.
+History kernel is uniformly positive with strikingly invariant
+structure across the grid:
+
+  - hist_l2 median ∈ [0.61, 0.94]
+  - hist_min median ∈ [+0.21, +0.29]  (no refractory dip)
+  - hist_max median ∈ [+0.54, +0.76]
+  - surrogate event rate: 17× (40 ms) to 1158× (5 ms) above real,
+    tracking per-bin Poisson saturation accumulation; the kernel
+    *shape* is essentially constant.
+
+#### Primary verdict — H_PassD: **FIT-CEILING**
+
+No (n_lags, bin_ms, variant) cell was FIT-PROPER.  The Phase 22a /
+22b H2 elimination space on pvc-11 monkey1_natural_movie remains
+bounded to the LN-Poisson floor (Phase 22a passes) plus the
+cell-shuffle null; whether it extends to per-unit history-coupled
+LN-Poisson surrogates is methodologically untestable within the
+Phase 25 model family (single- or multi-frame STA × canonical or
+unconstrained per-unit Pillow GLM).
+
+#### Secondary verdict — stim-mis-routing diagnostic: **FALSIFIED**
+
+Multi-frame STA up to n_lags=8 does not collapse the unconstrained-
+variant runaway at any bin width.  At every (bin_ms, variant=unconstrained)
+the surrogate-rate runaway changes by < 5 % when n_lags goes from 1
+to 8.  Phase 22b's working hypothesis — that single-frame STA was
+leaving stim autocorrelation to mis-route into the history kernel —
+is not supported.
+
+#### Co-finding — V1 spike-train positive autocorrelation invariant across grid
+
+The invariance of the unconstrained kernel structure across three STA
+depths and four bin widths (spanning the ~5 ms refractory regime to
+the ~40 ms autocorrelation regime) is a substantive observation
+about V1 spike-train structure: there is a positive temporal
+correlation in pvc-11 anesthetised-macaque V1 spike trains that
+survives linear spatiotemporal stim filtering up to 320 ms of past
+stim history and is essentially independent of bin width within
+[5, 40] ms.
+
+Candidate mechanisms (not disambiguated here): network-driven
+population synchrony, anesthesia-driven up-state cycling, single-
+cell bursting, complex-cell / gain-control / non-linear stim
+processing that linear STA cannot capture.  **Methodological
+implication for future coupled-GLM surrogate work on V1 cortical
+data**: the canonical Pillow non-positive-history parameterisation
+is the prudent choice; the unconstrained variant over-amplifies the
+residual positive autocorrelation into runaway feedback even with
+multi-frame STA.  Breaking the FIT-CEILING for H_PassD-style testing
+would require substantially more expressive model families (cross-
+cell coupled GLMs, latent-state GLMs, non-linear stim processing) —
+out of Phase 25 scope.
+
+#### Outputs
+
+Code: `phase25/multiframe_sta.py`, `phase25/glm_fit.py`,
+`phase25/fit_quality.py`, `phase25/run_phase25.py`,
+`phase25/reverdict.py`, `phase25/summarize_grid.py`.
+
+Data under `data/phase25_results/`: 24 fits__*.parquet,
+fit_quality_grid.parquet, aggregate_verdict.json,
+PHASE25_FINDINGS.md.  No surrogate or survival files (no FIT-PROPER
+cells).
+
+PHASE22A_FINDINGS.md in `data/phase22a_results/` is updated in-place
+with a Phase 25 update note recording the FIT-CEILING outcome and
+the co-finding's methodological implication.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -6152,9 +6282,18 @@ not extend the corresponding literatures.
   at the LN-Poisson elimination floor.  Phase 22b Pass D (history-
   coupled GLM surrogate as a stricter elimination target) was
   inconclusive due to GLM-fit fragility at 5 ms bins on natural-
-  movie data; the additional-elimination claim is an open
-  future-work item, not part of the validated output.
-  (§7.ter.30, §7.ter.31.)
+  movie data; Phase 25's 24-cell (n_lags × bin_ms × variant) grid
+  produced the FIT-CEILING verdict — no configuration in the tested
+  space (single- or multi-frame STA × canonical or unconstrained
+  per-unit Pillow GLM) yields a usable history-coupled surrogate on
+  this data, so the additional-elimination claim is methodologically
+  untestable within the Phase 25 model family.  Phase 25 also surfaced
+  a substantive co-finding: V1 anesthetised-macaque spike trains have
+  a positive temporal correlation structure (median unconstrained-
+  GLM history-kernel max ~+0.75, min ~+0.23) invariant across n_lags
+  ∈ {1,4,8} and bin_ms ∈ {5,10,20,40} ms, indicating residual
+  positive autocorrelation beyond what linear spatiotemporal stim
+  filtering can absorb.  (§7.ter.30, §7.ter.31, §7.ter.35.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration
