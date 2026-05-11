@@ -7133,6 +7133,64 @@ rules out rate as the driver.
 disrupt the V1-intrinsic p=7 structure regardless of rate; spontaneous
 + static gratings let it persist.
 
+##### Follow-up 14: Allen per-window p-adic — the cross-substrate picture inverts at per-window scope
+
+3 representative Allen sessions × 3 conditions × 5 windows × 6 primes
+(45 cells).  Major finding: the cross-substrate p=7 pattern **inverts
+at per-window scope**.
+
+**Per-condition mean z(p=7) at per-window resolution:**
+
+  - **Allen natural_movie_one mean z = +4.70**, 11/15 windows z>2 (!)
+  - Allen drifting_pooled mean z = +0.68, 3/15 z>2
+  - Allen spontaneous mean z = −0.32, 0/15 z>2
+
+Specific clean per-window-stationary cell: **session 760693773 (Sst)
+natural_movie_one** — per-window p=7 z scores 0.1, +3.3, +6.9, +2.0,
++6.4 (PER_WINDOW_STATIONARY).  But this session's full-recording p=7
+z = −0.29 (NULL at full scope).
+
+**Substrate-systematic interpretation revised by temporal scope:**
+  - Full-recording: pvc-11 spontaneous mean z(p=7) = +2.22; Allen
+    natural_movie_one mean z = −0.44 → pvc-11 advantage.
+  - Per-window: Allen natural_movie_one mean z = **+4.70**; pvc-11
+    monkey1_gratings per-window: 0/5 windows z>2 → **Allen advantage**.
+
+**pvc-11 has long-term p=7 coherence** (full-recording-aggregation
+visible; per-window washes out).  **Allen has short-term p=7
+coherence** (per-window visible, especially in stimulus-driven
+natural_movie_one; full-recording washes out).
+
+Per-prime Allen PER_WINDOW_STATIONARY counts: p=2 (4/9), p=7 (2/9),
+p=5 (1/9), p=11 (1/9).  Allen p=2 STATIONARY in 44 % of cells vs
+pvc-11 p=2 STATIONARY 7 % — **awake mouse V1 produces more rapidly-
+fluctuating temporal structure than anesthetised macaque V1**,
+consistent with awake-state cortical dynamics.
+
+The Round-3 P7_PVC11_SPECIFIC claim now requires scope qualification:
+P7_PVC11_SPECIFIC at full-recording scope; **P7_ALLEN_SPECIFIC at
+per-window scope** (natural_movie_one specifically).
+
+##### Follow-up 15: DSI monkey2 sign-flip diagnostic — NOT_SIGNIFICANT
+
+monkey2_gratings DSI ↔ ks_gue_med rate-tertile correlations:
+
+  - Unstratified: ρ = +0.031, **p = 0.82** (null)
+  - Low: ρ = +0.281, p = 0.244
+  - Mid: ρ = −0.119, p = 0.627
+  - High: ρ = −0.370, p = 0.119
+
+**All p-values exceed 0.05.**  monkey2's "sign-flip" is sampling
+noise on an essentially-null signal.  The pvc-11 DSI ↔ ks_gue_med
+correlation (Phase 22a +0.51, +0.03, +0.28 across 3 monkeys) is
+driven by monkey1 (+0.51, p<10⁻⁵) and monkey3 (+0.28, p=0.009);
+monkey2's correlation is null both unstratified and per-tertile.
+
+Publication note: the DSI cross-substrate Phase 24 replication
+finding (Allen mean partial ρ stronger than pvc-11) is real; pvc-11's
+DSI signal is the weaker comparator, and within pvc-11 the signal is
+driven by 2 of 3 monkeys.
+
 ##### Combined implication for the publication framing
 
   - The "Farey-bank channels" image is apt for the parallel `pll_bank`
@@ -7306,7 +7364,14 @@ not extend the corresponding literatures.
   per-session profile heterogeneous (5/12 canonical mid+high-negative;
   4/12 all-negative; 3/12 other).  Movie p=7 suppression is
   **content-driven, not rate-driven** (monkey1_gratings 27.93Hz z=+9.77
-  vs monkey1_natural_movie 24.25Hz z=−0.96 at matched rate).
+  vs monkey1_natural_movie 24.25Hz z=−0.96 at matched rate).  Allen
+  per-window p-adic on 3 sessions × 3 conditions: cross-substrate p=7
+  **inverts at per-window scope** — Allen natural_movie_one mean z=+4.70
+  with 11/15 windows z>2 vs pvc-11 monkey1_gratings 0/5 windows z>2.
+  pvc-11 has long-term coherence (full-recording p=7); Allen has
+  short-term coherence (per-window p=7).  Awake vs anesthetised
+  temporal-structure difference.  DSI monkey2 sign-flip diagnostic:
+  not statistically significant (all p > 0.12, unstratified p = 0.82).
   Methodological commitment: future H2-style and p-adic surrogate-
   survival claims should include per-window surrogate battery as
   standard discipline.  (§7.ter.39.)
