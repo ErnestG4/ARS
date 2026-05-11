@@ -7301,6 +7301,68 @@ continues Phase 28 in-progress work) deferred to lower priority.
 
 ---
 
+### 7.ter.40  Phase 28 — Allen Neuropixels spatial-scale ARS at <300 µm
+
+Resume of in-progress Phase 28 to close the Ohiorhenuan engagement
+caveat from Phase 27 Analysis 3.  pvc-11 Utah array pitch (400 µm)
+prevented the <300 µm spatial-scale test that Ohiorhenuan 2010
+predicts as the local-rich regime.  Allen Neuropixels density (~10-14
+V1 units per 100 µm vertical) allows fine-local cluster construction
+at 0-100 µm radius.
+
+**Verdict: SPATIAL-SCALE-DEPENDENT.**  Allen NP at <300 µm shows
+non-monotone TR-fraction across spatial bins, with the local
+bin (100-300 µm — Ohiorhenuan's predicted regime) the LEAST
+TR-structured.
+
+#### Per-bin results (12 Allen sessions, 719 clusters, 544 well-powered)
+
+| bin | n_clusters | modal | TR % | real-vs-surrogate TR % |
+|---|---|---|---|---|
+| fine-local (0-100 µm) | 165 | BL | 15.2 % | sur 22.0 % (real < sur) |
+| local (100-300 µm) | 234 | BL | **5.6 %** | sur 12.7 % (real < sur) |
+| mid (300-800 µm) | 145 | BL | 18.6 % | sur 34.5 % (real < sur) |
+
+Δrep (fine-local − mid) = 0.000.  Δks = −0.012 (within ±0.10 noise band).
+Real-data TR-fraction is BELOW rate-matched surrogate at all 3 bins,
+mirroring the Phase 27 pvc-11 finding direction.
+
+#### Ohiorhenuan engagement closure
+
+Phase 27 Analysis 3 on pvc-11 Utah array (400-600 µm radius) found
+CONTRA-OHIORHENUAN — local less structured than recording-wide.  Phase
+28 closes the spatial-resolution caveat at <300 µm: Allen NP at
+<300 µm also does NOT show local-rich structure.
+
+**The H2 surviving structure is NOT a local-spatial-cluster phenomenon
+at any tested scale.**  It is a recording-wide-aggregate phenomenon
+that does not strengthen at finer spatial scales.  The Phase 22a/22b
+H2 finding's spatial character is now bounded across both pvc-11 (400-600 µm)
+and Allen NP (<300 µm).  Whatever produces H2 surviving structure
+operates at supra-300-µm spatial scales or is not spatially localized
+at all.
+
+**Publication framing for H2 spatial-scale:** "Recording-wide aggregate
+phenomenon; not localized to or strengthened at <300 µm local clusters.
+Both pvc-11 (400-600 µm, Phase 27) and Allen NP (<300 µm, Phase 28)
+show no local-rich pattern in Ohiorhenuan 2010's direction."
+
+#### Outputs
+
+Code: `phase28/analysis1_spatial_scale_neuropixels.py`,
+`phase28/spatial_setup.py`, `phase28/pilot_bins.py`.
+
+Data under `data/phase28_results/`: `analysis1_per_cluster_real.parquet`
+(719 rows), `analysis1_per_cluster_surrogate.parquet`,
+`analysis1_verdict.json`, `spatial_positions_all.parquet`,
+`PHASE28_FINDINGS.md`.
+
+PHASE22A_FINDINGS.md, PHASE27_FINDINGS.md spatial-scale framing
+updated in-place to reflect closure of the Ohiorhenuan caveat at
+both spatial scales tested.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -7447,7 +7509,17 @@ not extend the corresponding literatures.
   not statistically significant (all p > 0.12, unstratified p = 0.82).
   Methodological commitment: future H2-style and p-adic surrogate-
   survival claims should include per-window surrogate battery as
-  standard discipline.  (§7.ter.39.)
+  standard discipline.  (§7.ter.39.)  Phase 28 Allen Neuropixels
+  spatial-scale ARS at <300 µm completed: **SPATIAL-SCALE-DEPENDENT**
+  with non-monotone TR-fraction across bins (fine-local 15.2 %, local
+  5.6 %, mid 18.6 %).  Local bin (100-300 µm, Ohiorhenuan's predicted
+  regime) is the LEAST TR-structured of the three scales tested.
+  Real-data TR-fraction is below surrogate at all bins.  **Ohiorhenuan
+  engagement caveat from Phase 27 Analysis 3 is closed at <300 µm
+  regime: V1 does NOT show local-rich structure at the scale
+  Ohiorhenuan 2010 predicts.**  Combined Phase 27 (pvc-11, 400-600 µm)
+  + Phase 28 (Allen NP, <300 µm): the H2 surviving structure is not
+  a local-spatial-cluster phenomenon at any tested scale.  (§7.ter.40.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration
