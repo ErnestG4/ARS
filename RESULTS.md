@@ -7388,6 +7388,84 @@ both spatial scales tested.
 
 ---
 
+### 7.ter.41  Phase 32a — pvc-11 natural-movie per-window p-adic at q_max=200
+
+EPISTEMIC_STATE.md flagged the pvc-11 natural-movie per-window p=7
+cell as the load-bearing missing comparator for the cross-substrate
+temporal-scope p-adic asymmetry: pvc-11 anesthetised macaque V1 carries
+full-recording p=7 enrichment in spontaneous + gratings (P7_PVC11_
+SPECIFIC at full-recording scope, §7.ter.39); Allen awake mouse V1
+carries per-window p=7 enrichment in natural_movie_one (cross-Cre-
+line, §7.ter.39).  Whether the pvc-11/Allen asymmetry is mediated by
+(a) stimulus content (natural-movie viewing produces per-window p=7
+regardless of substrate), (b) substrate (macaque vs mouse), or (c)
+state (anesthetised vs awake) was confounded in the comparison as
+structured.
+
+Phase 32a is an extraction-and-comparison pass over the Round 4 sweep
+parquets — both substrates already had per-window p-adic at q_max=200
+computed at identical protocol (5 windows, 5 surrogate seeds,
+rate-matched uniform Poisson, primes 2/3/5/7/11/13).  The missing
+operation was simply pulling the pvc-11 natural-movie / Allen
+natural_movie_one cells from the parquets and comparing.
+
+**Verdict: PER_WINDOW_SUBSTRATE_CONSISTENT.**
+
+pvc-11 natural-movie p=7 (monkey1 + monkey2, 10 windows total):
+mean window-z = −0.253, 0/10 windows z>2.  Both recordings classify
+PER_WINDOW_NULL on p=7.
+
+Allen natural_movie_one p=7 (6 sessions × 4 Cre lines, 30 windows
+total): mean window-z = +3.491, 19/30 windows z>2.  Per Cre line:
+Pvalb +3.81 (4/5), Sst +2.90 (5/10), Vip +3.62 (6/10), wt +4.10 (4/5).
+
+Natural-movie viewing alone is **insufficient** to produce per-window
+p=7 in anesthetised macaque V1.  The cross-substrate p=7 asymmetry
+cannot be explained by stimulus content; the substrate axis (whichever
+combination of macaque-vs-mouse and anesthetised-vs-awake) is doing
+the load-bearing work.  This narrows the candidate-interpretation
+space from three axes (stimulus, substrate, state) to two (substrate,
+state) but does not disambiguate substrate-vs-state — awake-macaque
+or anesthetised-mouse data remains the missing comparator for that
+disambiguation.
+
+#### Richer-than-anticipated supporting context
+
+The brief asked specifically about p=7.  But pvc-11 natural-movie
+*does* produce per-window p-adic structure — at p=2 (mean z = +2.53)
+and p=3 (+2.20).  Allen natural_movie_one carries per-window
+enrichment at p=2 (+7.92), p=3 (+3.23), p=7 (+3.49), and p=13 (+2.64).
+The substrate axis is **prime-specific, not presence-vs-absence of
+per-window structure**.  pvc-11 monkey2_gratings_movie has p=2
+PER_WINDOW_STATIONARY at mean z = +5.15; pvc-11 monkey2_noise_movie
+has p=2 mean z = +8.16 — both unexpected from the original brief and
+worth their own follow-up.
+
+#### Publication framing
+
+"Anesthetised macaque V1 and awake mouse V1 differ in per-window
+p-adic prime dominance during natural-movie viewing, with awake mouse
+V1 carrying p=7 enrichment that anesthetised macaque V1 does not
+produce at the same stimulus class.  The macaque-vs-mouse and
+anesthetised-vs-awake axes remain confounded; awake-macaque or
+anesthetised-mouse data would be required to disambiguate.  Both
+substrates carry per-window p=2 enrichment during movies — the
+cross-substrate axis is prime-specific."
+
+#### Outputs
+
+  - `data/phase32a_results/natural_movie_per_window_padic_comparison.parquet`
+  - `data/phase32a_results/natural_movie_per_window_padic_verdict.json`
+  - `data/phase32a_results/PHASE32A_FINDINGS.md`
+  - `phase32a/extract_natural_movie_comparison.py`
+
+EPISTEMIC_STATE.md updated in-place: p=7 long-coherence-vs-short-
+coherence entry adds the stimulus-ruled-out resolution; the
+"unresolvable from current data" framing narrows from three-axis to
+two-axis.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -7545,6 +7623,19 @@ not extend the corresponding literatures.
   Ohiorhenuan 2010 predicts.**  Combined Phase 27 (pvc-11, 400-600 µm)
   + Phase 28 (Allen NP, <300 µm): the H2 surviving structure is not
   a local-spatial-cluster phenomenon at any tested scale.  (§7.ter.40.)
+  Phase 32a extraction-and-comparison over Round 4 sweep parquets fills
+  the load-bearing missing comparator for the cross-substrate p-adic
+  asymmetry: pvc-11 natural-movie per-window p=7 (10 windows total
+  across monkey1+monkey2) is **PER_WINDOW_NULL** at mean window-z =
+  −0.253 (0/10 windows z>2), against Allen natural_movie_one p=7
+  mean window-z = +3.49 (19/30 windows z>2, all 4 Cre lines positive).
+  **Verdict: PER_WINDOW_SUBSTRATE_CONSISTENT** — natural-movie viewing
+  alone is insufficient to produce per-window p=7 in anesthetised
+  macaque V1; stimulus content is ruled out as the load-bearing axis.
+  Macaque-vs-mouse and anesthetised-vs-awake remain confounded.  pvc-11
+  natural-movie *does* carry per-window p-adic structure at p=2
+  (mean z = +2.53) and p=3 (+2.20); the substrate axis is prime-
+  specific, not presence-vs-absence.  (§7.ter.41.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration
