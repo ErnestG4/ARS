@@ -8009,6 +8009,237 @@ Phase 33c (single-molecule), per the brief's sequence note that the
 map is what the three phases collectively produce, not what any
 single phase produces.
 
+
+### 7.ter.47  Phase 34a — Mertens sign-changes: RF + p-adic v4 orthogonal channels
+
+The cross-domain phases (33a-c) closed the cross-domain question;
+attention returns to where ARS lives natively — arithmetic signals.
+The instrument-validation portfolio on the arithmetic side has so
+far been NNS-engine-only, and the NNS engine reproduces what RMT
+already measures.  The orthogonality-to-RMT story, if there is one,
+lives in the two channels RMT does not have: the Ramanujan-Fourier
+engine in indicator mode (integer-period structure detection on
+raw event times) and p-adic v4 (which prime concentrates the RF
+power).  Phase 34a applies both to the Mertens function sign-change
+positions, a load-bearing RH-adjacent arithmetic object whose bulk
+NNS-engine verdict is recorded in §15 as Poisson.
+
+The brief commits to no advance ordering on outcomes among
+NULL_IN_ORTHOGONAL_CHANNELS, RF_SPIKE_AT_q, P_ADIC_CONCENTRATION_p,
+AMBIGUOUS_AT_BOUNDARY, or NON_STATIONARY.
+
+#### Data and pipeline
+
+Mertens function M(n) = Σ_{k=1}^n μ(k) sieved to N_max = 10⁷
+(matches the project's §7.bis tabulation; out-of-scope to extend
+beyond published tables).  Sign-change positions: integers n where
+sign(M(n)) ≠ sign(M(n-1)), zeros skipped — 3,866 events in
+[3, 9,593,967], identical (event count and M at decades) to the
+existing `data/mertens_liouville_results.json` from §7.bis under
+independent re-sieve.
+
+  - `phase34a/mertens_events.py`        — sieve + sign-change extraction
+  - `phase34a/fast_rf.py`               — O((K + Σ_q q)) RF in indicator
+                                          mode via residue-class counts
+                                          (parity vs `arithmetic_toolkit.
+                                          ramanujan_fourier` ≤ 2.2e-19
+                                          machine precision)
+  - `phase34a/surrogate.py`             — rate-matched Poisson at K=50
+                                          local-density bins
+  - `phase34a/run_stationarity.py`      — sub-question 1 (phase30 module)
+  - `phase34a/run_nns_classify.py`      — sub-question 2 (deployed
+                                          `joint_q_profile`, Q_MAX=30,
+                                          JPF_CAP=1500)
+  - `phase34a/run_rf_padic_survey.py`   — sub-question 3 (RF + p-adic v4
+                                          on raw integer positions,
+                                          1000 Poisson surrogates)
+  - `phase34a/run_falsify.py`           — sub-question 4 (squarefree-
+                                          restricted surrogate, within-
+                                          window stability, second-source
+                                          cross-check)
+
+Acceptance gates before sub-question 3: STATIONARY_CALIBRATORS 8/8
+PASS (verified verbatim) and p-adic v4 synthetic suite 5/6 single-
+prime detections on the per-q-power-normalised metric (period-13
+narrow miss as documented in the sensitivity-limit memo — both
+gates pass).
+
+#### Sub-question 1: stationarity
+
+The phase30 10-window heuristic flags the global sign-change
+sequence as non-stationary (fraction_modal = 0.889 < 0.90;
+CV(rep_med) = 2.83 > 0.20, an artefact of the BL modal-class
+producing rep_med = 0.000 in 8 of 9 well-powered windows, so the
+std/mean ratio explodes).  The flag is **density-driven**, not
+**modal-class-driven**: 8 of 9 well-powered windows are unambiguous
+BL Poisson; the 9th drifts to TR at 37 events, marginally above the
+30-event underpower threshold; window 6 (11 events) is
+underpowered.  The per-window event count ranges from 1652 (window 0)
+down to 11 (window 6), tracking the density-bunching of sign-changes
+near M zero-crossings.
+
+Verdict path follows the brief: restrict the formal analysis to the
+density-stationary sub-window [1, 4·10⁶] (windows 0-3, all four BL
+with rep_med = 0.000, 3,016 events) and report the full sequence
+[1, 10⁷] as a robustness check.
+
+#### Sub-question 2: NNS-engine reproduction
+
+| configuration       | n   | primary | rep_med | ks_gue_med | per-q quadrants    |
+|---------------------|-----|---------|---------|------------|--------------------|
+| full [1, 10⁷]       | 3866 | **BL** | 0.000   | 0.904       | BL=30/30           |
+| dense [1, 4·10⁶]    | 3016 | **BL** | 0.000   | 0.882       | BL=28, ambiguous=2 |
+| tail [5·10⁶, 10⁷]   |  813 | **BL** | 0.000   | 0.922       | BL=28, ambiguous=2 |
+
+Unambiguous Poisson (BL) across all three configurations, modal
+across 30/30 q-bands on the full sequence.  Reproduces the §15
+capability-report verdict for Mertens / Liouville sign-change
+sequences without drift.
+
+#### Sub-question 3: RF + p-adic v4 against rate-matched Poisson
+
+RF indicator-mode |a_q| for q ∈ [1, 30] on raw integer positions,
+flagged via the 5×-median TL threshold and verified against 1000
+rate-matched Poisson surrogates with K=50 local-density bins.
+p-adic v4 dominant_prime_per_q at primes {2, 3, 5, 7, 11, 13}.
+
+|              | RF spike q (5× median) | RF spikes surviving Poisson at p<0.001 | p-adic dom_per_q | Poisson-sur modal | sur fraction matching real |
+|--------------|------------------------|---------------------------------------|------------------|-------------------|----------------------------|
+| dense window | 2, 3, 4                | 2, 3, 4                               | **p=2**          | p=2               | 0.432                      |
+| full         | 2, 3, 4, 6, 12         | 2, 3, 4 (6 and 12 do not survive)     | **p=2**          | p=2               | 0.462                      |
+
+Strong RF spike at q=2 (ratio real:sur-mean ≈ 20×–50× across q=2,3,4)
+and concentration at p=2 (normalised_per_q = 5.4, vs 0.8 at p=3,
+0.3 at p=5, 0.1 at p=7).
+
+The brief's pre-specified survival criterion (p < 0.001 against
+rate-matched Poisson) would, at this stage, support an
+RF_SPIKE_AT_q={2,3,4} + P_ADIC_CONCENTRATION_p=2 verdict.  The
+sub-question 4 falsification revises this.
+
+#### Sub-question 4: multi-order falsification — the surrogate identity
+
+M(n) only changes value at squarefree n (μ(n) is zero otherwise),
+so every Mertens sign-change position is a squarefree integer.  The
+squarefree integers have a fixed, non-uniform residue-class density
+profile: density at residue 0 mod 4 is exactly zero (4|n implies
+non-squarefree); odd:even density ratio is 2:1; mod-3 density at
+residue 0 is depressed relative to residues 1, 2; and so on.
+
+Observed residue distribution of the 3,866 sign-changes:
+
+  - mod 2:  1352 even, 2514 odd       (odd:even = 1.86 ≈ expected 2.0)
+  - mod 3:  936, 1476, 1454            (residue 0 depressed)
+  - mod 4:  **0**, 1273, 1352, 1241    (residue 0 forbidden by filter)
+
+So the RF spikes at q = 2, 3, 4 are exactly the residue-class
+density profile of the *support set*, not a property of the
+sign-change subsequence beyond that support.  The rate-matched
+Poisson surrogate of sub-question 3 destroys the squarefree filter
+and is therefore the wrong null for the question "is there
+integer-period structure in Mertens sign-changes beyond what the
+squarefree-integer support set forces?".
+
+Falsification (A) — squarefree-restricted local-density Poisson
+surrogate.  Per density bin, draw events uniformly from the
+squarefree integers in that bin (preserves the filter's residue-
+class density profile).  1000 seeds, K=50 bins, Q_MAX=30.
+
+| q   | real |a_q| | sqf-sur mean |a_q| | real / sqf-sur | p-value vs sqf-sur | survives p<0.001 |
+|-----|-----------|-------------------|----------------|---------------------|------------------|
+| 2   | 2.26e-4   | 2.52e-4           | **0.90×**      | 0.97                | **False**        |
+| 3   | 4.94e-5   | 6.53e-5           | **0.76×**      | 0.65                | **False**        |
+| 4   | 2.64e-4   | 1.66e-4           | 1.59×          | 0.035               | **False**        |
+
+(Dense window; full-sequence panel has the same qualitative pattern:
+real:sqf-sur = 0.90×, 0.76×, 1.53× at q = 2, 3, 4 respectively, with
+none surviving p < 0.001.)
+
+For q = 2 and q = 3 the real |a_q| is *below* the squarefree-restricted
+surrogate mean — the squarefree-filter density profile *over-predicts*
+the observed spike.  The q = 4 spike is mildly above (1.59× / 1.53×),
+fails the p < 0.001 threshold (p ≈ 0.03), and is bounded as
+suggestive-not-asserted under the AMBIGUOUS_AT_BOUNDARY column.
+
+The p-adic v4 dominant_prime_per_q under the squarefree-restricted
+null lands at p = 2 in 995 of 1000 surrogates.  The real signal's
+p-adic dom = p = 2 is the modal squarefree-filter outcome; not a
+property beyond the filter.
+
+Falsification (B) — within-window stability across 5 non-overlapping
+windows.  |a_q| at q = 2, 3, 4 is highly unstable across windows:
+
+|          | q=2 CV | q=3 CV | q=4 CV |
+|----------|--------|--------|--------|
+| dense    | 0.85   | 0.55   | 1.18   |
+| full     | 1.00   | 0.89   | 1.05   |
+
+|a_q| at flagged q tracks the per-window event count rather than a
+stable period structure.  Per the brief: "a genuine signal should
+not be confined to a single window."  Mertens sign-change |a_q|
+is dominated by window 0 (densest), inconsistent with a period-q
+component carried by the sequence per se.
+
+Falsification (C) — second-source cross-check.  Independent earlier
+sieve from §7.bis (`data/mertens_liouville_results.json`) gives
+n_sign_changes = 3866 and M(10^k) = [-1, 1, 2, -23, -48, 212, 1037];
+present sieve gives the same numbers exactly.  Self-consistency
+across two independent algorithm runs confirmed; the published-
+table independence (Hurst 1995 / Kuznetsov 2011) was out-of-scope.
+
+#### Verdict: NULL_IN_ORTHOGONAL_CHANNELS — beyond the squarefree filter
+
+The Mertens sign-change sequence is featureless under the orthogonal
+RF and p-adic v4 channels once the null is corrected to respect the
+support set.  The RF spikes at q = 2, 3 that survived the rate-
+matched Poisson surrogate of sub-question 3 are quantitatively
+explained — and slightly over-predicted (real / sqf-sur ≈ 0.76–0.90×)
+— by the squarefree filter alone.  The p-adic v4 dom = p = 2 is
+the squarefree-filter modal outcome (99.5% of squarefree-restricted
+surrogates).  The q = 4 spike at marginal significance (p ≈ 0.03 vs
+the squarefree-restricted null) fails the brief's p < 0.001 gate
+and is reported AMBIGUOUS_AT_BOUNDARY rather than asserted.
+
+Phase 34a sharpens the §15 Mertens entry from "Poisson by the NNS
+engine" to "Poisson by the NNS engine AND featureless under the two
+orthogonal channels beyond the squarefree-filter floor."  This is
+the orthogonal-channel survey's first arithmetic-side result.
+
+#### Methodological generalisation: support-set-respecting nulls
+
+A null that destroys structural constraints of the *support set* of
+an arithmetic point process is the wrong null and will produce
+spurious survival of structural-filter signatures.  This generalises
+to any arithmetic point process whose support is a structured
+subset: squarefree integers (Mertens / Liouville sign-changes),
+primes (counting-function arithmetic), p-smooth numbers, etc.  The
+rate-matched Poisson surrogate is correct only when the analysis
+question is "is there structure beyond density?"; it is incorrect
+when the analysis question is "is there structure beyond the
+support-set restriction the substrate already implies?".  The
+support-respecting null (squarefree-restricted Poisson at local
+density here) is required for the orthogonal-channel survey on any
+support-constrained arithmetic object — primes, p-smooth numbers,
+prime-power positions, etc.
+
+This is a sibling discipline to the §7.ter.19 published-product
+audit (Phases 33a-c): both insist that the null encode the structural
+property of the substrate (support set here; processing pipeline
+there) before the survey can speak to "structure" cleanly.
+
+#### Outputs
+
+  - `data/phase34a_results/mertens_signchanges_N10000000.npz`
+  - `data/phase34a_results/stationarity.json`
+  - `data/phase34a_results/nns_classify.json`
+  - `data/phase34a_results/rf_padic_survey.json`
+  - `data/phase34a_results/falsify.json`
+
+EPISTEMIC_STATE.md not modified by this phase: the verdict is on a
+single arithmetic object (Mertens sign-changes), the orthogonal-
+channel survey on ζ zeros / Dirichlet L-functions / elliptic curve
+L-functions is queued as Phase 34b/c per the brief.
+
 ---
 
 ## 8. Conclusions and limitations
@@ -8032,6 +8263,16 @@ on the inputs specified.
 
 - Primes ≤ 10⁶, log-density unfolding: σ̂ = 0.048, 95% CI [0.023, 0.073];
   twin primes ≤ 10⁷: σ̂ = 0.093, 95% CI [0.068, 0.118]. (§7.ter.23 Tier 4.)
+
+- Mertens function sign-change positions, N ≤ 10⁷, 3866 events:
+  NNS-engine = BL Poisson (modal 30/30 q-bands, ks_gue_med = 0.904);
+  RF indicator-mode and p-adic v4 orthogonal channels = featureless
+  beyond the squarefree-filter density profile of the support set
+  (real / squarefree-restricted-surrogate ratio = 0.76×, 0.90×, 1.59×
+  at q = 2, 3, 4; p > 0.001 at all three q against the squarefree
+  null).  Verdict NULL_IN_ORTHOGONAL_CHANNELS — beyond the squarefree
+  filter — with q = 4 reported AMBIGUOUS_AT_BOUNDARY at p ≈ 0.03
+  rather than asserted.  (§7.ter.47.)
 
 These reproduce statistics that are consistent with the GUE conjecture
 for ζ and with Katz–Sarnak family-symmetry predictions for L-function
