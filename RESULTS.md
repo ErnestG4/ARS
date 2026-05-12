@@ -8240,6 +8240,242 @@ single arithmetic object (Mertens sign-changes), the orthogonal-
 channel survey on ζ zeros / Dirichlet L-functions / elliptic curve
 L-functions is queued as Phase 34b/c per the brief.
 
+
+### 7.ter.48  Phase 34b — Liouville sign-changes: RF + p-adic v4 + cross-phase comparison with Mertens
+
+Phase 34b runs the orthogonal-channel survey on the second Möbius-
+family arithmetic object: positions where L(n) = Σ_{k=1}^n λ(k)
+changes sign.  Unlike μ, λ is non-zero on every integer (λ(n) =
+(-1)^Ω(n)), so L changes value by ±1 at every n — there is no
+squarefree-filter restriction on the support set.  The user's
+preamble note (added to the brief at run time) identifies the
+parallel construction to 34a's structural-null discipline: the
+natural null for L sign-changes is a ±1 random walk, not Poisson on
+integer positions, and a pre-falsification check on this surrogate's
+adequacy is load-bearing for the phase.
+
+#### Data and pipeline
+
+λ sieved to N_MAX = 10⁹ via a vectorised Ω-sieve (small-prime slice
+phase + chunked large-prime residue check; small_part free'd before
+λ array allocation to fit in 15 GB RAM).  λ-sieve parity vs the
+existing project's smallest-prime-factor sieve: machine-precision
+match at N = 10⁵ (cross-check).  Streaming cumsum + sign-change
+detection avoids the 8 GB int64 L array.
+
+  - 133 sign-changes total in [1, 10⁹]
+  - 1 isolated at n = 3 (the initial L(2)=0 → L(3)=-1 transition)
+  - **132 in the narrow window [906,150,257, 906,488,081]** — the
+    Tanaka (1980) counterexample to Pólya's conjecture and a tight
+    cluster of crossings where L oscillates around zero before
+    returning to L ≤ 0
+  - cluster width ≈ 337,825 integers; same per-integer density
+    (≈ 3.9 × 10⁻⁴) as Mertens sign-changes overall in 34a, which
+    makes a matched cross-phase comparison natural
+  - within the cluster, two sub-clusters at the boundaries: 91 events
+    in [906,150,257, 906,209,283] (low) and 41 events in
+    [906,477,703, 906,488,081] (high), with a ~268K-wide quiet
+    interior (no crossings)
+
+  - `phase34b/liouville_events.py`     — Ω-sieve + streaming sign-
+                                          change detection
+  - `phase34b/run_prefalsify.py`       — surrogate-adequacy diagnostic
+  - `phase34b/run_stationarity.py`     — sub-1 (cluster-scoped)
+  - `phase34b/run_nns_classify.py`     — sub-2 (cluster + sub-clusters)
+  - `phase34b/run_survey.py`           — sub-3/4 RF + p-adic vs two
+                                          nulls + within-window
+  - `phase34b/run_cross_phase.py`      — sub-4b Mertens × Liouville
+
+Acceptance gates carried from the 34a session as the brief permits:
+calibrator zoo 8/8 PASS, p-adic v4 5/6 single-prime detections
+(per-q-power-normalised metric, period-13 narrow miss documented).
+
+#### Pre-falsification: surrogate-adequacy diagnostic
+
+A ±1 random walk over [1, N] has expected zero-crossings ≈ √(N/π).
+At N = 10⁹ this is ≈ 17,841 — vs the real 133.  The unconditioned
+random-±1 null **overpredicts full-range crossings by ~134×**;
+real L stays ≪ 0 (drift much stronger than a simple random walk)
+for n < ~9 × 10⁸, then enters the Tanaka cluster.  The
+unconditioned null is therefore loose at full-range scope.
+
+Cluster-restricted null (1000 seeds, width = 337,825, starting at
+L_real(906,150,256) = -1):
+
+|              | mean | std | median | real |
+|--------------|------|-----|--------|------|
+| # crossings  | 234.2 | 175.6 | 197 | 132 |
+| P(null ≤ real) | 0.339 | | | |
+
+Real cluster count is in the 33.9% percentile of the random-walk
+null distribution — within the bulk.  Within the Tanaka cluster the
+random-walk null is **TIGHT** as a calibrator.
+
+#### Sub-question 1: stationarity
+
+| configuration              | well-powered windows | modal | frac_modal | stationary |
+|----------------------------|---------------------|-------|------------|------------|
+| cluster, 4 windows         | 2/4 (91, 41)        | BL    | 1.000      | True       |
+| cluster, 10 windows        | 3/10 (39, 52, 41)   | BL    | 0.667      | False (TR drift on 39-event window) |
+| full [1, 10⁹], 10 windows  | 1/10                | BL    | 1.000      | True (trivial — only window 9 well-powered) |
+
+Cluster is stationary at coarse resolution and shows mixed
+primary at fine resolution (one TR window at 39 events at the
+underpowering boundary, same pattern as 34a window-4).  Density
+non-stationarity dominates by construction (the cluster events lie
+in two sub-clusters at the boundaries).
+
+#### Sub-question 2: NNS-engine reproduction
+
+| configuration         | n   | primary | rep_med | ks_gue_med | per-q breakdown    |
+|-----------------------|-----|---------|---------|------------|--------------------|
+| cluster 132           | 132 | **BL**  | 0.000   | 0.931      | BL=29, ambiguous=1 |
+| full 133              | 133 | **BL**  | 0.000   | 0.922      | BL=30/30           |
+| sub-cluster low (91)  |  91 | **BL**  | 0.000   | 0.890      | BL=30/30           |
+| sub-cluster high (41) |  41 | **BL**  | 0.000   | 0.719      | BL=24, TR=5, amb=1 |
+
+Unambiguous Poisson (BL) modal across cluster, sub-clusters, and
+full-sequence configurations.  Reproduces the §15 capability-report
+verdict for Mertens/Liouville sign-change sequences without drift.
+
+#### Sub-question 3: RF + p-adic v4 against TWO nulls
+
+The user's surrogate-construction guidance: run both rate-matched
+Poisson (the wrong null, parallel to 34a) AND ±1 random walk on the
+cluster (the right structural null) — both reported as primary so
+the surrogate-identity-effect is visible.
+
+|                    | real | Poisson null mean | r(real/sur) | p (vs Poisson) | RW null mean | r(real/sur) | p (vs RW) |
+|--------------------|------|-------------------|-------------|----------------|--------------|-------------|-----------|
+| |a_q| at q=2       | 3.91e-4 | 2.77e-5      | **14.08×**  | 0.0000 ✓      | 6.93e-4      | **0.56×**   | 0.6630 ✗ |
+| p-adic dom_per_q   | p=2  | p=2 in 443/1000 (44%) | — | — | p=2 in 990/1000 (99%) | — | — |
+
+Against the rate-matched Poisson null: q=2 RF spike strongly
+survives (p < 0.001) and p-adic dom = p = 2 in real.
+Against the ±1-random-walk null: q=2 amplitude is **below** the
+surrogate mean (real is 0.56× of sur mean), and p-adic dom = p = 2
+is the modal random-walk outcome in 99.0% of surrogates.
+
+Same wrong-null/right-null pattern as 34a, but with a **different
+structural null**: 34a's right null was the squarefree-filter
+residue-density profile of the support set; 34b's right null is the
+random-walk first-passage statistics of the underlying ±1 process.
+Both nulls produce p = 2 dominance for distinct mechanistic reasons,
+and neither object carries integer-period structure beyond its
+natural structural null.
+
+Within-window stability (4-window split of the cluster — 2 well-
+powered windows at 91 and 41 events; middle 2 windows have 0 events
+by the cluster's sub-cluster geometry): q=2 dominates both well-
+powered windows but with amplitudes 1.08e-3 (win 0, n=91) vs 4.85e-4
+(win 3, n=41) — scales with the per-window event count, consistent
+with the random-walk null's behaviour and inconsistent with a
+period-q component that ought to be window-invariant.
+
+#### Sub-question 4: cross-tabulation
+
+The N=10⁹ sieve's first cluster sign-change at n = 906,150,257
+matches the Tanaka (1980) value for the smallest counterexample to
+Pólya's conjecture.  Independent published reference (Borwein,
+Ferguson & Mossinghoff, *Math. Comp.* 77, 2008) confirms the value.
+Project's earlier sieve at N=10⁷ found a single sign-change at n=3
+(the initial transition), and the present N=10⁹ extension preserves
+that and adds the cluster — self-consistent.
+
+#### Sub-question 4b: cross-phase Mertens × Liouville
+
+Both NNS-engine verdicts: BL Poisson.
+
+|                                    | Mertens 34a            | Liouville 34b          |
+|------------------------------------|------------------------|------------------------|
+| n_events (working scope)           | 3016 (dense [1, 4e6])  | 132 (Tanaka cluster)   |
+| RF spike q vs Poisson null         | 2, 3, 4 survive p<0.001 | 2 survives p<0.001     |
+| p-adic dom_per_q (real)            | p=2                    | p=2                    |
+| RF spike q vs structural null      | none survives p<0.001  | none survives p<0.001  |
+| p-adic dom under structural null   | p=2 in 995/1000 (sqf)  | p=2 in 990/1000 (RW)   |
+| structural null                    | squarefree-restricted  | ±1 random walk         |
+
+Matched-sample bootstrap (Mertens sub-sampled to n=132 with 100 draws):
+
+  - Pearson r between Mertens |a_q| (q = 2..30) and Liouville |a_q|:
+    **0.664 ± 0.170** (highly correlated)
+  - Mertens dom_per_q across bootstraps: p=2 in 94/100 draws, p=3 in
+    5, p=5 in 1
+  - Liouville dom_per_q: p=2
+
+**Verdict — PARALLEL_SIGNAL_AT_q=2_AGAINST_WRONG_NULL +
+PARALLEL_NULL_AGAINST_RIGHT_NULL.**
+
+The cross-phase comparison shows a parallel surface signal: both
+Möbius-family objects exhibit a q=2 RF spike and p=2 p-adic
+dominance against the rate-matched Poisson null, with their RF
+|a_q| spectra correlated at r ≈ 0.66 at matched sample size.  The
+parallel does NOT emerge from a shared substrate-level structural
+property of Möbius-family sequences.  It emerges from each object's
+**distinct** structural-null artefact — squarefree-filter residue
+density for Mertens, random-walk first-passage statistics for
+Liouville — both of which independently produce the same wrong-null
+signature (p=2 dominance + q=2 spike).  Once each object's correct
+structural null is applied, both return NULL.
+
+This is the dual-layer cross-phase verdict the brief's pre-specified
+DIVERGENT / PARALLEL_NULL / PARALLEL_SIGNAL trichotomy does not
+directly enumerate: PARALLEL_SIGNAL at the wrong-null layer +
+PARALLEL_NULL at the right-null layer.  The wrong-null parallel
+signal is **informative about the null shape**, not about substrate
+structure.  It is the second instance of the §7.ter.47 methodological
+generalisation: a structurally-loose null produces spurious survival
+of the substrate's structural-floor artefact, and the wrong-null
+signature can be similar across structurally-different substrates.
+
+#### Verdict — Liouville object individually
+
+**NULL_IN_ORTHOGONAL_CHANNELS** — against the random-walk null.
+Reported as SAMPLE_SIZE_BOUNDED on the auxiliary "structure beyond
+the random walk" claim: 132 events at q_max=30 means ≤ 5 events per
+residue class for q ≥ 30, so the survey's statistical resolution
+is intrinsically limited.  Pushing N_MAX past 10⁹ to access the
+~hundreds of further sign-changes in [10⁹, 10¹²] (per Borwein 2008
+extrapolation) would require Hurst-style or segmented Möbius-style
+algorithms beyond Phase 34b's back-to-back-session compute budget.
+
+#### Methodological generalisation extended from §7.ter.47
+
+For arithmetic point processes the natural null depends on the
+substrate's structural restriction:
+
+  - Support-restricted (Mertens / Liouville sign-changes only at
+    squarefree n; primes; prime-power positions): use a support-
+    respecting Poisson at local density.
+  - Random-walk-generated (Liouville sign-changes are zero-crossings
+    of the running ±1 sum; analogous for any cumulative-sign
+    arithmetic process): use a constrained random-walk null with
+    starting value matched to the analysis-window's L value.
+
+Both nulls are sibling-discipline to the §7.ter.19 published-product
+audit: each insists the null encode the *generative* property of the
+substrate before survey conclusions are clean.  The "right null" is
+substrate-specific.  This refines §7.ter.47's general support-set
+discipline.
+
+For queued Phase 34c (ζ zeros / Dirichlet L-functions / elliptic
+curve L-functions): each will have its own structural-null question
+to audit *before* the orthogonal-channel survey runs.  ζ zeros have
+a non-trivial mean spacing law (Riemann-Siegel theta unfolding);
+that is the structural property the right null must respect.
+
+#### Outputs
+
+  - `data/phase34b_results/liouville_signchanges_N1000000000.npz`
+  - `data/phase34b_results/prefalsify.json`
+  - `data/phase34b_results/stationarity.json`
+  - `data/phase34b_results/nns_classify.json`
+  - `data/phase34b_results/survey.json`
+  - `data/phase34b_results/cross_phase.json`
+
+EPISTEMIC_STATE.md not modified: arithmetic-instrument orthogonal-
+channel survey, not an H1/H2 substrate finding.
+
 ---
 
 ## 8. Conclusions and limitations
@@ -8273,6 +8509,21 @@ on the inputs specified.
   null).  Verdict NULL_IN_ORTHOGONAL_CHANNELS — beyond the squarefree
   filter — with q = 4 reported AMBIGUOUS_AT_BOUNDARY at p ≈ 0.03
   rather than asserted.  (§7.ter.47.)
+
+- Liouville function sign-change positions, N ≤ 10⁹, 133 events (1
+  isolated + 132 in the Tanaka counterexample cluster
+  [906,150,257, 906,488,081]):  NNS-engine = BL Poisson modal across
+  cluster and sub-clusters; RF + p-adic v4 against the rate-matched
+  Poisson null shows q=2 spike survives p<0.001 and p-adic dom=p=2,
+  but against the ±1-random-walk null (constructed parallel to 34a's
+  squarefree-restricted null) real |a_q| at q=2 is 0.56× of surrogate
+  mean (p = 0.66) and p=2 dominance is the modal random-walk outcome
+  (99.0%).  Verdict NULL_IN_ORTHOGONAL_CHANNELS — beyond the random-
+  walk null — bounded as SAMPLE_SIZE_BOUNDED at q ≥ 30.  Cross-phase
+  with Mertens (matched-sample bootstrap, Pearson r = 0.66 between
+  RF spectra at n = 132): PARALLEL_SIGNAL_AT_q=2 against the wrong
+  null + PARALLEL_NULL against each object's right structural null.
+  (§7.ter.48.)
 
 These reproduce statistics that are consistent with the GUE conjecture
 for ζ and with Katz–Sarnak family-symmetry predictions for L-function
