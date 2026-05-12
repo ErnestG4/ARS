@@ -363,7 +363,7 @@ and monkey2_noise_movie's p=2 mean z = +8.16 — both surfaced by
 Phase 32a's broader-prime extraction — constitute a separate finding
 category worth its own discipline pass.
 
-### Cross-engine substrate-systematic pattern (Allen INDEPENDENT_AXES; pvc-11 underpowered)
+### Cross-engine substrate-systematic pattern (Allen INDEPENDENT_AXES with both axes novel; pvc-11 underpowered)
 
 The pattern is that the NNS engine (F1/F0 ↔ rep_med) and the RF engine
 (p=7 enrichment) point in the same substrate-systematic direction:
@@ -398,23 +398,50 @@ NNS-engine substrate-systematic statistic or a per-cell-level
 decomposition that conflates within-recording and between-recording
 variation.
 
-**Disciplines cleared:** within-substrate Spearman on Allen (n=6, four
-scoring variants).  **Outstanding:** per-cell cross-engine analysis
-(units within recordings — n = 1,159 pvc-11 + 1,094 Allen — has
-adequate power on both substrates, with the within-vs-between
-recording confound to handle), pvc-11 substitute NNS-engine
-substrate-systematic statistic that doesn't require gratings stimulus.
-**Open:** the publication framing implication is load-bearing.
-Pre-Phase-32b the cross-engine direction match could be cited as
-second-engine corroboration of the substrate-systematic finding (a
-stronger claim).  Post-Phase-32b on Allen, the cross-engine direction
-match is **two independent findings about the same substrate**, not
-corroboration of one finding.  The substrate differs on at least two
-axes simultaneously rather than on one axis viewed by two engines.
-The §7.ter.10 band-invariance question raised previously — "why do
-two formally distinct engines pick out the same substrate axis?" —
-gains a partial answer: because the substrate differs on multiple
-axes, not because the two engines collapse to one measurement.
+**Disciplines cleared:** within-substrate Spearman on Allen at session
+aggregate (n=6, four scoring variants); **per-cell decomposition on
+Allen (Phase 32b per-cell follow-up, 2026-05-12): n=465 H1∩ARS cells
+across the 6 sessions, target ~ Williamson FA loadings with
+condition-matched FA fit (200 ms bins, sqrt-stabilised, CV up to 8
+factors).  Per-window p=7 mean z ORTHOGONAL on FA-nmo (R²=0.113
+[0.047, 0.248]) and on raw per-cell properties (R²=0.045); rep_med
+ORTHOGONAL on FA-drift (R²=0.113 [0.078, 0.198]) and on raw per-cell
+properties (R²=0.150); ks_gue_med ORTHOGONAL on FA-drift (R²=0.126)
+but PARTIAL on raw per-cell properties (R²=0.386, OSI coef +0.493
+dominant — recovers the H1 cross-substrate-locked finding at per-cell
+resolution on Allen).  Verdict: BOTH_ORTHOGONAL — per-window p=7 and
+rep_med are both novel substrate-systematic axes outside the Williamson
+FA decomposition AND outside the standard per-cell tuning properties.**
+**Outstanding:** pvc-11 substitute NNS-engine substrate-systematic
+statistic that doesn't require gratings stimulus, for cross-recording
+per-recording-level test on the pvc-11 side; higher-rank FA sensitivity
+(max_factors > 8) on Allen as a bound on the BOTH_ORTHOGONAL classification.
+
+**Substrate-specific FA decomposability (secondary observation from
+the per-cell pass):** Phase 27 Analysis 2 on pvc-11 H2 sessions had
+ks_gue_med ~ FA R² = 0.73–0.80 (SUBSUMED); Phase 32b per-cell on
+Allen 6 sessions has ks_gue_med ~ FA-drift R² = 0.126 (ORTHOGONAL).
+Same Williamson methodology, same max=8 factors, similar n_units per
+session.  On Allen ks_gue_med is captured by raw OSI directly
+(R²=0.386).  The H1 axis is cross-substrate locked, but its
+representation differs by substrate: FA-loaded on pvc-11, OSI-direct
+on Allen.  This is supporting context for the BOTH_ORTHOGONAL
+verdict, not a framing pivot.
+
+**Publication-framing implication.**  Pre-Phase-32b the cross-engine
+direction match could be cited as second-engine corroboration of the
+substrate-systematic finding (a stronger claim).  Phase 32b at session
+level reduced this to two independent findings about the same substrate.
+Phase 32b per-cell sharpens to **two independent findings, each on an
+axis that the standard noise-correlation FA does not capture and that
+the standard per-cell tuning properties do not capture**.  The
+substrate differs on at least three FA-independent axes (H1
+OSI-ks_gue_med, F1/F0-rep_med, per-window p=7), with the first
+captured by per-cell tuning on Allen, and the second and third novel
+at per-cell resolution.  The §7.ter.10 band-invariance question
+narrows further: two formally distinct engines pick out the same
+substrate direction because the substrate differs on multiple
+FA-independent axes simultaneously.
 
 ---
 
@@ -1230,24 +1257,25 @@ more interpretable framing than p=7 in isolation.
 
 Whether F1/F0 substrate-systematic and p-adic substrate-systematic
 share an underlying biological mechanism or are independent
-substrate-axes is now partly resolved.  **Phase 32b ran the cross-
-engine correlation discipline on Allen (n = 6 sessions): ρ = −0.086,
-INDEPENDENT_AXES.**  Sessions that contribute most to F1/F0 ↔ rep_med
-are not the sessions that contribute most to per-window p=7.  On the
-substrate where the test has power, the two engines are reading
-independent substrate-systematic axes that happen to share direction
-— not projections of one underlying axis.  pvc-11 remains underpowered
-at the per-recording level (n = 3 gratings recordings carry F1/F0;
-the movie + spontaneous variants don't have F1/F0 by stimulus
-construction).  The remaining open question is whether **per-cell
-decomposition** (units within recordings; n = 1,159 pvc-11 + 1,094
-Allen) would surface a within-recording cross-engine correlation that
-the cross-recording analysis missed.  That is the natural Phase 32c
-if the question stays load-bearing.  The publication framing
-implication is already real on Allen: the substrate differs on at
-least two axes simultaneously, not one axis viewed by two engines —
-the cross-engine direction match is two findings, not corroboration
-of one.
+substrate-axes is now resolved on Allen.  **Phase 32b ran the cross-
+engine correlation discipline on Allen at session aggregate (n = 6
+sessions): ρ = −0.086, INDEPENDENT_AXES.**  **Phase 32b per-cell
+decomposition follow-up (2026-05-12) ran the within-session per-cell
+regression discipline on n = 465 H1∩ARS Allen cells: BOTH_ORTHOGONAL
+— per-cell per-window p=7 ORTHOGONAL on FA-nmo (R²=0.113) and on raw
+per-cell properties (R²=0.045); per-cell rep_med ORTHOGONAL on
+FA-drift (R²=0.113) and on raw per-cell properties (R²=0.150).**  The
+two engines on Allen read substrate-systematic axes that are
+independent of each other *and* independent of the Williamson
+noise-correlation FA *and* independent of the standard per-cell
+tuning properties.  pvc-11 remains underpowered at the per-recording
+level (n = 3 gratings recordings carry F1/F0; the movie + spontaneous
+variants don't have F1/F0 by stimulus construction).  The publication
+framing is **two independent findings, each on a novel axis** —
+substrate differs on at least three FA-independent axes (H1
+OSI-ks_gue_med, F1/F0-rep_med, per-window p=7), with the first
+captured by per-cell tuning properties on Allen, and the second and
+third novel at per-cell resolution.
 
 The OSI / DSI / ks_gue_med triangle has internal structure that has
 not been mapped, and this is the most mechanism-suggestive finding-
@@ -1322,6 +1350,48 @@ small design question).  The GRB 230307A TR side-finding has not been
 done.  Whether to push the rate-stratified-back-application through
 the existing findings, or to treat the new discipline as "applies to
 future findings only," is a scoping decision.
+
+### V1-side closure status (as of 2026-05-12)
+
+The V1 substrate-side has reached closure on what bounded-effort
+public data permits.  **Closed (this consolidation window):** Phase 28
+spatial-scale at <300 µm on Allen NP (SPATIAL-SCALE-DEPENDENT, local
+bin LEAST TR-structured — Ohiorhenuan engagement closed across both
+substrates, §7.ter.40); Phase 32a stimulus-content axis on pvc-11
+natural-movie (PER_WINDOW_SUBSTRATE_CONSISTENT, content ruled out as
+load-bearing axis, §7.ter.41); Phase 32b cross-engine correlation at
+session aggregate on Allen (INDEPENDENT_AXES, §7.ter.42); Phase 32b
+per-cell decomposition follow-up (BOTH_ORTHOGONAL with secondary
+substrate-specific ks_gue_med decomposability finding, §7.ter.50);
+Phase 32c awake-macaque V1 data-pathway audit (DATA_PATHWAY_BOUNDED,
+§7.ter.43).  **Outstanding at the bounded-effort level:** the
+substrate-vs-state confound (species × awake-vs-anesthetised) for the
+cross-substrate p=7 asymmetry, which sits in DATA_PATHWAY_BOUNDED
+territory — not "data would help if we had it" but "spike-sorted
+public awake-macaque V1 with comparable structure does not currently
+exist."  Resolution pathways available: (1) accept and frame as
+anesthetised-macaque vs awake-mouse permanently; (2) partial test on
+Cadena 2019 with structure-mismatch caveat (full-recording p=7 only);
+(3) verify pvc-5 state (paywall paper-reading, ~1 hr — cheapest next
+step, currently pending); (4) wait for Neuropixels-NHP maturity or
+pursue direct lab collaboration (12–24 month horizon).  pvc-11 per-
+cell decomposition for the cross-engine analysis is the other
+analytic option that exists at bounded effort (within-session per-cell
+F1/F0 ↔ rep_med ↔ p=7 on the 3 pure-gratings recordings), but pvc-11's
+per-window p=7 is null (PER_WINDOW_NULL on natural-movie, full-
+recording on spontaneous + gratings only), so the natural analog of
+Phase 32b per-cell on pvc-11 would be cross-cell within-recording on
+the full-recording p=7 score — informative but not a direct test of
+the Allen finding.
+
+Further substrate-side extension would require either new public
+data ingesting (Neuropixels-NHP becoming available, awake macaque
+V1 with comparable structure) — which would change the bound — or
+own-extractor preprocessing of currently-inaccessible substrates
+(PSRCHIVE/PRESTO on raw pulsar archives per Phase 33a, CMSSW on
+RAW-level CMS data per Phase 33b, ds.cms-style raw imaging per Phase
+33c).  The "compatible-after-substantial-preprocessing" pathway is
+documented but is not on the immediate roadmap.
 
 ---
 

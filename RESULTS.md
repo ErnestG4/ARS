@@ -9016,6 +9016,109 @@ channel survey, not an H1/H2 substrate finding.
 
 ---
 
+### 7.ter.50  Phase 32b per-cell decomposition — Allen INDEPENDENT_AXES with both axes novel
+
+The Phase 32b session-aggregate cross-engine result on Allen
+(§7.ter.42) returned INDEPENDENT_AXES at n=6 sessions but flagged
+per-cell decomposition as the natural follow-up: regress per-cell
+per-window p=7 aggregate on per-cell Williamson noise-correlation FA
+loadings, replicate the Phase 27 SUBSUMED-vs-ORTHOGONAL pattern
+(§7.ter.37 Analysis 2) for rep_med and ks_gue_med on Allen, and
+resolve at per-cell resolution what the cross-engine axes *are*.
+
+**Method.**  Same 6 Allen sessions (732592105 wt, 791319847 Vip,
+760693773 Sst, 762602078 Sst, 797828357 Pvalb, 755434585 Vip),
+H1∩ARS-pass units (n=465 total, 66–91 per session).  Per-cell
+per-window p=7: cell's own spike train in the natural_movie_one
+chunks (concatenated total duration 600.5 s per session) partitioned
+into 5 equal-duration windows; padic_amplitude_v4 z(p=7) per window
+vs 3 rate-matched Poisson surrogates; aggregated as p7_mean_z and
+p7_frac_gt2 across well-powered windows (≥30 events/window, ≥3
+windows/cell).  Allen-native Williamson FA two fits per session
+(natural_movie_one and drifting_pooled, 200 ms bins, sqrt(x+0.5)
+transform, CV-selected n_factors up to 8, 5-fold).  Regression of
+per-cell metric on FA loadings with within-session z-scoring of
+predictors and target; 1000-resample bootstrap CI on R²; ORTHOGONAL
+if R²<0.20, SUBSUMED if ≥0.50.
+
+**13 / 465 cells flagged UNDERCOUNT** (2.8% — well-powered floor is
+non-binding on this cohort).  **CV-selected n_factors saturated at 8
+for all 6 × 2 = 12 FA fits** — matching the Phase 27 max=8 budget on
+pvc-11 H2 sessions; cross-substrate comparison stays methodologically
+fair, with the caveat that a higher-rank FA might absorb more
+variance.
+
+**Primary regressions (FA matched to measurement condition):**
+
+| target              | FA condition        | R² (95% CI)              | classification |
+|---------------------|---------------------|--------------------------|----------------|
+| per-window p=7 mean z   | natural_movie_one | +0.113 [+0.047, +0.248]  | **ORTHOGONAL** |
+| per-window p=7 frac z>2 | natural_movie_one | +0.066 [+0.035, +0.142]  | **ORTHOGONAL** |
+| rep_med             | drifting_pooled     | +0.113 [+0.078, +0.198]  | **ORTHOGONAL** |
+| ks_gue_med          | drifting_pooled     | +0.126 [+0.088, +0.208]  | **ORTHOGONAL** |
+
+**Robustness panel (raw per-cell properties — mean_rate, OSI, DSI,
+F1/F0):**
+
+| target            | R² (95% CI)             | classification |
+|-------------------|--------------------------|----------------|
+| per-window p=7 mean z | +0.045 [+0.015, +0.105] | ORTHOGONAL |
+| rep_med           | +0.150 [+0.115, +0.198]  | ORTHOGONAL  |
+| **ks_gue_med**    | **+0.386 [+0.318, +0.461]** | **PARTIAL** (OSI coef +0.493 dominant) |
+
+**Verdict: BOTH_ORTHOGONAL on Allen.**
+
+Per-window p=7 mean z is ORTHOGONAL to FA-nmo, FA-drift, and raw
+per-cell properties — the strongest INDEPENDENT_AXES reading.  rep_med
+is ORTHOGONAL to FA-drift, FA-nmo, and raw per-cell properties.  The
+Phase 32b session-aggregate INDEPENDENT_AXES strengthens to **per-cell
+INDEPENDENT_AXES with both axes novel**: the two engines on Allen read
+substrate-systematic axes that are independent of each other *and*
+independent of the Williamson noise-correlation FA *and* independent
+of the standard single-cell tuning properties.
+
+**Secondary finding — substrate-specific ks_gue_med FA decomposability:**
+Phase 27 Analysis 2 on pvc-11 H2 sessions had ks_gue_med ~ FA
+R² = 0.73-0.80 (SUBSUMED).  Phase 32b per-cell on Allen has ks_gue_med
+~ FA-drift R² = 0.126 (ORTHOGONAL).  Same Williamson methodology, same
+max=8 factors, similar n_units per session.  What absorbs ks_gue_med
+on Allen is the raw per-cell OSI axis (R²=0.386, OSI coef +0.493),
+recovering the established H1 cross-substrate-locked finding at
+per-cell resolution.  The H1 axis (OSI ↔ ks_gue_med) is shared across
+substrates; what differs is whether the FA absorbs it (pvc-11) or the
+raw OSI absorbs it (Allen).  This is supporting context for the
+BOTH_ORTHOGONAL primary verdict, not a publication-framing pivot.
+
+**Publication-framing implication.**  Pre-Phase-32b the cross-engine
+direction match was a candidate second-engine corroboration of a
+single substrate axis (strongest claim).  Phase 32b at session level
+reduced this to two independent findings about the same substrate
+(§7.ter.42).  Phase 32b per-cell sharpens to **two independent
+findings, each on an axis that the standard noise-correlation FA does
+not capture and that the standard single-cell tuning properties do not
+capture**.  The substrate differs on at least three FA-independent
+axes (H1 OSI-ks_gue_med, F1/F0-rep_med, per-window p=7), with the
+first captured by per-cell tuning properties on Allen, and the second
+and third novel at per-cell resolution.
+
+#### Outputs
+
+  - `data/phase32b_results/per_cell_p7_padic.parquet` (465 rows)
+  - `data/phase32b_results/per_cell_fa_loadings_nmo.parquet` (465 rows)
+  - `data/phase32b_results/per_cell_fa_loadings_drift.parquet` (465 rows)
+  - `data/phase32b_results/per_cell_decomposition_merged.parquet`
+  - `data/phase32b_results/per_cell_decomposition_verdict.json`
+  - `phase32b/per_cell_decomposition.py`
+  - `phase32b/PHASE32B_PER_CELL_FINDINGS.md`
+
+EPISTEMIC_STATE.md cross-engine entry updated in-place: per-cell
+decomposition outstanding-discipline is cleared; entry moves from
+"Allen INDEPENDENT_AXES, pvc-11 underpowered" to "Allen
+INDEPENDENT_AXES with both axes novel at per-cell resolution
+(BOTH_ORTHOGONAL), pvc-11 underpowered."
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -9245,7 +9348,25 @@ not extend the corresponding literatures.
   drifting-grating stimulus and is not measured on the 12 non-
   gratings recordings).  Cross-engine direction match is **two
   independent findings about the same substrate**, not one
-  underlying axis viewed twice.  (§7.ter.42.)
+  underlying axis viewed twice.  (§7.ter.42.)  Phase 32b per-cell
+  decomposition follow-up on Allen (465 H1∩ARS cells across the 6
+  sessions): per-cell per-window p=7 and per-cell rep_med both
+  classify **ORTHOGONAL** to Allen-native Williamson noise-correlation
+  FA (matched-condition R² = 0.113 each, 95% CI bootstrap upper
+  bounds 0.20 / 0.25) and ORTHOGONAL to raw per-cell tuning
+  properties (p=7 R² = 0.045; rep_med R² = 0.150).  **Verdict:
+  BOTH_ORTHOGONAL** — Phase 32b session-aggregate INDEPENDENT_AXES
+  strengthens to **per-cell INDEPENDENT_AXES with both axes novel**.
+  Secondary finding: ks_gue_med has substrate-specific FA
+  decomposability (Phase 27 pvc-11 R² = 0.73–0.80 SUBSUMED vs Phase
+  32b Allen R² = 0.126 ORTHOGONAL); on Allen ks_gue_med is captured by
+  raw OSI (R² = 0.386, OSI coef +0.493 dominant) — the H1 axis is
+  cross-substrate locked but its representation differs (FA-loaded on
+  pvc-11, OSI-direct on Allen).  Publication framing: substrate
+  differs on at least three FA-independent axes (H1 OSI-ks_gue_med,
+  F1/F0-rep_med, per-window p=7), the first captured by per-cell
+  tuning on Allen, the second and third novel at per-cell resolution.
+  (§7.ter.50.)
 
 - NANOGrav 15-year pulsar timing array (cross-domain substrate
   assessment): Phase 33a structural-match assessment on 5
