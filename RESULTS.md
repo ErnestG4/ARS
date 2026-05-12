@@ -7897,6 +7897,120 @@ with Phase 33b verdict + two methodological generalisations.
 
 ---
 
+### 7.ter.46  Phase 33c — single-molecule fluorescence blinking as cross-domain ARS substrate
+
+Third cross-domain assessment.  Single-molecule blinking has a
+specifically different epistemic role from Phase 33a/33b: the
+substrate has **theoretically predicted universality class structure
+from first-principles photophysics** (power-law on/off-time
+distributions, Kuno-Nesbitt universal exponent α ≈ 1.5), making it
+an instrument-validation candidate analogous to ARS's existing
+arithmetic-signal validation (Riemann ζ, L-functions, primes).
+
+Per the brief's amendment, the published-product-aggregation audit
+was applied at the survey entry point.  The single-molecule field
+publishes data at three processing levels, and the state-detection
+methodology is the analog of pulsar-folding / particle-physics-trigger
+aggregation.
+
+#### Processing-level audit
+
+  - **Raw photon-count traces**: continuous intensity, event-level
+    resolution preserved.  Sometimes available (Zenodo, supplementary).
+    Requires user-side state-detection → §7.ter.19 trap by construction.
+  - **State-detected event sequences**: post-extractor (binning +
+    thresholding, HMM, change-point analysis, deep-learning trace
+    idealisation).  Event-level resolution preserved but extractor
+    pre-applied.  Sometimes published (kinSoft challenge benchmarks).
+  - **Distributional summaries**: on/off-time histograms and fitted
+    power-law exponents.  Event-level resolution stripped.  This is
+    the predominant publication form.
+
+#### Convergent finding from the single-molecule literature
+
+The substantive Phase 33c result is not a pilot classification but a
+**convergent-validation finding from the literature**: the single-
+molecule biophysics field has independently documented the §7.ter.19
+failure mode in its own vocabulary:
+
+  - **Crouch, Sauer, Schuette 2014** (J Chem Phys 140, 114306,
+    "Distortion of power law blinking with binning and thresholding"):
+    "Real power law statistics with exponents α_on/off ≳ 1.6 ... would
+    not be observed as such in the experimental data after binning
+    and thresholding.  Instead, a power law appearance could simply
+    be obtained from the continuous distribution of intermediate
+    intensity levels."  Increasing binning time by 10× doubles
+    apparent truncation time and changes apparent power-law exponent
+    by 30 %.
+  - **Houel et al. 2016** (J Phys Chem C, "Understanding the Bias
+    Introduced in Quantum Dot Blinking Using Change Point Analysis"):
+    even CPA — the better-than-thresholding method — introduces
+    residual bias documented at the per-event-time level.
+
+This convergence is the substantive finding: the dataset-selection
+discipline that ARS formalized as the §7.ter.19 cross-domain
+generalisation (Phase 33a/33b) has an **independent precedent in
+single-molecule biophysics**, reached by a methodologically distinct
+field through an independent path.  Two fields, same conclusion
+about extractor-dependence of inferred event-level structure.  The
+boundary-readout discipline from WHYTHISEXISTS.md is empirically
+vindicated as a domain-general principle.
+
+#### Verdict
+
+**STRUCTURAL_MISMATCH at the published-product level + INSTRUMENT_
+VALIDATION_BOUNDED at the event-sequence level.**
+
+  - Most single-molecule blinking data is published at distributional-
+    summary level — past event-level resolution.  Dataset-selection-
+    incompatible.
+  - When event-sequence data is published, it is post-state-detection.
+    The state-detection methodology is the §7.ter.19 extractor,
+    independently documented in the literature.
+  - Even with clean event-sequence access, ARS's calibrator zoo does
+    not include a power-law-mixture universality class.  Instrument-
+    validation against single-molecule theory requires calibrator-
+    zoo extension before it can be run.
+
+Single-molecule fluorescence is **not in ARS's substantive cross-
+domain envelope at bounded-effort access**, and **only partially in
+the instrument-validation envelope** at the event-sequence level —
+calibrator-zoo extension being the blocking step.
+
+#### What Phase 33c does not foreclose
+
+  - kinSoft challenge benchmarks include synthetic data with ground-
+    truth state sequences, sidestepping state-detection bias for
+    instrument-validation purposes — potential entry point for
+    a subsequent phase.
+  - Power-law-matched calibrator addition would convert single-
+    molecule instrument-validation from "blocked" to "runnable" —
+    substantial enough to be its own phase.
+  - Stationary-vs-aging blinking discrimination connects to the
+    non-stationary-rate-discipline open question in EPISTEMIC_STATE
+    closing section.
+  - Multi-molecule MEA-style fluorescence imaging may provide
+    population-style data; not investigated in Phase 33c.
+
+#### Outputs
+
+  - `data/phase33c_results/PHASE33C_FINDINGS.md`
+
+No parquets / no pilot script — the published-product audit + the
+convergent literature finding suffice for the verdict.  Running a
+pilot against bias-uncertain event sequences from a specific state-
+detection method would not change the structural verdict and would
+itself be a §7.ter.19-flagged analysis.
+
+EPISTEMIC_STATE.md cross-domain section extended with Phase 33c
+verdict.  A three-domain cross-extension synthesis section added
+covering Phase 33a (pulsars) + Phase 33b (particle physics) +
+Phase 33c (single-molecule), per the brief's sequence note that the
+map is what the three phases collectively produce, not what any
+single phase produces.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -8134,6 +8248,33 @@ not extend the corresponding literatures.
   for neural spike trains but not for particle physics; uniform-in-X
   surrogates produce trivially-large z-scores wherever data has been
   selected to contain known structure.  (§7.ter.45.)
+
+- Single-molecule fluorescence blinking (Phase 33c cross-domain
+  assessment).  No pilot classifications; survey-level audit only.
+  **Verdict: STRUCTURAL_MISMATCH at the published-product level +
+  INSTRUMENT_VALIDATION_BOUNDED at the event-sequence level.**  Most
+  single-molecule blinking papers publish at the distributional-
+  summary level (power-law on/off-time fits, exponents) — past
+  event-level resolution.  When event sequences are published, they
+  are post-state-detection; the state-detection methodology (binning
+  + thresholding, HMM, change-point analysis, deep-learning
+  idealisation) is the §7.ter.19 extractor.  The substantive Phase
+  33c finding is a **convergent-validation result from the
+  literature**: the single-molecule biophysics field has
+  independently documented the §7.ter.19 failure mode in its own
+  vocabulary as the "binning-and-thresholding distortion" problem
+  (Crouch, Sauer, Schuette 2014, J Chem Phys 140, 114306; Houel et
+  al. 2016, J Phys Chem C "Understanding the Bias Introduced in
+  Quantum Dot Blinking Using Change Point Analysis").  Two
+  methodologically distinct fields reach the same conclusion about
+  extractor-dependence of inferred event-level structure, by
+  independent paths.  Even at clean event-sequence access, ARS's
+  calibrator zoo does not include a power-law-mixture universality
+  class needed for single-molecule instrument-validation — extension
+  required before validation can run.  Single-molecule fluorescence
+  is not in ARS's substantive cross-domain envelope at bounded-effort
+  access; the convergent-discipline finding is the substantive
+  cross-domain result.  (§7.ter.46.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration

@@ -908,37 +908,175 @@ have.
   - Cross-detector replication (ATLAS vs CMS) — sits on top of
     either of the above.
 
-### Cross-domain extension — pattern across Phase 33a (pulsars) + Phase 33b (particle physics)
+### Cross-domain extension — single-molecule fluorescence (Phase 33c)
 
-Both cross-domain probes returned a variant of STRUCTURAL_MISMATCH at
-the bounded-effort published-product level, with the same structural
-shape: data exists at event-level resolution at recording / RAW time,
-but the publicly-released processed product has aggregated past that
-resolution because the domain's primary scientific question lives in
-the aggregated quantities (residuals for pulsars, reconstructed
-kinematic distributions for particle physics).  ARS's compatibility
-envelope is determined by the published-product layer across domains,
-not by recording resolution.
+Third cross-domain assessment, with a specifically different
+epistemic role: single-molecule blinking has theoretically predicted
+universality structure (power-law on/off-time distributions, Kuno-
+Nesbitt universal exponent α ≈ 1.5), making it an instrument-
+validation candidate analogous to arithmetic-signal validation.
 
-The compatibility-envelope gate is **structural to how scientific
-ecosystems publish data**: collaborations release the product that
-serves their primary analysis question.  When that question is not
-"what is the universality class of the event-arrival process," the
-released product strips event-level resolution.  Cross-domain ARS
-extension is therefore bounded across substrates whose communities
-study residuals / aggregated distributions rather than event-arrival
-statistics.
+Per the brief's amendment, the published-product audit was applied
+at the survey entry point.  Single-molecule data publishes at three
+processing levels: raw photon-count traces (rare; user-side state-
+detection needed = §7.ter.19 trap), state-detected event sequences
+(sometimes; post-extractor), and distributional summaries (most
+common; past event-level resolution).
 
-Two domains where event-level resolution *is* the natural published
-product — and where ARS therefore has a clean compatibility envelope —
-are: (1) neural spike-sorted unit recordings (the original training
-domain), and (2) photon-arrival timing in transient astronomy
-(GRBs and similar bursts, where individual photon timestamps are the
-primary published product per §7.ter.32 / §7.ter.36).  The cross-
-domain envelope is more constrained than initial intuition suggests;
-it includes domains where individual events *are* the data, and
-excludes domains where individual events are aggregated upstream of
-publication.
+**Verdict: STRUCTURAL_MISMATCH at the published-product level +
+INSTRUMENT_VALIDATION_BOUNDED at the event-sequence level.**
+
+  - Distributional-summary publication form (most common) is past
+    event-level resolution — dataset-selection-incompatible.
+  - State-detected event sequences are post-extractor; the state-
+    detection methodology is the §7.ter.19 trap.
+  - Even with clean event access, ARS's calibrator zoo lacks a
+    power-law-mixture universality class — instrument-validation
+    against single-molecule theory requires calibrator-zoo
+    extension as the blocking step.
+
+**Substantive Phase 33c finding — convergent-validation from the
+literature.**  The single-molecule biophysics field has
+**independently documented the §7.ter.19 failure mode** in its own
+vocabulary as the "binning-and-thresholding distortion" problem:
+
+  - Crouch, Sauer, Schuette 2014 (J Chem Phys 140, 114306): "Real
+    power law statistics ... would not be observed as such in the
+    experimental data after binning and thresholding.  Instead, a
+    power law appearance could simply be obtained from the
+    continuous distribution of intermediate intensity levels."
+  - Houel et al. 2016 (J Phys Chem C): even change-point analysis,
+    the better-than-thresholding method, introduces residual bias
+    documented at the event-time level.
+
+Two methodologically distinct fields (ARS / criticality_tool +
+single-molecule biophysics) reach the **same conclusion** about
+extractor-dependence of inferred event-level structure, by independent
+paths.  The §7.ter.19 dataset-selection generalisation is not a
+tool-specific quirk but a structural feature of quantitative
+measurement on continuous traces.  The boundary-readout discipline
+from WHYTHISEXISTS.md is empirically vindicated as a domain-general
+principle, not a domain-specific finding.
+
+### Three-domain cross-extension synthesis (Phase 33a + 33b + 33c)
+
+The three cross-domain probes were deliberately sequenced (pulsars
+→ particle physics → single-molecule) to surface structural
+commonalities and divergences in informative order.  The collective
+verdict map:
+
+| Domain                    | Substantive verdict                                  | Instrument-validation verdict       | Compatibility-envelope structure          |
+|---------------------------|-----------------------------------------------------|-------------------------------------|-------------------------------------------|
+| Pulsar timing (NANOGrav)  | STRUCTURAL_MISMATCH (published-product folded TOAs) | n/a (no theoretical prior available at this product level) | Bounded — published product aggregated past event-level resolution |
+| Particle physics (CERN OD) | STRUCTURAL_MISMATCH time-domain; STRUCTURAL_MATCH_BOUNDED mass-spectrum | Mass-spectrum reproduces resonance structure trivially — instrument-validation only | Bounded — NanoAOD strips timestamps; mass-framing accessible but surrogate-inadequate |
+| Single-molecule fluorescence | STRUCTURAL_MISMATCH (published-product distributional summaries) | INSTRUMENT_VALIDATION_BOUNDED at event-sequence level (calibrator-zoo extension required) | Bounded — predominant publication is distributional summary; event sequences are post-state-detection |
+
+**Structural commonalities** (the load-bearing pattern):
+
+  1. **All three domains record at event-level resolution at the raw
+     measurement layer.**  RAW LHC detector ADC samples, radio
+     telescope sub-integration photon timestamps, single-fluorophore
+     photon counts at instrumental time-resolution.  The event-level
+     data exists.
+  2. **All three domains publish at processing levels that have
+     aggregated past event-level resolution.**  Folded-template TOAs
+     for pulsars; NanoAOD + derived CSVs for particle physics;
+     distributional summaries (sometimes event sequences) for single-
+     molecule.  The aggregation choice is determined by what the
+     community's *primary scientific question* is, which is rarely
+     "what universality class does the event-arrival process belong
+     to."
+  3. **The aggregation is methodology-specific and well-documented**
+     in each domain.  Pulsar folding is described in PSRCHIVE/PRESTO
+     manuals; trigger algorithms are documented per LHC experiment;
+     state-detection is documented in single-molecule papers and
+     benchmarks.  The methodology being documented does not make
+     ARS-on-the-aggregated-product compatible — it makes the
+     aggregation auditable.
+  4. **Each domain has independently identified the
+     §7.ter.19-equivalent extractor-dependence problem within its own
+     vocabulary.**  Particle physics has trigger-efficiency
+     systematics; single-molecule has binning-and-thresholding
+     distortion (Crouch 2014, Houel 2016).  The dataset-selection
+     discipline from §7.ter.19 / Phase 32c / Phase 33a-b-c is
+     domain-general.
+
+**Structural divergences** (where the three domains differ from each
+other and from neural / GRB data, which ARS handles natively):
+
+  - **Pulsar timing**: aggregation strips time-domain event-level
+    resolution; alternative framing (residuals) is a continuous
+    series, not a point process at all.
+  - **Particle physics**: time-domain stripped at NanoAOD level;
+    alternative framing (mass spectrum as point process) is
+    accessible but the surrogate-adequacy question is unsolved.
+    Physics-aware surrogate construction is the missing
+    infrastructure.
+  - **Single-molecule fluorescence**: theoretically predicted
+    universality structure (power-law mixture) is not in ARS's
+    calibrator zoo.  Calibrator-zoo extension is the missing
+    infrastructure.
+
+**ARS's substantive cross-domain envelope** (as of 2026-05-11, post-
+Phase 33c):
+
+  - **In the envelope:** neural spike-sorted unit recordings (the
+    training domain); GRB / X-ray binary photon-arrival timing
+    (§7.ter.32, §7.ter.36 — primary publication is individual photon
+    timestamps); arithmetic signal validation (Riemann ζ, L-function
+    zeros, prime counts — point process in spectral coordinate).
+  - **Bounded** for instrument-validation only: mass-spectrum framing
+    on particle physics (reproduces known structure but adds no
+    information); single-molecule event sequences IF calibrator-zoo
+    extended.
+  - **Out of the envelope at bounded effort:** pulsar timing TOAs;
+    particle physics time-domain; single-molecule distributional
+    summaries.
+  - **Compatible-after-substantial-preprocessing:** raw radio
+    archives (PRESTO/PSRCHIVE pipeline work); RAW-level LHC data
+    (CMSSW + multi-TB); raw photon-count traces with user-side
+    state-detection (committing to the extractor up front).
+
+**The substantive cross-domain extension finding**: ARS's compatibility
+envelope is structural to the published-data-product layer across
+domains, not incidental to any specific dataset.  Cross-domain
+extension to a new substrate must:
+
+  1. **Audit the published-product processing level** at the survey
+     entry point (Phase 33b-amendment lesson).
+  2. **Audit the natural no-structure prior** of the target domain —
+     rate-matched Poisson is canonical for neural, but other domains
+     have process-specific natural nulls (Drell-Yan continuum,
+     power-law mixtures, GARCH/Hawkes, detector noise spectra).
+     Uniform-in-X surrogates produce trivially-large z-scores
+     wherever data has been selected to contain known structure.
+  3. **Check whether the substrate's predicted universality structure
+     is in ARS's calibrator zoo.**  If not, calibrator-zoo extension
+     is a blocking step for instrument-validation.
+
+These three pre-pilot audit questions are now standard discipline
+for cross-domain ARS phases.  Future cross-domain briefs should
+apply them at the survey entry point and report the verdict before
+committing to ingestion or pilot work.
+
+**Convergent-validation finding (the cross-domain meta-result):**
+
+The §7.ter.19 dataset-selection generalisation is empirically
+vindicated as a domain-general structural feature, not an ARS-
+specific lesson.  The single-molecule biophysics field independently
+formalized the same discipline as "binning-and-thresholding
+distortion."  The particle physics community has trigger-efficiency
+systematics that formalize the same concern.  The pulsar timing
+community has folded-template-bias systematics.  All four communities
+(ARS, single-molecule, particle physics, pulsar timing) converge on
+the same structural conclusion about extractor-dependence of
+event-level structure, by independent paths.
+
+This convergence strengthens the boundary-readout discipline from
+WHYTHISEXISTS.md as a load-bearing meta-principle: distinguishing
+field from apparatus is *the* whole job of quantitative measurement
+across domains, and the methodologies that survive in mature fields
+all incorporate some version of this distinction.
 
 ---
 
