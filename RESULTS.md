@@ -8884,6 +8884,126 @@ These two extensions land in the brief-template + cross-domain-
 audit-discipline memory files as part of the consolidation
 follow-up to Phase 34c.
 
+#### Methods note — false-positive equivalence class typology
+
+A *false-positive equivalence class* is a set of substrates that
+produce the same wrong-null survival signature for reasons unrelated
+to substrate structure.  Phases 34a-c surface **two structurally
+distinct sources** of false-positive equivalence classes that a
+complete null-discipline audit must distinguish:
+
+  - **Substrate-side equivalence class (§7.ter.47-48):** different
+    substrates share a structural-prior property that the wrong null
+    destroys.  Mertens and Liouville sign-changes share the property
+    of being integer-supported sequences whose generative substrate
+    (squarefree filter / random-walk first-passage) is destroyed by
+    the rate-matched-Poisson wrong null.  The wrong-null signature
+    (p=2 / q=2 in the deployed indicator-mode RF) is the same
+    *because the missing structural prior is the same kind of
+    integer-support property*, not because the substrates share
+    anything beyond that.
+
+  - **Machinery-side equivalence class (§7.ter.49 mode-A axis):**
+    different substrates share a processing-step in the analysis
+    pipeline that injects its own signature into the spacing
+    spectrum.  Indicator-mode RF discretisation imports the integer-
+    position wrong-null signature from any substrate that uses it,
+    regardless of substrate type.  Spectral-coordinate substrates
+    (ζ, Dirichlet, EC L) under mode-A discretisation cluster at
+    p=2 in 5/7 panels — not because they share a substrate property
+    with Mertens/Liouville, but because they share the discretisation
+    machinery.
+
+The two classes look identical at the observable level (a
+correlation matrix between RF |a_q| spectra cannot distinguish
+them) but require different right-null discipline:
+
+  - Substrate-side: encode the missing structural prior in the
+    surrogate (squarefree-restricted Poisson; constrained random
+    walk; RMT-unfolded ensemble — §7.ter.47-48 typology).
+  - Machinery-side: encode the processing step in the surrogate
+    (mode-A surrogates must also be discretised on the same grid
+    as the real data; mode-B surrogates avoid the discretisation
+    step entirely).
+
+A complete pre-pilot audit (§7.ter.49 four-question + sub-axes)
+covers both: Q4 typology names the substrate-side commonality;
+the mode-of-RF-computation axis names the machinery-side
+commonality.
+
+#### Methods note — pooling-artifact substructure on q=K
+
+The K-pool sweep in `phase34c/run_pooling_artifact_check.py`
+verified that q=K is the primary RF-spike position when K objects
+are pool-unfolded.  Substructure beyond q=K (q's at 5× median across
+5 seeds per K, summed):
+
+| K (prime?) | q=K | q=K's divisors (composite K) | q=2 background | other small q |
+|------------|-----|------------------------------|----------------|---------------|
+| K=5 (prime)  | 5/5 | (none > 1)                   | 2/5            | sporadic q=4, q=6, q=8 |
+| K=10 (composite) | 5/5 | q=5 in 2/5, q=2 in 3/5 (= K/2, K/5) | 3/5 | sporadic q=3, q=7 |
+| K=17 (prime) | 5/5 | (none > 1)                   | 0/5            | sporadic q=4, q=6, q=11 |
+| K=25 (composite) | 4/5 | q=5 not flagged              | 2/5            | (none) |
+| K=35 (composite, K > Q_MAX) | n/a | q=5, q=7 not flagged | 0/5 | sporadic q=4, q=9 |
+| K=50 (composite, K > Q_MAX) | n/a | q=2 in 2/5, q=5/10/25 not flagged | 2/5 | sporadic q=12 |
+
+Pattern:
+  - **q=K is the dominant artefact** (universal at K ≤ Q_MAX).
+  - **K's divisors (composite K) appear sporadically at K/2 and
+    K/5 — not at all divisors uniformly.**
+  - **Harmonics 2K, 3K do not reliably appear** at the 5× median
+    threshold; the pooling artefact is localised at q=K, not
+    spread across modular multiples.
+  - **Low-q background (q=2) appears at most pool sizes** as a
+    general pooling artefact independent of K.
+  - **For K > Q_MAX, the q=K spike disappears** (out of detection
+    range); only low-q (q=2) sporadic background remains.
+
+Discipline implication: the pooling-null sub-axis must check
+**the full q ∈ [2, Q_MAX] range**, not just q=K.  The sub-axis is
+not a "test for one specific q" — it is a "test for the family of
+q values structurally susceptible to pooling at K", which is q=K
+primary + K's divisors in [2, Q_MAX] + a low-q (≈ q=2) background.
+
+#### Methods note — prime-K seduction discipline
+
+The K-pool sweep flagged EC root-minus q=17 specifically because
+17 is the number of curves in the root-minus pool.  **Both 17 (the
+catch case) and the alternative K values where this artefact
+would surface — K=11, K=13, K=19, K=23, K=29 within q_max=30 — are
+prime numbers.**  A prime q value in an arithmetic-substrate
+RF survey is exactly the kind of result that:
+
+  - Lacks a generic "composite q is a hidden modular artefact"
+    explanation (no nontrivial divisors to point to).
+  - Carries number-theoretic load-bearing weight (primes are the
+    natural-language atoms of arithmetic claims).
+  - Maps onto publication-attention attractors (a "novel prime
+    period in EC L-zeros" headline would attract scrutiny in a
+    way "novel period 10" would not).
+
+Composite K (K=10, K=25) is less seductive because the q=K spike
+co-occurs with q=K/2 or q=K/5 spikes whose composite-divisor
+explanation is immediate.  Prime K hides the divisor-explanation
+fallback and presents the q=K spike as a clean, isolated, prime
+finding.  *The seduction is highest where the divisor-fallback is
+lowest.*
+
+Discipline: **pooled-substrate analyses must run the sub-pool
+sweep regardless of how compelling the apparent signal looks,
+especially at prime q values where the divisor-fallback is unavailable
+and the publication-attention attractor is strongest.**
+
+Phase 34c's EC root-minus q=17 result is exactly the case where
+the sub-pool sweep prevented a near-miss publication artefact: a
+prime-q RF spike in EC L-function pooled-by-root-number zeros
+would be precisely the kind of "novel arithmetic finding" that
+deserves community attention.  The discipline that named the
+spike as a K=17 pooling artefact (rather than a substrate property
+of root-minus EC L-functions) is the load-bearing structural
+audit.  This becomes a mandatory sub-step in pooled-substrate
+brief-drafting going forward.
+
 #### Outputs
 
   - `data/phase34c_results/prepilot.json`
