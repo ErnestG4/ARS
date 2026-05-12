@@ -7771,6 +7771,132 @@ before assessing substrate physics.
 
 ---
 
+### 7.ter.45  Phase 33b — CERN Open Data particle physics events as cross-domain ARS substrate
+
+Phase 33b is the second cross-domain structural-match assessment.
+The brief was amended explicitly: apply the Phase 33a published-
+product-aggregation lesson at the *survey entry point* rather than
+only at the structural-assessment stage.  CERN Open Data publishes
+at multiple processing levels (RAW, AOD, MiniAOD, NanoAOD, derived
+educational CSVs), each with different aggregation status, and the
+choice of level directly determines compatibility-envelope status.
+
+#### Processing-level audit (entry-point gate)
+
+  - **RAW**: pre-trigger, full BX-clock 25-ns timestamps preserved.
+    ARS-compatible in principle but requires CMSSW/Athena + multi-TB
+    infrastructure.  Not bounded-effort.
+  - **AOD / MiniAOD**: triggered events, full reconstructed-object
+    lists.  CMSSW required.  Not bounded.
+  - **NanoAOD**: most accessible (uproot-readable, ~1 kB/event).
+    **Preserves Run/LumiBlock/Event identifiers only — wall-clock
+    timestamps stripped during reconstruction.**  Trigger pre-applied.
+  - **Derived educational CSVs** (CERN Open Data record 545 and
+    similar): NanoAOD-derived, further selection-filtered, no
+    timestamps, kinematic quantities only.
+
+**All bounded-effort accessible levels are (a) post-trigger and
+(b) time-stamp-stripped.**  The trigger acts as a §7.ter.19-style
+extractor; the time-stamp stripping removes the inter-event timing
+ARS would read.  Per the Phase 33a generalisation, this is dataset-
+selection-incompatible for time-domain ARS at the published-product
+level.
+
+#### Alternative framing: mass-spectrum as point process in mass space
+
+The framing that *is* accessible: each dimuon event contributes one
+invariant mass M to a 1D point process in mass coordinate.  Standard
+Model resonance structure (Z⁰ at 91 GeV, J/ψ at 3.1 GeV, Υ family
+~10 GeV) is the known physics.  This is the LMFDB-zeros structural
+analog: point process in spectral coordinate, not in time.
+
+**Pilot:** CERN Open Data record 545 derived CSVs from CMS 2011A
+DoubleMu primary dataset (Zmumu 10k events, Jpsimumu 20k, Ymumu 20k,
+Dimuon_DoubleMu 100k).  Invariant mass computed from muon 4-vectors
+(massless-muon approximation).  Direct-stats per §7.ter.10 band-
+invariance; surrogate: rate-matched uniform-in-mass-range (10 seeds).
+
+| Sample          | n_events | M range (GeV) | CV     | mass<0.3 | KS_Poisson | z_KS_Poi |
+|-----------------|----------|----------------|--------|----------|-------------|----------|
+| Zmumu           | 10,000   | 60-120         | 3.35   | 0.59     | 0.34        | +247     |
+| Jpsimumu        | 20,000   | 0.8-13         | 48.7   | 0.78     | 0.53        | +341     |
+| Ymumu           | 20,000   | 7-24           | 81.6   | 0.74     | 0.49        | +320     |
+| Dimuon_DoubleMu | 100,000  | 0.06-300       | 63.7   | 0.84     | 0.59        | +838     |
+
+Every sample produces enormous z-scores against uniform-in-mass
+surrogate — but the "signal" is the known resonance peak structure
+that every CMS Drell-Yan paper shows on figure 1.  No information
+above existing methods.  The surrogate is too dumb: a physics-aware
+null (Drell-Yan continuum template) would be required to distinguish
+genuine novel structure from known resonance physics, and such a
+surrogate requires Monte Carlo / analytic-template infrastructure
+ARS doesn't currently have.
+
+#### Verdict: STRUCTURAL_MATCH_BOUNDED
+
+  - **Time-domain framing**: STRUCTURAL_MISMATCH at the published-
+    product level.  Same shape as NANOGrav: data exists in raw form,
+    published product has aggregated past the event-level temporal
+    resolution.  RAW-level analysis is compatible-after-substantial-
+    preprocessing (CMSSW + multi-TB infrastructure).
+  - **Mass-spectrum framing**: STRUCTURAL_MATCH at the instrument-
+    validation level only.  ARS reproduces known resonance peaks
+    but adds no measurement beyond what histogramming sees.
+    Substantive analysis requires physics-aware surrogates (Drell-Yan
+    continuum templates, trigger-efficiency models) — substantial
+    infrastructure investment.
+  - **Combined**: particle physics event data is *not* in ARS's
+    substantive cross-domain envelope at any bounded-effort
+    published-product level.
+
+#### Two generalisations that propagate
+
+  1. **Processing-level audit must precede structural-match
+     assessment.**  Phase 33b applied this at entry per the brief's
+     amendment.  Identifying that NanoAOD strips timestamps *before*
+     running a pilot saved unnecessary work and reframed the
+     structural question to the mass-spectrum framing where it could
+     actually run.  Future cross-domain phases should adopt the same
+     entry-point ordering.
+
+  2. **Surrogate adequacy is a domain-specific question.**  Rate-
+     matched Poisson is the natural null for neural spike trains
+     because Poisson is the canonical "no-structure" prior in that
+     domain.  In particle physics the natural null is process-
+     specific (Drell-Yan continuum, multijet QCD, etc.).  Uniform-in-X
+     surrogates produce trivially-huge z-scores in any domain where
+     data was selected to contain known structure — the signal is
+     just the selection.  Cross-domain extension to any new substrate
+     must audit whether ARS's existing surrogate set captures the
+     domain's natural no-structure prior before interpreting z-scores
+     as evidence of novel physics.
+
+#### What Phase 33b does not foreclose
+
+  - RAW-level analysis preserving BX-clock timestamps — possible but
+    not bounded-effort.
+  - Per-event particle-track timing within a single triggered event
+    (sub-nanosecond resolution at AOD level) — separate cross-domain
+    target worth its own phase.
+  - Physics-aware surrogate ecosystem development for the mass-
+    spectrum framing — substantial new infrastructure, different
+    framework than deployed NNS+RF engines.
+  - Cross-detector replication (ATLAS vs CMS) — sits on top of
+    either of the above.
+
+#### Outputs
+
+  - `data/phase33b_results/PHASE33B_FINDINGS.md`
+  - `data/phase33b_results/pilot_mass_spectrum_stats.parquet`
+  - `data/phase33b_results/{Zmumu,Jpsimumu,Ymumu,Dimuon_DoubleMu,Wmunu}.csv`
+    (CERN Open Data record 545, ~28 MB total)
+  - `phase33b/pilot_mass_spectrum.py`
+
+EPISTEMIC_STATE.md cross-domain extension section updated in-place
+with Phase 33b verdict + two methodological generalisations.
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -7979,6 +8105,35 @@ not extend the corresponding literatures.
   and the data is publicly available.  Per-pulse arrival data from
   raw radio archives would be a clean structural match but requires
   substantial PSRCHIVE/PRESTO preprocessing.  (§7.ter.44.)
+
+- CERN Open Data CMS Run2011A DoubleMu dimuon events (Phase 33b
+  cross-domain assessment).  Pilot on derived educational CSVs
+  (record 545: Zmumu 10k, Jpsimumu 20k, Ymumu 20k, Dimuon_DoubleMu
+  100k events).  **Verdict: STRUCTURAL_MATCH_BOUNDED.**  Processing-
+  level audit at the survey entry point (per the Phase 33a
+  generalisation): all bounded-effort accessible levels (NanoAOD,
+  derived CSVs) are post-trigger and time-stamp-stripped — wall-clock
+  timestamps preserved only at RAW level (CMSSW + multi-TB
+  infrastructure, not bounded).  Time-domain framing: STRUCTURAL_
+  MISMATCH at the published-product level.  Mass-spectrum framing
+  (each dimuon event contributes one invariant mass to a point
+  process in mass coordinate): STRUCTURAL_MATCH at the instrument-
+  validation level only.  Direct-stats pilot: every sample produces
+  enormous z-scores against uniform-in-mass surrogate (CV 3.4-82,
+  mass<0.3 = 0.59-0.84, KS_Poisson z = +247 to +838), but the signal
+  is the known resonance peak structure (Z⁰ at 91 GeV, J/ψ at 3.1
+  GeV, Υ family ~10 GeV) — what every CMS Drell-Yan paper plots on
+  figure 1.  No information above existing methods at this surrogate
+  level.  Substantive analysis would require physics-aware surrogates
+  (Drell-Yan continuum templates, trigger-efficiency models) —
+  substantial infrastructure investment in a framework different
+  from the deployed NNS+RF engines.  Two methodological generalisations
+  surfaced: (a) processing-level audit must precede structural-match
+  assessment at the survey entry point, and (b) surrogate adequacy
+  is a domain-specific question — rate-matched Poisson is canonical
+  for neural spike trains but not for particle physics; uniform-in-X
+  surrogates produce trivially-large z-scores wherever data has been
+  selected to contain known structure.  (§7.ter.45.)
 
 - Allen Brain Observatory Visual Coding Neuropixels (single-session
   awake-mouse-V1 triage): the Phase 22a interface configuration

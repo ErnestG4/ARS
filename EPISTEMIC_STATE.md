@@ -824,6 +824,122 @@ instead of the within-analysis level.
     CHIME/Pulsar) all face the same published-product structural
     mismatch.  The bound generalises across pulsar-timing consortia.
 
+### Cross-domain extension — particle physics (Phase 33b)
+
+Phase 33b (2026-05-11) is the second cross-domain assessment.  Per
+the brief's amendment, the published-product-aggregation audit was
+applied **at the survey entry point** rather than only at the
+structural-assessment stage.  CERN Open Data publishes at multiple
+processing levels (RAW, AOD, MiniAOD, NanoAOD, derived educational
+CSVs), each with different aggregation status.  The audit identified
+that **all bounded-effort accessible levels** are (a) post-trigger
+and (b) wall-clock-timestamp-stripped: NanoAOD preserves only
+Run/LumiBlock/Event identifiers, not actual collision timestamps;
+the LHC 40 MHz BX clock exists at RAW level only, which requires
+CMSSW + multi-TB infrastructure to access.
+
+**Time-domain framing: STRUCTURAL_MISMATCH at the published-product
+level**, same shape as NANOGrav folded-template TOAs.
+
+**Alternative framing — mass-spectrum as point process in mass
+coordinate** (analogous to the LMFDB-zeros instrument-validation
+work): each dimuon event contributes one invariant mass M to a 1D
+point process in mass space.  Standard Model resonance structure
+(Z⁰ at 91 GeV, J/ψ at 3.1 GeV, Υ family ~10 GeV) is the known
+physics.  Pilot on CERN Open Data record 545 derived CSVs (Zmumu
+10k, Jpsimumu 20k, Ymumu 20k, Dimuon_DoubleMu 100k events; direct-
+stats per §7.ter.10 band-invariance; surrogate: rate-matched
+uniform-in-mass) produced enormous z-scores everywhere — CV 3.4-82,
+mass<0.3 = 0.59-0.84, KS_Poisson z = +247 to +838.  But **the signal
+is the known resonance peak structure**, what every CMS Drell-Yan
+paper plots on figure 1.  No information above existing methods at
+this surrogate level.
+
+**Mass-spectrum framing: STRUCTURAL_MATCH at the instrument-
+validation level only.**  Reproduces known physics but adds no
+measurement beyond histogramming.
+
+**Combined verdict: STRUCTURAL_MATCH_BOUNDED.**  Particle physics
+event data is *not* in ARS's substantive cross-domain envelope at
+any bounded-effort published-product level.  RAW-level analysis
+preserving BX timestamps is compatible-after-substantial-
+preprocessing.  Substantive mass-spectrum analysis would require
+physics-aware surrogate infrastructure (Drell-Yan continuum
+templates, trigger-efficiency models) that ARS doesn't currently
+have.
+
+**Two methodological generalisations that propagate beyond Phase
+33b:**
+
+  1. **Processing-level audit must precede structural-match
+     assessment** at the survey entry point.  Phase 33b applied this
+     per the brief's amendment: identifying that NanoAOD strips
+     timestamps *before* running any pilot reframed the structural-
+     match question to the mass-spectrum framing where it could
+     actually run, and saved the deeper-infrastructure path from
+     being attempted unnecessarily.  Future cross-domain phases
+     should adopt the entry-point audit ordering.
+
+  2. **Surrogate adequacy is a domain-specific question.**  Rate-
+     matched Poisson is the canonical "no-structure" prior for neural
+     spike trains because Poisson is the natural null in that domain.
+     Other domains have different natural nulls: particle physics has
+     Drell-Yan continuum + trigger-efficiency-aware Poisson;
+     financial timing has GARCH/Hawkes-process baselines;
+     gravitational-wave timing has detector noise spectra.  Uniform-
+     in-X surrogates produce trivially-large z-scores in any domain
+     where the data was selected to contain known structure — the
+     signal is just the selection.  Cross-domain extension to a new
+     substrate must audit *whether ARS's existing surrogate set
+     captures the domain's natural no-structure prior* before
+     interpreting z-scores as evidence.  ARS does not currently have
+     a physics-aware-surrogate ecosystem outside neural Poisson-like
+     baselines; building one is a substantial framework extension.
+
+**What Phase 33b does not foreclose:**
+  - RAW-level CMS / ATLAS data preserving BX-clock event-arrival
+    timestamps (compatible-after-substantial-preprocessing).
+  - Per-event particle-track timing within a single triggered event
+    at AOD/MiniAOD level (sub-nanosecond resolution) — separate
+    cross-domain target.
+  - Physics-aware surrogate ecosystem development — substantial
+    infrastructure investment, different framework than deployed
+    NNS+RF engines.
+  - Cross-detector replication (ATLAS vs CMS) — sits on top of
+    either of the above.
+
+### Cross-domain extension — pattern across Phase 33a (pulsars) + Phase 33b (particle physics)
+
+Both cross-domain probes returned a variant of STRUCTURAL_MISMATCH at
+the bounded-effort published-product level, with the same structural
+shape: data exists at event-level resolution at recording / RAW time,
+but the publicly-released processed product has aggregated past that
+resolution because the domain's primary scientific question lives in
+the aggregated quantities (residuals for pulsars, reconstructed
+kinematic distributions for particle physics).  ARS's compatibility
+envelope is determined by the published-product layer across domains,
+not by recording resolution.
+
+The compatibility-envelope gate is **structural to how scientific
+ecosystems publish data**: collaborations release the product that
+serves their primary analysis question.  When that question is not
+"what is the universality class of the event-arrival process," the
+released product strips event-level resolution.  Cross-domain ARS
+extension is therefore bounded across substrates whose communities
+study residuals / aggregated distributions rather than event-arrival
+statistics.
+
+Two domains where event-level resolution *is* the natural published
+product — and where ARS therefore has a clean compatibility envelope —
+are: (1) neural spike-sorted unit recordings (the original training
+domain), and (2) photon-arrival timing in transient astronomy
+(GRBs and similar bursts, where individual photon timestamps are the
+primary published product per §7.ter.32 / §7.ter.36).  The cross-
+domain envelope is more constrained than initial intuition suggests;
+it includes domains where individual events *are* the data, and
+excludes domains where individual events are aggregated upstream of
+publication.
+
 ---
 
 ## Bounded or exploratory findings
