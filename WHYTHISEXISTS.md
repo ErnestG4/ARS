@@ -95,6 +95,87 @@ operationally tractable. None of them are novel — they are applied
 integrations of standard practices — but their combination is what the frame
 demands and what casual application of empirical methods often skips.
 
+## The two structural senses in which ARS is a bounded instrument
+
+After three years of refinement the boundedness of the instrument
+has a precise two-layer shape, both layers anchored by worked
+phases rather than declared as principles.
+
+**Layer 1 — Extractor-layer boundedness (§7.ter.19).**
+
+The apparatus only reads cleanly when its input is *already* an
+event point process. When the input is a continuous trace and a
+peak-detection / threshold-crossing step is inserted on the user
+side to turn it into a point process, the extractor's gap geometry
+contaminates the spacing statistics in a way no downstream test
+can recover from. The arithmetic side (ζ zeros, prime positions,
+sign-change positions of arithmetic partial sums) escapes this
+because the events are point-process-by-construction at the
+mathematical level; the cross-domain audit phases (33a-c)
+established the same gate for empirical domains. This is the
+extractor-layer bound, and it is *narrow but absolute*: either
+the published product is event-level or the survey is a
+§7.ter.19-flagged analysis from the start.
+
+**Layer 2 — Calibrator / null-enumeration boundedness
+(§7.ter.47-48).**
+
+Even when the input is unambiguously a point process, ARS reads
+*relative to a finite enumeration of calibrator classes and a finite
+enumeration of structural nulls*. The verdict the instrument
+returns is at most as fine-grained as the enumeration covers.
+When the substrate's true generative mechanism is not in the null
+zoo, the instrument can return a strong, statistically-significant
+"signal" that is really the signature of the missing null —
+the residue-class density profile of a support filter, or the
+first-passage statistics of a random walk, or the unfolding-driven
+mean spacing of a spectral coordinate. The signal is real *as a
+deviation from the deployed null*; it is null about substrate
+structure *beyond* what the missing null already explains.
+
+The Phase 34a-b sequence is the worked exposition of this layer:
+Mertens sign-changes (support-restricted to squarefrees) and
+Liouville sign-changes (zero-crossings of a cumulative ±1
+process) both survived the rate-matched Poisson null at q = 2
+with high significance, and both showed Pearson r ≈ 0.66
+between their RF |a_q| spectra at matched sample size. Read at
+the rate-matched-Poisson layer this is a "shared Möbius-family
+fingerprint." Read at the right-null layer — squarefree-restricted
+Poisson for Mertens, constrained random walk for Liouville — both
+are NULL, and the shared surface signal is *a false-positive
+equivalence class produced by the wrong null applied to two
+substrates from different generative families*. The instrument's
+finest-grained verdict is structurally as coarse as the coarser
+of (calibrator zoo, null zoo). The two-layer cross-phase
+enumeration in the brief template makes this layer visible by
+construction.
+
+Layer 2 is *open-ended in a way Layer 1 is not*. Layer 1 can be
+satisfied by a binary published-product audit; Layer 2 is a
+Cantor-style coverage problem — the work to enumerate all
+generative substrate families and their natural nulls is bounded
+by ingenuity rather than by a single check at brief-time. The
+four-question pre-pilot audit (published-product / surrogate
+adequacy / calibrator zoo / structural-null typology) and the
+brief template's structural-null audit section front-load the
+known-known families; the known-unknowns sit in the open question
+of what other generative-substrate families future arithmetic
+phases will need to name. Phase 34c on ζ / Dirichlet / EC L-zeros
+introduces the spectral-coordinate family; queued phases on
+e.g., prime-pair gaps, prime-power positions, character sums will
+test whether further families are needed.
+
+The instrument is bounded in both senses simultaneously, and the
+two senses are independent failure modes: a Layer-1-clean phase
+can still be Layer-2-compromised (Phase 34a-b are exactly this
+case — the input was unambiguously a point process, the §7.ter.19
+gate was structurally absent, and the verdict still required the
+right-null discipline). Calling the boundedness out as two layers
+rather than one is the operative refinement, because it lets
+future briefs distinguish "is this analysis safe at the
+extractor layer?" from "is the null zoo deep enough for this
+substrate family?" without conflating them.
+
 ## What the LLM section actually demonstrates
 
 The arithmetic-side validations work because the inputs are point processes

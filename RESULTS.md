@@ -8167,7 +8167,17 @@ p-adic dom = p = 2 is the modal squarefree-filter outcome; not a
 property beyond the filter.
 
 Falsification (B) — within-window stability across 5 non-overlapping
-windows.  |a_q| at q = 2, 3, 4 is highly unstable across windows:
+windows.  This falsifier is **independent of any surrogate**:
+unlike the surrogate-based survival tests (A, C in §7.ter.48), the
+within-window test does not require the null shape to be agreed on
+or even named.  An integer-period component carried by the sequence
+per se must be stable across non-overlapping windows up to the
+window-event-count multiplicative factor; if |a_q| varies by more
+than that, the spike is not a period-q component regardless of how
+any null is constructed.  The epistemic strength is that
+disagreement about null choice cannot rescue an unstable spike.
+
+|a_q| at q = 2, 3, 4 is highly unstable across windows:
 
 |          | q=2 CV | q=3 CV | q=4 CV |
 |----------|--------|--------|--------|
@@ -8175,10 +8185,11 @@ windows.  |a_q| at q = 2, 3, 4 is highly unstable across windows:
 | full     | 1.00   | 0.89   | 1.05   |
 
 |a_q| at flagged q tracks the per-window event count rather than a
-stable period structure.  Per the brief: "a genuine signal should
-not be confined to a single window."  Mertens sign-change |a_q|
-is dominated by window 0 (densest), inconsistent with a period-q
-component carried by the sequence per se.
+stable period structure.  Mertens sign-change |a_q| is dominated by
+window 0 (densest), inconsistent with a period-q component carried
+by the sequence per se.  The verdict from (B) holds regardless of
+whether the squarefree-restricted null (A) is granted — it is the
+stronger of the two falsifiers in the epistemic sense.
 
 Falsification (C) — second-source cross-check.  Independent earlier
 sieve from §7.bis (`data/mertens_liouville_results.json`) gives
@@ -8364,13 +8375,22 @@ Both nulls produce p = 2 dominance for distinct mechanistic reasons,
 and neither object carries integer-period structure beyond its
 natural structural null.
 
-Within-window stability (4-window split of the cluster — 2 well-
-powered windows at 91 and 41 events; middle 2 windows have 0 events
-by the cluster's sub-cluster geometry): q=2 dominates both well-
-powered windows but with amplitudes 1.08e-3 (win 0, n=91) vs 4.85e-4
-(win 3, n=41) — scales with the per-window event count, consistent
-with the random-walk null's behaviour and inconsistent with a
-period-q component that ought to be window-invariant.
+Within-window stability is, again, the **surrogate-independent**
+falsifier (§7.ter.47 reframing): an integer-period q component
+carried by the sequence per se must be stable across non-
+overlapping windows up to the window-event-count multiplicative
+factor.  No null is required — the stability check holds whether
+or not the random-walk null is granted as the right null.
+
+4-window split of the cluster — 2 well-powered windows at 91 and
+41 events; middle 2 windows have 0 events by the cluster's sub-
+cluster geometry.  q=2 dominates both well-powered windows but
+with amplitudes 1.08e-3 (win 0, n=91) vs 4.85e-4 (win 3, n=41) —
+scales with the per-window event count, inconsistent with a
+period-q component that ought to be window-invariant.  This
+verdict is independent of the random-walk-vs-Poisson null
+question and would stand even if the random-walk null were
+disputed.
 
 #### Sub-question 4: cross-tabulation
 
@@ -8418,15 +8438,33 @@ Liouville — both of which independently produce the same wrong-null
 signature (p=2 dominance + q=2 spike).  Once each object's correct
 structural null is applied, both return NULL.
 
+**False-positive equivalence class.**  Mertens and Liouville sign-
+changes belong to the same *wrong-null-induced false-positive
+equivalence class* — they are indistinguishable under rate-matched
+Poisson because their distinct structural floors (squarefree-filter
+residue density; random-walk first-passage statistics) project to
+the same observable wrong-null signature.  The high cross-phase
+correlation r ≈ 0.66 reads as a substrate-shared fingerprint *only
+if the right-null layer is not applied*.  Naming the equivalence
+class explicitly is the inferential safeguard: cross-phase parallels
+against the wrong null are evidence of *null shape*, not substrate
+property, and require disambiguation via each object's right
+structural null before they can be read as either parallel or
+divergent at the substrate layer.
+
 This is the dual-layer cross-phase verdict the brief's pre-specified
 DIVERGENT / PARALLEL_NULL / PARALLEL_SIGNAL trichotomy does not
 directly enumerate: PARALLEL_SIGNAL at the wrong-null layer +
-PARALLEL_NULL at the right-null layer.  The wrong-null parallel
-signal is **informative about the null shape**, not about substrate
-structure.  It is the second instance of the §7.ter.47 methodological
-generalisation: a structurally-loose null produces spurious survival
-of the substrate's structural-floor artefact, and the wrong-null
-signature can be similar across structurally-different substrates.
+PARALLEL_NULL at the right-null layer.  Going forward, the brief
+template (memory: `phase_brief_template.md`) carries this two-layer
+enumeration as standard, so the surface and deep verdicts are
+reported separately by construction — preventing the "all Möbius-
+family objects share orthogonal-channel structure" reading from
+emerging by default.  It is the second instance of the §7.ter.47
+methodological generalisation: a structurally-loose null produces
+spurious survival of the substrate's structural-floor artefact, and
+the wrong-null signature can be similar across structurally-different
+substrates.
 
 #### Verdict — Liouville object individually
 
@@ -8463,6 +8501,43 @@ curve L-functions): each will have its own structural-null question
 to audit *before* the orthogonal-channel survey runs.  ζ zeros have
 a non-trivial mean spacing law (Riemann-Siegel theta unfolding);
 that is the structural property the right null must respect.
+
+#### Pre-pilot audit discipline extended: Q4 (structural-null typology)
+
+The Phase 33a-c cross-domain trio (NANOGrav, CERN Open Data, single-
+molecule fluorescence) established three pre-pilot audit questions
+applied at any phase's survey entry point:
+
+  1. Published-product processing-level audit (does the published
+     product preserve event-level resolution, or has aggregation
+     already happened upstream?).
+  2. Natural no-structure prior audit (is the target domain's
+     natural null Poisson-like, or something else?).
+  3. Calibrator-zoo coverage audit (does the substrate's predicted
+     universality class exist as a named class in the zoo?).
+
+Phases 34a-b add **Q4 — Structural-null typology / generative-
+substrate family.**  Sibling of Q2 but at finer resolution:
+
+  > What generative-substrate family does this analysis object
+  > belong to, and what is the natural null specific to that
+  > family?
+
+The three families currently named — support-restricted, random-
+walk-generated, spectral-coordinate / unfolding-driven — and the
+family-specific natural nulls are documented above and in
+`right_null_substrate_specific.md`.  The Q4 audit is brief-drafting
+work, not execution-time correction; the brief template (memory:
+`phase_brief_template.md`) carries the Q4 audit as a front-loaded
+section before goals and methodology, and Phase 34b's surrogate-
+identity diagnostic (`run_prefalsify.py`) is the worked example of
+the corresponding pre-pilot verification at execution time.
+
+The four-question audit applies to in-domain ARS phases (arithmetic
+orthogonal-channel surveys; Phases 34a-b are the first instance) as
+well as cross-domain ones.  Any phase whose verdict could be
+contaminated by a wrong-null surrogate must front-load Q4 before
+pilot work begins.
 
 #### Outputs
 
