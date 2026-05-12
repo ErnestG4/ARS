@@ -8551,6 +8551,349 @@ pilot work begins.
 EPISTEMIC_STATE.md not modified: arithmetic-instrument orthogonal-
 channel survey, not an H1/H2 substrate finding.
 
+
+### 7.ter.49  Phase 34c — ζ + Dirichlet + EC L orthogonal channels: spectral-coordinate substrate family
+
+Phase 34c is the kintsugi-mode application of the Phase 34a-b
+right-null discipline (consolidation pass commit 7fca38a) to the
+third generative-substrate family — **spectral-coordinate /
+unfolding-driven**.  ζ zeros, Dirichlet L-zeros, EC L-zeros: the
+Katz-Sarnak symmetry classes are pre-installed (GUE for ζ; Sp(2N)
+for real-character Dirichlet; U(N) for complex; SO(even/odd) for
+EC by root number).  The structural-null audit, two-layer cross-
+phase enumeration, and within-window stability as surrogate-
+independent falsifier are all brief-drafting structure rather than
+runtime correction (`PHASE34C_BRIEF.md`).
+
+#### Data and pipeline
+
+  - **ζ zeros (Odlyzko):** first 2·10⁶ zeros, two height windows
+    per the substrate-specific log-decade windowing — low-height
+    bulk (first 10⁴, γ up to ~7,500) and mid-height (zeros 10⁵-2·10⁵,
+    γ ~75K-150K).
+  - **Dirichlet L-zeros (project §7.ter.3 cache):** 630 primitive
+    non-principal characters at q ≤ 149; per-character-family
+    stratification — 92 real characters (Sp class, 18,993 zeros)
+    and 538 complex characters (U class, 117,117 zeros) — with
+    per-character analytic-conductor unfolding (Iwaniec-Kowalski
+    Eq. 5.27) before pooling.
+  - **EC L-zeros (LMFDB):** 87 elliptic curves at conductor ≤ 99;
+    per-curve conductor unfolding before pooling; root-number
+    stratification — 70 curves at root +1 (SO even, 134,848 zeros)
+    and 17 curves at root −1 (SO odd, 33,534 zeros after filtering
+    the analytic-rank-1 γ=0 entries that would NaN-poison the
+    log-γ in unfolding).
+
+  - `phase34c/zeros_loaders.py`       — ζ + Dirichlet + EC loaders
+  - `phase34c/unfolding.py`           — Riemann-Siegel θ for ζ;
+                                          analytic-conductor for
+                                          Dirichlet; per-curve-
+                                          conductor for EC L
+  - `phase34c/rmt_sampler.py`         — Dumitriu-Edelman β-tridiagonal
+                                          Hermite ensembles, O(N²)
+                                          via `scipy.linalg.
+                                          eigh_tridiagonal`; Edelman-
+                                          Sutton β=1/2/4 covers
+                                          GOE/GUE/GSE, Wigner
+                                          semicircle unfolding,
+                                          7.5%-each-side Tracy-Widom
+                                          edge exclusion (bulk
+                                          retention 85%).
+  - `phase34c/survey_engine.py`       — shared survey routines, RF
+                                          mode B (normalize=True)
+                                          primary, ProcessPool-
+                                          parallelised across 16
+                                          workers (1000 RMT
+                                          surrogates per panel at
+                                          N=5000 in ~28 s).
+  - `phase34c/run_prepilot.py`        — pre-pilot adequacy on the
+                                          right null per substrate.
+  - `phase34c/run_surveys.py`         — orchestrator for the 8
+                                          panels (ζ × 2 windows;
+                                          Dirichlet × 2 character
+                                          types; EC L × 2 root
+                                          numbers; EC L × q_max=20
+                                          robustness).
+  - `phase34c/run_cross_phase.py`     — three-way (ζ × Dirichlet ×
+                                          EC L) + bilateral
+                                          (34a/b × 34c).
+  - `phase34c/run_pooling_artifact_check.py`  — multi-order
+                                                  falsification on
+                                                  the q=17 candidate
+                                                  in EC root-minus.
+
+#### Pre-pilot adequacy: 6/6 panels classify Wigner-TR
+
+GUE / Sp(2N) / U(N) / SO(even) / SO(odd) Dumitriu-Edelman surrogates
+at matched N classify as TR via the deployed `joint_q_profile` with
+β-dependent (rep_med, ks_gue_med) values:
+β=2 → (0.39, 0.01); β=4 → (0.46, 0.08); β=1 → (0.34, 0.08).
+All 6 panels pass. Per Phase 34b discipline: pre-pilot failure
+would be a calibrator-zoo / sample-size diagnostic, not substrate
+rejection; no failure to interpret here.
+
+#### Surveys: 8 panels × 2 nulls × within-window stability
+
+Stationarity per phase30 10-window heuristic: ζ low-bulk = True;
+all other panels flag stationary=False by the BL-modal CV(rep_med)
+artefact (same pattern as 34a/b — when modal class is BL or TR
+with rep_med ≈ 0 in most windows, CV explodes; modal stability is
+preserved across windows so non-stationarity is heuristic-driven
+not class-driven).
+
+NNS-engine reproduction across the 6 primary panels:
+
+| panel                          | n      | primary | rep_med | ks_gue_med |
+|--------------------------------|--------|---------|---------|------------|
+| zeta-low-height-bulk           | 10,000 | TR      | 0.416   | 0.036      |
+| zeta-mid-height [1e5, 2e5]     | 100,000 | TR     | 0.402   | 0.018      |
+| dirichlet-real-Sp              | 18,993 | BL      | 0.000   | 0.327      |
+| dirichlet-complex-U            | 117,117 | BL     | 0.005   | 0.311      |
+| ec-root-plus-SO-even           | 134,848 | BL     | 0.006   | 0.302      |
+| ec-root-minus-SO-odd           | 33,534 | BL      | 0.038   | 0.284      |
+
+ζ classifies cleanly as Wigner-class TR with low ks_gue_med; the
+pooled-across-objects Dirichlet and EC panels classify as BL via
+the deployed pipeline because pooling across different per-object
+unfolded coordinates flattens the within-object Wigner repulsion in
+the pooled spacing distribution (a methodological artefact of
+pooling, not a substrate property — within-object the level
+statistics remain Wigner per the prior §7.ter.7 / §7.ter.3 results).
+
+RF + p-adic v4 survey vs two nulls — primary findings:
+
+|                       | spike q (5× med) | survives Poisson p<0.001 | survives RMT-β p<0.001 | dom_per_q real |
+|-----------------------|------------------|--------------------------|------------------------|----------------|
+| zeta-low-bulk         | none             | n/a                       | n/a                    | p=11           |
+| zeta-mid-height       | none             | n/a                       | n/a                    | p=2            |
+| dirichlet-real        | none             | n/a                       | n/a                    | p=2            |
+| dirichlet-complex     | none             | n/a                       | n/a                    | p=2            |
+| ec-root-plus          | q=5              | False (ratio 0.46×)       | False (ratio 0.75×)    | p=5            |
+| ec-root-minus         | q=4, 6, 17       | False at all three        | **q=17 True at p=0.000, ratio 4.10×** | p=2 |
+
+EC root-minus q=17 robustness panel at q_max=20: same survival
+(real 6.196e-03, RMT sur mean 1.511e-03, ratio 4.10×, p=0.000).
+The q=30/q=20 verdict-agreement on q=17 means resolution-limited-
+findings is not the bottleneck.
+
+#### Sub-4 multi-order falsification on the EC root-minus q=17 candidate
+
+The Phase 34b discipline requires: a surviving RMT-null spike
+needs within-window stability and second-source cross-check.  The
+pooled-across-curves EC root-minus panel's geometry breaks the
+naïve within-window check (per-curve unfolded coords have non-
+overlapping ranges so window-splits hit underpowered cells); the
+brief's "surrogate-independent within-window stability" falsifier
+needs a substrate-specific window definition for pooled-across-
+objects substrates that 34c did not pre-install.  Instead the
+phase performs **pooling-artifact falsification** as the load-
+bearing falsifier:
+
+**(A) Sub-pool size sweep.**  For K ∈ {5, 10, 17, 25} draw K
+random EC L curves and pool-unfold:
+
+| pool                | K    | |a_K| per seed (5 seeds) | spike q                |
+|---------------------|------|--------------------------|-----------------------|
+| root-plus (rank 0)  |  5   | 0.20, 0.21, 0.05, 0.19, 0.21 | [5], [5,6], [4,5], [5], [5,6] |
+| root-plus (rank 0)  | 10   | 0.067, 0.079, 0.065, 0.059, 0.061 | [10], [2,5,10], [2,5,10], [7,10], [2,10] |
+| root-plus (rank 0)  | 17   | 0.013, 0.020, 0.019, 0.012, 0.014 | [11,17], [6,17], [17], [17], [17] |
+| root-plus (rank 0)  | 25   | 0.007, 0.007, 0.012, 0.014, 0.015 | [], [2,25], [2,25], [25], [25] |
+| root-minus (rank 1) | 17 (full) | 0.0062 × 5 (single pool) | [4,6,17] × 5 |
+
+**An RF spike at q=K emerges systematically at q = N_pooled_objects
+for every tested K ≤ Q_MAX, on rank-0 root-plus curves where no
+arithmetic anomaly is expected.**  q=K is a **pooling-induced
+artefact** — when K per-object unfolded coordinates are sorted into
+a single sequence, the inter-object alternation produces RF
+amplitude at q=K and harmonics.  This is generic, not EC-root-minus-
+specific.
+
+**(B) Pooling-matched RMT null.**  The single-ensemble RMT
+surrogate used in the main survey does NOT carry the K-pool
+structure (it draws one ensemble of size N).  A pooling-matched
+RMT null draws K=17 independent β=1 Hermite ensembles at per-
+object size 2000, pools, and uses that as the surrogate.  500 such
+surrogates at K=17:
+
+  - real |a_17| = 6.196e-3
+  - pooling-matched RMT sur mean |a_17| = 1.140e-3
+  - **ratio = 5.43×, p = 0.0000, survives_p<0.001 = True**
+
+So q=17 survives BOTH the single-ensemble RMT null AND the
+pooling-matched RMT null.  But also: the K-pool sweep on **rank-0
+root-plus** at K=17 (where no arithmetic anomaly is expected) gives
+mean |a_17| ≈ 0.015 — substantially LARGER than root-minus's
+6.196e-3.
+
+The picture: q=K is a pooling artefact whose magnitude depends on
+the per-object unfolded distribution.  Rank-0 K=17 pooling gives
+larger |a_17| than rank-1 K=17 pooling, which is larger than RMT-
+pooled K=17.  The real signal is bracketed between two pooling
+nulls and is not cleanly separable into "arithmetic structure" vs
+"pooling structure differing across rank strata" with the
+methodology in hand.
+
+**Verdict on q=17 in EC root-minus: AMBIGUOUS_AT_BOUNDARY** — the
+spike survives all tested RMT nulls (single-ensemble and pooling-
+matched), but the K-pool sweep shows q=K spikes are systematic at
+any K-pooled object set, and the right null for pooled-across-
+objects substrates is not fully calibrated in the current
+methodology.  Reported as suggestive-not-asserted; the methodology
+boundary is named (pooling-matched-null typology for pooled
+spectral-coordinate substrates) as the structural-null-typology
+extension Phase 34c surfaces.
+
+#### Cross-phase: three-way (ζ × Dirichlet × EC L) + bilateral 34a/b × 34c
+
+Mode-B RF |a_q| pairwise Pearson r within 34c (q ∈ [2, 30],
+matched n = 5000 per panel):
+
+  - r(zeta-low-bulk, zeta-mid-height) = +0.38
+  - r(zeta-mid-height, ec-root-plus) = +0.43
+  - r(dirichlet-real, ec-root-minus) = +0.30
+  - Other pairs r ∈ [-0.11, +0.24]
+
+Within-34c correlations are mostly weak.  No two substrates share
+the same RF fingerprint beyond what their respective family-
+symmetry RMT classes produce.
+
+Bilateral 34a/b × 34c at matched n=132 (indicator-mode RF, apples-
+to-apples with the 34a/b convention):
+
+|                  | dom_per_q | r(34a Mertens) | r(34b Liouville) |
+|------------------|-----------|----------------|------------------|
+| zeta-low-bulk    | p=2       | +0.38          | +0.20            |
+| zeta-mid-height  | p=11      | +0.52          | +0.37            |
+| dirichlet-real   | p=2       | +0.60          | +0.52            |
+| dirichlet-complex| p=2       | +0.66          | +0.63            |
+| ec-root-plus     | p=2       | +0.60          | +0.43            |
+| ec-root-minus    | p=2       | −0.03          | −0.08            |
+
+Most 34c substrates (5 of 6) have dom_per_q = p=2 under indicator-
+mode at n=132 and positive r with both 34a and 34b.  This **does
+NOT confirm the brief's pre-execution prediction of DIVERGENT at
+the surface layer**: discretising a unit-mean unfolded coordinate
+to integer positions exposes the same wrong-null-induced p=2 / q=2
+equivalence-class artefact that 34a/b showed in their integer
+support sets.  The false-positive equivalence class extends to
+spectral-coordinate substrates *once they are discretised to an
+indicator-mode coordinate*; the brief-time prediction missed that
+the indicator-mode discretisation imports the wrong-null signature
+of integer-position substrates into the spectral-coordinate panels.
+
+This is the **second false-positive equivalence class** the
+right-null discipline must distinguish:
+  - (i) [34a × 34b] — same-mode (indicator-mode) wrong-null signal
+    from structurally-different substrates (support-restricted vs
+    random-walk-generated).
+  - (ii) [34c × {34a, 34b}] — mode-A-imported wrong-null signal
+    from spectral-coordinate substrates when they are discretised
+    to indicator-mode (mode B native vs mode A discretised: A
+    gives integer-position dominance signatures inherited from the
+    discretisation step itself).
+
+The deep-layer verdict (vs each substrate's right RMT-unfolded
+null) — across all 6 substrate panels:
+
+|                  | survives right null at p<0.001? |
+|------------------|---------------------------------|
+| zeta-low-bulk    | No                              |
+| zeta-mid-height  | No                              |
+| dirichlet-real   | No                              |
+| dirichlet-complex| No                              |
+| ec-root-plus     | No                              |
+| ec-root-minus    | **q=17 yes — AMBIGUOUS_AT_BOUNDARY** (pooling-null methodology) |
+
+**Surface layer cross-phase verdict (vs Poisson wrong null):**
+MIXED at the dom_per_q-only metric (5/7 panels at p=2), but the
+brief-time prediction of DIVERGENT pre-supposed mode-B-native;
+discretisation to indicator-mode (mode A robustness panel)
+imports the p=2 wrong-null artefact from integer-position
+substrates and produces apparent cross-phase parallel.  Reported
+as MODE-DEPENDENT_CROSS-PHASE — under mode B native to spectral-
+coordinate substrates the dom_per_q distribution is dispersed
+across primes; under mode A discretised the dom_per_q
+concentrates at p=2 in 5/7 panels.
+
+**Deep layer cross-phase verdict (vs each substrate's right
+RMT-unfolded null):** PARALLEL_NULL across ζ + Dirichlet + EC
+root-plus (5 of 6 panels), AMBIGUOUS_AT_BOUNDARY at EC root-minus
+q=17 (pooling-null methodology boundary).
+
+#### Verdict — phase summary
+
+For each of the 6 substrate panels:
+
+  - **ζ low-height bulk:** NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT.
+  - **ζ mid-height [1e5, 2e5]:** NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT.
+  - **Dirichlet real (Sp):** NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT.
+  - **Dirichlet complex (U):** NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT.
+  - **EC L root +1 (SO even):** NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT.
+  - **EC L root −1 (SO odd):** AMBIGUOUS_AT_BOUNDARY at q=17 — the
+    spike survives both single-ensemble and pooling-matched RMT
+    nulls at p < 0.001, but q=K=N_pooled_curves is a systematic
+    pooling artefact whose magnitude depends on the per-object
+    distribution.  Disambiguating requires a substrate-specific
+    pooling-null methodology that 34c does not pre-install.
+
+Brief-time prediction outcomes:
+
+  - **Deep layer PARALLEL_NULL:** 5 of 6 confirmed; 1 AMBIGUOUS.
+    Mostly as predicted.
+  - **Surface layer DIVERGENT:** NOT confirmed.  Mode B native
+    survey shows dispersed dom_per_q; mode A discretised survey
+    shows p=2 concentration in 5/7 panels — the mode-A signal is
+    inherited from the discretisation step, not from substrate
+    structure.
+
+#### Methodological generalisation extended from §7.ter.47-48
+
+The four-question pre-pilot audit (§7.ter.48 + memory
+`cross_domain_audit_discipline.md`) gains a sub-axis at Q4:
+
+  > Within the structural-null typology, single-object substrates
+  > (ζ) and pooled-across-multi-object substrates (Dirichlet
+  > characters, EC L curves) need DIFFERENT right nulls.  A single
+  > ensemble of the family's RMT class is the right null for the
+  > single-object case; K independent ensembles of the family's
+  > class pooled to match the K-object structure is the right null
+  > for the pooled case.
+
+The single-ensemble RMT null is insufficient at pooled scope: it
+misses the q=N_pooled_objects artefact and the per-object
+unfolded-coordinate boundary structure.  Pooling-matched RMT is a
+necessary refinement but not always sufficient — the per-object
+distribution within the pool can differ from RMT, producing
+residuals that survive even the pooling-matched null without
+necessarily reflecting substrate structure beyond the
+pooling-and-per-object-difference scope.
+
+A second methodological generalisation:
+
+  > The two-layer cross-phase enumeration of §7.ter.48 needs a
+  > mode-of-RF-computation axis to be visible: mode A (indicator-
+  > mode discretised) imports the wrong-null signature of integer-
+  > position substrates into substrates whose native coordinate
+  > is non-integer (spectral-coordinate, real-valued).  The
+  > false-positive equivalence class at the wrong-null layer can
+  > emerge from the discretisation step rather than from substrate
+  > structure.  Mode B (normalize=True, native spacing-coordinate)
+  > is required for spectral-coordinate substrates to read cleanly.
+
+These two extensions land in the brief-template + cross-domain-
+audit-discipline memory files as part of the consolidation
+follow-up to Phase 34c.
+
+#### Outputs
+
+  - `data/phase34c_results/prepilot.json`
+  - `data/phase34c_results/surveys.json`
+  - `data/phase34c_results/cross_phase.json`
+  - `data/phase34c_results/pooling_artifact.json`
+
+EPISTEMIC_STATE.md not modified: arithmetic-instrument orthogonal-
+channel survey, not an H1/H2 substrate finding.
+
 ---
 
 ## 8. Conclusions and limitations
@@ -8599,6 +8942,30 @@ on the inputs specified.
   RF spectra at n = 132): PARALLEL_SIGNAL_AT_q=2 against the wrong
   null + PARALLEL_NULL against each object's right structural null.
   (§7.ter.48.)
+
+- ζ zeros (Odlyzko first 2·10⁶, two height windows), Dirichlet L-
+  zeros (630 primitive characters, q ≤ 149, 136k zeros stratified
+  to real-character Sp class and complex-character U class), and EC
+  L-zeros (87 LMFDB curves, 168k zeros stratified by root number).
+  Pre-pilot adequacy 6/6 panels classify Wigner-TR via deployed
+  joint_q_profile; right nulls are Dumitriu–Edelman β-tridiagonal
+  Hermite ensembles at the symmetry-class β with central-85% Tracy-
+  Widom-edge bulk retention.  Verdict NULL_IN_ORTHOGONAL_CHANNELS_
+  BEYOND_RMT on 5 of 6 panels (ζ ×2, Dirichlet ×2, EC root +1);
+  AMBIGUOUS_AT_BOUNDARY at q=17 in EC root −1 (the q=17 spike
+  survives single-ensemble and pooling-matched RMT nulls at
+  p < 0.001 ratio 4.10× / 5.43×, but q=K=N_pooled_curves is a
+  systematic pooling artefact for any pool size K — Phase 34c
+  surfaces the pooled-substrate right-null methodology as the
+  next discipline-extension boundary).  Cross-phase deep layer:
+  PARALLEL_NULL on 5/6, AMBIGUOUS on 1/6 — mostly as the brief-
+  time prediction.  Cross-phase surface layer (vs Poisson):
+  MODE-DEPENDENT — mode-B (normalize=True) native spacing-coord
+  shows dispersed dom_per_q; mode-A (indicator-mode discretised)
+  imports the integer-position p=2 wrong-null signature into
+  spectral-coordinate substrates, producing apparent cross-phase
+  parallel that does not reflect substrate structure.
+  (§7.ter.49.)
 
 These reproduce statistics that are consistent with the GUE conjecture
 for ζ and with Katz–Sarnak family-symmetry predictions for L-function
