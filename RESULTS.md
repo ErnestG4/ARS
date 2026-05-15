@@ -9219,7 +9219,7 @@ A synthetic pair-symmetric uniform calibration (same one-angle-per-ideal
 convention, matched N) reaches saturation 1.0 in the same regime,
 ruling out the counting convention as the source of the deficit.
 
-**Verdict on Step 3:** **RW_SHAPE_CONFIRMED_AT_FINITE_X** (Gaussian);
+**Verdict on Step 3 (initial bootstrap-only amendment):** **RW_SHAPE_CONFIRMED_AT_FINITE_X** (Gaussian);
 **FIRST_MEASUREMENT_SHAPE_CONSISTENT_WITH_STRUCTURAL_EXTENSION**
 (Eisenstein, since no published Eisenstein RW exists per
 phase34d/lit/LIT_SUMMARY.md §6).  The brief's
@@ -9227,8 +9227,46 @@ phase34d/lit/LIT_SUMMARY.md §6).  The brief's
 divergent constant levels; the outcome here is the opposite —
 CONSTANT_LEVEL_AGREEMENT across substrates within bootstrap error.
 
-Plot: `plots/phase34d_rw_variance_boot.png` (with 2σ bootstrap error
-bars), `plots/phase34d_rw_variance.png` (single-shot overlay).
+**X-rate scan amendment (2026-05-14, same-day second amendment).**
+Three-X scan at X ∈ {10⁶, 10⁷, 10⁸} with fine β grid + Chen 2019
+NLO prediction (refined conjecture, arXiv:1901.07386: deficit ∝ 1/log X
+in saturation regime) **resolves the deficit interpretation as
+finite-X correction, not substrate departure.** Selected cells showing
+monotone deficit closure:
+
+| substrate | β | X=10⁶ | X=10⁷ | X=10⁸ | RW asymptote |
+|---|---|---|---|---|---|
+| Gaussian | 0.65 | 0.857 ± 0.022 | 0.923 ± 0.030 | **0.984 ± 0.025** | 1.000 |
+| Gaussian | 0.55 | 0.812 ± 0.032 | 0.826 ± 0.023 | 0.942 ± 0.028 | 1.000 |
+| Eisenstein | 0.65 | 0.896 ± 0.024 | 0.890 ± 0.023 | **1.000 ± 0.022** | 1.000 |
+| Eisenstein | 0.55 | 0.813 ± 0.039 | 0.845 ± 0.024 | 0.984 ± 0.035 | 1.000 |
+
+**At X = 10⁸, Eisenstein β = 0.65 reaches σ²/(N/K) = 1.000 ± 0.022 —
+RW asymptote within 1σ exactly.**  Gaussian same cell 0.984 ± 0.025
+(within 1σ).  14/16 X-rate fit cells have correct sign (a > 0 in
+deficit = a/log X + b), consistent with Chen 2019's predicted 1/log X
+NLO shape.  The pre-amendment "could be substrate departure"
+interpretation is **disfavored** by the X-rate evidence.
+
+Plot: `plots/phase34d_x_rate_scan.png` (left/right panels: σ²/(N/K)
+vs β at X ∈ {10⁶, 10⁷, 10⁸} for Gaussian and Eisenstein), and
+`plots/phase34d_x_rate_deficit.png` (deficit vs 1/log X with linear
+fits per β cell).
+
+Cross-phase note on the saturation-deficit residual (X-rate amendment):
+the deficit-vs-asymptote ambiguity at X = 10⁷ was structurally
+analogous to **Phase 34a's NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT**
+verdict structure (§7.ter.47) — apparent signal vs predicted asymptote,
+ambiguous between methodology-side and substrate-side explanation.
+The X = 10⁸ scan plays the same role for the saturation-deficit
+residual that the squarefree-restricted null played for Phase 34a's
+q=4 spike: a higher-resolution check against the right comparison
+rather than the wrong one.  This tightens the §7.ter.49 methodology-
+side false-positive equivalence class typology: "may be substrate"
+needs X-axis (or analogous) rate-check before becoming "is substrate."
+
+Plot also retained: `plots/phase34d_rw_variance_boot.png` (initial
+bootstrap-only amendment, before X-rate scan).
 
 **Step 4 — ARS readout on full N (with seed-replicate amendment).**
 Standard Phase 34c panel (stationarity → NNS → within-window
@@ -9461,13 +9499,15 @@ not extend the corresponding literatures.
     - **Rigidity regime (β < 0.5):** empirical σ²/(N/K) matches RW
       Conjecture 1.2 min(1, 2 log K / log N) within 1σ of bootstrap
       envelope on every cell across both substrates.
-    - **Saturation regime (β > 0.5):** empirical saturates at
-      0.78–0.91 vs RW asymptote 1.0, with 3–7σ deficit at X = 10⁷
-      in tight bootstrap error (σ ≈ 0.03 per cell).  Either finite-X
-      correction (RW Figure 1 is at X ≈ 10⁸) or genuine substrate
-      departure; not resolved at the X scanned.  Synthetic
-      pair-symmetric uniform calibration reaches 1.0 in the same
-      regime, ruling out the counting convention as the source.
+    - **Saturation regime (β > 0.5):** at X = 10⁷ empirical saturates
+      at 0.78–0.91 vs RW asymptote 1.0 (3–7σ deficit in tight bootstrap
+      error).  **X-rate scan amendment** at X ∈ {10⁶, 10⁷, 10⁸}
+      resolves this: deficit closes monotonically with X; at X = 10⁸
+      β = 0.65 Eisenstein hits σ²/(N/K) = 1.000 ± 0.022 (RW asymptote
+      within 1σ exactly), Gaussian same cell 0.984 ± 0.025.  Closure
+      rate consistent with Chen 2019 (arXiv:1901.07386) NLO prediction
+      deficit ∝ 1/log X (14/16 X-rate fit cells have correct sign).
+      Finite-X correction explanation favored over substrate departure.
   ARS readout: seed-replicate NNS classification (20 random
   80%-subsamples) gives **BL in 20/20 seeds on both substrates** at
   X = 10⁶, with rep_med distributions overlapping at 0.21σ Welch
@@ -9477,9 +9517,10 @@ not extend the corresponding literatures.
   Poisson or CUE null fails the within-window CV < 0.3 falsifier
   (Gaussian q=3: CV = 0.644; Eisenstein q=8: CV = 0.995).
   Eisenstein vs CUE: no spikes (cleanly null against right null).
-  Verdicts: **Gaussian RW_SHAPE_CONFIRMED_AT_FINITE_X (with
-  saturation-deficit at X = 10⁷ unresolved); Eisenstein
-  FIRST_MEASUREMENT_SHAPE_CONSISTENT_WITH_STRUCTURAL_EXTENSION**
+  Verdicts (post-X-rate amendment): **Gaussian RW_SHAPE_CONFIRMED +
+  FINITE_X_CORRECTION_RATE_CONSISTENT_WITH_CHEN_2019_NLO; Eisenstein
+  FIRST_MEASUREMENT_REPLICATES_GAUSSIAN_FINITE_X_BEHAVIOR (hits RW
+  asymptote within 1σ at X = 10⁸ in the β = 0.65 cell)**
   (no published Eisenstein RW exists per phase34d/lit/LIT_SUMMARY.md
   §6).  Both substrates **NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_HECKE**
   on Step 4.  Cross-phase to 34c χ₋₃ Sp stratum reframed

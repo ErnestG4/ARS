@@ -103,6 +103,37 @@ be recorded as a required complement to the bulk-ARS readout — ARS
 provides "in the right β class" confirmation; only the global moment
 σ²(K, X) directly tests the literature target (§7.ter.52).
 
+**Asymmetric verdict labelling discipline (Phase 34d).**  When a phase
+runs both a *literature-confirmed* substrate (target prediction exists
+in published form, e.g., Rudnick-Waxman 2019 for Gaussian primes) and a
+*first-measurement* substrate (target is a structural extension with
+no published prediction, e.g., Eisenstein primes extending RW to Z[ω]
+where no dedicated paper exists), the per-substrate verdict labels
+must be **asymmetric** — they encode different epistemic content and
+treating them symmetrically leaks an unearned claim.
+
+  - **Literature-confirmed substrate** → labels reference the
+    published asymptote with bootstrap-quantified deficit:
+    `RW_SHAPE_CONFIRMED_AT_FINITE_X` (shape ✓, magnitude X-limited
+    with documented gap), `RW_REPLICATED` (only if the deficit is
+    within bootstrap error of the published prediction at the
+    measured X), etc.  Never report "REPLICATED" without an error bar
+    plus a documented finite-X correction model.
+
+  - **First-measurement substrate** → labels reference the structural-
+    extension hypothesis: `FIRST_MEASUREMENT_SHAPE_CONSISTENT_WITH_STRUCTURAL_EXTENSION`,
+    `FIRST_MEASUREMENT_DIVERGES_FROM_EXTENSION`, etc.  Never re-use
+    `REPLICATED` for a substrate where no published prediction exists
+    — the right semantic is "extended-by-analogy" or "first
+    measurement of the natural extension shows the same finite-X
+    behavior as the calibrator," not replication.
+
+The two substrates' agreement at finite X (Phase 34d
+`CONSTANT_LEVEL_AGREEMENT`) is *consistency evidence* for the
+structural-extension hypothesis, not replication of an asserted
+prediction.  See PHASE34D_FINDINGS.md SQ-2 and the §7.ter.51 entry in
+RESULTS.md for the canonical application.
+
 A real input's joint-plane position must be reported relative to this
 calibrator family.  `recover_uniform_jitter_sigma` returns σ̂ = position
 within the uniform-jitter calibrator family; reading σ̂ as "the σ

@@ -482,3 +482,40 @@ methodological generalisations, verdict map.
 - Two-layer cross-phase enumeration (§7.ter.48 convention) is the
   publication-framing safeguard: surface PARALLEL_SIGNAL vs deep PARALLEL_NULL
   / DIVERGENT must be reported separately.
+
+---
+
+## Post-execution methodology notes
+
+**§7.ter.22 application — single-shot NNS verdicts near boundary** (added
+2026-05-14 post-amendment).  This phase's Step 4 single-shot run gave
+Gaussian NNS primary = TR (rep_med = 0.101) at X = 10⁶ — which sat just
+above the TR/BL boundary at ~0.10.  A 20-seed 80%-subsample replicate
+showed **20/20 seeds classify BL**, with rep_med = 0.070 ± 0.016.
+**Welch separation between the original "Gaussian TR" and "Eisenstein BL"
+single-shot verdicts collapsed to 0.21σ** under subsample replication.
+
+The single-shot reading was a threshold-crossing artifact, exactly the
+**§7.ter.22 metric-saturation** phenomenon: the discrete quadrant verdict
+overclaimed on a continuous metric.  This case is the canonical
+near-boundary application of §7.ter.22 in the Phase 34 series.
+
+**Forward-pointer for any future Phase 34* work:** whenever the NNS
+primary verdict's underlying rep_med (or ks_gue_med) sits within ~2× its
+expected sub-sampling standard deviation of a quadrant boundary, the
+single-shot verdict is **not** load-bearing.  Run 20 random 80%-subsamples
+and report the distribution.  Phase 34d's own §7.ter.22-application is
+documented in [[seed_replicate_near_boundary]] memory entry and in
+RESULTS.md §7.ter.51 amendment.
+
+**§7.ter.51 scope status:** empirically tested only on S¹ unit-orbit-
+quotient substrates (Z[i] order 4, Z[ω] order 6).  Conjectural for
+general S¹ substrates without unit-orbit quotients and higher-
+dimensional unit-orbit quotients (U(1)×U(1) products in Bianchi
+spectra) — re-test before applying.
+
+**Asymmetric verdict labelling discipline (Phase 34d-G vs 34d-E):**
+literature-confirmed substrates and first-measurement substrates of
+structural extensions get different verdict-label semantics; treating
+them symmetrically leaks an unearned claim.  Promoted to METHODS.md
+in the Phase 34d amendment commit.
