@@ -74,8 +74,11 @@ def unfold_bianchi(r: np.ndarray, volume: float) -> np.ndarray:
     ----------
     r : spectral parameters.
     volume : hyperbolic volume of Γ\ℍ³ fundamental domain.
-        Picard (Q(i)): vol ≈ 0.305322.
-        Bianchi-Z[ω] (Q(√−3)): vol ≈ 0.084578.
+        Picard (Q(i)): vol = G/3 ≈ 0.30532186.
+        Bianchi-Z[ω] (Q(√−3)): vol = √3·L(2,χ_{-3})/8 ≈ 0.16915693
+        (Humbert-direct; pinned in phase34f/bianchi_unfolding.py — the
+        canonical source.  EGM's 0.0845776 orbifold value is this / ~2,
+        the ω↔ω² Z/2 quotient; see that module's constants comment).
 
     Returns
     -------

@@ -103,7 +103,7 @@ Phase 34e measures two substrates derived from the same arithmetic object:
 
 ## §C. Data infrastructure
 
-### C.1 Primary dataset: Seymour-Howell 2022 + 2025
+### C.1 Primary dataset: Seymour-Howell 2022 (+ Lowry-Duda 2025 LMFDB database announcement)
 
 - **Seymour-Howell 2022**, "Rigorous computation of Maass cusp forms of squarefree level," Res. Number Theory 8:64. arXiv:2201.08760.
 - **Zenodo dataset:** DOI 10.5281/zenodo.7105772 (rigorous Maass forms of squarefree level, including SL(2,ℤ) trivial level).
