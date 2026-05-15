@@ -511,9 +511,11 @@ correct prediction for our X-rate scan.
 - **CROSS_PHASE_34d-E ↔ 34c χ₋₃ Sp:** **METHODOLOGICAL_CONSISTENCY_ACROSS_COORDINATES on Q(√−3).**
   Confirmatory of framework null-verdict consistency across distinct
   spectral coordinates of one arithmetic object. Substantive
-  cross-coordinate convergence claim is **reserved** pending future
-  measurement of residual correlation, shared anomaly, or mutual
-  prediction of null-departures.
+  cross-coordinate convergence claim **34f-blocked**: requires a
+  signal-bearing third coordinate (Phase 34f Bianchi-Maass) where
+  null-departure structure can predict null-residual structure at
+  34d-E and 34c χ₋₃. See **§D — Phase 34f scoping** below for the
+  ready-to-fire test specification.
 
 ---
 
@@ -552,6 +554,97 @@ plots/   [gitignored]
 
 ---
 
+---
+
+## §D. Phase 34f scoping note — Bianchi-Maass on PSL(2, O_K), K = Q(√−3) as third coordinate
+
+The substantive cross-coordinate convergence claim on Q(√−3) is
+**34f-blocked.** Phase 34d landed two coordinates of Q(√−3) at null
+(34d-E angle-coordinate, 34c χ₋₃ zero-coordinate); both nulls are
+consistent with the framework's null-verdict discipline but neither
+provides a signal that the other could correlate against. Phase 34f
+fires the third coordinate where signal IS predicted — making the
+joint statement substantive rather than methodological.
+
+### Predicted substrate, right null, and signal structure
+
+- **Substrate:** Maass eigenvalues λ_j of the Laplacian on
+  PSL(2, O_K) \ ℍ³, where O_K = Z[ω] is the ring of integers of
+  K = Q(√−3) (the imaginary quadratic field with class number 1
+  and discriminant −3 — the Bianchi orbifold).
+- **Right null:** **GOE-class spacing distribution** per
+  Bohigas-Giannoni-Schmit (1984) for hyperbolic Maass form spectra.
+  The Selberg trace formula on PSL(2, O_K) gives the level density
+  ρ(λ) ~ √λ; unfolded eigenvalues should follow GOE (Wigner-Dyson
+  β=1) spacing.
+- **Documented anomaly (= the signal):** Hecke-eigenspace
+  multiplicities in arithmetic quantum chaos systems (Sarnak; Rudnick-
+  Sarnak; Bogomolny-Schmit) produce *deviations from GOE at specific
+  spacings.* These deviations are NOT generic to hyperbolic-surface
+  Maass forms; they are arithmetic-specific to the
+  arithmetic-modular-group structure of PSL(2, O_K). This is the
+  signal coordinate that makes the cross-phase test substantive.
+
+### Three-coordinate joint statement (pre-specified)
+
+If 34f lands signal at the predicted Hecke-anomaly scale on Q(√−3)
+Maass spectra, the joint statement on Q(√−3) becomes:
+
+  > **SHARED_HECKE_ANOMALY_ACROSS_COORDINATES on Q(√−3)** — three
+  > distinct spectral readouts of the same arithmetic object
+  > (Eisenstein prime angles in 34d-E, χ₋₃ L-zeros in 34c,
+  > Bianchi-Maass eigenvalues in 34f) all reflect Hecke-eigenspace
+  > arithmetic at coordinate-appropriate locations.  The angle and
+  > zero coordinates show null beyond their respective right nulls
+  > (because Hecke structure doesn't manifest as bulk-spacing
+  > deviation at those coordinates), while the Maass coordinate
+  > shows the predicted Hecke-anomaly deviation from GOE.  Mutual
+  > prediction: the χ₋₃ Sp-class right-null and the Hecke L-function
+  > family structure on Z[ω] (which governs 34d-E variance) jointly
+  > predict the strength of the Hecke anomaly at 34f.
+
+### Data and test specification
+
+- **Data source:** Maass eigenvalues for the PSL(2, O_K) Bianchi
+  orbifold. LMFDB has Bianchi modular form data; explicit eigenvalue
+  lists may require direct computation via Hejhal's algorithm or
+  the algorithms in Then 2005, Stromberg 2012, Cremona's
+  bianchi-progs library.
+- **Test 1 — NNS classification:** does 34f Maass spectrum classify
+  TR (Wigner-Dyson) per BGS prediction? Subsample-replicate gate per
+  §7.ter.22-application.
+- **Test 2 — Hecke anomaly detection:** measure spacing-distribution
+  deviation from GOE at scales matched to Hecke operator
+  eigenspace structure. Predicted shape from Bogomolny-Schmit-style
+  resurgence; numerical signature is a specific bump/dip in P(s)
+  near s = O(1/log T) for height T.
+- **Test 3 — cross-coordinate correlation:** if Hecke anomaly is
+  detected at 34f, regress the per-prime z-scores from 34d-E
+  p-adic v4 (or per-window arithmetic correlations) against the
+  Hecke-eigenspace decomposition derived from 34f Maass data. If
+  the regression has non-trivial structure, the substantive
+  cross-coordinate convergence claim closes.
+
+### Why not now
+
+- 34c χ₋₃ panel is a Dirichlet stratum, only ~ one piece of the
+  Hecke L-function ladder for Q(√−3); direct correlation to
+  34d-E angle variance would require the full ladder L(s, Ξ_k)
+  for k ≥ 1, not just χ₋₃ — i.e., infrastructure not currently
+  in place.
+- Both 34d-E and 34c χ₋₃ are nulls; correlation between two nulls
+  is either trivially noise-on-noise or trivially zero. Need at
+  least one signal-bearing coordinate for the cross-coordinate
+  statement to have substantive content.
+- A cheaper sibling test — σ²(K, T) Chen-2019-NLO finite-T deficit
+  rate on 34c χ₋₃ zero-coordinate — would only test universality of
+  the NLO across L-function families (Dirichlet vs Hecke prime-
+  angle), not Q(√−3) specifically.  Worth doing as a standalone
+  Phase 34d-supplement if interest arises, but not load-bearing for
+  the Q(√−3) substantive claim.
+
+---
+
 ## Open questions / follow-ups
 
 1. **Saturation deficit at X = 10⁷ — RESOLVED via X-rate scan amendment.**
@@ -571,15 +664,14 @@ plots/   [gitignored]
    (NNS verdicts near TR/BL or TR/IB boundaries in ζ low-bulk,
    Dirichlet, EC L) to verify their stability under sub-sampling.
 
-3. **Substantive cross-coordinate convergence on Q(√−3).** The
-   methodological-consistency claim becomes substantive when one of:
-   (a) residual correlation between angle-coord and zero-coord
-   departures from right null is measured (e.g., regress 34d-E
-   per-prime z(p) on 34c χ₋₃-zero L-function moments);
-   (b) a shared anomaly appears at both coordinates;
-   (c) Phase 34f Bianchi-Maass-on-PSL(2, O_K) lands as the third
-   coordinate with null-departure correlated with 34d-E or 34c.
-   Reserved for future phases.
+3. **Substantive cross-coordinate convergence on Q(√−3) — 34f-blocked.**
+   The methodological-consistency claim becomes substantive when
+   Phase 34f Bianchi-Maass-on-PSL(2, O_K) provides the signal-bearing
+   third coordinate.  Phase 34d's two coordinates (angle 34d-E, zero
+   34c χ₋₃) are both nulls; correlation between two nulls is either
+   trivial-noise or trivial-zero.  See §D — Phase 34f scoping above
+   for the ready-to-fire test specification (data source, three
+   sub-tests, pre-specified joint verdict).
 
 4. **Phase 34e candidate — named "RW-class" calibrator.** If the
    saturation-deficit follow-up (item 1) confirms RW asymptote, add
