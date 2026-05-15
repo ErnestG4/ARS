@@ -68,12 +68,40 @@ extraction pipeline, not of the input.
 The toolkit's σ̂ recovery and quadrant-diagnostic anchors are calibrated
 on a fixed set of synthetic inputs:
 
-- Wigner β-ensembles (Dumitriu–Edelman tridiagonal, β ∈ {1, 2, 3, 4, 6, 8})
+- Wigner β-Hermite ensembles (Dumitriu–Edelman tridiagonal,
+  β ∈ {1, 2, 3, 4, 6, 8}) — for spectra on the real line
+- Circular β ensembles (CUE / COE / CSE via Mezzadri 2007
+  QR-with-phase-normalization, β ∈ {1, 2, 4}) — for spectra on
+  S¹ (function-field Frobenius eigenphases, prime-angle Hecke
+  L-function statistics, etc.). Added in Phase 34d (§7.ter.51) for
+  number-field prime-angle substrates.
 - Hard-core (Matérn-II) point processes
 - Ginibre projection (real_part, symmetric_part_eigvals)
 - Uniform-with-jitter (t_n = n + σ · N(0, 1), σ ∈ {0, 0.02, 0.05, 0.10,
   0.15, 0.20, 0.30, 0.50})
 - Pure Poisson
+
+**Spectrum-coordinate dispatch (Hermite + Circular).**  Choose the
+calibrator family by where the substrate's spectral coordinate lives:
+
+- Spectrum on **R** → Hermite β-ensemble (Dumitriu–Edelman tridiagonal).
+  Applicable to number-field L-function zeros (ζ, Dirichlet L, EC L
+  in Phase 34c §7.ter.49).
+- Spectrum on **S¹** → Circular β-ensemble (Mezzadri 2007 QR-with-phase).
+  Applicable to function-field Frobenius eigenphases (Katz 2017 IMRN
+  framework) and number-field prime-angle Hecke L-function statistics
+  (Rudnick-Waxman 2019, Phase 34d §7.ter.51).
+
+Per Rudnick-Waxman 2019 Proposition 5.3, the three classical compact-group
+families G ∈ {U(N), USp(2N), SO(2N)} all give identical bulk variance
+min(n, N) at leading order; the bulk-dominated ARS engines (NNS, RF Mode
+B, p-adic v4) inherit this indistinguishability and cannot tell
+CUE-from-COE-from-CSE on a substrate whose right null is in the
+Wigner-Dyson β class.  When the substrate's right null lives at the
+*global moment* level (Rudnick-Waxman class), the σ²(K, X) curve must
+be recorded as a required complement to the bulk-ARS readout — ARS
+provides "in the right β class" confirmation; only the global moment
+σ²(K, X) directly tests the literature target (§7.ter.52).
 
 A real input's joint-plane position must be reported relative to this
 calibrator family.  `recover_uniform_jitter_sigma` returns σ̂ = position

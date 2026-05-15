@@ -9119,6 +9119,199 @@ INDEPENDENT_AXES with both axes novel at per-cell resolution
 
 ---
 
+### 7.ter.51  Phase 34d — Gaussian + Eisenstein prime angles: spectral-coordinate prime-angle sub-family
+
+Phase 34c (§7.ter.49) closed the spectral-coordinate / zero-set
+sub-family (ζ + Dirichlet + EC L) at NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_RMT
+on 5/6 panels.  Phase 34d extends the spectral-coordinate sweep to the
+**prime-angle** sub-family — substrates where the spectral coordinate
+is the angular position of a number-field prime ideal in the unit-orbit
+fundamental sector — and adds the fourth row of the structural-null
+typology started in §7.ter.47-49:
+
+| phase | substrate family | right-null spacing class |
+|---|---|---|
+| 34a | support-restricted (Mertens) | Poisson on squarefree support |
+| 34b | random-walk-generated (Liouville) | constrained ±1 random walk |
+| 34c | spectral-coordinate, zero-set | RMT-class β-Hermite |
+| **34d** | **spectral-coordinate, prime-angle** | **Hecke-Poisson with RMT/Poisson crossover at K ≈ √N** |
+
+**Substrates.**
+
+  - **34d-G** (pre-pilot calibrator): Gaussian primes θ_π ∈ [0, π/2)
+    in Z[i].  Literature target: Rudnick-Waxman 2019 (Isr. J. Math. 232,
+    159–199) Conjecture 1.2, with Katz 2017 (IMRN 2017:11) proving the
+    function-field analog.
+
+  - **34d-E** (substantive run): Eisenstein primes θ_π ∈ [0, π/3) in
+    Z[ω].  Per phase34d/lit/LIT_SUMMARY.md §6 lit-lock, the Eisenstein
+    analog of Rudnick-Waxman has *not* been published as a dedicated
+    paper.  Phase 34d-E is a first-measurement against the implicit
+    structural extension of RW.
+
+**The RW conjecture (transcribed exactly from arXiv:1705.07498).**
+
+For 1 ≪ K ≪ N^{1−o(1)}:
+
+  > Var(N_{K,X}) ~ (N/K) · min(1, 2 log K / log N)
+
+with N = #{p prime in Z[i] : Norm p ≤ X} and arc length π/(2K)
+centered at the K disjoint arcs of [0, π/2).  Crossover at K ≈ √N
+(β := log K / log N = 0.5) separates the **Poisson regime** (K > √N,
+σ² ~ N/K) from the **RMT/rigidity regime** (K < √N, σ² < N/K).
+
+**RW Prop 5.3 (proved).**  For G(N) = U(N), USp(2N), SO(2N) and
+n ≈ N, ∫_{G(N)} |S_n(U)|² dU ~ min(n, N) · ∫ |w|² — **all three
+classical compact-group families give identical bulk variance** at
+leading order; CUE/COE/CSE are bulk-indistinguishable.  This is the
+load-bearing analytical content for the bulk-vs-global-moment note
+below.
+
+**New ensemble infrastructure.**  Phase 34d adds the Katz monodromy
+triple to the calibrator scaffolding:
+
+  - phase34d/circular_sampler.py — CUE/COE/CSE sampling per Mezzadri
+    2007 (Notices AMS 54:5) QR-with-phase-normalization recipe.
+    Sanity-checked spacing CVs at N = 80: 0.43 (β=2 CUE), 0.54 (β=1
+    COE), 0.32 (β=4 CSE) — matches Wigner-surmise values.
+
+  - phase34d/gaussian_primes.py — Cornacchia + Tonelli-Shanks for
+    p = a² + b² with p ≡ 1 mod 4.  O(log² p) per split prime; X = 10⁷
+    in 2.8 s.
+
+  - phase34d/eisenstein_primes.py — brute-force search on
+    a² - ab + b² = p with p ≡ 1 mod 3.  X = 10⁶ in 7 s.
+
+**Step 3 — direct RW variance check.**  Sliding-window σ²(K, X) via
+continuous integration over center θ ∈ [0, L) (treating fundamental
+sector as a circle); discretised with n_grid = 5000 and np.searchsorted.
+
+Empirical σ²(K, X)/(N/K) traces RW min(1, 2β) shape; convergence
+toward asymptote as X grows:
+
+| substrate | X | K | β | σ²/(N/K) | RW | ratio_emp/RW |
+|---|---|---|---|---|---|---|
+| gaussian | 10⁷ | 1000 | 0.515 | 0.609 | 1.000 | 0.61 |
+| gaussian | 10⁷ | 3000 | 0.597 | 0.713 | 1.000 | 0.71 |
+| gaussian | 10⁷ | 10000 | 0.687 | **0.872** | 1.000 | **0.87** |
+| eisenstein | 10⁷ | 10000 | 0.687 | 0.865 | 1.000 | 0.87 |
+
+At X = 10⁷ K = 10⁴ (Poisson saturation regime), empirical is within
+13% of asymptote.  RW's published Figure 1 is at X ≈ 10⁸ where the
+asymptote is approached more closely.  **Pre-pilot Step 3: PASS.**
+
+Plot: plots/phase34d_rw_variance.png reproduces RW Figure 1 shape with
+Gaussian and Eisenstein curves overlapping at constant level
+(GAUSSIAN_EISENSTEIN_DIVERGENT_CONST per Phase 34d brief verdict).
+
+**Step 4 — ARS readout on full N.**  Standard Phase 34c panel
+(stationarity → NNS → within-window stability → RF Mode B + p-adic
+v4 vs Poisson + vs CUE) with one substrate-specific discipline
+(§7.ter.51-decimation note below): NNS / stability / Poisson run on
+FULL N; only the GUE β=2 Hermite surrogate (bulk-universal with CUE
+per RW Prop 5.3) uses the standard N_MAX = 5000 cap.
+
+| substrate | X | NNS primary (full N) | rep_med | ks_gue_med | NNS primary (capped 5K) |
+|---|---|---|---|---|---|
+| Gaussian | 10⁵ | BL | 0.097 | 0.237 | BL |
+| Gaussian | 10⁶ | **TR** | 0.101 | 0.242 | **BR_artifact** |
+| Eisenstein | 10⁶ | BL (boundary) | 0.058 | 0.250 | **BR_artifact** |
+
+Gaussian X = 10⁶ classifies TR on full N — matches RW Prop 5.3 bulk
+Wigner-Dyson universality.  Eisenstein X = 10⁶ classifies BL but at
+the bulk classifier boundary (rep_med = 0.058 is right at TR/BL
+threshold).  Both substrates' stride-decimated variants flip to
+BR_artifact — confirms decimation destroys arithmetic structure on
+prime-angle substrates.
+
+Every RF spike flagged at 5×median against any null fails the
+within-window CV < 0.3 falsifier on full-N data:
+
+| substrate | X | spike q vs Poisson | CV | gate |
+|---|---|---|---|---|
+| Gaussian | 10⁶ | q=3 | 0.644 | FAIL |
+| Eisenstein | 10⁶ | q=8 | 0.995 | FAIL |
+
+Eisenstein vs CUE: **no spikes** (cleanly null against right null).
+Gaussian vs CUE on capped data: q=4 and q=12 spikes (decimation
+artifacts — q=4 is the natural unit-orbit Hecke character mode that
+the decimation process preserves while breaking the broader structure).
+
+**Pre-pilot Step 4: PASS.**
+
+**Substantive Eisenstein verdict (34d-E).**
+NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_HECKE + RW_REPLICATED_AT_DEEP_LAYER
+(constant-level confirmatory).  Same min(1, 2β) shape as Gaussian; no
+robust arithmetic-channel feature beyond Hecke equidistribution + RW.
+First measurement on the Eisenstein analog succeeds.
+
+**Cross-phase to 34c χ₋₃ Sp stratum.**  Per the pre-specified joint
+verdict in the Phase 34d brief §C:
+
+  > **CONVERGENT_NULL_ACROSS_COORDINATES on Q(√−3).**
+
+Two ARS readouts of the same arithmetic object — the angle coordinate
+in 34d-E (Eisenstein angle) and the zero coordinate in 34c
+(L(s, χ₋₃) zeros, real-Dirichlet Sp stratum) — both land null beyond
+their respective right nulls (Hecke / CUE for angles; RMT β=4 Sp for
+zeros).  This is convergent-null across coordinates of one arithmetic
+substrate, stronger than direction-match.  Phase 34f
+Bianchi-Maass-on-PSL(2, O_K) is forward-bound as the third coordinate
+on the same substrate.
+
+**Methodological generalisations from Phase 34d:**
+
+  > **§7.ter.51-decimation — Stride-decimation destroys arithmetic
+  > structure on prime-angle substrates.**  Phase 34c-style stride-
+  > decimation preserves bulk Wigner-Dyson universality on RMT zero
+  > substrates (zero spacings are locally rigid in a coordinate-free
+  > way) but DOES NOT preserve bulk character on prime-angle
+  > substrates: decimation breaks the angular periodicity that ties
+  > the angles together via underlying lattice constraints.
+  > **Operational rule:** for prime-angle substrates and any future
+  > substrate where the spectral coordinate is on S¹ via a unit-orbit
+  > quotient, NNS / within-window / Poisson-null must run on FULL
+  > unfolded N.  Decimation is permissible only for the dense-RMT
+  > surrogate (Dumitriu-Edelman O(N²) cost forcing).  Sibling to
+  > §7.ter.19 (published-product level) and §7.ter.48 (substrate-side
+  > right-null typology).
+
+  > **§7.ter.52 — Bulk readout vs global-moment readout: complementary,
+  > not interchangeable.**  Per RW 2019 Prop 5.3, the three Circular
+  > families U(N) / USp(2N) / SO(2N) give identical bulk variance.
+  > Bulk-dominated ARS engines (NNS, RF Mode B, p-adic v4) inherit
+  > this indistinguishability: they cannot tell CUE-from-COE-from-CSE
+  > on a substrate whose right null is in the Wigner-Dyson β class.
+  > **Operational rule:** when the substrate's right null lives at the
+  > *global moment* level (Rudnick-Waxman class), the σ²(K, X) curve
+  > must be recorded as a required complement to the bulk-ARS readout.
+  > ARS provides "in the right β-class" confirmation; only the global
+  > moment σ²(K, X) directly tests the literature target.  Extends
+  > the Phase 34c bulk-vs-edge analytical scaffolding.
+
+**Outputs (phase34d/).**
+
+```
+phase34d/PHASE34D_BRIEF.md
+phase34d/PHASE34D_FINDINGS.md
+phase34d/lit/LIT_SUMMARY.md
+phase34d/lit/{rudnick_waxman_2019,katz_2017}.pdf
+phase34d/circular_sampler.py
+phase34d/gaussian_primes.py
+phase34d/eisenstein_primes.py
+phase34d/run_rw_variance_direct.py
+phase34d/run_prepilot_ars.py
+phase34d/run_substantive_eisenstein.py
+phase34d/run_cross_phase.py
+phase34d/plot_rw_variance.py
+data/phase34d_results/{rw_variance_direct,gaussian_prepilot_ars,
+                       eisenstein_substantive_ars,
+                       cross_phase_34d_to_34c_dirichlet}.json
+plots/phase34d_rw_variance.png
+```
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -9194,6 +9387,27 @@ These reproduce statistics that are consistent with the GUE conjecture
 for ζ and with Katz–Sarnak family-symmetry predictions for L-function
 families. They are reported as instrument-validation outputs. They do
 not extend the corresponding literatures.
+
+- Gaussian prime angles (Z[i], θ_π ∈ [0, π/2)) and Eisenstein prime
+  angles (Z[ω], θ_π ∈ [0, π/3)), prime ideals of norm ≤ 10⁷ (664,361
+  Gaussian, 664,389 Eisenstein).  Direct Rudnick-Waxman variance
+  σ²(K, X) reproduced: empirical σ²/(N/K) traces min(1, 2 log K / log N)
+  shape with finite-X convergence toward asymptote (at X = 10⁷,
+  K = 10⁴, β = 0.687: ratio = 0.872, within 13% of RW saturation 1.0).
+  ARS readout on full N: Gaussian X = 10⁶ NNS = TR (Wigner-Dyson;
+  matches RW Prop 5.3 bulk universality); Eisenstein X = 10⁶ NNS =
+  BL at the bulk classifier boundary.  Every RF spike vs Poisson or
+  CUE null fails the within-window CV < 0.3 falsifier (Gaussian q=3:
+  CV = 0.644; Eisenstein q=8: CV = 0.995).  Verdict
+  NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_HECKE on both substrates;
+  RW_REPLICATED_AT_DEEP_LAYER on both (constant-level confirmatory).
+  Cross-phase to 34c χ₋₃ Sp stratum: CONVERGENT_NULL_ACROSS_COORDINATES
+  on Q(√−3) — two ARS readouts of the same arithmetic object (angle
+  in 34d-E, zero in 34c) both null beyond their respective right
+  nulls.  Phase 34d-E is the first measurement against the implicit
+  Eisenstein analog of RW; no dedicated paper for Z[ω] prime-angle
+  variance exists in the literature per phase34d/lit/LIT_SUMMARY.md.
+  (§7.ter.51.)
 
 #### Physical and biological signals
 
