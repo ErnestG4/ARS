@@ -95,35 +95,67 @@ def split_p_as_eisenstein_norm(p: int) -> tuple[int, int]:
         return (2, 1)  # 2² - 2·1 + 1² = 4 - 2 + 1 = 3 ✓
     if p % 3 != 1:
         raise ValueError(f"p = {p} is not ≡ 1 mod 3; not representable as a² - ab + b²")
-    # Find x with x² ≡ -3 (mod p): equivalent to finding √(p - 3) mod p
-    # Since p ≡ 1 mod 3, -3 is a QR mod p.
-    x = _tonelli_shanks((p - 3) % p, p)
-    if x * 2 > p:
-        x = p - x
-    # Adjust x so that x is odd (because u = 2a - b must have same parity
-    # as -b = -v, and we want u² + 3v² = 4p, so u and v must both be even
-    # or both odd; for p odd, 4p is divisible by 4 mod ..., let's check)
-    # Actually for u² + 3v² = 4p with p odd: 4p ≡ 4 mod 8. u² + 3v² ≡ 4 mod 8.
-    # Pairs (u² mod 8, v² mod 8) summing to 4 mod 8 (with 3v² mod 8 ∈ {0,3,4,3}):
-    # u² ∈ {0,1,4}, 3v² ∈ {0,3,4,3}. Pairs giving 4: (0,4),(1,3),(4,0). So
-    # (u even, v even) or (u odd, v odd).
-    # We want a, b > 0 integers, so u and v must have the same parity.
-    # Run Euclidean on (2p, x) — but actually simpler to run on (p, x) and adjust.
-    # Standard Cornacchia for d = 3, N = p: find (a, b) with a² + 3b² = p
-    # when (p-3) is QR mod p AND additional conditions; if a² + 3b² = p has no
-    # solution we need 4·p version.
-    # Try the 4p version directly.
-    # Tonelli on -3 mod 4p: easier to compute mod p and reconstruct.
-    # Actually let's just brute force when fast Cornacchia is fiddly:
-    # Iterate over the Euclidean remainder sequence (p, x) and find first pair
-    # with r² < p.
-    a_seq, b_seq = p, x
+
+    # Cornacchia on the form u² + 3v² = 4p:
+    # Step 1: find r₀ with r₀² ≡ -3 (mod p) via Tonelli-Shanks.
+    r0 = _tonelli_shanks((p - 3) % p, p)
+
+    # Step 2: ensure r₀ is even (since u = 2a - b is even iff b is even AND a is
+    # any; we want a, b > 0 integers, and for 4p = u² + 3v², it turns out we
+    # can pick u even by symmetry; the parity constraint is u ≡ v (mod 2)).
+    # Cleanest: set r so that r² ≡ -3 mod 4p with r < 2p. We need r odd or even
+    # based on lifting. Just try the 4 lifts and pick.
+    r = None
+    for candidate in (r0, p - r0):
+        if (candidate * candidate + 3) % p == 0:
+            r = candidate
+            break
+    if r is None:
+        return _split_p_eisenstein_brute(p)
+
+    # Step 3: Euclidean reduction on (p, r) until remainder ≤ √p.
+    a_seq, b_seq = p, r
     sqrt_p = int(np.sqrt(p))
     while b_seq > sqrt_p:
         a_seq, b_seq = b_seq, a_seq % b_seq
-    # Now we have b_seq ≤ √p. We need b² = b_seq with 3b² + (-) = 4p... actually
-    # this is for the principal form. Let me just use the original brute-force
-    # search but with a smarter loop limit:
+    # Now b_seq² ≤ p. If 4*p - (2 b_seq)² is divisible by 3 and a perfect square,
+    # we have a solution. Equivalently, use the alternative form:
+    # The Cornacchia output for x² + d y² = N gives (b_seq, v) with
+    #   v² = (N - b_seq²) / d
+    # For our N = p (not 4p), d = 3: v² = (p - b_seq²) / 3.
+    u = b_seq
+    rem = p - u * u
+    if rem < 0 or rem % 3 != 0:
+        return _split_p_eisenstein_brute(p)
+    v_sq = rem // 3
+    v = int(np.sqrt(v_sq))
+    for d in (0, -1, +1, -2, +2):
+        if (v + d) >= 0 and (v + d) * (v + d) == v_sq:
+            v = v + d
+            break
+    else:
+        return _split_p_eisenstein_brute(p)
+    # Solution found: u² + 3v² = p (the principal form representation).
+    # Convert (u, v) → (a, b) in form a² - ab + b² = p:
+    #   u² + 3v² = p   ⇔   a = (u + v), b = 2v ?? Let me recheck.
+    # Actually: a² - ab + b² = (a - b/2)² + 3(b/2)². If b is even, set b = 2v,
+    # then a² - 2av + (2v)² = a² - 2av + 4v² = (a-v)² + 3v² = u² + 3v² = p.
+    # So u = a - v, a = u + v, b = 2v.
+    a = u + v
+    b = 2 * v
+    if a <= 0 or b <= 0:
+        # Try u → -u (i.e., negate u to flip sign)
+        a = -u + v
+        b = 2 * v
+    if a < b:
+        a, b = b, a
+    if a <= 0 or b <= 0 or a * a - a * b + b * b != p:
+        return _split_p_eisenstein_brute(p)
+    return (a, b)
+
+
+def _split_p_eisenstein_brute(p: int) -> tuple[int, int]:
+    """Brute-force fallback for the Eisenstein norm form."""
     bmax = int(np.sqrt(4.0 * p / 3.0)) + 1
     for b in range(1, bmax + 1):
         disc = 4 * p - 3 * b * b

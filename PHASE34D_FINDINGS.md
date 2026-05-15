@@ -1,8 +1,13 @@
 # Phase 34d Findings — number-field prime angles (Z[i], Z[ω])
 
-**Status:** complete. Pre-pilot Steps 3 + 4 passed; substantive Eisenstein
-run and cross-phase to 34c χ₋₃ Sp stratum landed. Per the per-finding
-template established at 34a/b/c.
+**Status:** complete with post-commit robustness amendment (2026-05-14).
+Pre-pilot Steps 3 + 4 ran; the amendment pass added bootstrap σ²(K, X)
+error bars, multi-K Eisenstein scan (parity with Gaussian), and
+seed-replicate NNS classification. The amendment overturned the
+single-shot bulk-classification verdict (per §7.ter.22 metric-
+saturation discipline) and tightens the σ² shape claim to asymmetric
+substrate-specific verdicts. Per the per-finding template established
+at 34a/b/c.
 
 ---
 
@@ -35,22 +40,37 @@ established across Phases 34a–d:
 ## Methodology
 
 ### Generation
-- **Gaussian primes** — Cornacchia's algorithm (Tonelli-Shanks for √(-1)
-  mod p, Euclidean reduction). O(log² p) per split prime. X = 10⁷ in 2.8 s.
-- **Eisenstein primes** — brute-force search on a² - ab + b² = p
-  with b ∈ [1, √(4p/3)]. X = 10⁶ in 7 s; X = 10⁷ in ~3 min.
-  (Cornacchia speed-up for Eisenstein is a TODO.)
+- **Gaussian primes** — Cornacchia + Tonelli-Shanks for √(-1) mod p
+  followed by Euclidean reduction. O(log² p) per split prime. X = 10⁷
+  in 2.8 s.
+- **Eisenstein primes** — Cornacchia + Tonelli-Shanks for √(-3) mod p
+  followed by Euclidean reduction on the form u² + 3v² = p, then
+  (a, b) = (u + v, 2v). O(log² p) per split prime. X = 10⁷ in 2.9 s
+  (Cornacchia speed-up was added in the amendment pass; the original
+  brute-force took ~3 min at X = 10⁷).
 - One angle per prime ideal; split p contributes TWO angles (the two
   conjugate ideals (π) and (π̄) with angles θ and L − θ in the
   fundamental sector).
 
 ### Step 3 — direct RW variance check
 σ²(K, X) via continuous sliding-window integration over center θ ∈ [0, L)
-(circular boundary). Discretised with n_grid = 5000, `np.searchsorted`
-for fast counting.
+(circular boundary). Discretised with n_grid = 5000 (n_grid = 2000 in
+bootstrap), `np.searchsorted` for fast counting.
+
+**Bootstrap procedure (amendment pass):** for each (substrate, X, K)
+cell, draw 50 random half-samples (50% of the angles, without
+replacement) and recompute σ²(K, X)/(N/K) on each half-sample. Report
+the mean and 2σ envelope. Each half-sample has its own β = log K /
+log(N/2), so the reported β is the mean across the 50 half-samples.
+
+**Calibration control:** the same estimator on synthetic pair-symmetric
+uniform random angles (matched N, same {θ, L−θ} pairing convention)
+gives σ²/(N/K) ≈ 1.0 in the saturation regime (1.003 ± noise at
+β = 0.71). This rules out the pair-symmetric counting convention as
+the source of any saturation-level deficit on prime data.
 
 ### Step 4 — ARS readout
-Standard Phase 34c panel:
+Standard Phase 34c panel adapted to the prime-angle substrate:
 1. `joint_q_profile` NNS classification on **FULL N** (per §7.ter.51).
 2. Within-window stability falsifier (5 windows, CV < 0.3).
 3. `ramanujan_fourier(normalize=True)` Mode B + `padic_amplitude_v4` vs:
@@ -58,108 +78,178 @@ Standard Phase 34c panel:
    - **CUE / GUE β=2** at capped N=5000 (bulk-universal RMT right null
      per RW Prop 5.3 + Katz-Sarnak).
 
-200 surrogates per null per panel.
+**Seed-replicate procedure (amendment pass):** for each substrate at
+X = 10⁶, draw 20 random 80%-subsamples (different seeds), Hecke-unfold
+each, and run `joint_q_profile.classify` on each subsample. Record
+distribution of (primary, rep_med, ks_gue_med). Tests whether
+single-shot verdicts are stable under sub-sampling — the §7.ter.22
+metric-saturation discipline.
 
 ### New infrastructure
 - `phase34d/circular_sampler.py` — CUE/COE/CSE via Mezzadri 2007
   QR-with-phase-normalization recipe. β=1/2/4 spacing-CV match Wigner
   surmise values: 0.54 (β=1), 0.43 (β=2), 0.32 (β=4).
 - `phase34d/gaussian_primes.py` — Cornacchia + Tonelli-Shanks.
-- `phase34d/eisenstein_primes.py` — brute-force Eisenstein norm form.
+- `phase34d/eisenstein_primes.py` — Cornacchia + Tonelli-Shanks for
+  u² + 3v² = p (amendment-pass speed-up).
+- `phase34d/run_amendments.py` — bootstrap σ² + seed-replicate NNS
+  driver.
 
 ---
 
 ## Sub-questions & results
 
-### SQ-1 — Step 3 RW variance shape: PASS
+### SQ-1 — Step 3 RW variance shape (with bootstrap error bars)
 
-Empirical σ²(K, X)/(N/K) traces predicted min(1, 2β) shape with finite-X
-correction. Convergence toward RW asymptote visible as X grows.
+**Result (amendment-tightened):** Two distinct regimes show distinct
+agreement with RW:
 
-| substrate  | X    | K     | β     | σ²/(N/K) | RW min(1, 2β) | ratio_emp / RW |
-| ---------- | ---- | ----- | ----- | -------- | ------------- | -------------- |
-| gaussian   | 10⁷  | 30    | 0.254 | 0.299    | 0.507         | 0.59           |
-| gaussian   | 10⁷  | 100   | 0.344 | 0.337    | 0.687         | 0.49           |
-| gaussian   | 10⁷  | 1000  | 0.515 | 0.609    | 1.000         | 0.61           |
-| gaussian   | 10⁷  | 3000  | 0.597 | 0.713    | 1.000         | 0.71           |
-| gaussian   | 10⁷  | 10000 | 0.687 | **0.872**| 1.000         | **0.87**       |
-| eisenstein | 10⁷  | 10000 | 0.687 | 0.865    | 1.000         | 0.87           |
+| substrate | X | K | β | σ²/(N/K) ± 2σ_boot | RW min(1, 2β) | (RW−emp)/σ |
+| --------- | ---- | ---- | ----- | ------------------ | ------------- | ---------- |
+| **Rigidity regime (β < 0.5):** matches RW within 1σ |
+| gaussian | 10⁶ | 10 | 0.218 | 0.489 ± 0.324 | 0.435 | −0.33 |
+| gaussian | 10⁶ | 30 | 0.322 | 0.587 ± 0.192 | 0.643 | +0.58 |
+| gaussian | 10⁷ | 30 | 0.268 | 0.626 ± 0.242 | 0.535 | −0.75 |
+| gaussian | 10⁷ | 100 | 0.362 | 0.680 ± 0.144 | 0.724 | +0.62 |
+| eisenstein | 10⁶ | 30 | 0.322 | 0.607 ± 0.182 | 0.643 | +0.40 |
+| eisenstein | 10⁷ | 100 | 0.362 | 0.629 ± 0.156 | 0.724 | +1.23 |
+| **Saturation regime (β > 0.5):** empirical saturates ~0.78–0.92, below RW 1.0 by 3–7σ |
+| gaussian | 10⁶ | 1000 | 0.653 | 0.843 ± 0.056 | 1.000 | +5.69 |
+| gaussian | 10⁷ | 1000 | 0.543 | 0.798 ± 0.056 | 1.000 | +7.29 |
+| gaussian | 10⁷ | 10000 | 0.724 | 0.888 ± 0.052 | 1.000 | +4.40 |
+| eisenstein | 10⁶ | 1000 | 0.653 | 0.883 ± 0.062 | 1.000 | +3.71 |
+| eisenstein | 10⁷ | 10000 | 0.724 | 0.910 ± 0.052 | 1.000 | +3.44 |
 
-At fixed β, ratio rises with X — consistent with RW being asymptotic.
-RW's published Figure 1 is at X ≈ 10⁸; our X = 10⁷ K = 10⁴ point is
-within 13% of the asymptote in the Poisson regime. Plot:
-`plots/phase34d_rw_variance.png`.
+The data **traces the RW Conjecture 1.2 shape** (rising in rigidity,
+saturating in Poisson regime), but the saturation is at empirical
+~0.78–0.92 rather than 1.0. Two interpretations remain unresolved at
+X = 10⁷:
 
-### SQ-2 — Gaussian × Eisenstein constant-level test: CONFIRMATORY
+  - **(a) Finite-X correction not characterized.** RW's published
+    Figure 1 is at X ≈ 10⁸ (an order of magnitude higher); convergence
+    of the saturation level from below as X grows is plausible. Our
+    data does show *some* upward drift with X (gaussian K=1000:
+    0.843 ± 0.028 at X=10⁶ → 0.798 ± 0.028 at X=10⁷ K=1000 at lower β,
+    but rising to 0.888 ± 0.026 at K=10⁴ at higher β at X=10⁷).
+    Convergence is slow and the rate is not quantified.
 
-Gaussian and Eisenstein curves are **essentially identical** at any
-given (X, β). This matches the brief's predicted
-GAUSSIAN_EISENSTEIN_DIVERGENT_CONST verdict outcome: same min-shape, no
-detectable prefactor difference at finite X. Confirmatory of structural
-analog; not novel.
+  - **(b) Genuine substrate departure from the RW asymptote.** The
+    saturation may be an actual feature of prime-angle bulk variance
+    at finite X that does NOT converge to 1.0. Without an analytic
+    finite-X correction theory or empirical data at X ≥ 10⁸, we cannot
+    discriminate.
 
-### SQ-3 — Step 4 NNS classification on FULL N
+The synthetic pair-symmetric uniform calibration **does** reach 1.0 in
+the saturation regime, so the deficit is NOT a counting-convention
+artifact.
 
-| substrate  | X    | NNS primary (full N) | rep_med | ks_gue_med | NNS primary (capped 5K) |
-| ---------- | ---- | -------------------- | ------- | ---------- | ----------------------- |
-| Gaussian   | 10⁵  | BL (Poisson)         | 0.097   | 0.237      | BL                      |
-| Gaussian   | 10⁶  | **TR (Wigner-Dyson)**| 0.101   | 0.242      | **BR_artifact**         |
-| Eisenstein | 10⁶  | BL (Poisson)         | 0.058   | 0.250      | **BR_artifact**         |
+**Plot:** `plots/phase34d_rw_variance_boot.png` (with 2σ bootstrap
+error bars) and `plots/phase34d_rw_variance.png` (single-shot single-X
+overlay).
 
-At X = 10⁶:
-- **Gaussian** classifies **TR** — matches RW Prop 5.3 bulk Wigner-Dyson
-  universality (Hermite ↔ Circular β=2 by Katz-Sarnak).
-- **Eisenstein** classifies **BL** — at the bulk classifier boundary
-  (rep_med = 0.058 is right at TR/BL threshold). The substrate is at
-  the boundary; classifier sensitivity to ks_gue_med pushes it to BL.
+### SQ-2 — Gaussian × Eisenstein constant-level test (post-amendment)
 
-**Both substrates' capped (decimated) variants classify BR_artifact** —
-confirms stride-decimation destroys arithmetic structure (§7.ter.51
-proposed below).
+**Result: CONSTANT_LEVEL_AGREEMENT.** Gaussian and Eisenstein curves
+overlap at every (X, β) within their bootstrap error bars. Both show
+the same rising-then-saturating shape, the same ~0.85–0.91 saturation
+level, and the same finite-X drift pattern (modest upward shift with X).
+
+This is consistent with the brief's CONSTANT_LEVEL_AGREEMENT
+expectation. To avoid a label collision with the brief's pre-specified
+`GAUSSIAN_EISENSTEIN_DIVERGENT_CONST` verdict (which the brief used
+for "differ at constant level"), we use CONSTANT_LEVEL_AGREEMENT here
+for the convergent outcome. The verdict map is updated below.
+
+### SQ-3 — Step 4 NNS classification (overturned by seed-replicate)
+
+**Single-shot run (initial, pre-amendment):**
+
+| substrate  | X    | NNS primary (full N, single seed) | rep_med | ks_gue_med |
+| ---------- | ---- | --------------------------------- | ------- | ---------- |
+| Gaussian   | 10⁶  | **TR (Wigner-Dyson)**              | 0.101   | 0.242      |
+| Eisenstein | 10⁶  | **BL (Poisson)**                   | 0.058   | 0.250      |
+
+The single-shot result appeared to show a Gaussian/Eisenstein bulk-
+classification divergence at X = 10⁶. The original finding-doc framed
+this as "Gaussian TR matches RW Prop 5.3 bulk Wigner-Dyson; Eisenstein
+BL at the bulk classifier boundary."
+
+**Seed-replicate (amendment, 20 random 80%-subsamples per substrate):**
+
+| substrate  | X    | primary distribution | rep_med (mean ± std) | rep_med [min, max] | ks_gue_med (mean ± std) |
+| ---------- | ---- | -------------------- | -------------------- | ------------------ | ----------------------- |
+| Gaussian   | 10⁶  | **BL 20/20**         | 0.070 ± 0.016        | [0.046, 0.097]     | 0.258 ± 0.011           |
+| Eisenstein | 10⁶  | **BL 20/20**         | 0.066 ± 0.014        | [0.045, 0.097]     | 0.258 ± 0.009           |
+
+**Welch-style separation: 0.21σ.** The two rep_med distributions are
+indistinguishable. Both substrates classify BL on ALL 20 sub-samples.
+
+**Verdict: BOUNDARY_ARTIFACT.** The single-shot "Gaussian TR" result
+was a threshold-crossing artifact: the full-N rep_med (0.101) happens
+to sit just above the TR/BL boundary; any 80% sub-sample drops it
+below the threshold. Per **§7.ter.22 metric-saturation discipline**
+(continuous metrics dominate when modal class is near a boundary),
+the discrete quadrant verdict was overclaiming on a continuous metric.
+
+**Corrected reading:** Both Gaussian and Eisenstein prime-angle
+substrates bulk-classify as **BL (Poisson-like)** at X = 10⁶ in 20/20
+subsample replicates. The substrates do NOT show a real bulk
+divergence at this N; they are bulk-indistinguishable across the
+replicated test, consistent with shared Hecke-equidistribution at the
+nearest-neighbor scale.
+
+The bulk-BL reading on prime-angle substrates does **not contradict
+RW Prop 5.3**, because Prop 5.3 is about the variance σ²(K, X) at
+*global moment* scale (Step 3 result), not the nearest-neighbor
+spacing distribution. The two readouts measure different things — see
+**§7.ter.52 bulk vs global-moment readout** below.
 
 ### SQ-4 — Step 4 RF spike test + within-window CV falsifier
 
-| substrate  | X    | spike q vs Poisson (full N) | p-val | dom_per_q | within-window CV @ q | spike CV<0.3 gate? |
-| ---------- | ---- | --------------------------- | ----- | --------- | -------------------- | ------------------ |
-| Gaussian   | 10⁵  | q=3, q=5                    | low   | p=3       | q=3 CV=0.91          | FAIL               |
-| Gaussian   | 10⁶  | q=3                         | low   | p=3       | q=3 CV=0.64          | FAIL               |
-| Eisenstein | 10⁶  | q=8                         | 0.020 | p=13      | q=8 CV=**0.995**     | FAIL               |
+**Result:** unchanged by amendment. Within-window CV-per-q on FULL N:
 
-| substrate  | X    | spike q vs CUE (capped) | p-val | dom_per_q |
-| ---------- | ---- | ----------------------- | ----- | --------- |
-| Gaussian   | 10⁶  | q=4, q=12               | low   | p=2       |
-| Eisenstein | 10⁶  | **NONE**                | n/a   | p=5       |
+| substrate  | X    | spike q vs Poisson (full N) | CV at spike q | gate (<0.3) |
+| ---------- | ---- | --------------------------- | ------------- | ----------- |
+| Gaussian   | 10⁵  | q=3, q=5                    | q=3 CV=0.908  | FAIL        |
+| Gaussian   | 10⁶  | q=3                         | q=3 CV=0.644  | FAIL        |
+| Eisenstein | 10⁶  | q=8                         | q=8 CV=0.995  | FAIL        |
 
-**Every flagged RF spike fails the within-window stability falsifier
-(CV < 0.3 gate).** The q=3 spike in Gaussian, q=8 spike in Eisenstein,
-and decimated q=4/q=12 spikes in Gaussian are all sequence-level
-unstable. Per Phase 34d brief §D Prime-K seduction discipline, these
-are documented but **not robust features.**
+**Every flagged RF spike fails the within-window CV<0.3 falsifier.**
+Per Phase 34d brief §D prime-K seduction discipline, these are
+documented but **not robust features.** Eisenstein vs CUE: no spikes
+at 5×median threshold (cleanly null).
 
-Eisenstein vs CUE: **no spikes, cleanly null** — passes the right-null
-gate trivially. Gaussian vs CUE on decimated data shows decimation
-artifacts (q=4 is the natural unit-orbit mode that survives the
-arithmetic-structure destruction of decimation).
+### SQ-5 — Cross-phase joint statement (reframed)
 
-### SQ-5 — Cross-phase joint statement (34d-E ↔ 34c χ₋₃ Sp): CONVERGENT_NULL
+**Original framing (overclaimed):** "CONVERGENT_NULL_ACROSS_COORDINATES
+on Q(√−3) — stronger than direction-match."
 
-Per Phase 34d brief §C pre-specified joint verdict:
-
-**JOINT STATEMENT: CONVERGENT_NULL_ACROSS_COORDINATES on Q(√−3).**
+**Reframed (post-critique):** **METHODOLOGICAL_CONSISTENCY_ACROSS_COORDINATES.**
 
 | coordinate                                    | substrate                  | NNS primary | spike-survival vs right null |
 | --------------------------------------------- | -------------------------- | ----------- | ---------------------------- |
 | **angle** (34d-E, [0, π/3))                    | Z[ω] / Eisenstein primes  | BL          | NONE (null vs CUE)           |
 | **zero**  (34c real-Dirichlet Sp, χ₋₃ stratum) | L(s, χ₋₃) zeros            | BL          | NONE (null vs Sp β=4)        |
 
-**Two ARS readouts of the same arithmetic object (Q(√−3)) at two
-different spectral coordinates BOTH land null beyond their respective
-right nulls.** This is stronger than direction-match: it is convergent-
-null across coordinates of one arithmetic substrate.
+The two ARS readouts of Q(√−3) at distinct spectral coordinates
+**both return null when run with the substrate-appropriate right null
+in each case.** This demonstrates that ARS produces consistent null
+verdicts across coordinates of one arithmetic object — confirmatory of
+**framework consistency**, not of substantive cross-coordinate
+arithmetic.
 
-Phase 34f Bianchi-Maass-on-PSL(2, O_K) is forward-bound as the **third
-coordinate** on the same substrate, completing a single-substrate
-multi-coordinate instrument-validation triple.
+**A substantive cross-coordinate convergence claim would require:**
+- residual correlation between the two coordinates' departures from
+  their right nulls (none measured), or
+- a shared anomaly appearing at both coordinates (none observed), or
+- mutual prediction: a null-departure at the angle coordinate predicts
+  one at the zero coordinate or vice versa (not tested).
+
+None of these were measured in Phase 34d. The honest claim is that
+the framework consistently produces null verdicts on two coordinates
+of Q(√−3); the substantive arithmetic claim is reserved for future
+work that measures cross-coordinate correlations or shared
+non-null structure.
 
 ---
 
@@ -167,92 +257,142 @@ multi-coordinate instrument-validation triple.
 
 ### §7.ter.51 — Stride-decimation destroys arithmetic structure on prime-angle substrates
 
-**Statement.** Phase 34c-style stride-decimation of unfolded coordinates
-(`cap_events`, keep every kth event) preserves bulk Wigner-Dyson
-universality on RMT zero substrates (ζ, Dirichlet, EC L), because zero
-spacings are *locally* rigid in a coordinate-free way. It DOES NOT
-preserve bulk character on prime-angle substrates: decimation breaks
-the angular periodicity structure that ties the angles together via
-their underlying lattice constraints.
+**Statement (with scope audit, amendment-tightened).**
 
-**Empirical evidence.** Gaussian X = 10⁶: NNS primary on FULL N = 78351
-classifies **TR** (rep_med = 0.10); same data stride-decimated to N =
-5000 classifies **BR_artifact** (rep_med = 0.59). Eisenstein X = 10⁶
-same pattern: full-N **BL** (rep_med = 0.058) vs capped-5K **BR_artifact**
-(rep_med = 0.57).
+**Observed phenomenon:** Phase 34c-style stride-decimation
+(`cap_events`, keep every kth event) of the unfolded coordinate
+preserves bulk Wigner-Dyson universality on RMT zero substrates
+(ζ, Dirichlet, EC L) but flips the NNS classification verdict on
+prime-angle substrates. Empirical evidence at Phase 34d: Gaussian
+X = 10⁶ full N=78351 → NNS=TR (rep_med=0.10); same data decimated to
+N=5000 → NNS=BR_artifact (rep_med=0.59). Eisenstein same pattern. The
+seed-replicate amendment shows the original Gaussian "TR" was itself
+threshold-noise (see SQ-3), so the decimation observation more
+precisely is that decimation perturbs the bulk readout in a regime-
+specific way: it inflates rep_med beyond its full-N value, pushing
+near-boundary classifications to BR_artifact.
 
-**Operational rule.** For prime-angle substrates (and any future
-substrate where the spectral coordinate is in S¹ via a unit-orbit
-quotient): NNS / within-window-stability / Poisson-null comparisons
-MUST run on the FULL unfolded N. Stride-decimation is permissible
-ONLY for the dense-RMT surrogate (Dumitriu-Edelman O(N²) cost forcing).
-This is a substrate-family-specific discipline, sibling to
-§7.ter.19 (published-product level) and §7.ter.48 (substrate-side
-right-null typology).
+**Operational rule:** For prime-angle substrates and any substrate
+where the spectral coordinate is on S¹ via a unit-orbit quotient,
+NNS / within-window-stability / Poisson-null comparisons must run on
+FULL unfolded N. Stride-decimation is permissible only for the
+dense-RMT surrogate (Dumitriu-Edelman O(N²) cost forcing the standard
+N_MAX_SURVEY=5000 cap). When the substrate's NNS verdict sits near
+the TR/BL boundary, ALSO run seed-replicate sub-sampling per the
+§7.ter.22 metric-saturation discipline.
+
+**Scope, currently empirically tested:** prime-angle substrates with
+S¹ unit-orbit-quotient structure (Z[i] / order 4, Z[ω] / order 6).
+**Conjectural broader applicability:** any substrate whose spectral
+coordinate is intrinsically periodic via a discrete group quotient.
+**Not yet tested:** general S¹ substrates without unit-orbit-quotient
+structure; higher-dimensional unit-orbit quotients (e.g., U(1) × U(1)
+products in PSL(2, O_K) Bianchi spectra). Mark these scopes as
+*untested* in future application — and run the same decimation
+comparison as a sanity check before applying the rule.
+
+Sibling to §7.ter.19 (published-product level) and §7.ter.48
+(substrate-side right-null typology).
 
 ### §7.ter.52 — Bulk readout vs global-moment readout: complementary, not interchangeable
 
-**Statement.** Per Rudnick-Waxman 2019 Proposition 5.3 (proved), the
-bulk variance integral ∫_G |S_n(U)|² dU is **identical** for G = U(N),
-USp(2N), SO(2N) at leading order min(n, N). The three Circular families
-are *bulk-indistinguishable*. Bulk-dominated ARS engines (NNS, RF Mode
-B, p-adic v4) inherit this indistinguishability: they cannot tell
-CUE-from-COE-from-CSE on a substrate whose right null is in the
-Wigner-Dyson β class.
+**Statement.** Per RW 2019 Proposition 5.3 (proved), the bulk variance
+integral ∫_{G(N)} |S_n(U)|² dU is **identical** for G = U(N),
+USp(2N), SO(2N) at leading order min(n, N). The three Circular
+families are *bulk-indistinguishable*. Bulk-dominated ARS engines
+(NNS, RF Mode B, p-adic v4) inherit this indistinguishability: they
+cannot tell CUE-from-COE-from-CSE on a substrate whose right null is
+in the Wigner-Dyson β class.
 
 **Operational rule.** When the substrate's right null lives at the
 *global moment* level (Rudnick-Waxman class), the σ²(K, X) curve must
-be recorded as a **required complement** to the bulk-ARS readout — it
-is the discriminating measurement against the literature target.
-ARS provides "in the right β-class" confirmation; only the
-global-moment σ²(K, X) directly tests the substantive prediction. This
-extends the Phase 34c bulk-vs-edge analytical scaffolding to Phase 34d
-prime-angle substrates.
+be recorded as a **required complement** to the bulk-ARS readout —
+the global moment is the discriminating measurement against the
+literature target. ARS provides "in the right β-class" confirmation;
+σ²(K, X) directly tests the substantive prediction.
+
+**Amendment note:** Phase 34d's bulk readout at X = 10⁶ gives
+BL-classification on both substrates (seed-replicated, see SQ-3).
+This is NOT in conflict with RW Prop 5.3, because Prop 5.3 is about
+the global-moment variance (Step 3 σ²(K, X), see SQ-1) not the
+nearest-neighbor spacing distribution. The two readouts measure
+*different things*: bulk classifier reads NNS spacing distribution;
+σ²(K, X) reads the long-arc number variance. RW Prop 5.3's bulk
+universality applies to σ²(K, X), and the Phase 34d Step 3 data
+confirms the shape (with finite-X / saturation-deficit caveat per
+SQ-1).
 
 ---
 
 ## Cross-phase enumeration (two-layer per §7.ter.48)
 
 ### Surface layer (vs Poisson zeroth-order null)
-- **34d-G × 34d-E:** PARALLEL_SIGNAL by structural analogy. Both
-  Hecke-equidistributed; both reproduce RW min(1, 2β) shape; both
-  bulk-Wigner-Dyson at finite N.
+- **34d-G × 34d-E:** PARALLEL_SIGNAL by structural analogy at the σ²(K, X)
+  shape level; both substrates BL on subsample-replicate NNS.
 
 ### Deep layer (vs Rudnick-Waxman variance prediction)
-- **34d-G** deep layer: RW Figure 1 shape REPLICATED with finite-X
-  correction. Instrument-validation success (parallel to ζ → TR in
-  Phase 34c).
-- **34d-E** deep layer: Same shape as 34d-G; first-measurement against
-  implicit Eisenstein analog. Confirmatory of structural analog at
-  constant level (GAUSSIAN_EISENSTEIN_DIVERGENT_CONST verdict per brief).
+- **34d-G:** RW shape confirmed in rigidity regime (within 1σ in
+  bootstrap); saturation regime ~10-15% below asymptote 1.0
+  (3–7σ deficit at finite X). Either finite-X correction or genuine
+  substrate departure — not resolved at X = 10⁷.
+- **34d-E:** Same shape as 34d-G at constant level across all measured
+  β values (single-K → multi-K parity achieved in amendment pass);
+  first-measurement against implicit Eisenstein analog;
+  CONSTANT_LEVEL_AGREEMENT.
 
 ### Cross-phase to 34c
-- **34d-E ↔ 34c χ₋₃ Sp:** CONVERGENT_NULL_ACROSS_COORDINATES on
-  Q(√−3). Two ARS readouts of one arithmetic object at two distinct
-  spectral coordinates both null beyond their respective right nulls.
+- **34d-E ↔ 34c χ₋₃ Sp:** METHODOLOGICAL_CONSISTENCY_ACROSS_COORDINATES
+  on Q(√−3). Both null beyond their respective right nulls, but the
+  joint statement is about framework consistency, not substantive
+  arithmetic convergence (which would require residual correlation /
+  shared anomaly measurement — not done in Phase 34d).
 
 ---
 
-## Verdict map (final)
+## Verdict map (final, asymmetric per substrate)
 
-- **PRE_PILOT_STEP_3: PASS** — Gaussian RW Figure 1 reproduced
-  (ratio = 0.87 at β = 0.69, X = 10⁷); Eisenstein constant-level
-  identical.
-- **PRE_PILOT_STEP_4: PASS** — NNS classifies on bulk-universality
-  expected category (TR at Gaussian X = 10⁶; BL/boundary at Eisenstein
-  X = 10⁶ and Gaussian X = 10⁵); every flagged RF spike fails the
-  within-window CV < 0.3 falsifier; vs CUE: Eisenstein cleanly null,
-  Gaussian decimated-only spikes are decimation artifacts.
-- **SUBSTANTIVE_34d-G: RW_REPLICATED_AT_DEEP_LAYER** —
-  σ²(K, X) reproduces RW Conjecture 1.2 with finite-X correction.
-  Instrument-validation success.
-- **SUBSTANTIVE_34d-E: NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_HECKE + RW_REPLICATED_AT_DEEP_LAYER (constant-level confirmatory)** —
-  no robust arithmetic-channel feature beyond Hecke equidistribution +
-  RW variance prediction. First measurement on Eisenstein analog
-  succeeds.
-- **CROSS_PHASE_34d-E ↔ 34c χ₋₃ Sp: CONVERGENT_NULL_ACROSS_COORDINATES on Q(√−3)** —
-  two ARS readouts of one arithmetic object at two distinct spectral
-  coordinates both null beyond respective right nulls.
+- **PRE_PILOT_STEP_3 (Gaussian):** **RW_SHAPE_CONFIRMED_AT_FINITE_X.**
+  σ²(K, X) shape matches RW Conjecture 1.2 in the rigidity regime
+  (β < 0.5) within 1σ of bootstrap envelope. In the saturation regime
+  (β > 0.5), empirical saturates at 0.78–0.91 vs RW asymptote 1.0,
+  with 3–7σ deficit at X = 10⁷ in tight bootstrap error. Discriminating
+  finite-X correction vs genuine substrate departure requires
+  measurement at X ≥ 10⁸ or an analytical finite-X correction theory;
+  neither was produced in Phase 34d.
+
+- **PRE_PILOT_STEP_3 (Eisenstein):** **FIRST_MEASUREMENT_SHAPE_CONSISTENT_WITH_STRUCTURAL_EXTENSION.**
+  6 K values across X ∈ {10⁶, 10⁷} trace the same shape as Gaussian
+  within bootstrap error at every (X, β) cell. Consistent with the
+  implicit structural extension of RW to Z[ω]. **No published
+  Eisenstein RW exists**, so this is not "replication of a published
+  prediction" — it is "first measurement on the natural extension
+  shows the same finite-X behavior as the calibrator substrate."
+
+- **STEP_4 (both substrates):** **BL_BULK_CLASSIFICATION** on
+  subsample-replicated NNS at X = 10⁶ (20/20 seeds). Single-shot
+  "TR for Gaussian" reading is a §7.ter.22 metric-saturation
+  threshold-crossing artifact, not a real bulk divergence. No RF
+  spikes pass the within-window CV<0.3 falsifier.
+
+- **SUBSTANTIVE_34d-G:** **RW_SHAPE_CONFIRMED_AT_FINITE_X +
+  SATURATION_DEFICIT_UNRESOLVED.** Instrument behaves consistently
+  with RW shape; absolute precision is X-limited at X = 10⁷.
+
+- **SUBSTANTIVE_34d-E:** **NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_HECKE +
+  FIRST_MEASUREMENT_SHAPE_CONSISTENT.**
+
+- **GAUSSIAN_EISENSTEIN_CONSTANT_LEVEL:** **AGREEMENT_WITHIN_BOOTSTRAP_ERROR.**
+  Curves overlap at every measured (X, β). (To avoid label collision
+  with the brief's `GAUSSIAN_EISENSTEIN_DIVERGENT_CONST` which was
+  reserved for divergent outcomes, we use
+  CONSTANT_LEVEL_AGREEMENT here.)
+
+- **CROSS_PHASE_34d-E ↔ 34c χ₋₃ Sp:** **METHODOLOGICAL_CONSISTENCY_ACROSS_COORDINATES on Q(√−3).**
+  Confirmatory of framework null-verdict consistency across distinct
+  spectral coordinates of one arithmetic object. Substantive
+  cross-coordinate convergence claim is **reserved** pending future
+  measurement of residual correlation, shared anomaly, or mutual
+  prediction of null-departures.
 
 ---
 
@@ -261,62 +401,78 @@ prime-angle substrates.
 ```
 phase34d/
   PHASE34D_BRIEF.md                      ✓
-  PHASE34D_FINDINGS.md                   ✓ (this file)
+  PHASE34D_FINDINGS.md                   ✓ (this file, amendment-tightened)
   lit/
     LIT_SUMMARY.md                       ✓
     rudnick_waxman_2019.pdf              ✓
     katz_2017.pdf                        ✓
   circular_sampler.py                    ✓  CUE/COE/CSE per Mezzadri 2007
   gaussian_primes.py                     ✓  Cornacchia O(log² p)
-  eisenstein_primes.py                   ✓  brute-force O(√p)
+  eisenstein_primes.py                   ✓  Cornacchia O(log² p) (amendment)
   run_rw_variance_direct.py              ✓  Step 3
   run_prepilot_ars.py                    ✓  Step 4
   run_substantive_eisenstein.py          ✓
   run_cross_phase.py                     ✓
-  plot_rw_variance.py                    ✓
+  run_amendments.py                      ✓  bootstrap σ² + seed-replicate NNS
+  plot_rw_variance.py                    ✓  (now generates _boot.png too)
 
-data/phase34d_results/
-  rw_variance_direct.json                ✓  32 records, 3 X × 5-6 K × 2 substrates
+data/phase34d_results/   [gitignored]
+  rw_variance_direct.json                ✓  32 records, single-shot single-X
+  rw_variance_bootstrap.json             ✓  22 records, 50 bootstraps per cell
   gaussian_prepilot_ars.json             ✓
   eisenstein_substantive_ars.json        ✓
   cross_phase_34d_to_34c_dirichlet.json  ✓
+  nns_seed_replicates.json               ✓  20 seeds per substrate
 
-plots/
-  phase34d_rw_variance.png               ✓  RW Figure 1 reproduction
+plots/   [gitignored]
+  phase34d_rw_variance.png               ✓  single-shot Figure-1 reproduction
+  phase34d_rw_variance_boot.png          ✓  with 2σ bootstrap error bars
 ```
 
 ---
 
 ## Open questions / follow-ups
 
-1. **Eisenstein Cornacchia speed-up.** Brute-force at X = 10⁷ took
-   3 min; Cornacchia for u² + 3v² = 4p should reduce this to ~5 s.
-   Useful for any Phase 34e/34f extension.
+1. **Saturation deficit at X = 10⁷: finite-X correction or genuine departure?**
+   Empirical σ²/(N/K) saturates at ~0.85–0.91 vs RW asymptote 1.0,
+   with 3–7σ deficit in tight bootstrap error. Resolving this requires
+   either (a) measurement at X ≥ 10⁸ to test finite-X convergence
+   (X = 10⁸ Gaussian Cornacchia is ~30 s with current code), or
+   (b) analytical derivation of the finite-X correction term in RW
+   Conjecture 1.2. Either resolves to "confirmatory of RW asymptote"
+   or "genuine substrate departure with characterized finite-X scaling."
 
-2. **q = 3 spike on Gaussian** (falsified by CV gate but consistent
-   across X scan). Worth a tangential probe: is the q = 3 amplitude
-   correlated with the residue of p mod 3 across primes ≡ 1 mod 4?
-   If yes, it's a real arithmetic structure that just doesn't
-   manifest at the local-window scale. Not load-bearing for the
-   Phase 34d verdict; flagged for curiosity.
+2. **The §7.ter.22 metric-saturation lesson generalises.** Phase 34d's
+   seed-replicate amendment caught a single-shot threshold-crossing
+   artifact (Gaussian TR → BL on resample). Worth applying the same
+   discipline retrospectively to Phase 34c boundary-classifications
+   (NNS verdicts near TR/BL or TR/IB boundaries in ζ low-bulk,
+   Dirichlet, EC L) to verify their stability under sub-sampling.
 
-3. **Phase 34e candidate — named "RW-class" calibrator.** If 34d-G
-   validates RW shape (it does), consider adding a Rudnick-Waxman-class
-   entry to the calibrator zoo. Would convert RW from "literature
-   target" to "named calibrator class" and extend the zoo's range
-   to include the Hecke-Poisson family.
+3. **Substantive cross-coordinate convergence on Q(√−3).** The
+   methodological-consistency claim becomes substantive when one of:
+   (a) residual correlation between angle-coord and zero-coord
+   departures from right null is measured (e.g., regress 34d-E
+   per-prime z(p) on 34c χ₋₃-zero L-function moments);
+   (b) a shared anomaly appears at both coordinates;
+   (c) Phase 34f Bianchi-Maass-on-PSL(2, O_K) lands as the third
+   coordinate with null-departure correlated with 34d-E or 34c.
+   Reserved for future phases.
 
-4. **Phase 34f — Bianchi-Maass-on-PSL(2, O_K)** as the third spectral
-   coordinate on Q(√−3) (alongside the angle in 34d-E and the L-zero
-   in 34c χ₋₃ Sp). Would complete a single-substrate multi-coordinate
-   instrument-validation triple. Bohigas-Giannoni-Schmit (1984)
-   predicts GOE-class with documented arithmetic anomalies from
-   Hecke-eigenspace multiplicities — a current literature target.
+4. **Phase 34e candidate — named "RW-class" calibrator.** If the
+   saturation-deficit follow-up (item 1) confirms RW asymptote, add
+   an explicit Rudnick-Waxman-class entry to the calibrator zoo. If
+   it instead reveals a substrate-specific finite-X correction, the
+   named class is the empirical curve + characterized finite-X scaling.
 
-5. **§7.ter.51 sanity-check on Phase 34a/b.** §7.ter.51 says
-   stride-decimation destroys arithmetic structure on prime-angle
-   substrates. Worth re-running Phase 34a (Mertens) and 34b
-   (Liouville) on full N to verify the original §7.ter.48
-   conclusions weren't decimation-sensitive (probably weren't —
-   those substrates aren't S¹-circular — but worth a confirmation
-   if revisiting).
+5. **§7.ter.51 scope expansion.** Test the decimation discipline on
+   non-prime-angle S¹ substrates (function-field Frobenius eigenphases
+   if available; Maass forms on PSL(2, Z)) to determine whether the
+   rule is unit-orbit-specific or generally applies to any S¹
+   substrate.
+
+6. **§7.ter.22 retrospective on Phase 34c.** Run 20-seed subsample-
+   replicate NNS on Phase 34c panels and check whether any single-shot
+   verdicts (especially ones at the TR/BL boundary) flip under
+   subsampling. If yes, those verdicts need the same correction Phase
+   34d did here.
