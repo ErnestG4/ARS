@@ -108,7 +108,7 @@ Phase 34e measures two substrates derived from the same arithmetic object:
 - **Seymour-Howell 2022**, "Rigorous computation of Maass cusp forms of squarefree level," Res. Number Theory 8:64. arXiv:2201.08760.
 - **Zenodo dataset:** DOI 10.5281/zenodo.7105772 (rigorous Maass forms of squarefree level, including SL(2,ℤ) trivial level).
 - **GitHub:** github.com/aseymourhowell/Maass-Form-Trace-Formula-Code.
-- **Seymour-Howell 2025**, "A database of rigorous Maass forms," arXiv:2502.01442 (most recent; multiple Γ₀(N) levels, rigorously validated).
+- **Lowry-Duda 2025**, "A database of rigorous Maass forms," arXiv:2502.01442 (most recent; announces the LMFDB Maass database across Γ₀(N) congruence subgroups, including 2,202 N=1 forms; describes the three rigorous computation methods incl. Seymour-Howell trace formula). [Author: David Lowry-Duda — NOT Seymour-Howell; corrected from initial search-derived attribution.]
 
 This is the workhorse dataset for 34e: several thousand rigorous Maass cusp forms across squarefree levels, with Laplace eigenvalues and Hecke eigenvalues at validated precision. Trivial level N = 1 = SL(2,ℤ) is the canonical case.
 
@@ -314,7 +314,7 @@ The following methodology entries are candidates for METHODS.md upon successful 
 - Then, H. (2005). "Arithmetic quantum chaos of Maass waveforms." (arXiv:math-ph/0305048) — companion paper, Picard group PSL(2,ℤ[i]).
 - Seymour-Howell, A. (2022). "Rigorous computation of Maass cusp forms of squarefree level." Res. Number Theory 8:64. (arXiv:2201.08760)
 - Seymour-Howell, A. (2022). Zenodo dataset of Maass forms of squarefree level. DOI:10.5281/zenodo.7105772
-- Seymour-Howell, A. (2025). "A database of rigorous Maass forms." arXiv:2502.01442
+- Lowry-Duda, D. (2025). "A database of rigorous Maass forms." arXiv:2502.01442. [Corrected attribution: author is David Lowry-Duda, not Seymour-Howell. The paper announces the LMFDB Maass database and describes three rigorous computation methods including the Seymour-Howell trace-formula method.]
 
 ### H.3 Modern reframing
 

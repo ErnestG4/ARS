@@ -9462,28 +9462,36 @@ satisfied).  ρ ≈ 0.46 places the empirical NNS at ~54% Poisson + ~46% GOE,
 Poisson-dominant at the upper end of the Bogomolny-Schmit / Sarnak literature
 range (ρ ∈ [0.3, 0.5]).
 
-**Test 3 — Sato-Tate methodology calibration: §D.0 normalization gate caught
-a real issue.**  Pre-flight verification (PHASE34E_BRIEF §D.0) showed Seymour-
-Howell stores Hecke "eigenvalues" with values in range ±19, far outside the
-Ramanujan-Petersson range [-2, 2].  Hypothesis-driven rescaling λ_p := a_p / √p
-for good primes (p ∤ N) moves values within [-1.15, 1.15] (gate passes) but
-produces a non-semicircular distribution (KS_stat ≈ 0.47, p ≈ 0).  **The §D.0
-gate flagged a Seymour-Howell normalization convention before substantive
-Sato-Tate interpretation could be drawn** — methodology gate working as
-designed.  Resolution of the precise SH convention requires reading SH 2022 §3
-data-definition spec; Sato-Tate calibration is **NORMALIZATION_INVESTIGATION_
-REQUIRED**, methodology incomplete in this run.  The Δ-side results (Tests 1,
-2) are independent of this issue.
+**Test 3 — Sato-Tate methodology calibration: §D.0 gate caught the issue;
+investigation CLOSED with SATO_TATE_REPLICATED.**  Three iterations:
+v1 (all a(n) pooled, no rescale) — §D.0 gate correctly FAILED (SH stores
+a(n) for all n ≤ 2000; composites have a(n) ~ √n giving values to ±19);
+v2 (a(p)/√p) — over-corrected, non-semicircular; v3 (a(p) at primes, NO
+rescale) — CORRECT.  Resolution via Seymour-Howell 2022 §3
+(arXiv:2201.08760): a(n) defined by a(n)f = T_n f with the 1/√|n| prefactor
+built into the Hecke operator T_n, so a(p) at prime p is the
+Ramanujan-Petersson-normalized Satake variable directly (newform a(1)=1 ⟹
+a(p) at index p−1).  v3 gives **a(p) ∈ [-2, 2] exactly on all 6 levels;
+KS vs semicircular p = 0.22–0.77 (does NOT reject the SU(2) Sato-Tate
+measure); histogram residual std ≈ 0.003.**  Verdict:
+**SATO_TATE_REPLICATED_AT_HECKE_EIGENVALUES** on all 6 levels.  The §D.0
+gate is now a validated canonical diagnostic — it prevented a spurious
+Sato-Tate-departure verdict that would have been a pooling-aggregation
+artifact.  **Propagation:** SH's convention is the Hejhal-lineage standard;
+Then 2003 (Picard, 34f-G-H) is also Hejhal-lineage and uses the same
+convention — the resolution propagates cleanly, no separate Then 2003
+normalization audit required (per Will's propagation argument).
 
 **Test 4 — Cross-level reproducibility.**  Test 1 NNS verdicts: BL across all
 6 levels (consistent).  Test 2 Berry-Robnik ρ: cross-level σ (0.010) < 2× max
-individual σ (0.024) — consistent.  Test 3 §D.0 gate: failed-then-rescaled
-across all 6 levels with same pattern (KS_stat consistency check max/min < 2:
-TRUE).
+individual σ (0.024) — consistent.  Test 3 v3 normalization gate: PASSES on
+all 6 levels (a(p) ∈ [-2,2], KS p = 0.22–0.77); KS-stat consistency max/min
+< 2: TRUE.  **All four sub-tests cross-level consistent.**
 
-**Headline verdict:** **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE_PARTIAL.**
-The "PARTIAL" qualifier acknowledges Test 3 incompleteness and N=1 absence.
-The Δ-side anomaly replication itself is full-strength.
+**Headline verdict:** **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE.**
+Full closure on the rigorous Γ₀(N) squarefree-level data.  Only residual
+caveat: N = 1 trivial level absent from the Zenodo dump (LMFDB
+reCAPTCHA-blocked) — a data-availability note, NOT a methodology limitation.
 
 **Unfolding diagnostic.**  Empirical mean-spacing-after-unfolding ≈ 2.0 (not
 1.0) across all 6 levels, suggesting the SH dataset is parity-restricted or
@@ -9678,12 +9686,15 @@ not extend the corresponding literatures.
   1997) on the integrated ARS toolchain across rigorous Γ₀(N) levels
   for the first cross-level joint analysis.  N = 1 trivial level
   not in the Zenodo dump (LMFDB access pending).  Verdict:
-  **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE_PARTIAL.**
-  Hecke-eigenvalue Sato-Tate methodology calibration is incomplete
-  (§D.0 normalization gate caught a Seymour-Howell convention issue;
-  resolution pending SH 2022 §3 data-spec read).  These are reported
-  as instrument-validation outputs of the calibrator toolchain
-  against the published Sarnak anomaly on Γ₀(N).  (§7.ter.52.)
+  **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE.**
+  Hecke-eigenvalue Sato-Tate methodology calibration CLOSED:
+  the §D.0 normalization gate caught the Seymour-Howell convention
+  (a(n) with 1/√|n| in the Hecke operator); resolution per SH 2022 §3
+  (a(p) at primes, no rescale) yields a(p) ∈ [-2, 2] with semicircular
+  KS p = 0.22–0.77 on all 6 levels (SATO_TATE_REPLICATED).  These are
+  reported as instrument-validation outputs of the calibrator toolchain
+  against the published Sarnak anomaly on Γ₀(N).  N = 1 trivial level
+  pending LMFDB access.  (§7.ter.52.)
   (no published Eisenstein RW exists per phase34d/lit/LIT_SUMMARY.md
   §6).  Both substrates **NULL_IN_ORTHOGONAL_CHANNELS_BEYOND_HECKE**
   on Step 4.  Cross-phase to 34c χ₋₃ Sp stratum reframed

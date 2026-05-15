@@ -60,11 +60,16 @@ def main():
     except FileNotFoundError:
         t2 = None
         print("WARNING: Test 2 (Berry-Robnik) results not found; partial Test 4 output")
-    try:
-        with open(OUT_DIR / 'sato_tate.json') as f:
-            t3 = json.load(f)
-    except FileNotFoundError:
-        t3 = None
+    # Prefer the v3 (correctly-normalized) Sato-Tate result
+    t3 = None
+    for fn in ('sato_tate_v3.json', 'sato_tate.json'):
+        try:
+            with open(OUT_DIR / fn) as f:
+                t3 = json.load(f)
+            break
+        except FileNotFoundError:
+            continue
+    if t3 is None:
         print("WARNING: Test 3 (Sato-Tate) results not found; partial Test 4 output")
 
     print()
@@ -139,12 +144,15 @@ def main():
             r = t3['results'].get(f'level_{lvl}')
             if r is None:
                 continue
+            ng = (r.get('normalization_gate_v3')
+                  or r.get('normalization_gate_v2')
+                  or r.get('normalization_gate'))
             ks_stats.append(r['ks_test']['ks_stat'])
             ks_ps.append(r['ks_test']['ks_p_value'])
-            norm_pass.append(r['normalization_gate']['pass_check'])
+            norm_pass.append(ng['pass_check'])
             print(f"  Γ₀({lvl}): KS_stat = {r['ks_test']['ks_stat']:.4f}, "
                   f"KS_p = {r['ks_test']['ks_p_value']:.4e}, "
-                  f"norm_pass = {r['normalization_gate']['pass_check']}")
+                  f"norm_pass = {ng['pass_check']}")
         all_norm_pass = all(norm_pass)
         # KS_stat consistency: all stats within similar magnitude (within 2x)
         ks_consistent = max(ks_stats) < 2.0 * min(ks_stats) if min(ks_stats) > 0 else False

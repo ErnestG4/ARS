@@ -113,7 +113,10 @@ def plot_berry_robnik():
 
 
 def plot_sato_tate():
-    p = DATA / 'sato_tate.json'
+    # Use the v3 (correctly-normalized) Sato-Tate result; fall back to v1
+    p = DATA / 'sato_tate_v3.json'
+    if not p.exists():
+        p = DATA / 'sato_tate.json'
     if not p.exists():
         print(f"skip ST plot — {p} missing")
         return
@@ -132,8 +135,9 @@ def plot_sato_tate():
         pred = np.array(hist['predicted_density'])
         ax.bar(bc, emp, width=0.15, alpha=0.6, label='empirical', color='steelblue')
         ax.plot(bc, pred, 'r-', lw=2, label='semicircular μ_∞')
+        n_lam = r.get('n_ap', r.get('n_hecke_eigenvalues', '?'))
         ax.set_title(f"Γ₀({lvl})  KS_p={r['ks_test']['ks_p_value']:.2e}\n"
-                     f"N_λ={r['n_hecke_eigenvalues']}", fontsize=10)
+                     f"N_a(p)={n_lam}", fontsize=10)
         ax.set_xlabel("λ_p (Ramanujan-Petersson)")
         ax.set_xlim(-2.2, 2.2)
         ax.grid(True, alpha=0.3)
