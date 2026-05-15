@@ -67,24 +67,26 @@ All rep_med values are well below the TR/BL boundary at ~0.10; all 20-seed subsa
 
 This is the **canonical Sarnak anomaly cleanly replicated on rigorous Γ₀(N) squarefree-level Maass-form data via the integrated ARS toolchain.**
 
-### SQ-2 — Test 2 Berry-Robnik anomaly-shape quantification: cross-level consistent at ρ ≈ 0.458
+### SQ-2 — Test 2 Berry-Robnik anomaly-shape quantification: AMENDED (fitter bug fixed)
 
-**Result: all 6 levels fit to ρ in the Poisson-dominant regime with cross-level consistency.**
+**⚠ AMENDMENT (2026-05-15, from the phase34f synthetic-validation harness):** the original Test 2 fitter used an un-normalized Berry-Robnik closed form (∫P ds = 1.12 at ρ=0.3) with a severe positive MLE bias — pure Poisson fitted to ρ ≈ 0.44. The original "ρ ≈ 0.458 ± 0.010, Poisson-dominant" was the **fitter-bias artifact**, not a measurement. Caught by the phase34f pipeline-validation harness; see PHASE34F_FINDINGS §C and §7.ter.57.
 
-| Level | ρ_MLE | bootstrap mean ± σ | [5%, 95%] |
+**Corrected result (numerically-normalized Berry-Robnik PDF):**
+
+| Level | ρ_MLE | bootstrap mean ± σ | (original buggy ρ) |
 |---|---|---|---|
-| Γ₀(91) | 0.4423 | 0.4462 ± 0.0121 | [0.424, 0.463] |
-| Γ₀(95) | 0.4648 | 0.4635 ± 0.0223 | [0.432, 0.496] |
-| Γ₀(85) | 0.4508 | 0.4526 ± 0.0152 | [0.428, 0.479] |
-| Γ₀(77) | 0.4753 | 0.4781 ± 0.0240 | [0.436, 0.508] |
-| Γ₀(93) | 0.4500 | 0.4539 ± 0.0204 | [0.418, 0.484] |
-| Γ₀(87) | 0.4595 | 0.4563 ± 0.0190 | [0.422, 0.482] |
+| Γ₀(91) | 0.0015 | 0.0758 ± 0.0467 | (0.446) |
+| Γ₀(95) | 0.1065 | 0.1453 ± 0.0678 | (0.464) |
+| Γ₀(85) | 0.0135 | 0.1034 ± 0.0522 | (0.453) |
+| Γ₀(77) | 0.1705 | 0.1774 ± 0.0898 | (0.478) |
+| Γ₀(93) | 0.1045 | 0.1205 ± 0.0739 | (0.454) |
+| Γ₀(87) | 0.1275 | 0.1361 ± 0.0641 | (0.456) |
 
-**Mean ρ across levels: 0.4584 ± 0.0102.** Cross-level std (0.010) is below 2× the max individual bootstrap σ (0.024), satisfying the cross-level consistency criterion.
+**Mean ρ_GOE across levels: 0.1264 ± 0.0321** (cross-level consistent: cross-σ 0.032 < 2× max individual σ 0.090). Fitter calibration: pure-Poisson synthetic → ρ_GOE ≈ 0.09 baseline; pure-GOE → 1.00.
 
-ρ ≈ 0.46 places the empirical NNS at ~54% Poisson + ~46% GOE — Poisson-dominant per the Sarnak anomaly. The value is at the upper end of the Bogomolny-Schmit-Sarnak literature range for SL(2,ℤ)-family Maass spectra (literature spans ρ ∈ [0.3, 0.5] depending on the dataset/algorithm); our Γ₀(N) squarefree-level finding is consistent with the published anomaly.
+**Interpretation (corrected, and STRENGTHENED):** the Γ₀(N) Maass NNS sits at ρ_GOE ≈ 0.13 — just barely above the fitter's pure-Poisson baseline (≈0.09), with a small residual GOE admixture. This is **strongly Poisson-leaning with a tiny chaotic residue**, the textbook Sarnak anomaly ("close to Poisson," Bogomolny-Schmit). The corrected statement is cleaner and stronger than the prior artifactual "Poisson-dominant at ρ≈0.46": the spectra are near-Poisson, not 54/46 mixed. Cross-level consistency holds in the corrected fit.
 
-**Plot:** `plots/phase34e_berry_robnik_per_level.png` shows the 6 ρ-fits with 1σ error bars; all 6 cluster at ρ ≈ 0.45.
+**Plot:** `plots/phase34e_berry_robnik_per_level.png` (regenerate from the corrected `berry_robnik.json`; the prior plot showed the artifact ρ≈0.45 cluster).
 
 ### SQ-3 — Test 3 Hecke-eigenvalue Sato-Tate: §D.0 GATE CAUGHT THE ISSUE, INVESTIGATION CLOSED
 

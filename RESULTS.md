@@ -9455,12 +9455,20 @@ well below the TR/BL boundary at ~0.10.  **The Sarnak anomaly is cleanly
 replicated on rigorous Γ₀(N) squarefree-level Maass forms via the integrated
 ARS toolchain.**
 
-**Test 2 — Berry-Robnik P_BR(s; ρ) fit.**  Per-level ρ fitted via maximum-
-likelihood; 30-bootstrap σ.  Mean ρ across 6 levels = **0.4584 ± 0.0102**
-(cross-level σ < 2× max individual bootstrap σ — cross-level consistency
-satisfied).  ρ ≈ 0.46 places the empirical NNS at ~54% Poisson + ~46% GOE,
-Poisson-dominant at the upper end of the Bogomolny-Schmit / Sarnak literature
-range (ρ ∈ [0.3, 0.5]).
+**Test 2 — Berry-Robnik P_BR(s; ρ) fit (AMENDED 2026-05-15).**  The
+original fitter used an un-normalized closed form (∫P ds = 1.12 at ρ=0.3)
+with a positive MLE bias — pure Poisson fitted to ρ≈0.44.  The original
+"mean ρ ≈ 0.4584 ± 0.0102, Poisson-dominant" was a fitter artifact, caught
+by the phase34f synthetic-validation harness (§7.ter.57).  Corrected
+(numerically-normalized PDF; pure-Poisson baseline ρ_GOE ≈ 0.09, pure-GOE
+≈ 1.00): mean ρ_GOE across 6 levels = **0.1264 ± 0.0321**, cross-level
+consistent (cross-σ 0.032 < 2× max individual σ 0.090).  The Γ₀(N) Maass
+NNS sits just above the pure-Poisson fitter baseline — strongly
+Poisson-leaning with a tiny chaotic residue, the textbook Sarnak anomaly.
+The corrected statement (near-Poisson) is cleaner and STRONGER than the
+prior artifactual "Poisson-dominant at ρ≈0.46."  Cross-level consistency
+holds in the corrected fit; the SARNAK_ANOMALY_REPLICATED headline verdict
+is unchanged and strengthened.
 
 **Test 3 — Sato-Tate methodology calibration: §D.0 gate caught the issue;
 investigation CLOSED with SATO_TATE_REPLICATED.**  Three iterations:
@@ -9561,6 +9569,93 @@ phase34e/data/maassdata/         — extracted SH Zenodo dump [33,214 files,
 data/phase34e_results/{nns_classification,berry_robnik,sato_tate,
                        sato_tate_v2,cross_level_test4}.json
 plots/phase34e_{nns,berry_robnik,sato_tate}_per_level.png
+```
+
+---
+
+### 7.ter.57  Phase 34f-G — 3-D Bianchi pipeline validated; Picard data-acquisition-blocked; Berry-Robnik fitter bug caught
+
+Phase 34f is the closer for the Q(√−3) three-coordinate joint statement
+(PHASE34D_FINDINGS §D).  34f-G is the Picard PSL(2,Z[i])\ℍ³ replication leg
+— the 3-D Bianchi methodology adaptation validated against Then 2003's
+published Sarnak-anomaly result before the 34f-E first-measurement.
+
+**§D.0a data-availability gate: FIRED.**  Then 2003 (arXiv:math-ph/0305048)
+computed 13,950 Picard Maass eigenvalues and found Poisson NNS (the Sarnak
+anomaly) but the raw list is NOT published — only ~60 OCR-mangled samples
+in Tables 1+2.  No Zenodo dataset; LMFDB Bianchi reCAPTCHA-blocked; de-novo
+Hejhal-on-ℍ³ recomputation is the multi-week cost (PHASE34F_BRIEF §I.1).
+**34f-G substantive bulk-NNS = DATA_ACQUISITION_BLOCKED.**  Transcribing the
+~60 noisy samples would fabricate an underpowered result and is explicitly
+NOT done.  Literature expectation on acquisition: SARNAK_ANOMALY_REPLICATED_
+AT_PSL2_ZI.
+
+**3-D Bianchi pipeline: built + synthetic-validated.**  phase34f/
+bianchi_unfolding.py implements the λ=r²+1 convention + cubic Weyl-law
+unfolding x_j = vol·r_j³/(6π²) with published anchor volumes (Picard
+0.305322; Bianchi-Z[ω] 0.084578).  phase34f/run_pipeline_validation.py
+pushes synthetic Poisson / GOE β=1 / Berry-Robnik-0.3 spectra through the
+full pipeline.  **All 6 validation gates pass**: Poisson→BL, GOE→TR, cubic
+unfolding ⟨s⟩≈1, Berry-Robnik ρ recovery correct (Poisson→0.09, GOE→1.00,
+BR-0.3→0.26).  **PIPELINE_VALIDATED_READY_TO_FIRE** — ready to run on
+Picard data on acquisition.
+
+**The synthetic-validation harness caught a real Berry-Robnik fitter bug.**
+The P_BR(s; ρ) closed form used in Phase 34e Test 2 was un-normalized for
+intermediate ρ (∫P ds = 1.12 at ρ=0.3) with a severe positive MLE bias —
+pure Poisson fitted to ρ_GOE ≈ 0.44.  The `poisson_rho_near_0` gate failed,
+isolating the bug.  Fix: numerically-normalized PDF (Z, μ via scipy.quad).
+Post-fix recovery: pure Poisson → 0.09, pure GOE → 1.00, BR-0.3 → 0.26.
+
+**Retroactive amendment to Phase 34e Test 2 (§7.ter.52):**  the prior
+"ρ ≈ 0.458 ± 0.010, Poisson-dominant" was the fitter artifact.  Corrected
+mean ρ_GOE across 6 Γ₀(N) levels = **0.126 ± 0.032** — just above the
+pure-Poisson fitter baseline (≈0.09), near-Poisson with a tiny chaotic
+residue.  The Sarnak-anomaly conclusion is unchanged and STRENGTHENED
+(near-Poisson is the textbook anomaly form, cleaner than the artifactual
+54/46 mix).  Test 1 (NNS = BL) was always the load-bearing result and is
+independent of the fitter; cross-level consistency holds in the corrected
+fit; Phase 34e headline verdict SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_
+SQUAREFREE stands.
+
+**Methodological generalisation:**
+
+  > **§7.ter.57 — Synthetic-validate distribution-fitters against known
+  > ground truth before interpreting fitted parameters as absolute.**
+  > Before reporting a fitted distribution parameter (Berry-Robnik ρ,
+  > finite-X correction coefficient, etc.) as a substantive absolute
+  > measurement, run the fitter on synthetic inputs with known
+  > ground-truth values.  If the fitter does not recover the ground
+  > truth within its bootstrap σ (pure Poisson → ρ≈0; pure GOE → ρ≈1;
+  > known mixture → known ρ), the fitted value on real data is a fitter
+  > artifact, not a measurement.  Phase 34f canonical example: the
+  > un-normalized Berry-Robnik closed form biased the Phase 34e Test 2
+  > ρ from a true ≈0.13 to an artifact ≈0.46 — caught only because the
+  > phase34f pipeline-validation harness exercised the fitter on
+  > synthetic Poisson/GOE/mixture inputs.  Sibling to §7.ter.22-
+  > application (seed-replicate near boundary) and §7.ter.55 (pre-flight
+  > normalization gate): validate the instrument on known inputs before
+  > trusting it on unknown ones.
+
+**Verdict map:**
+  - 34f-G-Δ (Picard substantive): DATA_ACQUISITION_BLOCKED.
+  - 34f-G 3-D pipeline: PIPELINE_VALIDATED_READY_TO_FIRE.
+  - 34f-G-H (Picard Hecke): CONVENTION_PROPAGATED_FROM_34e (Hejhal-
+    lineage standard; no separate audit needed).
+  - Berry-Robnik fitter: BUG_CAUGHT_AND_FIXED; amends Phase 34e Test 2.
+  - 34f-E + cross-coordinate Test 4: PENDING (multi-week data
+    acquisition, PHASE34F_BRIEF §C.3).
+
+**Outputs (phase34f/).**
+
+```
+PHASE34F_BRIEF.md (committed 16b8e8b)
+PHASE34F_FINDINGS.md (34f-G partial)
+phase34f/bianchi_unfolding.py
+phase34f/run_pipeline_validation.py
+phase34e/run_berry_robnik.py (BUG FIXED: numerically-normalized PDF)
+data/phase34f_results/pipeline_validation.json [gitignored]
+data/phase34e_results/berry_robnik.json (re-run, corrected fitter)
 ```
 
 ---
@@ -9678,9 +9773,12 @@ not extend the corresponding literatures.
   Δ-eigenvalue bulk NNS classifies BL (Poisson-leaning) on all 6
   levels in 20/20 subsample seeds; rep_med 0.02–0.07 (well below
   TR/BL boundary 0.10); ks_gue_med 0.27–0.30 (departure from GOE
-  β=1).  Berry-Robnik ρ fit per level gives ρ ≈ 0.46 in Poisson-
-  dominant regime with cross-level σ = 0.010 (mean ρ across levels:
-  0.4584 ± 0.0102, within bootstrap-σ overlap).  These reproduce the
+  β=1).  Berry-Robnik ρ_GOE fit per level (corrected fitter, 2026-05-15
+  amendment — prior ρ≈0.46 was an un-normalized-PDF artifact caught by
+  the phase34f synthetic-validation harness, §7.ter.57): mean ρ_GOE
+  across levels = 0.126 ± 0.032, just above the pure-Poisson fitter
+  baseline ≈0.09 — near-Poisson with tiny chaotic residue, cross-level
+  consistent.  These reproduce the
   published Sarnak anomaly (Sarnak 1987; Bolte-Steil-Steiner 1992;
   Bogomolny-Leyvraz-Schmit 1996; Bogomolny-Georgeot-Giannoni-Schmit
   1997) on the integrated ARS toolchain across rigorous Γ₀(N) levels
