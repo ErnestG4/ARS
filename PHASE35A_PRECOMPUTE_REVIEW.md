@@ -217,7 +217,38 @@ Sources: [Jagannathan, RMP 2021 (arXiv:2012.14744)](https://arxiv.org/pdf/2012.1
   selection. No interface extension. Encoded in rev 3 §5c. (L impractically
   large ⇒ `DERIVATION_INTRACTABLE_HALT`, not an interface problem.)
 
-**State:** brief-and-hold intact; brief now **rev 3**; this memo is the audit
-trail; **no compute performed.** Remaining gates before any compute: (1) Will's
-**P3** adjudication (Class II pinning), (2) explicit **compute-go**. P1's async
-question is closed (answered: preserves).
+**State (pre-campaign):** brief-and-hold; brief rev 3; P1 answered "preserves".
+
+---
+
+## Scoping-campaign outcome (2026-05-16, authorized scoped compute — fork only, not 35a execution)
+
+P1's "preserves" was **walked back by Will** (hypothesis dressed as conclusion;
+both branches live, assume neither) — then **superseded by the fork campaign**.
+Three scoping rounds (`phase35a/`): v1 broken (g_max/s̄ tracked the principal
+gap); v2 zoo+spectral (supercritical → BL everywhere, no BR_artifact → *apparent*
+class-I descope); v3 unfolding-invariance campaign with a §7.ter.55/57 known-truth
+gate. **Full record: `phase35a/UNFOLDING_INVARIANCE_FINDINGS.md` +
+`unfolding_invariance_results.json`.**
+
+- **Stage-0 gate FAILED the instrument on known truth.** Exact clock (λ=0,
+  var(s)=0) → classifier `BR_artifact` (NOT TR); my KS-vs-clock metric reports
+  KS≈0.5 on a literal point mass (delta-vs-step artifact); deg-11 distorts even
+  the smooth arcsine IDS. Per Will's pre-stated trigger this **pre-confirms
+  Reading-2** and gates the campaign's labels.
+- **Decisive (pre-registered) criterion result:** the verdict is strongly
+  **unfolding-DEPENDENT** (polynomial vs IDS legs disagree 10²–10³× in var(s)
+  and on every quadrant). ⇒ **silent mis-fit ⇒ class I STAYS. The prior
+  "descope" was a deg-11 artifact. Descope is dead.** rev-3 = the heavier
+  branch (P3 + P1/P2-root + class I retained).
+- **Q2/Class-II:** "reads-TR ⇒ is-clock" reconciliation falsified by the gate
+  (clock→BR_artifact). Class-II premise **not refuted** (IDS-leg var≈0.004 at
+  λ=0.10 is consistent with clock-rigid) but **blocked** pending an
+  instrument fix + re-gate (incl. a known-truth gate for the IDS leg, which
+  this campaign omitted). Reading P3's HALT off the grid is deferred until then.
+
+**State (post-campaign):** brief-and-hold; brief rev 3 (now known to need the
+heavier rewrite — class I retained); scoping instrument needs fix + re-gate
+before Class-II characterization. Awaiting Will's adjudication of the campaign
+outcome + steer on the instrument fix. No 35a execution performed (scoping
+only, explicitly authorized).
