@@ -1,10 +1,12 @@
 # ARS epistemic state
 
-*Internal working reference, 2026-05-11.  Not a writeup, not a publication
-draft, not a hierarchy of what to lead with.  A map of what the tool
-currently knows, at what confidence, under which disciplines, and what is
-still open — so that future phase briefs can scope against an honest
-inventory.*
+*Internal working reference.  Body 2026-05-11/12 (V1 / cross-domain
+arc); arithmetic-spectral arc (Phases 34a–34f) appended 2026-05-16 —
+see "## Arithmetic-spectral arc" below.  Not a writeup, not a
+publication draft, not a hierarchy of what to lead with.  A map of what
+the tool currently knows, at what confidence, under which disciplines,
+and what is still open — so that future phase briefs can scope against
+an honest inventory.*
 
 ---
 
@@ -1197,6 +1199,151 @@ analytically.  The Phase 12 lock-in-phase prediction perturbation sweep
 ran cleanly but the Wigner-class baseline it was tested against was
 retracted, so Phase 12 is no longer interpretable as a Planat-prediction
 test.
+
+---
+
+## Arithmetic-spectral arc (Phases 34a–34f, appended 2026-05-16)
+
+**Honest headline.** The arithmetic-side arc produced **no substantive
+arithmetic discovery**.  Its value is (i) methodological — a family of
+new disciplines, several of which caught real instrument bugs — and
+(ii) instrument-validation: the Sarnak-anomaly calibrator replicated,
+and the Sato-Tate engine bounded-validated against a *proven* theorem.
+Everything substantive is NULL, instrument-validation, bounded, or
+data-acquisition-blocked.  Nothing here is "locked-positive."
+
+### 34a–34d — arithmetic orthogonal-channel survey (RF + p-adic v4 / NNS)
+
+- **Mertens / Liouville sign-changes (34a/b):**
+  `NULL_IN_ORTHOGONAL_CHANNELS` beyond the support / random-walk null.
+  Dual-layer cross-phase: PARALLEL_SIGNAL@wrong-null +
+  PARALLEL_NULL@right-null.
+- **ζ / Dirichlet / EC L-zeros (34c):** 5/6 `NULL_BEYOND_RMT`; EC
+  root-minus q=17 `AMBIGUOUS` (a pooled-substrate right-null
+  methodology gap, not a signal).
+- **Gaussian / Eisenstein prime angles (34d):**
+  `RW_SHAPE_CONFIRMED_AT_FINITE_X` — the Rudnick-Waxman 2019
+  prime-angle variance shape, with the saturation deficit resolving as
+  a finite-X correction at X=10⁸ (Eisenstein hits the RW asymptote
+  within 1σ).  Both substrates BL-bulk (an earlier TR was a §7.ter.22
+  threshold artifact).  Cross-phase = METHODOLOGICAL_CONSISTENCY, not
+  "convergent null."
+- **Disciplines added (durable):** support-set-respecting nulls;
+  right-null-is-substrate-specific; false-positive-equivalence-class
+  typology (substrate-side vs machinery-side; pooled-substrate sub-pool
+  sweep mandate; prime-K seduction); seed-replicate-near-boundary
+  (§7.ter.22-application); bulk-vs-global-moment readout (RW Prop 5.3
+  forces σ²(K,X) as the complement to bulk-ARS on Wigner-Dyson β
+  nulls); stride-decimation destroys prime-angle structure (full-N
+  required on S¹ unit-orbit-quotient substrates).
+
+### 34e — Γ₀(N) Maass Sarnak-anomaly calibrator: REPLICATED
+
+`SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE` across 6 squarefree
+levels {91,95,85,77,93,87}: bulk-Δ NNS BL on all 6 in 20/20 subsample
+seeds; corrected Berry-Robnik ρ_GOE ≈ 0.126 (near-Poisson, just above
+the 0.09 pure-Poisson fitter baseline); Sato-Tate semicircular KS
+p 0.22–0.77.  **Instrument-validation, not discovery** (the Sarnak
+anomaly is 30+ yr lit-confirmed).  The phase34f synthetic-validation
+harness caught a real **Berry-Robnik fitter bug** (un-normalised PDF →
+pure Poisson fitted ρ≈0.44; §7.ter.57) which retroactively amended the
+Test-2 numbers (conclusion strengthened, not weakened).  N=1 SL(2,ℤ)
+trivial level pending LMFDB access (data-availability note).
+
+### 34f-G / 34f-E — 3-D Bianchi pipelines: VALIDATED_READY_TO_FIRE; substantive DATA_ACQUISITION_BLOCKED
+
+3-D Bianchi Weyl-unfolding pipeline (λ=r²+1, cubic; Humbert-direct
+volumes **pinned** with a self-test against the Then-2003 Picard
+anchor) built and synthetic-validated (6/6 gates) for **both** Picard
+(34f-G, *replication* leg) and Bianchi-Z[ω] (34f-E, **first-measurement**
+leg — asymmetric-label discipline: no published anchor, never
+"replication").  Substantive bulk-NNS is **DATA_ACQUISITION_BLOCKED**
+on both: Then 2003's 13,950 Picard eigenvalues unpublished; no
+accessible Z[ω] Maass dataset; de-novo Hejhal-on-ℍ³ is multi-week.
+Pipelines are ready-to-fire on acquisition; no underpowered result was
+fabricated.
+
+### BCGNT-2025 lit-lock + the proven-theorem-calibration tier
+
+Boxer–Calegari–Gee–Newton–Thorne 2025 proves Ramanujan + Sato-Tate
+**unconditionally** for *cohomological* (regular-algebraic
+parallel-weight) Bianchi forms over CM fields — **NOT** the
+non-cohomological Bianchi-**Maass** substrate (definitional; the §B.4
+Ramanujan-conditional caveat stands for the Maass cells).  Added a
+**third asymmetric-label tier to METHODS §1 — proven-theorem
+calibration** (sibling to empirical-anchor and
+structural-extension-first-measurement) + the two-regime
+Ramanujan-conditionality discipline + CM/non-CM (and bc) stratify-
+before-pool.
+
+### 34f-cohomological-H — bounded instrument validation against a proven theorem (AMENDED)
+
+First ARS calibration against a *proven theorem*.  Data fully resolved
+in-environment (Cremona `bianchi-data` `newforms/` catalogs, schema-
+documented; 40,030 Q(i) + 42,343 Q(√−3) forms).  §6 engine + §4 decode
+(idealnorm; bc=1 base-change signature exact, BCGNT Ramanujan bound
+exact on ~82k forms) **independently validated** before any statistic.
+
+**Verdict (corrected, the original `METHODOLOGY_VALIDATED_AT_FINITE_P`
+RETRACTED):
+`COHOMOLOGICAL_H_SATO_TATE_CONSISTENT_TO_FINITE_PRIME_DEPTH_DISCREPANCY`.**
+The engine is consistent with the BCGNT-proven semicircular up to the
+**effective-Sato-Tate finite-prime-depth discrepancy** (Thorner /
+Murty–Sinha; *not* Chen-2019/RW — that was a misattribution; no
+functional form was fitted).  KS decreases monotonically with per-form
+prime depth at the effective-ST rate; on the depth-sufficient
+subpopulation (≥800 primes/form) KS reaches ~1.4–3× the n-floor
+(E[Dₙ]≈0.87/√n), but the **bulk corpus** (~100 primes/form) is
+depth-limited to a ~12–78×-floor residual.  §6/§4 validate
+engine+decode, so the residual is the corpus prime-depth limitation,
+**not** an engine/decode defect; **floor-level validation is not
+achieved and not achievable at this corpus depth**.  CM stratum is a
+**one-sided discrimination control only** (≠ semicircular; not matched
+to its own ½δ₀+arcsine measure).  Instrument-validation, bounded as
+stated; **not** a discovery; **does not touch the Q(√−3) Δ-closer**.
+
+**The load-bearing methodological output (§7.ter.57 sharpening):** a
+statistic is only interpretable against its own sample-size/regime
+floor — for KS the verdict is KS/(0.8687/√n) vs *per-form prime depth*,
+never KS alone, never a large-n p-value (which →0 for any
+infinitesimal deviation).  Synthetic pre-flights must validate at
+*realistic* n, not convenient n.  **Four instrument-regime errors of
+this one class were caught and corrected within this single cell**
+(the §6 single-draw KS-p gate; the §7 large-n KS-p criterion; the
+Chen/RW misattribution; the headline KS-statistic read at the wrong
+sample size — the last caught only on Will's review).  Sobering
+demonstration that the *form* of a discipline can be applied while a
+fresh instance of the same error slips through one level down; the
+generalisation is now stated at the level of "statistic vs its own
+regime floor," not any single instrument.
+
+### Q(√−3) three-coordinate Δ-closer — STILL BLOCKED
+
+The substantive Q(√−3) three-coordinate joint statement (§D.4) remains
+**34f-E-Δ-Maass-data-acquisition-blocked**.  cohomological-H is H-side
+instrument validation and explicitly does **not** advance it (Sato-Tate
+is the universal/null calibrator, not the signal-bearing Δ coordinate).
+34d-E angle + 34c χ₋₃ zero data are cached; only 34f-E-Δ blocks closure.
+
+### Open frontier (arithmetic side)
+
+- **Phase 35 — Almost-Mathieu / quasi-periodic-Schrödinger arc**
+  (queued, design-settled, not briefed).  Reframed (after a critical
+  review) as **transition-diagnostic instrument-validation, NOT
+  AM measurement** (nothing novel to find on AM spacing statistics).
+  35a calibrator-extension (Fibonacci/DGY multifractal class via
+  IDS/gap-labelling unfolding; clock+band-perturbation AC class
+  anchored at the λ=0 exact clock, λ* by the analytical AC bound) /
+  35b α-ensemble-null transition-diagnostic validation, supercritical +
+  λ→1⁻ only / 35c optional sub-quadrant.  λ=1 explicitly out (Cantor
+  spectrum — renormalisation, a different instrument).  See
+  [[phase35_am_arc_design]].
+- **Data-acquisition blocks:** Then 2003 Picard eigenvalues; Z[ω]
+  Maass; N=1 SL(2,ℤ) Maass — all pipeline-ready, externally blocked.
+- **EPISTEMIC_STATE refresh discipline:** this arc is appended, not
+  woven into the V1-era "Locked / Newer / Mechanism" taxonomy above —
+  the arithmetic arc has essentially no "locked-positive" entries to
+  slot there, which is itself the honest signal.
 
 ---
 
