@@ -1,6 +1,6 @@
-# Phase 34f Findings (34f-G partial) — 3-D Bianchi pipeline validated; Picard data-acquisition-blocked; Berry-Robnik fitter bug caught
+# Phase 34f Findings (34f-G + 34f-E partial) — 3-D Bianchi pipeline validated on BOTH substrates; both data-acquisition-blocked; Berry-Robnik fitter bug caught
 
-**Status:** 34f-G partial. The 3-D Bianchi Maass methodology pipeline is built and synthetic-validated (PIPELINE_VALIDATED_READY_TO_FIRE). Substantive 34f-G bulk-NNS on Picard is **DATA_ACQUISITION_BLOCKED** — the §D.0a data-availability gate fired (Then 2003's 13,950 Picard eigenvalues are not published; only ~60 OCR-mangled samples in the PDF; LMFDB Bianchi reCAPTCHA-blocked). The synthetic-validation harness **caught a real bug in the Berry-Robnik ρ fitter** that retroactively amends Phase 34e Test 2. 34f-E (Bianchi-Z[ω]) and the cross-coordinate Test 4 remain pending the multi-week data-acquisition cost flagged in PHASE34F_BRIEF §C.3.
+**Status:** 34f-G + 34f-E partial. The 3-D Bianchi Maass methodology pipeline is built and synthetic-validated on **both** substrates — Picard PSL(2,Z[i])\ℍ³ (34f-G, replication leg) and Bianchi-Z[ω] PSL(2,Z[ω])\ℍ³ (34f-E, **first-measurement** leg), each `PIPELINE_VALIDATED_READY_TO_FIRE` on its substrate-correct pinned volume. Substantive bulk-NNS is **DATA_ACQUISITION_BLOCKED** on both: 34f-G §D.0a fired (Then 2003's 13,950 Picard eigenvalues unpublished; ~60 OCR-mangled samples; LMFDB Bianchi reCAPTCHA-blocked), and 34f-E §D.0a fired (no accessible Bianchi-Z[ω] Maass dataset; LMFDB Bianchi primarily Cremona holomorphic newforms; de-novo Hejhal-on-ℍ³ for the order-6 unit group is the multi-week cost per §C.3). The synthetic-validation harness **caught a real bug in the Berry-Robnik ρ fitter** that retroactively amends Phase 34e Test 2. Cross-coordinate Test 4 remains 34f-E-substantive-blocked.
 
 ---
 
@@ -57,6 +57,41 @@ Three synthetic spectra with known ground truth pushed through the full pipeline
 
 ---
 
+## §B'. 34f-E Bianchi-Z[ω] (Q(√−3)) first-measurement pipeline
+
+The 34f-E leg targets the **first measurement** of the Sarnak anomaly on PSL(2, Z[ω])\ℍ³ (Q(√−3)). Per the asymmetric-label discipline (PHASE34F_BRIEF §E.2 / METHODS §E): unlike Picard/34f-G there is **no published empirical anchor** — Then 2003 covered Picard only; the Sarnak-anomaly extension to Bianchi-Z[ω] is a *structural Hecke-algebra prediction*, empirically unconfirmed in literature accessible from search. This leg is **never** labelled a "replication".
+
+### B'.1 §D.0a data-availability gate: FIRED for 34f-E
+
+No accessible Bianchi-Z[ω] Maass eigenvalue dataset. LMFDB Bianchi (PHASE34F_BRIEF §C.2) is reCAPTCHA-blocked in session and is primarily Cremona *holomorphic* newforms — Maass-form cardinality on Q(√−3) is unverified and likely insufficient. De-novo Hejhal-on-ℍ³ adapted for the **order-6 unit group of Z[ω]** (§C.3) is 2–6 weeks from Cremona's bianchi-progs / 6–12 weeks from scratch. Per the Phase 34e/34f discipline, an underpowered result is **not** fabricated from unavailable data. **Substantive 34f-E-Δ = DATA_ACQUISITION_BLOCKED.**
+
+### B'.2 Infrastructure (`phase34f/zomega_loader.py` + `run_pipeline_validation_e.py`)
+
+`zomega_loader.py` defines the Z[ω] Δ / Hecke record schema and both pre-flight gates so the leg is genuinely ready-to-fire on acquisition:
+
+- **§D.0a `data_availability_gate()`** — returns a structured `FIRED` report with the acquisition paths and cost flags; marks `substrate_role = FIRST_MEASUREMENT`.
+- **§D.0b `normalization_gate()`** — asserts the 3-D λ = r²+1 convention (rejects a carried-over 2-D λ = 1/4+r² contamination), r real-positive, Hecke |a(𝔭)| ≤ 2 (Ramanujan-Petersson), and the substrate-correct **pinned** volume `bianchi_z_omega_volume()` (rejects the Picard volume substituted in). The loader self-test exercises the gate on synthetic known-good **and** known-bad inputs (2-D-convention contamination, wrong-substrate volume, RP-bound violation, data-availability FIRED) — §7.ter.55 discipline: validate the instrument on known inputs before trusting it on unknown ones. **All loader self-test checks pass.**
+
+The 3-D unfolding itself is the *same substrate-agnostic* `phase34f/bianchi_unfolding.py` (`unfold_bianchi_3d(r, volume)`); 34f-E supplies `bianchi_z_omega_volume()` ≈ **0.16915693** (PINNED Humbert-direct √3·L(2,χ₋₃)/8, commit c2cbf22) where 34f-G supplies `picard_volume()` ≈ 0.30532186.
+
+`run_pipeline_validation_e.py` pushes the same three synthetic spectra through the full pipeline on the Z[ω] volume (and through the §D.0b gate):
+
+| synthetic input | ⟨s⟩ | NNS primary | rep_med | Berry-Robnik ρ_GOE |
+|---|---|---|---|---|
+| Poisson (Sarnak-anomaly analog) | 1.015 | **BL** | 0.023 | 0.091 ± 0.042 |
+| GOE β=1 (BGS-naive analog) | 1.000 | **TR** | 0.343 | 0.996 ± 0.004 |
+| Berry-Robnik mix (true ρ=0.3) | 1.033 | BL | 0.039 | 0.256 ± 0.017 |
+
+**All 6 validation gates pass** (unfolding_correct, poisson→BL, GOE→TR, poisson_rho_near_0, goe_rho_near_1, br_rho_near_0p3). The statistics are identical to 34f-G — expected and confirmatory: bulk-NNS classification is unfolding-scale-invariant, so the only substrate difference (the pinned volume constant) does not perturb the synthetic verdicts. This validates that the pipeline machinery is **volume-substrate-correct** and the §D.0b gate passes substrate-correct inputs through the real pipeline path.
+
+### B'.3 Orbifold caveat (open empirical question, NOT synthetically modellable)
+
+PSL(2, Z[ω]) has elliptic fixed points of **orders 2 AND 3** (order-6 unit group) vs Picard's order-2 only; the Selberg trace formula picks up extra elliptic terms (PHASE34F_BRIEF §B.2). Bulk-NNS classification (Test 1) is robust to this — it is the load-bearing, scale-invariant result. The quantitative Berry-Robnik ρ **may shift** versus 34f-G; whether the Sarnak-anomaly *shape* is field-independent (Hecke-driven only) or field-dependent (via orbifold singularity structure) is the novel open empirical question 34f-E ↔ 34f-G ρ comparison answers (PHASE34F_BRIEF §D.2). This is **not** something the synthetic harness can model — it is resolved only on real Z[ω] data. The pre-spec verdict labels on acquisition are `SARNAK_ANOMALY_FIRST_MEASUREMENT_AT_PSL2_Z_OMEGA` / `..._WITH_FIELD_SHIFT` / `NO_ANOMALY_AT_PSL2_Z_OMEGA` (PHASE34F_BRIEF §E.2).
+
+**Verdict: 34f-E 3-D pipeline PIPELINE_VALIDATED_READY_TO_FIRE; substantive 34f-E-Δ DATA_ACQUISITION_BLOCKED.** The first-measurement run fires the moment a Bianchi-Z[ω] Maass eigenvalue dataset (LMFDB-accessible, or de-novo per §C.3) becomes available — no separate normalization audit required (CONVENTION_PROPAGATED_FROM_34e for the Hecke side; the Δ-side gate is coded and synthetic-validated).
+
+---
+
 ## §C. The synthetic-validation harness caught a real Berry-Robnik fitter bug
 
 This is the **headline methodological finding** of the 34f-G session leg, and it retroactively amends Phase 34e Test 2.
@@ -99,7 +134,13 @@ The cross-level consistency conclusion also holds (all 6 levels near-Poisson). T
 
 - **Berry-Robnik fitter (cross-phase methodology):** **BUG_CAUGHT_AND_FIXED**, retroactively amends Phase 34e Test 2 (ρ ≈ 0.458 artifact → ρ ≈ 0.07 corrected, near-Poisson). Sarnak-anomaly conclusion strengthened.
 
-- **34f-E (Bianchi-Z[ω]) + cross-coordinate Test 4:** **PENDING.** Unchanged multi-week data-acquisition cost (PHASE34F_BRIEF §C.3). The Q(√−3) three-coordinate joint statement remains 34f-E-blocked.
+- **34f-E 3-D pipeline (Bianchi-Z[ω] methodology, first-measurement leg):** **PIPELINE_VALIDATED_READY_TO_FIRE.** All 6 synthetic-validation gates pass on the substrate-correct pinned Z[ω] volume (`run_pipeline_validation_e.py`); the §D.0a/§D.0b gates are coded and synthetic-validated on known-good and known-bad inputs (`zomega_loader.py` self-test). Asymmetric-label discipline: this is a **first-measurement** leg, not a replication — no published anchor exists.
+
+- **34f-E-Δ (Bianchi-Z[ω] bulk-NNS, substantive):** **DATA_ACQUISITION_BLOCKED.** §D.0a fired — no accessible Z[ω] Maass dataset (LMFDB Bianchi reCAPTCHA-blocked / primarily holomorphic; de-novo Hejhal-on-ℍ³ for the order-6 unit group is 2–6 wk from Cremona bianchi-progs / 6–12 wk from scratch, PHASE34F_BRIEF §C.3). Pre-spec verdict labels on acquisition: SARNAK_ANOMALY_FIRST_MEASUREMENT_AT_PSL2_Z_OMEGA / _WITH_FIELD_SHIFT / NO_ANOMALY_AT_PSL2_Z_OMEGA (§E.2). Whether the anomaly *shape* (Berry-Robnik ρ) is field-independent or shifts via the order-3 orbifold structure is the open novel question (§D.2).
+
+- **34f-E-H (Bianchi-Z[ω] Hecke Sato-Tate):** **CONVENTION_PROPAGATED_FROM_34e.** Same Hejhal-lineage Hecke-eigenvalue convention as 34f-G-H; no separate normalization audit required on acquisition.
+
+- **Cross-coordinate Test 4 (Q(√−3) three-coordinate closer):** **34f-E-SUBSTANTIVE-BLOCKED.** Requires the signal-bearing 34f-E-Δ measurement; the 34d-E angle data and 34c χ₋₃ zero data are already cached (PHASE34F_BRIEF §C.4). The Q(√−3) three-coordinate joint statement remains blocked solely on 34f-E-Δ data acquisition — all pipeline infrastructure for the closer is now built and validated.
 
 ---
 
@@ -107,15 +148,21 @@ The cross-level consistency conclusion also holds (all 6 levels near-Poisson). T
 
 ```
 PHASE34F_BRIEF.md (committed 16b8e8b)
-PHASE34F_FINDINGS.md (this file — 34f-G partial)
-phase34f/bianchi_unfolding.py        — 3-D Weyl unfolding, λ=r²+1, cubic
-phase34f/run_pipeline_validation.py  — synthetic-validation harness
-phase34e/run_berry_robnik.py         — Berry-Robnik fitter (BUG FIXED:
-                                        numerically-normalized PDF)
-data/phase34f_results/pipeline_validation.json [gitignored]
+PHASE34F_G_EXECUTION_PLAN.md (committed c2cbf22)
+PHASE34F_FINDINGS.md (this file — 34f-G + 34f-E partial)
+phase34f/bianchi_unfolding.py         — 3-D Weyl unfolding, λ=r²+1, cubic;
+                                         substrate-agnostic; volume pinned
+phase34f/run_pipeline_validation.py   — 34f-G Picard synthetic-validation
+phase34f/zomega_loader.py             — 34f-E Z[ω] schema + §D.0a/§D.0b
+                                         gates (self-validated)
+phase34f/run_pipeline_validation_e.py — 34f-E Z[ω] synthetic-validation
+phase34e/run_berry_robnik.py          — Berry-Robnik fitter (BUG FIXED:
+                                         numerically-normalized PDF)
+data/phase34f_results/pipeline_validation.json   [gitignored]
+data/phase34f_results/pipeline_validation_e.json [gitignored]
 data/phase34e_results/berry_robnik.json — re-run with corrected fitter
-phase34e/data/then2003.{pdf,txt}     — Then 2003 Picard paper [cached, gitignored]
-phase34e/data/sh2022.{pdf,txt}       — SH 2022 §3 normalization spec [cached]
+phase34e/data/then2003.{pdf,txt}      — Then 2003 Picard paper [cached, gitignored]
+phase34e/data/sh2022.{pdf,txt}        — SH 2022 §3 normalization spec [cached]
 ```
 
 ---
@@ -128,4 +175,6 @@ phase34e/data/sh2022.{pdf,txt}       — SH 2022 §3 normalization spec [cached]
 
 3. **§7.ter.57 retrospective on prior fitted-parameter findings.** The Berry-Robnik bug suggests auditing other distribution-fitters in the codebase against synthetic ground truth — specifically any phase that reported a fitted continuous parameter as an absolute (Chen-2019 finite-X correction coefficient in Phase 34d X-rate scan; Phase 34d/34c bootstrap σ² ratios were already synthetic-calibrated against pair-symmetric uniform so are likely fine, but worth an explicit pass).
 
-4. **34f-E + cross-coordinate Test 4.** Unchanged: multi-week Bianchi-Z[ω] data acquisition (PHASE34F_BRIEF §C.3). The substantive Q(√−3) three-coordinate convergence claim remains 34f-E-blocked.
+4. **34f-E Bianchi-Z[ω] data acquisition.** The single blocking dependency for the Q(√−3) three-coordinate closer. The 34f-E pipeline (loader gates + synthetic validation) is now built and `PIPELINE_VALIDATED_READY_TO_FIRE` — the first-measurement run fires the moment Z[ω] Maass eigenvalues are available. Paths (PHASE34F_BRIEF §C.2/§C.3): (a) LMFDB Bianchi via non-reCAPTCHA access (verify Maass cardinality on Q(√−3) first); (b) de-novo Hejhal-on-ℍ³ from Cremona's bianchi-progs adapted for the order-6 unit group (~2–6 wk); (c) de-novo from scratch / Strömberg PSAGE / Lemurell (~6–12 wk). The 34d-E angle data and 34c χ₋₃ zero data for Test 4 are already cached (§C.4); only 34f-E-Δ blocks the closer.
+
+5. **Environment note (post-reboot).** The criticality_tool scripts that import `ars_classify` (NNS engine) require pandas, which lives only in the `/home/combust/fmexplorer` venv — invoke `/home/combust/fmexplorer/bin/python3`, not bare `python3` (the non-interactive shell does not auto-activate the venv post-reboot). `requirements.txt` does not list pandas; the dependency is via `phase22a/ars_classify.py`.

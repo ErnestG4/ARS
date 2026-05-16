@@ -9660,6 +9660,89 @@ data/phase34e_results/berry_robnik.json (re-run, corrected fitter)
 
 ---
 
+### 7.ter.58  Phase 34f-E — Bianchi-Z[ω] first-measurement pipeline validated; data-acquisition-blocked
+
+The 34f-E leg is the **first-measurement** half of the Phase 34f
+Q(√−3) three-coordinate closer: the first measurement of the Sarnak
+anomaly on PSL(2,Z[ω])\ℍ³ (Q(√−3)).  Asymmetric-label discipline
+(METHODS §E / PHASE34F_BRIEF §E.2): unlike Picard/34f-G there is **no
+published empirical anchor** — Then 2003 covered Picard only, and the
+Sarnak-anomaly extension to Bianchi-Z[ω] is a *structural Hecke-algebra
+prediction*, empirically unconfirmed.  This leg is never labelled a
+"replication".
+
+**§D.0a data-availability gate: FIRED.**  No accessible Bianchi-Z[ω]
+Maass eigenvalue dataset — LMFDB Bianchi (PHASE34F_BRIEF §C.2) is
+reCAPTCHA-blocked and primarily Cremona *holomorphic* newforms (Maass
+cardinality on Q(√−3) unverified, likely insufficient); de-novo
+Hejhal-on-ℍ³ for the **order-6 unit group of Z[ω]** is 2–6 weeks from
+Cremona's bianchi-progs / 6–12 weeks from scratch (§C.3).  Per the
+Phase 34e/34f discipline an underpowered result is NOT fabricated from
+unavailable data.  **34f-E-Δ substantive bulk-NNS =
+DATA_ACQUISITION_BLOCKED.**
+
+**3-D pipeline: built + synthetic-validated on the Z[ω] substrate.**
+phase34f/zomega_loader.py defines the Z[ω] Δ/Hecke record schema and
+both pre-flight gates: §D.0a `data_availability_gate()` (structured
+FIRED report, `substrate_role=FIRST_MEASUREMENT`) and §D.0b
+`normalization_gate()` (asserts the 3-D λ=r²+1 convention — rejects a
+carried-over 2-D λ=1/4+r²; r real-positive; Hecke |a(𝔭)|≤2; and the
+substrate-correct **pinned** `bianchi_z_omega_volume()` ≈ 0.16915693 —
+rejects the Picard volume substituted in).  The loader self-test
+exercises the gate on synthetic known-good AND known-bad inputs (2-D
+contamination, wrong-substrate volume, RP-bound violation,
+data-availability FIRED); all checks pass.  The unfolding is the same
+substrate-agnostic phase34f/bianchi_unfolding.py;
+phase34f/run_pipeline_validation_e.py pushes synthetic Poisson / GOE
+β=1 / Berry-Robnik-0.3 spectra through the full pipeline on the Z[ω]
+volume (and the §D.0b gate).  **All 6 validation gates pass**:
+Poisson→BL (ρ=0.091), GOE→TR (ρ=0.996), cubic unfolding ⟨s⟩≈1,
+BR-0.3→BL (ρ=0.256).  Statistics are identical to 34f-G — expected and
+confirmatory: bulk-NNS classification is unfolding-scale-invariant, so
+the only substrate difference (the pinned volume constant) does not
+perturb the synthetic verdicts; this proves the machinery is
+volume-substrate-correct.  **PIPELINE_VALIDATED_READY_TO_FIRE.**
+
+**Orbifold caveat (open empirical question, not synthetically
+modellable):** PSL(2,Z[ω]) has elliptic fixed points of orders 2 AND 3
+(order-6 unit group) vs Picard's order-2 only; the Selberg trace
+formula picks up extra elliptic terms.  Bulk-NNS (Test 1) is robust to
+this (scale-invariant, load-bearing); whether the anomaly *shape*
+(Berry-Robnik ρ) is field-independent (Hecke-driven) or shifts via the
+order-3 orbifold structure is the novel open question 34f-E ↔ 34f-G ρ
+comparison answers on real data (§D.2) — not synthetically modellable.
+
+**Methodology:** no new numbered generalisation.  This leg is a
+disciplined *application* of §7.ter.53–57 (Bianchi substrate handling,
+pre-flight normalization gate, synthetic-validate-the-instrument) and
+the METHODS §E asymmetric first-measurement-label discipline to a
+second substrate.  Manufacturing a new generalisation from a faithful
+re-application would itself violate the discipline.  The §D.0b gate's
+known-bad self-tests are a direct instance of §7.ter.55 (validate the
+instrument on known inputs before trusting it on unknown ones).
+
+**Verdict map:**
+  - 34f-E 3-D pipeline (first-measurement leg): PIPELINE_VALIDATED_
+    READY_TO_FIRE (6/6 synthetic gates; loader gates self-validated).
+  - 34f-E-Δ (Bianchi-Z[ω] substantive): DATA_ACQUISITION_BLOCKED;
+    pre-spec labels SARNAK_ANOMALY_FIRST_MEASUREMENT_AT_PSL2_Z_OMEGA /
+    _WITH_FIELD_SHIFT / NO_ANOMALY_AT_PSL2_Z_OMEGA (§E.2).
+  - 34f-E-H (Bianchi-Z[ω] Hecke): CONVENTION_PROPAGATED_FROM_34e.
+  - Cross-coordinate Test 4 (Q(√−3) closer): 34f-E-SUBSTANTIVE-BLOCKED
+    only — 34d-E angle + 34c χ₋₃ zero data already cached (§C.4); all
+    closer infrastructure is now built and validated.
+
+**Outputs (phase34f/).**
+
+```
+PHASE34F_FINDINGS.md (34f-G + 34f-E partial)
+phase34f/zomega_loader.py
+phase34f/run_pipeline_validation_e.py
+data/phase34f_results/pipeline_validation_e.json [gitignored]
+```
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
