@@ -1,101 +1,102 @@
-# PHASE 35a BRIEF
-## Calibrator-zoo extension — Cantor/multifractal + clock+band-perturbation AC classes (prerequisite for the Almost-Mathieu transition-diagnostic arc)
+# PHASE 35a BRIEF (revised 2026-05-16 — Will's phantom catch)
+## Derive + anchor the resolution-indexed Cantor-spectrum NNS calibrator family (prerequisite for the Almost-Mathieu transition-diagnostic arc)
 
-**Status:** Pre-execution. **BRIEF ONLY — brief-and-hold** (no code, no compute; no execution without explicit go), exactly as cohomological-H was. 35a is the **prerequisite** of the Phase 35 arc: 35b (transition-diagnostic validation) and 35c (optional sub-quadrant) gate on 35a's calibrators existing and being synthetic-validated. Decision record: memory `phase35_am_arc_design` (design settled 2026-05-15 in a critical-review exchange). This brief transcribes that settled design so 35a carries **no phantom research-unknowns**.
+**Status:** Pre-execution. **BRIEF ONLY — brief-and-hold** (no code, no compute, no execution without explicit go). **Revised** from the first draft, which reintroduced exactly the phantom it claimed to eliminate (an *asserted*, not derived, Cantor NNS signature; a "two clean classes" partition Ten Martini forbids). This revision **changes what 35a's goals are**, so it goes back to hold for re-review, not into execution. Decision record: memory `phase35_am_arc_design`.
 
-**Lit-lock (to verify at 35a execution start, BCGNT-style — cited here, not yet independently verified):** Avila–Jitomirskaya (AM spectral phase diagram; the **proven** λ=1 boundary; subcritical AC for λ<1 diophantine θ; supercritical pure-point); Damanik–Gorodetski–Yessen (Fibonacci-Hamiltonian **exact** multifractal exponents + rigorous trace-map renormalisation); the gap-labelling theorem (Johnson–Moser / Bellissard: IDS takes values in ℤ+θℤ on spectral gaps); Avila one-frequency cocycle theory (the AM ↔ Schrödinger-cocycle-over-irrational-rotation bridge). No claim rests on these until lit-locked.
+**Lit-lock (verify at execution start, BCGNT-style — cited, not yet independently verified):** Avila–Jitomirskaya **Ten Martini** (AM spectrum is a Cantor set for *all* irrational θ and *all* λ≠0 — load-bearing for the corrected class structure); Avila–Jitomirskaya phase diagram (the proven λ=1 boundary; subcritical AC- / critical SC- / supercritical PP- *spectral-measure* type); Damanik–Gorodetski–Yessen (Fibonacci-Hamiltonian exact multifractal exponents + rigorous trace-map renormalisation — of the **DOS/spectrum**, not the NNS); gap-labelling (Johnson–Moser / Bellissard: IDS ∈ ℤ+θℤ on gaps — makes the *unfolding* well-defined); Avila one-frequency cocycle theory (the AM↔cocycle-over-irrational-rotation bridge).
 
 ---
 
 ## §0. Frame
 
-The Phase 35 arc is **instrument-validation, not measurement**. There is nothing novel to discover in Almost-Mathieu (AM) spacing statistics — 40 years of literature; the Hofstadter butterfly is textbook. The value-add: **AM is the first *non-synthetic* universality-transition substrate available to validate the `transition_diagnostic` itself.** The Phase-20.5 transition calibrators are hand-tuned GUE↔Poisson blends — circular: the diagnostic could merely be reading back the mixing weight. AM's transition has an **independently *proven* phase boundary at λ=1** (Avila–Jitomirskaya), set by mathematics, not by ARS.
+Phase 35 is **instrument-validation, not measurement** — nothing novel to discover in AM spacing statistics (40 yr literature). The value-add: **AM is the first *non-synthetic* universality-transition substrate to validate `transition_diagnostic`** (Phase-20.5 blends are circular hand-tuned mixing weights; AM's λ=1 boundary is Avila–Jitomirskaya-*proven*). 35a is the prerequisite: it must hand 35b an honest NNS reference for the AM regimes.
 
-35a does not touch AM measurement or the diagnostic. It builds the **two calibrator classes the existing zoo has no slot for**, which the AM regimes will require, and synthetic-validates them against their analytically-controlled generators. Without these, 35b cannot honestly classify the AM regimes (Phase-34f playbook: extend + synthetic-validate the instrument *before* it meets the substrate; the §7.ter.46 single-molecule lesson — calibrator-zoo extension precedes instrument-validation on a new universality-class substrate).
+**Named honestly (the recurring error class).** The first draft partitioned by *substrate type* what is actually a *resolution regime*, and asserted an NNS signature ("atom at zero + multifractal tail") that was never derived. This is the same resolution/regime-dependence error that recurred through the 34-arc (p-value regime → KS sample-size regime, §7.ter.59) — here at *spectral resolution*. Stated as a standing discipline: **"the operation is well-defined" ≠ "the resulting statistic is known."** Gap-labelling made the IDS-unfolding well-defined; it did **not** hand over the unfolded NNS distribution. 35a's primary deliverable is that **derivation**, not its assertion.
 
 ## §1. Goals
 
-Build, and synthetic-validate against analytically-controlled generators, **two new named calibrator classes**:
+1. **PRIMARY (the real research content): derive the IDS-unfolded, finite-N, Cantor-spectrum NNS** as a function of (λ, N) — shape, small-spacing mass, tail — **explicitly separating the finite-N gap-stranding artifact** (eigenvalues stranded inside limiting-spectrum gaps by finite-size error, which →0 as N→∞) **from the N→∞ behaviour.** No NNS signature is assumed; deriving it (analytically, or via a clean N→∞ extrapolation that isolates the artifact) is the task.
+2. **Anchor:** the λ=0 exact clock (the *unique* genuinely non-Cantor point — free Laplacian, single band [−2,2]) as the rigorous endpoint of the family.
+3. **Generator-validation:** confirm the Fibonacci trace-map reproduces the DGY exact multifractal exponents — this validates the *generator*, separately from (1).
+4. Construct the calibrator **only after (1) yields its NNS ground truth.** The deliverable is **one resolution-indexed Cantor-spectrum calibrator family** (λ, N parameters; λ=0 exact-clock endpoint), **not two classes.**
 
-1. **Cantor/multifractal class** (for the AM critical line / Fibonacci-type Cantor spectra).
-2. **clock+band-perturbation AC class** (for subcritical AM, absolutely-continuous regime).
-
-Both enter `STATIONARY_CALIBRATORS` (or a clearly-segregated extended set) only after passing §5 synthetic validation. 35a produces calibrators + a validation report; **no AM data, no transition diagnostic, no measurement.**
+If (1) is analytically intractable and no clean N→∞ extrapolation isolates the artifact, 35a **halts** (`DERIVATION_INTRACTABLE_HALT`) and the AM arc does not proceed to 35b — an honest dead-end is a valid outcome.
 
 ## §2. Scope
 
-**IN:** the two calibrator generators; their unfolding procedures (specified in §3/§4, not open research); §5 synthetic validation against analytic ground truth; verdict per §7.
+**IN:** the Cantor-NNS derivation (§3); the λ=0 anchor (§4); DGY generator-validation (§5a); calibrator construction *gated on* the derivation (§5b); verdict per §7.
 
 **OUT (load-bearing):**
-- **NOT** AM measurement, the (θ,λ) sweep, or the transition diagnostic — that is 35b, separately briefed and gated on 35a.
-- **NOT** the AM critical line λ=1 *as a measured substrate*. The λ=1 Cantor spectrum is a real renormalisation signature but **outside the joint-plane (BL/TR/BR/TL) vocabulary**; its correct instrument is the f(α) singularity spectrum / box-counting, a *different* tool — same false-positive class as §7.ter.49 mode-A discretisation. 35a builds a *calibrator* for the Cantor class (so the zoo can *recognise and reject* such spectra), it does not propose to *classify* λ=1 on the joint plane.
-- **NOT** a discovery/measurement cell — calibrator-extension only; asymmetric-label discipline (METHODS §1): this is instrument construction, never a result.
+- **NOT** AM measurement / the (θ,λ) sweep / the transition diagnostic — that is 35b, gated on 35a.
+- **NOT** the λ=1 critical line *as a measured substrate* on the joint plane (f(α) singularity-spectrum territory — a different instrument; §7.ter.49 mode-A class). 35a builds a *calibrator so the zoo can recognise/quarantine* Cantor spectra; it does not classify λ=1 on BL/TR/BR/TL.
+- **NOT** a discovery/measurement cell — calibrator construction, never a result (asymmetric-label, METHODS §1).
 
-**Corrections that must NOT be re-imported** (from the original measurement-framed proposal; scope guards):
-- "Proven theorems vs conjectures" overstates: **no AM regime is BCGNT-grade.** Supercritical Poisson is Bourgain–Goldstein / Jitomirskaya (diophantine-class-dependent), **not** Minami-grade (Minami = iid disorder, breaks under quasi-periodicity). The arc's rigour anchor is the *transition boundary* (Avila–Jitomirskaya), not regime-wise NNS-class theorems.
-- The bucket↔AM link is **cocycle over an irrational circle rotation** (real; Avila one-frequency theory) — keep that bridge; the "deformed-bucket = vary λ" scaffold is **killed** (the bucket has no λ-analog; it drove an unjustified parameter-sweep framing).
-- AM is GOE-by-symmetry (real-symmetric, time-reversal) for calibrator bookkeeping, but the **predictions are Poisson (supercritical localised) / clock-rigid (subcritical AC), NOT Wigner.** Subcritical AC is a *distinct class*, not "more nuanced GOE" — hence calibrator class II exists.
+**Corrections that must NOT be re-imported:**
+- **Ten Martini (new, load-bearing):** the AM spectrum is Cantor for *all* λ≠0 — subcritical AM is **not** band-structured. "Clock-like vs Cantor-like" is a **finite-N resolution regime** (sub-1/N gaps unresolved), not a substrate partition. Spectral-measure type (AC/SC/PP) is NNS-invisible and does **not** index the family.
+- **No asserted NNS signature.** No "atom at zero / multifractal tail / recover it." The finite-N stranding atom is an artifact to *characterise and exclude*, never a defining feature (stamping it = §D.0b silent corruption — the very thing the brief's discipline forbids).
+- No AM regime is BCGNT-grade; supercritical Poisson is Bourgain–Goldstein/Jitomirskaya, **not** Minami (iid-only). Rigour anchor = the *transition boundary*, not regime-wise NNS theorems.
+- Cocycle-over-irrational-rotation bridge kept; "deformed-bucket = vary λ" scaffold stays killed.
+- AM is GOE-by-symmetry for bookkeeping, but no regime is Wigner; predictions are Poisson (supercritical) / clock-rigid (λ→0 coarse-resolution limit only).
 
-## §3. Calibrator class I — Cantor/multifractal (Fibonacci-Hamiltonian / DGY generator)
+## §3. The resolution-indexed Cantor-spectrum family (the derivation — 35a's core)
 
-- **Generator:** the Fibonacci Hamiltonian (Damanik–Gorodetski–Yessen), evaluated at golden-mean continued-fraction denominators (Fibonacci numbers) via the rigorous trace-map renormalisation. DGY supply **exact** multifractal exponents — the analytic ground truth for §5.
-- **Unfolding (specified, NOT open):** unfold by the integrated density of states via the **gap-labelling theorem** — the IDS takes values in ℤ+θℤ on spectral gaps and is explicitly computable there. This is well-defined; it is *not* a research unknown (the original proposal wrongly treated "how to normalise a measure-zero Cantor set" as open).
-- **Characteristic NNS signature:** the IDS is locally constant on gaps, so gap-edges collapse to a single unfolded coordinate ⇒ an **atom at spacing zero** + a **multifractal tail** from within-band spacings. This is precisely the signature the existing BL/TR/BR/TL vocabulary has *no slot for* — the reason a new class is needed. The calibrator's job is to let the zoo *recognise and quarantine* Cantor-class spectra (a Cantor spectrum fed to the joint plane must classify as this class, not be force-fit to BL/TR).
+- **Ten Martini:** for irrational θ and every λ≠0 the spectrum is a Cantor set. There is no finite band union at any λ∈(0,1); there is a Cantor set of bands at every λ≠0. Only λ=0 is a genuine single band.
+- **Resolution crossover (a (λ,N) statement, not a substrate one):** a finite-N truncation resolves the spectrum to scale ~1/N. Cantor gaps narrower than that scale are invisible; the finite-N spectrum *looks* band-/clock-like when N is coarse relative to the λ-dependent gap scale, and the Cantor structure progressively emerges as N grows at fixed λ. "Class II → Class I" of the first draft is this continuous crossover — **one family**, indexed by (λ, N).
+- **Unfolding is well-defined; the NNS is not known.** Unfold by the IDS via gap-labelling (IDS ∈ ℤ+θℤ on gaps, explicitly computable) — this is settled (the earlier correction stands). But IDS-unfolding *erases* gaps (maps eigenvalues to ≈ uniform mean spacing, exactly as GUE-by-semicircle / ζ-by-RvM); it does **not** atomise them. What the resulting NNS distribution *is* — small-spacing mass, bulk shape, tail, and how each depends on (λ, N), and which features are finite-N artifact vs N→∞ limit — **is underived. Deriving it is the task of this phase.** Plausible going in (NOT assumed): heavy/multifractal-flavoured spacings reflecting the DOS multifractality, plus a finite-N stranding contribution near zero that must be shown to vanish with N; both to be established, not asserted.
 
-## §4. Calibrator class II — clock+band-perturbation AC
+## §4. The λ=0 exact-clock anchor + the orthogonal AC/SC/PP label
 
-- **Exact endpoint anchor (λ=0):** the free discrete Laplacian. The N-truncation eigenvalues are 2cos(πk/(N+1)); unfolding by the arcsine IDS maps them to an **exactly equispaced** sequence (a perfect clock: spacing 1, zero variance). This is the rigorous anchor.
-- **Calibrator = controlled deformation off the λ=0 clock** for 0<λ<λ*, **with λ\* bounded by the analytical AC-regime condition** (subcritical AC proven for λ<1 with diophantine θ, with margin away from the λ→1 self-dual point) — **NOT** by "where the NNS happens to look AC". The class is anchored at an exact endpoint and bounded by a proven condition; the interior shape between the two principled posts is filled empirically. Epistemic tier: **anchored, not exponent-controlled** (unlike DGY-Fibonacci) and **not free-empirical** — a deliberate middle tier, stated as such so it is not over-trusted.
-- **Why it must exist:** subcritical AC is band-structured / number-rigid (clock-like with band-modulated fluctuations), categorically *not* Wigner-Dyson β=1. Absent this class, 35b would be forced to read the subcritical regime against an inapplicable GOE reference.
+- **Anchor:** λ=0 free Laplacian, N-truncation eigenvalues 2cos(πk/(N+1)); arcsine-IDS unfold → exactly equispaced (clock, spacing 1, zero variance). Rigorous, exact, the family's λ=0 endpoint. (This is the *only* non-Cantor point — its specialness is now explicit, not a "second class".)
+- **Spectral-measure type is an orthogonal, NNS-invisible label.** Subcritical AC (λ<1, diophantine θ) / critical SC (λ=1) / supercritical PP (λ>1) describe the spectral *measure* and eigenfunctions, not the spectrum-as-a-set and not directly the finite-N level spacings. It does **not** partition the calibrator family; it is recorded as metadata. The first draft's "clock+band-perturbation AC class" is **dissolved** into the §3 family as its small-λ / coarse-N corner, pinned by explicit (λ, N), not by spectral type.
 
-## §5. Synthetic-validation discipline (Phase-34f playbook + the cohomological-H §7.ter.57 sharpening)
+## §5. Validation discipline — generator vs calibrator separated (Will's catch)
 
-Each calibrator is validated against its analytic generator **before** it enters the zoo, and the validation obeys the discipline just hardened in cohomological-H:
-
-- **Class I:** recover the DGY exact multifractal exponents (and the atom-at-zero structure) from the trace-map truncations within tolerance.
-- **Class II:** at λ=0, the unfolded sequence must be the exact clock (zero variance); for 0<λ<λ*, recover the band-perturbed clock consistently and monotonically in λ.
-- **Sample-size/regime-floor anchoring (LOAD-BEARING, imported from §7.ter.59):** every distribution test is judged **against its own sample-size floor** — for KS, the statistic is read as `KS / (0.8687/√n)` versus the relevant depth/N, **never raw KS, never a large-n p-value** (a p-value →0 for any infinitesimal deviation at large n; a raw KS is calibrator-grade at n~2000 and a large deviation at n~10⁷). Validate at **realistic n / realistic per-replicate depth**, not convenient n — the §6/§7 cohomological-H harness bugs were n-scale-only failure modes a small-n harness passes. A calibrator is "stamped" only if it recovers its analytic ground truth *to its own floor*, with that floor stated explicitly.
-- **Negative controls:** a Cantor-class synthetic must NOT classify BL/TR/BR; an AC-clock synthetic must NOT classify Poisson; cross-feed each generator's output to the other's test and confirm rejection.
+- **§5a Generator-validation (keep):** recover the DGY *exact multifractal exponents of the DOS/spectrum* from the Fibonacci trace-map truncations within tolerance. This validates that the **generator** reproduces the right spectrum. It does **NOT** validate the calibrator (the NNS is not the DOS f(α); the DOS-f(α)→NNS-shape map is precisely the §3 underived step).
+- **§5b Calibrator-validation (gated):** there is **no NNS ground truth until §3 derives it.** Calibrator-validation is therefore *gated on* the §3 derivation: once the derivation yields a predicted (λ,N) NNS, the trace-map generator's empirical NNS must match that prediction — and this match is judged under the **§7.ter.59 sample-size-floor discipline**: every distribution test read as `KS / (0.8687/√n)` vs its own N/depth, never raw KS, never a large-n p-value, validated at realistic N (the cohomological-H lesson, imported as a hard precondition). Until §3 succeeds, §5b cannot run and nothing is stamped.
+- **Negative controls:** the derived Cantor-family NNS must be distinct from BL/TR/BR/TL and from the λ=0 clock; the finite-N stranding artifact must be shown to shrink with N (if it does not, the "signature" is an artifact and the calibrator is rejected).
 
 ## §6. Pre-flight gates
 
-- **Lit-lock gate:** verify Avila–Jitomirskaya / DGY / gap-labelling / Avila-cocycle as cited (BCGNT-style) before any build; halt + report on any mismatch.
-- **Compute note (corrected):** the AM / Fibonacci operators are **tridiagonal** — symmetric-tridiagonal eigensolve (LAPACK `stev`/`stebz`) is sub-second at N=10⁴, ~1000× cheaper than dense. The cost driver across the arc is the (θ,λ)-cell × seed × surrogate combinatorics and the Fibonacci-denominator N-ladder (discrete, not a continuum). 35a itself (calibrator construction + synthetic validation) is small.
-- **Corrections checklist:** the §2 corrections-not-to-re-import are a hard pre-flight checklist; any reappearance halts.
+- **Lit-lock** (incl. Ten Martini — load-bearing) before any build; halt on mismatch.
+- **Compute (corrected):** AM / Fibonacci operators are tridiagonal — symmetric-tridiagonal eigensolve (LAPACK `stev`/`stebz`) sub-second at N=10⁴; cost driver across the arc is (θ,λ)-cell × seed × surrogate combinatorics and the Fibonacci-N-ladder (discrete). 35a is small except possibly the N→∞ extrapolation (multiple N per (θ,λ)).
+- **Corrections checklist** (§2) is a hard pre-flight; any reappearance halts.
 
-## §7. Verdict vocabulary (asymmetric — calibrator-extension, never a result)
+## §7. Verdict vocabulary (asymmetric — calibrator construction, never a result)
 
-- `CANTOR_MULTIFRACTAL_CALIBRATOR_SYNTHETIC_VALIDATED` — recovers DGY exact exponents + atom-at-zero to its stated sample-size floor; negative controls pass.
-- `AC_CLOCK_PERTURBATION_CALIBRATOR_ANCHORED_AND_VALIDATED` — exact at λ=0; consistent monotone deformation for 0<λ<λ* (λ* analytically bounded); negative controls pass.
-- `CALIBRATOR_UNRESOLVED_HALT` — a generator/unfolding does not recover its analytic ground truth to floor; **halt, do not stamp, do not proceed to 35b** (the §D.0b discipline: a mis-specified calibrator silently corrupts every downstream classification).
-- Cell-level: `PHASE35A_ZOO_EXTENDED_VALIDATED` (both classes stamped) or `PHASE35A_PARTIAL` / `_HALT`. **Never** a discovery, measurement, or "AM result" verdict.
+- `CANTOR_NNS_SIGNATURE_DERIVED` — §3 yields a (λ,N) NNS with the finite-N stranding artifact isolated and shown N→∞-vanishing.
+- `GENERATOR_VALIDATED_VS_DGY_EXPONENTS` — §5a passes (generator, not calibrator).
+- `RESOLUTION_INDEXED_CANTOR_CALIBRATOR_FAMILY_STAMPED` — derived NNS + generator-validated + §5b floor-anchored match; the family (incl. the λ=0 exact-clock endpoint) enters the zoo.
+- `DERIVATION_INTRACTABLE_HALT` — §3 cannot be derived nor cleanly N→∞-extrapolated; **halt, do not stamp, AM arc does not proceed to 35b.** An honest dead-end.
+- Cell-level: `PHASE35A_FAMILY_VALIDATED` / `_PARTIAL` / `_HALT`. **Never** a discovery/measurement/AM-result verdict.
 
 ## §8. Forward / scope boundary
 
-On `PHASE35A_ZOO_EXTENDED_VALIDATED`:
-- **35b (separate brief, gated on 35a):** transition-diagnostic validation. Supercritical + λ→1⁻ approach **only**; golden-mean θ; Fibonacci-denominator N-ladder. Right-null = the **α-ensemble** (the cos(2π(θn+α)) phase is part of the operator; the α-ensemble at fixed (θ,λ) is the substrate-generated null per §7.ter.48 — non-circular, doesn't presuppose β), valid **localised-regime only** (subcritical α-ensemble mixes spectra-as-sets — a separate audit if ever extended). Verdict map pre-specified **both ways**: a quadrant-flip (validates the diagnostic on a non-synthetic substrate) **and** a BL-throughout-with-rep_med-drift / sub-quadrant outcome (the §7.ter.28 BGP-shape precedent — the diagnostic correctly returns null while the substrate's evolution lives sub-quadrant).
-- **35c (optional, contingent on 35b):** if 35b is sub-quadrant-only (BGP-shape), AM becomes the validation substrate for the long-queued Phase-22+ sub-quadrant-trajectory extension.
-- **λ=1 stays OUT of the whole arc** as a measured substrate — a different instrument (f(α) singularity spectrum), not the joint plane.
+On `PHASE35A_FAMILY_VALIDATED` (derivation + generator + floor-anchored calibrator):
+- **35b (separate brief, gated):** transition-diagnostic validation. Supercritical + λ→1⁻ only; golden-mean θ; Fibonacci-N-ladder. Right-null = the **α-ensemble** (cos(2π(θn+α)) phase is part of the operator; α-ensemble at fixed (θ,λ) is the substrate-generated null per §7.ter.48; non-circular), **localised-regime only**. Verdict map pre-specified **both ways**: quadrant-flip (validates the diagnostic on a non-synthetic substrate) **and** sub-quadrant/rep_med-drift (the §7.ter.28 BGP precedent — diagnostic correctly returns null, evolution lives sub-quadrant).
+- **35c (optional, contingent on 35b sub-quadrant outcome):** AM as the validation substrate for the Phase-22+ sub-quadrant-trajectory extension.
+- λ=1 stays **out** of the whole arc as a measured substrate.
 
-The arc validates `transition_diagnostic`; it is **not** AM measurement and yields **no** arithmetic/physics result about AM.
+The arc validates `transition_diagnostic`; it is **not** AM measurement and yields no AM result.
 
 ## §9. Methodological commitments
 
-- Brief-first / compute-after (Phase-34f playbook); no execution without explicit Will go (brief-and-hold).
-- Synthetic-validate each calibrator against its analytic generator, **at realistic n, judged against its own sample-size/regime floor** (§7.ter.55 / §7.ter.59 — the cohomological-H lesson: a statistic is only interpretable against its own regime floor; KS/(0.87/√n), never raw KS, never large-n p).
-- Asymmetric-label: calibrator-extension is instrument construction, **never** a discovery (METHODS §1).
-- Keep the cocycle-over-irrational-rotation bridge; the deformed-bucket scaffold stays killed.
-- §D.0b: a mis-specified calibrator is the silent-corruption surface — `_HALT` rather than stamp a calibrator that fails its analytic ground truth.
+- Brief-first / compute-after; no execution without explicit Will go (brief-and-hold).
+- **"Well-defined operation" ≠ "known statistic"** (the §7.ter.59-class discipline, here at spectral resolution): a brief carries forward only what was actually *derived*; an unfolding being well-defined does not hand over its NNS. 35a's deliverable is the derivation; assertion is forbidden.
+- Generator-validation and calibrator-validation are distinct gates; DGY validates the generator only.
+- Resolution-regime, not substrate-partition (Ten Martini); spectral-measure type is NNS-invisible metadata.
+- Synthetic/derived-ground-truth validation judged against its own sample-size/regime floor, realistic N (§7.ter.55/59).
+- §D.0b: a mis-derived or artifact-stamped calibrator is the silent-corruption surface — `_HALT` over stamp.
 
 ## §10. References / cross-refs
 
-- Avila, Jitomirskaya — AM spectral phase diagram, the λ=1 boundary, subcritical AC / supercritical pure-point.
-- Damanik, Gorodetski, Yessen — Fibonacci-Hamiltonian exact multifractal exponents + trace-map renormalisation.
-- Johnson–Moser / Bellissard — gap-labelling theorem (IDS ∈ ℤ+θℤ on gaps).
-- Avila — global theory of one-frequency analytic SL(2,ℝ) cocycles (the bucket↔AM structural bridge).
-- Bourgain–Goldstein / Jitomirskaya — supercritical localisation (the *correct*, conjecture-grade-not-Minami status of supercritical Poisson).
-- Cross-ref: memory `phase35_am_arc_design`; METHODS.md §1 (asymmetric-label tiers); RESULTS §7.ter.59 (the sample-size-floor sharpening); §7.ter.28 (BGP sub-quadrant precedent), §7.ter.46 (calibrator-zoo-extension-precedes-instrument-validation), §7.ter.48 (substrate-generated right-null), §7.ter.49 (mode-A discretisation false-positive class), §7.ter.55/57 (validate the instrument on known truth).
+- Avila, Jitomirskaya — *The Ten Martini Problem* (Annals 2009): Cantor spectrum for all irrational θ, all λ≠0. **Load-bearing.**
+- Avila, Jitomirskaya — AM phase diagram (AC/SC/PP spectral-measure type; the proven λ=1 boundary).
+- Damanik, Gorodetski, Yessen — Fibonacci-Hamiltonian exact multifractal exponents + trace-map renormalisation (DOS/spectrum, **not** NNS).
+- Johnson–Moser / Bellissard — gap-labelling (IDS ∈ ℤ+θℤ on gaps; unfolding well-defined).
+- Avila — one-frequency analytic SL(2,ℝ) cocycles (the bucket↔AM bridge).
+- Bourgain–Goldstein / Jitomirskaya — supercritical localisation (the non-Minami status of supercritical Poisson).
+- Cross-ref: memory `phase35_am_arc_design`; METHODS.md §1; RESULTS §7.ter.59 (sample-size-floor), §7.ter.28 (BGP sub-quadrant), §7.ter.46 (zoo-extension precedes instrument-validation), §7.ter.48 (substrate-generated null), §7.ter.49 (mode-A), §7.ter.55/57 (validate-on-known-truth), §7.ter.5/22 (resolution-dependence).
 
 ---
 
-End of brief — awaiting Will's review before any 35a build / synthetic validation. brief-and-hold.
+End of brief — **goals revised; back to brief-and-hold, awaiting Will's re-review** before any 35a derivation/build. Execution still requires explicit go.
