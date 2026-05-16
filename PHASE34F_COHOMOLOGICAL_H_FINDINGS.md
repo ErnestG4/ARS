@@ -1,6 +1,6 @@
 # Phase 34f-cohomological-H Findings — ARS Sato-Tate engine validated against the BCGNT-2025 *proven* target
 
-**Status:** COMPLETE. Verdict **`COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_FINITE_P`**. First calibration of the integrated ARS Sato-Tate instrument against a *mathematically proven theorem* (Boxer–Calegari–Gee–Newton–Thorne 2025) rather than an empirical/conditional anchor. Brief: `PHASE34F_COHOMOLOGICAL_H_BRIEF.md` (committed b1361d8, three-way `(cm,bc)` stratification). Data + results: `data/phase34f_cohh/` (gitignored).
+**Status:** COMPLETE — **AMENDED 2026-05-16** (Will's floor-anchoring catch; the original `COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_FINITE_P` headline is **RETRACTED** as overclaimed). Corrected verdict: **`COHOMOLOGICAL_H_SATO_TATE_CONSISTENT_TO_FINITE_PRIME_DEPTH_DISCREPANCY`** — the ARS Sato-Tate engine is consistent with the BCGNT-2025-proven semicircular up to the **effective-Sato-Tate finite-prime-depth discrepancy**, which decreases monotonically with per-form prime depth (to ~1.4–3× the n-floor on the depth-sufficient subpopulation) but is **corpus-depth-limited to a ~12–78× n-floor residual on the bulk** (per-form depth ≈100 primes). Not engine/decode (§6/§4 independently validated). First calibration of the integrated ARS Sato-Tate instrument against a *mathematically proven theorem* (Boxer–Calegari–Gee–Newton–Thorne 2025). Brief: `PHASE34F_COHOMOLOGICAL_H_BRIEF.md` (b1361d8). Data: `data/phase34f_cohh/` (gitignored). See **AMENDMENT** (§ below) for why the original was wrong.
 
 ## Frame
 
@@ -27,31 +27,37 @@ Multi-seed (K=50, n=4000): true-measure reject_rate 0.020 ≈ α (p-values Unifo
 
 bc=1 base-change conjugate signature recovered **exactly** (a(𝔭)=a(𝔭̄)=classical aₚ); genuine-non-CM negative control ≈0.04 (signature is real, not adjacency artifact); BCGNT-proven Ramanujan bound **exactly** satisfied under idealnorm on ~82k real forms, decisively broken (0.932) under ratprime. The §D.0b silent-corruption surface is closed **empirically** (§7.ter.55 instrument-validation on real known-truth). Harness refinement caught en route: the gate must test the signature on the `bc=1`-good-prime subset (the brief's §4 spec), not all `bc≠0` incl. twists.
 
-## Substantive — per-stratum per-field (finite-P framed)
+## AMENDMENT (2026-05-16) — the original substantive verdict was overclaimed
 
-**Discipline (§7.ter.57 / Phase-34d finite-X):** at pooled n = 10⁵–10⁷ a KS p-value →0 for any infinitesimal finite-P deviation and is **uninformative**; the verdict uses the KS *statistic* (effect size) + a Chen-2019 finite-P scan (does the deviation shrink as the prime bound grows = the NLO correction tail?). The initial `p>0.01` flag was the same wrong-instrument class as §6 and was discarded.
+**Will's catch (load-bearing).** The KS-statistic floor for n iid draws vs the true CDF is E[Dₙ] ≈ 0.8687/√n. At n≈2000 (the NNS-calibrator regime) that is ≈0.019 — which is why KS≈0.02 reads as "calibrator quality" everywhere in the NNS work. At n≈10⁷ the floor is ≈3×10⁻⁴. So the original headline KS≈0.022 at n=7.7M is **~70× the perfect-sample floor — a large deviation in effect-size terms, not a small one.** I excluded p-values for being sample-size-regime-dependent and then read the KS *statistic* in the wrong sample-size regime: the same discipline-class error, one level down. Additionally: the "Chen-2019 finite-P scan" attribution was wrong — Chen 2019 is the Rudnick–Waxman prime-angle *variance* result; the Sato-Tate semicircular convergence rate is governed by **effective Sato-Tate** (Thorner; Murty–Sinha discrepancy bounds). No functional form was ever fitted (the code did a too-weak monotonicity check); the attribution is **retracted**. The pooled global-norm-cutoff scan was also the wrong instrument — the ST discrepancy is governed by **per-form prime depth**, not pooled n or level.
 
-| field:stratum | n | KS_full | finite-P scan (1e3→1e6) | verdict |
+**Corrected analysis (`run_floor_analysis.py` → `data/phase34f_cohh/floor_analysis.json`): KS / n-floor vs per-form prime depth k.** The corpus structure is decisive: the **bulk of the ~39k genuine-non-CM forms have only ≈100 good primes** (the AP lists are short); only a small deep subpopulation has ≥200.
+
+| field:stratum | regime | KS | n-floor | **KS / floor** |
 |---|---|---|---|---|
-| Q(i):C genuine-non-CM | 7,701,850 | 0.0217 | 0.0242→0.0217 ↓ | `SATO_TATE_VALIDATED_AT_FINITE_P_WITH_CORRECTION` |
-| Q(i):B base-change-non-CM | 249,860 | 0.0189 | 0.0236→0.0190 ↓ | `..._VALIDATED_AT_FINITE_P_WITH_CORRECTION` |
-| Q(i):A CM | 7,506 | 0.2557 | ≈0.26 (flat, huge) | `SATO_TATE_CM_NON_SEMICIRCULAR_AS_EXPECTED_DESCRIPTIVE_ONLY` |
-| Q(√−3):C genuine-non-CM | 8,078,006 | 0.0232 | 0.0257→0.0233 ↓ | `..._VALIDATED_AT_FINITE_P_WITH_CORRECTION` |
-| Q(√−3):B base-change-non-CM | 290,621 | 0.0197 | 0.0241→0.0199 ↓ | `..._VALIDATED_AT_FINITE_P_WITH_CORRECTION` |
-| Q(√−3):A CM | 4,543 | 0.2647 | ≈0.26 (flat, huge) | `SATO_TATE_CM_NON_SEMICIRCULAR_AS_EXPECTED_DESCRIPTIVE_ONLY` |
+| Q(i):C | bulk (depth≈100, n≈3.9M) | 0.0314 | 4.4e-4 | **71×** |
+| Q(i):C | deep (depth=800) | 0.0077 | 2.4e-3 | **3.2×** |
+| Q(√−3):C | bulk (depth≈100, n≈4.1M) | 0.0333 | 4.3e-4 | **78×** |
+| Q(√−3):C | deep (depth=800) | 0.0088 | 3.0e-3 | **3.0×** |
+| Q(i):B | bulk (depth≈100) | 0.0316 | 2.5e-3 | **12×** |
+| Q(i):B | deep (depth=800) | 0.0094 | 6.1e-3 | **1.5×** |
+| Q(√−3):B | bulk (depth≈100) | 0.0332 | 2.4e-3 | **14×** |
+| Q(√−3):B | deep (depth=800) | 0.0093 | 6.6e-3 | **1.4×** |
 
-- **C (headline):** the ARS Sato-Tate engine recovers BCGNT's **Bianchi** semicircular on the genuine-non-CM stratum to ~2% KS, deviation shrinking with prime bound (Chen-2019 NLO) — on 7.7M/8.1M eigenvalues across both fields.
-- **B:** independently consistent via the **classical** GL(2)/ℚ Sato-Tate (Newton–Thorne) — a *different* proven theorem; reported separately, never pooled with C (false-positive-equivalence discipline, §7.ter.49).
-- **A:** the negative control — CM correctly non-semicircular (engine discriminates); the §5 CM Hecke-character target measure was not pre-pinned ⇒ `_DESCRIPTIVE_ONLY`.
+KS decreases **monotonically** with per-form depth (C: 0.057→0.043→0.031→0.011→0.0085→0.0077 for k=25→800) at the rate effective-Sato-Tate predicts. On the **depth-sufficient subpopulation** (≥800 primes/form) it is at/near the floor (B 1.4×, C 3×). On the **bulk corpus** at its native ~100-prime depth, a ~0.03 residual remains = **12–78× floor**. §6/§4 independently validate engine and decode, so this residual is the **finite-prime-depth Sato-Tate discrepancy of the corpus**, not an engine/decode defect — theory-governed (effective-ST) and shrinking with depth as expected, but the corpus's per-form prime depth is the binding limit and cannot drive it to the n-floor.
+
+- **C:** consistent with BCGNT's *Bianchi* semicircular up to the effective-ST finite-prime-depth discrepancy; converging with depth; **not** floor-validated on the bulk.
+- **B:** same behaviour via the *classical* Newton–Thorne route (separate stratum, never pooled with C, §7.ter.49); reaches the floor (1.4×) on the deep subpopulation.
+- **A (CM):** KS≈0.26, decisively ≠ semicircular. This is a **one-sided discrimination control only** — it shows the engine separates "semicircle" from "not-semicircle"; it is **not** matched to CM's own ½δ₀+split-prime-arcsine measure (the §5 pre-spec item, not pinned ⇒ `_DESCRIPTIVE_ONLY`). A two-sided positive control (CM matched to its own measure) was not performed.
 
 ## Verdict map (asymmetric — proven-theorem-calibration tier, METHODS §1)
 
-- **Cell:** `COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_FINITE_P` — instrument validated against a proven theorem; **not** a discovery, **not** a substantive convergence claim, **does not touch the Q(√−3) Δ-closer**.
-- **Forward:** 34f-G-H / 34f-E-H Maass Sato-Tate engine inherits earned validation (`CONVENTION_PROPAGATED_FROM_34e` → engine validated on a proven Bianchi target). Does NOT change 34f-G/E-Δ `DATA_ACQUISITION_BLOCKED` or the §D.4 closer status.
+- **Cell (CORRECTED):** `COHOMOLOGICAL_H_SATO_TATE_CONSISTENT_TO_FINITE_PRIME_DEPTH_DISCREPANCY` — the engine is consistent with the BCGNT-proven semicircular up to the effective-ST finite-prime-depth discrepancy, monotone-converging with depth (to ~1.4–3× floor on the depth-sufficient subpopulation); the bulk-corpus ~12–78×-floor residual is the corpus prime-depth limitation, **not** engine/decode. **Floor-level validation is NOT achieved and is not achievable with this corpus's per-form prime depth.** Instrument validation against a proven theorem, bounded as stated; **not** a discovery, **not** a substantive convergence claim, **does not touch the Q(√−3) Δ-closer**. The original `METHODOLOGY_VALIDATED_AT_FINITE_P` is retracted.
+- **Forward:** 34f-G-H / 34f-E-H Maass Sato-Tate engine inherits the *bounded* validation (engine+decode sound; ST consistency demonstrated to the corpus's prime depth). Does NOT change 34f-G/E-Δ `DATA_ACQUISITION_BLOCKED` or the §D.4 closer status.
 
 ## Methodology
 
-No new numbered generalisation — faithful application of §7.ter.55 (validate the instrument on known truth: §4 decode vs bc=1 classical signature + BCGNT Thm A on 82k forms; §6 engine vs exact semicircular) and §7.ter.57 (a fitted/threshold criterion is not an absolute when the instrument/regime is the issue — caught **twice**: the §6 single-draw p-threshold and the §7 large-n p-criterion; both replaced with the statistically-correct instrument). Canonical sharpening of §7.ter.57: **at pooled n ≳ 10⁵ a KS p-value is not the instrument; the KS statistic + finite-P (Chen-2019 NLO) scan is** — the Phase-34d finite-X discipline transposed to Sato-Tate finite-P.
+No new numbered generalisation — faithful application of §7.ter.55 (validate the instrument on known truth: §4 decode vs bc=1 signature + BCGNT Thm A on 82k forms; §6 engine vs exact semicircular) and §7.ter.57. **Three §7.ter.57-class instrument-regime errors were caught and corrected in this cell** — the §6 single-draw KS-p>0.05 gate (false-fails ≈5% under H₀ since the KS p is Uniform), the §7 large-n KS-p>0.01 criterion (meaningless at n≳10⁵), and **the headline KS-statistic read in the wrong sample-size regime** (Will's catch; 0.022 is calibrator-grade at n~2000, a large deviation at n~10⁷). Canonical sharpening of §7.ter.57: **a statistic is only interpretable against its own sample-size/regime floor — for KS, the verdict is KS / (0.8687/√n) vs per-form prime depth, never KS alone, never a p-value at large n.** Two further lessons: (i) synthetic pre-flights must validate at *realistic* n, not convenient n — the §6/§7 bugs were n-scale-only failure modes a small-n harness passes; (ii) self-caught: the re-analysis's own max-depth "endpoint" was an artifact (the `len≥k` filter collapses to the few deepest forms) — fixed to a two-regime (bulk vs deep-subpop) report. The convergence model is **effective Sato-Tate (Thorner / Murty–Sinha)**, not Chen-2019/RW.
 
 ## Outputs
 

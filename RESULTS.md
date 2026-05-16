@@ -9823,7 +9823,42 @@ phase34f_cohh/run_cohh.py
 phase34f_cohh/fetch_bmf_lmfdb.py (demoted; optional LMFDB cross-check)
 data/phase34f_cohh/{newforms.1.1-100000,newforms.3.1-150000} [gitignored, 57 MB]
 data/phase34f_cohh/{checkpoint_gate,st_results}.json [gitignored]
+phase34f_cohh/run_floor_analysis.py + data/phase34f_cohh/floor_analysis.json (amendment)
 ```
+
+**AMENDMENT (2026-05-16) — the substantive headline above was
+overclaimed; corrected verdict below.**  Will's catch: the
+KS-statistic floor for n iid draws is E[Dₙ] ≈ 0.8687/√n — ≈0.019 at
+n≈2000 (the NNS-calibrator regime, why KS≈0.02 reads as
+"calibrator-grade"), but ≈3×10⁻⁴ at n≈10⁷.  So the headline KS≈0.022
+at n=7.7M is **~70× the perfect-sample floor — a large deviation in
+effect-size terms**.  Excluding p-values then reading the KS statistic
+in the wrong sample-size regime is the same §7.ter.57 instrument-regime
+error one level down.  The "Chen-2019 finite-P" attribution is also
+**retracted** (Chen 2019 is RW prime-angle *variance*; the Sato-Tate
+rate is **effective Sato-Tate**, Thorner / Murty–Sinha; no functional
+form was ever fitted).  Corrected instrument (KS / n-floor vs **per-form
+prime depth**, `run_floor_analysis.py`): KS decreases monotonically
+with depth at the effective-ST rate; on the depth-sufficient
+subpopulation (≥800 primes/form) KS/floor ≈ 1.4× (B) / 3× (C) —
+near-floor; on the **bulk corpus** (~100 primes/form, the AP lists are
+short) KS≈0.03 = **12–78× floor**.  §6/§4 independently validate
+engine+decode, so the bulk residual is the **finite-prime-depth
+Sato-Tate discrepancy of the corpus**, not an engine/decode defect, and
+is corpus-depth-limited (cannot reach the n-floor at this depth).
+**Corrected cell verdict:
+`COHOMOLOGICAL_H_SATO_TATE_CONSISTENT_TO_FINITE_PRIME_DEPTH_DISCREPANCY`**
+— consistent with the BCGNT-proven semicircular up to the effective-ST
+finite-prime-depth discrepancy, monotone-converging with depth, NOT
+floor-validated on the bulk; `METHODOLOGY_VALIDATED_AT_FINITE_P` is
+retracted.  CM stratum is a **one-sided discrimination control only**
+(≠ semicircular; not matched to CM's own measure).  §7.ter.57
+sharpening: a statistic is only interpretable against its own
+sample-size/regime floor — for KS, KS/(0.8687/√n) vs per-form depth,
+never KS alone, never a large-n p-value; and synthetic pre-flights must
+validate at *realistic* n (the §6/§7 bugs were n-scale-only modes).
+Three §7.ter.57-class instrument-regime errors were caught + corrected
+in this cell (two mid-run, one — the headline — on Will's review).
 
 ---
 
@@ -9972,18 +10007,27 @@ not extend the corresponding literatures.
 
 - Cohomological Bianchi modular newforms, Cremona `bianchi-data`
   corpus (40,030 over Q(i) + 42,343 over Q(√−3); ~16M Hecke
-  eigenvalues): the ARS Sato-Tate engine recovers the
-  **BCGNT-2025-proven** semicircular SU(2) measure on the
-  genuine-non-CM stratum to KS-statistic ≈ 0.022 with the deviation
-  shrinking under the Chen-2019 finite-P scan (NLO correction tail);
-  base-change-non-CM consistent via the classical Newton–Thorne
-  Sato-Tate (separate stratum); CM stratum correctly non-semicircular
-  (negative control).  Reported as **instrument validation against a
+  eigenvalues): the ARS Sato-Tate engine is **consistent with the
+  BCGNT-2025-proven** semicircular SU(2) measure on the genuine-non-CM
+  stratum **up to the effective-Sato-Tate finite-prime-depth
+  discrepancy** — the KS statistic decreases monotonically with
+  per-form prime depth (≈0.057→0.008 over depth 25→800) at the
+  effective-ST rate (Thorner / Murty–Sinha), reaching ~1.4–3× the
+  n-floor (E[Dₙ]≈0.87/√n) on the depth-sufficient subpopulation but
+  corpus-depth-limited to a ~12–78×-floor residual on the bulk
+  (per-form depth ≈100); §6/§4 independently validate engine+decode,
+  so the residual is the corpus prime-depth limitation, not an
+  engine/decode defect.  Base-change-non-CM consistent via the
+  classical Newton–Thorne route (separate stratum); CM stratum a
+  one-sided discrimination control (≠ semicircular; not matched to its
+  own measure).  Reported as **bounded instrument validation against a
   proven theorem** (proven-theorem-calibration tier) — does NOT extend
   the corresponding literature and does NOT touch the Q(√−3)
-  three-coordinate Δ-closer.  Large-n KS p-values are uninformative
-  and explicitly not used (verdict on KS-statistic + finite-P scan).
-  **COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_FINITE_P.**  (§7.ter.59.)
+  three-coordinate Δ-closer.  KS interpreted only against its
+  sample-size floor (a KS statistic alone, or a large-n p-value, is not
+  the instrument).  **COHOMOLOGICAL_H_SATO_TATE_CONSISTENT_TO_FINITE_
+  PRIME_DEPTH_DISCREPANCY** (the earlier `_METHODOLOGY_VALIDATED_AT_
+  FINITE_P` is retracted; §7.ter.59 amendment).  (§7.ter.59.)
 
 #### Physical and biological signals
 
