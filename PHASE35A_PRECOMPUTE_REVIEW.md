@@ -188,9 +188,36 @@ Sources: [Jagannathan, RMP 2021 (arXiv:2012.14744)](https://arxiv.org/pdf/2012.1
 
 ---
 
-**State:** brief-and-hold intact; rev 2 committed (`0ee07c1`); this memo + this
-addendum are the only artifacts; no compute performed; awaiting Will's return +
-explicit compute-go. P1's de-risking async question stands but is now
-*lower* urgency — the recon already establishes the briefed single-limit
-framing is the atypical case, so §6-gate + §7-slot are warranted regardless of
-Will's one-liner.
+---
+
+## Resolution log (2026-05-16, Will engaged)
+
+- **P1 — RESOLVED (Will): PRESERVES.** IDS-unfolding is the probability-integral
+  transform → uniformizes the DOS, absorbing only *one-point-density*-carried
+  log-periodicity; Fibonacci's is *renormalization*-carried (one trace-map step
+  per Fibonacci level; F_k ~ φ^k ⟹ log-periodic in scale), which a one-time
+  per-level scale normalization cannot remove. Class I signature = a
+  **log-periodic family indexed by renormalization phase k mod L**, L = the
+  trace-map cycle length DGY computes. Good news (structured finite-parameter,
+  DGY-controlled). **Folded into brief rev 3** (§0/§1/§3/§5/§7 + new §5c;
+  single-limit framing rejected; `FIB_CANTOR_NNS_RENORM_PHASE_FAMILY_DERIVED`
+  + `CYCLE_PERIOD_MISMATCH_HALT` added, closing the §D.0b verdict-map gap).
+- **P2 — substantially resolved by P1's answer.** The DGY-computed cycle period
+  L is an *independent external anchor*: §5b confirms the empirical period = L,
+  so a self-consistent-but-wrong derivation fails the period match. Residual:
+  the per-phase member shapes still rest on the §3 derivation + §5a; the period
+  match is the new independent teeth. Encoded in rev 3 §5b.
+- **P3 — STILL OPEN, reserved for Will.** Class II (λ,N) pinning as a hard
+  un-resolved-Cantor HALT condition (else option-1's no-ground-truth defect
+  returns). rev 3 §4 states the *proposed* framing and marks Class II `_HELD`
+  until Will adjudicates. Not silently resolved.
+- **P4 — resolved by P1's answer.** The cycle is *finite* (L members,
+  DGY-computed) ⇒ maps onto the existing fixed-N `(name, gen_fn)` zoo idiom as
+  L named phase-members + the shared anchor; phase-appropriate-member
+  selection. No interface extension. Encoded in rev 3 §5c. (L impractically
+  large ⇒ `DERIVATION_INTRACTABLE_HALT`, not an interface problem.)
+
+**State:** brief-and-hold intact; brief now **rev 3**; this memo is the audit
+trail; **no compute performed.** Remaining gates before any compute: (1) Will's
+**P3** adjudication (Class II pinning), (2) explicit **compute-go**. P1's async
+question is closed (answered: preserves).
