@@ -141,6 +141,56 @@ renormalization index k?** A one-line answer before wipe collapses P1 from
 determines P4(a)'s discretization. Everything else here can wait for normal
 review. No external dataset is needed for 35a (analytic/synthetic substrate).
 
-**State:** brief-and-hold intact; rev 2 committed (`0ee07c1`); this memo is the
-only artifact; no compute performed; awaiting Will's return + explicit
-compute-go.
+---
+
+## Addendum — bounded literature reconnaissance on P1 (review input, NOT the §6 lit-lock gate)
+
+Two web searches (abstract-level only; no deep fetch — that would be lit-lock-grade
+and is gated). Result: **P1 is substantiated and upgraded.**
+
+- **Log-periodic oscillations of the IDS are a documented, established feature
+  of the Fibonacci Hamiltonian**, arising from the *discrete scale invariance
+  inherent to its singular-continuous spectrum* (Lifshitz & Even-Dar Mandel;
+  Jagannathan, *The Fibonacci quasicrystal*, Rev. Mod. Phys. 93, 045001 (2021),
+  arXiv:2012.14744). Quantum-dynamical quantities (diffusion, conductance) show
+  log-periodic oscillations on top of leading power-law behaviour; conductance
+  is log-periodic in *system size* from the same discrete scale invariance.
+- **Damanik–Gorodetski, "The Density of States Measure of the Weakly Coupled
+  Fibonacci Hamiltonian"** (GAFA 2012): the DOS measure is exact-dimensional
+  with a local scaling exponent *strictly smaller than the Hausdorff dimension
+  of the spectrum* — i.e. the DGY-rigorous object the brief leans on is itself
+  multifractal with nontrivial local scaling. This is the base the IDS-unfolded
+  NNS is derived *on top of* (rev 2 §3 / P2).
+
+**What this does and does not establish (kept honest).** It establishes that
+*this operator has documented discrete scale invariance / log-periodicity in
+its IDS and quantum dynamics* — so a single-limit NNS along the F_k ladder is
+the *unlikely* case and a renorm-periodic family the *expected* one. It does
+**not** establish that the log-periodicity propagates specifically to the
+*IDS-unfolded NNS* (the literature documents it in IDS / conductance /
+diffusion, not in the unfolded spacing distribution). Whether the IDS-unfolding
+*absorbs* the log-periodicity (→ a clean single-limit bulk-NNS calibrator, the
+P1 "good news" branch) or *preserves* it (→ renorm-periodic family) is itself
+the underived question — a textbook instance of "well-defined operation ≠ known
+statistic": the unfolding is well-defined; whether it absorbs or carries the
+discrete-scale-invariance is **not known and must not be assumed either way.**
+
+**Net effect on P1's status:** upgraded from "candidate phantom, verify at
+lit-lock" to **"the briefed single-limit framing is the operator's atypical
+case; §6 must make the absorb-vs-preserve determination a hard gate, and §7
+must carry the renorm-periodic verdict slot, before §3 runs."** The §7
+verdict-map gap (mis-stamp-or-false-HALT, §D.0b) is therefore a real exposure
+on the *likely* execution path, not a tail risk. P2–P4 unchanged.
+
+Sources: [Jagannathan, RMP 2021 (arXiv:2012.14744)](https://arxiv.org/pdf/2012.14744);
+[Damanik–Gorodetski, GAFA 2012 — DOS measure of the weakly coupled Fibonacci Hamiltonian](https://link.springer.com/article/10.1007/s00039-012-0173-8);
+[Observation of log-periodic oscillations in Fibonacci-quasicrystal electron dynamics (Lifshitz & Even-Dar Mandel)](https://www.academia.edu/1453982/Observation_of_log_periodic_oscillations_in_the_quantum_dynamics_of_electrons_on_the_one_dimensional_Fibonacci_quasicrystal).
+
+---
+
+**State:** brief-and-hold intact; rev 2 committed (`0ee07c1`); this memo + this
+addendum are the only artifacts; no compute performed; awaiting Will's return +
+explicit compute-go. P1's de-risking async question stands but is now
+*lower* urgency — the recon already establishes the briefed single-limit
+framing is the atypical case, so §6-gate + §7-slot are warranted regardless of
+Will's one-liner.
