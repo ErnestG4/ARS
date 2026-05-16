@@ -134,6 +134,61 @@ structural-extension hypothesis, not replication of an asserted
 prediction.  See PHASE34D_FINDINGS.md SQ-2 and the §7.ter.51 entry in
 RESULTS.md for the canonical application.
 
+**Proven-theorem calibration tier + two-regime Ramanujan-conditionality
+(Phase 34f, BCGNT 2025).**  The asymmetric-label discipline above has
+two epistemic tiers — *empirical-anchor* (published numerical/asymptotic
+prediction) and *structural-extension first-measurement* (no published
+prediction).  A third, sharper tier exists when the instrument is
+calibrated against a **mathematically proven theorem** rather than an
+empirical anchor:
+
+  - **Proven-theorem-calibration substrate** → the target is a theorem,
+    not a measured/published number.  Verdict labels name the theorem
+    and assert *instrument* validation, never a result:
+    `<STAT>_METHODOLOGY_VALIDATED_AGAINST_PROVEN_TARGET_<CITATION>`
+    (Phase 34f canonical: `SATO_TATE_METHODOLOGY_VALIDATED_AGAINST_
+    PROVEN_TARGET_BCGNT2025`).  This is the cleanest possible
+    calibration — the target carries no conditionality or finite-sample
+    caveat of its own — but the label must stay *instrument-scoped*:
+    matching a proven equidistribution validates the engine, it does
+    not "confirm" or "discover" anything (the theorem already settled
+    it).  Never let a proven-target match leak into a substantive
+    convergence/anomaly claim about an *unrelated* coordinate (Phase
+    34f: a cohomological-H Sato-Tate validation is NOT progress on the
+    Q(√−3) three-coordinate Δ-Maass closer — Sato-Tate is the
+    universal/null calibrator, not a signal-bearing coordinate).
+
+Companion **substrate-handling discipline — split conditionality by
+substrate type before reporting any Ramanujan-conditional caveat.**
+When a phase touches automorphic-form Hecke eigenvalues, the
+Ramanujan-Petersson status is **not uniform across substrate types** and
+must not be stated monolithically:
+
+  - A substrate whose Ramanujan/Sato-Tate is *proven* for its class
+    (e.g. cohomological / regular-algebraic parallel-weight Bianchi
+    forms over CM fields — BCGNT 2025) carries **no** conditional
+    caveat; an out-of-[−2,2] escape there is a data/methodology-error
+    flag, full stop.
+  - A substrate where Ramanujan is *open* (e.g. non-cohomological
+    weight-0 Bianchi-**Maass** forms, which BCGNT explicitly does not
+    reach; conditional path Getz–Hahn–Yao 2025) keeps the
+    Ramanujan-conditional handling — document any escape as a
+    methodology-error candidate, not a Ramanujan falsification.
+
+State the regime per substrate; conflating them either leaks an
+unearned unconditional claim onto the open case or attaches a spurious
+caveat to the proven one.  **CM/non-CM stratify-before-pool:** a proven
+Sato-Tate target (BCGNT semicircular) holds for the *non-CM* stratum
+only; CM forms have a distinct Satake distribution (automorphic
+induction from a Hecke character — a different measure).  Stratify
+before any aggregate Sato-Tate statistic and give each stratum its own
+verdict label — pooling CM and non-CM is the same false-positive class
+as the Phase 34c EC-root-number pooling-null (§7.ter.49 /
+false-positive-equivalence-classes).  This discipline generalises
+beyond 34f to any future Hecke-eigenvalue work with Ramanujan-Petersson
+open (higher-rank GL_n, non-CM, class-number > 1 Bianchi).  See
+PHASE34F_BRIEF §B.4 / §H.5 and PHASE34F_COHOMOLOGICAL_H_BRIEF.md.
+
 A real input's joint-plane position must be reported relative to this
 calibrator family.  `recover_uniform_jitter_sigma` returns σ̂ = position
 within the uniform-jitter calibrator family; reading σ̂ as "the σ

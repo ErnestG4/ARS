@@ -98,6 +98,13 @@ For Picard (Z[i]), prime ideals are either split (norm = p for p ≡ 1 mod 4), i
 
 34f-G-H and 34f-E-H provide methodology calibration via Sato-Tate replication — analog of Phase 34e-H but on Bianchi Maass-form Hecke eigenvalues. Expected outcomes: SATO_TATE_REPLICATED with finite-P correction structure consistent with Phase 34d Gaussian/Eisenstein.
 
+**Two-regime Ramanujan-conditionality distinction (sharpened 2026-05-15 per BCGNT 2025; see §H.5).** The Sato-Tate / Ramanujan status differs by substrate type and must not be conflated:
+
+- **Cohomological Bianchi (regular algebraic, parallel weight k ≥ 2 — Cremona's LMFDB *holomorphic* Bianchi newforms):** Ramanujan and Sato-Tate are now **UNCONDITIONALLY PROVEN** (Boxer–Calegari–Gee–Newton–Thorne 2025, §H.5), for non-CM forms, over any CM field — in particular both Q(i) and Q(√−3). No Ramanujan-conditional caveat.
+- **Bianchi-Maass (non-cohomological, weight 0 — the 34f-G-Δ / 34f-E-Δ Laplace-eigenfunction substrate):** Ramanujan remains **conditional**. BCGNT explicitly does not reach the non-cohomological case; the relevant conditional path is Getz–Hahn–Yao 2025 (§H.5). The §B.4 / §C.3 / §D.0b Ramanujan-conditional handling **stands unchanged** for this substrate; document any |a(𝔭)| > 2 escape as a methodology-error flag, not a Ramanujan falsification (carried from the original §B.4).
+
+**Methodology-validation opportunity (forward, scope-bounded).** Because BCGNT makes the cohomological Bianchi-newform Hecke eigenvalues a *proven*-Sato-Tate-equidistributed dataset (non-CM stratum), the H-side Sato-Tate engine can be instrument-validated against a **proven** target on data accessible *now* (Cremona bianchi-progs / LMFDB), decoupled from the multi-week Bianchi-Maass acquisition wait — a candidate `cohomological-H` calibration cell. **Scope discipline:** this is **H-side methodology validation only**. It is NOT progress toward the §D.4 Q(√−3) three-coordinate closer, which requires the *signal-bearing* 34f-E-**Δ** Maass coordinate (Sato-Tate is the universal/null calibrator, not an anomaly signal). The asymmetric-label verdict for such a cell is calibration-class — `SATO_TATE_METHODOLOGY_VALIDATED_AGAINST_PROVEN_TARGET_BCGNT2025` — never a substantive convergence claim. Pre-spec must stratify CM vs non-CM (only non-CM forms target the semicircular measure; CM forms have a distinct Satake distribution). Data accessibility is a §D.0a-style pre-flight gate, not a given (LMFDB Bianchi was reCAPTCHA-blocked in session; `bianchi-progs` GitHub is the non-reCAPTCHA path — confirm before asserting "runs now").
+
 ### B.5 Two-substrate × two-field measurement matrix
 
 Phase 34f measures four substrates total:
@@ -338,6 +345,8 @@ Provisional; merge into existing §7.ter ladder at Will's discretion.
 
 **G.2 Orbifold-structure-aware unfolding.** Elliptic fixed points modify the Selberg trace formula's subleading terms; for substrates with order > 2 isotropy (e.g., Z[ω] order-3 fixed points), document the trace-formula-correction terms retained in unfolding.
 
+**G.3 Two-regime Ramanujan-conditionality + proven-theorem calibration tier.** **LANDED EARLY (2026-05-15), NOT deferred to 34f closure** — added to METHODS.md §1 now because it generalises beyond 34f (any future automorphic-Hecke-eigenvalue work with Ramanujan-Petersson open: higher-rank GL_n, non-CM, class-number > 1 Bianchi). Distinguishes cohomological (Ramanujan/Sato-Tate proven, BCGNT 2025) from Bianchi-Maass (still conditional, GHY 2025) substrates, and adds a third asymmetric-label tier — *proven-theorem calibration* (`SATO_TATE_METHODOLOGY_VALIDATED_AGAINST_PROVEN_TARGET_BCGNT2025`) — sibling to the empirical-anchor and structural-extension-first-measurement tiers. See METHODS.md §1; this G.3 entry is the brief-scaffold pointer, kept for §G consistency (the discipline itself is live in METHODS, not provisional).
+
 **G.3 Three-coordinate joint-statement structure.** When three or more substrates of one arithmetic object are available with at least one signal-bearing coordinate, cross-coordinate Test 4 (structural Hecke-character decomposition Option A or window-aggregated correlation Option B) is the substantive convergence test. Phase 34f canonical example: Q(√−3) via angle (34d-E) + zero (34c χ₋₃) + Maass eigenvalue (34f-E) coordinates.
 
 **G.4 First-measurement-vs-replication asymmetric-label discipline on Maass-spectrum substrates.** Extension of the Phase 34d asymmetric-label methodology to the Maass-spectrum case: replication substrates (Picard, with Then 2003 anchor) get SARNAK_ANOMALY_REPLICATED labels; first-measurement substrates (Bianchi-Z[ω], no published anchor) get FIRST_MEASUREMENT labels. Treating symmetrically would leak unearned replication claim.
@@ -350,7 +359,7 @@ Provisional; merge into existing §7.ter ladder at Will's discretion.
 
 ### H.1 Bianchi Maass forms — computational
 
-- Then, H. (2005). "Arithmetic quantum chaos of Maass waveforms." arXiv:math-ph/0305048. (Picard PSL(2, Z[i])\ℍ³ Maass eigenvalues; companion to Then 2005 on SL(2,ℤ).)
+- Then, H. (2003). "Arithmetic quantum chaos of Maass waveforms." arXiv:math-ph/0305048. (Picard PSL(2, Z[i])\ℍ³ Maass eigenvalues; 13,950 computed, Poisson NNS / Sarnak anomaly. Companion: Then, H. (2005), arXiv:math-ph/0305047, on SL(2,ℤ) at large r. Corrected 2026-05-15 — the prior "Then (2005) … 0305048 … companion to Then 2005" line conflated the two papers; Then 2003 = 0305048 Picard, Then 2005 = 0305047 SL(2,ℤ).)
 - Lemurell, S. (2003-2007). Series of papers on Maass forms over imaginary quadratic fields; check for Bianchi-Z[ω] coverage.
 - Strömberg, F. (work on PSAGE / Sage Hejhal implementations for ℍ³).
 - Cremona, J.E. (1984 + ongoing). *bianchi-progs*. https://github.com/JohnCremona/bianchi-progs
@@ -371,6 +380,40 @@ Provisional; merge into existing §7.ter ladder at Will's discretion.
 
 - Bump, D. (1997). *Automorphic Forms and Representations*. Cambridge.
 - Gelbart, S., Jacquet, H. (1979). "Forms on GL(2) from the analytic point of view." Proc. Symp. Pure Math. 33.
+
+### H.5 Ramanujan / Sato-Tate for Bianchi modular forms — proven vs conditional
+
+**Scope note (load-bearing for §B.4):** the proven result below covers
+the **cohomological** case ONLY (regular algebraic, parallel weight
+k ≥ 2 — i.e. Cremona's LMFDB *holomorphic* Bianchi newforms). It does
+**NOT** cover non-cohomological weight-0 **Bianchi-Maass** forms, which
+are 34f-G-Δ / 34f-E-Δ's substrate. The Ramanujan-conditional caveat in
+§B.4 / §C.3 therefore **stands** for the Maass substrate.
+
+- **Boxer, G., Calegari, F., Gee, T., Newton, J., Thorne, J. (2025).
+  "The Ramanujan and Sato–Tate Conjectures for Bianchi modular forms."
+  Forum of Mathematics, Pi, vol. 13, e10. DOI 10.1017/fmp.2024.29
+  (open access). arXiv:2309.15880.** Proves Ramanujan (Thm A) and
+  Sato–Tate (Thm B, semicircular (2/π)√(1−x²)dx for non-CM forms)
+  **unconditionally** for all regular algebraic cuspidal automorphic
+  representations of GL₂(A_F) of parallel weight, F any CM field —
+  via potential automorphy of symmetric powers (Thm C; Calegari–
+  Geraghty + the ACCGHLNST potential-automorphy-over-CM lineage).
+  *Cohomological case only — see scope note above.* Makes Cremona's
+  LMFDB cohomological Bianchi-newform Hecke eigenvalues an
+  unconditionally-Sato-Tate-equidistributed dataset (non-CM stratum),
+  i.e. a proven-target instrument-validation set for the H-side
+  Sato-Tate engine (cf. proposed cohomological-H methodology-
+  validation cell; calibration-class verdict, NOT a substantive
+  Q(√−3) Δ-closure — Sato-Tate is the universal/null calibrator, not
+  the signal-bearing Maass coordinate the §D.4 closer requires).
+- **Getz, J.R., Hahn, H., Yao, H. (2025). "Triple product L-functions
+  and the Ramanujan conjecture." arXiv:2509.14381.** Ramanujan
+  **conditional** on the expected analytic properties of triple-product
+  L-functions. Relevant to the Maass-side path that BCGNT does not
+  reach (the §B.4 conditional regime); NOT superseded by BCGNT for the
+  Maass case — the two cover disjoint regimes (proven-cohomological vs
+  conditional-general/Maass-relevant).
 
 ---
 
