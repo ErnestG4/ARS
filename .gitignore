@@ -12,6 +12,7 @@ signals_cache/
 
 # External datasets — download separately, see README.md
 data/
+cohh_data/
 
 # Bulk PhysioNet / LMFDB / fungal downloads (multi-GB, fetched separately)
 physionet.org/

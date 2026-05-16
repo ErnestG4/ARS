@@ -9743,6 +9743,90 @@ data/phase34f_results/pipeline_validation_e.json [gitignored]
 
 ---
 
+### 7.ter.59  Phase 34f-cohomological-H — ARS Sato-Tate engine validated against the BCGNT-2025 proven target
+
+First calibration of the integrated ARS Sato-Tate instrument against a
+**mathematically proven theorem** (Boxer–Calegari–Gee–Newton–Thorne
+2025, Forum Math Pi e10 — Ramanujan + Sato-Tate for cohomological
+Bianchi forms over CM fields) rather than an empirical or
+Ramanujan-conditional anchor.  Asymmetric-label discipline
+(proven-theorem-calibration tier, METHODS §1): instrument validation,
+**NOT** a discovery, **NOT** a test of BCGNT, and it does **NOT**
+advance the §D.4 Q(√−3) three-coordinate Δ-closer (Sato-Tate is the
+universal/null calibrator; the closer stays 34f-E-Δ-Maass-blocked).
+Distinct substrate from 34f-G/E-Δ (Bianchi-**Maass**).
+
+**Data path RESOLVED in-environment.**  After the LMFDB API
+reCAPTCHA-walled (whole domain incl. /api/; rate-limited from Will's
+machine), pivoted to `JohnCremona/bianchi-data` GitHub `newforms/`
+consolidated catalogs (NOT LMFDB/lmfdb = website code; NOT bianchi-progs
+= the program) — two GitHub-raw files, format documented in
+`newforms/schema.txt`, **reachable from the agent env**.  Parsed
+**40,030 Q(i) + 42,343 Q(√−3) forms, 0 malformed** (57 MB); `cm`/`bc`
+inline ⇒ three-way `(cm,bc)` stratification at source.
+
+**Gates (the discipline did the work).**  §6 engine pre-validation
+PASS (multi-seed: true-measure rejection ≈ α, wrong-measure rejection
+1.0).  §4 decode gate `RESOLVED:idealnorm` on both fields, empirically
+against known truth: bc=1 base-change conjugate signature recovered
+**exactly** (1.0000), genuine-non-CM negative control ≈0.04,
+BCGNT-proven Ramanujan bound **exactly** satisfied (RP-within 1.00000
+on ~82k forms) under idealnorm vs decisively broken (0.932) under
+ratprime.  §D.0b silent-corruption surface closed empirically
+(§7.ter.55).
+
+**Substantive (finite-P framed).**  At pooled n = 10⁵–10⁷ a KS
+p-value →0 for any infinitesimal finite-P deviation and is
+uninformative; verdict uses the KS *statistic* + a Chen-2019 finite-P
+scan (does the deviation shrink with the prime bound = the NLO tail?).
+Genuine-non-CM (Stratum C, the BCGNT-Bianchi route): Q(i) n=7.70M
+KS=0.0217 (scan 0.0242→0.0217↓), Q(√−3) n=8.08M KS=0.0232
+(0.0257→0.0233↓) → **SATO_TATE_VALIDATED_AT_FINITE_P_WITH_CORRECTION**
+both fields.  Base-change-non-CM (Stratum B, the *classical*
+Newton–Thorne route — a different proven theorem, never pooled with C):
+KS≈0.019, same finite-P behaviour → validated, both fields.  CM
+(Stratum A, negative control): KS≈0.26, non-semicircular **as
+expected** (engine discriminates; the §5 CM Hecke-character measure was
+not pre-pinned) → `_DESCRIPTIVE_ONLY`.  **Cell verdict:
+`COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_FINITE_P`.**
+
+**Methodological generalisation:** none new — faithful application of
+§7.ter.55 (validate the instrument on known truth before the unknown)
+and §7.ter.57.  Canonical sharpening of §7.ter.57 worth recording: a
+fitted/threshold criterion is not an absolute when the instrument or
+regime is the issue — caught **twice** here (the §6 single-draw
+KS-p>0.05 gate, which false-fails ≈5 % under H₀ since the KS p is
+Uniform; and the §7 large-n KS-p>0.01 criterion, meaningless at
+n≳10⁵).  **At pooled n ≳ 10⁵ a KS p-value is not the instrument; the
+KS statistic + a Chen-2019 finite-P scan is** — the Phase-34d finite-X
+discipline transposed to Sato-Tate finite-P.
+
+**Verdict map:**
+  - cohomological-H cell: `COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_
+    FINITE_P` (proven-theorem-calibration tier).
+  - Strata C & B (both fields): SATO_TATE_VALIDATED_AT_FINITE_P_WITH_
+    CORRECTION (BCGNT-Bianchi route for C; classical Newton–Thorne
+    route for B — kept separate).
+  - Stratum A (both fields): CM non-semicircular as expected,
+    `_DESCRIPTIVE_ONLY` (negative control passed).
+  - Forward: 34f-G-H / 34f-E-H Maass Sato-Tate engine inherits earned
+    validation; does NOT change 34f-G/E-Δ DATA_ACQUISITION_BLOCKED or
+    the §D.4 closer.
+
+**Outputs (phase34f_cohh/).**
+
+```
+PHASE34F_COHOMOLOGICAL_H_BRIEF.md (committed b1361d8)
+PHASE34F_COHOMOLOGICAL_H_FINDINGS.md
+phase34f_cohh/bianchi_data_loader.py
+phase34f_cohh/run_cohh.py
+phase34f_cohh/fetch_bmf_lmfdb.py (demoted; optional LMFDB cross-check)
+data/phase34f_cohh/{newforms.1.1-100000,newforms.3.1-150000} [gitignored, 57 MB]
+data/phase34f_cohh/{checkpoint_gate,st_results}.json [gitignored]
+```
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs
@@ -9885,6 +9969,21 @@ not extend the corresponding literatures.
   cross-coordinate convergence claim **reserved** pending future
   measurement of residual correlation, shared anomaly, or mutual
   prediction of null-departures.  (§7.ter.51.)
+
+- Cohomological Bianchi modular newforms, Cremona `bianchi-data`
+  corpus (40,030 over Q(i) + 42,343 over Q(√−3); ~16M Hecke
+  eigenvalues): the ARS Sato-Tate engine recovers the
+  **BCGNT-2025-proven** semicircular SU(2) measure on the
+  genuine-non-CM stratum to KS-statistic ≈ 0.022 with the deviation
+  shrinking under the Chen-2019 finite-P scan (NLO correction tail);
+  base-change-non-CM consistent via the classical Newton–Thorne
+  Sato-Tate (separate stratum); CM stratum correctly non-semicircular
+  (negative control).  Reported as **instrument validation against a
+  proven theorem** (proven-theorem-calibration tier) — does NOT extend
+  the corresponding literature and does NOT touch the Q(√−3)
+  three-coordinate Δ-closer.  Large-n KS p-values are uninformative
+  and explicitly not used (verdict on KS-statistic + finite-P scan).
+  **COHOMOLOGICAL_H_METHODOLOGY_VALIDATED_AT_FINITE_P.**  (§7.ter.59.)
 
 #### Physical and biological signals
 
