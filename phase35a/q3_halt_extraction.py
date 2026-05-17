@@ -56,17 +56,24 @@ PHIS    = np.linspace(0.0, 1.0, N_PHI, endpoint=False)   # PAIRED across the lad
 
 
 def fib_upto(kmax):
-    F = [1, 1]
+    F = [0, 1]                        # F[n] = STANDARD F_n  (F_1=1, F_2=1, F_3=2, …)
     while len(F) <= kmax:
         F.append(F[-1] + F[-2])
     return F
 
 FIB   = fib_upto(27)
-K_LO, K_HI = 12, 26                   # F_12=144 … F_26=121393 (N_max)
+K_LO, K_HI = 12, 26                   # F_12=144 … F_26=121393 (= pre-registered N_max)
 LADDER = [FIB[k] for k in range(K_LO, K_HI + 1)]
-N_MAX  = FIB[26]                      # 121393
+N_MAX  = FIB[26]                      # 121393  (pre-registered, rev-6 signed off)
 N_REF  = FIB[27]                      # 196418  (> N_max ⇒ valid IDS ref over the whole range)
-PREEXIST_TOP = FIB[21]               # 10946 — §Q3a/§Q3b boundary
+PREEXIST_TOP = FIB[21]               # 10946 — §Q3a (≤) / §Q3b (>) boundary
+
+# Hard pre-registration guard: an indexing regression must FAIL LOUDLY,
+# never silently run an off-by-one variant presented as the signed-off spec
+# (the failure class this session exists to prevent — caught once already).
+assert (FIB[12], FIB[21], FIB[26], FIB[27]) == (144, 10946, 121393, 196418), \
+    f"Fibonacci index regression: got {(FIB[12],FIB[21],FIB[26],FIB[27])}, " \
+    f"pre-registered (F_12,F_21,F_26,F_27)=(144,10946,121393,196418)"
 
 
 def am_eigs(lam, N, phi):
