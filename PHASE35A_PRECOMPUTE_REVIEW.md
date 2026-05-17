@@ -281,3 +281,22 @@ recognized vs still-mis-fit; (Q-ii) Class-II = exact-clock-perturbation vs
 low-var-wigner-drifting-off-clock (what's measured); (Q-iii) extract P3 HALT
 off certified ids-W1δ-vs-(λ,N) next? Full record:
 `phase35a/UNFOLDING_INVARIANCE_FINDINGS.md` + `regated_instrument_results.json`.
+
+---
+
+## §Q3 outcome (2026-05-17, signed-off rev-6 executed; commit 74e0213)
+
+All λ {0.10,0.30,0.50}: **`U_NOT_REACHED` @F_26, decisive** (≈1e5× the
+paired-difference floor, still growing). **L=144 censored** (ladder floor)
+⇒ cross-check labels not clean. Horizon: W1δ-vs-N **U-shaped** (min N≈3–7k
+then non-converging climb); **large-N λ-collapse** (F_26 W1δ ≈0.2918 all
+λ); the rev-6 forward "monotone-triple" premise was reference-dependent
+(§Q3 high-res ref ≠ campaign ref — absolute W1δ not comparable; qualitative
+U_NOT_REACHED holds + strengthened); **methodological catch** — the
+pre-registered L fires on an under-resolution artifact, true onset = the
+U-curve upturn (the "L" §3/Class-II/P3 want), surfaced not auto-fixed.
+Held-tentative annex NOT run (non-marginal by ≈1e5× ⇒ over-generation).
+Full: `phase35a/Q3_HALT_FINDINGS.md`. **No §3 adjudication.** Next decision
+= §3-go (Will's alone, U-status in hand); on this evidence a go on the
+**analytic half only**. Pre-§3 decision-critical Q unchanged: is §5b's
+independent f(α)→NNS anchor constructible for (A) & (B)?
