@@ -1,0 +1,113 @@
+================================================================================
+§Q3 HALT extraction — rev-6 spec (SCOPING; §3 untouched; brief-and-hold)
+  paired φ n=12 ; c_L=2.0 c_U=1.0 ; N_max=F_26=121393 ; N_ref=F_27=196418 ; λ=[0.1, 0.3, 0.5]
+  ladder F_12..F_26 ; §Q3a ≤ 10946 ; §Q3b > 10946
+================================================================================
+
+── λ=0.1  building IDS reference (N_ref=196418, 1 φ) …
+   ref built (279s)
+   N=    144 [Q3a] meanW1δ=0.02221 Lfloor=0.00136 c_L·fl=0.00271 ←L  drift×nan  (0s)
+   N=    233 [Q3a] meanW1δ=0.01563 Lfloor=0.00071 c_L·fl=0.00142  drift×0.70  (0s)
+      ΔW1δ(144→233)=-0.00658 Ufloor=0.00066 c_U·fl=0.00066 within=False
+   N=    377 [Q3a] meanW1δ=0.01101 Lfloor=0.00053 c_L·fl=0.00105  drift×0.70  (0s)
+      ΔW1δ(233→377)=-0.00463 Ufloor=0.00027 c_U·fl=0.00027 within=False
+   N=    610 [Q3a] meanW1δ=0.00805 Lfloor=0.00034 c_L·fl=0.00068  drift×0.73  (0s)
+      ΔW1δ(377→610)=-0.00295 Ufloor=0.00022 c_U·fl=0.00022 within=False
+   N=    987 [Q3a] meanW1δ=0.00593 Lfloor=0.00019 c_L·fl=0.00037  drift×0.74  (0s)
+      ΔW1δ(610→987)=-0.00213 Ufloor=0.00016 c_U·fl=0.00016 within=False
+   N=   1597 [Q3a] meanW1δ=0.00435 Lfloor=0.00014 c_L·fl=0.00028  drift×0.73  (0s)
+      ΔW1δ(987→1597)=-0.00158 Ufloor=0.00016 c_U·fl=0.00016 within=False
+   N=   2584 [Q3a] meanW1δ=0.00252 Lfloor=0.00009 c_L·fl=0.00019  drift×0.58  (1s)
+      ΔW1δ(1597→2584)=-0.00182 Ufloor=0.00005 c_U·fl=0.00005 within=False
+   N=   4181 [Q3a] meanW1δ=0.00256 Lfloor=0.00007 c_L·fl=0.00013  drift×1.01  (2s)
+      ΔW1δ(2584→4181)=+0.00003 Ufloor=0.00003 c_U·fl=0.00003 within=False
+   N=   6765 [Q3a] meanW1δ=0.00275 Lfloor=0.00004 c_L·fl=0.00008  drift×1.07  (4s)
+      ΔW1δ(4181→6765)=+0.00019 Ufloor=0.00003 c_U·fl=0.00003 within=False
+   N=  10946 [Q3a] meanW1δ=0.00640 Lfloor=0.00003 c_L·fl=0.00007  drift×2.33  (12s)
+      ΔW1δ(6765→10946)=+0.00366 Ufloor=0.00002 c_U·fl=0.00002 within=False
+   N=  17711 [Q3b] meanW1δ=0.01493 Lfloor=0.00001 c_L·fl=0.00002  drift×2.33  (29s)
+      ΔW1δ(10946→17711)=+0.00853 Ufloor=0.00003 c_U·fl=0.00003 within=False
+   N=  28657 [Q3b] meanW1δ=0.03653 Lfloor=0.00002 c_L·fl=0.00003  drift×2.45  (75s)
+      ΔW1δ(17711→28657)=+0.02160 Ufloor=0.00001 c_U·fl=0.00001 within=False
+   N=  46368 [Q3b] meanW1δ=0.08519 Lfloor=0.00000 c_L·fl=0.00001  drift×2.33  (193s)
+      ΔW1δ(28657→46368)=+0.04866 Ufloor=0.00002 c_U·fl=0.00002 within=False
+   N=  75025 [Q3b] meanW1δ=0.18039 Lfloor=0.00001 c_L·fl=0.00001  drift×2.12  (496s)
+      ΔW1δ(46368→75025)=+0.09520 Ufloor=0.00000 c_U·fl=0.00000 within=False
+   N= 121393 [Q3b] meanW1δ=0.29183 Lfloor=0.00000 c_L·fl=0.00001  drift×1.62  (1272s)
+      ΔW1δ(75025→121393)=+0.11144 Ufloor=0.00000 c_U·fl=0.00000 within=False
+   *** N_max=F_26=121393 reached without sustained U ⇒ U_NOT_REACHED (pre-registered) ***
+   λ=0.1: L=144 (Q3a) ; U_NOT_REACHED ; xcheck=DISAGREE_RECORDED_FINDING (emp L=144 vs analytic 440) ; 2364s
+
+── λ=0.3  building IDS reference (N_ref=196418, 1 φ) …
+   ref built (262s)
+   N=    144 [Q3a] meanW1δ=0.03564 Lfloor=0.00104 c_L·fl=0.00208 ←L  drift×nan  (0s)
+   N=    233 [Q3a] meanW1δ=0.02470 Lfloor=0.00099 c_L·fl=0.00198  drift×0.69  (0s)
+      ΔW1δ(144→233)=-0.01095 Ufloor=0.00038 c_U·fl=0.00038 within=False
+   N=    377 [Q3a] meanW1δ=0.01693 Lfloor=0.00062 c_L·fl=0.00123  drift×0.69  (0s)
+      ΔW1δ(233→377)=-0.00777 Ufloor=0.00044 c_U·fl=0.00044 within=False
+   N=    610 [Q3a] meanW1δ=0.01176 Lfloor=0.00045 c_L·fl=0.00089  drift×0.69  (0s)
+      ΔW1δ(377→610)=-0.00517 Ufloor=0.00022 c_U·fl=0.00022 within=False
+   N=    987 [Q3a] meanW1δ=0.00849 Lfloor=0.00033 c_L·fl=0.00065  drift×0.72  (0s)
+      ΔW1δ(610→987)=-0.00326 Ufloor=0.00016 c_U·fl=0.00016 within=False
+   N=   1597 [Q3a] meanW1δ=0.00591 Lfloor=0.00024 c_L·fl=0.00049  drift×0.70  (0s)
+      ΔW1δ(987→1597)=-0.00258 Ufloor=0.00009 c_U·fl=0.00009 within=False
+   N=   2584 [Q3a] meanW1δ=0.00385 Lfloor=0.00017 c_L·fl=0.00034  drift×0.65  (1s)
+      ΔW1δ(1597→2584)=-0.00207 Ufloor=0.00008 c_U·fl=0.00008 within=False
+   N=   4181 [Q3a] meanW1δ=0.00336 Lfloor=0.00011 c_L·fl=0.00022  drift×0.87  (2s)
+      ΔW1δ(2584→4181)=-0.00049 Ufloor=0.00007 c_U·fl=0.00007 within=False
+   N=   6765 [Q3a] meanW1δ=0.00327 Lfloor=0.00006 c_L·fl=0.00011  drift×0.98  (4s)
+      ΔW1δ(4181→6765)=-0.00008 Ufloor=0.00007 c_U·fl=0.00007 within=False
+   N=  10946 [Q3a] meanW1δ=0.00673 Lfloor=0.00005 c_L·fl=0.00010  drift×2.06  (12s)
+      ΔW1δ(6765→10946)=+0.00346 Ufloor=0.00004 c_U·fl=0.00004 within=False
+   N=  17711 [Q3b] meanW1δ=0.01511 Lfloor=0.00002 c_L·fl=0.00004  drift×2.25  (28s)
+      ΔW1δ(10946→17711)=+0.00838 Ufloor=0.00005 c_U·fl=0.00005 within=False
+   N=  28657 [Q3b] meanW1δ=0.03664 Lfloor=0.00002 c_L·fl=0.00004  drift×2.42  (72s)
+      ΔW1δ(17711→28657)=+0.02152 Ufloor=0.00003 c_U·fl=0.00003 within=False
+   N=  46368 [Q3b] meanW1δ=0.08524 Lfloor=0.00001 c_L·fl=0.00001  drift×2.33  (184s)
+      ΔW1δ(28657→46368)=+0.04861 Ufloor=0.00002 c_U·fl=0.00002 within=False
+   N=  75025 [Q3b] meanW1δ=0.18042 Lfloor=0.00001 c_L·fl=0.00001  drift×2.12  (474s)
+      ΔW1δ(46368→75025)=+0.09518 Ufloor=0.00001 c_U·fl=0.00001 within=False
+   N= 121393 [Q3b] meanW1δ=0.29185 Lfloor=0.00000 c_L·fl=0.00001  drift×1.62  (1219s)
+      ΔW1δ(75025→121393)=+0.11143 Ufloor=0.00000 c_U·fl=0.00000 within=False
+   *** N_max=F_26=121393 reached without sustained U ⇒ U_NOT_REACHED (pre-registered) ***
+   λ=0.3: L=144 (Q3a) ; U_NOT_REACHED ; xcheck=AGREE_L_DOUBLY_CERTIFIED (emp L=144 vs analytic 58) ; 2258s
+
+── λ=0.5  building IDS reference (N_ref=196418, 1 φ) …
+   ref built (249s)
+   N=    144 [Q3a] meanW1δ=0.04933 Lfloor=0.00154 c_L·fl=0.00308 ←L  drift×nan  (0s)
+   N=    233 [Q3a] meanW1δ=0.03403 Lfloor=0.00080 c_L·fl=0.00160  drift×0.69  (0s)
+      ΔW1δ(144→233)=-0.01530 Ufloor=0.00077 c_U·fl=0.00077 within=False
+   N=    377 [Q3a] meanW1δ=0.02393 Lfloor=0.00063 c_L·fl=0.00126  drift×0.70  (0s)
+      ΔW1δ(233→377)=-0.01010 Ufloor=0.00022 c_U·fl=0.00022 within=False
+   N=    610 [Q3a] meanW1δ=0.01664 Lfloor=0.00042 c_L·fl=0.00084  drift×0.70  (0s)
+      ΔW1δ(377→610)=-0.00729 Ufloor=0.00037 c_U·fl=0.00037 within=False
+   N=    987 [Q3a] meanW1δ=0.01178 Lfloor=0.00033 c_L·fl=0.00067  drift×0.71  (0s)
+      ΔW1δ(610→987)=-0.00486 Ufloor=0.00015 c_U·fl=0.00015 within=False
+   N=   1597 [Q3a] meanW1δ=0.00816 Lfloor=0.00025 c_L·fl=0.00050  drift×0.69  (0s)
+      ΔW1δ(987→1597)=-0.00362 Ufloor=0.00010 c_U·fl=0.00010 within=False
+   N=   2584 [Q3a] meanW1δ=0.00539 Lfloor=0.00018 c_L·fl=0.00037  drift×0.66  (1s)
+      ΔW1δ(1597→2584)=-0.00276 Ufloor=0.00008 c_U·fl=0.00008 within=False
+   N=   4181 [Q3a] meanW1δ=0.00432 Lfloor=0.00014 c_L·fl=0.00027  drift×0.80  (2s)
+      ΔW1δ(2584→4181)=-0.00107 Ufloor=0.00006 c_U·fl=0.00006 within=False
+   N=   6765 [Q3a] meanW1δ=0.00389 Lfloor=0.00009 c_L·fl=0.00019  drift×0.90  (4s)
+      ΔW1δ(4181→6765)=-0.00043 Ufloor=0.00008 c_U·fl=0.00008 within=False
+   N=  10946 [Q3a] meanW1δ=0.00709 Lfloor=0.00005 c_L·fl=0.00010  drift×1.82  (11s)
+      ΔW1δ(6765→10946)=+0.00319 Ufloor=0.00007 c_U·fl=0.00007 within=False
+   N=  17711 [Q3b] meanW1δ=0.01534 Lfloor=0.00004 c_L·fl=0.00008  drift×2.17  (27s)
+      ΔW1δ(10946→17711)=+0.00826 Ufloor=0.00005 c_U·fl=0.00005 within=False
+   N=  28657 [Q3b] meanW1δ=0.03674 Lfloor=0.00002 c_L·fl=0.00003  drift×2.39  (68s)
+      ΔW1δ(17711→28657)=+0.02140 Ufloor=0.00004 c_U·fl=0.00004 within=False
+   N=  46368 [Q3b] meanW1δ=0.08532 Lfloor=0.00001 c_L·fl=0.00002  drift×2.32  (176s)
+      ΔW1δ(28657→46368)=+0.04857 Ufloor=0.00001 c_U·fl=0.00001 within=False
+   N=  75025 [Q3b] meanW1δ=0.18045 Lfloor=0.00001 c_L·fl=0.00002  drift×2.12  (453s)
+      ΔW1δ(46368→75025)=+0.09513 Ufloor=0.00001 c_U·fl=0.00001 within=False
+   N= 121393 [Q3b] meanW1δ=0.29187 Lfloor=0.00001 c_L·fl=0.00001  drift×1.62  (1165s)
+      ΔW1δ(75025→121393)=+0.11142 Ufloor=0.00000 c_U·fl=0.00000 within=False
+   *** N_max=F_26=121393 reached without sustained U ⇒ U_NOT_REACHED (pre-registered) ***
+   λ=0.5: L=144 (Q3a) ; U_NOT_REACHED ; xcheck=DISAGREE_RECORDED_FINDING (emp L=144 vs analytic 24) ; 2155s
+
+================================================================================
+§Q3 done. SCOPING only — NO §3 adjudication; brief-and-hold stands.
+Read L (+ its L-bound cross-check) and U/U_NOT_REACHED per λ above.
+record → /home/combust/fmexplorer/criticality_tool/phase35a/q3_halt_results.json
+================================================================================
