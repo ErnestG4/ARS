@@ -1,0 +1,45 @@
+================================================================================
+§Q3 FINDING-2 REFERENCE CHECK (mandated; SCOPING; no §3 adjudication)
+  λ=[0.1, 0.3, 0.5]  cell-N=[17711, 46368]  ref-N=[75025, 121393, 196418]  n_φ=3
+  (a) per-λ OWN reference [code-inspection: confirmed]
+  (c) collapse tightens as cell-N→ref-N [existing §Q3 log: artifact-consistent]
+  (b) THIS RUN: does W1δ / inter-λ spread move with ref-N at fixed cell-N?
+================================================================================
+  cell (λ=0.1, N=17711) ×3φ  (7s)
+  cell (λ=0.1, N=46368) ×3φ  (50s)
+  cell (λ=0.3, N=17711) ×3φ  (7s)
+  cell (λ=0.3, N=46368) ×3φ  (46s)
+  cell (λ=0.5, N=17711) ×3φ  (6s)
+  cell (λ=0.5, N=46368) ×3φ  (45s)
+  ref (λ=0.1, N=75025) built (42s) ; W1δ@cellN 17711:0.08525 46368:0.29186
+  ref (λ=0.1, N=121393) built (111s) ; W1δ@cellN 17711:0.03664 46368:0.18041
+  ref (λ=0.1, N=196418) built (281s) ; W1δ@cellN 17711:0.01494 46368:0.08518
+  ref (λ=0.3, N=75025) built (40s) ; W1δ@cellN 17711:0.08538 46368:0.29189
+  ref (λ=0.3, N=121393) built (104s) ; W1δ@cellN 17711:0.03680 46368:0.18045
+  ref (λ=0.3, N=196418) built (269s) ; W1δ@cellN 17711:0.01509 46368:0.08523
+  ref (λ=0.5, N=75025) built (38s) ; W1δ@cellN 17711:0.08546 46368:0.29191
+  ref (λ=0.5, N=121393) built (99s) ; W1δ@cellN 17711:0.03695 46368:0.18046
+  ref (λ=0.5, N=196418) built (253s) ; W1δ@cellN 17711:0.01527 46368:0.08528
+
+================================================================================
+READOUT — at fixed cell-N, W1δ(λ) across ref-N; inter-λ spread per ref-N
+================================================================================
+
+cell-N=17711
+   ref-N | λ=0.1   λ=0.3   λ=0.5   |  inter-λ spread  rel%
+   75025 | 0.08525 0.08538 0.08546 |  0.000214  0.251%
+  121393 | 0.03664 0.03680 0.03695 |  0.000301  0.818%
+  196418 | 0.01494 0.01509 0.01527 |  0.000327  2.166%
+  → max W1δ swing across ref-N = 0.070309 ; median inter-λ spread = 0.000301 ; REFERENCE_ARTIFACT_CONFIRMED
+
+cell-N=46368
+   ref-N | λ=0.1   λ=0.3   λ=0.5   |  inter-λ spread  rel%
+   75025 | 0.29186 0.29189 0.29191 |  0.000048  0.016%
+  121393 | 0.18041 0.18045 0.18046 |  0.000052  0.029%
+  196418 | 0.08518 0.08523 0.08528 |  0.000096  0.113%
+  → max W1δ swing across ref-N = 0.206680 ; median inter-λ spread = 0.000052 ; REFERENCE_ARTIFACT_CONFIRMED
+
+================================================================================
+OVERALL: REFERENCE_ARTIFACT_CONFIRMED
+Disposition is ARTIFACT-STATUS ONLY. No §3 adjudication. brief-and-hold.
+================================================================================

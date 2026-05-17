@@ -96,3 +96,100 @@ Running it would confirm the obvious at cost = exactly the
 method-compromising over-generation the "cleared exclusively" constraint
 forbids. The prepared annex stays unused in `phase35a/_tentative_review/`
 (uncommitted), with this decision recorded.
+
+---
+
+## Will's adjudication (2026-05-17) — folded into brief rev 7
+
+- **Finding 1 accepted; the rev-6 forward-analysis's quantitative reasoning
+  (monotone-triple) was reference-artifactual** (coarse 24000-ref property),
+  not substrate. Qualitative `U_NOT_REACHED` survived; reasoning did not.
+- **Finding 2 (λ-collapse) → QUARANTINED, candidate phantom.** It inherits
+  Finding-1's reference-artifact suspicion (a striking quantitative pattern
+  in the same reference-sensitive §Q3 W1δ). Must clear three checks before
+  §3 is ever asked to explain it: (a) own-vs-common reference — **✓ own**
+  (code-inspection: ref built inside the per-λ loop); (c) >1 cell-N —
+  **artifact-consistent** (existing §Q3 log: inter-λ rel-spread shrinks
+  monotonically F_22 ~2.7% → F_26 ~0.014% as cell-N→ref-N, i.e. the
+  collapse is a large-cell-N-near-ref-N effect, not a substrate constant);
+  (b) does it survive a reference-resolution change — **the decisive
+  mandated test, RUNNING** (`q3_finding2_refcheck.py`). "λ-collapse is a
+  concrete thing the §3 analytic half must explain" is **struck** from the
+  pre-§3 framing until (b) clears. Building a model to explain an artifact
+  would be §D.0b on the critical path.
+- **"Diverging / no stable law" CORRECTED.** W1δ=E|s−1| is bounded (≲0.75)
+  and monotone on the up-slope ⇒ a bounded monotone sequence converges: a
+  limiting law **exists in principle**. §Q3 shows the *empirical W1δ-vs-N
+  route* exhausted within F_26 (convergence too slow to be finite-N-
+  reachable), **not** divergence and **not** "no law." This *preserves*
+  §3's premise; `STABLE_LIMITING_LAW_NOT_ESTABLISHED` must be read as
+  "empirical route exhausted," never "no law." (Caveat, Will's: rests on
+  up-slope monotonicity; the top end may share Finding-2's contamination —
+  the clean mid-range up-slope independently carries both "a limit exists"
+  and `U_NOT_REACHED`, so the headline is robust regardless.)
+- **Arc-claim downgraded to its robust core:** "the empirical W1δ-vs-N
+  route to small-λ AM's limiting law is exhausted within F_26." "λ-
+  independently" (un-cleared Finding 2) and "diverging" (imprecise) struck.
+- **Finding 3 affirmed; L REDEFINED** to the U-curve upturn, located by the
+  ΔW1δ sign-change beyond ±c_U·U-floor (argmin carries estimation noise) —
+  not a raw argmin, not the floor-crossing.
+- **§3-go (Will's, alone):** analytic-half-go *supported, sharper* — a law
+  exists in principle, the empirical route is confirmed dead ⇒ analysis is
+  the **sole surviving route**. The unchanged decision-critical pre-§3 gate
+  is §5b's independent f(α)→NNS-feature anchor constructibility for **both**
+  (A) and (B) — the real §D.0b-falsifiability question; **not** the
+  quarantined λ-collapse.
+
+**Finding-2 (b) disposition: PENDING** — `q3_finding2_refcheck.py` running
+(`REFERENCE_ARTIFACT_CONFIRMED` ⇒ struck permanently; `SURVIVED_ESCALATE`
+⇒ escalate to Will, not auto-promoted to substrate). To be appended here +
+in brief rev 7 on completion. SCOPING; no §3 adjudication; brief-and-hold.
+
+---
+
+## (b) reference-resolution check — RESULT (decisive, and it CASCADES)
+
+`q3_finding2_refcheck.py` → **`REFERENCE_ARTIFACT_CONFIRMED`** (both cell-Ns,
+overall). Evidence (`q3_finding2_refcheck_results.json`):
+
+- **W1δ ≈ f(cell-N / ref-N), substrate-λ sub-dominant.** Ratio 0.236 →
+  W1δ≈0.0853 at (cell 17711, ref 75025) AND ≈0.0852 at (cell 46368, ref
+  196418) — identical across unrelated absolute sizes. At fixed cell-N,
+  varying ref-N swings W1δ by 0.07–0.21 vs an inter-λ spread ~1–3e-4
+  (reference moves it 200–4000× more than λ).
+- **Finding 2 = CONFIRMED REFERENCE-ARTIFACT PHANTOM** — struck
+  **permanently** (not merely quarantined). §3 must **not** be tasked to
+  explain the λ-collapse: there is nothing to explain; the 4-dp collapse is
+  the cell-N/ref-N ratio carrying no λ.
+
+**CASCADE (honest, load-bearing — the check invalidates more than its
+target).** §Q3 held the reference FIXED at 196418 and swept cell-N, so the
+**entire §Q3 W1δ-vs-N curve = f(cell-N/196418)**: F_24→ratio0.236→0.085
+(≡ §Q3 log 0.0852); F_26→ratio0.618→0.292 (≡ §Q3 log 0.2918). Therefore the
+**U-shape and the `U_NOT_REACHED` headline are properties of the harness
+ratio-function f, NOT the AM substrate.** §Q3 **does not stand as a
+substrate measurement.** Will's pre-stated caveat (top-end contamination ⇒
+"still growing at F_26" suspect) is realised, and stronger than "partly":
+*dominant across the whole curve*.
+
+**Corrected state (NOT a §3 adjudication — input only):**
+- The empirical W1δ-vs-N route is **UNMEASURED (harness-dominated
+  instrument), NOT "exhausted within F_26."** The rev-7 framing "analysis
+  is the sole surviving route because the empirical route is confirmed
+  dead" is **WITHDRAWN**. The analytic half remains the irreducible §3
+  content, but its justification is no longer "empirical route dead."
+- A residual ~0.25–2.2% inter-λ λ-dependence **is** present and grows as
+  ref≫cell (small ratio) — the genuine substrate signal exists but was
+  *swamped* by f in §Q3's configuration. So the state is "AM substrate
+  structure **unmeasured here**," **not** "AM has no structure."
+- A non-ratio-dominated instrument (reference scaled with cell to hold the
+  ratio→0; or an analytic/gap-labelling IDS) is required to speak to
+  substrate convergence. That redesign is **§3-grade / a Will-adjudicated
+  spec decision** — NOT pursued autonomously here.
+
+`STABLE_LIMITING_LAW_NOT_ESTABLISHED` / `U_NOT_REACHED` as **substrate**
+verdicts are **retracted**; they were harness-artifact readings. The only
+surviving §Q3-era substrate fact is the small residual λ-dependence
+(direction-correct, magnitude tiny, uncharacterised). brief-and-hold; no
+§3 adjudication; "demonstrated zoo gap" (the *certified-instrument*
+result, independent of §Q3) still stands.

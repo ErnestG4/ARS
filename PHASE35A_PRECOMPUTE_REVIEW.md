@@ -300,3 +300,21 @@ Full: `phase35a/Q3_HALT_FINDINGS.md`. **No §3 adjudication.** Next decision
 = §3-go (Will's alone, U-status in hand); on this evidence a go on the
 **analytic half only**. Pre-§3 decision-critical Q unchanged: is §5b's
 independent f(α)→NNS anchor constructible for (A) & (B)?
+
+---
+
+## Finding-2 (b) reference-resolution check — CONFIRMED ARTIFACT + CASCADE (2026-05-17)
+
+`q3_finding2_refcheck.py` → **`REFERENCE_ARTIFACT_CONFIRMED`**. W1δ ≈
+f(cell-N/ref-N), substrate-λ sub-dominant (ratio 0.236 → W1δ≈0.085 at two
+unrelated (cell,ref) pairs; ref-swing 200–4000× the inter-λ spread).
+**Cascade:** §Q3 fixed ref=196418 & swept cell-N ⇒ its whole W1δ-vs-N
+curve (U-shape AND `U_NOT_REACHED`) is the harness ratio-function, not the
+AM substrate. **§Q3 substrate verdicts RETRACTED**; Finding-2 = confirmed
+phantom (struck permanently); empirical route **UNMEASURED, not exhausted**;
+"sole surviving route" §3-go justification **WITHDRAWN**. L→upturn stands;
+residual ~0.25–2.2% substrate λ-dependence real-but-swamped. Empirical-
+instrument redesign = Will-adjudicated §3-grade. brief rev-7 + post-(b)
+amendment; full evidence `phase35a/Q3_HALT_FINDINGS.md`. The
+certified-instrument "demonstrated zoo gap" (independent of §Q3) stands;
+§Q3-era substrate claims do not. No §3 adjudication; brief-and-hold.
