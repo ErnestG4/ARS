@@ -119,3 +119,70 @@ a known Poisson case).
 The descope is the load-bearing, hard-to-reverse claim Will flagged; the gate
 he designed prevented a wrong one. Recorded in full (incl. the JSON horizon
 record) regardless of immediate interest, per the survey-the-horizon ethic.
+
+---
+
+## Re-gated instrument + certified grid (2026-05-16, Will's 3 specs + Gate-C adjudication)
+
+`phase35a/regated_instrument.py` ; data `regated_instrument_results.json` ;
+log `regated_instrument_log.txt`. Run 2m38s, clean.
+
+**Instrument now CERTIFIED on known truth (the prior campaign's Stage-0 failure repaired):**
+- SPEC-1: KS-to-δ + Kuiper dropped (degenerate vs a point mass). var(s) primary,
+  W1δ=E|s−1| companion. Gate A: exact clock → var=0, W1δ=0 (non-degenerate now).
+- SPEC-2: clock is a first-class derived label (τ_clock from Gate A), not
+  BR_artifact-noise. Gate B (synthetic Poisson) PASS: var≈1.02, W1δ≈0.74,
+  KS-Poisson on floor, BL, not clock_rigid.
+- SPEC-3: IDS leg gated on rational-θ known truth. `ok_absorb` PASS
+  (θ=8/13,13/21 → IDS-unfold var≈0.0008, gaps absorbed = the
+  campaign-critical property). Corrected `ok_plateau` PASS (large-spacing
+  IDS values all on (1/q)ℤ, maxdev ~1e-4 ≪ tol ~3.5e-3). NOTE: the
+  `n_open_gaps` count (17 for q=13, 21 for q=21) is "large-spacing events,
+  all lattice-consistent" — includes van-Hove band-edge thinning, which
+  also sits at k/q; it does not impugn certification (the substantive
+  property — every large spacing's IDS ∈ (1/q)ℤ — holds strongly).
+
+**Certified grid (the decisive picture, now interpretable):**
+- **Polynomial legs (deg11, deg3):** var(s) explodes and grows
+  MONOTONICALLY with N (deg11 2.6→252; deg3 17→718) — the mechanistic
+  Reading-2 signature (more N → more resolved Cantor gaps → more gap-mass
+  the polynomial cannot track). Labels: poisson (supercritical, λ=0.95),
+  wigner (λ=0.10,0.50). Quad BL/TR.
+- **Certified IDS leg:** var(s) SMALL and bounded (0.002–0.16); label
+  **wigner across the WHOLE 35b grid** — supercritical λ→1⁺ AND subcritical
+  small-λ. NOT Poisson anywhere; NOT clock_rigid anywhere; classifier
+  → BR_artifact (the missing-calibrator gap, SPEC-2 restated).
+- **Unfolding-invariance:** supercritical (1.05/1.25/2.0) and λ=0.95/0.50
+  → **NO** (deg-poly poisson/wigner vs certified-ids wigner; the
+  var-exploding polynomial artifact). λ=0.10 → **YES** (all three wigner).
+- **Certified Class-II-relevant separation:** at N=2584, ids W1δ ≈ 0.04
+  for subcritical small-λ (0.10,0.50) and 0.95, vs ≈ 0.26 for supercritical
+  — small-λ is markedly closer to clock. ids W1δ GROWS with N at fixed λ
+  (λ=0.10: 0.013→0.039→0.113) — the resolution crossover; P3's HALT is now
+  readable off this certified trend.
+
+**Robust conclusions (instrument-certified):**
+1. **Descope is dead — reconfirmed on a certified instrument.** Supercritical
+   strongly unfolding-DEPENDENT; the polynomial Poisson/BL was the
+   var-exploding Reading-2 artifact; the certified leg says wigner-class.
+2. The certified leg shows AM NNS across 35b's grid is **low-variance,
+   repulsive, NOT Poisson, NOT clock, nearest-Wigner, and BR_artifact in
+   the zoo** (no proper class). This moves class I from "precautionary
+   guard" toward "the certified instrument shows an unrecognized object
+   that needs a dedicated calibrator."
+3. **But "nearest-Wigner under the certified leg" ≠ "is GUE."** There is no
+   known-truth for the irrational-θ AM NNS (that is precisely the §3
+   derivation question). A Cantor-NNS could be low-variance/repulsive and
+   read nearest-Wigner among three coarse references without being Wigner.
+   Scoping cannot settle whether the needed calibrator is class I (Cantor)
+   or an extended Class II — that is the rev-3 / §3 content, Will's call.
+
+**For Will's adjudication (NOT auto-adjudicated):**
+- (Q-i) Does "certified leg → nearest-Wigner, low bounded var, BR_artifact"
+  mean the zoo *recognizes* AM (→ class I retained precautionary only) or
+  *still mis-fits* it (BR_artifact → unrecognized object → dedicated
+  calibrator needed)?
+- (Q-ii) Is the Class-II calibrator "exact-clock + perturbation" or
+  "low-variance wigner-class drifting off clock with N" (what the certified
+  instrument actually measures)?
+- (Q-iii) Extract P3's HALT off the certified ids-W1δ-vs-(λ,N) trend next?

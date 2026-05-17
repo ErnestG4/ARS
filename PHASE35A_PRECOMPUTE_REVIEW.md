@@ -252,3 +252,32 @@ heavier rewrite — class I retained); scoping instrument needs fix + re-gate
 before Class-II characterization. Awaiting Will's adjudication of the campaign
 outcome + steer on the instrument fix. No 35a execution performed (scoping
 only, explicitly authorized).
+
+---
+
+## Re-gated instrument + certified grid (2026-05-16)
+
+`phase35a/regated_instrument.py` (Will's 3 specs + Gate-C adjudication: gap-
+absorption gates the grid, plateau = non-blocking insurance). **All gates
+PASS** — A (exact clock var=0,W1δ=0; KS-to-δ degeneracy fixed), B (Poisson
+var≈1.02, on floor, BL), C `ok_absorb` (IDS-unfold of periodic operator →
+var≈0.0008, gaps absorbed) **and** corrected `ok_plateau` (large-spacing IDS
+on (1/q)ℤ, maxdev~1e-4≪tol). **Instrument certified; grid interpretable.**
+
+Certified grid: polynomial legs var(s) explode monotonically with N (Reading-2,
+mechanistic) → poisson/wigner; **certified IDS leg → wigner-class everywhere
+on the 35b grid, low bounded var, NOT Poisson, NOT clock, BR_artifact**.
+Supercritical strongly unfolding-DEPENDENT. **Descope dead — reconfirmed on a
+certified instrument.** Class I status moves precautionary → "the certified
+instrument shows an unrecognized, non-Poisson/non-clock, repulsive object the
+zoo has no class for." Caveat: nearest-Wigner-among-3-coarse-refs ≠ is-GUE;
+no known-truth for irrational AM NNS (that IS the §3 question) — scoping
+cannot decide class-I-Cantor vs extended-Class-II. Subcritical small-λ ids
+W1δ≈0.04 vs supercritical ≈0.26 (clean Class-II separation); ids W1δ grows
+with N (resolution crossover → P3 HALT now readable off the certified trend).
+
+3 adjudication Qs open for Will (NOT auto-adjudicated): (Q-i) BR_artifact =
+recognized vs still-mis-fit; (Q-ii) Class-II = exact-clock-perturbation vs
+low-var-wigner-drifting-off-clock (what's measured); (Q-iii) extract P3 HALT
+off certified ids-W1δ-vs-(λ,N) next? Full record:
+`phase35a/UNFOLDING_INVARIANCE_FINDINGS.md` + `regated_instrument_results.json`.
