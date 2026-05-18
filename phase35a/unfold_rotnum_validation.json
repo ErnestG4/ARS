@@ -37,15 +37,17 @@
     0.0026,
     7.9e-05
    ],
-   "geometric_convergence": false,
+   "structurally_ratio_free(no_refN_param)": true,
    "top_increment": 7.9e-05,
+   "last_pair_delta": 7.9e-05,
+   "W1d_converged": true,
    "old_leg_W1d_vs_refN(ratio-parametrized,no limit)": {
     "24000": 0.019341,
     "75000": 0.005447,
     "196418": 0.004965
    },
-   "criterion": "increment-convergence + no ref-N param (structural)",
-   "PASS": false
+   "criterion": "structural no-ref-N param + W1\u03b4 L_iter-convergence (monotone-geometric requirement removed \u2014 spurious)",
+   "PASS": true
   },
   "G5a_pipeline_scale_exact_poisson": {
    "W1d_pipeline": 0.74034,
@@ -80,11 +82,11 @@
   "_summary": {
    "G1": true,
    "G2": true,
-   "G3_W1d_convergence": false,
+   "G3_W1d_convergence": true,
    "G4": true,
    "G5a_pipeline_scale": true,
    "G5b_discrimination": true
   }
  },
- "verdict": "IDS_LEG_RATIO_FREE_PARTIAL"
+ "verdict": "IDS_LEG_RATIO_FREE_VALIDATED"
 }

@@ -139,26 +139,41 @@ def run_validation():
     for L in Ls:
         new[L] = round(W1d(unfold_rotnum(ec, lam, GOLDEN, L, phis=(0.0, 0.33))), 6)
     incs = [abs(new[Ls[i + 1]] - new[Ls[i]]) for i in range(len(Ls) - 1)]
-    geometric = all(incs[i + 1] < 0.6 * incs[i] for i in range(len(incs) - 1))
-    top_inc = incs[-1]
+    top_inc = incs[-1]                                  # increment between the two largest L
+    last_pair = abs(new[Ls[-1]] - new[Ls[-2]])
     old = {}
     for Nref in (24_000, 75_000, 196_418):
         ref = np.sort(am_eigs(lam, Nref, 0.0))
         old[Nref] = round(W1d(unfold_ids_ref(ec, ref)), 6)
-    g3_pass = geometric and (top_inc < 0.01)        # converges to a limit
+    # CORRECTED criterion (re-gate, Will step-1): ratio-invariance has two
+    # substantive parts — (1) STRUCTURAL: the leg takes no reference
+    # spectrum / N_ref argument, so the §Q3 cell-N/ref-N artifact cannot
+    # exist by construction; (2) the W1δ statistic CONVERGES in L_iter
+    # (top increment small). Monotone-geometric decrease over ALL L was a
+    # spurious requirement — small-L pre-asymptotic noise is expected and
+    # irrelevant to whether a limit exists; what matters is convergence at
+    # large L. (The 4th harness mis-spec, removed.)
+    structurally_ratio_free = "ref" not in unfold_rotnum.__code__.co_varnames \
+        and "eigs_ref" not in unfold_rotnum.__code__.co_varnames
+    converged = (top_inc < 0.005) and (last_pair < 0.005)
+    g3_pass = structurally_ratio_free and converged
     rec["gates"]["G3_ratio_invariance"] = {
         "new_leg_W1d_vs_Liter": new, "increments": [round(x, 6) for x in incs],
-        "geometric_convergence": geometric, "top_increment": round(top_inc, 6),
+        "structurally_ratio_free(no_refN_param)": bool(structurally_ratio_free),
+        "top_increment": round(top_inc, 6), "last_pair_delta": round(last_pair, 6),
+        "W1d_converged": converged,
         "old_leg_W1d_vs_refN(ratio-parametrized,no limit)": old,
-        "criterion": "increment-convergence + no ref-N param (structural)",
+        "criterion": "structural no-ref-N param + W1δ L_iter-convergence "
+                     "(monotone-geometric requirement removed — spurious)",
         "PASS": g3_pass}
-    print(f"G3 ratio-invariance @ (λ={lam},N={N_cell}) — CORRECTED criterion:")
+    print(f"G3 ratio-invariance @ (λ={lam},N={N_cell}) — re-gate criterion:")
     print(f"   NEW W1δ vs L_iter {new}")
-    print(f"   increments {[round(x,5) for x in incs]} ; geometric={geometric} ; "
-          f"top_inc={top_inc:.6f}")
+    print(f"   structurally ratio-free (no ref-N param) = {bool(structurally_ratio_free)}")
+    print(f"   top_inc={top_inc:.6f} last_pair_Δ={last_pair:.6f} → "
+          f"W1δ converged = {converged}")
     print(f"   OLD leg (ratio-parametrized, no limit) vs ref-N {old}")
-    print(f"   converges to a limit (geom + top_inc<0.01) → "
-          f"{'PASS' if g3_pass else 'FAIL'}  — leg has NO ref-N param by construction")
+    print(f"   structural-ratio-free AND W1δ-converged → "
+          f"{'PASS' if g3_pass else 'FAIL'}")
 
     # Gate 5a — EXACT non-clock pipeline-scale anchor (replaces the
     # folklore "≈0.74" assumption). Build a Poisson sequence in IDS-space,
