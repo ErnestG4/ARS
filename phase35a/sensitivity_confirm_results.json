@@ -1,0 +1,46 @@
+{
+ "scoping_instrument_sensitivity": true,
+ "exact_criterion": true,
+ "criterion": "sharpening verbatim: disjoint AND gap>=max(sub_spread,sup_spread) on exact 16\u03c6\u2208[0,0.5) \u03b1-ensemble",
+ "lam": {
+  "sub": 0.5,
+  "sup": 1.5
+ },
+ "L": 100000,
+ "Ns": [
+  50000,
+  70000,
+  100000
+ ],
+ "per_N": [
+  {
+   "N": 50000,
+   "sub_spread": 0.000292,
+   "sup_spread": 0.122862,
+   "gap": 0.374969,
+   "disjoint": true,
+   "gap_over_sup": 3.052,
+   "PASS": true
+  },
+  {
+   "N": 70000,
+   "sub_spread": 2.7e-05,
+   "sup_spread": 0.07656,
+   "gap": 0.177402,
+   "disjoint": true,
+   "gap_over_sup": 2.317,
+   "PASS": true
+  },
+  {
+   "N": 100000,
+   "sub_spread": 0.000146,
+   "sup_spread": 0.007146,
+   "gap": 0.496135,
+   "disjoint": true,
+   "gap_over_sup": 69.431,
+   "PASS": true
+  }
+ ],
+ "verdict": "SENSITIVITY_VALIDATED_NON_CIRCULAR",
+ "total_s": 586.0
+}
