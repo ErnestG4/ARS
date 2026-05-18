@@ -354,3 +354,20 @@ only §3-empirical waits on the redesign. Two clean forward decisions
 (Will's): the critical-path empirical-instrument redesign (§3-grade,
 mitigate-vs-remove) and the §3-analytic go (on the §5b-anchor gate).
 No further revision; brief-and-hold; §3 untouched; Class II blocked.
+
+---
+
+## IDS-unfold leg redesign — BRIEF filled (2026-05-17)
+
+`IDS_UNFOLD_REDESIGN_BRIEF.md` (brief-and-hold). The critical-path
+empirical-instrument item is now briefed. **Call made: (b)** — reference-free
+rotation-number/Prüfer IDS with gap-labelling-exact anchors (ℤ+θℤ on the
+dense gaps; rotation-number band-interior; L_iter the sole substrate-intrinsic,
+ratio-free error parameter). **(a) rejected** (fixed-ratio = mitigation only,
+leaves the absolute-comparison artifact the zoo-gap verdict needs gone;
+scaled-ratio cost-prohibitive at the relevant N). §5 = ratio-invariance gate
+(decisive, vs the §Q3 artifact) + reused known-truth gates (clock→arcsine
+machine-precision, rational-θ→exact k/q, gap-labelling ℤ+θℤ) + per-regime
+L_iter-convergence gate; asymmetric labels. §6: Brocot clean (integer-rational
+domain; zero reference-spectrum touchpoints). Build awaits explicit go; arc
+stays parked; §3-analytic remains parallel/independent.
