@@ -318,3 +318,23 @@ instrument redesign = Will-adjudicated §3-grade. brief rev-7 + post-(b)
 amendment; full evidence `phase35a/Q3_HALT_FINDINGS.md`. The
 certified-instrument "demonstrated zoo gap" (independent of §Q3) stands;
 §Q3-era substrate claims do not. No §3 adjudication; brief-and-hold.
+
+---
+
+## Post-(b) catches (2026-05-17): L→upturn falls; zoo gap "pending"; redesign → critical path
+
+(1) **L→upturn FALLS** — the U-curve is the harness f(cell-N/ref-N); its
+min is a harness feature. L UNDEFINED/SUSPENDED pending a non-ratio-
+dominated instrument; only Finding-3's principle (floor-crossing L was an
+artifact) survives. (2) **Zoo gap = "probably robust, pending its own
+reference-check," NOT "stands."** Code-inspection: certified instrument
+unfolded clock (arcsine) & Poisson (raw) ratio-free but AM cells
+ratio-dependently ⇒ BR_artifact compares ratio-contaminated vs ratio-free.
+Rescue: 6× sub-vs-super W1δ contrast at fixed cell-N=2584/same ref (fixed
+ratio) is ratio-immune ⇒ real substrate; only the gap *label*'s
+ratio-cleanliness unverified. (3) **Non-ratio-dominated instrument
+redesign → CRITICAL PATH**, prerequisite to zoo-gap re-validation AND §3
+empirical half/HALT/(A)/(B); the whole arc's empirical leg is
+non-functional until rebuilt (Will-adjudicated, §3-grade). §3-go input
+undisturbed (analytic-half-go supportable on the corrected justification;
+catch 2 doesn't reach it). brief-and-hold; no §3 adjudication.

@@ -193,3 +193,40 @@ surviving §Q3-era substrate fact is the small residual λ-dependence
 (direction-correct, magnitude tiny, uncharacterised). brief-and-hold; no
 §3 adjudication; "demonstrated zoo gap" (the *certified-instrument*
 result, independent of §Q3) still stands.
+
+---
+
+## Post-(b) catches — cascade followed further (Will, 2026-05-17)
+
+Two "survivors" from the prior report were over-claimed; corrected:
+
+1. **L→upturn FALLS.** The U-curve is f(cell-N/ref-N) — harness, not
+   substrate; its minimum is a harness feature. Redefining L to it just
+   relocates L between artifacts. Only Finding-3's *principle* survives
+   (floor-crossing L was an artifact). **L is now UNDEFINED / SUSPENDED**
+   pending a non-ratio-dominated instrument. The rev-7 "L = U-curve upturn"
+   fix is **withdrawn**.
+2. **Zoo gap: "probably robust, pending its own reference-check," NOT
+   "stands, independent."** The artifact is a property of fixed-reference
+   W1δ-unfolding; the certified grid used exactly that. **Inspection
+   (regated_instrument.py):** clock calibrator → `unfold_arcsine`
+   (ratio-free); Poisson → raw point process (ratio-free); AM cells →
+   `unfold_ids_ref` at cell-N/ref-N ratio (ratio-dependent). The
+   BR_artifact verdict thus compares a ratio-contaminated AM unfolding
+   against ratio-free calibrators — *not* ratio-clean as it stands.
+   **Rescue (ratio-immune substrate fact):** at fixed cell-N=2584 / same
+   reference (⇒ identical ratio ∀λ), subcritical W1δ≈0.04 vs supercritical
+   ≈0.26 — a 6× contrast a ratio-function cannot produce at fixed ratio.
+   Real sub≠super substrate difference exists; only the BR_artifact
+   *label*'s ratio-cleanliness is unverified (needs calibrators
+   re-unfolded at AM-matched ratios + verdict surviving a ref-N variation).
+
+**Critical-path elevation:** the non-ratio-dominated empirical-instrument
+redesign is now a **prerequisite** to BOTH zoo-gap re-validation AND §3's
+empirical half / HALT / (A)/(B). The whole arc's empirical leg is
+non-functional until rebuilt. Will-adjudicated, §3-grade; not autonomous.
+
+**§3-go input undisturbed** (affirmed): analytic-half-go supportable on the
+corrected justification (law plausibly exists; analytic half irreducible
+regardless; gate = §5b f(α)→NNS anchor for (A)&(B)); catch 2 does not
+reach it. brief-and-hold; no §3 adjudication.
