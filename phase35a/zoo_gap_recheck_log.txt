@@ -1,0 +1,19 @@
+==================================================================================
+RATIO-CLEAN ZOO-GAP RECHECK — validated unfold_rotnum vs certified ids-leg
+  N=2584 L_iter=1000000 φ=(0.0, 0.33) ; classifier = joint_quadrant_diagnostic
+==================================================================================
+     λ regime |   rotnum dom                                occ      W1δ   var(s) | ids-leg (certified)
+  0.10   SUB |  BR_artifact                   BR_artifact:1.00   0.0027   0.0008 |        BR_artifact
+  0.50   SUB |  BR_artifact           BR_artifact:0.98 TL:0.02   0.0056   0.0019 |        BR_artifact
+  0.95   SUB |  BR_artifact           BR_artifact:0.98 TL:0.02   0.0241   0.0072 |        BR_artifact
+  1.05   SUP |  BR_artifact           BR_artifact:0.95 TL:0.05   0.4766   0.3208 |        BR_artifact
+  1.25   SUP |  BR_artifact           BR_artifact:0.88 TL:0.12   0.4662   0.3072 |        BR_artifact
+  2.00   SUP |  BR_artifact           BR_artifact:0.90 TL:0.10   0.4658   0.3062 |        BR_artifact
+==================================================================================
+sub W1δ [0.00271, 0.00557, 0.02415]  vs  sup W1δ [0.46577, 0.4662, 0.47657]  → ratio-clean sub≠super split: True
+rotnum quadrants {'BR_artifact'}  |  certified ids-leg quadrants {'BR_artifact'}
+ratio-clean unfolding CHANGED the certified verdict on some cell: False
+READ: does BR_artifact ('no calibrator class / the gap') survive
+ratio-cleanly, and is sub≠super a clean classifier-level split?
+Inspect above — no auto-adjudication; arc-finish, not a §3/discovery call.
+==================================================================================

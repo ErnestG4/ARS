@@ -1,0 +1,79 @@
+{
+ "scoping_arc_finish": true,
+ "leg": "unfold_rotnum (VALIDATED)",
+ "rows": [
+  {
+   "lam": 0.1,
+   "regime": "SUB",
+   "rotnum_dom": "BR_artifact",
+   "rotnum_occ": {
+    "BR_artifact": 1.0
+   },
+   "W1d": 0.00271,
+   "var_s": 0.0008,
+   "ids_leg_certified_quad": "BR_artifact"
+  },
+  {
+   "lam": 0.5,
+   "regime": "SUB",
+   "rotnum_dom": "BR_artifact",
+   "rotnum_occ": {
+    "BR_artifact": 0.984,
+    "TL": 0.017
+   },
+   "W1d": 0.00557,
+   "var_s": 0.00189,
+   "ids_leg_certified_quad": "BR_artifact"
+  },
+  {
+   "lam": 0.95,
+   "regime": "SUB",
+   "rotnum_dom": "BR_artifact",
+   "rotnum_occ": {
+    "BR_artifact": 0.984,
+    "TL": 0.017
+   },
+   "W1d": 0.02415,
+   "var_s": 0.00721,
+   "ids_leg_certified_quad": "BR_artifact"
+  },
+  {
+   "lam": 1.05,
+   "regime": "SUP",
+   "rotnum_dom": "BR_artifact",
+   "rotnum_occ": {
+    "BR_artifact": 0.95,
+    "TL": 0.05
+   },
+   "W1d": 0.47657,
+   "var_s": 0.32079,
+   "ids_leg_certified_quad": "BR_artifact"
+  },
+  {
+   "lam": 1.25,
+   "regime": "SUP",
+   "rotnum_dom": "BR_artifact",
+   "rotnum_occ": {
+    "BR_artifact": 0.883,
+    "TL": 0.117
+   },
+   "W1d": 0.4662,
+   "var_s": 0.30715,
+   "ids_leg_certified_quad": "BR_artifact"
+  },
+  {
+   "lam": 2.0,
+   "regime": "SUP",
+   "rotnum_dom": "BR_artifact",
+   "rotnum_occ": {
+    "BR_artifact": 0.9,
+    "TL": 0.1
+   },
+   "W1d": 0.46577,
+   "var_s": 0.30624,
+   "ids_leg_certified_quad": "BR_artifact"
+  }
+ ],
+ "sub_super_clean_split": true,
+ "verdict_changed_vs_certified": false
+}
