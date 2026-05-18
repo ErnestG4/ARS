@@ -150,3 +150,31 @@ magnitude is not a substrate value.
 - Lever (Will's call, NOT auto-run): higher N drives the α-null
   φ-structure → 0 (Will's earlier note); whether to pursue
   non-circular sensitivity that way is "does anything need it?".
+
+---
+
+## Step-1 close — Will's sharpenings locked (2026-05-18; no re-adjudication)
+
+1. **sub≠super is φ-ROBUST disjointness** — in the robustness dimension
+   that is *stronger* than the original single-φ 0.04-vs-0.26 pair, not a
+   downgrade. What correctly dies is "supercritical has a substrate
+   constant" (always a φ=0 slice masquerading as a value).
+2. **The supercritical-quadrant-φ-robustness sub-question CANNOT widen
+   into a retraction.** If that quadrant verdict turns out φ-unstable, it
+   *reinforces* "the zoo has no clean slot for AM" — it does not undermine
+   the banked ratio-clean gap. The banked result is safe from that
+   direction. (Locked so future reads don't treat the open sub-question as
+   a threat to the banked verdict.)
+3. **Higher-N lever: definitely works** (unique ergodicity of the
+   irrational rotation forces α-null φ-spread→0 as N→∞ — not a question of
+   *whether*). The decision-relevant figure is the **rate** (N needed to
+   drop the 0.556 spread under the 0.246 gap), cheap to get now the α-null
+   is exact (φ-spread at 2–3 N + extrapolate → converts "non-trivial" to a
+   number). PARKED — strictly conditional on Will's "does anything
+   downstream need non-circular sensitivity?" leaning yes; NOT run.
+
+Step-1 closed honestly: banked truths where real (leg VALIDATED;
+zoo-gap RATIO-CLEAN-CONFIRMED; 35b no-false-positive VALIDATED), a
+well-characterized negative-with-mechanism where the substrate wouldn't
+give more (SENSITIVITY_NOT_ESTABLISHED — null swallows the regime
+signal). §3-(A) S3A_REDUCED proceeds as its own effort.
