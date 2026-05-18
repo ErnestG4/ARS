@@ -1,0 +1,19 @@
+================================================================================
+SHARPENING RUN — non-circular sensitivity (EXACT α-null characterisation)
+  N=2584 L_iter=1000000 ; λ_sub=0.5 λ_sup=1.5 (proven-λ=1-anchored)
+  dense φ-grid [0,0.5) n=24 (exact, period-0.5 deterministic)
+================================================================================
+  subcritical λ=0.5: α-ensemble W1δ characterised (24 φ)
+  supercritical λ=1.5: α-ensemble W1δ characterised (24 φ)
+
+================================================================================
+EXACT α-NULL CHARACTERISATION + NON-CIRCULAR SENSITIVITY TEST
+  subcritical λ=0.5: W1δ ∈ [0.00411, 0.00865] mean=0.00569  φ-range=0.00455
+  supercritical λ=1.5: W1δ ∈ [0.25501, 0.81063] mean=0.51095  φ-range=0.55562
+  period-0.5 sanity: max|W1δ(φ+0.5)−W1δ(φ)| = 0.000000 (finite-L noise scale)
+  ensembles disjoint = True ; inter-regime gap = 0.24636 ; larger within-regime φ-range = 0.55562
+  EXACT CRITERION (disjoint AND gap ≥ larger φ-range): FAIL
+
+  VERDICT: SENSITIVITY_NOT_ESTABLISHED — separation does not dominate the exact α-null span (inspect; no auto-adjudication of next steps)
+  SCOPING/tooling-confidence. NOT a discovery, NOT §3, no stamping.
+================================================================================

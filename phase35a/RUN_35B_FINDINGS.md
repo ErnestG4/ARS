@@ -107,3 +107,46 @@ finite-N distribution *exactly* and test the signal against it at the
 proven λ=1 (higher N helps drive φ-structure→0 but the clean path is
 exact null-characterisation, NOT heuristic discriminant #6). No
 untethered discriminant design.
+
+---
+
+## Sharpening run — SENSITIVITY_NOT_ESTABLISHED (2026-05-18; exact path; honest)
+
+`sharpening_sensitivity.py` (exact α-null characterisation; first
+application of memory `discriminant_exact_question_check` — pre-flight
+recorded; methodology validated: period-0.5 confirmed to MACHINE ZERO
+⇒ the dense [0,0.5) φ-grid is the EXACT finite-N α-null).
+
+Data: subcritical λ=0.5 W1δ∈[0.0041,0.0087] φ-range **0.0046** (tight,
+robust); supercritical λ=1.5 W1δ∈[0.255,**0.811**] φ-range **0.556**
+(enormous exact φ-dependence). Ensembles **disjoint** (gap 0.246) BUT
+the supercritical α-null's own φ-spread (0.556) > gap (0.246).
+
+**VERDICT: SENSITIVITY_NOT_ESTABLISHED** (separate verdict; does NOT
+drag/credit the banked ones). Substantive, not a criterion artifact:
+non-circular sensitivity requires the regime signal dominate the
+substrate-generated null's own structure; at fixed supercritical λ the
+phase α alone moves W1δ by 0.556 > 2× the regime gap. (Weakening to
+"disjoint⇒pass" rejected — that is the post-hoc criterion-softening the
+new memory forbids.)
+
+**New finding surfaced (honest):** prior supercritical sub-quadrant W1δ
+(35b, zoo-gap recheck — both φ=0 only) were SINGLE-φ SLICES of an
+exactly-φ-dominated quantity (0.255–0.811). Supercritical sub-quadrant
+statistic = **α-dominated, NOT a substrate constant**; subcritical IS
+tight. "sub≠super" holds **as disjointness only**; the supercritical
+magnitude is not a substrate value.
+
+**Touch analysis (split-verdict discipline):**
+- Banked verdicts STAND: zoo-gap *ratio-clean-confirmed* (about
+  ratio-cleanness — unaffected); 35b *no-false-positive* (quadrant-
+  level; 35b itself φ-varied the α-null → all BR_artifact,
+  transition_detected=False → φ-robust in its own data).
+- One NEW open sub-question (NOT auto-adjudicated): the zoo-gap
+  recheck's "BR_artifact everywhere" was φ=0-only; supercritical
+  *quadrant*-verdict φ-robustness is unexamined. Does NOT retract the
+  banked gap result (ratio-cleanness holds); honest caveat on the
+  supercritical side.
+- Lever (Will's call, NOT auto-run): higher N drives the α-null
+  φ-structure → 0 (Will's earlier note); whether to pursue
+  non-circular sensitivity that way is "does anything need it?".
