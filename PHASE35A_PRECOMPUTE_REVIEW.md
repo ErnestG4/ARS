@@ -338,3 +338,19 @@ empirical half/HALT/(A)/(B); the whole arc's empirical leg is
 non-functional until rebuilt (Will-adjudicated, §3-grade). §3-go input
 undisturbed (analytic-half-go supportable on the corrected justification;
 catch 2 doesn't reach it). brief-and-hold; no §3 adjudication.
+
+---
+
+## Sign-off — cascade RESOLVED (Will, 2026-05-17)
+
+Catch-2 settled-factual (verdict not-ratio-clean, code-confirmed; real
+sub≠super substrate established; only the gap *label* under a ratio-clean
+instrument open). Forward items: (1) re-validation spec must also
+characterise the Wigner calibrator unfolding (completeness); (2) §9-iv
+sharpened — cascade reaches every claim on the contaminated mechanism
+(fixed-reference unfolding), not just the surfacing run. Track
+independence: §3-analytic go is redesign-independent; tracks parallelize;
+only §3-empirical waits on the redesign. Two clean forward decisions
+(Will's): the critical-path empirical-instrument redesign (§3-grade,
+mitigate-vs-remove) and the §3-analytic go (on the §5b-anchor gate).
+No further revision; brief-and-hold; §3 untouched; Class II blocked.

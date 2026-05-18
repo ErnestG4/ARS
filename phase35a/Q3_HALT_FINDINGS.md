@@ -230,3 +230,35 @@ non-functional until rebuilt. Will-adjudicated, §3-grade; not autonomous.
 corrected justification (law plausibly exists; analytic half irreducible
 regardless; gate = §5b f(α)→NNS anchor for (A)&(B)); catch 2 does not
 reach it. brief-and-hold; no §3 adjudication.
+
+---
+
+## Sign-off + two forward items (Will, 2026-05-17) — cascade RESOLVED, no further revision
+
+Catch-2 **converted from "pending" to settled-factual**: the BR_artifact
+verdict is **not ratio-clean** (code-confirmed: clock=`unfold_arcsine`
+ratio-free, Poisson=raw ratio-free, AM=`unfold_ids_ref` ratio-dependent) —
+established, not asserted. A real **sub≠super substrate difference is
+established** (ratio-immune: 6× at fixed cell-N=2584/same ref). The only
+open item: whether the *gap label* holds under a ratio-clean instrument.
+
+Forward items (additive; NOT flaws in the diagnosis):
+1. **Zoo-gap re-validation spec (when written) must also characterise the
+   Wigner calibrator's unfolding** (inspection covered clock+Poisson only).
+   The not-ratio-clean conclusion holds without it; completeness item.
+2. **§9-iv sharpened to its complete form:** the cascade reaches *every
+   claim sharing the contaminated mechanism* (fixed-reference unfolding) —
+   not only the run that surfaced the artifact (L→upturn fell: U-curve IS
+   the harness fn; zoo-label fell: certified grid used the same unfold).
+
+**Track independence (hold for the two decisions):** §3-analytic go is
+**independent of the redesign** (deriving (A)/(B) needs no instrument);
+the two tracks parallelize; only §3's empirical half waits on the
+redesign. The redesign is genuine §3-grade design (scale-ref-with-cell
+*mitigates*; gap-labelling IDS *removes* — that's the brief's weigh).
+
+State: cascade correctly & completely resolved; empirical leg honestly
+non-functional pending redesign; surviving substrate facts precisely
+stated; §3-analytic path clear & gap-independent. **Two clean forward
+decisions remain (Will's), not another revision.** brief-and-hold; §3
+untouched; Class II blocked.
