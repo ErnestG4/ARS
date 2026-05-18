@@ -53,3 +53,57 @@ ratio-clean substrate measurement of the AM transition location; the
 α-null's period-0.5 φ-structure is a substrate fact. Both are
 §3/parked-arc, NOT discoveries — noted per the survey-the-horizon ethic,
 not adjudicated.
+
+---
+
+## Will adjudication (2026-05-18) — SPLIT verdicts, recorded SEPARATELY
+
+§7.ter.28 entry pulled (not paraphrased). Its Phase-20 retroactive text:
+"the diagnostic correctly returns origin==destination==BR_artifact at
+quadrant-label resolution" + sub-quadrant rep_med variation is "at the
+**limit** of the [diagnostic's] resolution … conducted on rep_med
+trajectories rather than quadrant [labels]". ⇒ §7.ter.28 is a
+PRECEDENT/PATTERN, **not a positive 'branch (b)' tier**.
+
+Three verdicts, banked/scored independently (bundling would let the
+unresolved half drag the solid half or borrow its credit):
+
+1. **ZOO-GAP — UPGRADE BANKED.** Was "probably-robust, pending its own
+   reference-check" (post-§Q3 cascade). Now **ratio-clean-confirmed,
+   catch-2 CLOSED, the gap is real substrate.** Stands.
+2. **35b NO-FALSE-POSITIVE — VALIDATED, banked, stands alone.**
+   Non-circular: on AM (non-synthetic, mathematically-proven transition,
+   sub-quadrant) the diagnostic correctly does not manufacture a
+   quadrant flip; signal & α-null both correctly null. This **is an
+   instance of the §7.ter.28 precedent itself** (confirmed by pulling
+   the entry) — not a new tier, the pattern realised on a proven
+   substrate. The framed payoff; banked regardless of (3).
+3. **35b POSITIVE SUB-QUADRANT SEPARATION — NOT ESTABLISHED, live
+   anchored candidate.** "Shape-clear-but-magnitude-crude" fails the
+   no-eyeballing bar. Good candidate (sits at the *proven* λ=1, not a
+   fitted location — anchored, not cherry-picked) but anchored ≠
+   established. §7.ter.28 has no positive sub-quadrant tier and
+   explicitly flags this regime as resolution-limited — *reinforces*
+   candidate-not-established (the §Q3 lesson: "looks like structure" is
+   where artifacts live). A clean positive separation would be a **NEW
+   non-circular *sensitivity* result beyond §7.ter.28**, not a label
+   §7.ter.28 confers.
+
+5th harness-criterion mis-spec (max−min vs transition-shape) owned;
+standing rule sharpened → memory `discriminant_exact_question_check`
+("exact question or heuristic proxy?" pre-flight before any discriminant
+runs).
+
+## Sharpening run — Will's CONDITIONAL call (NOT run; awaiting)
+Buys: the no-false-positive result is non-circular, but the diagnostic's
+*sensitivity* (fires when it should) still rests on the circular
+Phase-20.5 calibrators; a clean positive separation = the sensitivity
+half on non-circular footing. Authorize iff non-circular sensitivity is
+needed downstream; else banking (2) + logging (3) as candidate is a
+legitimate stop ("does anything actually need this?"). **If authorized:
+go EXACT** — the α-null's finite-N φ-structure IS golden-mean
+continued-fraction structure, computable: characterize the α-null's
+finite-N distribution *exactly* and test the signal against it at the
+proven λ=1 (higher N helps drive φ-structure→0 but the clean path is
+exact null-characterisation, NOT heuristic discriminant #6). No
+untethered discriminant design.

@@ -371,3 +371,24 @@ machine-precision, rational-θ→exact k/q, gap-labelling ℤ+θℤ) + per-regim
 L_iter-convergence gate; asymmetric labels. §6: Brocot clean (integer-rational
 domain; zero reference-spectrum touchpoints). Build awaits explicit go; arc
 stays parked; §3-analytic remains parallel/independent.
+
+---
+
+## Will adjudication 2026-05-18 — Step-1 split verdicts banked
+
+§7.ter.28 entry pulled (not paraphrased): it is a precedent/pattern
+("diagnostic correctly returns quadrant-null; sub-quadrant evolution at
+the resolution limit, analyse on rep_med trajectories"), NOT a positive
+tier. SPLIT, recorded separately:
+- ZOO-GAP: UPGRADE BANKED — ratio-clean-confirmed, catch-2 CLOSED, real
+  substrate gap.
+- 35b NO-FALSE-POSITIVE: VALIDATED, banked, non-circular, stands alone
+  — an instance of the §7.ter.28 precedent itself. The framed payoff.
+- 35b POSITIVE SUB-QUADRANT SEPARATION: NOT ESTABLISHED — live anchored
+  candidate (proven-λ=1-anchored, not fitted; but shape-clear≠
+  established; §7.ter.28 resolution-limit caveat reinforces caution).
+5th harness mis-spec → sharpened rule (memory
+discriminant_exact_question_check). Sharpening run = Will's conditional
+call (non-circular sensitivity worth it?); if yes, EXACT α-null
+finite-N characterisation only, no heuristic #6. §3-(A) parallel,
+own effort. brief-and-hold; Class II blocked; no §3 adjudication.
