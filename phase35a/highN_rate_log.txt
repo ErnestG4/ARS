@@ -1,0 +1,19 @@
+================================================================================
+HIGHER-N RATE RUN — exact α-null φ-spread vs N (cost of the lever)
+  λ_sub=0.5 λ_sup=1.5 ; N=[2584, 10000, 40000] ; L_iter=100000 ; |φ|=16 over [0,0.5)
+  TARGET: N* where sup φ-spread < regime gap (sharpening EXACT criterion → PASS). NOT a sensitivity re-verdict.
+================================================================================
+  N=  2584 | sub_spread=0.00410 sup_spread=0.61340 gap=0.23828 disjoint=True EXACT-crit=FAIL
+  N= 10000 | sub_spread=0.00204 sup_spread=0.57036 gap=0.22048 disjoint=True EXACT-crit=FAIL
+  N= 40000 | sub_spread=0.00039 sup_spread=0.22291 gap=0.11865 disjoint=True EXACT-crit=FAIL
+
+================================================================================
+RATE / N* (3-point extrapolation — EXPLICITLY a flagged model)
+  raw EXACT sup φ-spreads (primary): [(2584, 0.613399), (10000, 0.570355), (40000, 0.22291)]
+  regime gap ≈ 0.22048 (≈flat in N: sub tiny, sup mean ~const)
+  power-law fit sup_spread ≈ 13.05·N^(−0.371)  (3-pt; max log-resid 0.2848)
+  ⇒ N* (sup φ-spread = regime gap) ≈ 10^4 (point est 6.02e+04) — ORDER-OF-MAGNITUDE, 3-pt extrap, power-law-form ASSUMED; not precise.
+  feasibility of an actual sensitivity run at N*: FEASIBLE (tridiagonal eigensolve O(N^2); ~minutes-class at this order)
+
+  This is the LEVER COST, not a sensitivity verdict. SENSITIVITY_NOT_ESTABLISHED stands. An actual run at N* = separate call.
+================================================================================

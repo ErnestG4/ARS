@@ -178,3 +178,44 @@ zoo-gap RATIO-CLEAN-CONFIRMED; 35b no-false-positive VALIDATED), a
 well-characterized negative-with-mechanism where the substrate wouldn't
 give more (SENSITIVITY_NOT_ESTABLISHED — null swallows the regime
 signal). §3-(A) S3A_REDUCED proceeds as its own effort.
+
+---
+
+## Higher-N rate run — RATE_NOT_CLEANLY_PINNED (2026-05-18; honest, soft number declined)
+
+`highN_rate.py` (exact α-null φ-spread vs N; lever COST, NOT a
+sensitivity re-verdict).
+
+Raw EXACT data (primary, trustworthy):
+| N | sub_spread | sup_spread | gap | EXACT-crit |
+|---|---|---|---|---|
+| 2584 | 0.0041 | 0.613 | 0.238 | FAIL |
+| 10000 | 0.0020 | 0.570 | 0.220 | FAIL |
+| 40000 | 0.00039 | 0.223 | 0.119 | FAIL |
+
+Lever **provably works** (unique ergodicity; data confirm decay,
+sub→0.0004). **But the RATE is NOT cleanly pinned** — two concrete
+flaws caught on reading the output, soft headline DECLINED:
+1. sup_spread decay is **non-uniform in N** (near-flat 2584→10000 ~7%,
+   then steep 10000→40000 ~61%) — not a power law; 3-pt fit misfits
+   ~33% (max log-resid 0.28). 3 points through a non-uniform decay do
+   not pin N*.
+2. My N* extrapolation **wrongly held the regime gap flat**; the gap
+   itself shrinks with N (0.238→0.220→0.119, ~halved). "sup_spread <
+   gap" is a race between TWO shrinking quantities; the script's
+   N*≈6e4 / "FEASIBLE / minutes-class" are artifacts of that
+   flat-gap modeling error + the poor fit — NOT findings.
+
+**Robust conclusion:** at N=40000 the criterion still FAILS
+(sup_spread 0.223 ≈ 2× gap 0.119, gap still falling). "Non-trivial" is
+NOT yet a reliable number — "≳ order 1e4–1e5 with large uncertainty
+AND a moving target," not pinned by 3 points. Feasibility call NOT
+endorsed (rests on the flat-gap error). The discipline held: the
+convenient feasible-N was in my own output; the flat-gap flaw + poor
+fit were caught and surfaced instead — same as declining "disjoint⇒
+pass". No autonomous extrapolation-fix #7.
+
+A *reliable* lever-cost number would need: more N (pin the non-uniform
+decay) AND joint tracking of the gap's own N-decay (it is not flat).
+Whether to spend that = Will's "does anything need it?" call — NOT
+auto-run. SENSITIVITY_NOT_ESTABLISHED stands; §3-(A) untouched.
