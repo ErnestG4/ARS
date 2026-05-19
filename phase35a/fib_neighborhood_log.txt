@@ -1,0 +1,18 @@
+====================================================================================
+FIBONACCI-NEIGHBOURHOOD STRUCTURE RUN — overnight, completion-priority
+  exact rate setup: λ 0.5/1.5, L=100000, 16 φ∈[0,0.5) ; N = only variable
+====================================================================================
+
+── F_16=987  [full]  14 N-points (0s elapsed)
+   N=    979 [     -8] sup_spread=0.635113 gap=0.2075963 crit=False (24.8s)
+   N=    982 [     -5] sup_spread=0.6337277 gap=0.2090307 crit=False (23.0s)
+   N=    984 [     -3] sup_spread=0.6290943 gap=0.2121293 crit=False (25.8s)
+   N=    985 [     -2] sup_spread=0.629541 gap=0.2117353 crit=False (24.8s)
+   N=    986 [     -1] sup_spread=0.6248519 gap=0.2315323 crit=False (22.3s)
+   N=    987 [     Fn] sup_spread=0.6231739 gap=0.2197126 crit=False (25.0s)
+   N=    988 [     +1] sup_spread=0.6203156 gap=0.2200576 crit=False (25.4s)
+   N=    989 [     +2] sup_spread=0.6167999 gap=0.2194106 crit=False (22.4s)
+   N=    990 [     +3] sup_spread=0.6136558 gap=0.221523 crit=False (25.3s)
+   N=    992 [     +5] sup_spread=0.6109753 gap=0.2230764 crit=False (25.2s)
+   N=    995 [     +8] sup_spread=0.6010786 gap=0.2298771 crit=False (24.9s)
+   N=   1140 [int0.25] sup_spread=0.5161996 gap=0.2104232 crit=False (24.2s)

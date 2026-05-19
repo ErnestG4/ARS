@@ -1,0 +1,187 @@
+{
+ "scoping_instrument_Nbehaviour": true,
+ "exact_rate_setup": true,
+ "lam_sub": 0.5,
+ "lam_sup": 1.5,
+ "L": 100000,
+ "nphi": 16,
+ "plan": [
+  [
+   987,
+   "full"
+  ],
+  [
+   1597,
+   "full"
+  ],
+  [
+   2584,
+   "full"
+  ],
+  [
+   4181,
+   "full"
+  ],
+  [
+   6765,
+   "full"
+  ],
+  [
+   10946,
+   "tight"
+  ],
+  [
+   17711,
+   "tight"
+  ],
+  [
+   28657,
+   "tight"
+  ],
+  [
+   46368,
+   "reduced"
+  ]
+ ],
+ "rungs": {
+  "987": {
+   "F_n": 987,
+   "mode": "full",
+   "points": [
+    {
+     "N": 979,
+     "sub_spread": 0.0069823,
+     "sup_spread": 0.635113,
+     "gap": 0.2075963,
+     "sub_mean": 0.0121882,
+     "sup_mean": 0.4988018,
+     "exact_crit": false,
+     "kind": "-8",
+     "wall_s": 24.8
+    },
+    {
+     "N": 982,
+     "sub_spread": 0.0066213,
+     "sup_spread": 0.6337277,
+     "gap": 0.2090307,
+     "sub_mean": 0.0156082,
+     "sup_mean": 0.4987327,
+     "exact_crit": false,
+     "kind": "-5",
+     "wall_s": 23.0
+    },
+    {
+     "N": 984,
+     "sub_spread": 0.0092476,
+     "sup_spread": 0.6290943,
+     "gap": 0.2121293,
+     "sub_mean": 0.0161079,
+     "sup_mean": 0.4983657,
+     "exact_crit": false,
+     "kind": "-3",
+     "wall_s": 25.8
+    },
+    {
+     "N": 985,
+     "sub_spread": 0.0098933,
+     "sup_spread": 0.629541,
+     "gap": 0.2117353,
+     "sub_mean": 0.014103,
+     "sup_mean": 0.4990547,
+     "exact_crit": false,
+     "kind": "-2",
+     "wall_s": 24.8
+    },
+    {
+     "N": 986,
+     "sub_spread": 0.0001337,
+     "sup_spread": 0.6248519,
+     "gap": 0.2315323,
+     "sub_mean": 0.0043653,
+     "sup_mean": 0.498264,
+     "exact_crit": false,
+     "kind": "-1",
+     "wall_s": 22.3
+    },
+    {
+     "N": 987,
+     "sub_spread": 0.0069815,
+     "sup_spread": 0.6231739,
+     "gap": 0.2197126,
+     "sub_mean": 0.0132229,
+     "sup_mean": 0.4992137,
+     "exact_crit": false,
+     "kind": "Fn",
+     "wall_s": 25.0
+    },
+    {
+     "N": 988,
+     "sub_spread": 0.0079109,
+     "sup_spread": 0.6203156,
+     "gap": 0.2200576,
+     "sub_mean": 0.0143205,
+     "sup_mean": 0.4996655,
+     "exact_crit": false,
+     "kind": "+1",
+     "wall_s": 25.4
+    },
+    {
+     "N": 989,
+     "sub_spread": 0.0097081,
+     "sup_spread": 0.6167999,
+     "gap": 0.2194106,
+     "sub_mean": 0.0138679,
+     "sup_mean": 0.4991247,
+     "exact_crit": false,
+     "kind": "+2",
+     "wall_s": 22.4
+    },
+    {
+     "N": 990,
+     "sub_spread": 0.0078688,
+     "sup_spread": 0.6136558,
+     "gap": 0.221523,
+     "sub_mean": 0.0143655,
+     "sup_mean": 0.499456,
+     "exact_crit": false,
+     "kind": "+3",
+     "wall_s": 25.3
+    },
+    {
+     "N": 992,
+     "sub_spread": 0.0090678,
+     "sup_spread": 0.6109753,
+     "gap": 0.2230764,
+     "sub_mean": 0.0152175,
+     "sup_mean": 0.4995527,
+     "exact_crit": false,
+     "kind": "+5",
+     "wall_s": 25.2
+    },
+    {
+     "N": 995,
+     "sub_spread": 0.0046598,
+     "sup_spread": 0.6010786,
+     "gap": 0.2298771,
+     "sub_mean": 0.0150438,
+     "sup_mean": 0.498463,
+     "exact_crit": false,
+     "kind": "+8",
+     "wall_s": 24.9
+    },
+    {
+     "N": 1140,
+     "sub_spread": 0.0051151,
+     "sup_spread": 0.5161996,
+     "gap": 0.2104232,
+     "sub_mean": 0.0142232,
+     "sup_mean": 0.4906262,
+     "exact_crit": false,
+     "kind": "int0.25",
+     "wall_s": 24.2
+    }
+   ]
+  }
+ },
+ "elapsed_s": 293.0
+}
