@@ -1,0 +1,193 @@
+{
+ "probe": "sub-resolution >cliff (pre-DGY filter for slicing HALT)",
+ "readings": {
+  "A": "estimator defect",
+  "B": "resolution crossover"
+ },
+ "substrate": "AM golden \u03b8; subcritical \u03bb=1\u2212\u03b4; ratio-free leg",
+ "NS": [
+  100000,
+  125000,
+  150000
+ ],
+ "deltas": [
+  0.005,
+  0.009653,
+  0.018638,
+  0.035984,
+  0.069475,
+  0.134135,
+  0.258974,
+  0.5
+ ],
+ "L": 100000,
+ "NEAR_CLOCK_MAX": 0.05,
+ "per_rung": [
+  {
+   "delta": 0.005,
+   "lam_sub": 0.995,
+   "means": {
+    "100000": 0.016948,
+    "125000": 0.403194,
+    "150000": 0.66899
+   },
+   "C_noise": 0.004104,
+   "mean_range": 0.652043,
+   "flat": false,
+   "level": 0.66899,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.009653,
+   "lam_sub": 0.990347,
+   "means": {
+    "100000": 0.010676,
+    "125000": 0.401844,
+    "150000": 0.667907
+   },
+   "C_noise": 0.002813,
+   "mean_range": 0.657231,
+   "flat": false,
+   "level": 0.667907,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.018638,
+   "lam_sub": 0.981362,
+   "means": {
+    "100000": 0.006547,
+    "125000": 0.401035,
+    "150000": 0.667339
+   },
+   "C_noise": 0.001771,
+   "mean_range": 0.660793,
+   "flat": false,
+   "level": 0.667339,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.035984,
+   "lam_sub": 0.964016,
+   "means": {
+    "100000": 0.004324,
+    "125000": 0.400692,
+    "150000": 0.667155
+   },
+   "C_noise": 0.001625,
+   "mean_range": 0.662831,
+   "flat": false,
+   "level": 0.667155,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.069475,
+   "lam_sub": 0.930525,
+   "means": {
+    "100000": 0.002616,
+    "125000": 0.400384,
+    "150000": 0.666955
+   },
+   "C_noise": 0.000604,
+   "mean_range": 0.664339,
+   "flat": false,
+   "level": 0.666955,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.134135,
+   "lam_sub": 0.865865,
+   "means": {
+    "100000": 0.001643,
+    "125000": 0.400247,
+    "150000": 0.666877
+   },
+   "C_noise": 0.000458,
+   "mean_range": 0.665234,
+   "flat": false,
+   "level": 0.666877,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.258974,
+   "lam_sub": 0.741026,
+   "means": {
+    "100000": 0.001,
+    "125000": 0.400108,
+    "150000": 0.666764
+   },
+   "C_noise": 0.000312,
+   "mean_range": 0.665764,
+   "flat": false,
+   "level": 0.666764,
+   "near_clock": false,
+   "B_favored_rung": false
+  },
+  {
+   "delta": 0.5,
+   "lam_sub": 0.5,
+   "means": {
+    "100000": 0.000529,
+    "125000": 0.400036,
+    "150000": 0.666696
+   },
+   "C_noise": 0.000146,
+   "mean_range": 0.666168,
+   "flat": false,
+   "level": 0.666696,
+   "near_clock": false,
+   "B_favored_rung": false
+  }
+ ],
+ "xcheck_vs_server_100k": {
+  "0.005": {
+   "server_2.4.5": 0.016948,
+   "local_2.4.4_mean": 0.016948,
+   "abs_diff": 0.0
+  },
+  "0.009653": {
+   "server_2.4.5": 0.010676,
+   "local_2.4.4_mean": 0.010676,
+   "abs_diff": 0.0
+  },
+  "0.018638": {
+   "server_2.4.5": 0.006547,
+   "local_2.4.4_mean": 0.006547,
+   "abs_diff": 0.0
+  },
+  "0.035984": {
+   "server_2.4.5": 0.004324,
+   "local_2.4.4_mean": 0.004324,
+   "abs_diff": 0.0
+  },
+  "0.069475": {
+   "server_2.4.5": 0.002616,
+   "local_2.4.4_mean": 0.002616,
+   "abs_diff": 0.0
+  },
+  "0.134135": {
+   "server_2.4.5": 0.001643,
+   "local_2.4.4_mean": 0.001643,
+   "abs_diff": 0.0
+  },
+  "0.258974": {
+   "server_2.4.5": 0.001,
+   "local_2.4.4_mean": 0.001,
+   "abs_diff": 0.0
+  },
+  "0.5": {
+   "server_2.4.5": 0.000529,
+   "local_2.4.4_mean": 0.000529,
+   "abs_diff": 0.0
+  }
+ },
+ "terminal": "SUB_NONFLAT_OR_PLATEAU_INDETERMINATE",
+ "note": "B_favored \u21d2 \u00a7D deferrable (not cancelled \u2014 DGY remains definitive (A)/(B)). INDETERMINATE \u21d2 escalate to \u00a7D. NEVER proves (A). Step-1 NOT retro-adjudicated.",
+ "errors": [],
+ "total_s": 8631.0
+}

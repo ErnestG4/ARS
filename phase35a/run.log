@@ -1,0 +1,32 @@
+==========================================================================================
+SLICING OUTER-RUNG T0 + T2-CORE — 50w ; AM golden θ ; ratio-free leg ; L=100000
+  δ-ladder(8/side)=[np.float64(0.005), np.float64(0.009653), np.float64(0.018638), np.float64(0.035984), np.float64(0.069475), np.float64(0.134135), np.float64(0.258974), np.float64(0.5)] ; NS=(70000, 75025, 100000) ; w-ladder=(0.01, 0.02, 0.04, 0.08) ; SEP=2.0
+  768 tasks. Outer = operational (§A drift classification); inner/ambiguous ⇒ G1b-held, NOT measured.
+==========================================================================================
+  … 64/768 [928s]
+  … 128/768 [1654s]
+  … 192/768 [2600s]
+  … 256/768 [3287s]
+  … 320/768 [4072s]
+  … 384/768 [4900s]
+  … 448/768 [5606s]
+  … 512/768 [6381s]
+  … 576/768 [7245s]
+  … 640/768 [7895s]
+  … 704/768 [8693s]
+  … 768/768 [9193s]
+  raw table persisted (768/768) — post-processing now free to re-run.
+
+==========================================================================================
+  (I) outer sub=[] sup=[np.float64(0.005), np.float64(0.009653), np.float64(0.018638), np.float64(0.035984), np.float64(0.069475), np.float64(0.134135), np.float64(0.258974), np.float64(0.5)] ; measured δ_res(N≈7e4)=0.5
+  (II) T0 terminal: T0_NO_OUTER_PAIRS
+       w=0.01: NO_OUTER_PAIRS
+       w=0.02: NO_OUTER_PAIRS
+       w=0.04: NO_OUTER_PAIRS
+       w=0.08: NO_OUTER_PAIRS
+  (III) T2-core: sub=T2CORE_INSUFFICIENT_OUTER sup=T2CORE_LIMIT_REACHED_OVER_OUTER_RANGE
+  [9193.0s] errors=0
+  Instrument/methodology under signed-off spec. T0 says NOTHING
+  about λ=1. Inner/ambiguous rungs G1b-held (not measured here).
+  Asymmetric label; no §3; no Class-II; brief-and-hold; Step-1 untouched.
+==========================================================================================
