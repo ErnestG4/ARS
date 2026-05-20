@@ -1,0 +1,250 @@
+{
+ "run": "subcritical L_iter-convergence sweep at fixed N",
+ "readings": {
+  "A": "estimator/L defect",
+  "B": "N-resolution xover"
+ },
+ "deltas": [
+  0.005,
+  0.069475,
+  0.5
+ ],
+ "NS": [
+  70000,
+  100000,
+  125000
+ ],
+ "LS": [
+  100000,
+  400000,
+  1600000
+ ],
+ "NEAR_CLOCK": 0.05,
+ "terminal": "SUB_L_NOT_CONVERGED_WITHIN_LADDER",
+ "per_dN": [
+  {
+   "delta": 0.005,
+   "lam_sub": 0.995,
+   "N": 70000,
+   "means": {
+    "100000": 0.346857,
+    "400000": 0.080113,
+    "1600000": 0.025485
+   },
+   "floors": {
+    "100000": 0.001274,
+    "400000": 0.002384,
+    "1600000": 0.0037
+   },
+   "top_increment": 0.054628,
+   "floor_top": 0.0037,
+   "L_converged": false,
+   "top_value": 0.025485,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.9417
+  },
+  {
+   "delta": 0.005,
+   "lam_sub": 0.995,
+   "N": 100000,
+   "means": {
+    "100000": 0.01663,
+    "400000": 0.01362,
+    "1600000": 0.015523
+   },
+   "floors": {
+    "100000": 0.002583,
+    "400000": 0.002078,
+    "1600000": 0.001819
+   },
+   "top_increment": 0.001902,
+   "floor_top": 0.002078,
+   "L_converged": true,
+   "top_value": 0.015523,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.0249
+  },
+  {
+   "delta": 0.005,
+   "lam_sub": 0.995,
+   "N": 125000,
+   "means": {
+    "100000": 0.403417,
+    "400000": 0.105453,
+    "1600000": 0.033916
+   },
+   "floors": {
+    "100000": 0.00315,
+    "400000": 0.001732,
+    "1600000": 0.002151
+   },
+   "top_increment": 0.071537,
+   "floor_top": 0.002151,
+   "L_converged": false,
+   "top_value": 0.033916,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.8931
+  },
+  {
+   "delta": 0.069475,
+   "lam_sub": 0.930525,
+   "N": 70000,
+   "means": {
+    "100000": 0.343205,
+    "400000": 0.07203,
+    "1600000": 0.011682
+   },
+   "floors": {
+    "100000": 0.00025,
+    "400000": 0.000573,
+    "1600000": 0.000723
+   },
+   "top_increment": 0.060348,
+   "floor_top": 0.000723,
+   "L_converged": false,
+   "top_value": 0.011682,
+   "near_clock": true,
+   "loglog_decay_alpha": 1.2192
+  },
+  {
+   "delta": 0.069475,
+   "lam_sub": 0.930525,
+   "N": 100000,
+   "means": {
+    "100000": 0.002596,
+    "400000": 0.001603,
+    "1600000": 0.001733
+   },
+   "floors": {
+    "100000": 0.000604,
+    "400000": 0.000187,
+    "1600000": 0.000272
+   },
+   "top_increment": 0.00013,
+   "floor_top": 0.000272,
+   "L_converged": true,
+   "top_value": 0.001733,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.1457
+  },
+  {
+   "delta": 0.069475,
+   "lam_sub": 0.930525,
+   "N": 125000,
+   "means": {
+    "100000": 0.400417,
+    "400000": 0.100574,
+    "1600000": 0.025884
+   },
+   "floors": {
+    "100000": 0.000417,
+    "400000": 0.000284,
+    "1600000": 0.00036
+   },
+   "top_increment": 0.07469,
+   "floor_top": 0.00036,
+   "L_converged": false,
+   "top_value": 0.025884,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.9878
+  },
+  {
+   "delta": 0.5,
+   "lam_sub": 0.5,
+   "N": 70000,
+   "means": {
+    "100000": 0.342863,
+    "400000": 0.07146,
+    "1600000": 0.010753
+   },
+   "floors": {
+    "100000": 9e-06,
+    "400000": 2e-05,
+    "1600000": 1.7e-05
+   },
+   "top_increment": 0.060707,
+   "floor_top": 2e-05,
+   "L_converged": false,
+   "top_value": 0.010753,
+   "near_clock": true,
+   "loglog_decay_alpha": 1.2487
+  },
+  {
+   "delta": 0.5,
+   "lam_sub": 0.5,
+   "N": 100000,
+   "means": {
+    "100000": 0.000523,
+    "400000": 0.000141,
+    "1600000": 0.000133
+   },
+   "floors": {
+    "100000": 0.000125,
+    "400000": 9.4e-05,
+    "1600000": 6.5e-05
+   },
+   "top_increment": 7e-06,
+   "floor_top": 9.4e-05,
+   "L_converged": true,
+   "top_value": 0.000133,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.4934
+  },
+  {
+   "delta": 0.5,
+   "lam_sub": 0.5,
+   "N": 125000,
+   "means": {
+    "100000": 0.40005,
+    "400000": 0.100101,
+    "1600000": 0.025149
+   },
+   "floors": {
+    "100000": 0.0001,
+    "400000": 0.000101,
+    "1600000": 0.000121
+   },
+   "top_increment": 0.074952,
+   "floor_top": 0.000121,
+   "L_converged": false,
+   "top_value": 0.025149,
+   "near_clock": true,
+   "loglog_decay_alpha": 0.9979
+  }
+ ],
+ "N_structure_at_Ltop": {
+  "0.005": {
+   "top_values_by_N": {
+    "70000": 0.025485,
+    "100000": 0.015523,
+    "125000": 0.033916
+   },
+   "spread": 0.018393,
+   "floor": 0.0037,
+   "N_structure_collapsed": false
+  },
+  "0.069475": {
+   "top_values_by_N": {
+    "70000": 0.011682,
+    "100000": 0.001733,
+    "125000": 0.025884
+   },
+   "spread": 0.024151,
+   "floor": 0.000723,
+   "N_structure_collapsed": false
+  },
+  "0.5": {
+   "top_values_by_N": {
+    "70000": 0.010753,
+    "100000": 0.000133,
+    "125000": 0.025149
+   },
+   "spread": 0.025016,
+   "floor": 0.000121,
+   "N_structure_collapsed": false
+  }
+ },
+ "errors": [],
+ "total_s": 21735.0,
+ "note": "Characterization of leg L-convergence. NEVER proves (A)/(B) (only \u00a7D/DGY). SURFACED not adjudicated; \u00a7D NOT launched; Step-1 NOT retro-adjudicated. NOT_CONVERGED \u21d2 escalation is Will's call (no auto-chase to higher L)."
+}
