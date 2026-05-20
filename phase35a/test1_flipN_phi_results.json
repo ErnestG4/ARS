@@ -1,0 +1,173 @@
+{
+ "run": "Test 1 flip-N \u03c6-check (+ C2 Fibonacci-N spot)",
+ "delta": 0.5,
+ "legs": [
+  "sub",
+  "sup"
+ ],
+ "Ns": [
+  43000,
+  46368,
+  50000
+ ],
+ "LS": [
+  100000,
+  400000,
+  1600000
+ ],
+ "n_phi": 16,
+ "TOL_COMMON": 0.25,
+ "HI_DEP": 1.0,
+ "TOL_N_MATCH": 0.3,
+ "TOL_C2_MATCH": 0.3,
+ "apparatus_identity": {
+  "sub_50k_L1e5": {
+   "measured_spread": 0.000291667,
+   "stored_spread": 0.000292,
+   "abs_diff": 3.33e-07,
+   "tol": 1e-06,
+   "PASS": true
+  },
+  "sup_50k_L1e5": {
+   "measured_spread": 0.122861945,
+   "stored_spread": 0.122862,
+   "abs_diff": 5.5e-08,
+   "tol": 0.000122862,
+   "PASS": true
+  }
+ },
+ "per_cell": [
+  {
+   "leg": "sub",
+   "N": 43000,
+   "lam": 0.5,
+   "spread_at_L_ref": 0.000215118,
+   "mean_at_L_ref": 0.189043817,
+   "spread_at_L_top": 0.000197595,
+   "mean_at_L_top": 0.009267229,
+   "per_phi_shift_ptp": 0.000112799,
+   "ratio": 0.5244,
+   "terminal": "PHI_INDETERMINATE"
+  },
+  {
+   "leg": "sub",
+   "N": 46368,
+   "lam": 0.5,
+   "spread_at_L_ref": 0.000164165,
+   "mean_at_L_ref": 0.122674035,
+   "spread_at_L_top": 0.000278863,
+   "mean_at_L_top": 0.014745445,
+   "per_phi_shift_ptp": 0.000178836,
+   "ratio": 1.0894,
+   "terminal": "PHI_DEPENDENT"
+  },
+  {
+   "leg": "sub",
+   "N": 50000,
+   "lam": 0.5,
+   "spread_at_L_ref": 0.000291667,
+   "mean_at_L_ref": 0.000450521,
+   "spread_at_L_top": 0.000174501,
+   "mean_at_L_top": 0.000517104,
+   "per_phi_shift_ptp": 0.000184824,
+   "ratio": 0.6337,
+   "terminal": "PHI_INDETERMINATE"
+  },
+  {
+   "leg": "sup",
+   "N": 43000,
+   "lam": 1.5,
+   "spread_at_L_ref": 0.195995553,
+   "mean_at_L_ref": 0.433651393,
+   "spread_at_L_top": 0.241224825,
+   "mean_at_L_top": 0.331054566,
+   "per_phi_shift_ptp": 0.231071831,
+   "ratio": 1.179,
+   "terminal": "PHI_DEPENDENT"
+  },
+  {
+   "leg": "sup",
+   "N": 46368,
+   "lam": 1.5,
+   "spread_at_L_ref": 0.176251753,
+   "mean_at_L_ref": 0.430621612,
+   "spread_at_L_top": 0.1416257,
+   "mean_at_L_top": 0.304101786,
+   "per_phi_shift_ptp": 0.192275778,
+   "ratio": 1.0909,
+   "terminal": "PHI_DEPENDENT"
+  },
+  {
+   "leg": "sup",
+   "N": 50000,
+   "lam": 1.5,
+   "spread_at_L_ref": 0.122861945,
+   "mean_at_L_ref": 0.425662762,
+   "spread_at_L_top": 0.110286997,
+   "mean_at_L_top": 0.296392403,
+   "per_phi_shift_ptp": 0.191023913,
+   "ratio": 1.5548,
+   "terminal": "PHI_DEPENDENT"
+  }
+ ],
+ "per_leg": {
+  "sub": {
+   "baseline_N70k_ratio": 1.6665,
+   "ratios_by_N": {
+    "43000": 0.5244,
+    "46368": 1.0894,
+    "50000": 0.6337
+   },
+   "N_match_dev_pct": {
+    "43000": 68.5,
+    "50000": 62.0
+   },
+   "matches_70k_within_30pct": false,
+   "Ns_full": [
+    43000,
+    50000,
+    70000
+   ],
+   "ratios_full": [
+    0.5244,
+    0.6337,
+    1.6665
+   ],
+   "monotone": true,
+   "loglog_alpha_ratio_vs_N": 2.4565,
+   "C2_F24_vs_bracket_dev_pct": 88.1,
+   "C2_terminal": "COMMENSURATE_ANOMALY"
+  },
+  "sup": {
+   "baseline_N70k_ratio": 4.8615,
+   "ratios_by_N": {
+    "43000": 1.179,
+    "46368": 1.0909,
+    "50000": 1.5548
+   },
+   "N_match_dev_pct": {
+    "43000": 75.7,
+    "50000": 68.0
+   },
+   "matches_70k_within_30pct": false,
+   "Ns_full": [
+    43000,
+    50000,
+    70000
+   ],
+   "ratios_full": [
+    1.179,
+    1.5548,
+    4.8615
+   ],
+   "monotone": true,
+   "loglog_alpha_ratio_vs_N": 2.9877,
+   "C2_F24_vs_bracket_dev_pct": 20.2,
+   "C2_terminal": "COMMENSURATE_NO_ANOMALY"
+  }
+ },
+ "primary_terminal": "FLIP_N_PHI_RATIO_N_SCALES",
+ "errors": [],
+ "total_s": 0.0,
+ "note": "\u03c6-mode N-scaling characterization at flip-N + C2 Fibonacci spot-check. NEVER adjudicates Step-1 verdict, (A)/(B), \u00a7D. Surfaces magnitudes for Will's adjudication."
+}
