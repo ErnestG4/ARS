@@ -1,0 +1,38 @@
+{
+ "run": "C1 curiosity \u03b8-robustness probe (silver mean)",
+ "theta_silver": 0.41421356237309515,
+ "delta": 0.5,
+ "N": 70000,
+ "L": 100000,
+ "legs": [
+  "sub",
+  "sup"
+ ],
+ "TOL_TRACKS_FACTOR": 3.0,
+ "per_leg": {
+  "sub": {
+   "lam": 0.5,
+   "silver_L1e5_spread": 9.5238e-05,
+   "silver_L1e5_mean": 0.342953237,
+   "golden_L1e5_spread": 2.679e-05,
+   "golden_L1e5_mean": 0.34286496,
+   "spread_ratio_silver_over_golden": 3.555,
+   "mean_ratio_silver_over_golden": 1.0003,
+   "tracks_golden_within_3x": false
+  },
+  "sup": {
+   "lam": 1.5,
+   "silver_L1e5_spread": 0.098928314,
+   "silver_L1e5_mean": 0.573594178,
+   "golden_L1e5_spread": 0.0765597,
+   "golden_L1e5_mean": 0.54599552,
+   "spread_ratio_silver_over_golden": 1.2922,
+   "mean_ratio_silver_over_golden": 1.0505,
+   "tracks_golden_within_3x": true
+  }
+ },
+ "overall_terminal": "THETA_SPREAD_MIXED",
+ "errors": [],
+ "total_s": 178.0,
+ "note": "Curiosity probe (single-L). Cannot compute a Step-1-style ptp_phi(\u0394w)/spread ratio (needs two L points). Compares silver-\u03b8 L=1e5 spread to golden-\u03b8 baseline. Never adjudicates (A)/(B), Step-1, \u00a7D. Surfaces for Will."
+}
