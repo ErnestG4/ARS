@@ -1,0 +1,224 @@
+{
+ "run": "sup \u03c6-resolved L-check (Step-1 sup-side \u03c6-dependence)",
+ "cells_sup_lambda": [
+  [
+   1.005,
+   70000
+  ],
+  [
+   1.5,
+   70000
+  ]
+ ],
+ "cells": [
+  [
+   0.005,
+   70000
+  ],
+  [
+   0.5,
+   70000
+  ]
+ ],
+ "LS": [
+  100000,
+  400000,
+  1600000
+ ],
+ "n_phi": 16,
+ "TOL": 0.25,
+ "HI": 1.0,
+ "per_cell": [
+  {
+   "delta": 0.005,
+   "lam_sup": 1.005,
+   "N": 70000,
+   "L_ref": 100000,
+   "L_top": 1600000,
+   "mean_at_L_ref": 0.54349149,
+   "mean_at_L_top": 0.44531533,
+   "spread_at_L_ref": 0.0741638,
+   "spread_at_L_top": 0.34000701,
+   "per_phi_shift_ptp": 0.35543277,
+   "per_phi_shift_mean": 0.09817616,
+   "ratio_phi_shift_to_L_ref_spread": 4.7925,
+   "TOL": 0.25,
+   "HI": 1.0,
+   "terminal": "PHI_DEPENDENT_ARTIFACT",
+   "phi_grid": [
+    0.0,
+    0.03125,
+    0.0625,
+    0.09375,
+    0.125,
+    0.15625,
+    0.1875,
+    0.21875,
+    0.25,
+    0.28125,
+    0.3125,
+    0.34375,
+    0.375,
+    0.40625,
+    0.4375,
+    0.46875
+   ],
+   "phi_W1d_per_L": {
+    "100000": [
+     0.52861326,
+     0.55093176,
+     0.56864583,
+     0.56616357,
+     0.56713393,
+     0.58264912,
+     0.59231845,
+     0.55016056,
+     0.535506,
+     0.53395554,
+     0.51815466,
+     0.52010435,
+     0.52074107,
+     0.51981266,
+     0.5199881,
+     0.52098497
+    ],
+    "400000": [
+     0.25837505,
+     0.28691625,
+     0.31011771,
+     0.38388677,
+     0.40658086,
+     0.43842447,
+     0.46862954,
+     0.60186235,
+     0.61435797,
+     0.4451366,
+     0.44250649,
+     0.45300712,
+     0.45829829,
+     0.28188596,
+     0.27143152,
+     0.26458086
+    ],
+    "1600000": [
+     0.29190587,
+     0.26395374,
+     0.29031694,
+     0.28935748,
+     0.34401311,
+     0.42342799,
+     0.53108535,
+     0.59482609,
+     0.60396075,
+     0.60008143,
+     0.57782748,
+     0.55256727,
+     0.51469991,
+     0.47095203,
+     0.41823394,
+     0.35783583
+    ]
+   }
+  },
+  {
+   "delta": 0.5,
+   "lam_sup": 1.5,
+   "N": 70000,
+   "L_ref": 100000,
+   "L_top": 1600000,
+   "mean_at_L_ref": 0.54599552,
+   "mean_at_L_top": 0.44105134,
+   "spread_at_L_ref": 0.0765597,
+   "spread_at_L_top": 0.34915645,
+   "per_phi_shift_ptp": 0.37219722,
+   "per_phi_shift_mean": 0.10494418,
+   "ratio_phi_shift_to_L_ref_spread": 4.8615,
+   "TOL": 0.25,
+   "HI": 1.0,
+   "terminal": "PHI_DEPENDENT_ARTIFACT",
+   "phi_grid": [
+    0.0,
+    0.03125,
+    0.0625,
+    0.09375,
+    0.125,
+    0.15625,
+    0.1875,
+    0.21875,
+    0.25,
+    0.28125,
+    0.3125,
+    0.34375,
+    0.375,
+    0.40625,
+    0.4375,
+    0.46875
+   ],
+   "phi_W1d_per_L": {
+    "100000": [
+     0.53350335,
+     0.55527999,
+     0.57002038,
+     0.57179145,
+     0.57557143,
+     0.58776488,
+     0.59684524,
+     0.54863666,
+     0.53702062,
+     0.52724658,
+     0.52253869,
+     0.52028554,
+     0.5219737,
+     0.52030078,
+     0.5229586,
+     0.52419048
+    ],
+    "400000": [
+     0.25397814,
+     0.27963021,
+     0.30187019,
+     0.37400332,
+     0.40318145,
+     0.430817,
+     0.46000086,
+     0.60023534,
+     0.61371808,
+     0.44124676,
+     0.44357179,
+     0.44901711,
+     0.45485539,
+     0.28033126,
+     0.27205684,
+     0.26287129
+    ],
+    "1600000": [
+     0.28727694,
+     0.25431315,
+     0.27879369,
+     0.27681171,
+     0.33735517,
+     0.41510995,
+     0.5255467,
+     0.59439773,
+     0.6034696,
+     0.59847695,
+     0.57904667,
+     0.5494198,
+     0.51300061,
+     0.46929305,
+     0.41826728,
+     0.35624241
+    ]
+   }
+  }
+ ],
+ "overall_terminal": "SUP_PHI_DEPENDENT_BOTH_CELLS",
+ "implications_for_Step1_PRE_REGISTERED_NOT_CONCLUDED": {
+  "SUP_PHI_COMMON_MODE_BOTH_CELLS": "Sup-side L=1e5 artifact ~uniform across \u03c6 \u21d2 Step-1's typically-dominant sup_spread floor is ROBUST against this artifact mode; combined with sub-side PHI_DEPENDENT, the test's load-bearing leg survives (Will's call).",
+  "SUP_PHI_DEPENDENT_BOTH_CELLS": "Sup-side too is dependent \u21d2 BOTH legs of Step-1's spread-floor under contamination; the dominant sup leg's magnitude reported per-cell (Will's call).",
+  "SUP_PHI_MODE_MIXED_CELLS": "Substrate-modulated sup \u03c6-mode; \u03b4=0.5/\u03bb=1.5 cell is Step-1-direct (load-bearing)."
+ },
+ "errors": [],
+ "total_s": 2265.0,
+ "note": "Characterizes \u03c6-mode of sup-side L=1e5 artifact. NEVER adjudicates Step-1 \u2014 the implications are pre-registered; the conclusion is Will's. Never proves (A)/(B); \u00a7D not decided; banked Step-1 untouched. With sub-side already PHI_DEPENDENT_BOTH_CELLS, this closes the sub+sup pair and rev-5 becomes writable (per Will's defer-both-sides logic)."
+}
