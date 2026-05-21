@@ -1,0 +1,109 @@
+{
+ "run": "Tier 2 sup-side L-extension @N=50k",
+ "cell": {
+  "delta": 0.5,
+  "lam": 1.5,
+  "N": 50000
+ },
+ "L_actual": [
+  1600000,
+  6400000,
+  25600000
+ ],
+ "L_top": 25600000,
+ "apparatus_identity": {
+  "L1.6e6_per_phi": {
+   "max_abs_diff": 0.0,
+   "tol": 3.4688553e-05,
+   "PASS": true
+  }
+ },
+ "means_by_L": {
+  "1600000": 0.2963924,
+  "6400000": 0.30106467,
+  "25600000": 0.30204658
+ },
+ "spreads_by_L": {
+  "1600000": 0.110287,
+  "6400000": 0.11196243,
+  "25600000": 0.11505633
+ },
+ "top_inc_mean": 0.003251,
+ "top_inc_spread": 0.02689,
+ "converged": true,
+ "monotone_mean": true,
+ "monotone_spread": true,
+ "pathology_flags": [],
+ "loglog_alpha_mean": -0.0068,
+ "loglog_alpha_spread": -0.0153,
+ "phi_per_L": {
+  "1600000": [
+   0.236598532,
+   0.27803589,
+   0.292489908,
+   0.312071079,
+   0.317209347,
+   0.307236607,
+   0.279367156,
+   0.23937979,
+   0.254243498,
+   0.299312683,
+   0.329522344,
+   0.345548431,
+   0.346885529,
+   0.333820941,
+   0.306236703,
+   0.264320003
+  ],
+  "6400000": [
+   0.241113811,
+   0.281604591,
+   0.304292649,
+   0.317536042,
+   0.315793958,
+   0.299358082,
+   0.268933589,
+   0.245377055,
+   0.278918482,
+   0.319255847,
+   0.342005525,
+   0.353076244,
+   0.351370665,
+   0.334072454,
+   0.307055156,
+   0.257270536
+  ],
+  "25600000": [
+   0.240046054,
+   0.27978299,
+   0.305646853,
+   0.318109156,
+   0.31688611,
+   0.301647273,
+   0.27139199,
+   0.243170419,
+   0.275426121,
+   0.316407379,
+   0.342380238,
+   0.35510238,
+   0.353582761,
+   0.338179204,
+   0.309416754,
+   0.265569633
+  ]
+ },
+ "sensitivity_criterion_at_N50k_with_direct_substrate": {
+  "stored_gap": 0.374969,
+  "stored_sub_spread": 0.000292,
+  "direct_substrate_sup_spread": 0.1150563267210924,
+  "max_spread": 0.1150563267210924,
+  "gap_over_max": 3.259,
+  "criterion_PASS": true,
+  "tier1_model_predicted_PASS": true,
+  "agreement": "model_confirmed"
+ },
+ "terminal": "TIER2_N50K_SUP_L_CONVERGED",
+ "errors": [],
+ "total_s": 8031.0,
+ "note": "Tier 2 at N=50k. Direct substrate sup_spread now measured (not model-extrapolated). Sensitivity criterion at N=50k re-evaluated with direct substrate. SURFACED; never adjudicates Step-1; banked Step-1 untouched."
+}
