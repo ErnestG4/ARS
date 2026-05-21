@@ -1,0 +1,549 @@
+{
+ "analysis": "AM fingerprint extraction (\u03c6-pattern + growth-law), analysis-only from existing rawtables",
+ "n_patterns_16phi": 21,
+ "harmonic_content": [
+  {
+   "tag": "sub",
+   "leg": "sub",
+   "delta": 0.005,
+   "N": 70000,
+   "lam": 0.995,
+   "L": 100000,
+   "n": 16,
+   "dominant_mode": 7,
+   "mode1_frac": 0.0412,
+   "mode_amps_norm": [
+    0.0412,
+    0.1056,
+    0.0526,
+    0.0821,
+    0.0846,
+    0.0426
+   ]
+  },
+  {
+   "tag": "sub",
+   "leg": "sub",
+   "delta": 0.005,
+   "N": 70000,
+   "lam": 0.995,
+   "L": 400000,
+   "n": 16,
+   "dominant_mode": 2,
+   "mode1_frac": 0.1196,
+   "mode_amps_norm": [
+    0.1196,
+    0.3388,
+    0.0942,
+    0.0975,
+    0.1099,
+    0.0274
+   ]
+  },
+  {
+   "tag": "sub",
+   "leg": "sub",
+   "delta": 0.005,
+   "N": 70000,
+   "lam": 0.995,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 2,
+   "mode1_frac": 0.055,
+   "mode_amps_norm": [
+    0.055,
+    0.4683,
+    0.0446,
+    0.0482,
+    0.0259,
+    0.0425
+   ]
+  },
+  {
+   "tag": "sub",
+   "leg": "sub",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 0.5,
+   "L": 100000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.2995,
+   "mode_amps_norm": [
+    0.2995,
+    0.0869,
+    0.0612,
+    0.0574,
+    0.0947,
+    0.1105
+   ]
+  },
+  {
+   "tag": "sub",
+   "leg": "sub",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 0.5,
+   "L": 400000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.1979,
+   "mode_amps_norm": [
+    0.1979,
+    0.1474,
+    0.1661,
+    0.1224,
+    0.1519,
+    0.0903
+   ]
+  },
+  {
+   "tag": "sub",
+   "leg": "sub",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 0.5,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 2,
+   "mode1_frac": 0.0842,
+   "mode_amps_norm": [
+    0.0842,
+    0.2007,
+    0.0931,
+    0.0617,
+    0.1185,
+    0.1578
+   ]
+  },
+  {
+   "tag": "sup",
+   "leg": "sup",
+   "delta": 0.005,
+   "N": 70000,
+   "lam": 1.005,
+   "L": 100000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.5137,
+   "mode_amps_norm": [
+    0.5137,
+    0.1094,
+    0.0922,
+    0.1126,
+    0.0798,
+    0.048
+   ]
+  },
+  {
+   "tag": "sup",
+   "leg": "sup",
+   "delta": 0.005,
+   "N": 70000,
+   "lam": 1.005,
+   "L": 400000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.5199,
+   "mode_amps_norm": [
+    0.5199,
+    0.0169,
+    0.1147,
+    0.1596,
+    0.0664,
+    0.015
+   ]
+  },
+  {
+   "tag": "sup",
+   "leg": "sup",
+   "delta": 0.005,
+   "N": 70000,
+   "lam": 1.005,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7433,
+   "mode_amps_norm": [
+    0.7433,
+    0.1117,
+    0.0489,
+    0.0397,
+    0.0119,
+    0.0148
+   ]
+  },
+  {
+   "tag": "sup",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 1.5,
+   "L": 100000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.5061,
+   "mode_amps_norm": [
+    0.5061,
+    0.1248,
+    0.088,
+    0.0958,
+    0.0548,
+    0.0435
+   ]
+  },
+  {
+   "tag": "sup",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 1.5,
+   "L": 400000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.5131,
+   "mode_amps_norm": [
+    0.5131,
+    0.0204,
+    0.1091,
+    0.159,
+    0.0681,
+    0.0193
+   ]
+  },
+  {
+   "tag": "sup",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 1.5,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7391,
+   "mode_amps_norm": [
+    0.7391,
+    0.1186,
+    0.0439,
+    0.0385,
+    0.0074,
+    0.0186
+   ]
+  },
+  {
+   "tag": "test2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 1.5,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7391,
+   "mode_amps_norm": [
+    0.7391,
+    0.1186,
+    0.0439,
+    0.0385,
+    0.0074,
+    0.0186
+   ]
+  },
+  {
+   "tag": "test2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 1.5,
+   "L": 6400000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7288,
+   "mode_amps_norm": [
+    0.7288,
+    0.1469,
+    0.0299,
+    0.0247,
+    0.0159,
+    0.0206
+   ]
+  },
+  {
+   "tag": "test2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 70000,
+   "lam": 1.5,
+   "L": 25600000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7339,
+   "mode_amps_norm": [
+    0.7339,
+    0.1578,
+    0.0265,
+    0.0179,
+    0.0144,
+    0.0228
+   ]
+  },
+  {
+   "tag": "tier2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 50000,
+   "lam": 1.5,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 2,
+   "mode1_frac": 0.2142,
+   "mode_amps_norm": [
+    0.2142,
+    0.4886,
+    0.0505,
+    0.1109,
+    0.0267,
+    0.0479
+   ]
+  },
+  {
+   "tag": "tier2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 50000,
+   "lam": 1.5,
+   "L": 6400000,
+   "n": 16,
+   "dominant_mode": 2,
+   "mode1_frac": 0.2556,
+   "mode_amps_norm": [
+    0.2556,
+    0.4637,
+    0.0834,
+    0.098,
+    0.0404,
+    0.0362
+   ]
+  },
+  {
+   "tag": "tier2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 50000,
+   "lam": 1.5,
+   "L": 25600000,
+   "n": 16,
+   "dominant_mode": 2,
+   "mode1_frac": 0.2551,
+   "mode_amps_norm": [
+    0.2551,
+    0.4636,
+    0.0812,
+    0.0945,
+    0.0451,
+    0.0272
+   ]
+  },
+  {
+   "tag": "tier2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 100000,
+   "lam": 1.5,
+   "L": 100000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.2641,
+   "mode_amps_norm": [
+    0.2641,
+    0.0665,
+    0.1182,
+    0.1429,
+    0.1377,
+    0.0759
+   ]
+  },
+  {
+   "tag": "tier2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 100000,
+   "lam": 1.5,
+   "L": 1600000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7858,
+   "mode_amps_norm": [
+    0.7858,
+    0.0538,
+    0.0941,
+    0.0114,
+    0.0268,
+    0.0102
+   ]
+  },
+  {
+   "tag": "tier2_results",
+   "leg": "sup",
+   "delta": 0.5,
+   "N": 100000,
+   "lam": 1.5,
+   "L": 6400000,
+   "n": 16,
+   "dominant_mode": 1,
+   "mode1_frac": 0.7851,
+   "mode_amps_norm": [
+    0.7851,
+    0.0287,
+    0.0883,
+    0.017,
+    0.0312,
+    0.0165
+   ]
+  }
+ ],
+ "dominant_mode_distribution": {
+  "1": 14,
+  "2": 6,
+  "7": 1
+ },
+ "mode1_frac_summary": {
+  "min": 0.0412,
+  "max": 0.7858,
+  "mean": 0.4331
+ },
+ "L_evolution_shape_corr": [
+  {
+   "cell": [
+    "sub",
+    0.005,
+    70000
+   ],
+   "L_lo": 100000,
+   "L_hi": 1600000,
+   "shape_corr_lo_hi": 0.238
+  },
+  {
+   "cell": [
+    "sub",
+    0.5,
+    70000
+   ],
+   "L_lo": 100000,
+   "L_hi": 1600000,
+   "shape_corr_lo_hi": -0.0519
+  },
+  {
+   "cell": [
+    "sup",
+    0.005,
+    70000
+   ],
+   "L_lo": 100000,
+   "L_hi": 1600000,
+   "shape_corr_lo_hi": -0.2698
+  },
+  {
+   "cell": [
+    "sup",
+    0.5,
+    70000
+   ],
+   "L_lo": 100000,
+   "L_hi": 25600000,
+   "shape_corr_lo_hi": -0.2609
+  },
+  {
+   "cell": [
+    "sup",
+    0.5,
+    50000
+   ],
+   "L_lo": 1600000,
+   "L_hi": 25600000,
+   "shape_corr_lo_hi": 0.9773
+  },
+  {
+   "cell": [
+    "sup",
+    0.5,
+    100000
+   ],
+   "L_lo": 100000,
+   "L_hi": 6400000,
+   "shape_corr_lo_hi": -0.4371
+  }
+ ],
+ "sub_sup_phase_corr_N70k_L1e5": 0.6743,
+ "cross_N_sup_pattern_corr": [
+  {
+   "L": 100000,
+   "N1": 70000,
+   "N2": 100000,
+   "corr": 0.1515
+  },
+  {
+   "L": 1600000,
+   "N1": 50000,
+   "N2": 70000,
+   "corr": 0.1284
+  },
+  {
+   "L": 1600000,
+   "N1": 50000,
+   "N2": 100000,
+   "corr": -0.2177
+  },
+  {
+   "L": 1600000,
+   "N1": 70000,
+   "N2": 100000,
+   "corr": 0.5044
+  },
+  {
+   "L": 6400000,
+   "N1": 50000,
+   "N2": 70000,
+   "corr": 0.1871
+  },
+  {
+   "L": 6400000,
+   "N1": 50000,
+   "N2": 100000,
+   "corr": -0.1796
+  },
+  {
+   "L": 6400000,
+   "N1": 70000,
+   "N2": 100000,
+   "corr": 0.5204
+  },
+  {
+   "L": 25600000,
+   "N1": 50000,
+   "N2": 70000,
+   "corr": 0.1666
+  }
+ ],
+ "growth_law": {
+  "N": [
+   50000,
+   70000,
+   100000
+  ],
+  "growth": [
+   0.93,
+   4.99,
+   118.5
+  ],
+  "power_law_exponent": 7.012,
+  "power_law_RMSE_log": 0.3173,
+  "exp_rate_per_N": 9.763121743337347e-05,
+  "exp_RMSE_log": 0.1213,
+  "loglog_local_slopes": [
+   4.993,
+   8.881
+  ],
+  "verdict": "log-log slope accelerates (4.9\u21929.0); faster than power-law; ~exponential or steeper in N; 3-point fit, no extrapolation"
+ }
+}

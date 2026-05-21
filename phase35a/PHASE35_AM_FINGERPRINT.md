@@ -132,6 +132,41 @@ per cell; cross-cell pattern-correlation; whether sub and sup legs share φ-patt
 
 ---
 
+## 6′ / 2′ — EXTRACTED (2026-05-21, `fingerprint_analysis.py`, analysis-only)
+
+**φ-pattern shape (§6, now extracted from 21 16-φ patterns):**
+
+- **Dominant φ-harmonic distinguishes the L-pathology regime.** Sup-leg L-converged
+  φ-pattern is strongly **mode-1** (fundamental, period-0.5) at N=70k & N=100k
+  (mode1_frac 0.73–0.79); but N=50k sup is **mode-2** dominant (period-0.25;
+  mode1_frac ~0.21, mode2 ~0.46). The dominant harmonic flips between the
+  pathology regime (N=70k/100k → mode-1) and the clean regime (N=50k → mode-2).
+- **L-pathology manifests as φ-pattern REORGANIZATION, not just amplitude growth.**
+  Normalized-pattern correlation between low-L and high-L: where the L-pathology
+  is active (N=70k, N=100k) the shape reorganizes (corr −0.26 to −0.44, i.e.
+  inverts); where absent (N=50k) the shape is **L-stable (corr 0.977)**. Strong
+  corroborating signature: the clean cell keeps its φ-shape across L; the
+  pathological cells re-shape.
+- **Sub vs sup phase** (N=70k, L=1e5): corr(sub λ=0.5, sup λ=1.5) = **0.67**
+  (moderately in-phase — AC and PP legs share partial φ-structure at L=1e5).
+- **Cross-N sup similarity:** N=70k & N=100k patterns correlate ~0.50 at L≥1.6e6
+  (shared mode-1 family); N=50k distinct (low/negative corr). Pattern-similarity
+  tracks the pathology regime, not N-proximity.
+
+**Growth-factor law (§2, fitted):** sup growth-factor vs N {0.93×, 4.99×, 118.5×}
+fits **~exponential in N**: exp(9.76e-5·N), RMSE_log 0.12, vs power-law N^7.0
+(RMSE_log 0.32). log-log local slope ACCELERATES 4.99 (50k→70k) → 8.88 (70k→100k)
+⇒ faster than power-law, ~exponential-or-steeper in N. **3-point fit; NO
+extrapolation beyond N=100k** (the rev-5.1→5.2 lesson). Feature summary, not predictor.
+
+**Fingerprint-relevant synthesis:** the L-underconvergence is not just a magnitude
+effect — it has a *structural* signature in the φ-pattern (mode-1-with-reorganization
+in the pathology regime vs mode-2-L-stable in the clean regime). For cross-substrate
+comparison, the φ-pattern's (dominant-mode, L-stability) pair is a candidate
+discriminator alongside the scalar growth law.
+
+---
+
 ## 7. Fingerprint gaps (new measurement; the pivot's call, mostly the program proper)
 
 - **θ-sweep across Diophantine classes (HIGHEST fingerprint value, Farey-direct).** C1 is
