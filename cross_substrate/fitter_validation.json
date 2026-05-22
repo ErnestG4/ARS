@@ -1,0 +1,50 @@
+{
+  "n_synth": 4000,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "cases": {
+    "poisson": {
+      "expected_q": 0.0,
+      "brody_q_mean": 0.006862214851985161,
+      "brody_q_per_seed": [
+        0.0001,
+        0.0039,
+        0.0166
+      ],
+      "brody_q_pass": true,
+      "expected_rho": 0.0,
+      "br_rho_mean": 0.07047654478586544,
+      "br_rho_per_seed": [
+        0.0015,
+        0.1385,
+        0.0715
+      ],
+      "br_rho_pass": true,
+      "tol": 0.15
+    },
+    "goe": {
+      "expected_q": 1.0,
+      "brody_q_mean": 0.9875354466302442,
+      "brody_q_per_seed": [
+        0.9886,
+        0.9879,
+        0.9862
+      ],
+      "brody_q_pass": true,
+      "expected_rho": 1.0,
+      "br_rho_mean": 0.9965099124733149,
+      "br_rho_per_seed": [
+        0.9965,
+        0.9965,
+        0.9965
+      ],
+      "br_rho_pass": true,
+      "tol": 0.2
+    }
+  },
+  "all_pass": true,
+  "gate": "Brody/BR values may be banked ONLY if all_pass is true; else bank null + flag (\u00a77.ter.57)."
+}
