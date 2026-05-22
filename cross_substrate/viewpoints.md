@@ -190,6 +190,34 @@ Capture how the substrate fingerprint depends on instrument variations. Not spec
 - **Discriminates.** Substrate robustness to extraction choice; useful for substrates with non-canonical event extraction (FM, time-series substrates).
 - **Applicability.** Substrates with multiple plausible extraction methods.
 
+### Family VII — Inter-leg disagreement
+
+Distinct from Family VI: VI asks how a fingerprint moves under *instrument* variation
+(L_iter, N, extraction choice). Family VII measures the *signed gap between two
+unfolding legs* applied to the SAME event train — a quantity that turns out to carry
+substrate signal, not just instrument noise.
+
+**VII.1 — q-banded ↔ plain-NNS gap (D = I.5q − I.5).**
+- **Definition.** Difference between the Farey-q-banded KS-to-GUE median (I.5q) and the
+  matched plain-unfolded-NNS KS-to-GUE (I.5) on the same event train. Report signed D
+  and |D|.
+- **Range.** ~0 where the legs agree (the unbiased-proxy regime, n≥100); grows where
+  the Farey passage responds differently to the train's structure.
+- **Discriminates.** Empirically (pvc-11 gratings, 2026-05-21): **orientation-selectivity
+  graded** — |D|~OSI ρ=0.47, robust to rate/n/value controls; signed D>0 for tuned cells
+  (Farey leg reads them slightly less GUE-like). NOT temporal-stimulus-locking (F1/F0
+  null), NOT a single-q resonance (broadband/DIFFUSE in q).
+- **Applicability.** Any substrate with BOTH legs computed. **Substrate-specific (first
+  answer, 2026-05-22):** OSI-graded in pvc-11 monkey-anesthetised V1 (ρ=0.47), but
+  ABSENT in Allen mouse-awake V1 (ρ≈0, partial slightly negative) — so VII.1 carries
+  *different* signal across substrates and DIFFERENTIATES state/species rather than being
+  universal. Arithmetic substrates ~0.01–0.02 (near-null off the cortical axis). The axis's
+  value is precisely this differentiation, not a single universal reading.
+- **Source.** Requires both Phase-2a (q-banded) and Phase-2b (matched) on the substrate.
+- **Notes.** Orthogonal to the universality-class axes (Family I) and to temporal locking.
+  This axis was *discovered* as proxy-divergence residual structure, not designed —
+  exactly the substrate-yield the landscape framework is meant to surface.
+
 ---
 
 ## §3 — Coordinate sets (viewpoint candidates)

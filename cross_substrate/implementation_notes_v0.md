@@ -65,6 +65,33 @@ Phase 2a harvest. Refinements to `viewpoints.md` are **proposed here, not made**
 - Underpowered cells (n_well=0 / NaN ks) banked as `I.5q=None` + `_I.5q_na_reason`,
   never a sentinel number (instructions §4).
 
+## Methodological numbers banked (agreement formalization, 2026-05-21)
+
+- **I.5q is an unbiased proxy for matched I.5** (slope=1.001 leg-only / 0.991 per-
+  substrate-medians, intercept ≈0). Use the cheap q-banded harvest for landscape
+  placement without the matched 2b recompute, subject to the two conditions below.
+- **Small-N floor: require n ≥ 100** for the I.5q↔I.5 comparison and for trusting
+  q-banded placement of low-event cells. Bracketed empirically: n=41 fails (|diff|=0.17,
+  unstable q-banded median), n=91 agrees (0.007). Sparse coverage between — 100 is the
+  conservative round number above the bracket.
+- **Stimulus-condition caveat:** strongly stimulus-locked trains (pvc-11 drifting
+  gratings) show a ~3% tail with |diff|>0.05; all other conditions agree to ~0.002.
+  Not a sample-size effect. Flag for any future stimulus-driven substrate (incl. Allen
+  gratings blocks).
+- **Pooled-regression trap:** at n≈1159 a 0.002 intercept tests "significant" — report
+  per-substrate (equal weight) alongside pooled, never pooled alone (per Will).
+
+## Cost — AM Phase 1 re-extraction probe (2026-05-21)
+
+`am_reextract.py --probe`. 3 sup cells × 16 φ at Phase-35 converged L.
+- **Stage A (eigensolve + bank eigenvalues):** ~37 min total (N=50k 5.5min, 70k 10.5min,
+  100k 21min /cell ×16φ). One-time, bankable raw object. Run anywhere.
+- **Stage B (unfold at converged L=6.4e6–2.56e7, O(N·L) Sturm loop):** ~**35 h serial**,
+  BUT it is 48 independent (cell,φ) tasks; the longest single task is N=70k @ 62.8 min/φ.
+  ⇒ **~1 h wall on the 56-core server** (48 parallel φ-tasks). Linear-in-L projection from
+  an L=200k timing pass (the loop is exactly O(L), so the extrapolation is reliable).
+- Implication: Stage A now; Stage B needs the parallel harness + the server idle window.
+
 ## Cost (Phase 2b probe, 2026-05-21)
 
 pvc-11 object-(a) Family I+II recompute: **~291 ms/cell** (Family II Σ²/Δ₃

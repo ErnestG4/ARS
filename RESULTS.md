@@ -9862,6 +9862,56 @@ in this cell (two mid-run, one — the headline — on Will's review).
 
 ---
 
+### 7.ter.60  Cross-substrate landscape — operator-IS-substrate fingerprint program
+
+Reframe (not a single dataset): each substrate is fingerprinted on the
+spectral side and placed in a shared universality-class landscape; the
+yield is cross-substrate comparison, not utility-extraction from any one.
+Working artifacts in `cross_substrate/` (landscape.md, viewpoints.md,
+findings_log.md, coordinate `.jsonl` per substrate).
+
+- **Population.** 10 substrates banked from already-measured artifacts
+  (Phase 2a harvest, 8,275 coordinate records): pvc-11, Allen-NP,
+  Kuramoto, NANOGrav pulsars, Mertens, Liouville, ζ/Dirichlet/EC L-zeros,
+  Gaussian + Eisenstein primes, Maass Γ₀(N). Matched object-(a) Family I/II
+  (plain unfolded-NNS, the AM-matched leg) recomputed for pvc-11 (1159
+  cells) + all arithmetic/Maass cells (Phase 2b); the matched leg
+  independently recovers known classes (ζ→GUE q=1.00 ρ=0.999;
+  Mertens/Liouville→clustered; Maass→Sarnak anomaly).
+
+- **PROXY VERDICT — `I.5q` (cheap q-banded ks-to-GUE) is an unbiased
+  substitute for matched `I.5`.** Regression `I.5q = a + b·I.5`: per-
+  substrate-medians slope = 0.991 (within 1σ of 1), pvc-11-internal
+  slope = 1.001, intercept ≈ 0. Conditions: n ≥ 100 (small-n q-banded
+  median destabilises — liouville n=41 diverges) and away from strong
+  stimulus-locking. ⇒ 2a-only substrates (Allen, Kuramoto) are trustably
+  placed without the costly matched recompute.
+
+- **Substrate-yield from the proxy residual (gratings-divergence study).**
+  The residual `|I.5q − I.5|` is not noise. In pvc-11 drifting-gratings it
+  is **OSI-graded** (ρ = 0.47, robust to rate/n/value controls); the
+  conjectured temporal-stimulus-locking driver (F1/F0) is **REFUTED**
+  (ρ = 0.06; per-q DIFFUSE, no TF resonance). Banked as a new candidate
+  axis family (viewpoints Family VII, inter-leg disagreement).
+
+- **H1 DE-CONFOUNDED + cross-species strengthened.** OSI↔KS-to-GUE holds on
+  BOTH legs — q-banded AND plain-NNS — in pvc-11 (ρ ≈ 0.74 / 0.70) AND
+  Allen mouse-awake V1 (ρ ≈ 0.478 / 0.486, the gap tracking known awake-
+  mouse attenuation). H1 is **not** an artifact of the Farey q-banding in
+  either species. The OSI-graded inter-leg gap itself is monkey-
+  anesthetised-SPECIFIC (absent in mouse) — Family VII differentiates
+  state/species rather than reading universally.
+
+- **AM (Phase 1, in progress).** Phase 35 banked only the W1δ reduction;
+  eigenvalues re-extracted + banked (Stage A), converged-L unfold + matched
+  Family I/II running (Stage B) to place AM in the same object-(a) frame.
+
+Methodology: matched-instrument across compared legs; carry every viewpoint
+and annotate comparison-validity rather than discarding non-matching
+instruments; fitters synthetic-validated before banking (§7.ter.57).
+
+---
+
 ## 8. Conclusions and limitations
 
 ### Validated outputs

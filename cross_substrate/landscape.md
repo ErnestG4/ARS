@@ -124,6 +124,8 @@ The document is intended to populate. Empty cells in §5 are explicit targets; n
 
 **Fingerprint status.** Theoretical reference point in the landscape. The Hilbert-Pólya conjecture — that ζ-zeros are the spectrum of some Hermitian operator — is the operator-is-substrate bet at the theoretical extreme.
 
+> **Grouping caveat (2026-05-21).** The harvested `L-zeros` coordinate file pools THREE distinct L-function families that do NOT share a universality placement: ζ-zeros are GUE (Brody q=1.00, BR ρ=0.999 — confirmed by the matched leg), but the pooled Dirichlet and EC L-zero panels land near the Poisson corner (q≈0). The substrate is internally bimodal; its pooled median is misleading. **TODO (Will):** split `ζ-zeros` / `Dirichlet-L` / `EC-L` into separate §3 catalog entries and separate coordinate files — read per-panel, never the `L-zeros` pooled median. Per-panel values are preserved in `coordinates/L-zeros.jsonl` (meta.panel) and `findings_log.md`.
+
 ### Mackey-Glass system
 
 **Parameter side.** Delay τ; feedback parameters (β, γ, n). Single delay-differential equation; transitions from periodic through quasi-periodic to chaotic as τ increases.

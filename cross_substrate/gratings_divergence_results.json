@@ -1,0 +1,137 @@
+{
+  "n_cells": 210,
+  "TF_hz": 6.25,
+  "G1_absD_vs_f1f0": {
+    "spearman_rho": 0.05531644708496791,
+    "spearman_p": 0.42519689414679196,
+    "pearson_r": 0.061266163080687254,
+    "pearson_p": 0.3770407272869937
+  },
+  "G1_signedD_vs_f1f0": {
+    "spearman_rho": -0.013362790863414459,
+    "spearman_p": 0.8473521249031839,
+    "pearson_r": 0.037073725049885126,
+    "pearson_p": 0.5931849609188584
+  },
+  "G2_absD_vs_rate": {
+    "spearman_rho": -0.19801356039819495,
+    "spearman_p": 0.0039648711290608,
+    "pearson_r": -0.14522029560059063,
+    "pearson_p": 0.035462072551569315
+  },
+  "G2_absD_vs_n": {
+    "spearman_rho": 0.19296046137649497,
+    "spearman_p": 0.005016194433079086,
+    "pearson_r": 0.10621619014378977,
+    "pearson_p": 0.1249373432047902
+  },
+  "G2_partial_absD_f1f0_given_rate": {
+    "rho": 0.009037884220978698,
+    "p": 0.8964142798942283
+  },
+  "G3_absD_vs_osi": {
+    "spearman_rho": 0.46590820005636663,
+    "spearman_p": 1.0329498261642877e-12,
+    "pearson_r": 0.5838261010586667,
+    "pearson_p": 1.4007276024791334e-20
+  },
+  "G3_absD_vs_dsi": {
+    "spearman_rho": 0.08500808246380709,
+    "spearman_p": 0.21991538280110876,
+    "pearson_r": 0.12065045123206579,
+    "pearson_p": 0.08110104088875936
+  },
+  "G3_signedD_vs_osi": {
+    "spearman_rho": 0.292515217384262,
+    "spearman_p": 1.6454713673692536e-05,
+    "pearson_r": 0.5242504210053407,
+    "pearson_p": 3.1824645173565363e-16
+  },
+  "G3_osi_vs_f1f0": {
+    "spearman_rho": -0.07304279656487189,
+    "spearman_p": 0.2920748629887625,
+    "pearson_r": -0.05543024987447816,
+    "pearson_p": 0.42424358600539075
+  },
+  "G3_partial_absD_osi_given_rate": {
+    "rho": 0.439851254121983,
+    "p": 2.395687392356476e-11
+  },
+  "G3_partial_absD_osi_given_n": {
+    "rho": 0.45782981909408976,
+    "p": 2.817207962834685e-12
+  },
+  "G3_partial_absD_osi_given_rate_and_n": {
+    "rho": 0.44996299828443176,
+    "p": 7.299421925237202e-12
+  },
+  "leg_osi_vs_i5q": {
+    "spearman_rho": 0.7391077867007025,
+    "spearman_p": 1.5062241019279067e-37,
+    "pearson_r": 0.7727616274539659,
+    "pearson_p": 6.119078145236412e-43
+  },
+  "leg_osi_vs_i5": {
+    "spearman_rho": 0.7035488333068776,
+    "spearman_p": 1.0889628065547445e-32,
+    "pearson_r": 0.729520886100611,
+    "pearson_p": 3.6622002455612946e-36
+  },
+  "absD_vs_i5": {
+    "spearman_rho": 0.3247297476781138,
+    "spearman_p": 1.5195399497429241e-06,
+    "pearson_r": 0.3339962028177585,
+    "pearson_p": 7.26351207261115e-07
+  },
+  "G3_partial_absD_osi_given_i5": {
+    "rho": 0.35326990017343307,
+    "p": 1.4454237670801662e-07
+  },
+  "G3_partial_absD_osi_given_i5_rate_n": {
+    "rho": 0.3601754705946993,
+    "p": 7.891511262867341e-08
+  },
+  "f1f0_conjecture": "REFUTED",
+  "verdict": "OSI_DIVERGENCE_CONFIRMED",
+  "leg_specificity": "OSI_IN_BOTH_LEGS",
+  "G4": {
+    "status": "ok",
+    "n_hi": 21,
+    "n_lo": 105,
+    "absD_threshold_p90": 0.02322387503236077,
+    "delta_ks_gue_per_q_hi_minus_lo": [
+      0.1531,
+      0.1532,
+      0.1531,
+      0.1531,
+      0.1531,
+      0.1531,
+      0.1531,
+      0.1531,
+      0.1531,
+      0.153,
+      0.1531,
+      0.153,
+      0.1531,
+      0.153,
+      0.153,
+      0.1531,
+      0.1531,
+      0.153,
+      0.1531,
+      0.153,
+      0.1529,
+      0.153,
+      0.153,
+      0.153,
+      0.153,
+      0.153,
+      0.153,
+      0.153,
+      0.153,
+      0.1528
+    ],
+    "peak_divergence_q": 2,
+    "note": "q\u2194frequency map non-trivial; LOCALIZED if delta concentrates at few q, DIFFUSE if spread. Exploratory, non-gating."
+  }
+}

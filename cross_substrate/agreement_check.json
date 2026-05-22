@@ -1,0 +1,7192 @@
+{
+  "regressions": {
+    "R1_pvc11_internal_leg_only_N_matched": {
+      "label": "R1_pvc11_internal_leg_only_N_matched",
+      "n": 1159,
+      "slope": 1.001188015489293,
+      "slope_stderr": 0.0020817049821616578,
+      "intercept": 0.0007556021002030899,
+      "intercept_stderr": 0.0010725403967658774,
+      "pearson_r": 0.9975083621382603,
+      "r2": 0.9950229325357547,
+      "p_slope_eq_1": 0.5683182469983235,
+      "p_intercept_eq_0": 0.48126474115269824,
+      "mean_abs_resid": 0.003122984747867114,
+      "max_abs_resid": 0.08983066975150455,
+      "unbiased_at_5pct": true
+    },
+    "R2_per_substrate_medians_equal_weight": {
+      "label": "R2_per_substrate_medians_equal_weight",
+      "n": 7,
+      "slope": 0.9906173604677383,
+      "slope_stderr": 0.007434963711166566,
+      "intercept": 0.008390196656412607,
+      "intercept_stderr": 0.004158330954046188,
+      "pearson_r": 0.9998592027680042,
+      "r2": 0.999718425359869,
+      "p_slope_eq_1": 0.2626269918588374,
+      "p_intercept_eq_0": 0.09966433757510666,
+      "mean_abs_resid": 0.0041982319447948935,
+      "max_abs_resid": 0.007683697273143664,
+      "unbiased_at_5pct": true
+    },
+    "R3_all_cells_pooled_pvc11_dominates": {
+      "label": "R3_all_cells_pooled_pvc11_dominates",
+      "n": 1182,
+      "slope": 0.9987220194897141,
+      "slope_stderr": 0.0019279354951410388,
+      "intercept": 0.0021261965765879687,
+      "intercept_stderr": 0.0009932170493935247,
+      "pearson_r": 0.9978086165703065,
+      "r2": 0.9956220353019489,
+      "p_slope_eq_1": 0.5075399832925788,
+      "p_intercept_eq_0": 0.03250132767278444,
+      "mean_abs_resid": 0.0032463516919061706,
+      "max_abs_resid": 0.08965835157656693,
+      "unbiased_at_5pct": false
+    }
+  },
+  "per_cell_diff": [
+    {
+      "substrate": "liouville",
+      "cell": "sub_high",
+      "n": 41,
+      "abs_diff": 0.1704
+    },
+    {
+      "substrate": "liouville",
+      "cell": "sub_low",
+      "n": 91,
+      "abs_diff": 0.0065
+    },
+    {
+      "substrate": "liouville",
+      "cell": "cluster_132",
+      "n": 132,
+      "abs_diff": 0.0121
+    },
+    {
+      "substrate": "liouville",
+      "cell": "full_133",
+      "n": 133,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "mertens",
+      "cell": "tail_5e6_to_1e7",
+      "n": 813,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch081_u1/pooled",
+      "n": 1030,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "maass-gamma0",
+      "cell": "level_87",
+      "n": 1043,
+      "abs_diff": 0.007
+    },
+    {
+      "substrate": "maass-gamma0",
+      "cell": "level_93",
+      "n": 1090,
+      "abs_diff": 0.0076
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch083_u2/pooled",
+      "n": 1096,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "maass-gamma0",
+      "cell": "level_77",
+      "n": 1156,
+      "abs_diff": 0.0163
+    },
+    {
+      "substrate": "maass-gamma0",
+      "cell": "level_85",
+      "n": 1200,
+      "abs_diff": 0.0125
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch020_u2/pooled",
+      "n": 1220,
+      "abs_diff": 0.0041
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch094_u1/pooled",
+      "n": 1277,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch064_u2/pooled",
+      "n": 1279,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "maass-gamma0",
+      "cell": "level_95",
+      "n": 1303,
+      "abs_diff": 0.012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch013_u1/pooled",
+      "n": 1309,
+      "abs_diff": 0.0049
+    },
+    {
+      "substrate": "maass-gamma0",
+      "cell": "level_91",
+      "n": 1317,
+      "abs_diff": 0.0145
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch090_u1/pooled",
+      "n": 1318,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch003_u1/pooled",
+      "n": 1325,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch024_u4/pooled",
+      "n": 1377,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch025_u1/pooled",
+      "n": 1421,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch034_u2/pooled",
+      "n": 1436,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch034_u2/pooled",
+      "n": 1458,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch072_u1/pooled",
+      "n": 1485,
+      "abs_diff": 0.0065
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch077_u2/pooled",
+      "n": 1501,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch094_u1/pooled",
+      "n": 1502,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch032_u1/pooled",
+      "n": 1502,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch015_u1/pooled",
+      "n": 1502,
+      "abs_diff": 0.0046
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch023_u1/pooled",
+      "n": 1502,
+      "abs_diff": 0.0071
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch039_u2/pooled",
+      "n": 1502,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch076_u2/pooled",
+      "n": 1502,
+      "abs_diff": 0.0579
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch026_u1/pooled",
+      "n": 1502,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch045_u2/pooled",
+      "n": 1502,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch032_u1/pooled",
+      "n": 1502,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch039_u2/pooled",
+      "n": 1502,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch029_u2/pooled",
+      "n": 1503,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch046_u1/pooled",
+      "n": 1503,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch055_u1/pooled",
+      "n": 1503,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch087_u1/pooled",
+      "n": 1503,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch069_u3/pooled",
+      "n": 1503,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch020_u1/pooled",
+      "n": 1503,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch061_u1/pooled",
+      "n": 1503,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch030_u1/pooled",
+      "n": 1503,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "dirichlet-complex-U",
+      "n": 1503,
+      "abs_diff": 0.0248
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch022_u2/pooled",
+      "n": 1504,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch075_u2/pooled",
+      "n": 1504,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch020_u1/pooled",
+      "n": 1504,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch054_u1/pooled",
+      "n": 1504,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch051_u1/pooled",
+      "n": 1504,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch079_u2/pooled",
+      "n": 1504,
+      "abs_diff": 0.0068
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch039_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch063_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch017_u3/pooled",
+      "n": 1505,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch059_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch002_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch027_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch077_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch083_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch093_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch080_u1/pooled",
+      "n": 1505,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch058_u2/pooled",
+      "n": 1506,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch068_u2/pooled",
+      "n": 1506,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch089_u3/pooled",
+      "n": 1506,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch071_u1/pooled",
+      "n": 1506,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch024_u2/pooled",
+      "n": 1506,
+      "abs_diff": 0.0063
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch014_u1/pooled",
+      "n": 1507,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch094_u1/pooled",
+      "n": 1507,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch085_u1/pooled",
+      "n": 1507,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch075_u2/pooled",
+      "n": 1507,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch063_u1/pooled",
+      "n": 1507,
+      "abs_diff": 0.0054
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch007_u1/pooled",
+      "n": 1507,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch008_u1/pooled",
+      "n": 1507,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch013_u1/pooled",
+      "n": 1508,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch081_u1/pooled",
+      "n": 1508,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch021_u2/pooled",
+      "n": 1508,
+      "abs_diff": 0.0232
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch094_u1/pooled",
+      "n": 1508,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch047_u1/pooled",
+      "n": 1508,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "gaussian-primes",
+      "cell": "gaussian_X1e6",
+      "n": 1508,
+      "abs_diff": 0.0043
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch081_u1/pooled",
+      "n": 1509,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch026_u1/pooled",
+      "n": 1509,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch062_u1/pooled",
+      "n": 1509,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch082_u1/pooled",
+      "n": 1509,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "mertens",
+      "cell": "dense_1_to_4e6",
+      "n": 1509,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch050_u1/pooled",
+      "n": 1510,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch049_u2/pooled",
+      "n": 1510,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch083_u1/pooled",
+      "n": 1510,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch046_u1/pooled",
+      "n": 1510,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch052_u1/pooled",
+      "n": 1510,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch023_u2/pooled",
+      "n": 1510,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch009_u1/pooled",
+      "n": 1510,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch048_u1/pooled",
+      "n": 1510,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "eisenstein-primes",
+      "cell": "eisenstein_X1e6",
+      "n": 1510,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch028_u2/pooled",
+      "n": 1511,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch087_u2/pooled",
+      "n": 1511,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch050_u2/pooled",
+      "n": 1511,
+      "abs_diff": 0.0057
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch044_u1/pooled",
+      "n": 1511,
+      "abs_diff": 0.0141
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch025_u2/pooled",
+      "n": 1511,
+      "abs_diff": 0.0091
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch016_u2/pooled",
+      "n": 1511,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch063_u1/pooled",
+      "n": 1511,
+      "abs_diff": 0.0056
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch001_u1/pooled",
+      "n": 1511,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch092_u3/pooled",
+      "n": 1511,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch052_u1/pooled",
+      "n": 1511,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch079_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch028_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch057_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch051_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0548
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch078_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0046
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch028_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch018_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch071_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch044_u1/pooled",
+      "n": 1512,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch061_u2/pooled",
+      "n": 1512,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch090_u3/pooled",
+      "n": 1512,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch065_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch079_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch054_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch062_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch090_u3/pooled",
+      "n": 1513,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch006_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch052_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0044
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch063_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch009_u1/pooled",
+      "n": 1513,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch021_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch077_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch010_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch043_u2/pooled",
+      "n": 1514,
+      "abs_diff": 0.0069
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch009_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch024_u2/pooled",
+      "n": 1514,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch066_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch022_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0044
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch095_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch031_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch078_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch053_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0056
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch081_u1/pooled",
+      "n": 1514,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch022_u2/pooled",
+      "n": 1515,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch013_u3/pooled",
+      "n": 1515,
+      "abs_diff": 0.0046
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch043_u1/pooled",
+      "n": 1515,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch017_u1/pooled",
+      "n": 1515,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch021_u1/pooled",
+      "n": 1515,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch026_u1/pooled",
+      "n": 1515,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch071_u1/pooled",
+      "n": 1516,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch076_u1/pooled",
+      "n": 1516,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch080_u1/pooled",
+      "n": 1516,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch027_u2/pooled",
+      "n": 1516,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch016_u2/pooled",
+      "n": 1516,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch030_u1/pooled",
+      "n": 1516,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch017_u2/pooled",
+      "n": 1516,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch028_u1/pooled",
+      "n": 1516,
+      "abs_diff": 0.0041
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch083_u1/pooled",
+      "n": 1516,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch013_u1/pooled",
+      "n": 1517,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch032_u1/pooled",
+      "n": 1517,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch087_u1/pooled",
+      "n": 1517,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch049_u1/pooled",
+      "n": 1517,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "zeta-mid-height-1e5-to-2e5",
+      "n": 1517,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "ec-root-plus-SO-even",
+      "n": 1517,
+      "abs_diff": 0.0087
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "ec-root-plus-SO-even_qmax20",
+      "n": 1517,
+      "abs_diff": 0.0087
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch013_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch086_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch055_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch081_u2/pooled",
+      "n": 1518,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch032_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch024_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch026_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch015_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch085_u2/pooled",
+      "n": 1518,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch024_u1/pooled",
+      "n": 1518,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch017_u1/pooled",
+      "n": 1519,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch032_u2/pooled",
+      "n": 1519,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch044_u2/pooled",
+      "n": 1519,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch031_u1/pooled",
+      "n": 1519,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch006_u1/pooled",
+      "n": 1519,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch009_u1/pooled",
+      "n": 1520,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch016_u2/pooled",
+      "n": 1520,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch051_u2/pooled",
+      "n": 1520,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch016_u1/pooled",
+      "n": 1520,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch055_u1/pooled",
+      "n": 1520,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch046_u2/pooled",
+      "n": 1521,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch053_u2/pooled",
+      "n": 1521,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch053_u2/pooled",
+      "n": 1521,
+      "abs_diff": 0.0077
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch054_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch028_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch063_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch086_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch031_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch064_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch048_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0047
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch013_u1/pooled",
+      "n": 1521,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch044_u2/pooled",
+      "n": 1521,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch044_u2/pooled",
+      "n": 1521,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch078_u2/pooled",
+      "n": 1521,
+      "abs_diff": 0.0059
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch047_u1/pooled",
+      "n": 1522,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch016_u2/pooled",
+      "n": 1522,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch044_u2/pooled",
+      "n": 1522,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch074_u2/pooled",
+      "n": 1522,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch013_u1/pooled",
+      "n": 1522,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch093_u1/pooled",
+      "n": 1522,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch013_u2/pooled",
+      "n": 1522,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch020_u1/pooled",
+      "n": 1522,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch080_u1/pooled",
+      "n": 1522,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch090_u2/pooled",
+      "n": 1522,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch076_u1/pooled",
+      "n": 1523,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch053_u1/pooled",
+      "n": 1523,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch053_u2/pooled",
+      "n": 1523,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch012_u1/pooled",
+      "n": 1523,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch057_u1/pooled",
+      "n": 1523,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch059_u1/pooled",
+      "n": 1523,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch020_u1/pooled",
+      "n": 1523,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch072_u2/pooled",
+      "n": 1524,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch030_u1/pooled",
+      "n": 1524,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch043_u1/pooled",
+      "n": 1524,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch050_u1/pooled",
+      "n": 1524,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch053_u1/pooled",
+      "n": 1524,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch012_u1/pooled",
+      "n": 1524,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch026_u1/pooled",
+      "n": 1524,
+      "abs_diff": 0.0048
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch017_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch049_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch013_u2/pooled",
+      "n": 1525,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch017_u2/pooled",
+      "n": 1525,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch054_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch046_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0128
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch050_u2/pooled",
+      "n": 1525,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch028_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch018_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch088_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch092_u1/pooled",
+      "n": 1525,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch087_u2/pooled",
+      "n": 1526,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch022_u1/pooled",
+      "n": 1526,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch050_u1/pooled",
+      "n": 1526,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch075_u1/pooled",
+      "n": 1526,
+      "abs_diff": 0.0048
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch049_u1/pooled",
+      "n": 1526,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch067_u1/pooled",
+      "n": 1526,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch050_u1/pooled",
+      "n": 1526,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "ec-root-minus-SO-odd",
+      "n": 1526,
+      "abs_diff": 0.0113
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "ec-root-minus-SO-odd_qmax20",
+      "n": 1526,
+      "abs_diff": 0.0113
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch066_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch076_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0488
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch045_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch057_u2/pooled",
+      "n": 1527,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch031_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch077_u2/pooled",
+      "n": 1527,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch048_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch023_u2/pooled",
+      "n": 1527,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch018_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch032_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch051_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch063_u1/pooled",
+      "n": 1527,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch075_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch043_u2/pooled",
+      "n": 1528,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch024_u2/pooled",
+      "n": 1528,
+      "abs_diff": 0.0272
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch010_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch032_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch081_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch069_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0048
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch095_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch059_u1/pooled",
+      "n": 1528,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch031_u1/pooled",
+      "n": 1529,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch056_u1/pooled",
+      "n": 1529,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch025_u2/pooled",
+      "n": 1529,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch094_u1/pooled",
+      "n": 1529,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch040_u1/pooled",
+      "n": 1529,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch093_u1/pooled",
+      "n": 1529,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch085_u1/pooled",
+      "n": 1530,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch063_u2/pooled",
+      "n": 1530,
+      "abs_diff": 0.0041
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch057_u1/pooled",
+      "n": 1530,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch017_u1/pooled",
+      "n": 1530,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch084_u1/pooled",
+      "n": 1530,
+      "abs_diff": 0.0049
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch022_u1/pooled",
+      "n": 1531,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch082_u1/pooled",
+      "n": 1531,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch013_u2/pooled",
+      "n": 1531,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch014_u1/pooled",
+      "n": 1531,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch075_u2/pooled",
+      "n": 1532,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch044_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch072_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch081_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch040_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch045_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch052_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch080_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch019_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch072_u2/pooled",
+      "n": 1532,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch008_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch021_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch024_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch076_u2/pooled",
+      "n": 1532,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch016_u2/pooled",
+      "n": 1532,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch040_u1/pooled",
+      "n": 1532,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch010_u1/pooled",
+      "n": 1533,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch062_u1/pooled",
+      "n": 1533,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch016_u1/pooled",
+      "n": 1533,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch049_u1/pooled",
+      "n": 1533,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch052_u1/pooled",
+      "n": 1533,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch026_u1/pooled",
+      "n": 1534,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch016_u1/pooled",
+      "n": 1534,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch054_u1/pooled",
+      "n": 1534,
+      "abs_diff": 0.0147
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch025_u2/pooled",
+      "n": 1534,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch024_u1/pooled",
+      "n": 1534,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch045_u1/pooled",
+      "n": 1534,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch086_u1/pooled",
+      "n": 1534,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch039_u3/pooled",
+      "n": 1534,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch082_u1/pooled",
+      "n": 1535,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch048_u2/pooled",
+      "n": 1535,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch054_u1/pooled",
+      "n": 1535,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch077_u1/pooled",
+      "n": 1535,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch036_u2/pooled",
+      "n": 1535,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch060_u1/pooled",
+      "n": 1535,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch089_u2/pooled",
+      "n": 1535,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch053_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch032_u2/pooled",
+      "n": 1536,
+      "abs_diff": 0.0087
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch076_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch093_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch072_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0056
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch023_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch030_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch059_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch053_u1/pooled",
+      "n": 1536,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch018_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch089_u2/pooled",
+      "n": 1537,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch014_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch023_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch050_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch057_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch016_u2/pooled",
+      "n": 1537,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch064_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch089_u1/pooled",
+      "n": 1537,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch040_u1/pooled",
+      "n": 1538,
+      "abs_diff": 0.0041
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch044_u1/pooled",
+      "n": 1538,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch073_u3/pooled",
+      "n": 1538,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch050_u1/pooled",
+      "n": 1538,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch085_u1/pooled",
+      "n": 1538,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch036_u1/pooled",
+      "n": 1539,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch020_u1/pooled",
+      "n": 1539,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch002_u1/pooled",
+      "n": 1539,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch009_u1/pooled",
+      "n": 1539,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch080_u2/pooled",
+      "n": 1539,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch021_u1/pooled",
+      "n": 1540,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch016_u2/pooled",
+      "n": 1540,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch016_u2/pooled",
+      "n": 1540,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch032_u2/pooled",
+      "n": 1540,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch054_u1/pooled",
+      "n": 1540,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch011_u1/pooled",
+      "n": 1540,
+      "abs_diff": 0.0067
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch045_u1/pooled",
+      "n": 1540,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch083_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch049_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch061_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch064_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch090_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch010_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch011_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch046_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch008_u1/pooled",
+      "n": 1541,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch090_u2/pooled",
+      "n": 1541,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch040_u1/pooled",
+      "n": 1542,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch086_u1/pooled",
+      "n": 1542,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch094_u1/pooled",
+      "n": 1542,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch043_u1/pooled",
+      "n": 1542,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch013_u1/pooled",
+      "n": 1542,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch032_u2/pooled",
+      "n": 1542,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch089_u1/pooled",
+      "n": 1542,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch089_u1/pooled",
+      "n": 1543,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch078_u1/pooled",
+      "n": 1543,
+      "abs_diff": 0.0047
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch022_u1/pooled",
+      "n": 1543,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch054_u1/pooled",
+      "n": 1544,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch076_u1/pooled",
+      "n": 1544,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch078_u1/pooled",
+      "n": 1544,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch008_u2/pooled",
+      "n": 1544,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch074_u1/pooled",
+      "n": 1545,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch090_u1/pooled",
+      "n": 1545,
+      "abs_diff": 0.0041
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch087_u1/pooled",
+      "n": 1545,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch047_u1/pooled",
+      "n": 1545,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch075_u1/pooled",
+      "n": 1545,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch048_u3/pooled",
+      "n": 1546,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch068_u1/pooled",
+      "n": 1546,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch061_u1/pooled",
+      "n": 1546,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch077_u2/pooled",
+      "n": 1546,
+      "abs_diff": 0.0912
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch024_u1/pooled",
+      "n": 1546,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch040_u1/pooled",
+      "n": 1546,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch055_u1/pooled",
+      "n": 1546,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch041_u1/pooled",
+      "n": 1546,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch039_u2/pooled",
+      "n": 1547,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch030_u1/pooled",
+      "n": 1547,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch089_u1/pooled",
+      "n": 1547,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch036_u1/pooled",
+      "n": 1547,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch026_u1/pooled",
+      "n": 1547,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch023_u2/pooled",
+      "n": 1547,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch060_u1/pooled",
+      "n": 1547,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch022_u1/pooled",
+      "n": 1548,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch045_u1/pooled",
+      "n": 1548,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch086_u1/pooled",
+      "n": 1548,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch018_u1/pooled",
+      "n": 1548,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch062_u1/pooled",
+      "n": 1548,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch086_u1/pooled",
+      "n": 1548,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch031_u1/pooled",
+      "n": 1549,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch051_u1/pooled",
+      "n": 1549,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch087_u1/pooled",
+      "n": 1549,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch017_u1/pooled",
+      "n": 1550,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch075_u2/pooled",
+      "n": 1550,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch025_u1/pooled",
+      "n": 1550,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch072_u1/pooled",
+      "n": 1550,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch089_u1/pooled",
+      "n": 1550,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch027_u1/pooled",
+      "n": 1550,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch024_u1/pooled",
+      "n": 1550,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch022_u2/pooled",
+      "n": 1550,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch014_u1/pooled",
+      "n": 1551,
+      "abs_diff": 0.0048
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch075_u2/pooled",
+      "n": 1551,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch021_u1/pooled",
+      "n": 1551,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch044_u1/pooled",
+      "n": 1551,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch062_u1/pooled",
+      "n": 1551,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch095_u1/pooled",
+      "n": 1551,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch017_u2/pooled",
+      "n": 1552,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch045_u2/pooled",
+      "n": 1552,
+      "abs_diff": 0.0062
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch009_u1/pooled",
+      "n": 1552,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch042_u2/pooled",
+      "n": 1552,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch017_u1/pooled",
+      "n": 1552,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch066_u3/pooled",
+      "n": 1552,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch007_u1/pooled",
+      "n": 1552,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch061_u1/pooled",
+      "n": 1553,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch039_u1/pooled",
+      "n": 1553,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch066_u1/pooled",
+      "n": 1553,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch022_u1/pooled",
+      "n": 1553,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch055_u1/pooled",
+      "n": 1553,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch061_u2/pooled",
+      "n": 1553,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch075_u1/pooled",
+      "n": 1554,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch008_u2/pooled",
+      "n": 1554,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch090_u2/pooled",
+      "n": 1555,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch001_u1/pooled",
+      "n": 1555,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch007_u1/pooled",
+      "n": 1556,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch021_u1/pooled",
+      "n": 1556,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch022_u1/pooled",
+      "n": 1556,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch081_u1/pooled",
+      "n": 1556,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch081_u1/pooled",
+      "n": 1556,
+      "abs_diff": 0.0047
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch057_u2/pooled",
+      "n": 1557,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch027_u1/pooled",
+      "n": 1557,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch016_u1/pooled",
+      "n": 1557,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch064_u1/pooled",
+      "n": 1557,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch064_u1/pooled",
+      "n": 1557,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch088_u1/pooled",
+      "n": 1557,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch014_u1/pooled",
+      "n": 1558,
+      "abs_diff": 0.0053
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch064_u1/pooled",
+      "n": 1558,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch035_u1/pooled",
+      "n": 1558,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch032_u1/pooled",
+      "n": 1558,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch047_u1/pooled",
+      "n": 1558,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch044_u2/pooled",
+      "n": 1559,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch053_u2/pooled",
+      "n": 1559,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch022_u2/pooled",
+      "n": 1559,
+      "abs_diff": 0.0069
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch084_u1/pooled",
+      "n": 1559,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch008_u2/pooled",
+      "n": 1560,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch071_u2/pooled",
+      "n": 1561,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch010_u2/pooled",
+      "n": 1561,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch095_u2/pooled",
+      "n": 1561,
+      "abs_diff": 0.0109
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch079_u1/pooled",
+      "n": 1561,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch011_u2/pooled",
+      "n": 1561,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch047_u3/pooled",
+      "n": 1562,
+      "abs_diff": 0.0079
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch062_u1/pooled",
+      "n": 1562,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch090_u1/pooled",
+      "n": 1562,
+      "abs_diff": 0.0136
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch021_u3/pooled",
+      "n": 1562,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch017_u1/pooled",
+      "n": 1562,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch064_u1/pooled",
+      "n": 1562,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch076_u1/pooled",
+      "n": 1562,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch078_u2/pooled",
+      "n": 1562,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch043_u3/pooled",
+      "n": 1563,
+      "abs_diff": 0.0442
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch044_u1/pooled",
+      "n": 1563,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch096_u1/pooled",
+      "n": 1563,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch049_u1/pooled",
+      "n": 1563,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch094_u1/pooled",
+      "n": 1563,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch013_u1/pooled",
+      "n": 1563,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch089_u2/pooled",
+      "n": 1563,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch058_u2/pooled",
+      "n": 1563,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch024_u1/pooled",
+      "n": 1564,
+      "abs_diff": 0.0085
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch030_u1/pooled",
+      "n": 1564,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch024_u2/pooled",
+      "n": 1564,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch012_u1/pooled",
+      "n": 1565,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch039_u2/pooled",
+      "n": 1565,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch086_u1/pooled",
+      "n": 1565,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch013_u2/pooled",
+      "n": 1565,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch028_u1/pooled",
+      "n": 1566,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch090_u3/pooled",
+      "n": 1566,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch014_u3/pooled",
+      "n": 1566,
+      "abs_diff": 0.0049
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch059_u1/pooled",
+      "n": 1566,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch016_u1/pooled",
+      "n": 1566,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch031_u1/pooled",
+      "n": 1566,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch084_u1/pooled",
+      "n": 1566,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch083_u1/pooled",
+      "n": 1567,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch060_u1/pooled",
+      "n": 1567,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch010_u1/pooled",
+      "n": 1567,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch017_u2/pooled",
+      "n": 1568,
+      "abs_diff": 0.0115
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch030_u2/pooled",
+      "n": 1568,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch040_u2/pooled",
+      "n": 1568,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch010_u1/pooled",
+      "n": 1568,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch050_u1/pooled",
+      "n": 1570,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch005_u1/pooled",
+      "n": 1570,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch080_u2/pooled",
+      "n": 1570,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch049_u1/pooled",
+      "n": 1570,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch080_u2/pooled",
+      "n": 1570,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch039_u1/pooled",
+      "n": 1570,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch011_u2/pooled",
+      "n": 1570,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch046_u1/pooled",
+      "n": 1570,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch007_u2/pooled",
+      "n": 1571,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch043_u1/pooled",
+      "n": 1571,
+      "abs_diff": 0.0067
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch027_u1/pooled",
+      "n": 1571,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch072_u1/pooled",
+      "n": 1571,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch021_u2/pooled",
+      "n": 1571,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch045_u2/pooled",
+      "n": 1571,
+      "abs_diff": 0.0096
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch080_u2/pooled",
+      "n": 1572,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch053_u1/pooled",
+      "n": 1572,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch011_u2/pooled",
+      "n": 1572,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch014_u1/pooled",
+      "n": 1573,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch076_u3/pooled",
+      "n": 1573,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch085_u1/pooled",
+      "n": 1573,
+      "abs_diff": 0.0103
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch050_u1/pooled",
+      "n": 1573,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch086_u1/pooled",
+      "n": 1573,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch085_u1/pooled",
+      "n": 1573,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch073_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch079_u2/pooled",
+      "n": 1574,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch017_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch018_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.0079
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch022_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch045_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch065_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch016_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch057_u1/pooled",
+      "n": 1574,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch007_u3/pooled",
+      "n": 1575,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch019_u1/pooled",
+      "n": 1575,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch077_u2/pooled",
+      "n": 1575,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch042_u2/pooled",
+      "n": 1575,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch051_u1/pooled",
+      "n": 1575,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch011_u1/pooled",
+      "n": 1575,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch039_u1/pooled",
+      "n": 1576,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch004_u1/pooled",
+      "n": 1576,
+      "abs_diff": 0.0131
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch093_u1/pooled",
+      "n": 1576,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch052_u2/pooled",
+      "n": 1576,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch022_u1/pooled",
+      "n": 1576,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch086_u1/pooled",
+      "n": 1576,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch039_u1/pooled",
+      "n": 1577,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch079_u1/pooled",
+      "n": 1578,
+      "abs_diff": 0.0043
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch095_u1/pooled",
+      "n": 1578,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch018_u1/pooled",
+      "n": 1578,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch028_u1/pooled",
+      "n": 1578,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch077_u1/pooled",
+      "n": 1579,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch043_u1/pooled",
+      "n": 1579,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch076_u2/pooled",
+      "n": 1579,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch073_u1/pooled",
+      "n": 1580,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch044_u1/pooled",
+      "n": 1580,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch079_u1/pooled",
+      "n": 1581,
+      "abs_diff": 0.0136
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch054_u1/pooled",
+      "n": 1581,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch062_u1/pooled",
+      "n": 1581,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch056_u1/pooled",
+      "n": 1581,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch034_u1/pooled",
+      "n": 1582,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch059_u1/pooled",
+      "n": 1582,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch066_u3/pooled",
+      "n": 1582,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch019_u1/pooled",
+      "n": 1582,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch009_u1/pooled",
+      "n": 1582,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch039_u3/pooled",
+      "n": 1582,
+      "abs_diff": 0.0088
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch058_u1/pooled",
+      "n": 1582,
+      "abs_diff": 0.0043
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch054_u1/pooled",
+      "n": 1583,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch014_u2/pooled",
+      "n": 1583,
+      "abs_diff": 0.0621
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch092_u1/pooled",
+      "n": 1583,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch082_u1/pooled",
+      "n": 1584,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch021_u3/pooled",
+      "n": 1584,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch078_u2/pooled",
+      "n": 1584,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch053_u1/pooled",
+      "n": 1584,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch092_u1/pooled",
+      "n": 1584,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch041_u1/pooled",
+      "n": 1584,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch079_u2/pooled",
+      "n": 1584,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "dirichlet-real-Sp",
+      "n": 1584,
+      "abs_diff": 0.0232
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch008_u1/pooled",
+      "n": 1585,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch057_u2/pooled",
+      "n": 1585,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch024_u2/pooled",
+      "n": 1585,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch023_u1/pooled",
+      "n": 1585,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch087_u1/pooled",
+      "n": 1585,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch080_u1/pooled",
+      "n": 1586,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch046_u1/pooled",
+      "n": 1586,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch048_u3/pooled",
+      "n": 1586,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch045_u1/pooled",
+      "n": 1586,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch085_u2/pooled",
+      "n": 1586,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch030_u2/pooled",
+      "n": 1587,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch050_u1/pooled",
+      "n": 1587,
+      "abs_diff": 0.0073
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch093_u1/pooled",
+      "n": 1587,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch036_u2/pooled",
+      "n": 1588,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch089_u1/pooled",
+      "n": 1588,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch083_u1/pooled",
+      "n": 1588,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch049_u1/pooled",
+      "n": 1589,
+      "abs_diff": 0.0057
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch080_u1/pooled",
+      "n": 1589,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch001_u2/pooled",
+      "n": 1589,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch018_u2/pooled",
+      "n": 1589,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch087_u1/pooled",
+      "n": 1589,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch010_u1/pooled",
+      "n": 1589,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch057_u2/pooled",
+      "n": 1589,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch027_u1/pooled",
+      "n": 1589,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch044_u2/pooled",
+      "n": 1590,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch027_u1/pooled",
+      "n": 1590,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch088_u2/pooled",
+      "n": 1590,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch025_u1/pooled",
+      "n": 1590,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch060_u1/pooled",
+      "n": 1590,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch041_u1/pooled",
+      "n": 1590,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch044_u1/pooled",
+      "n": 1591,
+      "abs_diff": 0.0088
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch043_u3/pooled",
+      "n": 1591,
+      "abs_diff": 0.0047
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch036_u1/pooled",
+      "n": 1591,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch046_u1/pooled",
+      "n": 1591,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch075_u2/pooled",
+      "n": 1591,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch028_u2/pooled",
+      "n": 1592,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch055_u1/pooled",
+      "n": 1592,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch040_u1/pooled",
+      "n": 1592,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch053_u1/pooled",
+      "n": 1592,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch079_u1/pooled",
+      "n": 1592,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch057_u1/pooled",
+      "n": 1592,
+      "abs_diff": 0.0076
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch045_u2/pooled",
+      "n": 1592,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch078_u1/pooled",
+      "n": 1592,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch083_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch083_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch036_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch090_u2/pooled",
+      "n": 1593,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch058_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch075_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch058_u2/pooled",
+      "n": 1593,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch077_u3/pooled",
+      "n": 1593,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch014_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch054_u1/pooled",
+      "n": 1593,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch080_u2/pooled",
+      "n": 1593,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch074_u1/pooled",
+      "n": 1594,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch080_u1/pooled",
+      "n": 1594,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch095_u1/pooled",
+      "n": 1594,
+      "abs_diff": 0.005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch087_u1/pooled",
+      "n": 1595,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch041_u1/pooled",
+      "n": 1595,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch059_u1/pooled",
+      "n": 1595,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch075_u1/pooled",
+      "n": 1595,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch079_u2/pooled",
+      "n": 1596,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch094_u2/pooled",
+      "n": 1596,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch075_u1/pooled",
+      "n": 1596,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch027_u1/pooled",
+      "n": 1596,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch019_u1/pooled",
+      "n": 1596,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "gaussian-primes",
+      "cell": "gaussian_X1e5",
+      "n": 1596,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch089_u2/pooled",
+      "n": 1597,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch006_u1/pooled",
+      "n": 1598,
+      "abs_diff": 0.0397
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch081_u1/pooled",
+      "n": 1599,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch015_u2/pooled",
+      "n": 1599,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch077_u2/pooled",
+      "n": 1599,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch057_u1/pooled",
+      "n": 1600,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch008_u2/pooled",
+      "n": 1600,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch069_u1/pooled",
+      "n": 1600,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch058_u1/pooled",
+      "n": 1601,
+      "abs_diff": 0.0046
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch095_u1/pooled",
+      "n": 1601,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch025_u1/pooled",
+      "n": 1601,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch069_u2/pooled",
+      "n": 1602,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch007_u1/pooled",
+      "n": 1603,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch083_u1/pooled",
+      "n": 1603,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch039_u2/pooled",
+      "n": 1603,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch051_u1/pooled",
+      "n": 1604,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch096_u1/pooled",
+      "n": 1605,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch085_u1/pooled",
+      "n": 1605,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch060_u1/pooled",
+      "n": 1606,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch051_u1/pooled",
+      "n": 1606,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch044_u1/pooled",
+      "n": 1607,
+      "abs_diff": 0.0054
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch013_u2/pooled",
+      "n": 1607,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch049_u3/pooled",
+      "n": 1607,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch068_u1/pooled",
+      "n": 1607,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch039_u1/pooled",
+      "n": 1608,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch043_u1/pooled",
+      "n": 1608,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch078_u2/pooled",
+      "n": 1608,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch068_u2/pooled",
+      "n": 1608,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch012_u1/pooled",
+      "n": 1608,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch057_u1/pooled",
+      "n": 1608,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch011_u1/pooled",
+      "n": 1609,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch058_u1/pooled",
+      "n": 1609,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch029_u1/pooled",
+      "n": 1609,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch067_u1/pooled",
+      "n": 1609,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch068_u1/pooled",
+      "n": 1610,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch090_u1/pooled",
+      "n": 1610,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch088_u1/pooled",
+      "n": 1610,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch063_u2/pooled",
+      "n": 1611,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch058_u2/pooled",
+      "n": 1611,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch023_u2/pooled",
+      "n": 1612,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch057_u2/pooled",
+      "n": 1612,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch024_u2/pooled",
+      "n": 1612,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch081_u1/pooled",
+      "n": 1613,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch088_u1/pooled",
+      "n": 1613,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch090_u1/pooled",
+      "n": 1613,
+      "abs_diff": 0.0073
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch092_u1/pooled",
+      "n": 1613,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch063_u2/pooled",
+      "n": 1614,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch085_u1/pooled",
+      "n": 1614,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch053_u1/pooled",
+      "n": 1615,
+      "abs_diff": 0.0071
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch090_u1/pooled",
+      "n": 1616,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch050_u1/pooled",
+      "n": 1616,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch065_u1/pooled",
+      "n": 1616,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch094_u1/pooled",
+      "n": 1617,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch018_u2/pooled",
+      "n": 1618,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch034_u1/pooled",
+      "n": 1618,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch015_u2/pooled",
+      "n": 1619,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch058_u2/pooled",
+      "n": 1619,
+      "abs_diff": 0.0087
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch054_u2/pooled",
+      "n": 1620,
+      "abs_diff": 0.0235
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch039_u3/pooled",
+      "n": 1620,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch087_u1/pooled",
+      "n": 1620,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch057_u2/pooled",
+      "n": 1620,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch020_u1/pooled",
+      "n": 1621,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch088_u1/pooled",
+      "n": 1621,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch021_u2/pooled",
+      "n": 1622,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch029_u1/pooled",
+      "n": 1622,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch024_u1/pooled",
+      "n": 1623,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch052_u1/pooled",
+      "n": 1623,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch051_u1/pooled",
+      "n": 1623,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch014_u1/pooled",
+      "n": 1623,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch025_u1/pooled",
+      "n": 1623,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch085_u1/pooled",
+      "n": 1625,
+      "abs_diff": 0.004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch047_u1/pooled",
+      "n": 1625,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch087_u3/pooled",
+      "n": 1625,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch018_u2/pooled",
+      "n": 1625,
+      "abs_diff": 0.0057
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch025_u2/pooled",
+      "n": 1625,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch061_u2/pooled",
+      "n": 1625,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch084_u1/pooled",
+      "n": 1626,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch055_u1/pooled",
+      "n": 1626,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch056_u1/pooled",
+      "n": 1626,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch013_u3/pooled",
+      "n": 1627,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch090_u1/pooled",
+      "n": 1627,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch090_u2/pooled",
+      "n": 1628,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch008_u2/pooled",
+      "n": 1628,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch087_u1/pooled",
+      "n": 1628,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch004_u1/pooled",
+      "n": 1629,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch061_u2/pooled",
+      "n": 1630,
+      "abs_diff": 0.0055
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch086_u1/pooled",
+      "n": 1631,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch013_u2/pooled",
+      "n": 1632,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch046_u1/pooled",
+      "n": 1632,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch096_u1/pooled",
+      "n": 1632,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch077_u3/pooled",
+      "n": 1633,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch080_u2/pooled",
+      "n": 1633,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch016_u1/pooled",
+      "n": 1633,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch050_u1/pooled",
+      "n": 1633,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch017_u2/pooled",
+      "n": 1633,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch080_u1/pooled",
+      "n": 1633,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch045_u1/pooled",
+      "n": 1633,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch080_u1/pooled",
+      "n": 1634,
+      "abs_diff": 0.0056
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch072_u2/pooled",
+      "n": 1635,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch083_u2/pooled",
+      "n": 1635,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch006_u2/pooled",
+      "n": 1635,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch060_u1/pooled",
+      "n": 1636,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch026_u1/pooled",
+      "n": 1636,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch093_u1/pooled",
+      "n": 1637,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch064_u1/pooled",
+      "n": 1638,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch078_u1/pooled",
+      "n": 1638,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch022_u1/pooled",
+      "n": 1639,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch086_u2/pooled",
+      "n": 1639,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch058_u1/pooled",
+      "n": 1639,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch004_u2/pooled",
+      "n": 1640,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch073_u2/pooled",
+      "n": 1640,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch088_u1/pooled",
+      "n": 1640,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch095_u1/pooled",
+      "n": 1640,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch085_u2/pooled",
+      "n": 1641,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch079_u2/pooled",
+      "n": 1641,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch053_u3/pooled",
+      "n": 1641,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch055_u1/pooled",
+      "n": 1642,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch024_u2/pooled",
+      "n": 1642,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch091_u1/pooled",
+      "n": 1643,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch052_u1/pooled",
+      "n": 1643,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch076_u2/pooled",
+      "n": 1643,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch015_u2/pooled",
+      "n": 1644,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch078_u1/pooled",
+      "n": 1645,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch061_u1/pooled",
+      "n": 1645,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch005_u1/pooled",
+      "n": 1646,
+      "abs_diff": 0.0142
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch046_u1/pooled",
+      "n": 1646,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch071_u1/pooled",
+      "n": 1647,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch076_u2/pooled",
+      "n": 1648,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch010_u1/pooled",
+      "n": 1648,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch076_u1/pooled",
+      "n": 1648,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch045_u1/pooled",
+      "n": 1649,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch058_u1/pooled",
+      "n": 1649,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch049_u1/pooled",
+      "n": 1649,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch074_u2/pooled",
+      "n": 1650,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch026_u1/pooled",
+      "n": 1651,
+      "abs_diff": 0.005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch018_u3/pooled",
+      "n": 1651,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch088_u1/pooled",
+      "n": 1651,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch051_u1/pooled",
+      "n": 1652,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch052_u1/pooled",
+      "n": 1652,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch079_u1/pooled",
+      "n": 1653,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch056_u1/pooled",
+      "n": 1654,
+      "abs_diff": 0.0044
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch086_u2/pooled",
+      "n": 1655,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch082_u1/pooled",
+      "n": 1655,
+      "abs_diff": 0.0689
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch036_u1/pooled",
+      "n": 1655,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch013_u1/pooled",
+      "n": 1656,
+      "abs_diff": 0.0049
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch096_u1/pooled",
+      "n": 1656,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch033_u1/pooled",
+      "n": 1656,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch079_u1/pooled",
+      "n": 1656,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch015_u1/pooled",
+      "n": 1657,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch045_u1/pooled",
+      "n": 1657,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch039_u1/pooled",
+      "n": 1658,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch012_u2/pooled",
+      "n": 1658,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch076_u1/pooled",
+      "n": 1658,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch084_u1/pooled",
+      "n": 1659,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch052_u1/pooled",
+      "n": 1660,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch093_u1/pooled",
+      "n": 1661,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch025_u1/pooled",
+      "n": 1661,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch047_u2/pooled",
+      "n": 1662,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch024_u3/pooled",
+      "n": 1662,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch019_u1/pooled",
+      "n": 1662,
+      "abs_diff": 0.0043
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch002_u1/pooled",
+      "n": 1662,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch033_u1/pooled",
+      "n": 1662,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch035_u1/pooled",
+      "n": 1663,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch044_u3/pooled",
+      "n": 1663,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch028_u1/pooled",
+      "n": 1664,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch058_u1/pooled",
+      "n": 1664,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch055_u2/pooled",
+      "n": 1664,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch051_u3/pooled",
+      "n": 1664,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch028_u4/pooled",
+      "n": 1664,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch092_u1/pooled",
+      "n": 1666,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch019_u1/pooled",
+      "n": 1666,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "L-zeros",
+      "cell": "zeta-low-height-bulk",
+      "n": 1668,
+      "abs_diff": 0.0084
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch043_u1/pooled",
+      "n": 1669,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch025_u1/pooled",
+      "n": 1670,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch060_u1/pooled",
+      "n": 1670,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch017_u3/pooled",
+      "n": 1671,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch009_u2/pooled",
+      "n": 1671,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch089_u1/pooled",
+      "n": 1672,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch012_u2/pooled",
+      "n": 1673,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch005_u2/pooled",
+      "n": 1673,
+      "abs_diff": 0.0297
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch042_u1/pooled",
+      "n": 1673,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch067_u1/pooled",
+      "n": 1674,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch010_u1/pooled",
+      "n": 1675,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch083_u1/pooled",
+      "n": 1675,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch030_u1/pooled",
+      "n": 1675,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch062_u2/pooled",
+      "n": 1675,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch040_u2/pooled",
+      "n": 1676,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch061_u2/pooled",
+      "n": 1677,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch017_u1/pooled",
+      "n": 1678,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch062_u2/pooled",
+      "n": 1678,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch035_u2/pooled",
+      "n": 1679,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch049_u1/pooled",
+      "n": 1680,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch060_u1/pooled",
+      "n": 1680,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch007_u1/pooled",
+      "n": 1680,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch084_u2/pooled",
+      "n": 1683,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch048_u1/pooled",
+      "n": 1683,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch060_u1/pooled",
+      "n": 1684,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch081_u1/pooled",
+      "n": 1685,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch018_u1/pooled",
+      "n": 1685,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch044_u3/pooled",
+      "n": 1686,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch074_u3/pooled",
+      "n": 1687,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch086_u2/pooled",
+      "n": 1688,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch066_u1/pooled",
+      "n": 1688,
+      "abs_diff": 0.0117
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch079_u1/pooled",
+      "n": 1688,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch090_u2/pooled",
+      "n": 1688,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch042_u3/pooled",
+      "n": 1690,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch027_u2/pooled",
+      "n": 1690,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch078_u1/pooled",
+      "n": 1690,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch093_u1/pooled",
+      "n": 1690,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch072_u1/pooled",
+      "n": 1692,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch059_u1/pooled",
+      "n": 1692,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch034_u1/pooled",
+      "n": 1693,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch015_u1/pooled",
+      "n": 1694,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch011_u1/pooled",
+      "n": 1695,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch089_u1/pooled",
+      "n": 1695,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch040_u2/pooled",
+      "n": 1696,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch049_u2/pooled",
+      "n": 1696,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch043_u2/pooled",
+      "n": 1697,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch013_u1/pooled",
+      "n": 1697,
+      "abs_diff": 0.0145
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch046_u2/pooled",
+      "n": 1697,
+      "abs_diff": 0.0086
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch058_u1/pooled",
+      "n": 1697,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch028_u2/pooled",
+      "n": 1698,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch017_u2/pooled",
+      "n": 1699,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch077_u2/pooled",
+      "n": 1700,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch015_u1/pooled",
+      "n": 1701,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch085_u1/pooled",
+      "n": 1701,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch002_u1/pooled",
+      "n": 1702,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch018_u1/pooled",
+      "n": 1703,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch090_u1/pooled",
+      "n": 1704,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch067_u1/pooled",
+      "n": 1705,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch027_u1/pooled",
+      "n": 1706,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch023_u2/pooled",
+      "n": 1707,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch032_u1/pooled",
+      "n": 1707,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch063_u1/pooled",
+      "n": 1708,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch020_u1/pooled",
+      "n": 1708,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch025_u2/pooled",
+      "n": 1708,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch089_u1/pooled",
+      "n": 1709,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch066_u3/pooled",
+      "n": 1709,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch072_u1/pooled",
+      "n": 1710,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch079_u1/pooled",
+      "n": 1710,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch075_u3/pooled",
+      "n": 1710,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch016_u2/pooled",
+      "n": 1710,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch056_u1/pooled",
+      "n": 1710,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch024_u1/pooled",
+      "n": 1714,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch047_u2/pooled",
+      "n": 1715,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch061_u3/pooled",
+      "n": 1715,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch094_u1/pooled",
+      "n": 1715,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch012_u1/pooled",
+      "n": 1717,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch093_u1/pooled",
+      "n": 1719,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch028_u3/pooled",
+      "n": 1719,
+      "abs_diff": 0.0065
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch079_u1/pooled",
+      "n": 1720,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch066_u2/pooled",
+      "n": 1721,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch032_u1/pooled",
+      "n": 1722,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch028_u2/pooled",
+      "n": 1723,
+      "abs_diff": 0.0035
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch056_u1/pooled",
+      "n": 1724,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch068_u1/pooled",
+      "n": 1724,
+      "abs_diff": 0.0054
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch054_u2/pooled",
+      "n": 1725,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch020_u1/pooled",
+      "n": 1726,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch076_u1/pooled",
+      "n": 1726,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch072_u1/pooled",
+      "n": 1727,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch020_u1/pooled",
+      "n": 1728,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch079_u1/pooled",
+      "n": 1730,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch082_u1/pooled",
+      "n": 1731,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch057_u1/pooled",
+      "n": 1733,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch086_u3/pooled",
+      "n": 1733,
+      "abs_diff": 0.0419
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch072_u1/pooled",
+      "n": 1733,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch069_u1/pooled",
+      "n": 1736,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch024_u1/pooled",
+      "n": 1736,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch080_u2/pooled",
+      "n": 1737,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch093_u3/pooled",
+      "n": 1739,
+      "abs_diff": 0.0083
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch016_u1/pooled",
+      "n": 1739,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch039_u1/pooled",
+      "n": 1739,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch046_u1/pooled",
+      "n": 1741,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch051_u1/pooled",
+      "n": 1741,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch023_u1/pooled",
+      "n": 1743,
+      "abs_diff": 0.0078
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch069_u1/pooled",
+      "n": 1743,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch033_u1/pooled",
+      "n": 1744,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch056_u3/pooled",
+      "n": 1744,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch059_u2/pooled",
+      "n": 1744,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch065_u1/pooled",
+      "n": 1745,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch023_u1/pooled",
+      "n": 1747,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch028_u1/pooled",
+      "n": 1748,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch020_u1/pooled",
+      "n": 1749,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch048_u2/pooled",
+      "n": 1750,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch050_u1/pooled",
+      "n": 1750,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch061_u1/pooled",
+      "n": 1751,
+      "abs_diff": 0.0034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch095_u3/pooled",
+      "n": 1753,
+      "abs_diff": 0.0666
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch060_u1/pooled",
+      "n": 1753,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch085_u3/pooled",
+      "n": 1754,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch079_u1/pooled",
+      "n": 1756,
+      "abs_diff": 0.0192
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch052_u1/pooled",
+      "n": 1757,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch010_u1/pooled",
+      "n": 1758,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch089_u2/pooled",
+      "n": 1758,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch050_u1/pooled",
+      "n": 1761,
+      "abs_diff": 0.0418
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch080_u1/pooled",
+      "n": 1761,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch007_u2/pooled",
+      "n": 1762,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch039_u2/pooled",
+      "n": 1763,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch058_u3/pooled",
+      "n": 1764,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch080_u1/pooled",
+      "n": 1765,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch065_u1/pooled",
+      "n": 1765,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch052_u1/pooled",
+      "n": 1766,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch022_u2/pooled",
+      "n": 1766,
+      "abs_diff": 0.0227
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch018_u1/pooled",
+      "n": 1767,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch067_u2/pooled",
+      "n": 1767,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch058_u1/pooled",
+      "n": 1767,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch014_u4/pooled",
+      "n": 1768,
+      "abs_diff": 0.0053
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch032_u2/pooled",
+      "n": 1769,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch049_u1/pooled",
+      "n": 1769,
+      "abs_diff": 0.0107
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch019_u1/pooled",
+      "n": 1771,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch028_u2/pooled",
+      "n": 1772,
+      "abs_diff": 0.014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch076_u1/pooled",
+      "n": 1774,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch078_u1/pooled",
+      "n": 1775,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch054_u1/pooled",
+      "n": 1776,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch025_u1/pooled",
+      "n": 1777,
+      "abs_diff": 0.0033
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch076_u1/pooled",
+      "n": 1777,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch075_u2/pooled",
+      "n": 1779,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch052_u2/pooled",
+      "n": 1779,
+      "abs_diff": 0.0068
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch020_u1/pooled",
+      "n": 1779,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch046_u1/pooled",
+      "n": 1781,
+      "abs_diff": 0.0144
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch044_u1/pooled",
+      "n": 1783,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch004_u2/pooled",
+      "n": 1783,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch092_u1/pooled",
+      "n": 1784,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch044_u3/pooled",
+      "n": 1789,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch075_u1/pooled",
+      "n": 1791,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch073_u2/pooled",
+      "n": 1792,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch024_u1/pooled",
+      "n": 1792,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch093_u2/pooled",
+      "n": 1793,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch035_u1/pooled",
+      "n": 1794,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch039_u1/pooled",
+      "n": 1796,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch087_u1/pooled",
+      "n": 1796,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch008_u1/pooled",
+      "n": 1802,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch027_u1/pooled",
+      "n": 1802,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch080_u1/pooled",
+      "n": 1805,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch022_u2/pooled",
+      "n": 1807,
+      "abs_diff": 0.0046
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_natural_movie/M1_ch052_u2/pooled",
+      "n": 1807,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch029_u1/pooled",
+      "n": 1809,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch054_u1/pooled",
+      "n": 1812,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch011_u3/pooled",
+      "n": 1812,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch092_u1/pooled",
+      "n": 1813,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch014_u2/pooled",
+      "n": 1814,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch074_u2/pooled",
+      "n": 1815,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch079_u2/pooled",
+      "n": 1816,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch085_u2/pooled",
+      "n": 1817,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch001_u1/pooled",
+      "n": 1820,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch075_u2/pooled",
+      "n": 1821,
+      "abs_diff": 0.0048
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch009_u1/pooled",
+      "n": 1821,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch077_u1/pooled",
+      "n": 1821,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch006_u1/pooled",
+      "n": 1824,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch036_u1/pooled",
+      "n": 1826,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch013_u3/pooled",
+      "n": 1828,
+      "abs_diff": 0.0163
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch045_u2/pooled",
+      "n": 1832,
+      "abs_diff": 0.0046
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch085_u3/pooled",
+      "n": 1833,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch086_u2/pooled",
+      "n": 1835,
+      "abs_diff": 0.0404
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch059_u1/pooled",
+      "n": 1835,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch010_u2/pooled",
+      "n": 1838,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch042_u3/pooled",
+      "n": 1838,
+      "abs_diff": 0.0037
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch047_u1/pooled",
+      "n": 1840,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch009_u1/pooled",
+      "n": 1840,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch025_u1/pooled",
+      "n": 1842,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch076_u2/pooled",
+      "n": 1846,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch086_u1/pooled",
+      "n": 1847,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch035_u2/pooled",
+      "n": 1847,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch058_u1/pooled",
+      "n": 1847,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch078_u1/pooled",
+      "n": 1848,
+      "abs_diff": 0.0299
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch094_u1/pooled",
+      "n": 1850,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch044_u2/pooled",
+      "n": 1852,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch025_u2/pooled",
+      "n": 1853,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch009_u1/pooled",
+      "n": 1853,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch055_u1/pooled",
+      "n": 1856,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch045_u2/pooled",
+      "n": 1857,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch085_u1/pooled",
+      "n": 1857,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch045_u1/pooled",
+      "n": 1859,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch079_u2/pooled",
+      "n": 1863,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch010_u2/pooled",
+      "n": 1867,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch054_u4/pooled",
+      "n": 1868,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch046_u2/pooled",
+      "n": 1869,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch085_u2/pooled",
+      "n": 1869,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch014_u1/pooled",
+      "n": 1870,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch075_u1/pooled",
+      "n": 1872,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch048_u2/pooled",
+      "n": 1873,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch084_u1/pooled",
+      "n": 1874,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch076_u1/pooled",
+      "n": 1874,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch084_u1/pooled",
+      "n": 1875,
+      "abs_diff": 0.0031
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch077_u1/pooled",
+      "n": 1875,
+      "abs_diff": 0.0079
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch045_u2/pooled",
+      "n": 1876,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch080_u4/pooled",
+      "n": 1876,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch057_u1/pooled",
+      "n": 1880,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch090_u2/pooled",
+      "n": 1880,
+      "abs_diff": 0.0309
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch007_u2/pooled",
+      "n": 1881,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch051_u1/pooled",
+      "n": 1882,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch036_u1/pooled",
+      "n": 1882,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch028_u2/pooled",
+      "n": 1882,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch051_u2/pooled",
+      "n": 1885,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch091_u2/pooled",
+      "n": 1889,
+      "abs_diff": 0.0038
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch017_u1/pooled",
+      "n": 1889,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch044_u1/pooled",
+      "n": 1891,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch076_u2/pooled",
+      "n": 1891,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch084_u1/pooled",
+      "n": 1893,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch050_u2/pooled",
+      "n": 1896,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch058_u3/pooled",
+      "n": 1898,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch015_u2/pooled",
+      "n": 1898,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch002_u2/pooled",
+      "n": 1901,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch087_u3/pooled",
+      "n": 1901,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch052_u2/pooled",
+      "n": 1901,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch085_u1/pooled",
+      "n": 1903,
+      "abs_diff": 0.0045
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch092_u3/pooled",
+      "n": 1914,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch071_u1/pooled",
+      "n": 1916,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_natural_movie/M2_ch062_u2/pooled",
+      "n": 1917,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch007_u1/pooled",
+      "n": 1918,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch047_u2/pooled",
+      "n": 1919,
+      "abs_diff": 0.0054
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch072_u2/pooled",
+      "n": 1923,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch089_u2/pooled",
+      "n": 1925,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch082_u1/pooled",
+      "n": 1926,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch038_u1/pooled",
+      "n": 1931,
+      "abs_diff": 0.0291
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch079_u3/pooled",
+      "n": 1934,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "mertens",
+      "cell": "full",
+      "n": 1934,
+      "abs_diff": 0.0029
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch070_u1/pooled",
+      "n": 1937,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch054_u2/pooled",
+      "n": 1937,
+      "abs_diff": 0.023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch084_u1/pooled",
+      "n": 1941,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch062_u2/pooled",
+      "n": 1942,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch059_u3/pooled",
+      "n": 1947,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch025_u1/pooled",
+      "n": 1949,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch035_u1/pooled",
+      "n": 1949,
+      "abs_diff": 0.0028
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch005_u1/pooled",
+      "n": 1950,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch089_u2/pooled",
+      "n": 1951,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch028_u3/pooled",
+      "n": 1952,
+      "abs_diff": 0.0025
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch011_u2/pooled",
+      "n": 1953,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch045_u1/pooled",
+      "n": 1954,
+      "abs_diff": 0.0072
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch022_u3/pooled",
+      "n": 1956,
+      "abs_diff": 0.017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch082_u2/pooled",
+      "n": 1956,
+      "abs_diff": 0.0493
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch021_u2/pooled",
+      "n": 1957,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch022_u1/pooled",
+      "n": 1958,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch050_u2/pooled",
+      "n": 1968,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch056_u2/pooled",
+      "n": 1969,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch059_u1/pooled",
+      "n": 1975,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch030_u2/pooled",
+      "n": 1975,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch024_u2/pooled",
+      "n": 1976,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch083_u3/pooled",
+      "n": 1978,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch071_u1/pooled",
+      "n": 1985,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch061_u2/pooled",
+      "n": 1988,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch061_u1/pooled",
+      "n": 1989,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch013_u2/pooled",
+      "n": 1991,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch012_u1/pooled",
+      "n": 1997,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch061_u1/pooled",
+      "n": 1998,
+      "abs_diff": 0.0068
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings_movie/M1_ch028_u2/pooled",
+      "n": 1999,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch054_u2/pooled",
+      "n": 2000,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch010_u1/pooled",
+      "n": 2000,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch079_u2/pooled",
+      "n": 2000,
+      "abs_diff": 0.0112
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch072_u1/pooled",
+      "n": 2017,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch015_u1/pooled",
+      "n": 2022,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch002_u1/pooled",
+      "n": 2036,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch017_u1/pooled",
+      "n": 2048,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch011_u2/pooled",
+      "n": 2057,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch082_u2/pooled",
+      "n": 2057,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch057_u2/pooled",
+      "n": 2058,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch076_u1/pooled",
+      "n": 2062,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch049_u1/pooled",
+      "n": 2074,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch050_u2/pooled",
+      "n": 2075,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch026_u2/pooled",
+      "n": 2079,
+      "abs_diff": 0.0039
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch060_u1/pooled",
+      "n": 2090,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch030_u1/pooled",
+      "n": 2096,
+      "abs_diff": 0.0078
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch006_u2/pooled",
+      "n": 2102,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch015_u3/pooled",
+      "n": 2103,
+      "abs_diff": 0.0015
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch072_u2/pooled",
+      "n": 2114,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch090_u2/pooled",
+      "n": 2118,
+      "abs_diff": 0.0032
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch088_u1/pooled",
+      "n": 2119,
+      "abs_diff": 0.0022
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch023_u1/pooled",
+      "n": 2125,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch036_u2/pooled",
+      "n": 2128,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch074_u1/pooled",
+      "n": 2133,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch014_u3/pooled",
+      "n": 2135,
+      "abs_diff": 0.034
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_noise_movie/M2_ch021_u2/pooled",
+      "n": 2135,
+      "abs_diff": 0.0
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch006_u1/pooled",
+      "n": 2138,
+      "abs_diff": 0.005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch001_u2/pooled",
+      "n": 2138,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch013_u3/pooled",
+      "n": 2142,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings_movie/M2_ch092_u1/pooled",
+      "n": 2165,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch014_u1/pooled",
+      "n": 2166,
+      "abs_diff": 0.0244
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch017_u1/pooled",
+      "n": 2167,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch006_u2/pooled",
+      "n": 2169,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch065_u2/pooled",
+      "n": 2174,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch027_u1/pooled",
+      "n": 2177,
+      "abs_diff": 0.003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch033_u2/pooled",
+      "n": 2181,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch085_u1/pooled",
+      "n": 2181,
+      "abs_diff": 0.0082
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch085_u1/pooled",
+      "n": 2184,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch080_u2/pooled",
+      "n": 2184,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch093_u2/pooled",
+      "n": 2194,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch077_u1/pooled",
+      "n": 2197,
+      "abs_diff": 0.0036
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch020_u2/pooled",
+      "n": 2201,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch054_u2/pooled",
+      "n": 2203,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch054_u2/pooled",
+      "n": 2224,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_noise_movie/M1_ch034_u1/pooled",
+      "n": 2250,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch089_u1/pooled",
+      "n": 2261,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch045_u2/pooled",
+      "n": 2267,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch021_u1/pooled",
+      "n": 2271,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch049_u1/pooled",
+      "n": 2272,
+      "abs_diff": 0.0021
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch037_u1/pooled",
+      "n": 2295,
+      "abs_diff": 0.0059
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch067_u2/pooled",
+      "n": 2341,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch064_u1/pooled",
+      "n": 2346,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch033_u2/pooled",
+      "n": 2347,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch081_u1/pooled",
+      "n": 2390,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch027_u1/pooled",
+      "n": 2405,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch088_u1/pooled",
+      "n": 2418,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch083_u2/pooled",
+      "n": 2426,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch081_u1/pooled",
+      "n": 2427,
+      "abs_diff": 0.0006
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch068_u2/pooled",
+      "n": 2434,
+      "abs_diff": 0.0004
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch085_u1/pooled",
+      "n": 2438,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch084_u2/pooled",
+      "n": 2449,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch050_u1/pooled",
+      "n": 2462,
+      "abs_diff": 0.0014
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch059_u1/pooled",
+      "n": 2463,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch030_u1/pooled",
+      "n": 2474,
+      "abs_diff": 0.002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch029_u1/pooled",
+      "n": 2476,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch019_u1/pooled",
+      "n": 2478,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch009_u1/pooled",
+      "n": 2485,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch004_u3/pooled",
+      "n": 2497,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch012_u2/pooled",
+      "n": 2498,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch012_u1/pooled",
+      "n": 2513,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch050_u1/pooled",
+      "n": 2518,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch085_u2/pooled",
+      "n": 2532,
+      "abs_diff": 0.0042
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch067_u1/pooled",
+      "n": 2535,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch017_u2/pooled",
+      "n": 2569,
+      "abs_diff": 0.0011
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_gratings/M1_ch044_u2/pooled",
+      "n": 2576,
+      "abs_diff": 0.0059
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch062_u1/pooled",
+      "n": 2604,
+      "abs_diff": 0.0043
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch019_u1/pooled",
+      "n": 2606,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch048_u2/pooled",
+      "n": 2607,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch013_u2/pooled",
+      "n": 2622,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch033_u1/pooled",
+      "n": 2634,
+      "abs_diff": 0.0019
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch038_u2/pooled",
+      "n": 2635,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_spontaneous/M3_ch029_u3/pooled",
+      "n": 2656,
+      "abs_diff": 0.0005
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch049_u3/pooled",
+      "n": 2700,
+      "abs_diff": 0.0013
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch023_u1/pooled",
+      "n": 2703,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch021_u2/pooled",
+      "n": 2706,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch052_u1/pooled",
+      "n": 2706,
+      "abs_diff": 0.0017
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch014_u2/pooled",
+      "n": 2713,
+      "abs_diff": 0.0016
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch043_u1/pooled",
+      "n": 2724,
+      "abs_diff": 0.0008
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch011_u1/pooled",
+      "n": 2740,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch011_u1/pooled",
+      "n": 2751,
+      "abs_diff": 0.0026
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch024_u3/pooled",
+      "n": 2761,
+      "abs_diff": 0.0023
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch089_u2/pooled",
+      "n": 2794,
+      "abs_diff": 0.0012
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch051_u4/pooled",
+      "n": 2800,
+      "abs_diff": 0.0027
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey1_spontaneous/M1_ch052_u1/pooled",
+      "n": 2815,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch040_u1/pooled",
+      "n": 2821,
+      "abs_diff": 0.0003
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey3_gratings/M3_ch059_u2/pooled",
+      "n": 2823,
+      "abs_diff": 0.0547
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch003_u1/pooled",
+      "n": 2829,
+      "abs_diff": 0.0009
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch017_u2/pooled",
+      "n": 2854,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch026_u2/pooled",
+      "n": 2893,
+      "abs_diff": 0.001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch008_u3/pooled",
+      "n": 2895,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey4_spontaneous/M4_ch039_u2/pooled",
+      "n": 2922,
+      "abs_diff": 0.0001
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch049_u2/pooled",
+      "n": 2932,
+      "abs_diff": 0.0018
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_gratings/M2_ch020_u1/pooled",
+      "n": 2932,
+      "abs_diff": 0.0024
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey5_spontaneous/M5_ch045_u1/pooled",
+      "n": 2951,
+      "abs_diff": 0.0007
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey2_spontaneous/M2_ch027_u1/pooled",
+      "n": 2967,
+      "abs_diff": 0.0002
+    },
+    {
+      "substrate": "pvc-11",
+      "cell": "monkey6_spontaneous/M6_ch060_u1/pooled",
+      "n": 2979,
+      "abs_diff": 0.0016
+    }
+  ],
+  "small_n": {
+    "smallN_fail_cells": [
+      {
+        "substrate": "liouville",
+        "cell": "sub_high",
+        "n": 41,
+        "abs_diff": 0.1704
+      }
+    ],
+    "condition_fail_cells_n_ge_300": 7,
+    "condition_fail_all_pvc11_gratings": true,
+    "max_n_that_fails_smallN": 41,
+    "min_n_that_agrees": 91,
+    "recommended_min_n": 100,
+    "note": "Two failure modes separated. SMALL-N: bracketed by largest-failing n=41 (liouville sub_high) and smallest-agreeing n=91; recommend n \u2265 100. CONDITION: the 7 large-n failures are all pvc-11 gratings (stimulus-locking), not a sample-size effect."
+  },
+  "pvc11_residual_by_condition": {
+    "gratings": {
+      "n": 210,
+      "mean_abs_diff": 0.0083,
+      "frac_gt_0p05": 0.033
+    },
+    "gratings_movie": {
+      "n": 155,
+      "mean_abs_diff": 0.0018,
+      "frac_gt_0p05": 0.0
+    },
+    "natural_movie": {
+      "n": 179,
+      "mean_abs_diff": 0.0018,
+      "frac_gt_0p05": 0.0
+    },
+    "noise_movie": {
+      "n": 175,
+      "mean_abs_diff": 0.0018,
+      "frac_gt_0p05": 0.0
+    },
+    "spontaneous": {
+      "n": 440,
+      "mean_abs_diff": 0.0017,
+      "frac_gt_0p05": 0.0
+    }
+  }
+}

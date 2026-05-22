@@ -134,3 +134,153 @@ N difference (full vs JPF-capped). *Possible implication (Will's to draw):* the 
 2a q-banded harvest may be effectively comparable to AM's matched leg for
 fingerprint-placement purposes. **One exception flagged:** liouville `sub_high`
 (n=41) diverges (0.889 vs 0.719) and fitters return None — small-sample, not trusted.
+
+---
+
+## 2026-05-21 — Landscape look (figures in cross_substrate/figures/)
+
+Three exploratory projections (`landscape_view.py`); descriptive only.
+
+- **P1 universal (I.5q × ARS.rep_med, all 10).** Kuramoto is a clear *trajectory*,
+  not a point: the K-sweep climbs rep_med 0→0.85 while I.5q stays mid (substrate-as-
+  trajectory, landscape §1). Arithmetic spectra (ζ/Dirichlet/EC, Maass, primes)
+  cluster bottom-left (low I.5q, low rep). pvc-11 + allen-np spread along rep≈0 at
+  mid I.5q. Mertens/Liouville far-right (far-from-GUE, no repulsion). Pulsar isolated
+  mid (direct-leg, not q-banded — comparison-invalid flag).
+- **P2 matched repulsion plane (Brody q × BR ρ, 7 substrates).** ζ-zeros sit at the
+  GUE corner (q=1, ρ=1) — the matched leg independently recovers Montgomery-Odlyzko.
+  Gaussian/Eisenstein primes + Maass intermediate (q≈0.2, ρ≈0.3). pvc-11 forms an arc
+  hugging the Poisson axis. Mertens/Liouville/Dirichlet/EC at the Poisson corner.
+- **Viewpoint-dependence (concrete instance).** pvc-11 and Mertens/Liouville COLLAPSE
+  together at the Poisson corner in Brody/BR space (all q≈0, ρ≈0), but W1δ separates
+  them sharply (1.10 vs 1.85). Which viewpoint you pick changes whether two substrates
+  look alike — the operational argument for carrying many viewpoints.
+- **CAVEAT — L-zeros is internally bimodal; its median masks it.** The 8 L-zeros cells
+  span the whole plane: ζ cells are GUE (q=1), Dirichlet/EC cells Poisson-leaning
+  (q≈0). The substrate is not a point. Read per-cell, never the pooled median (sibling
+  of the per-cell-vs-pooled lesson). [landscape.md §3 grouping caveat added; split TODO.]
+
+**Framework-doing-real-work notes (the predictions are paying out):**
+- **Multi-scope movement is real (Kuramoto).** The K-sweep is a connected *trajectory*
+  in (I.5q, rep_med), not a point — repulsion climbs 0→0.85 across coupling. Empirical
+  instance of landscape §1's "substrate-as-trajectory."
+- **Viewpoint-dependence is operationally meaningful.** pvc-11 and Mertens/Liouville are
+  indistinguishable in Brody/BR space (Poisson corner) yet sharply separated in W1δ
+  (1.10 vs 1.85). Which projection you pick changes the answer — the concrete
+  justification for carrying many viewpoints rather than one.
+
+---
+
+## 2026-05-21 — Agreement formalization: is I.5q an unbiased proxy for I.5?
+
+**Test.** Regress `I.5q = a + b·I.5` over matched cells; unbiased ⟺ b=1, a=0.
+(`agreement_check.py`, `agreement_check.json`, figures/AGR_proxy_and_floor.png.)
+
+**VERDICT — yes, unbiased within documented conditions.**
+
+| regression | n | slope | intercept | r | unbiased@5% |
+|---|--:|--:|--:|--:|:--:|
+| R1 pvc-11 internal (leg-only, N-matched) | 1159 | 1.001±0.002 | 0.001±0.001 | 0.998 | ✓ |
+| R2 per-substrate medians (equal wt, range 0.27–0.92) | 7 | 0.991±0.007 | 0.008±0.004 | 0.9999 | ✓ |
+| R3 all cells pooled | 1182 | 0.999±0.002 | 0.002±0.001 | 0.998 | ✗* |
+
+\*R3's "biased" flag is the pooled trap: n=1159 makes a **practically-negligible
+0.002 intercept** statistically significant. R1 (leg difference only, since pvc-11's
+two legs are both ~JPF-capped) and R2 (full dynamic range, each substrate one vote)
+are the honest reads — both unbiased. R2's slope=0.991 sits within 1σ of the slope=1
+the q-banded↔plain-NNS analytical relationship would predict.
+
+**Residual structure (where the proxy works vs whether it works) — two distinct
+failure modes, neither overturns the verdict:**
+1. **Small-N floor.** liouville `sub_high` (n=41) diverges (|diff|=0.17): too few
+   well-powered q-bands → unstable q-banded median. Bracketed by n=41 (fails) and
+   n=91 (agrees, |diff|=0.007). **Banked recommendation: require n ≥ 100** for the
+   I.5q↔I.5 comparison (and for trusting q-banded placement of low-event cells).
+2. **Stimulus-condition residual (NOT sample size).** All 7 large-n (1500–2800)
+   divergences are pvc-11 **drifting-gratings** units: mean|diff|=0.008, 3.3% exceed
+   0.05. Every other condition (spontaneous, natural/noise/gratings movie) agrees
+   near-perfectly (mean 0.0018, **0%** diverge). Strong stimulus-locking is the one
+   regime where the cheap proxy degrades — and even there only in a 3% tail.
+
+**STRATEGIC CONSEQUENCE.** I.5q is a trustworthy unbiased substitute for the matched
+I.5 for fingerprint *placement*, given n≥100 and away from strongly stimulus-locked
+trains. ⇒ **Allen and Kuramoto's 2a-only (q-banded) placement is trustable as-is; their
+medium/high-cost matched 2b recompute can be deferred or skipped.** Caveat to watch:
+if Allen includes drifting-grating conditions, expect a similar small divergent tail
+(placement-level, not disqualifying).
+
+---
+
+## 2026-05-21 — Gratings-divergence study: what drives the 3% tail (210 cells)
+
+`gratings_divergence.py` / `_results.json` / figures/GRD_*.png. Brief:
+`gratings_divergence_brief.md`. Verdict vocabulary applied with rate-control mandatory.
+
+**Conjecture REFUTED, sharper finding in its place.**
+
+- **F1/F0 (temporal stimulus-locking) — REFUTED.** |D|~F1/F0 Spearman ρ=+0.055 (p=0.43);
+  OSI~F1/F0 ≈ 0 (distinct axes). The divergence is NOT linear stimulus-locking /
+  drift-rhythmicity. Per-q Δ is flat across all 30 bands (DIFFUSE) — no temporal-frequency
+  resonance, reinforcing the refutation.
+- **OSI (orientation selectivity) — CONFIRMED, robust.** |D|~OSI Spearman ρ=+0.466
+  (p=1e-12). Survives every control: partial|rate ρ=0.44, |n ρ=0.46, |rate+n ρ=0.45,
+  and crucially |I.5+rate+n ρ=0.36 (p=8e-8) — i.e. NOT mere value-scaling, NOT rate, NOT n.
+  Orientation-selective gratings cells specifically drive the q-banded↔plain-NNS gap, and
+  the sign is q-banded > plain (signed D~OSI ρ=+0.29): the Farey leg reports cells as
+  slightly *less* GUE-like than plain-NNS, graded by tuning sharpness.
+- **DSI null** (ρ=0.085) — it's orientation, not direction, selectivity.
+
+**De-confounding bonus for H1.** OSI↔GUE-distance holds STRONGLY on BOTH legs —
+q-banded I.5q (ρ=0.739) AND matched plain-NNS I.5 (ρ=0.704). So the H1 finding
+(OSI↔ks_gue_med) is **not an artifact of the Farey q-banding machinery**; it replicates
+on plain unfolded-NNS. H1 is leg-robust — a real spike-train NNS property, strengthened.
+
+**Reframe.** The proxy-divergence `|I.5q − I.5|` is not noise: it is a small, OSI-graded
+substrate signal — a candidate landscape coordinate that responds to orientation tuning
+sharpness, distinct from (orthogonal to) the universality-class axes and from temporal
+stimulus-locking. Banked as viewpoints.md Family VII (inter-leg disagreement).
+
+### Cross-species follow-up — Allen mouse V1 (awake), session 732592105, 110 units
+
+`allen_osi_gap.py`. Read cached Allen .nwb directly via h5py (allensdk's EcephysSession
+loader version-mismatches these legacy files; allensdk-the-package is installed in
+venv_allen311 for future data *downloads*). Two clean results:
+
+- **OSI-gap is monkey-specific — does NOT recur in mouse awake V1.** |D|~OSI ρ=−0.02
+  (p=0.82) raw; partial|i5+rate+n = −0.20 (weakly negative, opposite to monkey's +0.36).
+  So the Family-VII OSI-graded divergence is NOT a universal V1 property — it
+  **differentiates** monkey-anesthetised from mouse-awake. The inter-leg axis carries
+  substrate/state-specific signal (answers the Family VII applicability question: it is
+  substrate-specific, not universal).
+- **H1 leg-robustness GENERALIZES cross-species.** OSI↔I.5q ρ=+0.478 AND OSI↔I.5(plain)
+  ρ=+0.486 — both legs in mouse, mirroring monkey (both ~0.70). So H1 (OSI↔ks_gue_med) is
+  not a Farey-machinery artifact in EITHER species. Mouse ρ≈0.48 vs monkey ≈0.70 tracks
+  the known ~58% awake-mouse attenuation (ars_claim_status). Banked as a cross-species
+  strengthening of H1.
+- **Caveat:** single session (the full OSI-characterised set in h1_allen_comparison.parquet);
+  a real but one-session test of the gap's absence.
+
+### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
+
+**H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-
+rational-aligned spike-time structure that q-banding picks up and plain-NNS averages
+out; therefore |D| should track F1/F0 and localize to stimulus-TF-related q-bands."
+
+**Killed by, directly:** (1) |D|~F1/F0 ρ=+0.055 (p=0.43) — no relationship; (2) per-q
+divergence is FLAT across all 30 bands (DIFFUSE) — no temporal-frequency resonance;
+(3) OSI~F1/F0 ≈ 0 — the real driver (OSI) is a distinct axis from the conjectured one.
+The divergence is about what the spike train *carries* (orientation-tuned firing
+structure), NOT what the stimulus *drives* at specific temporal frequencies. Do not
+revive the temporal-locking story.
+
+### Math-path opener (across-band mechanism — TESTED, redirected)
+
+`mathpath_acrossband.py`. Will's speculative mechanism: tuned cells have skewed/
+dispersed across-q-band ks_gue, so the band-median (I.5q) diverges from pooled (I.5).
+**Result: present but NOT the mediator.** Across-band dispersion weakly tracks OSI
+(std ρ=+0.18) and |D| (std ρ=+0.24); tuned cells have fewer GUE-like bands
+(frac<0.3 ~ OSI ρ=−0.21). BUT controlling |D|~OSI for band std+skew barely moves it
+(0.466→0.434). ⇒ **the math-path should NOT target across-band-uniformity** — that's a
+minor contributor. The residual OSI gap lives in how the **Farey-passage transform
+itself** (t·(a/q) mod 1) responds to orientation-tuned firing differently from the
+plain unit-mean unfold — a subtler, still-open derivation target.
