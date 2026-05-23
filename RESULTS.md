@@ -9902,9 +9902,19 @@ findings_log.md, coordinate `.jsonl` per substrate).
   anesthetised-SPECIFIC (absent in mouse) — Family VII differentiates
   state/species rather than reading universally.
 
-- **AM (Phase 1, in progress).** Phase 35 banked only the W1δ reduction;
-  eigenvalues re-extracted + banked (Stage A), converged-L unfold + matched
-  Family I/II running (Stage B) to place AM in the same object-(a) frame.
+- **AM (Phase 1, complete — 6 core cells).** Phase 35 banked only the W1δ
+  reduction; eigenvalues + unfolded event-trains now re-extracted and
+  PERMANENTLY banked, with matched Family I/II/VI per cell. Regeneration
+  verified bit-exact to Phase 35 (per-φ W1δ mean 0.3020 and per-φ spread
+  0.1151/0.3816/0.8470 reproduced). Reading: subcritical (λ=0.5) → clock-rigid
+  (W1δ≈0); supercritical (λ=1.5) → intermediate, drifting clock→Poisson with N
+  (W1δ 0.30→0.44→0.50; Brody q 1.0→0.81→0.54) — the L-underconvergence /
+  N-scaling pathology IS the fingerprint (VI.2 β≈2.87). Sub N=70k/125k banked as
+  not-L-converged (characterization). Compute: Stage B ran ~13.7 h (N=125k at
+  L=6.4×10⁶ ≈ 5.5 h/φ; single-task probe undercounted parallel makespan under
+  18-way memory-bandwidth contention — overran the 8 h cap). An aggregation bug
+  (concatenating φ-positions then re-diffing = a superposition artifact) was
+  caught by the Phase-35 reproduction check and corrected to per-φ aggregation.
 
 Methodology: matched-instrument across compared legs; carry every viewpoint
 and annotate comparison-validity rather than discarding non-matching

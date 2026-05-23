@@ -260,6 +260,45 @@ venv_allen311 for future data *downloads*). Two clean results:
 - **Caveat:** single session (the full OSI-characterised set in h1_allen_comparison.parquet);
   a real but one-session test of the gap's absence.
 
+---
+
+## 2026-05-22 — AM Phase 1 complete: 6 core cells matched-recompute (Night-1 brief)
+
+`am_reextract.py` (Stage A eigensolve+bank → Stage B unfold @ converged L →
+per-φ aggregate). Eigenvalues + unfolded event-trains PERMANENTLY banked
+(`coordinates/am_work/`). 6 cells: sup N=50k/70k/100k (λ=1.5, converged) + sub
+N=70k/100k/125k (λ=0.5; N=70k/125k not-L-converged, banked as characterization).
+
+| cell | W1δ | ks_gue | Brody q | BR ρ | Σ²(L) |
+|---|--:|--:|--:|--:|--:|
+| sup_N50k | 0.302 | 0.092 | 1.00 | 0.999 | 0.97 |
+| sup_N70k | 0.444 | 0.148 | 0.81 | 0.896 | 1.23 |
+| sup_N100k | 0.500 | 0.148 | 0.54 | 0.781 | 0.95 |
+| sub_N70k | 0.005 | 0.528 | (clock) | (clock) | 0.19 |
+| sub_N100k | 0.000 | 0.532 | (clock) | (clock) | 0.19 |
+| sub_N125k | 0.006 | 0.529 | (clock) | (clock) | 0.19 |
+
+- **Reading.** Subcritical (λ=0.5, AC spectrum) → clock-rigid (W1δ≈0; Brody pegs at
+  the rigid bound). Supercritical (λ=1.5, PP) → intermediate AND **N-drifting**
+  clock→Poisson (W1δ 0.30→0.50, q 1.0→0.54 over N=50k→100k). The L-underconvergence/
+  N-scaling pathology IS the AM fingerprint (VI.2 β≈2.87 across sup spreads).
+- **VERIFIED against Phase 35** (the matched leg is the same `unfold_rotnum`): per-φ W1δ
+  mean = 0.3020 and per-φ spread = 0.1151/0.3816/0.8470 reproduced bit-exact.
+
+**METHODS — φ-ensemble aggregation bug (caught + fixed).** First agg concatenated the
+16 φ unfolded *positions* and re-diffed → interleaves 16 separately-unfolded spectra =
+a SUPERPOSITION with spurious near-Poisson statistics (gave W1δ=0.146 for sup_N50k;
+sub cells falsely 1.8). Fixed: aggregate **per-φ** (Family II per-φ then mean; Family I
+on pooled per-φ *spacings*) — never concatenate positions across φ. The Phase-35
+reproduction check is what surfaced it (always verify a regeneration against
+ground-truth before banking).
+
+**METHODS — cost-probe underestimate.** Single-task probe projected ~3.5 h; actual
+~13.7 h. Causes: (1) N=125k not in the probe and largest by N·L; (2) the isolated-task
+probe ran at full memory bandwidth, but 18 concurrent large-`N×L` workers contend →
+~3–4× slower each. Lesson: probe at full worker count (or discount for bandwidth) for
+memory-bound array work; add a wall-clock halt to long runners.
+
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
 **H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-

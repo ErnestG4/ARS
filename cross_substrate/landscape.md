@@ -262,7 +262,7 @@ NNS marker `I.5q` = q-banded ks-to-GUE harvested into coordinates (Phase 2a); fu
 
 | Substrate | NNS / W1δ | RF | Universality class | p-adic | Mackey-Glass | Multifractal | Spectral | Cross-freq | 2pt / Σ² / K(τ) | H1-style | H2-style | F-style | Windowing |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| AM | ✓ (Phase 35, L-pathology) | | ◐ (at L-converged, open) | | — | | — | — | | — | — | sub↔sup | TBD per L_iter |
+| AM | ✓ matched I/II/VI (Phase 1, 6 cells) | — (no RF) | ✓ sub→clock, sup→intermediate(N-drift) | | — | | — | — | ◐ Σ²/Δ₃ | — | — | sub↔sup | ✓ VI.1 α + VI.2 β |
 | Fibonacci | ○ | ○ | ○ | | — | DGY known-truth | — | — | | — | — | — | — |
 | pvc-11 V1 | ✓ I.5q + matched W1δ/I/II (2b) | ✓ III (2a) | ✓ GUE-leaning | ◐ III | | | ✓ | ◐ | | ✓ OSI | ✓ | ✓ F1/F0 | ✓ |
 | Allen NP | ◐ I.5q (2a, 544 cells) | ✓ III (2a) | ◐ | ◐ III | | | ○ | ○ | | ○ planned | ◐ surrogate | ○ planned | ○ |
