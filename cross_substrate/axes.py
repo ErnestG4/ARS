@@ -197,41 +197,50 @@ def matched_L(n_events: int, frac: float = 0.02, lo: float = 5.0,
     return float(np.clip(n_events * frac, lo, hi))
 
 
+# long-range averages need only a bounded number of window placements; sliding by
+# tiny steps over all N events is wasteful and scales badly (was ~17 min/cell). Cap.
+N_WIN_CAP = 400          # window placements for the Σ²/Δ₃ averages
+DELTA3_EVAL = 64         # staircase eval points per Δ₃ window
+
+
+def _window_starts(e, L):
+    span = float(e[-1] - e[0])
+    if L >= span:
+        return None
+    n_win = int(np.clip(span / L, 5, N_WIN_CAP))   # ~independent windows, capped
+    return np.linspace(e[0], e[-1] - L, n_win)
+
+
 def II1_sigma2_at_L(positions, L: Optional[float] = None) -> Optional[float]:
-    """Number variance Σ²(L) at matched L. Reuses universality.number_variance
-    and reads the curve at the closest L."""
-    e = np.asarray(positions, dtype=np.float64)
-    if e.size < MIN_N_LONGRANGE:
-        return None
-    if L is None:
-        L = matched_L(e.size)
-    nv = number_variance(e, L_max=max(L * 1.5, 2.0), n_L=60)
-    Lv, s2 = nv["L"], nv["sigma2"]
-    if Lv.size == 0:
-        return None
-    i = int(np.argmin(np.abs(Lv - L)))
-    return None if not np.isfinite(s2[i]) else float(s2[i])
-
-
-def II2_delta3_at_L(positions, L: Optional[float] = None) -> Optional[float]:
-    """Spectral rigidity Δ₃(L): min mean-square deviation of the counting
-    staircase N(x) from a best-fit line over a window of length L, averaged
-    over sliding placements."""
+    """Number variance Σ²(L) = var(count in window of length L). Capped windows +
+    searchsorted (O(n_win·log N)), matched-L."""
     e = np.sort(np.asarray(positions, dtype=np.float64))
     if e.size < MIN_N_LONGRANGE:
         return None
     if L is None:
         L = matched_L(e.size)
-    span = float(e[-1] - e[0])
-    if L >= span:
+    x0 = _window_starts(e, L)
+    if x0 is None:
         return None
-    starts = np.arange(e[0], e[-1] - L, max(L * 0.25, 1.0))
-    if starts.size < 5:
+    counts = (np.searchsorted(e, x0 + L, "left")
+              - np.searchsorted(e, x0, "left")).astype(np.float64)
+    return float(np.var(counts, ddof=1)) if counts.size > 1 else None
+
+
+def II2_delta3_at_L(positions, L: Optional[float] = None) -> Optional[float]:
+    """Spectral rigidity Δ₃(L): mean-square deviation of the counting staircase
+    from a best-fit line over a length-L window, averaged over capped placements."""
+    e = np.sort(np.asarray(positions, dtype=np.float64))
+    if e.size < MIN_N_LONGRANGE:
+        return None
+    if L is None:
+        L = matched_L(e.size)
+    starts = _window_starts(e, L)
+    if starts is None or starts.size < 5:
         return None
     vals = []
     for x0 in starts:
-        x1 = x0 + L
-        xs = np.linspace(x0, x1, 200)
+        xs = np.linspace(x0, x0 + L, DELTA3_EVAL)
         Nx = np.searchsorted(e, xs, side="right").astype(np.float64)
         A = np.vstack([xs, np.ones_like(xs)]).T
         coef, *_ = np.linalg.lstsq(A, Nx, rcond=None)

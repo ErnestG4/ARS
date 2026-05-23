@@ -343,9 +343,13 @@ of ~1e-4 clock-floor values is not substantive — ratio-vs-magnitude (discrimin
 **METHODS — aggregator is the new bottleneck (not compute).** Stage B sub-θ finished in
 the projected time, but `--agg` is single-threaded and recomputes Family II (Σ²/Δ₃
 sliding-window/lstsq) per-φ for every cell: ~17 min/cell (50 min for 3), and `--cells all`
-re-crunches all 11 each run (~4 h, which I had to kill). FIX (queued): parallelize the
-aggregator across cells and/or cache per-cell records so only NEW cells recompute; the
-Δ₃ sliding-lstsq is the hot path. Pure post-processing on banked unfolds — cheap to fix.
+re-crunches all 11 each run (~4 h, which I had to kill). **FIXED (2026-05-23):** root
+cause was Family II over-sampling sliding windows (Δ₃ slid by L/4 → ~N/12 windows;
+Σ²'s `number_variance` used O(N) boolean masks per window). Capped window placements to
+≤400 + switched to searchsorted (`_window_starts` in axes.py). Result: full 11-cell agg
+**53 s (was ~3 h, ~200×)**; Family I byte-identical; Σ² now correctly →0 for clock-like
+substrates (sub 0.19→0.008). NOTE: pvc-11/arithmetic Family II were computed with the old
+window scheme — re-run for strict consistency is now cheap (a cross-substrate follow-up).
 
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
