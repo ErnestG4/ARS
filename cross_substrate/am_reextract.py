@@ -48,18 +48,33 @@ os.makedirs(WORK, exist_ok=True)
 N_PHI = 16
 PHIS = np.arange(N_PHI) / (2 * N_PHI)            # 16 pts in [0,0.5), spacing 1/32
 THETA = GOLDEN
+SILVER = np.sqrt(2.0) - 1.0                       # Diophantine alternative
+BRONZE = (np.sqrt(13.0) - 3.0) / 2.0              # bronze metallic mean frac ≈ 0.3028
+LIOUVILLE = sum(10.0 ** -e for e in (1, 2, 6, 24, 120, 720))  # Σ10^-k!, non-Diophantine ≈ 0.110001
 CELLS = [
     # core 6 (Night-1 brief §3, load-bearing rev-5.2.1). VI.1 α = banked Phase-35 loglog_alpha_mean.
-    {"name": "sup_N50k", "N": 50000, "lam": 1.5, "delta": 0.5, "L": 25_600_000, "alpha": -0.0068, "converged": True},
-    {"name": "sup_N70k", "N": 70000, "lam": 1.5, "delta": 0.5, "L": 25_600_000, "alpha": -0.0025, "converged": True},
-    {"name": "sup_N100k", "N": 100000, "lam": 1.5, "delta": 0.5, "L": 6_400_000, "alpha": -0.0094, "converged": True},
-    {"name": "sub_N70k", "N": 70000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "alpha": None, "converged": False},
-    {"name": "sub_N100k", "N": 100000, "lam": 0.5, "delta": 0.5, "L": 1_600_000, "alpha": None, "converged": True},
-    {"name": "sub_N125k", "N": 125000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "alpha": None, "converged": False},
+    {"name": "sup_N50k", "N": 50000, "lam": 1.5, "delta": 0.5, "L": 25_600_000, "theta": GOLDEN, "alpha": -0.0068, "converged": True},
+    {"name": "sup_N70k", "N": 70000, "lam": 1.5, "delta": 0.5, "L": 25_600_000, "theta": GOLDEN, "alpha": -0.0025, "converged": True},
+    {"name": "sup_N100k", "N": 100000, "lam": 1.5, "delta": 0.5, "L": 6_400_000, "theta": GOLDEN, "alpha": -0.0094, "converged": True},
+    {"name": "sub_N70k", "N": 70000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "theta": GOLDEN, "alpha": None, "converged": False},
+    {"name": "sub_N100k", "N": 100000, "lam": 0.5, "delta": 0.5, "L": 1_600_000, "theta": GOLDEN, "alpha": None, "converged": True},
+    {"name": "sub_N125k", "N": 125000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "theta": GOLDEN, "alpha": None, "converged": False},
+]
+# C1 θ-class extension (Night-2 brief): sup N=70k, L matched to golden sup_N70k.
+C1_CELLS = [
+    {"name": "sup_N70k_silver", "N": 70000, "lam": 1.5, "delta": 0.5, "L": 25_600_000, "theta": SILVER, "alpha": None, "converged": True},
+    {"name": "sup_N70k_liouville", "N": 70000, "lam": 1.5, "delta": 0.5, "L": 25_600_000, "theta": LIOUVILLE, "alpha": None, "converged": True},
+]
+# Extra-time tier: SUB-side θ-classes — the θ-SENSITIVE side (Phase 35: sub 3.55×
+# across classes). Matched to golden sub_N70k (λ=0.5, L=6.4e6). ~4× cheaper than sup C1.
+SUBC1_CELLS = [
+    {"name": "sub_N70k_silver", "N": 70000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "theta": SILVER, "alpha": None, "converged": False},
+    {"name": "sub_N70k_liouville", "N": 70000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "theta": LIOUVILLE, "alpha": None, "converged": False},
+    {"name": "sub_N70k_bronze", "N": 70000, "lam": 0.5, "delta": 0.5, "L": 6_400_000, "theta": BRONZE, "alpha": None, "converged": False},
 ]
 # VI.2 N-scaling β across the 3 sup cells (converged sup spreads, Phase 35 banked)
 SUP_N_SCALING = {"N": [50000, 70000, 100000], "spread": [0.1151, 0.3816, 0.847]}
-CMAP = {c["name"]: c for c in CELLS}
+CMAP = {c["name"]: c for c in CELLS + C1_CELLS + SUBC1_CELLS}
 
 
 def _eig_f(name, i):
@@ -78,7 +93,7 @@ def _eig_task(arg):
     if os.path.exists(f):
         return (name, i, "skip", 0.0)
     t0 = time.perf_counter()
-    e = am_eigs(c["lam"], c["N"], float(PHIS[i]), THETA)
+    e = am_eigs(c["lam"], c["N"], float(PHIS[i]), c["theta"])
     np.save(f, e)
     return (name, i, "ok", time.perf_counter() - t0)
 
@@ -92,7 +107,7 @@ def _unfold_task(arg):
         return (name, i, "skip", 0.0)
     e = np.load(_eig_f(name, i))
     t0 = time.perf_counter()
-    unf = unfold_rotnum(e, c["lam"], THETA, L, phis=(float(PHIS[i]),))
+    unf = unfold_rotnum(e, c["lam"], c["theta"], L, phis=(float(PHIS[i]),))
     np.save(f, unf)
     return (name, i, "ok", time.perf_counter() - t0)
 
@@ -111,27 +126,27 @@ def _run_pool(tasks, fn, workers, label):
     print(f"[{label}] complete in {(time.perf_counter()-t0)/60:.1f} min")
 
 
-def stage_A(workers):
-    _run_pool([(c["name"], i) for c in CELLS for i in range(N_PHI)],
+def stage_A(cells, workers):
+    _run_pool([(c["name"], i) for c in cells for i in range(N_PHI)],
               _eig_task, workers, "A")
 
 
-def stage_B(workers, Lcap=None):
-    tasks = [(c["name"], i, Lcap) for c in CELLS for i in range(N_PHI)]
+def stage_B(cells, workers, Lcap=None):
+    tasks = [(c["name"], i, Lcap) for c in cells for i in range(N_PHI)]
     missing = [(n, i) for (n, i, _) in tasks if not os.path.exists(_eig_f(n, i))]
     if missing:
         raise SystemExit(f"Stage A incomplete: {len(missing)} eigfiles missing. Run --stage A.")
     _run_pool(tasks, _unfold_task, workers, "B")
 
 
-def aggregate(Lcap=None):
+def aggregate(cells, Lcap=None):
     from cross_substrate.axes import (compute_family_I, compute_family_II,
                                        VI2_N_scaling_beta, canonical_spacings,
                                        I1_w1_clock)
     import datetime
     beta = VI2_N_scaling_beta(SUP_N_SCALING["N"], SUP_N_SCALING["spread"])  # VI.2 (substrate-level)
     recs = []
-    for c in CELLS:
+    for c in cells:
         L = min(c["L"], Lcap) if Lcap else c["L"]
         files = [_unf_f(c["name"], i, L) for i in range(N_PHI)]
         if not all(os.path.exists(f) for f in files):
@@ -166,8 +181,14 @@ def aggregate(Lcap=None):
             "applicable_axes_not_yet_computed": [],
             "non_applicable_axes": ["V.1_lyapunov", "V.2_correlation_dim",
                                     "III.1_p2", "III.4_scalar_sum"],  # no RF run in Phase 35
-            "extraction_method": f"unfold_rotnum @ L={L}, {N_PHI}φ pooled, θ=golden (matched object-a)",
+            "extraction_method": f"unfold_rotnum @ L={L}, {N_PHI}φ per-φ-agg, matched object-a",
             "extraction_audit": {"N": c["N"], "lam": c["lam"], "delta": c["delta"],
+                                 "theta": float(c["theta"]),
+                                 "theta_class": ("golden" if abs(c["theta"] - GOLDEN) < 1e-9
+                                                 else "silver" if abs(c["theta"] - SILVER) < 1e-9
+                                                 else "bronze" if abs(c["theta"] - BRONZE) < 1e-9
+                                                 else "liouville" if abs(c["theta"] - LIOUVILLE) < 1e-9
+                                                 else "other"),
                                  "L_target": L, "L_converged": c.get("converged"),
                                  "n_phi": N_PHI, "n_pooled_spacings": int(positions.size),
                                  "perphi_W1d_spread": w1_spread,
@@ -183,21 +204,50 @@ def aggregate(Lcap=None):
               f"W1δ={_fm(fI['I.1_w1_clock'])} ks_gue={_fm(fI['I.5_ks_gue'])} "
               f"brody={_fm(fI['I.8_brody_q'])} BRρ={_fm(fI['I.9_berry_robnik_rho'])}")
     if recs:
-        with open(os.path.join(COORD, "am.jsonl"), "w") as f:
-            for r in recs:
+        # MERGE by cell_id into existing am.jsonl (aggregating a subset preserves the rest)
+        path = os.path.join(COORD, "am.jsonl")
+        existing = {}
+        if os.path.exists(path):
+            for l in open(path):
+                r = json.loads(l)
+                existing[r["cell_id"]] = r
+        for r in recs:
+            existing[r["cell_id"]] = r
+        with open(path, "w") as f:
+            for r in existing.values():
                 f.write(json.dumps(r) + "\n")
-        print(f"  → wrote coordinates/am.jsonl ({len(recs)} cells)")
+        print(f"  → merged {len(recs)} cells into coordinates/am.jsonl "
+              f"({len(existing)} total)")
 
 
-def probe():
-    print("AM PHASE-1 COST PROBE")
-    for c in CELLS:
-        t0 = time.perf_counter(); e = am_eigs(c["lam"], c["N"], 0.0, THETA)
-        te = time.perf_counter() - t0
-        t1 = time.perf_counter(); unfold_rotnum(e, c["lam"], THETA, 200_000, (0.0,))
-        tu = (time.perf_counter() - t1) * (c["L"] / 200_000)
-        print(f"  {c['name']}: eig {te:.0f}s/φ, unfold proj {tu/60:.0f}min/φ "
-              f"(L={c['L']})")
+def probe(cells, workers=10):
+    """Re-probe at WORKER-COUNT concurrency (the N=125k lesson): run `workers`
+    φ-tasks of one cell concurrently at a moderate L, project to converged L."""
+    import numpy as _np
+    L_probe = 400_000
+    print(f"AM RE-PROBE @ {workers}-way concurrency (moderate L={L_probe})")
+    for c in cells:
+        ef = _eig_f(c["name"], 0)
+        if not os.path.exists(ef):
+            stage_A([c], workers)            # need eigenvalues first
+        e = _np.load(ef)
+        t0 = time.perf_counter()
+        with ProcessPoolExecutor(max_workers=workers) as ex:
+            list(ex.map(_probe_unfold, [(c["name"], L_probe)] * workers))
+        wave = time.perf_counter() - t0      # one wave => per-task wall under contention
+        per_task_full = wave * (c["L"] / L_probe)
+        makespan = per_task_full * N_PHI / workers
+        print(f"  {c['name']} θ={c['theta']:.6f}: {wave:.0f}s/wave@L={L_probe} "
+              f"→ {per_task_full/3600:.2f}h/φ @ L={c['L']} "
+              f"→ cell makespan ≈ {makespan/3600:.2f}h ({N_PHI}φ/{workers}w)")
+
+
+def _probe_unfold(arg):
+    name, L = arg
+    c = CMAP[name]
+    e = np.load(_eig_f(name, 0))
+    unfold_rotnum(e, c["lam"], c["theta"], L, phis=(float(PHIS[0]),))
+    return 0
 
 
 def main():
@@ -210,15 +260,19 @@ def main():
     # 5900x (worker_scaling_probe: 10→5.21× vs 18→4.62×; peaks at 10, declines
     # past it). 10 also leaves cores free. Don't raise without re-probing.
     ap.add_argument("--workers", type=int, default=10)
+    ap.add_argument("--cells", choices=["core", "c1", "subc1", "all"], default="core",
+                    help="core=golden 6; c1=sup silver+liouville; subc1=sub θ-classes; all=everything")
     a = ap.parse_args()
+    sel = {"core": CELLS, "c1": C1_CELLS, "subc1": SUBC1_CELLS,
+           "all": CELLS + C1_CELLS + SUBC1_CELLS}[a.cells]
     if a.probe:
-        probe()
+        probe(sel, a.workers)
     elif a.stage == "A":
-        stage_A(a.workers)
+        stage_A(sel, a.workers)
     elif a.stage == "B":
-        stage_B(a.workers, a.Lcap)
+        stage_B(sel, a.workers, a.Lcap)
     elif a.agg:
-        aggregate(a.Lcap)
+        aggregate(sel, a.Lcap)        # merges by cell_id; use --cells all for the full file
     else:
         ap.error("need --probe / --stage A / --stage B / --agg")
 
