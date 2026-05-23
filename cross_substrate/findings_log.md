@@ -326,11 +326,19 @@ leaves cores free). 18 was strictly worse. Don't raise without re-probing.
 with Phase-35 sup-universal) but Brody q strongly θ-graded (golden 0.81 → silver 0.44
 → Liouville 0.28; the non-Diophantine Liouville is most Poisson-leaning, as predicted).
 The **sub** side is θ-INVARIANT (all 4 classes clock-rigid, W1δ≈0.006, per-φ spread≈0).
-This INVERTS Phase 35's framing (sub θ-sensitive 3.55× / sup θ-universal). Candidate
-reconciliations (Will's call): (a) Phase-35's "3.55×" is a DIFFERENT metric (the
-convergence-rate / sensitivity gate, not pooled W1δ/Brody); (b) sub here is at
-NON-converged L=6.4e6 — θ-sensitivity may only emerge at converged L (which sub lacks).
-Pin "θ-sensitive" to the exact metric before reconciling (discriminant-exact-question).
+This APPEARED to invert Phase 35's framing (sub θ-sensitive 3.55× / sup θ-universal).
+
+**RESOLVED — no inversion (2026-05-23).** Pinned Phase 35's "3.55×" to its exact metric
+(`curiosity_theta_robustness`): it is `spread_ratio_silver_over_golden` on sub = the ratio
+of per-φ W1δ *spreads* at L=1e5. Reproduced bit-close from banked eigenvalues:
+silver/golden spread ratio = **3.556** (Phase 35: 3.555), mean_ratio = **1.0003**. But the
+absolute spreads are **clock-floor ~1e-4** (golden 2.7e-5, silver 9.5e-5) and the MEANS are
+θ-invariant (1.0003). So Phase 35's "sub θ-sensitive 3.55×" is a **ratio of negligible
+micro-spreads**, not a magnitude effect — sub is θ-invariant in magnitude (Phase 35's own
+mean_ratio=1.0003 already said so). The matched-leg result (sub θ-invariant W1δ; sup carries
+θ-structure via Brody q) is **fully consistent** with Phase 35's underlying numbers. The
+genuine θ-structure is on the **sup** side. Methods: a "3.55× sensitivity" that is a ratio
+of ~1e-4 clock-floor values is not substantive — ratio-vs-magnitude (discriminant-exact-question).
 
 **METHODS — aggregator is the new bottleneck (not compute).** Stage B sub-θ finished in
 the projected time, but `--agg` is single-threaded and recomputes Family II (Σ²/Δ₃
