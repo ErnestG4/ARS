@@ -298,6 +298,11 @@ ground-truth before banking).
 probe ran at full memory bandwidth, but 18 concurrent large-`N×L` workers contend →
 ~3–4× slower each. Lesson: probe at full worker count (or discount for bandwidth) for
 memory-bound array work; add a wall-clock halt to long runners.
+**RESOLVED — worker-count optimum (worker_scaling_probe.py):** throughput PEAKS
+at 10 workers (5.21× serial) and DECLINES past it (18 → 4.62×, ~12% slower in
+aggregate AND each task 2× slower). The 5900x dual-channel memory saturates ~8–10
+streaming `ids_rotnum` workers. Default set to `--workers 10` (faster total +
+leaves cores free). 18 was strictly worse. Don't raise without re-probing.
 
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 

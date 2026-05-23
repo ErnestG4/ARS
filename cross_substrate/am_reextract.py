@@ -206,7 +206,10 @@ def main():
     ap.add_argument("--stage", choices=["A", "B"])
     ap.add_argument("--agg", action="store_true")
     ap.add_argument("--Lcap", type=int, default=None)
-    ap.add_argument("--workers", type=int, default=18)
+    # 10 is throughput-optimal for the bandwidth-bound ids_rotnum unfold on the
+    # 5900x (worker_scaling_probe: 10→5.21× vs 18→4.62×; peaks at 10, declines
+    # past it). 10 also leaves cores free. Don't raise without re-probing.
+    ap.add_argument("--workers", type=int, default=10)
     a = ap.parse_args()
     if a.probe:
         probe()
