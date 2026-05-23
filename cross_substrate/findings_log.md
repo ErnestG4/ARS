@@ -304,6 +304,41 @@ aggregate AND each task 2× slower). The 5900x dual-channel memory saturates ~8�
 streaming `ids_rotnum` workers. Default set to `--workers 10` (faster total +
 leaves cores free). 18 was strictly worse. Don't raise without re-probing.
 
+---
+
+## 2026-05-23 — AM C1 θ-class extension (5 cells: sup silver/Liouville, sub silver/Liouville/bronze)
+
+`am_reextract.py --cells c1` (sup, L=2.56e7) + `--cells subc1` (sub, L=6.4e6).
+3-way sup + 4-way sub θ comparison at matched (N=70k, L). All matched object-(a) leg.
+
+| side | θ-class | W1δ | per-φ spread | Brody q | BR ρ |
+|---|---|--:|--:|--:|--:|
+| sup λ=1.5 | golden | 0.444 | 0.382 | 0.812 | 0.896 |
+| | silver | 0.507 | 0.570 | 0.438 | 0.776 |
+| | liouville | 0.497 | 0.594 | **0.281** | 0.431 |
+| sub λ=0.5 | golden | 0.0054 | 0.000 | 1.000 | 1.000 |
+| | silver | 0.0056 | 0.000 | 1.000 | 1.000 |
+| | liouville | 0.0057 | 0.000 | 1.000 | 1.000 |
+| | bronze | 0.0056 | 0.000 | 1.000 | 1.000 |
+
+**FLAG (apparent inversion of Phase 35; NOT resolved).** On the matched leg the
+**sup** side carries the θ-class structure — W1δ universal within ~13% (consistent
+with Phase-35 sup-universal) but Brody q strongly θ-graded (golden 0.81 → silver 0.44
+→ Liouville 0.28; the non-Diophantine Liouville is most Poisson-leaning, as predicted).
+The **sub** side is θ-INVARIANT (all 4 classes clock-rigid, W1δ≈0.006, per-φ spread≈0).
+This INVERTS Phase 35's framing (sub θ-sensitive 3.55× / sup θ-universal). Candidate
+reconciliations (Will's call): (a) Phase-35's "3.55×" is a DIFFERENT metric (the
+convergence-rate / sensitivity gate, not pooled W1δ/Brody); (b) sub here is at
+NON-converged L=6.4e6 — θ-sensitivity may only emerge at converged L (which sub lacks).
+Pin "θ-sensitive" to the exact metric before reconciling (discriminant-exact-question).
+
+**METHODS — aggregator is the new bottleneck (not compute).** Stage B sub-θ finished in
+the projected time, but `--agg` is single-threaded and recomputes Family II (Σ²/Δ₃
+sliding-window/lstsq) per-φ for every cell: ~17 min/cell (50 min for 3), and `--cells all`
+re-crunches all 11 each run (~4 h, which I had to kill). FIX (queued): parallelize the
+aggregator across cells and/or cache per-cell records so only NEW cells recompute; the
+Δ₃ sliding-lstsq is the hot path. Pure post-processing on banked unfolds — cheap to fix.
+
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
 **H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-
