@@ -122,13 +122,16 @@ The document is intended to populate. Empty cells in §5 are explicit targets; n
 > bet on the parameter side. **Lagrange's theorem** stratifies the class: rationals (terminating
 > CF) · quadratic irrationals (eventually-periodic CF — metallic means golden/silver/bronze) ·
 > higher-algebraic/transcendental (unbounded partial quotients — Liouville). **Cluster
-> prediction:** the Sturmian-toward-α family should separate by CF class (bounded-quotient
-> Diophantine vs unbounded Liouville-like) — already foreshadowed by AM's θ-class fingerprint
-> (Brody q golden→silver→Liouville, §7.ter / PROGRESS_REPORT §4). Two concrete substrates to
-> add: (a) **Sturmian-word event-trains** for a θ-sweep across Lagrange classes (cheap,
-> arithmetic — tests the prediction directly); (b) **brocot.fm** spectral-side audio fingerprint
-> vs its parameter-side path. The Sturmian family is the bridge tying brocot.fm, AM-θ, and the
-> arithmetic substrates under one stratification.
+> prediction — TESTED (2026-05-23, sturmian_run.py):** the symbolic Sturmian-word event-train
+> does NOT stratify by Lagrange class — it is 3-distance-rigid (Brody q=ρ=1 for every α), and
+> W1δ/I.5q/RF track the FIRST CF quotient (gap ratio), not quadratic-vs-transcendental; rational
+> (periodic) is cleanly distinct. ⇒ The CF-class stratification (predicted, and SHOWN by AM's
+> θ-class spectral fingerprint, Brody q golden 0.81→Liouville 0.28) is a **spectral/operator
+> phenomenon, not a symbolic one** — it needs the operator spectrum (AM / Sturmian Hamiltonian =
+> Fibonacci at golden), not the word. Remaining tests: (b) **brocot.fm** spectral-side audio
+> fingerprint vs parameter-side path; and a Sturmian *Hamiltonian* α-sweep (operator) to probe
+> the spectral-side prediction directly. The Sturmian family bridges brocot.fm, AM-θ, and the
+> arithmetic substrates.
 
 ### ζ-zeros (Hilbert-Pólya reference)
 
@@ -291,6 +294,7 @@ NNS marker `I.5q` = q-banded ks-to-GUE harvested into coordinates (Phase 2a); fu
 | Liouville | ✓ I.5q + matched I/II (2b); BL | | ◐ BL (far-from-GUE) | ◐ | — | | — | — | | — | — | — | — |
 | Maass Γ₀(N) | ✓ I.5q + matched I/II (2b); Sarnak | | ◐ Sarnak-anomaly | | — | | — | — | | — | — | — | — |
 | Gaussian / Eisenstein primes | ✓ I.5q + matched I/II (2b); near-GUE | | ◐ near-GUE | ◐ | — | | — | — | | — | — | — | — |
+| Sturmian-word (α-sweep) | ✓ I.5q + matched I/II (8 α) | ✓ III (RF) | ◐ 3-distance rigid (q=1 univ) | ◐ III | — | | — | — | ◐ Σ²/Δ₃ | — | — | Lagrange-class α-sweep | ✓ VI.3 |
 | Mackey-Glass | ✓ peak-NNS (τ-sweep 5 cells) | — | ✓ τ-trajectory stable→chaotic | — | ✓ V.2 D₂ + V.1 λ (Benettin) | | — | — | ◐ Σ²/Δ₃ | — | — | τ-sweep | ✓ VI.3 cross-extract |
 | Lorenz | ✓ lobe-NNS (ρ-sweep 4 cells) | — | ✓ ρ-trajectory stable→chaotic | — | ✓ V.2 D₂=2.2 + V.1 λ=0.909 (Benettin) | | — | — | ◐ Σ²/Δ₃ | — | — | ρ-sweep | — |
 | Logistic | ✓ IEI-NNS (r-sweep 5 cells) | — | ✓ period-doubling route | — | ✓ V.1 λ ANALYTIC (exact) + V.2 D₂ | | — | — | ◐ Σ²/Δ₃ | — | — | r-sweep | ✓ VI.3 |

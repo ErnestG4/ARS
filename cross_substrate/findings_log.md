@@ -420,6 +420,44 @@ magnitude everywhere:
 series without equations), flagged as a sign-indicator there. The open Rosenstein-calibration
 item is closed by method choice.
 
+---
+
+## 2026-05-23 — Sturmian-word substrate: Lagrange-class cluster prediction REFINED
+
+`sturmian_run.py`. The bridge substrate (number-theoretic frame, PROGRESS_REPORT §4):
+Sturmian word of slope α → 1-positions (Beatty) as event-train; sweep α across Lagrange
+classes; two legs (ARS-classify q-banded+RF, matched NNS). 8 cells. **Prediction tested:
+does the fingerprint cluster by continued-fraction class?**
+
+| α (class) | n_ev | I.5q | W1δ | Brody q | III.4 (RF) |
+|---|--:|--:|--:|--:|--:|
+| golden (quad, a₁=1) | 247k | 0.344 | 0.292 | 1.000 | 0.028 |
+| silver (quad, a₁=2) | 166k | 0.374 | 0.201 | 1.000 | 0.019 |
+| bronze (quad, a₁=3) | 121k | 0.447 | 0.128 | 1.000 | 0.007 |
+| √3−1 (quad, per-2) | 293k | 0.351 | 0.340 | 1.000 | 0.012 |
+| e−2 (transc, Dioph) | 287k | 0.333 | 0.342 | 1.000 | 0.018 |
+| Liouville Σ10^−k! | 44k | 0.524 | 0.018 | 1.000 | 0.008 |
+| Liouville Σ2^−k! | 306k | 0.378 | 0.325 | 1.000 | 0.023 |
+| 3/5 (rational) | 240k | 0.533 | 0.267 | 1.000 | 0.002 |
+
+**VERDICT — prediction NOT borne out at the SYMBOLIC level; stratification is SPECTRAL.**
+1. **Repulsion axis θ-universal:** Brody q = BR ρ = 1.000 for *every* α — the 3-distance
+   theorem makes the Beatty event-train ultra-rigid (fitters peg at the rigid bound).
+2. **W1δ / I.5q / RF track the FIRST CF quotient ⌊1/α⌋ (local gap structure), not Lagrange
+   class:** metallic means order by a₁ (golden→silver→bronze monotone on W1δ AND III.4), but
+   √3−1, e−2, Liouville-2 co-cluster (~0.33), and the two Liouvilles split — i.e. gap-ratio
+   driven, not quadratic-vs-transcendental.
+3. **Rational (periodic) is cleanly distinct** (RF 0.002, degenerate) — rational↔irrational
+   separates; deep CF-class does not.
+
+**Interpretation (flag): the CF-class stratification Will predicted — and that AM's θ-class
+fingerprint SHOWED (Brody q golden 0.81→Liouville 0.28) — is a SPECTRAL/operator phenomenon,
+NOT a symbolic-word one.** The symbolic Sturmian word is governed by local 3-distance rigidity
++ first-quotient; the deep Lagrange structure requires the operator spectrum (AM / Sturmian
+Hamiltonian = Fibonacci at golden). This sharpens the §4 frame: parameter-side path ↔ event-train
+is real, but Lagrange stratification lives on the spectral side. (Secondary flag: Liouville-2
+shows a p=7 RF concentration of 0.019, the canonical ARS p=7 enrichment — not interpreted.)
+
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
 **H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-
