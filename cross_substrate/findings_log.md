@@ -872,3 +872,13 @@ CONTINUOUS-approximability fine structure, NOT brocot's CF-boundedness step. So 
 family (AM/Fib/gaah/ext_harper) agrees on fine structure; brocot (FM synthesis) is the fine-structure
 outlier. Gross-axis agreement across all 5+brocot; fine-structure splits operators-vs-brocot.
 Banked: coordinates/quasiperiodic-operators.jsonl (216); figure P_qpo_approx.png. Verdicts Will's.
+
+### Dynamical-substrate breadth (Job 3, dynamical_breadth.py) — Family-V landscape extended to 7 systems
+Added Rössler/Chua/Duffing (3-D flows) + Hénon (2-D map), each a bifurcation-sweep trajectory placed by
+Family V (λ₁ tangent-space Benettin + D₂ Grassberger-Procaccia) + event-NNS (median-upcrossing transitions,
+not find_peaks). All give clean chaos-ordered trajectories, validated vs known: Rössler c=8.5–12 chaotic
+(λ≈0.09, D₂≈1.9), period windows at c=4/6/18; Chua α=15.6 double-scroll (λ=0.42, D₂=2.77); Duffing γ=0.3 &
+0.5 chaotic (λ≈0.07), γ=0.37 = the known periodic window (λ<0); Hénon period-doubling a=1.06→1.4 (λ 0.05→0.42,
+D₂→1.21, matches known 0.42/1.26). λ via Benettin matches known values precisely. ⇒ Family-V dynamical
+landscape now 7 substrates (MG/Lorenz/logistic + these 4). Event-NNS Brody q≈1 throughout (oscillatory-event
+regularity — secondary axis). Banked: coordinates/dynamical-breadth.jsonl (17). Verdicts Will's.

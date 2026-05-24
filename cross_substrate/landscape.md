@@ -18,6 +18,7 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
 - *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
 - *Population-level (all 12 sessions):* corr-eig→GUE / avl-onset→intermediate / sync-event→Poisson
   (3 trustable, consistent across sessions) + rate-peak (artifact control).
+- *Dynamical (Family V): Mackey-Glass / Lorenz / logistic + Rössler / Chua / Duffing / Hénon (7 systems, bifurcation-sweep trajectories, λ₁/D₂).*
 - *Quasi-periodic operators:* maryland / gaah / ext_harper / mosaic × 9 Lagrange classes × coupling
   (D_box; the approximability-family extension test).
 - *brocot.fm (FM synthesis):* 4,292 phase3 exemplars × 33 families (partial-frequency NNS + RF per-prime)
