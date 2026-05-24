@@ -196,6 +196,50 @@ than as findings about those domains broadly.
   (CI coverage ≥ 80%, median relative error ≤ 10%) at n_events ≥ 200,
   with Wigner classes requiring n_events ≥ 1000.
 
+## Cross-substrate universality-class landscape (2026-05 program)
+
+A recent program turns the classifier into a *cross-substrate instrument*: each substrate
+is fingerprinted on its spectral side and placed in a shared universality-class space, the
+yield being the cross-substrate *comparison* rather than utility-extraction from any one
+substrate ("operator-IS-substrate").  The fingerprint is extended beyond `ks_gue_med` /
+`rep_med` to a coordinate family — nearest-neighbour spacing distances (W1δ, Brody q,
+Berry-Robnik ρ), long-range rigidity (Σ² / Δ₃ / K), spectral box-dimension, and dynamical
+(Lyapunov / correlation-dimension) axes — computed where each applies.
+
+About eighteen substrates are charted: the two V1 recordings, Kuramoto, arithmetic
+L-functions (ζ / Dirichlet / elliptic-curve), Mertens / Liouville, Gaussian + Eisenstein
+primes, Maass forms, NANOGrav pulsar timing, the dynamical systems Mackey-Glass / Lorenz /
+logistic, the Sturmian word and the Sturmian / Fibonacci Hamiltonian, and the almost-Mathieu
+(AM) operator.  The run-by-run record and the synthesis are in
+`cross_substrate/PROGRESS_REPORT.md` and `cross_substrate/findings_log.md`.
+
+These are **exploratory charting results — progress-log, with verdicts adjudicated
+separately; they are not folded into the validated set above.**  The load-bearing ones:
+
+- **`ks_gue_med` is an unbiased proxy for the matched (plain-unfold) ks-to-GUE** (slope ≈ 1,
+  n ≥ 100, away from strong stimulus-locking) — so the cheap q-banded harvest is trustable
+  for landscape placement, and expensive matched recompute is deferrable.
+- **The almost-Mathieu operator and the Fibonacci Hamiltonian are empirically the same
+  operator family up to an approximability-dependent reparametrization.**  Sweeping coupling
+  at the golden frequency, the AM fingerprint passes through the Fibonacci Hamiltonian's at a
+  matched coupling, and this generalises across the Lagrange spectrum: the matching coupling
+  stratifies *continuously* by approximability (rational-approximation quality — combining
+  continued-fraction quotient size and irrationality measure), not by a bounded/unbounded-CF
+  step, indicating a single universality class.  AM-criticality's spectral box-dimension is
+  approximability-*invariant* near ½ (consistent with Jitomirskaya–Krasovsky and the
+  Wilkinson–Austin 1994 numerical conjecture); the Fibonacci side is approximability-*graded*
+  (consistent with the Damanik–Gorodetski / Cao–Qu a.e.-frequency dimension-constancy
+  framework).  A quantitative cross-check of the Damanik–Embree–Gorodetski–Tcheremchantsev
+  (2008) strong-coupling constant ln(1+√2) confirmed the 1/ln(λ) *form* but **not the
+  constant** — finite-spectrum estimators can verify a form but not an asymptotic constant;
+  that needs the trace-map thermodynamic formalism (deferred).
+
+Two method notes this program adds to the disciplines above: (i) an estimator can *look*
+right at moderate scales yet be wrong asymptotically — validate scale/size-convergence and
+scale-invariance before trusting an extrapolated constant; (ii) sweep coupling-class /
+reference parameters before declaring two substrates distinct (a fixed-reference comparison
+read the AM–Fibonacci pair as "distinct" and would have missed the confluence a sweep revealed).
+
 ## Negative-elimination findings
 
 A complete record requires the eliminations as well.  Each is a real
@@ -318,7 +362,9 @@ construction, extractor-invariance testing, and induction-on-noise
 falsification.  See `RESULTS.md` for the chronological empirical
 record under which each measurement was produced.  See
 `EPISTEMIC_STATE.md` for the per-finding map of disciplines cleared
-and outstanding.
+and outstanding.  See `cross_substrate/PROGRESS_REPORT.md` for the
+cross-substrate universality-class landscape program (synthesis) and
+`cross_substrate/findings_log.md` for its run-by-run record.
 
 Installation:
 ```
@@ -372,6 +418,22 @@ Standard random-matrix-theory and adjacent references applied here:
 - Dumitriu, I. & Edelman, A. (2002).  Matrix models for beta ensembles.
 - Cramér, H. (1936).  On the order of magnitude of the difference
   between consecutive prime numbers.
+
+Almost-Mathieu / Fibonacci Hamiltonian spectral theory engaged by the
+cross-substrate program (further dimension-theory references —
+Jitomirskaya–Krasovsky, Damanik–Gorodetski, Cao–Qu, Wilkinson–Austin —
+are cited in context in `cross_substrate/PROGRESS_REPORT.md`):
+
+- Aubry, S. & André, G. (1980).  Analyticity breaking and Anderson
+  localization in incommensurate lattices.  *Ann. Israel Phys. Soc.* 3,
+  133–164.  (The λ ↔ 1/λ self-duality; criticality at λ = 1.)
+- Avila, A. & Jitomirskaya, S. (2009).  The Ten Martini Problem.
+  *Annals of Mathematics* 170, 303–342.  (Cantor spectrum of the AM
+  operator for all irrational frequency and non-zero coupling.)
+- Damanik, D., Embree, M., Gorodetski, A. & Tcheremchantsev, S. (2008).
+  The fractal dimension of the spectrum of the Fibonacci Hamiltonian.
+  *Communications in Mathematical Physics* 280, 499–516.  (Strong-coupling
+  asymptotic dim(Σ_λ)·ln λ → ln(1+√2).)
 
 Cortical-V1 literature specifically engaged by the Phase 22a–32a sweep:
 
