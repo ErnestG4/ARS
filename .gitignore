@@ -48,3 +48,7 @@ cross_substrate/coordinates/allen-depth.jsonl
 cross_substrate/coordinates/allen-depth-fam2.jsonl
 cross_substrate/coordinates/allen-avalanche.jsonl
 cross_substrate/coordinates/allen_depth_targets.csv
+
+# brocot.fm corpus per-exemplar coordinates (derived; regenerable via brocot_landscape.py from
+# the brocot pull_index). The headline study (brocot-approximability.jsonl) + scripts are committed.
+cross_substrate/coordinates/brocot-landscape.jsonl

@@ -779,3 +779,50 @@ each landing where its nature dictates. Sharpens §7(h): population-level is a F
 observables, and "which aggregate" picks the universality class. The principled spectral choice (corr-eig)
 is GUE. Per-cell fingerprints cohere (visual-cortex cluster, §7d); population fingerprints do not.
 Banked: coordinates/population-fingerprint.jsonl (8). Verdicts Will's.
+
+---
+
+## 2026-05-24 — brocot.fm: the cross-substrate approximability BRIDGE TEST
+
+brocot.fm = a Stern-Brocot/Bessel-structured multi-modulator FM synthesizer (codeberg.org/combust/brocot,
+fmexplorer/brocot). Spectral side = analytic Bessel-sideband partial spectrum (phase3/partial_prediction.
+predict_partials — NO audio, no extractor artifact); parameter side = Stern-Brocot path → ratio. The one
+substrate where BOTH sides are directly accessible. ARS toolkit vendored at phase3/ars/.
+
+**DESIGN-VALIDATION PROBE (synthetic-validate-the-design).** Candidate walk designs tested on golden/
+silver/Liouville: a single modulator at a rational ratio is a regular comb → clock NNS; the CONVERGENT
+sequence (rational approximations) → combs, NO class separation. The approximability signal lives in the
+IRRATIONAL-α quasi-periodic partial set {m+nα} (carrier-comb [ratio 1] × modulator at irrational target
+α). FM modulation DEPTH is the coupling analogue (higher depth sharpens separation, like AM λ). So the
+test reframed (cleaner than the convergent-walk): a DEPTH-SWEEP at fixed irrational-α targets — directly
+parallel to the AM/Fibonacci λ-sweep, parameter accessed DIRECTLY (ratio IS α, no operator indirection).
+
+**HEADLINE RESULT (brocot_approximability.py; 9 Lagrange classes × 7 depths).** brocot.fm — a third,
+mechanistically-DIFFERENT substrate (FM synthesis, not a Schrödinger operator) — shows the SAME
+approximability stratification as AM/Fibonacci. Endpoint (depth=8) Brody q ordered by approximability:
+metallic means golden/silver/bronze/metallic4/5 (μ=2) → q≈0.91–1.0 (GUE/repulsive); e−2, ln2 → q≈0.52–0.57;
+π−3 (μ=7.1), Liouville → q=0.000 (Poisson). **ρ(approximability-rank, Brody q) = −0.909.** Depth sharpens
+(I=2→8 drives Liouville/π q→0). ⇒ **approximability stratification is a substrate-CLASS property that
+transcends operator family** (Will's "if yes" outcome). Both AM↔Fib claims hold: metallic means share a
+"Diophantine GUE corner" (universal-ish), approximable classes grade away (graded).
+
+**NUANCE — a real cross-substrate DIFFERENCE (flag).** brocot's Brody q looks like a bounded-vs-unbounded-CF
+STEP: e−2 (μ=2 but unbounded CF) drops to q=0.57 with the unbounded group, while ALL metallic means (incl.
+large-quotient metallic4/5) stay q≈1. This DIFFERS from the λ*(class) study (ec82368), where e grouped WITH
+the metallic means and quotient-magnitude separated them (continuous-in-approximability). So the substrates
+AGREE on the gross stratification (ρ=−0.91) but DIFFER on the fine discriminator — brocot ≈ CF-boundedness
+step, AM/Fibonacci ≈ continuous approximability. (Possibly because brocot's Brody q vs the λ*-via-D_box
+metric read different facets.) Figure P_brocot_approx.png. I.5q (q-banded) N/A for brocot — joint_q_profile's
+integer-time-bin q-banding doesn't suit wide-Hz partials; plain Family-I leg carries it. Verdicts Will's.
+
+### brocot.fm landscape placement (brocot_landscape.py) — deliverable 1
+Fingerprinted the full phase3 pull_index corpus: 4,292 exemplars × 33 musical-family categories
+(4,006 with NNS Family I), partial-frequency NNS + RF per-prime, partials from predict_partials.
+**brocot.fm places as a spectral-DENSITY-ordered substrate spanning the GUE↔Poisson axis:** sparse-
+harmonic families at the GUE/repulsive corner (Prime-2 q=1.0, Truax/first-principles q=1.0, Triangle
+0.86, Prime-3 0.78), dense "Textured-Smooth" carpets at the Poisson/clustered corner (q≈0.12–0.29).
+Σ² grows with op-count (4→64 ops: 0→302 — denser carpets carry more long-range structure). **NEGATIVE
+(flag):** the RF per-prime leg is p2-SATURATED across all families (0.21–0.51) — the search's "Prime-p"
+families (defined via KL + RF characteristic_q) do NOT translate to clean p-adic RF dominance on the
+ARS-predicted partials (Prime-3 still p2-dominant 0.329, p3 0.051). The discriminating leg is NNS
+Brody q, not RF-per-prime. Banked: coordinates/brocot-landscape.jsonl. Verdicts Will's.

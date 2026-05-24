@@ -17,6 +17,8 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
 - *Neuro depth (Allen):* 8,462 cells × 7 areas (V1/LM/RL/AL/PM/AM/LGN) × 8 stimuli, Family I + Family II.
 - *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
 - *Population-level (1-session pilot):* corr-eig / avl-onset / sync-event / rate-peak.
+- *brocot.fm (FM synthesis):* 4,292 phase3 exemplars × 33 families (partial-frequency NNS + RF per-prime)
+  + the 9-Lagrange-class approximability bridge test (depth-sweep at irrational-α targets).
 - *Axes populated:* Family I (NNS I.1–I.9), II (Σ²/Δ₃/K), IV (spectral box-dim), V (λ₁/D₂), VI, VII;
   III (RF) where banked.
 
@@ -41,6 +43,14 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   observables, neither implies the other).
 - **Verifying an asymptotic CONSTANT needs the right formalism, not a finer sweep** (the DEGT dimension
   cross-check, §3 k — form confirmed, constant deferred).
+- **APPROXIMABILITY STRATIFICATION TRANSCENDS OPERATOR FAMILY (the brocot bridge test).** brocot.fm —
+  FM synthesis, mechanistically unlike the AM/Fibonacci Schrödinger operators — shows the SAME
+  stratification: Brody q falls with approximability across the 9 Lagrange classes, ρ(rank, q)=−0.91
+  (metallic means → GUE/repulsive q≈1, π−3/Liouville → Poisson q=0; FM depth = coupling analogue). A
+  third substrate confirms the axis is a substrate-CLASS property. NUANCE: brocot's fine discriminator
+  looks like a bounded-vs-unbounded-CF step (e−2 drops with the unbounded group), differing from the
+  λ*(class) continuous-in-approximability fine structure — substrates agree gross, differ fine.
+  brocot.fm corpus places by spectral DENSITY (sparse-harmonic→repulsive, dense-carpet→clustered).
 
 ---
 
