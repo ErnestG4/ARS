@@ -159,6 +159,21 @@ confirms the asymptotic constancy AND characterizes its approach — more-approx
 reach the asymptotic regime at higher λ (a convergence-rate extension). N-confirmed (e/π drift <0.1
 50k→100k; Liouville ~10.7). Figure P10. (Verdict: Will, 2026-05-23.)
 
+**(k) Dimension-theory cross-check vs DEGT — PARTIAL, exact constant DEFERRED (dimension_theory_check.py
++ trace_map_dimension.py).** Quantitative test of §3(j)'s connection: does the Fibonacci D(λ) curve
+confirm the Damanik-Embree-Gorodetski-Tcheremchantsev (CMP 2008, arXiv:0705.0338) strong-coupling
+asymptotic **dim(Σ_λ)·ln(λ) → ln(1+√2) ≈ 0.8814** (golden)? **Honest landing — form confirmed, constant
+deferred.** (1) The **D ~ C/ln(λ) FORM holds** (R²≈0.98, moderate λ). (2) An **exact band-edge instrument**
+(band edges = periodic/antiperiodic eigenvalues of the period-q approximant — grid-free, resolves all q
+bands at any λ) was built and **VALIDATED against box_dim at λ=8 (0.370 vs 0.369)**; dim·ln(λ) climbs into
+the **0.77–0.84 neighborhood** of 0.8814 at moderate λ. (3) BUT **a sharp confirmation is NOT achieved by
+the accessible estimators**: eigenvalue box-counting breaks at large-λ cluster-splitting (spectrum → V=0 +
+V=λ clusters, span-relative boxes measure the gap) + finite-N depth-capping; and the single-level Bowen
+pressure Σ|band|^d=1 is **NOT scale-invariant** → diverges with q/λ (golden dim·ln(λ)→1.72 at λ=1024,
+extrapolated C=2.12 — artifact; q=64 not q-converged: 0.82→0.98 over q=377→1597). The correct estimator
+needs renormalization **contraction RATIOS** (Moran/pressure Σrᵢ^d=1) — the trace-map **thermodynamic
+formalism**, a dedicated future arc. No valid P11 (broken extrapolations not banked). Flagged.
+
 ## 4. Methodology established
 
 Matched-instrument across compared legs (carry every viewpoint, annotate
@@ -178,7 +193,17 @@ absence-of-crossing has two escape hatches, finite-N and finite-range, and both 
 closed); **carry the Phase-35 L_iter convergence discipline into cross-substrate work** —
 unbounded-CF substrates (Liouville) raise legitimate finite-N concerns, so N-converge the
 fingerprint empirically before declaring a class boundary (the Liouville N-check was
-diligence, not a response to misbehavior; both legs converged cleanly).
+diligence, not a response to misbehavior; both legs converged cleanly); **"looked right at
+moderate scales" ≠ "correct asymptotically" — validate an estimator's scale/size-convergence
+before trusting an extrapolated asymptotic constant** (§3(k): box-counting plateaus then breaks
+at cluster-splitting, and the Bowen pressure Σw^d=1 is scale-DEPENDENT — uses absolute widths, so
+it looks plausible at moderate q/λ but diverges as they grow; a self-similar-Cantor dimension needs
+the scale-invariant Moran/thermodynamic-formalism pressure on contraction RATIOS). Accessible quick
+estimators can verify a FORM but not an asymptotic CONSTANT — that needs the right formalism, not a
+finer sweep. Sibling of [[synthetic_validate_fitters]]; **data-acquisition discipline** (carried from
+Phase 24, [[parallel_curl_corruption]]): fetch large external datasets SEQUENTIALLY with
+size-verification — never parallel/overlapping curls on shared paths — and scope the cache + download
+footprint BEFORE committing an overnight run.
 
 **Boundary — the fingerprint is blind to route (what it does and does not resolve).** The
 confluence axes (W1δ, ks_gue, Brody q, D_box, Σ²/Δ₃) measure *spectral structure*, not
@@ -249,9 +274,11 @@ D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4; 
 - ~~Liouville N-convergence check~~ **DONE** (liouville_nconv.py) and ~~intermediate-class λ* sweep~~
   **DONE** (§3(j); lambda_star_classes.py + lambda_star_nconv.py) — λ* is a continuous approximability
   stratification, single universality class; AM-crit approximability-invariant, Fibonacci side graded.
-  Possible next: **a Fibonacci-side dimension theory cross-check** — compare the approximability-graded
-  D_box(λ) curves against the Damanik-Gorodetski/Cao-Qu predicted large-λ asymptotics quantitatively
-  (does the convergence rate match a known functional form in the approximation exponents?).
+  ~~Fibonacci-side dimension-theory cross-check~~ **ATTEMPTED → DEFERRED** (§3(k)): form confirmed +
+  band-edge instrument validated at moderate λ, but the exact DEGT constant ln(1+√2) needs the
+  **trace-map thermodynamic formalism** (Moran/pressure on renormalization contraction ratios) — a
+  dedicated future arc; accessible quick estimators (box-counting; single-level band-pressure) can't
+  pin the asymptotic constant.
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
 - **Breadth** — FM/brocot.fm (Will's own substrate); Family V on Kuramoto (order-parameter
@@ -268,3 +295,9 @@ correct sign+magnitude, Lorenz ρ=28→0.909.
 *Done 2026-05-23 (data-shoring + confluence):* integrity audit (all files clean); L-zeros split
 (ζ/Dirichlet/EC, pooling caveat); AM-vs-Fibonacci confluence test (partial confluence, FLAGGED;
 am-confluence.jsonl + P5); unified bridged ks-GUE strip P6 (resolves "no single axis spans all").
+*Done 2026-05-24:* AM↔Fibonacci arc closed (metallic-mean generalization §3(h), θ-propagation §3(i),
+λ*-approximability stratification §3(j), P7/P8/P9/P10); dimension-theory cross-check §3(k) PARTIAL
+(form confirmed, constant deferred to thermodynamic formalism). **NEXT: pivot to neuro spike-train
+depth expansion — Tier-1 Allen Brain Observatory depth-extension** (all visual areas + LGN across
+sessions; q-banded at scale via the proxy verdict; H1/Family-VII/cross-area hooks). Scope download
+footprint first (acquisition discipline, §4).

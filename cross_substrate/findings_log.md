@@ -664,3 +664,22 @@ Hausdorff-dim constancy at large coupling): our finding empirically CONFIRMS the
 characterizes the approach to it — more-approximable (measure-zero) α need higher λ to reach the
 asymptotic regime; metallic means reach it sooner. A convergence-rate extension of the constancy theorem.
 Banked: lambda-star-classes.jsonl (108) + lambda-star-nconv.jsonl (9); figure P10. Flag, not interpreted.
+
+### Dimension-theory cross-check vs DEGT (dimension_theory_check.py + trace_map_dimension.py) — PARTIAL, constant DEFERRED
+Quantitative test of §3(j)↔DG/Cao-Qu: does Fibonacci dim(Σ_λ)·ln(λ) → ln(1+√2)≈0.8814 (golden;
+Damanik-Embree-Gorodetski-Tcheremchantsev CMP 2008)? **Form confirmed, constant deferred.**
+- D~C/ln(λ) FORM holds (R²≈0.98, moderate λ).
+- Built an EXACT band-edge instrument (band edges = periodic/antiperiodic eigenvalues of the period-q
+  approximant — grid-free, resolves all q bands at any λ, unlike eigenvalue box-counting which breaks at
+  large-λ cluster-splitting + finite-N). VALIDATED vs box_dim at λ=8 (band-pressure 0.370 vs box 0.369);
+  dim·ln(λ) climbs into the 0.77–0.84 neighborhood of 0.8814.
+- BUT the single-level Bowen pressure Σ|band|^d=1 is NOT scale-invariant (absolute widths) → diverges
+  with q/λ: golden dim·ln(λ) → 1.72 at λ=1024, extrapolated C=2.12 (artifact); q-convergence at λ=64
+  climbs 0.82→0.98 (q=377→1597), not stabilizing. Box-counting separately breaks at cluster-splitting.
+- DIAGNOSIS: a self-similar-Cantor dimension needs the scale-invariant Moran equation Σrᵢ^d=1 on
+  renormalization CONTRACTION RATIOS — the trace-map thermodynamic formalism — not absolute band widths.
+  A dedicated future arc. Both accessible quick estimators (box-counting at resolution; single-level
+  band-pressure at scale-invariance) can verify the FORM but not the asymptotic CONSTANT.
+- METHODOLOGY (§4): "looked right at moderate scales" ≠ "correct asymptotically" — validate an
+  estimator's scale/size-convergence (q-convergence, scale-invariance) before trusting an extrapolated
+  asymptotic constant. No valid P11 banked (broken extrapolations excluded). Flag, not interpreted.
