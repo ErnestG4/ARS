@@ -14,7 +14,7 @@ placed in a shared universality-class landscape; the yield is the cross-substrat
 *comparison*, not utility-extraction from any one substrate. Explorer-shaped
 (charting, not hypothesis-testing).
 
-## 2. What's populated (11 substrates, ~8,300 coordinate records)
+## 2. What's populated (14 substrates, ~8,300 coordinate records)
 
 | substrate | cells | leg(s) | notes |
 |---|--:|---|---|
@@ -27,9 +27,14 @@ placed in a shared universality-class landscape; the yield is the cross-substrat
 | Gaussian / Eisenstein primes | 2 / 1 | q-banded + matched | |
 | Maass Γ₀(N) | 6 | q-banded + matched | |
 | Pulsar (NANOGrav) | 10 | direct-leg | cross-domain bounded |
+| **Mackey-Glass** | 5 | matched + Family V | τ-sweep trajectory; peak-NNS |
+| **Lorenz** | 4 | matched + Family V | ρ-sweep trajectory; lobe-NNS |
+| **Logistic** | 5 | matched + Family V | r-sweep (period-doubling); IEI-NNS; analytic λ |
 
 Families computed: I (NNS distances I.1–I.9), II (Σ²/Δ₃/K), III (RF, where banked),
-VI (extraction-meta α/β), VII (inter-leg disagreement). IV/V deferred.
+**V (dynamical λ₁/D₂ — the 3 dynamical substrates)**, VI (extraction-meta α/β/cross-extract),
+VII (inter-leg disagreement). IV (spectral character) deferred. No single axis spans all
+14 (q-banded I.5q ⊃ ARS-classified; matched W1δ ⊃ object-(a); Family V ⊃ time-series).
 
 ## 3. Load-bearing results
 
@@ -61,6 +66,15 @@ fingerprint, VI.2 β≈2.87). θ-class: **sup carries θ-structure** (Brody q go
 RESOLVED — that 3.55× is a ratio of clock-floor (~1e-4) micro-spreads; sub is
 θ-invariant in magnitude (reproduced 3.556 / mean_ratio 1.0003). No inversion.
 
+**(f) Dynamical substrates + Family V (breadth).** Mackey-Glass, Lorenz, logistic each
+placed as a bifurcation-sweep *trajectory* (stable→periodic→chaotic), giving the landscape
+its first dynamical axes. **V.2 D₂ (correlation dimension) is validated everywhere** (Lorenz
+ρ=28→2.21 vs lit 2.06; MG chaotic→2.3–2.4; logistic chaos→1.0). **V.1 λ: analytic-for-maps
+is exact** (logistic r=3.7→+0.356; period-3 window r=3.83→−0.370, correctly λ<0 inside chaos),
+**Rosenstein-for-flows is sign-valid but ~7× magnitude-inflated** (consistent factor →
+calibratable; banked as chaos-sign indicator). The three sit as chaos-ordered trajectories
+in the D₂×W1δ plane (figure P4).
+
 ## 4. Methodology established
 
 Matched-instrument across compared legs (carry every viewpoint, annotate
@@ -80,11 +94,18 @@ discipline (the Phase-35 3.55× lesson).
 
 ## 6. Open threads
 
-- **Aggregator perf** — single-threaded Family II (Δ₃/Σ²) ~17 min/cell; parallelize +
-  cache (next task).
+- **Rosenstein-λ calibration** — V.1 for flows is ~7× magnitude-inflated (consistent across
+  MG+Lorenz); tune fit-region/units so it's absolute, not just sign. (Analytic-λ for maps
+  already exact.)
 - **L-zeros split** — separate ζ (GUE) from Dirichlet/EC (Poisson-leaning) in §3.
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
-- **Breadth** — Mackey-Glass (Family V dynamical axes), FM/brocot.fm.
+- **Breadth** — FM/brocot.fm (Will's own substrate) remains; Family V on Kuramoto
+  (it has an order-parameter trajectory).
 - **AM** — sub-side at converged L (currently non-converged); slate-4 N-trajectory
   (multi-day).
+
+*Done since v1:* aggregator fixed (~200× via capped Family-II windows); Family-II
+consistency re-run (all matched substrates on one algorithm); Mackey-Glass + Lorenz +
+logistic added with validated Family V; AM θ-class extension; views refreshed to 14
+substrates (figures P1–P4).
