@@ -128,10 +128,12 @@ The document is intended to populate. Empty cells in §5 are explicit targets; n
 > (periodic) is cleanly distinct. ⇒ The CF-class stratification (predicted, and SHOWN by AM's
 > θ-class spectral fingerprint, Brody q golden 0.81→Liouville 0.28) is a **spectral/operator
 > phenomenon, not a symbolic one** — it needs the operator spectrum (AM / Sturmian Hamiltonian =
-> Fibonacci at golden), not the word. Remaining tests: (b) **brocot.fm** spectral-side audio
-> fingerprint vs parameter-side path; and a Sturmian *Hamiltonian* α-sweep (operator) to probe
-> the spectral-side prediction directly. The Sturmian family bridges brocot.fm, AM-θ, and the
-> arithmetic substrates.
+> Fibonacci at golden), not the word. **Spectral test DONE + CONFIRMED (sturmian_hamiltonian_run.py):**
+> the operator spectrum IS Cantor (D_box<1, q=0) for all irrational α and DOES stratify by CF-class
+> — quadratics cluster (D_box≈0.63–0.65), Liouville separates (0.724), rational → AC band (0.805,
+> q=0.88). So the prediction holds spectrally. Remaining: (b) **brocot.fm** spectral-side audio
+> fingerprint vs parameter-side path. The Sturmian family bridges brocot.fm, AM-θ, Fibonacci, and
+> the arithmetic substrates.
 
 ### ζ-zeros (Hilbert-Pólya reference)
 
@@ -295,6 +297,8 @@ NNS marker `I.5q` = q-banded ks-to-GUE harvested into coordinates (Phase 2a); fu
 | Maass Γ₀(N) | ✓ I.5q + matched I/II (2b); Sarnak | | ◐ Sarnak-anomaly | | — | | — | — | | — | — | — | — |
 | Gaussian / Eisenstein primes | ✓ I.5q + matched I/II (2b); near-GUE | | ◐ near-GUE | ◐ | — | | — | — | | — | — | — | — |
 | Sturmian-word (α-sweep) | ✓ I.5q + matched I/II (8 α) | ✓ III (RF) | ◐ 3-distance rigid (q=1 univ) | ◐ III | — | | — | — | ◐ Σ²/Δ₃ | — | — | Lagrange-class α-sweep | ✓ VI.3 |
+| Sturmian-Hamiltonian (α-sweep) | ✓ matched NNS (7 α, Cantor q=0) | | ✓ Cantor; stratifies by CF-class | | — | ✓ IV.2 D_box (0.63 quad→0.72 Liouv) | | — | ◐ Σ²/Δ₃ | — | — | Lagrange-class α-sweep | — |
+| Fibonacci Ham. | ✓ (= golden Sturmian-Ham; D_box=0.63) | | ✓ Cantor (DGY class I) | | — | ✓ IV.2 | | — | | — | — | — | — |
 | Mackey-Glass | ✓ peak-NNS (τ-sweep 5 cells) | — | ✓ τ-trajectory stable→chaotic | — | ✓ V.2 D₂ + V.1 λ (Benettin) | | — | — | ◐ Σ²/Δ₃ | — | — | τ-sweep | ✓ VI.3 cross-extract |
 | Lorenz | ✓ lobe-NNS (ρ-sweep 4 cells) | — | ✓ ρ-trajectory stable→chaotic | — | ✓ V.2 D₂=2.2 + V.1 λ=0.909 (Benettin) | | — | — | ◐ Σ²/Δ₃ | — | — | ρ-sweep | — |
 | Logistic | ✓ IEI-NNS (r-sweep 5 cells) | — | ✓ period-doubling route | — | ✓ V.1 λ ANALYTIC (exact) + V.2 D₂ | | — | — | ◐ Σ²/Δ₃ | — | — | r-sweep | ✓ VI.3 |

@@ -458,6 +458,34 @@ Hamiltonian = Fibonacci at golden). This sharpens the §4 frame: parameter-side 
 is real, but Lagrange stratification lives on the spectral side. (Secondary flag: Liouville-2
 shows a p=7 RF concentration of 0.019, the canonical ARS p=7 enrichment — not interpreted.)
 
+---
+
+## 2026-05-23 — Sturmian Hamiltonian operator sweep: spectral stratification CONFIRMED (capstone)
+
+`sturmian_hamiltonian_run.py`. Tests the prediction the word refuted: does the OPERATOR
+spectrum stratify by Lagrange class? Tridiagonal H, V_n=λ·χ_{[1−α,1)}({nα+φ}), λ=2, N=8000,
+8φ; polynomial-IDS unfold → NNS + box-counting spectral dimension D_box (golden = Fibonacci
+Hamiltonian). 16th substrate; first Family IV axis (IV.2 spectral box-dim).
+
+| α (class) | W1δ | Brody q | D_box |
+|---|--:|--:|--:|
+| golden (quad) | 1.790 | 0.000 | 0.628 |
+| silver (quad) | 1.774 | 0.000 | 0.649 |
+| bronze (quad) | 1.789 | 0.000 | 0.644 |
+| √3−1 (quad) | 1.773 | 0.000 | 0.640 |
+| e−2 (transc-Dioph) | 1.754 | 0.000 | 0.651 |
+| Liouville | 1.590 | 0.000 | **0.724** |
+| rational 3/5 | 0.534 | **0.880** | **0.805** |
+
+**VERDICT — CONFIRMED: the spectrum stratifies where the symbolic word did not.**
+(1) all irrational α → Cantor spectrum (D_box<1, q=0, W1δ≈1.8 clustered); (2) D_box stratifies
+by class — quadratics cluster (~0.63–0.65), Liouville separates higher (0.724, less-gappy),
+e−2 in-between (0.651); (3) rational → AC band spectrum, opposite regime (D_box=0.805, q=0.88).
+**Resolves the number-theoretic thread:** the Lagrange/CF-class stratification is a SPECTRAL
+(operator) phenomenon — absent from the symbolic word (3-distance-rigid), present in the
+Hamiltonian spectrum — consistent with AM's θ-class fingerprint (also spectral). Bonus: first
+Family IV axis; Fibonacci Hamiltonian effectively placed (golden). Flag, not interpreted.
+
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
 **H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-

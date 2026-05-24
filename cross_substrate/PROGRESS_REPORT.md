@@ -31,10 +31,19 @@ placed in a shared universality-class landscape; the yield is the cross-substrat
 | **Lorenz** | 4 | matched + Family V | ρ-sweep trajectory; lobe-NNS |
 | **Logistic** | 5 | matched + Family V | r-sweep (period-doubling); IEI-NNS; analytic λ |
 
-Families computed: I (NNS distances I.1–I.9), II (Σ²/Δ₃/K), III (RF, where banked),
-**V (dynamical λ₁/D₂ — the 3 dynamical substrates)**, VI (extraction-meta α/β/cross-extract),
-VII (inter-leg disagreement). IV (spectral character) deferred. No single axis spans all
-14 (q-banded I.5q ⊃ ARS-classified; matched W1δ ⊃ object-(a); Family V ⊃ time-series).
+Plus **Sturmian-word** (8 α, Lagrange-class sweep) and **Sturmian-Hamiltonian** (7 α; = Fibonacci
+Hamiltonian at golden) → **16 substrates**. Families computed: I (NNS distances I.1–I.9),
+II (Σ²/Δ₃/K), III (RF, where banked), **IV (spectral box-dimension — first axis, Sturmian-Ham)**,
+V (dynamical λ₁/D₂ — 3 dynamical substrates), VI (extraction-meta α/β/cross-extract), VII (inter-leg
+disagreement). No single axis spans all (q-banded I.5q ⊃ ARS-classified; matched W1δ ⊃ object-(a);
+Family V ⊃ time-series; Family IV ⊃ operator-spectrum substrates).
+
+**Number-theoretic thread resolved (Sturmian word vs Hamiltonian).** The Lagrange/CF-class
+stratification predicted in §4 is a SPECTRAL phenomenon: the symbolic Sturmian *word* does NOT
+stratify (3-distance-rigid, q=1 universal; tracks first CF quotient), but the Sturmian *Hamiltonian*
+spectrum DOES — Cantor (D_box<1, q=0) for all irrational α, with D_box stratifying by class
+(quadratics ≈0.63–0.65, Liouville 0.724, rational→AC band 0.805). Consistent with AM's θ-class
+(also spectral). Symbolic-side path↔event-train is real; the deep number theory surfaces in the operator.
 
 ## 3. Load-bearing results
 
