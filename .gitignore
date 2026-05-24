@@ -41,3 +41,10 @@ Thumbs.db
 
 # Internal documentation
 internaldocs/
+
+# Allen depth-extension per-cell coordinate data (derived; regenerable via allen_depth*.py /
+# allen_avalanche.py from the cached NWBs). Durable artifacts = scripts + figures + report markdown.
+cross_substrate/coordinates/allen-depth.jsonl
+cross_substrate/coordinates/allen-depth-fam2.jsonl
+cross_substrate/coordinates/allen-avalanche.jsonl
+cross_substrate/coordinates/allen_depth_targets.csv

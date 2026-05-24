@@ -683,3 +683,70 @@ Damanik-Embree-Gorodetski-Tcheremchantsev CMP 2008)? **Form confirmed, constant 
 - METHODOLOGY (§4): "looked right at moderate scales" ≠ "correct asymptotically" — validate an
   estimator's scale/size-convergence (q-convergence, scale-invariance) before trusting an extrapolated
   asymptotic constant. No valid P11 banked (broken extrapolations excluded). Flag, not interpreted.
+
+---
+
+## 2026-05-24 — Allen Brain Observatory depth-extension (Tier-1 neuro pivot)
+
+Scaled Phase-2a (719 V1 cells, drifting gratings) to the full cached corpus: 12 sessions × 6
+visual areas (V1/LM/RL/AL/PM/AM) + LGN × 8 stimulus blocks → **60,833 (cell,stimulus) records,
+8,462 cells**, I.5q + matched I.5 + W1δ each, tagged area + tuning. No download (cached NWBs,
+h5py-direct). classify worker-knee = 14 (compute-bound; the bandwidth-bound "10" default did NOT
+apply — workload-specific recalibration). All findings FLAGGED (verdicts Will's).
+
+**(1) H1 OSI↔ks_gue GENERALIZES across all visual areas.** ρ(OSI, I.5q)/ρ(OSI, I.5) per area
+(drifting gratings): V1 0.46/0.48 (p=2.5e-118), LM 0.43, RL 0.39, AL 0.43, PM 0.44, AM 0.44 — all
+p≪1e-30; LGN (thalamus) weaker 0.27 (p=6.6e-9). ⇒ H1 is a GENERAL mouse visual-cortex property,
+not V1-specific — the cross-area generality complementing the cross-species (monkey+mouse) result.
+
+**(2) Tuning-dim privilege — orientation-domain, not frequency-domain.** Pooled V1+higher visual,
+ρ(tuning, I.5q): OSI +0.44, DSI +0.42, f1_f0 +0.32 (all p≈0) — but pref_sf +0.05, pref_tf −0.04
+(≈NULL), run_mod +0.14. ⇒ orientation/direction selectivity (+F1/F0) couple to the universality
+class; spatial/temporal-frequency tuning does NOT. OSI is not uniquely privileged (DSI ≈ equal).
+
+**(3) Family VII at scale — WEAK-but-significant in mouse (refines "absent").** |I.5q−I.5| vs OSI
+per area ρ = 0.08–0.18 (V1 0.098 p=3.8e-6; all areas p<0.005 at large n). NOT zero — the 12× sample
+revealed a weak grading — but far below pvc-11's ρ≈0.47. ⇒ Family VII is monkey-STRONG / mouse-WEAK,
+not monkey-only. (Candidate explanations: species / state / tech / sampling-geometry — see below.)
+
+**(4) Cross-area landscape — tight visual-cortex cluster.** Per-area median I.5q 0.42–0.47, W1δ
+0.95–1.03 — areas cluster together as "visual cortex," NOT separated by functional role; LGN
+marginally more GUE-like (0.42) — a gentle thalamus-vs-cortex offset, not a sharp split.
+
+**(5) Within-cell stimulus-state IS a live axis.** A fixed cell's I.5q shifts substantially with
+stimulus: within-cell spread median 0.169, p90 0.299. Per-stimulus median I.5q: natural movies /
+spontaneous most GUE-FAR (0.48), flashes most GUE-NEAR (0.36), gratings/scenes mid. ⇒ universality
+class is stimulus-state-dependent within a fixed cell — a new (state) axis beyond across-area / across-tuning.
+
+**(6) Spatial structure (allen_depth_spatial.py; position joined unit→channel, no recompute).**
+- DEPTH (probe_vertical proxy; ecephys has NO clean layer label): only a WEAK gradient (ρ≈−0.06 to
+  −0.09; superficial marginally more GUE-like), depth-bin medians differ ~0.02 — largely depth-invariant.
+- SPATIAL DECORRELATION: ρ(CCF-distance, |ΔI.5q|) ≈ 0 in every area (−0.03…+0.02, mostly n.s.) — NO
+  spatial autocorrelation within ~1 mm; the fingerprint is a per-cell property, not spatially clustered.
+- SAMPLING GEOMETRY (4th Family-VII candidate, refined): with full CCF, Allen samples ~1 mm³/area
+  (multi-probe → ~1 mm lateral, NOT 0). So it's "Allen ~1 mm sparse multi-probe all-layers" vs
+  "pvc-11 Utah ~4 mm dense 2D L2/3" — candidate stands but is lateral-extent + density + layer-coverage,
+  not a crude 1D-vs-2D. (Banked alongside species / state / recording-tech as Family-VII-split candidates.)
+
+### Allen depth-extension — Family II (long-range) + avalanche criticality cross-references
+
+**Family II (allen_fam2_analysis.py; Σ²/Δ₃/K on the matched unfold, 60,833 records).**
+- **Δ₃ (spectral rigidity) carries an OSI signal** (ρ=0.240), Σ² weaker (0.094), K(τ=1) 0.076 — the
+  phase-coupling hook is a PARTIAL yes (long-range rigidity, esp. Δ₃, couples to orientation tuning).
+- **Family II is partially-distinct from Family I**: ρ(Σ², I.5q)=0.505, ρ(Δ₃, I.5q)=0.578 (~25–33%
+  shared variance — not redundant), and **K(τ=1) is nearly independent** of I.5q (0.128) — a distinct axis.
+- **Strong within-cell stimulus-state dependence on the long-range axis**: median Σ² spontaneous 286 →
+  natural movies ~200 → static gratings 143 → flashes 12. (Even sharper than Family I's state axis;
+  brief sparse stimuli carry little long-range structure.) Per-area Σ²/Δ₃ differ mildly; LGN lowest Δ₃.
+
+**Avalanche criticality (allen_avalanche.py; Beggs-Plenz, per session × {spontaneous, drifting
+gratings}).** Pooled target-area population spikes, binned at population mean-ISI; size/duration
+power-laws + crackling relation. **All 12 sessions near-critical and remarkably stable**: τ≈1.90–1.94
+(size), α≈2.18–2.25 (duration), empirical crackling exponent ≈1.16–1.28 vs predicted (α−1)/(τ−1)≈1.32–1.33,
+|Δ_crackling|≈0.04–0.16. Replicates the cortical-avalanche literature's exponents; spontaneous ≈
+drifting-gratings. **CROSS-REFERENCE NULL**: ρ(|Δ_crackling|, med I.5q)=−0.035 (p=0.91, n=12),
+ρ(|Δ_crackling|, W1δ)=−0.11 (p=0.73) — population avalanche-criticality does NOT track the per-cell
+fingerprint. Underpowered (n=12, narrow |Δ| range — all sessions similarly near-critical), BUT the
+qualitative read stands: **population avalanche-criticality and per-cell universality-class are
+ORTHOGONAL levels** — population-collective structure is a distinct substrate from per-cell spacing
+class, not recovered by per-cell Family II. (Flag; verdicts Will's.)

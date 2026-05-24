@@ -1,6 +1,7 @@
 # Cross-Substrate Landscape — Progress Report
 
-**Date:** 2026-05-23. **Status:** working synthesis of the program to date.
+**Date:** 2026-05-24. **Status:** working synthesis of the program to date (§1–6 operator/
+arithmetic landscape; §7 the Allen neuro depth-extension).
 Companions: `landscape.md` (map), `viewpoints.md` (axes), `findings_log.md`
 (chronological detail), `coordinates/*.jsonl` (banked values). Progress log —
 NOT validated results; verdicts are Will's.
@@ -286,6 +287,12 @@ D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4; 
   tests the CF-class cluster prediction of §4's number-theoretic frame; the bridge to brocot.fm).
 - **AM** — sub-side at converged L (currently non-converged); slate-4 N-trajectory
   (multi-day).
+- **Neuro (from §7):** spatial axes (depth-stratified — needs better layer assignment than
+  probe_vertical proxy; population-level fingerprints as a distinct substrate — avalanche-criticality
+  is orthogonal to per-cell, §7(h)); Tier-2 Buzsaki hippocampus / Tier-3 IBL (own acquisition lift —
+  CRCNS credentials / ONE-api, scope interactively); the 4-way Family-VII candidate disambiguation
+  (species / state / tech / sampling-geometry — needs awake-macaque or anesthetised-mouse + a 2D-array
+  vs 1D-probe contrast).
 
 *Done since v1:* aggregator fixed (~200× via capped Family-II windows); Family-II
 consistency re-run (all matched substrates on one algorithm); Mackey-Glass + Lorenz +
@@ -301,3 +308,73 @@ am-confluence.jsonl + P5); unified bridged ks-GUE strip P6 (resolves "no single 
 depth expansion — Tier-1 Allen Brain Observatory depth-extension** (all visual areas + LGN across
 sessions; q-banded at scale via the proxy verdict; H1/Family-VII/cross-area hooks). Scope download
 footprint first (acquisition discipline, §4).
+*Done 2026-05-24 (neuro depth-extension, §7):* 60,833 (cell,stimulus) records / 8,462 cells across 12
+sessions × 7 areas × 8 stimuli (no download — cached); I.5q+I.5+W1δ + Family II + avalanche criticality;
+8 findings (a–h) — H1 generalizes across areas, OSI/DSI privileged, Family VII mouse-weak, tight
+cross-area cluster, within-cell stimulus-state axis, weak depth gradient / no spatial autocorrelation,
+Family II partially-distinct, avalanche-criticality orthogonal to per-cell. classify worker-knee=14.
+All FLAGGED for adjudication; staged uncommitted for review.
+
+---
+
+## 7. Neuro depth-extension — Allen Brain Observatory (2026-05-24)
+
+Tier-1 spike-train depth expansion (the neuro pivot). Scaled Phase-2a (719 V1 cells, drifting
+gratings) to the full cached corpus: **12 sessions × 6 visual areas (V1/LM/RL/AL/PM/AM) + LGN ×
+8 stimulus blocks → 60,833 (cell,stimulus) records, 8,462 cells**, each with I.5q + matched I.5 +
+W1δ (allen_depth.py) + Family II Σ²/Δ₃/K (allen_depth_fam2.py), tagged area + tuning (OSI/DSI/SF/TF/
+F1F0/run). No download (cached NWBs, h5py-direct). Runners: allen_depth*.py, allen_avalanche.py;
+analysis: allen_depth_analysis.py / _spatial.py / allen_fam2_analysis.py. All FLAGGED (verdicts Will's).
+
+**Headline findings:**
+- **(a) H1 generalizes across ALL visual areas.** OSI↔ks_gue ρ≈0.39–0.46 in V1/LM/RL/AL/PM/AM (all
+  p≪1e-30; V1 p=2.5e-118), LGN weaker 0.27 — a general mouse visual-cortex property, complementing the
+  cross-species result. Matched I.5 ≈ I.5q throughout (proxy verdict holds at scale).
+- **(b) Tuning-dim privilege = orientation-domain.** OSI (0.44) ≈ DSI (0.42) ≈ f1_f0 (0.32) couple;
+  pref_sf (0.05) / pref_tf (−0.04) NULL; run_mod (0.14) weak. Orientation/direction selectivity couple
+  to the universality class; spatial/temporal-frequency tuning does not. OSI not uniquely privileged.
+- **(c) Family VII monkey-STRONG / mouse-WEAK** (refines "mouse-absent"). |I.5q−I.5|↔OSI ρ=0.08–0.18
+  per area (significant at scale), vs pvc-11 ρ≈0.47. Candidate explanations now 4: species, state,
+  recording-tech, **sampling-geometry** (Allen ~1 mm sparse multi-probe all-layers vs pvc-11 Utah ~4 mm
+  dense 2D L2/3 — quantified via CCF; lateral-extent + density + layer-coverage, not crude 1D-vs-2D).
+- **(d) Cross-area = tight visual-cortex cluster.** Per-area median I.5q 0.42–0.47 / W1δ 0.95–1.03;
+  areas cluster as "visual cortex," LGN marginally more GUE-like — a gentle thalamus offset, not a split.
+- **(e) Within-cell stimulus-state is a live axis.** A fixed cell's I.5q shifts with stimulus (spread
+  median 0.169, p90 0.30): natural movies/spontaneous most GUE-far, flashes most GUE-near. Family II's
+  Σ² is even more state-dependent (spontaneous 286 → flashes 12). A new state axis beyond area/tuning.
+- **(f) Spatial structure.** Depth (probe_vertical proxy; no ecephys layer label): only a WEAK gradient
+  (ρ≈−0.06…−0.09, superficial marginally GUE-ish). Spatial decorrelation: ρ(CCF-dist, |ΔI.5q|)≈0
+  everywhere — NO spatial autocorrelation within ~1 mm; the fingerprint is per-cell, not spatially clustered.
+- **(g) Family II partially-distinct axis.** Δ₃ carries an OSI signal (ρ=0.24, phase-coupling hook
+  partial-yes); Family II ρ(I.5q)≈0.5–0.58 (not redundant); K(τ=1) nearly independent (0.13).
+- **(h) Avalanche criticality — orthogonal level.** Mouse V1 populations consistently near-critical
+  (τ≈1.9, α≈2.2, crackling≈1.2 vs predicted 1.32, |Δ|≈0.1, all 12 sessions; matches the Beggs-Plenz /
+  crackling literature) BUT criticality does NOT track the per-cell fingerprint (ρ≈0, n=12, underpowered).
+  ⇒ population avalanche-criticality and per-cell universality-class are ORTHOGONAL — population-collective
+  structure is a distinct substrate from per-cell spacing class (not recovered by per-cell Family II).
+
+**Method note:** classify is compute-bound — worker-knee = 14 (probed), NOT the bandwidth-bound "10"
+default (workload-specific; see [[worker_count_bandwidth_bound]]). Spatial axes (depth/decorrelation/
+population-level) and Tier-2 Buzsaki / Tier-3 IBL are future arcs. Figures: figures/P_allen_depth.png.
+
+**Adjudication (Will, 2026-05-24).**
+- **(a)** H1 is now a property of **orientation-tuned mouse visual neurons regardless of pathway
+  position** — not "a V1 property." LGN weaker (0.27) fits an upstream relay with less-elaborated
+  orientation tuning. The cleanest generalization of the cross-species finding; a strong empirical anchor.
+- **(c)** Reframe: the question is **not "present vs absent" but "what makes Family VII 4–5× stronger
+  in pvc-11."** Disambiguating the 4 candidates (species / state / tech / sampling-geometry) needs
+  **orthogonal-design data** — awake-monkey-V1-Utah or anesthetized-mouse-V1-Neuropixels (both exist;
+  queue as a future Tier acquisition IF Family VII becomes load-bearing).
+- **(f)** Coherent picture with (d): **visual cortex is roughly homogeneous at the fingerprint level,
+  with cell-by-cell variation that is NOT spatially organized below mm scales.** Three reads to keep
+  open: cell-intrinsic firing character dominates local-network effects / local cell-type heterogeneity
+  gives all-scale diversity / the property is an individual-cell spike-train statistic, not a "which
+  neighbours" property.
+- **(h)** The load-bearing framing: **population avalanche-criticality and per-cell universality class
+  are TWO DIFFERENT OBSERVABLES of the same system — both real, both measurable, neither implies the
+  other.** The avalanche literature sees something true the per-cell instrument doesn't (criticality);
+  the per-cell instrument sees things the avalanche literature doesn't (H1, tuning-privilege, stimulus-
+  state). This connects the program to the Beggs-Plenz criticality tradition **without subsuming or
+  being subsumed by it** — more precise than "confirmed" or "refuted" criticality.
+- **(e)** Methodology: **long-range Family II (Σ²) carries more state information than short-range
+  Family I (I.5q)** — if state-trajectory characterization becomes a focus, Σ² is the more sensitive axis.
