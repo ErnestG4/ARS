@@ -379,6 +379,33 @@ window scheme — re-run for strict consistency is now cheap (a cross-substrate 
 - VI.3 cross-extraction variance (W1δ across 3 extractors): 0 for periodic (extractors
   agree), 0.003–0.004 for chaotic (they diverge) — sensible.
 
+---
+
+## 2026-05-23 — Lorenz + logistic substrates + Family V validation synthesis
+
+`lorenz_logistic_run.py`. Two more dynamical anchors (14 substrates total).
+
+**Lorenz (ρ-sweep, 4 cells):** stable ρ=20 (n_ev=0, λ₁=−1.43, D₂=0) → chaotic ρ=28/35/40
+(D₂≈2.1–2.2, λ₁>0). Lobe-transition events; W1δ≈0.55 in chaos.
+**Logistic (r-sweep, 5 cells):** period-doubling route; IEI events; analytic λ.
+
+**FAMILY V — now validated, with a clean tool-by-regime split:**
+- **V.2 D₂ (Grassberger-Procaccia): reliable magnitudes across all 3 dynamical substrates.**
+  Lorenz ρ=28 → 2.21 (lit 2.06); MG chaotic → 2.3–2.4; logistic chaos → 0.97 (1D map).
+  Stable/periodic → 0–1 correctly. This is the trustworthy dynamical axis.
+- **V.1 λ — METHOD MATTERS:**
+  - *Maps (analytic λ=⟨ln|f'|⟩): EXACT.* Logistic r=3.7 → +0.356 (lit ≈0.36); the period-3
+    window r=3.83 → **−0.370 (correctly λ<0 INSIDE chaos)** — a sharp, definitive validation.
+  - *Flows (Rosenstein on x(t)): SIGN-valid, magnitude ~7× INFLATED.* Lorenz ρ=28 → 6.3 vs
+    known 0.906; MG similarly inflated. The inflation is a CONSISTENT factor (≈7×) across
+    MG+Lorenz → likely a fixable Rosenstein calibration (fit-region/units), not random.
+    Banked as a chaos-sign indicator; flag for calibration before using as absolute λ.
+
+**Takeaway (flag, not interpret):** the dynamical substrates form a chaos-ordered family
+(stable → periodic → chaotic) on D₂ and λ-sign; the three flows (MG, Lorenz) + map (logistic)
+give the landscape a validated dynamical axis (D₂) and a sign-reliable λ. Rosenstein-λ
+calibration is the one open methods item.
+
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
 **H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-
