@@ -639,3 +639,28 @@ reparametrization (flat within metallic means, much larger for Liouville). The L
 in the COUPLING-CORRESPONDENCE, not in whether confluence occurs. Mechanistically consistent (flagged):
 Liouville's long near-periodic stretches make its Sturmian spectrum more band-like at given λ → needs
 stronger coupling to fractalize to AM-crit's 0.49. Banked: liouville-nconv.jsonl (8 cells); figure P9.
+
+### λ*(class): step or continuum? (lambda_star_classes.py + lambda_star_nconv.py) — CONTINUOUS APPROXIMABILITY STRATIFICATION
+Mapping the AM↔Fibonacci matching coupling λ* across 9 Lagrange classes resolves what λ* tracks.
+λ* @N=50k (unbounded-CF cells N-confirmed @100k, drift <0.1): golden 3.42, silver 3.32, bronze 3.41,
+metallic4 4.20, metallic5 4.98, e−2 3.78, ln2 3.81, π−3 7.73, Liouville ~10.7.
+**Refutes BOTH binary extremes:** (1) NOT a step at CF-boundedness — **e** (μ=2, UNbounded CF) lands at
+λ*=3.78, with the metallic means, not Liouville (the discriminator; N-confirmed). (2) NOT pure-μ — at
+fixed μ=2, λ* spreads 3.32 (silver) → 4.98 (metallic5) with CF-quotient magnitude. **Synthesis (Will's
+verdict): continuous APPROXIMABILITY stratification, single universality class.** λ* tracks how well α
+is approximated by rationals (combining CF-quotient size AND μ): most-Diophantine classes (small-quotient
+metallic means + e, slow-growing quotients) floor at λ*≈3.3–3.8; λ* rises continuously through ln2/
+metallic5/π to Liouville's ~10.7. The metallic-mean cluster and Liouville are endpoints of an
+approximability continuum, NOT two CF-boundedness classes.
+
+**Two distinct claims:** (1) **AM-crit D_box is approximability-INVARIANT** — stays in [0.49,0.53] (~½)
+across all 9 classes; AM-criticality is genuinely universal in the Bellissard sense across this space.
+Consistent with Jitomirskaya-Krasovsky (D ≤ ½ theorem) and Wilkinson-Austin 1994 (~½ numerical conjecture).
+(2) **Fibonacci-Hamiltonian λ-Cantor-curve is approximability-GRADED** — more-approximable α needs more
+coupling to fractalize its spectrum to the same D_box (high approximability ≈ "almost rational", and
+Fibonacci at rational α → AC band, so stronger coupling needed to push into Cantor). The variation lives
+entirely on the Fibonacci side. **Connects to Damanik-Gorodetski 2014 / Cao-Qu 2023** (a.e.-frequency
+Hausdorff-dim constancy at large coupling): our finding empirically CONFIRMS the asymptotic constancy AND
+characterizes the approach to it — more-approximable (measure-zero) α need higher λ to reach the
+asymptotic regime; metallic means reach it sooner. A convergence-rate extension of the constancy theorem.
+Banked: lambda-star-classes.jsonl (108) + lambda-star-nconv.jsonl (9); figure P10. Flag, not interpreted.

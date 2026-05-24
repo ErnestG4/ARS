@@ -140,6 +140,25 @@ distinct relationships to Diophantine structure:
 (critical) / preserved (sup)**. A substantive finding about how AM *processes* Diophantine-class
 structure as a function of where in the phase diagram the fingerprint is read. (Flagged, not interpreted.)
 
+**(j) λ\*(class) is a CONTINUOUS APPROXIMABILITY stratification — single universality class
+(lambda_star_classes.py + lambda_star_nconv.py).** Mapping the matching coupling λ* across 9 Lagrange
+classes (golden/silver/bronze/metallic4/5, e−2, ln2, π−3, Liouville) resolves what λ* tracks, refuting
+BOTH binary extremes: (1) **NOT a step at CF-boundedness** — the discriminator **e** (μ=2, UNbounded CF)
+lands at λ*=3.78 (N-confirmed @100k), with the metallic means, not Liouville; (2) **NOT pure-μ** — at
+fixed μ=2, λ* spreads 3.32 (silver) → 4.98 (metallic5) with CF-quotient magnitude. ⇒ λ* tracks
+**approximability** (rational-approximation quality, combining quotient size AND μ): most-Diophantine
+classes floor at λ*≈3.3–3.8, rising continuously through ln2/metallic5/π to Liouville's ~10.7 — the
+metallic-mean cluster and Liouville are endpoints of an **approximability continuum, not two CF classes**.
+Two distinct claims: **(i) AM-crit D_box is approximability-INVARIANT** (~½, in [0.49,0.53] across all 9)
+— AM-criticality universal in the Bellissard sense; consistent with **Jitomirskaya-Krasovsky (D≤½)** +
+**Wilkinson-Austin 1994 (~½)**. **(ii) The Fibonacci λ-Cantor-curve is approximability-GRADED** — more-
+approximable α needs more coupling to fractalize (high approximability ≈ almost-rational → Fibonacci AC
+band → stronger coupling to reach Cantor); all the λ* variation lives on the Fibonacci side. **Connects
+to Damanik-Gorodetski 2014 / Cao-Qu 2023** (a.e.-frequency dim-constancy at large coupling): empirically
+confirms the asymptotic constancy AND characterizes its approach — more-approximable (measure-zero) α
+reach the asymptotic regime at higher λ (a convergence-rate extension). N-confirmed (e/π drift <0.1
+50k→100k; Liouville ~10.7). Figure P10. (Verdict: Will, 2026-05-23.)
+
 ## 4. Methodology established
 
 Matched-instrument across compared legs (carry every viewpoint, annotate
@@ -211,8 +230,9 @@ resolution of "no single axis spans all"), **P7** coupling correspondence (AM + 
 curves on one axis; Fibonacci reaches AM-crit at λ≈3.46), **P8** θ-class correspondence (Fibonacci-α
 D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4; `theta_class_correspondence.py`),
 **P9** Liouville N-convergence (AM-crit-Liouville N-converged 0.49; Fibonacci-Liouville crosses at λ*≈10.7;
-`liouville_nconv.py`). Regenerate via `landscape_view.py` + `confluence_view.py` +
-`theta_class_correspondence.py` + `liouville_nconv.py`. Interactive projection still pending; P6 is the static unified view.
+`liouville_nconv.py`), **P10** λ*(class) approximability stratification (λ* vs μ, CF-boundedness encoded;
+`lambda_star_classes.py`). Regenerate via `landscape_view.py` + `confluence_view.py` +
+`theta_class_correspondence.py` + `liouville_nconv.py` + `lambda_star_classes.py`. Interactive projection still pending; P6 is the static unified view.
 
 - Arithmetic spectra (ζ/Dirichlet/EC, Maass, primes) cluster GUE-like (low I.5q).
 - Mertens/Liouville far-from-GUE (clustered). Bio (pvc-11, Allen) + Kuramoto middle.
@@ -226,11 +246,12 @@ D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4; 
   Dirichlet/EC Poisson-reading carries the cross-conductor-pooling caveat.
 - ~~Fibonacci-λ-sweep~~ **DONE** (§3(g)) and ~~Fib-θ-class sweep~~ **DONE** (§3(h)) — AM↔Fibonacci
   confluence generalizes across the quadratics (golden/silver/bronze, λ*≈3.4); Liouville is N-ambiguous.
-- ~~Liouville N-convergence check~~ **DONE** (liouville_nconv.py) — confluence is universal (Liouville
-  confluences at λ*≈10.7, N-converged); the matching coupling λ* stratifies by class (§3(h)). Possible
-  next: an **intermediate-class λ* sweep** (e−2 and other transcendental-Diophantines, already in the
-  Sturmian-Ham α-set) — does λ* jump sharply at the bounded/unbounded-CF step, or scale gradually with
-  irrationality measure between the metallic-mean ~3.4 and Liouville's ~10.7?
+- ~~Liouville N-convergence check~~ **DONE** (liouville_nconv.py) and ~~intermediate-class λ* sweep~~
+  **DONE** (§3(j); lambda_star_classes.py + lambda_star_nconv.py) — λ* is a continuous approximability
+  stratification, single universality class; AM-crit approximability-invariant, Fibonacci side graded.
+  Possible next: **a Fibonacci-side dimension theory cross-check** — compare the approximability-graded
+  D_box(λ) curves against the Damanik-Gorodetski/Cao-Qu predicted large-λ asymptotics quantitatively
+  (does the convergence rate match a known functional form in the approximation exponents?).
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
 - **Breadth** — FM/brocot.fm (Will's own substrate); Family V on Kuramoto (order-parameter
