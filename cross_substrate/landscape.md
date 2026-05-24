@@ -1,8 +1,46 @@
 # ARS Cross-Substrate Landscape
 
-**Status:** working artifact, v0 first cut. Populates as substrates are characterized and angles are applied.
-**Date:** 2026-05-22
+**Status:** v1 consolidation (2026-05-24; was v0 2026-05-22). §0 dashboard = current state; §3/§5 = v0 catalog/matrix retained below.
 **Frame:** operator-IS-substrate; cross-substrate landscape-mapping; explorer-shaped, not hypothesis-test-shaped.
+
+---
+
+## §0 — Landscape v1 dashboard (state at a glance, 2026-05-24)
+
+Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md`. All FLAGGED (verdicts Will's).
+
+**MAPPED** (substrates with computed fingerprint coordinates):
+- *Operator / arithmetic (18 substrates):* AM (9 Lagrange θ-classes × coupling sweep), Fibonacci/Sturmian
+  Hamiltonian (coupling range × Lagrange classes), Sturmian word, ζ / Dirichlet / EC L-zeros (split),
+  Mertens, Liouville, Gaussian + Eisenstein primes, Maass, pvc-11 V1, Kuramoto, pulsar (NANOGrav),
+  Mackey-Glass / Lorenz / logistic.
+- *Neuro depth (Allen):* 8,462 cells × 7 areas (V1/LM/RL/AL/PM/AM/LGN) × 8 stimuli, Family I + Family II.
+- *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
+- *Population-level (1-session pilot):* corr-eig / avl-onset / sync-event / rate-peak.
+- *Axes populated:* Family I (NNS I.1–I.9), II (Σ²/Δ₃/K), IV (spectral box-dim), V (λ₁/D₂), VI, VII;
+  III (RF) where banked.
+
+**PENDING:**
+- *Operator:* trace-map thermodynamic-formalism dimension (the deferred quantitative DEGT constant).
+- *Neuro:* spatial population-level (a distinct substrate); Tier-2 Buzsaki / Tier-3 IBL (acquisition —
+  scope interactively); orthogonal-design Family-VII disambiguation (only if Family VII becomes load-bearing).
+- *brocot.fm* (Will's own substrate; audio spectral side — the standing bridge piece).
+
+**SURPRISES / load-bearing findings:**
+- **AM ≡ Fibonacci Hamiltonian up to an approximability-dependent reparametrization** — universal across
+  the whole Lagrange spectrum; matching coupling λ* continuous in approximability (not a CF-boundedness
+  step); AM-criticality box-dim ≈½ invariant (PROGRESS_REPORT §3 g–k).
+- **H1 (OSI↔ks_gue) generalizes across ALL mouse visual areas + LGN** — pathway-independent, not V1-specific.
+- **Family VII is monkey-STRONG / mouse-WEAK** (graded ~0.1 vs 0.47, not absent) — reframes to "what makes
+  it 4–5× stronger in pvc-11" (4 candidates incl. sampling-geometry).
+- **Within-cell stimulus-state is a live axis** — a fixed cell's class shifts with stimulus; Σ² (long-range)
+  is the more state-sensitive axis.
+- **Per-cell fingerprints COHERE** (visual-cortex cluster, no spatial autocorrelation <1 mm) **but
+  POPULATION-level fingerprints FRAGMENT by aggregation** (corr-eig→GUE, sync-event→Poisson, avl→intermediate)
+  — no single "population fingerprint"; and **avalanche-criticality is orthogonal to per-cell class** (two
+  observables, neither implies the other).
+- **Verifying an asymptotic CONSTANT needs the right formalism, not a finer sweep** (the DEGT dimension
+  cross-check, §3 k — form confirmed, constant deferred).
 
 ---
 

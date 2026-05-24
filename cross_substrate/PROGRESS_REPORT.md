@@ -378,3 +378,14 @@ population-level) and Tier-2 Buzsaki / Tier-3 IBL are future arcs. Figures: figu
   being subsumed by it** — more precise than "confirmed" or "refuted" criticality.
 - **(e)** Methodology: **long-range Family II (Σ²) carries more state information than short-range
   Family I (I.5q)** — if state-trajectory characterization becomes a focus, Σ² is the more sensitive axis.
+
+**Follow-ups (2026-05-24, post-adjudication):**
+- **Calibration anchors** (calibration_anchors.py): GUE/GOE/GSE/Poisson/clock/uniform-jitter banked as
+  explicit landscape corners + instrument re-validation (GUE→q≈1, Poisson→q≈0, clock→W1δ≈0). The clean
+  comparison baseline. coordinates/calibration-anchors.jsonl.
+- **Population-level fingerprints** (population_fingerprint.py; §7(h) follow-up): population fingerprints
+  **FRAGMENT by aggregation** — corr-eig (correlation-matrix bulk eigenvalues, principled spectral) → GUE;
+  sync-event (threshold) → Poisson; avl-onset → intermediate; rate-peak (find_peaks) → §7.ter.19 artifact
+  (control). No single "population fingerprint" — the aggregate picks the class; population-level is a
+  FAMILY of mutually-disagreeing observables (sharpens §7(h)). coordinates/population-fingerprint.jsonl.
+- **Landscape v1 consolidation** (landscape.md §0 dashboard): mapped / pending / surprises at a glance.

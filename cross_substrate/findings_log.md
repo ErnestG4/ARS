@@ -750,3 +750,32 @@ fingerprint. Underpowered (n=12, narrow |Δ| range — all sessions similarly ne
 qualitative read stands: **population avalanche-criticality and per-cell universality-class are
 ORTHOGONAL levels** — population-collective structure is a distinct substrate from per-cell spacing
 class, not recovered by per-cell Family II. (Flag; verdicts Will's.)
+
+### Calibration anchors + population-level fingerprints (2026-05-24, post-adjudication)
+
+**Calibration anchors (calibration_anchors.py) — explicit landscape corners + instrument re-validation.**
+Canonical classes generated (calibrator zoo: β-ensemble eigenvalues, Poisson, clock, uniform-jitter),
+N=3000, 6-seed mean, SAME instrument as substrates. Validates: GUE_b2 → I.5q=0.033, q=1.00, ρ=0.999;
+GOE_b1 → I.5q=0.094, q=0.876; GSE_b4 → q=1.00; clock → W1δ=0.000, Σ²=0.000; uniform_jitter → q=1.0,
+Σ²=0.12 (BR-regime); Poisson → q=0.006, ρ=0.093, W1δ=0.736. The corners are now explicit reference
+points (coordinates/calibration-anchors.jsonl) — clean baseline for every substrate. (Instrument re-validated:
+GUE→q≈1, Poisson→q≈0, clock→W1δ≈0.)
+
+**Population-level fingerprints (population_fingerprint.py) — §7(h) follow-up. FRAGMENT by aggregation.**
+One session (732592105) × {spontaneous, drifting_gratings}, 4 population observables fingerprinted.
+**Population-level fingerprints do NOT form a coherent landscape position — they fragment by aggregation
+choice (consistently across both blocks; aggregation, not stimulus, is the determining variable):**
+- **corr-eig** (pairwise correlation-matrix bulk eigenvalue NNS — the principled spectral observable,
+  no extractor): I.5q≈0.07, q≈0.91–0.96, ρ≈0.997 → **GUE** (empirical-covariance bulk is Wigner; RMT-standard).
+- **avl-onset** (avalanche onset times, point process): I.5q≈0.24, q≈0.59 → intermediate.
+- **sync-event** (population-rate threshold-upcrossing times): I.5q≈0.55, q=0.000, ρ=0.001 → **Poisson**
+  (network-event timing is clustered).
+- **rate-peak** (find_peaks on smoothed population rate): q=1.000 → Wigner, but this is the §7.ter.19
+  find_peaks autocorrelation-rhythm ARTIFACT (flagged; a within-study control — behaves exactly as the
+  known failure mode, NOT a real population property).
+**Reading (flag):** there is no single "population fingerprint." The population's CORRELATION structure
+→ GUE, its EVENT TIMING → Poisson-ish, naive peak-extraction → artifact — genuinely different observables,
+each landing where its nature dictates. Sharpens §7(h): population-level is a FAMILY of mutually-disagreeing
+observables, and "which aggregate" picks the universality class. The principled spectral choice (corr-eig)
+is GUE. Per-cell fingerprints cohere (visual-cortex cluster, §7d); population fingerprints do not.
+Banked: coordinates/population-fingerprint.jsonl (8). Verdicts Will's.
