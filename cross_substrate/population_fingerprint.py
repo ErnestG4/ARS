@@ -137,18 +137,31 @@ def _rate_peaks(M, edges):
     return t if t.size > 50 else None
 
 
-def run(only_session=None):
+def run(only_session=None, all_sessions=False):
     targets = build_targets()
     files = sorted(glob.glob(NWB_GLOB))
     if only_session:
         files = [f for f in files if f"session_{only_session}" in f]
-    else:
+    elif not all_sessions:
         files = files[:1]                       # one session (focused study)
-    recs = []
+    # all-sessions → separate file, incremental + resumable (12 sessions, I/O-bound)
+    out = os.path.join(COORD, "population-fingerprint-all.jsonl" if all_sessions
+                       else "population-fingerprint.jsonl")
+    done = set()
+    if all_sessions and os.path.exists(out):
+        for line in open(out):
+            try:
+                done.add(json.loads(line)["session"])
+            except Exception:
+                pass
+    fh = open(out, "a" if (all_sessions and done) else "w")
+    n_total = 0
     print("POPULATION-LEVEL FINGERPRINTS — coherent landscape position or fragment by aggregation?")
-    print(f"{'block':17s} {'aggregation':14s} {'n':>5s} {'I.5q':>6s} {'I.5':>6s} {'W1δ':>6s} {'q':>6s} {'BRρ':>6s} {'Σ²':>8s}")
+    print(f"{'session':>10s} {'block':17s} {'aggregation':14s} {'n':>5s} {'I.5q':>6s} {'I.5':>6s} {'W1δ':>6s} {'q':>6s} {'BRρ':>6s} {'Σ²':>8s}")
     for f in files:
         sid = int(os.path.basename(os.path.dirname(f)).split("_")[1])
+        if sid in done:
+            print(f"  session {sid} already banked, skip"); continue
         rows = targets[targets["session_id"] == sid]
         with h5py.File(f, "r") as h:
             ids = h["units/id"][:]
@@ -177,34 +190,35 @@ def run(only_session=None):
                     except Exception:
                         i5q = None
                     ax = {"I.5q_ks_gue_med": i5q, **fp}
-                    recs.append({"substrate": "population-fingerprint",
-                                 "cell_id": f"{sid}/{blk}/{name}", "session": sid, "block": blk,
-                                 "aggregation": name, "n": int(len(obj)),
-                                 "axes_computed": ax,
-                                 "extraction_audit": {"note": note, "n_units": len(urows)},
-                                 "source_artifact": "generated (population aggregation)",
-                                 "computed_date": date.today().isoformat()})
+                    rec = {"substrate": "population-fingerprint",
+                           "cell_id": f"{sid}/{blk}/{name}", "session": sid, "block": blk,
+                           "aggregation": name, "n": int(len(obj)),
+                           "axes_computed": ax,
+                           "extraction_audit": {"note": note, "n_units": len(urows)},
+                           "source_artifact": "generated (population aggregation)",
+                           "computed_date": date.today().isoformat()}
+                    fh.write(json.dumps(rec) + "\n"); fh.flush()
+                    n_total += 1
                     def g(k):
                         v = ax.get(k)
                         return f"{v:.3f}" if isinstance(v, float) else "  -"
-                    print(f"{blk:17s} {name:14s} {len(obj):>5d} {g('I.5q_ks_gue_med'):>6s} "
+                    print(f"{sid:>10d} {blk:17s} {name:14s} {len(obj):>5d} {g('I.5q_ks_gue_med'):>6s} "
                           f"{g('I.5_ks_gue'):>6s} {g('I.1_w1_clock'):>6s} {g('I.8_brody_q'):>6s} "
-                          f"{g('I.9_berry_robnik_rho'):>6s} {g('II.1_sigma2_L'):>8s}")
-    with open(os.path.join(COORD, "population-fingerprint.jsonl"), "w") as fh:
-        for r in recs:
-            fh.write(json.dumps(r) + "\n")
-    print(f"\n→ {len(recs)} population fingerprints banked. COHERENT (cluster) or FRAGMENT (scatter by "
-          "aggregation)? Compare to calibration-anchors + per-cell Allen. Flag, don't interpret.")
+                          f"{g('I.9_berry_robnik_rho'):>6s} {g('II.1_sigma2_L'):>8s}", flush=True)
+    fh.close()
+    print(f"\n→ {n_total} population fingerprints banked to {os.path.basename(out)}. COHERENT (cluster) "
+          "or FRAGMENT by aggregation — consistent across sessions? Flag, don't interpret.")
 
 
 def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", action="store_true")
+    ap.add_argument("--all", action="store_true", help="all 12 sessions → population-fingerprint-all.jsonl")
     ap.add_argument("--session", type=int, default=None)
     a = ap.parse_args()
     if a.run:
-        run(a.session)
+        run(a.session, all_sessions=a.all)
     else:
         ap.error("need --run")
 

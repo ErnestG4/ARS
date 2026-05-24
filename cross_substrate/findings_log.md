@@ -826,3 +826,49 @@ harmonic families at the GUE/repulsive corner (Prime-2 q=1.0, Truax/first-princi
 families (defined via KL + RF characteristic_q) do NOT translate to clean p-adic RF dominance on the
 ARS-predicted partials (Prime-3 still p2-dominant 0.329, p3 0.051). The discriminating leg is NNS
 Brody q, not RF-per-prime. Banked: coordinates/brocot-landscape.jsonl. Verdicts Will's.
+
+### Population-level fingerprints × all 12 Allen sessions (population_fingerprint.py --all) — fragmentation CONFIRMED CONSISTENT
+Extended the §7(h) 1-session pilot to all 12 sessions × 4 aggregations × 2 blocks (96 records). The
+fragmentation-by-aggregation is HIGHLY CONSISTENT across the corpus (n=24 per aggregation, both blocks):
+corr-eig (correlation-matrix bulk eigenvalues, principled spectral) → Brody q=0.952±0.052, I.5=0.083±0.012
+(GUE); avl-onset → q=0.664±0.075 (intermediate); sync-event → q=0.000±0.000 (Poisson — EXACTLY zero in all
+24, no variance); rate-peak (find_peaks) → q=1.000±0.039 (the §7.ter.19 artifact). Within-aggregation std
+is tiny (0.04–0.08) while between-aggregation separation spans the full q∈[0,1]. ⇒ **the aggregation choice,
+NOT the session/area, determines the universality class** — each population observable has a fixed, robust
+landscape position. Firms §7(h) at scale: no single "population fingerprint"; population-level is a family
+of mutually-disagreeing observables, and which observable you pick (not which recording) sets the class.
+Banked: coordinates/population-fingerprint-all.jsonl (96). Verdicts Will's.
+
+**Artifact checks on the two suspected population observables (Will's flags, induction-on-noise discipline):**
+- **sync-event q=0 is REAL Poisson, not a Brody-boundary clip.** All 4 metrics corroborate: I.5=0.554
+  (far-GUE), W1δ=1.115 (clustered, > Poisson's 0.74), BR ρ=0.001, Brody q=0.000. The position is genuine
+  (synchrony-event times Poisson-to-clustered). KEEP as a trustable observable.
+- **rate-peak q=1 is a CONFIRMED extractor artifact.** Induction-on-noise: a rate-matched Poisson
+  SURROGATE population, fed through the same rate-peak (find_peaks) extractor, gives Brody q=1.000 (vs
+  real 0.996) — Wigner manufactured from known-Poisson input (§7.ter.19 peak-spacing-regularity). DROP /
+  document as the artifact control.
+⇒ THREE trustable population observables, spanning the full axis: **corr-eig→GUE, avl-onset→intermediate,
+sync-event→Poisson** — all real, all distinct. The cross-substrate landscape gains 3 population positions
+(+ rate-peak as the documented artifact control). Refines §7(h): population-level is a family of
+mutually-disagreeing observables, and even after removing the one artifact, ≥3 real positions remain —
+each population observable IS its own substrate, not a measurement of "the" population.
+
+### Quasi-periodic operator family — approximability stratification extends to 5 operators (quasiperiodic_operators.py)
+Tested whether the AM↔Fibonacci↔brocot approximability axis extends across the broader quasi-periodic-operator
+family: 4 operators × 9 Lagrange classes × 6 couplings, N=50k, D_box discriminator. (Brody q is 0 at strong
+coupling — washed out; D_box at the CRITICAL coupling is the discriminator, as in AM-confluence.)
+Per-operator ρ(approximability-rank, D_box) at max-spread coupling:
+- **gaah (generalized-AAH, mobility edge): ρ=−0.717** @λ=1 (D_box golden 0.81 → Liouville 0.69) — JOINS.
+- **ext_harper (extended-Harper, self-dual line): ρ=−0.700** @λ=1 (golden 0.79 → Liouville 0.65) — JOINS.
+- **maryland (always-pure-point): ρ=+0.250, λ-INVARIANT flat** (~0.47–0.50) — clean NEGATIVE CONTROL (no
+  critical regime → no θ-stratification, as predicted).
+- **mosaic-AM: ρ=+0.267, weak/non-monotone** — does NOT cleanly stratify (a real negative).
+**⇒ the approximability axis extends from 3 → 5 substrates (+gaah, +ext_harper); it's a quasi-periodic-
+operator-CLASS property, CONDITIONED on a critical/fractal regime** (where the Cantor dimension is
+θ-sensitive). NOT universal: always-localized (maryland) and mosaic (in-range) don't show it.
+**Fine-structure generalizes "agree-gross-diverge-fine":** gaah/ext_harper show the metallic4/5
+quotient-magnitude dip and e-stays-high-with-small-quotient-metallics — matching the λ*(class)
+CONTINUOUS-approximability fine structure, NOT brocot's CF-boundedness step. So the quasi-periodic-OPERATOR
+family (AM/Fib/gaah/ext_harper) agrees on fine structure; brocot (FM synthesis) is the fine-structure
+outlier. Gross-axis agreement across all 5+brocot; fine-structure splits operators-vs-brocot.
+Banked: coordinates/quasiperiodic-operators.jsonl (216); figure P_qpo_approx.png. Verdicts Will's.

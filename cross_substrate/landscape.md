@@ -16,7 +16,10 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   Mackey-Glass / Lorenz / logistic.
 - *Neuro depth (Allen):* 8,462 cells × 7 areas (V1/LM/RL/AL/PM/AM/LGN) × 8 stimuli, Family I + Family II.
 - *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
-- *Population-level (1-session pilot):* corr-eig / avl-onset / sync-event / rate-peak.
+- *Population-level (all 12 sessions):* corr-eig→GUE / avl-onset→intermediate / sync-event→Poisson
+  (3 trustable, consistent across sessions) + rate-peak (artifact control).
+- *Quasi-periodic operators:* maryland / gaah / ext_harper / mosaic × 9 Lagrange classes × coupling
+  (D_box; the approximability-family extension test).
 - *brocot.fm (FM synthesis):* 4,292 phase3 exemplars × 33 families (partial-frequency NNS + RF per-prime)
   + the 9-Lagrange-class approximability bridge test (depth-sweep at irrational-α targets).
 - *Axes populated:* Family I (NNS I.1–I.9), II (Σ²/Δ₃/K), IV (spectral box-dim), V (λ₁/D₂), VI, VII;
@@ -51,6 +54,18 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   looks like a bounded-vs-unbounded-CF step (e−2 drops with the unbounded group), differing from the
   λ*(class) continuous-in-approximability fine structure — substrates agree gross, differ fine.
   brocot.fm corpus places by spectral DENSITY (sparse-harmonic→repulsive, dense-carpet→clustered).
+- **THE AXIS EXTENDS TO 5 OPERATORS (quasi-periodic family).** gaah (ρ=−0.72) and ext_harper (ρ=−0.70)
+  join AM/Fibonacci/brocot — D_box falls with approximability at their critical coupling. CONDITIONED on
+  a critical/fractal regime: maryland (always-pure-point) is a flat λ-invariant negative control, mosaic
+  doesn't stratify — so NOT universal across all quasi-periodic operators. Fine-structure generalizes
+  "agree-gross-diverge-fine": the OPERATOR family (AM/Fib/gaah/ext_harper) agrees on fine structure
+  (quotient-magnitude/continuous, e-stays-high), and brocot (FM synthesis) is the fine-structure outlier
+  (CF-boundedness step).
+- **POPULATION-LEVEL FRAGMENTATION IS CONSISTENT ACROSS ALL 12 SESSIONS.** 3 trustable population
+  observables span the full axis — corr-eig→GUE (q=0.95±0.05), avl-onset→intermediate (0.66±0.08),
+  sync-event→Poisson (0.00±0.00, corroborated by I.5/BRρ) — each a fixed landscape position, aggregation
+  (not session) sets the class. rate-peak's Wigner is a confirmed find_peaks artifact (induction-on-noise:
+  Poisson surrogate also → q=1). The map gains 3 real population positions + 1 artifact control.
 
 ---
 
