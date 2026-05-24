@@ -623,3 +623,19 @@ make box_dim finite-N-fragile, and neither Liouville value is N-converged (unlik
 stability). Honest read: Diophantine confluence robust; Liouville UNRESOLVED pending an N-convergence
 check — would disentangle "correspondence is bounded-CF-only" from "N=50k under-resolves Liouville".
 Banked: am-confluence-theta.jsonl (4) + fibonacci-lambda-theta.jsonl (44); figure P8. Flag, not interpreted.
+
+### Liouville N-convergence check (liouville_nconv.py) — RESOLVED: confluence is universal across Lagrange classes
+Disambiguating §3(h)'s Liouville ambiguity by pushing both legs to higher N. **Both N-converge:**
+AM-crit-Liouville (λ=1) D_box = 0.491/0.491/0.490 @ N=50k/100k/200k (rock-stable); Fibonacci-Liouville
+λ=8 = 0.530/0.533/0.534 @ 50k/100k/200k (floor flat — N is NOT the lever). **Extending λ instead:**
+Fib-Liouville D_box continues down (λ10→0.500, λ12→0.471, λ16→0.453), CROSSING AM-crit's converged 0.490
+at **λ*≈10.7**. ⇒ outcome (B)-via-λ: the earlier "no crossing" was a λ-RANGE artifact (λ≤8), NOT
+N-limited and NOT a class boundary. **Confluence is UNIVERSAL across all tested Lagrange classes**
+(golden/silver/bronze/Liouville); Liouville is not outside the universality class.
+**Refined finding (sharper than bounded-CF-only):** the matching coupling λ* STRATIFIES by Diophantine
+class — α-invariant ~3.4 within the metallic means, jumping to ~10.7 for super-approximable Liouville.
+AM↔Fibonacci is the same operator family across the whole Lagrange spectrum via an α-dependent
+reparametrization (flat within metallic means, much larger for Liouville). The Lagrange signature lives
+in the COUPLING-CORRESPONDENCE, not in whether confluence occurs. Mechanistically consistent (flagged):
+Liouville's long near-periodic stretches make its Sturmian spectrum more band-like at given λ → needs
+stronger coupling to fractalize to AM-crit's 0.49. Banked: liouville-nconv.jsonl (8 cells); figure P9.

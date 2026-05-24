@@ -111,19 +111,21 @@ the fingerprint differ** (AM via a phase transition at self-dual λ=1, Fibonacci
 α=golden produce coordinate-identical fingerprints at matched coupling via different mechanisms —
 exactly the universality-class confluence operator-IS-substrate predicts. Strengthens the framing.
 
-**(h) The confluence GENERALIZES across the metallic means (theta_class_correspondence.py).** AM-critical
-(λ=1, self-dual) vs Fibonacci-α D_box(λ) per Lagrange class: golden (AM-crit 0.513, λ*=3.42), silver
-(0.520, 3.32), bronze (0.511, 3.41) all confluence at λ*≈3.3–3.4 ⇒ **golden is NOT uniquely special;
-the AM↔Fibonacci correspondence is a bounded-CF (Diophantine) family property** (AM ≡ Fibonacci up to
-parameterization across quadratics — the strongest operator-IS-substrate state for that family). The
-near-identical λ* (3.32–3.42) means the matching coupling is itself **α-invariant within the metallic
-means** — ONE universal matching coupling for the family, not a per-α adjustment. Two
-sub-findings (flagged): (i) **AM-critical D_box is class-INVARIANT among quadratics (~0.51)** — contrast
-to the AM-sup-θ Brody stratification (0.81/0.44/0.28); criticality washes out the θ-sensitivity the
-localized regime shows (≈½ universal critical-AM box-dim). (ii) **Liouville is the boundary but
-N-AMBIGUOUS:** AM-crit 0.491 vs Fibonacci floor 0.530 (no crossing in grid), but Liouville's unbounded
-quotients make box_dim finite-N-fragile and neither value is N-converged — Diophantine confluence
-robust, Liouville unresolved pending an N-check. Figure P8.
+**(h) The confluence is UNIVERSAL across Lagrange classes; the matching coupling λ* stratifies
+(theta_class_correspondence.py + liouville_nconv.py).** AM-critical (λ=1, self-dual) vs Fibonacci-α
+D_box(λ) per class: golden (AM-crit 0.513, λ*=3.42), silver (0.520, 3.32), bronze (0.511, 3.41) all
+confluence at λ*≈3.3–3.4 — the matching coupling is **α-invariant within the metallic means** (one
+universal λ*, not a per-α adjustment). **Liouville also confluences** (Liouville N-check: AM-crit-Liouville
+D_box=0.490 N-converged 50k–200k; Fibonacci-Liouville reaches it at **λ*≈10.7** — the λ≤8 "no crossing"
+was a grid-range artifact, NOT N-limited and NOT a class boundary). ⇒ **AM ≡ Fibonacci up to
+parameterization across the WHOLE Lagrange spectrum** (strongest operator-IS-substrate state the program
+has produced); the Lagrange-stratification signature lives in the **coupling-correspondence** (λ*≈3.4 for
+metallic means → ~10.7 for super-approximable Liouville), not in whether confluence occurs. Mechanistically
+(flagged): Liouville's long near-periodic stretches make its Sturmian spectrum more band-like at given λ,
+so it needs stronger coupling to fractalize to AM-crit's 0.49. Sub-finding: (i) **AM-critical D_box is
+class-near-INVARIANT (~0.51 quadratics, 0.49 Liouville)** — contrast to the AM-sup-θ Brody stratification
+(0.81/0.44/0.28); criticality washes out the θ-sensitivity the localized regime shows (≈½ universal
+critical-AM box-dim). Figures P8 (metallic means) + P9 (Liouville N-conv).
 
 **(i) θ-class information propagates differently through AM's three phase regimes — a substrate
 property.** Reading the same operator (AM, golden vs other θ) at three phase-diagram points gives three
@@ -150,7 +152,14 @@ simulated substrates with known equations; **matched-reference discipline — sw
 coupling-class parameters before declaring two substrates distinct** (the AM-vs-Fibonacci
 λ=2 lesson: a fixed-reference two-point comparison read "distinct" and would have missed
 the confluence a coupling-sweep revealed at λ≈3.46; reference parameters must be matched,
-not assumed-canonical — sibling of ratio-vs-magnitude).
+not assumed-canonical — sibling of ratio-vs-magnitude); **when a crossing/match is ABSENT,
+check both N-convergence AND parameter-range before concluding** (the Liouville λ≤8 "no
+crossing" was a grid-range artifact, not a class boundary — the crossing was at λ≈10.7;
+absence-of-crossing has two escape hatches, finite-N and finite-range, and both must be
+closed); **carry the Phase-35 L_iter convergence discipline into cross-substrate work** —
+unbounded-CF substrates (Liouville) raise legitimate finite-N concerns, so N-converge the
+fingerprint empirically before declaring a class boundary (the Liouville N-check was
+diligence, not a response to misbehavior; both legs converged cleanly).
 
 **Boundary — the fingerprint is blind to route (what it does and does not resolve).** The
 confluence axes (W1δ, ks_gue, Brody q, D_box, Σ²/Δ₃) measure *spectral structure*, not
@@ -200,9 +209,10 @@ confluence (D_box-vs-λ V + repulsion-plane trajectory; `confluence_view.py`), *
 ks-GUE strip — every substrate on one axis (matched I.5 ● / q-banded I.5q ■ via proxy verdict; the
 resolution of "no single axis spans all"), **P7** coupling correspondence (AM + Fibonacci D_box(λ)
 curves on one axis; Fibonacci reaches AM-crit at λ≈3.46), **P8** θ-class correspondence (Fibonacci-α
-D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4, Liouville does not in grid;
-`theta_class_correspondence.py`). Regenerate via `landscape_view.py` + `confluence_view.py` +
-`theta_class_correspondence.py`. Interactive projection still pending; P6 is the static unified view.
+D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4; `theta_class_correspondence.py`),
+**P9** Liouville N-convergence (AM-crit-Liouville N-converged 0.49; Fibonacci-Liouville crosses at λ*≈10.7;
+`liouville_nconv.py`). Regenerate via `landscape_view.py` + `confluence_view.py` +
+`theta_class_correspondence.py` + `liouville_nconv.py`. Interactive projection still pending; P6 is the static unified view.
 
 - Arithmetic spectra (ζ/Dirichlet/EC, Maass, primes) cluster GUE-like (low I.5q).
 - Mertens/Liouville far-from-GUE (clustered). Bio (pvc-11, Allen) + Kuramoto middle.
@@ -216,9 +226,11 @@ D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4, 
   Dirichlet/EC Poisson-reading carries the cross-conductor-pooling caveat.
 - ~~Fibonacci-λ-sweep~~ **DONE** (§3(g)) and ~~Fib-θ-class sweep~~ **DONE** (§3(h)) — AM↔Fibonacci
   confluence generalizes across the quadratics (golden/silver/bronze, λ*≈3.4); Liouville is N-ambiguous.
-- **Liouville N-convergence check** (new, from §3(h)) — push AM-crit-Liouville + Fibonacci-Liouville
-  D_box to N≥100k–200k to resolve whether the correspondence is bounded-CF-only or N=50k under-resolves
-  Liouville's unbounded-quotient spectrum. Cheap (same machinery), the one open piece of the θ-class arc.
+- ~~Liouville N-convergence check~~ **DONE** (liouville_nconv.py) — confluence is universal (Liouville
+  confluences at λ*≈10.7, N-converged); the matching coupling λ* stratifies by class (§3(h)). Possible
+  next: an **intermediate-class λ* sweep** (e−2 and other transcendental-Diophantines, already in the
+  Sturmian-Ham α-set) — does λ* jump sharply at the bounded/unbounded-CF step, or scale gradually with
+  irrationality measure between the metallic-mean ~3.4 and Liouville's ~10.7?
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
 - **Breadth** — FM/brocot.fm (Will's own substrate); Family V on Kuramoto (order-parameter
