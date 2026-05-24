@@ -603,3 +603,23 @@ distinctness (the λ=2 two-point test would have read "distinct" and missed the 
 structure, so special-point vs generic Cantor is indistinguishable; mechanism is
 under-determined by fingerprint alone (a feature for universality-class confluence, a limit on
 mechanism inference).
+
+### θ-class correspondence (theta_class_correspondence.py) — does AM↔Fibonacci generalize beyond golden?
+AM-critical (λ=1, self-dual — θ-independent) vs Fibonacci-α D_box(λ) per Lagrange class, N=50k,
+8φ, same instrument. **CONFLUENCE GENERALIZES ACROSS THE QUADRATIC (metallic-mean) CLASSES:**
+golden (AM-crit 0.513, λ*=3.42), silver (0.520, λ*=3.32), bronze (0.511, λ*=3.41) — all three
+confluence at nearly identical coupling λ*≈3.3–3.4. ⇒ **golden is NOT uniquely special among the
+metallic means; the correspondence is a bounded-CF (Diophantine) family property** — strongest
+operator-IS-substrate state for that family (AM ≡ Fibonacci up to parameterization across quadratics).
+Golden λ*=3.42 here vs 3.46 (dedicated sweep) — consistent within grid resolution.
+
+**Two sub-findings (flagged):** (1) **AM-critical D_box is class-INVARIANT among quadratics (~0.51)**
+— sharp contrast to the AM-SUP-θ Brody stratification (golden 0.81→silver 0.44→Liouville 0.28).
+Criticality WASHES OUT the θ-class sensitivity the localized (sup) regime shows; the self-dual
+critical point is more universal (consistent with the ≈½ universal critical-AM box-dim). (2)
+**Liouville is the boundary, but N-AMBIGUOUS not a clean break:** AM-crit-Liouville 0.491 vs
+Fibonacci-Liouville floor 0.530 (no crossing in the λ≤8 grid). BUT Liouville's unbounded CF quotients
+make box_dim finite-N-fragile, and neither Liouville value is N-converged (unlike golden's 50k–200k
+stability). Honest read: Diophantine confluence robust; Liouville UNRESOLVED pending an N-convergence
+check — would disentangle "correspondence is bounded-CF-only" from "N=50k under-resolves Liouville".
+Banked: am-confluence-theta.jsonl (4) + fibonacci-lambda-theta.jsonl (44); figure P8. Flag, not interpreted.

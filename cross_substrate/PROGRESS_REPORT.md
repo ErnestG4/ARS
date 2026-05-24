@@ -111,6 +111,33 @@ the fingerprint differ** (AM via a phase transition at self-dual λ=1, Fibonacci
 α=golden produce coordinate-identical fingerprints at matched coupling via different mechanisms —
 exactly the universality-class confluence operator-IS-substrate predicts. Strengthens the framing.
 
+**(h) The confluence GENERALIZES across the metallic means (theta_class_correspondence.py).** AM-critical
+(λ=1, self-dual) vs Fibonacci-α D_box(λ) per Lagrange class: golden (AM-crit 0.513, λ*=3.42), silver
+(0.520, 3.32), bronze (0.511, 3.41) all confluence at λ*≈3.3–3.4 ⇒ **golden is NOT uniquely special;
+the AM↔Fibonacci correspondence is a bounded-CF (Diophantine) family property** (AM ≡ Fibonacci up to
+parameterization across quadratics — the strongest operator-IS-substrate state for that family). The
+near-identical λ* (3.32–3.42) means the matching coupling is itself **α-invariant within the metallic
+means** — ONE universal matching coupling for the family, not a per-α adjustment. Two
+sub-findings (flagged): (i) **AM-critical D_box is class-INVARIANT among quadratics (~0.51)** — contrast
+to the AM-sup-θ Brody stratification (0.81/0.44/0.28); criticality washes out the θ-sensitivity the
+localized regime shows (≈½ universal critical-AM box-dim). (ii) **Liouville is the boundary but
+N-AMBIGUOUS:** AM-crit 0.491 vs Fibonacci floor 0.530 (no crossing in grid), but Liouville's unbounded
+quotients make box_dim finite-N-fragile and neither value is N-converged — Diophantine confluence
+robust, Liouville unresolved pending an N-check. Figure P8.
+
+**(i) θ-class information propagates differently through AM's three phase regimes — a substrate
+property.** Reading the same operator (AM, golden vs other θ) at three phase-diagram points gives three
+distinct relationships to Diophantine structure:
+- **Sub (λ<1, AC regime):** clock-rigid, **θ-invariant** — the spectrum is too smooth (absolutely
+  continuous, band) to carry θ-class information; Diophantine distinctions suppressed.
+- **Critical (λ=1, self-dual transition):** D_box **θ-invariant among quadratics (~0.51)** — the
+  self-dual critical point is Diophantine-UNIVERSAL; it does not resolve fine class distinctions (§3(h)).
+- **Sup (λ>1, PP regime):** Brody q **θ-STRATIFIED** (golden 0.81 → silver 0.44 → Liouville 0.28,
+  §3(e)) — the localized/fragmented spectrum carries θ-class info in its level repulsion.
+⇒ same parameter, same operator, three phase points → θ-class info is **suppressed (sub) / washed out
+(critical) / preserved (sup)**. A substantive finding about how AM *processes* Diophantine-class
+structure as a function of where in the phase diagram the fingerprint is read. (Flagged, not interpreted.)
+
 ## 4. Methodology established
 
 Matched-instrument across compared legs (carry every viewpoint, annotate
@@ -172,8 +199,10 @@ I.5q strip, **P4** Family-V dynamical sub-landscape (D₂ × W1δ trajectories),
 confluence (D_box-vs-λ V + repulsion-plane trajectory; `confluence_view.py`), **P6** unified bridged
 ks-GUE strip — every substrate on one axis (matched I.5 ● / q-banded I.5q ■ via proxy verdict; the
 resolution of "no single axis spans all"), **P7** coupling correspondence (AM + Fibonacci D_box(λ)
-curves on one axis; Fibonacci reaches AM-crit at λ≈3.46). Regenerate via `landscape_view.py` +
-`confluence_view.py`. Interactive projection still pending; P6 is the static unified view.
+curves on one axis; Fibonacci reaches AM-crit at λ≈3.46), **P8** θ-class correspondence (Fibonacci-α
+D_box(λ) per Lagrange class vs AM-crit-θ; quadratics confluence at λ*≈3.4, Liouville does not in grid;
+`theta_class_correspondence.py`). Regenerate via `landscape_view.py` + `confluence_view.py` +
+`theta_class_correspondence.py`. Interactive projection still pending; P6 is the static unified view.
 
 - Arithmetic spectra (ζ/Dirichlet/EC, Maass, primes) cluster GUE-like (low I.5q).
 - Mertens/Liouville far-from-GUE (clustered). Bio (pvc-11, Allen) + Kuramoto middle.
@@ -185,10 +214,11 @@ curves on one axis; Fibonacci reaches AM-crit at λ≈3.46). Regenerate via `lan
 
 - ~~L-zeros split~~ **DONE** (lzeros_split.py) — ζ-GUE / Dirichlet / EC now separate substrates;
   Dirichlet/EC Poisson-reading carries the cross-conductor-pooling caveat.
-- ~~Fibonacci-λ-sweep~~ **DONE** (fibonacci_lambda_run.py) — Fibonacci D_box reaches AM-crit 0.51 at
-  λ≈3.46; coupling caveat resolved toward confluence (§3(g)). Possible next: a Fib-θ-class sweep
-  (silver/bronze/Liouville coupling curves) to test whether the AM-θ ↔ Fibonacci correspondence holds
-  beyond golden.
+- ~~Fibonacci-λ-sweep~~ **DONE** (§3(g)) and ~~Fib-θ-class sweep~~ **DONE** (§3(h)) — AM↔Fibonacci
+  confluence generalizes across the quadratics (golden/silver/bronze, λ*≈3.4); Liouville is N-ambiguous.
+- **Liouville N-convergence check** (new, from §3(h)) — push AM-crit-Liouville + Fibonacci-Liouville
+  D_box to N≥100k–200k to resolve whether the correspondence is bounded-CF-only or N=50k under-resolves
+  Liouville's unbounded-quotient spectrum. Cheap (same machinery), the one open piece of the θ-class arc.
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
 - **Breadth** — FM/brocot.fm (Will's own substrate); Family V on Kuramoto (order-parameter
