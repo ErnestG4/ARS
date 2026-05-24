@@ -275,7 +275,7 @@ NNS marker `I.5q` = q-banded ks-to-GUE harvested into coordinates (Phase 2a); fu
 | Liouville | ✓ I.5q + matched I/II (2b); BL | | ◐ BL (far-from-GUE) | ◐ | — | | — | — | | — | — | — | — |
 | Maass Γ₀(N) | ✓ I.5q + matched I/II (2b); Sarnak | | ◐ Sarnak-anomaly | | — | | — | — | | — | — | — | — |
 | Gaussian / Eisenstein primes | ✓ I.5q + matched I/II (2b); near-GUE | | ◐ near-GUE | ◐ | — | | — | — | | — | — | — | — |
-| Mackey-Glass | | | | | ✓ canonical | | | | | — | — | — | |
+| Mackey-Glass | ✓ peak-NNS (τ-sweep 5 cells) | — | ✓ τ-trajectory stable→chaotic | — | ✓ V.2 D₂ + V.1 λ₁-sign | | — | — | ◐ Σ²/Δ₃ | — | — | τ-sweep | ✓ VI.3 cross-extract |
 | Sacks/quadratic | | | | p=7 candidate | — | | | — | | — | — | — | — |
 
 The matrix is intentionally sparse — most cells are open. The empty space IS the population target. Phase 2a populated the NNS `I.5q` (q-banded) and RF (III) columns for 10 substrates from already-banked artifacts; new substrate rows (Kuramoto, Pulsar, Mertens, Liouville, Maass, Gaussian/Eisenstein primes) added here pending full §3 catalog entries.

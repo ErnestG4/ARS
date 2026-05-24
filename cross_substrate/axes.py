@@ -307,6 +307,93 @@ def compute_family_III_from_rf(rf_amp_per_q) -> dict:
     }
 
 
+# ── Family V — dynamical (for substrates with an underlying time series) ─────
+from scipy.spatial import cKDTree  # noqa: E402
+
+
+def _embed_lag(x, max_lag=2000):
+    """Embedding lag = first 1/e crossing of the autocorrelation."""
+    x = np.asarray(x, float) - np.mean(x)
+    n = min(len(x), 20000)
+    ac = np.correlate(x[:n], x[:n], "full")[n - 1:]
+    ac = ac / ac[0]
+    below = np.where(ac < 1.0 / np.e)[0]
+    return int(np.clip(below[0] if below.size else 1, 1, max_lag))
+
+
+def _embed(x, m, lag):
+    M = len(x) - (m - 1) * lag
+    return np.column_stack([x[i * lag: i * lag + M] for i in range(m)]) if M > 0 else None
+
+
+def V1_lyapunov(x, emb_dim=6, lag=None, dt=1.0, horizon=None,
+                max_pts=8000) -> Optional[float]:
+    """Largest Lyapunov exponent via Rosenstein (mean log-divergence of
+    nearest-neighbour trajectories). Returns λ₁ in 1/time (dt-scaled).
+    Sign is the load-bearing read: λ≤0 regular, λ>0 chaotic."""
+    x = np.asarray(x, float)
+    lag = lag or _embed_lag(x)
+    Y = _embed(x, emb_dim, lag)
+    if Y is None or len(Y) < 500:
+        return None
+    if len(Y) > max_pts:                       # subsample for the O(N log N) tree
+        Y = Y[:: max(1, len(Y) // max_pts)]
+    M = len(Y)
+    theiler = lag                              # exclude temporal neighbours
+    tree = cKDTree(Y)
+    d, idx = tree.query(Y, k=min(40, M))       # k candidates; pick nearest beyond Theiler
+    nn = np.full(M, -1)
+    for j in range(M):
+        for cand in idx[j]:
+            if abs(cand - j) > theiler:
+                nn[j] = cand
+                break
+    ok = nn >= 0
+    if ok.sum() < 100:
+        return None
+    H = horizon or min(2 * lag, (M - 1) // 4)
+    div = []
+    for k in range(1, H):
+        jj = np.where(ok)[0]
+        jj = jj[(jj + k < M) & (nn[jj] + k < M)]
+        if jj.size < 50:
+            break
+        dist = np.linalg.norm(Y[jj + k] - Y[nn[jj] + k], axis=1)
+        dist = dist[dist > 0]
+        div.append(np.mean(np.log(dist)))
+    if len(div) < 5:
+        return None
+    ks = np.arange(1, len(div) + 1)
+    slope = np.polyfit(ks, div, 1)[0]          # per-step; convert to per-time
+    return float(slope / dt)
+
+
+def V2_correlation_dim(x, emb_dim=10, lag=None, max_pts=4000) -> Optional[float]:
+    """Correlation dimension D₂ (Grassberger-Procaccia): slope of log C(r)
+    vs log r in the scaling region of the delay-embedded attractor."""
+    x = np.asarray(x, float)
+    lag = lag or _embed_lag(x)
+    Y = _embed(x, emb_dim, lag)
+    if Y is None or len(Y) < 500:
+        return None
+    if len(Y) > max_pts:
+        Y = Y[:: max(1, len(Y) // max_pts)]
+    tree = cKDTree(Y)
+    Npts = len(Y)
+    span = np.linalg.norm(Y.max(0) - Y.min(0))
+    rs = np.logspace(np.log10(span * 1e-3), np.log10(span * 0.5), 20)
+    counts = tree.count_neighbors(tree, rs).astype(np.float64)
+    C = (counts - Npts) / (Npts * (Npts - 1))   # exclude self-pairs
+    m = C > 0
+    if m.sum() < 5:
+        return None
+    lr, lc = np.log(rs[m]), np.log(C[m])
+    mid = (lc > np.log(1e-4)) & (lc < np.log(0.5))   # scaling region
+    if mid.sum() < 4:
+        mid = np.ones_like(lc, bool)
+    return float(np.polyfit(lr[mid], lc[mid], 1)[0])
+
+
 # ── Family VI — extraction-meta ──────────────────────────────────────────────
 def VI1_L_iter_alpha(loglog_alpha_mean: Optional[float],
                      loglog_alpha_spread: Optional[float] = None) -> Optional[dict]:

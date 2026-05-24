@@ -351,6 +351,34 @@ cause was Family II over-sampling sliding windows (Δ₃ slid by L/4 → ~N/12 w
 substrates (sub 0.19→0.008). NOTE: pvc-11/arithmetic Family II were computed with the old
 window scheme — re-run for strict consistency is now cheap (a cross-substrate follow-up).
 
+---
+
+## 2026-05-23 — Mackey-Glass substrate placed (breadth) + first Family V axes
+
+`mackey_glass_run.py` (reuses transition_calibrators_dynamical integrator + 3 extractors).
+5-regime τ-sweep, peak-interval NNS + Family V (Lyapunov, corr-dim) + VI.3 cross-extraction.
+
+| τ regime | n_ev | W1δ | λ₁ | D₂ | VI.3 |
+|---|--:|--:|--:|--:|--:|
+| 4 stable | 5 | NA | −0.49 | 0.00 | NA |
+| 10 periodic | 967 | 0.001 | +0.002 | 0.99 | 0.000 |
+| 17 period-dbl | 604 | 0.070 | +0.200 | 1.96 | 0.003 |
+| 23 chaotic | 638 | 0.219 | +0.160 | 2.31 | 0.004 |
+| 30 deeper | 635 | 0.301 | +0.108 | 2.41 | 0.004 |
+
+- **Substrate-as-trajectory:** the τ-sweep moves stable→periodic→chaotic (W1δ broadens
+  0.001→0.30; like Kuramoto's K-sweep). Banked as 5 cells.
+- **V.2 D₂ — VALIDATED, good magnitudes:** stable 0 → periodic 1.0 → chaotic 2.3–2.4,
+  matching MG literature (D₂≈2). Clean first Family V axis.
+- **V.1 λ₁ — regime-SIGN validated, magnitude PROVISIONAL:** sign ordering correct
+  (stable −0.49, periodic ≈0, chaotic >0 → reliable chaos detector), BUT magnitudes
+  unreliable (τ=17→0.20 vs literature ~0.009; within-chaos order 17>23>30 inverted —
+  Rosenstein linear-region not tuned). Banked as chaos-sign indicator only
+  (synthetic-validate-fitters discipline: don't report as absolute λ). Tuning the
+  fit-region is a follow-up.
+- VI.3 cross-extraction variance (W1δ across 3 extractors): 0 for periodic (extractors
+  agree), 0.003–0.004 for chaotic (they diverge) — sensible.
+
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 
 **H (refuted):** "Drifting gratings produce rhythmic stimulus-phase locking → Farey-
