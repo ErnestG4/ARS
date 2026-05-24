@@ -243,6 +243,17 @@ def _arith_record(substrate, cell, sub, src, method, meta=None):
         meta=meta)
 
 
+def _lzeros_substrate(panel):
+    """Route a phase34c L-zeros panel to its per-class substrate file."""
+    if panel.startswith("zeta"):
+        return "L-zeros-zeta"
+    if panel.startswith("dirichlet"):
+        return "L-zeros-dirichlet"
+    if panel.startswith("ec"):
+        return "L-zeros-ec"
+    return "L-zeros-other"
+
+
 def harvest_arithmetic():
     ARITH_METHOD = ("ARS joint_q_profile (Farey q-banded ks vs GUE) on "
                     "arithmetic point process")
@@ -266,14 +277,15 @@ def harvest_arithmetic():
     p = os.path.join(_ROOT, src)
     if os.path.exists(p):
         d = json.load(open(p))
-        recs = []
+        # split by L-function class (ζ GUE vs Dirichlet/EC Poisson-leaning) so the
+        # landscape doesn't carry a bimodal pooled median (see lzeros_split.py).
         for panel, pd_ in d.get("panels", {}).items():
             nns = pd_.get("nns_reproduction") if isinstance(pd_, dict) else None
             if isinstance(nns, dict) and "ks_gue_med" in nns:
-                recs.append(_arith_record("L-zeros", panel, nns, src,
-                                          ARITH_METHOD,
-                                          meta={"panel": panel}))
-        out["L-zeros"] = recs
+                sub = _lzeros_substrate(panel)
+                out.setdefault(sub, []).append(
+                    _arith_record(sub, panel, nns, src, ARITH_METHOD,
+                                  meta={"panel": panel}))
     # 34d Gaussian + Eisenstein primes: panels[*].nns_full
     for src, substrate in [
             ("data/phase34d_results/gaussian_prepilot_ars.json", "gaussian-primes"),

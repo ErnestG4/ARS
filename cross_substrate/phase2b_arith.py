@@ -185,9 +185,15 @@ def main():
         "maass-gamma0": positions_maass,
         "mertens": positions_mertens,
         "liouville": positions_liouville,
-        "L-zeros": positions_lzeros,
     }
     total = 0
+
+    def _report(substrate, n, rows):
+        print(f"\n[{substrate}] {n} cells recomputed")
+        for cid, st, nre, nbk in rows:
+            tag = "" if (nre and nbk and abs(nre - nbk) <= max(2, 0.02 * nbk)) else "  <-- count mismatch"
+            print(f"   {cid:32s} {st:8s} regen_n={nre} banked_n={nbk}{tag}")
+
     for substrate, fn in jobs.items():
         try:
             pos_by_cell, leg = fn()
@@ -196,10 +202,22 @@ def main():
             continue
         n, rows = _merge(substrate, pos_by_cell, leg, gate)
         total += n
-        print(f"\n[{substrate}] {n} cells recomputed")
-        for cid, st, nre, nbk in rows:
-            tag = "" if (nre and nbk and abs(nre - nbk) <= max(2, 0.02 * nbk)) else "  <-- count mismatch"
-            print(f"   {cid:32s} {st:8s} regen_n={nre} banked_n={nbk}{tag}")
+        _report(substrate, n, rows)
+
+    # L-zeros: regenerate the pooled positions ONCE, merge into the per-class split
+    # files (ζ / Dirichlet / EC — see lzeros_split.py). _merge only touches cells
+    # present in each file, so the same dict feeds all three.
+    try:
+        pos_lz, leg_lz = positions_lzeros()
+    except Exception as ex:
+        print(f"\n[L-zeros] GENERATOR FAILED: {type(ex).__name__}: {ex}")
+    else:
+        for substrate in ("L-zeros-zeta", "L-zeros-dirichlet", "L-zeros-ec"):
+            if not os.path.exists(os.path.join(COORD_DIR, f"{substrate}.jsonl")):
+                continue
+            n, rows = _merge(substrate, pos_lz, leg_lz, gate)
+            total += n
+            _report(substrate, n, rows)
 
     # primes: parse X from cell_id, generate per cell
     for substrate in ("gaussian-primes", "eisenstein-primes"):

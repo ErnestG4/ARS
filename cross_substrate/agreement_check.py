@@ -39,7 +39,8 @@ COORD = os.path.join(_HERE, "coordinates")
 FIGDIR = os.path.join(_HERE, "figures")
 os.makedirs(FIGDIR, exist_ok=True)
 
-MATCHED = ["pvc-11", "L-zeros", "mertens", "liouville", "maass-gamma0",
+MATCHED = ["pvc-11", "L-zeros-zeta", "L-zeros-dirichlet", "L-zeros-ec",
+           "mertens", "liouville", "maass-gamma0",
            "gaussian-primes", "eisenstein-primes"]
 
 
@@ -206,7 +207,9 @@ def main():
     print("\n→ wrote agreement_check.json + figures/AGR_*.png")
 
 
-COLORS = {"pvc-11": "#1f77b4", "L-zeros": "#d62728", "mertens": "#9467bd",
+COLORS = {"pvc-11": "#1f77b4", "L-zeros-zeta": "#d62728",
+          "L-zeros-dirichlet": "#ad494a", "L-zeros-ec": "#e7969c",
+          "mertens": "#9467bd",
           "liouville": "#8c564b", "maass-gamma0": "#e377c2",
           "gaussian-primes": "#ff7f0e", "eisenstein-primes": "#bcbd22"}
 

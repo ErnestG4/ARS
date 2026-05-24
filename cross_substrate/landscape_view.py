@@ -34,12 +34,16 @@ os.makedirs(FIGDIR, exist_ok=True)
 
 _PALETTE = {
     "pvc-11": "#1f77b4", "allen-np": "#17becf", "kuramoto": "#2ca02c",
-    "pulsar-nanograv": "#7f7f7f", "L-zeros": "#d62728", "mertens": "#9467bd",
+    "pulsar-nanograv": "#7f7f7f", "L-zeros-zeta": "#d62728",
+    "L-zeros-dirichlet": "#ad494a", "L-zeros-ec": "#e7969c", "mertens": "#9467bd",
     "liouville": "#8c564b", "maass-gamma0": "#e377c2", "gaussian-primes": "#ff7f0e",
     "eisenstein-primes": "#bcbd22", "am": "#000000", "mackey-glass": "#e41a1c",
     "lorenz": "#377eb8", "logistic": "#4daf4a",
 }
 DYNAMICAL = ["mackey-glass", "lorenz", "logistic"]
+# derived λ/parameter trajectories of a base substrate — shown as trajectories
+# (P5 / P4), excluded from median-point panels where a single median misleads.
+TRAJECTORY = {"am-confluence"}
 
 
 def load_all():
@@ -142,7 +146,7 @@ def fig_matched(data):
     ax.annotate("Poisson", (0, 0), fontsize=9, xytext=(8, 8), textcoords="offset points")
     ax.scatter([1], [1], marker="*", s=420, facecolor="none", edgecolor="crimson", lw=1.4, zorder=1)
     ax.annotate("GUE/Wigner", (1, 1), fontsize=9, xytext=(-66, -14), textcoords="offset points")
-    matched = [s for s, r in data.items() if has(r, "I.8_brody_q")]
+    matched = [s for s, r in data.items() if has(r, "I.8_brody_q") and s not in TRAJECTORY]
     _scatter_medians(ax, data, "I.8_brody_q", "I.9_berry_robnik_rho", subs=matched)
     ax.set_xlabel("Brody q (0=Poisson, 1=Wigner)")
     ax.set_ylabel("Berry-Robnik ρ")
@@ -200,10 +204,51 @@ def fig_familyV(data):
     return p
 
 
+def _bridged_ksgue(recs):
+    """ks-to-GUE on the principled matched leg (I.5) where present, else the
+    q-banded proxy (I.5q). The proxy verdict (slope≈1, n≥100) licenses the bridge,
+    making this the one axis that spans every substrate."""
+    v = col(recs, "I.5_ks_gue")
+    if v.size:
+        return v, "matched"
+    return col(recs, "I.5q_ks_gue_med"), "q-banded"
+
+
+def fig_unified(data):
+    """P6 — the lingua-franca: bridged ks-to-GUE for ALL substrates on one axis."""
+    fig, ax = plt.subplots(figsize=(9.5, 7.2))
+    items = []
+    for sub, recs in data.items():
+        if sub in TRAJECTORY:
+            continue
+        v, leg = _bridged_ksgue(recs)
+        if v.size:
+            items.append((sub, v, leg))
+    items.sort(key=lambda t: np.median(t[1]))
+    for i, (sub, v, leg) in enumerate(items):
+        marker = "o" if leg == "matched" else "s"
+        vv = v if v.size <= 300 else v[np.random.default_rng(3).choice(v.size, 300, replace=False)]
+        jit = (np.random.default_rng(4).random(vv.size) - 0.5) * 0.3
+        ax.scatter(vv, np.full(vv.size, i) + jit, s=9, alpha=0.25, color=color(sub, i))
+        ax.scatter([np.median(v)], [i], s=120, marker=marker, color=color(sub, i),
+                   edgecolor="k", zorder=5)
+    ax.set_yticks(range(len(items)))
+    ax.set_yticklabels([f"{s}  ({'I.5' if leg == 'matched' else 'I.5q'})"
+                        for s, _, leg in items], fontsize=8)
+    ax.set_xlabel("ks-to-GUE, bridged: matched I.5 (●) where present, else q-banded I.5q (■)"
+                  "\n(← GUE-like ............ far-from-GUE →)")
+    ax.set_title("P6 unified strip — every substrate on one axis (proxy-verdict bridge)")
+    ax.grid(alpha=0.2, axis="x")
+    p = os.path.join(FIGDIR, "P6_unified_ksgue.png")
+    fig.tight_layout(); fig.savefig(p, dpi=130); plt.close(fig)
+    return p
+
+
 def main():
     data = load_all()
     text_tables(data)
-    figs = [fig_universal(data), fig_matched(data), fig_strip(data), fig_familyV(data)]
+    figs = [fig_universal(data), fig_matched(data), fig_strip(data),
+            fig_familyV(data), fig_unified(data)]
     print("\nfigures:")
     for p in figs:
         print("  " + os.path.relpath(p, _HERE))

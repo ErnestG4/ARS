@@ -510,3 +510,96 @@ dispersed across-q-band ks_gue, so the band-median (I.5q) diverges from pooled (
 minor contributor. The residual OSI gap lives in how the **Farey-passage transform
 itself** (t·(a/q) mod 1) responds to orientation-tuned firing differently from the
 plain unit-mean unfold — a subtler, still-open derivation target.
+
+---
+
+## 2026-05-23 (later) — data-shoring + AM-vs-Fibonacci confluence test
+
+### Integrity audit (audit_coordinates.py)
+All 16 (then 18) coordinate files clean: no malformed JSON, no missing top-level keys,
+no NaN/inf in any axes_computed. Every "partial-coverage" axis is correct
+non-applicability (allen/kuramoto RF subset + `_I.5q_na_reason`; logistic/lorenz/
+mackey-glass stable-regime cells carry only Family V). Family I in 13 files (absent
+only from the q-banded/direct-only allen-np, kuramoto, pulsar); I.5q+rep in 11;
+IV.2 box-dim was in 1 (now 2 with am-confluence). Confirms the proxy-bridge column
+(I.5 where present, else I.5q) is the one axis spanning every substrate.
+
+### L-zeros split (lzeros_split.py)
+The pooled 8-cell `L-zeros` cell was internally bimodal; split by L-function class into
+**L-zeros-zeta** (2, GUE: q=1.0, ρ=0.999, I.5=0.022), **L-zeros-dirichlet** (2,
+Poisson-leaning: q=0, I.5=0.295), **L-zeros-ec** (4, q≈0.017, I.5=0.283). The
+Poisson-leaning reading on Dirichlet/EC is carried with a CAVEAT (extraction_audit.
+class_caveat): it is confounded by cross-conductor pooling — superposed independent
+L-function spectra → Poisson regardless of each one's true symmetry class (Sp/U/SO all
+repel). Flagged, not interpreted (phase34c / false_positive_equivalence_classes).
+Both source pipelines (harvest q-banded leg, phase2b_arith matched leg) + the color/
+list registries patched so a regen stays split. No recompute (relabel only).
+
+### AM-vs-Fibonacci confluence test (am_confluence.py) — the strongest concrete prediction
+Does the AM operator's fingerprint TRAJECTORY (λ-sweep at golden θ, through criticality
+λ=1) pass through the Fibonacci Hamiltonian's fingerprint (D_box≈0.628, q≈0)?
+INSTRUMENT-MATCHED to Fibonacci: D_box via box_dim on raw eigenvalues (Family IV,
+instrument-independent — the axis Fibonacci is placed on) + Family I/II via the SAME
+poly_unfold. Compares to sturmian-hamiltonian.jsonl, NOT am.jsonl (this is a separate,
+Fibonacci-matched instrument, not the rotnum matched leg). Cheap: direct eigensolve
+(O(N²) tridiagonal, 14s/φ @ N=50k), no O(N·L) rotnum unfold. 11 λ ∈ [0.5,1.5] @ N=50k
++ finite-N at λ∈{0.99,1.0,1.01}. Hedge first: D_box on banked AM-sub-golden eigs = 0.85
+(off-critical baseline), vs Fib 0.628 — two-point contrast "doesn't match" as predicted.
+
+**Trajectory (D_box, Fib ref 0.628):** a clean **V bottoming at criticality**:
+λ=0.5→0.851, 0.7→0.770, 0.9→0.621, 0.95→0.565, 0.99→0.516, **1.0→0.513 (min)**,
+1.05→0.553, 1.1→0.606, 1.3→0.726, 1.5→0.787. Near-symmetric about λ=1 (Aubry-André
+self-duality λ↔1/λ: the 0.9↔1.11 dual pair reads 0.621 vs 0.606). q=0 across a WIDE
+plateau (λ≈0.9–1.3), nonzero only at the extremes (λ=0.5 q=0.97, 1.5 q=0.19).
+
+**Verdict candidates (FLAGGED — Will adjudicates):** Will's outcome (2),
+**"bends nearby without quite reaching" — partial confluence; similar-but-distinct
+operator families.** (a) Qualitative class DOES confluence at criticality: q→0,
+W1δ→1.98, ks_gue→1.0, Cantor spectrum — fingerprint TYPE matches Fibonacci. (b)
+Quantitative coincidence does NOT: AM-critical D_box≈0.513 OVERSHOOTS below Fib 0.628;
+the trajectory crosses 0.628 only off-criticality (λ≈0.9, ≈1.1, positive-measure-Cantor
+points), not at the zero-measure critical point. (c) Finite-N: critical D_box is
+CONVERGED (0.513/0.513/0.514 @ N=50k/100k/200k) — not an artifact; ks_gue still drifts
+up 0.93→1.0 (approaching the singular-continuous limit).
+
+**Caveats to flag before any verdict:** (1) COUPLING CORRESPONDENCE — AM-critical is its
+self-dual λ=1; the Fib ref is at *its* λ=2, and Fibonacci's D_box is itself
+coupling-dependent, so the 0.513-vs-0.628 gap is partly a non-corresponding-coupling
+comparison. A Fibonacci-λ-sweep would disentangle whether some Fib coupling matches
+AM-crit's 0.51. (2) AM-crit D_box≈0.51 sits near the known ≈1/2 box-dimension for the
+critical almost-Mathieu spectrum at golden flux — instrument reads real structure
+(context, not a claim). Banked: coordinates/am-confluence.jsonl (15 cells); figure P5.
+
+### Visuals consolidated (landscape_view.py + confluence_view.py)
+P1–P4 refreshed with the L-zeros split; am-confluence excluded from P2 median scatter
+(it's a trajectory, lives in P5). New: **P5** confluence (D_box-vs-λ V + repulsion-plane
+trajectory) and **P6** unified bridged ks-GUE strip — every substrate on one axis
+(matched I.5 ● where present, else q-banded I.5q ■ via the proxy verdict).
+
+### Fibonacci-λ-sweep (fibonacci_lambda_run.py) — resolves the confluence coupling caveat
+Follow-up to §3(g): sweep the Fibonacci/Sturmian-Ham coupling λ at α=golden (N=50k,
+MATCHED to am_confluence — the banked Fib ref was N=8000, box_dim is resolution-sensitive),
+asking whether some Fib coupling's D_box reaches AM-crit's 0.514.
+**(1) N-mismatch cleared:** at λ=2, D_box=0.628/0.627/0.628 @ N=8k/50k/100k — N-stable, so
+the banked 0.628 and the original AM-crit(0.513@50k)-vs-Fib(0.628@8k) comparison were sound.
+**(2) The Fibonacci family REACHES AM-crit's fingerprint** — D_box decreases monotonically
+with λ (0.25→0.927 … 2→0.628 … 8→0.369), crossing AM-crit 0.514 at **λ≈3.46** (interp
+λ=3:0.546 → λ=4:0.475). And not just D_box: at the crossing the full Family-I fingerprint
+coincides (AM-crit λ=1: W1δ=1.96/ks_gue=0.93/q=0/D_box=0.513; Fib λ≈3.5: W1δ≈1.96/ks_gue≈0.94/
+q=0/D_box≈0.51). **⇒ the earlier "distinctness" was an artifact of comparing at
+non-corresponding couplings (λ=2) — shifts §3(g) from outcome (2) toward outcome (1):
+AM-critical IS a member of the Fibonacci fractal-Cantor family, reached at a stronger
+Fibonacci coupling.** NUANCE TO FLAG: AM-crit is a SPECIAL point (self-dual, zero-measure,
+phase transition); Fibonacci λ≈3.5 is GENERIC (Cantor ∀λ, no self-dual criticality) — same
+fingerprint VALUE, different dynamical STATUS. Banked: fibonacci-lambda.jsonl (13 cells);
+figure P7 (both D_box(λ) curves on one axis). Flag, not interpreted.
+
+**VERDICT (Will, 2026-05-23):** confluence = **outcome (1)** — AM and Fibonacci confluence
+at the fingerprint level; the routes differ (AM via phase transition, Fibonacci generic).
+Dynamical-status difference is enrichment, not refutation. Two methodology lessons banked to
+§4: (i) **matched-reference discipline** — sweep coupling-class parameters before declaring
+distinctness (the λ=2 two-point test would have read "distinct" and missed the confluence);
+(ii) **fingerprint blind-to-route** — the axes resolve spectral structure not dynamical-system
+structure, so special-point vs generic Cantor is indistinguishable; mechanism is
+under-determined by fingerprint alone (a feature for universality-class confluence, a limit on
+mechanism inference).
