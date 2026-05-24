@@ -69,11 +69,12 @@ RESOLVED — that 3.55× is a ratio of clock-floor (~1e-4) micro-spreads; sub is
 **(f) Dynamical substrates + Family V (breadth).** Mackey-Glass, Lorenz, logistic each
 placed as a bifurcation-sweep *trajectory* (stable→periodic→chaotic), giving the landscape
 its first dynamical axes. **V.2 D₂ (correlation dimension) is validated everywhere** (Lorenz
-ρ=28→2.21 vs lit 2.06; MG chaotic→2.3–2.4; logistic chaos→1.0). **V.1 λ: analytic-for-maps
-is exact** (logistic r=3.7→+0.356; period-3 window r=3.83→−0.370, correctly λ<0 inside chaos),
-**Rosenstein-for-flows is sign-valid but ~7× magnitude-inflated** (consistent factor →
-calibratable; banked as chaos-sign indicator). The three sit as chaos-ordered trajectories
-in the D₂×W1δ plane (figure P4).
+ρ=28→2.21 vs lit 2.06; MG chaotic→2.3–2.4; logistic chaos→1.0). **V.1 λ via tangent-space
+(correct sign + magnitude):** Benettin for flows (Lorenz ρ=28→0.909 vs known 0.906; MG
+τ=17→0.005; stable→negative), analytic ⟨ln|f'|⟩ for the map (logistic r=3.7→+0.356;
+period-3 window r=3.83→−0.370, correctly λ<0 inside chaos). Tangent-space is the right tool
+for *simulated* substrates (known equations); time-series Rosenstein is retained for future
+data-only substrates. The three sit as chaos-ordered trajectories in the D₂×W1δ plane (P4).
 
 ## 4. Methodology established
 
@@ -94,9 +95,6 @@ discipline (the Phase-35 3.55× lesson).
 
 ## 6. Open threads
 
-- **Rosenstein-λ calibration** — V.1 for flows is ~7× magnitude-inflated (consistent across
-  MG+Lorenz); tune fit-region/units so it's absolute, not just sign. (Analytic-λ for maps
-  already exact.)
 - **L-zeros split** — separate ζ (GUE) from Dirichlet/EC (Poisson-leaning) in §3.
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
@@ -108,4 +106,5 @@ discipline (the Phase-35 3.55× lesson).
 *Done since v1:* aggregator fixed (~200× via capped Family-II windows); Family-II
 consistency re-run (all matched substrates on one algorithm); Mackey-Glass + Lorenz +
 logistic added with validated Family V; AM θ-class extension; views refreshed to 14
-substrates (figures P1–P4).
+substrates (figures P1–P4); Family-V λ moved to tangent-space (Benettin/analytic) —
+correct sign+magnitude, Lorenz ρ=28→0.909.

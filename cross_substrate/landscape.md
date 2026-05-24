@@ -275,8 +275,8 @@ NNS marker `I.5q` = q-banded ks-to-GUE harvested into coordinates (Phase 2a); fu
 | Liouville | ✓ I.5q + matched I/II (2b); BL | | ◐ BL (far-from-GUE) | ◐ | — | | — | — | | — | — | — | — |
 | Maass Γ₀(N) | ✓ I.5q + matched I/II (2b); Sarnak | | ◐ Sarnak-anomaly | | — | | — | — | | — | — | — | — |
 | Gaussian / Eisenstein primes | ✓ I.5q + matched I/II (2b); near-GUE | | ◐ near-GUE | ◐ | — | | — | — | | — | — | — | — |
-| Mackey-Glass | ✓ peak-NNS (τ-sweep 5 cells) | — | ✓ τ-trajectory stable→chaotic | — | ✓ V.2 D₂ + V.1 λ₁-sign | | — | — | ◐ Σ²/Δ₃ | — | — | τ-sweep | ✓ VI.3 cross-extract |
-| Lorenz | ✓ lobe-NNS (ρ-sweep 4 cells) | — | ✓ ρ-trajectory stable→chaotic | — | ✓ V.2 D₂=2.2 + V.1 λ₁-sign | | — | — | ◐ Σ²/Δ₃ | — | — | ρ-sweep | — |
+| Mackey-Glass | ✓ peak-NNS (τ-sweep 5 cells) | — | ✓ τ-trajectory stable→chaotic | — | ✓ V.2 D₂ + V.1 λ (Benettin) | | — | — | ◐ Σ²/Δ₃ | — | — | τ-sweep | ✓ VI.3 cross-extract |
+| Lorenz | ✓ lobe-NNS (ρ-sweep 4 cells) | — | ✓ ρ-trajectory stable→chaotic | — | ✓ V.2 D₂=2.2 + V.1 λ=0.909 (Benettin) | | — | — | ◐ Σ²/Δ₃ | — | — | ρ-sweep | — |
 | Logistic | ✓ IEI-NNS (r-sweep 5 cells) | — | ✓ period-doubling route | — | ✓ V.1 λ ANALYTIC (exact) + V.2 D₂ | | — | — | ◐ Σ²/Δ₃ | — | — | r-sweep | ✓ VI.3 |
 | Sacks/quadratic | | | | p=7 candidate | — | | | — | | — | — | — | — |
 

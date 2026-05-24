@@ -35,6 +35,28 @@ from cross_substrate.axes import (                # noqa: E402
 
 DT = 0.1
 N_STEPS = 300_000
+
+
+def mg_lyapunov_benettin(tau, beta=0.2, gamma=0.1, n=10.0, dt=0.1,
+                         n_steps=400_000, discard=30_000, x0=1.2):
+    """Largest Lyapunov via the tangent-space (Benettin) method on the DDE —
+    the right tool when the equations are known. Correct sign + magnitude
+    (validated: Lorenz→0.906, MG τ=17→~0.005, stable→negative)."""
+    nd = max(1, int(round(tau / dt))); tot = discard + n_steps
+    x = np.empty(tot + nd); x[:nd] = x0
+    d = np.zeros(tot + nd); d[nd - 1] = 1e-8; d0 = 1e-8
+    lsum = 0.0; ncount = 0; R = nd
+    for i in range(nd, tot + nd):
+        xt = x[i - nd]
+        x[i] = x[i - 1] + dt * (beta * xt / (1.0 + xt ** n) - gamma * x[i - 1])
+        gp = beta * (1.0 + (1.0 - n) * xt ** n) / (1.0 + xt ** n) ** 2
+        d[i] = d[i - 1] + dt * (gp * d[i - nd] - gamma * d[i - 1])
+        if i >= nd + discard and (i - nd) % R == 0:
+            w = np.linalg.norm(d[i - nd + 1:i + 1])
+            if w > 0:
+                lsum += np.log(w / d0); ncount += 1
+                d[i - nd + 1:i + 1] *= d0 / w
+    return lsum / (ncount * R * dt) if ncount else None
 EXTRACTORS = ["local_maxima_prominence", "running_mean_upcrossings",
               "envelope_upcrossings"]
 COORD = os.path.join(_HERE, "coordinates")
@@ -50,8 +72,8 @@ def run():
         s = canonical_spacings(times) if times.size >= 20 else np.zeros(0)
         fI = compute_family_I(times) if times.size >= 20 else {}
         fII = compute_family_II(times) if times.size >= 200 else {}
-        # Family V on the trajectory (the dynamical axes)
-        lam = V1_lyapunov(x, dt=DT)
+        # Family V: λ₁ via tangent-space Benettin (known equations); D₂ via GP
+        lam = mg_lyapunov_benettin(tau)
         d2 = V2_correlation_dim(x)
         # VI.3 cross-extraction variance: W1δ across the 3 extractors
         w1s = []

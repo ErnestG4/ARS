@@ -35,6 +35,35 @@ COORD = os.path.join(_HERE, "coordinates")
 LORENZ_RHO = [(20.0, "stable"), (28.0, "classic_chaos"), (35.0, "chaos"), (40.0, "chaos_hi")]
 
 
+def lorenz_lyapunov_benettin(rho, sigma=10.0, beta=8.0 / 3.0, dt=0.01,
+                             n_steps=200_000, discard=20_000):
+    """Largest Lyapunov via tangent-space (Benettin) on the Lorenz ODE —
+    correct sign + magnitude (validated ρ=28→0.909 vs known 0.906; stable→<0)."""
+    s = np.array([1.0, 1.0, 1.0]); d = np.array([1e-8, 0.0, 0.0]); d0 = np.linalg.norm(d)
+
+    def f(s):
+        x, y, z = s
+        return np.array([sigma * (y - x), x * (rho - z) - y, x * y - beta * z])
+
+    def J(s):
+        x, y, z = s
+        return np.array([[-sigma, sigma, 0.0], [rho - z, -1.0, -x], [y, x, -beta]])
+
+    for _ in range(discard):
+        k1 = f(s); k2 = f(s + .5 * dt * k1); k3 = f(s + .5 * dt * k2); k4 = f(s + dt * k3)
+        s = s + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
+    lsum = 0.0
+    for _ in range(n_steps):
+        def fd(s, d):
+            return f(s), J(s) @ d
+        a1, b1 = fd(s, d); a2, b2 = fd(s + .5 * dt * a1, d + .5 * dt * b1)
+        a3, b3 = fd(s + .5 * dt * a2, d + .5 * dt * b2); a4, b4 = fd(s + dt * a3, d + dt * b3)
+        s = s + dt / 6 * (a1 + 2 * a2 + 2 * a3 + a4)
+        d = d + dt / 6 * (b1 + 2 * b2 + 2 * b3 + b4)
+        nd = np.linalg.norm(d); lsum += np.log(nd / d0); d = d * (d0 / nd)
+    return lsum / (n_steps * dt)
+
+
 def logistic_lyapunov(r, x0=0.5, n=200_000, discard=2000):
     """Analytic Lyapunov of the logistic map: λ = ⟨ln|f'(x)|⟩, f'=r(1−2x). Exact."""
     x = x0
@@ -64,7 +93,7 @@ def run_lorenz():
         ev = lorenz_lobe_transition_events(traj)
         fI = compute_family_I(ev) if ev.size >= 20 else {}
         fII = compute_family_II(ev) if ev.size >= 200 else {}
-        lam = V1_lyapunov(xc, dt=0.01)
+        lam = lorenz_lyapunov_benettin(rho)        # tangent-space (known equations)
         d2 = V2_correlation_dim(xc)
         axes = {**fI, **fII, "V.1_lyapunov": lam, "V.2_correlation_dim": d2}
         recs.append(_rec("lorenz", f"rho{rho:g}_{desc}", axes,

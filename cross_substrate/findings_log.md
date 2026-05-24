@@ -403,8 +403,22 @@ window scheme — re-run for strict consistency is now cheap (a cross-substrate 
 
 **Takeaway (flag, not interpret):** the dynamical substrates form a chaos-ordered family
 (stable → periodic → chaotic) on D₂ and λ-sign; the three flows (MG, Lorenz) + map (logistic)
-give the landscape a validated dynamical axis (D₂) and a sign-reliable λ. Rosenstein-λ
-calibration is the one open methods item.
+give the landscape a validated dynamical axis (D₂) and a sign-reliable λ.
+
+**RESOLVED (2026-05-23) — λ via tangent-space, not Rosenstein.** The Rosenstein magnitude
+issue was the wrong-tool problem: time-series Rosenstein is for DATA-ONLY substrates, but
+these are SIMULATED (we have the equations). Switched the simulated substrates to the
+gold-standard tangent-space (Benettin) method: co-evolve a perturbation under the Jacobian
+(flows) / analytic ⟨ln|f'|⟩ (map), renormalize, average log-growth. Now correct SIGN AND
+magnitude everywhere:
+- **Lorenz (Benettin):** ρ=28 → λ=0.909 (known 0.906, essentially exact); stable ρ=20 →
+  −0.155 (correct negative). ρ-sweep λ ordered.
+- **MG (DDE Benettin):** stable τ=4 → −0.028; periodic τ=10 → ≈0; chaotic τ=17/23/30 →
+  +0.0053/+0.0101/+0.0073 (correct sign, magnitude ~lit 0.0086, ordering).
+- **Logistic (analytic):** exact (unchanged) — the map's tangent-space λ.
+`axes.V1_lyapunov` (Rosenstein) is retained for FUTURE data-only substrates (real time
+series without equations), flagged as a sign-indicator there. The open Rosenstein-calibration
+item is closed by method choice.
 
 ### REFUTED HYPOTHESIS (recorded so it is not re-resurrected)
 

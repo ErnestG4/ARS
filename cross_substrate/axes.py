@@ -330,7 +330,12 @@ def V1_lyapunov(x, emb_dim=6, lag=None, dt=1.0, horizon=None,
                 max_pts=8000) -> Optional[float]:
     """Largest Lyapunov exponent via Rosenstein (mean log-divergence of
     nearest-neighbour trajectories). Returns λ₁ in 1/time (dt-scaled).
-    Sign is the load-bearing read: λ≤0 regular, λ>0 chaotic."""
+
+    SCOPE: time-series method for DATA-ONLY substrates (no known equations) —
+    sign-indicator, magnitude unreliable for weak chaos. For SIMULATED substrates
+    with known dynamics, use the tangent-space (Benettin) λ in the runner
+    (lorenz_lyapunov_benettin / mg_lyapunov_benettin / logistic analytic) — that
+    is correct in sign AND magnitude (Lorenz ρ=28→0.909 vs known 0.906)."""
     x = np.asarray(x, float)
     lag = lag or _embed_lag(x)
     Y = _embed(x, emb_dim, lag)
