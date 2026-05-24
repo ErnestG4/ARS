@@ -83,9 +83,43 @@ comparison-validity, don't discard non-matching instruments); synthetic-validate
 distribution fitters before banking; per-φ aggregation (never concatenate positions
 across φ — superposition bug); permanent on-disk banking of raw spectra/event-trains;
 worker-count = 10 for bandwidth-bound unfolds (probe, don't assume); ratio-vs-magnitude
-discipline (the Phase-35 3.55× lesson).
+discipline (the Phase-35 3.55× lesson); tangent-space (not time-series) Lyapunov for
+simulated substrates with known equations.
+
+**Positioning — ARS within point-process methodology (Cox / Neural-TPP / FDA).** A point
+process is characterizable at four complementary levels: (1) *smooth structure* — FDA treats
+the counting/intensity as a smooth function; (2) *rate covariates* — Cox / modulated-Poisson
+model the conditional rate vs covariates; (3) *predictability* — neural TPPs learn the
+conditional intensity for next-event prediction; (4) *universality class* — the unfolded
+nearest-neighbour spacing distribution's RMT/clock/Poisson class. **ARS operates at level (4):**
+after rate-removal (unfolding to unit mean) it classifies the spacing-statistics universality
+class. It does NOT model rate (2), predict events (3), or fit smooth intensity (1) — those are
+complementary, not competing. The landscape's claims are universality-class placements; this
+note fixes what ARS reads vs. what it does not.
+
+**Number-theoretic frame (Stern-Brocot / Sturmian / Lagrange stratification).** The
+arithmetic-parameter side (brocot.fm; AM's θ) has a unifying structure. Every infinite
+Stern-Brocot path (modulo eventually-monotone tails) encodes an irrational α via its
+continued-fraction expansion; the **Sturmian word** of slope α (the mechanical/Beatty
+sequence) is the natural event-train — making *parameter-side path ↔ spectral-side
+event-train* explicit. **Lagrange's theorem** stratifies α by CF structure: rationals
+(terminating CF / finite path) · quadratic irrationals (eventually-periodic CF — the metallic
+means golden=[1;1,…], silver=[2;2,…], bronze=[3;3,…]) · higher-algebraic/transcendental
+(non-periodic, unbounded partial quotients — Liouville). This predicts the Sturmian-toward-α
+family (and AM's θ-class family) should **cluster by CF class**: bounded-quotient (Diophantine)
+vs unbounded (Liouville-like). The AM sup-θ result is consistent — Brody q falls golden (0.81,
+hardest-to-approximate) → silver (0.44) → Liouville (0.28, super-approximable), a
+Lagrange-stratification signature in the spectral fingerprint. **brocot.fm (when added) tests
+this directly:** sweep a Stern-Brocot path, watch the fingerprint move along the stratification.
+Proposed as a viewpoints substrate-class.
 
 ## 5. Descriptive landscape observations (flagged, not interpreted)
+
+Figures committed (`cross_substrate/figures/`, static PNG): **P1** universal q-banded
+(I.5q × rep_med), **P2** matched repulsion plane (Brody × BR, 11 substrates), **P3** I.5q
+strip, **P4** Family-V dynamical sub-landscape (D₂ × W1δ trajectories). Regenerate via
+`landscape_view.py`. Interactive / unified-all-14 projection still pending (no single axis
+spans all 14 — see §2).
 
 - Arithmetic spectra (ζ/Dirichlet/EC, Maass, primes) cluster GUE-like (low I.5q).
 - Mertens/Liouville far-from-GUE (clustered). Bio (pvc-11, Allen) + Kuramoto middle.
@@ -98,8 +132,9 @@ discipline (the Phase-35 3.55× lesson).
 - **L-zeros split** — separate ζ (GUE) from Dirichlet/EC (Poisson-leaning) in §3.
 - **Math-path** — derive the condition the sup θ / OSI inter-leg gap depends on
   (across-band-skew ruled out as primary).
-- **Breadth** — FM/brocot.fm (Will's own substrate) remains; Family V on Kuramoto
-  (it has an order-parameter trajectory).
+- **Breadth** — FM/brocot.fm (Will's own substrate); Family V on Kuramoto (order-parameter
+  trajectory); **Sturmian-word θ-sweep** across Lagrange classes (cheap, arithmetic — directly
+  tests the CF-class cluster prediction of §4's number-theoretic frame; the bridge to brocot.fm).
 - **AM** — sub-side at converged L (currently non-converged); slate-4 N-trajectory
   (multi-day).
 

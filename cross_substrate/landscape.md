@@ -114,6 +114,22 @@ The document is intended to populate. Empty cells in §5 are explicit targets; n
 
 **Fingerprint status.** Not in landscape yet. Distinctive because it supports controlled-parameter-sweep experiments on the spectral side — sweep a path through Stern-Brocot space, watch the fingerprint move. No other substrate in the catalog offers that.
 
+> **Substrate-class: Sturmian / Stern-Brocot (number-theoretic frame).** brocot.fm is one
+> instance of a broader class. Every infinite Stern-Brocot path (modulo eventually-monotone
+> tails) encodes an irrational α via its continued fraction; the **Sturmian word** of slope α
+> (mechanical/Beatty sequence) is the canonical event-train — making *parameter-side path ↔
+> spectral-side event-train* explicit, the cleanest realization of the operator-IS-substrate
+> bet on the parameter side. **Lagrange's theorem** stratifies the class: rationals (terminating
+> CF) · quadratic irrationals (eventually-periodic CF — metallic means golden/silver/bronze) ·
+> higher-algebraic/transcendental (unbounded partial quotients — Liouville). **Cluster
+> prediction:** the Sturmian-toward-α family should separate by CF class (bounded-quotient
+> Diophantine vs unbounded Liouville-like) — already foreshadowed by AM's θ-class fingerprint
+> (Brody q golden→silver→Liouville, §7.ter / PROGRESS_REPORT §4). Two concrete substrates to
+> add: (a) **Sturmian-word event-trains** for a θ-sweep across Lagrange classes (cheap,
+> arithmetic — tests the prediction directly); (b) **brocot.fm** spectral-side audio fingerprint
+> vs its parameter-side path. The Sturmian family is the bridge tying brocot.fm, AM-θ, and the
+> arithmetic substrates under one stratification.
+
 ### ζ-zeros (Hilbert-Pólya reference)
 
 **Parameter side.** Dirichlet coefficients of ζ on integers (arithmetic input).
