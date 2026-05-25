@@ -1,13 +1,31 @@
 # ARS Cross-Substrate Landscape
 
-**Status:** v1 consolidation (2026-05-24; was v0 2026-05-22). §0 dashboard = current state; §3/§5 = v0 catalog/matrix retained below.
+**Status:** v2 consolidation (2026-05-25; v1 2026-05-24; v0 2026-05-22). §0 dashboard = current state; §3/§5 = v0 catalog/matrix retained below.
 **Frame:** operator-IS-substrate; cross-substrate landscape-mapping; explorer-shaped, not hypothesis-test-shaped.
 
 ---
 
-## §0 — Landscape v1 dashboard (state at a glance, 2026-05-24)
+## §0 — Landscape v2 dashboard (state at a glance, 2026-05-25)
 
 Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md`. All FLAGGED (verdicts Will's).
+
+**CROSS-SUBSTRATE ARCHITECTURE (the two pillars — what the landscape is finding).** Across substrate
+classes the structure separates into a UNIVERSAL part and a SUBSTRATE-KEYED part:
+1. **Structural-anchor universality (poles are substrate-general).** The universality-class POLES recur in
+   every substrate: a repulsive/GUE pole and a clustered/Poisson pole, with the calibrators (GUE/GOE/Poisson/
+   clock) as fixed corners. Neural: corr-eig→GUE and sync-event→Poisson hold in BOTH V1 (Allen) and CA1
+   (Buzsáki). Arithmetic/operator: the approximability axis runs GUE↔Poisson across AM/Fib/gaah/ext_harper/
+   brocot. The poles are the substrate-invariant skeleton.
+2. **H1 / extrinsic-selectivity↔class is substrate-general but substrate-INSTANTIATED.** A per-cell
+   EXTRINSIC selectivity property tracks the intrinsic universality class — and the *relevant property is the
+   substrate's own selectivity axis*: V1→orientation (OSI), CA1→spatial information (place coding). The
+   strong INTRINSIC correlates (burst/ISI) are tautological, not the link ([[intrinsic_vs_extrinsic_predictor]]).
+What VARIES across substrates: (a) which biology fills the MIDDLE between the poles — V1: stable intermediate
+(avalanche); CA1: behaviour-state-gated avalanche (not a stable intermediate); (b) which selectivity axis is
+relevant; (c) which OBSERVABLE is substrate-appropriate (point-process→NNS, Cantor→box-dim, recurrent-network→
+population-collective; a feedforward output layer like retina may not support the population observables at all
+— [[observable_binding_clarifies]]). **Status of the two pillars: pillar 1 (poles) at high confidence; pillar
+2 (H1-substrate-general) at n=2 classes (V1, CA1) — a third class is the open falsification test.**
 
 **MAPPED** (substrates with computed fingerprint coordinates):
 - *Operator / arithmetic (18 substrates):* AM (9 Lagrange θ-classes × coupling sweep), Fibonacci/Sturmian
