@@ -51,9 +51,15 @@ unbounded CF, but μ=2): brocot q(e)=0.568 drops with the transcendentals, opera
 with golden — the same number on opposite sides of the two fingerprints. ⇒ brocot's NNS reads the LOCAL CF
 structure (three-distance theorem: periodic CF ⇒ self-similar balanced {nα} gaps ⇒ repulsive), the
 operators' D_box reads the GLOBAL spectral dimension (trace-map integrates the whole CF). Confirms the WHY,
-not just the THAT. CAVEAT: boundedness & quadraticity are confounded for natural α (no unbounded-quadratic
-exists) — the brocot trigger is the Lagrange bounded/quadratic dichotomy, indecomposable with accessible
-classes, but distinct from μ either way (e proves it).
+not just the THAT. **Confound DECOMPOSED (cf_discriminator.py):** cf_mechanism had to flag that boundedness
+& quadraticity are confounded for natural α. A designed second discriminator resolves it — hold the CF
+quotient alphabet fixed at {1,2} and vary ONLY periodicity (periodic_12=√3−1 bounded-quadratic vs Thue–Morse
+/ Fibonacci-word bounded-NONquadratic). The bounded-nonquadratic α give brocot q=1.000, WITH the bounded-
+quadratic anchor (golden/silver/periodic_12 mean 0.969), far from the unbounded anchor (e/liouville 0.284);
+flipping periodicity left q unchanged. **⇒ the brocot trigger is BOUNDEDNESS of partial quotients (the
+badly-approximable / Diophantine class), NOT the algebraic quadratic class** — quotient MAGNITUDE sets
+convergent-denominator growth → three-distance gap balance; CF periodicity is irrelevant. Operator control:
+all μ=2 bounded targets D_box=0.785±0.016 (flat across periodicity) — operators read μ, blind to the split.
 
 ### Headline II — NEURAL: per-cell COHERES, population FRAGMENTS
 - **Per-cell** (Allen, 8,462 cells): fingerprints cohere as one "visual cortex" substrate. H1 (OSI↔ks_gue)
@@ -79,7 +85,9 @@ induction-on-noise to confirm extractor artifacts; data-acquisition discipline (
 program (6 substrates, gross-agree/fine-split, DEGT form-confirmed); the neuro arc (per-cell + population +
 criticality); the 7-system Family-V dynamical landscape; calibration anchors; the brocot bridge + corpus;
 landscape v1 dashboard; the CF-boundedness-vs-continuous MECHANISM (cf_mechanism.py — e splits brocot's
-LOCAL three-distance step from the operators' GLOBAL continuous-μ).
+LOCAL three-distance step from the operators' GLOBAL continuous-μ); the boundedness-vs-quadraticity
+DISCRIMINATOR (cf_discriminator.py — designed bounded-nonquadratic α; the brocot trigger is boundedness,
+not quadraticity; confound decomposed).
 **OPEN:** trace-map TD-formalism dimension (deferred quantitative DEGT piece); Tier-2 Buzsaki / Tier-3 IBL (acquisition — interactive);
 brocot submodule-bump + tooling relocation (when recordings land); p2-saturation RF diagnostic (minor).
 

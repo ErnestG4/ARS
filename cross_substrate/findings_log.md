@@ -917,3 +917,28 @@ bounded/quadratic dichotomy," which I can't decompose further with accessible cl
 either way (e proves it). The exact LOCAL statistic (maxQ) is an imperfect proxy (metallic5 maxQ=5 stays
 because it's bounded-periodic; the trigger is structure, not magnitude). Banked: figure P_cf_mechanism.png
 (brocot STEPS on CF-structure binary | operator CONTINUOUS in μ; e in red on opposite sides). Verdicts Will's.
+
+### CF-discriminator (cf_discriminator.py) — brocot reads BOUNDEDNESS, not quadraticity (confound decomposed)
+cf_mechanism flagged one confound: for natural α, "bounded" (small partial quotients) and "quadratic"
+(eventually-periodic CF / Lagrange class) coincide, so "brocot follows the bounded/quadratic dichotomy" hid
+two claims. THE CONTROLLED EXPERIMENT: hold the CF quotient ALPHABET fixed at {1,2} (boundedness & μ=2
+IDENTICAL) and vary ONLY periodicity — periodic_12=[0;1,2,1,2,…] (bounded QUADRATIC, =√3−1) vs
+thue_morse_12 & fib_word_12 (bounded NON-quadratic: TM/Fibonacci-word quotient sequences, non-periodic ⇒
+not quadratic by Lagrange). All three: maxQ=2, μ=2, near-identical convergent growth; differ ONLY in CF
+periodicity. Result (endpoint brocot Brody q + gaah/ext_harper D_box @λ=1, 7 targets):
+- **brocot DISCRIMINATOR:** bounded-NONquadratic tests thue_morse_12 q=1.000 & fib_word_12 q=1.000 land
+  WITH the bounded-quadratic anchor (golden/silver/periodic_12 mean=0.969), FAR from the unbounded-
+  nonquadratic anchor (e/liouville mean=0.284; midpoint 0.627). ⇒ flipping periodicity (alphabet held)
+  left brocot q UNCHANGED — periodicity is INVISIBLE to brocot.
+- **operator CONTROL:** all bounded targets (μ=2) D_box=0.785±0.016 (tight, flat across periodicity) vs
+  liouville 0.675 — operators read μ and are BLIND to this split (mirror of the e-discriminator: e split
+  CF-structure from μ; periodicity splits boundedness from quadraticity, and operators ignore both).
+**⇒ THE BROCOT TRIGGER IS BOUNDEDNESS OF PARTIAL QUOTIENTS (the badly-approximable / Diophantine class),
+NOT the algebraic quadratic class.** Decomposes the cf_mechanism caveat: it's quotient MAGNITUDE/growth
+(three-distance: bounded quotients ⇒ controlled convergent-denominator growth ⇒ balanced {nα} gaps ⇒
+repulsion; a large quotient ⇒ one very-good convergent ⇒ near-degenerate gap ⇒ clustering), and CF
+periodicity is irrelevant. This is the three-distance theorem's exact prediction, now confirmed by a
+designed-α second discriminator. Caveat now RESOLVED, not just flagged.
+NOTE (honesty): the two bounded-nonquadratic tests returned identical q to 16 digits (0.99993) — the Brody
+fit saturating its q→1 repulsive ceiling, not a coincidence; both sit unambiguously on the bounded side
+regardless. Banked: coordinates/cf-discriminator.jsonl (7); figure P_cf_discriminator.png. Verdicts Will's.

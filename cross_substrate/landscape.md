@@ -66,9 +66,18 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   bounded/quadratic-vs-transcendental CF binary (mean 0.982 vs 0.271, Δ=+0.71); operator D_box is
   CONTINUOUS in μ (ρ=−0.63). **e−2 is the discriminator that splits them** (transcendental/unbounded CF,
   but μ=2): brocot q(e)=0.568 drops with the transcendentals; operator D_box(e)=0.782 stays high with
-  golden. ⇒ brocot follows the three-distance-theorem / LOCAL / CF-structural step (periodic CF ⇒
+  golden. ⇒ brocot follows the three-distance-theorem / LOCAL / CF-structural step (bounded CF ⇒
   balanced {nα} gaps ⇒ repulsive), operators follow the trace-map-integrated / GLOBAL / continuous-μ —
-  confirms the WHY, not just the THAT. Caveat: boundedness & quadraticity are confounded for natural α.
+  confirms the WHY, not just the THAT.
+- **THE BROCOT TRIGGER IS BOUNDEDNESS, NOT QUADRATICITY (cf_discriminator.py — confound resolved).** The
+  cf_mechanism caveat (boundedness & quadraticity confounded for natural α) is now decomposed by a designed
+  second discriminator: hold the CF quotient alphabet fixed at {1,2} and vary ONLY periodicity. Bounded-
+  NONquadratic α (Thue–Morse / Fibonacci-word quotients) give brocot q=1.000 — WITH the bounded-quadratic
+  anchor (golden/silver/periodic_12 mean 0.969), far from the unbounded anchor (e/liouville 0.284).
+  Flipping periodicity left q unchanged ⇒ periodicity is INVISIBLE to brocot; the trigger is boundedness
+  of partial quotients (the badly-approximable / Diophantine class), exactly the three-distance prediction
+  (quotient MAGNITUDE sets convergent-denominator growth → gap balance). Operator control: all μ=2 bounded
+  targets D_box=0.785±0.016 (flat across periodicity) — operators read μ, blind to the split.
 - **POPULATION-LEVEL FRAGMENTATION IS CONSISTENT ACROSS ALL 12 SESSIONS.** 3 trustable population
   observables span the full axis — corr-eig→GUE (q=0.95±0.05), avl-onset→intermediate (0.66±0.08),
   sync-event→Poisson (0.00±0.00, corroborated by I.5/BRρ) — each a fixed landscape position, aggregation
