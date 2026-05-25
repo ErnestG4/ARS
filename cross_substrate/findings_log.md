@@ -1028,3 +1028,24 @@ thin the pooled train — then recomputing avl-onset q (K=5 repeats averaged); c
 INDEPENDENT (biological) property, not a recording-rate confound.** The session dominance (η²=0.44) was the
 rate-sensitive part; the area gradient is the clean, matched signal. Banked: coordinates/
 population-ratematch.jsonl (488); figure P_population_ratematch.png. Verdicts Will's.
+
+### Temporal-stability cut (population_temporal.py) — Step-2 cycle 3, completes the stratification triad
+Split each (session,area,block) into EARLY/LATE halves, recomputed the 3 observables per half (1,453 pairs,
+4.8 min), test-retest of half-1 vs half-2 Brody q + within-cell |Δq| vs between-cell sd:
+- **avl-onset: TEMPORALLY STATIONARY** — test-retest ρ=0.844, within|Δq|=0.054 ≪ between-sd 0.138. The
+  avalanche fingerprint is a FIXED, reproducible property of the (area,stimulus) condition — it doesn't
+  drift during the recording. Reinforces the rate-matched biological area effect: avl-onset is the informative
+  population observable (structured by area+session, rate-independent area gradient, AND temporally stable).
+- **corr-eig: INVARIANT-BUT-NOISY** (NOT drifting). test-retest ρ=−0.033, within|Δq|=0.110 ≈ between-sd
+  0.100 — near-constant ~0.89 everywhere; its small spread is half-data estimation NOISE, not reproducible
+  structure or systematic drift. (The script's crude within>between auto-tag said "DRIFTS"; the substantive
+  read — ρ≈0 + within≈between with a tiny between-sd — is no-reproducible-structure. Discriminant-exact-
+  question caveat noted.) Consistent with corr-eig's η²≤0.05 on every factor.
+- **sync-event: trivially STATIONARY at Poisson** — both halves ≈0 (within 0.007, between 0.024); low ρ=0.26
+  reflects ~no signal to correlate. Invariantly Poisson.
+**⇒ Step-2 triad complete. The three population observables differ not just in landscape position but in
+STRUCTURE-vs-NOISE-vs-INVARIANCE: avl-onset is the structured + stationary + biologically-area-graded
+observable; corr-eig is invariant-and-featureless (~GUE everywhere); sync-event is invariant Poisson. "No
+single population fingerprint" sharpens to: one observable carries reproducible biological structure, two
+are condition-invariant.** Banked: coordinates/population-temporal.jsonl (1453); fig P_population_temporal.png.
+Verdicts Will's.

@@ -104,6 +104,12 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   area within each (session,block) to common unit-count + total spike-count: avl-onset area Kendall W=0.808
   (raw 0.783 — survives), same ordering V1/lateral low → higher-areas/LGN high. The session dominance
   (η²=0.44) was the rate-sensitive part; the area gradient is the clean matched signal. (population_ratematch.py.)
+- **TEMPORAL-STABILITY (early/late half): the 3 observables differ in STRUCTURE-vs-NOISE-vs-INVARIANCE.**
+  avl-onset TEMPORALLY STATIONARY (test-retest ρ=0.84, within|Δq|≪between-sd) — fixed reproducible property
+  of the condition; the structured+stable+biologically-area-graded observable. corr-eig INVARIANT-BUT-NOISY
+  (ρ≈0, ~0.89 everywhere, fluctuations are half-data noise not drift). sync-event invariant Poisson.
+  "No single population fingerprint" sharpens: ONE observable carries reproducible biological structure
+  (avalanche), two are condition-invariant. (population_temporal.py; verdicts Will's.)
 
 ---
 
