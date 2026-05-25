@@ -891,3 +891,29 @@ knife-edge. (b) N-CONVERGENCE @λ=1 (50k→100k): gaah ρ=−0.717→−0.717 (i
 golden/Liouville D_box move <0.002 — D_box N-STABLE, ρ stable/strengthening. ⇒ the stratification is
 N-robust (NOT a finite-N artifact); gaah & ext_harper firmly in the approximability-stratification family.
 The 3→5 substrate extension is solid. Banked: coordinates/quasiperiodic-deepening.jsonl (180); fig P_qpo_deepening. Verdicts Will's.
+
+### CF-mechanism test (cf_mechanism.py) — WHY brocot steps but operators are continuous: e splits them
+The open mechanism question from the brocot bridge + λ*(class) arcs: brocot's fine discriminator is a
+bounded-vs-unbounded-CF STEP, but the operators' (AM/Fib/gaah/ext_harper) is CONTINUOUS in μ — why? Two-
+mechanism hypothesis: brocot NNS = three-distance-theorem gap statistics of {nα mod 1} (responds to a LOCAL
+CF property), operator D_box = trace-map-integrated transfer-matrix cocycle (responds to GLOBAL μ). **The
+discriminator is e−2: transcendental/unbounded CF, but μ=2 like the metallic means — the two predictors
+DISAGREE on it.** Result (9 Lagrange classes; brocot endpoint Brody q vs gaah+ext_harper D_box @λ=1):
+- **(1) brocot Brody q STEPS on the CF-structure binary** (bounded/quadratic vs transcendental/unbounded):
+  bounded/quadratic mean=0.982 (n=5: golden/silver/bronze/metallic4/5 all ≈1.0) vs transcendental/unbounded
+  mean=0.271 (n=4: e/ln2 partial-drop, π/liou→0). Δ=+0.711. NOT maxQ-magnitude (metallic5 maxQ=5 stays 1.0,
+  e maxQ=4 drops) — it's the bounded/quadratic-CF vs transcendental Lagrange dichotomy.
+- **(2) operator D_box is CONTINUOUS in μ** (GLOBAL): ρ(D_box, μ)=−0.634 monotone golden→liouville.
+- **(3) DISCRIMINATOR e−2 splits them:** brocot q(e)=0.568 DROPS (with the transcendentals, NOT μ);
+  operator D_box(e)=0.782 STAYS HIGH (with golden, μ=2, NOT CF-structure). The same number lands on
+  opposite sides of the two fingerprints — exactly as the two mechanisms predict.
+**⇒ MECHANISM CONFIRMED (the WHY, not just the THAT): brocot Brody q follows the three-distance / LOCAL /
+bounded-quadratic-CF STEP (periodic CF ⇒ self-similar balanced {nα} gaps ⇒ repulsive; non-periodic ⇒
+degenerate ⇒ clustered); operator D_box follows μ CONTINUOUSLY (trace-map integrates the whole CF
+sequence). e is the discriminator that makes it mechanistic, not just descriptive.**
+CAVEAT (flagged): boundedness & quadraticity are confounded for natural α (quadratic ⟺ periodic ⟺ bounded;
+no unbounded-quadratic exists, bounded-transcendentals are exotic) — so the brocot trigger is "the Lagrange
+bounded/quadratic dichotomy," which I can't decompose further with accessible classes. Distinct from μ
+either way (e proves it). The exact LOCAL statistic (maxQ) is an imperfect proxy (metallic5 maxQ=5 stays
+because it's bounded-periodic; the trigger is structure, not magnitude). Banked: figure P_cf_mechanism.png
+(brocot STEPS on CF-structure binary | operator CONTINUOUS in μ; e in red on opposite sides). Verdicts Will's.

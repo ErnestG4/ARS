@@ -43,10 +43,17 @@ e stays with the metallic means), while brocot is the lone outlier (bounded-vs-u
 with the unbounded group). AM≡Fibonacci specifically: the same operator family up to an
 approximability-dependent coupling reparametrization (λ* α-invariant within metallic means → ~3× larger for
 Liouville). The quantitative DEGT strong-coupling constant ln(1+√2) is FORM-confirmed, constant-DEFERRED
-(needs trace-map thermodynamic formalism). **Open mechanism question (next):** why operators are
-continuous-in-approximability while brocot is a CF-boundedness step — working hypothesis: brocot's NNS reads
-the LOCAL CF structure (three-distance theorem of the {m+nα} cut-and-project set), the operators' D_box
-reads the GLOBAL spectral dimension (trace-map / Lyapunov).
+(needs trace-map thermodynamic formalism). **Mechanism question — RESOLVED (cf_mechanism.py):** why
+operators are continuous-in-approximability while brocot is a CF-boundedness step. brocot Brody q STEPS on
+the bounded/quadratic-vs-transcendental CF binary (mean 0.982 vs 0.271, Δ=+0.71); operator D_box is
+CONTINUOUS in μ (ρ=−0.63). **e−2 is the discriminator that splits the two predictors** (transcendental/
+unbounded CF, but μ=2): brocot q(e)=0.568 drops with the transcendentals, operator D_box(e)=0.782 stays high
+with golden — the same number on opposite sides of the two fingerprints. ⇒ brocot's NNS reads the LOCAL CF
+structure (three-distance theorem: periodic CF ⇒ self-similar balanced {nα} gaps ⇒ repulsive), the
+operators' D_box reads the GLOBAL spectral dimension (trace-map integrates the whole CF). Confirms the WHY,
+not just the THAT. CAVEAT: boundedness & quadraticity are confounded for natural α (no unbounded-quadratic
+exists) — the brocot trigger is the Lagrange bounded/quadratic dichotomy, indecomposable with accessible
+classes, but distinct from μ either way (e proves it).
 
 ### Headline II — NEURAL: per-cell COHERES, population FRAGMENTS
 - **Per-cell** (Allen, 8,462 cells): fingerprints cohere as one "visual cortex" substrate. H1 (OSI↔ks_gue)
@@ -71,9 +78,9 @@ induction-on-noise to confirm extractor artifacts; data-acquisition discipline (
 **LANDED** (committed; pushed through `5b72706`; unpushed `12e5c1b`/`ee637c3`/`4172bc7`): the approximability
 program (6 substrates, gross-agree/fine-split, DEGT form-confirmed); the neuro arc (per-cell + population +
 criticality); the 7-system Family-V dynamical landscape; calibration anchors; the brocot bridge + corpus;
-landscape v1 dashboard.
-**OPEN:** CF-boundedness-vs-continuous mechanism (the live substantive question, next); trace-map TD-formalism
-dimension (deferred quantitative DEGT piece); Tier-2 Buzsaki / Tier-3 IBL (acquisition — interactive);
+landscape v1 dashboard; the CF-boundedness-vs-continuous MECHANISM (cf_mechanism.py — e splits brocot's
+LOCAL three-distance step from the operators' GLOBAL continuous-μ).
+**OPEN:** trace-map TD-formalism dimension (deferred quantitative DEGT piece); Tier-2 Buzsaki / Tier-3 IBL (acquisition — interactive);
 brocot submodule-bump + tooling relocation (when recordings land); p2-saturation RF diagnostic (minor).
 
 ---

@@ -62,6 +62,13 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   "agree-gross-diverge-fine": the OPERATOR family (AM/Fib/gaah/ext_harper) agrees on fine structure
   (quotient-magnitude/continuous, e-stays-high), and brocot (FM synthesis) is the fine-structure outlier
   (CF-boundedness step).
+- **THE GROSS-AGREE/FINE-DIFFER SPLIT NOW HAS A MECHANISM (cf_mechanism.py).** brocot Brody q STEPS on the
+  bounded/quadratic-vs-transcendental CF binary (mean 0.982 vs 0.271, Δ=+0.71); operator D_box is
+  CONTINUOUS in μ (ρ=−0.63). **e−2 is the discriminator that splits them** (transcendental/unbounded CF,
+  but μ=2): brocot q(e)=0.568 drops with the transcendentals; operator D_box(e)=0.782 stays high with
+  golden. ⇒ brocot follows the three-distance-theorem / LOCAL / CF-structural step (periodic CF ⇒
+  balanced {nα} gaps ⇒ repulsive), operators follow the trace-map-integrated / GLOBAL / continuous-μ —
+  confirms the WHY, not just the THAT. Caveat: boundedness & quadraticity are confounded for natural α.
 - **POPULATION-LEVEL FRAGMENTATION IS CONSISTENT ACROSS ALL 12 SESSIONS.** 3 trustable population
   observables span the full axis — corr-eig→GUE (q=0.95±0.05), avl-onset→intermediate (0.66±0.08),
   sync-event→Poisson (0.00±0.00, corroborated by I.5/BRρ) — each a fixed landscape position, aggregation
