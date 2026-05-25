@@ -47,8 +47,13 @@ population-collective; a feedforward output layer like retina may not support th
 **PENDING:**
 - *Operator:* trace-map thermodynamic-formalism dimension (the deferred quantitative DEGT constant).
 - *Neuro:* Tier-2 Buzsáki CA1 framework-port DONE (cycle 1, 8 sessions — see SURPRISES); hippocampus-specific
-  cycle-2 (theta-gamma / replay / place fields) deferred. spatial population-level (a distinct substrate);
-  Tier-3 IBL (acquisition); orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
+  cycle-2 (theta-gamma / replay / place fields) IN PROGRESS. spatial population-level (a distinct substrate);
+  orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
+- *Third substrate class for the pillar-2 falsification test (QUEUED, acquisition lift):* the turnkey DANDI
+  retinal MEA (001677) is phototagging/full-field-flash — NO visual-selectivity axis (DS/contrast/spatial),
+  and retina is feedforward (population observables substrate-inappropriate). A proper test needs off-DANDI
+  rich-selectivity retina (Marre/Chichilnisky, custom format) or IBL (contrast/choice selectivity, large but
+  standardized). Scoped 2026-05-25; deferred pending a proper-selectivity dataset.
 - *brocot.fm* (Will's own substrate; audio spectral side — the standing bridge piece).
 
 **SURPRISES / load-bearing findings:**
