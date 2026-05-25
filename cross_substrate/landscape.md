@@ -92,6 +92,14 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   sync-event→Poisson (0.00±0.00, corroborated by I.5/BRρ) — each a fixed landscape position, aggregation
   (not session) sets the class. rate-peak's Wigner is a confirmed find_peaks artifact (induction-on-noise:
   Poisson surrogate also → q=1). The map gains 3 real population positions + 1 artifact control.
+- **STRATIFIED (1,456 cells, 8 stim × 7 area × 12 sess): fragmentation ROBUST, each observable keyed to a
+  DIFFERENT factor.** Canonical ordering corr-eig>avl>sync holds in 94% of (area,stim,session) cells ⇒ not
+  a pooling artifact. corr-eig is NEAR-INVARIANT (η²≤0.05 on all factors — stable ~GUE everywhere);
+  avl-onset is structured by SESSION (η²=0.44) >> AREA (0.19, Kendall W=0.78: V1/lateral low → higher-areas/
+  LGN high) >> stimulus; sync-event invariant Poisson. STIMULUS barely structures the population (W≤0.24) —
+  contrasts the per-cell within-stimulus-state axis (population is more stimulus-invariant than the cell).
+  Population area-structure (carried by avalanche) ≠ per-cell ks_gue area pattern (ρ=−0.14) — reinforces
+  population-IS-a-distinct-substrate. (population_strat.py; verdicts Will's.)
 
 ---
 

@@ -978,3 +978,36 @@ holds (three-distance for NNS, trace-map for box-dim), but the empirical distinc
 aware. This framing makes the landscape STRONGER: it explains why one axis manifests differently across
 substrates without inviting either the "trivial axis-confound" critique OR overclaiming substrate-independent
 universality. Banked as clarification (the 2×2 table is the durable artifact). Verdicts Will's.
+
+### Stratified population fingerprints (population_strat.py / _analysis.py) — Step-2 neural arc
+Stratified the 3 trustable population observables (corr-eig / avl-onset / sync-event; rate-peak artifact
+dropped) across 8 stimulus blocks × 7 areas × 12 sessions = 1,456 cells (parallel, 10 workers, 11 min),
+then asked what STRUCTURES the population landscape position.
+
+- **(0) FRAGMENTATION IS ROBUST, NOT A POOLING ARTIFACT.** corr-eig q=0.892±0.112, avl-onset q=0.608±0.135,
+  sync-event q=0.002±0.015; the canonical ordering corr-eig>avl>sync holds in 449/478 (94%) of
+  fully-populated (session,area,block) cells. The three observables occupy distinct, stable bands within
+  EVERY stratified cell ⇒ population fragmentation is intrinsic to the observable, not an artifact of
+  aggregating across areas/stimuli. Confirms + sharpens the prior 12-session whole-population finding.
+- **(1) EACH OBSERVABLE IS KEYED TO A DIFFERENT FACTOR (marginal η² on Brody q):**
+    corr-eig:  area 0.03 / stim 0.05 / session 0.05 — NEAR-INVARIANT (stably ~GUE everywhere; a robust
+               population spectral signature, barely moved by anything).
+    avl-onset: area 0.19 / stim 0.03 / **session 0.44** — structured by SESSION >> AREA >> stimulus.
+    sync-event: ~0 / ~0 / 0.10 — invariant Poisson.
+- **(2) AREA STRUCTURES THE AVALANCHE OBSERVABLE, CONSISTENTLY (Kendall W=0.783 across session×block).**
+  avl-onset q ordering: VISp/VISal/VISl (≈0.44) < VISrl/VISpm (0.48-0.50) < LGd/VISam (0.57-0.59) — primary
+  & lateral visual LOW, higher-order areas + LGN HIGH. corr-eig area W=0.045, sync W=0.006 (no area
+  structure). So the population's area dependence lives in the AVALANCHE (collective-dynamics) observable,
+  not the spectral or network-event ones. (W is across session×block groups ⇒ area effect is within-session
+  controlled, robust to the session dominance in η².)
+- **(3) STIMULUS BARELY STRUCTURES THE POPULATION** (corr-eig W=0.055, avl W=0.244, sync W=0.005) — NO
+  coherent stimulus trajectory. CONTRASTS with the per-cell finding that within-cell stimulus-state IS a
+  live axis: at the population level the fingerprint is far more stimulus-invariant than the individual cell.
+- **(4) POPULATION AREA-STRUCTURE ≠ PER-CELL AREA-STRUCTURE.** ρ(population corr-eig q, per-cell ks_gue)
+  across 7 areas = −0.143 — the population spectral area pattern does NOT track the per-cell ks_gue (H1)
+  area pattern; and the strong population area signal (avalanche) is a collective property with no per-cell
+  analogue. Reinforces population-IS-a-distinct-substrate / avalanche-orthogonal-to-per-cell.
+CAVEAT (flagged): avl-onset's session dominance (η²=0.44) may partly reflect recording characteristics
+(unit count / firing-rate differences per session), not pure biology — the area effect (W=0.78) is the
+cleaner within-session-controlled signal. Banked: coordinates/population-strat.jsonl (1456);
+figure P_population_strat.png. Verdicts Will's.
