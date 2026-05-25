@@ -1128,3 +1128,25 @@ track per-cell class as SPATIAL organisation did in 2a, ρ=+0.47?). 48 substrate
   until/unless theta-gamma becomes load-bearing. Cycle 2c (replay/SWR) may pull in fast-gamma/ripple-band
   diagnostics contextually but doesn't require it.
 Banked: coordinates/buzsaki-thetagamma-{sub,cell}.jsonl; fig P_buzsaki_thetagamma.png. Verdicts Will's.
+
+### Buzsáki cycle-2c-a: sharp-wave-ripples — SWR-rate consolidation enrichment + participation null (8 sessions)
+Detected SWRs (150-250Hz ripple-band events, NonREM; channel = max ripple-power; peak>5σ/edge>2σ/15-250ms),
+per-cell SWR participation, cross-ref with class + place-quality. 16 event-summary + 690 per-cell records.
+- **(2c-1) SWR-RATE PRE→POST ENRICHMENT: ROBUST.** PRE 15.4/min → POST 19.6/min, Δ=+4.2, Wilcoxon p=0.0078,
+  ALL 8/8 sessions positive (POST−PRE [6.5,7.7,4.3,1.8,3.5,6.3,3.4,0.2]). The canonical post-experience
+  replay-enrichment signature, replicated. NB the consolidation paradigm IS present in this data via SWR
+  RATE — even though the avalanche-consolidation effect (G3/2-cycle) died under rate-match+power; SWR rate is
+  the more robust consolidation observable. (Also validates the SWR detector + plausible ~15-20/min rates.)
+- **(2c-2) SWR PARTICIPATION does NOT track per-cell class (de-confounded).** all-cells ρ(participation,
+  ks_gue)=−0.288 was the CELL-TYPE CONFOUND (interneurons participate ~5× more: inh med 0.683 vs exc 0.128);
+  EXC-only ρ=+0.030 = NULL. place-coherence exc ρ=−0.124 (weak); place-cells marginally MORE engaged (exc
+  med 0.133 vs non-place 0.121, p=0.037 — tiny). ⇒ SWR engagement is ANOTHER per-cell property that does NOT
+  track class — reinforcing the refined H1: PLACE-CODING QUALITY is specifically the class-linked per-cell
+  property, not general circuit engagement (SWR participation) or temporal locking (gamma, 2b).
+- **Methodology: SWR participation is heavily cell-type-confounded** (interneurons ~5× pyramidal) — all
+  per-cell SWR cross-refs must be exc-only; sibling of the theta_mrl cell-type confound.
+**⇒ cycle-2c-a: one robust hippocampus-specific POSITIVE (SWR-rate consolidation enrichment, 8/8, p=0.008)
++ a reinforcing per-cell NULL (SWR engagement ⊥ class). The H1 refinement holds across THREE per-cell probes
+now: place-coding quality TRACKS class (2a); gamma phase-locking (2b) and SWR participation (2c-a) do NOT.**
+Banked: coordinates/buzsaki-swr-{event,cell}.jsonl; fig P_buzsaki_swr.png. Bayesian replay-sequence decoding
+(2c-b) is the open follow-on. Verdicts Will's.
