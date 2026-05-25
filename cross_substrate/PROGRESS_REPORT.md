@@ -60,6 +60,17 @@ flipping periodicity left q unchanged. **⇒ the brocot trigger is BOUNDEDNESS o
 badly-approximable / Diophantine class), NOT the algebraic quadratic class** — quotient MAGNITUDE sets
 convergent-denominator growth → three-distance gap balance; CF periodicity is irrelevant. Operator control:
 all μ=2 bounded targets D_box=0.785±0.016 (flat across periodicity) — operators read μ, blind to the split.
+**Split is SUBSTRATE-TYPE-GROUNDED, not an axis artifact (observable-binding clarification):** the
+brocot-step/operator-continuum 2×2 has two intrinsically-uninformative off-diagonals — brocot box-dim is
+comb-noise (no fractal in a deterministic FM partial set), operator NNS is Cantor-degenerate (q≈0 every
+class/coupling 0.5–4). Spectral TYPE forces the observable (point-process→NNS, Cantor→box-dim); neither
+substrate is readable on the other's axis. Two-layer landscape architecture (with the dynamical-breadth
+Family-V finding): (L1) substrate CLASS needs observable FAMILY [Family V λ/D₂ vs Family I–III for spectral];
+(L2) within a family, spectral TYPE affords the specific observable [NNS vs box-dim] — both layers say
+substrate type forces observable, and the SHARED finding is the underlying approximability axis each
+observable exposes. Honest caveat: boundedness-step & μ-continuum are partly observable-bound (boundedness is
+what NNS sees, μ what box-dim sees) — strengthens the landscape (explains differential manifestation without
+trivial-confound or over-universality). Banked as clarification (findings_log; the 2×2 is the durable artifact).
 
 ### Headline II — NEURAL: per-cell COHERES, population FRAGMENTS
 - **Per-cell** (Allen, 8,462 cells): fingerprints cohere as one "visual cortex" substrate. H1 (OSI↔ks_gue)

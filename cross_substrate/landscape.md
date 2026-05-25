@@ -78,6 +78,15 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   of partial quotients (the badly-approximable / Diophantine class), exactly the three-distance prediction
   (quotient MAGNITUDE sets convergent-denominator growth → gap balance). Operator control: all μ=2 bounded
   targets D_box=0.785±0.016 (flat across periodicity) — operators read μ, blind to the split.
+- **THE SPLIT IS SUBSTRATE-TYPE-GROUNDED, NOT AN AXIS ARTIFACT (observable-binding clarification).** Tested
+  whether cf_mechanism's brocot-step/operator-continuum was an axis-selection confound: the 2×2 has two
+  intrinsically-uninformative off-diagonals — brocot box-dim is comb-noise (no fractal in a deterministic FM
+  partial set), operator NNS is Cantor-degenerate (q≈0 every class/coupling). Spectral TYPE forces the
+  observable (point-process→NNS, Cantor→box-dim); you can't read either substrate on the other's axis. Same
+  theme as the dynamical-breadth Family-V finding (substrate CLASS needs observable FAMILY), one layer down
+  (spectral TYPE affords specific observable). Honest caveat: boundedness-step & μ-continuum are partly
+  observable-bound (boundedness is what NNS sees, μ is what box-dim sees) — strengthens, not weakens, the
+  landscape. Banked as clarification (findings_log; 2×2 table the durable artifact).
 - **POPULATION-LEVEL FRAGMENTATION IS CONSISTENT ACROSS ALL 12 SESSIONS.** 3 trustable population
   observables span the full axis — corr-eig→GUE (q=0.95±0.05), avl-onset→intermediate (0.66±0.08),
   sync-event→Poisson (0.00±0.00, corroborated by I.5/BRρ) — each a fixed landscape position, aggregation

@@ -942,3 +942,39 @@ designed-α second discriminator. Caveat now RESOLVED, not just flagged.
 NOTE (honesty): the two bounded-nonquadratic tests returned identical q to 16 digits (0.99993) — the Brody
 fit saturating its q→1 repulsive ceiling, not a coincidence; both sit unambiguously on the bounded side
 regardless. Banked: coordinates/cf-discriminator.jsonl (7); figure P_cf_discriminator.png. Verdicts Will's.
+
+### Axis-vs-substrate clarification (banked-data interrogation, no new script) — observable-binding
+Raised after cf_discriminator: was the cf_mechanism "brocot-step vs operator-continuous" split an arbitrary
+AXIS-selection confound (brocot read on short-range Brody q, operators on global box-dim)? Tested by trying
+to fill the 2×2 from banked data + a Σ²(L) robustness recompute. The two OFF-DIAGONAL cells turn out to be
+INTRINSICALLY uninformative — and WHY is the answer:
+
+                | short-range NNS (Brody q)        | global (box-dim / long-range)
+  brocot        | reads BOUNDEDNESS (clean, ρ=0.91)| comb-dominated NOISE (~344 deterministic FM sidebands;
+                |                                  |   Σ²(L) non-robust, sign-flips across L=3..12)
+  operators     | Cantor-DEGENERATE (q≈0 every     | reads μ (clean, ρ=−0.63)
+                |   class, every coupling 0.5–4)    |
+
+⇒ VERDICT: SUBSTRATE-TYPE-GROUNDED, not an axis artifact. The diagonals hold the substrate-appropriate
+observables; the off-diagonals are uninformative BECAUSE the spectral TYPES don't support the cross-
+observable — point-process substrates (brocot partials, RMT-class) have NO fractal for box-dim to measure;
+Cantor-set substrates (quasiperiodic-operator spectra) have hierarchical clustering that DEGENERATES NNS.
+You literally cannot read brocot on the operators' axis or vice-versa — spectral type FORCES the observable.
+The headline split SURVIVES the challenge and gains a sharper reason.
+
+**Two-layer landscape architecture (this clarification + the dynamical-breadth arc say the same thing):**
+  (L1) Different substrate CLASSES need different observable FAMILIES — Family V (λ₁/D₂) for dynamical
+       systems vs Family I–III (NNS/Σ²/RF) for spectral substrates (the Rössler/Hénon/Chua/Duffing finding:
+       point-process axes didn't discriminate them; their native λ/D₂ did).
+  (L2) WITHIN an observable family, different substrate spectral TYPES afford different specific observables
+       — NNS Brody q for point-process spectra, box-dim for Cantor spectra (THIS clarification).
+  Both layers: SUBSTRATE TYPE FORCES OBSERVABLE. Cross-substrate findings live in whichever observable each
+  type affords; the SHARED finding is the underlying axis (here approximability) that both observables expose
+  through their substrate-appropriate readings.
+
+**Honest caveat, stated as part of the finding:** the boundedness-STEP (brocot) and μ-CONTINUUM (operators)
+are partly OBSERVABLE-BOUND — boundedness is what NNS sees, μ is what box-dim sees. The mechanism story
+holds (three-distance for NNS, trace-map for box-dim), but the empirical distinction is observable-binding-
+aware. This framing makes the landscape STRONGER: it explains why one axis manifests differently across
+substrates without inviting either the "trivial axis-confound" critique OR overclaiming substrate-independent
+universality. Banked as clarification (the 2×2 table is the durable artifact). Verdicts Will's.
