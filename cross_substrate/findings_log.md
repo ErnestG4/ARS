@@ -882,3 +882,12 @@ not find_peaks). All give clean chaos-ordered trajectories, validated vs known: 
 D₂→1.21, matches known 0.42/1.26). λ via Benettin matches known values precisely. ⇒ Family-V dynamical
 landscape now 7 substrates (MG/Lorenz/logistic + these 4). Event-NNS Brody q≈1 throughout (oscillatory-event
 regularity — secondary axis). Banked: coordinates/dynamical-breadth.jsonl (17). Verdicts Will's.
+
+### QPO deepening (quasiperiodic_deepening.py) — gaah/ext_harper stratification firmed (robust + N-stable)
+Deepened the two operators that joined the approximability family (Job 1). (a) FINE coupling grid λ∈[0.6,1.4]:
+ρ(rank,D_box) stays negative throughout — gaah −0.55…−0.78 (spread peaks ~λ=0.8), ext_harper −0.30…−0.83
+(strongest λ=0.8, spread peaks λ=1.0–1.2). Stratification is ROBUST across the critical regime, not a
+knife-edge. (b) N-CONVERGENCE @λ=1 (50k→100k): gaah ρ=−0.717→−0.717 (identical), ext_harper −0.700→−0.783;
+golden/Liouville D_box move <0.002 — D_box N-STABLE, ρ stable/strengthening. ⇒ the stratification is
+N-robust (NOT a finite-N artifact); gaah & ext_harper firmly in the approximability-stratification family.
+The 3→5 substrate extension is solid. Banked: coordinates/quasiperiodic-deepening.jsonl (180); fig P_qpo_deepening. Verdicts Will's.
