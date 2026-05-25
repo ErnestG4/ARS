@@ -1083,3 +1083,22 @@ generalises with the substrate's own selectivity axis (spatial coding); but the 
 substrate the SHARED structure is the universality-class poles + the extrinsic-selectivity principle; what
 VARIES is which biology occupies the middle and which selectivity axis is relevant. Banked:
 buzsaki-port-{pop,cell}.jsonl, buzsaki-selectivity.jsonl, buzsaki-ratematch.jsonl; fig P_buzsaki_port.png.
+
+### Buzsáki cycle-2a: place-field structure ↔ per-cell class (deepens G2) — 8 sessions
+Deepened the G2 H1-analogue (spatial-info↔ks_gue) by computing proper place-field metrics on the maze and
+asking WHICH aspect of place coding tracks the per-cell universality class. 690 per-cell records, 668 merged
+with Maze-Awake ks_gue. Robust full-8 verdicts (1-session hints that did NOT survive flagged):
+- **Place-coding QUALITY/ORGANISATION is the class correlate, more than info content.** spatial COHERENCE
+  (Muller-Kubie, rate-map smoothness/organisation) ρ=+0.467 (exc +0.375) ≥ spatial INFO ρ=+0.371 (exc
+  +0.392). ⇒ the H1-analogue sharpens: it's how spatially ORGANISED the place code is, not just how many
+  bits/spike, that tracks the universality class.
+- **PLACE-CELLS are MORE GUE than non-place-cells:** ks_gue med 0.596 (n=374) vs 0.501 (n=294),
+  Mann-Whitney p=2.6e-11. Robust, balanced n. Being a place cell ↔ more repulsive spike-timing class.
+- **NON-robust (confirm-at-full-n discipline):** spatial_stability ρ=+0.066 (was +0.238 at 1 session — noise),
+  n_fields ρ=−0.049 (was −0.385 at 1 session — noise), and the 1-session place-cell contrast SIGN-FLIPPED
+  (1-sess place-cells LOWER ks_gue with only n=7 non-place → full-8 place-cells HIGHER). Vindicates full-8.
+- **Cell-type confound:** peak_rate ρ=−0.083 all but +0.372 exc-only (interneurons high-rate + different class).
+**⇒ cycle-2a deepens G2: the CA1 selectivity↔class link is carried by place-coding QUALITY (spatial
+coherence + place-cell identity), robust at full power — G2 is firm enough to anchor cycle-2b (theta-gamma)
+and cycle-2c (replay/SWR).** Banked: coordinates/buzsaki-placefields.jsonl (690); fig P_buzsaki_placefields.png.
+Verdicts Will's.
