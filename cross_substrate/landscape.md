@@ -28,11 +28,22 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
 
 **PENDING:**
 - *Operator:* trace-map thermodynamic-formalism dimension (the deferred quantitative DEGT constant).
-- *Neuro:* spatial population-level (a distinct substrate); Tier-2 Buzsaki / Tier-3 IBL (acquisition —
-  scope interactively); orthogonal-design Family-VII disambiguation (only if Family VII becomes load-bearing).
+- *Neuro:* Tier-2 Buzsáki CA1 framework-port DONE (cycle 1, 8 sessions — see SURPRISES); hippocampus-specific
+  cycle-2 (theta-gamma / replay / place fields) deferred. spatial population-level (a distinct substrate);
+  Tier-3 IBL (acquisition); orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
 - *brocot.fm* (Will's own substrate; audio spectral side — the standing bridge piece).
 
 **SURPRISES / load-bearing findings:**
+- **CA1 FRAMEWORK-PORT: the landscape generalises with structured reorganisation (Buzsáki, 8 sessions).**
+  Structural POLES are substrate-general — corr-eig stays GUE (0.85), sync-event stays Poisson (0.00), like
+  Allen. H1 (extrinsic-selectivity↔per-cell-class) GENERALISES with the substrate's own selectivity axis:
+  spatial information (place-coding analogue of OSI) ρ=+0.28 + theta phase-locking ρ=−0.21 (exc), robust at
+  n=668 — while the strong burst↔ks_gue ρ=0.52 is INTRINSIC/tautological (not the analogue). But the
+  biological MIDDLE reorganises — avalanche is NOT a stable intermediate in CA1; it is behaviour-state-gated
+  (Maze-Awake 0.43 ≫ quiet/sleep 0.00, rate-matched sign-consistent ×8; NonREM/REM consolidation effects
+  killed by rate-match+power). New cell-type axis: pyramidal more GUE than interneuron (ks_gue 0.69 vs 0.58).
+  ⇒ shared cross-substrate = universality-class poles + extrinsic-selectivity principle; what varies = which
+  biology fills the middle + which selectivity axis. (buzsaki_port/_selectivity/_ratematch; verdicts Will's.)
 - **AM ≡ Fibonacci Hamiltonian up to an approximability-dependent reparametrization** — universal across
   the whole Lagrange spectrum; matching coupling λ* continuous in approximability (not a CF-boundedness
   step); AM-criticality box-dim ≈½ invariant (PROGRESS_REPORT §3 g–k).

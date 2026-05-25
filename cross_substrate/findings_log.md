@@ -1049,3 +1049,37 @@ observable; corr-eig is invariant-and-featureless (~GUE everywhere); sync-event 
 single population fingerprint" sharpens to: one observable carries reproducible biological structure, two
 are condition-invariant.** Banked: coordinates/population-temporal.jsonl (1453); fig P_population_temporal.png.
 Verdicts Will's.
+
+### Buzsáki CA1 framework-port — full 8-session verdicts (Step-3 cycle 1; cross-substrate generalization)
+Applied the IDENTICAL Allen tooling (observables/classify/dt/_fp) to CA1 (Grosmark 000044, 8 sessions:
+Achilles×2/Buddy/Cicero×3/Gatsby×2). 348 pop + 4019 per-cell + 690 selectivity records. Verdicts (Will's):
+
+- **G1 — FRAGMENTATION: PARTIAL GENERALISATION.** Structural ANCHORS generalise — corr-eig stays ~GUE
+  (0.850±0.176, Allen 0.89), sync-event stays Poisson (0.000). The BIOLOGICAL/INTERMEDIATE observable
+  DIVERGES — avl-onset collapses (0.104±0.183 vs Allen 0.61); canonical corr-eig>avl>sync ordering only
+  33%. In CA1 the avalanche is NOT a stable intermediate; it is STATE-GATED (see G3). ⇒ the landscape's two
+  poles are substrate-general, the middle is substrate-specific.
+- **G2 — H1 GENERALISES, substrate-appropriately (intrinsic-vs-extrinsic discipline).** Extrinsic selectivity
+  tracks per-cell ks_gue: spatial information (bits/spike, the place-coding analogue of OSI) ρ=+0.279
+  (p=2e-13; exc-only +0.293), theta phase-locking ρ=−0.341 (exc-only −0.213, p=6e-7) — both robust at n=668.
+  The STRONGEST correlate, burst_index ρ=+0.515, is INTRINSIC to the spike train (burst & ks_gue both
+  ISI-derived) ⇒ flagged as largely TAUTOLOGICAL, NOT the H1-analogue. ⇒ H1 (extrinsic-selectivity↔class)
+  GENERALISES from V1 to CA1 with the substrate-appropriate selectivity axis (orientation→spatial-coding);
+  modest (ρ~0.3) but robust. NB the 3-session read (spatial ρ=0.09 NS) was underpowered — full-8 needed.
+- **G3 — STATE EFFECT: one robust, two killed by rate-match + power.** Rate-matched (common spike-count,
+  same CA1 units, K=5): wake_state Maze-Awake(0.427)→Awake-in-sleep(0.001) Δ=−0.43 SIGN-CONSISTENT across 8
+  sessions ⇒ avalanche structure is gated by ACTIVE BEHAVIOUR, rate-INDEPENDENTLY. NonREM consolidation
+  (Δ=−0.05, sign-VARIES at 8 — was sign-consistent at 3) and REM consolidation (underpowered, ~0→0 matched)
+  do NOT survive. The intriguing 3-session POST-REM raw q=0.63 was a low-n rate-saturation artifact — gone
+  under matching. (Vindicates rate-match-from-the-start + full-8-for-REM-power.)
+- **G4 — CELL-TYPE: a robust new within-substrate axis (Allen lacked).** Per-cell ks_gue pyramidal(exc)
+  med=0.685 (n=3259) > interneuron(inh) med=0.575 (n=760); population avl-onset exc 0.213 > inh 0.105.
+  Pyramidal cells are more GUE/repulsive than interneurons, robust across 8 sessions.
+
+**SYNTHESIS — the framework GENERALISES with structured reorganisation:** the structural poles (corr-eig
+GUE-high / sync Poisson-low) are substrate-general; the per-cell extrinsic-selectivity↔class link (H1)
+generalises with the substrate's own selectivity axis (spatial coding); but the biological MIDDLE
+(avalanche) reorganises — in CA1 it is behaviour-state-gated rather than a stable intermediate. Cross-
+substrate the SHARED structure is the universality-class poles + the extrinsic-selectivity principle; what
+VARIES is which biology occupies the middle and which selectivity axis is relevant. Banked:
+buzsaki-port-{pop,cell}.jsonl, buzsaki-selectivity.jsonl, buzsaki-ratematch.jsonl; fig P_buzsaki_port.png.
