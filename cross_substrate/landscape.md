@@ -16,10 +16,15 @@ classes the structure separates into a UNIVERSAL part and a SUBSTRATE-KEYED part
    clock) as fixed corners. Neural: corr-eig→GUE and sync-event→Poisson hold in BOTH V1 (Allen) and CA1
    (Buzsáki). Arithmetic/operator: the approximability axis runs GUE↔Poisson across AM/Fib/gaah/ext_harper/
    brocot. The poles are the substrate-invariant skeleton.
-2. **H1 / extrinsic-selectivity↔class is substrate-general but substrate-INSTANTIATED.** A per-cell
-   EXTRINSIC selectivity property tracks the intrinsic universality class — and the *relevant property is the
-   substrate's own selectivity axis*: V1→orientation (OSI), CA1→spatial information (place coding). The
-   strong INTRINSIC correlates (burst/ISI) are tautological, not the link ([[intrinsic_vs_extrinsic_predictor]]).
+2. **H1 = PER-CELL extrinsic-selectivity-QUALITY ↔ class, substrate-general but substrate-INSTANTIATED.** A
+   per-cell EXTRINSIC selectivity property tracks the intrinsic universality class — and the *relevant
+   property is the substrate's own selectivity axis*: V1→orientation (OSI), CA1→spatial coding (place-field
+   QUALITY: coherence ρ=+0.47 ≥ raw info, place-cell identity p=3e-11; cycle 2a). Strong INTRINSIC correlates
+   (burst/ISI) are tautological, not the link ([[intrinsic_vs_extrinsic_predictor]]). **The principle operates
+   at the PER-CELL level, NOT substrate-wide:** CA1 substrate-level temporal organisation (theta-gamma CFC /
+   per-cell gamma phase-locking) does NOT robustly track per-cell class (cycle 2b, bounded-negative; per-cell
+   gamma arm clean, substrate CFC measurement-limited). So H1 is "well-organised per-cell SELECTIVITY tracks
+   class", not "any organisational quality (incl. substrate oscillatory coupling) tracks class".
 What VARIES across substrates: (a) which biology fills the MIDDLE between the poles — V1: stable intermediate
 (avalanche); CA1: behaviour-state-gated avalanche (not a stable intermediate); (b) which selectivity axis is
 relevant; (c) which OBSERVABLE is substrate-appropriate (point-process→NNS, Cantor→box-dim, recurrent-network→

@@ -1102,3 +1102,29 @@ with Maze-Awake ks_gue. Robust full-8 verdicts (1-session hints that did NOT sur
 coherence + place-cell identity), robust at full power — G2 is firm enough to anchor cycle-2b (theta-gamma)
 and cycle-2c (replay/SWR).** Banked: coordinates/buzsaki-placefields.jsonl (690); fig P_buzsaki_placefields.png.
 Verdicts Will's.
+
+### Buzsáki cycle-2b: theta-gamma / temporal organisation — BOUNDED-NEGATIVE (8 sessions)
+Tested Will's synthesis (organisational QUALITY tracks class — does TEMPORAL organisation, theta-gamma CFC,
+track per-cell class as SPATIAL organisation did in 2a, ρ=+0.47?). 48 substrate + 652 per-cell records.
+- **PER-CELL gamma phase-locking ↔ ks_gue (the cleaner, channel-magnitude-independent test): WEAK/NULL.**
+  slow_gamma_mrl ρ(all)=−0.033, ρ(exc)=−0.071 (~0); fast_gamma_mrl ρ(all)=−0.045, ρ(exc)=−0.203 (modest).
+  vs theta_mrl −0.33/−0.14, vs spatial-coherence +0.47. ⇒ spikes do NOT robustly lock to whatever gamma
+  exists in a way that tracks class. A real negative (interpretation independent of CFC channel/magnitude).
+- **SUBSTRATE Tort MI: near-floor + measurement-suspect ⇒ INCONCLUSIVE (not definitively null).** All MI
+  0.0003–0.0025 (synthetic-strong 0.055, literature CA1 ~0.01+); estimator VALIDATED on synthetic (coupled
+  0.055 / uncoupled 0.000). Colgin check INVERTED (sleep CFC > active: slow 0.0008>0.0003, fast 0.0016>0.0011)
+  — opposite the canonical active-running theta-gamma ⇒ raw-LFP CFC on this silicon-probe prep (no CSD,
+  intermittent Maze theta) is measurement-limited. MI vs avalanche q (G1): slow ρ=−0.24, fast −0.06 (weak).
+- **VERDICT: temporal organisation (theta-gamma) does NOT robustly track per-cell class, unlike spatial
+  (2a). Synthesis NARROWS — falsification-style outcome.** Per-cell arm load-bearing (clean negative);
+  substrate arm bounded by the CFC measurement caveat.
+- **REFINEMENT BANKED — the LEVEL of organisation matters.** H1-substrate-general is specifically a PER-CELL
+  EXTRINSIC-SELECTIVITY-QUALITY principle (V1: orientation-tuning organisation; CA1: place-coding
+  organisation — both at cell level → track class), NOT a substrate-level oscillatory-organisation principle
+  (CA1 theta-gamma CFC at substrate level → does NOT track per-cell class). Sharper than "organisational
+  quality tracks class": it specifies the LEVEL (per-cell selectivity, not substrate-wide temporal coupling).
+- **CFC measurement caveat banked, NOT invested in now.** A proper CFC pipeline (CSD / layer-specific
+  channel / stricter theta-epoch gating) is its own dedicated arc (like the TD-formalism dimension) — deferred
+  until/unless theta-gamma becomes load-bearing. Cycle 2c (replay/SWR) may pull in fast-gamma/ripple-band
+  diagnostics contextually but doesn't require it.
+Banked: coordinates/buzsaki-thetagamma-{sub,cell}.jsonl; fig P_buzsaki_thetagamma.png. Verdicts Will's.
