@@ -1,10 +1,80 @@
 # Cross-Substrate Landscape — Progress Report
 
-**Date:** 2026-05-24. **Status:** working synthesis of the program to date (§1–6 operator/
-arithmetic landscape; §7 the Allen neuro depth-extension).
-Companions: `landscape.md` (map), `viewpoints.md` (axes), `findings_log.md`
-(chronological detail), `coordinates/*.jsonl` (banked values). Progress log —
+**Date:** 2026-05-24. **Status:** v1 consolidation. §0 = the legible-at-a-glance synthesis;
+§1–7 = the detailed chronological build-record (retained as the audit trail).
+Companions: `landscape.md` (map + §0 dashboard), `viewpoints.md` (axes), `findings_log.md`
+(run-by-run detail), `coordinates/*.jsonl` (banked values). Progress log —
 NOT validated results; verdicts are Will's.
+
+---
+
+## §0 — Program state (v1 consolidation, 2026-05-24)
+
+### Inventory — ~25 substrates across 6 families
+- **Quasi-periodic / arithmetic operators (eigenvalue spectra):** almost-Mathieu (AM), Fibonacci/Sturmian
+  Hamiltonian, generalized-AAH (gaah), extended-Harper, mosaic-AM, Maryland; ζ / Dirichlet / EC L-zeros,
+  Mertens, Liouville, Gaussian + Eisenstein primes, Maass forms.
+- **Dynamical systems (Family V):** Mackey-Glass, Lorenz, logistic, Rössler, Chua, Duffing, Hénon.
+- **FM synthesis:** brocot.fm (4,292 exemplars + the Stern-Brocot-walk approximability test) — the only
+  substrate with BOTH sides directly accessible (SB-path parameter + analytic partial spectrum).
+- **Neural:** pvc-11 V1 (monkey); Allen Brain Observatory (8,462 cells × 7 areas × 8 stimuli) +
+  population-level observables (corr-eig / avl-onset / sync-event).
+- **Other point processes:** Kuramoto, NANOGrav pulsar.
+- **Calibration anchors:** GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
+- **Axes:** Family I (NNS I.1–I.9), II (Σ²/Δ₃/K long-range), III (RF per-prime), IV (spectral box-dim),
+  V (λ₁/D₂ dynamical), VI (extraction-meta), VII (inter-leg disagreement). Figures P1–P11 + P_allen_depth /
+  P_brocot_approx / P_qpo_approx / P_qpo_deepening.
+
+### Headline I — APPROXIMABILITY STRATIFICATION (the central thread)
+Across substrates organized by a Diophantine frequency parameter, the spectral fingerprint stratifies by
+the parameter's **approximability** (rational-approximation quality): least-approximable (golden / metallic
+means) → repulsive / GUE-like / higher fractal dimension; most-approximable (Liouville, high-μ) → clustered
+/ Poisson / lower. Established across **6 substrates in two mechanistically-distinct classes:**
+- **Quasi-periodic operators** (AM, Fibonacci, gaah, ext_harper): D_box / Brody q stratify at the
+  critical/fractal coupling (ρ(rank,D_box)≈−0.7; N-robust, robust across coupling). CONDITIONED on a
+  critical regime — Maryland (always-pure-point) is a flat negative control, mosaic doesn't stratify → NOT
+  universal across all quasi-periodic operators.
+- **FM synthesis** (brocot.fm, partial spectra): Brody q falls with approximability, ρ(rank,q)=−0.91 — a
+  mechanistically-different substrate confirming the axis is a substrate-CLASS property.
+Two structural claims recur across all: (1) a "Diophantine GUE corner" the least-approximable classes share
+(universal-ish); (2) graded separation of the approximable classes. **GROSS-axis agreement, FINE-structure
+SPLIT:** the operator family agrees on fine structure (continuous-in-approximability / quotient-magnitude;
+e stays with the metallic means), while brocot is the lone outlier (bounded-vs-unbounded-CF *step*; e drops
+with the unbounded group). AM≡Fibonacci specifically: the same operator family up to an
+approximability-dependent coupling reparametrization (λ* α-invariant within metallic means → ~3× larger for
+Liouville). The quantitative DEGT strong-coupling constant ln(1+√2) is FORM-confirmed, constant-DEFERRED
+(needs trace-map thermodynamic formalism). **Open mechanism question (next):** why operators are
+continuous-in-approximability while brocot is a CF-boundedness step — working hypothesis: brocot's NNS reads
+the LOCAL CF structure (three-distance theorem of the {m+nα} cut-and-project set), the operators' D_box
+reads the GLOBAL spectral dimension (trace-map / Lyapunov).
+
+### Headline II — NEURAL: per-cell COHERES, population FRAGMENTS
+- **Per-cell** (Allen, 8,462 cells): fingerprints cohere as one "visual cortex" substrate. H1 (OSI↔ks_gue)
+  GENERALIZES across all visual areas + LGN (pathway-independent, not V1-specific); orientation-domain
+  tuning (OSI/DSI/F1F0) couples, frequency tuning (SF/TF) does not; within-cell STIMULUS-STATE is a live
+  axis (a fixed cell's class shifts with stimulus); no spatial autocorrelation < 1 mm.
+- **Population** (all 12 sessions): fingerprints FRAGMENT by aggregation — 3 trustable observables span the
+  full axis (corr-eig→GUE / avl-onset→intermediate / sync-event→Poisson), consistent across sessions;
+  aggregation (not session) sets the class. No single "population fingerprint." Avalanche-criticality
+  (near-critical, Beggs-Plenz-consistent) is ORTHOGONAL to per-cell class. Family VII (|I.5q−I.5| OSI-grading)
+  is monkey-STRONG / mouse-WEAK (graded, not absent).
+
+### Methodology spine (the disciplines that emerged — detail in §4)
+matched-instrument + carry-viewpoints-annotate-validity; synthetic-validate fitters; per-φ aggregation
+(never position-concat); validate an estimator's scale-convergence + scale-invariance before trusting an
+asymptotic constant; sweep coupling-class before declaring distinctness; close BOTH escape hatches
+(finite-N AND finite-range) on an absent crossing; fingerprint is blind-to-route (reads spectral, not
+dynamical-system, structure — coincident coordinates assert shared class, not mechanism);
+induction-on-noise to confirm extractor artifacts; data-acquisition discipline (sequential + size-verify).
+
+### Status — landed vs open
+**LANDED** (committed; pushed through `5b72706`; unpushed `12e5c1b`/`ee637c3`/`4172bc7`): the approximability
+program (6 substrates, gross-agree/fine-split, DEGT form-confirmed); the neuro arc (per-cell + population +
+criticality); the 7-system Family-V dynamical landscape; calibration anchors; the brocot bridge + corpus;
+landscape v1 dashboard.
+**OPEN:** CF-boundedness-vs-continuous mechanism (the live substantive question, next); trace-map TD-formalism
+dimension (deferred quantitative DEGT piece); Tier-2 Buzsaki / Tier-3 IBL (acquisition — interactive);
+brocot submodule-bump + tooling relocation (when recordings land); p2-saturation RF diagnostic (minor).
 
 ---
 
@@ -15,7 +85,7 @@ placed in a shared universality-class landscape; the yield is the cross-substrat
 *comparison*, not utility-extraction from any one substrate. Explorer-shaped
 (charting, not hypothesis-testing).
 
-## 2. What's populated (14 substrates, ~8,300 coordinate records)
+## 2. What's populated (original operator/arithmetic snapshot — full current inventory in §0)
 
 | substrate | cells | leg(s) | notes |
 |---|--:|---|---|
