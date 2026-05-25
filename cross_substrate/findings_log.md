@@ -1011,3 +1011,20 @@ CAVEAT (flagged): avl-onset's session dominance (η²=0.44) may partly reflect r
 (unit count / firing-rate differences per session), not pure biology — the area effect (W=0.78) is the
 cleaner within-session-controlled signal. Banked: coordinates/population-strat.jsonl (1456);
 figure P_population_strat.png. Verdicts Will's.
+
+### Rate-match de-confound of the population AREA effect (population_ratematch.py) — Step-2 cycle 2
+The stratified-population finding flagged that avl-onset's area ordering (W=0.78) might be rate-mediated
+(areas differ in unit count + firing rate; avalanche structure is rate-dependent). De-confounded by matching
+every area WITHIN each (session,block) to a common (N_match units, R_match total spikes) — subsample units +
+thin the pooled train — then recomputing avl-onset q (K=5 repeats averaged); corr-eig carried as control.
+- **AREA EFFECT SURVIVES RATE-MATCHING ⇒ INDEPENDENT OF RATE (biological).** Matched avl-onset area
+  Kendall W=0.808 (raw 0.783 — survives, slightly strengthens), SAME ordering: VISp(0.42)<VISl(0.44)<
+  VISal(0.45)<VISpm(0.47)<VISrl(0.48) << VISam(0.59)<LGd(0.61). V1/lateral LOW → higher-order areas + LGN
+  HIGH, holding when unit-count and total spike-count are equalised across areas within each recording.
+- corr-eig control: matched W=0.215 (raw 0.045) — matching unit-count reveals a FAINT corr-eig area
+  structure (VISal highest), but still far below avalanche's 0.808; corr-eig remains the near-invariant
+  observable. (Side-note, not load-bearing: the MP-edge depends on N, so equalising N sharpens it slightly.)
+**⇒ the honest reporting of the area effect is complete: the avalanche-timing area gradient is a rate-
+INDEPENDENT (biological) property, not a recording-rate confound.** The session dominance (η²=0.44) was the
+rate-sensitive part; the area gradient is the clean, matched signal. Banked: coordinates/
+population-ratematch.jsonl (488); figure P_population_ratematch.png. Verdicts Will's.

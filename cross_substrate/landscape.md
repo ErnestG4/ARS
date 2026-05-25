@@ -100,6 +100,10 @@ Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md
   contrasts the per-cell within-stimulus-state axis (population is more stimulus-invariant than the cell).
   Population area-structure (carried by avalanche) ≠ per-cell ks_gue area pattern (ρ=−0.14) — reinforces
   population-IS-a-distinct-substrate. (population_strat.py; verdicts Will's.)
+- **THE AVALANCHE AREA EFFECT IS RATE-INDEPENDENT (biological) — rate-match de-confound.** Matching every
+  area within each (session,block) to common unit-count + total spike-count: avl-onset area Kendall W=0.808
+  (raw 0.783 — survives), same ordering V1/lateral low → higher-areas/LGN high. The session dominance
+  (η²=0.44) was the rate-sensitive part; the area gradient is the clean matched signal. (population_ratematch.py.)
 
 ---
 
