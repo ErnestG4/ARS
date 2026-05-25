@@ -1150,3 +1150,30 @@ per-cell SWR participation, cross-ref with class + place-quality. 16 event-summa
 now: place-coding quality TRACKS class (2a); gamma phase-locking (2b) and SWR participation (2c-a) do NOT.**
 Banked: coordinates/buzsaki-swr-{event,cell}.jsonl; fig P_buzsaki_swr.png. Bayesian replay-sequence decoding
 (2c-b) is the open follow-on. Verdicts Will's.
+
+### IBL Brain-Wide-Map framework-port (THIRD substrate) — PILLAR 1 generalises (n=3); PILLAR 2 needs region-targeting
+Ported the Allen+Buzsáki tooling to IBL (DANDI 000409 processed NWBs, turnkey h5py; 5 sessions, 1141 cells)
+— third substrate CLASS (cortex+subcortex, visual decision task). The processed NWBs (~0.3GB) have
+spikes + trials (gabor contrast, wheel choice) + spike-width cell-typing + electrode CCF region.
+- **PILLAR 1 — STRUCTURAL ANCHORS GENERALISE at n=3 (strong).** corr-eig q=0.814±0.098 (~GUE, matches Allen
+  0.85-0.89 / CA1 0.85); sync-event q=0.012±0.024 (~Poisson, matches 0.00); avl-onset q=0.633±0.075
+  (INTERMEDIATE — like Allen 0.61, NOT collapsed like CA1). ⇒ the GUE/Poisson POLES hold across V1, CA1, AND
+  brain-wide cortex+subcortex; and IBL's biological MIDDLE is intermediate-avalanche (like Allen),
+  reinforcing that the CA1 avalanche-collapse was the hippocampus-specific reorganisation. Region-agnostic
+  (population observables over all cells) — robust.
+- **PILLAR 2 — H1 NOT PROPERLY TESTED on IBL (region-mismatch, methodology lesson).** ks_gue vs
+  contrast_tuning ρ≈0 (all −0.004, wide −0.110); choice_selectivity weak (wide ρ=−0.180). BUT the 5 picked
+  sessions (selected SMALLEST-size) have ZERO visual cells — they're hippocampal/prefrontal/thalamic
+  (SWC-066=CA1, witten-19=orbital/prelimbic, NR-0029=ventral/hypothalamus). So contrast-tuning↔class is
+  UNTESTABLE here (non-visual cells have no contrast tuning; ρ≈0 is trivially expected, not informative).
+  Choice-selectivity (brain-wide-apt, decision-related) is the testable arm here and is weak (wide −0.18) —
+  but choice is a decision variable, not the sensory-tuning analog of OSI/place. ⇒ pillar-2 INCONCLUSIVE on
+  IBL pending VISUAL-region sessions. cell-type (spike-width): ks_gue wide 0.374 vs narrow 0.373 — no
+  difference (unlike CA1 pyr>int; but these are non-visual non-CA1 regions).
+- **METHODOLOGY LESSON (new): in brain-wide data, REGION-TARGET the selectivity axis.** The H1-analogue
+  selectivity property only exists in the cells that carry it (contrast→visual cortex, place→CA1,
+  orientation→V1). Size-first session selection failed SILENTLY (picked non-visual). Sibling of
+  observable-binding: match the EXTRINSIC-SELECTIVITY axis to the region, not just the dataset. The proper
+  IBL pillar-2 test requires VISp-containing insertions.
+Banked: coordinates/ibl-port-{cell,pop}.jsonl; scripts ibl_port.py. Verdicts Will's. NEXT: acquire
+visual-cortex IBL sessions for the proper pillar-2 (contrast-tuning↔class) test.
