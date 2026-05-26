@@ -1267,3 +1267,25 @@ at d*; reduces to box-dim = logN/log(1/w) for a self-similar cover).
 (growth-rate pressure + convergence-gate + 1/lnλ extrapolation) is the scale-invariant fix that the
 single-level pressure lacked.** Banked: coordinates/trace-map-dimension.jsonl; fig P11b_degt_growthrate.png.
 Verdicts Will's.
+
+### Gold↔silver ladder — the "missing thing between gold and silver" is a real LAGRANGE-SPECTRUM GAP
+Will's intuition (something missing between gold and silver) probed by building a ladder of mixed-digit
+periodic-CF quadratics interpolating gold [1̄]→silver [2̄] (plus Markov-5 [2,2,1,1]), placed on the IDS
+staircases + the dimension-vs-approximability axis. Lagrange-constant computation VALIDATED: Markov-5
+[2,2,1,1] → Λ=2.9732 = √221/5 exactly (the known Markov value).
+- **THE GOLD→SILVER APPROXIMABILITY REGION IS A GENUINE GAP.** None of the mixed-CF quadratics land between
+  gold (Λ=√5=2.236) and silver (Λ=√8=2.828): they ALL jump to Λ≥2.973 (Markov-5) or >3. This IS the famous
+  gap in the Lagrange spectrum — below 3 the spectrum is the DISCRETE Markov sequence {√5, √8, √221/5,
+  √1517/13,…→3}, and √5, √8 are CONSECUTIVE (Markov numbers 1,2). So nothing (no quadratic, no real) has
+  Λ∈(√5,√8). Gold & silver are the two MOST-extremal numbers in Diophantine approximation, separated by a
+  true spectral gap. The "missing something" is the gap itself — a structural hole, not unsampled data.
+- **In DIMENSION-space the members spread, non-monotonically** (DEGT C: gold 0.876, silver 0.867, mixed
+  0.86–0.94, Markov-5 0.915, bronze 0.913). C is NOT a simple function of Λ in this region — the dimension
+  and the approximability are distinct readouts (the gold→silver C-bridge does not interpolate smoothly).
+- **IDS-staircase morph (V6):** stacked by Λ, gold has the cleanest single-dominant-gap structure (its big
+  gap at IDS={1α}=α); as approximability rises the gaps PROLIFERATE/fragment. The {nα} gap-labelling slides
+  with α (the ▶ markers).
+**⇒ the approximability axis between the two lowest metallic means is genuinely EMPTY (Lagrange gap √5↔√8);
+all other quadratics are MORE approximable than silver. The metallic ladder's first two rungs bracket a hole
+that number theory says cannot be filled.** Banked: coordinates/gold-silver-ladder.jsonl; figures
+V6_ladder_staircases.png, V7_dim_vs_approximability.png. gold_silver_ladder.py. Verdicts Will's.
