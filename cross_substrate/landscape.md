@@ -31,9 +31,13 @@ across mouse visual cortex, hippocampus, AND brain-wide cortex+subcortex (IBL); 
 (per-cell selectivity-quality↔class) confirmed 2/3 — V1 (OSI), CA1 (place-coherence ρ=0.47) — where the
 substrate's OSI-style TUNING-selectivity axis is actually measured; IBL weak (visual contrast-tuning ρ=−0.12)
 but its decision task gives no clean OSI-analog (contrast-DETECTION ≠ orientation-TUNING), so IBL is
-inconclusive-by-axis-mismatch, not a refutation. REFINEMENT: pillar-2 requires the substrate to MEASURE a
-tuning-selectivity axis; a detection-task contrast-sensitivity is too weak a proxy. (Methodology: fsspec
-remote-HDF5 region-scan = region-target brain-wide data without bulk download.)
+inconclusive-by-axis-mismatch, not a refutation. **FORMAL pillar-2 status (banked 2026-05-25):** (1)
+DEMONSTRATED 2/3 across two distinct circuits (V1/CA1) with two distinct selectivity axes (orientation/place);
+(2) SPEC REFINED v1→v2 — requires a GRADED TUNING-selectivity axis, NOT a detection-task proxy (IBL sharpened
+this); (3) DEFINITIVE third test QUEUED as an off-DANDI retinal ENGINEERING ARC (orientation-data scope:
+IBL=no-orientation; DANDI=Allen-class-or-calcium; only off-DANDI retinal gives different-circuit + spike-
+timing + measured tuning). Calcium ruled out by observable-binding. (Methodology: fsspec remote-HDF5
+region-scan = region-target brain-wide data without bulk download.)
 What VARIES across substrates: (a) which biology fills the MIDDLE between the poles — V1: stable intermediate
 (avalanche); CA1: behaviour-state-gated avalanche (not a stable intermediate); (b) which selectivity axis is
 relevant; (c) which OBSERVABLE is substrate-appropriate (point-process→NNS, Cantor→box-dim, recurrent-network→
@@ -63,11 +67,12 @@ population-collective; a feedforward output layer like retina may not support th
 - *Neuro:* Tier-2 Buzsáki CA1 framework-port DONE (cycle 1, 8 sessions — see SURPRISES); hippocampus-specific
   cycle-2 (theta-gamma / replay / place fields) IN PROGRESS. spatial population-level (a distinct substrate);
   orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
-- *Third substrate class for the pillar-2 falsification test (QUEUED, acquisition lift):* the turnkey DANDI
-  retinal MEA (001677) is phototagging/full-field-flash — NO visual-selectivity axis (DS/contrast/spatial),
-  and retina is feedforward (population observables substrate-inappropriate). A proper test needs off-DANDI
-  rich-selectivity retina (Marre/Chichilnisky, custom format) or IBL (contrast/choice selectivity, large but
-  standardized). Scoped 2026-05-25; deferred pending a proper-selectivity dataset.
+- *Pillar-2 definitive third test — OFF-DANDI RETINAL ENGINEERING ARC (queued, dedicated scope):* IBL done
+  (n=3 pillar-1 ✓; pillar-2 axis-mismatched — contrast-detection ≠ tuning). Orientation-data scope (2026-05-25)
+  exhausted DANDI: IBL has no orientation block; DANDI orientation = Allen-V1-class ephys or two-photon calcium
+  (no spike-times, observable-mismatched); no primate/non-Allen orientation ephys. The ONLY route giving
+  different-circuit + spike-timing MEA + measured DS/OS tuning is off-DANDI retinal (Marre/Chichilnisky/Berry),
+  custom per-lab formats = a planned ENGINEERING ARC, not a cycle-level task. (See [[planned_engineering_arc]].)
 - *brocot.fm* (Will's own substrate; audio spectral side — the standing bridge piece).
 
 **SURPRISES / load-bearing findings:**

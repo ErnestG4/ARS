@@ -1202,3 +1202,24 @@ lateral-visual, witten-26: 32), downloaded 3, ran the region-resolved pillar-2 o
   the efficient way to region-target brain-wide datasets; found visual sessions without bulk download.
 Banked: coordinates/ibl-port-cell-visual.jsonl (417); ibl_port.py (--visual-only, --glob, region/is_visual).
 Verdicts Will's.
+
+### Pillar-2 status — FORMAL (banked 2026-05-25, after the orientation-data scope)
+Scope of orientation/tuning substrates for the definitive pillar-2 test (does per-cell extrinsic
+selectivity-QUALITY ↔ class generalise to a third circuit with a measured tuning axis):
+  • IBL passive gratings — OUT (no orientation block; task = fixed-orientation contrast-detection).
+  • DANDI orientation-tuning — no clean NEW spike substrate: Allen Visual Coding NPX (000021/022) = our own
+    V1 class; the tuning datasets (000039/049/050) are two-photon CALCIUM (no spike-times → ks_gue
+    observable-mismatched); no primate/non-Allen orientation EPHYS.
+  • Off-DANDI retinal (Marre/Chichilnisky/Berry) — the only route giving all three (different circuit +
+    spike-timing MEA + measured DS/OS tuning); custom per-lab formats = a dedicated engineering arc.
+**FORMAL PILLAR-2 STATEMENTS (verdict ratified by Will):**
+  1. DEMONSTRATED 2/3 — across two genuinely DISTINCT circuits (V1 cortex, CA1 hippocampus) with two
+     DISTINCT selectivity axes (orientation OSI; place-coding coherence). A substrate-general result.
+  2. SPEC REFINED (v1→v2): the principle requires a GRADED TUNING-selectivity axis (orientation / place /
+     spatial-info), NOT a detection-task proxy. The IBL outcome (contrast-DETECTION, ρ=−0.12) sharpened the
+     spec rather than weakening the claim — it bounded WHAT the test requires.
+  3. DEFINITIVE THIRD TEST QUEUED as an off-DANDI retinal ENGINEERING ARC (custom-format parsers,
+     registration, lab-specific quirks) — dedicated project scope, not a cycle-level task. Calcium ruled out
+     by observable-binding (can't resolve the spike-timing fine structure ks_gue reads).
+Pillar 1 (GUE/Poisson poles) remains GENERALISED at n=3 (V1/CA1/IBL). Cross-substrate program: pillars
+banked, multiple legitimate next moves open (none forced).
