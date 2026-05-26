@@ -68,7 +68,7 @@ def _auc(x, y):
 
 
 def _task(arg):
-    f, sid = arg
+    f, sid, visual_only = arg if len(arg) == 3 else (arg[0], arg[1], False)
     cell_recs = []
     with h5py.File(f, "r") as h:
         u = h["units"]
@@ -76,6 +76,13 @@ def _task(arg):
         nU = len(sti)
         ks_lab = _decode(u["kilosort2_label"][:]) if "kilosort2_label" in u else ["?"] * nU
         ptt = u["peak_to_trough_duration_ms"][:] if "peak_to_trough_duration_ms" in u else np.full(nU, np.nan)
+        # region per unit via max_electrode → electrodes/location (CCF full name)
+        try:
+            eloc = np.array(_decode(h["general/extracellular_ephys/electrodes/location"][:]))
+            me = u["max_electrode"][:]
+            ureg = [str(eloc[e]) if 0 <= e < len(eloc) else "?" for e in me]
+        except Exception:
+            ureg = ["?"] * nU
         # trials
         tr = h["intervals/trials"]
         onset = tr["gabor_stimulus_onset_time"][:]
@@ -88,6 +95,9 @@ def _task(arg):
             spk = per_unit[i]
             if spk.size < MIN_SPIKES:
                 continue
+            is_vis = ("visual" in ureg[i].lower() or "geniculate" in ureg[i].lower())
+            if visual_only and not is_vis:
+                continue            # skip expensive per-cell classify for non-visual cells (pop still uses all)
             try:
                 i5q = _f(classify(spk).get("ks_gue_med"))
             except Exception:
@@ -105,13 +115,17 @@ def _task(arg):
                 a = _auc(rate[lc], rate[rc])
                 csel = abs(2 * (a - 0.5)) if a is not None else None
             cell_recs.append({"substrate": "ibl-port-cell", "session": sid, "unit": i,
+                              "region": ureg[i], "is_visual": ("visual" in ureg[i].lower() or "geniculate" in ureg[i].lower()),
                               "ks_label": ks_lab[i], "spike_width_ms": _f(ptt[i]),
                               "cell_type": ("narrow" if ptt[i] < NARROW_MS else "wide") if np.isfinite(ptt[i]) else "?",
                               "n": int(spk.size), "contrast_tuning": ct, "choice_selectivity": csel,
                               "axes_computed": {"I.5q_ks_gue_med": i5q, **fI},
                               "source_artifact": "generated (IBL per-cell fingerprint + selectivity)",
                               "computed_date": date.today().isoformat()})
-        # population observables over the task span
+        # population observables over the task span (skip in visual_only — pillar-1 already established n=3,
+        # and the big visual sessions' 2500-unit matrix OOMs the pool)
+        if visual_only:
+            return cell_recs, []
         t0, t1 = float(onset.min()), float(onset.max() + 2.0)
         nb = max(4, int((t1 - t0) / DT)); edges = np.linspace(t0, t1, nb + 1)
         keep = [s for s in per_unit if s.size >= MIN_SPIKES]
@@ -131,13 +145,15 @@ def _task(arg):
     return cell_recs, pop_recs
 
 
-def run(all_sessions=False, workers=6):
-    files = sorted(glob.glob(IBL_GLOB))
-    tasks = [(f, os.path.basename(f).split("_ses-")[0].replace("sub-", "") + "/" +
-              os.path.basename(f).split("_ses-")[1][:8]) for f in files]
-    print(f"IBL PORT — {len(tasks)} session(s), {workers}w")
-    co = open(os.path.join(COORD, "ibl-port-cell.jsonl"), "w")
-    po = open(os.path.join(COORD, "ibl-port-pop.jsonl"), "w")
+def run(all_sessions=False, workers=6, visual_only=False, glob_pat=None):
+    files = sorted(glob.glob(glob_pat or IBL_GLOB))
+    tasks = [(f, os.path.basename(f).split("_ses-")[0].replace("sub-", "").replace("vis-", "") + "/" +
+              (os.path.basename(f).split("_ses-")[1][:8] if "_ses-" in os.path.basename(f) else os.path.basename(f)[:8]),
+              visual_only) for f in files]
+    suf = "-visual" if visual_only else ""
+    print(f"IBL PORT — {len(tasks)} session(s), {workers}w (visual_only={visual_only})")
+    co = open(os.path.join(COORD, f"ibl-port-cell{suf}.jsonl"), "w")
+    po = open(os.path.join(COORD, f"ibl-port-pop{suf}.jsonl"), "w")
     t0 = time.perf_counter(); nc = npop = 0
     with ProcessPoolExecutor(max_workers=workers) as ex:
         for cr, pr in ex.map(_task, tasks):
@@ -157,8 +173,11 @@ def run(all_sessions=False, workers=6):
 
 def _analyse():
     from scipy import stats
-    cell = [json.loads(l) for l in open(os.path.join(COORD, "ibl-port-cell.jsonl"))]
-    pop = [json.loads(l) for l in open(os.path.join(COORD, "ibl-port-pop.jsonl"))]
+    cell, pop = [], []
+    for p in glob.glob(os.path.join(COORD, "ibl-port-cell*.jsonl")):
+        cell += [json.loads(l) for l in open(p)]
+    for p in glob.glob(os.path.join(COORD, "ibl-port-pop*.jsonl")):
+        pop += [json.loads(l) for l in open(p)]
     print(f"IBL ANALYSIS — {len(cell)} cells, {len(pop)} pop records, "
           f"{len(set(r['session'] for r in cell))} sessions")
     # PILLAR 1
@@ -180,6 +199,15 @@ def _analyse():
         rw = stats.spearmanr([x for x, _ in w], [y for _, y in w])[0] if len(w) >= 8 else None
         flag = "  ← H1-CANDIDATE" if (ra is not None and abs(ra) > 0.2) else ""
         print(f"     ks_gue vs {prop:18s}: ρ(all)={('%+.3f'%ra) if ra else '-':>7s}  ρ(wide)={('%+.3f'%rw) if rw else '-':>7s} (n={len(a)}){flag}")
+    # PILLAR 2 — region-resolved: contrast-tuning↔class for VISUAL cells only (the proper V1-analog test)
+    vis = [(g, r) for g, r in ks if r.get("is_visual")]
+    print(f"\n(PILLAR 2 region-resolved) VISUAL cells only (n={len(vis)}) — the proper OSI/contrast analog:")
+    for prop in ("contrast_tuning", "choice_selectivity"):
+        a = [(g, r[prop]) for g, r in vis if isinstance(r.get(prop), float)]
+        if len(a) >= 8:
+            rho, p = stats.spearmanr([x for x, _ in a], [y for _, y in a])
+            flag = "  ← H1-ANALOGUE" if abs(rho) > 0.2 and p < 0.05 else ""
+            print(f"     [VISUAL] ks_gue vs {prop:18s}: ρ={rho:+.3f} (p={p:.3g}, n={len(a)}){flag}")
     # cell-type
     for prop in ("I.5q_ks_gue_med",):
         wi = [r["axes_computed"][prop] for r in cell if r.get("cell_type") == "wide" and isinstance(r["axes_computed"].get(prop), float)]
@@ -195,9 +223,11 @@ def main():
     ap.add_argument("--run", action="store_true")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--visual-only", action="store_true")
+    ap.add_argument("--glob", default=None)
     a = ap.parse_args()
     if a.run:
-        run(all_sessions=a.all, workers=a.workers)
+        run(all_sessions=a.all, workers=a.workers, visual_only=a.visual_only, glob_pat=a.glob)
     else:
         ap.error("need --run")
 

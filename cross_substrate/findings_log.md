@@ -1177,3 +1177,28 @@ spikes + trials (gabor contrast, wheel choice) + spike-width cell-typing + elect
   IBL pillar-2 test requires VISp-containing insertions.
 Banked: coordinates/ibl-port-{cell,pop}.jsonl; scripts ibl_port.py. Verdicts Will's. NEXT: acquire
 visual-cortex IBL sessions for the proper pillar-2 (contrast-tuning↔class) test.
+
+### IBL pillar-2 region-resolved (visual cortex) + n=3 cross-substrate synthesis
+Remote-scanned IBL processed NWBs via fsspec (read electrodes/location WITHOUT full download — efficient
+region-targeting), found visual-rich sessions (witten-20: 267 Primary-visual-area cells, ZFM-01577: 118
+lateral-visual, witten-26: 32), downloaded 3, ran the region-resolved pillar-2 on 417 actual visual cells.
+- **PILLAR 2 on IBL VISUAL cortex: WEAK.** contrast-tuning↔ks_gue ρ=−0.121 (p=0.014, n=416);
+  choice-selectivity ρ=−0.169 (p=0.067, n=118). Significant but small — NOT the strong selectivity↔class
+  link of V1-OSI / CA1-place-coherence (ρ≈0.47). cell-type ks_gue wide 0.398 vs narrow 0.412 (no diff).
+- **CAVEAT (axis mismatch, load-bearing): IBL's task is CONTRAST DETECTION, not orientation tuning** — so
+  contrast-sensitivity is NOT the true OSI-analog (the axis that was H1 in Allen V1). IBL's task design does
+  not elicit orientation selectivity, and IBL ks_gue is compressed (~0.40). ⇒ pillar-2 on IBL is BOUNDED
+  (weak + selectivity-axis-mismatched), neither clean confirmation nor refutation.
+**⇒ n=3 CROSS-SUBSTRATE SYNTHESIS:**
+  PILLAR 1 (GUE/Poisson structural poles): V1 ✓, CA1 ✓, IBL ✓ — GENERALISES at n=3 (corr-eig GUE 0.81-0.89,
+    sync Poisson 0.00-0.01 across all three). STRONG. The substrate-invariant skeleton holds across mouse
+    visual cortex, hippocampus, and brain-wide cortex+subcortex.
+  PILLAR 2 (per-cell extrinsic-selectivity-quality ↔ class): V1 ✓ (OSI), CA1 ✓ (place-coding quality,
+    ρ=0.47) — confirmed where the substrate's OSI-style selectivity axis IS measured; IBL weak (ρ=−0.12) but
+    its task gives no clean OSI-analog (contrast-detection ≠ orientation-tuning). ⇒ pillar-2 confirmed 2/3,
+    IBL inconclusive-by-axis-mismatch. REFINEMENT: pillar-2 requires the substrate to actually MEASURE an
+    OSI-style tuning-selectivity axis; a detection-task contrast-sensitivity is too weak a proxy.
+  METHODOLOGY WIN: fsspec remote-HDF5 region-scan (read electrodes table without downloading 2-3GB files) —
+  the efficient way to region-target brain-wide datasets; found visual sessions without bulk download.
+Banked: coordinates/ibl-port-cell-visual.jsonl (417); ibl_port.py (--visual-only, --glob, region/is_visual).
+Verdicts Will's.

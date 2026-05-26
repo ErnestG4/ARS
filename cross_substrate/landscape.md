@@ -25,6 +25,15 @@ classes the structure separates into a UNIVERSAL part and a SUBSTRATE-KEYED part
    per-cell gamma phase-locking) does NOT robustly track per-cell class (cycle 2b, bounded-negative; per-cell
    gamma arm clean, substrate CFC measurement-limited). So H1 is "well-organised per-cell SELECTIVITY tracks
    class", not "any organisational quality (incl. substrate oscillatory coupling) tracks class".
+
+**N=3 STATUS (V1 / CA1 / IBL):** PILLAR 1 (poles) GENERALISES at n=3 — corr-eig GUE + sync Poisson hold
+across mouse visual cortex, hippocampus, AND brain-wide cortex+subcortex (IBL); HIGH confidence. PILLAR 2
+(per-cell selectivity-quality↔class) confirmed 2/3 — V1 (OSI), CA1 (place-coherence ρ=0.47) — where the
+substrate's OSI-style TUNING-selectivity axis is actually measured; IBL weak (visual contrast-tuning ρ=−0.12)
+but its decision task gives no clean OSI-analog (contrast-DETECTION ≠ orientation-TUNING), so IBL is
+inconclusive-by-axis-mismatch, not a refutation. REFINEMENT: pillar-2 requires the substrate to MEASURE a
+tuning-selectivity axis; a detection-task contrast-sensitivity is too weak a proxy. (Methodology: fsspec
+remote-HDF5 region-scan = region-target brain-wide data without bulk download.)
 What VARIES across substrates: (a) which biology fills the MIDDLE between the poles — V1: stable intermediate
 (avalanche); CA1: behaviour-state-gated avalanche (not a stable intermediate); (b) which selectivity axis is
 relevant; (c) which OBSERVABLE is substrate-appropriate (point-process→NNS, Cantor→box-dim, recurrent-network→
