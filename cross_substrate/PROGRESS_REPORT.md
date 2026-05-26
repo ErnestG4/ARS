@@ -83,13 +83,27 @@ trivial-confound or over-universality). Banked as clarification (findings_log; t
   (near-critical, Beggs-Plenz-consistent) is ORTHOGONAL to per-cell class. Family VII (|I.5q−I.5| OSI-grading)
   is monkey-STRONG / mouse-WEAK (graded, not absent).
 
-### Methodology spine (the disciplines that emerged — detail in §4)
-matched-instrument + carry-viewpoints-annotate-validity; synthetic-validate fitters; per-φ aggregation
-(never position-concat); validate an estimator's scale-convergence + scale-invariance before trusting an
-asymptotic constant; sweep coupling-class before declaring distinctness; close BOTH escape hatches
-(finite-N AND finite-range) on an absent crossing; fingerprint is blind-to-route (reads spectral, not
-dynamical-system, structure — coincident coordinates assert shared class, not mechanism);
-induction-on-noise to confirm extractor artifacts; data-acquisition discipline (sequential + size-verify).
+### Methodology spine (the disciplines that emerged — detail in §4; memory-linked)
+**DISCRIMINATION FAMILY (is this the real question / the real signal?):** discriminant-exact-question
+(substantive question vs heuristic proxy, [[discriminant_exact_question_check]]); decompose-confound-with-a-
+designed-instance (e-discriminator + Thue-Morse-CF, [[decompose_confound_designed_instance]]); intrinsic-vs-
+extrinsic predictor (the strong correlate is often intrinsic/tautological — burst↔ks_gue; the meaningful link
+is extrinsic selectivity, [[intrinsic_vs_extrinsic_predictor]]); observable-binding clarifies (spectral TYPE
+forces the observable; substrate-type-grounded, not artifact; region-match the selectivity axis in brain-wide
+data, [[observable_binding_clarifies]]).
+**VERIFICATION (validate before trusting):** synthetic-validate fitters/estimators against known ground
+truth ([[synthetic_validate_fitters]]); validate scale-convergence + scale-invariance before an asymptotic
+constant ([[validate_scale_convergence_before_asymptotic_constant]]); confirm per-cell/selectivity
+correlations at FULL n (3-session hints flip under power); induction-on-noise to confirm extractor artifacts;
+per-prime-baseline z-scoring — raw amplitudes NOT cross-prime comparable (p2-saturation artifact, sibling of
+[[support_set_respecting_nulls]]); per-φ aggregation (never position-concat).
+**CROSS-SUBSTRATE:** matched-instrument + carry-viewpoints-annotate-validity; sweep coupling-class before
+declaring distinctness ([[sweep_coupling_class_before_distinctness]]); close BOTH escape hatches (finite-N AND
+finite-range); fingerprint is blind-to-route (coincident coordinates assert shared class, not mechanism);
+rate-match-from-the-start incl. the population-level recipe ([[ars_rate_dependence_lesson]]).
+**ACQUISITION:** sequential + size-verify ([[parallel_curl_corruption]]); turnkey DANDI NWB (desc-processed
+not desc-raw) → h5py-direct; fsspec remote-HDF5 region-scan to target brain-wide data without bulk download;
+custom-format off-DANDI = a planned ENGINEERING ARC, not a cycle ([[planned_engineering_arc]]).
 
 ### Status — landed vs open
 **LANDED** (committed; pushed through `5b72706`; unpushed `12e5c1b`/`ee637c3`/`4172bc7`): the approximability
