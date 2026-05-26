@@ -1,11 +1,11 @@
 # ARS Cross-Substrate Landscape
 
-**Status:** v2 consolidation (2026-05-25; v1 2026-05-24; v0 2026-05-22). §0 dashboard = current state; §3/§5 = v0 catalog/matrix retained below.
+**Status:** v3 consolidation (2026-05-25; v2 2026-05-25; v1 2026-05-24; v0 2026-05-22). §0 dashboard = current state; §3/§5 = v0 catalog/matrix retained below.
 **Frame:** operator-IS-substrate; cross-substrate landscape-mapping; explorer-shaped, not hypothesis-test-shaped.
 
 ---
 
-## §0 — Landscape v2 dashboard (state at a glance, 2026-05-25)
+## §0 — Landscape v3 dashboard (state at a glance, 2026-05-25)
 
 Detailed synthesis: `PROGRESS_REPORT.md` (§1–7); run-by-run: `findings_log.md`. All FLAGGED (verdicts Will's).
 
@@ -39,18 +39,22 @@ IBL=no-orientation; DANDI=Allen-class-or-calcium; only off-DANDI retinal gives d
 timing + measured tuning). Calcium ruled out by observable-binding. (Methodology: fsspec remote-HDF5
 region-scan = region-target brain-wide data without bulk download.)
 What VARIES across substrates: (a) which biology fills the MIDDLE between the poles — V1: stable intermediate
-(avalanche); CA1: behaviour-state-gated avalanche (not a stable intermediate); (b) which selectivity axis is
+(avalanche); CA1: behaviour-state-gated avalanche; IBL: intermediate (like V1); (b) which selectivity axis is
 relevant; (c) which OBSERVABLE is substrate-appropriate (point-process→NNS, Cantor→box-dim, recurrent-network→
 population-collective; a feedforward output layer like retina may not support the population observables at all
-— [[observable_binding_clarifies]]). **Status of the two pillars: pillar 1 (poles) at high confidence; pillar
-2 (H1-substrate-general) at n=2 classes (V1, CA1) — a third class is the open falsification test.**
+— [[observable_binding_clarifies]]). **Bottom line: pillar 1 GENERALISED at n=3; pillar 2 demonstrated 2/3 +
+spec-refined, definitive third test queued as the off-DANDI retinal arc.**
 
 **MAPPED** (substrates with computed fingerprint coordinates):
 - *Operator / arithmetic (18 substrates):* AM (9 Lagrange θ-classes × coupling sweep), Fibonacci/Sturmian
   Hamiltonian (coupling range × Lagrange classes), Sturmian word, ζ / Dirichlet / EC L-zeros (split),
   Mertens, Liouville, Gaussian + Eisenstein primes, Maass, pvc-11 V1, Kuramoto, pulsar (NANOGrav),
   Mackey-Glass / Lorenz / logistic.
-- *Neuro depth (Allen):* 8,462 cells × 7 areas (V1/LM/RL/AL/PM/AM/LGN) × 8 stimuli, Family I + Family II.
+- *Neuro depth (Allen V1, substrate #1):* 8,462 cells × 7 areas (V1/LM/RL/AL/PM/AM/LGN) × 8 stimuli, Family I + II.
+- *Neuro CA1 (Buzsáki/Grosmark, substrate #2):* 8 sessions, ~1000 CA1 cells × state(Awake/NonREM/REM) × epoch
+  (PRE/Maze/POST) × cell-type; per-cell + population + place-fields + theta-gamma + SWR (cycle-1 + cycle-2a/b/c-a).
+- *Neuro brain-wide (IBL, substrate #3):* 8 sessions (5 size-first + 3 visual-targeted via fsspec region-scan),
+  1558 cells across cortex+subcortex; per-cell + population + contrast/choice selectivity + 417 visual cells.
 - *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
 - *Population-level (all 12 sessions):* corr-eig→GUE / avl-onset→intermediate / sync-event→Poisson
   (3 trustable, consistent across sessions) + rate-peak (artifact control).
@@ -64,9 +68,10 @@ population-collective; a feedforward output layer like retina may not support th
 
 **PENDING:**
 - *Operator:* trace-map thermodynamic-formalism dimension (the deferred quantitative DEGT constant).
-- *Neuro:* Tier-2 Buzsáki CA1 framework-port DONE (cycle 1, 8 sessions — see SURPRISES); hippocampus-specific
-  cycle-2 (theta-gamma / replay / place fields) IN PROGRESS. spatial population-level (a distinct substrate);
-  orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
+- *Neuro:* Buzsáki CA1 (cycle-1 + cycle-2a place-fields / 2b theta-gamma / 2c-a SWR) DONE; cycle-2c-b
+  (Bayesian replay-sequence decoding) OPEN. IBL third substrate DONE. spatial population-level (a distinct
+  substrate); orthogonal-design Family-VII disambiguation (only if Family VII load-bearing); p2-saturation RF
+  diagnostic (small bounded item).
 - *Pillar-2 definitive third test — OFF-DANDI RETINAL ENGINEERING ARC (queued, dedicated scope):* IBL done
   (n=3 pillar-1 ✓; pillar-2 axis-mismatched — contrast-detection ≠ tuning). Orientation-data scope (2026-05-25)
   exhausted DANDI: IBL has no orientation block; DANDI orientation = Allen-V1-class ephys or two-photon calcium
