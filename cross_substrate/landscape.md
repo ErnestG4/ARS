@@ -70,8 +70,11 @@ spec-refined, definitive third test queued as the off-DANDI retinal arc.**
 - *Operator:* trace-map thermodynamic-formalism dimension (the deferred quantitative DEGT constant).
 - *Neuro:* Buzsáki CA1 (cycle-1 + cycle-2a place-fields / 2b theta-gamma / 2c-a SWR) DONE; cycle-2c-b
   (Bayesian replay-sequence decoding) OPEN. IBL third substrate DONE. spatial population-level (a distinct
-  substrate); orthogonal-design Family-VII disambiguation (only if Family VII load-bearing); p2-saturation RF
-  diagnostic (small bounded item).
+  substrate); orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
+- *RF per-prime instrument (resolved 2026-05-25):* "p2-saturation" diagnosed as a padic_amplitude_v4 ARTIFACT
+  (small primes have more powers ≤ q_max → higher baseline; 3-power-random control still p2-dominant). RF
+  per-prime amplitudes are NOT cross-prime comparable; prime-specificity needs per-prime-baseline z-scoring.
+  Raw RF leg carries NO prime-family signal for brocot (at/below uniform-random baseline). CLOSED — see findings_log.
 - *Pillar-2 definitive third test — OFF-DANDI RETINAL ENGINEERING ARC (queued, dedicated scope):* IBL done
   (n=3 pillar-1 ✓; pillar-2 axis-mismatched — contrast-detection ≠ tuning). Orientation-data scope (2026-05-25)
   exhausted DANDI: IBL has no orientation block; DANDI orientation = Allen-V1-class ephys or two-photon calcium

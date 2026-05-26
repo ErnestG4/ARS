@@ -1223,3 +1223,25 @@ selectivity-QUALITY ↔ class generalise to a third circuit with a measured tuni
      by observable-binding (can't resolve the spike-timing fine structure ks_gue reads).
 Pillar 1 (GUE/Poisson poles) remains GENERALISED at n=3 (V1/CA1/IBL). Cross-substrate program: pillars
 banked, multiple legitimate next moves open (none forced).
+
+### p2-saturation RF diagnostic — it's a padic-amplitude ARTIFACT, not FM structure (cheap-win roundup)
+The brocot RF per-prime (III.1_p{2,3,5,7}) is monotone p2≫p3≫p5≫p7 (corpus median 0.231/0.083/0.065/0.021),
+p2 dominating every exemplar regardless of prime-family — flagged as "p2-saturation". Diagnosed by running
+padic_amplitude_v4 (q_max=32) on CONTROL frequency sets (synthetic-validate-fitters discipline):
+- uniform-random freqs: [0.33,0.19,0.04,0.01] — SAME monotone p2≫p3≫p5≫p7 as brocot.
+- harmonic comb (clock): [0.583,0.001,0.146,0.0] — p2 dominates a pure integer-harmonic comb.
+- **3-POWER-random (freqs = 110·3^U, deliberately NO 2-structure): [0.376,0.036,0.102,0.017] — p2 STILL
+  dominates (0.38) despite frequencies built from powers of 3; p3 is LOW (0.036).** Smoking gun.
+**⇒ VERDICT: p2-saturation is a padic_amplitude_v4 ARTIFACT, not a real FM/brocot feature.** Small primes
+have more powers/divisors ≤ q_max (2,4,8,16,32 vs 3,9,27 vs 5,25 vs 7) → the p=2 channel accumulates a higher
+BASELINE amplitude irrespective of the signal's actual arithmetic. The "normalised" field does not correct
+this prime-dependent baseline. Consequences (banked):
+- **RF per-prime amplitudes are NOT cross-prime comparable** — p2 always wins; raw per-prime ranking is
+  meaningless for prime-specificity. Prime-named brocot families do NOT carry their prime in the raw RF.
+- Brocot's per-prime values sit AT/BELOW the uniform-random baseline (p2 0.23<0.26, p3 0.08<0.16) ⇒ NO
+  prime-specific enhancement in the raw RF leg at all.
+- **Methodology: to test prime-specificity, z-score each prime channel against its OWN prime-matched
+  surrogate baseline** (per-prime null), never compare raw amplitudes across primes. Sibling of
+  support-set-respecting-nulls. Resolves the standing "do prime-named families carry their prime in RF" Q:
+  the raw RF can't answer it (artifact-dominated); the per-prime-baseline version is the valid instrument.
+Cheap-win roundup item — closed. No new artifact files (diagnostic on banked brocot-landscape + controls).
