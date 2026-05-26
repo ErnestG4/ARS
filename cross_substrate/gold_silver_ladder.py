@@ -193,15 +193,86 @@ def _fig_dim_vs_approx(rows):
     print("wrote", os.path.relpath(p, _HERE))
 
 
+def rl_path(period, n=14):
+    """Stern-Brocot path of CF [a1,a2,…]: R^a1 L^a2 R^a3 … (gold [1̄]=RLRL…, silver [2̄]=RRLL…)."""
+    s, mv = "", "R"
+    for d in period * 12:
+        s += mv * d; mv = "L" if mv == "R" else "R"
+        if len(s) >= n:
+            break
+    return s[:n]
+
+
+def fig_all_together(workers):
+    """Master plot: every quadratic (metallic means + gold↔silver ladder + Markov-5) on the
+    dimension-vs-approximability axis, labelled by Stern-Brocot RL-path; e at Λ=∞ (unbounded CF — the
+    cf_discriminator boundary). RLRLRL… = gold (the most-balanced path = the most-irrational number)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    rows = [json.loads(l) for l in open(os.path.join(COORD, "gold-silver-ladder.jsonl"))]
+    # add higher metallic means k=3,4,5 (bronze/…): period [k], Λ=√(k²+4)
+    extra = []
+    for k in (3, 4, 5):
+        per = [k]; extra.append({"name": f"metallic{k} [{k}̄]", "period": per,
+                                 "alpha": periodic_alpha(per), "lagrange": float(np.sqrt(k * k + 4))})
+    tasks = [(r["alpha"], lam) for r in extra for lam in LAMS]
+    with ProcessPoolExecutor(max_workers=workers) as ex:
+        res = list(ex.map(_dim_task, tasks))
+    k = len(LAMS)
+    for i, r in enumerate(extra):
+        r["C"] = degt_C(r["alpha"], res[i * k:(i + 1) * k])
+    allr = rows + extra
+    fig, ax = plt.subplots(figsize=(13, 7.5))
+    for r in allr:
+        if not r.get("C"):
+            continue
+        is_metal = len(set(r["period"])) == 1
+        col = "#d4af37" if "gold" in r["name"] else "#9aa0a6" if "silver" in r["name"] \
+            else "#9c6b30" if "metallic3" in r["name"] or "bronze" in r["name"] \
+            else "#b08d57" if is_metal else "#4477aa"
+        ax.scatter(r["lagrange"], r["C"], s=90 if is_metal else 60,
+                   marker="D" if is_metal else "o", color=col, edgecolor="k", zorder=4)
+        ax.annotate(f"{r['name']}\n{rl_path(r['period'])}", (r["lagrange"], r["C"]), fontsize=6.5,
+                    xytext=(5, 4), textcoords="offset points", family="monospace")
+    # e at Λ=∞ (unbounded CF) — plotted at the right edge with a break marker
+    xmax = max(r["lagrange"] for r in allr if r.get("C")) + 0.6
+    ax.scatter(xmax, 1.173, s=80, marker="*", color="#2ca02c", edgecolor="k", zorder=5)
+    ax.annotate("e−2  (Λ=∞, UNBOUNDED CF\n→ not in the Lagrange spectrum)", (xmax, 1.173), fontsize=7.5,
+                color="#2ca02c", xytext=(-150, -4), textcoords="offset points")
+    # the √5↔√8 Lagrange gap
+    ax.axvspan(np.sqrt(5), np.sqrt(8), color="crimson", alpha=0.07)
+    ax.text((np.sqrt(5) + np.sqrt(8)) / 2, ax.get_ylim()[1], "LAGRANGE GAP\n(empty: nothing\nbetween gold & silver)",
+            ha="center", va="top", fontsize=8, color="crimson")
+    for xv, lbl in [(np.sqrt(5), "√5"), (np.sqrt(8), "√8"), (np.sqrt(221) / 5, "Markov-5"), (3.0, "→3")]:
+        ax.axvline(xv, ls=":", color="0.6", lw=0.8)
+    ax.axhline(DEGT, ls="--", color="k", lw=0.8)
+    ax.set_xlabel("Lagrange constant Λ  (approximability) — bounded-CF quadratics; e at Λ=∞")
+    ax.set_ylabel("DEGT dimension constant C")
+    ax.set_title("All together — the Stern-Brocot / approximability landscape\n"
+                 "◆ metallic means (constant RL run-length) · ○ mixed-CF quadratics · ★ e (unbounded). "
+                 "RLRLRL…=gold (most balanced = most irrational); √5↔√8 gap is empty.")
+    ax.grid(alpha=0.2)
+    p = os.path.join(FIG, "V8_all_together_RL.png")
+    fig.tight_layout(); fig.savefig(p, dpi=130); plt.close(fig)
+    print("wrote", os.path.relpath(p, _HERE))
+    print("\nStern-Brocot RL-paths (CF [a1,a2,…] → R^a1 L^a2 R^a3 …):")
+    for r in allr:
+        print(f"  {r['name']:14s} {''.join(map(str, r['period'])):8s} → {rl_path(r['period'])}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", action="store_true")
+    ap.add_argument("--all-together", action="store_true")
     ap.add_argument("--workers", type=int, default=10)
     a = ap.parse_args()
     if a.run:
         run(a.workers)
+    elif a.all_together:
+        fig_all_together(a.workers)
     else:
-        ap.error("need --run")
+        ap.error("need --run or --all-together")
 
 
 if __name__ == "__main__":
