@@ -213,6 +213,64 @@ def fig_breakaway():
     print("wrote", os.path.relpath(p, _HERE))
 
 
+def fig_superimposed():
+    """Superimpose the band structures + IDS staircases. The gaps open at IDS = {nα mod 1} (gap-labelling
+    theorem) — the SAME arithmetic set as the V1 sunflower. Shows: (top) gaps DON'T align across classes
+    (each α has its own gap positions); (bottom) but each class's gaps sit exactly at its {nα} labels."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.collections import LineCollection
+    lam = 2.5; phi = 0.1234
+    sel = [("golden", GOLD, "#d4af37"), ("silver", np.sqrt(2) - 1, "#9aa0a6"),
+           ("bronze", (np.sqrt(13) - 3) / 2, "#9c6b30"), ("e − 2", np.e - 2, "#2ca02c")]
+    fig, (a1, a2) = plt.subplots(2, 1, figsize=(13, 8))
+    data = []
+    for name, a, col in sel:
+        p, q = cf_convergent(a, 90)
+        bands = band_intervals(_potential(q, p, lam, phi))
+        data.append((name, a, col, q, bands))
+    # top: superimposed bands (each class a thin colored row on a COMMON energy axis)
+    for row, (name, a, col, q, bands) in enumerate(data):
+        a1.add_collection(LineCollection([[(lo, row), (hi, row)] for lo, hi in bands], colors=col, linewidths=8))
+        a1.text(-0.01, row, name, ha="right", va="center", color=col, fontweight="bold", fontsize=9,
+                transform=a1.get_yaxis_transform())
+    # mark energies where ALL classes are simultaneously in a GAP (common gaps)
+    Egrid = np.linspace(-2.6, 2.6 + lam, 4000)
+    in_band_all = np.ones(Egrid.size, bool)
+    for _, _, _, _, bands in data:
+        ib = np.zeros(Egrid.size, bool)
+        for lo, hi in bands:
+            ib |= (Egrid >= lo) & (Egrid <= hi)
+        in_band_all &= ib
+    a1.set_xlim(-2.6, 2.6 + lam); a1.set_ylim(-0.6, len(sel) - 0.4); a1.set_yticks([])
+    a1.set_title(f"Superimposed band structures (λ={lam:g}) — gaps land at DIFFERENT energies per α "
+                 f"(each α has its own gap-labelling). Common spectrum at {100*in_band_all.mean():.0f}% of the envelope.")
+    # bottom: IDS staircases + {nα mod 1} gap labels
+    for name, a, col, q, bands in data:
+        edges = []
+        ids = []
+        cum = 0
+        for k, (lo, hi) in enumerate(bands):
+            edges += [lo, hi]; ids += [cum, cum + 1.0 / q]; cum += 1.0 / q
+        a2.plot(edges, ids, "-", color=col, lw=1.3, label=name, alpha=0.85)
+    # golden gap-labels: IDS = {nα mod 1} for small n (the sunflower points / three-distance set)
+    g = GOLD
+    for n in range(1, 7):
+        lbl = (n * g) % 1.0
+        a2.axhline(lbl, ls=":", color="#d4af37", lw=0.8, alpha=0.7)
+        a2.text(2.6 + lam, lbl, f"{{{n}α}}", fontsize=7, color="#b8941f", va="center")
+    a2.set_xlim(-2.6, 2.6 + lam); a2.set_ylim(0, 1)
+    a2.set_xlabel("energy E"); a2.set_ylabel("IDS  (integrated density of states)")
+    a2.set_title("IDS staircases — the GAPS (flat steps) open at IDS = {nα mod 1} (gap-labelling theorem): "
+                 "golden's biggest gaps sit at its sunflower points {α},{2α},… (dotted gold lines)")
+    a2.legend(fontsize=8, loc="lower right"); a2.grid(alpha=0.2)
+    p = os.path.join(FIG, "V5_superimposed_gaplabelling.png")
+    fig.tight_layout(); fig.savefig(p, dpi=130); plt.close(fig)
+    print("wrote", os.path.relpath(p, _HERE),
+          f"| common-spectrum fraction={in_band_all.mean():.3f}")
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
