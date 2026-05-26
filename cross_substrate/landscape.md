@@ -67,7 +67,8 @@ spec-refined, definitive third test queued as the off-DANDI retinal arc.**
   III (RF) where banked.
 
 **PENDING:**
-- *Operator:* trace-map thermodynamic-formalism dimension (the deferred quantitative DEGT constant).
+- *Operator:* trace-map TD-formalism dimension DONE (DEGT golden confirmed via growth-rate formalism — see
+  SURPRISES). brocot submodule-bump + tooling relocation (when ARP/SY recordings land).
 - *Neuro:* Buzsáki CA1 (cycle-1 + cycle-2a place-fields / 2b theta-gamma / 2c-a SWR) DONE; cycle-2c-b
   (Bayesian replay-sequence decoding) OPEN. IBL third substrate DONE. spatial population-level (a distinct
   substrate); orthogonal-design Family-VII disambiguation (only if Family VII load-bearing).
@@ -106,8 +107,13 @@ spec-refined, definitive third test queued as the off-DANDI retinal arc.**
   POPULATION-level fingerprints FRAGMENT by aggregation** (corr-eig→GUE, sync-event→Poisson, avl→intermediate)
   — no single "population fingerprint"; and **avalanche-criticality is orthogonal to per-cell class** (two
   observables, neither implies the other).
-- **Verifying an asymptotic CONSTANT needs the right formalism, not a finer sweep** (the DEGT dimension
-  cross-check, §3 k — form confirmed, constant deferred).
+- **DEGT DIMENSION CONSTANT CONFIRMED via growth-rate thermodynamic formalism (§3k RESOLVED).** Verifying an
+  asymptotic constant needed the right formalism, not a finer sweep: the single-level Bowen pressure
+  Σ|band|^d=1 is scale-dependent (diverged to 1.72 at λ=1024); the fix is d* = root of slope(log Σ|band|^d vs
+  log q)=0 (growth-rate, scale-invariant), convergence-gated (shallow vs deep q-window), extrapolated
+  1/ln(λ)→0. Golden C=0.876 vs ln(1+√2)=0.8814 (~0.6%) — form AND constant landed. New per-class constants:
+  metallic means cluster ~0.87–0.91 (silver 0.867/bronze 0.913), e_minus_2 DISTINCT at 1.17 (unbounded CF) —
+  asymptotic dimension is approximability/CF-structure stratified. (trace_map_dimension.py --degt.)
 - **APPROXIMABILITY STRATIFICATION TRANSCENDS OPERATOR FAMILY (the brocot bridge test).** brocot.fm —
   FM synthesis, mechanistically unlike the AM/Fibonacci Schrödinger operators — shows the SAME
   stratification: Brody q falls with approximability across the 9 Lagrange classes, ρ(rank, q)=−0.91

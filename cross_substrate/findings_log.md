@@ -1245,3 +1245,25 @@ this prime-dependent baseline. Consequences (banked):
   support-set-respecting-nulls. Resolves the standing "do prime-named families carry their prime in RF" Q:
   the raw RF can't answer it (artifact-dominated); the per-prime-baseline version is the valid instrument.
 Cheap-win roundup item — closed. No new artifact files (diagnostic on banked brocot-landscape + controls).
+
+### DEGT dimension — CONFIRMED via growth-rate thermodynamic formalism (resolves §3(k))
+The deferred quantitative DEGT piece. §3(k) confirmed the FORM (dim·ln(λ)→const) but the CONSTANT was
+deferred: the single-level Bowen pressure Σ|band|^d=1 is scale-DEPENDENT (uses absolute widths at one
+approximant level → drifts as q→∞; diverged to 1.72 at λ=1024). The fix is the proper thermodynamic
+formalism — the dimension is where the partition-function GROWTH RATE across renormalization levels
+vanishes: d* = root of slope(log Σ|band|^d vs log q) = 0. Scale-INVARIANT (the level-dependence cancels
+at d*; reduces to box-dim = logN/log(1/w) for a self-similar cover).
+- **VALIDATED vs box_dim at moderate λ** (golden λ=2→0.611 vs banked 0.628; λ=4→0.455 vs 0.475; λ=8→0.343
+  vs 0.369) — synthetic-validate gate passed before trusting at strong λ.
+- **CONVERGENCE-GATED** (shallow q∈[55..610] vs deep q∈[233..1597]; |Δ|<0.02 = reliable): golden converged
+  λ≤32, depth-wall (drift) at λ≥48 (bands too small for q≤1597 — the periodic-approximant depth limit).
+- **DEGT CONFIRMED:** golden extrapolation (converged pts, 1/ln(λ)→0) **C=0.8756 vs ln(1+√2)=0.88137,
+  Δ=−0.0058 (~0.6%).** Form AND constant now landed — §3(k) PARTIAL → RESOLVED.
+- **New (unpublished) asymptotic dimension constants per class:** silver C=0.867, bronze 0.913, e_minus_2
+  1.173. Metallic means (quadratic CF) CLUSTER near DEGT-golden (~0.87–0.91); e (μ=2 but UNBOUNDED/
+  transcendental CF) is DISTINCT at 1.17 — the asymptotic dimension constant is approximability/CF-structure
+  stratified (echoes the cf_discriminator boundedness finding: e separates from the metallic means).
+**⇒ the trace-map TD-formalism dimension arc is COMPLETE: DEGT golden constant confirmed (~0.6%); the method
+(growth-rate pressure + convergence-gate + 1/lnλ extrapolation) is the scale-invariant fix that the
+single-level pressure lacked.** Banked: coordinates/trace-map-dimension.jsonl; fig P11b_degt_growthrate.png.
+Verdicts Will's.

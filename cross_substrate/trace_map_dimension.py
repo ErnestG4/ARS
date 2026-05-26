@@ -103,6 +103,37 @@ def dim_at(lam, n_fib, phi=0.1234):
     return dim_pressure(w), len(w), q
 
 
+def dim_growth(alpha, lam, q_targets, phi=0.1234):
+    """PROPER thermodynamic-formalism dimension: d* where the partition-function GROWTH RATE across
+    renormalization levels vanishes — slope of log Σ|band|^d vs log(q) = 0. Scale-INVARIANT (unlike the
+    single-level Σ|w|^d=1, which drifts because band-count and total-measure both change with q). For a
+    self-similar Cantor cover with N_n bands of width w_n, slope = 0 ⇒ d = log N_n / log(1/w_n) = box-dim."""
+    levels = []
+    for qt in q_targets:
+        p, q = cf_convergent(alpha, qt)
+        w = band_widths(_potential(q, p, lam, phi))
+        if w.size > 2:
+            levels.append((q, w))
+    # dedupe by q (CF convergents repeat below jumps), keep ≥3 distinct levels
+    seen = {}
+    for q, w in levels:
+        seen[q] = w
+    levels = sorted(seen.items())
+    if len(levels) < 3:
+        return None, [q for q, _ in levels]
+    logq = np.array([np.log(q) for q, _ in levels])
+    dgrid = np.linspace(0.02, 0.999, 200)
+    P = np.array([np.polyfit(logq, np.array([np.log(np.sum(w ** d)) for _, w in levels]), 1)[0]
+                  for d in dgrid])
+    sign = np.sign(P)
+    cross = np.where(np.diff(sign) != 0)[0]
+    if cross.size == 0:
+        return None, [q for q, _ in levels]
+    i = cross[0]
+    d_star = dgrid[i] - P[i] * (dgrid[i + 1] - dgrid[i]) / (P[i + 1] - P[i])
+    return float(d_star), [q for q, _ in levels]
+
+
 def validate():
     print(f"TRACE-MAP DIMENSION — validate vs box_dim @ moderate λ (target golden·lnλ → {DEGT:.4f})")
     print("  banked box_dim: golden λ=2 → 0.628 (trusted, no cluster-split at moderate λ)\n")
@@ -251,18 +282,114 @@ def _tm_figure(by, summary):
     print("wrote", os.path.relpath(p, _HERE))
 
 
+SHALLOW_Q = [55, 89, 144, 233, 377, 610]
+DEEP_Q = [233, 377, 610, 987, 1597]
+DEGT_LAMS = [2.0, 4.0, 8.0, 16.0, 32.0, 48.0, 64.0, 128.0]
+
+
+def _degt_task(arg):
+    """Per (class, λ): growth-rate dim on shallow & deep q-windows + convergence gate."""
+    cls, alpha, lam = arg
+    ds, _ = dim_growth(alpha, lam, SHALLOW_Q)
+    dd, lv = dim_growth(alpha, lam, DEEP_Q)
+    conv = (ds is not None and dd is not None and abs(ds - dd) < 0.02)
+    return (cls, lam, ds, dd, conv, lv)
+
+
+def degt_sweep(workers):
+    """PROPER thermodynamic-formalism DEGT test: growth-rate dimension (scale-invariant), convergence-gated
+    (shallow vs deep q-window), extrapolated 1/ln(λ)→0. Resolves §3(k) (single-level pressure was
+    scale-dependent → diverged). Golden target: dim·ln(λ) → ln(1+√2)=0.88137 (DEGT 2008)."""
+    from concurrent.futures import ProcessPoolExecutor
+    print(f"DEGT TRACE-MAP DIMENSION (growth-rate thermodynamic formalism) — golden → ln(1+√2)={DEGT:.4f}")
+    tasks = [(c, v, lam) for c, v, _, _ in TM_CLASSES for lam in DEGT_LAMS]
+    with ProcessPoolExecutor(max_workers=workers) as ex:
+        res = list(ex.map(_degt_task, tasks))
+    by = {}
+    for cls, lam, ds, dd, conv, lv in res:
+        by.setdefault(cls, []).append((lam, ds, dd, conv))
+    for c in by:
+        by[c].sort()
+    recs = []
+    print(f"\n{'class':10s} {'C=lim dim·lnλ':>13s} {'theory':>8s}  {'reliable-λ (converged)':>22s}")
+    summary = {}
+    for cls, alpha, mu, theory in TM_CLASSES:
+        pts = by[cls]
+        conv_pts = [(1.0 / np.log(lam), dd * np.log(lam), lam) for lam, ds, dd, conv in pts if conv]
+        if len(conv_pts) >= 3:
+            x = np.array([p[0] for p in conv_pts]); y = np.array([p[1] for p in conv_pts])
+            slope, C = np.polyfit(x, y, 1)
+        else:
+            C, slope = None, None
+        rel = ",".join(f"{p[2]:g}" for p in conv_pts)
+        summary[cls] = (C, conv_pts, theory)
+        ths = f"{theory:.4f}" if theory else "   -"
+        print(f"{cls:10s} {(f'{C:.4f}' if C else '  -'):>13s} {ths:>8s}  {rel:>22s}")
+        for lam, ds, dd, conv in pts:
+            recs.append({"substrate": "trace-map-dimension", "cell_id": f"{cls}/lam{lam:g}",
+                         "axes_computed": {"dim_growth_shallow": ds, "dim_growth_deep": dd,
+                                           "dim_times_lnlam": (dd * np.log(lam) if dd else None),
+                                           "converged": conv},
+                         "extraction_method": "growth-rate thermodynamic formalism: d* where slope(log Σ|band|^d "
+                                              "vs log q)=0; convergence-gated (shallow vs deep q-window); "
+                                              "extrapolated 1/ln(λ)→0",
+                         "extraction_audit": {"lagrange_class": cls, "lam": lam, "irrationality_measure": mu,
+                                              "DEGT_target": (float(theory) if theory else None),
+                                              "extrapolated_C": (float(C) if C else None)},
+                         "source_artifact": "generated (deterministic; trace-map periodic-approximant bands)",
+                         "computed_date": date.today().isoformat()})
+    with open(os.path.join(COORD, "trace-map-dimension.jsonl"), "w") as fh:
+        for r in recs:
+            fh.write(json.dumps(r) + "\n")
+    cg = summary["golden"][0]
+    print(f"\n[DEGT] golden extrapolated C={cg:.4f} vs ln(1+√2)={DEGT:.4f} (Δ={cg-DEGT:+.4f}) — "
+          f"{'CONFIRMED within ~0.5%' if abs(cg-DEGT)<0.01 else 'see Δ'}. Flag, don't interpret.")
+    _degt_figure(summary)
+
+
+def _degt_figure(summary):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    cmap = {"golden": "#d4af37", "silver": "#9aa0a6", "bronze": "#9c6b30", "e_minus_2": "#2ca02c"}
+    fig, ax = plt.subplots(figsize=(9.5, 6.4))
+    for cls, (C, conv_pts, theory) in summary.items():
+        if not conv_pts:
+            continue
+        x = np.array([p[0] for p in conv_pts]); y = np.array([p[1] for p in conv_pts])
+        ax.scatter(x, y, s=55, color=cmap.get(cls, "k"), edgecolor="k", lw=0.4, zorder=4)
+        xs = np.linspace(0, x.max() * 1.05, 40)
+        if C is not None:
+            slope = np.polyfit(x, y, 1)[0]
+            ax.plot(xs, C + slope * xs, "-", color=cmap.get(cls, "k"), lw=1.0, alpha=0.7)
+            ax.scatter([0], [C], s=110, marker="<", color=cmap.get(cls, "k"), edgecolor="k", zorder=5)
+            ax.annotate(f"{cls} C={C:.3f}", (0, C), fontsize=7.5, xytext=(6, 0), textcoords="offset points")
+    ax.axhline(DEGT, ls="--", color="k", lw=1.3)
+    ax.annotate(f"DEGT: ln(1+√2)={DEGT:.4f}", (0.18, DEGT), fontsize=9, xytext=(0, 4), textcoords="offset points")
+    ax.set_xlabel("1 / ln(λ)   (λ→∞ at x=0)"); ax.set_ylabel("dim · ln(λ)   (growth-rate thermodynamic formalism)")
+    ax.set_title("DEGT cross-check — growth-rate dimension, convergence-gated\n"
+                 "golden → ln(1+√2)? ◀ = λ→∞ extrapolation")
+    ax.grid(alpha=0.2)
+    p = os.path.join(_HERE, "figures", "P11b_degt_growthrate.png")
+    fig.tight_layout(); fig.savefig(p, dpi=130); plt.close(fig)
+    print("wrote", os.path.relpath(p, _HERE))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true")
     ap.add_argument("--sweep", action="store_true")
+    ap.add_argument("--degt", action="store_true")
     ap.add_argument("--workers", type=int, default=10)
     a = ap.parse_args()
     if a.validate:
         validate()
     elif a.sweep:
         sweep(a.workers)
+    elif a.degt:
+        degt_sweep(a.workers)
     else:
-        ap.error("need --validate or --sweep")
+        ap.error("need --validate, --sweep, or --degt")
 
 
 if __name__ == "__main__":
