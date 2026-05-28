@@ -1289,3 +1289,110 @@ staircases + the dimension-vs-approximability axis. Lagrange-constant computatio
 all other quadratics are MORE approximable than silver. The metallic ladder's first two rungs bracket a hole
 that number theory says cannot be filled.** Banked: coordinates/gold-silver-ladder.jsonl; figures
 V6_ladder_staircases.png, V7_dim_vs_approximability.png. gold_silver_ladder.py. Verdicts Will's.
+
+---
+
+## 2026-05-28 — EC(MEC continuous-attractor) vs CA3(discrete-attractor): cross-region fingerprint port
+
+**Frame.** Overnight brief: the lecture hypothesis is that continuous-attractor regions (EC grid cells,
+toroidal manifold) differ from discrete-attractor regions (CA3 autoassociative point-attractors) in a
+responsiveness-vs-stability tradeoff. ARS cannot test attractor topology directly (that needs manifold
+inference) — this is a baseline cross-region FINGERPRINT comparison, hypothesis-engagement flagged not
+measured. Seizure-perturbation out of scope (no public data).
+
+**P0 — acquisition.** (1) Existing 8 Grosmark/Buzsáki sessions are **CA1-only** (lCA1/rCA1) — no EC/CA3.
+(2) CRCNS Mizuseki creds not configured (hard-stop respected; offer open for additive sleep-epoch data).
+(3) **DANDI 000638** "Hippocampus + EC Dual Region Silicon Probe" — turnkey NWB, MEC(grid)+CA1+DG+LEC+CA3sp
+electrodes. Streamed units+behavior over HTTP range (`nwb_remote.py`, stdlib, no fsspec) — the 30-70GB raw
+traces are NOT downloaded. Scanned all 33 sessions: **every session has MEC+CA1+DG but ZERO sorted CA3
+units** (electrodes present, no units) and zero LEC units. So 000638 supplies the **continuous-attractor
+pole (MEC)** + CA1 + DG. The **discrete-attractor pole (CA3)** comes from the local **Allen** ecephys
+(8 sessions, CA3 466 / CA1 2463 / DG 730 good units; no EC). **CA1+DG measured in BOTH = cross-substrate
+VALIDITY BRIDGE.**
+
+**P1 — framework-port (identical tooling: ars_classify ks_gue + Family I per-cell; corr-eig/avl-onset/
+sync-event population; dt=25ms; cell-type = NWB unit_type for 000638, waveform-duration<0.4ms RS/FS split
+for Allen).** 000638: 1365 per-cell + 131 pop records (10 sessions, MEC≥20/CA1≥20/DG≥15). Allen-HPF: 4358
+per-cell + 255 pop.
+- **Pillar-1 GENERALISES (now n=5 substrate-types: V1, Buzsáki-CA1, IBL, +MEC, +Allen-HPF):** population
+  corr-eig stays GUE-like in EVERY region of both substrates — MEC q=0.87, CA3 q=0.95, CA1 q=0.91, DG q=0.86;
+  sync-event stays Poisson (q≈0) everywhere. The structural-anchor universality holds in the continuous-
+  attractor region (MEC) and across all hippocampal subfields.
+
+**P2 — cross-region comparison. THE DECISIVE RESULT: the validity bridge FAILS.** The shared anchors (CA1,
+DG, measured in both substrates) differ by NEAR-MAXIMAL effect size (excitatory, Cliff's δ):
+  CA1 000638-vs-Allen: ks_gue δ=−0.934, w1 δ=−0.999, BRρ δ=+0.894 (all LARGE, p<1e-58).
+  DG  000638-vs-Allen: ks_gue δ=−0.869, w1 δ=−0.939, BRρ δ=+0.839 (all LARGE).
+The MEC-vs-CA3 "headline" gap (ks_gue δ=−0.885, w1 δ=−0.995) is **statistically indistinguishable from the
+CA1-vs-CA1 / DG-vs-DG bridge gaps.** ⇒ the entire cross-substrate signal is the **recording-context axis**
+(000638 78-min track task @~0.5Hz vs Allen short spontaneous block @~3Hz; different sorting/cohort), NOT
+region biology. **MEC-vs-CA3 is NOT measurable as an attractor-topology contrast from these two datasets.**
+The bridge correctly flags the comparison invalid (extends the cross-substrate rate/epoch-dependence +
+carry-viewpoints-annotate-validity disciplines: a designed validity-anchor caught a confound that the raw
+contrast would have mis-sold as biology).
+
+**P2 — WITHIN-substrate (valid; rate-matched, excitatory-only, vs CA1 anchor):**
+- **000638:** MEC grid cells fire markedly **LESS burstily than CA1** (burst_frac δ=−0.55 LARGE, cv2
+  δ=−0.40 medium — survives rate-match). DG **more GUE-like** than CA1 (ks_gue δ=+0.41 medium, w1 δ=+0.34).
+  MEC≈CA1 on ks_gue (negligible).
+- **Allen:** CA3 marginally **more GUE-like** than CA1 (ks_gue δ=+0.16 small, rate-matched) + less irregular
+  (cv2 δ=−0.21 small). DG less bursty than CA1 (δ=−0.22 small).
+- Parallel worth flagging (NOT claimed as cross-substrate, since the bridge fails): in EACH substrate the
+  "specialized" region trends MORE GUE-like than CA1 — DG(separator) in 000638, CA3(attractor) in Allen —
+  but effects are small/medium and the regions differ. Within-substrate statements only.
+
+**P2.4 — burst structure.** The one LARGE cross-region effect (MEC≪CA1 burstiness) is most parsimoniously
+**known intrinsic biophysics** (MEC L2 stellate vs CA1 pyramidal: pyramidals are classically bursty) — an
+INTRINSIC predictor (cf. the intrinsic-vs-extrinsic lesson), NOT a readout of attractor topology.
+
+**P1.3/P2.3 — pillar-2 on the CONTINUOUS-attractor substrate (000638 track task, 580 place-field cells:
+MEC 363 / CA1 147 / DG 70; running-period 1D rate maps, Skaggs spatial-info + spatial coherence vs
+ks_gue, Spearman).** Pillar-2 (per-cell EXTRINSIC selectivity-quality ↔ universality class) HOLDS in MEC:
+- **MEC** spatial_info↔ks_gue ρ=+0.43*** (excitatory, n=255); place_coherence↔ks_gue ρ=+0.27*** (all).
+- **CA1** spatial_info↔ks_gue ρ=+0.44** (exc, n=49); place_coherence↔ks_gue ρ=+0.32*** (all).
+- DG: n.s. excitatory-only (n=17 underpowered).
+MEC's ρ≈+0.43 is COMPARABLE to CA1's prior place-coherence↔class +0.47 (Buzsáki cycle-2a). spatial_info is
+EXTRINSIC (not the tautological intrinsic burst); qualifies under the pillar-2 v2 spec. NB sign: ks_gue
+LOWER=more-GUE; ρ>0 means better spatial coding ↔ higher ks_gue. Within-000638 the link is robust; not a
+cross-substrate claim.
+**FRAMING (Will, do NOT read as "3/3, retinal unnecessary"):** MEC strengthens pillar-2 but does NOT add a
+new selectivity AXIS or an independent sample. (1) MEC and CA1 are both spatial-navigation circuits → same
+KIND of axis (spatial coding); axis-diversity is really **2** (visual-orientation in V1; spatial-coding in
+CA1+MEC), not 3. (2) MEC and CA1 are NOT independent samples — **grid cells feed place cells**, coupled
+stages of one pathway, so a correlation in both is not two independent confirmations. **Correct tally: the
+SPATIAL arm now has two (COUPLED) confirmations (CA1, MEC); the ORIENTATION arm has one (V1); a MOTION/
+CONTRAST arm is still UNCONFIRMED.** The off-DANDI retinal arc ([[planned_engineering_arc]]) RETAINS FULL
+VALUE — retina (DS/OS, motion/contrast) adds genuine selectivity-AXIS independence that MEC cannot.
+
+**P3 — attractor-topology engagement (interpretive, NOT measured).** The lecture hypothesis predicts the
+continuous-attractor region (MEC) differs in fingerprint from discrete-attractor/relay regions (CA3/CA1).
+**ARS finds NO such distinguishing axis:** (a) cross-substrate MEC-vs-CA3 is confounded-out (bridge fail —
+the contrast is recording-context, not biology); (b) **both pillars operate IDENTICALLY in MEC and CA1** —
+pillar-1 (corr-eig GUE) is region-INVARIANT, pillar-2 (spatial-quality↔class) holds in BOTH continuous (MEC
+ρ=+0.43) and the CA1 relay (ρ=+0.44) at comparable magnitude; (c) the lone LARGE within-substrate cross-
+region difference (MEC≪CA1 burstiness) is most parsimoniously known intrinsic biophysics (stellate vs
+pyramidal), an INTRINSIC predictor. **Verdict: the attractor-topology framing predicts a regional fingerprint
+difference; our data shows the ARS pillars are region-GENERAL (operate the same in continuous- and discrete-
+attractor circuits) and the residual differences are recording-context or intrinsic-biophysical. NOT a
+confirmation — a bounded NEGATIVE: the fingerprint-level signature does not track continuous-vs-discrete
+attractor topology.** ARS cannot directly test attractor topology (needs manifold inference, Gallego/
+Churchland tradition); this is a fingerprint-level comparison only.
+**RIGHT FRAMING (Will) — the negative bounds the INSTRUMENT as much as the hypothesis.** This is NOT "the
+lecture's hypothesis is wrong." It is "**attractor topology is not a spike-train-FINGERPRINT property.**" If
+the responsiveness-vs-stability hypothesis holds, it operates at the **population-manifold-geometry** level —
+which ARS does not resolve **by construction**. The ARS fingerprint sees (i) per-cell selectivity-quality and
+(ii) the structural universality poles; it does NOT see manifold topology. So tonight's negative maps the
+RESOLVING POWER of the instrument (cell-level + structural, not manifold-geometric) at least as much as it
+constrains the biology. **Knowing what ARS cannot see is itself worth banking** ([[ars_resolving_power]]).
+
+**PROGRAM CONTRIBUTION (separate from the hypothesis-engagement):** pillar-2 selectivity-axis tally is now —
+SPATIAL arm: two (coupled, grid→place) confirmations (CA1, MEC); ORIENTATION arm: one (V1); MOTION/CONTRAST
+arm: unconfirmed. So 2 axes (not 3), and the two spatial confirmations are not independent samples. Pillar-1
+GENERALISES to n=5 substrate-types (V1, Buzsáki-CA1, IBL, +MEC, +Allen-HPF). The off-DANDI retinal arc
+([[planned_engineering_arc]]) retains FULL value — it is the only queued test that adds a genuinely
+independent selectivity AXIS (motion/contrast, DS/OS) in an independent circuit; MEC cannot substitute.
+
+Banked: coordinates/dr-port-{cell,pop}.jsonl, allen-hpf-{cell,pop}.jsonl, dr-placefields.jsonl,
+dr000638_composition.json, attractor_analysis_{plain,ratematch}.txt; figures/P_ec_ca3_attractor.png +
+P_ec_ca3_pillar2.png. Code: nwb_remote.py, dual_region_scan.py, allen_hpf.py, dual_region_port.py,
+attractor_analysis.py, attractor_figure.py, dual_region_placefields.py. Verdicts Will's.

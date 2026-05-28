@@ -1,5 +1,7 @@
 __pycache__/
 *.log
+# decimated 25kHz position cache (regenerable from 000638 via dual_region_placefields.py); not in git
+coordinates/dr_pos_*.npz
 # coordinates/am_work/ — eigenvalues + unfolded event trains. PERMANENTLY banked
 # ON DISK (Night-1 brief §7: never recompute), but NOT in git: the repo-root
 # .gitignore *.npy rule keeps large binaries out of history (same policy as data/).

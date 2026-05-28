@@ -45,6 +45,23 @@ population-collective; a feedforward output layer like retina may not support th
 — [[observable_binding_clarifies]]). **Bottom line: pillar 1 GENERALISED at n=3; pillar 2 demonstrated 2/3 +
 spec-refined, definitive third test queued as the off-DANDI retinal arc.**
 
+**UPDATE 2026-05-28 (EC/MEC vs CA3 attractor arc — substrates #4 MEC + #5 Allen-HPF):** Pillar 1 now
+GENERALISES at **n=5 substrate-types** — corr-eig→GUE + sync→Poisson hold in the medial-entorhinal grid
+region (MEC, DANDI 000638) AND every Allen hippocampal subfield (CA3/CA1/DG/SUB/ProS). Pillar 2 strengthened
+but **axis-tally unchanged at 2**: MEC (continuous-attractor) spatial_info↔ks_gue ρ=+0.43*** (exc) ≈ CA1's
++0.47 — BUT MEC is the SAME selectivity axis as CA1 (spatial coding) and NOT an independent sample (grid→place,
+coupled pathway). Correct tally: **SPATIAL arm = two coupled confirmations (CA1, MEC); ORIENTATION arm = one
+(V1); MOTION/CONTRAST arm = unconfirmed.** The off-DANDI retinal arc RETAINS FULL VALUE (only queued test
+adding an independent selectivity AXIS). **Attractor-topology hypothesis-engagement (lecture): bounded NEGATIVE
+— BOTH pillars operate IDENTICALLY in continuous (MEC) and discrete/relay (CA1/CA3); the fingerprint does NOT
+track continuous-vs-discrete attractor topology** (findings_log 2026-05-28). NB the negative bounds the
+INSTRUMENT (ARS fingerprint resolves cell-level selectivity + structural poles, NOT population-manifold
+geometry — where this hypothesis would live, by construction) as much as the biology ([[ars_resolving_power]]). **Methodological catch: the
+cross-substrate validity BRIDGE.** When comparing region-A(substrate-1) vs region-B(substrate-2), measure a
+SHARED anchor region in BOTH; here CA1+DG differ across 000638-vs-Allen by δ≈−0.9 (near-maximal) ⇒ the raw
+MEC-vs-CA3 contrast is recording-context, NOT biology — the bridge correctly voided it. Extends
+[[carry_viewpoints_annotate_validity]] + [[ars_rate_dependence_lesson]] ([[cross_substrate_validity_bridge]]).
+
 **MAPPED** (substrates with computed fingerprint coordinates):
 - *Operator / arithmetic (18 substrates):* AM (9 Lagrange θ-classes × coupling sweep), Fibonacci/Sturmian
   Hamiltonian (coupling range × Lagrange classes), Sturmian word, ζ / Dirichlet / EC L-zeros (split),
@@ -55,6 +72,13 @@ spec-refined, definitive third test queued as the off-DANDI retinal arc.**
   (PRE/Maze/POST) × cell-type; per-cell + population + place-fields + theta-gamma + SWR (cycle-1 + cycle-2a/b/c-a).
 - *Neuro brain-wide (IBL, substrate #3):* 8 sessions (5 size-first + 3 visual-targeted via fsspec region-scan),
   1558 cells across cortex+subcortex; per-cell + population + contrast/choice selectivity + 417 visual cells.
+- *Neuro MEC (000638 dual-region, substrate #4):* 10 sessions, 1365 per-cell + 131 pop (MEC 739 / CA1 320 /
+  DG 306) + 580 place-field cells (3 sessions); remote-streamed units+behavior (nwb_remote.py, no bulk DL).
+  MEC = continuous-attractor grid pole; per-cell + population + place-coherence (pillar-2 ρ=+0.43). NB: no
+  CA3/LEC units sorted in ANY of the 33 sessions (electrodes present, units absent).
+- *Neuro Allen-HPF (subfields, substrate #5):* 8 sessions, 4358 per-cell + 255 pop (CA3 466 / CA1 2463 /
+  DG 730 / SUB 407 / ProS 283); CA3 = discrete-attractor pole. spontaneous block. CA1+DG = cross-substrate
+  bridge vs MEC-substrate.
 - *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
 - *Population-level (all 12 sessions):* corr-eig→GUE / avl-onset→intermediate / sync-event→Poisson
   (3 trustable, consistent across sessions) + rate-peak (artifact control).
