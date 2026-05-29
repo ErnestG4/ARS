@@ -93,7 +93,20 @@ applied to every banked pillar-2 instance. Refines the tally into **3 categories
 
 Net: **2 clean confirmations (V1 orientation, EC spatial); 3 attenuated HPC spatials (coupled pathway); 1
 collapsed (CA3 was burst-tautology). Axis-kinds still 2.** Retinal arc retains FULL value (motion/contrast,
-independent feedforward circuit) — adds the third axis-kind. **Methodological catch: the
+independent feedforward circuit) — adds the third axis-kind.
+
+**DEEP CLOSURE on pillar-2 (2026-05-29 cascade):** the orientation arm extended cleanly across the full
+Allen visual hierarchy (LGd + 6 cortical visual areas, **n=7846 cells**, all burst-clean, |OSI↔burst|<0.13
+everywhere; pooled raw +0.445, partial +0.464). **The pillar refines to SELECTIVITY-QUALITY↔class, NOT
+tuning-PREFERENCE↔class:** within V1, OSI/DSI/F1F0 (quality axes) couple to ks_gue burst-cleanly; pref_sf/
+pref_tf (preference axes) are class-orthogonal. **Generalises to CA1 Maze-Awake:** spatial_info (quality)
+partial=+0.248 retained 85%; theta_mrl (preference) collapses under burst-control (raw −0.213 → partial
+−0.045, retained 21%). Class tracks HOW WELL a cell discriminates, not WHAT it locks onto.
+**H1 is stimulus-INVARIANT, ks_gue is INTRINSIC per cell (in V1).** Drifting-OSI predicts ks_gue during
+every stimulus incl. spontaneous (ρ=+0.36, no visual drive); cross-stimulus pairwise ks_gue ρ=0.49–0.88,
+median ~0.7 (n=4551 cells, 8 stimuli). But this intrinsic claim is itself substrate-relative — in
+Buzsáki-CA1/tetrode cross-state ks_gue ρ≈0.02 (state-dependent, because burst is state-dependent and
+ks_gue is burst-driven there). [[pillar2_burst_control_systematic]]. **Methodological catch: the
 cross-substrate validity BRIDGE.** When comparing region-A(substrate-1) vs region-B(substrate-2), measure a
 SHARED anchor region in BOTH; here CA1+DG differ across 000638-vs-Allen by δ≈−0.9 (near-maximal) ⇒ the raw
 MEC-vs-CA3 contrast is recording-context, NOT biology — the bridge correctly voided it. Extends
