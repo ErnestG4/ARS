@@ -66,7 +66,16 @@ collapses EC-vs-CA3 ks_gue from δ=−0.63 → +0.04 (n.s.). ⇒ the entire diff
 axis (CA3 complex-spike bursting), tautological cell-class biophysics, NOT attractor topology. Pillar-2
 (spatial_info↔ks_gue) reproduces in EC (+0.39) AND CA3 (+0.25). **Net: the de-confounded test SHARPENS the
 bounded-negative — EC≠CA3 in raw fingerprint but reduces 100% to intrinsic burstiness; the validity-bridge
-methodology is vindicated (cross-dataset confounded; within-dataset reveals the real, intrinsic origin).** **Methodological catch: the
+methodology is vindicated (cross-dataset confounded; within-dataset reveals the real, intrinsic origin).**
+
+**WHAT DOES per-cell ks_gue MEASURE? (2026-05-29, program-wide):** the hc-3 burst-collapse prompted a test of
+whether ks_gue is universally burst-driven. It is NOT — burst↔ks_gue coupling is **substrate-specific**:
+hc-3 (tetrode/task) ρ=+0.78, 000638 (NPx/task) +0.44, Allen-HPF (NPx/spont) ≈0 (CA3: +0.80 vs −0.13). The
+pooled "rate-gating crossover" was a **Simpson's-paradox artifact** (within-substrate the coupling is
+rate-invariant at its own level). ⇒ per-cell ks_gue is a SUBSTRATE-RELATIVE readout (bounds cross-substrate
+per-cell comparison); the hc-3 burst-collapse is hc-3-specific; and crucially it is **REASSURING for H1/
+pillar-2** — in the Allen/NPx-spont regime ks_gue is burst-INDEPENDENT, so OSI↔ks_gue is not a burst confound
+([[ksgue_burst_substrate_relative]]). V1 burst-control of H1 in progress. **Methodological catch: the
 cross-substrate validity BRIDGE.** When comparing region-A(substrate-1) vs region-B(substrate-2), measure a
 SHARED anchor region in BOTH; here CA1+DG differ across 000638-vs-Allen by δ≈−0.9 (near-maximal) ⇒ the raw
 MEC-vs-CA3 contrast is recording-context, NOT biology — the bridge correctly voided it. Extends

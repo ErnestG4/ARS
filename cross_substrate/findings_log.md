@@ -1522,3 +1522,19 @@ POOLED multi-substrate data can manufacture a spurious covariate-dependence that
 
 Banked: figures/P_burst_ksgue_substrate_specific.png. Analysis-only (banked dr-port/allen-hpf/hc3-port
 cells). Verdicts Will's.
+
+**V1 H1 burst-control closure (2026-05-29).** Per the "reassuring for H1" hypothesis, computed burst_frac on
+the original H1 substrate (Allen V1, VISp, drifting_gratings; n=2144 cells; allen_v1_burst.py — burst was
+never banked in allen-depth). Results:
+- **OSI↔ks_gue (H1) ρ=+0.479** (reproduces the prior +0.47).
+- **OSI↔burst_frac ρ=+0.029 (n.s., p=0.18)** — OSI is **burst-INDEPENDENT** in V1.
+- **burst↔ks_gue ρ=+0.25** — V1/gratings ks_gue has SOME burst component (intermediate: hc-3 0.78 ≫ V1
+  0.25 ≫ Allen-spont 0).
+- **OSI↔ks_gue BURST-RESID ρ=+0.496** — controlling for burst, H1 is UNCHANGED (slightly stronger).
+**⇒ H1 is NOT a burst confound. The extrinsic-selectivity↔class link is orthogonal to the burst axis** —
+even where ks_gue has a modest burst component, OSI picks out the non-burst variation. This ties the whole
+thread together: *intrinsic* region differences (hc-3 EC-vs-CA3) ride the burst axis and COLLAPSE under
+burst-control; the *extrinsic* selectivity↔class link (H1, pillar-2) is BURST-ORTHOGONAL and holds. Strong
+empirical support for [[intrinsic_vs_extrinsic_predictor]] at scale: intrinsic-axes are tautological/burst-
+mediated, extrinsic-axes (OSI, spatial-info) are not — the H1/pillar-2 program rests on the burst-orthogonal
+extrinsic side. Banked: coordinates/v1-burst-osi.jsonl; figures/P_v1_h1_burst_control.png; allen_v1_burst.py.
