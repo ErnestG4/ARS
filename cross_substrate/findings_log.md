@@ -1619,3 +1619,22 @@ measuring how sharp/clean a cell's tuning is) all couple to ks_gue and are burst
 discriminates, not **WHAT** it discriminates. This is consistent with the original H1 framing (OSI = tuning-
 quality, not tuning-preference), and it generalises to DSI and F1/F0 — three independent quality axes within
 V1, all burst-clean. Banked: figures/P_V1_tuning_axis_landscape.png.
+
+**H1 STIMULUS-INVARIANCE + ks_gue is INTRINSIC per cell (2026-05-29, allen-depth ks_gue per (cell,stimulus),
+n=4551 cells × 8 stimuli, Allen visual hierarchy):**
+- **H1 holds across stimuli.** drifting-OSI ↔ ks_gue measured during stim:
+  drifting_gratings ρ=+0.438 (canonical); natural_movie_one +0.411; natural_movie_three +0.410;
+  **spontaneous +0.356** (no visual drive!); static_gratings +0.290; natural_scenes +0.284; gabors +0.220;
+  flashes +0.116. H1 is strongest at the SAME stimulus but holds across the board — **OSI predicts ks_gue
+  even in the absence of visual input**.
+- **ks_gue is a STABLE per-cell intrinsic property.** Cross-stimulus pairwise ρ across the 8 stimuli ranges
+  0.49–0.88, median ~0.7: natural_movie_one ↔ natural_movie_three +0.876, natural_movie_one ↔ spontaneous
+  +0.811, drifting_gratings ↔ spontaneous +0.721, drifting ↔ natural_movie_three +0.747. A cell's NNS class
+  is largely stable across radically different stimulus contexts.
+
+**The full interpretation of pillar-2 is now:** the per-cell universality class (ks_gue) is an INTRINSIC
+property (cross-stimulus stable at ρ≈0.7), and orientation-selective cells (high OSI) occupy the more GUE
+end of that intrinsic distribution. The pillar-2 link (OSI↔ks_gue) is the *external manifestation* of an
+intrinsic per-cell property — not stimulus-driven, not burst-mediated. SELECTIVITY-QUALITY (sharpness of
+tuning) tracks an intrinsic NNS-class identity that the cell carries into every stimulus context including
+spontaneous. Banked: figures/P_V1_H1_stimulus_invariance.png.
