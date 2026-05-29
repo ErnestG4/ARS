@@ -1,0 +1,137 @@
+[
+ {
+  "topdir": "ec016.45",
+  "session": "ec016.749",
+  "size": 806280239,
+  "behavior": "linear",
+  "EC": 11,
+  "CA3": 32,
+  "DG": 0
+ },
+ {
+  "topdir": "ec016.45",
+  "session": "ec016.750",
+  "size": 1240469791,
+  "behavior": "sleep",
+  "EC": 11,
+  "CA3": 32,
+  "DG": 0
+ },
+ {
+  "topdir": "ec013.55",
+  "session": "ec013.965",
+  "size": 482798898,
+  "behavior": "linear",
+  "EC": 35,
+  "CA3": 36,
+  "DG": 0
+ },
+ {
+  "topdir": "ec013.55",
+  "session": "ec013.966",
+  "size": 523234587,
+  "behavior": "linear",
+  "EC": 35,
+  "CA3": 36,
+  "DG": 0
+ },
+ {
+  "topdir": "ec013.54",
+  "session": "ec013.951",
+  "size": 639912066,
+  "behavior": "linear",
+  "EC": 27,
+  "CA3": 30,
+  "DG": 0
+ },
+ {
+  "topdir": "ec016.44",
+  "session": "ec016.733",
+  "size": 542042670,
+  "behavior": "linear",
+  "EC": 26,
+  "CA3": 31,
+  "DG": 1
+ },
+ {
+  "topdir": "ec016.50",
+  "session": "ec016.860",
+  "size": 1799349672,
+  "behavior": "bigSquare",
+  "EC": 15,
+  "CA3": 30,
+  "DG": 0
+ },
+ {
+  "topdir": "ec016.49",
+  "session": "ec016.850",
+  "size": 753838116,
+  "behavior": "linear",
+  "EC": 12,
+  "CA3": 32,
+  "DG": 0
+ },
+ {
+  "topdir": "ec016.47",
+  "session": "ec016.799",
+  "size": 1738784030,
+  "behavior": "Mwheel",
+  "EC": 12,
+  "CA3": 35,
+  "DG": 0
+ },
+ {
+  "topdir": "ec016.46",
+  "session": "ec016.775",
+  "size": 1139507293,
+  "behavior": "Mwheel",
+  "EC": 11,
+  "CA3": 27,
+  "DG": 1
+ },
+ {
+  "topdir": "ec016.53",
+  "session": "ec016.931",
+  "size": 612713029,
+  "behavior": "linear",
+  "EC": 11,
+  "CA3": 37,
+  "DG": 7
+ },
+ {
+  "topdir": "ec016.52",
+  "session": "ec016.899",
+  "size": 1877822149,
+  "behavior": "bigSquare",
+  "EC": 11,
+  "CA3": 32,
+  "DG": 4
+ },
+ {
+  "topdir": "ec016.41",
+  "session": "ec016.674",
+  "size": 527082097,
+  "behavior": "linear",
+  "EC": 9,
+  "CA3": 35,
+  "DG": 1
+ },
+ {
+  "topdir": "ec016.48",
+  "session": "ec016.819",
+  "size": 1988083026,
+  "behavior": "Mwheel",
+  "EC": 8,
+  "CA3": 27,
+  "DG": 1
+ },
+ {
+  "topdir": "ec016.54",
+  "session": "ec016.939",
+  "size": 1171110319,
+  "behavior": "midSquare",
+  "EC": 8,
+  "CA3": 42,
+  "DG": 3
+ }
+]

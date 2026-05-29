@@ -2,6 +2,7 @@
 cross_substrate/crcns_fetch.py — download hc-3 session tarballs, extract only the small spike/position/
 config files (.clu/.res/.whl/.xml/.nrs/.par), delete the tarball. Sequential + size-verify (no parallel-curl).
 """
+import json
 import os
 import subprocess
 import sys
@@ -11,17 +12,18 @@ from crcns_client import CRCNS
 
 RAW = "/home/combust/fmexplorer/crcns_cache/raw"
 SESS = "/home/combust/fmexplorer/crcns_cache/sessions"
-KEEP = ["*.clu.*", "*.res.*", "*.whl", "*.xml", "*.nrs", "*.par"]
+COORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coordinates")
+KEEP = ["*.clu.*", "*.res.*", "*.whl", "*.xml", "*.nrs", "*.par", "*.states*", "*.sts.*"]
 
-# (topdir, session, expected_size)
-PICKS = [
-    ("ec013.53", "ec013.932", 545 * 10**6),
-    ("ec013.55", "ec013.969", 556 * 10**6),
-    ("ec013.52", "ec013.922", 983 * 10**6),
-    ("ec016.59", "ec016.1047", 839 * 10**6),
-    ("ec016.58", "ec016.1016", 1342 * 10**6),
-    ("ec016.57", "ec016.977", 1463 * 10**6),
-]
+
+def _load_picks():
+    pj = os.path.join(COORD, "crcns_picks.json")
+    if os.path.exists(pj):
+        return [(o["topdir"], o["session"], o.get("size")) for o in json.load(open(pj))]
+    return []
+
+
+PICKS = _load_picks()
 
 
 def main():

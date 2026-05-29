@@ -159,6 +159,43 @@ def main():
         print(f"  -> if RESID delta collapses toward 0, the EC-vs-CA3 NNS gap is the INTRINSIC burst axis;")
         print(f"     if it persists, there is an NNS-class difference beyond burst.")
 
+    # ── state stratification: active vs sleep, paired by cell (same topdir = same cells) ──
+    ACTIVE = {"linear", "bigSquare", "Mwheel", "wheel", "midSquare", "linearOne", "linearTwo", "plus", "Tmaze"}
+    by_cell = {}  # (topdir,ele,clu,region) -> {state: {ks,burst,rate}}
+    for c in cells:
+        st = "sleep" if c.get("behavior") == "sleep" else ("active" if c.get("behavior") in ACTIVE else None)
+        if st is None:
+            continue
+        key = (c["topdir"], c.get("ele"), c.get("clu"), c["region"])
+        d = by_cell.setdefault(key, {})
+        ks = c.get("axes_computed", {}).get(AX["ks_gue"]); bf = (c.get("burst") or {}).get("burst_frac")
+        d.setdefault(st, []).append((ks, bf, c.get("rate_hz")))
+    paired = {r: {"ks_a": [], "ks_s": [], "bf_a": [], "bf_s": []} for r in ("EC", "CA3", "DG")}
+    for (td, ele, clu, reg), d in by_cell.items():
+        if reg not in paired or "active" not in d or "sleep" not in d:
+            continue
+        ka = np.nanmean([x[0] for x in d["active"] if x[0] is not None]) if any(x[0] is not None for x in d["active"]) else np.nan
+        ks_ = np.nanmean([x[0] for x in d["sleep"] if x[0] is not None]) if any(x[0] is not None for x in d["sleep"]) else np.nan
+        ba = np.nanmean([x[1] for x in d["active"] if x[1] is not None]) if any(x[1] is not None for x in d["active"]) else np.nan
+        bs = np.nanmean([x[1] for x in d["sleep"] if x[1] is not None]) if any(x[1] is not None for x in d["sleep"]) else np.nan
+        if np.isfinite(ka) and np.isfinite(ks_):
+            paired[reg]["ks_a"].append(ka); paired[reg]["ks_s"].append(ks_)
+        if np.isfinite(ba) and np.isfinite(bs):
+            paired[reg]["bf_a"].append(ba); paired[reg]["bf_s"].append(bs)
+    if any(paired[r]["ks_a"] for r in paired):
+        print("\n" + "#" * 76 + "\n# STATE STRATIFICATION: active vs sleep, PAIRED within cell (same topdir)\n"
+              "# does the EC-vs-CA3 burst gap / class change with brain state?\n" + "#" * 76)
+        for reg in ("EC", "CA3", "DG"):
+            for lab, ak, sk in (("ks_gue", "ks_a", "ks_s"), ("burst_frac", "bf_a", "bf_s")):
+                a = np.array(paired[reg][ak]); s = np.array(paired[reg][sk])
+                if a.size >= 5:
+                    try:
+                        w, p = stats.wilcoxon(a, s)
+                    except ValueError:
+                        p = float("nan")
+                    print(f"  {reg:4s} {lab:11s} active={np.median(a):.3f} sleep={np.median(s):.3f} "
+                          f"Δ(med)={np.median(s)-np.median(a):+.3f}  paired-Wilcoxon p={p:.2g} n={a.size}")
+
     if pf:
         print("\n" + "#" * 76 + "\n# PILLAR-2: place/spatial-info ↔ ks_gue per region (EC = continuous-attractor)\n" + "#" * 76)
         for r in ("EC", "CA3", "DG", "CA1"):

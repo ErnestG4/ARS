@@ -1,6 +1,6 @@
-hc-3: 368 per-cell, 36 pop, 203 placefield records
-per-cell by region: {'EC': 91, 'CA3': 234, 'DG': 43}
-topdirs: ['ec013.52', 'ec013.53', 'ec013.55', 'ec013.56', 'ec016.57', 'ec016.58', 'ec016.59']
+hc-3: 923 per-cell, 116 pop, 572 placefield records
+per-cell by region: {'EC': 261, 'CA3': 610, 'DG': 52}
+topdirs: ['ec013.52', 'ec013.53', 'ec013.54', 'ec013.55', 'ec013.56', 'ec016.41', 'ec016.44', 'ec016.45', 'ec016.46', 'ec016.47', 'ec016.48', 'ec016.49', 'ec016.50', 'ec016.52', 'ec016.53', 'ec016.54', 'ec016.57', 'ec016.58', 'ec016.59']
 
 ############################################################################
 # P2.1 PER-CELL DISTRIBUTIONS (median) — hc-3 within-dataset
@@ -8,58 +8,67 @@ topdirs: ['ec013.52', 'ec013.53', 'ec013.55', 'ec013.56', 'ec016.57', 'ec016.58'
 
   cell_type=all
   region nCell      ks_gue     brody_q          w1  burst_frac         cv2     rate_hz
-  EC       91       0.506       0.000       1.089       0.025       1.082       0.808
-  CA3     234       0.633       0.000       1.358       0.226       1.273       0.303
-  DG       43       0.446       0.000       0.981       0.080       1.057       0.595
+  EC      261       0.496       0.000       1.067       0.034       1.095       0.758
+  CA3     610       0.575       0.000       1.239       0.145       1.246       0.381
+  DG       52       0.430       0.000       0.971       0.059       1.019       1.554
 
   cell_type=excitatory
   region nCell      ks_gue     brody_q          w1  burst_frac         cv2     rate_hz
-  EC       64       0.509       0.000       1.104       0.023       1.144       0.760
-  CA3     211       0.649       0.000       1.379       0.245       1.286       0.249
-  DG       18       0.550       0.000       1.208       0.087       1.347       0.106
+  EC      199       0.504       0.000       1.094       0.026       1.151       0.630
+  CA3     460       0.633       0.000       1.351       0.202       1.285       0.242
+  DG       20       0.538       0.000       1.195       0.083       1.347       0.095
 
-  [rate-match cap = 1.18 Hz]
+  [rate-match cap = 1.15 Hz]
 
 ############################################################################
 # DE-CONFOUNDED EC-vs-CA3 (excitatory, within-dataset — NO bridge confound)
 ############################################################################
-  ks_gue  : δ=-0.533 LARGE      p=2.7e-08*** n=45v190  med EC=0.517 CA3=0.637
-  brody_q : δ=-0.005 negligible p=6.3e-01  n=45v189  med EC=0.000 CA3=0.000
-  w1      : δ=-0.627 LARGE      p=6.3e-11*** n=45v190  med EC=1.136 CA3=1.361
-  brho    : δ=+0.424 medium     p=1.0e-05*** n=45v190  med EC=0.002 CA3=0.001
-  burst_frac: δ=-0.822 LARGE      p=2.2e-23*** n=64v211  med EC=0.023 CA3=0.245
-  cv2     : δ=-0.634 LARGE      p=1.7e-14*** n=64v211  med EC=1.144 CA3=1.286
+  ks_gue  : δ=-0.444 medium     p=5.3e-16*** n=152v414  med EC=0.511 CA3=0.615
+  brody_q : δ=-0.005 negligible p=3.9e-01  n=152v410  med EC=0.000 CA3=0.000
+  w1      : δ=-0.513 LARGE      p=8.4e-21*** n=152v414  med EC=1.105 CA3=1.328
+  brho    : δ=+0.414 medium     p=4.6e-14*** n=152v411  med EC=0.003 CA3=0.001
+  burst_frac: δ=-0.707 LARGE      p=4.2e-47*** n=199v460  med EC=0.026 CA3=0.202
+  cv2     : δ=-0.620 LARGE      p=1.2e-36*** n=199v460  med EC=1.151 CA3=1.285
 
 ############################################################################
 # P2.2 POPULATION (pillar-1: corr-eig GUE in EC & CA3?)
 ############################################################################
   region agg         nRec   brody_q      brho    ks_gue
-  EC    avl-onset      1     0.638     0.970     0.250
-  EC    sync-event     1     0.000     0.005     0.431
+  EC    avl-onset      4     0.819     0.984     0.205
+  EC    sync-event     4     0.000     0.004     0.399
   CA3   corr-eig       1     0.973     0.944     0.110
-  CA3   avl-onset      7     0.604     0.902     0.239
-  CA3   sync-event     7     0.000     0.001     0.484
+  CA3   avl-onset     22     0.571     0.805     0.256
+  CA3   sync-event    22     0.000     0.001     0.484
   DG    avl-onset      1     0.739     0.999     0.239
-  DG    sync-event     1     0.000     0.004     0.524
+  DG    sync-event     1     0.000     0.001     0.524
 
 ############################################################################
 # BURST-CONTROL (intrinsic-vs-extrinsic): does EC-vs-CA3 ks_gue survive
 # removing the burst_frac trend? (CA3 pyramidal complex-spike bursting -> clustered ISI)
 ############################################################################
-  ks_gue~burst_frac (pooled EC+CA3 exc): Spearman ρ=+0.799 p=3.0e-62 (n=275)
-  EC-vs-CA3 ks_gue  RAW         : δ=-0.631 LARGE      p=2.0e-14*** n=64v211
-  EC-vs-CA3 ks_gue  BURST-RESID : δ=+0.037 negligible p=6.6e-01  n=64v211
+  ks_gue~burst_frac (pooled EC+CA3 exc): Spearman ρ=+0.781 p=1.2e-136 (n=659)
+  EC-vs-CA3 ks_gue  RAW         : δ=-0.510 LARGE      p=2.2e-25*** n=199v460
+  EC-vs-CA3 ks_gue  BURST-RESID : δ=+0.029 negligible p=5.6e-01  n=199v460
   -> if RESID delta collapses toward 0, the EC-vs-CA3 NNS gap is the INTRINSIC burst axis;
      if it persists, there is an NNS-class difference beyond burst.
 
 ############################################################################
+# STATE STRATIFICATION: active vs sleep, PAIRED within cell (same topdir)
+# does the EC-vs-CA3 burst gap / class change with brain state?
+############################################################################
+  EC   ks_gue      active=0.486 sleep=0.469 Δ(med)=-0.018  paired-Wilcoxon p=1 n=11
+  EC   burst_frac  active=0.046 sleep=0.059 Δ(med)=+0.013  paired-Wilcoxon p=0.7 n=11
+  CA3  ks_gue      active=0.433 sleep=0.478 Δ(med)=+0.045  paired-Wilcoxon p=0.12 n=17
+  CA3  burst_frac  active=0.040 sleep=0.052 Δ(med)=+0.012  paired-Wilcoxon p=0.4 n=17
+
+############################################################################
 # PILLAR-2: place/spatial-info ↔ ks_gue per region (EC = continuous-attractor)
 ############################################################################
-  EC   spatial_info_bits_per_spike  exc: ρ=+0.394 p=5.5e-03 n=48
-  EC   place_coherence              exc: ρ=+0.184 p=2.1e-01 n=48
-  CA3  spatial_info_bits_per_spike  exc: ρ=+0.254 p=5.7e-03 n=117
-  CA3  place_coherence              exc: ρ=+0.273 p=2.9e-03 n=117
-  DG   spatial_info_bits_per_spike  exc: n/a (n=5)
-  DG   place_coherence              exc: n/a (n=5)
+  EC   spatial_info_bits_per_spike  exc: ρ=+0.509 p=7.0e-11 n=144
+  EC   place_coherence              exc: ρ=+0.318 p=1.0e-04 n=144
+  CA3  spatial_info_bits_per_spike  exc: ρ=+0.284 p=1.8e-06 n=273
+  CA3  place_coherence              exc: ρ=+0.404 p=3.8e-12 n=273
+  DG   spatial_info_bits_per_spike  exc: n/a (n=6)
+  DG   place_coherence              exc: n/a (n=6)
   CA1  spatial_info_bits_per_spike  exc: n/a (n=0)
   CA1  place_coherence              exc: n/a (n=0)

@@ -48,7 +48,13 @@ from cross_substrate.population_fingerprint import (_corr_eig, _avalanche_onsets
 
 SESS_ROOT = "/home/combust/fmexplorer/crcns_cache/sessions"
 META = "/home/combust/fmexplorer/crcns_cache/docs/hc3-metadata-tables/hc3-cell.csv"
+SESS_META = "/home/combust/fmexplorer/crcns_cache/docs/hc3-metadata-tables/hc3-session.csv"
 COORD = os.path.join(_HERE, "coordinates")
+
+
+def load_behavior_map():
+    s = pd.read_csv(SESS_META, header=None)
+    return {row[2]: row[3] for _, row in s.iterrows()}  # session -> behavior
 DT = 0.025
 MIN_UNITS = 20
 WHL_FS = 39.0625
@@ -205,6 +211,7 @@ def _matrix(per_unit, t1, dt):
 def _process(arg):
     sdir, topdir, session = arg
     cellmap = load_cell_table()
+    behav = load_behavior_map().get(session, "?")
     units, tmax, pos, sr = parse_session(sdir, topdir, session, cellmap)
     if not units or tmax < 10:
         return [], [], [], f"{session}: no units"
@@ -234,7 +241,7 @@ def _process(arg):
                 except Exception:
                     i5q = None
                 pop_recs.append({"substrate": "hc3-port-pop", "topdir": topdir, "session": session,
-                                 "region": reg, "cell_type": ct, "n_units": len(us), "aggregation": agg,
+                                 "region": reg, "cell_type": ct, "behavior": behav, "n_units": len(us), "aggregation": agg,
                                  "n": int(len(o)), "session_s": round(tmax, 1),
                                  "axes_computed": {"I.5q_ks_gue_med": i5q, **fp},
                                  "source_artifact": "generated (hc-3 population aggregation)",
@@ -252,12 +259,12 @@ def _process(arg):
         fI = {k: _f(fn(canonical_spacings(spk))) for k, fn in FAMILY_I.items()}
         cell_recs.append({"substrate": "hc3-port-cell", "topdir": topdir, "session": session,
                           "ele": u["ele"], "clu": u["clu"], "region": u["region"],
-                          "cell_type": u["celltype"], "rate_hz": round(spk.size / max(tmax, 1e-9), 4),
+                          "cell_type": u["celltype"], "behavior": behav, "rate_hz": round(spk.size / max(tmax, 1e-9), 4),
                           "n": int(spk.size), "burst": _burst_stats(spk),
                           "axes_computed": {"I.5q_ks_gue_med": i5q, **fI},
                           "source_artifact": "generated (hc-3 per-cell spike-time)",
                           "computed_date": date.today().isoformat()})
-    pf = [{**r, "substrate": "hc3-placefields", "topdir": topdir, "session": session,
+    pf = [{**r, "substrate": "hc3-placefields", "topdir": topdir, "session": session, "behavior": behav,
            "source_artifact": "generated (hc-3 1D place map)", "computed_date": date.today().isoformat()}
           for r in _placefields(units, pos, tmax)]
     return pop_recs, cell_recs, pf, None

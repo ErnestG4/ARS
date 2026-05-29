@@ -1430,9 +1430,20 @@ EC ≡ CA3 in universality class.
 **Pillars.** Pillar-1: CA3 corr-eig Brody q=0.97 (GUE ✓), sync-event q≈0 (Poisson ✓); EC population
 UNDERPOWERED for corr-eig (<20 active EC units/session — the EC implants caught fewer principal cells than
 CA3), so EC pillar-1 untested here. Pillar-2: spatial_info↔ks_gue holds in **EC ρ=+0.39 (p=0.006)** AND
-**CA3 ρ=+0.25 (p=0.006)**, same sign as MEC/CA1/V1 — extends the per-cell extrinsic-selectivity-quality↔class
-link to EC + CA3 in a 3rd dataset (rat). (Caveat: ks_gue is burst-driven; spatial_info is extrinsic, so the
-link is genuine but its class-axis is the intrinsic-ISG structure.)
+**CA3 ρ=+0.25 (p=0.006)**, same sign as MEC/CA1/V1.
+
+**PILLAR-2 TALLY CALIBRATION (Will, keep this so a future read does NOT slide into "5/5, retinal
+unnecessary").** Confirmations are now FIVE regions — V1, CA1, MEC, EC, CA3 — but still only **TWO
+selectivity-axis KINDS**: orientation (V1, ×1) and spatial-coding (CA1/MEC/EC/CA3, ×4). The four spatial
+confirmations are NOT independent samples — they are interconnected hippocampal-formation stages (EC→DG→CA3→
+CA1, grid→place), all coding the SAME variable kind. So: 5 confirmations, 2 axis-kinds, one heavily-coupled
+spatial arm. **The off-DANDI retinal arc ([[planned_engineering_arc]]) retains its full independent value** —
+it is still the only queued test adding a genuinely different selectivity-axis KIND (motion/contrast, DS/OS)
+in an independent (non-hippocampal, feedforward) circuit. Count regions, not axis-kinds.
+**Honest caveat on the hc-3 pillar-2 specifically:** here the class axis (ks_gue) is burst-DOMINATED
+(ρ_ks~burst=0.80), so the EC/CA3 spatial_info↔ks_gue link is partly mediated by burst (place/grid cells are
+both spatially-informative AND bursty). spatial_info is extrinsic, but this is a WEAKER form of pillar-2 than
+V1's OSI↔class — flag pending a burst-controlled re-test of the spatial_info↔ks_gue link.
 
 **VERDICT — confirms + SHARPENS the bounded-negative, with a clean causal decomposition.** The de-confounded
 contrast was essential: it showed EC-vs-CA3 IS large and measurable in raw fingerprint (the cross-dataset
@@ -1446,3 +1457,27 @@ cross-dataset was confounded; within-dataset reveals the real difference AND its
 Banked: coordinates/hc3-port-{cell,pop}.jsonl, hc3-placefields.jsonl, hc3_analysis_{plain,ratematch}.txt;
 figures/P_hc3_ec_ca3_deconfound.png. Code: crcns_client.py, crcns_fetch.py, hc3_port.py, hc3_analysis.py,
 hc3_figure.py. Metadata cached crcns_cache/docs (gitignored raw). Verdicts Will's.
+
+**FOLLOW-UP (3 threads, 22 sessions / 19 topdirs; EC 261 / CA3 610 / DG 52 per-cell):**
+- **(3) burst-decomposition REPRODUCED at scale (n=659):** ks_gue~burst_frac Spearman **ρ=+0.78** (p=1e-136);
+  EC-vs-CA3 ks_gue RAW δ=−0.51 LARGE → **burst-residual δ=+0.03 negligible (p=0.56).** The de-confounded
+  EC-vs-CA3 NNS gap is 100% the intrinsic burst axis — now rock-solid at 4× the original n. burst_frac
+  δ=−0.71, cv2 δ=−0.62 (LARGE, EC≪CA3).
+- **(1) state-stratification — FLAT (active vs sleep, paired within-cell, ec016.45 = only EC+CA3 topdir with
+  sleep; EC n=11, CA3 n=17):** ks_gue and burst_frac are STATE-INVARIANT — EC ks_gue Δ=−0.02 (Wilcoxon p=1),
+  CA3 ks_gue Δ=+0.05 (p=0.12), EC burst Δ=+0.01 (p=0.7), CA3 burst Δ=+0.01 (p=0.4); none significant.
+  Consistent with the EC-vs-CA3 difference being a FIXED intrinsic cell-class property (burstiness), not a
+  state-dependent dynamic. (No .sts/.states in hc-3 sleep tarballs → SWS/REM sub-scoring would need the LFP
+  .eeg; active-vs-whole-sleep only. Single-topdir, modest n.)
+- **(2) EC pillar-1 (pooled corr-eig, hc3_ec_pillar1.py — align units by (ele,clu) across a topdir's sessions,
+  stack count matrices):** at the one powered topdir (ec013.55, 3 linear pooled, 31 EC units) **EC corr-eig
+  ks_gue=0.093 — strongly GUE-like**, matching CA3 (0.251) and the GUE pole; + EC avl-onset q=0.82 GUE-leaning
+  (n=4). Pillar-1 (structural GUE poles) GENERALISES to the continuous-attractor EC where powered.
+  CONFIRMED-BUT-MARGINAL: EC implants caught few principal cells (8-35/topdir) → corr-eig bulk≈30 (Brody/BRρ
+  fitters underpowered at that size; ks_gue is the robust readout). Other topdirs EC-underpowered.
+- Pillar-2 at larger n: EC spatial_info↔ks_gue ρ=+0.51 (n=144), CA3 ρ=+0.28 (n=273) — both stronger; same
+  burst-mediation caveat (class axis is burst-dominated). NB tally unchanged: still 2 axis-kinds (orientation,
+  spatial), retinal arc retains independent value.
+**NET (complete):** the bounded-negative stands, fully sharpened — EC≠CA3 in raw fingerprint (LARGE, robust
+n=659), 100% via intrinsic state-invariant burstiness; pillar-1 GUE poles hold in EC where powered; no
+attractor-topology-specific signature. Banked: hc3_analysis_*.txt, hc3_ec_pillar1.txt, hc3_ec_pillar1.py.

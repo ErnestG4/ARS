@@ -1,0 +1,33 @@
+EC PILLAR-1 via POOLED corr-eig (does EC->GUE like CA3?)
+behaviors pooled: ['linear', 'bigSquare', 'Mwheel', 'wheel', 'midSquare']
+
+ec013.55:
+   EC   corr-eig: q=  -   BRρ=  -   ks_gue=0.093 (nU=31, bulk=30, 3 sessions)
+   CA3  corr-eig: q=  -   BRρ=  -   ks_gue=0.251 (nU=34, bulk=31, 3 sessions)
+   CA1  corr-eig: underpowered (<20 units) (nU=0)
+   DG   corr-eig: underpowered (<20 units) (nU=0)
+ec013.53:
+   EC   corr-eig: corr-eig None (bulk<30) (nU=22)
+   CA3  corr-eig: corr-eig None (bulk<30) (nU=33)
+   CA1  corr-eig: underpowered (<20 units) (nU=0)
+   DG   corr-eig: underpowered (<20 units) (nU=0)
+ec013.54:
+   EC   corr-eig: corr-eig None (bulk<30) (nU=20)
+   CA3  corr-eig: corr-eig None (bulk<30) (nU=25)
+   CA1  corr-eig: underpowered (<20 units) (nU=0)
+   DG   corr-eig: underpowered (<20 units) (nU=0)
+ec016.44:
+   EC   corr-eig: underpowered (<20 units) (nU=17)
+   CA3  corr-eig: corr-eig None (bulk<30) (nU=30)
+   CA1  corr-eig: underpowered (<20 units) (nU=0)
+   DG   corr-eig: underpowered (<20 units) (nU=0)
+ec013.56:
+   EC   corr-eig: underpowered (<20 units) (nU=19)
+   CA3  corr-eig: q=  -   BRρ=  -   ks_gue=0.214 (nU=48, bulk=43, 1 sessions)
+   CA1  corr-eig: underpowered (<20 units) (nU=0)
+   DG   corr-eig: underpowered (<20 units) (nU=0)
+ec016.59:
+   EC   corr-eig: underpowered (<20 units) (nU=9)
+   CA3  corr-eig: q=  -   BRρ=  -   ks_gue=0.123 (nU=43, bulk=36, 1 sessions)
+   CA1  corr-eig: underpowered (<20 units) (nU=0)
+   DG   corr-eig: underpowered (<20 units) (nU=19)
