@@ -95,6 +95,14 @@ Net: **2 clean confirmations (V1 orientation, EC spatial); 3 attenuated HPC spat
 collapsed (CA3 was burst-tautology). Axis-kinds still 2.** Retinal arc retains FULL value (motion/contrast,
 independent feedforward circuit) — adds the third axis-kind.
 
+> **⚠ CA3 IS NOT A PILLAR-2 CONFIRMATION (corrected 2026-05-29).** A future reader might expect CA3 to
+> confirm pillar-2 (place cells are spatially selective). It does NOT: in CA3 the spatially-selective cells
+> ARE the bursty pyramidal complex-spike subset, so the raw spatial_info↔ks_gue link (+0.28) is burst-
+> tautology — it COLLAPSES under burst-control (partial +0.056, p=0.36, 20% retained). This cashes in the
+> Buzsáki-cycle-1-G2 burst↔ks_gue flag (ρ=+0.61, ISI-derived) at scale. **CA3 is dropped from the pillar-2
+> tally; do not cite it as a confirmation.** (hc-3 EC, by contrast, IS clean — its spatial cells are not the
+> bursty subset.)
+
 **DEEP CLOSURE on pillar-2 (2026-05-29 cascade):** the orientation arm extended cleanly across the full
 Allen visual hierarchy (LGd + 6 cortical visual areas, **n=7846 cells**, all burst-clean, |OSI↔burst|<0.13
 everywhere; pooled raw +0.445, partial +0.464). **The pillar refines to SELECTIVITY-QUALITY↔class, NOT
