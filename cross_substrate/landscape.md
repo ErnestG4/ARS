@@ -75,7 +75,25 @@ pooled "rate-gating crossover" was a **Simpson's-paradox artifact** (within-subs
 rate-invariant at its own level). ⇒ per-cell ks_gue is a SUBSTRATE-RELATIVE readout (bounds cross-substrate
 per-cell comparison); the hc-3 burst-collapse is hc-3-specific; and crucially it is **REASSURING for H1/
 pillar-2** — in the Allen/NPx-spont regime ks_gue is burst-INDEPENDENT, so OSI↔ks_gue is not a burst confound
-([[ksgue_burst_substrate_relative]]). V1 burst-control of H1 in progress. **Methodological catch: the
+([[ksgue_burst_substrate_relative]]). **V1 H1 burst-control CLOSED:** OSI↔ks_gue raw=+0.479, OSI↔burst=+0.029
+(n.s.), partial(|burst)=+0.488 (retained 102%) — H1 is BURST-ORTHOGONAL.
+
+**SYSTEMATIC PILLAR-2 BURST-CONTROL (2026-05-29; partial Spearman corr(selectivity, ks_gue | burst)):**
+applied to every banked pillar-2 instance. Refines the tally into **3 categories**:
+- **CLEAN** (extrinsic axis burst-orthogonal, partial≈raw): **V1/OSI** (n=2144, retained 102%) +
+  **hc-3 EC/spatial_info** (n=144, partial=+0.541, retained 106%). TWO selectivity-axis kinds (orientation,
+  spatial), TWO independent circuits.
+- **ATTENUATED but surviving** (extrinsic partly burst-correlated; partial 69–79% of raw, still significant):
+  Buzsáki-CA1/spatial_coherence (71%), 000638-MEC/spatial_info (79%), 000638-CA1/spatial_info (69%). All HPC
+  subfields on the spatial axis (coupled pathway). Place/grid cells ARE bursty so spatial_info has a burst
+  component (~+0.3), but the residual extrinsic↔class link is robust.
+- **COLLAPSED** (extrinsic IS the burst axis; partial n.s.): **hc-3 CA3/spatial_info** (n=273, raw=+0.28 →
+  partial=+0.056 p=0.36, retained 20%). In CA3 the bursty pyramidal cells ARE the place cells →
+  spatial_info=burst tautology. **DROP CA3 from the pillar-2 tally.**
+
+Net: **2 clean confirmations (V1 orientation, EC spatial); 3 attenuated HPC spatials (coupled pathway); 1
+collapsed (CA3 was burst-tautology). Axis-kinds still 2.** Retinal arc retains FULL value (motion/contrast,
+independent feedforward circuit) — adds the third axis-kind. **Methodological catch: the
 cross-substrate validity BRIDGE.** When comparing region-A(substrate-1) vs region-B(substrate-2), measure a
 SHARED anchor region in BOTH; here CA1+DG differ across 000638-vs-Allen by δ≈−0.9 (near-maximal) ⇒ the raw
 MEC-vs-CA3 contrast is recording-context, NOT biology — the bridge correctly voided it. Extends

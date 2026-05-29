@@ -1538,3 +1538,37 @@ burst-control; the *extrinsic* selectivity↔class link (H1, pillar-2) is BURST-
 empirical support for [[intrinsic_vs_extrinsic_predictor]] at scale: intrinsic-axes are tautological/burst-
 mediated, extrinsic-axes (OSI, spatial-info) are not — the H1/pillar-2 program rests on the burst-orthogonal
 extrinsic side. Banked: coordinates/v1-burst-osi.jsonl; figures/P_v1_h1_burst_control.png; allen_v1_burst.py.
+
+**Systematic pillar-2 BURST-CONTROL across substrates (2026-05-29, pillar2_burst_control.py — partial
+Spearman corr(extrinsic_selectivity, ks_gue | burst), rank-residual on both):**
+
+| substrate / region | extrinsic axis | n | raw ρ | sel↔burst | partial(\|burst) | retained | verdict |
+|---|---|---:|---:|---:|---:|---:|---|
+| V1 (Allen / drift_grat) | OSI | 2144 | +0.479*** | +0.029 | **+0.488*** | **102%** | CLEAN (OSI⊥burst) |
+| hc-3 EC (tetrode/task) | spatial_info | 144 | +0.509*** | −0.115 | **+0.541*** | **106%** | CLEAN (EC spatial ⊥ burst) |
+| Buzsáki CA1 (cycle-2a) | spatial_coherence | 542 | +0.375*** | +0.276 | +0.265*** | 71% | ATTENUATED |
+| 000638 MEC | spatial_info | 255 | +0.433*** | +0.313 | +0.342*** | 79% | ATTENUATED |
+| 000638 CA1 | spatial_info | 49 | +0.438*** | +0.352 | +0.301* | 69% | ATTENUATED |
+| **hc-3 CA3** (tetrode) | spatial_info | 273 | +0.284*** | +0.337 | **+0.056 (p=0.36)** | **20%** | **COLLAPSES** |
+| DG (000638, hc-3) | spatial_info | 17–6 | — | — | — | — | UNDERPOWERED |
+
+**Pillar-2 validity depends on burst-orthogonality of the EXTRINSIC AXIS in that substrate.** Two clean
+confirmations (V1/OSI, hc-3 EC; |sel↔burst|<0.13, partial≈raw); three attenuated-but-surviving spatial
+confirmations in HPC subfields (Buzsáki CA1, 000638 MEC, 000638 CA1; sel↔burst≈+0.3, partial 69–79% of raw);
+**one COLLAPSE — hc-3 CA3**, where spatial_info IS the burst axis (sel↔burst=+0.34, burst↔ks=+0.74), so the
+raw pillar-2 (ρ=+0.28) is burst-tautology and partial vanishes (ρ=+0.06, p=0.36).
+
+**The biological reading is clean:** in CA3 the bursty pyramidal complex-spike cells ARE the place cells, so
+"spatial_info" tracks "burst" → the raw correlation is intrinsic biophysics. In EC, the spatial cells are NOT
+the bursty subset, so spatial_info is genuine extrinsic-selectivity. V1/OSI is orientation-tuning which has
+no biophysical reason to correlate with burst — hence the cleanest pillar-2.
+
+**Updated pillar-2 tally (post-burst-control, refining Will's calibration):**
+- CLEAN confirmations: 2 (V1/orientation, hc-3 EC/spatial — different selectivity-axis kinds, independent
+  circuits).
+- ATTENUATED-but-surviving: 3 (HPC spatial subfields — all coupled stages of one pathway, all spatial axis).
+- COLLAPSED: 1 (hc-3 CA3 — NOT a valid pillar-2 instance; the raw ρ was burst tautology).
+- UNDERPOWERED: DG (multiple substrates).
+**Axis-kinds: still 2** (orientation V1, spatial CA1/MEC/EC; CA3 dropped). The off-DANDI retinal arc
+([[planned_engineering_arc]]) retains its full independent value — motion/contrast axis, feedforward circuit.
+Banked: pillar2_burst_control.py + coordinates/pillar2_burst_control.txt + figures/P_pillar2_burst_control.png.

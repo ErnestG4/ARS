@@ -1,0 +1,22 @@
+====================================================================================================
+PILLAR-2 BURST-CONTROL — does the per-cell extrinsic selectivity↔class link survive
+controlling for intrinsic burstiness? Partial Spearman corr(selectivity, ks_gue | burst).
+====================================================================================================
+
+V1 (Allen VISp / drifting_gratings, OSI):
+  OSI ↔ ks_gue                   n=2144  raw=+0.479***  sel↔burst=+0.029  burst↔ks=+0.251  PARTIAL(|burst)=+0.488 p=1.7e-128  retained=102%  <CLEAN>
+
+Buzsáki CA1 (tetrode, Maze; spatial_coherence ↔ ks_gue, controlled for burst_index):
+  CA1 spatial_coherence ↔ ks_gue n= 542  raw=+0.375***  sel↔burst=+0.276  burst↔ks=+0.766  PARTIAL(|burst)=+0.265 p=3.5e-10  retained=71%
+
+000638 (NPx, track task; spatial_info):
+  MEC spatial_info ↔ ks_gue      n= 255  raw=+0.433***  sel↔burst=+0.313  burst↔ks=+0.464  PARTIAL(|burst)=+0.342 p=2.0e-08  retained=79%
+  CA1 spatial_info ↔ ks_gue      n=  49  raw=+0.438***  sel↔burst=+0.352  burst↔ks=+0.615  PARTIAL(|burst)=+0.301 p=3.6e-02  retained=69%
+  DG spatial_info ↔ ks_gue       n=  17  raw=-0.051***  sel↔burst=-0.338  burst↔ks=+0.623  PARTIAL(|burst)=+0.216 p=4.0e-01  retained=-420%
+
+hc-3 (tetrode, task; spatial_info):
+  EC spatial_info ↔ ks_gue       n= 144  raw=+0.509***  sel↔burst=-0.115  burst↔ks=+0.175  PARTIAL(|burst)=+0.541 p=2.4e-12  retained=106%
+  CA3 spatial_info ↔ ks_gue      n= 273  raw=+0.284***  sel↔burst=+0.337  burst↔ks=+0.737  PARTIAL(|burst)=+0.056 p=3.6e-01  retained=20%
+  DG spatial_info ↔ ks_gue       n=   6  underpowered
+
+Key: <CLEAN> = extrinsic axis is burst-orthogonal (sel↔burst<0.1). retained = partial/raw.

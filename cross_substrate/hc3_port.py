@@ -195,7 +195,8 @@ def _placefields(units, pos, tmax, nbins=50):
             ksg = _f(classify(spk).get("ks_gue_med"))
         except Exception:
             ksg = None
-        out.append({"region": u["region"], "celltype": u["celltype"], "n": int(spk.size),
+        out.append({"region": u["region"], "celltype": u["celltype"], "ele": u["ele"], "clu": u["clu"],
+                    "n": int(spk.size),
                     "spatial_info_bits_per_spike": info, "place_coherence": coh, "ks_gue_med": ksg})
     return out
 
