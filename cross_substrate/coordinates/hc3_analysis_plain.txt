@@ -1,0 +1,63 @@
+hc-3: 368 per-cell, 36 pop, 203 placefield records
+per-cell by region: {'EC': 91, 'CA3': 234, 'DG': 43}
+topdirs: ['ec013.52', 'ec013.53', 'ec013.55', 'ec013.56', 'ec016.57', 'ec016.58', 'ec016.59']
+
+############################################################################
+# P2.1 PER-CELL DISTRIBUTIONS (median) — hc-3 within-dataset
+############################################################################
+
+  cell_type=all
+  region nCell      ks_gue     brody_q          w1  burst_frac         cv2     rate_hz
+  EC       91       0.506       0.000       1.089       0.025       1.082       0.808
+  CA3     234       0.633       0.000       1.358       0.226       1.273       0.303
+  DG       43       0.446       0.000       0.981       0.080       1.057       0.595
+
+  cell_type=excitatory
+  region nCell      ks_gue     brody_q          w1  burst_frac         cv2     rate_hz
+  EC       64       0.509       0.000       1.104       0.023       1.144       0.760
+  CA3     211       0.649       0.000       1.379       0.245       1.286       0.249
+  DG       18       0.550       0.000       1.208       0.087       1.347       0.106
+
+############################################################################
+# DE-CONFOUNDED EC-vs-CA3 (excitatory, within-dataset — NO bridge confound)
+############################################################################
+  ks_gue  : δ=-0.631 LARGE      p=2.0e-14*** n=64v211  med EC=0.509 CA3=0.649
+  brody_q : δ=+0.011 negligible p=3.7e-01  n=64v210  med EC=0.000 CA3=0.000
+  w1      : δ=-0.709 LARGE      p=8.7e-18*** n=64v211  med EC=1.104 CA3=1.379
+  brho    : δ=+0.472 medium     p=1.1e-08*** n=64v211  med EC=0.003 CA3=0.001
+  burst_frac: δ=-0.822 LARGE      p=2.2e-23*** n=64v211  med EC=0.023 CA3=0.245
+  cv2     : δ=-0.634 LARGE      p=1.7e-14*** n=64v211  med EC=1.144 CA3=1.286
+
+############################################################################
+# P2.2 POPULATION (pillar-1: corr-eig GUE in EC & CA3?)
+############################################################################
+  region agg         nRec   brody_q      brho    ks_gue
+  EC    avl-onset      1     0.638     0.970     0.250
+  EC    sync-event     1     0.000     0.005     0.431
+  CA3   corr-eig       1     0.973     0.944     0.110
+  CA3   avl-onset      7     0.604     0.902     0.239
+  CA3   sync-event     7     0.000     0.001     0.484
+  DG    avl-onset      1     0.739     0.999     0.239
+  DG    sync-event     1     0.000     0.004     0.524
+
+############################################################################
+# BURST-CONTROL (intrinsic-vs-extrinsic): does EC-vs-CA3 ks_gue survive
+# removing the burst_frac trend? (CA3 pyramidal complex-spike bursting -> clustered ISI)
+############################################################################
+  ks_gue~burst_frac (pooled EC+CA3 exc): Spearman ρ=+0.799 p=3.0e-62 (n=275)
+  EC-vs-CA3 ks_gue  RAW         : δ=-0.631 LARGE      p=2.0e-14*** n=64v211
+  EC-vs-CA3 ks_gue  BURST-RESID : δ=+0.037 negligible p=6.6e-01  n=64v211
+  -> if RESID delta collapses toward 0, the EC-vs-CA3 NNS gap is the INTRINSIC burst axis;
+     if it persists, there is an NNS-class difference beyond burst.
+
+############################################################################
+# PILLAR-2: place/spatial-info ↔ ks_gue per region (EC = continuous-attractor)
+############################################################################
+  EC   spatial_info_bits_per_spike  exc: ρ=+0.394 p=5.5e-03 n=48
+  EC   place_coherence              exc: ρ=+0.184 p=2.1e-01 n=48
+  CA3  spatial_info_bits_per_spike  exc: ρ=+0.254 p=5.7e-03 n=117
+  CA3  place_coherence              exc: ρ=+0.273 p=2.9e-03 n=117
+  DG   spatial_info_bits_per_spike  exc: n/a (n=5)
+  DG   place_coherence              exc: n/a (n=5)
+  CA1  spatial_info_bits_per_spike  exc: n/a (n=0)
+  CA1  place_coherence              exc: n/a (n=0)

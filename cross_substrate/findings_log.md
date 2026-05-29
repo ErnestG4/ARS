@@ -1396,3 +1396,53 @@ Banked: coordinates/dr-port-{cell,pop}.jsonl, allen-hpf-{cell,pop}.jsonl, dr-pla
 dr000638_composition.json, attractor_analysis_{plain,ratematch}.txt; figures/P_ec_ca3_attractor.png +
 P_ec_ca3_pillar2.png. Code: nwb_remote.py, dual_region_scan.py, allen_hpf.py, dual_region_port.py,
 attractor_analysis.py, attractor_figure.py, dual_region_placefields.py. Verdicts Will's.
+
+---
+
+## 2026-05-28 — DE-CONFOUNDED EC-vs-CA3 on CRCNS hc-3 (substrate #6; within ONE dataset)
+
+**Frame.** The same-night 000638-vs-Allen MEC-vs-CA3 was confounded-out by the cross-dataset
+[[cross_substrate_validity_bridge]] (shared CA1/DG differed δ≈−0.9). CRCNS **hc-3** (Mizuseki/Buzsáki)
+records EC (EC2-5) + CA3 (+DG) **SIMULTANEOUSLY in one implant**, so the EC-vs-CA3 contrast runs WITHIN one
+recording — no cross-dataset confound. Will provided CRCNS creds; the de-confounded test is the real version
+of tonight's headline.
+
+**P0/build.** crcns_client.py (auth POST index.php, creds from ~/.netrc), crcns_fetch.py (download tarball →
+extract ONLY .res/.clu/.whl/.xml → delete tarball; sequential + size-verify, ~10.8 MB/s), hc3_port.py
+(Neuroscope/Klusters parser: .xml 20 kHz → .res sample-idx → spike_times; .clu cluster ids ≥2; hc3-cell.csv
+→ region + cellType p/i/n; .whl 39.06 Hz position). 20 topdirs have EC+CA3 simultaneous; CA1 NOT co-targeted
+in those implants. 7 sessions ported (ec013 ×4 EC+CA3; ec016 ×3 EC+CA3+DG): 368 per-cell (EC 91 / CA3 234 /
+DG 43) + 36 pop + 203 placefield records.
+
+**THE de-confounded EC-vs-CA3 result (excitatory, rate-matched ≤1.18 Hz, within-dataset):** LARGE raw
+fingerprint difference — ks_gue δ=−0.53***, w1 δ=−0.63***, BRρ δ=+0.42***, **burst_frac δ=−0.82***, cv2
+δ=−0.63*** (EC markedly MORE GUE-like and FAR less bursty than CA3). So the cross-dataset confound HAD masked
+a real, large within-dataset difference.
+
+**BURST-CONTROL (intrinsic-vs-extrinsic) — the decisive decomposition:** across pooled EC+CA3 excitatory
+cells, ks_gue ~ burst_frac Spearman **ρ=+0.80** (n=275, p=3e-62). Residualizing ks_gue on the burst trend,
+the EC-vs-CA3 ks_gue gap **COLLAPSES from δ=−0.63 (LARGE) to δ=+0.04 (negligible, p=0.66).** ⇒ **the entire
+within-dataset EC-vs-CA3 NNS-fingerprint difference IS the intrinsic burst/ISI axis** (CA3 pyramidal
+complex-spike bursting vs EC's less-bursty principal cells) — a tautological cell-class biophysics property
+([[intrinsic_vs_extrinsic_predictor]]), NOT an attractor-topology-specific signature. Controlling for burst,
+EC ≡ CA3 in universality class.
+
+**Pillars.** Pillar-1: CA3 corr-eig Brody q=0.97 (GUE ✓), sync-event q≈0 (Poisson ✓); EC population
+UNDERPOWERED for corr-eig (<20 active EC units/session — the EC implants caught fewer principal cells than
+CA3), so EC pillar-1 untested here. Pillar-2: spatial_info↔ks_gue holds in **EC ρ=+0.39 (p=0.006)** AND
+**CA3 ρ=+0.25 (p=0.006)**, same sign as MEC/CA1/V1 — extends the per-cell extrinsic-selectivity-quality↔class
+link to EC + CA3 in a 3rd dataset (rat). (Caveat: ks_gue is burst-driven; spatial_info is extrinsic, so the
+link is genuine but its class-axis is the intrinsic-ISG structure.)
+
+**VERDICT — confirms + SHARPENS the bounded-negative, with a clean causal decomposition.** The de-confounded
+contrast was essential: it showed EC-vs-CA3 IS large and measurable in raw fingerprint (the cross-dataset
+test couldn't even see it), THEN the burst-control showed the difference reduces 100% to intrinsic cell-class
+burstiness, 0% to an attractor-topology-specific NNS signature. **The continuous-vs-discrete attractor
+distinction produces no spike-train-fingerprint signature beyond what intrinsic biophysics (burst) already
+explains** — consistent with [[ars_resolving_power]] (the fingerprint reads cell-level intrinsic ISI
+structure, not manifold topology). The [[cross_substrate_validity_bridge]] methodology is vindicated:
+cross-dataset was confounded; within-dataset reveals the real difference AND its (intrinsic) origin.
+
+Banked: coordinates/hc3-port-{cell,pop}.jsonl, hc3-placefields.jsonl, hc3_analysis_{plain,ratematch}.txt;
+figures/P_hc3_ec_ca3_deconfound.png. Code: crcns_client.py, crcns_fetch.py, hc3_port.py, hc3_analysis.py,
+hc3_figure.py. Metadata cached crcns_cache/docs (gitignored raw). Verdicts Will's.

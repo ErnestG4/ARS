@@ -56,7 +56,17 @@ adding an independent selectivity AXIS). **Attractor-topology hypothesis-engagem
 — BOTH pillars operate IDENTICALLY in continuous (MEC) and discrete/relay (CA1/CA3); the fingerprint does NOT
 track continuous-vs-discrete attractor topology** (findings_log 2026-05-28). NB the negative bounds the
 INSTRUMENT (ARS fingerprint resolves cell-level selectivity + structural poles, NOT population-manifold
-geometry — where this hypothesis would live, by construction) as much as the biology ([[ars_resolving_power]]). **Methodological catch: the
+geometry — where this hypothesis would live, by construction) as much as the biology ([[ars_resolving_power]]).
+
+**DE-CONFOUNDED follow-up (CRCNS hc-3, substrate #6, EC+CA3 SIMULTANEOUS in one implant — Will provided
+creds):** the within-dataset EC-vs-CA3 contrast (no bridge confound) IS LARGE in raw fingerprint (rate-matched
+exc: ks_gue δ=−0.53, w1 −0.63, burst −0.82, cv2 −0.63) — the signal the cross-dataset bridge had masked. BUT
+the **burst-control decomposition is decisive**: ks_gue~burst_frac ρ=+0.80, and residualizing on burst
+collapses EC-vs-CA3 ks_gue from δ=−0.63 → +0.04 (n.s.). ⇒ the entire difference is the INTRINSIC burst/ISI
+axis (CA3 complex-spike bursting), tautological cell-class biophysics, NOT attractor topology. Pillar-2
+(spatial_info↔ks_gue) reproduces in EC (+0.39) AND CA3 (+0.25). **Net: the de-confounded test SHARPENS the
+bounded-negative — EC≠CA3 in raw fingerprint but reduces 100% to intrinsic burstiness; the validity-bridge
+methodology is vindicated (cross-dataset confounded; within-dataset reveals the real, intrinsic origin).** **Methodological catch: the
 cross-substrate validity BRIDGE.** When comparing region-A(substrate-1) vs region-B(substrate-2), measure a
 SHARED anchor region in BOTH; here CA1+DG differ across 000638-vs-Allen by δ≈−0.9 (near-maximal) ⇒ the raw
 MEC-vs-CA3 contrast is recording-context, NOT biology — the bridge correctly voided it. Extends
@@ -79,6 +89,9 @@ MEC-vs-CA3 contrast is recording-context, NOT biology — the bridge correctly v
 - *Neuro Allen-HPF (subfields, substrate #5):* 8 sessions, 4358 per-cell + 255 pop (CA3 466 / CA1 2463 /
   DG 730 / SUB 407 / ProS 283); CA3 = discrete-attractor pole. spontaneous block. CA1+DG = cross-substrate
   bridge vs MEC-substrate.
+- *Neuro hc-3 (CRCNS Mizuseki/Buzsáki, substrate #6):* 7 sessions, 368 per-cell + 36 pop + 203 placefield
+  (EC 91 / CA3 234 / DG 43); EC+CA3(+DG) SIMULTANEOUS in one implant = DE-CONFOUNDED EC-vs-CA3 (no bridge).
+  Neuroscope/Klusters format via crcns_client.py + hc3_port.py (selective extract, no raw .dat/.eeg DL).
 - *Calibration anchors:* GUE / GOE / GSE / Poisson / clock / uniform-jitter (the landscape corners).
 - *Population-level (all 12 sessions):* corr-eig→GUE / avl-onset→intermediate / sync-event→Poisson
   (3 trustable, consistent across sessions) + rate-peak (artifact control).
