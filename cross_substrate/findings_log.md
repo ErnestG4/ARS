@@ -1481,3 +1481,44 @@ hc3_figure.py. Metadata cached crcns_cache/docs (gitignored raw). Verdicts Will'
 **NET (complete):** the bounded-negative stands, fully sharpened — EC≠CA3 in raw fingerprint (LARGE, robust
 n=659), 100% via intrinsic state-invariant burstiness; pillar-1 GUE poles hold in EC where powered; no
 attractor-topology-specific signature. Banked: hc3_analysis_*.txt, hc3_ec_pillar1.txt, hc3_ec_pillar1.py.
+
+---
+
+## 2026-05-29 — What does per-cell ks_gue MEASURE? burst↔ks_gue coupling is SUBSTRATE-specific
+
+**Frame.** The hc-3 burst-control found EC-vs-CA3 ks_gue collapses to the burst axis (ks_gue~burst ρ=0.78).
+That raised the program-wide question: is ks_gue (the per-cell I.5q axis used as "universality class" across
+ALL neural substrates incl. the H1/pillar-2 work) just a burstiness re-encoding everywhere? Tested on banked
+burst+ks_gue (excitatory) across the 3 substrates that have both: hc-3 (EC/CA3/DG), 000638 (MEC/CA1/DG),
+Allen-HPF (CA3/CA1/DG). NO new data.
+
+**NOT universal — substrate-specific, by a wide margin:**
+- hc-3 (tetrode, task, ~0.3 Hz): burst↔ks_gue ρ=**+0.78** (CA3 +0.80).
+- 000638 (Neuropixels, task, ~0.5 Hz): ρ=**+0.44**.
+- Allen-HPF (Neuropixels, spontaneous, ~3 Hz): ρ=**−0.08** (CA3 −0.13).
+The SAME region (CA3) gives ρ=+0.80 in hc-3 vs −0.13 in Allen.
+
+**It is NOT rate-gating — the pooled "rate crossover" is a SIMPSON'S-PARADOX artifact.** A pooled (all-3-
+substrate) rate-binned analysis showed an apparent crossover (ρ≈+0.31 below 1 Hz → ≈−0.09 above), which
+looked like rate-gated coupling. But WITHIN each substrate the coupling is ~rate-INVARIANT at its own level
+(hc-3 +0.68→+0.83 across 0.04–1.5 Hz; 000638 ~+0.44 across 0.1–1.8 Hz; Allen ~0 to −0.24 across 0.2–10 Hz).
+The pooled crossover was manufactured by substrate-sorting (low-rate bins = hc-3/000638 = high coupling;
+high-rate bins = Allen = zero coupling) — a clean cautionary tale: **testing a within-cell relationship on
+POOLED multi-substrate data can manufacture a spurious covariate-dependence that vanishes within-substrate.**
+
+**Implications (program-wide):**
+1. **Per-cell ks_gue is a SUBSTRATE-RELATIVE readout** — what it reflects about a cell ranges from ~80% burst
+   (hc-3 tetrode/task) to burst-INDEPENDENT (Allen NPx/spont). So "ks_gue = universality class" cannot be
+   interpreted identically across substrates; cross-substrate per-cell ks_gue comparison is fraught (another
+   reason the 000638-vs-Allen bridge failed — [[cross_substrate_validity_bridge]]).
+2. **The hc-3 EC-vs-CA3 burst-collapse is hc-3-specific** (valid there, where ks_gue IS burst-dominated) —
+   NOT a universal "ks_gue=burst" law.
+3. **REASSURING for the Allen/V1 H1/pillar-2 work:** in Allen ks_gue is burst-INDEPENDENT (ρ≈0), so the
+   H1 (OSI↔ks_gue) and pillar-2 (selectivity↔ks_gue) findings on Allen/Neuropixels data are NOT a hidden
+   burst confound. The burst-confound worry is real for low-rate tetrode/task data, absent for the NPx/spont
+   regime where H1 was established.
+4. ks_gue is also rate-correlated in the pooled set (rate↔ks_gue ρ=+0.36), but this too is partly substrate-
+   confounded — rate-match WITHIN substrate remains the discipline ([[ars_rate_dependence_lesson]]).
+
+Banked: figures/P_burst_ksgue_substrate_specific.png. Analysis-only (banked dr-port/allen-hpf/hc3-port
+cells). Verdicts Will's.
