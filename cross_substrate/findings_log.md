@@ -1653,3 +1653,16 @@ burst). In V1/NPx where burst↔ks_gue=+0.25 (modest), ks_gue stays cross-stimul
 gratings; state-dependent in Buzsáki CA1/tetrode. Another instance of [[ksgue_burst_substrate_relative]] —
 the burst-coupling and the state-dependence go together (substrates where ks_gue ≈ burst inherit burst's
 state-dependence).
+
+**QUALITY-vs-PREFERENCE distinction generalizes to CA1 (2026-05-29, Buzsáki Maze-Awake excitatory n=542):**
+- spatial_info (quality, "how well a cell encodes position") ↔ ks_gue: raw +0.293, partial(\|burst)=+0.248,
+  retained 85% — SURVIVES (analogous to V1 OSI).
+- theta_mrl (preference, "preferred theta phase strength") ↔ ks_gue: raw −0.213, partial=−0.045,
+  retained 21% — **COLLAPSES under burst-control** (analogous to V1 pref_sf/pref_tf being class-orthogonal).
+
+Two substrates confirm: **pillar-2 is selectivity-QUALITY↔class, not PREFERENCE↔class.** In V1, the QUALITY
+axes (OSI, DSI, F1/F0) couple to ks_gue and are burst-clean; PREFERENCE axes (pref_sf, pref_tf) are
+class-orthogonal. In CA1, spatial_info (quality) survives burst-control with 85% retention; theta_mrl
+(preference) shows an apparent link that vanishes under partial — was burst-mediated. **Class tracks HOW
+WELL a cell discriminates, NOT what it locks onto.** This is the cleanest statement of what pillar-2
+measures across the program. [[pillar2_burst_control_systematic]] sharpened.
