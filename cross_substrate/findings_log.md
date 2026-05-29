@@ -1638,3 +1638,18 @@ end of that intrinsic distribution. The pillar-2 link (OSI↔ks_gue) is the *ext
 intrinsic per-cell property — not stimulus-driven, not burst-mediated. SELECTIVITY-QUALITY (sharpness of
 tuning) tracks an intrinsic NNS-class identity that the cell carries into every stimulus context including
 spontaneous. Banked: figures/P_V1_H1_stimulus_invariance.png.
+
+**CA1 cross-state ks_gue STABILITY — NUANCE (Buzsáki, 2026-05-29):** the V1 "ks_gue is intrinsic per cell"
+finding does NOT generalise to CA1. n=465 excitatory cells with ks_gue in all 6 natural_cells (PRE-NonREM/
+PRE-REM/Maze-Awake/POST-NonREM/POST-REM/Awake-in-sleep). **Median pairwise cross-state ρ = +0.02** (vs V1
+cross-stimulus median ~+0.7). Only a few state-pairs show modest correlation (Maze-Awake↔Awake-in-sleep
++0.45; Maze-Awake↔POST-NonREM +0.43; PRE-NonREM↔PRE-REM +0.40); most pairs ~0.
+
+**Interpretation:** Buzsáki CA1's burst↔ks_gue=+0.77 (tetrode regime, [[ksgue_burst_substrate_relative]]),
+and burst is heavily state-modulated in CA1 (SWS sharp-wave bursts vs REM theta vs Awake place-cell
+firing). So when ks_gue is burst-DOMINATED, it is ALSO state-DEPENDENT (varies with the state-dependent
+burst). In V1/NPx where burst↔ks_gue=+0.25 (modest), ks_gue stays cross-stimulus stable.
+**The "ks_gue is intrinsic-per-cell" claim is itself SUBSTRATE-RELATIVE:** intrinsic in V1/NPx-spont/
+gratings; state-dependent in Buzsáki CA1/tetrode. Another instance of [[ksgue_burst_substrate_relative]] —
+the burst-coupling and the state-dependence go together (substrates where ks_gue ≈ burst inherit burst's
+state-dependence).
