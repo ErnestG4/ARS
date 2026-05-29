@@ -1599,3 +1599,23 @@ hc-3 EC; HPC subfields attenuated; CA3 dropped).
 
 Banked: figures/P_H1_visual_hierarchy_burst_clean.png; v1-burst-osi.jsonl now has n=7846 across 7 areas.
 Verdicts Will's.
+
+**V1 tuning-axis landscape (2026-05-29, n=7846 pooled across Allen visual areas; join allen-depth.jsonl ↔
+v1-burst-osi.jsonl by session+unit_id).** Cheap follow-up: does the burst-clean pillar-2 pattern hold for
+other V1 tuning axes besides OSI? Results:
+
+| axis | category | raw ρ | axis↔burst | partial(\|burst) | verdict |
+|---|---|---:|---:|---:|---|
+| OSI (g_osi_dg) | quality | +0.445 | −0.072 | +0.459 | CLEAN |
+| DSI (g_dsi_dg) | quality | +0.442 | −0.076 | +0.457 | CLEAN |
+| F1/F0 (f1_f0_dg) | quality | +0.353 | −0.184 | +0.387 | CLEAN |
+| run_mod | state | +0.138 | +0.006 | +0.139 | CLEAN small |
+| pref_sf | preference | +0.042 | −0.051 | +0.049 | ~zero |
+| pref_tf | preference | −0.053 | +0.019 | −0.056 | ~zero |
+
+**Refined pillar-2: it is SELECTIVITY-QUALITY↔class, NOT tuning-PREFERENCE↔class.** OSI/DSI/F1F0 (axes
+measuring how sharp/clean a cell's tuning is) all couple to ks_gue and are burst-clean. pref_sf/pref_tf
+(axes measuring which feature a cell prefers) are orthogonal to ks_gue. So class tracks **HOW WELL** a cell
+discriminates, not **WHAT** it discriminates. This is consistent with the original H1 framing (OSI = tuning-
+quality, not tuning-preference), and it generalises to DSI and F1/F0 — three independent quality axes within
+V1, all burst-clean. Banked: figures/P_V1_tuning_axis_landscape.png.
