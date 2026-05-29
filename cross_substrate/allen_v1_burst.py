@@ -49,7 +49,8 @@ def _burst(spk):
 def _process(f):
     sid = int(os.path.basename(os.path.dirname(f)).split("_")[1])
     tg = build_targets()
-    rows = tg[(tg["session_id"] == sid) & (tg["area"] == "VISp")]
+    # all Allen visual areas (was VISp-only)
+    rows = tg[tg["session_id"] == sid]
     if rows.empty:
         return []
     recs = []
@@ -76,6 +77,7 @@ def _process(f):
                 i5q = None
             s = canonical_spacings(train)
             recs.append({"substrate": "v1-burst-osi", "session": sid, "unit_id": u,
+                         "area": ur["area"],
                          "osi": _f(ur["g_osi_dg"]) if "g_osi_dg" in ur else None,
                          "n": int(train.size), "burst_frac": bf, "cv_isi": cv,
                          "axes_computed": {"I.5q_ks_gue_med": i5q,
@@ -108,9 +110,32 @@ def analyse():
             out.append(v if (v is not None and np.isfinite(v)) else np.nan)
         return np.array(out, float)
     osi = arr("osi"); ks = arr("I.5q_ks_gue_med", ax=True); bf = arr("burst_frac")
+    area = np.array([r.get("area") for r in recs])
     m = np.isfinite(osi) & np.isfinite(ks) & np.isfinite(bf)
-    osi, ks, bf = osi[m], ks[m], bf[m]
-    print(f"V1 (VISp, drifting_gratings): n={osi.size} cells with OSI+ks_gue+burst\n")
+    osi_a, ks_a, bf_a, area_a = osi[m], ks[m], bf[m], area[m]
+    # per-area breakdown (if multiple areas present)
+    areas = sorted(set(area_a) - {None, "nan"})
+    if len(areas) > 1:
+        print(f"Allen visual hierarchy H1 burst-control (drifting_gratings, n_total={osi_a.size}):\n")
+        print(f"  {'area':6s} {'n':>5s} {'raw':>9s} {'OSI↔burst':>11s} {'burst↔ks':>10s} {'PARTIAL':>9s} {'ret%':>6s}")
+        for ar in areas:
+            mm = area_a == ar
+            if mm.sum() < 30:
+                continue
+            o, k, b = osi_a[mm], ks_a[mm], bf_a[mm]
+            r_raw, _ = stats.spearmanr(o, k); r_ob, _ = stats.spearmanr(o, b); r_bk, _ = stats.spearmanr(b, k)
+            rx = stats.rankdata(o); ry = stats.rankdata(k); rz = stats.rankdata(b)
+            bx = rx - np.polyval(np.polyfit(rz, rx, 1), rz); by = ry - np.polyval(np.polyfit(rz, ry, 1), rz)
+            r_part, p_part = stats.pearsonr(bx, by)
+            ret = (r_part / r_raw * 100) if r_raw else float("nan")
+            tag = " CLEAN" if abs(r_ob) < 0.1 else ""
+            print(f"  {ar:6s} {mm.sum():>5d} {r_raw:+9.3f} {r_ob:+11.3f} {r_bk:+10.3f} {r_part:+9.3f} {ret:>6.0f}%{tag}")
+        print()
+        osi, ks, bf = osi_a, ks_a, bf_a
+        print(f"POOLED across visual areas: n={osi.size}\n")
+    else:
+        osi, ks, bf = osi_a, ks_a, bf_a
+        print(f"V1 (VISp, drifting_gratings): n={osi.size} cells with OSI+ks_gue+burst\n")
     def sp(a, b, lab):
         r, p = stats.spearmanr(a, b); print(f"  {lab:28s} ρ={r:+.3f} p={p:.1e}  n={a.size}"); return r
     print("Is ks_gue burst-driven in V1? (expect ~0 if H1 is clean):")

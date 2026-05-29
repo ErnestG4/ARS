@@ -1,0 +1,22 @@
+Allen visual hierarchy H1 burst-control (drifting_gratings, n_total=7846):
+
+  area       n       raw   OSI↔burst   burst↔ks   PARTIAL   ret%
+  LGd      445    +0.284      -0.106     +0.297    +0.333    117%
+  VISal   1261    +0.434      -0.118     +0.030    +0.441    102%
+  VISam   1363    +0.441      -0.089     +0.033    +0.446    101% CLEAN
+  VISl     918    +0.431      -0.042     +0.124    +0.440    102% CLEAN
+  VISp    2144    +0.479      +0.029     +0.251    +0.488    102% CLEAN
+  VISpm    671    +0.440      -0.010     +0.179    +0.449    102% CLEAN
+  VISrl   1044    +0.401      -0.020     +0.148    +0.409    102% CLEAN
+
+POOLED across visual areas: n=7846
+
+Is ks_gue burst-driven in V1? (expect ~0 if H1 is clean):
+  burst_frac <-> ks_gue        ρ=+0.129 p=1.2e-30  n=7846
+
+H1 link + is it burst-mediated?
+  OSI <-> ks_gue (H1)          ρ=+0.445 p=0.0e+00  n=7846
+  OSI <-> burst_frac           ρ=-0.072 p=1.7e-10  n=7846
+
+  OSI <-> ks_gue  BURST-RESID : ρ=+0.464 p=0.0e+00
+  -> if H1 RESID ρ ≈ raw H1 ρ, the OSI↔class link is NOT burst-mediated (H1 is clean extrinsic-OSI)

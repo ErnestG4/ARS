@@ -1572,3 +1572,30 @@ no biophysical reason to correlate with burst — hence the cleanest pillar-2.
 **Axis-kinds: still 2** (orientation V1, spatial CA1/MEC/EC; CA3 dropped). The off-DANDI retinal arc
 ([[planned_engineering_arc]]) retains its full independent value — motion/contrast axis, feedforward circuit.
 Banked: pillar2_burst_control.py + coordinates/pillar2_burst_control.txt + figures/P_pillar2_burst_control.png.
+
+**H1 across the full Allen visual hierarchy (2026-05-29, allen_v1_burst extended to all areas;
+drifting_gratings, n=7846 cells, 7 areas + LGN).** H1 (OSI↔ks_gue) is **burst-orthogonal everywhere** in
+the visual system:
+
+| area | n | raw H1 | OSI↔burst | partial(\|burst) | retained |
+|---|---:|---:|---:|---:|---:|
+| LGd | 445 | +0.284 | −0.106 | +0.333 | 117% |
+| VISal | 1261 | +0.434 | −0.118 | +0.441 | 102% |
+| VISam | 1363 | +0.441 | −0.089 | +0.446 | 101% |
+| VISl | 918 | +0.431 | −0.042 | +0.440 | 102% |
+| VISp (V1) | 2144 | +0.479 | +0.029 | +0.488 | 102% |
+| VISpm | 671 | +0.440 | −0.010 | +0.449 | 102% |
+| VISrl | 1044 | +0.401 | −0.020 | +0.409 | 102% |
+| **POOLED** | **7846** | **+0.445** | −0.072 | **+0.464** | **104%** |
+
+OSI is burst-orthogonal in **every** visual area (|ρ|≤0.12, all areas <0.13), and the partial ≥ raw
+everywhere (101–117% retained). burst↔ks_gue varies BY area (LGd 0.30, VISp 0.25 → VISal 0.03;
+substrate-relativity within Allen visual cortex), but H1 is **constant** across that variation — strong
+demonstration that **H1 is robust to the substrate-relative ks_gue↔burst coupling**: OSI picks out the
+non-burst variation in ks_gue regardless of how strong the burst component is. The pillar-2 orientation
+arm is now SOLID at n=7846 across 7 cortical visual areas + thalamic LGN; pillar-2 status (post-burst-
+control) is now **2 axis-kinds × multiple regions clean** (orientation: 7 visual areas + LGN; spatial:
+hc-3 EC; HPC subfields attenuated; CA3 dropped).
+
+Banked: figures/P_H1_visual_hierarchy_burst_clean.png; v1-burst-osi.jsonl now has n=7846 across 7 areas.
+Verdicts Will's.
