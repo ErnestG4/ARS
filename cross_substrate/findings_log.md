@@ -1666,3 +1666,47 @@ class-orthogonal. In CA1, spatial_info (quality) survives burst-control with 85%
 (preference) shows an apparent link that vanishes under partial — was burst-mediated. **Class tracks HOW
 WELL a cell discriminates, NOT what it locks onto.** This is the cleanest statement of what pillar-2
 measures across the program. [[pillar2_burst_control_systematic]] sharpened.
+
+---
+
+## 2026-05-29 — CRCNS ret-1 mouse retina (substrate #7): feedforward-circuit fingerprint; pillar-2 axis-mismatched
+
+**Frame.** The queued definitive pillar-2 test was a third selectivity-AXIS-KIND (motion/direction, DSI) from
+an independent feedforward circuit (retina). Scoped CRCNS ret-1 (Zhang/Asari/Meister 2014, DOI
+10.6080/K0RF5RZT; mouse RGC, 61-ch MEA, MATLAB, 16 recordings).
+
+**P0 verdict — ret-1 is binary-white-noise ONLY** (all 16 recordings / 38 blocks, `stimulus.type =
+binarywhitenoise`; 1-D vertical-bar flicker, dx-wide bars × full height, 60 Hz, seed −10000). NO moving-bar/
+grating → **NO motion/direction (DSI) axis-kind.** What ret-1 supplies: per-cell spike-train fingerprints
+from a feedforward circuit, and a reconstructable white-noise STA → spatial RF-quality. Acquisition turnkey
+(crcns_client.py; 68 MB zip; ran1.bin = 3e8 bits precomputed, bit-packed LSB-first).
+
+**Per-cell fingerprint (ret1_port.py, 325 RGCs, longest white-noise block each):**
+- **ks_gue IS addressable in retina:** median 0.477, p10–90 = [0.273, 0.699] — squarely in the neural band
+  (cf. hc-3 EC ~0.50, V1 ~0.5–0.6), RGCs span near-GUE to clustered. The fingerprint is meaningful in a
+  feedforward circuit (positive observable-binding/addressability result; retina = first feedforward/sensory-
+  periphery substrate, all cells are projection neurons, no exc/inh split).
+- median rate 6.4 Hz (p10–90 1.6–19.7); burst_frac median 0.133.
+- **Substrate-relativity 4th datapoint:** retinal burst↔ks_gue Spearman **ρ=+0.525** (p=2.1e-24, n=325) —
+  INTERMEDIATE in the substrate ladder (hc-3 +0.78 > **ret-1 +0.53** > 000638 +0.44 > V1 +0.25 >
+  Allen-HPF ~0). Not a rate artifact (rate↔ks_gue ρ=−0.11). [[ksgue_burst_substrate_relative]].
+
+**Pillar-2 test (ret1_rf.py, RF-quality = white-noise STA peak SNR; STA reconstruction validated — structured
+RFs, peak lag 6–7 frames ≈110 ms RGC latency, localized spatial peaks, best-cell SNR 15–25 ≫ noise floor 3,
+confirming bit-order):** RF-quality ↔ ks_gue **RAW ρ=+0.099 (p=0.075, n.s.)**; **PARTIAL|burst ρ=−0.053
+(p=0.34, n.s.).** NULL both before and after burst-control (296/325 cells have well-defined RFs, rf_snr>5, so
+not a power problem).
+
+**Verdict — INCONCLUSIVE-BY-AXIS-MISMATCH, echoing IBL.** RF-quality (STA SNR) measures RF-MAPPING-FIDELITY
+(confounded by rate, RF size, spike count), NOT tuning-SHARPNESS. The pillar-2 v2 spec requires a graded
+TUNING-selectivity axis (OSI/DSI/spatial-info; selectivity-QUALITY, [[pillar2_burst_control_systematic]]);
+STA-SNR is the wrong flavor, exactly as IBL's contrast-DETECTION ≠ orientation-TUNING ([[ibl_port_complete]]).
+So this is NOT a clean pillar-2 refutation in feedforward circuits — it is the same axis-mismatch boundary:
+ret-1 lacks the tuning stimulus the spec needs. **The definitive motion/DSI axis-kind test still requires
+off-CRCNS moving-stimulus retinal data (Marre/Berry) — a separate acquisition ([[planned_engineering_arc]]).**
+Pillar-2 axis-kind tally unchanged at 2 (orientation, spatial); retina adds a feedforward-circuit fingerprint
++ substrate-relativity datapoint, not a third axis-kind.
+
+Banked: coordinates/ret1-cell.jsonl, ret1-rf.jsonl; figures/P_ret1_feedforward.png. Code: ret1_port.py,
+ret1_rf.py (crcns_client.py reused). ret-1 cached crcns_cache/ret1 (zip+extract; gitignore the raw zip).
+Verdicts Will's.

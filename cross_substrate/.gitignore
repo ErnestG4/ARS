@@ -6,3 +6,4 @@ coordinates/dr_pos_*.npz
 # ON DISK (Night-1 brief §7: never recompute), but NOT in git: the repo-root
 # .gitignore *.npy rule keeps large binaries out of history (same policy as data/).
 # For offsite durability, tarball am_work/ to the server rather than committing.
+coordinates/ret1_run.log
