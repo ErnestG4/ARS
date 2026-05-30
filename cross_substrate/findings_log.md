@@ -1733,3 +1733,49 @@ datapoint, not a third axis-kind.
 Banked: coordinates/ret1-cell.jsonl, ret1-rf.jsonl; figures/P_ret1_feedforward.png. Code: ret1_port.py,
 ret1_rf.py (crcns_client.py reused). ret-1 cached crcns_cache/ret1 (zip+extract; gitignore the raw zip).
 Verdicts Will's.
+
+---
+
+## 2026-05-30 — SOC pair: ComCat earthquakes (#8) + GOES solar flares (#9) — clustering-vs-directionality calibrator
+
+Two self-organised-criticality substrates as a **near-ground-truth calibrator-zoo addition**: does the
+ARS fingerprint RECOVER known clustering, where does it land on GUE↔Poisson, how far does declustering
+move it? Detailed writeup: `COMCAT_SOC_FINDINGS.md`. Brief: `COMCAT_SOC_BRIEF.md`. Figure:
+`figures/P_comcat_soc.png`. Banked: `coordinates/comcat-fingerprint.jsonl`, `goes-fingerprint.jsonl`.
+Code: `comcat_fetch.py`, `comcat_port.py`, `goes_flares.py`, `soc_figure.py`. Verdicts Will's.
+
+**Earthquakes — 173,122 global M≥4.5 (2000-2025), FDSN-count-verified.** Per-event origin times (entry-
+point clean, §7.ter.19-safe). G1 clustered: mass<0.3=0.338 vs Poisson-floor 0.259, CV=1.20, ks_poisson=
+0.080 — mild clustering recovered (M≥4.5 threshold excludes the small-mag aftershock swarms, so global
+is only modestly clustered). G2 (calibration win): Gardner-Knopoff declustering → ks_poisson 0.080→0.014,
+mass<0.3→0.271, CV→1.04; stable across window ×0.5/×1/×2. ARS recovers clustering and declustering
+collapses it to Poisson **in the a-priori-known direction**. Local-rate unfold cross-check: 0.338→0.291
+mass, CV→1.07 — most survives → genuine triggering on a fairly stationary rate.
+
+**Solar flares — 220,548 GOES/SWPC (1996-2025, HEK), times-only.** Strongly clustered: mass<0.3=0.617,
+CV=8.71 (SOC contrast: solar CV 8.7 ≫ tectonic 1.2). **Rate-envelope control (load-bearing):** solar
+cycle modulates rate ~20×; local-rate unfolding (inhomogeneous-Poisson null, W=21/51/201 agree) →
+mass<0.3 0.617→0.477, CV 8.71→1.56 — drops a lot (envelope WAS inflating) but stays well above the
+inhom-Poisson floor (~0.26/1.0) ⇒ **genuine short-timescale memory survives the correct null** (the
+live Poisson-vs-memory question, answered: memory). Cycle knob (read through unfolding): MAX
+mass=0.502/CV=1.58, MIN mass=0.430/CV=2.06 — disagree on direction, MIN 22× smaller-N ⇒ **residual
+memory persists in both phases, NOT strongly cycle-dependent once envelope removed** (naive "MAX
+clustered/MIN Poisson" NOT confirmed; raw MAX/MIN CV=122/41 were rate-envelope + pooling-across-
+disjoint-cycle-years artifacts, caught by within-substrate-before-pooled discipline).
+
+**Instrument facts (both substrates).** (1) **One-sided-fitter blindness**: Brody q & Berry-Robnik ρ
+(span Poisson→GOE only) rail at 0 on super-Poisson clustering — clustering legible ONLY on
+ks_poisson/mass<τ/CV. Confirmed at scale on 2 substrates. (2) **Directionality gap (§7.ter.10
+band-invariance, demonstrated literally)**: pooled-NNS forward≡reversed EXACTLY (raw ks_poisson Δ=0.00e0;
+~1e-3 aggregate residual is BR-fitter bootstrap noise) while Omori after/before=3.1× (n_main=300, ±30d,
+100km) and irreversibility z≈−2. Same catalog: strong clustering + strong time-arrow, yet the spacing
+engine is arrow-blind. Clustering is what it reads; directionality lives in observables it discards
+(order, marks). (3) **Trim is clustering-robust** (pre-registered worry falsified: untrimmed≡trimmed).
+
+**New discriminator.** homogeneous-vs-unfolded clustering RATIO separates envelope-clustering (solar:
+big drop, CV 8.7→1.6) from stationary-triggering-clustering (tectonic: small drop, 1.20→1.07). The
+local-rate-unfold control is the instrument that exposes it.
+
+**G3 single-fault (N-LIMITED, flagged).** Central-SAF box n=5945: ks_gue=0.426, ks_poisson=0.219 — more
+clustered than global (small-mag regional = more aftershocks), NO repulsion. Characteristic-recurrence
+lives in single-digit on-fault mainshocks, below the robust-NNS point. No-false-positive regime only.
