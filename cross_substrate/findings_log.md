@@ -1682,14 +1682,25 @@ from a feedforward circuit, and a reconstructable white-noise STA → spatial RF
 (crcns_client.py; 68 MB zip; ran1.bin = 3e8 bits precomputed, bit-packed LSB-first).
 
 **Per-cell fingerprint (ret1_port.py, 325 RGCs, longest white-noise block each):**
-- **ks_gue IS addressable in retina:** median 0.477, p10–90 = [0.273, 0.699] — squarely in the neural band
-  (cf. hc-3 EC ~0.50, V1 ~0.5–0.6), RGCs span near-GUE to clustered. The fingerprint is meaningful in a
-  feedforward circuit (positive observable-binding/addressability result; retina = first feedforward/sensory-
-  periphery substrate, all cells are projection neurons, no exc/inh split).
+- **ks_gue CARRIES STRUCTURE in retina (surrogate-validated, not just in-range):** median 0.477, p10–90 =
+  [0.273, 0.699] — in the neural band (cf. hc-3 EC ~0.50, V1 ~0.5–0.6). In-range is only a PRECONDITION; the
+  finding is the surrogate null (ret1_surrogate.py, 325 RGCs × 10 surrogates): real ks_gue (0.477) vs
+  **rate-matched Poisson** (median 0.285) — z(real vs Poisson) median **+23.9**, |z|>2 in **94%** of cells,
+  KS D=0.874 p=2.4e-129. Retinal ks_gue is massively distinguishable from a rate-matched trivial process ⇒ it
+  reflects real temporal structure beyond rate, in a FEEDFORWARD circuit (first feedforward/sensory-periphery
+  substrate; all RGCs are projection neurons, no exc/inh split). **ISI-shuffle** surrogate (median 0.480 ≈
+  real, z median −0.19, |z|>2 only 18%) locates that structure in the **ISI MARGINAL, not the spike
+  sequence** — ks_gue is order-invariant (expected for a spacing statistic; reassuring that it is not picking
+  up slow rate drift / sequence artifact). [[induction_on_noise]]-style calibrator check.
 - median rate 6.4 Hz (p10–90 1.6–19.7); burst_frac median 0.133.
 - **Substrate-relativity 4th datapoint:** retinal burst↔ks_gue Spearman **ρ=+0.525** (p=2.1e-24, n=325) —
-  INTERMEDIATE in the substrate ladder (hc-3 +0.78 > **ret-1 +0.53** > 000638 +0.44 > V1 +0.25 >
-  Allen-HPF ~0). Not a rate artifact (rate↔ks_gue ρ=−0.11). [[ksgue_burst_substrate_relative]].
+  INTERMEDIATE in the ladder (hc-3 +0.78 > **ret-1 +0.53** > 000638 +0.44 > V1 +0.25 > Allen-HPF ~0). Not a
+  rate artifact within retina (rate↔ks_gue ρ=−0.11). **The ladder is a MODALITY/state axis, NOT a biological
+  gradient.** hc-3 (tetrode / task / bursty) sits on top and Allen-HPF (Neuropixels / spontaneous) at the
+  bottom on roughly the SAME anatomy (hippocampal), so the ordering plausibly tracks recording modality +
+  behavioural state at least as much as biology — consistent with the discussion §5 point that the coupling
+  is recording-context-dependent. Retina-as-MEA is a 4th MODALITY; it widens the spread but does NOT resolve
+  what the spread tracks. Reported as growing, not as a biological gradient. [[ksgue_burst_substrate_relative]].
 
 **Pillar-2 test (ret1_rf.py, RF-quality = white-noise STA peak SNR; STA reconstruction validated — structured
 RFs, peak lag 6–7 frames ≈110 ms RGC latency, localized spatial peaks, best-cell SNR 15–25 ≫ noise floor 3,
@@ -1697,15 +1708,27 @@ confirming bit-order):** RF-quality ↔ ks_gue **RAW ρ=+0.099 (p=0.075, n.s.)**
 (p=0.34, n.s.).** NULL both before and after burst-control (296/325 cells have well-defined RFs, rf_snr>5, so
 not a power problem).
 
-**Verdict — INCONCLUSIVE-BY-AXIS-MISMATCH, echoing IBL.** RF-quality (STA SNR) measures RF-MAPPING-FIDELITY
-(confounded by rate, RF size, spike count), NOT tuning-SHARPNESS. The pillar-2 v2 spec requires a graded
-TUNING-selectivity axis (OSI/DSI/spatial-info; selectivity-QUALITY, [[pillar2_burst_control_systematic]]);
-STA-SNR is the wrong flavor, exactly as IBL's contrast-DETECTION ≠ orientation-TUNING ([[ibl_port_complete]]).
-So this is NOT a clean pillar-2 refutation in feedforward circuits — it is the same axis-mismatch boundary:
-ret-1 lacks the tuning stimulus the spec needs. **The definitive motion/DSI axis-kind test still requires
-off-CRCNS moving-stimulus retinal data (Marre/Berry) — a separate acquisition ([[planned_engineering_arc]]).**
-Pillar-2 axis-kind tally unchanged at 2 (orientation, spatial); retina adds a feedforward-circuit fingerprint
-+ substrate-relativity datapoint, not a third axis-kind.
+**Verdict — UNINFORMATIVE ABOUT PILLAR-2 AS SPECIFIED (wrong resolution); not refutation, not "wrong axis".**
+
+*Falsifiability guard — the axis requirement is PRIOR; the category was not minted to absorb this null.*
+"Every null is the wrong axis" is exactly the failure mode that would make pillar-2 unfalsifiable, so the
+priority is on the record: (1) the pillar-2 **v2 spec — requires a graded TUNING-selectivity axis (OSI/DSI/
+spatial-info)** — was fixed BEFORE this run ([[pillar2_burst_control_systematic]]; banked earlier 2026-05-29,
+commit db3645a). (2) the axis-mismatch boundary is **independent precedent**: IBL's contrast-DETECTION ≠
+orientation-TUNING was established 2026-05-25 ([[ibl_port_complete]]), days before retina. The spec that
+excludes STA-SNR predates this datapoint — applying a prior rule, not post-hoc reclassification. A graded
+retinal tuning axis (DSI from moving bars) that came back null WOULD count against pillar-2; this is the
+falsifiable case still open.
+
+*Sharpened claim (do NOT overstate).* STA-SNR is **not orthogonal to** tuning quality — a well-estimated RF
+and a sharply-tuned cell are not independent. It is an **insufficient, noisy proxy**: it measures RF-MAPPING
+FIDELITY (confounded by rate, RF size, spike count), which OVERLAPS with tuning-sharpness but is the wrong
+RESOLUTION for it. So the honest statement is "**uninformative about pillar-2 as specified**" — near-zero
+evidence AGAINST pillar-2 (raw +0.099 n.s.), and NOT evidence the retinal selectivity axis is irrelevant.
+Same boundary as IBL. **The definitive motion/DSI axis-kind test still requires off-CRCNS moving-stimulus
+retinal data (Marre/Berry) — a separate acquisition ([[planned_engineering_arc]]).** Pillar-2 axis-kind tally
+unchanged at 2 (orientation, spatial); retina adds a feedforward-circuit fingerprint + substrate-relativity
+datapoint, not a third axis-kind.
 
 Banked: coordinates/ret1-cell.jsonl, ret1-rf.jsonl; figures/P_ret1_feedforward.png. Code: ret1_port.py,
 ret1_rf.py (crcns_client.py reused). ret-1 cached crcns_cache/ret1 (zip+extract; gitignore the raw zip).
