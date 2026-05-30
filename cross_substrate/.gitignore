@@ -11,3 +11,7 @@ coordinates/ret1_run.log
 # 1-record fingerprint JSONLs (comcat-fingerprint, goes-fingerprint) + scripts + findings are tracked.
 coordinates/comcat/
 coordinates/goes-flares.jsonl
+coordinates/goes-flares-allfrm-contaminated.jsonl
+# throwaway diagnostics (scratch scripts + their outputs)
+coordinates/_*.out
+_*.py

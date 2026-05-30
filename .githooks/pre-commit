@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Never-commit guard. Aborts the commit if any STAGED path matches a denylisted prefix/pattern.
+# Rationale: `git add -A` (and broad `git add`) can sweep up material that must never enter history
+# (Will's _tentative_review/ hold; internal docs; large regenerable catalogs). A repo heading toward a
+# DOI citation should not rely on the human/agent catching this each run. To bypass deliberately:
+#   git commit --no-verify
+# Install once with:  git config core.hooksPath .githooks
+set -euo pipefail
+
+# Denylisted path patterns (basic regex, matched against staged path names).
+DENY=(
+  '(^|/)_tentative_review/'        # Will's never-commit hold (phase35a/_tentative_review/)
+  '(^|/)internaldocs/'             # internal-only docs
+  '-allfrm-contaminated\.jsonl$'   # superseded contaminated catalogs (kept on disk, not in git)
+  '\.zip$'                         # bulk downloads
+)
+
+staged="$(git diff --cached --name-only --diff-filter=AM)"
+[ -z "$staged" ] && exit 0
+
+violations=""
+while IFS= read -r f; do
+  for pat in "${DENY[@]}"; do
+    if printf '%s\n' "$f" | grep -Eq "$pat"; then
+      violations="${violations}  $f   (matched: $pat)"$'\n'
+    fi
+  done
+done <<< "$staged"
+
+if [ -n "$violations" ]; then
+  echo "✗ pre-commit: refusing to commit never-commit paths:" >&2
+  printf '%s' "$violations" >&2
+  echo "  If this is intentional, re-run with: git commit --no-verify" >&2
+  exit 1
+fi
+exit 0

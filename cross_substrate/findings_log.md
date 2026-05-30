@@ -1752,29 +1752,44 @@ mass<0.3→0.271, CV→1.04; stable across window ×0.5/×1/×2. ARS recovers cl
 collapses it to Poisson **in the a-priori-known direction**. Local-rate unfold cross-check: 0.338→0.291
 mass, CV→1.07 — most survives → genuine triggering on a fairly stationary rate.
 
-**Solar flares — 220,548 GOES/SWPC (1996-2025, HEK), times-only.** Strongly clustered: mass<0.3=0.617,
-CV=8.71 (SOC contrast: solar CV 8.7 ≫ tectonic 1.2). **Rate-envelope control (load-bearing):** solar
-cycle modulates rate ~20×; local-rate unfolding (inhomogeneous-Poisson null, W=21/51/201 agree) →
-mass<0.3 0.617→0.477, CV 8.71→1.56 — drops a lot (envelope WAS inflating) but stays well above the
-inhom-Poisson floor (~0.26/1.0) ⇒ **genuine short-timescale memory survives the correct null** (the
-live Poisson-vs-memory question, answered: memory). Cycle knob (read through unfolding): MAX
-mass=0.502/CV=1.58, MIN mass=0.430/CV=2.06 — disagree on direction, MIN 22× smaller-N ⇒ **residual
-memory persists in both phases, NOT strongly cycle-dependent once envelope removed** (naive "MAX
-clustered/MIN Poisson" NOT confirmed; raw MAX/MIN CV=122/41 were rate-envelope + pooling-across-
-disjoint-cycle-years artifacts, caught by within-substrate-before-pooled discipline).
+**Solar flares — GOES SWPC, 50,999 flares (1996-2025, HEK), times-only.** *Data-integrity gate FIRST:*
+HEK aggregates many feature-recognition methods (FRMs); the same flare appears from multiple FRMs and the
+frm_name= query does NOT filter server-side. The naive pull was 220,548 events, 77% multi-FRM DUPLICATES
+(Flare-Detective auto-trigger) — a 29%-<60s duplicate pile faking strong clustering (the CV=8.71 I first
+reported was duplicate-driven). Client-side single-FRM "SWPC" filter → 50,999 clean (dt<60s now 0.12%).
+Solar analogue of the seismic Mc gate; precedes every clustering number. *Result — clustering is
+TIMESCALE-STRUCTURED:* homogeneous mass<0.3=0.376, CV=5.76; local-rate-unfold CV RISES monotonically with
+window — W7→0.79 (sub-Poisson, REGULAR at short scale), W21→1.04, W51→1.27, W101→1.48, W501→1.78. So flares
+are NOT clustered at the shortest inter-event scale, only over MULTI-DAY windows (active-region persistence
+/ same-AR sympathetic flaring). It's real, not envelope: GOES diverges from a synthetic no-memory
+inhom-Poisson+20×envelope (which stays flat ~1.0 across W) as W grows. Cycle knob (unfolded W51): solar MIN
+CV=2.27 > MAX CV=1.07 — MIN MORE clustered (opposite the naive expectation; survives the window-confound
+check, median dt 117 vs 127 min). Earlier "memory survives at every bandwidth, CV≈1.2-1.6" RETRACTED — the
+honest read is sub-day-regular / multi-day-clustered. Discriminator synthetic-validated
+(soc_synthetic_validate.py): inhom-Poisson+envelope→floor, Hawkes→survives monotone, DUPLICATES fake
+surviving-memory unfold can't remove ⇒ dedup must precede unfold.
 
 **Instrument facts (both substrates).** (1) **One-sided-fitter blindness**: Brody q & Berry-Robnik ρ
 (span Poisson→GOE only) rail at 0 on super-Poisson clustering — clustering legible ONLY on
-ks_poisson/mass<τ/CV. Confirmed at scale on 2 substrates. (2) **Directionality gap (§7.ter.10
-band-invariance, demonstrated literally)**: pooled-NNS forward≡reversed EXACTLY (raw ks_poisson Δ=0.00e0;
-~1e-3 aggregate residual is BR-fitter bootstrap noise) while Omori after/before=3.1× (n_main=300, ±30d,
-100km) and irreversibility z≈−2. Same catalog: strong clustering + strong time-arrow, yet the spacing
-engine is arrow-blind. Clustering is what it reads; directionality lives in observables it discards
-(order, marks). (3) **Trim is clustering-robust** (pre-registered worry falsified: untrimmed≡trimmed).
+ks_poisson/mass<τ/CV. Confirmed at scale on 2 substrates. (2) **Directionality gap — pooled-NNS is
+PROVABLY arrow-blind (§7.ter.10 PROVEN, not illustrated)**: Δ=0 is an IDENTITY (reversal preserves the
+spacing multiset; pooling discards order) — raw ks_poisson Δ=0.00e0 to machine precision *because it
+cannot be otherwise*. The empirical content is entirely on the ordering-sensitive side, where the arrow
+IS provably present: Omori after/before=3.1× (n_main=300, ±30d, 100km) and irreversibility z≈−2. Theorem
+(blind) + measurement (present), not a null that could have come out otherwise. (3) **Trim is
+clustering-robust** (pre-registered worry falsified: untrimmed≡trimmed). (4) **Rate envelope barely
+inflates CV** (synthetic: inhom-Poisson with 20× envelope → homogeneous CV=1.04): the original "envelope
+inflated GOES" framing was WRONG; the inflation was duplicates + real bursting, and the unfold removes
+fast rate structure + envelope but NOT coincident duplicates (⇒ dedup must precede unfold).
 
-**New discriminator.** homogeneous-vs-unfolded clustering RATIO separates envelope-clustering (solar:
-big drop, CV 8.7→1.6) from stationary-triggering-clustering (tectonic: small drop, 1.20→1.07). The
-local-rate-unfold control is the instrument that exposes it.
+**New discriminator (synthetic-validated, applied to both substrates).** The local-rate-unfold + bandwidth
+sweep distinguishes envelope/duplicate inflation from genuine memory, AND localises the timescale. Hawkes
+ground truth (soc_synthetic_validate.py): inhom-Poisson-with-20×-envelope → unfolded CV back to floor
+(0.91-0.99) despite homogeneous CV=1.91; Hawkes → survives, monotone in branching ratio; DUPLICATES fake
+surviving-memory unfold cannot remove (⇒ dedup is a prerequisite). Applied: tectonic EQ small drop
+(1.20→1.07) = stationary-triggering; solar = timescale-structured (sub-day-regular CV<1 → multi-day-
+clustered CV up to 1.78), genuinely above envelope. Reading the WHOLE bandwidth sweep (not one W) is what
+exposes the timescale structure.
 
 **G3 single-fault (N-LIMITED, flagged).** Central-SAF box n=5945: ks_gue=0.426, ks_poisson=0.219 — more
 clustered than global (small-mag regional = more aftershocks), NO repulsion. Characteristic-recurrence

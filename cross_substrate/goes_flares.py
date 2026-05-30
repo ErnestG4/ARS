@@ -68,8 +68,19 @@ def _goes_class_to_flux(cls):
         return np.nan
 
 
-def fetch(start, end):
-    """Page HEK month-by-month (well under any result cap), write one JSON record per flare."""
+# HEK aggregates many feature-recognition methods (FRMs) — the SAME physical flare appears from
+# multiple FRMs, dominated by the "Flare Detective - Trigger Module" auto-trigger (~2000/month vs the
+# canonical NOAA "SWPC" list's ~170/month). Critically, the frm_name= QUERY param does NOT filter
+# server-side (returns all FRMs regardless), so apparent "strong clustering" in a naive pull is mostly
+# duplicate-flare contamination (~29% of inter-event gaps <60s). We filter to a single FRM CLIENT-SIDE.
+# The canonical clean list is "SWPC" (NOAA SWPC human-vetted GOES flare events). This is the solar
+# analogue of the seismic Mc completeness gate. (See COMCAT_SOC_FINDINGS §G5 dedup note.)
+CLEAN_FRM = "SWPC"
+
+
+def fetch(start, end, frm=CLEAN_FRM):
+    """Page HEK month-by-month, keep only the canonical single-FRM flare list (client-side filter,
+    since the frm_name query param does not actually filter), one JSON record per unique peaktime."""
     os.makedirs(os.path.dirname(RAW), exist_ok=True)
     a = datetime.fromisoformat(start).replace(tzinfo=timezone.utc)
     end = datetime.fromisoformat(end).replace(tzinfo=timezone.utc)
@@ -80,11 +91,11 @@ def fetch(start, end):
             b = (a.replace(day=28) + timedelta(days=8)).replace(day=1)  # next month start
             b = min(b, end)
             p = {"cmd": "search", "type": "column", "event_type": "fl",
-                 "frm_name": "SWPC", "event_coordsys": "helioprojective",
+                 "event_coordsys": "helioprojective",
                  "x1": "-1200", "x2": "1200", "y1": "-1200", "y2": "1200",
                  "event_starttime": a.strftime("%Y-%m-%dT00:00:00"),
                  "event_endtime": b.strftime("%Y-%m-%dT00:00:00"),
-                 "result_limit": "5000", "cosec": "2", "return":
+                 "result_limit": "20000", "cosec": "2", "return":
                  "event_peaktime,fl_goescls,fl_peakflux,frm_name"}
             url = HEK + urllib.parse.urlencode(p)
             try:
@@ -92,7 +103,10 @@ def fetch(start, end):
             except Exception as e:                     # noqa: BLE001
                 sys.stderr.write(f"  parse fail {a:%Y-%m}: {e}\n"); a = b; continue
             res = js.get("result", [])
+            kept = 0
             for r in res:
+                if r.get("frm_name") != frm:           # CLIENT-SIDE single-FRM filter (dedup FRMs)
+                    continue
                 pk = r.get("event_peaktime") or ""
                 cls = r.get("fl_goescls") or ""
                 if not pk or pk in seen:
@@ -106,10 +120,10 @@ def fetch(start, end):
                     continue
                 out.write(json.dumps({"t": ts, "cls": cls,
                                       "flux": _goes_class_to_flux(cls)}) + "\n")
-                n_total += 1
-            print(f"  {a:%Y-%m}: +{len(res)} (total {n_total})")
+                n_total += 1; kept += 1
+            print(f"  {a:%Y-%m}: {len(res)} all-FRM -> {kept} {frm} (total {n_total})")
             a = b
-    print(f"[done] {n_total} flares -> {RAW}")
+    print(f"[done] {n_total} {frm} flares -> {RAW}")
 
 
 def load():

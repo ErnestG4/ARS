@@ -55,3 +55,7 @@ cross_substrate/coordinates/brocot-landscape.jsonl
 
 # Tentative writeup drafts (held for review, not contributed to the repo record)
 *_DRAFT.md
+
+# Never-commit hold (Will's authorization): tentative-review material is on disk for review only,
+# never contributed to the repo. Enforced belt-and-suspenders by .githooks/pre-commit.
+_tentative_review/

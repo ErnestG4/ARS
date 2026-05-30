@@ -61,7 +61,7 @@ def main(global_csv, goes_jsonl=None):
         import goes_flares as GF
         goes = GF.load()
 
-    fig, ax = plt.subplots(2, 2, figsize=(13, 9))
+    fig, ax = plt.subplots(2, 3, figsize=(18, 9))
     grid = np.linspace(0.01, 4, 300); be = np.linspace(0, 4, 41)
 
     # (a) NNS distributions
@@ -109,6 +109,27 @@ def main(global_csv, goes_jsonl=None):
     c.legend(fontsize=8)
     c.annotate("repulsion fitters\nsaturate at Poisson", (0.5, 0.05), fontsize=8, color="C3")
 
+    # (e) GOES timescale-structured clustering: unfold CV vs bandwidth, vs no-memory floor
+    e = ax[0, 2]
+    if goes is not None:
+        Ws = [7, 11, 21, 51, 101, 201, 501]
+        cvs_g = []
+        for W in Ws:
+            su = CP.local_rate_unfold(goes["t"], W)
+            cc = CP.clustering_from_spacings(su) if su is not None else None
+            cvs_g.append(cc["cv"] if cc else np.nan)
+        e.plot(Ws, cvs_g, "o-", color="C1", lw=1.8, label="GOES SWPC (clean)")
+        e.axhline(1.0, color="g", ls="--", lw=1.2, label="inhom-Poisson floor (no memory)")
+        e.axhspan(0, 1.0, color="g", alpha=0.06)
+        e.set_xscale("log"); e.set_xlabel("unfold window W (events)")
+        e.set_ylabel("unfolded CV"); e.set_ylim(0.6, 2.0)
+        e.set_title("(e) solar flares: TIMESCALE-structured\nsub-day regular (CV<1) → multi-day clustered")
+        e.annotate("sub-Poisson\n(regular)", (7, 0.83), fontsize=7, color="C1")
+        e.annotate("super-Poisson\n(clustered)", (300, 1.6), fontsize=7, color="C1")
+        e.legend(fontsize=7, loc="upper left"); e.grid(True, alpha=0.3)
+    else:
+        e.axis("off"); e.set_title("(e) GOES — no data")
+
     # (d) directionality gap
     d = ax[1, 1]
     d.axis("off")
@@ -128,7 +149,32 @@ def main(global_csv, goes_jsonl=None):
     )
     d.text(0.02, 0.98, txt, va="top", ha="left", fontsize=10, family="monospace")
 
-    fig.suptitle(f"SOC pair — ComCat earthquakes (n={t.size}) clustering vs directionality", fontsize=13)
+    # (f) solar-cycle knob: residual (unfolded) clustering, MAX vs MIN years
+    f = ax[1, 2]
+    if goes is not None:
+        from datetime import datetime, timezone
+        tt = goes["t"]
+        yrs = np.array([datetime.fromtimestamp(x, tz=timezone.utc).year for x in tt])
+        uy, cnt = np.unique(yrs, return_counts=True); rate = dict(zip(uy.tolist(), cnt.tolist()))
+        hi = np.quantile(list(rate.values()), 2/3); lo = np.quantile(list(rate.values()), 1/3)
+        maxy = {y for y, c in rate.items() if c >= hi}; miny = {y for y, c in rate.items() if c <= lo}
+        bars = []
+        for nm, sel in (("solar MAX", maxy), ("solar MIN", miny)):
+            sub = tt[np.array([y in sel for y in yrs])]
+            su = CP.local_rate_unfold(np.sort(sub), 51)
+            cc = CP.clustering_from_spacings(su) if su is not None else None
+            bars.append((nm, cc["cv"] if cc else np.nan, sub.size))
+        f.bar([b[0] for b in bars], [b[1] for b in bars], color=["C3", "C0"], width=0.5)
+        f.axhline(1.0, color="g", ls="--", lw=1.2, label="floor")
+        for i, b in enumerate(bars):
+            f.text(i, b[1] + 0.03, f"CV={b[1]:.2f}\nn={b[2]}", ha="center", fontsize=8)
+        f.set_ylabel("unfolded CV (W51)"); f.set_ylim(0, 2.6)
+        f.set_title("(f) cycle knob: MIN MORE clustered than MAX\n(opposite naive; survives window-confound)")
+        f.legend(fontsize=7)
+    else:
+        f.axis("off"); f.set_title("(f) GOES — no data")
+
+    fig.suptitle(f"SOC pair — ComCat earthquakes (n={t.size}) + GOES SWPC flares: clustering, timescale, directionality", fontsize=13)
     fig.tight_layout(rect=[0, 0, 1, 0.97])
     os.makedirs(os.path.dirname(FIG), exist_ok=True)
     fig.savefig(FIG, dpi=120); plt.close(fig)
