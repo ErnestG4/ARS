@@ -21,7 +21,7 @@ staged="$(git diff --cached --name-only --diff-filter=AM)"
 violations=""
 while IFS= read -r f; do
   for pat in "${DENY[@]}"; do
-    if printf '%s\n' "$f" | grep -Eq "$pat"; then
+    if printf '%s\n' "$f" | grep -Eq -e "$pat"; then
       violations="${violations}  $f   (matched: $pat)"$'\n'
     fi
   done
