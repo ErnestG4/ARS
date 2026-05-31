@@ -120,25 +120,45 @@ kept as `goes-flares-allfrm-contaminated.jsonl` (gitignored) as a negative examp
   #5).** Cycle-average: CV=1 crossover at **W≈18 events ≈ 1.5 days** (median ISI 7380 s ≈ 2.05 h) — at the
   short end of active-region flare-productive lifetimes (~days), quantitative support for the same-AR-
   clustering mechanism, not a free parameter. Phase-resolved (each phase uses its OWN median ISI):
-  **MIN crossover W≈8.6 ev ≈ 0.8 d; MAX crossover W≈33.5 ev ≈ 2.7 d.** The crossover MOVES with cycle phase,
-  which is the diagnostic: per press #5, a moving crossover means overlap-driven clustering at MAX vs
-  isolated-AR clustering at MIN (not a single fixed AR-lifetime constant). Physically clean — at MIN a lone
-  region's flare burst clears Poisson within ~a day; at MAX you need ~3 days of window before residual
-  structure survives the (much denser) local-rate unfold.
+  **MIN crossover W≈8.6 ev ≈ 0.8 d; MAX crossover W≈33.5 ev ≈ 2.7 d.** The crossover MOVES with cycle phase.
+  - **The DIRECTION is mildly surprising — and that sharpens the mechanism (NOT "overlap-driven").** Naive
+    Palm–Khintchine: superposing more INDEPENDENT AR point-processes at solar MAX should drive the pooled
+    process TOWARD Poisson — structure should wash out *more* completely at MAX, ideally leaving no super-
+    Poisson residual at any scale. Instead MAX retains real super-Poisson structure (CV 1.07→1.26 at
+    W51→W101; a genuine crossover at 2.7 d, not flat at 1). **Any surviving structure at MAX is exactly what
+    independent superposition forbids.** So the earlier "overlap-driven" label is wrong-signed; the clean
+    resolution is that **solar-max ARs are NOT independent** — active longitudes, AR nests, sympathetic/
+    correlated emergence — and the longer-surviving structure at MAX is a (mild) signature of *correlated AR
+    emergence*, not independent overlap. At MIN the few isolated regions emit same-AR bursts that clear
+    Poisson in ~a day; at MAX correlated emergence sustains structure out to ~3 days despite the 20× denser
+    stream. A sharper, falsifiable mechanism than "overlap-driven".
   - **Crucial check — the movement is in W (events), NOT a unit-conversion artifact.** Median ISI is nearly
     phase-INVARIANT (MAX 1.95 h vs MIN 2.12 h) — the 20× rate swing lives in the long-gap tail, not the
     median — so the W→time multiplier is ~constant across phases. The crossover shift (8.6 vs 33.5 events)
     is therefore real clustering structure, not the rate-swing smearing the map. (The earlier "W-in-events
     smears physical time" caveat is thus bounded: it smears the tail, not the median-anchored crossover.)
+  - **The CV crossover is BLIND to the discriminating signal; the RF engine is not (queued follow-up).** If
+    the surplus MAX structure is correlated AR emergence, it is PERIOD-structured (rotation-locked active
+    longitudes, ~27-d Carrington band and harmonics) — which pooled-NNS/CV scrambles by construction (it
+    discards phase; cf. G4 band-invariance). A **phase-stratified RF/resonance scan (MAX vs MIN)** asking
+    whether the longer-surviving MAX structure carries enhanced Carrington-band (~27 d) / active-longitude
+    amplitude is the test that converts "correlated emergence" from a plausible label into a measured
+    mechanism. This ties directly to the **Phase 13 solar resonance run** (RESULTS.md §7.ter — same GOES-type
+    flare process), which already saw rotation-band structure via the resonance engine: indicator-mode
+    q=86≈3×27 d and q=43≈1.6×27 d (Carrington multiples), Planat-mode 21 d (≈rotation/2) and 35/42 d
+    sub-Carrington / AR-emergence peaks. Two independent engines (resonance amplitudes there, SOC-unfold
+    crossover here) pointing at the SAME rotation-modulated-AR physics. Queued, not done — the SOC-pair
+    result stands without it; this would upgrade the MAX mechanism specifically.
 - **Solar-cycle knob (clean, unfolded W51) — bootstrapped at full N (press #4).** MAX (n=27,386): CV=1.07,
   bootstrap 95% CI [1.06, 1.09]. MIN (n=6,303): CV=2.27 (point), but its bootstrap median CI is [1.94, 2.05]
   — the point estimate sits above its own resample band, the low-N heavy-tail regime, so report MIN as
   **≳1.9, not 2.27**. The **difference** MIN−MAX = **+0.92, 95% CI [0.86, 0.98]** — excludes zero decisively.
-  So **MIN is robustly MORE clustered than MAX** (direction solid; MIN magnitude tail-sensitive). This is
-  the SAME mechanism, not a surprise: at solar MIN the few active regions emit isolated bursts against empty
-  background (high residual CV); at MAX many overlapping regions blend into a smoother stream (residual ≈
-  floor). Completeness cuts the safe way (missing small filler flares at MAX would only raise MAX CV,
-  understating the gap). Raw split CV=103(MAX)/34(MIN) is the pooling-across-disjoint-cycle-years artifact —
+  So **MIN is robustly MORE clustered than MAX** (direction solid; MIN magnitude tail-sensitive). At solar
+  MIN the few isolated active regions emit same-AR bursts against empty background (high residual CV). The
+  MAX side is the interesting one (see the crossover-direction note above): MAX residual CV is LOW but NOT
+  at the floor — independent AR superposition would predict the floor, so the surviving MAX structure points
+  to correlated AR emergence (active longitudes / nests), not independent blending. Completeness cuts the
+  safe way (missing small filler flares at MAX would only raise MAX CV, understating the gap). Raw split CV=103(MAX)/34(MIN) is the pooling-across-disjoint-cycle-years artifact —
   ignore; only the unfolded readout is interpretable
   ([[within_substrate_before_pooled]]).
 
@@ -181,9 +201,11 @@ Measured (these ran on full synthetic catalogs, n≈120-180k each — trustworth
   productive lifetimes — same-AR clustering. The apparent sub-Poisson "regularity" at small W (CV 0.79 at
   W7) is an ARTIFACT — both the unfold estimator's small-W floor (the no-memory synthetic dips there too)
   AND a 60-s catalog dead-time wall — RETRACTED, not physics. Solar MIN robustly MORE clustered than MAX
-  (MIN−MAX = +0.92, 95% CI [0.86,0.98]; MIN ≳1.9, MAX 1.07), the SAME mechanism (sparse isolated bursts at
-  MIN vs blended overlapping regions at MAX). Sharper than "strong clustering recovered": real, multi-day,
-  active-region, cycle-modulated — with the sub-day half correctly killed.
+  (MIN−MAX = +0.92, 95% CI [0.86,0.98]; MIN ≳1.9, MAX 1.07); the surprising part is that MAX residual is
+  above the floor at all — independent AR superposition predicts the floor, so the surplus is a mild
+  signature of CORRELATED AR emergence (active longitudes/nests), period-structured and checkable with a
+  phase-stratified RF scan (Carrington ~27 d band) — ties to the Phase 13 solar resonance run. Sharper than
+  "strong clustering recovered": real, multi-day, active-region, cycle-modulated — sub-day half correctly killed.
 - **Two substrates, two flavours of clustering** (the cross-substrate payoff): tectonic = mild, aftershock-
   triggering, declustering-removable, fairly rate-stationary; solar = real multi-day active-region
   clustering (crossover ≈1.5 d), cycle-modulated (MIN>MAX), with no genuine sub-day structure once unfold-
@@ -196,10 +218,18 @@ Measured (these ran on full synthetic catalogs, n≈120-180k each — trustworth
   coincident duplicates (synthetic D), so a dedup gate is a prerequisite and the bandwidth sweep must be
   reported, not a single W. Synthetic-validated against Hawkes ground truth before banking.
 
-Figure: figures/P_comcat_soc.png (4-panel: NNS clustered/declustered; calibration ladder incl. GOES
-homog-vs-unfolded; railed one-sided fitters; directionality-gap panel).
+Figure: figures/P_comcat_soc.png (6-panel: (a) NNS clustered/declustered; (b) clustering calibration ladder;
+(c) railed one-sided fitters; (d) directionality-gap; (e) GOES unfold-CV vs W against the no-memory floor +
+crossover; (f) phase-resolved MAX/MIN unfold curves with moving crossover).
 
 ## Open / queued
+- **Phase-stratified RF/resonance scan, solar MAX vs MIN (the sharp follow-up).** Tests whether the
+  surplus-above-floor MAX structure carries enhanced Carrington-band (~27 d) / active-longitude amplitude —
+  i.e. whether "correlated AR emergence" is the actual mechanism. The RF engine sees rotation-locked period
+  structure that the CV crossover is blind to (NNS scrambles phase). Ties to Phase 13 solar run (RESULTS.md
+  §7.ter.17: indicator q=86≈3×27 d, q=43≈1.6×27 d; Planat 21 d, 35/42 d). Tooling exists (run_phase13_solar.py
+  + the RF/resonance engine); just needs the MAX/MIN flare split fed through it. Converts the MAX mechanism
+  from plausible label to tested. Does NOT affect the current SOC-pair result, which stands as-is.
 - Paleoseismic large-event recurrence (G3 real test; off-ComCat acquisition).
 - Lower-Mc regional seismic catalog to reach the strong-clustering tectonic regime (if wanted).
 - Per-active-region flare sequencing (would localise the solar triggering memory to within-AR).

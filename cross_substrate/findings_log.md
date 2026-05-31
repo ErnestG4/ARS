@@ -1763,16 +1763,22 @@ rises with window — W7→0.79, W21→1.04, W51→1.27, W501→1.78. **Super-Po
 diverges UPWARD from a no-memory inhom-Poisson+20×envelope synthetic (flat ~0.95-0.99 across W), tracking
 the Hawkes-memory shape; CV=1 crossover at W≈18 events ≈ **1.5 days** lands on active-region flare-
 productive lifetimes (same-AR clustering). Phase-resolved, the crossover MOVES (each phase its own median
-ISI): MIN W≈8.6 ev ≈ **0.8 d**, MAX W≈33.5 ev ≈ **2.7 d** — isolated-AR clustering at MIN vs overlap-driven
-at MAX. The shift is real structure not a unit artifact: median ISI is ~phase-invariant (MAX 1.95h vs MIN
-2.12h; the 20× rate swing lives in the long-gap tail, not the median), so the W→time multiplier is ~constant
-and the crossover moves in EVENTS. **Sub-Poisson half (CV<1 at small W) is ARTIFACT, RETRACTED**:
+ISI): MIN W≈8.6 ev ≈ **0.8 d**, MAX W≈33.5 ev ≈ **2.7 d**. The shift is real structure not a unit artifact:
+median ISI is ~phase-invariant (MAX 1.95h vs MIN 2.12h; the 20× rate swing lives in the long-gap tail, not
+the median), so the W→time multiplier is ~constant and the crossover moves in EVENTS. *Direction is mildly
+surprising → sharpens the mechanism:* naive Palm–Khintchine says superposing more INDEPENDENT ARs at MAX
+should Poissonize MORE (structure washes out); instead MAX retains super-Poisson structure (crossover at
+2.7d, not flat). Any surviving MAX structure is what independence forbids ⇒ solar-max ARs are NOT
+independent (active longitudes / nests / sympathetic emergence); the surplus is a mild signature of
+CORRELATED AR emergence, not "overlap-driven". Period-structured (rotation-locked ~27d) ⇒ CV-blind but
+RF-engine-visible: phase-stratified RF scan (MAX vs MIN, Carrington band) is the test, ties to Phase 13
+solar resonance run (indicator q=86≈3×27d, q=43≈1.6×27d; Planat 21d≈rot/2, 35/42d AR-emergence). Queued. **Sub-Poisson half (CV<1 at small W) is ARTIFACT, RETRACTED**:
 the no-memory synthetic ALSO dips sub-Poisson at small W (0.85 at W7) — it's the unfold estimator's floor,
 not regularity — AND the raw ISI has a hard 60-s dead-time wall (SWPC merges peaks <1min). So "flares
 regular at shortest scale" was unfold-floor + catalog-bookkeeping, NOT refractoriness. Cycle knob
 (bootstrapped, full N): MIN−MAX = +0.92 [0.86,0.98], MIN ≳1.9 > MAX 1.07 — MIN robustly MORE clustered
-(same mechanism: sparse isolated bursts at MIN vs blended regions at MAX; MIN point-CV 2.27 tail-sensitive,
-report ≳1.9). Discriminator synthetic-validated (soc_synthetic_validate.py): inhom-Poisson+envelope→floor
+(MIN = sparse isolated same-AR bursts; MAX surplus-above-floor = correlated AR emergence, see above; MIN
+point-CV 2.27 tail-sensitive, report ≳1.9). Discriminator synthetic-validated (soc_synthetic_validate.py): inhom-Poisson+envelope→floor
 (incl. sub-Poisson dip at small W), Hawkes→survives monotone, DUPLICATES fake surviving-memory unfold can't
 remove ⇒ dedup must precede unfold; and a small-W CV<1 must be checked vs the matched no-memory synthetic
 before being called physics.
