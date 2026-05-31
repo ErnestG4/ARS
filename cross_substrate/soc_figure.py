@@ -155,7 +155,7 @@ def main(global_csv, goes_jsonl=None):
     )
     d.text(0.02, 0.98, txt, va="top", ha="left", fontsize=10, family="monospace")
 
-    # (f) solar-cycle knob: residual (unfolded) clustering, MAX vs MIN years
+    # (f) solar-cycle knob: phase-resolved unfold-CV curves, MAX vs MIN, with CV=1 crossovers
     f = ax[1, 2]
     if goes is not None:
         from datetime import datetime, timezone
@@ -164,19 +164,20 @@ def main(global_csv, goes_jsonl=None):
         uy, cnt = np.unique(yrs, return_counts=True); rate = dict(zip(uy.tolist(), cnt.tolist()))
         hi = np.quantile(list(rate.values()), 2/3); lo = np.quantile(list(rate.values()), 1/3)
         maxy = {y for y, c in rate.items() if c >= hi}; miny = {y for y, c in rate.items() if c <= lo}
-        bars = []
-        for nm, sel in (("solar MAX", maxy), ("solar MIN", miny)):
-            sub = tt[np.array([y in sel for y in yrs])]
-            su = CP.local_rate_unfold(np.sort(sub), 51)
-            cc = CP.clustering_from_spacings(su) if su is not None else None
-            bars.append((nm, cc["cv"] if cc else np.nan, sub.size))
-        f.bar([b[0] for b in bars], [b[1] for b in bars], color=["C3", "C0"], width=0.5)
-        f.axhline(1.0, color="g", ls="--", lw=1.2, label="floor")
-        for i, b in enumerate(bars):
-            f.text(i, b[1] + 0.03, f"CV={b[1]:.2f}\nn={b[2]}", ha="center", fontsize=8)
-        f.set_ylabel("unfolded CV (W51)"); f.set_ylim(0, 2.6)
-        f.set_title("(f) cycle knob: MIN MORE clustered than MAX\n(opposite naive; survives window-confound)")
-        f.legend(fontsize=7)
+        Wf = [7, 11, 15, 21, 31, 51, 71, 101]
+        for nm, sel, col in (("solar MAX", maxy, "C3"), ("solar MIN", miny, "C0")):
+            sub = np.sort(tt[np.array([y in sel for y in yrs])])
+            cvs = [(lambda su: CP.clustering_from_spacings(su)["cv"] if su is not None else np.nan)(
+                CP.local_rate_unfold(sub, W)) for W in Wf]
+            med_d = np.median(np.diff(sub)) / 86400.0
+            xc = np.interp(1.0, cvs, Wf) if (min(cvs) < 1 < max(cvs)) else np.nan
+            lbl = f"{nm} (n={sub.size}; CV=1 @ {xc*med_d:.1f}d)" if np.isfinite(xc) else nm
+            f.plot(Wf, cvs, "o-", color=col, lw=1.7, ms=4, label=lbl)
+        f.axhline(1.0, color="g", ls="--", lw=1.0)
+        f.set_xscale("log"); f.set_xlabel("unfold window W (events)")
+        f.set_ylabel("unfolded CV"); f.set_ylim(0.7, 3.3)
+        f.set_title("(f) cycle knob: MIN > MAX (bootstrap diff +0.92\n[0.86,0.98]); crossover moves 0.8d→2.7d")
+        f.legend(fontsize=6.5, loc="upper left"); f.grid(True, alpha=0.3)
     else:
         f.axis("off"); f.set_title("(f) GOES — no data")
 

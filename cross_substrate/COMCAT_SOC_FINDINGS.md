@@ -116,11 +116,20 @@ kept as `goes-flares-allfrm-contaminated.jsonl` (gitignored) as a negative examp
     bookkeeping floor that depletes the shortest intervals. **The earlier "flares are regular at the
     shortest scale" reading is RETRACTED** — it was the unfold floor + catalog dead-time, not active-region
     refractoriness. (A real refractoriness effect would need to clear BOTH controls; it does not here.)
-- **The clustering timescale matches the mechanism (physical-time crossover, press #5).** Converting W to
-  wall-clock at the median ISI (7380 s ≈ 2.05 h): the CV=1 crossover sits at **W≈18 events ≈ 1.5 days**.
-  That lands at the short end of active-region flare-productive lifetimes (~days) — quantitative support
-  for the same-AR-clustering mechanism, not a free parameter. (Caveat: W-in-events smears physical time
-  under the 20× MIN/MAX rate swing; a physical-time-windowed unfold would sharpen this — queued.)
+- **The clustering timescale matches the mechanism, and is PHASE-RESOLVED (physical-time crossover, press
+  #5).** Cycle-average: CV=1 crossover at **W≈18 events ≈ 1.5 days** (median ISI 7380 s ≈ 2.05 h) — at the
+  short end of active-region flare-productive lifetimes (~days), quantitative support for the same-AR-
+  clustering mechanism, not a free parameter. Phase-resolved (each phase uses its OWN median ISI):
+  **MIN crossover W≈8.6 ev ≈ 0.8 d; MAX crossover W≈33.5 ev ≈ 2.7 d.** The crossover MOVES with cycle phase,
+  which is the diagnostic: per press #5, a moving crossover means overlap-driven clustering at MAX vs
+  isolated-AR clustering at MIN (not a single fixed AR-lifetime constant). Physically clean — at MIN a lone
+  region's flare burst clears Poisson within ~a day; at MAX you need ~3 days of window before residual
+  structure survives the (much denser) local-rate unfold.
+  - **Crucial check — the movement is in W (events), NOT a unit-conversion artifact.** Median ISI is nearly
+    phase-INVARIANT (MAX 1.95 h vs MIN 2.12 h) — the 20× rate swing lives in the long-gap tail, not the
+    median — so the W→time multiplier is ~constant across phases. The crossover shift (8.6 vs 33.5 events)
+    is therefore real clustering structure, not the rate-swing smearing the map. (The earlier "W-in-events
+    smears physical time" caveat is thus bounded: it smears the tail, not the median-anchored crossover.)
 - **Solar-cycle knob (clean, unfolded W51) — bootstrapped at full N (press #4).** MAX (n=27,386): CV=1.07,
   bootstrap 95% CI [1.06, 1.09]. MIN (n=6,303): CV=2.27 (point), but its bootstrap median CI is [1.94, 2.05]
   — the point estimate sits above its own resample band, the low-N heavy-tail regime, so report MIN as
@@ -139,19 +148,28 @@ with the SAME 20× sinusoidal rate envelope:
 Measured (these ran on full synthetic catalogs, n≈120-180k each — trustworthy):
 | process | true memory | homogeneous CV | unfolded CV (W11→W101) | verdict |
 |---|---|--:|--:|---|
-| A inhom-Poisson (20× envelope) | none | 1.91 | 0.91→0.99 | → floor ✓ (no false-positive) |
-| B Hawkes branch 0.5 | yes | 2.75 | 1.19→1.50 | memory survives ✓ |
-| C Hawkes branch 0.8 | strong | 4.53 | 1.23→2.28 | survives more ✓ (monotone in branch) |
-| D inhom-Poisson + duplicates | NONE | 2.35 | 1.22→1.33 | **fakes memory** — unfold can't remove |
+| process | true memory | homog. CV | unfolded CV (W5 / W7 / W21 / W101) | verdict |
+|---|---|--:|--:|---|
+| A inhom-Poisson (20× envelope) | none | 1.91 | 0.78 / 0.85 / 0.95 / 0.99 | → floor ✓ (sub-Poisson at small W!) |
+| B Hawkes branch 0.5 | yes | 2.75 | 0.89 / 1.03 / 1.36 / 1.50 | memory survives ✓ |
+| C Hawkes branch 0.8 | strong | 4.53 | 0.88 / 1.02 / 1.55 / 2.28 | survives more ✓ (monotone in branch) |
+| D inhom-Poisson + duplicates | NONE | 2.35 | 1.06 / 1.15 / 1.28 / 1.33 | **fakes memory** — unfold can't remove |
 - **Discriminator VALIDATED**: separates A (→floor) from B/C (survive), monotone in true branching ratio.
   **Three things it establishes:** (1) the rate envelope DOES inflate homogeneous CV substantially (A
   homogeneous CV=1.91 with zero memory) and the unfold correctly removes it back to ≈floor — so local-rate
-  unfolding is doing its job. (2) Duplicates (D) are INDISTINGUISHABLE from real memory (B) post-unfold ⇒
-  **dedup MUST precede unfold; the discriminator cannot rescue contaminated data.** (3) **The unfold floor
-  is BELOW CV=1 at small W** (synth-A: 0.78 at W5, 0.85 at W7, climbing to ~0.99 by W101) — short windows
-  over-fit fluctuation as rate, so a sub-Poisson reading at small W is the ESTIMATOR'S floor, NOT regularity.
-  Always compare a small-W CV<1 against the matched no-memory synthetic before calling it physics (this is
-  what caught the GOES sub-day "regularity" as an artifact). Banked as the calibrator for fact #3.
+  unfolding is doing its job. (2) Duplicates (D) are INDISTINGUISHABLE from real memory (B) at LARGE W
+  post-unfold ⇒ **dedup MUST precede unfold; the discriminator cannot rescue contaminated data.** (3) **The
+  unfold floor is BELOW CV=1 at small W** (synth-A: 0.78 at W5, 0.85 at W7, climbing to ~0.99 by W101) —
+  short windows over-fit fluctuation as rate, so a sub-Poisson reading at small W is the ESTIMATOR'S floor,
+  NOT regularity. Always compare a small-W CV<1 against the matched no-memory synthetic before calling it
+  physics (this is what caught the GOES sub-day "regularity" as an artifact). Banked as the calibrator for fact #3.
+- **Bonus cross-check — the small-W dip doubles as a duplicate-purity test.** The two no-info processes
+  diverge at small W: clean-no-memory A DIPS sub-Poisson (W5=0.78, W7=0.85), but duplicate-contaminated D
+  does NOT (W5=1.06, W7=1.15) — coincident duplicates inject near-zero spacings that pull CV up exactly
+  where the estimator floor would pull it down. Clean GOES dips (0.71 at W5, 0.79 at W7) → it sits on the A
+  curve, not the D curve ⇒ no substantial residual duplicate pile survived the FRM gate. (Caveat: this rules
+  out a SUBSTANTIAL residual, not literally zero — a handful of duplicates would only shallow the dip, not
+  flip its sign. As a free cross-check on the dedup, clean.)
 
 ## SOC-pair synthesis (both halves complete)
 - **Earthquakes (M≥4.5 global).** Mildly clustered (CV 1.20); the calibrator passes via PERTURBATION-
