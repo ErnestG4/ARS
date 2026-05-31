@@ -78,7 +78,7 @@ is a theorem, the present half is the measurement.
   structurally discards (order, marks). On a substrate with a lot of both, the proposition is demonstrated
   as the identity-vs-measurement pairing it actually is.
 
-## G5 — GOES solar flares: FRM-dedup gate, then TIMESCALE-STRUCTURED clustering (multi-day, not sub-day)
+## G5 — GOES solar flares: FRM-dedup gate, then REAL multi-day clustering (sub-day "regularity" = artifact)
 ### Data-integrity gate FIRST (this dominated the result)
 HEK aggregates flare detections from MANY feature-recognition methods (FRMs); the SAME physical flare
 appears from multiple FRMs. **The naive pull (frm_name= query param does NOT filter server-side) returned
@@ -95,31 +95,42 @@ kept as `goes-flares-allfrm-contaminated.jsonl` (gitignored) as a negative examp
   mass but CV 8.71 — the CV inflation was duplicates). Brody q / BR ρ railed at 0 again (one-sided-fitter
   fact, 2nd substrate).
 - **The clustering is TIMESCALE-STRUCTURED — the bandwidth sweep IS the finding** (press #3: report the
-  sweep, not one number). Local-rate unfold CV by window:
+  sweep, not one number). Local-rate unfold CV by window, beside the no-memory synthetic floor:
 
-  | W | 7 | 11 | 21 | 51 | 101 | 201 | 501 |
-  |---|--:|--:|--:|--:|--:|--:|--:|
-  | unfolded CV | 0.79 | 0.89 | 1.04 | 1.27 | 1.48 | 1.65 | 1.78 |
-  | mass<0.3 | 0.177 | 0.199 | 0.226 | 0.259 | 0.283 | 0.301 | 0.314 |
+  | W | 5 | 7 | 11 | 15 | 21 | 31 | 51 | 101 | 501 |
+  |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+  | GOES unfolded CV | 0.71 | 0.79 | 0.89 | 0.96 | 1.04 | 1.14 | 1.27 | 1.48 | 1.78 |
+  | synth-A (NO memory) | 0.78 | 0.85 | 0.91 | 0.93 | 0.95 | 0.97 | 0.98 | 0.99 | — |
+  | synth-B (Hawkes memory) | 0.89 | 1.03 | 1.19 | 1.28 | 1.36 | 1.42 | 1.47 | 1.50 | — |
 
-  CV rises **monotonically** with window and is **sub-Poisson (regular, CV<1) at the tightest scales**
-  (W7→0.79), only super-Poisson at multi-day windows. So flares are NOT clustered at the shortest inter-
-  event scale — they are clustered over **multi-day windows**. The earlier "memory survives at every
-  bandwidth, CV≈1.2-1.6" claim is **RETRACTED** (it was projected from a partial fetch); the honest
-  statement is timescale-dependent, sub-day-regular / multi-day-clustered.
-- **It IS real clustering, not just the rate envelope** (the discriminating check): matched against the
-  synthetic no-memory inhom-Poisson-with-20×-envelope (process A), GOES and synth-A agree at W11 (0.89 vs
-  0.91) but DIVERGE as W grows — GOES W21/51/101 = 1.04/1.27/1.48 while synth-A stays flat at 0.95/0.98/0.99.
-  The envelope alone produces NO rising-with-W signal; GOES does ⇒ genuine multi-day clustering above the
-  envelope (physically: active regions persist ~days and emit multiple flares — same-AR sympathetic flaring).
-- **Solar-cycle knob (clean, unfolded W51).** MAX years (n=27,386): unfolded CV=**1.07** (≈ floor). MIN
-  years (n=6,303): unfolded CV=**2.27** (well above). **MIN is MORE clustered than MAX** — the OPPOSITE of
-  the naive "max=clustered" expectation, and it survives the window-confound check (median dt 117 min MAX
-  vs 127 min MIN ⇒ W51 spans ~4.1 vs ~4.5 days, comparable wall-clock, so the contrast is not a fixed-
-  event-W artifact). Interpretable: at solar MIN the sparse flares come in isolated same-AR bursts
-  separated by long quiet gaps (high residual clustering); at MAX flares are so dense the local-rate
-  unfold absorbs most structure (residual ≈ floor). Raw split CV=103(MAX)/34(MIN) is the pooling-across-
-  disjoint-cycle-years artifact — ignore; only the unfolded readout is interpretable
+  **The super-Poisson half is REAL; the sub-Poisson half is an ARTIFACT (both retracted-and-rechecked).**
+  - **Large-W (super-Poisson) — REAL clustering.** GOES rises monotonically and DIVERGES upward from the
+    no-memory synth-A (which stays flat ~0.95–0.99) for W≳21, tracking the Hawkes-memory synth-B shape.
+    Genuine multi-day clustering above the rate envelope.
+  - **Small-W (sub-Poisson, CV<1) — NOT physics (dual artifact).** Press #2 was right. (i) The no-memory
+    synth-A ALSO dips sub-Poisson at small W (0.78 at W5, 0.85 at W7) — so CV<1 at small W is the
+    LOCAL-RATE-UNFOLD ESTIMATOR'S FLOOR (short windows over-fit real fluctuation as rate), not regularity.
+    GOES at small W sits AT/BELOW synth-A (0.79 vs 0.85 at W7), the opposite of the memory signature
+    (synth-B sits well above, 1.03). (ii) The raw ISI distribution has a HARD DEAD-TIME WALL at exactly
+    60 s (min ISI = 60 s; the [0,1 min) bin is empty) — SWPC merges X-ray peaks within ~1 min, a catalog
+    bookkeeping floor that depletes the shortest intervals. **The earlier "flares are regular at the
+    shortest scale" reading is RETRACTED** — it was the unfold floor + catalog dead-time, not active-region
+    refractoriness. (A real refractoriness effect would need to clear BOTH controls; it does not here.)
+- **The clustering timescale matches the mechanism (physical-time crossover, press #5).** Converting W to
+  wall-clock at the median ISI (7380 s ≈ 2.05 h): the CV=1 crossover sits at **W≈18 events ≈ 1.5 days**.
+  That lands at the short end of active-region flare-productive lifetimes (~days) — quantitative support
+  for the same-AR-clustering mechanism, not a free parameter. (Caveat: W-in-events smears physical time
+  under the 20× MIN/MAX rate swing; a physical-time-windowed unfold would sharpen this — queued.)
+- **Solar-cycle knob (clean, unfolded W51) — bootstrapped at full N (press #4).** MAX (n=27,386): CV=1.07,
+  bootstrap 95% CI [1.06, 1.09]. MIN (n=6,303): CV=2.27 (point), but its bootstrap median CI is [1.94, 2.05]
+  — the point estimate sits above its own resample band, the low-N heavy-tail regime, so report MIN as
+  **≳1.9, not 2.27**. The **difference** MIN−MAX = **+0.92, 95% CI [0.86, 0.98]** — excludes zero decisively.
+  So **MIN is robustly MORE clustered than MAX** (direction solid; MIN magnitude tail-sensitive). This is
+  the SAME mechanism, not a surprise: at solar MIN the few active regions emit isolated bursts against empty
+  background (high residual CV); at MAX many overlapping regions blend into a smoother stream (residual ≈
+  floor). Completeness cuts the safe way (missing small filler flares at MAX would only raise MAX CV,
+  understating the gap). Raw split CV=103(MAX)/34(MIN) is the pooling-across-disjoint-cycle-years artifact —
+  ignore; only the unfolded readout is interpretable
   ([[within_substrate_before_pooled]]).
 
 ### Synthetic validation of the unfold discriminator
@@ -133,28 +144,32 @@ Measured (these ran on full synthetic catalogs, n≈120-180k each — trustworth
 | C Hawkes branch 0.8 | strong | 4.53 | 1.23→2.28 | survives more ✓ (monotone in branch) |
 | D inhom-Poisson + duplicates | NONE | 2.35 | 1.22→1.33 | **fakes memory** — unfold can't remove |
 - **Discriminator VALIDATED**: separates A (→floor) from B/C (survive), monotone in true branching ratio.
-  **Two things it establishes:** (1) the rate envelope DOES inflate homogeneous CV substantially (A
-  homogeneous CV=1.91 with zero memory) and the unfold correctly removes it back to the floor (0.91-0.99) —
-  so local-rate unfolding is doing its job. (NB: at W11 even Hawkes-B reads only 1.19, near the floor, which
-  is why the GOES tight-window dip is ambiguous and needs the full catalog + a wider bandwidth read.)
-  (2) Duplicates (D) are INDISTINGUISHABLE from real memory (B) post-unfold (both ≈1.2-1.3 at W11) ⇒
-  **dedup MUST precede unfold; the discriminator cannot rescue contaminated data.** This is precisely why
-  the GOES FRM gate is mandatory and why the contaminated GOES unfolded-CV was uninterpretable. Banked as
-  the calibrator for fact #3.
+  **Three things it establishes:** (1) the rate envelope DOES inflate homogeneous CV substantially (A
+  homogeneous CV=1.91 with zero memory) and the unfold correctly removes it back to ≈floor — so local-rate
+  unfolding is doing its job. (2) Duplicates (D) are INDISTINGUISHABLE from real memory (B) post-unfold ⇒
+  **dedup MUST precede unfold; the discriminator cannot rescue contaminated data.** (3) **The unfold floor
+  is BELOW CV=1 at small W** (synth-A: 0.78 at W5, 0.85 at W7, climbing to ~0.99 by W101) — short windows
+  over-fit fluctuation as rate, so a sub-Poisson reading at small W is the ESTIMATOR'S floor, NOT regularity.
+  Always compare a small-W CV<1 against the matched no-memory synthetic before calling it physics (this is
+  what caught the GOES sub-day "regularity" as an artifact). Banked as the calibrator for fact #3.
 
 ## SOC-pair synthesis (both halves complete)
 - **Earthquakes (M≥4.5 global).** Mildly clustered (CV 1.20); the calibrator passes via PERTURBATION-
   RESPONSE — GK declustering moves ks_poisson 0.080→0.014 in the a-priori-known direction, and local-rate
   unfolding (0.34→0.29 mass, CV→1.07) shows most survives → triggering on a fairly stationary rate.
-- **Solar flares (SWPC-clean, n=50,999).** AFTER the mandatory FRM-dedup gate: clustering is TIMESCALE-
-  STRUCTURED — sub-Poisson at the shortest scale (unfolded CV 0.79 at W7), super-Poisson over multi-day
-  windows (CV 1.78 at W501), and genuinely above the rate envelope (diverges from synthetic no-memory
-  process A as W grows). Solar MIN is MORE residually-clustered than MAX (unfolded CV 2.27 vs 1.07),
-  opposite the naive expectation. So flares DO carry real clustering, but at multi-day (active-region)
-  timescales, not the sub-day inter-event scale — a sharper result than "strong clustering recovered".
+- **Solar flares (SWPC-clean, n=50,999).** AFTER the mandatory FRM-dedup gate: REAL multi-day clustering.
+  Unfolded CV rises above the no-memory synthetic floor for W≳21 (CV 1.27 at W51, 1.78 at W501), tracking
+  the Hawkes-memory shape; the CV=1 crossover at W≈18 events ≈ **1.5 days** lands on active-region flare-
+  productive lifetimes — same-AR clustering. The apparent sub-Poisson "regularity" at small W (CV 0.79 at
+  W7) is an ARTIFACT — both the unfold estimator's small-W floor (the no-memory synthetic dips there too)
+  AND a 60-s catalog dead-time wall — RETRACTED, not physics. Solar MIN robustly MORE clustered than MAX
+  (MIN−MAX = +0.92, 95% CI [0.86,0.98]; MIN ≳1.9, MAX 1.07), the SAME mechanism (sparse isolated bursts at
+  MIN vs blended overlapping regions at MAX). Sharper than "strong clustering recovered": real, multi-day,
+  active-region, cycle-modulated — with the sub-day half correctly killed.
 - **Two substrates, two flavours of clustering** (the cross-substrate payoff): tectonic = mild, aftershock-
-  triggering, declustering-removable, fairly rate-stationary; solar = timescale-structured, sub-day-regular
-  / multi-day-clustered, cycle-modulated. Both required a completeness/integrity gate first (seismic Mc;
+  triggering, declustering-removable, fairly rate-stationary; solar = real multi-day active-region
+  clustering (crossover ≈1.5 d), cycle-modulated (MIN>MAX), with no genuine sub-day structure once unfold-
+  floor + catalog dead-time are removed. Both required a completeness/integrity gate first (seismic Mc;
   solar FRM-dedup) — that gate is the transferable lesson.
 - **Instrument facts (both)**: (1) ks_poisson/mass<τ/CV read clustering; Brody q & BR ρ are blind (rail at
   0). (2) pooled-NNS is provably (identically) time-reversal-invariant while Omori 3.1× and irreversibility

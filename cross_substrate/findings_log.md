@@ -1757,17 +1757,21 @@ HEK aggregates many feature-recognition methods (FRMs); the same flare appears f
 frm_name= query does NOT filter server-side. The naive pull was 220,548 events, 77% multi-FRM DUPLICATES
 (Flare-Detective auto-trigger) — a 29%-<60s duplicate pile faking strong clustering (the CV=8.71 I first
 reported was duplicate-driven). Client-side single-FRM "SWPC" filter → 50,999 clean (dt<60s now 0.12%).
-Solar analogue of the seismic Mc gate; precedes every clustering number. *Result — clustering is
-TIMESCALE-STRUCTURED:* homogeneous mass<0.3=0.376, CV=5.76; local-rate-unfold CV RISES monotonically with
-window — W7→0.79 (sub-Poisson, REGULAR at short scale), W21→1.04, W51→1.27, W101→1.48, W501→1.78. So flares
-are NOT clustered at the shortest inter-event scale, only over MULTI-DAY windows (active-region persistence
-/ same-AR sympathetic flaring). It's real, not envelope: GOES diverges from a synthetic no-memory
-inhom-Poisson+20×envelope (which stays flat ~1.0 across W) as W grows. Cycle knob (unfolded W51): solar MIN
-CV=2.27 > MAX CV=1.07 — MIN MORE clustered (opposite the naive expectation; survives the window-confound
-check, median dt 117 vs 127 min). Earlier "memory survives at every bandwidth, CV≈1.2-1.6" RETRACTED — the
-honest read is sub-day-regular / multi-day-clustered. Discriminator synthetic-validated
-(soc_synthetic_validate.py): inhom-Poisson+envelope→floor, Hawkes→survives monotone, DUPLICATES fake
-surviving-memory unfold can't remove ⇒ dedup must precede unfold.
+Solar analogue of the seismic Mc gate; precedes every clustering number. *Result — REAL multi-day
+clustering (sub-day "regularity" = artifact):* homogeneous mass<0.3=0.376, CV=5.76; local-rate-unfold CV
+rises with window — W7→0.79, W21→1.04, W51→1.27, W501→1.78. **Super-Poisson half (W≳21) is REAL**: GOES
+diverges UPWARD from a no-memory inhom-Poisson+20×envelope synthetic (flat ~0.95-0.99 across W), tracking
+the Hawkes-memory shape; CV=1 crossover at W≈18 events ≈ **1.5 days** lands on active-region flare-
+productive lifetimes (same-AR clustering). **Sub-Poisson half (CV<1 at small W) is ARTIFACT, RETRACTED**:
+the no-memory synthetic ALSO dips sub-Poisson at small W (0.85 at W7) — it's the unfold estimator's floor,
+not regularity — AND the raw ISI has a hard 60-s dead-time wall (SWPC merges peaks <1min). So "flares
+regular at shortest scale" was unfold-floor + catalog-bookkeeping, NOT refractoriness. Cycle knob
+(bootstrapped, full N): MIN−MAX = +0.92 [0.86,0.98], MIN ≳1.9 > MAX 1.07 — MIN robustly MORE clustered
+(same mechanism: sparse isolated bursts at MIN vs blended regions at MAX; MIN point-CV 2.27 tail-sensitive,
+report ≳1.9). Discriminator synthetic-validated (soc_synthetic_validate.py): inhom-Poisson+envelope→floor
+(incl. sub-Poisson dip at small W), Hawkes→survives monotone, DUPLICATES fake surviving-memory unfold can't
+remove ⇒ dedup must precede unfold; and a small-W CV<1 must be checked vs the matched no-memory synthetic
+before being called physics.
 
 **Instrument facts (both substrates).** (1) **One-sided-fitter blindness**: Brody q & Berry-Robnik ρ
 (span Poisson→GOE only) rail at 0 on super-Poisson clustering — clustering legible ONLY on
@@ -1787,9 +1791,10 @@ sweep distinguishes envelope/duplicate inflation from genuine memory, AND locali
 ground truth (soc_synthetic_validate.py): inhom-Poisson-with-20×-envelope → unfolded CV back to floor
 (0.91-0.99) despite homogeneous CV=1.91; Hawkes → survives, monotone in branching ratio; DUPLICATES fake
 surviving-memory unfold cannot remove (⇒ dedup is a prerequisite). Applied: tectonic EQ small drop
-(1.20→1.07) = stationary-triggering; solar = timescale-structured (sub-day-regular CV<1 → multi-day-
-clustered CV up to 1.78), genuinely above envelope. Reading the WHOLE bandwidth sweep (not one W) is what
-exposes the timescale structure.
+(1.20→1.07) = stationary-triggering; solar = REAL multi-day clustering above envelope (crossover W≈18≈1.5d
+= active-region lifetime), with the small-W CV<1 correctly identified as unfold-floor + 60s catalog
+dead-time, NOT regularity. Reading the WHOLE bandwidth sweep AGAINST the matched no-memory synthetic (not
+one W, not against CV=1) is what separates real timescale structure from estimator/catalog artifacts.
 
 **G3 single-fault (N-LIMITED, flagged).** Central-SAF box n=5945: ks_gue=0.426, ks_poisson=0.219 — more
 clustered than global (small-mag regional = more aftershocks), NO repulsion. Characteristic-recurrence

@@ -81,7 +81,10 @@ def hawkes(base, amp, branch, decay_s, rng, max_events=2_000_000):
     return np.array(events)
 
 
-def readout(times, label, Ws=(11, 21, 51, 101)):
+def readout(times, label, Ws=(5, 7, 11, 21, 51, 101)):
+    # NB: include small W (5,7). The unfold estimator's floor is BELOW CV=1 at small W even for the
+    # no-memory process A — short windows over-fit fluctuation as rate. A small-W CV<1 is therefore NOT
+    # evidence of regularity; it must be read against process A's small-W floor, not against CV=1.
     times = np.sort(np.asarray(times, float))
     n = times.size
     homo = CP.clustering_readout(times)

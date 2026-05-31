@@ -109,24 +109,30 @@ def main(global_csv, goes_jsonl=None):
     c.legend(fontsize=8)
     c.annotate("repulsion fitters\nsaturate at Poisson", (0.5, 0.05), fontsize=8, color="C3")
 
-    # (e) GOES timescale-structured clustering: unfold CV vs bandwidth, vs no-memory floor
+    # (e) GOES unfold CV vs bandwidth, against the MEASURED no-memory synthetic floor (not CV=1).
+    # The real no-memory floor dips sub-Poisson at small W, so CV<1 there is the estimator artifact,
+    # not regularity; only the UPWARD divergence from synth-A (large W) is real clustering.
     e = ax[0, 2]
     if goes is not None:
-        Ws = [7, 11, 21, 51, 101, 201, 501]
-        cvs_g = []
-        for W in Ws:
-            su = CP.local_rate_unfold(goes["t"], W)
-            cc = CP.clustering_from_spacings(su) if su is not None else None
-            cvs_g.append(cc["cv"] if cc else np.nan)
-        e.plot(Ws, cvs_g, "o-", color="C1", lw=1.8, label="GOES SWPC (clean)")
-        e.axhline(1.0, color="g", ls="--", lw=1.2, label="inhom-Poisson floor (no memory)")
-        e.axhspan(0, 1.0, color="g", alpha=0.06)
+        Ws = [5, 7, 11, 15, 21, 31, 51, 101, 201, 501]
+        cvs_g = [(lambda su: CP.clustering_from_spacings(su)["cv"] if su is not None else np.nan)(
+            CP.local_rate_unfold(goes["t"], W)) for W in Ws]
+        # measured no-memory synthetic floor (from soc_synthetic_validate process A)
+        synthA_W = [5, 7, 11, 15, 21, 31, 51, 101]
+        synthA_cv = [0.776, 0.847, 0.906, 0.932, 0.953, 0.970, 0.984, 0.993]
+        e.plot(Ws, cvs_g, "o-", color="C1", lw=1.9, label="GOES SWPC (clean)")
+        e.plot(synthA_W, synthA_cv, "s--", color="0.4", lw=1.3, ms=4,
+               label="no-memory synthetic (unfold floor)")
+        e.axhline(1.0, color="g", ls=":", lw=1.0, alpha=0.7)
+        e.axvline(18, color="C3", ls="-", lw=1.0, alpha=0.6)
+        e.annotate("CV=1 crossover\nW≈18 ev ≈ 1.5 d\n(active-region lifetime)", (18, 1.55),
+                   fontsize=6.5, color="C3", ha="center")
+        e.annotate("small-W CV<1 = ARTIFACT\n(GOES≈synth floor)", (6, 0.66), fontsize=6.5, color="0.3")
+        e.annotate("REAL clustering\n(GOES > floor)", (120, 1.25), fontsize=6.5, color="C1")
         e.set_xscale("log"); e.set_xlabel("unfold window W (events)")
         e.set_ylabel("unfolded CV"); e.set_ylim(0.6, 2.0)
-        e.set_title("(e) solar flares: TIMESCALE-structured\nsub-day regular (CV<1) → multi-day clustered")
-        e.annotate("sub-Poisson\n(regular)", (7, 0.83), fontsize=7, color="C1")
-        e.annotate("super-Poisson\n(clustered)", (300, 1.6), fontsize=7, color="C1")
-        e.legend(fontsize=7, loc="upper left"); e.grid(True, alpha=0.3)
+        e.set_title("(e) solar flares: REAL multi-day clustering\n(sub-day 'regularity' = unfold+deadtime artifact)")
+        e.legend(fontsize=6.5, loc="upper left"); e.grid(True, alpha=0.3)
     else:
         e.axis("off"); e.set_title("(e) GOES — no data")
 
