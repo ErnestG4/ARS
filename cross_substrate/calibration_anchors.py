@@ -32,7 +32,7 @@ for p in (_ROOT, os.path.join(_ROOT, "phase22a")):
         sys.path.insert(0, p)
 
 from ars_classify import classify, unfold_unit_mean                  # noqa: E402
-from cross_substrate.axes import (canonical_spacings, FAMILY_I,      # noqa: E402
+from cross_substrate.axes import (canonical_spacings, FAMILY_I, family_local,  # noqa: E402
                                    compute_family_II)
 from signal_gen import make_beta_ensemble_eigenvalues, make_uniform_jitter  # noqa: E402
 from extractor_distinctness import _gen_poisson                      # noqa: E402
@@ -62,6 +62,7 @@ def _fingerprint(events):
     pos = unfold_unit_mean(events)
     s = canonical_spacings(pos)
     fI = {k: _f(fn(s) if k != "_" else None) for k, fn in FAMILY_I.items()}
+    fI.update({k: _f(v) for k, v in family_local(pos).items()})
     fII = {k: _f(v) if isinstance(v, (int, float)) else None
            for k, v in compute_family_II(pos).items()}
     return {"I.5q_ks_gue_med": _f(i5q), **fI, **fII}
