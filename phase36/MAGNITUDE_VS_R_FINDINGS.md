@@ -33,6 +33,23 @@ magnitude (**mass<τ** on the snapshot; CV is the √N H-D trap) vs the **direct
 N-robust mass<τ measure with R driven cleanly by ε, the clustering magnitude is a monotone, N-invariant
 function of the order parameter R.
 
+## CV re-expression + shape decomposition (added 2026-06-01, post Phase-37 Set 4)
+Set 4 established mass<τ = CV + SHAPE (a quantile; 15–50% cross-family spread at matched CV), while the
+REPULSION coordinate is ~pure CV. Since ε reshapes the collective attractor's gap distribution (not only its
+dispersion), the +0.995 above could have carried shape-drift in a shape-confounded coordinate. N-invariance
+ruled out the DIMENSIONALITY confound; this re-expression (phase37/hc_cv_reexpression.py) rules out
+SHAPE-drift too:
+- **CV(R) is monotone with FULL strength:** in the transition region R∈[0.10,0.85] (where snapshot-CV is
+  N-invariant, rel |Δ|=2.1%), rank-corr(CV,R) = **+1.000** at both N — identical to mass<τ's. The magnitude↔R
+  relationship holds in CV, the family-invariant dispersion coordinate.
+- **No shape excess:** every GCM (CV, mass<τ) point lies ON the Set-4 renewal mass<τ(CV) band (0/5 off) — the
+  GCM gap-distribution shape is renewal-consistent, so mass<τ is fully explained by CV.
+⇒ **magnitude↔R is CLEAN DISPERSION**, now stated in the right coordinate: CV(R) monotone (+1.000),
+N-invariant through the transition, no shape residual. mass<τ was reading it correctly but in a
+generally-shape-confounded variable (harmless here). NOTE: this holds through the TRANSITION; in the
+SATURATED R>0.9 regime snapshot-CV becomes the √N trap (38→54 across N), so there mass<τ stays the N-robust
+coordinate — but the magnitude↔R claim lives in the transition. [[pooled_rhythmic_repulsion_confound]].
+
 ## Scope / what is still NOT claimed
 - This is WITHIN Kaneko GCM. The CROSS-substrate claim (Kuramoto-vs-Kaneko magnitudes reflect their ΔR
   difference) is still not directly tested. Two sharpenings of the guardrail:

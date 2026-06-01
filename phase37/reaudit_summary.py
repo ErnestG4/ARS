@@ -1,6 +1,8 @@
 """
 phase37/reaudit_summary.py — Set 1 summary. Read every coordinate file, and for cells that now carry the
-clustering axis (I.10_cv + I.11_mass03), assign a two-axis label and aggregate per substrate. Flag
+clustering axis (I.10_cv + I.11_mass03), assign a two-axis label (CV-PRIMARY: REPULSIVE CV<0.9 / POISSON
+CV≈1 / CLUSTERED CV>1.1; mass<τ reported as a secondary SHAPE diagnostic, not label-gating — Phase-37 Set 4)
+and aggregate per substrate. Flag
 AXIS-INCOMPLETE substrates: those whose repulsion-axis read is null/Poisson-pole (low rep, near-Poisson on
 ks_gue) but where a material fraction of cells are CLUSTERED (super-Poisson) — i.e. the clustering axis
 carries signal the original repulsion-only read missed. Distinguishes a genuine null (clean Poisson on BOTH
@@ -15,20 +17,22 @@ import numpy as np
 COORD = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                      "cross_substrate", "coordinates")
 
-# two-axis cell label from CV + mass03 + ks_gue (sign-carrying)
+# Two-axis cell label. CV is the PRIMARY magnitude coordinate (Phase-37 Set 4: the repulsion magnitude is a
+# ~pure function of CV, and CV is the family-invariant signed Poisson-distance; for per-cell ISI it is NOT
+# pooled, so no √N trap). mass<τ = CV + SHAPE, so it is reported as a SECONDARY shape diagnostic, NOT used to
+# gate the label (a CV>1.1 cell is super-Poisson/clustered regardless of where its mass<τ quantile lands).
 CV_SUB, CV_SUP = 0.90, 1.10          # repulsion side / clustering side of the Poisson pivot
-MASS_POISSON = 0.259                 # Poisson baseline P(s<0.3)=1-e^-0.3
-MASS_CLUSTER = 0.32                  # clustered if materially above baseline
+MASS_POISSON = 0.259                 # Poisson baseline P(s<0.3)=1-e^-0.3 (shape reference only)
 
 
 def label(cv, mass, ks_gue):
-    if cv is None or mass is None:
+    if cv is None:
         return None
     if cv < CV_SUB:
-        return "REPULSIVE"
-    if cv > CV_SUP and mass > MASS_CLUSTER:
-        return "CLUSTERED"
-    return "POISSON"                 # near the pivot (both axes quiet)
+        return "REPULSIVE"           # sub-Poisson / rigid (CV is the clean magnitude)
+    if cv > CV_SUP:
+        return "CLUSTERED"           # super-Poisson (CV alone — the dispersion magnitude)
+    return "POISSON"                 # near the pivot
 
 
 def main():
