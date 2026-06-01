@@ -36,6 +36,27 @@ sensitive — on the clustering axis (CV tracks the order parameter R), where th
 Kuramoto is a clustering-type substrate, exactly as the rigidity-vs-clustering taxonomy predicts and
 parallel to Kaneko. Verdict correction: `INSENSITIVE` → `REPULSION-AXIS-INSENSITIVE / CLUSTERING-AXIS-SENSITIVE`.
 
+### Three interpretability corrections (Will's checks — the headline word "repulsion-blind" must be earned)
+1. **Repulsion null is INCONCLUSIVE, not blind, for Kuramoto.** `BR_artifact` is NOT the "no-rigidity"
+   landing zone: per arithmetic_toolkit.py:744-801, BL = rep_int<0.10 (clean low-rep "no rigidity"),
+   whereas BR = rep_int≥0.55 (HIGH) and `BR_artifact` = "nearest-Wigner-form rule fitting a NON-Wigner
+   shape — stable but NON-CLEAN KS" = a DECLINED regime. Kuramoto sits in BR_artifact at every K (rep_med
+   ~0.73 high), so the repulsion axis is in a non-clean regime — its flatness is INCONCLUSIVE, not a clean
+   negative. Honest verdict: Kuramoto = clustering-SENSITIVE / repulsion-**INCONCLUSIVE**. (Contrast
+   KANEKO snapshot → rep_med 0.0 / BL = a CLEAN low-rep negative ⇒ "repulsion-BLIND" is earned ONLY for
+   Kaneko. The two clustering-type substrates differ on the repulsion side: Kaneko clean-blind (BL),
+   Kuramoto inconclusive-declined (BR_artifact).)
+2. **N not fixed (in-sample N=100 / oos N=200).** The same-sign clustering separation is robust, but the
+   cross-row magnitude compression (CV desync 0.72→0.52, sync 1.57→0.98) is the Palm-Khintchine
+   superposition N-effect (more independent components → CV→1), NOT out-of-sample degradation. Magnitude
+   is interpretable only with N pinned; only the same-sign verdict survives the N-mismatch.
+3. **Do NOT chase the spatial snapshot for Kuramoto.** snapshot CV~√N is the H-D tautology (non-dynamical
+   inflation, established in the Kaneko magnitude probe). The pooled-temporal observable is the HONEST,
+   closer-to-intensive one — it's the right observable to carry into any sweep. The temporal-vs-snapshot
+   magnitude gap reproduces the apples-to-oranges problem INSIDE one substrate ⇒ observable-fixed
+   discipline is INTRA-substrate, not just cross-substrate. (Retracts the earlier "snapshot would show the
+   dramatic version, queued" framing — that swing would be N-baked, not dynamical.)
+
 **Caveat (honest):** the effect here is MODEST (pooled-temporal CV 0.5→1.6) vs Kaneko's spatial SNAPSHOT
 (CV 1→50). Reason = observable: the pooled-temporal train of narrowly-distributed oscillators is
 sub-Poisson/regular in desync (CV<1) rising to mild-super-Poisson when locked; the Kaneko-style SNAPSHOT

@@ -528,9 +528,17 @@ electrode drift) cannot be distinguished from the current data.
 > CLUSTERING-AXIS-SENSITIVE`** — Kuramoto (canonical synchronization model) is a CLUSTERING-type substrate
 > ([[torus_transition_rigidity_vs_clustering]]), exactly as the Kaneko/Chialvo taxonomy predicts. The
 > rate-confound (2) and no-real-data-match (3) conclusions STAND; only the "insensitive" framing is
-> refined to name the axis. Effect modest on the pooled-temporal observable (CV 0.5→1.6); the Kaneko-style
-> spatial snapshot would show the dramatic version (queued). See phase36/AUDIT_TWO_AXIS_FINDINGS.md +
-> kuramoto_clustering_recheck.py.
+> refined to name the axis. Effect modest on the pooled-temporal observable (CV 0.5→1.6).
+> **TWO INTERPRETABILITY CORRECTIONS (Will's checks):** (i) the repulsion side is NOT cleanly "blind" —
+> Kuramoto sits in BR_artifact (rep_int≥0.55, HIGH but flagged non-clean-GUE-fit per arithmetic_toolkit:
+> 744-801), a DECLINED regime, not the clean low-rep BL "no-rigidity" zone. So Kuramoto = clustering-
+> SENSITIVE / repulsion-**INCONCLUSIVE** (declined), NOT repulsion-blind. (Contrast Kaneko snapshot →
+> rep_med 0.0/BL = a CLEAN low-rep negative ⇒ "repulsion-blind" is earned ONLY for Kaneko.) (ii) N was not
+> fixed (in-sample N=100 / oos N=200): the same-sign clustering separation holds, but the cross-row
+> magnitude compression (CV 0.72→0.52, 1.57→0.98) is the Palm-Khintchine superposition N-effect, NOT
+> generalization — clean magnitude needs N pinned. (iii) Do NOT chase the spatial-snapshot for Kuramoto to
+> amplify the swing: snapshot CV~√N is the H-D tautology (non-dynamical); the pooled-temporal observable is
+> the honest intensive one. See phase36/AUDIT_TWO_AXIS_FINDINGS.md + kuramoto_clustering_recheck.py.
 
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /
