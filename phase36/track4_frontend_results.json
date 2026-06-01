@@ -1,0 +1,168 @@
+{
+ "F2": {
+  "W1d": {
+   "0.5": {
+    "0.25": 0.47864,
+    "0.5": 0.60213,
+    "1.0": 0.76026,
+    "2.0": 0.99805
+   },
+   "1.5": {
+    "0.25": 0.81591,
+    "0.5": 0.96721,
+    "1.0": 1.12959,
+    "2.0": 1.3419
+   }
+  },
+  "insul_minus_metal_by_h": {
+   "0.25": 0.33727,
+   "0.5": 0.36508,
+   "1.0": 0.36933,
+   "2.0": 0.34385
+  },
+  "separates": true,
+  "knob_robust": true,
+  "recovers_floor": false
+ },
+ "F1": {
+  "default_band": [
+   0.05,
+   0.3
+  ],
+  "T": 2000.0,
+  "metal": {
+   "n": 404,
+   "CV": 0.1486,
+   "W1d": 0.09742,
+   "rep_med": 0.7475,
+   "quad": {
+    "BR_artifact": 23,
+    "TL": 2
+   }
+  },
+  "insul": {
+   "n": 804,
+   "CV": 0.2808,
+   "W1d": 0.00135,
+   "rep_med": 0.8489,
+   "quad": {
+    "BR_artifact": 25
+   }
+  },
+  "lambda_bracket": {
+   "0.5": {
+    "n": 404,
+    "CV": 0.1486,
+    "W1d": 0.09742,
+    "rep_med": 0.7475,
+    "quad": {
+     "BR_artifact": 23,
+     "TL": 2
+    }
+   },
+   "0.85": {
+    "n": 564,
+    "CV": 0.1314,
+    "W1d": 0.03408,
+    "rep_med": 0.8164,
+    "quad": {
+     "BR_artifact": 25
+    }
+   },
+   "0.95": {
+    "n": 613,
+    "CV": 0.0269,
+    "W1d": 0.01271,
+    "rep_med": 0.8484,
+    "quad": {
+     "BR_artifact": 25
+    }
+   },
+   "1.05": {
+    "n": 647,
+    "CV": 0.0081,
+    "W1d": 0.0041,
+    "rep_med": 0.85,
+    "quad": {
+     "BR_artifact": 25
+    }
+   },
+   "1.25": {
+    "n": 718,
+    "CV": 0.0064,
+    "W1d": 0.00112,
+    "rep_med": 0.85,
+    "quad": {
+     "BR_artifact": 25
+    }
+   },
+   "1.5": {
+    "n": 804,
+    "CV": 0.2808,
+    "W1d": 0.00135,
+    "rep_med": 0.8489,
+    "quad": {
+     "BR_artifact": 25
+    }
+   }
+  },
+  "band_sweep": {
+   "(0.05, 0.3)": {
+    "metal_W1d": 0.09742,
+    "insul_W1d": 0.00135,
+    "sep": -0.09607
+   },
+   "(0.1, 0.4)": {
+    "metal_W1d": 0.09158,
+    "insul_W1d": 0.00045,
+    "sep": -0.09113
+   },
+   "(0.15, 0.45)": {
+    "metal_W1d": 0.09153,
+    "insul_W1d": 0.00035,
+    "sep": -0.09118
+   },
+   "(0.08, 0.25)": {
+    "metal_W1d": 0.03338,
+    "insul_W1d": 0.00077,
+    "sep": -0.03261
+   }
+  },
+  "alpha_sweep": {
+   "0.0": {
+    "metal_W1d": 0.09742,
+    "insul_W1d": 0.00135,
+    "sep": -0.09607
+   },
+   "0.13": {
+    "metal_W1d": 0.00125,
+    "insul_W1d": 0.00354,
+    "sep": 0.00229
+   },
+   "0.27": {
+    "metal_W1d": 0.01008,
+    "insul_W1d": 0.00678,
+    "sep": -0.0033
+   },
+   "0.41": {
+    "metal_W1d": 0.14683,
+    "insul_W1d": 0.03452,
+    "sep": -0.11231
+   }
+  }
+ },
+ "verdict": {
+  "F2_separates": true,
+  "F2_knob_robust": true,
+  "F2_recovers_floor": false,
+  "F2_promoted": false,
+  "F2_status": "SEPARATES_ROBUST_BUT_NO_FLOOR (smoothed DOS coarsens; floor needs exact rotation-number IDS)",
+  "F1_separates": true,
+  "F1_band_robust": true,
+  "F1_alpha_robust": false,
+  "F1_bracket_monotone": true,
+  "F1_promoted": false,
+  "F1_n_bands_measured": 4,
+  "F1_n_alpha_measured": 4
+ }
+}

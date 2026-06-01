@@ -1576,11 +1576,22 @@ the event-extracted spectral instrument for that transition class, not the subst
   approach would likely reconfirm the negative). Forced-HH + BGKM (ODE) deferred to a dedicated arc.
 - **Track 3.1 pvc-11 — deferred** (premise was a Track-1-calibrated lens, which the Chialvo negative
   shows does not exist for this transition class via event-spectral readout).
-- **Track 4 continuous front-end — highest-value redirect, in progress.** Calibrator-only,
-  falsification-gated. F1 (Hilbert phase on wavepacket return amplitude φ(t)=⟨e₀|e^{−iHt}|e₀⟩, the
-  real new test; phase-knob confound: sweep filter-band & α independently) + F2 (spectral→IDS-unfold,
-  inherits banked validation). Now doubly-motivated by the Chialvo negative. Independent of Track 1;
-  gated only on Track 0 (passed). See phase36/TRACK4_CONFIG_JUSTIFICATION.md.
+- **Track 4 continuous front-end — DONE; neither front-end PROMOTABLE, but the continuous arm
+  demonstrably CARRIES the transition (positive falsification-gated result).** φ(t) bridge sound
+  (|φ| late/early 0.08 metal → 0.99 insulator, monotone). **F1** (Hilbert phase on wavepacket return
+  amplitude → rotation-number NNS): at pinned α=0 gives a MONOTONE λ-bracket signal (W1δ 0.097→0.001
+  metal→insulator), band-robust — exactly the transition signal event-extraction (Chialvo) could not
+  produce. BUT not α-robust at N=2584 (sep −0.096 at α=0, collapses to ≈0 at α=0.13/0.27) — the
+  inherited phase-knob confound; and it CANNOT be factored out because φ(t) needs eigenVECTORS (O(N²),
+  ~20GB at N=5×10⁴) so F1 is capped at moderate-N where α-noise lives. Tag
+  `CARRIES_TRANSITION_α-CONFOUND-UNRESOLVABLE_AT_REACHABLE_N`; resolution path = O(N) Gauss-quadrature
+  spectral-weights (Lanczos), queued. **F2** (KDE-DOS → IDS-unfold): separates robustly (insul−metal
+  +0.35 across all bandwidths) but metal W1δ 0.48–1.0 ≠ banked floor (≈0.005) — the floor is
+  load-bearing on the EXACT rotation-number IDS, not a smoothed density. Tag
+  `SEPARATES_ROBUST_BUT_NO_FLOOR`. NET: §7.ter.19 reaffirmed with positive, knob-named evidence; the
+  continuous arm is the right tool for this transition class but needs (a) exact IDS not smoothed,
+  (b) O(N) spectral-weights to escape the α-confound. No real continuous data run. See
+  phase36/TRACK4_FINDINGS.md.
 
 ---
 
