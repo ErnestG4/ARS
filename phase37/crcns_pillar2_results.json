@@ -1,0 +1,98 @@
+{
+ "pvc11_H1": {
+  "test": "OSI vs ks_gue (drifting gratings)",
+  "n": 210,
+  "rho": 0.739,
+  "ci": [
+   0.662,
+   0.808
+  ],
+  "p": 1.5062241019279067e-37,
+  "partial_rho": 0.72,
+  "partial_ci": [
+   0.638,
+   0.791
+  ],
+  "controlled_for": "rate"
+ },
+ "hc3_pillar2_all": {
+  "test": "spatial-info vs ks_gue (all regions)",
+  "n": 572,
+  "rho": 0.689,
+  "ci": [
+   0.637,
+   0.732
+  ],
+  "p": 1.353635452390828e-81,
+  "partial_rho": 0.469,
+  "partial_ci": [
+   0.396,
+   0.537
+  ],
+  "controlled_for": "rate+burst"
+ },
+ "hc3_pillar2_CA3": {
+  "test": "  spatial-info vs ks_gue [CA3]",
+  "n": 365,
+  "rho": 0.616,
+  "ci": [
+   0.541,
+   0.678
+  ],
+  "p": 1.4180772034160447e-39,
+  "partial_rho": 0.273,
+  "partial_ci": [
+   0.168,
+   0.372
+  ],
+  "controlled_for": "rate+burst"
+ },
+ "hc3_pillar2_EC": {
+  "test": "  spatial-info vs ks_gue [EC]",
+  "n": 191,
+  "rho": 0.607,
+  "ci": [
+   0.501,
+   0.696
+  ],
+  "p": 1.3756047716277558e-20,
+  "partial_rho": 0.594,
+  "partial_ci": [
+   0.475,
+   0.686
+  ],
+  "controlled_for": "rate+burst"
+ },
+ "hc3_pillar2_DG": {
+  "test": "  spatial-info vs ks_gue [DG]",
+  "n": 16,
+  "rho": 0.721,
+  "ci": [
+   0.331,
+   0.919
+  ],
+  "p": 0.0016381911638796128,
+  "partial_rho": 0.234,
+  "partial_ci": [
+   -0.439,
+   0.866
+  ],
+  "controlled_for": "rate+burst"
+ },
+ "ret1_pillar2": {
+  "test": "RF-SNR vs ks_gue",
+  "n": 325,
+  "rho": 0.091,
+  "ci": [
+   -0.016,
+   0.195
+  ],
+  "p": 0.0998511646269454,
+  "partial_rho": 0.051,
+  "partial_ci": [
+   -0.055,
+   0.16
+  ],
+  "controlled_for": "rate+burst"
+ }
+}
