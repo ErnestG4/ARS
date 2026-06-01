@@ -1542,6 +1542,48 @@ documented but is not on the immediate roadmap.
 
 ---
 
+## Phase 36 — Torus-breakdown / quasiperiodicity→chaos extension (2026-05-31, in progress)
+
+Extends `transition_diagnostic` along the torus-breakdown axis (linearization = Harper/Almost-Mathieu,
+the operator the leg is validated on). Scope (with Will): Spine + Track 4; discrete-map calibrators
+first, strict gate. New vocabulary: **`NOT-SPECTRALLY-SEPARABLE`** — a transition whose dynamical
+regimes are not robustly (out-of-sample) separable on the spectral/quadrant ARS fingerprint via any
+tested event observable, even though a non-spectral (e.g. combinatorial) signature persists; bounds
+the event-extracted spectral instrument for that transition class, not the substrate.
+
+- **Track 0 regression gate — PASS.** All 5 banked verdicts reproduce bit-exact (deterministic AM
+  leg): IDS-leg ratio-free (converges in L, no N_ref), zoo-gap 56× sub/sup contrast, 35b no-FP,
+  sensitivity floor N≳5×10⁴, logistic+MG loci. NUANCE banked: the 35b auto-verdict is literally
+  `UNRESOLVED`; "VALIDATED" = human-adjudicated NO-FALSE-POSITIVE (no quadrant flip); the gate tag is
+  `NFP_NO_FLIP_REPRODUCED` and says so (sub-quadrant sensitivity certified separately, item 4). See
+  phase36/track0_regression.{py,md}.
+
+- **Track 1.1 Chialvo calibrator — `FAILED — NOT-SPECTRALLY-SEPARABLE` (refined; banked).** Dynamics
+  clean (NS onset analytic; torus→Arnold-tongues→chaos via λ₁=0 Benettin at b=0.45,k=0.06, sweep a).
+  But the torus→chaos transition is NOT robustly legible on `joint_q_profile`: spike-TIMING observables
+  (median/y-upcrossing) read clock-like in every regime (fast-oscillation period regime-stable; only a
+  combinatorial 2→3 interval-cardinality signature persists — non-spectral). IEI|Δx| both BL
+  (quadrant-blind). |Δpeak-amplitude| separated IN-SAMPLE (BL→TR, rep_med 0.046→0.342) but FAILED the
+  out-of-sample check (fresh slice b=0.35,k=0.08: both TR, sep −0.067; same torus type reads BL in one
+  slice, TR in another ⇒ fingerprint tracks parameters not regime). The out-of-sample guard converted a
+  would-be false `DETECTED` into an honest negative. Implications: (1) bounds the event-extracted
+  spectral instrument for amplitude-modulation-carried transitions; (2) calibrator-side instance of the
+  Track-4 premise — even amplitude-aware *event* extraction loses this transition class, sharpening the
+  case that the continuous front-end is the principled tool here, not a luxury. See
+  phase36/TRACK1_1_CHIALVO_FINDINGS.md.
+
+- **Track 1.4 Kaneko GCM — gated OFF** (Chialvo did not reach DETECTED; same instrument/observable
+  approach would likely reconfirm the negative). Forced-HH + BGKM (ODE) deferred to a dedicated arc.
+- **Track 3.1 pvc-11 — deferred** (premise was a Track-1-calibrated lens, which the Chialvo negative
+  shows does not exist for this transition class via event-spectral readout).
+- **Track 4 continuous front-end — highest-value redirect, in progress.** Calibrator-only,
+  falsification-gated. F1 (Hilbert phase on wavepacket return amplitude φ(t)=⟨e₀|e^{−iHt}|e₀⟩, the
+  real new test; phase-knob confound: sweep filter-band & α independently) + F2 (spectral→IDS-unfold,
+  inherits banked validation). Now doubly-motivated by the Chialvo negative. Independent of Track 1;
+  gated only on Track 0 (passed). See phase36/TRACK4_CONFIG_JUSTIFICATION.md.
+
+---
+
 *End of state document.  This file is intended to be re-read at the
 start of each phase brief, and updated as findings move between
 sections (locked → mechanism-known, open → ruled-out,

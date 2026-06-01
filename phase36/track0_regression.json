@@ -1,0 +1,65 @@
+{
+ "item1_ids_leg": {
+  "primary": "BR_artifact",
+  "rep_med": 0.8469,
+  "W1d_L3e5": 0.005263,
+  "W1d_L1e6": 0.00497,
+  "W1d_L3e6": 0.004831,
+  "last_decade_swing": 0.000432,
+  "converging": true,
+  "bitexact": true,
+  "no_Nref_structural": true,
+  "pass_": true,
+  "secs": 50.7
+ },
+ "item2_zoo_gap": {
+  "W1d_sub": 0.00497,
+  "W1d_sup": 0.27686,
+  "contrast": 55.7,
+  "pass_": true,
+  "secs": 28.5
+ },
+ "item3_nfp": {
+  "signal_primaries": [
+   "BR_artifact"
+  ],
+  "null_primaries": [
+   "BR_artifact"
+  ],
+  "sig_transition_detected": false,
+  "null_transition_detected": false,
+  "sig_W1d_drift": 0.28123,
+  "null_W1d_drift": 0.11492,
+  "sig_subquad_step": true,
+  "banked_cells_match": true,
+  "banked_auto_verdict": "UNRESOLVED \u2014 neither pre-specified branc",
+  "pass_": true,
+  "secs": 226.6
+ },
+ "item4_sensitivity_floor": {
+  "N": 50000,
+  "W1d_sub": 0.00052,
+  "W1d_sup": 0.23546,
+  "gap": 0.23494,
+  "pass_": true,
+  "secs": 267.6
+ },
+ "item5_dynamical_loci": {
+  "logistic_r3p7_chaos": 0.3549,
+  "logistic_r3p83_window": -0.3697,
+  "mackey_tau23_chaos": 0.01009,
+  "mackey_tau10_periodic": 4.2e-05,
+  "sign_ok": true,
+  "mag_ok": true,
+  "pass_": true,
+  "secs": 1.2
+ },
+ "overall_pass": true,
+ "verdicts": {
+  "1 IDS-leg": true,
+  "2 zoo-gap": true,
+  "3 NFP": true,
+  "4 sensitivity-floor": true,
+  "5 dynamical-loci": true
+ }
+}

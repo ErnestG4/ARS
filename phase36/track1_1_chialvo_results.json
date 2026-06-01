@@ -1,0 +1,313 @@
+{
+ "detection": {
+  "n_events": 9308,
+  "a_range": [
+   0.891,
+   0.974
+  ],
+  "transition_detected": false,
+  "shape": "unclassified",
+  "confidence": 0.0,
+  "origin": "BR_artifact",
+  "destination": "BR_artifact",
+  "period_doubling": false,
+  "rep_int_drift": 0.0474,
+  "rf_spike_drift": 0.4,
+  "rep_int_monotonicity": 0.645,
+  "rf_spike_monotonicity": 0.791,
+  "rf_amp_monotonicity": 0.181,
+  "engine_attribution": "RF_spike",
+  "rep_int_edge_a": 0.958,
+  "rep_int_edge_step": 0.0474,
+  "rf_spike_edge_a": 0.941,
+  "rf_spike_edge_step": 0.4,
+  "quadrant_flips": [],
+  "primaries": [
+   "BR_artifact"
+  ],
+  "series": [
+   {
+    "a": 0.8914,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.8943,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.8971,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.8999,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9028,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9056,
+    "primary": "BR_artifact",
+    "rep_med": 0.8763,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9084,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9113,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9141,
+    "primary": "BR_artifact",
+    "rep_med": 0.8878,
+    "rf_spike": 0.04
+   },
+   {
+    "a": 0.9169,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9198,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9226,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9254,
+    "primary": "BR_artifact",
+    "rep_med": 0.8834,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9283,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.04
+   },
+   {
+    "a": 0.9311,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9339,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9368,
+    "primary": "BR_artifact",
+    "rep_med": 0.8966,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9396,
+    "primary": "BR_artifact",
+    "rep_med": 0.8777,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9424,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.4
+   },
+   {
+    "a": 0.9453,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9481,
+    "primary": "BR_artifact",
+    "rep_med": 0.8958,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9509,
+    "primary": "BR_artifact",
+    "rep_med": 0.8974,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9537,
+    "primary": "BR_artifact",
+    "rep_med": 0.8974,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9566,
+    "primary": "BR_artifact",
+    "rep_med": 0.8974,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9594,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9623,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9651,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.04
+   },
+   {
+    "a": 0.9679,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9708,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   },
+   {
+    "a": 0.9736,
+    "primary": "BR_artifact",
+    "rep_med": 0.85,
+    "rf_spike": 0.0
+   }
+  ]
+ },
+ "nfp_quasi": {
+  "regime": "quasiperiodic_torus",
+  "a": 0.89,
+  "n_events_total": 9818,
+  "budget_N": 2584,
+  "budget_nsub": 25,
+  "budget_transition_detected": false,
+  "budget_primaries": [
+   "BR_artifact"
+  ],
+  "extended_transition_detected": false,
+  "extended_primaries": [
+   "BR_artifact"
+  ],
+  "rep_int_monotonicity": 1.0,
+  "rf_spike_monotonicity": 0.369,
+  "no_quad_flip": true,
+  "subquad_flat": false,
+  "no_false_positive": false
+ },
+ "nfp_chaos": {
+  "regime": "developed_chaos",
+  "a": 0.97,
+  "n_events_total": 13637,
+  "budget_N": 2584,
+  "budget_nsub": 25,
+  "budget_transition_detected": false,
+  "budget_primaries": [
+   "BR_artifact"
+  ],
+  "extended_transition_detected": false,
+  "extended_primaries": [
+   "BR_artifact"
+  ],
+  "rep_int_monotonicity": 1.0,
+  "rf_spike_monotonicity": 0.427,
+  "no_quad_flip": true,
+  "subquad_flat": false,
+  "no_false_positive": false
+ },
+ "sensitivity": {
+  "sweep": [
+   {
+    "n_iter": 20000,
+    "n_events": 930,
+    "n_subwindows": 9,
+    "detected": false,
+    "shape": "unclassified"
+   },
+   {
+    "n_iter": 40000,
+    "n_events": 1860,
+    "n_subwindows": 18,
+    "detected": false,
+    "shape": "unclassified"
+   },
+   {
+    "n_iter": 80000,
+    "n_events": 3722,
+    "n_subwindows": 30,
+    "detected": false,
+    "shape": "unclassified"
+   },
+   {
+    "n_iter": 150000,
+    "n_events": 6980,
+    "n_subwindows": 30,
+    "detected": false,
+    "shape": "unclassified"
+   },
+   {
+    "n_iter": 300000,
+    "n_events": 13962,
+    "n_subwindows": 30,
+    "detected": false,
+    "shape": "unclassified"
+   }
+  ],
+  "detection_floor_events": null
+ },
+ "qmax_guard": {
+  "25": {
+   "detected": false,
+   "shape": "unclassified"
+  },
+  "50": {
+   "detected": false,
+   "shape": "unclassified"
+  },
+  "stable": true
+ },
+ "status_tag": "DETECTED-but-NFP-FAILED (false positive on a stationary regime)",
+ "engine": "RF_spike",
+ "detection_floor_events": null,
+ "adjudication": {
+  "quad_flip": false,
+  "subquad_detected": true,
+  "carrying_axis": "RF_spike",
+  "swept_monotonicity": 0.791,
+  "stationary_baseline_monotonicity": 0.369,
+  "nfp_confirmed": false
+ }
+}
