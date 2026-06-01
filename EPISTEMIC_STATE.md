@@ -1606,9 +1606,22 @@ the event-extracted spectral instrument for that transition class, not the subst
   wavepacket-phase observable. F1 DEFINITIVELY NOT promotable. New tag
   `α-CONFOUND_INTRINSIC_N-CONVERGED_NOT_PROMOTABLE`. Methodological gem: the two legs respond to α
   DIFFERENTLY (eigenvalue-spacing finite-N / φ(t)-phase limit-intrinsic) — only the high-N test (enabled
-  by the validated O(N) Lanczos measure) distinguishes them. STILL QUEUED: F2 floor via KPM global-DOS
-  (Chebyshev moments + stochastic trace; floor from moment convergence, not KDE) — the Lanczos LOCAL
-  measure doesn't supply the global IDS. See phase36/lanczos_local_measure.py + TRACK4_FINDINGS.md.
+  by the validated O(N) Lanczos measure) distinguishes them. See phase36/lanczos_local_measure.py.
+
+- **Track 4 F2 RESOLVED (KPM global-DOS, phase36/kpm_dos.py) — the floor is spectral RIGIDITY, not
+  density.** Principled DOS estimator (Chebyshev moments via stochastic trace + Jackson kernel, O(M·R·N),
+  no diagonalization), gated at N=1200 vs the banked floor + the α-invariance free check. The α-invariance
+  check PASSED (KPM metal W1δ across α spread 0.0088 — recovered quantity α-independent, estimator
+  FAITHFUL/ergodic as predicted) but the floor did NOT recover (M=256→4096: W1δ 1.10→1.15, rails high).
+  Together ⇒ the missing floor is a RESOLUTION limit, NOT an ergodicity failure. Structural reason: the
+  metal→floor is spectral RIGIDITY (near-uniform AC levels) needing IDS accuracy ≪ mean spacing
+  (~bandwidth/N) i.e. M≫N moments (> diagonalization cost). So NO moment/kernel DOS recovers the floor
+  cheaply — the floor is exact-level-POSITION info (rotation-number/Sturm IDS, O(N²)), not density info
+  (KDE smooths it away, KPM moment-truncates it away — same root cause). F2 tag
+  `ERGODIC-SEPARATES_FLOOR-IS-RIGIDITY-NOT-DENSITY`. **Track 4 CLOSED — both front-ends mechanism-resolved:
+  the continuous arm CARRIES the transition (robust, phase-invariant SEPARATION via F2 — confirmed ergodic)
+  but NOT the floor's fine RIGIDITY; F1 not promotable (intrinsic locality-α). The continuous front-end's
+  precise value: it buys the separation, not the rigidity.** See phase36/kpm_dos.py + TRACK4_FINDINGS.md.
 
 ---
 

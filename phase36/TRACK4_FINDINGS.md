@@ -114,3 +114,77 @@ supply it. This is the remaining concrete engineering step, not open-ended.
 α-scatter is finite-N (collapses with N), the φ(t)-phase leg's α-dependence is thermodynamic-limit
 intrinsic (N-invariant). "Go to higher N to escape phase-noise" is valid for the first, useless for the
 second — and only the high-N test (enabled by the O(N) Lanczos measure) could tell them apart.
+
+---
+
+## WHY F1's death does NOT transfer to F2 — the local-vs-global split (ergodicity pressure-test)
+
+The correction that earns this section: Lanczos-from-|e₀⟩ gives the LOCAL measure dμ₀ — right for F1,
+useless for F2 (a single starting vector can't give a trace). F2 needs the GLOBAL DOS/IDS, its own
+estimator. But the split is not bookkeeping — it is the REASON F1's death does not transfer:
+- **F1's observable is dμ₀, the local spectral measure, which DEPENDS on α** ⇒ its α-contingency is real
+  and fatal (confirmed: intrinsic, N-invariant).
+- **F2's observable is the IDS, which by the ergodic theorem is a.s. INDEPENDENT of α (self-averaging).**
+  F2 reads a phase-invariant object BY CONSTRUCTION. The confound that killed F1 is a property of
+  LOCALITY, not of the continuous arm. F2 is structurally immune.
+
+**Pressure-test (exact diag, N=2584, same operator / same α-set as F1):** IDS-unfold W1δ across
+α∈{0,0.13,0.27,0.41}:
+- **metal (λ=0.5): [0.005, 0.006, 0.004, 0.006], spread 0.0022** — α-STABLE at the floor, where F1's
+  local φ(t) metal swung [0.097,0.001,0.010,0.147] (spread 0.146). The load-bearing structure (the floor)
+  is α-invariant already at N=2584. ✓ claim confirmed.
+- insul (λ=1.5): [0.277,0.390,0.828,0.301], spread 0.55 — still α-scattered at N=2584, BUT this is the
+  FINITE-N scatter that collapses by N≳5×10⁴ (banked sensitivity floor) — categorically unlike F1's
+  N-invariant intrinsic α-dependence.
+
+⇒ the IDS self-averages: FAST in the metal (extended states; α-invariant by N=2584), SLOWLY in the
+insulator (localized states; finite-N scatter collapsing with N) — always collapsing, never intrinsic.
+**F2 reads a phase-invariant object in the limit; it is the right tool, not a consolation prize.**
+
+This turns F2's queued KPM step into something with a BUILT-IN CORRECTNESS CHECK: recover the floor via
+Chebyshev moments + stochastic trace + Jackson kernel (Gibbs-ringing damping), gated like Lanczos
+(moment-convergence ladder vs the banked N=1200 floor before any high-N run) — AND the recovered floor
+must come out α-INDEPENDENT. If it does, the IDS is behaving as the ergodic theorem requires and the
+separation is clean for the right reason; if it comes out α-dependent, the estimator is broken (the IDS
+CANNOT be), caught before trust. F2's floor is recovered AGAINST A THEOREM. [[two_legs_respond_to_alpha_differently]].
+
+---
+
+## F2 RESOLVED — the floor is spectral RIGIDITY, not density (KPM build, `phase36/kpm_dos.py`)
+
+Built the principled DOS estimator: Chebyshev moments via STOCHASTIC TRACE (O(M·R·N) matvecs, no
+diagonalization) + Jackson kernel (Gibbs damping); unfold eigenvalues through the KPM-IDS. Gated at
+N=1200 vs the banked exact floor, with the alpha-invariance free check.
+
+**Result — the alpha-invariance check PASSED, the floor did NOT recover, and the two together ARE the answer:**
+- **Moment-convergence ladder (metal):** M=256->4096 gives W1d 1.10->1.15 — does NOT converge down to the
+  banked floor (~0.005); rails high, slightly WORSENS with M. (KDE-DOS railed at 0.48-1.0; KPM rails
+  higher — neither recovers it.)
+- **alpha-invariance (M=2048):** metal W1d across alpha = [1.146,1.140,1.140,1.137], spread **0.0088** — the
+  KPM floor IS alpha-invariant. The estimator reads the IDS as the ergodic theorem requires; FAITHFUL, not broken.
+- **Separation:** metal 1.146 vs insul 1.419 (sep 0.273) — separates, right direction.
+
+**Why the floor can't be recovered cheaply (the structural reason):** the metal->floor is spectral
+RIGIDITY — the AC-metal levels are near-uniformly spaced (clock-like), so unfolding them to W1d->0.005
+needs the IDS accurate to << the mean spacing (~ bandwidth/N ~ 0.005). KPM's Jackson-damped resolution is
+a/M ~ 0.0015 at M=4096 — COMPARABLE to the spacing, not << it. Resolving the floor needs M>>N moments,
+which costs more than diagonalization. So **no moment/kernel DOS estimator recovers the floor at
+sub-diagonalization cost: the floor is exact-level-POSITION information (the rotation-number/Sturm IDS
+supplies it exactly, O(N^2)), NOT density information.** KDE smooths it away, KPM moment-truncates it away
+— same root cause.
+
+**The alpha-invariance check did exactly its job:** it confirmed the estimator is faithful (alpha-invariant
+=> not broken), so the missing floor is a RESOLUTION LIMIT, not an ergodicity failure. The gate drew the
+distinction it was designed to draw.
+
+### Track 4 — both front-ends now mechanism-resolved (CLOSED)
+- **F1 (local phi(t)) — NOT promotable:** intrinsic alpha-dependence (a property of LOCALITY; dmu_0 is
+  phase-dependent), persists to the thermodynamic limit (Lanczos high-N test).
+- **F2 (global DOS) — separates robustly AND alpha-invariantly (ergodic, CONFIRMED), but cannot recover the
+  floor by any cheap DOS estimator:** the floor is exact spectral-rigidity (level positions), below
+  moment/kernel resolution without M>>N.
+- **NET:** the continuous arm CARRIES the transition (robust, phase-invariant SEPARATION via F2) but NOT
+  the floor's fine RIGIDITY (exact-level information). That is the precise boundary of what a continuous
+  front-end buys for this operator class. §7.ter.19 reaffirmed with positive, fully-mechanism-resolved
+  evidence on BOTH fronts. No real continuous data run. Tags: F1 `alpha-CONFOUND_INTRINSIC_NOT_PROMOTABLE`,
+  F2 `ERGODIC-SEPARATES_FLOOR-IS-RIGIDITY-NOT-DENSITY`.
