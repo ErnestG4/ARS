@@ -1591,9 +1591,12 @@ the event-extracted spectral instrument for that transition class, not the subst
   metal→clock-rigid W1δ floor vs insulator→Poisson; read by the repulsion/rigidity axis (why F2's W1δ
   separated, why the floor was rigidity). (ii) **CLUSTERING-type** — Chialvo + Kaneko: Poisson→super-
   clustered; blind to the repulsion axis (CLASS-WIDE), legible on the clustering axis (mass<τ/CV). The
-  pillar-1 GUE↔Poisson-poles lens reads rigidity-type, not clustering-type. Chialvo's
-  `NOT-SPECTRALLY-SEPARABLE` refines to `NOT-REPULSION-SEPARABLE`; queued cross-check = re-read Chialvo on
-  the clustering axis.
+  pillar-1 GUE↔Poisson-poles lens reads rigidity-type, not clustering-type. **Cross-check DONE:** Chialvo
+  re-read on the clustering axis (CV of |Δpeak-amp|) separates torus→chaos +0.196 in-sample / +0.124
+  out-of-sample (SAME sign, generalizes), where its repulsion axis flipped sign oos. So Chialvo is a
+  confirmed (weak) clustering-type member like Kaneko (strong) — taxonomy CONFIRMED, two members. This
+  CORRECTS Track 1.1: its `FAILED / NOT-SPECTRALLY-SEPARABLE` was AXIS-INCOMPLETE (repulsion-axis only);
+  honest verdict `NOT-REPULSION-SEPARABLE` but CLUSTERING-AXIS-DETECTABLE.
 - **Track 3.1 pvc-11 — deferred** (premise was a Track-1-calibrated lens, which the Chialvo negative
   shows does not exist for this transition class via event-spectral readout).
 - **Track 4 continuous front-end — DONE; neither front-end PROMOTABLE, but the continuous arm

@@ -6,6 +6,16 @@ SENSITIVITY-BOUNDED, FAILED}.
 
 ## Verdict: `FAILED — NOT-SPECTRALLY-SEPARABLE` (refined; banked, not discarded)
 
+> **CORRECTION (2026-05-31, from the Track 1.4 Kaneko cross-check):** this verdict was AXIS-INCOMPLETE
+> — it tested only the REPULSION/quadrant axis (rep_med), which fails out-of-sample (in-sample +0.296,
+> out-of-sample −0.067, sign flip). Re-reading the SAME |Δpeak-amp| observable on the CLUSTERING axis
+> (CV / mass<τ) DOES separate torus from chaos, out-of-sample-consistently (CV +0.196 in / +0.124 oos,
+> same sign; mass<0.3 0.148→0.230 in / 0.147→0.218 oos). So the honest verdict is
+> **`NOT-REPULSION-SEPARABLE` but CLUSTERING-AXIS-DETECTABLE** — Chialvo is a (weak) clustering-type
+> torus transition, like Kaneko (strong). See TRACK1_4_KANEKO_FINDINGS.md +
+> [[torus_transition_rigidity_vs_clustering]]. The text below documents the original (repulsion-axis)
+> investigation as-run.
+
 The Chialvo torus→chaos transition is **not robustly legible on the ARS spectral/quadrant
 fingerprint (`joint_q_profile`) via any tested event observable.** This is a bounded negative about
 the event-extracted *spectral* instrument for this transition class — NOT total instrument blindness,

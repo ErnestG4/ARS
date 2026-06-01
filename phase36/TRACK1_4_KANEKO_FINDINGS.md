@@ -63,6 +63,15 @@ AND is BROKEN on the clustering axis (Kaneko, out-of-sample). Both halves inform
 genuine generalization test, not a reconfirmation. The test came back positive where it could
 (clustering axis), proving it was capable of it.
 
-Queued cross-check (well-specified): re-read Chialvo on the clustering axis (mass<τ/CV of its
-amplitude/spatial observable) to confirm the rigidity/clustering taxonomy holds there too.
-[[ksgue_burst_substrate_relative]]-sibling on the one-sided-fitter axis; unifies with the SOC pair.
+## Cross-check DONE — Chialvo is a confirmed clustering-type member (and it corrects Track 1.1)
+Re-read Chialvo (Track 1.1) on the clustering axis, torus vs chaos, in- AND out-of-sample:
+- repulsion axis (rep_med): in-sample +0.296 but **flips to −0.067 out-of-sample** (does NOT generalize).
+- clustering axis (CV of |Δpeak-amp|): in-sample **+0.196**, out-of-sample **+0.124** — SAME sign,
+  consistent magnitude (mass<0.3: 0.148→0.230 in / 0.147→0.218 oos — both move up ~0.08). GENERALIZES.
+
+So the SAME observable read on the repulsion axis fails out-of-sample but on the clustering axis
+separates consistently. Chialvo is clustering-type (weak, +0.12-0.20) like Kaneko (strong, +25-37) —
+taxonomy CONFIRMED with two members. **This corrects Track 1.1:** the original
+`FAILED / NOT-SPECTRALLY-SEPARABLE` was AXIS-INCOMPLETE (only the repulsion/quadrant axis was tested);
+the honest verdict is **`NOT-REPULSION-SEPARABLE` but CLUSTERING-AXIS-DETECTABLE (out-of-sample-consistent)**.
+[[torus_transition_rigidity_vs_clustering]], [[ksgue_burst_substrate_relative]]-sibling; unifies with the SOC pair.
