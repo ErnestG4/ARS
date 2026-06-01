@@ -203,11 +203,46 @@ FAMILY_I = {
 }
 
 
+def _ordered_intervals(positions) -> np.ndarray:
+    """Time-ordered intervals between consecutive events (sort-then-diff; for a temporal spike train this
+    is the ISI sequence in time order, for a sorted spectrum the consecutive-spacing sequence). NOT trimmed
+    or unit-mean-normalized — adjacency in time must be preserved for the LOCAL measures below."""
+    p = np.sort(np.asarray(positions, dtype=np.float64))
+    d = np.diff(p)
+    return d[d > 0]
+
+
+def I12_cv2(positions) -> Optional[float]:
+    """CV2 (Holt 1996): mean over adjacent-ISI pairs of 2|Iᵢ−Iᵢ₊₁|/(Iᵢ+Iᵢ₊₁). PARAMETER-FREE local
+    irregularity, robust to SLOW rate drift (adjacent ISIs see ~the same rate) — so it isolates FAST
+    burst-clustering from the slow rate-nonstationarity / epoch-gap concatenation that inflates global CV.
+    Poisson→1, regular→<1, bursty/clustered→>1. Added Phase 37 (the CV-16 artifact fix)."""
+    d = _ordered_intervals(positions)
+    if d.size < MIN_N_NNS:
+        return None
+    a, b = d[:-1], d[1:]
+    return float(np.mean(2.0 * np.abs(a - b) / (a + b)))
+
+
+def I13_lv(positions) -> Optional[float]:
+    """Lv (Shinomoto 2003): mean over adjacent-ISI pairs of 3((Iᵢ−Iᵢ₊₁)/(Iᵢ+Iᵢ₊₁))². Parameter-free,
+    rate-robust local variation; Poisson→1, regular→<1, bursty→>1. Cross-check to I.12_cv2."""
+    d = _ordered_intervals(positions)
+    if d.size < MIN_N_NNS:
+        return None
+    a, b = d[:-1], d[1:]
+    return float(np.mean(3.0 * ((a - b) / (a + b)) ** 2))
+
+
 def compute_family_I(positions) -> dict:
     """All Family I axes from unfolded positions (routes through the matched
-    canonical_spacings extractor)."""
+    canonical_spacings extractor). I.10/I.11 are the GLOBAL clustering magnitude (sign-carrying but
+    inflated by slow rate-drift); I.12/I.13 are the rate-robust LOCAL irregularity (fast clustering only)."""
     s = canonical_spacings(positions)
-    return {name: fn(s) for name, fn in FAMILY_I.items()}
+    out = {name: fn(s) for name, fn in FAMILY_I.items()}
+    out["I.12_cv2"] = I12_cv2(positions)   # rate-robust local irregularity (raw time-ordered ISIs)
+    out["I.13_lv"] = I13_lv(positions)
+    return out
 
 
 # ── Family II — long-range NNS correlations ──────────────────────────────────
