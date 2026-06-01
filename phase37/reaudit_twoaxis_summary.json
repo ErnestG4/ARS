@@ -1,0 +1,110 @@
+[
+ {
+  "sub": "buzsaki-port-cell",
+  "n": 4019,
+  "cv2_med": 1.2235130877129714,
+  "cv_med": 9.178393773138229,
+  "mass_med": 0.6895213454075032,
+  "frac_reg": 0.05697934809654143,
+  "frac_pois": 0.17118686240358297,
+  "frac_clust": 0.7718337894998756,
+  "frac_slow_drift": 0.20726548892759392,
+  "axis_incomplete": true
+ },
+ {
+  "sub": "hc3-port-cell",
+  "n": 923,
+  "cv2_med": 1.2038398602797054,
+  "cv_med": 1.9246712662439718,
+  "mass_med": 0.5275035260930888,
+  "frac_reg": 0.13001083423618634,
+  "frac_pois": 0.2210184182015168,
+  "frac_clust": 0.6489707475622969,
+  "frac_slow_drift": 0.20693391115926327,
+  "axis_incomplete": true
+ },
+ {
+  "sub": "dr-port-cell",
+  "n": 1365,
+  "cv2_med": 1.1420616843906002,
+  "cv_med": 2.3815584795794456,
+  "mass_med": 0.5214536928487691,
+  "frac_reg": 0.05787545787545788,
+  "frac_pois": 0.34798534798534797,
+  "frac_clust": 0.5941391941391941,
+  "frac_slow_drift": 0.34285714285714286,
+  "axis_incomplete": true
+ },
+ {
+  "sub": "allen-hpf-cell",
+  "n": 4358,
+  "cv2_med": 1.1060747867327165,
+  "cv_med": 16.21143590058427,
+  "mass_med": 0.8791862712178484,
+  "frac_reg": 0.15855897200550712,
+  "frac_pois": 0.32927948600275353,
+  "frac_clust": 0.5121615419917394,
+  "frac_slow_drift": 0.48737953189536487,
+  "axis_incomplete": true
+ },
+ {
+  "sub": "ret1-cell",
+  "n": 325,
+  "cv2_med": 1.075872504881893,
+  "cv_med": 1.3513637585584177,
+  "mass_med": 0.4735817575083426,
+  "frac_reg": 0.23076923076923078,
+  "frac_pois": 0.32,
+  "frac_clust": 0.4492307692307692,
+  "frac_slow_drift": 0.20307692307692307,
+  "axis_incomplete": false
+ },
+ {
+  "sub": "v1-burst-osi",
+  "n": 7846,
+  "cv2_med": 1.004645773478635,
+  "cv_med": null,
+  "mass_med": null,
+  "frac_reg": 0.27848585266377773,
+  "frac_pois": 0.4274789701758858,
+  "frac_clust": 0.2940351771603365,
+  "frac_slow_drift": 0.0,
+  "axis_incomplete": false
+ },
+ {
+  "sub": "ibl-port-cell",
+  "n": 1141,
+  "cv2_med": 1.0166979929585183,
+  "cv_med": 1.327785373584033,
+  "mass_med": 0.3400095556617296,
+  "frac_reg": 0.11393514460999124,
+  "frac_pois": 0.7037686240140227,
+  "frac_clust": 0.18229623137598597,
+  "frac_slow_drift": 0.22261174408413673,
+  "axis_incomplete": false
+ },
+ {
+  "sub": "calibration-anchors",
+  "n": 6,
+  "cv2_med": 0.48912577349830816,
+  "cv_med": 0.3994188676774913,
+  "mass_med": 0.01958912037037037,
+  "frac_reg": 0.8333333333333334,
+  "frac_pois": 0.16666666666666666,
+  "frac_clust": 0.0,
+  "frac_slow_drift": 0.0,
+  "axis_incomplete": false
+ },
+ {
+  "sub": "dynamical-breadth",
+  "n": 17,
+  "cv2_med": 0.10121114163494219,
+  "cv_med": 0.07873904751478937,
+  "mass_med": 0.0,
+  "frac_reg": 1.0,
+  "frac_pois": 0.0,
+  "frac_clust": 0.0,
+  "frac_slow_drift": 0.0,
+  "axis_incomplete": false
+ }
+]
