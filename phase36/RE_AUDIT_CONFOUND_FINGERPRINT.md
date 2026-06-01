@@ -73,6 +73,20 @@ data's temporal resolution** (simulation dt / sample clock / bin width) quantize
 spurious sub-Poisson regularity → inflated rep_int → false BR/BR_artifact. Rhythmicity is the *setup* (many
 units → high aggregate rate), the grid is the *mechanism*.
 
+**Knock-on check — the sibling CLUSTERING-axis verdict survives (and was understated).** The mechanism
+correction could have threatened the "Kuramoto is clustering-type" finding (which rests on the clustering-axis
+CV separation desync→sync). It does not — it strengthens it. At fine dt the separation GROWS:
+
+| dt | desync CV (kf0) | sync CV (kf2) | sep (sync−desync) |
+|---|---|---|---|
+| 0.005 | 0.72 | 1.57 | 0.85 |
+| 0.001 | 0.93 | 2.14 | 1.21 |
+
+Quantization pulls pooled CV *downward* at both ends. At desync that crosses *below* Poisson → false-rigid
+(the repulsion artifact). At sync it only compresses genuine super-Poisson (stays >1). So the **sign** of the
+clustering separation is preserved and its magnitude was *suppressed* by coarse dt — only the REPULSION-axis
+read was qualitatively corrupted. Clustering-type verdict SAFE.
+
 **What survives / what changes:**
 - SURVIVES: the pooled-temporal observable misrepresents the repulsion axis; the matched **snapshot is the
   correct observable** (instantaneous phase gaps, no grid-snapped event times → dt-robust → clean BL, rep→0).
