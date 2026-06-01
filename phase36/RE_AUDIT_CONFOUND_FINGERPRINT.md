@@ -117,11 +117,22 @@ on a coarse grid can quantize.
 
 ## Item 2 — neural pooled-spike re-audit (queued, now with a sharper criterion)
 
-The neural pooled-spike candidates (Allen avalanche, Buzsáki theta-gamma — dedicated NWB-engineering arcs,
-allen_cache 29GB on disk) gain a concrete, cheap pre-check from the corrected mechanism: **pooled
-population-spike rate vs the recording sample resolution** (e.g. 30 kHz → ~33 µs). If a banked rigidity/
-high-rep read came from a pooled train whose rate approaches the sample clock, it is a quantization suspect.
-Otherwise (clustering-side / low-rate-pooled), it is safe. Deferred to the NWB arc.
+**Cheap scoping pass (done 2026-06-01) — minimal exposure.** Grepped the full banked record
+(EPISTEMIC_STATE.md + RESULTS.md) for pooled/aggregate-temporal observables with high-rep/BR_artifact reads.
+Result: the **only** pooled-temporal BR_artifact reads are the **Kuramoto AGGREGATE** (Phase 30 — the
+simulated confound substrate itself, already corrected above). Real neural substrates are read **PER-CELL**
+(single-unit spike trains, not pooled-temporal) and classify overwhelmingly TR/BL — RESULTS.md §7.ter.38:
+"the [Kuramoto] aggregate modal classification is uniformly BR_artifact, whereas real V1/Allen data
+classifies overwhelmingly TR (45%) or BL (34%)." Single-unit trains are structurally immune to the
+pooled-temporal quantization mechanism. (The other BR_artifact in the record — primes at σ̂≈0.05–0.09 — is
+a per-cell arithmetic finite-N Cramér effect on direct_events, not pooled-temporal.) ⇒ **No banked real
+neural verdict matches the corrected fingerprint.**
+
+A full per-substrate observable audit of the Allen-avalanche + Buzsáki-theta-gamma candidates (clustering-
+side reads = the SAFE side of the asymmetry; dedicated NWB-engineering arcs, allen_cache 29GB) is deferred
+to the NWB arc per [[planned_engineering_arc]]. The corrected mechanism gives it a concrete cheap pre-check
+there: if either used a pooled population-rate observable, compare **pooled rate vs recording sample
+resolution** (e.g. 30 kHz → ~33 µs); rate-approaching-clock = quantization suspect, otherwise safe.
 
 ## Status
 Phase 33a re-audited: NOT a suspect, verdict uncorrupted. Flagship mechanism CORRECTED (temporal-grid
