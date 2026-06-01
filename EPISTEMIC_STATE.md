@@ -519,6 +519,19 @@ electrode drift) cannot be distinguished from the current data.
 
 ### Phase 30: Kuramoto does NOT provide a mechanism story for ARS findings
 
+> **AXIS-INCOMPLETE CORRECTION (2026-05-31, Phase-36 two-axis audit):** the "(1) classical K-sweep:
+> INSENSITIVE" outcome below was read on the REPULSION axis only (rep_int/quadrant, NNS engine — note
+> "**Engine: NNS**"). Re-checked on the CLUSTERING axis (CV/mass<τ of the aggregate pooled train, K-sweep
+> 0→2 K_c, order parameter R as marker): the clustering axis SEPARATES desync→sync (CV sep +0.67
+> in-sample / +0.46 out-of-sample N=200, same sign, tracks R) where rep_med stays flat (sep −0.07/−0.05,
+> quadrant BR_artifact throughout). So "INSENSITIVE" refines to **`REPULSION-AXIS-INSENSITIVE /
+> CLUSTERING-AXIS-SENSITIVE`** — Kuramoto (canonical synchronization model) is a CLUSTERING-type substrate
+> ([[torus_transition_rigidity_vs_clustering]]), exactly as the Kaneko/Chialvo taxonomy predicts. The
+> rate-confound (2) and no-real-data-match (3) conclusions STAND; only the "insensitive" framing is
+> refined to name the axis. Effect modest on the pooled-temporal observable (CV 0.5→1.6); the Kaneko-style
+> spatial snapshot would show the dramatic version (queued). See phase36/AUDIT_TWO_AXIS_FINDINGS.md +
+> kuramoto_clustering_recheck.py.
+
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /
 Allen / Phase 27 findings on the resulting Kuramoto phase-space map.
