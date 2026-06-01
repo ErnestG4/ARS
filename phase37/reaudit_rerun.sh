@@ -25,7 +25,7 @@ run_port () {
 run_port calibration_anchors  600  --run
 run_port lorenz_logistic_run  600  --run
 run_port mackey_glass_run     600  --run
-run_port dynamical_breadth    900  --run
+run_port dynamical_breadth    900  --sweep   # NB: takes --sweep/--probe, not --run (fixed post-launch)
 
 # --- the biological arc: V1 → IBL → hippocampus (streaming/local-cache; heavier) ---
 run_port allen_v1_burst       7200 --run --workers 10        # V1 burst+OSI (Allen, local cache)
