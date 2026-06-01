@@ -172,12 +172,34 @@ def I9_berry_robnik_rho(s) -> Optional[float]:
     return float(_fit_br_rho(s, n_bootstrap=1)["rho_mle"])
 
 
+def I10_cv(s) -> Optional[float]:
+    """CV of the matched (unit-mean) spacings — the SIGN-carrying clustering magnitude.
+    Poisson→1, sub-Poisson/repulsive→<1 (GUE≈0.42), super-Poisson/clustered→>1. The KS/W1/Brody
+    axes are sign-blind across the Poisson pivot (sub- and super-Poisson can sit equidistant); CV
+    disambiguates which side. Added Phase 37 two-axis re-audit. [[pooled_rhythmic_repulsion_confound]]."""
+    s = np.asarray(s, dtype=np.float64)
+    if s.size < MIN_N_NNS:
+        return None
+    m = s.mean()
+    return float(s.std() / m) if m > 0 else None
+
+
+def I11_mass03(s) -> Optional[float]:
+    """Fraction of matched spacings < 0.3 — the clustering-axis mass (super-Poisson indicator).
+    Poisson baseline ≈ 1−e^−0.3 ≈ 0.259; clustered ≫ baseline. N-robust (unlike CV's √N pooled trap)."""
+    s = np.asarray(s, dtype=np.float64)
+    if s.size < MIN_N_NNS:
+        return None
+    return float(np.mean(s < 0.3))
+
+
 FAMILY_I = {
     "I.1_w1_clock": I1_w1_clock, "I.2_w1_gue": I2_w1_gue,
     "I.3_w1_goe": I3_w1_goe, "I.4_w1_poisson": I4_w1_poisson,
     "I.5_ks_gue": I5_ks_gue, "I.6_ks_clock": I6_ks_clock,
     "I.7_ks_poisson": I7_ks_poisson, "I.8_brody_q": I8_brody_q,
     "I.9_berry_robnik_rho": I9_berry_robnik_rho,
+    "I.10_cv": I10_cv, "I.11_mass03": I11_mass03,
 }
 
 
