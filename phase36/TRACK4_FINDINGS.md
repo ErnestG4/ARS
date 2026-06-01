@@ -71,3 +71,46 @@ DOS; read W1δ. Knob: KDE bandwidth h.
 Status tags: F1 `CARRIES_TRANSITION_α-CONFOUND-UNRESOLVABLE_AT_REACHABLE_N`;
 F2 `SEPARATES_ROBUST_BUT_NO_FLOOR`. [[sweep_inherited_knob_independently]],
 [[gate_certifies_half_say_so]], cross-refs Track 1.1 convergence.
+
+---
+
+## Follow-up — O(N) Lanczos local measure RESOLVES the F1 blocker (definitively, not by punt)
+
+`phase36/lanczos_local_measure.py`. The F1 blocker was "α-confound unresolvable because φ(t) needs
+eigenVECTORS (O(N²) wall) so we can't reach high N." Lanczos-from-|e₀⟩ on the AM tridiagonal gives the
+Jacobi matrix whose eigendecomposition yields the Gauss nodes/weights = local spectral measure dμ₀ at
+**O(m·N), no N×N eigenvectors** (φ(t)=Σ_k w_k e^{−iθ_k t}).
+
+**Calibrator gate (run first, [[synthetic_validate_fitters]] discipline) — PASSED.** At N=1200 (exact
+diag banked), full Lanczos reproduces exact φ(t) bit-exact (maxΔφ=0.00e+00 metal; ~2e-16 insul) and the
+F1 W1δ EXACTLY incl. the insulator FLOOR (0.00135→0.00135). The ghost-eigenvalue risk that could forge a
+false floor did NOT materialize. Convergence ladder at N=8000: a **sub-N** moment count m=1500 (0.19·N)
+already reproduces exact metal 0.09742 AND insul floor 0.00135 — φ(t) on horizon T needs only ~T-driven
+moments, independent of N. `none`-reorth (the O(N)-memory config used at high N) reproduces both exactly
+at N=8000 (guard passed). So the machinery earned its place against the known answer before high-N use.
+
+**High-N α-resolution at N=50000, m=2000 (the regime the eigenvector wall had blocked) — DECISIVE.**
+α-sweep separations (insul−metal W1δ): α=0.00 → −0.0961, α=0.13 → +0.0023, α=0.27 → −0.0033,
+α=0.41 → −0.1123. Mixed-sign, spread 0.115 — **α-confound PERSISTS at high N**, and the values are
+**bit-identical to N=2584**. 
+
+**Interpretation (sharper than the original finding):** φ(t) on a fixed horizon depends on the local
+spectral measure, which CONVERGES in N (already by N≈2584) ⇒ the F1 readout is N-invariant ⇒ the
+α-dependence does NOT shrink with N. It is therefore **INTRINSIC to the wavepacket-phase observable, not
+finite-N substrate phase-noise.** This cleanly distinguishes it from the spacing leg's α-ensemble noise
+(which IS finite-N and collapses by N≳5×10⁴, per 35b) — the earlier "F1 inherits the same N=2584
+phase-noise" framing was WRONG. F1's metal-insulator contrast is genuinely phase-contingent in the
+thermodynamic limit (clean separation at α∈{0,0.41}, collapses at α∈{0.13,0.27}). So F1 is
+**DEFINITIVELY NOT promotable** — answered, not punted: reaching high N (via the validated O(N) measure)
+showed the confound is real, not a compute artifact. Updated tag:
+`α-CONFOUND_INTRINSIC_N-CONVERGED_NOT_PROMOTABLE`.
+
+**Still queued (well-specified):** F2's missing floor — the Lanczos LOCAL measure (site-0 projection)
+is not the global DOS/IDS; recovering the floor for F2 needs a KPM global-DOS estimator (Chebyshev
+moments + stochastic trace, floor from moment convergence not KDE bandwidth). F1's resolution does not
+supply it. This is the remaining concrete engineering step, not open-ended.
+
+**Methodological gem banked:** the two legs respond to α DIFFERENTLY — the eigenvalue-spacing leg's
+α-scatter is finite-N (collapses with N), the φ(t)-phase leg's α-dependence is thermodynamic-limit
+intrinsic (N-invariant). "Go to higher N to escape phase-noise" is valid for the first, useless for the
+second — and only the high-N test (enabled by the O(N) Lanczos measure) could tell them apart.

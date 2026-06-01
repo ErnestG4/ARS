@@ -1593,6 +1593,23 @@ the event-extracted spectral instrument for that transition class, not the subst
   (b) O(N) spectral-weights to escape the α-confound. No real continuous data run. See
   phase36/TRACK4_FINDINGS.md.
 
+- **Track 4 FOLLOW-UP (Lanczos O(N) local measure) — F1 blocker RESOLVED definitively (answered, not
+  punted).** Lanczos-from-|e₀⟩ → Jacobi → Gauss nodes/weights = local spectral measure dμ₀ at O(m·N),
+  NO N×N eigenvectors; φ(t)=Σ w_k e^{−iθ_k t}. Calibrator gate PASSED ([[synthetic_validate_fitters]]):
+  at N=1200 reproduces exact φ(t) bit-exact incl. the insulator FLOOR (0.00135); sub-N m=1500 (0.19·N)
+  converges metal+floor at N=8000; `none`-reorth high-N config guard exact — the ghost-eigenvalue risk
+  did NOT forge a false floor. High-N α-resolution at N=50000, m=2000 (the eigenvector-walled regime,
+  now reachable): α-sweep seps [−0.096,+0.002,−0.003,−0.112], mixed-sign, **bit-identical to N=2584** ⇒
+  **α-confound PERSISTS, INTRINSIC, N-converged.** φ(t) depends on the local measure which CONVERGES in
+  N (already by ~2584) ⇒ F1 readout N-invariant ⇒ the α-dependence is NOT finite-N substrate noise
+  (unlike the spacing leg's α-ensemble, which collapses by N≳5e4) but an intrinsic property of the
+  wavepacket-phase observable. F1 DEFINITIVELY NOT promotable. New tag
+  `α-CONFOUND_INTRINSIC_N-CONVERGED_NOT_PROMOTABLE`. Methodological gem: the two legs respond to α
+  DIFFERENTLY (eigenvalue-spacing finite-N / φ(t)-phase limit-intrinsic) — only the high-N test (enabled
+  by the validated O(N) Lanczos measure) distinguishes them. STILL QUEUED: F2 floor via KPM global-DOS
+  (Chebyshev moments + stochastic trace; floor from moment convergence, not KDE) — the Lanczos LOCAL
+  measure doesn't supply the global IDS. See phase36/lanczos_local_measure.py + TRACK4_FINDINGS.md.
+
 ---
 
 *End of state document.  This file is intended to be re-read at the
