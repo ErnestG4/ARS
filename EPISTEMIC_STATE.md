@@ -1572,8 +1572,28 @@ the event-extracted spectral instrument for that transition class, not the subst
   case that the continuous front-end is the principled tool here, not a luxury. See
   phase36/TRACK1_1_CHIALVO_FINDINGS.md.
 
-- **Track 1.4 Kaneko GCM — gated OFF** (Chialvo did not reach DETECTED; same instrument/observable
-  approach would likely reconfirm the negative). Forced-HH + BGKM (ODE) deferred to a dedicated arc.
+- **Track 1.4 Kaneko GCM — REOPENED as a positive-capable generalization test; verdict two-sided
+  `REPULSION-AXIS-BLIND_CLASS-WIDE / CLUSTERING-AXIS-SEPARATES_OOS`.** Globally-coupled circle maps,
+  headline observable = SNAPSHOT spatial NNS (sorted phases on S¹ → circular gaps; the high-D structure
+  Chialvo lacked), regimes marked by sync order parameter R; NOT temporal timing (the reconfirmation
+  trap). Feasibility pre-check passed (snapshot gap-CV 1.18→54 across desync→clustered ⇒ test can be
+  positive). Result, in- AND out-of-sample (N=1500,K=1.0): **repulsion axis (rep_med) FLAT at 0/BL across
+  the whole transition — blind** (⇒ Chialvo's repulsion-axis negative is CLASS-WIDE, not Chialvo-specific,
+  spanning temporal AND spatial observables); **clustering axis (CV/mass<τ) SEPARATES robustly**
+  (in-sample +36.95, oos +25.89; mass<.3 0.30→0.9997) (⇒ "spectrally invisible" was AXIS-SPECIFIC — the
+  right ARS readout sees it). Mechanism = the collective transition is a CLUSTERING transition
+  (Poisson→super-clustered), not a repulsion one — exactly the SOC-pair one-sided-fitter blindness
+  (rep_int blind to super-Poisson; legible only on mass<τ/CV). Forced-HH + BGKM (ODE) still deferred.
+  See phase36/TRACK1_4_KANEKO_FINDINGS.md.
+
+- **Phase-36 UNIFYING TAXONOMY (earned by Track 1.4).** "Quasiperiodicity↔chaos / torus-breakdown" is NOT
+  one ARS-class; it splits by which axis reads it: (i) **RIGIDITY-type** — AM metal-insulator (Track 4):
+  metal→clock-rigid W1δ floor vs insulator→Poisson; read by the repulsion/rigidity axis (why F2's W1δ
+  separated, why the floor was rigidity). (ii) **CLUSTERING-type** — Chialvo + Kaneko: Poisson→super-
+  clustered; blind to the repulsion axis (CLASS-WIDE), legible on the clustering axis (mass<τ/CV). The
+  pillar-1 GUE↔Poisson-poles lens reads rigidity-type, not clustering-type. Chialvo's
+  `NOT-SPECTRALLY-SEPARABLE` refines to `NOT-REPULSION-SEPARABLE`; queued cross-check = re-read Chialvo on
+  the clustering axis.
 - **Track 3.1 pvc-11 — deferred** (premise was a Track-1-calibrated lens, which the Chialvo negative
   shows does not exist for this transition class via event-spectral readout).
 - **Track 4 continuous front-end — DONE; neither front-end PROMOTABLE, but the continuous arm
