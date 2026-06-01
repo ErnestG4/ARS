@@ -75,3 +75,20 @@ taxonomy CONFIRMED with two members. **This corrects Track 1.1:** the original
 `FAILED / NOT-SPECTRALLY-SEPARABLE` was AXIS-INCOMPLETE (only the repulsion/quadrant axis was tested);
 the honest verdict is **`NOT-REPULSION-SEPARABLE` but CLUSTERING-AXIS-DETECTABLE (out-of-sample-consistent)**.
 [[torus_transition_rigidity_vs_clustering]], [[ksgue_burst_substrate_relative]]-sibling; unifies with the SOC pair.
+
+## Magnitude probe (within-Kaneko) — resolves the "Chialvo +0.12 vs Kaneko +37" question
+`kaneko_gcm.py magnitude` (parallel). Question: does the clustering-axis separation magnitude track a
+PHYSICAL variable, or is it an artifact?
+- **(a) vary N at Δ=0.04:** CV-sep = 30.1 / 43.1 / 61.4 / 87.3 at N = 1000/2000/4000/8000 — scales as
+  **√N** (8× N → 2.9× sep ≈ √8). So CV-based "magnitude" is a TRIVIAL N-scaling ARTIFACT (one cluster of
+  N points → CV~√N). mass<τ-sep = 0.695/0.696/0.700/0.702 — **N-INVARIANT.** ⇒ use mass<τ, not CV, for
+  cross-case magnitude.
+- **(b) vary Δ (heterogeneity → transition sharpness) at N=2000:** mass<τ-sep tracks the R-JUMP
+  (order-parameter discontinuity): Δ=0.02–0.10 → R-jump 0.88–0.82, mass-sep 0.59–0.72; **Δ=0.15 → R-jump
+  collapses to 0.067 (no sync transition) and mass-sep collapses to 0.034.** The physical
+  clustering-separation magnitude tracks the synchronization-transition STRENGTH.
+
+**Resolution:** the "Chialvo +0.12 vs Kaneko +37" comparison was meaningless — different N, different
+observable, CV-based (a √N artifact). The N-robust physical measure (mass<τ-sep) tracks the
+order-parameter jump. Cross-substrate clustering magnitudes must be compared on mass<τ at matched N (or
+N-normalized), never raw CV. [[capture_full_per_axis_sweep]]-sibling on the normalization axis.

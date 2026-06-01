@@ -116,9 +116,48 @@ def instrument(N=3000, K=0.6, Delta=0.04, n_iter=600, discard=2000, label="in-sa
     return out
 
 
+def _mag_cell(job):
+    """One (N, Delta) magnitude cell — picklable. Separation (clustered ε=0.2 minus desync ε=0) on the
+    clustering axis, in BOTH CV (N-scaling-prone) and mass<τ (bounded, N-robust), + the R-jump."""
+    import numpy as _np
+    N, Delta = job
+    rng = _np.random.default_rng(7)
+    def read(eps):
+        R, snaps = gcm_run(N, 0.6, eps, Delta, 300, 2000, rng)
+        gaps = [circular_gaps(t) for t in snaps]
+        cv = float(_np.mean([g.std() for g in gaps]))
+        mass = float(_np.mean([_np.mean(g < 0.3) for g in gaps]))
+        return R, cv, mass
+    Rd, cvd, md = read(0.0); Rc, cvc, mc = read(0.2)
+    return dict(N=N, Delta=Delta, R_jump=round(Rc - Rd, 3),
+                cv_sep=round(cvc - cvd, 3), mass_sep=round(mc - md, 4),
+                R_desync=round(Rd, 3), R_clustered=round(Rc, 3))
+
+
+def magnitude_probe():
+    """Does the clustering-axis separation track a PHYSICAL variable (R-jump) or just N (artifact)?
+    (a) vary N at fixed Δ: CV-sep should scale with N (artifact), mass-sep ~N-robust.
+    (b) vary Δ at fixed N: does the separation track the R-jump (physical transition sharpness)?"""
+    from concurrent.futures import ProcessPoolExecutor
+    jobs = [(N, 0.04) for N in (1000, 2000, 4000, 8000)] + [(2000, d) for d in (0.02, 0.06, 0.10, 0.15)]
+    with ProcessPoolExecutor(max_workers=10) as pool:
+        rows = list(pool.map(_mag_cell, jobs))
+    print("MAGNITUDE PROBE — clustering-axis separation (clustered−desync) vs physical knobs")
+    print("(a) vary N at Δ=0.04 (CV-sep ~√N artifact? mass-sep N-robust?):")
+    for r in [x for x in rows if x['Delta'] == 0.04]:
+        print(f"   N={r['N']:5d}: R-jump={r['R_jump']:.3f}  CV-sep={r['cv_sep']:8.3f}  mass<.3-sep={r['mass_sep']:.4f}")
+    print("(b) vary Δ at N=2000 (does separation track the R-jump?):")
+    for r in [x for x in rows if x['N'] == 2000]:
+        print(f"   Δ={r['Delta']:.2f}: R-jump={r['R_jump']:.3f} (R {r['R_desync']}→{r['R_clustered']})  "
+              f"CV-sep={r['cv_sep']:8.3f}  mass<.3-sep={r['mass_sep']:.4f}")
+    return rows
+
+
 if __name__ == "__main__":
     import sys as _s
-    if len(_s.argv) > 1 and _s.argv[1] == "instrument":
+    if len(_s.argv) > 1 and _s.argv[1] == "magnitude":
+        magnitude_probe()
+    elif len(_s.argv) > 1 and _s.argv[1] == "instrument":
         a = instrument()
         # out-of-sample: different N_osc AND K, regimes marked independently by R
         b = instrument(N=1500, K=1.0, Delta=0.06, label="out-of-sample")
