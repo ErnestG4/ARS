@@ -557,6 +557,24 @@ electrode drift) cannot be distinguished from the current data.
 > calibrator. GUARDRAIL: the 2.87-vs-Kaneko-50 magnitude COHERES with magnitude↔ΔR but does NOT test it
 > (Kaneko≠Kuramoto in family/topology/N) — coherence, not evidence; magnitude↔ΔR pending a clean within-GCM sweep.
 > See AUDIT_TWO_AXIS_FINDINGS.md + kuramoto_snapshot_repulsion.py.
+>
+> **RE-AUDIT + MECHANISM CORRECTION (2026-06-01, RE_AUDIT_CONFOUND_FINGERPRINT.md).** (a) Pulsar-timing
+> re-audit DONE: **Phase 33a is NOT a confound suspect** — NANOGrav reads are super-Poisson CLUSTERING
+> (raw-TOA CV 9.7–14.7 / rep_med 0.02–0.04, z_rep −123 to −597; epoch-collapsed CV 1.2–2.5), the OPPOSITE
+> side of Poisson from the confound's manufactured rigidity; STRUCTURAL_MISMATCH uncorrupted (per the
+> asymmetry rule, clustering/low-rep reads are SAFE). "Most periodic objects" didn't fire because TOAs are
+> folded-template aggregates clustering by schedule — never the per-pulse layer. (Doc-label note: the
+> findings doc's "mass<0.3 = BR_artifact indicator" is backwards — high mass<0.3 = low rep = clustering, and
+> the pilot used a κ=0.3 proxy, not the real quadrant diagnostic, so no BR_artifact was ever assigned.)
+> (b) **The confound MECHANISM was WRONG and is corrected: it is TEMPORAL-GRID QUANTIZATION, not superposition
+> anti-bunching.** A clean synthetic shows pure periodic superposition in CONTINUOUS time → CV→1
+> (Palm-Khintchine), never →0; the sub-Poisson appears only on a time GRID. Proof: Kuramoto desync K=0 N=100
+> (identical 24671 spikes) refining dt 0.005→0.0005 raises pooled CV 0.72→0.95 and flips the repulsion
+> quadrant **BR_artifact (rep 0.75) → TR (rep 0.16)**; the N-scaling (CV 0.82→0.20 for N 50→500) is the same
+> (higher N → higher pooled rate → IEI nears dt → worse quantization). Corrected fingerprint: BR/BR_artifact
+> on a pooled-temporal observable where **mean-pooled-IEI ÷ time-resolution ≲ a few** = SUSPECT. Diagnostics:
+> snapshot re-read (best), or refine resolution / decimate rate. HEADLINE + snapshot-fix + per-axis-observable
+> principle all SURVIVE; only the mechanism (and hence the sharper diagnostic) changed.
 
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /
