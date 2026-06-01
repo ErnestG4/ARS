@@ -50,12 +50,20 @@ parallel to Kaneko. Verdict correction: `INSENSITIVE` → `REPULSION-AXIS-INSENS
    cross-row magnitude compression (CV desync 0.72→0.52, sync 1.57→0.98) is the Palm-Khintchine
    superposition N-effect (more independent components → CV→1), NOT out-of-sample degradation. Magnitude
    is interpretable only with N pinned; only the same-sign verdict survives the N-mismatch.
-3. **Do NOT chase the spatial snapshot for Kuramoto.** snapshot CV~√N is the H-D tautology (non-dynamical
-   inflation, established in the Kaneko magnitude probe). The pooled-temporal observable is the HONEST,
-   closer-to-intensive one — it's the right observable to carry into any sweep. The temporal-vs-snapshot
-   magnitude gap reproduces the apples-to-oranges problem INSIDE one substrate ⇒ observable-fixed
-   discipline is INTRA-substrate, not just cross-substrate. (Retracts the earlier "snapshot would show the
-   dramatic version, queued" framing — that swing would be N-baked, not dynamical.)
+3. **Observable choice is PER-AXIS, not global** (the principle that ties this together). The same
+   observable is a trap on one axis and the right tool on the other:
+   - **Clustering axis → pooled-temporal.** Snapshot is the √N trap (H-D tautology, non-dynamical),
+     established in the Kaneko magnitude probe. Do NOT chase the snapshot to amplify the clustering swing.
+   - **Repulsion axis → snapshot.** The pooled-temporal train is superposition-CONTAMINATED on the
+     repulsion axis — merging N independent temporal trains manufactures the bimodal spacing structure
+     that the GUE-form fit can't handle → the declined BR_artifact → Kuramoto's repulsion-INCONCLUSIVE.
+     The snapshot (N positions at one time, no superposition) is intensive on the repulsion axis and would
+     give a CLEAN verdict (BL = blind, or genuine rigidity).
+   So Kuramoto's repulsion-inconclusiveness is partly an OBSERVABLE error (pooled-temporal is the wrong
+   observable for the repulsion axis). QUEUED concrete payoff: re-check Kuramoto's repulsion axis on the
+   configuration SNAPSHOT (needs the Phase 30 sim re-instrumented to return phase snapshots) — would
+   upgrade Kuramoto from repulsion-INCONCLUSIVE to a definite BLIND-or-rigid verdict. Observable-fixed
+   discipline is INTRA-substrate AND per-axis. [[observable_choice_is_per_axis]].
 
 **Caveat (honest):** the effect here is MODEST (pooled-temporal CV 0.5→1.6) vs Kaneko's spatial SNAPSHOT
 (CV 1→50). Reason = observable: the pooled-temporal train of narrowly-distributed oscillators is
