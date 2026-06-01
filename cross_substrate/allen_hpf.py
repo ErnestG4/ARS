@@ -40,7 +40,7 @@ for p in (_ROOT, os.path.join(_ROOT, "phase22a")):
         sys.path.insert(0, p)
 
 from ars_classify import classify                                             # noqa: E402
-from cross_substrate.axes import canonical_spacings, FAMILY_I                 # noqa: E402
+from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local                # noqa: E402
 from cross_substrate.population_fingerprint import (_corr_eig, _avalanche_onsets,  # noqa: E402
                                                     _sync_events, _fp, _f)
 
@@ -161,7 +161,7 @@ def _process(arg):
             i5q = _f(classify(spk).get("ks_gue_med"))
         except Exception:
             i5q = None
-        fI = {k: _f(fn(canonical_spacings(spk))) for k, fn in FAMILY_I.items()}
+        fI = {k: _f(fn(canonical_spacings(spk))) for k, fn in FAMILY_I.items()}; fI.update({k: _f(v) for k, v in family_local(spk).items()})
         cell_recs.append({"substrate": "allen-hpf-cell", "session": sid, "region": region,
                           "cell_type": celltypes[i], "rate_hz": round(spk.size / max(span, 1e-9), 4),
                           "n": int(spk.size), "burst": _burst_stats(spk),

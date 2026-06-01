@@ -234,14 +234,20 @@ def I13_lv(positions) -> Optional[float]:
     return float(np.mean(3.0 * ((a - b) / (a + b)) ** 2))
 
 
+def family_local(positions) -> dict:
+    """Rate-robust LOCAL irregularity axes (I.12_cv2 + I.13_lv). These need the RAW time-ordered positions,
+    NOT canonical_spacings (which sorts/trims and destroys time-adjacency). Ports that build their axis dict
+    by iterating FAMILY_I over canonical_spacings(spk) must ALSO merge family_local(spk) to capture these."""
+    return {"I.12_cv2": I12_cv2(positions), "I.13_lv": I13_lv(positions)}
+
+
 def compute_family_I(positions) -> dict:
     """All Family I axes from unfolded positions (routes through the matched
     canonical_spacings extractor). I.10/I.11 are the GLOBAL clustering magnitude (sign-carrying but
     inflated by slow rate-drift); I.12/I.13 are the rate-robust LOCAL irregularity (fast clustering only)."""
     s = canonical_spacings(positions)
     out = {name: fn(s) for name, fn in FAMILY_I.items()}
-    out["I.12_cv2"] = I12_cv2(positions)   # rate-robust local irregularity (raw time-ordered ISIs)
-    out["I.13_lv"] = I13_lv(positions)
+    out.update(family_local(positions))    # rate-robust local irregularity (raw time-ordered ISIs)
     return out
 
 

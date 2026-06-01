@@ -31,7 +31,7 @@ for p in (_ROOT, os.path.join(_ROOT, "phase22a")):
         sys.path.insert(0, p)
 
 from ars_classify import classify                                              # noqa: E402
-from cross_substrate.axes import canonical_spacings, FAMILY_I                  # noqa: E402
+from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local                 # noqa: E402
 from cross_substrate.allen_depth import build_targets, NWB_GLOB, extract_train, _f  # noqa: E402
 
 COORD = os.path.join(_HERE, "coordinates")
@@ -81,7 +81,8 @@ def _process(f):
                          "osi": _f(ur["g_osi_dg"]) if "g_osi_dg" in ur else None,
                          "n": int(train.size), "burst_frac": bf, "cv_isi": cv,
                          "axes_computed": {"I.5q_ks_gue_med": i5q,
-                                           "I.1_w1_clock": _f(FAMILY_I["I.1_w1_clock"](s))},
+                                           "I.1_w1_clock": _f(FAMILY_I["I.1_w1_clock"](s)),
+                                           **{k: _f(v) for k, v in family_local(train).items()}},
                          "computed_date": date.today().isoformat()})
     return recs
 

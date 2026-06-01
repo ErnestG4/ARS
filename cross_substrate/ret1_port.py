@@ -35,7 +35,7 @@ for p in (_ROOT, os.path.join(_ROOT, "phase22a")):
         sys.path.insert(0, p)
 
 from ars_classify import classify                                             # noqa: E402
-from cross_substrate.axes import canonical_spacings, FAMILY_I                 # noqa: E402
+from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local                # noqa: E402
 from cross_substrate.population_fingerprint import _f                         # noqa: E402
 
 DATA = "/home/combust/fmexplorer/crcns_cache/ret1/crcns_ret-1/Data"
@@ -82,7 +82,7 @@ def _process(f):
             i5q = _f(classify(spk).get("ks_gue_med"))
         except Exception:
             i5q = None
-        fI = {k: _f(fn(canonical_spacings(spk))) for k, fn in FAMILY_I.items()}
+        fI = {k: _f(fn(canonical_spacings(spk))) for k, fn in FAMILY_I.items()}; fI.update({k: _f(v) for k, v in family_local(spk).items()})
         recs.append({"substrate": "ret1-cell", "recording": rid, "cell": i,
                      "stim_type": "binarywhitenoise", "block_s": round(dur, 1),
                      "rate_hz": round(spk.size / dur, 4), "n": int(spk.size),
