@@ -538,7 +538,14 @@ electrode drift) cannot be distinguished from the current data.
 > magnitude compression (CV 0.72→0.52, 1.57→0.98) is the Palm-Khintchine superposition N-effect, NOT
 > generalization — clean magnitude needs N pinned. (iii) Do NOT chase the spatial-snapshot for Kuramoto to
 > amplify the swing: snapshot CV~√N is the H-D tautology (non-dynamical); the pooled-temporal observable is
-> the honest intensive one. See phase36/AUDIT_TWO_AXIS_FINDINGS.md + kuramoto_clustering_recheck.py.
+> the honest intensive one FOR CLUSTERING — but the snapshot is the RIGHT observable for the REPULSION axis
+> (intensive, superposition-free). **RESOLVED (kuramoto_snapshot_repulsion.py):** Kuramoto's repulsion axis
+> on the matched SPATIAL SNAPSHOT (N=2000) is CLEAN BL throughout (rep_med→0; desync CV=0.997 Poisson, not the
+> pooled-train sub-Poisson 0.72) ⇒ Kuramoto is repulsion-BLIND (upgraded from inconclusive; the BR_artifact was
+> a pooled-temporal SUPERPOSITION ARTIFACT). The Kaneko/Kuramoto substrate-split DISSOLVES into an observable
+> effect — on the matched snapshot BOTH sync models are clustering-detectable + clean-BL repulsion-blind. The
+> per-axis-observable principle is validated by resolving the inconclusiveness. See AUDIT_TWO_AXIS_FINDINGS.md +
+> kuramoto_snapshot_repulsion.py + kuramoto_clustering_recheck.py.
 
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /

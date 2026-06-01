@@ -65,7 +65,33 @@ parallel to Kaneko. Verdict correction: `INSENSITIVE` → `REPULSION-AXIS-INSENS
    upgrade Kuramoto from repulsion-INCONCLUSIVE to a definite BLIND-or-rigid verdict. Observable-fixed
    discipline is INTRA-substrate AND per-axis. [[observable_choice_is_per_axis]].
 
-**Caveat (honest):** the effect here is MODEST (pooled-temporal CV 0.5→1.6) vs Kaneko's spatial SNAPSHOT
+## RESOLVED — Kuramoto IS repulsion-BLIND on the matched snapshot; the substrate-split was an observable effect
+`kuramoto_snapshot_repulsion.py` (parallel). Per the per-axis principle, re-ran Kuramoto's REPULSION axis
+on the SPATIAL SNAPSHOT (N=2000, matched to Kaneko: integrated phases, circular gaps → joint_q_profile),
+K-sweep × 3 seeds. Result — desync→sync:
+| K/Kc | R | rep_med | quad | CV |
+|---|---|---|---|---|
+| 0.00 | 0.019 | 0.025 | **BL** | 0.997 |
+| 1.00 | 0.219 | 0.007 | **BL** | 1.113 |
+| 2.00 | 0.784 | 0.000 | **BL** | 2.870 |
+**Clean BL throughout (rep_med→0).** So:
+1. **Kuramoto is repulsion-BLIND** (upgraded from INCONCLUSIVE). The `BR_artifact` on the pooled-temporal
+   was a SUPERPOSITION ARTIFACT: the desync snapshot CV is **0.997 (Poisson)**, NOT the sub-Poisson 0.72
+   of the pooled train — confirming the mechanism (merging N near-periodic crossings manufactured the
+   residual regularity that read as declined-high-rep; the snapshot drops it → uniform phases → clean BL).
+2. **The Kaneko/Kuramoto substrate-split DISSOLVES into an observable effect.** On the matched snapshot
+   observable both are identical: clustering-detectable + repulsion-blind (clean BL). No real substrate
+   difference — it was the observable. The per-axis-observable principle is VALIDATED by resolving the
+   inconclusiveness. [[observable_choice_is_per_axis]].
+3. **Internal consistency:** snapshot clustering CV reaches only 2.87 (vs Kaneko ~50) because Kuramoto
+   reaches R=0.78 (partial lock) here vs Kaneko R=0.99 — exactly the magnitude-tracks-the-R-jump finding.
+Net: BOTH canonical sync models (Kaneko, Kuramoto) are clustering-type — clean-BL repulsion-blind +
+clustering-detectable on the matched snapshot observable. Phase 30's "INSENSITIVE" was BOTH axis-incomplete
+(repulsion only) AND observable-suboptimal (pooled-temporal); the clustering axis on the right observable
+recovers the synchronization transition cleanly.
+
+---
+**(superseded) earlier pooled-temporal caveat:** the effect here is MODEST (pooled-temporal CV 0.5→1.6) vs Kaneko's spatial SNAPSHOT
 (CV 1→50). Reason = observable: the pooled-temporal train of narrowly-distributed oscillators is
 sub-Poisson/regular in desync (CV<1) rising to mild-super-Poisson when locked; the Kaneko-style SNAPSHOT
 phase-config observable would show the dramatic version. Phase 30 was thus BOTH axis-incomplete (repulsion
