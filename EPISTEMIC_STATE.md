@@ -575,6 +575,21 @@ electrode drift) cannot be distinguished from the current data.
 > on a pooled-temporal observable where **mean-pooled-IEI ÷ time-resolution ≲ a few** = SUSPECT. Diagnostics:
 > snapshot re-read (best), or refine resolution / decimate rate. HEADLINE + snapshot-fix + per-axis-observable
 > principle all SURVIVE; only the mechanism (and hence the sharper diagnostic) changed.
+>
+> **GUARDRAIL ITEM RESOLVED + FALSIFICATION CALIBRATOR CONFIRMED (2026-06-01).** (a) magnitude↔R, previously
+> coherence-only, is now WITHIN-SUBSTRATE EVIDENCE (phase36/magnitude_vs_R.py + MAGNITUDE_VS_R_FINDINGS.md):
+> sweeping the COUPLING ε at fixed (N,K,Δ) — the pure R-knob — with R measured directly, the N-robust
+> clustering magnitude mass<τ is a MONOTONE (rank-corr +0.995) N-INVARIANT (curve overlays |Δmass|=0.002
+> across N=1500/3000) function of R. √N-trap confirmed (saturated CV 38→54 ≈ ×√2 while mass<τ saturates 0.999
+> at both N). Sharpens the guardrail: the old "2.87-vs-50" was a CV comparison — the √N-contaminated measure;
+> a valid cross-substrate magnitude test needs mass<τ-at-matched-τ, not CV. Cross-substrate magnitude open but
+> now well-posed. (b) The Poisson-pivot taxonomy's FALSIFICATION CALIBRATOR is BUILT + CONFIRMED
+> (phase36/falsification_calibrator.py + FALSIFICATION_CALIBRATOR_FINDINGS.md): Arm A (Gamma-renewal CV sweep
+> through the pivot) — rep_med 0.34(sub,TR)→0.022(pivot,BL)→0.0(super), mass<0.3 0.033→0.259→0.567, k=1 blind
+> on BOTH, two axes partition exactly as predicted; Arm B (exponential marginals held EXACT, serial
+> correlation 0→0.95) — BL throughout, a genuine long-range transition INVISIBLE to both axes (could have
+> fired, didn't). Adds an addressability bound: correlation-only transitions at fixed marginal are in the
+> pivot blind spot.
 
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /
