@@ -83,8 +83,13 @@ K-sweep × 3 seeds. Result — desync→sync:
    observable both are identical: clustering-detectable + repulsion-blind (clean BL). No real substrate
    difference — it was the observable. The per-axis-observable principle is VALIDATED by resolving the
    inconclusiveness. [[observable_choice_is_per_axis]].
-3. **Internal consistency:** snapshot clustering CV reaches only 2.87 (vs Kaneko ~50) because Kuramoto
-   reaches R=0.78 (partial lock) here vs Kaneko R=0.99 — exactly the magnitude-tracks-the-R-jump finding.
+3. **Coherence (NOT evidence — guardrail):** snapshot clustering CV reaches only 2.87 (vs Kaneko ~50);
+   Kuramoto reaches R=0.78 here vs Kaneko R=0.99. This COHERES with magnitude-tracks-ΔR and nothing
+   contradicts it, BUT it does NOT test it: Kaneko vs Kuramoto differ in map family / topology / N as well
+   as R, so reading it as "the magnitude-tracks-R finding" would re-import the cross-substrate confound.
+   Filed as COHERENCE. The magnitude↔ΔR hypothesis is pending a clean WITHIN-GCM sweep (vary coupling at
+   fixed family/topology/N → pure ΔR knob); the Kaneko Δ-sweep is suggestive-within-substrate but Δ
+   co-varies more than ΔR.
 Net: BOTH canonical sync models (Kaneko, Kuramoto) are clustering-type — clean-BL repulsion-blind +
 clustering-detectable on the matched snapshot observable. Phase 30's "INSENSITIVE" was BOTH axis-incomplete
 (repulsion only) AND observable-suboptimal (pooled-temporal); the clustering axis on the right observable

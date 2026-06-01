@@ -544,8 +544,19 @@ electrode drift) cannot be distinguished from the current data.
 > pooled-train sub-Poisson 0.72) ⇒ Kuramoto is repulsion-BLIND (upgraded from inconclusive; the BR_artifact was
 > a pooled-temporal SUPERPOSITION ARTIFACT). The Kaneko/Kuramoto substrate-split DISSOLVES into an observable
 > effect — on the matched snapshot BOTH sync models are clustering-detectable + clean-BL repulsion-blind. The
-> per-axis-observable principle is validated by resolving the inconclusiveness. See AUDIT_TWO_AXIS_FINDINGS.md +
-> kuramoto_snapshot_repulsion.py + kuramoto_clustering_recheck.py.
+> per-axis-observable principle is validated by resolving the inconclusiveness.
+> **DURABLE GENERALIZATION — this is an INSTRUMENT CONFOUND, not a Kuramoto fact** ([[pooled_rhythmic_repulsion_confound]]):
+> pooling near-periodic/rhythmic emitters into one pooled-temporal train manufactures sub-Poisson regularity →
+> false high-rep → BR/BR_artifact. Searchable fingerprint = BR/BR_artifact on a pooled-temporal observable with
+> rhythmic units; any such banked repulsion positive/decline is provisionally SUSPECT and wants a matched-snapshot
+> re-read (clean-BL-on-pooled negatives are SAFE — the artifact makes rigidity, doesn't erase it). QUEUED RE-AUDIT:
+> pulsar-timing FIRST (most periodic objects in nature; check Phase 33a pooled-pulsar reads), neural pooled-spike
+> next. TAXONOMY SHARPENED: the repulsion axis is ONE-SIDED (resolves sub-Poisson/rigid, collapses ≥Poisson onto
+> BL — shown: rep_med 0.025→0.0 while CV 0.997→2.87); clustering axis = super-Poisson side; POISSON is the pivot
+> where both go blind ⇒ a near-Poisson-throughout transition (invisible to both) is a buildable FALSIFICATION
+> calibrator. GUARDRAIL: the 2.87-vs-Kaneko-50 magnitude COHERES with magnitude↔ΔR but does NOT test it
+> (Kaneko≠Kuramoto in family/topology/N) — coherence, not evidence; magnitude↔ΔR pending a clean within-GCM sweep.
+> See AUDIT_TWO_AXIS_FINDINGS.md + kuramoto_snapshot_repulsion.py.
 
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /
