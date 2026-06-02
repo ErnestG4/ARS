@@ -60,10 +60,13 @@ and burst fraction** (the intrinsic, partly-tautological covariates), with boots
   **rate-modulated** (per-quartile ρ 0.15 / 0.20 / 0.49 / 0.66, stronger in higher-rate cells). By region
   the effect is strongest in EC, moderate in CA3, and not resolved in DG (n = 16). More spatially-informative
   (place) cells have ISI spacings *farther from GUE* (more clustered) — the **same direction** as macaque V1.
-- **Mouse retina (ret-1): RF-SNR ↔ `ks_gue` = +0.05, null** (CI crosses zero). We read this as an
-  axis-mismatch rather than absence of structure: under binary white-noise there is no
-  orientation/direction tuning axis, and RF-SNR is not the relevant selectivity dimension. A motion/DS axis
-  (different stimulus set) would be the appropriate test.
+- **Mouse retina (ret-1): RF-SNR ↔ `ks_gue` = +0.05** (CI crosses zero). We read this as **uninformative
+  about the selectivity↔class question as specified, not as a negative result**: RF-SNR (white-noise STA
+  signal-to-noise) is a noisy, insufficient proxy for tuning quality — the wrong *resolution* for the
+  selectivity dimension, and confounded with RF size / spike count. So this is near-zero evidence *against*
+  the relationship, not evidence that a retinal selectivity axis is irrelevant. The appropriate, falsifiable
+  test is a graded motion/direction-selectivity axis (moving-bar stimuli), which this white-noise dataset
+  does not contain.
 
 ### 3.3 The cross-dataset picture
 The two datasets with a matched selectivity axis — **macaque V1 (OSI) and rat hippocampus (spatial

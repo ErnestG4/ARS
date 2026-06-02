@@ -43,7 +43,7 @@ rows = [
     ("Dataset (preparation)", "Selectivity test", "Spearman ρ (controlled)"),
     ("macaque V1 — pvc-11 (Kohn)", "OSI ↔ ks_gue", "+0.72   (n=210, rate-ctrl)"),
     ("rat hippocampus — hc-3 (Buzsáki)", "spatial-info ↔ ks_gue", "+0.37  [0.29, 0.46]  rate-strat."),
-    ("mouse retina — ret-1", "RF-SNR ↔ ks_gue", "+0.05   null (axis-mismatch)"),
+    ("mouse retina — ret-1", "RF-SNR ↔ ks_gue", "+0.05   uninformative*"),
     ("mouse V1 — Allen (non-CRCNS ref.)", "OSI ↔ ks_gue", "−0.22  (sign reversal)"),
 ]
 col_x = [LEFT, LEFT + 0.34, LEFT + 0.60]
@@ -59,7 +59,8 @@ y -= 0.004
 para("Positive = more selective cells have ISI spacings farther from GUE (more clustered). All values control "
      "firing rate and burst fraction; hc-3 also rate-stratified within quartiles (raw +0.69 → partial +0.47 "
      "→ stratified +0.37) and is rate-modulated (stronger at high rate). Macaque V1 and rat hippocampus "
-     "AGREE in direction; the lone reversal is mouse V1.", size=9.0)
+     "AGREE in direction; the lone reversal is mouse V1.  *retina: RF-SNR is a noisy proxy for tuning quality "
+     "(wrong resolution) — uninformative as specified, NOT a negative result; the test is a motion/DS axis.", size=9.0)
 
 head("Local irregularity (CV2): a sensory → hippocampal clustering gradient")
 para("Hippocampus is genuinely fast-clustering with a within-structure gradient CA3 1.25 > EC 1.10 > DG 1.02 "
