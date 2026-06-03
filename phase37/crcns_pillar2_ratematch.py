@@ -14,7 +14,7 @@ phase37/crcns_pillar2_ratematch.py — (a) pvc-11 H1 reconciliation + (b) rate-M
 """
 import json, numpy as np
 from scipy.stats import spearmanr, rankdata
-ROOT = "/home/combust/fmexplorer/criticality_tool"
+ROOT = "$HOME/fmexplorer/criticality_tool"
 RNG = np.random.default_rng(20260601)
 
 

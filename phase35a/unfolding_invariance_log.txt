@@ -156,6 +156,6 @@ SUBCRITICAL small-λ
  0.95  6765 |     ids  wigner  58.5/ 35.7/ 52.5   0.016  BR_artifact
  0.95  6765 |    deg3  poisson  91.6/ 89.5/ 75.5  651.545  BL  | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
 
-full record (the horizon, not just the fork) → /home/combust/fmexplorer/criticality_tool/phase35a/unfolding_invariance_results.json
+full record (the horizon, not just the fork) → $HOME/fmexplorer/criticality_tool/phase35a/unfolding_invariance_results.json
 
 NO auto-verdict. Read STAGE 0 gate first, then STAGE 1 invariance.

@@ -58,7 +58,7 @@ sys.path.insert(0, os.path.dirname(THIS_DIR))
 from phase34d.gaussian_primes import gaussian_prime_angles
 from phase34d.eisenstein_primes import eisenstein_prime_angles
 
-OUT_DIR = Path('/home/combust/fmexplorer/criticality_tool/data/phase34d_results')
+OUT_DIR = Path('$HOME/fmexplorer/criticality_tool/data/phase34d_results')
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 

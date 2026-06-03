@@ -38,7 +38,7 @@ if _ROOT not in sys.path:
 from cross_substrate.buzsaki_selectivity import _ts_rate, _decode                 # noqa: E402
 from cross_substrate.buzsaki_port import _natural_cells                            # noqa: E402
 
-BUZ_GLOB = "/home/combust/fmexplorer/buzsaki_cache/*.nwb"
+BUZ_GLOB = "$HOME/fmexplorer/buzsaki_cache/*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 RIPPLE = (150.0, 250.0)
 PEAK_Z, EDGE_Z = 5.0, 2.0       # SWR peak > 5σ, boundaries at 2σ

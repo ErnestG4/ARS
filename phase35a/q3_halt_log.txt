@@ -109,5 +109,5 @@
 ================================================================================
 §Q3 done. SCOPING only — NO §3 adjudication; brief-and-hold stands.
 Read L (+ its L-bound cross-check) and U/U_NOT_REACHED per λ above.
-record → /home/combust/fmexplorer/criticality_tool/phase35a/q3_halt_results.json
+record → $HOME/fmexplorer/criticality_tool/phase35a/q3_halt_results.json
 ================================================================================

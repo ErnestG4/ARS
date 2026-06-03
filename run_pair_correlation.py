@@ -16,7 +16,7 @@ import numpy as np
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-sys.path.insert(0, '/home/combust/fmexplorer/riemann_explorer')
+sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')
 
 from universality import pair_correlation
 import matplotlib

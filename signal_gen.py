@@ -13,7 +13,7 @@ import os, sys
 import numpy as np
 
 # Re-use the scanner's generators (zeta, primes, mobius, noise, pure_fm).
-sys.path.insert(0, '/home/combust/fmexplorer/riemann_explorer')
+sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')
 import scanner   # noqa: E402
 
 ZETA_ZEROS = scanner.ZETA_ZEROS

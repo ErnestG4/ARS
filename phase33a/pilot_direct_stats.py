@@ -31,7 +31,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path('/home/combust/fmexplorer/criticality_tool')
+ROOT = Path('$HOME/fmexplorer/criticality_tool')
 DATA = ROOT / 'data' / 'phase33a_results'
 
 PULSARS = ['B1855+09', 'J0030+0451', 'J0613-0200', 'J1909-3744',

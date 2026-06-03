@@ -14,7 +14,7 @@ import numpy as np
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-sys.path.insert(0, '/home/combust/fmexplorer/riemann_explorer')
+sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')
 
 from pll_bank import farey_rationals
 from universality import nns_cdf_poisson, nns_cdf_goe, nns_cdf_gue

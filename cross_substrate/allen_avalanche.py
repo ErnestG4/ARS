@@ -36,7 +36,7 @@ for p in (_ROOT,):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-CACHE = "/home/combust/fmexplorer/allen_cache"
+CACHE = "$HOME/fmexplorer/allen_cache"
 NWB_GLOB = CACHE + "/session_*/session_*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 from cross_substrate.allen_depth import build_targets       # noqa: E402

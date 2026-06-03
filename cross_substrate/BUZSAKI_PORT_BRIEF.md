@@ -83,7 +83,7 @@ baseline as context first.
   mean rate → correlate each with per-cell ks_gue (the H1-analogue search).
 - **`buzsaki_port_analysis.py`** — the 4 goals' readouts (fragmentation hierarchy table; H1-analogue
   correlation sweep; state/epoch Kendall-W + rate-matched; cell-type contrast) + figures.
-- Interpreter: `/home/combust/fmexplorer/bin/python3` (has h5py 3.16 + the ARS modules), 10 workers.
+- Interpreter: `$HOME/fmexplorer/bin/python3` (has h5py 3.16 + the ARS modules), 10 workers.
 
 ## Discussion items (resolve before ratify/execute)
 1. **H1-analogue properties:** lead with spatial-information (bits/spike) as the primary OSI-analogue; include

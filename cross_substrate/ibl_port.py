@@ -40,7 +40,7 @@ from ars_classify import classify                                               
 from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local                    # noqa: E402
 from cross_substrate.population_fingerprint import _corr_eig, _avalanche_onsets, _sync_events, _fp, _f  # noqa: E402
 
-IBL_GLOB = "/home/combust/fmexplorer/ibl_cache/*.nwb"
+IBL_GLOB = "$HOME/fmexplorer/ibl_cache/*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 STIM_WIN = 0.4          # s post stimulus-onset for rate
 NARROW_MS = 0.40        # spike-width split: narrow (<0.40ms) = putative interneuron

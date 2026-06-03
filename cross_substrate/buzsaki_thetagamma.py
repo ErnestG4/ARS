@@ -40,7 +40,7 @@ if _ROOT not in sys.path:
 from cross_substrate.buzsaki_selectivity import _ts_rate, _decode, _maze_window   # noqa: E402
 from cross_substrate.buzsaki_port import _natural_cells                            # noqa: E402
 
-BUZ_GLOB = "/home/combust/fmexplorer/buzsaki_cache/*.nwb"
+BUZ_GLOB = "$HOME/fmexplorer/buzsaki_cache/*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 THETA = (6.0, 10.0); SLOW_G = (25.0, 50.0); FAST_G = (60.0, 100.0); DELTA = (1.0, 4.0)
 N_PHASE_BINS = 18

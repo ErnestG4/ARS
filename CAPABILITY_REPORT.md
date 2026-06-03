@@ -44,10 +44,10 @@ results — never claims that extend the underlying number theory.
   back-end, applied to arithmetic point processes (sign-change loci,
   L-function zeros, prime angles, Maass spectra).
 
-Project layout (three sibling tools under `/home/combust/fmexplorer/`):
+Project layout (three sibling tools under `$HOME/fmexplorer/`):
 `criticality_tool/` (ARS, this tool), `riemann_explorer/` (FM scanner),
 `fm_explorer/` (handoff docs). **Run scripts with
-`/home/combust/fmexplorer/bin/python3`** — pandas lives only in that
+`$HOME/fmexplorer/bin/python3`** — pandas lives only in that
 venv; bare `python3` fails on `ars_classify`'s pandas import
 post-reboot (not listed in requirements.txt; transitive via
 phase22a/ars_classify.py).
@@ -522,7 +522,7 @@ validation — do NOT extend the corresponding literatures):**
     DATA_ACQUISITION_BLOCKED — never fabricate an underpowered result
     from OCR-mangled samples or unavailable data.
 13. **venv trap.** Bare `python3` post-reboot misses pandas; use
-    `/home/combust/fmexplorer/bin/python3`.
+    `$HOME/fmexplorer/bin/python3`.
 
 ---
 

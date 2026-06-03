@@ -44,7 +44,7 @@ from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local     
 from cross_substrate.population_fingerprint import (_corr_eig, _avalanche_onsets,  # noqa: E402
                                                     _sync_events, _fp, _f)
 
-CACHE = "/home/combust/fmexplorer/allen_cache"
+CACHE = "$HOME/fmexplorer/allen_cache"
 NWB_GLOB = CACHE + "/session_*/session_*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 HPF_REGIONS = ("CA1", "CA2", "CA3", "DG", "SUB", "ProS", "POST", "PRE")

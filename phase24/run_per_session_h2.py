@@ -41,9 +41,9 @@ from loader import (load_session, load_natural_movie_one_template,
 from ars_classify import classify, per_q_columns
 
 
-CANDIDATE_PATH = Path('/home/combust/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
-RATE_MATCHED_PATH = Path('/home/combust/fmexplorer/criticality_tool/data/phase24_results/rate_matched_configs.parquet')
-OUT_DIR = Path('/home/combust/fmexplorer/criticality_tool/data/phase24_results')
+CANDIDATE_PATH = Path('$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
+RATE_MATCHED_PATH = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results/rate_matched_configs.parquet')
+OUT_DIR = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results')
 
 N_SEEDS = 5
 Q_MAX = 30
@@ -159,7 +159,7 @@ def surrogate_ln_evoked(real_mat, stim_per_bin, chunk_sizes, rng):
 
 def process_session(srow, rate_matched_row, template_movie):
     sid = int(srow['ecephys_session_id'])
-    nwb_path = Path(f'/home/combust/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
+    nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
     if not nwb_path.exists() or nwb_path.stat().st_size < 1_000_000_000:
         return [], [], []
     rec = load_session(sid)
@@ -315,7 +315,7 @@ def main():
     pop_all, sur_all, surv_all = [], [], []
     for _, srow in candidates.iterrows():
         sid = int(srow['ecephys_session_id'])
-        nwb_path = Path(f'/home/combust/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
+        nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
         if not nwb_path.exists() or nwb_path.stat().st_size < 1_000_000_000:
             print(f"\n  session {sid}: NWB not ready; skip")
             continue

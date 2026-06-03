@@ -50,7 +50,7 @@ for p in (_ROOT, os.path.join(_ROOT, "phase22a"), os.path.join(_ROOT, "phase35a"
 from ars_classify import classify, unfold_unit_mean                  # noqa: E402
 from cross_substrate.axes import canonical_spacings, I5_ks_gue, I1_w1_clock  # noqa: E402
 
-CACHE = "/home/combust/fmexplorer/allen_cache"
+CACHE = "$HOME/fmexplorer/allen_cache"
 NWB_GLOB = CACHE + "/session_*/session_*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 OUT = os.path.join(COORD, "allen-depth.jsonl")

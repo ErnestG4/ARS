@@ -46,7 +46,7 @@ import pandas as pd
 import pynwb
 
 
-ALLEN_CACHE = Path('/home/combust/fmexplorer/allen_cache')
+ALLEN_CACHE = Path('$HOME/fmexplorer/allen_cache')
 DEFAULT_AREA = 'VISp'   # mouse primary visual cortex
 DRIFTING_TRIAL_SEC = 2.0
 NATURAL_MOVIE_ONE_FRAME_SEC = 1 / 30.0    # 30 fps Allen convention

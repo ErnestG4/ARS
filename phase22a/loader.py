@@ -29,7 +29,7 @@ import numpy as np
 import scipy.io as sio
 
 
-PVC11_ROOT = Path('/home/combust/fmexplorer/criticality_tool/data/pvc-11/data_and_scripts')
+PVC11_ROOT = Path('$HOME/fmexplorer/criticality_tool/data/pvc-11/data_and_scripts')
 
 
 # Drifting-grating presentation: each grating shown for 1.28s, the

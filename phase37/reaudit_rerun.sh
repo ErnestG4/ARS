@@ -5,9 +5,9 @@
 # Each port: logged, per-port timeout, continue-on-failure. Coordinates backed up to
 # coordinates_backup_pre_twoaxis.tgz (restore if any port truncates its file on failure).
 set -u
-PY=/home/combust/fmexplorer/bin/python3
-CS=/home/combust/fmexplorer/criticality_tool/cross_substrate
-LOG=/home/combust/fmexplorer/criticality_tool/phase37/reaudit_logs
+PY=$HOME/fmexplorer/bin/python3
+CS=$HOME/fmexplorer/criticality_tool/cross_substrate
+LOG=$HOME/fmexplorer/criticality_tool/phase37/reaudit_logs
 mkdir -p "$LOG"
 cd "$CS" || exit 1
 
@@ -37,5 +37,5 @@ run_port allen_hpf           10800 --run --all --workers 10  # Allen hippocampal
 
 echo "=== $(date +%H:%M:%S)  ALL PORTS DONE ===" | tee -a "$LOG/_master.log"
 # auto-run the two-axis summary once ports finish
-$PY /home/combust/fmexplorer/criticality_tool/phase37/reaudit_summary.py > "$LOG/_summary.log" 2>&1
+$PY $HOME/fmexplorer/criticality_tool/phase37/reaudit_summary.py > "$LOG/_summary.log" 2>&1
 echo "summary written to $LOG/_summary.log" | tee -a "$LOG/_master.log"

@@ -4,9 +4,9 @@
 # CV-16 slow-rate/epoch-gap artifact. Sequential (network-safe), logged, per-port timeout, continue-on-fail.
 # ibl at --workers 4 (was 8 → BrokenProcessPool crash). Auto-runs the CV2-primary summary at the end.
 set -u
-PY=/home/combust/fmexplorer/bin/python3
-CS=/home/combust/fmexplorer/criticality_tool/cross_substrate
-LOG=/home/combust/fmexplorer/criticality_tool/phase37/reaudit_logs2
+PY=$HOME/fmexplorer/bin/python3
+CS=$HOME/fmexplorer/criticality_tool/cross_substrate
+LOG=$HOME/fmexplorer/criticality_tool/phase37/reaudit_logs2
 mkdir -p "$LOG"
 cd "$CS" || exit 1
 
@@ -33,5 +33,5 @@ run_port dual_region_port    14400 --run --workers 8
 run_port allen_hpf           10800 --run --all --workers 10
 
 echo "=== $(date +%H:%M:%S)  ALL PORTS DONE ===" | tee -a "$LOG/_master.log"
-$PY /home/combust/fmexplorer/criticality_tool/phase37/reaudit_summary.py > "$LOG/_summary.log" 2>&1
+$PY $HOME/fmexplorer/criticality_tool/phase37/reaudit_summary.py > "$LOG/_summary.log" 2>&1
 echo "summary -> $LOG/_summary.log" | tee -a "$LOG/_master.log"

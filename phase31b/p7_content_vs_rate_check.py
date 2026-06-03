@@ -17,7 +17,7 @@ Output:
 import json
 from pathlib import Path
 
-OUT_DIR = Path('/home/combust/fmexplorer/criticality_tool/data/phase31b_results')
+OUT_DIR = Path('$HOME/fmexplorer/criticality_tool/data/phase31b_results')
 
 # Per-recording from pvc11_all_qmax200 (monkey1 only, comparable monkey)
 data = [

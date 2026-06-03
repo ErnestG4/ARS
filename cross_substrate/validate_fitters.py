@@ -8,7 +8,7 @@ Poisson → q≈0 / ρ≈0, GOE → q≈1 / ρ≈1 — or its outputs are banked
 + flagged, not as measurements. The Berry-Robnik ρ↔(1−ρ) bug (phase34e)
 is exactly what this catches.
 
-Run:  /home/combust/fmexplorer/bin/python3 cross_substrate/validate_fitters.py
+Run:  $HOME/fmexplorer/bin/python3 cross_substrate/validate_fitters.py
 Writes: cross_substrate/fitter_validation.json
 """
 from __future__ import annotations

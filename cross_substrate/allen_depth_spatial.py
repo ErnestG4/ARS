@@ -28,7 +28,7 @@ from scipy import stats
 _HERE = os.path.dirname(os.path.abspath(__file__))
 COORD = os.path.join(_HERE, "coordinates")
 FIGDIR = os.path.join(_HERE, "figures")
-CACHE = "/home/combust/fmexplorer/allen_cache"
+CACHE = "$HOME/fmexplorer/allen_cache"
 AREAS = ["VISp", "VISl", "VISrl", "VISal", "VISpm", "VISam", "LGd"]
 NAME = {"VISp": "V1", "VISl": "LM", "VISrl": "RL", "VISal": "AL", "VISpm": "PM",
         "VISam": "AM", "LGd": "LGN"}

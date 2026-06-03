@@ -5904,7 +5904,7 @@ h1_crossval_summary.parquet, h2_population_classifications.parquet,
 h2_surrogate_classifications.parquet, h2_survival_summary.parquet,
 PHASE24_TRIAGE_FINDINGS.md, PHASE24_FULL_BRIEF_DRAFT.md.
 
-Cache under `/home/combust/fmexplorer/allen_cache/`:  Allen
+Cache under `$HOME/fmexplorer/allen_cache/`:  Allen
 manifests (sessions/units/channels/probes), session 732592105 NWB
 (2.9 GB), session 732592105 analysis_metrics, natural_movie_1
 template (166 MB).
@@ -6083,7 +6083,7 @@ h1_meta_by_rate_quartile.parquet, PHASE24_FULL_FINDINGS.md.
 PHASE22A_FINDINGS.md in `data/phase22a_results/` is updated in-place
 with a Phase 24 (Full) update note recording scope changes.
 
-Cache under `/home/combust/fmexplorer/allen_cache/`: 12 session NWBs
+Cache under `$HOME/fmexplorer/allen_cache/`: 12 session NWBs
 (~32 GB total), per-session analysis_metrics CSVs, manifests,
 natural_movie_one template (166 MB).
 

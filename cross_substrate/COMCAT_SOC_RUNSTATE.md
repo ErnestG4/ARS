@@ -27,12 +27,12 @@ confirmation is what's lagging.
 
 ## To run analysis once data lands
 ```
-cd /home/combust/fmexplorer/criticality_tool
-/home/combust/fmexplorer/bin/python3 cross_substrate/comcat_port.py \
+cd $HOME/fmexplorer/criticality_tool
+$HOME/fmexplorer/bin/python3 cross_substrate/comcat_port.py \
     --csv cross_substrate/coordinates/comcat/global_m45.csv \
     --fault-csv cross_substrate/coordinates/comcat/saf_central_m25.csv \
     --main-min-mag 6.0
-/home/combust/fmexplorer/bin/python3 cross_substrate/goes_flares.py --analyze
+$HOME/fmexplorer/bin/python3 cross_substrate/goes_flares.py --analyze
 ```
 Outputs: coordinates/comcat-fingerprint.jsonl, coordinates/goes-fingerprint.jsonl
 

@@ -23,7 +23,7 @@ import h5py
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-sys.path.insert(0, '/home/combust/fmexplorer/riemann_explorer')
+sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')
 
 from pll_bank import pll_bank_gpu, PLLParams, farey_rationals, GPU_NAME
 from intermittency import fast_sweep_summary

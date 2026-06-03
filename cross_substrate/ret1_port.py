@@ -38,7 +38,7 @@ from ars_classify import classify                                             # 
 from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local                # noqa: E402
 from cross_substrate.population_fingerprint import _f                         # noqa: E402
 
-DATA = "/home/combust/fmexplorer/crcns_cache/ret1/crcns_ret-1/Data"
+DATA = "$HOME/fmexplorer/crcns_cache/ret1/crcns_ret-1/Data"
 COORD = os.path.join(_HERE, "coordinates")
 MIN_SPIKES = 100
 

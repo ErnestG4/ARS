@@ -29,7 +29,7 @@ import numpy as np
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-sys.path.insert(0, '/home/combust/fmexplorer/riemann_explorer')   # for scanner.make_zeta_signal
+sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')   # for scanner.make_zeta_signal
 
 import scanner                                                      # noqa: E402
 from pll_bank import pll_bank_gpu, PLLParams, farey_rationals, GPU_NAME  # noqa: E402

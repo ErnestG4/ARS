@@ -36,7 +36,7 @@ if _ROOT not in sys.path:
 from cross_substrate.buzsaki_selectivity import (_find_linearized_position, _maze_window,  # noqa: E402
                                                  _decode, N_POS_BINS)
 
-BUZ_GLOB = "/home/combust/fmexplorer/buzsaki_cache/*.nwb"
+BUZ_GLOB = "$HOME/fmexplorer/buzsaki_cache/*.nwb"
 COORD = os.path.join(_HERE, "coordinates")
 SMOOTH = 2.0           # rate-map Gaussian σ (bins)
 PF_THRESH = 0.2        # field = contiguous bins > 0.2 × peak

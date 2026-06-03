@@ -85,5 +85,5 @@ SUBCRITICAL small-λ
  0.95  6765 |    ids      wigner     0.016   0.100  35.6/ 52.4           —
  0.95  6765 |   deg3     poisson   696.687   1.856  89.8/ 75.9           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
 
-record (horizon) → /home/combust/fmexplorer/criticality_tool/phase35a/regated_instrument_results.json
+record (horizon) → $HOME/fmexplorer/criticality_tool/phase35a/regated_instrument_results.json
 NO auto-adjudication. Read gates first.

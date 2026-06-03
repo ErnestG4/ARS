@@ -40,7 +40,7 @@ K_THRESH = 5
 CONDITIONS = ['drifting_pooled', 'spontaneous', 'natural_movie_one']
 
 # All 12 Phase 24 sessions
-CANDIDATE_CSV = Path('/home/combust/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
+CANDIDATE_CSV = Path('$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
 
 
 def analyze(rec, session_id, condition, cre_line):

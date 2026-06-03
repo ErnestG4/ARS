@@ -14,7 +14,7 @@ All correlations Spearman; CIs = 2000-resample cell bootstrap (seeded). NOT from
 """
 import json, numpy as np, pandas as pd
 from scipy.stats import spearmanr, rankdata
-ROOT = "/home/combust/fmexplorer/criticality_tool"
+ROOT = "$HOME/fmexplorer/criticality_tool"
 RNG = np.random.default_rng(20260601)
 
 

@@ -40,7 +40,7 @@ from ars_classify import classify, unfold_unit_mean        # noqa: E402
 from cross_substrate.axes import canonical_spacings, I5_ks_gue, I1_w1_clock  # noqa: E402
 from universality import nns_cdf_gue                         # noqa: E402
 
-NWB_GLOB = "/home/combust/fmexplorer/allen_cache/session_*/session_*.nwb"
+NWB_GLOB = "$HOME/fmexplorer/allen_cache/session_*/session_*.nwb"
 OSI_PARQUET = os.path.join(_ROOT, "data/phase24_results/h1_allen_comparison.parquet")
 FIGDIR = os.path.join(_HERE, "figures")
 

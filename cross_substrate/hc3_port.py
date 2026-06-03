@@ -46,9 +46,9 @@ from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local     
 from cross_substrate.population_fingerprint import (_corr_eig, _avalanche_onsets,  # noqa: E402
                                                     _sync_events, _fp, _f)
 
-SESS_ROOT = "/home/combust/fmexplorer/crcns_cache/sessions"
-META = "/home/combust/fmexplorer/crcns_cache/docs/hc3-metadata-tables/hc3-cell.csv"
-SESS_META = "/home/combust/fmexplorer/crcns_cache/docs/hc3-metadata-tables/hc3-session.csv"
+SESS_ROOT = "$HOME/fmexplorer/crcns_cache/sessions"
+META = "$HOME/fmexplorer/crcns_cache/docs/hc3-metadata-tables/hc3-cell.csv"
+SESS_META = "$HOME/fmexplorer/crcns_cache/docs/hc3-metadata-tables/hc3-session.csv"
 COORD = os.path.join(_HERE, "coordinates")
 
 

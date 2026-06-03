@@ -27,7 +27,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path('/home/combust/fmexplorer/criticality_tool')
+ROOT = Path('$HOME/fmexplorer/criticality_tool')
 DATA = ROOT / 'data' / 'phase33a_results'
 
 sys.path.insert(0, str(ROOT))
