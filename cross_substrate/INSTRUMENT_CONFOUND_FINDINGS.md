@@ -69,6 +69,26 @@ I.8_brody_q}`:
   (large absolute movement → covariant). Closes the approximately-invariant
   sneak-through the exact-rail guard left open.
 
+**THREE-ZONE BRACKET (3rd phase — the real-data attribution method):**
+The short-ISI hole in tetrode data MIXES genuine biological refractoriness
+(substrate, keep) with pipeline censoring (sorter refractory + DAQ dead time,
+subtract). A single empirical-floor τ captures whichever binds, so it
+over-absorbs when biology dominates — a fine conservative *promotion* bar but a
+corrupt *attribution* if stamped `APPARATUS_EXPLAINS`. So `apparatus_bracket`
+runs two nulls — TIGHT (hardware/sorter refractory, minimal) and WIDE (empirical
+ISI-floor, maximal) — and records the **zone**:
+- **SUBSTRATE_ROBUST** — survives even the WIDE null → beyond maximal plausible
+  apparatus → promotable. (Test **J**: genuine GUE.)
+- **INDETERMINATE** — survives TIGHT but absorbed by WIDE → attribution genuinely
+  ambiguous between biological refractoriness and pipeline; NOT promoted, NOT
+  stamped apparatus. (Test **K**: moderate hole, span bracket.)
+- **APPARATUS_EXPLAINS** — explained by even the TIGHT null. (Test **I**: known
+  artifact, bracket containing the true τ.)
+`estimate_deadtime_floor` uses the **P0.5 percentile** of ISIs (NOT the sample
+min — an extreme order statistic the bootstrap underestimates) and a deliberately
+**widened rel_err** (default 0.5); the band errs wide so the apparatus is not
+under-modeled.
+
 **OPEN — power, not correctness:** the z≈41 in (E) shows the separator is correct,
 NOT that it has power. On real hc-3 the apparatus null will absorb most short-range
 structure and the residual z will be small; detection power at realistic n is the

@@ -289,6 +289,77 @@ def apparatus_subtracted_comparison(
     return out
 
 
+def estimate_deadtime_floor(times: Sequence[float], pct: float = 0.5,
+                            rel_err: float = 0.5) -> dict:
+    """Estimate the empirical short-ISI floor τ for the MAXIMAL-apparatus (WIDE)
+    null — the dead time that would have to exist to censor everything below the
+    observed floor.
+
+    Uses the `pct`-th PERCENTILE of the ISIs, NOT the sample minimum: the min is
+    an extreme order statistic whose variance the bootstrap badly underestimates,
+    so a min-based τ and a bootstrapped error on it both read optimistically
+    tight. We take P0.5 and DELIBERATELY WIDEN rel_err past any bootstrap value
+    (default 0.5) — given the apparatus must not be under-modeled, the band should
+    err wide. Returns τ as a fraction of the mean ISI (the unit the injected null
+    uses) plus the widened rel_err."""
+    d = np.diff(np.sort(np.asarray(times, dtype=np.float64)))
+    d = d[d > 0]
+    if d.size < 50:
+        return {"tau_frac": None, "rel_err": rel_err, "n_isi": int(d.size)}
+    floor = float(np.percentile(d, pct))
+    m = float(d.mean())
+    return {"tau_frac": floor / m if m > 0 else None, "rel_err": rel_err,
+            "floor_abs": floor, "mean_isi": m, "n_isi": int(d.size)}
+
+
+def apparatus_bracket(positions: Sequence[float],
+                      tau_tight: float, tau_wide: float,
+                      rel_err_tight: float = 0.2, rel_err_wide: float = 0.5,
+                      null_kind: str = "poisson", n_seeds: int = 24,
+                      base_seed: int = 0) -> Dict[str, dict]:
+    """Bracket the apparatus between a TIGHT null (hardware / sorter refractory —
+    minimal, known apparatus) and a WIDE null (empirical ISI-floor — maximal
+    apparatus, attributing ALL short-ISI censoring to the instrument).
+
+    The two are a BRACKET, not a redundancy. The short-ISI hole in tetrode data
+    MIXES genuine biological refractoriness (substrate — keep) with pipeline
+    censoring (sorter refractory + DAQ dead time — apparatus — subtract). The
+    empirical floor captures whichever binds, so it OVER-absorbs when biology
+    dominates. That is the right conservative bar for PROMOTION, but it corrupts
+    ATTRIBUTION if stamped APPARATUS_EXPLAINS — so we record the ZONE:
+
+      SUBSTRATE_ROBUST  — survives (departs from) even the WIDE null → beyond
+                          maximal plausible apparatus → promotable substrate.
+      INDETERMINATE     — survives the TIGHT null but not the WIDE → attribution
+                          genuinely ambiguous between biological refractoriness
+                          and pipeline censoring. NOT promoted, NOT stamped apparatus.
+      APPARATUS_EXPLAINS— explained by even the TIGHT null → instrument/efficiency.
+      NULL              — consistent with the bare null to begin with.
+    """
+    tight = apparatus_subtracted_comparison(
+        positions, tau_tight, rel_err_tight, null_kind, n_seeds, base_seed)
+    wide = apparatus_subtracted_comparison(
+        positions, tau_wide, rel_err_wide, null_kind, n_seeds, base_seed + 20_000)
+    out: Dict[str, dict] = {}
+    for a in tight:
+        if a not in wide:
+            continue
+        tv, wv = tight[a]["verdict"], wide[a]["verdict"]
+        if wv == "RESIDUAL_STRUCTURE":
+            zone = "SUBSTRATE_ROBUST"
+        elif tv == "RESIDUAL_STRUCTURE":
+            zone = "INDETERMINATE"          # survives tight, absorbed by wide
+        elif tv == "NULL" and wv == "NULL":
+            zone = "NULL"
+        else:
+            zone = "APPARATUS_EXPLAINS"
+        out[a] = dict(zone=zone, promotable=(zone == "SUBSTRATE_ROBUST"),
+                      z_vs_tight=tight[a]["z_vs_injected"],
+                      z_vs_wide=wide[a]["z_vs_injected"],
+                      tight=tight[a], wide=wide[a])
+    return out
+
+
 # ════════════════════════════════════════════════════════════════════════════
 # 4. THINNING SWEEP  (finite-efficiency probe)
 # ════════════════════════════════════════════════════════════════════════════
@@ -697,6 +768,38 @@ def validate(verbose: bool = True) -> dict:
                      and 1e-3 < mv < RAIL_MARGIN),
         "mass03_value": round(mv, 4), "verdict": rH.get("verdict"),
         "note": "near floor but not exactly railed (>1e-3) — old exact-rail guard would miss"}
+
+    # (I/J/K) THREE-ZONE BRACKET. Two nulls bracket the apparatus; we record the
+    #     zone, not a binary. (I) a known dead-time artifact with the bracket
+    #     containing the true τ → APPARATUS_EXPLAINS. (J) genuine GUE under a small
+    #     realistic bracket → SUBSTRATE_ROBUST (survives even the wide null). (K) a
+    #     moderate hole with a span bracket (tight under-absorbs, wide over-absorbs)
+    #     → INDETERMINATE: attribution genuinely ambiguous between biological
+    #     refractoriness and pipeline censoring — NOT promoted, NOT stamped apparatus.
+    rng = np.random.default_rng(2)
+    pA = poisson_positions(4000, rng)
+    artI = apply_deadtime(pA, 0.35 * mean_isi(pA))
+    bI = apparatus_bracket(artI, 0.30, 0.45, n_seeds=20)
+    report["I_bracket_artifact_apparatus_explains"] = {
+        "pass": bool(bI.get("I.5_ks_gue", {}).get("zone") == "APPARATUS_EXPLAINS"),
+        "zones": {a: bI[a]["zone"] for a in bI}}
+
+    rng = np.random.default_rng(5)
+    gJ = gue_positions(3000, rng)
+    bJ = apparatus_bracket(gJ, 0.03, 0.08, n_seeds=20)
+    report["J_bracket_gue_substrate_robust"] = {
+        "pass": bool(bJ.get("I.5_ks_gue", {}).get("zone") == "SUBSTRATE_ROBUST"
+                     and bJ.get("I.5_ks_gue", {}).get("promotable")),
+        "zones": {a: bJ[a]["zone"] for a in bJ}}
+
+    rng = np.random.default_rng(6)
+    pK = poisson_positions(4000, rng)
+    modK = apply_deadtime(pK, 0.30 * mean_isi(pK))
+    bK = apparatus_bracket(modK, 0.08, 0.55, n_seeds=20)
+    report["K_bracket_moderate_indeterminate"] = {
+        "pass": bool(bK.get("I.5_ks_gue", {}).get("zone") == "INDETERMINATE"
+                     and not bK.get("I.5_ks_gue", {}).get("promotable")),
+        "zones": {a: bK[a]["zone"] for a in bK}}
 
     report["ALL_PASS"] = all(v.get("pass") for k, v in report.items()
                              if isinstance(v, dict) and "pass" in v)
