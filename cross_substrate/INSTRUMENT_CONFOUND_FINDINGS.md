@@ -37,7 +37,7 @@ I.8_brody_q}`:
 
 ## Results
 
-**VALIDATED (closed loop, ALL_PASS):**
+**VALIDATED (closed loop, ALL_PASS, A–H):**
 - **A** Poisson thinning-invariant on all five axes.
 - **B** dead time onto Poisson fakes repulsion (mass03 0.257→0.054, ks_gue
   0.283→0.192) and the injected null absorbs it → `APPARATUS_EXPLAINS`.
@@ -48,6 +48,32 @@ I.8_brody_q}`:
 - **E** (crux) genuine GUE vs realistic-dead-time-injected null →
   `RESIDUAL_STRUCTURE` at z≈41. Same "looks-repulsive" observable as B, opposite
   origin, correctly separated.
+
+**HARDENING for real data (2nd phase — addresses pre-hc-3 review):**
+- **F** dead-time estimation uncertainty propagates into the injected null: with
+  40% relative τ error the injected band widens 0.012→0.085 and the artifact is
+  STILL absorbed. On real tetrode data τ is estimated, not known — a point-
+  estimate null under-absorbs (promotes artifacts) or, if τ is set too large,
+  over-absorbs (buries residual). `Provenance.dead_time_rel_err` carries the
+  estimate's error; `build_lensing_record` feeds it through. RESIDUAL_STRUCTURE
+  becomes a conservative call.
+- **G** Finding-1 cuts both ways: a low-efficiency apparent-Poisson read is
+  consistent with a *thinned sub-Poisson* substrate. The ledger flags
+  `POISSON_CONSISTENT_WITH_THINNED_SUB_POISSON` when efficiency < 0.7 and the read
+  is Poisson-consistent — so the caveat attaches to the Poisson null too, not only
+  to sub-Poisson claims.
+- **H** soft saturation (headroom, not exact rails): an axis NEAR a boundary that
+  barely moves is indeterminate even if not exactly railed (mass03=0.012 →
+  `METHOD_SATURATED`). The discriminant tests headroom + absolute movement: near a
+  rail it promotes nothing unless the axis demonstrably swings OFF the rail
+  (large absolute movement → covariant). Closes the approximately-invariant
+  sneak-through the exact-rail guard left open.
+
+**OPEN — power, not correctness:** the z≈41 in (E) shows the separator is correct,
+NOT that it has power. On real hc-3 the apparatus null will absorb most short-range
+structure and the residual z will be small; detection power at realistic n is the
+live question for the hc-3 pass. Report residual z WITH its uncertainty band, not a
+bare verdict.
 
 **GRB lensing-ledger pass (first real substrate):**
 `coordinates/instrument_lensing_ledger.jsonl` — RHESSI 6µs deadtime, n=5206.

@@ -60,12 +60,14 @@ from axes import compute_family_I  # the matched axis stack (Family I + local)
 # repulsion signature; everything→Poisson is the thinning signature.
 AXES = ("I.5_ks_gue", "I.11_mass03", "I.10_cv", "I.12_cv2", "I.8_brody_q")
 
-# Finite boundaries each axis can RAIL against. An axis pinned at a boundary has
-# no dynamic range, so it cannot move under perturbation — it reads "invariant"
-# whether the structure is substrate OR apparatus (the GRB dead-time hole pins
-# mass03→0 and brody→1, the GUE rails). Such saturation is INDETERMINATE to the
-# perturbation discriminant, never promotable. (Same railed-estimator trap as the
-# KPM-floor lesson.) None = unbounded on that side.
+# Finite boundaries each axis can RAIL against. An axis sitting NEAR a boundary
+# barely moves under perturbation whether the structure is substrate OR apparatus
+# (the GRB dead-time hole pins mass03→0 and brody→1, the GUE rails) — so low
+# movement near a rail is INDETERMINATE, not invariant. The discriminant tests
+# HEADROOM (proximity to a rail), not exact railing: an axis is promotable only if
+# it has room to move AND chose not to; near a rail it is indeterminate unless it
+# demonstrably swings OFF the rail (large absolute movement → covariant). Same
+# railed-estimator trap as the KPM-floor lesson. None = unbounded on that side.
 AXIS_BOUNDS = {
     "I.5_ks_gue": (0.0, None),   # KS distance — floor 0 (perfect GUE match)
     "I.11_mass03": (0.0, 1.0),   # fraction — floor 0 (dead-time hole), ceiling 1
@@ -73,6 +75,7 @@ AXIS_BOUNDS = {
     "I.12_cv2": (0.0, None),     # CV2 — floor 0
     "I.8_brody_q": (0.0, 1.0),   # Brody q — 0 Poisson rail, 1 GUE rail
 }
+RAIL_MARGIN = 0.05               # headroom (axis units) below which an axis is "near a rail"
 
 _POISSON_ANCHOR_CACHE: Dict[str, float] = {}
 
@@ -230,13 +233,23 @@ def _ensemble_axes(sampler, n: int, n_seeds: int, base_seed: int,
 
 def apparatus_subtracted_comparison(
         positions: Sequence[float], tau_frac: float,
+        tau_frac_rel_err: float = 0.0,
         null_kind: str = "poisson", n_seeds: int = 24,
         base_seed: int = 0) -> Dict[str, dict]:
     """Re-derive the expected NNS under the apparatus and compare the empirical
     axes against THAT, not the bare null.
 
+    tau_frac is the ESTIMATED dead time as a fraction of the mean ISI;
+    tau_frac_rel_err is its relative uncertainty. On real data τ is ESTIMATED,
+    not known — so its error bars must widen the injected null (τ drawn per seed
+    from tau_frac·(1 + rel_err·N(0,1))). A point-estimate null (rel_err=0) is
+    itself wrong: too-narrow it UNDER-absorbs (promotes an artifact), and an
+    over-large fixed τ OVER-absorbs (buries real residual). Propagating the
+    uncertainty makes RESIDUAL_STRUCTURE a conservative call.
+
     For each axis returns: empirical value, bare-null band, dead-time-injected-
-    null band (null + dead time at tau_frac·mean-ISI), and a verdict:
+    null band (null + dead time at tau_frac·mean-ISI, marginalized over τ error),
+    and a verdict:
       APPARATUS_EXPLAINS  — emp consistent with injected-null, far from bare null
                             (the 'structure' is the dead-time hole, not substrate)
       RESIDUAL_STRUCTURE  — emp departs from the injected-null too
@@ -248,7 +261,9 @@ def apparatus_subtracted_comparison(
     sampler = NULLS[null_kind]
 
     def dt_op(pos, rng):
-        tau = tau_frac * mean_isi(pos)
+        tf = tau_frac * (1.0 + tau_frac_rel_err * rng.standard_normal())
+        tf = max(tf, 0.0)                      # τ cannot be negative
+        tau = tf * mean_isi(pos)
         return apply_deadtime(pos, tau) if np.isfinite(tau) else pos
 
     bare = _ensemble_axes(sampler, n, n_seeds, base_seed)
@@ -363,7 +378,8 @@ def _default_perturbations(positions) -> Dict[str, Callable]:
 def method_perturbation(positions: Sequence[float],
                         perturbations: Optional[Dict[str, Callable]] = None,
                         n_seeds: int = 8, base_seed: int = 0,
-                        cv_invariant_threshold: float = 0.10) -> Dict[str, dict]:
+                        cv_invariant_threshold: float = 0.10,
+                        rail_margin: float = RAIL_MARGIN) -> Dict[str, dict]:
     """Vary collection settings (dead-time model, threshold/efficiency proxy via
     thinning, time-bin) and report which spacing features are METHOD-COVARIANT
     vs METHOD-INVARIANT across the grid.
@@ -391,24 +407,29 @@ def method_perturbation(positions: Sequence[float],
         if len(vals) < 2:
             continue
         arr = np.asarray(list(vals.values()), dtype=float)
-        spread = float(np.std(arr))
+        spread = float(np.std(arr))           # ABSOLUTE movement across methods
         scale = float(np.mean(np.abs(arr))) + 1e-9
-        cv = spread / scale
-        # Saturation guard: an axis railed at a finite boundary with ~no spread
-        # is INDETERMINATE, not invariant — it would read flat for substrate OR
-        # apparatus alike, so the perturbation discriminant cannot promote it.
-        lo, hi = AXIS_BOUNDS.get(a, (None, None))
+        cv = spread / scale                   # relative movement (away from rails)
         v = float(np.mean(arr))
-        at_bound = ((lo is not None and abs(v - lo) < 1e-3) or
-                    (hi is not None and abs(v - hi) < 1e-3))
-        saturated = at_bound and spread < 1e-3
-        if saturated:
-            verdict, promotable = "METHOD_SATURATED", False
+        # Headroom to the nearest finite boundary, in axis units.
+        lo, hi = AXIS_BOUNDS.get(a, (None, None))
+        margins = [abs(v - b) for b in (lo, hi) if b is not None]
+        headroom = min(margins) if margins else float("inf")
+        near_rail = headroom < rail_margin
+        if near_rail:
+            # Near a rail the relative cv is unreliable (tiny denominator). Use
+            # ABSOLUTE movement: if it swings off the rail it is demonstrably
+            # method-sensitive (covariant); if it stays pinned it is indeterminate.
+            if spread >= rail_margin:
+                verdict, promotable = "METHOD_COVARIANT", False
+            else:
+                verdict, promotable = "METHOD_SATURATED", False
         elif cv <= cv_invariant_threshold:
             verdict, promotable = "METHOD_INVARIANT", True
         else:
             verdict, promotable = "METHOD_COVARIANT", False
         out[a] = dict(per_perturbation=vals, cv_across_methods=cv,
+                      abs_spread=spread, headroom=float(headroom),
                       verdict=verdict, promotable=promotable)
     return out
 
@@ -426,6 +447,7 @@ class Provenance:
     n_events: int
     sampling_rate_hz: Optional[float] = None
     dead_time: Optional[float] = None        # in the position's time units
+    dead_time_rel_err: Optional[float] = None  # relative uncertainty on dead_time
     refractory: Optional[float] = None
     bin_width: Optional[float] = None
     obs_window: Optional[float] = None
@@ -445,6 +467,7 @@ class LensingRecord:
     thinning: Dict[str, dict] = field(default_factory=dict)
     method_perturbation: Dict[str, dict] = field(default_factory=dict)
     promoted_axes: List[str] = field(default_factory=list)
+    caveats: List[str] = field(default_factory=list)
     bound: str = ("method-invariance = robust to the manipulations run, "
                   "NOT the territory")
 
@@ -453,19 +476,50 @@ class LensingRecord:
         return d
 
 
+def poisson_thinning_ambiguity(axes_raw: Dict[str, float],
+                               efficiency_estimate: Optional[float],
+                               eff_floor: float = 0.7,
+                               tol: float = 0.08) -> Optional[str]:
+    """Finding-1 corollary: if sub-Poisson is the thinning-fragile endpoint, then
+    an apparent-Poisson read under LOW efficiency could be a THINNED sub-Poisson
+    substrate. So the caveat attaches to the Poisson null too: when efficiency is
+    low you can neither claim sub-Poisson NOR cleanly trust Poisson. Flags a
+    Poisson-consistent read (CV/CV2 near the Poisson anchor) at low efficiency."""
+    if efficiency_estimate is None or efficiency_estimate >= eff_floor:
+        return None
+    anch = poisson_anchors()
+    near = []
+    for a in ("I.10_cv", "I.12_cv2"):
+        if axes_raw.get(a) is not None and a in anch:
+            near.append(abs(axes_raw[a] - anch[a]) < tol)
+    if near and all(near):
+        return ("POISSON_CONSISTENT_WITH_THINNED_SUB_POISSON: efficiency "
+                f"{efficiency_estimate:.2f} < {eff_floor}; an apparent-Poisson "
+                "read cannot be distinguished from a thinned sub-Poisson substrate")
+    return None
+
+
 def build_lensing_record(positions, provenance: Provenance,
                          tau_frac_for_subtraction: float = 0.30,
                          **kw) -> LensingRecord:
     """Run the full apparatus-subtraction battery and assemble the ledger record.
-    promoted_axes = those the method-perturbation discriminant calls invariant."""
+    promoted_axes = those the method-perturbation discriminant calls invariant.
+    Dead-time uncertainty (provenance.dead_time_rel_err) widens the injected null."""
     axes_raw = axis_values(positions)
-    sub = apparatus_subtracted_comparison(positions, tau_frac_for_subtraction)
+    rel_err = provenance.dead_time_rel_err or 0.0
+    sub = apparatus_subtracted_comparison(positions, tau_frac_for_subtraction,
+                                          tau_frac_rel_err=rel_err)
     thin = thin_sweep(positions)
     meth = method_perturbation(positions)
     promoted = [a for a, r in meth.items() if r["promotable"]]
+    caveats = []
+    amb = poisson_thinning_ambiguity(axes_raw, provenance.efficiency_estimate)
+    if amb:
+        caveats.append(amb)
     return LensingRecord(provenance=provenance, axes_raw=axes_raw,
                          apparatus_subtracted=sub, thinning=thin,
-                         method_perturbation=meth, promoted_axes=promoted)
+                         method_perturbation=meth, promoted_axes=promoted,
+                         caveats=caveats)
 
 
 def write_ledger(record: LensingRecord, path: str) -> None:
@@ -491,13 +545,19 @@ def _synthesise_deadtime_signal(rate_per_sec=100_000.0, duration_sec=1.0,
 
 
 def validate(verbose: bool = True) -> dict:
-    """Closed loop on synthetic calibrators. Asserts:
-      (A) Poisson is thinning-INVARIANT (stays Poisson; no efficiency artifact).
-      (B) Dead time injected onto Poisson FAKES repulsion (mass03↓, ks_gue↓),
-          and the dead-time-injected null ABSORBS it → APPARATUS_EXPLAINS / NULL,
-          not RESIDUAL_STRUCTURE.
-      (C) The Phase-21 GRB deadtime synthetic reads METHOD_COVARIANT on the
-          short-range axes and is NOT promoted (the discriminant refuses it).
+    """Closed loop on synthetic calibrators (no new data). Asserts:
+      (A) Poisson is thinning-INVARIANT (no efficiency artifact).
+      (B) Dead time on Poisson FAKES repulsion and the injected null ABSORBS it
+          → APPARATUS_EXPLAINS / NULL, not RESIDUAL_STRUCTURE.
+      (C) Phase-21 GRB deadtime synthetic → NO promotable substrate candidate.
+      (D) positive control — the regular endpoint washes out under mild thinning
+          (the sweep actually FIRES, so A is not vacuous).
+      (E) crux — genuine GUE vs a realistic-dead-time-injected null reads
+          RESIDUAL_STRUCTURE (same observable as B, opposite origin, separated).
+      (F) dead-time estimation uncertainty widens the injected null, artifact
+          still absorbed.
+      (G) low-efficiency Poisson read flags POISSON_CONSISTENT_WITH_THINNED_SUB_POISSON.
+      (H) soft saturation — a near-rail (not exactly railed) axis reads SATURATED.
     """
     report = {}
 
@@ -588,6 +648,55 @@ def validate(verbose: bool = True) -> dict:
         "pass": bool(residual),
         "subtraction_verdicts": {a: subE[a]["verdict"] for a in subE},
         "z_vs_injected": {a: round(subE[a]["z_vs_injected"], 1) for a in rep_axes}}
+
+    # (F) DEAD-TIME UNCERTAINTY widens the injected null. On real data τ is
+    #     estimated, not known — propagating its error must broaden the injected-
+    #     null band, AND the dead-time artifact must STILL be absorbed (never
+    #     falsely promoted to RESIDUAL) under that uncertainty.
+    rng = np.random.default_rng(4)
+    pois3 = poisson_positions(4000, rng)
+    dt_art = apply_deadtime(pois3, 0.35 * mean_isi(pois3))
+    sub0 = apparatus_subtracted_comparison(dt_art, tau_frac=0.35,
+                                           tau_frac_rel_err=0.0, n_seeds=24)
+    subU = apparatus_subtracted_comparison(dt_art, tau_frac=0.35,
+                                           tau_frac_rel_err=0.4, n_seeds=24)
+    band0 = float(np.mean([sub0[a]["injected_null"]["sd"] for a in sub0]))
+    bandU = float(np.mean([subU[a]["injected_null"]["sd"] for a in subU]))
+    absorbed = all(subU[a]["verdict"] in ("APPARATUS_EXPLAINS", "NULL")
+                   for a in subU)
+    report["F_deadtime_uncertainty_widens_null"] = {
+        "pass": bool(bandU > band0 and absorbed),
+        "injected_band_point_estimate": round(band0, 4),
+        "injected_band_with_uncertainty": round(bandU, 4),
+        "artifact_still_absorbed": bool(absorbed)}
+
+    # (G) LOW-EFFICIENCY POISSON is consistent with thinned sub-Poisson (Finding-1
+    #     cuts both ways). The ledger must flag an apparent-Poisson read at low
+    #     efficiency rather than trusting the null.
+    rng = np.random.default_rng(9)
+    pois4 = poisson_positions(1500, rng)
+    prov = Provenance(substrate="test", dataset_id="low_eff_poisson",
+                      n_events=1500, efficiency_estimate=0.5)
+    rec = build_lensing_record(pois4, prov)
+    caveat_fired = any("THINNED_SUB_POISSON" in c for c in rec.caveats)
+    report["G_low_efficiency_poisson_caveat"] = {
+        "pass": bool(caveat_fired), "caveats": rec.caveats}
+
+    # (H) SOFT SATURATION (headroom): a strong dead time pins mass03 NEAR the
+    #     floor but not exactly on it (0.012). The exact-rail guard would miss it;
+    #     the headroom guard reads it METHOD_SATURATED — indeterminate, not promoted.
+    rng = np.random.default_rng(2)
+    pois5 = poisson_positions(5000, rng)
+    dt_near = apply_deadtime(pois5, 0.5 * mean_isi(pois5))
+    methH = method_perturbation(dt_near, n_seeds=6)
+    rH = methH.get("I.11_mass03", {})
+    mv = float(np.mean(list(rH.get("per_perturbation", {1: 0}).values())))
+    report["H_soft_saturation_near_rail"] = {
+        "pass": bool(rH.get("verdict") == "METHOD_SATURATED"
+                     and not rH.get("promotable", True)
+                     and 1e-3 < mv < RAIL_MARGIN),
+        "mass03_value": round(mv, 4), "verdict": rH.get("verdict"),
+        "note": "near floor but not exactly railed (>1e-3) — old exact-rail guard would miss"}
 
     report["ALL_PASS"] = all(v.get("pass") for k, v in report.items()
                              if isinstance(v, dict) and "pass" in v)
