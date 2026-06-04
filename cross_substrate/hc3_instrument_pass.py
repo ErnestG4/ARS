@@ -176,7 +176,7 @@ def main():
                 recs.append(r)
     dt = time.perf_counter() - t0
 
-    ledger = os.path.join(COORD, f"instrument_lensing_ledger_hc3_{a.region}_{a.celltype}.jsonl")
+    ledger = os.path.join(COORD, f"instrument_lensing_ledger_hc3_{a.region}_{a.celltype}_{session}.jsonl")
     with open(ledger, "w") as f:
         for r in recs:
             f.write(json.dumps(r) + "\n")

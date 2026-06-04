@@ -137,6 +137,34 @@ MERGE_SUSPECT flag. **Result: zero merge suspects.** CA3 — 30 CLEAN / 6 MARGIN
 SUBSTRATE_ROBUST clustering survives the additive confound too: it is not a merge
 artifact. Pillar-2 burst-clustering is now armored on BOTH flanks.
 
+## Pass 2 — interneurons (the regular/fast population; where the separator is tested)
+CA3 interneurons, 44 units across 4 cached ec016 sessions (ec016.674/733/749/799),
+each unit keeping its OWN apparatus null (combined evidence, NEVER raw spikes
+pooled across sessions). Within-session anchor ec016.41: 1 pyr SUBSTRATE_ROBUST
+z≈45 vs 10 int mixed — apparatus held constant, so the contrast is not cross-session.
+
+**Result — the separator discriminates here, unlike on pyramidal:**
+- Global clustering axes (`mass03`,`cv`): 41/44 SUBSTRATE_ROBUST but at much lower
+  residual z (mass03 median 10.5 vs pyramidal ~45–54).
+- **Rate-robust LOCAL axis `I.12_cv2`: 15 SUBSTRATE / 20 INDETERMINATE / 5
+  APPARATUS / 4 NULL, residual z median 1.6, IQR [1.0,3.2] straddling threshold.**
+  The apparatus ambiguity concentrates here — the wide-band / INDETERMINATE regime
+  is the method WORKING (genuine biology-vs-pipeline ambiguity), not a null result.
+- `brody_q`: 38 NULL / 4 INDETERMINATE / 2 APPARATUS — some interneuron repulsion-
+  side structure is apparatus-influenced (the dead-time-fakes-repulsion flank, live).
+- Contamination: all 44 CLEAN (max RPV 0.41%) — not merge.
+
+**Mechanism (interpretable):** interneurons fire fast (median 29 Hz, mean ISI
+~34 ms), so the apparatus dead-time/refractory scale (2 ms tight → P0.5 floor wide)
+is a LARGE fraction of their ISIs → apparatus and biology overlap on the fast axis
+→ INDETERMINATE. Slow pyramidal (mean ISI ~0.3–1 s) have a tiny apparatus fraction
+→ fast axis stays clean → SUBSTRATE. This is precisely the small-residual regime
+where the z≈41-synthetic was correctness-not-power: here the residuals ARE small
+and the verdicts genuinely mixed. Ledgers:
+`coordinates/instrument_lensing_ledger_hc3_CA3_i_ec016.*.jsonl`.
+**Bound:** INDETERMINATE means the manipulations we could run can't separate
+biological refractoriness from pipeline censoring on that axis — not "no structure".
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the
