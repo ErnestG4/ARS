@@ -165,6 +165,46 @@ def deadtime_fraction(times: Sequence[float], tau: float) -> float:
 
 
 # ════════════════════════════════════════════════════════════════════════════
+# 1b. CONTAMINATION  (the ADDITIVE apparatus effect — the one that fakes clustering)
+# ════════════════════════════════════════════════════════════════════════════
+
+def refractory_violation_rate(times: Sequence[float],
+                              refractory_s: float = 0.002) -> dict:
+    """Dead time and thinning are SUBTRACTIVE (they remove spikes) — they suppress
+    clustering and fake repulsion, so the dead-time bracket ARMORS a clustering
+    finding. Sort over-merge is the opposite: ADDITIVE. Merging two units injects
+    another cell's spikes, producing sub-refractory ISIs and spurious short-lag
+    structure that reads as burstiness — the ONE apparatus effect that can FAKE
+    clustering. The cheap tell is the refractory-violation rate (RPV): the fraction
+    of ISIs below the biological absolute refractory (a single well-isolated neuron
+    cannot fire faster). A clustered unit with high RPV is a MERGE SUSPECT, not a
+    substrate finding. Pair with any isolation / L-ratio the sort already carries."""
+    t = np.sort(np.asarray(times, dtype=np.float64))
+    d = np.diff(t)
+    d = d[d >= 0]
+    if d.size < 50:
+        return {"rpv": None, "n_isi": int(d.size), "refractory_s": refractory_s}
+    return {"rpv": float(np.mean(d < refractory_s)),
+            "rpv_1ms": float(np.mean(d < 0.001)),
+            "n_violations": int(np.sum(d < refractory_s)),
+            "n_isi": int(d.size), "refractory_s": refractory_s}
+
+
+def contamination_flag(rpv: Optional[float], clean: float = 0.005,
+                       suspect: float = 0.02) -> str:
+    """CLEAN (<0.5% RPV) / MARGINAL / MERGE_SUSPECT (>2% RPV) / UNKNOWN.
+    Thresholds follow the common bad-cluster heuristic; a MERGE_SUSPECT clustering
+    verdict is contamination, not substrate."""
+    if rpv is None:
+        return "UNKNOWN"
+    if rpv > suspect:
+        return "MERGE_SUSPECT"
+    if rpv > clean:
+        return "MARGINAL"
+    return "CLEAN"
+
+
+# ════════════════════════════════════════════════════════════════════════════
 # 2. CANDIDATE NULLS  (positions; unit-rate so tau is in mean-ISI units)
 # ════════════════════════════════════════════════════════════════════════════
 
@@ -800,6 +840,25 @@ def validate(verbose: bool = True) -> dict:
         "pass": bool(bK.get("I.5_ks_gue", {}).get("zone") == "INDETERMINATE"
                      and not bK.get("I.5_ks_gue", {}).get("promotable")),
         "zones": {a: bK[a]["zone"] for a in bK}}
+
+    # (L) CONTAMINATION (additive apparatus). A single refractory-RESPECTING train
+    #     (every ISI ≥ refractory) reads CLEAN; SUPERPOSING two such trains (a sort
+    #     over-merge) injects sub-refractory ISIs → MERGE_SUSPECT. This is the one
+    #     apparatus effect that fakes clustering, so the bracket alone can't catch it.
+    rng = np.random.default_rng(7)
+    refr = 0.002
+    isi1 = refr + rng.exponential(0.05, size=4000)
+    train1 = np.cumsum(isi1)                              # all ISIs ≥ refractory
+    isi2 = refr + rng.exponential(0.05, size=4000)
+    train2 = np.cumsum(isi2) + 0.013                      # offset second unit
+    merged = np.sort(np.concatenate([train1, train2]))    # over-merge
+    rpv_clean = refractory_violation_rate(train1, refr)["rpv"]
+    rpv_merge = refractory_violation_rate(merged, refr)["rpv"]
+    report["L_contamination_merge_suspect"] = {
+        "pass": bool(contamination_flag(rpv_clean) == "CLEAN"
+                     and contamination_flag(rpv_merge) == "MERGE_SUSPECT"),
+        "clean_rpv": round(rpv_clean, 4), "clean_flag": contamination_flag(rpv_clean),
+        "merged_rpv": round(rpv_merge, 4), "merged_flag": contamination_flag(rpv_merge)}
 
     report["ALL_PASS"] = all(v.get("pass") for k, v in report.items()
                              if isinstance(v, dict) and "pass" in v)

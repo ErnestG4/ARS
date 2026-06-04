@@ -93,11 +93,15 @@ def parse_units(sdir, topdir, session, cellmap):
 
 def _unit_record(arg):
     spk, meta = arg
-    spk = np.sort(np.asarray(spk, dtype=np.float64))
-    n_raw = spk.size
+    full = np.sort(np.asarray(spk, dtype=np.float64))
+    n_raw = full.size
+    # contamination (additive apparatus) computed on the FULL cluster — RPV is a
+    # whole-cluster isolation property, not a windowed one. The one apparatus
+    # direction that can FAKE clustering.
+    contam = ic.refractory_violation_rate(full, HW_REFRACTORY_S)
+    contam["flag"] = ic.contamination_flag(contam.get("rpv"))
     # contiguous segment (preserve burst structure; NEVER decimate)
-    if spk.size > CAP:
-        spk = spk[:CAP]
+    spk = full[:CAP] if full.size > CAP else full
     n = spk.size
     m = ic.mean_isi(spk)
     if not np.isfinite(m) or m <= 0 or n < 200:
@@ -127,6 +131,7 @@ def _unit_record(arg):
         bracket={a: {"zone": br[a]["zone"], "z_vs_tight": round(br[a]["z_vs_tight"], 2),
                      "z_vs_wide": round(br[a]["z_vs_wide"], 2)} for a in br},
         thinning_flags={a: thin[a]["flag"] for a in thin},
+        contamination=contam,
         computed_date=date.today().isoformat())
     return rec
 
@@ -197,8 +202,28 @@ def main():
             print(f"\n  {ax} residual z vs WIDE null: "
                   f"median={np.median(zs):.1f} IQR=[{np.percentile(zs,25):.1f},"
                   f"{np.percentile(zs,75):.1f}]  (frac z>2.5: {np.mean(zs>2.5):.2f})")
-    eff_caveat = sum(1 for r in recs if any("THINNED_SUB_POISSON" in c
-                     for c in []))  # efficiency unknown here → no caveat unless set
+    # ── contamination cross-tab: the additive apparatus that FAKES clustering ──
+    # Of the units that read SUBSTRATE_ROBUST on clustering (mass03), how many are
+    # merge suspects? Those verdicts are contamination, not substrate.
+    clus_robust = [r for r in recs
+                   if r["bracket"].get("I.11_mass03", {}).get("zone") == "SUBSTRATE_ROBUST"]
+    cc = {"CLEAN": 0, "MARGINAL": 0, "MERGE_SUSPECT": 0, "UNKNOWN": 0}
+    for r in clus_robust:
+        cc[r["contamination"].get("flag", "UNKNOWN")] += 1
+    print(f"\nCONTAMINATION (additive apparatus — the only one that fakes clustering):")
+    print(f"  refractory-violation threshold = {HW_REFRACTORY_S*1e3:.0f} ms")
+    print(f"  of {len(clus_robust)} clustering-SUBSTRATE_ROBUST units: "
+          f"CLEAN={cc['CLEAN']} MARGINAL={cc['MARGINAL']} MERGE_SUSPECT={cc['MERGE_SUSPECT']}")
+    rpvs = [r["contamination"]["rpv"] for r in recs if r["contamination"].get("rpv") is not None]
+    if rpvs:
+        rpvs = np.asarray(rpvs)
+        print(f"  RPV across units: median={np.median(rpvs)*100:.2f}%  max={rpvs.max()*100:.2f}%")
+    suspects = [r for r in clus_robust if r["contamination"].get("flag") == "MERGE_SUSPECT"]
+    if suspects:
+        print(f"  MERGE_SUSPECT units (clustering verdict is contamination, not substrate):")
+        for r in suspects:
+            print(f"    e{r['ele']}c{r['clu']}: RPV={r['contamination']['rpv']*100:.2f}% "
+                  f"n_raw={r['n_raw']}")
     print("\nNote: efficiency not estimated for hc-3 (no ground-truth detection model) → "
           "Poisson-ambiguity caveat not applied; thinning flags recorded per unit.")
 

@@ -126,6 +126,17 @@ which is ALSO the thinning-fragile endpoint (Finding 1) — so pass 2 (pyr/int
 contrast) carries BOTH apparatus risks and is where the separator is actually
 tested. [[pillar2_burst_control_systematic]]
 
+**Contamination backfill — the additive flank (the ONLY apparatus effect that can
+fake clustering).** Dead time / thinning are subtractive; sort OVER-MERGE is
+additive — it injects another unit's spikes → sub-refractory ISIs → spurious
+short-lag structure reading as burstiness. So clustering is armored against the
+censoring confounds and WIDE OPEN to contamination. Per-unit refractory-violation
+rate (RPV, ISIs < 2 ms) added to every ledger record + a CLEAN/MARGINAL/
+MERGE_SUSPECT flag. **Result: zero merge suspects.** CA3 — 30 CLEAN / 6 MARGINAL /
+0 SUSPECT (median RPV 0.25%, max 1.56%); CA1 — all 16 CLEAN (max 0.38%). The
+SUBSTRATE_ROBUST clustering survives the additive confound too: it is not a merge
+artifact. Pillar-2 burst-clustering is now armored on BOTH flanks.
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the
