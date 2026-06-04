@@ -844,6 +844,8 @@ def grb_ledger_pass(ledger_path: Optional[str] = None,
     if ledger_path is None:
         ledger_path = os.path.join(_HERE, "coordinates",
                                    "instrument_lensing_ledger.jsonl")
+    if os.path.exists(ledger_path):     # single known-answer record — idempotent,
+        os.remove(ledger_path)          # not an accumulating log (re-run safe)
     write_ledger(rec, ledger_path)
     print("=" * 74)
     print(f"GRB lensing-ledger pass → {ledger_path}")

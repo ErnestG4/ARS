@@ -101,6 +101,31 @@ bare verdict.
 `mass<0.3=0` dead-time signature); `ks_gue`/`cv`/`cv2` covariant. **PROMOTED:
 (none).** Correct known-answer.
 
+## hc-3 first real-substrate pass (CA3 + CA1 pyramidal, `hc3_instrument_pass.py`)
+Local CRCNS cache: CA3 ec013.922 (36 pyramidal, 3362s) + CA1 ec016.106 (16
+pyramidal ≥200 spk, 622s epoch; pulled fresh). Per unit: bracket between a TIGHT
+null (2 ms hardware/sorter refractory) and a WIDE null (empirical P0.5-ISI floor,
+rel_err 0.5); matched-n contiguous-segment cap (NOT decimation — that would
+Poissonize bursts).
+
+**Result — both regions, all units:** clustering axes (`mass03`, `cv`, `cv2`,
+`ks_gue`) read **SUBSTRATE_ROBUST** at residual z ≈ 37–54 vs even the maximal-
+apparatus WIDE null. `brody_q` reads NULL on all (Brody is repulsion-only, blind
+to clustering — the SOC one-sided-fitter lesson). Ledgers:
+`coordinates/instrument_lensing_ledger_hc3_{CA3,CA1}_p.jsonl`.
+
+**Interpretation (directional, not a power claim):** dead time *removes* small
+spacings, so it SUPPRESSES clustering — a bursty cell sits on the opposite side of
+every dead-timed null. The confound cannot FAKE clustering, only hide it. So the
+burst-clustering / pillar-2 signal is robust to the dead-time confound **by
+direction**, and the high z is honest (a large-amplitude effect, not the small-
+residual regime where power is the worry). **The dead-time bracket is near-trivially
+passed by clustered cells** — its discriminating power is for REPULSION/regular
+cells (the dead-time-fakes-repulsion crux). That is the interneuron population,
+which is ALSO the thinning-fragile endpoint (Finding 1) — so pass 2 (pyr/int
+contrast) carries BOTH apparatus risks and is where the separator is actually
+tested. [[pillar2_burst_control_systematic]]
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the
