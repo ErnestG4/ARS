@@ -165,6 +165,37 @@ and the verdicts genuinely mixed. Ledgers:
 **Bound:** INDETERMINATE means the manipulations we could run can't separate
 biological refractoriness from pipeline censoring on that axis — not "no structure".
 
+## Induction-on-noise fold (Phase-18 harness, `run_phase18_finding_validation.py`)
+The harness had ONE arm (math nulls: phase-randomized / Hawkes / cumulant-matched
+— the substrate probe). Added a SECOND arm (the instrument probe): each finding is
+perturbed by dead time (0.15, 0.30 × mean ISI) and thinning (10%, 25%) and
+re-classified in the harness's native quadrant space. Polarity is opposite and
+labelled: surrogate "survives" = different class; apparatus "robust" = quadrant
+UNCHANGED. Output: `data/phase18_apparatus_robustness.parquet` (gitignored).
+
+**Apparatus-robustness result (full run, 84 rows, 1321 s):**
+| finding | deadtime | thinning | verdict |
+|---|---|---|---|
+| zeta_first_2000 / zeta_high_height | 1.00 | 1.00 | APPARATUS_ROBUST |
+| lmfdb_ec_pooled / dirichlet_pooled | 1.00 | 1.00 | APPARATUS_ROBUST |
+| primes_1e6 | 1.00 | 1.00 | APPARATUS_ROBUST |
+| earthquakes_M45 | 0.50 | 1.00 | robust except quadrant MOVES at dead time 0.30 |
+| twin_primes_1e7 | 0.00 | 1.00 | DEADTIME_SENSITIVE |
+
+- The TR (repulsive) arithmetic findings and primes_1e6 are apparatus-robust:
+  their verdicts are not collection-method artifacts.
+- earthquakes (BL/clustered) moves only at the STRONG dead time (0.30) — directly
+  consistent with the hc-3 directional finding (dead time suppresses clustering).
+- twin_primes_1e7 is flagged DEADTIME_SENSITIVE (quadrant labile under dead time,
+  thinning-robust) — the apparatus arm earning its keep on a near-boundary finding.
+
+**NOTE (pre-existing, NOT from this fold):** the SUBSTRATE arm triggers its
+STOP CONDITION — zeta/lmfdb/dirichlet TR findings are reproduced by
+phase_randomized + cumulant_matched. That is the known property that an NNS verdict
+is largely a function of the marginal spacing distribution those surrogates
+preserve; the apparatus fold is additive-only (106 insertions, 0 deletions; surrogate
+code byte-unchanged) and does not affect it. Flagged for the substrate-arm owner.
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the
