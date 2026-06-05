@@ -367,12 +367,18 @@ spikes, reusing `allen_osi_gap.gratings_train` + the banked 111-unit OSI parquet
   mirroring hc-3's Poisson pole. (Auto-verdict initially mislabeled this "concordant
   → genuine"; corrected — rank-concordance ≠ a genuine pole; the genuine test is
   whether nearest-GUE cells actually read RIGID, and none do.)
-- **H1 self-test → mechanism candidate.** OSI↔ks_gue = +0.55 (p=6e-8): H1 confirmed
-  on the marginal. The 2nd instrument disambiguates "far from GUE": high-OSI cells
-  are 29/29 SUPER_POISSON → the CLUSTERED side (bursty stimulus-driven), NOT
-  stimulus-locking (RIGID). So H1's OSI↔(far-from-GUE) is the clustering direction;
-  locking is ruled out. (OSI↔σ² weak +0.14 because the whole population is clustered
-  — little verdict dynamic range.)
+- **H1 self-test → mechanism candidate.** PRECISION: this used the PLAIN NNS ks_gue
+  (`i5`, which the long-range Σ² extends), OSI↔i5 = +0.55 (p=6e-8) — selective cells
+  read FAR from GUE on the plain marginal. (The banked q-banded H1 pillar leg
+  OSI↔ks_gue_med is a DIFFERENT statistic, −0.22 in Allen per [[h1_direction_corrected]];
+  the plain-vs-q-banded sign divergence IS the Allen OSI-gap allen_osi_gap.py studies.
+  So this is the plain-NNS leg, not the q-banded pillar.) The 2nd instrument
+  disambiguates "far from GUE" on the plain leg: high-OSI cells are 29/29 SUPER_POISSON
+  → the CLUSTERED side (bursty stimulus-driven), NOT stimulus-locking (RIGID) — locking
+  ruled out 29/29. Mechanism candidate: selective V1 cells are long-range-CLUSTERED,
+  not regular/locked. (OSI↔σ² weak +0.14 because the whole population is clustered —
+  little verdict dynamic range. Reconciling with the q-banded pillar leg is a further
+  step.)
 - **Load-bearing caveat:** the gratings train is presentation-CONCATENATED →
   stimulus-driven rate modulation (non-smooth, per-presentation) inflates Σ² and
   smooth-poly can't remove it; the all-SUPER_POISSON conflates intrinsic clustering
@@ -380,6 +386,13 @@ spikes, reusing `allen_osi_gap.gratings_train` + the banked 111-unit OSI parquet
   → the **trial-PSTH unfold is the concrete realization of the external-rate fix the
   #2 negative result demanded**, and the decisive next step to isolate intrinsic
   structure. The mechanism claim stands only as "not stimulus-locking" until then.
+  **STANDING RULE before deploying the trial-PSTH (or any) unfold: run the decoy
+  battery first** (renewal decoy must not read RIGID; GUE↔Poisson separation must
+  survive; no false-RIGID — `validate` + `validate_rate_unfold`). External rate
+  removes the SELF-derivation circularity that killed #2, but has its OWN aliasing
+  modes (if the trial structure induces correlation at scale L, same alias) — so the
+  battery is the standard pre-deployment gate. [[longrange_lens_discipline]]:
+  pole tests are ABSOLUTE not ordinal; decoy battery gates every lens.
 
 **THE PATTERN, now 3 substrates × both poles:** arithmetic (zeta CONFIRMED, pooled
 DOWNGRADED), hc-3 neural (POISSON pole DOWNGRADED), Allen V1 neural (GUE pole

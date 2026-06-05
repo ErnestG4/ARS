@@ -118,7 +118,9 @@ def main():
     n_sup = int((hi.longrange == "SUPER_POISSON").sum())
     n_rig = int((hi.longrange == "RIGID_GUE").sum())
     print("\n(2) H1 SELF-TEST (OSI ↔ long-range; mechanism disambiguator):")
-    print(f"    Spearman(OSI, ks_gue) = {rho_ok:+.3f} (p={p_ok:.1e})  [H1, expect + per h1_direction_corrected]")
+    print(f"    Spearman(OSI, PLAIN ks_gue i5) = {rho_ok:+.3f} (p={p_ok:.1e})  "
+          f"[plain-NNS leg the Σ² extends — NOT the q-banded ks_gue_med pillar "
+          f"(banked Allen −0.22); their divergence = the OSI-gap]")
     print(f"    Spearman(OSI, σ²)     = {rho_oc:+.3f} (p={p_oc:.1e})  "
           f"[+ → high-OSI clustered (bursty stimulus-driven); − → high-OSI rigid (stimulus-locking)]")
     print(f"    high-OSI tertile (n={len(hi)}): {hi_mix}  → SUPER_POISSON={n_sup}, RIGID={n_rig}")
