@@ -244,31 +244,54 @@ matched surrogate keeps NNS while collapsing the long-range (the STOP-CONDITION
 mechanism). The long-range verdict compares Σ²(L)/Δ₃(L) to memoized real-GUE and
 renewal ensembles; RIGID is one-sided (at-or-below GUE rigidity is still GUE-class).
 
-**Audit of the banked arithmetic claims:**
-- **zeta_first_2000 → RIGID_GUE, GUE-class CONFIRMED** (σ²=0.31, *more* rigid than the
-  finite-N GUE ensemble — Montgomery–Odlyzko rigidity is genuine, not marginal-only).
-- **zeta_high_height → UNRELIABLE** (σ²=71 > Poisson level 50): a properly-unfolded
-  GUE sequence cannot be super-Poissonian — this is a LOADER UNFOLDING BUG, NOT a
-  downgrade. Guard: σ²>Poisson ⇒ mis-unfolded, not a valid rigidity readout.
-- **lmfdb_ec_pooled / dirichlet_pooled → marginal-only (σ²≈9–10, renewal level)**,
-  flagged "verify unfolding". Plausibly REAL: pooling independent spectra superposes
-  → long-range Poissonization even when each component is GUE and the pooled NNS
-  still looks GUE. A genuine caveat on POOLED universality claims — pending per-
-  component unfold-verification to separate pooling-effect from unfolding-artifact.
+**UNFOLDING IS THE LONG-RANGE ARM'S OWN LENS** (the analog of dead time for NNS).
+Σ²/Δ₃ need a flat mean density; NNS does not. So adding the long-range arm stacked a
+new apparatus stage — unfolding — that can MANUFACTURE rigidity (over-unfold) or
+ERASE it (under-unfold → σ²≫Poisson). `unfold_empirical(deg)` applied UNIFORMLY to
+data + references; `unfolding_sensitivity()` SWEEPS the degree and reports
+LENS-INVARIANT (trustworthy) vs LENS-COVARIANT (verdict is an unfolding artifact) —
+the unfolding method-perturbation, same discipline as the apparatus arm. The lens
+degree is carried in every verdict.
+
+**Audit of the banked arithmetic claims (with the lens sweep, degs 3/6/10/15):**
+- **zeta_first_2000 → RIGID_GUE, LENS-INVARIANT** (σ²≈0.37–0.43 across all degrees).
+  GUE-class CONFIRMED. Its EXCESS rigidity (σ² *below* the GUE ensemble) is lens-
+  invariant ⇒ NOT an unfolding artifact ⇒ a **real RESIDUAL to explain**: leading
+  candidate the arithmetic prime correction (Berry–Keating / Bogomolny–Keating two-
+  point form), alternative finite-height — the lens sweep rules out the unfolding
+  alternative. Residual-is-the-product, now in the most-banked claim.
+- **zeta_high_height → LENS-COVARIANT** (MARGINAL_ONLY σ²=10.8 @deg3 → INTERMEDIATE
+  @deg6 → RIGID_GUE σ²≈0.5 @deg10/15). The σ²=71 default read was UNDER-unfolding
+  (high zeros have a steeper density a deg-6 poly can't flatten); at adequate degree
+  it converges to RIGID_GUE. Verdict is lens-dependent ⇒ NOT promotable without the
+  right lens; with it, GUE-class. The lens screaming, then resolved.
+- **lmfdb_ec_pooled / dirichlet_pooled → MARGINAL_ONLY, LENS-INVARIANT** (σ²≈9
+  across all degrees). The downgrade is ROBUST, not an unfolding artifact ⇒ a REAL
+  effect: pooling independent spectra superposes → long-range Poissonization even
+  when each component is GUE and the pooled NNS looks GUE. The **arithmetic twin of
+  the neural no-pooling rule** — "marginal-only on pooled data" is expected.
 - Controls (real GUE→RIGID, Poisson→floppy, decoy→MARGINAL_ONLY) all correct.
 
-**Discipline output:** a long-range statistic is only meaningful on properly-unfolded
-data (NNS is unfold-robust via canonical_spacings; Σ²/Δ₃ are NOT). The audit
-established the discriminator + confirmed zeta_first; the apparent pooled downgrades
-need verified unfolding before they harden. Phase-18 `expected_survives` relabelled:
-the four TR findings expect only the marginal-DESTROYING surrogate (hawkes) to flip
-an NNS verdict; the class claim is carried by the long-range arm, not NNS.
+**Discipline output:** the unfolding-sensitivity sweep trisects cleanly — CONFIRMED
++ residual (zeta_first), lens-artifact-needs-right-degree (zeta_high), REAL downgrade
+(pooled). A long-range statistic is only meaningful on properly-unfolded data, and
+the lens must be carried + swept like any apparatus stage. Phase-18
+`expected_survives` relabelled: the four TR findings expect only the marginal-
+DESTROYING surrogate (hawkes) to flip an NNS verdict; the class claim is carried by
+the long-range arm, not NNS.
 
 **The generalization (queued):** this is not arithmetic-specific. EVERY verdict
 resting on NNS alone — including the neural pillars (pillar-1 GUE/Poisson, H1
 ks_gue) — inherits it. Run the same marginal-surrogate + long-range statistic
-against each banked universality claim: which confirm (RIGID), which downgrade to
-marginal-only. Same falsification loop, pointed at the verdict's statistic.
+against each banked universality claim. Two sharpenings for the neural pass:
+(1) NNS under-certifies BOTH poles — exponential NNS is necessary-not-sufficient for
+Poisson (a correlated process can wear an exponential marginal), so Σ²(L) must
+certify rigidity for the GUE pole AND Σ²(L)≈L for the Poisson pole, or pillar-1
+carries the gap on both sides (needs a Poisson reference added alongside GUE/renewal).
+(2) The ≥200-event floor (MIN_N_LONGRANGE) is real: below it Σ²/Δ₃ are themselves
+underpowered, which on fast low-yield interneuron-style units folds back into the
+pass-2 resolution-floor problem. `enough_for_longrange()` pre-checks per-cell event
+counts so the long-range statistic is only run where the data supports it.
 
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**

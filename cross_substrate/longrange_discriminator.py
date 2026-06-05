@@ -63,20 +63,45 @@ def wigner_renewal(n: int, rng: np.random.Generator) -> np.ndarray:
     return np.cumsum(spac)
 
 
-# ── long-range statistics ─────────────────────────────────────────────────────
-def longrange_stats(positions: Sequence[float], L: Optional[float] = None) -> dict:
+# ── unfolding: the long-range arm's OWN lens (the analog of dead time for NNS) ──
+# Σ²(L)/Δ₃(L) require a FLAT mean density; NNS does not. So adding the long-range
+# arm stacked a new apparatus stage — unfolding — that can MANUFACTURE rigidity
+# (over-unfold → absorbs real fluctuation → spuriously rigid) or ERASE it
+# (under-unfold → residual density trend → σ²≫Poisson, spuriously floppy; that is
+# exactly what zeta_high_height's σ²=71>Poisson was). The lens degree must be
+# carried in the ledger and SWEPT for sensitivity, same discipline as dead time.
+def unfold_empirical(positions: Sequence[float], deg: int = 6) -> np.ndarray:
+    """Flatten the smooth density: fit a degree-`deg` polynomial to the staircase
+    (sorted positions → cumulative rank) and map events through it → unit-mean-
+    density, smooth-trend removed. `deg` is a LENS PARAMETER — too low leaves a
+    trend (spurious floppiness), too high absorbs real fluctuation (spurious
+    rigidity). Applied UNIFORMLY to data and references so the comparison is fair."""
     e = np.sort(np.asarray(positions, dtype=np.float64))
+    if e.size < deg + 2:
+        return e - e[0] if e.size else e
+    y = np.arange(1, e.size + 1, dtype=np.float64)
+    x = (e - e[0]) / (e[-1] - e[0] + 1e-12)        # condition to [0,1]
+    return np.polyval(np.polyfit(x, y, deg), x)
+
+
+# ── long-range statistics ─────────────────────────────────────────────────────
+def longrange_stats(positions: Sequence[float], L: Optional[float] = None,
+                    unfold_deg: Optional[int] = None) -> dict:
+    e = np.sort(np.asarray(positions, dtype=np.float64))
+    if unfold_deg is not None:
+        e = np.sort(unfold_empirical(e, unfold_deg))
     if L is None:
         L = matched_L(e.size)
     return {"L": float(L), "sigma2": II1_sigma2_at_L(e, L),
             "delta3": II2_delta3_at_L(e, L)}
 
 
-def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int) -> dict:
+def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int,
+              unfold_deg: Optional[int] = None) -> dict:
     s2, d3 = [], []
     for k in range(n_seeds):
         rng = np.random.default_rng(base_seed + k)
-        st = longrange_stats(sampler(n, rng), L)
+        st = longrange_stats(sampler(n, rng), L, unfold_deg=unfold_deg)
         if st["sigma2"] is not None:
             s2.append(st["sigma2"])
         if st["delta3"] is not None:
@@ -91,20 +116,22 @@ def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int) -> dict:
 _ENS_CACHE: Dict[tuple, tuple] = {}
 
 
-def _reference_ensembles(n_e: int, L: float, n_seeds: int) -> tuple:
-    """Real-GUE + Wigner-renewal reference ensembles at (n_e, L), memoized with
-    FIXED seeds — they are identical across findings, so the O(n³) GUE eigensolve
-    is paid ONCE per (n_e, L, n_seeds), not per finding."""
-    key = (int(n_e), round(float(L), 4), int(n_seeds))
+def _reference_ensembles(n_e: int, L: float, n_seeds: int,
+                         unfold_deg: Optional[int] = None) -> tuple:
+    """Real-GUE + Wigner-renewal reference ensembles at (n_e, L, unfold_deg),
+    memoized with FIXED seeds — the same unfolding lens is applied to references
+    and data, so the O(n³) GUE eigensolve is paid ONCE per key, not per finding."""
+    key = (int(n_e), round(float(L), 4), int(n_seeds), unfold_deg)
     if key not in _ENS_CACHE:
-        _ENS_CACHE[key] = (_ensemble(gue_positions, n_e, L, n_seeds, 90_000),
-                           _ensemble(wigner_renewal, n_e, L, n_seeds, 95_000))
+        _ENS_CACHE[key] = (
+            _ensemble(gue_positions, n_e, L, n_seeds, 90_000, unfold_deg),
+            _ensemble(wigner_renewal, n_e, L, n_seeds, 95_000, unfold_deg))
     return _ENS_CACHE[key]
 
 
 def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
                       n_seeds: int = 16, base_seed: int = 0,
-                      n_ref: int = 3000) -> dict:
+                      n_ref: int = 3000, unfold_deg: Optional[int] = 6) -> dict:
     """Compare the data's long-range statistics against a real-GUE ensemble and a
     Wigner-renewal ensemble at matched n and L. Σ² is primary, Δ₃ a cross-check.
       RIGID_GUE     — consistent with GUE, far from renewal → the long-range
@@ -118,14 +145,14 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     n = e.size
     if L is None:
         L = matched_L(n)
-    obs = longrange_stats(e, L)
+    obs = longrange_stats(e, L, unfold_deg=unfold_deg)
     if obs["sigma2"] is None:
         return {"verdict": "UNDERPOWERED", "n": int(n), "L": float(L)}
     # Σ²(L)/Δ₃(L) at fixed L are windowed statistics ~independent of total n once
     # n >> L, so the reference ensembles use a capped n_ref (the data keeps its own
     # n) — avoids an O(n³) GUE eigensolve at large n while staying matched in L.
     n_e = min(n, n_ref)
-    gue, ren = _reference_ensembles(n_e, L, n_seeds)   # memoized (base_seed unused here)
+    gue, ren = _reference_ensembles(n_e, L, n_seeds, unfold_deg)  # memoized; same lens
 
     def _judge(stat):
         if stat not in gue or stat not in ren or obs[stat] is None:
@@ -151,12 +178,54 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     s2j, d3j = _judge("sigma2"), _judge("delta3")
     primary = s2j["verdict"] if s2j else (d3j["verdict"] if d3j else "UNDERPOWERED")
     return {"verdict": primary, "n": int(n), "L": float(L),
-            "sigma2": s2j, "delta3": d3j}
+            "unfold_deg": unfold_deg, "sigma2": s2j, "delta3": d3j}
+
+
+def unfolding_sensitivity(positions: Sequence[float],
+                          degs: Sequence[int] = (3, 6, 10, 15),
+                          n_seeds: int = 12, L: Optional[float] = None,
+                          n_ref: int = 2500) -> dict:
+    """The unfolding method-perturbation: sweep the unfolding degree and report
+    whether the long-range verdict is LENS-INVARIANT (same verdict across degrees →
+    trustworthy) or LENS-COVARIANT (verdict moves with the lens → the rigidity is an
+    unfolding artifact, not a substrate property). Same discipline as the apparatus
+    method-perturbation. A claim is only promotable if lens-invariant."""
+    per = {}
+    for d in degs:
+        v = longrange_verdict(positions, L=L, n_seeds=n_seeds, n_ref=n_ref,
+                              unfold_deg=d)
+        s2 = v.get("sigma2") or {}
+        per[d] = {"verdict": v["verdict"], "sigma2": round(s2.get("obs", float("nan")), 3)}
+    verdicts = {p["verdict"] for p in per.values()}
+    stable = len(verdicts) == 1
+    return {"per_degree": per, "verdicts": sorted(verdicts),
+            "lens": "INVARIANT" if stable else "COVARIANT",
+            "promotable": stable}
 
 
 def ks_gue(positions) -> Optional[float]:
     """The NNS marginal statistic (ks_gue) — what the decoy fools."""
     return axis_values(positions, axes=("I.5_ks_gue",)).get("I.5_ks_gue")
+
+
+from axes import MIN_N_LONGRANGE   # the ≥200-event Σ²/Δ₃ floor
+
+
+def enough_for_longrange(positions, L: Optional[float] = None) -> dict:
+    """Pre-check before running the long-range statistic on a candidate cell.
+    Below MIN_N_LONGRANGE events Σ²/Δ₃ are underpowered — on fast low-yield units
+    that folds straight back into the pass-2 resolution-floor problem. Returns the
+    event count, whether it clears the floor, and a coarse n/L ratio (windows per L
+    available). Run this per cell and SKIP the long-range verdict where it fails,
+    rather than emit a statistic the data can't support."""
+    e = np.asarray(positions, dtype=np.float64)
+    n = int(e.size)
+    ok = n >= MIN_N_LONGRANGE
+    span = float(np.ptp(e)) if n > 1 else 0.0
+    L = L if L is not None else (matched_L(n) if n else 0.0)
+    n_windows = (span / L) if L > 0 else 0.0
+    return {"n": n, "min_required": MIN_N_LONGRANGE, "enough": bool(ok),
+            "approx_windows_at_L": round(n_windows, 1), "L": float(L)}
 
 
 # ── closed-loop proof ─────────────────────────────────────────────────────────
