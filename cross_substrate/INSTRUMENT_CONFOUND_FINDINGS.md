@@ -321,11 +321,16 @@ story. CONDITIONAL on smooth-poly being a sufficient unfold (see caveat) — fra
 
 - **GUE pole: 0 cells in hc-3** (neurons rarely show GUE-level repulsion) →
   UNTESTABLE here; needs a GUE-reading substrate (Allen V1 / pvc-11). **Queued
-  self-test:** the new tool certifies the GUE pole independently of NNS, so the cells
-  the NNS instrument places NEAREST the GUE pole (lowest ks_gue) should read RIGID on
-  the long-range tool. Concordance → H1 (OSI↔ks_gue) gains a SECOND-INSTRUMENT
-  confirmation; discordance → the long-range tool reveals what ks_gue was actually
-  picking up. (Mind the sign — H1 is OSI↔ks_gue POSITIVE per [[h1_direction_corrected]].)
+  self-test (a DISAMBIGUATOR, not just confirmation):** H1 is OSI↔ks_gue POSITIVE
+  ([[h1_direction_corrected]]) → high-OSI cells read FAR from the GUE pole on the NNS
+  marginal. But "far from GUE" on the marginal alone is TWO-SIDED — more clustered
+  (Poisson-like) OR more rigid (periodic-like) — and NNS cannot tell which. The long-
+  range tool splits it: if high-OSI cells read SUPER_POISSON, the mechanism is bursty
+  stimulus-driven firing pulling spacings into clusters; if they read RIGID, it is
+  stimulus-LOCKING pulling spacings into regularity. So the second instrument hands H1
+  a MECHANISM CANDIDATE it cannot get from NNS alone — worth more than concordance.
+  (Sanity leg still holds: the lowest-ks_gue cells should read RIGID if H1's GUE end
+  is genuine; SUPER_POISSON there would say ks_gue was reading clustering, not rigidity.)
 
 **Rate-nonstationarity caveat (load-bearing):** neural σ² conflates genuine long-
 range clustering with slow rate drift; smooth-poly unfold + lens sweep removes/flags
