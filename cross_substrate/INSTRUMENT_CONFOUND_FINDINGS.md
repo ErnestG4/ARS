@@ -332,14 +332,21 @@ story. CONDITIONAL on smooth-poly being a sufficient unfold (see caveat) — fra
   (Sanity leg still holds: the lowest-ks_gue cells should read RIGID if H1's GUE end
   is genuine; SUPER_POISSON there would say ks_gue was reading clustering, not rigidity.)
 
-**Rate-nonstationarity caveat (load-bearing):** neural σ² conflates genuine long-
-range clustering with slow rate drift; smooth-poly unfold + lens sweep removes/flags
-SMOOTH trends only (lens-invariance to deg 3–10 is a PARTIAL guard, not proof of
-stationarity). Σ² is the statistic where rate non-stationarity bleeds in worst, so a
-rate-aware / local-density unfold ([[ars_rate_dependence_lesson]] applied to Σ²) is
-the named next step — it tells whether the 664/702 cluster number survives or
-contracts. Until then the bulk claim is "lens-invariant to smooth-poly", not
-"stationary".
+**Rate-nonstationarity caveat (load-bearing) + the rate-aware attempt (NEGATIVE
+RESULT):** neural σ² conflates genuine long-range clustering with slow rate drift;
+smooth-poly unfold + lens sweep removes/flags SMOOTH trends only. The named next step
+was a rate-aware / local-density unfold (`rate_aware_unfold`, time-rescaling via a
+kernel rate estimate, bandwidth as the swept lens). **Built, swept, and it FAILS the
+decoy validation** (`validate_rate_unfold` → INADEQUATE): at every usable bandwidth
+the renewal DECOY reads false-RIGID and the GUE↔Poisson pole separation collapses
+(60×→<4×). Reason is FUNDAMENTAL, not a bug: estimating the rate from the SAME train
+and unfolding at scales ≤ L removes the very correlations Σ²(L) measures — **drift and
+correlation ALIAS at the measurement scale.** Drift at scale ≫L is already removed by
+the poly; drift at scale ~L is unremovable from the train alone. So self-estimated
+rate cannot harden the bulk. **The 664/702 stands as "lens-invariant to smooth-poly"**;
+a definitive neural long-range claim needs an EXTERNAL rate (behavioral covariates /
+trial PSTH / simultaneous population rate) — new information beyond the spike train.
+That is the real next step, reframed by this negative result.
 
 **THE PATTERN IS ITSELF A FINDING:** same discriminator, two substrates so far
 (arithmetic: zeta CONFIRMED, pooled DOWNGRADED; neural: Poisson pole DOWNGRADED), the

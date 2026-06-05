@@ -84,12 +84,55 @@ def unfold_empirical(positions: Sequence[float], deg: int = 6) -> np.ndarray:
     return np.polyval(np.polyfit(x, y, deg), x)
 
 
+def rate_aware_unfold(positions: Sequence[float], bw_mult: float = 20.0,
+                      bins_per_isi: int = 4) -> np.ndarray:
+    """LOCAL-density (rate-aware) unfold via the time-rescaling theorem: estimate
+    λ̂(t) by Gaussian-smoothing the binned train (bandwidth bw = bw_mult × mean
+    spacing) and unfold by the integrated rate Λ̂(t).
+
+    ⚠ VALIDATION-FAILED FOR Σ²(L) — DO NOT DEPLOY (kept as evidence + swept lens).
+    Estimating the rate from the SAME train and unfolding at scales ≤ L removes the
+    very correlations Σ²(L) measures: drift and correlation ALIAS at the measurement
+    scale. Empirically (see validate_rate_unfold / rate_sensitivity) the decoy reads
+    false-RIGID and the GUE↔Poisson separation collapses (60×→<4×) at every usable
+    bandwidth; only bw→∞ (which does nothing, ≈ the global poly) is correct. So
+    self-estimated rate cannot harden the neural bulk — that needs an EXTERNAL rate
+    (behavioral covariates / trial PSTH / simultaneous population), i.e. new
+    information beyond the spike train. Use unfold_deg (smooth-poly) for deployment."""
+    e = np.sort(np.asarray(positions, dtype=np.float64))
+    n = e.size
+    span = float(e[-1] - e[0]) if n > 1 else 0.0
+    if n < 20 or span <= 0:
+        return e - (e[0] if n else 0.0)
+    m = span / n                                   # mean spacing (time units)
+    dt = m / bins_per_isi
+    nb = int(np.clip(span / dt, 32, 400_000))
+    edges = np.linspace(e[0], e[-1], nb + 1)
+    counts = np.histogram(e, bins=edges)[0].astype(np.float64)
+    sig = max(bw_mult * m / dt, 0.5)               # kernel sd in bins
+    half = int(min(4 * sig, max(nb // 2 - 1, 1)))  # keep kernel ≤ bins (convolve 'same')
+    xk = np.arange(-half, half + 1)
+    k = np.exp(-0.5 * (xk / sig) ** 2)
+    k /= k.sum()
+    rate = np.convolve(counts, k, mode="same")
+    cum = np.concatenate([[0.0], np.cumsum(rate)])  # expected count at each edge
+    return np.interp(e, edges, cum)
+
+
+def _apply_unfold(e, unfold_deg, unfold_bw):
+    if unfold_bw is not None:
+        return np.sort(rate_aware_unfold(e, unfold_bw))
+    if unfold_deg is not None:
+        return np.sort(unfold_empirical(e, unfold_deg))
+    return e
+
+
 # ── long-range statistics ─────────────────────────────────────────────────────
 def longrange_stats(positions: Sequence[float], L: Optional[float] = None,
-                    unfold_deg: Optional[int] = None) -> dict:
-    e = np.sort(np.asarray(positions, dtype=np.float64))
-    if unfold_deg is not None:
-        e = np.sort(unfold_empirical(e, unfold_deg))
+                    unfold_deg: Optional[int] = None,
+                    unfold_bw: Optional[float] = None) -> dict:
+    e = _apply_unfold(np.sort(np.asarray(positions, dtype=np.float64)),
+                      unfold_deg, unfold_bw)
     if L is None:
         L = matched_L(e.size)
     return {"L": float(L), "sigma2": II1_sigma2_at_L(e, L),
@@ -97,11 +140,12 @@ def longrange_stats(positions: Sequence[float], L: Optional[float] = None,
 
 
 def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int,
-              unfold_deg: Optional[int] = None) -> dict:
+              unfold_deg: Optional[int] = None, unfold_bw: Optional[float] = None) -> dict:
     s2, d3 = [], []
     for k in range(n_seeds):
         rng = np.random.default_rng(base_seed + k)
-        st = longrange_stats(sampler(n, rng), L, unfold_deg=unfold_deg)
+        st = longrange_stats(sampler(n, rng), L, unfold_deg=unfold_deg,
+                             unfold_bw=unfold_bw)
         if st["sigma2"] is not None:
             s2.append(st["sigma2"])
         if st["delta3"] is not None:
@@ -117,25 +161,27 @@ _ENS_CACHE: Dict[tuple, tuple] = {}
 
 
 def _reference_ensembles(n_e: int, L: float, n_seeds: int,
-                         unfold_deg: Optional[int] = None) -> tuple:
+                         unfold_deg: Optional[int] = None,
+                         unfold_bw: Optional[float] = None) -> tuple:
     """The TWO POLES as reference ensembles — real-GUE (rigid, Σ²~log L) and Poisson
     (independent, Σ²≈L) — at (n_e, L, unfold_deg), memoized with FIXED seeds; the
     same unfolding lens is applied to references and data. Certifies BOTH poles:
     rigidity for the GUE pole AND Σ²(L)≈L for the Poisson pole, because exponential
     NNS is necessary-NOT-sufficient for Poisson (a correlated process can wear an
     exponential marginal). The O(n³) GUE eigensolve is paid ONCE per key."""
-    key = (int(n_e), round(float(L), 4), int(n_seeds), unfold_deg)
+    key = (int(n_e), round(float(L), 4), int(n_seeds), unfold_deg, unfold_bw)
     if key not in _ENS_CACHE:
         _ENS_CACHE[key] = (
-            _ensemble(gue_positions, n_e, L, n_seeds, 90_000, unfold_deg),
-            _ensemble(poisson_positions, n_e, L, n_seeds, 92_000, unfold_deg))
+            _ensemble(gue_positions, n_e, L, n_seeds, 90_000, unfold_deg, unfold_bw),
+            _ensemble(poisson_positions, n_e, L, n_seeds, 92_000, unfold_deg, unfold_bw))
     return _ENS_CACHE[key]
 
 
 def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
                       n_seeds: int = 16, base_seed: int = 0,
                       n_ref: int = 3000, unfold_deg: Optional[int] = 6,
-                      ref_n: Optional[int] = None) -> dict:
+                      ref_n: Optional[int] = None,
+                      unfold_bw: Optional[float] = None) -> dict:
     """Place the data between the TWO POLES (real-GUE rigid, Poisson Σ²≈L) at matched
     n and L. Σ² is primary, Δ₃ a cross-check.
       RIGID_GUE     — at or below the GUE rigidity level → GUE pole earned.
@@ -151,7 +197,7 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     n = e.size
     if L is None:
         L = matched_L(n)
-    obs = longrange_stats(e, L, unfold_deg=unfold_deg)
+    obs = longrange_stats(e, L, unfold_deg=unfold_deg, unfold_bw=unfold_bw)
     if obs["sigma2"] is None:
         return {"verdict": "UNDERPOWERED", "n": int(n), "L": float(L)}
     # Σ²(L)/Δ₃(L) at fixed L are windowed statistics ~independent of total n once
@@ -160,7 +206,7 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     # Σ²(L) at fixed L is ~n-independent for n≫L, so the references may use a FIXED
     # ref_n (shared cache across cells of differing n) or a per-call cap n_ref.
     n_e = ref_n if ref_n is not None else min(n, n_ref)
-    gue, pois = _reference_ensembles(n_e, L, n_seeds, unfold_deg)  # memoized; same lens
+    gue, pois = _reference_ensembles(n_e, L, n_seeds, unfold_deg, unfold_bw)  # same lens
 
     def _judge(stat):
         if stat not in gue or stat not in pois or obs[stat] is None:
@@ -190,7 +236,8 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     s2j, d3j = _judge("sigma2"), _judge("delta3")
     primary = s2j["verdict"] if s2j else (d3j["verdict"] if d3j else "UNDERPOWERED")
     return {"verdict": primary, "n": int(n), "L": float(L),
-            "unfold_deg": unfold_deg, "sigma2": s2j, "delta3": d3j}
+            "unfold_deg": unfold_deg, "unfold_bw": unfold_bw,
+            "sigma2": s2j, "delta3": d3j}
 
 
 def unfolding_sensitivity(positions: Sequence[float],
@@ -213,6 +260,51 @@ def unfolding_sensitivity(positions: Sequence[float],
     return {"per_degree": per, "verdicts": sorted(verdicts),
             "lens": "INVARIANT" if stable else "COVARIANT",
             "promotable": stable}
+
+
+def rate_sensitivity(positions: Sequence[float],
+                     bws: Sequence[float] = (10.0, 30.0, 100.0),
+                     n_seeds: int = 12, L: Optional[float] = None,
+                     n_ref: int = 2500, ref_n: Optional[int] = None) -> dict:
+    """Rate-aware-unfold method-perturbation: sweep the kernel bandwidth bw_mult and
+    report LENS-INVARIANT vs LENS-COVARIANT. Bandwidth (not poly degree) is the lens
+    here — the natural knob for non-smooth rate non-stationarity."""
+    per = {}
+    for bw in bws:
+        v = longrange_verdict(positions, L=L, n_seeds=n_seeds, n_ref=n_ref,
+                              unfold_bw=bw, ref_n=ref_n)
+        s2 = v.get("sigma2") or {}
+        per[bw] = {"verdict": v["verdict"], "sigma2": round(s2.get("obs", float("nan")), 3)}
+    verdicts = {p["verdict"] for p in per.values()}
+    stable = len(verdicts) == 1
+    return {"per_bw": per, "verdicts": sorted(verdicts),
+            "lens": "INVARIANT" if stable else "COVARIANT", "promotable": stable}
+
+
+def validate_rate_unfold(verbose: bool = True) -> dict:
+    """NEGATIVE validation — documents why rate-aware self-unfold is NOT deployed.
+    A correct lens must keep the renewal DECOY out of RIGID and preserve the
+    GUE↔Poisson pole separation. Rate-aware self-unfold does NEITHER at any usable
+    bandwidth: the decoy reads false-RIGID and the separation collapses. (drift and
+    correlation alias at scale L when rate is estimated from the same train.)"""
+    real = gue_positions(2500, np.random.default_rng(0))
+    decoy = wigner_renewal(2500, np.random.default_rng(1))
+    out = {}
+    for bw in (10.0, 30.0, 100.0):
+        vr = longrange_verdict(real, unfold_bw=bw, n_seeds=10, ref_n=1500)
+        vd = longrange_verdict(decoy, unfold_bw=bw, n_seeds=10, ref_n=1500)
+        sep = vr["sigma2"]["poisson"]["mean"] / max(vr["sigma2"]["gue"]["mean"], 1e-9)
+        out[bw] = {"real": vr["verdict"], "decoy": vd["verdict"], "pole_sep": round(sep, 1)}
+    decoy_false_rigid = any(o["decoy"] == "RIGID_GUE" for o in out.values())
+    sep_collapsed = all(o["pole_sep"] < 10 for o in out.values())
+    out["INADEQUATE"] = bool(decoy_false_rigid and sep_collapsed)
+    if verbose:
+        print("rate-aware self-unfold NEGATIVE validation (should be INADEQUATE=True):")
+        for bw, o in out.items():
+            if bw != "INADEQUATE":
+                print(f"  bw={bw}: real→{o['real']}  decoy→{o['decoy']}  pole_sep={o['pole_sep']}×")
+        print(f"  INADEQUATE = {out['INADEQUATE']}  (decoy false-RIGID + collapsed pole separation)")
+    return out
 
 
 def ks_gue(positions) -> Optional[float]:
