@@ -118,27 +118,33 @@ _ENS_CACHE: Dict[tuple, tuple] = {}
 
 def _reference_ensembles(n_e: int, L: float, n_seeds: int,
                          unfold_deg: Optional[int] = None) -> tuple:
-    """Real-GUE + Wigner-renewal reference ensembles at (n_e, L, unfold_deg),
-    memoized with FIXED seeds — the same unfolding lens is applied to references
-    and data, so the O(n³) GUE eigensolve is paid ONCE per key, not per finding."""
+    """The TWO POLES as reference ensembles — real-GUE (rigid, Σ²~log L) and Poisson
+    (independent, Σ²≈L) — at (n_e, L, unfold_deg), memoized with FIXED seeds; the
+    same unfolding lens is applied to references and data. Certifies BOTH poles:
+    rigidity for the GUE pole AND Σ²(L)≈L for the Poisson pole, because exponential
+    NNS is necessary-NOT-sufficient for Poisson (a correlated process can wear an
+    exponential marginal). The O(n³) GUE eigensolve is paid ONCE per key."""
     key = (int(n_e), round(float(L), 4), int(n_seeds), unfold_deg)
     if key not in _ENS_CACHE:
         _ENS_CACHE[key] = (
             _ensemble(gue_positions, n_e, L, n_seeds, 90_000, unfold_deg),
-            _ensemble(wigner_renewal, n_e, L, n_seeds, 95_000, unfold_deg))
+            _ensemble(poisson_positions, n_e, L, n_seeds, 92_000, unfold_deg))
     return _ENS_CACHE[key]
 
 
 def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
                       n_seeds: int = 16, base_seed: int = 0,
-                      n_ref: int = 3000, unfold_deg: Optional[int] = 6) -> dict:
-    """Compare the data's long-range statistics against a real-GUE ensemble and a
-    Wigner-renewal ensemble at matched n and L. Σ² is primary, Δ₃ a cross-check.
-      RIGID_GUE     — consistent with GUE, far from renewal → the long-range
-                      structure is present → "GUE class" earned.
-      MARGINAL_ONLY — consistent with renewal, far from GUE → only the marginal
-                      matches; the universality claim COLLAPSES to marginal-only.
-      INTERMEDIATE  — between the two ensembles.
+                      n_ref: int = 3000, unfold_deg: Optional[int] = 6,
+                      ref_n: Optional[int] = None) -> dict:
+    """Place the data between the TWO POLES (real-GUE rigid, Poisson Σ²≈L) at matched
+    n and L. Σ² is primary, Δ₃ a cross-check.
+      RIGID_GUE     — at or below the GUE rigidity level → GUE pole earned.
+      POISSON_INDEP — consistent with Poisson (Σ²≈L) → Poisson pole earned (genuinely
+                      independent, not just an exponential marginal).
+      SUPER_POISSON — Σ² above Poisson → clustered (or, on a putative-GUE input,
+                      mis-unfolded — see σ²>Poisson guard in the audit).
+      INTERMEDIATE  — between GUE and Poisson: sub-Poisson but NOT GUE-rigid (e.g. a
+                      renewal process / pooled superposition / NNS-GUE-but-floppy).
       UNDERPOWERED  — too few events for Σ²/Δ₃.
     """
     e = np.sort(np.asarray(positions, dtype=np.float64))
@@ -151,29 +157,35 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     # Σ²(L)/Δ₃(L) at fixed L are windowed statistics ~independent of total n once
     # n >> L, so the reference ensembles use a capped n_ref (the data keeps its own
     # n) — avoids an O(n³) GUE eigensolve at large n while staying matched in L.
-    n_e = min(n, n_ref)
-    gue, ren = _reference_ensembles(n_e, L, n_seeds, unfold_deg)  # memoized; same lens
+    # Σ²(L) at fixed L is ~n-independent for n≫L, so the references may use a FIXED
+    # ref_n (shared cache across cells of differing n) or a per-call cap n_ref.
+    n_e = ref_n if ref_n is not None else min(n, n_ref)
+    gue, pois = _reference_ensembles(n_e, L, n_seeds, unfold_deg)  # memoized; same lens
 
     def _judge(stat):
-        if stat not in gue or stat not in ren or obs[stat] is None:
+        if stat not in gue or stat not in pois or obs[stat] is None:
             return None
         o = obs[stat]
         gm, gs = gue[stat]["mean"], gue[stat]["sd"]
-        rm, rs = ren[stat]["mean"], ren[stat]["sd"]
+        pm, ps = pois[stat]["mean"], pois[stat]["sd"]
         z_g = (o - gm) / gs                       # SIGNED (− = more rigid than GUE)
-        z_r = (o - rm) / rs                       # SIGNED (− = more rigid than renewal)
-        # Rigidity is one-sided: being at-or-BELOW the GUE level (more rigid) is
-        # still GUE-class — only being significantly ABOVE GUE and up at the
-        # renewal (floppy) level collapses the claim. RIGID = not above GUE AND
-        # clearly below renewal; MARGINAL_ONLY = up at renewal level or floppier.
-        if o <= gm + 2.5 * gs and o < rm - 2.5 * rs:
+        z_p = (o - pm) / ps                       # SIGNED (− = more rigid than Poisson)
+        # GUE pole uses the (clean, small-sd) GUE band; the Poisson pole uses RATIO
+        # bands around its mean, NOT its sd — Poisson Σ²(L) is intrinsically noisy
+        # (sd≈L/3), so an sd-band would swallow renewal-level (sub-Poisson) into
+        # POISSON_INDEP. POISSON_INDEP = Σ²≈L within a factor (≥0.6·Poisson);
+        # SUPER_POISSON = clustered (>1.5·Poisson); strictly between GUE and the
+        # Poisson band (sub-Poisson but not rigid: renewal/pooled) → INTERMEDIATE.
+        if o <= gm + 2.5 * gs:
             v = "RIGID_GUE"
-        elif o >= rm - 2.5 * rs:
-            v = "MARGINAL_ONLY"
+        elif o > 1.5 * pm:
+            v = "SUPER_POISSON"
+        elif o >= 0.6 * pm:
+            v = "POISSON_INDEP"
         else:
             v = "INTERMEDIATE"
-        return dict(obs=float(o), gue=gue[stat], renewal=ren[stat],
-                    z_vs_gue=float(z_g), z_vs_renewal=float(z_r), verdict=v)
+        return dict(obs=float(o), gue=gue[stat], poisson=pois[stat],
+                    z_vs_gue=float(z_g), z_vs_poisson=float(z_p), verdict=v)
 
     s2j, d3j = _judge("sigma2"), _judge("delta3")
     primary = s2j["verdict"] if s2j else (d3j["verdict"] if d3j else "UNDERPOWERED")
@@ -184,7 +196,7 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
 def unfolding_sensitivity(positions: Sequence[float],
                           degs: Sequence[int] = (3, 6, 10, 15),
                           n_seeds: int = 12, L: Optional[float] = None,
-                          n_ref: int = 2500) -> dict:
+                          n_ref: int = 2500, ref_n: Optional[int] = None) -> dict:
     """The unfolding method-perturbation: sweep the unfolding degree and report
     whether the long-range verdict is LENS-INVARIANT (same verdict across degrees →
     trustworthy) or LENS-COVARIANT (verdict moves with the lens → the rigidity is an
@@ -193,7 +205,7 @@ def unfolding_sensitivity(positions: Sequence[float],
     per = {}
     for d in degs:
         v = longrange_verdict(positions, L=L, n_seeds=n_seeds, n_ref=n_ref,
-                              unfold_deg=d)
+                              unfold_deg=d, ref_n=ref_n)
         s2 = v.get("sigma2") or {}
         per[d] = {"verdict": v["verdict"], "sigma2": round(s2.get("obs", float("nan")), 3)}
     verdicts = {p["verdict"] for p in per.values()}
@@ -232,9 +244,10 @@ def enough_for_longrange(positions, L: Optional[float] = None) -> dict:
 def validate(verbose: bool = True) -> dict:
     """Proof that NNS under-certifies and the long-range statistic carries the class:
       (P1) real GUE and the Wigner-renewal decoy have the SAME NNS (ks_gue).
-      (P2) the long-range verdict SEPARATES them: real → RIGID_GUE, decoy → MARGINAL_ONLY.
+      (P2) the long-range verdict SEPARATES them: real → RIGID_GUE, decoy → NOT rigid
+           (INTERMEDIATE — renewal sits between the GUE and Poisson poles).
       (P3) a cumulant-matched surrogate of real GUE preserves NNS but collapses the
-           long-range structure → MARGINAL_ONLY (the marginal surrogate cannot fake it).
+           long-range structure → NOT rigid (the marginal surrogate cannot fake it).
     """
     rep = {}
     n = 2500            # GUE eigensolve is O(n³); 2500 keeps the proof fast
@@ -254,19 +267,19 @@ def validate(verbose: bool = True) -> dict:
     v_decoy = longrange_verdict(decoy, n_seeds=ns, base_seed=20)
     rep["P2_longrange_separates"] = {
         "pass": bool(v_real["verdict"] == "RIGID_GUE"
-                     and v_decoy["verdict"] == "MARGINAL_ONLY"),
+                     and v_decoy["verdict"] != "RIGID_GUE"),
         "real_verdict": v_real["verdict"], "decoy_verdict": v_decoy["verdict"],
         "real_sigma2": round(v_real["sigma2"]["obs"], 3),
         "decoy_sigma2": round(v_decoy["sigma2"]["obs"], 3),
         "gue_sigma2_mean": round(v_real["sigma2"]["gue"]["mean"], 3),
-        "renewal_sigma2_mean": round(v_real["sigma2"]["renewal"]["mean"], 3)}
+        "poisson_sigma2_mean": round(v_real["sigma2"]["poisson"]["mean"], 3)}
 
     surr = cumulant_matched_events(real, rng=np.random.default_rng(2))
     ks_surr = ks_gue(surr)
     v_surr = longrange_verdict(surr, n_seeds=ns, base_seed=30)
     rep["P3_cumulant_surrogate_collapses_longrange"] = {
         "pass": bool(ks_surr is not None and ks_surr < 0.10
-                     and v_surr["verdict"] in ("MARGINAL_ONLY", "INTERMEDIATE")),
+                     and v_surr["verdict"] != "RIGID_GUE"),
         "ks_gue_surrogate": round(ks_surr, 4) if ks_surr else None,
         "surrogate_longrange_verdict": v_surr["verdict"],
         "note": "marginal preserved (NNS still ~GUE) but long-range structure gone"}

@@ -46,17 +46,15 @@ def _row(name, events):
         upshot = "UNRELIABLE (σ²>Poisson → mis-unfolded, not a valid rigidity readout)"
     elif cls == "RIGID_GUE":
         upshot = "CONFIRMED GUE-class"
-    elif nns == "GUE-marginal" and cls == "MARGINAL_ONLY":
-        upshot = "marginal-only (verify unfolding; pooled⇒superposition expected)"
-    elif cls == "INTERMEDIATE":
-        upshot = "INTERMEDIATE"
+    elif nns == "GUE-marginal" and cls in ("INTERMEDIATE", "POISSON_INDEP", "SUPER_POISSON"):
+        upshot = "DOWNGRADE → marginal-only (pooled⇒superposition expected)"
     else:
         upshot = "n/a"
     print(f"  {name:20s} n={e.size:>6d}  ks_gue={ks:.3f} ({nns:16s})  "
           f"σ²={s2.get('obs', float('nan')):7.3f}  "
           f"[GUE {s2.get('gue',{}).get('mean',float('nan')):.2f} | "
-          f"renewal {s2.get('renewal',{}).get('mean',float('nan')):.2f}]  "
-          f"z_gue={s2.get('z_vs_gue',float('nan')):5.1f} z_ren={s2.get('z_vs_renewal',float('nan')):5.1f}"
+          f"Poisson {s2.get('poisson',{}).get('mean',float('nan')):.2f}]  "
+          f"z_gue={s2.get('z_vs_gue',float('nan')):5.1f} z_poi={s2.get('z_vs_poisson',float('nan')):5.1f}"
           f"  → {cls:13s} {upshot}")
     return dict(name=name, n=int(e.size), ks_gue=ks, longrange=cls, upshot=upshot)
 

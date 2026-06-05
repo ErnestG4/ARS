@@ -293,6 +293,34 @@ underpowered, which on fast low-yield interneuron-style units folds back into th
 pass-2 resolution-floor problem. `enough_for_longrange()` pre-checks per-cell event
 counts so the long-range statistic is only run where the data supports it.
 
+## Neural-pillar long-range audit (`longrange_neural_audit.py`)
+Both-poles certification added to the discriminator: references are now GUE (rigid)
+AND Poisson (Σ²≈L), with the Poisson pole judged by RATIO bands (Σ²≈L within a
+factor — Poisson Σ² is intrinsically noisy, sd≈L/3, so an sd-band would swallow
+renewal-level). Verdicts: RIGID_GUE / POISSON_INDEP / INTERMEDIATE / SUPER_POISSON.
+Proof re-validated (real→RIGID, Poisson→POISSON_INDEP, decoy/cumulant→INTERMEDIATE).
+
+Ran on **130 hc-3 cells** (≥200-event floor, `enough_for_longrange`), each its own
+verdict (no spike-train pooling), fixed reference n + lens sweep (deg 3/6/10):
+- **Poisson pole (n=7 NNS-exponential cells): only 1/7 is POISSON_INDEP.** The other
+  6 carry long-range structure under an exponential marginal (5 SUPER_POISSON
+  clustered, 1 INTERMEDIATE; 5/7 lens-invariant). **NNS under-certifies the Poisson
+  pole on real neural data** — exponential spacing ≠ independence. The neural
+  "Poisson pole" is a MARGINAL-Poisson, not a process-Poisson. (Point 4, confirmed.)
+- **GUE pole: 0 cells in hc-3** — real neurons rarely show GUE-level spacing
+  repulsion, so the GUE pole is UNTESTABLE here; needs a GUE-reading substrate
+  (Allen V1 / pvc-11, where the H1 GUE work lives). Queued.
+- 116/123 clustered cells → SUPER_POISSON & LENS-INVARIANT: genuine hippocampal
+  long-range clustering, robust to the unfold lens (90% of all cells lens-invariant).
+
+**Rate-nonstationarity caveat (load-bearing):** neural σ² conflates genuine long-
+range clustering with slow rate drift; the smooth-poly unfold + lens sweep removes/
+flags smooth trends only (lens-invariance to deg 3–10 is a PARTIAL guard, not proof
+of stationarity). A rate-aware / local-density unfold (the [[ars_rate_dependence_lesson]]
+applied to Σ²) is the refinement needed before a definitive neural long-range claim.
+The clean, lens-robust result that stands: the Poisson-pole NNS verdict does not
+imply independence (6/7), and the GUE pole needs Allen V1 to test.
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the
