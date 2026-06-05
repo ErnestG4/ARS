@@ -402,6 +402,43 @@ within it, not genuine long-range RMT/Poisson classes (modulo the rate/stimulus
 confound the trial-PSTH unfold will resolve). The marginal-vs-class downgrade is a
 tool-level cross-substrate result. [[cross_substrate_program]]
 
+## Trial-PSTH (external-rate) unfold — the decisive Allen de-confound (`trial_psth_unfold.py`, `longrange_allen_psth_audit.py`)
+The #2 negative result demanded an EXTERNAL rate; gratings has one. λ_c(τ) = the
+within-trial rate averaged across OTHER presentations of the same condition (LEAVE-
+ONE-OUT, orientation×temporal-freq), time-rescaling unfold. NOT self-derived → breaks
+#2's circularity.
+
+**DECOY BATTERY FIRST (standing rule) → PASSED.** Imposed a known stimulus modulation
+(tuning steps + F1) on synthetic GUE/Poisson/renewal via inverse-rescale, then
+unfolded: GUE→RIGID (recovered), Poisson→POISSON_INDEP, renewal→INTERMEDIATE — **no
+false-RIGID**. The trial structure does NOT induce a scale-L alias (Will's concern);
+the external unfold inverts an imposed stimulus and recovers the true class, exactly
+where the self-unfold (#2) failed. Validated for deployment.
+
+**Deployed on the 100 V1 cells — three decisive results:**
+1. **The clustering is BEYOND-STIMULUS, not stimulus-driven.** After removing the
+   stimulus-locked rate: 96/100 still SUPER_POISSON (90/93 of the pre-SUPER cells
+   stay), median σ² only 332→281 (−15%). The long-range clustering survives external-
+   rate removal — it is not the stimulus.
+2. **The GUE-pole downgrade is ROBUST to the stimulus confound:** still **0/100
+   RIGID_GUE** after stimulus removal. No genuine long-range GUE pole in V1 gratings —
+   it was not stimulus drive masking one.
+3. **H1 refinement (disciplined walk-back):** OSI↔σ² collapses +0.135 → −0.077 (null)
+   after PSTH. The OSI-GRADED clustering WAS the stimulus tuning rate-steps; once
+   removed, clustering is UNIFORM across OSI. Selective cells are clustered (locking
+   still ruled out, high-OSI 34/34 SUPER) but **NOT MORE than other cells** — the
+   selectivity↔long-range-clustering gradient was stimulus-driven, not intrinsic to
+   selective cells. (The pre-PSTH "selective cells specially clustered" mechanism
+   candidate is corrected to "all V1 cells intrinsically clustered; the OSI grading
+   was stimulus".)
+
+**Bound:** trial-PSTH removes the STIMULUS-LOCKED rate; the surviving clustering is
+"beyond the stimulus" but could be intrinsic bursting OR non-stimulus slow drift
+(arousal/running) — separating those needs behavioral covariates (a further external
+rate). K=10 within-trial bins target the L=50 (cross-presentation/slow) scale; fast
+F1 is short-range and contributes little at L=50. The external-rate unfold is
+decoy-validated and DEPLOYABLE (unlike the self-derived #2). [[longrange_lens_discipline]]
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the

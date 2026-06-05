@@ -1,0 +1,9 @@
+{
+  "n": 100,
+  "rigid": 0,
+  "poisson_indep": 4,
+  "super": 96,
+  "osi_sigma2_rho_psth": -0.07685568556855685,
+  "high_osi_super_frac": 1.0,
+  "h1_verdict": "high-OSI clustering SURVIVES stimulus removal (intrinsic)"
+}
