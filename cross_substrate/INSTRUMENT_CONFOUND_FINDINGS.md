@@ -543,3 +543,65 @@ RF engine a marginal-escaping observable (the decoy CAN find order-borne period
 structure — `rigid_grid_jittered` — but the deployed periodic calibrators are
 marginal-encodable); (3) `a_q` periods are robust to dead time and thinning in their
 firing regime. Bound held: method-invariance = robust to the manipulations run.
+
+---
+
+# Combined-quadrant vs NNS-marginal on real substrates
+
+`cross_substrate/quadrant_marginal_test.py`. Follow-up to the RF run: the RF a_q leg
+is marginal-dominated, so does the DEPLOYED COMBINED quadrant (joint_quadrant_
+diagnostic) carry anything beyond the spacing marginal on REAL data? The quadrant has
+two structural axes + a sub-label: a_q/RF-spike -> TL (periodic); rep_int -> BL/TR/BR
+(the label-driving PRIMARY axis); ks_gue -> only the BR_artifact/BR_novel sub-label.
+
+Decisive test: QUADRANT STABILITY UNDER THE ORDER-SCRAMBLE MARGINAL SURROGATE (permute
+the ISI multiset + re-cumsum -> IDENTICAL marginal, serial order destroyed). Per-q
+quadrant agreement orig-vs-scramble; >=0.80 = MARGINAL_ENCODABLE (rides the marginal),
+<=0.50 = CARRIES_NONMARGINAL. Substrates: zeta zeros, prime gaps (arithmetic), Allen V1
+gratings spike trains (neural, 20 cells), solar flares (physical SOC); plus order-bearing
+anchors (periodic_q7, rigid_grid_jittered, block_regime).
+
+## Result — EVERY real substrate is MARGINAL_ENCODABLE
+| substrate | modal | rf_spk% | rho(rep,ks) | scramble_agreement | verdict |
+|---|---|---|---|---|---|
+| zeta_zeros | TR | 3% | -0.93 | 0.97 | MARGINAL_ENCODABLE |
+| prime_gaps | TR | 17% | -0.99 | 0.87 | MARGINAL_ENCODABLE |
+| solar_flares | BL | 20% | nan | 1.00 | MARGINAL_ENCODABLE |
+| allen_V1 (20 cells) | BL | 3% | 0.01 | 1.00 | MARGINAL_ENCODABLE |
+| ANCHOR rigid_grid_jittered | BR_art | 3% | 0.83 | 0.95 | MARGINAL_ENCODABLE |
+| ANCHOR block_regime | BL | 0% | nan | 1.00 | MARGINAL_ENCODABLE |
+
+## Findings
+
+- **The combined quadrant adds essentially NOTHING beyond the spacing marginal on real
+  data.** A surrogate that keeps the exact ISI multiset but destroys serial order
+  reproduces 87-100% of per-q quadrant labels. So the deployed quadrant is a MARGINAL
+  observable on every tested real substrate (arithmetic / neural / physical).
+
+- **It is order-blind largely BY CONSTRUCTION, validated against a metric-sanity gate.**
+  All three order-bearing anchors ALSO read MARGINAL_ENCODABLE — including block_regime
+  (strong rate-nonstationarity, fast-then-slow) at 1.00 and rigid_grid_jittered (the
+  order-borne period the a_q decoy flagged ORDER_BORNE) at 0.95. The mechanism:
+  `joint_q_profile` computes rep_int on `cumsum(pooled passage-spacings)` — a sequence
+  reconstructed from the spacing multiset, which DISCARDS the original serial order
+  before the statistic runs. The only order-sensitive leg (a_q/TL) fires on just
+  0-20% of q-bands and never drives the modal label. The metric is NOT saturated:
+  cross-substrate pairs read agreement 0.00 (zeta-vs-poisson, zeta-vs-solar; different
+  modal quadrants) and 1.00 (poisson-vs-solar; both genuinely BL). So the
+  all-marginal-encodable result is real, not a blind metric.
+
+- **This EXPLAINS why the long-range Σ²/Δ₃ tool was necessary.** Allen V1 is
+  super-Poisson/clustered per the long-range audit, yet its quadrant is scramble-stable
+  at 1.00 — the quadrant cannot see the clustering that Σ²/Δ₃ catches, because
+  clustering is an order property and the quadrant is order-blind. rho(rep_int,ks_gue)
+  is tightly coupled on arithmetic (zeta -0.93, primes -0.99 = near-redundant with the
+  NNS marginal) but ~0 on Allen V1 (rep_int carries a DIFFERENT marginal feature than
+  ks_gue there — still marginal, just not the same one).
+
+## Verdict
+**COMBINED-QUADRANT IS A MARGINAL OBSERVABLE — confirmed on real substrates.** The
+deployed quadrant verdict does not add information beyond the spacing marginal on any
+tested real substrate; it is order-blind largely by construction (rep_int on a
+synthetic cumsum). The non-marginal axis lives only in the dedicated long-range
+Σ²/Δ₃ tool, not in the quadrant. Consistent with [[nns_certifies_marginal_not_class]]
+and the RF a_q marginal-dominance result.
