@@ -111,8 +111,8 @@ Poissonize bursts).
 **Result — both regions, all units:** clustering axes (`mass03`, `cv`, `cv2`,
 `ks_gue`) read **SUBSTRATE_ROBUST** at residual z ≈ 37–54 vs even the maximal-
 apparatus WIDE null. `brody_q` reads NULL on all (Brody is repulsion-only, blind
-to clustering — the SOC one-sided-fitter lesson). Ledgers:
-`coordinates/instrument_lensing_ledger_hc3_{CA3,CA1}_p.jsonl`.
+to clustering — the SOC one-sided-fitter lesson). Ledgers (session-tagged):
+`coordinates/instrument_lensing_ledger_hc3_{CA3,CA1}_p_<session>.jsonl`.
 
 **Interpretation (directional, not a power claim):** dead time *removes* small
 spacings, so it SUPPRESSES clustering — a bursty cell sits on the opposite side of
@@ -195,6 +195,44 @@ phase_randomized + cumulant_matched. That is the known property that an NNS verd
 is largely a function of the marginal spacing distribution those surrogates
 preserve; the apparatus fold is additive-only (106 insertions, 0 deletions; surrogate
 code byte-unchanged) and does not affect it. Flagged for the substrate-arm owner.
+
+## Dataset-selection call before any CA1 pull (`hc3_cv2_diagnostic.py`)
+Pass 2 left 20/44 CA3 interneurons INDETERMINATE on `cv2` at z≈1.6. Before
+spending a CRCNS request, settle on data in hand: is that indeterminacy
+SAMPLING-limited (more units → population verdict → pull worth it) or
+τ-SYSTEMATIC (a shared apparatus mis-attribution that does not shrink with N →
+need better apparatus, not more units)? Decompose the τ-floor by quadrature: wide
+null at rel_err=0 (sampling sd) and rel_err=0.5 (sampling+τ); τ-floor = √(σ_tot²−σ_samp²).
+
+**Result:** the INDETERMINATE subset is strongly **consistent** (19/21 same-signed,
+negative — interneurons read more regular than the apparatus null). But the
+consistent component `|r̄|=0.036` sits **ON** the systematic τ-floor (`0.034`,
+ratio **1.06**); it clears only the INDEPENDENT τ-floor (√N, 0.006, ~6×). So it is
+clear iff τ errors are independent across units; if the apparatus mis-estimate is
+shared across same-rig/sorter units (likely), it is **buried**. **VERDICT:
+τ-LIMITED, not sampling-limited → DON'T pull CA1 on this.** More interneurons only
+shrink the sampling part, already 6× below the signal; they do nothing to the
+systematic τ-floor that is the actual limit. The unlock is **collapsing the τ-floor**:
+documented hardware dead time for these Mizuseki/Buzsáki recordings (rel_err→small
+moves it to the √N regime where the signal is ~6σ clear), or a slower comparison
+population (smaller apparatus/ISI ratio). The pull is a dataset-selection error
+until then.
+
+## Resolution-floor domain-of-validity bound (in every ledger record)
+Separability is set by **(apparatus timescale)/(mean ISI)** — a stated bound, not
+a per-unit quirk. The lens goes blind on the local/fast axis whenever the apparatus
+timescale (dead time + its uncertainty) is not small against the substrate's own
+ISI: fast interneurons (~29 Hz) put the 2 ms apparatus across a real fraction of the
+local axis (biology↔pipeline overlap → cv2 INDETERMINATE), while slow bursty
+pyramidals (ISI ~0.3–1 s) make 2 ms negligible (clean separation). `RESOLUTION_BOUND`
++ `domain_of_validity()` ship this in `LensingRecord.domain_of_validity`. The coarse
+(timescale)/(mean ISI) ratio can mislead (mean ISI is the wrong denominator for a
+local-axis floor; the true limit is the τ-uncertainty), so the regime is taken from
+the AUTHORITATIVE empirical local-axis (cv2) bracket zone when available:
+INDETERMINATE → TAU_LIMITED. hc-3 regimes: CA3/CA1 pyramidal 53/53 RESOLVING;
+CA3 interneurons 24 RESOLVING / **20 TAU_LIMITED** (the resolution floor, made
+explicit per record). This is the method's domain of validity: it goes blind when
+the apparatus timescale isn't small against the substrate's own.
 
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**

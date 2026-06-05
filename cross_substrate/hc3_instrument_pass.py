@@ -132,6 +132,11 @@ def _unit_record(arg):
                      "z_vs_wide": round(br[a]["z_vs_wide"], 2)} for a in br},
         thinning_flags={a: thin[a]["flag"] for a in thin},
         contamination=contam,
+        # resolution floor: coarse ratio uses the FIXED apparatus timescale
+        # (hardware dead time); the AUTHORITATIVE regime is the empirical local-axis
+        # (cv2) bracket zone — INDETERMINATE there = τ-limited on the fast axis.
+        domain_of_validity=ic.domain_of_validity(
+            spk, HW_REFRACTORY_S, local_axis_zone=br.get("I.12_cv2", {}).get("zone")),
         computed_date=date.today().isoformat())
     return rec
 

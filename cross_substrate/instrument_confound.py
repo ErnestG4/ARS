@@ -579,6 +579,7 @@ class LensingRecord:
     method_perturbation: Dict[str, dict] = field(default_factory=dict)
     promoted_axes: List[str] = field(default_factory=list)
     caveats: List[str] = field(default_factory=list)
+    domain_of_validity: Dict[str, object] = field(default_factory=dict)
     bound: str = ("method-invariance = robust to the manipulations run, "
                   "NOT the territory")
 
@@ -610,6 +611,47 @@ def poisson_thinning_ambiguity(axes_raw: Dict[str, float],
     return None
 
 
+RESOLUTION_BOUND = (
+    "Separability is set by (apparatus timescale)/(mean ISI). The lens resolves "
+    "substrate from apparatus only when this ratio is small; when the apparatus "
+    "timescale (dead time + its uncertainty) is NOT small against the substrate's "
+    "own ISI, biology and pipeline overlap on the local/fast axis and verdicts "
+    "there are τ-LIMITED (INDETERMINATE), not sampling-limited — more data does "
+    "not help, better apparatus characterization does. This is the method's "
+    "resolution floor, a domain-of-validity bound, not a per-unit quirk.")
+
+
+def resolution_ratio(times: Sequence[float], tau_abs: float) -> float:
+    """(apparatus dead time) / (mean ISI) — the dimensionless number that sets
+    whether the lens can resolve substrate from apparatus on the local axis."""
+    m = mean_isi(times)
+    return float(tau_abs / m) if (m > 0 and tau_abs is not None) else float("nan")
+
+
+def domain_of_validity(times: Sequence[float], tau_abs: Optional[float],
+                       local_axis_zone: Optional[str] = None,
+                       blind_threshold: float = 0.05) -> dict:
+    """Stated resolution-floor bound for a record. The (apparatus timescale)/(mean
+    ISI) ratio is a COARSE global indicator — mean ISI is the wrong denominator for
+    a LOCAL-axis floor and the true limit is the τ-UNCERTAINTY, so the ratio can
+    read 'resolving' while the local axis is in fact τ-limited. When the empirical
+    local-axis bracket zone is supplied it is AUTHORITATIVE: INDETERMINATE there
+    means the local/fast axis is τ-limited (apparatus and biology overlap), and
+    more data will not sharpen it — only better apparatus characterization will."""
+    ratio = resolution_ratio(times, tau_abs) if tau_abs is not None else float("nan")
+    coarse = ("UNKNOWN" if not np.isfinite(ratio)
+              else "RESOLVING" if ratio < blind_threshold else "TAU_LIMITED")
+    if local_axis_zone == "INDETERMINATE":
+        regime = "TAU_LIMITED"                        # authoritative (empirical)
+    elif local_axis_zone in ("SUBSTRATE_ROBUST", "APPARATUS_EXPLAINS", "NULL"):
+        regime = "RESOLVING"                          # local axis resolved either way
+    else:
+        regime = coarse                               # fall back to coarse ratio
+    return dict(apparatus_over_mean_isi=ratio, regime=regime, coarse_regime=coarse,
+                local_axis_zone=local_axis_zone, blind_threshold=blind_threshold,
+                bound=RESOLUTION_BOUND)
+
+
 def build_lensing_record(positions, provenance: Provenance,
                          tau_frac_for_subtraction: float = 0.30,
                          **kw) -> LensingRecord:
@@ -627,10 +669,11 @@ def build_lensing_record(positions, provenance: Provenance,
     amb = poisson_thinning_ambiguity(axes_raw, provenance.efficiency_estimate)
     if amb:
         caveats.append(amb)
+    dov = domain_of_validity(positions, provenance.dead_time)
     return LensingRecord(provenance=provenance, axes_raw=axes_raw,
                          apparatus_subtracted=sub, thinning=thin,
                          method_perturbation=meth, promoted_axes=promoted,
-                         caveats=caveats)
+                         caveats=caveats, domain_of_validity=dov)
 
 
 def write_ledger(record: LensingRecord, path: str) -> None:
@@ -859,6 +902,24 @@ def validate(verbose: bool = True) -> dict:
                      and contamination_flag(rpv_merge) == "MERGE_SUSPECT"),
         "clean_rpv": round(rpv_clean, 4), "clean_flag": contamination_flag(rpv_clean),
         "merged_rpv": round(rpv_merge, 4), "merged_flag": contamination_flag(rpv_merge)}
+
+    # (M) RESOLUTION FLOOR (domain-of-validity). Separability = (apparatus
+    #     timescale)/(mean ISI). A FAST cell (mean ISI ≈ apparatus scale) is
+    #     TAU_LIMITED — the lens is blind on the local axis; a SLOW cell is
+    #     RESOLVING. Stated as a domain-of-validity bound, not a per-unit flag.
+    tau_abs = 0.002                                   # 2 ms apparatus
+    rng = np.random.default_rng(8)
+    fast = np.cumsum(rng.exponential(1.0 / 30.0, size=3000))   # ~30 Hz (interneuron)
+    slow = np.cumsum(rng.exponential(1.0 / 2.0, size=3000))    # ~2 Hz (bursty pyr-ish)
+    dov_fast = domain_of_validity(fast, tau_abs)
+    dov_slow = domain_of_validity(slow, tau_abs)
+    report["M_resolution_floor_domain_of_validity"] = {
+        "pass": bool(dov_fast["regime"] == "TAU_LIMITED"
+                     and dov_slow["regime"] == "RESOLVING"),
+        "fast_ratio": round(dov_fast["apparatus_over_mean_isi"], 4),
+        "fast_regime": dov_fast["regime"],
+        "slow_ratio": round(dov_slow["apparatus_over_mean_isi"], 4),
+        "slow_regime": dov_slow["regime"]}
 
     report["ALL_PASS"] = all(v.get("pass") for k, v in report.items()
                              if isinstance(v, dict) and "pass" in v)
