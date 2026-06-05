@@ -354,6 +354,41 @@ SAME structural move — an NNS/marginal universality claim gets refined by the 
 range check. This is a cross-substrate methodological result, fits the landscape
 program ([[cross_substrate_program]]) as much as either substrate's individual reads.
 
+## Allen V1 GUE-pole audit + H1 self-test (`longrange_allen_audit.py`)
+The GUE pole hc-3 couldn't test (0 GUE-pole cells). Allen V1 drifting-gratings units
+DO populate the GUE end (the H1 OSI↔ks_gue substrate). 100 V1 units (≥200 gratings
+spikes, reusing `allen_osi_gap.gratings_train` + the banked 111-unit OSI parquet),
+86 lens-invariant, per-cell verdicts.
+
+- **GUE pole → MARGINAL-ONLY (THIRD downgrade).** 0/100 cells read RIGID_GUE; 93
+  SUPER_POISSON. ks_gue RANKS a long-range clustering gradient (Spearman ks_gue↔σ²
+  = +0.48, p=3e-6) — the NNS ordering is meaningful — but even the nearest-GUE
+  quartile is 100% SUPER_POISSON, 0% RIGID. The NNS GUE pole is marginal-only,
+  mirroring hc-3's Poisson pole. (Auto-verdict initially mislabeled this "concordant
+  → genuine"; corrected — rank-concordance ≠ a genuine pole; the genuine test is
+  whether nearest-GUE cells actually read RIGID, and none do.)
+- **H1 self-test → mechanism candidate.** OSI↔ks_gue = +0.55 (p=6e-8): H1 confirmed
+  on the marginal. The 2nd instrument disambiguates "far from GUE": high-OSI cells
+  are 29/29 SUPER_POISSON → the CLUSTERED side (bursty stimulus-driven), NOT
+  stimulus-locking (RIGID). So H1's OSI↔(far-from-GUE) is the clustering direction;
+  locking is ruled out. (OSI↔σ² weak +0.14 because the whole population is clustered
+  — little verdict dynamic range.)
+- **Load-bearing caveat:** the gratings train is presentation-CONCATENATED →
+  stimulus-driven rate modulation (non-smooth, per-presentation) inflates Σ² and
+  smooth-poly can't remove it; the all-SUPER_POISSON conflates intrinsic clustering
+  with stimulus drive. UNLIKE hc-3, the external rate (trial PSTH) IS available here
+  → the **trial-PSTH unfold is the concrete realization of the external-rate fix the
+  #2 negative result demanded**, and the decisive next step to isolate intrinsic
+  structure. The mechanism claim stands only as "not stimulus-locking" until then.
+
+**THE PATTERN, now 3 substrates × both poles:** arithmetic (zeta CONFIRMED, pooled
+DOWNGRADED), hc-3 neural (POISSON pole DOWNGRADED), Allen V1 neural (GUE pole
+DOWNGRADED). On real neural data BOTH NNS poles are marginal-only — the long-range
+check downgrades them, cells live in a clustered regime and the "poles" are gradients
+within it, not genuine long-range RMT/Poisson classes (modulo the rate/stimulus
+confound the trial-PSTH unfold will resolve). The marginal-vs-class downgrade is a
+tool-level cross-substrate result. [[cross_substrate_program]]
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the

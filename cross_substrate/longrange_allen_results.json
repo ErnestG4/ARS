@@ -1,0 +1,16 @@
+{
+  "n": 100,
+  "n_invariant": 86,
+  "concordance_rho": 0.48074909193829896,
+  "concordance_p": 2.80031248934489e-06,
+  "lowest_ksgue_pct_rigid": 0.0,
+  "osi_ksgue_rho": 0.545204962498231,
+  "osi_sigma2_rho": 0.1348459833010991,
+  "high_osi_super": 29,
+  "high_osi_rigid": 0,
+  "mechanism": "bursty-stimulus-driven (SUPER_POISSON-dominated)",
+  "concordant_ranking": true,
+  "gue_pole_genuine": false,
+  "gue_pole_verdict": "MARGINAL_ONLY",
+  "stimulus_rate_confound": "gratings concatenation; needs trial-PSTH unfold"
+}
