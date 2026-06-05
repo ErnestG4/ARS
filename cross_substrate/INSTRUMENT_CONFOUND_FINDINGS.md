@@ -473,3 +473,73 @@ held: method-invariance = robust to the manipulations run, not the territory.
 - Promote the dead-time operator + thinning sweep into the induction-on-noise
   harness so neural/cross-substrate findings get the same surrogate treatment
   arithmetic findings already do.
+
+---
+
+# RF-engine (Ramanujan-Fourier) confound run — the calibrator zoo applied
+
+`cross_substrate/rf_decoy_battery.py`. The long-range arc taught us an NNS verdict
+certifies the MARGINAL, not the class, and needed a Wigner-renewal decoy to split
+them. The RF engine has its OWN observable — the indicator-mode amplitude `a_q`
+(`joint_q_profile.rf_amplitude_q`), reading integer-PERIOD structure on the raw
+event grid. The calibrator zoo (`calibrator_panel.py`) is the RF engine's native
+known-answer substrate, so the same three checks run THROUGH it. (The confound
+stack never touched the RF engine before this — it lived entirely on the
+NNS/spacing path.)
+
+## What the calibrator zoo provides
+The zoo carries the **`a_q` ground truth**: periodic_q7 → peak AT q=7; mixed_q7_q12
+→ 7 & 12; poisson / GOE / GUE / GSE / ζ / jitter → no integer period → `a_q` flat.
+That is the no-false-NEGATIVE answer key the spacing-side decoy battery didn't need.
+The KEY MISSING member — now BUILT — is the **`a_q` decoy**: a matched-marginal-
+order-destroyed twin (the RF analog of Wigner-renewal). Two twins per calibrator:
+*order-scramble* (permute the ISI multiset, re-cumsum — identical multiset) and
+*iid-marginal* (resample ISIs i.i.d. — matched distribution). Plus an order-borne
+**positive control** (`rigid_grid_jittered`: rigid 7-grid, broad ISI marginal via
+bounded ±1 position jitter) to prove the decoy isn't blind.
+
+## Findings (N=400, q_max=30, 8 seeds)
+
+- **METHODOLOGY — `a_q` pole-absolute needs a zoo-CALIBRATED floor (≈6.1), NOT ~1.**
+  The max of a normalized `a_q` spectrum over ~29 bands is extreme-value-inflated:
+  the no-period classes peak at median 3.67 / max 7.32 / 95th-pct 6.10. The
+  no-period zoo members ARE that calibration. A guessed threshold of 3.0 sat BELOW
+  the noise-floor max and false-flagged all six structureless classes. Same
+  pole-tests-ABSOLUTE discipline as the Allen GUE mislabel — but the absolute is a
+  calibrated floor, not a constant. → [[nns_certifies_marginal_not_class]]
+
+- **SUBSTANTIVE — indicator-mode `a_q` is a MARGINAL-DOMINATED observable; it does
+  NOT escape the marginal-vs-class downgrade.** The disentangling result:
+    - periodic_q7 (near-delta marginal): `a_q`=7 = 17.6, survives scramble (17.1)
+      AND iid (24.3) → **MARGINAL_ENCODABLE**. The period IS the marginal — a delta
+      ISI fully determines the grid, so any matched-marginal twin reproduces it.
+    - rigid_grid_jittered (broad marginal, bounded phase): `a_q`=7 = 14.6, DESTROYED
+      by scramble (→13%) and iid (→10%) → **ORDER_BORNE**. Period lives in serial
+      order, not the marginal. ← proves `a_q` CAN be a genuine non-marginal
+      observable AND the decoy isn't blind.
+    - mixed_q7_q12 (broad marginal + 30% exp background): peak BELOW floor (2.4 < 6.1)
+      → RF MISSES a period it should see. A no-false-negative SENSITIVITY caveat:
+      indicator-`a_q` needs a (near-)delta marginal or a sharp bounded-phase grid to
+      fire; a diluted multi-period mixture falls under its own noise floor.
+  So `a_q` is, if anything, MORE marginal-dependent than NNS: it fires robustly only
+  when the period is (near-)marginal-encoded. The orthogonality to the NNS axis holds
+  — GUE reads ks_gue@pk=0.041 (strong GUE-marginal match) with `a_q` FLAT (3.89): the
+  two observables are independent. → [[false_positive_equivalence_classes]]
+
+- **APPARATUS GATES PASS — the confounds that bite NNS do NOT manufacture/erase `a_q`
+  periods in the regime where `a_q` fires.** (a) Dead time (τ/ISI 0.3, 0.6) on
+  poisson & GUE injects NO spurious peak (post stays at the pre-existing floor; it is
+  subtractive — carves small spacings, cannot ADD a comb). (b) Thinning preserves a
+  strong `a_q`=7 down to 40% efficiency (17.6→11.7, still ≫ floor). The dead-time-
+  fakes-repulsion / thinning-fakes-Poisson confounds are NNS-axis effects; they do
+  not transfer to the period axis. → [[instrument_confound_thinning_asymmetry]]
+
+## Verdict
+**RF-ENGINE CONFOUND RUN COMPLETE — calibrator-zoo-based, validated.** The zoo is the
+RF engine's known-answer substrate; it gained the `a_q` decoy battery (order-scramble
++ iid-marginal + order-borne positive control). Net: (1) `a_q` pole verdicts need a
+zoo-calibrated floor; (2) indicator-`a_q` is marginal-dominated and does not give the
+RF engine a marginal-escaping observable (the decoy CAN find order-borne period
+structure — `rigid_grid_jittered` — but the deployed periodic calibrators are
+marginal-encodable); (3) `a_q` periods are robust to dead time and thinning in their
+firing regime. Bound held: method-invariance = robust to the manipulations run.
