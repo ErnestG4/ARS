@@ -234,6 +234,42 @@ CA3 interneurons 24 RESOLVING / **20 TAU_LIMITED** (the resolution floor, made
 explicit per record). This is the method's domain of validity: it goes blind when
 the apparatus timescale isn't small against the substrate's own.
 
+## Long-range audit — the verdict's OWN statistic (`longrange_discriminator.py`, `longrange_audit.py`)
+The Phase-18 STOP CONDITION's real meaning: marginal-preserving surrogates reproduce
+the NNS verdict, so NNS certifies the MARGINAL, not the long-range structure that
+DEFINES the universality class. Proof via a Wigner-renewal decoy (i.i.d. Wigner
+spacings → GUE NNS, zero rigidity): closed-loop ALL_PASS — real GUE and decoy share
+NNS (ks≈0.01) but Σ² separates >20× (RIGID_GUE vs MARGINAL_ONLY), and a cumulant-
+matched surrogate keeps NNS while collapsing the long-range (the STOP-CONDITION
+mechanism). The long-range verdict compares Σ²(L)/Δ₃(L) to memoized real-GUE and
+renewal ensembles; RIGID is one-sided (at-or-below GUE rigidity is still GUE-class).
+
+**Audit of the banked arithmetic claims:**
+- **zeta_first_2000 → RIGID_GUE, GUE-class CONFIRMED** (σ²=0.31, *more* rigid than the
+  finite-N GUE ensemble — Montgomery–Odlyzko rigidity is genuine, not marginal-only).
+- **zeta_high_height → UNRELIABLE** (σ²=71 > Poisson level 50): a properly-unfolded
+  GUE sequence cannot be super-Poissonian — this is a LOADER UNFOLDING BUG, NOT a
+  downgrade. Guard: σ²>Poisson ⇒ mis-unfolded, not a valid rigidity readout.
+- **lmfdb_ec_pooled / dirichlet_pooled → marginal-only (σ²≈9–10, renewal level)**,
+  flagged "verify unfolding". Plausibly REAL: pooling independent spectra superposes
+  → long-range Poissonization even when each component is GUE and the pooled NNS
+  still looks GUE. A genuine caveat on POOLED universality claims — pending per-
+  component unfold-verification to separate pooling-effect from unfolding-artifact.
+- Controls (real GUE→RIGID, Poisson→floppy, decoy→MARGINAL_ONLY) all correct.
+
+**Discipline output:** a long-range statistic is only meaningful on properly-unfolded
+data (NNS is unfold-robust via canonical_spacings; Σ²/Δ₃ are NOT). The audit
+established the discriminator + confirmed zeta_first; the apparent pooled downgrades
+need verified unfolding before they harden. Phase-18 `expected_survives` relabelled:
+the four TR findings expect only the marginal-DESTROYING surrogate (hawkes) to flip
+an NNS verdict; the class claim is carried by the long-range arm, not NNS.
+
+**The generalization (queued):** this is not arithmetic-specific. EVERY verdict
+resting on NNS alone — including the neural pillars (pillar-1 GUE/Poisson, H1
+ks_gue) — inherits it. Run the same marginal-surrogate + long-range statistic
+against each banked universality claim: which confirm (RIGID), which downgrade to
+marginal-only. Same falsification loop, pointed at the verdict's statistic.
+
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**
   (mass03 ~10% / GUE ks_gue ~42% of gap closed at 30% deletion); only the

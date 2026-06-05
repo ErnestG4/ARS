@@ -88,8 +88,23 @@ def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int) -> dict:
     return out
 
 
+_ENS_CACHE: Dict[tuple, tuple] = {}
+
+
+def _reference_ensembles(n_e: int, L: float, n_seeds: int) -> tuple:
+    """Real-GUE + Wigner-renewal reference ensembles at (n_e, L), memoized with
+    FIXED seeds — they are identical across findings, so the O(n³) GUE eigensolve
+    is paid ONCE per (n_e, L, n_seeds), not per finding."""
+    key = (int(n_e), round(float(L), 4), int(n_seeds))
+    if key not in _ENS_CACHE:
+        _ENS_CACHE[key] = (_ensemble(gue_positions, n_e, L, n_seeds, 90_000),
+                           _ensemble(wigner_renewal, n_e, L, n_seeds, 95_000))
+    return _ENS_CACHE[key]
+
+
 def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
-                      n_seeds: int = 16, base_seed: int = 0) -> dict:
+                      n_seeds: int = 16, base_seed: int = 0,
+                      n_ref: int = 3000) -> dict:
     """Compare the data's long-range statistics against a real-GUE ensemble and a
     Wigner-renewal ensemble at matched n and L. Σ² is primary, Δ₃ a cross-check.
       RIGID_GUE     — consistent with GUE, far from renewal → the long-range
@@ -106,21 +121,31 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
     obs = longrange_stats(e, L)
     if obs["sigma2"] is None:
         return {"verdict": "UNDERPOWERED", "n": int(n), "L": float(L)}
-    gue = _ensemble(gue_positions, n, L, n_seeds, base_seed)
-    ren = _ensemble(wigner_renewal, n, L, n_seeds, base_seed + 5000)
+    # Σ²(L)/Δ₃(L) at fixed L are windowed statistics ~independent of total n once
+    # n >> L, so the reference ensembles use a capped n_ref (the data keeps its own
+    # n) — avoids an O(n³) GUE eigensolve at large n while staying matched in L.
+    n_e = min(n, n_ref)
+    gue, ren = _reference_ensembles(n_e, L, n_seeds)   # memoized (base_seed unused here)
 
     def _judge(stat):
         if stat not in gue or stat not in ren or obs[stat] is None:
             return None
-        z_g = abs(obs[stat] - gue[stat]["mean"]) / gue[stat]["sd"]
-        z_r = abs(obs[stat] - ren[stat]["mean"]) / ren[stat]["sd"]
-        if z_g < 2.5 and z_r >= 2.5:
+        o = obs[stat]
+        gm, gs = gue[stat]["mean"], gue[stat]["sd"]
+        rm, rs = ren[stat]["mean"], ren[stat]["sd"]
+        z_g = (o - gm) / gs                       # SIGNED (− = more rigid than GUE)
+        z_r = (o - rm) / rs                       # SIGNED (− = more rigid than renewal)
+        # Rigidity is one-sided: being at-or-BELOW the GUE level (more rigid) is
+        # still GUE-class — only being significantly ABOVE GUE and up at the
+        # renewal (floppy) level collapses the claim. RIGID = not above GUE AND
+        # clearly below renewal; MARGINAL_ONLY = up at renewal level or floppier.
+        if o <= gm + 2.5 * gs and o < rm - 2.5 * rs:
             v = "RIGID_GUE"
-        elif z_r < 2.5 and z_g >= 2.5:
+        elif o >= rm - 2.5 * rs:
             v = "MARGINAL_ONLY"
         else:
             v = "INTERMEDIATE"
-        return dict(obs=float(obs[stat]), gue=gue[stat], renewal=ren[stat],
+        return dict(obs=float(o), gue=gue[stat], renewal=ren[stat],
                     z_vs_gue=float(z_g), z_vs_renewal=float(z_r), verdict=v)
 
     s2j, d3j = _judge("sigma2"), _judge("delta3")

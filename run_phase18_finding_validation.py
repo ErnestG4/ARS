@@ -232,26 +232,31 @@ def load_twin_primes(N=10_000_000):
 # ─── Findings panel ───────────────────────────────────────────────────────
 
 
+# NNS-MARGINAL RELABEL (Phase-18 STOP CONDITION resolution): the TR verdict is an
+# NNS statistic = a property of the MARGINAL spacing distribution. Marginal-
+# PRESERVING surrogates (phase_randomized_iei, cumulant_matched) reproduce it BY
+# CONSTRUCTION, so they are EXPECTED to be caught, not to survive — only the
+# marginal-DESTROYING surrogate (hawkes_matched, which clusters) is expected to flip
+# an NNS verdict. The 'GUE class' claim is NOT carried here; it is carried by the
+# long-range statistic (Σ²/Δ₃) in longrange_discriminator.py, which the marginal-
+# preserving surrogates cannot fake. On NNS alone the earned claim is
+# 'marginal spacing matches GUE'.
 FINDINGS = [
     dict(name='zeta_first_2000',      source='§7.ter.7',
          expected='TR',
-         expected_survives=['phase_randomized', 'hawkes_matched',
-                              'cumulant_matched'],
+         expected_survives=['hawkes_matched'],
          loader=lambda: load_zeta_first(n=2000)),
     dict(name='zeta_high_height',     source='§7.ter.21',
          expected='TR',
-         expected_survives=['phase_randomized', 'hawkes_matched',
-                              'cumulant_matched'],
+         expected_survives=['hawkes_matched'],
          loader=lambda: load_zeta_high(n=4000)),
     dict(name='lmfdb_ec_pooled',      source='§7.ter.4',
          expected='TR',
-         expected_survives=['phase_randomized', 'hawkes_matched',
-                              'cumulant_matched'],
+         expected_survives=['hawkes_matched'],
          loader=load_lmfdb_pooled),
     dict(name='dirichlet_pooled',     source='§7.ter.3',
          expected='TR',
-         expected_survives=['phase_randomized', 'hawkes_matched',
-                              'cumulant_matched'],
+         expected_survives=['hawkes_matched'],
          loader=load_dirichlet_pooled),
     dict(name='earthquakes_M45',      source='§7.ter.4',
          expected='BL',
