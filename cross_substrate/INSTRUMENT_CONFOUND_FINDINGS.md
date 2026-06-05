@@ -300,26 +300,47 @@ factor — Poisson Σ² is intrinsically noisy, sd≈L/3, so an sd-band would sw
 renewal-level). Verdicts: RIGID_GUE / POISSON_INDEP / INTERMEDIATE / SUPER_POISSON.
 Proof re-validated (real→RIGID, Poisson→POISSON_INDEP, decoy/cumulant→INTERMEDIATE).
 
-Ran on **130 hc-3 cells** (≥200-event floor, `enough_for_longrange`), each its own
-verdict (no spike-train pooling), fixed reference n + lens sweep (deg 3/6/10):
-- **Poisson pole (n=7 NNS-exponential cells): only 1/7 is POISSON_INDEP.** The other
-  6 carry long-range structure under an exponential marginal (5 SUPER_POISSON
-  clustered, 1 INTERMEDIATE; 5/7 lens-invariant). **NNS under-certifies the Poisson
-  pole on real neural data** — exponential spacing ≠ independence. The neural
-  "Poisson pole" is a MARGINAL-Poisson, not a process-Poisson. (Point 4, confirmed.)
-- **GUE pole: 0 cells in hc-3** — real neurons rarely show GUE-level spacing
-  repulsion, so the GUE pole is UNTESTABLE here; needs a GUE-reading substrate
-  (Allen V1 / pvc-11, where the H1 GUE work lives). Queued.
-- 116/123 clustered cells → SUPER_POISSON & LENS-INVARIANT: genuine hippocampal
-  long-range clustering, robust to the unfold lens (90% of all cells lens-invariant).
+Ran on **783 hc-3 cells across 23 cached sessions** (≥200-event floor,
+`enough_for_longrange`), each its own verdict (no spike-train pooling), fixed
+reference n + lens sweep (deg 3/6/10). TWO findings, named separately so the
+negative doesn't eat the positive:
+
+**(1) METHODOLOGICAL (negative refinement) — the Poisson pole is under-certified.**
+Of **57 NNS-exponential (Poisson-pole) cells, 54/57 (95%) are NOT POISSON_INDEP**:
+41 SUPER_POISSON (clustered), 9 INTERMEDIATE, 7 POISSON_INDEP (only 3 lens-invariant).
+**Exponential spacing ≠ independence** — the neural "Poisson pole" is a MARGINAL-
+Poisson, not a process-Poisson (point 4, confirmed). Robust at n=57 (was n=7 on 4
+sessions — the thin-substrate worry is addressed; the negative holds at 95%).
+
+**(2) SUBSTANTIVE (positive) — hc-3 cells are genuinely clustered at long range.**
+**664/702 SUPER_POISSON cells are LENS-INVARIANT** (to smooth-poly across deg 3–10);
+673/783 (86%) lens-invariant overall, spanning CA1/CA3/EC/DG. This is the standalone
+characterization of hc-3 long-range statistics, not just a foil for the Poisson
+story. CONDITIONAL on smooth-poly being a sufficient unfold (see caveat) — framed as
+"lens-invariant to smooth-poly", NOT "stationary".
+
+- **GUE pole: 0 cells in hc-3** (neurons rarely show GUE-level repulsion) →
+  UNTESTABLE here; needs a GUE-reading substrate (Allen V1 / pvc-11). **Queued
+  self-test:** the new tool certifies the GUE pole independently of NNS, so the cells
+  the NNS instrument places NEAREST the GUE pole (lowest ks_gue) should read RIGID on
+  the long-range tool. Concordance → H1 (OSI↔ks_gue) gains a SECOND-INSTRUMENT
+  confirmation; discordance → the long-range tool reveals what ks_gue was actually
+  picking up. (Mind the sign — H1 is OSI↔ks_gue POSITIVE per [[h1_direction_corrected]].)
 
 **Rate-nonstationarity caveat (load-bearing):** neural σ² conflates genuine long-
-range clustering with slow rate drift; the smooth-poly unfold + lens sweep removes/
-flags smooth trends only (lens-invariance to deg 3–10 is a PARTIAL guard, not proof
-of stationarity). A rate-aware / local-density unfold (the [[ars_rate_dependence_lesson]]
-applied to Σ²) is the refinement needed before a definitive neural long-range claim.
-The clean, lens-robust result that stands: the Poisson-pole NNS verdict does not
-imply independence (6/7), and the GUE pole needs Allen V1 to test.
+range clustering with slow rate drift; smooth-poly unfold + lens sweep removes/flags
+SMOOTH trends only (lens-invariance to deg 3–10 is a PARTIAL guard, not proof of
+stationarity). Σ² is the statistic where rate non-stationarity bleeds in worst, so a
+rate-aware / local-density unfold ([[ars_rate_dependence_lesson]] applied to Σ²) is
+the named next step — it tells whether the 664/702 cluster number survives or
+contracts. Until then the bulk claim is "lens-invariant to smooth-poly", not
+"stationary".
+
+**THE PATTERN IS ITSELF A FINDING:** same discriminator, two substrates so far
+(arithmetic: zeta CONFIRMED, pooled DOWNGRADED; neural: Poisson pole DOWNGRADED), the
+SAME structural move — an NNS/marginal universality claim gets refined by the long-
+range check. This is a cross-substrate methodological result, fits the landscape
+program ([[cross_substrate_program]]) as much as either substrate's individual reads.
 
 ## Durable methodological outputs
 - **Mild thinning does not easily erase the clustered or repulsive endpoints**

@@ -30,9 +30,18 @@ import longrange_discriminator as LD
 from axes import compute_family_I
 from hc3_instrument_pass import parse_units, load_cellmap
 
-# cached hc-3 sessions spanning regions/celltypes (EC + CA1 + CA3 + DG)
-SESSIONS = ["ec013.52/ec013.922", "ec016.11/ec016.106",
-            "ec016.41/ec016.674", "ec016.44/ec016.733"]
+# ALL cached hc-3 sessions (widen the pool so the exponential-NNS / Poisson-pole
+# filter yields more than a thin handful of cells — n=7 on 4 sessions was too few).
+def _discover_sessions():
+    root = os.path.expanduser("~/fmexplorer/crcns_cache/sessions")
+    out = []
+    for sdir in sorted(glob.glob(os.path.join(root, "*", "*"))):
+        if os.path.isdir(sdir) and glob.glob(os.path.join(sdir, "*.res.*")):
+            out.append("/".join(sdir.split("/")[-2:]))
+    return out
+
+
+SESSIONS = _discover_sessions()
 CAP = 3000           # contiguous segment per cell (preserve structure; enough for Σ²)
 REF_N = 1200         # fixed reference n → one cached ensemble set shared by all cells
 L = 50.0
