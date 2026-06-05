@@ -6,7 +6,31 @@ and collaborators (FEMTO-ST, 2002–2026).
 
 ## What this is
 
-A toolkit that takes a point process (sorted event timestamps) and
+**In plain language.**  The toolkit studies the *timing texture* of
+activity — whether events are clumped, evenly spread, random, or rhythmic
+— by taking an ordered list of event times and analysing the gaps between
+consecutive events.  In the neural setting that list can be a **single
+neuron's spikes** (the per-cell mode), or it can be built **across many
+neurons at once**: the pooled spikes of a whole population, the times when
+the population bursts or synchronizes together, or the spacing in the
+**eigenvalue spectrum of the neuron-to-neuron correlation matrix** (random-
+matrix analysis of the population covariance — the most directly cross-unit
+mode).  It often runs in short time windows and compares across them, asking
+whether a pattern is steady through time or only emerges over the whole
+recording.  The same method applies to non-neural event lists (Riemann-zeta
+zeros, prime numbers, earthquake times).  Throughout, the *firing rate
+itself* — how fast events come and how that speeds up or slows down — is
+treated as a nuisance to be removed, so that what is read is the genuine
+texture of the spacing and not an artifact of rate changes.  (One result of
+the cross-unit arm: those population observables disagree with each other —
+the correlation-matrix spectrum reads spread-out/rigid, synchrony-event
+times read random, avalanche onsets read in-between — so there is no single
+"population fingerprint"; see `cross_substrate/population_fingerprint.py`.)
+A caution carried by the whole arc: these spacing verdicts certify the
+*marginal* gap distribution, not a universality *class* — see RESULTS.md §8
+"Reconciliation (2026-06-05)".
+
+Technically, the toolkit takes a point process (sorted event timestamps) and
 asks two formally distinct questions about it.
 
 The **NNS engine** (`joint_q_profile`) decomposes the point process
