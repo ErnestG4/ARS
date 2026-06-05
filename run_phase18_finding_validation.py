@@ -51,6 +51,13 @@ from surrogates import (
     hawkes_matched_events,
     cumulant_matched_events,
 )
+# Apparatus ops (instrument_confound) folded in as a SECOND arm — see APPARATUS
+# block below.  A point process is (substrate ⊗ instrument); the surrogates above
+# probe the substrate (destroy structure → does the finding need it?), the
+# apparatus arm probes the instrument (dead time / finite efficiency → does the
+# finding survive the collection method?).
+sys.path.insert(0, os.path.join(THIS_DIR, "cross_substrate"))
+import instrument_confound as ic
 
 import matplotlib
 matplotlib.use('Agg')
@@ -68,6 +75,15 @@ N_EVENTS_CAP = 8000        # cap events for compute (subsample if larger)
 
 
 SURROGATE_NAMES = ['phase_randomized', 'hawkes_matched', 'cumulant_matched']
+
+# ─── Apparatus perturbations (the instrument arm) ──────────────────────────
+# POLARITY IS OPPOSITE to the surrogate arm. A surrogate "survives" when it
+# yields a DIFFERENT class (structure destroyed → finding is real). An apparatus
+# perturbation is robust when the class is UNCHANGED (the collection method did
+# not manufacture / erase the verdict). Dead time carves a short-range hole
+# (fakes repulsion); thinning is finite efficiency (drives toward Poisson). Each
+# is applied to the DATA, then the finding is re-classified.
+APPARATUS_NAMES = ['deadtime_0.15', 'deadtime_0.30', 'thin_0.10', 'thin_0.25']
 
 
 # ─── Loaders ──────────────────────────────────────────────────────────────
@@ -294,11 +310,30 @@ def apply_surrogate(events, name, rng):
     raise ValueError(name)
 
 
+def apply_apparatus(events, name, rng):
+    """Apply a collection-method perturbation to the DATA (dead time as a
+    fraction of the mean ISI; thinning as Bernoulli retention). The verdict is
+    apparatus-robust iff the re-classified quadrant is UNCHANGED."""
+    m = ic.mean_isi(events)
+    if not np.isfinite(m) or m <= 0:
+        return np.asarray(events, dtype=np.float64)
+    if name == 'deadtime_0.15':
+        return ic.apply_deadtime(events, 0.15 * m)
+    if name == 'deadtime_0.30':
+        return ic.apply_deadtime(events, 0.30 * m)
+    if name == 'thin_0.10':
+        return ic.random_thin(events, 0.90, rng)
+    if name == 'thin_0.25':
+        return ic.random_thin(events, 0.75, rng)
+    raise ValueError(name)
+
+
 # ─── Main loop ────────────────────────────────────────────────────────────
 
 
 def main():
     rows = []
+    apparatus_rows = []
     t_start = time.time()
     print("=" * 100)
     print(f"Phase 18 Tier 3 — finding validation across {len(FINDINGS)} "
@@ -389,6 +424,33 @@ def main():
                       f"→ {surr_q:<12} {tag:<9} {exp}  "
                       f"⏱ {time.time() - t_s:.1f}s")
 
+        # ── Apparatus arm (the instrument): dead time + thinning on the DATA ──
+        # robust = quadrant UNCHANGED (collection method did not fake/erase it).
+        for appn in APPARATUS_NAMES:
+            for seed in range(N_SEEDS):
+                t_a = time.time()
+                rng = np.random.default_rng(seed * 1000 + abs(hash(appn)) % 50000)
+                try:
+                    app_events = apply_apparatus(events, appn, rng)
+                    app_q, app_rep, app_ks, app_n = primary_quadrant(app_events)
+                except Exception as e:
+                    print(f"    {appn:<20} seed={seed}: apparatus FAILED: {e}")
+                    continue
+                stable = (app_q != 'underpowered' and orig_q != 'underpowered'
+                          and app_q == orig_q)
+                apparatus_rows.append(dict(
+                    finding=name, source=finding['source'], seed=seed,
+                    apparatus=appn, kind='deadtime' if appn.startswith('deadtime')
+                    else 'thinning',
+                    orig_quadrant=orig_q, orig_rep=orig_rep, orig_ks_gue=orig_ks,
+                    orig_n=orig_n, app_quadrant=app_q, app_rep=app_rep,
+                    app_ks_gue=app_ks, app_n=app_n, apparatus_robust=bool(stable)))
+                tag = 'ROBUST' if stable else 'MOVED'
+                print(f"    {appn:<20} seed={seed}  app n={app_n:,}  "
+                      f"rep={app_rep:.3f}  ks={app_ks:.3f}  "
+                      f"→ {app_q:<12} {tag:<7} "
+                      f"⏱ {time.time() - t_a:.1f}s")
+
     df = pd.DataFrame(rows)
     out_path = os.path.join(DATA, 'phase18_finding_validation.parquet')
     df.to_parquet(out_path)
@@ -451,6 +513,50 @@ def main():
     plt.savefig(out_png, dpi=130)
     plt.close()
     print(f"\n  → {out_png}")
+
+    # ── Apparatus-robustness arm (the instrument) ───────────────────────
+    if apparatus_rows:
+        adf = pd.DataFrame(apparatus_rows)
+        a_out = os.path.join(DATA, 'phase18_apparatus_robustness.parquet')
+        adf.to_parquet(a_out)
+        a_agg = (adf.groupby(['finding', 'apparatus'])
+                    .agg(robust_rate=('apparatus_robust', 'mean'),
+                         orig_quadrant=('orig_quadrant', 'first'),
+                         app_q_mode=('app_quadrant',
+                                     lambda x: x.value_counts().index[0]))
+                    .reset_index())
+        print()
+        print("=" * 100)
+        print("APPARATUS-ROBUSTNESS matrix (finding × perturbation):  fraction of "
+              "seeds where the QUADRANT IS UNCHANGED")
+        print("  (POLARITY OPPOSITE to the surrogate matrix: here HIGH = robust = "
+              "collection method did not fake/erase the verdict)")
+        print("=" * 100)
+        a_pivot = a_agg.pivot(index='finding', columns='apparatus',
+                              values='robust_rate').reindex(columns=APPARATUS_NAMES)
+        print(a_pivot.to_string(float_format=lambda v: f"{v:.2f}"))
+        # Per-finding apparatus verdict.
+        print()
+        print("Apparatus verdict per finding "
+              "(dead time fakes repulsion; thinning fakes Poisson):")
+        for f in FINDINGS:
+            nm = f['name']
+            sub = adf[adf.finding == nm]
+            if sub.empty:
+                continue
+            dt = sub[sub.kind == 'deadtime']['apparatus_robust'].mean()
+            th = sub[sub.kind == 'thinning']['apparatus_robust'].mean()
+            flags = []
+            if dt < 0.5:
+                flags.append('DEADTIME_SENSITIVE')
+            if th < 0.5:
+                flags.append('THINNING/EFFICIENCY_SENSITIVE')
+            verdict = 'APPARATUS_ROBUST' if not flags else ' + '.join(flags)
+            print(f"  {nm:<20} deadtime_robust={dt:.2f}  thinning_robust={th:.2f}"
+                  f"  → {verdict}")
+        print(f"\n  → {a_out}  ({len(adf)} rows)")
+        print("  Bound: apparatus-robust = stable under the manipulations run, "
+              "NOT 'the territory'.")
 
     # ── Stop condition ──────────────────────────────────────────────────
     if unexpected_catches:
