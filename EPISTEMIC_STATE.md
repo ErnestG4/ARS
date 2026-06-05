@@ -123,6 +123,18 @@ property and a recording-wide aggregate statistic should track each
 other — what is the relationship between cell-class composition and
 aggregate-NNS that makes this correlation appear?
 
+**Marginal-vs-class downgrade (2026-06-05, see the dated arc section at
+the end of this file).**  H1 is a correlation on the NNS *marginal*
+(`ks_gue`), and as a marginal correlation it stands fully — it survived
+the long-range arc unchanged.  What is downgraded is the structural
+reading: under the trial-PSTH external-rate unfold on the same Allen V1
+data, OSI↔Σ²(clustering) collapses +0.135→−0.077 (null) — the OSI-graded
+clustering was stimulus-driven rate-stepping, not intrinsic to selective
+cells.  Selective cells track the marginal spacing statistic but are not
+a special universality class and do not lock to GUE (0/100 Allen V1 cells
+RIGID at long range).  Read H1 as "selectivity ↔ a marginal-spacing
+gradient", not "↔ a level-repulsion *class*".
+
 ### F1/F0 ↔ rep_med substrate-systematic sign-flip
 
 The finding is that the modulation index F1/F0 (a per-unit simple-vs-
@@ -201,6 +213,15 @@ state the triple bounding explicitly so that downstream readers do not
 inflate H2 from "two specific recordings, recording-wide aggregate,
 window-mixture in one of them" to "V1 has higher-order population
 structure beyond LN-Poisson."
+
+**Marginal-vs-class note (2026-06-05).**  H2 is a surrogate-survival
+claim on the NNS *marginal* at population resolution; the marginal-vs-
+class arc adds the explicit label that "surviving NNS structure" is a
+marginal-spacing statement, not a universality-class one (the deployed
+quadrant is order-blind by construction — see the dated arc section at
+the end of this file).  H2's substantive content is the surrogate
+survival itself, which is unchanged; this is a labelling clarification,
+not a downgrade of the result.
 
 ### DSI ↔ ks_gue_med
 
@@ -1717,6 +1738,92 @@ the event-extracted spectral instrument for that transition class, not the subst
   the continuous arm CARRIES the transition (robust, phase-invariant SEPARATION via F2 — confirmed ergodic)
   but NOT the floor's fine RIGIDITY; F1 not promotable (intrinsic locality-α). The continuous front-end's
   precise value: it buys the separation, not the rigidity.** See phase36/kpm_dos.py + TRACK4_FINDINGS.md.
+
+---
+
+## Instrument-confound + long-range arc — the marginal-vs-class reckoning (2026-06-05)
+
+This section folds in the holistic read of the whole toolkit and records
+the arc that re-examined the observable most deployed verdicts rest on.
+
+**The repo is two interwoven programs sharing one engine.**  (A) The
+phase-numbered ARS investigation (`RESULTS.md`, phases 5→37): does ARS
+reproduce known universality classes, and find structure in arithmetic /
+neural / physical / dynamical substrates?  (B) The cross-substrate
+"operator-IS-substrate" landscape (`cross_substrate/PROGRESS_REPORT.md`):
+fingerprint 18–25 substrates, the AM≡Fibonacci approximability result, and
+the instrument-confound/long-range audit.  They share `arithmetic_toolkit`
++ `axes` and cross-pollinate (the neural pillars live in both), but A
+accumulates LOCKED claims while B audits them.  The friction between the
+two is the current state of the tool, and this arc is where B caught up
+with A.
+
+**What the arc built** (`cross_substrate/`): apparatus subtraction
+(`instrument_confound.py` — dead-time, thinning, sort-merge, three-zone
+bracket); the long-range discriminator (`longrange_discriminator.py` —
+Σ²(L)/Δ₃(L) with the Wigner-renewal decoy); the trial-PSTH external-rate
+unfold (`trial_psth_unfold.py`, decoy-battery-gated); the RF decoy battery
+(`rf_decoy_battery.py`); and the combined-quadrant marginal test
+(`quadrant_marginal_test.py`).
+
+**The load-bearing finding: NNS certifies the marginal, not the class.**
+`ks_gue` / `rep_med` / the quadrant read the gap *histogram* (marginal),
+not the long-range correlation structure that *defines* GUE vs Poisson.
+Proof: the Wigner-renewal decoy is indistinguishable from real GUE on NNS
+but separates >20× on Σ²/Δ₃.  Confirmed on the deployed quadrant itself —
+an order-scramble surrogate (same gap multiset, order destroyed) reproduces
+0.87–1.00 of per-q quadrant labels on every real substrate (zeta, primes,
+Allen V1, solar); the quadrant is **order-blind by construction** (`rep_int`
+is computed on a cumsum of pooled spacings, discarding original order; the
+RF `a_q` leg is marginal-dominated, fires on 0–20% of bands, and needs a
+near-delta marginal or a sharp bounded-phase grid to fire at all).
+
+**What this downgrades, what it leaves standing:**
+- **Arithmetic — confirmed/caveated, not downgraded.**  ζ is *confirmed at
+  class level* (ζ_first RIGID_GUE, lens-invariant on Σ²).  L-function bulk
+  GUE + edge signatures stand.  *New caveat:* pooled (LMFDB/Dirichlet)
+  long-range is MARGINAL_ONLY — pooling Poissonizes the long-range statistic
+  (the arithmetic twin of the neural no-pooling rule).
+- **Neural — downgraded from class to marginal.**  On real neural data
+  *both* NNS poles are marginal-only: 0/100 Allen V1 cells RIGID_GUE; 54/57
+  hc-3 NNS-exponential cells NOT process-Poisson.  Cells live in a clustered
+  regime and the "poles" are gradients within it.  The per-unit BL/TR
+  quadrant is a marginal classification.
+- **H1 specifically.**  The marginal correlation (OSI↔`ks_gue`) STANDS in
+  full.  The structural reading is walked back: trial-PSTH external-rate
+  unfold collapses OSI↔Σ²(clustering) +0.135→−0.077 (null) — the OSI-graded
+  clustering was stimulus-driven rate-stepping.  All cells are intrinsically
+  clustered (96/100 survive stimulus removal) but uniformly across OSI;
+  selectivity is not a clustering determinant and selective cells are not a
+  special class.  See the H1 entry's inline downgrade note above.
+
+**Cross-domain envelope (unchanged, reaffirmed).**  ARS reads event-level
+timing, so any pre-aggregated published product is structurally
+incompatible (NANOGrav folded TOAs, CERN post-trigger NanoAOD, single-
+molecule post-state-detection) — §7.ter.19 generalised.  Earthquakes/solar
+flares are good calibrators (clustering recovered; declustering moves it
+Poisson-ward in the known direction).
+
+**RF engine (this arc).**  Indicator-mode `a_q` is marginal-dominated and
+needs a *zoo-calibrated* noise floor (~6, not ~1 — extreme-value-inflated
+spectrum max over ~29 bands).  It does not give the RF side a marginal-
+escaping observable; the order-scramble decoy + an order-borne positive
+control (`rigid_grid_jittered`) confirm it.  Apparatus operators do not
+transfer to the period axis (dead time injects no `a_q` peak; thinning
+preserves a strong one).  See `rf_aq_marginal_dominated` (memory).
+
+**The durable gain is the methodology**, not any single substrate verdict:
+apparatus subtraction, the long-range discriminator + Wigner-renewal decoy,
+the external-rate (trial-PSTH) unfold, the decoy-battery pre-deployment gate,
+and the marginal-vs-class discipline now standard for every NNS verdict.
+
+**Reconciliation status.**  `RESULTS.md` §8 has a matching subsection
+("Reconciliation (2026-06-05): marginal-vs-class — downgrades and what
+remains"), with one-line flags at §7.ter.30 and §7.ter.34.  The open
+scientific gap is unchanged and now sharper: H1 has a robust marginal
+correlate but **no mechanism**, and the structural story that would have
+supplied one (selective cells = a distinct level-repulsion class) is the
+part the audit removed.
 
 ---
 

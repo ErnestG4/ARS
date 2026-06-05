@@ -27,6 +27,19 @@ The full validated-outputs list and the diagnosed failure modes are in
 PLL framework (Planat et al., 2002–2026) and does not extend that
 framework analytically.
 
+**Reconciliation (2026-06-05).**  A later instrument-confound + long-
+range arc (Σ²/Δ₃ discriminator, trial-PSTH external-rate unfold, RF
+decoy battery, combined-quadrant marginal test) established that the
+deployed NNS / `ks_gue` / `rep_med` / quadrant outputs certify the
+**marginal spacing distribution**, not the universality **class**.  The
+neural verdicts in §7.ter.30–40 and §8 are therefore marginal-spacing
+classifications; their *class* and *selective-cell-special-structure*
+readings are downgraded.  The arithmetic ζ classification is, conversely,
+**confirmed at class level**.  See the new §8 subsection
+"Reconciliation (2026-06-05): marginal-vs-class — downgrades and what
+remains" for the per-claim accounting; the body sections below are left
+as written (traceability) with a one-line flag at the affected phases.
+
 ---
 
 ## 1. Scope
@@ -4755,6 +4768,15 @@ Outputs:
 
 ### 7.ter.30  Phase 22a — pvc-11 macaque V1 (Smith & Kohn)
 
+> **Marginal-vs-class flag (2026-06-05).**  The per-unit BL/TR quadrant
+> verdicts and the H1/H2 NNS classifications below are *marginal-spacing*
+> readings.  A later long-range (Σ²/Δ₃) + trial-PSTH audit shows the
+> "Poisson pole" is marginal-Poisson (not process-independent) and the
+> "GUE-leaning" end is marginal proximity (not GUE class): 0/100 Allen V1
+> cells are RIGID at long range, 54/57 hc-3 NNS-exponential cells are not
+> process-Poisson.  H1's OSI↔`ks_gue` *correlation* stands; its structural
+> interpretation does not.  See §8 → "Reconciliation (2026-06-05)".
+
 #### Motivation and scope
 
 Phase 22 originally targeted CRCNS ret-1 (mouse retinal MEA).  That
@@ -5912,6 +5934,16 @@ template (166 MB).
 ---
 
 ### 7.ter.34  Phase 24 (Full) — multi-session Allen Visual Coding awake-mouse-V1 replication
+
+> **Marginal-vs-class flag (2026-06-05).**  The H1 OSI↔`ks_gue` cross-
+> species correlation reported here is a *marginal*-spacing correlation and
+> stands (burst-orthogonal, rate-stratified, all-sessions-same-sign).  The
+> later trial-PSTH external-rate audit on this same Allen V1 data shows the
+> OSI-graded *clustering* (Σ²) collapses +0.135→−0.077 (null) once stimulus
+> rate is removed: the clustering gradient was stimulus-driven rate-stepping,
+> not intrinsic to selective cells.  All cells are intrinsically clustered;
+> selectivity is not a clustering determinant.  See §8 → "Reconciliation
+> (2026-06-05)".
 
 #### Frame
 
@@ -10420,6 +10452,74 @@ data than was used here.
 - 8-class joint-plane classification under k-NN (k=5) with seeds {0,1,2}
   trained, {3,4} held out: 100% per-q accuracy on the calibrator pool.
   (§7.ter.21.)
+
+### Reconciliation (2026-06-05): marginal-vs-class — downgrades and what remains
+
+A later arc (cross_substrate/ instrument-confound + long-range work,
+2026-06-04/05) re-examined the observable the deployed verdicts rest on.
+The result reclassifies several "validated outputs" above without
+retracting their underlying measurements.  The principle and the
+per-claim accounting:
+
+**The principle.**  NNS / `ks_gue` / `rep_med` and the combined quadrant
+certify the **marginal spacing distribution** (the gap histogram), not
+the universality **class** (the long-range correlation structure that
+defines GUE vs Poisson).  Proof: the Wigner-renewal decoy (i.i.d. spacings
+drawn from the GUE surmise) is indistinguishable from real GUE on NNS but
+separates >20× on Σ²(L)/Δ₃(L).  Empirically confirmed on the deployed
+quadrant itself: an order-scramble surrogate (identical gap multiset,
+serial order destroyed) reproduces 0.87–1.00 of per-q quadrant labels on
+every real substrate tested (zeta, primes, Allen V1, solar) — the quadrant
+is order-blind by construction (`rep_int` is computed on a cumsum of pooled
+spacings, which discards original order; the RF `a_q` leg is marginal-
+dominated and fires on only 0–20% of bands).  See
+`cross_substrate/INSTRUMENT_CONFOUND_FINDINGS.md` and
+`cross_substrate/nns_certifies_marginal_not_class` (memory).
+
+**Arithmetic — mostly CONFIRMED or caveated, not downgraded:**
+- ζ zeros: GUE is **confirmed at class level** — ζ_first is RIGID_GUE,
+  lens-invariant on Σ² (its slight excess rigidity below the GUE ensemble
+  is a real residual, not unfolding).  Strengthened, not downgraded.
+- LMFDB EC / Dirichlet **pooled** spacings: the bulk-GUE *marginal* stands,
+  but the **pooled long-range is MARGINAL_ONLY** — pooling superposes
+  spectra and Poissonizes the long-range statistic even if components are
+  GUE.  Caveat: a pooled universality claim is marginal-level unless
+  per-component unfolded.  Edge family signatures (root-number / Sp–U γ₁)
+  are a separate edge observable and are untouched.
+
+**Neural — DOWNGRADED from class to marginal:**
+- Per-unit BL/TR quadrant verdicts (pvc-11 1,144/1,159 BL; Allen TR-leaning
+  cells): these are **marginal** classifications.  Long-range audit: 0/100
+  Allen V1 cells are RIGID_GUE; 54/57 hc-3 NNS-exponential cells are NOT
+  process-Poisson (super-Poisson/clustered).  So "BL/Poisson" = marginal-
+  Poisson, "TR/GUE-leaning" = marginal proximity.  On real neural data
+  **both NNS poles are marginal-only**: cells live in a clustered regime and
+  the "poles" are gradients within it, not genuine RMT/Poisson classes.
+- H1 (OSI ↔ `ks_gue`): the **marginal correlation STANDS** — cross-species,
+  burst-orthogonal, rate-stratified, all-sessions-same-sign.  **Downgraded:**
+  the structural reading.  Under the trial-PSTH external-rate unfold on Allen
+  V1, OSI↔Σ²(clustering) collapses +0.135→−0.077 (null); the OSI-graded
+  clustering was stimulus-driven rate-stepping.  Selective cells correlate
+  with the marginal spacing statistic but are **not** a special universality
+  class and do **not** lock to GUE; all cells are intrinsically clustered
+  (clustering survives stimulus removal, 96/100 still super-Poisson, but
+  uniformly across OSI).
+- H2, F1/F0↔`rep_med`, p=7: these were surrogate-survival / correlational
+  claims on marginal/RF observables, already bounded; no universality-class
+  claim was attached, so they are unchanged except to inherit the explicit
+  "marginal-spacing, not class" label.
+
+**What remains (net).**
+- Arithmetic: ζ class-confirmed; L-function bulk-GUE + edge signatures stand;
+  pooled long-range caveated to marginal-only.
+- Neural: H1 / DSI / F1F0 / p=7 marginal correlations stand and replicate;
+  the per-cell "universality class" reading is downgraded to "a marginal-
+  spacing gradient within a clustered regime"; the selective-cell-special-
+  structure interpretation is walked back (stimulus-driven).
+- The **durable gain** is the methodology: apparatus subtraction (dead-time/
+  thinning), the long-range Σ²/Δ₃ discriminator with the Wigner-renewal
+  decoy, the trial-PSTH external-rate unfold (decoy-battery-gated), and the
+  marginal-vs-class discipline now standard for any NNS verdict.
 
 ### Failure modes diagnosed during development
 
