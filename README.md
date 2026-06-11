@@ -77,8 +77,7 @@ Everything reduces to **spacing statistics of a sequence derived from
 the point process**.  The input is always a sorted list of event times
 `t_k`.  The two engines differ in *which* derived sequence they read
 and *against what reference* they compare it.  (Function names below
-point at `arithmetic_toolkit.py` unless noted, so the math is checkable
-against the source.)
+refer to `arithmetic_toolkit.py` unless noted.)
 
 ### The arithmetic core — Ramanujan sums
 
@@ -267,7 +266,7 @@ program, into a study of what such a classifier can and cannot see.
 The arc matters as much as any single finding, because most of the
 phases are eliminations — each one narrows what the tool is entitled
 to claim.  The chronological record lives in `RESULTS.md` (§7.ter.N,
-one phase per entry); this is the map.
+one phase per entry).
 
 **Origin — the two-engine instrument.**  The toolkit began as a single
 NNS engine (`joint_q_profile`): decompose a point process over
