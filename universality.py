@@ -127,10 +127,12 @@ def number_variance(events: np.ndarray, L_max: float = 20.0,
                     n_L: int = 40, slide_step: float = 0.1) -> dict:
     """
     Σ²(L) = var(N(L)) computed by sliding a window of length L (in
-    mean-spacing units) across the unfolded process.  Reference forms:
+    mean-spacing units) across the unfolded process.  Reference forms
+    (leading coefficient 2/(βπ²); GOE has asymptotically twice GUE's
+    number variance — Mehta, Random Matrices 3rd ed. §16):
         Poisson:   Σ² = L
-        GOE:       Σ² ≈ (1/π²) (log(2π L) + γ + 1)              for L≫1
-        GUE:       Σ² ≈ (2/π²) (log(2π L) + γ + 1 − π²/8)       for L≫1
+        GUE (β=2): Σ² ≈ (1/π²) (log(2π L) + γ + 1)                  for L≫1
+        GOE (β=1): Σ² ≈ (2/π²) (log(2π L) + γ + 1 + log 2 − π²/8)   for L≫1
     Returns dict with L_vals, sigma2 (observed), and analytic forms.
     """
     e = np.sort(np.asarray(events, dtype=np.float64))
@@ -155,10 +157,14 @@ def number_variance(events: np.ndarray, L_max: float = 20.0,
         sigma2[i] = float(counts.var(ddof=1))
     GAMMA_EULER = 0.5772156649015329
     poiss_curve = L_vals.copy()
-    # Use full RMT formulas (small-L regime omitted; valid for L≳1).
+    # Asymptotic RMT number variance (small-L regime omitted; valid for
+    # L≳1).  Leading coefficient is 2/(βπ²): GOE (β=1) → 2/π², GUE (β=2)
+    # → 1/π².  GUE is the clean form (no π²/8); GOE carries the +log2 −
+    # π²/8 correction.  (Mehta, Random Matrices 3rd ed. §16.)
     log_term = np.log(np.maximum(2.0 * np.pi * L_vals, 1.0))
-    goe_curve = (1.0 / (np.pi ** 2)) * (log_term + GAMMA_EULER + 1.0)
-    gue_curve = (2.0 / (np.pi ** 2)) * (log_term + GAMMA_EULER + 1.0 - (np.pi ** 2) / 8.0)
+    gue_curve = (1.0 / (np.pi ** 2)) * (log_term + GAMMA_EULER + 1.0)
+    goe_curve = (2.0 / (np.pi ** 2)) * (log_term + GAMMA_EULER + 1.0
+                                        + np.log(2.0) - (np.pi ** 2) / 8.0)
     return dict(L=L_vals, sigma2=sigma2,
                   poisson=poiss_curve, goe=goe_curve, gue=gue_curve)
 

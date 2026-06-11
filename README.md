@@ -106,7 +106,12 @@ complex exponentials:
 (the Carmichael–Wintner mean; `ramanujan_fourier`, where the code is
 literally `a[q-1] = mean(f * c_q) / phi(q)`).  The amplitude |a_q|
 measures how much of the signal sits at "denominator q" — i.e. at
-integer period q and the periods that divide into it.  Two input modes:
+integer period q and the periods that divide into it.  (The c_q are
+orthogonal only in the Cesàro / density limit, not ℓ²-orthogonal on a
+finite window, so the empirical a_q are *estimators* that carry some
+inter-band leakage — most pronounced at high q, where few periods of
+support fit the record.  The per-band noise floor in v4 is partly a
+guard against this.)  Two input modes:
 
 - **normalized mode** — f(n) = the unit-mean inter-event intervals.
   Reads spacing-correlation structure; blind to absolute period (it
@@ -133,7 +138,13 @@ the event grid.  This is the per-prime, arithmetic-class signal.
    in `pll_bank.py`) and read each as a phase-locked-loop natural
    frequency f = fc·a/q.  For each, form the **passage times**
    t_k·f − 1 (keep the positive ones), take their consecutive
-   differences, and normalize those to unit mean.
+   differences, and normalize those to unit mean.  (The −1 sets a
+   one-period left-truncation — it keeps events with t_k > 1/f and drops
+   the pre-first-period transient; the offset itself cancels under the
+   differencing, so the spacings within a band are the raw inter-event
+   spacings up to that truncation.  That the band frequency f cancels in
+   the unit-mean normalization is the band-invariance proposition made
+   concrete, and the reason a separate RF engine is needed.)
 2. **Pool by denominator.**  Pool the normalized spacings across all
    numerators a sharing a denominator q → one "q-band," matching the RF
    coefficient indexing.
@@ -180,8 +191,11 @@ structure NNS cannot:
   windows of length T, multiscale (`fano_curve`).
 - **Number variance** Σ²(L) = Var of counts in sliding length-L windows
   (`universality.number_variance`; `axes.II1`).  Poisson grows as
-  Σ² = L; GUE as (2/π²)(ln 2πL + γ + 1 − π²/8).  The long-range rigidity
-  test.
+  Σ² = L; GUE as (1/π²)(ln 2πL + γ + 1); the leading coefficient is
+  2/(βπ²), so GOE has asymptotically twice GUE's number variance.  The
+  long-range rigidity test.  (The deployed long-range discriminator
+  judges against empirical GUE/Poisson ensembles at matched (n, L), not
+  these analytic curves.)
 - **Spectral rigidity** Δ₃(L): mean-square deviation of the counting
   staircase from its best-fit line over length L (`axes.II2_delta3_at_L`).
 - **Spectral form factor** K(t) = (1/N)·|Σ_n e^{2πi t x_n}|²
