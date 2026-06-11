@@ -97,6 +97,164 @@ See `WHYTHISEXISTS.md` for the full framing, including the
 implications for human + LLM collaborative reasoning under the same
 boundary-readout commitment.
 
+## The journey
+
+This project was not planned as the thing it became.  It started as a
+universality-class classifier for point processes and turned, over
+roughly thirty-seven numbered phases and a parallel cross-substrate
+program, into a study of what such a classifier can and cannot see.
+The arc matters as much as any single finding, because most of the
+phases are eliminations — each one narrows what the tool is entitled
+to claim.  The chronological record lives in `RESULTS.md` (§7.ter.N,
+one phase per entry); this is the map.
+
+**Origin — the two-engine instrument.**  The toolkit began as a single
+NNS engine (`joint_q_profile`): decompose a point process over
+Farey-rational bands, compute analytical passage times, read
+nearest-neighbour spacing against Poisson / GOE / GUE references.  A
+proved limitation forced the second engine — any classifier with the
+architecture *{filter Farey rationals → analytical passage →
+unit-mean-normalised NNS → KS}* is invariant under linear time
+scaling and **cannot** detect prime-base asymmetry on stationary
+signals (the §7.ter.10 band-invariance proposition).  Three versions
+of a p-adic profile failed acceptance for this structural reason
+before the RF engine (`padic_amplitude_v4`), routing through
+Ramanujan-Fourier amplitudes on the event-indicator function, passed.
+
+**Arithmetic instrument-validation (Phases 3–17).**  The instrument
+was calibrated against substrates with *known* universality class:
+Riemann ζ zeros (GUE, KS = 0.041 on the first 2,000, 0.012–0.015 at
+heights ~10⁶), LMFDB elliptic-curve and Dirichlet L-functions (bulk
+GUE, edge separation by root number / family symmetry), prime gaps.
+These reproduce existing literature; they do not extend it.  They are
+the ground truth the rest of the tool is measured against.
+
+**The LLM arc — the canonical retraction (Phases 9–17).**  The
+toolkit was applied to transformer residual-stream and attention
+dynamics across four architectures and eight extractor mechanisms.  It
+produced a sequence of exciting-looking findings — Wigner-class
+classifications, cross-architecture σ̂ invariance, an "LLM and primes
+share a parameter neighbourhood" reading — **every one of which was
+retracted** across three rounds of artifact diagnosis (find_peaks
+autocorrelation rhythm at §7.ter.19; metric-resolution collapse at
+§7.ter.22; threshold-upcrossing TR induction, Finding F, at
+§7.ter.23).  No measurement survived that could be attributed to the
+model rather than to the extraction pipeline.  An EEG θ-band reading
+was likewise falsified as a bandpass-filter artifact.  This arc is
+preserved, not buried: it is the worked example of the boundary-readout
+problem the whole tool is built to handle, and the fact that it
+*terminated cleanly* — rather than continuing to generate findings
+forever — is what the discipline is for.
+
+**Discipline-hardening + physical PoCs (Phases 18–21).**  Out of the
+retractions came the method: the calibrator zoo, the extractor-
+invariance test, induction-on-noise falsification, the surrogate-
+calibration and distinctness matrices.  Proof-of-concept runs on BGP
+route-timing cascades and gamma-ray-burst timing exercised the
+pipeline on real non-stationary data.
+
+**The cortical-V1 turn (Phases 22a–32) — the bulk of the work.**  The
+tool pivoted to neural data: pvc-11 anesthetised macaque V1 (Smith &
+Kohn) and Allen Brain Observatory awake mouse V1.  This produced the
+load-bearing correlational findings — **H1** (orientation selectivity
+↔ `ks_gue_med`), the **F1/F0 ↔ `rep_med`** substrate-systematic
+sign-flip, the triply-bounded **H2** population-event structure,
+**DSI**, and the **p=7** cross-substrate temporal-scope asymmetry — and,
+just as importantly, the eight disciplines below, which crystallised
+because each finding had to survive them.  The phase also produced its
+eliminations: Kuramoto-class formalism does **not** match V1 (Phase 30,
+four-way joint null); history-coupled GLMs hit a FIT-CEILING as an H2
+target (Phase 25); H2 is **not** a local-spatial-cluster phenomenon at
+any tested scale (Phases 27–28); the GRB 909 Hz QPO replication
+substantively **failed** (Phases 23, 26).
+
+**Cross-domain envelope (Phase 33).**  Could the event-level method
+reach published data in other fields — pulsar timing (NANOGrav),
+particle physics (CERN Open Data), single-molecule fluorescence?
+Mostly no, and *informatively* no: published data products are
+pre-aggregated (folded TOAs, post-trigger NanoAOD, post-state-detection
+dwell times), so they are structurally incompatible with an event-level
+reader.  The durable output is a generalisation of §7.ter.19 to an
+entry-point discipline — audit the published-product level before any
+cross-domain pilot.
+
+**Arithmetic orthogonal-channel survey (Phases 34a–34f).**  Back to the
+number-theory side, on a wider front: Mertens and Liouville
+sign-changes, ζ / Dirichlet / EC L-zeros as a spectral-coordinate
+family, Gaussian + Eisenstein prime angles, Γ₀(N) Maass forms (the
+Sarnak anomaly replicated across squarefree levels), and 3-D Bianchi
+pipelines validated against a proven theorem.  The recurring lesson:
+the right surrogate null is substrate-specific (support-set-respecting
+for arithmetic point processes), and a pooled-substrate null can
+manufacture false structure.
+
+**The cross-substrate "operator-IS-substrate" program (2026-05).**  A
+second program grew alongside the phase line and eventually audited it.
+Instead of extracting utility from one substrate, it fingerprints
+*many* on a shared coordinate family and reads the cross-substrate
+*comparison*.  Its central thread is an **approximability
+stratification**: organise substrates by a Diophantine frequency
+parameter and the spectral fingerprint grades by how well that
+parameter is rationally approximable — including the result that the
+**almost-Mathieu operator and the Fibonacci Hamiltonian are the same
+operator family** up to an approximability-dependent reparametrisation.
+The program also pushed the neural work across substrates — Buzsáki
+CA1, IBL, entorhinal / CA3, retinal ganglion cells — and added
+self-organised-criticality calibrators (earthquake and solar-flare
+catalogues), finding that **per-cell fingerprints cohere while
+population-level observables fragment**.  Phase 36 then split the
+quasiperiodicity→chaos transition into rigidity-type and clustering-type
+breakdowns; Phase 37 dissolved a CV-16 nonstationarity artifact and,
+with rate-robust CV2/Lv axes, revealed a genuine hippocampal-vs-sensory
+clustering gradient.
+
+**The marginal-vs-class reckoning (2026-06).**  Finally the auditing
+program caught up with the deployed verdicts.  A long-range
+discriminator (Σ²(L) / Δ₃(L) with a Wigner-renewal decoy) and an
+apparatus-subtraction stage established the load-bearing correction:
+**NNS / `ks_gue` / `rep_med` certify the marginal gap distribution, not
+the universality class.**  An order-scramble surrogate reproduces
+0.87–1.00 of the quadrant's per-band labels on every real substrate —
+the quadrant is order-blind by construction.  Consequences: ζ is
+*confirmed at class level* and L-function bulk-GUE stands, but pooled
+long-range claims are caveated to marginal-only; the neural per-cell
+"poles" are downgraded to gradients within an intrinsically clustered
+regime; H1's marginal correlation survives in full, but the structural
+reading that selective cells are a distinct level-repulsion class is
+walked back (the OSI-graded clustering was stimulus-driven rate-stepping,
+collapsing to null under an external-rate unfold).  The lasting gain is
+the methodology, not any single verdict — and the open scientific
+question is sharper than before: H1 has a robust marginal correlate but
+no mechanism, and the audit removed the story that would have supplied
+one.  The full per-claim accounting is in `RESULTS.md` §8
+"Reconciliation (2026-06-05)".
+
+**Where this leaves the tool.**  The throughline of the journey is not a
+result but a method.  What survived every phase is a measurement
+discipline: the calibrator zoo and induction-on-noise (does the
+apparatus manufacture this finding from structureless input?), apparatus
+subtraction for dead-time and thinning, the long-range Σ²/Δ₃
+discriminator with its Wigner-renewal decoy (does the verdict certify
+the class or only the marginal?), the external-rate unfold (is the
+structure intrinsic or stimulus-driven?), and the rate-matched /
+rate-stratified / per-window / cross-substrate / cross-engine ladder.
+Each was forced into existence by a finding that did not survive it.
+That toolkit transfers; it is the part of this work most likely to be
+useful elsewhere.
+
+What the tool now needs is **more data**, not more method.  The two
+sharpest open questions are both data-limited.  (i) H1's marginal
+correlate is robust but mechanism-free, and the macaque-vs-mouse /
+anesthetised-vs-awake confounds that block a clean read are only
+breakable with **awake-macaque or anesthetised-mouse V1** recordings
+matched to the existing substrates.  (ii) The p=7 cross-substrate
+temporal-scope asymmetry has the same confound.  More broadly, several
+of the strongest signatures rest on two V1 recordings; the cross-substrate
+neural ports (CA1, IBL, entorhinal, retina) widen the base but each
+arrives on a slightly mismatched selectivity axis.  The next decisive
+step is acquisition — additional substrates that hold one confounding
+variable fixed while flipping another — rather than a new statistic.
+
 ## Disciplines
 
 Eight disciplines now structure what counts as a surviving finding.
@@ -230,11 +388,15 @@ substrate ("operator-IS-substrate").  The fingerprint is extended beyond `ks_gue
 Berry-Robnik ρ), long-range rigidity (Σ² / Δ₃ / K), spectral box-dimension, and dynamical
 (Lyapunov / correlation-dimension) axes — computed where each applies.
 
-About eighteen substrates are charted: the two V1 recordings, Kuramoto, arithmetic
-L-functions (ζ / Dirichlet / elliptic-curve), Mertens / Liouville, Gaussian + Eisenstein
-primes, Maass forms, NANOGrav pulsar timing, the dynamical systems Mackey-Glass / Lorenz /
-logistic, the Sturmian word and the Sturmian / Fibonacci Hamiltonian, and the almost-Mathieu
-(AM) operator.  The run-by-run record and the synthesis are in
+About twenty-five substrates across six families are charted: the two V1 recordings and the
+broader Allen Brain Observatory cell population, additional neural ports (Buzsáki CA1, IBL,
+entorhinal / CA3, retinal ganglion cells), Kuramoto, arithmetic L-functions (ζ / Dirichlet /
+elliptic-curve), Mertens / Liouville, Gaussian + Eisenstein primes, Maass forms, NANOGrav
+pulsar timing, the dynamical systems Mackey-Glass / Lorenz / logistic (and Rössler / Chua /
+Duffing / Hénon), the brocot.fm synthesis corpus, self-organised-criticality calibrators
+(earthquake and solar-flare catalogues), the Sturmian word and the Sturmian / Fibonacci
+Hamiltonian, generalised-Harper / mosaic / Maryland variants, and the almost-Mathieu (AM)
+operator.  The run-by-run record and the synthesis are in
 `cross_substrate/PROGRESS_REPORT.md` and `cross_substrate/findings_log.md`.
 
 These are **exploratory charting results — progress-log, with verdicts adjudicated
@@ -257,6 +419,14 @@ separately; they are not folded into the validated set above.**  The load-bearin
   (2008) strong-coupling constant ln(1+√2) confirmed the 1/ln(λ) *form* but **not the
   constant** — finite-spectrum estimators can verify a form but not an asymptotic constant;
   that needs the trace-map thermodynamic formalism (deferred).
+- **Per-cell fingerprints cohere; population-level observables fragment.**  Across the Allen
+  cell population (8,462 cells × 7 areas), per-cell fingerprints behave as one "visual cortex"
+  substrate and H1 (OSI ↔ `ks_gue`) generalises beyond V1 to all visual areas and LGN.  But
+  three population-level observables of the *same* recordings span the whole class axis —
+  the correlation-matrix eigenspectrum reads GUE-like, avalanche onsets intermediate,
+  synchrony-event times Poisson-like — so aggregation, not biology, sets the class and there
+  is no single "population fingerprint" (`cross_substrate/population_fingerprint.py`).
+  Avalanche near-criticality is orthogonal to per-cell class.
 
 Two method notes this program adds to the disciplines above: (i) an estimator can *look*
 right at moderate scales yet be wrong asymptotically — validate scale/size-convergence and
