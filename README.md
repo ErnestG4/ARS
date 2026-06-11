@@ -71,6 +71,167 @@ and Bost-Connes connections) is not original to this codebase.  ARS
 is an applied implementation; it does not contribute new theoretical
 mathematics.
 
+## The mathematics, concretely
+
+Everything reduces to **spacing statistics of a sequence derived from
+the point process**.  The input is always a sorted list of event times
+`t_k`.  The two engines differ in *which* derived sequence they read
+and *against what reference* they compare it.  (Function names below
+point at `arithmetic_toolkit.py` unless noted, so the math is checkable
+against the source.)
+
+### The arithmetic core — Ramanujan sums
+
+Both engines are indexed by a denominator `q` and built on the
+**Ramanujan sum**
+
+>  c_q(n) = Σ_{a : 1 ≤ a ≤ q, gcd(a,q)=1} exp(2πi · a n / q)
+
+— the sum of the n-th powers of the *primitive* q-th roots of unity.
+It is computed not by summing roots but via **Hölder's identity**
+
+>  c_q(n) = μ(q/d) · φ(q) / φ(q/d),    d = gcd(n, q)
+
+with μ the Möbius function and φ Euler's totient (`ramanujan_sum_array`,
+`mobius`, `euler_phi`).  The c_q(n) are integer-valued and multiplicative
+in q; they are the basis the Planat framework substitutes for the usual
+Fourier characters exp(2πikn).
+
+### The RF engine — "RF" is Ramanujan-Fourier
+
+It decomposes a sequence f(n) onto the Ramanujan sums instead of onto
+complex exponentials:
+
+>  f(n) = Σ_q a_q · c_q(n),    a_q = (1/φ(q)) · ⟨ f(n) · c_q(n) ⟩_n
+
+(the Carmichael–Wintner mean; `ramanujan_fourier`, where the code is
+literally `a[q-1] = mean(f * c_q) / phi(q)`).  The amplitude |a_q|
+measures how much of the signal sits at "denominator q" — i.e. at
+integer period q and the periods that divide into it.  Two input modes:
+
+- **normalized mode** — f(n) = the unit-mean inter-event intervals.
+  Reads spacing-correlation structure; blind to absolute period (it
+  divides it out).
+- **indicator mode** — f(n) = a histogram of events into unit-width
+  integer time bins, f(n) = #{k : ⌊t_k − t_min⌋ = n}.  Reads genuine
+  integer-period structure of the raw times (period-7, period-30, …).
+
+The deployed **p-adic profile `padic_amplitude_v4`** runs the indicator
+mode, then for each prime p sums |a_q| over the *pure prime powers*
+q ∈ {p, p², p³, …} ≤ q_max and normalizes twice — by total RF power and
+by the per-band mean amplitude as an explicit noise floor (the per-band
+form removes the "small primes have more powers ≤ q_max" bias).  A peak
+at p means RF power is concentrated on powers of p — p-adic resonance in
+the event grid.  This is the per-prime, arithmetic-class signal.
+
+### The NNS engine — nearest-neighbour level spacing
+
+"NNS" is the level-spacing statistic of random-matrix theory.
+`joint_q_profile` is the deployed implementation:
+
+1. **Farey-PLL bands.**  Enumerate Farey rationals a/q with q ≤ q_max
+   (both sub- and super-unison, reciprocal-augmented; `farey_rationals`
+   in `pll_bank.py`) and read each as a phase-locked-loop natural
+   frequency f = fc·a/q.  For each, form the **passage times**
+   t_k·f − 1 (keep the positive ones), take their consecutive
+   differences, and normalize those to unit mean.
+2. **Pool by denominator.**  Pool the normalized spacings across all
+   numerators a sharing a denominator q → one "q-band," matching the RF
+   coefficient indexing.
+3. **Classify against the analytic level-spacing laws** by
+   Kolmogorov–Smirnov distance (`universality.py`):
+
+   >  Poisson (uncorrelated):  P(s) = e^{−s}
+   >  GOE / Wigner β=1:        P(s) = (π/2)·s·e^{−πs²/4}
+   >  GUE / Wigner β=2:        P(s) = (32/π²)·s²·e^{−4s²/π}
+
+   giving per-band `ks_gue_q`, `ks_goe_q`, `ks_p_q`, and `mass_lt_0_3`
+   (fraction of spacings below 0.3 — a clustering proxy; GUE → ~0,
+   Poisson → larger).  The headline scalars are **medians over the
+   well-powered q-bands**: `ks_gue_med = median_q ks_gue_q` and
+   `rep_med = median_q rep_int_q`.
+
+The **repulsion integral** `rep_int_q = ∫₀¹ (1 − R₂(r)) dr`
+(`pair_correlation_full`) is the second NNS axis: R₂ is the
+pair-correlation function, so the integral is positive under level
+repulsion, ~0 for Poisson, negative under clustering.  The **quadrant
+diagnostic** (`joint_quadrant_diagnostic`) then places each q-band on a
+(rep_int × RF-spike) plane: BL = Poisson, TR = Wigner-class, BR =
+uniform/saturated, TL = periodic (flagged when |a_q| exceeds 5× the
+median amplitude).
+
+### Why there are two engines — the band-invariance proposition
+
+The NNS pipeline normalizes every passage-spacing set to unit mean, so
+it is **invariant under t → λt** and therefore cannot, on a stationary
+signal, detect prime-base asymmetry (§7.ter.10).  That is the structural
+reason the RF engine exists.  Three p-adic profiles built *inside* the
+NNS pipeline (v1–v3) failed acceptance for exactly this reason; v4
+escapes it by reading the raw integer grid in the RF spectrum.  The two
+engines are formally distinct objects, not two views of one.
+
+### The other summations — the long-range and rate-robust arms
+
+The marginal NNS statistic sees only the gap *histogram*.  Several
+further statistics — fingerprint axes, and in the 2026-06 audit the
+discriminators that *downgraded* the marginal verdicts — read the
+structure NNS cannot:
+
+- **Fano factor** F(T) = Var N(T) / Mean N(T) over non-overlapping
+  windows of length T, multiscale (`fano_curve`).
+- **Number variance** Σ²(L) = Var of counts in sliding length-L windows
+  (`universality.number_variance`; `axes.II1`).  Poisson grows as
+  Σ² = L; GUE as (2/π²)(ln 2πL + γ + 1 − π²/8).  The long-range rigidity
+  test.
+- **Spectral rigidity** Δ₃(L): mean-square deviation of the counting
+  staircase from its best-fit line over length L (`axes.II2_delta3_at_L`).
+- **Spectral form factor** K(t) = (1/N)·|Σ_n e^{2πi t x_n}|²
+  (`spectral_form_factor`).
+- **The marginal-vs-class discriminator.**  The **Wigner-renewal decoy**
+  (`cross_substrate/longrange_discriminator.wigner_renewal`) is a renewal
+  process whose i.i.d. spacings are drawn from the GUE surmise — *identical
+  marginal NNS* to real GUE, but with no long-range correlation (its Σ²
+  grows linearly, not as log L).  NNS cannot tell it from real GUE;
+  Σ²/Δ₃ separate them >20×.  This is the proof that `ks_gue` / `rep_med`
+  certify the marginal gap distribution, not the universality class.
+- **Rate-robust local irregularity — the neuroscience-standard pair.**
+  **CV2** (Holt et al. 1996), mean over adjacent ISIs of
+  2·|Iᵢ − Iᵢ₊₁| / (Iᵢ + Iᵢ₊₁), and **Lv** (Shinomoto et al. 2003), mean
+  of 3·((Iᵢ − Iᵢ₊₁)/(Iᵢ + Iᵢ₊₁))² (`axes.I12_cv2`, `axes.I13_lv`).  Both
+  are parameter-free (Poisson → 1, regular → <1, bursty → >1) and robust
+  to slow rate drift because adjacent ISIs see ~the same rate; added in
+  Phase 37 to dissolve a slow-drift artifact that had inflated the global
+  CV.
+- The cross-substrate landscape adds **Brody q** and **Berry–Robnik ρ**
+  (intermediate-statistics NNS interpolation fits), spectral
+  **box-counting dimension**, and **Lyapunov / correlation-dimension**
+  axes for the dynamical substrates (`axes.py` Families I–V).
+
+### The calibrator zoo
+
+The "zoo" is the panel of known-class generators run *before* any unknown
+signal, so the apparatus's response to known structure is characterized
+first (`calibrator_panel.py`, `extractor_distinctness.STANDARD_CALIBRATORS`,
+`signal_gen.py`):
+
+- **Stationary panel (8 classes):** Poisson; **β-ensemble eigenvalues**
+  — GOE (β=1), GUE (β=2), GSE (β=4) — generated as Dumitriu–Edelman
+  tridiagonal Hermite matrices, semicircle-unfolded and bulk-trimmed
+  (`make_beta_ensemble_eigenvalues`); the first N Riemann ζ zeros;
+  uniform_jitter; periodic_q7 (period 7 + 5% jitter); mixed_q7_q12 (two
+  interleaved periods).
+- **Transition panel (6, Phase 20.5):** blended GUE→Poisson (sharp step),
+  Poisson→GUE (sigmoidal), GUE→TL→GUE (metastable middle), Poisson→TL
+  (linear ramp), and logistic-map events in the chaotic (r = 3.7) and
+  period-4 (r = 3.5) regimes — for non-stationary / transition signals.
+- Additional repulsion references in `signal_gen.py`: Matérn-II
+  **hard-core** (minimum-spacing) processes and **Ginibre-projected**
+  spectra.
+
+A signal's class is read as its position *relative to* this panel — never
+on an absolute threshold the panel has not been shown to separate.  This
+is the operational form of the boundary-readout commitment below.
+
 ## Why this exists
 
 ARS was built on a specific epistemological frame.  The world is taken
