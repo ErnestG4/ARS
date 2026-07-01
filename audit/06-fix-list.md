@@ -143,8 +143,14 @@ via `git checkout`). **Recommend:** commit the deletion; regenerate only *after*
 Reference `run_analytical_nns.py:84`. Copies: `run_phase4.py:52`, `run_phase5.py:53`, `run_lmfdb_family.py:66`,
 `run_lmfdb_postprocess.py:23`, `run_dirichlet_family.py:52`, `run_lmfdb_extend.py:36`, `run_mertens_liouville.py:120`;
 plus `run_fungal_nns.py:119` (a *different* algorithm sharing the name — FIX-22). Guard drifted `5.0<f<SR*0.45` vs
-`f>0.5` (Nyquist cap dropped) vs `>5.0` cap-off. **Fix:** one canonical `analytical_nns` in a module; import everywhere;
-reconcile the guard.
+`f>0.5` (Nyquist cap dropped) vs `>5.0` cap-off. **Fix:** one canonical `analytical_nns` in a module; import everywhere,
+but with a **substrate-parametrized** `(f_lo, f_hi)` — do NOT collapse to the audio `(5.0, SR*0.45)`. Verified directly
+(`verify/tier1`): the arithmetic `fc_ref` is huge (Liouville ≈9.06M), so `(5, 19845)` leaves **0/43 bands** on Liouville
+(28/43 on Mertens) — the audio Nyquist cap zeros the substrate. The `f>0.5`/no-upper-cap form is *required* there.
+**MANDATORY post-implementation check (do NOT skip):** after consolidating, assert **Liouville's admitted bands are
+non-empty** by a DIRECT band-count, not by a group verdict surviving — Katz–Sarnak `best=GUE` is guard-invariant and
+would pass even if the pool were silently zeroed underneath. Reproduce with the direct check in this cycle's transcript
+(`fc_ref=median(signchanges)/100`, count `f_lo < fc_ref·p/q < f_hi`).
 
 ### FIX-5 — ten `unfold_unit_mean`, drifted `JPF_CAP`
 `run_phase20_classification.py:56`, `run_phase20_calibrators.py:71`, `run_phase21_classification.py:59`,
