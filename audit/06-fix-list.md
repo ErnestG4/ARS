@@ -21,6 +21,18 @@ Every actionable defect, with `file:line`, evidence artifact, proposed fix, seve
 
 ---
 
+> ### Empirical verification (overnight run — see `verify/00-summary.md`)
+> Verify-first re-runs on cached inputs settled whether each defect moved a **banked result**. Result: **no banked
+> conclusion is corrupted.** Refinements folded in below:
+> - **FIX-4 → DOWNGRADED.** L-function Katz–Sarnak claims are guard-INVARIANT (best=GUE, gap unchanged, even with the
+>   canonical pool 80% smaller). The `0.5` guard is a *necessary* arithmetic adaptation — canonical's audio Nyquist cap
+>   zeros out Liouville. Fix = consolidate to a **substrate-parametrized** guard; nothing is wrong in the numbers.
+> - **FIX-2/7 → SHARPENED.** On real substrates the long-range **verdict is lens-INVARIANT** (no inversion); the risk is
+>   a **wrong Σ² magnitude** (0.19×–1.61×). Still fix the un-asserted unfold; re-quote any *absolute* Σ² via the guarded lens.
+> - **FIX-3 → CONFIRMED** with numbers (N=100 GUE: ks_gue 0.103 buggy vs 0.068 fixed). Low urgency — the script banks nothing.
+> - **FIX-5 → MATERIAL BUT SMALL.** 3/146 dense phase21 GRB windows flip BL→TR at cap 5000 vs 1500; deployed (1500)
+>   reproduces banked exactly. Fix matters for classifier-vs-calibrator consistency on dense windows.
+
 ## Work the dependency DAG, not the P0→P2 column
 
 The fixes are **not** independent. Order matters, because some fixes are unsafe or meaningless until their prerequisites land:
