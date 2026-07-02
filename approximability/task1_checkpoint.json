@@ -1,0 +1,86 @@
+{
+  "task": "1_pi_depth5",
+  "seed": 20240517,
+  "started": null,
+  "lambdas": [
+    8.0,
+    24.0,
+    32.0
+  ],
+  "steps": [
+    {
+      "cf_frac_pi": [
+        7,
+        15,
+        1,
+        292,
+        1,
+        1
+      ],
+      "convergent_q": [
+        7,
+        106,
+        113,
+        33102,
+        33215
+      ]
+    },
+    {
+      "level_parent": 3,
+      "q_parent": 113,
+      "level_target": 4,
+      "q_target": 33102,
+      "K_depth4": 4.212865930610521,
+      "K_depth5": 9.834191953971725
+    },
+    {
+      "fast_validation": {
+        "max_trace_err": 3.6522717547141936e+159,
+        "fast_matches_direct": false,
+        "action": "fast recursion NOT verified (Sturmian substitution convention; Raymond-1995 un-fetchable this session) \u2192 use DIRECT product via MULTI-LEVEL nested refinement (trusted by construction)"
+      }
+    },
+    {
+      "result_lambda": 8.0,
+      "structural_gate_ALL_PASS": false,
+      "dim_depth5_bandscaling": 1.2187465498457166,
+      "dim_depth5_boxcount": 0.444387684934537,
+      "estimator_agreement<=0.02": false,
+      "dim_depth4_bandscaling": 1.1198793404379754,
+      "dim5_lt_dim4_PREDICTED": false,
+      "dim_in_0_1": false,
+      "dim_times_lnlam": 2.534312204528158,
+      "outside_proven_regime": true,
+      "wall_s": 0.37667059898376465,
+      "BANKED": false
+    },
+    {
+      "result_lambda": 24.0,
+      "structural_gate_ALL_PASS": false,
+      "dim_depth5_bandscaling": 1.058845457954395,
+      "dim_depth5_boxcount": 0.1343866696081564,
+      "estimator_agreement<=0.02": false,
+      "dim_depth4_bandscaling": 1.1198835850402171,
+      "dim5_lt_dim4_PREDICTED": true,
+      "dim_in_0_1": false,
+      "dim_times_lnlam": 3.3650678633984903,
+      "outside_proven_regime": false,
+      "wall_s": 0.24990463256835938,
+      "BANKED": false
+    },
+    {
+      "result_lambda": 32.0,
+      "structural_gate_ALL_PASS": false,
+      "dim_depth5_bandscaling": NaN,
+      "dim_depth5_boxcount": NaN,
+      "estimator_agreement<=0.02": false,
+      "dim_depth4_bandscaling": NaN,
+      "dim5_lt_dim4_PREDICTED": false,
+      "dim_in_0_1": false,
+      "dim_times_lnlam": NaN,
+      "outside_proven_regime": false,
+      "wall_s": 0.03921985626220703,
+      "BANKED": false
+    }
+  ]
+}
