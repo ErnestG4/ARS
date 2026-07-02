@@ -24,7 +24,7 @@ def periodic_edges(V, corner):
     np.fill_diagonal(H,V)
     idx=np.arange(q-1); H[idx,idx+1]=1.0; H[idx+1,idx]=1.0
     H[0,q-1]=corner; H[q-1,0]=corner
-    w=sla.eigvalsh(H, overwrite_a=True, driver='ev')   # low-workspace QR, in-place
+    w=sla.eigvalsh(H, overwrite_a=True, driver='evr')  # MRRR: fast + low-workspace (eigvals only), in-place tridiag
     del H; gc.collect()
     return w
 
@@ -35,11 +35,20 @@ ea=periodic_edges(V, -1.0)
 print(f"[{time.time()-t0:.0f}s] antiperiodic done.", flush=True)
 
 edges=np.sort(np.concatenate([ep,ea]))
-bands=[(edges[2*j],edges[2*j+1]) for j in range(q)]
-nb=len(bands); tw=float(sum(hi-lo for lo,hi in bands)); mw=tw/nb
+np.save("depth4_q33102_edges.npy", edges)             # for later diagnostics/reruns
+widths=edges[1::2]-edges[0::2]                          # band widths (q of them)
+gaps=edges[2::2]-edges[1:-1:2]                          # gap widths (q-1 of them)
+nb=widths.size; tw=float(widths.sum()); mw=tw/nb
 dim=math.log(nb)/math.log(1.0/mw)
+# HONEST resolution caveat: eigenvalue precision ~ eps*||H|| ~ 1e-13*lam. Bands
+# narrower than that are width-unreliable (though they contribute negligibly to tw).
+prec=np.finfo(float).eps*(lam+2.0)
 out=dict(seed=20240517, q=q, p=p, lam=lam, bands=nb, count_eq_q=(nb==q),
          total_width=tw, mean_width=mw, dim=dim, dim_x_lnlam=dim*math.log(lam),
+         width_min=float(widths.min()), width_med=float(np.median(widths)),
+         width_max=float(widths.max()), n_bands_below_prec=int((widths<prec).sum()),
+         eig_prec_est=float(prec), n_closed_gaps=int((gaps<prec).sum()),
+         frac_width_in_narrow=float(widths[widths<1e-8].sum()/tw),
          wall_s=time.time()-t0)
 json.dump(out, open("depth4_q33102_floquet.json","w"), indent=1)
 print("RESULT", json.dumps(out), flush=True)

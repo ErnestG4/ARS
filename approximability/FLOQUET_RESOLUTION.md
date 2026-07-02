@@ -57,6 +57,44 @@ Non-monotone (down then slightly up); the a₃=1 quotient (106→113) barely mov
 single-level band-scaling estimator (scale-dependent) — read the *trajectory*, not any one value as "the dimension"
 (cf. validate-scale-convergence memory). The pre-registered thinning test lives at **depth-4 (q=33102, a₄=292)**.
 
-## Depth-4 (q=33102) — running
-`depth4_q33102_floquet.py` (λ=8, dense `eigvalsh(overwrite_a=True, driver='ev')`, in-place tridiagonalization ~8.8GB
-peak in 13GB, ~19 min/matrix ×2). Tests pre-registration dim(depth-4, incl. 292) < dim(depth-3). Result → `.json`.
+## Depth-4 (q=33102, a₄=292) — DONE. Band-count gate PASSES; pre-registration FALSIFIED.
+`depth4_q33102_floquet.py` (λ=8, dense `eigvalsh(overwrite_a=True, **driver='evr'**)` — MRRR, fast + low-workspace;
+in-place tridiagonalization ~8.8 GB peak in 13 GB; **26.2 min/matrix ×2 = 52.6 min wall**). *(First attempt used
+`driver='ev'` (plain QR) — it saturated all 24 cores at ~1–2 hr/matrix and was killed; `evr` is the right driver for
+all-eigenvalues-only at this size.)* Result → `depth4_q33102_floquet.json`, edges → `depth4_q33102_edges.npy`.
+
+**Methodological win:** `bands == q == 33102`, `count_eq_q = True`. The Floquet eigensolve resolves band-count==q at the
+depth where **every** prior approach hard-stopped. Task 1's structural gate is met at depth-4.
+
+**π spectral-dimension trajectory, λ=8** (`dim = ln q / ln(1/mean_width)`, band-count==q exact at every depth):
+
+| depth | q | bands | total width | mean width | dim | dim·lnλ |
+|------:|---:|---:|---:|---:|---:|---:|
+| 1 | 7 | 7 | 4.924e-01 | 7.035e-02 | 0.7331 | 1.5245 |
+| 2 | 106 | 106 | 6.051e-02 | 5.708e-04 | 0.6244 | 1.2984 |
+| 3 | 113 | 113 | 6.051e-02 | 5.355e-04 | 0.6276 | 1.3051 |
+| 4 | 33102 | 33102 | **7.435e-03** | 2.246e-07 | **0.6798** | 1.4137 |
+
+**Pre-registration FALSIFIED (reported at equal prominence per the constitution).** The registered prediction was
+*dim(depth-4, incl. a₄=292) < dim(depth-3)* — "the big partial quotient thins the spectrum ⇒ lower dimension."
+**dim ROSE, 0.6276 → 0.6798.** The prediction was directionally wrong.
+
+**Why — measure ≠ dimension (the honest resolution):** the spectrum genuinely *is* thinner at depth-4 — total
+bandwidth collapsed **8.1×** (6.05e-02 → 7.44e-03) when the 292 entered. But the *dimension* is a scaling exponent
+(count vs width), not a measure: band count grew 293× while mean width shrank ~2400×, and in log-ratio the count won,
+so `ln q / ln(1/mean_w)` rose. The pre-registration conflated **measure-thinness** (confirmed) with **dimension-drop**
+(false). This is a clean, if humbling, distinction the depth-4 data forced.
+
+**Resolution caveat (honest):** 2035 / 33102 bands (6.1%) are narrower than eigenvalue precision (~2.2e-15), and 2015
+gaps are numerically closed (`width_min = 0.0`). But bands narrower than 1e-8 carry only **0.19%** of total width
+(`frac_width_in_narrow = 0.00186`), so `total_width` / `mean_width` / `dim` are robust; only individual sub-precision
+band *widths* are unreliable (they don't enter the mean-width readout materially). `dim` here is a **single-level
+band-scaling estimator** (scale-dependent) — the DEGT limit would need the depth→∞ trajectory; read this as one more
+trajectory point, not "the dimension of σ(H_π)".
+
+**Robustness (running):** `depth4_lambdas.py` repeats depth-4 at λ=24, 32 to check whether the dim-rise is
+λ-general or a λ=8 artifact → `depth4_q33102_lam{24,32}.json`.
+
+**Net:** Task-1's band-count==q gate is met at depth-4 (the deliverable that was blocked for three sessions); the
+substantive pre-registered *direction* is falsified honestly; the corrected reading (thinner in measure, higher in
+dimension estimate) is the finding.
