@@ -92,9 +92,27 @@ band *widths* are unreliable (they don't enter the mean-width readout materially
 band-scaling estimator** (scale-dependent) — the DEGT limit would need the depth→∞ trajectory; read this as one more
 trajectory point, not "the dimension of σ(H_π)".
 
-**Robustness (running):** `depth4_lambdas.py` repeats depth-4 at λ=24, 32 to check whether the dim-rise is
-λ-general or a λ=8 artifact → `depth4_q33102_lam{24,32}.json`.
+**Robustness across λ (DONE, `depth4_lambdas.py` → `depth4_q33102_lam{24,32}.json`, ~53 min/λ):** the dim-rise is
+**λ-general — not a λ=8 artifact.** All three couplings rise depth-3 → depth-4 while thinning in measure:
 
-**Net:** Task-1's band-count==q gate is met at depth-4 (the deliverable that was blocked for three sessions); the
-substantive pre-registered *direction* is falsified honestly; the corrected reading (thinner in measure, higher in
-dimension estimate) is the finding.
+| λ | dim(depth-3) | dim(depth-4) | rose? | total-width thinning (d3/d4) | frac. width in bands <1e-8 | # bands < eig-prec |
+|---:|---:|---:|:---:|---:|---:|---:|
+| 8  | 0.6276 | **0.6798** | ✅ | 8.1× | 0.2% | 2035 |
+| 24 | 0.4873 | **0.5607** | ✅ | 24.0× | 17.8% | 2204 |
+| 32 | 0.4601 | **0.5359** | ✅ | 32.0× | 41.7% | 3857 |
+
+Two things fall out:
+- **Bonus regularity:** the depth-3→depth-4 total-bandwidth thinning factor is **≈ λ** (8.1×, 24.0×, 32.0× — the
+  last two essentially exact). Total spectral measure scales `∝ 1/λ` across the a₄=292 refinement — a clean Thouless-
+  type band-width law worth a dedicated look, not pursued here.
+- **Resolution caveat WIDENS with λ (honest):** at strong coupling the spectrum is so thin that a large fraction of
+  the total width sits in sub-1e-8 bands (0.2% → 17.8% → 41.7%), and 6–12% of bands fall below eigenvalue precision
+  (~ε·λ). Those below-precision bands still carry negligible *width* (≈1e-11 vs totals ≥1e-4), so the **direction** of
+  the dim-rise is robust at every λ; but the **absolute** dim at λ=24/32 should be read with a widening error bar —
+  their trajectory values are softer than λ=8's. The falsification (dimension rises, does not fall) does not depend on
+  this margin.
+
+**Net:** Task-1's band-count==q gate is met at depth-4 across λ∈{8,24,32} (the deliverable blocked for three sessions);
+the pre-registered *direction* is falsified honestly and λ-robustly; the corrected reading — **thinner in measure
+(∝1/λ), higher in dimension estimate** — is the finding. `dim` remains a single-level band-scaling estimator; the DEGT
+limit is the depth→∞ trajectory, of which this is one (now-reachable) point.
