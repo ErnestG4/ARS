@@ -61,7 +61,14 @@ def potential(p, q, lam):
     # EXACT integer arithmetic: site n carries λ iff {n p/q} ∈ [1-p/q, 1) ⟺ (n p mod q) >= q-p.
     # (float `frac >= 1-p/q` drops the boundary site to rounding — collapses every approximant to the free
     #  Laplacian; this was the root cause of the prior Task-1 band-count failures.)
-    return lam * (((np.arange(q) * p) % q) >= (q - p)).astype(np.float64)
+    V = lam * (((np.arange(q) * p) % q) >= (q - p)).astype(np.float64)
+    # POTENTIAL-LAYER GATE (integer invariant, no tolerance): a Sturmian potential
+    # at approximant p/q has EXACTLY p impurity sites per period. The free-Laplacian
+    # collapse (V all-zero) would read 0; this one-line assert catches a dead operator
+    # at t=0. Sibling of the p'q-pq'=1 Farey gate. π−3 ladder: p = 1,15,16,4687.
+    n_imp = int(round(float(V.sum()) / lam))
+    assert n_imp == p, f"impurity count {n_imp} != p={p} — POTENTIAL-LAYER GATE FAIL (dead/wrong operator)"
+    return V
 
 
 def disc_direct(E, p, q, lam):
