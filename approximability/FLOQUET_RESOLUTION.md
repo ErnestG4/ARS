@@ -116,3 +116,19 @@ Two things fall out:
 the pre-registered *direction* is falsified honestly and λ-robustly; the corrected reading — **thinner in measure
 (∝1/λ), higher in dimension estimate** — is the finding. `dim` remains a single-level band-scaling estimator; the DEGT
 limit is the depth→∞ trajectory, of which this is one (now-reachable) point.
+
+## Depth-5 (q=33215, a₅=1) — Thread-1 prediction CONFIRMED (2026-07-02)
+`depth5_q33215_floquet.py` → `.json` (λ=8, Floquet `evr`, 53 min). **Not a blind grind — Thread-1's older-block-fraction
+law made this a pre-registered test.** a₅=1 has older-block fraction q₃/q₅ = 113/33215 = **0.34%** (20× smaller than
+a₃'s 6.2%), so the law predicts: total bandwidth **preserved**, dimension **barely moves** from depth-4's 0.6798.
+
+| depth | q | aₖ | dim | W_k / W_{k-1} |
+|------:|---:|---:|---:|---:|
+| 4 | 33102 | 292 | 0.6798 | (thins 8.1×) |
+| 5 | 33215 | **1** | **0.6799** | **1.0000335 (preserved)** |
+
+Band-count gate passes (33215/33215). **W₅/W₄ = 1.0000335** (preserved to 3e-5; the 113 newcomer bands carry ~2.5e-7,
+small but — unlike a₃'s 7 machine-narrow newcomers @2e-13 — not machine-zero). **dim 0.6798 → 0.6799** (+0.0001). Second
+a=1 data point confirms the effect **shrinks with older-block fraction**: a₃ (6.2%) → Δdim +0.003; a₅ (0.34%) → Δdim
++0.0001 (~30× smaller, tracking the ~18× smaller fraction). π λ=8 dim trajectory depths 1–5: **0.7331, 0.6244, 0.6276,
+0.6798, 0.6799** — a=1 steps barely register, big-quotient steps (a₂=15↓, a₄=292↑) do the work. Task-1 arc closed.
