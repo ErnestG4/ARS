@@ -1,0 +1,26 @@
+{
+ "golden": {
+  "digit": 1,
+  "per_step_factor_lam8": 2.5075,
+  "factor_over_lam": 0.3134,
+  "q_growth_beta": 1.618,
+  "older_block_frac_qkm2_qk": 0.382,
+  "bandwidth_power_gamma_lam8": 1.9104
+ },
+ "silver": {
+  "digit": 2,
+  "per_step_factor_lam8": 5.1017,
+  "factor_over_lam": 0.6377,
+  "q_growth_beta": 2.4142,
+  "older_block_frac_qkm2_qk": 0.1716,
+  "bandwidth_power_gamma_lam8": 1.8489
+ },
+ "bronze": {
+  "digit": 3,
+  "per_step_factor_lam8": 7.3468,
+  "factor_over_lam": 0.9184,
+  "q_growth_beta": 3.3028,
+  "older_block_frac_qkm2_qk": 0.0917,
+  "bandwidth_power_gamma_lam8": 1.6692
+ }
+}

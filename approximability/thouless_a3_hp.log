@@ -1,0 +1,24 @@
+lam=8  (146s)
+  W2(q=106) = 0.06050808028896192650592
+  W3(q=113) = 0.06050808028888501146079
+  W3/W2     = 0.9999999999987288467135
+  deficit 1-W3/W2 = 1.2711533e-12   (sign>0 => W shrank; <0 => grew)
+lam=24  (120s)
+  W2(q=106) = 0.006918942099242884655878
+  W3(q=113) = 0.006918942099242884648504
+  W3/W2     = 0.9999999999999999989343
+  deficit 1-W3/W2 = 1.0656578e-18   (sign>0 => W shrank; <0 => grew)
+lam=32  (124s)
+  W2(q=106) = 0.003898164662671215776695
+  W3(q=113) = 0.003898164662671215776594
+  W3/W2     = 0.9999999999999999999741
+  deficit 1-W3/W2 = 2.5880681e-20   (sign>0 => W shrank; <0 => grew)
+
+older-block fraction q0/q2 = 7/113 = 0.06195
+if deficit ~ frac^p:  p = log|deficit|/log(frac)
+  lam=8: |deficit|=1.27115e-12  -> implied p=9.8477
+  lam=24: |deficit|=1.06566e-18  -> implied p=14.878
+  lam=32: |deficit|=2.58807e-20  -> implied p=16.215
+
+(one a=1 step in pi => single deficit per lam; the p-exponent proper comes from golden's many a=1 steps)
+HP_DONE

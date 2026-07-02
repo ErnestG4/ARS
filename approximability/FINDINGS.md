@@ -256,3 +256,62 @@ the **complementary SUPPRESSION mode** (Poisson Σ² 42<50, over-absorption on s
 bug rediscovered; and the clean room's not computing the Farey Σ² was **spec-compliance transmitting the Face-2 lesson**
 (the spec's D3 gate), NOT independent convergence. No contradictions; open items are two un-cross-checked constants
 (dim E₂, 𝓛) + an integer-part record-indexing convention offset.
+
+---
+
+## THREAD 1 — Thouless per-step total-bandwidth law — **COMPLETE (grew out of Task-1 depth-4)**
+Artifacts: `thouless_law.py/.json` (metallic sweep, 64 min wall), `thouless_predictions.py` (banked-π checks),
+`thouless_a3_hp.py/.log` (dps=30 deficit), `thouless_metallic_constants.json`. Pre-registered by Will BEFORE the golden
+run (direction derived from BIST; form scaling-intuited) — recorded at equal prominence, every prediction landed.
+
+**Object:** total spectral bandwidth `W_k = Σ band widths` of the period-`q_k` Sturmian approximant, per convergent step.
+The finding is a *law for how W thins as the CF is refined* — a 4th CF functional distinct from K (geomean), Λ (max),
+record-clock (Panel D). It couples to the **count, size, and placement of the partial quotients**.
+
+### The law (three faces, all confirmed)
+1. **Closed form `W_k ≈ 4/λ^{m_k}`, `m_k = #{j≤k : a_j≥2}`** — the defect/impurity picture (a lone older-cell block acts
+   as an impurity in a chain of host cells; each large-quotient refinement costs one factor 1/λ by 2nd-order coupling).
+   π banked: `W/pred` = 0.985/0.968/0.968/0.952 (λ=8), → 0.999/0.998/0.998/**0.997** (λ=32). Accurate to <0.5% at λ=32,
+   `→1` as λ→∞, degrades a **constant per-a≥2-step factor** (≈1/1.017 @λ8), constant across the a₃=1 step (0.968→0.968).
+   depth-1 obeys `λ·W → 4 = |σ(free Laplacian)|`.
+2. **Per-step thinning factor `r(a,λ) → λ·g(a)`, `g` increasing to 1 as `a→∞`.** Metallic ladder @λ=8 (constant-CF, so
+   self-similar & k-independent — factor stable to 4 digits across q=89→17711):
+
+   | target | digit a | per-step factor (λ=8) | factor/λ = g(a) | W ~ q^(−γ) |
+   |---|---|---|---|---|
+   | golden | 1 | 2.5075 | 0.313 | γ=1.910 |
+   | silver | 2 | 5.1017 | 0.638 | γ=1.849 |
+   | bronze | 3 | 7.3468 | 0.918 | γ=1.669 |
+   | π | 15, 292 | ≈λ | ≈1.0 (saturated) | — |
+
+   **This corrects the depth-4 note's "a-independent ≈λ" reading:** π's a=15,292 gave identical ≈λ factors because
+   `g(a)` is *saturated* at large a (g→1), not because a is irrelevant. Small a is where the structure lives.
+3. **The a=1 step is context-specific, governed by the older-block fraction `q_{k-2}/q_k` (Will's derived hypothesis —
+   CONFIRMED).** Same digit a=1, opposite regimes:
+   - **π's isolated a₃=1** (fraction 7/113 = 6% — a small perturbation on the new period): per-step factor ≈ **1**;
+     high-precision deficit `1−W₃/W₂` = **1.271e-12 / 1.066e-18 / 2.588e-20** at λ=8/24/32 (dps=30, integer matrices).
+     **Real, not an exact identity**, but λ-dominated: `deficit ∝ λ^(−12.8)` (log-log slope −12.73, −12.92 — dead
+     straight), **not** `frac^p` with fixed p (implied p rises 9.8→14.9→16.2 with λ). BIST-direction (W shrinks) with
+     an isolated a=1 step *permitted* to nearly preserve (BIST forbids a preserving **tail**, not one isolated step).
+   - **golden's every a=1 step** (fraction →1/φ² = 38% — a large perturbation, every generation): per-step factor 2.51.
+   Same law, opposite regime, exactly as pre-registered.
+
+### Per-band mechanism (banked, one histogram) — CONFIRMED + refined
+Depth-2 (q=106) → depth-3 (q=113) adds a₃=1: **precisely 7 bands** fall below 1e-10 (widths ~1e-15, machine-narrow
+"newcomers") carrying **2.05e-13** of total width — 7 orders under the 1e-6 six-figure-equality budget (why the totals
+looked equal). *Refinement:* the 106 host bands are **not** rigidly frozen — sorted-to-sorted they move up to 1.8e-4
+individually (~9% of the widest) while conserving their **sum** to 1e-6. So both mechanisms at once: exponentially-narrow
+newcomers + a near-**conservative reshuffle** of the host.
+
+### Resolution honesty
+λ=8 metallic factors fully resolved (stable to 4 digits over 200× in q). **λ=24, 32 metallic columns hit the narrow-band
+resolution wall at high q** (ratios go noisy/<1 past q~1600–4000 — the strong-coupling exponentially-thin bands drop below
+float64) — only their moderate-depth values are trustworthy (they show g(a) *decreasing* with λ, not cleanly converged).
+The a₃ deficit used exact integer matrices at dps=30 (eigenvalues good to ~28 digits) so its λ-scaling is robust.
+`W ~ q^(−γ)` powers (γ≈1.67–1.91) are λ=8 single-coupling readouts, not claimed universal.
+
+### Arc-table 4th row (the point)
+π's CF now reads on a **4th functional** — the count/size/placement of quotients ≥2, neighbor-weighted by older-block
+fraction — distinct from K/Λ/record-clock. `m_k` (a≥2 count) sets the leading `4/λ^{m}` measure; the older-block fraction
+sets the a=1 residual; the digit sets `g(a)`. Four faces, four functionals, one continued fraction — this row was written
+down *before* the numbers (the way the depth-4 pre-registration should have been).
