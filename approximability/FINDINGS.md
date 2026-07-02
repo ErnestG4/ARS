@@ -210,7 +210,52 @@ magnitudes struck (post-hoc gate retune); banked Face-2 object = the threshold-i
 - Geisel, Ketzmerick, Petschel — *New class of level statistics in quantum systems with unbounded diffusion*, Phys. Rev. Lett. 66 (1991); fractal-spectrum power-law level spacings s^{−β}, 1<β<2. (Face-1 theorem-backing.)
 - Boca, Cobeli, Zaharescu / Augustin–BCZ — Farey-gap limiting distribution (Face-2 smooth-density basis).
 
-## Panel C — Turtle path / tessellation / V7 triangle — *not started*
+## Panel C — Turtle path / tessellation / V7 triangle — **COMPLETE (Thread-1 Floquet enabled the clean C)**
+Artifacts: `panel_C.py/.json` (clean Floquet C, n=16 ladder), `panel_C_designed.py/.json` (arrangement-matched
+families), `panel_C_noise.py/.json` (rotation-replicate noise calibration), `panel_C_threeways.png`.
+**Spec note:** §6.2's exact wording was conversational (not on disk; RECON.md is the only trace: "re-draws V7's
+polyline three ways"). Reconstructed as: *which functional controls the DEGT dimension C* — Λ (approximability),
+K (Panel A's liminf-geomean / Liu–Wen), or digit-content (Thread-1)? V7 producer pinned = `gold_silver_ladder.py`
+(C-vs-Λ over the gold→silver Markov ladder). "Three ways" resolves two-fold: three candidate x-axes, and — the
+decisive reading — three **arrangements** of the same digits.
+
+### Clean-C fix (Thread-1 leverage)
+The banked ladder C (2026-05-25) ran `dim_growth` over **Fibonacci** q-targets, which don't align with non-golden
+members' convergents → few levels → noisy C (n=8 mixed ladder: C⊥K, C~Λ ρ=0.52 *not significant*). Panel C reruns
+each member over **its own** convergent ladder via exact **Floquet** band widths (validated: reproduces the banked
+per-λ dims exactly; golden→DEGT). λ∈{2,4,8,16,32}; C = intercept of dim·lnλ vs 1/lnλ.
+
+### Three-ways on the n=16 landscape — a confounded soup
+| axis | Spearman ρ | p |
+|---|---|---|
+| Λ (Lagrange) | **+0.526** | 0.036 |
+| meandig | +0.474 | 0.064 |
+| K (liminf-geomean) | +0.465 | 0.070 |
+| maxdig | +0.468 | 0.068 |
+
+C rises with **all** digit-size functionals (~0.5), Λ marginally strongest and the only one significant — but the
+candidate axes **co-vary** (all increase with digit size), so the raw correlation cannot separate them.
+
+### The decisive test — arrangement-matched families (`decompose_confound_with_designed_instance`)
+Hold the digit **multiset** fixed (→ K, meandig, maxdig, mdens ALL identical) and vary only the **arrangement**
+(→ only Λ / the actual spectrum change). Ground-truthed against a known zero: cyclic rotations of a periodic CF are
+the same operator up to translation ⇒ identical C; their measured C-spread **calibrates the estimator noise**
+(`synthetic_validate_fitters`): sd ≈ **0.0165** (period-length dependent), so C-gaps > 0.033 are real.
+
+1. **C is NOT a digit-statistic.** At fixed K, C varies *between* arrangements above noise in 5 of 6 families
+   (S/N = 1.3, 1.8, 2.1, 2.1, 9.5; the exception `{1,1,1,2,2}` S/N=0.09 has arrangements that barely move Λ). Sharpens
+   Panel A: **K alone does not determine C.**
+2. **Among fixed-K arrangements, C tracks Λ strongly.** Richest family `{1,1,2,2,3,3}` (16 necklaces, K fixed):
+   pearson(Λ,C) = **+0.80**. Pooled large-Λ-gap pairs (|ΔΛ|>0.3): **48/49 sign-agreement (98%)**, pearson +0.58.
+
+### Verdict (plain)
+**The functional that controls C is Λ (Lagrange / approximability), decisively — proven by breaking the digit-statistic
+confound.** The n=16 correlation soup (all ~0.5) was Λ/K/digit co-variation; the arrangement-matched design holds every
+digit-statistic fixed and Λ still wins (within-family pearson up to +1.0). This **validates the original V7 (C-vs-Λ)
+axis** and **reconciles with Panel A**: Panel A's K is the metallic order-parameter only because for constant-CF metallics
+Λ and K co-order; K is a digit-statistic, and Panel C shows the arrangement-sensitive Λ is what C actually reads.
+Honest scope: verdict holds for C-gaps above the 0.033 (2σ) rotation-replicate noise floor; fine arrangement effects are
+below it. Turtle-path/tessellation face (`panel_C_threeways.png`, RL words R^a₁L^a₂…) is illustrative, not load-bearing.
 
 ## Panel D — Record / exceedance process — **COMPLETE (zero tool-risk; every pre-registration landed)**
 Artifacts: `panel_D_records.py/.json`. Order statistics on CF quotients directly — **no unfold, no smoothness gate,
