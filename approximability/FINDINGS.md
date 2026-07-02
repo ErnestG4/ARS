@@ -360,3 +360,25 @@ The a₃ deficit used exact integer matrices at dps=30 (eigenvalues good to ~28 
 fraction — distinct from K/Λ/record-clock. `m_k` (a≥2 count) sets the leading `4/λ^{m}` measure; the older-block fraction
 sets the a=1 residual; the digit sets `g(a)`. Four faces, four functionals, one continued fraction — this row was written
 down *before* the numbers (the way the depth-4 pre-registration should have been).
+
+---
+
+## THREAD 3 — the two un-cross-checked constants (DOUBLING_BACK open items) — **CLOSED, independent methods**
+Artifacts: `thread3_constants.py/.log`. The doubling-back ledger left two constants corroborated only by ARS's own
+computation. Both now cross-checked by a *methodologically independent* route (verify-before-encode).
+
+- **`dim E₂` (Hausdorff dim of CF-digits-∈{1,2}) — CLOSED to 20+ digits.** ARS used a Chebyshev–Nyström transfer
+  operator (7 digits). Independent method here: the **periodic-orbit dynamical determinant** (Ruelle–Fredholm cycle
+  expansion over the 2ⁿ words in {1,2}ⁿ; fixed-point multipliers from the CF period-matrix eigenvalues). Textbook
+  super-exponential convergence to the published Jenkinson–Pollicott value `0.531280506277205141624…`: N=8 matches to
+  **3e-17**, N≥10 to ~1e-22 (dps-limited). ARS's `0.5312805` confirmed. *A different method, not a re-run.*
+- **`𝓛` (Lévy constant) — CLOSED.** Quadratic 𝓛 = (1/period)·log(dominant eigenvalue of the CF period matrix), verified
+  exact: **𝓛(gold)=0.48121182506=log φ**, **𝓛(silver)=0.88137358702=log(1+√2)**, **𝓛(bronze)=1.19476321729=
+  log((3+√13)/2)**. (Note 𝓛(silver) = the DEGT golden target ln(1+√2) — the Panel-A "coincidence" is exactly this
+  Lévy-constant identity.) The a.e. **Lévy–Khinchin constant π²/(12 ln2)=1.1865691** confirmed by high-precision MC
+  (float64 x fails past ~60 CF terms — corrected to dps=160): means rise 1.1593→1.1710→1.1775 at n=50→100→150 with the
+  known O(1/n) finite-n bias; Richardson(100,150) → **1.190**, consistent.
+
+**Ledger update:** the cross-panel-synthesis open items "two un-cross-checked constants (dim E₂, 𝓛)" are now closed; the
+remaining DOUBLING_BACK open item is only the integer-part record-indexing **convention** offset (Panel D), which is
+cosmetic (both conventions defensible).

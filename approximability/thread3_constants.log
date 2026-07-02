@@ -1,0 +1,25 @@
+building periodic-orbit multipliers up to length 14 ...
+published Jenkinson-Pollicott dim E_2 = 0.53128050627720514162
+ARS (Chebyshev-Nystrom) value          = 0.5312805
+  N= 6: dim E_2 = 0.531280506409101149   (Δ vs published = 1.32e-10)
+  N= 8: dim E_2 = 0.531280506277205109   (Δ vs published = -3.22e-17)
+  N=10: dim E_2 = 0.531280506277205142   (Δ vs published = -1.8e-22)
+  N=12: dim E_2 = 0.531280506277205142   (Δ vs published = -1.8e-22)
+  N=14: dim E_2 = 0.531280506277205142   (Δ vs published = -1.8e-22)
+
+(2) Levy constant L = (1/period) log(dominant eigenvalue of CF period matrix):
+  gold [1]     L = 0.48121182506   (closed form log phi)
+  silver [2]   L = 0.88137358702   (closed form log(1+sqrt2))
+  bronze [3]   L = 1.19476321729   (closed form log((3+sqrt13)/2))
+    check log phi           = 0.48121182506
+    check log(1+sqrt2)      = 0.88137358702
+    check log((3+sqrt13)/2) = 1.19476321729
+
+   a.e. Levy-Khinchin constant  pi^2/(12 ln2):
+     closed form = 1.18656911042
+     MC n= 50 (3000 draws, dps160): mean = 1.1560688 ± 0.0024  z vs LK = -12.9  (rises toward LK: finite-n O(1/n) bias)
+     MC n=100 (3000 draws, dps160): mean = 1.1744791 ± 0.0017  z vs LK = -7.2  (rises toward LK: finite-n O(1/n) bias)
+     MC n=150 (3000 draws, dps160): mean = 1.1773267 ± 0.0014  z vs LK = -6.73  (rises toward LK: finite-n O(1/n) bias)
+     Richardson(n=100,150) -> v_inf = 1.1830219  (vs LK 1.1865691) — a.e. constant confirmed
+
+THREAD3_DONE
