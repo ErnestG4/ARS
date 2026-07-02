@@ -1,0 +1,139 @@
+{
+ "seed": 20240517,
+ "sections": {
+  "partI_M2000": {
+   "wall_s": 3120.0519914627075,
+   "M": 2000,
+   "gue_sigma2_L50": 0.74269396775,
+   "gue_se": 0.001297560568080443,
+   "gue_closed_form": 0.7423920391307978,
+   "gue_hard_pass": true,
+   "poisson_sigma2_L50": 48.13691877824999,
+   "n_rows": 597,
+   "note": "L=50 SE shrinks ~sqrt(10) vs M=200; hard-pass expected"
+  },
+  "exceedance_reresolve": {
+   "wall_s": 12.3651704788208,
+   "N": 100000,
+   "m": 10,
+   "realizations": 10000,
+   "theory": 12553.088208385881,
+   "sample_mean": 13748.6743,
+   "se": 1.0958138171929575,
+   "sigma": 1091.0485639583728,
+   "verdict": "PERSISTS>3sigma_GENUINE_BIAS_ESCALATE",
+   "note": "prior 3.5\u03c3 at 1000 realizations; 10\u00d7 data expected to regress",
+   "SUPERSEDED": "off-by-one gk_tail in driver (P(a>=m+1)); see exceedance_reresolve_CORRECTED"
+  },
+  "d1_lambda_ext": {
+   "ERROR": "unsupported operand type(s) for -: 'float' and 'tuple'",
+   "SUPERSEDED": "box_count_dimension returns 3-tuple; driver took whole tuple. see d1_lambda_ext_FIXED"
+  },
+  "task2_pi_trajectory": {
+   "wall_s": 1679.1830098628998,
+   "two_precision_agreed_depth": 51812,
+   "khinchin_K0": 2.6854520010653062,
+   "pi": {
+    "100": {
+     "geomean": 2.6831468214976386,
+     "max_over_N": 2.92,
+     "exceed_m10": 14,
+     "exceed_m292": 1,
+     "n_records": 3,
+     "inside_orbit_band": true
+    },
+    "1000": {
+     "geomean": 2.662698648404724,
+     "max_over_N": 20.776,
+     "exceed_m10": 140,
+     "exceed_m292": 4,
+     "n_records": 5,
+     "inside_orbit_band": true
+    },
+    "10000": {
+     "geomean": 2.663196047217608,
+     "max_over_N": 2.0776,
+     "exceed_m10": 1365,
+     "exceed_m292": 43,
+     "n_records": 5,
+     "inside_orbit_band": true
+    },
+    "100000": {
+     "blocked": "two-precision agreed only to depth 51812"
+    }
+   },
+   "orbit_bands": {
+    "100": {
+     "orbit_q05": 2.256741086977496,
+     "orbit_q95": 3.2491693161822837,
+     "orbit_mean": 2.7066807976675356
+    },
+    "1000": {
+     "orbit_q05": 2.540147741035041,
+     "orbit_q95": 2.849229019357368,
+     "orbit_mean": 2.6865849531993953
+    },
+    "10000": {
+     "orbit_q05": 2.6359274115695546,
+     "orbit_q95": 2.735602477843033,
+     "orbit_mean": 2.6858950445307226
+    },
+    "100000": {
+     "orbit_q05": 2.6719348990257763,
+     "orbit_q95": 2.699983909923544,
+     "orbit_mean": 2.6863012310195513
+    }
+   },
+   "exact_controls": {
+    "e_geomean_div": "K=\u221e (spine)",
+    "sqrt2_geomean": 2.0,
+    "golden_geomean": 1.0
+   }
+  },
+  "exceedance_reresolve_CORRECTED": {
+   "wall_s": 15.616872310638428,
+   "N": 100000,
+   "m": 10,
+   "realizations": 10000,
+   "theory_frozen": 13750.352374993501,
+   "sample_mean": 13748.6743,
+   "se": 1.0958138171929575,
+   "z": -1.5313504604268677,
+   "verdict": "regressed_to_theory_NO_BIAS",
+   "note": "prior 'escalate' was a driver off-by-one gk_tail (P(a>=m+1)); frozen baseline P(a>=m)=13750.35"
+  },
+  "d1_lambda_ext_FIXED": {
+   "wall_s": 0.4134862422943115,
+   "per_lambda": {
+    "128.0": {
+     "max_valid_level": 10,
+     "dim_band_scaling": 0.1825687841883796,
+     "dim_box": 0.19245386364947573,
+     "dim_times_lnlam": 0.885829266129027,
+     "agree_0p02": true
+    },
+    "256.0": {
+     "max_valid_level": 5,
+     "dim_band_scaling": 0.15755670775462494,
+     "dim_box": 0.16924128790064105,
+     "dim_times_lnlam": 0.8736799020674043,
+     "agree_0p02": true
+    }
+   },
+   "DEGT": 0.8813735870195429,
+   "dim_lnlam_64_128_256": [
+    0.8719990162733903,
+    0.885829266129027,
+    0.8736799020674043
+   ],
+   "dist_to_DEGT": [
+    0.009374570746152666,
+    0.004455679109484079,
+    0.007693684952138624
+   ],
+   "non_increasing": false
+  }
+ },
+ "done": true,
+ "total_wall_s": null
+}

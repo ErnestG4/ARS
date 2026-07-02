@@ -58,8 +58,10 @@ def convergents(a):
 
 # ---- transfer-matrix discriminant, period-q approximant p/q ----
 def potential(p, q, lam):
-    frac = (np.arange(q) * (p / q)) % 1.0
-    return lam * (frac >= 1.0 - p / q).astype(np.float64)
+    # EXACT integer arithmetic: site n carries λ iff {n p/q} ∈ [1-p/q, 1) ⟺ (n p mod q) >= q-p.
+    # (float `frac >= 1-p/q` drops the boundary site to rounding — collapses every approximant to the free
+    #  Laplacian; this was the root cause of the prior Task-1 band-count failures.)
+    return lam * (((np.arange(q) * p) % q) >= (q - p)).astype(np.float64)
 
 
 def disc_direct(E, p, q, lam):
@@ -149,13 +151,16 @@ if __name__ == "__main__":
             else: out.append([lo, hi])
         return [(a, b) for a, b in out]
 
-    def nested_bands(lam, up_to, base_grid=500000, region_pts=1200):
-        """Multi-level nested refinement: σ_k ⊂ σ_{k-1} ∪ σ_{k-2}. Returns {level: bands}."""
-        by = {0: [(-2.5, lam + 2.5)]}
-        p1, q1 = levels_pq[0]
-        E = np.linspace(-2.5, lam + 2.5, base_grid)
-        by[1] = bands_from_grid(E, disc_direct(E, p1, q1, lam))
-        for L in range(2, up_to + 1):
+    def nested_bands(lam, up_to, base_grid=4000000, region_pts=8000):
+        """First TWO levels via fine uniform grid (σ_0=whole-line is useless as a nesting parent); then nest
+        σ_k ⊂ σ_{k-1} ∪ σ_{k-2} for L>=3. Returns {level: bands}."""
+        by = {}
+        for L in (1, 2):
+            if L > up_to: break
+            pL, qL = levels_pq[L - 1]
+            E = np.linspace(-2.5, lam + 2.5, base_grid)
+            by[L] = bands_from_grid(E, disc_direct(E, pL, qL, lam))
+        for L in range(3, up_to + 1):
             pL, qL = levels_pq[L - 1]
             regions = _merge(by[L - 1] + by[L - 2])
             nb = []

@@ -35,7 +35,7 @@
     },
     {
       "fast_validation": {
-        "max_trace_err": 3.6522717547141936e+159,
+        "max_trace_err": 1.7797993576862344e+163,
         "fast_matches_direct": false,
         "action": "fast recursion NOT verified (Sturmian substitution convention; Raymond-1995 un-fetchable this session) \u2192 use DIRECT product via MULTI-LEVEL nested refinement (trusted by construction)"
       }
@@ -43,43 +43,43 @@
     {
       "result_lambda": 8.0,
       "structural_gate_ALL_PASS": false,
-      "dim_depth5_bandscaling": 1.2187465498457166,
-      "dim_depth5_boxcount": 0.444387684934537,
+      "dim_depth5_bandscaling": 0.7251677844452674,
+      "dim_depth5_boxcount": 0.49221186034077663,
       "estimator_agreement<=0.02": false,
-      "dim_depth4_bandscaling": 1.1198793404379754,
+      "dim_depth4_bandscaling": 0.635768024372932,
       "dim5_lt_dim4_PREDICTED": false,
-      "dim_in_0_1": false,
-      "dim_times_lnlam": 2.534312204528158,
+      "dim_in_0_1": true,
+      "dim_times_lnlam": 1.5079440156634176,
       "outside_proven_regime": true,
-      "wall_s": 0.37667059898376465,
+      "wall_s": 71.32329320907593,
       "BANKED": false
     },
     {
       "result_lambda": 24.0,
       "structural_gate_ALL_PASS": false,
-      "dim_depth5_bandscaling": 1.058845457954395,
-      "dim_depth5_boxcount": 0.1343866696081564,
+      "dim_depth5_bandscaling": 0.6209520644585109,
+      "dim_depth5_boxcount": 0.3910096356464716,
       "estimator_agreement<=0.02": false,
-      "dim_depth4_bandscaling": 1.1198835850402171,
-      "dim5_lt_dim4_PREDICTED": true,
-      "dim_in_0_1": false,
-      "dim_times_lnlam": 3.3650678633984903,
+      "dim_depth4_bandscaling": 0.5058989046162359,
+      "dim5_lt_dim4_PREDICTED": false,
+      "dim_in_0_1": true,
+      "dim_times_lnlam": 1.9734190869148351,
       "outside_proven_regime": false,
-      "wall_s": 0.24990463256835938,
+      "wall_s": 78.35913014411926,
       "BANKED": false
     },
     {
       "result_lambda": 32.0,
       "structural_gate_ALL_PASS": false,
-      "dim_depth5_bandscaling": NaN,
-      "dim_depth5_boxcount": NaN,
+      "dim_depth5_bandscaling": 0.6020854460713111,
+      "dim_depth5_boxcount": 0.37643076521852703,
       "estimator_agreement<=0.02": false,
-      "dim_depth4_bandscaling": NaN,
+      "dim_depth4_bandscaling": 0.48000448676533686,
       "dim5_lt_dim4_PREDICTED": false,
-      "dim_in_0_1": false,
-      "dim_times_lnlam": NaN,
+      "dim_in_0_1": true,
+      "dim_times_lnlam": 2.0866691470025316,
       "outside_proven_regime": false,
-      "wall_s": 0.03921985626220703,
+      "wall_s": 74.73724818229675,
       "BANKED": false
     }
   ]

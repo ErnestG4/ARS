@@ -97,10 +97,13 @@ Predictions computed FIRST from α + aperture only (Stern–Brocot minimal-denom
 - This `MORNING.md` written unconditionally.
 
 ## NEXT / QUEUE (sorted)
-1. **Task-1 completion — clean-room session.** Raymond-*1995* band-splitting combinatorics + edge root-finding + extended
-   precision. **Hardened rule (earned by tonight's failure):** *derive the transfer-matrix recursion from the substitution
-   structure in-session and validate it against the direct product at q=7 AND q=113 before any deep run — treat the
-   brief's `T_k=T_{k-2}T_{k-1}^{a_k}` as a HYPOTHESIS, not an answer* (it failed validation tonight, trace-err 10¹⁵⁹).
+1. **Task-1 completion — clean-room session.** *(UPDATED by MORNING2 run — see `MORNING2.md`.)* The prior "hard-stop" had
+   a mundane ROOT CAUSE now FIXED: a **float boundary bug in the potential** (`frac>=1-p/q` drops the impurity site →
+   free Laplacian → 1 band). Fixed with integer arithmetic `(n·p mod q) ≥ q−p`; q=7 now resolves. The recursion/validation
+   angle was a **red herring** — the direct O(q) product is correct once the potential is right. **Real remaining blocker:**
+   adaptive bracketing of exponentially-narrow deep bands (uniform grids miss sub-grid gaps) — THIS is where Raymond-1995's
+   per-parent child-band count is genuinely needed (how many children to hunt per parent). Hardened rule stands, restated:
+   ground-truth the POTENTIAL (print it) AND the trace before any deep run.
 2. **D3 redo — pre-registered semiconvergent sawtooths → ✅ DONE** (`task3_d3_redo.py/.json/.png`). See result below.
 3. **Pending parameter turns** (whenever a session has the hours): Task-2 55k-digit π trajectory, Part-I M=2000,
    D1 λ→{128,256}. Commands are above; they keep.
