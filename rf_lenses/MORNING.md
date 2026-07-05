@@ -89,3 +89,39 @@ emerges near the accumulation point, which needs finer τ scanning than run. Rou
 N≈600 (Family II floor is N=200); the *stability* across extractors/degrees is the load-bearing evidence, not any
 single Σ²(L) curve. (3) The crystal "un-readable" claim is specifically about *density-unfolding* instruments; the
 crystal is richly structured — just on Family IV, not Family II.
+
+---
+
+## Thread B — supercharacter / Kronecker structure of the RF coefficients — **LANDS (both sub-findings).**
+Artifacts: `threadB_supercharacter.py`, `threadB.json`, `threadB_figure.py`, `threadB_multiplicativity.png`.
+
+**Lit anchor verified (house rule).** Ramanujan sums are multiplicative in q: `c_{q₁q₂}(n)=c_{q₁}(n)c_{q₂}(n)`
+for coprime q₁,q₂ — checked to **max err 0.00** (exact classical identity). Since `a_q=(1/φ(q))⟨f·c_q⟩` and φ is
+multiplicative, `a_q` is multiplicative in q **iff** the substrate's arithmetic function has a multiplicative RF
+expansion, giving the sharp Kronecker prediction **`a_{q₁q₂}=a_{q₁}a_{q₂}/a₁`** (coprime).
+
+**Result — a clean binary classifier** (regress measured `a_{q₁q₂}` vs predicted `a_{q₁}a_{q₂}/a₁` over all coprime
+pairs ≤ q_max=200):
+
+| substrate | a₁ | Kronecker R² | slope | med rel resid |
+|---|---|---|---|---|
+| squarefree | 0.608 | **1.0000** | 1.000 | 0.010 |
+| von Mangoldt | 0.999 | **1.0000** | 1.000 | 0.000 |
+| prime indicator | 0.087 | **1.0000** | 1.000 | 0.000 |
+| Poisson | 0.995 | **−0.019** | 28.0 | 1.000 |
+| Mackey–Glass chaos | 0.002 | **−0.004** | 0.79 | 0.999 |
+
+- **Sub-finding 1 (canonical coordinates):** for multiplicative-arithmetic substrates the whole `a_q` table is
+  determined by its values at **prime powers** via the Kronecker rule — the prime-power q ARE the independent
+  generators, and the per-prime aggregation is *algebraically canonical, not ad-hoc*. This is the structural reason
+  `padic_amplitude_v4` (prime-aggregated) passed the band-invariance acceptance while v1–v3 didn't: v4 accidentally
+  found the canonical coordinate system.
+- **Sub-finding 2 (principled classifier):** multiplicativity R² separates multiplicative-arithmetic substrates
+  (R²=1) from dynamical/random ones (R²≈0) on first-principles grounds — a candidate axis "RF-multiplicativity."
+  Flagged **candidate-only**; it is an algebraic identity so it is robust by construction, but method-invariance
+  across extractors is unchecked per house rule.
+
+**Bonus (FGK supercharacter uncertainty principle) — NOT BUILT, by discipline.** I could not verify FGK's exact
+uncertainty constant from source this session, so per the verify-before-build rule I did not fabricate a test
+claiming to saturate a "proven ceiling." A concentration-product axis is a real direction but is deferred until the
+exact bound is in hand — the multiplicativity classifier is the banked Thread-B deliverable.
