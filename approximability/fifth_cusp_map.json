@@ -1,0 +1,187 @@
+{
+ "certified_depth": 48,
+ "cf": [
+  1,
+  1,
+  2,
+  2,
+  3,
+  1,
+  5,
+  2,
+  23,
+  2,
+  2,
+  1,
+  1,
+  55,
+  1,
+  4,
+  3,
+  1,
+  1,
+  15,
+  1,
+  9,
+  2,
+  5,
+  7,
+  1,
+  1,
+  4,
+  8,
+  1,
+  11,
+  1,
+  20,
+  2,
+  1,
+  10,
+  1,
+  4,
+  1,
+  1,
+  1,
+  1,
+  1,
+  37,
+  4,
+  55,
+  1,
+  1
+ ],
+ "cusp_threshold": 10,
+ "frontier_q": 15601,
+ "cusps": [
+  {
+   "position": 9,
+   "a": 23,
+   "q_k": 15601,
+   "record_face": true,
+   "farey_jump_ratio": 23,
+   "farey_face": true,
+   "spectral_reach": "joint"
+  },
+  {
+   "position": 14,
+   "a": 55,
+   "q_k": 10590737,
+   "record_face": true,
+   "farey_jump_ratio": 55,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  },
+  {
+   "position": 20,
+   "a": 15,
+   "q_k": 6189245291,
+   "record_face": false,
+   "farey_jump_ratio": 15,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  },
+  {
+   "position": 31,
+   "a": 11,
+   "q_k": 5750934602875680,
+   "record_face": false,
+   "farey_jump_ratio": 11,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  },
+  {
+   "position": 33,
+   "a": 20,
+   "q_k": 130441933147714940,
+   "record_face": false,
+   "farey_jump_ratio": 20,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  },
+  {
+   "position": 36,
+   "a": 10,
+   "q_k": 4242721909926539673,
+   "record_face": false,
+   "farey_jump_ratio": 10,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  },
+  {
+   "position": 44,
+   "a": 37,
+   "q_k": 7736332199829210068325,
+   "record_face": false,
+   "farey_jump_ratio": 37,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  },
+  {
+   "position": 46,
+   "a": 55,
+   "q_k": 1721039188200292347893905,
+   "record_face": false,
+   "farey_jump_ratio": 55,
+   "farey_face": true,
+   "spectral_reach": "arithmetic_only"
+  }
+ ],
+ "a55_both_cheap_faces": true,
+ "a55_spectral_reach": "arithmetic_only",
+ "reach_horizon": {
+  "joint": [
+   [
+    9,
+    23
+   ]
+  ],
+  "arithmetic_only": [
+   [
+    14,
+    55
+   ],
+   [
+    20,
+    15
+   ],
+   [
+    31,
+    11
+   ],
+   [
+    33,
+    20
+   ],
+   [
+    36,
+    10
+   ],
+   [
+    44,
+    37
+   ],
+   [
+    46,
+    55
+   ]
+  ]
+ },
+ "pi_cusps": [
+  [
+   2,
+   15,
+   106
+  ],
+  [
+   4,
+   292,
+   33102
+  ],
+  [
+   12,
+   14,
+   25510582
+  ]
+ ],
+ "reach_horizon_statement": "Of the fifth's certified CF-cusps (a>=10), only a=23 (q=15601) is jointly visible to the eigensolve and the cheap faces; every deeper cusp (a=55 at q~1.06e7, ...) is arithmetic-face-only. The reach horizon sits exactly at the a=23 spectral frontier."
+}
