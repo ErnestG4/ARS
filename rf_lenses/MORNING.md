@@ -50,7 +50,7 @@ arithmetic case.
 
 ---
 
-## Thread E — time-chaos vs space-quasiperiodicity universality diff — **PRE-REG FALSIFIED + INSTRUMENT-BOUNDED.**
+## Thread E — time-chaos vs space-quasiperiodicity universality diff — **PRE-REG REVERSED: chaos rigid (PROMOTABLE) · crystal OUT-OF-DOMAIN (no value).**
 Artifacts: `threadE_universality_diff.py`, `threadE.json`, `threadE_figure.py`, `threadE_rigidity.png`.
 Substrates: diatonic Hamiltonian spectrum (banked `fifth_edges_lam8_q665/q15601`, band centers) vs Mackey–Glass
 chaos τ=30 (3-extractor consensus, continuous-system discipline). Family II via `longrange_discriminator`.
@@ -66,19 +66,30 @@ chaos τ=30 (3-extractor consensus, continuous-system discipline). Family II via
   **five orders of magnitude** with the unfold choice. The pre-registered "crystal rigid (logL)" is not even measurable
   with this instrument.
 
-**Verdict.** The clean headline the brief hoped for ("distinguished by long-range rigidity, not marginal spacing")
-does NOT land as stated. What lands, and is worth more:
-1. **Chaos-recurrence is rigid, not Poisson** — a robust cross-substrate fact (3 extractors × 7 unfold degrees, Σ²/L
-   locked ~0.2). The marginal (Family I) also reversed the brief's guess (MG→GOE/GUE, crystal→Poisson) — as the brief
-   warned, do not bank Family I; here it was backwards too.
-2. **The quasicrystal's long-range spectral class is inaccessible to density-unfolding** — a singular (Cantor) density
-   defeats Family II by construction. This re-instantiates the banked *"floor is rigidity not density; no DOS estimator
-   recovers it below M≫N cost"* lesson (AM metal→floor, Phase-36) **across the time/space divide**: the instrument
-   reads the time-domain substrate cleanly and the space-domain substrate not at all.
-3. **Observable-binding (banked node) is the resolution:** the crystal's long-range order lives in its multifractal
-   *band-width* spectrum (Family IV box-dim, banked D_box≈0.47 / the Thouless law / gap-labeling), NOT in a
-   density-unfolded level sequence; MG's lives in recurrence-rigidity (Family II) + Lyapunov (Family V). Forcing both
-   onto Family II exposes the observable mismatch, not a shared class axis.
+**Verdict — two findings of DIFFERENT epistemic status; do NOT read them as symmetric.** The clean headline the brief
+hoped for ("distinguished by long-range rigidity") does not land as a symmetric class contrast. What lands is one
+promotable reading and one domain boundary:
+
+1. **PROMOTABLE — chaos exhibits spectral rigidity.** Mackey–Glass chaotic recurrence reads GOE/GUE-rigid
+   (Σ²/L ≈ 0.13–0.28), and that reading **survives 3 extractors × 7 unfold degrees = 21 orthogonal method-
+   perturbations.** A reading that robust is *substrate, not artifact* (the method-invariance promotion bar) — so this
+   is bankable: the recurrence times of a deterministic strange attractor carry genuine long-range correlation. It
+   kills the pre-registration cleanly (predicted Poisson-clustered; measured the opposite). "Chaos is rigid, not
+   Poisson" is a real cross-substrate finding.
+2. **DOMAIN BOUNDARY — the crystal is OUT-OF-DOMAIN for Family II (no rigidity value banked).** This is NOT "Family II
+   gave an ambiguous answer" — it is "Family II has no valid input here." A singular Cantor density (**top-3 gaps =
+   94% of the span**) has no local mean spacing to unfold to, so Σ²/L is a free parameter of the unfold
+   (56 → 0 → >1000). Same category as running a spacing statistic on an object with no unit rate. **Banked as a domain
+   boundary of the instrument — no value**, not a rigidity reading.
+
+The asymmetry *is* the point: one substrate yields a robust reading, the other falls outside the probe's validity
+domain — and discovering where a probe goes out of domain is itself a finding. This re-instantiates the series' thesis
+(observable-binding; the banked *"rigidity is level-position, not density; no DOS estimator recovers it below M≫N"*
+lesson, AM metal→floor Phase-36): **the instrument's validity domain is itself substrate-dependent.** The crystal's
+long-range order is real but lives on **Family IV** (multifractal band-width dimension, banked D_box≈0.47 / Thouless
+law / gap-labeling), never on a density-unfolded level sequence; MG's lives on Family II rigidity + Family V Lyapunov.
+Forcing both onto Family II exposes the observable mismatch, not a shared class axis. (Family I also reversed the
+brief's guess — MG→GOE/GUE, crystal→Poisson — and, as the brief warned, is not banked.)
 
 **Period-doubling cascade (pre-registered bonus) — PARTIAL.** τ-sweep 9→20 shows the MG route present in the amplitude
 spread: period-1 (τ<13.3, spread≈0) → period-2 (τ≈13.4–15.6) → period-4 (τ≈15.7–16.9) → chaos (τ>17). But a clean
@@ -196,7 +207,7 @@ Five threads, priority order A→E→B→C→D. **Four land, one is a valuable r
 | thread | verdict | one line |
 |---|---|---|
 | A Wiener–Khinchin | **LANDS** | RF power = integer-lag autocorr (theorem verified); RF ⟂ Family II only off the flat corner (primes: RF-structured, spacing-Poisson) |
-| E universality diff | **PRE-REG REVERSED + instrument-bounded** | MG chaos reads *rigid* (robust); the Cantor crystal is *un-readable* by density-unfolding (Σ²/L a free parameter) |
+| E universality diff | **PRE-REG REVERSED (asymmetric)** | chaos rigid — PROMOTABLE (robust across 21 method-perturbations); crystal OUT-OF-DOMAIN for Family II — no rigidity value (no unit rate to unfold) |
 | B supercharacter | **LANDS** | RF-multiplicativity exact for arithmetic (R²=1), fails for dynamical — prime-powers are the canonical coords (why v4 passed) |
 | C function field | **LANDS** | conjecture-free (Weil) arithmetic calibrator: FF von Mangoldt RF → μ(m)/φ(m) geometrically; the zoo's missing provable ground truth |
 | D tropical | **NEGATIVE banked + POSITIVE validated** | no tropical-RF (cancellation ≠ min-plus); the Farey q_min sawtooth *is* the Stern-Brocot tropical envelope (golden→Fibonacci) |
