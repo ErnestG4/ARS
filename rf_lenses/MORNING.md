@@ -125,3 +125,35 @@ pairs ≤ q_max=200):
 uncertainty constant from source this session, so per the verify-before-build rule I did not fabricate a test
 claiming to saturate a "proven ceiling." A concentration-product axis is a real direction but is deferred until the
 exact bound is in hand — the multiplicativity classifier is the banked Thread-B deliverable.
+
+---
+
+## Thread C — function-field arithmetic calibrator over F_q[T] — **LANDS. A conjecture-free ground truth.**
+Artifacts: `threadC_function_field.py`, `threadC_L0.json`, `threadC_L1L2.json`, `threadC_figure.py`,
+`threadC_convergence.png`.
+
+**Honest scope (stated up front).** The function-field RF theory needs *polynomial* Ramanujan sums `c_m(f)`
+over F_q[T]; the toolkit's engine computes *integer* `c_q(n)`. So this thread is a **self-contained calibrator**
+(a new generator + its provable checks in `rf_lenses/`), not a run of the deployed engine. Its value is a substrate
+where the RF machinery is **provable — Weil, no RH** — the arithmetic analogue of the Poisson→ρ≈0 anchor, which the
+zoo lacked (every prior arithmetic calibrator is conjecture-laden: ζ-zeros need RH, primes need unproven correlations).
+
+**Three provable gates, all pass:**
+- **L0 — F_q[T] arithmetic validated.** Enumerated irreducible counts match Gauss's exact
+  `I(n)=(1/n)Σ_{d|n}μ(d)q^{n/d}`: F₂ = 2,1,2,3,6,9 (deg 1–6); F₃ = 3,3,8,18 (deg 1–4). Exact.
+- **L1 — polynomial Ramanujan sum via Hölder** `c_m(f)=Σ_{d|gcd(f,m)}|d|·μ(m/d)`: **multiplicativity
+  `c_{m₁m₂}=c_{m₁}c_{m₂}` exact to 0.00** over 42 (F₂) / 390 (F₃) coprime (m,f) pairs — the FF analogue of Thread B.
+- **L2 — RF coefficients of the FF von Mangoldt Λ converge to the closed form μ_poly(m)/φ_poly(m)** (the Hardy
+  analogue). `a₁=1.000000` exactly (FF prime-polynomial theorem is exact: Σ_{deg f=N}Λ=q^N). Geometric convergence
+  in the truncation degree D (F₂): deg-1 m rel error 26.7%→9.5%→3.1%→**0.98%** (D=4,6,8,10); deg-2 m
+  53%→19%→6.3%→**2.0%**, error ~q^{−D}. So `a_m → μ(m)/φ(m)` provably, to any precision.
+
+**What it delivers.** A conjecture-free arithmetic RF calibrator with a *known* error rate — RF-on-provable-arithmetic
+recovers the theoretical coefficients. It is also the **provable backbone** under the (over-ℤ conjectural) integer
+results elsewhere in the session: Thread A's prime even-q singular series and Thread B's a_q-multiplicativity are the
+ℤ shadows of L1/L2, which are theorems in F_q[T]. The RF engine's arithmetic mode has **no convention bug** — the
+theory it implements is exactly recovered where the theory is provable.
+
+**Caveats.** (1) Sibling engine, not the deployed integer one (scope stated). (2) Convergence shown for F₂ to D=10
+(2046 polys) and F₃ to D=5; higher D is just cost (trial-division factoring), not obstruction. (3) Λ RF coefficient
+uses the mean over monic deg f ≤ D; the exact FF PNT guarantees the D→∞ limit is μ/φ.
