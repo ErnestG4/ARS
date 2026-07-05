@@ -1,0 +1,148 @@
+{
+ "alpha": "log2(3/2)",
+ "cf": [
+  1,
+  1,
+  2,
+  2,
+  3,
+  1,
+  5,
+  2,
+  23,
+  2,
+  2,
+  1,
+  1,
+  55,
+  1,
+  4
+ ],
+ "q_ladder": [
+  1,
+  2,
+  5,
+  12,
+  41,
+  53,
+  306,
+  665,
+  15601,
+  31867,
+  79335,
+  111202,
+  190537,
+  10590737,
+  10781274,
+  53715833
+ ],
+ "record_process": {
+  "record_times": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   14
+  ],
+  "record_values": [
+   1,
+   2,
+   3,
+   5,
+   23,
+   55
+  ],
+  "lambda_cusp_quotient": 55,
+  "cusp_cf_position": 14,
+  "n_records": 6,
+  "pi_record_values": [
+   7,
+   15,
+   292
+  ]
+ },
+ "farey_aperture": {
+  "qmin_ladder": [
+   1,
+   1,
+   2,
+   3,
+   5,
+   7,
+   12,
+   29,
+   41,
+   53,
+   200,
+   253,
+   306,
+   359
+  ],
+  "big_jumps": [
+   [
+    665,
+    8286
+   ],
+   [
+    190537,
+    5446238
+   ]
+  ],
+  "cusp_jump_ratio": 55,
+  "reading": "q_min ladder = Stern-Brocot semiconvergents; a=23 block = the aperture cusp"
+ },
+ "fingerprint": {
+  "keys": [
+   "KS_GUE",
+   "KS_GOE",
+   "KS_Poisson",
+   "mass<0.3",
+   "F(T=1)",
+   "F(T=5)",
+   "repulsion_integral",
+   "top_ramanujan_q",
+   "sb_symmetry_ks",
+   "padic_dominant_prime"
+  ],
+  "vector": [
+   0.38657370534011365,
+   0.3679319238029867,
+   0.4425863151398176,
+   0.0,
+   0.5806726667206392,
+   0.12097004279600572,
+   0.8999999999999999,
+   31.0,
+   0.6756573229030856,
+   7.0
+  ],
+  "n_events": 3509
+ },
+ "banked_faces": {
+  "dimension_bandscaling": {
+   "lam8": 0.466,
+   "lam24": 0.342,
+   "lam32": 0.3208,
+   "note": "below pi (0.68/0.56/0.54); rises at the 23 step (largest jump in ladder)"
+  },
+  "bandwidth_law_g_of_a": {
+   "g2": "0.60-0.68 (brackets silver 0.638)",
+   "g3": "0.95-0.98",
+   "g5": "~1.00",
+   "g23": "~1.00 saturated",
+   "a1_older_block": "deficit monotone in q_{k-2}/q_k; 22.6% pt between pi 6% and golden 38%"
+  },
+  "gap_labeling": {
+   "q53_gaps_are_pitch_classes": "fifth 5.7e-5, whole-tone 1.1e-4, maj-3rd 2.3e-4; two widest gaps = 4th & 5th"
+  }
+ },
+ "verdict": {
+  "marginal_reads_rigid_clock": true,
+  "arithmetic_faces_flag_lambda_cusp": true,
+  "lambda_cusp_verified": 55,
+  "spectral_run_reached_a": 23,
+  "class_is_axis_dependent": true,
+  "summary": "Fifth is axis-dependent (visible not decided): the SPACING/marginal faces read RIGID/clock (Sturmian 3-distance: mass03=0.00, repulsion=0.90), while the ARITHMETIC faces (record + Farey) flag a Lambda-cusp \u2014 records climb 1,2,3,5,23,55, so the two-precision-verified cusp is a=55 at CF-position 14, DEEPER than the a=23/q=15601 the spectral run reached. The arithmetic faces see further than the spectral ones; the flag is conditional on the fresh CF's large quotients, as pre-registered."
+ }
+}
