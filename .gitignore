@@ -59,3 +59,11 @@ cross_substrate/coordinates/brocot-landscape.jsonl
 # Never-commit hold (Will's authorization): tentative-review material is on disk for review only,
 # never contributed to the repo. Enforced belt-and-suspenders by .githooks/pre-commit.
 _tentative_review/
+
+# Diatonic Hamiltonian personal visuals (fun extras, not repo material)
+approximability/fifth_music_figs.py
+approximability/fifth_music_data.json
+approximability/fifth_circle_of_fifths.png
+approximability/fifth_devil_staircase.png
+approximability/fifth_assembly.gif
+approximability/fifth_instrument.html
