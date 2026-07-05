@@ -157,3 +157,58 @@ theory it implements is exactly recovered where the theory is provable.
 **Caveats.** (1) Sibling engine, not the deployed integer one (scope stated). (2) Convergence shown for F₂ to D=10
 (2046 polys) and F₃ to D=5; higher D is just cost (trial-division factoring), not obstruction. (3) Λ RF coefficient
 uses the mean over monic deg f ≤ D; the exact FF PNT guarantees the D→∞ limit is μ/φ.
+
+---
+
+## Thread D — tropical, routed to where it lives — **NEGATIVE banked + POSITIVE validated.**
+Artifacts: `threadD_tropical.py`, `threadD.json`, `threadD_figure.py`, `threadD_sawtooth.png`.
+
+**The honest negative (banked, NOT built).** There is no natural tropical Ramanujan–Fourier theory.
+`c_q(n)=Σ_{gcd(k,q)=1} e(2πikn/q)` derives its content from **additive cancellation** of roots of unity
+(`c_q(n)=μ(q)` for coprime n is φ(q) unit-modulus terms cancelling to ±1). The min-plus semiring has no
+additive inverse and no cancellation, so a "tropical Ramanujan sum" erases exactly what RF measures. Building
+one would be lens-forcing — recorded as a clean negative with the reason, per the brief.
+
+**The positive (the tropical lens is real on the CF/Farey wing).** The D3 Farey aperture `q_min` operation is a
+Stern-Brocot / Euclidean / min-plus object. Test: is the `q_min(w)` sawtooth the **tropical (min-plus) lower
+envelope** of the best-approximation lattice `{(e_k, q_k)}`, with corners exactly at the semiconvergent errors
+`e_k = |α − p_k/q_k|`? Verified against a direct `q_min(w)` scan:
+
+| target | record (semiconvergent) denominators | corner-match rate |
+|---|---|---|
+| golden (φ−1) | 1,1,2,3,5,8,13,21,34,55,89,144 (**Fibonacci**) | **1.00** |
+| √2 − 1 | 1,2,3,5,12,17,29,70,99,169,408,577 (**Pell**) | **1.00** |
+| π − 3 | 1,4,5,6,7,57,64,71,78,85,92,99 (7+j·… block) | **1.00** |
+
+Every corner of the direct `q_min` sawtooth lands on a Stern-Brocot semiconvergent (100% after including the
+trivial 0/1 fraction; the two initial π "misses" in the first pass were just 0/1 dominating the largest windows).
+The Stern-Brocot mediant `(p₁+p₂)/(q₁+q₂)` **is** tropical fraction addition, and the min-q-with-error≤w selection
+**is** a min-plus lower envelope — so the D3 aperture instrument has a compact tropical description, and π's
+record ladder reproduces the banked "q_min climbs within a quotient block (semiconvergents, not convergents)"
+finding one level down. Tropical reconnected to the wing where it isn't forced.
+
+---
+
+## SESSION WRAP — honesty ledger
+
+Five threads, priority order A→E→B→C→D. **Four land, one is a valuable reversal, none were forced.**
+
+| thread | verdict | one line |
+|---|---|---|
+| A Wiener–Khinchin | **LANDS** | RF power = integer-lag autocorr (theorem verified); RF ⟂ Family II only off the flat corner (primes: RF-structured, spacing-Poisson) |
+| E universality diff | **PRE-REG REVERSED + instrument-bounded** | MG chaos reads *rigid* (robust); the Cantor crystal is *un-readable* by density-unfolding (Σ²/L a free parameter) |
+| B supercharacter | **LANDS** | RF-multiplicativity exact for arithmetic (R²=1), fails for dynamical — prime-powers are the canonical coords (why v4 passed) |
+| C function field | **LANDS** | conjecture-free (Weil) arithmetic calibrator: FF von Mangoldt RF → μ(m)/φ(m) geometrically; the zoo's missing provable ground truth |
+| D tropical | **NEGATIVE banked + POSITIVE validated** | no tropical-RF (cancellation ≠ min-plus); the Farey q_min sawtooth *is* the Stern-Brocot tropical envelope (golden→Fibonacci) |
+
+**Through-line.** Thread A scoped the session (RF carries new info only on variable-rate arithmetic substrates), and
+the rest respected that scope: B and C — arithmetic — found real structure (multiplicativity, the provable FF
+calibrator); E — a dynamical/spectral pair — found that the interesting contrast is *not* on the RF/spacing axes at
+all but on observable-binding (chaos→rigidity, crystal→fractal dimension); D — routed tropical off RF entirely onto
+the CF wing where it's exact. The instrument's arithmetic mode has **no convention bug** (C proves the machinery on
+the provable side; A/B are its ℤ shadows). Two candidate axes surfaced (RF-multiplicativity in B; FF-calibrator
+error-rate in C) — both flagged candidate, method-invariance unchecked. The FGK uncertainty-principle bonus was
+**not built** (exact bound unverifiable from source this session — verify-before-build).
+
+Every lit anchor was re-derived/checked before use; no post-hoc gate tuning; negatives (E's reversal, D's tropical-RF)
+carried at equal prominence to the confirmations. Nothing tool-side modified; refsuite frozen; banked ARS read-only.
