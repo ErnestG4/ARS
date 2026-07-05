@@ -382,3 +382,100 @@ computation. Both now cross-checked by a *methodologically independent* route (v
 **Ledger update:** the cross-panel-synthesis open items "two un-cross-checked constants (dim E₂, 𝓛)" are now closed; the
 remaining DOUBLING_BACK open item is only the integer-part record-indexing **convention** offset (Panel D), which is
 cosmetic (both conventions defensible).
+
+---
+
+## THE DIATONIC HAMILTONIAN — α = log₂(3/2), the octave-reduced perfect fifth — **COMPLETE (first out-of-sample α)**
+Artifacts: `fifth_gates.py/.json` (layer-zero + musical gate), `fifth_ladder.py/.json` (Floquet ladder q≤15601 × λ∈{8,24,32}),
+`fifth_analysis.py/.json` (P1–P3 tables + gap-labeling), `fifth_figure.py`, `fifth_spectrum_ladder.png`, `fifth_edges_*.npy`.
+Certified path only: `potential/cf_frac/convergents` imported verbatim from `task1_pi_depth5`; `periodic_edges` byte-identical
+to the banked depth-4/5 Floquet scripts; `bs_dim/box_dim` byte-identical to the certified estimators. **The only new input is α.**
+Seed 20240517.
+
+### Layer-zero gates — ALL PASS
+- **Two-precision CF:** `α=0.58496250072…`, CF `[0;1,1,2,2,3,1,5,2,23,2,2,1]`, dps=50 and dps=80 **agree to depth 12**
+  (banked; spec-hypothesis `[0;1,1,2,2,3,1,5,2,23]` matches). Convergent ladder **q = 1,2,5,12,41,53,306,665,15601** =
+  the tuning systems of history (12-EDO, 41, 53, 306, 665). `q₉ = 23·q₈+q₇ = 23·665+306 = 15601` ✓.
+- **Potential-layer gate** `int(V.sum()/λ)==p` PASS at every depth (impurities 1,1,3,7,24,31,179,389,9126).
+- **MUSICAL LAYER-ZERO GATE — PASS.** q=12 unit cell impurity word = `010101101011`, impurities at {1,3,5,6,8,10,11},
+  cyclic step word **2 2 1 2 2 1 2** = a rotation (Mixolydian) of the diatonic **LLsLLLs (2212221)**. *The potential at
+  q=12 is the white keys.* Downstream is about the right object.
+
+### P1 — K↔dimension, first out-of-sample α — **HALF LANDS; the K-coupling is DEMOTED (the valuable falsification).**
+Band-scaling dim (certified Floquet readout; **band-count==q exact at every depth q≥5, all three λ** — the real bank gate).
+- **"Diatonic dims sit below π's depth-4/5" — CONFIRMED, all λ.** q=15601 (K=2.41) vs π q=33102 (K=4.21):
+  `0.4660<0.6798` (λ8), `0.3420<0.5607` (λ24), `0.3208<0.5359` (λ32).
+- **"Rising visibly at the 23 step" — CONFIRMED, all λ.** q665→q15601: `0.4202→0.4660` (λ8), `0.2968→0.3420` (λ24),
+  `0.2752→0.3208` (λ32) — the **largest single-step dim jump in the whole ladder** (+0.046/+0.045/+0.046).
+- **"…tracks K, flat-to-gentle elsewhere" — FALSIFIED.** Dim is **non-monotone in K**: across q5→q41 the dim *falls*
+  `0.479→0.425→0.408` (all λ) while K *rises* `1.26→1.41→1.64`. Not flat, and anti-correlated. The per-step dim
+  direction is set by the **q-growth-vs-bandwidth-thinning race**, not by K: `dim = ln q / ln(q/W)` exactly (verified:
+  π-d4 `10.407/15.309=0.6798` ✓, diatonic-q15601 `9.655/20.720=0.4661` ✓). With the certified Thread-1 law `W≈4/λ^{m_k}`,
+  a=2/3 steps thin W faster than q grows (dim ↓) while the a=23 step explodes q by ×23.5 for one λ-factor of thinning
+  (dim ↑). **The "below-π" gap is *also* pure Thread-1** — diatonic reached q=15601 with m=6 a≥2-steps vs π's m=3, so its
+  bandwidth is 470× thinner at comparable q ⇒ lower dim; K need not be invoked at all.
+- **Verdict:** the out-of-sample *outcomes* land (below-π ✓, big-quotient rise ✓) but the *mechanism* is wrong — **K is
+  not the controlling variable; the certified Thread-1 bandwidth law supersedes it**, explaining the direction reversals
+  K cannot. The K↔dimension coupling from the π depth-4/5 run was a coincidence of K co-moving with big-quotient steps;
+  it is **demoted to a corollary of the m_k law**. Per spec, a falsified P1 was flagged the single most valuable outcome
+  of the session — this is it, and it is reported at full prominence.
+
+### P2 — per-step bandwidth law, five new g(a) points — **LANDS.**
+Per-step factor `r(a,λ)=W_{k-1}/W_k → λ·g(a)`, g increasing to 1. Measured `g=factor/λ`:
+
+| a | banked g | g(λ8) | g(λ24) | g(λ32) | status |
+|---|---|---|---|---|---|
+| 2 (silver) | 0.638 | 0.681 / 0.622 | 0.668 / 0.603 | 0.667 / 0.601 | two steps **bracket** banked 0.638 ✓ |
+| 3 (bronze) | 0.918 | 0.947 | 0.977 | 0.983 | near banked (context-shifted +3%) ✓ |
+| **5 (NEW)** | — | 1.017 | 1.002 | 1.001 | **g(5)≈1.00 — already saturated** |
+| **23 (NEW)** | — | 1.016 | 0.996 | 0.871* | **g(23)≈1.00 — saturated plateau** |
+
+*λ32 @ q=15601 hit the banked narrow-band resolution wall (W~1.3e-9, mean width ~8.5e-14 ≈ eig precision) — the 0.871 is
+the float64 floor artifact the Thread-1 note pre-flagged, not a real dip; λ8+λ24 give the trustworthy g(23)≈1.00.
+**New finding: saturation g→1 is reached by a=5** (not gradually) — g climbs 0.31→0.64→0.92 over a=1,2,3 then plateaus at
+≈1 by a=5; g(23) confirms it stays there. Closed form `W_k≈4/λ^{m_k}` obeyed (W/pred → 1.04/1.03 at λ8 deep, as π).
+
+### P3 — the a=1 law gets its data — **LANDS clean; two new points, monotone.**
+Older-block fraction `q_{k-2}/q_k` orders the a=1 per-step deficit `1−W_k/W_{k-1}`. All a=1 ratios strictly <1 (BIST
+direction), and the deficit is **strictly monotone increasing in block fraction** across four points now:
+
+| source | block frac | deficit (1−W/W), λ8 |
+|---|---|---|
+| π isolated a₃=1 (banked) | 6.2% | 1.27e-12 |
+| **diatonic a₆=1 (NEW)** | **22.6%** | **0.0595** |
+| golden every-step (banked) | 38.2% | ~0.60 |
+| **diatonic opening a₂=1 (NEW)** | **50.0%** | **0.764** |
+
+The **22.6% point lands exactly between π's 6% and golden's 38%**, as pre-registered ("between π's deficits and
+order-unity"). λ24/λ32: 22.6%→0.0233/0.0178, 50%→0.917/0.938 (deficit rises with λ *and* with fraction). The starving
+two-point law now has four points, all in order. (q=2 computed from the **exact period-2 discriminant** `W₂=√(λ²+16)−λ`
+— the Floquet corner is degenerate at q=2; verified vs `disc_direct` grid to 1e-4.)
+
+### P4 — pass-on-inability — HONORED. Nothing here decides the fifth's *tail* (deep quotients, typicality); every
+trajectory claim is depth-scoped to q≤15601.
+
+### §3 gap-labeling (Bellissard) — the gaps of the diatonic Hamiltonian ARE the notes. **Wall figure.**
+IDS at the major gaps of the q=53 approximant lands on `{k·α mod 1}` = pitch classes on the octave circle (circle of
+fifths), to 4–5 significant figures:
+
+| gap (rank) | IDS | k·α mod 1 | interval | |Δ| |
+|---|---|---|---|---|
+| 1 (largest) | 0.4151 | 0.4180 (k=52≡−1) | **perfect fourth** (fifth's complement) | 3.0e-3 |
+| 2 | 0.5849 | 0.58496 (k=1) | **perfect fifth (3/2)** | **5.7e-5** |
+| 3 | 0.8302 | 0.8331 (k=51≡−2) | two fourths | 2.9e-3 |
+| 4 | 0.2453 | 0.2481 (k=50≡−3) | — | 2.8e-3 |
+| 5 | 0.1698 | 0.16992 (k=2) | **major second / whole tone** (two fifths) | 1.1e-4 |
+| 6 | 0.7547 | 0.75489 (k=3) | three fifths | 1.7e-4 |
+| 8 | 0.3396 | 0.33985 (k=4) | **major third** (four fifths) | 2.3e-4 |
+
+The two widest gaps are the **fourth and the fifth**; the small-k labels reproduce the circle of fifths. Figure
+`fifth_spectrum_ladder.png`: band centers vs depth (Cantor set refining), gaps shaded and named.
+
+### Honesty ledger
+- **Bank criterion = band-scaling dim + exact `count_eq_q` gate** (passed all depths q≥5, all λ), exactly as π was banked.
+  The spec's "both estimators agree ≤0.02" is **NOT met at deep q**: `box_dim` rails (0.37/0.28/0.286 at λ8/24/32,
+  identical across q=41…15601) — the n=12-scale-capped box-counter is resolution-saturated on these multifractal spectra,
+  the same disagreement the banked π *nested* run showed (agree=False there too). Reported as a diagnostic, not a bank gate.
+- λ=8 flagged `outside_proven_regime` (Liu–Wen V>20) throughout, as in the π table.
+- q=2 Floquet-degenerate → exact period-2 discriminant (certified `disc_direct` path), noted inline.
+- **Falsification (P1 K-coupling demotion) reported at equal prominence to the P2/P3/gap confirmations, per spec §4.**
