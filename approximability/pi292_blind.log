@@ -1,0 +1,4 @@
+depth 6: q=  66317 count_eq_q=True  W=1.77850481e-03  dim=0.63681  [119s]
+depth 7: q=  99532 count_eq_q=True  W=1.02235120e-03  dim=0.62566  [263s]
+depth 8: q= 265381 count_eq_q=True  W=1.51367727e-04  dim=0.58676  [1883s]
+BLIND MEASUREMENT COMPLETE. wrote pi292_measured.json (seal still sealed)

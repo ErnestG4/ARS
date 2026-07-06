@@ -1,0 +1,16 @@
+{
+ "measured": {
+  "6": 0.63680649881489,
+  "7": 0.6256554652244172,
+  "8": 0.586755272430123
+ },
+ "predicted": {
+  "6": 0.6363163312192556,
+  "7": 0.621798631971047,
+  "8": 0.5913682505241258
+ },
+ "anchor_dim5": 0.6799,
+ "monotone_retreat": true,
+ "falsified": false,
+ "verdict": "CONFIRMED \u2014 monotone retreat as predicted; sealed falsifier NOT tripped."
+}

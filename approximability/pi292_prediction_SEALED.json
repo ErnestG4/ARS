@@ -1,0 +1,57 @@
+{
+ "sealed_by": "Session D (thouless-amo-identify branch)",
+ "operator": "Sturmian (NOT AMO)",
+ "derived_from": "certified Thouless per-step bandwidth law (a=1 older-block + a>=2 \u03bb\u00b7g(a)); dim=ln q/ln(q/W)",
+ "lambda_": 8.0,
+ "anchor": "depth-5 banked dim\u22480.680 (W4=W5=0.007435)",
+ "prediction_direction": "\u03c0 (a=292) dim FLAT at depth 4\u21925, then MONOTONE RETREAT across depths 6,7,8",
+ "per_step": [
+  {
+   "depth": 6,
+   "a": 1,
+   "older_block_frac": 0.4991480314248232,
+   "q": 66317,
+   "q_growth": 1.9965979226253199,
+   "thin_factor": 4.237,
+   "W": 0.0017547793249940995,
+   "dim": 0.6363163312192556,
+   "direction": "DROP",
+   "ln_margin": 0.7524107781808913
+  },
+  {
+   "depth": 7,
+   "a": 1,
+   "older_block_frac": 0.3337117710886951,
+   "q": 99532,
+   "q_growth": 1.5008519685751769,
+   "thin_factor": 1.9238528496806064,
+   "W": 0.0009121172262657322,
+   "dim": 0.621798631971047,
+   "direction": "DROP",
+   "ln_margin": 0.24829694194444052
+  },
+  {
+   "depth": 8,
+   "a": 2,
+   "older_block_frac": 0.24989354927443938,
+   "q": 265381,
+   "q_growth": 2.666288228911305,
+   "thin_factor": 5.104,
+   "W": 0.00017870635310848984,
+   "dim": 0.5913682505241258,
+   "direction": "DROP",
+   "ln_margin": 0.6493372172597901
+  }
+ ],
+ "predicted_dims": {
+  "5": 0.6798944405017846,
+  "6": 0.6363163312192556,
+  "7": 0.621798631971047,
+  "8": 0.5913682505241258
+ },
+ "robustness": "DIRECTION is robust (each step's ln(thin_factor) > ln(q_growth) with margins [0.75, 0.25, 0.65]); MAGNITUDES are estimates (a=1 factor interpolated from 4 banked calibration points, \u03bb-dependence not fully modeled) \u2014 test the DIRECTION first.",
+ "falsifier": "if the sparse-eigensolver run finds dim RISING (or non-monotone up) across depths 6-8, this Thouless-derived predictor is falsified and \u03c0-292 is genuinely predictor-less (2nd null after Liu-Wen).",
+ "least_certain_step": "depth 7 (a7=1, frac 0.334): smallest ln-margin; if the a=1 factor there is <1.5 it could be near-flat",
+ "replaces": "the dead Liu-Wen finite-depth pre-registration",
+ "note": "AMO identification FAILED at layer-zero (Sturmian step \u2260 AMO cosine; no \u03bb=1 collapse; slope\u2260\u03bb,\u03bb/2). This predictor does NOT come from AMO \u2014 it comes from the certified Thouless law for the actual (Sturmian) operator."
+}
