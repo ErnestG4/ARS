@@ -1,0 +1,9 @@
+{
+ "max_dev": 0.14062752993676253,
+ "median_dev": 0.04957464848059545,
+ "phi_g_mean": 2.532514513139695,
+ "phi_g_std": 0.19104898688942776,
+ "phi_converged_g": 2.4970748933568903,
+ "sealed_at_0382": 2.6390871692460114,
+ "verdict": "COLLAPSE HOLDS \u2014 phi falls on the sealed pi+fifth curve (max dev 14% < 15%): a=1 thinning is SUBSTRATE-INDEPENDENT, computable from older-block fraction."
+}

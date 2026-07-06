@@ -1,0 +1,6 @@
+{
+ "crossover_fstar": 0.28700000000000003,
+ "direction_all_ok": true,
+ "phi_all_retreat": true,
+ "phi_converged_g": 2.5
+}
