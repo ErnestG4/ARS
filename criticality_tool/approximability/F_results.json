@@ -1,0 +1,6 @@
+{
+ "smooth_battery": "77/77 Weil+RH pass",
+ "genus1_rate_ratio": 0.9747993542043758,
+ "genus2_rate_ratio": 0.9583126741064829,
+ "rh_rate": "0.5*log10(q) genus-independent exponent"
+}
