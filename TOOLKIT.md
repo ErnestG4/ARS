@@ -304,6 +304,18 @@ The durable methodology — apply these regardless of substrate:
   boundary — no value**, never as an ambiguous rigidity. The substrate is still readable, just on a different
   observable (here Family IV fractal band-dimension). Same category as running a spacing statistic on an object with
   no unit rate. (`rf_lenses/threadE_*`.)
+- **Record/Farey agreement is record-conditional — NOT independent joint confirmation.** The CF **record process is a
+  running-maximum filter by construction** — it can only register a partial quotient that is a *new record*; the
+  **Farey aperture** registers *every* large quotient. So `{record-visible cusps} ⊆ {Farey-visible cusps}`
+  definitionally: the record channel is a **maxima-filtered shadow** of the Farey channel, not a second view. When
+  "the record process and the Farey aperture *both* flag cusp X," that is **one complete view (Farey) + its shadow
+  (record)** — they *must* agree on records and carry **no independent weight** there; never count it as two arithmetic
+  faces agreeing. Genuine cross-face independence comes from *dimension* (spectral) vs an arithmetic face, not
+  record-vs-Farey. This retro-scopes any banked "record + Farey both registered X" reading (e.g. the Session-B fifth
+  Λ-cusp) to one-view-plus-shadow — a lens to apply when those results are next touched, **not** a re-run trigger.
+  The three-tier reach nesting `eigensolve ⊆ record ⊆ Farey` follows: record⊆Farey is definitional; the eigensolve
+  tier is reach-limited (q ≤ spectral frontier) and independent of the filter relationship.
+  (`approximability/fifth_cusp_map.*`.)
 - **Support-set-respecting nulls.** A surrogate must respect the point process's support set (squarefrees,
   primes, the S¹ unit-orbit quotient). Full-N required for bulk readout on angle substrates — stride-
   decimation destroys prime-angle structure.
