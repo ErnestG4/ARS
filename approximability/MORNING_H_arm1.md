@@ -1,5 +1,28 @@
 # MORNING_H (Arm 1) — the a=1 crossover: monotonicity is DERIVED (form-universal, crossover-computable)
 
+> **CORRECTION + EXTENSION (post-review, `H_direction_law.py` / `H_direction_law.json`).** Two fixes to the first
+> pass below, one of which is my own over-claim:
+> 1. **The crossover is NOT `factor = q-growth` (f\*≈0.287 universal).** The exact sign of dim_n−dim_{n−1}
+>    (dim=L/(L+B), L=ln q, B=ln(1/W)) is: rise iff L_n/L_{n−1} > B_n/B_{n−1}, i.e.
+>    **DROP iff ln(factor)/ln(q-growth) > (1/dim_{n−1} − 1)**. The threshold is **(1/dim−1), not 1** — they
+>    coincide only at dim=0.5. So there is **no universal crossover fraction**; the crossover is a dim-dependent
+>    surface. `g(1,f)=1/(1−f)` remains the exact *q-growth* (algebraic), but the "f\*≈0.287 straddle" was the
+>    dim=0.5 simplification. Under the exact law the fifth's depth-12 **rises comfortably** (ratio 0.996 <
+>    threshold 1.258) — which is *why* G's monotone-drop predictor tripped there, correctly explained now.
+> 2. **General q-growth is a/(1−f), not a+f.** From q_n = a·q_{n−1}+q_{n−2}: 1 = a·(q_{n−1}/q_n)+f ⇒
+>    **q-growth = a/(1−f)** (reduces to 1/(1−f) at a=1). Verified exact in all 17 banked rows.
+>
+> **The extension (banked, no new measurement):** the exact law predicts the direction of **ALL 17 banked steps
+> (π 7/7 + fifth 10/10), a=1 AND a≥2**, including the big-quotient cases the simple version misses (π a=15 DROPS,
+> fifth a=5 RISES — simple gets these backwards, 15/17). So the **full finite-depth DIRECTION structure is
+> closed-form** in (a, f, dim, factor):  **DROP iff ln(W_{n−1}/W_n) > (1/dim_{n−1}−1)·ln(a/(1−f))**. The only
+> non-closed piece is the thinning-factor **magnitude** (λ·g_metallic(a) for a≥2; g(1,f) for a=1), which carries the
+> ~30% per-substrate scatter — that, not direction, is what e/cubics should probe. The 7/7 a=1 *directions* below
+> still stand (robust); only the "universal crossover constant" framing is retracted.
+
+---
+
+
 Branch `crossover-surface` off `pi292-sparse-eigensolve` (needs the certified fast solver). numba fast solver the tool.
 main/refsuite untouched. Artifacts: `H_arm1_seal.py`, `H_phi_prediction_SEALED.json`, `H_phi_measured.json`,
 `H_phi_verdict.json`, `H_arm1_crossover.json`, `H_crossover_surface.png`.
