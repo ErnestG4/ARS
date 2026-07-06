@@ -1,0 +1,322 @@
+{
+ "spec": "slate-2 rev-3 \u00a7A/\u00a7B/\u00a7C + rev-3 brief \u00a74 T0/T2-core",
+ "substrate": "AM golden \u03b8 (75025=F25 is an N value only; \u00a7D Fib/DGY substrate campaign is separate/G1b-held)",
+ "ratio_free_leg": true,
+ "deltas": [
+  0.005,
+  0.009653,
+  0.018638,
+  0.035984,
+  0.069475,
+  0.134135,
+  0.258974,
+  0.5
+ ],
+ "Ns": [
+  70000,
+  75025,
+  100000
+ ],
+ "Nprimary": 70000,
+ "w_ladder": [
+  0.01,
+  0.02,
+  0.04,
+  0.08
+ ],
+ "SEP": 2.0,
+ "classification": {
+  "sub|0.005": {
+   "class": "INNER",
+   "delta": 0.005,
+   "side": "sub",
+   "means": {
+    "70000": 0.3467215416733189,
+    "75025": 0.3354502684247598,
+    "100000": 0.016947827068521694
+   },
+   "C_noise": 0.004104,
+   "swing": -0.329774,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.005": {
+   "class": "OUTER",
+   "delta": 0.005,
+   "side": "sup",
+   "means": {
+    "70000": 0.5434914897727915,
+    "75025": 0.556982383935694,
+    "100000": 0.4916608297052766
+   },
+   "C_noise": 0.074164,
+   "swing": -0.051831,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.009653": {
+   "class": "INNER",
+   "delta": 0.009653,
+   "side": "sub",
+   "means": {
+    "70000": 0.34545465569322054,
+    "75025": 0.3347147498234083,
+    "100000": 0.01067573969287437
+   },
+   "C_noise": 0.002813,
+   "swing": -0.334779,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.009653": {
+   "class": "OUTER",
+   "delta": 0.009653,
+   "side": "sup",
+   "means": {
+    "70000": 0.5443122213555509,
+    "75025": 0.5569592743235489,
+    "100000": 0.49538351461413377
+   },
+   "C_noise": 0.072062,
+   "swing": -0.048929,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.018638": {
+   "class": "INNER",
+   "delta": 0.018638,
+   "side": "sub",
+   "means": {
+    "70000": 0.3444200551324352,
+    "75025": 0.3342027517983609,
+    "100000": 0.006546856907526519
+   },
+   "C_noise": 0.001771,
+   "swing": -0.337873,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.018638": {
+   "class": "OUTER",
+   "delta": 0.018638,
+   "side": "sup",
+   "means": {
+    "70000": 0.5449567480914378,
+    "75025": 0.5583323178906858,
+    "100000": 0.4974596492513974
+   },
+   "C_noise": 0.07795,
+   "swing": -0.047497,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.035984": {
+   "class": "INNER",
+   "delta": 0.035984,
+   "side": "sub",
+   "means": {
+    "70000": 0.34359137088683056,
+    "75025": 0.3338580018713335,
+    "100000": 0.0043242122949114
+   },
+   "C_noise": 0.001625,
+   "swing": -0.339267,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.035984": {
+   "class": "OUTER",
+   "delta": 0.035984,
+   "side": "sup",
+   "means": {
+    "70000": 0.5461896495819113,
+    "75025": 0.5583428818850953,
+    "100000": 0.49665625774477157
+   },
+   "C_noise": 0.077199,
+   "swing": -0.049533,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.069475": {
+   "class": "INNER",
+   "delta": 0.069475,
+   "side": "sub",
+   "means": {
+    "70000": 0.3432091895279241,
+    "75025": 0.3336141847840104,
+    "100000": 0.002615881592846044
+   },
+   "C_noise": 0.000604,
+   "swing": -0.340593,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.069475": {
+   "class": "OUTER",
+   "delta": 0.069475,
+   "side": "sup",
+   "means": {
+    "70000": 0.545571822759662,
+    "75025": 0.5594513450945975,
+    "100000": 0.49797332280138673
+   },
+   "C_noise": 0.077688,
+   "swing": -0.047598,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.134135": {
+   "class": "INNER",
+   "delta": 0.134135,
+   "side": "sub",
+   "means": {
+    "70000": 0.34303470926260593,
+    "75025": 0.33351353972989445,
+    "100000": 0.001643226997425926
+   },
+   "C_noise": 0.000458,
+   "swing": -0.341391,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.134135": {
+   "class": "OUTER",
+   "delta": 0.134135,
+   "side": "sup",
+   "means": {
+    "70000": 0.5459663738379521,
+    "75025": 0.5593021358296866,
+    "100000": 0.4981484516467152
+   },
+   "C_noise": 0.074187,
+   "swing": -0.047818,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.258974": {
+   "class": "INNER",
+   "delta": 0.258974,
+   "side": "sub",
+   "means": {
+    "70000": 0.3429196428571172,
+    "75025": 0.33338320371963714,
+    "100000": 0.0009999945209955897
+   },
+   "C_noise": 0.000312,
+   "swing": -0.34192,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.258974": {
+   "class": "OUTER",
+   "delta": 0.258974,
+   "side": "sup",
+   "means": {
+    "70000": 0.5449860766901145,
+    "75025": 0.5590050574688996,
+    "100000": 0.4990065163847286
+   },
+   "C_noise": 0.078863,
+   "swing": -0.04598,
+   "monotone": false,
+   "toward_off_critical": false
+  },
+  "sub|0.5": {
+   "class": "INNER",
+   "delta": 0.5,
+   "side": "sub",
+   "means": {
+    "70000": 0.3428649553571008,
+    "75025": 0.3332942548303617,
+    "100000": 0.0005286417375759069
+   },
+   "C_noise": 0.000146,
+   "swing": -0.342336,
+   "monotone": true,
+   "toward_off_critical": true
+  },
+  "sup|0.5": {
+   "class": "OUTER",
+   "delta": 0.5,
+   "side": "sup",
+   "means": {
+    "70000": 0.5459955228439883,
+    "75025": 0.5592182804516207,
+    "100000": 0.4996158869902396
+   },
+   "C_noise": 0.07656,
+   "swing": -0.04638,
+   "monotone": false,
+   "toward_off_critical": false
+  }
+ },
+ "outer": {
+  "sub": [],
+  "sup": [
+   0.005,
+   0.009653,
+   0.018638,
+   0.035984,
+   0.069475,
+   0.134135,
+   0.258974,
+   0.5
+  ]
+ },
+ "delta_res_measured": 0.5,
+ "T0_w_ladder": {
+  "0.01": {
+   "matched_pairs": [],
+   "conclusion": "NO_OUTER_PAIRS"
+  },
+  "0.02": {
+   "matched_pairs": [],
+   "conclusion": "NO_OUTER_PAIRS"
+  },
+  "0.04": {
+   "matched_pairs": [],
+   "conclusion": "NO_OUTER_PAIRS"
+  },
+  "0.08": {
+   "matched_pairs": [],
+   "conclusion": "NO_OUTER_PAIRS"
+  }
+ },
+ "T0_terminal": "T0_NO_OUTER_PAIRS",
+ "T2core": {
+  "sub": {
+   "terminal": "T2CORE_INSUFFICIENT_OUTER",
+   "outer": []
+  },
+  "sup": {
+   "terminal": "T2CORE_LIMIT_REACHED_OVER_OUTER_RANGE",
+   "outer_deltas": [
+    0.005,
+    0.009653,
+    0.018638,
+    0.035984,
+    0.069475,
+    0.134135,
+    0.258974,
+    0.5
+   ],
+   "ens_means": [
+    0.543491,
+    0.544312,
+    0.544957,
+    0.54619,
+    0.545572,
+    0.545966,
+    0.544986,
+    0.545996
+   ],
+   "innermost_outer_step": 0.000821,
+   "noise_at_innermost": 0.074164,
+   "ceiling": "NOT a direct \u03bb=1 measurement; limit over OUTER (resolved) range only \u2014 near-critical rungs G1b-held"
+  }
+ },
+ "errors": [],
+ "total_s": 9193.0,
+ "scope": "instrument/methodology under signed-off spec; asymmetric label; NOT AM-characterized/\u00a73/Class-II; T0 says nothing about \u03bb=1; brief-and-hold; Step-1 untouched"
+}

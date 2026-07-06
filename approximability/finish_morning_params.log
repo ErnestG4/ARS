@@ -1,0 +1,6 @@
+[partI_M2000] {"wall_s": 3120.0519914627075, "M": 2000, "gue_sigma2_L50": 0.74269396775, "gue_se": 0.001297560568080443, "gue_closed_form": 0.7423920391307978, "gue_hard_pass": true, "poisson_sigma2_L50": 48.13691877824999, "n_rows": 597, "note": "L=50 SE shrinks ~sqrt(10) vs M=200; hard-pass expected"}
+[exceedance_reresolve] {"wall_s": 12.3651704788208, "N": 100000, "m": 10, "realizations": 10000, "theory": 12553.088208385881, "sample_mean": 13748.6743, "se": 1.0958138171929575, "sigma": 1091.0485639583728, "verdict": "PERSISTS>3sigma_GENUINE_BIAS_ESCALATE", "note": "prior 3.5\u03c3 at 1000 realizations; 10\u00d7 data e
+[d1_lambda_ext] {"ERROR": "unsupported operand type(s) for -: 'float' and 'tuple'"}
+[task2_pi_trajectory] {"wall_s": 1679.1830098628998, "two_precision_agreed_depth": 51812, "khinchin_K0": 2.6854520010653062, "pi": {"100": {"geomean": 2.6831468214976386, "max_over_N": 2.92, "exceed_m10": 14, "exceed_m292": 1, "n_records": 3, "inside_orbit_band": true}, "1000": {"geomean": 2.662698648404724, "max_over_N"
+
+FINISH-MORNING PARAMS DONE — see finish_morning_params.json

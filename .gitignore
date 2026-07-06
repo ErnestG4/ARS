@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+.venv/
+venv/
+
+# Synthesised chirp signals — large, regenerable from cached zero lists
+signals_cache/
+
+# External datasets — download separately, see README.md
+data/
+cohh_data/
+
+# Bulk PhysioNet / LMFDB / fungal downloads (multi-GB, fetched separately)
+physionet.org/
+fungi/
+*.zip
+lmfdb_ec_curvedata_*.txt
+odlyzko_zeros*.txt
+
+# Intermediate analysis artifacts (regenerable from scripts)
+*.pkl
+*.h5
+*.npy
+
+# Auto-generated figures (regenerable from scripts)
+plots/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Internal documentation
+internaldocs/
+
+# Allen depth-extension per-cell coordinate data (derived; regenerable via allen_depth*.py /
+# allen_avalanche.py from the cached NWBs). Durable artifacts = scripts + figures + report markdown.
+cross_substrate/coordinates/allen-depth.jsonl
+cross_substrate/coordinates/allen-depth-fam2.jsonl
+cross_substrate/coordinates/allen-avalanche.jsonl
+cross_substrate/coordinates/allen_depth_targets.csv
+
+# brocot.fm corpus per-exemplar coordinates (derived; regenerable via brocot_landscape.py from
+# the brocot pull_index). The headline study (brocot-approximability.jsonl) + scripts are committed.
+cross_substrate/coordinates/brocot-landscape.jsonl
+
+# Tentative writeup drafts (held for review, not contributed to the repo record)
+*_DRAFT.md
+
+# Never-commit hold (Will's authorization): tentative-review material is on disk for review only,
+# never contributed to the repo. Enforced belt-and-suspenders by .githooks/pre-commit.
+_tentative_review/
+
+# Diatonic Hamiltonian personal visuals (fun extras, not repo material)
+approximability/fifth_music_figs.py
+approximability/fifth_music_data.json
+approximability/fifth_circle_of_fifths.png
+approximability/fifth_devil_staircase.png
+approximability/fifth_assembly.gif
+approximability/fifth_instrument.html

@@ -1,0 +1,117 @@
+{
+ "run": "Tier 2 sup-side L-extension @N=100k",
+ "cell": {
+  "delta": 0.5,
+  "lam": 1.5,
+  "N": 100000
+ },
+ "L_actual": [
+  100000,
+  1600000,
+  6400000
+ ],
+ "L_top": 6400000,
+ "apparatus_identity": {
+  "L1e5_spread": {
+   "measured": 0.007145684,
+   "stored": 0.007146,
+   "abs_diff": 3.16e-07,
+   "tol": 7.146e-06,
+   "PASS": true
+  }
+ },
+ "means_by_L": {
+  "100000": 0.49961589,
+  "1600000": 0.49394585,
+  "6400000": 0.50041678
+ },
+ "spreads_by_L": {
+  "100000": 0.00714568,
+  "1600000": 0.8189513,
+  "6400000": 0.84702875
+ },
+ "top_inc_mean": 0.012931,
+ "top_inc_spread": 0.033148,
+ "converged": true,
+ "monotone_mean": true,
+ "monotone_spread": true,
+ "pathology_flags": [],
+ "loglog_alpha_mean": -0.0094,
+ "loglog_alpha_spread": -0.0243,
+ "phi_per_L": {
+  "100000": [
+   0.500291667,
+   0.503906169,
+   0.501770833,
+   0.4998125,
+   0.498625,
+   0.500031251,
+   0.4991875,
+   0.497833333,
+   0.4973125,
+   0.496760485,
+   0.499677091,
+   0.499604167,
+   0.499614593,
+   0.497854167,
+   0.502479167,
+   0.49909377
+  ],
+  "1600000": [
+   0.221108722,
+   0.336522362,
+   0.398874945,
+   0.514575071,
+   0.6298603,
+   0.756377162,
+   0.900315939,
+   0.926583697,
+   0.798178113,
+   0.667855408,
+   0.552526162,
+   0.436930742,
+   0.321258717,
+   0.205635453,
+   0.107632393,
+   0.128898448
+  ],
+  "6400000": [
+   0.228481045,
+   0.345827543,
+   0.439723977,
+   0.557234214,
+   0.674311415,
+   0.800228921,
+   0.945031132,
+   0.880771417,
+   0.762885133,
+   0.645548793,
+   0.551565618,
+   0.415160848,
+   0.321098565,
+   0.180498505,
+   0.098002378,
+   0.160298961
+  ]
+ },
+ "sensitivity_criterion_at_N100k_with_direct_substrate": {
+  "stored_gap": 0.496135,
+  "stored_sub_spread": 0.000146,
+  "direct_substrate_sup_spread": 0.8470287533908383,
+  "max_spread": 0.8470287533908383,
+  "gap_over_max": 0.586,
+  "criterion_PASS": false,
+  "rev5_1_inferential_predicted_PASS": true,
+  "agreement": "inference_disconfirmed"
+ },
+ "growth_factor_substrate_over_L1e5": 118.5371,
+ "growth_factor_pattern": {
+  "N=50k": 0.93,
+  "N=70k": 4.99,
+  "N=100k": 118.5371
+ },
+ "terminal": "TIER2_N100K_SUP_L_CONVERGED",
+ "errors": [],
+ "total_s": 19058.0,
+ "note": "Tier 2 at N=100k. Direct measurement at L-converged replaces rev-5.1 inferential \u22481\u00d7 entry. Closes cell-granular banking on no-FP half. Never adjudicates Step-1; banked Step-1 untouched."
+}

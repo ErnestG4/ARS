@@ -1,0 +1,138 @@
+======================================================================================
+FIB-NEIGHBOURHOOD MP — 10 workers / 24 cores (thread-pinned, non-disruptive)
+  exact rate setup: λ 0.5/1.5, L=100000, 16 φ∈[0,0.5) ; N only var ; rungs F16..F26 ALL FULL
+  154 N-points, 4928 pure tasks (bit-identical to serial)
+======================================================================================
+   [  1/154 N done, 32/4928 tasks, 3s] N=979 F_16 -8 sup_spread=0.635113 gap=0.2075963
+   [  3/154 N done, 96/4928 tasks, 9s] N=984 F_16 -3 sup_spread=0.6290943 gap=0.2121293
+   [  4/154 N done, 128/4928 tasks, 12s] N=985 F_16 -2 sup_spread=0.629541 gap=0.2117353
+   [  5/154 N done, 161/4928 tasks, 17s] N=986 F_16 -1 sup_spread=0.6248519 gap=0.2315323
+   [  6/154 N done, 192/4928 tasks, 20s] N=987 F_16 Fn sup_spread=0.6231739 gap=0.2197126
+   [  7/154 N done, 224/4928 tasks, 23s] N=988 F_16 +1 sup_spread=0.6203156 gap=0.2200576
+   [  8/154 N done, 256/4928 tasks, 25s] N=989 F_16 +2 sup_spread=0.6167999 gap=0.2194106
+   [  9/154 N done, 288/4928 tasks, 28s] N=990 F_16 +3 sup_spread=0.6136558 gap=0.221523
+   [ 10/154 N done, 320/4928 tasks, 31s] N=992 F_16 +5 sup_spread=0.6109753 gap=0.2230764
+   [ 11/154 N done, 352/4928 tasks, 34s] N=995 F_16 +8 sup_spread=0.6010786 gap=0.2298771
+   [ 12/154 N done, 384/4928 tasks, 37s] N=1140 F_16 int0.25 sup_spread=0.5161996 gap=0.2104232
+   [ 13/154 N done, 416/4928 tasks, 40s] N=1292 F_16 int0.5 sup_spread=0.5723442 gap=0.1984935
+   [ 14/154 N done, 448/4928 tasks, 44s] N=1444 F_16 int0.75 sup_spread=0.4066776 gap=0.2539615
+   [ 15/154 N done, 480/4928 tasks, 50s] N=1589 F_17 -8 sup_spread=0.4705973 gap=0.2318329
+   [ 18/154 N done, 576/4928 tasks, 60s] N=1595 F_17 -2 sup_spread=0.4785364 gap=0.2216782
+   [ 19/154 N done, 608/4928 tasks, 63s] N=1596 F_17 -1 sup_spread=0.477268 gap=0.232201
+   [ 20/154 N done, 640/4928 tasks, 67s] N=1597 F_17 Fn sup_spread=0.4782746 gap=0.2216906
+   [ 21/154 N done, 672/4928 tasks, 70s] N=1598 F_17 +1 sup_spread=0.4810105 gap=0.2191917
+   [ 22/154 N done, 704/4928 tasks, 74s] N=1599 F_17 +2 sup_spread=0.4833166 gap=0.2172245
+   [ 23/154 N done, 736/4928 tasks, 77s] N=1600 F_17 +3 sup_spread=0.4838898 gap=0.216594
+   [ 25/154 N done, 800/4928 tasks, 87s] N=1605 F_17 +8 sup_spread=0.4901702 gap=0.214962
+   [ 26/154 N done, 832/4928 tasks, 90s] N=1844 F_17 int0.25 sup_spread=0.5466865 gap=0.2021062
+   [ 27/154 N done, 864/4928 tasks, 94s] N=2090 F_17 int0.5 sup_spread=0.5480851 gap=0.1947347
+   [ 28/154 N done, 896/4928 tasks, 98s] N=2337 F_17 int0.75 sup_spread=0.567622 gap=0.2102337
+   [ 29/154 N done, 928/4928 tasks, 102s] N=2576 F_18 -8 sup_spread=0.6210839 gap=0.2369917
+   [ 30/154 N done, 960/4928 tasks, 107s] N=2579 F_18 -5 sup_spread=0.6184944 gap=0.237441
+   [ 31/154 N done, 992/4928 tasks, 111s] N=2581 F_18 -3 sup_spread=0.6151999 gap=0.2378074
+   [ 33/154 N done, 1056/4928 tasks, 122s] N=2583 F_18 -1 sup_spread=0.6127087 gap=0.2452378
+   [ 34/154 N done, 1088/4928 tasks, 127s] N=2584 F_18 Fn sup_spread=0.6133989 gap=0.2382753
+   [ 35/154 N done, 1120/4928 tasks, 132s] N=2585 F_18 +1 sup_spread=0.6126504 gap=0.2382057
+   [ 36/154 N done, 1152/4928 tasks, 136s] N=2586 F_18 +2 sup_spread=0.6126655 gap=0.2383643
+   [ 37/154 N done, 1184/4928 tasks, 140s] N=2587 F_18 +3 sup_spread=0.6128468 gap=0.2380279
+   [ 38/154 N done, 1216/4928 tasks, 145s] N=2589 F_18 +5 sup_spread=0.6109649 gap=0.2396851
+   [ 39/154 N done, 1248/4928 tasks, 149s] N=2592 F_18 +8 sup_spread=0.6102761 gap=0.2408057
+   [ 40/154 N done, 1280/4928 tasks, 156s] N=2983 F_18 int0.25 sup_spread=0.7158912 gap=0.2072111
+   [ 41/154 N done, 1312/4928 tasks, 161s] N=3382 F_18 int0.5 sup_spread=0.6275304 gap=0.1812193
+   [ 42/154 N done, 1344/4928 tasks, 167s] N=3782 F_18 int0.75 sup_spread=0.5167286 gap=0.2251592
+   [ 43/154 N done, 1376/4928 tasks, 173s] N=4173 F_19 -8 sup_spread=0.4298763 gap=0.2638797
+   [ 44/154 N done, 1408/4928 tasks, 179s] N=4176 F_19 -5 sup_spread=0.4315544 gap=0.2629233
+   [ 45/154 N done, 1440/4928 tasks, 184s] N=4178 F_19 -3 sup_spread=0.4292473 gap=0.2619614
+   [ 46/154 N done, 1472/4928 tasks, 193s] N=4179 F_19 -2 sup_spread=0.4303334 gap=0.262995
+   [ 47/154 N done, 1504/4928 tasks, 199s] N=4180 F_19 -1 sup_spread=0.4309472 gap=0.264437
+   [ 49/154 N done, 1568/4928 tasks, 211s] N=4182 F_19 +1 sup_spread=0.4317989 gap=0.2589324
+   [ 50/154 N done, 1600/4928 tasks, 217s] N=4183 F_19 +2 sup_spread=0.4306423 gap=0.259179
+   [ 51/154 N done, 1632/4928 tasks, 226s] N=4184 F_19 +3 sup_spread=0.4320724 gap=0.2575018
+   [ 52/154 N done, 1664/4928 tasks, 232s] N=4186 F_19 +5 sup_spread=0.4300651 gap=0.2572206
+   [ 53/154 N done, 1696/4928 tasks, 238s] N=4189 F_19 +8 sup_spread=0.4308164 gap=0.2553044
+   [ 54/154 N done, 1728/4928 tasks, 245s] N=4827 F_19 int0.25 sup_spread=0.5316151 gap=0.2070672
+   [ 55/154 N done, 1760/4928 tasks, 253s] N=5473 F_19 int0.5 sup_spread=0.7597013 gap=0.1032307
+   [ 56/154 N done, 1792/4928 tasks, 263s] N=6119 F_19 int0.75 sup_spread=0.7177563 gap=0.1406991
+   [ 57/154 N done, 1824/4928 tasks, 273s] N=6757 F_20 -8 sup_spread=0.5459801 gap=0.2457822
+   [ 58/154 N done, 1856/4928 tasks, 282s] N=6760 F_20 -5 sup_spread=0.5439215 gap=0.2472142
+   [ 60/154 N done, 1920/4928 tasks, 303s] N=6763 F_20 -2 sup_spread=0.5429312 gap=0.2462486
+   [ 61/154 N done, 1952/4928 tasks, 312s] N=6764 F_20 -1 sup_spread=0.5409494 gap=0.2481743
+   [ 62/154 N done, 1984/4928 tasks, 321s] N=6765 F_20 Fn sup_spread=0.5439628 gap=0.2452796
+   [ 64/154 N done, 2048/4928 tasks, 342s] N=6767 F_20 +2 sup_spread=0.5457774 gap=0.243302
+   [ 65/154 N done, 2080/4928 tasks, 351s] N=6768 F_20 +3 sup_spread=0.5431382 gap=0.245206
+   [ 66/154 N done, 2112/4928 tasks, 363s] N=6770 F_20 +5 sup_spread=0.5435613 gap=0.2435502
+   [ 67/154 N done, 2144/4928 tasks, 372s] N=6773 F_20 +8 sup_spread=0.5434385 gap=0.2427633
+   [ 68/154 N done, 2176/4928 tasks, 384s] N=7810 F_20 int0.25 sup_spread=0.6156315 gap=0.1807723
+   [ 69/154 N done, 2208/4928 tasks, 398s] N=8856 F_20 int0.5 sup_spread=0.711544 gap=0.1451888
+   [ 70/154 N done, 2240/4928 tasks, 412s] N=9901 F_20 int0.75 sup_spread=0.5611812 gap=0.2164515
+   [ 73/154 N done, 2336/4928 tasks, 463s] N=10943 F_21 -3 sup_spread=0.5768658 gap=0.2354506
+   [ 74/154 N done, 2368/4928 tasks, 478s] N=10944 F_21 -2 sup_spread=0.5800482 gap=0.2337244
+   [ 75/154 N done, 2402/4928 tasks, 493s] N=10945 F_21 -1 sup_spread=0.577664 gap=0.2359682
+   [ 78/154 N done, 2496/4928 tasks, 544s] N=10948 F_21 +2 sup_spread=0.5812778 gap=0.2337947
+   [ 79/154 N done, 2528/4928 tasks, 559s] N=10949 F_21 +3 sup_spread=0.5791335 gap=0.2335363
+   [ 80/154 N done, 2560/4928 tasks, 576s] N=10951 F_21 +5 sup_spread=0.5798464 gap=0.2334349
+   [ 81/154 N done, 2592/4928 tasks, 590s] N=10954 F_21 +8 sup_spread=0.5818171 gap=0.2341782
+   [ 82/154 N done, 2624/4928 tasks, 612s] N=12637 F_21 int0.25 sup_spread=0.5824191 gap=0.2233134
+   [ 83/154 N done, 2656/4928 tasks, 632s] N=14328 F_21 int0.5 sup_spread=0.6403763 gap=0.2091306
+   [ 84/154 N done, 2688/4928 tasks, 658s] N=16020 F_21 int0.75 sup_spread=0.4831339 gap=0.2285329
+   [ 85/154 N done, 2721/4928 tasks, 688s] N=17703 F_22 -8 sup_spread=0.4990155 gap=0.2282933
+   [ 86/154 N done, 2752/4928 tasks, 715s] N=17706 F_22 -5 sup_spread=0.5043492 gap=0.2269721
+   [ 87/154 N done, 2784/4928 tasks, 746s] N=17708 F_22 -3 sup_spread=0.502168 gap=0.2278328
+   [ 90/154 N done, 2881/4928 tasks, 827s] N=17711 F_22 Fn sup_spread=0.5003257 gap=0.2287059
+   [ 94/154 N done, 3008/4928 tasks, 940s] N=17716 F_22 +5 sup_spread=0.5008449 gap=0.2284444
+   [ 95/154 N done, 3040/4928 tasks, 969s] N=17719 F_22 +8 sup_spread=0.4975769 gap=0.2275586
+   [ 96/154 N done, 3072/4928 tasks, 1004s] N=20448 F_22 int0.25 sup_spread=0.5135767 gap=0.242319
+   [ 97/154 N done, 3104/4928 tasks, 1045s] N=23184 F_22 int0.5 sup_spread=0.5195361 gap=0.153445
+   [ 98/154 N done, 3136/4928 tasks, 1092s] N=25920 F_22 int0.75 sup_spread=0.4650461 gap=0.2112429
+   [100/154 N done, 3200/4928 tasks, 1197s] N=28652 F_23 -5 sup_spread=0.3648036 gap=0.1631758
+   [101/154 N done, 3232/4928 tasks, 1251s] N=28654 F_23 -3 sup_spread=0.3666271 gap=0.1642915
+   [102/154 N done, 3264/4928 tasks, 1304s] N=28655 F_23 -2 sup_spread=0.3650893 gap=0.1640048
+   [104/154 N done, 3328/4928 tasks, 1408s] N=28657 F_23 Fn sup_spread=0.3667855 gap=0.1640065
+   [105/154 N done, 3360/4928 tasks, 1464s] N=28658 F_23 +1 sup_spread=0.3673658 gap=0.1638088
+   [107/154 N done, 3424/4928 tasks, 1570s] N=28660 F_23 +3 sup_spread=0.3668883 gap=0.1630241
+   [109/154 N done, 3488/4928 tasks, 1674s] N=28665 F_23 +8 sup_spread=0.3661771 gap=0.1634084
+   [110/154 N done, 3520/4928 tasks, 1746s] N=33085 F_23 int0.25 sup_spread=0.2840743 gap=0.26012
+   [111/154 N done, 3552/4928 tasks, 1823s] N=37512 F_23 int0.5 sup_spread=0.2554392 gap=0.1028515
+   [112/154 N done, 3584/4928 tasks, 1915s] N=41940 F_23 int0.75 sup_spread=0.2088639 gap=0.144267
+   [113/154 N done, 3616/4928 tasks, 2019s] N=46360 F_24 -8 sup_spread=0.1802066 gap=0.2520666
+   [114/154 N done, 3648/4928 tasks, 2121s] N=46363 F_24 -5 sup_spread=0.1774764 gap=0.2498482
+   [115/154 N done, 3681/4928 tasks, 2233s] N=46365 F_24 -3 sup_spread=0.1785426 gap=0.2494716
+   [116/154 N done, 3712/4928 tasks, 2336s] N=46366 F_24 -2 sup_spread=0.1778198 gap=0.2535416
+   [118/154 N done, 3776/4928 tasks, 2545s] N=46368 F_24 Fn sup_spread=0.1762518 gap=0.2506339
+   [119/154 N done, 3808/4928 tasks, 2652s] N=46369 F_24 +1 sup_spread=0.1754115 gap=0.2514661
+   [120/154 N done, 3841/4928 tasks, 2760s] N=46370 F_24 +2 sup_spread=0.1770313 gap=0.2515704
+   [121/154 N done, 3872/4928 tasks, 2863s] N=46371 F_24 +3 sup_spread=0.179268 gap=0.2521542
+   [123/154 N done, 3936/4928 tasks, 3069s] N=46376 F_24 +8 sup_spread=0.176329 gap=0.2518794
+   [124/154 N done, 3968/4928 tasks, 3211s] N=53532 F_24 int0.25 sup_spread=0.1075253 gap=0.290846
+   [125/154 N done, 4000/4928 tasks, 3375s] N=60696 F_24 int0.5 sup_spread=0.1194966 gap=0.178098
+   [126/154 N done, 4032/4928 tasks, 3568s] N=67861 F_24 int0.75 sup_spread=0.0794755 gap=0.1689093
+   [128/154 N done, 4096/4928 tasks, 4002s] N=75020 F_25 -5 sup_spread=0.0712837 gap=0.2050885
+   [129/154 N done, 4128/4928 tasks, 4230s] N=75022 F_25 -3 sup_spread=0.0683539 gap=0.2072063
+   [130/154 N done, 4160/4928 tasks, 4460s] N=75023 F_25 -2 sup_spread=0.0766055 gap=0.2042368
+   [133/154 N done, 4256/4928 tasks, 5110s] N=75026 F_25 +1 sup_spread=0.0728224 gap=0.2055527
+   [134/154 N done, 4288/4928 tasks, 5346s] N=75027 F_25 +2 sup_spread=0.0707622 gap=0.2057052
+   [135/154 N done, 4322/4928 tasks, 5576s] N=75028 F_25 +3 sup_spread=0.0728774 gap=0.2054387
+   [137/154 N done, 4384/4928 tasks, 6005s] N=75033 F_25 +8 sup_spread=0.0721229 gap=0.2058818
+   [138/154 N done, 4416/4928 tasks, 6298s] N=86617 F_25 int0.25 sup_spread=0.0378968 gap=0.3168196
+   [139/154 N done, 4448/4928 tasks, 6673s] N=98209 F_25 int0.5 sup_spread=0.0057338 gap=0.4698917
+   [140/154 N done, 4480/4928 tasks, 7108s] N=109801 F_25 int0.75 sup_spread=0.0227687 gap=0.4070659
+   [143/154 N done, 4576/4928 tasks, 8608s] N=121390 F_26 -3 sup_spread=0.0418934 gap=0.323648
+   [144/154 N done, 4608/4928 tasks, 9115s] N=121391 F_26 -2 sup_spread=0.0420646 gap=0.3236967
+   [145/154 N done, 4640/4928 tasks, 9621s] N=121392 F_26 -1 sup_spread=0.0451878 gap=0.3197467
+   [146/154 N done, 4672/4928 tasks, 10120s] N=121393 F_26 Fn sup_spread=0.0431279 gap=0.3213915
+   [147/154 N done, 4704/4928 tasks, 10613s] N=121394 F_26 +1 sup_spread=0.0406734 gap=0.3231564
+   [148/154 N done, 4736/4928 tasks, 11112s] N=121395 F_26 +2 sup_spread=0.0416341 gap=0.3243035
+   [149/154 N done, 4768/4928 tasks, 11601s] N=121396 F_26 +3 sup_spread=0.0439506 gap=0.3212116
+   [150/154 N done, 4800/4928 tasks, 12103s] N=121398 F_26 +5 sup_spread=0.042268 gap=0.3224589
+   [151/154 N done, 4832/4928 tasks, 12596s] N=121401 F_26 +8 sup_spread=0.042027 gap=0.3221444
+   [152/154 N done, 4864/4928 tasks, 13309s] N=140149 F_26 int0.25 sup_spread=0.0407007 gap=0.212289
+   [153/154 N done, 4896/4928 tasks, 14139s] N=158906 F_26 int0.5 sup_spread=0.069447 gap=0.1283137
+   [154/154 N done, 4928/4928 tasks, 15111s] N=177662 F_26 int0.75 sup_spread=0.0688931 gap=0.1095723
+
+======================================================================================
+DONE 15111.0s (10 workers). Per-rung sup_spread@Fn / neigh-range / gap-neigh-range in JSON.
+Outcome-map read = the report (PRE-REGISTERED: neigh-flat⇒crossover/
+ladder-representative ; sharp-cluster⇒commensurability-band-edge ;
+smooth-interval⇒log-periodic ; + gap-own-F_n-structure sub-question).
+SCOPING / instrument N-behaviour, NEVER a finding. brief-and-hold.
+======================================================================================

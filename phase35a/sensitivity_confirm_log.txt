@@ -1,0 +1,15 @@
+====================================================================================
+NON-CIRCULAR SENSITIVITY CONFIRMATION — 18w, exact sharpening criterion VERBATIM at pinned robust N=[50000, 70000, 100000]
+  λ_sub=0.5 λ_sup=1.5, 16 φ∈[0,0.5), L=100000
+====================================================================================
+  N=  50000 | sub_spread=0.00029 sup_spread=0.12286 gap=0.37497 disjoint=True gap/sup=3.05 → PASS
+  N=  70000 | sub_spread=0.00003 sup_spread=0.07656 gap=0.17740 disjoint=True gap/sup=2.32 → PASS
+  N= 100000 | sub_spread=0.00015 sup_spread=0.00715 gap=0.49614 disjoint=True gap/sup=69.43 → PASS
+
+====================================================================================
+  VERDICT: SENSITIVITY_VALIDATED_NON_CIRCULAR  (criterion holds at ALL 3 N: True)  [586.0s]
+  ⇒ Step-1 35b sensitivity half now on NON-CIRCULAR footing
+    (no-false-positive half already banked-VALIDATED).
+  Instrument-validation of transition_diagnostic sensitivity, NOT
+  an AM discovery. brief-and-hold; Class II blocked; no §3.
+====================================================================================

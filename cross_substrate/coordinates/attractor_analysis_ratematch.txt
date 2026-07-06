@@ -1,0 +1,107 @@
+loaded: 000638 1365 cells / 131 pop ;  Allen 4358 cells / 255 pop
+
+##############################################################################
+# P2.1 PER-CELL DISTRIBUTIONS (median)
+##############################################################################
+
+### 000638  (MEC/CA1/DG)  (all cell-types)
+region nCell         ks_gue        brody_q             w1     burst_frac            cv2        rate_hz
+MEC      739          0.534          0.000          1.143          0.066          1.169          0.619
+CA1      320          0.500          0.000          1.091          0.066          1.066          1.031
+DG       306          0.573          0.000          1.211          0.079          1.115          0.884
+
+### 000638  (MEC/CA1/DG)  (cell_type=excitatory)
+region nCell         ks_gue        brody_q             w1     burst_frac            cv2        rate_hz
+MEC      524          0.539          0.000          1.166          0.056          1.199          0.467
+CA1      114          0.564          0.000          1.233          0.157          1.268          0.475
+DG       122          0.631          0.000          1.317          0.156          1.253          0.322
+
+### Allen   (CA3/CA1/DG)  (all cell-types)
+region nCell         ks_gue        brody_q             w1     burst_frac            cv2        rate_hz
+CA3      466          0.860          0.000          1.731          0.124          1.072          3.015
+CA1     2463          0.855          0.000          1.734          0.135          1.149          3.183
+DG       730          0.852          0.000          1.730          0.106          1.126          2.632
+
+### Allen   (CA3/CA1/DG)  (cell_type=excitatory)
+region nCell         ks_gue        brody_q             w1     burst_frac            cv2        rate_hz
+CA3      379          0.864          0.000          1.732          0.126          1.103          2.513
+CA1     2082          0.855          0.000          1.734          0.143          1.180          2.849
+DG       483          0.851          0.000          1.729          0.097          1.157          2.076
+
+##############################################################################
+# P2.1 PAIRWISE EFFECT SIZES (Cliff's delta, Mann-Whitney p)
+##############################################################################
+  [rate-match caps] 000638=1.70Hz  Allen=7.91Hz
+
+### 000638 — pairwise vs CA1 (ct=excitatory) [rate<= 1.69622Hz]
+  ks_gue  : MEC: δ=-0.074 negligible p=2.5e-01  n=469v99   DG: δ=+0.413 medium     p=2.7e-07*** n=109v99
+  brody_q : MEC: δ=+0.000 negligible p=1.0e+00  n=469v99   DG: δ=+0.000 negligible p=1.0e+00  n=109v99
+  w1      : MEC: δ=-0.160 small      p=1.3e-02* n=469v99   DG: δ=+0.335 medium     p=3.0e-05*** n=109v99
+  brho    : MEC: δ=+0.152 small      p=1.8e-02* n=469v99   DG: δ=-0.136 negligible p=9.2e-02  n=109v99
+  burst_frac: MEC: δ=-0.548 LARGE      p=4.5e-20*** n=524v114   DG: δ=-0.061 negligible p=4.2e-01  n=122v114
+  cv2     : MEC: δ=-0.403 medium     p=1.5e-11*** n=524v114   DG: δ=-0.081 negligible p=2.9e-01  n=122v114
+
+### Allen — pairwise vs CA1 (ct=excitatory) [rate<= 7.91076Hz]
+  ks_gue  : CA3: δ=+0.159 small      p=4.0e-06*** n=331v1845   DG: δ=-0.044 negligible p=1.5e-01  n=434v1845
+  brody_q : CA3: δ=+0.000 negligible p=1.0e+00  n=329v1832   DG: δ=+0.002 negligible p=3.8e-02* n=424v1832
+  w1      : CA3: δ=-0.033 negligible p=3.4e-01  n=331v1845   DG: δ=-0.119 negligible p=1.2e-04*** n=434v1845
+  brho    : CA3: δ=+0.100 negligible p=3.8e-03** n=331v1834   DG: δ=-0.035 negligible p=2.6e-01  n=427v1834
+  burst_frac: CA3: δ=-0.092 negligible p=4.4e-03** n=379v2082   DG: δ=-0.220 small      p=4.7e-14*** n=483v2082
+  cv2     : CA3: δ=-0.208 small      p=1.1e-10*** n=379v2082   DG: δ=-0.082 negligible p=5.2e-03** n=483v2082
+
+##############################################################################
+# P2.2 POPULATION OBSERVABLES
+##############################################################################
+
+### 000638 — population observables (cell_type=all, median over sessions)
+region agg         nRec   brody_q      brho    ks_gue
+MEC    corr-eig       6     0.873     0.976     0.133
+MEC    avl-onset     10     0.272     0.206     0.305
+MEC    sync-event    10     0.017     0.005     0.452
+CA1    corr-eig       1     -         -         0.149
+CA1    avl-onset     10     0.596     0.846     0.242
+CA1    sync-event    10     0.000     0.001     0.409
+DG     corr-eig       1     -         -         0.156
+DG     avl-onset      7     0.488     0.635     0.243
+DG     sync-event     7     0.000     0.005     0.397
+
+### Allen — population observables (cell_type=all, median over sessions)
+region agg         nRec   brody_q      brho    ks_gue
+CA3    corr-eig       4     0.947     0.987     0.118
+CA3    avl-onset      9     0.000     0.000     0.850
+CA3    sync-event     9     0.000     0.013     0.406
+CA1    corr-eig       9     0.905     0.999     0.083
+CA1    avl-onset      9     0.000     0.000     0.858
+CA1    sync-event     9     0.000     0.004     0.422
+DG     corr-eig       8     0.860     0.997     0.140
+DG     avl-onset      9     0.000     0.000     0.865
+DG     sync-event     9     0.000     0.004     0.468
+
+==============================================================================
+CROSS-SUBSTRATE VALIDITY BRIDGE — do the SHARED anchors (CA1, DG) agree across substrates?
+  (000638 vs Allen; large delta => substrate/prep confound dominates => MEC-vs-CA3 NOT clean)
+==============================================================================
+
+  [CA1] 000638 vs Allen (excitatory-only):
+     ks_gue  : δ=-0.934 LARGE      p=1.7e-63*** n=114v2082  med 000638=0.564 Allen=0.855
+     brody_q : δ=+0.000 negligible p=1.0e+00  n=114v2069  med 000638=0.000 Allen=0.000
+     w1      : δ=-0.999 LARGE      p=2.6e-72*** n=114v2082  med 000638=1.233 Allen=1.734
+     brho    : δ=+0.894 LARGE      p=2.5e-58*** n=114v2071  med 000638=0.002 Allen=0.000
+
+  [DG] 000638 vs Allen (excitatory-only):
+     ks_gue  : δ=-0.869 LARGE      p=8.4e-50*** n=122v483  med 000638=0.631 Allen=0.851
+     brody_q : δ=-0.002 negligible p=6.1e-01  n=122v473  med 000638=0.000 Allen=0.000
+     w1      : δ=-0.939 LARGE      p=6.9e-58*** n=122v483  med 000638=1.317 Allen=1.729
+     brho    : δ=+0.839 LARGE      p=1.9e-46*** n=122v476  med 000638=0.001 Allen=0.000
+
+==============================================================================
+P3 HEADLINE — MEC (000638, continuous-attractor grid) vs CA3 (Allen, discrete attractor)
+  INTERPRETIVE NOT MEASURED: different animals/prep/task; read THROUGH the CA1/DG bridge above.
+==============================================================================
+  excitatory-only, rate<= 1.69622Hz:
+     ks_gue  : δ=-0.983 LARGE      p=8.9e-67*** n=469v132  med MEC=0.546 CA3=0.860
+     brody_q : δ=+0.000 negligible p=1.0e+00  n=469v130  med MEC=0.000 CA3=0.000
+     w1      : δ=-0.992 LARGE      p=6.2e-68*** n=469v132  med MEC=1.175 CA3=1.732
+     brho    : δ=+0.922 LARGE      p=5.9e-59*** n=469v132  med MEC=0.002 CA3=0.000
+     burst_frac: δ=-0.385 medium     p=5.1e-23*** n=524v379  med MEC=0.056 CA3=0.126
+     cv2     : δ=+0.277 small      p=1.1e-12*** n=524v379  med MEC=1.199 CA3=1.103

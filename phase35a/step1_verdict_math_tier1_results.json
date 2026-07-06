@@ -1,0 +1,40 @@
+{
+ "protocol": "Will's exact words (2026-05-20)",
+ "stored_at_N70k": {
+  "N": 70000,
+  "sub_spread": 2.7e-05,
+  "sup_spread": 0.07656,
+  "gap": 0.177402,
+  "disjoint": true,
+  "stored_verdict_PASS": true
+ },
+ "L_converged_substrate": {
+  "L_top": 25600000,
+  "sup_spread": 0.38159972,
+  "sup_mean": 0.44414709,
+  "sup_ensemble_min": 0.228044007,
+  "sup_ensemble_max": 0.609643729,
+  "sub_upper_bound_from_bh22_L1p6e6": 0.010763524959376712
+ },
+ "minimal_substitution": {
+  "sub_spread": 2.7e-05,
+  "sup_spread": 0.38159972,
+  "gap": 0.177402,
+  "max_spread": 0.38159972,
+  "criterion_PASS": false
+ },
+ "full_substrate_confirmatory": {
+  "substrate_gap": 0.21728048204062328,
+  "max_spread_substrate": 0.38159972,
+  "criterion_PASS": false
+ },
+ "theta_class_caveats": {
+  "sup_universal_within_30pct": true,
+  "sub_theta_sensitive_3p55x": true,
+  "affects_this_verdict": false,
+  "reason": "max() dominated by sup; sub \u03b8-sensitivity does not flip the maximum."
+ },
+ "outcome": "STEP1_N70K_VERDICT_FLIPS_RETRACTED",
+ "other_N_status": "NOT computed at other N (Tier 2 substrate values not measured; Will: decisive at N=70k is enough or Tier 2 follows)",
+ "scope": "Tier 1 verdict math at the load-bearing N=70k cell. Computes; surfaces; does NOT decide Step-1 propagation or recovery direction \u2014 that is Will's."
+}

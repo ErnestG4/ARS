@@ -1,0 +1,89 @@
+==============================================================================
+RE-GATED SCOPING INSTRUMENT — gates A,B,C must ALL pass before grid
+==============================================================================
+
+── GATE A — exact clock (λ=0, arcsine) : var≈0, W1δ≈0 expected
+   N=  377 var=0.00e+00 W1δ=0.00e+00 ksW_fl=11.6 ksP_fl=13.77
+   N= 2584 var=0.00e+00 W1δ=0.00e+00 ksW_fl=30.53 ksP_fl=36.21
+   N= 6765 var=0.00e+00 W1δ=0.00e+00 ksW_fl=49.43 ksP_fl=58.62
+   τ_clock := 1.00e-06  (50× max exact-clock W1δ)   GATE A PASS
+
+── GATE B — synthetic Poisson : var≈1, W1δ≈0.74, ksP_fl small, BL
+   n= 3000 var=1.029 W1δ=0.739 ksP_fl=0.61 ksW_fl=17.83 quad=BL clock_rigid=False
+   n= 6000 var=1.019 W1δ=0.745 ksP_fl=1.01 ksW_fl=25.59 quad=BL clock_rigid=False
+   GATE B PASS
+
+── GATE C — rational-θ=p/q   (ok_absorb gates grid; ok_plateau = insurance)
+   θ=8/13: ABSORB var=0.0007 W1δ=0.0035 → PASS   | PLATEAU 17 open gaps, max|dev−k/q|=0.00013 (tol 0.00364) → PASS
+   θ=13/21: ABSORB var=0.0008 W1δ=0.0033 → PASS   | PLATEAU 21 open gaps, max|dev−k/q|=0.00008 (tol 0.00340) → PASS
+   GATE C: ok_absorb (gates grid) = PASS ; ok_plateau (insurance) = PASS
+
+*** GRID-CRITICAL GATES PASS (A=True B=True C_absorb=True); C_plateau=True [insurance, non-blocking] — proceeding to grid ***
+
+==============================================================================
+GRID (gates passed) — trimmed; var(s)/W1δ + clock_rigid + KS-floor;
+decisive = is the derived label UNFOLDING-INVARIANT (deg11/ids/deg3)?
+==============================================================================
+
+SUPERCRITICAL λ→1⁺
+    λ     N | unfold       label    var(s)     W1δ   ksW/ksP_fl        quad | INV?
+ 1.05   377 |  deg11     poisson    13.213   1.474  16.5/ 10.8           —
+ 1.05   377 |    ids      wigner     0.158   0.315   4.2/  7.6           —
+ 1.05   377 |   deg3     poisson    39.012   1.692  18.9/ 14.5           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 1.05  2584 |  deg11     poisson    95.504   1.677  50.3/ 35.5          BL
+ 1.05  2584 |    ids      wigner     0.106   0.271  10.0/ 23.0 BR_artifact
+ 1.05  2584 |   deg3     poisson   273.512   1.832  54.4/ 44.3          BL | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 1.05  6765 |  deg11     poisson   251.539   1.715  83.3/ 59.5           —
+ 1.05  6765 |    ids      wigner     0.146   0.327  18.3/ 37.7           —
+ 1.05  6765 |   deg3     poisson   717.751   1.861  89.2/ 73.4           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 1.25   377 |  deg11     poisson     6.497   0.974   9.9/  5.0           —
+ 1.25   377 |    ids      wigner     0.119   0.285   4.9/  8.4           —
+ 1.25   377 |   deg3     poisson    32.348   1.402  15.5/  9.3           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 1.25  2584 |  deg11     poisson    47.624   1.069  28.1/ 15.8          BL
+ 1.25  2584 |    ids      wigner     0.098   0.264  10.4/ 23.5 BR_artifact
+ 1.25  2584 |   deg3     poisson   227.022   1.490  43.2/ 27.2          BL | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 1.25  6765 |  deg11     poisson   125.651   1.087  46.3/ 26.4           —
+ 1.25  6765 |    ids      wigner     0.138   0.321  18.8/ 38.3           —
+ 1.25  6765 |   deg3     poisson   595.835   1.505  69.7/ 44.9           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 2.00   377 |  deg11     poisson     2.579   0.591   4.8/  3.3           —
+ 2.00   377 |    ids      wigner     0.111   0.277   5.1/  8.7           —
+ 2.00   377 |   deg3     poisson    17.021   0.892   8.8/  4.9           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 2.00  2584 |  deg11     poisson    18.533   0.624  13.3/  8.5          BL
+ 2.00  2584 |    ids      wigner     0.095   0.261  10.6/ 23.8 BR_artifact
+ 2.00  2584 |   deg3     poisson   119.508   0.927  23.6/ 13.4          BL | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 2.00  6765 |  deg11     poisson    48.838   0.631  21.9/ 14.0           —
+ 2.00  6765 |    ids      wigner     0.138   0.321  19.1/ 38.2           —
+ 2.00  6765 |   deg3     poisson   313.706   0.934  38.2/ 22.0           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+
+SUBCRITICAL small-λ
+    λ     N | unfold       label    var(s)     W1δ   ksW/ksP_fl        quad | INV?
+ 0.10   377 |  deg11      wigner     0.601   0.184   6.6/  8.9           —
+ 0.10   377 |    ids      wigner     0.002   0.013  10.7/ 13.2           —
+ 0.10   377 |   deg3      wigner     0.875   0.303   5.1/  6.9           — | YES
+ 0.10  2584 |  deg11      wigner     4.551   0.200  17.5/ 22.8          TR
+ 0.10  2584 |    ids      wigner     0.002   0.039  28.8/ 35.5 BR_artifact
+ 0.10  2584 |   deg3      wigner     6.254   0.320  14.0/ 17.4          BL | YES
+ 0.10  6765 |  deg11      wigner    12.047   0.203  28.4/ 36.7           —
+ 0.10  6765 |    ids      wigner     0.016   0.113  36.1/ 52.9           —
+ 0.10  6765 |   deg3      wigner    16.458   0.323  22.8/ 27.9           — | YES
+ 0.50   377 |  deg11      wigner     2.026   0.484   4.3/  4.6           —
+ 0.50   377 |    ids      wigner     0.006   0.024  10.2/ 12.7           —
+ 0.50   377 |   deg3     poisson    15.967   0.810   7.8/  6.6           — | NO {'deg11': 'wigner', 'ids': 'wigner', 'deg3': 'poisson'}
+ 0.50  2584 |  deg11      wigner    15.106   0.536  12.9/ 13.7          BL
+ 0.50  2584 |    ids      wigner     0.003   0.037  28.7/ 35.3 BR_artifact
+ 0.50  2584 |   deg3     poisson   112.436   0.861  22.3/ 18.3          BL | NO {'deg11': 'wigner', 'ids': 'wigner', 'deg3': 'poisson'}
+ 0.50  6765 |  deg11      wigner    39.933   0.543  21.2/ 22.6           —
+ 0.50  6765 |    ids      wigner     0.013   0.097  36.0/ 52.8           —
+ 0.50  6765 |   deg3     poisson   295.204   0.869  36.5/ 30.0           — | NO {'deg11': 'wigner', 'ids': 'wigner', 'deg3': 'poisson'}
+ 0.95   377 |  deg11     poisson    13.276   1.476  17.4/ 11.8           —
+ 0.95   377 |    ids      wigner     0.034   0.109   7.1/ 10.7           —
+ 0.95   377 |   deg3     poisson    37.830   1.693  19.0/ 15.0           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 0.95  2584 |  deg11     poisson    95.914   1.668  51.9/ 37.4          BL
+ 0.95  2584 |    ids      wigner     0.009   0.053  26.2/ 32.8 BR_artifact
+ 0.95  2584 |   deg3     poisson   265.470   1.827  54.8/ 45.8          BL | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+ 0.95  6765 |  deg11     poisson   252.498   1.704  85.8/ 62.4           —
+ 0.95  6765 |    ids      wigner     0.016   0.100  35.6/ 52.4           —
+ 0.95  6765 |   deg3     poisson   696.687   1.856  89.8/ 75.9           — | NO {'deg11': 'poisson', 'ids': 'wigner', 'deg3': 'poisson'}
+
+record (horizon) → $HOME/fmexplorer/criticality_tool/phase35a/regated_instrument_results.json
+NO auto-adjudication. Read gates first.

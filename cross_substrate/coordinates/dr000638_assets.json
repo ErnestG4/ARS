@@ -1,0 +1,167 @@
+[
+{
+"asset_id": "beaae98d-1c19-496a-a68e-78971df2286d",
+"size": 32520681048,
+"path": "sub-TS110-3/sub-TS110-3_ses-TS110-3_behavior+ecephys.nwb"
+},
+{
+"asset_id": "38a938ad-c892-482c-85de-a95699a3b524",
+"size": 33466737024,
+"path": "sub-TS112-0/sub-TS112-0_ses-TS112-0_behavior+ecephys.nwb"
+},
+{
+"asset_id": "013ee2b0-6f9f-4ed6-a188-5b0a92c0dae1",
+"size": 34488658272,
+"path": "sub-TS112-1/sub-TS112-1_ses-TS112-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "13d4e02f-fe82-43b1-ac06-52018f12651b",
+"size": 43402065696,
+"path": "sub-TS111-1/sub-TS111-1_ses-TS111-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "844e28a7-7915-4629-bc92-69d2c0943a82",
+"size": 53726660660,
+"path": "sub-TS111-2/sub-TS111-2_ses-TS111-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "8e383afe-73c3-4f3f-9ff2-172aeda2fdd4",
+"size": 50128107168,
+"path": "sub-TS113-2/sub-TS113-2_ses-TS113-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "eb207bd4-5858-4c89-9b54-8f91b2eb9e72",
+"size": 53666101576,
+"path": "sub-TS114-0/sub-TS114-0_ses-TS114-0_behavior+ecephys.nwb"
+},
+{
+"asset_id": "e94d2568-743f-4f5e-86ab-a4e108ac3e44",
+"size": 59090010759,
+"path": "sub-TS113-1/sub-TS113-1_ses-TS113-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "9ceeaf0c-ef94-4f3f-8f8d-70859daf6b19",
+"size": 63414733184,
+"path": "sub-TS114-1/sub-TS114-1_ses-TS114-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "7fdf54ac-80a8-43b5-9f0c-c3de523994a3",
+"size": 22170760032,
+"path": "sub-TS115-1/sub-TS115-1_ses-TS115-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "fbf7c2eb-8fda-4e81-ba3f-c199ba271c98",
+"size": 58900811272,
+"path": "sub-TS114-2/sub-TS114-2_ses-TS114-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "8ed9fc47-fab0-4ad5-916f-58f823feb675",
+"size": 31954848152,
+"path": "sub-TS115-2/sub-TS115-2_ses-TS115-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "a174a872-fde9-4e7f-8112-160cb63c4cc8",
+"size": 16603472792,
+"path": "sub-TS116-2/sub-TS116-2_ses-TS116-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "6df660de-4839-413e-9d19-b843edaa27ea",
+"size": 20037094376,
+"path": "sub-TS116-1/sub-TS116-1_ses-TS116-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "e7635a9b-cb75-4c6b-a1f1-e6664073304d",
+"size": 13374428480,
+"path": "sub-TS116-3/sub-TS116-3_ses-TS116-3_behavior+ecephys.nwb"
+},
+{
+"asset_id": "d0f00ffa-c65d-4cba-8bde-50433211a247",
+"size": 29120670288,
+"path": "sub-TS116-0/sub-TS116-0_ses-TS116-0_behavior+ecephys.nwb"
+},
+{
+"asset_id": "cbbd3125-abcb-407e-ab76-e75a915e0301",
+"size": 52509326512,
+"path": "sub-TS114-3/sub-TS114-3_ses-TS114-3_behavior+ecephys.nwb"
+},
+{
+"asset_id": "723458a0-dac8-43c4-942b-33770c511510",
+"size": 21823070368,
+"path": "sub-TS117-0/sub-TS117-0_ses-TS117-0_behavior+ecephys.nwb"
+},
+{
+"asset_id": "1b269d35-d4b9-411f-a73b-d0456be7112e",
+"size": 23654708896,
+"path": "sub-TS117-1/sub-TS117-1_ses-TS117-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "b68b3831-61b5-4813-8dab-4a77a7070965",
+"size": 18546766112,
+"path": "sub-TS118-2/sub-TS118-2_ses-TS118-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "0c1f0bfc-a08e-4f31-9c57-d6483389a757",
+"size": 25479116824,
+"path": "sub-TS118-0/sub-TS118-0_ses-TS118-0_behavior+ecephys.nwb"
+},
+{
+"asset_id": "38272d3e-c879-4935-b5bb-75a04eb9d7e1",
+"size": 27721416072,
+"path": "sub-TS118-3/sub-TS118-3_ses-TS118-3_behavior+ecephys.nwb"
+},
+{
+"asset_id": "d050130c-23ab-47e0-967f-285fafd7684b",
+"size": 24726410984,
+"path": "sub-TS118-4/sub-TS118-4_ses-TS118-4_behavior+ecephys.nwb"
+},
+{
+"asset_id": "3cbf64c7-b5d8-4e24-bd57-e33f83ea9964",
+"size": 21791031192,
+"path": "sub-TS89-1/sub-TS89-1_ses-TS89-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "4555f03a-1278-44f5-8f1a-22d211669be2",
+"size": 38554067752,
+"path": "sub-TS88-3/sub-TS88-3_ses-TS88-3_behavior+ecephys.nwb"
+},
+{
+"asset_id": "e9bcdc46-02d4-4d69-8658-e7ee95117207",
+"size": 45727685336,
+"path": "sub-TS86-1/sub-TS86-1_ses-TS86-1_behavior+ecephys.nwb"
+},
+{
+"asset_id": "fea1a7c9-ab85-446c-a3d8-5765c56ac812",
+"size": 52173848688,
+"path": "sub-TS86-2/sub-TS86-2_ses-TS86-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "cc27d635-197e-47d8-a2ea-9bdf92547db6",
+"size": 45527572256,
+"path": "sub-TS89-2/sub-TS89-2_ses-TS89-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "7786b7ef-d94b-436e-922c-989bc00cdd0d",
+"size": 23801937824,
+"path": "sub-TS90-0/sub-TS90-0_ses-TS90-0_behavior+ecephys.nwb"
+},
+{
+"asset_id": "891afa04-4483-4fee-a4b6-4823a6c1b79e",
+"size": 49285383288,
+"path": "sub-TS89-3/sub-TS89-3_ses-TS89-3_behavior+ecephys.nwb"
+},
+{
+"asset_id": "7d689d53-101b-47ac-ae0a-adf7da2f1cae",
+"size": 25032288048,
+"path": "sub-TS91-2/sub-TS91-2_ses-TS91-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "8bef7656-cd7d-4f65-b115-aa1692829a80",
+"size": 47070623096,
+"path": "sub-TS90-2/sub-TS90-2_ses-TS90-2_behavior+ecephys.nwb"
+},
+{
+"asset_id": "745663d3-e1a8-41ba-bca5-b02941e9c7de",
+"size": 40039693640,
+"path": "sub-TS91-1/sub-TS91-1_ses-TS91-1_behavior+ecephys.nwb"
+}
+]

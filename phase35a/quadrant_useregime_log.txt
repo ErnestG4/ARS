@@ -1,0 +1,16 @@
+======================================================================================
+QUADRANT USE-REGIME SEAM RE-CHECK — 18w ; N=[50000, 70000, 100000] ; 8 φ∈[0,0.5) ; signal λ=[0.5, 0.7, 0.85, 0.95, 1.05, 1.25, 1.5, 2.0]
+  35b no-false-positive test VERBATIM at the use regime + φ-robust
+======================================================================================
+  N=  50000 → NO_FP_N_PHI_STABLE | all-φ BR_artifact=True any transition_detected=False label-sets=[['BR_artifact']]
+  N=  70000 → NO_FP_N_PHI_STABLE | all-φ BR_artifact=True any transition_detected=False label-sets=[['BR_artifact']]
+  N= 100000 → NO_FP_N_PHI_STABLE | all-φ BR_artifact=True any transition_detected=False label-sets=[['BR_artifact']]
+
+======================================================================================
+  OVERALL: NO_FP_N_PHI_STABLE  [4154.0s]
+  (a) NO_FP_N_PHI_STABLE ⇒ seam closed, Step-1 stamp clean.
+  (b) QUADRANT_DISTINGUISHABLE / _TRANSITION_DETECTED ⇒ test-meaning
+      changes at use-N — honest re-frame, NOT a retraction of N=2584.
+  (c) PHI_DEPENDENT / MIXED ⇒ φ-robustness fails — report honestly.
+  Instrument seam-closure, NOT an AM discovery. brief-and-hold.
+======================================================================================

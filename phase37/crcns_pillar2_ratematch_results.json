@@ -1,0 +1,11 @@
+{
+ "pvc11_H1_within_substrate_banked": 0.72,
+ "pvc11_298_is": "cross-substrate rate-matched-to-Allen (method_b), NOT within-substrate H1",
+ "hc3_partial_rate_burst": 0.469,
+ "hc3_rate_stratified_pooled": 0.373,
+ "hc3_rate_stratified_ci": [
+  0.294,
+  0.456
+ ],
+ "direction": "pvc-11(+) and hc-3(+) AGREE: selective->clustered; sign-flip is vs Allen mouse-V1(-0.22)"
+}

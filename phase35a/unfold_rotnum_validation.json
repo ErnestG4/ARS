@@ -1,0 +1,92 @@
+{
+ "leg": "unfold_rotnum (ref-free Sturm/rotation-number IDS)",
+ "scoping_only": true,
+ "gates": {
+  "G1_clock_arcsine": {
+   "max|ids-arcsine|": {
+    "10000": 8e-05,
+    "100000": 1e-05
+   },
+   "cell_var_s": 1e-05,
+   "PASS": true
+  },
+  "G2_rational_theta_kq": {
+   "8/13": {
+    "plateau_max|dev-k/q|": 1e-05,
+    "tol": 0.03846,
+    "PASS": true
+   },
+   "13/21": {
+    "plateau_max|dev-k/q|": 1e-05,
+    "tol": 0.02381,
+    "PASS": true
+   },
+   "PASS": true
+  },
+  "G3_ratio_invariance": {
+   "new_leg_W1d_vs_Liter": {
+    "1000": 0.026609,
+    "10000": 0.023411,
+    "100000": 0.006625,
+    "1000000": 0.004025,
+    "4000000": 0.003946
+   },
+   "increments": [
+    0.003198,
+    0.016786,
+    0.0026,
+    7.9e-05
+   ],
+   "structurally_ratio_free(no_refN_param)": true,
+   "top_increment": 7.9e-05,
+   "last_pair_delta": 7.9e-05,
+   "W1d_converged": true,
+   "old_leg_W1d_vs_refN(ratio-parametrized,no limit)": {
+    "24000": 0.019341,
+    "75000": 0.005447,
+    "196418": 0.004965
+   },
+   "criterion": "structural no-ref-N param + W1\u03b4 L_iter-convergence (monotone-geometric requirement removed \u2014 spurious)",
+   "PASS": true
+  },
+  "G5a_pipeline_scale_exact_poisson": {
+   "W1d_pipeline": 0.74034,
+   "exact_truth": 0.7358,
+   "PASS": true
+  },
+  "G5b_discrimination_no_tautology": {
+   "subcritical_converged(\u03bb0.1)": 0.003946,
+   "supercritical_\u03bb4_W1d_vs_Liter": {
+    "100000": 0.275889,
+    "1000000": 0.276053
+   },
+   "supercritical_converged": 0.276053,
+   "sup/sub_ratio": 70.0,
+   "PASS": true
+  },
+  "G4_Liter_convergence": {
+   "\u03bb=0.0": {
+    "max|\u0394ids| L 1e5\u21924e5": 1e-05,
+    "PASS": true
+   },
+   "\u03bb=0.5": {
+    "max|\u0394ids| L 1e5\u21924e5": 1e-05,
+    "PASS": true
+   },
+   "\u03bb=1.0": {
+    "max|\u0394ids| L 1e5\u21924e5": 0.0,
+    "PASS": true
+   },
+   "PASS": true
+  },
+  "_summary": {
+   "G1": true,
+   "G2": true,
+   "G3_W1d_convergence": true,
+   "G4": true,
+   "G5a_pipeline_scale": true,
+   "G5b_discrimination": true
+  }
+ },
+ "verdict": "IDS_LEG_RATIO_FREE_VALIDATED"
+}

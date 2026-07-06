@@ -1,0 +1,231 @@
+{
+ "run": "sub-cliff L-robustness + local reproduction",
+ "readings": {
+  "A": "estimator/L defect",
+  "B": "N-resolution crossover"
+ },
+ "combos": [
+  [
+   70000,
+   100000
+  ],
+  [
+   75025,
+   100000
+  ],
+  [
+   100000,
+   100000
+  ],
+  [
+   70000,
+   400000
+  ],
+  [
+   100000,
+   400000
+  ]
+ ],
+ "deltas": [
+  0.005,
+  0.009653,
+  0.018638,
+  0.035984,
+  0.069475,
+  0.134135,
+  0.258974,
+  0.5
+ ],
+ "NEAR_CLOCK": 0.05,
+ "Q1_terminal": "CLIFF_REPRODUCES_LOCAL",
+ "Q2_terminal": "PLATEAU_L_SENSITIVE",
+ "per_rung": [
+  {
+   "delta": 0.005,
+   "lam_sub": 0.995,
+   "L1e5_means": {
+    "70000": 0.346722,
+    "75025": 0.33545,
+    "100000": 0.016948
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.346722,
+   "plateau70k_4e5": 0.080117,
+   "plateau70k_dL": 0.266605,
+   "plateau70k_Cnoise": 0.002384,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.016948,
+   "resolved100k_4e5": 0.013574,
+   "resolved100k_L_invariant": true,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.009653,
+   "lam_sub": 0.990347,
+   "L1e5_means": {
+    "70000": 0.345455,
+    "75025": 0.334715,
+    "100000": 0.010676
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.345455,
+   "plateau70k_4e5": 0.076375,
+   "plateau70k_dL": 0.26908,
+   "plateau70k_Cnoise": 0.001693,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.010676,
+   "resolved100k_4e5": 0.008112,
+   "resolved100k_L_invariant": true,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.018638,
+   "lam_sub": 0.981362,
+   "L1e5_means": {
+    "70000": 0.34442,
+    "75025": 0.334203,
+    "100000": 0.006547
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.34442,
+   "plateau70k_4e5": 0.074941,
+   "plateau70k_dL": 0.269479,
+   "plateau70k_Cnoise": 0.000683,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.006547,
+   "resolved100k_4e5": 0.004646,
+   "resolved100k_L_invariant": false,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.035984,
+   "lam_sub": 0.964016,
+   "L1e5_means": {
+    "70000": 0.343591,
+    "75025": 0.333858,
+    "100000": 0.004324
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.343591,
+   "plateau70k_4e5": 0.072942,
+   "plateau70k_dL": 0.270649,
+   "plateau70k_Cnoise": 0.000619,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.004324,
+   "resolved100k_4e5": 0.002799,
+   "resolved100k_L_invariant": true,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.069475,
+   "lam_sub": 0.930525,
+   "L1e5_means": {
+    "70000": 0.343209,
+    "75025": 0.333614,
+    "100000": 0.002616
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.343209,
+   "plateau70k_4e5": 0.072017,
+   "plateau70k_dL": 0.271193,
+   "plateau70k_Cnoise": 0.000634,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.002616,
+   "resolved100k_4e5": 0.001602,
+   "resolved100k_L_invariant": false,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.134135,
+   "lam_sub": 0.865865,
+   "L1e5_means": {
+    "70000": 0.343035,
+    "75025": 0.333514,
+    "100000": 0.001643
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.343035,
+   "plateau70k_4e5": 0.071637,
+   "plateau70k_dL": 0.271397,
+   "plateau70k_Cnoise": 0.000249,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.001643,
+   "resolved100k_4e5": 0.000954,
+   "resolved100k_L_invariant": false,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.258974,
+   "lam_sub": 0.741026,
+   "L1e5_means": {
+    "70000": 0.34292,
+    "75025": 0.333383,
+    "100000": 0.001
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.34292,
+   "plateau70k_4e5": 0.071504,
+   "plateau70k_dL": 0.271416,
+   "plateau70k_Cnoise": 0.000131,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.001,
+   "resolved100k_4e5": 0.000437,
+   "resolved100k_L_invariant": false,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  },
+  {
+   "delta": 0.5,
+   "lam_sub": 0.5,
+   "L1e5_means": {
+    "70000": 0.342865,
+    "75025": 0.333294,
+    "100000": 0.000529
+   },
+   "Q1_sit_then_cliff_local": true,
+   "plateau70k_1e5": 0.342865,
+   "plateau70k_4e5": 0.071461,
+   "plateau70k_dL": 0.271404,
+   "plateau70k_Cnoise": 3.3e-05,
+   "plateau70k_L_invariant": false,
+   "resolved100k_1e5": 0.000529,
+   "resolved100k_4e5": 0.000138,
+   "resolved100k_L_invariant": false,
+   "xref_server_minus_local_L1e5": {
+    "70000": 0.0,
+    "75025": 0.0,
+    "100000": 0.0
+   }
+  }
+ ],
+ "errors": [],
+ "total_s": 8438.0,
+ "note": "Q1 CLIFF_NOT_REPRODUCED \u21d2 env/version-specific (major). Q2 CLIFF_L_INVARIANT \u21d2 (B)-consistent (N-driven); PLATEAU_L_SENSITIVE \u21d2 (A)-flavor \u21d2 strengthens \u00a7D. NEVER proves (A); SURFACED not adjudicated; \u00a7D not decided here; Step-1 not retro-adjudicated."
+}

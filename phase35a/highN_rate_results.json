@@ -1,0 +1,45 @@
+{
+ "scoping_arc_finish": true,
+ "purpose": "lever cost / rate, NOT a sensitivity re-verdict",
+ "rows": [
+  {
+   "N": 2584,
+   "sub_spread": 0.004098,
+   "sup_spread": 0.613399,
+   "gap": 0.238275,
+   "disjoint": true,
+   "exact_criterion_pass": false,
+   "sub_mean": 0.014718,
+   "sup_mean": 0.496319
+  },
+  {
+   "N": 10000,
+   "sub_spread": 0.002041,
+   "sup_spread": 0.570355,
+   "gap": 0.220478,
+   "disjoint": true,
+   "exact_criterion_pass": false,
+   "sub_mean": 0.00176,
+   "sup_mean": 0.48129
+  },
+  {
+   "N": 40000,
+   "sub_spread": 0.000385,
+   "sup_spread": 0.22291,
+   "gap": 0.118651,
+   "disjoint": true,
+   "exact_criterion_pass": false,
+   "sub_mean": 0.200123,
+   "sup_mean": 0.426628
+  }
+ ],
+ "fit": {
+  "power_law": true,
+  "gamma": 0.37074952306437214,
+  "A": 13.045010792054569,
+  "max_log_resid": 0.2848,
+  "regime_gap_ref": 0.220478,
+  "N_star_point": 60217.224276951914,
+  "caveat": "3-point extrapolation, power-law form assumed, order-of-magnitude only; raw exact spreads are primary"
+ }
+}

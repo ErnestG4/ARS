@@ -1,0 +1,17 @@
+__pycache__/
+*.log
+# decimated 25kHz position cache (regenerable from 000638 via dual_region_placefields.py); not in git
+coordinates/dr_pos_*.npz
+# coordinates/am_work/ — eigenvalues + unfolded event trains. PERMANENTLY banked
+# ON DISK (Night-1 brief §7: never recompute), but NOT in git: the repo-root
+# .gitignore *.npy rule keeps large binaries out of history (same policy as data/).
+# For offsite durability, tarball am_work/ to the server rather than committing.
+coordinates/ret1_run.log
+# SOC-pair raw catalogs (regenerable: comcat_fetch.py / goes_flares.py --fetch). Large; the
+# 1-record fingerprint JSONLs (comcat-fingerprint, goes-fingerprint) + scripts + findings are tracked.
+coordinates/comcat/
+coordinates/goes-flares.jsonl
+coordinates/goes-flares-allfrm-contaminated.jsonl
+# throwaway diagnostics (scratch scripts + their outputs)
+coordinates/_*.out
+_*.py

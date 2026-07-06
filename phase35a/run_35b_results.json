@@ -1,0 +1,179 @@
+{
+ "scoping_arc_finish": true,
+ "leg": "unfold_rotnum VALIDATED",
+ "signal": [
+  {
+   "i": 0,
+   "step": "\u03bb=0.5",
+   "primary": "BR_artifact",
+   "rep_med": 0.8469,
+   "W1d": 0.00497,
+   "var_s": 0.00118,
+   "subwindow_start_us": 0
+  },
+  {
+   "i": 1,
+   "step": "\u03bb=0.7",
+   "primary": "BR_artifact",
+   "rep_med": 0.84341,
+   "W1d": 0.0078,
+   "var_s": 0.00174,
+   "subwindow_start_us": 1
+  },
+  {
+   "i": 2,
+   "step": "\u03bb=0.85",
+   "primary": "BR_artifact",
+   "rep_med": 0.83973,
+   "W1d": 0.01363,
+   "var_s": 0.00353,
+   "subwindow_start_us": 2
+  },
+  {
+   "i": 3,
+   "step": "\u03bb=0.95",
+   "primary": "BR_artifact",
+   "rep_med": 0.8258,
+   "W1d": 0.02939,
+   "var_s": 0.008,
+   "subwindow_start_us": 3
+  },
+  {
+   "i": 4,
+   "step": "\u03bb=1.05",
+   "primary": "BR_artifact",
+   "rep_med": 0.67404,
+   "W1d": 0.2862,
+   "var_s": 0.11832,
+   "subwindow_start_us": 4
+  },
+  {
+   "i": 5,
+   "step": "\u03bb=1.25",
+   "primary": "BR_artifact",
+   "rep_med": 0.69147,
+   "W1d": 0.27886,
+   "var_s": 0.10964,
+   "subwindow_start_us": 5
+  },
+  {
+   "i": 6,
+   "step": "\u03bb=1.5",
+   "primary": "BR_artifact",
+   "rep_med": 0.69632,
+   "W1d": 0.27686,
+   "var_s": 0.10718,
+   "subwindow_start_us": 6
+  },
+  {
+   "i": 7,
+   "step": "\u03bb=2.0",
+   "primary": "BR_artifact",
+   "rep_med": 0.69709,
+   "W1d": 0.27555,
+   "var_s": 0.10572,
+   "subwindow_start_us": 7
+  }
+ ],
+ "alpha_null": [
+  {
+   "i": 0,
+   "step": "\u03b1=0.0",
+   "primary": "BR_artifact",
+   "rep_med": 0.69632,
+   "W1d": 0.27686,
+   "var_s": 0.10718,
+   "subwindow_start_us": 0
+  },
+  {
+   "i": 1,
+   "step": "\u03b1=0.125",
+   "primary": "BR_artifact",
+   "rep_med": 0.69438,
+   "W1d": 0.39178,
+   "var_s": 0.18554,
+   "subwindow_start_us": 1
+  },
+  {
+   "i": 2,
+   "step": "\u03b1=0.25",
+   "primary": "BR_artifact",
+   "rep_med": 0.74419,
+   "W1d": 0.28249,
+   "var_s": 0.16055,
+   "subwindow_start_us": 2
+  },
+  {
+   "i": 3,
+   "step": "\u03b1=0.375",
+   "primary": "BR_artifact",
+   "rep_med": 0.7293,
+   "W1d": 0.28416,
+   "var_s": 0.13295,
+   "subwindow_start_us": 3
+  },
+  {
+   "i": 4,
+   "step": "\u03b1=0.5",
+   "primary": "BR_artifact",
+   "rep_med": 0.69613,
+   "W1d": 0.27698,
+   "var_s": 0.1073,
+   "subwindow_start_us": 4
+  },
+  {
+   "i": 5,
+   "step": "\u03b1=0.625",
+   "primary": "BR_artifact",
+   "rep_med": 0.69438,
+   "W1d": 0.39172,
+   "var_s": 0.1855,
+   "subwindow_start_us": 5
+  },
+  {
+   "i": 6,
+   "step": "\u03b1=0.75",
+   "primary": "BR_artifact",
+   "rep_med": 0.74419,
+   "W1d": 0.28234,
+   "var_s": 0.16038,
+   "subwindow_start_us": 6
+  },
+  {
+   "i": 7,
+   "step": "\u03b1=0.875",
+   "primary": "BR_artifact",
+   "rep_med": 0.72855,
+   "W1d": 0.28423,
+   "var_s": 0.13301,
+   "subwindow_start_us": 7
+  }
+ ],
+ "signal_characterize": {
+  "transition_detected": "False",
+  "transition_window": "(0, 0)",
+  "origin_class": "None",
+  "destination_class": "None",
+  "shape_estimate": "unclassified",
+  "shape_confidence": "0.0",
+  "shape_parameters": "{}",
+  "metastable_state_class": "None",
+  "metastable_duration": "None",
+  "period_doubling_signature": "None",
+  "extractor_consensus": "None"
+ },
+ "null_characterize": {
+  "transition_detected": "False",
+  "transition_window": "(0, 0)",
+  "origin_class": "None",
+  "destination_class": "None",
+  "shape_estimate": "unclassified",
+  "shape_confidence": "0.0",
+  "shape_parameters": "{}",
+  "metastable_state_class": "None",
+  "metastable_duration": "None",
+  "period_doubling_signature": "None",
+  "extractor_consensus": "None"
+ },
+ "verdict": "UNRESOLVED \u2014 neither pre-specified branch cleanly met; inspect (no auto-adjudication)"
+}

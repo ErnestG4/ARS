@@ -1,0 +1,42 @@
+{
+ "read_only": true,
+ "source": "sensitivity_confirm_results.json",
+ "instance": "T0-Excise existing-data \u03b4_max=0.5 rung (banked ratio-free leg; pre-anything; G1a-met)",
+ "criterion": "\u00a7C verbatim: disjoint AND gap >= max(sub_spread,sup_spread)",
+ "per_N": [
+  {
+   "N": 50000,
+   "sub_spread": 0.000292,
+   "sup_spread": 0.122862,
+   "gap": 0.374969,
+   "disjoint": true,
+   "C_floor": 0.122862,
+   "gap_minus_floor": 0.252107,
+   "T0_significant": true
+  },
+  {
+   "N": 70000,
+   "sub_spread": 2.7e-05,
+   "sup_spread": 0.07656,
+   "gap": 0.177402,
+   "disjoint": true,
+   "C_floor": 0.07656,
+   "gap_minus_floor": 0.100842,
+   "T0_significant": true
+  },
+  {
+   "N": 100000,
+   "sub_spread": 0.000146,
+   "sup_spread": 0.007146,
+   "gap": 0.496135,
+   "disjoint": true,
+   "C_floor": 0.007146,
+   "gap_minus_floor": 0.488989,
+   "T0_significant": true
+  }
+ ],
+ "terminal": "T0_DELTA_MAX_SIGNIFICANT",
+ "sensitivity_verdict_inherited": false,
+ "ceiling": "T0 excises \u03bb=1 + neighbourhood \u2014 says NOTHING about the critical point; AC-vs-PP spectral-type contrast at fixed detuning \u03b4=0.5 only",
+ "scope": "instrument/methodology validation; asymmetric label; NOT an AM discovery; brief-and-hold"
+}

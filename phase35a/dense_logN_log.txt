@@ -1,0 +1,51 @@
+========================================================================================
+DENSE-IN-LOG-N MODULATION RESOLUTION — 18w/24core, thread-pinned (non-disruptive)
+  log-uniform N∈[6765,121393] ~10/log-φ-period (61 N-pts, 1952 pure tasks, bit-identical-serial)
+  exact rate instrument UNCHANGED ; N the only variable
+========================================================================================
+   [  2/61 N, 64/1952 tasks, 17s] N=7098 sup_spread=0.52681 gap=0.23374 crit=False
+   [  4/61 N, 128/1952 tasks, 36s] N=7816 sup_spread=0.61493 gap=0.17952 crit=False
+   [  5/61 N, 160/1952 tasks, 44s] N=8201 sup_spread=0.66436 gap=0.17264 crit=False
+   [  6/61 N, 192/1952 tasks, 54s] N=8605 sup_spread=0.73052 gap=0.13343 crit=False
+   [  7/61 N, 224/1952 tasks, 65s] N=9029 sup_spread=0.67738 gap=0.18801 crit=False
+   [  8/61 N, 256/1952 tasks, 75s] N=9475 sup_spread=0.59206 gap=0.19087 crit=False
+   [  9/61 N, 288/1952 tasks, 86s] N=9942 sup_spread=0.56473 gap=0.21851 crit=False
+   [ 10/61 N, 321/1952 tasks, 100s] N=10432 sup_spread=0.56893 gap=0.18038 crit=False
+   [ 11/61 N, 352/1952 tasks, 113s] N=10946 sup_spread=0.57953 gap=0.23379 crit=False
+   [ 12/61 N, 384/1952 tasks, 123s] N=11486 sup_spread=0.65438 gap=0.18148 crit=False
+   [ 14/61 N, 448/1952 tasks, 156s] N=12646 sup_spread=0.58259 gap=0.22235 crit=False
+   [ 15/61 N, 480/1952 tasks, 173s] N=13269 sup_spread=0.55564 gap=0.17358 crit=False
+   [ 16/61 N, 512/1952 tasks, 187s] N=13924 sup_spread=0.60611 gap=0.18634 crit=False
+   [ 17/61 N, 544/1952 tasks, 207s] N=14610 sup_spread=0.62045 gap=0.193 crit=False
+   [ 19/61 N, 608/1952 tasks, 245s] N=16086 sup_spread=0.4824 gap=0.23456 crit=False
+   [ 20/61 N, 640/1952 tasks, 264s] N=16879 sup_spread=0.50993 gap=0.27326 crit=False
+   [ 21/61 N, 672/1952 tasks, 287s] N=17711 sup_spread=0.50033 gap=0.22871 crit=False
+   [ 22/61 N, 704/1952 tasks, 312s] N=18584 sup_spread=0.46538 gap=0.2187 crit=False
+   [ 23/61 N, 736/1952 tasks, 341s] N=19500 sup_spread=0.48769 gap=0.24921 crit=False
+   [ 24/61 N, 768/1952 tasks, 365s] N=20462 sup_spread=0.51192 gap=0.24067 crit=False
+   [ 25/61 N, 802/1952 tasks, 394s] N=21470 sup_spread=0.47189 gap=0.1809 crit=False
+   [ 26/61 N, 832/1952 tasks, 425s] N=22529 sup_spread=0.49686 gap=0.15194 crit=False
+   [ 28/61 N, 896/1952 tasks, 496s] N=24805 sup_spread=0.46628 gap=0.23618 crit=False
+   [ 29/61 N, 928/1952 tasks, 532s] N=26028 sup_spread=0.46471 gap=0.20841 crit=False
+   [ 30/61 N, 962/1952 tasks, 578s] N=27311 sup_spread=0.40063 gap=0.17729 crit=False
+   [ 32/61 N, 1024/1952 tasks, 661s] N=30070 sup_spread=0.33474 gap=0.17553 crit=False
+   [ 34/61 N, 1088/1952 tasks, 754s] N=33108 sup_spread=0.28488 gap=0.26057 crit=False
+   [ 35/61 N, 1120/1952 tasks, 807s] N=34740 sup_spread=0.24808 gap=0.19947 crit=False
+   [ 40/61 N, 1280/1952 tasks, 1106s] N=44190 sup_spread=0.18713 gap=0.19299 crit=True
+   [ 45/61 N, 1440/1952 tasks, 1539s] N=56210 sup_spread=0.11644 gap=0.239 crit=True
+   [ 46/61 N, 1472/1952 tasks, 1641s] N=58981 sup_spread=0.12255 gap=0.19924 crit=True
+   [ 49/61 N, 1568/1952 tasks, 2020s] N=68141 sup_spread=0.0792 gap=0.16821 crit=True
+   [ 50/61 N, 1602/1952 tasks, 2172s] N=71500 sup_spread=0.07605 gap=0.18316 crit=True
+   [ 52/61 N, 1664/1952 tasks, 2519s] N=78724 sup_spread=0.07142 gap=0.23376 crit=True
+   [ 54/61 N, 1728/1952 tasks, 2965s] N=86677 sup_spread=0.03677 gap=0.3174 crit=True
+   [ 55/61 N, 1760/1952 tasks, 3212s] N=90950 sup_spread=0.02869 gap=0.37029 crit=True
+   [ 57/61 N, 1824/1952 tasks, 4028s] N=100138 sup_spread=0.00418 gap=0.49659 crit=True
+   [ 60/61 N, 1920/1952 tasks, 5855s] N=115690 sup_spread=0.03522 gap=0.36174 crit=True
+   [ 61/61 N, 1952/1952 tasks, 6398s] N=121393 sup_spread=0.04313 gap=0.32139 crit=True
+
+========================================================================================
+DONE 6398.0s. fold-diagnostic (detrended VE): {'sup_spread': {'VE_lnphi': 0.2635, 'VE_2lnphi': 0.3089, 'note': 'linear-lnN-detrended folded-mean variance-explained; high VE@lnphi ⇒ log-φ-periodic ⇒ decomposition well-posed'}, 'gap': {'VE_lnphi': 0.0751, 'VE_2lnphi': 0.2042, 'note': 'linear-lnN-detrended folded-mean variance-explained; high VE@lnphi ⇒ log-φ-periodic ⇒ decomposition well-posed'}}
+Decomposition / N*-band read = the report (pre-registered; honest
+terminals: cleanly-pinned / bounded-but-wide / not-log-φ-periodic-
+⇒-not-pinnable). SCOPING/lever-cost, NEVER a finding. brief-and-hold.
+========================================================================================

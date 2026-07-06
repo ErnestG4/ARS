@@ -1,0 +1,70 @@
+{
+ "protocol": "Sensitivity Tier 1 at flip-N (Will 2026-05-20)",
+ "model": "substrate sup_spread \u2248 ratio \u00d7 spread@L=1e5; verified at N=70k (model 0.372 vs Test 2 direct 0.382, 2.6% underestimate)",
+ "per_cell": {
+  "N50k_direct_ratio": {
+   "N": 50000,
+   "model": "Test 1 ratio direct",
+   "sub_spread": 0.000292,
+   "sup_substrate": 0.1910258376,
+   "gap": 0.374969,
+   "disjoint": true,
+   "max_spread": 0.1910258376,
+   "gap_over_max_spread": 1.963,
+   "criterion_PASS": true,
+   "stored_was_PASS": true
+  },
+  "N70k_direct_T2": {
+   "N": 70000,
+   "model": "Test 2 direct L-converged",
+   "sub_spread": 2.7e-05,
+   "sup_substrate": 0.38159972,
+   "gap": 0.177402,
+   "disjoint": true,
+   "max_spread": 0.38159972,
+   "gap_over_max_spread": 0.465,
+   "criterion_PASS": false,
+   "stored_was_PASS": true
+  },
+  "N70k_model_compare": {
+   "N": 70000,
+   "model": "Model (b0haqgof3 ratio \u00d7 stored)",
+   "sub_spread": 2.7e-05,
+   "sup_substrate": 0.37219644,
+   "gap": 0.177402,
+   "disjoint": true,
+   "max_spread": 0.37219644,
+   "gap_over_max_spread": 0.477,
+   "criterion_PASS": false,
+   "stored_was_PASS": true
+  },
+  "N100k_alpha_extrap": {
+   "N": 100000,
+   "model": "Test 1 sup \u03b1=2.99 extrapolation",
+   "sub_spread": 0.000146,
+   "sup_substrate": 0.10084024398820367,
+   "gap": 0.496135,
+   "disjoint": true,
+   "max_spread": 0.10084024398820367,
+   "gap_over_max_spread": 4.92,
+   "criterion_PASS": true,
+   "stored_was_PASS": true
+  },
+  "N100k_growth_factor": {
+   "N": 100000,
+   "model": "N=70k growth-factor (~4.99\u00d7)",
+   "sub_spread": 0.000146,
+   "sup_substrate": 0.03561796759561128,
+   "gap": 0.496135,
+   "disjoint": true,
+   "max_spread": 0.03561796759561128,
+   "gap_over_max_spread": 13.929,
+   "criterion_PASS": true,
+   "stored_was_PASS": true
+  }
+ },
+ "structural_read": "SENSITIVITY_NON_UNIFORM_EXPOSURE: criterion PASSes at N=50k and (model) N=100k under substrate correction; FAILs at N=70k. Localized exposure pattern (not a clean across-cells retraction). The criterion-flip-with-N structure (small N\u2192FAIL, large N\u2192PASS) survives but with N=70k as a localized substrate-corrected failure.",
+ "terminal": "SENSITIVITY_NON_UNIFORM_EXPOSURE_NOT_RETRACTED",
+ "theta_class_caveat": "sup \u03b8-universal within ~30% (C1); sub \u03b8-sensitive but dominated by sup",
+ "scope": "Sensitivity verdict math, model-based at N=50k/N=100k and direct at N=70k. Banked sensitivity NOT marked retracted. rev-5.1 / banked-file updates Will's."
+}

@@ -1,0 +1,21 @@
+==============================================================================
+§5 VALIDATION — redesigned IDS-unfold leg (instrument validation only)
+==============================================================================
+G1 clock: max|ids−arcsine| L=1e4 8e-05, L=1e5 1e-05 ; free-cell var(s)=1e-05  → PASS
+G2 θ=8/13: plateau max|dev−k/q|=0.00001 (tol 0.03846) → PASS
+G2 θ=13/21: plateau max|dev−k/q|=0.00001 (tol 0.02381) → PASS
+G3 ratio-invariance @ (λ=0.1,N=987) — re-gate criterion:
+   NEW W1δ vs L_iter {1000: 0.026609, 10000: 0.023411, 100000: 0.006625, 1000000: 0.004025, 4000000: 0.003946}
+   structurally ratio-free (no ref-N param) = True
+   top_inc=0.000079 last_pair_Δ=0.000079 → W1δ converged = True
+   OLD leg (ratio-parametrized, no limit) vs ref-N {24000: 0.019341, 75000: 0.005447, 196418: 0.004965}
+   structural-ratio-free AND W1δ-converged → PASS
+G5a pipeline-scale (EXACT Poisson-after-arcsine): W1δ=0.74034 vs exact 0.7358 → PASS  (unfold+W1d absolute scale correct)
+G5b discrimination: sub(λ0.1)=0.003946 super(λ4)=0.276053 ratio=70× → PASS  (leg DISCRIMINATES substrate (no tautology))
+G4 L_iter-conv λ=0.0: max|Δids| 1e5→4e5 = 1e-05 → PASS
+G4 L_iter-conv λ=0.5: max|Δids| 1e5→4e5 = 1e-05 → PASS
+G4 L_iter-conv λ=1.0: max|Δids| 1e5→4e5 = 0.0 → PASS  (near-critical, slow)
+==============================================================================
+VERDICT: IDS_LEG_RATIO_FREE_VALIDATED   (asymmetric — validated instrument, never a discovery)
+SCOPING only. No §3 adjudication. No substrate measurement. Arc parked.
+==============================================================================

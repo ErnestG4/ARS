@@ -1,0 +1,2391 @@
+{
+ "stage0_anchor": [
+  {
+   "N": 377,
+   "unfold": "arcsine",
+   "clock": 0.5263,
+   "clock_fl": 11.51,
+   "wigner": 0.5303,
+   "wigner_fl": 11.6,
+   "poisson": 0.6294,
+   "poisson_fl": 13.77,
+   "n": 361,
+   "floor": 0.04572,
+   "var_s": 0.0,
+   "nearest": "clock",
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "N": 377,
+   "unfold": "deg11",
+   "clock": 0.5069,
+   "clock_fl": 11.09,
+   "wigner": 0.3935,
+   "wigner_fl": 8.61,
+   "poisson": 0.5475,
+   "poisson_fl": 11.98,
+   "n": 361,
+   "floor": 0.04572,
+   "var_s": 0.0086,
+   "nearest": "wigner",
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "N": 377,
+   "unfold": "deg3",
+   "clock": 0.5734,
+   "clock_fl": 12.54,
+   "wigner": 0.245,
+   "wigner_fl": 5.36,
+   "poisson": 0.3913,
+   "poisson_fl": 8.56,
+   "n": 361,
+   "floor": 0.04572,
+   "var_s": 0.0694,
+   "nearest": "wigner",
+   "quad": "TR",
+   "occ": {
+    "TR": 1.0
+   }
+  },
+  {
+   "N": 2584,
+   "unfold": "arcsine",
+   "clock": 0.5661,
+   "clock_fl": 32.45,
+   "wigner": 0.5326,
+   "wigner_fl": 30.53,
+   "poisson": 0.6317,
+   "poisson_fl": 36.21,
+   "n": 2480,
+   "floor": 0.01744,
+   "var_s": 0.0,
+   "nearest": "wigner",
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "N": 2584,
+   "unfold": "deg11",
+   "clock": 0.5206,
+   "clock_fl": 29.84,
+   "wigner": 0.3934,
+   "wigner_fl": 22.55,
+   "poisson": 0.5456,
+   "poisson_fl": 31.28,
+   "n": 2480,
+   "floor": 0.01744,
+   "var_s": 0.0099,
+   "nearest": "wigner",
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "N": 2584,
+   "unfold": "deg3",
+   "clock": 0.5786,
+   "clock_fl": 33.17,
+   "wigner": 0.2413,
+   "wigner_fl": 13.83,
+   "poisson": 0.3901,
+   "poisson_fl": 22.36,
+   "n": 2480,
+   "floor": 0.01744,
+   "var_s": 0.0726,
+   "nearest": "wigner",
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "N": 6765,
+   "unfold": "arcsine",
+   "clock": 0.5307,
+   "clock_fl": 49.23,
+   "wigner": 0.5329,
+   "wigner_fl": 49.43,
+   "poisson": 0.632,
+   "poisson_fl": 58.62,
+   "n": 6493,
+   "floor": 0.01078,
+   "var_s": 0.0,
+   "nearest": "clock",
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "N": 6765,
+   "unfold": "deg11",
+   "clock": 0.5204,
+   "clock_fl": 48.27,
+   "wigner": 0.3932,
+   "wigner_fl": 36.47,
+   "poisson": 0.5455,
+   "poisson_fl": 50.6,
+   "n": 6493,
+   "floor": 0.01078,
+   "var_s": 0.01,
+   "nearest": "wigner",
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "N": 6765,
+   "unfold": "deg3",
+   "clock": 0.5786,
+   "clock_fl": 53.67,
+   "wigner": 0.2412,
+   "wigner_fl": 22.37,
+   "poisson": 0.39,
+   "poisson_fl": 36.17,
+   "n": 6493,
+   "floor": 0.01078,
+   "var_s": 0.0728,
+   "nearest": "wigner",
+   "quad": "BL",
+   "occ": {
+    "BL": 0.933,
+    "ambiguous": 0.067
+   }
+  }
+ ],
+ "stage1_grid": [
+  {
+   "lam": 1.05,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    19.69,
+    15.79,
+    10.04
+   ],
+   "var_s": 12.4442,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    12.22,
+    6.46,
+    5.57
+   ],
+   "var_s": 0.3893,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.322,
+    "TL": 0.033,
+    "BR_artifact": 0.645
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    20.52,
+    18.69,
+    13.97
+   ],
+   "var_s": 36.7028,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.945,
+    "ambiguous": 0.055
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    33.35,
+    28.97,
+    19.65
+   ],
+   "var_s": 33.9013,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.18,
+    9.72,
+    11.3
+   ],
+   "var_s": 0.334,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.978,
+    "TL": 0.022
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    34.08,
+    32.12,
+    25.35
+   ],
+   "var_s": 97.5723,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    55.68,
+    49.35,
+    34.23
+   ],
+   "var_s": 90.1109,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.911,
+    "ambiguous": 0.089
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.2,
+    13.93,
+    19.71
+   ],
+   "var_s": 0.2586,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    56.09,
+    54.02,
+    43.42
+   ],
+   "var_s": 256.8736,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    91.35,
+    83.01,
+    59.25
+   ],
+   "var_s": 237.4624,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    62.68,
+    25.27,
+    38.81
+   ],
+   "var_s": 0.1765,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.311,
+    "TL": 0.056,
+    "BR_artifact": 0.633
+   }
+  },
+  {
+   "lam": 1.05,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    91.73,
+    88.91,
+    73.22
+   ],
+   "var_s": 673.9671,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    19.73,
+    14.02,
+    8.34
+   ],
+   "var_s": 10.8777,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    12.72,
+    6.44,
+    6.33
+   ],
+   "var_s": 0.3445,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    20.56,
+    18.01,
+    12.37
+   ],
+   "var_s": 36.0087,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    33.47,
+    24.54,
+    14.73
+   ],
+   "var_s": 29.5524,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.43,
+    10.38,
+    11.93
+   ],
+   "var_s": 0.3156,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.956,
+    "TL": 0.044
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    34.21,
+    31.02,
+    22.06
+   ],
+   "var_s": 95.7477,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    55.68,
+    41.28,
+    25.31
+   ],
+   "var_s": 78.5378,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.45,
+    14.21,
+    20.14
+   ],
+   "var_s": 0.255,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    56.4,
+    51.65,
+    37.32
+   ],
+   "var_s": 252.124,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    91.66,
+    70.69,
+    44.96
+   ],
+   "var_s": 206.8058,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    62.89,
+    25.47,
+    39.06
+   ],
+   "var_s": 0.1724,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.322,
+    "TL": 0.044,
+    "BR_artifact": 0.633
+   }
+  },
+  {
+   "lam": 1.1,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    91.96,
+    84.91,
+    63.29
+   ],
+   "var_s": 661.4983,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    17.87,
+    10.77,
+    5.29
+   ],
+   "var_s": 6.7637,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.15,
+    6.71,
+    6.95
+   ],
+   "var_s": 0.3196,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.956,
+    "TL": 0.044
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    20.56,
+    14.96,
+    9.33
+   ],
+   "var_s": 32.0668,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    29.94,
+    16.68,
+    9.2
+   ],
+   "var_s": 18.4304,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.63,
+    10.92,
+    12.44
+   ],
+   "var_s": 0.3034,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    34.14,
+    25.15,
+    15.42
+   ],
+   "var_s": 85.3209,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    49.19,
+    28.04,
+    14.05
+   ],
+   "var_s": 49.0949,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.59,
+    14.45,
+    20.31
+   ],
+   "var_s": 0.2526,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    56.41,
+    41.35,
+    25.58
+   ],
+   "var_s": 224.7533,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.933,
+    "ambiguous": 0.067
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    83.45,
+    45.69,
+    25.9
+   ],
+   "var_s": 129.3916,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    63.25,
+    25.66,
+    39.38
+   ],
+   "var_s": 0.1683,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.322,
+    "TL": 0.078,
+    "BR_artifact": 0.6
+   }
+  },
+  {
+   "lam": 1.25,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    92.09,
+    69.43,
+    44.68
+   ],
+   "var_s": 589.7454,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    15.99,
+    8.29,
+    3.63
+   ],
+   "var_s": 4.1024,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.21,
+    6.88,
+    7.07
+   ],
+   "var_s": 0.3118,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.944,
+    "TL": 0.056
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    19.23,
+    12.43,
+    6.97
+   ],
+   "var_s": 25.2833,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    26.06,
+    12.18,
+    7.42
+   ],
+   "var_s": 11.044,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.78,
+    11.28,
+    12.74
+   ],
+   "var_s": 0.2979,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    31.91,
+    18.95,
+    10.98
+   ],
+   "var_s": 67.2183,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.922,
+    "ambiguous": 0.078
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    43.16,
+    20.07,
+    10.03
+   ],
+   "var_s": 29.2893,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.933,
+    "ambiguous": 0.067
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.69,
+    14.59,
+    20.49
+   ],
+   "var_s": 0.2497,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    52.06,
+    31.66,
+    17.58
+   ],
+   "var_s": 177.0138,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    71.81,
+    32.44,
+    18.3
+   ],
+   "var_s": 77.0675,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.922,
+    "ambiguous": 0.078
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    63.3,
+    25.75,
+    39.48
+   ],
+   "var_s": 0.1672,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.3,
+    "TL": 0.078,
+    "BR_artifact": 0.622
+   }
+  },
+  {
+   "lam": 1.5,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    87.52,
+    50.97,
+    30.81
+   ],
+   "var_s": 464.4535,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    14.32,
+    7.05,
+    3.13
+   ],
+   "var_s": 2.7542,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.27,
+    6.93,
+    7.33
+   ],
+   "var_s": 0.3081,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.933,
+    "TL": 0.067
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    17.57,
+    10.16,
+    4.89
+   ],
+   "var_s": 17.09,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    22.9,
+    10.2,
+    6.7
+   ],
+   "var_s": 7.2102,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.77,
+    11.41,
+    12.85
+   ],
+   "var_s": 0.298,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.945,
+    "TL": 0.055
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    27.96,
+    15.34,
+    8.71
+   ],
+   "var_s": 45.4026,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    37.9,
+    15.78,
+    8.59
+   ],
+   "var_s": 18.8864,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.78,
+    14.69,
+    20.58
+   ],
+   "var_s": 0.2485,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.944,
+    "TL": 0.056
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    45.95,
+    24.87,
+    12.18
+   ],
+   "var_s": 119.5149,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    62.82,
+    23.1,
+    14.46
+   ],
+   "var_s": 49.451,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    63.34,
+    25.84,
+    39.49
+   ],
+   "var_s": 0.1668,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.322,
+    "TL": 0.078,
+    "BR_artifact": 0.6
+   }
+  },
+  {
+   "lam": 2.0,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    77.15,
+    39.7,
+    22.0
+   ],
+   "var_s": 313.5373,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    13.19,
+    6.13,
+    4.0
+   ],
+   "var_s": 2.1399,
+   "quad": "TR",
+   "occ": {
+    "TR": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.33,
+    6.96,
+    7.43
+   ],
+   "var_s": 0.3051,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.944,
+    "TL": 0.056
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    14.38,
+    7.37,
+    3.44
+   ],
+   "var_s": 5.794,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    19.88,
+    8.65,
+    7.78
+   ],
+   "var_s": 5.3783,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.544,
+    "TR": 0.445,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.83,
+    11.5,
+    13.02
+   ],
+   "var_s": 0.2979,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.956,
+    "TL": 0.044
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    22.7,
+    9.93,
+    7.55
+   ],
+   "var_s": 15.1899,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.955,
+    "ambiguous": 0.045
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    33.55,
+    12.75,
+    9.84
+   ],
+   "var_s": 13.8265,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.83,
+    14.74,
+    20.61
+   ],
+   "var_s": 0.2477,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.956,
+    "TL": 0.044
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    38.0,
+    15.72,
+    9.34
+   ],
+   "var_s": 39.765,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    54.82,
+    16.24,
+    18.35
+   ],
+   "var_s": 35.9188,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    63.38,
+    25.92,
+    39.54
+   ],
+   "var_s": 0.1666,
+   "quad": "BR_artifact",
+   "occ": {
+    "TR": 0.322,
+    "TL": 0.089,
+    "BR_artifact": 0.589
+   }
+  },
+  {
+   "lam": 4.0,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    61.94,
+    23.7,
+    16.43
+   ],
+   "var_s": 104.0847,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    11.79,
+    6.53,
+    9.0
+   ],
+   "var_s": 0.5151,
+   "quad": "TR",
+   "occ": {
+    "TR": 1.0
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    12.1,
+    10.62,
+    13.15
+   ],
+   "var_s": 0.0041,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    11.89,
+    5.12,
+    6.93
+   ],
+   "var_s": 0.7605,
+   "quad": "TR",
+   "occ": {
+    "TR": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    19.14,
+    10.75,
+    14.26
+   ],
+   "var_s": 1.4627,
+   "quad": "TR",
+   "occ": {
+    "TR": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    21.69,
+    18.08,
+    21.82
+   ],
+   "var_s": 0.002,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    19.41,
+    8.57,
+    10.87
+   ],
+   "var_s": 2.0552,
+   "quad": "TR",
+   "occ": {
+    "TR": 1.0
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    31.14,
+    17.53,
+    22.82
+   ],
+   "var_s": 3.9544,
+   "quad": "TR",
+   "occ": {
+    "TR": 1.0
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    35.46,
+    28.86,
+    35.49
+   ],
+   "var_s": 0.0025,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    31.7,
+    14.03,
+    17.38
+   ],
+   "var_s": 5.4558,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    50.52,
+    28.47,
+    36.7
+   ],
+   "var_s": 10.4846,
+   "quad": "TR",
+   "occ": {
+    "TR": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    51.65,
+    36.11,
+    52.9
+   ],
+   "var_s": 0.0158,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.855,
+    "TL": 0.145
+   }
+  },
+  {
+   "lam": 0.1,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    51.38,
+    22.83,
+    27.93
+   ],
+   "var_s": 14.3671,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    12.48,
+    4.57,
+    6.09
+   ],
+   "var_s": 1.561,
+   "quad": "TR",
+   "occ": {
+    "TR": 1.0
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.11,
+    10.42,
+    13.02
+   ],
+   "var_s": 0.0051,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    14.56,
+    5.89,
+    6.01
+   ],
+   "var_s": 6.1303,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    20.66,
+    7.84,
+    9.23
+   ],
+   "var_s": 4.2717,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    19.53,
+    17.98,
+    21.72
+   ],
+   "var_s": 0.0024,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    23.86,
+    9.95,
+    10.18
+   ],
+   "var_s": 16.4888,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    33.76,
+    13.16,
+    14.57
+   ],
+   "var_s": 11.3885,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    32.69,
+    28.78,
+    35.41
+   ],
+   "var_s": 0.0027,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    38.81,
+    16.42,
+    16.8
+   ],
+   "var_s": 43.6289,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    54.88,
+    21.74,
+    23.87
+   ],
+   "var_s": 30.0322,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    58.1,
+    36.07,
+    52.87
+   ],
+   "var_s": 0.0132,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.878,
+    "TL": 0.122
+   }
+  },
+  {
+   "lam": 0.3,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    62.99,
+    26.91,
+    27.38
+   ],
+   "var_s": 114.6949,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.59,
+    4.23,
+    4.6
+   ],
+   "var_s": 2.1728,
+   "quad": "TR",
+   "occ": {
+    "TR": 1.0
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.39,
+    10.22,
+    12.86
+   ],
+   "var_s": 0.0069,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    18.88,
+    7.86,
+    6.55
+   ],
+   "var_s": 14.1941,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    22.43,
+    7.59,
+    8.1
+   ],
+   "var_s": 6.0195,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    19.18,
+    17.75,
+    21.5
+   ],
+   "var_s": 0.0038,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    31.1,
+    13.44,
+    10.96
+   ],
+   "var_s": 37.9457,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    36.97,
+    12.85,
+    13.69
+   ],
+   "var_s": 16.1438,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    32.07,
+    28.72,
+    35.35
+   ],
+   "var_s": 0.0031,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    50.89,
+    22.26,
+    18.25
+   ],
+   "var_s": 100.1444,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    60.34,
+    21.18,
+    22.51
+   ],
+   "var_s": 42.5854,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.945,
+    "ambiguous": 0.055
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    57.53,
+    36.05,
+    52.84
+   ],
+   "var_s": 0.0135,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.9,
+    "TL": 0.1
+   }
+  },
+  {
+   "lam": 0.5,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    82.73,
+    36.46,
+    29.97
+   ],
+   "var_s": 262.9925,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    20.09,
+    9.63,
+    6.42
+   ],
+   "var_s": 6.3004,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    13.23,
+    9.18,
+    12.25
+   ],
+   "var_s": 0.0113,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.989,
+    "TL": 0.011
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    20.72,
+    16.32,
+    10.32
+   ],
+   "var_s": 28.714,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    33.78,
+    16.22,
+    11.55
+   ],
+   "var_s": 16.918,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    18.87,
+    16.22,
+    20.67
+   ],
+   "var_s": 0.0057,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.978,
+    "TL": 0.022
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    34.44,
+    27.82,
+    17.95
+   ],
+   "var_s": 76.5196,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    55.3,
+    26.69,
+    19.35
+   ],
+   "var_s": 44.4475,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    31.61,
+    28.23,
+    34.86
+   ],
+   "var_s": 0.0042,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    56.59,
+    45.86,
+    29.99
+   ],
+   "var_s": 201.6551,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.933,
+    "ambiguous": 0.067
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    89.93,
+    43.8,
+    32.01
+   ],
+   "var_s": 116.531,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    59.37,
+    35.99,
+    52.78
+   ],
+   "var_s": 0.0135,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.8,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    92.13,
+    74.13,
+    49.33
+   ],
+   "var_s": 529.2602,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 377,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    19.71,
+    16.83,
+    11.17
+   ],
+   "var_s": 11.829,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.989,
+    "ambiguous": 0.011
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 377,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    11.9,
+    7.66,
+    11.27
+   ],
+   "var_s": 0.029,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 377,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    20.48,
+    18.77,
+    14.66
+   ],
+   "var_s": 35.4359,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.955,
+    "ambiguous": 0.045
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 987,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    33.32,
+    30.15,
+    21.15
+   ],
+   "var_s": 32.2832,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.956,
+    "ambiguous": 0.044
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 987,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    18.94,
+    14.76,
+    19.73
+   ],
+   "var_s": 0.0153,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.944,
+    "TL": 0.056
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 987,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    34.08,
+    32.2,
+    26.4
+   ],
+   "var_s": 94.3008,
+   "quad": "BL",
+   "occ": {
+    "BL": 1.0
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 2584,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    55.55,
+    51.47,
+    36.96
+   ],
+   "var_s": 85.7658,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.955,
+    "ambiguous": 0.045
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 2584,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    32.37,
+    26.85,
+    33.49
+   ],
+   "var_s": 0.0087,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 0.967,
+    "TL": 0.033
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 2584,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    56.08,
+    54.38,
+    45.31
+   ],
+   "var_s": 248.2988,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.933,
+    "ambiguous": 0.067
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 6765,
+   "unfold": "deg11",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    91.23,
+    85.42,
+    62.07
+   ],
+   "var_s": 225.0292,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.978,
+    "ambiguous": 0.022
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 6765,
+   "unfold": "ids",
+   "nearest": "wigner",
+   "ks_floor_clk_wig_poi": [
+    58.46,
+    35.72,
+    52.52
+   ],
+   "var_s": 0.0158,
+   "quad": "BR_artifact",
+   "occ": {
+    "BR_artifact": 1.0
+   }
+  },
+  {
+   "lam": 0.95,
+   "N": 6765,
+   "unfold": "deg3",
+   "nearest": "poisson",
+   "ks_floor_clk_wig_poi": [
+    91.6,
+    89.49,
+    75.53
+   ],
+   "var_s": 651.5451,
+   "quad": "BL",
+   "occ": {
+    "BL": 0.967,
+    "ambiguous": 0.033
+   }
+  }
+ ]
+}

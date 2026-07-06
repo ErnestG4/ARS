@@ -1,0 +1,33 @@
+{
+ "fp16": {
+  "discreteness": {
+   "n": 601,
+   "n_unique": 600,
+   "unique_frac": 0.9983361064891847,
+   "tie_frac": 0.0016638935108153063,
+   "min_gap": 1.4901161193847656e-07,
+   "std": 1.7945665536131732,
+   "min_gap_over_std": 8.303487638196375e-08
+  },
+  "mass03_plain": 0.29357798165137616,
+  "mass03_dither": 0.29357798165137616
+ },
+ "int4": {
+  "discreteness": {
+   "n": 601,
+   "n_unique": 601,
+   "unique_frac": 1.0,
+   "tie_frac": 0.0,
+   "min_gap": 1.1874362826347351e-07,
+   "std": 1.8725175628498887,
+   "min_gap_over_std": 6.341389294247845e-08
+  },
+  "mass03_plain": 0.35398230088495575,
+  "mass03_dither": 0.35398230088495575
+ },
+ "adjudication": {
+  "shift_plain": 0.060404319233579584,
+  "shift_dither": 0.060404319233579584
+ },
+ "verdict": "SHIFT SURVIVES DITHER -> route A (SUBSTRATE: int4 restructures surprisals)"
+}

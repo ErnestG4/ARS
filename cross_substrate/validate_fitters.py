@@ -1,0 +1,105 @@
+"""
+cross_substrate/validate_fitters.py — synthetic-validation gate for the
+distribution fitters used as landscape coordinates (Brody q, Berry-Robnik ρ).
+
+MANDATORY before any fitted value is banked. Per §7.ter.57
+(synthetic_validate_fitters): a fitter must recover known ground truth —
+Poisson → q≈0 / ρ≈0, GOE → q≈1 / ρ≈1 — or its outputs are banked as null
++ flagged, not as measurements. The Berry-Robnik ρ↔(1−ρ) bug (phase34e)
+is exactly what this catches.
+
+Run:  $HOME/fmexplorer/bin/python3 cross_substrate/validate_fitters.py
+Writes: cross_substrate/fitter_validation.json
+"""
+from __future__ import annotations
+
+import json
+import os
+import sys
+
+import numpy as np
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.dirname(_HERE)
+if _ROOT not in sys.path:
+    sys.path.insert(0, _ROOT)
+
+from universality import nns_cdf_goe, nns_cdf_gue  # noqa: E402
+from cross_substrate.axes import I8_brody_q, I9_berry_robnik_rho  # noqa: E402
+
+
+def _inverse_sample(cdf_func, n: int, seed: int, grid_max: float = 10.0) -> np.ndarray:
+    """Inverse-transform sampling of a unit-mean NNS distribution from its CDF."""
+    grid = np.linspace(0.0, grid_max, 20001)
+    F = np.asarray(cdf_func(grid), dtype=np.float64)
+    F = np.clip(F, 0.0, 1.0)
+    F[0] = 0.0
+    u = np.random.default_rng(seed).random(n)
+    s = np.interp(u, F, grid)
+    return s / s.mean()          # enforce unit mean
+
+
+def sample_poisson(n: int, seed: int) -> np.ndarray:
+    s = np.random.default_rng(seed).exponential(1.0, size=n)
+    return s / s.mean()
+
+
+def sample_goe(n: int, seed: int) -> np.ndarray:
+    return _inverse_sample(nns_cdf_goe, n, seed)
+
+
+def sample_gue(n: int, seed: int) -> np.ndarray:
+    return _inverse_sample(nns_cdf_gue, n, seed)
+
+
+# (label, sampler, expected q, expected ρ, tolerance)
+CASES = [
+    ("poisson", sample_poisson, 0.0, 0.0, 0.15),
+    ("goe",     sample_goe,     1.0, 1.0, 0.20),
+]
+N_SYNTH = 4000
+SEEDS = (0, 1, 2)
+
+
+def main() -> int:
+    print("=" * 72)
+    print("FITTER SYNTHETIC VALIDATION (Brody q, Berry-Robnik ρ)")
+    print("=" * 72)
+    rec, all_pass = {}, True
+    for label, sampler, exp_q, exp_rho, tol in CASES:
+        qs, rhos = [], []
+        for sd in SEEDS:
+            s = sampler(N_SYNTH, sd)
+            qs.append(I8_brody_q(s))
+            rhos.append(I9_berry_robnik_rho(s))
+        q_mean, rho_mean = float(np.mean(qs)), float(np.mean(rhos))
+        q_ok = abs(q_mean - exp_q) <= tol
+        rho_ok = abs(rho_mean - exp_rho) <= tol
+        all_pass = all_pass and q_ok and rho_ok
+        rec[label] = {
+            "expected_q": exp_q, "brody_q_mean": q_mean,
+            "brody_q_per_seed": [round(x, 4) for x in qs], "brody_q_pass": q_ok,
+            "expected_rho": exp_rho, "br_rho_mean": rho_mean,
+            "br_rho_per_seed": [round(x, 4) for x in rhos], "br_rho_pass": rho_ok,
+            "tol": tol,
+        }
+        print(f"\n[{label}] N={N_SYNTH} seeds={SEEDS}")
+        print(f"  Brody q:        {q_mean:.4f}  (expect {exp_q}±{tol})  "
+              f"{'PASS' if q_ok else 'FAIL'}")
+        print(f"  Berry-Robnik ρ: {rho_mean:.4f}  (expect {exp_rho}±{tol})  "
+              f"{'PASS' if rho_ok else 'FAIL'}")
+
+    out = {"n_synth": N_SYNTH, "seeds": list(SEEDS), "cases": rec,
+           "all_pass": all_pass,
+           "gate": "Brody/BR values may be banked ONLY if all_pass is true; "
+                   "else bank null + flag (§7.ter.57)."}
+    p = os.path.join(_HERE, "fitter_validation.json")
+    with open(p, "w") as f:
+        json.dump(out, f, indent=2)
+    print(f"\nALL_PASS = {all_pass}")
+    print(f"→ wrote {p}")
+    return 0 if all_pass else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

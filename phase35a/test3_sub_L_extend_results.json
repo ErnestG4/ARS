@@ -1,0 +1,67 @@
+{
+ "run": "Test 3 sub-side L-extension at N=70k, N=125k",
+ "delta": 0.5,
+ "lam": 0.5,
+ "Ns": [
+  70000,
+  125000
+ ],
+ "LS": [
+  1600000,
+  6400000
+ ],
+ "n_phi": 8,
+ "apparatus_identity": {
+  "N70000_L1.6e6": {
+   "max_abs_diff": 0.0,
+   "tol": 1.076352e-06,
+   "PASS": true
+  },
+  "N125000_L1.6e6": {
+   "max_abs_diff": 0.0,
+   "tol": 2.521866e-06,
+   "PASS": true
+  }
+ },
+ "per_cell": [
+  {
+   "N": 70000,
+   "lam": 0.5,
+   "means_by_L": {
+    "1600000": 0.01075297,
+    "6400000": 0.00537555
+   },
+   "spreads_by_L": {
+    "1600000": 1.674e-05,
+    "6400000": 1.399e-05
+   },
+   "substrate_ref": 0.000133,
+   "rel_to_substrate": 39.417676,
+   "top_inc": 1.000348,
+   "L_converged_in_cell": false,
+   "monotone": true
+  },
+  {
+   "N": 125000,
+   "lam": 0.5,
+   "means_by_L": {
+    "1600000": 0.02514913,
+    "6400000": 0.00640369
+   },
+   "spreads_by_L": {
+    "1600000": 0.00012056,
+    "6400000": 9.753e-05
+   },
+   "substrate_ref": 0.000133,
+   "rel_to_substrate": 47.148024,
+   "top_inc": 2.92729,
+   "L_converged_in_cell": false,
+   "monotone": true
+  }
+ ],
+ "terminal": "SUB_L_STILL_DECAYING",
+ "substrate_ref_from_bh22_N100k": 0.000133,
+ "errors": [],
+ "total_s": 9325.0,
+ "note": "Sub-side L-convergence refinement. SURFACED; never proves (A)/(B); \u00a7D untouched; Step-1 untouched."
+}

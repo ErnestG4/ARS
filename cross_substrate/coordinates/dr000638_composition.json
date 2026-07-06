@@ -1,0 +1,992 @@
+[
+ {
+  "session": "sub-TS110-3",
+  "asset_id": "beaae98d-1c19-496a-a68e-78971df2286d",
+  "n_units": 28,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 4,
+    "other": 0,
+    "total": 5
+   },
+   "CA1": {
+    "excitatory": 5,
+    "inhibitory": 4,
+    "other": 0,
+    "total": 9
+   },
+   "MEC": {
+    "excitatory": 4,
+    "inhibitory": 10,
+    "other": 0,
+    "total": 14
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS112-0",
+  "asset_id": "38a938ad-c892-482c-85de-a95699a3b524",
+  "n_units": 190,
+  "comp": {
+   "DG": {
+    "excitatory": 0,
+    "inhibitory": 10,
+    "other": 7,
+    "total": 17
+   },
+   "CA1": {
+    "excitatory": 7,
+    "inhibitory": 2,
+    "other": 0,
+    "total": 9
+   },
+   "MEC": {
+    "excitatory": 93,
+    "inhibitory": 40,
+    "other": 0,
+    "total": 133
+   },
+   "other": {
+    "excitatory": 17,
+    "inhibitory": 14,
+    "other": 0,
+    "total": 31
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS112-1",
+  "asset_id": "013ee2b0-6f9f-4ed6-a188-5b0a92c0dae1",
+  "n_units": 27,
+  "comp": {
+   "DG": {
+    "excitatory": 4,
+    "inhibitory": 6,
+    "other": 5,
+    "total": 15
+   },
+   "CA1": {
+    "excitatory": 8,
+    "inhibitory": 2,
+    "other": 2,
+    "total": 12
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS111-1",
+  "asset_id": "13d4e02f-fe82-43b1-ac06-52018f12651b",
+  "n_units": 135,
+  "comp": {
+   "DG": {
+    "excitatory": 8,
+    "inhibitory": 6,
+    "other": 17,
+    "total": 31
+   },
+   "CA1": {
+    "excitatory": 7,
+    "inhibitory": 7,
+    "other": 10,
+    "total": 24
+   },
+   "MEC": {
+    "excitatory": 43,
+    "inhibitory": 24,
+    "other": 0,
+    "total": 67
+   },
+   "other": {
+    "excitatory": 2,
+    "inhibitory": 11,
+    "other": 0,
+    "total": 13
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS111-2",
+  "asset_id": "844e28a7-7915-4629-bc92-69d2c0943a82",
+  "n_units": 31,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 0,
+    "other": 1,
+    "total": 2
+   },
+   "CA1": {
+    "excitatory": 5,
+    "inhibitory": 3,
+    "other": 8,
+    "total": 16
+   },
+   "other": {
+    "excitatory": 3,
+    "inhibitory": 7,
+    "other": 0,
+    "total": 10
+   },
+   "MEC": {
+    "excitatory": 1,
+    "inhibitory": 2,
+    "other": 0,
+    "total": 3
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS113-2",
+  "asset_id": "8e383afe-73c3-4f3f-9ff2-172aeda2fdd4",
+  "n_units": 16,
+  "comp": {
+   "CA1": {
+    "excitatory": 1,
+    "inhibitory": 2,
+    "other": 6,
+    "total": 9
+   },
+   "DG": {
+    "excitatory": 2,
+    "inhibitory": 2,
+    "other": 3,
+    "total": 7
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS114-0",
+  "asset_id": "eb207bd4-5858-4c89-9b54-8f91b2eb9e72",
+  "n_units": 78,
+  "comp": {
+   "DG": {
+    "excitatory": 2,
+    "inhibitory": 3,
+    "other": 5,
+    "total": 10
+   },
+   "CA1": {
+    "excitatory": 15,
+    "inhibitory": 5,
+    "other": 5,
+    "total": 25
+   },
+   "MEC": {
+    "excitatory": 16,
+    "inhibitory": 5,
+    "other": 0,
+    "total": 21
+   },
+   "other": {
+    "excitatory": 14,
+    "inhibitory": 8,
+    "other": 0,
+    "total": 22
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS113-1",
+  "asset_id": "e94d2568-743f-4f5e-86ab-a4e108ac3e44",
+  "n_units": 27,
+  "comp": {
+   "MEC": {
+    "excitatory": 15,
+    "inhibitory": 7,
+    "other": 0,
+    "total": 22
+   },
+   "other": {
+    "excitatory": 0,
+    "inhibitory": 5,
+    "other": 0,
+    "total": 5
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS114-1",
+  "asset_id": "9ceeaf0c-ef94-4f3f-8f8d-70859daf6b19",
+  "n_units": 131,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 7,
+    "other": 1,
+    "total": 9
+   },
+   "CA1": {
+    "excitatory": 9,
+    "inhibitory": 2,
+    "other": 1,
+    "total": 12
+   },
+   "MEC": {
+    "excitatory": 32,
+    "inhibitory": 24,
+    "other": 0,
+    "total": 56
+   },
+   "other": {
+    "excitatory": 34,
+    "inhibitory": 20,
+    "other": 0,
+    "total": 54
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS115-1",
+  "asset_id": "7fdf54ac-80a8-43b5-9f0c-c3de523994a3",
+  "n_units": 182,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 7,
+    "other": 9,
+    "total": 17
+   },
+   "CA1": {
+    "excitatory": 6,
+    "inhibitory": 3,
+    "other": 5,
+    "total": 14
+   },
+   "MEC": {
+    "excitatory": 68,
+    "inhibitory": 57,
+    "other": 0,
+    "total": 125
+   },
+   "other": {
+    "excitatory": 19,
+    "inhibitory": 7,
+    "other": 0,
+    "total": 26
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS114-2",
+  "asset_id": "fbf7c2eb-8fda-4e81-ba3f-c199ba271c98",
+  "n_units": 65,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 4,
+    "other": 5,
+    "total": 10
+   },
+   "CA1": {
+    "excitatory": 0,
+    "inhibitory": 7,
+    "other": 2,
+    "total": 9
+   },
+   "MEC": {
+    "excitatory": 33,
+    "inhibitory": 10,
+    "other": 0,
+    "total": 43
+   },
+   "other": {
+    "excitatory": 3,
+    "inhibitory": 0,
+    "other": 0,
+    "total": 3
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS115-2",
+  "asset_id": "8ed9fc47-fab0-4ad5-916f-58f823feb675",
+  "n_units": 163,
+  "comp": {
+   "DG": {
+    "excitatory": 38,
+    "inhibitory": 12,
+    "other": 15,
+    "total": 65
+   },
+   "CA1": {
+    "excitatory": 6,
+    "inhibitory": 7,
+    "other": 11,
+    "total": 24
+   },
+   "MEC": {
+    "excitatory": 50,
+    "inhibitory": 15,
+    "other": 0,
+    "total": 65
+   },
+   "other": {
+    "excitatory": 3,
+    "inhibitory": 6,
+    "other": 0,
+    "total": 9
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS116-2",
+  "asset_id": "a174a872-fde9-4e7f-8112-160cb63c4cc8",
+  "n_units": 62,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 7,
+    "other": 2,
+    "total": 10
+   },
+   "CA1": {
+    "excitatory": 3,
+    "inhibitory": 4,
+    "other": 2,
+    "total": 9
+   },
+   "MEC": {
+    "excitatory": 30,
+    "inhibitory": 13,
+    "other": 0,
+    "total": 43
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS116-1",
+  "asset_id": "6df660de-4839-413e-9d19-b843edaa27ea",
+  "n_units": 82,
+  "comp": {
+   "DG": {
+    "excitatory": 4,
+    "inhibitory": 4,
+    "other": 7,
+    "total": 15
+   },
+   "CA1": {
+    "excitatory": 1,
+    "inhibitory": 6,
+    "other": 1,
+    "total": 8
+   },
+   "MEC": {
+    "excitatory": 28,
+    "inhibitory": 20,
+    "other": 0,
+    "total": 48
+   },
+   "other": {
+    "excitatory": 7,
+    "inhibitory": 4,
+    "other": 0,
+    "total": 11
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS116-3",
+  "asset_id": "e7635a9b-cb75-4c6b-a1f1-e6664073304d",
+  "n_units": 106,
+  "comp": {
+   "DG": {
+    "excitatory": 6,
+    "inhibitory": 6,
+    "other": 3,
+    "total": 15
+   },
+   "CA1": {
+    "excitatory": 7,
+    "inhibitory": 4,
+    "other": 2,
+    "total": 13
+   },
+   "MEC": {
+    "excitatory": 58,
+    "inhibitory": 18,
+    "other": 0,
+    "total": 76
+   },
+   "other": {
+    "excitatory": 2,
+    "inhibitory": 0,
+    "other": 0,
+    "total": 2
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS116-0",
+  "asset_id": "d0f00ffa-c65d-4cba-8bde-50433211a247",
+  "n_units": 70,
+  "comp": {
+   "CA1": {
+    "excitatory": 1,
+    "inhibitory": 2,
+    "other": 2,
+    "total": 5
+   },
+   "MEC": {
+    "excitatory": 26,
+    "inhibitory": 5,
+    "other": 0,
+    "total": 31
+   },
+   "other": {
+    "excitatory": 28,
+    "inhibitory": 6,
+    "other": 0,
+    "total": 34
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS114-3",
+  "asset_id": "cbbd3125-abcb-407e-ab76-e75a915e0301",
+  "n_units": 90,
+  "comp": {
+   "CA1": {
+    "excitatory": 5,
+    "inhibitory": 9,
+    "other": 7,
+    "total": 21
+   },
+   "DG": {
+    "excitatory": 4,
+    "inhibitory": 9,
+    "other": 11,
+    "total": 24
+   },
+   "MEC": {
+    "excitatory": 29,
+    "inhibitory": 10,
+    "other": 0,
+    "total": 39
+   },
+   "other": {
+    "excitatory": 4,
+    "inhibitory": 2,
+    "other": 0,
+    "total": 6
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS117-0",
+  "asset_id": "723458a0-dac8-43c4-942b-33770c511510",
+  "n_units": 156,
+  "comp": {
+   "DG": {
+    "excitatory": 0,
+    "inhibitory": 7,
+    "other": 3,
+    "total": 10
+   },
+   "CA1": {
+    "excitatory": 1,
+    "inhibitory": 0,
+    "other": 5,
+    "total": 6
+   },
+   "MEC": {
+    "excitatory": 73,
+    "inhibitory": 30,
+    "other": 0,
+    "total": 103
+   },
+   "other": {
+    "excitatory": 18,
+    "inhibitory": 19,
+    "other": 0,
+    "total": 37
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS117-1",
+  "asset_id": "1b269d35-d4b9-411f-a73b-d0456be7112e",
+  "n_units": 93,
+  "comp": {
+   "DG": {
+    "excitatory": 18,
+    "inhibitory": 8,
+    "other": 10,
+    "total": 36
+   },
+   "CA1": {
+    "excitatory": 3,
+    "inhibitory": 2,
+    "other": 1,
+    "total": 6
+   },
+   "MEC": {
+    "excitatory": 20,
+    "inhibitory": 15,
+    "other": 0,
+    "total": 35
+   },
+   "other": {
+    "excitatory": 14,
+    "inhibitory": 2,
+    "other": 0,
+    "total": 16
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS118-2",
+  "asset_id": "b68b3831-61b5-4813-8dab-4a77a7070965",
+  "n_units": 64,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 8,
+    "other": 3,
+    "total": 12
+   },
+   "CA1": {
+    "excitatory": 13,
+    "inhibitory": 6,
+    "other": 4,
+    "total": 23
+   },
+   "MEC": {
+    "excitatory": 12,
+    "inhibitory": 7,
+    "other": 0,
+    "total": 19
+   },
+   "other": {
+    "excitatory": 7,
+    "inhibitory": 3,
+    "other": 0,
+    "total": 10
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS118-0",
+  "asset_id": "0c1f0bfc-a08e-4f31-9c57-d6483389a757",
+  "n_units": 223,
+  "comp": {
+   "DG": {
+    "excitatory": 23,
+    "inhibitory": 5,
+    "other": 10,
+    "total": 38
+   },
+   "CA1": {
+    "excitatory": 9,
+    "inhibitory": 7,
+    "other": 7,
+    "total": 23
+   },
+   "MEC": {
+    "excitatory": 58,
+    "inhibitory": 24,
+    "other": 0,
+    "total": 82
+   },
+   "other": {
+    "excitatory": 63,
+    "inhibitory": 17,
+    "other": 0,
+    "total": 80
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS118-3",
+  "asset_id": "38272d3e-c879-4935-b5bb-75a04eb9d7e1",
+  "n_units": 177,
+  "comp": {
+   "CA1": {
+    "excitatory": 8,
+    "inhibitory": 7,
+    "other": 32,
+    "total": 47
+   },
+   "DG": {
+    "excitatory": 4,
+    "inhibitory": 6,
+    "other": 6,
+    "total": 16
+   },
+   "MEC": {
+    "excitatory": 49,
+    "inhibitory": 38,
+    "other": 0,
+    "total": 87
+   },
+   "other": {
+    "excitatory": 20,
+    "inhibitory": 7,
+    "other": 0,
+    "total": 27
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS118-4",
+  "asset_id": "d050130c-23ab-47e0-967f-285fafd7684b",
+  "n_units": 225,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 13,
+    "other": 5,
+    "total": 19
+   },
+   "CA1": {
+    "excitatory": 26,
+    "inhibitory": 11,
+    "other": 20,
+    "total": 57
+   },
+   "MEC": {
+    "excitatory": 69,
+    "inhibitory": 49,
+    "other": 0,
+    "total": 118
+   },
+   "other": {
+    "excitatory": 17,
+    "inhibitory": 14,
+    "other": 0,
+    "total": 31
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS89-1",
+  "asset_id": "3cbf64c7-b5d8-4e24-bd57-e33f83ea9964",
+  "n_units": 94,
+  "comp": {
+   "DG": {
+    "excitatory": 11,
+    "inhibitory": 8,
+    "other": 15,
+    "total": 34
+   },
+   "CA1": {
+    "excitatory": 2,
+    "inhibitory": 1,
+    "other": 2,
+    "total": 5
+   },
+   "MEC": {
+    "excitatory": 47,
+    "inhibitory": 8,
+    "other": 0,
+    "total": 55
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS88-3",
+  "asset_id": "4555f03a-1278-44f5-8f1a-22d211669be2",
+  "n_units": 194,
+  "comp": {
+   "DG": {
+    "excitatory": 17,
+    "inhibitory": 7,
+    "other": 11,
+    "total": 35
+   },
+   "CA1": {
+    "excitatory": 7,
+    "inhibitory": 9,
+    "other": 8,
+    "total": 24
+   },
+   "MEC": {
+    "excitatory": 33,
+    "inhibitory": 16,
+    "other": 0,
+    "total": 49
+   },
+   "other": {
+    "excitatory": 73,
+    "inhibitory": 13,
+    "other": 0,
+    "total": 86
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS86-1",
+  "asset_id": "e9bcdc46-02d4-4d69-8658-e7ee95117207",
+  "n_units": 85,
+  "comp": {
+   "DG": {
+    "excitatory": 8,
+    "inhibitory": 12,
+    "other": 7,
+    "total": 27
+   },
+   "CA1": {
+    "excitatory": 21,
+    "inhibitory": 8,
+    "other": 2,
+    "total": 31
+   },
+   "MEC": {
+    "excitatory": 19,
+    "inhibitory": 3,
+    "other": 0,
+    "total": 22
+   },
+   "other": {
+    "excitatory": 4,
+    "inhibitory": 1,
+    "other": 0,
+    "total": 5
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS86-2",
+  "asset_id": "fea1a7c9-ab85-446c-a3d8-5765c56ac812",
+  "n_units": 99,
+  "comp": {
+   "CA1": {
+    "excitatory": 10,
+    "inhibitory": 9,
+    "other": 7,
+    "total": 26
+   },
+   "DG": {
+    "excitatory": 7,
+    "inhibitory": 5,
+    "other": 4,
+    "total": 16
+   },
+   "MEC": {
+    "excitatory": 37,
+    "inhibitory": 15,
+    "other": 0,
+    "total": 52
+   },
+   "other": {
+    "excitatory": 3,
+    "inhibitory": 2,
+    "other": 0,
+    "total": 5
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS89-2",
+  "asset_id": "cc27d635-197e-47d8-a2ea-9bdf92547db6",
+  "n_units": 150,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 1,
+    "other": 0,
+    "total": 2
+   },
+   "CA1": {
+    "excitatory": 7,
+    "inhibitory": 3,
+    "other": 6,
+    "total": 16
+   },
+   "other": {
+    "excitatory": 0,
+    "inhibitory": 3,
+    "other": 0,
+    "total": 3
+   },
+   "MEC": {
+    "excitatory": 92,
+    "inhibitory": 37,
+    "other": 0,
+    "total": 129
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS90-0",
+  "asset_id": "7786b7ef-d94b-436e-922c-989bc00cdd0d",
+  "n_units": 236,
+  "comp": {
+   "DG": {
+    "excitatory": 12,
+    "inhibitory": 16,
+    "other": 7,
+    "total": 35
+   },
+   "CA1": {
+    "excitatory": 15,
+    "inhibitory": 17,
+    "other": 11,
+    "total": 43
+   },
+   "MEC": {
+    "excitatory": 137,
+    "inhibitory": 21,
+    "other": 0,
+    "total": 158
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS89-3",
+  "asset_id": "891afa04-4483-4fee-a4b6-4823a6c1b79e",
+  "n_units": 28,
+  "comp": {
+   "DG": {
+    "excitatory": 1,
+    "inhibitory": 1,
+    "other": 2,
+    "total": 4
+   },
+   "CA1": {
+    "excitatory": 2,
+    "inhibitory": 0,
+    "other": 1,
+    "total": 3
+   },
+   "MEC": {
+    "excitatory": 6,
+    "inhibitory": 10,
+    "other": 0,
+    "total": 16
+   },
+   "other": {
+    "excitatory": 0,
+    "inhibitory": 5,
+    "other": 0,
+    "total": 5
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS91-2",
+  "asset_id": "7d689d53-101b-47ac-ae0a-adf7da2f1cae",
+  "n_units": 93,
+  "comp": {
+   "DG": {
+    "excitatory": 0,
+    "inhibitory": 2,
+    "other": 5,
+    "total": 7
+   },
+   "other": {
+    "excitatory": 2,
+    "inhibitory": 5,
+    "other": 2,
+    "total": 9
+   },
+   "CA1": {
+    "excitatory": 12,
+    "inhibitory": 3,
+    "other": 1,
+    "total": 16
+   },
+   "MEC": {
+    "excitatory": 46,
+    "inhibitory": 15,
+    "other": 0,
+    "total": 61
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS90-2",
+  "asset_id": "8bef7656-cd7d-4f65-b115-aa1692829a80",
+  "n_units": 102,
+  "comp": {
+   "DG": {
+    "excitatory": 3,
+    "inhibitory": 6,
+    "other": 4,
+    "total": 13
+   },
+   "CA1": {
+    "excitatory": 8,
+    "inhibitory": 9,
+    "other": 4,
+    "total": 21
+   },
+   "MEC": {
+    "excitatory": 52,
+    "inhibitory": 13,
+    "other": 0,
+    "total": 65
+   },
+   "other": {
+    "excitatory": 2,
+    "inhibitory": 1,
+    "other": 0,
+    "total": 3
+   }
+  },
+  "ok": true
+ },
+ {
+  "session": "sub-TS91-1",
+  "asset_id": "745663d3-e1a8-41ba-bca5-b02941e9c7de",
+  "n_units": 108,
+  "comp": {
+   "DG": {
+    "excitatory": 11,
+    "inhibitory": 5,
+    "other": 14,
+    "total": 30
+   },
+   "CA1": {
+    "excitatory": 12,
+    "inhibitory": 4,
+    "other": 3,
+    "total": 19
+   },
+   "MEC": {
+    "excitatory": 24,
+    "inhibitory": 13,
+    "other": 0,
+    "total": 37
+   },
+   "other": {
+    "excitatory": 6,
+    "inhibitory": 16,
+    "other": 0,
+    "total": 22
+   }
+  },
+  "ok": true
+ }
+]

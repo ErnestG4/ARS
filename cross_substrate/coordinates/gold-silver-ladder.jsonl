@@ -1,0 +1,8 @@
+{"name": "[1] gold", "period": [1], "alpha": 0.6180339887498948, "lagrange": 2.23606797749979, "C": 0.8755970963248744, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[1,1,1,2]", "period": [1, 1, 1, 2], "alpha": 0.6329931618554521, "lagrange": 3.265986323710904, "C": 0.9437551690591011, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[1,1,2]", "period": [1, 1, 2], "alpha": 0.5811388300841897, "lagrange": 3.162277660168379, "C": 0.8603009299620024, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[1,2]", "period": [1, 2], "alpha": 0.7320508075688773, "lagrange": 3.4641016151377544, "C": 0.9236159403123675, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[2,2,1,1]M", "period": [2, 2, 1, 1], "alpha": 0.4190049105227504, "lagrange": 2.973213749463701, "C": 0.9147043950996631, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[1,2,2]", "period": [1, 2, 2], "alpha": 0.7032574095488145, "lagrange": 3.073181485764296, "C": 0.8812810825469565, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[1,2,2,2]", "period": [1, 2, 2, 2], "alpha": 0.707778735729046, "lagrange": 3.1298431857438063, "C": 0.9025520666459181, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}
+{"name": "[2] silver", "period": [2], "alpha": 0.4142135623730951, "lagrange": 2.82842712474619, "C": 0.8668293470900278, "substrate": "gold-silver-ladder", "computed_date": "2026-05-25"}

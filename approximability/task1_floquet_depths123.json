@@ -1,0 +1,99 @@
+{
+ "seed": 20240517,
+ "method": "floquet_periodic_antiperiodic_eigensolve",
+ "certified_against": "refsuite golden k=8,10 edges 1e-8; k=12 catches 144 vs grid 98; pi midpoint 100%",
+ "pi_cf": [
+  7,
+  15,
+  1,
+  292,
+  1
+ ],
+ "convergent_q": [
+  7,
+  106,
+  113,
+  33102,
+  33215
+ ],
+ "depths": {
+  "lam8.0": {
+   "L1_q7": {
+    "bands": 7,
+    "count_eq_q": true,
+    "total_width": 0.49243580482385524,
+    "mean_width": 0.0703479721176936,
+    "dim": 0.7331157669723967,
+    "dim_x_lnlam": 1.5244713807028758
+   },
+   "L2_q106": {
+    "bands": 106,
+    "count_eq_q": true,
+    "total_width": 0.06050808028893595,
+    "mean_width": 0.0005708309461220373,
+    "dim": 0.6244213208537923,
+    "dim_x_lnlam": 1.2984476340939692
+   },
+   "L3_q113": {
+    "bands": 113,
+    "count_eq_q": true,
+    "total_width": 0.06050808028887127,
+    "mean_width": 0.0005354697370696573,
+    "dim": 0.6276099307718461,
+    "dim_x_lnlam": 1.3050781620177827
+   }
+  },
+  "lam24.0": {
+   "L1_q7": {
+    "bands": 7,
+    "count_eq_q": true,
+    "total_width": 0.16637833577668776,
+    "mean_width": 0.023768333682383964,
+    "dim": 0.520380161446475,
+    "dim_x_lnlam": 1.6537961653220523
+   },
+   "L2_q106": {
+    "bands": 106,
+    "count_eq_q": true,
+    "total_width": 0.006918942099228942,
+    "mean_width": 6.527303867197115e-05,
+    "dim": 0.48391327659373756,
+    "dim_x_lnlam": 1.5379024422349525
+   },
+   "L3_q113": {
+    "bands": 113,
+    "count_eq_q": true,
+    "total_width": 0.0069189420992247785,
+    "mean_width": 6.122957609933433e-05,
+    "dim": 0.4873153480564537,
+    "dim_x_lnlam": 1.548714408478155
+   }
+  },
+  "lam32.0": {
+   "L1_q7": {
+    "bands": 7,
+    "count_eq_q": true,
+    "total_width": 0.12487817121832445,
+    "mean_width": 0.017839738745474922,
+    "dim": 0.4832966243246681,
+    "dim_x_lnlam": 1.6749784626239137
+   },
+   "L2_q106": {
+    "bands": 106,
+    "count_eq_q": true,
+    "total_width": 0.0038981646627032074,
+    "mean_width": 3.677513832738875e-05,
+    "dim": 0.4567213151586963,
+    "dim_x_lnlam": 1.5828754595194028
+   },
+   "L3_q113": {
+    "bands": 113,
+    "count_eq_q": true,
+    "total_width": 0.003898164662664183,
+    "mean_width": 3.4497032412957374e-05,
+    "dim": 0.46010264903282855,
+    "dim_x_lnlam": 1.5945942697263358
+   }
+  }
+ }
+}

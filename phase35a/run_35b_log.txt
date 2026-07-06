@@ -1,0 +1,33 @@
+================================================================================
+35b — transition_diagnostic non-circular validation on AM (VALIDATED leg)
+================================================================================
+SIGNAL (λ→ across transition, λ=1 excluded; θ=golden, φ=0):
+  [step]    λ=0.5 | primary=BR_artifact  rep_med=0.8469    W1δ=0.00497  var=0.00118
+  [step]    λ=0.7 | primary=BR_artifact  rep_med=0.84341   W1δ=0.0078   var=0.00174
+  [step]   λ=0.85 | primary=BR_artifact  rep_med=0.83973   W1δ=0.01363  var=0.00353
+  [step]   λ=0.95 | primary=BR_artifact  rep_med=0.8258    W1δ=0.02939  var=0.008
+  [step]   λ=1.05 | primary=BR_artifact  rep_med=0.67404   W1δ=0.2862   var=0.11832
+  [step]   λ=1.25 | primary=BR_artifact  rep_med=0.69147   W1δ=0.27886  var=0.10964
+  [step]    λ=1.5 | primary=BR_artifact  rep_med=0.69632   W1δ=0.27686  var=0.10718
+  [step]    λ=2.0 | primary=BR_artifact  rep_med=0.69709   W1δ=0.27555  var=0.10572
+
+α-ENSEMBLE NULL (§7.ter.48; fixed θ, λ=1.5; vary α=φ):
+  [step]    α=0.0 | primary=BR_artifact  rep_med=0.69632   W1δ=0.27686  var=0.10718
+  [step]  α=0.125 | primary=BR_artifact  rep_med=0.69438   W1δ=0.39178  var=0.18554
+  [step]   α=0.25 | primary=BR_artifact  rep_med=0.74419   W1δ=0.28249  var=0.16055
+  [step]  α=0.375 | primary=BR_artifact  rep_med=0.7293    W1δ=0.28416  var=0.13295
+  [step]    α=0.5 | primary=BR_artifact  rep_med=0.69613   W1δ=0.27698  var=0.1073
+  [step]  α=0.625 | primary=BR_artifact  rep_med=0.69438   W1δ=0.39172  var=0.1855
+  [step]   α=0.75 | primary=BR_artifact  rep_med=0.74419   W1δ=0.28234  var=0.16038
+  [step]  α=0.875 | primary=BR_artifact  rep_med=0.72855   W1δ=0.28423  var=0.13301
+
+================================================================================
+RESULT
+ signal: primaries={'BR_artifact'} transition_detected=False shape=unclassified | rep_med drift=0.17286 W1δ drift=0.28123
+ α-null: primaries={'BR_artifact'} transition_detected=False shape=unclassified | rep_med drift=0.04981 W1δ drift=0.11492
+
+ PRE-SPECIFIED VERDICT: UNRESOLVED — neither pre-specified branch cleanly met; inspect (no auto-adjudication)
+ SCOPING/tooling-confidence — transition_diagnostic behaves per its
+ pre-specified map on a non-synthetic proven-transition substrate.
+ NOT a discovery; NOT §3; no stamping; Class II blocked.
+================================================================================
