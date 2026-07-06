@@ -1,0 +1,18 @@
+{
+ "per_q_slopes": {
+  "0.3010": 0.7591589757560987,
+  "0.4771": 0.7687680249272196,
+  "0.6990": 0.7968463205835413
+ },
+ "mean_slope": 0.7749244404222866,
+ "honest_CI_3field": [
+  0.7262726183615184,
+  0.8235762624830548
+ ],
+ "third_candidate": 0.7675283333333334,
+ "third_inside_CI": true,
+ "empirical_076_inside": true,
+ "slope_trend_per_log10q": 0.09606164232750881,
+ "naive_config_CI": "[0.775,0.795] excludes both but OVER-TIGHT (correlated estimators, effective n=3 not 12)",
+ "verdict": "INDISTINGUISHABLE at 3 base fields: both 0.760 and 0.7675 inside the honest 3-field CI [0.72,0.83]; 1/3 neither supported nor refuted. Per-q slope trends UP (0.754->0.797) => the through-origin constant-slope model is itself imperfect. Resolving needs q=7,11,13 AND a constant-slope check -- a future genus-0 refit, NOT this banked-data arm."
+}
