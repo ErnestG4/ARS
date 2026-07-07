@@ -1,0 +1,5 @@
+e       C_early=None (n=0)  C_late=None (n=0)  climb=None
+silver  C_early=None (n=0)  C_late=None (n=0)  climb=None
+
+VERDICT: INCONCLUSIVE (see points; defer to Arm1 e-gamma)
+wrote Arm2_e_divergence_measured.json

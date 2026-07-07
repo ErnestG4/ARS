@@ -1,0 +1,34 @@
+{
+  "sealed": true,
+  "arm": "Night2-O1-bridge-verify",
+  "claim": "theta_inf(a) = L_a / C_a is the connective seam between the finite-lambda surface and the DEGT ladder; verify across the metallic ladder a=1..5 within propagated bands, guarding against correlated C-measurement noise.",
+  "constants": {
+    "L_a_closed_form": "log((a + sqrt(a*a+4))/2)",
+    "L_exact": {"1": 0.4812118250596035, "2": 0.8813735870195429, "3": 1.1947632172871094, "4": 1.4436354751788103, "5": 1.6472311463710958},
+    "C_panelA_measured": {"1": 0.8771395920989912, "2": 0.8667114809952847, "3": 0.9133488642506151, "4": 1.0216069200712872, "5": null},
+    "C_golden_closed_form": 0.8813735870195429
+  },
+  "theta_inf_pred_LoverC": {
+    "1": 0.548615,
+    "2": 1.016917,
+    "3": 1.308113,
+    "4": 1.413103,
+    "5": "L/C5 (C5 to be measured this night via Panel-A growth-rate engine)"
+  },
+  "golden_self_check": {
+    "measured_C_route": 0.548615,
+    "closed_form_route": 0.545979,
+    "gap_pct": 0.48,
+    "interpretation": "gap equals the known -0.4% C-measurement error; golden rung calibrates the bridge error budget before a>=2 is trusted"
+  },
+  "runs_required": {
+    "C_a5": "NEW: DEGT growth-rate engine, dim*ln(lambda) lambda->inf extrapolation of lambda>=16 points (NOT single-lambda box-counting)",
+    "C_a4": "CONFIRMATION run to attach an error bar to Panel A point value 1.021607",
+    "L": "closed-form exact, zero numerator error"
+  },
+  "load_bearing_preregistration": "propagate measured-C error into theta_inf=L/C and report the C-measurement covariance across rungs; a clean-looking theta_inf ladder must not be an artifact of correlated C noise (cf. the 1/3 CI).",
+  "gate": {
+    "CONFIRMED": "theta_inf^pred matches independent theta_inf (direct bandwidth-exponent extrapolation; golden = closed-form anchor) within propagated bands at every rung a=1..5 -> bank as the seam",
+    "GOLDEN_ONLY": "a>=2 rungs flagged measured-not-derived -> bridge downgraded to golden coincidence pending closed-form C for a>=2 (Liu-Wen liminf-K, no closed forms known)"
+  }
+}

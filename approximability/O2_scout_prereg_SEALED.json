@@ -1,0 +1,28 @@
+{
+  "sealed": true,
+  "arm": "Night2-O2-scout-efficiency-precheck",
+  "claim": "The Farey scout is efficient iff the near-optimal-cell count grows sub-polynomially with depth. Measure the near-optimality dimension d* directly by counting CF prefixes, no scout built.",
+  "substrate_pool": {
+    "wilderness": ["cbrt2","cbrt3","cbrt4","cbrt5","cbrt6","cbrt7","cbrt9","cbrt10","cbrt11","cbrt12","plastic(x3-x-1)","cbrt2p1(x3-3x2+3x-3)","root_x3_3x_1"],
+    "controls": ["phi (self-similar, must return d*=0, harness sanity gate)", "fifth (log2(3/2))", "pi", "e"]
+  },
+  "fingerprint_reward_SEALED": {
+    "definition": "for a depth-h cell = rational p/q approximating target alpha: R = -log( q * |q*alpha - p| )",
+    "rationale": "scaled best-approximation quality on the Lagrange frontier; the scout's own objective, not an ad-hoc score. Larger R = closer to optimal."
+  },
+  "near_maximal_threshold_SEALED": {
+    "rule": "cell counts iff R >= R_max(h) - Delta",
+    "Delta": "log(2)",
+    "rationale": "within a factor-2 of the depth-h best -- the natural Farey-mediant band. Fixed BEFORE counting; not tuned to counts."
+  },
+  "near_optimality_dimension": {
+    "definition": "d* = lim_h  log N(h) / (h * log 2)   where N(h) = # near-maximal depth-h cells and ~2^h = total cells",
+    "green": "d* -> 0  (sub-polynomial N(h)) -> scout prunable/efficient",
+    "red": "d* > 0  (exponential N(h)) -> scout cannot prune/inefficient"
+  },
+  "gate": {
+    "harness_sanity": "phi MUST return d*=0 (N(h)=O(1)); if not, the counting harness is wrong, not the scout",
+    "verdict": "pooled generic-cubic d* clusters near 0 -> scout MEASURED-EFFICIENT on real wilderness; d* bounded away from 0 -> scout MEASURED-INEFFICIENT"
+  },
+  "deliverable": "per-substrate d* + pooled cubic GREEN/RED; converts scout from 'provably efficient in theory' to 'measured efficient (or not) on real substrates'"
+}

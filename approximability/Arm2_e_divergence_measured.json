@@ -1,0 +1,48 @@
+{
+ "e": {
+  "alpha": 0.7182818284590452,
+  "C_early": null,
+  "C_late": null,
+  "climb": null,
+  "n_early": 0,
+  "n_late": 0,
+  "windows": {
+   "early_d": [
+    71,
+    465,
+    536
+   ],
+   "late_d": [
+    465,
+    536,
+    1001
+   ]
+  }
+ },
+ "silver": {
+  "alpha": 0.41421356237309503,
+  "C_early": null,
+  "C_late": null,
+  "climb": null,
+  "n_early": 0,
+  "n_late": 0,
+  "windows": {
+   "early_d": [
+    70,
+    169,
+    408
+   ],
+   "late_d": [
+    408,
+    985,
+    2378
+   ]
+  }
+ },
+ "verdict": {
+  "e_climb": null,
+  "silver_climb": null,
+  "result": "INCONCLUSIVE (see points; defer to Arm1 e-gamma)"
+ },
+ "interpretation": "n=0 converged points is DIAGNOSTIC: the growth-rate C-engine's convergence gate encodes self-similarity, which e (liminf-K=inf) violates; the engine refuses to return a finite C for e -> operational confirmation of C-finite<=>liminf-K-finite. Positive divergence magnitude lives in panel_B_spectral.json (e Sigma^2(L=30)=6651, highest, drifting to Poisson). Growth-rate route = wrong instrument for divergence."
+}

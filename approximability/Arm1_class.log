@@ -1,0 +1,143 @@
+=== LAYER-ZERO CALIBRATION ===
+  Poisson: gamma=0.975 (expect ~1)   GUE: gamma=0.197 (expect ~0)
+  calibration PASS
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt2          gamma=1.010  Sigma2(L=30)=2250.3
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt3          gamma=1.430  Sigma2(L=30)=7314.5
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt4          gamma=0.938  Sigma2(L=30)=5327.5
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt5          gamma=1.395  Sigma2(L=30)=4947.4
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt6          gamma=1.087  Sigma2(L=30)=7825.6
+  [cubic   ] cbrt7          gamma=1.118  Sigma2(L=30)=4494.2
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt9          gamma=1.024  Sigma2(L=30)=3895.3
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt10         gamma=1.250  Sigma2(L=30)=7397.4
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt11         gamma=1.581  Sigma2(L=30)=5268.6
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt12         gamma=1.459  Sigma2(L=30)=5531.1
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] plastic        gamma=1.039  Sigma2(L=30)=1175.9
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] cbrt2p1        gamma=1.010  Sigma2(L=30)=2250.3
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [cubic   ] root_x3_3x_1   gamma=1.209  Sigma2(L=30)=4685.1
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [metallic] golden         gamma=1.261  Sigma2(L=30)=5962.5
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [metallic] silver         gamma=1.028  Sigma2(L=30)=5107.0
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [metallic] bronze         gamma=1.285  Sigma2(L=30)=6006.9
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [ctrl    ] fifth          gamma=1.157  Sigma2(L=30)=6004.5
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [ctrl    ] pi             gamma=1.647  Sigma2(L=30)=6014.6
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/longrange_discriminator.py:84: RankWarning: Polyfit may be poorly conditioned
+  return np.polyval(np.polyfit(x, y, deg), x)
+  [ctrl    ] e              gamma=1.202  Sigma2(L=30)=6651.1
+
+=== VERDICT ===
+{
+ "cubic_gamma_mean": 1.1962,
+ "cubic_gamma_sd": 0.2005,
+ "metallic_gamma_mean": 1.1913,
+ "metallic_gamma_sd": 0.1161,
+ "cubic_gamma_range": [
+  0.938,
+  1.581
+ ],
+ "calibration_pass": true,
+ "result": "SPLIT (cubic class spread / off metallic band -> g~ universality is marginal-only)"
+}
+wrote Arm1_class_measured.json
