@@ -1,0 +1,38 @@
+{
+  "sealed": true,
+  "arm": "Session-K-CoPrimary2-transfer-operator-bridge",
+  "date_prereg": "2026-07-07",
+  "provenance": "mirrors approximability/O1_bridge_prereg_SEALED.json + O1_bridge.log (commit c79ce8b). NO recompute; values copied from banked disk state.",
+  "R4_note": "Draft symbol 'L_a' conflates two objects. This prereg keeps them SEPARATE. 2a = Gauss-map a.e. constants (operator sanity, NOT the bridge numerator). 2b = per-metallic log(eps_a) via periodic-orbit multiplier (the real independent bridge reproduction).",
+
+  "sub_2a_operator_sanity": {
+    "role": "confirm GKW discretization correct; DOES NOT touch the banked theta_inf ladder",
+    "gauss_lyapunov_pi2_over_6ln2": 2.3731382208769696,
+    "levy_exponent_pi2_over_12ln2": 1.1865691104384848,
+    "levy_constant_exp": 3.2758229187218113,
+    "gkw_subdominant_eigenvalue_lambda1": -0.3036300349,
+    "pass_condition": "operator reproduces all four to discretization precision"
+  },
+
+  "sub_2b_bridge_reproduction": {
+    "role": "THE independent reproduction: numeric a-branch fixed-point multiplier -> log(eps_a) -> banked theta_inf ladder",
+    "L_a_closed_form": "log((a + sqrt(a*a+4))/2)",
+    "L_exact_sealed": {"1": 0.4812118250596035, "2": 0.8813735870195429, "3": 1.1947632172871094, "4": 1.4436354751788103, "5": 1.6472311463710958},
+    "C_a_panelA_measured": {"1": 0.8771395920989912, "2": 0.8667114809952847, "3": 0.9133488642506151, "4": 1.0216046425934326, "5": 1.1603827897573706},
+    "C_a_error": {"4": 0.03135897654515015, "5": 0.044634545461853595},
+    "C_golden_closed_form": 0.8813735870195429,
+    "theta_inf_sealed_ladder": {
+      "1_measC": 0.548615,
+      "1_closed_form_logphi_over_log1plussqrt2": 0.545979,
+      "2": 1.016917,
+      "3": 1.308113,
+      "4": 1.413106,
+      "5": 1.419558
+    },
+    "golden_self_check_gap_pct": 0.48,
+    "pass_condition": "numeric periodic-orbit log(eps_a) matches L_exact_sealed AND theta_inf = L_a/C_a reproduces theta_inf_sealed_ladder within propagated C-bands at every rung a=1..5",
+    "fail_condition": "any discrepancy at banked precision => banked-state conflict => HALT + escalate as top result (Session-K sec 8)"
+  },
+
+  "laundering_guard_R4": "2a passing does NOT imply 2b. A clean 2a with a failed 2b is an operator-fine/bridge-conflict and MUST still escalate 2b. Do not report '3.2758 recovered' as 'theta_inf bridge reproduced'."
+}

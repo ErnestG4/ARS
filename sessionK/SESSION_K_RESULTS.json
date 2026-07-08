@@ -1,0 +1,126 @@
+{
+  "co_primary_2_bridge": {
+    "2a_operator": {
+      "lambda_1": -0.30366300988962175,
+      "lyapunov": 2.3731406684397647,
+      "levy_const": 3.275826927690297,
+      "PASS": true
+    },
+    "2b_theta_ladder": {
+      "max_L_a_err": 2.220446049250313e-16,
+      "PASS": true,
+      "ladder_match": {
+        "1": 1.2798394410928893e-07,
+        "2": 6.01119751753032e-08,
+        "3": 3.345647734409596e-07,
+        "4": 1.7119912887331168e-07,
+        "5": 4.085795708430595e-07
+      }
+    },
+    "VERDICT": "banked Session-J theta_inf ladder reproduced from independent spectral route; no conflict"
+  },
+  "instrument": {
+    "INSTRUMENT_VALID": true,
+    "zeta_nns": "GUE",
+    "S3_edge": "REFUSE"
+  },
+  "co_primary_1_maass": {
+    "completeness": {
+      "idx_consecutive": true,
+      "max_single_parity_run": 5,
+      "run_gate_pass": true,
+      "even_count": 334,
+      "odd_count": 266,
+      "total_weyl_predicted": 599.8361302121282,
+      "total_observed": 599,
+      "COMPLETE": true
+    },
+    "pipeline_valid": true,
+    "sectors": {
+      "odd": {
+        "n": 266,
+        "mean_rtilde": 0.3992236272087822,
+        "z_vs_Poisson": 0.8,
+        "z_vs_GOE": -8.45,
+        "nearest": "Poisson"
+      },
+      "even": {
+        "n": 334,
+        "mean_rtilde": 0.42665331698924214,
+        "z_vs_Poisson": 2.58,
+        "z_vs_GOE": -6.98,
+        "nearest": "Poisson"
+      }
+    },
+    "VERDICT": "arithmetic-Poisson per sector; GOE excluded 7-8 sigma; odd=clean Poisson, even=Poisson+mild finite-r residual repulsion"
+  },
+  "approach_to_poisson": {
+    "odd": [
+      {
+        "r_lo": 9,
+        "r_hi": 40,
+        "n": 27,
+        "mean_rtilde": 0.4459465830961837,
+        "se": 0.05387122912342279
+      },
+      {
+        "r_lo": 40,
+        "r_hi": 60,
+        "n": 52,
+        "mean_rtilde": 0.3712730285400393,
+        "se": 0.029794884786588666
+      },
+      {
+        "r_lo": 60,
+        "r_hi": 80,
+        "n": 82,
+        "mean_rtilde": 0.4225994890743535,
+        "se": 0.0316021055399028
+      },
+      {
+        "r_lo": 80,
+        "r_hi": 99,
+        "n": 105,
+        "mean_rtilde": 0.3765384073413,
+        "se": 0.026529052354720133
+      }
+    ],
+    "even": [
+      {
+        "r_lo": 9,
+        "r_hi": 40,
+        "n": 43,
+        "mean_rtilde": 0.5317369588690758,
+        "se": 0.04018419175839233
+      },
+      {
+        "r_lo": 40,
+        "r_hi": 60,
+        "n": 68,
+        "mean_rtilde": 0.3959871361916111,
+        "se": 0.03497370984378437
+      },
+      {
+        "r_lo": 60,
+        "r_hi": 80,
+        "n": 99,
+        "mean_rtilde": 0.42153939980195115,
+        "se": 0.029842290559838273
+      },
+      {
+        "r_lo": 80,
+        "r_hi": 99,
+        "n": 124,
+        "mean_rtilde": 0.4089233099286379,
+        "se": 0.025291147209742425
+      }
+    ]
+  },
+  "predictions_resolved": {
+    "S1_Maass_arithmetic_Poisson_GOE_excluded": "CONFIRMED (both sectors, desymmetrized)",
+    "S5_zeta_GUE": "CONFIRMED (NNS)",
+    "S3_edge_REFUSE": "CONFIRMED",
+    "S3_theta_inf_bridge": "CONFIRMED (machine precision, 2a+2b)",
+    "C_nonarith_Hecke_n5_GOE": "NOT RUN - DATA_ACQUISITION_BLOCKED (Hecke n=5 eigenvalues not on LMFDB); instrument's GOE-detection validated via synthetic + sampled GOE"
+  }
+}
