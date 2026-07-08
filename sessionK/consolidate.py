@@ -17,7 +17,7 @@ def rstat(x):
     return np.minimum(s[1:], s[:-1]) / np.maximum(s[1:], s[:-1])
 edges = [9, 40, 60, 80, 99]
 approach = {}
-for s, name in [(0, "odd"), (1, "even")]:
+for s, name in [(0, "even"), (1, "odd")]:   # Run-1 convention: sym0=even, sym1=odd
     rs = r[sym == s]; rows = []
     for lo, hi in zip(edges[:-1], edges[1:]):
         m = (rs >= lo) & (rs < hi); rr = rstat(rs[m])

@@ -42,7 +42,9 @@ def inverse_Nbar(u, c, d, Rmax=400.0):
 # Per-sector Weyl leading terms (THEORY-FIXED, not fit — so Sigma^2 long-range
 # power is preserved): area term a=1/24 each; one-cusp scattering -(2/pi)R lnR
 # belongs to the EVEN sector (Eisenstein series are even), odd has none.
-SECTOR_B = {0: 0.0, 1: -2.0 / math.pi}     # 0=odd, 1=even
+# PARITY CONVENTION settled by Run 1 (Mayer det): eigenvalue+1=even=LMFDB sym0;
+# eigenvalue-1=odd=LMFDB sym1. So sym0=EVEN (gets scattering), sym1=ODD.
+SECTOR_B = {0: -2.0 / math.pi, 1: 0.0}     # 0=even(scattering), 1=odd
 
 def fit_norm_sector(R, a_lead, b_lead):
     """Fix R^2 (a_lead=1/24) and R lnR (b_lead, scattering) from THEORY; fit only
@@ -174,7 +176,7 @@ def run_real(csv):
     out = {"n_total": int(len(R_all)),
            "r_range": [float(R_all.min()), float(R_all.max())],
            "completeness": comp, "sectors": {}}
-    names = {0: "odd", 1: "even"}
+    names = {0: "even", 1: "odd"}
     for s in (0, 1):
         raw_r, u = unf[s]
         out["sectors"][names[s]] = classify_sector(raw_r, u, names[s])

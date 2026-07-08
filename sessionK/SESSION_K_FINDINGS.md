@@ -1,5 +1,11 @@
 # Session K — Findings (arithmetic-chaos / Gauss-map spectral substrate)
 
+> **PARITY LABEL CORRECTION (from continuation Run 1, Mayer determinant):** this
+> document's even/odd labels are SWAPPED. Correct convention: LMFDB **sym0 = even**
+> (n=266, ⟨r̃⟩=0.399, clean Poisson), **sym1 = odd** (n=334, ⟨r̃⟩=0.427, hosts the
+> finite-r crossover). The GOE-exclusion (7–8σ, both sectors) is label-independent and
+> stands. See `SESSION_K_CONTINUATION_FINDINGS.md` for Runs 1–3 and the corrected reading.
+
 Executed overnight 2026-07-07/08. Brief: `SESSION_K_ARITHMETIC_CHAOS_BRIEF.md` (v3).
 Pre-registration: `SESSION_K_COPRIMARY2_PREREG_SEALED.json`. Raw results:
 `SESSION_K_RESULTS.json`, `sessionK/*_measured.json`.

@@ -37,14 +37,14 @@
     },
     "pipeline_valid": true,
     "sectors": {
-      "odd": {
+      "even": {
         "n": 266,
         "mean_rtilde": 0.3992236272087822,
         "z_vs_Poisson": 0.8,
         "z_vs_GOE": -8.45,
         "nearest": "Poisson"
       },
-      "even": {
+      "odd": {
         "n": 334,
         "mean_rtilde": 0.42665331698924214,
         "z_vs_Poisson": 2.58,
@@ -55,7 +55,7 @@
     "VERDICT": "arithmetic-Poisson per sector; GOE excluded 7-8 sigma; odd=clean Poisson, even=Poisson+mild finite-r residual repulsion"
   },
   "approach_to_poisson": {
-    "odd": [
+    "even": [
       {
         "r_lo": 9,
         "r_hi": 40,
@@ -85,7 +85,7 @@
         "se": 0.026529052354720133
       }
     ],
-    "even": [
+    "odd": [
       {
         "r_lo": 9,
         "r_hi": 40,
