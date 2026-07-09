@@ -60,7 +60,7 @@ def ref_ratios(kind, n, reps=400):
             "beta": beta_estimate(allr)}
 
 # ---- Sub-gate 0: selective-small-spacing-loss surrogate --------------------
-def gate0_loss_surrogate(n, deltas=(0.0, 0.05, 0.1, 0.2)):
+def gate0_loss_surrogate(n, deltas=(0.0, 0.0075, 0.02, 0.05, 0.1, 0.2)):
     """Poisson at unit density; merge levels closer than delta (resolution loss);
     show <r~> inflates and a hard small-spacing edge appears -> the artifact signature."""
     rows = []
@@ -102,8 +102,14 @@ if __name__ == "__main__":
         "real_min_unfolded_spacing_odd": float(np.min(sp)),
         "real_smallfrac_unfolded_0.1": float(np.mean(sp < 0.1)),
         "loss_surrogate": gate0_loss_surrogate(len(odd)),
-        "verdict": "no selective loss: real min raw spacing ~2.7e-4 << any window mean; "
-                   "close pairs resolved => Gate0 PASS (exact rigor data)"}
+        "verdict": "Gate0 PASS by MEASUREMENT (not absence-of-evidence): the resolution floor "
+                   "is quantitatively bounded 2-3 orders below the mean spacing (min raw "
+                   "spacing 2.7e-4 vs local mean ~0.08-0.27 at r~40 => floor/<s> ~ 1e-3..3e-3; "
+                   "min UNFOLDED spacing 0.0075). Fed through the loss-surrogate, a floor at "
+                   "delta~0.0075 unfolded gives <r~> indistinguishable from the delta=0 null "
+                   "(see loss_surrogate table) -- i.e. the measured floor sits deep in the "
+                   "region where the artifact is provably null. This closes the selective-"
+                   "small-spacing-loss (b) direction by measurement."}
 
     # ---- references at the crossover window's n ----
     win = (odd >= 9) & (odd < 45)                 # low-r / pre-crossover odd regime
@@ -148,9 +154,23 @@ if __name__ == "__main__":
                               "goe_ref": st.sigma2_goe(Ls).tolist(),
                               "slope_vs_L": float(np.polyfit(Ls, np.nan_to_num(s2_hi), 1)[0])}
 
-    # ---- verdict logic (pre-registered) ----
+    # ---- Poisson exclusion, computed REFERENCE-TO-REFERENCE (not CI-vs-point) ----
     lr = out["odd_lowr_9_45"]
     R = out["references_matched_n"]
+    obs = lr["mean_rtilde"]
+    real_se = (out["lowr_bootstrap_CI"]["mean"][1] - out["lowr_bootstrap_CI"]["mean"][0]) / (2 * 1.96)
+    Pm, Pse = R["Poisson"]["mean_rtilde"], R["Poisson"]["se_of_window"]
+    out["poisson_exclusion"] = {
+        "observed_lowr_mean": obs,
+        "matched_n_poisson_mean": Pm, "matched_n_poisson_se": Pse,
+        "poisson_95_upper": Pm + 1.96 * Pse, "real_95_lower": out["lowr_bootstrap_CI"]["mean"][0],
+        "z_observed_vs_poisson_null": (obs - Pm) / Pse,               # single-sample test
+        "z_reference_to_reference": (obs - Pm) / math.sqrt(real_se**2 + Pse**2),
+        "ci95_overlap": bool(Pm + 1.96 * Pse >= out["lowr_bootstrap_CI"]["mean"][0]),
+        "characterization": "MARGINAL elevation ~2.4-3.1sigma (ref-to-ref 2.4, observed-vs-null "
+                            "3.1); the 95% intervals marginally OVERLAP -> NOT 'robust'."}
+
+    # ---- verdict logic (pre-registered) ----
     def near(v, ref, tol): return abs(v - ref) < tol
     # compare low-r mean + beta + small_frac to the three references
     dists = {k: abs(lr["mean_rtilde"] - R[k]["mean_rtilde"]) for k in R if k != "n"}
@@ -171,19 +191,19 @@ if __name__ == "__main__":
                          "unfold fragility -> Sigma2 NOT load-bearing; high-r Poisson rests on "
                          "the robust short-range trio (mean/small_frac). Long-range leg of the "
                          "intermediate test is therefore not deliverable at these statistics.",
-        "reading": "GATE-0-CLEAN. Two robust facts + one irreducible limit. (1) LOW-r (r<45): "
-                   "mean 95%CI [0.447,0.596] EXCLUDES Poisson (0.386) -> the elevated rigidity "
-                   "is REAL and artifact-free, consistent with semi-Poisson(0.50) OR GOE(0.53). "
-                   "(2) But the shape discriminants that would pick the class are UNRESOLVED at "
-                   "the irreducible n~57 (beta CI [-0.30,0.54], small_frac CI [0.11,0.33] both "
-                   "span Poisson..GOE) -> the specific 'semi-Poisson intermediate class' CANNOT "
-                   "be confirmed (nor refuted); pre-registered all-three bar not met -> do NOT "
-                   "promote. (3) HIGH-r (r>55, n=242): cleanly Poisson (mean 0.406, small_frac "
-                   "~Poisson). NET: arithmetic-Poisson is Poisson where statistics allow; the "
-                   "low-r crossover harbors REAL Gate-0-clean elevated rigidity whose exact "
-                   "class is STATISTICS-LIMITED by the finite number of low-r Maass forms -- "
-                   "not substrate-ambiguous, not an artifact. The confoundable mean was NOT "
-                   "promoted to a class: the discipline held."}
+        "reading": "GATE-0-CLEAN. (1) LOW-r (r<45): the elevation over the matched-n=57 "
+                   "Poisson null is MARGINAL, ~2.4sigma reference-to-reference (~3.1 observed-"
+                   "vs-null), and the 95% intervals marginally OVERLAP -- so even the EXISTENCE "
+                   "of low-r elevation is suggestive-not-robust, let alone its class. (2) The "
+                   "class-picking shape discriminants are UNRESOLVED at the irreducible n~57 "
+                   "(beta CI [-0.30,0.54], small_frac CI [0.11,0.33] span Poisson..GOE). "
+                   "Pre-registered all-three bar not met -> do NOT promote. (3) HIGH-r (r>55, "
+                   "n=242): cleanly Poisson (mean 0.406, small_frac ~Poisson). NET: arithmetic-"
+                   "Poisson is Poisson where statistics allow; the low-r crossover is STATISTICS-"
+                   "LIMITED at both levels -- marginal elevation AND unresolved class -- because "
+                   "only ~57 odd forms exist below r=45. Not substrate-ambiguous, not an "
+                   "artifact (Gate 0), and NOT promoted: the confoundable mean was not made a "
+                   "class, and the finite-n confound on the mean itself is now reported explicitly."}
 
     json.dump(out, open(os.path.join(HERE, "partB_measured.json"), "w"), indent=2, default=str)
     print("SUB-GATE 0:", out["gate0"]["verdict"])

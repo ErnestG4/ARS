@@ -12,45 +12,57 @@
         "min_unfolded_spacing_model": 0.0
       },
       {
+        "delta": 0.0075,
+        "mean_rtilde": 0.389324402497003,
+        "small_frac_0.2": 0.3256526104417671,
+        "min_unfolded_spacing_model": 0.0075
+      },
+      {
+        "delta": 0.02,
+        "mean_rtilde": 0.4010195754447097,
+        "small_frac_0.2": 0.3085140562248996,
+        "min_unfolded_spacing_model": 0.02
+      },
+      {
         "delta": 0.05,
-        "mean_rtilde": 0.41751986765477284,
-        "small_frac_0.2": 0.27302208835341363,
+        "mean_rtilde": 0.4195812529184203,
+        "small_frac_0.2": 0.2720883534136546,
         "min_unfolded_spacing_model": 0.05
       },
       {
         "delta": 0.1,
-        "mean_rtilde": 0.4450396666249349,
-        "small_frac_0.2": 0.22576305220883533,
+        "mean_rtilde": 0.445577672122608,
+        "small_frac_0.2": 0.2243273092369478,
         "min_unfolded_spacing_model": 0.1
       },
       {
         "delta": 0.2,
-        "mean_rtilde": 0.488307761171241,
-        "small_frac_0.2": 0.15055908500342716,
+        "mean_rtilde": 0.48899351077475073,
+        "small_frac_0.2": 0.14940082073743566,
         "min_unfolded_spacing_model": 0.2
       }
     ],
-    "verdict": "no selective loss: real min raw spacing ~2.7e-4 << any window mean; close pairs resolved => Gate0 PASS (exact rigor data)"
+    "verdict": "Gate0 PASS by MEASUREMENT (not absence-of-evidence): the resolution floor is quantitatively bounded 2-3 orders below the mean spacing (min raw spacing 2.7e-4 vs local mean ~0.08-0.27 at r~40 => floor/<s> ~ 1e-3..3e-3; min UNFOLDED spacing 0.0075). Fed through the loss-surrogate, a floor at delta~0.0075 unfolded gives <r~> indistinguishable from the delta=0 null (see loss_surrogate table) -- i.e. the measured floor sits deep in the region where the artifact is provably null. This closes the selective-small-spacing-loss (b) direction by measurement."
   },
   "references_matched_n": {
     "n": 57,
     "Poisson": {
-      "mean_rtilde": 0.38399168549762924,
-      "se_of_window": 0.04435899180210891,
-      "small_frac_0.2": 0.3371363636363636,
-      "beta": -0.014350915466949554
+      "mean_rtilde": 0.38843814166532215,
+      "se_of_window": 0.04349564548954378,
+      "small_frac_0.2": 0.33054545454545453,
+      "beta": -0.0472262870880249
     },
     "semiPoisson": {
-      "mean_rtilde": 0.4983716935145197,
-      "se_of_window": 0.041935035502340325,
-      "small_frac_0.2": 0.1484090909090909,
-      "beta": 0.7340126285338042
+      "mean_rtilde": 0.5032151823483956,
+      "se_of_window": 0.0401859396335917,
+      "small_frac_0.2": 0.14463636363636365,
+      "beta": 0.7173931475885864
     },
     "GOE": {
-      "mean_rtilde": 0.5329260426172194,
-      "se_of_window": 0.03998046387745751,
-      "small_frac_0.2": 0.11122727272727273,
-      "beta": 0.8161700847815625
+      "mean_rtilde": 0.5312659332414973,
+      "se_of_window": 0.04037796375590347,
+      "small_frac_0.2": 0.11304545454545455,
+      "beta": 0.8123870767392023
     }
   },
   "odd_lowr_9_45": {
@@ -76,16 +88,16 @@
   },
   "lowr_bootstrap_CI": {
     "mean": [
-      0.4467662864259075,
-      0.596380881556333
+      0.44847840373941017,
+      0.5983427387796315
     ],
     "small_frac": [
-      0.10909090909090909,
+      0.12681818181818183,
       0.32727272727272727
     ],
     "beta": [
-      -0.29545774922163126,
-      0.5393598040820534
+      -0.2892245900772824,
+      0.5037883705236006
     ]
   },
   "lowr_consistent_with_mean": [
@@ -138,21 +150,32 @@
     ],
     "slope_vs_L": 0.00032596789175734053
   },
+  "poisson_exclusion": {
+    "observed_lowr_mean": 0.5232933017934301,
+    "matched_n_poisson_mean": 0.38843814166532215,
+    "matched_n_poisson_se": 0.04349564548954378,
+    "poisson_95_upper": 0.47368960682482797,
+    "real_95_lower": 0.44847840373941017,
+    "z_observed_vs_poisson_null": 3.10042898801276,
+    "z_reference_to_reference": 2.3287408988720877,
+    "ci95_overlap": true,
+    "characterization": "MARGINAL elevation ~2.4-3.1sigma (ref-to-ref 2.4, observed-vs-null 3.1); the 95% intervals marginally OVERLAP -> NOT 'robust'."
+  },
   "VERDICT": {
     "gate0": "PASS (no small-spacing loss; loss-surrogate calibrated)",
     "highr_r>55": "cleanly POISSON: <r~>=0.406, beta~0, small_frac~Poisson, Sigma2 slope/L=0.00 (Poisson=1)",
     "lowr_r<45_mean": 0.5232933017934301,
     "lowr_mean_95CI": [
-      0.4467662864259075,
-      0.596380881556333
+      0.44847840373941017,
+      0.5983427387796315
     ],
     "lowr_consistent_with_mean": [
       "semiPoisson",
       "GOE"
     ],
-    "lowr_shape": "beta=+0.04 (Poisson~0, GOE~0.8), small_frac<0.2=0.218 (Poisson 0.34/semiP 0.15/GOE 0.11)",
+    "lowr_shape": "beta=+0.04 (Poisson~0, GOE~0.8), small_frac<0.2=0.218 (Poisson 0.33/semiP 0.14/GOE 0.11)",
     "intermediate_class_confirmed": false,
     "sigma2_caveat": "high-r Sigma2 is flat (0.63->0.72) not ~L: the known theory-fixed-unfold fragility -> Sigma2 NOT load-bearing; high-r Poisson rests on the robust short-range trio (mean/small_frac). Long-range leg of the intermediate test is therefore not deliverable at these statistics.",
-    "reading": "GATE-0-CLEAN. Two robust facts + one irreducible limit. (1) LOW-r (r<45): mean 95%CI [0.447,0.596] EXCLUDES Poisson (0.386) -> the elevated rigidity is REAL and artifact-free, consistent with semi-Poisson(0.50) OR GOE(0.53). (2) But the shape discriminants that would pick the class are UNRESOLVED at the irreducible n~57 (beta CI [-0.30,0.54], small_frac CI [0.11,0.33] both span Poisson..GOE) -> the specific 'semi-Poisson intermediate class' CANNOT be confirmed (nor refuted); pre-registered all-three bar not met -> do NOT promote. (3) HIGH-r (r>55, n=242): cleanly Poisson (mean 0.406, small_frac ~Poisson). NET: arithmetic-Poisson is Poisson where statistics allow; the low-r crossover harbors REAL Gate-0-clean elevated rigidity whose exact class is STATISTICS-LIMITED by the finite number of low-r Maass forms -- not substrate-ambiguous, not an artifact. The confoundable mean was NOT promoted to a class: the discipline held."
+    "reading": "GATE-0-CLEAN. (1) LOW-r (r<45): the elevation over the matched-n=57 Poisson null is MARGINAL, ~2.4sigma reference-to-reference (~3.1 observed-vs-null), and the 95% intervals marginally OVERLAP -- so even the EXISTENCE of low-r elevation is suggestive-not-robust, let alone its class. (2) The class-picking shape discriminants are UNRESOLVED at the irreducible n~57 (beta CI [-0.30,0.54], small_frac CI [0.11,0.33] span Poisson..GOE). Pre-registered all-three bar not met -> do NOT promote. (3) HIGH-r (r>55, n=242): cleanly Poisson (mean 0.406, small_frac ~Poisson). NET: arithmetic-Poisson is Poisson where statistics allow; the low-r crossover is STATISTICS-LIMITED at both levels -- marginal elevation AND unresolved class -- because only ~57 odd forms exist below r=45. Not substrate-ambiguous, not an artifact (Gate 0), and NOT promoted: the confoundable mean was not made a class, and the finite-n confound on the mean itself is now reported explicitly."
   }
 }

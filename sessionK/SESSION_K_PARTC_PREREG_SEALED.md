@@ -68,6 +68,14 @@ Task: classify held-out instance → its type Tk. Same classifier for B and R
 `interpretation` field. Exceeding B earns "structure beyond trivial descriptors," **not** a
 mechanism. The banked result is the measurement in §5.
 
+**Verdict-label discipline at unseal (added 2026-07-09, residual-overclaim guard):** even if
+R beats B under CV **and** the permutation-z **and** the within-B-cell test, the earned
+verdict is exactly *"R carries reproducible substrate-covarying structure orthogonal to B"* —
+and no further. "ARS measures coupling-type" is the *mechanistic reading* of that structure,
+a distinct step past what the separation licenses (the (b)→(c) gap). The positive result
+names the orthogonal structure; it does not name its cause. Keep the (b)/(c) distinction
+pointed at the win, not only at the null.
+
 ## 7. Why held tonight
 Running Part C requires the members assembled and the classifier + CV harness built and
 themselves validated (a mis-built B that is trivially weak would rig the test — the exact
