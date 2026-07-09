@@ -48,14 +48,31 @@ ceiling for both and equally uninformative — fixed to held-out CV, then contro
 So across every fair comparison — global matched-z, and within-B-cell against the B-control,
 including B-orthogonalized R — **R shows no separation power beyond B.**
 
-## Banked verdict (measurement only)
+## Banked verdict (measurement only, scoped)
 
-> The refusal-report re-encodes input-obvious descriptors {rigidity, density-variation,
-> spectral-type}; the boundary has no own-structure. **Dark-appendix the refusal zoo.**
+> Across these five refusal-types, at these statistics, against a strong three-feature trivial
+> baseline B, the refusal-report R carries **nothing orthogonal to {rigidity, density-variation,
+> spectral-type}**. The boundary did not pay rent **as a measurement here**. **Dark-appendix the
+> refusal zoo.**
 
-**Interpretation field (NOT promoted):** the "boundary-as-object" crystallization does not pay
-rent as a measurement on this zoo. No "ARS measures coupling-type" claim — there is nothing to
-interpret, because there is no structure beyond B to explain.
+**Scope discipline (do not round up).** This is a **measurement-null, not a physics-null.** The
+null is "R adds nothing beyond a *good trivial descriptor* B" — deliberately a strong B, which is
+the honest choice — not "there is nothing in the boundary." The "reading-is-the-pair"
+crystallization insight is **not refuted**; it simply did not cash out as a *second measurable
+orthogonal axis* in this instance. Keep the "here": this zoo, this B, these statistics.
+
+**Interpretation field (NOT promoted):** no "ARS measures coupling-type" claim — there is nothing
+orthogonal to interpret. The axis could be real and simply not an orthogonal ARS observable.
+
+## On a heavier confirmation run — confirmatory-of-confirmatory, NOT load-bearing
+
+The direction is unambiguous, not a near-miss: R−B = −0.035 with R winning only 14% of cells is a
+**loss**, and B-orthogonalized R *also* lost. The within-cell test's one residual interpretive gap
+is that the k-NN cells weren't perfectly B-constant (that is how the +0.458 got in); a tighter-cell
+run would test whether R stays null as cells actually approach B-constant. But **the
+B-orthogonalized-R loss already closes that gap** (it removes the residual-B channel and R still
+loses), so a tighter-cell run is confirmatory-of-confirmatory. Optional, for the tightest possible
+write-up only — a future reader should not reopen this thinking it is load-bearing.
 
 ## Methodological deposit (the durable part)
 

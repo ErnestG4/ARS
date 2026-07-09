@@ -326,6 +326,16 @@ The durable methodology — apply these regardless of substrate:
   manipulations run, never universality.
 - **Synthetic-validate every fitter** against known ground truth (Poisson→ρ≈0, GOE→ρ≈1) before reporting
   fitted params as absolute. (A Berry-Robnik fitter bug was caught this way.)
+- **A permutation-null is NOT a guard for a "beyond-baseline" / "orthogonal axis" claim.** Any rich report
+  beats a label-shuffle null whenever it carries *any* signal — including signal a trivial baseline already
+  has; "R beats the null" ⇏ "R adds structure." This is the same error as richness-re-encoding-the-obvious
+  reading as discovery. The correct control is the **baseline B itself, run head-to-head in the same cells**,
+  PLUS the report stripped of its baseline-overlapping features (B-orthogonalized R). Choose a *strong* trivial
+  B on purpose (rigidity scalar / density-variation / spectral-type). Then scope the null precisely: "R adds
+  nothing beyond B **here** (this substrate set, these statistics)" is a **measurement-null**, NOT a refutation
+  of the underlying object — the axis can be real and simply not cash out as an orthogonal observable. (Part C
+  refusal-zoo: R beat the perm-null by +0.458 in 100% of cells → looked POSITIVE; the B-within-cell control
+  0.861 > R 0.826 and the B-orthogonalized-R loss gave the true NULL → dark-appendix. `sessionK/partC_*`.)
 - **Within-substrate before pooled.** Test any X↔Y within each substrate before claiming a covariate Z
   gates it — pooled multi-substrate data manufactures Simpson's-paradox covariate-dependence. Per-cell
   `ks_gue↔burst` coupling is substrate-relative (~0.8 hc-3 to ~0 Allen), NOT universal.
