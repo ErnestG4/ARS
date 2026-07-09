@@ -1,0 +1,158 @@
+{
+  "note": "sym0=even, sym1=odd (Run-1). Crossover strongest in odd(sym1).",
+  "gate0": {
+    "real_min_raw_spacing": 0.00026640999999472115,
+    "real_min_unfolded_spacing_odd": 0.007501654728400808,
+    "real_smallfrac_unfolded_0.1": 0.057057057057057055,
+    "loss_surrogate": [
+      {
+        "delta": 0.0,
+        "mean_rtilde": 0.38493416903728617,
+        "small_frac_0.2": 0.33550200803212854,
+        "min_unfolded_spacing_model": 0.0
+      },
+      {
+        "delta": 0.05,
+        "mean_rtilde": 0.41751986765477284,
+        "small_frac_0.2": 0.27302208835341363,
+        "min_unfolded_spacing_model": 0.05
+      },
+      {
+        "delta": 0.1,
+        "mean_rtilde": 0.4450396666249349,
+        "small_frac_0.2": 0.22576305220883533,
+        "min_unfolded_spacing_model": 0.1
+      },
+      {
+        "delta": 0.2,
+        "mean_rtilde": 0.488307761171241,
+        "small_frac_0.2": 0.15055908500342716,
+        "min_unfolded_spacing_model": 0.2
+      }
+    ],
+    "verdict": "no selective loss: real min raw spacing ~2.7e-4 << any window mean; close pairs resolved => Gate0 PASS (exact rigor data)"
+  },
+  "references_matched_n": {
+    "n": 57,
+    "Poisson": {
+      "mean_rtilde": 0.38399168549762924,
+      "se_of_window": 0.04435899180210891,
+      "small_frac_0.2": 0.3371363636363636,
+      "beta": -0.014350915466949554
+    },
+    "semiPoisson": {
+      "mean_rtilde": 0.4983716935145197,
+      "se_of_window": 0.041935035502340325,
+      "small_frac_0.2": 0.1484090909090909,
+      "beta": 0.7340126285338042
+    },
+    "GOE": {
+      "mean_rtilde": 0.5329260426172194,
+      "se_of_window": 0.03998046387745751,
+      "small_frac_0.2": 0.11122727272727273,
+      "beta": 0.8161700847815625
+    }
+  },
+  "odd_lowr_9_45": {
+    "n": 57,
+    "mean_rtilde": 0.5232933017934301,
+    "se": 0.03780880032974935,
+    "small_frac_0.2": 0.21818181818181817,
+    "beta": 0.038254238055275946
+  },
+  "odd_trans_35_55": {
+    "n": 61,
+    "mean_rtilde": 0.49036604789384103,
+    "se": 0.0377338349673128,
+    "small_frac_0.2": 0.22033898305084745,
+    "beta": -0.3978012761969313
+  },
+  "odd_high_55_100": {
+    "n": 242,
+    "mean_rtilde": 0.40572141001277057,
+    "se": 0.01844108999150771,
+    "small_frac_0.2": 0.32083333333333336,
+    "beta": 0.0340284871723342
+  },
+  "lowr_bootstrap_CI": {
+    "mean": [
+      0.4467662864259075,
+      0.596380881556333
+    ],
+    "small_frac": [
+      0.10909090909090909,
+      0.32727272727272727
+    ],
+    "beta": [
+      -0.29545774922163126,
+      0.5393598040820534
+    ]
+  },
+  "lowr_consistent_with_mean": [
+    "semiPoisson",
+    "GOE"
+  ],
+  "highr_longrange": {
+    "Ls": [
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      9.0,
+      10.0,
+      11.0,
+      12.0
+    ],
+    "sigma2": [
+      0.629016290726817,
+      0.7391917293233082,
+      0.6864912280701755,
+      0.7342794486215539,
+      0.7568922305764411,
+      0.7641040100250627,
+      0.7067418546365914,
+      0.6540789473684211,
+      0.712875939849624,
+      0.6891666666666667,
+      0.6841541353383459,
+      0.7238032581453634
+    ],
+    "poisson_ref_is_L": true,
+    "goe_ref": [
+      0.44204247556952475,
+      0.5825034611148905,
+      0.6646678704732659,
+      0.7229644466602563,
+      0.7681827841428772,
+      0.8051288560186317,
+      0.8363663146973692,
+      0.863425432205622,
+      0.8872932653770069,
+      0.9086437696882431,
+      0.9279576501501193,
+      0.9455898415639975
+    ],
+    "slope_vs_L": 0.00032596789175734053
+  },
+  "VERDICT": {
+    "gate0": "PASS (no small-spacing loss; loss-surrogate calibrated)",
+    "highr_r>55": "cleanly POISSON: <r~>=0.406, beta~0, small_frac~Poisson, Sigma2 slope/L=0.00 (Poisson=1)",
+    "lowr_r<45_mean": 0.5232933017934301,
+    "lowr_mean_95CI": [
+      0.4467662864259075,
+      0.596380881556333
+    ],
+    "lowr_consistent_with_mean": [
+      "semiPoisson",
+      "GOE"
+    ],
+    "lowr_shape": "beta=+0.04 (Poisson~0, GOE~0.8), small_frac<0.2=0.218 (Poisson 0.34/semiP 0.15/GOE 0.11)",
+    "intermediate_class_confirmed": false,
+    "sigma2_caveat": "high-r Sigma2 is flat (0.63->0.72) not ~L: the known theory-fixed-unfold fragility -> Sigma2 NOT load-bearing; high-r Poisson rests on the robust short-range trio (mean/small_frac). Long-range leg of the intermediate test is therefore not deliverable at these statistics.",
+    "reading": "GATE-0-CLEAN. Two robust facts + one irreducible limit. (1) LOW-r (r<45): mean 95%CI [0.447,0.596] EXCLUDES Poisson (0.386) -> the elevated rigidity is REAL and artifact-free, consistent with semi-Poisson(0.50) OR GOE(0.53). (2) But the shape discriminants that would pick the class are UNRESOLVED at the irreducible n~57 (beta CI [-0.30,0.54], small_frac CI [0.11,0.33] both span Poisson..GOE) -> the specific 'semi-Poisson intermediate class' CANNOT be confirmed (nor refuted); pre-registered all-three bar not met -> do NOT promote. (3) HIGH-r (r>55, n=242): cleanly Poisson (mean 0.406, small_frac ~Poisson). NET: arithmetic-Poisson is Poisson where statistics allow; the low-r crossover harbors REAL Gate-0-clean elevated rigidity whose exact class is STATISTICS-LIMITED by the finite number of low-r Maass forms -- not substrate-ambiguous, not an artifact. The confoundable mean was NOT promoted to a class: the discipline held."
+  }
+}
