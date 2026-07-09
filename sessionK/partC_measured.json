@@ -1,0 +1,53 @@
+{
+  "n_instances": 200,
+  "n_features_B": 5,
+  "n_features_R": 20,
+  "validation": {
+    "V_null_B_z": -0.3806792106524273,
+    "V_null_R_z": 1.0352507117986671
+  },
+  "global_B": {
+    "acc": 0.925,
+    "null_mean": 0.20024999999999998,
+    "null_std": 0.03387384684384105,
+    "z": 21.39556165396705
+  },
+  "global_R": {
+    "acc": 0.96,
+    "null_mean": 0.204875,
+    "null_std": 0.03647751876156053,
+    "z": 20.701105912242955
+  },
+  "R_random3": {
+    "acc": 0.8099999999999999,
+    "null_mean": 0.19793750000000002,
+    "null_std": 0.031983333061924614,
+    "z": 19.13691983502888
+  },
+  "global_B_plus_R": {
+    "acc": 0.9499999999999998,
+    "null_mean": 0.2029375,
+    "null_std": 0.035992132386814764,
+    "z": 20.75627171001973
+  },
+  "within_B_cell": {
+    "n_mixed_cells": 133,
+    "R_heldout_acc": 0.8260837966347555,
+    "B_heldout_acc_CONTROL": 0.861228470523076,
+    "Rorth_heldout_acc": 0.8263313398311303,
+    "incell_perm_null": 0.3680337717171624,
+    "R_above_null": 0.45805002491759306,
+    "R_above_B_incell": -0.035144673888320516,
+    "Rorth_above_B_incell": -0.03489713069194567,
+    "frac_cells_R_beats_B": 0.14285714285714285
+  },
+  "DECISION": {
+    "global_note": "ceiling-limited: B acc 0.925 (z 21.4) vs R 0.960 (z 20.7) -> R does NOT exceed B at matched-z; not the discriminating test",
+    "within_cell_B_at_null": false,
+    "within_cell_R_beats_B": false,
+    "within_cell_Rorth_beats_B": false,
+    "verdict": "NULL",
+    "banked_label": "R re-encodes trivial descriptors; boundary has no own-structure -> DARK-APPENDIX",
+    "interpretation_field_NOT_promoted": "coupling-type is the mechanistic reading, a step past what the separation licenses -- NOT claimed"
+  }
+}
