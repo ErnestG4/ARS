@@ -1,0 +1,18 @@
+cohort (matches banked R^2): 431 cells — NO trimming (B4)
+  session 732592105 (wt): 85 cells, nmo_dur=600.5s — dispatching 10 workers
+    done in 618s
+  session 791319847 (Vip): 80 cells, nmo_dur=600.5s — dispatching 10 workers
+    done in 534s
+  session 760693773 (Sst): 66 cells, nmo_dur=600.5s — dispatching 10 workers
+    done in 330s
+  session 762602078 (Sst): 62 cells, nmo_dur=600.5s — dispatching 10 workers
+    done in 286s
+  session 797828357 (Pvalb): 73 cells, nmo_dur=600.5s — dispatching 10 workers
+    done in 454s
+  session 755434585 (Vip): 65 cells, nmo_dur=600.5s — dispatching 10 workers
+    done in 353s
+
+banked 431 rows -> data/phase38_results/per_cell_windowed_axes.parquet
+status
+OK    431
+n_q_common: median=50  min=50  max=50
