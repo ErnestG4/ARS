@@ -326,16 +326,60 @@ The durable methodology — apply these regardless of substrate:
   manipulations run, never universality.
 - **Synthetic-validate every fitter** against known ground truth (Poisson→ρ≈0, GOE→ρ≈1) before reporting
   fitted params as absolute. (A Berry-Robnik fitter bug was caught this way.)
-- **A permutation-null is NOT a guard for a "beyond-baseline" / "orthogonal axis" claim.** Any rich report
-  beats a label-shuffle null whenever it carries *any* signal — including signal a trivial baseline already
-  has; "R beats the null" ⇏ "R adds structure." This is the same error as richness-re-encoding-the-obvious
-  reading as discovery. The correct control is the **baseline B itself, run head-to-head in the same cells**,
-  PLUS the report stripped of its baseline-overlapping features (B-orthogonalized R). Choose a *strong* trivial
-  B on purpose (rigidity scalar / density-variation / spectral-type). Then scope the null precisely: "R adds
-  nothing beyond B **here** (this substrate set, these statistics)" is a **measurement-null**, NOT a refutation
-  of the underlying object — the axis can be real and simply not cash out as an orthogonal observable. (Part C
-  refusal-zoo: R beat the perm-null by +0.458 in 100% of cells → looked POSITIVE; the B-within-cell control
-  0.861 > R 0.826 and the B-orthogonalized-R loss gave the true NULL → dark-appendix. `sessionK/partC_*`.)
+- **Locate every claim against BOTH references: the noise floor AND the triviality ceiling.** A permutation-null
+  is a *floor*; a baseline B is a *ceiling*. Each guard **alone manufactures the other's false positive**. The two
+  arms:
+
+  **(a) Floor arm — "R adds structure beyond B" needs B, not a shuffle.** Any rich report beats a label-shuffle
+  null whenever it carries *any* signal — including signal a trivial baseline already has; "R beats the null"
+  ⇏ "R adds structure." Same error as richness-re-encoding-the-obvious reading as discovery. The correct control
+  is the **baseline B itself, run head-to-head in the same cells**, PLUS the report stripped of its baseline-
+  overlapping features (B-orthogonalized R). Choose a *strong* trivial B on purpose (rigidity scalar / density-
+  variation / spectral-type). (Part C refusal-zoo: R beat the perm-null by +0.458 in 100% of cells → looked
+  POSITIVE; the B-within-cell control 0.861 > R 0.826 and the B-orthogonalized-R loss gave the true NULL →
+  dark-appendix. `sessionK/partC_*`.)
+
+  **(b) Ceiling arm — "R is orthogonal to B" needs reliability(R), not a low R².** Attenuation gives
+  `r_obs = r_true·√(ρ_R·ρ_B)`, hence the hard inequality **`R²(R,B) ≤ ρ(R)` for any B whatsoever**.
+  *Decorrelation is the signature of unreliability*: an unreliable axis is orthogonal to everything, including
+  the truth. So a low R² against B is not evidence of a novel axis — it is the expected reading of a noisy one.
+  You cannot see R's relationship to anything more clearly than the instrument sees R agreeing with itself; the
+  instrument's self-consistency is a hard ceiling on every relational claim about the substrate. This equally
+  voids **`ρ≈0` "INDEPENDENT_AXES"** readings: unreliability attenuates every correlation toward zero.
+
+  **The admissibility gate (standing, mandatory).** No ORTHOGONAL / INDEPENDENT verdict on an *empirical
+  per-unit axis* without a **banked split-half reliability** clearing the verdict's own threshold. For threshold
+  `τ` and observed `R²_obs`, true orthogonality requires `ρ(R) > R²_obs/τ`. Below that, the verdict is
+  **INDETERMINATE** — not orthogonal, and *not* subsumed.
+
+  **Disattenuation raises the lower bound; it cannot certify the upper.** `R²_true = R²_obs/ρ` divides by a small,
+  imprecisely-estimated ρ — the textbook instability of correction-for-attenuation, worst exactly where ρ is
+  smallest and least certain. The correction robustly *kills* orthogonality (it clears τ across the whole plausible
+  ρ-band) but can never *establish* subsumption (that needs the true value pinned, and it is not). **Bank
+  INDETERMINATE flat.** Correcting an overclaim into its mirror is the failure this doctrine is most primed to
+  commit, because it feels like rigour. Resolve the direction by *repairing the instrument* (raise ρ — e.g. more
+  surrogates) and re-measuring, never by dividing by a small ρ.
+
+  **Also fix the scale.** A threshold must declare whether it applies to *observed* (attenuated) or *true*
+  (disattenuated) R². An observed-scale threshold is not comparable across metrics of differing ρ. (Phase 27 used
+  `ORTHOGONAL < 0.3`, Phase 32b used `< 0.20` while claiming to replicate it; neither named a scale.)
+
+  **Scope boundary — what the ceiling arm bites.** It bites **every verdict resting on a finite-sample per-unit
+  estimate** (neural per-cell, per-channel, per-window, GRB per-cell — anything windowed). It spares **every
+  verdict resting on a high-reliability full-sequence estimate**, because a deterministic exact computation on a
+  long sequence has `ρ≈1` by construction — nothing to attenuate, nothing to correct. This is a property of **R's
+  noise, not B's shape**: the arithmetic surveys (34a/b/c) are immune because their entering quantities are exact
+  full-sequence objects and their verdicts are stratum-vs-null comparisons rather than cross-unit correlations —
+  *not* because they happened to use RMT/random-walk baselines. Before declaring any stratified sub-analysis
+  immune, verify its entering quantity is full-sequence and not per-stratum-windowed.
+
+  **Then scope the null precisely.** "R adds nothing beyond B **here** (this substrate set, these statistics)" is
+  a **measurement-null**, NOT a refutation of the underlying object — the axis can be real and simply not cash out
+  as an orthogonal observable. (Ceiling-arm exhibit — Phase 32b §7.ter.50: `p7_mean_z` was crowned "the strongest
+  INDEPENDENT_AXES reading" on the *lowest* R²=0.045; its split-half `ρ≈0.32–0.36` against a required `>0.565`,
+  with rank-robust reliability rising monotonically with event count (Spearman(quartile,ρ)=+1.000, lowest quartile
+  `ρ=−0.221`) — estimator noise, from a z-score with a 3-surrogate denominator yielding `max|z|=190`. It was
+  "strongest" *because it was noisiest*. → INDETERMINATE.)
 - **Within-substrate before pooled.** Test any X↔Y within each substrate before claiming a covariate Z
   gates it — pooled multi-substrate data manufactures Simpson's-paradox covariate-dependence. Per-cell
   `ks_gue↔burst` coupling is substrate-relative (~0.8 hc-3 to ~0 Allen), NOT universal.
