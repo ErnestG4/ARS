@@ -376,10 +376,23 @@ The durable methodology — apply these regardless of substrate:
   **Then scope the null precisely.** "R adds nothing beyond B **here** (this substrate set, these statistics)" is
   a **measurement-null**, NOT a refutation of the underlying object — the axis can be real and simply not cash out
   as an orthogonal observable. (Ceiling-arm exhibit — Phase 32b §7.ter.50: `p7_mean_z` was crowned "the strongest
-  INDEPENDENT_AXES reading" on the *lowest* R²=0.045; its split-half `ρ≈0.32–0.36` against a required `>0.565`,
-  with rank-robust reliability rising monotonically with event count (Spearman(quartile,ρ)=+1.000, lowest quartile
-  `ρ=−0.221`) — estimator noise, from a z-score with a 3-surrogate denominator yielding `max|z|=190`. It was
-  "strongest" *because it was noisiest*. → INDETERMINATE.)
+  INDEPENDENT_AXES reading" on the *lowest* R²=0.045. It was "strongest" *because it was noisiest*. Repaired and
+  re-measured in Phase 38: `ρ=0.281 [0.131,0.401]` against a required `>0.565` → **carries no orthogonality
+  verdict at any baseline**. `rep_med`/`ks_gue_med`, by contrast, measure `ρ=0.921`/`0.978` and *do* clear the
+  gate against FA-nmo. `phase38/PHASE38_FINDINGS.md`.)
+
+  **Corollary — the reliability estimator is itself an instrument, and needs its own null.** The first ρ measured
+  for `p7_mean_z` (`[0.132, 0.437]`) was *inflated by the very defect it was diagnosing*. `phase32b/…:173`
+  re-seeded `default_rng(seed + 98765)` **inside** the window loop; with `win_dur` constant per session the
+  surrogate triple became a deterministic function of `n` alone, so equal-`n` cells drew byte-identical surrogates
+  and `z` was a deterministic function of `(real_p7, n)` — i.e. of *firing rate*, which is stable within a cell.
+  On **pure Poisson cells with no per-cell axis at all**, that estimator returns `ρ=+0.257 [+0.088,+0.282]`.
+  **Mandatory: run the split-half on a null cell** (rate-matched Poisson at the cell's own per-window counts)
+  before reporting any ρ; it must return ≈0. Pair it with a synthetic known-ρ positive control. Leakage-corrected,
+  `p7 @ 3 surr` gave `ρ≈0.071` and hence `R²_true = 0.113/0.071 = 1.59` — **an R² above 1**. When disattenuation
+  returns a value outside the range of the quantity it estimates, that is not an imprecise estimate; it is proof
+  the correction was inadmissible. Shared/derived surrogate seeds are a *correlation channel*, never a saving.
+  (`phase38/calibrator_gate.py`.)
 - **Within-substrate before pooled.** Test any X↔Y within each substrate before claiming a covariate Z
   gates it — pooled multi-substrate data manufactures Simpson's-paradox covariate-dependence. Per-cell
   `ks_gue↔burst` coupling is substrate-relative (~0.8 hc-3 to ~0 Allen), NOT universal.
