@@ -2,7 +2,7 @@
 
 **Status:** complete. Bulk-Δ Sarnak anomaly replicated on 6 representative Γ₀(N) squarefree levels via the validated ARS toolchain. Hecke-eigenvalue Sato-Tate calibration revealed a real-world Seymour-Howell normalization-convention issue that the §D.0 pre-flight gate caught.
 
-**Headline verdict:** **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE** — Test 1 NNS classifies BL (Poisson-leaning, the Sarnak anomaly) on all 6 levels in 20/20 subsample seeds; Test 2 Berry-Robnik ρ cross-level consistent at ρ ≈ 0.458 ± 0.010; Test 3 Sato-Tate normalization investigation **CLOSED** — the §D.0 gate correctly flagged the Seymour-Howell convention; resolution (a(p) at primes, no rescale, per SH 2022 §3) yields perfect semicircular Sato-Tate (KS p = 0.22–0.77) on all 6 levels. Only remaining caveat: N=1 trivial level absent from the Zenodo dump (data-availability note, not methodology).
+**Headline verdict:** **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE** — Test 1 NNS classifies BL (Poisson-leaning, the Sarnak anomaly) on all 6 levels in 20/20 subsample seeds; Test 2 Berry-Robnik ρ cross-level consistent [**SUPERSEDED — the ρ≈0.458 below is a fitter-bias artifact retracted in SQ-2; corrected ρ_GOE≈0.13 (strongly Poisson-leaning), which only strengthens the Sarnak verdict**]; Test 3 Sato-Tate normalization investigation **CLOSED** — the §D.0 gate correctly flagged the Seymour-Howell convention; resolution (a(p) at primes, no rescale, per SH 2022 §3) yields perfect semicircular Sato-Tate (KS p = 0.22–0.77) on all 6 levels. Only remaining caveat: N=1 trivial level absent from the Zenodo dump (data-availability note, not methodology).
 
 ---
 
@@ -129,7 +129,7 @@ The Δ-eigenvalue substrate (Tests 1, 2) is independent of this issue and was un
 
 All four sub-tests consistent across all 6 levels:
 - Test 1 (NNS): BL classification, 20/20 subsample seeds, all levels.
-- Test 2 (Berry-Robnik ρ): cross-level consistent at ρ ≈ 0.458 ± 0.010.
+- Test 2 (Berry-Robnik ρ): cross-level consistent at ρ ≈ 0.458 ± 0.010. [**SUPERSEDED by SQ-2: 0.458 was a fitter-bias artifact; corrected ρ_GOE≈0.1264±0.0321. Cross-level consistency holds under the corrected fit.**]
 - Test 3 (Sato-Tate): SATO_TATE_REPLICATED after the §D.0-gate-driven normalization resolution.
 - Test 4 (cross-level): full consistency confirmed.
 
@@ -140,7 +140,7 @@ The only residual caveat is that N = 1 trivial level was not accessible in this 
 ## Verdict map (final, asymmetric per PHASE34E_BRIEF §E discipline)
 
 - **34e-Δ (bulk Δ-eigenvalue NNS):** **SARNAK_ANOMALY_REPLICATED_AT_GAMMA0_N_SQUAREFREE.**
-  - Full criteria met: rep_med BL on all 6 levels in 20/20 subsample seeds; Berry-Robnik ρ ≈ 0.458 ± 0.010 in Poisson-dominant regime; cross-level consistency confirmed.
+  - Full criteria met: rep_med BL on all 6 levels in 20/20 subsample seeds; Berry-Robnik ρ ≈ 0.458 ± 0.010 in Poisson-dominant regime [**SUPERSEDED → SQ-2: corrected ρ_GOE≈0.13, near-Poisson, verdict strengthened**]; cross-level consistency confirmed.
 
 - **34e-H (Hecke prime-angle Sato-Tate):** **SATO_TATE_REPLICATED_AT_HECKE_EIGENVALUES.**
   - §D.0 pre-flight gate caught the Seymour-Howell convention (a(n) with 1/√|n| in the Hecke operator; v1 pooled all a(n), composites ~√n). Resolution via SH 2022 §3: a(p) at primes, no rescale → a(p) ∈ [-2, 2] exactly, semicircular KS p = 0.22–0.77 on all 6 levels. Investigation CLOSED, methodology calibration SUCCESS.
