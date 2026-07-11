@@ -98,6 +98,20 @@ This is the most fingerprint-relevant gap (see §7).
 
 ---
 
+## 4a. Instrument blind-spot — why the φ contamination CANNOT be measured well-resolved
+
+A future reader will ask "why not just run the φ resonance at well-resolved L and settle it?"
+The answer is a boundary fact about the instrument, not about φ: **well-resolved unfolding erases
+the real effect too.** The rotation-number IDS *uniformizes the DOS* by construction, so at
+L≫N it removes not only any resolution artifact but also the genuine √2@Pell commensuration
+(which lives in the raw spectrum). "Vanishes at well-resolved L" is therefore consistent with
+BOTH a resolution artifact AND a real-but-unfolded-away commensuration — it does not discriminate.
+The discriminator lives ONLY in the under-resolved-large-N corner — precisely the regime where the
+instrument is *least* trustworthy (see §4b's numerical degeneracy at accessible N). The reading is
+the pair, and here the pair is degenerate everywhere except the one corner where the instrument is
+worst-behaved. That is why the φ close is deferred to a fresh, exact-machinery run at N=F₂₄, not a
+convenient well-resolved sweep.
+
 ## 4b. α-TRACKING GATE (2026-07-11) — the pivot SPLITS: resonance real, L-growth artifact
 
 The §176 flagged-but-unrun item ("whether it appears for other θ's convergent denominators")

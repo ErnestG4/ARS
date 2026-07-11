@@ -78,3 +78,33 @@ null there). That regime has a real under-resolved window; the accessible proxy 
 resonance is real α-arithmetic (√2@Pell, banked, weld-able); the monotone L-pathology is
 finite-size-universal (banked, artifact); the φ +89% *contamination* headline is **UNRESOLVED** —
 neither confirmed nor retracted, pending the N=F₂₄ regime.
+
+---
+
+# DEFERRED CLOSE — three-way pre-registration (run FRESH, not now)
+
+Status: **flagged for later, not urgent.** UNRESOLVED is a stable resting state; the two banked
+components (α-arithmetic resonance; finite-size-universal L-pathology) stand alone. This run should
+happen on a *fresh instrument* (a rested read), because the failure mode is not compute — it is a
+tired read of a numerically fragile result in the one regime where the instrument is least
+trustworthy, which is the exact conjunction that produced every disease of 2026-07-11.
+
+**Two bound constraints (both from the proxy's own exposure):**
+1. **Read `aa33e44`'s contamination-ratio definition and reproduce it EXACTLY — do not re-proxy.**
+   The proxy's numerical degeneracy (0.0000 floor at L≤300; spurious uniform 0.333 at L≈1.5N) is
+   exactly the artifact that, at the one accessible discriminating regime, could manufacture EITHER
+   verdict. A new proxy at N=F₂₄ is a fresh uncalibrated instrument reading in the place it matters
+   most. **Use the banked machinery or do not run.**
+2. **e is the dark-null (defection-table witness at scale).** e has NO convergent near 46368
+   (gap 18089→190435), so under H_arithmetic e MUST go dark there while φ lights. A lock-ordinary
+   substrate with no convergent at the resonant N, tested against the lock-special one that does.
+
+**Pre-registered THREE-way outcome (conjunction discipline — write all three before the numbers):**
+- **φ lights ∧ e dark** → α-arithmetic CONFIRMED; the weld holds for both components; the +89%
+  headline stands as a real finite-size commensuration fingerprint.
+- **φ lights ∧ e ALSO lights** → NOT α-arithmetic; something L-dependent fires at that N regardless
+  of convergent structure → the +89% **retracts**.
+- **φ dark** → the headline **retracts on its own terms** (a clean outcome, no flinch).
+
+No two-way collapse: partial/ambiguous patterns (e.g. φ weakly lights, e weakly lights) route to
+UNRESOLVED, not to a pole — per the guard-doctrine arm (c), skepticism is not a free action.

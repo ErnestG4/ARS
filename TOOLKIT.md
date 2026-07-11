@@ -360,6 +360,21 @@ The durable methodology — apply these regardless of substrate:
   commit, because it feels like rigour. Resolve the direction by *repairing the instrument* (raise ρ — e.g. more
   surrogates) and re-measuring, never by dividing by a small ρ.
 
+  **(c) Skepticism is not a free action — the trigger fires or it doesn't; partial satisfaction is UNRESOLVED.**
+  The same machinery that launders a *win* also launders a *retraction*. Declaring "instrument artifact, retract"
+  on inconclusive data is the identical over-satisfying move as accepting the pretty positive — just wearing
+  skepticism's coat. A discipline whose failure modes all point toward "retract" / "null" is **not calibrated, it
+  is biased** in the direction that feels safe. This is the four-state verdict (ADMISSIBLE / NOT-ORTHOGONAL /
+  SUBSUMED-CERTIFIED / INDETERMINATE) lifted from the *axis* to the *gate*: a pre-registered trigger that is only
+  partly satisfied returns UNRESOLVED, never a pole. **Design rule (sits next to "specify the demoted form before
+  the source is read"): build a pre-registered trigger as a CONJUNCTION over independent legs**, so that partial
+  satisfaction routes to UNRESOLVED rather than to either pole. A disjunction — or a single-leg "no structure →
+  retract" — would fire on partial evidence and bank a false negative on a real effect. (Exhibit — Phase 35a φ
+  contamination close: demoted-form trigger = "no per-α N-structure **AND** smooth approximability gradient →
+  retract." Result had the first leg, not the second → **NOT retracted**, held UNRESOLVED, even though retracting
+  matched the pre-committed lean. A disjunctive trigger would have retracted a possibly-real α-arithmetic effect.
+  `phase38/PHI_CONTAMINATION_PREREG.md`.)
+
   **Also fix the scale.** A threshold must declare whether it applies to *observed* (attenuated) or *true*
   (disattenuated) R². An observed-scale threshold is not comparable across metrics of differing ρ. (Phase 27 used
   `ORTHOGONAL < 0.3`, Phase 32b used `< 0.20` while claiming to replicate it; neither named a scale.)
