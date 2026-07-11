@@ -127,7 +127,8 @@ GL(m)/Rankin–Selberg substrate exists in the repo. Phase 35 = Almost-Mathieu, 
 | E — asymmetric reversal | chaos rigid PROMOTABLE / crystal out-of-domain | banked | ✅ |
 | **RF-multiplicativity** | **PROMOTED**, scoped {strict-coprime, a₁-normalized} (matched-SNR gate) | banked | ✅ **[+]** |
 | **FF-error-rate** | **PROMOTED** genus-0, β≈0.76·log₁₀(q) | banked | ✅ **[+]** |
-| Farey gaps | run Q=150000, **DETECTION not certified Σ²** (NNS not run); analytic = Boca–Cobeli–Zaharescu | banked (detection) | ✅ |
+| Farey gaps — **NNS** | global F_Q vs Hall/BCZ `triangle_cdf`: **KS=0.00013** (7.6M gaps, ~1000× vs RMT); min τ=3/π²=0.304 hard gap | **CERTIFIED-CLASS** | ✅ |
+| Farey gaps — **Σ²** | NO finite invariant: spacing variance diverges (max_τ∝Q, Var∝log Q); short-range rigid, long-range heavy-tail-clustered | domain-boundary (not RMT-intermediate) | ✅ |
 
 ---
 
