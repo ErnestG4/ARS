@@ -19,8 +19,8 @@ clears `R²_obs/τ`. Marginal correlations and full-sequence arithmetic estimate
 
 | Substrate | Result / class | Status | Open | ρ | Cert |
 |---|---|---|---|---|---|
-| pvc-11 macaque V1 | H1 OSI↔ks_gue **+0.720** LOCKED **(marginal-spacing gradient, NOT a level-repulsion class)**; H2 pvc-11-specific | closed | low | H1 marginal, not gated; per-cell orthogonality **UNMEASURED** | ✅ |
-| Allen mouse V1 | H1 OSI↔ks_gue **+0.363** (12/12 +, LOCKED as marginal); F1/F0↔rep_med sign-flip **+0.388 vs −0.183** | closed | low | marginal, not gated; per-cell axes → Phase 38 | ✅ |
+| pvc-11 macaque V1 | H1 OSI↔ks_gue **+0.720** LOCKED **(marginal-spacing gradient, NOT a level-repulsion class)**; H2 pvc-11-specific | closed | low | H1 marginal, not gated. OSI reliability MEASURED (Allen): ρ_OSI=0.957 but **selectivity-gated** (ρ=0.97 selective / ~0 unselective); H1's selective cells reliable → not attenuation-limited; downgrade rests on PSTH-null | ✅ |
+| Allen mouse V1 | H1 OSI↔ks_gue **+0.363** (12/12 +, LOCKED as marginal); F1/F0↔rep_med sign-flip **+0.388 vs −0.183** | closed | low | marginal; OSI ρ=0.957 selectivity-gated (not attenuation-limited at selective end); burst axis closed (ladder); OSI ≠ burst (doesn't saturate) | ✅ |
 | Allen full visual hierarchy | H1 OSI↔ks_gue pooled **+0.445** (n=7846, 7 areas+LGN), **burst-orthogonal everywhere** | banked | low | marginal | ✅ **[+]** |
 | Allen NP <300µm | spatial-scale-dependent; **non-monotone TR-fraction** (15.2→5.6→18.6%); local 100–300µm LEAST TR-structured; Ohiorhenuan closed | closed | low | — | ✅ |
 | Buzsáki CA1 (000044) | pillar-1 generalises; pillar-2 spatial-info↔ks_gue **+0.279** | banked | low–mod | UNMEASURED | ✅ |
