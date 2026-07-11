@@ -41,3 +41,40 @@ H_instrument) yet has convergents on an **irregular, non-recurrence** ladder (46
 **Expectation pre-committed:** given the raw-var gate already showed φ has ~no raw commensuration
 while √2 does, I lean toward **H_instrument for φ specifically** (the +89% is a resolution
 gradient) — but e's N-structure is the real test, and I expect e to be the tie-breaker.
+
+---
+
+# OUTCOME (2026-07-11) — INCONCLUSIVE at accessible scale; NEITHER story earned it
+
+Statistic = finite-L `unfold_rotnum` W1δ (a proxy for the fingerprint's §4 contamination-ratio,
+NOT its exact machinery). λ=0.5.
+
+- **Well-resolved L=4000 (>N):** Test A magnitude flat ~0.03 across α (φ 0.030, √2 0.033, √5−2
+  0.029, e 0.031) — NO approximability gradient, φ not extreme. Test B per-α ratios all median
+  ~1.00, cross ~1 — NO per-α N-structure. The +89% is absent here.
+- **Under-resolved L-sweep FAILED numerically:** degenerate W1δ=0.0000 at L≤300, spurious uniform
+  W1δ≈0.333 at L=1200 (≈1.5N). No clean contamination window exists at accessible N.
+
+**Why neither hypothesis is confirmed.** "Absent at well-resolved L" does NOT discriminate:
+the raw commensuration (√2@Pell, real) is *also* erased by well-resolved unfolding (IDS
+uniformizes the DOS), so vanishing there is consistent with BOTH a resolution artifact AND a
+real-but-unfolded-away commensuration. The discriminating regime is under-resolved L at large N
+(the actual +89% lives at N=F₂₄=46368), which this proxy cannot reach and which the accessible-N
+window is too narrow/pathological to probe.
+
+**Pre-committed discipline held.** The demoted-form trigger ("smooth approximability gradient AND
+no per-α structure → retract") was NOT met — no structure, but also no graded magnitude. So the
++89% is **NOT retracted** (data doesn't support it) and **NOT vindicated** as α-arithmetic (no
+per-α peaks). Resisting the pull to declare "instrument, retracted" — the satisfying conclusion
+that matched my pre-committed lean — because the measurement is genuinely inconclusive. Same
+discipline as the L-pathology retraction, applied to my own expectation this time.
+
+**Definitive close (a real run, not a proxy):** reproduce the fingerprint's exact §4/C2
+contamination-ratio machinery (aa33e44) at N=F₂₄=46368 for the α-ladder — φ@F₂₄, √2@Pell-near
+(33461), e@non-convergent (e has NO convergent near 46368: gap 18089→190435, so e is the clean
+null there). That regime has a real under-resolved window; the accessible proxy does not.
+
+**Net for the fingerprint program (unchanged from the α-tracking gate):** the raw commensuration
+resonance is real α-arithmetic (√2@Pell, banked, weld-able); the monotone L-pathology is
+finite-size-universal (banked, artifact); the φ +89% *contamination* headline is **UNRESOLVED** —
+neither confirmed nor retracted, pending the N=F₂₄ regime.
