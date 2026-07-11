@@ -72,6 +72,15 @@ substrate × readout-leg signature. Other substrates under the same leg will hav
 
 ---
 
+## 2b. Bandwidth-immunity of the sub≠super disjointness (2026-07-11)
+
+The banked φ-robust sub≠super **disjointness** cannot be an Aubry–André bandwidth artifact, two ways:
+(1) the tested pair has *identical* spectral measure — `|Σ|=4|1−λ|` gives `4|1−0.5|=4|1−1.5|=2.0`, symmetric about λ=1;
+(2) the rotation-number IDS unfold is a CDF/rank transform → unit-mean spacings, so bandwidth divides out by construction.
+Bandwidth could only leak via the retracted fixed-reference `unfold_ids_ref`; the validated `unfold_rotnum` leg has no such channel. (Armors the disjointness, NOT the superseded 6× magnitude.)
+
+---
+
 ## 3. θ-class (Diophantine) sensitivity — the Farey-relevant axis (C1, 9020c24)
 
 How the L=1e5 W1δ spread changes between Diophantine classes (golden vs silver mean),
@@ -88,6 +97,37 @@ the *specific* Diophantine class (continued-fraction approximant structure); PP-
 This is the most fingerprint-relevant gap (see §7).
 
 ---
+
+## 4b. α-TRACKING GATE (2026-07-11) — the pivot SPLITS: resonance real, L-growth artifact
+
+The §176 flagged-but-unrun item ("whether it appears for other θ's convergent denominators")
+run as a falsifier of the "fingerprint, not instrument bug" pivot. Statistic = var(unit-mean
+RAW spacings) (a proxy, not the finite-L contamination-ratio of §4); resonance ratio =
+S(N=convergent) / S(N=convergent±8 bracket).
+
+**(1) Commensuration resonance IS α-arithmetic — gate PASSES.** θ=√2 resonates at its own
+Pell convergents {70,169,408,985,2378} = **1.20**, NOT at Fibonacci-N = **1.02** (cross).
+θ=√5−2 at its own convergents = 1.12. The resonance tracks each α's OWN convergents → a real
+finite-size commensuration fingerprint of α's arithmetic, NOT an instrument artifact. This is
+the clean weld to the approximability/Farey arc. Magnitude is α-dependent but NOT monotone in
+the leading partial quotient (√2 a=2:1.20 > √5−2 a=4:1.12 > φ a=1:1.02 — a predicted CF-monotone
+law is FALSIFIED). **φ anomaly:** φ (the §4 headline) shows ~NO raw-var resonance (1.02) —
+being the most-irrational, its convergents are the worst approximations, weakest commensuration.
+⇒ the §4 "+89% at F₂₄" is the **finite-L IDS CONTAMINATION** face, a DIFFERENT statistic from
+raw commensuration; the two resonances are likely different objects. Definitive close needs the
+contamination-ratio α-tracking (√2@Pell vs φ@Fib) — NOT run here.
+
+**(2) Monotone-N L-pathology growth is finite-size-UNIVERSAL — NOT a fingerprint.** var(s) grows
+~11× (N 233→2584) IDENTICALLY for φ (11.4×), √2 (11.3×), **rational 3/7 (11.6×)**, generic
+0.3178 (9.4×). A rational α has no convergent structure yet grows the same ⇒ the monotone-N
+growth is a generic finite-size divergence, not α-arithmetic. rev-5.2 §10's reclassification of
+the 0.93×→4.99×→118.5× growth as a "feature" is, for this component, **laundering a finite-size
+divergence** (caveat: var(s) is a raw proxy, not the exact finite-L contamination statistic).
+
+**Net — the pivot splits into two claims that part ways:** the commensurate-N resonance is a
+legitimate α-arithmetic axis (clean for cross-substrate comparison, welds to Farey); the
+monotone L-pathology is likely a finite-size artifact (apples-to-oranges on a cross-substrate
+axis — the confound to catch BEFORE the comparison). `phase35a/` α-tracking run, this session.
 
 ## 4. Number-theoretic resonance — Fibonacci/commensurate-N (C2, aa33e44)
 
