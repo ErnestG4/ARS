@@ -33,7 +33,7 @@ clears `R²_obs/τ`. Marginal correlations and full-sequence arithmetic estimate
 | EEG θ-band ZCR | **FALSIFIED** — bandpass artifact (mass<0.3≈0.001) | closed | none (cautionary) | n/a | ✅ |
 
 *Substrate-relativity ladder (burst↔ks_gue, a modality/state axis, not biology):*
-hc-3 +0.78 > ret-1 +0.53 > 000638 +0.44 > V1 +0.25 > Allen-HPF ~0.
+hc-3 +0.78 > ret-1 +0.53 > 000638 +0.44 > V1 +0.25 > Allen-HPF ~0. **Burst-side reliability MEASURED (Phase 38 protocol):** ρ_burst=0.980 (hc-3 EC, n=334) and 0.984 (V1, n=465) — FLAT across the ladder and flat across firing rate (0.964 at 0.03–0.54 Hz). NOT a reliability gradient on the 2 measured rungs; ordering survives as structure. ret-1/000638/HPF pending. `phase38/LADDER_BURST_FINDINGS.md`.
 *Also banked, not rowed:* population-stratification triad (avalanche-timing rate-independent),
 CA1 cell-type axis (pyr 0.685 > int 0.575), Buzsáki cycle-2 (θ-γ locking bounded-negative;
 SWR-rate consolidation enrichment 8/8), selectivity-QUALITY-vs-PREFERENCE law.
