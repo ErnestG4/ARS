@@ -33,7 +33,7 @@ clears `R²_obs/τ`. Marginal correlations and full-sequence arithmetic estimate
 | EEG θ-band ZCR | **FALSIFIED** — bandpass artifact (mass<0.3≈0.001) | closed | none (cautionary) | n/a | ✅ |
 
 *Substrate-relativity ladder (burst↔ks_gue, a modality/state axis, not biology):*
-hc-3 +0.78 > ret-1 +0.53 > 000638 +0.44 > V1 +0.25 > Allen-HPF ~0. **Burst-side reliability MEASURED (Phase 38 protocol):** ρ_burst=0.980 (hc-3 EC, n=334) and 0.984 (V1, n=465) — FLAT across the ladder and flat across firing rate (0.964 at 0.03–0.54 Hz). NOT a reliability gradient on the 2 measured rungs; ordering survives as structure. ret-1/000638/HPF pending. `phase38/LADDER_BURST_FINDINGS.md`.
+hc-3 +0.78 > ret-1 +0.53 > 000638 +0.44 > V1 +0.25 > Allen-HPF ~0. **Burst-side reliability MEASURED, 4/5 rungs incl. null:** ρ_burst = 0.980 (hc-3), 0.996 (ret-1), 0.984 (V1), **0.970 (HPF null, n=4397)** — flat, saturated at ceiling, flat across rate. Reliability RULED OUT as ordering mechanism; **HPF null is STRUCTURAL not attenuation.** (000638 skipped = interpolation.) Reliability≠biology: ordering still unexplained; next confounds are depth/sorting/session-length, a different instrument. `phase38/LADDER_BURST_FINDINGS.md`.
 *Also banked, not rowed:* population-stratification triad (avalanche-timing rate-independent),
 CA1 cell-type axis (pyr 0.685 > int 0.575), Buzsáki cycle-2 (θ-γ locking bounded-negative;
 SWR-rate consolidation enrichment 8/8), selectivity-QUALITY-vs-PREFERENCE law.
@@ -128,7 +128,7 @@ GL(m)/Rankin–Selberg substrate exists in the repo. Phase 35 = Almost-Mathieu, 
 | **RF-multiplicativity** | **PROMOTED**, scoped {strict-coprime, a₁-normalized} (matched-SNR gate) | banked | ✅ **[+]** |
 | **FF-error-rate** | **PROMOTED** genus-0, β≈0.76·log₁₀(q) | banked | ✅ **[+]** |
 | Farey gaps — **NNS** | global F_Q vs Hall/BCZ `triangle_cdf`: **KS=0.00013** (7.6M gaps, ~1000× vs RMT); min τ=3/π²=0.304 hard gap | **CERTIFIED-CLASS** | ✅ |
-| Farey gaps — **Σ²** | NO finite invariant: spacing variance diverges (max_τ∝Q, Var∝log Q); short-range rigid, long-range heavy-tail-clustered | domain-boundary (not RMT-intermediate) | ✅ |
+| Farey gaps — **Σ²** | NO finite invariant: spacing variance diverges (max_τ∝Q, Var∝log Q); short-range rigid, long-range heavy-tail-clustered. "Rigidity between Poisson/GUE" **FALSIFIED** (not merely unsupported) — Farey is NOT an RMT intermediate, cannot serve as one; grep confirms the label was inert (no calibrator ever used it) | domain-boundary | ✅ |
 
 ---
 
