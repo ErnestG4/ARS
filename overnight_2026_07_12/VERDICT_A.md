@@ -94,3 +94,71 @@ longer an inverted outlier — just the weakest coupling. **The sign pathology w
 (allen > hc3 > ret1). Two now-valid instruments disagree. **NOT resolved here:** the cross-substrate
 ordering on *any* axis remains uncertified while `burst_frac` is a substrate-dependent quantile
 (debt #1). **The within-substrate result is solid; the ordering is not.**
+
+---
+
+## POST-RUN #2 — MY OWN BUG, caught by the threshold-free predictor. And the ordering changes.
+
+### (a) The bug: `I_rep` on RAW spike times is RATE-CONTAMINATED
+
+`irep_unclipped(spk)` was called on **raw spike times**, and `pair_correlation_full` integrates over
+`r ∈ [0,1]` **in the input's own units — i.e. ONE SECOND.** For a 300 ms-mean-ISI cell that is ~3
+mean-ISIs; for a 2000 ms cell it is 0.5. **The integration window meant a different thing per cell.**
+
+**Job B was fine** (synthetic trains were unit-mean by construction). **Job C's census and the first
+rebuilt ladder were NOT.**
+
+**How it was caught:** the threshold-free predictor returned `ρ(log-ISI CV, I_rep) = +0.68` — *more
+dispersed ISIs ⇒ LESS clustered*, which is **physically backwards**. A sign that cannot be right is
+worth more than a magnitude that looks plausible. *(Ninth defect this session, and the first one that
+is mine.)*
+
+Fixed: unit-mean-normalise the ISIs before `cumsum`. Calibrators then read correctly —
+**poisson +0.004 · clustered −1.182 · GOE +0.281.**
+
+### (b) The census SURVIVES my bug (re-run on rate-corrected `I_rep`)
+
+| substrate | n | median `I_rep` | **% `I_rep` < 0** | verdict |
+|---|---|---|---|---|
+| allen-hpf | 400 | **−7.99** | **100 %** | **CLUSTERED** ✓ |
+| hc3-port | 400 | −1.44 | **98 %** | **CLUSTERED** ✓ |
+| ret1 | 325 | −0.32 | **77 %** | **CLUSTERED** ✓ |
+
+Unchanged, as pre-committed: its null is **Poisson**, and no normalisation error touches that.
+But the **grading** changes materially: **Allen is now BY FAR the most clustered (−7.99)**, hc-3
+middle, ret-1 weakest — where the buggy version had allen ≈ ret-1.
+
+### (c) THE THRESHOLD-FREE LADDER — the ordering CHANGES, and the two threshold-free predictors AGREE
+
+Every ordering in the project was downstream of a **10 ms constant**. `burst_frac`, `ks_gue` and
+`I_rep` ladders all shared **the same predictor** — so they were never three instruments, they were
+**one contaminated predictor viewed through three axes**, and they could not adjudicate each other.
+
+| substrate | ρ(**burst_frac**, I) *(10 ms threshold)* | ρ(**log-ISI CV**, I) *(free)* | ρ(**gamma shape k**, I) *(free)* |
+|---|---|---|---|
+| allen-hpf | −0.264 | **−0.398** | **+0.688** |
+| **hc3-port** | **−0.581** | **−0.684** | **+0.873** |
+| ret1 | −0.291 | **−0.170** | **+0.454** |
+
+**All three agree in SIGN** (log-CV ↑ ⇒ more clustered ⇒ `I_rep` ↓ ✓; gamma k ↑ ⇒ more regular ⇒
+`I_rep` ↑ ✓). **And BOTH threshold-free predictors give the same ordering: hc-3 > allen > ret-1.**
+
+**`burst_frac` gave hc-3 > ret-1 > allen. THE ALLEN/RET-1 SWAP WAS THE 10 ms CONSTANT.**
+
+**And the predicted mechanism is confirmed:** Allen's `burst_frac` has the **narrowest IQR**
+(**0.132** vs hc-3 0.224, ret-1 0.208) — a **compressed predictor**, hence an **attenuated**
+correlation. Move to a threshold-free predictor and Allen climbs from **bottom to middle**. *A range
+mismatch was being read as a substrate property — the session's own disease, one level up, in the
+predictor.*
+
+### (d) What is banked, and in which register
+
+- **VALIDATION (not a discovery):** *burstier / more-irregular cells are more clustered* — negative on
+  every substrate, every predictor, CIs excluding zero, **physically expected direction**. This is the
+  **repaired axis passing a consistency check**. It would have been alarming otherwise. **Banked as
+  instrument validation.** Banking it as a discovery is how the next twenty messages get spent
+  defending it.
+- **CANDIDATE FINDING (the strengths):** hc-3 ≈ −0.68/+0.87 ≫ allen ≈ −0.40/+0.69 > ret-1 ≈ −0.17/+0.45,
+  **consistent across two independent threshold-free predictors**. This is the **first cross-substrate
+  ordering in the project not downstream of the 10 ms constant.** Still n=3 substrates. **Closer:**
+  extend to dr-port / ibl / buzsaki / pvc-11 with the same threshold-free predictors.
