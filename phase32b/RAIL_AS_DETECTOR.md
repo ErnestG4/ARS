@@ -105,6 +105,74 @@ have all been sitting in the Poisson bin.
 even at **P0 = 0.99** (p = 5.9e-18); `pvc-11` survives to P0 = 0.95. The verdict does not rest on the
 0.40 estimate being right.
 
+### 3b. The decimation confound — RAISED, TESTED, DEFEATED (and the path claim was wrong)
+
+**The challenge:** the census null (P(rail|Poisson)) was measured on clean synthetic Poisson, while
+the banked cells came through a decimating unfold. Decimation *decorrelates*, which drives Brody q
+**toward 0 = toward the rail** — so it could **manufacture** the railing. And the trigger is n>1500,
+which is the same **hard gap / zero-common-support** that made E2 unidentifiable. If true, "every
+neural substrate rejects Poisson" is partly *the instrument rejecting Poisson on their behalf*.
+
+**(i) The path premise is FALSE.** `I.8_brody_q` is **not** on the decimating path. `axes.py:408,448`
+(`Y[::len(Y)//max_pts]`) live inside **`V1_lyapunov` / `V2_correlation_dim`** — different axes.
+`harvest.py:130`'s `JPF_CAP=1500` annotation is attached to **`QBAND_METHOD`**, which governs the
+**q-band ARS axes** (`I.5q_ks_gue_med`, `ARS.rep_med`) — **not** Family-I. *Verify the path before
+inheriting a confound from a sibling.*
+
+**(ii) The null WAS instrument-matched all along.** The synthetic null was pushed through
+**`I8_brody_q` itself**, so it inherited the same self-mean normalization (Mode-1-style circularity)
+**and** the same `s < 10.0` spacing truncation. Decimation was the *only* unmatched leg.
+
+**(iii) The decisive control — cells that were NEVER decimated.** Rail rate restricted to `n ≤ 1500`:
+
+| substrate | undecimated cells | **% railed (undec)** | *(decimated arm)* |
+|---|---|---|---|
+| buzsaki-port-cell | 1341 | **100.0 %** | 99.1 % |
+| dr-port-cell | 147 | **100.0 %** | 98.4 % |
+| allen-hpf-cell | 1004 | **99.9 %** | 100.0 % |
+| hc3-port-cell | 506 | **99.6 %** | **88.8 %** |
+| ibl-port-cell | 200 | **97.0 %** | **85.2 %** |
+| ret1-cell | 23 | **95.7 %** | 84.8 % |
+
+**Cells that were never decimated rail at 95.7–100 %.** Decimation cannot manufacture what it never
+touched. And where it *does* act it runs the **wrong way** — hc3 and ibl rail **less** when
+decimated. **Decimation slightly *reduces* railing.** *(The within-substrate cell/pop pairs say the
+same: `hc3-port-pop` and `dr-port-pop` are* more *decimated than their cell arms (93.9 %, 93.8 %) and
+rail* far less *(48.7 %, 31.2 %). If decimation drove railing this is impossible.)*
+
+**(iv) Palm–Khintchine is the free theoretical check, and it passes.** Superposition of many
+independent point processes → **Poisson**. So the **pop/pooled** arms *should* read Poisson-consistent
+— and they do (19.2 %, 0 %, 44.5 %) while single cells rail. **The cell↔pop contrast goes exactly the
+way the theorem demands, with decimation held constant or inverted.** An independent ground truth the
+detector was never fitted to.
+
+**(v) P0 does NOT fall with n — so 0.40 was optimistic.** Measured P(rail|Poisson): 40.0 % (n=500),
+52.5 % (2000), 47.5 % (10k), 57.5 % (30k), 47.5 % (70k). The MLE never resolves away from the bound
+under Poisson. **Final census re-run at a conservative P0 = 0.60** (above *every* measured value),
+**undecimated cells only**:
+
+| substrate | undec | railed | % | binom p | verdict |
+|---|---|---|---|---|---|
+| buzsaki-port-cell | 1341 | 1341 | 100.0 % | 3.2e-298 | **CLUSTERED** |
+| allen-hpf-cell | 1004 | 1003 | 99.9 % | 1.2e-220 | **CLUSTERED** |
+| hc3-port-cell | 506 | 504 | 99.6 % | 3.2e-108 | **CLUSTERED** |
+| ibl-port-cell | 200 | 194 | 97.0 % | 3.2e-35 | **CLUSTERED** |
+| dr-port-cell | 147 | 147 | 100.0 % | 2.4e-33 | **CLUSTERED** |
+| ret1-cell | 23 | 22 | 95.7 % | 1.3e-04 | **CLUSTERED** |
+| allen-hpf-pop / buzsaki-pop / population-strat / -fingerprint | — | — | 64.6 / 44.5 / 19.2 / 0 % | ≥ 0.14 | — (Poisson-consistent) |
+
+**Every neural CELL substrate: CLUSTERED. Every pooled/population object: Poisson-consistent.**
+Identifiable, instrument-matched, decimation-controlled, conservative null. **The headline stands.**
+
+*Caveat to quote in RESULTS:* cells within a session/animal are **not independent**, so these binomial
+p-values are optimistic. At these counts no design effect rescues Poisson — but **quote the count and
+the substrate, not the p-value.**
+
+*New observation, banked not chased:* `I8_brody_q:150` also does `s = s[(s > 0) & (s < 10.0)]` —
+**it discards every spacing > 10× the mean**, i.e. exactly the heavy tail that *is* the clustering
+signature. It is applied to null and data alike (so it does not bias the test above), but it is a
+**third** censoring at the same call site.
+
 The arithmetic substrates behave **correctly** (`brocot.fm` rails at 4.8 %, *below* chance — genuine
 repulsion). **The bug's damage is concentrated exactly where clustering is the substrate's expected
 state.** The instrument failed precisely where the biology lives.
