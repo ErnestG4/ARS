@@ -347,10 +347,25 @@ The durable methodology — apply these regardless of substrate:
   instrument's self-consistency is a hard ceiling on every relational claim about the substrate. This equally
   voids **`ρ≈0` "INDEPENDENT_AXES"** readings: unreliability attenuates every correlation toward zero.
 
-  **The admissibility gate (standing, mandatory).** No ORTHOGONAL / INDEPENDENT verdict on an *empirical
-  per-unit axis* without a **banked split-half reliability** clearing the verdict's own threshold. For threshold
-  `τ` and observed `R²_obs`, true orthogonality requires `ρ(R) > R²_obs/τ`. Below that, the verdict is
-  **INDETERMINATE** — not orthogonal, and *not* subsumed.
+  **The admissibility gate (standing, mandatory) — a CONJUNCTION over two independent legs.** No ORTHOGONAL /
+  INDEPENDENT verdict on an *empirical per-unit axis* unless **both** legs pass. Either leg failing → the verdict
+  is **INDETERMINATE** — not orthogonal, and *not* subsumed.
+
+  - **Leg 1 — reliability.** A **banked split-half reliability** clearing the verdict's own threshold: for
+    threshold `τ` and observed `R²_obs`, true orthogonality requires `ρ(R) > R²_obs/τ`.
+  - **Leg 2 — the unfold is not self-rate-circular on that substrate.** An unfold that divides by a *self-derived*
+    rate (per-call mean spacing) — or that silently decimates — corrupts `R²` **independently of ρ**. This leg is
+    not implied by Leg 1 and cannot be inferred from it.
+
+  **Why the conjunction, not one gate (this is a correction, not an addendum).** The one-gate rule was
+  *under-specified*: Phase 38 §6 found **two independent reasons** 32b's `BOTH_ORTHOGONAL` fails, and only the
+  first is reliability. The second is the unfold: `unfold_unit_mean` divides by a per-call mean spacing
+  (self-derived rate — the circularity §9 already names as a *null-choice* rule) and stride-decimates above
+  `JPF_CAP = 5000`. Under the frozen unfold with decimation disabled, `ks_gue_med ~ FA-drift` moves from a banked
+  `R²` of **0.126 → 0.238**, carrying **`R²_true = 0.243 > τ`** (τ=0.20, true scale) — *"for reasons that have
+  nothing to do with reliability at all."* ρ was never implicated. So self-rate-circularity is not merely a null-
+  choice hygiene rule; it is a **second, independent leg of the orthogonality verdict itself**, and it must be
+  checked at the verdict, not assumed away by a clean ρ. (`phase38/PHASE38_FINDINGS.md` §6.)
 
   **Disattenuation raises the lower bound; it cannot certify the upper.** `R²_true = R²_obs/ρ` divides by a small,
   imprecisely-estimated ρ — the textbook instability of correction-for-attenuation, worst exactly where ρ is
