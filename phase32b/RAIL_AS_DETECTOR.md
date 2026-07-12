@@ -794,3 +794,121 @@ interior, my whole detector reading of BL's population is wrong and I want to kn
 a **perfect** biological/physical vs financial split. **BL is retired as a class.** It is a **bin**
 holding two populations that never overlap, under a name (*"Poisson noise"*) that is **wrong for
 two-thirds of its members** — including **both** of the ones the project cared about.
+
+---
+
+## 21. RETRACTION — "marginal → pair" was never a domain change. The load-bearing finding is UNADJUDICATED.
+
+### (a) LV is a MARGINAL FUNCTIONAL, not a correlation measure — confirmed exactly
+
+Both greps confirm the premise:
+- `I13_lv` (`axes.py:227`) **is** Shinomoto's adjacent-pair form.
+- `I5_ks_gue` (`axes.py:111`) consumes `_trim_spacings` = *"2–98 % tail trim + **unit-mean**"* — a
+  **GLOBAL** normalization, **no drift correction**.
+
+And the analytic check (no data needed): for a **renewal** process (iid ISIs), `E[LV] = 3/(2k+1)` for
+gamma shape *k* — **a functional of the MARGINAL ALONE**:
+
+| gamma k | `3/(2k+1)` | LV observed | **LV shuffled** | Δ |
+|---|---|---|---|---|
+| 0.5 | 1.5000 | 1.5008 | **1.5024** | −0.0016 |
+| 1.0 | 1.0000 | 0.9987 | **1.0005** | −0.0017 |
+| 5.0 | 0.2727 | 0.2734 | **0.2730** | +0.0004 |
+
+**LV matches the closed form and is UNCHANGED by shuffling on iid data. LV is not a correlation
+measure.** Its order-sensitivity exists *only* as the **deviation** `LV_obs − LV_shuf` (on a genuinely
+order-structured alternating process: **+0.80**).
+
+> **⇒ "MARGINAL → PAIR" IS RETRACTED.** It was **GLOBAL-normalization → LOCAL-normalization** — a
+> *drift-robustness* change, entirely **within the marginal domain**. By this session's own rule
+> (**the escape is a change of DOMAIN, not of parameter**), **the escape was not an escape.**
+> **There has never been a row-3 (correlational) measurement in this project.**
+
+### (b) The alternative reading of the Allen dissociation — LIVE, and more likely
+
+> Allen-HPF's burst coupling is invisible to `ks_gue` because **`ks_gue` is destroyed by within-cell
+> rate nonstationarity** (global unit-mean normalization does **not** remove slow drift) — and HPF is
+> exactly the substrate with the strongest slow state transitions (sleep/wake, theta/SWR). **The
+> dissociation is GLOBAL-vs-LOCAL, not MARGINAL-vs-PAIR. It's the drift, not the domain.**
+
+Mundane, mechanistic, and — given everything else this session found — **more likely than the exotic
+reading.** It would be the **sixth** instance of an instrument's scope boundary read as a substrate
+property, sitting **inside the one claim I said survived every falsifier.**
+
+### (c) I tried an analytic shortcut for the shuffle. IT DOES NOT WORK — and my script hardcoded the conclusion.
+
+The shortcut: for gamma, `LV_shuf = 3·CV²/(2+CV²)` is **monotone in CV**, and Spearman is
+monotone-invariant ⇒ `ρ(burst, LV_shuf) ≡ ρ(burst, CV)` = **+0.036** (banked) vs
+`ρ(burst, LV_obs)` = **+0.540** ⇒ *coupling is order-dependent, finding survives.*
+
+**It fails.** `E[LV | renewal]` is **NOT** a monotone function of CV **across marginal families**:
+
+| family | CV | **LV (iid/shuffled)** | gamma prediction |
+|---|---|---|---|
+| Pareto a=2.2 | 1.20 | **0.233** | 1.257 |
+| lognormal s=2.7 | 21.54 | **1.862** | 2.987 |
+| gamma k=0.5 | 1.41 | 1.504 | 1.501 |
+
+**Spearman(CV, LV_renewal) across families = +0.881, NOT 1.0.** Monotone *within* a family; **not
+across**. So the identity holds **only under within-substrate marginal-family homogeneity** — which is
+**unverified and unverifiable from banked summary statistics.**
+
+Worse: `LV_shuf` depends on the **full marginal**, not just CV. So `LV_obs ≠ f(CV)` could mean **order
+structure** *or* **marginal shape beyond CV**. **Banked data cannot separate them.**
+
+**AND: my own script printed "STRICTLY MONOTONE" as a hardcoded string while its own output said
++0.881.** *A conclusion baked into the instrument* — the exact disease this session has been
+cataloguing, committed by the audit tool, in the audit of the audit. Logged, not hidden.
+
+### (d) Verdict, and the promotion
+
+**The Allen-HPF dissociation is UNADJUDICATED.** Not surviving; not dead. The claim that it is
+"immune to the quantile, rate, pole and compression confounds *by construction*" **remains true** —
+but immunity to *those four* is not immunity to **drift-vs-order**, which was never tested because
+the axis was **mislabelled**.
+
+**Debt #1 is promoted to BLOCKING**, and its content changes:
+
+> **THE WITHIN-CELL ISI SHUFFLE.** Shuffle ISIs within each cell: destroys **all order and all drift**,
+> preserves the **ISI marginal exactly**. The surrogate is **the renewal null with the observed
+> marginal** — *analytic ground truth, no generator to unfold wrong, no synthetic to gate.* **Same
+> class of instrument as Palm–Khintchine: a theorem about the data, in a domain the instrument does
+> not control.**
+>
+> Decompose: **ρ(burst, LV_shuf)** = the marginal component. **ρ(burst, LV_obs − LV_shuf)** = the
+> order-dependent residual.
+>
+> **Pre-committed:**
+> 1. `ρ(burst, LV_shuf) ≈ ρ(burst, LV_obs) ≈ +0.54` ⇒ **LV carried no order information. Retract to:
+>    "ks_gue at Allen is drift-destroyed; LV isn't; both are marginal."** Still true, much smaller.
+> 2. **Coupling lives in the residual** ⇒ genuine order structure at Allen; the domain change was real;
+>    the finding **survives and is strengthened** — it now has an **exact null** behind it instead of a
+>    **label**.
+> 3. **Split** ⇒ UNRESOLVED; gap = the order-dependent fraction; closer = a true row-3 predictor.
+>
+> **Run the same shuffle against `ks_gue`.** If `ks_gue_shuf ≈ ks_gue_obs`, then **ks_gue carries no
+> order information either — and the entire old ladder was a marginal-shape ranking**, which is the
+> **recording-quality hypothesis, confirmed from the estimator side.**
+
+### (e) The three-way was wrong too — arms 1 and 2 are the same domain
+
+My previous closer (fixed-10 ms vs own-quantile vs threshold-free) had **two arms in the same domain**
+— both are thresholds on the **ISI marginal**. That is **a change of parameter**, which certifies the
+**threshold family**, not the finding. **The real design is 3 domains × 2 axis-domains:**
+
+| predictor domain | predictor | order-sensitive? |
+|---|---|---|
+| **global marginal** | log-ISI CV, fitted gamma shape *k* | **no** |
+| **local marginal** | LV, CV2 | **no** (drift-robust only) |
+| **correlational** | ISI serial correlation ρ₁; autocorr short-lag excess **over shuffle** | **YES — the only true order arm** |
+
+**`burst_frac` (in BOTH threshold forms) is row 1. So is `ks_gue`.** ⇒ **the old ladder was
+row-1-vs-row-1**; **the Allen dissociation was row-1-vs-row-2**; **row 3 has never been measured.**
+Report the **3×2 matrix**, not a race: the **diagonal is definitionally warm** (say so); **the
+off-diagonal is where the findings are.** The Allen dissociation is an off-diagonal cell — *which is
+exactly why it was interesting, and exactly why its domain labels had to be right.*
+
+**The shuffle is the cheapest possible row-3 instrument, and it comes with its own exact null.**
+It runs **before** the quantile work (if outcome 1 fires, the threshold question is about a predictor
+whose whole framing has changed), and it is **fully parallel** to the clustered-calibrator build
+(different axis, different repair). **Build the calibrator; run the shuffle.**
