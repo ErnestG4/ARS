@@ -404,3 +404,83 @@ The project has already certified a class the corridor cannot express.
 **Gate repaired symmetrically** (`validate_fitters.py`): added `gue` (q_true ≈ 2, **above** the upper
 bound) alongside `clustered`/`clustered_extreme` (**below** the lower). It now correctly **FAILS** —
 GOE 0.9875 (PASS) vs GUE 0.9999 (FAIL, expect 2.0): **indistinguishable, exactly as predicted.**
+
+---
+
+## 14. Ladder pole-robustness — pre-committed prediction, RESOLVED, and it SPLITS
+
+`burst_frac = mean(ISI < 10 ms)` (`allen_v1_burst.py:42`) — a **hard-threshold short-ISI fraction**,
+**not** CV. So ρ(CV, burst) is not tautological by construction; but the clean contrast is still the
+**two-pole** one: same substrate, same burst, **opposite pole**.
+
+| substrate | **ρ(ks_GUE, burst)** | **ρ(ks_POISSON, burst)** | ρ(CV, burst) | ρ(LV, burst) |
+|---|---|---|---|---|
+| hc3-port-cell (n=923) | **+0.697** | **+0.733** | +0.552 | +0.461 |
+| ret1-cell (n=325) | **+0.529** | **+0.522** | +0.518 | +0.418 |
+| dr-port-cell (n=1365) | **+0.389** | **+0.484** | +0.233 | +0.445 |
+| **allen-hpf-cell (n=4358)** | **−0.277** | **+0.005** | +0.036 | **+0.540** |
+
+**(a) THE ORDERING SURVIVES THE POLE CHANGE.** hc-3 > ret-1 > dr > Allen-HPF under **both** poles.
+**The ladder is real. It was not the pole.**
+
+**(b) THE COMPRESSION MECHANISM IS FALSIFIED — by its own pre-committed falsifier.** The prediction
+was: *"if it survives and the magnitudes barely move, my compression mechanism is wrong."* Magnitudes
+move by **+0.036 / −0.007 / +0.095** on the top three rungs. **They barely move.** ks_gue is *not*
+meaningfully compressed as a burst-proxy for these populations. (Raised, tested, retracted — the
+proposer's own falsifier.)
+
+**(c) BUT THE BOTTOM RUNG IS POLE-DEPENDENT — and it is exactly the rung under dispute.**
+Allen-HPF is the **only** substrate where the two poles disagree: **−0.277 (GUE) vs +0.005
+(Poisson).** **"Allen ≈ 0" is not a stable reading.** It is *zero* on one pole and *negative* on the
+other. Whatever the bottom of the ladder is, it is **not** "no coupling, robustly measured."
+
+**(d) THE BOTTOM RUNG IS AN OBSERVABLE MISMATCH, NOT AN ABSENCE OF COUPLING — this answers the
+standing question.** Allen-HPF: ρ(LV, burst) = **+0.540** (strong) while ρ(CV, burst) = +0.036 and
+ρ(ks_gue, burst) = −0.277. **Allen-HPF burstiness is tightly coupled — to LV, not to GUE-distance.**
+The coupling did not vanish at the bottom of the ladder; **it moved to a different observable.**
+(Exactly [[observable_choice_is_per_axis]]: the optimal observable differs *by axis*.)
+
+> **What was the substrate-relativity ladder a ladder OF?**
+> **How much a cell's burstiness registers on the GUE-distance axis** — *not* how Poisson a substrate
+> is (every neural substrate is clustered), and *not* whether its cells' burstiness couples to
+> anything (at the bottom rung it couples strongly, to LV). It is a ladder of **observable-alignment**,
+> and its bottom rung is where the alignment fails, not where the biology stops.
+
+## 15. Two doctrine items from the self-inflicted error
+
+**(A) THE SCRATCH CALIBRATOR HAS NO GATE — a new face of arm (e).**
+`validate_fitters` is MANDATORY *for banked values*. My in-session GOE synthetic **never touched it**,
+and its numbers (CV 0.723, q 0.582) **drove three messages of reasoning and nearly triggered a
+re-anchoring of the zoo's repulsive pole.** **The gate guards the ledger, and the ledger was never at
+risk. What is ungated is the reasoning path.**
+
+> **A synthetic reference built in-session to check an instrument is itself an uncalibrated
+> instrument. RULE: any synthetic reference used in an argument must pass `validate_fitters` before
+> its numbers are quoted.**
+
+One line, and it would have killed this in the first message. Same shape as (e) — *the audit tool
+needs the audit* — but a new face: **not the banked estimator, the ad-hoc one built to test it.**
+
+**(B) THE SYSTEMIC PATTERN — knowledge in this project does not propagate from where it is found to
+where it is needed.** Four instances, this session alone:
+
+| the knowledge | where it was banked | where it needed to fire |
+|---|---|---|
+| global-mean normalization leaves the semicircle gradient (Fano F≈2.10) | `fix_gue_generator.py` header | **every eigenvalue path** |
+| `"I.8_brody_q": (0.0, 1.0) # 0 Poisson rail, 1 GUE rail` + the KPM-floor lesson, **by name** | `instrument_confound.py:64-78` | **the estimator's primary read** |
+| the `$HOME` import bug | survived a truth audit **that reported success** | `phase24/loader.py:49` |
+| *"one-sided fitters are blind to super-Poisson"* | the SOC phase | **the joint-plane classifier calling flares "Poisson noise"** |
+
+**That is not four bugs. It is one property.** Arm (d) names the *error*; it does not name the
+*systemic* version. **The fix is not vigilance — vigilance is what failed four times.** The fix is
+structural:
+
+> **A lesson is not banked until it is attached to the CALL SITE it constrains, not to the phase that
+> discovered it.** `fix_gue_generator.py` knew. Nothing in the eigenvalue path had to read it.
+
+**(C) REPORT THE INTERIOR FRACTION, ALWAYS.** For any bounded axis, publish the fraction of values
+strictly inside the bounds alongside the values themselves. Brody: **25.2 %**. Berry-Robnik:
+**63.8 %**. *Three-quarters of Brody's banked values are the optimizer's parking lot.* And BR's much
+larger interior is itself informative — **ρ has a genuine interior null, so it degrades more
+gracefully.** This is a free, permanent diagnostic, and it would have made all of this visible **at a
+glance, years earlier.**
