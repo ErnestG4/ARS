@@ -503,7 +503,16 @@ The durable methodology — apply these regardless of substrate:
   **(e) ROOT CAUSE — EIGHT DEFECTS, ONE GENERATING ASSUMPTION. Do not file them as eight entries.**
 
   > **An instrument built and validated against a calibrator set that EXCLUDES a region will accumulate
-  > defects that are individually invisible and JOINTLY FATAL in exactly that region.**
+  > defects that are individually invisible and JOINTLY FATAL in exactly that region. THE DEFECTS WILL BE
+  > INDIVIDUALLY DEFENSIBLE — each is *correct behaviour inside the corridor* — which is why they survive
+  > review, and why fixing them ONE AT A TIME DOES NOT STOP THE NEXT ONE.**
+
+  *That clause is the one that explains how eight of them shipped past a project with this much
+  falsification discipline: **none of them was a mistake.** `s < 10.0` is a sensible outlier trim.
+  `bounds=(0,1)` is a sensible Brody range. `np.maximum(0, ·)` is a sensible non-negativity constraint.
+  A global unit-mean is a sensible normaliser. **Every one is defensible in isolation, and every one is a
+  censoring at the boundary of a region the calibrators never visited.** Review cannot catch this, because
+  review examines defects one at a time — which is exactly the frame in which each one is correct.*
 
   The zoo shipped GOE / GUE / GSE / periodic / mixed / jitter / ζ / Poisson — and **no clustered class at
   all.** Poisson was the most-clustered object in it. That single gap was not one hole; **it was a licence**
