@@ -560,3 +560,52 @@ burst coupling (visible to the pair axes) is **entirely normal, indeed the stron
 load-bearing for the cross-substrate programme.** Phase 37 banked *"CV-16 was a drift artifact;
 rate-robust CV2/Lv reveal the real gradient"* — and the ladder, the programme's headline
 cross-substrate claim, was left standing on the contaminated axis.
+
+---
+
+## 17. BL — not a re-read, a PARTITION. Prediction pre-committed, and CONFIRMED.
+
+`BL` (`rep_int_q < 0.10`, docstring'd **"Poisson noise"**) has been fusing two populations that have
+**nothing to do with each other**:
+
+- **exact 0.000** → a **CLUSTERING DETECTION** (0/200 false positives on the n-matched Poisson null)
+- **interior (0 < rep < 0.10)** → a **real, weak-repulsion measurement**
+
+**Will's pre-committed prediction:** *"most of BL is exact-0.000, and the interior fraction is small —
+because the substrates that land there are the biological ones, and every biological substrate in the
+zoo is clustered. If BL turns out to be mostly interior, my whole detector reading of BL's population
+is wrong and I want to know that immediately."*
+
+| substrate | in BL | **exact 0.000** | interior | % of BL exact-0 |
+|---|---|---|---|---|
+| **pvc-11** (biological) | 1144 | **918** | 226 | **80.2 %** |
+| **allen-np** (biological) | 477 | **385** | 92 | **80.7 %** |
+| kuramoto (synthetic) | 39 | 20 | 19 | 51.3 % |
+| **maass-gamma0** (arithmetic) | 6 | **0** | **6** | **0.0 %** |
+| **pulsar-nanograv** | 5 | **0** | **5** | **0.0 %** |
+| **ALL BL** | **1671** | **1323** | **348** | **79.2 %** |
+
+**CONFIRMED: BL is 79.2 % exact-0.000, 20.8 % interior.**
+
+**And the split is cleaner than predicted — it is essentially BIOLOGICAL vs NOT.** Both biological
+substrates are ~80 % clustering-detections. Both arithmetic/astro substrates are **100 % interior** —
+genuine, correctly-measured weak repulsion. **The class name was doing all the work of hiding that.**
+
+### Independent corroboration on pvc-11 (and it is NOT the arm-(d) trap)
+
+`pvc-11` reads **CLUSTERED** on **two independent censored axes**:
+- `I_rep` exact-zero: **80.2 %** of its BL cells
+- Brody rail: **99.4 %** of its cells
+
+These are **different censoring mechanisms** (a pointwise integrand clip vs an optimizer bound) on
+**different statistics**, and **each was separately validated against ground truth** before being
+trusted. That is not two agreeing measurements corroborating an artifact — it is **two instruments,
+each independently calibrated, agreeing.** The arm-(d) trap is corroboration *substituting* for
+calibration; here the calibration came first.
+
+### The doctrine line
+
+> **`BL` must be retired as a class.** Report the partition: **`BL-detected` (exact-0.000 ⇒ clustered)**
+> and **`BL-interior` (a weak-repulsion measurement)**. A verdict class whose members are 79 % "the
+> instrument ran out of range" and 21 % "a real reading" is not a class — it is a **bin**, and its name
+> ("Poisson noise") is **wrong for four out of five of its members.**
