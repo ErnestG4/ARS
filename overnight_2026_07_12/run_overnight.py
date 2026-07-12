@@ -19,6 +19,20 @@ import os, sys, json, glob, time, traceback, subprocess
 import numpy as np
 from scipy import stats
 
+
+class NpEnc(json.JSONEncoder):
+    """np scalars are not JSON-serializable. Job B died on exactly this — after its science ran."""
+    def default(self, o):
+        if isinstance(o, (np.bool_,)):
+            return bool(o)
+        if isinstance(o, (np.integer,)):
+            return int(o)
+        if isinstance(o, (np.floating,)):
+            return float(o)
+        if isinstance(o, np.ndarray):
+            return o.tolist()
+        return super().default(o)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
@@ -203,7 +217,7 @@ def job_A():
         per_sub[name] = rows
         log(f"JOB A {name}: {len(rows)} cells (banked {BANKED_N.get(name,'?')}) in {time.time()-t0:.0f}s")
     with open(os.path.join(OUT, "jobA_per_cell.json"), "w") as f:
-        json.dump(per_sub, f)
+        json.dump(per_sub, f, cls=NpEnc)
 
     # ---- the decomposition
     lines = ["# VERDICT A — the within-cell ISI shuffle",
@@ -376,10 +390,10 @@ def job_B():
             refs[nm] = dict(error=str(e))
 
     ok = [s for s in sweep if "error" not in s and not np.isnan(s.get("irep_unclipped", np.nan))]
-    neg_irep = all(s["irep_unclipped"] < 0 for s in ok) if ok else False
-    neg_brody = all(s["brody_unbounded"] < 0 for s in ok) if ok else False
-    mono = (stats.spearmanr([s["cv"] for s in ok], [s["irep_unclipped"] for s in ok])[0] < -0.5) if len(ok) > 4 else False
-    passed = bool(ok) and neg_irep and neg_brody and mono
+    neg_irep = bool(all(s["irep_unclipped"] < 0 for s in ok)) if ok else False
+    neg_brody = bool(all(s["brody_unbounded"] < 0 for s in ok)) if ok else False
+    mono = bool(stats.spearmanr([s["cv"] for s in ok], [s["irep_unclipped"] for s in ok])[0] < -0.5) if len(ok) > 4 else False
+    passed = bool(ok) and bool(neg_irep) and bool(neg_brody) and bool(mono)
 
     L = ["# VERDICT B — the clustered calibrator class + the two repairs", "",
          f"git SHA `{sha()}` · seed {SEED}", "",
@@ -410,7 +424,7 @@ def job_B():
            "Jobs C and D are SKIPPED. Do not reason around this at 3am. Read the sweep table.")]
     write("VERDICT_B.md", "\n".join(L))
     with open(os.path.join(OUT, "jobB_sweep.json"), "w") as f:
-        json.dump(dict(sweep=sweep, refs=refs, passed=passed), f, indent=1)
+        json.dump(dict(sweep=sweep, refs=refs, passed=passed), f, indent=1, cls=NpEnc)
     return passed
 
 
@@ -486,7 +500,7 @@ def job_D(per_sub):
                              logcv=float(np.std(np.log(isi)))))
         per[name] = rows
     with open(os.path.join(OUT, "jobD_row3.json"), "w") as f:
-        json.dump(per, f)
+        json.dump(per, f, cls=NpEnc)
     A = per.get("allen-hpf-cell", [])
     jobA = per_sub.get("allen-hpf-cell", []) if per_sub else []
     if len(A) > 20:

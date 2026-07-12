@@ -1,3 +1,14 @@
 [02:32:40] OVERNIGHT 2026-07-12 START · git 48645c541b · seed 20260712
 [02:32:40] WROTE RUN_STARTED.md
 [02:32:40] WROTE VERDICT_GATE.md
+[02:34:22] JOB A allen-hpf-cell: 4203 cells (banked 4358) in 103s
+[02:34:50] JOB A hc3-port-cell: 875 cells (banked 923) in 28s
+[02:35:02] JOB A ret1-cell: 325 cells (banked 325) in 12s
+[02:35:07] WROTE VERDICT_A.md
+[02:35:07] JOB B: generating the clustered calibrator class (sweep, not one exemplar)
+[02:35:08] WROTE VERDICT_B.md
+[02:35:08] WROTE VERDICT_B.md
+[02:35:08] WROTE VERDICT_C.md
+[02:35:08] WROTE VERDICT_D.md
+[02:35:08] OVERNIGHT DONE in 2.5 min
+[02:35:08] WROTE RUN_FINISHED.md
