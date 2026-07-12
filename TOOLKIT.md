@@ -469,6 +469,37 @@ The durable methodology — apply these regardless of substrate:
   (0.386) sits in the INTERIOR** — which is exactly why ⟨r̃⟩ is the trustworthy discriminant. `I10_cv`, `I11_mass03`,
   `I12_cv2`, `I13_lv` likewise (nulls 1.0, 0.259, 1.0, 1.0 — all interior). **Put the null in the interior.**
 
+  **THE DISPERSION CLAUSE — read the rail, don't only fix it. At a rail, the CONFIDENCE INTERVAL is the signal and
+  the POINT ESTIMATE is noise.** A railed estimator's *dispersion* is informative even when its *location* is not:
+  **railed point estimate + collapsed CI ⇒ the data is pinned OUTSIDE the reachable range ⇒ detection**; near-rail
+  point estimate + **wide** CI ⇒ sampling noise around a genuine null. **This is what makes (e) survivable rather
+  than merely fatal** — the bug becomes the instrument. Validated on ground truth, and note the shortcut it kills:
+  the *point estimate alone cannot do it* (**true Poisson rails ~40% of the time**, stable over n=200–2000), but
+  **among railed cells the bootstrap sd separates PERFECTLY** — Poisson `boot_sd` median 0.0045, **always > 0**;
+  clustered (σ=1.15 *and* 1.8) `boot_sd` **exactly 0.00000, 40/40**. Zero overlap. It even catches **mild**
+  clustering that `I_rep`'s zero-floor misses entirely: **the rescued instrument is strictly more sensitive than the
+  one it rescues.** Corollary (free, no bootstrap): since `P(rail | true Poisson) ≈ 0.40` is *measured*, **excess
+  railing is a binomial test on banked scalars**. Result: **72.5% of the zoo's 20,801 `brody_q` values are railed**,
+  and **every neural substrate rejects Poisson** (allen-hpf-cell 4325/4326, buzsaki 99.4%, pvc-11 99.4%, hc3 94.8%,
+  ibl 86.7%, ret1 85.5% — all p < 1e-64, robust even at a mis-specified P0 = 0.99). They had all been sitting in the
+  Poisson bin. The arithmetic substrates rail *below* chance (`brocot.fm` 4.8%) and are fine — **the damage is
+  concentrated exactly where clustering is the substrate's expected state. The instrument failed where the biology
+  lives.** (`phase32b/RAIL_AS_DETECTOR.md`.)
+
+  **(e) HAS TWO FACES — name the second or it gets rediscovered.** *Face 1: a censored instrument launders a NULL*
+  (the `I_rep` flat null). *Face 2: a censored instrument MANUFACTURES A CONFIRMATION* —
+  `phase36/falsification_calibrator.py:140,164` reads the repulsion axis's **silence** on the clustered side as a
+  **confirmed prediction** (*"ALL BL: near-Poisson transition INVISIBLE to both (taxonomy holds)"*), when the axis
+  is **constructed unable to leave BL there**. Same disease, opposite sign — **and the confirming direction is the
+  one nobody audits.** Arm (c) says a *gate* can launder a null; (e) says an *instrument* can launder a null **and
+  forge a confirmation**.
+
+  **The validation lesson in its strongest form (belongs beside (c)'s conjunction rule — same shape).** Not "add a
+  case outside the range," but: **probing at the endpoints of an instrument's reachable range cannot detect that the
+  range IS the bug. A gate built from the instrument's own vocabulary is a tautology with a PASS attached.**
+  `validate_fitters.py` was **structurally incapable of failing** — and it said **MANDATORY**. A test whose failure
+  mode is unreachable by construction is not a test.
+
   **The knowledge was already in the repo, filed in the wrong slot.** `cross_substrate/instrument_confound.py:64-78`
   *already annotates* `"I.8_brody_q": (0.0, 1.0),  # Brody q — 0 Poisson rail, 1 GUE rail` and cites *"the same
   railed-estimator trap as the KPM-floor lesson."* But it was scoped **only to perturbation-sensitivity** (an axis
