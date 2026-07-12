@@ -375,6 +375,30 @@ The durable methodology — apply these regardless of substrate:
   matched the pre-committed lean. A disjunctive trigger would have retracted a possibly-real α-arithmetic effect.
   `phase38/PHI_CONTAMINATION_PREREG.md`.)
 
+  **(c-companion) UNRESOLVED must be a waypoint, never a berth — the load-bearing correction to (c).** Arm (c)
+  opens a safe harbor (partial satisfaction routes to UNRESOLVED rather than a pole). The exploit it opens is that
+  **the harbor becomes a permanent hedge**: an UNRESOLVED that names nothing is unfalsifiable, costs nothing, and
+  can be re-declared forever — indefinite deferral laundered as rigour. That is *precisely* the (c) failure one
+  level up: skepticism is not a free action, and **neither is suspending judgement**. So UNRESOLVED is only a
+  verdict if it ships with both:
+  1. **The named gap** — the specific reason the trigger was only partly satisfied (which leg failed, and why).
+  2. **The named closer** — the specific, pre-registered measurement that would resolve it, with its instrument
+     fixed in advance (so the closer cannot be quietly re-specified into reach).
+
+  An UNRESOLVED lacking either is not a verdict; it is an evasion, and should be forced to a pole or to an
+  explicit "abandoned — not worth the closer."
+
+  *Self-test, already passed (the worked example is the exhibit above).* The Phase-35a φ contamination close
+  banks **INCONCLUSIVE at accessible scale — neither retracted nor vindicated**, and it is admissible under this
+  clause because it names both: **gap** = the finite-L `unfold_rotnum` W1δ proxy cannot reach the `N=F₂₄=46368`
+  regime where the real under-resolved window lives (the accessible-N proxy has none, and its own numerical
+  degeneracy is documented — 0.0000 floor at L≤300, spurious uniform 0.333 at L≈1.5N); **closer** = reproduce
+  `aa33e44`'s exact §4/C2 contamination-ratio machinery at `N=F₂₄` on the α-ladder (φ@F₂₄, √2@Pell-near 33461,
+  e@non-convergent as the clean dark null), **reproducing the ratio definition exactly — no re-proxy**. Note the
+  instrument is pinned *in the closer itself*: the temptation under fatigue is not to run it badly but to
+  re-proxy "just to check," which silently swaps the instrument at the one N where instrument identity *is* the
+  experiment. A closer that does not pin its instrument is not a closer. (`phase38/PHI_CONTAMINATION_PREREG.md`.)
+
   **Also fix the scale.** A threshold must declare whether it applies to *observed* (attenuated) or *true*
   (disattenuated) R². An observed-scale threshold is not comparable across metrics of differing ρ. (Phase 27 used
   `ORTHOGONAL < 0.3`, Phase 32b used `< 0.20` while claiming to replicate it; neither named a scale.)
