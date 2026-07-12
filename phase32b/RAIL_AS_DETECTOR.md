@@ -484,3 +484,79 @@ strictly inside the bounds alongside the values themselves. Brody: **25.2 %**. B
 larger interior is itself informative — **ρ has a genuine interior null, so it degrades more
 gracefully.** This is a free, permanent diagnostic, and it would have made all of this visible **at a
 glance, years earlier.**
+
+---
+
+## 16. THE LADDER DIES ON A CHANGE OF DOMAIN — the bottom rung is the CV-16 drift artifact
+
+**My §14 "observable-alignment ladder" reframing is FALSIFIED.** (Flagged provisional; it was worse.)
+
+**The tautology check first (it clears):** `I13_lv` (`axes.py:228`) is a **consecutive-pair** statistic
+(`mean 3((Iᵢ−Iᵢ₊₁)/(Iᵢ+Iᵢ₊₁))²`); `burst_frac` is `mean(ISI < 10 ms)` — a **marginal** statistic, no
+adjacency. **Not definitional.** But the classification it forces is the whole finding:
+
+| axis | domain |
+|---|---|
+| `burst_frac`, `CV`, `ks_gue`, `ks_poisson` | **MARGINAL** |
+| `LV`, `CV2` | **CONSECUTIVE-PAIR** |
+
+### The 2×2 — ρ(axis, burst)
+
+| substrate | CV | ks_gue | ks_pois | **↑MARGINAL** | CV2 | LV | **↑PAIR** |
+|---|---|---|---|---|---|---|---|
+| hc3-port-cell | +0.552 | **+0.697** | +0.733 | | +0.434 | +0.461 | |
+| ret1-cell | +0.518 | **+0.529** | +0.522 | | +0.336 | +0.418 | |
+| dr-port-cell | +0.233 | **+0.389** | +0.484 | | +0.426 | +0.445 | |
+| **allen-hpf-cell** | **+0.036** | **−0.277** | **+0.005** | | **+0.524** | **+0.540** | |
+
+**Allen-HPF is the ONLY substrate whose MARGINAL axes are dead while its PAIR axes are alive — and on
+the pair axes it is at the TOP, not the bottom. The ladder does not reorder. It INVERTS.**
+On rate-robust axes there is **no ladder at all**: CV2 = 0.52 / 0.43 / 0.43 / 0.34 — a flat band.
+
+### The mechanism, confirmed directly — and the repo named it by number
+
+`I12_cv2` docstring, verbatim: *"robust to SLOW rate drift (adjacent ISIs see ~the same rate) — so it
+isolates FAST burst-clustering from the **slow rate-nonstationarity / epoch-gap concatenation that
+inflates global CV**." — Added Phase 37 (**the CV-16 artifact fix**).*
+
+Poisson has CV = 1 **and** LV = 1. Slow drift inflates the **global CV** but **not** the rate-robust LV:
+
+| substrate | **med CV** | med LV | **CV/LV** |
+|---|---|---|---|
+| **allen-hpf-cell** | **16.21** | 1.20 | **13.49** |
+| dr-port-cell | 2.38 | 1.26 | 1.88 |
+| hc3-port-cell | 1.92 | 1.38 | 1.39 |
+| ret1-cell | 1.35 | 1.19 | 1.13 |
+
+**Allen-HPF's global CV is 16.2. That IS "CV-16."** Phase 37 identified it, named it, and built CV2/LV
+to fix it — **and the ladder was never rebuilt on the fixed axes.** Hippocampal formation has exactly
+the expected generator: sleep/wake and theta/SWR state mixtures ⇒ the **marginal** spacing
+distribution is a mixture across rate epochs ⇒ every marginal axis is contaminated, while the true
+burst coupling (visible to the pair axes) is **entirely normal, indeed the strongest in the zoo.**
+
+### WHY THE POLE TEST MISSED IT — arm (e), one level up
+
+**`ks_gue` and `ks_poisson` are BOTH marginal statistics.** Changing the **pole** while staying in the
+**same domain** cannot detect a **domain-level** contaminant. The ladder survived a change of pole and
+**died on a change of domain**.
+
+> **This is arm (e)'s lesson at the level of an ANALYSIS rather than an ESTIMATOR: probing within the
+> instrument's own vocabulary cannot detect that the vocabulary is the bug.** The two-pole test was
+> *the right instinct executed inside the broken frame* — and it returned a reassuring PASS.
+
+### Scope — do NOT overclaim
+
+- **The BOTTOM RUNG is a drift artifact: ESTABLISHED** (CV=16.2; marginal axes dead, pair axes
+  top-of-class; mechanism named in the repo).
+- **"The WHOLE ladder is a drift gradient": NOT ESTABLISHED.** Spearman(ladder ρ, CV/LV) = **−0.80,
+  p ≈ 0.20, n = 4 substrates** — suggestive, **underpowered**. Bank as a hypothesis with a named
+  closer: rebuild the ladder on CV2/LV across **all** substrates with burst, and test whether any
+  gradient survives.
+- **What IS established:** the substrate-relativity ladder as banked (ρ(ks_gue, burst)) **does not
+  survive the domain change**, and its bottom rung is an instrument artifact the project had already
+  diagnosed.
+
+**FIFTH instance of [[knowledge_does_not_propagate]] — and the most expensive one yet, because it is
+load-bearing for the cross-substrate programme.** Phase 37 banked *"CV-16 was a drift artifact;
+rate-robust CV2/Lv reveal the real gradient"* — and the ladder, the programme's headline
+cross-substrate claim, was left standing on the contaminated axis.
