@@ -414,6 +414,53 @@ The durable methodology — apply these regardless of substrate:
   re-proxy "just to check," which silently swaps the instrument at the one N where instrument identity *is* the
   experiment. A closer that does not pin its instrument is not a closer. (`phase38/PHI_CONTAMINATION_PREREG.md`.)
 
+  **(e) Instruments launder nulls too — an estimator whose support boundary coincides with the null value cannot
+  discriminate the null.** Arms (b)/(c) govern *gates*: reliability laundering a relational claim, triggers
+  laundering a retraction. **(e) governs the instrument underneath them.** The gate can be perfectly designed,
+  pre-registered, conjunctive — and still read zero, because the *estimator* cannot represent the alternative.
+
+  **Corollary (this is the one that fires in practice): a flat null against a censored estimator is uninterpretable
+  in the direction of the censoring — it is exactly what saturation looks like.** Everything past the boundary is
+  mapped *onto* the null, so "we measured the null" and "we measured far past the null" return the same number.
+  Absence-of-effect and maximal-effect are the same reading. No amount of statistical care downstream recovers the
+  distinction; the information was destroyed at the estimator.
+
+  **Exhibit 1 — `I_rep`, the repulsion integral (`arithmetic_toolkit.py:507`).**
+  `I_rep = trapezoid(np.maximum(0, 1 − R₂), r)` — the clip makes the negative branch **unreachable**, while its own
+  docstring (line 494) advertises *"negative → clustering."* The floor sits **exactly at the Poisson value**
+  (R₂≡1 ⟹ integrand≡0). So **all clustering is mapped onto Poisson** — and the quadrant classifier (line 789) then
+  reads `rep < 0.10 → BL`, whose docstring (line 734) names that class **"Poisson noise."** `BL` is a **collapse
+  class named after one of the two things it collapses.** Confirmed against ground truth *we ourselves banked*:
+  GOES solar flares — a known-clustered SOC process, established as clustered in our own SOC phase, which even
+  recorded *"one-sided fitters blind to super-Poisson"* — read **`rep_int_q` = 0.000 → BL → "Poisson noise."**
+  Exactly 0.000 is the floor, not a measurement. Two facts sat in this repo un-collided.
+  **Exhibit 2** — those same SOC one-sided fitters. Two independent instances, both self-audit, both in ARS's own
+  estimators. That is a **class, not a finding**.
+
+  **Standing sweep (mandatory on any new estimator).** Grep for `np.maximum(0,`, `np.clip(`, `abs()`/`**2` applied
+  to a **signed** quantity, and any one-sided or bounded fitter. For each: compare the implementation's **reachable
+  range** to the **docstring's claimed range** (same class as `phase24/loader.py:49` — a docstring advertising a
+  capability the code does not have), and **flag every case where the boundary of the reachable range is a
+  null/reference value.** A clip on a genuinely-non-negative quantity (a variance, a count, a KS statistic) is
+  fine — say so and move on. The lethal case is *floor == null*.
+
+  **Unclipping is necessary and NOT sufficient — the freed half-line is uncalibrated.** Removing the clip exposes a
+  range that has *never been observed*, so the values on it are **numbers without a sign convention**. Before any
+  substrate, run the calibrator zoo through the repaired estimator with anchors on **both** sides: a positive
+  anchor (Farey — hard gap at `s_min = 3/π²`, short-range repulsion stronger than any RMT class, must sit far above
+  the floor and pin the scale) **and a known-clustered negative anchor** (Cox / Neyman–Scott / bursty gamma).
+  A repaired estimator with one anchor is still not an instrument.
+
+  **Reliability does not detect censoring — and here it pointed the wrong way.** A censored axis can be measured
+  *perfectly reliably*; **reliably measuring a floor is still measuring a floor.** Leg 1 cannot see this, which is
+  why (e) is not a special case of (b). The tempting dual — *"censoring is the signature of spurious reliability,
+  as decorrelation is of unreliability"* — was **tested on `rep_med` and DID NOT FIRE**: ρ on the uncensored subset
+  (`>0` in all 5 windows) **rose**, 0.892 → 0.909; the banked 0.921 stands. A floor inflates ρ only when the point
+  mass is large **and the positive half is noisy**; here the positive half was genuinely reliable, and the
+  partially-censored cells *depressed* ρ. **Bank the dual with its precondition — measure both before invoking it.**
+  The real lesson is sharper and more uncomfortable: **reliability and validity came apart cleanly, and the
+  admissibility gate cannot see the difference.**
+
   **Also fix the scale.** A threshold must declare whether it applies to *observed* (attenuated) or *true*
   (disattenuated) R². An observed-scale threshold is not comparable across metrics of differing ρ. (Phase 27 used
   `ORTHOGONAL < 0.3`, Phase 32b used `< 0.20` while claiming to replicate it; neither named a scale.)
