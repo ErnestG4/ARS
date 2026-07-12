@@ -68,18 +68,32 @@ def sample_clustered_extreme(n: int, seed: int) -> np.ndarray:
 # **the two endpoints of the fitters' own `bounds=(0.0, 1.0)`**.  A boundary-RAILING bug is
 # structurally invisible to a harness that probes only at the boundaries: the gate PASSED while
 # `I8_brody_q` / `I9_berry_robnik_rho` were mapping every clustered substrate onto the Poisson
-# value.  Probing only at the rails cannot detect railing.  A validation suite must include at
-# least one case whose TRUE value lies OUTSIDE the fitter's reachable range.
+# value.  Probing only at the rails cannot detect railing.
 #
-# The two cases below are exactly that: super-Poisson data, whose true Brody q is NEGATIVE and
-# therefore unrepresentable.  They are EXPECTED TO FAIL until the fitters' lower bound is opened
-# (and the freed half-line calibrated).  A FAIL here is the gate working, not the gate broken.
+#   A VALIDATION SUITE MUST PROBE OUTSIDE **EVERY** BOUNDARY OF THE REACHABLE RANGE, NOT ONE.
+#
+# In Brody, q is the level-repulsion exponent β:  P_q(s) ∝ s^q exp(−b s^(q+1)).
+#     Poisson → q=0   |   GOE → q=1   |   GUE → q≈2   |   GSE → q≈4
+# So `bounds=(0.0, 1.0)` is not a numerical convenience — it is a MODEL ASSERTION that the
+# substrate lies between Poisson and GOE.  BOTH ends are censored:
+#   - below 0: all clustering (super-Poisson)  → dumps onto the POISSON value
+#   - above 1: GUE and GSE                     → dumps onto the GOE value
+# The zoo shows both: 72.5% of banked brody_q sit at the lower bound, 2.4% at the upper; only
+# 25.2% of cells carry a measurement at all.  A "bimodality at the bounds" is a railing
+# histogram, not a substrate property.
+#
+# The four out-of-range cases below are EXPECTED TO FAIL until the bounds are opened (and the
+# freed ranges calibrated).  A FAIL here is the gate working, not the gate broken.
 CASES = [
     ("poisson",           sample_poisson,          0.0, 0.0, 0.15),
     ("goe",               sample_goe,              1.0, 1.0, 0.20),
-    # --- out-of-range probes (arm (e)); q_true < 0, currently unrepresentable ---
+    # --- BELOW the lower bound (arm (e)); q_true < 0, unrepresentable ---
     ("clustered",         sample_clustered,        -0.30, -0.30, 0.20),
     ("clustered_extreme", sample_clustered_extreme, -0.60, -0.60, 0.25),
+    # --- ABOVE the upper bound (arm (e), symmetric); q_true ≈ 2 and ≈ 4, unrepresentable.
+    #     THIS is the case that exposes the top rail: a GUE substrate is indistinguishable from
+    #     GOE, so ζ-zeros reading q=0.9999 means only "≥ GOE" — NOT "GUE". ---
+    ("gue",               sample_gue,               2.0, 2.0, 0.30),
 ]
 N_SYNTH = 4000
 SEEDS = (0, 1, 2)

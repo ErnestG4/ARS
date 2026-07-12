@@ -305,3 +305,102 @@ a **structural null the data itself generates**, per substrate, through the *act
 **Bank `allen-hpf-pop` / `buzsaki-port-pop` / `population-strat` / `population-fingerprint` as
 calibration rows, not merely as controls** — they are the in-repo answer to *"this is what Poisson
 looks like through this instrument, on this data."*
+
+---
+
+## 11. THE TOP RAIL — my §7(c) was half-right, and the ζ leg is artifactual too
+
+**Brody's `q` is the level-repulsion exponent β**, `P_q(s) ∝ s^q exp(−b s^(q+1))`
+(`axes.py:140` docstring: *"q=0 → Poisson; q=1 → Wigner **GOE**"*):
+
+| class | true q |
+|---|---|
+| Poisson | 0 |
+| **GOE** | **1** ← the upper bound |
+| **GUE** | **≈ 2** ← **UNREACHABLE** |
+| GSE | ≈ 4 ← unreachable |
+
+**`bounds=(0.0, 1.0)` censors BOTH ends.** Clustering dumps onto the Poisson value; **GUE and GSE
+dump onto the GOE value.**
+
+**Therefore the L-zeros "bimodality" is the fitter's two bounds.** Modes at 0.0001 and 0.9999 are
+**not a substrate property — they are a histogram of where a bounded optimizer parks.** I retracted
+the Dirichlet/EC leg (§7c); **the ζ leg must go too.** `zeta-low-height-bulk` = 0.9999,
+`zeta-mid-height` = 0.9999, BR_ρ = 0.9985 — **top rails.**
+
+**And this is the purest arm-(d) trap in the project, because the top rail happens to be RIGHT.**
+ζ zeros *really are* GUE (Montgomery–Odlyzko), and `ks_gue` = 0.027 confirms it on a **safe** axis.
+So: **a railed estimator returned the correct verdict, was corroborated by a sound axis, and the
+corroboration is exactly why the rail was never noticed.** *A right answer from a railed instrument
+is still a rail.* **`q = 0.9999` means "≥ GOE" and nothing more** — it cannot separate GOE from GUE
+from GSE. Verified: the *correct* inverse-transform GUE reference reads **q = 0.9999**; GOE reads
+**0.9886**. Indistinguishable.
+
+### Free zoo-wide diagnostic (no compute): endpoint mass
+
+| axis | at LOWER bound | at UPPER bound | **INTERIOR (carries a measurement)** |
+|---|---|---|---|
+| `I.8_brody_q` (n=20,801) | **72.5 %** | 2.4 % | **25.2 %** |
+| `I.9_berry_robnik_rho` (n=20,631) | 35.6 % | 0.6 % | 63.8 % |
+
+**Only a quarter of the zoo's `brody_q` cells carry a measurement at all.**
+
+> **Standing rule: histogram every bounded axis. Mass at a bound is a railing signature; bimodality
+> at the bounds is a railing signature wearing a finding's clothes.**
+
+## 12. SELF-CORRECTION — the broken RMT reference was MINE, not the repo's
+
+The escalation "your RMT calibrators are broken ⇒ the zoo's repulsive pole is mis-anchored" was a
+sound inference from my reported numbers (GOE reading CV=0.62, q=0.489 — both under-repulsive), **but
+it does not hold against the repo.** Measured:
+
+| reference | CV | brody_q | |
+|---|---|---|---|
+| `validate_fitters` inverse-transform **GOE** | **0.525** (true 0.523) | **0.9886** | ✅ correct |
+| `validate_fitters` inverse-transform **GUE** | **0.424** (true 0.42) | **0.9999** | ⚠️ top rail |
+| **my ad-hoc session sweep** (eigvals / global mean) | **0.723** | **0.5819** | ❌ **broken — mine** |
+| eigvals + semicircle unfold | 0.543 | 0.9203 | ✅ correct |
+
+`validate_fitters` samples by **inverse transform from the exact GOE/GUE NNS CDF** — no density
+gradient, nothing to unfold. **Its PASS is not vacuous** (0.9886 vs expected 1.0). `sessionK/
+calibrator_zoo.py` unfolds properly (`st.unfold_poly(gen_gue())`). **The zoo's repulsive pole is
+correctly anchored.**
+
+**I generated eigenvalues and normalized by the GLOBAL mean, leaving the Wigner-semicircle gradient
+in** — a density mixture ⇒ super-Poisson contamination ⇒ depressed q, inflated CV. **This is exactly
+the mechanism I had hypothesized for the Dirichlet/EC cells, running in my own synthetic.**
+
+**And the repo had already found this bug.** `fix_gue_generator.py`, header, verbatim: *"the
+'unfolding' step … just divides eigenvalues by the **GLOBAL mean spacing** — but the bulk density …
+follows the Wigner semicircle … Without proper local unfolding the resulting frequencies have
+non-stationary spacing and don't follow Wigner surmise."* Symptom recorded there: **super-Poisson
+Fano F ≈ 2.10.** *Third time the knowledge was already in the repo and the failure was to apply it.*
+
+**What this does NOT touch** (all three independent of any RMT reference):
+- **The census stands.** Its null is **Poisson**, which has **no density structure to unfold** — the
+  mechanism that corrupted my RMT samples **cannot touch it**. P(rail|Poisson) is measured on the
+  honest end of the axis. Neural cells 95.7–100 % railed, undecimated, at P₀ = 0.60.
+- **Decimation-immunity stands**, and on mechanism (`sp[::k]` preserves the **marginal**; Brody is a
+  **marginal** fitter) — **substrate-independent**, so it holds whether or not my test sample was
+  truly GUE.
+- **Palm–Khintchine stands**, and is now doing more work than anything else here: it is the one
+  calibrator that comes from **a theorem about the data**, not from a synthetic generator I might
+  have unfolded wrong.
+
+## 13. SCOPE STATEMENT — Brody-with-those-bounds is not a discovery axis
+
+`bounds=(0.0, 1.0)` is **a model assertion**: *"this substrate lies between Poisson and GOE."*
+Everything below (clustering) and everything above (GUE, GSE) is **unrepresentable by construction**.
+
+**ARS exists to find and certify universality classes — including ones outside the known corridor.
+An instrument that can only speak inside the segment it assumes cannot do that job.**
+**Brody-with-those-bounds is a within-corridor interpolator, not a discovery axis.** This is not a bug
+to patch; it is a **scope statement**, and it belongs in the doctrine next to arm (e).
+
+*The existence proof that the corridor is the wrong prior is already banked:* the **Farey
+certification** — hard gap at `s_min = 3/π²` plus a Poisson tail — **sits outside every RMT class.**
+The project has already certified a class the corridor cannot express.
+
+**Gate repaired symmetrically** (`validate_fitters.py`): added `gue` (q_true ≈ 2, **above** the upper
+bound) alongside `clustered`/`clustered_extreme` (**below** the lower). It now correctly **FAILS** —
+GOE 0.9875 (PASS) vs GUE 0.9999 (FAIL, expect 2.0): **indistinguishable, exactly as predicted.**

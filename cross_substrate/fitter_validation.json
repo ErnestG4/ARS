@@ -81,6 +81,25 @@
       ],
       "br_rho_pass": false,
       "tol": 0.25
+    },
+    "gue": {
+      "expected_q": 2.0,
+      "brody_q_mean": 0.9999338930386482,
+      "brody_q_per_seed": [
+        0.9999,
+        0.9999,
+        0.9999
+      ],
+      "brody_q_pass": false,
+      "expected_rho": 2.0,
+      "br_rho_mean": 0.9975256057996633,
+      "br_rho_per_seed": [
+        0.9975,
+        0.9975,
+        0.9975
+      ],
+      "br_rho_pass": false,
+      "tol": 0.3
     }
   },
   "all_pass": false,
