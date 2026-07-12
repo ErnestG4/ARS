@@ -609,3 +609,61 @@ calibration; here the calibration came first.
 > and **`BL-interior` (a weak-repulsion measurement)**. A verdict class whose members are 79 % "the
 > instrument ran out of range" and 21 % "a real reading" is not a class — it is a **bin**, and its name
 > ("Poisson noise") is **wrong for four out of five of its members.**
+
+---
+
+## 18. ERROR BARS ON THE FLAT BAND — "is it flat, or four numbers that happen to be close?"
+
+**ANSWER: NEITHER. It is a REAL but NARROW band.** Bootstrap 95 % CIs (2000 resamples) + Fisher-z
+heterogeneity:
+
+| axis | span | Q (df=3) | p | I² |
+|---|---|---|---|---|
+| `ks_gue` (**marginal**, the old ladder) | **0.974** (−0.277 → +0.697) | **1364.1** | ~0 | 100 % |
+| `LV` (**pair**) | **0.122** (+0.418 → +0.540) | **25.4** | 1.3e-05 | 88 % |
+| `CV2` (**pair**) | 0.188 (+0.336 → +0.524) | 34.0 | 2.0e-07 | 91 % |
+
+**It is NOT flat** (homogeneity rejected, p ≈ 1e-5) — with n=4358 even tiny true differences are
+detectable, which is why I² stays high. **But the DYNAMIC RANGE collapses ~8×.**
+
+> **The old ladder's span was ~87 % contaminant.** What remains is a **real, small gradient running
+> the OTHER WAY**: **allen > hc3 > dr > ret1**, consistent across **both** rate-robust axes.
+
+**So it is not a candidate invariant.** It is **a different, much smaller ladder, in the opposite
+direction.** (Retract the "flat band / candidate invariant" reading before it is quoted.)
+
+### The predictor-side confound — raised, MEASURED, defused
+
+`burst_frac = mean(ISI < 10 ms)` is an **absolute threshold**, so a high-rate cell scores high
+regardless of burstiness — and Allen-HPF is exactly the substrate with CV/LV = 13.5. **The residual
+ordering could be the same artifact entering through the PREDICTOR instead of the axis.** Measured:
+
+| substrate | **ρ(burst, RATE)** | ρ(LV, burst) | **partial ρ(LV, burst \| rate)** |
+|---|---|---|---|
+| allen-hpf-cell | **+0.028** | +0.540 | **+0.770** |
+| dr-port-cell | +0.197 | +0.445 | **+0.688** |
+| hc3-port-cell | **+0.053** | +0.461 | **+0.646** |
+| ret1-cell | +0.156 | +0.418 | **+0.606** |
+
+**`burst_frac` is NOT rate-contaminated** (ρ ≤ 0.20 everywhere; 0.028 at Allen, the worst-drift
+substrate). And **controlling for rate makes the coupling STRONGER** (0.61–0.77) with the **ordering
+intact**. **The residual gradient survives rate-control.** Confound raised, measured, defused — *not
+assumed away.*
+
+### What is now standing where the ladder was
+
+**A real, rate-robust, burst ↔ pair-structure coupling in all four neural substrates (ρ ≈ 0.61–0.77
+partialled on rate), with a small residual gradient running opposite to the retracted ladder.**
+
+The clean separation this implies — **worth stating, worth testing, NOT yet established**:
+- **burst → PAIR-structure coupling**: strong, narrow-band across hippocampus, retina, V1, HPF ⇒
+  **candidate biology**.
+- **burst → MARGINAL coupling**: entirely a function of how nonstationary the recording is ⇒
+  **rig-and-behaviour, not tissue**.
+
+**Named closer for the open hypothesis** (*"the whole ladder is a drift gradient"*, Spearman −0.80,
+**p ≈ 0.20, n = 4 — underpowered**): rebuild the ladder on CV2/LV across **all** substrates carrying
+`burst`, and regress the ordering on CV/LV. **If the ordering is predicted by CV/LV, the ladder was a
+RECORDING-QUALITY RANKING** — and it will reproduce in any lab's data as a function of **session
+length and behavioural state, not tissue.** That is a falsifiable prediction about **other people's
+data**, which is the only kind that makes the discipline forkable.

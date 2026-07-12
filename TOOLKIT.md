@@ -500,6 +500,38 @@ The durable methodology — apply these regardless of substrate:
   `validate_fitters.py` was **structurally incapable of failing** — and it said **MANDATORY**. A test whose failure
   mode is unreachable by construction is not a test.
 
+  **(e) POSITIVE FORM — THE ESCAPE IS A CHANGE OF DOMAIN, NOT A CHANGE OF PARAMETER.** "Probe outside the
+  reachable range" says what is *forbidden*; this says **where to go**. **A robustness check drawn from the
+  instrument's own vocabulary certifies the vocabulary, not the finding.** Exhibit — **the two-pole test**: to
+  test whether the substrate-relativity ladder was an artifact of its reference pole, we re-ran it on
+  `ks_poisson` instead of `ks_gue`. The ordering survived; the check **PASSED**. But **`ks_gue` and
+  `ks_poisson` are BOTH MARGINAL statistics** — *changing the pole while staying in the domain cannot detect a
+  domain-level contaminant.* The ladder then **died instantly on a change of domain** (marginal → consecutive-
+  pair): Allen-HPF's ρ(ks_gue,burst) = **−0.277** but ρ(LV,burst) = **+0.540** — dead on every marginal axis,
+  **top of the zoo** on the pair axes, because its global CV is **16.2** (CV/LV = 13.5 — *the Phase-37 "CV-16"
+  drift artifact, already diagnosed and fixed, and never applied to the headline it was built for*).
+  **The right instinct, correctly executed, inside the broken frame — returning a reassuring PASS.**
+  Every real escape this session was a **domain change**; every check that stayed in-domain passed and was
+  wrong. The three that worked: **marginal → pair**; **location → dispersion** (the CI-at-a-rail inversion);
+  **point estimate → interior fraction**.
+
+  **LEGITIMATE CORROBORATION — the rule that survives arm (d).** Arm (d)'s trap is **corroboration
+  SUBSTITUTING for calibration** (ζ's top rail "confirmed" by a safe axis; the artifact welded into the ledger
+  by a genuine neighbour). The legitimate case is the exact inverse: **calibrate each instrument against
+  ground truth FIRST, and only then let agreement count as evidence.** Exhibit — `pvc-11` reads **CLUSTERED**
+  on **two independent censored axes**: `I_rep` exact-zero (80.2 % of its BL cells; 0/200 false positives on
+  the n-matched Poisson null) and the **Brody lower rail** (99.4 %; conservative P₀=0.60; decimation-immune by
+  mechanism). **Different censoring mechanisms** (pointwise integrand clip vs optimizer bound) on **different
+  statistics**, each **separately validated before comparison** — plus a third line from the rate-robust
+  CV2/LV coupling. **That is two instruments, not one instrument twice.**
+
+  **A FIX IS NOT LANDED UNTIL EVERY CLAIM THAT DEPENDS ON THE BROKEN AXIS HAS BEEN RE-RUN.** Building the
+  replacement estimator is the easy half; **the hard half is the recompute list.** The CV-16 case is the
+  strongest form of the filing failure and its own remedy: a fix that was **written, tested, and named**, then
+  **not applied to the headline it was built for.** Standing artifact: **`ESTIMATOR_CLAIM_PROVENANCE.md`** —
+  a maintained estimator→claim table. When an estimator changes, **every claim in its row is presumed STALE
+  until re-run.** This is the structural fix for a failure that **vigilance lost five times.**
+
   **The knowledge was already in the repo, filed in the wrong slot.** `cross_substrate/instrument_confound.py:64-78`
   *already annotates* `"I.8_brody_q": (0.0, 1.0),  # Brody q — 0 Poisson rail, 1 GUE rail` and cites *"the same
   railed-estimator trap as the KPM-floor lesson."* But it was scoped **only to perturbation-sensitivity** (an axis
