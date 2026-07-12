@@ -213,3 +213,95 @@ by construction.*
 its estimator. If it came through Brody/BR/`I_rep`, it is **not merely uncertified — it is in the
 direction the rail manufactures**, and the substrates most likely to be misfiled there are **the most
 clustered ones.** Same rank inversion as BL, one level up.
+
+---
+
+## 7. The pivot trace — three claims, and a correction to my own path claim
+
+**Target found.** The claims resting on the railed axes are in `cross_substrate/findings_log.md`
+§P2 / viewpoint-dependence / L-zeros caveat — all on the **Brody q × BR ρ** plane. Per-claim, with
+the corroboration structure recorded (arm (d)):
+
+### (a) "pvc-11 forms an arc hugging the Poisson axis" — **INVERTED, not merely uncertified**
+pvc-11 is **99.4 % railed**. The arc *is* the rail. The census says pvc-11 is **CLUSTERED**. The
+banked claim states the opposite of the measurement.
+
+### (b) "pvc-11 and Mertens/Liouville COLLAPSE together at the Poisson corner (all q≈0, ρ≈0), but W1δ separates them sharply" — **the exhibit is MANUFACTURED**
+They did not *collapse together*. **They were both censored onto the same bound.** Two substrates
+sitting on a rail are not "alike"; they are **both unmeasured**. And W1δ "separating them" is simply
+the *uncensored* axis doing its job.
+
+**The lesson drawn (carry many viewpoints) is RIGHT. The exhibit for it is an ARTIFACT.** This is the
+purest arm-(d) instance yet: *a real conclusion, corroborated into the ledger by a broken exhibit* —
+and the agreement between the two viewpoints is exactly why nobody looked again.
+
+### (c) "L-zeros is internally bimodal: ζ cells GUE (q=1), Dirichlet/EC cells Poisson-leaning (q≈0)" — **a property of the CONSTRUCTION, not of L-functions**
+
+Katz–Sarnak: Dirichlet and EC L-functions are **GUE in the bulk**. They cannot be Poisson-leaning.
+And the **uncensored** axis agrees they are not GUE *as constructed*:
+
+| cell | brody_q | **ks_gue (SAFE)** |
+|---|---|---|
+| zeta-low-height-bulk | 0.9999 | **0.027** ✓ |
+| dirichlet-real-Sp | **0.0001** railed | **0.3042** ✗ |
+| ec-root-plus-SO-even | **0.0001** railed | **0.2928** ✗ |
+
+**The repo contains two constructions of EC L-zeros that disagree**, and the disagreement is the
+proof:
+
+| construction | ks_gue | reading |
+|---|---|---|
+| RESULTS.md cross-signal *LMFDB EC L-functions* (n=10,000) | **0.036** | **TR — GUE** ✓ |
+| coordinates cell `ec-root-plus-SO-even` | **0.2928** | railed → "Poisson corner" |
+
+**Same substrate; one is broken; theory says which.** The coordinate cells are pooled-by-symmetry-type
+objects (`dirichlet-real-Sp`, `ec-root-plus-SO-even`) whose marginal is far from GUE on an axis that
+*cannot* be blamed on the rail. **Mechanism (hypothesis, testable, NOT established):** imperfect
+per-conductor unfolding leaves residual density variation ⇒ mixture ⇒ super-Poisson ⇒ rails.
+(`phase34c` already flagged a *"pooling-null gap"*.) **The bimodality must not be quoted as a fact
+about L-functions.**
+
+## 8. CORRECTION to my own claim — "Brody is not on the decimating path" was TOO BROAD
+
+It is **path-dependent per substrate.** `pvc-11` and the arithmetic L-zeros cells **are** on the
+`ARS joint_q_profile` / `JPF_CAP=1500` path, and their `extraction_audit` shows savage decimation:
+`ec-root-plus-SO-even` **134,848 → 1,517 (stride ≈ 88)**; `dirichlet-real-Sp` 18,993 → 1,584
+(stride ≈ 12); `zeta-low-height-bulk` 10,000 → 1,668 (stride ≈ 6). The neural cell substrates are
+*not* on it (no `extraction_method`, and their banked `n` runs to 557,142 — i.e. `n` is the **raw,
+pre-decimation** count, so the `n ≤ 1500` control was valid).
+
+**But the census survives regardless, on a stronger footing than the control:**
+
+> **STRIDE DECIMATION CANNOT RAIL BRODY — BY MECHANISM.** `sp[::k]` **subsamples spacings**, so the
+> **marginal is preserved**. Decimation destroys **correlations**; Brody is a **marginal** fitter.
+> Measured on GUE ground truth: q = 0.246 (stride 1) → 0.230 (2) → 0.201 (12) → **0.248 (stride 48)**.
+> **GUE stays GUE at stride 48.**
+
+⇒ The census is **decimation-immune by mechanism**, which also covers `pvc-11` and the `qpo-*` /
+`lambda-star` cells that bank no `n` and were silently outside the n≤1500 control. And ⇒ the
+Dirichlet/EC rail is **not** decimation — it is the construction (§7c).
+
+*This also sharpens the Farey result rather than contradicting it: Farey said decimation is
+**correlation-specific** and leaves **the marginal untouched**. Brody being immune is that same fact,
+observed on a second estimator. The two audits agree.*
+
+## 9. `s < 10.0` is a DIFFERENT disease — dynamic-range, not null-collapsing
+
+`I8_brody_q:150` discards every spacing > 10× the mean. This does **not** threaten a CLUSTERED verdict
+(it is applied to null and data alike, and the rail survives it). What it does is **cap the dynamic
+range of every clustering MAGNITUDE measured on a repaired axis**: an unclipped signed integral run on
+truncated spacings **cannot see how clustered anything is beyond 10× mean**, so any ladder rebuilt on
+it would sit on a **compressed scale**.
+**Backfill spec item (not a retraction):** the unclipped recompute must **also lift the `s<10`
+truncation, or measure its effect.** Cheap pre-check: *what fraction of spacings does it discard, per
+substrate?* If it is 0.1 % on arithmetic and 5 % on hc-3, the truncation is **substrate-dependent** and
+any ladder inherits that dependence.
+
+## 10. Palm–Khintchine is the negative-side anchor — bank the pooled arms as CALIBRATION ROWS
+
+The clustered→Poisson transition is exactly the leg the calibrator zoo lacked (§4's demand for a
+Cox/Neyman–Scott negative anchor). **The pooled arms supply it for free, and better than synthetic:**
+a **structural null the data itself generates**, per substrate, through the *actual* instrument.
+**Bank `allen-hpf-pop` / `buzsaki-port-pop` / `population-strat` / `population-fingerprint` as
+calibration rows, not merely as controls** — they are the in-repo answer to *"this is what Poisson
+looks like through this instrument, on this data."*
