@@ -667,3 +667,67 @@ The clean separation this implies — **worth stating, worth testing, NOT yet es
 RECORDING-QUALITY RANKING** — and it will reproduce in any lab's data as a function of **session
 length and behavioural state, not tissue.** That is a falsifiable prediction about **other people's
 data**, which is the only kind that makes the discipline forkable.
+
+---
+
+## 19. Standardized effect size, and the predictor-comparability residual that cost me the headline
+
+### (a) Demotion or inversion? — **BOTH**, and the premise for "scale artifact" doesn't apply
+
+The proposed standardizer (within-substrate SD of the axis) is **the wrong one for a correlation.**
+We are comparing spans of **Spearman ρ**, which is **already unit-free AND monotone-invariant** — LV's
+narrow natural range **cannot** compress ρ(LV, burst), because Spearman sees only ranks. The right
+standardizer is the **sampling SE of ρ** (Fisher-z):
+
+| axis | ρ span | Fisher-z span | **gradient in SE units** | ordering |
+|---|---|---|---|---|
+| `ks_gue` (marginal) | 0.975 | 1.147 | **35.0 SE** | hc3 > ret1 > dr > allen |
+| `LV` (pair) | 0.123 | 0.160 | **4.9 SE** | **allen > hc3 > dr > ret1** |
+| `CV2` (pair) | 0.189 | 0.233 | **7.1 SE** | **allen > hc3 > dr > ret1** |
+
+**The ~7× collapse SURVIVES standardization.** So it is **both, not either/or**: a real **demotion in
+magnitude** (35 SE → 5 SE) *and* a **rank inversion**. The pair gradient is **real** (4.9 SE is not
+noise) — it is simply **small**, and it points the other way. *The demotion applies to the OLD ladder;
+the new one is small but genuine.*
+
+### (b) THE PREDICTOR IS NOT THE SAME STATISTIC ACROSS SUBSTRATES — and it costs me the headline
+
+`burst_frac = mean(ISI < 10 ms)` is an **absolute** threshold. Under Poisson, `P(ISI<10ms) =
+1 − exp(−rate·0.01)`:
+
+| substrate | med rate | mean ISI | **P(ISI<10ms) \| Poisson** | observed `burst_frac` | enrichment |
+|---|---|---|---|---|---|
+| ret1-cell | 6.36 Hz | 157 ms | **6.2 %** | 0.133 | 2.1× |
+| **hc3-port-cell** | **0.49 Hz** | **2021 ms** | **0.5 %** | 0.092 | **18.4×** |
+| dr-port-cell | 0.74 Hz | 1353 ms | 0.7 % | 0.068 | 9.7× |
+| allen-hpf-cell | 3.30 Hz | 303 ms | 3.3 % | 0.119 | 3.6× |
+
+**The 10 ms threshold is the 0.5th percentile in hc-3 and the 6.2nd in retina — a 12× difference.**
+**`burst_frac` is NOT the same statistic in each substrate**, so the cross-substrate ordering compares
+correlations of **different predictors**. *(Note: this is NOT the rate confound — that was measured and
+defused, ρ(burst, rate) ≤ 0.20. This is a distinct, quantile-position confound that survives rate-control,
+because controlling for rate within a substrate does not make the threshold mean the same thing across
+substrates.)*
+
+### (c) The partition this forces — and it is the one that matters
+
+- **SAFE — Allen's marginal/pair dissociation is WITHIN-substrate.** Same cells, same `burst_frac`, two
+  axes: **marginal dead** (ks_gue −0.277, ks_pois +0.005, CV +0.036), **pair alive** (LV +0.540; partial
+  on rate **+0.770**). **A per-substrate quantile artifact cannot produce this** — one substrate, one
+  predictor, two domains. **This is the load-bearing claim and it stands.**
+- **NOT CERTIFIED — the cross-substrate ORDERING** (allen > hc3 > dr > ret1). It requires `burst_frac`
+  to be comparable across substrates, and it is not. **I was about to bank the reversal's ordering as
+  the headline. It is not certified.**
+
+**UNRESOLVED, with the named closer (§9 c-companion):**
+**Gap** — `burst_frac`'s fixed 10 ms threshold is a substrate-dependent quantile (0.5 % → 6.2 %), so
+cross-substrate ρ comparisons are not like-for-like. **Closer** — recompute `burst_frac` at a
+**per-substrate quantile threshold** (e.g. ISI < 10th percentile of that substrate's own ISI
+distribution) and re-run the ordering. **Instrument pinned in advance:** same LV/CV2 axes, same partial-
+on-rate, same bootstrap CIs — *only* the predictor's threshold changes. Requires the **raw-ISI
+recompute** (banked coordinates carry summary statistics only). **If the ordering survives a quantile-
+matched predictor, the pair ladder is real; if it reorders, the ordering was a quantile artifact and
+only the within-substrate dissociation survives.**
+
+*Same falsifier structure as the pole change — and it earned its keep again: it caught a headline
+before it was banked, not after.*
