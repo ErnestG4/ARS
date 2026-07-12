@@ -71,11 +71,24 @@ retracted.)
 with stride ≥ 2 have their consecutive-gap correlation **essentially destroyed**, not partially
 degraded.
 
-**(c) Predicted asymmetry between the two banked axes (testable):** `rep_med` (repulsion integral —
+**(c) Predicted asymmetry between the two banked axes:** `rep_med` (repulsion integral —
 consecutive-pair sensitive) should be **corrupted** on those 546 cells, pulled toward its
 iid-marginal value; `ks_gue_med` (a marginal KS) should be **comparatively spared**. The two banked
 32b axes are therefore *not equally damaged*, and a retro-scope that treats them identically will be
-wrong in a specific, checkable way.
+wrong in a specific way.
+
+> **CORRECTION (`PREREG_PARQUET_EXPOSURE_READ.md`).** This clause originally read "*(testable)*" and
+> implied the banked parquet could test it. **It cannot** — the decimated arm is *defined* by
+> n>cap, so the arms have **zero common support in n** (measured: [407, 2981] vs [3073, 72985]).
+> That is a **positivity violation**: the contrast is *unidentifiable*, and neither a positive nor a
+> null on that split is admissible. (c) is testable **only in the backfill**. Third claim of mine
+> corrected in this audit, and the first one caught *before* the number that would have flattered it
+> was looked at.
+>
+> Worse: `rep_med` is **clipped at zero** (`arithmetic_toolkit.py:507`, `np.maximum(0, 1 − R₂)`), so
+> its floor **is** the iid value that decimation drives everything toward — the predicted corruption
+> is censored into invisibility, and the axis is already railed at that floor on **63% of 32b's
+> rows**. See the outcome section of the pre-reg.
 
 ## 5. Scope — what this does and does not license
 
@@ -87,4 +100,18 @@ wrong in a specific, checkable way.
   open, and it is now bounded below by "58% of cells, correlation destroyed."
 - **Backfill spec (§8 item a):** must re-run with **decimation disabled AND the normalizer fixed**
   (external rate, not `sp.mean()`), and must **re-measure** exposure rather than inherit Phase-38's
-  5000-cap numbers.
+  5000-cap numbers. **AND — added by the parquet read — must bank the UNCLIPPED, signed**
+  `∫₀¹(1 − R₂) dr` (drop the `np.maximum(0, ·)` at `arithmetic_toolkit.py:507`). With the clip in
+  place the recompute lands back on the same floor for most cells and returns another
+  uninterpretable "no change." Without this the backfill **cannot measure what it exists to
+  measure**.
+
+- **Exposure figure for the retro-scope is 61.5%, not 58.1%.** The 58.1% is over all 939 rows; the
+  465 rows that actually entered §7.ter.50 are **61.5%** decimated (median stride 5, max 48, median
+  cell retains 20% of its spacings).
+
+- **NEW open item, NOT downstream of Leg 2:** `rep_med` is **one-sided censored** and exactly 0.0 on
+  **63% of §7.ter.50's rows** — Poisson and clustering map to the same number, and that number is
+  the null value the axis is meant to discriminate against. The docstring (line 494, "negative →
+  clustering") is false of the implementation. This needs its own audit line regardless of the
+  unfold bug.
