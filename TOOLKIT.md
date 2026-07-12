@@ -500,6 +500,25 @@ The durable methodology — apply these regardless of substrate:
   `validate_fitters.py` was **structurally incapable of failing** — and it said **MANDATORY**. A test whose failure
   mode is unreachable by construction is not a test.
 
+  **(e) ROOT CAUSE — EIGHT DEFECTS, ONE GENERATING ASSUMPTION. Do not file them as eight entries.**
+
+  > **An instrument built and validated against a calibrator set that EXCLUDES a region will accumulate
+  > defects that are individually invisible and JOINTLY FATAL in exactly that region.**
+
+  The zoo shipped GOE / GUE / GSE / periodic / mixed / jitter / ζ / Poisson — and **no clustered class at
+  all.** Poisson was the most-clustered object in it. That single gap was not one hole; **it was a licence**
+  for every one of these, each of which is *harmless inside the corridor and destructive outside it*:
+  `I_rep`'s `np.maximum(0,·)` clip · Brody's `bounds=(0,1)` (**both** ends) · Berry-Robnik's collapsing CI ·
+  `bulk_recovery`'s `np.interp` clamp onto the "(Poisson regime)" knot · `I8_brody_q`'s `s < 10.0` truncation ·
+  `unfold_unit_mean`'s **global** normalizer · `spacings()`'s "2–98 % tail trim" that is a **positional slice
+  removing no outliers** · and `validate_fitters` probing **only at the two rails**. **All are CV-scaling
+  defects, and they stacked hardest on the highest-CV substrate** — measured, not supposed: value-trimming
+  moves Allen-HPF's `ks_gue` **0.854 → 0.416** and hc-3's only **0.532 → 0.494**.
+  **Fix the calibrator gap and the defect class stops regenerating. Fix the eight bugs and it doesn't.**
+  (Built + PASSED, overnight 2026-07-12: Cox / Neyman–Scott / gamma, swept. Poisson → `I_rep` −0.009;
+  clustered → **−0.39 … −19.6, monotone**; **GUE → Brody q = 1.533, ABOVE the old ceiling** — the top rail
+  confirmed from a second, independent direction. `overnight_2026_07_12/`.)
+
   **(e) POSITIVE FORM — THE ESCAPE IS A CHANGE OF DOMAIN, NOT A CHANGE OF PARAMETER.** "Probe outside the
   reachable range" says what is *forbidden*; this says **where to go**. **A robustness check drawn from the
   instrument's own vocabulary certifies the vocabulary, not the finding.** Exhibit — **the two-pole test**: to
@@ -512,8 +531,20 @@ The durable methodology — apply these regardless of substrate:
   drift artifact, already diagnosed and fixed, and never applied to the headline it was built for*).
   **The right instinct, correctly executed, inside the broken frame — returning a reassuring PASS.**
   Every real escape this session was a **domain change**; every check that stayed in-domain passed and was
-  wrong. The three that worked: **marginal → pair**; **location → dispersion** (the CI-at-a-rail inversion);
-  **point estimate → interior fraction**.
+  wrong. The ones that worked: **location → dispersion** (the CI-at-a-rail inversion); **point estimate →
+  interior fraction**; **single-cell → pooled** (Palm–Khintchine); and above all **observed → SHUFFLED**.
+
+  **THE VALIDATING EXHIBIT — the rule caught its own author's finding.** The "Allen-HPF marginal/pair
+  dissociation" was the session's load-bearing result. It survived **every** falsifier aimed at it — the
+  reference-pole change, the rate partial, the quantile-threshold challenge, the compression test. **Every one
+  of those lived inside the marginal domain, and every one of them passed.** The **within-cell ISI shuffle** —
+  the *first* check drawn from **outside** the estimator's vocabulary (it destroys order and drift while
+  preserving the ISI marginal **exactly**, giving the renewal null with the observed marginal, a *theorem about
+  the data*) — **killed it in one run**: `ρ(burst, LV_shuf)` = **+0.517** ≈ `ρ(burst, LV_obs)` = **+0.576**.
+  **LV carried essentially no order information; LV is a MARGINAL functional (`E[LV]=3/(2k+1)` under renewal).
+  "Marginal → pair" was never a domain change — it was GLOBAL- vs LOCAL-NORMALIZATION. THE DOMAIN CHANGE WAS
+  A CHANGE OF NORMALIZER.** *A robustness check drawn from the instrument's own vocabulary certifies the
+  vocabulary, not the finding* — demonstrated, at cost, on the people who wrote the rule.
 
   **LEGITIMATE CORROBORATION — the rule that survives arm (d).** Arm (d)'s trap is **corroboration
   SUBSTITUTING for calibration** (ζ's top rail "confirmed" by a safe axis; the artifact welded into the ledger
