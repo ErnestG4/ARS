@@ -38,3 +38,59 @@ shipped trim was supposed to prevent exactly it.**
 ## VERDICT: **RETRACT**
 
 ρ(burst, LV_shuf) = **+0.517** ≈ ρ(burst, LV_obs) = **+0.576**. **LV carried no order information.** The Allen dissociation is **global-vs-local drift-robustness, NOT marginal-vs-pair.** The finding survives in a smaller form: *ks_gue is drift-destroyed at HPF; LV is not; **both are marginal**.* The 'domain change' was a change of normalization.
+
+---
+
+## POST-RUN (three follow-ups, from banked overnight data)
+
+### 1. The row-3 sign flip — **CLOSED** by its own pre-registered closer
+
+| substrate | median ρ₁ | ρ(burst, LV_resid) | sign match? |
+|---|---|---|---|
+| allen-hpf | **+0.124** | **+0.173** | ✓ |
+| hc3-port | **+0.202** | **−0.158** | ✗ |
+| ret1 | **+0.036** | **+0.286** | ✓ |
+
+**Median ρ₁ is POSITIVE in all three — it does not flip.** The residual's sign does. So
+`sign(ρ(burst, LV_resid))` **does not track** `sign(median ρ₁)`. Pre-committed closer: *"if it
+doesn't, it's residual-subtraction noise and you can close it as such."* **CLOSED.**
+
+*(A `Spearman(median ρ₁, ρ(burst, LV_resid)) = −1.000` appears across the three. **n=3 ⇒ p ≈ 0.33 —
+one chance in six.** Recorded and REFUSED. This is precisely the object the session learned not to
+bank.)*
+
+### 2. The epitaph — coherent, mechanistically supported, **NOT established**
+
+| substrate | median unclipped `I_rep` | **OLD ladder ρ(ks_gue, burst)** |
+|---|---|---|
+| **allen-hpf** | **−4.85** ← most clustered | **−0.277** ← bottom of the old ladder |
+| ret1 | −4.74 | +0.529 |
+| **hc3-port** | **−2.47** ← least clustered | **+0.697** ← top of the old ladder |
+
+`Spearman = +1.000`: **the more clustered the substrate, the lower it sat on the old ladder.**
+
+> **The substrate-relativity ladder was a clustering gradient, measured by an instrument whose defects
+> scale with clustering, and reported with the sign reversed.**
+
+**n=3 ⇒ p ≈ 0.33. The rank correlation carries NO weight.** What supports the account is the
+**mechanism**, which *is* measured: the value-trim correction scales with clustering (allen **−0.44**,
+hc-3 **−0.04**). **Filed as inference-from-form with mechanistic support. Closer: more substrates.**
+
+### 3. THE LADDER, REBUILT ON THE CALIBRATED AXIS
+
+`ρ(burst, unclipped signed I_rep)` — an axis that can **represent** clustering:
+
+| substrate | n | median `I_rep` | **ρ(burst, I_rep)** | 95% CI |
+|---|---|---|---|---|
+| allen-hpf | 482 | −5.003 | **−0.121** | [−0.217, −0.031] |
+| **hc3-port** | 444 | −2.841 | **−0.445** | [−0.512, −0.365] |
+| ret1 | 324 | −4.767 | **−0.154** | [−0.259, −0.040] |
+
+**All three NEGATIVE.** `I_rep` < 0 = clustered ⇒ **burstier cells are more clustered**, on every
+substrate, CIs excluding zero. **The physically expected direction, for the first time.** Allen is no
+longer an inverted outlier — just the weakest coupling. **The sign pathology was the instrument.**
+
+**Ordering (hc3 > ret1 > allen) matches the OLD ks_gue ladder — and CONTRADICTS the LV ladder**
+(allen > hc3 > ret1). Two now-valid instruments disagree. **NOT resolved here:** the cross-substrate
+ordering on *any* axis remains uncertified while `burst_frac` is a substrate-dependent quantile
+(debt #1). **The within-substrate result is solid; the ordering is not.**
