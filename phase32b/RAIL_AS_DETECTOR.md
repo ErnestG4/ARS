@@ -731,3 +731,66 @@ only the within-substrate dissociation survives.**
 
 *Same falsifier structure as the pole change — and it earned its keep again: it caught a headline
 before it was banked, not after.*
+
+---
+
+## 20. BL — THE FULL POPULATION SWEEP. Arc closed.
+
+The earlier read (§17) covered only the 5 substrates carrying `ARS.rep_med` in the coordinates. **The
+cross-signal rows — including flares and fungal, the two exhibits that started this thread — were
+unswept.** Now swept, from `data/phase15_*_joint.parquet`.
+
+### (a) The detector, validated on THE REPO'S OWN CALIBRATOR ZOO — not my synthetic
+
+`data/phase15_calibrator_joint.parquet`, underpowered rows dropped:
+
+| calibrator class | n | **exact-0.000** | **% in BL** | median `rep_int_q` |
+|---|---|---|---|---|
+| **poisson (THE NULL)** | 1000 | **0** | **100.0 %** | 0.0238 |
+| beta=1_GOE | 1000 | 0 | 0.0 % | 0.312 |
+| beta=2_GUE | 1000 | 0 | 0.0 % | 0.368 |
+| beta=4_GSE | 1000 | 0 | 0.0 % | 0.431 |
+| periodic_q7 / q12 | 2000 | 0 | 0.0 % | 0.850 |
+| mixed_q7_q12 | 1000 | 0 | 0.0 % | 0.182 |
+| uniform_jitter_0.10 | 1000 | 0 | 0.0 % | 0.671 |
+| zeta_first_2000 | 200 | 0 | 0.0 % | 0.425 |
+
+> **POISSON LANDS IN BL 100 % OF THE TIME — AND NEVER AT THE FLOOR. 0/1000.**
+
+**That is the partition, stated by the repo's own ground truth**: BL contains **Poisson (interior)** and
+**clustered (exact-0)**, and **they never overlap**. My synthetic said 0/200 false positives; an
+artifact **I did not generate** says **0/1000**. Detector specificity is now confirmed on banked
+ground truth.
+
+*(And note what the calibrator zoo contains: GOE, GUE, GSE, periodic, mixed, jitter, ζ — and **no
+clustered class at all.** Poisson is the most-clustered object in it. The missing negative anchor,
+confirmed from the other side.)*
+
+### (b) The full BL population — PERFECT SEPARATION, no mixed cases
+
+`data/phase15_cross_signal_joint.parquet`, `quadrant == 'BL'`:
+
+| signal_class | BL rows | **exact 0.000** | interior | verdict |
+|---|---|---|---|---|
+| **fungal_pool** | 194 | **194** | 0 | **100 % — CLUSTERING DETECTED** |
+| **solar_flares_MX** | 191 | **191** | 0 | **100 % — CLUSTERING DETECTED** |
+| **binance_BTCUSDT_d1** | 185 | **0** | **185** | **0 % — genuine weak-repulsion reading** |
+| **ALL BL** | **570** | **385** | **185** | **67.5 %** |
+
+**The two exhibits that started this thread are exact-zero on EVERY ONE of their q-bands** (194/194,
+191/191). **Binance is 100 % interior** — and is exactly what it always looked like. **No mixed
+cases anywhere.**
+
+Solar flares are **independently known-clustered from our own SOC phase.** The detector's headline
+targets are now counted, and they came in **unanimous.**
+
+### (c) Prediction ledger
+
+Will's pre-committed prediction — *"most of BL is exact-0.000, and the interior fraction is small,
+because the substrates that land there are the biological ones... If BL turns out to be mostly
+interior, my whole detector reading of BL's population is wrong and I want to know that immediately."*
+
+**CONFIRMED on both populations:** per-cell 79.2 % exact-0 (§17); cross-signal **67.5 %** exact-0, with
+a **perfect** biological/physical vs financial split. **BL is retired as a class.** It is a **bin**
+holding two populations that never overlap, under a name (*"Poisson noise"*) that is **wrong for
+two-thirds of its members** — including **both** of the ones the project cared about.
