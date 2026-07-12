@@ -52,10 +52,34 @@ def sample_gue(n: int, seed: int) -> np.ndarray:
     return _inverse_sample(nns_cdf_gue, n, seed)
 
 
+def sample_clustered(n: int, seed: int, sigma: float = 1.15) -> np.ndarray:
+    """SUPER-POISSON (clustered) unit-mean spacings.  CV > 1 by construction."""
+    s = np.random.default_rng(seed).lognormal(0.0, sigma, size=n)
+    return s / s.mean()
+
+
+def sample_clustered_extreme(n: int, seed: int) -> np.ndarray:
+    return sample_clustered(n, seed, sigma=1.8)
+
+
 # (label, sampler, expected q, expected ρ, tolerance)
+#
+# TOOLKIT §9 arm (e).  The original CASES were ONLY ("poisson", 0, 0) and ("goe", 1, 1) — i.e.
+# **the two endpoints of the fitters' own `bounds=(0.0, 1.0)`**.  A boundary-RAILING bug is
+# structurally invisible to a harness that probes only at the boundaries: the gate PASSED while
+# `I8_brody_q` / `I9_berry_robnik_rho` were mapping every clustered substrate onto the Poisson
+# value.  Probing only at the rails cannot detect railing.  A validation suite must include at
+# least one case whose TRUE value lies OUTSIDE the fitter's reachable range.
+#
+# The two cases below are exactly that: super-Poisson data, whose true Brody q is NEGATIVE and
+# therefore unrepresentable.  They are EXPECTED TO FAIL until the fitters' lower bound is opened
+# (and the freed half-line calibrated).  A FAIL here is the gate working, not the gate broken.
 CASES = [
-    ("poisson", sample_poisson, 0.0, 0.0, 0.15),
-    ("goe",     sample_goe,     1.0, 1.0, 0.20),
+    ("poisson",           sample_poisson,          0.0, 0.0, 0.15),
+    ("goe",               sample_goe,              1.0, 1.0, 0.20),
+    # --- out-of-range probes (arm (e)); q_true < 0, currently unrepresentable ---
+    ("clustered",         sample_clustered,        -0.30, -0.30, 0.20),
+    ("clustered_extreme", sample_clustered_extreme, -0.60, -0.60, 0.25),
 ]
 N_SYNTH = 4000
 SEEDS = (0, 1, 2)

@@ -16,11 +16,11 @@
       ],
       "brody_q_pass": true,
       "expected_rho": 0.0,
-      "br_rho_mean": 0.07047654478586544,
+      "br_rho_mean": 0.07047993825360976,
       "br_rho_per_seed": [
         0.0015,
-        0.1385,
-        0.0715
+        0.0935,
+        0.1165
       ],
       "br_rho_pass": true,
       "tol": 0.15
@@ -43,8 +43,46 @@
       ],
       "br_rho_pass": true,
       "tol": 0.2
+    },
+    "clustered": {
+      "expected_q": -0.3,
+      "brody_q_mean": 6.610696135189609e-05,
+      "brody_q_per_seed": [
+        0.0001,
+        0.0001,
+        0.0001
+      ],
+      "brody_q_pass": false,
+      "expected_rho": -0.3,
+      "br_rho_mean": 0.005149244401270383,
+      "br_rho_per_seed": [
+        0.0075,
+        0.0065,
+        0.0015
+      ],
+      "br_rho_pass": false,
+      "tol": 0.2
+    },
+    "clustered_extreme": {
+      "expected_q": -0.6,
+      "brody_q_mean": 6.610696135189609e-05,
+      "brody_q_per_seed": [
+        0.0001,
+        0.0001,
+        0.0001
+      ],
+      "brody_q_pass": false,
+      "expected_rho": -0.6,
+      "br_rho_mean": 0.002811178079761039,
+      "br_rho_per_seed": [
+        0.0025,
+        0.0015,
+        0.0045
+      ],
+      "br_rho_pass": false,
+      "tol": 0.25
     }
   },
-  "all_pass": true,
+  "all_pass": false,
   "gate": "Brody/BR values may be banked ONLY if all_pass is true; else bank null + flag (\u00a77.ter.57)."
 }

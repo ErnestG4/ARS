@@ -129,11 +129,99 @@ treatment is weakest; and **the outcome is censored**, so it returns the same fl
 estimator → then the backfill → the RDD is at best a free bonus check afterward, never the primary
 design.
 
-## 6. Standing sweep (this is a class, not a finding — two instances)
+## 6. The sweep — RUN. It is not two instances. It is **five**, and the gate that should have caught them is structurally blind.
 
-`I_rep` and the SOC one-sided fitters. Both found by self-audit, both in ARS's own estimators.
+All verified independently, not taken on the sweep's word.
 
-> Sweep every estimator for `np.maximum(0,`, `np.clip(`, `abs()`/`**2` on a signed quantity, and any
-> one-sided or bounded fitter. For each: compare the implementation's **reachable range** to the
-> **docstring's claimed range**, and flag every case where the boundary of the reachable range is a
-> **null/reference value**.
+### (i) `I8_brody_q` and (ii) `I9_berry_robnik_rho` — `cross_substrate/axes.py:147,163`
+```python
+res = minimize_scalar(nll, bounds=(0.0, 1.0), method="bounded", ...)
+```
+**Brody q = 0 *is* Poisson** (its own docstring, line 141) — **and it is also the search floor.**
+Berry-Robnik ρ = 0 likewise. Clustered data wants q < 0 and **rails**. Measured (n=20k, my own run):
+
+| case | CV | `brody_q` | `BR_rho` |
+|---|---|---|---|
+| **Poisson (the NULL)** | 1.00 | **0.0023** | **0.0335** |
+| clustered lognormal | 1.58 | 0.0001 | 0.0025 |
+| **EXTREME clustered** | **6.46** | **0.0001** | **0.0015** |
+| GOE (repulsive ref) | 0.62 | 0.4893 | 0.7605 |
+
+**A CV = 6.5 burst process reads *more Poisson than actual Poisson*.** Real Poisson's sampling noise
+lets `q` wander off the bound; clustered data slams *into* it. The fitter is not merely blind on the
+super-Poisson side — **it is anti-informative there.** The rail is *tighter* than the null.
+
+**Berry-Robnik compounds it, and this is the nastiest thing in the sweep:** every bootstrap replicate
+rails too, so **the CI collapses**. The clustered case is reported as Poisson **~45× more confidently
+than actual Poisson data** (boot_sd 0.0013 vs 0.059). *The rail makes the wrong answer look precise.*
+
+Note the contrast with `ks_poisson`, which returns **nonzero** on clustered data. KS is
+**sign-blind** (it flags "not Poisson" without a direction). Brody/BR are **null-collapsing** (they
+return the Poisson value *itself*). **These are different failures and the second is far worse** —
+and `axes.py:178` lumps them together (*"The KS/W1/Brody axes are sign-blind across the Poisson
+pivot"*), which is **why this survived**: it made "add CV as a companion axis" look like a sufficient
+mitigation, when the estimator was in fact reporting a **false null**.
+
+### (iii) `bulk_recovery.py:196` — the same bug delivered by interpolation clamping
+```python
+mass_anchors = np.array([0.0, 0.001, 0.001, 0.005, 0.020, 0.080, 0.260])  # 0.260 = "(Poisson regime)"
+sigma_hat = float(np.interp(mass, mass_anchors, sigma_anchors))
+```
+`np.interp` returns `fp[-1]` above the last knot — and the last knot is the value **the code's own
+comment labels "Poisson regime."** Verified: mass = 0.35 / 0.55 / 0.90 → **σ = 0.500 every time**,
+the Poisson σ. Every clustered band is clamped onto the Poisson anchor. *(Bonus, unrelated but real:
+`mass_anchors` has a **duplicate knot** (0.001 twice) — `np.interp` requires strictly increasing `xp`,
+so σ ∈ [0.05, 0.10] is unresolvable.)*
+
+### (iv) **The MANDATORY validation gate was structurally incapable of catching any of this.**
+`cross_substrate/validate_fitters.py:56-59`:
+```python
+CASES = [("poisson", sample_poisson, 0.0, 0.0, 0.15),
+         ("goe",     sample_goe,     1.0, 1.0, 0.20)]
+```
+**These are exactly the two endpoints of `bounds=(0.0, 1.0)`.** A boundary-railing bug is
+**invisible to a harness that only probes at the boundaries.** It PASSed. It calls itself
+*"MANDATORY before any fitted value is banked"* (§7.ter.57).
+
+> **Probing only at the rails cannot detect railing.**
+
+**REPAIRED (this commit, additive — test harness only, no estimator touched):** added
+`clustered` / `clustered_extreme` (super-Poisson lognormal, `q_true < 0` — i.e. **outside the
+fitter's reachable range**). The gate now **correctly FAILS 4/4** on them while still passing both
+endpoints. *A FAIL here is the gate working.* The §7.ter.57 doctrine is amended: **a validation suite
+must include at least one case whose true value lies OUTSIDE the fitter's reachable range.**
+
+### (v) Epistemic knock-on — a "falsification" that was partly circular
+`phase36/falsification_calibrator.py:140,164` reads the repulsion axis's *silence* on the clustered
+side as a **confirmed prediction** (*"ALL BL: near-Poisson transition INVISIBLE to both (taxonomy
+holds)"*). But **BL on the clustered side is manufactured by the clip.** The axis is *constructed*
+unable to leave BL there. That confirmation must be **re-run against an unclipped `I_rep`** before it
+counts. Flagged, not retracted — [[guard-doctrine arm (c)]]: skepticism is not a free action.
+
+### Checked and genuinely FINE (recorded so the sweep isn't padded)
+KS statistics (`max|F_emp − F_theory|`) — non-negative by construction, but clustered data returns
+**nonzero**, so no collapse. `sessionK`'s `r̃ = min/max` — bounded [0,1] but **the Poisson null
+(0.386) sits in the INTERIOR**: *this is the correct design pattern*, and it is why ⟨r̃⟩ is the
+trustworthy discriminant. `I10_cv`, `I11_mass03`, `I12_cv2`, `I13_lv` — nulls (1.0, 0.259, 1.0, 1.0)
+all interior. Safe. `clip(p,0,1)` on p-values, `clip(x,-1,1)` before `arcsin`, GLM `eta` clips, KPM
+DOS clip — domain/overflow guards, not at a null. Fine.
+
+### The finding-under-the-finding: the knowledge was already here, filed in the wrong slot
+`cross_substrate/instrument_confound.py:64-78` **already annotates the rails**:
+```python
+"I.8_brody_q": (0.0, 1.0),   # Brody q — 0 Poisson rail, 1 GUE rail
+```
+and even cites *"the same railed-estimator trap as the KPM-floor lesson."* But that insight was
+scoped **only to perturbation-sensitivity** (an axis near a rail is indeterminate *under
+perturbation*). It was **never applied to the estimator's own primary read** — that a value sitting
+*on* the Poisson rail cannot distinguish Poisson from clustering. **Textbook
+[[filing_discipline_attribution_slot]]: right value, wrong slot.** The project knew about the rail
+and asked the wrong question of it.
+
+## 7. Standing sweep (permanent)
+
+> Sweep every estimator for `np.maximum(0,`, `np.clip(`, `abs()`/`**2` on a signed quantity, bounded
+> MLEs (`bounds=(0,·)`), `np.interp` clamping onto a reference knot, and any one-sided fitter. For
+> each: compare the implementation's **reachable range** to the **docstring's claimed range**, and
+> flag every case where the boundary of the reachable range is a **null/reference value**.
+> **Then check whether the fitter's own validation suite probes anywhere except that boundary.**

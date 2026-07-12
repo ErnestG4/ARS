@@ -434,15 +434,46 @@ The durable methodology — apply these regardless of substrate:
   GOES solar flares — a known-clustered SOC process, established as clustered in our own SOC phase, which even
   recorded *"one-sided fitters blind to super-Poisson"* — read **`rep_int_q` = 0.000 → BL → "Poisson noise."**
   Exactly 0.000 is the floor, not a measurement. Two facts sat in this repo un-collided.
-  **Exhibit 2** — those same SOC one-sided fitters. Two independent instances, both self-audit, both in ARS's own
-  estimators. That is a **class, not a finding**.
+  **Exhibits 2-4 — `I8_brody_q`, `I9_berry_robnik_rho` (`cross_substrate/axes.py:147,163`), `bulk_recovery.py:196`.**
+  Brody `q=0` **is** Poisson *and* is the `bounds=(0.0, 1.0)` search floor; clustered data wants `q<0` and **rails**.
+  Measured: Poisson → q=**0.0023**; a **CV=6.5** burst process → q=**0.0001**. **The clustered process reads *more
+  Poisson than Poisson***, because real Poisson's sampling noise lets q wander off the bound while clustered data
+  slams into it. **The rail is tighter than the null — the estimator is not blind there, it is anti-informative.**
+  Berry-Robnik compounds it: **every bootstrap replicate rails too, so the CI collapses** and the clustered case is
+  reported as Poisson **~45× more confidently than actual Poisson data**. *The rail makes the wrong answer look
+  precise.* `bulk_recovery.py` delivers the same bug via `np.interp` **clamping onto a knot its own comment labels
+  "(Poisson regime)"** — every clustered band returns the Poisson σ. **Five instances. It is a class.**
+
+  **Sign-blind ≠ null-collapsing — do not lump them (this is *why* it survived).** `ks_poisson` returns **nonzero**
+  on clustered data: it is *sign-blind* (flags "not Poisson", no direction). Brody/BR return **the Poisson value
+  itself**: *null-collapsing*. `axes.py:178` lumps them (*"KS/W1/Brody axes are sign-blind across the Poisson
+  pivot"*), which made "add CV as a companion axis" look like sufficient mitigation while the estimator was
+  reporting a **false null**. A companion axis rescues sign-blindness; **nothing downstream rescues a false null.**
+
+  **THE VALIDATION GATE CANNOT CATCH THIS BY CONSTRUCTION — probing only at the rails cannot detect railing.**
+  §7.ter.57's mandatory harness (`cross_substrate/validate_fitters.py`) shipped `CASES = [poisson→0, goe→1]` —
+  **exactly the two endpoints of the fitters' own `bounds=(0,1)`**. It **PASSED**, and called itself *"MANDATORY
+  before any fitted value is banked."* **A validation suite must include at least one case whose true value lies
+  OUTSIDE the fitter's reachable range.** (Repaired: `clustered`/`clustered_extreme`, super-Poisson, `q_true<0`;
+  the gate now correctly **FAILS**. A FAIL there is the gate working.) **§7.ter.57 is hereby amended — the old rule
+  was not merely incomplete, it named the blind probes.**
 
   **Standing sweep (mandatory on any new estimator).** Grep for `np.maximum(0,`, `np.clip(`, `abs()`/`**2` applied
-  to a **signed** quantity, and any one-sided or bounded fitter. For each: compare the implementation's **reachable
-  range** to the **docstring's claimed range** (same class as `phase24/loader.py:49` — a docstring advertising a
-  capability the code does not have), and **flag every case where the boundary of the reachable range is a
-  null/reference value.** A clip on a genuinely-non-negative quantity (a variance, a count, a KS statistic) is
-  fine — say so and move on. The lethal case is *floor == null*.
+  to a **signed** quantity, bounded MLEs (`bounds=(0,·)`), `np.interp` **clamping onto a reference knot**, and any
+  one-sided fitter. For each: compare the implementation's **reachable range** to the **docstring's claimed range**
+  (same class as `phase24/loader.py:49` — a docstring advertising a capability the code does not have), and **flag
+  every case where the boundary of the reachable range is a null/reference value** — **then check whether the
+  fitter's own validation suite probes anywhere except that boundary.** A clip on a genuinely-non-negative quantity
+  (a variance, a count, a KS statistic) is fine — say so and move on. The lethal case is *floor == null*.
+  **The correct design pattern, for contrast:** `sessionK`'s `r̃ = min/max` is bounded [0,1] **but its Poisson null
+  (0.386) sits in the INTERIOR** — which is exactly why ⟨r̃⟩ is the trustworthy discriminant. `I10_cv`, `I11_mass03`,
+  `I12_cv2`, `I13_lv` likewise (nulls 1.0, 0.259, 1.0, 1.0 — all interior). **Put the null in the interior.**
+
+  **The knowledge was already in the repo, filed in the wrong slot.** `cross_substrate/instrument_confound.py:64-78`
+  *already annotates* `"I.8_brody_q": (0.0, 1.0),  # Brody q — 0 Poisson rail, 1 GUE rail` and cites *"the same
+  railed-estimator trap as the KPM-floor lesson."* But it was scoped **only to perturbation-sensitivity** (an axis
+  near a rail is indeterminate *under perturbation*) and **never asked of the estimator's own primary read**. Right
+  value, wrong slot — the §9 filing-discipline failure, committed against §9's own material.
 
   **Unclipping is necessary and NOT sufficient — the freed half-line is uncalibrated.** Removing the clip exposes a
   range that has *never been observed*, so the values on it are **numbers without a sign convention**. Before any
