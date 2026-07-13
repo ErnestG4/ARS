@@ -37,7 +37,7 @@ for p in (_ROOT, os.path.join(_ROOT, "phase22a")):
 
 from ars_classify import classify                                             # noqa: E402
 
-DATA = "$HOME/fmexplorer/crcns_cache/ret1/crcns_ret-1/Data"
+DATA = os.path.expandvars("$HOME/fmexplorer/crcns_cache/ret1/crcns_ret-1/Data")
 COORD = os.path.join(_HERE, "coordinates")
 K_DEFAULT = 10
 

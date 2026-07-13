@@ -1,0 +1,40 @@
+IBL PORT — 8 session(s), 8w (visual_only=False)
+  NR-0029/d85c454e             corr-eig    n=   124 q=0.911
+  NR-0029/d85c454e             avl-onset   n=416501 q=0.751
+  NR-0029/d85c454e             sync-event  n=  2730 q=0.000
+  SWC-066/a4747ac8             corr-eig    n=   227 q=0.945
+  SWC-066/a4747ac8             avl-onset   n=999804 q=0.552
+  SWC-066/a4747ac8             sync-event  n=  2774 q=0.060
+  UCLA037/fa8ad50d             corr-eig    n=   240 q=0.692
+  UCLA037/fa8ad50d             avl-onset   n=1874368 q=0.681
+  UCLA037/fa8ad50d             sync-event  n=  2326 q=0.000
+  ibl-witten-17/dcceebe5       corr-eig    n=   194 q=0.788
+  ibl-witten-17/dcceebe5       avl-onset   n=1920734 q=0.561
+  ibl-witten-17/dcceebe5       sync-event  n=  3974 q=0.000
+  ibl-witten-19/f8041c1e       corr-eig    n=   280 q=0.736
+  ibl-witten-19/f8041c1e       avl-onset   n=1260768 q=0.618
+  ibl-witten-19/f8041c1e       sync-event  n=  3906 q=0.000
+  ZFM-01577.nwb/vis-ZFM-       corr-eig    n=  1778 q=0.958
+  ZFM-01577.nwb/vis-ZFM-       avl-onset   n=15239383 q=0.781
+  ZFM-01577.nwb/vis-ZFM-       sync-event  n=  4600 q=0.000
+Traceback (most recent call last):
+  File "/home/combust/fmexplorer/criticality_tool/cross_substrate/ibl_port.py", line 236, in <module>
+    main()
+  File "/home/combust/fmexplorer/criticality_tool/cross_substrate/ibl_port.py", line 230, in main
+    run(all_sessions=a.all, workers=a.workers, visual_only=a.visual_only, glob_pat=a.glob)
+  File "/home/combust/fmexplorer/criticality_tool/cross_substrate/ibl_port.py", line 159, in run
+    for cr, pr in ex.map(_task, tasks):
+  File "/usr/lib/python3.12/concurrent/futures/process.py", line 642, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+concurrent.futures.process.BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.

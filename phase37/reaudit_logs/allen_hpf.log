@@ -1,0 +1,104 @@
+ALLEN HPF — 12 session(s), 38 (session,region) tasks, 10w
+   session region agg          counts/axes
+ 754312389 CA1   corr-eig    nU=357 n=   329 q=0.953 BRρ=0.996
+ 754312389 CA1   avl-onset   nU=357 n=  5200 q=0.000 BRρ=0.000
+ 754312389 CA1   sync-event  nU=357 n=  1129 q=0.000 BRρ=0.004
+ 754312389 DG    corr-eig    nU=113 n=    99 q=0.998 BRρ=0.999
+ 754312389 DG    avl-onset   nU=113 n=  5525 q=0.000 BRρ=0.000
+ 754312389 DG    sync-event  nU=113 n=  1856 q=0.000 BRρ=0.004
+ 754312389 CA3   corr-eig    nU= 66 n=    60 q=1.000 BRρ=0.999
+ 754312389 CA3   avl-onset   nU= 66 n=   807 q=0.000 BRρ=0.000
+ 754312389 CA3   sync-event  nU= 66 n=  1445 q=0.000 BRρ=0.002
+ 754829445 DG    corr-eig    nU= 63 n=    53 q=  - BRρ=  -
+ 754829445 DG    avl-onset   nU= 63 n=  1398 q=0.000 BRρ=0.000
+ 754829445 DG    sync-event  nU= 63 n=  1734 q=0.000 BRρ=0.004
+ 754829445 CA1   corr-eig    nU=333 n=   307 q=0.905 BRρ=0.999
+ 754829445 CA1   avl-onset   nU=333 n=  5362 q=0.000 BRρ=0.000
+ 754829445 CA1   sync-event  nU=333 n=  1098 q=0.000 BRρ=0.002
+ 754829445 CA3   avl-onset   nU= 31 n=   419 q=0.000 BRρ=0.000
+ 754829445 CA3   sync-event  nU= 31 n=  1192 q=0.093 BRρ=0.185
+ 755434585 CA3   avl-onset   nU= 45 n=   847 q=0.000 BRρ=0.000
+ 755434585 CA3   sync-event  nU= 45 n=  1405 q=0.000 BRρ=0.004
+ 755434585 DG    corr-eig    nU= 70 n=    63 q=0.649 BRρ=0.874
+ 755434585 DG    avl-onset   nU= 70 n=  2776 q=0.000 BRρ=0.000
+ 755434585 DG    sync-event  nU= 70 n=  2113 q=0.000 BRρ=0.001
+ 755434585 CA1   corr-eig    nU=150 n=   138 q=1.000 BRρ=0.999
+ 755434585 CA1   avl-onset   nU=150 n=  2878 q=0.000 BRρ=0.000
+ 755434585 CA1   sync-event  nU=150 n=  1188 q=0.000 BRρ=0.006
+ 755434585 ProS  corr-eig    nU= 99 n=    90 q=0.703 BRρ=0.902
+ 755434585 ProS  avl-onset   nU= 99 n=  4654 q=0.000 BRρ=0.000
+ 755434585 ProS  sync-event  nU= 99 n=  1288 q=0.000 BRρ=0.004
+ 757216464 DG    corr-eig    nU=135 n=   121 q=1.000 BRρ=0.999
+ 757216464 DG    avl-onset   nU=135 n=  2805 q=0.000 BRρ=0.000
+ 757216464 DG    sync-event  nU=135 n=  1700 q=0.000 BRρ=0.001
+ 757216464 ProS  avl-onset   nU= 33 n=  1204 q=0.000 BRρ=0.000
+ 757216464 ProS  sync-event  nU= 33 n=  1575 q=0.000 BRρ=0.008
+ 757216464 SUB   corr-eig    nU= 87 n=    81 q=1.000 BRρ=0.999
+ 757216464 SUB   avl-onset   nU= 87 n=  6917 q=0.000 BRρ=0.000
+ 757216464 SUB   sync-event  nU= 87 n=   650 q=0.000 BRρ=0.097
+ 757216464 CA1   corr-eig    nU=300 n=   278 q=0.995 BRρ=0.999
+ 757216464 CA1   avl-onset   nU=300 n=  4759 q=0.000 BRρ=0.000
+ 757216464 CA1   sync-event  nU=300 n=   892 q=0.000 BRρ=0.004
+ 757216464 CA3   avl-onset   nU= 56 n=   559 q=0.000 BRρ=0.000
+ 757216464 CA3   sync-event  nU= 56 n=  1587 q=0.000 BRρ=0.018
+ 757970808 DG    corr-eig    nU=129 n=   117 q=0.573 BRρ=0.791
+ 757970808 DG    avl-onset   nU=129 n=  2274 q=0.000 BRρ=0.000
+ 757970808 DG    sync-event  nU=129 n=  1386 q=0.000 BRρ=0.000
+ 757970808 CA1   corr-eig    nU=358 n=   332 q=0.902 BRρ=0.972
+ 757970808 CA1   avl-onset   nU=358 n=  6438 q=0.000 BRρ=0.000
+ 757970808 CA1   sync-event  nU=358 n=  1041 q=0.000 BRρ=0.010
+ 757970808 ProS  corr-eig    nU=115 n=   105 q=1.000 BRρ=0.999
+ 757970808 ProS  avl-onset   nU=115 n=  4179 q=0.000 BRρ=0.000
+ 757970808 ProS  sync-event  nU=115 n=  1097 q=0.000 BRρ=0.001
+ 757970808 CA3   avl-onset   nU= 35 n=   625 q=0.000 BRρ=0.000
+ 757970808 CA3   sync-event  nU= 35 n=  1580 q=0.057 BRρ=0.067
+ 762602078 DG    avl-onset   nU= 29 n=   298 q=0.000 BRρ=0.000
+ 762602078 DG    sync-event  nU= 29 n=  1725 q=0.042 BRρ=0.006
+ 762602078 SUB   corr-eig    nU= 79 n=    71 q=1.000 BRρ=0.999
+ 762602078 SUB   avl-onset   nU= 79 n=   713 q=0.000 BRρ=0.000
+ 762602078 SUB   sync-event  nU= 79 n=  1082 q=0.000 BRρ=0.018
+ 762602078 CA1   corr-eig    nU=277 n=   254 q=0.850 BRρ=0.967
+ 762602078 CA1   avl-onset   nU=277 n=  1030 q=0.000 BRρ=0.000
+ 762602078 CA1   sync-event  nU=277 n=  1081 q=0.000 BRρ=0.012
+ 762602078 CA3   avl-onset   nU= 31 n=   469 q=0.000 BRρ=0.000
+ 762602078 CA3   sync-event  nU= 31 n=  1558 q=0.032 BRρ=0.027
+ 791319847 DG    corr-eig    nU= 87 n=    77 q=0.807 BRρ=0.937
+ 791319847 DG    avl-onset   nU= 87 n=  2944 q=0.000 BRρ=0.000
+ 791319847 DG    sync-event  nU= 87 n=  2479 q=0.000 BRρ=0.008
+ 791319847 CA1   corr-eig    nU=253 n=   227 q=1.000 BRρ=0.999
+ 791319847 CA1   avl-onset   nU=253 n=  3791 q=0.000 BRρ=0.000
+ 791319847 CA1   sync-event  nU=253 n=  1229 q=0.000 BRρ=0.004
+ 791319847 SUB   corr-eig    nU= 83 n=    76 q=1.000 BRρ=0.999
+ 791319847 SUB   avl-onset   nU= 83 n=  5314 q=0.000 BRρ=0.000
+ 791319847 SUB   sync-event  nU= 83 n=   886 q=0.000 BRρ=0.001
+ 791319847 CA3   corr-eig    nU=101 n=    87 q=0.467 BRρ=0.709
+ 791319847 CA3   avl-onset   nU=101 n=  1796 q=0.000 BRρ=0.000
+ 791319847 CA3   sync-event  nU=101 n=  1291 q=0.000 BRρ=0.004
+ 797828357 CA1   corr-eig    nU=173 n=   157 q=0.891 BRρ=0.999
+ 797828357 CA1   avl-onset   nU=173 n=  1256 q=0.000 BRρ=0.000
+ 797828357 CA1   sync-event  nU=173 n=  1251 q=0.000 BRρ=0.016
+ 797828357 DG    corr-eig    nU=115 n=    98 q=1.000 BRρ=0.999
+ 797828357 DG    avl-onset   nU=115 n=  2212 q=0.000 BRρ=0.000
+ 797828357 DG    sync-event  nU=115 n=  1983 q=0.000 BRρ=0.001
+ 797828357 SUB   corr-eig    nU= 74 n=    68 q=1.000 BRρ=0.999
+ 797828357 SUB   avl-onset   nU= 74 n=  5744 q=0.000 BRρ=0.000
+ 797828357 SUB   sync-event  nU= 74 n=  1231 q=0.000 BRρ=0.005
+ 797828357 CA3   corr-eig    nU= 82 n=    72 q=0.964 BRρ=0.974
+ 797828357 CA3   avl-onset   nU= 82 n=   996 q=0.000 BRρ=0.000
+ 797828357 CA3   sync-event  nU= 82 n=  1220 q=0.000 BRρ=0.008
+ 798911424 DG    corr-eig    nU= 99 n=    91 q=0.860 BRρ=0.999
+ 798911424 DG    avl-onset   nU= 99 n=  3558 q=0.000 BRρ=0.000
+ 798911424 DG    sync-event  nU= 99 n=  1731 q=0.000 BRρ=0.006
+ 798911424 CA1   corr-eig    nU=418 n=   390 q=0.863 BRρ=0.978
+ 798911424 CA1   avl-onset   nU=418 n=  5042 q=0.000 BRρ=0.000
+ 798911424 CA1   sync-event  nU=418 n=   967 q=0.000 BRρ=0.022
+ 798911424 ProS  avl-onset   nU= 35 n=  1182 q=0.000 BRρ=0.000
+ 798911424 ProS  sync-event  nU= 35 n=  1984 q=0.000 BRρ=0.012
+ 798911424 SUB   corr-eig    nU= 97 n=    85 q=1.000 BRρ=0.994
+ 798911424 SUB   avl-onset   nU= 97 n=  2134 q=0.000 BRρ=0.000
+ 798911424 SUB   sync-event  nU= 97 n=  1064 q=0.000 BRρ=0.005
+ 798911424 CA3   corr-eig    nU= 67 n=    57 q=0.930 BRρ=0.999
+ 798911424 CA3   avl-onset   nU= 67 n=   669 q=0.000 BRρ=0.000
+ 798911424 CA3   sync-event  nU= 67 n=  1417 q=0.000 BRρ=0.022
+
+→ 255 pop + 4358 per-cell records in 31.1 min. Analyse with allen_hpf_analysis.py. Flag, don't interpret.

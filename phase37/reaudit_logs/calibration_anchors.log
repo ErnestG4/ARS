@@ -1,0 +1,10 @@
+CALIBRATION ANCHORS — canonical classes, N=3000, 6 seeds, same instrument as substrates
+class              I.5q    I.5    W1δ  Brody q   BR ρ       Σ²
+clock             0.533  0.533  0.000    1.000  1.000    0.000
+GUE_b2            0.033  0.023  0.358    1.000  0.999  107.163
+GOE_b1            0.094  0.086  0.442    0.876  0.978  108.066
+GSE_b4            0.045  0.060  0.283    1.000  0.999  106.554
+uniform_jitter    0.273  0.272  0.113    1.000  1.000    0.117
+poisson           0.284  0.284  0.736    0.006  0.093   55.133
+
+→ 6 anchors banked. (Instrument re-validation: do GUE→q≈1, Poisson→q≈0, clock→W1δ≈0?)

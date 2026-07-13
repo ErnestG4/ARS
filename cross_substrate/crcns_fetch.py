@@ -10,8 +10,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from crcns_client import CRCNS
 
-RAW = "$HOME/fmexplorer/crcns_cache/raw"
-SESS = "$HOME/fmexplorer/crcns_cache/sessions"
+RAW = os.path.expandvars("$HOME/fmexplorer/crcns_cache/raw")
+SESS = os.path.expandvars("$HOME/fmexplorer/crcns_cache/sessions")
 COORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coordinates")
 KEEP = ["*.clu.*", "*.res.*", "*.whl", "*.xml", "*.nrs", "*.par", "*.states*", "*.sts.*"]
 

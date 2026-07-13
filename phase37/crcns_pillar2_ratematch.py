@@ -1,3 +1,4 @@
+import os
 """
 phase37/crcns_pillar2_ratematch.py — (a) pvc-11 H1 reconciliation + (b) rate-MATCHED (stratified) hc-3 pillar-2.
 
@@ -14,7 +15,7 @@ phase37/crcns_pillar2_ratematch.py — (a) pvc-11 H1 reconciliation + (b) rate-M
 """
 import json, numpy as np
 from scipy.stats import spearmanr, rankdata
-ROOT = "$HOME/fmexplorer/criticality_tool"
+ROOT = os.path.expandvars("$HOME/fmexplorer/criticality_tool")
 RNG = np.random.default_rng(20260601)
 
 

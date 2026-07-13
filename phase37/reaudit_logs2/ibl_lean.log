@@ -1,0 +1,37 @@
+IBL PORT — 5 session(s), 4w (visual_only=False)
+  NR-0029/d85c454e             corr-eig    n=   124 q=0.911
+  NR-0029/d85c454e             avl-onset   n=416501 q=0.751
+  NR-0029/d85c454e             sync-event  n=  2730 q=0.000
+  SWC-066/a4747ac8             corr-eig    n=   227 q=0.945
+  SWC-066/a4747ac8             avl-onset   n=999804 q=0.552
+  SWC-066/a4747ac8             sync-event  n=  2774 q=0.060
+  UCLA037/fa8ad50d             corr-eig    n=   240 q=0.692
+  UCLA037/fa8ad50d             avl-onset   n=1874368 q=0.681
+  UCLA037/fa8ad50d             sync-event  n=  2326 q=0.000
+  ibl-witten-17/dcceebe5       corr-eig    n=   194 q=0.788
+  ibl-witten-17/dcceebe5       avl-onset   n=1920734 q=0.561
+  ibl-witten-17/dcceebe5       sync-event  n=  3974 q=0.000
+  ibl-witten-19/f8041c1e       corr-eig    n=   280 q=0.736
+  ibl-witten-19/f8041c1e       avl-onset   n=1260768 q=0.618
+  ibl-witten-19/f8041c1e       sync-event  n=  3906 q=0.000
+
+→ 1141 per-cell + 15 population records in 14.0 min
+
+IBL ANALYSIS — 1558 cells, 15 pop records, 8 sessions
+
+(PILLAR 1) Population structural anchors — do corr-eig→GUE, sync→Poisson hold on IBL?
+     corr-eig    q=0.814±0.098 (n=5)  [Allen/CA1: corr-eig~GUE 0.85-0.89]
+     avl-onset   q=0.633±0.075 (n=5)  [Allen/CA1: avl intermediate]
+     sync-event  q=0.012±0.024 (n=5)  [Allen/CA1: sync Poisson 0.00]
+
+(PILLAR 2) H1 — does extrinsic selectivity (contrast/choice) track per-cell ks_gue?
+     ks_gue vs contrast_tuning   : ρ(all)= -0.144  ρ(wide)= -0.200 (n=1552)
+     ks_gue vs choice_selectivity: ρ(all)= -0.075  ρ(wide)= -0.182 (n=1006)
+
+(PILLAR 2 region-resolved) VISUAL cells only (n=417) — the proper OSI/contrast analog:
+     [VISUAL] ks_gue vs contrast_tuning   : ρ=-0.121 (p=0.0139, n=416)
+     [VISUAL] ks_gue vs choice_selectivity: ρ=-0.169 (p=0.0667, n=118)
+
+     cell-type: ks_gue wide(pyr) med=0.398 (n=894) vs narrow(int) med=0.412 (n=664)
+
+Flag, don't interpret — verdict is Will's.

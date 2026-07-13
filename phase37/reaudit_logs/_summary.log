@@ -1,0 +1,20 @@
+substrate                           n  CVmed massMed  %rep  %pois %clust  flag
+allen-hpf-cell                   4358 16.211   0.879     0      0    100  AXIS-INCOMPLETE?
+buzsaki-port-cell                4019  9.178   0.690     0      0    100  AXIS-INCOMPLETE?
+dr-port-cell                     1365  2.382   0.521     0      0    100  AXIS-INCOMPLETE?
+hc3-port-cell                     923  1.925   0.528     0      2     97  AXIS-INCOMPLETE?
+ibl-port-cell                    3025  1.387   0.345     3     15     82  AXIS-INCOMPLETE?
+ret1-cell                         325  1.351   0.474     9     14     77  AXIS-INCOMPLETE?
+allen-hpf-pop                     255  1.712   0.394    21      4     75  
+buzsaki-port-pop                  348  1.575   0.393    27      1     72  
+dr-port-pop                       131  1.104   0.155    37     12     50  
+hc3-port-pop                      116  0.925   0.148    49      2     49  
+ibl-port-pop                       18  0.718   0.078    67      6     28  
+calibration-anchors                 6  0.399   0.020    83     17      0  
+dynamical-breadth                  17  0.079   0.000   100      0      0  
+
+13 substrates with the clustering axis computed.
+AXIS-INCOMPLETE candidates (clustering-axis signal, repulsion-quiet): ['allen-hpf-cell', 'buzsaki-port-cell', 'dr-port-cell', 'hc3-port-cell', 'ibl-port-cell', 'ret1-cell']
+Interface-readout framing: flags are re-audit POINTERS (which substrates want a closer two-axis
+look), not substrate-level verdicts. A substrate clean-Poisson on BOTH axes is a genuine null.
+Wrote /home/combust/fmexplorer/criticality_tool/phase37/reaudit_twoaxis_summary.json

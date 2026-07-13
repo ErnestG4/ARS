@@ -1,3 +1,4 @@
+import os
 """
 phase37/crcns_pillar2.py — publication-grade re-derivation of CRCNS pillar-2 (selectivity <-> spectral
 class) + the supporting descriptors, with bootstrap 95% CIs and burst-controlled partials.
@@ -14,7 +15,7 @@ All correlations Spearman; CIs = 2000-resample cell bootstrap (seeded). NOT from
 """
 import json, numpy as np, pandas as pd
 from scipy.stats import spearmanr, rankdata
-ROOT = "$HOME/fmexplorer/criticality_tool"
+ROOT = os.path.expandvars("$HOME/fmexplorer/criticality_tool")
 RNG = np.random.default_rng(20260601)
 
 

@@ -1,0 +1,178 @@
+BUZSAKI CA1 PORT — 8 session(s), 48 (session,natural_cell) tasks, 8w
+           session natural_cell   agg           nU       n      q    BRρ
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Achilles_ses-10252013 PRE-NonREM     corr-eig     137     126  0.769  0.915
+sub-Achilles_ses-10252013 PRE-NonREM     avl-onset    137  210232  0.232  0.001
+sub-Achilles_ses-10252013 PRE-NonREM     sync-event   137   12592  0.000  0.001
+sub-Achilles_ses-10252013 PRE-REM        corr-eig     137     133  0.999  0.991
+sub-Achilles_ses-10252013 PRE-REM        avl-onset    137     470  0.000  0.000
+sub-Achilles_ses-10252013 PRE-REM        sync-event   137    1705  0.000  0.003
+sub-Achilles_ses-10252013 Maze-Awake     corr-eig     137     116  1.000  0.999
+sub-Achilles_ses-10252013 Maze-Awake     avl-onset    137  158779  0.492  0.623
+sub-Achilles_ses-10252013 Maze-Awake     sync-event   137    1854  0.000  0.001
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Achilles_ses-10252013 POST-NonREM    corr-eig     137     125  0.979  0.989
+sub-Achilles_ses-10252013 POST-NonREM    avl-onset    137   60074  0.000  0.001
+sub-Achilles_ses-10252013 POST-NonREM    sync-event   137    6369  0.000  0.002
+sub-Achilles_ses-10252013 POST-REM       corr-eig     137     133  0.854  0.961
+sub-Achilles_ses-10252013 POST-REM       sync-event   137    1004  0.000  0.001
+sub-Achilles_ses-10252013 Awake-in-sleep corr-eig     137     117  0.908  0.975
+sub-Achilles_ses-10252013 Awake-in-sleep avl-onset    137  184654  0.000  0.001
+sub-Achilles_ses-10252013 Awake-in-sleep sync-event   137   18423  0.000  0.001
+sub-Achilles_ses-11012013 PRE-NonREM     corr-eig     104      98  0.721  0.942
+sub-Achilles_ses-11012013 PRE-NonREM     avl-onset    104  145529  0.040  0.001
+sub-Achilles_ses-11012013 PRE-NonREM     sync-event   104   11390  0.000  0.003
+sub-Achilles_ses-11012013 PRE-REM        corr-eig     104     101  0.946  0.999
+sub-Achilles_ses-11012013 PRE-REM        avl-onset    104      63  0.000  0.000
+sub-Achilles_ses-11012013 PRE-REM        sync-event   104    1130  0.000  0.002
+sub-Achilles_ses-11012013 Maze-Awake     corr-eig     104      89  0.999  0.978
+sub-Achilles_ses-11012013 Maze-Awake     avl-onset    104  197306  0.450  0.511
+sub-Achilles_ses-11012013 Maze-Awake     sync-event   104    2536  0.000  0.002
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Achilles_ses-11012013 POST-NonREM    corr-eig     104      92  0.992  0.964
+sub-Achilles_ses-11012013 POST-NonREM    avl-onset    104   51704  0.000  0.001
+sub-Achilles_ses-11012013 POST-NonREM    sync-event   104    5909  0.000  0.004
+sub-Achilles_ses-11012013 POST-REM       corr-eig     104     102  0.586  0.780
+sub-Achilles_ses-11012013 POST-REM       avl-onset    104    5817  0.625  0.945
+sub-Achilles_ses-11012013 POST-REM       sync-event   104     136  0.000  0.001
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Achilles_ses-11012013 Awake-in-sleep corr-eig     104      90  0.734  0.944
+sub-Achilles_ses-11012013 Awake-in-sleep avl-onset    104  186059  0.000  0.004
+sub-Achilles_ses-11012013 Awake-in-sleep sync-event   104   15705  0.000  0.011
+sub-Buddy_ses-06272013 PRE-NonREM     corr-eig      68      62  0.962  0.999
+sub-Buddy_ses-06272013 PRE-NonREM     avl-onset     68  132387  0.035  0.001
+sub-Buddy_ses-06272013 PRE-NonREM     sync-event    68    7407  0.000  0.001
+sub-Buddy_ses-06272013 PRE-REM        corr-eig      68      64  1.000  0.985
+sub-Buddy_ses-06272013 PRE-REM        avl-onset     68      85  0.000  0.000
+sub-Buddy_ses-06272013 PRE-REM        sync-event    68     739  0.000  0.001
+sub-Buddy_ses-06272013 Maze-Awake     corr-eig      68      58  0.643  0.829
+sub-Buddy_ses-06272013 Maze-Awake     avl-onset     68  176045  0.508  0.659
+sub-Buddy_ses-06272013 Maze-Awake     sync-event    68    2498  0.000  0.009
+sub-Buddy_ses-06272013 POST-NonREM    corr-eig      68      62  1.000  0.999
+sub-Buddy_ses-06272013 POST-NonREM    avl-onset     68   22909  0.000  0.001
+sub-Buddy_ses-06272013 POST-NonREM    sync-event    68    2709  0.000  0.000
+sub-Buddy_ses-06272013 POST-REM       corr-eig      68      57  0.916  0.973
+sub-Buddy_ses-06272013 POST-REM       sync-event    68     301  0.000  0.004
+sub-Buddy_ses-06272013 Awake-in-sleep corr-eig      68      60  0.527  0.746
+sub-Buddy_ses-06272013 Awake-in-sleep avl-onset     68  168903  0.000  0.006
+sub-Buddy_ses-06272013 Awake-in-sleep sync-event    68   11641  0.000  0.003
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Cicero_ses-09012014 PRE-NonREM     corr-eig      73      67  0.400  0.580
+sub-Cicero_ses-09012014 PRE-NonREM     avl-onset     73   99016  0.000  0.005
+sub-Cicero_ses-09012014 PRE-NonREM     sync-event    73    8155  0.000  0.003
+sub-Cicero_ses-09012014 PRE-REM        corr-eig      73      68  0.809  0.957
+sub-Cicero_ses-09012014 PRE-REM        avl-onset     73    1498  0.000  0.000
+sub-Cicero_ses-09012014 PRE-REM        sync-event    73    2311  0.000  0.001
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Cicero_ses-09012014 Maze-Awake     corr-eig      73      65  0.830  0.927
+sub-Cicero_ses-09012014 Maze-Awake     avl-onset     73  343312  0.386  0.364
+sub-Cicero_ses-09012014 Maze-Awake     sync-event    73    4807  0.000  0.003
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Cicero_ses-09012014 POST-NonREM    corr-eig      73      68  0.310  0.588
+sub-Cicero_ses-09012014 POST-NonREM    avl-onset     73  151881  0.091  0.004
+sub-Cicero_ses-09012014 POST-NonREM    sync-event    73    7228  0.000  0.006
+sub-Cicero_ses-09012014 POST-REM       corr-eig      73      68  0.970  0.999
+sub-Cicero_ses-09012014 POST-REM       avl-onset     73     704  0.000  0.000
+sub-Cicero_ses-09012014 POST-REM       sync-event    73    1472  0.000  0.006
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Cicero_ses-09012014 Awake-in-sleep corr-eig      73      67  0.834  0.999
+sub-Cicero_ses-09012014 Awake-in-sleep avl-onset     73   91356  0.000  0.001
+sub-Cicero_ses-09012014 Awake-in-sleep sync-event    73   11841  0.000  0.003
+sub-Cicero_ses-09102014 PRE-NonREM     corr-eig     105      97  0.596  0.816
+sub-Cicero_ses-09102014 PRE-NonREM     avl-onset    105   45006  0.000  0.002
+sub-Cicero_ses-09102014 PRE-NonREM     sync-event   105    5287  0.000  0.006
+sub-Cicero_ses-09102014 PRE-REM        corr-eig     105      98  0.896  0.995
+sub-Cicero_ses-09102014 PRE-REM        avl-onset    105      81  0.000  0.000
+sub-Cicero_ses-09102014 PRE-REM        sync-event   105     728  0.000  0.003
+sub-Cicero_ses-09102014 Maze-Awake     corr-eig     105      95  0.943  0.997
+sub-Cicero_ses-09102014 Maze-Awake     avl-onset    105  234617  0.383  0.365
+sub-Cicero_ses-09102014 Maze-Awake     sync-event   105    2442  0.000  0.004
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+sub-Cicero_ses-09102014 POST-NonREM    corr-eig     105      96  0.841  0.931
+sub-Cicero_ses-09102014 POST-NonREM    avl-onset    105  200932  0.012  0.001
+sub-Cicero_ses-09102014 POST-NonREM    sync-event   105    9370  0.000  0.040
+sub-Cicero_ses-09102014 POST-REM       corr-eig     105      99  1.000  0.989
+sub-Cicero_ses-09102014 POST-REM       avl-onset    105    2275  0.000  0.000
+sub-Cicero_ses-09102014 POST-REM       sync-event   105    1809  0.000  0.002
+sub-Cicero_ses-09102014 Awake-in-sleep corr-eig     105      94  0.968  0.999
+sub-Cicero_ses-09102014 Awake-in-sleep avl-onset    105  342937  0.000  0.006
+sub-Cicero_ses-09102014 Awake-in-sleep sync-event   105   18012  0.000  0.001
+sub-Cicero_ses-09172014 PRE-NonREM     corr-eig      72      69  1.000  0.995
+sub-Cicero_ses-09172014 PRE-NonREM     avl-onset     72   46435  0.000  0.000
+sub-Cicero_ses-09172014 PRE-NonREM     sync-event    72    7471  0.000  0.035
+sub-Cicero_ses-09172014 PRE-REM        corr-eig      72      69  1.000  0.999
+sub-Cicero_ses-09172014 PRE-REM        avl-onset     72     647  0.000  0.000
+sub-Cicero_ses-09172014 PRE-REM        sync-event    72    1523  0.000  0.003
+sub-Cicero_ses-09172014 Maze-Awake     corr-eig      72      63  0.857  0.978
+sub-Cicero_ses-09172014 Maze-Awake     avl-onset     72  175039  0.350  0.294
+sub-Cicero_ses-09172014 Maze-Awake     sync-event    72    2699  0.000  0.017
+sub-Cicero_ses-09172014 POST-NonREM    corr-eig      72      67  0.937  0.996
+sub-Cicero_ses-09172014 POST-NonREM    avl-onset     72   70855  0.000  0.004
+sub-Cicero_ses-09172014 POST-NonREM    sync-event    72    8039  0.000  0.001
+sub-Cicero_ses-09172014 POST-REM       corr-eig      72      67  0.935  0.977
+sub-Cicero_ses-09172014 POST-REM       avl-onset     72     181  0.000  0.000
+sub-Cicero_ses-09172014 POST-REM       sync-event    72     864  0.000  0.001
+sub-Cicero_ses-09172014 Awake-in-sleep corr-eig      72      64  1.000  0.999
+sub-Cicero_ses-09172014 Awake-in-sleep avl-onset     72  213860  0.000  0.007
+sub-Cicero_ses-09172014 Awake-in-sleep sync-event    72   20626  0.000  0.004
+sub-Gatsby_ses-08022013 PRE-NonREM     corr-eig      80      74  0.536  0.764
+sub-Gatsby_ses-08022013 PRE-NonREM     avl-onset     80   69659  0.000  0.003
+sub-Gatsby_ses-08022013 PRE-NonREM     sync-event    80    9985  0.000  0.006
+sub-Gatsby_ses-08022013 PRE-REM        corr-eig      80      75  0.866  0.953
+sub-Gatsby_ses-08022013 PRE-REM        avl-onset     80      72  0.000  0.000
+sub-Gatsby_ses-08022013 PRE-REM        sync-event    80    1337  0.000  0.002
+sub-Gatsby_ses-08022013 Maze-Awake     corr-eig      80      70  0.910  0.994
+sub-Gatsby_ses-08022013 Maze-Awake     avl-onset     80  105532  0.384  0.382
+sub-Gatsby_ses-08022013 Maze-Awake     sync-event    80    2692  0.000  0.001
+sub-Gatsby_ses-08022013 POST-NonREM    corr-eig      80      73  1.000  0.999
+sub-Gatsby_ses-08022013 POST-NonREM    avl-onset     80   48121  0.063  0.006
+sub-Gatsby_ses-08022013 POST-NonREM    sync-event    80    5614  0.000  0.008
+sub-Gatsby_ses-08022013 POST-REM       corr-eig      80      75  1.000  0.999
+sub-Gatsby_ses-08022013 POST-REM       sync-event    80     595  0.000  0.004
+sub-Gatsby_ses-08022013 Awake-in-sleep corr-eig      80      71  0.723  0.881
+sub-Gatsby_ses-08022013 Awake-in-sleep avl-onset     80  155045  0.000  0.002
+sub-Gatsby_ses-08022013 Awake-in-sleep sync-event    80   19055  0.000  0.006
+sub-Gatsby_ses-08282013 PRE-NonREM     avl-onset     51   99670  0.053  0.004
+sub-Gatsby_ses-08282013 PRE-NonREM     sync-event    51    9905  0.000  0.002
+sub-Gatsby_ses-08282013 PRE-REM        avl-onset     51     247  0.000  0.000
+sub-Gatsby_ses-08282013 PRE-REM        sync-event    51    1402  0.000  0.001
+sub-Gatsby_ses-08282013 Maze-Awake     avl-onset     51  134637  0.463  0.552
+sub-Gatsby_ses-08282013 Maze-Awake     sync-event    51    3020  0.000  0.001
+sub-Gatsby_ses-08282013 POST-NonREM    avl-onset     51   77420  0.000  0.006
+sub-Gatsby_ses-08282013 POST-NonREM    sync-event    51    9618  0.000  0.005
+sub-Gatsby_ses-08282013 POST-REM       sync-event    51     421  0.000  0.010
+sub-Gatsby_ses-08282013 Awake-in-sleep avl-onset     51  110880  0.000  0.000
+sub-Gatsby_ses-08282013 Awake-in-sleep sync-event    51   19257  0.000  0.004
+
+→ 348 population + 4019 per-cell records in 20.8 min. Analyse with buzsaki_port_analysis.py. Flag, don't interpret.

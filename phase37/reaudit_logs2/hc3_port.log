@@ -1,0 +1,62 @@
+hc-3 PORT — 22 sessions, 6w (de-confounded EC-vs-CA3 within one dataset)
+  ec013.922    CA3  corr-eig    nU= 60 n=     55 q=0.973 BRρ=0.944
+  ec013.922    CA3  avl-onset   nU= 60 n=  26863 q=0.604 BRρ=0.902
+  ec013.922    CA3  sync-event  nU= 60 n=   4133 q=0.000 BRρ=0.001
+  ec013.932    CA3  avl-onset   nU= 33 n=   9932 q=0.576 BRρ=0.834
+  ec013.932    CA3  sync-event  nU= 33 n=   3058 q=0.000 BRρ=0.001
+  ec013.932    EC   avl-onset   nU= 22 n=  27880 q=0.638 BRρ=0.970
+  ec013.932    EC   sync-event  nU= 22 n=   1206 q=0.000 BRρ=0.005
+  ec013.951    CA3  avl-onset   nU= 25 n=   6097 q=0.469 BRρ=0.581
+  ec013.951    CA3  sync-event  nU= 25 n=   1487 q=0.000 BRρ=0.001
+  ec013.951    EC   avl-onset   nU= 20 n=  48600 q=0.580 BRρ=0.842
+  ec013.951    EC   sync-event  nU= 20 n=   2386 q=0.000 BRρ=0.001
+  ec013.965    CA3  avl-onset   nU= 30 n=   4762 q=0.498 BRρ=0.636
+  ec013.965    CA3  sync-event  nU= 30 n=   1942 q=0.000 BRρ=0.001
+  ec013.965    EC   avl-onset   nU= 26 n=   9882 q=1.000 BRρ=0.999
+  ec013.965    EC   sync-event  nU= 26 n=   3516 q=0.130 BRρ=0.002
+  ec013.966    CA3  avl-onset   nU= 29 n=   5754 q=0.471 BRρ=0.589
+  ec013.966    CA3  sync-event  nU= 29 n=   2666 q=0.000 BRρ=0.001
+  ec013.966    EC   avl-onset   nU= 23 n=  11153 q=1.000 BRρ=0.999
+  ec013.966    EC   sync-event  nU= 23 n=   1425 q=0.000 BRρ=0.005
+  ec013.969    CA3  avl-onset   nU= 33 n=   2762 q=0.411 BRρ=0.489
+  ec013.969    CA3  sync-event  nU= 33 n=   3077 q=0.000 BRρ=0.001
+  ec013.978    CA3  avl-onset   nU= 48 n=   3408 q=0.348 BRρ=0.276
+  ec013.978    CA3  sync-event  nU= 48 n=   1568 q=0.000 BRρ=0.004
+  ec016.674    CA3  avl-onset   nU= 34 n=  22550 q=0.724 BRρ=0.999
+  ec016.674    CA3  sync-event  nU= 34 n=   2189 q=0.000 BRρ=0.004
+  ec016.733    CA3  avl-onset   nU= 30 n=  22957 q=0.567 BRρ=0.790
+  ec016.733    CA3  sync-event  nU= 30 n=   2256 q=0.000 BRρ=0.002
+  ec016.749    CA3  avl-onset   nU= 32 n=  29691 q=0.580 BRρ=0.820
+  ec016.749    CA3  sync-event  nU= 32 n=   3886 q=0.000 BRρ=0.003
+  ec016.750    CA3  avl-onset   nU= 32 n=  28285 q=0.558 BRρ=0.780
+  ec016.750    CA3  sync-event  nU= 32 n=   3011 q=0.000 BRρ=0.001
+  ec016.775    CA3  avl-onset   nU= 27 n=  44164 q=0.620 BRρ=0.890
+  ec016.775    CA3  sync-event  nU= 27 n=   3906 q=0.000 BRρ=0.004
+  ec016.799    CA3  avl-onset   nU= 32 n=  94972 q=0.536 BRρ=0.726
+  ec016.799    CA3  sync-event  nU= 32 n=   4502 q=0.000 BRρ=0.004
+  ec016.819    CA3  avl-onset   nU= 27 n=  90283 q=0.527 BRρ=0.707
+  ec016.819    CA3  sync-event  nU= 27 n=   4852 q=0.000 BRρ=0.001
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+/home/combust/fmexplorer/criticality_tool/cross_substrate/population_fingerprint.py:74: RankWarning: Polyfit may be poorly conditioned
+  c = np.polyfit(e, np.arange(1, e.size + 1, dtype=float), deg)
+  ec016.850    CA3  avl-onset   nU= 32 n=  38636 q=0.580 BRρ=0.832
+  ec016.850    CA3  sync-event  nU= 32 n=   1997 q=0.000 BRρ=0.001
+  ec016.860    CA3  avl-onset   nU= 30 n=  68666 q=0.660 BRρ=0.957
+  ec016.860    CA3  sync-event  nU= 30 n=  11426 q=0.000 BRρ=0.002
+  ec016.899    CA3  avl-onset   nU= 29 n=  73314 q=0.634 BRρ=0.912
+  ec016.899    CA3  sync-event  nU= 29 n=   6247 q=0.000 BRρ=0.001
+  ec016.931    CA3  avl-onset   nU= 36 n=  22627 q=0.507 BRρ=0.670
+  ec016.931    CA3  sync-event  nU= 36 n=   2587 q=0.000 BRρ=0.001
+  ec016.939    CA3  avl-onset   nU= 42 n=  51787 q=0.559 BRρ=0.766
+  ec016.939    CA3  sync-event  nU= 42 n=   4906 q=0.000 BRρ=0.004
+  ec016.977    CA3  avl-onset   nU= 47 n=  31544 q=0.699 BRρ=0.999
+  ec016.977    CA3  sync-event  nU= 47 n=   5503 q=0.000 BRρ=0.014
+  ec016.1016   CA3  avl-onset   nU= 48 n=  38047 q=0.664 BRρ=0.992
+  ec016.1016   CA3  sync-event  nU= 48 n=   4151 q=0.000 BRρ=0.005
+  ec016.1016   DG   avl-onset   nU= 23 n=  48462 q=0.739 BRρ=0.999
+  ec016.1016   DG   sync-event  nU= 23 n=   5777 q=0.000 BRρ=0.002
+  ec016.1047   CA3  avl-onset   nU= 43 n=  10322 q=0.605 BRρ=0.920
+  ec016.1047   CA3  sync-event  nU= 43 n=   2547 q=0.000 BRρ=0.002
+
+→ 116 pop + 923 cell + 572 placefield records in 7.9 min. Analyse: attractor_analysis.py (add hc3). Flag, don't interpret.

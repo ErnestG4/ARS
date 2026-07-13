@@ -27,7 +27,7 @@ import numpy as np
 import scipy.io
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-RET = "$HOME/fmexplorer/crcns_cache/ret1/crcns_ret-1"
+RET = os.path.expandvars("$HOME/fmexplorer/crcns_cache/ret1/crcns_ret-1")
 DATA = os.path.join(RET, "Data")
 RAN1 = os.path.join(RET, "ran1.bin")
 COORD = os.path.join(_HERE, "coordinates")

@@ -30,7 +30,7 @@ import h5py
 from scipy.signal import butter, filtfilt, hilbert
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-BUZ_GLOB = "$HOME/fmexplorer/buzsaki_cache/*.nwb"
+BUZ_GLOB = os.path.expandvars("$HOME/fmexplorer/buzsaki_cache/*.nwb")
 COORD = os.path.join(_HERE, "coordinates")
 N_POS_BINS = 50
 THETA_BAND = (6.0, 10.0)

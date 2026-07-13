@@ -1,0 +1,14 @@
+  τ=   4 stable         n_ev=    5  W1δ=NA  λ₁=-0.0283  D₂=0.00  VI.3=NA
+  τ=  10 periodic       n_ev=  967  W1δ=0.001  λ₁=+0.0000  D₂=0.99  VI.3=0.0000
+  τ=  17 period_doubled n_ev=  604  W1δ=0.070  λ₁=+0.0053  D₂=1.96  VI.3=0.0030
+  τ=  23 chaotic        n_ev=  638  W1δ=0.219  λ₁=+0.0101  D₂=2.31  VI.3=0.0040
+  τ=  30 deeper_chaos   n_ev=  635  W1δ=0.301  λ₁=+0.0073  D₂=2.41  VI.3=0.0039
+
+[Family V validation] λ₁ should be ≤~0 for stable/periodic, >0 chaotic:
+   tau4_stable            λ₁ = -0.028301444842472587
+   tau10_periodic         λ₁ = 4.1698806139046094e-05
+   tau17_period_doubled   λ₁ = 0.00529713806110252
+   tau23_chaotic          λ₁ = 0.01008823036330843
+   tau30_deeper_chaos     λ₁ = 0.0073447588840581095
+
+→ wrote coordinates/mackey-glass.jsonl (5 cells)

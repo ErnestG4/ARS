@@ -1,0 +1,18 @@
+/home/combust/fmexplorer/criticality_tool/phase35a/unfold_rotnum.py:73: RuntimeWarning: Mean of empty slice
+  m = d.mean()
+/home/combust/fmexplorer/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+LORENZ (ρ-sweep) — known: ρ=28 λ₁≈0.906, D₂≈2.06
+  ρ=  20 stable         n_ev=    0 W1δ=NA λ₁=-0.155 D₂=0.01
+  ρ=  28 classic_chaos  n_ev=  546 W1δ=0.547 λ₁=+0.909 D₂=2.21
+  ρ=  35 chaos          n_ev=  694 W1δ=0.545 λ₁=+1.051 D₂=2.12
+  ρ=  40 chaos_hi       n_ev=  767 W1δ=0.557 λ₁=+1.138 D₂=2.13
+  → wrote coordinates/lorenz.jsonl (4 cells)
+
+LOGISTIC (r-sweep) — analytic λ: periodic<0, chaos(3.7)>0, period-3-window(3.83)<0
+  r=  2.5 stable_fp   n_ev=    1 W1δ=NA λ(analytic)=-0.6931 D₂=0.00
+  r=  3.2 period_2    n_ev=200000 W1δ=0.000 λ(analytic)=-0.9163 D₂=-0.00
+  r=  3.5 period_4    n_ev=200000 W1δ=0.144 λ(analytic)=-0.8725 D₂=0.10
+  r=  3.7 chaos       n_ev=200000 W1δ=0.556 λ(analytic)=+0.3555 D₂=0.97
+  r= 3.83 period_3    n_ev=200000 W1δ=0.333 λ(analytic)=-0.3697 D₂=-0.00
+  → wrote coordinates/logistic.jsonl (5 cells)

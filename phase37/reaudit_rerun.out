@@ -1,0 +1,22 @@
+=== 01:23:25  calibration_anchors  (--run) ===
+    -> exit 0  (10 log lines)
+=== 01:25:44  lorenz_logistic_run  (--run) ===
+    -> exit 0  (18 log lines)
+=== 01:26:19  mackey_glass_run  (--run) ===
+    -> exit 0  (14 log lines)
+=== 01:26:25  dynamical_breadth  (--run) ===
+    -> exit 2  (2 log lines)
+=== 01:26:26  allen_v1_burst  (--run --workers 10) ===
+    -> exit 0  (2 log lines)
+=== 02:13:43  ibl_port  (--run --all --workers 8) ===
+    -> exit 1  (40 log lines)
+=== 03:46:19  buzsaki_port  (--run --all --workers 8) ===
+    -> exit 0  (178 log lines)
+=== 04:08:19  hc3_port  (--run --workers 6) ===
+    -> exit 0  (62 log lines)
+=== 04:16:37  dual_region_port  (--run --workers 8) ===
+    -> exit 0  (69 log lines)
+=== 04:31:28  allen_hpf  (--run --all --workers 10) ===
+    -> exit 0  (104 log lines)
+=== 05:03:41  ALL PORTS DONE ===
+summary written to /home/combust/fmexplorer/criticality_tool/phase37/reaudit_logs/_summary.log

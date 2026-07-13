@@ -1,0 +1,21 @@
+DYNAMICAL BREADTH (Job 3) — 17 cells: Rössler/Chua/Duffing/Hénon × param-sweeps
+system      param  n_ev      λ₁     D₂    W1δ  Brody q
+rossler         4   138   0.000  1.177  0.076    1.000
+rossler         6   137   0.001  1.323  0.094    1.000
+rossler       8.5   135   0.090  1.918  0.096    1.000
+rossler        12   122   0.096  1.904  0.080    1.000
+rossler        18   124   0.001  1.196  0.032    1.000
+chua          8.5   580  -0.111  0.023  0.002    1.000
+chua           10   581  -0.006  1.416  0.003    1.000
+chua           13   530  -0.001  1.045  0.001    1.000
+chua         15.6   112   0.419  2.767  0.431    1.000
+duffing       0.2   152  -0.149  1.054  0.001    1.000
+duffing       0.3   152   0.064  1.885  0.189    1.000
+duffing      0.37    31  -0.052  1.133  0.000        -
+duffing       0.5    54   0.080  2.015  0.130    1.000
+henon         0.9 39999  -0.028 -0.000  0.000    1.000
+henon        1.06 39999   0.047  0.631  0.000    1.000
+henon         1.2 33112   0.304  1.096  0.251    1.000
+henon         1.4 27998   0.419  1.206  0.335    1.000
+
+→ 17 cells banked. Chaos-ordered trajectories (λ₁ crosses 0 into chaos; D₂ rises). Extends the Family-V dynamical landscape. Flag, don't interpret.

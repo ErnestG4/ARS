@@ -1,0 +1,25 @@
+=== 07:35:34  ret1_port  (--run --workers 8) ===
+    -> exit 0 (18 lines)
+=== 07:37:39  calibration_anchors  (--run) ===
+    -> exit 0 (10 lines)
+=== 07:39:59  lorenz_logistic_run  (--run) ===
+    -> exit 0 (18 lines)
+=== 07:40:36  mackey_glass_run  (--run) ===
+    -> exit 0 (14 lines)
+=== 07:40:41  dynamical_breadth  (--sweep --workers 4) ===
+    -> exit 0 (21 lines)
+=== 07:41:00  allen_v1_burst  (--run --workers 10) ===
+    -> exit 0 (2 lines)
+=== 08:27:58  ibl_port  (--run --all --workers 4) ===
+phase37/reaudit_rerun2.sh: line 13: 82686 Killed                  timeout "$to" $PY "$CS/$name.py" "$@" > "$LOG/$name.log" 2>&1
+    -> exit 137 (16 lines)
+=== 09:16:25  buzsaki_port  (--run --all --workers 8) ===
+    -> exit 0 (178 lines)
+=== 09:38:08  hc3_port  (--run --workers 6) ===
+    -> exit 0 (62 lines)
+=== 09:46:27  dual_region_port  (--run --workers 8) ===
+    -> exit 0 (69 lines)
+=== 10:01:15  allen_hpf  (--run --all --workers 10) ===
+    -> exit 0 (104 lines)
+=== 10:33:45  ALL PORTS DONE ===
+summary -> /home/combust/fmexplorer/criticality_tool/phase37/reaudit_logs2/_summary.log
