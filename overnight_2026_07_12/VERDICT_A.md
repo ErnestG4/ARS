@@ -406,3 +406,80 @@ units**.
 **Allen has the largest correlational component in absolute terms.** It is only "75 % marginal" because
 its **total** is so large. **The ratio and the difference answer different questions, and I do not yet
 know which is the right one.** **Banked as an open methodological question, not as a result.**
+
+---
+
+## POST-RUN #7 — pvc-11 RECOVERED (the 22nd `$HOME` site), and the VARIANCE DECOMPOSITION **FALSIFIES** the mechanism
+
+### (a) pvc-11's raw data was on disk the whole time — hidden by the literal-`$HOME` bug
+
+`phase22a/loader.py:32`: `PVC11_ROOT = Path('$HOME/.../data/pvc-11/data_and_scripts')`. **`Path()` does
+not expand `$HOME` either.** **416 MB of raw macaque-V1 spikes, present, unreachable.** I logged pvc-11
+as *"no local raw"*; it was **"no local loader."**
+
+**The 2026-06-30 truth audit found this bug in `phase24/loader.py` — the file NEXT DOOR, same name, same
+project. It fixed one and reported success.** 22nd site, and the first that cost **a scientific
+datapoint** rather than a crash. *(Used the SPONTANEOUS blocks: continuous free-running trains, matching
+the other five. The gratings blocks are trial-chopped and are NOT comparable.)*
+
+### (b) THE VARIANCE DECOMPOSITION — a change of DOMAIN, and it FALSIFIES the mechanism
+
+`R²` of `regress(I_obs ~ I_shuf)` **across cells** = the marginal share. **Bounded [0,1], scale-free, no
+near-zero denominator anywhere.** Cross-cell regression, not a ratio of two medians.
+
+| substrate | n | clustering | ρ(I) | **coupling** | disatt | **R²_marginal** | slope | *(old ratio%)* |
+|---|---|---|---|---|---|---|---|---|
+| ibl-port | 277 | −0.236 | 0.988 | **−0.694** | −0.700 | 0.794 | +1.71 | 61.9 % |
+| hc3-port | 213 | −1.962 | 0.913 | **−0.604** | −0.636 | 0.705 | +2.25 | 53.2 % |
+| allen-hpf | 277 | −8.306 | 0.598 | **−0.429** | −0.590 | 0.574 | +2.27 | 75.7 % |
+| buzsaki | 300 | −2.389 | 0.903 | **−0.482** | −0.511 | 0.582 | +2.80 | 45.3 % |
+| ret1 | 298 | −0.309 | 0.970 | **−0.187** | −0.190 | 0.656 | +0.68 | 119.8 % |
+| **pvc-11** | 273 | −0.863 | **0.954** | **+0.076** | **+0.078** | 0.761 | +1.65 | 73.5 % |
+
+> **`Spearman(R²_marginal, |coupling|) = +0.200, p = 0.70` (n=6). PREDICTED: NEGATIVE.**
+
+**This is a FALSIFICATION, not an "untestable."** The ratio metric *could not say*; this one **could**,
+and it says **no**. **The marginal-share explanation is DEAD** — the **fourth** dead account of the
+dissociation, and the first killed by an instrument capable of confirming it.
+
+### (c) pvc-11 has NO COUPLING — and it breaks a claim I banked
+
+**coupling = +0.076** (wrong sign, ≈ zero) at **reliability 0.954** ⇒ **not noise. There is genuinely
+nothing there.**
+
+- ⚠ **RETRACTION.** The "instrument validation" I banked — *"irregular ⇒ clustered, every substrate,
+  right sign"* — **is FALSE.** pvc-11 is a counterexample. Stated as validated across five; **the sixth
+  breaks it.**
+- ⚠ **The sensory/feedforward hypothesis is DEAD.** pvc-11 is **sensory AND cortical**, with **less**
+  coupling than retina (+0.08 vs −0.19). The datapoint that was supposed to separate sensory from
+  feedforward from retina **kills the axis instead.**
+
+### (d) ⚠ ROBUSTNESS PROBLEM — the fine-grained ordering is NOT STABLE
+
+Previous run: hc3 −0.757 > ibl −0.740 > buz −0.598 > allen −0.558.
+This run: **ibl −0.694 > hc3 −0.604 > buz −0.482 ≈ allen −0.429** — **allen/buzsaki SWAPPED**, hc3/ibl
+swapped. **Only the cell-cap (400/350 → 300) and shuffle count changed.**
+
+**The matched pair survives** (ibl −0.69 vs ret-1 −0.19 = 3.7×; pvc-11 at ≈0 extends the range).
+**But the ordering of the middle ranks is not a stable object, and I presented it as one.**
+**Closer: bootstrap the ordering over cell subsamples and report only the ranks that survive.**
+
+### (e) Where the arc actually stands
+
+**Alive:**
+- **The matched pair** (ibl vs ret-1: same clustering, same ceiling reliability, coupling 3.7–4.2× apart). **Spine. Untouched by everything above.**
+- **clustering ⊥ coupling** — and pvc-11 **strengthens** it (moderate clustering −0.86, **zero** coupling).
+- **The coupling RANGE** is real and large: −0.69 → +0.08 across substrates, at reliabilities of 0.9–0.99.
+
+**Dead / retracted (FIVE now):**
+1. recording-quality / reliability gradient — killed by the matched pair
+2. clustering magnitude — killed by the matched pair
+3. "Allen is state-driven" — was an estimator property (tail-variance)
+4. **marginal-share composition — killed by the variance decomposition**
+5. **sensory / feedforward — killed by pvc-11**
+
+**Also retracted:** "every substrate, right sign" (pvc-11), and the **fine-grained ordering** (unstable).
+
+> **The dissociation is robust and UNEXPLAINED, and the list of things it is NOT is now five items long.
+> Naming the failed explanations is worth as much as the finding — it is what stops the next person
+> spending a month on them.**

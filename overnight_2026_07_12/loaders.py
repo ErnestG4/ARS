@@ -141,3 +141,27 @@ def load_ibl():
 LOADERS_EXT = dict(LOADERS)
 LOADERS_EXT["buzsaki-port-cell"] = load_buzsaki
 LOADERS_EXT["ibl-port-cell"] = load_ibl
+
+
+def load_pvc11():
+    """pvc-11 (Smith & Kohn, macaque V1) — SPONTANEOUS continuous trains, so it is comparable
+    to the other five (all free-running).  The gratings blocks are trial-chopped and are NOT.
+    Raw data was on disk (416 MB) the whole time; phase22a/loader.py:32 could not find it
+    because PVC11_ROOT was a literal '$HOME/...' string. Same bug, 22nd site."""
+    import sys as _s
+    _s.path.insert(0, os.path.join(ROOT, "phase22a"))
+    import loader as PL
+    for monkey in (1, 2, 3):
+        try:
+            rec = PL._read_spontaneous(monkey)
+        except Exception:
+            continue
+        for u, spk in enumerate(rec.spike_times):
+            spk = np.sort(np.asarray(spk, dtype=np.float64))
+            spk = spk[np.isfinite(spk)]
+            if spk.size < MIN_SPIKES:
+                continue
+            yield (f"pvc11/m{monkey}/{u}", spk)
+
+
+LOADERS_EXT["pvc-11"] = load_pvc11
