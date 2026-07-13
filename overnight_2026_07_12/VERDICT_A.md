@@ -280,3 +280,65 @@ single-cell ISI irregularity* are **different properties.**
 ordering**, threshold-free and reliability-cleared, is a **finding (n=5)**. The **clustering↔coupling
 dissociation**, with Allen's low `I_rep` reliability as its supporting measurement, is a **candidate
 mechanism — NOT established.** Closer: within-cell `I_rep` per behavioural/state epoch.
+
+---
+
+## POST-RUN #5 — THE MECHANISM IS RETRACTED. The finding is not.
+
+### (a) Allen's coupling survives RAW — the disattenuation was never load-bearing
+
+The circularity was real: `ρ(I_rep)=0.660` was used **both** as the disattenuation denominator **and**
+as the evidence for the mechanism. **But the ordering survives without any correction:**
+
+| | **raw** coup(logCV) | disattenuated |
+|---|---|---|
+| ibl / hc3 | −0.735 / −0.727 | −0.740 / −0.757 |
+| buzsaki | −0.575 | −0.598 |
+| **allen** | **−0.428** | −0.558 |
+| **ret1** | **−0.172** | −0.175 |
+
+**Allen sits 2.5× above ret-1 raw.** No ordering depends on the correction. And the **matched pair is
+untouched** (ibl & ret-1 both at ρ≈0.97–0.99 ⇒ disattenuation is a near no-op). **The finding rests on
+raw numbers.**
+
+### (b) My odd/even discriminator was INVALID — and I misread its output
+
+Odd/even ISI split is **stride-2 decimation**, and Farey established that decimation **destroys pair
+correlations while leaving the marginal untouched**. `I_rep` **is** a pair statistic. **I built a split
+that destroys the thing it measures**, then read its low value at Allen as "correlation-domain
+clustering." **That reading is RETRACTED.**
+
+### (c) The CLEAN test (ISI shuffle: order destroyed, marginal preserved EXACTLY) says the opposite
+
+| substrate | med `I_obs` | med `I_shuf` | **RETAINED %** = the **marginal share** |
+|---|---|---|---|
+| **allen-hpf** | −8.354 | −6.295 | **75.3 %** ← the **MOST** marginal |
+| ibl-port | −0.236 | −0.144 | 61.0 % |
+| hc3-port | −1.980 | −1.050 | 53.0 % |
+| buzsaki | −2.389 | −1.084 | **45.4 %** ← the most correlational |
+| **ret1** | −0.309 | −0.376 | **121.7 %** ← order is **ANTI**-clustering (refractoriness) |
+
+**Allen's clustering is 75 % marginal — the MOST marginal of the five, not the least.**
+
+### (d) ⇒ THE "STATE-DRIVEN" MECHANISM IS RETRACTED
+
+It rested on Allen's low split-half `ρ(I_rep) = 0.660`. **That is an ESTIMATOR property, not a
+substrate property:** |I_rep| = 8.35 (deepest in the tail) and **`ρ(|I_rep|, |split-half error|) =
++0.643`** — *estimator noise scales with the value.* Halving *n* hits a tail-heavy estimator hardest;
+the full-*n* shuffle shows no such collapse. **Tail-variance, not non-stationarity.**
+
+*Exactly the tension flagged in advance: the disattenuation denominator and the mechanism were the same
+number wearing two hats. When it was pulled apart, the mechanism was the part that broke.*
+
+### (e) What stands — REGISTERS, HELD
+
+| claim | register |
+|---|---|
+| irregular ⇒ clustered (direction, all 5) | **INSTRUMENT VALIDATION** |
+| **coupling ordering** hc3 ≈ ibl > buzsaki > allen > ret-1 — threshold-free, 2 independent predictors, reliability-flat, **survives raw** | **FINDING (n=5)** |
+| **the matched pair** (ibl vs ret-1: same clustering, same ceiling reliability, coupling 4.2× apart) | **FINDING — the spine** |
+| **clustering ⊥ coupling** (Spearman −0.20) | **FINDING** |
+| **marginal/correlational decomposition** of clustering per substrate (new, from the shuffle) | **FIRST ROW-3 MEASUREMENT — exploratory** |
+| ~~Allen's clustering is state-driven~~ | ~~candidate mechanism~~ → **RETRACTED** |
+
+**The finding never needed the mechanism, and the mechanism is the part that died.** Registers held.
