@@ -42,7 +42,7 @@ OUT_DIR = Path(ROOT_DIR) / 'data' / 'phase24_results'
 
 def process_session(srow):
     sid = int(srow['ecephys_session_id'])
-    nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
+    nwb_path = Path(os.path.expandvars(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb'))
     if not nwb_path.exists() or nwb_path.stat().st_size < 1_000_000_000:
         return None, None, None
     rec = load_session(sid)
@@ -112,7 +112,7 @@ def main():
     all_ars, all_func, all_cv = [], [], []
     for _, srow in candidates.iterrows():
         sid = int(srow['ecephys_session_id'])
-        nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
+        nwb_path = Path(os.path.expandvars(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb'))
         if not nwb_path.exists() or nwb_path.stat().st_size < 1_000_000_000:
             print(f"  session {sid}: NWB not ready; skip")
             continue

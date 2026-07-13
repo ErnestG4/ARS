@@ -159,7 +159,7 @@ def surrogate_ln_evoked(real_mat, stim_per_bin, chunk_sizes, rng):
 
 def process_session(srow, rate_matched_row, template_movie):
     sid = int(srow['ecephys_session_id'])
-    nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
+    nwb_path = Path(os.path.expandvars(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb'))
     if not nwb_path.exists() or nwb_path.stat().st_size < 1_000_000_000:
         return [], [], []
     rec = load_session(sid)
@@ -315,7 +315,7 @@ def main():
     pop_all, sur_all, surv_all = [], [], []
     for _, srow in candidates.iterrows():
         sid = int(srow['ecephys_session_id'])
-        nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb')
+        nwb_path = Path(os.path.expandvars(f'$HOME/fmexplorer/allen_cache/session_{sid}/session_{sid}.nwb'))
         if not nwb_path.exists() or nwb_path.stat().st_size < 1_000_000_000:
             print(f"\n  session {sid}: NWB not ready; skip")
             continue

@@ -1,0 +1,1436 @@
+[
+ [
+  "CAPABILITY_REPORT.md",
+  298,
+  "pending",
+  "pending LMFDB access."
+ ],
+ [
+  "CAPABILITY_REPORT.md",
+  521,
+  "unavailable",
+  "unavailable (Then 2003 list; Z[\u03c9] Maass), the verdict is"
+ ],
+ [
+  "CAPABILITY_REPORT.md",
+  523,
+  "unavailable",
+  "from OCR-mangled samples or unavailable data."
+ ],
+ [
+  "CAPABILITY_REPORT.md",
+  572,
+  "pending",
+  "3. **N=1 SL(2,\u2124) Maass** \u2014 pending LMFDB access (reCAPTCHA-blocked)."
+ ],
+ [
+  "CAPABILITY_REPORT.md",
+  605,
+  "unavailable",
+  "- Pushes are manual (codeberg credential unavailable in-session)."
+ ],
+ [
+  "RESULTS_MATRIX.md",
+  32,
+  "n/a",
+  "| Adamatzky fungal | super-Poissonian, mass<0.3 = **0.654**, n=1470; 2.6-min peak reproduced, **14-min unresolved** | banked | mod | full-pool, n/a | "
+ ],
+ [
+  "RESULTS_MATRIX.md",
+  33,
+  "n/a",
+  "| EEG \u03b8-band ZCR | **FALSIFIED** \u2014 bandpass artifact (mass<0.3\u22480.001) | closed | none (cautionary) | n/a | \u2705 |"
+ ],
+ [
+  "RESULTS_MATRIX.md",
+  36,
+  "skipped",
+  "hc-3 +0.78 > ret-1 +0.53 > 000638 +0.44 > V1 +0.25 > Allen-HPF ~0. **Burst-side reliability MEASURED, 4/5 rungs incl. null:** \u03c1_burst = 0.980 (hc-3), "
+ ],
+ [
+  "RESULTS_MATRIX.md",
+  54,
+  "pending",
+  "| SOC pair (ComCat + GOES) | two substrates pass different halves of the SOC calibrator | progress-logged, **verdicts pending** | mod | \u2705 |"
+ ],
+ [
+  "RESULTS_MATRIX.md",
+  93,
+  "pending",
+  "\u00b9 *Source-doc fix pending:* `PHASE34E_FINDINGS.md` headline still quotes Berry-Robnik"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  334,
+  "pending",
+  "the cheapest next step and is currently pending.**  Until Option 3"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  579,
+  "pending",
+  "> (Kaneko\u2260Kuramoto in family/topology/N) \u2014 coherence, not evidence; magnitude\u2194\u0394R pending a clean within-GCM sweep."
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1092,
+  "n/a",
+  "| Pulsar timing (NANOGrav)  | STRUCTURAL_MISMATCH (published-product folded TOAs) | n/a (no theoretical prior available at this product level) | Bound"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1135,
+  "missing",
+  "Physics-aware surrogate construction is the missing"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1139,
+  "missing",
+  "calibrator zoo.  Calibrator-zoo extension is the missing"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1344,
+  "pending",
+  "trivial level pending LMFDB access (data-availability note)."
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1485,
+  "pending",
+  "of paper reading) and is currently pending.**  The bottleneck is not"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1616,
+  "pending",
+  "step, currently pending); (4) wait for Neuropixels-NHP maturity or"
+ ],
+ [
+  "EPISTEMIC_STATE.md",
+  1732,
+  "missing",
+  "Together \u21d2 the missing floor is a RESOLUTION limit, NOT an ergodicity failure. Structural reason: the"
+ ],
+ [
+  "SESSION_K_ARITHMETIC_CHAOS_BRIEF.md",
+  76,
+  "missing",
+  "- **Rationale (the spine): missing levels bias \u0394\u2083/\u03a3\u00b2 toward Poisson \u2014 an incomplete spectrum manufactures the exact anomaly Co-Primary 1 predicts.** A"
+ ],
+ [
+  "SESSION_K_ARITHMETIC_CHAOS_BRIEF.md",
+  117,
+  "excluded",
+  "| S1 Maass n=3 (Co-Prim 1) | Poisson `e^{-s}` | `\u03a3\u00b2~L`; locate `L*` | arithmetic-Poisson, GOE excluded |"
+ ],
+ [
+  "SESSION_K_ARITHMETIC_CHAOS_BRIEF.md",
+  120,
+  "n/a",
+  "| S3 spectrum (edge calib.) | n/a | n/a | classifier returns \"not an ensemble\" |"
+ ],
+ [
+  "SESSION_K_ARITHMETIC_CHAOS_BRIEF.md",
+  147,
+  "not run",
+  "## Appendix Z \u2014 Moonshine shadow probe (DORMANT \u2014 does not run)"
+ ],
+ [
+  "PHASE34F_COHOMOLOGICAL_H_FINDINGS.md",
+  32,
+  "excluded",
+  "**Will's catch (load-bearing).** The KS-statistic floor for n iid draws vs the true CDF is E[D\u2099] \u2248 0.8687/\u221an. At n\u22482000 (the NNS-calibrator regime) th"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  6,
+  "blocked on",
+  "**Rev-5 delta (Will's adjudication 2026-05-17):** (1) the \u00a73 (A)/(B) decision is well-posed **only on a converged (\u03bb,N) domain** \u2014 a third state added"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  8,
+  "pending",
+  "**Rev-6 delta (Will's adjudication 2026-05-17 \u2014 the last lap).** **Decision 1 is SIGNED OFF** (the \u00a73 (A)/(B) converged-domain framing + `MALFORMED_FR"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  10,
+  "pending",
+  "**Rev-7 delta (\u00a7Q3 executed + Will's adjudication 2026-05-17).** rev-6 signed off; \u00a7Q3 ran (off-by-one Fibonacci index caught pre-results, fixed, rela"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  15,
+  "pending",
+  "- **L\u2192upturn FALLS (it did not survive the cascade).** Finding 3's upturn = \"the U-curve minimum at N\u22483\u20137k.\" But the U-curve is confirmed = f(cell-N/r"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  16,
+  "PENDING",
+  "- **\"Demonstrated zoo gap\" is \"PROBABLY ROBUST, PENDING ITS OWN REFERENCE-CHECK,\" not \"stands, independent.\"** The artifact is a property of *fixed-re"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  69,
+  "blocked on",
+  "- **Fully blocked on \u00a73 \u2014 explicit (Will, to prevent misread):** \"acceptance target fixed\" means **a spec the eventual calibrator must meet**, *not* a"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  94,
+  "missing",
+  "Generator-validation (DGY exponents) vs calibrator-validation remain distinct gates; the calibrator's ground truth exists only once \u00a73 yields the gene"
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  109,
+  "pending",
+  "- **Finding 2 (large-N \u03bb-collapse) is QUARANTINED**, struck from \"what \u00a73 must explain,\" pending the mandated reference-resolution check ((a) own-ref "
+ ],
+ [
+  "PHASE35A_BRIEF.md",
+  111,
+  "blocked on",
+  "- **P4: deferred.** **Class I:** live candidate (demonstrated gap), not precautionary, not demonstrated-necessary. **Class II: fully blocked on \u00a73 \u2014 b"
+ ],
+ [
+  "PHASE34F_G_EXECUTION_PLAN.md",
+  32,
+  "unavailable",
+  "**Backup paths if Then unresponsive or dataset unavailable:**"
+ ],
+ [
+  "PHASE34F_G_EXECUTION_PLAN.md",
+  76,
+  "pending",
+  "- Read Then 2003 dataset format (specifics TBD pending acquisition; may be tabular ASCII, CSV, custom binary)."
+ ],
+ [
+  "PHASE34F_G_EXECUTION_PLAN.md",
+  132,
+  "missing",
+  "1. Wrong Vol constant in unfolding (factor of 4\u03c0\u00b2 or 6\u03c0\u00b2 missing/doubled)."
+ ],
+ [
+  "PHASE38_RELIABILITY_LEDGER_BRIEF.md",
+  143,
+  "not run",
+  "not run them. Their orthogonality verdicts stay **uncertified** meanwhile."
+ ],
+ [
+  "TOOLKIT.md",
+  71,
+  "N/A",
+  "`MIN_N_NNS=20`, `MIN_N_FIT=50`, `MIN_N_LONGRANGE=200`. N/A returns `None`+reason, never a sentinel."
+ ],
+ [
+  "WHYTHISEXISTS.md",
+  129,
+  "missing",
+  "\"signal\" that is really the signature of the missing null \u2014"
+ ],
+ [
+  "WHYTHISEXISTS.md",
+  134,
+  "missing",
+  "structure *beyond* what the missing null already explains."
+ ],
+ [
+  "WHYTHISEXISTS.md",
+  218,
+  "not run",
+  "internal state \u2014 code that does not run, tests that fail, calibrators that"
+ ],
+ [
+  "RESULTS.md",
+  1183,
+  "missing",
+  "primes as Poisson-best, missing the F<1 fingerprint."
+ ],
+ [
+  "RESULTS.md",
+  4084,
+  "pending",
+  "outage post-mortem [exact venue pending]."
+ ],
+ [
+  "RESULTS.md",
+  4390,
+  "Skipped",
+  "- **Lorenz lobe transitions.**  Skipped per session-plan priority;"
+ ],
+ [
+  "RESULTS.md",
+  4555,
+  "n/a",
+  "| GRB221009A | (no claim)        | n/a                      | n/a              |"
+ ],
+ [
+  "RESULTS.md",
+  5745,
+  "not run",
+  "not run; activated for the per-(detector, energy_channel)"
+ ],
+ [
+  "RESULTS.md",
+  7405,
+  "no local",
+  "show no local-rich pattern in Ohiorhenuan 2010's direction.\""
+ ],
+ [
+  "RESULTS.md",
+  7426,
+  "missing",
+  "cell as the load-bearing missing comparator for the cross-substrate"
+ ],
+ [
+  "RESULTS.md",
+  7440,
+  "missing",
+  "rate-matched uniform Poisson, primes 2/3/5/7/11/13).  The missing"
+ ],
+ [
+  "RESULTS.md",
+  7461,
+  "missing",
+  "or anesthetised-mouse data remains the missing comparator for that"
+ ],
+ [
+  "RESULTS.md",
+  7507,
+  "missing",
+  "against the cross-engine claim itself\" and named the missing"
+ ],
+ [
+  "RESULTS.md",
+  7600,
+  "missing",
+  "flagged the load-bearing missing comparator for the temporal-"
+ ],
+ [
+  "RESULTS.md",
+  7658,
+  "missing",
+  "measurement that is the load-bearing missing comparator."
+ ],
+ [
+  "RESULTS.md",
+  7693,
+  "missing",
+  "load-bearing missing comparator is **not reachable via bounded-effort"
+ ],
+ [
+  "RESULTS.md",
+  8068,
+  "skipped",
+  "sign(M(n)) \u2260 sign(M(n-1)), zeros skipped \u2014 3,866 events in"
+ ],
+ [
+  "RESULTS.md",
+  8699,
+  "n/a",
+  "| zeta-low-bulk         | none             | n/a                       | n/a                    | p=11           |"
+ ],
+ [
+  "RESULTS.md",
+  8700,
+  "n/a",
+  "| zeta-mid-height       | none             | n/a                       | n/a                    | p=2            |"
+ ],
+ [
+  "RESULTS.md",
+  8701,
+  "n/a",
+  "| dirichlet-real        | none             | n/a                       | n/a                    | p=2            |"
+ ],
+ [
+  "RESULTS.md",
+  8702,
+  "n/a",
+  "| dirichlet-complex     | none             | n/a                       | n/a                    | p=2            |"
+ ],
+ [
+  "RESULTS.md",
+  8934,
+  "missing",
+  "*because the missing structural prior is the same kind of"
+ ],
+ [
+  "RESULTS.md",
+  8953,
+  "missing",
+  "- Substrate-side: encode the missing structural prior in the"
+ ],
+ [
+  "RESULTS.md",
+  8979,
+  "n/a",
+  "| K=35 (composite, K > Q_MAX) | n/a | q=5, q=7 not flagged | 0/5 | sporadic q=4, q=9 |"
+ ],
+ [
+  "RESULTS.md",
+  8980,
+  "n/a",
+  "| K=50 (composite, K > Q_MAX) | n/a | q=2 in 2/5, q=5/10/25 not flagged | 2/5 | sporadic q=12 |"
+ ],
+ [
+  "RESULTS.md",
+  9026,
+  "unavailable",
+  "especially at prime q values where the divisor-fallback is unavailable"
+ ],
+ [
+  "RESULTS.md",
+  9554,
+  "unavailable",
+  "> dataset).**  When the canonical dataset is unavailable (e.g., N=1 missing"
+ ],
+ [
+  "RESULTS.md",
+  9678,
+  "PENDING",
+  "- 34f-E + cross-coordinate Test 4: PENDING (multi-week data"
+ ],
+ [
+  "RESULTS.md",
+  9713,
+  "unavailable",
+  "unavailable data.  **34f-E-\u0394 substantive bulk-NNS ="
+ ],
+ [
+  "RESULTS.md",
+  10080,
+  "pending",
+  "not in the Zenodo dump (LMFDB access pending).  Verdict:"
+ ],
+ [
+  "RESULTS.md",
+  10089,
+  "pending",
+  "pending LMFDB access.  (\u00a77.ter.52.)"
+ ],
+ [
+  "RESULTS.md",
+  10096,
+  "pending",
+  "cross-coordinate convergence claim **reserved** pending future"
+ ],
+ [
+  "RESULTS.md",
+  10255,
+  "missing",
+  "the load-bearing missing comparator for the cross-substrate p-adic"
+ ],
+ [
+  "PHASE34F_FINDINGS.md",
+  21,
+  "unavailable",
+  "**Verdict:** **34f-G substantive bulk-NNS = DATA_ACQUISITION_BLOCKED.** Per PHASE34F_BRIEF \u00a7I.1, de-novo Hejhal-on-\u210d\u00b3 recomputation is the multi-week "
+ ],
+ [
+  "PHASE34F_FINDINGS.md",
+  66,
+  "unavailable",
+  "No accessible Bianchi-Z[\u03c9] Maass eigenvalue dataset. LMFDB Bianchi (PHASE34F_BRIEF \u00a7C.2) is reCAPTCHA-blocked in session and is primarily Cremona *hol"
+ ],
+ [
+  "README.md",
+  688,
+  "pending",
+  "capability-uncertain territory pending an explicit per-cell rate-"
+ ],
+ [
+  "PHASE34F_BRIEF.md",
+  130,
+  "unavailable",
+  "- **Pre-flight action item (\u00a7D.0a):** contact Then directly OR check Hejhal lineage repositories (Str\u00f6mberg, Lemurell) for the dataset. If unavailable"
+ ],
+ [
+  "PHASE34F_BRIEF.md",
+  167,
+  "unavailable",
+  "Before 34f-G commits: confirm Then 2003 Picard eigenvalue data availability (Then direct contact, Str\u00f6mberg/Lemurell archives, LMFDB). Document data s"
+ ],
+ [
+  "PHASE34F_BRIEF.md",
+  268,
+  "skipped",
+  "If only one data source per substrate, Test 6 is skipped with a documented note. Cross-substrate \u03c1 consistency (Test 2) becomes the methodology consis"
+ ],
+ [
+  "PHASE34F_BRIEF.md",
+  424,
+  "unavailable",
+  "Single highest-risk dependency. If Then's Picard eigenvalue data is unavailable AND de-novo recomputation is required, 34f-G timeline shifts substanti"
+ ],
+ [
+  "PHASE34F_BRIEF.md",
+  467,
+  "unavailable",
+  "- Then 2003 data unavailable + de-novo cost prohibitive \u2192 defer 34f-G; proceed 34f-E + Test 4 on 34d-E \u2194 34c \u03c7\u208b\u2083 \u2194 Bianchi-Z[\u03c9] subset (skip Picard cr"
+ ],
+ [
+  "PHASE34E_FINDINGS.md",
+  17,
+  "pending",
+  "This pivot preserves methodology validation but does NOT establish anomaly replication on N=1 specifically. That remains pending LMFDB access in a fut"
+ ],
+ [
+  "PHASE34E_FINDINGS.md",
+  160,
+  "unavailable",
+  "**G.2 Cross-LEVEL reproducibility discipline (pivot from cross-dataset).** When the canonical dataset (e.g., N=1) is unavailable, run per-level analys"
+ ],
+ [
+  "PHASE34E_FINDINGS.md",
+  172,
+  "pending",
+  "- **34f-G (Picard PSL(2, Z[i])\\\u210d\u00b3) \u2014 UNBLOCKED on \u0394-side methodology.** The \u0393\u2080(N) \u0394-side methodology is validated. PHASE34F \u00a7D.1 bulk-NNS can proceed "
+ ],
+ [
+  "PHASE34E_FINDINGS.md",
+  215,
+  "Pending",
+  "1. **N = 1 (SL(2,\u2124) trivial level) classification on LMFDB data.** Pending LMFDB programmatic access (blocked by reCAPTCHA in this session). Once acce"
+ ],
+ [
+  "PHASE34E_FINDINGS.md",
+  223,
+  "Not run",
+  "5. **Spectral form factor (\u00a7D.5 forward-deferred).** Not run. If 34f or future phases want AdS\u2083-RMT\u2082 engagement, the SL(2,\u2124)-family SFF baseline compu"
+ ],
+ [
+  "PHASE34E_FINDINGS.md",
+  225,
+  "pending",
+  "6. **Then 2005 high-r calibration spot check.** Then 2005 provides ~13 eigenvalues at r \u2248 10\u2074\u20134\u00d710\u2074. Phase 34e ran on r \u2248 1\u201320 (low spectrum). Spot-ch"
+ ],
+ [
+  "PHASE35A_PRECOMPUTE_REVIEW.md",
+  246,
+  "pending",
+  "\u03bb=0.10 is consistent with clock-rigid) but **blocked** pending an"
+ ],
+ [
+  "PHASE35A_PRECOMPUTE_REVIEW.md",
+  298,
+  "NOT run",
+  "Held-tentative annex NOT run (non-marginal by \u22481e5\u00d7 \u21d2 over-generation)."
+ ],
+ [
+  "PHASE35A_PRECOMPUTE_REVIEW.md",
+  324,
+  "pending",
+  "## Post-(b) catches (2026-05-17): L\u2192upturn falls; zoo gap \"pending\"; redesign \u2192 critical path"
+ ],
+ [
+  "PHASE35A_PRECOMPUTE_REVIEW.md",
+  327,
+  "pending",
+  "min is a harness feature. L UNDEFINED/SUSPENDED pending a non-ratio-"
+ ],
+ [
+  "PHASE35A_PRECOMPUTE_REVIEW.md",
+  329,
+  "pending",
+  "artifact) survives. (2) **Zoo gap = \"probably robust, pending its own"
+ ],
+ [
+  "sessionK/SESSION_K_CONTINUATION_FINDINGS.md",
+  35,
+  "excluded",
+  "- **even (sym0, n=266): \u27e8r\u0303\u27e9 = 0.399 \u00b1 0.016 \u2192 clean Poisson (+0.8\u03c3), GOE excluded 8.4\u03c3**"
+ ],
+ [
+  "sessionK/SESSION_K_CONTINUATION_FINDINGS.md",
+  36,
+  "excluded",
+  "- **odd  (sym1, n=334): \u27e8r\u0303\u27e9 = 0.427 \u00b1 0.016 \u2192 Poisson + mild finite-r repulsion (+2.6\u03c3), GOE excluded 7.0\u03c3**"
+ ],
+ [
+  "sessionK/SESSION_K_CONTINUATION_FINDINGS.md",
+  88,
+  "excluded",
+  "arithmetic anomaly (Poisson, GOE excluded) is confirmed per sector *and* mechanistically"
+ ],
+ [
+  "sessionK/SESSION_K_FINDINGS.md",
+  21,
+  "excluded",
+  "| **CP1** S1 Maass | arithmetic-Poisson, GOE excluded | **CONFIRMED per sector, GOE excl. 7\u20138\u03c3** |"
+ ],
+ [
+  "sessionK/SESSION_K_FINDINGS.md",
+  86,
+  "excluded",
+  "- **odd:  \u27e8r\u0303\u27e9 = 0.399 \u00b1 0.016 \u2192 clean Poisson (+0.8\u03c3), GOE excluded 8.4\u03c3.**"
+ ],
+ [
+  "sessionK/SESSION_K_FINDINGS.md",
+  87,
+  "excluded",
+  "- **even: \u27e8r\u0303\u27e9 = 0.427 \u00b1 0.016 \u2192 Poisson-leaning (+2.6\u03c3), GOE excluded 7.0\u03c3.**"
+ ],
+ [
+  "sessionK/SESSION_K_FINDINGS.md",
+  106,
+  "excluded",
+  "excluded at 7\u20138\u03c3; the arithmetic anomaly holds, with an even-sector finite-r GOE\u2192Poisson"
+ ],
+ [
+  "sessionK/SESSION_K_FINDINGS.md",
+  123,
+  "not run",
+  "## What did not run"
+ ],
+ [
+  "sessionK/SESSION_K_FINDINGS.md",
+  131,
+  "not run",
+  "- **Appendix Z (moonshine):** dark, entry gate unmet. Correctly did not run."
+ ],
+ [
+  "sessionK/SESSION_K_PARTC_PREREG_SEALED.md",
+  3,
+  "NOT RUN",
+  "**Status: SEALED pre-registration. DOES NOT RUN** until deliberately started. Per the plan,"
+ ],
+ [
+  "sessionK/SESSION_K_PARTC_PREREG_SEALED.md",
+  86,
+  "not run",
+  "*Sealed. No unseal. Part C does not run until deliberately started against this protocol.*"
+ ],
+ [
+  "phase37/RATE_ROBUST_REAUDIT_FINDINGS.md",
+  35,
+  "pending",
+  "| ibl (partial, 4/8 sess) | 1141 | 1.017 | 18% | 1.33 | 22% | pivot (lean re-run pending) |"
+ ],
+ [
+  "phase32b/PROPOSED_7TER50_RETROSCOPE.md",
+  109,
+  "pending",
+  "> `rep_med` / `ks_gue_med` orthogonality is **uncertified pending banked"
+ ],
+ [
+  "phase32b/RAIL_AS_DETECTOR.md",
+  766,
+  "missing",
+  "clustered class at all.** Poisson is the most-clustered object in it. The missing negative anchor,"
+ ],
+ [
+  "phase32b/RAIL_AS_DETECTOR.md",
+  809,
+  "no data",
+  "And the analytic check (no data needed): for a **renewal** process (iid ISIs), `E[LV] = 3/(2k+1)` for"
+ ],
+ [
+  "phase32b/PHASE32B_PER_CELL_FINDINGS.md",
+  286,
+  "not run",
+  "coefficients) is not run here; verdict robustness rests on the"
+ ],
+ [
+  "audit/05-runtime.md",
+  18,
+  "not run",
+  "The canonical self-validation **would not run at all**: `cross_substrate/calibration_anchors.py` \u2192"
+ ],
+ [
+  "audit/02-math-drift.md",
+  268,
+  "excluded",
+  "Selection basis = **raw `|a_q|`**, q\u22652 excluded DC, argmax."
+ ],
+ [
+  "audit/04-guardrails.md",
+  46,
+  "n/a",
+  "| \u2014 | `cross_substrate/axes.py` (**LIVE INSTRUMENT**) | n/a | bare estimator bank; no calibrator/surrogate/decoy import (`:46-51` + token grep = 0). |"
+ ],
+ [
+  "audit/00-map.md",
+  69,
+  "not run",
+  "- **Public library surface** (imported, not run): `arithmetic_toolkit`, `universality`, `pll_bank`, `cross_substrate/axes.py`, `surrogates`, `signal_g"
+ ],
+ [
+  "audit/02-math.md",
+  388,
+  "excluded",
+  "`peak_q` = the q\u22652 with largest |a_q|; **q=1 (DC, mean of intervals) excluded**"
+ ],
+ [
+  "phase35a/PROGRESS_LOG.md",
+  21,
+  "pending",
+  "| `sub_Liter_convergence.py` | L_iter-convergence sweep script (server run **in progress**, 48w, PID 877391; results pending \u2014 not yet local) | run no"
+ ],
+ [
+  "phase35a/PROGRESS_LOG.md",
+  33,
+  "Excluded",
+  "- **Excluded from the repo deliberately:** `_tentative_review/` (Will's"
+ ],
+ [
+  "phase35a/PHASE35_AM_FINGERPRINT.md",
+  117,
+  "unrun",
+  "The \u00a7176 flagged-but-unrun item (\"whether it appears for other \u03b8's convergent denominators\")"
+ ],
+ [
+  "phase35a/PHASE35_AM_FINGERPRINT.md",
+  128,
+  "NO raw",
+  "law is FALSIFIED). **\u03c6 anomaly:** \u03c6 (the \u00a74 headline) shows ~NO raw-var resonance (1.02) \u2014"
+ ],
+ [
+  "phase35a/PHASE35_AM_FINGERPRINT.md",
+  132,
+  "NOT run",
+  "contamination-ratio \u03b1-tracking (\u221a2@Pell vs \u03c6@Fib) \u2014 NOT run here."
+ ],
+ [
+  "phase35a/UNFOLDING_INVARIANCE_FINDINGS.md",
+  117,
+  "pending",
+  "clock-rigid); it is blocked pending the instrument fix."
+ ],
+ [
+  "phase35a/UNFOLDING_INVARIANCE_FINDINGS.md",
+  154,
+  "missing",
+  "\u2192 BR_artifact (the missing-calibrator gap, SPEC-2 restated)."
+ ],
+ [
+  "phase35a/PHASE35_SLICING_S2_NUMBERS_DRAFT.md",
+  89,
+  "excluded",
+  "rung is **critical-adjacent**: excluded from the non-singular bracket"
+ ],
+ [
+  "phase35a/PHASE35_SLICING_S2_NUMBERS_DRAFT.md",
+  135,
+  "excluded",
+  "included/excluded?"
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  23,
+  "not run",
+  "is therefore **deliberately not run** (over-generation = method-compromising;"
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  88,
+  "NOT run",
+  "## Why the held-tentative robustness annex was NOT run"
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  143,
+  "PENDING",
+  "**Finding-2 (b) disposition: PENDING** \u2014 `q3_finding2_refcheck.py` running"
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  207,
+  "pending",
+  "pending a non-ratio-dominated instrument. The rev-7 \"L = U-curve upturn\""
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  209,
+  "pending",
+  "2. **Zoo gap: \"probably robust, pending its own reference-check,\" NOT"
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  238,
+  "pending",
+  "Catch-2 **converted from \"pending\" to settled-factual**: the BR_artifact"
+ ],
+ [
+  "phase35a/Q3_HALT_FINDINGS.md",
+  261,
+  "pending",
+  "non-functional pending redesign; surviving substrate facts precisely"
+ ],
+ [
+  "phase35a/RUN_35B_FINDINGS.md",
+  11,
+  "EXCLUDED",
+  "\u03bb=1, EXCLUDED), \u03b8=golden, \u03c6=0, N=2584, rotnum-unfold L=1e6 \u2192 classifier \u2192"
+ ],
+ [
+  "phase35a/RUN_35B_FINDINGS.md",
+  71,
+  "pending",
+  "1. **ZOO-GAP \u2014 UPGRADE BANKED.** Was \"probably-robust, pending its own"
+ ],
+ [
+  "phase35a/RUN_35B_FINDINGS.md",
+  97,
+  "NOT run",
+  "## Sharpening run \u2014 Will's CONDITIONAL call (NOT run; awaiting)"
+ ],
+ [
+  "phase35a/RUN_35B_FINDINGS.md",
+  174,
+  "NOT run",
+  "downstream need non-circular sensitivity?\" leaning yes; NOT run."
+ ],
+ [
+  "phase35a/T0_EXISTING_DATA_FINDINGS.md",
+  66,
+  "pending",
+  "(pending the \u00a7D Fibonacci/DGY campaign); T3 (\u00a73-(A)). Uncommitted \u2014"
+ ],
+ [
+  "phase35a/PHASE35_SLICING_S3_ADDENDUM.md",
+  108,
+  "excluded",
+  "- `_tentative_review/` and `phase28/*` continue to be excluded from"
+ ],
+ [
+  "rf_lenses/MORNING.md",
+  81,
+  "no local",
+  "94% of the span**) has no local mean spacing to unfold to, so \u03a3\u00b2/L is a free parameter of the unfold"
+ ],
+ [
+  "rf_lenses/MORNING.md",
+  212,
+  "missing",
+  "| C function field | **LANDS** | conjecture-free (Weil) arithmetic calibrator: FF von Mangoldt RF \u2192 \u03bc(m)/\u03c6(m) geometrically; the zoo's missing provabl"
+ ],
+ [
+  "rf_lenses/MORNING_A.md",
+  7,
+  "not run",
+  "**Pre-flight note.** `git push origin master` **could not run** \u2014 `codeberg.org` needs interactive credentials this"
+ ],
+ [
+  "rf_lenses/MORNING_A.md",
+  8,
+  "pending",
+  "non-interactive shell can't supply. Master is untouched; all work is on the branch. The push stays pending for the"
+ ],
+ [
+  "cross_substrate/instructions.md",
+  46,
+  "N/A",
+  "Each axis implementation should be a pure function taking event-train input (with substrate-appropriate metadata) and returning a scalar (or vector fo"
+ ],
+ [
+  "cross_substrate/instructions.md",
+  91,
+  "N/A",
+  "Populate the substrates \u00d7 angles matrix entries from blank \u2192 done where computation lands. Use marker convention from `landscape.md` \u00a75 (\u2713 done, \u25d0 par"
+ ],
+ [
+  "cross_substrate/instructions.md",
+  114,
+  "N/A",
+  "Per `viewpoints.md` \u00a74: some axes don't apply to some substrates. Mark non-applicable cells as such; do not stub with zeros or sentinel values that co"
+ ],
+ [
+  "cross_substrate/landscape.md",
+  134,
+  "remote-streamed",
+  "DG 306) + 580 place-field cells (3 sessions); remote-streamed units+behavior (nwb_remote.py, no bulk DL)."
+ ],
+ [
+  "cross_substrate/landscape.md",
+  142,
+  "no raw",
+  "Neuroscope/Klusters format via crcns_client.py + hc3_port.py (selective extract, no raw .dat/.eeg DL)."
+ ],
+ [
+  "cross_substrate/landscape.md",
+  154,
+  "PENDING",
+  "**PENDING:**"
+ ],
+ [
+  "cross_substrate/landscape.md",
+  331,
+  "pending",
+  "**Fingerprint status.** Parameter side richly characterized (DGY framework); spectral-side ARS-fingerprint pending \u00a7D / 745b215 resolution."
+ ],
+ [
+  "cross_substrate/landscape.md",
+  407,
+  "TODO",
+  "> **Grouping caveat (2026-05-21).** The harvested `L-zeros` coordinate file pools THREE distinct L-function families that do NOT share a universality "
+ ],
+ [
+  "cross_substrate/landscape.md",
+  534,
+  "pending",
+  "- **Notes.** Long-pending documentation thread; named here as first-class methodology."
+ ],
+ [
+  "cross_substrate/landscape.md",
+  541,
+  "pending",
+  "NNS marker `I.5q` = q-banded ks-to-GUE harvested into coordinates (Phase 2a); full matched object-(a) NNS axes (W1\u03b4, Brody, \u03a3\u00b2/\u0394\u2083) pending Phase 2b re"
+ ],
+ [
+  "cross_substrate/landscape.md",
+  566,
+  "pending",
+  "The matrix is intentionally sparse \u2014 most cells are open. The empty space IS the population target. Phase 2a populated the NNS `I.5q` (q-banded) and R"
+ ],
+ [
+  "cross_substrate/landscape.md",
+  637,
+  "pending",
+  "- **Windowing / stationarization methods section.** Long-pending live thread from the handoff document. Documentation, not a verdict gate, but referen"
+ ],
+ [
+  "cross_substrate/INSTRUMENT_CONFOUND_FINDINGS.md",
+  494,
+  "MISSING",
+  "The KEY MISSING member \u2014 now BUILT \u2014 is the **`a_q` decoy**: a matched-marginal-"
+ ],
+ [
+  "cross_substrate/COMCAT_SOC_FINDINGS.md",
+  10,
+  "pending",
+  "pending \u2014 see G5). Contaminated all-FRM pull (220,548) retained separately as a negative example."
+ ],
+ [
+  "cross_substrate/COMCAT_SOC_FINDINGS.md",
+  161,
+  "missing",
+  "safe way (missing small filler flares at MAX would only raise MAX CV, understating the gap). Raw split CV=103(MAX)/34(MIN) is the pooling-across-disjo"
+ ],
+ [
+  "cross_substrate/C1_theta_class_brief.md",
+  34,
+  "N/A",
+  "the superposition bug). VI.1 \u03b1 from this run if L-sweep available (else N/A). Append to"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  161,
+  "TODO",
+  "of the per-cell-vs-pooled lesson). [landscape.md \u00a73 grouping caveat added; split TODO.]"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  208,
+  "skipped",
+  "medium/high-cost matched 2b recompute can be deferred or skipped.** Caveat to watch:"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  519,
+  "missing",
+  "All 16 (then 18) coordinate files clean: no malformed JSON, no missing top-level keys,"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  574,
+  "excluded",
+  "P1\u2013P4 refreshed with the L-zeros split; am-confluence excluded from P2 median scatter"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  623,
+  "pending",
+  "stability). Honest read: Diophantine confluence robust; Liouville UNRESOLVED pending an N-convergence"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  685,
+  "excluded",
+  "asymptotic constant. No valid P11 banked (broken extrapolations excluded). Flag, not interpreted."
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  815,
+  "N/A",
+  "metric read different facets.) Figure P_brocot_approx.png. I.5q (q-banded) N/A for brocot \u2014 joint_q_profile's"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  1171,
+  "pending",
+  "IBL pending VISUAL-region sessions. cell-type (spike-width): ks_gue wide 0.374 vs narrow 0.373 \u2014 no"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  1271,
+  "missing",
+  "### Gold\u2194silver ladder \u2014 the \"missing thing between gold and silver\" is a real LAGRANGE-SPECTRUM GAP"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  1272,
+  "missing",
+  "Will's intuition (something missing between gold and silver) probed by building a ladder of mixed-digit"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  1281,
+  "missing",
+  "true spectral gap. The \"missing something\" is the gap itself \u2014 a structural hole, not unsampled data."
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  1299,
+  "cannot test",
+  "responsiveness-vs-stability tradeoff. ARS cannot test attractor topology directly (that needs manifold"
+ ],
+ [
+  "cross_substrate/findings_log.md",
+  1446,
+  "pending",
+  "V1's OSI\u2194class \u2014 flag pending a burst-controlled re-test of the spatial_info\u2194ks_gue link."
+ ],
+ [
+  "cross_substrate/PROGRESS_REPORT.md",
+  361,
+  "excluded",
+  "**P2** matched repulsion plane (Brody \u00d7 BR; am-confluence excluded \u2014 trajectory, see P5), **P3**"
+ ],
+ [
+  "cross_substrate/PROGRESS_REPORT.md",
+  371,
+  "pending",
+  "`theta_class_correspondence.py` + `liouville_nconv.py` + `lambda_star_classes.py`. Interactive projection still pending; P6 is the static unified view"
+ ],
+ [
+  "cross_substrate/PROGRESS_REPORT.md",
+  501,
+  "pending",
+  "- **Landscape v1 consolidation** (landscape.md \u00a70 dashboard): mapped / pending / surprises at a glance."
+ ],
+ [
+  "phase36/TRACK1_4_KANEKO_CONFIG_JUSTIFICATION.md",
+  50,
+  "can't test",
+  "by construction \u2014 bank that honestly (and note the observable can't test it) rather than running a"
+ ],
+ [
+  "phase36/TRACK4_FINDINGS.md",
+  108,
+  "missing",
+  "**Still queued (well-specified):** F2's missing floor \u2014 the Lanczos LOCAL measure (site-0 projection)"
+ ],
+ [
+  "phase36/TRACK4_FINDINGS.md",
+  177,
+  "missing",
+  "=> not broken), so the missing floor is a RESOLUTION LIMIT, not an ergodicity failure. The gate drew the"
+ ],
+ [
+  "phase36/AUDIT_TWO_AXIS_FINDINGS.md",
+  90,
+  "pending",
+  "Filed as COHERENCE. The magnitude\u2194\u0394R hypothesis is pending a clean WITHIN-GCM sweep (vary coupling at"
+ ],
+ [
+  "phase36/TRACK4_CONFIG_JUSTIFICATION.md",
+  10,
+  "missing",
+  "missing piece (\u00a77.ter.19 was a front-end limitation, not a core one). FAIL \u2192 \u00a77.ter.19 reaffirmed"
+ ],
+ [
+  "phase36/TRACK4_CONFIG_JUSTIFICATION.md",
+  76,
+  "missing",
+  "- **PASS** \u2192 continuous front-end is a real missing piece; promote the F-passing front-end to a"
+ ],
+ [
+  "phase36/TRACK4_CONFIG_JUSTIFICATION.md",
+  78,
+  "NOT run",
+  "analogue of the \u00a77.ter.19 boundary. (Does NOT run real data in this track.)"
+ ],
+ [
+  "phase36/TRACK4_CONFIG_JUSTIFICATION.md",
+  85,
+  "excluded",
+  "for the transition-location read. \u03bb=1 excluded as a measured substrate (banked convention)."
+ ],
+ [
+  "overnight_2026_07_12/VERDICT_A.md",
+  233,
+  "remote-streamed",
+  "(`+buzsaki-port`, `+ibl-port`. `dr-port` is remote-streamed and `pvc-11` has no local raw \u2014 **both"
+ ],
+ [
+  "overnight_2026_07_12/VERDICT_A.md",
+  381,
+  "cannot test",
+  "artifact.** \u21d2 **The `retained%` metric cannot test this mechanism.** The mechanism may still be right."
+ ],
+ [
+  "overnight_2026_07_12/VERDICT_A.md",
+  418,
+  "no local",
+  "as *\"no local raw\"*; it was **\"no local loader.\"**"
+ ],
+ [
+  "overnight_2026_07_12/VERDICT_B.md",
+  7,
+  "not run",
+  "REPAIR is wrong, not the class** \u2014 and Jobs C/D do not run."
+ ],
+ [
+  "overnight_2026_07_12/OVERNIGHT_BRIEF.md",
+  12,
+  "not run",
+  "pre-committed reading: the *repair* is wrong, not the class. C and D then do not run."
+ ],
+ [
+  "approximability/MORNING_I.md",
+  12,
+  "skipped",
+  "3. **Boundary reduction CHECKED (the check skipped before a+f):** g\u0303(a,f)=factor/\u03bb is ONE continuous surface \u2014"
+ ],
+ [
+  "approximability/OVERNIGHT_BRIEF_bridge_scout.md",
+  59,
+  "pending",
+  "- **GOLDEN-ONLY** \u2014 a\u22652 flagged as *measured-not-derived*, bridge downgraded to a golden coincidence pending closed-"
+ ],
+ [
+  "approximability/MORNING_H_arm1.md",
+  72,
+  "cannot test",
+  "prediction** \u2014 but because \u03c6 is **fraction-locked at 0.382** (converges fast; q=2 blocks wider), it **cannot test the"
+ ],
+ [
+  "approximability/DOUBLING_BACK.md",
+  53,
+  "excluded",
+  "- **Integer-part inclusion.** Clean room D2 uses `x\u2208(0,1)` \u21d2 quotients `a\u2081,a\u2082,\u2026` with the **integer part excluded**; ARS"
+ ],
+ [
+  "approximability/FINDINGS.md",
+  205,
+  "not run",
+  "Sharpest form of *class is visible, not decided*; re-instantiates Panel A's \u039b-vs-\ud835\udcdb-vs-K trichotomy. NNS not run"
+ ],
+ [
+  "approximability/MORNING.md",
+  5,
+  "pending",
+  "gate outcome; Task 3-D3 completed; the remaining heavy jobs (Task 2, Part-I M=2000, D1 \u03bb\u2192128/256) are **pending/resumable"
+ ],
+ [
+  "approximability/MORNING.md",
+  36,
+  "PENDING",
+  "## Task 2 \u2014 \u03c0's Khinchin trajectory to N=10\u2075 \u2192 **PENDING (not run this session)**"
+ ],
+ [
+  "approximability/MORNING.md",
+  85,
+  "PENDING",
+  "### Part I M=2000 \u2192 **PENDING** (heavy, ~10\u00d7 the 300s baseline). Run: `REFSUITE_M=2000 .venv/bin/python run_all.py` in `mathtest/` (parameter turn, en"
+ ],
+ [
+  "approximability/MORNING.md",
+  86,
+  "PENDING",
+  "### D1 \u03bb\u2192{128,256} \u2192 **PENDING.** Resumable via a driver importing frozen `refsuite.d1_fibonacci.discriminant/find_bands_nested` with lam\u2208{128,256} (t"
+ ],
+ [
+  "approximability/MORNING.md",
+  108,
+  "Pending",
+  "3. **Pending parameter turns** (whenever a session has the hours): Task-2 55k-digit \u03c0 trajectory, Part-I M=2000,"
+ ],
+ [
+  "approximability/MORNING.md",
+  116,
+  "pending",
+  "**pending/resumable** (parameter turns). Nothing faked; the one verdict I got wrong (D3 \"noisy\") is corrected above with"
+ ],
+ [
+  "approximability/MORNING_E.md",
+  1,
+  "blocked on",
+  "# MORNING_E \u2014 sparse \u03c0-292 eigensolve: certified module, but depths 6\u20138 blocked on COMPUTE (not RAM)"
+ ],
+ [
+  "approximability/MORNING_E.md",
+  46,
+  "NOT run",
+  "**Depths 6\u20138 do NOT run this session.** But this is *not* \"sparse path uncertified\": the module **is certified on the"
+ ],
+ [
+  "approximability/MORNING_E.md",
+  48,
+  "blocked on",
+  "**certified-and-trusted, but compute-bound at scale, blocked on the absence of a compiled inner loop.**"
+ ],
+ [
+  "approximability/MORNING2.md",
+  27,
+  "Pending",
+  "## Pending parameter turns \u2014 COMPLETE (`finish_morning_params.py` \u2192 `finish_morning_params.json`, ~85 min wall)"
+ ],
+ [
+  "approximability/MORNING_J.md",
+  33,
+  "excluded",
+  "near-crossover steps (|margin|<0.10) excluded as pre-registered undecidable. **HOLDS.** The H closed-form direction"
+ ],
+ [
+  "phase38/PHI_CONTAMINATION_PREREG.md",
+  41,
+  "no raw",
+  "**Expectation pre-committed:** given the raw-var gate already showed \u03c6 has ~no raw commensuration"
+ ],
+ [
+  "phase38/PHI_CONTAMINATION_PREREG.md",
+  80,
+  "pending",
+  "neither confirmed nor retracted, pending the N=F\u2082\u2084 regime."
+ ],
+ [
+  "phase38/PHI_CONTAMINATION_PREREG.md",
+  97,
+  "not run",
+  "most. **Use the banked machinery or do not run.**"
+ ],
+ [
+  "phase38/LADDER_BURST_FINDINGS.md",
+  21,
+  "skipped",
+  "| 000638 MEC | +0.44 | 0.19 | \u2014 | \u2014 | \u2014 | skipped (interpolation; see below) |"
+ ],
+ [
+  "phase38/LADDER_BURST_FINDINGS.md",
+  87,
+  "skipped",
+  "- **4 of 5 rungs; 000638 (+0.44) skipped by design** \u2014 the saturation result makes it"
+ ],
+ [
+  "internaldocs/phase20_writeup_draft.md",
+  34,
+  "unavailable",
+  "fallback when libbgpstream unavailable).  AS-graph from CAIDA AS"
+ ],
+ [
+  "internaldocs/phase20_writeup_draft.md",
+  129,
+  "pending",
+  "post-mortem; full citation pending \u2014 likely *ACM Internet"
+ ],
+ [
+  "internaldocs/CRCNS_SUMMARY_FOR_BERKELEY.md",
+  43,
+  "not run",
+  "(We did not run CV2 on the macaque-V1 pvc-11 set in this pass; its `ks_gue` median is 0.51.)"
+ ],
+ [
+  "internaldocs/OVERNIGHT_NOTES.md",
+  123,
+  "TODO",
+  "## What's still on the implementation TODO"
+ ],
+ [
+  "phase35a/_tentative_review/README.md",
+  17,
+  "NOT RUN",
+  "ANNEX NOT RUN (decision, 2026-05-17). The q3_robustness_annex.py here was"
+ ],
+ [
+  "data/phase33b_results/PHASE33B_FINDINGS.md",
+  56,
+  "unavailable",
+  "If time-domain ARS reading is unavailable at the published-product"
+ ],
+ [
+  "data/phase33b_results/PHASE33B_FINDINGS.md",
+  257,
+  "unavailable",
+  "time-domain framing is unavailable before any pilot ran, which"
+ ],
+ [
+  "data/phase28_results/PHASE28_FINDINGS.md",
+  16,
+  "no local",
+  "local 6 %, mid 19 %), no local-rich pattern in Ohiorhenuan's direction,"
+ ],
+ [
+  "data/phase28_results/PHASE28_FINDINGS.md",
+  33,
+  "excluded",
+  "- distant: 800-5000 \u00b5m radius (sparse, mostly excluded)"
+ ],
+ [
+  "data/phase28_results/PHASE28_FINDINGS.md",
+  117,
+  "no local",
+  "no local-rich pattern in Ohiorhenuan's direction\"."
+ ],
+ [
+  "data/phase32a_results/PHASE32A_FINDINGS.md",
+  5,
+  "missing",
+  "Filling the load-bearing missing cell flagged in EPISTEMIC_STATE.md"
+ ],
+ [
+  "data/phase32a_results/PHASE32A_FINDINGS.md",
+  144,
+  "missing",
+  "missing cell because the Round 4 sweep had already computed it; the"
+ ],
+ [
+  "data/phase32b_results/PHASE32B_FINDINGS.md",
+  147,
+  "cannot test",
+  "**Not resolved:** pvc-11 cannot test the question at the cross-recording"
+ ],
+ [
+  "data/phase26_results/PHASE26_FINDINGS.md",
+  96,
+  "missing",
+  "respectively, but they are missing from the Phase 21 panel data and"
+ ],
+ [
+  "data/phase32c_results/PHASE32C_FINDINGS.md",
+  11,
+  "missing",
+  "load-bearing missing comparator \u2014 awake macaque V1 with comparable"
+ ],
+ [
+  "data/phase32c_results/PHASE32C_FINDINGS.md",
+  238,
+  "missing",
+  "measurement that is the load-bearing missing comparator."
+ ],
+ [
+  "data/phase32c_results/PHASE32C_FINDINGS.md",
+  341,
+  "pending",
+  "The substrate-vs-state confound persists pending either pvc-5 state"
+ ],
+ [
+  "data/phase33c_results/PHASE33C_FINDINGS.md",
+  217,
+  "No data",
+  "Survey-level investigation only.  No data ingestion, no pilot."
+ ],
+ [
+  "data/phase23_results/PHASE23_FINDINGS.md",
+  325,
+  "not run",
+  "(drafted but not run; activated only if per-detector test"
+ ],
+ [
+  "data/phase31b_results/SURROGATE_SCALE_AUDIT.md",
+  20,
+  "n/a",
+  "| **H1 OSI \u2194 ks_gue_med** | pvc-11 + Allen | none (descriptor-correlation) | n/a | per-unit Spearman | n/a | Phase 31b Follow-up 2 (pvc-11) + Follow-u"
+ ],
+ [
+  "data/phase31b_results/SURROGATE_SCALE_AUDIT.md",
+  21,
+  "n/a",
+  "| **DSI \u2194 ks_gue_med** | pvc-11 + Allen | none (descriptor-correlation) | n/a | per-unit Spearman | n/a | Phase 31b Follow-up 2: pvc-11 PARTIAL_SURVIV"
+ ],
+ [
+  "data/phase31b_results/SURROGATE_SCALE_AUDIT.md",
+  22,
+  "n/a",
+  "| **F1/F0 \u2194 rep_med (substrate-systematic)** | pvc-11 + Allen | none (descriptor-correlation) | n/a | per-unit Spearman | n/a | Phase 31b Follow-up 2 "
+ ],
+ [
+  "data/phase31b_results/SURROGATE_SCALE_AUDIT.md",
+  23,
+  "pending",
+  "| **H2 surviving structure (pvc-11 movie recordings)** | pvc-11 | rate_matched + cell_shuffle + ln_evoked \u00d7 7 seeds | **full-sequence statistic** | pe"
+ ],
+ [
+  "data/phase31b_results/PHASE31B_FINDINGS.md",
+  32,
+  "not run",
+  "| **H2 stationarity check (pvc-11)** | **H2_TIME_VARYING** | monkey1_natural_movie: rep_med CV=0.64 (highly non-stationary); monkey2_gratings_movie: 5"
+ ],
+ [
+  "data/phase22a_results/PHASE22A_FINDINGS.md",
+  70,
+  "pending",
+  ">   open pending a more expressive stimulus filter (multi-frame"
+ ],
+ [
+  "phase35a/run_35b_log.txt",
+  4,
+  "excluded",
+  "SIGNAL (\u03bb\u2192 across transition, \u03bb=1 excluded; \u03b8=golden, \u03c6=0):"
+ ],
+ [
+  "phase34d/lit/chen_refined_2019.txt",
+  4626,
+  "pending",
+  "pending on \u03b2) that is independent of \u03bb. It follows that"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_plain.txt",
+  69,
+  "n/a",
+  "DG   spatial_info_bits_per_spike  exc: n/a (n=6)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_plain.txt",
+  70,
+  "n/a",
+  "DG   place_coherence              exc: n/a (n=6)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_plain.txt",
+  71,
+  "n/a",
+  "CA1  spatial_info_bits_per_spike  exc: n/a (n=0)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_plain.txt",
+  72,
+  "n/a",
+  "CA1  place_coherence              exc: n/a (n=0)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_ratematch.txt",
+  71,
+  "n/a",
+  "DG   spatial_info_bits_per_spike  exc: n/a (n=6)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_ratematch.txt",
+  72,
+  "n/a",
+  "DG   place_coherence              exc: n/a (n=6)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_ratematch.txt",
+  73,
+  "n/a",
+  "CA1  spatial_info_bits_per_spike  exc: n/a (n=0)"
+ ],
+ [
+  "cross_substrate/coordinates/hc3_analysis_ratematch.txt",
+  74,
+  "n/a",
+  "CA1  place_coherence              exc: n/a (n=0)"
+ ],
+ [
+  "phase34e/data/then2003.txt",
+  711,
+  "missing",
+  "the number of missing eigenvalues, see \ufb01gure 9. Unfortunately, ou r algorithm"
+ ]
+]
