@@ -1,0 +1,19 @@
+SIGMA^2 SLOPE CONVERGENCE SWEEP — with CALIBRATOR CONTROLS.
+  Sigma^2 has a KNOWN finite-size pathology: estimates saturate and bend when L approaches a
+  significant fraction of the sample, and THE BEND DIRECTION DEPENDS ON n.
+  => A CONVERGING ret-1 CURVE AND A BROKEN ESTIMATOR LOOK THE SAME WITHOUT THESE CONTROLS.
+  Poisson: TRUE slope = 1.000 exactly.   gamma(g): TRUE slope = g.
+============================================================================================
+object               true | n=2k n=4k n=6k n=9k n=13k n=18k
+--------------------------------------------------------------------------------------------
+poisson              1.00 |  0.935  0.971  0.983  1.027  0.992  0.996
+gamma g=0.5          0.50 |  0.469  0.525  0.492  0.512  0.508  0.498
+gamma g=2            2.00 |  1.850  1.967  2.112  2.068  1.932  1.947
+
+RET-1: 11 cells with >=18000 ISIs
+RET-1                   ? |  0.631  0.625  0.518  0.471  0.441  0.502
+
+  If the CALIBRATOR slopes drift with n, THE DRIFT IS THE ESTIMATOR, NOT RETINA —
+  and the correction is read directly off the calibrator curve.
+
+DONE_CONV

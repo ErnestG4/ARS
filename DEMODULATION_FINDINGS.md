@@ -400,3 +400,76 @@ STABLE OBJECT.** *(The short-range clustering IS stable: 2.57 / 2.49.)*
 **Closer:** Σ²-slope with **CIs, at matched n, swept over n** — the number has to be shown to converge
 before it can carry a class claim. And the short-range structure needs a mechanism that is **not**
 bursts: RGC refractoriness plus a non-burst correlation. **Open.**
+
+---
+
+# PART 5 — THE CONVERGENCE SWEEP VINDICATES THE ESTIMATOR (so I OVER-RETRACTED), and a TENTH DEFECT UPSTREAM OF EVERYTHING
+
+## 1. ⚠ THE TENTH INSTANCE — a defect in **what counts as an event**
+
+**The Poisson-collapse control (Part 4) showed that merging chance-close events manufactures a hard-core
+exclusion — Farey's exact fingerprint — from pure noise.** That retro-implicates **any** preprocessing
+step with a minimum-separation rule. **Grepped. Found:**
+
+**`run_fungal_nns.py`:**
+```python
+MIN_ISI_SEC = 120
+...
+if peak - last > min_isi_sec:      # <-- HARD 120-SECOND MINIMUM ISI, BY CONSTRUCTION
+    out.append(peak); last = peak
+```
+
+**No two fungal "spikes" can be closer than 120 s.** Fungal's mean ISI is ≈590 s, so **the minimum
+normalised spacing is ≈0.20 — a hard gap over the first fifth of the axis, manufactured by the event
+definition.** **Every fungal reading is downstream of it — including this session's "fungal = CLUSTERING
+DETECTED."**
+
+*(Audited and clean by comparison: `comcat_port.py`'s Gardner–Knopoff declustering **is** a merge, but it
+ships a window-scale sensitivity check (×0.5/×2) — the one place the project did this right.
+`goes_flares.py` filters duplicate flares **by source (FRM)**, not by a minimum gap — needs a look but is
+not a min-separation rule.)*
+
+> **TENTH INSTANCE, AND THE WIDEST BLAST RADIUS: not a defect in an estimator — a defect in WHAT COUNTS
+> AS AN EVENT. It is upstream of the classifier entirely.**
+> **Standing rule: any extraction rule with a minimum separation, dedup, or merge imposes hard-core
+> exclusion on its output. Every hard-gap reading downstream of one is suspect on sight.**
+
+## 2. THE CONVERGENCE SWEEP — the estimator is SOUND, and I over-retracted
+
+| object | TRUE | n=2k | 4k | 6k | 9k | 13k | **18k** |
+|---|---|---|---|---|---|---|---|
+| **poisson** | **1.00** | 0.935 | 0.971 | 0.983 | 1.027 | 0.992 | **0.996** |
+| **gamma γ=0.5** | **0.50** | 0.469 | 0.525 | 0.492 | 0.512 | 0.508 | **0.498** |
+| **gamma γ=2** | **2.00** | 1.850 | 1.967 | 2.112 | 2.068 | 1.932 | **1.947** |
+| **RET-1** | **?** | 0.631 | 0.625 | 0.518 | 0.471 | 0.441 | **0.502** |
+
+**The Σ² estimator is UNBIASED AT EVERY n.** No finite-size drift in any calibrator. **So the drift was
+never the estimator** — and the 0.518 → 0.782 swing was a **CELL-SUBSET** effect (25 cells ≥6k ISIs vs
+11 cells ≥18k), not an n-effect. **Two different populations, both real, BOTH RIGID.**
+
+### ⇒ CORRECTION: I RETRACTED "FAREY'S MIRROR" TOO FAST
+
+**ret-1's slope is SUB-POISSON at every n and every subset — 0.44 to 0.78, NEVER crossing 1.0.**
+The **magnitude** is uncertain. **The SIGN is not.**
+
+| | short range R₂(0.1) | long range Σ² slope |
+|---|---|---|
+| poisson | 1.07 | **1.00** |
+| gamma γ=2 | 1.93 | **1.96** |
+| **farey** *(certified)* | **0.000** (hard gap) | **0.72** |
+| **ret-1** | **≈2.5** (strong clustering) | **0.44 – 0.78** |
+
+**The two-scale structure stands: strong short-range clustering + sub-Poisson long-range rigidity.**
+**Farey's mirror is BACK — with an honest error bar on the rigidity magnitude.**
+
+### And the γ-contradiction is ROBUST across the entire range
+
+In the γ-family, **`slope = γ = CV²` is an IDENTITY, not a fit.**
+ret-1: **CV² = 2.14** vs **slope 0.44–0.78** ⇒ a **2.7× to 4.9× gap AT EVERY POINT OF THE SWEEP.**
+
+> **The model cannot hold retina, and the conclusion does not depend on which number you take.**
+> **One parameter cannot set two scales independently. Retina needs a second parameter — and the second
+> parameter is a claim about mechanism.**
+
+**Still open:** the mechanism. **It is NOT bursts** (1.01 spikes/burst — Part 4). Whatever produces
+short-range clustering *without* bursts, on top of long-range rigidity, is unknown.
