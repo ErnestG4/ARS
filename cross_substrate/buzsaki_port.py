@@ -41,7 +41,7 @@ from cross_substrate.axes import canonical_spacings, FAMILY_I, family_local     
 from cross_substrate.population_fingerprint import (_corr_eig, _avalanche_onsets,  # noqa: E402
                                                     _sync_events, _fp, _f)
 
-BUZ_GLOB = "$HOME/fmexplorer/buzsaki_cache/*.nwb"
+BUZ_GLOB = os.path.expandvars("$HOME/fmexplorer/buzsaki_cache/*.nwb")
 COORD = os.path.join(_HERE, "coordinates")
 DT = 0.025
 MIN_UNITS = 30

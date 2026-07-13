@@ -99,3 +99,45 @@ LOADERS = {"allen-hpf-cell": load_allen_hpf,
 
 # banked counts, for a selection-drift check (dr-port is remote-streamed: out of scope, logged)
 BANKED_N = {"allen-hpf-cell": 4358, "hc3-port-cell": 923, "ret1-cell": 325}
+
+
+def load_buzsaki():
+    import h5py, glob as _g
+    import buzsaki_port as B
+    for f in sorted(_g.glob(B.BUZ_GLOB)):
+        try:
+            with h5py.File(f, "r") as h:
+                sti = h["units/spike_times_index"][:]
+                st_all = h["units/spike_times"]
+                for r in range(len(sti)):
+                    lo = 0 if r == 0 else int(sti[r - 1])
+                    spk = np.sort(np.asarray(st_all[lo:int(sti[r])], dtype=np.float64))
+                    if spk.size < MIN_SPIKES:
+                        continue
+                    yield (f"buz/{os.path.basename(f)}/{r}", spk)
+        except Exception:
+            continue
+
+
+def load_ibl():
+    import h5py, glob as _g
+    import ibl_port as I
+    for f in sorted(_g.glob(I.IBL_GLOB)):
+        try:
+            with h5py.File(f, "r") as h:
+                u = h["units"]
+                sti = u["spike_times_index"][:]
+                st_all = u["spike_times"]
+                for r in range(len(sti)):
+                    lo = 0 if r == 0 else int(sti[r - 1])
+                    spk = np.sort(np.asarray(st_all[lo:int(sti[r])], dtype=np.float64))
+                    if spk.size < MIN_SPIKES:
+                        continue
+                    yield (f"ibl/{os.path.basename(f)}/{r}", spk)
+        except Exception:
+            continue
+
+
+LOADERS_EXT = dict(LOADERS)
+LOADERS_EXT["buzsaki-port-cell"] = load_buzsaki
+LOADERS_EXT["ibl-port-cell"] = load_ibl

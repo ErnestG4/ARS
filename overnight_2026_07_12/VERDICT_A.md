@@ -223,3 +223,60 @@ NOT established. Closer: within-cell `I_rep` per behavioural/state epoch.)*
   reliability-cleared, disattenuated. **n=3 substrates.**
 - **CANDIDATE MECHANISM:** the **clustering ↔ coupling dissociation** at Allen. Supported by Allen's
   anomalously low `I_rep` reliability. **Not established.**
+
+---
+
+## POST-RUN #4 — THE LADDER, EXTENDED (n=5) AND RELIABILITY-CLEARED
+
+Threshold-free predictors (log-ISI CV, gamma shape *k*) × rate-corrected unit-mean `I_rep`, with
+interleaved-block split-half reliability on **both** axes. **No 10 ms constant anywhere.**
+(`+buzsaki-port`, `+ibl-port`. `dr-port` is remote-streamed and `pvc-11` has no local raw — **both
+LOGGED as not-run, never silently dropped.** `buzsaki_port.py:44` and `ibl_port.py:43` carried the
+literal-`$HOME` bug too — instances 10 and 11 — fixed.)
+
+| substrate | n | med spikes | **clustering** (med `I_rep`) | ρ(I_rep) | ρ(logCV) | coup(logCV) | coup(γ-k) | **DISATT** |
+|---|---|---|---|---|---|---|---|---|
+| **hc3-port** | 294 | 1794 | −1.372 | +0.931 | +0.993 | −0.727 | +0.891 | **−0.757** |
+| **ibl-port** | 367 | 26249 | **−0.294** | **+0.991** | +0.994 | −0.735 | +0.908 | **−0.740** |
+| buzsaki-port | 400 | 20310 | −2.166 | +0.931 | +0.991 | −0.575 | +0.813 | **−0.598** |
+| allen-hpf | 365 | 4815 | **−7.992** | +0.660 | +0.890 | −0.428 | +0.677 | **−0.558** |
+| **ret1** | 323 | 7373 | **−0.316** | **+0.969** | +0.999 | −0.172 | +0.457 | **−0.175** |
+
+**Both threshold-free predictors agree on the ordering, on all five substrates.** Signs are physical
+throughout (log-CV ↑ ⇒ more clustered ⇒ `I_rep` ↓; γ-k ↑ ⇒ more regular ⇒ `I_rep` ↑).
+
+### THE MATCHED PAIR — kills BOTH confounds at once, and needs no n
+
+> **`ibl-port`: clustering −0.294 · reliability 0.991 · coupling −0.740**
+> **`ret-1` : clustering −0.316 · reliability 0.969 · coupling −0.175**
+>
+> **Same clustering. Same near-ceiling reliability. Coupling 4.2× apart.**
+
+**Unreliability cannot explain it** — both sit at the ceiling, so there is no attenuation to remove.
+**Clustering magnitude cannot explain it** — they are identical. **A single matched pair falsifies both
+competing accounts simultaneously.**
+
+Corroborated across the set: `Spearman(|coupling|, ρ_I_rep)` = **+0.000**; `Spearman(|coupling|,
+median spike count)` = **−0.100**. **The recording-quality hypothesis REQUIRES these to be positive.
+They are zero.** *(The "reliability gradient in a biological costume", banked months ago and never run,
+is now run and DEAD.)*
+
+### THE DISSOCIATION IS THE FINDING
+
+`Spearman(clustering magnitude, coupling strength) = **−0.20** (n=5)` — **the two axes are
+independent.** *How much* a substrate clusters and *how lawfully its clustering follows from
+single-cell ISI irregularity* are **different properties.**
+
+- **allen-hpf**: the MOST clustered substrate (−7.99) — and its clustering is **middling-predicted** by
+  single-cell irregularity. Its `I_rep` **reliability is the lowest in the set (0.660)** while its
+  `logCV` reliability is fine (0.890): **its clustering does not replicate across interleaved blocks.**
+  *A stable single-cell property would.* ⇒ **state/population-driven, not single-cell-driven.**
+- **hc3 / ibl**: clustering **tightly** predicted by single-cell irregularity (−0.76, −0.74), at high
+  reliability.
+- **ret-1**: the only **feedforward sensory** substrate in the set, and by far the **weakest** coupling
+  (−0.175) at the **highest** reliability. *(n=1 on "feedforward" — flagged as hypothesis, not result.)*
+
+**Registers:** the *direction* (irregular ⇒ clustered) is **instrument validation**. The **coupling
+ordering**, threshold-free and reliability-cleared, is a **finding (n=5)**. The **clustering↔coupling
+dissociation**, with Allen's low `I_rep` reliability as its supporting measurement, is a **candidate
+mechanism — NOT established.** Closer: within-cell `I_rep` per behavioural/state epoch.
