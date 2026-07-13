@@ -1,0 +1,19 @@
+KILL THE RATIO. Test I_demod DIRECTLY against a DEMODULATED-POISSON NULL.
+  No denominator, no scale, works at ANY clustering level — including ibl's.
+  EXTRINSIC  = demodulates INTO the null (nothing survives).
+  INTRINSIC  = demodulates BELOW the null (clustering survives).
+====================================================================================================
+  NULL (demodulated Poisson, W=1.0s): median +0.0543   5th pct +0.0453
+  NULL (demodulated Poisson, W=5.0s): median +0.0101   5th pct -0.0037
+
+substrate          n   raw I |  I_demod W=1s  p vs null |  I_demod W=5s  p vs null   verdict
+----------------------------------------------------------------------------------------------------
+allen-hpf-cell    36  -7.513 |       -0.1303    2.4e-13 |       -0.3140    1.5e-16   INTRINSIC (survives BELOW the null)
+hc3-port-cell     19  -1.301 |       -0.1940    7.9e-05 |       -0.5255    5.8e-09   INTRINSIC (survives BELOW the null)
+ret1-cell         44  -0.360 |       -0.3369    8.6e-04 |       -0.3413    1.9e-04   AMBIGUOUS
+buzsaki-port-cell  50  -2.033 |       -0.0648    3.9e-08 |       -0.5180    2.8e-18   INTRINSIC (survives BELOW the null)
+ibl-port-cell     40  -0.078 |       +0.0447    2.7e-01 |       -0.0312    5.7e-03   EXTRINSIC (demodulates INTO the null)
+pvc-11            44  -1.304 |       -0.9238    1.9e-18 |       -1.1942    1.9e-18   INTRINSIC (survives BELOW the null)
+dr-port           50  -0.644 |       -0.0227    2.4e-04 |       -0.2157    2.6e-09   AMBIGUOUS
+
+DONE_NODIV

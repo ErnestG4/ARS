@@ -1,0 +1,18 @@
+ret-1: A TWO-SCALE CLASS?  Short-range CLUSTERED + long-range POISSON is not in the gamma-family:
+  THE gamma-FAMILY HAS ONE PARAMETER AND TWO SCALES. gamma sets BOTH. A substrate needing a
+  DIFFERENT gamma at short and long range is OUTSIDE THE MODEL BY CONSTRUCTION.
+  Reference class: FAREY = hard gap (short) + Poisson tail (long). First certified non-RMT class.
+====================================================================================================
+  ret-1: 25 cells with >=6000 ISIs
+
+object       | Sigma2(L): L=1 L=2 L=4 L=8 L=12  | slope(4-12) | R2(r=0.1) R2(r=0.5)
+----------------------------------------------------------------------------------------------------
+poisson      |             1.00  2.01  4.03  8.06 12.09  |       1.009 |     1.073     1.015
+gamma g=2    |             1.67  3.58  7.66 15.80 23.39  |       1.959 |     1.925     1.122
+farey        |             0.49  1.09  2.51  5.46  8.28  |       0.721 |     0.000     1.200
+RET-1        |             1.76  3.14  5.50  7.41 10.00  |       0.518 |     2.565     1.379
+
+  READ: Poisson slope = 1.0.  R2 > 1 at small r = CLUSTERED; R2 < 1 = REPULSIVE (gap).
+  A TWO-SCALE class = R2 anomalous at small r  AND  Sigma2 slope ~ 1 (Poisson) at large L.
+
+DONE_RET

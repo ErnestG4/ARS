@@ -246,3 +246,85 @@ should be *most* applicable there and it is *least* self-consistent (4.6×). **T
 "disagreement IS the measurement" case, firing.** **Flagged, not chased.** *(Closer: is ret-1's
 generator outside the γ-family entirely — i.e. a hard-gap/refractory class the model does not span?
 Retina's Σ²(5) = 6.45 is near-Poisson while its `I_rep` is clustered — an unusual combination.)*
+
+---
+
+# PART 3 — THE RATIO IS DEAD. ibl RESOLVED (and it threatens the spine). ret-1 IS A TWO-SCALE CLASS CANDIDATE.
+
+## 1. Kill the ratio — the right statistic has no denominator AND no scale
+
+`retained% = I_demod / I_raw` is ill-conditioned wherever `I_raw ≈ 0`. **I diagnosed that two messages
+ago, wrote the rule, and re-committed it on ibl — the one substrate where it mattered most.**
+*Vigilance is not the fix. The metric had to be deleted.*
+
+**Replacement:** test **`I_demod` itself** against a **DEMODULATED-POISSON null** (which is *not* zero —
+demodulation biases `I_rep` to **+0.054** at W=1 s). **No denominator. No scale. Works at any clustering
+level.**
+
+| substrate | raw `I` | **residual `I_demod` (W=1 s)** | p vs null | fraction removed |
+|---|---|---|---|---|
+| **pvc-11** | −1.304 | **−0.924** | 1.9e-18 | 29 % |
+| **ret-1** | −0.360 | **−0.337** | 8.6e-04 | 6 % |
+| hc3-port | −1.301 | −0.194 | 7.9e-05 | 85 % |
+| allen-hpf | −7.513 | −0.130 | 2.4e-13 | **98 %** |
+| buzsaki | −2.033 | −0.065 | 3.9e-08 | 97 % |
+| dr-port | −0.644 | −0.023 | 2.4e-04 | 96 % |
+| **ibl-port** | −0.078 | **+0.045** | **0.27** | **100 %** |
+
+**⚠ The test alone is OVER-POWERED** — with 36 cells it calls Allen's 2 % residue "significant". **The
+MAGNITUDE carries the verdict**, and it needs no ratio: **pvc-11 (−0.92) and ret-1 (−0.34) have real
+intrinsic clustering; allen/buzsaki/dr-port (−0.13 … −0.02) have residues of a 96–98 % removal.**
+
+### ⚠ ibl RESOLVED — and it threatens the spine
+
+**`ibl` is the ONLY substrate whose residual is indistinguishable from demodulated Poisson (p = 0.27).
+It has NO intrinsic clustering at all.** `ret-1` retains **94 %** of its clustering, significantly below
+the null.
+
+> **THE MATCHED PAIR MATCHES ON A NUMBER THAT IS TWO DIFFERENT PHYSICAL QUANTITIES.**
+> `ibl` = entirely rate-driven. `ret-1` = intrinsic. Their 3.7× coupling gap may be nothing more than
+> *"rate-driven substrates couple; intrinsic ones don't"* — **the shared-confound story, never
+> retracted.** The spine would then be **a restatement of the demodulation result, not an independent
+> finding.**
+>
+> **STATUS: the spine is CONDITIONAL. Not retracted — but no longer independent evidence.**
+
+## 2. ret-1 is a TWO-SCALE CLASS — and the γ-family cannot produce it
+
+| object | Σ²(1) | Σ²(4) | Σ²(12) | **slope (4–12)** | **R₂(r=0.1)** |
+|---|---|---|---|---|---|
+| poisson | 1.00 | 4.03 | 12.09 | **1.009** | 1.073 |
+| gamma γ=2 | 1.67 | 7.66 | 23.39 | **1.959** | 1.925 |
+| **farey** *(certified class)* | 0.49 | 2.51 | 8.28 | **0.721** | **0.000** ← hard gap |
+| **RET-1** | 1.76 | 5.50 | 10.00 | **0.518** | **2.565** ← strong clustering |
+
+- **Short range: R₂(0.1) = 2.565** — *more* clustered than gamma γ=2.
+- **Long range: Σ² slope = 0.518** — **BELOW Poisson (1.0). More rigid than random.**
+
+**THE FALSIFIABLE CORE:** in the γ-family **one parameter sets both scales** — `slope = γ = CV²`.
+ret-1's **CV² = 2.14**, its **slope = 0.518**: a **4.1× contradiction.** *That is exactly the 4.6×
+disagreement the two validated γ-estimators reported.* **It was not noise — it was the model being
+asked to do something it structurally cannot.**
+
+> **One parameter cannot set two scales independently. ret-1 requires a different γ at short and long
+> range. It is OUTSIDE Bialek's model BY CONSTRUCTION.**
+> **This is not "Bialek is wrong." It is "retina needs a second parameter" — and the second parameter
+> is a claim about mechanism.**
+
+### And it is the mirror of the one class ARS has certified
+
+| | **short range** | **long range** |
+|---|---|---|
+| **Farey** | **hard gap** (R₂ = 0.000) | rigid (slope 0.721) |
+| **ret-1** | **strong clustering** (R₂ = 2.565) | rigid (slope 0.518) |
+
+**Mirror images at short range. The same sub-Poisson rigidity at long range.**
+**Mechanism available:** *bursts* (short-range clustering) delivered on a *regular schedule*
+(long-range rigidity) — which is what RGCs with a refractory period and near-regular firing do.
+
+**Not established** (n=25 cells, per-cell medians, no CIs). **Closer:** per-cell Σ²-slope and R₂(0.1)
+with CIs; split by RGC type if labels exist; and the two-scale structure re-derived on demodulated
+trains (ret-1 is 94 % intrinsic, so it should survive).
+
+**This is the "how many more Fareys are there?" question, answered once, by accident, in the substrate
+the γ-model could not fit.**
