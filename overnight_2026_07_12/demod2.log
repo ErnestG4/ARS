@@ -1,0 +1,17 @@
+DEMODULATION CURVES — retained clustering vs bandwidth. COMPARE SHAPES, don't pick a W.
+  retained% = I_rep(demodulated) / I_rep(raw).  LOW = clustering was RATE-DRIVEN.
+  CALIBRATOR SHAPES (from the canary):
+    EXTRINSIC (Cox)      raw -2.770 ->  W=0.05:  -8%  | W=1:   2% | W=5:  20% | W=100:  84%
+    INTRINSIC (gamma)    raw -0.870 ->  W=0.05:   4%  | W=1:  72% | W=5:  94% | W=100: 101%
+  => a RATE-DRIVEN substrate tracks the Cox curve; an INTRINSIC one tracks the gamma curve.
+========================================================================================================
+substrate          n  raw I_rep |  retained % at:  W=0.05  W=0.2  W=1  W=5  W=20  W=100
+--------------------------------------------------------------------------------------------------------
+allen-hpf-cell    32     -7.347 |                      0%      0%      1%      4%      7%     30%
+hc3-port-cell     16     -1.891 |                    -17%    -16%     11%     44%     70%     91%
+ret1-cell         28     -0.460 |                      5%     66%     93%     98%    100%    100%
+buzsaki-port-cell  40     -1.879 |                      9%      9%      9%     23%     46%     62%
+ibl-port-cell     20     -0.193 |                   -115%   -109%     10%     66%     83%     99%
+pvc-11            35     -1.281 |                    -13%     13%     63%     90%     96%    100%
+
+DONE_NEURAL

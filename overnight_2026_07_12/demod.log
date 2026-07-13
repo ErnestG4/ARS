@@ -1,0 +1,22 @@
+=== CANARY: the demodulator must PASS both ground truths, or the neural run is uninterpretable ===
+  Cox   (rate-modulated Poisson, EXTRINSIC clustering) -> demod MUST collapse it to Poisson
+  gamma (CV=2, CONSTANT rate,   INTRINSIC clustering)  -> demod MUST LEAVE IT ALONE
+  Poisson reference: I_rep = 0, Sigma2(5) = 5.0
+================================================================================================
+cox(EXTRINSIC)         RAW  I_rep= -2.770  Sigma2=  78.31  CV=2.32
+                       W=  0.05s  I_rep= +0.233  Sigma2=   1.68  CV=0.75
+                       W=  0.20s  I_rep= +0.158  Sigma2=   2.41  CV=0.83
+                       W=  1.00s  I_rep= -0.056  Sigma2=   6.85  CV=1.04
+                       W=  5.00s  I_rep= -0.550  Sigma2=  20.82  CV=1.51
+                       W= 20.00s  I_rep= -1.452  Sigma2=  49.24  CV=2.16
+                       W=100.00s  I_rep= -2.327  Sigma2=  65.04  CV=2.30
+
+gamma CV=2(INTRINSIC)  RAW  I_rep= -0.870  Sigma2=  17.19  CV=2.02
+                       W=  0.05s  I_rep= -0.037  Sigma2=   3.11  CV=1.23
+                       W=  0.20s  I_rep= -0.215  Sigma2=   4.74  CV=1.38
+                       W=  1.00s  I_rep= -0.626  Sigma2=  11.64  CV=1.74
+                       W=  5.00s  I_rep= -0.814  Sigma2=  15.80  CV=1.94
+                       W= 20.00s  I_rep= -0.862  Sigma2=  17.29  CV=2.00
+                       W=100.00s  I_rep= -0.877  Sigma2=  17.47  CV=2.02
+
+DONE_CANARY
