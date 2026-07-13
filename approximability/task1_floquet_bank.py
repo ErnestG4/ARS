@@ -1,5 +1,6 @@
+import os
 import sys, math, json, time
-sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np
 from numpy.linalg import eigvalsh
 sys.path.insert(0,".")

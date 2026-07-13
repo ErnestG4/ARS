@@ -12,7 +12,7 @@ BASE_SEED=20240517.
 """
 import os,sys,json,math
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,ROOT); sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,ROOT); sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import mpmath as mp
 from panel_D_records import records          # banked Panel-D record-process instrument

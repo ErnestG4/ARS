@@ -140,13 +140,13 @@ def _load_movie(kind: str, monkey: int) -> np.ndarray:
     ~40 ms = 25 fps; the movies are 30s × ~750 frames)."""
     import scipy.io as sio
     if kind == 'noise_movie':
-        path = (Path('$HOME/fmexplorer/criticality_tool/data/pvc-11')
+        path = (Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/pvc-11")))
                 / 'data_and_scripts/stimuli_movies/noise_movie.mat')
     elif kind == 'natural_movie':
-        path = (Path('$HOME/fmexplorer/criticality_tool/data/pvc-11')
+        path = (Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/pvc-11")))
                 / 'data_and_scripts/stimuli_movies/natural_movie.mat')
     elif kind == 'gratings_movie':
-        path = (Path('$HOME/fmexplorer/criticality_tool/data/pvc-11')
+        path = (Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/pvc-11")))
                 / 'data_and_scripts/stimuli_movies/gratings_movie.mat')
     else:
         raise ValueError(f"unknown movie kind: {kind}")

@@ -37,7 +37,7 @@ import pandas as pd
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.dirname(_HERE)
 _RIEMANN = os.path.join(os.path.dirname(os.path.dirname(_ROOT)), "riemann_explorer")
-for p in (_HERE, _ROOT, _RIEMANN, os.path.expanduser("~/fmexplorer/riemann_explorer")):
+for p in (_HERE, _ROOT, _RIEMANN, os.path.expanduser(os.path.expanduser("~/fmexplorer/riemann_explorer"))):
     if p not in sys.path:
         sys.path.insert(0, p)
 
@@ -73,7 +73,7 @@ def load_allen_units(max_units=20, min_spk=1500):
     """Sample real V1 gratings spike trains: each unit's spike times over the
     drifting-gratings interval, contiguous CAP."""
     f = sorted(glob.glob(os.path.expanduser(
-        "~/fmexplorer/allen_cache/session_*/session_*.nwb")))[0]
+        os.path.expanduser("~/fmexplorer/allen_cache/session_*/session_*.nwb"))))[0]
     import h5py
     out = []
     with h5py.File(f, "r") as h:

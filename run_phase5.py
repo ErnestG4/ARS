@@ -26,7 +26,7 @@ import numpy as np
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')
+sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 DATA = os.path.join(THIS_DIR, "data")
 
 from pll_bank import farey_rationals

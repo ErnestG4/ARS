@@ -18,7 +18,7 @@ PRE-REGISTERED PREDICTIONS (written before the run) — two candidate order para
 REQUIREMENTS: per-target Q-depth certificate (assert Q>33102 for π); per-window magnitude+smoothness gate BEFORE any
 Σ² is read (Liouville expected to stress it hardest — a failure there is informative, not garbage).
 
-READ-ONLY. Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+READ-ONLY. Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
                   approximability/panel_B_farey.py
 """
 import os, sys, json, math

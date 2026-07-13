@@ -4,8 +4,8 @@ audit/phase5_runtime.py — Phase 5 runtime verification (READ-ONLY: imports the
 Run from repo root with the project venv AND the riemann_explorer path on PYTHONPATH (works around the
 literal-$HOME bug in signal_gen.py:16 WITHOUT editing the repo):
 
-    PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-      /home/combust/fmexplorer/bin/python3 audit/phase5_runtime.py
+    PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+      $HOME/fmexplorer/bin/python3 audit/phase5_runtime.py
 
 Three blocks:
   A. Rate-drift control     — global CV vs rate-robust CV2/Lv on a slow-rate-drifting train.

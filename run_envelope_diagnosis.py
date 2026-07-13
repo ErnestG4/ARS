@@ -20,7 +20,7 @@ from scipy.signal import lfilter
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')
+sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 
 import matplotlib
 matplotlib.use('Agg')

@@ -1,3 +1,4 @@
+import os
 """
 phase33a/pilot_ars_runs.py — Phase 33a pilot (lean).
 
@@ -27,7 +28,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path('$HOME/fmexplorer/criticality_tool')
+ROOT = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool")))
 DATA = ROOT / 'data' / 'phase33a_results'
 
 sys.path.insert(0, str(ROOT))

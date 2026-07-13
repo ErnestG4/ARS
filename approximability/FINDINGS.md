@@ -294,7 +294,7 @@ CF functional the probe couples to. Re-instantiates Panel A's Λ/𝓛/K trichoto
 claim either passed a pre-registered gate or was explicitly demoted (spectral Σ² refused by theorem; Farey Σ² struck for
 a post-hoc retune, detection kept). All conditional-on-π-GK-typical claims are labelled as such (unprovable at present).
 **Doubling-back: COMPLETE — see `DOUBLING_BACK.md`.** An independent literature-only clean room
-(`/home/combust/fmexplorer/mathtest/`) convergently validated the load-bearing claims (C→ln(1+√2), liminf-K criterion,
+(`$HOME/fmexplorer/mathtest/`) convergently validated the load-bearing claims (C→ln(1+√2), liminf-K criterion,
 V>20 regime, FIX-16 CV constants). Two things stated precisely (not overstated): the clean-room poly-unfold finding is
 the **complementary SUPPRESSION mode** (Poisson Σ² 42<50, over-absorption on smooth input) to ARS's **INFLATION mode**
 (FIX-2/Face-1, Σ²≫ceiling on fractal input) — a fuller two-mode characterization of smooth-fit unfolding, NOT the same

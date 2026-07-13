@@ -2,7 +2,7 @@
 reading diverges with unfold degree (singular density = un-readable by Family II)."""
 import os,sys,json
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,ROOT); sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,ROOT); sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from cross_substrate.longrange_discriminator import longrange_stats
 import transition_calibrators_dynamical as tcd

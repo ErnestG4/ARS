@@ -1,7 +1,7 @@
 # ARS Math Toolkit — Portable Reference Digest
 
 A hand-off map of the reusable engines, calibrators, substrates, certified math machinery, and
-working disciplines across the three sibling repos. Paths are relative to `/home/combust/fmexplorer/`.
+working disciplines across the three sibling repos. Paths are relative to `$HOME/fmexplorer/`.
 Verified against the code (2026-07). One-off `run_phaseNN_*.py` scripts are omitted; only reusable
 pieces are listed.
 
@@ -17,9 +17,9 @@ a nuisance to be removed; verdicts certify the **marginal** spacing distribution
   landscape), `approximability/` (subdir: certified spectral/number-theory machinery),
   `riemann_explorer/` (the host FM/PLV engine, imported on PYTHONPATH), `mathtest/` (clean-room
   reference suite, `refsuite/`).
-- **Environment:** run everything with `/home/combust/fmexplorer/bin/python3` (pandas/numpy live in that
+- **Environment:** run everything with `$HOME/fmexplorer/bin/python3` (pandas/numpy live in that
   venv; bare `python3` bites post-reboot). Most scripts need
-  `PYTHONPATH=/home/combust/fmexplorer/riemann_explorer`. Neural NWB streaming uses the MAIN venv
+  `PYTHONPATH=$HOME/fmexplorer/riemann_explorer`. Neural NWB streaming uses the MAIN venv
   (`venv_allen311` numpy is too old for `np.trapezoid`).
 - **Seed convention:** `BASE_SEED = 20240517` throughout.
 
@@ -665,4 +665,4 @@ The durable methodology — apply these regardless of substrate:
 - `box_dim` rails on multifractal spectra (resolution-limited) — diagnostic only, bank on `bs_dim`.
 - Floquet corner degenerate at q=2 — use the exact period-2 discriminant.
 - `driver='ev'` (QR) saturates cores at large q — use `driver='evr'` (MRRR).
-- Bare `python3` lacks pandas — use `/home/combust/fmexplorer/bin/python3`.
+- Bare `python3` lacks pandas — use `$HOME/fmexplorer/bin/python3`.

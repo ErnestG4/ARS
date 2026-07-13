@@ -36,7 +36,7 @@ from loader import load_session, AllenRecording
 from ars_classify import classify, per_q_columns
 
 
-CANDIDATE_PATH = Path('$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
+CANDIDATE_PATH = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv")))
 OUT_DIR = Path(ROOT_DIR) / 'data' / 'phase24_results'
 
 K_GRID = [5, 8, 12, 17]

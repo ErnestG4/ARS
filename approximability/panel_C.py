@@ -15,7 +15,7 @@ tighter C. Moderate lambda in {2,4,8,16} (fully resolved by Floquet); C = interc
 import os, sys, json, math
 sys.path.insert(0, ".")
 import numpy as np
-_ROOT = "/home/combust/fmexplorer/criticality_tool"
+_ROOT = os.path.expandvars("$HOME/fmexplorer/criticality_tool")
 sys.path.insert(0, os.path.join(_ROOT, "cross_substrate"))
 from trace_map_dimension import band_widths, dim_pressure  # Floquet band widths + Bowen pressure
 from task1_pi_depth5 import potential, convergents  # EXACT integer potential + fractional convergents (p<q)

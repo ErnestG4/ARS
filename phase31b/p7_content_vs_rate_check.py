@@ -1,3 +1,4 @@
+import os
 """
 phase31b/p7_content_vs_rate_check.py — quick analytical check on whether
 the p=7 movie-suppression is rate-driven or content-driven.
@@ -17,7 +18,7 @@ Output:
 import json
 from pathlib import Path
 
-OUT_DIR = Path('$HOME/fmexplorer/criticality_tool/data/phase31b_results')
+OUT_DIR = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/phase31b_results")))
 
 # Per-recording from pvc11_all_qmax200 (monkey1 only, comparable monkey)
 data = [

@@ -98,7 +98,7 @@ def run_hc3(sessions, tag):
 
 
 if __name__ == "__main__":
-    SESS = "/home/combust/fmexplorer/crcns_cache/sessions"
+    SESS = os.path.expandvars("$HOME/fmexplorer/crcns_cache/sessions")
     # EC (Mizuseki entorhinal) sessions = the +0.78 anchor
     ec_tops = [d for d in sorted(os.listdir(SESS)) if d.startswith(("ec013", "ec016"))]
     leaves = []

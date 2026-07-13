@@ -30,7 +30,7 @@ for p in (_HERE, _ROOT):
 import longrange_discriminator as LD
 from trial_psth_unfold import psth_unfold
 
-NWB_GLOB = os.path.expanduser("~/fmexplorer/allen_cache/session_*/session_*.nwb")
+NWB_GLOB = os.path.expanduser(os.path.expanduser("~/fmexplorer/allen_cache/session_*/session_*.nwb"))
 OSI_PARQUET = os.path.join(_ROOT, "data/phase24_results/h1_allen_comparison.parquet")
 L = 50.0
 REF_N = 1500

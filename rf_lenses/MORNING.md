@@ -2,7 +2,7 @@
 
 Session frame: exploratory lens-engineering on the RF engine (`arithmetic_toolkit.ramanujan_fourier`,
 `padic_amplitude_v4`). Nothing tool-side modified; refsuite frozen; banked ARS read-only. All work in
-`rf_lenses/`. `/home/combust/fmexplorer/bin/python3`, `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`.
+`rf_lenses/`. `$HOME/fmexplorer/bin/python3`, `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`.
 Negatives banked at equal prominence — a lens that doesn't fit, with the reason, is a full deliverable.
 
 Priority order attempted: A → E → B → C → D.

@@ -36,7 +36,7 @@ from run_h1 import (per_direction_rate, osi_dsi, f1_f0_at_preferred,
                        _classify_one)
 
 
-CANDIDATE_PATH = Path('$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
+CANDIDATE_PATH = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv")))
 OUT_DIR = Path(ROOT_DIR) / 'data' / 'phase24_results'
 
 

@@ -11,7 +11,7 @@ spacings. For the GLOBAL sequence empirical mean-gap = 1/|F_Q| = the analytic me
 the two normalizations coincide (no convention gap). Asserted below (min tau ~ 0.304).
 
 READ-ONLY. Run:
-  /home/combust/fmexplorer/bin/python3 approximability/farey_class_certify.py
+  $HOME/fmexplorer/bin/python3 approximability/farey_class_certify.py
 """
 import os, sys, math
 import numpy as np
@@ -19,7 +19,7 @@ import numpy as np
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _ROOT)
 sys.path.insert(0, os.path.join(_ROOT, "sessionK"))
-sys.path.insert(0, "/home/combust/fmexplorer/mathtest/refsuite")
+sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/mathtest/refsuite"))
 
 from d3_farey import farey_gaps_global, triangle_cdf, MIN_TAU  # analytic Hall law
 import nns_stats as NS                                         # Maass machinery

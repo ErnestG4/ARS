@@ -35,7 +35,7 @@ The four bound requirements, enforced structurally:
   independent surrogates.  rep_med/ks_gue_med use NO surrogates: no surrogate count
   can ever raise their rho, which is set by events-per-window and B1-B3.
 
-Run:  /home/combust/fmexplorer/bin/python3 phase38/reliability_ledger.py
+Run:  $HOME/fmexplorer/bin/python3 phase38/reliability_ledger.py
 """
 
 import os

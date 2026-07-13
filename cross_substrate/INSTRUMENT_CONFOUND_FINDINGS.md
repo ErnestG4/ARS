@@ -2,7 +2,7 @@
 
 Module: `instrument_confound.py`. Closed-loop validation (`validate()`) +
 first real-substrate lensing-ledger pass (`grb_ledger_pass()`). Run with the
-main venv: `/home/combust/fmexplorer/bin/python3 instrument_confound.py`.
+main venv: `$HOME/fmexplorer/bin/python3 instrument_confound.py`.
 
 ## Audit — what was already in place (verdict: GAPS CONFIRMED)
 - **Nulls/calibrators are ~all mathematical.** Poisson / GOE / GUE / GSE /

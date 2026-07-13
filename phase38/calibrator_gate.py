@@ -25,7 +25,7 @@ Arms, to localise leakage if the null fails:
 If A leaks and B does not, the banked z_w values inherit a rate-driven correlation
 and rho(p7 @ 3 surr) measured in TOOLKIT §9 is itself an OVERESTIMATE.
 
-Run:  /home/combust/fmexplorer/bin/python3 phase38/calibrator_gate.py
+Run:  $HOME/fmexplorer/bin/python3 phase38/calibrator_gate.py
 """
 
 import itertools

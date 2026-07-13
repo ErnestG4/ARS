@@ -104,7 +104,7 @@ This is the [[validate_scale_convergence_before_asymptotic_constant]] discipline
 **Panels B & D (spacing readouts) DO depend on open FIX items:**
 - **FIX-1 (`$HOME` import break):** `signal_gen.py:16` literal `$HOME` breaks import on a clean process. If any panel
   imports `signal_gen` (or `calibration_anchors`, which imports it), run under
-  `PYTHONPATH=/home/combust/fmexplorer/riemann_explorer`. `[code]` verified in `verify/`.
+  `PYTHONPATH=$HOME/fmexplorer/riemann_explorer`. `[code]` verified in `verify/`.
 - **FIX-2/7 (Σ² magnitude, verdict-safe):** raw `compute_family_II(unfold_unit_mean(...))` gives an unreliable Σ²
   *magnitude* on non-flat-density inputs (Tier-2: 0.19×–1.6×), though the **verdict is lens-invariant**. **Mandate for
   B1/D:** read Σ²/Δ₃ through `longrange_verdict` (density-adaptive), NOT raw `compute_family_II`; quote verdicts, not

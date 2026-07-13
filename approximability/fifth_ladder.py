@@ -8,7 +8,7 @@ inside task1_pi_depth5. No new physics; the ONLY new input is alpha. Seed 202405
 
 Outputs per (lam,depth): exact bands, total bandwidth, both dim estimators + agreement<=0.02
 bank flag. Plus per-step width ratios, running geomean K, gap-labeling for q=12,q=53.
-Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
      approximability/fifth_ladder.py
 """
 import os, sys, math, json, time, gc

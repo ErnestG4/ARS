@@ -41,7 +41,7 @@ from allen_osi_gap import gratings_train
 from ars_classify import unfold_unit_mean
 from axes import canonical_spacings, I5_ks_gue
 
-NWB_GLOB = os.path.expanduser("~/fmexplorer/allen_cache/session_*/session_*.nwb")
+NWB_GLOB = os.path.expanduser(os.path.expanduser("~/fmexplorer/allen_cache/session_*/session_*.nwb"))
 OSI_PARQUET = os.path.join(_ROOT, "data/phase24_results/h1_allen_comparison.parquet")
 L = 50.0
 REF_N = 1500

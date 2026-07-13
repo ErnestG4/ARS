@@ -1,3 +1,4 @@
+import os
 """
 phase33a/pilot_direct_stats.py — Phase 33a lightweight pilot.
 
@@ -31,7 +32,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path('$HOME/fmexplorer/criticality_tool')
+ROOT = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool")))
 DATA = ROOT / 'data' / 'phase33a_results'
 
 PULSARS = ['B1855+09', 'J0030+0451', 'J0613-0200', 'J1909-3744',

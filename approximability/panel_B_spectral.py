@@ -12,7 +12,7 @@ that e actually separates from the metallics. If e does NOT separate at the deep
 "insufficient depth", NOT a verdict. π's accessible depth is limited by its early large quotients (a₃=15, a₄... ,292),
 so π may land as "insufficient depth" — reported honestly, not forced.
 
-READ-ONLY. Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+READ-ONLY. Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
                   approximability/panel_B_spectral.py
 """
 import os, sys, json

@@ -142,7 +142,7 @@ def decoy_battery(starts, stops, conds, n_seeds=10, ref_n=1500, L=50.0, verbose=
 if __name__ == "__main__":
     import glob, h5py
     f = sorted(glob.glob(os.path.expanduser(
-        "~/fmexplorer/allen_cache/session_*/session_*.nwb")))[0]
+        os.path.expanduser("~/fmexplorer/allen_cache/session_*/session_*.nwb"))))[0]
     with h5py.File(f, "r") as h:
         g = h["intervals/drifting_gratings_presentations"]
         starts, stops = g["start_time"][:], g["stop_time"][:]

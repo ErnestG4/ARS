@@ -161,12 +161,12 @@ known-ρ control recovers ρ_true within CI. If either fails, no axis ρ is repo
 
 ## Cost / execution notes
 
-- Data: all 6 sessions cached at `/home/combust/fmexplorer/allen_cache/` (14.1 GB). **No
+- Data: all 6 sessions cached at `$HOME/fmexplorer/allen_cache/` (14.1 GB). **No
   download.** Loader: `phase32b/per_cell_decomposition.py:84 → loader.load_session`.
 - Compute: 431 cells × 5 windows × 100 surrogates for `p7` (≈33× the p7 leg of 32b), plus
   windowed `joint_q_profile` ×5 per cell for `rep_med`/`ks_gue_med`.
 - Workers: **10** (`worker_count_bandwidth_bound` — local 5900x peaks ~10, not 18).
-- venv: `/home/combust/fmexplorer/bin/python3`.
+- venv: `$HOME/fmexplorer/bin/python3`.
 - Outputs → `data/phase38_results/`: `per_cell_windowed_axes.parquet` (raw per-window
   values, all three axes), `reliability_ledger.parquet` (axis × cohort × ρ × CI × R²_obs ×
   ρ_required × verdict), `calibrator_validation.json`.

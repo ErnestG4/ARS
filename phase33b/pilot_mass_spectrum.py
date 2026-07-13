@@ -1,3 +1,4 @@
+import os
 """
 phase33b/pilot_mass_spectrum.py — Phase 33b pilot.
 
@@ -36,7 +37,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-ROOT = Path('$HOME/fmexplorer/criticality_tool')
+ROOT = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool")))
 DATA = ROOT / 'data' / 'phase33b_results'
 
 CSV_FILES = {

@@ -11,12 +11,12 @@ DISCIPLINE: predictions computed FIRST (only α + aperture w; no enumeration), b
 Emits q_min as an output column. Parameter turn on the FROZEN refsuite (imports enumerate_window/window_width_for_count;
 no logic edits). Seed 20240517.
 
-Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
        approximability/task3_d3_redo.py
 """
 import os, sys, json, math
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, "/home/combust/fmexplorer/mathtest")
+sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/mathtest"))
 import numpy as np, mpmath as mp
 mp.mp.dps = 60
 OUT = os.path.dirname(os.path.abspath(__file__))

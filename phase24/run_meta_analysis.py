@@ -32,9 +32,9 @@ sys.path.insert(0, THIS_DIR)
 from pass_a_recording_blocked import meta_analyse, fisher_z, inv_fisher_z
 
 
-CV_PATH = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results/per_session_h1_crossval.parquet')
-FUNC_PATH = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results/per_session_h1_functional.parquet')
-OUT_DIR = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results')
+CV_PATH = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/phase24_results/per_session_h1_crossval.parquet")))
+FUNC_PATH = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/phase24_results/per_session_h1_functional.parquet")))
+OUT_DIR = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/phase24_results")))
 
 
 def main():

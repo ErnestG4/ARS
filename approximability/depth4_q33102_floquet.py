@@ -1,9 +1,10 @@
+import os
 """Depth-4 pi approximant (q=33102, includes a_4=292) spectral dimension via
 Floquet periodic/antiperiodic dense eigensolve (overwrite_a=True -> in-place
 tridiagonalization, ~8.8GB peak). Certified method (see task1_floquet_depths123).
 Runs lam=8 only (primary 292 pre-registration). Seed 20240517."""
 import sys, math, json, time, gc
-sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np
 import scipy.linalg as sla
 sys.path.insert(0,".")

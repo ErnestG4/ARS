@@ -1,7 +1,7 @@
 # Audit 01 — Tool Inventory (Phase 1)
 
 READ-ONLY ground-truth inventory of the ARS codebase at
-`/home/combust/fmexplorer/criticality_tool` (= codeberg.org/Combust/ARS).
+`$HOME/fmexplorer/criticality_tool` (= codeberg.org/Combust/ARS).
 No code was modified. Scope: **canonical + drift** — the live tool surface;
 `phaseNN/` dirs are application drivers, not re-audited line-by-line (duplicate
 estimator copies noted where seen).

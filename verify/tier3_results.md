@@ -1,6 +1,6 @@
 # Tier-3 verification: chirp GUE unfold (FIX-3) + JPF_CAP drift (FIX-5)
 
-Run: `PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 verify/tier3_chirp_and_cap.py`
+Run: `PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 verify/tier3_chirp_and_cap.py`
 
 ```
 ==============================================================================

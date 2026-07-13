@@ -2,7 +2,7 @@
 the orthogonality plane (RF arithmetic concentration vs Family-II distance-from-Poisson)."""
 import os,sys,json,math
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,ROOT); sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,ROOT); sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import arithmetic_toolkit as at
 OUT=os.path.dirname(os.path.abspath(__file__))

@@ -34,7 +34,7 @@ if _HERE not in sys.path:
 
 import instrument_confound as ic
 
-CACHE = os.path.expanduser("~/fmexplorer/crcns_cache")
+CACHE = os.path.expanduser(os.path.expanduser("~/fmexplorer/crcns_cache"))
 META = os.path.join(CACHE, "docs/hc3-metadata-tables/hc3-cell.csv")
 COORD = os.path.join(_HERE, "coordinates")
 CAP = 5000              # contiguous-segment spike cap (matched empirical+null n)

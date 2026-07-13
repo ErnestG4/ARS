@@ -11,7 +11,7 @@ Read-only. BASE_SEED=20240517.
 """
 import os,sys,json,math
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,ROOT); sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,ROOT); sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np
 import transition_calibrators_dynamical as tcd
 from cross_substrate.longrange_discriminator import longrange_stats, unfold_empirical, rate_aware_unfold

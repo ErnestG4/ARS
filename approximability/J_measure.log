@@ -1,0 +1,14 @@
+cbrt2 (x^3-2): 9 depths, deepest q=4813
+cbrt3 (x^3-3): 10 depths, deepest q=50623
+cbrt5 (x^3-5): 10 depths, deepest q=24529
+cbrt7 (x^3-7): 8 depths, deepest q=17423
+cbrt6 (x^3-6): 4 depths, deepest q=257
+cbrt4 (x^3-4): 10 depths, deepest q=3032
+cbrt9 (x^3-9): 9 depths, deepest q=24337
+cbrt10 (x^3-10): 9 depths, deepest q=48752
+cbrt11 (x^3-11): 8 depths, deepest q=11251
+cbrt12 (x^3-12): 7 depths, deepest q=29693
+plastic (x^3-x-1): 9 depths, deepest q=48131
+cbrt2p1 (x^3-3x^2+3x-3): 9 depths, deepest q=4813
+root_x3_3x_1 (x^3-3x-1): 9 depths, deepest q=36372
+DONE: 85 steps total

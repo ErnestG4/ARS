@@ -11,7 +11,7 @@ Seed 20240517.
 """
 import os, sys, json, math
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MATHTEST = "/home/combust/fmexplorer/mathtest"
+MATHTEST = os.path.expandvars("$HOME/fmexplorer/mathtest")
 sys.path.insert(0, MATHTEST)
 import numpy as np, mpmath as mp
 mp.mp.dps = 80

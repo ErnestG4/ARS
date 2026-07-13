@@ -16,8 +16,8 @@ Two checks:
            Screen how many windows exceed 1500 and, for those, re-run the
            classify pipeline at cap 1500 vs 5000 and diff the quadrant.
 
-Run:  PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-      /home/combust/fmexplorer/bin/python3 verify/tier3_chirp_and_cap.py
+Run:  PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+      $HOME/fmexplorer/bin/python3 verify/tier3_chirp_and_cap.py
 
 Does NOT edit or import-execute any tool/driver file.  fix_gue_generator.py
 is NOT imported (its module body runs a full GPU PLL diagnostic on import);
@@ -342,8 +342,8 @@ def main():
     res = THIS_DIR / 'tier3_results.md'
     with open(res, 'w') as f:
         f.write("# Tier-3 verification: chirp GUE unfold (FIX-3) + JPF_CAP drift (FIX-5)\n\n")
-        f.write("Run: `PYTHONPATH=/home/combust/fmexplorer/riemann_explorer "
-                "/home/combust/fmexplorer/bin/python3 verify/tier3_chirp_and_cap.py`\n\n")
+        f.write("Run: `PYTHONPATH=$HOME/fmexplorer/riemann_explorer "
+                "$HOME/fmexplorer/bin/python3 verify/tier3_chirp_and_cap.py`\n\n")
         f.write("```\n")
         f.write("\n".join(OUT))
         f.write("\n```\n")

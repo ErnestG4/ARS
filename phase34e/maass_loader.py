@@ -36,7 +36,7 @@ from typing import Iterator
 import numpy as np
 
 
-PHASE34E_DATA = Path('$HOME/fmexplorer/criticality_tool/phase34e/data/maassdata')
+PHASE34E_DATA = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/phase34e/data/maassdata")))
 
 
 def parse_maass_file(path: Path) -> dict:

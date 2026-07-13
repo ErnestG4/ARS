@@ -1,7 +1,8 @@
+import os
 """Depth-4 q=33102 Floquet for lam in {24,32} (robustness of the depth-4 dim-rise
 falsification). Sequential, one matrix at a time (~8.8GB peak). Seed 20240517."""
 import sys, math, json, time, gc
-sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np, scipy.linalg as sla
 sys.path.insert(0,".")
 from task1_pi_depth5 import potential, cf_frac, convergents

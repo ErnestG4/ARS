@@ -13,7 +13,7 @@ This script establishes:
   (B) the engine dim·lnλ trend vs λ: golden/π flatten to a finite C; e does NOT flatten (dim stays high → C grows).
 
 READ-ONLY; imports the C engine; writes only under approximability/.
-Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
        approximability/panel_A_K_reframe.py
 """
 import os, sys, json

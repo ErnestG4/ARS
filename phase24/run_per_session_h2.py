@@ -41,9 +41,9 @@ from loader import (load_session, load_natural_movie_one_template,
 from ars_classify import classify, per_q_columns
 
 
-CANDIDATE_PATH = Path('$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv')
-RATE_MATCHED_PATH = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results/rate_matched_configs.parquet')
-OUT_DIR = Path('$HOME/fmexplorer/criticality_tool/data/phase24_results')
+CANDIDATE_PATH = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/allen_cache/phase24_candidate_sessions.csv")))
+RATE_MATCHED_PATH = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/phase24_results/rate_matched_configs.parquet")))
+OUT_DIR = Path(os.path.expandvars(os.path.expanduser("$HOME/fmexplorer/criticality_tool/data/phase24_results")))
 
 N_SEEDS = 5
 Q_MAX = 30

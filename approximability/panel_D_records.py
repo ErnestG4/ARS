@@ -15,7 +15,7 @@ THEORY / PRE-REGISTRATION (written before reading π):
     • π (typical): count grows ~ (ln N)/ln2 → i.o.   • metallic: saturates at a (finite).   • e: saturates small (finite).
   ⇒ π is the LONE a.e.-typical sequence on the BB axis; metallic & e are both measure-zero exceptions (opposite reasons).
 
-READ-ONLY. Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+READ-ONLY. Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
                   approximability/panel_D_records.py
 """
 import os, sys, json

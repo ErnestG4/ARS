@@ -11,7 +11,7 @@ Sequence (per the reviewer's gate design):
 
 READ-ONLY: imports the C engine (cross_substrate/trace_map_dimension.py), edits nothing, writes only
 under approximability/. Run:
-  PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+  PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
     approximability/panel_A_gate.py
 """
 import os, sys, csv, json

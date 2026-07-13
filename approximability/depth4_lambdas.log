@@ -1,0 +1,9 @@
+lam=24.0 start q=33102 p=4687 imp=4687
+lam=24.0 periodic done 1595s
+lam=24.0 antiperiodic done 3200s
+RESULT {"seed": 20240517, "q": 33102, "p": 4687, "lam": 24.0, "bands": 33102, "count_eq_q": true, "total_width": 0.0002877284373556388, "mean_width": 8.692176827854474e-09, "dim": 0.5607153350492244, "dim_x_lnlam": 1.7819835182880195, "width_med": 2.2811690036927956e-09, "n_bands_below_prec": 2204, "frac_width_in_narrow": 0.17793290743902407, "wall_s": 3200.025956630707}
+lam=32.0 start q=33102 p=4687 imp=4687
+lam=32.0 periodic done 1585s
+lam=32.0 antiperiodic done 3181s
+RESULT {"seed": 20240517, "q": 33102, "p": 4687, "lam": 32.0, "bands": 33102, "count_eq_q": true, "total_width": 0.00012168397079225998, "mean_width": 3.6760307773626967e-09, "dim": 0.5358692831295124, "dim_x_lnlam": 1.857181413749503, "width_med": 9.631005992716268e-10, "n_bands_below_prec": 3857, "frac_width_in_narrow": 0.4171924426726287, "wall_s": 3180.5855836868286}
+ALL DONE

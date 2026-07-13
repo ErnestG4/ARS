@@ -1,7 +1,7 @@
 # MORNING_C — CF-cusp cartography of the fifth + FGK banking
 
 Branch `cf-cusp-cartography` off `d15eab4` (**not** master: master 859907c lacks the Session-B artifacts Part 2 reads
-from; the prior block's branch is unmerged/unpushed). `/home/combust/fmexplorer/bin/python3`,
+from; the prior block's branch is unmerged/unpushed). `$HOME/fmexplorer/bin/python3`,
 `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`. Certified/banked machinery only.
 
 **Pre-flight flag:** block base **not confirmed pushed** — no SSH agent this session (socket doesn't survive across

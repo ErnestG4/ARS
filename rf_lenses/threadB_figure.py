@@ -2,7 +2,7 @@
 Multiplicative-arithmetic substrates fall on the diagonal (R2=1); dynamical ones scatter."""
 import os,sys,math,json
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,ROOT); sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,ROOT); sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import arithmetic_toolkit as at, transition_calibrators_dynamical as tcd
 OUT=os.path.dirname(os.path.abspath(__file__)); QMAX=200; N=300000; rng=np.random.default_rng(20240517)

@@ -16,7 +16,7 @@ GATE (across the SAME L grid B will use):
 Validates the estimator B uses (axes.II1_sigma2_at_L) + the unfold (longrange_discriminator.unfold_empirical), and
 sweeps the unfold degree so we deploy a degree that actually recovers the closed forms (Phase-5 showed deg-6
 under-unfolds semicircle GUE). No signal_gen import (FIX-1 moot). READ-ONLY.
-Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
        approximability/panel_B_cleanroom.py
 """
 import os, sys, json

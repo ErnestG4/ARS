@@ -20,8 +20,8 @@ METHOD (faithful, no estimator reimplementation risk):
     FAILED (and do not report a diff) — this catches both a copy error and a zeros/results provenance
     mismatch. (synthetic-validate-fitters discipline.)
 
-Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-     /home/combust/fmexplorer/bin/python3 verify/tier1_lfunction_guard.py
+Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+     $HOME/fmexplorer/bin/python3 verify/tier1_lfunction_guard.py
 """
 import os, sys, json
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

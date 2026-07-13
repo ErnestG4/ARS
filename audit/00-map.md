@@ -1,6 +1,6 @@
 # 00 — Cartography
 
-**Audit target:** working tree at `/home/combust/fmexplorer/criticality_tool`, which **is** the repo
+**Audit target:** working tree at `$HOME/fmexplorer/criticality_tool`, which **is** the repo
 `https://codeberg.org/Combust/ARS.git` (confirmed `git remote -v`). Branch **`master`** (HEAD `1a6c7a1`).
 `origin/main` exists and has diverged; this audit targets `master` as-is (where README/RESULTS/CAPABILITY_REPORT live).
 
@@ -76,10 +76,10 @@ Most-imported internal modules (the real dependency hubs): `arithmetic_toolkit` 
 # deps (no package install — scripts are run in place)
 pip install -r requirements.txt          # numpy scipy matplotlib h5py mpmath joblib cupy-cuda12x pyedflib
 # run an analysis (per-script, from repo root) — MUST use the project venv (pandas/numpy live there):
-/home/combust/fmexplorer/bin/python3 run_analytical_nns.py
-/home/combust/fmexplorer/bin/python3 cross_substrate/<port>.py
+$HOME/fmexplorer/bin/python3 run_analytical_nns.py
+$HOME/fmexplorer/bin/python3 cross_substrate/<port>.py
 # tests
-/home/combust/fmexplorer/bin/python3 -m pytest tests/
+$HOME/fmexplorer/bin/python3 -m pytest tests/
 ```
 
 - GPU optional (CuPy/`cupy-cuda12x`); code falls back to CPU if CuPy not importable `[documented]` (requirements.txt comment).

@@ -6,8 +6,8 @@
 
 | file:line | constant | raw | status | detail |
 |---|---|---|---|---|
-| `internaldocs/make_onepager.py:7` | `OUT` | `/home/combust/fmexplorer/criticality_tool/phase37/CRCNS_SUMMARY_1PAGE.pdf` | **DEAD** | does not exist: /home/combust/fmexplorer/criticality_tool/phase37/CRCNS_SUMMARY_1PAGE.pdf |
-| `cross_substrate/crcns_fetch.py:12` | `RAW` | `$HOME/fmexplorer/crcns_cache/raw` | **EMPTY** | dir exists but is EMPTY: /home/combust/fmexplorer/crcns_cache/raw |
+| `internaldocs/make_onepager.py:7` | `OUT` | `$HOME/fmexplorer/criticality_tool/phase37/CRCNS_SUMMARY_1PAGE.pdf` | **DEAD** | does not exist: $HOME/fmexplorer/criticality_tool/phase37/CRCNS_SUMMARY_1PAGE.pdf |
+| `cross_substrate/crcns_fetch.py:12` | `RAW` | `$HOME/fmexplorer/crcns_cache/raw` | **EMPTY** | dir exists but is EMPTY: $HOME/fmexplorer/crcns_cache/raw |
 
 <details><summary>All roots (full table)</summary>
 
@@ -61,7 +61,7 @@
 | `phase37/crcns_pillar2.py:18` | `ROOT` | OK | 191 entries, 23954 MB |
 | `phase37/crcns_pillar2_ratematch.py:18` | `ROOT` | OK | 191 entries, 23954 MB |
 | `phase38/ladder_burst_reliability.py:101` | `SESS` | OK | 20 entries, 509 MB |
-| `cross_substrate/crcns_fetch.py:12` | `RAW` | EMPTY | dir exists but is EMPTY: /home/combust/fmexplorer/crcns_cache/raw |
-| `internaldocs/make_onepager.py:7` | `OUT` | DEAD | does not exist: /home/combust/fmexplorer/criticality_tool/phase37/CRCNS_SUMMARY_1PAGE.pdf |
+| `cross_substrate/crcns_fetch.py:12` | `RAW` | EMPTY | dir exists but is EMPTY: $HOME/fmexplorer/crcns_cache/raw |
+| `internaldocs/make_onepager.py:7` | `OUT` | DEAD | does not exist: $HOME/fmexplorer/criticality_tool/phase37/CRCNS_SUMMARY_1PAGE.pdf |
 
 </details>

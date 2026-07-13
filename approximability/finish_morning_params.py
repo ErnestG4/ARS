@@ -7,7 +7,7 @@ the rest). Seed 20240517. Pre-registrations are in MORNING.md and inline below.
 """
 import os, sys, json, math, time
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, "/home/combust/fmexplorer/mathtest")
+sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/mathtest"))
 import numpy as np, mpmath as mp
 OUT = os.path.dirname(os.path.abspath(__file__))
 GAMMA = 0.5772156649015329; PI2 = math.pi**2; K0 = 2.6854520010653064

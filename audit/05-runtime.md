@@ -8,17 +8,17 @@ extrapolated. Reproduce with `audit/phase5_runtime.py` (the calibrator confusion
 
 **Invocation:**
 ```bash
-PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-  /home/combust/fmexplorer/bin/python3 cross_substrate/calibration_anchors.py --run
-PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-  /home/combust/fmexplorer/bin/python3 audit/phase5_runtime.py
+PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+  $HOME/fmexplorer/bin/python3 cross_substrate/calibration_anchors.py --run
+PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+  $HOME/fmexplorer/bin/python3 audit/phase5_runtime.py
 ```
 
 ### Blocker found while setting up (logged, not fixed) — `RUNTIME-1`
 The canonical self-validation **would not run at all**: `cross_substrate/calibration_anchors.py` →
 `import signal_gen` → `signal_gen.py:16` does `sys.path.insert(0, '$HOME/fmexplorer/riemann_explorer')` with a
 **literal `$HOME`** (Python never expands shell vars in a string), so `import scanner` fails with
-`ModuleNotFoundError`. `scanner.py` really exists at `/home/combust/fmexplorer/riemann_explorer/scanner.py`.
+`ModuleNotFoundError`. `scanner.py` really exists at `$HOME/fmexplorer/riemann_explorer/scanner.py`.
 **`signal_gen` has 16 importers** — this is a load-bearing module that is import-broken on a clean process.
 Worked around non-invasively by adding the real path via `PYTHONPATH`. (See `06-fix-list.md` FIX-1.)
 

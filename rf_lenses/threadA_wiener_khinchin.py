@@ -17,7 +17,7 @@ Read-only vs the tool. BASE_SEED=20240517.
 """
 import os, sys, json, math
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0,ROOT); sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,ROOT); sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np
 import arithmetic_toolkit as at
 SEED=20240517; rng=np.random.default_rng(SEED)

@@ -8,7 +8,7 @@ NOT a rate/index tracker) was fit on {4 metallics, e, π}. Two shots it did NOT 
      NOT track the (fixed) Λ; if anything it tracks K. Same-Λ different-word ⇒ if C varies, C is not a function of Λ.
 
 READ-ONLY; imports the C engine; writes only under approximability/.
-Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer /home/combust/fmexplorer/bin/python3 \
+Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer $HOME/fmexplorer/bin/python3 \
        approximability/panel_A_controls.py
 """
 import os, sys, csv, json

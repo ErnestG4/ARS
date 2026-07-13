@@ -33,7 +33,7 @@ from hc3_instrument_pass import parse_units, load_cellmap
 # ALL cached hc-3 sessions (widen the pool so the exponential-NNS / Poisson-pole
 # filter yields more than a thin handful of cells — n=7 on 4 sessions was too few).
 def _discover_sessions():
-    root = os.path.expanduser("~/fmexplorer/crcns_cache/sessions")
+    root = os.path.expanduser(os.path.expanduser("~/fmexplorer/crcns_cache/sessions"))
     out = []
     for sdir in sorted(glob.glob(os.path.join(root, "*", "*"))):
         if os.path.isdir(sdir) and glob.glob(os.path.join(sdir, "*.res.*")):

@@ -24,8 +24,8 @@ PRE-REGISTERED (before run): K jumps 4.21(depth4)->~9.85(depth5, 292 in) ⇒ thi
 at fixed λ (DIRECTION registered; magnitude measured). dim strictly in (0,1) at every λ (Liu-Wen). Does NOT decide
 whether K(π) settles to K0 (depth>>5, conditional/unprovable).
 
-READ-ONLY vs the tool. Seed 20240517. Run: PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-  /home/combust/fmexplorer/bin/python3 approximability/task1_pi_depth5.py
+READ-ONLY vs the tool. Seed 20240517. Run: PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+  $HOME/fmexplorer/bin/python3 approximability/task1_pi_depth5.py
 """
 import os, sys, json, time, math
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

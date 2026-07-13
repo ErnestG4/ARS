@@ -10,8 +10,8 @@ switching from the unit-mean/raw path to the density-adaptive guarded path CHANG
 long-range Σ² and/or the verdict?
 
 Run:
-  PYTHONPATH=/home/combust/fmexplorer/riemann_explorer \
-  /home/combust/fmexplorer/bin/python3 verify/tier2_longrange_unfold.py
+  PYTHONPATH=$HOME/fmexplorer/riemann_explorer \
+  $HOME/fmexplorer/bin/python3 verify/tier2_longrange_unfold.py
 
 Writes verify/tier2_results.md. Reads (does NOT edit) the tool/driver files. Real
 numbers only; missing inputs → BLOCKED.
@@ -27,7 +27,7 @@ import numpy as np
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _ROOT = os.path.dirname(_HERE)
 for p in (_ROOT, os.path.join(_ROOT, "phase22a"), os.path.join(_ROOT, "cross_substrate"),
-          "/home/combust/fmexplorer/brocot"):
+          os.path.expandvars("$HOME/fmexplorer/brocot")):
     if p not in sys.path:
         sys.path.insert(0, p)
 

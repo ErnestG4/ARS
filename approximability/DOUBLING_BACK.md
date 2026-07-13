@@ -1,6 +1,6 @@
 # DOUBLING-BACK — ARS panel claims audited against the independent clean room
 
-The clean-room reference suite (`/home/combust/fmexplorer/mathtest/`, 1393 rows) was built **in isolation** — literature-only,
+The clean-room reference suite (`$HOME/fmexplorer/mathtest/`, 1393 rows) was built **in isolation** — literature-only,
 "makes no reference to any other project." This is the designated pause-point audit: each banked ARS approximability claim
 (A→D, in `FINDINGS.md`) cross-checked against the clean room's *independent* value. Rules carried over: structural/exact
 invariants must agree; statistical differences are recorded; conventions/coverage-gaps flagged, not glossed.

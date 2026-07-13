@@ -1,0 +1,6 @@
+# Copy to paths.toml (GITIGNORED — never committed) and set your local root.
+# Precedence: env ARS_DATA_ROOT  >  paths.toml  >  $HOME/fmexplorer
+#
+# Source code NEVER contains a location — only the NAME `ARS_DATA_ROOT`.
+# There is nothing to scrub at publish time, so there is nothing to break.
+data_root = "/path/to/fmexplorer"

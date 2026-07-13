@@ -19,7 +19,7 @@ CERTIFY subsumption.  Bank INDETERMINATE flat and repair the instrument.
 Usage (Phase 32b p7_mean_z, the exhibit):
     python3 reliability_gate.py
 
-Requires the MAIN venv: /home/combust/fmexplorer/bin/python3
+Requires the MAIN venv: $HOME/fmexplorer/bin/python3
 """
 
 import itertools

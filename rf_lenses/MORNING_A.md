@@ -1,6 +1,6 @@
 # MORNING_A — Session A: two candidate axes → promotion (queue #1)
 
-Branch `rf-promo-diatonic-battery` off master 859907c. `/home/combust/fmexplorer/bin/python3`,
+Branch `rf-promo-diatonic-battery` off master 859907c. `$HOME/fmexplorer/bin/python3`,
 `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`. Adversarial: keep an axis ONLY if METHOD_INVARIANT;
 a collapse is the deliverable (scope or kill, killing perturbation named). Nothing tool-side modified.
 

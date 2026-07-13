@@ -1,9 +1,10 @@
+import os
 """Depth-5 pi approximant (q=33215, a_5=1) spectral dim via Floquet dense eigensolve.
 Thread-1 PREDICTION (pre-registered): a_5=1 with older-block fraction q3/q5=113/33215=0.34%
 => total bandwidth PRESERVED (ratio W5/W4~1, deficit far below float64), dim barely moves from
 depth-4's 0.6798 (like the a_3=1 step 0.6244->0.6276). Confirmation run. Seed 20240517."""
 import sys, math, json, time, gc
-sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np
 import scipy.linalg as sla
 sys.path.insert(0,".")

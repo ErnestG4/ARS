@@ -20,11 +20,11 @@
 **`95b2324` (2026-06-03) — "Repo hygiene: de-identify hardcoded `$HOME` paths"**
 
 ```diff
-- nwb_path = Path(f'/home/combust/fmexplorer/allen_cache/session_{sid}/...')
+- nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/...')
 + nwb_path = Path(f'$HOME/fmexplorer/allen_cache/session_{sid}/...')
 ```
 
-**72 files changed.** A de-identification commit find-replaced `/home/combust` → `$HOME` **without
+**72 files changed.** A de-identification commit find-replaced `$HOME` → `$HOME` **without
 wrapping anything in `expandvars`**, converting every working absolute path in the repo into a dead
 literal, in one stroke.
 

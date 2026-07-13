@@ -1,6 +1,7 @@
+import os
 import sys, math, time
-sys.path.insert(0,"/home/combust/fmexplorer/mathtest")
-sys.path.insert(0,"/home/combust/fmexplorer/riemann_explorer")
+sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/mathtest"))
+sys.path.insert(0,os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 import numpy as np
 from numpy.linalg import eigvalsh
 from refsuite.d1_fibonacci import fibonacci_word, fib, discriminant, _bands_from_grid

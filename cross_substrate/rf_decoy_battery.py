@@ -54,7 +54,7 @@ _ROOT = os.path.dirname(_HERE)
 # signal_gen re-uses riemann_explorer/scanner; its in-file path is de-identified
 # to a literal '$HOME' that does not resolve, so add the sibling tool here.
 _RIEMANN = os.path.join(os.path.dirname(os.path.dirname(_ROOT)), "riemann_explorer")
-for p in (_HERE, _ROOT, _RIEMANN, os.path.expanduser("~/fmexplorer/riemann_explorer")):
+for p in (_HERE, _ROOT, _RIEMANN, os.path.expanduser(os.path.expanduser("~/fmexplorer/riemann_explorer"))):
     if p not in sys.path:
         sys.path.insert(0, p)
 

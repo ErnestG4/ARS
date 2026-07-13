@@ -1,6 +1,6 @@
 # MORNING_E-run — π-292 depths 6–8 measured; sealed retreat CONFIRMED
 
-Branch `pi292-sparse-eigensolve` (continued). `/home/combust/fmexplorer/bin/python3`,
+Branch `pi292-sparse-eigensolve` (continued). `$HOME/fmexplorer/bin/python3`,
 `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`. The certified inertia core (`sparse_floquet.py`, 5ab7b6e)
 is unchanged; the only new code is a speedup wrapper. main/refsuite untouched.
 

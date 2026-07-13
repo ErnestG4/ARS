@@ -1,6 +1,6 @@
 # MORNING_E — sparse π-292 eigensolve: certified module, but depths 6–8 blocked on COMPUTE (not RAM)
 
-Branch `pi292-sparse-eigensolve` off `main`. `/home/combust/fmexplorer/bin/python3`, `PYTHONPATH=…/riemann_explorer`,
+Branch `pi292-sparse-eigensolve` off `main`. `$HOME/fmexplorer/bin/python3`, `PYTHONPATH=…/riemann_explorer`,
 `BASE_SEED=20240517`. New machinery (a new sparse module); the certified dense Floquet engine and the refsuite are
 untouched. **The seal `pi292_prediction_SEALED.json` was NOT opened — no measurement ran, so there is nothing to
 compare and opening it would only bias a future run.**

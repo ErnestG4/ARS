@@ -1,7 +1,7 @@
 # MORNING_B — Session B: Diatonic full battery + π-292 follow-up (queue #3)
 
 Branch `rf-promo-diatonic-battery`. Banked instruments only; certified engine frozen; refsuite frozen.
-`/home/combust/fmexplorer/bin/python3`, `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`.
+`$HOME/fmexplorer/bin/python3`, `PYTHONPATH=…/riemann_explorer`, `BASE_SEED=20240517`.
 
 ## Layer-zero gates
 - **B-Z1 (musical, fresh, two-precision):** CF of α=log₂(3/2) computed in-session at dps {50, 80, 150}; banked only
