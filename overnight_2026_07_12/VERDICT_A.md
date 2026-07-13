@@ -342,3 +342,67 @@ number wearing two hats. When it was pulled apart, the mechanism was the part th
 | ~~Allen's clustering is state-driven~~ | ~~candidate mechanism~~ → **RETRACTED** |
 
 **The finding never needed the mechanism, and the mechanism is the part that died.** Registers held.
+
+---
+
+## POST-RUN #6 — THE RETAINED%-vs-COUPLING LOOK: **NOT BANKED.** The metric is ill-conditioned where it matters.
+
+**The mechanism, stated before the number:** clustering has two components — marginal and correlational
+— and a **marginal-domain** predictor (log-ISI CV) can only track one. ⇒ *the more marginal-heavy the
+clustering, the weaker the coupling.* **Predicted sign: negative.**
+
+| substrate | retained% | \|coup\| raw | \|coup\| disatt |
+|---|---|---|---|
+| **buzsaki** | **45.4** | **0.575** | **0.598** ← **breaks monotonicity** |
+| hc3-port | 53.0 | 0.727 | 0.757 |
+| ibl-port | 61.0 | 0.735 | 0.740 |
+| allen-hpf | 75.3 | 0.428 | 0.558 |
+| ret1 | 121.7 | 0.172 | 0.175 |
+
+`Spearman = −0.60 (raw) / −0.70 (disatt)`, **p = 0.29 / 0.19.** Sign as predicted. **Three reasons it is
+NOT banked:**
+
+**(1) It is not monotone.** Buzsaki has the **most correlational** clustering (45.4 %) and only
+**middling** coupling — *below* hc-3 and ibl, which are more marginal-heavy. **A counterexample inside
+the set**, not noise at the edge. *The mechanism did not predict buzsaki.*
+
+**(2) One point carries it.** Drop ret-1 → Spearman falls to **−0.40 at n=4.**
+
+**(3) ⚠ THE METRIC IS ILL-CONDITIONED AT EXACTLY THE POINTS THAT DRIVE IT.** `retained% = I_shuf/I_obs`
+is a **ratio with a near-zero denominator** for ret-1 (`|I_rep|` = 0.31) and ibl (0.24) — **the two
+substrates anchoring both ends of the coupling range.** Per-cell:
+
+| | **median-of-ratios** | ratio-of-medians (the table above) | IQR | cells > 100 % | Wilcoxon |
+|---|---|---|---|---|---|
+| **ret1** | **103.6 %** | **121.7 %** | **[77.8, 156.3]** | **53.4 %** | p = 6.3e-03 |
+| buzsaki | 45.2 % | 45.4 % | [35.6, 59.2] | **0.0 %** | p = 3e-51 |
+
+**Buzsaki's two statistics agree; ret-1's do not.** The 121.7 % headline was a **ratio-of-medians
+artifact.** ⇒ **The `retained%` metric cannot test this mechanism.** The mechanism may still be right.
+**This instrument cannot say.** *(Same disease, once more: a statistic that is well-behaved in the
+region the calibrators live in and unstable outside it.)*
+
+### Retina's anti-clustering order: REAL, but much weaker than I implied
+
+**53.4 % of cells** above 100 % (a bare majority), median **103.6 %**, p = 0.006. Compare **buzsaki:
+0.0 % of cells above 100 %, p = 3e-51** — *that* is a unanimous population property. **Retina's is a
+coin-flip with a heavy tail.** **A line, not a paragraph.**
+*(Closer, if pursued: does it split by RGC type — ON/OFF sustained vs transient? The prediction is that
+the regular/sustained types drive it. Labels may not exist in `ret-1`.)*
+
+### The well-conditioned alternative — and it tells a DIFFERENT story
+
+Use the **difference**, not the ratio: `I_obs − I_shuf` = the correlational component **in absolute
+units**.
+
+| substrate | correlational component |
+|---|---|
+| **allen-hpf** | **−2.06** ← the LARGEST |
+| buzsaki | −1.31 |
+| hc3-port | −0.93 |
+| ibl-port | −0.09 |
+| ret1 | **+0.07** |
+
+**Allen has the largest correlational component in absolute terms.** It is only "75 % marginal" because
+its **total** is so large. **The ratio and the difference answer different questions, and I do not yet
+know which is the right one.** **Banked as an open methodological question, not as a result.**
