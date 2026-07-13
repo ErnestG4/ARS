@@ -1,0 +1,33 @@
+  33 assets
+  opening sub-TS110-3/sub-TS110-3_ses-TS110-3_behavior+ecephys.nwb (32.5 GB)…
+    28 units
+    25 cells done (41s)
+  opening sub-TS112-0/sub-TS112-0_ses-TS112-0_behavior+ecephys.nwb (33.5 GB)…
+    190 units
+    50 cells done (55s)
+    75 cells done (69s)
+    100 cells done (76s)
+    125 cells done (83s)
+    150 cells done (98s)
+    175 cells done (106s)
+    200 cells done (113s)
+  opening sub-TS112-1/sub-TS112-1_ses-TS112-1_behavior+ecephys.nwb (34.5 GB)…
+    27 units
+    225 cells done (130s)
+  opening sub-TS111-1/sub-TS111-1_ses-TS111-1_behavior+ecephys.nwb (43.4 GB)…
+    135 units
+    250 cells done (142s)
+    275 cells done (149s)
+[21:36:29] WROTE VERDICT_DRPORT.md
+
+| substrate | clustering | ρ(I) | coupling | R²_marg |
+|---|---|---|---|---|
+| ibl-port | −0.236 | 0.988 | **−0.694** | 0.794 |
+| hc3-port | −1.962 | 0.913 | **−0.604** | 0.705 |
+| buzsaki | −2.389 | 0.903 | **−0.482** | 0.582 |
+| allen-hpf | −8.306 | 0.598 | **−0.429** | 0.574 |
+| ret1 | −0.309 | 0.970 | **−0.187** | 0.656 |
+| pvc-11 | −0.863 | 0.954 | **+0.076** | 0.761 |
+| **dr-port** | **-0.833** | **0.932** | **-0.549** | **0.145** |
+
+**Read it against the DISSOCIATION (clustering ⊥ coupling), not against the ordering.**

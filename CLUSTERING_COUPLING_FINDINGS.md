@@ -1,6 +1,6 @@
 # Clustering ⊥ Coupling — a dissociation across neural substrates, on a repaired instrument
 
-**Status: FINDING (n=6, dr-port pending → 7). Five candidate explanations excluded.**
+**Status: FINDING (n=7). TWO independent matched pairs. Five candidate explanations excluded.**
 Session 2026-07-11/12. Commits `dc007e6` … `6a4b002`. Data + code: `overnight_2026_07_12/`.
 
 ---
@@ -12,7 +12,7 @@ Session 2026-07-11/12. Commits `dc007e6` … `6a4b002`. Data + code: `overnight_
 > **The most clustered substrate is not the most lawfully coupled one.**
 > **Reliability and clustering magnitude are both excluded by a matched pair.**
 
-`Spearman(clustering magnitude, coupling strength) = −0.20` (n=5–6).
+`Spearman(clustering magnitude, |coupling|) = +0.25, p = 0.59` (n=7) — **independent axes.**
 
 ---
 
@@ -32,20 +32,28 @@ spacings**. Negative = clustered, 0 = Poisson, positive = repulsive.
 | allen-hpf | 277 | **−8.306** | 0.598 | **−0.429** | −0.590 | 0.574 |
 | ret-1 (retina) | 298 | −0.309 | 0.970 | **−0.187** | −0.190 | 0.656 |
 | **pvc-11 (V1)** | 273 | −0.863 | 0.954 | **+0.076** | +0.078 | 0.761 |
+| **dr-port (MEC/CA1/DG)** | 299 | −0.833 | 0.932 | **−0.549** | −0.570 | **0.145** |
 
 ---
 
-## 3. The spine — a matched pair, not a correlation across n
+## 3. The spine — TWO INDEPENDENT MATCHED PAIRS, not a correlation across n
 
-> **`ibl-port`: clustering −0.294 · reliability 0.991 · coupling −0.740**
-> **`ret-1` : clustering −0.316 · reliability 0.969 · coupling −0.175**
->
-> **Same clustering. Same near-ceiling reliability. Coupling 4.2× apart.**
+**A matched pair holds clustering and reliability FIXED and varies only the coupling. It falsifies both
+competing accounts on ONE comparison — no *n* required.** There are now **two**, at **two different
+clustering levels**, and the second was found by the substrate added last:
 
-**Unreliability cannot explain it** — both sit at the ceiling; there is no attenuation left to remove.
-**Clustering magnitude cannot explain it** — the two values are identical.
-**One matched pair falsifies both competing accounts simultaneously.** This is the design that beats
-small *n*, and nothing in the rest of this document is load-bearing for it.
+| pair | clustering level | Δ clustering | reliability | **Δ coupling** |
+|---|---|---|---|---|
+| **1 — ibl-port vs ret-1** | ≈ −0.27 | **0.073** | both ≥ **0.97** | **0.507** (−0.694 vs −0.187) |
+| **2 — dr-port vs pvc-11** | ≈ −0.85 | **0.030** | both ≥ **0.93** | **0.625** (−0.549 vs **+0.076**) |
+
+**Pair 2 is TIGHTER on clustering and has a LARGER coupling gap — and it straddles zero.**
+
+**Unreliability cannot explain either** — all four substrates sit at or near the ceiling, so there is no
+attenuation left to remove. **Clustering magnitude cannot explain either** — within each pair the values
+are the same to 0.03–0.07.
+**This is the design that beats small *n*, and it now replicates.** Nothing else in this document is
+load-bearing for it.
 
 ---
 
