@@ -1,0 +1,17 @@
+IS THE Sigma^2 SEPARATION REAL? — 25 reps/family at MATCHED I_rep = -2, and the
+PER-CELL Sigma^2 distribution for the two neural substrates that look Poisson.
+====================================================================================
+family           Sigma2(5) median              95% range
+poisson                      5.00   [   4.63,    5.33]
+cox                         91.73   [  72.64,  120.29]
+neyman_scott                32.42   [  30.33,   35.29]
+gamma_renewal               35.81   [  33.80,   37.99]
+
+PER-CELL Sigma^2(5) — do ibl/ret-1 individually sit at the Poisson value?
+substrate           n   median                IQR   % cells < 8 (near-Poisson)
+ibl-port-cell      52     6.42  [  4.93,   8.11]                         73%
+ret1-cell          57     6.45  [  4.73,  13.51]                         60%
+hc3-port-cell      35    43.12  [ 20.14,  73.84]                          6%
+allen-hpf-cell     51   183.54  [153.19, 250.93]                          0%
+
+DONE
