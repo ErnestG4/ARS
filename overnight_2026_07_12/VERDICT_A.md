@@ -162,3 +162,64 @@ predictor.*
   **consistent across two independent threshold-free predictors**. This is the **first cross-substrate
   ordering in the project not downstream of the 10 ms constant.** Still n=3 substrates. **Closer:**
   extend to dr-port / ibl / buzsaki / pvc-11 with the same threshold-free predictors.
+
+---
+
+## POST-RUN #3 — THE RELIABILITY CHECK. Banked months ago as *"a reliability gradient in a biological costume."* Finally run. **FALSIFIED.**
+
+Interleaved-block split-half (**not** temporal halves — those would confound reliability with **drift**,
+and drift is what broke this axis in the first place). Spearman-Brown to full length.
+
+| substrate | n | med spikes | **ρ(I_rep)** | **ρ(log-ISI CV)** | coupling ρ(logCV, I_rep) | **DISATTENUATED** |
+|---|---|---|---|---|---|---|
+| allen-hpf | 365 | 4815 | **+0.660** | +0.890 | −0.428 | **−0.558** |
+| **hc3-port** | 294 | **1794** | +0.931 | +0.993 | **−0.727** | **−0.757** |
+| **ret1** | 323 | **7373** | **+0.969** | **+0.999** | **−0.172** | **−0.175** |
+
+### The falsification does NOT rest on n=3
+
+**`ret-1` has reliability 0.969 / 0.999 — essentially no attenuation is possible — and it has the
+WEAKEST coupling (−0.175 disattenuated, barely moved from −0.172).** If weak coupling were
+unreliability, ret-1 would be **strong**. It is the **most reliable substrate in the set and the most
+weakly coupled.** **That is a single-substrate falsification, and it needs no rank correlation.**
+
+And the direction runs **backwards on every quality proxy** (looks, not tests, but all the same sign):
+- Spearman(|coupling|, ρ_I_rep) = **−0.50**
+- Spearman(|coupling|, ρ_logCV) = **−0.50**
+- Spearman(|coupling|, median spike count) = **−1.00**
+
+**The recording-quality hypothesis REQUIRES coupling to rise with quality.** Observed: **hc-3 has the
+FEWEST spikes (1794) and the STRONGEST coupling; ret-1 has the MOST (7373) and the WEAKEST.**
+
+⇒ **The ordering hc-3 > allen > ret-1 SURVIVES disattenuation. The boring branch is dead.**
+(Note this also clears TOOLKIT §9 arm (b)'s admissibility gate: `R²(R,B) ≤ ρ(R)` — every coupling here
+sits far below its reliability ceiling.)
+
+### The dissociation is now the object, and one number supports the mechanism
+
+| substrate | **clustering** (median `I_rep`) | **coupling** (disattenuated) |
+|---|---|---|
+| allen-hpf | **−7.99** (MOST clustered) | −0.558 (middle) |
+| hc3-port | −1.44 (middle) | **−0.757** (STRONGEST) |
+| ret1 | −0.32 (least) | −0.175 (weakest) |
+
+**Allen has the most clustering and it is NOT well-predicted by single-cell ISI irregularity. hc-3's
+clustering IS.** In the terms the ladder was always groping toward:
+
+> **Hippocampal clustering is lawfully related to single-cell ISI irregularity. HPF's clustering is
+> stronger but comes from somewhere else — population/state structure, not single-cell irregularity.**
+
+**Internal-consistency support, and it is a number, not a story:** **Allen's `I_rep` reliability is the
+LOWEST (0.660)** while its `logCV` reliability is fine (**0.890**). A **stable single-cell** property
+replicates across interleaved blocks. **Allen's clustering does not.** That is exactly what
+*"state-driven, not a stable single-cell property"* predicts — and it is measured on the axis the claim
+is about, in the direction the claim requires. *(Inference-from-form with a supporting measurement.
+NOT established. Closer: within-cell `I_rep` per behavioural/state epoch.)*
+
+### Register
+
+- **VALIDATION:** burstier/more-irregular ⇒ more clustered. Every substrate, every predictor, right sign.
+- **FINDING (now survives its confound):** the **coupling ordering** hc-3 > allen > ret-1, threshold-free,
+  reliability-cleared, disattenuated. **n=3 substrates.**
+- **CANDIDATE MECHANISM:** the **clustering ↔ coupling dissociation** at Allen. Supported by Allen's
+  anomalously low `I_rep` reliability. **Not established.**
