@@ -328,3 +328,75 @@ trains (ret-1 is 94 % intrinsic, so it should survive).
 
 **This is the "how many more Fareys are there?" question, answered once, by accident, in the substrate
 the γ-model could not fit.**
+
+---
+
+# PART 4 — BURST-COLLAPSE: the mechanism is FALSIFIED, and the class candidate is WEAKENED
+
+## The control caught a lethal artifact in the operation itself
+
+**Burst-collapsing a POISSON train manufactures rigidity AND a hard gap:**
+
+| thr | poisson slope | poisson R₂(0.1) |
+|---|---|---|
+| RAW | 1.005 | 0.987 |
+| 0.005 | **0.920** | 0.995 |
+| 0.010 | 0.852 | 0.755 |
+| 0.020 | 0.736 | 0.123 |
+| **0.050** | **0.464** | **0.000** |
+
+Merging chance-close spikes into centroids creates a **hard-core exclusion**. **At thr = 0.05, pure
+Poisson reads slope 0.46 and R₂ = 0.000 — FAREY'S FINGERPRINT, FROM NOISE.**
+**⇒ ONLY thr = 0.005 IS USABLE.** *(Ran the control first, per the brief. It was the whole ballgame.)*
+
+## At the valid threshold, the test WORKS — the designed instance behaves
+
+| object | RAW slope | **collapsed @ 0.005** | reads as |
+|---|---|---|---|
+| **neyman_scott** (Poisson-clustered) | 6.994 | **0.989** | **both scales die → POISSON** ✓ |
+| **REGULAR-BURSTS** (designed instance) | 1.315 | **0.136** | **rigidity SURVIVES** ✓ |
+
+The test can separate the two hypotheses. **So its verdict on ret-1 means something.**
+
+## ⇒ ret-1: THE BURST MECHANISM IS FALSIFIED
+
+| thr | **ret-1 spikes/burst** | slope | R₂(0.1) |
+|---|---|---|---|
+| **0.005** | **1.01** | 0.771 | 2.492 |
+| 0.010 | 1.24 | 0.853 | 1.058 |
+| 0.020 | 1.78 | 0.656 | 0.264 |
+| 0.050 | 2.72 | **0.472** | **0.000** |
+
+**At the only trustworthy threshold, ret-1 has 1.01 SPIKES PER BURST. THERE ARE NO BURSTS.**
+**"Bursts on a regular schedule" is DEAD — there is nothing to collapse.**
+
+**And at the invalid thresholds it is worse than uninformative:** at thr = 0.05, **poisson reads
+(0.464, 0.000) and ret-1 reads (0.472, 0.000) — INDISTINGUISHABLE.** Any "class" visible at large
+collapse thresholds **is the collapse artifact, identical on pure noise.**
+
+## ⚠ AND THE CLASS CANDIDATE IS WEAKENED — its rigidity leg is n-UNSTABLE
+
+| | Σ² slope (4–12) | R₂(0.1) |
+|---|---|---|
+| ret-1, **n = 6000** ISIs | **0.518** | 2.565 |
+| ret-1, **n = 14131** ISIs | **0.782** | 2.492 |
+
+**Same cells, same estimator — only the event count differs. The slope swings 50 %**, and 0.782 is much
+closer to Poisson (1.0). **The "sub-Poisson rigidity" that made ret-1 look like Farey's mirror is NOT A
+STABLE OBJECT.** *(The short-range clustering IS stable: 2.57 / 2.49.)*
+
+### STATUS OF THE CLASS CANDIDATE
+
+- **Short-range clustering (R₂(0.1) ≈ 2.5):** **STABLE, REAL.** Far above Poisson (1.07) and above
+  gamma γ=2 (1.93).
+- **Long-range rigidity (Σ² slope < 1):** **NOT STABLE.** n-dependent, 0.52 → 0.78.
+- **Mechanism (bursts on a regular schedule):** **FALSIFIED.** No bursts exist.
+
+> **The two-scale class candidate is DOWNGRADED to: "ret-1 has strong short-range clustering that is
+> intrinsic (94 % survives demodulation) and is NOT bursts." That is still unusual — and the γ-family
+> contradiction (CV² = 2.14 vs slope 0.52–0.78) is REAL EITHER WAY, since even 0.78 ≠ 2.14 (2.7×).**
+> **But "Farey's mirror" is NOT established, and I am not banking it.**
+
+**Closer:** Σ²-slope with **CIs, at matched n, swept over n** — the number has to be shown to converge
+before it can carry a class claim. And the short-range structure needs a mechanism that is **not**
+bursts: RGC refractoriness plus a non-burst correlation. **Open.**
