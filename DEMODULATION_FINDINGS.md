@@ -175,3 +175,74 @@ truncation, and `bounds=(0,1)`. **Every one was well-behaved in the region it wa
 
 **Standing rule, added:** *any inclusion threshold is a nuisance parameter. Sweep it and report the
 curve, or the number is not an object.*
+
+---
+
+# PART 2 — dr-port DEMODULATED, and THE γ DOMAIN CHECK (two validated estimators, one broken one)
+
+## dr-port: **EXTRINSIC** — Will's prediction CONFIRMED
+
+| substrate | raw `I_rep` | **W=1 s** | W=5 s | W=20 s |
+|---|---|---|---|---|
+| *Cox (EXTRINSIC calibrator)* | −2.770 | **2 %** | 20 % | — |
+| allen-hpf | −7.513 | **1 %** | 4 % | 7 % |
+| **dr-port** | **−0.639** | **2 %** | 37 % | 56 % |
+| buzsaki | −2.219 | **2 %** | 22 % | 43 % |
+| hc3-port | −2.540 | 13 % | 45 % | 73 % |
+| *gamma (INTRINSIC calibrator)* | −0.870 | **72 %** | 94 % | — |
+| pvc-11 | −1.358 | **65 %** | 90 % | 97 % |
+| ret-1 | −0.490 | **92 %** | 97 % | 100 % |
+
+**dr-port lands on the Cox calibrator to the percent.** Prediction (*"given its coupling −0.549, it
+should come back extrinsic"*) — **confirmed.**
+
+### ⚠ BUT `ibl`'s classification is ILL-CONDITIONED — and `ibl` is half the surviving matched pair
+
+`ibl` reads **−136 %** at W=0.2 s, **−18 %** at W=1 s, **62 %** at W=5 s. Its raw `I_rep` is **−0.176**,
+so `retained% = demod/raw` is **a ratio with a near-zero denominator.** **This is the EXACT metric
+defect diagnosed two messages ago (retained%) and then RE-COMMITTED here.**
+**`ibl`'s intrinsic/extrinsic call is not an object.** The reliable calls are the substrates with
+substantial raw clustering: **allen (−7.5), hc3 (−2.5), buzsaki (−2.2), pvc-11 (−1.36), dr-port (−0.64)**.
+**ret-1 (−0.49) is marginal; ibl (−0.18) is unusable.**
+
+## The γ domain check — **THE CANARY I SHOULD HAVE RUN FIRST**
+
+Three estimators of one parameter, against **known γ** (gamma renewal, `CV = √γ`):
+
+| TRUE γ | **g_CV** | **g_Σ²** | **g_ACF** |
+|---|---|---|---|
+| 0.05 | **0.050** ✓ | **0.048** ✓ | 0.091 ✗ |
+| 0.50 | **0.503** ✓ | **0.482** ✓ | 0.083 ✗ |
+| 2.00 | **1.972** ✓ | **2.050** ✓ | 0.077 ✗ |
+| 4.00 | **3.903** ✓ | **4.183** ✓ | 0.077 ✗ |
+
+**`g_CV` and `g_Σ²` recover γ across two orders of magnitude. `g_ACF` returns ≈0.08 for EVERY input.**
+**My peak-counter is broken — Bialek is not.** The "DISAGREE (119×)" verdicts were **my own code**, and
+without this canary I would have reported *"the model is falsified on every substrate."*
+*(A parameter that takes the same value on every input is not measuring anything. Second time this
+session an estimator announced itself by being constant.)*
+
+### On the TWO VALIDATED domains, the model HOLDS — and the ceiling argument lands
+
+| substrate | train | CV | g_CV | g_Σ² | verdict |
+|---|---|---|---|---|---|
+| **allen-hpf** | **RAW** | **19.95** | 397.9 | 90.96 | **MODEL INAPPLICABLE — CV 10× past the intrinsic ceiling** |
+| **allen-hpf** | **demod W=5 s** | **1.68** | 2.84 | 1.80 | **1.6× — AGREE, now INSIDE the ceiling** |
+| buzsaki | RAW | **2.48** | 6.16 | 11.31 | past ceiling |
+| buzsaki | demod | **1.62** | 2.62 | 1.47 | 1.8× — AGREE |
+| hc3-port | demod | 1.51 | 2.27 | 2.85 | 1.3× — AGREE |
+| ibl-port | demod | 1.03 | 1.07 | 1.09 | **1.02× — AGREE** |
+| pvc-11 | demod | 1.86 | 3.45 | 2.96 | 1.2× — AGREE |
+| **ret-1** | demod | 1.46 | 2.14 | 0.47 | **4.6× — DISAGREE** |
+
+> **Allen's CV goes 19.95 → 1.68 under demodulation.** Bialek's single-neuron ceiling is ≈ 2.
+> **Raw Allen is TEN TIMES past what a neuron can intrinsically produce. Demodulated, it lands inside**
+> — and two independent domains then agree on γ to 1.6×.
+> **The excess CV is rate modulation. The quantitative ceiling argument is confirmed on the substrate it
+> was aimed at.**
+
+**And the one DISAGREEMENT is `ret-1` — the MOST INTRINSIC substrate (92 % retained).** The model
+should be *most* applicable there and it is *least* self-consistent (4.6×). **That is the
+"disagreement IS the measurement" case, firing.** **Flagged, not chased.** *(Closer: is ret-1's
+generator outside the γ-family entirely — i.e. a hard-gap/refractory class the model does not span?
+Retina's Σ²(5) = 6.45 is near-Poisson while its `I_rep` is clustered — an unusual combination.)*

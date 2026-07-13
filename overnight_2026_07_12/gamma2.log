@@ -1,0 +1,12 @@
+PART 1 — DEMODULATION, ALL 7 SUBSTRATES (dr-port included at last)
+  CALIBRATORS: Cox(EXTRINSIC) W=1s -> 2%   |   gamma(INTRINSIC) W=1s -> 72%
+================================================================================================
+substrate          n  raw I_rep | W=0.05 W=0.2 W=1 W=5 W=20 W=100
+------------------------------------------------------------------------------------------------
+<stdin>:83: RuntimeWarning: All-NaN slice encountered
+allen-hpf-cell    42     -7.513 |   nan%    -1%     1%     4%     7%    29%
+hc3-port-cell     22     -2.540 |    -6%    -7%    13%    45%    73%    92%
+Traceback (most recent call last):
+  File "<stdin>", line 80, in <module>
+  File "<stdin>", line 20, in demod
+AssertionError

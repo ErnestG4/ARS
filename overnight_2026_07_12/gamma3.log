@@ -1,0 +1,36 @@
+PART 1 — DEMODULATION, ALL 7 SUBSTRATES (dr-port at last)
+  CALIBRATORS: Cox(EXTRINSIC) W=1s -> 2%  |  gamma(INTRINSIC) W=1s -> 72%
+========================================================================================
+substrate          n  raw I_rep | W=0.2 W=1 W=5 W=20
+----------------------------------------------------------------------------------------
+allen-hpf-cell    42     -7.513 |    -1%     1%     4%     7%
+hc3-port-cell     22     -2.540 |    -7%    13%    45%    73%
+ret1-cell         39     -0.490 |    57%    92%    97%   100%
+buzsaki-port-cell  60     -2.219 |    --      2%    22%    43%
+ibl-port-cell     27     -0.176 |  -136%   -18%    62%    84%
+pvc-11            53     -1.358 |    15%    65%    90%    97%
+dr-port           59     -0.639 |   -14%     2%    37%    56%
+
+
+PART 2 — THE THREE-GAMMA DOMAIN CHECK
+  THREE estimators of ONE parameter, from THREE domains. IF THEY DISAGREE, THE MODEL IS
+  WRONG FOR THAT SUBSTRATE — the disagreement IS the measurement. Bialek: CV saturates ~2.
+========================================================================================
+substrate              train     CV    g_CV    g_S2   g_ACF  verdict
+----------------------------------------------------------------------------------------
+allen-hpf-cell           RAW  19.95  397.92   90.96    0.07  MODEL INAPPLICABLE (CV past ceiling)
+allen-hpf-cell    demod W=5s   1.68    2.84    1.80    0.08  DISAGREE (34x)
+hc3-port-cell            RAW   2.13    4.54    9.18    0.08  DISAGREE (119x)
+hc3-port-cell     demod W=5s   1.51    2.27    2.85    0.08  DISAGREE (34x)
+ret1-cell                RAW   1.47    2.17    1.13    0.10  DISAGREE (22x)
+ret1-cell         demod W=5s   1.46    2.14    0.47    0.10  DISAGREE (21x)
+buzsaki-port-cell         RAW   2.48    6.16   11.31    0.08  MODEL INAPPLICABLE (CV past ceiling)
+buzsaki-port-cell  demod W=5s   1.62    2.62    1.47    0.08  DISAGREE (31x)
+ibl-port-cell            RAW   1.08    1.16    1.82    0.08  DISAGREE (22x)
+ibl-port-cell     demod W=5s   1.03    1.07    1.09    0.08  DISAGREE (13x)
+pvc-11                   RAW   1.87    3.51    3.86    0.09  DISAGREE (42x)
+pvc-11            demod W=5s   1.86    3.45    2.96    0.10  DISAGREE (34x)
+dr-port                  RAW   2.05    4.21    6.63    0.09  DISAGREE (73x)
+dr-port           demod W=5s   1.27    1.62    1.93    0.09  DISAGREE (21x)
+
+DONE_GAMMA
