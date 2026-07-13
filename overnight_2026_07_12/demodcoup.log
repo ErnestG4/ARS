@@ -1,0 +1,19 @@
+CANARY — does the demodulator preserve REAL coupling and destroy CONFOUNDED coupling?
+  COX ensemble  : cells differ only in RATE-MODULATION strength. Coupling = PURE CONFOUND -> must COLLAPSE
+  GAMMA ensemble: cells differ only in INTRINSIC CV, constant rate. Coupling = REAL -> must SURVIVE
+========================================================================================
+  COX (confound)   n= 30  raw=-0.999   demod W=1s: -0.950   W=5s: -0.989
+  GAMMA (real)     n= 30  raw=-0.995   demod W=1s: -0.997   W=5s: -0.998
+
+THE TEST — coupling rho(logCV, I_rep) on RAW vs DEMODULATED trains
+========================================================================================
+substrate           n      RAW     W=1s     W=5s   intrinsic%
+----------------------------------------------------------------------------------------
+allen-hpf-cell     89   -0.309   -0.500   -0.624           1%
+hc3-port-cell      49   -0.862   -0.778   -0.835          11%
+ret1-cell         110   -0.207   -0.203   -0.226          93%
+buzsaki-port-cell  120   -0.540   -0.066   -0.341           9%
+ibl-port-cell     101   -0.726   -0.761   -0.748          10%
+pvc-11             88   -0.171   -0.144   -0.149          63%
+
+DONE_COUP

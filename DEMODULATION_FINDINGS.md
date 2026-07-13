@@ -101,3 +101,77 @@ past what is intrinsically reachable);
   the demodulated trains should read **repulsive**, not Poisson. *(Suggestive: ibl and hc-3 go
   **negative-retained** — i.e. `I_rep` flips POSITIVE — at W=0.05 s. But **the Cox calibrator does the
   same (−8 %)**, so this is confounded with over-demodulation and **cannot be read as evidence yet.**)*
+
+---
+
+# ⚠ POST-RUN — THE DECISIVE TEST IS **VOID** (its canary failed), AND THE NUISANCE SWEEP KILLS MATCHED PAIR 2
+
+## 1. The demodulated-coupling test: **CANARY FAILED ⇒ TEST VOID**
+
+The hypothesis under test (Will's): in an **extrinsic** substrate, the predictor (`logCV`) and the axis
+(`I_rep`) are **driven by the same rate-modulation term**, so `ρ(logCV, I_rep)` is *rate modulation
+correlating with itself through two instruments.* Decisive test: **recompute the coupling on
+demodulated trains.**
+
+**Canary first** — a ground truth at each end:
+
+| ensemble | raw | **demod W=1 s** | W=5 s |
+|---|---|---|---|
+| **COX** — cells differ ONLY in rate-modulation strength ⇒ coupling is a **PURE CONFOUND** ⇒ **must collapse** | −0.999 | **−0.950** | **−0.989** |
+| **GAMMA** — cells differ ONLY in intrinsic CV, constant rate ⇒ coupling is **REAL** ⇒ must survive | −0.995 | −0.997 | −0.998 |
+
+> **THE PURE-CONFOUND ENSEMBLE'S COUPLING DOES NOT COLLAPSE.** The demodulator **cannot separate a
+> confound from a real relationship.**
+
+**Why:** demodulation is never perfect. It leaves a **residual proportional to the original modulation
+strength**, and **both** axes still respond to that residual — so the cross-cell gradient survives in
+both, and the correlation survives with it. **A pure-confound ensemble passes the test as if it were
+real.**
+
+**⇒ THE TEST HAS NO DISCRIMINATING POWER. NEITHER THE FINDING NOR THE CONFOUND HYPOTHESIS IS
+ADJUDICATED.**
+
+*The neural numbers (coupling largely **survives** demodulation, 5 of 6) would have read as outcome 2 —
+"the finding is stronger than before" — and **I would have been reporting an artifact of an instrument
+that returns that answer regardless**. An instrument that cannot fail cannot pass.*
+
+## 2. The nuisance sweep — and it kills MATCHED PAIR 2
+
+The run used a different cell-inclusion threshold, and the raw couplings **moved**. So the threshold
+got swept (it should have been, from the start):
+
+| substrate | minISI=200 | 400 | 1000 | 2000 | 5000 | |
+|---|---|---|---|---|---|---|
+| **pvc-11** | **+0.121** | **+0.076** | **−0.086** | **−0.226** | **−0.399** | ⚠ **SIGN FLIPS, monotonically** |
+| hc3-port | −0.580 | −0.607 | −0.711 | −0.848 | −0.798 | ⚠ drifts 0.27 |
+| **ibl-port** | −0.691 | −0.694 | −0.709 | −0.728 | −0.733 | ✓ **STABLE** |
+| **ret-1** | −0.185 | −0.187 | −0.166 | −0.210 | −0.190 | ✓ **STABLE** |
+| allen-hpf | −0.432 | −0.433 | −0.433 | −0.408 | −0.412 | ✓ stable |
+| buzsaki | −0.482 | −0.482 | −0.482 | −0.482 | −0.502 | ✓ stable |
+
+### ⚠ RETRACTED
+
+- **MATCHED PAIR 2 (dr-port vs pvc-11) is DEAD.** Its decisiveness rested on pvc-11 having coupling
+  **≈ 0 (+0.076)**. That number is **an artifact of a cell-inclusion threshold nobody registered.**
+  **pvc-11's coupling is not an object.**
+- **"pvc-11 has NO coupling" is RETRACTED** — and with it, **the death of the sensory/feedforward
+  hypothesis**, which rested entirely on *"pvc-11 is sensory AND cortical and couples LESS than
+  retina."* At minISI=400 that is true (+0.076 vs −0.187); **at minISI=5000 it REVERSES** (−0.399 vs
+  −0.190). **Explanation #5 returns to UNRESOLVED — not re-established, but no longer excluded.**
+
+### ✓ SURVIVES
+
+- **MATCHED PAIR 1 (ibl vs ret-1) SURVIVES EVERY THRESHOLD.** Both are rock-stable
+  (−0.69→−0.73; −0.185→−0.210) and the **3.7× gap holds at all five settings.** **The spine holds** —
+  and it is now the *only* matched pair.
+- The **coupling range** and the **clustering ⊥ coupling** dissociation are unaffected by pvc-11's
+  instability in sign (its |coupling| stays small-to-moderate at every threshold).
+
+### The disease, again, one level up
+
+**A cell-inclusion threshold is a nuisance parameter that determines the answer, and it was never
+swept.** Same shape as the bandwidth W, the cell-cap, the 10 ms `burst_frac` threshold, the `s<10`
+truncation, and `bounds=(0,1)`. **Every one was well-behaved in the region it was chosen for.**
+
+**Standing rule, added:** *any inclusion threshold is a nuisance parameter. Sweep it and report the
+curve, or the number is not an object.*
