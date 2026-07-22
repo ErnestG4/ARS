@@ -1,0 +1,81 @@
+{
+  "rows": [
+    {
+      "start": "golden  [1,1,1,...]",
+      "a": 1,
+      "left_steps": 0,
+      "min_x": "0.61803399",
+      "dwell_runs": [],
+      "predicted_dwell": 0
+    },
+    {
+      "start": "silver  [2,2,2,...]",
+      "a": 2,
+      "left_steps": 200,
+      "min_x": "0.41421356",
+      "dwell_runs": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "predicted_dwell": 1
+    },
+    {
+      "start": "[5,5,5,...]",
+      "a": 5,
+      "left_steps": 320,
+      "min_x": "0.1925824",
+      "dwell_runs": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "predicted_dwell": 4
+    },
+    {
+      "start": "[20,20,...]",
+      "a": 20,
+      "left_steps": 380,
+      "min_x": "0.049875621",
+      "dwell_runs": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ],
+      "predicted_dwell": 19
+    },
+    {
+      "start": "[50,50,...]",
+      "a": 50,
+      "left_steps": 392,
+      "min_x": "0.019992006",
+      "dwell_runs": [
+        49,
+        49,
+        49,
+        49,
+        49
+      ],
+      "predicted_dwell": 49
+    }
+  ],
+  "steps": 400,
+  "dwell_run_equals_a_minus_1": true,
+  "golden_never_enters_left_branch": true,
+  "min_x_decreases_as_a_grows": true,
+  "intermittent_fraction_increases_with_a": true,
+  "intermittent_fraction": [
+    0.0,
+    0.5,
+    0.8,
+    0.95,
+    0.98
+  ],
+  "VERDICT": "LARGE_PARTIAL_QUOTIENTS_ARE_THE_SLOW_ORBITS"
+}
