@@ -296,6 +296,19 @@ correct constant the same computation scores **29.6 digits**, in line with the o
 `thread3_constants.py`'s convergence table was measuring distance to a typo, so its accuracy
 ceiling was artificial; its 21-digit confirmation of dim E₂ stands.
 
+**Re-running it with the corrected constant recovers 17 digits that were always there.** The
+periodic-orbit Fredholm determinant's own convergence ladder, unchanged except for the reference:
+
+| N | 6 | 8 | 10 | 12 | 14 |
+|---|---|---|---|---|---|
+| Δ vs published | 1.3e-10 | −3.2e-17 | 1.6e-25 | −1.7e-35 | **−3.3e-38** |
+
+Against the transposed constant this could never have read below ~2e-21. The route was in fact
+converging to **38 digits** — saturating its own `dps=40` setting. So the correction does not just
+tidy a literal: it restores a banked instrument's demonstrated accuracy, and confirms the two
+independent routes (periodic-orbit determinant here, Chebyshev collocation in `thermo/`) agree on
+dim E₂ far past where either was previously credited.
+
 **(c) The near-miss I logged wrongly in v1** — see the amended box in §1. I found a real parse bug,
 and then cleared the source on the strength of it. Both defects were real.
 
