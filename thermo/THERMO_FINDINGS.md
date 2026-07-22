@@ -65,16 +65,45 @@ through the `x = -1` singularity of `1/(1+x)`, ρ = 3+√8 = 5.83).
 
 Scales as advertised: N=56/dps=95 gives **42.7 digits** on the GKW constant.
 
-**Two independent GKW sources** (Wirsing 1974 analytic; arXiv 2602.19435 certified interval
-arithmetic) agree on their common 20 digits, so the long reference string is cross-checked rather
-than taken on one authority — and the gate asserts that cross-check before using either.
+**Canonical GKW reference is now Briggs 2003** (n=800 at 1300 bits, confirmed at n=1000/1600,
+"probably accurate to 385 decimals"), with digits taken from the PDF's own text layer via
+`pdftotext` — **not** through a fetch summariser. Cross-checked against Wirsing's classical 20
+digits, and independently confirmed by this session's operator to **66.5 digits** (N=88).
 
-> **Precision-hygiene trap, logged.** An early comparison "saturated" at exactly 18.3 digits
-> regardless of N *and* dps. That is the exact signature of a corrupted reference string, and this
-> repo has been burned by WebFetch's summariser corrupting a long column before — so it was the
-> live hypothesis. **It was wrong.** The reference literal was being parsed at the *ambient* dps
-> (15) before precision was raised. Parse reference constants at full precision BEFORE comparing.
-> Cost: one wrong hypothesis about a source that was in fact faithful.
+> ### ⚠ AMENDED — the earlier entry here cleared the source too early, and was wrong to
+>
+> **What v1 of this document said:** an early comparison saturated at exactly 18.3 digits
+> regardless of N *and* dps; I suspected a corrupted reference (this repo has been burned by
+> WebFetch's summariser before), found instead that the reference literal was parsed at the
+> *ambient* dps (15) before precision was raised, and recorded "**It was wrong.** … Cost: one
+> wrong hypothesis about a source that was in fact faithful."
+>
+> **What is actually true: there were TWO defects, not one.** The parse bug was real and was the
+> cause of the 18.3-digit saturation. But the reference string **was also corrupt** — and I
+> cleared it on the strength of having found the first bug.
+>
+> The string I had extracted from arXiv 2602.19435 (Nisoli — a **real paper**, correctly cited,
+> genuinely certified) is byte-identical to Briggs **with the digit `6` at index 98 deleted**.
+> The fetch summariser dropped one digit. Confirmed constructively: deleting Briggs' index-98
+> digit reproduces the extracted string to all 170 of its digits.
+>
+> This is nasty in a specific way: everything after the drop is *correct but shifted one place
+> left*, so the tail still looks like plausible GKW digits. And because the gate only validated
+> to ~24–43 digits, the corruption sat **55 digits beyond anything that could detect it**. It
+> would have surfaced only when someone pushed past 98 digits and trusted the wrong string.
+>
+> **The generating pattern is [[flag_is_a_floor_not_a_ceiling]]:** a confirmed mechanism-flag
+> (the parse bug) absorbed the search and hid a second defect underneath. Finding the cause of
+> the symptom is not the same as clearing the hypothesis the symptom raised. The parse bug
+> explained the *saturation*; it never explained the *string*, and I stopped looking.
+>
+> **Protocol, corrected and strengthened.** A constant saturating at a fixed digit count
+> independent of both N and dps has (at least) two candidate owners — your own reference literal
+> parsed at ambient dps, and a corrupted reference. Check your parse first *because it is
+> cheaper*, **not because it is exclusive**. Then still adjudicate the string: cross-check
+> against a second independent source at full length, and prefer digits pulled from a primary
+> document's text layer over any summarised fetch. `gate_fixtures.py` now keeps the corrupted
+> string as a live regression assert pinned at digit 99.
 
 ---
 
@@ -191,6 +220,103 @@ plateaus at ~1.42 for a=4,5 rather than climbing — is the natural sealed targe
 `L_a ~ log a` and `C_a ~ log a` would force a finite ratio for structural reasons.
 
 Other queued items, unchanged: multifractal `f(α)` (§3 of the handoff, not started); Tier-1 sealed
-payoff on a Gauss-generated ARS substrate exponent (not started); pushing the Mayer bridge's t₁
-from 4 digits to ~20 using this session's operator (now cheap — `mayer_run1.py` is float64 with a
-2-term Taylor tail, and `gauss_thermo.matrix` already accepts complex `s`).
+payoff on a Gauss-generated ARS substrate exponent (not started).
+
+---
+
+# v2 SESSION — the Mayer bridge at full precision, and three corrupt reference constants
+
+Executed against handoff v2 §9 item 1.
+
+## 6. `t₁`: the CP1↔CP2 weld goes from 3.7 digits to 26.5 (`maass_t1.py`)
+
+`sessionK/mayer_run1.py` welded the two fronts but at float64 with a `dr=0.02` grid scan:
+t₁ = 9.5354 vs LMFDB 9.5337, **~3.7 digits — a 4-digit weld under a 24-digit operator.**
+
+Re-solved as a root of `det(I + L_{1/2+ir})` (odd sector — `det(1+L)=0` ⇔ eigenvalue −1 ⇔ LMFDB
+sym1) using the arbitrary-precision operator, by **secant in the complex r-plane**. `F` is
+complex-valued for real `r`, so minimising `|F|` would halve the digits and forcing `r` real would
+require dividing out the phase; letting `r` be complex avoids both.
+
+| N | dps | t₁ | \|Im r\| | secs |
+|---|---|---|---|---|
+| 24 | 40 | 9.5336952613535474795384658 | 1.5e-13 | 13 |
+| 32 | 55 | 9.5336952613535575543139978 | 1.7e-20 | 30 |
+| 40 | 70 | 9.5336952613535575543442352 | 2.0e-26 | 66 |
+| 52 | 85 | 9.5336952613535575543442352 | **2.1e-36** | 148 |
+
+**t₁ = 9.533695261353557554344235236**, N-ladder self-consistent to **26.5 digits**
+(N=40 vs N=52), matching the Booker/LMFDB reference to 21.4 digits — i.e. to the full length of
+the reference, which it now extends.
+
+> **The free check fired.** `Im(r) < 1e-36` is **nowhere imposed** — the solver ranges over the
+> whole complex plane. Recovering the critical line to 36 digits is independent confirmation that
+> the Selberg-zeta zero is where the arithmetic says it is. Dynamics and arithmetic are two slots
+> for one fact (handoff §5); this verifies the slots separately and only then asserts the identity.
+
+**Parity independently confirmed.** t₁ was solved in the odd sector (`det(1+L)=0` ⇔ eigenvalue −1).
+LMFDB's own symmetry labels for level 1 list r₁ = 9.53369526 as **odd**, and 13.7797513 /
+17.7385633 / 19.4234814 as **even** — matching `mayer_run1.py`'s even-sector finds (13.7799,
+17.7392, 19.4222) and odd-sector finds (9.5354, 12.1746, 14.3592, …). So Session K's convention
+(eigenvalue +1 = even = sym0; eigenvalue −1 = odd = sym1) is corroborated from a source
+independent of the operator. Still worth confirming the `∓` assignment against Lewis–Zagier
+(arXiv math/0101270) before quoting parity in prose, per handoff §5 — LMFDB confirms *which
+eigenvalues are odd*, not the derivation of the factorisation.
+
+## 7. THREE reference constants were wrong — and each failed in a different way
+
+This session found corruption in *three* of the calibrator zoo's reference values. None changed a
+verdict, because all three sat beyond the precision anything had been validated to — which is
+exactly why they survived.
+
+| constant | defect | correct to | found by |
+|---|---|---|---|
+| GKW (from arXiv 2602.19435 via WebFetch) | **dropped digit** `6` at index 98 | 98 digits | cross-check vs Briggs 2003 |
+| dim E₂ (banked in `thread3_constants.py`) | **digit transposition** at 21–22 | 21 digits | cross-check vs arXiv 1611.09276 |
+| — my own comparison harness — | reference literal parsed at ambient dps=15 | 18 digits | N/dps-invariant saturation |
+
+**(a) GKW — the summariser dropped a digit.** arXiv 2602.19435 (Nisoli) is a **real, correctly
+cited, genuinely certified** paper; both it and arXiv 2606.13958 (Pollicott) resolve. The *fetch*
+was the problem. The extracted string is byte-identical to Briggs with index-98 `6` deleted —
+proved constructively (deleting it reproduces all 170 extracted digits). Everything after the drop
+is correct but **shifted one place left**, so the tail still looks like plausible GKW digits.
+
+Adjudicated *independently of the string argument* by pushing the operator past the divergence
+point: at **N=148 / dps=250 the computation agrees with Briggs to 112.1 digits**, and digit 99 is
+`6` in both. So Briggs is confirmed where the fetched string is missing a digit — by computation,
+not only by inference. (An earlier N=124 run reached 93.9 digits, five short of witnessing digit
+99, and could not settle it; that is why the larger run was worth doing.)
+
+**(b) dim E₂ — the repo's own banked constant is transposed.** `thread3_constants.py`'s
+`JP_PUBLISHED` reads `...41624 64 86473` for the true `...41624 46 86473` (arXiv 1611.09276, PDF
+text layer). Correct to only 21 digits. **The tell was in the gate all along and I misread it:**
+dim E₂ was the *worst* fixture at 21.7 digits while λ₀ hit 29.1 — I attributed that to the
+restricted-alphabet subsystem converging more slowly. It was the reference terminating. With the
+correct constant the same computation scores **29.6 digits**, in line with the others.
+`thread3_constants.py`'s convergence table was measuring distance to a typo, so its accuracy
+ceiling was artificial; its 21-digit confirmation of dim E₂ stands.
+
+**(c) The near-miss I logged wrongly in v1** — see the amended box in §1. I found a real parse bug,
+and then cleared the source on the strength of it. Both defects were real.
+
+### The generating pattern, and the protocol that follows
+
+All three are the same shape: **a reference constant is only ever exercised to the precision your
+instrument has reached, so corruption hides in the digits beyond it and is invisible until the
+instrument improves.** Raising precision is therefore not just a better measurement — it is an
+*audit of the calibrator zoo*, and it will surface defects that were latent the whole time.
+
+And (b) is [[flag_is_a_floor_not_a_ceiling]] twice over: in (c) a confirmed parse bug absorbed the
+search; in (b) a plausible physical story ("the subsystem converges slower") absorbed an anomaly
+that was really a broken reference.
+
+**Protocol now enforced in `gate_fixtures.py`:**
+1. Prefer digits from a primary document's **text layer** (`pdftotext`/`pypdf`) over any summarised
+   fetch. Every reference here now comes from one.
+2. Cross-check each constant against a **second independent source at full length**, not just on
+   leading digits.
+3. Parse reference literals at full precision **before** comparing.
+4. Keep every retracted string as a **live regression assert** pinned at its divergence digit
+   (98 for GKW, 21 for dim E₂), so a silent swap-back fails the gate.
+5. Treat a fixture that scores conspicuously *worse* than its siblings as a suspect **reference**,
+   not only as a suspect computation.

@@ -61,7 +61,15 @@ NMAX = 14
 print("building periodic-orbit multipliers up to length", NMAX, "...")
 RHO = traces(NMAX)
 # bisect s in (0.4,0.6) for det(1-L_s)=0, at increasing truncation N to show convergence
-JP_PUBLISHED = mp.mpf("0.5312805062772051416246486473684717854930591090")
+# CORRECTED 2026-07-21 (thermo/ arc). The value previously banked here,
+#   0.5312805062772051416246486473684717854930591090
+# carries a DIGIT TRANSPOSITION at position 21-22: "...41624 64 86473" for the true
+# "...41624 46 86473". It is correct to only 21 digits, so the convergence table below was
+# measuring the distance to a typo, not to the constant -- the N=14 row's apparent accuracy
+# ceiling was artificial. Digits below are from arXiv 1611.09276 (Jenkinson-Pollicott,
+# "a hundred decimal digits for the dimension of E_2"), taken from the PDF's own text layer.
+JP_PUBLISHED = mp.mpf("0.53128050627720514162446864736847178549305910901839"
+                      "87798883978039275295356438313459181095701811852398")
 print(f"published Jenkinson-Pollicott dim E_2 = {mp.nstr(JP_PUBLISHED, 20)}")
 print(f"ARS (Chebyshev-Nystrom) value          = 0.5312805")
 for N in (6, 8, 10, 12, 14):
