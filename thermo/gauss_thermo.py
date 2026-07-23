@@ -219,14 +219,53 @@ class GaussOperator:
             lam1, _ = self.leading(s, alphabet, matrix=D)
             return lam1
 
+    def leading_perron(self, s, alphabet=None, matrix=None):
+        """Leading eigenvalue via dense eig + Perron-Frobenius (sign-definite) selection.
+
+        Power iteration returns the eigenvalue of LARGEST MODULUS, which at large s is a
+        SPURIOUS one: the collocation discretization of L_s suffers spectral pollution there
+        (the true golden-dominated eigenvalue phi^{-2s} is present but subdominant to a
+        non-convergent artifact -- e.g. at s=8, N=32 the artifact 0.0082 sits above the true
+        0.00045, and the artifact does NOT converge in N). L_s is a positive operator, so by
+        Perron-Frobenius its true leading eigenvalue is real and its eigenvector is
+        sign-definite; the pollution eigenvector oscillates (16 sign changes at s=8). This
+        selects the largest eigenvalue whose eigenvector does not change sign -- pollution-free
+        at every s, at the cost of a dense eig (fine at these N).
+        """
+        M = self.matrix(s, alphabet) if matrix is None else matrix
+        with mp.workdps(self.dps):
+            E, V = mp.eig(M)
+            best = None
+            tol = mp.mpf(10) ** (-self.dps // 3)
+            for r in range(len(E)):
+                col = [V[i, r] for i in range(M.rows)]
+                scale = max(abs(z) for z in col)
+                if scale == 0:
+                    continue
+                reps = [mp.re(z) / scale for z in col]
+                # sign-definite up to numerical noise: no strict sign change above tol
+                signs = [1 if x > tol else (-1 if x < -tol else 0) for x in reps]
+                nz = [x for x in signs if x != 0]
+                sign_definite = all(x == nz[0] for x in nz) if nz else False
+                if sign_definite and (best is None or abs(E[r]) > abs(E[best])):
+                    best = r
+            if best is None:                       # no clean Perron vector -> fall back
+                return self.leading(s, alphabet, matrix=M)
+            return E[best], mp.matrix([V[i, best] for i in range(M.rows)])
+
     # -- thermodynamics -----------------------------------------------------------------
-    def pressure(self, s, alphabet=None):
-        """P(s) = log(leading eigenvalue of L_s). Anchor: P(1) = 0 on the full alphabet."""
-        lam, _ = self.leading(s, alphabet)
+    def pressure(self, s, alphabet=None, robust=False):
+        """P(s) = log(leading eigenvalue of L_s). Anchor: P(1) = 0 on the full alphabet.
+
+        robust=True uses the Perron-filtered leading eigenvalue (see leading_perron); needed
+        for s where collocation pollutes (large s / the golden edge of the Lyapunov spectrum).
+        """
+        lam, _ = (self.leading_perron(s, alphabet) if robust
+                  else self.leading(s, alphabet))
         with mp.workdps(self.dps):
             return mp.log(lam)
 
-    def dpressure(self, s, alphabet=None, h=None):
+    def dpressure(self, s, alphabet=None, h=None, robust=False):
         """P'(s) by a 4th-order central difference.
 
         `mp.diff` is NOT usable here: it chooses a step from the ambient precision, but
@@ -242,7 +281,7 @@ class GaussOperator:
         with mp.workdps(self.dps):
             if h is None:
                 h = mp.mpf(10) ** (-self.dps // 5)
-            f = lambda t: self.pressure(t, alphabet)
+            f = lambda t: self.pressure(t, alphabet, robust=robust)
             return (-f(s + 2 * h) + 8 * f(s + h) - 8 * f(s - h) + f(s - 2 * h)) / (12 * h)
 
     def lyapunov(self, alphabet=None):

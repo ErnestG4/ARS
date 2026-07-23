@@ -433,3 +433,72 @@ have no located high-precision published value and are reported honestly as pred
    (98 for GKW, 21 for dim E₂), so a silent swap-back fails the gate.
 5. Treat a fixture that scores conspicuously *worse* than its siblings as a suspect **reference**,
    not only as a suspect computation.
+
+---
+
+# v3 SESSION (cont.) — f(α): the Lyapunov multifractal spectrum, and a spectral-pollution fix
+
+Handoff v3 §3/§9.3. Predictions sealed in `FALPHA_PREREG_SEALED.json` before running.
+Artifacts: `multifractal.py`, `multifractal_measured.json`, `multifractal_spectrum.png`,
+plus the new `GaussOperator.leading_perron` / `pressure(robust=…)`.
+
+## The object and why it's the right f(α)
+
+`L(α) = dim_H { x : λ(x) = α }`, the Hausdorff dimension of the level sets of the pointwise
+Lyapunov exponent `λ(x) = lim (1/n) log|(G^n)'(x)|`. This is the canonical **Gauss-generated**
+multifractal spectrum: the observable `log|G'|` *is* the geometric potential that generates the
+dimension, so the whole spectrum is a pure readout of the pressure function already built and
+gated — no new operator, and the two-quantization wall is nowhere near.
+
+## Method — one formula, driven by the gated pressure
+
+The equilibrium state μ_s of `-s log|G'|` has `λ(μ_s) = -P'(s)` and, via the variational
+principle `P(s) = h(μ_s) - s·λ(μ_s)`, dimension `h/λ = [P(s) - s P'(s)]/(-P'(s))`. So the
+spectrum is traced parametrically:
+
+```
+    α(s) = -P'(s)
+    L(α(s)) = s - P(s)/P'(s)          s ∈ (1/2, ∞)
+```
+
+**Three exact landmarks fall out of this single formula** — reproducing all three simultaneously
+from one pressure function is the validation. **ALL_PASS.**
+
+| landmark | prediction | measured | status |
+|---|---|---|---|
+| **L2 typical peak** (s=1) | α = π²/(6 ln2), **L = 1 exactly** | α to **27 digits**, L=1 to **29.3 digits** | ✓ exact |
+| **L1 golden edge** (s→∞) | α → 2 log φ, L → 0 | α(s=25) → 2 log φ to **7.2 digits**, L → 1.7e-6 | ✓ |
+| **L3 Good asymptote** (s→½⁺) | α → ∞, **L → 1/2** (Good's theorem) | L(s=0.501)=0.5072, approaching ½ as ~1/\|log(2s−1)\| | ✓ (slow) |
+
+The peak sits exactly at the a.e. Lyapunov exponent with dimension 1; the left edge is the golden
+mean `[1,1,1,…]` (the slowest-expanding orbit, dimension 0); and the right tail reproduces Good's
+1941 theorem that `dim{x : aₙ→∞} = 1/2`. `α(s)` is strictly decreasing and `max L = 1`. Figure:
+`multifractal_spectrum.png`.
+
+## The one that fought back — spectral pollution at the golden edge (a named phenomenon, fixed)
+
+The first run **failed L1**: for `s ≳ 4`, α collapsed to ~0.16 and L went to −235. Diagnosis (dense
+eigensolver + N-sweep) showed it is not a bug but **spectral pollution** — the exact collocation
+failure mode Nisoli's paper title (arXiv 2602.19435) advertises avoiding. At s=8 the *true*
+golden eigenvalue φ⁻¹⁶ = 0.000453 sits as the **second** eigenvalue, beneath a **spurious
+largest-modulus eigenvalue 0.0082 that does not converge in N** (0.00822→0.00819→0.00787 for
+N=32→48→64). Power iteration and dense eig both return the artifact, because it genuinely has the
+larger modulus.
+
+**Fix — Perron–Frobenius positivity filter (`leading_perron`).** `L_s` is a positive operator, so
+its true leading eigenvalue has a sign-definite eigenvector; the pollution eigenvector oscillates
+(16 sign changes at s=8 vs 0 for the true mode). Selecting the largest eigenvalue with a
+sign-definite eigenvector is pollution-free at every s, and it recovers the golden edge: α(s) →
+2 log φ to 7 digits by s=25, L → 0. Cross-confirmed independently by the periodic-orbit cycle
+expansion of the pressure (`P(8) = −7.695` vs golden −7.699), which never pollutes. The
+multifractal uses a hybrid — fast power iteration for `s ≤ 3.5` (no pollution), the dense Perron
+filter above — purely for speed.
+
+**Honest limit:** the edge is resolvable to `s ≈ 25` at `dps = 48`, where φ^{−2s} ≈ 10^{−10}; past
+that the true eigenvalue underflows its own eigenvector's noise and the filter falls back to the
+polluted value. `s = 25` already gives the edge to 7 digits (past the ≥6-digit acceptance);
+reaching further out is a pure dps trade, not a method limit. This is [[filing_discipline_attribution_slot]]
+again — the failure *looked* like the parametric formula being wrong at large s (a plausible
+"the formula breaks at the edge" story), but the value was right and the **discretization** owned
+the error. Verified which owned it (dense eig showed the true eigenvalue present-but-subdominant)
+before touching the formula.

@@ -1,0 +1,38 @@
+{
+  "sealed_utc_date": "2026-07-23",
+  "author": "Claude Fable 5, sealed BEFORE running thermo/multifractal.py",
+  "object": "The Lyapunov multifractal spectrum of the Gauss map, L(alpha) = dim_H { x : lambda(x) = alpha }, where lambda(x) = lim (1/n) log |(G^n)'(x)| is the pointwise Lyapunov exponent. This is the canonical Gauss-generated f(alpha); the observable log|G'| is the same potential that generates the dimension, so it is unambiguously trunk-side (no trace-map, wall not approached).",
+
+  "construction": "Parametric, driven entirely by the already-gated pressure P(s) [= pressure of -s log|G'|, my operator convention, P(1)=0]. For the equilibrium state mu_s of -s log|G'|: lambda(mu_s) = -P'(s) and dim(mu_s) = h(mu_s)/lambda(mu_s) = [P(s) - s P'(s)]/(-P'(s)). Hence the spectrum in parametric form:\n    alpha(s) = -P'(s)\n    L(alpha(s)) = s - P(s)/P'(s)\nswept over s in (1/2, infinity).",
+
+  "sealed_landmarks": {
+    "L1_golden_edge": {
+      "claim": "As s -> +infinity, alpha(s) -> alpha_min = 2 log(phi) = 0.9624236501... and L -> 0.",
+      "reason": "the equilibrium state concentrates on the minimal-Lyapunov (golden [1,1,1,...]) orbit; P(s) ~ -2s log phi there, so -P'(s) -> 2 log phi and L = s - P(s)/P'(s) -> s - s = 0.",
+      "target_alpha_min": 0.9624236501192068949955
+    },
+    "L2_typical_peak": {
+      "claim": "At s = 1 exactly: alpha = -P'(1) = pi^2/(6 ln 2) = 2.3731382208... and L = 1 EXACTLY (the peak).",
+      "reason": "P(1)=0 so L = 1 - 0/P'(1) = 1; Gauss-a.e. point has Lyapunov exponent pi^2/(6 ln2) and the set of such points has full dimension 1.",
+      "target_alpha_typ": 2.3731382208125090564,
+      "target_L": 1.0
+    },
+    "L3_Good_asymptote": {
+      "claim": "As s -> 1/2+ : alpha(s) -> +infinity and L -> 1/2 (Good's theorem: dim_H{x : a_n(x) -> infinity} = 1/2).",
+      "reason": "P(s) ~ -log(2s-1) and P'(s) ~ -1/(s-1/2), so alpha = -P'(s) -> infinity while P(s)/P'(s) = (s-1/2)log(2s-1) -> 0, giving L -> 1/2 - 0 = 1/2.",
+      "target_L_infinity": 0.5
+    }
+  },
+
+  "sealed_shape_predictions": {
+    "domain": "alpha in (2 log phi, infinity); L defined and real-analytic on the interior.",
+    "unimodal": "L(alpha) rises from 0 at the golden edge to its maximum 1 at alpha = pi^2/(6 ln2), then decreases monotonically toward the horizontal asymptote 1/2 as alpha -> infinity.",
+    "peak_is_unique_and_equals_1": "max_alpha L(alpha) = 1, attained only at the a.e. Lyapunov exponent (s=1).",
+    "monotone_alpha_of_s": "alpha(s) = -P'(s) is strictly decreasing in s (P is strictly convex), so the parametric sweep is a bijection s in (1/2, inf) <-> alpha in (inf, 2 log phi)."
+  },
+
+  "acceptance": "L1 alpha_min recovered to >= 6 digits from the large-s end; L3 L-> 1/2 recovered (approach is slow, ~1/|log(2s-1)|, so tenths not digits); L2 recovered to >= 20 digits (it is exact at s=1); L(alpha) unimodal with a unique maximum equal to 1 to >= 20 digits.",
+  "note_added_at_run_time": "L1 required a Perron-Frobenius leading-eigenvalue filter -- the collocation discretization suffers SPECTRAL POLLUTION for s > ~4 (a spurious largest-modulus eigenvalue not present in the true spectrum). Diagnosed and fixed (leading_perron); edge then recovered to 7.2 digits at s=25. Beyond s~25 at dps=48 the true eigenvalue phi^{-2s} underflows numerically -- a dps limit, not a method limit. This was NOT foreseen when sealing; recorded here rather than hidden.",
+  "falsifier": "any of: peak != 1; asymptote != 1/2; golden edge != 2 log phi; L non-unimodal or exceeding 1; alpha(s) non-monotone.",
+  "wall": "Gauss/Selberg door only. The observable is the Gauss geometric potential itself."
+}
