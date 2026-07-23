@@ -343,7 +343,55 @@ And (b) is [[flag_is_a_floor_not_a_ceiling]] twice over: in (c) a confirmed pars
 search; in (b) a plausible physical story ("the subsystem converges slower") absorbed an anomaly
 that was really a broken reference.
 
-**Protocol now enforced in `gate_fixtures.py`:**
+## 8. TIER-1 PAYOFF — the apparatus PREDICTS, and the predictions hold (v3 §6/§9.2)
+
+Until now the machine had only *reproduced* constants it was pointed at. Tier 1 is the first time
+it has to **predict a number it has not seen** and be checked against the outside world.
+
+**Object:** dim_H E_A, the Hausdorff dimension of reals whose CF digits all lie in a finite
+alphabet A — a dim-E₂-type exponent, and unambiguously **Gauss-generated** (the restricted Gauss
+operator *is* its generator; no trace-map, the two-quantization wall is nowhere near). Standard
+notation: E_N = digits ≤ N, so {1,2}=E₂, {1,2,3}=E₃, etc.
+
+**Protocol** (`tier1_dim_EA.py`, sealed to `TIER1_PREREG_SEALED.json`, **committed at b0b6228
+before any literature lookup**): predict each dim E_A by two numerically independent routes —
+Chebyshev collocation (route 1) and a periodic-orbit cycle expansion (route 2, Fredholm
+determinant via Newton identities over the alphabet's words) — with {1,2} carried as the control.
+Only after committing, compare against published values (`tier1_compare.py`).
+
+| alphabet | sealed dim E_A (route 1) | external check | verdict |
+|---|---|---|---|
+| {1,2} = E₂ | 0.53128050627720514162446864… | Jenkinson–Pollicott, **30.1 digits** | CONTROL ✓ |
+| {1,3} | 0.45448907766182874385… | inside Falk–Nussbaum bracket […77459035, …77707546] | **CONFIRMED ✓** |
+| {2,3} | 0.33743678080606363630… | inside Falk–Nussbaum bracket […80790228, …80817793] | **CONFIRMED ✓** |
+| {1,2,3} = E₃ | 0.70566090802873823061… | routes agree 25.1 dig; no full-length published value found | prediction-only |
+| {1,2,3,4} = E₄ | 0.78894555748315397254… | routes agree 17.0 dig | prediction-only |
+| {1,2,3,4,5} = E₅ | 0.83682944368120882244… | routes agree 13.5 dig | prediction-only |
+
+**Verdict: CONFIRMED.** The control reproduces the gated dim E₂ to 30 digits by *both* routes; and
+the two sealed predictions with independent published values (Falk–Nussbaum, arXiv 1612.00870,
+who bracket the dimension between converging lower/upper bounds) both land **inside the tightest
+published interval** — on alphabets the apparatus had never been shown. The three consecutive-set
+predictions have no located high-precision published value and are reported honestly as
+prediction-only (cross-route validated, externally unconfirmed), **not dropped**.
+
+> **The seal's `SEAL_VALID` flag read False, and that is a `discriminant_exact_question_check`
+> lesson, not a failure of the predictions.** My acceptance criterion was "the two routes agree to
+> ≥15 digits" — a crude proxy. The cross-route agreement degrades monotonically with route 2's
+> truncation order (nmax 14→10→8→7 for the growing alphabets), because route 2 was simply run to
+> fewer cycle lengths for the larger word sets; route 1 is converged to ~28 digits throughout, and
+> a diagnostic pushing route-2 nmax shows the agreement climbing **strictly monotonically** back
+> toward route 1 — E₄: 10.2→13.4→17.0 digits at nmax 6→7→8; E₅: 7.6→10.3→13.5 at nmax 5→6→7
+> (`tier1_diagnosis_measured.json`). Truncation, not disagreement. The exact question was "is each route converged?", and I proxied it with a
+> fixed digit threshold that route 2's own truncation could trip. The predictions are sound; the
+> flag was mis-specified. Committed the False verdict as-is rather than relaxing the threshold
+> post-hoc — reverse-justifying a pass is exactly the move the guardrails forbid.
+
+---
+
+## 9. Reference-corruption protocol
+
+**Now enforced in `gate_fixtures.py`:**
 1. Prefer digits from a primary document's **text layer** (`pdftotext`/`pypdf`) over any summarised
    fetch. Every reference here now comes from one.
 2. Cross-check each constant against a **second independent source at full length**, not just on

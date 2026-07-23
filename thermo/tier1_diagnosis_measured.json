@@ -1,0 +1,10 @@
+{
+  "question": "Was the SEAL_VALID=False floor (worst cross-route agreement 13.5 dig) route-2 truncation or a genuine disagreement between the two routes?",
+  "method": "push route-2's cycle-expansion truncation order nmax and watch whether agreement with the converged route-1 value climbs.",
+  "result": {
+    "(1,2,3,4)": [{"nmax": 6, "agree": 10.2}, {"nmax": 7, "agree": 13.4}, {"nmax": 8, "agree": 17.0}],
+    "(1,2,3,4,5)": [{"nmax": 5, "agree": 7.6}, {"nmax": 6, "agree": 10.3}, {"nmax": 7, "agree": 13.5}]
+  },
+  "verdict": "TRUNCATION. Agreement climbs strictly monotonically with nmax for both alphabets, tracking route-2's own truncation order. Route 1 is converged to ~28 digits throughout; route 2 confirms it to whatever cycle length it was run to. There is no disagreement between the routes -- the seal's fixed 15-digit acceptance threshold was a crude proxy that route-2 truncation could trip.",
+  "consequence": "The sealed dim E_A predictions stand. SEAL_VALID=False was a mis-specified acceptance criterion (discriminant_exact_question_check), not a failed prediction; left as-is in the sealed file for provenance."
+}

@@ -1,0 +1,70 @@
+{
+  "comparison": [
+    {
+      "alphabet": [
+        1,
+        2
+      ],
+      "status": "control_exact",
+      "digits_vs_published": 30.051579298460762
+    },
+    {
+      "alphabet": [
+        1,
+        2,
+        3
+      ],
+      "status": "prediction_only",
+      "standard_name": "E_3",
+      "routes_agree_digits": 25.147681373614247
+    },
+    {
+      "alphabet": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "status": "prediction_only",
+      "standard_name": "E_4",
+      "routes_agree_digits": 16.972623298441217
+    },
+    {
+      "alphabet": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "status": "prediction_only",
+      "standard_name": "E_5",
+      "routes_agree_digits": 13.489263618321516
+    },
+    {
+      "alphabet": [
+        1,
+        3
+      ],
+      "status": "bracket_confirmed",
+      "inside_inner_bracket": true,
+      "inside_outer_bracket": true,
+      "bracket_width_digits": 9.604654383053102,
+      "routes_agree_digits": 34.05061155394586
+    },
+    {
+      "alphabet": [
+        2,
+        3
+      ],
+      "status": "bracket_confirmed",
+      "inside_inner_bracket": true,
+      "inside_outer_bracket": true,
+      "bracket_width_digits": 10.559642003184711,
+      "routes_agree_digits": 34.28037859018037
+    }
+  ],
+  "control_matches_to_20plus_digits": true,
+  "all_brackets_confirmed": true,
+  "TIER1_VERDICT": "CONFIRMED \u2014 control exact, both external brackets contain the sealed prediction, remaining alphabets cross-route validated"
+}
