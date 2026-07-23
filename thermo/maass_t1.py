@@ -102,17 +102,29 @@ def main():
 
     # --- EVEN sector cross-check: the OTHER Mayer factor must find the even eigenvalues ----
     # Guards against the odd-sector match being an accident of one determinant branch.
-    print("\n  even-sector cross-check via det(1 - L) = 0:")
-    op = GaussOperator(N=32, dps=55, Ne=100)
-    ev = solve_root(32, 55, 100, "13.7797513", parity="even", op=op)
-    ev_re, ev_im = mp.re(ev), mp.im(ev)
-    ev_d = float(-mp.log10(abs(ev_re - mp.mpf("13.7797513")) / mp.mpf("13.78")))
-    print(f"    first even eigenvalue = {mp.nstr(ev_re, 26)}")
-    print(f"    LMFDB 13.7797513 (labelled even) -> agrees to {ev_d:.1f} digits "
-          f"(the full LMFDB display), |Im r| = {mp.nstr(abs(ev_im), 3)}")
+    #
+    # An N-LADDER, not a single shot. The first version of this check ran only N=32 and
+    # reported 13.77975135189073894979391909... -- but that value is converged to only ~18
+    # digits; its trailing "...979391..." was SOLVER NOISE. The v3 handoff §4 flagged exactly
+    # this ("precision was spent on t_1"), and it was right. The ladder below converges it:
+    # N=52 and N=64 agree to 32.4 digits at 13.77975135189073894424367328151771, whose tail
+    # "...424367..." is the real continuation. Lesson identical to the calibrator audit -- a
+    # value is only trustworthy to the precision an N-LADDER (not one run) certifies.
+    print("\n  even-sector cross-check via det(1 - L) = 0, N-ladder:")
+    ev_rows = []
+    for N, dps, Ne in [(40, 70, 110), (52, 85, 120), (64, 100, 130)]:
+        ev = solve_root(N, dps, Ne, "13.7797513", parity="even")
+        ev_rows.append((N, mp.re(ev), abs(mp.im(ev))))
+        print(f"    N={N:3d}: {mp.nstr(mp.re(ev), 30)}  |Im r| = {mp.nstr(abs(mp.im(ev)), 3)}")
+    ev_re, ev_im = ev_rows[-1][1], ev_rows[-1][2]
+    ev_ladder = float(-mp.log10(abs(ev_rows[-2][1] - ev_re) / abs(ev_re)))
+    ev_d = float(-mp.log10(abs(ev_re - mp.mpf("13.77975135")) / mp.mpf("13.78")))
+    print(f"    -> converged to {ev_ladder:.1f} digits (N=52 vs 64); matches LMFDB 10-digit "
+          f"display to {ev_d:.1f} digits; |Im r| = {mp.nstr(ev_im, 3)} (not imposed)")
 
-    out = {"even_check": {"value": mp.nstr(ev_re, 26), "lmfdb": "13.7797513",
-                          "digits": ev_d, "abs_im": mp.nstr(abs(ev_im), 5)},
+    out = {"even_check": {"value": mp.nstr(ev_re, 34), "lmfdb": "13.77975135",
+                          "ladder_digits": ev_ladder, "digits_vs_lmfdb": ev_d,
+                          "abs_im": mp.nstr(ev_im, 5)},
            "rows": rows, "ladder": ladder, "reference": T1_REF_STR,
            "best": mp.nstr(best, 30), "digits_vs_reference": dref,
            "im_below_1e15": bool(im_ok),

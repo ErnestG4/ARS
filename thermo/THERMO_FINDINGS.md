@@ -254,6 +254,26 @@ the reference, which it now extends.
 > the Selberg-zeta zero is where the arithmetic says it is. Dynamics and arithmetic are two slots
 > for one fact (handoff §5); this verifies the slots separately and only then asserts the identity.
 
+### Second Mayer zero — converged, and my first value was noise past digit 17 (v3 §4 audit)
+
+The v3 handoff flagged that the even-sector second zero had been run once (N=32) and never
+converged — its trailing digits were solver output, not a claim — and that a remembered Booker
+string `13.779751351890738944243673…` appeared to diverge from my `…8949793919` around digit 20.
+**The handoff's suspicion was correct.** N-ladder:
+
+| N | 24 | 32 | 40 | 52 | 64 |
+|---|---|---|---|---|---|
+| r (even) | …186898765 | …**979391**909 | …**424372**399 | …424367328 | …424367328 |
+| \|Im r\| | 7.9e-12 | 3.7e-18 | 3.1e-23 | 3.9e-32 | 3.4e-41 |
+
+Converged value **r = 13.77975135189073894424367328151771**, self-consistent to **32.4 digits**
+(N=52 vs 64), `|Im r| = 3.4e-41`. My earlier N=32 figure was correct only to ~17 digits: its tail
+`…979391…` was solver noise, and the true continuation is `…424367…` — which matches the
+handoff's remembered Booker string, *but I did not adjudicate it from that string.* It was settled
+by the ladder converging, exactly the discipline v3 §4 asks for. `maass_t1.py` now runs this zero
+as a ladder rather than a single shot. Same lesson as the calibrator audit, one level down: **a
+computed value is trustworthy only to the precision an N-ladder — not a single run — certifies.**
+
 **Parity independently confirmed.** t₁ was solved in the odd sector (`det(1+L)=0` ⇔ eigenvalue −1).
 LMFDB's own symmetry labels for level 1 list r₁ = 9.53369526 as **odd**, and 13.7797513 /
 17.7385633 / 19.4234814 as **even** — matching `mayer_run1.py`'s even-sector finds (13.7799,
