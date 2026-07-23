@@ -1,0 +1,43 @@
+{
+  "route1_ceiling_digits": 30.694657248483768,
+  "rows": [
+    {
+      "nmax": 6,
+      "agree": 10.21,
+      "gain": null
+    },
+    {
+      "nmax": 7,
+      "agree": 13.38,
+      "gain": 3.17
+    },
+    {
+      "nmax": 8,
+      "agree": 16.97,
+      "gain": 3.59
+    },
+    {
+      "nmax": 9,
+      "agree": 20.99,
+      "gain": 4.01
+    },
+    {
+      "nmax": 10,
+      "agree": 25.42,
+      "gain": 4.44
+    },
+    {
+      "nmax": 11,
+      "agree": 30.28,
+      "gain": 4.86
+    }
+  ],
+  "tail_gains": [
+    4.01,
+    4.44,
+    4.86
+  ],
+  "max_agreement_reached": 30.28,
+  "VERDICT": "LINEAR_TRUNCATION",
+  "reading": "agreement climbs linearly with no knee and passes 24 digits => the diagnosis verdict is corrected from 'no disagreement (period)' to 'no disagreement in the first 30 digits', truncation confirmed to that depth"
+}

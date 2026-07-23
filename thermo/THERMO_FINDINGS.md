@@ -361,19 +361,24 @@ Only after committing, compare against published values (`tier1_compare.py`).
 
 | alphabet | sealed dim E_A (route 1) | external check | verdict |
 |---|---|---|---|
-| {1,2} = E₂ | 0.53128050627720514162446864… | Jenkinson–Pollicott, **30.1 digits** | CONTROL ✓ |
-| {1,3} | 0.45448907766182874385… | inside Falk–Nussbaum bracket […77459035, …77707546] | **CONFIRMED ✓** |
-| {2,3} | 0.33743678080606363630… | inside Falk–Nussbaum bracket […80790228, …80817793] | **CONFIRMED ✓** |
+| {1,2} = E₂ | 0.53128050627720514162446864… | Jenkinson–Pollicott exact, **30.1 digits** | CONTROL ✓ |
+| {1,3} | 0.45448907766182874385… | inside Falk–Nussbaum bracket, width pins **~10 digits** | **CONFIRMED (10 dig) ✓** |
+| {2,3} | 0.33743678080606363630… | inside Falk–Nussbaum bracket, width pins **~11 digits** | **CONFIRMED (11 dig) ✓** |
 | {1,2,3} = E₃ | 0.70566090802873823061… | routes agree 25.1 dig; no full-length published value found | prediction-only |
 | {1,2,3,4} = E₄ | 0.78894555748315397254… | routes agree 17.0 dig | prediction-only |
 | {1,2,3,4,5} = E₅ | 0.83682944368120882244… | routes agree 13.5 dig | prediction-only |
 
-**Verdict: CONFIRMED.** The control reproduces the gated dim E₂ to 30 digits by *both* routes; and
-the two sealed predictions with independent published values (Falk–Nussbaum, arXiv 1612.00870,
-who bracket the dimension between converging lower/upper bounds) both land **inside the tightest
-published interval** — on alphabets the apparatus had never been shown. The three consecutive-set
-predictions have no located high-precision published value and are reported honestly as
-prediction-only (cross-route validated, externally unconfirmed), **not dropped**.
+**Verdict: CONFIRMED, with the external leg's power stated honestly.** The control reproduces the
+gated dim E₂ to **30 digits** by *both* routes — that is the strong external leg. The two sealed
+predictions with independent published values (Falk–Nussbaum, arXiv 1612.00870, who bracket the
+dimension between converging lower/upper bounds) both land **inside the tightest published
+interval** — on alphabets the apparatus had never seen — but **"inside the bracket" is a test whose
+power is the bracket width**: F-N's intervals pin {1,3} to ~10 digits and {2,3} to ~11. So the
+external confirmation is 10–11 digits on those two; the remaining ~17 digits of each prediction are
+cross-route-validated but externally unconfirmed. The three consecutive-set predictions (E₃/E₄/E₅)
+have no located high-precision published value and are reported honestly as prediction-only,
+**not dropped**. Net external evidence: one 30-digit control + two ~10-digit bracket confirmations
++ six cross-route validations. That is a real predict-not-reproduce pass, correctly weighted.
 
 > **The seal's `SEAL_VALID` flag read False, and that is a `discriminant_exact_question_check`
 > lesson, not a failure of the predictions.** My acceptance criterion was "the two routes agree to
@@ -382,10 +387,37 @@ prediction-only (cross-route validated, externally unconfirmed), **not dropped**
 > fewer cycle lengths for the larger word sets; route 1 is converged to ~28 digits throughout, and
 > a diagnostic pushing route-2 nmax shows the agreement climbing **strictly monotonically** back
 > toward route 1 — E₄: 10.2→13.4→17.0 digits at nmax 6→7→8; E₅: 7.6→10.3→13.5 at nmax 5→6→7
-> (`tier1_diagnosis_measured.json`). Truncation, not disagreement. The exact question was "is each route converged?", and I proxied it with a
-> fixed digit threshold that route 2's own truncation could trip. The predictions are sound; the
-> flag was mis-specified. Committed the False verdict as-is rather than relaxing the threshold
-> post-hoc — reverse-justifying a pass is exactly the move the guardrails forbid.
+> (`tier1_diagnosis_measured.json`). The exact question was "is each route converged?", and I
+> proxied it with a fixed digit threshold that route 2's own truncation could trip. Committed the
+> False verdict as-is rather than relaxing the threshold post-hoc — reverse-justifying a pass is
+> exactly the move the guardrails forbid.
+>
+> **Scope correction (reviewer, applied).** My first phrasing — "there is no disagreement between
+> the routes" — was one notch stronger than the data carried. The *tested* claim is "no
+> disagreement in the first ~17 digits"; a genuine route-disagreement at digit 22 would produce the
+> same monotone climb up to where I stopped. The real discriminant is the *shape*: the per-step gain
+> is roughly constant (E₄ +3.2, +3.6), i.e. digit-growth **linear in nmax** — the signature of
+> exponential convergence in cycle length that a periodic-orbit expansion on a hyperbolic system
+> must show. Truncation predicts sustained linearity to route-1's ceiling; a disagreement predicts a
+> **knee**. `tier1_plateau.py` runs E₄ to plateau against that pre-registered falsifier
+> (`PLATEAU_PREREG_SEALED.json`).
+>
+> **Plateau result — falsifier cleared, verdict now holds to 30 digits.** Pushing E₄'s route-2
+> cycle length to nmax=11 (via a single depth-first pass measuring the truncated determinant at
+> `d1±h`, so the root is one Newton step from route 1 — no 4M-orbit multiplier list is ever stored):
+>
+> | nmax | 6 | 7 | 8 | 9 | 10 | 11 |
+> |---|---|---|---|---|---|---|
+> | agreement (digits) | 10.21 | 13.38 | 16.97 | 20.99 | 25.42 | 30.28 |
+> | gain/step | — | +3.17 | +3.59 | +4.01 | +4.44 | +4.86 |
+>
+> The climb passes the pre-registered 22-digit knee-level with **no knee**, and reaches **30.28
+> digits — route-1's own N=40-vs-N=52 ceiling is 30.7**, so route 2 agrees with route 1 to the full
+> available precision. The per-step gain is not just constant but slightly *accelerating* (super-
+> exponential, as the nuclear-order-0 Fredholm determinant should be). **VERDICT: LINEAR_TRUNCATION.**
+> The corrected verdict is now "no disagreement in the first 30 digits" — i.e. to route-1's ceiling —
+> not the 17 the original diagnosis tested. The predictions stand; there is no route-disagreement to
+> the precision either route can reach.
 
 ---
 

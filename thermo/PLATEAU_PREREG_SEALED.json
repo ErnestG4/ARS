@@ -1,0 +1,11 @@
+{
+  "sealed_utc_date": "2026-07-23",
+  "author": "Claude Fable 5, sealed BEFORE running thermo/tier1_plateau.py",
+  "context": "Reviewer correction: the tier1 diagnosis verdict 'there is no disagreement between the routes' is stronger than the data carries. The measured agreement climbs 10.2->13.4->17.0 (E4) but has NOT plateaued, so 'climbs to route-1's 28-digit ceiling' is not yet distinguished from 'climbs to 22 and stops at a genuine route-disagreement'. Both produce the observed pattern up to where I stopped.",
+  "discriminant": "The SHAPE of the climb, not its direction. A periodic-orbit cycle expansion on a uniformly hyperbolic system converges exponentially in cycle length, so agreement-digits should grow LINEARLY in nmax (constant gain/step). Truncation predicts sustained linearity all the way to route-1's precision ceiling. A genuine route-disagreement at digit D predicts a KNEE: linear growth up to ~D, then a plateau at D.",
+  "measured_so_far_E4": {"nmax": [6, 7, 8], "agree_digits": [10.2, 13.4, 17.0], "gain_per_step": [3.2, 3.6]},
+  "prediction": "E4 agreement continues climbing LINEARLY at ~3.4 digits/step with NO knee, reaching >=24 digits by nmax=10 and approaching route-1's ~28-digit ceiling near nmax=11.",
+  "FALSIFIER": "If E4 agreement KNEES -- i.e. the per-step gain collapses toward 0 and the value plateaus -- at any level below route-1's ~28-digit ceiling (the reviewer names ~22 as the specific level to watch), that plateau level is a GENUINE route-2-vs-route-1 disagreement, NOT truncation, and the diagnosis verdict is wrong.",
+  "acceptance": "linear climb past 24 digits with no knee => truncation confirmed to the tested precision; the verdict is corrected to 'no disagreement in the first N digits', with N now >= 24 instead of 17.",
+  "method_note": "Root of route 2 measured by ONE Newton step from the converged route-1 value d1 (they already agree to 17+ digits, well inside Newton's basin), so agreement = -log10|f(d1)/f'(d1)| where f is the truncated Fredholm determinant. This needs the traces only at s in {d1-h, d1, d1+h}, accumulated by a single depth-first pass with O(nmax) memory -- which is what makes nmax=10-11 (1.4M-5.6M periodic orbits) reachable at all."
+}
