@@ -641,3 +641,53 @@ no E_A by Borel–Bernstein).
 share the metallic CF-denominator skeleton (`log ε_a`, real and load-bearing), and nothing more; the
 dimension dynamics (`c_a`) is un-shared. The almost-Mathieu door does not weld to the trunk through
 the θ_∞ ladder.
+
+## ⚠ TIER-2 AMENDED (reviewer, three corrections that sharpen the result)
+
+The Tier-2 writeup above overstates in three places. The corrections make the wall verdict *cleaner*,
+not weaker — but they retract a claim ("the plateau is explained") that would have been wrong to leave.
+
+**(1) "Two genuinely independent ways" is overstated — it is one fact: shared indexing.** Counting
+bands of the period-q_n approximant and taking the top eigenvalue of `[[a,1],[1,0]]` are NOT two
+independent routes. The band count is q_n, and q_n obeys `q_{n+1}=a q_n+q_{n-1}` *by construction* —
+the same recursion whose dominant eigenvalue is ε_a. So `log(#bands)/n → log ε_a` follows immediately
+from the band count; the 3–6-digit "agreement" merely checks that the band solver returns q_n and that
+q_n grows like ε_a^n, both guaranteed. **The real, non-automatic content is `#bands = q_n exactly`**
+(21/34/55, 26/135/701) — no gap collapsed at any level, which a period-q potential does not guarantee
+(degeneracies can close gaps). That is a genuine empirical fact about the Sturmian approximants; the
+growth-rate is its trivial corollary. And this **strengthens the wall**: the shared log ε_a is
+*shared bookkeeping* (both doors index by CF denominators, so both inherit ε_a for free), not a
+discovered dynamical coincidence. Shared indexing, not shared dynamics.
+
+**(2) Finiteness is not constancy — the plateau is NOT derived.** The cancellation shows L_a and C_a
+both carry log ε_a, so `θ_∞ = L_a/C_a` is *finite*. But a finite ratio can be anything; the banked
+observation is a *plateau* (θ_∞ ≈ 1.42 across large a), which requires C_a's log-a coefficient to be
+asymptotically a-independent — something the cancellation does not explain at all. So **step 3 derives
+finiteness only; the plateau, the thing that made the ladder interesting, remains unexplained.** A
+fresh independent recomputation of C_a (below) drives this home: with a cruder λ→∞ extrapolation θ
+*keeps rising* through a=4 (0.61, 1.10, 1.40, 1.53) instead of plateauing — the ~1.42 plateau is an
+artifact of Panel A's careful convergence-gated extrapolation, extrapolation-sensitive, and not a
+derived constant. The earlier "that is why the ladder plateaus" is **retracted**; what was derived is
+that the ratio does not diverge.
+
+**(3) Was c_a computed independently, or defined as L_a/C_a? — it was definitional.** In Tier 2 I did
+NOT compute c_a from the trace-map dynamics; I introduced it via `C_a = log ε_a/c_a`, i.e.
+`c_a := L_a/C_a`, using the banked θ_∞ ladder. So "**θ_∞ = c_a**" is definitionally true and derives
+nothing — the reviewer's circularity catch is correct. What rescues the *underlying* object: C_a is a
+genuinely independent computation (trace-map Bowen pressure), not a re-labeling of L_a. Verified fresh
+(`tier2_freshC_measured.json`): recomputing C_a at λ=16,32 with no banked θ input gives
+θ = L_a/C_a = {0.61, 1.10, 1.40, 1.53} tracking the banked {0.55, 1.02, 1.31, 1.41} to ~10%. So
+`θ_∞ = L_a/C_a` is a ratio of two independent quantities (non-circular); the `c_a` language added
+nothing and is dropped.
+
+**(4) Step 4: "no pre-image exists" → "no pre-image FOUND."** The wall verdict stands, but honestly:
+the evidence (no λ on the Gauss side; Panel A's falsification of the one candidate identification
+C_1=log ε_2) is **no pre-image found**, not *proven impassable*. The wall is unbreached, not shown
+unbreachable — and since this is gate (a) evidence, that distinction bounds what it licenses later.
+
+**Net, corrected:** the two doors share the CF-denominator *bookkeeping* (log ε_a, by shared
+indexing), which the cancellation confirms makes θ_∞ finite. The plateau value (~1.42) is an
+independent, un-derived, extrapolation-sensitive trace-map fact. No weld found; wall unbreached. The
+genuine new content is narrower and cleaner than first written: **`#bands = q_n` exactly** (a real
+finding), and **shared indexing ⇒ finite ratio** (a real derivation) — not a derived plateau, and not
+an independent c_a.

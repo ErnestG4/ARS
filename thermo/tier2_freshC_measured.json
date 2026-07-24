@@ -1,0 +1,13 @@
+{
+  "purpose": "Answer reviewer point 3: is C_a computed independently, or is c_a := L_a/C_a definitional? Recompute C_a fresh from the trace-map Bowen pressure (dim*lnlam), independent of the banked theta_inf ladder.",
+  "method": "dim_growth (scale-invariant band-pressure) at lam=16,32; C_extrap = 2*C(32)-C(16) (crude Richardson). Metallic alpha_a = 1/eps_a.",
+  "rows": [
+    {"a":1,"C16":0.7511,"C32":0.7731,"C_extrap":0.7951,"theta_LaC":0.6052,"banked_theta":0.5486},
+    {"a":2,"C16":0.7599,"C32":0.7821,"C_extrap":0.8044,"theta_LaC":1.0957,"banked_theta":1.0169},
+    {"a":3,"C16":0.7925,"C32":0.8229,"C_extrap":0.8532,"theta_LaC":1.4003,"banked_theta":1.3081},
+    {"a":4,"C16":0.8530,"C32":0.8985,"C_extrap":0.9440,"theta_LaC":1.5293,"banked_theta":1.4131},
+    {"a":5,"C16":null,"C32":null,"C_extrap":null,"theta_LaC":null,"banked_theta":1.4196}
+  ],
+  "finding_1_independence": "theta = L_a/C_a from the FRESH C_a tracks the banked ladder to ~10%, so C_a is a genuinely INDEPENDENT trace-map computation and theta_inf = L_a/C_a is a ratio of two independent quantities, NOT circular. The Tier-2 'c_a' relabeling (c_a := L_a/C_a) added nothing and was definitionally true.",
+  "finding_2_no_plateau_in_crude_run": "the crude-extrapolation theta KEEPS RISING through a=4 (0.61,1.10,1.40,1.53) rather than plateauing. The plateau at ~1.42 is an artifact of Panel A's careful convergence-gated lam->inf extrapolation, is extrapolation-sensitive, and is emphatically NOT derived by the cancellation argument (which yields finiteness only)."
+}
