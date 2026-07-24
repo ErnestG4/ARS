@@ -53,6 +53,38 @@ flagged the detector bug on the wrong construction** — the same §3a lesson (t
 generating construction), one level down. On the real substrate the I_rep detector does not
 false-positive; and the surviving headline statistic (mass03) was never dependent on it anyway.
 
+> **⚠ THE DETECTOR BUG IS NOT CLEARED — IT IS DORMANT (governs every other substrate).** "4259167
+> flagged the bug on the wrong construction" must **not** compress to "there was no bug." The clip
+> pathology — a near-zero-*negative* rep pinned to 0.000 and read as CLUSTERED — is **confirmed and
+> unfixed.** Fungal's null simply sits at rep ≈ +0.05, far from the boundary, so it never fires
+> *here*. The bug is **live on any substrate whose null sits near-zero-negative**, and clearing it
+> per-substrate (by showing the null is far from the boundary) is not the same as fixing the clip.
+
+### Half 2 is on the DEPLOYED detector now, not the reconstruction
+
+The table above used a *reconstruction* (`pair_correlation_full` on one pooled train). The deployed
+detector is `joint_q_profile` (per-denominator-q passage-time `rep_int_q`, one row per q) +
+`joint_quadrant_diagnostic` (BL quadrant, exact-0 = clustered) — the "fungal 194/194 exact-0" flag
+(commit 9ad46d6) counts 194 **q-band rows**, not units. Re-run on that actual code path
+(`arsrh/fungal_real_detector.py`) against the count-anchored corrected null: **190 BL q-band rows,
+0 exact-zero** on a single null (real fungal reads 194/194). So the deployed path agrees with the
+reconstruction — "faithful in behavior" upgraded to **confirmed on the real code path**. (A small
+B-null distribution corroborates; see `fungal_real_detector_measured.json`.)
+
+### Count anchor = certification of record
+
+The construction was genuinely slippery across three passes — "153 units ~10 spikes" → "35 units ≥20
+spikes" → "per-unit-normalized concat of 1470 spacings" — and the only thing that ever pinned it was
+the integer match **Σ(n−1) = 1470 = `pooled_direct.n`**. That is the certification of record and the
+regression test: `fungal_real_detector.py` asserts it. If anything re-touches this pipeline, 1470 is
+the anchor.
+
+### Two halves are not equally certified — stated plainly
+
+- **mass03 survival (z=40):** rests on the exact deployed statistic against a count-anchored null. Solid.
+- **I_rep no-false-positive:** now on the deployed `joint_q_profile` path (0/190 single null), not the
+  reconstruction — banked, with the standing caveat that it is a *dormant* not a *cleared* bug.
+
 ## Net
 
 Both halves of the open failure close, and in the reassuring direction: the clustering is

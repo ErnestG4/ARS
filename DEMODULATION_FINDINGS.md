@@ -487,8 +487,11 @@ short-range clustering *without* bursts, on top of long-range rigidity, is unkno
 > **z=40**; **(2)** the flagged exact-zero I_rep false-positive is **CONSTRUCTION-DEPENDENT** — 100%
 > exact-zero on the superposition null (this Part), but **0%** on fungal's actual construction, where
 > the per-unit floor's short-range repulsion keeps I_rep=+0.048. So the detector bug was flagged on
-> the wrong null; on the real substrate it does not fire. Verdict unchanged and strengthened; the
-> reasoning below is superseded on the construction, not the conclusion.
+> the wrong null; on the real substrate it does not fire (confirmed on the DEPLOYED joint_q_profile
+> path: 190 BL q-band rows, 0 exact-zero vs real fungal 194/194). Verdict unchanged and strengthened.
+> **BUT the clip bug is DORMANT, not cleared** — near-zero-negative rep→0.000→CLUSTERED is confirmed
+> and unfixed; fungal is just far from the boundary (rep≈+0.05). Live on any substrate whose null
+> sits near-zero-negative. The reasoning below is superseded on the construction, not the conclusion.
 
 ## The extractor's floor is real — and it is applied PER-UNIT, before pooling
 

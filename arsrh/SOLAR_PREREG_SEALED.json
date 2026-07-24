@@ -1,0 +1,21 @@
+{
+  "sealed_utc_date": "2026-07-24",
+  "author": "Claude Fable 5, sealed BEFORE running arsrh/solar_surrogate_port.py",
+  "context": "The last load-bearing detection through the §3a wringer (reviewer). Solar M+X flares: the deployed detector flagged 191/191 BL q-band rows exact-0 = CLUSTERING DETECTED (commit 9ad46d6, phase32b/RAIL_AS_DETECTOR.md). Independent SOC-phase ground truth says flares are clustered (ComCat/GOES, GK-decluster->Poisson).",
+
+  "the_confound": "Solar M+X flare rate has a ~1000x non-stationary SOLAR-CYCLE envelope (measured per-year counts: 1 at solar minimum, 1865 at solar maximum, over 1986-2023). The pooled inter-flare-interval 'clustering' (short gaps) could be ENTIRELY this rate modulation -- a Cox / inhomogeneous-Poisson process -- not intrinsic flare clustering. This is the sharpest §3a test in the program: the rate envelope is enormous and known.",
+
+  "construction": "Single pooled train of M+X inter-flare intervals, normalized (diff/diff.mean()), cumsum, subsampled to N_TARGET=2000 (load_solar_M_plus, run_phase15_cross_signal.py:131-142). NOT per-unit like fungal -- the null is different and neither fungal result transfers.",
+
+  "surrogate": "Rate-envelope-preserving inhomogeneous-Poisson: estimate lambda(t) by kernel-smoothing the flare onsets at a bandwidth that captures the solar cycle but NOT the short-range clustering (bandwidth >> mean ISI ~ days, << cycle ~ 11 yr; sweep ~15-90 day bandwidths). Draw inhomogeneous-Poisson events with intensity lambda(t); this preserves the solar-cycle rate and destroys any INTRINSIC short-range clustering.",
+
+  "PREDICTION (sealed, and DIFFERENT from fungal -- this is the informative part)": {
+    "mass03_survival": "WEAKER than fungal, and plausibly DOES NOT SURVIVE at a cycle-capturing bandwidth. The 1000x envelope means most short inter-flare gaps come from the high-rate solar-max periods, which the inhomogeneous-Poisson null REPRODUCES. Predict: the rate-envelope null's mass03 rises well above the homogeneous-Poisson 0.259 (toward solar's observed value), and solar's clustering is LARGELY or WHOLLY rate-envelope-driven -- the OPPOSITE of fungal. If mass03 still clears the inhomogeneous null by many sigma, the clustering is intrinsic beyond the cycle (would be a strong positive); the sealed prior is that it does not, or only weakly.",
+    "bandwidth_sensitivity": "The verdict will be bandwidth-sensitive; report the full sweep, not one bandwidth. A too-small bandwidth absorbs the clustering (null reproduces it, false 'not clustered'); too-large misses cycle structure. The honest output is the survival-vs-bandwidth curve.",
+    "deployed_detector_near_zero_band": "The reviewer's dormant-clip question: does the inhomogeneous-Poisson null land in the dangerous near-zero-NEGATIVE rep band (where the clip false-positives), or far from it? UNKNOWN a priori -- genuine Cox clustering drives rep strongly negative (true clustered), the false-positive is the near-zero-negative case. Predict the null sits closer to zero than fungal's +0.05 (because the envelope induces mild clustering), so solar is MORE likely than fungal to expose the dormant clip -- but which side of zero is unknown and is what the port establishes."
+  },
+
+  "acceptance": "report mass03(real) vs the inhomogeneous-Poisson null across a bandwidth sweep; run the DEPLOYED detector (joint_q_profile) on the null and locate it relative to the near-zero-negative clip band; cross-check the verdict against the SOC-phase ground truth. No result is filed as settled if it rests on a single bandwidth or on the reconstruction rather than the deployed path.",
+
+  "anti_transfer": "Neither fungal result transfers: solar's construction (single train, solar-cycle envelope, possible FRM/flare-merging dedup) is different; both mass03 survival and clip behavior are re-established from scratch."
+}

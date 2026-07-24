@@ -1,0 +1,14 @@
+{
+  "count_anchor_1470": 1470,
+  "B": 12,
+  "detector": "joint_q_profile + joint_quadrant_diagnostic (the deployed path, not the pair_correlation reconstruction)",
+  "real_fungal_flag": "194/194 BL rows exact-0 (commit 9ad46d6)",
+  "null_total_bl_rows": 2307,
+  "null_total_exact0": 0,
+  "null_frac_exact0_overall": 0.0,
+  "per_null_mean_frac_exact0": 0.0,
+  "per_null_max_frac_exact0": 0.0,
+  "AGREES_WITH_RECONSTRUCTION": true,
+  "verdict": "The deployed detector confirms ~0% exact-0 false-positive on the corrected null \u2014 the reconstruction was faithful, Half-2 fully banked.",
+  "bug_status": "The clip pathology (near-zero-negative rep pinned to 0.000, read as CLUSTERED) is CONFIRMED and UNFIXED \u2014 DORMANT here only because fungal's null sits at rep~+0.05, far from the boundary. Not cleared. Live on any substrate whose null sits near-zero-negative."
+}
