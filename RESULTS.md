@@ -10218,9 +10218,42 @@ Full record: `thermo/THERMO_FINDINGS.md` (commits cd29c83→ccefe32).
   mass<0.3 = 0.33. Consistent with ETAS aftershock dynamics. (§7.ter.4.)
 
 - Adamatzky fungal mycelium spike pool, 1,470 events: super-Poissonian
-  classification, mass<0.3 = 0.65 on the dataset tested. (§7.ter.5.)
+  classification, mass<0.3 = 0.654.  (§7.ter.5.)  **Clustering INTRINSIC,
+  confirmed against a correctly-constructed measure-preserving null
+  (ARS-RH §3a port, `arsrh/FUNGAL_PORT_FINDINGS.md`).**  The construction
+  is the concatenation of per-unit *normalized* spacings over the **35
+  units with ≥20 spikes** (Σ(n−1) = 1470 = pooled n exactly — the count
+  anchor / certification of record), NOT the 153-unit Palm–Khintchine
+  superposition an earlier null used.  Against the substrate-matched
+  null (per-unit floored-Poisson → normalize → concatenate): null
+  mass03 = 0.245 ± 0.010, observed 0.654 → **z = 40** (unreachable).
+  The deployed exact-zero I_rep detector (`joint_q_profile` +
+  `joint_quadrant_diagnostic`) reads **194/194 BL q-band rows exact-0**
+  on real fungal and **0/2307 across B=12 nulls** — no false-positive on
+  the real construction.  ⚠ The clip pathology (near-zero-*negative* rep
+  pinned to 0.000 → read CLUSTERED) is **confirmed and unfixed —
+  DORMANT** here only because the fungal null sits at rep ≈ +0.05, far
+  from the boundary; it is live on any substrate whose null sits
+  near-zero-negative.
 
-- Solar X-ray flares (NOAA GOES, M+ class): Poisson-clustered. (§7.ter.13.)
+- Solar X-ray flares (NOAA GOES M+X class, 1986–2023, 9,750 events):
+  clustered.  (§7.ter.13.)  **Clustering INTRINSIC — real *beyond* the
+  solar cycle** (ARS-RH §3a port, `arsrh/SOLAR_PORT_FINDINGS.md`; sealed
+  prediction of envelope-driven/weak survival was *falsified*).  The M+X
+  flare rate carries a ~1000× solar-cycle envelope (1/yr at minimum,
+  1865 at maximum), so the flagged clustering could have been that Cox
+  rate modulation.  Against a rate-envelope-preserving inhomogeneous-
+  Poisson null (λ(t) kernel-smoothed at bandwidths 15–90 d): observed
+  mass03 = 0.597 clears the null at **z = 10–21 at every bandwidth**.
+  The solar cycle *does* explain ~half the excess (null mass03 rises
+  from the homogeneous 0.259 to 0.35–0.45) — the §3a confound is
+  genuinely present here, unlike fungal — but the remainder is intrinsic
+  and matches the independent SOC-phase ground truth (M+X flares
+  clustered; GK-declustering → Poisson).  Deployed detector: real solar
+  reproduces **191/191** BL exact-0 exactly; cycle-preserving nulls give
+  0/196, 0/187, 0/193.  Caveat: no FRM/sub-flare dedup beyond the source
+  catalog — verify against a de-duplicated onset list before quoting the
+  intrinsic claim externally.
 
 - Binance BTCUSDT trade timing (one trading day): essentially random
   (BL quadrant). (§7.ter.14.)
