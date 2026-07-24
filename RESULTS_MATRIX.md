@@ -109,7 +109,7 @@ GL(m)/Rankin–Selberg substrate exists in the repo. Phase 35 = Almost-Mathieu, 
 | DEGT panels A–D | C = dim(Σ_λ)·ln λ; **H1 (C affine in 𝓛) FALSIFIED**; C finite ⟺ liminf K<∞ | complete | mod | ✅ |
 | Panel C (Λ control) | **approximability Λ decisively controls DEGT dimension C** (arrangement-matched families, within-family pearson +0.80) | complete | low | ✅ **[+]** |
 | Panel D (record process) | **π is the lone a.e.-typical/generic number**; metallics + e are the two measure-zero exceptions | complete | low | ✅ **[+]** |
-| θ∞ = L_a/C_a metallic ladder | plateaus ~1.42 (a4/a5 within error; plateau not yet resolved) | banked | mod | ✅ |
+| θ∞ = L_a/C_a metallic ladder | finite ratio DERIVED (both L_a and C_a inherit log ε_a from the shared CF-denominator indexing — Raymond's #bands=q_n theorem, V>4); the **~1.42 plateau is EXTRAPOLATION-GATED, not derived**: absent under crude λ→∞ extrapolation (θ rises 0.61/1.10/1.40/1.53), present only under the convergence-gated extrapolation (gate pre-registered 2026-05-25 on the golden DEGT theorem, 6 wk before the ladder — so not tuned to it). Fresh C_a ~10% independence check has **no power on the plateau** (band > the 1.42-vs-1.53 spread). Tier-2 weld: no weld found, wall unbreached. | banked (plateau UNRESOLVED, extrapolation-dependent) | mod | ⚠ |
 | Diatonic Hamiltonian, α=log₂(3/2) | Sturmian operator; circle-of-fifths from Bellissard IDS + Pythagorean comma; **musical gate PASS**; first out-of-sample α | banked | mod | ✅ |
 | a=1 substrate-universality (H/I/J) | g̃(a,f) magnitude-universal across substrates; e diverges | banked | mod | ✅ **[FIX: was mislabelled "length-degeneracy"]** |
 | Thouless per-step bandwidth law | closed form W_k≈4/λ^{m_k} | banked | low | ✅ |

@@ -10121,6 +10121,97 @@ not extend the corresponding literatures.
   PRIME_DEPTH_DISCREPANCY** (the earlier `_METHODOLOGY_VALIDATED_AT_
   FINITE_P` is retracted; §7.ter.59 amendment).  (§7.ter.59.)
 
+#### Gauss transfer-operator thermodynamics (thermo/ arc)
+
+Arbitrary-precision thermodynamic formalism of the Gauss–Kuzmin–Wirsing
+(GKW) transfer operator L_s, extending Session-K CP2 from float64 to mpmath.
+Full record: `thermo/THERMO_FINDINGS.md` (commits cd29c83→ccefe32).
+
+- GKW operator L_s (Chebyshev–Lobatto collocation, exact Hurwitz-zeta
+  tail closure): leading eigenvalue λ₀(s=1)=1 to 29.1 digits; GKW
+  constant λ₁ to 24.2 digits (N=32), 66.5 (N=88), 112.1 (N=148) vs
+  Briggs 2003 (385-digit, PDF text layer); Gauss Lyapunov −P′(1) =
+  π²/(6 ln2) to 27.0 digits; dim E₂ (alphabet {1,2}) to 29.6 digits vs
+  Jenkinson–Pollicott (arXiv 1611.09276).  Float64 CP2 path was 6–8
+  digits throughout.  Calibrator audit surfaced three corrupt reference
+  constants, none prior verdict-changing (each sat beyond the precision
+  anything had reached): a WebFetch summariser dropped GKW digit 98
+  (paper arXiv 2602.19435 itself sound); the repo's own
+  `thread3_constants.py` dim E₂ literal carried a digit transposition at
+  position 21 (corrected in place, convergence table then reaches
+  Δ=3.3e-38 at N=14); and an ambient-dps parse bug.  Gate:
+  `thermo/gate_fixtures.py` GATE_PASS.
+
+- Pressure P(s)=log λ₀(L_s), sealed then measured: P(1)=0 to 25.8
+  digits; golden subsystem closed form P(s)=−2s log φ to ≥22.9 digits;
+  parameter-free divergence law P(s)+log(2s−1)→0 as s→½⁺ (residual
+  0.0634→0.000115, linear in ε).  §7 Manneville–Pomeau phase-transition
+  attribution CORRECTED: the transition is **large-partial-quotient
+  driven, not golden-mean dominated** — every finite alphabet {1..A}
+  gives an entire P_A (singularity is the A→∞ tail; λ_A(½)=1.0266·log A
+  +0.134), and on the Farey map the golden orbit [1,1,1,…] takes the
+  intermittent branch 0 of 400 steps while a=50 takes it 392/400.
+  (`thermo/pressure_sweep.py`, `farey_orbit_check.py`.)
+
+- Mayer bridge (CP1↔CP2 weld) at full precision: first Maass eigenvalue
+  as a zero of det(I+L_{½+ir}), t₁ = 9.533695261353557554344235236,
+  N-ladder self-consistent to 26.5 digits (was 3.7), matching
+  Booker/LMFDB to its full 21.4-digit length; |Im r| = 2.1e-36 as a
+  free, unimposed critical-line check.  Second Mayer zero (even sector,
+  det(I−L)) = 13.77975135189073894424367328151771 to 32.4 digits.
+  Parity convention (sym0=even/sym1=odd) independently corroborated by
+  LMFDB even/odd labels.  (`thermo/maass_t1.py`.)
+
+- Tier-1 sealed prediction of dim E_A (Hausdorff dimension of
+  bounded-alphabet continued fractions), two independent routes
+  (collocation + periodic-orbit cycle expansion), sealed before any
+  literature lookup: control {1,2}=E₂ reproduces Jenkinson–Pollicott to
+  30 digits both routes; {1,3}=0.454489077661…, {2,3}=0.337436780806…
+  land inside Falk–Nussbaum (arXiv 1612.00870) brackets (external leg
+  pins ~10–11 digits = bracket width); E₃/E₄/E₅ cross-route-validated
+  prediction-only (no full-length published value located).  Cross-route
+  truncation falsifier cleared: E₄ agreement climbs to 30.3 digits at
+  cycle length nmax=11 with no knee (LINEAR_TRUNCATION).  The apparatus
+  predicts rather than reproduces for the first time.  (`thermo/
+  tier1_dim_EA.py`, `tier1_compare.py`, `tier1_plateau.py`.)
+
+- Multifractal f(α): the Gauss-map Lyapunov spectrum L(α)=dim_H{x :
+  λ(x)=α}, parametric from the gated pressure (α=−P′(s), L=s−P/P′).
+  Three exact landmarks from one pressure function: peak L=1 at α=
+  π²/(6 ln2) to 29.3 digits; golden edge α→2 log φ (7.2 digits at s=25,
+  shown to be the s→∞ limit gap decaying at the predicted
+  zero-temperature rate 0.32 digits/s, not a numerical floor); Good's
+  asymptote L→½ (Good 1941).  Collocation spectral pollution at s≳4
+  (Nisoli's named failure mode) fixed by a Perron–Frobenius
+  positivity-filtered leading eigenvalue; filter validated as a no-op to
+  47 digits across the whole interior (pollution onset sharply at s≈4.5,
+  no quiet interior band).  (`thermo/multifractal.py`,
+  `pollution_onset.py`, `golden_edge_push.py`.)
+
+- Tier-2 weld test (does the almost-Mathieu / trace-map door weld to the
+  Selberg/Gauss trunk?), clean-room sealed.  The #bands = q_n
+  non-degeneracy of the period-q_n Sturmian approximant is a **theorem**
+  in this regime, not a discovery — Raymond (1995) proves the bands do
+  not overlap at endpoints for coupling V > 4, precisely the λ→∞ regime
+  Tier-2 runs in (review arXiv:2409.10920; Sturmian Dry Ten Martini,
+  Band–Beckus–Loewy arXiv:2402.16703).  So the shared log ε_a between
+  L_a (Gauss denominator growth) and C_a (trace-map DEGT dimension) is
+  **shared CF-denominator indexing forced by a combinatorial theorem** —
+  both doors inherit ε_a for free — not two independent routes.  That
+  makes θ_∞=L_a/C_a **finite** (real derivation) but does **not** explain
+  the ~1.42 plateau: constancy ≠ finiteness, and the plateau is
+  **extrapolation-dependent** — under a cruder λ→∞ extrapolation θ rises
+  0.61/1.10/1.40/1.53 with no plateau at all, so the flat ladder is
+  produced entirely by Panel A's convergence-gated extrapolation.  The
+  fresh C_a recompute confirms non-circularity but has **no power on the
+  plateau** (its ~10% agreement band exceeds the 1.42-vs-1.53 spread).
+  Verdict: **no weld found; two-quantization wall unbreached (not proven
+  impassable)** — gate (a) evidence.  The genuine outputs are
+  shared-indexing ⇒ finite ratio, and the wall standing; the plateau is
+  an un-derived, extrapolation-gated empirical object, flagged wherever
+  the repo leaned on it as a finding.  (`thermo/tier2_weld.py`, amended
+  commits ccefe32 and this turn.)
+
 #### Physical and biological signals
 
 - USGS earthquake catalog, M ≥ 4.5: Poisson-clustered classification,

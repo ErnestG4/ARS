@@ -691,3 +691,43 @@ independent, un-derived, extrapolation-sensitive trace-map fact. No weld found; 
 genuine new content is narrower and cleaner than first written: **`#bands = q_n` exactly** (a real
 finding), and **shared indexing ⇒ finite ratio** (a real derivation) — not a derived plateau, and not
 an independent c_a.
+
+## ⚠ TIER-2 AMENDED AGAIN (reviewer, 2026-07-24 pm) — the last empirical claim is literature, and the plateau's status is settled
+
+**(1) `#bands = q_n` is Raymond's theorem, not a discovery.** The one thing I had left standing as
+novel empirical content in the weld computation — "no gap collapses at any level, which a period-q
+potential does not guarantee" — is proven. Raymond (1995): for coupling `V > 4`, the periodic
+Sturmian approximants have exactly the gap-labelling gaps open, so bands do not overlap at their
+endpoints. Tier-2 runs at λ→∞, i.e. `V > 4` precisely, so the non-degeneracy holds *because Raymond
+proved it*, not because I found it. Review: Band–Beckus–Biber–Raymond–Thomas, **arXiv:2409.10920**
+(verified: "if V>4 … all the gaps, as predicted by the gap labelling theorem, are there"); the full
+Sturmian Dry Ten Martini solution is Band–Beckus–Loewy, **arXiv:2402.16703**. Cited here rather than
+presented as measured. This **deflates in my favour again**: "both doors inherit ε_a from a theorem
+about CF-denominator combinatorics" is a cleaner statement of shared-bookkeeping-not-shared-dynamics
+than a discovered coincidence would have been. Tier-2's genuine output is now exactly two derived
+statements — **shared indexing ⇒ finite ratio**, and **the wall standing** — neither empirical.
+
+**(2) The plateau's status, settled by commit order.** The whole ~1.42 plateau rests on Panel A's
+convergence-gated λ→∞ extrapolation: crude extrapolation gives a *rising* θ (0.61/1.10/1.40/1.53, no
+plateau), gated extrapolation gives flat. The gate does 100% of the work, so the decisive question
+is whether the gate was pre-registered on convergence grounds or tuned after a ladder that did not
+plateau. **Checked from commit order: pre-registered.** The gate (`|dim_shallow − dim_deep| < 0.02`,
+shallow-vs-deep q-window) was introduced 2026-05-25 (commit `61cc0c0`), stated purpose "validate the
+golden DEGT constant against the known theorem value ln(1+√2)=0.88137," **six weeks before** the
+metallic θ_∞ ladder was banked (2026-07-07, `c79ce8b`). It was validated against a *known answer*
+before any metallic ladder existed, so it could not have selected the plateau. That is the clean
+branch: the crude run is simply under-converged. **Honest final statement:** *plateau at ~1.42 under
+convergence-gated extrapolation (gate pre-registered and theorem-validated), absent under crude
+extrapolation, unexplained by the cancellation.* An interesting empirical object — **not derived, and
+explicitly extrapolation-dependent.**
+
+**(3) The ~10% independence check has no power on the plateau — do not let it migrate into support.**
+The fresh C_a recompute (`tier2_freshC_measured.json`) confirms non-circularity (θ = L_a/C_a from an
+independent C_a tracks the banked ladder to ~10%). But at a=4 the banked-vs-crude spread is 1.42 vs
+1.53 ≈ 8%, *inside* that 10% band. So the check literally cannot distinguish "constant at 1.42" from
+"still rising through 1.53"; it says nothing about the plateau and must not be cited as if it did.
+
+**Downstream reach flagged.** `RESULTS_MATRIX.md` θ_∞ row status changed banked→⚠ (plateau
+extrapolation-gated, unresolved). The Session-K bridge reproductions (`sessionK/`) reproduce the
+individual ladder *rungs* {0.5486…1.4196} against banked C_a and do **not** assert the plateau limit,
+so they stand as-is; only the plateau-as-object claim needed the flag.
