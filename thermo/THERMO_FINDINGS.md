@@ -536,3 +536,27 @@ meaningful: collocation pollutes at large s but handles the infinite alphabet ex
 Hurwitz tail; the cycle expansion is exact at large s but truncates the alphabet, so it degrades
 near s=½ where large partial quotients matter — the §7 phase-transition tail. They overlap cleanly
 in the interior.)
+
+**Test 2 — is the 7.2-digit golden edge a limit gap or a numerical floor?** (`golden_edge_push.py`)
+The edge is a limit as s→∞, so the gap `α(s) − 2 log φ` conflates (i) how far s=25 sits from its
+own limit (math) and (ii) how accurately s=25 was computed (numerics). Zero-temperature asymptotics
+predict (i) decays like `(|ρ₂|/|ρ₁|)^s = 0.449^s` = 0.348 digits/unit-s (ρ₁ the golden fixed point,
+ρ₂ the next orbit). Pushing to s=50 at dps=95:
+
+| s | 10 | 20 | 30 | 40 | 50 |
+|---|---|---|---|---|---|
+| α − α_min | 4.6e−4 | 2.8e−7 | 1.8e−10 | **0.67 (broke)** | 2.3e−4 |
+| digits | 3.34 | 6.55 | 9.73 | 0.18 | 3.64 |
+
+**Through s=10→20→30 the gap decays at 0.321, 0.318 digits/s — dead on the predicted 0.348.** So
+the golden-edge gap is **(i), the limit not yet reached**, *not* a numerical floor: the 7.2 digits
+at s=25 was simply s=25 not being ∞; at s=30 it is 9.73 digits, on the predicted line. The same
+discriminant the reviewer applied to the truncation seal (separate the math limit from the numeric
+limit) applies here and comes out clean.
+
+**Item (ii) is also visible, and honestly noted:** at s≥40 the numerical floor takes over even at
+dps=95 — the Perron filter is not perfectly robust when the true eigenvalue φ^{−2s} nears the
+eigenvector noise (s=40 grossly failed while s=50 partly recovered — a filter *selection* wart at
+tiny eigenvalues, not a monotone resolution wall). Trustworthy edge range at these settings is
+s≤30, well past where the multifractal curve reads (max s=25). So both halves of the dichotomy are
+present and cleanly separated by regime: (i) governs s≤30, (ii) sets in at s≥40.

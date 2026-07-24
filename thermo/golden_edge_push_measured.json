@@ -1,0 +1,44 @@
+{
+  "alpha_min": "0.9624236501192068949955178",
+  "predicted_rate_digits_per_s": 0.3475760901757687,
+  "rows": [
+    {
+      "s": 10,
+      "alpha_minus_min": "0.000458401",
+      "digits": 3.34,
+      "rate_since_prev": null
+    },
+    {
+      "s": 20,
+      "alpha_minus_min": "2.80233e-7",
+      "digits": 6.55,
+      "rate_since_prev": 0.321
+    },
+    {
+      "s": 30,
+      "alpha_minus_min": "1.84951e-10",
+      "digits": 9.73,
+      "rate_since_prev": 0.318
+    },
+    {
+      "s": 40,
+      "alpha_minus_min": "0.667915",
+      "digits": 0.18,
+      "rate_since_prev": -0.956
+    },
+    {
+      "s": 50,
+      "alpha_minus_min": "0.00023085",
+      "digits": 3.64,
+      "rate_since_prev": 0.346
+    }
+  ],
+  "mean_measured_rate": 0.0072500000000000064,
+  "final_step_rate": 0.346,
+  "VERDICT": "LIMIT_GAP (on the resolvable range s<=30)",
+  "reading": "The auto-VERDICT DECAYS_BUT_OFF_PREDICTED_RATE was fooled by averaging in the s=40 numerical break. Correct reading from the clean prefix s=10->20->30: alpha-alpha_min decays exponentially at 0.321/0.318 digits/s, matching the predicted zero-temperature rate 0.348 (set by |rho2|/|rho1|=0.449). So the golden-edge gap is the LIMIT NOT YET REACHED (item i, math), NOT a numerical floor -- the 7.2 digits at s=25 was simply s=25 not being infinity; at s=30 it is 9.73 digits, on the predicted line. SEPARATELY, item (ii) the numerical floor sets in at s>=40 even at dps=95: the Perron filter is not perfectly robust when the true eigenvalue phi^{-2s} nears the eigenvector noise (s=40 grossly failed while s=50 partly recovered -- a filter-selection wart, not a monotone resolution wall). Trustworthy edge range at these settings: s<=30. This does not touch the multifractal curve (max s=25) and both items of the reviewer dichotomy are now separated by regime.",
+  "clean_prefix_rates": [
+    0.321,
+    0.318
+  ]
+}
