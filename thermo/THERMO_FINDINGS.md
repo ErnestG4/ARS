@@ -502,3 +502,37 @@ again — the failure *looked* like the parametric formula being wrong at large 
 "the formula breaks at the edge" story), but the value was right and the **discretization** owned
 the error. Verified which owned it (dense eig showed the true eigenvalue present-but-subdominant)
 before touching the formula.
+
+## Interior validation — is there a quiet pollution band? (reviewer, 2026-07-24)
+
+The reviewer's sharpest point: all three f(α) landmarks sit at the *ends* of the s-range (s→½, s=1,
+s→∞), so the interior intervals (½,1) and (1,∞) rest on single-method cross-agreement — and
+collocation has a pollution mode that failed loudly at one end. Pollution is continuous in s, so
+there could be a *quiet band* in the unlandmarked interior where it is present but small enough to
+look plausible. Two tests, both run.
+
+**Test 1 — the filter is a validated no-op, not a post-hoc correction** (`pollution_onset.py`).
+Comparing the unfiltered leading eigenvalue (power iteration = largest modulus) against the
+Perron-filtered one across a fine grid:
+
+| s range | filtered vs unfiltered agree to | meaning |
+|---|---|---|
+| 0.55 … 3.75 (the whole interior) | **47–49 digits** | filter is a pure no-op; no pollution |
+| 4.0 | 36 digits | onset, at the 10⁻³⁶ level (negligible) |
+| 4.25 | 24 digits | growing |
+| ≥ 4.5 | < 2 digits | fully polluted |
+
+At **s = 1** specifically (the reviewer's named test), `leading_perron` returns exactly 1.0 to 28.9
+digits (unfiltered gives 29.1) — the filter *selects* the same eigenvalue power iteration already
+found. So the Perron filter is a **selector validated in the clean region**, not a correction
+tuned to a wrong answer. **There is no quiet band:** the interior (½, 4) is clean to 47 digits, and
+pollution onsets sharply at s≈4, at the large-s edge, exactly where the golden-edge landmark lives.
+The multifractal's `POLLUTION_S = 3.5` switchover is conservative — it filters *before* the s≈4
+onset — so the curve was safe. The two open intervals are now pinned not just at their endpoints but
+validated pointwise across the interior by the filter-no-op agreement.
+
+(Note the complementarity of the two routes, which is why cross-agreement in the interior is
+meaningful: collocation pollutes at large s but handles the infinite alphabet exactly via the
+Hurwitz tail; the cycle expansion is exact at large s but truncates the alphabet, so it degrades
+near s=½ where large partial quotients matter — the §7 phase-transition tail. They overlap cleanly
+in the interior.)

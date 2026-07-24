@@ -1,0 +1,164 @@
+{
+  "grid_rows": [
+    {
+      "s": "0.55",
+      "lam_perron": "10.429889248676268347",
+      "agree_digits": 49.2,
+      "polluted": false
+    },
+    {
+      "s": "0.6",
+      "lam_perron": "5.3270580911546727717",
+      "agree_digits": 48.3,
+      "polluted": false
+    },
+    {
+      "s": "0.7",
+      "lam_perron": "2.6905826751152072602",
+      "agree_digits": 47.8,
+      "polluted": false
+    },
+    {
+      "s": "0.8",
+      "lam_perron": "1.7702232482789644585",
+      "agree_digits": 47.8,
+      "polluted": false
+    },
+    {
+      "s": "0.9",
+      "lam_perron": "1.2934950374055477653",
+      "agree_digits": 48.1,
+      "polluted": false
+    },
+    {
+      "s": "1",
+      "lam_perron": "1.0",
+      "agree_digits": 47.6,
+      "polluted": false
+    },
+    {
+      "s": "1.1",
+      "lam_perron": "0.80081864844585225667",
+      "agree_digits": 48.3,
+      "polluted": false
+    },
+    {
+      "s": "1.25",
+      "lam_perron": "0.59908399846121095628",
+      "agree_digits": 47.8,
+      "polluted": false
+    },
+    {
+      "s": "1.5",
+      "lam_perron": "0.39643461344048328897",
+      "agree_digits": 49.4,
+      "polluted": false
+    },
+    {
+      "s": "1.75",
+      "lam_perron": "0.27665179162674367285",
+      "agree_digits": 48.1,
+      "polluted": false
+    },
+    {
+      "s": "2",
+      "lam_perron": "0.19945881834376726019",
+      "agree_digits": 47.9,
+      "polluted": false
+    },
+    {
+      "s": "2.25",
+      "lam_perron": "0.14695542826177215206",
+      "agree_digits": 47.8,
+      "polluted": false
+    },
+    {
+      "s": "2.5",
+      "lam_perron": "0.10992864202958978201",
+      "agree_digits": 47.6,
+      "polluted": false
+    },
+    {
+      "s": "2.75",
+      "lam_perron": "0.083142697203875900742",
+      "agree_digits": 48.2,
+      "polluted": false
+    },
+    {
+      "s": "3",
+      "lam_perron": "0.063402649788288258189",
+      "agree_digits": 48.1,
+      "polluted": false
+    },
+    {
+      "s": "3.25",
+      "lam_perron": "0.048652583065533213849",
+      "agree_digits": 48.1,
+      "polluted": false
+    },
+    {
+      "s": "3.5",
+      "lam_perron": "0.037514683556434801",
+      "agree_digits": 47.6,
+      "polluted": false
+    },
+    {
+      "s": "3.75",
+      "lam_perron": "0.029035928849258381349",
+      "agree_digits": 48.6,
+      "polluted": false
+    },
+    {
+      "s": "4",
+      "lam_perron": "0.022540512855193326467",
+      "agree_digits": 36.2,
+      "polluted": false
+    },
+    {
+      "s": "4.25",
+      "lam_perron": "0.017539650333415339405",
+      "agree_digits": 24.3,
+      "polluted": false
+    },
+    {
+      "s": "4.5",
+      "lam_perron": "0.014630654242862221979",
+      "agree_digits": 1.2,
+      "polluted": true
+    },
+    {
+      "s": "5",
+      "lam_perron": "0.0083469297652236031798",
+      "agree_digits": 0.2,
+      "polluted": true
+    },
+    {
+      "s": "5.5",
+      "lam_perron": "0.0051157890006148242623",
+      "agree_digits": -0.2,
+      "polluted": true
+    },
+    {
+      "s": "6",
+      "lam_perron": "0.0031438970479406034907",
+      "agree_digits": -0.4,
+      "polluted": true
+    },
+    {
+      "s": "7",
+      "lam_perron": "0.0011931055520861597414",
+      "agree_digits": -0.9,
+      "polluted": true
+    },
+    {
+      "s": "8",
+      "lam_perron": "0.00045434379098057996517",
+      "agree_digits": -1.2,
+      "polluted": true
+    }
+  ],
+  "pollution_onset_s": "4.5",
+  "s1_noop_digits_vs_exact": 28.92351353102479,
+  "interior_clean": true,
+  "reading": "pollution onsets at s=4.5; the whole interior (1/2, that) shows the filter as a no-op, so there is NO quiet band -- the single-method interior is un-polluted"
+}
