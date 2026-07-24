@@ -35,6 +35,13 @@ local, so bounded vs unbounded support is irrelevant. Witnessed directly: an aff
 (x·10⁶−3) leaves ⟨r̃⟩ = 0.7051 invariant to **5.8e-14**. Value matches the banked 0.7051 (Poisson
 0.386, GUE 0.603), so the estimator is well-defined and non-Poisson on the n²-density process.
 
+> **⚠ FILING FLAG (dominant error mode — attribution).** ⟨r̃⟩ = 0.7051 **exceeds all four RMT
+> surmises** (Poisson 0.386, GOE 0.536, GUE 0.603, GSE ≈0.674). It is the Farey/Hall value —
+> Hall repulsion is stronger than any random-matrix ensemble — and it is **off the RMT ladder
+> entirely.** It must never be filed against an RMT class; in particular it is *not* "GSE-like"
+> just because 0.7051 > 0.674. A future reader (or memory recall) seeing "0.7051, strong
+> repulsion" is exactly where the slot error lands. File it as Farey/Hall, full stop.
+
 **(C) §3a measure-declaration gate — PASS (the new, high-value piece).** No tree-derived point
 process has a class without a declared sampling measure; the two canonical singular measures must be
 separated by a known-answer statistic:

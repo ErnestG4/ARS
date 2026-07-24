@@ -1,0 +1,16 @@
+{
+  "construction": "35 units with >=20 spikes; per-unit floored-Poisson at matched rate/count; normalize each unit's spacings; concatenate (matches run_fungal_nns.py:250-257, which 4259167 mis-described as 153-unit superposition)",
+  "B": 500,
+  "fungal_mass03": 0.654421768707483,
+  "mass03_null_mean": 0.24508721612934237,
+  "mass03_null_std": 0.010147580682254872,
+  "mass03_p": 0.0,
+  "mass03_z": 40.33814220309144,
+  "mass03_survives": true,
+  "irep_correct_construction_exact_zero_rate": 0.0,
+  "irep_correct_construction_mean": 0.04841331761661138,
+  "irep_superposition_construction_exact_zero_rate": 1.0,
+  "irep_superposition_construction_mean": 0.0,
+  "verdict": "mass03 clustering SURVIVES the correctly-constructed null (z=40, unreachable) \u2014 stronger than 4259167, which used a mis-built superposition null. The exact-zero I_rep false-positive 4259167 flagged is CONSTRUCTION-DEPENDENT: it appears on the 153-unit spike-time SUPERPOSITION but NOT on fungal's actual per-unit normalized-spacing-concatenation construction (where the floor's short-range repulsion keeps I_rep > 0). So the flagged detector bug does not manifest on the real substrate; the \u00a73a discipline (match the null to the generating construction) both re-confirms the clustering and dissolves the false-positive worry.",
+  "s3a_link": "the surrogate preserves the generating MEASURE (per-unit rate envelope + floor + the normalize-then-concatenate construction), reshuffling only within-unit times \u2014 the Phase-0 \u00a73a discipline, validated there against Minkowski-vs-Gauss, applied here where nothing brackets the answer."
+}

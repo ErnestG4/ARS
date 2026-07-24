@@ -478,6 +478,18 @@ short-range clustering *without* bursts, on top of long-range rigidity, is unkno
 
 # PART 6 — FUNGAL: the detection SURVIVES, but not for the reason we gave
 
+> **⚠ CONSTRUCTION CORRECTED (2026-07-24, `arsrh/FUNGAL_PORT_FINDINGS.md`, commit below).** This
+> Part's null is built as a **153-unit Palm–Khintchine superposition**. That is the wrong
+> construction. `run_fungal_nns.py:250-257` pools the **per-unit *normalized* spacings** of the **35
+> units with ≥20 spikes** (Σ(n−1)=1470=`pooled_direct.n`), not a superposition of 153 sparse trains.
+> Re-run on the correct construction (§3a rate-envelope-preserving surrogate ported from ARS-RH
+> Phase 0): **(1)** mass03 clustering SURVIVES even more strongly — null 0.245±0.010, fungal 0.654,
+> **z=40**; **(2)** the flagged exact-zero I_rep false-positive is **CONSTRUCTION-DEPENDENT** — 100%
+> exact-zero on the superposition null (this Part), but **0%** on fungal's actual construction, where
+> the per-unit floor's short-range repulsion keeps I_rep=+0.048. So the detector bug was flagged on
+> the wrong null; on the real substrate it does not fire. Verdict unchanged and strengthened; the
+> reasoning below is superseded on the construction, not the conclusion.
+
 ## The extractor's floor is real — and it is applied PER-UNIT, before pooling
 
 `run_fungal_nns.py`: **`MIN_ISI_SEC = 120`** — a hard 120-second minimum ISI, enforced by construction.
