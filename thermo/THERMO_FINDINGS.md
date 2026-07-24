@@ -578,3 +578,66 @@ eigenvector noise (s=40 grossly failed while s=50 partly recovered — a filter 
 tiny eigenvalues, not a monotone resolution wall). Trustworthy edge range at these settings is
 s≤30, well past where the multifractal curve reads (max s=25). So both halves of the dichotomy are
 present and cleanly separated by regime: (i) governs s≤30, (ii) sets in at s≥40.
+
+---
+
+# v3 SESSION (cont.) — Tier 2: the weld test, under the clean-room spec
+
+Handoff v3 §6/§9.4. Sealed in `TIER2_PREREG_SEALED.json` with an explicit clean-room manifest
+(admitted: the symbolic trace-map structure + the stated target C_a = dim·ln λ; withheld: the
+banked C_a values, the θ_∞ ladder as a *driver*, the band-scaling fits, and the g̃(a,f) surface).
+Artifacts: `tier2_weld.py`, `tier2_weld_measured.json`.
+
+## The derivation (structural, banked-numerics-free)
+
+**Step 1 (Gauss side).** `L_a = log ε_a`, the metallic denominator-growth (top eigenvalue of
+`[[a,1],[1,0]]`); coefficient of log a is 1. (The a.e. Gauss Lyapunov of the period-1 metallic
+orbit is `log|G'| = 2 log ε_a`; `L_a` is half of it — the Lévy/denominator-growth convention.)
+
+**Step 2 (trace-map side), the load-bearing non-circular verification.** The period-q_n Sturmian
+approximant of the metallic-a Hamiltonian has **exactly q_n bands**, and `q_n ~ ε_a^n` because the
+metallic recursion `q_{n+1}=a q_n+q_{n-1}` *is* the CF-denominator recursion. So the band-count
+entropy is `log ε_a` — the **same quantity as L_a, from the same q_n**. Verified two genuinely
+independent ways:
+
+| a | L_a = log ε_a (Gauss M_a eigenvalue) | log(#bands ratio) (trace-map bands) | agree |
+|---|---|---|---|
+| 1 | 0.4812118 | 0.480973 | 3.3 dig |
+| 2 | 0.8813736 | 0.881403 | 4.5 dig |
+| 3 | 1.1947632 | 1.194756 | 5.2 dig |
+| 5 | 1.6472311 | 1.647233 | 5.9 dig |
+
+Band count == q_n exactly (a=1: 21,34,55 Fibonacci; a=5: 26,135,701). This is the "shared Farey
+skeleton" the two-quantization wall already names — made concrete: both doors are built on the
+same metallic q_n, so both carry `log ε_a`.
+
+**Step 3 (why the ladder plateaus) — SUCCEEDS.** By the entropy/contraction dimension formula,
+`C_a = dim·ln λ = (band entropy)/(per-level λ-contraction) = log ε_a / c_a`. Hence
+`θ_∞ = L_a/C_a = log ε_a /(log ε_a/c_a) = c_a` — **the shared log ε_a cancels**. Because both L_a
+and C_a carry the same log ε_a growth, their ratio tends to a finite constant: *that* is why the
+banked ladder plateaus (a=4,5 gap 0.0065 ≪ a=1,2 gap 0.468, plateau ≈ 1.420). Derived, not fitted.
+
+**Step 4 (the weld) — FAILS; wall STANDS, location measured.** `θ_∞ = c_a` is precisely the ratio
+in which the shared skeleton cancels, leaving `c_a` — the trace-map's large-λ contraction exponent,
+an intrinsically almost-Mathieu-door quantity. There is no λ, no Schrödinger operator, on the Gauss
+side, so `c_a` has no Gauss pre-image. **Independent support from the approximability arc:** the one
+case where C_a *looked* like a Gauss/metallic quantity — golden `C_1 = log(1+√2) = log ε_2` (silver)
+— was proven by Panel A to be a **coincidence of golden's large-λ band combinatorics, not an index
+map** (H1 falsified; `C_2 ≠ log ε_3`, etc.). That falsification is exactly evidence that `c_a` is
+trace-map-specific with no shifted-metallic / Gauss origin. So the ladder's **structure** (a finite
+plateau) has a shared origin — the log ε_a skeleton — but its **value** does not. Step 3 succeeds,
+step 4 fails: the handoff's predicted "most likely" outcome, reached by derivation.
+
+**Numerology guard honored.** No closed form is claimed for the ~1.42 plateau. It is *not* asserted
+to be √2, even though the banked a=4,5 rungs (1.413, 1.420) straddle 1.4142 — guessing that and
+reverse-justifying is the exact trap this arc guards, and the plateau is not even converged.
+
+**Gate slot.** This is **gate (a)** evidence — a weld tested on a domain that *includes* the
+defecting numbers (the metallics are the extreme E_A points) — not gate (b), which is a full-measure
+statement structurally unreachable by a bounded-PQ apparatus (E_A is measure zero; a.e. number is in
+no E_A by Borel–Bernstein).
+
+**Net:** the two-quantization wall stands, and Tier 2 measured its thickness precisely — the doors
+share the metallic CF-denominator skeleton (`log ε_a`, real and load-bearing), and nothing more; the
+dimension dynamics (`c_a`) is un-shared. The almost-Mathieu door does not weld to the trunk through
+the θ_∞ ladder.

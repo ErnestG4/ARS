@@ -1,0 +1,108 @@
+{
+  "clean_room": "banked C_a values / band-scaling fits / g-tilde surface NOT read; trace-map bands computed fresh from the symbolic approximant.",
+  "shared_skeleton_rows": [
+    {
+      "a": 1,
+      "L_a": "0.48121182506",
+      "bands_by_level": [
+        [
+          7,
+          21,
+          21
+        ],
+        [
+          8,
+          34,
+          34
+        ],
+        [
+          9,
+          55,
+          55
+        ]
+      ],
+      "band_entropy_logratio": 0.480973,
+      "agree_digits": 3.3
+    },
+    {
+      "a": 2,
+      "L_a": "0.88137358702",
+      "bands_by_level": [
+        [
+          4,
+          29,
+          29
+        ],
+        [
+          5,
+          70,
+          70
+        ],
+        [
+          6,
+          169,
+          169
+        ]
+      ],
+      "band_entropy_logratio": 0.881403,
+      "agree_digits": 4.47
+    },
+    {
+      "a": 3,
+      "L_a": "1.19476321729",
+      "bands_by_level": [
+        [
+          3,
+          33,
+          33
+        ],
+        [
+          4,
+          109,
+          109
+        ],
+        [
+          5,
+          360,
+          360
+        ]
+      ],
+      "band_entropy_logratio": 1.194756,
+      "agree_digits": 5.23
+    },
+    {
+      "a": 5,
+      "L_a": "1.64723114637",
+      "bands_by_level": [
+        [
+          2,
+          26,
+          26
+        ],
+        [
+          3,
+          135,
+          135
+        ],
+        [
+          4,
+          701,
+          701
+        ]
+      ],
+      "band_entropy_logratio": 1.647233,
+      "agree_digits": 5.92
+    }
+  ],
+  "banked_theta_inf": {
+    "1": 0.5486,
+    "2": 1.0169,
+    "3": 1.3081,
+    "4": 1.4131,
+    "5": 1.4196
+  },
+  "plateau_finite_and_increasing": true,
+  "VERDICT_step3": "SUCCEEDS: theta_inf -> finite plateau because L_a and C_a share the log eps_a growth (the metallic skeleton), so their ratio -> a constant. The finite ratio is derived (shared-skeleton cancellation), not fitted.",
+  "VERDICT_step4_weld": "FAILS -- wall STANDS, location measured. The ONLY shared ingredient is the log eps_a skeleton (Farey/CF-denominator growth, common to both doors because both are built on the same q_n) -- exactly the 'shared on the surface' the wall permits. But theta_inf is the ratio in which that skeleton CANCELS, exposing c_a = the trace-map's large-lambda contraction, an intrinsically almost-Mathieu quantity with NO Gauss-side counterpart (no lambda, no Schrodinger operator on the Gauss side). The ladder's STRUCTURE is shared; its VALUE is not. Step 3 succeeds, step 4 fails -- the handoff's predicted 'most likely' outcome, reached by derivation.",
+  "gate": "gate (a) evidence (weld on a domain that includes the defecting metallics), not gate (b)."
+}

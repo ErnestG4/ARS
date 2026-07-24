@@ -1,0 +1,47 @@
+{
+  "sealed_utc_date": "2026-07-24",
+  "author": "Claude Fable 5, sealed BEFORE computing any C_a and BEFORE comparing to the banked theta_inf ladder.",
+  "task": "Tier-2 weld test (handoff v3 §6): does the almost-Mathieu door (trace-map renormalization) weld to the Selberg/Gauss trunk, or only share the Farey skeleton on the surface? The banked ladder theta_inf = L_a / C_a (a=1..5) is an empirical connective law; the seal is against it, not a blind look.",
+
+  "clean_room_manifest": {
+    "ADMITTED (in the room)": [
+      "the SYMBOLIC trace-map / renormalization structure for the metallic-a Sturmian Hamiltonian: substitution w_{n+1} = w_n^a w_{n-1}, transfer-matrix recursion M_{n+1} = M_{n-1} M_n^a, and the fact that its period-q_n approximant has q_n bands;",
+      "the metallic recursion q_{n+1} = a q_n + q_{n-1} (so q_n ~ eps_a^n) and eps_a = top eigenvalue of [[a,1],[1,0]];",
+      "the STATED TARGET only: C_a := dim(Sigma_lambda) * ln(lambda) as lambda -> infinity (DEGT spectral-Cantor dimension)."
+    ],
+    "WITHHELD (out of the room, per the banked clean-room spec)": [
+      "the banked C_a numerical VALUES (Panel A / O1);",
+      "the theta_inf ladder as a DRIVER of the derivation (used only for post-seal verification);",
+      "the fitted band-scaling numerics;",
+      "the g-tilde(a,f) modulation surface;",
+      "any closed form guessed for the ~1.42 plateau (explicit numerology guard)."
+    ]
+  },
+
+  "step1_L_a_Gauss_side": {
+    "claim": "L_a = log eps_a, the Gauss-side metallic denominator-growth / half-Lyapunov (the a.e. Gauss Lyapunov of the period-1 metallic orbit is log|G'| = 2 log eps_a; L_a is half of it, the Levy/denominator-growth convention).",
+    "log_a_coefficient": 1,
+    "note": "verified: eps_a = top eig of [[a,1],[1,0]]; L_a ~ log a with coefficient 1."
+  },
+
+  "step2_C_a_trace_map_side": {
+    "structural_claim": "The trace-map band-count ENTROPY equals log eps_a -- the SAME quantity as L_a, from the SAME object q_n. The period-q_n Sturmian approximant has q_n bands, and q_n ~ eps_a^n (the metallic recursion IS the CF-denominator recursion), so the band-count entropy per renormalization level is log eps_a. This is derived from the substitution combinatorics, NOT from any band-width numerics.",
+    "entropy_log_a_coefficient": 1,
+    "dimension_decomposition": "By the entropy/contraction dimension formula, C_a = dim*ln lambda = (band-count entropy) / (per-level lambda-contraction exponent) = log eps_a / c_a, where c_a is the trace-map's large-lambda contraction exponent. So C_a's log-a coefficient is 1/c_infinity, and c_a is the ONLY trace-map-specific (non-shared) ingredient."
+  },
+
+  "step3_plateau_prediction": {
+    "claim": "theta_inf = L_a / C_a = log eps_a / (log eps_a / c_a) = c_a. The shared log eps_a CANCELS. Because both L_a and C_a carry the same log eps_a growth, their ratio tends to a finite constant -- THIS is why the ladder plateaus, derived not fitted. The plateau value is c_infinity = lim_{a->inf} c_a, the trace-map's asymptotic large-lambda contraction exponent.",
+    "prediction": "theta_inf(a) is an increasing sequence tending to a finite limit c_infinity (the plateau); it equals the trace-map contraction, NOT any Gauss-side quantity.",
+    "numerology_guard": "NO closed form is claimed for c_infinity. It is emphatically NOT asserted to be sqrt(2), even though the banked a=4,5 rungs straddle 1.414 -- that would be a guess reverse-justified, the exact trap this arc guards."
+  },
+
+  "step4_weld_verdict_PREDICTED": {
+    "prediction": "WELD FAILS; the wall STANDS, with its location now measured. The only shared ingredient is the log eps_a SKELETON (the Farey/metallic CF-denominator growth), which appears on both doors because both are built on the same q_n. That is exactly the 'shared on the surface' the two-quantization wall already permits. But theta_inf is precisely the ratio in which that shared skeleton CANCELS, exposing c_a -- the trace-map's large-lambda contraction, an intrinsically almost-Mathieu-door quantity with NO Gauss-side counterpart (there is no lambda, no Schrodinger operator, on the Gauss side). So the ladder's STRUCTURE (finite plateau) is explained by a shared origin, but its VALUE is un-shared. Step 3 succeeds, step 4 fails -- the handoff's predicted 'most likely' outcome, reached by derivation.",
+    "what_would_flip_it": "If c_a itself were expressible via a Gauss-operator spectral quantity (a Selberg-zeta / transfer-operator eigenvalue), the weld would close (leg (b)). The prediction is that it is not -- c_a is a trace-map Lyapunov/pressure with no modular-surface pre-image."
+  },
+
+  "gate_slot": "This is GATE (a) evidence, not gate (b): E_A is bounded-PQ / measure zero, so by Borel-Bernstein a.e. number is in no E_A and gate (b)'s full-measure statement is structurally unreachable here. Tier 2 welds on a domain that INCLUDES the defecting numbers (metallics are the extreme E_A points).",
+
+  "acceptance": "step-1/step-2 log eps_a coincidence verified two independent ways (Gauss M_a eigenvalue vs trace-map band count of the period-q_n approximant, both = log eps_a); post-seal, the banked theta_inf ladder is increasing toward a finite plateau consistent with theta_inf = c_a; and no closed form is asserted for the plateau."
+}
