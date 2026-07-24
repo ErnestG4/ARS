@@ -1,0 +1,46 @@
+{
+  "raw_M+X": 9750,
+  "variants": [
+    {
+      "variant": "raw",
+      "n_events": 9750,
+      "pool_n": 2000,
+      "observed_mass03": 0.5967983991995998,
+      "cycle_null_mass03": 0.3875354343838586,
+      "cycle_null_sd": 0.009296666263711964,
+      "z": 22.50946294937631
+    },
+    {
+      "variant": "dedup_multipleID",
+      "n_events": 7375,
+      "pool_n": 2000,
+      "observed_mass03": 0.6153076538269134,
+      "cycle_null_mass03": 0.385767883941971,
+      "cycle_null_sd": 0.008796831241636608,
+      "z": 26.093460654161383
+    },
+    {
+      "variant": "dedup_overlap_merge",
+      "n_events": 6608,
+      "pool_n": 2000,
+      "observed_mass03": 0.591295647823912,
+      "cycle_null_mass03": 0.3412873103218276,
+      "cycle_null_sd": 0.008674144195416861,
+      "z": 28.822248266772043
+    },
+    {
+      "variant": "dedup_overlap+30min_gap",
+      "n_events": 5787,
+      "pool_n": 2000,
+      "observed_mass03": 0.5287643821910956,
+      "cycle_null_mass03": 0.302263631815908,
+      "cycle_null_sd": 0.035864158199618176,
+      "z": 6.315518382293969
+    }
+  ],
+  "raw_z": 22.50946294937631,
+  "multipleID_dedup_z": 26.093460654161383,
+  "intrinsic_residual_survives_dedup": true,
+  "verdict": "INTRINSIC RESIDUAL SURVIVES dedup \u2014 the clustering beyond the cycle is real, not catalog over-segmentation",
+  "reviewer_point": "confirmed: the falsifying test resolves the identical quantity the cycle-null and the over-segmentation mechanism were competing for."
+}

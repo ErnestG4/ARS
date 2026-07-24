@@ -10245,15 +10245,24 @@ Full record: `thermo/THERMO_FINDINGS.md` (commits cd29c83→ccefe32).
   rate modulation.  Against a rate-envelope-preserving inhomogeneous-
   Poisson null (λ(t) kernel-smoothed at bandwidths 15–90 d): observed
   mass03 = 0.597 clears the null at **z = 10–21 at every bandwidth**.
-  The solar cycle *does* explain ~half the excess (null mass03 rises
-  from the homogeneous 0.259 to 0.35–0.45) — the §3a confound is
-  genuinely present here, unlike fungal — but the remainder is intrinsic
-  and matches the independent SOC-phase ground truth (M+X flares
-  clustered; GK-declustering → Poisson).  Deployed detector: real solar
-  reproduces **191/191** BL exact-0 exactly; cycle-preserving nulls give
-  0/196, 0/187, 0/193.  Caveat: no FRM/sub-flare dedup beyond the source
-  catalog — verify against a de-duplicated onset list before quoting the
-  intrinsic claim externally.
+  **This is a RESIDUAL detection, not a clean one** (contrast fungal,
+  where the §3a confound was absent): the solar cycle *does* explain
+  ~half the excess (null mass03 rises from the homogeneous 0.259 to
+  0.35–0.45), and the surviving half is what clears the null.  Deployed
+  detector: real solar reproduces **191/191** BL exact-0 exactly;
+  cycle-preserving nulls give 0/196, 0/187, 0/193.  The surviving signal
+  lives at burst timescale — exactly where sub-flare catalog
+  over-segmentation lives (44% of short-ISI M+X pairs overlap in
+  [tstart,tend]; 34% share a `multipleID`) — so the intrinsic claim was
+  falsification-tested against a de-duplicated onset list
+  (`solar_dedup_test.py`): it **survives** the catalog's own sub-flare
+  dedup (z=26) and overlap-merge (z=29), weakening but surviving under
+  aggressive ≤30-min merging (z=6.3).  Intrinsic clustering **confirmed
+  in sign** across every dedup variant, but the **magnitude is
+  dedup-window-sensitive (z 6–29)** — quote with that caveat.  ⚠ The
+  SOC-phase ground truth is NOT independent corroboration: it routes
+  through the same GOES Plutino catalog and inherits the identical
+  over-segmentation.
 
 - Binance BTCUSDT trade timing (one trading day): essentially random
   (BL quadrant). (§7.ter.14.)

@@ -68,8 +68,50 @@ and genuinely insufficient to explain the signal.
 
 **Caveats (honest scope):** (1) mass03 is the exact deployed statistic; the I_rep column is the
 reconstruction (`pair_correlation_full`), and the deployed-`joint_q_profile` confirmation on the
-solar null closes it on the real code path. (2) No special FRM/flare-merging dedup was applied beyond
-the source catalog's; if the catalog double-counts sub-flares within a burst, some intrinsic
-clustering could be catalog structure rather than physics — worth checking against a de-duplicated
-onset list before the intrinsic claim is quoted externally. (3) The bandwidth sweep is the result; a
-single bandwidth would be the seal-threshold error one level down.
+solar null closes it on the real code path. (2) The bandwidth sweep is the result; a single bandwidth
+would be the seal-threshold error one level down.
+
+## ⚠ TWO CORRECTIONS (reviewer) — and the falsifying test, RUN
+
+**(A) Fungal and solar are NOT the same strength — do not flatten "both through the wringer."**
+On **fungal** the §3a confound was *absent*: mass03 sat far above every construction-matched null,
+the Cox explanation ate nothing → **a clean detection.** On **solar** the confound is *present and
+eats about half*: the cycle-preserving null lifts mass03 from the homogeneous 0.259 to 0.35–0.45
+against observed 0.597 → **a residual detection, and the residual is the fragile kind.** "Survived
+the confound" denotes two different epistemic states (confound-absent vs confound-present-
+residual-survives); merging them is the eleventh-instance failure one level up, on the conclusions.
+File them apart: **fungal = clean; solar = residual.**
+
+**(B) The dedup was the FALSIFYING test for the intrinsic half, not a confirmatory footnote — and
+it RAN.** The sealed prediction failed *because* the surviving signal lives at timescales shorter
+than the cycle envelope reaches (burst timescale) — which is exactly and only where sub-flare
+catalog over-segmentation lives. The cycle-preserving null cannot separate "intrinsic burst
+clustering" from "catalog double-counting"; the two compete for the identical quantity. Recon
+confirmed the danger: **44%** of short-ISI M+X pairs overlap in [tstart,tend], **34%** share a
+`multipleID` (the catalog's own sub-flare group), and 9750 M+X rows carry only 7375 distinct
+`multipleID`. So the caveat was load-bearing. Ran it (`solar_dedup_test.py`):
+
+| onset list | n events | mass03 | cycle-null | z |
+|---|---|---|---|---|
+| raw | 9750 | 0.597 | 0.388 | 22.5 |
+| **dedup by `multipleID`** (catalog's own sub-flare grouping) | 7375 | 0.615 | 0.386 | **26.1** |
+| dedup by [tstart,tend] overlap-merge | 6608 | 0.591 | 0.341 | 28.8 |
+| aggressive merge (≤30 min gap) | 5787 | 0.529 | 0.302 | 6.3 |
+
+**Verdict: the intrinsic residual SURVIVES de-duplication** — under the catalog's own sub-flare
+grouping (z=26) and physical overlap-merge (z=29). Removing the flagged duplicates does *not* kill
+it: distinct flares still cluster in time (active-region / solar-storm temporal clustering, a real
+phenomenon beyond sub-flare artifacts). So the reviewer's "confirmed or halved" resolves to
+**confirmed** — but honestly: the **magnitude is dedup-window-sensitive** (z ranges 6–29; the
+aggressive 30-min merge weakens it to 6.3σ, partly from fewer events). The intrinsic claim survives
+in *sign* across every dedup variant; its *significance* is not robust to the merge window.
+
+**(C) The SOC "independent ground truth" is NOT independent — corrected.** The SOC-phase flare
+source is the **same** GOES Plutino catalog (`solar_flares_plutino_1986_2023.csv`; used by both
+`run_phase13_solar.py` and the SOC pair). It inherits the identical over-segmentation, so its
+agreement is *not* two witnesses — I overstated it above. The intrinsic claim rests on the dedup
+survival (z=26 after removing the catalog's own duplicates), **not** on the SOC agreement.
+
+**Quotable state:** *survival-over-cycle* — earned, quote freely. *Intrinsic (beyond the cycle)* —
+now earned too, since it survives the catalog's own sub-flare dedup at z=26, **but** quote it with
+the dedup-window sensitivity (z 6–29) and without leaning on the non-independent SOC check.
