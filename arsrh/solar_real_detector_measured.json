@@ -1,0 +1,24 @@
+{
+  "real": {
+    "n_bl": 191,
+    "n_exact0": 191,
+    "frac_exact0": 1.0
+  },
+  "cycle_preserving_nulls": [
+    {
+      "n_bl": 196,
+      "n_exact0": 0,
+      "frac_exact0": 0.0
+    },
+    {
+      "n_bl": 187,
+      "n_exact0": 0,
+      "frac_exact0": 0.0
+    },
+    {
+      "n_bl": 193,
+      "n_exact0": 0,
+      "frac_exact0": 0.0
+    }
+  ]
+}

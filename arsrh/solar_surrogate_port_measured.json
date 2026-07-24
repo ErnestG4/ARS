@@ -1,0 +1,63 @@
+{
+  "observed_mass03": 0.5967983991995998,
+  "observed_irep_recon": 0.0,
+  "homogeneous_poisson_ref": 0.259,
+  "n_flares": 9750,
+  "bandwidth_sweep": [
+    {
+      "bw_days": 15,
+      "null_mass03_mean": 0.4519509754877439,
+      "null_mass03_sd": 0.014170543241575259,
+      "real_z": 10.221726947410522,
+      "null_irep_mean": 0.5843604166666665,
+      "null_irep_min": 0.558,
+      "mass03_survives_3sigma": true,
+      "null_in_near_zero_band": false
+    },
+    {
+      "bw_days": 30,
+      "null_mass03_mean": 0.40891695847923965,
+      "null_mass03_sd": 0.011850344128546124,
+      "real_z": 15.854513479298479,
+      "null_irep_mean": 0.65588125,
+      "null_irep_min": 0.62725,
+      "mass03_survives_3sigma": true,
+      "null_in_near_zero_band": false
+    },
+    {
+      "bw_days": 45,
+      "null_mass03_mean": 0.38837335334333833,
+      "null_mass03_sd": 0.010610491837341232,
+      "real_z": 19.64329731848589,
+      "null_irep_mean": 0.6800375,
+      "null_irep_min": 0.6544999999999999,
+      "mass03_survives_3sigma": true,
+      "null_in_near_zero_band": false
+    },
+    {
+      "bw_days": 60,
+      "null_mass03_mean": 0.37637568784392195,
+      "null_mass03_sd": 0.014140963331242956,
+      "real_z": 15.587531499263367,
+      "null_irep_mean": 0.7010416666666667,
+      "null_irep_min": 0.68075,
+      "mass03_survives_3sigma": true,
+      "null_in_near_zero_band": false
+    },
+    {
+      "bw_days": 90,
+      "null_mass03_mean": 0.35407286976821745,
+      "null_mass03_sd": 0.011288724584711923,
+      "real_z": 21.501590158386918,
+      "null_irep_mean": 0.7298104166666666,
+      "null_irep_min": 0.7117499999999999,
+      "mass03_survives_3sigma": true,
+      "null_in_near_zero_band": false
+    }
+  ],
+  "mass03_survives_all_bandwidths": true,
+  "mass03_survives_some_bandwidths": true,
+  "null_enters_near_zero_clip_band": false,
+  "verdict": "INTRINSIC clustering beyond the solar cycle (survives the inhomogeneous null at all bandwidths)",
+  "note": "bandwidth-sensitive by construction; the survival-vs-bandwidth curve IS the result, not any single point. Deployed-detector confirmation and SOC ground-truth cross-check are the next step if the curve is ambiguous."
+}
