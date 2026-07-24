@@ -531,11 +531,29 @@ The multifractal's `POLLUTION_S = 3.5` switchover is conservative — it filters
 onset — so the curve was safe. The two open intervals are now pinned not just at their endpoints but
 validated pointwise across the interior by the filter-no-op agreement.
 
-(Note the complementarity of the two routes, which is why cross-agreement in the interior is
-meaningful: collocation pollutes at large s but handles the infinite alphabet exactly via the
-Hurwitz tail; the cycle expansion is exact at large s but truncates the alphabet, so it degrades
-near s=½ where large partial quotients matter — the §7 phase-transition tail. They overlap cleanly
-in the interior.)
+**Test 1b — a genuinely independent second method in the interior** (`interior_crosscheck_measured.json`).
+The filter-no-op sweep is a self-consistency check of one route (collocation ± filter); to answer
+the reviewer's literal question ("is the cycle expansion run across the full s-range, or only at the
+landmarks?") I ran the independent periodic-orbit cycle expansion against collocation at interior
+points:
+
+| s | 1.5 | 2 | 2.5 | 3 |
+|---|---|---|---|---|
+| collocation vs cycle agree | 1.6 | 2.5 | 2.3 | 2.4 digits |
+
+This is **coarse** — the cheap trace-ratio cycle expansion is precision-limited by alphabet
+truncation (A=8) and slow trace-ratio convergence (nmax=6), and the agreement improves with s as
+the truncation eases, exactly as that limitation predicts. So it is not a high-precision interior
+check; it is a genuinely *independent* method (periodic orbits, not collocation) confirming the
+interior pressure to ~2 digits — enough to rule out a shared gross systematic error, not enough to
+certify many digits. The precise interior validation remains Test 1 (the 47-digit filter no-op,
+which targets the actual pollution failure mode); Test 1b adds independence at low precision.
+
+(The two routes are complementary, which is why the interior is the right place to compare:
+collocation pollutes at large s but handles the infinite alphabet exactly via the Hurwitz tail; the
+cycle expansion is exact at large s but truncates the alphabet, so it degrades near s=½ where large
+partial quotients matter — the §7 phase-transition tail. They overlap only in the interior, and
+there they agree.)
 
 **Test 2 — is the 7.2-digit golden edge a limit gap or a numerical floor?** (`golden_edge_push.py`)
 The edge is a limit as s→∞, so the gap `α(s) − 2 log φ` conflates (i) how far s=25 sits from its

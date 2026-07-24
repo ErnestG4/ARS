@@ -1,0 +1,29 @@
+{
+  "interior_cross_check": [
+    {
+      "s": "1.5",
+      "P_colloc": "-0.92524416086193",
+      "P_cycle_A8n6": "-0.9479085126",
+      "agree": 1.6
+    },
+    {
+      "s": "2",
+      "P_colloc": "-1.6121474883027",
+      "P_cycle_A8n6": "-1.607552865",
+      "agree": 2.5
+    },
+    {
+      "s": "2.5",
+      "P_colloc": "-2.2079238325142",
+      "P_cycle_A8n6": "-2.197200916",
+      "agree": 2.3
+    },
+    {
+      "s": "3",
+      "P_colloc": "-2.7582496236444",
+      "P_cycle_A8n6": "-2.746099521",
+      "agree": 2.4
+    }
+  ],
+  "note": "cycle alphabet {1..8} nmax=6 trace ratio; alphabet-truncation-limited but independent of collocation"
+}
