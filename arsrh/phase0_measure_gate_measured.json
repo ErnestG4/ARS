@@ -1,0 +1,75 @@
+{
+  "A_cardinality": {
+    "rows": [
+      {
+        "n": 50,
+        "|F_n|": 775,
+        "1+sum_phi": 775,
+        "exact_match": true
+      },
+      {
+        "n": 200,
+        "|F_n|": 12233,
+        "1+sum_phi": 12233,
+        "exact_match": true
+      },
+      {
+        "n": 1000,
+        "|F_n|": 304193,
+        "1+sum_phi": 304193,
+        "exact_match": true
+      }
+    ],
+    "PASS": true
+  },
+  "B_rtilde_bounded": {
+    "rtilde_farey": 0.7050802750451834,
+    "rtilde_affine_remapped": 0.7050802750451257,
+    "support_agnostic": true,
+    "not_poisson": true,
+    "resolution": "unfolding-free <r~> is a ratio of consecutive gaps: scale-free and local, so it needs NO modification for bounded support. Verified: affine remap leaves it invariant to float noise."
+  },
+  "C_measure_gate": {
+    "rows": [
+      {
+        "N": 10000,
+        "faircoin_arith_mean": 1.9972,
+        "faircoin_geo_mean": 1.6609406098000805,
+        "faircoin_max": 12,
+        "gauss_arith_mean": 14.8569,
+        "gauss_geo_mean": 2.67871168204036,
+        "gauss_max": 41886,
+        "log2_N": 13.287712379549449
+      },
+      {
+        "N": 100000,
+        "faircoin_arith_mean": 2.0042,
+        "faircoin_geo_mean": 1.6634625392956626,
+        "faircoin_max": 19,
+        "gauss_arith_mean": 13.24177,
+        "gauss_geo_mean": 2.6588794306179167,
+        "gauss_max": 114000,
+        "log2_N": 16.609640474436812
+      },
+      {
+        "N": 1000000,
+        "faircoin_arith_mean": 2.00039,
+        "faircoin_geo_mean": 1.6618205023197323,
+        "faircoin_max": 19,
+        "gauss_arith_mean": 18.817241,
+        "gauss_geo_mean": 2.6787791442352344,
+        "gauss_max": 881277,
+        "log2_N": 19.931568569324174
+      }
+    ],
+    "faircoin_AM_stable_at_2": true,
+    "gauss_AM_divergent": true,
+    "max_PQ_scaling_separates": true,
+    "faircoin_logmax_over_logN": 0.21312560015880483,
+    "gauss_logmax_over_logN": 0.9908520726398872,
+    "gauss_GM_is_khinchin": true,
+    "SEPARATES": true,
+    "transfer_note": "the measured statistic is a property of the generating MEASURE, not the raw points \u2014 the same structure as the fungal Cox rate-envelope confound (#4259167), but here with a theorem for ground truth. A rate-envelope-preserving surrogate must reshuffle points WITHOUT changing the CF-digit measure; validated against this known answer before porting to the fungal data."
+  },
+  "PHASE0_PASS": true
+}
