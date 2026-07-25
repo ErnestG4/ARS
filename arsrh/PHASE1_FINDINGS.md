@@ -121,5 +121,17 @@ moves* (exactly how solar's z swung 6–29). It is "resolved above a null that f
 **not** "robust." Do not let "the crossover is real" harden past what one 2.4σ margin licenses. The cheap,
 mechanistically-**independent** second witness is a **Σ² / number-variance** readout on the same windows
 (long-range, distinct from the local r̃): if Σ² also shows the low-γ excess, this goes from resolved-at-2.4σ
--on-one-statistic to **corroborated**. Queued, not yet run. (Phase 2's flow-carried residual, ~2σ across the
-bracket, is the *same* witness seen again through the CM flow — reproducibility, not a second witness.)
+-on-one-statistic to **corroborated**. Queued, not yet run.
+
+**One witness, not two — Phase 1 and Phase 2's residual are the same leg.** Phase 2's flow-carried residual
+(~2σ across the CM bracket) is *this* crossover seen again through the flow, not a second witness: its t=0
+row is literally this Phase-1 measurement before any flow (+2.04σ on a disjoint block vs 2.4σ here — same
+witness, two window definitions). File Phase 1 and Phase 2's residual as **one finite-height offset under two
+headings**; two headings is not two witnesses. That is exactly why the Σ² witness is load-bearing — it is the
+only currently-queued reading mechanistically independent of the r̃/finite-height leg.
+
+**Blocking prerequisite before Σ² means anything (reviewer):** Σ² requires unfolding, so it shares the
+**θ-expansion order** (Riemann–Siegel θ(t) → smooth counting) with the matched-density control — a
+shared-provenance seam. Certify θ-order height/flow-stability first (see `PHASE2_FINDINGS.md`
+θ-certification), or a θ-truncation artifact rides underneath both the r̃ residual and Σ². One certification
+clears it for both.
