@@ -165,3 +165,16 @@ moved until you read the parts separately. Both auto-verdicts (mine "GAP shrinks
 "amputation") pattern-matched the noisy z to a *signal* story while the flat-then-structured GAP and
 the wandering null_mean were sitting in adjacent columns falsifying both. Read a ratio's parts before
 attributing its motion.
+
+## Verification status (a slot, not a doubt)
+
+Every number in this arc — the p99-exceedance, the GAP floor, the dedup z's, the count anchors, the
+deployed 191/191 — was produced by the in-repo scripts and **reviewed against a collaborator who saw
+the reported numbers, not independently audited against the raw catalog by a second party.** The
+external-quotable claim (existence + ~0.20 floor on p99 footing) is **exactly as good as the p99
+computation in `solar_gap_checks.py` being faithful to the deployed code path** — the same class of
+caveat as the fungal I_rep reconstruction, one level up: there the risk was reconstruction-vs-deployed
+(closed by running `joint_q_profile`); here it is RESULTS-vs-code-path. The scripts are committed and
+deterministic (`solar_surrogate_port.py`, `solar_dedup_test.py`, `solar_merge_bisection.py`,
+`solar_gap_checks.py`), so the audit is available to anyone who re-runs them — but until someone does,
+the honest status is *reviewed*, not *audited*. Quote accordingly.
