@@ -189,3 +189,103 @@ grade as addition.
   [[knowledge_does_not_propagate]]: this belongs attached to the estimator, not to this phase.
 - **Cost to check:** done.
 - **Status:** OPEN
+
+---
+
+## Phase 5 additions
+
+### R-012 — Gate arms must be chosen by computed contrast, not by default
+- **Seen:** Phase 5's G2 gate was sealed on Σ² at **L=1**, where the designed GUE-vs-super-rigid contrast
+  is **0.0007**. At L=8 it is **0.2440** — **364×** larger. The gate returned FAIL on a signal that the
+  same measurement localizes at −6.15σ twenty level-units away.
+- **Where:** `PHASE5_FINDINGS.md`; `phase5_attribution_measured.json` → `G2`; contrast table measured at
+  flat unit density, N=500, 15 realizations.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** not that the method fails — G1 passed and the L=8 localization is clean. Not that the
+  seal should be rescored: the post-hoc L=8 reading cannot rescue a failed seal and is not used to.
+- **What would make it a lead:** it is already a fix. Before sealing any power gate, tabulate the expected
+  contrast for **every** candidate arm (L, α, statistic, sub-population) and gate on the **maximum**, as a
+  number produced pre-seal. See [[sealed_conjunction_inert_arm]] — that lesson said "check each arm's
+  power" and was insufficient to prevent this repeat, because it says to check without saying against what.
+- **Cost to check:** minutes per gate.
+- **Status:** OPEN
+
+### R-013 — Mis-firing is a third falsifier category
+- **Seen:** this program catalogues falsifiers that **fire** (pooling decoy, Task B's constructed unfold
+  artifact) and falsifiers that are **inert** (shared-catalog SOC, the unfold test on an unfold-invariant
+  statistic, the flat decoy battery, Task B's B.1 identity test). Phase 5's G2 is neither: it **mis-fired**
+  — returned FAIL against a signal that was present and detectable.
+- **Where:** `PHASE5_FINDINGS.md` scorecard.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** not that mis-firing is common — this is n=1, plus Task B's `P-B2-power` conjunction as
+  a near-relative (nominal FAIL on a decisively answered question). Two instances, one session, same
+  author, same root cause; that is a pattern in the *gate-writing*, not an established base rate.
+- **What would make it a lead:** a sweep of the catalogued falsifiers in this program asking, for each,
+  "was the arm chosen the contrast-maximising one?" Cheap and likely to find more.
+- **Cost to check:** a reading pass over the phase docs.
+- **Status:** OPEN
+
+### R-010 — status update
+- **Still OPEN and still held.** Phase 5 halted at G2 before any ζ reading. The decisive measurement is
+  now blocked on a re-seal, not on compute: the instrument is adequate (G1 passed, bracket sd = 0.0113 at
+  N=500, 2.84σ per sub-block), the gate was not.
+
+---
+
+## Phase 5b additions
+
+### R-012 — status update: the rule was under-specified and is corrected
+- "Gate on the maximum-contrast arm" **certifies an instrument you will not use.** Power must be
+  established at the arm where the measurement is made. When contrast there is low, *confound lacks
+  leverage* (proceed) and *instrument lacks sensitivity* (halt) look identical on one number; separating
+  them is a second computation (`PHASE5B_FINDINGS.md` §3). Also: a decoy's tuning parameter can null the
+  contrast independently of the arm — η=0.3 sits on GUE at L=1 by coincidence, while Σ²(1) spans
+  0.072–1.024 across the rigidity ladder. **Status: OPEN**, rule superseded in place.
+
+### R-013 — **RETIRED.** Mis-fire is not a third category
+- Inert (false pass) and mis-fire (false FAIL) are the same defect — unquantified power — with opposite
+  signs. The tell is that one rule fixes both. Three categories implies three lessons; there is one lesson
+  with two consequences, and collapsing them keeps the antibody from fragmenting. Retiring an entry is a
+  result of the same grade as adding one. **Status: RETIRED**, folded into R-012.
+
+### R-014 — ζ's per-sub-block Σ²(1) is FLAT, unbracketed, and points away from the sealed prediction
+- **Seen:** ζ sub-block Σ²(1) at γ_mid ≈ 400 / 1120 / 1700 / 2250 = **0.3138, 0.3138, 0.3131, 0.3081**.
+  Flat; if anything the *highest* sub-block is lowest.
+- **Where:** `phase5b_leverage_measured.json` → `C4`. Computed as a by-product of the boundary-effect
+  check, which required them.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** **unbracketed — no σ is quoted.** Each sub-block needs a curvature-matched band built
+  on *its own* backbone; the band available here was built at the first sub-block's backbone only. And
+  this **does not score Phase 5's seal**: that phase halted at G2, `H_bottom`/`H_flat`/`H_null`/`H_split`
+  remain unscored, and a post-hoc unbracketed reading cannot retire a sealed prediction in either
+  direction — including one of mine that it appears to contradict (I sealed `H_bottom`; this reads flat).
+- **What would make it a lead:** the Phase 5 re-seal, with per-sub-block brackets. **It must carry a
+  `DISCLOSED_PRIOR_KNOWLEDGE` block listing these four numbers** — cold entry on the attribution question
+  is spent, exactly as it was for Task B. Still worth running; brackets are what would make it a result.
+- **Cost to check:** minutes.
+- **Status:** OPEN
+
+### R-015 — Substrate triage from the L_max wall
+- **Seen:** `L_max ≈ N/(2(p+1))` with p = number of *fitted* density parameters. ζ: θ is an identity, p=0,
+  **no cap**. Maass level-1: Weyl R² and R·lnR theory-fixed, only affine {R,1} fitted, p=2 →
+  **L_max ≈ 66 (N=266) / 84 (N=334)**; Session K read Σ² to L=15, **within cap by ~4×**. Empirical-density
+  substrates on `unfold_emp(order)`: p = order+1 → L_max = 250 (order 3, N=2000), 100 (order 9).
+- **Where:** `PHASE5B_FINDINGS.md` §7; `taskB_kernel_check_measured.json` → `K1`;
+  `sessionK/maass_analysis.py:44-58`.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** the cap is a *contamination* bound, not a noise bound — being under it does not make a
+  reading good, only un-artifacted by this mechanism. Maass's clearance is retrospective and was not
+  computed at the time.
+- **What would make it a lead:** apply the triage to every long-range readout in the program and flag any
+  that sits above its cap. Cheap, mechanical, and likely to find at least one.
+- **Cost to check:** a reading pass plus one arithmetic line per substrate.
+- **Status:** OPEN
+
+### R-010 — status update: EXISTENCE closed, ATTRIBUTION open
+- The heterogeneity confound has **zero leverage on existence**: Σ² of a heterogeneous block is the
+  *average* of its parts (verified — designed mixture, |whole − mean(parts)| = 0.0117 at L=1, whole inside
+  the part range), so a block below a GUE bracket **entails** at least one sub-block below it. θ removes
+  density to 0.075% across quarters; boundary effects at L=1 are 0.09 sd. The three-way decision at the
+  measurement arm reads effect 6.69 sd, leverage 0.00 sd → **PROCEED**. R-010's original "degenerate
+  between a real excess and height-mixing" was **too strong and is withdrawn**. What survives is the
+  attribution question. **Status: OPEN (attribution only).**
