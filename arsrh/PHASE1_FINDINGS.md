@@ -111,3 +111,15 @@ which is a no-op.)
 (local statistic) — therefore **unfold tests and uniform-density nulls are both powerless against a
 density confound; only a matched-density null can clear it.** This is a property of the statistic,
 reusable on every finite-window ⟨r̃⟩ claim.
+
+**File the 2.4σ precisely — resolved, not robust, ONE witness (reviewer).** The matched-density null
+upgrades "r̃ is unfold-invariant" (a coincidence) into a two-part structural fact — invariant to
+*unfolding and to smooth density* — which is what makes the residual meaningful: 2.4σ is what's left
+after everything smooth is subtracted, i.e. the genuine non-smooth part of ζ's finite-height structure.
+But 2.4σ is a **single-window** margin and is the kind of number that *walks if the window definition
+moves* (exactly how solar's z swung 6–29). It is "resolved above a null that finally had power to fire,"
+**not** "robust." Do not let "the crossover is real" harden past what one 2.4σ margin licenses. The cheap,
+mechanistically-**independent** second witness is a **Σ² / number-variance** readout on the same windows
+(long-range, distinct from the local r̃): if Σ² also shows the low-γ excess, this goes from resolved-at-2.4σ
+-on-one-statistic to **corroborated**. Queued, not yet run. (Phase 2's flow-carried residual, ~2σ across the
+bracket, is the *same* witness seen again through the CM flow — reproducibility, not a second witness.)
