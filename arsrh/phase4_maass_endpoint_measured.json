@@ -1,0 +1,43 @@
+{
+  "anti_claim": "re-validates KNOWN Sarnak anomaly via confound-free bracket; NOT RH",
+  "sectors": {
+    "0": {
+      "N": 266,
+      "rtilde": 0.3992236272087822,
+      "nearest": "Poisson",
+      "poisson_band": [
+        0.38553903906365294,
+        0.021334719670805833
+      ],
+      "z_vs_poisson": 0.6414233866805881,
+      "goe_band": [
+        0.5311893057719559,
+        0.01803768984437196
+      ],
+      "z_vs_goe": -7.316107533823077
+    },
+    "1": {
+      "N": 334,
+      "rtilde": 0.42665331698924214,
+      "nearest": "Poisson",
+      "poisson_band": [
+        0.3852432612491794,
+        0.018211417059112465
+      ],
+      "z_vs_poisson": 2.2738513760708337,
+      "goe_band": [
+        0.5307742529863235,
+        0.016339696327043466
+      ],
+      "z_vs_goe": -6.372268732115489
+    }
+  },
+  "pooling_decoy": {
+    "single_sector_goe": 0.5305417596322193,
+    "pooled_goe_mean": 0.42967134671722074,
+    "pooled_goe_sd": 0.01366929538514382,
+    "real_pooled": 0.38485326268330516,
+    "pooling_manufactures_poisson": true
+  },
+  "verdict": "ENDPOINT CONFIRMED: both parity sectors sit at Poisson, synthetic GOE excluded >4sigma each; CP1 re-validated through an independent construction + pooling guard. NOT about RH."
+}
