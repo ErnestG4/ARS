@@ -1,0 +1,24 @@
+{
+  "addendum_to": "LOOKARC-TASKB-001",
+  "written": "BEFORE any run. No data of any kind has been generated for Task B at the time this is written. The base seal is NOT edited; this file records a design defect found in it and the correction.",
+
+  "DEFECT_FOUND_IN_MY_OWN_SEAL": {
+    "what": "P-B2-power seals two legs: (a) the fitted poly-order-3 path FAILS on curvature-matched known answers, and (b) the theta path RECOVERS them. Leg (b) is TAUTOLOGICAL as designed.",
+    "why": "The curvature-matched synthetics were to be built as rvm_inv(N0 + u) for unit-density u of known class -- i.e. the synthetic is DEFINED as the sequence whose rvm_N image is exactly N0 + u. Unfolding it by rvm_N therefore returns u exactly, up to interpolation error, and Sigma^2 recovers the known answer by construction. The test could not have failed.",
+    "which_antibody_this_is": "the null sharing construction-DNA with the signal -- the same trap the sensitivity/specificity rule was written to catch, and the reason branch (i) of Phase 4 was deferred. My own seal reproduced it, in the leg whose specificity I had already graded MEDIUM with a mitigation that does not work: 'the known answers are fixed outside the machinery' is true for the poly path and false for the theta path."
+  },
+
+  "CORRECTION": {
+    "leg_a_poly": "UNCHANGED and genuinely powered. The fitted path must recover a known class from a raw curved sequence by fitting; nothing protects it. Phase 3's own gate PASSED order-3 on flat decoys, so failure on curvature is a real possibility and not a formality. P-B2-power is scored on this leg only.",
+    "leg_b_theta": "DOWNGRADED from a power test to an INSTRUMENT-PLUMBING SANITY check. It verifies that the Sigma^2 / F estimators are wired correctly given a correct density model. It carries ZERO evidence that rvm_N is the correct density model for zeta, and it will not be reported as such.",
+    "partial_de_tautologisation": "The battery will instead be built on the EXACT Riemann-Siegel theta backbone, N_exact(t) = theta_exact(t)/pi + 1 with theta_exact(t) = Im log Gamma(1/4 + it/2) - (t/2) log pi, while the theta unfolding path continues to use the ASYMPTOTIC rvm_N. The two differ by +1/(48 pi t) + O(t^-3). Leg (b) then measures a real, if small, mismatch instead of an identity, and doubles as the powered replacement for the inert theta-cert (register R-003).",
+    "what_is_still_untestable_here": "Whether rvm_N is the right smooth density FOR ZETA cannot be tested with synthetics built from rvm_N or from exact theta -- both assume the answer. The only independent handle available in this session is the exact-vs-asymptotic theta comparison (P-B5-thetacert), which bounds the truncation but not the model. This limit is now stated up front rather than discovered afterwards."
+  },
+
+  "CONSEQUENCE_FOR_SCORING": {
+    "P-B2-power": "scored on the poly leg alone",
+    "P-B2-slot": "UNCHANGED and unaffected -- it compares Sigma^2_theta against F_theta, both on the same footing, so the tautology cancels and the comparison remains meaningful",
+    "P-B5-saturation": "UNCHANGED",
+    "new_reporting_rule": "any theta-path recovery on synthetic data is to be reported as PLUMBING, never as validation of the density model."
+  }
+}
