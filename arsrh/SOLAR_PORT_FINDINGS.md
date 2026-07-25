@@ -112,6 +112,56 @@ source is the **same** GOES Plutino catalog (`solar_flares_plutino_1986_2023.csv
 agreement is *not* two witnesses — I overstated it above. The intrinsic claim rests on the dedup
 survival (z=26 after removing the catalog's own duplicates), **not** on the SOC agreement.
 
-**Quotable state:** *survival-over-cycle* — earned, quote freely. *Intrinsic (beyond the cycle)* —
-now earned too, since it survives the catalog's own sub-flare dedup at z=26, **but** quote it with
-the dedup-window sensitivity (z 6–29) and without leaning on the non-independent SOC check.
+### The merge-window bisection (reviewer's diagnostic) — the z is null-variance-limited, the signal is robust
+
+Is the z=6.3 aggressive-merge row the honest number, or an over-merge amputating real fast
+sympathetic flares? Bisected the merge window 0–30 min (`solar_merge_bisection.py`), decomposing z
+into the GAP (obs mass03 − cycle-null mean) and the null_sd:
+
+| gap (min) | 0 | 5 | 10 | 15 | 20 | 25 | 30 |
+|---|---|---|---|---|---|---|---|
+| **GAP** (obs − null) | 0.249 | 0.203 | 0.239 | 0.310 | 0.271 | 0.261 | 0.222 |
+| null_sd | 0.0095 | 0.026 | 0.028 | 0.033 | 0.014 | 0.015 | 0.039 |
+| z | 26.2 | 7.9 | 8.4 | 9.4 | 19.3 | 17.0 | 5.6 |
+
+**The z swings (6–26) track the null_sd (4× swing), not the GAP — so z was never the finding.** But
+"the GAP is flat" then has to earn being load-bearing, and two checks (`solar_gap_checks.py`, B=400,
+z-free) re-grade it *down* from my first read:
+
+| gap (min) | 0 | 5 | 10 | 15 | 20 | 25 | 30 |
+|---|---|---|---|---|---|---|---|
+| obs mass03 | 0.591 | 0.568 | 0.600 | 0.600 | 0.545 | 0.534 | 0.529 |
+| null_mean | 0.342 | 0.364 | 0.354 | 0.290 | 0.273 | 0.277 | 0.305 |
+| null p99 | 0.363 | 0.396 | 0.389 | 0.377 | 0.296 | 0.358 | 0.363 |
+| **GAP** (±95% CI) | 0.250 | 0.204 | 0.246 | 0.310 | 0.272 | 0.257 | 0.224 |
+| obs > null p99? | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+- **Check 1 — null_mean WANDERS** (0.273–0.364, range 0.090 ≫ its MC SE ~0.001). Since n barely drops
+  (6608→5787, 12%), the null_sd 4× blowup is **rate-fit instability on the thinned catalog, not
+  small-n** — so the null mean is drifting under the GAP, exactly the branch that says "the flatness
+  needs a second look."
+- **Check 2 — the GAP has REAL window structure** (spread 0.106 ≫ mean 95% CI 0.0024). The 0.310 at
+  gap=15 is a genuine excursion, not noise. **So "flat GAP ~0.25" is wrong** — both obs and null
+  drift and their difference varies ±0.05 with real structure. I was waving off 0.310 the same way
+  both auto-verdicts waved off the z.
+- **Z-free existence holds regardless:** obs mass03 exceeds the null's **99th percentile at every
+  merge window** (no ratio, no sd), and the null is not heavy-tailed (mean ≈ median). **GAP floor
+  (min across windows) = 0.204.**
+
+### Quotable state — EXISTENCE with a magnitude FLOOR, no constant magnitude, no z
+
+- *Survival-over-cycle* — earned, quote freely.
+- *Intrinsic (beyond cycle AND catalog sub-flare artifacts)* — earned as an **existence claim with a
+  floor:** observed mass03 exceeds the 99th percentile of a cycle-preserving null at **every**
+  de-duplication merge window (0–30 min) and under the catalog's own `multipleID` grouping; the excess
+  is **robustly positive, floor ≈ 0.20** in mass03. It is **not** a constant ~0.25 (both obs and null
+  drift; the GAP has real window structure), and **no z is quotable** (the significance denominator is
+  a rate-fit-unstable estimator, z spans 6–26 on that instability). **Fungal earned a magnitude; solar
+  earns an existence with a floor.** Quote the p99-exceedance and the floor; never a z.
+- Do **not** lean on the SOC check (same catalog, §(C) above).
+
+**Specimen banked:** z is a ratio; a moving ratio does not tell you which of numerator/denominator
+moved until you read the parts separately. Both auto-verdicts (mine "GAP shrinks", the reviewer's
+"amputation") pattern-matched the noisy z to a *signal* story while the flat-then-structured GAP and
+the wandering null_mean were sitting in adjacent columns falsifying both. Read a ratio's parts before
+attributing its motion.

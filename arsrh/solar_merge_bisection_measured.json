@@ -1,0 +1,74 @@
+{
+  "rows": [
+    {
+      "gap_min": 0,
+      "n": 6608,
+      "mass03": 0.591295647823912,
+      "null_mean": 0.34225779556444885,
+      "null_sd": 0.009488721491792881,
+      "gap_obs_minus_null": 0.24903785225946312,
+      "z": 26.245669922429958
+    },
+    {
+      "gap_min": 5,
+      "n": 6321,
+      "mass03": 0.5682841420710355,
+      "null_mean": 0.3651825912956478,
+      "null_sd": 0.025805925274883054,
+      "gap_obs_minus_null": 0.20310155077538772,
+      "z": 7.8703456129537335
+    },
+    {
+      "gap_min": 10,
+      "n": 6203,
+      "mass03": 0.6003001500750376,
+      "null_mean": 0.36092046023011504,
+      "null_sd": 0.028410432665297296,
+      "gap_obs_minus_null": 0.23937968984492253,
+      "z": 8.425767135089055
+    },
+    {
+      "gap_min": 15,
+      "n": 6080,
+      "mass03": 0.6003001500750376,
+      "null_mean": 0.2902884775721194,
+      "null_sd": 0.03298017397631636,
+      "gap_obs_minus_null": 0.31001167250291817,
+      "z": 9.399940483198874
+    },
+    {
+      "gap_min": 20,
+      "n": 5963,
+      "mass03": 0.545272636318159,
+      "null_mean": 0.2738269134567284,
+      "null_sd": 0.014066391882121118,
+      "gap_obs_minus_null": 0.27144572286143065,
+      "z": 19.297466268265122
+    },
+    {
+      "gap_min": 25,
+      "n": 5871,
+      "mass03": 0.5337668834417209,
+      "null_mean": 0.27295647823911956,
+      "null_sd": 0.015380423649093708,
+      "gap_obs_minus_null": 0.2608104052026013,
+      "z": 16.957296570824273
+    },
+    {
+      "gap_min": 30,
+      "n": 5787,
+      "mass03": 0.5287643821910956,
+      "null_mean": 0.30695347673836915,
+      "null_sd": 0.03934506721270228,
+      "gap_obs_minus_null": 0.22181090545272641,
+      "z": 5.637578511522185
+    }
+  ],
+  "gap_flat_across_windows": false,
+  "null_sd_grows_as_n_falls": true,
+  "z_monotone_recovers_toward_small_window": false,
+  "verdict": "NOT clean amputation \u2014 the obs-minus-null GAP itself shrinks as the window grows, so some real short-ISI mass IS being removed in the sub-30-min band; the fragility is worse than sign-only and the honest center is below z~26.",
+  "quoting": "EXISTENTIAL claim with a bounded floor only: clustering beyond both the solar cycle and catalog sub-flare artifacts, survives aggressive de-duplication in SIGN at all merge windows tested. No single z quoted as THE number.",
+  "CORRECTED_verdict": "The GAP (obs mass03 - cycle-null mean) is ROBUST across every merge window 0-30 min: 0.203..0.310, mean 0.251, no trend toward zero -- so the clustering excess over the cycle SURVIVES merge-window variation. The z, by contrast, is UNSTABLE (6..26) and its swings track the null_sd (0.0095..0.0393, ~4x), NOT the GAP: z=6.3 at 30min has GAP=0.222 ~ gap=0's 0.249, so it is null-VARIANCE-estimation noise, not signal death. The auto-verdict 'GAP shrinks' was wrong (it tripped on the noisy 0.310 spike). Reviewer's 'smooth z recovery' prediction is falsified in FORM (z is noisy) but the underlying claim holds via the stable GAP: the signal survives, the z-collapse is not amputation. Net: existence of clustering-beyond-cycle is robust; the z is not a reliable magnitude (partly merge-window, mostly null-variance-estimation instability at these n).",
+  "quoting_final": "EXISTENTIAL only, and even the z-RANGE overstates fragility because it folds in null-variance-estimation noise. Quote: 'solar M+X flares cluster in time beyond both the solar cycle and catalog sub-flare artifacts; the mass03 EXCESS over a cycle-preserving null (~0.25) is robust to de-duplication merge windows 0-30 min.' No point z; if pressed, note z spans 6-26 and is null-estimation-limited, not signal-limited."
+}

@@ -10256,12 +10256,19 @@ Full record: `thermo/THERMO_FINDINGS.md` (commits cd29c83→ccefe32).
   [tstart,tend]; 34% share a `multipleID`) — so the intrinsic claim was
   falsification-tested against a de-duplicated onset list
   (`solar_dedup_test.py`): it **survives** the catalog's own sub-flare
-  dedup (z=26) and overlap-merge (z=29), weakening but surviving under
-  aggressive ≤30-min merging (z=6.3).  Intrinsic clustering **confirmed
-  in sign** across every dedup variant, but the **magnitude is
-  dedup-window-sensitive (z 6–29)** — quote with that caveat.  ⚠ The
-  SOC-phase ground truth is NOT independent corroboration: it routes
-  through the same GOES Plutino catalog and inherits the identical
+  dedup (catalog `multipleID` grouping) and overlap-merge.  A merge-window
+  bisection with z-free tests (0–30 min, `solar_gap_checks.py`): observed
+  mass03 exceeds the **99th percentile of the cycle-preserving null at
+  every window**, with the excess (obs−null) **robustly positive, floor
+  ≈ 0.20**.  Quoted **existentially with a magnitude floor, no z**: solar
+  M+X flares cluster beyond both the solar cycle and catalog sub-flare
+  artifacts.  It is **not** a constant magnitude (both obs and null drift
+  with merge window; the excess has real window structure ~±0.05) and
+  **no z is stable** — the significance denominator is a rate-fit-unstable
+  null estimator (z spans 6–26 on that instability, not on the signal).
+  **Fungal earned a magnitude; solar earns an existence with a floor.**
+  ⚠ The SOC-phase ground truth is NOT independent corroboration — it
+  routes through the same GOES Plutino catalog and inherits the identical
   over-segmentation.
 
 - Binance BTCUSDT trade timing (one trading day): essentially random
