@@ -1,0 +1,115 @@
+{
+  "seal_id": "LOOKARC-TASKB-001",
+  "task": "Task B — unfolding-free F(alpha) readout",
+  "sealed_before_any_run": true,
+  "anti_claim_s0": "Nothing here estimates Lambda; nothing bears on RH. zeta is a calibrator substrate for the ARS point-process classifier. F(alpha), Sigma^2 and Delta_3 are ONE witness under three headings (all determined by the two-point correlation function); <r-tilde> is the only independent leg on the board. Nothing in Task B may be reported as corroborating Sigma^2.",
+
+  "DISCLOSED_PRIOR_KNOWLEDGE_at_seal_time": {
+    "why_declared": "Cold entry is impossible here: the provenance pass (S0b) required reading Phase 3's outputs. Declaring what was already seen is the honest substitute for not having seen it.",
+    "already_seen": [
+      "phase3_sigma2_measured.json in full, including the column sigma2_theta_exact for the low-gamma block = [0.3112, 0.3465, 0.3395, 0.2883, 0.2804, 0.2855] at L=[1,2,4,8,16,32]",
+      "phase3b_curvature_measured.json in full, including poly9 dev_over_sd = [-4.49,-5.95,-10.86,-17.50,-14.92,-9.98] and the order-3 low-gamma dev_over_sd = [-4.80,-5.22,-4.75,-0.21,+15.27,+45.76]",
+      "phase3_sigma2.py source, i.e. that the theta-exact path is literally sigma2(rvm_N(block)) with rvm_N(t) = (t/2pi)log(t/2pi) - t/2pi + 7/8",
+      "that Phase 3's GUE band was built from FLAT-density GUE pushed through the empirical unfold, so it is not a matched bracket for the theta-exact column"
+    ],
+    "NOT_seen_at_seal_time": [
+      "any F(alpha) / form-factor value on any block, real or synthetic",
+      "any Sigma^2 or F value for a synthetic spectrum imposed on zeta's density curvature",
+      "Var[S(t)] on any block",
+      "any comparison between asymptotic-theta and exact-Riemann-Siegel-theta unfolding"
+    ],
+    "consequence": "B.5's target (the ~0.28 plateau) is known, so B.5's sealed prediction is stated as a prediction about Var[S], the quantity NOT yet computed, and is scored on that. B.2's zeta-side behaviour is known, so B.2 is scored only on the SYNTHETIC battery, where the answers are known-by-construction and my knowledge of zeta cannot help."
+  },
+
+  "PREMISE_UNDER_TEST": {
+    "as_specified": "F(alpha,T) can be computed as a direct exponential sum over raw zero heights with the theta-exact density, with no unfolding step; a readout that never unfolds cannot acquire Phase 3's unfolding artifact.",
+    "my_pre_run_reading": "This is very likely a SLOT ERROR of the program's dominant kind. Multiplying gamma-differences by the theta-exact density inside the exponent IS unfolding, performed inline. The immunity, if real, belongs to the DENSITY MODEL (analytic, non-fitted theta) and not to the STATISTIC (F(alpha) vs Sigma^2). If so the same immunity already exists in the repo as phase3's sigma2_theta_exact, and F(alpha) adds no conditioning advantage over Sigma^2 at all.",
+    "why_this_is_worth_running_anyway": "The reading is an argument. B.0/B.2 turn it into a measurement, and the corrected version of the idea (replace FITTED unfolding by ANALYTIC unfolding, then build a curvature-matched bracket) is a real and currently-missing capability."
+  },
+
+  "SEALED_PREDICTIONS": {
+    "P-B0-a": {
+      "statement": "F(alpha) by direct exponential sum over raw gamma with the theta density in the exponent will be numerically IDENTICAL to F(alpha) computed on theta-unfolded levels.",
+      "numeric": "max |Delta F| < 1e-10 over alpha in [0.05, 3]",
+      "if_true_means": "the 'direct sum' and 'unfold then transform' are the same operation; 'no unfolding step' is a description of where the multiplication is written, not of what is consumed."
+    },
+    "P-B0-b": {
+      "statement": "F(alpha) on polynomial-unfolded levels will DIFFER from F(alpha) on theta-unfolded levels on the low-gamma block.",
+      "numeric": "median relative difference over alpha in [0.2, 2.0]: poly-order-3 > 10%; poly9 > 2%",
+      "if_true_means": "F(alpha) is unfolding-DEPENDENT. The spec's B.1 identity claim is false as stated."
+    },
+    "P-B0-c": {
+      "statement": "The literal 'no unfolding' reading — constant block-mean density, x = c*gamma — will differ from theta by MORE than poly9 does.",
+      "numeric": "median relative difference over alpha in [0.2, 2.0] > 50%",
+      "if_true_means": "'raw gamma' is not unfolding-free; it is the CRUDEST unfolding (order 0), worse than the order-3 fit Phase 3 already rejected."
+    },
+    "P-B1-INERT": {
+      "statement": "The spec's B.1 test ('run F under both unfolding schemes, expect bit-identical') will PASS, and the pass will be INERT.",
+      "why_inert": "the theta implementation ignores its scheme argument, so the test cannot fire. This is the same structure as P1's unfold falsifier on an unfold-invariant statistic and Phase 2's theta-cert on r-tilde. Pre-declared here so that the pass is reported as inert rather than as evidence.",
+      "scored_as": "a prediction about the TEST, not about zeta."
+    },
+    "P-B2-power": {
+      "statement": "On synthetic spectra with KNOWN class imposed on zeta's own theta density backbone (low-gamma block, gamma 14 -> 2515, mean spacing varying ~7.5x across the block):",
+      "numeric": {
+        "poisson_via_poly_order3": "Sigma^2(L=32)/32 > 1.3 (known answer is 1.0) -- the fitted unfold FAILS on curvature",
+        "poisson_via_theta": "Sigma^2(L=32)/32 in [0.8, 1.2] -- the analytic unfold RECOVERS",
+        "gue_via_poly_order3": "Sigma^2(L=32) > 2x the analytic GUE value 0.6972",
+        "gue_via_theta": "Sigma^2(L=32) within 25% of 0.6972",
+        "F_theta_on_poisson": "F(alpha) within 20% of 1.0 for alpha in [0.5, 2.0]",
+        "F_theta_on_gue": "F(alpha) within 25% of min(alpha,1) for alpha in [0.5, 2.0]"
+      },
+      "falsifier": "if the order-3 path does NOT botch the curvature-matched known answers, then Phase 3's sign flip was not a curvature/unfolding failure and the whole premise of Task B is unmotivated -- report and stop.",
+      "argument_the_falsifier_has_power": "Phase 3's own decoy gate PASSED order-3 on FLAT Poisson and FLAT GUE (poisson_ratio_Lmax = 1.023, gue_relerr_max = 0.026). So order-3 is known to be adequate on flat density. Whether it fails once the same decoys are placed on zeta's curvature is genuinely open at seal time -- the flat gate is direct evidence that it might not. This is the exact gap the Phase 3 lesson named, and it has never been measured."
+    },
+    "P-B2-slot": {
+      "statement": "Sigma^2 computed through the THETA path will recover the known answers just as well as F(alpha) does.",
+      "if_true_means": "F(alpha) has NO conditioning advantage over Sigma^2. The advantage is theta's. Task B's stated deliverable would then be already present in the repo as phase3's sigma2_theta_exact column, and the correct deliverable becomes the missing CURVATURE-MATCHED BRACKET, not a new statistic.",
+      "note": "This is the prediction I most expect to hold and it is the one that demotes Task B's headline."
+    },
+    "P-B5-saturation": {
+      "statement": "The low-gamma long-L plateau in Sigma^2_theta is Berry saturation, and this can be checked INDEPENDENTLY of Sigma^2 by measuring Var[S] on the same block, where S(gamma_j) = j - rvm_N(gamma_j) - mean. Saturation identity: Sigma^2(L -> large) -> 2 Var[S].",
+      "numeric": "Var[S] on zeros6[:2000] will land in [0.12, 0.16], so that 2*Var[S] lands in [0.24, 0.32] and brackets the observed plateau 0.280-0.285.",
+      "falsifier": "if 2*Var[S] falls outside [0.20, 0.36], the 'known Berry saturation' attribution for Phase 3's long-L low-gamma region is NOT supported by an independent computation and must revert to CANDIDATE-not-bracket (the Phase 4 catch-#2 shape).",
+      "argument_the_falsifier_has_power": "Var[S] and Sigma^2 are different functionals of different objects: Var[S] is the variance of the counting-function residual evaluated AT the zeros; Sigma^2(L) is the variance of counts in sliding windows of length L. They coincide only if the saturation identity has actually arrived at this height with this theta truncation. At gamma ~ 14 the smooth term rvm_N(14.13) = 0.449 while the true count is 1, so S is O(1/2) at the bottom of this block -- the asymptotic regime is visibly not established there, and a miss is a live possibility, not a formality."
+    },
+    "P-B5-thetacert": {
+      "statement": "Powered replacement for Phase 2's inert theta-cert (register R-003): recompute the theta unfold with the next-order term +1/(48 pi t), and additionally with the EXACT Riemann-Siegel theta (arg Gamma(1/4 + it/2) - (t/2) log pi) via mpmath, then re-read Sigma^2 and Var[S].",
+      "numeric": "predicted still inert: |Delta Sigma^2|/Sigma^2 < 1% at every L, and |Delta Var[S]| < 0.005",
+      "why_run_it_if_predicted_inert": "R-003 established that the existing cert is inert BY CONSTRUCTION. Demonstrated-inert on a statistic that CAN see the perturbation is a different and stronger object than structurally-inert. It also removes the shared-machinery worry in the specificity note below."
+    }
+  },
+
+  "SENSITIVITY_PRIOR": {
+    "rule_applied": "sealed sensitivity priors in this program have run 4-for-4 wrong, all conservative; shift up one notch from instinct. Applied per-item below; instinct and shifted value both recorded.",
+    "P-B0-a": {"instinct": "HIGH", "sealed": "HIGH", "note": "algebraic; no room to shift"},
+    "P-B0-b": {"instinct": "MEDIUM-HIGH", "sealed": "HIGH"},
+    "P-B0-c": {"instinct": "HIGH", "sealed": "HIGH"},
+    "P-B2-power": {"instinct": "MEDIUM", "sealed": "MEDIUM-HIGH", "note": "flat-density order-3 passed its gate, so failure on curvature is not guaranteed"},
+    "P-B5-saturation": {"instinct": "MEDIUM-LOW", "sealed": "MEDIUM", "note": "the asymptotic regime is visibly not arrived at the bottom of this block"}
+  },
+
+  "SPECIFICITY_PRIOR": {
+    "rule_applied": "HOLD FIXED. Specificity has shown zero measured bias in this program; the sensitivity correction must not leak across.",
+    "P-B0": {"grade": "HIGH", "reason": "an algebraic identity between two ways of writing the same exponent; there is no confound available"},
+    "P-B2": {"grade": "MEDIUM", "reason": "DECLARED SHARED CONFOUND -- the synthetic battery is placed on zeta's density backbone using rvm_inv, the same machinery the theta unfold uses. A bug in rvm_N/rvm_inv would move the synthetic and the recovery together and would look like success. Mitigation: the known answers (Poisson Sigma^2 = L exactly; GUE = analytic) are fixed OUTSIDE the machinery, so a machinery bug shows up as a miss against a fixed external target, not as a self-consistent pass."},
+    "P-B5": {"grade": "MEDIUM", "reason": "DECLARED SHARED CONFOUND -- Var[S] and Sigma^2_theta both consume rvm_N, so agreement is partially self-confirming. Mitigation is P-B5-thetacert: if the exact Riemann-Siegel theta reproduces the asymptotic-theta answer, the shared term is certified rather than assumed. Without that leg, P-B5 agreement would have to be filed as CANDIDATE, not bracket."}
+  },
+
+  "ALPHA_REGIONS": {
+    "alpha_lt_1": "CALIBRATION region. Reference curve exists. PROVENANCE SLOT, kept separate: Montgomery's F(alpha) result and the Goldston-Montgomery equivalence are stated CONDITIONALLY ON RH, and Goldston-Montgomery is an equivalence between two conjectures, not a proof of either. That conditionality is filed against the REFERENCE NUMBER, never against the instrument -- the measurement consumes a finite list of verified zeros and reads only imaginary parts.",
+    "alpha_ge_1": "LOOK region. F is not pinned here. Calibrator grade is ZERO. Everything found here goes to LOOK_REGISTER.md as a qualitative look. NO sigma, NO z, NO p is to be quoted for alpha >= 1, internally or externally."
+  },
+
+  "FAILURE_CONDITIONS_WRITTEN_BEFORE_THE_RUN": [
+    "If P-B2-power fails (order-3 does NOT botch the curvature-matched decoys), Task B's motivating premise is unsupported: report and stop, do not proceed to any zeta reading.",
+    "If P-B0-b fails (F is genuinely scheme-independent in a non-vacuous way), my pre-run reading is wrong and the spec's premise is RIGHT -- report that loudly as the session's main finding, in my own disfavour.",
+    "If F_theta recovers the known answers but Sigma^2_theta does NOT, P-B2-slot is falsified and F(alpha) has a real conditioning advantage over Sigma^2 -- report as such.",
+    "If P-B5-saturation fires (2*Var[S] outside [0.20,0.36]), Phase 3's long-L attribution reverts to CANDIDATE and PHASE3_FINDINGS.md must be amended."
+  ],
+
+  "OUT_OF_SCOPE_THIS_SEAL": [
+    "Task A (blocked at S0b: the Phase-2 control has no generating script and block-2's interior W is unrecoverable -- see LOOK_ARC_PROVENANCE.md #13/#14)",
+    "Task C (not sealed this session)",
+    "the sigma-decomposition, the Maass slope block, and the W-sweep (registered as looks R-001/R-002, NOT run -- they have no seals)"
+  ]
+}
