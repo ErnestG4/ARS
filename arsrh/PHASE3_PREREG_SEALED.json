@@ -1,0 +1,39 @@
+{
+  "phase": "ARS-RH Phase 3 — Sigma^2 number-variance: the orthogonal long-range witness for the Phase-1 finite-height residual",
+  "sealed_before_running": true,
+  "section_0_anti_claim": "BINDING. This measures whether an INDEPENDENT long-range statistic (Sigma^2 number variance) resolves the same finite-height structure the r-tilde leg found. It is an instrument-corroboration test, NOT evidence about RH. A measured rigidity is a property of the finite-height zero window and the estimator, not of the Riemann hypothesis.",
+
+  "why_this_phase": "Every Phase-1/2 result lives in the r-tilde family (matched-density null, flow control, sigma-shape) — one SHORT-RANGE adjacent-gap statistic read through multiple clever nulls. That single-statistic dependence, not the single-window 2.4sigma, is the real fragility. Sigma^2(L) is orthogonal in mechanism: LONG-range rigidity, a different aspect of the same spectrum. If it shows the low-gamma excess too, Phase 1 goes from 'one statistic well-nulled' to 'two mechanistically-independent statistics agree.' If it is clean where r-tilde showed 2.4sigma, that is ALSO substantive: the residual is a short-range effect invisible to long-range rigidity, which characterizes what KIND of structure it is.",
+
+  "blocking_prerequisite_decoy_battery": {
+    "rule": "The Sigma^2 verdict on zeta is read ONLY AFTER the GENERAL (empirical, data-driven) unfolding passes a known-answer decoy battery. The theta-exact Riemann-von Mangoldt unfolding is zeta-SPECIFIC and analytic — clean for zeta precisely because it is bespoke — so it must NOT be the general path, or the tool only works on the one substrate whose answer we already know. General empirical unfolding is what would be used on Maass/neural data; it must be proven to have power BEFORE its zeta verdict is trusted.",
+    "the_specific_trap": "An over-flexible empirical unfolding absorbs real long-range fluctuations into the 'smooth' density -> SUPPRESSES Sigma^2 -> reads FALSELY RIGID. That would make zeta look rigid for a reason having nothing to do with zeta. The Poisson decoy is the sentinel: over-smoothing shows up as Poisson Sigma^2(L) coming out BELOW L.",
+    "gate_conditions": [
+      "POISSON decoy under general unfolding -> Sigma^2(L) ~ L (linear, no false rigidity). If suppressed below L, the unfolding over-smooths -> ABORT and reduce flexibility.",
+      "GUE decoy under general unfolding -> Sigma^2(L) ~ (1/pi^2)(ln(2 pi L) + gamma_E + 1) (log-rigidity recovered, neither inflated nor suppressed).",
+      "A SUPER-RIGID decoy (rigidity beyond GUE) under general unfolding -> Sigma^2(L) BELOW the GUE curve. Proves the instrument can SEE extra rigidity of the kind sought in zeta (the 'approach from above')."
+    ],
+    "only_if_all_pass": "read the zeta Sigma^2 verdict. Cross-check the general path against the theta-exact R-vM unfolding on zeta as a zeta-ONLY ground-truth (general must reproduce theta-exact); disagreement means the general unfolding is the story, not zeta."
+  },
+
+  "sealed_prediction": {
+    "sensitivity_prior_SHIFTED_UP": "Per sensitivity_specificity_decouple: the instrument (decoy-gated) WILL have power to resolve a long-range rigidity difference at low-gamma if one exists. My prior that it resolves is shifted up — this substrate has beaten my conservative sensitivity call 3-for-3.",
+    "specificity_prior_HELD_FIXED": "Whether zeta low-gamma actually shows Sigma^2 EXCESS rigidity (curve BELOW GUE) versus sits ON GUE is the open question, and I do NOT couple 'the instrument is sensitive' to 'it will confirm.' The decoy gate is the specificity guarantee; a null must be one the estimator provably could have shown non-null.",
+    "substantive_point_estimate": "r-tilde is an ADJACENT-gap statistic, so the finite-height residual it found is short-range-weighted. Conservative call: the low-gamma Sigma^2 excess (rigidity below GUE) will be WEAKER than the 2.4sigma r-tilde margin, possibly sub-detection at moderate L, because the 'approach to GUE from above' is concentrated at the nearest-neighbour scale.",
+    "explicit_pessimism_flag": "This conservative 'short-range only' call is EXACTLY the direction I have been wrong 3-for-3 (all conservative on sensitivity). The decoupling correction says lean toward 'Sigma^2 shows it too.' I record the conservative point estimate AND the correction; if Sigma^2 shows clear excess, that is the pattern continuing, not a surprise to explain away.",
+    "both_outcomes_precommitted_substantive": {
+      "agree_excess": "zeta Sigma^2 below GUE at low gamma, clean at high gamma -> Phase 1 CORROBORATED by an orthogonal statistic; two mechanistically-independent legs. The residual is a genuine multi-scale rigidity excess.",
+      "clean": "zeta Sigma^2 on GUE at low gamma where r-tilde showed 2.4sigma -> the residual is characterized as SHORT-RANGE (nearest-neighbour only), invisible to long-range rigidity. Substantive: it tells us the kind of structure, and it BOUNDS the r-tilde leg to the short-range scale."
+    },
+    "not_a_win_lose": "This is a CHARACTER measurement, not a test I pass. Both outcomes inform; neither is failure. Designed so sensitivity cannot buy the answer and either result is a finding."
+  },
+
+  "method_commitments": {
+    "statistic": "Sigma^2(L) = Var_a( N[a, a+L] ) over unit-mean-spacing unfolded levels, averaged over window starts a across the spectrum interior.",
+    "general_unfolding": "empirical: smooth polynomial (order calibrated BY the decoy battery to reproduce Poisson=L and GUE=analytic simultaneously) fit to the cumulative staircase N(x); xi_i = N_smooth(x_i).",
+    "theta_exact_unfolding": "zeta-only ground-truth: xi_i = Riemann-von Mangoldt N(gamma_i). Used ONLY to cross-check the general path on zeta, never as the general estimator.",
+    "L_range": "moderate L (e.g. 1..40) where GUE log-rigidity is clearly separated from Poisson linear and finite-N saturation is not yet dominant.",
+    "windows": "low-gamma zeta block (steep finite-height deviation) + high-gamma block (flat control), same as Phase 1.",
+    "error_bars": "GUE ensemble (Dumitriu-Edelman tridiagonal) realizations give the Sigma^2(L) jitter band; zeta excess judged against that band."
+  }
+}

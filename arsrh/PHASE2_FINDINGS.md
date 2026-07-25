@@ -164,6 +164,20 @@ The genuinely-independent leg is **Σ² number-variance** — still owed. Status
 "one witness, possibly a noise shape" to "one witness with a confirmed reproducible mechanistic flow-signature"
 — materially stronger while Σ² is pending, but not yet corroborated.
 
+**⚠ What "confirmed" does and does NOT mean here (reviewer — the resolved-vs-robust distinction, one level up
+in the MECHANISM).** Confirmed is earned because the discriminator was pre-registered and directional: flat
+σ-shape or mismatched shape would have killed it; only "reproduces AND amplifies with compression" survived,
+and the effect got *relatively stronger from a weaker start* (+2.29 from +1.26 vs +2.23 from +2.04) — which a
+passive-carry model cannot produce. So the **sign of the compression-scaling** is confirmed. But **two blocks
+is a slope from two points**: "σ-amplification scales with compression strength" is a *functional law*, and
+two heights fix a direction, not a curve. The magnifying-glass mechanism makes a *quantitative* prediction —
+the σ-amplification should track the (computable) gap-scale/compression ratio between blocks — and that
+magnitude-law is **UNTESTED**; a third intermediate-γ block either lands on the curve (mechanism nailed) or
+confirms sign but misses magnitude (mechanism incomplete, something else contributing). **File precisely: sign
+of the scaling CONFIRMED on two heights; magnitude-law UNTESTED.** "Confirmed" = the effect is real and
+mechanistic; it does NOT mean the magnifying-glass *law* is established. Not gated on — the sign-reproduction
+already earned confirmed-flow-signature — but do not let the two claims merge.
+
 ## Backward — the realness boundary (instrument, NOT Λ)
 
 Evolving backward, the smallest gap collides first (the closest Lehmer-type pair — the near-critical
