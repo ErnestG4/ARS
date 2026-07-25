@@ -1,0 +1,23 @@
+{
+  "sealed_utc_date": "2026-07-24",
+  "author": "Claude Fable 5, sealed BEFORE computing any zeta <r~> value (only heights/window-sizes were inspected).",
+  "phase": "ARS-RH Phase 1 — zeta zero height crossover (S1).",
+  "anti_claim_S0": "BINDING. Nothing here is evidence for or against RH. This measures whether the ARS classifier can RESOLVE the finite-height approach of zeta spacing statistics to GUE above its own finite-window noise floor. That is an instrument-resolution statement, not a statement about zeta or RH.",
+
+  "object": "unfolding-free <r~> (Atas consecutive-spacing ratio) of the Riemann zeta zeros, in matched-size windows at increasing height gamma, from data/odlyzko_zeros6.txt (first ~2M zeros, heights 14..1.13e6). Zeros unfolded by the smooth Riemann-von Mangoldt density N(t)=(t/2pi)log(t/2pi)-t/2pi+7/8 before <r~> (removes the density gradient; the residual is the fluctuation statistic).",
+
+  "reference": "GUE surmise <r~> = 0.60266 (Atas-Bohigas-Roux-Vivo 2013). Poisson 0.38629.",
+
+  "BLOCKING_deterministic_noise_null": "zeta zeros have NO measurement noise; the only 'error bar' on <r~> in a window is the finite-window SAMPLING SPREAD of <r~> over a STATIONARY GUE spectrum of the same window size. Build it first: B independent true-GUE spectra per window size W, <r~> of each -> null mean (must be ~0.60266) and null sd (the jitter floor). NO height-trend claim may be made unless it exceeds this band. This is the object the induction-on-noise checks do NOT provide (they were built for measurement noise).",
+
+  "PREDICTION (sealed)": {
+    "primary": "At reachable heights (gamma <= 1.13e6) and window sizes (W <= ~1e5 zeros), the zeta <r~> deviation from the GUE 0.60266 is SMALL and is at or BELOW the finite-window GUE jitter floor -> NO 1/log(gamma/2pi) crossover is RESOLVABLE above noise. The classifier returns 'GUE, indistinguishable from stationary at this resolution' at every height. This is the Skewes/Odlyzko-te-Riele-informed expectation: the true finite-height correction is O(1/log gamma) ~ 0.08-0.36 times a small coefficient, i.e. ~1e-3 or smaller, while the jitter floor is ~1/sqrt(W) ~ few e-3 at W~1e4-1e5.",
+    "if_resolvable_sign": "IF a trend is resolvable, <r~>(gamma) INCREASES toward 0.60266 as gamma grows (deviation negative at low height and shrinking) — low-height zeta carries slightly weaker effective repulsion, approaching GUE from below. Sealed sign: negative residual, magnitude decreasing in 1/log.",
+    "frame": "FRAME-AGNOSTIC first. Do NOT assume the g-tilde(a,f) band-scaling surface applies to a 1/log crossover — that surface was derived for a different substrate family; map onto it ONLY if a collapse actually appears (spec open decision #2).",
+    "scale_needed_Skewes": "Report explicitly: to distinguish a 1/log trend of amplitude delta from finite-window jitter ~c/sqrt(W), need W >~ (c/delta)^2. State the W (and hence the height/zero-count) that WOULD be required to resolve the predicted ~1e-3 correction, so 'not resolvable here' is quantified, not asserted."
+  },
+
+  "acceptance": "(1) GUE null built, mean recovers 0.60266, sd characterized vs W. (2) zeta <r~> at >=4 heights spanning gamma 1e2..1e6, unfolded, matched windows, with the assumption-light immunity test: is each height's zeta <r~> INSIDE the matched-window GUE <r~> distribution (percentile), no model fit. (3) the required-W-to-resolve stated. A 1/log fit is reported ONLY if the height variation exceeds the jitter band; otherwise the deliverable is the (honest) non-resolvability + the scale that would be needed.",
+
+  "immunity_note": "Prefer the assumption-light test (is zeta <r~> inside the matched-GUE-window percentile band?) over fitting a 1/log curve and reading its slope's significance — the fit has a denominator that finite-window jitter destabilizes, exactly the class of error the solar arc just taught. Fit only if the percentile test already shows the points are outside the band."
+}

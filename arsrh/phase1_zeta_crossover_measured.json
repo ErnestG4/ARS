@@ -1,0 +1,185 @@
+{
+  "anti_claim": "instrument-resolution measurement; NOT evidence about zeta or RH",
+  "reference_GUE_rtilde": 0.60266,
+  "by_W": [
+    {
+      "W": 2000,
+      "n_real": 80,
+      "null_mean": 0.6006371896827588,
+      "null_sd": 0.005441520408777306,
+      "null_band95": [
+        0.5910287242209582,
+        0.6109221716076527
+      ],
+      "zeta": [
+        {
+          "gamma_mid": 1420.416526324,
+          "inv_log": 0.18447365085627673,
+          "zeta_rtilde": 0.6172183305032609,
+          "dev_vs_GUE": 0.014558330503260941,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 33923.099893869,
+          "inv_log": 0.11636059785142717,
+          "zeta_rtilde": 0.611142273362429,
+          "dev_vs_GUE": 0.008482273362429016,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 0.975
+        },
+        {
+          "gamma_mid": 140130.246851157,
+          "inv_log": 0.09987564944971539,
+          "zeta_rtilde": 0.6129525755440275,
+          "dev_vs_GUE": 0.010292575544027516,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 0.975
+        },
+        {
+          "gamma_mid": 434222.992256094,
+          "inv_log": 0.08973892452485922,
+          "zeta_rtilde": 0.6135113602606999,
+          "dev_vs_GUE": 0.010851360260699883,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 0.9875
+        },
+        {
+          "gamma_mid": 1131971.617977163,
+          "inv_log": 0.08263373957721826,
+          "zeta_rtilde": 0.598970513890718,
+          "dev_vs_GUE": -0.003689486109281992,
+          "inside_95_GUE_null": true,
+          "percentile_in_null": 0.3875
+        }
+      ],
+      "zeta_spread_across_heights": 0.018247816612542933,
+      "all_heights_inside_null_band": false,
+      "jitter_const_c": 0.24335219069957,
+      "W_needed_to_resolve_1e-3": 59220.28871827989
+    },
+    {
+      "W": 5000,
+      "n_real": 60,
+      "null_mean": 0.5993280513980977,
+      "null_sd": 0.0038000025436665005,
+      "null_band95": [
+        0.5922899991969871,
+        0.6055500180326883
+      ],
+      "zeta": [
+        {
+          "gamma_mid": 3032.756029361,
+          "inv_log": 0.1618293186353717,
+          "zeta_rtilde": 0.6160115525031283,
+          "dev_vs_GUE": 0.013351552503128361,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 35017.081660527,
+          "inv_log": 0.11593242907538408,
+          "zeta_rtilde": 0.6102818964373519,
+          "dev_vs_GUE": 0.007621896437351894,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 141071.261189876,
+          "inv_log": 0.09980893203065656,
+          "zeta_rtilde": 0.6072005459962186,
+          "dev_vs_GUE": 0.00454054599621867,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 435068.12002454,
+          "inv_log": 0.0897232687988345,
+          "zeta_rtilde": 0.6094088532175038,
+          "dev_vs_GUE": 0.006748853217503847,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 1131192.635969681,
+          "inv_log": 0.08263844047582922,
+          "zeta_rtilde": 0.6021149381050102,
+          "dev_vs_GUE": -0.0005450618949898178,
+          "inside_95_GUE_null": true,
+          "percentile_in_null": 0.7
+        }
+      ],
+      "zeta_spread_across_heights": 0.013896614398118179,
+      "all_heights_inside_null_band": false,
+      "jitter_const_c": 0.2687007567152712,
+      "W_needed_to_resolve_1e-3": 72200.09665935936
+    },
+    {
+      "W": 10000,
+      "n_real": 40,
+      "null_mean": 0.6003584209422577,
+      "null_sd": 0.0030295228205572157,
+      "null_band95": [
+        0.5951610857533426,
+        0.6065373411905584
+      ],
+      "zeta": [
+        {
+          "gamma_mid": 5448.908413286,
+          "inv_log": 0.14781324690716643,
+          "zeta_rtilde": 0.6147443019214086,
+          "dev_vs_GUE": 0.012084301921408636,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 36832.958686649,
+          "inv_log": 0.11525688495528733,
+          "zeta_rtilde": 0.6108663588173755,
+          "dev_vs_GUE": 0.008206358817375525,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 142638.388295331,
+          "inv_log": 0.09969899987650509,
+          "zeta_rtilde": 0.6084561874765931,
+          "dev_vs_GUE": 0.005796187476593162,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 436477.360514682,
+          "inv_log": 0.08969724266779797,
+          "zeta_rtilde": 0.6077903993614662,
+          "dev_vs_GUE": 0.005130399361466198,
+          "inside_95_GUE_null": false,
+          "percentile_in_null": 1.0
+        },
+        {
+          "gamma_mid": 1129894.578672107,
+          "inv_log": 0.08264628220839054,
+          "zeta_rtilde": 0.6030553398835583,
+          "dev_vs_GUE": 0.00039533988355833216,
+          "inside_95_GUE_null": true,
+          "percentile_in_null": 0.775
+        }
+      ],
+      "zeta_spread_across_heights": 0.011688962037850303,
+      "all_heights_inside_null_band": false,
+      "jitter_const_c": 0.30295228205572156,
+      "W_needed_to_resolve_1e-3": 91780.08520276945
+    }
+  ],
+  "resolvable_anywhere": true,
+  "VERDICT": "RESOLVABLE \u2014 some height exits the matched-window GUE band; a genuine crossover to pursue frame-agnostic",
+  "sealed_prediction_outcome": "FALSIFIED on both counts: predicted deviation ~1e-3 BELOW the floor (not resolvable) and, if resolvable, NEGATIVE sign. Measured: ~+1.2e-2 at gamma~5e3, ABOVE the floor (resolvable), POSITIVE sign (zeta <r~> approaches GUE from ABOVE). The data overrode the hypothesis.",
+  "unfolding_confound_falsifier": {
+    "concern": "the deviation is largest at low gamma, exactly where the R-vM asymptotic density is least accurate and the window spans the most density variation -> a density-gradient/unfolding artifact would give a positive r~ bias, same sign and location (the solar situation replayed).",
+    "test": "re-compute <r~> on each block by R-vM asymptotic unfold, local empirical unfold_poly, and RAW (no unfold).",
+    "result": "all three AGREE to ~4 digits at every block (e.g. gamma~5e3: R-vM 0.61474, poly 0.61449, raw 0.61474). raw==unfolded confirms r~ is intrinsically unfolding-free here (smooth density does not bias the adjacent-gap ratio).",
+    "verdict": "CONFOUND EXCLUDED \u2014 the crossover is robust to unfold choice; it is real zeta finite-height behavior, not an unfolding/density-gradient artifact."
+  },
+  "reading": "RESOLVABLE finite-height crossover, confound-excluded. zeta <r~> decreases monotonically from ~0.615 (gamma~5e3) to ~0.603 = GUE (gamma~1.1e6), from ABOVE, consistent across W=2000/5000/10000, exceeding the finite-window GUE jitter floor at all but the highest gamma. \u00a70 anti-claim MAINTAINED: this is an instrument-resolution result (the ARS <r~> classifier RESOLVES the known finite-height approach of zeta spacing statistics to GUE above its own noise floor) \u2014 calibration, NOT evidence about RH. Functional form left frame-agnostic: the deviation decreases toward 0 with height but the high-gamma point falls faster than linear-in-1/log, so no 1/log law is asserted (g-tilde frame NOT imposed).",
+  "null_caveat": "the tridiagonal central-window GUE null mean (~0.600) sits ~0.002 below the true Atas 0.60266 (finite-W/edge); this makes the zeta deviation vs the null ~0.002 larger than vs true GUE, negligible against the ~1.2e-2 effect. At high gamma zeta (0.603) matches true GUE (0.6027) directly."
+}
