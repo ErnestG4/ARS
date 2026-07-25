@@ -1,0 +1,121 @@
+{
+  "K1": {
+    "rows": [
+      {
+        "L": 1,
+        "alpha_c": 0.002,
+        "mass_below": 0.003999982452092035,
+        "fraction": 0.003999982452092035,
+        "small_L_approx_2Lac": 0.004
+      },
+      {
+        "L": 2,
+        "alpha_c": 0.002,
+        "mass_below": 0.015999719260132453,
+        "fraction": 0.007999859630066226,
+        "small_L_approx_2Lac": 0.008
+      },
+      {
+        "L": 4,
+        "alpha_c": 0.002,
+        "mass_below": 0.06399550842834711,
+        "fraction": 0.01599887710708678,
+        "small_L_approx_2Lac": 0.016
+      },
+      {
+        "L": 8,
+        "alpha_c": 0.002,
+        "mass_below": 0.25592814613082077,
+        "fraction": 0.031991018266352596,
+        "small_L_approx_2Lac": 0.032
+      },
+      {
+        "L": 16,
+        "alpha_c": 0.002,
+        "mass_below": 1.0228510364613013,
+        "fraction": 0.06392818977883133,
+        "small_L_approx_2Lac": 0.064
+      },
+      {
+        "L": 32,
+        "alpha_c": 0.002,
+        "mass_below": 4.07766110065124,
+        "fraction": 0.12742690939535126,
+        "small_L_approx_2Lac": 0.128
+      },
+      {
+        "L": 64,
+        "alpha_c": 0.002,
+        "mass_below": 16.09340441809816,
+        "fraction": 0.25145944403278375,
+        "small_L_approx_2Lac": 0.256
+      },
+      {
+        "L": 128,
+        "alpha_c": 0.002,
+        "mass_below": 61.06189293556693,
+        "fraction": 0.47704603855911665,
+        "small_L_approx_2Lac": 0.512
+      },
+      {
+        "L": 250,
+        "alpha_c": 0.002,
+        "mass_below": 193.423752350703,
+        "fraction": 0.773695009402812,
+        "small_L_approx_2Lac": 1.0
+      }
+    ],
+    "N_block": 2000,
+    "alpha_c": 0.002,
+    "mass_below_at_L32": 4.07766110065124,
+    "required_meanDeltaK_at_L32": 0.6130965615560172,
+    "measured_DeltaK_0.001_0.002": 0.034,
+    "L_at_which_fully_contaminated": 250.0
+  },
+  "K2": {
+    "floor_rule_at_W2000": 0.00447213595499958,
+    "floor_measured_at_W2000": 0.005441520408777306,
+    "fitted_exponent": -0.36534952008699856,
+    "fitted_amplitude": 0.08681092150233305,
+    "items": [
+      {
+        "item": "P2 forward rise over [0,0.22], in floor units",
+        "filed": "66.3x",
+        "corrected": "54.5x",
+        "binary_verdict": "'the flow rigidifies resolvably' (needs > 1x)",
+        "margin_filed": "66.3x above 1",
+        "margin_corrected": "54.5x above 1",
+        "flips": "NO"
+      },
+      {
+        "item": "P2 classifier t-resolution = floor/slope (THE portable number)",
+        "filed": "0.00162 in t",
+        "corrected": "0.00197 in t",
+        "binary_verdict": "none - it IS the deliverable, a magnitude not a binary",
+        "margin_filed": "n/a",
+        "margin_corrected": "n/a",
+        "flips": "N/A - the deliverable itself moves by +22%"
+      },
+      {
+        "item": "P2 t=0 <r~> deviation vs GUE ref, in floor units",
+        "filed": "3.2x",
+        "corrected": "2.6x",
+        "binary_verdict": "'the t=0 offset is resolvable' (needs > 1x)",
+        "margin_filed": "3.2x",
+        "margin_corrected": "2.6x",
+        "flips": "NO"
+      },
+      {
+        "item": "P1 'W needed to resolve 1e-3' (feasibility number)",
+        "filed": "59220 zeros",
+        "corrected": "202340 zeros",
+        "binary_verdict": "'a 1e-3 effect is reachable at accessible W'",
+        "margin_filed": "extrapolated on sd ~ W^-0.5",
+        "margin_corrected": "extrapolated on sd ~ W^-0.365",
+        "flips": "NOT a flip but a 3.4x feasibility cost"
+      }
+    ],
+    "verdicts_consuming_floor": 4,
+    "binary_flips": 0
+  }
+}
