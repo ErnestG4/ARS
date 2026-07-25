@@ -1,5 +1,22 @@
 # Solar flare surrogate port — the last load-bearing detection through the §3a wringer
 
+> ## ⚠ CURRENT STATUS — read this before the body (the body is the arc, not the verdict)
+> This claim was **re-graded down three times** as checks ran; the sections below are that arc in
+> order and the **early ones are superseded**. Do not quote "z=10–21", "intrinsic", or "matches
+> independent SOC ground truth" from the top of this file — all three are retracted below.
+>
+> **Final graded claim (quotable):** solar M+X flares cluster **beyond both the solar cycle and
+> catalog sub-flare artifacts** — an **existence claim with a magnitude floor**, not a magnitude and
+> not a z. Observed mass03 exceeds the **99th percentile of a cycle-preserving null at every**
+> de-duplication merge window (0–30 min) and under the catalog's own `multipleID` grouping; the excess
+> is **robustly positive, floor ≈ 0.20** in mass03. **No z is quotable** (the significance denominator
+> is a rate-fit-unstable null estimator; z spans 6–26 on that instability, not the signal). This is a
+> **residual** detection (the cycle explains ~half the raw excess), unlike **fungal** which is a
+> **clean** detection that earned a magnitude. The **SOC "independent" check is struck** (same GOES
+> catalog). Deployed detector: real solar 191/191 exact-0, nulls 0/196·0/187·0/193. **Reviewed against
+> reported numbers, not independently audited** — as good as `solar_gap_checks.py` being faithful to
+> the deployed code path (see Verification status, bottom).
+
 Prereg: `arsrh/SOLAR_PREREG_SEALED.json` (sealed before running). The sharpest §3a test in the
 program: solar M+X flare rate has a **~1000× solar-cycle envelope** (1 event/yr at minimum, 1865 at
 maximum, 1986–2023), so the flagged clustering (deployed detector: 191/191 BL rows exact-0, commit
