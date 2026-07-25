@@ -1,0 +1,30 @@
+{
+  "phase": "ARS-RH Phase 4 (ii) — arithmetic Maass ENDPOINT: confound-free Poisson-vs-GOE classification, an independent re-validation of CP1",
+  "sealed_before_running": true,
+  "goal_set_by_user": "ENDPOINT (not rate). Confirm the arithmetic (level-1 modular) Maass spectrum sits at POISSON, not GOE, through a SECOND construction with hand-built brackets — CP1 currently rests on a single construction; a confound-free confirmation de-risks everything downstream that cites it.",
+  "section_0_anti_claim": "BINDING. This tests whether the ARS r-tilde classifier confirms the KNOWN Sarnak arithmetic-chaos anomaly (arithmetic Maass -> Poisson-not-GOE despite chaotic geodesic flow) via a confound-free synthetic bracket. It re-validates CP1; it does NOT claim the anomaly as new, and it is NOT evidence about RH. A classification here is an instrument/edifice-de-risking result.",
+
+  "why_ii_not_i": "Branch (i) (transition along Teichmuller deformation) builds the Poisson->GOE crossover into the null BY CONSTRUCTION, so detecting the transition partly detects the construction (density-gradient trap one level up) AND is the branch where the corrected sensitivity prior is most seductive while specificity is most fragile. (ii) asks the theorem-adjacent ENDPOINT question with both brackets built by hand -> provably cannot fake the answer. Per sensitivity_specificity_decouple, (ii) is the prerequisite; (i) (the RATE) is a later phase gated on compute AND on (ii).",
+
+  "the_ii_specific_specificity_trap": "The Sarnak anomaly is PER-SYMMETRY-SECTOR. POOLING independent spectra manufactures false-Poisson (desymmetrization / pooled-rhythmic confound). So the classification MUST be read WITHIN a single parity sector, never pooled. Guard: a POOLING DECOY — build 2 synthetic GOE sectors, pool them, and show r-tilde drifts from GOE (0.53) toward Poisson (0.39). That proves the per-sector discipline is load-bearing AND that the real within-sector Poisson is NOT a pooling artifact (it is measured within-sector, where pooling cannot have acted).",
+
+  "method_commitments": {
+    "data": "sessionK/maass_level1_partial.csv — 600 level-1 arithmetic Maass eigenvalues r_j with parity symmetry in {0,1}.",
+    "primary_discriminant": "mean r-tilde (unfold-free adjacent-gap ratio) computed WITHIN each parity sector. Poisson=0.386, GOE=0.5307, GUE=0.603, GSE=0.676.",
+    "secondary": "NNS KS distance vs Poisson/GOE within sector.",
+    "synthetic_brackets": "hand-built, matched to each sector's N: Poisson (exponential spacings) and GOE (Dumitriu-Edelman beta=1 tridiagonal, diag ~ N(0,2), b_i ~ sqrt(chisquare(1*(n-i))), central window). B>=300 realizations -> finite-N r-tilde band (mean, sd) for z-scoring. Sanity-print synthetic Poisson~0.386 and GOE~0.53 before use.",
+    "pooling_decoy": "2 synthetic GOE sectors pooled (merged-sorted) -> r-tilde; must drift below the single-sector GOE band toward Poisson. The sentinel that false-Poisson is constructible by pooling.",
+    "both_sectors": "report BOTH parity sectors independently (CP1 reported one)."
+  },
+
+  "sealed_prediction": {
+    "sensitivity_prior": "HIGH and KNOWN here (unlike Phases 1-3, this is confirm-known not discover): r-tilde separates Poisson 0.386 vs GOE 0.531 by ~0.145 at finite-N sd ~0.016 (N~266-334) -> ~9sigma power. The instrument WILL resolve the class.",
+    "specificity_prior_HELD": "Whether each real sector actually sits at Poisson is the measured question; the hand-built brackets + pooling decoy are the specificity guarantees. I do NOT assume the answer from CP1.",
+    "substantive_point_estimate": "BOTH parity sectors' r-tilde sit at POISSON (~0.386-0.40), excluding the synthetic GOE bracket by >=6sigma, confirming CP1. The pooling decoy will show pooled-synthetic-GOE drifts from ~0.53 toward Poisson (false-Poisson constructible), establishing that the real within-sector Poisson is NOT a pooling artifact.",
+    "note_on_the_4_for_4_pattern": "The sensitivity-underclamp pattern (Phases 1-3) is about DISCOVERY under-prediction; this is confirm-known, so it does not directly apply. Sensitivity is high and known. I hold specificity at face value and do not let 'CP1 says Poisson' pre-load the verdict.",
+    "both_outcomes_precommitted": {
+      "sits_at_poisson": "CP1 RE-VALIDATED through an independent construction + a pooling-guard CP1 lacked; the arithmetic endpoint is certified against a confound-free GOE bracket. Branch (i) (the rate) becomes well-posed (endpoints now independently known).",
+      "sits_away_from_poisson": "CP1 CHALLENGED — investigate the data completeness / sector assignment / the original construction before trusting the anomaly claim downstream. A substantive negative, not a failure."
+    }
+  }
+}
