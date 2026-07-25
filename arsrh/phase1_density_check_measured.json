@@ -1,0 +1,28 @@
+{
+  "anti_claim": "instrument-resolution / confound-isolation; NOT about RH",
+  "uniform_null_mean": 0.601309309611357,
+  "uniform_null_sd": 0.007584659072812284,
+  "rows": [
+    {
+      "gamma_mid": 1420.416526324,
+      "zeta_rtilde": 0.6171739754378627,
+      "matched_density_null_mean": 0.5998577125741614,
+      "matched_density_null_sd": 0.007063031166198852,
+      "uniform_null_mean": 0.601309309611357,
+      "zeta_minus_matched": 0.01731626286370125,
+      "excess_over_matched_sd": 2.451675839485277
+    },
+    {
+      "gamma_mid": 1131971.617977163,
+      "zeta_rtilde": 0.5989705133180773,
+      "matched_density_null_mean": 0.5999367388973907,
+      "matched_density_null_sd": 0.005596068134554911,
+      "uniform_null_mean": 0.601309309611357,
+      "zeta_minus_matched": -0.0009662255793134733,
+      "excess_over_matched_sd": -0.17266151091820528
+    }
+  ],
+  "low_gamma_density_explains_deviation": false,
+  "residual_beyond_density_at_any_height": true,
+  "verdict": "REAL RESIDUAL: zeta <r~> exceeds the matched-density GUE null beyond its sd at some height(s), so there is a genuine finite-height component BEYOND the density gradient. The crossover survives the density confound (partly)."
+}

@@ -80,3 +80,34 @@ Bogomolny); Phase 1's contribution is that the ARS classifier resolves it above 
 deterministic-noise floor, not a novel ζ claim. **Verification status:** reviewed against reported
 numbers, not independently audited; the claim is as good as `phase1_zeta_crossover.py` being faithful
 to the deployed ⟨r̃⟩ path (scripts committed + deterministic).
+
+## ⚠ CORRECTION (reviewer) — the unfold falsifier was POWERLESS; the matched-density null is the right test (and vindicates the crossover)
+
+The reviewer caught a real error in the confound-exclusion above. **"raw == unfolded exactly" proves
+r̃ is unfold-*invariant* — so the unfold test had *zero power* to detect a density confound**
+(unfolding is a no-op on r̃; I ran a falsifier that structurally could not fire). The three-way
+agreement was one fact (r̃ ignores unfolding) shown three ways, orthogonal to whether the raw
+low-γ density gradient inflates ⟨r̃⟩. And my Dumitriu–Edelman null was built at **uniform** density
+(central flat window), **not** matched to the ζ window's gradient — so it could not have caught a
+density contribution either. Both true.
+
+The test that *has* power is the **matched-density null** (`phase1_density_check.py`): GUE local
+fluctuations placed on the ζ window's R–vM density backbone, then r̃.
+
+| γ_mid | ζ ⟨r̃⟩ | matched-density GUE null | uniform GUE null | ζ − matched |
+|---|---|---|---|---|
+| 1.42e3 (steep gradient) | 0.6172 | 0.5999 ± 0.0071 | 0.6013 | **+0.0173 (2.4σ)** |
+| 1.13e6 (flat control) | 0.5990 | 0.5999 | 0.6013 | −0.001 |
+
+**Imposing the ζ density gradient on GUE does NOT inflate r̃** (matched null 0.600 ≡ uniform null) —
+so r̃ ignores the smooth density gradient just as it ignores unfolding; it is a *purely local
+adjacent-gap statistic*, invariant to both. And ζ **exceeds the density-matched null by 2.4σ** at
+low γ, clean at high γ. **The crossover is vindicated — real finite-height behavior beyond density —
+now on the test that had power.** (The earlier "confound excluded via unfold agreement" is corrected
+to "excluded via matched-density null"; the unfold agreement excludes only the unfolding artifact,
+which is a no-op.)
+
+**Reusable fact banked:** on ζ, r̃ is invariant to *both* unfolding and smooth density gradient
+(local statistic) — therefore **unfold tests and uniform-density nulls are both powerless against a
+density confound; only a matched-density null can clear it.** This is a property of the statistic,
+reusable on every finite-window ⟨r̃⟩ claim.

@@ -1,0 +1,54 @@
+{
+  "anti_claim": "transition location is an INSTRUMENT property, NOT Lambda; deliverable is the classifier RESOLUTION in dBN t. No Lambda estimate, no RH inference.",
+  "window": {
+    "N": 4000,
+    "gamma_mid": 2516.571049142,
+    "median_gap": 1.0461165400001846,
+    "interior_W": 2000,
+    "jitter_floor": 0.00447213595499958,
+    "rtilde_t0": 0.6169095899987321
+  },
+  "forward": [
+    {
+      "t": 0.0,
+      "rtilde": 0.6169095899987321,
+      "dev": 0.01424958999873216
+    },
+    {
+      "t": 0.02,
+      "rtilde": 0.6720217066640498,
+      "dev": 0.06936170666404984
+    },
+    {
+      "t": 0.05,
+      "rtilde": 0.7354929748883768,
+      "dev": 0.13283297488837686
+    },
+    {
+      "t": 0.11,
+      "rtilde": 0.823942092236275,
+      "dev": 0.22128209223627504
+    },
+    {
+      "t": 0.22,
+      "rtilde": 0.9133445180790724,
+      "dev": 0.3106845180790724
+    },
+    {
+      "t": 0.4,
+      "rtilde": 0.9702519339722053,
+      "dev": 0.36759193397220535
+    },
+    {
+      "t": 0.8,
+      "rtilde": 0.9954253620519742,
+      "dev": 0.3927653620519742
+    }
+  ],
+  "d_rtilde_dt_at_0": 2.755605833265884,
+  "rise_over_bracket_0_0.22": 0.2964349280803402,
+  "CLASSIFIER_t_RESOLUTION_dBN": 0.001622922952554249,
+  "backward_first_collision_tstar": -0.001,
+  "verdict": "Forward: <r~>(t) rises monotonically from GUE 0.603 toward the crystalline limit; the rigidity crossover is RESOLVABLE within the [0,0.22] bracket (rise 66.3x the jitter floor). The classifier localizes the heat-flow rigidification with a RESOLUTION of ~0.002 in dBN t at this window/height (floor/slope) \u2014 THE PORTABLE NUMBER. Backward: the window's realness boundary (first collision) sits at t*=-0.001, a finite-window instrument boundary set by the closest Lehmer-type pair. \u00a70 ANTI-CLAIM: none of this estimates Lambda or bears on RH; it is the classifier's resolution on a theorem-bracketed control parameter.",
+  "resolution_vs_bracket": "classifier t-resolution ~0.002 vs the 0.22 theorem bracket width -> the instrument could place a transition to within ~1% of the bracket at this window/height (portable to other substrates)."
+}
