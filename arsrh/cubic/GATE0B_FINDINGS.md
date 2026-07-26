@@ -24,12 +24,29 @@ the same defect shape as the Palm–Khintchine null and the Maass desymmetrizati
 
 ## 2 — Stratum 3 as defined is EMPTY, and why
 
-"Cyclic **without** an order-3 element of PGL₂(Q)" cannot occur. Over Q̄ a 3-cycle on three distinct
-points determines M uniquely. If σ generates Gal = C₃ with α_i ↦ α_{i+1}, then σ(M) is the unique map
-sending σ(α_i) ↦ σ(α_{i+1}), i.e. α_{i+1} ↦ α_{i+2} — which **is** M. So σ(M) = M, and
-PGL₂(Q̄)^Gal = PGL₂(Q) by Hilbert 90. **Every cyclic cubic has its 3-cycle realised over Q.**
+> **GRADING NOTE (reviewer's, taken).** As first written this was *stated* as a theorem and
+> *evidenced* as a census — "Hilbert 90 kills it: 0 of 162" — and those carry different grades. Named
+> mechanism, asserted capability. Written out below, so the theorem is the claim and the census is a
+> check. **And the slot matters:** stratum A's cleanliness does **not** depend on any of this. It rests
+> on α₂ ∉ Q(α₁), which stands alone. What follows governs only whether a *fourth* stratum exists.
 
-**Verified: 0 of 162 cyclic cubics in the census lacked a rational Möbius map.**
+"Cyclic **without** an order-3 element of PGL₂(Q)" cannot occur.
+
+**Proof.** Let K be the (cyclic, degree 3) splitting field, σ a generator of Gal(K/Q) labelled so that
+σ(α_i) = α_{i+1}. Over K̄ a Möbius map is determined by the images of three distinct points, so there is
+a unique M with M(α_i) = α_{i+1}. Now σ(M) is the unique map sending σ(α_i) ↦ σ(α_{i+1}), i.e.
+α_{i+1} ↦ α_{i+2} — which is M itself. So **σ(M) = M in PGL₂(K)**.
+
+Lift: let M̃ be any matrix representing M, and pick an entry e ≠ 0 (M̃ ≠ 0). Put M̃′ = M̃/e, so that
+entry of M̃′ is 1. Then σ(M̃′) has that entry equal to σ(1) = 1, and σ(M̃′) represents σ(M) = M, as does
+M̃′; two matrices representing the same element of PGL₂ differ by a scalar c, and comparing the chosen
+entry gives 1 = c·1, so c = 1. Hence σ(M̃′) = M̃′ **entrywise**, for every σ, so every entry of M̃′ lies
+in the fixed field Q. ∎
+
+**No cohomology is needed** — the appeal to Hilbert 90 (via PGL₂(K̄)^Gal = PGL₂(Q)) is a remark, not the
+load-bearing step. **Every cyclic cubic has its 3-cycle realised over Q**, as a theorem.
+
+**Census as a check, not as the claim: 0 of 162 cyclic cubics lacked a rational Möbius map.**
 
 ## 3 — The replacement stratum is the determinant, and the classification is gapless
 

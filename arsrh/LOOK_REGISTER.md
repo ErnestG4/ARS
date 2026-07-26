@@ -1374,3 +1374,77 @@ Filed because this is the program's central parameter and the extension was pre-
 - **Owed before any seal, NOT delivered:** injection at controlled coincidence fraction **and** controlled
   jitter width, detection floor reported jointly on both axes. **Axis 1 alone does not discharge §5.**
 - **Pre-registered or post-hoc:** **POST**. **Status:** OPEN — blocking the seals.
+
+### R-071 — the rate formula, quoted at the precision it has (supersedes R-069's licensing sentence)
+- **R-069 said "any |det| can be sized without running it." WITHDRAWN.** The honest summary of the nine
+  ratios was ~20% typical / 35% worst, with the worst at the largest |det| — accuracy degrading in the
+  direction of extrapolation.
+- **Two causes, both in my derivation.** (i) **P(g | event) ≠ P(g)** — an unstated assumption. The g = t
+  branch has factor 1 and transfers everything, and events are enriched in it (|t|=13: 0.0674 → 0.1077;
+  |t|=29: 0.0365 → 0.0750 — exactly the two anomalous strata). The conditional histogram is a
+  **within-object** quantity, free at design time. (ii) **λ = a + δ, δ ∈ [0,2)**, so `a ≥ A` and
+  `λ ≥ A` disagree at order 2/A; the four |t|=17 misses were **one event seen in four polynomials**.
+- **My error bar was wrong in both directions.** Per-event p is heterogeneous (p = 1 on g = t), so
+  variance is Σ_g n_g p_g(1−p_g), not N·p̄(1−p̄) — the pooled form deflates χ². Corrected, p = 1 branches
+  have zero model variance and a single miss gives unbounded z. **Per-branch validation is the only
+  honest form**, and every g < t branch agrees (p = 0.06–1.00, no pattern).
+- **LICENSED:** verified over **|det| = 1…289 at ±12%**. |t| = 43's deciding branch holds **2 events on
+  1 field**, so **above |det| ≈ 300 the formula is UNCALIBRATED — not contradicted, uncalibrated.**
+- **Still standing:** the rate does not fall like 1/|Δ| because the g = |Δ| branch caps at 1.
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED at the stated band.
+
+### R-072 — the census was a fact about a coefficient box, and the witness count is far below it
+- Frame was **monic, |A|,|B|,|C| ≤ 12**. Cyclic fraction by box: 7.438% (N=6), 3.007% (12), 0.945% (24),
+  0.463% (40) — **measured log-log exponent −1.46** (I predicted −2; quote the measurement). Cyclic
+  cubic **fields** have density zero (Davenport–Heilbronn vs the cyclic count), so **"97% of cubics are
+  S₃" is a slot error**; the correct sentence names the box.
+- **At N = 40, 184 distinct discriminants back 1196 polynomials.** This bit R-069/R-071 directly: the
+  8-objects-per-stratum pooling was mostly **one field counted eight times**.
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED — a correction, applied.
+
+### R-073 — |t| ≡ 0 mod 3 is a SAMPLING ARTIFACT, and |t| is not a field invariant
+- **Realizable as a Möbius map:** M = (0,1;−9,3), t = 3, det 9 = t², M³ = −27·I verified, order 3.
+- **Realizable as a monic cubic:** the N = 26 search finds **|t| ∈ {3, 9, 15}**. The N = 12 census simply
+  did not reach one. **My hypothesis that integrality excludes 3 | t is falsified.** No theorem.
+- **Second construction, and it is the structural one:** the orbit invariant for that M gives
+  27x³ − 9x + 1 at s = 0, whose roots are **α/3 for α a root of y³ − 3y + 1** — the Shanks t = 1 cubic.
+  **The same field carries t = 1 on its algebraic integers and t = 3 on their thirds.** |t| is a
+  GL₂(ℤ)-invariant of the **object**, not of the field; x ↦ x/3 is not in GL₂(ℤ).
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED.
+
+### R-074 — the floor DOES transfer from cyclic to S₃, and the check was powered
+- The floor depends on **events per unit u** and nothing else. 24 objects/stratum, **distinct
+  discriminants**, λ ≥ 20: A **0.06119 ± 0.00113**, B 0.05976 ± 0.00103, C 0.06023 ± 0.00103.
+- **A vs B +0.94 sem, A vs C +0.63 sem; worst |z| over all four anchors and all pairs = 1.25.**
+- **Powered:** the sem is **1.8% of the value**, so the test could have caught a **4% difference**.
+- **NOT claimed:** that the strata are identical in every respect — only the one quantity the floor
+  depends on. (All four A-vs-theory z's are positive, +1.24…+1.66; the strata agree with each other, so
+  the transfer is unaffected. Looks like a shared finite-n bias; not chased.)
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED — TRANSFER LICENSED.
+
+### R-075 — axis 2 delivered: the joint (fraction × jitter) detection floor, multiplicity-corrected
+- Synthetic Gauss–Kuzmin processes calibrated to R-074's anchors (0.0602 vs 0.06119 ± 0.00113 ev/unit u).
+  **No target data touched; no real pairing computed anywhere.**
+- **Detector (sealable verbatim):** S(w) = max over lag L of #{(i,j) : |u_i − v_j − L| ≤ w}, exact by
+  sliding a 2w window over the sorted pairwise-difference multiset. Null: permutation over pairings.
+- **The single-w floor is POST-HOC** — w chosen with hindsight. The sealable statistic fixes the ladder
+  in advance: **T = min over a pre-registered w-ladder of the null-tail probability of S(w)**, T's null
+  from the same permutation. 5% threshold is **T ≤ 0.0368**, not 0.05 — that gap is the multiplicity cost.
+- **FLOOR (80% power, corrected):** f_min = **0.05** (J=0), **0.10** (J=0.05), **0.10** (J=0.2),
+  **0.20** (J=1.0). Equal to the post-hoc row at this grid, so the multiplicity cost is **smaller than
+  one step of the f-grid** — not zero, smaller than resolved.
+- **The ladder arm occupies the J = 0 column and only that column**, at f = 1.00/0.48/0.21/0.12/0.08 for
+  |det| = 1/4/25/169/841. Everything to the right is reachable only by injection.
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED — R-066 and R-070 are now dischargeable.
+
+### R-076 — Hilbert 90 was asserted as mechanism and evidenced as census; now proved elementarily
+- **The defect:** "Hilbert 90 kills it: 0 of 162" states a theorem and evidences a census. Named
+  mechanism, asserted capability — the arc's most-repeated shape.
+- **Written out, no cohomology needed.** σ(M) = M in PGL₂(K) since both send α_{i+1} ↦ α_{i+2}. Lift:
+  normalise M̃ by a nonzero entry so that entry is 1; σ(M̃′) has the same entry 1 and represents the same
+  projective element, so the connecting scalar is 1 and σ(M̃′) = M̃′ entrywise. All entries lie in Q. ∎
+  Hilbert 90 is now a **remark**, not the load-bearing step; the census is a **check**.
+- **SLOT, and it is the point that matters:** **stratum A's cleanliness does not depend on any of this.**
+  S₃ rests on α₂ ∉ ℚ(α₁), which stands alone. This governs only whether a **fourth stratum** exists, so
+  the target's grade is unaffected either way. Separated so no later reader has the target inherit it.
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED.
