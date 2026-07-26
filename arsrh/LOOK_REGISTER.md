@@ -1076,3 +1076,62 @@ grade as addition.
   unsurprising — but it was **unpredicted**, which is the distinction.
 - The 0.6% point-estimate agreement was computed at V = 0.170, below this run's range; at the actual
   mean V the honest figure is **2.77%**.
+
+---
+
+## Phase 9 — R-053 RESOLVED from inside
+
+### R-056 — **The form question is settled, and the answer voids both comparisons**
+- **The "local" row is struck**, per the reviewer: it was obtained by differentiating an asymptotic
+  carrying an o(T) error, and d/dT of o(T) is **not** o(1) — it is unbounded. The algebra was right
+  (coefficient exactly 1, 0.00471 at the centroid) but the object does **not** inherit the theorem's
+  grade and was never a legitimate prediction.
+- **The "cumulative" row is also void, and the data say why.** Computed directly with the same exact
+  O(W) machinery over all 2×10⁶ zeros, G(T) = (2π²/T)∫₀^T S²dt − lnln(T/2π):
+
+| T | 7.5×10⁴ | 2.0×10⁵ | 4.3×10⁵ | 7.1×10⁵ | 9.8×10⁵ | 1.13×10⁶ |
+|---|---|---|---|---|---|---|
+| G(T) | 1.29685 | 1.30660 | 1.31346 | 1.31715 | 1.31937 | **1.32041** |
+| G − K | −0.104 | −0.094 | −0.088 | −0.084 | −0.082 | **−0.081** |
+
+  **Goldston's asymptotic has NOT converged at accessible heights** — 5.8% short at the top, rising at
+  0.0927 per unit lnln, extrapolating to arrival near **T ~ 10¹³.**
+- **So the Phase-7/8 comparison was against a constant the data show is not yet reached**, and the
+  "leading order rejected at 0.45%" reading was right about the *measurement* and wrong about the
+  *meaning*: it is not that ζ deviates from theory, it is that **the theory's asymptotic has not
+  arrived.** `a` ≈ 0.12–0.15 is a **parameterisation of the non-convergence**, not a physical
+  next-order coefficient.
+- **This is R-009 one observable over.** That entry already measured Selberg's CLT variance at
+  **1.80× the asymptotic** at γ≈1420 and filed it as a *window property, not a result about ζ*. The
+  same phenomenon, on the same axis, and I did not connect them.
+- **Two of the three form axes are NULL, measured:** centred-vs-uncentred gives ⟨S⟩² = **0.000000**
+  (0.00% of V); u-average vs t-average differ by **10⁻⁶**. Only cumulative-vs-local mattered, and it
+  matters for a reason neither of us named. Machinery check: dI/dT equals the local M2(t) to **10⁻¹³**.
+- **Stub, per the reviewer's flag:** ∫₀^γ₁ S²dt = **0.8974**, worth 0.001% of K at T=10⁶. Real,
+  computed, negligible.
+- **Phase 7's grade, finally:** not a finding about ζ, and not slot-uncertain either — **a measured
+  window property: the second-moment asymptotic is ~6% from arrival at the top of the catalogue.**
+- **Status:** RETIRED (R-053 resolved; no lit query was needed)
+
+### R-057 — `a`: five values, one symbol, one table
+Filed because this is the program's central parameter and the extension was pre-registered against it.
+
+| value | estimator | lnX convention | source |
+|---|---|---|---|
+| 0.118 | sampled | 10.33 (mid-arm) | slope 0.05008 ± 0.00026, W≥10000 combined |
+| 0.140 | **exact** | 10.33 (mid-arm) | slope 0.049974 ± 0.000226 |
+| 0.146 | **exact** | 10.759 (centroid) | phase8 a_fit = (C−sl)/C·e^x̄ |
+| 0.116 | **exact** | 10.759 (centroid) | intercept offset ÷ (C/lnX) |
+| "~0.15" | — | — | my loose verbal reference to the above |
+
+  The spread is **two estimators × two lnX conventions**, not five measurements. **And all five are
+  now void as physical coefficients** (R-056): they parameterise non-convergence.
+- **Status:** RETIRED (superseded by R-056; table kept so the drift is not repeated)
+
+### R-058 — Non-√W scaling: two independent instances, promote from quirk to property
+- ⟨r̃⟩ floor: c = sd·√W grows 0.243 → 0.303 over W = 2000 → 10000 (R-002/§9, filed "a fact about the
+  statistic, untested"). **Var[S]:** σ_V ratio W=10⁴ → 2×10⁴ is **1.21, not √2 = 1.41** (R-055).
+- **Two statistics, same direction, is no longer one statistic's quirk** — it is a property of block
+  estimates on these spectra, and both instances belong attached to it.
+- **Consequence:** any error bar anywhere in the repo computed by assuming √W scaling is **optimistic**.
+- **Status:** OPEN (promoted; §9's "untested" line superseded)
