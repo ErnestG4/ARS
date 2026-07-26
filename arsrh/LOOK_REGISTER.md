@@ -1319,3 +1319,58 @@ Filed because this is the program's central parameter and the extension was pre-
   *certified* PQ**; 10⁴ PQs/object needs **~10,300** digits, not ~5,200.
 - Negligible at 10⁴; it is the factor that bites at 10⁵, where §6 already flags O(n²) extraction.
 - **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED — a correction, applied.
+
+### R-065 — DEMOTED: the cyclic half was wrong; Shanks's simplest cubics are the counterexample
+- **What R-065 claimed:** the derivable mechanism is absent on the Galois-conjugate target "by theorem,
+  in both sub-cases." **The S₃ half stands. The cyclic half is FALSE.**
+- **Counterexample, named and verified:** x³ − ax² − (a+3)x − 1, roots permuted by a Möbius map over ℚ.
+  Measured a = 0…11: **M = (1,1;−1,0), t = 1, |det| = 1**, disc = 81, 169, 361, … all perfect squares
+  and positive ⇒ totally real cyclic ⇒ **members of the target arm's own population**, and unimodular
+  ⇒ Serret-equivalent, shared CF tail, **ρ = 1 with no attenuation**.
+- **The error, precisely: I tested a REPRESENTATIVE, not the CLASS.** "α₂ = f(α₁), deg f = 2" is true and
+  does not imply the automorphism has no Möbius representative — two rational functions can agree on
+  the three roots while differing as functions, and only the Möbius one transfers approximation quality.
+  Generalisable: *a property of a map on a finite set is not a property of the formula written for it.*
+- **Consequence is a POOLING error, not a scope trim** — the target arm as specified averages a ρ=1
+  subfamily against a presumed-ρ=0 subfamily. Same shape as the Palm–Khintchine null and the Maass
+  desymmetrization.
+- **Status:** DEMOTED to the S₃ case only. Superseded by R-068.
+
+### R-068 — the target arm is THREE strata, and only S₃ is a clean target
+- **Stratum 3 as proposed ("cyclic without an order-3 PGL₂(ℚ) element") is EMPTY.** Over Q̄ a 3-cycle on
+  3 points determines M uniquely; σ(M) = M for the cyclic generator; PGL₂(Q̄)^Gal = PGL₂(ℚ) by
+  Hilbert 90. **Measured: 0 of 162 cyclic cubics lacked a rational Möbius map.**
+- **The real stratifier is |det|.** Cayley–Hamilton on a coprime-integer M with M³ = λI forces
+  **Δ = t²** — so |det| = 1 iff |t| = 1. **Gapless:** if M, M′ both send α₁↦α₂ then M⁻¹M′ fixes α₁, and a
+  non-identity rational Möbius map has fixed points of degree ≤ 2, so **M is unique** and Serret
+  equivalence holds **iff |Δ| = 1**. |Δ| is a GL₂(ℤ)-conjugation invariant ⇒ an invariant of the object.
+- **A** S₃, no rational Möbius map — **clean target**. **B** cyclic |t|=1 — ceiling, ρ=1.
+  **C** cyclic |t|>1 — graded, attenuation g²/t².
+- **Census** (|A|,|B|,|C| ≤ 12, irreducible, disc > 0; n = 5388): S₃ **96.99%**; cyclic **3.01%**, split
+  **80 / 82** between |t| = 1 and |t| > 1, with |t| ∈ {2,4,5,7,11,13,17}. Δ = t² on all 162.
+- **So the "interesting middle" is nonempty — it is half the cyclic population**, just not where it was
+  expected. Classification is per-object and costs **0.4 s for 5388 cubics**: disc square-or-not, then |t|.
+- **Pre-registered or post-hoc:** **POST**. **Status:** OPEN — this is the corrected target definition.
+
+### R-069 — the dial is a formula, verified; stratum B/C replace the ∛m arm
+- Law generalises unchanged: **λ′ = (g²/|Δ|)λ**, g = gcd(ap+bq, cp+dq), and **g | Δ** (verified on every
+  convergent tested). Stratum B gives λ′ = λ exactly, hit rate **100.0%**, a = 88 → 88 — the shared tail.
+  Hit rates **100 / 47.7 / 17.8 / 6.9%** at |det| = **1 / 4 / 25 / 169**.
+- **Event-level rate is what the seals need, and it is predicted:**
+  **rate = Σ_g P(g)·min(1, g²/|Δ|)**. Predicted vs measured: 1.00, 1.00, 0.99, 1.35 (cyclic) and
+  1.02, 0.99, 1.17, 0.82, 0.90 (∛m). **Any |det| can be sized without running it.** Note the rate does
+  **not** fall like 1/|Δ| — the g = |Δ| branch transfers everything and sets the floor.
+- **Stratum B replaces the ∛m ladder as positive control** (same ceiling, but inside the target's own
+  construction, so it controls for construction); **stratum C replaces the m-dial** for the same reason.
+- **Pre-registered or post-hoc:** **POST**. **Status:** OPEN.
+
+### R-070 — axis 2 (jitter) has NO handle in real data; §5's margin is still undischarged
+- The ladder places partners at an **exact** lag: asymptotic (n ≥ 200) spread **2–5×10⁻¹³**, the numerical
+  floor. Full-range spreads of 1e−2…1e−1 are a small-q transient, not jitter.
+- So the ladder varies **count at fixed perfect alignment** and nothing else. The target's plausible weak
+  signal is the opposite shape — **many events, partially coincident, smeared in u** — and a detector
+  calibrated on "few but perfect" is **uncalibrated** for "many but smeared."
+- **Dirichlet precedent is exact:** the amplitude gate was unpowered until the injected control fired.
+- **Owed before any seal, NOT delivered:** injection at controlled coincidence fraction **and** controlled
+  jitter width, detection floor reported jointly on both axes. **Axis 1 alone does not discharge §5.**
+- **Pre-registered or post-hoc:** **POST**. **Status:** OPEN — blocking the seals.

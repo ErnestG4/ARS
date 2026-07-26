@@ -89,11 +89,22 @@ factor **1/5 or 5** — and det(3,1;1,2) = **5**. So the law is general:
 CF tails," in its non-unimodular form where |Δ| ≠ 1 turns equality of tails into a graded distortion.
 The (∛m, ∛m²) "anomaly" is that fact and nothing else.
 
-And **Galois conjugates of a cubic are not GL₂(Q)-equivalent.** For an S₃ cubic, α₂ ∉ Q(α₁) at all. For
-a *cyclic* cubic α₂ = f(α₁) with f ∈ Q[x] of degree 2 — which by the table above transfers **nothing**.
-So the derivable mechanism is **absent by theorem** on the target arm, in both sub-cases. That is a
-much sharper target than "no obvious reason": a positive would have to come from somewhere with no
-candidate source, and a negative is what the theory says.
+> ### ⚠ CORRECTED — the paragraph that stood here was WRONG on the cyclic sub-case.
+> It read: *"Galois conjugates of a cubic are not GL₂(Q)-equivalent. For an S₃ cubic, α₂ ∉ Q(α₁) at all.
+> For a cyclic cubic α₂ = f(α₁) with f ∈ Q[x] of degree 2 — which by the table above transfers nothing.
+> So the derivable mechanism is absent by theorem on the target arm, in both sub-cases."*
+>
+> **The S₃ half stands.** The cyclic half is false, and Shanks's simplest cubics x³ − ax² − (a+3)x − 1
+> are the named counterexample: their roots are permuted by a Möbius map with **det 1**, i.e.
+> Serret-equivalent, shared CF tail, ρ = 1 with nothing dialing it down.
+>
+> **My error, precisely: I tested a representative, not the class.** "α₂ = f(α₁) with deg f = 2" is
+> true, and it does not imply the automorphism has no Möbius representative — two rational functions
+> can agree on the three roots while differing as functions, and it is the Möbius one that transfers.
+> The question is a property of the map on the root set, not of the polynomial one writes it with.
+>
+> See `GATE0B_FINDINGS.md` for the corrected classification. The target arm splits into three strata
+> and **only the S₃ stratum is a clean target.**
 
 ## 5 — What is NOT resolved
 
