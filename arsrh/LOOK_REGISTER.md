@@ -1616,3 +1616,43 @@ Filed because this is the program's central parameter and the extension was pre-
 - **Why it mattered:** an unchecked overlap deficit would have weakened the *limit* while leaving the
   *null* intact — a defect that only shows up on the number being reported, not on the verdict.
 - **Status:** CLOSED.
+
+### R-090 — the target comparison had the SAME domain defect, and removing it moves nothing
+- The amendment in Addendum 2 was confined to the I1 block: `events()` and the target statistic were
+  untouched, so the sealed target number is not a function of that fix. **But the reviewer's underlying
+  point is correct and stronger:** the target statistic compares two objects over **unintersected
+  certified domains** as well, and I bounded that empirically (+0.33%, 1.78 sem) rather than removing it.
+- **POST-HOC robustness check, labelled as such because the answer was already known.** Restricting both
+  event sets to their common u-range, for real pairs and null pairs alike:
+  sealed **2/72 pairs, 1/24 fields, p = 0.708**; domain-intersected **2/72, 1/24, p = 0.708**.
+  Per-pair threshold moves 0.0225 → 0.0250; field threshold unchanged at 0.0100.
+- **This is a second instance of R-088's headline inside the same run:** the defect was present, and
+  removing it changed nothing, so **nothing in the result would have looked wrong.** The empirical
+  +0.33% bound was not load-bearing — but that was not knowable in advance.
+- **Status:** CLOSED. The sealed statistic remains the result; this is a sensitivity check, not a
+  restatement.
+
+### R-091 — the field-level expectation, with its definition attached
+- **1.2 is right, and only under its definition.** The statistic is **T_field = min over the field's 3
+  conjugate pairs**, compared against the null distribution **of min-of-3 from permuted triples**, with
+  the threshold at that null's 5th percentile. So **P(detect | H₀) = 0.05 by construction** — one
+  calibrated test per field, multiplicity already inside the statistic — and 24 × 0.05 = **1.2**.
+- **24(1 − 0.95³) = 3.4 is the ANY-PAIR-FIRES reading**, a different statistic that was not computed.
+- Observed **1/24**. Null under either convention, so the conclusion is robust; **the number needed its
+  definition attached, and now carries it.** **Status:** CLOSED.
+
+### R-092 — THE UNIFICATION: nine failures, one defect, one mechanical check
+- Across four programs, Will's and mine in roughly equal share: **component vs fit parameter; local vs
+  cumulative form; two denominators; unweighted mean vs weighted whole; a-tail vs λ-threshold (twice);
+  polynomial units vs field units; smoothed proxy vs integer count; p_fit vs polynomial order;
+  mismatched certified domains.** Nine instances of **the two sides of a comparison not being
+  commensurable.**
+- **THE CHECK:** *before comparing two numbers, verify both sides are the same **quantity**, in the same
+  **units**, over the same **domain**, at the same **unit of analysis**.* Four clauses because each of
+  the nine fails a different one. Not generic correct-fact/wrong-slot — the **comparison-specific** face
+  of it, and unlike slot discipline it is a ten-second checklist.
+- **And the design lesson that came with it (R-088, R-090):** the domain bug changed **no** answer —
+  p = 0.708 either way, verified. **A design that only catches defects when they change the answer
+  catches nothing here.** A pre-written condition on an *instrument* arm caught it when it didn't.
+  That is the argument for writing the failure condition first, and it is stronger than "the seal worked."
+- **Status:** BANKED — memory `commensurability_check.md`. The arc's one durable finding about process.
