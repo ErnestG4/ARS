@@ -478,3 +478,63 @@ grade as addition.
   **count deficit against the exact counting function**, not "integer-valued drift in S".
 - **Status:** **RETIRED** — diagnosed. (The four objects remain worth re-fetching as a data-hygiene
   chore, but nothing methodological is open.)
+
+---
+
+## Scout-series additions (unsealed; no significance values quoted)
+
+### R-024 — Berry's 8% must be RE-GRADED DOWN: consistent, non-discriminating
+- **Seen:** Σ²(L)/2·Var[S] oscillates — measured 0.70, 0.83, 0.97, 1.08, 1.10, 0.95, 0.86, 1.13 at
+  L = 0.5…64 on the top block. An envelope of roughly ±20–30% about 1.
+- **Consequence:** §10's "bracketed, not attributed — 2·Var[S] = 0.3077 vs plateau 0.2829, 8%" was a
+  **single point inside an oscillating envelope**. Any theory with the right mean lands within 8% at a
+  randomly chosen L, so the agreement **does not discriminate**. **Re-grade: CONSISTENT,
+  NON-DISCRIMINATING** — until the curve is matched *as a curve*, not at a point.
+- **Where:** `scout2_cap_and_power.py` [A]; supersedes the grade in `LOOK_ARC_TASKB_FINDINGS.md` §4.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** the 8% number is not wrong and the saturation identity is not in doubt — it was
+  verified to 5 decimals. What is withdrawn is its **discriminating power**, which is the property the
+  "excluded-because-known" grade rests on. This is the honest cost of the oscillation discovery and it
+  propagates to the brief, not just to a scout header.
+- **What would make it a lead:** match Σ²(L) as a curve against Berry's oscillatory formula over a
+  densely sampled L, not at a plateau point.
+- **Status:** OPEN
+
+### R-025 — L_sat = 1.62 is the FIRST crossing, not "the" saturation scale
+- **Seen:** with an oscillating target, GUE's log-growing Σ² can cross ζ's curve more than once.
+  L_sat solves gue(L) = 2·Var[S], which locates the **first** crossing of the asymptotic *limit*.
+- **NOT claimed:** the parting-of-ways conclusion survives untouched — GUE grows without bound, ζ
+  oscillates about a finite limit, so they diverge. Only the uniqueness of the number is withdrawn.
+  Cite it as "first crossing", never as "the saturation scale", or it will be read as a wall.
+- **Status:** OPEN (qualifier required at every citation)
+
+### R-026 — Prime-power peaks: attribution EARNED
+- **Seen:** frequency rescaled by L̄ = ln(γ/2π) puts the explicit formula's terms at log p^k for every
+  block. 20 blocks averaged, peak-**found** (not sampled at predicted spots): **8/8 maxima land on log
+  of a prime power**, |Δ| ≤ 0.0002 — log 2, 3, 4, 5, 7, 9, 11, 13. Composite non-prime-power integers
+  are silent (log 6 → 1.4× median, log 10 → 2.5×, log 12 → 2.8×) against log 2 at 14,440×.
+- **Where:** `scout3_primes_and_systematics.py` [3].
+- **Pre-registered or post-hoc:** **POST**, but the location prediction was fixed before the peak-find.
+- **NOT claimed:** **locations only.** Amplitudes against a (log p)²/p^k weight give ratios 49–77 across
+  the 8 peaks — within a factor 1.6, with a mild monotone decline. Suggestive; the exact Berry weight
+  was not checked, so the magnitude law is **not** bracketed. Also: this is a *rediscovery* of known
+  structure (the explicit formula), not a new finding — its value is that it converts our own
+  attribution from candidate to bracketed.
+- **Why the control class matters:** composites are a **built-in** control class rather than a
+  hand-picked one — the explicit formula sums over prime *powers*, so 6/10/12 *must* be absent. A
+  control class the theory itself specifies is stronger than one chosen by the analyst.
+- **Status:** OPEN (locations earned; amplitudes open)
+
+### R-027 — Systematics budget for the Selberg-coefficient program
+- **completeness:** on ζ, per-block count deficit mean +0.005, sd 0.503, corr with ln γ = **−0.138** —
+  no height drift. sd consistent with endpoint S-fluctuation (√2·sd[S] = 0.63), not missing zeros.
+  Also calibrates the detector on a known-complete catalogue: **0 ± 0.5**, against which Dirichlet's
+  four outliers at +1.3…+1.9 sit 2.6–3.8σ out.
+- **curvature:** the bias is `C·(mean_over_block[lnln] − lnln(γ_mid))`, second-order, **not** the
+  within-block range I first reported. Measured at both ends: **0.10× σ_V** at the low end (curv
+  1.0419), ~0 at the top. **Controlled by construction** if the abscissa is mean-over-block lnln.
+- **demean bias:** constant at fixed W ⇒ hits the intercept, not the slope. This is why the seal
+  belongs on the **coefficient**.
+- **NOT claimed:** these are the systematics we thought to look for. σ_V is sampling scatter and cannot
+  see a systematic that varies with height; three are now checked, others are untested.
+- **Status:** OPEN
