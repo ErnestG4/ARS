@@ -1,0 +1,111 @@
+{
+  "anti_claim": "instrument follow-ups; NOT about RH",
+  "F1": {
+    "whole": 0.45795931676821455,
+    "E_within": 0.45765174310542456,
+    "V_between": 0.0009336713993853536,
+    "residual": -0.0006260977365953586,
+    "part_means": [
+      1.0005020080321285,
+      1.0,
+      1.0,
+      0.9308087891538102
+    ],
+    "straddling_windows": 12,
+    "total_windows": 8143
+  },
+  "F2": {
+    "rows": [
+      {
+        "i": 1,
+        "gamma_mid": 472.799174662,
+        "inv_log": 0.23143896239165715,
+        "rtilde": 0.6161612323116739
+      },
+      {
+        "i": 2,
+        "gamma_mid": 1125.314729398,
+        "inv_log": 0.192754699033496,
+        "rtilde": 0.6173922139455004
+      },
+      {
+        "i": 3,
+        "gamma_mid": 1706.256032432,
+        "inv_log": 0.17843824583321818,
+        "rtilde": 0.616673205616423
+      },
+      {
+        "i": 4,
+        "gamma_mid": 2251.845318339,
+        "inv_log": 0.17002094661395595,
+        "rtilde": 0.6169086923113883
+      }
+    ],
+    "P1_local_slope": 0.08920547344132876,
+    "predicted_span": 0.005478823175276835,
+    "observed_span": 0.0012309816338265112,
+    "observed_slope": -0.011426636125797486,
+    "sd_N500_range": [
+      0.010885178914468977,
+      0.008982467894236996
+    ],
+    "predicted_span_in_sd": [
+      0.6099463131721248,
+      0.5033287204856306
+    ],
+    "verdict": "UNDERPOWERED \u2014 no tension established, and none excluded"
+  },
+  "F3": {
+    "sectors": {
+      "0": {
+        "n": 266,
+        "S_sd_levels": 0.8136453908390286,
+        "trends": {
+          "2": {
+            "trend_sd_levels": 0.6174172303731141,
+            "var_fraction": 0.5758205411601757
+          },
+          "3": {
+            "trend_sd_levels": 0.6243404948706562,
+            "var_fraction": 0.5888066027155261
+          },
+          "5": {
+            "trend_sd_levels": 0.6246764127095927,
+            "var_fraction": 0.5894403717964425
+          }
+        }
+      },
+      "1": {
+        "n": 334,
+        "S_sd_levels": 0.8781062141216642,
+        "trends": {
+          "2": {
+            "trend_sd_levels": 0.7295690406789327,
+            "var_fraction": 0.6903013006561624
+          },
+          "3": {
+            "trend_sd_levels": 0.7385796727613947,
+            "var_fraction": 0.7074578998254483
+          },
+          "5": {
+            "trend_sd_levels": 0.7391943775124862,
+            "var_fraction": 0.7086359953463094
+          }
+        }
+      }
+    },
+    "zeta_poly3_misfit_levels": 2.764
+  },
+  "F4": {
+    "block_top": 2515.286482925,
+    "zeros_below": 1999,
+    "rvm_smooth_prediction": 1999.379875619502,
+    "P1_effect": 0.017316,
+    "ceiling_sigma": [
+      3.196866655681923,
+      3.1807783031895553
+    ],
+    "P1_achieved": 2.45,
+    "status": "PERMANENTLY DATA-LIMITED"
+  }
+}

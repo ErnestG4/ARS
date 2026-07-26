@@ -289,3 +289,65 @@ grade as addition.
   measurement arm reads effect 6.69 sd, leverage 0.00 sd → **PROCEED**. R-010's original "degenerate
   between a real excess and height-mixing" was **too strong and is withdrawn**. What survives is the
   attribution question. **Status: OPEN (attribution only).**
+
+---
+
+## Phase 5c additions
+
+### R-016 — Maass fixed-theory Weyl law leaves 58–71% of S(R) as smooth trend
+- **Seen:** residual S(R) after `maass_analysis.py`'s theory-fixed fit (R², R·lnR fixed; affine {R,1}
+  fitted): parity 0 sd = 0.8136 levels, of which a deg-2 fit captures **0.6174 levels = 57.6%** of Var[S];
+  parity 1 sd = 0.8781, deg-2 captures **0.7296 = 69.0%**. Saturates by deg-3 (58.9% / 70.9%) → genuinely
+  low-frequency, not a probe artifact.
+- **Where:** `phase5c_followups_measured.json` → `F3`; `sessionK/maass_analysis.py:44-58`.
+- **Pre-registered or post-hoc:** **POST** (the check was proposed pre-run by the reviewer as the
+  companion to R-015's cap-clear, then computed)
+- **NOT claimed:** **does not touch CP1 / Phase 4's endpoint verdict** — that rests on ⟨r̃⟩, which is
+  unfold-invariant, so this systematic cannot reach it; 7.3σ / 6.4σ stand. Not claimed that the Weyl
+  constants are wrong — an asymptotic law with a remainder leaving a low-order residual at finite R is
+  expected; what is claimed is that the residual is **unabsorbed**, so it rides in the statistic.
+- **What would make it a lead:** it already is one. Re-read any Σ²/long-range Maass quantity with the
+  trend removed, and compare. Being under the L_max cap does not help — the cap bounds contamination
+  **reach in L**, this is an **amplitude** problem inside it.
+- **Cost to check:** minutes.
+- **Status:** OPEN
+
+### R-017 — The low-γ region is permanently data-limited
+- **Seen:** below γ = 2515.3 there are **1999 zeros in the entire catalogue** (R-vM smooth: 1999.4), so
+  `zeros6[:2000]` is the whole population below its own top, not a window choice. Best-ever ⟨r̃⟩ floor
+  there is 0.00542–0.00544, so P1's 0.01732 excess has a **permanent ceiling of 3.18–3.20σ** and its
+  measured **2.45σ is 77% of everything that can ever exist at that height.**
+- **Where:** `phase5c_followups_measured.json` → `F4`.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** not that P1 is maxed out in general — going higher in γ buys resolution (4520 zeros
+  below γ=5000, 10142 below γ=10⁴) but the effect decays with height, which is P1's own finding. The
+  ceiling is specific to the height where the effect is largest.
+- **What would make it a lead:** nothing — it is a boundary, not a lead. It **retires** the earlier
+  status lines "expensive" and "available but self-defeating", both of which implied a tradeoff to
+  navigate. There is no tradeoff.
+- **Cost to check:** done.
+- **Status:** OPEN (standing constraint)
+
+### R-018 — The low-γ internal-slope test is permanently underpowered
+- **Seen:** P1's local slope extrapolated below its mapped range predicts a ⟨r̃⟩ span of **+0.00548**
+  across the four sub-blocks; observed span **0.00123**, fitted slope −0.0114 vs predicted +0.0892;
+  per-sub-block jitter **0.0090–0.0109**. Predicted span = **0.50–0.61 sd**.
+- **Where:** `phase5c_followups_measured.json` → `F2`.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** **no tension established between the flat profile and P1's mechanism, and none
+  excluded.** The opposite-sign fitted slope is not evidence at this N. This is a null **with stated
+  power**, not a null.
+- **What would make it a lead:** nothing at low γ — this is R-017 appearing in a second place. The
+  predicted internal variation (~0.005) sits at the noise floor of every zero that exists below γ=2515
+  (~0.0054), so no re-cut of the block helps. The test is only available at heights where the effect has
+  already decayed.
+- **Cost to check:** done.
+- **Status:** OPEN (standing constraint)
+
+### R-010 — status update: the averaging argument is a theorem
+- Upgraded from demonstrated to **proved**: law of total variance, Var(N) = E_g[Var(N|g)] + Var_g(E[N|g]);
+  θ equalizes density ⇒ second term vanishes ⇒ whole = window-count-weighted mean of parts, and any
+  residual density mismatch makes that term **positive, never negative**. So whole ≥ weighted mean ≥ min
+  part, and the entailment holds **a priori and in the conservative direction**. The Phase 5b +0.0117
+  "excess" is retired: it was an **unweighted** mean compared against a quantity requiring window-count
+  weighting (`PHASE5C_FINDINGS.md` §2); the exact decomposition closes to 0.14%.
