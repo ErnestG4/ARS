@@ -1,4 +1,12 @@
 """
+*** SUPERSEDED FRAMING — see scout2_cap_and_power.py [A]. This file calls 2*Var[S] a "cap".
+    It is the L->infinity LIMIT, not a cap: Sigma^2(L) = 2Var[S] - 2Cov(S(u),S(u+L)), and Sigma^2
+    EXCEEDS it wherever Cov < 0. Measured on the top block, Sigma^2/2Var[S] crosses 1 in both
+    directions (0.70, 0.83, 0.97, 1.08, 1.10, 0.95, 0.86, 1.13 at L=0.5..64). There is no wall at
+    L_sat. What is true: GUE grows like log L without bound while zeta oscillates about a finite
+    limit, so ABOVE L_sat GUE CEASES TO BE AN ADMISSIBLE BRACKET FOR ZETA -- and the admissible
+    bracket becomes Berry, which predicts the oscillation now visible in Cov(L).
+
 SCOUT (not a phase, no seal): is ζ's long-range row actionable, or open-in-principle-only?
 
 The three gates say ζ's long range is OPEN — θ exact, p_fit=0, no reach cap, no amplitude problem.
@@ -7,8 +15,8 @@ is the entire population at that height and 7.4× heterogeneous. The catalogue h
 γ ~ 1.13e6, where blocks can be BOTH large and homogeneous.
 
 Before proposing to point the certified instrument there, ask the feasibility question the arc's own
-rule 7 demands: WHERE IS THE RMT WINDOW, as a function of height? Berry saturation caps Σ² at 2·Var[S];
-if that cap sits below GUE's Σ²(L) for all accessible L, there is no window and the row is open only in
+rule 7 demands: WHERE IS THE RMT WINDOW, as a function of height? Berry saturation bounds Σ² at 2·Var[S];
+if that limit sits below GUE's Σ²(L) for all accessible L, there is no window and the row is open only in
 the instrument sense.
 """
 from __future__ import annotations
