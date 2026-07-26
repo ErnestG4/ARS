@@ -848,3 +848,53 @@ grade as addition.
   unasked question.** Rule 13's underclaim face at the level of research conduct — downgrade for absence
   of verification, never for caution, and *asking* is not the thing that needs guarding.
 - **Status:** OPEN (standing rule)
+
+### R-046 — **The 0.0203 was never wrong. It was the SYNTHETIC's intercept.**
+- The synthetic has no zeros, hence **no F-integral**. Verified independently: for n = p^m,
+  Λ(n)²/(n log²n) = **1/(m²p^m)** exactly (max |diff| 3.5×10⁻¹⁸ over 15 cases), so
+  Σ_{p^m≤X} 1/(m²p^m) = **lnln X + C₀ − Σ** (checked at X = 10⁴…10⁷; residual 7.4×10⁻⁴ → 5.0×10⁻⁷,
+  the Mertens error term). Therefore **Var[S_synth] = (1/2π²)[lnln X₀ + C₀ − Σ]** — Goldston's
+  expression *minus the F-integral*, which is precisely what a prime-sum-only object should be.
+- **So C·(M + C₂) = 0.020313 correctly predicts R-040's tracking arm.** Correct-fact/wrong-slot — the
+  program's dominant error mode, landing on its final number.
+- **R-040 upgrades from one prediction to three, pre-registered here:**
+
+| quantity | predicted |
+|---|---|
+| tracking arm (X₀ = t/2π), slope | **0.050660592** |
+| tracking arm (X₀ = t/2π), intercept | **0.020313269** |
+| ζ intercept (Goldston, SPCC) | **0.070973861** |
+| **ζ − synthetic intercept difference** | **0.050660592 = 1/2π² = the F-integral** |
+
+- **The third is the valuable one.** Both arms run through the **identical estimator**, so estimator
+  bias **cancels in the difference**. That measures the F-integral without needing Goldston's constants
+  to precision and without common-mode bias, because the synthetic side is known in **closed form**
+  rather than resting on o(T).
+- **R-044 nonetheless stays a LOOK:** o(T) remains on the ζ side. But the differential form is the
+  right way to take it if it is ever taken — materially better than the direct handle.
+- **Status:** OPEN (pre-registered; unrun)
+
+### R-047 — The third failure mode reorders the diagnostic sequence
+- Three ways a measurement–prediction gap resolves, now all three observed in this arc:
+  **(a) instrument** (R-029: a point-sampled peak is not an amplitude) — residual is an artifact, work
+  is to remove it; **(b) convention** (R-039: sharp-vs-smooth cutoff) — same, no owner;
+  **(c) an omitted term in a published expression** (R-043: the F-integral) — **the residual is a real
+  quantity someone has already named.**
+- **(c) has a property the others lack, and it is the cheapest to check.** So the first question when
+  measurement and prediction disagree is **"does a published expression for this quantity contain a
+  term I omitted?"** — one query, cheaper than an instrument audit or a convention audit, and it
+  belongs **before both.**
+- **Measured cost of not running it here:** two register entries (R-036's residual, R-039's
+  not-sharp-enough) and a full cycle, both superseded by one lookup. See [[R-045]].
+- **Status:** OPEN (standing rule; reorders R-029/R-039's sequence)
+
+### R-041 — AMENDED AGAIN: a = 0.118 is zero-dof, and the fallback lever does not exist
+- Fitting one correction coefficient from one deficit is **zero degrees of freedom** — unfalsifiable
+  as stated, and the temptation is to treat the fitted value as the explanation.
+- **The proposed second lever is NOT available at this lever arm.** Over lnln 2.148→2.493,
+  corr(1, 1/ln X) = **−0.999** and the design matrix [lnln, 1, 1/ln X] has condition number **4107**.
+  A 3-parameter fit is degenerate by construction; disjoint γ sub-ranges make it worse, not better.
+- **PRE-COMMIT:** take `a` from Chan's ratios-conjecture expansion **independently**, and use the
+  measurement to **test** it. Do not offer sub-range consistency as a fallback — it is unavailable and
+  saying so now prevents it being reached for later.
+- **Status:** OPEN
