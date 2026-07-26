@@ -616,11 +616,59 @@ grade as addition.
   overstated the agreement at the same time.
 - **Also corrected:** the log-8 ratio is **0.501 ± 0.006**, not "0.500". The prediction is exact by
   construction; the measurement carries the ratio's scatter and must not borrow the prediction's digits.
-- **Status:** OPEN (the ~2σ residual is unexplained; n=13 and n=9 are the low points and were also the
-  two locations at ~2.1 sem)
+- **Re-slotted:** the weight law is a **theorem**, so a p≈0.03 residual is **not tension with the law** —
+  it is a **measured noise floor for the readout**. That is the useful reading and it is what the number
+  should be filed as. And by **R-031's own rule**, this 0.9% is a spec for the **periodogram-amplitude**
+  observable and does **not** become a budget entry for the Var[S] slope — a systematic's order is a
+  property of the (systematic, observable) pair, including this one. R-031 applied to R-031's output.
+- **Status:** OPEN (noise floor for the periodogram readout: ~0.8% statistical, ~0.9% systematic)
 
 ### R-033 — Rank and ratio are ONE witness
 - If the ratios are constant, the rank order follows automatically. Spearman ρ is a **coarsening** of
   the ratio statistic, not an independent check of it. R-026 filed them as two brackets; they are two
   headings on one measurement. §2's family collapse, one substrate over.
 - **Status:** RETIRED (filing corrected)
+
+### R-034 — **RETRACTION.** The certification gate does not discharge the lnln prerequisite
+- **What was claimed:** that Scouts 3–6 certified ARS's long-range readout at high γ and therefore
+  discharged the lnln program's calibrator prerequisite. **That is wrong**, and it is the
+  capability-claim-from-correct-mechanism failure again.
+- **Measured (`scout7_band_decomposition.py`):** Var[S] = (1/2π²)·Σ_p Σ_k 1/(k²p^k), whose leading part
+  is Σ_{p≤X} 1/p = lnln X + M. The certified peaks are n ≤ 16, i.e. **primes ≤ 13**, whose 1/p mass is
+  **1.3440 — a constant.**
+  - their contribution to Var[S] = **0.07494** against a measured intercept of **0.0738** → the
+    certified band accounts for **101.5% of the intercept**;
+  - across the lever arm the Mertens cutoff X = t/2π runs 5,259 → 179,411, so **15,587 primes enter**,
+    carrying 1/p mass 0.3440 → ×C = **0.01743** against a predicted rise of **0.01748**;
+  - **fraction of that carried by primes ≤ 13: 0.0%.**
+- **So: the certification measured the INTERCEPT and the program measures the SLOPE. Disjoint bands of
+  the same spectrum**, confirmed to ~1.5%.
+- **Second, independent reason it does not transfer:** Var[S] weights the prime sum by Λ(n)²/(n log²n);
+  the periodogram I certified weights it by Λ(n)²/n, because S is the *integral* of the density
+  fluctuation and the two spectra differ by ω² = log²n. Both weights are correct for their own
+  observable — and **the density weight suppresses exactly the tail that carries the growth**
+  (weight-sum over p ≤ 13: density 3.4858 vs Var[S] 1.4793, the Mertens object).
+- **What the certification IS worth:** the readout reproduces theorem-grade structure — nine locations,
+  correct rank, correct weight exponent, theory-specified controls, a passed pre-registered falsifier —
+  at **both** ends of the height range. That is a Phase-0-grade calibrator result and stronger than
+  Farey/Hall (one distribution matched vs a nine-point structured prediction). It is **not** a
+  prerequisite for the slope.
+- **THE GATE THAT IS ACTUALLY NEEDED — still open:** *tail fidelity and cutoff drift.* The lnln growth
+  **is** the moving cutoff (Mertens with X = t/2π), so the question is not whether the physical cutoff
+  drifts — it must — but whether the **estimator's** effective cutoff tracks it faithfully at every
+  height. An estimator cutoff drifting differently manufactures or destroys lnln growth directly.
+  Test: vary S-sampling resolution and block length; the **slope** must be stable while the intercept
+  moves. Argued but **not measured**, and nothing in Scouts 3–7 touches it.
+- **Status:** OPEN — this is the real prerequisite.
+
+### R-035 — The 1.44 is explained, and the certification is stronger for it
+- **Seen:** predicted periodogram amplitude for a resonant mode scales as **W/L̄²** (span = W·2π/L̄), so
+  the LOW/HIGH ratio should be **(L̄_HI/L̄_LO)²** with block means: **1.431 predicted vs 1.441–1.464
+  measured.** Absolutes: HIGH 138.8 predicted vs 133.5 measured; LOW 198.6 vs 194.2 — both inside the
+  ~4% spread.
+- **NOT claimed:** the reviewer's candidate (mean-spacing) was right; the exponent is **2, not 1** —
+  their 1.41 used the L̄ ratio and endpoints where the correct form is the square with block means.
+- **Consequence:** height-invariance holds **including the overall scale**, not only the n-dependence.
+  An unexplained 1.44 sitting inside a certification is exactly where such a thing quietly parks; it is
+  now explained.
+- **Status:** RETIRED
