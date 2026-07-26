@@ -176,80 +176,81 @@ def irreducible(A, B, C):
     return True
 
 
-# ------------------------------------------------------------------ [S] the Shanks check
-p_("=== GATE 0b — stratification of totally real cubics ===\n")
-p_("[S] Shanks's simplest cubics  x^3 - a x^2 - (a+3) x - 1  (reviewer's counterexample)")
-p_(f"  {'a':>4s} {'disc':>10s} {'square?':>8s} {'Mobius (a,b,c,d)':>20s} {'t':>4s} {'|det|':>6s} {'stratum':>10s}")
-shanks = []
-for aa in range(0, 12):
-    A, B, C = -aa, -(aa + 3), -1
-    if not irreducible(A, B, C):
-        continue
-    D = disc(A, B, C)
-    sq = math.isqrt(D) ** 2 == D if D > 0 else False
-    M = mobius_of_cubic(A, B, C)
-    if M is None:
-        p_(f"  {aa:>4d} {D:>10d} {str(sq):>8s} {'-- none found --':>20s}")
-        continue
-    a, b, c, d, t, Dl = M
-    st = "CEILING" if abs(Dl) == 1 else "GRADED"
-    shanks.append((aa, D, t, Dl))
-    p_(f"  {aa:>4d} {D:>10d} {str(sq):>8s} {str((a,b,c,d)):>20s} {t:>4d} {abs(Dl):>6d} {st:>10s}")
+if __name__ == "__main__":
+    # ------------------------------------------------------------------ [S] the Shanks check
+    p_("=== GATE 0b — stratification of totally real cubics ===\n")
+    p_("[S] Shanks's simplest cubics  x^3 - a x^2 - (a+3) x - 1  (reviewer's counterexample)")
+    p_(f"  {'a':>4s} {'disc':>10s} {'square?':>8s} {'Mobius (a,b,c,d)':>20s} {'t':>4s} {'|det|':>6s} {'stratum':>10s}")
+    shanks = []
+    for aa in range(0, 12):
+        A, B, C = -aa, -(aa + 3), -1
+        if not irreducible(A, B, C):
+            continue
+        D = disc(A, B, C)
+        sq = math.isqrt(D) ** 2 == D if D > 0 else False
+        M = mobius_of_cubic(A, B, C)
+        if M is None:
+            p_(f"  {aa:>4d} {D:>10d} {str(sq):>8s} {'-- none found --':>20s}")
+            continue
+        a, b, c, d, t, Dl = M
+        st = "CEILING" if abs(Dl) == 1 else "GRADED"
+        shanks.append((aa, D, t, Dl))
+        p_(f"  {aa:>4d} {D:>10d} {str(sq):>8s} {str((a,b,c,d)):>20s} {t:>4d} {abs(Dl):>6d} {st:>10s}")
 
-# ------------------------------------------------------------------ [H]+[T] the census
-p_("\n[H]+[T] census over x^3 + A x^2 + B x + C, |A|,|B|,|C| <= 12, irreducible, disc > 0")
-N = 12
-n_tr = n_cyc = n_s3 = 0
-found, missing = [], []
-tcount = Counter()
-for A in range(-N, N + 1):
-    for B in range(-N, N + 1):
-        for C in range(-N, N + 1):
-            D = disc(A, B, C)
-            if D <= 0 or not irreducible(A, B, C):
-                continue
-            n_tr += 1
-            if math.isqrt(D) ** 2 != D:
-                n_s3 += 1
-                continue
-            n_cyc += 1
-            M = mobius_of_cubic(A, B, C)
-            if M is None:
-                missing.append((A, B, C, D))
-            else:
-                a, b, c, d, t, Dl = M
-                tcount[abs(t)] += 1
-                found.append((A, B, C, D, a, b, c, d, t, Dl))
+    # ------------------------------------------------------------------ [H]+[T] the census
+    p_("\n[H]+[T] census over x^3 + A x^2 + B x + C, |A|,|B|,|C| <= 12, irreducible, disc > 0")
+    N = 12
+    n_tr = n_cyc = n_s3 = 0
+    found, missing = [], []
+    tcount = Counter()
+    for A in range(-N, N + 1):
+        for B in range(-N, N + 1):
+            for C in range(-N, N + 1):
+                D = disc(A, B, C)
+                if D <= 0 or not irreducible(A, B, C):
+                    continue
+                n_tr += 1
+                if math.isqrt(D) ** 2 != D:
+                    n_s3 += 1
+                    continue
+                n_cyc += 1
+                M = mobius_of_cubic(A, B, C)
+                if M is None:
+                    missing.append((A, B, C, D))
+                else:
+                    a, b, c, d, t, Dl = M
+                    tcount[abs(t)] += 1
+                    found.append((A, B, C, D, a, b, c, d, t, Dl))
 
-p_(f"  totally real irreducible cubics in the box : {n_tr}")
-p_(f"    S3      (disc not a square)              : {n_s3}  ({100*n_s3/n_tr:.2f}%)")
-p_(f"    cyclic  (disc a square)                  : {n_cyc}  ({100*n_cyc/n_tr:.2f}%)")
-p_(f"\n  [H] cyclic cubics with NO rational order-3 Mobius map: {len(missing)}")
-if missing:
-    p_(f"      {missing[:5]}   <-- Hilbert-90 argument would be WRONG")
-else:
-    p_("      -> stratum 3 as defined (cyclic, no Mobius map) is EMPTY, as the argument predicts.")
+    p_(f"  totally real irreducible cubics in the box : {n_tr}")
+    p_(f"    S3      (disc not a square)              : {n_s3}  ({100*n_s3/n_tr:.2f}%)")
+    p_(f"    cyclic  (disc a square)                  : {n_cyc}  ({100*n_cyc/n_tr:.2f}%)")
+    p_(f"\n  [H] cyclic cubics with NO rational order-3 Mobius map: {len(missing)}")
+    if missing:
+        p_(f"      {missing[:5]}   <-- Hilbert-90 argument would be WRONG")
+    else:
+        p_("      -> stratum 3 as defined (cyclic, no Mobius map) is EMPTY, as the argument predicts.")
 
-p_(f"\n  [T] |trace| of the coprime-integer representative (Delta = t^2):")
-for t in sorted(tcount):
-    lbl = "CEILING  (in GL2(Z): shared CF tail, rho=1)" if t == 1 else \
-          f"GRADED   (attenuation g^2/{t*t})"
-    p_(f"      |t| = {t}: {tcount[t]:>4d} cubics   |det| = {t*t:<4d}  {lbl}")
-p_(f"      check Delta == t^2 on every one: "
-   f"{all(Dl == t*t for *_, t, Dl in found)}")
+    p_(f"\n  [T] |trace| of the coprime-integer representative (Delta = t^2):")
+    for t in sorted(tcount):
+        lbl = "CEILING  (in GL2(Z): shared CF tail, rho=1)" if t == 1 else \
+              f"GRADED   (attenuation g^2/{t*t})"
+        p_(f"      |t| = {t}: {tcount[t]:>4d} cubics   |det| = {t*t:<4d}  {lbl}")
+    p_(f"      check Delta == t^2 on every one: "
+       f"{all(Dl == t*t for *_, t, Dl in found)}")
 
-p_(f"\n  distinct Mobius maps found (up to sign), by |t|:")
-seen = {}
-for A, B, C, D, a, b, c, d, t, Dl in found:
-    seen.setdefault(abs(t), set()).add((a, b, c, d))
-for t in sorted(seen):
-    ex = sorted(seen[t])[:4]
-    p_(f"      |t|={t}: {len(seen[t])} distinct, e.g. {ex}")
+    p_(f"\n  distinct Mobius maps found (up to sign), by |t|:")
+    seen = {}
+    for A, B, C, D, a, b, c, d, t, Dl in found:
+        seen.setdefault(abs(t), set()).add((a, b, c, d))
+    for t in sorted(seen):
+        ex = sorted(seen[t])[:4]
+        p_(f"      |t|={t}: {len(seen[t])} distinct, e.g. {ex}")
 
-json.dump({"box": N, "n_totally_real": n_tr, "n_S3": n_s3, "n_cyclic": n_cyc,
-           "n_cyclic_without_mobius": len(missing),
-           "trace_counts": {str(k): v for k, v in sorted(tcount.items())},
-           "shanks": [[a, D, t, Dl] for a, D, t, Dl in shanks],
-           "examples": found[:40]},
-          open(os.path.join(HERE, "gate0b_stratify_measured.json"), "w"), indent=2)
-p_("\nwrote gate0b_stratify_measured.json")
+    json.dump({"box": N, "n_totally_real": n_tr, "n_S3": n_s3, "n_cyclic": n_cyc,
+               "n_cyclic_without_mobius": len(missing),
+               "trace_counts": {str(k): v for k, v in sorted(tcount.items())},
+               "shanks": [[a, D, t, Dl] for a, D, t, Dl in shanks],
+               "examples": found[:40]},
+              open(os.path.join(HERE, "gate0b_stratify_measured.json"), "w"), indent=2)
+    p_("\nwrote gate0b_stratify_measured.json")
