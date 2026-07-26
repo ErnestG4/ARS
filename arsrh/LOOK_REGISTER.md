@@ -702,9 +702,14 @@ grade as addition.
   contribute **0.0% of the slope** because the slope comes from the 15,587 primes entering between
   X_lo and X_hi. That never depended on the intercept coincidence. Only the "101.5% of the intercept"
   flourish dies.
-- **What is now unexplained:** the intercept is **0.0725**, invariant to W and to resolution, against a
-  prime-sum prediction of C·(M + C₂) = **0.0203**. **0.052 unaccounted**, and it is a genuine constant
-  of the process, not an estimator artifact. Open.
+- **⚠ WITHDRAWN by R-039.** "0.052 unaccounted, a genuine constant of the process" audited only the
+  **measurement** side. The prediction 0.0203 assumes a *sharp* cutoff at X = t/2π and is not sharp
+  enough to support a gap — see R-039. Withdrawn as a claim.
+- **⚠ WEAKENED: "invariant to W" was too strong.** With the intercept's sem (0.00093–0.00345, typical
+  **0.00175**), the across-W spread of 0.00411 is **2.3 sem** — a small W-dependent term *is* present.
+  The sweep supports only the weaker statement: **demean bias is excluded as the DOMINANT term, not as
+  a few-percent one.** "Moves 5% non-monotonically" and "invariant to W" cannot both stand without the
+  error bar, and with it only the first survives.
 - **THE LOAD-BEARING RESULT IS BETTER THAN THE ARGUMENT IT REPLACES:** the **slope is measured-stable**
   — 0.0499–0.0503 for W ≥ 10000 and ≥2 pts/spacing, i.e. invariant across **16× in W** and **16× in
   resolution**. The coefficient seal is safe, and now for a *measured* reason rather than an argued one.
@@ -736,3 +741,59 @@ grade as addition.
   observable and do not credit it as the cutoff gate.** Two slots; the first does not discharge the
   second.
 - **Status:** OPEN
+
+### R-039 — Audit the PREDICTION before filing a residual
+- **Seen:** R-036 filed 0.052 as an unexplained constant after establishing the *measurement* was clean
+  (W- and resolution-invariant). The **prediction** was never audited. C·(M + C₂) = 0.02028 assumes a
+  **sharp** cutoff of the prime sum at X = t/2π, and that convention alone moves the constant:
+
+| convention | shift | intercept |
+|---|---|---|
+| sharp, X = t/2π | — | 0.02028 |
+| smooth w(u) = e^(−u) | C·(−γ_E) = **−0.02924** | −0.00896 |
+| X = (t/2π)² | C·log 2 = +0.03512 | 0.05540 |
+| X = t | C·log 2π = **+0.09311** | 0.11339 |
+
+- **Measured intercept 0.07411 ± 0.00175; gap vs sharp-t/2π = 0.05383; the convention span alone is
+  0.1224 wide.** The gap sits **inside** it. **The prediction is not sharp enough to declare a gap.**
+- **Generalises — R-029 one level up:** when measurement and prediction disagree and the measurement is
+  clean, **the prediction is the cheaper suspect.** R-029 said a structured residual may diagnose the
+  instrument; this says an unstructured one may diagnose the *theory-side convention*. Both times the
+  residual was real and both times it was not about the object.
+- **Checkable corollary, consistent with everything measured:** cutoff shape moves the **intercept** and
+  not the **slope**, because the slope is set by the density of primes entering, shape-independent to
+  leading order. This is why the coefficient seal survives the withdrawal.
+- **Status:** OPEN (narrowly scoped lit question, NOT a survey: *does an exact second-order constant for
+  the mean square of S(t) exist in the literature — Fujii and successors?* If yes, 0.052 becomes a
+  comparison rather than an open item. One question; the answer closes or sharpens it.)
+
+### R-040 — The fixed-X₀ null needs a tracking-X₀ positive arm
+- **Null-only is unpowered.** X₀ fixed ⇒ no lnln growth by construction; if the estimator returns zero
+  slope you have learned either that it manufactures nothing **or that it cannot see growth at all.**
+  The discriminator is the second arm: **X₀ = t/2π tracking, which must reproduce the full 0.0500.**
+- **Pre-tabulate** the smallest spurious slope the null can detect — the synthetic is cheap enough to
+  run to arbitrary precision, so there is no excuse for an unquantified floor.
+- **Construction verified:** each sine contributes variance ½, so
+  Var[S_synth] = (1/2π²)·Σ_{n≤X₀} Λ(n)²/(n log²n) — the correct weight for S, not for the density.
+- **Same lesson as the Dirichlet amplitude gate**, which was an unpowered pass until the injected-trend
+  control fired. Both arms, or it is the fourth inert falsifier.
+- **Status:** OPEN — this is the real cutoff gate.
+
+### R-041 — The slope now has an error bar, and systematics already dominate
+- **Seen:** inverse-variance combined over W ≥ 10000: **slope = 0.05008 ± 0.00026** (statistical).
+  Selberg 1/2π² = 0.05066 → **2.22σ low.**
+- **NOT claimed:** this is **not** a confirmation and **not** a tension. 2.2σ with a *statistical* error
+  bar, against an intercept whose W-drift is already 2.3 sem, means there is an unbudgeted systematic of
+  at least that size. **"Consistent with 1/2π²" stands; "measures 1/2π²" does not.**
+- **The design consequence, predicted two messages before it was measured:** at 0.5% slope precision the
+  program is **systematics-dominated before it has been sealed**. The seal belongs on the systematics
+  budget, not on power — and R-040 is the first entry that budget needs.
+- **Status:** OPEN
+
+### R-042 — Cross-slot collision 0.0724 / 0.0725: ruled out
+- Var[S]-at-the-zeros (Task B D1, γ≈1420 block, n=2000) = **0.07244**; the high-γ fit intercept =
+  **0.07411** — 2.3% apart, different data, different observable, different estimator. The fit
+  reproduces the scout table independently (0.1897/0.1959/0.1990 vs 0.1884/0.1945/0.1976), so the
+  intercept is doing real work in its own slot. **Coincidence.** Checked because this arc has been
+  bitten repeatedly by two slots sharing one number, and the check was a grep.
+- **Status:** RETIRED
