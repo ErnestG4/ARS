@@ -950,3 +950,65 @@ grade as addition.
 ### Phase 6 — what the ζ arm gives (the only clean result)
 - slope **+0.050164 ± 0.000814**, intercept **+0.072745 ± 0.001923** at W=5000, n=16 — consistent with
   the W-sweep and with Goldston. No new claim.
+
+---
+
+## Phase 7 — exact moments, and the program read
+
+### R-050 — The right estimator removed the systematic instead of gating it
+- **Move (reviewer's):** on (γ_j, γ_{j+1}), N(t) = j exactly, so in the **unfolded** variable
+  S(u) = j − u is **linear**. With s_j = j − u_j: interval length = 1 − s_{j+1} + s_j and
+  ∫S^k du = Σ_j [s_j^(k+1) − (s_{j+1}−1)^(k+1)]/(k+1). **Exact, O(W), no grid, no resolution
+  parameter, no aliasing, no height-dependent effective cutoff.** No θ² quadrature either — in u the
+  integrand is a cubic, so the reviewer's flagged concern dissolves.
+- **The cutoff-drift mechanism lived entirely in the sampling step. Deleting the step deleted the
+  mechanism** — R-040 is **VOID**, not open, and R-048's dead construction no longer matters.
+- **Measured cost of the step that was removed:** exact − sampled Var[S] = **−0.000048 (0.02%)**. So
+  the sampling bias was small and the earlier numbers were not materially wrong — the gain is the
+  *elimination of a class of concern*, not a correction.
+- **Third instance this arc** of the same move: count-deficit over smoothed drift (R-023); raw-t
+  coordinate over L̄-rescaled (R-031); exact integration over sampled (here). **Bank it: when a gate is
+  hard to build, first check whether a different estimator makes the systematic impossible.**
+- **My bug, same shape as several others:** I wrote "all O(1), numerically stable" and then used
+  **local** j with **global** u_j (~10⁶), so s was O(10⁶) and the fifth powers lost all precision —
+  negative variance, complex skewness. The *formula* was stable; the *implementation* was not
+  normalised. Caught by the output being obviously impossible, which is the only reason it was cheap.
+- **Status:** RETIRED (R-040 void, R-037 superseded)
+
+### R-051 — **The program, run: leading order is REJECTED, and the lever arm cannot fit the correction**
+- **Exact estimator, W=20000, n=20:** slope **0.049974 ± 0.000226** (Selberg 0.050661 → **−3.03 sem**);
+  intercept **0.073152 ± 0.000538** (Goldston 0.070974 → **+4.05 sem**).
+- **These are ONE degree of freedom, not two.** Over this lever arm the fitted slope and intercept have
+  correlation **−0.9991**, so a low slope *forces* a high intercept. The 3σ and 4σ are the same
+  discrepancy seen twice, and quoting them as independent tensions would be double-counting — the same
+  error as R-036's component-vs-fit-parameter comparison.
+- **What it means:** at 0.45% slope precision the **two-parameter (slope, intercept) model is
+  rejected.** The deficit corresponds to a next-order coefficient **a = 0.140** (the coarser earlier
+  fit gave 0.118). R-041's "the measurement is a joint constraint, not a coefficient test" is now
+  **measured** rather than inferred from a 2.2σ hint.
+- **⚠ Therefore the F-integral is NOT measured at 1.0430 ± 0.0106.** That is a 2-parameter reading of a
+  3-parameter reality, and the anti-correlation puts the missing correction directly into the
+  intercept. R-046's differential remains the right way to isolate it — but its synthetic arm is void.
+- **The terminal statement:** *the data are precise enough to show that leading order is wrong, and not
+  extended enough to fit the correction* (cond[lnln, 1, 1/lnX] = 4107 over this arm).
+- **This inverts the standing of the lever-arm extension.** Odlyzko's 10²¹/10²² tables were filed as a
+  next phase, not a prerequisite. They are now **what the measurement demands**: at ln X ≈ 46.8, lnln
+  reaches ≈3.85 against the current 2.493, 1/ln X falls to 0.021, and the collinearity that makes `a`
+  unfittable breaks. Caveats stand and are the reviewer's: 10⁴ zeros/block sits at the W-stability
+  boundary, one block per height gives no within-height σ_V, and 10²¹/10²² are nearly one lnln point.
+- **Status:** OPEN — and this is the program's actual result.
+
+### R-052 — Normality: skewness certifies, kurtosis drift fires in the predicted direction
+- **Exact moments, n=20:** skewness **+0.00010 ± 0.00026** against Selberg's 0 — **clean, R-038's slot
+  filled on this arm.**
+- Kurtosis **2.69690 ± 0.00376** against 3. The reviewer's Gaussian+sawtooth model
+  (kurt = [3σ_G⁴ + 6σ_G²/12 + 1.8/144]/V², σ_G² = V − 1/12) predicts **2.7474 → 2.7869** across the arm,
+  i.e. a **drift of +0.0396**. **Measured drift +0.0500 ± 0.0032 — 15.4 sem from zero, and +3.20 sem
+  from the prediction.**
+- **Reading:** the drift is real, in the predicted direction, at the predicted order — so the
+  contamination is **modelled, not merely named**, which is what R-038 needed. But it is **26% larger
+  than the idealised model**, and the point estimate is 2.77% off at the actual mean V (the reviewer's
+  0.6% used V = 0.170, below this run's range). Both gaps are expected from the model's own stated
+  idealisations: spacings are not uniform so the sawtooth variance is not exactly 1/12, and
+  independence of the two components is heuristic.
+- **Status:** OPEN — certification **achieved on skewness**, **directional on kurtosis**.
