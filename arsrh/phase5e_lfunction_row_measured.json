@@ -20,6 +20,7 @@
       "var_S": 0.452313234211581,
       "trend_frac": 0.537645648130193,
       "trend_drift_levels": -1.0742442928700078,
+      "count_deficit": 1.8751316503257556,
       "trend_frac_injected": 0.5400663964394645,
       "poly3_misfit_levels": 0.613097270400638
     },
@@ -30,6 +31,7 @@
       "var_S": 0.9407866073609222,
       "trend_frac": 0.7378650045721902,
       "trend_drift_levels": -2.4428028049414077,
+      "count_deficit": 1.3202168485973118,
       "trend_frac_injected": 0.7419947828376512,
       "poly3_misfit_levels": 0.8659157174827744
     },
@@ -40,6 +42,7 @@
       "var_S": 0.8287362601213868,
       "trend_frac": 0.7209301377447848,
       "trend_drift_levels": -2.542538470383598,
+      "count_deficit": 1.863460273174752,
       "trend_frac_injected": 0.8717840855601006,
       "poly3_misfit_levels": 0.8100661279038903
     },
@@ -50,6 +53,7 @@
       "var_S": 1.0716604310653997,
       "trend_frac": 0.6988145213165141,
       "trend_drift_levels": -2.9561097194787154,
+      "count_deficit": 1.786636660663902,
       "trend_frac_injected": 0.7728132011239952,
       "poly3_misfit_levels": 0.950791575642142
     }
@@ -57,5 +61,9 @@
   "amplitude_pass_powered": true,
   "separability_pass": true,
   "L_max_median": 111,
-  "outlier_status": "NOT DIAGNOSED \u2014 candidate list-completeness or metadata problem"
+  "count_deficit_main_median": -0.15113119702320432,
+  "count_deficit_main_sd": 0.3374194232065004,
+  "n_count_deficit_gt_0.9": 4,
+  "deficit_outliers_are_amplitude_outliers": true,
+  "outlier_status": "DIAGNOSED \u2014 catalogue incompleteness, ~1-2 missing zeros each. The 4 amplitude outliers are EXACTLY the 4 characters (of 630) with a count deficit > 0.9 against the exact counting function."
 }

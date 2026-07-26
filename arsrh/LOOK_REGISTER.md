@@ -455,20 +455,26 @@ grade as addition.
   trend positive control, which is the only reference that establishes power here.
 - **Status:** OPEN (Dirichlet measured; EC unmeasured)
 
-### R-023 — Four Dirichlet characters fail the amplitude gate, NOT diagnosed
+### R-023 — **DIAGNOSED and RETIRED.** Four Dirichlet characters are missing zeros
 - **Seen:** cleanly bimodal — 626 characters below 0.12%, and exactly **4 above 50%**: conductors 91
   (73.8%), 103 (72.1%), 121 (69.9%), 56 (53.8%). Those four carry sd[S] ≈ 0.67–1.04 against a main-
   population median of **0.272**, and a smooth-trend end-to-end drift of **−1.07 to −2.96 levels**
   against a main-population **0.008**.
 - **Where:** `phase5e_lfunction_row_measured.json` → `outliers`.
 - **Pre-registered or post-hoc:** **POST**
-- **NOT claimed:** **not an amplitude failure of the family** — the family passes on 626/630 with a
-  powered gate. **And not a diagnosed data bug either.** A single missing zero would give a drift of
-  exactly 1 level; three of these are 2.4–3.0. Conductor error, parity/primitivity metadata, complex-
-  character zero-list convention, and list incompleteness are all live and none is established.
-  **Candidate, not bracket** — the standard this arc applies to everyone else.
-- **What would make it a lead:** re-fetch those four from LMFDB and compare counts and metadata against
-  the cached list; if the drift resolves, the gate has just demonstrated a **per-object completeness
-  check** as a free by-product, which is reusable across every catalogued substrate.
-- **Cost to check:** minutes, plus network.
-- **Status:** OPEN
+- **DIAGNOSED (no re-fetch needed).** The exact counting function predicts how many zeros lie in
+  [γ_min, γ_max]; a catalogue missing k zeros shows a deficit ≈ k. Main population (626): median
+  **−0.151**, sd **0.337**. **Exactly 4 of 630 characters have a deficit > 0.9** — conductors 56
+  (**+1.88**), 103 (**+1.86**), 121 (**+1.79**), 91 (**+1.32**) — and they are **the same four objects**
+  as the amplitude outliers (verified by (conductor, n) identity, not by conductor alone). ~1–2 missing
+  zeros each. My earlier "not a single missing zero, so not diagnosed" reasoning was measuring the wrong
+  thing: the deg-2 **drift** is a *smoothed* proxy and reads non-integer by construction; the **count
+  deficit** is the clean form and it resolves cleanly.
+- **NOT claimed:** not an amplitude failure and not a density-model failure — the family passes 626/630
+  with a powered gate, and these four fail for want of data, not for want of a model.
+- **Consequence — the §6 byproduct is now SHOWN, not asserted:** the amplitude gate doubles as a
+  **per-object catalogue-completeness check**, free on every object it already processes, detecting a
+  data defect the statistics themselves would silently absorb. The correct diagnostic to bank is the
+  **count deficit against the exact counting function**, not "integer-valued drift in S".
+- **Status:** **RETIRED** — diagnosed. (The four objects remain worth re-fetching as a data-hygiene
+  chore, but nothing methodological is open.)
