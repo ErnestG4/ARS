@@ -377,6 +377,23 @@ grade as addition.
   untouched. It closes exactly one assumption: that ζ-measured r̃ invariance transfers to Maass.
 - **What would make it a lead:** nothing — it is closed. **Status: RETIRED.**
 
+### R-021 — Session-local document cited as banked record
+- **Seen:** the Luo–Sarnak reference originated in a web search during this session, entered the
+  long-range methods brief (**presented, never committed**), and was then cited as "the long-range brief
+  flagged" — which reads as repo provenance. `grep -rni "luo"` over the repo returns nothing.
+- **Where:** `PHASE5D_FINDINGS.md` §0. Reviewer-reported, not caught by CC.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** not that the reference is fabricated — the paper is real (CMP 161 (1994) 419–432) and
+  its substance was tested on merits and found unreachable (R-016). The defect is the **slot**, not the
+  value. Also not a variant of the catalogued modes: it is neither unquantified power nor a
+  wrong-slot *value* — it is a wrong-slot *source*, and it is invisible to §0b until the grep runs.
+- **What would make it a lead:** a provenance header on every brief marking each pointer **in-repo** vs
+  **in-session**, so the distinction survives the gap between writing and citing. Cheap, and it is the
+  structural fix rather than a per-instance patch. The deeper fix is to **commit** briefs that acquire
+  load-bearing pointers, so "session artifact" stops being a category that can be cited from.
+- **Cost to check:** a header per brief.
+- **Status:** OPEN
+
 ### R-020 — Reach / amplitude / separability: three gates, not one
 - **Seen:** **Reach** = L_max ≈ N/(2(p+1)); **Amplitude** = fraction of Var[S] that is smooth low-order
   trend; **Separability** = is the smooth counting known exactly or only asymptotically. ζ passes all
@@ -398,6 +415,12 @@ grade as addition.
   a ceiling.** Estimator of record: ⟨r̃⟩ = mean min/max of consecutive spacings on raw γ, block
   `zeros6[:2000]`, vs `phase1_density_check.py::matched_density_null` (DE β=2 tridiagonal central window
   on the R–vM backbone, W=2000, n_real=30, sd 0.007063).
+- **Second correction — the boundary is on the STATISTIC, not the block.** "The low-γ end of P1 is
+  exhausted; further movement must come from high γ" merged statistic with data and is withdrawn.
+  Σ²(L=1) reads **−6.69σ on the identical 1999 zeros** (different null, different correlation family — no
+  ratio claimed, and none needed). **Corrected: P1-as-⟨r̃⟩ is data-exhausted at low γ; the low-γ block is
+  not**, and the corroboration leg does not inherit the primary leg's boundary. Σ²'s low-γ headroom is a
+  separate open question under its own three gates (R-020).
 
 ### R-012 — status update: the rule must fire at RECOMMENDATION time
 - Both parties produced an uncomputed-power failure *after* naming the defect: a gate sealed at 0.3%

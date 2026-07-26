@@ -8,12 +8,24 @@ R-016 was ranked as the gate on **Luo–Sarnak number variance for arithmetic hy
 as "flagged in the long-range brief as the only theorem-grade long-range calibrator in the arc."
 
 **`Luo` appears nowhere in this repository.** `grep -rni "luo"` over all `.md`/`.py`/`.json`/`.txt`
-returns only "fluorescence". No brief flags it. The closest in-repo reference is Rudnick–Sarnak 1994
-(eigenstate behaviour, not number variance) in `PHASE34E_BRIEF.md`'s bibliography.
+returns only "fluorescence". The closest in-repo reference is Rudnick–Sarnak 1994 (eigenstate behaviour,
+not number variance) in `PHASE34E_BRIEF.md`'s bibliography.
 
-The paper is real — Luo & Sarnak, *Number variance for arithmetic hyperbolic surfaces*, CMP **161**
-(1994) 419–432. **The substance stands; the attribution does not.** Filed as the third inherited pointer
-this session that fails §0b, and tested below on its merits rather than on its provenance.
+**Corrected diagnosis (reviewer, self-reported): this was NOT an inherited pointer.** The reference
+originated in a web search during this session, went into the long-range methods brief — **a session
+artifact, presented but never committed** — and was then cited in a later message as "the long-range
+brief flagged", which reads as repo provenance.
+
+**That is a distinct defect class from the ones catalogued: a session-local document cited as banked
+record.** It is general, and it is invisible to a grep-based §0b check *until* the grep is run — which is
+exactly what happened. §0b worked as designed; it simply caught the reviewer rather than the brief.
+
+**And the consequence is larger than the provenance line, so it is stated here rather than absorbed into
+it.** Luo–Sarnak was the only theorem-grade long-range calibrator identified anywhere in this arc — the
+single positive contribution from the review side. §2 below shows it is **unreachable on ARS's Maass
+substrate** because separability fails, and no statistic repairs that. **The contribution dissolved, and
+it dissolved on merits, not on the provenance error.** The paper is real (CMP **161** (1994) 419–432);
+the calibrator is not available here.
 
 ## 1. The invariance one-liner — CP1's transferred assumption is now MEASURED
 
@@ -129,17 +141,29 @@ tridiagonal central-window levels imposed on the R–vM density backbone, W=2000
 This is my **fifth** slot error of the session and it landed in the one number flagged as "will get
 cited." The instinct to ask for the estimator was what caught it.
 
-## 5. Terminal line, merged
+## 5. Terminal line — CORRECTED, it merged statistic with data
 
-Both permanent boundaries have one root — **1999 zeros exist below γ = 2515**:
+The line first written here was: *"The low-γ end of P1 is exhausted. Any further movement on P1 must come
+from high γ."* **That is wrong, and wrong in this program's dominant mode — it merges the statistic with
+the data.**
 
-- P1's excess there is measured against all of them, at 2.452σ, with no larger W available.
-- P1's predicted *internal* variation (~0.005) sits at the noise floor of that same population, so the
+Both permanent boundaries have one root — **1999 zeros exist below γ = 2515** — but both are boundaries on
+**⟨r̃⟩**, not on the block:
+
+- P1's ⟨r̃⟩ excess is measured against all 1999, at 2.452σ, with no larger W available.
+- P1's predicted *internal* ⟨r̃⟩ variation (~0.005) sits at that same population's ⟨r̃⟩ floor, so the
   structure test is permanently underpowered.
 
-**The low-γ end of P1 is exhausted.** Not expensive, not self-defeating, not awaiting compute — finished.
-Any further movement on P1 must come from high γ, where the effect is smaller and the data unbounded.
-That is a terminal line for a leg that has been ambiguous for several phases.
+**But Σ²(L=1) reads −6.69σ on the identical 1999 zeros.** The two σ are not commensurable — different
+nulls, different correlation families, and no ratio is claimed — but a 6.69σ reading existing on the same
+data defeats "the block is exhausted" as a claim about the data, and defeats "further movement must come
+from high γ" outright. **Movement at low γ was available and already happened, in the other correlation
+family.**
+
+> **Corrected terminal line: P1-as-⟨r̃⟩ is data-exhausted at low γ. The low-γ block is not.**
+
+Which also means **the corroboration leg does not inherit the boundary the primary leg hit.** Σ²'s low-γ
+headroom is a separate question, governed by its own null and its own three gates (§3), and it is open.
 
 ## 6. Defect ledger
 
