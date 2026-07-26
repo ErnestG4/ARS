@@ -898,3 +898,55 @@ grade as addition.
   measurement to **test** it. Do not offer sub-range consistency as a fallback — it is unavailable and
   saying so now prevents it being reached for later.
 - **Status:** OPEN
+
+---
+
+## Phase 6 — R-040 RUN
+
+### R-048 — **R-040's construction does not define a point process. Constructibility gate FAILS.**
+- **Ran it** (`phase6_r040_run.py`). The ζ arm was clean; **both synthetic arms returned values of order
+  10¹²** — garbage, not a measurement.
+- **Diagnosis:** the synthetic requires γ_j to solve N_smooth(t) + S_synth(t) = j − ½. Newton needs
+  N_smooth + S_synth to be **monotone**. But
+  dS_synth/dt = −(1/π)·Σ_{n≤X₀} Λ(n)/√n·cos(t log n), whose amplitude bound is ~(2/π)√X₀:
+
+| γ | X₀ = t/2π | dN_smooth/dt | max\|dS_synth/dt\| | ratio |
+|---|---|---|---|---|
+| 3.3×10⁴ | 5,252 | 1.363 | 45.2 | **33×** |
+| 2×10⁵ | 3.18×10⁴ | 1.650 | 112.6 | **68×** |
+| 5.5×10⁵ | 8.75×10⁴ | 1.811 | 187.4 | **104×** |
+| 1.1×10⁶ | 1.75×10⁵ | 1.922 | 265.4 | **138×** |
+
+  The truncated prime sum's derivative exceeds the smooth density by **2–3 orders of magnitude**, so
+  N_smooth + S_synth is wildly non-monotone, the defining equation has **no unique root**, and Newton
+  diverges. Monotonicity would need X₀ ≲ 10 — useless.
+- **The truncated explicit-formula sum is a DISTRIBUTIONAL object, not a density.** It defines a point
+  process only after smoothing — and smoothing is exactly what R-039 showed shifts the constant, so the
+  sharp-X₀ arms are not merely hard to build, they are **not well-defined as specified.**
+- **This is mine.** The reviewer flagged constructibility as gating the whole suggestion and explicitly
+  did not claim it. I filed "**constructible: YES… cheap**" in R-037 from a correct-looking closed form
+  for Var[S_synth] without checking whether the object generating it exists. Capability claim from a
+  mechanism, one more time, and the closed form was never the issue — the *point process* was.
+- **And my script's verdict logic issued an inert PASS.** It printed "PASS — estimator manufactures no
+  growth" because |slope/sem| < 2 on numbers of order 10¹² divided by errors of order 10¹². A threshold
+  test on meaningless input returning a pass — the exact shape this arc has catalogued four times,
+  produced here by my own harness. **A verdict line must gate on input sanity before it gates on a
+  threshold.**
+- **Status:** OPEN — the cutoff gate has **no valid construction** and is not merely unrun. A direction
+  (not a design): band-limit the *real* zeros by a known amount and check the estimator recovers the
+  known change, rather than synthesising a spectrum from scratch.
+
+### R-049 — Normality: skewness clean, kurtosis contaminated
+- **Measured on the ζ blocks:** skewness **−0.0003 ± 0.0006** against Selberg's 0 — clean.
+  Kurtosis **2.6942 ± 0.0051** against 3 — **60 sem low.**
+- **NOT a failure of Selberg.** S as estimated includes the **sawtooth** (S falls linearly by 1 between
+  zeros then jumps), a bounded roughly-uniform component with kurtosis 1.8. Mixing it with a Gaussian
+  pulls the kurtosis down; both components are symmetric, which is why skewness is unaffected.
+- **So the normality certification is contaminated and cannot be read as a test of Selberg's CLT
+  without removing the sawtooth.** Filed as certification **attempted and not achieved**, not as
+  tension. R-038's slot stands; the arm has not yet filled it.
+- **Status:** OPEN
+
+### Phase 6 — what the ζ arm gives (the only clean result)
+- slope **+0.050164 ± 0.000814**, intercept **+0.072745 ± 0.001923** at W=5000, n=16 — consistent with
+  the W-sweep and with Goldston. No new claim.
