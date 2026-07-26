@@ -797,3 +797,54 @@ grade as addition.
   intercept is doing real work in its own slot. **Coincidence.** Checked because this arc has been
   bitten repeatedly by two slots sharing one number, and the check was a grep.
 - **Status:** RETIRED
+
+### R-043 — **The intercept is CLOSED. It is the pair-correlation integral.**
+- **Recomputed independently** (`scout10_goldston.py`, mpmath 30 dps), reviewer's values confirmed:
+  Σ = Σ_p Σ_{m≥2}(1/m − 1/m²)p^(−m) = **0.1762478124** (the m=1 term vanishes identically);
+  C₀ = γ_E = 0.5772156649; bracket = ∫₁^∞ F/α² dα + C₀ − Σ = **1.400967852**;
+  **predicted intercept = 0.07097386** against measured **0.07411 ± 0.00175 → 1.79 sem.**
+- **My "prediction" was Goldston's non-F terms relabelled, and it is an EXACT IDENTITY, not a near-miss.**
+  M + C₂ = 0.400967852459 and C₀ − Σ = 0.400967852459 — agreement **4.9×10⁻³²**. Proof: Mertens gives
+  M = γ + Σ_p[ln(1−1/p) + 1/p] and ln(1−1/p) + 1/p = −Σ_{m≥2}(1/m)p^(−m), so
+  M + Σ_p Σ_{m≥2}(1/m²)p^(−m) = γ − Σ_p Σ_{m≥2}(1/m − 1/m²)p^(−m) = C₀ − Σ. **QED.**
+- **So the sole missing term was the F-integral, worth exactly 1 in bracket units.** Measured residual:
+  **1.031** (W=20000) to **1.062** (W-combined), against **1** predicted under Montgomery's Strong Pair
+  Correlation Conjecture. The "unexplained 0.052" was 1/2π² = 0.05066 all along.
+- **Provenance: `LIT`, conditional on RH.** Per rule 11 that conditionality is a fact about the
+  **reference**, never about the measurement — ARS consumes a finite list of verified zeros.
+- **Status:** **RETIRED — closed.** R-036's residual and R-039's "prediction not sharp enough" are both
+  superseded: the prediction *was* sharp, it was simply **incomplete by one term**, and the term is
+  identifiable to a decimal.
+
+### R-044 — The intercept as an α ≥ 1 handle: UNEARNED
+- **Seen:** Goldston makes the intercept a functional of F(α) on **α ≥ 1** — precisely the region §7
+  grades as having no bracket. 2.36% intercept precision maps to **3.25%** on ∫₁^∞ F/α² dα.
+- **NOT claimed, and flagged unearned by the reviewer as their own fourth capability-from-mechanism:**
+  the o(T) in Goldston's formula is **unbounded at finite T**, which is exactly where such a handle
+  would die. **Treat as unearned until someone bounds that term at these heights.** Filing it as a look
+  rather than a capability is the whole point of §R.
+- **Status:** OPEN (candidate, explicitly not a capability)
+
+### R-041 — AMENDED: the slope deficit is the size of a next-order term
+- The 2.22σ deficit (0.05008 ± 0.00026 vs 0.05066) is **exactly what an O(0.1) next-order coefficient
+  produces over this lever arm.** 1/ln X falls 0.1167 → 0.0826 across the arc, so if
+  Var[S] = C[lnln X + const + a/ln X + …] the apparent slope is C[1 − a/ln X] with ln X ≈ 10.33
+  mid-arm; the measured 1.14% deficit requires **a = 0.118**.
+- **Consequence:** at 0.345 in lnln, **the leading asymptotic is not the right prediction.** The
+  measurement is a **joint constraint on (coefficient, correction)**, not a test of the coefficient
+  alone. Chan's ratios-conjecture expansion of the lower-order terms makes this checkable rather than
+  hand-waved. Adjacent: arXiv:2211.14918 (number variance of ζ zeros, Berry's conjecture).
+- **Status:** OPEN — and this, not power, is what the seal must be written against.
+
+### R-045 — Declining to fetch is the underclaim face of the provenance rule
+- **Seen:** after the Luo failure I declined to run a targeted lit query, reasoning that introducing a
+  `LIT` pointer unilaterally was the risk. **Wrong diagnosis.** Luo failed because a `SESSION` pointer
+  was **cited as record** — not because it was fetched. The four-grade ladder exists precisely so `LIT`
+  can enter safely with its mapping flagged unaudited.
+- **The cost was measured, not hypothetical:** the intercept sat filed as an open property of ζ for a
+  full cycle, and two register entries (R-036's residual, R-039's "prediction not sharp enough") were
+  written that a single query would have pre-empted.
+- **Rule:** abstinence does not reduce provenance risk; **it converts a gradeable pointer into an
+  unasked question.** Rule 13's underclaim face at the level of research conduct — downgrade for absence
+  of verification, never for caution, and *asking* is not the thing that needs guarding.
+- **Status:** OPEN (standing rule)
