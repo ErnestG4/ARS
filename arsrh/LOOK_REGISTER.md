@@ -1265,3 +1265,57 @@ Filed because this is the program's central parameter and the extension was pre-
   integral is **exactly 1**, and 0.33% is a real constraint on it. **It is the first item in the whole
   program pointing at something not already known to be true.**
 - **Status:** OPEN — best-posed item on the board, for this reason rather than the one first given.
+
+---
+
+### R-064 — GATE 0 RESOLVED: the (∛m, ∛m²) ladder is a theorem, factor g²/m not 1/2
+- **Derived and verified:** λ′ = (g²/m)·λ with g = gcd(m,p), exact to relative O(q⁻²); location shifts
+  by the constant (1/3)log m − log g. Residual measured against the derived 1/(αλq²) term: **ratio
+  1.000**, to the double-precision floor. Verified against **β's own continued fraction** for
+  m = 2,3,5,6,7,10,12, not against the algebra.
+- **"Roughly half" is the m=2, g=1 case only.** ∛2's a = **534** → ∛4's **266** (predicted 267.376,
+  measured 267.376). For m=2, **33.1%** of convergents have p even and map with factor **2**, not 1/2 —
+  a ladder stated as "roughly half" is wrong on a third of events by a factor of four.
+- **Branch taken:** §2 branch 1. The arm is a **calibrator / instrument certification**, never a finding.
+- **Where:** `cubic/gate0_ladder.py`, `cubic/GATE0_FINDINGS.md`.
+- **Pre-registered or post-hoc:** N/A — a derivation, gated before any arm ran. No seal, no measurement.
+- **NOT claimed:** nothing about boundedness of partial quotients (§0); and the mapping to the `LIT`
+  sentence is **unresolved** — either the source was ∛2-specific (right, incomplete) or general (wrong).
+- **Status:** CLOSED as a gate.
+
+### R-065 — the mechanism is GL₂(Q)-equivalence, and it is ABSENT on the target by theorem
+- **General law:** for integer M ∈ GL₂(Q) with determinant Δ, transfer factor is **g²/|Δ|**. Verified on
+  x ↦ (3x+1)/(x+2), Δ = 5: measured factors exactly 1/5 and 5. For **any rational map of degree ≥ 2**,
+  λ′ ~ λ/q² → 0 — measured collapse 8e−04 → 7e−91 across n = 5…80 on x ↦ x² and x ↦ x²+x+1.
+- **So:** derivable correlation of exceptional approximations exists **iff the objects are
+  GL₂(Q)-equivalent**. The (∛m,∛m²) anomaly is that classical fact in non-unimodular form and nothing else.
+- **And Galois conjugates are not GL₂(Q)-equivalent** — S₃: α₂ ∉ Q(α₁); cyclic: α₂ = f(α₁) with deg f = 2,
+  which by the same table transfers nothing. **The derivable mechanism is absent on the target arm by
+  theorem, in both sub-cases.** This upgrades §4's "no obvious reason to respect archimedean quality"
+  from a plausibility argument to a structural one.
+- **Pre-registered or post-hoc:** **POST** — found while executing Gate 0, not anticipated by the spec.
+- **NOT claimed:** not that the target correlation is zero. Only that **no derivable mechanism produces
+  one**, so a positive would have no candidate source. That is a statement about mechanisms, not data.
+- **Status:** OPEN — this is the sharpened form of the phase's question.
+
+### R-066 — the calibrator is a CEILING arm; §5's power requirement is NOT discharged by it
+- The ladder is a **deterministic translation**: ρ = 1, a delta at a known lag, per-branch amplitude
+  exact. An instrument firing on it has demonstrated it can see an **infinitely strong** signal and has
+  licensed **nothing** about a weak one. Floor/ceiling doctrine; unquantified-power antibody.
+- **§5 says the positive arm must clear the permutation null "by a stated margin" and halt otherwise.
+  As specified, that gate is a ceiling and would pass inertly.**
+- **The fix is theory-supplied, not dilution.** At threshold A an α-event survives into β's event set
+  only when λ′ = (g²/m)λ ≥ A, i.e. λ ≥ mA/g²: the g=1 branch's coincidence rate falls like ≈1/m while the
+  g=m branch transfers everything. **|Δ| = m is a graded coupling knob with a computable answer at every
+  setting**, so the detection floor can be *measured* across a family of known-answer pairs.
+- **Owed before any seal:** tabulate that floor. A margin quoted from m=2 alone is a ceiling number.
+- **Pre-registered or post-hoc:** **POST**. **Status:** OPEN — blocking the seals, not the arms.
+
+### R-067 — §6's digit budget is short by a factor of 2
+- §6's arithmetic is right where checkable: P(a≥A) = log₂(1+1/A) (the 1.4427/A form is +1.0% at A=50,
+  +0.1% at A=500); Lévy = **0.51532** decimal digits/PQ; event counts 289/29/2885/289 reproduce.
+- **But certifying a CF by interval pins terms only while q_n² < 10^D, i.e. n < 0.970·D.** Measured:
+  D = 700 → 659 PQs, 1400 → 1365, 2800 → 2738 (predicted 679/1358/2716). So **≈1.03 digits per
+  *certified* PQ**; 10⁴ PQs/object needs **~10,300** digits, not ~5,200.
+- Negligible at 10⁴; it is the factor that bites at 10⁵, where §6 already flags O(n²) extraction.
+- **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED — a correction, applied.

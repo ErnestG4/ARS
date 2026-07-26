@@ -1,0 +1,87 @@
+{
+  "2": {
+    "n_pq_alpha": 1365,
+    "n_pq_beta": 1368,
+    "frac_induced_is_convergent": 0.6618650492797574,
+    "max_rel_err_transfer": 0.05505921257884505,
+    "max_abs_err_location": 0.0566330122651324,
+    "gcd_counts": {
+      "1": 882,
+      "2": 437
+    }
+  },
+  "3": {
+    "n_pq_alpha": 1362,
+    "n_pq_beta": 1347,
+    "frac_induced_is_convergent": 0.5030395136778115,
+    "max_rel_err_transfer": 4.0297920196774584e-05,
+    "max_abs_err_location": 0.03926101188546116,
+    "gcd_counts": {
+      "1": 979,
+      "3": 337
+    }
+  },
+  "5": {
+    "n_pq_alpha": 1412,
+    "n_pq_beta": 1315,
+    "frac_induced_is_convergent": 0.3169838945827233,
+    "max_rel_err_transfer": 0.025985568006018145,
+    "max_abs_err_location": 0.15666787641524516,
+    "gcd_counts": {
+      "1": 1133,
+      "5": 233
+    }
+  },
+  "6": {
+    "n_pq_alpha": 1368,
+    "n_pq_beta": 1350,
+    "frac_induced_is_convergent": 0.49016641452344933,
+    "max_rel_err_transfer": 0.009511440462300014,
+    "max_abs_err_location": 0.09589402415059367,
+    "gcd_counts": {
+      "1": 676,
+      "2": 312,
+      "3": 210,
+      "6": 124
+    }
+  },
+  "7": {
+    "n_pq_alpha": 1320,
+    "n_pq_beta": 1332,
+    "frac_induced_is_convergent": 0.2684458398744113,
+    "max_rel_err_transfer": 0.04353440861380531,
+    "max_abs_err_location": 0.04451046420817417,
+    "gcd_counts": {
+      "1": 1105,
+      "7": 169
+    }
+  },
+  "10": {
+    "n_pq_alpha": 1375,
+    "n_pq_beta": 1358,
+    "frac_induced_is_convergent": 0.326561324303988,
+    "max_rel_err_transfer": 0.00027324894337454886,
+    "max_abs_err_location": 0.005661523902133148,
+    "gcd_counts": {
+      "1": 728,
+      "2": 387,
+      "5": 144,
+      "10": 70
+    }
+  },
+  "12": {
+    "n_pq_alpha": 1324,
+    "n_pq_beta": 1356,
+    "frac_induced_is_convergent": 0.42801251956181535,
+    "max_rel_err_transfer": 0.0016249622341653058,
+    "max_abs_err_location": 0.01899564379120333,
+    "gcd_counts": {
+      "1": 627,
+      "2": 167,
+      "3": 214,
+      "4": 160,
+      "6": 55,
+      "12": 55
+    }
+  }
+}
