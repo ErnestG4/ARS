@@ -672,3 +672,67 @@ grade as addition.
   An unexplained 1.44 sitting inside a certification is exactly where such a thing quietly parks; it is
   now explained.
 - **Status:** RETIRED
+
+### R-036 — The intercept collision: BOTH attributions were mine and BOTH are wrong
+- **The collision:** 0.0738 was filed as the finite-block **demean bias** (justifying the coefficient
+  seal), then as the **n ≤ 16 prime contribution** at "101.5%". They sum to ~0.15 against a measured
+  0.0738, so at most one could hold.
+- **Discriminator run** (`scout8_intercept_collision.py`): demean bias scales with block length W;
+  a sawtooth term scales with sampling resolution; a prime constant scales with neither.
+
+| W | 2500 | 5000 | 10000 | 20000 | 40000 |
+|---|---|---|---|---|---|
+| intercept | 0.07663 | 0.07505 | 0.07294 | 0.07253 | 0.07338 |
+| slope | 0.04855 | 0.04918 | 0.05007 | 0.05026 | 0.04988 |
+
+| pts/spacing | 1 | 2 | 4 | 8 | 16 | 32 |
+|---|---|---|---|---|---|---|
+| intercept | 0.10824 | 0.07283 | 0.07327 | 0.07253 | 0.07383 | 0.07375 |
+| slope | 0.03566 | 0.05011 | 0.04988 | 0.05026 | 0.04970 | 0.04973 |
+
+- **(a) DEMEAN BIAS — FALSIFIED.** The intercept moves 5% over a **16× range in W**, non-monotonically.
+  It does not scale with W. The argument that justified sealing on the coefficient was resting on a
+  misattribution.
+- **(b) PRIME-≤13 — FALSIFIED AS AN ATTRIBUTION, and the error is double-counting.** Σ_{p≤X} 1/p =
+  lnln X + M *already contains* the p ≤ 13 mass; it is a **sub-component of the sum**, not an additive
+  constant on top of it. Comparing 0.07494 (a component) against 0.0738 (a fit parameter) compared two
+  categorically different objects that happened to be numerically close. **A numerical coincidence,
+  which is exactly why the reviewer said the sweep must decide it rather than the agreement.**
+- **What the retraction (R-034) keeps:** the disjoint-bands conclusion is **unaffected** — primes ≤ 13
+  contribute **0.0% of the slope** because the slope comes from the 15,587 primes entering between
+  X_lo and X_hi. That never depended on the intercept coincidence. Only the "101.5% of the intercept"
+  flourish dies.
+- **What is now unexplained:** the intercept is **0.0725**, invariant to W and to resolution, against a
+  prime-sum prediction of C·(M + C₂) = **0.0203**. **0.052 unaccounted**, and it is a genuine constant
+  of the process, not an estimator artifact. Open.
+- **THE LOAD-BEARING RESULT IS BETTER THAN THE ARGUMENT IT REPLACES:** the **slope is measured-stable**
+  — 0.0499–0.0503 for W ≥ 10000 and ≥2 pts/spacing, i.e. invariant across **16× in W** and **16× in
+  resolution**. The coefficient seal is safe, and now for a *measured* reason rather than an argued one.
+- **Status:** OPEN (intercept unexplained; slope stability established)
+
+### R-037 — An invariance sweep cannot gate an invariant systematic
+- **Seen:** R-036's sweeps establish insensitivity to W and to sampling resolution. They say **nothing**
+  about a cutoff whose height-dependence mimics lnln — if the estimator's effective cutoff is set by
+  local mean spacing, it moves with height at **every** resolution, the sweep rescales all arms equally,
+  reports a stable slope, and the contamination survives untouched. **Passing it would be this arc's
+  fourth inert falsifier.**
+- **The powered version — a known-answer null.** Build a synthetic whose prime sum is truncated at a
+  **fixed X₀**: it has **no lnln growth by construction**. Run it through the identical estimator at
+  both heights. Any reported growth is manufactured, and its size *is* the budget entry. This is the
+  theory-specified-control-class move again — a control the theory fixes rather than the analyst.
+- **Constructibility (the reviewer flagged this gates the suggestion): YES.** S_synth(t) =
+  −(1/π)·Σ_{n≤X₀} Λ(n)/(√n log n)·sin(t log n) is a finite sum; place zeros at solutions of
+  N_smooth(t) + S_synth(t) = j by numerical inversion. Cost is O(X₀) terms per evaluation and the
+  inversion is monotone. Cheap.
+- **Status:** OPEN — this, not the sweep, is the real cutoff gate.
+
+### R-038 — Normality certifies the observable, NOT the cutoff
+- Selberg's CLT gives normality of normalized S — a statement about **shape**, independent of the
+  variance coefficient, so skewness→0 and kurtosis→3 certify the S observable at both heights
+  **without consuming the quantity being measured**. Same structure as sealing on the coefficient
+  rather than the level, one layer up.
+- **NOT claimed:** its power against **cutoff drift** is weak — a truncated prime sum is still a sum of
+  many near-independent terms, so normality is robust to truncation. **Run it as certification of the
+  observable and do not credit it as the cutoff gate.** Two slots; the first does not discharge the
+  second.
+- **Status:** OPEN
