@@ -73,7 +73,7 @@ Three things fall out, and the third is the important one.
 leg sits in the banked Session K record unreconciled.
 
 **(b) The final `sp/sp.mean()` rescale is not the culprit.** "No final rescale" reproduces the pipeline
-to within 2% at every L. I had this as a candidate mechanism; it is excluded.
+to within **3.2%** at every L (max over both sectors; 1.9% for parity 1). I had this as a candidate mechanism; it is excluded.
 
 **(c) Detrending moves Σ² AWAY from Poisson, not toward it — and that is the finding.**
 Var[S] falls 0.6620 → 0.2808 (parity 0) and 0.7711 → 0.2388 (parity 1), i.e. the 58%/69% from Phase 5c,
@@ -102,7 +102,7 @@ The pair generalises to three independent gates. A statistic can pass any subset
 
 | gate | bounds | test | ζ | Maass level-1 | `unfold_emp(order)` substrates |
 |---|---|---|---|---|---|
-| **Reach** | how far out in L a fitted unfold can see | L_max ≈ N/(2(p+1)), p = fitted density params | p=0, **no cap** | p=2, cap **66–84** ✅ (read to L=15) | 250 (order 3) / 100 (order 9) |
+| **Reach** | how far out in L a fitted unfold can see | **L_max ≈ N/(2·p_fit)**, p_fit = fitted density parameters (α_c ≈ p_fit/N) | p_fit=0, **no cap** | p_fit=2, cap **66–84** ✅ (read to L=15) | p_fit=order+1 → 250 (order 3) / 100 (order 9) |
 | **Amplitude** | how much of the reading inside that reach is systematic | fraction of Var[S] that is smooth low-order trend | 0 (θ exact) | **58–71%** ❌ | measured per substrate |
 | **Separability** | whether systematic and signal can be told apart at all | is the smooth counting known **exactly**, or only asymptotically? | **exact** ✅ | **asymptotic** ❌ | asymptotic/absent ❌ |
 

@@ -266,10 +266,10 @@ grade as addition.
 - **Status:** OPEN
 
 ### R-015 — Substrate triage from the L_max wall
-- **Seen:** `L_max ≈ N/(2(p+1))` with p = number of *fitted* density parameters. ζ: θ is an identity, p=0,
+- **Seen:** `L_max ≈ N/(2·p_fit)` with p_fit = number of *fitted* density parameters (α_c ≈ p_fit/N; for a polynomial of order k, p_fit = k+1). ζ: θ is an identity, p_fit=0,
   **no cap**. Maass level-1: Weyl R² and R·lnR theory-fixed, only affine {R,1} fitted, p=2 →
   **L_max ≈ 66 (N=266) / 84 (N=334)**; Session K read Σ² to L=15, **within cap by ~4×**. Empirical-density
-  substrates on `unfold_emp(order)`: p = order+1 → L_max = 250 (order 3, N=2000), 100 (order 9).
+  substrates on `unfold_emp(order)`: p_fit = order+1 → L_max = 250 (order 3, N=2000), 100 (order 9).
 - **Where:** `PHASE5B_FINDINGS.md` §7; `taskB_kernel_check_measured.json` → `K1`;
   `sessionK/maass_analysis.py:44-58`.
 - **Pre-registered or post-hoc:** **POST**
@@ -395,7 +395,7 @@ grade as addition.
 - **Status:** OPEN
 
 ### R-020 — Reach / amplitude / separability: three gates, not one
-- **Seen:** **Reach** = L_max ≈ N/(2(p+1)); **Amplitude** = fraction of Var[S] that is smooth low-order
+- **Seen:** **Reach** = L_max ≈ N/(2·p_fit), p_fit = fitted density params; **Amplitude** = fraction of Var[S] that is smooth low-order
   trend; **Separability** = is the smooth counting known exactly or only asymptotically. ζ passes all
   three; **Maass passes reach (cap 66–84, read to L=15) and fails amplitude (58–71%) and separability
   (Weyl is asymptotic)**; `unfold_emp` substrates fail the last two by construction.
