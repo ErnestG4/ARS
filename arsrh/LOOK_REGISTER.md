@@ -1656,3 +1656,34 @@ Filed because this is the program's central parameter and the extension was pre-
   catches nothing here.** A pre-written condition on an *instrument* arm caught it when it didn't.
   That is the argument for writing the failure condition first, and it is stronger than "the seal worked."
 - **Status:** BANKED — memory `commensurability_check.md`. The arc's one durable finding about process.
+
+### R-093 — CLIP SCOUT (the decidable half of the fork): mass03 is immune, I_rep is REACHED
+- **mass03: UNREACHABLE.** `arithmetic_toolkit.py:116`, `mass03 = float((spacings < 0.3).mean())`,
+  computed in `_classify` from unfolded spacings. It never touches `pair_correlation_full`. Fungal's
+  mass03 claim cannot be reached by this bug. **Closed, and it was the larger of the two exposures.**
+- **The clip, located:** `arithmetic_toolkit.py:504`,
+  `I_rep = np.trapezoid(np.maximum(0, 1 - R2[mask]), r[mask])` — the clip is on the **integrand**, not
+  the integral, three lines below a docstring that says *"negative → clustering."*
+- **I_rep: REACHED, in two ways the dormancy argument does not cover, because it is stated on the
+  wrong side of the comparison.** Dormancy cites where the *null* sits; the claim rests on where the
+  *observation* sits, and the clip acts differently on the two.
+  - **(a) SATURATION, observed side.** Constructed confound, Neyman–Scott bursts: true I_rep
+    **−0.51, −0.84, −1.56, −2.98** all read **exactly 0.00000** clipped. Real fungal (194/194 BL rows)
+    and real solar (`observed_irep_recon = 0.0`) both sit at that saturated value. **Direction
+    survives; magnitude does not, and fungal and solar are indistinguishable on this axis.**
+  - **(b) RECTIFICATION, null side.** Poisson with true I_rep = 0.000 reads **+0.020** clipped — the
+    clip converts symmetric noise into a positive mean. On the *actual* fungal null (12 draws of the
+    corrected construction): clipped **+0.0517 ± 0.0124** (4.2 sd from zero) vs true
+    **+0.0338 ± 0.0289** (1.2 sd). **35% of the quoted margin is bias, and the clip also compresses
+    the sd 2.3× by truncating the lower tail.** The "far from the boundary" that licenses dormancy is
+    measured on the biased, variance-compressed version of the statistic; unclipped, the null is 1.2 sd
+    from zero.
+- **NOT claimed:** not that fungal or solar are unclustered. The direction (real below null) survives
+  both effects. What does not survive is the *margin*, the *degree*, and the dormancy argument itself.
+- **And it is the commensurability defect again, in its subtlest form yet:** the observed side carries
+  bias 0 (saturated) and the null side carries bias +0.018 (rectified) — **the same statistic name with
+  different estimator behaviour on the two sides of the comparison.** Clause 1, failing invisibly.
+- **The fix is one line** (drop `np.maximum(0, ·)`), after which I_rep is graded and signed. Whether to
+  run it, and what it does to the fungal/solar claims, is the fork and is Will's call.
+- **Pre-registered or post-hoc:** **POST** — a scout, not a gate. **Status:** OPEN, and now decidable
+  without judgment as intended: the answer is **yes, it reaches I_rep; no, it does not reach mass03.**
