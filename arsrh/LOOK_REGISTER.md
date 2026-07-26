@@ -1245,3 +1245,23 @@ Filed because this is the program's central parameter and the extension was pre-
   could differ, and whether the 0.024/L local correction is stable at lnX = 46.8 is untested.
 - **But the question has changed for the better:** a bracket-free region becoming measurable, rather
   than a coefficient being fitted. **Status:** OPEN — and now the best-posed item in the arc.
+
+### R-044 — final amendments, filed before the number exists
+- **The caveat as I wrote it reads like a live threat and is not one.** At lnX = 46.8 the local
+  correction is c/L = 0.024/46.8 = **0.00051 bracket units = 11% of σ_K** (0.00466). A **factor-of-two
+  error in c moves the answer by a tenth of the error bar.** So **any O(1) coefficient on a 1/L term is
+  harmless at that height** — the live risk is whether the correction stays **1/L-shaped** out there,
+  not what c is. (At the catalogue top the same term is 1.9× σ_K, which is why it mattered *here*.)
+  Restated in that form; the stability-of-c flag is withdrawn as binding.
+- **SLOT, set before the number exists (rule 11).** What the far block measures is **K**. Converting K
+  to the F-integral runs through **Goldston's formula, which is RH-conditional.** So the deliverable is
+  ***"the value of ∫₁^∞ F(α)/α² dα implied by Goldston under RH"*** — **not a direct measurement of F
+  at α ≥ 1.** §7's bracket-free grade for that region is **unchanged**: this offers an RH-conditional
+  **indirect** handle, which is a different and lesser thing. Easy to lose in a write-up because the
+  conditionality sits **one inference upstream** of the number.
+- **But the CATEGORY is new, and this is the real reason it is the best-posed item.** Every calibrator
+  success in this arc **reproduced a theorem** — Farey/Hall, the explicit formula, Goldston's constant,
+  Selberg's coefficient, Selberg's skewness. **R-044 would test a CONJECTURE:** SPCC predicts the
+  integral is **exactly 1**, and 0.33% is a real constraint on it. **It is the first item in the whole
+  program pointing at something not already known to be true.**
+- **Status:** OPEN — best-posed item on the board, for this reason rather than the one first given.
