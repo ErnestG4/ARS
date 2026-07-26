@@ -1197,3 +1197,51 @@ Filed because this is the program's central parameter and the extension was pre-
 - **At 10²² the correction is below noise, so the far point measures K DIRECTLY** — no `a` to fit, no
   CFZ-ratios import, **grade cap gone.** The pre-registered 2-param/3-param positions are void; the
   extension's question is now simply *what is K*, which is cleaner than the one it replaces.
+
+---
+
+## Phase 10 — filing corrections
+
+### R-062 — **b = 0.976 has no theoretical owner. File it, do not absorb it.**
+- **Precisely what it is:** if the local bracket carries K + c/L, averaging gives cumulative
+  = lnln + K − (1−c)/L, so **b = 1 − c** and b = 0.976 means the local bracket has a real correction
+  of **+0.024/L**. The *derivation* fixes the coefficient 1; the **0.024 is fitted** from 40 heights.
+- **So the terminal state has ONE residual degree of freedom, not zero.** It is: derived relation +
+  one empirically fitted local coefficient, which then predicts two local quantities landing at
+  **0.36 sem** (invariant) and **1.24 sem** (slope). That is a **genuine cross-prediction** — fitted on
+  the cumulative functional, tested on the local one — but **not an independent** one: same zeros.
+- **CORRECTED TERMINAL LINE.** Not "consistent with Selberg + Goldston once the relation is applied"
+  full stop, which absorbs the residual. It is: **consistent with Selberg + Goldston (SPCC), plus a
+  local correction of 0.024/L that no cited expression predicts.** That last clause is the only thing
+  in the program still pointing at anything — small, measured, unattributed.
+- **Where a predicted value would live:** Chan's ratios-conjecture expansion — the same query that
+  closed the intercept, now with a **specific target** (does any expansion predict +0.024/L in the
+  local second-moment bracket?) rather than an open question.
+- **Status:** OPEN — the program's one live item.
+
+### R-063 — "No finding about ζ" is an underclaim, by rule 13's own face
+- The program asked a well-posed question: **does ζ's Var[S] depart from Selberg at accessible
+  heights?** It answered **no, at 0.45% precision**, on an estimator with a systematic *class*
+  eliminated rather than bounded. **A null on a well-posed question at quantified precision is a
+  result** — and it is the result that was available.
+- **What did not happen is the deliverable.** At three separate points this program had a
+  publishable-looking positive: leading order rejected at 3σ (R-051); an unexplained constant of the
+  process (R-036); a non-convergence with an arrival height (R-056). **All three were artifacts. The
+  apparatus caught all three.** That is a stronger demonstration than a finding would have been,
+  because a finding would not have tested the apparatus at all.
+- Reaching it required inverting a wrong sign, a wrong functional form, and four slotted values of a
+  parameter that turned out not to exist.
+- **Status:** filing correction (supersedes the "no finding" line)
+
+### R-044 — PROMOTED: the extension's payload is the F-integral, not K
+- **K is predicted** by Goldston under RH + SPCC. So measuring it at 10²² does not ask "what is K" —
+  it **tests the F-integral**, ∫₁^∞ F(α)/α² dα, which lives at **α ≥ 1**, the region §7 grades as
+  having **no bracket at all.**
+- **Precision:** σ_V = 0.000236 → σ_K = **0.00466** in bracket units → the F-integral (predicted
+  **exactly 1** under SPCC) to **0.47%** with one far block, **0.33%** with both.
+- **The objection that made this a look has weakened on its own:** o(T) is no longer
+  unbounded-in-principle — it is **measured as −1/L with the coefficient now pinned** (R-059).
+- **Still flagged unearned, in the usual way:** σ_V at 10²² is *assumed* from the current catalogue and
+  could differ, and whether the 0.024/L local correction is stable at lnX = 46.8 is untested.
+- **But the question has changed for the better:** a bracket-free region becoming measurable, rather
+  than a coefficient being fitted. **Status:** OPEN — and now the best-posed item in the arc.
