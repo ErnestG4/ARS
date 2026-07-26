@@ -351,3 +351,56 @@ grade as addition.
   part, and the entailment holds **a priori and in the conservative direction**. The Phase 5b +0.0117
   "excess" is retired: it was an **unweighted** mean compared against a quantity requiring window-count
   weighting (`PHASE5C_FINDINGS.md` §2); the exact decomposition closes to 0.14%.
+
+---
+
+## Phase 5d additions
+
+### R-016 — **RETIRED as repairable; the Luo–Sarnak bracket is UNREACHABLE**
+- Detrending moves Maass Σ² **away** from Poisson, not toward it: Var[S] 0.6620→0.2808 (parity 0),
+  0.7711→0.2388 (parity 1), and Σ²(15) falls 0.888→0.735 / 0.750→0.669. The removed trend was
+  contributing long-range variance — which is what a long-range statistic is for.
+  **Unabsorbed Weyl-remainder systematic and genuine long-range fluctuation occupy the same low-α band
+  and are not separable at N = 266/334.** After detrending Σ² saturates at 2·Var[S] = 0.562 / 0.478,
+  *below one mean spacing*; no L in {1,2,4,8,15} is within 20% of Poisson's L; the banked leg is 17–20×
+  short of its own reference. Also excluded: the final `sp/sp.mean()` rescale (reproduces to 2%).
+  **Not repairable by detrending — the repair and the signal are the same object.** More eigenvalues at
+  the same heights extend L but do not separate them. **Status: RETIRED.**
+
+### R-019 — CP1's unfold-invariance is now measured, not transferred
+- **Seen:** ⟨r̃⟩ across raw R / pipeline unfold / theory-affine / detrended: max spread **0.00063**
+  (parity 0) and **0.00114** (parity 1) — **0.03σ / 0.06σ** of the Phase-4 bracket sd, against a 7.3σ /
+  6.4σ verdict. Non-trivial: the Maass density varies ~10× across the sector.
+- **Where:** `phase5d_maass_gate_measured.json` → `sectors.*.rtilde`.
+- **Pre-registered or post-hoc:** **PRE** (proposed as a companion one-liner before the run)
+- **NOT claimed:** does not revalidate CP1's *data* — extraction, list provenance and completeness are
+  untouched. It closes exactly one assumption: that ζ-measured r̃ invariance transfers to Maass.
+- **What would make it a lead:** nothing — it is closed. **Status: RETIRED.**
+
+### R-020 — Reach / amplitude / separability: three gates, not one
+- **Seen:** **Reach** = L_max ≈ N/(2(p+1)); **Amplitude** = fraction of Var[S] that is smooth low-order
+  trend; **Separability** = is the smooth counting known exactly or only asymptotically. ζ passes all
+  three; **Maass passes reach (cap 66–84, read to L=15) and fails amplitude (58–71%) and separability
+  (Weyl is asymptotic)**; `unfold_emp` substrates fail the last two by construction.
+- **Where:** `PHASE5D_FINDINGS.md` §3.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** separability is a property of the *substrate's* density model, not of the statistic —
+  no choice of long-range statistic repairs it, which is the corrected form of the earlier "cleverer
+  readout" refutation.
+- **What would make it a lead:** apply all three to every long-range readout in the program. Closes the
+  long-range brief's "log the L-to-window ratio" slot. **Status: OPEN**
+
+### R-017 — status correction: the ceiling figure was withdrawn
+- **3.18–3.20σ is withdrawn — wrong slot.** It divided the matched-density-null effect (0.017316) by the
+  **uniform** GUE null sd (0.005442) — a different null, and the one P1's reviewer showed to be
+  powerless. The correct floor is the matched-density null sd **0.007063**, giving **2.452σ**, which is
+  P1's banked figure. **P1's low-γ leg is at 100% of available data and 2.452σ is terminal — not 77% of
+  a ceiling.** Estimator of record: ⟨r̃⟩ = mean min/max of consecutive spacings on raw γ, block
+  `zeros6[:2000]`, vs `phase1_density_check.py::matched_density_null` (DE β=2 tridiagonal central window
+  on the R–vM backbone, W=2000, n_real=30, sd 0.007063).
+
+### R-012 — status update: the rule must fire at RECOMMENDATION time
+- Both parties produced an uncomputed-power failure *after* naming the defect: a gate sealed at 0.3%
+  contrast, and a test recommended as "the sharpest unrun thing on the board" without its power
+  computed. **Establishing power is a precondition for proposing a test, not only for sealing one.**
+  **Status: OPEN.**
