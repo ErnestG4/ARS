@@ -1687,3 +1687,43 @@ Filed because this is the program's central parameter and the extension was pre-
   run it, and what it does to the fungal/solar claims, is the fork and is Will's call.
 - **Pre-registered or post-hoc:** **POST** — a scout, not a gate. **Status:** OPEN, and now decidable
   without judgment as intended: the answer is **yes, it reaches I_rep; no, it does not reach mass03.**
+
+### R-094 — CLIP FIXED (non-destructively), and the hidden number is −2.21
+- **My scout computed one side.** I filed "observed side carries bias 0, null side +0.018." **Wrong,
+  and the error was the interesting one:** the observed side carries **saturation**, which is the
+  *larger* bias and points the *other* way. Clause 1 of the commensurability check fails on **both
+  sides, in opposite directions, at different magnitudes.**
+- **Sign was NOT certain, and the threshold is computable.** Unclipped z exceeds clipped z only if the
+  true observed value is below **−0.0867**; between there and 0 the fix *weakens* the claim.
+- **Measured, on the real data (18 CSVs re-detected, 1470 pooled intervals):**
+  **I_rep clipped = +0.00000, signed = −2.21224.** Twenty-five times past the crossover.
+  clipped: null +0.05170 ± 0.01293, observed +0.00000, **z = 4.00**.
+  signed: null +0.03376 ± 0.03021, observed **−2.21224**, **z = 74.33**.
+- **So the fix STRENGTHENS fungal's I_rep claim**, which inverts how the fork read. Direction was
+  Will's call; the crossover arithmetic says it was conditional on a magnitude met by 25×.
+- **Fixed non-destructively.** `repulsion_integral` retained **bit-identical** (regression-checked:
+  Poisson +0.02025 before and after) because **62 files / 212 references** consume it; the new
+  `repulsion_integral_signed` is the statistic the docstring always described. Not a one-line change
+  in effect — a one-line change plus a deprecation surface.
+- **AND THE FIX IS NOT FREE, exactly as predicted.** z = 74 is uninformative. The live quantity is now
+  the **magnitude I_rep = −2.21, which has no bracket at all** — a single realization with no error
+  bar, against a null that only bounds the *null's* spread. Same earned-existence / unearned-magnitude
+  split as solar. **New open item: I_rep magnitude needs its own null and its own gate.**
+- **Status:** CLOSED as a bug; OPEN as a measurement.
+
+### R-095 — mass03's real exposure is unfolding, and it is now SIZED
+- Clip-unreachability (R-093) **does not discharge mass03's audit debt.** `(spacings < 0.3).mean()` is a
+  **fixed threshold** on unfolded spacings; ⟨r̃⟩ is a **ratio** and therefore affine-invariant. A fixed
+  threshold moves when the normalisation moves.
+- **Verified and quantified** on the real fungal pool: sweeping a multiplicative normalisation error c,
+  **r̃ deltas are identically 0.0000** at every c, while mass03 runs 0.6099 → 0.6909 over c ∈ [0.80, 1.25].
+  **d(mass03)/dc = +0.34** at c = 1, so a 10% error moves mass03 by **0.034**.
+- **Bound:** solar's quotable floor is **0.20** in mass03, so a *global* rescale would need **~59%** to
+  consume it. That bounds the **global** channel only — **local, density-dependent unfolding error is
+  not tested by this sweep and remains open.**
+- **Scope:** solar's quotable claim is mass03 + p99-exceedance with "no z quotable"; I_rep appears only
+  as a descriptive line about the deployed detector. **So solar's exposure is this route and not R-093's**,
+  and the saturation finding does not touch it.
+- **And a consequence worth stating:** any cross-substrate comparison ever made **on I_rep** is void —
+  both fungal and solar read the same saturated 0.000, so the axis carried no information to compare on.
+- **Status:** OPEN, sized on the global channel, untested on the local one. The larger of the two claims.

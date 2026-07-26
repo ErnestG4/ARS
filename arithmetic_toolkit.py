@@ -504,10 +504,24 @@ def pair_correlation_full(t_k: np.ndarray, r_max: float = 10.0,
     R2_gue = 1 - sinc ** 2
     # Repulsion integral over r ∈ [0, 1]
     mask = r <= 1.0
+    # DEPRECATED, retained bit-identical so no banked number moves: the np.maximum(0, ·) clips the
+    # INTEGRAND, so this quantity can never go negative and the docstring's "negative → clustering"
+    # is unreachable through it. Two biases, in OPPOSITE directions, of different size:
+    #   observed side  — SATURATION. Any clustered process returns exactly 0.000; constructed
+    #                    Neyman–Scott anchors with true values −0.51, −0.84, −1.56, −2.98 all read
+    #                    0.00000. Conservative, and the larger of the two.
+    #   null side      — RECTIFICATION. Symmetric noise about zero is rectified upward: Poisson with
+    #                    true 0.000 reads +0.020, and the fungal null's +0.0517 ± 0.0124 is really
+    #                    +0.0338 ± 0.0289. Anti-conservative, and it also compresses sd 2.3×.
+    # Use `repulsion_integral_signed` for anything new. 62 files / 212 references consume the
+    # clipped field, so it is NOT removed here — see R-093/R-094.
     I_rep = float(np.trapezoid(np.maximum(0, 1 - R2[mask]), r[mask])) \
             if mask.any() else 0.0
+    # The statistic the docstring actually describes: signed, graded, unsaturated.
+    I_rep_signed = float(np.trapezoid(1 - R2[mask], r[mask])) if mask.any() else 0.0
     return dict(r=r.tolist(), R2=R2.tolist(), R2_GUE=R2_gue.tolist(),
                 repulsion_integral=I_rep,
+                repulsion_integral_signed=I_rep_signed,
                 R2_at_0_1=float(R2[np.argmin(np.abs(r - 0.1))]) if r.size else 0,
                 R2_at_0_5=float(R2[np.argmin(np.abs(r - 0.5))]) if r.size else 0,
                 R2_at_1=float(R2[np.argmin(np.abs(r - 1.0))]) if r.size else 0)
