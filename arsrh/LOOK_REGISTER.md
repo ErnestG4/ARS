@@ -515,15 +515,21 @@ grade as addition.
   are silent (log 6 → 1.4× median, log 10 → 2.5×, log 12 → 2.8×) against log 2 at 14,440×.
 - **Where:** `scout3_primes_and_systematics.py` [3].
 - **Pre-registered or post-hoc:** **POST**, but the location prediction was fixed before the peak-find.
-- **NOT claimed:** **locations only.** Amplitudes against a (log p)²/p^k weight give ratios 49–77 across
-  the 8 peaks — within a factor 1.6, with a mild monotone decline. Suggestive; the exact Berry weight
-  was not checked, so the magnitude law is **not** bracketed. Also: this is a *rediscovery* of known
-  structure (the explicit formula), not a new finding — its value is that it converts our own
-  attribution from candidate to bracketed.
+- **UPGRADED by Scout 4 — the estimator was the defect.** v3 used a point sample of the interpolated
+  peak; a point sample of a sharp peak is attenuated by random sub-bin phase. With **integrated** peak
+  power on each block's **native** grid: locations by parabolic sub-bin interpolation give
+  **|Δ| = 1–6 ×10⁻⁵ at sem 3×10⁻⁵** (0.38–2.19 sem; two of nine near 2.2 sem, the expected tail for
+  nine points). **The amplitude law is now BRACKETED**: ratios collapse to **127.4–132.8**, spread
+  **1.04** (was 1.56), fit exponent n^(−0.014) ⇒ weight **Λ(n)²/n¹ confirmed to 4%** across nine prime
+  powers spanning ×6.5 in n and ×9 in weight. **Spearman ρ = 1.000** on n=9 — measured order is exactly
+  the Λ(n)²/n order — so v3's ρ=0.881 disagreements were estimator artifacts, not scatter.
+- **NOT claimed:** this is a *rediscovery* of the explicit formula's structure — known physics, not a
+  new finding. Its value is that our own attribution is bracketed on **both** location and magnitude,
+  and that it end-to-end validates the instrument at high γ.
 - **Why the control class matters:** composites are a **built-in** control class rather than a
   hand-picked one — the explicit formula sums over prime *powers*, so 6/10/12 *must* be absent. A
   control class the theory itself specifies is stronger than one chosen by the analyst.
-- **Status:** OPEN (locations earned; amplitudes open)
+- **Status:** **RETIRED — earned on both axes.** Locations and amplitudes bracketed; see R-028/R-029.
 
 ### R-027 — Systematics budget for the Selberg-coefficient program
 - **completeness:** on ζ, per-block count deficit mean +0.005, sd 0.503, corr with ln γ = **−0.138** —
@@ -538,3 +544,41 @@ grade as addition.
 - **NOT claimed:** these are the systematics we thought to look for. σ_V is sampling scatter and cannot
   see a systematic that varies with height; three are now checked, others are untested.
 - **Status:** OPEN
+
+### R-028 — The log-8 falsifier, spent and passed
+- **Seen:** nine prime powers sit in the band; Scout 3 reported eight. The missing one, **8 = 2³** at
+  log 8 = 2.07944, is predicted **present and weakest** (Λ(8)²/8 = 0.0601, exactly half of Λ(4)²/4).
+  Measured: present at 2.07945 (0.38 sem), **smallest of the nine**, and amplitude relative to log 4
+  = **0.500 against a predicted 0.500**.
+- **Where:** `scout4_peak_estimator.py` [F].
+- **Pre-registered or post-hoc:** **PRE** — location and relative magnitude were both specified before
+  the measurement, by a reviewer, from the theory, on data already in hand.
+- **NOT claimed:** one prediction, not a program. And it consumed nothing the location test used, which
+  is what made it free — but "free" is why it was nearly left unspent.
+- **Status:** RETIRED (passed)
+
+### R-029 — A point-sampled peak is not an amplitude
+- **Seen:** taking the *value* of an interpolated peak instead of the *integrated power* produced a
+  spurious monotone drift (ratios 49–77, spread 1.56) and corrupted the rank order (ρ = 0.881 with
+  three "disagreements"). Integrating over the peak on the native grid: spread **1.04**, ρ = **1.000**.
+  Cause: a sharp peak sampled at random sub-bin phase is attenuated, and the attenuation correlates
+  with frequency through the interpolation grid.
+- **Where:** `scout4_peak_estimator.py` [A]/[R] vs `scout3_primes_and_systematics.py` [3].
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** not that point sampling is always wrong — for *locations* it was fine, and the
+  location result survived unchanged. The defect is specific to amplitude.
+- **Generalises:** this is [[sealed_conjunction_inert_arm]]'s sibling for estimators rather than gates.
+  A structured residual is diagnostic — but what it diagnoses may be the instrument, and the instrument
+  is the cheaper hypothesis to test first. Both times this arc that a monotone trend appeared
+  (sd(W)'s exponent, this drift), the instrument was the live suspect.
+- **Status:** OPEN — the same audit is owed anywhere an amplitude was read off a peak value.
+
+### R-030 — Completeness detector: sensitivity spec
+- **Seen:** on ζ (known-complete), per-block count deficit has **sd 0.503**. One missing zero shifts the
+  deficit by exactly 1, so it reads at **1/0.503 ≈ 2.0σ**.
+- **NOT claimed:** the detector is a **k ≥ 1 instrument, not a fractional one.** It resolves whole
+  missing zeros at ~2σ each and cannot see partial or subtler catalogue defects. File this before it is
+  used anywhere that assumes finer resolution. Dirichlet's four outliers at +1.3…+1.9 sit 2.6–3.8σ out,
+  i.e. 1–2 missing zeros each, which is exactly at the instrument's floor and should not be read as a
+  precise count.
+- **Status:** OPEN (standing spec)
