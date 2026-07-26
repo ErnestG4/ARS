@@ -1448,3 +1448,66 @@ Filed because this is the program's central parameter and the extension was pre-
   S₃ rests on α₂ ∉ ℚ(α₁), which stands alone. This governs only whether a **fourth stratum** exists, so
   the target's grade is unaffected either way. Separated so no later reader has the target inherit it.
 - **Pre-registered or post-hoc:** **POST**. **Status:** CLOSED.
+
+### R-077 — the rate formula's GRADE: it is CALIBRATED, not derived
+- **R-071 fixed the number and left the grade behind.** `rate = Σ_g P(g)·min(1, g²/|Δ|)` was a
+  prediction from structure. The correction replaces P(g) with **P(g | event), measured**, and the
+  enrichment's mechanism is unstated. So the formula now carries an **empirical input of unknown
+  mechanism** — and *that*, not a count of misses, is why it cannot extrapolate.
+- **A route exists and is open.** An α₁-convergent in branch g maps to λ′ = (g²/Δ)λ, a convergent
+  essentially iff λ′ ≳ 1, so the g = 1 branch should feed exactly α₂'s g′ = Δ branch:
+  **P(g=Δ) ≈ P(g=1)·1.4427/Δ.** Measured pred/meas ratio across |det| = 4…841: **1.64, 1.67, 1.78,
+  1.20, 2.02, 1.53, 1.80, 1.35, 1.81 — mean 1.65, range 1.20–2.02.** The **form holds over two orders
+  of magnitude; the constant does not.** Closing it returns the formula to DERIVED and opens the range.
+- **Status:** OPEN — and it is the one item whose resolution would change a stated limit.
+
+### R-078 — field-level dedup holds the transfer license, and fixed two sampling defects of mine
+- **Polynomial-discriminant dedup is not field dedup** (disc_poly = index²·disc_field). Implemented
+  properly: PSLQ on (1, α, α², β) proposes, **exact reduction of f₂(g(x)) mod f₁(x) over ℚ disposes.**
+  24 polynomials → **22 / 20 / 13** fields for A / B / C.
+- **Two defects found while doing it, both mine.** (i) A raw triple loop returned every object sharing
+  the smallest A — a **thin coefficient slice**, the same sampling-frame error gate 0f was about. Fixed
+  by enumerating in order of increasing height. (ii) The theory reference for P(λ ≥ A) was the
+  **Gauss–Kuzmin a-tail log₂(1+1/A)** where the **λ-tail 1/(A ln 2)** belongs — the same a-versus-λ
+  convention slip, one table over.
+- **Together those two manufactured the "+1.2 to +1.7 sem common offset" I had filed as a shared
+  finite-n estimator bias. It was neither.** Corrected, all four anchors sit within ~1 sem of theory.
+- **License, restated at field level:** events per unit u agrees across all three strata to
+  **|z| ≤ 0.16**; sem = **1.6%** of value, so a **3% difference was detectable**. TRANSFER LICENSED.
+- **Status:** CLOSED.
+
+### R-079 — two numbers quoted past their resolution
+- **T threshold:** 0.0368 came from **400** permutation draws. At **2000** draws it is
+  **0.0235 ± 0.0075** (bootstrap 95% CI [0.0205, 0.0470], and T is discrete in steps of 1/N so the
+  percentile is lumpy). The third figure was not real, and the value moved by 1.8 bootstrap sd.
+- **Census exponent −1.46:** four points over **0.8 decades**. This arc's entire preceding program was
+  about what a short lever arm does to a fitted exponent. **File the DIRECTION** — the cyclic fraction
+  falls with box size, and cyclic cubic fields have density zero — **not the digits.**
+- **Status:** CLOSED — both restated.
+
+### R-080 — the deliverable is an UPPER LIMIT, named before the run
+- **No predicted effect size exists on the target arm and none can — that is what makes it the target.**
+  So this phase is an upper-limit measurement **by construction**, and its likely product is a bound.
+- **Named now so it cannot be written up later as a non-finding:** *"Totally real S₃ cubic conjugates
+  show no coincidence of exceptional approximations above f = 0.05 at zero jitter (0.10 at J ≤ 0.2,
+  0.20 at J = 1.0), with the floor demonstrated by injection rather than argued, on the
+  between-object axis."*
+- **Grade of that sentence:** empirical bound against a permutation null. No analytic bracket exists in
+  this region and none is claimed.
+- **Status:** OPEN — this is what the design produces.
+
+### R-081 — SEALED. `seals/CUBIC_ARM_SEAL.json`, arms hash `c2be21bf2a2ef4dd`
+- Ten frozen fields, not five: **A = 20**; **event = λ ≥ A, not a ≥ A**; **u = log q**; the statistic;
+  the **w-ladder {0.02, 0.05, 0.2, 1.0}**; **2000 permutations**; **T ≤ 0.0235**; the **stratum
+  assignment rule with the object lists frozen** (computable ⇒ tunable); the **field-dedup rule**; the
+  **injection jitter family Uniform(−J,J)**, with the caveat that **the floor is a floor for that
+  family** and a heavy-tailed jitter has a different one — irreducible, since the target's jitter shape
+  is unknown by construction, so it is *stated* rather than discovered.
+- **Failure condition written FIRST**, separating instrument failure from an empty target: stratum B
+  not returning 1.00, stratum C off the calibrated formula by >±12% at |det| ≤ 289, null false-positive
+  rate >10%, or fewer than 20 fields surviving dedup ⇒ **the target result means nothing**.
+- **The negative arm IS the permutation null**, stated so it is not counted as a second witness.
+- **The quadratic/Galois positive arm is RETIRED**: stratum B supersedes it — derived here rather than
+  `LIT`, and on the target's own substrate. Quadratics have **periodic** CFs, which is not the target's
+  regime, so that arm would have certified the instrument on the wrong data.
+- **Status:** SEALED. No arm has been run.

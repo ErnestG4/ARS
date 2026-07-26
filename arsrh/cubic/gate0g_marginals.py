@@ -51,12 +51,24 @@ def anchors(a0):
             "rate_u": nev / u_end, "khinchin": gm, "n_pq": n - 1, "n_ev": nev}
 
 
+def _by_height(box):
+    """enumerate coefficient triples in order of INCREASING height max(|A|,|B|,|C|).
+    A raw triple loop returns a thin slice (every object sharing the smallest A), which is a
+    sampling-frame defect of exactly the kind gate0f was about."""
+    for h in range(1, box + 1):
+        for A in range(-h, h + 1):
+            for B in range(-h, h + 1):
+                for C in range(-h, h + 1):
+                    if max(abs(A), abs(B), abs(C)) == h:
+                        yield A, B, C
+
+
 def collect(kind, want=NOBJ, box=30):
-    """distinct-discriminant objects: kind in {'S3','B','C'}."""
+    """distinct-discriminant objects, enumerated by increasing height: kind in {'S3','B','C'}."""
     out, seen = [], set()
-    for A in range(-box, box + 1):
-        for B in range(-box, box + 1):
-            for C in range(-box, box + 1):
+    if True:
+        if True:
+            for A, B, C in _by_height(box):
                 D = disc(A, B, C)
                 if D <= 0 or D in seen or not irreducible(A, B, C):
                     continue
@@ -106,8 +118,12 @@ if __name__ == "__main__":
         p_(f"  {lbl:<18s} {len(rows):>3d} objects, {res[kind]['n_pq_total']:>6d} PQs, "
            f"{res[kind]['n_ev_total']:>5d} events")
 
-    ref = {"levy": LEVY, "tail": math.log(1 + 1.0 / A_EV) / math.log(2),
-           "rate_u": (math.log(1 + 1.0 / A_EV) / math.log(2)) / LEVY, "khinchin": KHIN}
+    # REFERENCE for the LAMBDA tail is 1/(A ln2), NOT the Gauss-Kuzmin tail log2(1+1/A) for a.
+    # P(theta <= z) = z/ln2 for z <= 1/2 (Bosma-Jager-Wiedijk) and theta = 1/lambda, so
+    # P(lambda >= A) = 1/(A ln 2) = 1.4427/A exactly for A >= 2. Using the a-tail here was the
+    # same a-versus-lambda convention slip the seal now fixes, and it manufactured a +2 sem offset.
+    TAIL = 1.0 / (A_EV * math.log(2))
+    ref = {"levy": LEVY, "tail": TAIL, "rate_u": TAIL / LEVY, "khinchin": KHIN}
     p_(f"\n  {'anchor':>10s} {'theory':>10s} " +
        "".join(f"{res[k]['label'].split(':')[0]:>18s}" for k in ("S3", "B", "C")))
     for key, nm in (("levy", "Levy"), ("tail", "P(lam>=A)"), ("rate_u", "ev/unit u"),
