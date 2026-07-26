@@ -1511,3 +1511,66 @@ Filed because this is the program's central parameter and the extension was pre-
   `LIT`, and on the target's own substrate. Quadratics have **periodic** CFs, which is not the target's
   regime, so that arm would have certified the instrument on the wrong data.
 - **Status:** SEALED. No arm has been run.
+
+### R-082 — stratum B is a SMOKE TEST, not a ceiling, and its hard-halt would have FALSE-FIRED
+- **The regrade.** |Δ| = 1 is Serret equivalence: the two CFs are **identical** from some index n₀. So
+  the λ-events are literally the same events with log q offset by a constant, and the detector's task
+  on B is *"find the shift aligning two identical sequences."* That confirms the code runs and the
+  coordinate convention is right — **almost nothing about resolving two DISTINCT coincident processes.
+  Stratum C carries the calibration.**
+- **The false-fire, measured.** n₀ across the 24 frozen B fields: **min 2, median 3, max 3**. f over the
+  full range = (n−n₀)/n, and **6 of 24 fields return f_full < 1.00** (min **0.9846**). The sealed
+  condition "B must return 1.00" would have **halted on a derivable finite-depth transient**, voiding a
+  target result for an instrument reason that is not an instrument defect.
+- **Amended** (`CUBIC_ARM_SEAL_ADDENDUM_1.json`): **f_full(B) ≥ 0.965**, set from the measured
+  distribution rather than from the number 1.00 — **plus** the sharper clause that on the **post-merge**
+  segment (index ≥ n₀) f must be **1.000 exactly**. The first clause loosens a hard halt and is
+  flagged as such; the second tightens. A false-firing test replaced by a correct one plus a stricter one.
+- **Pre-registered or post-hoc:** amendment before any arm ran, no target data seen. **Status:** CLOSED.
+
+### R-083 — P(λ ≥ A) = 1/(A ln 2) is EXACT, and the a-vs-λ slip was worse than a slot error
+- Under the Gauss natural extension (density 1/(log2 (1+xy)²), λ = 1/x + y), the condition λ ≥ A is
+  x ≤ 1/(A−y) and the inner integral **collapses**: ∫₀^X dx/(1+xy)² = X/(1+Xy) = **1/A, independent of
+  y**. So P(λ ≥ A) = **1/(A ln 2) exactly, for all A ≥ 2** — no asymptotic correction at any A.
+- **Verified:** normalisation 1.000000000000; numeric vs exact at A = 2, 3, 5, 20, 100 to **2.2e−16**.
+- **Consequence:** the anchor reference carries **zero uncertainty**, so R-078's 1.6% sem is the *entire*
+  error budget on that comparison. The transfer licence is cleaner than it was stated at seal time.
+- **And the slip:** log₂(1+1/A) is the approximate-**looking** form that is exact **for a**; 1/(A ln2) is
+  the exact form **for λ**. Using the first where the second belongs swapped an exact reference for one
+  exact only in the wrong variable. **Status:** CLOSED.
+
+### R-084 — R-077 grade change: the MARGINAL P(g) is DERIVED; the conditional is not
+- **g divides Δ, so g = gcd(ap+bq, cp+dq, Δ) — a function of (p,q) mod Δ alone.** The residues
+  equidistribute over {(p,q) mod Δ : gcd(p,q,Δ)=1}, so **P(g) is a finite COUNT**. Verified:
+  count-weighted **χ² = 11.7 on 12 df, p = 0.473**, over 18 branches, 6 objects, |det| = 4, 25, 169.
+- **This kills my own earlier route.** P(g=Δ) ≈ P(g=1)·1.4427/Δ was simply the wrong formula: at
+  |det| = 4 the count gives **P(g=4) = 1/6 exactly** against the heuristic's 0.2405. **The 1.65 factor
+  was chasing an error of mine, not a missing mechanism.**
+- **The proposed closure fails on SIGN.** Preimage-less α₂ convergents inflating the g=Δ branch would
+  drive pred/meas **below** 1; observed is **1.65 > 1**, the prediction overshoots. Not the explanation.
+- **Still not derived:** the formula needs **P(g | event)**, and the residue class and λ are correlated
+  through **y_n = q_{n−1}/q_n**, which enters both. So R-077 moves from *"an empirical input of unknown
+  mechanism"* to *"one identified correlation in a skew product whose marginal is derived."*
+  **A grade change, not a closure.** The formula stays CALIBRATED, |det| ≤ 289 at ±12%, range unopened.
+- **Status:** OPEN, better localised.
+
+### R-085 — the retired quadratic arm would have mis-fired for a SECOND, independent reason
+- At seal time it was retired because quadratics have **periodic** CFs — the wrong regime.
+- **The second reason is sharper.** Galois relates a quadratic irrational's CF to its conjugate's by
+  **period reversal**. The sealed statistic maximises over **lag** — a *translation*. **A reversal is
+  not a translation**, so the estimator could not have read the relation the theorem supplies, and the
+  arm would have returned null **while the theorem held**: a false FAIL on a known-answer control.
+- **The lesson, and it generalises:** *a positive control taken from a theorem must be checked against
+  the ESTIMATOR, not only against the substrate — verify the statistic can read the relation the
+  theorem supplies.* Adjacent to but distinct from "a property of a map on a finite set is not a
+  property of the formula you write for it."
+- **No design change** — the arm is already retired. Recorded so the retirement is not later reversed
+  for the wrong reason. **Status:** CLOSED.
+
+### R-086 — seal integrity verified; transport corruption did NOT reach the artifact
+- Seal re-read from git object `5027213:arsrh/seals/CUBIC_ARM_SEAL.json`; **arms hash recomputed
+  `c2be21bf2a2ef4dd`, MATCHES**; JSON parses clean at 9022 chars; all ten frozen fields present; working
+  tree clean. **Third observed occurrence of conversation-transport corruption, and the first to land on
+  text that is itself the reference — it did not reach the committed file.**
+- **Standing rule this makes explicit:** the seal is verified from the git object and its hash, never
+  from quoted prose. **Status:** CLOSED.

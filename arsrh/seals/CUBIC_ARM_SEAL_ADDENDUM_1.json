@@ -1,0 +1,52 @@
+{
+  "addendum_to": "CUBIC_ARM_SEAL.json",
+  "arms_sha256_16": "c2be21bf2a2ef4dd",
+  "arms_unchanged": true,
+  "integrity_check": "seal re-read from git object 5027213:arsrh/seals/CUBIC_ARM_SEAL.json; arms hash recomputed = c2be21bf2a2ef4dd, MATCHES the recorded value; JSON parses clean at 9022 chars; all ten frozen fields present. The corruption observed in conversation transport (third occurrence) did NOT reach the artifact.",
+  "no_target_data_seen": "No stratum-A pairing has been computed. Every measurement behind this addendum is on stratum B (a calibrator) or on the Gauss natural extension. The seal is amended, not edited, and this file is the amendment.",
+
+  "AMENDMENT 1 — the stratum-B hard-halt threshold would have FALSE-FIRED": {
+    "as_sealed": "stratum B's coincidence fraction is not 1.00  =>  INSTRUMENT FAILED",
+    "defect": "|Delta| = 1 is Serret equivalence: the two continued fractions are IDENTICAL from some index n0 onward. BEFORE n0 the sequences are unrelated, so f over the full range is (n - n0)/n with n0 object-dependent. The sealed test can therefore fail on a known finite-depth transient, voiding a target result for an instrument reason that is not an instrument defect.",
+    "measured": {
+      "n0_across_24_stratum_B_fields": {"min": 2, "median": 3, "max": 3},
+      "f_full": {"min": 0.9846, "median": 1.0, "mean": 0.9962},
+      "fields_below_1.00": 6,
+      "note": "6 of 24 frozen stratum-B fields return f_full < 1.00. The sealed condition would have halted on them."
+    },
+    "amended_condition": [
+      "f_full(B) >= 0.965   -- min observed (0.9846) minus 0.02, set FROM the measured distribution rather than from the number 1.00",
+      "AND, the sharper form: on the POST-MERGE segment (convergent index >= n0) f must be 1.000 EXACTLY, with n0 determined per object by the CF-merge search"
+    ],
+    "direction_of_the_change": "The first clause LOOSENS a hard-halt test, which reduces specificity, so it is justified explicitly: it replaces a test that fires on a derivable transient with one that does not. The second clause TIGHTENS -- post-merge the requirement is exact equality, not a tolerance. Net, a false-firing test is replaced by a correct one plus a stricter one."
+  },
+
+  "AMENDMENT 2 — stratum B is REGRADED from CEILING to SMOKE TEST": {
+    "reason": "After the merge the partial quotients are literally identical and the lambda-events are the same events with log q offset by a constant. The detector's task on B is 'find the shift aligning two identical sequences'. That confirms the code runs and the coordinate convention is right; it says almost nothing about resolving two DISTINCT coincident processes.",
+    "consequence": "STRATUM C CARRIES THE CALIBRATION. B is retained as a smoke test only. Any sentence crediting B with demonstrating detector sensitivity is a filing error.",
+    "unchanged": "The ceiling/floor point itself stands -- the ladder still occupies the J = 0 column only, and the injection grid still supplies the floor."
+  },
+
+  "RECORD 1 — the lambda tail is EXACT, which strengthens the anchor licence": {
+    "statement": "P(lambda >= A) = 1/(A ln 2) exactly, for all A >= 2. Not asymptotic.",
+    "derivation": "Under the Gauss natural extension, density 1/(log2 (1+xy)^2) on the unit square and lambda = 1/x + y. The condition lambda >= A is x <= 1/(A-y), and the inner integral collapses: int_0^X dx/(1+xy)^2 = X/(1+Xy) = 1/A at X = 1/(A-y), INDEPENDENT of y. Integrating y over [0,1] gives 1/(A log 2). A >= 2 is needed so X <= 1.",
+    "verified": "normalisation = 1.000000000000; numeric vs exact at A = 2, 3, 5, 20, 100 agrees to 2.2e-16.",
+    "consequence": "The anchor reference carries ZERO uncertainty, so the 1.6% sem in the transfer licence is the entire error budget on that comparison -- cleaner than stated at seal time.",
+    "and_the_slip_was_worse_than_a_slot_error": "log2(1+1/A) is the approximate-LOOKING form that is exact for a; 1/(A ln 2) is the exact form for lambda. Using the first where the second belongs swapped an exact reference for one that is exact only for the wrong variable."
+  },
+
+  "RECORD 2 — R-077 grade change: the MARGINAL P(g) is now DERIVED": {
+    "result": "g = gcd(ap+bq, cp+dq) divides Delta, hence g = gcd(ap+bq, cp+dq, Delta), a function of (p,q) mod Delta alone. The residues equidistribute over {(p,q) mod Delta : gcd(p,q,Delta) = 1}, so P(g) is a finite COUNT requiring no measurement. Verified: count-weighted chi^2 = 11.7 on 12 df, p = 0.473, over 18 branches across 6 objects and |det| = 4, 25, 169.",
+    "kills_my_earlier_route": "The heuristic P(g=D) ~ P(g=1)*1.4427/D was simply the wrong formula: at |det| = 4 the count gives P(g=4) = 1/6 exactly against the heuristic's 0.2405. The 1.65 factor was chasing an error of mine, not a missing mechanism.",
+    "reviewer_proposal_fails_on_sign": "The proposal -- that alpha2 has g=Delta convergents with no alpha1-convergent preimage, inflating measured above predicted -- would drive pred/meas BELOW 1. Observed pred/meas = 1.65 > 1: the prediction overshoots. Wrong sign, so not the explanation.",
+    "what_is_still_not_derived": "The rate formula needs P(g | EVENT), not P(g). The residue class and lambda are correlated through y_n = q_(n-1)/q_n, which enters both. So R-077 moves from 'an empirical input of unknown mechanism' to 'one identified correlation in a skew product whose marginal is derived'. That is a GRADE CHANGE, NOT A CLOSURE.",
+    "formula_status": "still CALIBRATED, still |det| <= 289 at +/-12%, range still not opened."
+  },
+
+  "RECORD 3 — the retired quadratic arm would have MIS-FIRED, for a second independent reason": {
+    "first_reason_at_seal_time": "quadratics have PERIODIC continued fractions, which is not the target's regime, so the arm would have certified the instrument on the wrong kind of data.",
+    "second_reason": "Galois relates a quadratic irrational's continued fraction to its conjugate's by PERIOD REVERSAL. The sealed statistic maximises over LAG -- a translation. A reversal is not a translation, so the estimator could not have read the relation the theorem supplies, and the arm would have returned null while the theorem held.",
+    "the_lesson_and_it_generalises": "A positive control taken from a theorem must be checked against the ESTIMATOR, not only against the substrate: verify the statistic can read the relation the theorem supplies. Adjacent to, but distinct from, 'a property of a map on a finite set is not a property of the formula you write for it'.",
+    "no_design_change": "The arm is already retired. This is recorded so the retirement is not later reversed for the wrong reason."
+  }
+}
