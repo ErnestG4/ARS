@@ -1135,3 +1135,65 @@ Filed because this is the program's central parameter and the extension was pre-
   estimates on these spectra, and both instances belong attached to it.
 - **Consequence:** any error bar anywhere in the repo computed by assuming √W scaling is **optimistic**.
 - **Status:** OPEN (promoted; §9's "untested" line superseded)
+
+---
+
+## Phase 10 — R-056 REVERSED. The deficit is an integration artifact.
+
+### R-059 — **The cumulative deficit is derivable arithmetic, not non-convergence**
+- **Derivation (reviewer's), verified:** ∫₀^T lnln(t/2π)dt = T·lnln(T/2π) − T/L − T/L² − …, so if the
+  **local** bracket is a constant K, the **cumulative** bracket is its running average:
+  **G(T) = K − 1/L − …, coefficient on 1/L exactly 1, by integration.**
+- **Form test from raw, 40 heights** — unambiguous:
+
+| model | coefficient | rms residual (% of deficit) |
+|---|---|---|
+| **b/L** | **0.97627** | **0.22%** |
+| b/L² | 10.75 | 7.94% |
+| b·lnln (linear) | 0.0359 | 10.50% |
+| constant | 0.0871 | 7.60% |
+
+  **1/L wins by 35× in residual.** My R-056 reading — "linear-in-lnln decay, arrival near T ~ 10¹³" —
+  was the wrong functional form and is **dead**. (K−G)·L = **0.97602 ± 0.00189** across 40 heights.
+- **b = 0.976 against a derived 1: the 2.4% gap is ~12 sd of the scatter, so it is REAL, not rounding**
+  — resolving the reviewer's flagged uncertainty. It corresponds to a small genuine local correction
+  of ≈ 0.024/L. Two-term fit: deficit = 0.953/L + 0.254/L².
+
+### R-060 — **"Leading order rejected at 0.45%" does not survive — and neither does the residual**
+- Inverting exactly (BOTH terms; dropping (1−b)/L is what leaves a residual):
+  **V_local = C[lnln X + K + (1−b)/L + b/L²]**
+
+| | invariant (meas. 0.191874 ± 0.000023) | slope (meas. 0.049974 ± 0.000226) |
+|---|---|---|
+| plain C(lnln+K), no correction | 0.191325 → **+23.71 sem** | 0.050661 → **−3.03 sem** |
+| b/L² only (reviewer's form) | 0.191753 → **+5.24 sem** | 0.049806 → **+0.74 sem** |
+| **both terms, derived** | **0.191866 → +0.36 sem** | **0.049693 → +1.24 sem** |
+
+- **With the derived relation applied in full, both are consistent at ≤1.3 sem. There is no residual to
+  explain.** The reviewer's "+5.2 sem real residual at 1/ln²X order" was the dropped (1−b)/L term, and
+  my −3.03 sem was the missing correction entirely.
+- **Every downstream claim collapses together:** R-051's rejection of leading order, R-053's slot
+  problem, R-056's non-convergence, and a ≈ 0.12–0.15 in all four of its slotted forms. **All were one
+  artifact: comparing a local statistic against a cumulative formula without inverting the relation.**
+- **Status:** the lnln program's terminal state — **measured Var[S] is consistent with
+  Selberg + Goldston (SPCC) once the integration relation is applied**, at 0.36 sem on the invariant
+  and 1.24 sem on the slope. The one surviving residual is b = 0.976 vs 1.
+
+### R-061 — R-047, one notch further: check whether the relation between forms is DERIVABLE
+- R-047 said: when measurement and prediction disagree, first ask whether the published expression
+  contains a term you omitted. R-053 extended it: ask whether it is in the same **form** as your
+  estimator. **This adds the third rung: when the forms differ, ask whether the RELATION between them
+  is derivable — before treating the difference as an unknown to be measured.**
+- Here the answer was yes, in two lines of calculus, and I instead filed the difference as a slot
+  problem (R-053), then as evidence of non-convergence (R-056), then extrapolated an arrival height
+  from it. **The residual had an owner and the owner was arithmetic, not literature.**
+- **Sequence to bank:** omitted term → form mismatch → **derivable relation between forms** → only then
+  a measurement.
+- **Status:** OPEN (standing rule)
+
+### R-055 — AMENDED: the extension's case is stronger and simpler
+- Correction size in V units: catalogue top **4.38×10⁻⁴ = 1.86 far-block sem**; γ=10²¹ **5.22×10⁻⁵ =
+  0.22 sem**; γ=10²² **4.85×10⁻⁵ = 0.21 sem.**
+- **At 10²² the correction is below noise, so the far point measures K DIRECTLY** — no `a` to fit, no
+  CFZ-ratios import, **grade cap gone.** The pre-registered 2-param/3-param positions are void; the
+  extension's question is now simply *what is K*, which is cleaner than the one it replaces.
