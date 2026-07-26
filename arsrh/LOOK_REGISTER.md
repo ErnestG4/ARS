@@ -427,3 +427,48 @@ grade as addition.
   contrast, and a test recommended as "the sharpest unrun thing on the board" without its power
   computed. **Establishing power is a precondition for proposing a test, not only for sealing one.**
   **Status: OPEN.**
+
+---
+
+## Phase 5e additions
+
+### R-022 — The L-function triage row is MEASURED, not an expectation
+- **Seen:** 630 primitive Dirichlet characters (n≥100, conductors 3–149), exact smooth counting
+  θ_χ(t) = Im log Γ((a+½+it)/2) + (t/2)log(q/π), only a constant fitted (p_fit = 1).
+  **Amplitude: 626/630 at median 0.015%** (max 0.12%) of Var[S] captured by a deg-2 fit, against
+  **Maass's 57.6%/69.0%** and a **positive control at 83.8%** (a 0.62-level trend — the Maass parity-0
+  amplitude — injected into the real data). Gate resolves trends to **0.157 levels**; the Dirichlet trend
+  is **≤ 0.0033 levels, 47× below** what the gate can see. **Separability: PASS** — the counting function
+  is exact (gamma factor of a known functional equation), so p_fit = 1, α_c = 1/n, L_max = n/2 ≈ 111.
+  §4 one-liner: poly3 misfits the exact counting by **0.246 levels** median (ζ's was 2.764).
+- **Where:** `phase5e_lfunction_row.py`, `phase5e_lfunction_row_measured.json`.
+- **Pre-registered or post-hoc:** **POST** — run in response to the reviewer's question of whether the
+  row should stay as a flagged expectation or come out until measured. It did neither.
+- **NOT claimed:** **Dirichlet only.** EC L-functions are the same test one gamma factor away and are
+  **not** claimed — the triage row must say *Dirichlet*, not *L-functions*. Not a claim about zero
+  statistics: this measures the density model, not rigidity. Parity was verified absorbed (Var[S] for
+  a=0 and a=1 agree to 4 s.f.), so a=0 throughout — that is verified, not assumed.
+- **Two defects caught in my own gate en route, both filed:** (i) a "3/n chance level" reference, invalid
+  here because it assumes white residuals while S(t) is oscillatory — the measured 0.015% is *below* the
+  nominal 1.4%, which is expected, not anomalous; (ii) a Poisson-on-backbone null, which is a rigidity
+  contrast, not a trend contrast — the wrong null for an amplitude gate. Both replaced by the injected-
+  trend positive control, which is the only reference that establishes power here.
+- **Status:** OPEN (Dirichlet measured; EC unmeasured)
+
+### R-023 — Four Dirichlet characters fail the amplitude gate, NOT diagnosed
+- **Seen:** cleanly bimodal — 626 characters below 0.12%, and exactly **4 above 50%**: conductors 91
+  (73.8%), 103 (72.1%), 121 (69.9%), 56 (53.8%). Those four carry sd[S] ≈ 0.67–1.04 against a main-
+  population median of **0.272**, and a smooth-trend end-to-end drift of **−1.07 to −2.96 levels**
+  against a main-population **0.008**.
+- **Where:** `phase5e_lfunction_row_measured.json` → `outliers`.
+- **Pre-registered or post-hoc:** **POST**
+- **NOT claimed:** **not an amplitude failure of the family** — the family passes on 626/630 with a
+  powered gate. **And not a diagnosed data bug either.** A single missing zero would give a drift of
+  exactly 1 level; three of these are 2.4–3.0. Conductor error, parity/primitivity metadata, complex-
+  character zero-list convention, and list incompleteness are all live and none is established.
+  **Candidate, not bracket** — the standard this arc applies to everyone else.
+- **What would make it a lead:** re-fetch those four from LMFDB and compare counts and metadata against
+  the cached list; if the drift resolves, the gate has just demonstrated a **per-object completeness
+  check** as a free by-product, which is reusable across every catalogued substrate.
+- **Cost to check:** minutes, plus network.
+- **Status:** OPEN

@@ -1,0 +1,61 @@
+{
+  "anti_claim": "instrument triage; NOT about RH",
+  "scope": "Dirichlet only (degree 1); EC L-functions NOT claimed",
+  "n_characters": 630,
+  "n_main": 626,
+  "n_outliers": 4,
+  "VarS_median_main": 0.07421046743367973,
+  "amplitude_real_median_main": 0.00014915756589211287,
+  "amplitude_real_max_main": 0.0011772037293688354,
+  "positive_control_median": 0.8383838703760002,
+  "injected_trend_levels": 0.62,
+  "gate_threshold_levels": 0.15727944073493283,
+  "real_trend_upper_levels": 0.0033270185881842593,
+  "poly3_misfit_levels_median": 0.24589199748818974,
+  "outliers": [
+    {
+      "conductor": 56,
+      "n": 204,
+      "sd_S": 0.672542366109066,
+      "var_S": 0.452313234211581,
+      "trend_frac": 0.537645648130193,
+      "trend_drift_levels": -1.0742442928700078,
+      "trend_frac_injected": 0.5400663964394645,
+      "poly3_misfit_levels": 0.613097270400638
+    },
+    {
+      "conductor": 91,
+      "n": 220,
+      "sd_S": 0.9699415484249153,
+      "var_S": 0.9407866073609222,
+      "trend_frac": 0.7378650045721902,
+      "trend_drift_levels": -2.4428028049414077,
+      "trend_frac_injected": 0.7419947828376512,
+      "poly3_misfit_levels": 0.8659157174827744
+    },
+    {
+      "conductor": 103,
+      "n": 224,
+      "sd_S": 0.9103495263476479,
+      "var_S": 0.8287362601213868,
+      "trend_frac": 0.7209301377447848,
+      "trend_drift_levels": -2.542538470383598,
+      "trend_frac_injected": 0.8717840855601006,
+      "poly3_misfit_levels": 0.8100661279038903
+    },
+    {
+      "conductor": 121,
+      "n": 229,
+      "sd_S": 1.035210331799968,
+      "var_S": 1.0716604310653997,
+      "trend_frac": 0.6988145213165141,
+      "trend_drift_levels": -2.9561097194787154,
+      "trend_frac_injected": 0.7728132011239952,
+      "poly3_misfit_levels": 0.950791575642142
+    }
+  ],
+  "amplitude_pass_powered": true,
+  "separability_pass": true,
+  "L_max_median": 111,
+  "outlier_status": "NOT DIAGNOSED \u2014 candidate list-completeness or metadata problem"
+}
