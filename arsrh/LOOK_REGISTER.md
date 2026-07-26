@@ -1012,3 +1012,67 @@ grade as addition.
   idealisations: spacings are not uniform so the sawtooth variance is not exactly 1/12, and
   independence of the two components is heuristic.
 - **Status:** OPEN — certification **achieved on skewness**, **directional on kurtosis**.
+
+---
+
+## Phase 8 — the invariant, the slot problem, and the extension's power
+
+### R-053 — **SLOT PROBLEM: cumulative vs local. The centroid offset is not a rejection.**
+- Goldston as reported is **cumulative**: ∫₀^T S²dt = (T/2π²)[lnln(T/2π) + B] + o(T). My Var[S] is a
+  **block-local** mean square at height ≈T. They differ by a derivative, and
+  d/dT[(T/2π²)(lnln+B)] = (1/2π²)[lnln + B + **1/ln X**] — the local form carries an extra 1/ln X term
+  with coefficient **exactly 1**, worth 0.00471 at the centroid, **200× the sem.**
+
+| at centroid lnln = 2.37565 | value | vs measured 0.191874 ± 0.000023 |
+|---|---|---|
+| cumulative reading C(lnln+K) | 0.191326 | **+23.8 sem** |
+| local reading C(lnln+K) + C/lnX | 0.196035 | **−180.9 sem** |
+
+  and on the slope: the local form predicts C[1 − 1/lnX] = 0.045951 → **+17.8 sem**; the cumulative
+  form predicts C → **−3.0 sem**.
+- **NEITHER FORM FITS.** So the offset is **slot-uncertain, not a rejection**, and the implied
+  a = 0.116 is what it takes to close the *cumulative* reading — not an independent measurement.
+- **This is R-047 applied one notch further than I applied it.** I asked "does the published expression
+  contain a term I omitted?" and stopped. I did not ask **"is the published expression in the same FORM
+  as my estimator?"** Cumulative-vs-local is a form mismatch, not a missing term, and it is invisible to
+  the check that caught the F-integral.
+- **Consequence for grading:** the Phase-7 result cannot be filed as *"a genuine finding about ζ at
+  finite height."* Its grade is contingent on a slot question I cannot close without the paper.
+  **Filed as: leading-order-plus-Goldston is rejected in ONE reading and over-predicted in the other.**
+- **Status:** OPEN — dominant open question, and cheaper to resolve than anything else here (read the
+  form of the stated theorem, one query).
+
+### R-054 — The invariant combination: what the run actually measured
+- corr(slope, intercept) = −0.9991, so neither is believable alone. For an OLS line the fitted value at
+  the **centroid** has variance s²/n and is **uncorrelated with the slope**:
+  **V(lnln = 2.37565) = 0.191874 ± 0.000023** — **23× tighter than the intercept.**
+- **That is the transferable number**: it survives into a 3-parameter fit without re-litigation, where
+  the slope and intercept do not. Quote it in preference to either.
+- **Status:** OPEN (the number stands; its comparison is R-053)
+
+### R-055 — Extension power, pre-registered before any table is fetched
+- **σ_V at W=10⁴ = 0.000236**, measured on 12 disjoint blocks, not scaled. (Ratio to W=2×10⁴ is
+  **1.21**, not √2 — the same non-√W scaling R-002 found for the ⟨r̃⟩ floor, now confirmed for Var[S].)
+- **3-parameter WLS [lnln, 1, 1/lnX]:** near data alone cond = **6259** (rank-deficient in practice);
+  + one far block cond **610**, σ(a) = **0.116**; + both blocks cond **632**, σ(a) = **0.108**.
+  Against a ≈ 0.15 that is ~1.4σ — **`a` becomes identifiable but NOT precise.**
+- **Two-model discrimination at γ = 10²²:** separation **0.000619** against σ 0.000236 →
+  **2.62σ with one block, 3.71σ with two.** So: **run it only with both blocks**, and even then it is a
+  ~3.7σ discrimination, **not a measurement of a**.
+- **The reviewer's caveat is doubly void:** 10²¹ and 10²² being nearly coincident in lnln does not
+  matter — you need one far point for rank, and you need *both* for the precision.
+- **PRE-REGISTERED ASYMMETRY:** a = 0.146 was **fitted from these data to absorb the misfit.** A refitted
+  `a` near 0.146 after the extension is **not** confirmation — the same data drive both. The test is the
+  far point's **position** against the 2-parameter extrapolation:
+  γ=10²² → 2-param **0.265404**, 3-param **0.266023**; γ=10²¹ → **0.262905** vs **0.263498**.
+- **Status:** OPEN (pre-registered; gated on R-053, since the model being extrapolated is the one in
+  question)
+
+### R-052 — AMENDED: kurtosis is modelled, not bracketed
+- +3.20 sem from prediction is the model's grade: **direction and order confirmed, magnitude 26% off.**
+  That is **candidate-upgraded-to-modelled**, the same standard the +2.27σ Maass departure never
+  earned its label under. **Filing it as validating the sawtooth model would be wrong.** The two known
+  idealisations (non-uniform spacings, heuristic independence) both push the same way, so 26% is
+  unsurprising — but it was **unpredicted**, which is the distinction.
+- The 0.6% point-estimate agreement was computed at V = 0.170, below this run's range; at the actual
+  mean V the honest figure is **2.77%**.
