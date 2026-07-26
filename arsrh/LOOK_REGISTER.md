@@ -582,3 +582,45 @@ grade as addition.
   i.e. 1–2 missing zeros each, which is exactly at the instrument's floor and should not be read as a
   precise count.
 - **Status:** OPEN (standing spec)
+
+### R-031 — A systematic budgeted for ONE observable does not transfer to another
+- **Seen:** R-027 budgeted the within-block curvature systematic and found it **second order** for
+  Var[S] (0.10× σ_V), concluding "controlled by construction." That was correct — **for Var[S].** For
+  the spectral readout it is **first order in log n**: the term for n sits at α = log n / L̄(t), and L̄
+  drifts within a block, smearing the peak by `d_α ≈ log n · ΔL̄/L̄²` — up to **234 native bins at
+  n=13** in the low-γ set against **under one bin** at high γ. A fixed integration window then loses
+  power in proportion to log n, manufacturing a monotone falloff.
+- **What it manufactured:** Scout 5's height test read HIGH n^(−0.014) vs **LOW n^(−0.632)**, i.e. "the
+  Λ(n)²/n law is not stable across height." That conclusion was **entirely instrumental.**
+- **The fix was a coordinate, not a correction.** In **raw t** the explicit formula's terms sit at fixed
+  frequency log n — no L̄ anywhere, nothing to drift. Redone there: **HIGH n^(−0.0134), LOW n^(−0.0141)**,
+  spreads 3.85% / 3.63%, and the rank order is identical at both heights and matches prediction.
+- **Where:** `scout6_raw_frequency.py` vs `scout5_precision_and_height.py` [H].
+- **Pre-registered or post-hoc:** **POST**
+- **Generalises:** this is [[knowledge_does_not_propagate]] sharpened. The budget was not missing and was
+  not wrong — it was *run on the wrong observable and then treated as a property of the data*. **A
+  systematic's order is a property of the (systematic, observable) PAIR.** Re-derive it for every
+  observable that consumes the same data; do not inherit the verdict.
+- **Status:** OPEN — audit owed for every other systematic declared controlled on one observable.
+
+### R-032 — "Confirmed to 4%" was a RANGE reported as a precision
+- **Seen:** per-block scatter gives sem **0.64–1.14%** (typical **0.82%**) on each of the nine ratio
+  means. The 4.07% figure is the **max−min range of nine means**, not a per-point precision.
+- **Consequence for the too-good question:** with 0.82% per point, the three adjacent orderings the
+  reviewer flagged (11-vs-5 at 1.0%, 13-vs-5 at 2.3%, 7-vs-11 at 3.4%) sit at **0.9σ, 1.5σ, 2.7σ** —
+  all three correct has probability ≈ **0.76**, not 1-in-8. **ρ = 1.000 is not too good.** The first
+  horn of the dilemma was the right one: precision is much better than 4%.
+- **But there is mild excess scatter:** χ² = **16.9 on 8 dof** (p ≈ 0.03) about a constant, implying
+  ~0.9% unexplained systematic on top of the 0.82% statistical. **So: the weight law holds at the ~1%
+  level, with a ~2σ hint of residual structure** — not "to 4%", which understated the precision and
+  overstated the agreement at the same time.
+- **Also corrected:** the log-8 ratio is **0.501 ± 0.006**, not "0.500". The prediction is exact by
+  construction; the measurement carries the ratio's scatter and must not borrow the prediction's digits.
+- **Status:** OPEN (the ~2σ residual is unexplained; n=13 and n=9 are the low points and were also the
+  two locations at ~2.1 sem)
+
+### R-033 — Rank and ratio are ONE witness
+- If the ratios are constant, the rank order follows automatically. Spearman ρ is a **coarsening** of
+  the ratio statistic, not an independent check of it. R-026 filed them as two brackets; they are two
+  headings on one measurement. §2's family collapse, one substrate over.
+- **Status:** RETIRED (filing corrected)
