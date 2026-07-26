@@ -1251,7 +1251,7 @@ Filed because this is the program's central parameter and the extension was pre-
   correction is c/L = 0.024/46.8 = **0.00051 bracket units = 11% of σ_K** (0.00466). A **factor-of-two
   error in c moves the answer by a tenth of the error bar.** So **any O(1) coefficient on a 1/L term is
   harmless at that height** — the live risk is whether the correction stays **1/L-shaped** out there,
-  not what c is. (At the catalogue top the same term is 1.9× σ_K, which is why it mattered *here*.)
+  not what c is. (At the catalogue top the same term is 0.4× σ_K against the FAR-block error — but 1.86 sem against the near-block errors the current fit uses, which is why it mattered *here*.)
   Restated in that form; the stability-of-c flag is withdrawn as binding.
 - **SLOT, set before the number exists (rule 11).** What the far block measures is **K**. Converting K
   to the F-integral runs through **Goldston's formula, which is RH-conditional.** So the deliverable is
