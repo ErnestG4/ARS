@@ -1574,3 +1574,45 @@ Filed because this is the program's central parameter and the extension was pre-
   text that is itself the reference — it did not reach the committed file.**
 - **Standing rule this makes explicit:** the seal is verified from the git object and its hash, never
   from quoted prose. **Status:** CLOSED.
+
+### R-087 — RUN COMPLETE. Target empty; the deliverable is the sealed upper limit
+- **All four instrument checks passed** — I1 24/24 fields and 3322/3322 post-merge events; I2 worst
+  |ratio−1| = **0.098** against a 0.12 tolerance over 23 fields at |det| ∈ {4,9,25,169}; I3 false-
+  positive rate **5.7%**; I4 counts 24/24/23. **That is what makes the negative a result.**
+- **Target:** per-field **1/24** detections against 1.2 expected; per-pair **2/72** against 3.6;
+  binomial **p = 0.708**. Detections sit at or below expectation on both accountings.
+- **The stated limit:** *totally real S₃ cubic conjugates show no coincidence of exceptional
+  approximations above **f = 0.05** at zero jitter (0.10 at J ≤ 0.2, 0.20 at J = 1.0), per conjugate
+  pair.* Floor **demonstrated by injection**, and a floor **for the sealed jitter family**.
+- **Pre-registered:** yes — this sentence is R-080, written before any arm ran.
+- **NOT claimed:** nothing about boundedness (§0); not a second witness from the 72 pairs, which live
+  on 24 fields; not the stronger aggregate bound, which was not sealed.
+- **Nice check, unearned but real:** the live permutation null's 5th percentile came out **0.0225**
+  against **0.0235** sealed from synthetics — 4% agreement between a pre-registered calibration and
+  the real null. **Status:** CLOSED.
+
+### R-088 — the seal HALTED the run, on the clause the addendum had just tightened
+- **The first execution failed I1 and exited before the target block.** 2 of 24 stratum-B fields
+  missed post-merge exactness — the *sharper* clause added in Addendum 1, not the loosened one.
+- **Diagnosis: my check, not the transfer.** Events at index 1953/1954 with Serret partners at
+  1955/1956, one and two past the `len(a1) − 45` guard. **Two objects compared without intersecting
+  their valid domains** — the same defect class as the thin coefficient slice, the a-vs-λ threshold,
+  and the polynomial-vs-field dedup. Fourth instance this phase.
+- **Addendum 2 changes the DOMAIN, not the TOLERANCE** (still exactly 1.000). After the fix: **zero**
+  real misses, 3322/3322.
+- **This is the highest-risk amendment class** — a hard-halt check edited after it fired. Recorded with
+  its guards: no target data existed at halt (the script exits first); the tolerance was untouched; the
+  fix follows a correctness principle that applies regardless of outcome; and one surviving genuine
+  miss would have meant instrument failure, not another amendment.
+- **The seal earned its keep here.** A protocol that had not written the failure condition first would
+  have run the target, gotten p = 0.708, and never learned the check was broken.
+- **Status:** CLOSED.
+
+### R-089 — the limit's edge-effect control
+- The lag scan needs overlapping u-range. Within-field pairs **2262.8** vs cross-field null pairs
+  **2255.4** — **+0.33%, 1.78 sem**. Real and null pairs draw on the same domain, so the negative is
+  not an artifact of reduced overlap, and the (insignificant) difference points toward *more*
+  detectability, not less.
+- **Why it mattered:** an unchecked overlap deficit would have weakened the *limit* while leaving the
+  *null* intact — a defect that only shows up on the number being reported, not on the verdict.
+- **Status:** CLOSED.

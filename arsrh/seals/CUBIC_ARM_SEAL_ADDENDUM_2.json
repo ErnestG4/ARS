@@ -1,0 +1,24 @@
+{
+  "addendum_to": "CUBIC_ARM_SEAL.json",
+  "supersedes_nothing_in": "CUBIC_ARM_SEAL_ADDENDUM_1.json",
+  "arms_sha256_16": "c2be21bf2a2ef4dd",
+  "arms_unchanged": true,
+  "class": "POST-HALT AMENDMENT TO A HARD-HALT CHECK — the highest-risk amendment class in the protocol, because the incentive is to loosen until it passes. Recorded in full for that reason.",
+
+  "what_happened": {
+    "the_run_halted": "The first execution of run_cubic_arm.py FAILED instrument check I1 and exited before the target block. I2, I3, I4 all passed.",
+    "the_failing_clause": "The clause ADDED in Addendum 1: post-merge f must be 1.000 exactly. It held on 22 of 24 stratum-B fields.",
+    "no_target_data_existed_at_halt": "The script raises SystemExit before [T]. No stratum-A pairing had been computed when the amendment was written.",
+    "diagnosis": "Both failures were the same artifact, in my check rather than in the transfer: events at convergent index i = 1953 and 1954 whose Serret partners sit at k = 1955 and 1956 — one and two positions past the len(a1) - 45 guard that exists so the tail evaluation has headroom. The comparison asked about continued-fraction terms that were never certified."
+  },
+
+  "the_amendment": {
+    "changed": "the DOMAIN of the post-merge test: i is now required to satisfy n0 <= i < min(len(a0) - 45, len(a1) - 45 - offset), i.e. both indices must lie inside their own certified range.",
+    "unchanged": "the TOLERANCE. It remains f = 1.000 EXACTLY on the post-merge segment. Nothing was loosened.",
+    "why_this_is_a_correctness_fix_and_not_a_convenience": "Comparing an index outside a certified range is invalid regardless of the answer it gives. The same principle would have been applied had the check passed, and it is the same defect class as every other cross-object comparison in this arc: two objects were compared without intersecting their valid domains.",
+    "outcome_after_the_fix": "24/24 fields, and 3322/3322 post-merge events, satisfy exact equality. There were ZERO real misses — the two failures were entirely the artifact.",
+    "residual_risk_stated": "If the domain fix had left even one genuine miss, the honest reading would have been an instrument failure, not a further amendment. It did not."
+  },
+
+  "not_applied_elsewhere": "I2 was left with its original range handling and passed anyway (worst |ratio - 1| = 0.098 against a 0.12 tolerance). The target statistic scans lag over event LOCATIONS rather than matching indices, so it has no analogous domain issue; and the overlap domain available to the lag scan was checked directly — within-field pairs 2262.8 vs cross-field null pairs 2255.4, a difference of +0.33% at 1.78 sem, so real and null pairs draw on the same domain."
+}
