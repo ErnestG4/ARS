@@ -2486,3 +2486,43 @@ Filed because this is the program's central parameter and the extension was pre-
 - **UNRECOVERABLE, not null:** a q pinned at a bound cannot be corrected by a factor — the spacings are
   not in the store, so only recomputation recovers it. Same regime as 100% I_rep saturation.
 - **Status:** RUN. Exposure sized, direction corrected, no misclassification demonstrated.
+
+### R-146 — ★★★★ THE REPAIR SET WAS ALREADY WRITTEN DOWN. 2 of 9 propagated.
+- **`CLUSTERING_COUPLING_FINDINGS.md` carries a NINE-ROW DEFECT TABLE and the line "Repairs, all
+  validated."** Every defect this session rediscovered is in it, correctly characterised, with its
+  repair already built and checked. **I have propagated two.**
+  | documented defect | status in deployed code |
+  |---|---|
+  | `I_rep`'s `np.maximum(0,·)` clip | **PROPAGATED** 2026-07-26 |
+  | Brody `bounds=(0,1)` | **PROPAGATED** 2026-07-27 |
+  | `s < 10.0` truncation (`axes.py:150`) | **LIVE** — "discards the heavy tail *that is* the clustering signature" |
+  | `spacings()` positional slice (`phase35a/unfold_rotnum.py:70`) | **LIVE** — `d[int(.02n):int(.98n)]` on an unsorted diff array: removes **no** outliers |
+  | `bulk_recovery`'s `np.interp` clamp (`:133,:140`) | **LIVE** — clamps outside the calibration range, so "every clustered band → the σ of the *(Poisson regime)* knot" |
+  | `validate_fitters` probing only at the rails | **LIVE** — *"probing at the rails cannot detect railing"* |
+  | Berry–Robnik CI collapse at the rail | unverified here |
+  | global unit-mean normalisation (CV-16 drift) | unverified here |
+  | `I_rep` on raw spike times | documented; my fungal use is unit-mean, checked |
+  **PROPAGATED 2/9. LIVE AND CONFIRMED 4. UNVERIFIED 2.**
+- **AND THE DOC HAD THE CHARACTERISATION RIGHT WHERE BOTH OF US HAD IT WRONG.** It says Brody
+  `bounds=(0,1)` sends **"GUE/GSE → GOE rail"** — which is exactly what the anchors measure
+  (GUE 0.9999, GSE 0.9999, GOE 0.8607). My "cannot distinguish GOE from GUE" and Will's
+  GOE↔GUE class-collapse escalation were both **wrong against a document already in the repo.**
+  `audit/02-math.md:156` flagged it independently too: *"a one-sided fitter… the cap is the upper
+  (repulsive) side."* **Two prior write-ups, both correct, neither in the code.**
+- **THIS IS THE ARC'S SUBJECT AT FULL SCALE.** The defects were not undiscovered — they were
+  **discovered, characterised, repaired, validated, and written down, and the code has none of it.**
+  Everything this session spent effort rediscovering was already answered in prose. **The gap was
+  never knowledge. It was always the channel.**
+- **Status:** OPEN — and it is now unambiguously the top item on the board.
+
+### R-147 — the identity-collapse tail closes cheaply; the sizing was wrong twice, by both of us
+- **No banked prose claim rests on a Brody class call.** The only prose hits are the defect table
+  itself and the audit's own flag. Combined with outcome C (zero class labels in `axes_computed`),
+  **the 494 upper-bound values have no demonstrated consequence** — exposure without a claim resting
+  on it. **The identity-collapse tail closes.**
+- **Both sizings were wrong, and symmetrically.** Will escalated on severity ("two-ended hides
+  identity") without base rates; **I banked it in R-144 as "the larger of the two sweeps" on the same
+  reasoning.** The data: **~91% magnitude-hiding, 2.4% identity-hiding, 0 demonstrated
+  misclassifications.** Severity-without-frequency mis-sizes an exposure, and neither of us checked
+  frequency before filing.
+- **Status:** CLOSED.
