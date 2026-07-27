@@ -1901,3 +1901,59 @@ Filed because this is the program's central parameter and the extension was pre-
   configuration tested**, which is the same family conditioning one level weaker — **nearly
   assumption-free, not quite.** Will's wording, adopted.
 - **Status:** CLOSED at the stated power.
+
+### R-108 — the expansion was used where the EXACT form is free, and once provably invalid
+- **m(c) = F(0.3c) is exact.** No Taylor, no validity question. My 67%/79% used the **linear term only**,
+  discarding the m″ I had just computed; adding it gives a quadratic that **maxes at 0.149 near x ≈ 1**,
+  so a +0.20 shift reads "unreachable". **But F(0.3c) is a CDF — monotone in c, no maximum. The
+  turning point IS the proof the expansion was being evaluated far outside its range.**
+- **EXACT, by evaluating the empirical CDF at 0.3c:**
+  **solar +0.20 needs c = 2.81 (+181%), −0.20 needs c = 0.45 (−55%)**;
+  fungal +409% / −59%.
+- **So every previous figure is superseded, and in both directions:** the circular 59%, my 80%,
+  fungal-derived 79%, solar-linear 67%. Upward is much *harder* than linear said and downward much
+  *easier* — the asymmetry the expansion could not represent. (Will's quadratic −53% ≈ exact −55%.)
+- **Status:** CLOSED — exact form adopted, expansions retired from this computation.
+
+### R-109 — solar's local channel, computed exactly instead of propagated
+- Propagating sd(c) ≈ 1.4 through a second-order expansion was invalid for the same reason. Exact:
+  impose positive (lognormal, E[c] = 1) block c-fields at the observed **1.4579** and the null's
+  **1.3948** and difference the induced mass03, 400 draws each.
+- **Channel contribution to observed-minus-null = −0.0060 ± 0.0023** — **3.0% of solar's 0.20 floor**,
+  where the invalid propagation said −0.027 = 13%. **4.5× smaller.**
+- The argument's structure was right — the rate-envelope-preserving null nets the channel out, leaving
+  only the residual — **it was the propagation that had to go.**
+- **Status:** CLOSED. Solar's local channel is bounded at 3% of the floor, exactly.
+
+### R-110 — POWER RECONCILED, and the conclusion FLIPS: −2.46 is retracted
+- **±0.0137 was a standard error (1 sem), not a 95% half-width.** I then quoted 1.96·se as if it were a
+  bound on |slope|, which it is not — the bound is the far end of the CI around the point estimate.
+- **95% CI = [−0.0438, +0.0100] ⇒ supported bound |slope| ≤ 0.0438**, not 0.027. Over
+  log₂(32/5) = 2.68 doublings that is a drift of **0.117**, against a correction of **0.101**.
+  **Drift > correction.**
+- **THEREFORE: the k-sweep does NOT license applying the 0.899 recovery correction.**
+  **R-103's "I_rep = −2.46 ± 0.09" is RETRACTED.** The defensible statement is the one Will named:
+  **|true I_rep| ≥ 2.21**, resting only on under-recovery holding in every configuration tested.
+- **This is the third time in this arc a conclusion turned on a sem-vs-CI conflation.** The rule:
+  *a quoted ± is a standard error unless it says otherwise, and a bound on |θ| is the far end of the
+  interval, not its half-width.*
+- **Status:** CLOSED — the weaker claim is the supported one.
+
+### R-111 — the compact-support hypothesis, tested and rejected
+- Will: uniform's 0.878 was one-vs-three with a structural distinction — it was the **only compactly
+  supported** kernel, and gaussian/laplace/two-scale are all unbounded. Testable with a second compact
+  kernel.
+- **Tested with three compact (uniform, triangular, arcsine) vs three unbounded, matched I_rep = −1.2,
+  k = 6, 24 reps each:** compact mean recovery **0.8838**, unbounded **0.8914**,
+  **difference −0.0076 ± 0.0145 = 0.52 sem.** Uniform itself came back at **0.894** with more reps.
+- **NOT support-dependent**, and adequately powered for the purpose: it excludes a support effect larger
+  than ~**0.029**, against a correction of 0.101. Kernel-independence stands.
+- **Status:** CLOSED — uniform was scatter.
+
+### R-112 — the two small ones, both Will's, both accepted
+- **Quantisation is a loose end, not a defect.** Three exact integer matches are *possible* under
+  quantisation but not *likely*; the load-bearing check is **independence-by-construction** (different
+  seeds, single advancing stream), which holds. Recorded as such rather than as an explanation.
+- **Granularity is inside the floor budget, not beside it.** mass03's binomial sem is **0.0124**
+  (fungal, n = 1469) and **0.0110** (solar, n = 1999); solar's 0.20 floor is **16–18× sem**, and one
+  count is 0.0005–0.0007. Confirmed inside, as asked.
