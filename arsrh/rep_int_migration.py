@@ -14,7 +14,11 @@ until it is entered in the manifest with a resolution and a reason. The checker 
     needs     — reviewed, clip DOES affect it, migration owed
     PENDING   — nobody has looked
 
-and exits 1 while PENDING > 0 or needs > 0. Run it; do not silence it.
+RATCHET, not a permanent red light: it exits non-zero only on an INCREASE -- new sites on the
+deprecated field, or any count above a high-water mark that moves DOWN only. A check that fails on
+every run for as long as the backlog exists gets learned as noise and is then inert regardless of
+what it reports; that is the SUPERSEDED lesson from the verify harness, one level over. Static
+backlog does not fire. Regression does.
 
 Usage:  python3 arsrh/rep_int_migration.py [--summary]
 """
@@ -92,9 +96,37 @@ if __name__ == "__main__":
                 if len(cats[k]) > 12:
                     p_(f"    ... {len(cats[k])-12} more")
 
+    # ── RATCHET, not a permanent red light ────────────────────────────────────
+    # A check that fails on every run for as long as a 334-site backlog exists gets LEARNED AS
+    # NOISE, and then it is inert regardless of what it reports -- someone appends `|| true` and
+    # the decay resumes behind a green light. That is the SUPERSEDED lesson from the verify
+    # harness, one level over: a permanently-red row is as inert as a missing one.
+    #
+    # So: fail on INCREASE. A static backlog does not fire; a regression does. The high-water
+    # mark only ever moves DOWN, which is what makes it a ratchet rather than a rubber stamp.
     bad = len(cats["PENDING"]) + len(cats["needs"])
-    p_(f"\n  {'MIGRATION INCOMPLETE' if bad else 'MIGRATION COMPLETE'} — "
-       f"{len(cats['needs'])} needs-signed + {len(cats['PENDING'])} unreviewed = {bad} open")
-    p_("  This check EXITS NON-ZERO while any remain. That is deliberate: the bucket's default")
-    p_("  action must be failure, not silence. Resolve sites into the manifest with a reason.")
-    sys.exit(1 if bad else 0)
+    hw = man.get("high_water")
+    hw_p = man.get("pending_high_water")
+    first = hw is None
+    if first:
+        hw, hw_p = bad, len(cats["PENDING"])
+
+    p_(f"\n  open = {len(cats['needs'])} needs-signed + {len(cats['PENDING'])} unreviewed = {bad}")
+    p_(f"  high-water mark: {hw} open / {hw_p} unreviewed  (moves DOWN only)")
+
+    regress = (bad > hw) or (len(cats["PENDING"]) > hw_p)
+    if regress:
+        p_(f"\n  *** REGRESSION *** open {bad} > mark {hw}, or unreviewed "
+           f"{len(cats['PENDING'])} > mark {hw_p}.")
+        p_("  New sites were added on the deprecated field. THAT is what this check exists to catch.")
+    else:
+        moved = hw - bad
+        if moved > 0 or first:
+            man["high_water"] = bad
+            man["pending_high_water"] = len(cats["PENDING"])
+            json.dump(man, open(MANIFEST, "w"), indent=2)
+            p_(f"  ratcheted DOWN by {moved} — mark rewritten to {bad}/{len(cats['PENDING'])}."
+               if moved > 0 else "  mark initialised.")
+        p_(f"\n  NO REGRESSION. {bad} open is a BACKLOG, tracked and non-increasing — not a")
+        p_("  permanent red light. Bulk-marking `fine` to shrink it is called out in the manifest.")
+    sys.exit(1 if regress else 0)

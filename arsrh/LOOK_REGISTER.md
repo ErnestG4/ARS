@@ -2007,3 +2007,50 @@ Filed because this is the program's central parameter and the extension was pre-
   that range, not something established.**
 - Filed because it is the same shape as R-104's circular 0.34: **a number carried along by an argument
   that had just been shown not to support it.**
+
+### R-118 — the exit code had the ALARM-FATIGUE failure mode; replaced by a ratchet
+- **The defect, Will's, and it is the SUPERSEDED lesson one level over.** 334 open sites means the
+  check fails on **every run for as long as the backlog exists** — and a permanently-failing check gets
+  **learned as noise**, at which point it is inert regardless of what it reports. Someone appends
+  `|| true` in three weeks and the decay resumes *behind a green light*. **A permanently-red row is as
+  inert as a missing one** — exactly the argument that put SUPERSEDED in the verify harness.
+- **Fixed as a ratchet: fail on INCREASE.** High-water mark stored in the manifest, **moves DOWN only**;
+  static backlog does not fire, regression does. Verified both ways: adding one new site on the
+  deprecated field → **exit 1**; unchanged backlog → **exit 0**.
+- **The two guards are complementary, not alternatives:** the manifest's warning against bulk-marking
+  `fine` closes the *cheap* escape; the ratchet closes the *silent* one.
+- **Status:** CLOSED — the check now fires only on what it exists to catch.
+
+### R-119 — the split rate: "one line plus a deprecation surface" is a ~310-site migration
+- **Triage moved; deployment did not.** 4 migrated in both passes. What changed was classification:
+  **38 sites newly classified, 33 → needs-signed, 5 → fine — 87% toward needs-signed.**
+- **Projecting the remaining 147 at that rate: ~315 of 399 need the signed field — roughly four in
+  five.** That is the number that says the scope, and it belongs beside the counts.
+- **Status:** OPEN, quantified.
+
+### R-120 — fungal's global channel is TERMINAL, not bounded (different grade from solar's)
+- mass03 is a **fraction**. Fungal's margin is 0.4098 and its mass03 is 0.6549, so the required upward
+  shift needs F(0.3c) = 1.065 — **greater than 1, unreachable by ANY rescale, at any c.**
+- **That is a closure of a different grade from solar's +181%:** solar's is "an implausibly large
+  rescale would be required"; fungal's is "**no rescale exists**". Filed as TERMINAL rather than bounded.
+- **Status:** CLOSED — terminal.
+
+### R-121 — the commensurability check MECHANIZED, and it catches the arc's own failures
+- **Will's argument, and my own evidence forced it:** *a rule violated one paragraph after banking is
+  the strongest evidence it cannot live as a remembered principle.* `commensurability_check.md` was in
+  **exactly the state the sem/CI rule was in when it failed a fourth time** — a memory file requiring
+  someone to remember to consult it, **with ten instances behind it**. The sem/CI rule got mechanized
+  after four. This one had ten.
+- **`commensurable.py`:** a `Measurement` dataclass that **REQUIRES all five clauses** (quantity, units,
+  domain, unit_of_analysis, conditioning) with **no silent defaults** — an unstated clause raises, since
+  the unstated one is what fails invisibly — and `check()`/`difference()` that **refuse rather than
+  assume**, with waivers written at the call site via `allow=(...)`.
+- **And the sem/CI rule is in the same module as code:** `bound()` returns the **far end** of the
+  interval; `half_width()` is named differently so it cannot be mistaken for a bound. Nobody
+  hand-writes 1.96·se again.
+- **SELF-TEST replays the arc's own documented failures** — a guard that cannot construct the defect it
+  prevents is inert. **8/8 caught:** fungal-m′-sizing-solar (domain), polynomial-vs-field units
+  (unit_of_analysis), P(g) vs P(g|event) (conditioning), a-tail vs λ-tail (quantity), solar-floor-on-
+  fungal (domain), mismatched certified domains (domain), **plus a control that must NOT raise**, and
+  bound-vs-half-width. **GUARD IS LIVE.**
+- **Rules that need remembering have failed here repeatedly; rules in code have held.** Status: CLOSED.
