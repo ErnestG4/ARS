@@ -1841,3 +1841,63 @@ Filed because this is the program's central parameter and the extension was pre-
 - **The defensible fallback remains available and is weaker but assumption-free:** |true I_rep| ≥ 2.21,
   since the estimator under-recovers in every configuration tested.
 - **Status:** CLOSED at this power — recovery is I_rep-only, and −2.46 ± 0.09 is supportable.
+
+### R-104 — SECOND clause-1/3 instance in the same computation, and it was the half still pointing at solar
+- I caught that **fungal's block variation** cannot bound solar. I did **not** catch that
+  **f(0.3) = 0.844 and f′(0.3) = −3.39 are fungal's density derivatives** — and I used them to size
+  **solar's** 0.20 floor. Same clause, same computation, twice.
+- **Solar's own coefficients, measured** (n = 1999, its own pooled process): mass03 **0.5968** (vs
+  fungal's 0.6549), **f(0.3) = 0.995**, **f′(0.3) = −3.33** ⇒ **m′ = 0.2985, m″ = −0.2999**.
+  ⇒ consuming solar's floor needs a **67% global rescale**, not the 79% fungal implies, nor the 59%
+  from the circular 0.34, nor my 80%.
+- **The coefficients do not track between substrates**, as Will predicted: f(0.3) differs by 18%.
+- **Provenance note, Will's own:** the 0.34 that carried the sizing for a full cycle was **circular** —
+  "0.3·f(0.3) ≈ 0.34 recovers your derivative" was written without computing f(0.3), so my noisy
+  difference quotient was dressed as independent analytic agreement. **Flagged retrospectively as
+  unverified arithmetic.** First genuinely independent value is the local-linear-fit f(0.3).
+- **Status:** CLOSED — each substrate now sized on its own density.
+
+### R-105 — solar's local channel is bounded by CANCELLATION, not by smallness
+- **Solar's block-to-block variation is enormous and real:** sd(block means) **1.5806** vs iid floor
+  **0.6105** — **+13.85 sampling sd**, excess **sd(c) = 1.458**. (Fungal's, by contrast, is −0.55
+  sampling sd, i.e. noise — as Will noted, nothing to read in observed-below-floor.) The solar cycle is
+  presumably the source, given the ~1000× envelope.
+- **So the fungal-style argument fails for solar** — sd(c) ≈ 1.46 is far outside any regime where a
+  second-order bound holds.
+- **But the null is rate-envelope-preserving by construction, so the channel largely CANCELS.**
+  Measured: cycle-preserving null excess sd(c) = **1.3948 ± 0.0388** (8 draws) against the observed
+  **1.4579** — a difference of **+0.063, or +1.6 null sd**, consistent with zero.
+- Propagating that residual through solar's own m″ gives ≈ **−0.027 in mass03, ~13% of the 0.20
+  floor** — and itself consistent with zero. **Order-of-magnitude only:** the second-order expansion is
+  invalid at sd(c) ≈ 1.4, so this is an estimate, not a bound.
+- **Status:** CLOSED-BY-CANCELLATION, with the residual estimate flagged as non-rigorous.
+
+### R-106 — the three exact table coincidences are QUANTISATION, not common random numbers
+- Will's hypothesis was a shared z-field across sd. **Ruled out by construction** — different seeds
+  (5 vs 101), and each draw advances a single stream, so no field is reused.
+- **Actual cause:** mass03 is a **count over 1469 spacings**, so shifts are multiples of **1/1469 =
+  0.000681**. The three "coincidences" are the **same integer count**: −7, −12, −28. Old sd = 0.20 and
+  new 5th-pct at 0.05 both equal −7/1469; old 0.10 and new 0.10 both −12/1469; old 0.30 and new 0.20
+  both −28/1469.
+- **Consequence for the sd = 0.246 interpolation:** columns are **independent** (good, the concern is
+  discharged) — **but the statistic is coarse.** One count is 0.00068, so a 0.03 shift is only ~44
+  counts, and quoted shifts below ~0.002 are within a few counts of zero.
+- **Status:** CLOSED.
+
+### R-107 — the family transfer, done on the KERNEL rather than on k
+- Will: the k-sweep varied k with **N(0,s²) dispersal throughout**, so the one structural feature that
+  could drive recovery was **held fixed in every configuration**. Correct.
+- **Kernel-varied test:** matched I_rep = −1.2, **k = 6 fixed**, dispersal shape varied; scale solved
+  per kernel from I_rep = −(k−1)·P(0 < X₁−X₂ < 1/k), computed by 4×10⁶-sample Monte Carlo.
+  **gaussian 0.916, uniform 0.878, laplace 0.919, two-scale 0.909 — mean 0.906, spread 0.041**
+  (sems ≈ 0.02, so ~2 sem).
+- **Combined with the k-sweep (0.899 ± 0.033 over a 6.4× k-range), recovery ≈ 0.90 across BOTH
+  structural axes.** That upgrades "transfers within Neyman–Scott" toward "transfers".
+- **POWER, named as requested:** recovery vs log₂k has slope **−0.0169 ± 0.0137** per doubling,
+  excluding |slope| > **0.027** at 95% — a total possible drift of **0.072** across the k-range,
+  **comparable to the 0.101 correction itself.** So "no k-dependence" means *none larger than roughly
+  the size of the correction*, not none.
+- **And the fallback's true grade:** |true I_rep| ≥ 2.21 rests on under-recovery holding in **every
+  configuration tested**, which is the same family conditioning one level weaker — **nearly
+  assumption-free, not quite.** Will's wording, adopted.
+- **Status:** CLOSED at the stated power.
