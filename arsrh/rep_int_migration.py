@@ -39,6 +39,10 @@ PAT = r"repulsion_integral|rep_int_q|rep_int_per_q|rep_int"
 MIGRATED = re.compile(r"repulsion_integral_signed|rep_int_signed|_signed_q")
 # Clip provably cannot matter: None placeholders, None-guards, pure display, comments.
 FINE = re.compile(
+    # A BACKTICK-QUOTED mention is prose in a docstring, not a call site. Added after the ratchet
+    # fired on a comment in cross_substrate/axes.py explaining a DIFFERENT repair -- the tool
+    # counting prose about itself, the same family as it counting its own remediation.
+    r"`(repulsion_integral|rep_int\w*)`|"
     r"=\s*None\s*\)?$|is\s+not\s+None|is\s+None|^\s*#|"
     r"^\s*(print|p_)\(|\.\d+f\}|:>\d|json\.dump|columns\s*=|header|label\s*="
 )
