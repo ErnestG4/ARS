@@ -1797,3 +1797,47 @@ Filed because this is the program's central parameter and the extension was pre-
   (+0.34 at h = 0.01, +0.22 at h = 0.02). The analytic form **0.3·f(0.3) ≈ 0.34** is the right value and
   it is Will's independent check that carries it, not my difference quotient.
 - **Status:** OPEN-BOUNDABLE. Not terminal, and the bound is small.
+
+### R-101 — the local-channel bound was four single draws; replicated, and three of my numbers were wrong
+- **The non-monotonicity was the tell.** −0.0020, −0.0082, −0.0048, −0.0191 — a second-order term scales
+  as sd², which is monotone, so the third point was realization noise comparable to the effect.
+  **"≤0.02" was a max of four unreplicated draws, not a bound.**
+- **Replicated, 40 draws per sd, quoted as quantiles** (mean / 5th / 95th / |max|):
+  sd 0.05 → −0.0017 / −0.0048 / +0.0020 / 0.0068; 0.10 → −0.0027 / −0.0082 / +0.0014 / 0.0102;
+  0.20 → −0.0088 / −0.0191 / +0.0007 / 0.0252; 0.30 → −0.0172 / −0.0328 / −0.0033 / 0.0368.
+- **m″ now analytic, no difference quotient.** m(c) = F(0.3c) ⇒ **m′(1) = 0.3·f(0.3)**,
+  **m″(1) = 0.09·f′(0.3)**. Estimating the density by local linear fit on [0.10, 0.60]:
+  f(0.3) = 0.844, f′(0.3) = −3.39 ⇒ **m′ ≈ 0.25, m″ ≈ −0.305**. The free sign check passes: fungal is
+  clustered ⇒ f′(0.3) < 0 ⇒ m″ < 0, and all measured shifts are negative.
+- **THREE of my own estimates were wrong, in both directions.** A Gaussian KDE (boundary-biased on data
+  spiked at 0) gave m″ = −0.009, under by 30×; the finite difference gave −1.70, over by 5×. The local
+  linear fit at −0.305 reproduces the measured shifts to ~1.5×. **And m′ ≈ 0.25, not the 0.34 I quoted
+  from a noisy difference — so consuming solar's 0.20 floor needs an ~80% global rescale, not 59%.**
+- **Status:** CLOSED — bound now replicated and quantile-quoted.
+
+### R-102 — the measured c-variation, and a transfer slip of mine caught before it was committed
+- **Measured on fungal's pooled process** (29 blocks of 50): sd(block means) = 0.3521 against an iid
+  floor of 0.3801 — **observed is BELOW the floor, so the point estimate of real normalisation
+  variation is ZERO.**
+- **But 29 blocks is few, so the honest form is an upper limit: sd(c) ≤ 0.246 at 95%.** At that limit
+  the replicated sweep gives a mass03 shift of roughly −0.012 mean with a 95th-percentile magnitude
+  near 0.03 — against solar's 0.20 floor, a factor ~7 margin, not the order of magnitude I claimed.
+- **⚠ AND THE SLIP:** this c-variation is measured on **fungal**, and I was about to use it to bound
+  **solar's** floor. Different substrate — that is clause 1/3 of the commensurability check, caught
+  before filing. **Solar's own block-to-block variation has NOT been measured, and the local channel
+  for solar is therefore still unbounded by measurement.**
+- **Status:** OPEN for solar; bounded for fungal.
+
+### R-103 — recovery is a function of I_rep alone, not of k, at this power
+- My ±0.006 **was** the across-configuration spread, so the question was closed in the right direction —
+  **but k and |I_rep| were correlated across those six configurations**, so the degeneracy stood.
+- **Discriminating test, Will's:** solve s from −((k−1)/2)·erf(1/(2ks)) = target, giving matched I_rep at
+  very different k. At target −1.5, k = 5/8/16/32: recovery 0.899, 0.924, 0.847, 0.876,
+  **χ² = 4.02 on 3 df, p = 0.259.** At target −0.8: 0.863, 0.933, 0.925, 0.927,
+  **χ² = 5.70 on 3 df, p = 0.127.** **No k-dependence at a 6.4× range in k.**
+- **Pooled recovery 0.899 ± 0.033.** So the correction is a function of I_rep alone and transfers beyond
+  this family — at this power. **Fungal bias-corrected: I_rep = −2.46 ± 0.09** from the calibration
+  spread alone (other sources not included).
+- **The defensible fallback remains available and is weaker but assumption-free:** |true I_rep| ≥ 2.21,
+  since the estimator under-recovers in every configuration tested.
+- **Status:** CLOSED at this power — recovery is I_rep-only, and −2.46 ± 0.09 is supportable.
