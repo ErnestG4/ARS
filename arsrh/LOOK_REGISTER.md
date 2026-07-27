@@ -2123,3 +2123,54 @@ Filed because this is the program's central parameter and the extension was pre-
 - **Re-graded from "recompute Allen V1's ρ" to "run the precondition over the 18 variance-consuming
   sites."** Not one item; the head of one.
 - **Status:** OPEN, re-graded, enumerated.
+
+### R-125 — the precondition made GRADED, and a correction to how I described my own code
+- **The push, and the premise needs one correction before the fix is credited.** Will read my prose
+  ("clipping produces exact ties, so exact-equality is the right detector") as a **binary** check with
+  power only at 100% saturation, green-lighting a site at 85%. **The code did not do that** — it used
+  `max_saturation = 0.30` and fires at 50/70/85/90%. **My description misrepresented my own
+  implementation**, and the push was against the description.
+- **But the fix is real anyway, for a better reason: 0.30 was an ARBITRARY constant I never
+  justified.** The graded version replaces it with a threshold **derived from the attenuation curve**
+  and tied to a **declared tolerance on rho loss.**
+- **The calibration is clean because the attenuation factor is UNIVERSAL in the partner variable.**
+  If y = βx + ε then ρ(x_c,y)/ρ(x,y) = **ρ(x_c, x)** — no y. Verified across β = −0.9, 0.3, 2.0 to four
+  decimals. So **one curve in saturation serves every correlation on a clipped field**:
+  retained ρ = 1.000, 0.932, 0.856, 0.741, 0.519, 0.407, 0.219, 0.000 at sat = 0, .3, .5, .7, .9, .95,
+  .99, 1.0.
+- **And it need not be assumed at all.** `attenuation_measured(clipped, signed)` = ρ(clipped, signed)
+  is **exact and assumption-free**, available at every site precisely because the fix added the signed
+  field. The Gaussian curve is the fallback for banked results where only the clipped field survives,
+  and the assumption is printed in the refusal message.
+- **The check now states its own power**, which a precondition without one is the unquantified-power
+  defect a level down: *at max_loss = 10% it fires above **39%** saturation; at 25%, above **69%*** —
+  and is silent below **by design**, with residual attenuation under the tolerance.
+- **Corpus grown by the real escape, per the discipline: 6 → 11 sensitivity cases**, including graded
+  firing at 50/85/100%, deliberate silence at 20%, and measured-vs-calibrated agreement.
+  **Final: sensitivity 11/11, specificity 9/9, interface 7/7 → 27/27.**
+- **Status:** CLOSED — the precondition now watches degeneracy, not merely full degeneracy.
+
+### R-126 — the sweep's real payload: saturation manufactures FALSE NEGATIVES
+- **Pre-filed before the 18-site sweep runs, because it changes what the sweep is for.** Saturation does
+  not create spurious detections — it **attenuates real relationships toward zero**. So the dangerous
+  banked claim is **not a false positive; it is a missed one.**
+- **Therefore the sweep is not cleanup.** It is a check on whether any *"weak or no relationship"*
+  conclusion in those 10 files was actually **"saturated-and-attenuated" in disguise** — Allen V1's
+  ρ ≈ 0 being the exemplar, not the exception.
+- **And the partial-saturation regime is the worse one:** full saturation gives an **undefined** ρ,
+  which stops you; partial gives a **plausible wrong number**, which does not.
+- **Status:** OPEN — the sweep's verdict now has a stated direction of risk.
+
+### R-127 — two principles the arc has now earned, banked as families
+- **EXACT TIES IN A CONTINUOUS FIELD ARE ALWAYS A MECHANISM, NEVER A FLUCTUATION.** Exact equality is
+  measure-zero under any continuous process, so its presence is a near-certain signature of a
+  degenerate mechanism. **Firing in three places now:** fungal's 194/194 exact-zero detection, the
+  dormant clip bug's 100% exact-zero rate, and saturation preconditions. It is a family, not a one-off:
+  *any statistic on a field that can saturate needs a variance precondition, and exact-tie density is
+  the universal detector.*
+- **THE INSTRUMENT IS NOT ONE OF ITS OWN WITNESSES.** My first count of at-risk sites included the
+  sweep tool's own references to the field — the measurement instrument counting itself as a data
+  point, inflating the very number used to scope the sweep (20 → **18** once excluded). **Recurring
+  shape, not a one-off:** any sweep for "sites affected by X" is itself a site touching X, and the tool
+  is not a site. Sibling of shared-source-is-not-corroboration.
+- **Status:** BANKED.
