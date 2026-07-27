@@ -1957,3 +1957,53 @@ Filed because this is the program's central parameter and the extension was pre-
 - **Granularity is inside the floor budget, not beside it.** mass03's binomial sem is **0.0124**
   (fungal, n = 1469) and **0.0110** (solar, n = 1999); solar's 0.20 floor is **16–18× sem**, and one
   count is 0.0005–0.0007. Confirmed inside, as asked.
+
+### R-113 — the rule from R-110 violated ONE PARAGRAPH after banking it. FOURTH instance.
+- Compact-support bound: difference 0.0076, sem 0.0145 (0.52 sem). **I quoted 1.96·se = 0.0284 ≈ 0.029
+  as the excluded effect — the CI half-width again, not the bound.** Supported bound is the far end:
+  **|0.0076| + 0.0284 = 0.036.**
+- Conclusion unchanged (0.036 ≪ 0.101, still adequately powered) — **but the number was wrong by the
+  exact defect filed one paragraph earlier, and that is worth more than the number.**
+- **Fourth instance, not third.** Banking a rule and violating it in the same message is the strongest
+  evidence yet that this one needs to be a mechanical check, not a remembered principle.
+- **Status:** CLOSED, count corrected to 4.
+
+### R-114 — the ±0.20 column applied SOLAR's floor to FUNGAL's row
+- Fungal's margin is **mass03 0.6549 − null 0.2451 = 0.4098**, not 0.20. So my "+409%" answered a
+  question fungal does not ask. Clause 1, in the **presentation** rather than the computation — the two
+  rows were measured against different things while the table invited comparison.
+- **Recomputed against each substrate's own margin:**
+  **fungal (±0.4098): upward is genuinely UNREACHABLE** — 0.6549 + 0.4098 = 1.065 > 1, so no rescale can
+  do it, a hard fact rather than an expansion artifact — **downward needs −87% (c = 0.13)**.
+  **solar (±0.20): +181% (c = 2.81) / −55% (c = 0.45).**
+- Conservative in direction (fungal's real requirement is *larger* than quoted), but wrong as presented.
+- **Status:** CLOSED — each row now against its own margin.
+
+### R-115 — solar's channel is a DETECTION, not a bound; refiled as measured
+- **−0.0060 ± 0.0023 is 2.6 sem from zero.** "3.0% of the floor" reads as a ceiling; it is a **point
+  estimate with an error bar that excludes zero** — a small, real bias, now *measured* rather than
+  propagated. Better than a bound, and it should be filed as what it is.
+- Does not threaten the claim at that size (3% of 0.20), and it supersedes the invalid −0.027.
+- **Status:** CLOSED as MEASURED.
+
+### R-116 — the void class widened, and the decaying bucket made to FAIL instead
+- **Widened, per Will:** the void class is not "comparisons on I_rep" but **anything consuming
+  rep_int's VARIANCE where it saturates** — correlations, percentile/rank comparisons, real-vs-surrogate
+  tests, ordering. A saturated variable has near-zero variance, so every one of those is corrupted, not
+  merely the explicit cross-substrate comparisons.
+- **And the decay, addressed structurally.** Everything else on the board is a choice; an unclassified
+  bucket with no assigned resolution **becomes permanent by default, because the default action is to
+  do nothing.** So the default action is now a **failing check**:
+  `arsrh/rep_int_migration.py` + `rep_int_migration_manifest.json`, which classifies every reference and
+  **exits non-zero** while any remain open, with the manifest requiring a *reason* per resolution and an
+  explicit warning against bulk-marking `fine` to clear it.
+- **Current state: 399 sites — 4 migrated, 61 fine, 187 needs-signed, 147 unreviewed = 334 open.**
+- **Status:** OPEN and now VISIBLE. The bucket can no longer decay silently; it fails until worked.
+
+### R-117 — Will's own, recorded: the −53% was quoted from the invalid quadratic
+- The turning-point argument (a CDF is monotone, a truncated quadratic has a maximum, therefore the
+  expansion is outside its range) was **valid and decisive**. The **−53%** quoted in the same breath came
+  from that same invalid quadratic; it landed within two points of the exact −55%, **which was luck at
+  that range, not something established.**
+- Filed because it is the same shape as R-104's circular 0.34: **a number carried along by an argument
+  that had just been shown not to support it.**

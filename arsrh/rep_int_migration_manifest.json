@@ -1,0 +1,9 @@
+{
+  "note": "Resolutions for the deprecated `repulsion_integral` field (R-093/R-094). A site absent from `resolved` is PENDING and the checker exits non-zero. Add entries as `path:line`: `migrated` | `fine` | `needs`, and record WHY in `reasons`. Do not bulk-mark `fine` to clear the check — that reinstates the inert pass the checker exists to prevent.",
+  "resolved": {},
+  "reasons": {
+    "why this exists": "The clip fix left the biased field live at hundreds of call sites. Everything else on the board is a choice; an unclassified bucket with no assigned resolution is a decay -- it becomes permanent because the default action is to do nothing. So the default action is now a failing check.",
+    "what makes a site `needs`": "The clip saturates any clustered process to exactly 0.000 and rectifies noise upward on Poisson-like input. So it corrupts thresholding, ordering, correlation (a saturated variable has near-zero variance), and every real-vs-surrogate percentile comparison.",
+    "what makes a site `fine`": "None placeholders, None-guards, pure display/serialisation -- the value is never compared, ordered, or reduced."
+  }
+}
