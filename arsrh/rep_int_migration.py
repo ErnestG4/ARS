@@ -33,7 +33,10 @@ p_ = lambda *a: print(*a, flush=True)
 PAT = r"repulsion_integral|rep_int_q|rep_int_per_q|rep_int"
 
 # Reviewed rulesets. A site matching MIGRATED is already on the signed field.
-MIGRATED = re.compile(r"repulsion_integral_signed")
+# The signed field in ANY of its names is the migration, not a new deprecated site. Without this,
+# the checker counts its own remediation as a regression -- the instrument-is-not-its-own-witness
+# family, one face further on: a tool must not score its own fix as a defect.
+MIGRATED = re.compile(r"repulsion_integral_signed|rep_int_signed|_signed_q")
 # Clip provably cannot matter: None placeholders, None-guards, pure display, comments.
 FINE = re.compile(
     r"=\s*None\s*\)?$|is\s+not\s+None|is\s+None|^\s*#|"
@@ -56,7 +59,8 @@ def sites():
         if not line.strip():
             continue
         path, ln, code = line.split(":", 2)
-        if os.path.abspath(os.path.join(ROOT, path)) == os.path.abspath(__file__):
+        # Tooling is not a site (same family as above).
+        if os.path.basename(path) in ("rep_int_migration.py", "commensurable.py"):
             continue
         rows.append((path.lstrip("./"), int(ln), code.strip()))
     return rows
