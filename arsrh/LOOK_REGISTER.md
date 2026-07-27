@@ -2403,3 +2403,49 @@ Filed because this is the program's central parameter and the extension was pre-
   own comment records the shuffle is a no-op for the pooled stream — thin, but a different construct,
   not phase38's under-powered-null repair.
 - **Status:** LIVE. Fourth watcher, fourth declared power.
+
+### R-142 — ★★★ THE GUARDS WERE ORPHANED. Seventh instance, mine, built this session
+- **Pointed the propagation watcher at the guards, as instructed. The joke wrote itself.**
+  `commensurable` imported by **0** modules. `propagation_watch` **0**. `rep_int_migration` **0**.
+  `require_varying` / `check_correlation` / `recover_rho` at **0 call sites**. `Measurement(` at **0**.
+- **Every guard built this session was in exactly the state `irep_unclipped` was in on 2026-07-12:**
+  correct, validated, and **unable to fire** — standalone scripts nobody imports and nobody runs.
+  A guard that must be *remembered* is not a guard. **Seventh instance, and I built it while writing
+  the watcher for precisely this.**
+- **FIXED: `tests/test_known_defects.py`** — pytest now runs all three watchers plus the guard's own
+  self-test. A test file is in the shared path **by construction**, which is the only form that
+  survives this channel.
+- **Status:** CLOSED — guards now fire under `pytest`.
+
+### R-143 — every real defect FIXTURED, on the model the sweep itself found
+- **The model:** `thermo/gate_fixtures.py` keeps the Jenkinson–Pollicott digit transposition as the
+  *named* constant `DIM_E2_REPO_TRANSPOSED` — the **wrong value retained and tested against**, not
+  deleted. Deleting loses the evidence the error happened; naming it means the suite permanently tests
+  that this specific error cannot return. **Fixed-and-FIXTURED, not fixed-and-forgotten.**
+- Now banked the same way: `IREP_CLIPPED_SATURATES_TO_ZERO`, `FUNGAL_IREP_SIGNED_TRUTH = −2.21198`,
+  **`BRODY_AXIS_SATURATES_BOTH_ENDS = (0.0, 1.0)`**, `BRODY_GOE_TRUTH`, `BRODY_GUE_TRUTH`. Each test
+  asserts **both** that the deprecated path stays bit-identical *and* that the repaired one separates
+  what the defect collapsed.
+- **Two of my own errors caught by writing the fixtures**, both previously-banked lessons recurring:
+  (i) `abs(signed) < 0.01` on Poisson **pinned a magnitude seen in one draw** — it scatters ±0.03 at
+  n=4000 between seeds. Rewritten to assert **direction over 20 replicates** (R-101's lesson, applied
+  to a fixture). (ii) My `tests/` exclusion used `startswith("tests/")` while grep emits `./tests/…`,
+  **so the exclusion did nothing** — caught by the test failing, which is the arrangement working.
+- **Status:** CLOSED — 7/7 passing.
+
+### R-144 — answering the two direct questions, and a new sweep the sixth instance raises
+- **Is brody the only two-ended one? YES, among the current hits.** The other four unresolved:
+  `verify/tier3_chirp_and_cap.py` ×2 (a *verification harness* that deliberately runs deployed-vs-fixed
+  paths — the semicircle unfolding fix lives in `fix_gue_generator.py` at repo root, importable);
+  `_ks_pvalue` private-imported by two files (a **public-API gap** signal, and a p-value is bounded by
+  *definition*, not class-collapsing); and a `_v2` suffix with no shared stem. **Only `I8_brody_q` is
+  a two-ended saturation of an axis carrying a classification.**
+- **THE CLASS-COLLAPSE SWEEP, newly raised and unstarted.** One-ended saturation hides **magnitude**;
+  two-ended hides **identity**. The deployed Brody axis pinned clustered → 0.0000 and **GOE *and* GUE
+  both → 0.9999**, collapsing the two RMT classes the program exists to separate — and it is consumed
+  at **87 sites across `harvest.py`, `calibration_anchors.py`, `brocot_approximability.py`,
+  `hc3_ec_pillar1.py`, `phase2b_*`.**
+- **The question, filed in the same shape as the false-negative sweep:** *how many banked
+  "GOE-like"/"GUE-like" class assignments came off this axis while it could not tell them apart?*
+  Saturation there does not attenuate a magnitude — **it substitutes a bound for a class label.**
+- **Status:** OPEN, unstarted, and the larger of the two sweeps.

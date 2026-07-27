@@ -6,6 +6,6 @@
     "what makes a site `needs`": "The clip saturates any clustered process to exactly 0.000 and rectifies noise upward on Poisson-like input. So it corrupts thresholding, ordering, correlation (a saturated variable has near-zero variance), and every real-vs-surrogate percentile comparison.",
     "what makes a site `fine`": "None placeholders, None-guards, pure display/serialisation -- the value is never compared, ordered, or reduced."
   },
-  "high_water": 333,
-  "pending_high_water": 146
+  "high_water": 320,
+  "pending_high_water": 141
 }
