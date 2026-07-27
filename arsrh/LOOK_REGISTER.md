@@ -2174,3 +2174,65 @@ Filed because this is the program's central parameter and the extension was pre-
   shape, not a one-off:** any sweep for "sites affected by X" is itself a site touching X, and the tool
   is not a site. Sibling of shared-source-is-not-corroboration.
 - **Status:** BANKED.
+
+### R-128 — attenuation universality is a THEOREM, and it makes the precondition family tractable
+- **Statement:** for y = βx + ε and x_c any deterministic clipping of x,
+  **ρ(x_c, y) / ρ(x, y) = ρ(x_c, x)** — independent of β, of var(ε), and of the partner variable
+  entirely.
+- **Proof (a derivation, not a fit):** ρ is bilinear in the standardised variables and the clipping
+  acts only on x, so the y-dependence factors out — cov(x_c,y) = β·cov(x_c,x), cov(x,y) = β·var(x),
+  hence the ratio is cov(x_c,x)/(sd(x_c)·sd(x)) = ρ(x_c,x). Verified across β = −0.9, 0.3, 2.0 to four
+  decimals.
+- **Consequence, and it is the reason this matters:** saturation attenuation is a property of **the
+  clipped field alone**, not of the relationship being measured. **Characterise a field's saturation
+  once and you know its effect on every statistic that field will ever enter** — no per-relationship
+  recomputation, ever.
+- **Honest seam, filed with it:** exact under the linear model, approximate when the relationship is
+  not linear. So `attenuation_measured` (assumption-free, ρ(clipped, signed) directly) is preferred
+  wherever the signed field survives; the Gaussian curve is the **labelled** fallback for banked-only
+  sites, and its assumption prints in every refusal that uses it.
+- **Status:** BANKED as a theorem in the module header.
+
+### R-129 — the sweep is now a CORRECTOR, and fungal demonstrates R-126 on real data
+- **Built:** `joint_q_profile` now emits `rep_int_signed_q` alongside the clipped field, so per-site
+  attenuation is **measurable** at every site rather than assumed. `recover_rho()` returns
+  (ρ_true, how) — divide the banked ρ by the measured attenuation.
+- **Verified on constructed data with known truth:** recovery to **±0.002** across 30–90% saturation
+  (banked −0.853/−0.780/−0.674/−0.466 → recovered −0.912/−0.913/−0.913/−0.915 against truth −0.914).
+- **HARD LIMIT, filed with the tool:** recovery works only under **partial** saturation. At 100% the
+  clipped field has zero variance, ρ is **undefined rather than attenuated**, and no factor recovers
+  it — the only route is recomputation on the signed field, which is why emitting it was the
+  load-bearing part of the fix.
+- **AND THE REAL-DATA DEMONSTRATION.** Fungal's q-band profile, 120 well-powered bands:
+  **saturation 100.0%**, so **ρ(rep_int CLIPPED, ks_gue) = undefined** — while
+  **ρ(rep_int SIGNED, ks_gue) = −0.868.** A strong real relationship, erased.
+- **That is R-126's false-negative prediction, demonstrated rather than argued** — and −0.868 sits in
+  the same "tightly coupled" range the docs report for arithmetic substrates (−0.93, −0.99), which is
+  exactly what the Allen V1 sentence attributed to "a different marginal feature."
+  **NOT claimed:** that this settles Allen V1 — different substrate, still needs its own recompute.
+  Claimed: the mechanism is now demonstrated on real data from the same detector.
+- **Status:** OPEN — the 18-site sweep now has a corrector, not just a flag.
+
+### R-130 — the two families sharpened, both Will's
+- **Exact-ties needs its precondition or the fourth firing cries wolf.** The inference is valid only
+  for a field **continuous by construction** — a discrete field (counts, categoricals, quantised
+  instruments) has exact ties as its **normal state**. `saturation()` now **refuses without a declared
+  `field_type`**, and that declaration is itself a commensurability question: is `ties` signal here or
+  noise?
+- **Witness-independence is ONE family with three faces**, not three rules: a measurement is
+  contaminated when it shares structure with what it measures — an upstream catalogue (the struck SOC
+  "independent" check, same GOES data), a data source (shared-source-is-not-corroboration), or **the
+  tool being one of its own counted units** (my sweep counting its own references, 20 → 18). Filed as
+  one principle so the fourth instance is *recognised* rather than discovered again.
+- **Status:** BANKED.
+
+### R-131 — a limit on this arc's review, worth carrying forward
+- Will's own, and it generalises: **the review of this arc has been review-of-prose, not
+  review-of-code.** Reported numbers and reported designs were what sat in the reviewer's context, so
+  they were what could be falsified. R-125 is that caveat cashing out live — the code was sound and
+  **the description implied a weaker check than existed.**
+- **The divergence class is asymmetric in a way worth naming:** a report can be wrong in the *safe*
+  direction (describing a weaker guard than exists) as easily as the dangerous one, and **only the
+  side holding the code can catch either.** Prose/code divergence is therefore mine to audit, not the
+  reviewer's — the reviewer can only ever falsify the artifact in front of them.
+- **Status:** BANKED as a standing caveat on this arc's verification grade.

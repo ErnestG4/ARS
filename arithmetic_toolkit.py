@@ -739,9 +739,13 @@ def joint_q_profile(t_k, q_max: int = 200, min_events_per_q: int = 30,
             F1 = float(fan.get('F_at_1', np.nan))
             F5 = float(fan.get('F_at_5', np.nan))
             rep = float(pc.get('repulsion_integral', np.nan))
+            # Emit the signed field alongside, so per-site attenuation rho(clipped, signed) is
+            # MEASURABLE rather than assumed. The universality result makes one such measurement
+            # per field sufficient for every correlation that field ever enters.
+            rep_signed = float(pc.get('repulsion_integral_signed', np.nan))
         else:
             F1 = F5 = np.nan
-            rep = np.nan
+            rep = rep_signed = np.nan
 
         rf_amp_q = float(rf_amps[q - 1]) if q - 1 < rf_amps.size else np.nan
         rf_amp_q_normed = rf_amp_q / rf_mean if rf_mean > 0 else np.nan
@@ -756,6 +760,7 @@ def joint_q_profile(t_k, q_max: int = 200, min_events_per_q: int = 30,
             ks_p_q=float(cl.get('ks_p', np.nan)),
             mass_lt_0_3_q=float(cl.get('mass03', np.nan)),
             rep_int_q=rep,
+            rep_int_signed_q=rep_signed,
             F_T1_q=F1,
             F_T5_q=F5,
             n_pq_bands=len(a_list),

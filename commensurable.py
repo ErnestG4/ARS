@@ -16,6 +16,28 @@ but they are the two that fail invisibly, so they are required with no default.
 Also here, because it is the same failure mode: `bound()`, so that nobody hand-writes 1.96*se as a
 bound on |theta| again. The bound is the FAR END of the interval, not its half-width.
 
+THEOREM (attenuation universality) — this is a derivation, not a fit.
+
+    For y = beta*x + eps and x_c any deterministic clipping of x,
+        rho(x_c, y) / rho(x, y)  =  rho(x_c, x)
+    independent of beta, of var(eps), and of the partner variable entirely.
+
+    Proof: rho is bilinear in the standardised variables and the clipping acts only on x, so the
+    y-dependence factors out of the ratio. cov(x_c, y) = beta*cov(x_c, x), cov(x, y) = beta*var(x),
+    hence the ratio is cov(x_c,x)/(sd(x_c) sd(x)) = rho(x_c, x).  QED.
+
+    Verified across beta = -0.9, 0.3, 2.0 to four decimals.
+
+    CONSEQUENCE, and it is what makes the whole precondition family tractable: saturation attenuation
+    is a property of THE CLIPPED FIELD ALONE, not of the relationship being measured. Characterise a
+    field's saturation once and you know its effect on every statistic that field will ever enter --
+    no per-relationship recomputation, ever.
+
+    HONEST SEAM: exact under the linear model; approximate when the relationship is not linear. So
+    prefer `attenuation_measured` (assumption-free, rho(clipped, signed) directly) wherever the signed
+    field survives, and treat the Gaussian curve as the labelled fallback for banked-only sites -- the
+    assumption is printed in every refusal that uses it.
+
 SELF-TEST DISCIPLINE — welded here so it is not lost:
 
   The sensitivity corpus is this arc's OWN corpse pile, not invented cases. A guard tested against
@@ -196,10 +218,26 @@ class Difference:
 # saturation rather than the relationship.
 # ────────────────────────────────────────────────────────────────────────────
 
-def saturation(x, at=0.0, tol=1e-12) -> float:
-    """Fraction of values pinned exactly at a boundary. Clipping produces exact ties, which is why
-    an exact-equality test (not a near-equality one) is the right detector."""
+def saturation(x, at=0.0, tol=1e-12, field_type: str = "continuous") -> float:
+    """Fraction of values pinned exactly at a boundary.
+
+    EXACT-equality is the right detector because exact ties are MEASURE-ZERO under any continuous
+    generating process, so their presence is a near-certain signature of a mechanism rather than a
+    fluctuation. (Three firings: fungal 194/194, the clip bug's 100% exact-zero rate, saturation.)
+
+    ⚠ THE FAMILY'S PRECONDITION, and without it the fourth firing cries wolf: the inference is valid
+    only for a field CONTINUOUS BY CONSTRUCTION. A genuinely discrete field -- counts, categoricals,
+    quantised instrument output -- has exact ties as its NORMAL state, and this detector would
+    false-positive on every one. So the field's type must be declared, not assumed; that declaration
+    is itself a commensurability-flavoured check (is `ties` signal here, or noise?).
+    """
     import numpy as _np
+    if field_type != "continuous":
+        raise Incommensurable(
+            f"saturation() is only meaningful for a field continuous BY CONSTRUCTION; got "
+            f"field_type={field_type!r}. On a discrete field exact ties are the normal state, not a "
+            f"mechanism, and this detector would fire on every one of them."
+        )
     a = _np.asarray(x, float)
     return float((_np.abs(a - at) <= tol).mean()) if a.size else 0.0
 
@@ -275,6 +313,30 @@ def require_varying(x, name: str, max_loss: float = 0.10, at: float = 0.0,
             f"field may be the clipping, not the data."
         )
     return a
+
+
+def recover_rho(rho_observed: float, clipped, signed=None, sat: Optional[float] = None):
+    """Recover the true rho from one measured on a clipped field. Returns (rho_true, how).
+
+    Rests on the universality THEOREM (see module header): the attenuation factor is
+    rho(clipped, latent), INDEPENDENT of the partner variable, so one factor per field corrects
+    every correlation that field ever enters.
+
+    ⚠ LIMIT, and it is hard: recovery is possible only under PARTIAL saturation. At 100% the
+    clipped field has zero variance, rho_observed is UNDEFINED rather than small, and the
+    information is gone -- no factor recovers it. There the only route is recomputation on the
+    signed field itself, which is why emitting it was the load-bearing part of the fix.
+    """
+    att = attenuation_measured(clipped, signed) if signed is not None else \
+        attenuation_at(sat if sat is not None else saturation(clipped))
+    how = "measured (assumption-free)" if signed is not None else \
+        "Gaussian-latent curve (ASSUMPTION)"
+    if att <= 1e-9:
+        raise Incommensurable(
+            "attenuation is 0: the field is fully saturated, rho_observed is UNDEFINED rather than "
+            "attenuated, and NO correction factor recovers it. Recompute on the signed field."
+        )
+    return rho_observed / att, how
 
 
 def check_correlation(x, y, names=("x", "y"), **kw):
