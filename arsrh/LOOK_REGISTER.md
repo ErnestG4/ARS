@@ -2449,3 +2449,40 @@ Filed because this is the program's central parameter and the extension was pre-
   "GOE-like"/"GUE-like" class assignments came off this axis while it could not tell them apart?*
   Saturation there does not attenuate a magnitude — **it substitutes a bound for a class label.**
 - **Status:** OPEN, unstarted, and the larger of the two sweeps.
+
+### R-145 — CLASS-COLLAPSE SWEEP: RUN. And it is mostly magnitude-hiding, not identity-hiding
+- **Provenance answered FIRST, as asked.** `calibration_anchors.py` defines its anchors as **known-class
+  synthetic processes** (`GOE_b1`, `GUE_b2`, `GSE_b4` beta-ensembles, poisson, clock) — brody_q is
+  **displayed, never used to define them**. So the sweep's **class reference is clean by construction**;
+  only the anchors' brody *coordinate* is saturated. The baseline is not contaminated.
+- **⚠ AND IT CORRECTS MY OWN EARLIER CLAIM.** On the actual anchor construction:
+  **GOE_b1 0.8607 (both fits, NOT at the bound)**, GUE_b2 **0.9999 → 1.3814**, GSE_b4 **0.9999 → 2.0509**.
+  **The collapse is GUE↔GSE, not GOE↔GUE.** My "cannot distinguish GOE from GUE" came from idealized
+  Wigner-surmise inv-cdf samples and does **not** reproduce on the beta-ensemble anchors. Class spread
+  **0.139 deployed → 1.190 repaired, 9×**. And the GUE anchor's documented expectation **"q≈1" IS the
+  bound**, not the truth (1.38).
+- **THE SWEEP.** Fingerprint store: **436,040 entries, 77 coordinate files.**
+  **`I.8_brody_q`: 20,801 banked values across 46 substrates — 74.8% at a bound** (72.5% at 0.0,
+  2.4% at 1.0). `ARS.rep_med` (the clipped I_rep, same store): **8,106 values, 16.6% at 0.0.**
+- **THE DISTINCTION THAT MATTERS, and I nearly skipped it:** q = 0.0 exactly is **also the correct
+  reading for a genuinely Poisson process**, so "at bound" is an **upper bound on saturation**, not a
+  count of it. Split by whether the substrate was **independently established clustered** by the
+  2026-07-12 census:
+  | | n | at 0.0 | at 1.0 |
+  |---|---|---|---|
+  | **neural (known clustered)** | 15,107 | **13,773 (91.2%)** | 143 (0.9%) |
+  | other | 5,694 | 1,302 (22.9%) | 351 (6.2%) |
+  **The neural row is CONFIRMED saturation** — those substrates read 100%/98%/77% of cells with
+  I_rep < 0, so their q = 0 is the bound. The other row is an upper bound only.
+- **SO THE EXPOSURE IS 91% MAGNITUDE-HIDING, ~1% IDENTITY-HIDING.** The dominant defect is the same
+  shape as the I_rep clip — *how* clustered, erased — not misclassification. **The two-ended
+  class-collapse is real but rare: 494 upper-bound values, 2.4%.** That is a materially smaller and
+  differently-shaped exposure than "87 sites of possible misclassification," and it is the honest size.
+- **OUTCOME C, reported at equal prominence per the pre-commitment:** **0 entries carry an explicit
+  GOE/GUE/Poisson/GSE label in `axes_computed`.** The coordinate store records **values, not
+  derivations**, so the sweep counts exposure and **cannot prove any specific class call was made from
+  a saturated value.** No banked misclassification is demonstrated. That is a real result and it is
+  reported as prominently as the counts.
+- **UNRECOVERABLE, not null:** a q pinned at a bound cannot be corrected by a factor — the spacings are
+  not in the store, so only recomputation recovers it. Same regime as 100% I_rep saturation.
+- **Status:** RUN. Exposure sized, direction corrected, no misclassification demonstrated.
