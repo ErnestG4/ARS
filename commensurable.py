@@ -182,6 +182,60 @@ class Difference:
 
 
 # ────────────────────────────────────────────────────────────────────────────
+# PRECONDITIONS ON THE STATISTIC — a different kind of check from the five clauses.
+#
+# The five clauses compare DECLARED metadata. Allen V1's rho escaped them: all five matched, and
+# the defect was an UNDECLARED property of the data -- rep_int is saturated there (clustered
+# substrate -> clipped to exactly 0), so the variable is near-constant and rho collapses to ~0
+# MECHANICALLY. No metadata mismatch exists to catch.
+#
+# So this is the guard's first real escape, and per the corpus discipline it becomes a new case
+# requiring a new kind of check: a PRECONDITION on the statistic's inputs, not a clause on the
+# comparison. A correlation, rank, or ordering statistic requires non-degenerate variance in both
+# inputs; a saturated variable supplies none, and the statistic returns a number that describes the
+# saturation rather than the relationship.
+# ────────────────────────────────────────────────────────────────────────────
+
+def saturation(x, at=0.0, tol=1e-12) -> float:
+    """Fraction of values pinned exactly at a boundary. Clipping produces exact ties, which is why
+    an exact-equality test (not a near-equality one) is the right detector."""
+    import numpy as _np
+    a = _np.asarray(x, float)
+    return float((_np.abs(a - at) <= tol).mean()) if a.size else 0.0
+
+
+def require_varying(x, name: str, max_saturation: float = 0.30, min_rel_sd: float = 1e-6,
+                    at: float = 0.0):
+    """Raise if `x` cannot support a correlation/rank/order statistic.
+
+    Two failure modes, both real here: mass pinned at a clip boundary (saturation), and
+    near-zero spread for any other reason. Either makes the statistic describe the degeneracy
+    instead of the relationship.
+    """
+    import numpy as _np
+    a = _np.asarray(x, float)
+    sat = saturation(a, at=at)
+    sd = float(a.std())
+    scale = max(abs(float(a.mean())), 1e-30)
+    if sat > max_saturation:
+        raise Incommensurable(
+            f"'{name}' is {100*sat:.0f}% pinned at {at} -- a saturated variable has near-zero "
+            f"variance, so a correlation/rank on it reports the SATURATION, not the relationship. "
+            f"(This is how Allen V1's rho(rep_int, ks_gue) ~ 0 was read as 'a different marginal "
+            f"feature'.) Use the unsaturated quantity, or state the degeneracy in the claim."
+        )
+    if sd / scale < min_rel_sd:
+        raise Incommensurable(f"'{name}' has relative sd {sd/scale:.2e} -- effectively constant.")
+    return a
+
+
+def check_correlation(x, y, names=("x", "y"), **kw):
+    """Preconditions for rho/rank/order on a PAIR. Call before, not after."""
+    require_varying(x, names[0], **kw)
+    require_varying(y, names[1], **kw)
+
+
+# ────────────────────────────────────────────────────────────────────────────
 # Self-test: replay the arc's OWN documented failures. A guard that cannot construct
 # the defect it prevents is inert (banked doctrine), so each of these must be caught.
 # ────────────────────────────────────────────────────────────────────────────

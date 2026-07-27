@@ -2082,3 +2082,44 @@ Filed because this is the program's central parameter and the extension was pre-
   case.**
 - **Final: sensitivity 6/6, specificity 9/9, interface 7/7 → 22/22. GUARD IS LIVE AND SPECIFIC.**
 - **Status:** CLOSED.
+
+### R-123 — the out-of-sample reproduction, banked as a different currency
+- **`difference()` returning bound = 0.0360 on the compact-support pair reproduces R-113's corrected
+  value — and I did not build that test.** It fell out of an interface check written for another
+  purpose, from metadata the module had no access to, matching an answer computed by a different route.
+- **File it as what it is: OUT-OF-SAMPLE corroboration that the boundary arithmetic is correct, not
+  merely internally consistent.** "22/22 on tests I wrote" and "1/1 on a test I did not" are different
+  currencies. Every one of the 22 was built to pass; this one was not built at all.
+- **By this arc's own powered-falsifier standard it is the most informative single result in the
+  guard's validation** — the only one that could not have been reverse-engineered to green.
+- **Status:** BANKED as out-of-sample.
+
+### R-124 — Allen V1 is the guard's FIRST REAL ESCAPE, not its first catch
+- **Ran it through the guard before filing it as routine, as instructed. THE GUARD DOES NOT FIRE.**
+  Stated honestly — quantity `rho(rep_int, ks_gue)`, units dimensionless, domain q-bands, unit of
+  analysis q-band, conditioning none — **all five clauses MATCH on both sides.**
+- **Because the defect is not a clause mismatch.** It is that rep_int is **saturated** on Allen V1
+  (clustered ⇒ clipped to exactly 0 ⇒ near-zero variance), so ρ reports the saturation rather than the
+  relationship. **That is an undeclared property of the DATA, not of the comparison's metadata** — and
+  declared-metadata equality cannot reach it.
+- **So it becomes the next corpus case, per the discipline welded into the module — and it needs a NEW
+  KIND of check: a PRECONDITION on the statistic, not a clause on the comparison.**
+  Added `saturation()`, `require_varying()`, `check_correlation()`: a correlation/rank/order statistic
+  requires non-degenerate variance in both inputs, and clipping produces **exact ties**, so exact-equality
+  is the right detector.
+- **Constructed confound, both directions:** a latent variable with true ρ = −0.918 against ks_gue,
+  clipped the way rep_int is → **`require_varying` FIRES on the clipped version and stays silent on the
+  same data unclipped.** Sensitivity and specificity on one confound.
+- **Quantitatively, and correcting myself:** ρ attenuates monotonically with saturation
+  (0% → −0.902, 50% → −0.763, 95% → −0.375, 99% → −0.255). **My "ρ ~ 0 needs above ~95%" was wrong.**
+  The regime that matters is **100%** — variance exactly zero, ρ **undefined** — which is precisely the
+  fungal precedent (194/194 BL rows exact-0). Allen V1 clustered across all bands gives that.
+  **The mechanism is consistent with the banked ~0; only recompute settles whether it was the cause.**
+- **AND IT IS THE TOP OF A LIST, as suspected.** Excluding my own tooling: **18 sites across 10 files**
+  run correlation / rank / percentile **on the saturating field** — `solar_surrogate_port`,
+  `bulk_recovery`, `cross_substrate/quadrant_marginal_test`, `phase22a/h2_survival`,
+  `phase22b/pass_d_glm_surrogate`, `phase22b/run_phase22b`, `phase25/run_phase25`,
+  `phase31b/h2_per_window_surrogate`, `run_phase13_calibrators{,_v2}`. Each owes `require_varying()`.
+- **Re-graded from "recompute Allen V1's ρ" to "run the precondition over the 18 variance-consuming
+  sites."** Not one item; the head of one.
+- **Status:** OPEN, re-graded, enumerated.
