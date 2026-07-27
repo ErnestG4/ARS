@@ -1,5 +1,14 @@
 # VERDICT C — the census, re-run on the REPAIRED axes
 
+> ## ⚠ SUPERSEDED — the table below is PRE-RATE-FIX. Retained, not deleted.
+> Written 02:37. `VERDICT_A.md` POST-RUN #2 (updated 20:15) found that `irep_unclipped` had been
+> called on **raw spike times**, so the r ∈ [0,1] window meant a different number of mean-ISIs per
+> cell. **These numbers carry that bug.** The rate-corrected census is in VERDICT_A POST-RUN #2(b):
+> **allen-hpf −7.99 (100% < 0) · hc3-port −1.44 (98%) · ret1 −0.32 (77%)**, and the *grading* changes
+> materially — Allen goes from middle to **by far the most clustered**.
+> The verdict (**every neural substrate is CLUSTERED**) is unaffected; only the magnitudes are.
+> Marked 2026-07-27 during reconciliation against the 2026-07-26 session.
+
 git SHA `6da3f807bb` · seed 20260712
 
 **Pre-committed:** the census verdict (**every neural substrate is CLUSTERED**) *must* reproduce.

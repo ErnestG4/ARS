@@ -2302,3 +2302,55 @@ Filed because this is the program's central parameter and the extension was pre-
   `GAP`, i.e. a half-width used and labelled as a half-width. **Correct usage, and the only 1.96·se in
   the repo outside the guard.** The R-110/R-113 defect does not recur elsewhere.
 - **Status:** CLOSED as a sweep; two flags carried forward at low grade.
+
+### R-136 — RECONCILED against `overnight_2026_07_12`. Each corrects the other once.
+- **Same quantity, verified not assumed.** `irep_unclipped` uses `(r_max=5.0, n_bins=50)`; my
+  `repulsion_integral_signed` defaults to `(10.0, 100)`. **Bin width is 0.1 either way**, and fungal
+  reads **−2.21198 under both**, to five decimals — and matches the deployed `joint_q_profile` path,
+  which itself calls `(5.0, 50)`. A five-clause question, answered by running it.
+- **TWO INDEPENDENT CERTIFICATIONS of one estimator.** The overnight used a **calibrator zoo with a
+  pre-committed HARD STOP** (*"if the clustered class fails its reading, the REPAIR is wrong, not the
+  class"*); this session used an **analytic Neyman–Scott target**. Poisson reads **−0.0094** there and
+  **−0.00000** here. Different methods, same verdict — stronger than either alone.
+- **AND THE OVERNIGHT GIVES FUNGAL UNITS, which this session could not.** Its swept ladder puts
+  −2.21 between `neyman_scott` 2.0 (−1.376) and 5.0 (−4.951), beside `cox` 1.5–2.0 and
+  `gamma_renewal` 3.0. **Fungal is moderately-to-strongly clustered on an independently calibrated
+  scale** — an upgrade from "outside the null range."
+
+### R-137 — the overnight corrects ME: I cited a table its own document supersedes
+- My compilation quoted VERDICT_A **lines 85–87** (allen −5.003). **POST-RUN #2(a) of that same file
+  retracts them:** `irep_unclipped` had been called on **raw spike times**, and r ∈ [0,1] is *in the
+  input's own units*, so the window meant a different number of mean-ISIs per cell. Caught by a
+  threshold-free predictor returning a **physically backwards sign** — *"a sign that cannot be right is
+  worth more than a magnitude that looks plausible."*
+- **Current, rate-corrected:** allen-hpf **−7.99 (100% < 0)**, hc3 −1.44 (98%), ret1 −0.32 (77%).
+- **This strengthens R-124/R-134 rather than weakening it:** Allen's true I_rep is **−7.99** with
+  **every cell negative**, so the clip pins **all of them** to exactly 0. **Saturation confirmed at the
+  maximum**, from banked data.
+- **My fungal −2.212 is NOT touched by that bug** — pooled fungal spacings have mean **1.000000** by
+  construction, so r ∈ [0,1] is exactly one mean-ISI. Checked, not assumed.
+- **And a grading correction:** the overnight banks ρ(burst, I_rep) < 0 as **INSTRUMENT VALIDATION, not
+  a discovery** — *"banking it as a discovery is how the next twenty messages get spent defending it."*
+  My compilation presented it as a substrate finding. **Their slot is the correct one.**
+
+### R-138 — I correct the overnight: VERDICT_C is stale and was never marked
+- **`VERDICT_C.md` (02:37) carries the pre-rate-fix census** — allen −4.8526, hc3 −2.4727, ret1 −4.7427
+  — which **VERDICT_A (20:15) supersedes** with −7.99 / −1.44 / −0.32. **C was never updated.**
+- So the overnight's record holds **three tables of one quantity, two stale, none marked.** A reader
+  taking VERDICT_C at face value gets a retracted number. **Exactly the defect that caught me in
+  R-137** — which is why I made it.
+- **Marked SUPERSEDED in place, not deleted**, per the harness discipline, with the current numbers and
+  the reason inline.
+
+### R-139 — what the overnight holds that this session lacked, and vice versa
+- **Theirs:** (i) **reference poles + a clustered ladder** giving the signed scale *units*;
+  (ii) **the rate-contamination lesson** — `pair_correlation_full` integrates r ∈ [0,1] in the **input's
+  own units**, so inputs must be unit-mean-normalised or the window means something different per
+  object. **This is a live trap for the 18-site sweep and was NOT on its list**; it is now.
+  (iii) the grading discipline of R-137.
+- **Mine:** the attenuation universality theorem; the corrector; the three watchers; and **the
+  propagation finding itself.**
+- **The standing defect is the channel.** Two correct derivations, neither reaching the shared toolkit
+  until the second was forced to. **The repair is now IN `arithmetic_toolkit.py` — the first time it
+  has been anywhere it can fire.**
+- **Status:** RECONCILED. Full audit in `arsrh/RECONCILIATION_overnight_2026_07_12.md`.

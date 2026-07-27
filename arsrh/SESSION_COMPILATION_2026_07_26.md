@@ -78,17 +78,23 @@ detector kept clipping. This session rediscovered it from scratch.
 
 **And it already carries the Allen answer.** From `VERDICT_A.md`, on the unclipped axis:
 
-| substrate | n | median signed I_rep | ρ(burst, I_rep) | 95% CI |
-|---|---|---|---|---|
-| allen-hpf | 482 | **−5.003** | −0.121 | [−0.217, −0.031] |
-| hc3-port | 444 | −2.841 | −0.445 | [−0.512, −0.365] |
-| ret1 | 324 | −4.767 | −0.154 | [−0.259, −0.040] |
+⚠ **CORRECTED 2026-07-27** — I first cited VERDICT_A lines 85–87 (allen −5.003), which **that same
+document supersedes**: those were computed before the overnight caught its own rate-contamination bug.
+The current, rate-corrected census (VERDICT_A POST-RUN #2b):
 
-*"All three NEGATIVE… the physically expected direction, for the first time. Allen is no longer an
-inverted outlier. **The sign pathology was the instrument.**"*
+| substrate | n | median signed I_rep | % < 0 |
+|---|---|---|---|
+| **allen-hpf** | 400 | **−7.99** | **100%** |
+| hc3-port | 400 | −1.44 | 98% |
+| ret1 | 325 | −0.32 | 77% |
 
-**This upgrades R-124.** Allen's true I_rep ≈ **−5.0** ⇒ clips to **exactly 0** ⇒ **100% saturation is
-confirmed from banked data, not assumed.** The saturation *premise* for Allen V1 is established. What
+*"the physically expected direction, for the first time. Allen is no longer an inverted outlier.
+**The sign pathology was the instrument.**"* — filed by the overnight as **instrument validation,
+NOT a discovery**, and that is the correct slot.
+
+**This upgrades R-124, and by more than I said.** Allen's true I_rep is **−7.99** with **100% of cells
+negative** ⇒ clipping pins **every one** to exactly 0 ⇒ **saturation confirmed at the maximum**, from
+banked data rather than assumed. The saturation *premise* for Allen V1 is established. What
 remains is only whether the specific ρ(rep_int, ks_gue) was computed on saturated bands — a much
 smaller question than "recompute Allen V1."
 
