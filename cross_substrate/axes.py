@@ -160,6 +160,35 @@ def I8_brody_q(s) -> Optional[float]:
     return float(res.x)
 
 
+def I8_brody_q_unbounded(s, lo: float = -1.0, hi: float = 4.0) -> Optional[float]:
+    """Brody q with BOTH bounds opened. THE PROPAGATED REPAIR (overnight 2026-07-12, job B).
+
+    `I8_brody_q` above fits on bounds=(0.0, 1.0) and therefore SATURATES AT BOTH ENDS:
+      * every clustered process pins to q = 0.0000 (true values run to -0.85)
+      * GOE pins to q = 0.9999 (true +1.0032), GUE pins to q = 0.9999 (true +1.5325), GSE ~4
+    So the deployed axis can represent neither clustering nor GUE/GSE, and cannot distinguish
+    GOE from GUE. Same defect shape as the `repulsion_integral` clip: a bounded estimator read
+    as though its bound were a measurement.
+
+    The repair was written and validated on 2026-07-12 (`overnight_2026_07_12/run_overnight.py`,
+    VERDICT_B, pre-committed hard stop) and sat unpropagated for two weeks. This is the SIXTH
+    instance of knowledge-does-not-propagate and the second repair from that same night.
+
+    `I8_brody_q` is retained bit-identical so no banked number moves. Use this for anything new.
+    """
+    import numpy as _np
+    from scipy.optimize import minimize_scalar as _ms
+    s = _np.asarray(s, dtype=_np.float64)
+    s = s[s > 0]
+    if s.size < MIN_N_NNS:
+        return None
+
+    def nll(q):
+        return -_np.sum(_np.log(_np.maximum(brody_pdf(s, q), 1e-300)))
+
+    return float(_ms(nll, bounds=(lo, hi), method="bounded", options={"xatol": 1e-4}).x)
+
+
 def I9_berry_robnik_rho(s) -> Optional[float]:
     """MLE of Berry-Robnik ρ (GOE fraction) via the phase34e corrected fitter.
     ρ=0 → Poisson, ρ=1 → GOE. Validate before banking."""

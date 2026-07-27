@@ -2354,3 +2354,52 @@ Filed because this is the program's central parameter and the extension was pre-
   until the second was forced to. **The repair is now IN `arithmetic_toolkit.py` — the first time it
   has been anywhere it can fire.**
 - **Status:** RECONCILED. Full audit in `arsrh/RECONCILIATION_overnight_2026_07_12.md`.
+
+### R-140 — ★★ SIXTH INSTANCE, found by the watcher's own signature, from THE SAME NIGHT
+- **The same overnight defined TWO repairs. I propagated one.** `run_overnight.py:337`,
+  `brody_unbounded` — *"The repair: Brody with BOTH bounds opened (GUE≈2, GSE≈4 need the upper one)."*
+- **`cross_substrate/axes.py:158` still fits `bounds=(0.0, 1.0)`, so the deployed Brody axis
+  SATURATES AT BOTH ENDS.** Verified:
+  | input | deployed q | repaired q | overnight |
+  |---|---|---|---|
+  | Poisson | 0.0052 | 0.0035 | −0.0052 |
+  | clustered k=3 s=0.30 | **0.0001 (AT BOUND)** | −0.2482 | — |
+  | clustered k=8 s=0.05 | **0.0001 (AT BOUND)** | −0.5264 | — |
+  | GOE (inv-cdf) | **0.9999 (AT BOUND)** | 1.0087 | +1.0032 |
+  | GUE (inv-cdf) | **0.9999 (AT BOUND)** | 1.5313 | +1.5325 |
+- **So the deployed axis can represent neither clustering nor GUE/GSE, and cannot distinguish GOE
+  from GUE — all three pin to 0.9999.** Worse than the I_rep clip, which saturated at one end only.
+- **My repaired values reproduce the overnight's to 3–4 decimals** — independent reproduction of their
+  calibration, unplanned.
+- **Correction to my own first check:** a random-matrix GUE at n=600 read 0.842 both ways and did *not*
+  reach the bound; the overnight's inv-cdf sampling was the right method and I re-ran with it. A
+  spot-check that fails to reproduce a claim is not a refutation of it.
+- **Propagated** as `I8_brody_q_unbounded`, `I8_brody_q` retained bit-identical (regression-checked).
+- **Status:** CLOSED as a fix; the pattern it evidences is R-141.
+
+### R-141 — the FOURTH WATCHER: `propagation_watch.py`. The most-attested defect finally has a guard
+- **The diagnosis, and it reorders the arc:** the standing defect was never the saturation bug — it was
+  **the channel**. The repair existed, validated, on 2026-07-12; everything expensive after that was a
+  **propagation failure wearing the costume of research.** Three watchers guard against **wrong**
+  results; **nothing guarded against right results filed where they cannot fire** — six instances, the
+  most-attested defect in the repo, zero automated coverage.
+- **Three mechanical signatures.** **A** — a leaf module imports a **private** symbol from a shared
+  module (the public API didn't offer it, so someone wrapped it locally). **B** — repair language in a
+  non-shared module. **C** — a leaf defines a **repair-variant** name (`X_unclipped`, `X_unbounded`,
+  `X_fixed`, `X_v2`, …) of a shared stem.
+- **It found instance 6 on its first run**, via signature C, which is the only evidence available that
+  it detects rather than describes.
+- **SPECIFICITY FIX, same lesson one level over:** the first draft matched "bounded"/"unbounded"/
+  "proper" as *mathematical* terms and returned **41 hits, mostly false** — a watcher whose hit list is
+  mostly noise is the alarm fatigue it exists to prevent. Signature B restricted to phrases that can
+  only mean a repair: **41 → 14**, both known instances still caught. **A and C carry the recall and
+  are structural rather than lexical.**
+- **Ratcheted** like the migration checker; manifest demands a reason per resolution.
+  **Current: 6 propagated, 1 local-by-design, 2 not-a-repair, 5 unresolved (from 14).**
+- **Two candidates checked and CLEARED, one of them exemplary:** the Jenkinson–Pollicott digit
+  transposition is **propagated**, with the wrong value retained in `thermo/gate_fixtures.py` as the
+  **named fixture `DIM_E2_REPO_TRANSPOSED`** — the error kept as a regression fixture rather than
+  deleted. **That is the model.** And phase23's `N_SHUFFLE_SEEDS=2` is a detector-label control whose
+  own comment records the shuffle is a no-op for the pooled stream — thin, but a different construct,
+  not phase38's under-powered-null repair.
+- **Status:** LIVE. Fourth watcher, fourth declared power.

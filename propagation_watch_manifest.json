@@ -1,0 +1,27 @@
+{
+  "note": "Resolutions for candidate un-propagated repairs (R-140). A hit absent from `resolved` is UNRESOLVED. Values: `propagated` (the fix now lives in a shared module) | `local-by-design` (deliberately local, with a reason) | `not-a-repair` (the language matched but nothing is being repaired). Record WHY. Do not bulk-mark `not-a-repair` to clear the check \u2014 that reinstates exactly the silence this watcher exists to break.",
+  "resolved": {
+    "overnight_2026_07_12/run_overnight.py:325": "propagated",
+    "overnight_2026_07_12/run_overnight.py:326": "propagated",
+    "overnight_2026_07_12/run_overnight.py:327": "propagated",
+    "overnight_2026_07_12/run_overnight.py:337": "propagated",
+    "overnight_2026_07_12/run_overnight.py:338": "propagated",
+    "approximability/thread3_constants.py:64": "propagated",
+    "phase38/reliability_ledger.py:134": "not-a-repair",
+    "phase34a/fast_rf.py:39": "local-by-design",
+    "tests/test_surrogates.py:255": "not-a-repair"
+  },
+  "instances_behind_this_watcher": {
+    "5": "irep_unclipped \u2014 signed I_rep, built overnight 2026-07-12, validated against a pre-committed hard stop, used to overturn a claim, and NOT propagated. Deployed detector kept clipping for two weeks until a fresh session rebuilt it from scratch. Propagated 2026-07-26 as repulsion_integral_signed.",
+    "6": "brody_unbounded \u2014 SAME NIGHT, same brief, still unpropagated when this watcher was written. cross_substrate/axes.py:I8_brody_q fits on bounds=(0,1) and saturates at BOTH ends: every clustered process pins to q=0.0000 (true to -0.85), GOE pins to 0.9999 (true +1.0032), GUE pins to 0.9999 (true +1.5325). The deployed axis could represent neither clustering nor GUE/GSE and could not distinguish GOE from GUE. Propagated 2026-07-27 as I8_brody_q_unbounded."
+  },
+  "high_water": 5,
+  "reasons": {
+    "run_overnight.py:325-327 (irep_unclipped)": "PROPAGATED 2026-07-26 as arithmetic_toolkit.pair_correlation_full -> repulsion_integral_signed. Instance 5.",
+    "run_overnight.py:337-338 (brody_unbounded)": "PROPAGATED 2026-07-27 as cross_substrate/axes.py -> I8_brody_q_unbounded. Instance 6, found BY this watcher's signature C, from the same night as instance 5. Deployed I8_brody_q saturates at both ends: clustered pins to 0.0000, GOE to 0.9999 (true +1.0032), GUE to 0.9999 (true +1.5325) -- verified.",
+    "thread3_constants.py:64 (Jenkinson-Pollicott digit transposition)": "PROPAGATED, and the SUPERSEDED discipline done RIGHT: the corrected 100-digit value is used in place, and the wrong value is retained in thermo/gate_fixtures.py as the NAMED fixture DIM_E2_REPO_TRANSPOSED. The error is kept as a regression fixture rather than deleted. This is the model, not a gap.",
+    "phase38/reliability_ledger.py:134 (N_SURR = 100, 'the repair (was 3)')": "NOT-A-REPAIR for propagation purposes -- it is a parameter choice local to that ledger, already at 100 there. Checked whether low surrogate counts survive elsewhere: phase23 uses N_SHUFFLE_SEEDS=2 and N_SURROGATE_SEEDS=5, but those are a DETECTOR-LABEL shuffle control whose own comment records that the shuffle is a no-op for the pooled stream -- a different construct, not an under-powered null. Flagged as thin, not as the same defect.",
+    "phase34a/fast_rf.py:39 (_phi, _mu)": "LOCAL-BY-DESIGN: importing cached number-theoretic tables, not wrapping a broken public function. No repair implied.",
+    "tests/test_surrogates.py:255": "NOT-A-REPAIR: a test docstring describing what is preserved under clipping."
+  }
+}
