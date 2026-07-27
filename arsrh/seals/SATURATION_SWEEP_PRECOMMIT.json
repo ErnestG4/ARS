@@ -1,0 +1,42 @@
+{
+  "name": "Saturation sweep over the 18 variance-consuming sites — PRE-COMMITMENT",
+  "written_before_the_sweep_ran": true,
+  "why_this_exists": "Will's instruction: pre-commit to the uncomfortable version of the outcome before running, so it cannot be re-narrated afterwards. This arc's own discipline — name the deliverable in advance, as the cubic seal did — applied to a result whose likely direction is one that reflects badly on prior caution.",
+
+  "declared_direction_of_risk": {
+    "statement": "Saturation manufactures FALSE NEGATIVES, never false positives. It attenuates real relationships toward zero and, at full saturation, erases them into 'undefined'.",
+    "so_the_claim_at_risk_is": "a MISSED detection, not a spurious one. Every 'weak or no relationship' concluded from a low rho on a saturating field in those 10 files is suspect in the direction of having been stronger than reported.",
+    "and_the_worst_case_is_the_STRONGEST_effect": "not the borderline one. Strong coupling drives the field to its bound harder, so the more real the relationship, the more complete the erasure. Fungal: a true rho of -0.868 read as UNDEFINED."
+  },
+
+  "THE UNCOMFORTABLE OUTCOME, NAMED IN ADVANCE": {
+    "if": "the sweep recovers strong couplings across multiple sites that were banked as null",
+    "then": "some banked 'no effect' conclusions were saturation artifacts, and THE CORRECTED RECORD HAS MORE STRUCTURE THAN THE ORIGINAL, NOT LESS.",
+    "which_means": "prior caution was MISCALIBRATED TOWARD FALSE NULLS. The instinct that a null is the safe, conservative call was wrong on this axis — on a saturating field, the null IS the artifact.",
+    "committed_response": "Report it in that form. Do not soften it into 'some results need revisiting'. The specific, uncomfortable sentence is: we concluded no-effect where the data was coupled, and the conservatism that felt like rigour was the defect.",
+    "run_ready_to_find": "that the data was MORE coupled than concluded, not less. The fungal -0.868 says that direction is live."
+  },
+
+  "pre_committed_outcome_map": {
+    "A — recovery across multiple sites": "prior nulls were saturation artifacts; corrected record has more structure. Report per the uncomfortable sentence above.",
+    "B — recovery at one site only": "single witness. Report as one corrected result, NOT as a pattern; correlated sites within one file are one witness, not several.",
+    "C — no recovery, couplings genuinely weak on the signed field": "the nulls stand and were correctly concluded. This is a real result and must be reported with the same prominence as A — a sweep that only reports when it finds something is a publication-bias engine.",
+    "D — sites at 100% saturation with no retained signed field": "UNRECOVERABLE. Report as unrecoverable, not as null. An erased relationship and an absent one are different, and the record must distinguish them."
+  },
+
+  "instrument_failure_conditions": [
+    "recover_rho() returning a finite value at 100% saturation (it must refuse — a tool that manufactures signal from a field with none is the exact failure the precondition family exists to stop)",
+    "measured and Gaussian-curve attenuation disagreeing by more than 0.05 at any site where both are computable",
+    "the corrector recovering a |rho| > 1",
+    "saturation() being called on a field whose type is not declared continuous"
+  ],
+
+  "the_allen_v1_slot_held_explicitly": {
+    "what_fungal_shows": "the mechanism produces coupling in the -0.87 range on real data from the same detector, where the clipped field read undefined.",
+    "what_that_is": "strong circumstantial evidence that Allen V1's 'different marginal feature' attribution was the saturation talking.",
+    "what_that_is_NOT": "proof. Allen V1 is a different substrate, and 'produces numbers in the same range' is a FAMILY-RESEMBLANCE argument, not an identity. Letting the fungal demonstration retroactively close Allen V1 would be correct-fact/wrong-slot in its purest form: the fact is right, the slot is one recompute away from earned.",
+    "required_before_the_resemblance_becomes_a_claim": "recompute Allen V1's rho on its signed field. Data is present (~/fmexplorer/allen_cache, 29 GB) so this is QUEUED, not blocked."
+  },
+
+  "the_fix_s_real_payload_recorded": "Emitting rep_int_signed_q does not merely enable correction — it PREVENTS the unrecoverable regime for all future data. Every result computed after this fix banks the signed field and can never be fully erased. The blank cell in fungal's row is blank because the signed field was not retained then, not because the relationship was absent."
+}

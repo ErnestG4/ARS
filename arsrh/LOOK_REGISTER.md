@@ -2236,3 +2236,33 @@ Filed because this is the program's central parameter and the extension was pre-
   side holding the code can catch either.** Prose/code divergence is therefore mine to audit, not the
   reviewer's — the reviewer can only ever falsify the artifact in front of them.
 - **Status:** BANKED as a standing caveat on this arc's verification grade.
+
+### R-132 — the sweep PRE-COMMITTED before it runs, including the outcome that reflects badly
+- `seals/SATURATION_SWEEP_PRECOMMIT.json`, written **before** the sweep, per the arc's own discipline
+  applied to a result whose likely direction is unflattering.
+- **The uncomfortable outcome, named in advance so it cannot be softened afterwards:** if the sweep
+  recovers strong couplings across multiple sites banked as null, **the corrected record has MORE
+  structure than the original, not less** — which means **prior caution was miscalibrated toward false
+  nulls**, and the conservatism that felt like rigour was the defect. Committed response: report it in
+  that sentence, not as "some results need revisiting."
+- **All four outcomes pre-mapped**, including **C (no recovery, nulls stand)** with the note that it
+  **must be reported with the same prominence as A** — a sweep that only reports when it finds
+  something is a publication-bias engine — and **D (100% saturation, no signed field retained)** as
+  **UNRECOVERABLE, not null**: an erased relationship and an absent one are different things.
+- **Instrument-failure conditions listed**, chief among them that `recover_rho()` returning a finite
+  value at 100% saturation is a failure, not a convenience.
+- **Allen V1's slot held in writing:** fungal is *family resemblance*, not identity; letting it
+  retroactively close Allen V1 would be correct-fact/wrong-slot in its purest form. **Recompute
+  required — and the data is present (~/fmexplorer/allen_cache, 29 GB), so it is QUEUED, not blocked.**
+- **Status:** SEALED, unrun.
+
+### R-133 — the fix's real payload, and the corrector's three regimes
+- **Emitting `rep_int_signed_q` does not merely enable correction — it PREVENTS the unrecoverable
+  regime for all future data.** Every result computed after the fix banks both fields and can never be
+  fully erased. **Fungal's blank cell is blank because the signed field was not retained then**, not
+  because the relationship was absent.
+- **Three regimes, filed as distinct** — below the power floor (silent, clean); 30–90% (attenuated,
+  recoverable, ±0.002); 100% (undefined, unrecoverable, corrector **refuses**). The refusal is the
+  load-bearing behaviour: a tool returning a number there would manufacture signal from a field with
+  none, which is the exact failure the precondition family exists to stop.
+- **Status:** BANKED.
