@@ -524,6 +524,23 @@ def pair_correlation_full(t_k: np.ndarray, r_max: float = 10.0,
     zero → Poisson, negative → clustering).
     """
     t = np.sort(np.asarray(t_k, dtype=np.float64))
+    # REPAIR 9 (CLUSTERING_COUPLING_FINDINGS.md:103): the repulsion integral runs over r in [0,1]
+    # IN THE INPUT'S OWN UNITS. Fed raw spike times, r <= 1 means "one second" -- ~3 mean-ISIs for a
+    # 300 ms cell and 0.5 for a 2000 ms one, so the window means a different thing per object and
+    # the axis is rate-contaminated. The overnight of 2026-07-12 hit exactly this and caught it only
+    # because a threshold-free predictor returned a physically impossible SIGN.
+    # The input must be unit-mean-normalised. This announces when it is not.
+    if t.size >= 2:
+        _sp = np.diff(t)
+        _sp = _sp[_sp > 0]
+        if _sp.size and not (0.5 <= float(_sp.mean()) <= 2.0):
+            import warnings as _w
+            _w.warn(
+                f"pair_correlation_full: mean spacing is {float(_sp.mean()):.4g}, not ~1. The "
+                "repulsion integral runs over r in [0,1] in the INPUT's units, so this window "
+                "means a different number of mean-spacings than intended and the result is "
+                "rate-contaminated. Unit-mean-normalise first. See R-137.",
+                RuntimeWarning, stacklevel=2)
     if t.size < 20:
         return _ClipWarnDict(r=[], R2=[], R2_GUE=[], repulsion_integral=0.0,
                     repulsion_integral_signed=0.0, error='insufficient')

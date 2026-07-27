@@ -110,6 +110,62 @@ def test_clip_bias_is_two_sided_and_opposite():
         "the signed field must be consistent with 0 on Poisson, within its OWN sem"
 
 
+SPACINGS_POSITIONAL_TRIM_REMOVES_NO_OUTLIERS = True
+"""`phase35a/unfold_rotnum.spacings` slices d[2%:98%] of an UNSORTED diff array -- positional, so it
+drops edge-of-record gaps, not extreme ones. Measured effect on Allen ks_gue: 0.854 -> 0.416."""
+
+BULK_RECOVERY_INTERP_CLAMPS = True
+"""`np.interp` clamps outside its range, so every clustered band mapped to the Poisson-regime knot."""
+
+BERRY_ROBNIK_EVERY_CALIBRATOR_SITS_AT_A_RAIL = True
+"""rho is a GOE fraction so [0,1] is definitionally right -- but poisson 0.0015, clustered 0.0045,
+goe 0.9965, gue 0.9975 are ALL rail-proximate. The axis identifies only in the interior."""
+
+GLOBAL_UNFOLD_LEAVES_DRIFT = 1.2185
+"""CV of a rate-halving cell under global unit-mean unfolding; windowed gives 1.0122, true 1.0."""
+
+
+def test_value_trim_removes_outliers_where_positional_does_not():
+    import sys as _s
+    _s.path.insert(0, os.path.join(ROOT, "phase35a"))
+    from unfold_rotnum import spacings, spacings_value_trimmed
+    rng = np.random.default_rng(5)
+    d = np.concatenate([rng.exponential(1.0, 500), [40.0, 55.0], rng.exponential(1.0, 498)])
+    u = np.cumsum(d)
+    assert (spacings(u) > 10).sum() > 0, "deployed positional trim must still RETAIN outliers"
+    assert (spacings_value_trimmed(u) > 10).sum() == 0, "value trim must remove them"
+
+
+def test_berry_robnik_flags_every_calibrator_as_rail_proximate():
+    import sys as _s
+    _s.path.insert(0, os.path.join(ROOT, "cross_substrate"))
+    from cross_substrate.axes import I9_berry_robnik_rail_flag
+    from validate_fitters import sample_poisson, sample_goe, sample_clustered, sample_gue
+    for f in (sample_poisson, sample_goe, sample_clustered, sample_gue):
+        assert I9_berry_robnik_rail_flag(f(4000, 0)) is True
+
+
+def test_windowed_unfold_removes_drift_global_leaves():
+    import sys as _s
+    _s.path.insert(0, os.path.join(ROOT, "phase22a"))
+    from ars_classify import unfold_unit_mean, unfold_unit_mean_windowed
+    rng = np.random.default_rng(4)
+    t = np.cumsum(np.concatenate([rng.exponential(1.0, 2000), rng.exponential(3.0, 2000)]))
+    cv = lambda u: (lambda d: d.std() / d.mean())(np.diff(u)[np.diff(u) > 0])
+    assert cv(unfold_unit_mean(t)) > 1.15, "global unfold must retain the drift"
+    assert abs(cv(unfold_unit_mean_windowed(t)) - 1.0) < 0.05, "windowed must remove it"
+
+
+def test_pair_correlation_warns_on_non_unit_mean_input():
+    import warnings
+    from arithmetic_toolkit import pair_correlation_full
+    rng = np.random.default_rng(4)
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        pair_correlation_full(np.cumsum(rng.exponential(0.3, 3000)))
+        assert any("rate-contaminated" in str(x.message) for x in w)
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # THE WATCHERS. Built as scripts nobody imports -> unable to fire. pytest fires them.
 # ─────────────────────────────────────────────────────────────────────────────

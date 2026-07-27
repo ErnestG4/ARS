@@ -130,7 +130,14 @@ def recover_wigner_beta(jdf: pd.DataFrame,
     wig_mask = ~np.isnan(beta_anchor)
     rep_w = rep_anchor[wig_mask]; beta_w = beta_anchor[wig_mask]
     idx = np.argsort(rep_w)
+    # np.interp CLAMPS outside its range, so a rep_med below the calibrator span silently returns
+    # the endpoint -- "every clustered band -> the sigma of the (Poisson regime) knot"
+    # (CLUSTERING_COUPLING_FINDINGS.md:99). Deployed value retained bit-identical; the repaired
+    # value is NaN outside the calibrated span, because extrapolating a calibration is not a
+    # measurement. Callers wanting the old behaviour must ask for it.
     beta_hat = float(np.interp(rep_med, rep_w[idx], beta_w[idx]))
+    _lo, _hi = float(rep_w[idx][0]), float(rep_w[idx][-1])
+    beta_hat_nonclamped = beta_hat if _lo <= rep_med <= _hi else float("nan")
     # CI: combine per-q variability with a calibrator-derived seed-noise
     # floor of σ_β ≈ 0.5 in β.  Phase 15's β=2 GUE seed-to-seed rep_int
     # std was ≈ 0.006, which maps via slope d_β/d_rep ≈ 30 (since rep
@@ -138,6 +145,7 @@ def recover_wigner_beta(jdf: pd.DataFrame,
     # Use 0.4 as a conservative half-width to bracket seed effects.
     rep_arr = well['rep_int_q'].to_numpy()
     beta_per_q = np.interp(rep_arr, rep_w[idx], beta_w[idx])
+    beta_per_q_nonclamped = np.where((rep_arr >= _lo) & (rep_arr <= _hi), beta_per_q, np.nan)
     seed_floor = 0.4
     if beta_per_q.size >= 5:
         lo_q, hi_q = np.percentile(beta_per_q, [2.5, 97.5])

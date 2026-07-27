@@ -2526,3 +2526,44 @@ Filed because this is the program's central parameter and the extension was pre-
   misclassifications.** Severity-without-frequency mis-sizes an exposure, and neither of us checked
   frequency before filing.
 - **Status:** CLOSED.
+
+### R-148 — ALL SEVEN PROPAGATED. The nine-row repair table is closed.
+Non-destructive throughout: every deployed function retained **bit-identical**, repair added alongside,
+each with a **named regression fixture** in `tests/test_known_defects.py` (11 passing).
+
+| # | defect | repair | verification |
+|---|---|---|---|
+| 3 | `s < 10.0` truncation | **already bundled** into `I8_brody_q_unbounded` (`s[s>0]`, no cut) | isolated: −0.4872 with cut vs −0.4976 without; 1.70% of mass in the tail |
+| 4 | `spacings()` positional slice | `spacings_value_trimmed` — trims by **value** percentile | injected outliers: deployed **retains** (max 52.5), repaired **removes** (max 3.9) |
+| 5 | `bulk_recovery` `np.interp` clamp | `beta_hat_nonclamped` / `beta_per_q_nonclamped` — **NaN** outside the calibrated span | extrapolating a calibration is not a measurement |
+| 6 | `validate_fitters` probes at rails | out-of-range CASES existed (07-11/12); added a **repaired COLUMN beside the deployed one, not a swap** | deployed 2/5, **repaired 4/5** |
+| 7 | Berry–Robnik CI collapse | `I9_berry_robnik_rail_flag` + no `s<10` clip | poisson 0.0015, clustered 0.0045, goe 0.9965, gue 0.9975 — **all four rail-proximate** |
+| 8 | global unit-mean normalisation | `unfold_unit_mean_windowed` | drifting cell CV **1.2185 → 1.0122** (true 1.0) |
+| 9 | `I_rep` on raw spike times | **unit-mean guard** on `pair_correlation_full` | warns on raw (0.3 s ISI), silent on unit-mean |
+- **⚠ MY FIRST ATTEMPT AT REPAIR 7 WAS WRONG, and the error is the session's own lesson recurring.**
+  I returned `None` at the rail. But **ρ ≈ 0 is legitimately Poisson and ρ ≈ 1 legitimately GOE** —
+  refusing the rail discards correct measurements. Same structure as "q = 0 is also correct for genuine
+  Poisson." The rail is **ambiguous, not invalid**, so the repair is to **flag** it and require a
+  sign-carrying axis (`I10_cv`) to disambiguate. Rewritten.
+- **AND THE GATE'S OWN EXPECTATION IS WRONG, left unrepaired on purpose.** `CASES` expects GUE Brody
+  q = **2.0 ± 0.3**; four independent runs give **~1.53** (overnight 1.5325; today 1.5313, 1.5433,
+  1.5166). The repaired fitter "fails" that row by being **right**. **Not fixed** — editing an
+  expectation to make a test pass is the one move the seals forbid. Filed `documented-open`.
+- **Status:** CLOSED. 9/9 propagated.
+
+### R-149 — the watcher's model was wrong, and fixing it is the fourth specificity pass
+- **`SHARED` was 8 hand-picked modules. Measured, it is 27** (≥ 8 importers) — and my list omitted
+  **`ars_classify.py` (51 importers)** and **`unfold_rotnum.py` (33)**. The watcher was **under-scoped**:
+  it would have called a repair landing in either "unpropagated" when it had reached dozens of
+  consumers. **"Shared" is now measured, not guessed**, and cached.
+- **That widening broke signature A's precision** — hits 5 → 27, almost all **intra-package** private
+  imports (`cross_substrate/allen_hpf` ← `cross_substrate/population_fingerprint`), which are ordinary
+  internal reuse. Restricted to **cross-package** private imports: 27 → **15**.
+- **RECALL LIMIT, recorded rather than papered over:** signature C is a **fixed suffix list**, so it
+  **missed my own repairs** (`_value_trimmed`, `_windowed`, `_railaware`) until I added them. A lexical
+  signature has bounded recall by construction; A is structural and the manifest carries the rest.
+- **Fourth manifest category added: `documented-open`** — a real defect, deliberately unrepaired, with
+  a reason. Without it the GUE-expectation item had nowhere honest to sit.
+- **Ratchet reset DELIBERATELY and recorded:** the count moved because **the instrument improved**, not
+  because defects appeared. Silently ratcheting would have hidden the model change.
+- **Status:** CLOSED. 6 propagated / 1 local-by-design / 2 not-a-repair / 1 documented-open / 15 open.

@@ -68,9 +68,28 @@ def unfold_ids_ref(eigs, ref):
 
 
 def spacings(unf):
+    """DEPRECATED trim. `d` is np.diff of SORTED positions, so it is in POSITIONAL order, not
+    value order -- slicing d[2%:98%] drops the first and last gaps of the RECORD, not the extreme
+    gaps. It removes NO outliers, while the name promises a tail trim.
+    Retained bit-identical: banked numbers depend on it. Use `spacings_value_trimmed`.
+    Documented CLUSTERING_COUPLING_FINDINGS.md:100 and audit FIX-17; measured effect on Allen
+    ks_gue: 0.854 -> 0.416 (hc-3 0.532->0.494, ret-1 0.477->0.464). The effect scales with CV,
+    which is why it bit hardest on the highest-CV substrate."""
     u = np.sort(unf); d = np.diff(u)
     d = d[int(0.02 * len(d)):int(0.98 * len(d))]
     m = d.mean()
+    return d / m if m > 0 else d
+
+
+def spacings_value_trimmed(unf, lo_pct=2.0, hi_pct=98.0):
+    """THE PROPAGATED REPAIR: trim by VALUE percentile, which is what "2-98% tail trim" means.
+    Removes the extreme gaps rather than the edge-of-record gaps."""
+    u = np.sort(unf); d = np.diff(u)
+    if d.size == 0:
+        return d
+    lo, hi = np.percentile(d, [lo_pct, hi_pct])
+    d = d[(d >= lo) & (d <= hi)]
+    m = d.mean() if d.size else 0.0
     return d / m if m > 0 else d
 
 

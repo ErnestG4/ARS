@@ -35,6 +35,8 @@ import sys
 from typing import Optional, Sequence
 
 import numpy as np
+import os as _os_mod
+_ROOT = _os_mod.path.dirname(_os_mod.path.dirname(_os_mod.path.abspath(__file__)))
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _ROOT not in sys.path:
@@ -199,6 +201,62 @@ def I9_berry_robnik_rho(s) -> Optional[float]:
     # only rho_mle is banked (bootstrap σ discarded); n_bootstrap=1 keeps the
     # phase34e fitter's percentile step non-empty while staying cheap on large s.
     return float(_fit_br_rho(s, n_bootstrap=1)["rho_mle"])
+
+
+def I9_berry_robnik_rho_railaware(s, tol: float = 1e-3):
+    """THE PROPAGATED REPAIR for Berry-Robnik (CLUSTERING_COUPLING_FINDINGS.md:96).
+
+    TWO defects in the deployed path, and they need DIFFERENT repairs:
+      1. `phase34e/run_berry_robnik.fit_rho:120` does `s = s[s < 10.0]` -- the same heavy-tail clip
+         that Brody had, discarding the very tail that carries the clustering signature. REMOVED here.
+      2. `bounds=(0.0, 1.0)`. Unlike Brody q -- where q>1 (GUE~2, GSE~4) and q<0 (clustered) are
+         MEANINGFUL and the bounds had to be opened -- rho is a GOE *fraction*, so [0,1] is
+         DEFINITIONALLY correct. Opening it would be wrong. The defect is that a clustered or
+         super-GOE substrate has no representable rho at all, so the fitter returns the RAIL and
+         reports it with a collapsed CI: "the wrong answer reported 45x more confidently than the
+         right one."
+
+    ⚠ MY FIRST ATTEMPT AT THIS REPAIR WAS WRONG and is recorded because the error is instructive:
+    I returned None at the rail. But rho ~ 0 is LEGITIMATELY Poisson and rho ~ 1 is LEGITIMATELY
+    GOE -- refusing the rail discards correct measurements. The rail is AMBIGUOUS, not invalid:
+    near 0 it cannot separate Poisson from clustered, near 1 it cannot separate GOE from GUE. Same
+    structure as "q = 0 is also correct for genuine Poisson" in the class-collapse sweep.
+
+    So the repair is to FLAG rail-proximity, not to refuse it. A rail-proximate rho is
+    "unidentified on this axis" and needs a second, sign-carrying axis to disambiguate -- which is
+    exactly what I10_cv was added for (Poisson-> 1, repulsive-> <1, clustered-> >1).
+    Returns the rho with no s<10 clip; use `I9_berry_robnik_rail_flag` alongside it.
+    """
+    import numpy as _np
+    from scipy.optimize import minimize_scalar as _ms
+    import sys as _sys, os as _os
+    _p = _os.path.join(_ROOT, "phase34e")
+    if _p not in _sys.path:
+        _sys.path.insert(0, _p)
+    from run_berry_robnik import berry_robnik_pdf_normalized as _pdf
+
+    x = _np.asarray(s, dtype=_np.float64)
+    x = x[x > 0]                       # NOTE: no s < 10 clip -- defect 1
+    if x.size < MIN_N_FIT:
+        return None
+
+    def nll(rho):
+        return -_np.sum(_np.log(_np.maximum(_pdf(x, rho), 1e-300)))
+
+    return float(_ms(nll, bounds=(0.0, 1.0), method="bounded", options={"xatol": 1e-4}).x)
+
+
+def I9_berry_robnik_rail_flag(s, band: float = 0.02) -> Optional[bool]:
+    """True when the Berry-Robnik fit sits within `band` of either rail, i.e. the axis CANNOT
+    identify the class there and a sign-carrying axis (I10_cv) is required.
+
+    Measured on the validation cases: poisson 0.0015, clustered 0.0045, goe 0.9965, gue 0.9975 --
+    ALL FOUR are rail-proximate, which is the honest verdict: Berry-Robnik rho identifies only in
+    the interior, and every calibrator class the zoo shipped sits at a rail."""
+    r = I9_berry_robnik_rho_railaware(s, tol=band)
+    if r is None:
+        return None
+    return bool(r <= band or r >= 1.0 - band)
 
 
 def I10_cv(s) -> Optional[float]:

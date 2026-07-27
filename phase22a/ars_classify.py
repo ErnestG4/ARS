@@ -48,6 +48,33 @@ def unfold_unit_mean(t: np.ndarray, cap: int = JPF_CAP) -> np.ndarray:
     return np.cumsum(np.concatenate([[0.0], sp / sp.mean()]))
 
 
+def unfold_unit_mean_windowed(t: np.ndarray, window: int = 200, cap: int = JPF_CAP) -> np.ndarray:
+    """THE PROPAGATED REPAIR for the GLOBAL-normalisation defect
+    (CLUSTERING_COUPLING_FINDINGS.md:101, "CV-16 drift").
+
+    `unfold_unit_mean` divides by the GLOBAL mean spacing, which removes a constant rate but NOT
+    within-cell drift: a cell whose rate halves partway through keeps that drift in its spacings,
+    and every downstream spacing statistic reads the drift as structure. Normalising in windows of
+    `window` spacings removes slow rate change while leaving short-range structure intact.
+
+    Deployed `unfold_unit_mean` retained bit-identical -- banked numbers depend on it."""
+    t = np.asarray(t, dtype=np.float64)
+    if t.size < 2:
+        return t.copy()
+    sp = np.diff(t)
+    sp = sp[sp > 0]
+    if sp.size == 0 or sp.mean() <= 0:
+        return t.copy()
+    if sp.size > cap:
+        sp = sp[::max(1, sp.size // cap)]
+    out = np.empty_like(sp)
+    for i in range(0, sp.size, window):
+        blk = sp[i:i + window]
+        m = blk.mean()
+        out[i:i + window] = blk / m if m > 0 else blk
+    return np.cumsum(np.concatenate([[0.0], out]))
+
+
 def classify(events: np.ndarray,
              q_max: int = Q_MAX,
              min_events_per_q: int = MIN_EVENTS_PER_Q,

@@ -15,6 +15,17 @@
         0.0166
       ],
       "brody_q_pass": true,
+      "brody_q_REPAIRED_per_seed": [
+        -0.0087,
+        0.0039,
+        0.0166
+      ],
+      "brody_q_REPAIRED_pass": true,
+      "berry_robnik_AT_RAIL": [
+        true,
+        false,
+        false
+      ],
       "expected_rho": 0.0,
       "br_rho_mean": 0.07047993825360976,
       "br_rho_per_seed": [
@@ -34,6 +45,17 @@
         0.9862
       ],
       "brody_q_pass": true,
+      "brody_q_REPAIRED_per_seed": [
+        0.9885,
+        0.9879,
+        0.9862
+      ],
+      "brody_q_REPAIRED_pass": true,
+      "berry_robnik_AT_RAIL": [
+        true,
+        true,
+        true
+      ],
       "expected_rho": 1.0,
       "br_rho_mean": 0.9965099124733149,
       "br_rho_per_seed": [
@@ -53,6 +75,17 @@
         0.0001
       ],
       "brody_q_pass": false,
+      "brody_q_REPAIRED_per_seed": [
+        -0.1235,
+        -0.1462,
+        -0.1322
+      ],
+      "brody_q_REPAIRED_pass": true,
+      "berry_robnik_AT_RAIL": [
+        true,
+        true,
+        true
+      ],
       "expected_rho": -0.3,
       "br_rho_mean": 0.005149244401270383,
       "br_rho_per_seed": [
@@ -72,6 +105,17 @@
         0.0001
       ],
       "brody_q_pass": false,
+      "brody_q_REPAIRED_per_seed": [
+        -0.4501,
+        -0.4703,
+        -0.4578
+      ],
+      "brody_q_REPAIRED_pass": true,
+      "berry_robnik_AT_RAIL": [
+        true,
+        true,
+        true
+      ],
       "expected_rho": -0.6,
       "br_rho_mean": 0.002811178079761039,
       "br_rho_per_seed": [
@@ -91,6 +135,17 @@
         0.9999
       ],
       "brody_q_pass": false,
+      "brody_q_REPAIRED_per_seed": [
+        1.5189,
+        1.5177,
+        1.5133
+      ],
+      "brody_q_REPAIRED_pass": false,
+      "berry_robnik_AT_RAIL": [
+        true,
+        true,
+        true
+      ],
       "expected_rho": 2.0,
       "br_rho_mean": 0.9975256057996633,
       "br_rho_per_seed": [

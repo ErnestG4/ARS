@@ -25,7 +25,8 @@ if _ROOT not in sys.path:
     sys.path.insert(0, _ROOT)
 
 from universality import nns_cdf_goe, nns_cdf_gue  # noqa: E402
-from cross_substrate.axes import I8_brody_q, I9_berry_robnik_rho  # noqa: E402
+from cross_substrate.axes import (I8_brody_q, I9_berry_robnik_rho,          # noqa: E402
+                                  I8_brody_q_unbounded, I9_berry_robnik_rail_flag)
 
 
 def _inverse_sample(cdf_func, n: int, seed: int, grid_max: float = 10.0) -> np.ndarray:
@@ -93,6 +94,12 @@ CASES = [
     # --- ABOVE the upper bound (arm (e), symmetric); q_true ≈ 2 and ≈ 4, unrepresentable.
     #     THIS is the case that exposes the top rail: a GUE substrate is indistinguishable from
     #     GOE, so ζ-zeros reading q=0.9999 means only "≥ GOE" — NOT "GUE". ---
+    # ⚠ exp_q = 2.0 here is the overnight's ROUGH characterisation ("GUE~2, GSE~4 need the upper
+    #   bound"), not a measurement. FOUR independent runs put the true GUE Brody q at ~1.53
+    #   (overnight VERDICT_B 1.5325; 2026-07-27: 1.5313, 1.5433, 1.5166). The repaired fitter
+    #   therefore "FAILS" this row by reading 1.52 against an expectation of 2.0 +/- 0.3 -- the
+    #   EXPECTATION is wrong, not the fitter. Left unchanged deliberately: editing an expectation
+    #   to make a test pass is the one move the seals forbid. Fix it with a sealed re-registration.
     ("gue",               sample_gue,               2.0, 2.0, 0.30),
 ]
 N_SYNTH = 4000
@@ -104,12 +111,18 @@ def main() -> int:
     print("FITTER SYNTHETIC VALIDATION (Brody q, Berry-Robnik ρ)")
     print("=" * 72)
     rec, all_pass = {}, True
+    # REPAIRED COLUMN, added 2026-07-27. The four out-of-range cases were "EXPECTED TO FAIL until
+    # the bounds are opened" -- the bounds are now opened (I8_brody_q_unbounded), so the gate can
+    # show deployed-FAIL beside repaired-PASS. Deliberately a SECOND column, not a swap: the
+    # deployed verdict must stay visible, because it is what the banked numbers came off.
     for label, sampler, exp_q, exp_rho, tol in CASES:
-        qs, rhos = [], []
+        qs, rhos, qs_rep, rails = [], [], [], []
         for sd in SEEDS:
             s = sampler(N_SYNTH, sd)
             qs.append(I8_brody_q(s))
             rhos.append(I9_berry_robnik_rho(s))
+            qs_rep.append(I8_brody_q_unbounded(s))
+            rails.append(I9_berry_robnik_rail_flag(s))
         q_mean, rho_mean = float(np.mean(qs)), float(np.mean(rhos))
         q_ok = abs(q_mean - exp_q) <= tol
         rho_ok = abs(rho_mean - exp_rho) <= tol
@@ -117,6 +130,9 @@ def main() -> int:
         rec[label] = {
             "expected_q": exp_q, "brody_q_mean": q_mean,
             "brody_q_per_seed": [round(x, 4) for x in qs], "brody_q_pass": q_ok,
+            "brody_q_REPAIRED_per_seed": [round(x, 4) for x in qs_rep],
+            "brody_q_REPAIRED_pass": bool(abs(float(np.mean(qs_rep)) - exp_q) <= tol),
+            "berry_robnik_AT_RAIL": [bool(x) if x is not None else None for x in rails],
             "expected_rho": exp_rho, "br_rho_mean": rho_mean,
             "br_rho_per_seed": [round(x, 4) for x in rhos], "br_rho_pass": rho_ok,
             "tol": tol,

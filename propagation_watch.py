@@ -35,9 +35,47 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MANIFEST = os.path.join(HERE, "propagation_watch_manifest.json")
 p_ = lambda *a: print(*a, flush=True)
 
-# Modules the deployed path imports. A repair must land HERE to be able to fire.
-SHARED = {"arithmetic_toolkit.py", "universality.py", "extractors.py", "signal_gen.py",
-          "intermittency.py", "commensurable.py", "axes.py", "bulk_recovery.py"}
+# "Shared" is MEASURED, not guessed. My first hand-curated list omitted `ars_classify.py`
+# (imported by 51 modules) and `unfold_rotnum.py` (33) -- so the watcher was under-scoped and
+# would have called a repair landing in either of them "unpropagated" when it had in fact reached
+# the deployed path for dozens of consumers. A module imported by >= SHARED_MIN others IS shared,
+# whatever anyone intended it to be.
+SHARED_MIN = 8
+_SHARED_SEED = {"arithmetic_toolkit.py", "universality.py", "extractors.py", "signal_gen.py",
+                "intermittency.py", "commensurable.py", "axes.py", "bulk_recovery.py"}
+
+
+_SHARED_CACHE = os.path.join(HERE, ".propagation_shared_cache.json")
+
+
+def _measure_shared():
+    import collections
+    if os.path.exists(_SHARED_CACHE):
+        try:
+            return set(json.load(open(_SHARED_CACHE)))
+        except Exception:
+            pass
+    out = subprocess.run(["git", "ls-files", "*.py"], capture_output=True, text=True,
+                         cwd=HERE).stdout.split()
+    names = {os.path.splitext(os.path.basename(p))[0]: os.path.basename(p) for p in out}
+    n = collections.Counter()
+    for p in out:
+        try:
+            txt = open(os.path.join(HERE, p)).read()
+        except Exception:
+            continue
+        for stem, base in names.items():
+            if base == os.path.basename(p):
+                continue
+            if re.search(rf"^\s*(from\s+[\w.]*\b{re.escape(stem)}\s+import|import\s+{re.escape(stem)}\b)",
+                         txt, re.M):
+                n[base] += 1
+    out_set = _SHARED_SEED | {b for b, c in n.items() if c >= SHARED_MIN}
+    json.dump(sorted(out_set), open(_SHARED_CACHE, "w"))
+    return out_set
+
+
+SHARED = None  # populated at scan time
 
 # SPECIFICITY: the first draft matched "bounded"/"unbounded"/"proper" as MATHEMATICAL terms
 # (bounded CF, unbounded partial quotients, proper dimension) and returned 41 hits, mostly false.
@@ -47,8 +85,14 @@ SHARED = {"arithmetic_toolkit.py", "universality.py", "extractors.py", "signal_g
 REPAIR_WORD = re.compile(
     r"\b(the repair|the fix\b|repaired version|fixed version|was wrong|is wrong|"
     r"bug in|unclipped|previously banked|now superseded)\b", re.I)
+# RECALL LIMIT, recorded rather than papered over: signature C is a FIXED suffix list, so it only
+# catches repairs named with suffixes I thought of. It MISSED my own 2026-07-27 repairs
+# (`_value_trimmed`, `_windowed`, `_railaware`) until they were added below. A lexical signature
+# has bounded recall by construction; A (private imports) and B (repair phrasing) are the structural
+# ones, and the manifest is what carries anything all three miss.
 VARIANT = re.compile(
-    r"^\s*def\s+(\w+?)(_unclipped|_unbounded|_fixed|_corrected|_proper|_signed|_v2|_repaired)\b")
+    r"^\s*def\s+(\w+?)(_unclipped|_unbounded|_fixed|_corrected|_proper|_signed|_v2|_repaired"
+    r"|_value_trimmed|_windowed|_railaware|_nonclamped)\b")
 PRIVATE_IMPORT = re.compile(r"^\s*from\s+([\w.]+)\s+import\s+(.*)")
 
 
@@ -57,6 +101,9 @@ def _sh(*args):
 
 
 def scan():
+    global SHARED
+    if SHARED is None:
+        SHARED = _measure_shared()
     files = [f for f in _sh("git", "ls-files", "*.py").strip().split("\n") if f]
     shared_defs = {}
     for f in files:
@@ -75,9 +122,21 @@ def scan():
         for i, ln in enumerate(lines, 1):
             m = PRIVATE_IMPORT.match(ln)
             if m and os.path.basename(m.group(1).split(".")[-1] + ".py") in SHARED:
-                priv = [x.strip() for x in m.group(2).split(",") if x.strip().startswith("_")]
-                if priv:
-                    hits.append((f, i, "A private-import", f"{', '.join(priv)} from {m.group(1)}"))
+                # SPECIFICITY, third pass on this watcher: an INTRA-package private import is
+                # ordinary internal reuse (cross_substrate/allen_hpf <- cross_substrate/
+                # population_fingerprint), not a public-API gap. Only a CROSS-package private
+                # import carries the "the public API didn't offer it" signal. Widening SHARED from
+                # 8 hand-picked modules to 27 measured ones exposed this: hits went 5 -> 27, almost
+                # all intra-package.
+                src_pkg = f.split("/")[0] if "/" in f else ""
+                dst_pkg = m.group(1).split(".")[0] if "." in m.group(1) else ""
+                if src_pkg and dst_pkg and src_pkg == dst_pkg:
+                    pass
+                else:
+                    priv = [x.strip() for x in m.group(2).split(",") if x.strip().startswith("_")]
+                    if priv:
+                        hits.append((f, i, "A private-import",
+                                     f"{', '.join(priv)} from {m.group(1)}"))
             v = VARIANT.match(ln)
             if v:
                 stem = v.group(1)
@@ -93,12 +152,13 @@ def scan():
 if __name__ == "__main__":
     man = json.load(open(MANIFEST)) if os.path.exists(MANIFEST) else {"resolved": {}}
     hits = scan()
-    cats = {"propagated": [], "local-by-design": [], "not-a-repair": [], "UNRESOLVED": []}
+    cats = {"propagated": [], "local-by-design": [], "not-a-repair": [],
+            "documented-open": [], "UNRESOLVED": []}
     for f, ln, sig, detail in hits:
         cats[man["resolved"].get(f"{f}:{ln}", "UNRESOLVED")].append((f, ln, sig, detail))
 
     p_("=== propagation watch — right results filed where they cannot fire ===")
-    for k in ("propagated", "local-by-design", "not-a-repair", "UNRESOLVED"):
+    for k in ("propagated", "local-by-design", "not-a-repair", "documented-open", "UNRESOLVED"):
         p_(f"  {k:>16s}: {len(cats[k]):>3d}")
     if "--summary" not in sys.argv and cats["UNRESOLVED"]:
         p_(f"\n  UNRESOLVED candidates ({len(cats['UNRESOLVED'])}):")

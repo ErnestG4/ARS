@@ -9,19 +9,26 @@
     "approximability/thread3_constants.py:64": "propagated",
     "phase38/reliability_ledger.py:134": "not-a-repair",
     "phase34a/fast_rf.py:39": "local-by-design",
-    "tests/test_surrogates.py:255": "not-a-repair"
+    "tests/test_surrogates.py:255": "not-a-repair",
+    "cross_substrate/validate_fitters.py:101": "documented-open",
+    "phase22a/ars_classify.py:51": "propagated",
+    "phase35a/unfold_rotnum.py:84": "propagated",
+    "cross_substrate/axes.py:160": "propagated"
   },
   "instances_behind_this_watcher": {
     "5": "irep_unclipped \u2014 signed I_rep, built overnight 2026-07-12, validated against a pre-committed hard stop, used to overturn a claim, and NOT propagated. Deployed detector kept clipping for two weeks until a fresh session rebuilt it from scratch. Propagated 2026-07-26 as repulsion_integral_signed.",
     "6": "brody_unbounded \u2014 SAME NIGHT, same brief, still unpropagated when this watcher was written. cross_substrate/axes.py:I8_brody_q fits on bounds=(0,1) and saturates at BOTH ends: every clustered process pins to q=0.0000 (true to -0.85), GOE pins to 0.9999 (true +1.0032), GUE pins to 0.9999 (true +1.5325). The deployed axis could represent neither clustering nor GUE/GSE and could not distinguish GOE from GUE. Propagated 2026-07-27 as I8_brody_q_unbounded."
   },
-  "high_water": 5,
   "reasons": {
     "run_overnight.py:325-327 (irep_unclipped)": "PROPAGATED 2026-07-26 as arithmetic_toolkit.pair_correlation_full -> repulsion_integral_signed. Instance 5.",
     "run_overnight.py:337-338 (brody_unbounded)": "PROPAGATED 2026-07-27 as cross_substrate/axes.py -> I8_brody_q_unbounded. Instance 6, found BY this watcher's signature C, from the same night as instance 5. Deployed I8_brody_q saturates at both ends: clustered pins to 0.0000, GOE to 0.9999 (true +1.0032), GUE to 0.9999 (true +1.5325) -- verified.",
     "thread3_constants.py:64 (Jenkinson-Pollicott digit transposition)": "PROPAGATED, and the SUPERSEDED discipline done RIGHT: the corrected 100-digit value is used in place, and the wrong value is retained in thermo/gate_fixtures.py as the NAMED fixture DIM_E2_REPO_TRANSPOSED. The error is kept as a regression fixture rather than deleted. This is the model, not a gap.",
     "phase38/reliability_ledger.py:134 (N_SURR = 100, 'the repair (was 3)')": "NOT-A-REPAIR for propagation purposes -- it is a parameter choice local to that ledger, already at 100 there. Checked whether low surrogate counts survive elsewhere: phase23 uses N_SHUFFLE_SEEDS=2 and N_SURROGATE_SEEDS=5, but those are a DETECTOR-LABEL shuffle control whose own comment records that the shuffle is a no-op for the pooled stream -- a different construct, not an under-powered null. Flagged as thin, not as the same defect.",
     "phase34a/fast_rf.py:39 (_phi, _mu)": "LOCAL-BY-DESIGN: importing cached number-theoretic tables, not wrapping a broken public function. No repair implied.",
-    "tests/test_surrogates.py:255": "NOT-A-REPAIR: a test docstring describing what is preserved under clipping."
-  }
+    "tests/test_surrogates.py:255": "NOT-A-REPAIR: a test docstring describing what is preserved under clipping.",
+    "validate_fitters.py:101 (GUE expectation = 2.0)": "DOCUMENTED-OPEN, a real defect deliberately left unrepaired. The CASES row expects GUE Brody q = 2.0 +/- 0.3, which was the overnight's rough characterisation. Four independent runs give ~1.53 (VERDICT_B 1.5325; 2026-07-27: 1.5313, 1.5433, 1.5166), so the EXPECTATION is wrong and the repaired fitter's 1.52 is right. NOT fixed here because editing an expectation to make a test pass is the one move the seals forbid -- it needs a sealed re-registration. Tracked and visible rather than silently cleared; the 'documented-open' category exists for exactly this.",
+    "2026-07-27 propagation run": "Seven remaining defects from the CLUSTERING_COUPLING_FINDINGS.md nine-row table, propagated non-destructively: (3) s<10 truncation -- already bundled into I8_brody_q_unbounded, verified in isolation; (4) spacings_value_trimmed, trims by VALUE not position; (5) bulk_recovery beta_hat_nonclamped, NaN outside the calibrated span instead of the clamped endpoint; (6) validate_fitters repaired COLUMN beside the deployed one, not a swap; (7) I9_berry_robnik_rail_flag -- rho is a fraction so [0,1] is definitionally right, the repair is to FLAG rail-proximity, and all four calibrators flag True; (8) unfold_unit_mean_windowed, removes within-cell drift the global unfold leaves (CV 1.2185 -> 1.0122, true 1.0); (9) a unit-mean guard on pair_correlation_full, since r in [0,1] is in the INPUT's units."
+  },
+  "ratchet_reset_2026_07_27": "high-water reset from 5 after the watcher's MODEL changed, not after new defects appeared: SHARED went from 8 hand-picked modules to 27 MEASURED ones (>=8 importers), which correctly reclassified ars_classify.py (51 importers) and unfold_rotnum.py (33) as shared. A count that moves because the instrument improved is not a regression, and ratcheting it silently would have hidden the model change. Reset deliberately and recorded.",
+  "high_water": 15
 }
