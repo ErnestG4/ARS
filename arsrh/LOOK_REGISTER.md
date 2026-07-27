@@ -2266,3 +2266,39 @@ Filed because this is the program's central parameter and the extension was pre-
   load-bearing behaviour: a tool returning a number there would manufacture signal from a field with
   none, which is the exact failure the precondition family exists to stop.
 - **Status:** BANKED.
+
+### R-134 — ★ THE REPAIR ALREADY EXISTED. Propagation, not discovery, was the failure
+- **`overnight_2026_07_12/run_overnight.py:325` defines `irep_unclipped` — "The repair: signed
+  ∫₀¹(1−R₂)dr — NO np.maximum(0,·)."** Built **two weeks before this session**, used in `VERDICT_A.md`
+  to overturn a load-bearing claim, and **never propagated into `arithmetic_toolkit.py`.** The deployed
+  detector kept clipping; this session rediscovered the repair from scratch.
+- **Fifth instance of knowledge-does-not-propagate** — a fix filed where it could not fire. The
+  antibody says *attach lessons to CALL SITES*; a repair living in one overnight directory is the
+  literal counterexample.
+- **AND IT CARRIES THE ALLEN ANSWER, which upgrades R-124.** From `VERDICT_A.md` on the unclipped axis:
+  median signed I_rep = **allen −5.003**, hc3 −2.841, ret1 −4.767, with ρ(burst, I_rep) negative on all
+  three and CIs excluding zero — *"the physically expected direction, for the first time. Allen is no
+  longer an inverted outlier. The sign pathology was the instrument."*
+- **So Allen's true I_rep ≈ −5.0 ⇒ clips to exactly 0 ⇒ 100% saturation is CONFIRMED FROM BANKED DATA,
+  not assumed.** R-124's premise is established; what remains is only whether the specific
+  ρ(rep_int, ks_gue) was computed on saturated bands — a far smaller question than "recompute Allen V1."
+- **Two independent derivations of the same repair is evidence the repair is right. It is equally
+  evidence the propagation channel is broken**, and the second is the actionable half.
+- **ACTION:** reconcile `overnight_2026_07_12` against this session **before** further work on this axis.
+- **Status:** OPEN — and it reorders the board.
+
+### R-135 — the repo-wide sweep for the same defect classes: three flags, one clear
+- **`phase36/kpm_dos.py:74`** — `np.clip(rho_x, 0, None)` on a KPM density, then `cumsum` → CDF →
+  unfolding. **Same shape as the rep_int bug** (signed quantity clipped, then integrated), and Gibbs
+  ringing is exactly what goes negative, so the clip **rectifies** rather than regularises.
+  **Grade: low** — Jackson damping already mitigates Gibbs and **no callers were found.** Verify before
+  spending effort.
+- **`universality.py:92`, `intermittency.py:155`** — p-values clipped to [0,1], then `nanmedian(ks_p)`,
+  a **rank** statistic on a clipped field. **Lower grade:** the clip enforces a *definition* rather than
+  destroying sign information, unlike I_rep where negatives are the signal. Check only if
+  `median_ks_p` carries a comparison.
+- **`cross_substrate/validate_fitters.py:35`** — `np.clip(F, 0, 1)` on a CDF. Legitimate; logged.
+- **CLEAR: `arsrh/solar_gap_checks.py:54`** — `gap_ci = 1.96*nse` is reported as `GAP_95CI` beside
+  `GAP`, i.e. a half-width used and labelled as a half-width. **Correct usage, and the only 1.96·se in
+  the repo outside the guard.** The R-110/R-113 defect does not recur elsewhere.
+- **Status:** CLOSED as a sweep; two flags carried forward at low grade.
