@@ -2054,3 +2054,31 @@ Filed because this is the program's central parameter and the extension was pre-
   fungal (domain), mismatched certified domains (domain), **plus a control that must NOT raise**, and
   bound-vs-half-width. **GUARD IS LIVE.**
 - **Rules that need remembering have failed here repeatedly; rules in code have held.** Status: CLOSED.
+
+### R-122 — the guard got the scrutiny the guard applies: specificity widened, usage collision closed
+- **Two holes, both Will's, neither a defect in the build — "the guard now needs the same scrutiny the
+  guard applies."** An instrument gets sensitivity and specificity checked **separately**; 8 catches
+  demonstrated sensitivity, and **the entire specificity check was one control row.**
+- **HOLE 1 — single-witness specificity.** *A guard that raises on everything also scores 8/8 on a
+  rejection-only suite* — the always-red-light failure fixed in the ratchet one item earlier.
+  **Widened to a 9-case battery** across clause combinations: identical clauses/different values;
+  differ only in sem; only in n; only in `note` (not a clause); matched non-trivial conditioning;
+  matched field-level unit of analysis; matched non-dimensionless units; matched restricted domain;
+  and **a deliberate `allow=` waiver being honoured.** All 9 pass — false-positive rate pinned, not
+  touched.
+- **HOLE 2 — the usage collision survived the naming split.** The original defect was never calling a
+  half-width a bound; it was **using** one where a bound was required. `bound()`/`half_width()`
+  returning bare floats left that advisory. **Fixed by typing the boundary:** `Bound` and `HalfWidth`
+  are distinct classes with **no `__float__`**, so substitution is a `TypeError` rather than a wrong
+  number in a sentence; `require_bound()` guards consumers; `check()` rejects bare values with an
+  explicit message rather than an incidental `AttributeError`; and **`difference()` now returns a
+  `Difference` carrying `.bound()`/`.half_width()` as methods**, so nobody reconstructs 1.96·se from a
+  returned tuple. 7/7 interface tests pass.
+- **Independent confirmation, unplanned:** `difference()` on the compact-support pair returns
+  **bound = 0.0360** — the module reproducing R-113's corrected value without being told it.
+- **CORPUS DISCIPLINE welded into the module docstring:** the sensitivity corpus is this arc's own
+  escapes, never invented cases, *because a guard tested on synthetic defects proves only that it
+  catches what someone could imagine.* **Every future slot error this guard misses becomes the next
+  case.**
+- **Final: sensitivity 6/6, specificity 9/9, interface 7/7 → 22/22. GUARD IS LIVE AND SPECIFIC.**
+- **Status:** CLOSED.
