@@ -481,6 +481,36 @@ def fano_curve(t_k: np.ndarray, n_scales: int = 30,
 
 # ─── Engine 4 — Multiscale pair correlation R₂(r) ────────────────────────────
 
+class _ClipWarnDict(dict):
+    """Dict that ANNOUNCES the deprecated clipped field on read.
+
+    The fix's own inert-pass risk: two live fields with near-identical names, one biased in a way
+    that does not announce itself, and the default action at 212 call sites is to do nothing. The
+    verify-harness precedent applies inverted — retiring a check needed the same scrutiny as adding
+    one, so keeping a superseded field does too. So it warns.
+    """
+
+    _DEP = "repulsion_integral"
+
+    def _warn(self):
+        import warnings
+        warnings.warn(
+            "repulsion_integral clips the INTEGRAND (np.maximum(0, 1-R2)), so it saturates to "
+            "exactly 0.000 for ANY clustered process and rectifies noise upward on Poisson-like "
+            "input. Use repulsion_integral_signed. See R-093/R-094.",
+            DeprecationWarning, stacklevel=3)
+
+    def __getitem__(self, k):
+        if k == self._DEP:
+            self._warn()
+        return super().__getitem__(k)
+
+    def get(self, k, default=None):
+        if k == self._DEP:
+            self._warn()
+        return super().get(k, default)
+
+
 def pair_correlation_full(t_k: np.ndarray, r_max: float = 10.0,
                            n_bins: int = 100) -> dict:
     """
@@ -495,8 +525,8 @@ def pair_correlation_full(t_k: np.ndarray, r_max: float = 10.0,
     """
     t = np.sort(np.asarray(t_k, dtype=np.float64))
     if t.size < 20:
-        return dict(r=[], R2=[], R2_GUE=[], repulsion_integral=0.0,
-                    error='insufficient')
+        return _ClipWarnDict(r=[], R2=[], R2_GUE=[], repulsion_integral=0.0,
+                    repulsion_integral_signed=0.0, error='insufficient')
     res = _pair_correlation_universality(t, r_max=r_max, n_bins=n_bins)
     r = np.asarray(res['r'])
     R2 = np.asarray(res['R2'])
@@ -519,7 +549,7 @@ def pair_correlation_full(t_k: np.ndarray, r_max: float = 10.0,
             if mask.any() else 0.0
     # The statistic the docstring actually describes: signed, graded, unsaturated.
     I_rep_signed = float(np.trapezoid(1 - R2[mask], r[mask])) if mask.any() else 0.0
-    return dict(r=r.tolist(), R2=R2.tolist(), R2_GUE=R2_gue.tolist(),
+    return _ClipWarnDict(r=r.tolist(), R2=R2.tolist(), R2_GUE=R2_gue.tolist(),
                 repulsion_integral=I_rep,
                 repulsion_integral_signed=I_rep_signed,
                 R2_at_0_1=float(R2[np.argmin(np.abs(r - 0.1))]) if r.size else 0,

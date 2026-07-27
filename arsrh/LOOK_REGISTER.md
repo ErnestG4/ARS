@@ -1727,3 +1727,73 @@ Filed because this is the program's central parameter and the extension was pre-
 - **And a consequence worth stating:** any cross-substrate comparison ever made **on I_rep** is void —
   both fungal and solar read the same saturated 0.000, so the axis carried no information to compare on.
 - **Status:** OPEN, sized on the global channel, untested on the local one. The larger of the two claims.
+
+### R-096 — fungal I_rep inherits solar's footing; z = 74 is retracted as external
+- **z = 74 is not quotable, and "uninformative" undersells it.** The null has 12 draws, so the sampled
+  range is a few sd wide; 74 sd extrapolates Gaussianity **~25× beyond anything the simulation visited.**
+- **Inherit solar's convention rather than invent one:** *existence on outside-the-null-range footing,
+  no z quoted externally, magnitude as the live quantity.* Observed (−2.21) lies outside the entire
+  null range (+0.034 ± 0.030, 12 draws) — **existence unassailable, significance not quantified.**
+- **Crossover corrected to Will's value:** −0.0870, not my −0.0867. The ddof=1 sds (0.01293, 0.03021)
+  are the right inputs; I used pre-final ones. Conclusion unchanged (observed is 25× past it).
+- **Status:** CLOSED as existence; the magnitude is R-097.
+
+### R-097 — the magnitude bracket existed already: estimator certified against an ANALYTIC target
+- The scout's Neyman–Scott anchors have a **closed-form** I_rep. Parents unit-rate Poisson, k points per
+  parent dispersed N(0,s²), spacings normalised to unit mean ⇒ g(r) = 1 + ((k−1)/k)·h(r) with h the
+  N(0,2s²) density, and rescaling by the intensity k gives
+  **I_rep = −((k−1)/2)·erf(1/(2ks))**.
+- **Measured recovery of that known value, 6 configurations spanning −0.57 to −3.23:**
+  at n = 64k, **0.903 ± 0.006**; at fungal's own n = 1470, **0.892 ± 0.017**. The estimator
+  under-recovers by a **stable multiplicative factor**, not by noise.
+- **Bias-corrected fungal estimate: I_rep ≈ −2.48** (−2.212 / 0.892).
+- **SLOT, kept separate as instructed:** this brackets **the estimator on known inputs**. It does
+  **not** bracket fungal's true value — that holds only to the extent the Neyman–Scott family is
+  representative of fungal, **which is not established.** Grade change from *no bracket* to
+  *estimator certified on a known family, interpretation open*, at zero new cost.
+- **Status:** CLOSED for the estimator; OPEN for the interpretation.
+
+### R-098 — the deprecation surface was the fix's own inert-pass risk; both remedies applied
+- **The risk, correctly named:** two live fields with near-identical names, one biased in a way that
+  does not announce itself, and **the default action at every call site is to do nothing.** The
+  verify-harness precedent inverted — retiring a check needed the scrutiny that adding one did, so
+  keeping a superseded field does too.
+- **Remedy 1: it now announces itself.** `pair_correlation_full` returns a dict subclass that raises a
+  `DeprecationWarning` on read of `repulsion_integral`, via **both** `__getitem__` and `.get` (verified:
+  2 warnings, signed field silent).
+- **Remedy 2: triage, with both counts recorded. And my earlier "212 references" was WRONG — the
+  real count is 399** (my pattern was narrower than the field's actual usage):
+  **NEEDS-SIGNED 154 (39%)** — thresholding, correlating, or ordering on the clipped value;
+  **UNCLASSIFIED 185 (46%)** — need a human read; **clipped-fine 56 (14%)**; already-signed 4.
+- **So the fix is applied at 4 sites out of 399.** "The fix exists and isn't applied" was the right
+  worry and the number is now on the record. **Status:** OPEN — 154 known + 185 unknown sites.
+
+### R-099 — "void" was the wrong status, and one live candidate exists
+- Correct status: **void pending recompute, not terminal** — signed values are real numbers on both
+  sides now, so the comparisons can be *redone*, not merely discarded.
+- **And "any comparison ever made" implied some were, so I grepped.** One live candidate, in
+  `cross_substrate/INSTRUMENT_CONFOUND_FINDINGS.md`: *"ρ(rep_int, ks_gue) is tightly coupled on
+  arithmetic (zeta −0.93, primes −0.99) but ~0 on Allen V1 — rep_int carries a DIFFERENT marginal
+  feature there."* **The same document states Allen V1 is super-Poisson/clustered.** Clustered ⇒
+  rep_int saturates ⇒ near-zero variance ⇒ **ρ → 0 mechanically.** The stated explanation is exactly
+  what the artifact predicts.
+- **Not retracted on suspicion:** the underlying arrays are not banked (0 stored rep_int arrays in
+  `cross_substrate/`), so this is **unresolvable from artifacts and needs recompute.**
+- **Status:** OPEN — one identified candidate, one recompute to settle it.
+
+### R-100 — mass03's local channel is OPEN-BOUNDABLE, not terminal
+- The standing move (check the unfold against an exact counting function) is unavailable — fungal has
+  no exact counting function. **But the separability transfer FAILS, and that is what decides it.**
+  Separability bites when remainder and signal **share a band**; a slowly-varying normalisation error
+  c(x) is **low-frequency** while mass03 reads the **high-frequency** spacing shape. Different bands.
+- **Structure:** mass03_obs = E_x[m(c(x))] ≈ m(1) + m′(1)·E[c−1] + ½m″(1)·Var[c]. The first-order term
+  is the **global channel already bounded**; for an unbiased normalisation it **vanishes**, leaving a
+  **second-order** term. Measured m″(1) ≈ −1.70.
+- **Measured, block-varying c with E[c] = 1:** shift −0.0020 (sd 0.05), −0.0082 (0.10), −0.0048 (0.20),
+  −0.0191 (0.30); the 2nd-order prediction tracks at small sd and **over**-predicts at large, i.e. it is
+  conservative. **A 30% local normalisation error moves mass03 by ≤ 0.02 — an order of magnitude below
+  solar's 0.20 floor.**
+- **Caveat on my own derivative:** the finite-difference m′(1) is noisy on 1470 discrete spacings
+  (+0.34 at h = 0.01, +0.22 at h = 0.02). The analytic form **0.3·f(0.3) ≈ 0.34** is the right value and
+  it is Will's independent check that carries it, not my difference quotient.
+- **Status:** OPEN-BOUNDABLE. Not terminal, and the bound is small.
