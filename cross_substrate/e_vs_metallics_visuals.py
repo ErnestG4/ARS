@@ -28,7 +28,7 @@ _ROOT = os.path.dirname(_HERE)
 if _ROOT not in sys.path:
     sys.path.insert(0, _ROOT)
 
-from cross_substrate.trace_map_dimension import band_widths, _potential, cf_convergent, DEGT  # noqa: E402
+from cross_substrate.trace_map_dimension import band_widths, potential, cf_convergent, DEGT  # noqa: E402
 
 COORD = os.path.join(_HERE, "coordinates")
 FIG = os.path.join(_HERE, "figures")
@@ -158,7 +158,7 @@ def fig_cantor():
     fig, ax = plt.subplots(figsize=(13, 5.5))
     for row, (name, a, col, C) in enumerate(sel):
         p, q = cf_convergent(a, 90)
-        bands = band_intervals(_potential(q, p, lam, phi))
+        bands = band_intervals(potential(q, p, lam, phi))
         segs = [[(lo, row), (hi, row)] for lo, hi in bands]
         ax.add_collection(LineCollection(segs, colors=col, linewidths=7))
         cover = sum(hi - lo for lo, hi in bands)
@@ -228,7 +228,7 @@ def fig_superimposed():
     data = []
     for name, a, col in sel:
         p, q = cf_convergent(a, 90)
-        bands = band_intervals(_potential(q, p, lam, phi))
+        bands = band_intervals(potential(q, p, lam, phi))
         data.append((name, a, col, q, bands))
     # top: superimposed bands (each class a thin colored row on a COMMON energy axis)
     for row, (name, a, col, q, bands) in enumerate(data):

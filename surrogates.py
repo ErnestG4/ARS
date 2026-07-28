@@ -202,6 +202,14 @@ def _fit_hawkes_exponential(
     return float(mu), float(alpha), float(beta)
 
 
+# PUBLIC API, 2026-07-28 (R-169). Promoted because leaf modules imported the PRIVATE name --
+# the propagation watcher's signature A, which fires exactly when the public API failed to
+# offer something and callers reached past it instead of fixing it. ALIAS, not a rename: the
+# private name is retained bit-identical (banked numbers came off it) and an alias is the
+# same object, so no call site can change behaviour.
+fit_hawkes_exponential = _fit_hawkes_exponential
+
+
 def _simulate_hawkes(
         mu: float, alpha: float, beta: float, T: float,
         rng: np.random.Generator,
@@ -247,6 +255,14 @@ def _simulate_hawkes(
         if d * lam_bar <= lam_t:
             events.append(t)
     return np.asarray(events, dtype=np.float64)
+
+
+# PUBLIC API, 2026-07-28 (R-169). Promoted because leaf modules imported the PRIVATE name --
+# the propagation watcher's signature A, which fires exactly when the public API failed to
+# offer something and callers reached past it instead of fixing it. ALIAS, not a rename: the
+# private name is retained bit-identical (banked numbers came off it) and an alias is the
+# same object, so no call site can change behaviour.
+simulate_hawkes = _simulate_hawkes
 
 
 # ─── Event-domain surrogates ───────────────────────────────────────────────

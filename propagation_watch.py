@@ -181,7 +181,16 @@ def scan():
                 # all intra-package.
                 src_pkg = f.split("/")[0] if "/" in f else ""
                 dst_pkg = m.group(1).split(".")[0] if "." in m.group(1) else ""
-                if src_pkg and dst_pkg and src_pkg == dst_pkg:
+                # SPECIFICITY, fourth pass (2026-07-28). A BARE module import inside a package --
+                # `from population_fingerprint import _fp` sitting in cross_substrate/, resolved by
+                # a sys.path insert rather than a dotted path -- has no dst_pkg to compare, so the
+                # dotted intra-package test above could never fire on it and 10 files of ordinary
+                # internal reuse looked like public-API gaps. Resolve the module to a FILE and ask
+                # whether it lives in the importer's own directory; that is the property the rule
+                # is actually about, and it is independent of how the import happens to be spelled.
+                same_dir = os.path.exists(os.path.join(
+                    HERE, os.path.dirname(f), m.group(1).split(".")[-1] + ".py"))
+                if (src_pkg and dst_pkg and src_pkg == dst_pkg) or same_dir:
                     pass
                 else:
                     priv = [x.strip() for x in m.group(2).split(",") if x.strip().startswith("_")]

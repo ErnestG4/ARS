@@ -22,7 +22,7 @@ import numpy as np
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
-from universality import nns_poisson, nns_goe, nns_gue, _ks_pvalue
+from universality import nns_poisson, nns_goe, nns_gue, ks_pvalue
 
 import matplotlib
 matplotlib.use('Agg')
@@ -40,7 +40,7 @@ def two_sample_ks(a, b):
     cdf1 = np.searchsorted(s1, pts, side='right') / n1
     cdf2 = np.searchsorted(s2, pts, side='right') / n2
     ks = float(np.max(np.abs(cdf1 - cdf2)))
-    p = _ks_pvalue(ks, int(n1 * n2 / (n1 + n2)))
+    p = ks_pvalue(ks, int(n1 * n2 / (n1 + n2)))
     return ks, p
 
 

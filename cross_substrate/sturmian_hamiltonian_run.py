@@ -82,6 +82,42 @@ def box_dim(eigs, n_sizes=12):
     return float(-np.polyfit(np.log(sizes[m]), np.log(counts[m]), 1)[0])
 
 
+def box_counts(eigs, n_sizes=18):
+    """(sizes, counts) for the box-counting curve. Split out so the fit RANGE is a caller's
+    choice rather than baked into the estimator."""
+    e = np.sort(np.asarray(eigs, float))
+    span = float(e[-1] - e[0])
+    sizes = span / (2.0 ** np.arange(1, n_sizes + 1))
+    counts = np.array([np.unique(np.floor((e - e[0]) / s)).size for s in sizes], float)
+    return sizes, counts
+
+
+def box_dim_windowed(eigs, n_sizes=18, lo=8, hi_frac=0.5):
+    """Box dimension fitted only in the UNSATURATED window: counts >= lo (above the coarse
+    few-box regime) and counts <= hi_frac*N (below fine-scale saturation). Returns (D, n_window).
+
+    PROPAGATED 2026-07-28 (R-169) from `cross_substrate/dimension_theory_check.py`, where it was
+    written, validated and then left in a leaf module that nothing imports -- while `box_dim` above,
+    imported by 10+ modules across cross_substrate/ and approximability/, kept fitting through the
+    saturated tail.
+
+    THE DEFECT IT REPAIRS is the saturation family again (cf. R-140/R-144, the Brody bounds, the
+    clipped I_rep): `box_dim` selects `m = counts > 1`, which INCLUDES the fine-scale regime where
+    every eigenvalue lands in its own box, so counts -> N and the log-log slope flattens toward a
+    value set by the sampling rather than by the set. Points at a rail are not measurements, and a
+    fit through them is contaminated at whichever end saturates first.
+
+    `box_dim` is retained BIT-IDENTICAL -- banked D_box values came off it. This is the second
+    reading, not a replacement, so the two can be compared on the same eigenvalues.
+    """
+    sizes, counts = box_counts(eigs, n_sizes)
+    N = len(eigs)
+    m = (counts >= lo) & (counts <= hi_frac * N)
+    if m.sum() < 4:
+        return None, int(m.sum())
+    return float(-np.polyfit(np.log(sizes[m]), np.log(counts[m]), 1)[0]), int(m.sum())
+
+
 def run():
     recs = []
     print(f"STURMIAN HAMILTONIAN α-sweep (N={N}, λ={LAM}, {N_PHI}φ) — does the SPECTRUM stratify?")

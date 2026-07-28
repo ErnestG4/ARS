@@ -19,7 +19,7 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _ROOT); sys.path.insert(0, os.path.join(_ROOT, "cross_substrate"))
 import numpy as np
 from cross_substrate.trace_map_dimension import (
-    cf_convergent, _potential, band_widths, dim_growth, dim_pressure,
+    cf_convergent, potential, band_widths, dim_growth, dim_pressure,
     DEGT, SHALLOW_Q, DEEP_Q, DEGT_LAMS)
 
 OUT = os.path.dirname(os.path.abspath(__file__))

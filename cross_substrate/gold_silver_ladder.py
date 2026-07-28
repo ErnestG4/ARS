@@ -33,7 +33,7 @@ _ROOT = os.path.dirname(_HERE)
 if _ROOT not in sys.path:
     sys.path.insert(0, _ROOT)
 
-from cross_substrate.trace_map_dimension import dim_growth, cf_convergent, _potential, DEGT  # noqa: E402
+from cross_substrate.trace_map_dimension import dim_growth, cf_convergent, potential, DEGT  # noqa: E402
 from cross_substrate.e_vs_metallics_visuals import band_intervals                            # noqa: E402
 COORD = os.path.join(_HERE, "coordinates")
 FIG = os.path.join(_HERE, "figures")
@@ -138,7 +138,7 @@ def _fig_staircases(rows):
     fig, ax = plt.subplots(figsize=(13, 8))
     for row_i, (r, col) in enumerate(zip(order, cmap)):
         p, q = cf_convergent(r["alpha"], 90)
-        bands = band_intervals(_potential(q, p, lam, phi))
+        bands = band_intervals(potential(q, p, lam, phi))
         edges, ids, cum = [], [], 0.0
         for lo, hi in bands:
             edges += [lo, hi]; ids += [cum, cum + 1.0 / q]; cum += 1.0 / q

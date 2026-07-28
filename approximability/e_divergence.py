@@ -10,7 +10,7 @@ import os, sys, json, math
 import numpy as np
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _ROOT); sys.path.insert(0, os.path.join(_ROOT, "cross_substrate"))
-from cross_substrate.trace_map_dimension import band_widths, _potential, cf_convergent
+from cross_substrate.trace_map_dimension import band_widths, potential, cf_convergent
 
 LAMS = [2.0, 4.0, 8.0, 16.0, 32.0, 48.0, 64.0]
 PHI = 0.1234
@@ -18,7 +18,7 @@ PHI = 0.1234
 def dim_growth_q(alpha, lam, qlist):
     levels=[]
     for qt in qlist:
-        p,q=cf_convergent(alpha,qt); w=band_widths(_potential(q,p,lam,PHI))
+        p,q=cf_convergent(alpha,qt); w=band_widths(potential(q,p,lam,PHI))
         if w.size>2: levels.append((q,w))
     seen={};
     for q,w in levels: seen[q]=w

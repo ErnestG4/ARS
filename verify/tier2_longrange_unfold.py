@@ -216,7 +216,7 @@ def site_allen():
         # runtime here (NOT editing the driver file on disk).
         ad.CACHE = os.path.expandvars(ad.CACHE)
         ad.NWB_GLOB = os.path.expandvars(ad.NWB_GLOB)
-        from cross_substrate.allen_depth import build_targets, _session_tasks, NWB_GLOB
+        from cross_substrate.allen_depth import build_targets, session_tasks, NWB_GLOB
     except Exception as e:
         BLOCKED.append(("allen", f"import: {e}"))
         RESULTS.append({"site": "allen-depth", "status": "BLOCKED", "note": f"import: {e}"})
@@ -243,7 +243,7 @@ def site_allen():
             continue
         try:
             with h5py.File(f, "r") as h:
-                tasks = _session_tasks(h, sess_rows, sid)
+                tasks = session_tasks(h, sess_rows, sid)
         except Exception as e:
             BLOCKED.append(("allen", f"session {sid} read: {e}"))
             continue

@@ -8,7 +8,7 @@ import os, sys, json, math
 import numpy as np
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _ROOT); sys.path.insert(0, os.path.join(_ROOT, "cross_substrate"))
-from cross_substrate.trace_map_dimension import band_widths, _potential, cf_convergent
+from cross_substrate.trace_map_dimension import band_widths, potential, cf_convergent
 
 # Validated Panel-A engine extrapolates dim*ln(lambda) in 1/ln(lambda)->0 over CONVERGENCE-GATED lambda.
 # The resolvable points are the LOW lambda; the high-lambda deep-window bands fall below float precision
@@ -34,7 +34,7 @@ def dim_growth_q(alpha, lam, qlist):
     levels=[]
     for qt in qlist:
         p, q = cf_convergent(alpha, qt)
-        w = band_widths(_potential(q, p, lam, PHI))
+        w = band_widths(potential(q, p, lam, PHI))
         if w.size > 2: levels.append((q, w))
     seen={}
     for q,w in levels: seen[q]=w

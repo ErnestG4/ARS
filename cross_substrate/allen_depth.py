@@ -159,6 +159,14 @@ def _session_tasks(h, sess_rows, sess_id):
     return tasks
 
 
+# PUBLIC API, 2026-07-28 (R-169). Promoted because leaf modules imported the PRIVATE name --
+# the propagation watcher's signature A, which fires exactly when the public API failed to
+# offer something and callers reached past it instead of fixing it. ALIAS, not a rename: the
+# private name is retained bit-identical (banked numbers came off it) and an alias is the
+# same object, so no call site can change behaviour.
+session_tasks = _session_tasks
+
+
 def _done_sessions():
     if not os.path.exists(OUT):
         return set()

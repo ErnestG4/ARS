@@ -34,7 +34,7 @@ import mpmath as mp
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                                 "cross_substrate"))
-from trace_map_dimension import _potential, band_widths          # noqa: E402  (symbolic trace-map bands)
+from trace_map_dimension import potential, band_widths          # noqa: E402  (symbolic trace-map bands)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 mp.mp.dps = 40
@@ -57,7 +57,7 @@ def metallic_convergents(a, nmax):
 def band_count(a, n, lam=3.0, phi=0.1234):
     """#bands of the period-q_n metallic-a Sturmian approximant (symbolic trace-map bands)."""
     p, q = metallic_convergents(a, n + 2)
-    V = _potential(q[n], p[n], lam, phi)
+    V = potential(q[n], p[n], lam, phi)
     return len(band_widths(V)), q[n]
 
 

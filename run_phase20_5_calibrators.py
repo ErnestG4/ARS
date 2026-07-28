@@ -318,7 +318,7 @@ def plot_trajectory_examples(df: pd.DataFrame):
         ('logistic_chaos_r=3.7', 'Logistic chaos'),
         ('logistic_sweep_2.5_to_3.9', 'Logistic sweep (period doubling)'),
     ]
-    from transition_diagnostic import _distance_trajectory
+    from transition_diagnostic import distance_trajectory
     from transition_calibrators_blended import (gen_blended_transition,
         gen_stationary_control)
     for ax, (name, title) in zip(axes.flat, examples):
@@ -360,7 +360,7 @@ def plot_trajectory_examples(df: pd.DataFrame):
                 continue
             primaries = list(traj['primary'])
             origin = primaries[0] if primaries else 'BL'
-            d = _distance_trajectory(primaries, origin)
+            d = distance_trajectory(primaries, origin)
             ax.plot(d, marker='o', markersize=3, linewidth=1)
             ax.set_title(f'{title}\n({name[:50]})', fontsize=9)
             ax.set_xlabel('sub-window index')
@@ -429,10 +429,10 @@ def plot_period_doubling():
     traj = trajectory_from_events(ev, n_subwindows=N_SUBWINDOWS * 2,
                                     min_events=MIN_EVENTS_PER_SUB,
                                     q_max=Q_MAX)
-    from transition_diagnostic import _distance_trajectory
+    from transition_diagnostic import distance_trajectory
     primaries = list(traj['primary'])
     origin = primaries[0] if primaries else 'BL'
-    d = _distance_trajectory(primaries, origin)
+    d = distance_trajectory(primaries, origin)
     ax.plot(d, marker='o', markersize=3)
     ax.set_xlabel('sub-window index (along r=2.5→3.9 sweep)')
     ax.set_ylabel('distance from origin classification')

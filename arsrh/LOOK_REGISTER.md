@@ -2963,3 +2963,58 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   ("a test is in the shared path by construction") belongs to the directory, not the name. Scope
   verified: `tests/` excluded, `arsrh/` not, `testsuite/` not (the prefix carries its slash).
 - **Status:** CLOSED. Back to 15, ratchet green.
+
+### R-169 — the propagation backlog CLOSES: 15 → 0, and eleven of the fifteen were real
+- **Six private symbols promoted to public API, non-destructively.** Signature A fires exactly when
+  the public API failed to offer something and callers reached past it rather than fixing it. Each
+  promotion is an **alias** — `public = _private` — so the private name stays **bit-identical**
+  (banked numbers came off calls to it) and the two are the **same object**, meaning no call site
+  can change behaviour. Alias identity asserted for all six, and fixtured.
+
+  | symbol | → public | consumers |
+  |---|---|---|
+  | `trace_map_dimension._potential` | `potential` | **7**, across three packages |
+  | `universality._ks_pvalue` | `ks_pvalue` | 2 |
+  | `surrogates._fit_hawkes_exponential` | `fit_hawkes_exponential` | 1 |
+  | `surrogates._simulate_hawkes` | `simulate_hawkes` | 1 |
+  | `transition_diagnostic._distance_trajectory` | `distance_trajectory` | 1 |
+  | `allen_depth._session_tasks` | `session_tasks` | 1 |
+
+- **⚠ A recall limit that bit, and the check that caught it.** The repo expert returned **six**
+  consumers of `_potential`; there are **seven**. `approximability/panel_A_gate.py` wraps the symbol
+  onto a **continuation line**, and a line-oriented grep cannot see it. Found only because the
+  post-edit check was *"no residual private reference anywhere in the repo"* rather than *"I updated
+  every file on the list I was given."* **Verify against the repo, not against the inventory.**
+- **`population_fingerprint._corr_eig/_fp/_f` was NOT a propagation gap — it was a watcher
+  specificity gap** (fourth pass). Ten `cross_substrate/` modules share them: ordinary intra-package
+  reuse. The dotted intra-package test could never fire, because `from population_fingerprint import
+  _fp` is a **bare** module import resolved by a `sys.path` insert, so there was no `dst_pkg` to
+  compare. The watcher now resolves the module to a **file** and asks whether it sits in the
+  importer's own directory — the property the rule is actually about, independent of how the import
+  is spelled. **Removed 10 false hits.**
+- **`box_dim_windowed` was a GENUINE un-propagated repair, and the saturation family again.**
+  `sturmian_hamiltonian_run.box_dim` (**imported by 10+ modules**) selects `m = counts > 1`, which
+  **includes the fine-scale regime where every eigenvalue lands in its own box**, so counts → N and
+  the log-log slope flattens toward a value set by the **sampling** rather than by the set. The
+  windowed fit was written and validated in a leaf module nothing imports. **Known-answer check:**
+  on uniform points (true D = 1.0), deployed reads **0.9278**, repaired **0.9666** — the deployed
+  estimator is **biased low by the saturated tail**. Propagated with `box_counts`, so the fit
+  **range** is a caller's choice rather than baked into the estimator; `box_dim` retained
+  bit-identical. Fixture `BOX_DIM_FITS_THROUGH_SATURATED_TAIL`.
+- **The two `verify/tier3_chirp_and_cap.py` hits are LOCAL-BY-DESIGN, and the locality is the
+  point.** Its header declares it an *"independent verification harness (read-only)"*: it holds the
+  deployed **and** fixed variants side by side to measure the difference, and re-implements
+  `unfold_semicircle_R` rather than importing it **because independence from the code under test is
+  what makes the verification worth anything.** Propagating either variant out of that file would
+  destroy the comparison it exists to make.
+- **`run_level_st_v2` is NOT-A-REPAIR** — signature C matched the `_v2` suffix, but it is a
+  phase-local driver and the watcher itself reports *"shared stem: none found."* A second version of
+  an **analysis** is not a repair of a shared **function**.
+- **A stale manifest entry, marked rather than deleted.** `validate_fitters.py:101` sat as
+  `documented-open`; R-153 re-registered that expectation through a seal on 2026-07-27, so the
+  category now reads **0** because the watcher finds no hit — an entry that silently stops being
+  counted is exactly the **unmarked-stale-table** pattern this repo keeps producing. Marked
+  SUPERSEDED in place.
+- **Ratchet 15 → 0, recorded separately from the 2026-07-27 reset** so the two causes stay
+  distinguishable: that one was a **model** change with no code change; this one is **mostly code**.
+- **Status:** CLOSED. Backlog empty for the first time.

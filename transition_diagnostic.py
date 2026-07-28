@@ -167,6 +167,14 @@ def _distance_trajectory(primaries: list[str], origin: str) -> np.ndarray:
     return np.array([quadrant_distance(p, origin) for p in primaries])
 
 
+# PUBLIC API, 2026-07-28 (R-169). Promoted because leaf modules imported the PRIVATE name --
+# the propagation watcher's signature A, which fires exactly when the public API failed to
+# offer something and callers reached past it instead of fixing it. ALIAS, not a rename: the
+# private name is retained bit-identical (banked numbers came off it) and an alias is the
+# same object, so no call site can change behaviour.
+distance_trajectory = _distance_trajectory
+
+
 def _monotonicity(d: np.ndarray) -> float:
     """Spearman-rank correlation between sub-window index and distance
     from origin; returns 1 for perfectly monotonic increase, -1 for

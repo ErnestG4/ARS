@@ -37,7 +37,7 @@ import pandas as pd
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, THIS_DIR)
 
-from surrogates import _fit_hawkes_exponential, _simulate_hawkes
+from surrogates import fit_hawkes_exponential, simulate_hawkes
 
 
 # Default distance bins: close (peers FB), medium (1 hop away from
@@ -65,7 +65,7 @@ def fit_topology_hawkes(
     AS-distance bin.
 
     `max_events_per_bin`: cap per-bin event count for the ML fit
-    (default 20,000).  The Ozaki recursion in `_fit_hawkes_exponential`
+    (default 20,000).  The Ozaki recursion in `fit_hawkes_exponential`
     is a Python for-loop over n events per log-likelihood evaluation;
     n above ~50K causes the L-BFGS-B fit to take prohibitively long.
     Stride-subsampling keeps the bin's effective rate (events / T)
@@ -124,7 +124,7 @@ def fit_topology_hawkes(
             T_used = T
             stride = 1.0
         t_shift = t_sec - t_sec[0]
-        mu, alpha, beta = _fit_hawkes_exponential(t_shift, T=T_used)
+        mu, alpha, beta = fit_hawkes_exponential(t_shift, T=T_used)
         # Sanity guards: the unconstrained ML fit can diverge into
         # numerically pathological regions (μ, α at ~1e283 with α/β
         # near the soft-stability boundary).  Detect and replace with a
@@ -182,7 +182,7 @@ def simulate_topology_hawkes_global(
         if mu <= 0 and alpha == 0:
             out[i] = np.zeros(0)
             continue
-        sim = _simulate_hawkes(mu, alpha, beta, T, rng)
+        sim = simulate_hawkes(mu, alpha, beta, T, rng)
         out[i] = sim
     return out
 
@@ -265,7 +265,7 @@ def verify_topology_kernel_recovery(seed: int = 0,
     # range per bin)
     rows = []
     for i, (mu, alpha, beta) in enumerate(true_params):
-        t_arr = _simulate_hawkes(mu, alpha, beta, T, rng)
+        t_arr = simulate_hawkes(mu, alpha, beta, T, rng)
         for t in t_arr:
             # Synthetic peer ASN: range 1000+i*100 to 1099+i*100
             asn = 1000 + i * 100 + rng.integers(0, 100)

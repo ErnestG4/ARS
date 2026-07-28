@@ -92,6 +92,14 @@ def _ks_pvalue(ks, n):
     return float(np.clip(p, 0.0, 1.0))
 
 
+# PUBLIC API, 2026-07-28 (R-169). Promoted because leaf modules imported the PRIVATE name --
+# the propagation watcher's signature A, which fires exactly when the public API failed to
+# offer something and callers reached past it instead of fixing it. ALIAS, not a rename: the
+# private name is retained bit-identical (banked numbers came off it) and an alias is the
+# same object, so no call site can change behaviour.
+ks_pvalue = _ks_pvalue
+
+
 def compute_nns(events: np.ndarray) -> NNSResult:
     """
     Nearest-neighbour spacing distribution.  `events` should be already

@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/riemann_explorer"))
 
 from pll_bank import farey_rationals
 from universality import nns_cdf_poisson, nns_cdf_goe, nns_cdf_gue
-from universality import nns_poisson, nns_goe, nns_gue, _ks_pvalue
+from universality import nns_poisson, nns_goe, nns_gue, ks_pvalue
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt

@@ -21,7 +21,7 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _ROOT); sys.path.insert(0, os.path.join(_ROOT, "cross_substrate"))
 import numpy as np
 import mpmath as mp
-from cross_substrate.trace_map_dimension import dim_growth, dim_pressure, band_widths, _potential, cf_convergent
+from cross_substrate.trace_map_dimension import dim_growth, dim_pressure, band_widths, potential, cf_convergent
 
 mp.mp.dps = 220
 OUT = os.path.dirname(os.path.abspath(__file__))

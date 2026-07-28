@@ -48,6 +48,18 @@ def _potential(q, p, lam, phi):
     return lam * (frac >= 1.0 - alpha).astype(np.float64)
 
 
+# PUBLIC API, 2026-07-28 (R-169). SIX modules across THREE packages imported the private name --
+# approximability/{O1_bridge, e_divergence, panel_A_K_reframe}, thermo/tier2_weld, and
+# cross_substrate/{e_vs_metallics_visuals, gold_silver_ladder}. That is the propagation watcher's
+# signature A, which fires precisely when the public API failed to offer something and callers
+# reached past it rather than fixing it. Nothing about this function is internal; the underscore
+# was never a design decision.
+#
+# ALIAS, not a rename: `_potential` is retained bit-identical because banked numbers came off calls
+# to the private name, and an alias is the same object, so no call-site behaviour can change.
+potential = _potential
+
+
 def discriminant(E, V):
     """Δ_q(E) = Tr ∏ T_j(E), vectorized over E. Gaps overflow to ±inf (correctly out-of-band)."""
     E = np.asarray(E, float)

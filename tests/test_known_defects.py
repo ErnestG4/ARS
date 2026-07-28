@@ -224,3 +224,48 @@ def test_cyclic_strata_contain_duplicate_gl2z_orbits():
     for t, (_n_poly, n_orb) in CYCLIC_STRATUM_POOLS_DUPLICATE_ORBITS.items():
         assert len(gl2z_orbit_reps(by_t[t])) == n_orb, \
             f"|t|={t}: dedup must find {n_orb} independent GL2(Z) orbits"
+
+
+BOX_DIM_FITS_THROUGH_SATURATED_TAIL = True
+"""`sturmian_hamiltonian_run.box_dim` selects `m = counts > 1`, which INCLUDES the fine-scale regime
+where every eigenvalue lands in its own box, so counts -> N and the log-log slope flattens toward a
+value set by the SAMPLING rather than by the set. Same saturation family as the Brody bounds and the
+clipped I_rep. box_dim_windowed (written in a leaf nothing imports, propagated 2026-07-28) fits only
+where counts >= 8 and <= 0.5N."""
+
+PROMOTED_PRIVATE_SYMBOLS = [
+    ("cross_substrate.trace_map_dimension", "potential", "_potential"),
+    ("universality", "ks_pvalue", "_ks_pvalue"),
+    ("surrogates", "fit_hawkes_exponential", "_fit_hawkes_exponential"),
+    ("surrogates", "simulate_hawkes", "_simulate_hawkes"),
+    ("transition_diagnostic", "distance_trajectory", "_distance_trajectory"),
+    ("cross_substrate.allen_depth", "session_tasks", "_session_tasks"),
+]
+"""Six symbols leaf modules reached past the public API for (watcher signature A). Promoted as
+ALIASES so the private name stays bit-identical -- banked numbers came off calls to it."""
+
+
+@pytest.mark.parametrize("mod,pub,priv", PROMOTED_PRIVATE_SYMBOLS)
+def test_promoted_symbol_is_an_alias_not_a_reimplementation(mod, pub, priv):
+    """The promotion must be a same-object alias: a re-implementation could drift from the
+    private version that banked numbers came off, which is the whole risk being avoided."""
+    import importlib
+    m = importlib.import_module(mod)
+    assert hasattr(m, priv), f"{mod}.{priv} must be RETAINED, not renamed"
+    assert hasattr(m, pub), f"{mod}.{pub} must exist"
+    assert getattr(m, pub) is getattr(m, priv), \
+        f"{mod}.{pub} must BE {priv} (same object), not a copy"
+
+
+def test_box_dim_windowed_beats_deployed_on_a_set_of_known_dimension():
+    """Defect 11: known-answer test. Uniform points on an interval have box dimension 1.0."""
+    from cross_substrate.sturmian_hamiltonian_run import box_dim, box_dim_windowed
+    rng = np.random.default_rng(0)
+    e = np.sort(rng.random(4000))
+    deployed = box_dim(e)
+    repaired, n_window = box_dim_windowed(e)
+    assert n_window >= 4, "the window must retain enough points to fit"
+    # the deployed estimator must stay bit-identical -- it IS biased low, and that is the record
+    assert deployed < 0.95, "deployed box_dim must still fit through the saturated tail"
+    assert abs(repaired - 1.0) < abs(deployed - 1.0), \
+        "the windowed fit must be CLOSER to the known dimension 1.0"
