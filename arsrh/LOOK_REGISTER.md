@@ -1461,6 +1461,8 @@ Filed because this is the program's central parameter and the extension was pre-
   of magnitude; the constant does not.** Closing it returns the formula to DERIVED and opens the range.
 - **Status:** OPEN — and it is the one item whose resolution would change a stated limit.
 
+- **⚠ SUPERSEDED 2026-07-28 — CLOSED AS VOID by R-166.** The anomaly this entry was opened to explain does not exist outside its own window (deduped, 5x depth: remainder +0.00133 ± 0.00394; H1 rejected at 7.6 sem, H0 consistent p = 0.736). R-077 is no longer an open item. The formula stays CALIBRATED at |det| ≤ 289, ±12% — that band is a ratio and is duplication-invariant.
+
 ### R-078 — field-level dedup holds the transfer license, and fixed two sampling defects of mine
 - **Polynomial-discriminant dedup is not field dedup** (disc_poly = index²·disc_field). Implemented
   properly: PSLQ on (1, α, α², β) proposes, **exact reduction of f₂(g(x)) mod f₁(x) over ℚ disposes.**
@@ -2718,6 +2720,8 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
   residues are coupled in a way no per-index conditioning captures.
 - **Status:** OPEN, better localised. The formula stays CALIBRATED, |det| ≤ 289 at ±12%.
 
+- **⚠ SUPERSEDED 2026-07-28.** The +3.30 was inflated by duplicate GL₂(ℤ) orbits (R-165) and the residual does not survive out of sample (R-166). Also: the (1+y) weight moves the prediction 0.07 sem against a 3.30 sem gap, so it was never a live candidate (R-163). CLOSED.
+
 ### R-157 — the misleading sanity-check line, corrected in place
 `quadrant_marginal_test.py` printed *"the metric-sanity check confirms the metric is NOT saturated"*
 directly after a clause about `rep_int`, while `metric_sanity()` checks the **agreement metric**.
@@ -2740,6 +2744,8 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   Two candidates eliminated by derivation-plus-measurement (y-coupling, serial correlation), and the
   third is stated in a form that can be tested rather than as "they're correlated somehow."
 - **Status:** OPEN, third localisation. Formula stays CALIBRATED at |det| ≤ 289, ±12%.
+
+- **⚠ SUPERSEDED 2026-07-28.** The localisation sentence is mathematically FALSE (y_n determines the past, hence the residue) — see R-160's findings doc. The effect it localises is a window artifact (R-166), and the n_eff/n reasoning that discarded |t|=5 was the effect size re-expressed (R-171). CLOSED.
 
 ### R-159 — the migration backlog was wrong in BOTH directions; 239 is the honest number
 - **The checker classified by whether the field NAME appeared in a line, not whether it appeared in
@@ -2828,6 +2834,8 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   it is a **rhyme until proven an identity**, and it is recorded here so it can be tested rather
   than assumed.
 - **Status:** OPEN. The third localisation, if pursued, must address **|t|=5 g=25 depletion**
+
+- **⚠ PARTIALLY WITHDRAWN 2026-07-28 by R-167**, and the rest closed by R-166. The *logic* stands (a diagnostic impeaching z_block was over-applied to drop z_iid); the *conclusion* does not — |t|=5 g=25 is the most duplicated cell (4×), not the strongest effect. No third localisation is to be pursued: R-166 voided the effect.
   alongside the |t|=13 enrichment — not the enrichment alone.
 
 ### R-163 — R-156/R-158's numbers had no committed provenance, and two prose errors
