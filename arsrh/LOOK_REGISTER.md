@@ -2650,3 +2650,46 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
 - **Result: repaired column 5/5; deployed ALL_PASS unchanged at False**, as intended — the deployed
   fitter genuinely cannot represent those cases and the gate must keep saying so.
 - **Status:** CLOSED. `documented-open` retired for this item.
+
+### R-154 — SATURATION SWEEP EXECUTED. And a guard that checked the wrong quantity.
+- **18 sites, 10 files.** Only `arsrh/solar_surrogate_port.py` writes a JSON artifact; the rest print.
+  But the files ARE cited in findings prose — `bulk_recovery` in 9 docs, `phase22b` in 5,
+  `quadrant_marginal_test` in 3 — so "writes no json" is not "reaches nothing."
+- **★ `quadrant_marginal_test.py` prints "the metric-sanity check confirms the metric is NOT
+  saturated" — and `metric_sanity()` never touches `rep_int`.** It tests the **agreement metric's**
+  dynamic range (do quadrant labels differ across substrates?). The sentence sits immediately after a
+  clause about `rep_int`, where a reader looks for exactly that check. **A guard on one quantity,
+  reported where a reader needs a guard on another** — clause 1, at the level of what a guard *covers*.
+- **Measured what was never checked, in that file's own pipeline:**
+  | substrate | q-bands | % rep_int_q == 0 | median rep | ρ(rep,ks) |
+  |---|---|---|---|---|
+  | zeta | 30 | **0.0%** | 0.4253 | −0.932 |
+  | primes | 30 | **0.0%** | 0.4991 | −0.987 |
+  | solar | 30 | **100.0%** | 0.0000 | **nan** |
+  | poisson | 30 | 0.0% | 0.0255 | −0.923 |
+  **The arithmetic ρ values are on unsaturated data and stand.** Solar is fully saturated and its ρ is
+  **undefined, not ~0** — which is the mechanism confirmed on a real substrate in the exact pipeline.
+- **Status:** CLOSED as a sweep.
+
+### R-155 — ★★ ALLEN V1: MY HYPOTHESIS IS REFUTED. The banked claim STANDS, and is now better supported.
+- **I filed the Allen ρ ≈ 0 as a "live retraction candidate"** (R-099/R-124), reasoning that a
+  clustered substrate saturates and therefore ρ → 0 *mechanically*. **Will pushed to hold the slot;
+  I held it; and the measurement now refutes my hypothesis outright.**
+- **20 real Allen V1 units loaded from the 29 GB cache.** On the CLIPPED field: **16 of 20 units are
+  100% saturated** (every q-band exactly 0.0000 ⇒ ρ undefined); only 4/20 give a finite ρ. Mean
+  saturation **80%**. So the saturation is real and severe — *that* part of my reasoning was right.
+- **BUT ON THE SIGNED FIELD IT DOES NOT RECOVER A COUPLING.** 19/20 units now give a finite ρ, and:
+  **mean +0.0319 ± 0.0571, median +0.0752, 95% CI [−0.080, +0.144].**
+  **Indistinguishable from zero (0.56 sem). Distinguishable from arithmetic (−0.95) at 17.2 sem.**
+  Median signed rep_int = **−1.1306** — Allen is clustered, as established, and *still* uncoupled.
+- **So the banked sentence — "ρ(rep_int, ks_gue) is tightly coupled on arithmetic but ~0 on Allen V1;
+  rep_int carries a DIFFERENT marginal feature there" — is CONFIRMED on the repaired axis**, with
+  better evidence than it originally had (19 units with a CI, vs a single number).
+- **What WAS wrong was the evidential basis, not the conclusion:** the original ~0 was computed where
+  **80% of the input had zero variance**, so it was reported as a correlation when most of it was
+  undefined. Right answer, unsound support — now sound.
+- **This is OUTCOME C of the saturation pre-commitment, reported at the prominence I bound myself to:**
+  *no recovery, the prior conclusion stands.* I had built a case for the artifact reading and the data
+  refused it. **A sweep that only speaks when it finds something is a publication-bias engine** — so
+  this gets the same prominence as a positive would have.
+- **Status:** CLOSED. R-099 and R-124's retraction hypothesis: **REFUTED BY MEASUREMENT.**
