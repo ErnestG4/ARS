@@ -2723,3 +2723,20 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
 directly after a clause about `rep_int`, while `metric_sanity()` checks the **agreement metric**.
 Corrected in place with the measured truth: **solar 100% of q-bands at exactly 0.0000, Allen V1 16/20
 units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. **Status:** CLOSED.
+
+### R-158 — R-077: serial correlation eliminated too, and the failure is now precisely localised
+- **Block bootstrap over convergent index (blocks of 50), 600 replicates.** |t|=13, g=13:
+  **z_iid +3.30 → z_block +3.07** with a properly *wider* bar (n_eff/n = 0.87). **The enrichment
+  survives.** So serial correlation — the candidate filed in R-156 — **does not explain it either.**
+- **⚠ Caveat on my own bootstrap, stated:** the |t|=5 rows return n_eff/n **> 1** (se_block < se_iid),
+  which is the signature of **overlapping blocks under-dispersing** the replicates. Those z's are not
+  trustworthy; only the |t|=13 rows, where the bar correctly widened, carry weight.
+- **THE FAILURE IS NOW LOCALISED, which is the actual progress.** λ_n = α_{n+1} + y_n exactly, so the
+  past enters λ **only through y**. My formula therefore *should* be exact — unless **α_{n+1} is not
+  conditionally independent of the past given y.** And it is not: y = [0; a_n, …, a_1] summarises the
+  past *for the Gauss map*, but **the residue (p_n, q_n) mod Δ is a function of the full past that y
+  does not determine**, so conditioning on y **does not screen the residue off from the future.**
+- **So the open question is sharp now:** does the residue mod Δ carry information about x beyond y?
+  Two candidates eliminated by derivation-plus-measurement (y-coupling, serial correlation), and the
+  third is stated in a form that can be tested rather than as "they're correlated somehow."
+- **Status:** OPEN, third localisation. Formula stays CALIBRATED at |det| ≤ 289, ±12%.
