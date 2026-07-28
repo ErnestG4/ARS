@@ -2740,3 +2740,23 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   Two candidates eliminated by derivation-plus-measurement (y-coupling, serial correlation), and the
   third is stated in a form that can be tested rather than as "they're correlated somehow."
 - **Status:** OPEN, third localisation. Formula stays CALIBRATED at |det| ≤ 289, ±12%.
+
+### R-159 — the migration backlog was wrong in BOTH directions; 239 is the honest number
+- **The checker classified by whether the field NAME appeared in a line, not whether it appeared in
+  CODE.** So `print("... where rep_int_q varies")` was counted as a migration site — the **fourth**
+  time the tooling miscounted my own text (own references → own remediation → backtick prose → a
+  `print()` of a plain string that the NEEDS pattern matched before FINE could be tried).
+- **Fixed generally rather than patched again:** strip string literals and test what survives. Each of
+  the three previous fixes was specific to the shape that had just bitten; **code-position is the
+  general test.**
+- **⚠ AND THE FIX OVER-CORRECTED, caught before filing.** Stripping literals wholesale made
+  `df["rep_int_q"]` and `d.get("repulsion_integral")` invisible — **genuine code sites whose field
+  name lives inside a string.** The backlog fell 320 → 136, which was too good. **Subscript and
+  `.get` keys are now protected before stripping**, and both directions verified:
+  prose → fine; `df["rep_int_q"]` → PENDING; `pc.get("repulsion_integral", np.nan)` → PENDING.
+- **HONEST COUNT: 391 references — 7 migrated, 145 fine, 129 needs-signed, 110 unreviewed = 239 open.**
+  My earlier **"334 open, ~310 projected to need the signed field" (R-119) was INFLATED by prose**;
+  the over-correction's 136 was **deflated** by the false negative. **239 is the number.**
+- **Ratchet reset a second time, deliberately and recorded** — the classifier changed, not the
+  codebase, and a count that moves because the instrument improved is not a regression.
+- **Status:** CLOSED as a correction. R-119's projection is superseded.

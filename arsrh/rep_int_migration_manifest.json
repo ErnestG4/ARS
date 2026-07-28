@@ -6,6 +6,12 @@
     "what makes a site `needs`": "The clip saturates any clustered process to exactly 0.000 and rectifies noise upward on Poisson-like input. So it corrupts thresholding, ordering, correlation (a saturated variable has near-zero variance), and every real-vs-surrogate percentile comparison.",
     "what makes a site `fine`": "None placeholders, None-guards, pure display/serialisation -- the value is never compared, ordered, or reduced."
   },
-  "high_water": 320,
-  "pending_high_water": 141
+  "ratchet_resets": [
+    {
+      "date": "2026-07-27",
+      "reason": "Second deliberate reset. The CLASSIFIER changed, not the codebase: it now tests whether the field appears in CODE position (string literals stripped, but subscript/.get keys protected first) instead of merely appearing in the line. That reclassified 184 prose mentions OUT and, after the false-negative fix, kept genuine string-key code sites IN. Counts that move because the instrument improved are not regressions; resetting silently would hide the model change."
+    }
+  ],
+  "high_water": 239,
+  "pending_high_water": 110
 }

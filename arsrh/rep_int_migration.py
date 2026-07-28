@@ -76,9 +76,33 @@ def sites():
     return rows
 
 
+_STRIP_STR = re.compile(r'("""(?:.|\n)*?"""|\'\'\'(?:.|\n)*?\'\'\'|"[^"]*"|\'[^\']*\')')
+
+
+_SUBSCRIPT = re.compile(r"""(\[\s*|\.get\(\s*)(["'])(repulsion_integral\w*|rep_int\w*)\2""")
+
+
+def _code_only(line):
+    """The line with string literals removed. A field name surviving this appears in CODE position;
+    one that does not was only ever PROSE.
+
+    Added after the checker miscounted my own text a FOURTH time: own references -> own remediation
+    -> backtick-quoted prose -> a print() of a plain string containing the word "rho", which the
+    NEEDS pattern matched before FINE could be tried. Testing code-position is GENERAL where each of
+    those three patches was specific."""
+    # A quoted field used as a SUBSCRIPT or .get() key -- df["rep_int_q"], d.get('rep_int_q') --
+    # is a genuine code site even though the name sits inside a string. Protect those BEFORE
+    # stripping literals, or the fix introduces a false-negative class (over-correction: exactly
+    # the failure this session keeps catching).
+    line = _SUBSCRIPT.sub(lambda m: m.group(1) + "CODEKEY_" + m.group(3), line)
+    return _STRIP_STR.sub("", line)
+
+
 def classify(code, manifest):
     if MIGRATED.search(code):
         return "migrated"
+    if not re.search(PAT, _code_only(code)):
+        return "fine"
     if NEEDS.search(code) and not code.startswith("#"):
         return "needs"
     if FINE.search(code):
