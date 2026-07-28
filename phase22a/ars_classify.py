@@ -94,25 +94,33 @@ def classify(events: np.ndarray,
     """
     n_in = int(np.asarray(events).size)
     if n_in < min_events_per_q:
-        return dict(primary='underpowered', rep_med=np.nan, ks_gue_med=np.nan,
+        return dict(primary='underpowered', rep_med=np.nan, rep_med_signed=np.nan, ks_gue_med=np.nan,
                     n_events_in=n_in, n_events_used=0, n_well=0, per_q=None)
     ev_unit = unfold_unit_mean(events)
     n_used = int(ev_unit.size)
     if n_used < min_events_per_q:
-        return dict(primary='underpowered', rep_med=np.nan, ks_gue_med=np.nan,
+        return dict(primary='underpowered', rep_med=np.nan, rep_med_signed=np.nan, ks_gue_med=np.nan,
                     n_events_in=n_in, n_events_used=n_used, n_well=0, per_q=None)
     j = joint_q_profile(ev_unit, q_max=q_max,
                          min_events_per_q=min_events_per_q)
     qd = joint_quadrant_diagnostic(j)
     well = qd[~qd['underpowered']]
     if not len(well):
-        return dict(primary='underpowered', rep_med=np.nan, ks_gue_med=np.nan,
+        return dict(primary='underpowered', rep_med=np.nan, rep_med_signed=np.nan, ks_gue_med=np.nan,
                     n_events_in=n_in, n_events_used=n_used, n_well=0,
                     per_q=qd if return_full else None)
     counts = well['quadrant'].value_counts()
+    # REPAIR 2026-07-28 (R-173). `rep_med` is the median of the CLIPPED `rep_int_q`, which
+    # saturates to exactly 0 for any clustered band, so a clustered cell reports 0.0000 and its
+    # magnitude is erased. `rep_med_signed` is the same median over the SIGNED field. Added
+    # ALONGSIDE, never replacing: `rep_med` stays bit-identical because every banked coordinate,
+    # parquet and finding came off it, and the two must be comparable on the same cells.
+    _signed = (float(well['rep_int_signed_q'].median())
+               if 'rep_int_signed_q' in well.columns else float('nan'))
     return dict(
         primary=str(counts.idxmax()),
         rep_med=float(well['rep_int_q'].median()),
+        rep_med_signed=_signed,
         ks_gue_med=float(well['ks_gue_q'].median()),
         n_events_in=n_in,
         n_events_used=n_used,

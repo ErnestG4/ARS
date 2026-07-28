@@ -3163,3 +3163,43 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   conservative for gate0f's own [W] argument (true witnesses are *more* numerous than quoted), so its
   conclusion stands and only the statistic quoted for it was wrong.
 - **Status:** CLOSED. Notice `arsrh/cubic/GATE0E_DEDUP_NOTICE.md`; both JSONs retained.
+
+### R-173 — ★★★ THE CLIP HAS AN **UPPER** RAIL TOO, AND 56% OF KURAMOTO SITS ON IT
+- **Found while scoping the coordinate-store recompute.** R-093/R-094 characterised
+  `np.maximum(0, 1−R₂)` as saturating to **0** for clustered processes — a *lower* rail that hides
+  magnitude. It also has an **upper** rail, and nobody had looked: when **R₂ ≡ 0** (no pairs in the
+  correlation range) the integrand is **1.0 across the whole mask**, so the integral returns the
+  **mask width**, exactly **0.85**.
+- **Measured on the banked kuramoto block: 3,538 / 6,298 values are EXACTLY 0.85 — 56.2%.**
+  (Next most common: 0.75 at 3.6%, then 0.896…, a genuine measurement, at 2.5%.) Only 20 values
+  (0.3%) sit on the documented *lower* rail.
+- **It collapses distinct values, like the Brody two-ended saturation.** Four oscillators all
+  reporting `rep_med = 0.85` have signed values **0.523, 0.689, 0.716, 0.598** — different
+  substrates of behaviour mapped onto one number. **Identity-collapse, not just magnitude-loss.**
+- **So the store's kuramoto coordinates are worse than the notice said.** `STALE_AXES_NOTICE.md`
+  quantified `ARS.rep_med` saturation as "16.6% exactly 0" across the store and flagged pvc-11's
+  79.2% zeros. **It never counted the upper rail**, because nobody knew it existed — so kuramoto,
+  the single largest block, read as "mostly fine" when **56% of it is a rail**.
+- **Status:** OPEN — recompute running; the repaired `rep_med_signed` is what replaces it.
+
+### R-174 — the coordinate store's recomputability, MEASURED rather than assumed
+- **436,040 records; 20,801 carry `I.8_brody_q`, 8,106 carry `ARS.rep_med`.** The question is not
+  "should we recompute" but **"can we"** — and it is decided per substrate by whether the *raw
+  input* survives, because **`source_artifact` points at a RESULTS TABLE, not the raw object**
+  (~500 bytes/cell: `rep_int_per_q` and friends, no spike times). [[no_forbidden_recompute]]'s
+  "bank the raw object" was not done, so recompute means regenerating the input.
+  | tier | n | status |
+  |---|---|---|
+  | **kuramoto** | 6,361 | **SIMULATED** — parquet banks (K, seed, N) for all 63 cells, seeds {0,1,2}. **Exactly regenerable, no external data.** RUNNING. |
+  | pvc-11 | 1,159 | needs `crcns_cache` — **present, 630 M** |
+  | allen-np | 544 | needs `allen_cache` — **present, 29 G** |
+  | arithmetic (zeros/primes/Maass) | ~30 | regenerable from the arithmetic |
+  | **Tier B — `I.8_brody_q`** | **19,619** | `"generated (…)"` pipelines over the big caches (allen-hpf-cell 4,326; brocot.fm 4,006; buzsaki-port-cell 4,006; …). Separate job. |
+- **So `rep_med` is 8,098/8,106 recomputable; `brody` is only 1,182/20,801.** The two stale axes are
+  in completely different positions, which the notice did not distinguish.
+- **⚠ AND A COSTING ERROR OF MINE, THE SAME SHAPE gate0f WAS WRITTEN ABOUT.** I timed `classify` on
+  `sim.spikes[0]` — **n = 157, 0.23 s** — and projected the sweep at **6 minutes**. The **median**
+  oscillator has **n = 2,304** and the max **11,247**, costing **2–3 s** each: the true cost is
+  ~4 min/cell, **~4.5 h**. **A thin slice of the sampling frame, again.** Time the median, never
+  the first element.
+- **Status:** OPEN — kuramoto running, the rest scoped and unstarted.
