@@ -76,6 +76,8 @@ def _measure_shared():
 
 
 SHARED = None  # populated at scan time
+TOOLING = {"propagation_watch.py", "rep_int_migration.py", "commensurable.py",
+           "class_collapse_sweep.py"}
 
 # SPECIFICITY: the first draft matched "bounded"/"unbounded"/"proper" as MATHEMATICAL terms
 # (bounded CF, unbounded partial quotients, proper dimension) and returned 41 hits, mostly false.
@@ -113,7 +115,11 @@ def scan():
     hits = []
     for f in files:
         base = os.path.basename(f)
-        if base in SHARED or base in ("propagation_watch.py",):
+        # TOOLING IS NOT A SITE -- fifth instance of this family (own references -> own
+        # remediation -> backtick prose -> a print() of a plain string -> and now one WATCHER
+        # flagging another watcher's comment about a fix it made). Guards describe repairs by
+        # their nature; they are not places where repairs strand.
+        if base in SHARED or base in TOOLING:
             continue
         try:
             lines = open(os.path.join(HERE, f)).read().split("\n")
