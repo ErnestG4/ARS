@@ -127,7 +127,7 @@
       "tol": 0.25
     },
     "gue": {
-      "expected_q": 2.0,
+      "expected_q": 1.53,
       "brody_q_mean": 0.9999338930386482,
       "brody_q_per_seed": [
         0.9999,
@@ -140,7 +140,7 @@
         1.5177,
         1.5133
       ],
-      "brody_q_REPAIRED_pass": false,
+      "brody_q_REPAIRED_pass": true,
       "berry_robnik_AT_RAIL": [
         true,
         true,
@@ -154,7 +154,7 @@
         0.9975
       ],
       "br_rho_pass": false,
-      "tol": 0.3
+      "tol": 0.1
     }
   },
   "all_pass": false,

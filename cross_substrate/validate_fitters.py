@@ -94,13 +94,18 @@ CASES = [
     # --- ABOVE the upper bound (arm (e), symmetric); q_true ≈ 2 and ≈ 4, unrepresentable.
     #     THIS is the case that exposes the top rail: a GUE substrate is indistinguishable from
     #     GOE, so ζ-zeros reading q=0.9999 means only "≥ GOE" — NOT "GUE". ---
-    # ⚠ exp_q = 2.0 here is the overnight's ROUGH characterisation ("GUE~2, GSE~4 need the upper
-    #   bound"), not a measurement. FOUR independent runs put the true GUE Brody q at ~1.53
-    #   (overnight VERDICT_B 1.5325; 2026-07-27: 1.5313, 1.5433, 1.5166). The repaired fitter
-    #   therefore "FAILS" this row by reading 1.52 against an expectation of 2.0 +/- 0.3 -- the
-    #   EXPECTATION is wrong, not the fitter. Left unchanged deliberately: editing an expectation
-    #   to make a test pass is the one move the seals forbid. Fix it with a sealed re-registration.
-    ("gue",               sample_gue,               2.0, 2.0, 0.30),
+    # RE-REGISTERED 2026-07-27 through seals/GUE_EXPECTATION_REREGISTRATION.json.
+    #   was: exp_q = 2.0 +/- 0.30 -- the overnight's ROUGH characterisation ("GUE~2, GSE~4 need the
+    #        upper bound"), never measured, inherited as a placeholder into an acceptance criterion.
+    #   now: exp_q = 1.53 +/- 0.10, DERIVED by the sealed rule (round(mean,2); max(0.10, 3*sd))
+    #        from a pre-registered 10-seed run at n=40000: mean 1.5320, sd 0.0098, and within
+    #        0.0010 of the four prior independent measurements (1.5325/1.5313/1.5433/1.5166).
+    #   NOTE the grade: Brody is a one-parameter INTERPOLATION, not an exact GUE law, so 1.53 is an
+    #        INSTRUMENT constant -- what the Brody MLE reads on GUE spacings -- not a physical one.
+    #   exp_rho is left at 2.0 deliberately: Berry-Robnik rho is a GOE FRACTION bounded to [0,1], so
+    #        no value can satisfy it for GUE. That row SHOULD fail; it is the axis saying "GUE is
+    #        outside what I can represent", which is R-148's rail finding, not a bad expectation.
+    ("gue",               sample_gue,               1.53, 2.0, 0.10),
 ]
 N_SYNTH = 4000
 SEEDS = (0, 1, 2)

@@ -1,0 +1,39 @@
+{
+  "name": "Sealed re-registration of the GUE Brody-q expectation in validate_fitters CASES",
+  "why_a_seal_is_required": "The CASES row expects GUE Brody q = 2.0 +/- 0.30. Four independent measurements give ~1.53. Editing the expectation to match would make the gate certify against a number chosen to fit rather than measured to be true -- the one move the seals forbid. So the change is made through a pre-registered procedure instead of a silent edit.",
+  "written_before_the_definitive_measurement_ran": true,
+
+  "provenance_of_the_current_value": {
+    "value": 2.0,
+    "origin": "the overnight 2026-07-12 docstring's rough characterisation, 'GUE~2, GSE~4 need the upper one' -- a statement about which bound was needed, NOT a measurement",
+    "status": "never measured; inherited as a placeholder into an acceptance criterion"
+  },
+
+  "evidence_already_in_hand_stated_openly": {
+    "note": "This re-registration is NOT blind -- four measurements exist and pretending otherwise would be theatre. The seal's job here is to fix the PROCEDURE and the acceptance rule before the definitive run, so the new number cannot be tuned.",
+    "prior_measurements": [
+      {"source": "overnight_2026_07_12 VERDICT_B", "value": 1.5325},
+      {"source": "2026-07-27 inv-cdf n=40000", "value": 1.5313},
+      {"source": "2026-07-27 regression check", "value": 1.5433},
+      {"source": "2026-07-27 validate_fitters repaired column", "value": 1.5166}
+    ]
+  },
+
+  "PRE-REGISTERED PROCEDURE": {
+    "sampler": "cross_substrate/validate_fitters.sample_gue -- the SAME sampler the CASES row uses. Not a new one: changing sampler and expectation together would make the re-registration unfalsifiable.",
+    "fitter": "cross_substrate.axes.I8_brody_q_unbounded, bounds (-1, 4)",
+    "n_per_seed": 40000,
+    "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "statistic": "mean over seeds; sd over seeds reported alongside",
+    "new_expectation_rule": "exp_q := round(mean, 2); tol := max(0.10, 3 * sd_over_seeds). Both DERIVED from the run, not chosen after seeing whether the gate passes.",
+    "acceptance": "the re-registration is VALID only if the 10-seed mean lies within 0.10 of the four prior measurements' mean (1.5309). If it does not, something differs between runs and the discrepancy is the finding -- do NOT edit CASES."
+  },
+
+  "what_would_INVALIDATE_this_re-registration": [
+    "10-seed mean outside 1.5309 +/- 0.10 (a reproducibility failure, not a new value)",
+    "sd over seeds > 0.10 (the quantity is not stable enough to be an acceptance criterion at all)",
+    "any change to the sampler, the fitter, or n between this seal and the run"
+  ],
+
+  "explicitly_NOT_claimed": "that 2.0 was a defensible expectation, or that 1.53 is a theoretical value. The Brody form is a one-parameter interpolation, not an exact GUE law -- q for GUE is whatever the Brody MLE returns on GUE spacings, which is an INSTRUMENT constant, not a physical one. The re-registered number is the instrument's reading, and it is labelled as such."
+}

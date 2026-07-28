@@ -2626,3 +2626,27 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
   named. Anything reading those two axes out of the store (landscape views, `harvest.py`) is showing
   pre-repair values and must recompute.
 - **Status:** CLOSED. The remaining downstream exposure is display surfaces, not conclusions.
+
+### R-153 — the GUE expectation RE-REGISTERED through the seal, not edited
+- **The move the seals forbid was available and refused.** Four measurements said 1.53 against a
+  documented 2.0; the easy path was to write 1.53 in and close the board. Instead:
+  `seals/GUE_EXPECTATION_REREGISTRATION.json`, written **before** the definitive run.
+- **The seal states openly that it is NOT blind** — four measurements already existed, and pretending
+  otherwise would be theatre. Its job is to fix the **procedure and the acceptance rule** so the new
+  number cannot be tuned: same sampler as the CASES row (changing sampler and expectation together
+  would make it unfalsifiable), same fitter, n = 40000, seeds 0–9, and
+  **exp_q := round(mean,2), tol := max(0.10, 3·sd) — both DERIVED, not chosen after seeing the result.**
+- **Invalidation conditions pre-listed:** 10-seed mean outside 1.5309 ± 0.10, or sd > 0.10 → *the
+  discrepancy is the finding, do NOT edit CASES.*
+- **RUN:** per-seed 1.5423 1.5397 1.5257 1.5252 1.5368 1.5156 1.5233 1.5434 1.5411 1.5266 →
+  **mean 1.5320, sd 0.0098**, |diff| from the prior four **0.0010**. Both acceptance conditions met.
+  **VALID.** Derived: **exp_q = 1.53, tol = 0.10.**
+- **Applied, with the grade attached:** Brody is a one-parameter **interpolation**, not an exact GUE
+  law, so **1.53 is an INSTRUMENT constant** — what the Brody MLE reads on GUE spacings — not a
+  physical one, and the comment says so.
+- **`exp_rho` left at 2.0 deliberately.** Berry–Robnik ρ is a GOE *fraction* bounded to [0,1], so **no
+  value can satisfy it for GUE**. That row *should* fail — it is the axis saying "GUE is outside what I
+  can represent," which is R-148's rail finding, not a bad expectation. Fixing it would hide the defect.
+- **Result: repaired column 5/5; deployed ALL_PASS unchanged at False**, as intended — the deployed
+  fitter genuinely cannot represent those cases and the gate must keep saying so.
+- **Status:** CLOSED. `documented-open` retired for this item.
