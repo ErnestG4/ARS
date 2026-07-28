@@ -144,15 +144,26 @@ def collect_cyclic(box=BOX, per=PER):
 
 
 if __name__ == "__main__":
+    # DEDUP SWITCH, added 2026-07-28 (R-172). Default OFF, so the deployed path and the banked
+    # gate0e_precision_measured.json are reproduced BIT-IDENTICALLY. Set GATE0E_DEDUP=1 to pool one
+    # representative per GL2(Z) orbit instead of one per polynomial; output then goes to a SEPARATE
+    # file so the original is never overwritten.
+    #   Why it matters: every row's z = (K - N*pred)/sd scales as sqrt(k) under k-fold orbit
+    #   duplication, so chi^2 = sum z^2 scales as k. Ratios (meas/pred, bias, rms, precision_pct)
+    #   are duplication-INVARIANT because numerator and denominator scale together.
+    DEDUP = os.environ.get("GATE0E_DEDUP", "") == "1"
+    _OUT = ("gate0e_precision_dedup_measured.json" if DEDUP
+            else "gate0e_precision_measured.json")
     p_("=== GATE 0e — how precise is  rate = sum_g P(g) min(1, g^2/|det|)  ? ===")
-    p_(f"events defined at A = {A_EV}; pooling {PER} objects per stratum, {NPQ} PQs each\n")
+    p_(f"events defined at A = {A_EV}; pooling {PER} objects per stratum, {NPQ} PQs each")
+    p_(f"POOLING UNIT: {'GL2(Z) ORBIT (deduped)' if DEDUP else 'POLYNOMIAL (deployed, duplicates orbits)'}\n")
 
     rows = []
     rows_lam = []
     rows_cond = []
     rows_both = []
 
-    by_t = collect_cyclic()
+    by_t = collect_cyclic_dedup() if DEDUP else collect_cyclic()
     for t in sorted(by_t):
         N = K = NL = KL = 0
         GH, GHE, GHEL = {}, {}, {}
@@ -278,5 +289,5 @@ if __name__ == "__main__":
                "rows": [{"label": l, "det": D, "n": N, "k": K, "pred": p, "n_objects": o}
                         for l, D, N, K, p, o in rows],
                "by_a": r_a, "by_lambda": r_l, "by_conditional_g": r_c, "both_corrections": r_b},
-              open(os.path.join(HERE, "gate0e_precision_measured.json"), "w"), indent=2)
-    p_("\nwrote gate0e_precision_measured.json")
+              open(os.path.join(HERE, _OUT), "w"), indent=2)
+    p_(f"\nwrote {_OUT}")

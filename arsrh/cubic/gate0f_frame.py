@@ -95,6 +95,13 @@ if __name__ == "__main__":
     p_("     sentence is a statement about a coefficient box and nothing else.")
     p_(f"  -> and the witness count is far below the object count: at N = 40 the cyclic cubics")
     p_(f"     carry {frame[-1]['distinct_disc']} distinct discriminants for {frame[-1]['cyclic']} polynomials.")
+    p_("  ** CORRECTED 2026-07-28 (R-172): DISTINCT DISCRIMINANTS IS THE WRONG UNIT, and it")
+    p_("     UNDERCOUNTS. The right unit is the GL2(Z) ORBIT. Measured: |t|=5 carries 1 distinct")
+    p_("     discriminant but 2 inequivalent orbits; |t|=13 carries 1 but 3. So discriminant count")
+    p_("     is a LOWER bound on witnesses and polynomial count an UPPER one -- neither is the")
+    p_("     number. The direction of this correction is conservative for the [W] argument (the")
+    p_("     true witness count is HIGHER than quoted), so the conclusion that witnesses are far")
+    p_("     below objects stands; the statistic quoted for it does not. See gl2z_orbit_reps.")
 
     # ---------------------------------------------------------------- [T] is 3 | t realizable?
     p_("\n[T] is |t| divisible by 3 realizable?")

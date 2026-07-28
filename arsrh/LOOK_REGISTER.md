@@ -3124,3 +3124,42 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   so the residual real-vs-null (**|t|=5 at +4.39 sd**) remains genuine serial structure. And R-166
   is untouched: the enrichment still does not exist out of sample. **R-077 stays VOID.**
 - **Status:** CLOSED. The last open item from the R-077 arc.
+
+### R-172 — gate0e RE-RUN DEDUPED: three "excess over binomial" verdicts RETRACTED, the trend SURVIVES
+- **The last owed action from `R077_LE_A_WITHDRAWAL`.** gate0e pooled one object per **polynomial**;
+  several per stratum are GL₂(ℤ) translates of the same irrational (R-165), so `z = (K−N·pred)/sd`
+  scaled as **√k** and `χ² = Σz²` as **k**.
+- **Non-destructive by construction:** a `GATE0E_DEDUP` env switch, default **OFF**, writing to a
+  separate file. **Verified: the default path reproduces the banked JSON bit-identically** (re-run
+  and diffed, `True`), so the deployed record is intact and auditable beside the correction.
+
+  | block | χ²/df dup → dedup | p dup | **p dedup** | |
+  |---|---|---|---|---|
+  | `by_a` | 1.82 → **1.03** | 1.2e−02 | **0.42** | RETRACTED |
+  | `by_lambda` | 1.95 → **1.07** | 5.8e−03 | **0.38** | RETRACTED |
+  | **`by_conditional_g`** | 2.63 → **1.19** | **6.4e−05** | **0.24** | **RETRACTED** |
+  | `both_corrections` | 3.31 → **1.83** | 1.5e−04 | **0.043** | weakened |
+
+  **Three of four "EXCESS over binomial" readings become "consistent with binomial."** df is
+  unchanged (21→21, 11→11) — dedup removes duplicate polynomials *within* strata, never a stratum.
+- **THE PREDICTION HELD TO ~1%, and it was made before the run.** Every ratio-shaped quantity is
+  duplication-invariant: bias +0.0817 → **+0.0819**, rms 0.2272 → **0.2252**, precision 25.5% →
+  **25.3%** (`by_a`; the other three blocks likewise). **The sealed ±12% band stands.**
+- **★ AND THE SYSTEMATIC SURVIVES, which is the part that matters.** The trend on log|det| is not an
+  artifact: `by_conditional_g` slope **−0.0399 ± 0.0112 (3.56 sem) → −0.0378 ± 0.0111 (3.40 sem)**.
+  The slope is a regression **across strata** and its sem comes from residual scatter over the 21
+  rows, not from within-stratum counts, so duplication cannot touch it.
+  > **The dispersion verdict was an artifact; the systematic is real.** The formula degrading with
+  > |det| is what keeps R-077's grade at **CALIBRATED rather than DERIVED**, and it is untouched.
+  > What is retracted is only the claim that residual scatter *exceeds binomial*.
+- **⚠ AND I WAS WRONG ABOUT gate0f — checked, not assumed.** I had told the user gate0f's measured
+  JSON also carried duplicated-orbit statistics. **It does not.** gate0f computes **no pooled z or
+  χ²**: its outputs are censuses over coefficient boxes plus single-object facts, and it calls
+  `collect_cyclic` once to take **one** object (`by[43][:1]`). Re-ran it after a prose-only edit and
+  the JSON is **identical**. It needed a claim corrected, not a re-run.
+- **The corrected gate0f claim:** it reported the witness count as **distinct discriminants**. Wrong
+  unit, and it **undercounts** — |t|=5 has **1 discriminant but 2 GL₂(ℤ) orbits**, |t|=13 has **1 but
+  3**. Discriminant count is a **lower** bound and polynomial count an **upper** one. The direction is
+  conservative for gate0f's own [W] argument (true witnesses are *more* numerous than quoted), so its
+  conclusion stands and only the statistic quoted for it was wrong.
+- **Status:** CLOSED. Notice `arsrh/cubic/GATE0E_DEDUP_NOTICE.md`; both JSONs retained.
