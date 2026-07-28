@@ -2693,3 +2693,33 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
   refused it. **A sweep that only speaks when it finds something is a publication-bias engine** — so
   this gets the same prominence as a positive would have.
 - **Status:** CLOSED. R-099 and R-124's retraction hypothesis: **REFUTED BY MEASUREMENT.**
+
+### R-156 — R-077: the exact event-weight is DERIVED and it is INSUFFICIENT. Candidate eliminated.
+- **Derived, and verified exact.** In the natural extension (density 1/(log2(1+xy)²), λ = 1/x + y with
+  x the future and y = q_{n−1}/q_n the past), for **fixed y**:
+  P(λ ≥ A | y) = [∫₀^{1/(A−y)} dx/(1+xy)²] / [∫₀¹ dx/(1+xy)²] = **(1+y)/A**.
+  The numerator collapses to 1/A independently of y (the R-083 result); **the denominator does not.**
+  Verified numerically at (y, A) = (0.1,5), (0.1,20), (0.4,5), (0.4,20), (0.8,5), (0.8,20) — **exact to
+  5 decimals in all six.**
+- **So the event is (1+y)-biased, and since g is a function of the same past that fixes y:**
+  **P(g | event) = E[(1+y)·1{g}] / E[1+y]** — exact, computable from the object's own CF, no partner.
+  Had it worked, the rate formula would have returned to DERIVED and the |det| range would open.
+- **IT DOES NOT WORK. The weight is negligible.** Pooled over 8 objects per stratum with binomial
+  errors, the predicted conditional sits **on top of the marginal** in every branch (|t|=13, g=13:
+  marginal 0.0674, predicted 0.0682) while the measurement is **0.1057, +3.30 sem** from prediction.
+  |t|=5 g=25: predicted 0.0302, measured 0.0061, **−3.59 sem**. |t|=2 is fine (within ±1.8).
+- **What this buys, which is not nothing:** the y-coupling — the one mechanism I had named as the
+  reason the conditional wasn't derivable — is now **eliminated by derivation plus measurement**,
+  not left as a vague "they're correlated through y_n." The enrichment has a different source.
+  Pattern worth noting without over-reading: the enriched branch is the **middle divisor** (g = t) and
+  the depleted one is g = t², in both strata where it fires.
+- **Candidate for next attempt, filed not claimed:** serial correlation. A large λ_n means a large
+  a_{n+1}, which enters q_{n+1} = a_{n+1}q_n + q_{n−1} and hence g_{n+1} — so events and *subsequent*
+  residues are coupled in a way no per-index conditioning captures.
+- **Status:** OPEN, better localised. The formula stays CALIBRATED, |det| ≤ 289 at ±12%.
+
+### R-157 — the misleading sanity-check line, corrected in place
+`quadrant_marginal_test.py` printed *"the metric-sanity check confirms the metric is NOT saturated"*
+directly after a clause about `rep_int`, while `metric_sanity()` checks the **agreement metric**.
+Corrected in place with the measured truth: **solar 100% of q-bands at exactly 0.0000, Allen V1 16/20
+units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. **Status:** CLOSED.

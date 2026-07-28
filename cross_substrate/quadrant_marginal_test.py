@@ -254,8 +254,13 @@ def main():
     print("  MARGINAL_ENCODABLE (verdict rides the marginal, adds nothing beyond NNS);")
     print("  <=0.50 -> CARRIES_NONMARGINAL. NOTE: all order-bearing anchors (rigid-grid,")
     print("  block-regime) ALSO read MARGINAL_ENCODABLE -> the quadrant is order-blind by")
-    print("  construction (rep_int = cumsum of pooled spacings, discards serial order);")
-    print("  the metric-sanity check confirms the metric is NOT saturated.")
+    print("  construction (rep_int = cumsum of pooled spacings, discards serial order).")
+    print("  ** CORRECTED 2026-07-27: metric_sanity() checks the AGREEMENT metric's dynamic")
+    print("  range (do quadrant labels differ across substrates?). It does NOT check rep_int.")
+    print("  rep_int IS saturated on clustered substrates -- measured in THIS pipeline: solar")
+    print("  100% of q-bands at exactly 0.0000 (rho undefined), Allen V1 16/20 units at 100%,")
+    print("  vs zeta and primes at 0%. Read rho(rep,ks) only where rep_int_q actually varies;")
+    print("  use rep_int_signed_q otherwise. See LOOK_REGISTER R-154/R-155. **")
     df.to_parquet(os.path.join(_HERE, "quadrant_marginal_test.parquet"))
 
 
