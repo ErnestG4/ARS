@@ -109,6 +109,56 @@ confounds — "resolves more" must not couple to "what it resolved is real."
 
 ---
 
+## 3b. The look-elsewhere arm — SEALED OUTCOME LE_A
+
+The +3.30 is the most interesting cell of **nine**. No trials factor existed anywhere.
+
+**Empirical max-|z| null** — exact rather than Bonferroni, and it correctly handles the fact that
+branches within a stratum are *not* independent (their proportions sum to 1):
+
+| | value |
+|---|---|
+| max-\|z\| null, 95th pct | **2.633** (a single N(0,1) gives 1.96 — **that gap is the trials factor**) |
+| max-\|z\| null, 99th pct | 3.517 |
+| observed T = max\|z\| | **3.5871** at \|t\|=5, g=25 |
+| **p** | **0.0100** (2/200) |
+| Wilson 95% CI on p itself | **[0.0027, 0.0357]** — below 0.05 across the *whole* interval |
+
+All nine per-branch control means sit in [−0.15, +0.18], sd 0.88–1.02: **the estimator is unbiased
+on every branch**, not just the reported one.
+
+**Corrected p per branch:**
+
+| branch | cubic z | corrected p | |
+|---|---|---|---|
+| \|t\|=5, g=25 | **−3.5871** | **0.0100** | survives — *depletion* |
+| \|t\|=13, g=1 | −3.2867 | **0.0150** | survives |
+| \|t\|=13, g=13 | **+3.2954** | **0.0150** | survives — *enrichment*, R-156's cell |
+| \|t\|=5, g=5 | +2.0333 | 0.2050 | |
+| all others | | ≥ 0.345 | |
+
+Three survive; g=1 and g=13 within |t|=13 are the same fact, so there are **two independent
+surviving effects**.
+
+### The largest effect had been set aside for a reason that did not apply to it
+
+R-158 discarded the |t|=5 rows because their block bootstrap returns n_eff/n > 1 — overlapping
+blocks under-dispersing. **That diagnostic is right, and it impeaches `z_block` only.**
+Under-dispersion inflates the *block* z; it says nothing about `z_iid`, which was never impeached.
+The whole row was dropped on a criticism of one column — and the row contained the **largest
+effect in the table and the best corrected p of all nine**.
+
+So: **R-156's cell does survive** (p = 0.0150). It is simply not the strongest, and the strongest
+points the **other way** — depletion at g = t², not enrichment at g = t. Any third localisation
+must address both. *Correct-fact / wrong-slot, mine, again.*
+
+**Filed as a candidate, explicitly not a finding:** in both live strata Δ = t², so g ∈ {1, t, t²}
+and the transfer factor g²/Δ ∈ {1/t², **1**, t²}. The enriched branch is g = t in both — exactly
+where the transfer law λ′ = (g²/Δ)λ is **neutral**. This is the "it all fits together" shape, which
+is the signal to run discipline rather than the reward: a **rhyme until proven an identity**.
+
+---
+
 ## 4. A number that was never a candidate, stated before the run so it could not become an insight
 
 The (1+y) reweighting moves the |t|=13, g=13 prediction from **0.0674** (marginal) to **0.0682**

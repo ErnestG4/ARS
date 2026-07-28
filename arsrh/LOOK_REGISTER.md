@@ -2760,3 +2760,109 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
 - **Ratchet reset a second time, deliberately and recorded** — the classifier changed, not the
   codebase, and a count that moves because the instrument improved is not a regression.
 - **Status:** CLOSED as a correction. R-119's projection is superseded.
+
+### R-160 — ★★ R-077: the PREMISE was never tested. It holds — the estimator is clean.
+- **The thread was asking the wrong question.** R-158 left a sharp *why*: does the residue mod Δ
+  carry information about the future beyond y? But **that** the prediction fails was never
+  established. The +3.30 sem had never been compared against an orbit on which the prediction is a
+  **theorem**, so *"the formula is off by 3.3 sem on cubics"* and *"this estimator is off by 3.3 sem
+  on anything"* had never been separated.
+- **The control: a generic real through the identical pipeline** — same `certified_cf` at
+  DIG=1200/NPQ=1400, the six |t|=13 matrices **verbatim** (so only the number is flipped), same
+  A=20, same 45-tail guard, same pooling, same z. For a.e. real the Gauss natural extension is
+  ergodic, so (x,y) equidistributes w.r.t. 1/(ln2(1+xy)²) **exactly** — H0 by theorem.
+- **RESULT, sealed outcome B.** 200 replicates: **z(g=13) mean −0.020, sd 0.985** — N(0,1) to
+  within its own sem of 0.070. **P(control ≥ +3.30) = 0/200.** Instrument gate passed first:
+  n_events 482 vs the cubic's 492, CF length 1163, divisor set {1,13,169} in **every** replicate.
+- **The control I rejected, recorded because it was my first design:** an i.i.d. Gauss–Kuzmin
+  a-sequence. Obvious, and the **wrong density** — i.i.d. partial quotients make x = [0;a_{n+1},…]
+  and y = [0;a_n,…,a_1] functions of disjoint independent blocks, hence *exactly* independent,
+  where a real orbit couples them by 1/(1+xy)². It would have tested a different object.
+- **POWERED FALSIFIER, and it fires.** Injecting the dependence R-158 hypothesises (a_{n+1} pushed
+  into the event range with prob. δ when the residue is in the g=13 class): δ = 0.00 → **−0.04**;
+  0.02 → +1.22; 0.05 → **+3.51**; 0.10 → +6.49; 0.20 → +13.30. Silent when it should be, loud when
+  it should be — sensitivity *and* specificity demonstrated by construction, not asserted.
+- **EFFECT SIZE, which is what a mechanism must now reproduce:** +3.30 calibrates to **δ ≈ 0.047**
+  — about **4.7% of g=13-residue indices** having their next partial quotient pushed into the event
+  range.
+- **Stronger than the seal credited:** the seal listed "the matrices M being unusual" as *not*
+  excluded. Over-cautious — M is held verbatim, so that confound **is** excluded. Recorded rather
+  than silently upgraded; the seal is not edited.
+- **Status:** CLOSED. The premise holds. Seals `R077_CONTROL_PRECOMMIT`, code
+  `arsrh/cubic/r077_control.py`, findings `arsrh/cubic/R077_CONTROL_FINDINGS.md`.
+
+### R-161 — R-077 survives its trials factor, which had never been stated at all
+- **The defect:** +3.30 (R-156) and +3.07 (R-158) are the most interesting cell of **nine**
+  (stratum, g) branches. **No multiplicity correction exists anywhere** — not in the register, not
+  in a seal. A per-cell z reported as a global significance is the sem-vs-CI family in a new
+  costume: correct for the quantity it measures, filed in a slot owning a different one.
+- **Empirical max-|z| null** (generic reals, all three strata, 200 replicates) — exact rather than
+  Bonferroni, and it handles correctly that branches within a stratum are **not** independent
+  (their proportions sum to 1). **95th pct = 2.633** where a single N(0,1) gives 1.96; **that gap
+  is the trials factor.** All nine per-branch control means sit in [−0.15, +0.18] with sd 0.88–1.02,
+  so the estimator is unbiased on **every** branch, not just the reported one.
+- **RESULT: observed T = max|z| = 3.5871, p = 0.0100** (2/200). Wilson 95% CI on the p-value itself
+  **[0.0027, 0.0357]** — below 0.05 across the *whole* interval, so the verdict does not hinge on
+  the coarseness of 200 replicates. **Sealed outcome LE_A.**
+- **Corrected p per branch** (vs the same max-|z| null): **|t|=5 g=25 → 0.0100**; **|t|=13 g=1 →
+  0.0150**; **|t|=13 g=13 → 0.0150**; every other branch ≥ 0.205. **Three survive**, but g=1 and
+  g=13 within |t|=13 are the same fact, so there are **two independent surviving effects.**
+- **Status:** CLOSED. Seal `R077_CONTROL_PRECOMMIT_ADDENDUM_1`.
+
+### R-162 — ★★ and the largest effect in the table had been set aside for a reason that did not apply to it
+- **R-158 discarded the |t|=5 rows** on the ground that their block bootstrap returns n_eff/n > 1,
+  the signature of overlapping blocks under-dispersing. **That diagnostic is correct — and it
+  impeaches `z_block` only.** Under-dispersion makes the *block* z too large; it says nothing about
+  `z_iid`, which was never impeached. So the whole row was dropped on a criticism of one column.
+- **Consequence:** the **largest single effect in the table** — |t|=5, g=25 at z_iid = **−3.5871**,
+  look-elsewhere-corrected **p = 0.0100**, the *best* corrected p of all nine — was set aside, and
+  both R-156 and R-158 built their argument on |t|=13, g=13 (z = +3.2954, corrected p = 0.0150)
+  instead. **R-156's cell does survive**; it is simply not the strongest, and the strongest points
+  the **other way** — depletion, not enrichment.
+- **Correct-fact / wrong-slot, mine, again:** the n_eff/n diagnostic was right, and was applied to a
+  slot it did not own.
+- **A structural pattern, filed as a CANDIDATE and explicitly not a finding.** In both live strata
+  Δ = t², so g ∈ {1, t, t²} and the transfer factor g²/Δ ∈ {1/t², **1**, t²}. The enriched branch is
+  g = t in both — **exactly the branch where the transfer law λ′ = (g²/Δ)λ is neutral (λ′ = λ)**.
+  This is the "it all fits together" shape, which is the signal to run discipline, not the reward:
+  it is a **rhyme until proven an identity**, and it is recorded here so it can be tested rather
+  than assumed.
+- **Status:** OPEN. The third localisation, if pursued, must address **|t|=5 g=25 depletion**
+  alongside the |t|=13 enrichment — not the enrichment alone.
+
+### R-163 — R-156/R-158's numbers had no committed provenance, and two prose errors
+- **The analysis code lived in `/tmp`.** Both entries banked numbers into this register from a
+  session scratch directory; the prose was committed, the code was not. **A number whose generating
+  code is in a temp directory has no provenance** — it cannot be re-run, audited, or
+  regression-tested. Eighth instance of [[knowledge_does_not_propagate]], and the first where the
+  stranded artifact is *the evidence for a banked claim* rather than a repair.
+- **Fixed:** `arsrh/cubic/r077_conditional.py`, a **verbatim** consolidation — deliberately not an
+  improved version, so it reproduces what was banked. It does: **+3.30 iid, +3.07 block, predicted
+  0.0682 vs measured 0.1057, n_events 492**, and the (1+y)/A check to 1e-16. It also prints the
+  **trials factor R-156 never stated: 9 branches.**
+- **Prose error 1:** R-156 says "pooled over **8** objects per stratum." The |t|=13 stratum has
+  **six** (`collect_cyclic`'s `per` is a cap; only 6 cubics in the box have |t|=13). The z is
+  unaffected — the pooling used what was there — but the stated n is wrong.
+- **Prose error 2, and it is the load-bearing one:** the **(1+y) weight moves the |t|=13 g=13
+  prediction from 0.0674 to 0.0682 — 0.07 sem — against a 3.30 sem gap. It is 47× too small to have
+  ever been a candidate explanation.** R-156's "the weight is negligible" is correct but
+  under-stated: this apparatus has **no power to test the weight**, and the weight was never the
+  live hypothesis, so it is not really *a candidate eliminated*. Stated in the seal **before** the
+  run so it could not afterwards be presented as an insight.
+- **Status:** CLOSED as a correction. R-156's "8 objects" and its framing of the weight-elimination
+  are superseded.
+
+### R-164 — the propagation watcher's own scope had frozen permanently
+- **`_measure_shared()` returned the cache unconditionally** whenever the file existed and **never
+  re-measured** — so the watcher's SHARED set froze at first run, and being **committed**, froze
+  identically for every clone. The next module to cross SHARED_MIN would have been silently missed:
+  the same failure the hand-curated list had when it omitted `ars_classify.py` at 51 importers.
+- **Three-state honesty, and this is the middle state.** Not "broken" and not "fine" but **correct
+  now and unable to stay correct.** Measured at fix time: fresh == cached exactly, 27 modules, so
+  **no scope changed and no prior verdict moves.**
+- **Fingerprinted on file CONTENTS, not the path set** — a module crosses SHARED_MIN when *import
+  lines* change, which happens by **editing** existing files at least as often as by adding them, so
+  a path-set fingerprint would have left a silent recall gap of exactly the kind this watcher exists
+  to catch. Cost of hashing all 553 tracked `.py`: **0.006 s.**
+- **Verified it can fire:** fingerprint moves on add, on delete, and on edit; restores on revert.
+- **Status:** CLOSED.
