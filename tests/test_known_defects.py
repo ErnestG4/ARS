@@ -15,6 +15,7 @@ imports — which put them in exactly the state `irep_unclipped` was in on 2026-
 validated, and unable to fire. A guard that must be remembered is not a guard. Now `pytest` fires them.
 """
 from __future__ import annotations
+import math
 import subprocess
 import sys
 import os
@@ -269,3 +270,33 @@ def test_box_dim_windowed_beats_deployed_on_a_set_of_known_dimension():
     assert deployed < 0.95, "deployed box_dim must still fit through the saturated tail"
     assert abs(repaired - 1.0) < abs(deployed - 1.0), \
         "the windowed fit must be CLOSER to the known dimension 1.0"
+
+
+NEFF_DIAGNOSTIC_IS_THE_EFFECT_SIZE_RE_EXPRESSED = {
+    # (stratum, g): (pred, meas, published r077d n_eff/n)
+    (5, 25): (0.0302, 0.0061, 4.956),
+    (13, 169): (0.0066, 0.0081, 0.788),
+}
+"""`r077d.py` computed n_eff/n = se_iid^2/se_block^2 with se_iid evaluated at the PREDICTED
+proportion while the bootstrap disperses around the OBSERVED one. Closed form:
+n_eff/n = pred(1-pred)/(meas(1-meas)) -- a MONOTONE FUNCTION OF THE EFFECT SIZE the diagnostic was
+being used to validate. R-158 cited |t|=5 g=25's 4.96 as proof the bootstrap was broken; the effect
+size alone predicts 4.80. Enrichment drives it below 1, depletion above 1."""
+
+
+def test_neff_diagnostic_is_predicted_by_effect_size_alone():
+    """Defect 12: the reliability diagnostic was algebraically the effect it was checking."""
+    import sys as _s
+    _s.path.insert(0, os.path.join(ROOT, "arsrh", "cubic"))
+    from r077_blockboot_calibration import neff_bias_closed_form, neff_calibrated
+    for (_t, _g), (pred, meas, published) in NEFF_DIAGNOSTIC_IS_THE_EFFECT_SIZE_RE_EXPRESSED.items():
+        f = neff_bias_closed_form(pred, meas)
+        assert abs(f - published) / published < 0.05, \
+            f"closed form {f:.3f} must reproduce the published {published:.3f} within 5%"
+    # direction: enrichment -> below 1, depletion -> above 1
+    assert neff_bias_closed_form(0.0682, 0.1057) < 1.0, "enrichment must drive the diagnostic BELOW 1"
+    assert neff_bias_closed_form(0.1671, 0.1406) > 1.0, "depletion must drive it ABOVE 1"
+    # the repair evaluates at the OBSERVED value, so a correctly-sized block se returns ~1
+    n, meas = 253, 0.1057
+    se_right = math.sqrt(meas * (1 - meas) / n)
+    assert abs(neff_calibrated(se_right, meas, n) - 1.0) < 1e-9

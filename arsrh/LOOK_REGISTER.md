@@ -3069,3 +3069,50 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   are superseded by the calibration run.
 - **Status:** CLOSED. Code `arsrh/cubic/r077_blockboot_calibration.py`; the superseded first pass is
   retained as `r077_blockboot_diagnosis.py` with its defect documented in place.
+
+### R-171 — ★★★★ MECHANISM FOUND: the reliability diagnostic was the EFFECT SIZE re-expressed
+- **R-170 left the mechanism unidentified after eliminating three candidates.** Found. It is not
+  subtle once seen, and it invalidates the diagnostic's use entirely rather than just biasing it.
+- **`r077d.py` computes** `n_eff/n = se_iid² / se_block²` with
+  `se_iid = sqrt(pred·(1−pred)/n)` — evaluated at the **PREDICTED (marginal)** proportion — while the
+  bootstrap's `meas` disperses around the **OBSERVED event-conditional** proportion. When those
+  differ — **which is exactly when there is an effect** — the two variances are evaluated at
+  different p, and their ratio is, in closed form:
+
+  > **n_eff/n = pred(1−pred) / (meas(1−meas))**
+
+- **Verified two independent ways.**
+  1. **Closed form vs the measured shuffled null** (deduped, truth 1.000): |t|=2 predicts 1.152 vs
+     measured **1.163**; |t|=5 predicts 0.862 vs **0.904**; |t|=13 predicts 0.673 vs **0.711**.
+     Within 1–5%, **in both directions**.
+  2. **A ladder that rebuilds the synthetic case one real property at a time**: L1 i.i.d. matched
+     **1.065 / 1.138 / 1.046** → L2 + real λ marginal **1.058 / 0.945 / 1.053** → **L3 + the real
+     (G,L) joint 0.687 / 0.886 / 0.547** → L4 the real permuted array **0.689 / 0.901 / 0.537**.
+     **The drop is entirely at L2→L3 and L3 reproduces L4** — i.e. the within-index (G,L)
+     dependence, and nothing else, is the cause.
+- **THE CLINCHER.** R-158 cited **|t|=5, g=25 (n_eff/n = 4.956)** as proof the bootstrap was broken.
+  The closed form gives **4.798 from the effect size alone — no bootstrap, no simulation, a 3.2%
+  match.** That cell is the most strongly *depleted* branch in the whole table (meas 0.0061 vs pred
+  0.0302), and its "under-dispersion" **is** that depletion, arithmetically.
+- **SO IT IS NOT AN INDEPENDENT CHECK.** Enrichment (meas > pred) drives the diagnostic **below 1**;
+  depletion (meas < pred) drives it **above 1**. R-158 used it as an independent verdict on whether
+  a z could be trusted, and it is **algebraically the same number as the z it was judging**. A
+  diagnostic that moves with the effect cannot adjudicate the effect.
+- **⚠ THE Z-TEST ITSELF IS FINE, and this distinction matters.** Using the null-hypothesis p in the
+  standard error is correct for testing `meas` against `pred` — textbook. What is wrong is
+  **comparing that null-based se to a bootstrap se that disperses around the observed value.** Two
+  different quantities, one ratio. The defect is in the diagnostic, not in the test.
+- **REPAIR + verification.** `neff_calibrated` evaluates at the observed value. Shuffled control,
+  truth 1.000: **deployed (at pred) 1.168 / 0.898 / 0.639 / 0.489** — spanning 0.49 to 1.17 —
+  **repaired (at meas) 1.014 / 1.060 / 0.950 / 0.970**, all within 6%. Fixture
+  `NEFF_DIAGNOSTIC_IS_THE_EFFECT_SIZE_RE_EXPRESSED`. **Sibling sweep done and empty**: the only two
+  other bootstrap sites (`phase37/crcns_pillar2_ratematch.py`, `phase34e/run_berry_robnik.py`) read
+  percentile intervals straight off the bootstrap and never form the ratio.
+- **Secondary, on the ORIGINAL published values**, which were computed on duplicated orbits: the
+  residual actual/formula is **~1.8 at |t|=5 (dup 4×)** and **~1.3 at |t|=13 (dup 2×)**, tracking
+  **√(dup factor)** — duplication independently inflates the diagnostic, exactly as R-165 predicts,
+  since identical copies make replicates more alike.
+- **R-170 STANDS and is now explained.** The shuffled null already absorbs the pred/meas mismatch,
+  so the residual real-vs-null (**|t|=5 at +4.39 sd**) remains genuine serial structure. And R-166
+  is untouched: the enrichment still does not exist out of sample. **R-077 stays VOID.**
+- **Status:** CLOSED. The last open item from the R-077 arc.

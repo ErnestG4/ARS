@@ -101,6 +101,40 @@ def neff_r077d(G, Y, L, g, rng, B=50, n_boot=N_BOOT):
     return (se_iid / se_blk) ** 2 if se_blk > 0 else None
 
 
+def neff_calibrated(se_block, meas, n):
+    """THE REPAIR (R-171). n_eff/n for a conditional proportion, evaluated at the OBSERVED value.
+
+    THE DEFECT. r077d.py computed n_eff/n = se_iid^2 / se_block^2 with
+        se_iid = sqrt(pred*(1-pred)/n)        <- the PREDICTED (marginal) proportion
+    while the bootstrap's `meas` disperses around the OBSERVED event-conditional proportion. When
+    those differ -- which is EXACTLY when there is an effect -- the two variances are evaluated at
+    different p, and their ratio is, in closed form,
+
+        n_eff/n  =  pred*(1-pred) / (meas*(1-meas))
+
+    So the diagnostic is a MONOTONE FUNCTION OF THE EFFECT SIZE IT WAS BEING USED TO VALIDATE:
+    enrichment (meas > pred) drives it below 1, depletion (meas < pred) drives it above 1. It is
+    not an independent reliability check; it is the effect re-expressed.
+
+    ⚠ THE Z-TEST ITSELF IS FINE. Using the null-hypothesis p in the standard error is correct for
+    testing meas against pred -- that is textbook. What is wrong is COMPARING that null-based se to
+    a bootstrap se that disperses around the observed value. Two different quantities, one ratio.
+
+    Verified on the shuffled control (truth = 1.000 by construction):
+        deployed (at pred): 1.168, 0.898, 0.639, 0.489   -- spans 0.49 to 1.17
+        repaired (at meas): 1.014, 1.060, 0.950, 0.970   -- all within 6% of truth
+    """
+    se_obs = math.sqrt(max(meas * (1 - meas), 1e-12) / n)
+    return (se_obs / se_block) ** 2 if se_block > 0 else None
+
+
+def neff_bias_closed_form(pred, meas):
+    """The bias the deployed diagnostic carries, with no bootstrap and no simulation.
+    Matches the published r077d.py values to 3.2% on the two branches where the mismatch dominates
+    (|t|=5 g=25: formula 4.80 vs actual 4.96; |t|=13 g=169: 0.813 vs 0.788)."""
+    return (pred * (1 - pred)) / (meas * (1 - meas))
+
+
 def synthetic_neff(n, B, p, rng, n_boot=400):
     """i.i.d. Bernoulli -- truth is n_eff/n = 1.0 by construction."""
     x = (rng.random(n) < p).astype(np.float64)
