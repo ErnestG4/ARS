@@ -2567,3 +2567,40 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
 - **Ratchet reset DELIBERATELY and recorded:** the count moved because **the instrument improved**, not
   because defects appeared. Silently ratcheting would have hidden the model change.
 - **Status:** CLOSED. 6 propagated / 1 local-by-design / 2 not-a-repair / 1 documented-open / 15 open.
+
+### R-150 — DOWNSTREAM SWEEP: what the two-week propagation gap cost the record
+- **The question the arc kept deferring: now that the deployed path is correct, which banked
+  conclusions move?** Measured on the two substrates whose raw data is in the repo.
+- **Row 8 verified on REAL data (it had only been verified on a synthetic drifting cell):** the
+  global-unfold defect is **strongly substrate-dependent** — fungal CV 2.6865 → 2.7137 (**−1.0%**,
+  negligible), **solar CV 4.3248 → 2.5019 (−42.1%)**. Solar has the ~1000× cycle envelope, so **42% of
+  its CV was drift, not clustering.** Row 7 was verified live before repair (clip + bounds read
+  directly, rail-proximity measured on all four calibrators); **row 8's real-data magnitude is now
+  closed too.**
+- **SOLAR — the claim SURVIVES and STRENGTHENS.** mass03 vs a cycle-preserving null:
+  | unfold | observed | null | GAP | exceeds p99 |
+  |---|---|---|---|---|
+  | global (deployed) | 0.5968 | 0.3078 ± 0.0069 | **+0.2890** | yes |
+  | windowed (repaired) | 0.4762 | 0.0885 ± 0.0063 | **+0.3877** | yes |
+  **GAP +0.2890 → +0.3877, a 34% strengthening.** Both observed and null fall under the repair, but
+  **the null falls much further** — it is cycle-preserving, so it carries the drift the observed has
+  genuine clustering *on top of*. Against the quoted 0.20 floor, the claim is comfortably intact.
+- **FUNGAL — the claim is UNCHANGED.** GAP **+0.4089 → +0.3975** (−2.8%); the null reproduces its
+  banked 0.245 under both unfolds (0.2457 / 0.2497). Consistent with fungal's −1.0% CV change.
+- **SO: NO BANKED VERDICT FLIPS.** Both quotable claims survive; one strengthens materially, one is
+  flat. **The direction matches the pre-commitment** — the defects were conservative on the observed
+  side, so the repairs move claims *toward* stronger, not weaker.
+- **WHAT IS NOT SWEPT, stated rather than implied:** substrates whose raw data is not in the repo
+  (allen, hc3, ret1, ibl, buzsaki, dr-port, pvc-11) — their **coordinate entries are known to move**
+  (74.8% of banked Brody values sit at a bound, 16.6% of `ARS.rep_med`), but whether any *conclusion*
+  of theirs moves is **unmeasured**. That is the remaining downstream work and it needs the source data.
+- **Status:** PARTIAL — closed for fungal and solar, open for the seven substrates without local data.
+
+### R-151 — the boundary-saturation antibody, banked after it caught my own repair
+- **Three firings:** the corrector refusing to null the 100% case; the sweep splitting q=0-saturated
+  from q=0-Poisson; and **my first Berry–Robnik repair returning `None` at the rail.**
+- **THE RULE: the repair for a boundary-saturation defect is DISAMBIGUATION, never REJECTION.**
+  Fixing "the bound is reported as truth" by "refuse the bound entirely" trades a false positive for a
+  false negative. **A boundary value is ambiguous, not invalid** — flag it and require a sign-carrying
+  axis. It caught my own first attempt, which is the only evidence that makes it a rule rather than a
+  description. **Status:** BANKED.
