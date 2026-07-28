@@ -2604,3 +2604,25 @@ each with a **named regression fixture** in `tests/test_known_defects.py` (11 pa
   false negative. **A boundary value is ambiguous, not invalid** — flag it and require a sign-carrying
   axis. It caught my own first attempt, which is the only evidence that makes it a rule rather than a
   description. **Status:** BANKED.
+
+### R-152 — the "seven substrates" item CLOSES, and my blocker was wrong twice
+- **My blocker was "raw data isn't local." FALSE:** `allen_cache` 29G, `buzsaki_cache` 62G,
+  `ibl_cache` 7.7G, `crcns_cache` (ret1 + sessions) 630M, `data/` 11G, `fungi/` 1.1G. **I asserted a
+  blocker without checking** — the reasoning-instead-of-running failure, one more time, and it took
+  Will saying "we should have the data" to make me look.
+- **But the item closes for a better reason than data availability, and it is checkable in seconds:**
+  **the load-bearing n=7 finding was ALREADY computed on repaired axes.**
+  `CLUSTERING_COUPLING_FINDINGS.md` says *"on a repaired instrument"* in its title; its axis is the
+  **signed** I_rep over **unit-mean-normalised** spacings (so neither the clip nor the
+  rate-contamination touches it); and its values are **negative** (−0.236 … −8.306), which the clipped
+  field **cannot produce**. Its columns contain **no Brody axis at all.**
+- **Direct confirmation:** only pvc-11 carries `ARS.rep_med` in the coordinate store, at **median
+  0.0000 with 79.2% exact zeros** — the clipped field — while the finding's pvc-11 value is
+  **−0.863**. **Different quantities under related names.** The other six substrates have no
+  `ARS.rep_med` banked at all.
+- **SO: THE COORDINATES ARE STALE; THE CONCLUSIONS ARE NOT.** The seven substrates' load-bearing claim
+  does not rest on any unrepaired axis. Marked in place with `coordinates/STALE_AXES_NOTICE.md` —
+  retained, not deleted, with the counts, the Poisson-vs-saturated caveat, and the repaired functions
+  named. Anything reading those two axes out of the store (landscape views, `harvest.py`) is showing
+  pre-repair values and must recompute.
+- **Status:** CLOSED. The remaining downstream exposure is display surfaces, not conclusions.
