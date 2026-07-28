@@ -2866,3 +2866,100 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   to catch. Cost of hashing all 553 tracked `.py`: **0.006 s.**
 - **Verified it can fire:** fingerprint moves on add, on delete, and on edit; restores on revert.
 - **Status:** CLOSED.
+
+### R-165 — ★★★★ THE POOLED STRATA CONTAIN DUPLICATE ORBITS. Every pooled z in this thread was inflated.
+- **Found by the review agent; verified independently by me before acceptance.**
+  `gate0e_precision.collect_cyclic` enumerates **polynomials** over a coefficient box and **dedups
+  by nothing**. Many are **GL₂(ℤ) translates of the same cubic irrational** and produce *identical*
+  (g, y, λ) orbits.
+- **Verified exactly, not statistically.** At |t|=13, polys **(−7,0,7)** and **(−4,−11,1)** have roots
+  −0.93900107534756 and −1.9390010753476 — **differing by exactly 1.0** — so their CFs agree from
+  a₁ on. Two independent implementations (root-difference; CF-tail-signature search) agree on the
+  orbit counts: **|t|=5: 8 polys → 2 orbits (4×). |t|=13: 6 → 3. |t|=17: 6 → 3. |t|=29: 4 → 2.**
+- **The arithmetic:** duplication leaves `meas` and `pred` **unchanged** and multiplies n by k, so
+  **|z| inflates by exactly √k**. |t|=13 g=13: **+3.295 → +2.378**. |t|=5 g=25: **−3.587 → −2.176**.
+- **RATIOS ARE SAFE, COUNTS ARE NOT.** Duplication scales numerator and denominator together, so
+  gate0e's meas/pred, bias, rms and **the sealed ±12% band are unaffected**. Every χ², every "excess
+  over binomial", and every pooled z **is** affected.
+- **And the fact was already in the repo, as a display label.** `gate0e_precision.py:200` prints
+  *"'objs' is now DISTINCT DISCRIMINANTS: … correlated objects are one witness."* It was wired into
+  a **printout** and never into the pooling or the variance. Worse, discriminant count is not even
+  the right proxy — |t|=5 has **1 discriminant but 2 orbits**, |t|=13 **1 discriminant but 3**.
+  **GL₂(ℤ)-orbit equivalence is the correct unit.** Ninth instance of
+  [[knowledge_does_not_propagate]].
+- **Repair, non-destructive:** `gl2z_orbit_reps` + `collect_cyclic_dedup`; `collect_cyclic` retained
+  **bit-identical** with a warning in its docstring. Fixture
+  `CYCLIC_STRATUM_POOLS_DUPLICATE_ORBITS`.
+- **Status:** CLOSED as a defect; downstream recomputation tracked in R-166.
+
+### R-166 — ★★★ THE ANOMALY DOES NOT EXIST OUT OF SAMPLE. R-077's third localisation is VOID.
+- **The published numbers come from convergent indices < ~1150 — which is simply where DIG=1200 ran
+  out.** That is a **window**, not a process. The same orbits extended deeper give a **disjoint**
+  remainder on which the identical quantity can be measured.
+- **My run, DEDUPED orbits at DIG=6000 (5× depth), remainder carrying 4.5× the statistical weight:**
+
+  | segment | excess on the g=t branch | sem |
+  |---|---|---|
+  | published window (idx < 1150) | **+0.03127** | ±0.00834 → **+3.75 sem** |
+  | disjoint remainder (idx ≥ 1150) | **+0.00133** | ±0.00394 → **+0.34 sem** |
+
+  **H1** ("the window excess is real and constant") predicts +0.03127 in the remainder; observed
+  +0.00133 → **rejected at 7.6 sem**. **H0** ("no excess") predicts 0; observed **+0.34 sem,
+  p = 0.736 → consistent.**
+- **Independently corroborated at a different depth by a different implementation:** the review
+  agent, at DIG=12000, got window **+0.03119 ± 0.00833**, remainder **+0.00408 ± 0.00259**, H1
+  rejected at **10.5 sem**, and the same dedup counts (2/3/3/2). Two implementations, two depths,
+  one verdict.
+- **So there is no residue→future coupling to localise.** R-158's third localisation is **void** —
+  not because the mechanism was wrong, but because **the effect it sought to explain is a property
+  of one frozen window.**
+- **Status:** CLOSED. R-077 stays **CALIBRATED at |det| ≤ 289, ±12%** — that band is a ratio and
+  survives. What does not survive is the claim that an unexplained third coupling had been localised.
+
+### R-167 — ★★★ MY OWN INSTRUMENT GATE CHECKED THE QUANTITY THE DEFECT INFLATES. R-161 WITHDRAWN.
+- **`R077_CONTROL_PRECOMMIT_ADDENDUM_1` verdict `LE_A_SURVIVES` (T = 3.5871, p = 0.0100) is
+  WITHDRAWN.** Seal `R077_LE_A_WITHDRAWAL`. The seal is **not edited** and its acceptance rule is
+  **not changed**: p ≤ 0.05 fired correctly **on corrupted input**.
+- **Why the gate could not fire.** It compared control vs cubic **`n_events`** within 25% — and
+  `n_events` is **exactly the quantity duplication inflates**. It passed (640/646/482 vs
+  626/652/492) *because* the data was corrupted in the matched way. The control generated one
+  **independent** real per matrix (6 independent orbits); the cubic side had 6 polynomials carrying
+  only **3**. Same event count, different degrees of freedom.
+- **This is R-157 recurring in my own new work, two days after I corrected it** — a guard pointed at
+  the wrong quantity. There it was `metric_sanity()` checking the agreement metric while the prose
+  claimed `rep_int`; here it is `n_events` checking the inflated statistic.
+- **The violated clause has a name and a live guard: `unit_of_analysis`, clause 4.** The cubic side's
+  unit was the **polynomial**; the control's was the **independent orbit**. `commensurable.py` is
+  live (27/27, run by pytest), **refuses** an undeclared `unit_of_analysis`, and its own specificity
+  suite contains a case distinguishing `'polynomial'` from `'field'` — *this exact distinction*.
+  **Neither `r077_control.py` nor `r077_lookelsewhere.py` imports it.**
+- **⚠ Honest limit on the counterfactual, because the flattering version is not established:** the
+  guard would have **forced** `unit_of_analysis` to be declared on both sides. It would **not
+  necessarily have caught this** — a careless declaration of "cubic object" on both sides passes,
+  because the guard tests declared-metadata equality, not whether the declaration is *true*.
+  **Necessary, not sufficient.** The sufficient fix is that the unit for a pooled arithmetic object
+  is the **GL₂(ℤ) orbit**, and that fact now lives at the call site (R-165), not in a findings doc.
+- **What survives:** R-160's control **stands and is worth more than when banked** — 200 generic-real
+  replicates give z mean −0.020, sd 0.985, which **validates the (1+y) derivation as correct for
+  a.e. x**. Its injection arm stands (run entirely on generic reals). What does **not** survive is
+  the inference I drew from it — *"the premise survives"* — which compared duplicated cubic data
+  against non-duplicated control data.
+- **R-162 partially withdrawn.** Its *logic* stands: R-158's n_eff/n>1 diagnostic impeaches `z_block`
+  only and was over-applied to drop `z_iid`. Its *conclusion* does not: |t|=5 g=25 is not the
+  strongest surviving effect, it is **the most duplicated (4×)**. R-158 and I were both wrong about
+  that row, for different reasons, and the row is weak.
+- **Status:** CLOSED as a withdrawal.
+
+### R-168 — sixth instance of tooling-counts-itself, and the polarity is inverted
+- The watcher flagged **`tests/test_known_defects.py`** — the **regression-fixture file** — for
+  containing repair language, and went 15 → 17 (a REGRESSION) on my own defect-10 fixture.
+- **The five prior faces** were own references → own remediation → backtick prose → a `print()` of a
+  plain string → one watcher flagging another watcher's comment. **This one is the opposite
+  polarity:** a fixture file is not a place where repairs *strand*, it is the place they **land**.
+  **R-142** established that a test file is in the shared path *by construction* — which is exactly
+  why the orphaned guards were moved there. So the watcher was flagging **the one location the
+  doctrine says is correct.**
+- **Excluded by PATH, not filename**, so any new test file inherits it — the property that matters
+  ("a test is in the shared path by construction") belongs to the directory, not the name. Scope
+  verified: `tests/` excluded, `arsrh/` not, `testsuite/` not (the prefix carries its slash).
+- **Status:** CLOSED. Back to 15, ratchet green.

@@ -1,0 +1,55 @@
+{
+  "seal": "R077_LE_A_WITHDRAWAL",
+  "withdraws": "R077_CONTROL_PRECOMMIT_ADDENDUM_1 verdict LE_A_SURVIVES",
+  "written": "2026-07-28",
+  "type": "WITHDRAWAL — not an edit, not a re-registration",
+
+  "what_is_being_withdrawn": "The verdict LE_A_SURVIVES (observed T = 3.5871, p = 0.0100). It is withdrawn because the INPUT violated a commensurability clause the seal's instrument gate did not check. The seal is NOT edited and its acceptance rule is NOT changed: p <= 0.05 fired, correctly, on corrupted input. A verdict correctly computed from a non-comparable comparison is an instrument failure, and outcome D is where it belongs.",
+
+  "the_defect": {
+    "what": "`gate0e_precision.collect_cyclic()` enumerates POLYNOMIALS over a coefficient box and dedups by nothing. Several polynomials per stratum are GL2(Z) translates of the SAME cubic irrational, so they produce IDENTICAL (g, y, lambda) orbits.",
+    "verified_exactly_not_statistically": "At |t|=13 the polynomials (-7,0,7) and (-4,-11,1) have roots -0.93900107534756 and -1.9390010753476 -- differing by EXACTLY 1.0 -- so their continued fractions agree from a_1 on. Confirmed independently by two implementations (a root-difference check and a CF-tail-signature search).",
+    "orbit_counts": {"|t|=5": "8 polys -> 2 orbits (4x)", "|t|=13": "6 -> 3 (2x)", "|t|=17": "6 -> 3 (2x)", "|t|=29": "4 -> 2 (2x)"},
+    "arithmetic_of_the_inflation": "Duplicating an orbit k times leaves `meas` and `pred` UNCHANGED and multiplies n by k, so |z| inflates by exactly sqrt(k). |t|=13 g=13: +3.295 -> +2.378. |t|=5 g=25: -3.587 -> -2.176."
+  },
+
+  "why_my_instrument_gate_could_not_fire": {
+    "the_gate": "The addendum's gate compared control vs cubic `n_events` within 25% and required matching divisor sets and >=95% replicate yield. It passed: 640/646/482 control vs 626/652/492 cubic.",
+    "why_that_is_the_wrong_quantity": "n_events is EXACTLY the quantity duplication inflates. The gate certified commensurability on the corrupted statistic, so it passed BECAUSE the data was corrupted in the matched way, not despite it. The control generated one INDEPENDENT random real per matrix (6 independent orbits); the cubic side had 6 polynomials carrying only 3 independent orbits. Same event count, different degrees of freedom.",
+    "the_name_for_this": "A guard pointed at the wrong quantity -- the same defect as R-157, where a sanity-check line claimed `rep_int` was unsaturated while `metric_sanity()` checked the agreement metric. R-157 was found and corrected on 2026-07-27. This recurrence is in MY OWN new work, two days later.",
+    "the_clause_that_was_violated": "unit_of_analysis. Clause 4 of the five-clause commensurability check. The cubic side's unit was the POLYNOMIAL; the control side's was the INDEPENDENT ORBIT."
+  },
+
+  "the_guard_that_existed_and_was_not_called": {
+    "fact": "`commensurable.py` is live (27/27 self-test, run by pytest every time) and its `Measurement` dataclass REFUSES a comparison whose `unit_of_analysis` is undeclared. Its own specificity suite contains, at lines 381-384, a case that distinguishes unit_of_analysis='polynomial' from 'field' -- this exact distinction.",
+    "and": "`arsrh/cubic/r077_control.py` and `r077_lookelsewhere.py` do not import it. Grep for 'commensurable' in either returns nothing.",
+    "honest_limit_on_the_counterfactual": "The guard would have FORCED the unit_of_analysis to be declared on both sides. It would NOT necessarily have caught this: a careless declaration of 'cubic object' on both sides would have passed, because the guard tests declared-metadata equality, not whether the declaration is true. So the guard is necessary and NOT sufficient here. Recording this rather than claiming the guard would have saved me, which is the flattering version and is not established."
+  },
+
+  "the_larger_finding_which_makes_the_withdrawal_moot": {
+    "out_of_sample_test": "The published numbers come from convergent indices < ~1150 -- which is simply where DIG=1200 ran out. That is a WINDOW, not a process. Re-running the DEDUPED orbits at 5x depth (DIG=6000) gives a disjoint remainder with 4.5x the statistical weight.",
+    "result": {
+      "window_excess": "+0.03127 +- 0.00834  (+3.75 sem)",
+      "disjoint_remainder_excess": "+0.00133 +- 0.00394  (+0.34 sem)",
+      "H1_constant_real_effect": "predicts +0.03127 in the remainder; observed +0.00133 -> REJECTED at 7.6 sem",
+      "H0_no_effect": "predicts 0; observed +0.34 sem, p = 0.736 -> CONSISTENT"
+    },
+    "independent_corroboration": "The review agent reached the same verdict independently at DIG=12000 with a different implementation: window +0.03119+-0.00833, remainder +0.00408+-0.00259, H1 rejected at 10.5 sem. Two implementations, two depths, same conclusion. The dedup orbit counts also agree exactly (2/3/3/2).",
+    "consequence": "There is no residue->future coupling to localise. R-158's 'third localisation' is VOID -- not because the mechanism was wrong, but because the effect it sought to explain is a property of one frozen window."
+  },
+
+  "what_survives": {
+    "R-160_control": "STANDS, and is more valuable than when it was banked. The estimator IS unbiased on continued-fraction orbits: 200 generic-real replicates give z mean -0.020, sd 0.985. That validates the (1+y) derivation as correct for a.e. x. What does NOT survive is the inference I drew FROM it -- 'the premise survives' -- because that compared duplicated cubic data against non-duplicated control data.",
+    "R-160_injection_arm": "STANDS. The powered falsifier fires (silent at delta=0, +3.51 at delta=0.05) and its calibration is unaffected by the cubic-side defect, since it was run entirely on generic reals.",
+    "R-161": "WITHDRAWN in full.",
+    "R-162": "PARTIALLY WITHDRAWN. The logic stands: R-158's n_eff/n>1 diagnostic impeaches z_block only and was over-applied to drop z_iid. The CONCLUSION does not: the |t|=5 g=25 cell is not the strongest surviving effect, it is the MOST duplicated (4x). Both R-158 and I were wrong about that row, for different reasons, and the row is weak.",
+    "the_sealed_rate_formula_band": "STANDS. rate matched to +-12% over |det| in 1..289 is a RATIO of measured to predicted; duplication scales numerator and denominator together and cancels. Verified reasoning, and consistent with the review agent's independent check of gate0e's ratio products."
+  },
+
+  "actions_required": [
+    "collect_cyclic gets a GL2(Z)-orbit-deduped sibling, non-destructively (deployed function bit-identical).",
+    "A named regression fixture: CYCLIC_STRATUM_POOLS_DUPLICATE_ORBITS.",
+    "Every pooled z downstream of collect_cyclic(per=8) is suspect and must be recomputed or marked: r077_conditional.py, r077_control.py, r077_lookelsewhere.py, gate0f_frame.py, gate0e_precision.py's own main.",
+    "gate0e_precision.py:200 already PRINTS that correlated objects are one witness -- as a display label, never wired into the pooling or the variance. Attach the fact to the CALL SITE."
+  ]
+}

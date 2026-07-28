@@ -1,3 +1,31 @@
+> # ⚠ RETRACTION AT THE TOP, 2026-07-28 — read this before anything below.
+>
+> **§3b's verdict `LE_A_SURVIVES` (p = 0.0100) is WITHDRAWN.** Seal `R077_LE_A_WITHDRAWAL`.
+>
+> **1. The pooled strata contain duplicate orbits.** `collect_cyclic` enumerates *polynomials* and
+> dedups by nothing; many are GL₂(ℤ) translates of the same cubic irrational, producing identical
+> (g, y, λ) orbits. Verified exactly — at |t|=13, two roots differ by **exactly 1.0**. Orbit counts:
+> |t|=5: 8 polys → **2** orbits, |t|=13: 6 → **3**, |t|=17: 6 → **3**, |t|=29: 4 → **2**.
+> Duplication leaves `meas`/`pred` unchanged and multiplies n by k, so **every pooled |z| inflated
+> by √k**: +3.295 → +2.378; −3.587 → −2.176.
+>
+> **2. My instrument gate checked `n_events` — the exact quantity duplication inflates.** It passed
+> *because* the data was corrupted in the matched way. The violated clause is **`unit_of_analysis`**:
+> polynomial on the cubic side, independent orbit on the control side. This is **R-157 recurring in
+> my own new work two days after I corrected it**.
+>
+> **3. And the anomaly does not exist out of sample, which makes the rest moot.** Deduped orbits at
+> 5× depth: window excess **+0.03127 ± 0.00834**, disjoint remainder **+0.00133 ± 0.00394**.
+> H1 (real, constant) **rejected at 7.6 sem**; H0 (no effect) **consistent, p = 0.736**.
+> Independently corroborated at 10× depth by a different implementation (H1 rejected at 10.5 sem,
+> identical dedup counts). **The published effect is a property of convergent indices < 1150 — which
+> is just where DIG=1200 ran out. R-158's third localisation is VOID.**
+>
+> **What survives:** §2's control — the estimator *is* unbiased on generic reals (mean −0.020,
+> sd 0.985), which validates the (1+y) derivation for a.e. x — and §2's injection arm, run entirely
+> on generic reals. **What does not:** every inference drawn by comparing duplicated cubic data
+> against non-duplicated control data. See R-165 / R-166 / R-167.
+
 # R-077 — testing the PREMISE before the mechanism
 
 **Seals:** `arsrh/seals/R077_CONTROL_PRECOMMIT.json` + `_ADDENDUM_1.json`, both written **unrun**.

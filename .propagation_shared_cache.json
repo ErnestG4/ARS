@@ -1,5 +1,5 @@
 {
- "fingerprint": "6b4a8cac3693a482",
+ "fingerprint": "721712597e0e1daa",
  "shared_min": 8,
  "shared": [
   "allen_depth.py",
@@ -11,6 +11,7 @@
   "extractors.py",
   "field_generator.py",
   "gate0_ladder.py",
+  "gate0e_precision.py",
   "gauss_thermo.py",
   "intermittency.py",
   "llm_cascade.py",

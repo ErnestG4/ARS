@@ -187,3 +187,40 @@ def test_commensurable_guard_is_live_and_specific():
     """The guard's own sensitivity/specificity/interface suite must pass."""
     import commensurable
     assert commensurable._selftest(verbose=False), "commensurable guard is not live"
+
+
+CYCLIC_STRATUM_POOLS_DUPLICATE_ORBITS = {5: (8, 2), 13: (6, 3), 17: (6, 3), 29: (4, 2)}
+"""`gate0e_precision.collect_cyclic` enumerates POLYNOMIALS and dedups by nothing, so each stratum
+pools GL2(Z) translates of the SAME cubic irrational -- identical (g,y,lambda) orbits. Map is
+|t| -> (n_polynomials, n_independent_orbits). Duplication leaves meas and pred unchanged and
+multiplies n by k, so every pooled |z| inflates by exactly sqrt(k): |t|=5 by 2.00x, |t|=13 by 1.41x.
+This is what made R-156/R-158's +3.30 and R-161's look-elsewhere p=0.0100 look significant."""
+
+
+def test_cyclic_strata_contain_duplicate_gl2z_orbits():
+    """Defect 10: the deployed collector pools duplicate orbits; the repair separates them."""
+    import mpmath as mp
+    _s = sys
+    _s.path.insert(0, os.path.join(ROOT, "arsrh", "cubic"))
+    from gate0e_precision import collect_cyclic, gl2z_orbit_reps
+
+    by_t = collect_cyclic(box=14, per=8)
+
+    # the deployed collector must stay bit-identical -- it DOES pool duplicates, and that is why
+    for t, (n_poly, n_orb) in CYCLIC_STRATUM_POOLS_DUPLICATE_ORBITS.items():
+        assert len(by_t[t]) == n_poly, f"|t|={t} polynomial count changed"
+
+    # and the duplication is EXACT, not statistical: two |t|=13 roots differ by exactly 1
+    mp.mp.dps = 260
+    roots = []
+    for (A, B, C, _M) in by_t[13]:
+        r = sorted(mp.re(x) for x in mp.polyroots([1, A, B, C], maxsteps=400, extraprec=800))
+        roots.append(r[0])
+    exact_int_pairs = sum(1 for i in range(len(roots)) for j in range(i + 1, len(roots))
+                          if abs((roots[i] - roots[j]) - mp.nint(roots[i] - roots[j])) < mp.mpf(10) ** -50)
+    assert exact_int_pairs >= 2, "|t|=13 must contain GL2(Z) translates (roots differing by an integer)"
+
+    # the repair must recover the true independent-orbit counts
+    for t, (_n_poly, n_orb) in CYCLIC_STRATUM_POOLS_DUPLICATE_ORBITS.items():
+        assert len(gl2z_orbit_reps(by_t[t])) == n_orb, \
+            f"|t|={t}: dedup must find {n_orb} independent GL2(Z) orbits"

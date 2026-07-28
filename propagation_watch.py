@@ -112,6 +112,18 @@ SHARED = None  # populated at scan time
 TOOLING = {"propagation_watch.py", "rep_int_migration.py", "commensurable.py",
            "class_collapse_sweep.py"}
 
+# SIXTH INSTANCE of tooling-counts-itself, 2026-07-28, and a genuinely new face.
+# The prior five were: own references -> own remediation -> backtick prose -> a print() of a plain
+# string -> one watcher flagging another watcher's comment. This one is the opposite polarity:
+# `tests/test_known_defects.py` -- the REGRESSION-FIXTURE file -- was flagged for containing repair
+# language, when a fixture file is precisely the propagation DESTINATION. R-142 established that a
+# test file is in the shared path BY CONSTRUCTION, which is exactly why the orphaned guards were
+# moved there. So the watcher was flagging the one location the doctrine says is correct.
+#
+# Excluded by PATH, not by filename: any new test file inherits the exclusion, because the property
+# that matters ("a test is in the shared path by construction") is a property of the directory.
+TEST_PATH_PREFIXES = ("tests/",)
+
 # SPECIFICITY: the first draft matched "bounded"/"unbounded"/"proper" as MATHEMATICAL terms
 # (bounded CF, unbounded partial quotients, proper dimension) and returned 41 hits, mostly false.
 # A watcher with a mostly-false hit list is the alarm-fatigue failure it exists to prevent, so
@@ -152,7 +164,7 @@ def scan():
         # remediation -> backtick prose -> a print() of a plain string -> and now one WATCHER
         # flagging another watcher's comment about a fix it made). Guards describe repairs by
         # their nature; they are not places where repairs strand.
-        if base in SHARED or base in TOOLING:
+        if base in SHARED or base in TOOLING or f.startswith(TEST_PATH_PREFIXES):
             continue
         try:
             lines = open(os.path.join(HERE, f)).read().split("\n")

@@ -69,8 +69,63 @@ def counts(a0, a1, M, by_lambda=False):
     return n, k_, gh, D, ghe
 
 
+def gl2z_orbit_reps(polys, dig=400, probe=60, span=120):
+    """REPAIR (2026-07-28, R-165). One representative per GL2(Z) orbit.
+
+    THE DEFECT THIS EXISTS FOR. `collect_cyclic` enumerates POLYNOMIALS over a coefficient box
+    and dedups by nothing. Many of them are GL2(Z) translates of the SAME cubic irrational and
+    therefore produce IDENTICAL (g, y, lambda) orbits. Verified exactly, not statistically: at
+    |t|=13 the polynomials (-7,0,7) and (-4,-11,1) have roots differing by EXACTLY 1.0, so their
+    continued fractions agree from a_1 on.
+
+    WHY IT MATTERED. Duplicating an orbit k times leaves `meas` and `pred` unchanged and
+    multiplies n by k, so every pooled |z| inflates by exactly sqrt(k). Measured duplication:
+    |t|=5 4x, |t|=13 2x, |t|=17 2x, |t|=29 2x. That inflation is what made R-156/R-158's +3.30
+    and my own R-161 look-elsewhere p = 0.0100 look significant.
+
+    RATIOS ARE SAFE, COUNTS ARE NOT. Duplication scales numerator and denominator together, so
+    gate0e's meas/pred, bias, rms and the sealed +-12% band are UNAFFECTED. Every chi^2, every
+    "excess over binomial", and every pooled z IS affected.
+
+    Serret: two cubics share a GL2(Z) orbit iff their CF tails coincide up to a shift. Integer
+    translates are the shift-0 case and are caught by the same test.
+
+    `collect_cyclic` is left BIT-IDENTICAL -- banked numbers came off it and must stay auditable.
+    """
+    reps, sigs = [], []
+    for rec in polys:
+        A, B, C = rec[0], rec[1], rec[2]
+        r = sorted(mp.re(x) for x in mp.polyroots([1, A, B, C], maxsteps=600, extraprec=1200))
+        a = certified_cf(int(mp.floor(r[0] * 10 ** dig)), 10 ** dig, 20000)
+        if len(a) < 2 * probe + span:
+            continue
+        dup = False
+        for s in sigs:
+            for u, v in ((a, s), (s, a)):
+                p_probe = tuple(u[probe:2 * probe])
+                if any(tuple(v[probe + o:2 * probe + o]) == p_probe for o in range(span)):
+                    dup = True
+                    break
+            if dup:
+                break
+        if not dup:
+            reps.append(rec)
+            sigs.append(a)
+    return reps
+
+
+def collect_cyclic_dedup(box=BOX, per=PER, dig=400):
+    """`collect_cyclic` with one representative per GL2(Z) orbit. See `gl2z_orbit_reps`."""
+    return {t: gl2z_orbit_reps(v, dig=dig) for t, v in collect_cyclic(box=box, per=per).items()}
+
+
 def collect_cyclic(box=BOX, per=PER):
-    """cubics grouped by |t|, up to `per` each."""
+    """cubics grouped by |t|, up to `per` each.
+
+    ⚠ POOLS DUPLICATE GL2(Z) ORBITS -- see `gl2z_orbit_reps`. Any pooled COUNT or z computed from
+    this is inflated by sqrt(duplication factor). Use `collect_cyclic_dedup` for anything that
+    pools. Retained bit-identical because banked numbers came off it.
+    """
     by_t = {}
     for A in range(-box, box + 1):
         for B in range(-box, box + 1):
