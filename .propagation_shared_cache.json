@@ -1,1 +1,33 @@
-["allen_depth.py", "arithmetic_toolkit.py", "ars_classify.py", "axes.py", "bulk_recovery.py", "commensurable.py", "extractors.py", "field_generator.py", "gate0_ladder.py", "gauss_thermo.py", "intermittency.py", "llm_cascade.py", "llm_extractors.py", "loader.py", "longrange_discriminator.py", "pll_bank.py", "population_events.py", "population_fingerprint.py", "signal_gen.py", "sturmian_hamiltonian_run.py", "surrogates.py", "task1_pi_depth5.py", "trace_map_dimension.py", "transition_calibrators_dynamical.py", "transition_diagnostic.py", "unfold_rotnum.py", "universality.py"]
+{
+ "fingerprint": "94eece406194d75d",
+ "shared_min": 8,
+ "shared": [
+  "allen_depth.py",
+  "arithmetic_toolkit.py",
+  "ars_classify.py",
+  "axes.py",
+  "bulk_recovery.py",
+  "commensurable.py",
+  "extractors.py",
+  "field_generator.py",
+  "gate0_ladder.py",
+  "gauss_thermo.py",
+  "intermittency.py",
+  "llm_cascade.py",
+  "llm_extractors.py",
+  "loader.py",
+  "longrange_discriminator.py",
+  "pll_bank.py",
+  "population_events.py",
+  "population_fingerprint.py",
+  "signal_gen.py",
+  "sturmian_hamiltonian_run.py",
+  "surrogates.py",
+  "task1_pi_depth5.py",
+  "trace_map_dimension.py",
+  "transition_calibrators_dynamical.py",
+  "transition_diagnostic.py",
+  "unfold_rotnum.py",
+  "universality.py"
+ ]
+}

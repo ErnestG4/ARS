@@ -1,0 +1,74 @@
+{
+  "seal": "R077_CONTROL_PRECOMMIT",
+  "written": "2026-07-28",
+  "status": "WRITTEN UNRUN — no control replicate had been generated when this was frozen",
+  "scope_gate": "ARS point-process classifier work. This measures a property of continued-fraction orbits and of an estimator. It does NOT estimate Lambda, does NOT bear on RH, and does NOT touch boundedness of partial quotients (a tail property of an infinite sequence that no finite computation reaches). Any reading of the output as evidence for or against RH is a filing error.",
+
+  "the_question": {
+    "banked_claim_under_test": "R-156/R-158: P(g|event) is NOT predicted by the natural-extension reweighting P(g|event) = E[(1+y)1{g}]/E[(1+y)]. At |t|=13, g=13 the measurement sits +3.30 sem (iid) / +3.07 sem (block bootstrap) above prediction. R-158 localised this to 'the residue mod Delta carries past information that y does not determine'.",
+    "what_this_seal_tests": "NOT the localisation. The PREMISE. Before asking WHY the prediction fails, establish THAT it fails — i.e. that the +3.30 is a property of cubic orbits and not a property of the ESTIMATOR, which would make it fire on any continued-fraction orbit whatsoever.",
+    "why_this_is_first": "If the estimator is biased, the third localisation is chasing noise and R-156/R-158 need correcting rather than extending. This is the powered-falsifier discipline applied to a PASSED-looking anomaly: prove the +3.30 could NOT have arisen from the instrument before attributing it to the substrate."
+  },
+
+  "the_control_and_why_this_one": {
+    "control": "A GENERIC REAL. Identical pipeline end to end: same certified_cf at DIG=1200 / NPQ=1400, same Mobius matrices M taken verbatim from the |t|=13 stratum, same event threshold A=20, same 45-term tail guard, same pooling, same z formula. The ONLY thing swapped is the number: a uniformly random 1200-decimal-digit real in place of a cubic root.",
+    "why_the_density_matches": "For almost every real, the Gauss-map natural extension is ergodic, so (x_n, y_n) equidistributes with respect to 1/(ln2 (1+xy)^2) EXACTLY — which is the density the prediction is derived from. A generic real therefore satisfies H0 by theorem, not by assumption.",
+    "control_explicitly_REJECTED_and_why": "An i.i.d. Gauss-Kuzmin a-sequence. It looks like the obvious null and it is the WRONG DENSITY: if a_i are drawn i.i.d., then x = [0;a_{n+1},...] and y = [0;a_n,...,a_1] are functions of DISJOINT independent blocks, hence exactly independent — whereas along a real orbit they are coupled by 1/(1+xy)^2. Using it would have been a null built at the wrong density, testing a different object. Recorded here because it was the first design considered and rejected on this ground.",
+    "matched_by_construction": ["extraction rule (certified_cf, same DIG/NPQ)", "pooling (6 objects, the true count for |t|=13)", "the matrices M (verbatim, so the residue structure is held FIXED and only the number is flipped)", "orbit length (both ~1160 terms, set by the same certification bound)", "event definition and threshold", "the z formula, taken from the same function"]
+  },
+
+  "prior_split_sensitivity_held_separate_from_specificity": {
+    "rule": "Standing correction: the sealed-prediction bias in this program is CONSERVATIVE ON SENSITIVITY and CLEAN ON SPECIFICITY. So the sensitivity prior is shifted UP one notch; the specificity prior is HELD FIXED.",
+    "sensitivity_prior": "P(the control detects an estimator bias of >= 1 sem, if one exists) = HIGH (shifted up one notch from moderate). 200 replicates gives sem on mean(z) of ~1/sqrt(200) = 0.07, so a bias of 1.0 would show at ~14 sigma. The control is heavily overpowered for the thing it is looking for, and that is deliberate.",
+    "specificity_prior": "P(a clean control implies the cubic +3.30 is substrate-real) = MODERATE, HELD FIXED. A clean control excludes ONE confound — estimator bias shared by all CF orbits. It does NOT exclude: the specific matrices M being unusual, a look-elsewhere effect over the 9 branches, or a defect in cf_of_mpf that fires only on algebraic input. Those are separate arms and are NOT licensed by this seal."
+  },
+
+  "powered_falsifier": {
+    "requirement": "The control must be shown capable of firing, or a quiet control means nothing.",
+    "sensitivity_arm": "INJECTION. Into generic-real orbits, resample a_{n+1} upward with probability delta whenever the residue (p_n,q_n) mod Delta lies in a chosen class S — i.e. construct, by hand, exactly the dependence R-158 hypothesises. Sweep delta and report the z-response curve and the smallest delta detectable at 80% power. A test that cannot detect an INJECTED residue->future dependence cannot be trusted when it reports the absence of one.",
+    "specificity_arm": "delta = 0 must return z ~ N(0,1). Any offset at delta = 0 IS the estimator bias and is the primary readout.",
+    "recorded_in_advance": "The (1+y) reweighting moves the |t|=13 g=13 prediction from 0.0674 (marginal) to 0.0682 (weighted) = 0.07 sem, against a discrepancy of 3.30 sem. So the weight is 47x too small to have ever been a candidate explanation. R-156's finding that 'the weight is negligible' is therefore CORRECT but under-stated: this apparatus has essentially NO POWER to test the weight, and the weight was never the live hypothesis. Stated here BEFORE the run so it cannot be presented afterwards as an insight."
+  },
+
+  "outcomes_all_four_declared_before_the_run": {
+    "A_ARTIFACT": {
+      "fires_if": "|mean(z_13)| >= 1.5 over control replicates, OR the observed +3.30 falls inside the control's central 90% interval.",
+      "means": "The anomaly is a property of the ESTIMATOR, not of cubics. R-077's third localisation is VOID; R-156 and R-158 require correction, not extension. The rate formula stays CALIBRATED for a different and better-understood reason.",
+      "reporting": "Report in full. This outcome retracts two of my own banked register entries and must be stated as plainly as a positive would be."
+    },
+    "B_REAL_AND_CUBIC_SPECIFIC": {
+      "fires_if": "control is clean (|mean(z_13)| < 0.5 AND sd(z_13) in [0.7, 1.4]) AND observed +3.30 exceeds the control's 99th percentile.",
+      "means": "The premise survives. The anomaly is substrate-real and the residue question is worth testing. Proceed to the third localisation — but ONLY with the look-elsewhere arm attached, since +3.30 is the most extreme of 9 branches.",
+      "reporting": "Report with the trials factor attached, never bare."
+    },
+    "C_NOT_ESTABLISHED": {
+      "fires_if": "control is clean AND observed falls between the control's 95th and 99th percentile.",
+      "means": "The anomaly is not established at the strength R-156/R-158 imply. The thread PARKS; the formula stays CALIBRATED; no localisation is pursued.",
+      "reporting": "EQUAL PROMINENCE. This is the most likely single outcome and the one a sweep that only speaks when it finds something would bury. It is a result, not a non-result."
+    },
+    "D_INSTRUMENT_FAILURE": {
+      "fires_if": "median control CF length differs from the cubic median by >20%, OR median control n_events differs by >25%, OR >5% of replicates fail to produce a z, OR the divisor set of g differs from {1,13,169}.",
+      "means": "The control is not comparable and the run is VOID. Do not interpret any outcome A/B/C. A corrector that returns a finite number where the comparison is broken is an INSTRUMENT FAILURE, not a convenience.",
+      "reporting": "Report as void. Do not salvage."
+    }
+  },
+
+  "fixed_before_the_run": {
+    "N_REP": 200,
+    "objects_per_replicate": 6,
+    "DIG": 1200, "NPQ": 1400, "A_EVENT": 20, "tail_guard": 45,
+    "primary_branch": "g = 13 in the |t|=13 stratum",
+    "observed_value_being_tested": {"z_iid": 3.30, "z_block": 3.07, "predicted": 0.0682, "measured": 0.1057, "n_events": 492},
+    "rng_seed": 20260728,
+    "injection_deltas": [0.0, 0.02, 0.05, 0.10, 0.20]
+  },
+
+  "invalidation_conditions": [
+    "If the control's g-divisor set is not {1,13,169} the matrices are not doing what is assumed; VOID.",
+    "If control n_events is systematically far from 492 the event rate is not matched; VOID (outcome D).",
+    "If the injection arm shows no z-response at delta = 0.20, the test has no power against the hypothesised mechanism and NO absence-claim may be made from it.",
+    "This seal may not be edited after the first replicate is generated. A changed expectation requires a sealed re-registration with the procedure fixed so the number cannot be tuned."
+  ],
+
+  "known_prose_error_found_while_sealing": "R-156 says 'pooled over 8 objects per stratum'. The |t|=13 stratum contains SIX objects (collect_cyclic's `per` is a cap, and only 6 cubics in the box have |t|=13). The banked z is unaffected — the pooling used whatever was there — but the stated n is wrong and is corrected in the register."
+}

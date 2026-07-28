@@ -48,15 +48,47 @@ _SHARED_SEED = {"arithmetic_toolkit.py", "universality.py", "extractors.py", "si
 _SHARED_CACHE = os.path.join(HERE, ".propagation_shared_cache.json")
 
 
-def _measure_shared():
-    import collections
-    if os.path.exists(_SHARED_CACHE):
+def _repo_fingerprint(files):
+    """Fingerprint of tracked .py PATHS **AND CONTENTS**.
+
+    Contents, not just the path set: a module crosses SHARED_MIN when *import lines* change,
+    and those change by EDITING existing files at least as often as by adding new ones. A
+    path-set-only fingerprint would have had a silent recall gap of exactly the kind this
+    watcher exists to catch -- a guard that cannot see the change it is guarding against.
+    Measured cost of hashing all 553 tracked .py files: 0.006 s, i.e. free.
+    """
+    import hashlib
+    h = hashlib.sha256()
+    for p in sorted(files):
+        h.update(p.encode())
         try:
-            return set(json.load(open(_SHARED_CACHE)))
+            h.update(open(os.path.join(HERE, p), "rb").read())
         except Exception:
             pass
+    return h.hexdigest()[:16]
+
+
+def _measure_shared():
+    import collections
     out = subprocess.run(["git", "ls-files", "*.py"], capture_output=True, text=True,
                          cwd=HERE).stdout.split()
+    fp = _repo_fingerprint(out)
+    # CACHE INVALIDATION, added 2026-07-28. The first version returned the cache UNCONDITIONALLY
+    # whenever the file existed and never re-measured -- so the watcher's own scope froze at the
+    # moment of first run, permanently, and (being committed) froze identically for every clone.
+    # Measured at the time of the fix: fresh == cached exactly, 27 modules, so NO scope changed
+    # and no prior verdict moves. This is the three-state honesty case -- not "broken", not "fine",
+    # but CORRECT NOW AND UNABLE TO STAY CORRECT: the next module to cross SHARED_MIN would have
+    # been silently missed, which is the same failure the hand-curated list had (it omitted
+    # ars_classify.py at 51 importers). A guard whose scope cannot update is a guard with an
+    # expiry date it does not tell you about.
+    if os.path.exists(_SHARED_CACHE):
+        try:
+            c = json.load(open(_SHARED_CACHE))
+            if isinstance(c, dict) and c.get("fingerprint") == fp:
+                return set(c["shared"])
+        except Exception:
+            pass
     names = {os.path.splitext(os.path.basename(p))[0]: os.path.basename(p) for p in out}
     n = collections.Counter()
     for p in out:
@@ -71,7 +103,8 @@ def _measure_shared():
                          txt, re.M):
                 n[base] += 1
     out_set = _SHARED_SEED | {b for b, c in n.items() if c >= SHARED_MIN}
-    json.dump(sorted(out_set), open(_SHARED_CACHE, "w"))
+    json.dump({"fingerprint": fp, "shared_min": SHARED_MIN, "shared": sorted(out_set)},
+              open(_SHARED_CACHE, "w"), indent=1)
     return out_set
 
 
