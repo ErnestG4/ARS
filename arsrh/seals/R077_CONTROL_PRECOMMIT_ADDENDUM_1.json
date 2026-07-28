@@ -1,0 +1,57 @@
+{
+  "seal": "R077_CONTROL_PRECOMMIT_ADDENDUM_1",
+  "extends": "R077_CONTROL_PRECOMMIT",
+  "written": "2026-07-28",
+  "status": "WRITTEN UNRUN — no multi-stratum control replicate existed when this was frozen",
+
+  "why_an_addendum_and_not_an_edit": "The parent seal returned outcome B and its outcome-B clause says explicitly: 'Proceed to the residue test -- but ONLY with the look-elsewhere arm attached, since +3.30 is the most extreme of 9 branches' and 'Report with the trials factor attached, never bare.' The parent named the arm but did NOT fix its test statistic. Fixing a statistic after seeing the parent's result is exactly the move that must go through a sealed registration rather than a silent extension, so it is registered here, unrun, before the multi-stratum control is generated. The parent seal is NOT edited.",
+
+  "what_the_parent_established_and_what_it_did_not": {
+    "established": "The estimator is UNBIASED on continued-fraction orbits for which the prediction is a theorem. 200 generic-real replicates through the identical pipeline with the six |t|=13 matrices held VERBATIM give z(g=13) mean -0.020, sd 0.985 -- N(0,1) to within its own sem of 0.070. Instrument gate passed: n_events median 482 vs the cubic's 492, CF length median 1163, g-divisor set exactly {1,13,169} in every replicate.",
+    "also_established_and_STRONGER_than_the_parent_credited": "The parent listed 'the specific matrices M being unusual' among confounds NOT excluded. That was over-cautious: the control holds M verbatim and flips only the number, so it DOES exclude the matrix confound. Recorded rather than silently upgraded -- the seal is not edited, the finding notes the arm outperformed its own stated scope.",
+    "NOT_established": [
+      "That the effect survives the look-elsewhere correction over 9 branches. THIS is what the addendum tests.",
+      "Any mechanism. Nothing here says why the prediction fails on cubics.",
+      "That the effect is a property of cubics in general rather than of these 20 particular cubic fields."
+    ]
+  },
+
+  "the_statistic_fixed_before_the_run": {
+    "T": "max over all 9 (stratum, g) branches of |z_iid|, with z computed by the same function on the same 3 strata (|t|=2 with 8 objects, |t|=5 with 8, |t|=13 with 6 -- the true counts, not the `per` cap).",
+    "why_max_abs_z": "It is the statistic that was actually used to select the reported finding. R-156 quoted the most extreme cell; the honest null is therefore the distribution of the most extreme cell. Using an empirical max-|z| null makes the trials factor EXACT rather than a Bonferroni approximation, and it correctly handles the fact that branches within a stratum are not independent (they sum to 1).",
+    "observed_value": 3.5871,
+    "observed_location": "|t|=5, g=25",
+    "note_on_which_cell_wins": "The most extreme of the 9 is NOT the cell R-156 and R-158 built their argument on. Their cell is |t|=13, g=13 at z=+3.2954. The |t|=5, g=25 cell at z=-3.5871 is larger in magnitude and points the OTHER WAY (depletion). Both are reported.",
+    "N_REP": 200,
+    "rng_seed": 20260729
+  },
+
+  "outcomes_declared_before_the_run": {
+    "LE_A_SURVIVES": {
+      "fires_if": "P(T_control >= 3.5871) <= 0.05",
+      "means": "The anomaly survives the look-elsewhere correction. The premise is established globally, not just at a hand-picked cell, and the third localisation is warranted.",
+      "reporting": "Report the exact empirical p and the trials factor together. Never quote a per-cell z bare again in this thread."
+    },
+    "LE_B_DOES_NOT_SURVIVE": {
+      "fires_if": "P(T_control >= 3.5871) > 0.05",
+      "means": "The +3.30 / -3.59 cells are consistent with the most extreme of 9 correlated branches under the null. R-156's and R-158's headline numbers are then SELECTION ARTIFACTS -- the estimator is unbiased (parent seal) but the reported significance was inflated by unstated multiplicity. Both register entries require correction.",
+      "reporting": "EQUAL PROMINENCE. This retracts the strength of two of my own banked entries and must be stated as plainly as LE_A would be. The parent seal's outcome-B verdict would then stand as 'the estimator is clean' ONLY, with no surviving anomaly attached to it."
+    },
+    "LE_C_INSTRUMENT_FAILURE": {
+      "fires_if": "any stratum's control divisor set does not match the cubic's, OR median n_events in any stratum differs from the cubic's by >25%, OR <95% of replicates yield all 9 branches",
+      "means": "VOID. Do not interpret LE_A or LE_B.",
+      "reporting": "Report as void; do not salvage."
+    }
+  },
+
+  "effect_size_calibration_carried_forward": {
+    "from_the_parent_injection_arm": "delta = 0.00 -> mean z -0.04; 0.02 -> +1.22; 0.05 -> +3.51; 0.10 -> +6.49; 0.20 -> +13.30.",
+    "reading": "The observed +3.30 corresponds to an injected residue->future dependence of delta ~ 0.047 -- i.e. the cubic anomaly is the size of about 4.7% of g=13-residue indices having their next partial quotient pushed into the event range. This converts a z into an interpretable effect size and is the number any mechanism must reproduce.",
+    "power_demonstrated": "The test is silent at delta=0 (mean -0.04) and fires at +3.5 by delta=0.05, so it has demonstrated power against the SPECIFIC mechanism R-158 hypothesises. An absence-claim from this instrument is therefore meaningful; that is what the powered-falsifier rule requires and it is satisfied here by construction, not by assertion."
+  },
+
+  "invalidation": [
+    "Not editable after the first multi-stratum replicate is generated.",
+    "If the |t|=2 or |t|=5 control strata fail the instrument gate, the max-|z| statistic is not comparable and the whole addendum is void -- a partial max over surviving strata is NOT a substitute and must not be reported as one."
+  ]
+}
