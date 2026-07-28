@@ -3018,3 +3018,54 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
 - **Ratchet 15 → 0, recorded separately from the 2026-07-27 reset** so the two causes stay
   distinguishable: that one was a **model** change with no code change; this one is **mostly code**.
 - **Status:** CLOSED. Backlog empty for the first time.
+
+### R-170 — ★★★ the |t|=5 "under-dispersion" RESOLVED: it is GENUINE, and the diagnostic inverted the ranking
+- **The open item.** R-158 discarded the |t|=5 rows because their block bootstrap returns
+  **n_eff/n > 1** (se_block < se_iid), read as *"overlapping blocks under-dispersing"* — a defect.
+  The review agent tested orbit duplication as the rival cause and found it only partly holds
+  (|t|=13 0.94→0.79, |t|=29 0.77→0.66, but |t|=5 **stays at 1.47** and |t|=2 **rises**), then
+  correctly refused to turn "not refuted" into a verdict.
+- **THE DIAGNOSTIC WAS NEVER CALIBRATED.** Its null was assumed to be 1.0. Measured, on the real
+  data through **r077d.py's own resampler**, with a **jointly-permuted** control — same (G,Y,L)
+  triples, serial order destroyed, so **the truth is 1.000 by construction**, 60 shuffles each:
+
+  | stratum | real | shuffled null (truth 1.000) | real vs its OWN null |
+  |---|---|---|---|
+  | \|t\|=2 | 1.194 | 1.163 ± 0.133 | **+0.24 sd — nothing** |
+  | **\|t\|=5** | **1.525** | **0.904 ± 0.142** | **+4.39 sd — GENUINE** |
+  | \|t\|=13 | 1.002 | 0.711 ± 0.110 | +2.65 sd — genuine |
+  | \|t\|=17 | 0.877 | 0.722 ± 0.087 | +1.77 sd — marginal |
+  | \|t\|=29 | 0.723 | 0.512 ± 0.087 | +2.43 sd — genuine |
+
+  **The null ranges from 0.51 to 1.16 and is stratum-dependent, so comparing the raw value to a
+  nominal 1.0 is invalid in both directions.**
+- **AND THE READING WAS EXACTLY INVERTED.** R-158 kept |t|=13 (raw 1.002 ≈ 1, *"the bar correctly
+  widened"*) and discarded |t|=5 (raw 1.525 > 1, *"under-dispersing"*). Calibrated, **|t|=5 carries
+  the STRONGEST genuine serial structure of all five strata (+4.39 sd) and |t|=2 carries none.**
+  The row that was thrown out is the one the diagnostic most supports.
+- **Third distinct error on the same discarded row**, now: R-162 (a diagnostic that impeached
+  `z_block` applied to drop `z_iid`), R-165 (that row is also the **most duplicated**, 4×), and now
+  R-170 (the diagnostic's null was never measured). *Three independent mistakes converging on one
+  row is not bad luck — it is what happens when a row is discarded before it is understood.*
+- **⚠ THIS DOES NOT REVIVE THE SUBSTANTIVE CLAIM, and must not be read as doing so.** R-166 killed
+  the enrichment **out of sample** on deduped orbits at 5× depth (remainder +0.00133 ± 0.00394,
+  H1 rejected at 7.6 sem). A methodological rehabilitation of one variance diagnostic changes
+  nothing about an effect that does not exist beyond its own window. R-077 stays **VOID**.
+- **⚠ MECHANISM OF THE INSTRUMENT'S BIAS: UNIDENTIFIED, and three candidates are ELIMINATED.**
+  (i) **Block length** — synthetic i.i.d. sweep shows the estimator is clean at n/B ≥ 25 (0.90–1.23)
+  and excellent at n/B ≥ 50; every stratum sits at **n/B = 44…159**, so block length is not it.
+  (ii) **Event-conditioning** — synthetic i.i.d. with a rare-event subset inside each replicate
+  returns 1.01–1.09, not 0.71. (iii) **Small success counts** — swept 17→101 expected successes,
+  synthetic stays in **[0.92, 1.18]**. Something in the real data's structure survives joint
+  shuffling and biases the diagnostic; I have not found it, and I am not going to name a mechanism
+  I could not reproduce.
+- **The reusable rule, which is the part that outlives this row:** *a variance diagnostic must be
+  compared to its own measured null, not to its nominal value.* A shuffled surrogate costs one line
+  and would have prevented all of this. Cf. [[synthetic_validate_fitters]] — the fitters got their
+  rails checked; the variance estimator never did.
+- **My own first pass had a defect, recorded rather than quietly fixed:** it CONCATENATED orbits
+  before computing the autocorrelation, which manufactures **positive** long-range correlation from
+  a difference in means. The Bartlett ratios in `r077_blockboot_diagnosis.py` are contaminated and
+  are superseded by the calibration run.
+- **Status:** CLOSED. Code `arsrh/cubic/r077_blockboot_calibration.py`; the superseded first pass is
+  retained as `r077_blockboot_diagnosis.py` with its defect documented in place.
