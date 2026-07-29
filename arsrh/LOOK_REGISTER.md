@@ -3225,3 +3225,41 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
 - **Written to `coordinates/kuramoto.repaired.jsonl`** carrying both axes plus the banked value per
   cell; the original jsonl and parquet are untouched.
 - **Status:** CLOSED for kuramoto. pvc-11 (1,159), allen-np (544) and Tier B (19,619 brody) remain.
+
+### R-176 — pvc-11 and allen-np RECOMPUTED. 449 cells reported the OPPOSITE CLASS.
+- **Reproduction passed on all three substrates before any repaired number was read:**
+  kuramoto **6,298/6,298**, pvc-11 **1,159/1,159**, allen-np **544/544** — **zero mismatches**,
+  and allen-np's 544 is exactly the coordinate store's allen-np count.
+
+  | substrate | recs | at 0.0 rail | changed | clustered | **SIGN-INVERTED** | dep median | signed median | signed min |
+  |---|---|---|---|---|---|---|---|---|
+  | kuramoto | 6,298 | 20 | 5,146 | 78 | **58** | **+0.8500** | +0.6584 | −4.4842 |
+  | pvc-11 | 1,159 | **918 (79.2%)** | **1,159 (100%)** | **1,157** | **239** | **0.0000** | −0.7015 | −5.5694 |
+  | allen-np | 544 | **385 (70.8%)** | **544 (100%)** | **537** | **152** | **0.0000** | −0.7240 | −2.6722 |
+  | **total** | **8,001** | | **6,849 (85.6%)** | **1,772 (22.1%)** | **449 (5.6%)** | | | |
+
+- **★ THE HEADLINE: 449 cells were reported as REPULSIVE while genuinely CLUSTERING.** Not a lost
+  magnitude — **the opposite class**, on the axis whose whole job is to tell those apart. The clip
+  integrates only the positive excursions of (1−R₂), so a net-clustering process with any repulsive
+  range comes out positive.
+- **pvc-11 is total.** Median exactly **0.0000**, mean **+0.0049**, against a true median of
+  **−0.7015** — **not one of its 1,159 values was correct**, and 1,157 of 1,159 units are clustered.
+  The block the notice already flagged as worst was worse than flagged.
+- **The two rails are substrate-specific, which is why one summary statistic never characterised
+  this store.** kuramoto is dominated by the **UPPER** rail (56.2% at 0.85, median +0.85);
+  pvc-11 and allen-np by the **LOWER** rail (79.2% / 70.8% at 0.0, median 0.0). *Same clip, opposite
+  failure modes, opposite directions of bias.*
+- **`clipped ≥ signed` holds on all 8,001 cells**, as the algebra requires — the one invariant that
+  survives, and the reason the deployed value is usable as an **upper bound** and nothing else.
+- **⚠ A miscount of my own, caught in the summary table.** My first combined roll-up read kuramoto
+  as *0 clustered, 0 inverted* — because the kuramoto report JSON predates the
+  `n_clustered_signed`/`n_sign_inverted` keys and my `.get(..., 0)` silently returned zero. **A
+  missing field defaulted to a number that reads as a finding.** Recomputed from the record files;
+  truth is 78 and 58. *Never `.get(key, 0)` on a schema that changed between runs — the default is
+  indistinguishable from a measurement.*
+- **Coverage:** 8,001 of the store's 8,106 `ARS.rep_med` values. The remainder are the small
+  arithmetic substrates (~100) and 8 non-file-backed. **Tier B — 19,619 `I.8_brody_q` values —
+  remains**, and now has a concrete reason: the Brody axis has the same two-ended rail structure
+  this just made quantitative for `rep_med`.
+- **Status:** CLOSED for all three. Files `coordinates/{kuramoto,pvc-11,allen-np}.repaired.jsonl`,
+  each carrying both axes plus the banked value per cell; originals untouched.

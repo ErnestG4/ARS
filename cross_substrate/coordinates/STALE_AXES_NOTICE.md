@@ -30,8 +30,20 @@ Recomputed on kuramoto (6,298 cells, deployed values reproduced 6,298/6,298 firs
   −0.6880; worst +0.1065 where the truth is −2.4622). **The opposite class, not just a lost
   magnitude.**
 
-So "16.6% exactly 0" below is a floor on the corruption, not a measure of it. Repaired values for
-kuramoto: `coordinates/kuramoto.repaired.jsonl` (`ARS.rep_med_signed`).
+So "16.6% exactly 0" below is a floor on the corruption, not a measure of it. **RECOMPUTE COMPLETE 2026-07-28 for the three file-backed substrates (R-176)** — 8,001 of the
+store's 8,106 `ARS.rep_med` values, every one reproduced against its banked deployed value first
+(6,298/6,298 + 1,159/1,159 + 544/544, **zero mismatches**):
+
+| substrate | recs | at 0.0 | changed | clustered | **sign-inverted** | dep median | signed median |
+|---|---|---|---|---|---|---|---|
+| kuramoto | 6,298 | 20 | 5,146 | 78 | 58 | **+0.8500** | +0.6584 |
+| pvc-11 | 1,159 | 918 | **1,159 (100%)** | 1,157 | **239** | **0.0000** | −0.7015 |
+| allen-np | 544 | 385 | **544 (100%)** | 537 | **152** | **0.0000** | −0.7240 |
+
+**449 cells were reported REPULSIVE while genuinely CLUSTERING — the opposite class, not a lost
+magnitude.** `clipped ≥ signed` holds on all 8,001, so a banked value is usable as an **upper
+bound** and nothing else. Repaired values: `coordinates/{kuramoto,pvc-11,allen-np}.repaired.jsonl`
+(`ARS.rep_med_signed`).
 
 ## `ARS.rep_med` — computed with the `np.maximum(0, ·)` clip
 **8,106 values; 16.6% exactly 0.** For pvc-11 specifically: **median 0.0000, 79.2% exact zeros.**

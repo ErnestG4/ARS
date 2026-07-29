@@ -1,0 +1,23 @@
+{
+  "substrate": "pvc-11",
+  "records": 1159,
+  "reproduction_match": 1159,
+  "reproduction_mismatch": 0,
+  "worker_errors": 0,
+  "trustworthy": true,
+  "n_finite_pair": 1159,
+  "n_deployed_lower_rail_zero": 918,
+  "n_changed": 1159,
+  "n_clustered_signed": 1157,
+  "n_sign_inverted": 239,
+  "deployed": {
+    "mean": 0.0048993147721126005,
+    "median": 0.0,
+    "min": 0.0
+  },
+  "signed": {
+    "mean": -0.841030732018676,
+    "median": -0.7014686096212069,
+    "min": -5.569363937454678
+  }
+}

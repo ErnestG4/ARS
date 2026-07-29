@@ -1,0 +1,23 @@
+{
+  "substrate": "allen-np",
+  "sessions": 12,
+  "records": 719,
+  "reproduction_match": 544,
+  "reproduction_mismatch": 0,
+  "trustworthy": true,
+  "n_finite_pair": 544,
+  "n_deployed_lower_rail_zero": 385,
+  "n_changed": 544,
+  "n_clustered_signed": 537,
+  "n_sign_inverted": 152,
+  "deployed": {
+    "mean": 0.03314431375184278,
+    "median": 0.0,
+    "min": 0.0
+  },
+  "signed": {
+    "mean": -0.7699588350743067,
+    "median": -0.7240499222753236,
+    "min": -2.6722005960235746
+  }
+}
