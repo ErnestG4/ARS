@@ -3380,3 +3380,34 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
 - **What this costs:** of four locked findings, two are confirmed clean (H1, DSI), one is now
   downgraded (F1/F0), one is exposed and untested (H2).
 - **Status:** OPEN — Allen-arm recompute is the deciding measurement.
+
+### R-183 — ★★★ H2's rail bias runs the OTHER WAY: conservative, so H2 does NOT downgrade
+- **R-180 established H2 is exposed** (its survival criterion is computed on the clipped
+  `rep_int_per_q`). Exposure alone says nothing about **direction**, so I measured it.
+- **`survives_rep` is exactly `real_rep_int > surr_rep_int_p95`** — verified, 1.000 agreement over
+  1,260 rows. So survival requires the real band to be MORE repulsive than the surrogate 95th pct.
+- **The measurement:**
+
+  | | n | survives |
+  |---|---|---|
+  | q-bands where the real value is **railed at 0.0** | 240 (**19.0%**) | **0.0%** |
+  | q-bands **not** railed | 1,020 | 57.7% |
+
+- **Every railed band is an automatic failure.** A band whose true signed value is negative
+  (clustered) gets clipped to exactly 0.0, which cannot exceed a positive p95 — so it fails by
+  construction. **The clip can only make H2 harder to pass.**
+- **⚠ SO H2 DOES NOT COME OFF THE LOCKED LIST.** A finding that survives a test biased **against**
+  it is not undermined by that bias. If anything the repaired axis should make H2 *stronger*.
+  Exposure: REAL. Direction: CONSERVATIVE. Downgrade: NOT WARRANTED on present evidence.
+- **★ THE LESSON, AND IT IS THE GENERAL ONE.** The **same rail**, on the **same field**, biased
+  **F1/F0 toward its claim** (79–82% railed cells carried a correlation that evaporates when
+  repaired: +0.2983 → +0.1088, ns) and **H2 against its claim** (railed bands auto-fail).
+  > **Exposure is not a verdict. The direction of a rail-induced bias is FINDING-SPECIFIC and must
+  > be measured, never assumed** — reading "exposed" as "probably inflated" would have downgraded
+  > H2 wrongly, and reading it as "probably fine" would have kept F1/F0 wrongly.
+- **Also measured, and milder than F1/F0 by a lot:** in the population classifications only **20.0%**
+  of real q-values sit on the lower rail (vs 79–82% of pvc-11 cells), the median is **+0.50**, and
+  317 distinct values remain — the field is not collapsed the way pvc-11's is.
+- **What a definitive test needs:** the Pass-E surrogate battery re-run on `rep_int_signed_q`. Not
+  done; the present result bounds the risk rather than removing it.
+- **Status:** OPEN-BOUNDED. H2 stays locked, flagged, with the bias direction established.
