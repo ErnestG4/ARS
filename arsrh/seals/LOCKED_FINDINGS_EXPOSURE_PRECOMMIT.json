@@ -1,0 +1,42 @@
+{
+  "seal": "LOCKED_FINDINGS_EXPOSURE_PRECOMMIT",
+  "written": "2026-07-28, overnight window",
+  "status": "WRITTEN BEFORE READING the four locked-finding sections of EPISTEMIC_STATE.md",
+
+  "the_question": "EPISTEMIC_STATE.md lists FOUR findings under 'Locked findings with multiple disciplines verified'. This session established that two of the axes those findings may rest on are not measurements: `ARS.rep_med` was clipped (8,001 values recomputed, 449 with the SIGN INVERTED, R-176) and `I.8_brody_q` is ~100% rail on the neural substrates (R-178). The question is which locked findings are EXPOSED to a railed axis, which are CLEAN, and which cannot be decided without a recompute.",
+
+  "why_this_and_not_more_tier_B": "Tier B is a larger job but it produces more coordinates, not more confidence in any CLAIM. The four locked findings are the project's entire externally-defensible output apart from clustering-perp-coupling. Converting 'probably fine' into a measured inventory is worth more than another 4,000 recomputed cells, and it is bounded.",
+
+  "MY_PRIORS_STATED_BEFORE_READING": {
+    "H1_orientation_selectivity_vs_level_repulsion": "EXPECT CLEAN. I believe it rests mainly on `ks_gue_med`, and the rail audit measured `I.5_ks_gue` at 0.05% pileup — the cleanest class of axis in the store.",
+    "F1_F0_vs_rep_med": "EXPECT EXPOSED, and this is the one I expect to lose. Its name contains the axis. `rep_med` is the clipped field; 79.2% of pvc-11's values sat on the lower rail and 100% changed under repair.",
+    "H2_population_event_structure": "UNKNOWN — I have not read it and will not guess. Recorded as unknown so a later match cannot be claimed as a successful prediction.",
+    "DSI_vs_ks_gue_med": "EXPECT CLEAN, same reasoning as H1.",
+    "calibration_note": "If all four come out as I expect, that is weak evidence — I chose these priors from axis NAMES. The informative outcomes are the ones that surprise me."
+  },
+
+  "classification_rule_fixed_in_advance": {
+    "CLEAN": "every load-bearing axis has pooled pileup < 5% in the rail audit AND is not `rep_med`/`brody_q` on a substrate where those are railed.",
+    "EXPOSED": "at least one load-bearing axis is a measured rail on the substrate the finding is computed on. The finding is NOT thereby false — it is UNSUPPORTED BY ITS OWN STATED EVIDENCE until recomputed.",
+    "INDETERMINATE": "the finding's load-bearing axis cannot be determined from the document. Report as indeterminate; do NOT default it to clean.",
+    "note": "A rail does not make a claim false. It makes the claim's evidence not-yet-evidence. This distinction must survive into the write-up: the honest verdict for an exposed finding is 'unsupported pending recompute', never 'refuted'."
+  },
+
+  "outcomes_declared_before_the_run": {
+    "A_MOSTLY_CLEAN": "3 or 4 of 4 CLEAN. The project's defensible output is larger than one finding; report which and say plainly that the rail audit CONFIRMED rather than damaged them.",
+    "B_MIXED": "1-2 EXPOSED. Report the exposed ones as unsupported-pending-recompute, and scope the recompute for each.",
+    "C_MOSTLY_EXPOSED": "3 or 4 EXPOSED. Then the honest statement to the user is that the externally-defensible output is ~one finding (clustering-perp-coupling) and the locked list needs rebuilding. REPORT AT EQUAL PROMINENCE — this is the outcome I would least like to write and therefore the one most at risk of being softened.",
+    "D_INDETERMINATE_DOMINATES": "2+ INDETERMINATE. Then the finding documents do not state their own load-bearing axes clearly enough to audit, which is itself a reportable defect in how findings are recorded."
+  },
+
+  "what_this_audit_CANNOT_do": [
+    "It cannot re-verify a finding. It can only determine EXPOSURE from the documents plus the measured rail table.",
+    "It cannot tell whether an exposed finding would survive recompute — the sign inversions ran BOTH ways (449 cells read repulsive while clustering), so an exposed finding could strengthen, weaken, or reverse.",
+    "It does not touch the p-adic / RF-engine findings, which have a different axis family and a separate exposure question."
+  ],
+
+  "invalidation": [
+    "Not editable after the first locked-finding section is read.",
+    "If a finding's load-bearing axis is ambiguous, it is INDETERMINATE. Choosing the reading that makes it clean is the failure mode this seal exists to prevent."
+  ]
+}
