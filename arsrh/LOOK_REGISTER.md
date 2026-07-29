@@ -3203,3 +3203,25 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   ~4 min/cell, **~4.5 h**. **A thin slice of the sampling frame, again.** Time the median, never
   the first element.
 - **Status:** OPEN — kuramoto running, the rest scoped and unstarted.
+
+### R-175 — kuramoto RECOMPUTE COMPLETE: the clip reported 58 clustered cells as REPULSIVE
+- **Reproduction check passed first: 6,298 / 6,298 deployed values match the banked parquet, 0
+  mismatches.** The simulation, seeds, unfolding and q-banding were all re-entered correctly, which
+  is the only thing that licenses trusting the repaired numbers beside them. 4.0 h, 63 cells.
+- **THE UPPER RAIL, now quantified.** 3,538 cells (**56.2%**) read exactly **0.85**. Their true
+  signed values span **+0.403 … +0.850** — a **0.447-wide range collapsed onto a single number.**
+  None of them are clustered, so this rail destroys *how repulsive*, not the sign.
+- **★ AND THE SIGN INVERSION, which is worse than anything R-093/R-094 documented.** 78 cells are
+  genuinely clustered (signed < 0). The deployed axis read **exactly 0.0 for only 20** of them — and
+  **strictly POSITIVE for the other 58**, i.e. it reported *repulsion* for oscillators that are
+  *clustering*. Their deployed median is **+0.2048** against a true signed median of **−0.6880**;
+  the worst single cell reads **+0.1065 where the truth is −2.4622**, and one reads the **+0.85 rail**
+  while being clustered.
+  > The clip integrates only the POSITIVE excursions of (1−R₂), so a net-clustering process with any
+  > repulsive range reports as repulsive. **Not magnitude loss — the opposite class.**
+- **Aggregate:** 5,146 / 6,298 cells changed (**81.7%**). Deployed mean **+0.8223** vs signed
+  **+0.6601** — the clip inflates by **+0.1622 (24.6%)**. Deployed min **0.0000**, signed min
+  **−4.4842**. `clipped ≥ signed` on **every** cell, as the algebra requires.
+- **Written to `coordinates/kuramoto.repaired.jsonl`** carrying both axes plus the banked value per
+  cell; the original jsonl and parquet are untouched.
+- **Status:** CLOSED for kuramoto. pvc-11 (1,159), allen-np (544) and Tier B (19,619 brody) remain.

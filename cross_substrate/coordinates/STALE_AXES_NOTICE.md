@@ -18,6 +18,21 @@ substrate was independently established as clustered:
 *upper* bound on saturation, not a count of it. The neural row is confirmed saturation; the other
 row is not. Repaired fitter: `cross_substrate.axes.I8_brody_q_unbounded`.
 
+## ⚠ CORRECTED 2026-07-28 (R-173/R-175) — THIS NOTICE UNDERCOUNTED THE DAMAGE
+
+This notice counted only the clip's **lower** rail (`exactly 0`). The clip **also rails HIGH**: when
+R₂ ≡ 0 the integrand is 1.0 across the mask and the integral returns the **mask width, 0.85**.
+Recomputed on kuramoto (6,298 cells, deployed values reproduced 6,298/6,298 first):
+
+- **56.2% sit on the UPPER rail at exactly 0.85**, collapsing a true range of **+0.403 … +0.850**.
+- **81.7% of cells change** under the repair; the clip inflates the mean by **24.6%**.
+- **58 genuinely clustered cells were reported as REPULSIVE** (deployed median +0.2048 vs signed
+  −0.6880; worst +0.1065 where the truth is −2.4622). **The opposite class, not just a lost
+  magnitude.**
+
+So "16.6% exactly 0" below is a floor on the corruption, not a measure of it. Repaired values for
+kuramoto: `coordinates/kuramoto.repaired.jsonl` (`ARS.rep_med_signed`).
+
 ## `ARS.rep_med` — computed with the `np.maximum(0, ·)` clip
 **8,106 values; 16.6% exactly 0.** For pvc-11 specifically: **median 0.0000, 79.2% exact zeros.**
 Repaired field: `pair_correlation_full(...)["repulsion_integral_signed"]`.

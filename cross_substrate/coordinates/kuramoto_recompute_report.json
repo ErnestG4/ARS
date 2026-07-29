@@ -1,0 +1,21 @@
+{
+  "substrate": "kuramoto",
+  "cells": 63,
+  "records": 6298,
+  "reproduction_match": 6298,
+  "reproduction_mismatch": 0,
+  "trustworthy": true,
+  "n_finite_pair": 6298,
+  "n_deployed_saturated_zero": 20,
+  "n_changed": 5146,
+  "deployed": {
+    "mean": 0.8223248228681252,
+    "median": 0.85,
+    "min": 0.0
+  },
+  "signed": {
+    "mean": 0.6600980221592009,
+    "median": 0.6583583437769203,
+    "min": -4.484186385190567
+  }
+}
