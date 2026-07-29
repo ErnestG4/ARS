@@ -3443,3 +3443,28 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
      overstated whatever the axis does.
 - **Status:** F1/F0 **RESTORED to the locked list, with its evidential structure restated.** Both
   arms are now on the repaired instrument; the deciding measurement is done.
+
+### R-185 — TIER B PATH PROVEN: qpo recomputed, 91% of its Brody values were rail
+- **First Tier B substrate through the registry repair (R-179), end to end, 105 min, 180 cells.**
+- **Reproduction gate: 180/180 bounded values BIT-IDENTICAL to the baseline file.** Adding
+  `I.8_brody_q_unbounded` to `FAMILY_I` disturbed nothing — which is the whole point of adding a key
+  rather than changing one.
+- **The result:**
+
+  | | median | range | railed |
+  |---|---|---|---|
+  | `I.8_brody_q` (deployed) | **+0.0001** | — | **164/180 = 91.1%** below 1e−3 |
+  | `I.8_brody_q_unbounded` | **−0.4108** | −0.7249 … +0.1874 | — |
+
+  **100% of cells differ.** The 164 railed cells are freed and land substantially **negative**:
+  these quasiperiodic operator spectra are **clustered** relative to the Brody model — a region the
+  bounded fitter could not represent at all, so it reported them as Poisson-adjacent.
+- **This is the R-178 prediction confirmed on real data.** The rail audit measured qpo-gaah and
+  qpo-ext_harper at **100%** pooled saturation and said those coordinates were *entirely rail, not
+  degraded*. They were: the deployed median is +0.0001 and the true median is −0.41.
+- **Note the sign of the correction is the opposite of the neural substrates' Brody rail.** Here the
+  freed values are negative (clustering); the concern for GOE/GUE substrates is the *upper* rail.
+  Two-ended saturation, and which end bites is substrate-specific — same lesson as R-183.
+- **Status:** CLOSED for qpo. The remaining Tier B ports (allen-hpf-cell 4,326; buzsaki-port-cell
+  4,006; ibl-port-cell 1,556; dr-port-cell 1,365; ret1-cell 325; brocot.fm 4,006) are unchanged in
+  method — five of them need **no code edit at all**, only a run against their caches.
