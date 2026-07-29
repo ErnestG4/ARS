@@ -137,6 +137,23 @@ gradient", not "↔ a level-repulsion *class*".
 
 ### F1/F0 ↔ rep_med substrate-systematic sign-flip
 
+> **⚠ DOWNGRADED 2026-07-28 — REMOVE FROM THE LOCKED LIST PENDING RECOMPUTE (R-181/R-182).**
+> Two separate defects, both measured:
+> 1. **The quoted +0.388 is unattributed and not reproducible.** It lives as a hardcoded
+>    constant in `phase24/run_meta_analysis.py:127` (`PVC11_REF`); nothing computes it. The
+>    repo's own artifact (`data/phase27_results/analysis1_verdict.json`) stores
+>    **+0.29834625**, reproduced independently to five decimals at n=210. **~30% overstated.**
+> 2. **The pvc-11 arm does not survive the instrument repair.** `rep_med` is the CLIPPED
+>    repulsion integral and **82.4% of the 210 cells sit exactly on its rail**. On the repaired
+>    signed axis the partial correlation falls **+0.2983 → +0.1088 (p = 0.116, not
+>    significant)**; per recording monkey1 **+0.3252 → −0.0611 (sign flips)**, monkey2
+>    +0.1971 → +0.2135, monkey3 +0.2955 → +0.1457.
+>
+> **The verdict is UNSUPPORTED, not REFUTED.** The claim is a sign flip *between substrates*;
+> the Allen arm rests on a dataset whose `rep_med` has not been recomputed, so one arm
+> collapsing removes the evidence, not the possibility. Allen recompute is the deciding
+> measurement. Sealed: `F1F0_REPAIRED_AXIS_PRECOMMIT` + `F1F0_REFERENCE_REREGISTRATION`.
+
 The finding is that the modulation index F1/F0 (a per-unit simple-vs-
 complex-cell marker) correlates with `rep_med` (repulsion integral
 median) in **opposite directions** across the two substrates: pvc-11
@@ -170,6 +187,12 @@ Neuropixels target different cortical layers), or by state/anesthesia
 effects on cortical dynamics that interact with the modulation index?
 
 ### H2 surviving population-event structure
+
+> **⚠ INSTRUMENT-EXPOSED 2026-07-28 (R-180).** H2's surrogate-survival criterion is computed on
+> **`rep_int_per_q`** (`phase22b/pass_e_tighten_seeds.py:111`, reported as `n_q_rep_survives`) —
+> the CLIPPED repulsion field, which on pvc-11 sits on its lower rail for ~79% of cells. This
+> section does not name its own load-bearing statistic; it was resolved from code. **Exposure
+> is established; the effect on the verdict is UNTESTED.** Not downgraded — flagged.
 
 The finding is that on specific pvc-11 recordings, population-event NNS
 structure on (q=30) Farey-band passages survives the required

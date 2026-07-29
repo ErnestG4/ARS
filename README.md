@@ -495,7 +495,10 @@ detailed per-finding map is in `EPISTEMIC_STATE.md`.
   sessions (all positive sign).  *Disciplines: full-sequence
   surrogate, within-recording, within-SNR-tertile, cross-substrate,
   rate-stratified within-cell.*
-- **F1/F0 ↔ rep_med substrate-systematic sign-flip.**  pvc-11 +0.388
+- **F1/F0 ↔ rep_med substrate-systematic sign-flip.**  ⚠ **DOWNGRADED 2026-07-28 (R-181/R-182):**
+  the quoted +0.388 is an unattributed constant (reproducible value **+0.2983**), and on the
+  repaired signed axis the pvc-11 arm falls to **+0.1088, p=0.116 (not significant)** with 82.4%
+  of cells on the clip's rail. UNSUPPORTED pending the Allen-arm recompute.  ~~pvc-11 +0.388~~
   vs Allen meta-fixed −0.183 (12/12 sessions negative, all 4 Cre
   lines).  Hietanen 2013 spike-count-bias deflation ruled out.
   *Disciplines: full-sequence surrogate, rate-matched (3 methods),
