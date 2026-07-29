@@ -56,7 +56,11 @@ def _fp(opname, lam, theta, n):
             dboxes.append(db)
     pooled = np.concatenate(perphi_s)
     return {"IV.2_spectral_box_dim": _f(float(np.mean(dboxes))) if dboxes else None,
-            "I.8_brody_q": _f(FAMILY_I["I.8_brody_q"](pooled))}
+            "I.8_brody_q": _f(FAMILY_I["I.8_brody_q"](pooled)),
+            # R-179: this port names axes explicitly instead of iterating FAMILY_I, so the
+            # registry repair does NOT reach it for free. Added by hand; the bounded value is
+            # retained so the two are comparable on the same pooled spacings.
+            "I.8_brody_q_unbounded": _f(FAMILY_I["I.8_brody_q_unbounded"](pooled))}
 
 
 def _task(arg):

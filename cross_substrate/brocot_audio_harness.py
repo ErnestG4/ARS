@@ -87,7 +87,10 @@ def _fp(freqs):
     s = canonical_spacings(f)
     return {k: (float(FAMILY_I[k](s)) if FAMILY_I[k](s) is not None
                 and np.isfinite(FAMILY_I[k](s)) else None)
-            for k in ("I.5_ks_gue", "I.1_w1_clock", "I.8_brody_q")}
+            # R-179: explicit key list, so the FAMILY_I registry repair does not reach it for
+            # free. `I.8_brody_q_unbounded` added alongside the bounded one.
+            for k in ("I.5_ks_gue", "I.1_w1_clock", "I.8_brody_q",
+                      "I.8_brody_q_unbounded")}
 
 
 def _match(pred_f, ext_f, tol_hz=3.0):

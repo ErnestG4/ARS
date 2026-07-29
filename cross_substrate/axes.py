@@ -285,6 +285,19 @@ FAMILY_I = {
     "I.3_w1_goe": I3_w1_goe, "I.4_w1_poisson": I4_w1_poisson,
     "I.5_ks_gue": I5_ks_gue, "I.6_ks_clock": I6_ks_clock,
     "I.7_ks_poisson": I7_ks_poisson, "I.8_brody_q": I8_brody_q,
+    # REPAIR AT THE REGISTRY, 2026-07-28 (R-179). Every port script builds its fingerprint by
+    # iterating FAMILY_I -- allen_hpf, buzsaki_port, ibl_port, ret1_port, dual_region_port,
+    # quasiperiodic_deepening, brocot_audio_harness. Adding the unbounded fitter HERE means each
+    # of them emits it on its next run with NO per-substrate edit; adding it to seven call sites
+    # instead would be the propagation failure this repo is named for.
+    #
+    # WHY IT MATTERS, measured by the rail audit (R-178): `I.8_brody_q` is not merely degraded on
+    # the Tier-B substrates, it is ENTIRELY RAIL -- allen-hpf-cell 100.0%, buzsaki-port-cell 99.4%,
+    # pvc-11 99.4%, dr-port-cell 98.6%. Those coordinates carry no information at all.
+    #
+    # `I.8_brody_q` is retained bit-identical and keeps its key, so no banked number moves and the
+    # two can be compared on the same spacings.
+    "I.8_brody_q_unbounded": I8_brody_q_unbounded,
     "I.9_berry_robnik_rho": I9_berry_robnik_rho,
     "I.10_cv": I10_cv, "I.11_mass03": I11_mass03,
 }
