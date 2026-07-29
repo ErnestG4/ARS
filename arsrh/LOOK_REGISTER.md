@@ -3468,3 +3468,38 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
 - **Status:** CLOSED for qpo. The remaining Tier B ports (allen-hpf-cell 4,326; buzsaki-port-cell
   4,006; ibl-port-cell 1,556; dr-port-cell 1,365; ret1-cell 325; brocot.fm 4,006) are unchanged in
   method — five of them need **no code edit at all**, only a run against their caches.
+
+### R-186 — TIER B under way: ret1 clean, brocot not a recompute, and 6 store files are UNTRACKED
+- **ret1 RECOMPUTED, reproduction EXACT.** 325 RGC fingerprints in 2.3 min via the `FAMILY_I`
+  registry repair with **no per-substrate edit** — the "free by registry" claim (R-179) confirmed on
+  a real port. Deployed median **+0.0001** with **278/325 (85.5%) railed**; repaired unbounded median
+  **−0.2644** (−0.691 … +0.798), 322/325 cells differ. Third substrate confirming R-178.
+- **★ THE REPAIRED AXIS ITSELF DOES NOT RAIL.** The rail audit now sees `I.8_brody_q_unbounded` in
+  the store and does **not** flag it, while `I.8_brody_q` still flags at 65.0%. That is the
+  specificity control passing **on real recomputed data**, not on calibrators.
+- **⚠ brocot is NOT a recompute and must not be reported as one.** Rows moved 4,292 → 4,490 and the
+  bounded axis did **not** reproduce — because the **category enumeration changed** (41 exemplars per
+  category → 64), so the new file describes a **different object set**. No reproduction gate is
+  possible against the old file. Values are a fresh computation, labelled as such.
+- **⚠⚠ AND SIX COORDINATE FILES ARE UNTRACKED — I ASSERTED OTHERWISE FROM A SAMPLE OF FIVE.**
+  Before launching the ports I checked whether the store was git-tracked, so a port opening its
+  output with `"w"` would leave a recoverable diff. **I checked five files, all tracked, and
+  concluded the store was safe.** Untracked: `allen-depth` (60,833 rows), `allen-depth-fam2`
+  (60,833), `allen-avalanche` (24), `brocot-landscape` (4,292), `goes-flares` (50,999),
+  `goes-flares-allfrm-contaminated` (220,548). **brocot was overwritten before I noticed.**
+  > **"I checked five and they were all tracked" is not "the store is tracked."** A safety property
+  > asserted from a sample is not a safety property.
+  The ignores are deliberate (large derived products; brocot's is marked regenerable), so the
+  exposure is **regeneration cost, not data loss** — for brocot. Whether `allen-depth` and the
+  `goes-flares` pair are equally regenerable is **NOT verified**. Pre-run baselines for all six are
+  preserved with SHA256SUMS at `$HOME/fmexplorer/coordinate_baselines_2026_07_29`; notice at
+  `cross_substrate/coordinates/UNTRACKED_FILES_NOTICE.md`.
+- **The rail audit fired a REGRESSION and it was a composition change, not a decay.** `I.11_mass03`
+  jumped 1.12% → 26.6% pooled. **Entirely brocot.fm** (2,809/3,854 = 72.9% exactly 0) and **0.0% on
+  every neural substrate**. brocot carried *no* mass03 values in the baseline; the re-enumeration
+  added them. Resolved **`plausibly-legitimate-ambiguous`**: mass03 = mean(s < 0.3), so for a rigid
+  spectrum exactly 0 is the **correct** reading — a floor of the measure, not a clip, the same shape
+  as "q=0 is also correct for genuine Poisson". **Not fully settled** — that is an inference from the
+  definition, and confirming it needs the brocot spectra checked for genuine rigidity. Ratchet reset
+  **deliberately and recorded**, not silently.
+- **Status:** OPEN — ibl and allen_hpf running; buzsaki and dual_region queued.
