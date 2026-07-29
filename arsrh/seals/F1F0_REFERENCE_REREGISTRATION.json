@@ -1,0 +1,33 @@
+{
+  "seal": "F1F0_REFERENCE_REREGISTRATION",
+  "amends": "F1F0_REPAIRED_AXIS_PRECOMMIT (outcome R0_JOIN_INVALID fired)",
+  "written": "2026-07-28, overnight window",
+  "type": "SEALED RE-REGISTRATION of a reference value — not an edit",
+
+  "what_happened": "The parent seal gated the repaired-axis test on reproducing the banked pvc-11 value of +0.388 to within +/-0.05. My pipeline returned +0.3178 (raw Spearman) and +0.2983 (partial, controlling mean rate). R0_JOIN_INVALID fired and the test was declared VOID as sealed. This re-registration is the diagnosis, not a waiver.",
+
+  "THE DIAGNOSIS: THE REFERENCE IS NOT REPRODUCIBLE, THE PIPELINE IS": {
+    "where_+0.388_lives": "`phase24/run_meta_analysis.py:127`, inside a hardcoded dict literally named `PVC11_REF` — a table of pvc-11 constants typed in so that Allen sessions can be compared against them. NOTHING IN THE REPO COMPUTES IT. It is a transcribed constant with no live derivation.",
+    "where_it_is_quoted": ["EPISTEMIC_STATE.md:143 (the locked-findings section)", "RESULTS_MATRIX.md:23", "README.md:498"],
+    "what_the_repo_ACTUALLY_computes": "`data/phase27_results/analysis1_verdict.json` stores `method_b_rho_pvc11_matched = 0.29834625339738835` on n=210.",
+    "my_pipeline_reproduces_THAT_to_five_decimals": "partial Spearman(f1_f0_pref, rep_med | mean_rate) on the 210 joined cells = +0.2983, and n = 210 matches exactly.",
+    "conclusion": "The join is CORRECT. The +/-0.05 gate failed against a number the repo cannot reproduce from its own data. Reproducing a stored computed artifact to 5 decimals is a far stronger validity check than +/-0.05 against a figure in prose."
+  },
+
+  "the_re_registered_reference_and_why_it_cannot_be_tuned": {
+    "reference": "data/phase27_results/analysis1_verdict.json :: method_b_rho_pvc11_matched",
+    "value": 0.29834625339738835,
+    "acceptance_rule": "the deployed-axis partial Spearman must reproduce this to 3 decimals",
+    "why_this_is_not_expectation-editing": "The reference is a STORED ARTIFACT the repo computed before this session, selected by a rule stated here ('the value the repo's own verdict JSON records for this comparison'), not by which number makes the test pass. The acceptance threshold is TIGHTER than the one it replaces (3 decimals vs +/-0.05), not looser. And it is corroborated independently: n = 210 matches the banked n exactly.",
+    "NON_BLIND_DISCLOSURE": "⚠ I had already seen the repaired-axis result (+0.0100, p = 0.886) when this was written. That is disclosed rather than hidden. The protection is that the reference and the acceptance rule are both fixed by an external artifact I did not choose the value of, and the rule is stricter than the original."
+  },
+
+  "outcome_map_CARRIED_FORWARD_UNCHANGED_from_the_parent": {
+    "note": "The R1/R2/R3 definitions are NOT modified. Only the R0 reference changes.",
+    "R1_SURVIVES": "same sign, |rho| >= 0.15, p < 0.01",
+    "R2_WEAKENED": "same sign but |rho| < 0.15 or p >= 0.01",
+    "R3_REVERSED": "opposite sign with p < 0.05"
+  },
+
+  "a_second_finding_that_falls_out_and_must_be_reported_separately": "The project's headline pvc-11 F1/F0 number, quoted in three documents including the locked-findings inventory, is +0.388 where the reproducible value is +0.2983 (partial) or +0.3178 (raw). That is a ~30% overstatement of the effect and it is UNATTRIBUTED — no artifact in the repo produces it. This is a defect independent of the clip and would stand even if the axis were clean."
+}

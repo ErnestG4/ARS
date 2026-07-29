@@ -3320,3 +3320,63 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   not against your model of it.** (ii) I predicted the audit would make the suite slow enough to get
   skipped and wanted to cache — **wrong: 22 tests in 47.7 s.** No caching needed.
 - **Status:** CLOSED as a guard; 5 unresolved rails tracked.
+
+### R-180 — LOCKED-FINDINGS EXPOSURE AUDIT: 2 of 4 rest on a railed axis
+- **Sealed before reading any of the four sections** (`LOCKED_FINDINGS_EXPOSURE_PRECOMMIT`), with my
+  priors written down so a match could not be claimed afterwards as insight.
+
+  | locked finding | load-bearing axis | rail status | verdict |
+  |---|---|---|---|
+  | **H1** OSI ↔ ks_gue_med | `ks_gue_med` | 0.05% pileup | **CLEAN** |
+  | **DSI** ↔ ks_gue_med | `ks_gue_med` | 0.05% pileup | **CLEAN** |
+  | **F1/F0** ↔ rep_med | **`rep_med`** | **79–82% on the rail** | **EXPOSED** |
+  | **H2** population-event survival | **`rep_int_per_q`** | the same clipped field | **EXPOSED** |
+
+- **H2's exposure was NOT visible in the document** — `EPISTEMIC_STATE` describes it as
+  "population-event NNS structure ... survives the surrogate conjunction at all q-bands" and names
+  no statistic. I resolved it from **code** rather than defaulting to INDETERMINATE:
+  `phase22b/pass_e_tighten_seeds.py:111` computes survival on `real_row['rep_int_per_q']` and
+  reports `n_q_rep_survives`. **The pass criterion IS the clipped field.**
+- **Outcome B (MIXED), as sealed.** My priors were right on 3 of 4 and I recorded H2 as *unknown*
+  rather than guessing — the honest form, since I had picked the others from axis names.
+- **Status:** CLOSED as an audit. H1 and DSI are confirmed, not merely unchallenged: the rail audit
+  measured their axis and it is the cleanest class in the store.
+
+### R-181 — ★★ THE HEADLINE +0.388 IS UNATTRIBUTED AND NOT REPRODUCIBLE
+- **`phase24/run_meta_analysis.py:127` holds `('f1_f0_pref','rep_med'): +0.388` inside a hardcoded
+  dict named `PVC11_REF`** — pvc-11 constants typed in so Allen can be compared against them.
+  **Nothing in the repo computes it.**
+- **What the repo actually computes:** `data/phase27_results/analysis1_verdict.json` stores
+  `method_b_rho_pvc11_matched = 0.29834625339738835` on n=210. My independent pipeline reproduces
+  that to **five decimals** (+0.298346), with n=210 matching exactly.
+- **So the banked figure overstates the effect by ~30%**, and it is quoted in **three** documents —
+  `EPISTEMIC_STATE.md:143` (the locked-findings inventory), `RESULTS_MATRIX.md:23`, `README.md:498`.
+- **This defect is independent of the clip** and would stand even if the axis were clean. It is the
+  unattributed-constant family: a number with no live derivation, propagated by transcription.
+- **It also fired my own seal.** The R0 gate required reproducing +0.388 to ±0.05; I got +0.2983 and
+  declared the test **VOID as sealed** rather than waving it through — which is what surfaced this.
+  The reference was re-registered (`F1F0_REFERENCE_REREGISTRATION`) to the stored artifact with a
+  **tighter** rule (3 decimals, not ±0.05), and the non-blindness disclosed.
+- **Status:** OPEN — three documents need correcting.
+
+### R-182 — ★★★★ F1/F0's pvc-11 ARM DOES NOT SURVIVE THE REPAIR
+- **Sealed test, gate passed to the digit** (reference 0.298346 vs deployed 0.298346).
+
+  | axis | ρ (partial, controlling mean rate) | p |
+  |---|---|---|
+  | **deployed** (clipped) | **+0.2983** | 1.09e−05 |
+  | **repaired** (signed) | **+0.1088** | **0.116 — not significant** |
+
+- **Per recording, and the heterogeneity is the story:** monkey1 **+0.3252 → −0.0611 (sign flips)**,
+  monkey2 +0.1971 → +0.2135 (stable), monkey3 +0.2955 → +0.1457 (halved). **82.4% of the 210 cells
+  sat exactly on the rail**, so the deployed correlation was carried by the 17.6% that escaped it.
+- **⚠ THE CORRECT VERDICT IS "UNSUPPORTED", NOT "REFUTED", and the seal fixed that wording in
+  advance.** The finding is a claim about a **sign flip between substrates** (pvc-11 positive vs
+  Allen negative). The Allen arm rests on a different dataset whose `rep_med` has **not** been
+  recomputed. A one-armed collapse makes the claim unsupported by its own stated evidence; it does
+  not make it false.
+- **Sealed outcome R2_WEAKENED.** F1/F0 must come off the "locked findings with multiple disciplines
+  verified" list until the Allen arm is recomputed and the pvc-11 arm re-established.
+- **What this costs:** of four locked findings, two are confirmed clean (H1, DSI), one is now
+  downgraded (F1/F0), one is exposed and untested (H2).
+- **Status:** OPEN — Allen-arm recompute is the deciding measurement.
