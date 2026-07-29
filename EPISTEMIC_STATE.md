@@ -137,22 +137,29 @@ gradient", not "↔ a level-repulsion *class*".
 
 ### F1/F0 ↔ rep_med substrate-systematic sign-flip
 
-> **⚠ DOWNGRADED 2026-07-28 — REMOVE FROM THE LOCKED LIST PENDING RECOMPUTE (R-181/R-182).**
-> Two separate defects, both measured:
-> 1. **The quoted +0.388 is unattributed and not reproducible.** It lives as a hardcoded
->    constant in `phase24/run_meta_analysis.py:127` (`PVC11_REF`); nothing computes it. The
->    repo's own artifact (`data/phase27_results/analysis1_verdict.json`) stores
->    **+0.29834625**, reproduced independently to five decimals at n=210. **~30% overstated.**
-> 2. **The pvc-11 arm does not survive the instrument repair.** `rep_med` is the CLIPPED
->    repulsion integral and **82.4% of the 210 cells sit exactly on its rail**. On the repaired
->    signed axis the partial correlation falls **+0.2983 → +0.1088 (p = 0.116, not
->    significant)**; per recording monkey1 **+0.3252 → −0.0611 (sign flips)**, monkey2
->    +0.1971 → +0.2135, monkey3 +0.2955 → +0.1457.
+> **⚠ RE-VERIFIED ON THE REPAIRED INSTRUMENT, 2026-07-28/29 (R-181…R-184). STAYS LOCKED, with
+> its evidential structure restated.** Both arms were recomputed on the signed axis; the
+> reproduction gates passed exactly (pvc-11 210/210 to 5 dp, Allen **910/910**).
 >
-> **The verdict is UNSUPPORTED, not REFUTED.** The claim is a sign flip *between substrates*;
-> the Allen arm rests on a dataset whose `rep_med` has not been recomputed, so one arm
-> collapsing removes the evidence, not the possibility. Allen recompute is the deciding
-> measurement. Sealed: `F1F0_REPAIRED_AXIS_PRECOMMIT` + `F1F0_REFERENCE_REREGISTRATION`.
+> | | pvc-11 | Allen | Δρ | Fisher z |
+> |---|---|---|---|---|
+> | deployed (clipped) | +0.2983 (n=210) | −0.2016 (11/12 neg) | 0.4999 | +6.59 |
+> | **repaired (signed)** | **+0.1088 (p=0.116, ns)** | **−0.2502 (12/12 neg)** | **0.3590** | **+4.70, p=2.6e−06** |
+>
+> **The substrate-systematic sign flip — the finding's actual claim — SURVIVES at 4.70σ**,
+> attenuated ~28%. The Allen arm *strengthens* (11/12 → 12/12 sessions negative).
+>
+> **Three things did change and are not cosmetic:**
+> 1. **The quoted +0.388 is unattributed and unreproducible** — a hardcoded constant in
+>    `phase24/run_meta_analysis.py:127` (`PVC11_REF`) that nothing computes. The repo's own
+>    artifact gives **+0.29834625**, reproduced independently to five decimals. **~30% overstated.**
+> 2. **The pvc-11 arm alone is no longer significant** (+0.1088, p = 0.116) — 82.4% of its cells
+>    sat on the clip's rail, so the deployed correlation was carried by the 17.6% that escaped.
+> 3. **The evidential structure is now Allen-arm-plus-contrast**, not two mutually-confirming
+>    arms. pvc-11 contributes direction, not significance.
+>
+> An earlier note here (R-182) said to remove this from the locked list. **That was based on
+> testing the pvc-11 arm in isolation and was too harsh** — corrected in R-184.
 
 The finding is that the modulation index F1/F0 (a per-unit simple-vs-
 complex-cell marker) correlates with `rep_med` (repulsion integral
