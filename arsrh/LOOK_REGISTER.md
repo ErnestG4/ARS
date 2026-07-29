@@ -3263,3 +3263,23 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   this just made quantitative for `rep_med`.
 - **Status:** CLOSED for all three. Files `coordinates/{kuramoto,pvc-11,allen-np}.repaired.jsonl`,
   each carrying both axes plus the banked value per cell; originals untouched.
+
+### R-177 — ★★★★ THE CLASS LABEL INHERITS THE RAIL: "BL = Poisson noise" is 99.9% CLUSTERED
+- **`joint_quadrant_diagnostic` assigns the `primary` label by THRESHOLDING THE CLIPPED FIELD:**
+  `BL: rep_int < 0.10 → "Poisson noise"`, `TR: 0.10–0.55 → Wigner-class`, `BR: ≥ 0.55 → uniform-like`.
+- **The axis floor is 0, so clustering has nowhere to go but BL.** A clustered process pins to
+  0.0000 and is labelled **Poisson noise** — *the scheme has no region for clustering at all.*
+- **Measured over the 8,176 recomputed cells:** of **1,660** cells labelled **BL**, **1,658 are
+  genuinely clustered** (signed < 0). **BL is not "Poisson noise" — it is 99.9% clustered.**
+  A further 108 clustered cells sit in **TR ("Wigner-class")** and 6 in BR.
+- **This is bigger than `rep_med`.** `rep_med` is one coordinate; **`primary` is the CLASS
+  ASSIGNMENT**, and it is banked in every fingerprint, every landscape view and every per-cell
+  verdict downstream. The recompute fixed the coordinate; **the label is still wrong.**
+- **[[soc_pair_complete]] recurring, at the classifier instead of the fitter.** That entry says
+  *"one-sided fitters are blind to super-Poisson"* and records the joint-plane classifier calling
+  solar flares "Poisson noise". **Same sentence, same mechanism, now on the primary label of three
+  neural/oscillator substrates.** The lesson was banked and the call site never changed.
+- **The repair is NOT a threshold tweak.** Adding a `rep_int_signed < 0` region is a **new
+  quadrant**, i.e. a change to the class vocabulary, and every banked `primary` would need
+  re-deriving. That is a sealed re-registration, not an edit.
+- **Status:** OPEN — the largest single item on the board, and newly visible.
