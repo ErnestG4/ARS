@@ -3411,3 +3411,35 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
 - **What a definitive test needs:** the Pass-E surrogate battery re-run on `rep_int_signed_q`. Not
   done; the present result bounds the risk rather than removing it.
 - **Status:** OPEN-BOUNDED. H2 stays locked, flagged, with the bias direction established.
+
+### R-184 — ★★★★ THE ALLEN ARM STRENGTHENS, AND THE SIGN-FLIP SURVIVES. R-182 WAS TOO HARSH.
+- **Reproduction gate: 910/910 Allen units match the banked `rep_med` EXACTLY.** 12 sessions, 836
+  units joined with functional data.
+- **The Allen arm goes the OPPOSITE way from pvc-11 — it gets STRONGER on repair:**
+  meta **−0.2016 → −0.2502**, and **11/12 → 12/12 sessions negative**. Every session negative.
+- **★ THE FINDING'S OWN CLAIM IS A SIGN FLIP *BETWEEN* SUBSTRATES, so the between-substrate
+  contrast — not either arm alone — is its statistic. It SURVIVES:**
+
+  | axis | pvc-11 | Allen | Δρ | Fisher z | p |
+  |---|---|---|---|---|---|
+  | deployed | +0.2983 (n=210) | −0.2016 (n=836) | 0.4999 | +6.59 | 4.3e−11 |
+  | **repaired** | **+0.1088** | **−0.2502** | **0.3590** | **+4.70** | **2.6e−06** |
+
+  Attenuated ~28%, still **4.70σ**.
+- **⚠ SO R-182'S CONCLUSION WAS WRONG AND IS CORRECTED HERE.** I wrote *"F1/F0 must come off the
+  locked findings list."* That was based on **testing one arm in isolation**, which is what my seal
+  scoped — and the seal's one-arm scope was a **limitation of my seal, not a licence to conclude
+  about the finding.** The claim is a contrast; the contrast holds.
+- **NOT post-hoc fishing, and the distinction matters:** the between-substrate contrast is the
+  finding's *own* stated claim, quoted verbatim in `EPISTEMIC_STATE` as "substrate-systematic
+  sign-flip". It is the original hypothesis, not one selected after seeing the arms.
+- **What genuinely changed, and it is not nothing:**
+  1. **The pvc-11 arm is much weaker than banked** — +0.2983 → **+0.1088, p = 0.116, not
+     significant alone**. That part of R-182 stands.
+  2. **The evidential structure changed.** It was presented as two mutually-confirming arms; it is
+     now **carried by the Allen arm plus a significant contrast**, with pvc-11 contributing
+     *direction* but not significance.
+  3. **The +0.388 defect (R-181) stands regardless** — that number remains unattributed and ~30%
+     overstated whatever the axis does.
+- **Status:** F1/F0 **RESTORED to the locked list, with its evidential structure restated.** Both
+  arms are now on the repaired instrument; the deciding measurement is done.
