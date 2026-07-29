@@ -3283,3 +3283,40 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   quadrant**, i.e. a change to the class vocabulary, and every banked `primary` would need
   re-deriving. That is a sealed re-registration, not an edit.
 - **Status:** OPEN — the largest single item on the board, and newly visible.
+
+### R-178 — ★★★ THE FIFTH WATCHER: a rail audit over every axis, and it found five new rails on run one
+- **The systemic move.** Rails had been found one at a time, each by accident, in three separate
+  axes across three sessions: `I.8_brody_q` (R-140/R-144), `ARS.rep_med` (lower R-093/R-094, upper
+  R-173), `I.9_berry_robnik_rho` (R-148). `cross_substrate/rail_audit.py` sweeps **all 42 axes** and
+  turns the discovery into a check that runs by convention.
+- **THE DESIGN CHOICE THAT MATTERS: it does not test a bounds checklist.** It tests **exact-value
+  pileup in a continuous field** — a continuous estimator should essentially never return the same
+  float twice, so a value holding a large share of cells **is** a rail whatever produced it and
+  whether or not anyone has named it. *A checklist can only find rails someone already knew about,
+  which is exactly why 0.85 sat undetected in 43.9% of banked values.*
+- **Threshold CALIBRATED on measured data, not chosen:** known rails **72.5% / 43.9%**; repaired
+  axis `ARS.rep_med_signed` **2.0%**; continuous axes `I.5_ks_gue` 0.05%, `I.1_w1_clock` 0.02%.
+  A 5% cut separates these by an order of magnitude on **both** sides.
+- **Recovered all three known rails with no prior knowledge** — including
+  **`I.8_brody_q`'s lower rail at 6.61e-05, NOT at 0.0.** It is an optimiser floor, so **a
+  `== 0.0` bounds test would have missed it entirely.**
+- **Second signature for the Berry-Robnik shape:** values crowd *near* a bound without landing on it
+  (78.1% within 0.02), which exact ties cannot see. Bound-proximity catches it.
+- **FIVE NEW RAILS on the first run:** `III.1_p2 / p3 / p5 / p7` and `III.4_scalar_sum`, 5.1–7.7%,
+  every instance **kuramoto-confined and at the low end**. **⚠ Mechanism NOT identified** — I tested
+  the obvious count/N discreteness-floor hypothesis and it does **not** cleanly hold (pileups sit at
+  round fractions 1/2000, 1/2400, 11/12000 while the smallest *nonzero* values have **varying**
+  denominators). Filed with the evidence, left open rather than given a plausible story.
+- **★ AND A NUMBER THAT REPRICES TIER B.** Per-substrate `I.8_brody_q` saturation:
+  **allen-hpf-cell 100.0%, lambda-star-classes 100%, qpo-maryland 100%, buzsaki-port-cell 99.4%,
+  pvc-11 99.4%, dr-port-cell 98.6%.** Those coordinates are not degraded — they are **entirely
+  rail**. Recomputing Tier B is **the difference between data and no data**, not a refinement.
+- **The boundary-saturation antibody is built in:** a pileup is reported as **AMBIGUOUS, never
+  invalid** (q=0 is also correct for a genuinely Poisson process). Manifest + ratchet, 3 of 8
+  resolved with reasons.
+- **⚠ Two corrections of mine.** (i) I hand-wrote the manifest keys instead of reading the format
+  the tool emits; they mismatched and the audit reported a **false regression**. Fixed by generating
+  keys *from the tool*. Same shape as the `_potential` inventory miss: **verify against the thing,
+  not against your model of it.** (ii) I predicted the audit would make the suite slow enough to get
+  skipped and wanted to cache — **wrong: 22 tests in 47.7 s.** No caching needed.
+- **Status:** CLOSED as a guard; 5 unresolved rails tracked.

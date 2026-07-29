@@ -300,3 +300,51 @@ def test_neff_diagnostic_is_predicted_by_effect_size_alone():
     n, meas = 253, 0.1057
     se_right = math.sqrt(meas * (1 - meas) / n)
     assert abs(neff_calibrated(se_right, meas, n) - 1.0) < 1e-9
+
+
+RAIL_AUDIT_KNOWN_RAILS = {
+    # axis -> (minimum pooled pileup fraction the audit must still detect)
+    "I.8_brody_q": 0.50,      # measured 72.5%, rail at 6.61e-05 -- NOT at 0.0
+    "ARS.rep_med": 0.30,      # measured 43.9%, rail at 0.85 = the mask width
+}
+RAIL_AUDIT_MUST_STAY_QUIET = {
+    "ARS.rep_med_signed": 0.05,   # the REPAIRED axis: measured 2.0%
+    "I.5_ks_gue": 0.05,           # a genuinely continuous axis: measured 0.05%
+}
+"""Rails have been found one at a time, by accident, in three separate axes. `rail_audit.py` sweeps
+every axis for EXACT-VALUE PILEUPS rather than checking a bounds list -- which is why it recovers
+the 0.85 rail nobody knew existed, and why it finds brody's rail at 6.61e-05 where a `== 0.0` test
+would miss it."""
+
+
+def test_rail_audit_fires_on_known_rails_and_stays_quiet_on_repaired_axes():
+    """Defect 13: a rail detector that cannot fire is worth nothing, and one that fires on
+    everything is worth less. Both halves asserted on REAL banked data."""
+    import sys as _s
+    _s.path.insert(0, os.path.join(ROOT, "cross_substrate"))
+    import rail_audit
+
+    data = rail_audit.load()
+    for axis, floor in RAIL_AUDIT_KNOWN_RAILS.items():
+        pooled = [v for vs in data[axis].values() for v in vs]
+        _val, _cnt, frac, _nd = rail_audit.audit_axis(pooled)
+        assert frac >= floor, f"SENSITIVITY: {axis} pileup {frac:.1%} fell below {floor:.0%}"
+
+    for axis, ceil in RAIL_AUDIT_MUST_STAY_QUIET.items():
+        pooled = [v for vs in data[axis].values() for v in vs]
+        _val, _cnt, frac, _nd = rail_audit.audit_axis(pooled)
+        assert frac < ceil, f"SPECIFICITY: {axis} now piles up at {frac:.1%} -- it should be clean"
+
+    # the brody rail is NOT at the declared bound; a bounds checklist would miss it
+    pooled = [v for vs in data["I.8_brody_q"].values() for v in vs]
+    val, _c, _f, _n = rail_audit.audit_axis(pooled)
+    assert val != 0.0 and abs(val) < 1e-3, \
+        "brody's lower rail must remain an optimiser floor near-but-not-at 0.0"
+
+
+@pytest.mark.parametrize("script", ["cross_substrate/rail_audit.py"])
+def test_rail_audit_reports_no_regression(script):
+    """Ratcheted like the other watchers: non-zero only when a NEW unresolved rail appears."""
+    r = subprocess.run([sys.executable, os.path.join(ROOT, script), "--summary"],
+                       capture_output=True, text=True, cwd=ROOT)
+    assert r.returncode == 0, f"{script} reports a REGRESSION:\n{r.stdout[-1500:]}"
