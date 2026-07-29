@@ -1,0 +1,49 @@
+{
+  "seal": "F1F0_REPAIRED_AXIS_PRECOMMIT",
+  "extends": "LOCKED_FINDINGS_EXPOSURE_PRECOMMIT",
+  "written": "2026-07-28, overnight window",
+  "status": "WRITTEN UNRUN — no repaired-axis correlation had been computed when this was frozen",
+
+  "why_an_addendum": "The parent seal says the exposure audit CANNOT tell whether an exposed finding survives recompute. For pvc-11 that turns out to be answerable tonight: I have repaired rep_med for all 1,159 cells (R-176) and per-unit f1_f0_pref in data/phase22a_results/h1_functional.parquet, joinable on (recording, unit_idx). Going beyond the parent's stated scope requires its own registration.",
+
+  "the_banked_claim_under_test": {
+    "statement": "F1/F0 correlates with rep_med in OPPOSITE directions across substrates: pvc-11 +0.388 (p = 6e-9), Allen meta-fixed -0.183 (all 12 sessions negative).",
+    "status_in_EPISTEMIC_STATE": "Locked findings with multiple disciplines verified",
+    "disciplines_it_cleared": "full-sequence surrogate, rate-matched (3 methods), rate-stratified within-cell on both substrates, cross-substrate, phylogenetic-conservation deflation, cross-engine direction match"
+  },
+
+  "why_it_is_exposed_and_how_badly": {
+    "axis": "rep_med IS the clipped repulsion integral -- the finding names it.",
+    "measured_this_session": "On pvc-11: 918/1159 values (79.2%) sit EXACTLY on the lower rail at 0.0; the median is exactly 0.0000; ALL 1,159 changed under repair; the true signed median is -0.7015; 239 cells had the SIGN INVERTED.",
+    "the_sharp_problem": "A Spearman correlation against a variable that is EXACTLY CONSTANT for 79.2% of the sample is carried entirely by the ~20.8% minority that escaped the rail. Ties are handled by mid-ranking, so the railed cells contribute a single tied rank block and no gradient. The banked +0.388 is therefore a statement about a fifth of the data, whether or not that was understood at the time."
+  },
+
+  "the_test": "Spearman(f1_f0_pref, rep_med) on the DEPLOYED clipped axis -- which must reproduce the banked +0.388 or the join is wrong -- and then on the REPAIRED signed axis, on exactly the same cells. Reproduction of the deployed value is the gate; without it nothing else is read.",
+
+  "outcomes_declared_before_the_run": {
+    "R0_JOIN_INVALID": {
+      "fires_if": "the deployed-axis correlation does not reproduce the banked pvc-11 value to within +/-0.05, or fewer than 300 cells join",
+      "means": "VOID. The join or the cell set is wrong; report as void and do not interpret R1-R3."
+    },
+    "R1_SURVIVES": {
+      "fires_if": "signed-axis rho has the SAME SIGN, |rho| >= 0.15, and p < 0.01",
+      "means": "The finding stands and is now better supported than when banked -- it was measured on a mostly-constant variable and survives on a real one."
+    },
+    "R2_WEAKENED": {
+      "fires_if": "same sign but |rho| < 0.15 or p >= 0.01",
+      "means": "DOWNGRADE from locked. The direction is not contradicted but the evidence is much thinner than +0.388 suggested."
+    },
+    "R3_REVERSED": {
+      "fires_if": "signed-axis rho has the OPPOSITE sign with p < 0.05",
+      "means": "SERIOUS. The entire finding is a claim about the SIGN of the pvc-11 arm relative to Allen. If pvc-11's sign flips on the repaired axis, the substrate-systematic sign-flip -- the whole content of the finding -- is unsupported and may be an artifact of the clip. Report at full prominence; this is the outcome I would least like to write.",
+      "required_follow_up": "Do NOT conclude the finding is refuted from the pvc-11 arm alone. Allen's arm rests on a different dataset whose rep_med has not been recomputed; a one-armed reversal makes the claim UNSUPPORTED, not false."
+    }
+  },
+
+  "stated_in_advance_so_it_cannot_become_an_insight_later": "Whatever the outcome, the banked +0.388 was computed against a variable that is exactly constant on 79.2% of the sample. That fact alone downgrades the QUALITY of the original evidence regardless of what the repaired axis shows, and it must appear in the write-up even under R1.",
+
+  "invalidation": [
+    "Not editable after the first correlation is computed.",
+    "The Allen arm is NOT tested here and no verdict about it may be inferred from the pvc-11 result."
+  ]
+}
