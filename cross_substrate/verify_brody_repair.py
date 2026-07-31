@@ -27,6 +27,7 @@ OLD, NEW = "I.8_brody_q", "I.8_brody_q_unbounded"
 # every run by design) and `source_artifact` (an absolute path).
 KEYS = {
     "ibl-port-cell": ("session", "unit"),
+    "ibl-port-cell-visual": ("session", "unit"),
     "buzsaki-port-cell": ("session", "unit", "natural_cell"),
     "dr-port-cell": ("session", "unit"),
     "hc3-port-cell": ("topdir", "session", "ele", "clu", "behavior"),
