@@ -666,3 +666,37 @@ The durable methodology — apply these regardless of substrate:
 - Floquet corner degenerate at q=2 — use the exact period-2 discriminant.
 - `driver='ev'` (QR) saturates cores at large q — use `driver='evr'` (MRRR).
 - Bare `python3` lacks pandas — use `$HOME/fmexplorer/bin/python3`.
+
+---
+
+## §10 — UNWRAPPED PHASE MANUFACTURES DRIFT: check the null before pre-registering
+
+**Added 2026-08-02 from the Gaia phase-spiral arc. This is a statistics lesson,
+not a claim about either substrate — nothing here connects the two programs.**
+
+Any statistic built from an **unwrapped phase** accumulates drift for free,
+because unwrapping a noisy phase sequence turns a random walk into an apparent
+trend. So a threshold on *total* advance can be nearly uninformative while
+*looking* like a strong criterion.
+
+**Measured instance.** A pre-registered gate read "monotone phase advance across
+≥1.5 turns". Against a phase-shuffled null over 35 annuli:
+
+| quantity | real | null | verdict |
+|---|---|---|---|
+| total m=1 advance | −9.14 rad (−1.45 turns) | 8.32 ± 5.93 rad | **+0.1σ** |
+| monotone fraction | 82% | 57% | **+5.3σ** |
+| step-direction coherence | 0.942 | 0.18 ± 0.09 | **+8.2σ** |
+
+**The null reached ≥1.45 turns in 39.5% of draws.** All the power lived in the
+word *monotone*; the "≥1.5 turns" carried essentially none. Two conditions were
+written as if they had similar weight and their weights differ by ~50×.
+
+**The rule.** For a phase-derived statistic, score **step-direction coherence**
+(are the increments consistently signed?), never accumulated total. Report the
+total as a descriptive number with no evidential weight. And run the null
+*before* pre-registering a threshold — the point of pre-registration is to bind
+you, which it cannot do if the threshold is free to clear.
+
+Generalises to: cumulative sums, integrated phase, unwrapped angles, winding
+numbers, and any "total displacement" over many noisy steps.
