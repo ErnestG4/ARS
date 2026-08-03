@@ -724,3 +724,36 @@ together, always. Where they disagree, the unweighted one is right and the
 weighted one is being carried by a minority of cells. Same species as an inert
 symmetry diagnostic, one level up: a statistic that returns the same answer
 under signal and under noise is not a measurement.
+
+### §10.2 — A parity test is vacuous when parity IS the mode number
+
+**Added 2026-08-03. The third of the trio, and the most structural.**
+
+Before building a symmetry test, check whether the symmetry acts as a **global
+phase** on the estimator. If it does, the test cannot distinguish its two
+arguments and is vacuous — not mistuned, *vacuous*.
+
+**The instance.** In a plane where the diagnostic is the m=1 Fourier mode, the
+parity operation (z, v) → (−z, −v) is exactly θ → θ+π. That shifts every
+annulus's m=1 phase by the same constant, leaving amplitudes and inter-annulus
+phase *differences* identical. So "compare the statistic of the flipped data to
+the statistic of the real data" returns its own input, always, signal or noise.
+It would have PASSED on real data while testing nothing.
+
+**The repair, and its own limit.** Comparing the *maps* instead is not vacuous —
+but on real data it still failed, because the map was **61% even** from ordinary
+physics (velocity-ellipsoid tilt), which swamped the sign: it read +0.571 where
+the criterion expected −1. A structurally valid test can still be dominated by a
+large nuisance component.
+
+**The rule.** Ask of any symmetry diagnostic: *what does this operation do to my
+estimator?* If it is a global phase, the test is inert — score the maps, or the
+odd/even variance split, not the derived scalar. Then check whether a nuisance
+term dominates the quantity you are about to threshold.
+
+**Companion rule — a null must be interpretable before it is a result.**
+A null result only means something if the selection function is symmetric enough
+to support it. We closed an m=2 hypothesis as null at three radii where the
+north/south count imbalance was 0.5–8.4%, and explicitly REFUSED to close it
+inside R ≈ 7 kpc where imbalance reached 11–15%. "No signal" and "no power to
+see a signal" are different claims and must be reported as different claims.
