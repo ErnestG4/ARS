@@ -34,6 +34,16 @@ measured autocovariances of log₂a alternate and decay by ratio ≈−0.30 — 
 eigenvalue — giving Birkhoff σ_B=1.5946 vs marginal 1.7127 and predicting
 sd(z)=0.9310 against 0.932 observed.
 
+**The recalled −1.6% was clean.** Chased in `chase_preview_number.py`: it is the
+finite-n median bias at depth n≈20, present identically on the corrected grid
+(−1.81%), and the golden defect biases K *upward*, so it cannot be the source. The
+"slow convergence" reading was substantively right — with the refinement that the
+mechanism is median-vs-mean skew of the running mean (skew 0.40 at n=16 → 0.014 at
+n=2048), not slow convergence of its centre, which is exact at every n. **The defect
+was not waved through; at that depth it was unobservable.** Contamination separates
+from a clean grid only at n≳64. A preview shallower than that cannot catch it —
+which is the operational lesson, not the attribution error.
+
 **Antibody on λ₂ (binding).** This is the *shelf-identity* side of the Gauss-map
 spectral story that CP2 already owns — the same transfer operator, independently
 re-measured here from a fluctuation field built to look at something else. It is a
@@ -74,7 +84,7 @@ surroundings.
 | masked fraction exactly 0 | **True and reported as trivial.** Horizon never binds at B=8192, D=2048 §3 |
 | R1 spec-literal render near-black | Real consequence of spread ~1/√n. R1z added as the legible companion |
 | R3 flare invisible on linear-K layout | Render defect, fixed: flares are shallow raw-quotient objects §5 |
-| Preview median recalled as −1.6% | **Unreconciled.** This run measured the golden-grid preview **+1.35% HIGH** (2.7218 vs 2.6855, N=4096/D=512) and +0.54% high at production. A −1.6% observation, if it exists, is from a different configuration and has no explanation banked here. Do not merge the two numbers. |
+| Preview median recalled as −1.6% | **RESOLVED — clean, not contaminated.** It is the finite-n *median* bias at depth n≈20 (golden −1.55%, corrected π grid −1.81% at the same depth: both grids show it). The golden defect cannot produce it on sign alone — every contaminated reading is POSITIVE — and at n≈20 the defect is not yet detectable (−0.50σ at n=16, +0.26σ at n=32, 3.5σ only by n=64). `chase_preview_number.py` |
 
 ## Standing cautions carried forward
 

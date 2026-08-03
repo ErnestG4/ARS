@@ -223,11 +223,45 @@ R6 rug, illustration only.
    accordingly in EPISTEMIC_STATE.md.
 9. Phase 3 sonification not attempted — separate go/no-go per spec §8.
 
-## 8. One number left unreconciled
+## 8. The recalled −1.6%: chased and resolved
 
-The preview median was recalled in review as **−1.6%**. This run measured the
-golden-grid preview at **+1.35% high** (2.7218 vs 2.6855 at N=4096, D=512) and
-+0.54% high at production. The sign and magnitude both differ, so a −1.6%
-observation, if it exists, comes from a configuration not reproduced here and has no
-explanation banked. Recorded rather than merged — two different numbers should not be
-laundered into one story.
+`chase_preview_number.py`, at the exact preview configuration (N=4096, D=512, B=2048),
+settles it three ways.
+
+**It is a depth, not a defect.** Median K crosses −1.6% at depth **n ≈ 20** on both
+grids — golden −1.55%, corrected π−3 −1.81% at n=20. A clean grid shows the same
+number, so it is not the offset.
+
+**The mechanism is median-vs-mean skew, not slow convergence.** E[log₂K_n] = log₂K₀
+*exactly* at every n; the centre never converges slowly. But log₂a is heavy-tailed on
+the right and bounded below by 0, so S_n is right-skewed and its median sits below its
+mean, closing as the skew decays (0.403 at n=16 → 0.014 at n=2048, §4.2). Median K is
+therefore below K₀ at shallow depth on any grid and rises through it.
+
+**Sign alone acquits it.** Every reading that carries the defect's fingerprint is
+*positive*, because quadratic irrationals of large discriminant carry a larger
+period-average log a than Khinchin:
+
+| statistic (preview config) | golden | π−3 (clean) | contamination signature? |
+|---|---|---|---|
+| median K at depth 20 | −1.55% | −1.81% | **no — clean grid shows it too** |
+| median K at deepest depth | +1.35% | +0.06% | yes |
+| median of per-column time-averaged K | +1.63% | +0.35% | yes |
+| pooled median over all (n, column) | +0.97% | −0.11% | yes |
+
+The near-miss is the third row: +1.63% has the same magnitude as −1.6% with opposite
+sign, and it *is* a contamination signature. But the sign is not a detail — the defect
+can only push K up.
+
+**The operational lesson.** At n≈20 the defect is not detectable at any sample size
+worth having: golden-vs-clean separation is −0.50σ at n=16 and +0.26σ at n=32, first
+exceeding 3σ at n=64 and saturating at 6–7σ for n≥128. A preview evaluated shallower
+than n≈64 **cannot** catch this defect. The number was not waved through; it was
+unobservable.
+
+**One hypothesis raised and refuted.** That the preview read at a shallow depth because
+G1a evaluates at the "deepest *common* unmasked depth" — a min over columns, which one
+unlucky column could drag down. Tested: the per-column horizon distribution is tight
+(at B=1000, min 243 against median 271 over 4096 columns), so a correct horizon rule
+never lands the gate near depth 20. The min-over-columns design is still fragile in
+principle and worth watching, but it is not what happened.
