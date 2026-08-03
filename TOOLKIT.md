@@ -700,3 +700,27 @@ you, which it cannot do if the threshold is free to clear.
 
 Generalises to: cumulative sums, integrated phase, unwrapped angles, winding
 numbers, and any "total displacement" over many noisy steps.
+
+### §10.1 — Amplitude-weighted coherence needs an unweighted companion
+
+**Added 2026-08-02, the general form of §10.** A weighted coherence statistic can
+report the same confidence whether the signal is there or not, because **a few
+loud annuli carry the resultant while the rest are noise**. The weights are
+exactly what lets a sparse, noisy regime masquerade as a coherent one.
+
+**Measured twice, on the same afternoon:**
+
+*Radial sweep.* Amplitude-weighted winding σ sat at **+7.5σ to +8.1σ across the
+entire radial range**, including radii where the unweighted monotone fraction had
+fallen to **53% — chance**. The weighted statistic could not distinguish its two
+arguments. Occupancy there was ~65 stars/cell against ~3.2 km/s shot noise.
+
+*A published prediction.* An m=2 (two-armed) hypothesis scored **+5.8σ to +7.1σ**
+on weighted coherence and **+1.4σ / −0.1σ** unweighted. The weighted number alone
+would have been reported as a detection.
+
+**The rule.** Report weighted coherence and the **unweighted sign fraction**
+together, always. Where they disagree, the unweighted one is right and the
+weighted one is being carried by a minority of cells. Same species as an inert
+symmetry diagnostic, one level up: a statistic that returns the same answer
+under signal and under noise is not a measurement.
