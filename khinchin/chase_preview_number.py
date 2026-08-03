@@ -1,5 +1,12 @@
 """Where did the preview's -1.6% median come from?
 
+*** SUPERSEDED -- see conductor_sweep.py and validation/report.md section 8. ***
+This script's verdict ("clean, not contaminated") is WITHDRAWN. It generalised the
+sign of the golden bias from a single N (4096) to all N without testing it. The
+recalled number was N=3072 at depth 200, where the golden bias is negative and real.
+What survives: the depth-20 median-skew result, true of N=4096.
+
+
 Review recalled the Phase-0 preview median as -1.6% and attributed it to "slow
 convergence, soft gate passes" -- with the worry that it had been contaminated by
 the golden-offset defect (grid_audit.py). This settles it three ways.

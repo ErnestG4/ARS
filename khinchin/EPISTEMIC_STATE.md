@@ -34,15 +34,24 @@ measured autocovariances of log₂a alternate and decay by ratio ≈−0.30 — 
 eigenvalue — giving Birkhoff σ_B=1.5946 vs marginal 1.7127 and predicting
 sd(z)=0.9310 against 0.932 observed.
 
-**The recalled −1.6% was clean.** Chased in `chase_preview_number.py`: it is the
-finite-n median bias at depth n≈20, present identically on the corrected grid
-(−1.81%), and the golden defect biases K *upward*, so it cannot be the source. The
-"slow convergence" reading was substantively right — with the refinement that the
-mechanism is median-vs-mean skew of the running mean (skew 0.40 at n=16 → 0.014 at
-n=2048), not slow convergence of its centre, which is exact at every n. **The defect
-was not waved through; at that depth it was unobservable.** Contamination separates
-from a clean grid only at n≳64. A preview shallower than that cannot catch it —
-which is the operational lesson, not the attribution error.
+**The recalled −1.6% RECONCILES — and it was contaminated after all.** Both original
+numbers were re-run from the original container and reproduce bit-identically here
+(`conductor_sweep.py`): N=3072 at depth 200 gives **−1.60%**, N=4096 at depth 512
+gives **+1.35%**. Same offset, same code; the bridging variable is **N itself**.
+
+| N | factorisation | golden d200 | golden d512 | π−3 d200 | π−3 d512 |
+|---|---|---|---|---|---|
+| 3072 | 2¹⁰·3 | **−1.60%** | −1.86% | −0.12% | +0.18% |
+| 4093 | prime | +1.68% | +1.60% | −0.20% | −0.15% |
+| 4096 | 2¹² | +1.07% | **+1.35%** | −0.03% | +0.06% |
+| 6144 | 2¹¹·3 | +0.70% | +0.19% | −0.20% | +0.03% |
+
+**A previous conclusion here was wrong and is withdrawn.** `chase_preview_number.py`
+argued the −1.6% was clean, on the grounds that every contaminated reading is
+*positive*. That generalised the sign of the bias from a single N (4096) to all N
+without testing it. It is false: at N=3072 the golden bias is −1.86%. The depth-20
+median-skew observation in that script remains true of N=4096 and is worth keeping,
+but it is **not** the explanation of the recalled number. Superseded by this section.
 
 **Antibody on λ₂ (binding).** This is the *shelf-identity* side of the Gauss-map
 spectral story that CP2 already owns — the same transfer operator, independently
@@ -84,7 +93,9 @@ surroundings.
 | masked fraction exactly 0 | **True and reported as trivial.** Horizon never binds at B=8192, D=2048 §3 |
 | R1 spec-literal render near-black | Real consequence of spread ~1/√n. R1z added as the legible companion |
 | R3 flare invisible on linear-K layout | Render defect, fixed: flares are shallow raw-quotient objects §5 |
-| Preview median recalled as −1.6% | **RESOLVED — clean, not contaminated.** It is the finite-n *median* bias at depth n≈20 (golden −1.55%, corrected π grid −1.81% at the same depth: both grids show it). The golden defect cannot produce it on sign alone — every contaminated reading is POSITIVE — and at n≈20 the defect is not yet detectable (−0.50σ at n=16, +0.26σ at n=32, 3.5σ only by n=64). `chase_preview_number.py` |
+| Preview median recalled as −1.6% | **RESOLVED — contaminated, and N-dependent.** Reproduced bit-identically at its true config (N=3072, depth 200). The golden bias is a function of N of *either sign*: −3.80% (N=4095) … +1.60% (N=4093). `conductor_sweep.py` |
+| My earlier "clean, on sign alone" verdict | **WITHDRAWN.** Generalised the bias sign from one N to all N without testing. The depth-20 median-skew result stands for N=4096 only. |
+| Golden bias jumps between adjacent N | **Real, 34× the noise.** N=4094…4098 at depth 512: −2.42, −3.80, +1.35, −1.31, −0.43 (%), spread 5.15% vs median SE 0.15%. Smooth finite-size EXCLUDED. |
 
 ## Standing cautions carried forward
 
@@ -104,6 +115,17 @@ surroundings.
   are exact at every depth so no trust horizon applies; the grey tail on the Liouville
   column is the generator cap (k≤24), not a precision mask. No claim is made that any
   named real belongs to any of these classes.
+- **The golden-grid bias is N-dependent with either sign — the dangerous kind.**
+  A good-faith grid-size sensitivity test on the golden grid would watch the answer
+  move with N and could read it as convergence trouble, or worse, as structure.
+  **Mechanism (SKETCH, not certified):** the columns are the surds (2i−1+√5)/2N; the
+  map to √5 has determinant 2N, not ±1, so Serret does not apply and they are not
+  tail-equivalent to φ. Each N attaches the ensemble to orders of conductor ~2N in
+  ℚ(√5), each family carrying its own period-quotient statistics. The sweep is
+  *consistent* with this and excludes smooth finite-size, but does not establish it:
+  over 16 N the sign correlates only loosely with small-prime content, and is not a
+  clean function of it (2¹¹, 2¹², 2¹³ give +0.81%, +1.35%, −0.03%). Order-theoretic
+  account is plausible-mechanism grade. Do not cite it as measured.
 - **The three-criteria disjointness stands.** Nothing here welds this picture to
   mode-locking or Sturmian criteria; the render lives on the approximability axis only.
 
@@ -114,6 +136,7 @@ surroundings.
     /home/combust/fmexplorer/bin/python3 derive.py  phase1
     /home/combust/fmexplorer/bin/python3 render.py  phase1
     /home/combust/fmexplorer/bin/python3 grid_audit.py       # the offset finding
+    /home/combust/fmexplorer/bin/python3 conductor_sweep.py  # the N-dependence
 
 **Phase 3 sketch, if it gets a go:** add λ₂ as a decay envelope — the ringdown time
 the landscape already told us (autocovariance decay ratio ≈ −0.3036). Still its own

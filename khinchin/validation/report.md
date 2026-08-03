@@ -223,45 +223,77 @@ R6 rug, illustration only.
    accordingly in EPISTEMIC_STATE.md.
 9. Phase 3 sonification not attempted — separate go/no-go per spec §8.
 
-## 8. The recalled −1.6%: chased and resolved
+## 8. The recalled −1.6%: reconciled — contaminated, and N-dependent
 
-`chase_preview_number.py`, at the exact preview configuration (N=4096, D=512, B=2048),
-settles it three ways.
+**Superseding §8 as first written.** The original chase (`chase_preview_number.py`)
+concluded the −1.6% was clean, reasoning that every contaminated reading is
+*positive*. That argument generalised the sign of the golden bias from a single N
+(4096) to all N without testing it, and it is false. **The verdict is withdrawn.**
 
-**It is a depth, not a defect.** Median K crosses −1.6% at depth **n ≈ 20** on both
-grids — golden −1.55%, corrected π−3 −1.81% at n=20. A clean grid shows the same
-number, so it is not the offset.
+Both original numbers were re-run from the container that produced them and
+reproduce bit-identically here — exact-integer Euclid across two machines
+(`conductor_sweep.py`, B=2048, D=512):
 
-**The mechanism is median-vs-mean skew, not slow convergence.** E[log₂K_n] = log₂K₀
-*exactly* at every n; the centre never converges slowly. But log₂a is heavy-tailed on
-the right and bounded below by 0, so S_n is right-skewed and its median sits below its
-mean, closing as the skew decays (0.403 at n=16 → 0.014 at n=2048, §4.2). Median K is
-therefore below K₀ at shallow depth on any grid and rises through it.
+| N | factorisation | golden d200 | golden d512 | π−3 d200 | π−3 d512 |
+|---|---|---|---|---|---|
+| 3072 | 2¹⁰·3 | **−1.60%** | −1.86% | −0.12% | +0.18% |
+| 4093 | prime | +1.68% | +1.60% | −0.20% | −0.15% |
+| 4096 | 2¹² | +1.07% | **+1.35%** | −0.03% | +0.06% |
+| 6144 | 2¹¹·3 | +0.70% | +0.19% | −0.20% | +0.03% |
 
-**Sign alone acquits it.** Every reading that carries the defect's fingerprint is
-*positive*, because quadratic irrationals of large discriminant carry a larger
-period-average log a than Khinchin:
+The bridging variable is **N**. Both numbers are true measurements of the same defect
+at different grid sizes; the recalled −1.6% is N=3072 at depth 200.
 
-| statistic (preview config) | golden | π−3 (clean) | contamination signature? |
-|---|---|---|---|
-| median K at depth 20 | −1.55% | −1.81% | **no — clean grid shows it too** |
-| median K at deepest depth | +1.35% | +0.06% | yes |
-| median of per-column time-averaged K | +1.63% | +0.35% | yes |
-| pooled median over all (n, column) | +0.97% | −0.11% | yes |
+### 8.1 The bias is arithmetic in N, not a finite-size effect
 
-The near-miss is the third row: +1.63% has the same magnitude as −1.6% with opposite
-sign, and it *is* a contamination signature. But the sign is not a detail — the defect
-can only push K up.
+A smooth finite-size effect must vary smoothly with N, so adjacent N would agree.
+They do not — depth 512, golden grid:
 
-**The operational lesson.** At n≈20 the defect is not detectable at any sample size
-worth having: golden-vs-clean separation is −0.50σ at n=16 and +0.26σ at n=32, first
-exceeding 3σ at n=64 and saturating at 6–7σ for n≥128. A preview evaluated shallower
-than n≈64 **cannot** catch this defect. The number was not waved through; it was
-unobservable.
+| N | 4094 | 4095 | 4096 | 4097 | 4098 |
+|---|---|---|---|---|---|
+| factorisation | 2·23·89 | 3²·5·7·13 | 2¹² | 17·241 | 2·3·683 |
+| median K bias | −2.42% | **−3.80%** | **+1.35%** | −1.31% | −0.43% |
 
-**One hypothesis raised and refuted.** That the preview read at a shallow depth because
-G1a evaluates at the "deepest *common* unmasked depth" — a min over columns, which one
-unlucky column could drag down. Tested: the per-column horizon distribution is tight
-(at B=1000, min 243 against median 271 over 4096 columns), so a correct horizon rule
-never lands the gate near depth 20. The min-over-columns design is still fragile in
-principle and worth watching, but it is not what happened.
+Spread **5.15%** against a typical median SE of **0.15%** — 34× the noise, with a
+sign flip between N=4095 and N=4096. **A smooth finite-size effect is excluded.**
+The π−3 control holds within ±0.5% across all sixteen N tested.
+
+### 8.2 Mechanism — SKETCH, not certified
+
+The golden columns are the surds (2i−1+√5)/2N. The map to √5 has determinant 2N,
+not ±1, so Serret's theorem does not apply and these are *not* tail-equivalent to φ
+(which is why the CF tails are not eventually all-1s, as a naive Möbius argument
+would predict). Each N attaches the ensemble to orders of conductor ~2N in ℚ(√5),
+and each such family carries its own period-quotient statistics — change N, change
+the ensemble, change the bias in magnitude and sign.
+
+**Status: plausible-mechanism grade.** The sweep is consistent with this account and
+excludes smooth finite-size, but does not establish it. Over the sixteen N measured
+the sign correlates only loosely with small-prime content and is not a clean function
+of it — 2¹¹, 2¹², 2¹³ give +0.81%, +1.35%, −0.03%. Do not cite the order-theoretic
+account as measured.
+
+### 8.3 The sharpened antibody
+
+**When a guard parameter enters the population, its interactions with every other run
+parameter enter with it.** A matched control must match all of them. Yesterday's
+lattice-identical control was sound precisely because it varied only ξ — had it also
+varied N, the comparison would have been uninterpretable in exactly the way this
+sweep now shows.
+
+This is the dangerous form of contamination: not a fixed offset that a calibration
+would remove, but an N-dependent bias of either sign. Anyone running a good-faith
+grid-size sensitivity test on the golden grid would watch the answer move with N and
+could read it as convergence trouble — or, worse, as structure.
+
+Refusing to merge the two numbers before measuring was the discipline working. It
+happened to be one story; "happened to be" is exactly what a merged narrative would
+have laundered away.
+
+### 8.4 What survives from the original chase
+
+The depth-20 observation stands, scoped to N=4096: median K crosses −1.6% at n≈20
+there, on both grids, because log₂a is heavy-tailed right and bounded below so
+median(S_n) sits under its mean, closing as the skew decays (0.403 at n=16 → 0.014 at
+n=2048). True, and the mechanism behind §4.2's tail asymmetry — but not the
+explanation of the recalled number.
