@@ -1,0 +1,4 @@
+data/*.npy
+data/derived/*.npy
+data/checkpoint_*.json
+renders/master16_*.png

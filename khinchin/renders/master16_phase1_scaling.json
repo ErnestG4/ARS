@@ -1,0 +1,35 @@
+{
+  "K": {
+    "file": "master16_K_phase1.png",
+    "shape": [
+      2048,
+      65536
+    ],
+    "value_lo": -0.07483506455902145,
+    "value_hi": 2.9251649354409786,
+    "encoding": "v = lo + (px-1)/65534*(hi-lo); px==0 means masked",
+    "quantity": "log2 K_n"
+  },
+  "S1": {
+    "file": "master16_S1_phase1.png",
+    "shape": [
+      2048,
+      65536
+    ],
+    "value_lo": -0.07483506455902145,
+    "value_hi": 2.9251649354409786,
+    "encoding": "v = lo + (px-1)/65534*(hi-lo); px==0 means masked",
+    "quantity": "log2 K_n"
+  },
+  "S2": {
+    "file": "master16_S2_phase1.png",
+    "shape": [
+      2048,
+      65536
+    ],
+    "value_lo": 0.0,
+    "value_hi": 1.0,
+    "encoding": "v = lo + (px-1)/65534*(hi-lo); px==0 means masked",
+    "quantity": "a>=2 rate"
+  }
+}

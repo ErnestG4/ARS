@@ -1,0 +1,28 @@
+{
+  "tag": "phase1",
+  "depth": 2048,
+  "n_columns": 65536,
+  "G3": {
+    "claim": "a>=2 rate field: phi==0, sqrt2-1==1, generic median within 1% of 1-log2(4/3)",
+    "phi_rate": 0.0,
+    "sqrt2m1_rate": 1.0,
+    "generic_median_rate": 0.5849609375,
+    "gauss_kuzmin_rate": 0.5849625007211563,
+    "rel_err": 2.672344217570396e-06,
+    "pass": true
+  },
+  "S1_sensitivity": {
+    "16": {
+      "median_shadow_K": 2.2552318572998047,
+      "mean_shadow_K": 2.201213836669922
+    },
+    "64": {
+      "median_shadow_K": 2.4550259113311768,
+      "mean_shadow_K": 2.422625780105591
+    }
+  },
+  "S1_caption": "running-min shadow of K (n0 = 64)",
+  "S1_bias_note": "DOWNWARD-BIASED estimate of liminf K: the running min from n0 converges to the tail-inf, which is <= liminf, and transient dips between n0 and the asymptotic regime bias it low. Never caption this \"liminf K\".",
+  "median_K_final": 2.6854498386383057,
+  "disagreement_fraction": 0.022613525390625
+}

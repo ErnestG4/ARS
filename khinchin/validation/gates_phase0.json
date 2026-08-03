@@ -1,0 +1,122 @@
+{
+  "tag": "phase0",
+  "config": {
+    "N": 4096,
+    "D": 512,
+    "B": 2048,
+    "chunk": 512,
+    "offset": "pi_m3"
+  },
+  "G0a": {
+    "claim": "1/phi: K_n == 1 exactly, all n",
+    "max_abs_dev": 0.0,
+    "depth": 2048,
+    "pass": true
+  },
+  "G0b": {
+    "claim": "sqrt2-1: K_n == 2 exactly, all n",
+    "max_abs_dev": 0.0,
+    "depth": 2048,
+    "pass": true
+  },
+  "G0c": {
+    "claim": "sqrt3-1: |K_2000 - sqrt2| < 1e-3",
+    "K_2000": 1.4142135623730951,
+    "target": 1.4142135623730951,
+    "dev": 0.0,
+    "tol": 0.001,
+    "pass_": null,
+    "pass": true
+  },
+  "G0d": {
+    "claim": "e-2: K_1500 matches (2^m m!)^{1/3m} at m=500 within 0.5%",
+    "K_1500": 7.184572598347608,
+    "closed_form": 7.18457259834762,
+    "rel_err": 1.6070990024872416e-15,
+    "tol": 0.005,
+    "pass": true
+  },
+  "G0e": {
+    "claim": "Liouville-type masks early at the predicted depth",
+    "engine_depth": 8,
+    "predicted_horizon": 8,
+    "reason": "precision",
+    "quotients_agree": true,
+    "pass": true
+  },
+  "G0f": {
+    "claim": "engine reproduces all closed forms up to the trust horizon",
+    "per_anchor": {
+      "phi": {
+        "engine_depth": 1429,
+        "predicted": 1429,
+        "reason": "precision",
+        "match": true
+      },
+      "sqrt2m1": {
+        "engine_depth": 780,
+        "predicted": 780,
+        "reason": "precision",
+        "match": true
+      },
+      "sqrt3m1": {
+        "engine_depth": 1045,
+        "predicted": 1045,
+        "reason": "precision",
+        "match": true
+      },
+      "e_m2": {
+        "engine_depth": 388,
+        "predicted": 388,
+        "reason": "precision",
+        "match": true
+      },
+      "liouville": {
+        "engine_depth": 8,
+        "predicted": 8,
+        "reason": "precision",
+        "match": true
+      }
+    },
+    "pass_": null,
+    "pass": true
+  },
+  "G1a": {
+    "claim": "median K at deepest common unmasked depth within 2% of K0",
+    "depth": 512,
+    "median_K": 2.6870594704041455,
+    "K0": 2.6854520010653062,
+    "rel_err": 0.0005985842749010546,
+    "n_columns": 4096,
+    "pass": true
+  },
+  "G1b": {
+    "claim": "a_1 across columns matches its EXACT law for a Lebesgue-uniform grid, 1/(k(k+1))",
+    "chi2": 0.07226562500000021,
+    "dof": 15,
+    "p": 0.9999999999999989,
+    "n": 4096,
+    "note": "spec sec 4 G1 asks for a_1 vs Gauss-Kuzmin; that is the wrong law for a uniform grid. Gauss-Kuzmin p for the same a_1 sample = 2.88e-23",
+    "p_if_tested_against_gauss_kuzmin": 2.879403603516586e-23,
+    "pass": true
+  },
+  "G1c": {
+    "claim": "a_64 across columns matches Gauss-Kuzmin log2(1+1/(k(k+2)))",
+    "chi2": 24.660586615638074,
+    "dof": 15,
+    "p": 0.05469153339342137,
+    "n": 4096,
+    "depth": 64,
+    "pass": true
+  },
+  "G2": {
+    "claim": "zero finite values past any column horizon",
+    "finite_values_past_horizon": 0,
+    "masked_fraction_overall": 0.0,
+    "masked_fraction_final_row": 0.0,
+    "horizon_min": 512,
+    "horizon_median": 512,
+    "horizon_max": 512,
+    "pass": true
+  }
+}
