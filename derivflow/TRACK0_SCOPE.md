@@ -1,8 +1,10 @@
-# derivflow Track-0 — SCOPE (DRAFT FOR CUT-DOWN, not a seal)
+# derivflow Track-0 — SCOPE
 
-**Status: DRAFT 2026-08-10.** This is the scope doc Will requested; nothing here is sealed.
-Per TOOLKIT §10 discipline, the sealed prediction is written only AFTER the Track-0 harness
-validation and null runs below come back green. Register thread starts at R-188 when work begins.
+**Status: SCOPED 2026-08-10 (v1.1).** Drafted, cut down by Will same day (Hermite gate swapped in
+for the mis-specified picket-fence gate; order-of-limits split added to §9; v2/citation-graph rider
+added to the pre-seal pull), DRAFT label removed on his call. Nothing here is sealed. Per TOOLKIT
+§10 discipline, the sealed prediction is written only AFTER the Track-0 harness validation and null
+runs below come back green. Register thread starts at R-188 when work begins.
 
 ## 0. Anti-claim header
 
@@ -62,15 +64,26 @@ harness FAIL, not a warning). Precision escalates to mpmath where gaps crowd. Se
 so that (1−s_max)·n stays above the Phase 1/3 minimum-window power threshold at the largest s
 sampled; the per-s zero count is logged so no readout is silently underpowered.
 
-## 5. Calibrator endpoints (three seeds)
+## 5. Calibrator seeds (battery of four)
 
 - **(a) iid seed** (Poisson local structure at matched density): does the flow rigidify from
   maximal disorder, and at what rate.
 - **(b) GUE-eigenvalue seed** (already rigid): does the flow preserve, sharpen, or overshoot RMT
-  spacing toward picket-fence.
-- **(c) Picket-fence seed** — **known-answer calibrator**: crystalline configuration should be
-  flow-invariant (cos has equally spaced zeros and differentiation fixes them up to phase).
-  If it drifts, the harness is broken. This is the calibrator-zoo-first gate.
+  spacing toward the crystalline limit. **Bonus property:** the semicircle family is stable under
+  fractional free convolution, so this seed's global density is form-invariant along the flow up
+  to scaling — the one seed where density drift cannot confound the local readout.
+- **(c) Hermite seed** — **known-answer calibrator (theorem-exact).** Hₙ′ = 2n·Hₙ₋₁ exactly, so
+  seeding with Hermite roots makes every single flow step land on exactly computable values —
+  the roots of Hₙ₋ₖ, rescaled — at every finite n. One gate certifies bracket integrity,
+  root-loss FAIL behavior, and the unfolding residual simultaneously, at every sampled s, not
+  just at a fixed point. This is the calibrator-zoo-first gate, and the finite free avatar of
+  semicircle free-convolution stability.
+- **(d) Picket-fence seed** — **measurement, NOT a gate.** Demoted from the drafted known-answer
+  role (Will's catch, owned as his proposal error two turns prior, recorded here per
+  gate-certifies-half discipline): the uniform root measure is NOT a fixed point of fractional
+  free convolution, so a finite-n picket-fence seed's global density drifts BY THEOREM, and the
+  drafted "flow-invariant else broken" gate would have failed a correct harness. Its unfolded
+  local spacing under the flow is an open question and stays in the battery as one.
 
 Readouts: **⟨r̃⟩ and Σ²(L) along s** — the Phase 1/3 battery unchanged, so numbers are directly
 comparable across arcs. Per-s, per-axis series captured in full (capture-full-sweep rule); 20-seed
@@ -78,21 +91,22 @@ replicates near any class boundary, distributions reported, not just means.
 
 ## 6. Track-0 acceptance criteria (harness, not science)
 
-- **PASS:** (i) picket-fence invariance within stated tolerance across the full s range;
-  (ii) interlacing bracket-verified at every step on all three seeds; (iii) per-step unfolding
-  residual vs the fractional-free-convolution prediction within tolerance on the iid seed
-  (this doubles as a live derivation of the theorem-side density — no unattributed constants);
-  (iv) estimator jitter floor measured per s on the iid seed (the §9 floor arm), picket-fence
-  supplying the ceiling arm.
-- **FAIL (harness):** picket-fence drifts, a bracket fails, or unfolding residual exceeds
-  tolerance. No science claims are made from a FAIL run; fix and rerun.
+- **PASS:** (i) **Hermite exactness** — measured roots at every sampled s match the roots of
+  Hₙ₋ₖ (rescaled) to stated numerical tolerance, across the full s range; (ii) interlacing
+  bracket-verified at every step on all four seeds; (iii) per-step unfolding residual vs the
+  fractional-free-convolution prediction within tolerance on the iid seed, and exact on the
+  Hermite seed (this doubles as a live derivation of the theorem-side density — no unattributed
+  constants); (iv) estimator jitter floor measured per s on the iid seed (the floor arm), the
+  Hermite seed supplying the **finite-n ceiling arm** (order-of-limits: §9).
+- **FAIL (harness):** a Hermite step misses its known answer, a bracket fails, or unfolding
+  residual exceeds tolerance. No science claims are made from a FAIL run; fix and rerun.
 - Only after PASS is the §7 question sealed.
 
 ## 7. The question to seal (draft wording — sealed only after Track-0 PASS)
 
 **Does the crystallization rate depend on seed class, or is it universal in s?**
 Rate = fitted decay, along s, of (i) the Σ²(L) slope and (ii) ⟨r̃⟩'s distance from the
-picket-fence value — both fits specified in the seal with their windows. Free probability
+crystalline value (r̃ = 1) — both fits specified in the seal with their windows. Free probability
 suggests universality in s; a seed-class-dependent rate is the surprising outcome. Either verdict
 is publishable-grade for the arc. Verdicts: RATE-UNIVERSAL / RATE-SEED-DEPENDENT /
 INCONCLUSIVE (with the power statement that would make it a clean FAIL of the design instead).
@@ -123,10 +137,20 @@ Filed with exact conditionality per the row-c-suspect rule:
   **"Cosine Universality"** — roots become perfectly spaced under repeated differentiation —
   conjectured by Farmer–Rhoades 2005 (arXiv:math/0310252, proven there for real entire functions
   of order 1, zeros on a line, with zero-spacing regularity hypotheses), refined by Farmer 2022,
-  and **proven by Campbell–O'Rourke–Renfrew (arXiv:2410.06403, Oct 2024) for even entire
-  functions with only real roots, real on the real line** (plus Farmer's Hermite Universality and
-  Jensen-polynomial results). This is a k → ∞ statement for entire functions — the ENDPOINT of
-  our flow, not fixed s.
+  and **proven by Campbell–O'Rourke–Renfrew (arXiv:2410.06403, Oct 2024; v2 dated 2026-05-21)
+  for even entire functions with only real roots, real on the real line** (plus Farmer's Hermite
+  Universality conjecture and finite free analogs of the LLN, CLT, and Poisson limit theorem for
+  deterministic polynomials under repeated differentiation — abstract verified against arXiv by
+  Will 2026-08-10). This is a k → ∞ statement for entire functions — the ENDPOINT of our flow,
+  not fixed s.
+- **ORDER-OF-LIMITS SPLIT (the ceiling arm carries two endpoints; do not conflate the slots):**
+  the s → 1 endpoint depends on which limit goes first. **Finite-n polynomial seed (Track-0's
+  regime): the repeated-differentiation attractor is HERMITE** — the finite free CLT in
+  2410.06403 — locally regular, globally semicircle. **n = ∞ first (entire function): the
+  attractor is cosine** — perfectly spaced, globally flat. "Ceiling arm = cosine" is correct only
+  in the n→∞-first regime; Track-0 lives at finite n, where **the ceiling arm is Hermite via the
+  CLT** (§6.iv). The sealed rate question is unaffected — both endpoints are locally rigid, and
+  the rate at which seeds approach local rigidity is exactly the open territory bracketed below.
 - **OPEN AS SEARCHED (the gap our measurement sits in):** local SPACING statistics at fixed
   s ∈ (0,1) for degree-n polynomials, n → ∞. Fluctuation results exist at the linear-statistics
   level (finite free CLT line), but no gap/spacing universality theorem at fixed s was found in
@@ -135,7 +159,10 @@ Filed with exact conditionality per the row-c-suspect rule:
   (global density at every s; crystalline local limit at the endpoint) serving as the floor and
   ceiling arms.** A deeper adversarial pull (someone trying to find the theorem that DOES cover
   fixed-s local statistics) is a mandatory pre-seal step — this section records a search, and a
-  search is not a proof of absence.
+  search is not a proof of absence. **The pull's concrete targets (Will's rider):** diff
+  2410.06403 v1 → v2 (v2 is 2026-05-21, seven months of possible strengthening), and sweep the
+  2025–26 papers citing it — if anyone has closed fixed-s local spacing, it will be in that
+  citation graph.
 
 ## 10. Methodological commitments carried through
 
