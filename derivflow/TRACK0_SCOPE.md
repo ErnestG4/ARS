@@ -1,6 +1,7 @@
 # derivflow Track-0 — SCOPE
 
-**Status: SCOPED 2026-08-10 (v1.1).** Drafted, cut down by Will same day (Hermite gate swapped in
+**Status: SCOPED 2026-08-10 (v1.2 — adds Will's free-convolution-evaluator design to §4 and the
+compact-support pin to §5a after the Hermite gate PASS).** Drafted, cut down by Will same day (Hermite gate swapped in
 for the mis-specified picket-fence gate; order-of-limits split added to §9; v2/citation-graph rider
 added to the pre-seal pull), DRAFT label removed on his call. Nothing here is sealed. Per TOOLKIT
 §10 discipline, the sealed prediction is written only AFTER the Track-0 harness validation and null
@@ -57,6 +58,26 @@ Harness modification (the one real change vs Phase 2): at each sampled s, recomp
 against the predicted push-forward density before evaluating any spacing statistic. Validation of
 this step is itself a Track-0 gate (§6).
 
+**Free-convolution evaluator (v1.2, Will's design):** Belinschi–Bercovici subordination, NOT the
+R-transform power series (which degrades exactly at large κ = 1/(1−s) near s_max). The
+subordinator solves ω(z) = z/κ + (1 − 1/κ)·F_μ(ω(z)) by fixed-point iteration — an honest
+contraction on C⁺ (Denjoy–Wolff), so convergence is certified, and the harness logs the
+contraction residual per z-point. Density by Stieltjes inversion at x + iε with ε tied to local
+mean spacing; an ε-doubling stability check is folded into the §6.iii residual so bandwidth
+sensitivity cannot masquerade as density mismatch. **The reference is derived from the EMPIRICAL
+seed measure** (G_emp(z) = (1/n)Σ 1/(z − rᵢ), exact and free), not the population law — the seed
+is a draw, already O(n^(−1/2)) off the population law before the flow acts, and a population-law
+gate would spend tolerance budget on sampling noise the flow didn't cause. The population-law
+comparison rides along as a logged diagnostic, never a gate. Atom threshold, hard-coded not
+discovered: an atom of mass a in μ survives in μ^⊞κ iff a > 1 − 1/κ = s, so the seed's
+1/n-atoms are gone for any s > 1/n and the reference is a.c. essentially immediately; the s-grid's
+first point sits safely above 1/n. **The evaluator has its own known-answer gates and gates
+nothing until both are green:** semicircle (free-convolution-stable, sc(σ)^⊞κ = sc(σ√κ), exact at
+every κ — smooth input) and symmetric Bernoulli ½(δ₋₁ + δ₊₁) (free binomial, closed form, atoms
+of mass ½ surviving exactly until s = ½ then dissolving — atomic input, exercising the threshold
+at a predictable-to-the-digit point). Flow-time reference: μ_s = D_(1−s)(μ^⊞ 1/(1−s)) — dilation
+by (1 − s), verified against the Hermite/semicircle family where it is exact.
+
 Numerics: root-space iteration, never coefficient space (catastrophic cancellation). Roots of p′
 interlace roots of p, so each step is n−1 bracketed 1-D solves of Σᵢ 1/(x−rᵢ) = 0 — guaranteed
 brackets, no root can be lost silently. Interlacing is asserted per step (a violated bracket is a
@@ -67,7 +88,10 @@ sampled; the per-s zero count is logged so no readout is silently underpowered.
 ## 5. Calibrator seeds (battery of four)
 
 - **(a) iid seed** (Poisson local structure at matched density): does the flow rigidify from
-  maximal disorder, and at what rate.
+  maximal disorder, and at what rate. **Population law: Uniform[−1, 1] — compactly supported,
+  pinned** (v1.2): Hoskins–Kabluchko is stated for compactly supported measures, so this keeps
+  §6.iii's reference inside the theorem's hypotheses; Gaussian-rooted seeds would lean on an
+  extension the doc does not cite.
 - **(b) GUE-eigenvalue seed** (already rigid): does the flow preserve, sharpen, or overshoot RMT
   spacing toward the crystalline limit. **Bonus property:** the semicircle family is stable under
   fractional free convolution, so this seed's global density is form-invariant along the flow up

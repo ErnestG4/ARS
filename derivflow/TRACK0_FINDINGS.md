@@ -9,6 +9,12 @@
   bulk-mean-spacing deviation **0.0078** (tolerance 0.02), consistent with O(1/m) finite-size at
   the smallest m = 33. No bracket violation at any step. The harness has earned the other three
   seeds (iid, GUE, picket-fence): **not yet run.**
+- **§2 Free-convolution evaluator closed-form gates: PASS** (2026-08-10, first run after one
+  API-name fix). Semicircle stability worst density deviation **1.1×10⁻⁷** (tol 10⁻⁴) over
+  κ ∈ {1.5…16}; Bernoulli free binomial worst **1.6×10⁻⁶** over κ ∈ {1.2…5}; atom mass at
+  κ = 1.5 measured **0.250000** vs 0.25 predicted, absent at κ = 3 (**0.000000**); contraction
+  residual certified < 10⁻¹³ everywhere. The evaluator has earned the empirical-measure input
+  and the iid seed: **§6.iii not yet run.**
 - Sealed rate question: **still unsealed**, per scope — pending the remaining §6 gates on the iid
   seed (unfolding residual vs the fractional-free-convolution density, jitter floor) and the
   pre-seal adversarial literature pull (2410.06403 v1→v2 diff + 2025–26 citation graph).
@@ -49,3 +55,26 @@ scope §4 anticipated — the floor binds on post-window count, per Will's note 
 **Verdict: PASS.** Gates §6.i (Hermite exactness) and §6.ii-on-Hermite (interlacing) are green.
 Remaining before the seal: §6.iii (unfolding residual vs fractional-free-convolution density,
 iid seed), §6.iv (jitter floor per s, iid seed), and the §9 adversarial literature pull.
+
+## 2. Free-convolution evaluator — closed-form gates (scope §4 v1.2)
+
+Evaluator: `free_conv.py` (Belinschi–Bercovici subordination per Will's design — route, empirical
+-measure reference, atom threshold, and the two known-answer gates all pinned in scope §4 BEFORE
+the code existed). Artifact: `freeconv_gates.json`. Build order held: subordination core → the
+two closed-form gates → (checkpoint reported here) → empirical input → §6.iii.
+
+- **Gate S (semicircle, smooth input):** sc(1)^⊞κ vs sc(√κ) closed form, κ ∈ {1.5, 2, 4, 8, 16},
+  interior grid |x| ≤ 0.95·edge. Worst density deviation 1.06×10⁻⁷ (tol 10⁻⁴), worst same-grid
+  mass deviation 4.9×10⁻⁷, worst ε-doubling deviation 1.1×10⁻⁷.
+- **Gate B (Bernoulli, atomic input):** closed form derived via R-transform before coding
+  (a.c. density κ√(4(κ−1)−x²)/(2π(κ²−x²)); κ = 2 collapses to the arcsine law — internal
+  consistency for free). κ ∈ {1.2, 1.5, 1.9, 2, 3, 5}: worst density deviation 1.63×10⁻⁶, worst
+  mass deviation 4.8×10⁻⁷.
+- **Atom threshold, predicted to the digit (scope §4):** pole-mass probe ε·|Im G(κ+iε)| at the
+  atom location: κ = 1.5 → 0.250000 measured vs 1 − κ/2 = 0.25 predicted; κ = 3 → 0.000000.
+  The mass-½ atoms survive below s = ½ and are gone above it, as the threshold formula requires.
+- **Contraction certification:** worst subordination residual 9.99×10⁻¹⁴ (target 10⁻¹³) across
+  every gate point; iteration count peaks at 2082 (κ = 16 near the real axis — the Denjoy–Wolff
+  factor approaching 1 exactly where the scope said the R-transform route would have died).
+
+**Verdict: PASS.** The evaluator has earned the empirical-measure input and the iid seed.

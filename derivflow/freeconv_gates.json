@@ -1,0 +1,119 @@
+{
+ "constants": {
+  "SUB_TOL": 1e-13,
+  "EPS_GATE": 1e-06,
+  "DENS_TOL": 0.0001,
+  "MASS_TOL": 0.0001,
+  "EPS_DOUBLE_TOL": 0.0001,
+  "ATOM_EPS": 1e-08,
+  "ATOM_TOL": 0.001,
+  "N_GRID": 400
+ },
+ "semicircle": [
+  {
+   "kappa": 1.5,
+   "max_dens_dev": 1.0610327383364648e-07,
+   "mass_dev": 4.938076508809175e-07,
+   "eps_double_dev": 1.0610323047943737e-07,
+   "sub_residual": 8.199731765620043e-14,
+   "iters": 50
+  },
+  {
+   "kappa": 2.0,
+   "max_dens_dev": 7.957745754016976e-08,
+   "mass_dev": 4.2765000740629944e-07,
+   "eps_double_dev": 7.957742936826051e-08,
+   "sub_residual": 8.266276320281005e-14,
+   "iters": 104
+  },
+  {
+   "kappa": 4.0,
+   "max_dens_dev": 3.978873081011969e-08,
+   "mass_dev": 3.0239427006861774e-07,
+   "eps_double_dev": 3.978872090137919e-08,
+   "sub_residual": 9.633518483820482e-14,
+   "iters": 367
+  },
+  {
+   "kappa": 8.0,
+   "max_dens_dev": 1.9894366209971537e-08,
+   "mass_dev": 2.138250656535945e-07,
+   "eps_double_dev": 1.9894362615624495e-08,
+   "sub_residual": 9.816085702953948e-14,
+   "iters": 936
+  },
+  {
+   "kappa": 16.0,
+   "max_dens_dev": 9.947183382541525e-09,
+   "mass_dev": 1.5119716434419672e-07,
+   "eps_double_dev": 9.947182189051773e-09,
+   "sub_residual": 9.992130578978797e-14,
+   "iters": 2082
+  }
+ ],
+ "bernoulli": [
+  {
+   "kappa": 1.2,
+   "max_dens_dev": 5.3397626534335e-07,
+   "mass_dev": 3.013686159236695e-07,
+   "eps_double_dev": 5.339891007982711e-07,
+   "sub_residual": 9.881485442429122e-14,
+   "iters": 1022
+  },
+  {
+   "kappa": 1.5,
+   "max_dens_dev": 1.6295315387049314e-06,
+   "mass_dev": 4.806629490539116e-07,
+   "eps_double_dev": 1.6295457035964134e-06,
+   "sub_residual": 9.647301482567921e-14,
+   "iters": 659
+  },
+  {
+   "kappa": 1.9,
+   "max_dens_dev": 8.376391386066828e-07,
+   "mass_dev": 1.5916514706226792e-07,
+   "eps_double_dev": 8.376038401758379e-07,
+   "sub_residual": 9.600369144696563e-14,
+   "iters": 580
+  },
+  {
+   "kappa": 2.0,
+   "max_dens_dev": 1.8441359550536163e-11,
+   "mass_dev": 2.4871216197652757e-12,
+   "eps_double_dev": 5.644373857194296e-11,
+   "sub_residual": 9.70738946617756e-14,
+   "iters": 601
+  },
+  {
+   "kappa": 3.0,
+   "max_dens_dev": 8.147608739073053e-07,
+   "mass_dev": 4.80662647461827e-07,
+   "eps_double_dev": 8.147571452510327e-07,
+   "sub_residual": 9.585952918700813e-14,
+   "iters": 677
+  },
+  {
+   "kappa": 5.0,
+   "max_dens_dev": 1.6886886282374558e-07,
+   "mass_dev": 3.4364649692530946e-07,
+   "eps_double_dev": 1.6886796067039356e-07,
+   "sub_residual": 9.824965686632226e-14,
+   "iters": 886
+  }
+ ],
+ "atoms": [
+  {
+   "kappa": 1.5,
+   "atom_mass_est": 0.24999999998982594,
+   "predicted": 0.25,
+   "sub_residual": 7.083222897114667e-14
+  },
+  {
+   "kappa": 3.0,
+   "atom_mass_est": 1.1111111110958983e-16,
+   "predicted": 0.0,
+   "sub_residual": 8.482103908137642e-14
+  }
+ ],
+ "verdict": "PASS"
+}
