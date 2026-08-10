@@ -188,6 +188,36 @@ stated conditionally on RH, and Goldston–Montgomery is an equivalence *between
 proof of either. That conditionality is filed against the **reference number**, never against the
 instrument — the measurement consumes a finite list of verified zeros and reads only imaginary parts.
 
+**Provenance slot — 2026-08-10 amendment (BGST unconditionality).** First, the "why GUE" proof-status
+seam, discussed in the July session but never landed in the repo, is filed here for the first time.
+Three slots: **(1) proven-restricted-support** — Montgomery's pair-correlation window and
+Rudnick–Sarnak's restricted-support n-level correlations; **(2) proven-function-field** — Katz–Sarnak;
+**(3) conjectured-full**. Amendment to slot (1): the Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh
+series ("An unconditional Montgomery Theorem for Pair Correlation of Zeros of the Riemann Zeta
+Function," arXiv:2306.04799, and successors incl. arXiv:2501.14545) removes the RH assumption from
+Montgomery's restricted-window pair-correlation machinery. **The window content moves from "theorem
+assuming RH" to "theorem."** The paragraph above is superseded on that clause only; the
+Goldston–Montgomery clause is untouched (still an equivalence between conjectures), and the sealed
+twin at `seals/TASKB_SEAL.json` (`alpha_lt_1`) is left as sealed history per R-153 discipline — this
+amendment supersedes it in prose, it does not edit it. BGST owns the unconditionality (2023–2025);
+the occasion that surfaced it is Anthropic's 2026-08 result (a research version of Claude raised the
+unconditional on-line proportion 41.6% → 67.2% via the BGST series + Bombieri 2000, Weil-quadratic-form
+rank inequality; human-validated + Lean-verified).
+
+Slot-discipline pre-catch, filed as caught before it fired: Montgomery's 2/3 is the **simple-zero**
+proportion, **conditional on RH**; the 67.2% is the **on-line** proportion, **unconditional**.
+Different slot, different conditionality — the numerical proximity may reflect a shared second-moment
+source term, and that inference stands as inference; the two constants must not be filed as one fact.
+
+What this amendment does NOT touch: Phase 2's Λ bracket [0, 0.22] and the classifier resolution
+(0.00162 as filed; 0.00197 after the `LOOK_ARC_PROVENANCE.md` row-c correction) — the proportion
+bound says nothing about Λ, and the flow-amplified +2σ finite-height residual stands as measured;
+Phase 1/3's finite-height crossover (⟨r̃⟩ 0.615 → 0.603) — the proof lives in the liminf/asymptotic
+regime and neither predicts nor explains the low-γ rigidity deficit; and CP1, which stays
+load-bearing — the proof's mechanism is a genericity argument routed through proven moment bounds,
+not an "arithmetic ⟹ chaotic" step, consonant with CP1's banked 7–8σ demonstration that
+arithmeticity alone does not buy RMT. Register mirror: R-187.
+
 **α ≥ 1 — LOOK region.** Calibrator grade zero. Reported qualitatively only, no σ/z/p: F fluctuates
 about the GUE limit of 1.0 with no visible ramp or plateau structure beyond the estimator's own
 exponential jitter (mean 1.04, range 0.68–1.63 over α ∈ [1.0, 2.9]). Filed as R-006. **Nothing is

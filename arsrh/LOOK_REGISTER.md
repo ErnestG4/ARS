@@ -3503,3 +3503,27 @@ units at 100%, zeta and primes at 0%** — and a pointer to `rep_int_signed_q`. 
   definition, and confirming it needs the brocot spectra checked for genuine rigidity. Ratchet reset
   **deliberately and recorded**, not silently.
 - **Status:** OPEN — ibl and allen_hpf running; buzsaki and dual_region queued.
+
+### R-187 — SLOT UPDATE: BGST makes Montgomery's window unconditional; and the "why GUE" seam was never in the repo
+- **The seam itself was missing.** The July session's three-slot "why GUE" filing —
+  (1) proven-restricted-support (Montgomery window, Rudnick–Sarnak), (2) proven-function-field
+  (Katz–Sarnak), (3) conjectured-full — existed at conversation level only. A very-thorough sweep
+  (all 9 branches, `git log -S`, sibling trees) found **zero hits** for it. Filed for the first time
+  2026-08-10 in `LOOK_ARC_TASKB_FINDINGS.md` §6, as an extension of the existing F(α) provenance slot
+  — the only place in the arc that already reasons about "conditional on RH" vs "proof of neither."
+- **The amendment (slot 1):** the Baluyot–Goldston–Suriajaya–Turnage-Butterbaugh series
+  (arXiv:2306.04799 "An unconditional Montgomery Theorem for Pair Correlation…", + successors)
+  removes the RH assumption from Montgomery's restricted-window machinery. **Window content:
+  "theorem assuming RH" → "theorem."** BGST owns the unconditionality (2023–2025); the occasion is
+  Anthropic's 2026-08 result — a research version of Claude raised the unconditional on-line
+  proportion **41.6% → 67.2%** (BGST + Bombieri 2000, Weil-quadratic-form rank inequality;
+  human-validated + Lean). Verified against the Anthropic writeup and arXiv before filing.
+- **Seal discipline:** `seals/TASKB_SEAL.json` `alpha_lt_1` still carries "CONDITIONALLY ON RH" —
+  left as sealed history per R-153 (superseded in prose, not edited).
+- **Slot-discipline pre-catch (Will's, before it fired):** Montgomery's 2/3 = **simple-zero**
+  proportion, **conditional**; 67.2% = **on-line** proportion, **unconditional**. Numerical proximity
+  may share a second-moment source term — inference only, never one fact in two slots.
+- **NOT touched:** Phase 2 Λ bracket [0, 0.22] + resolution (0.00162 filed / 0.00197 corrected);
+  Phase 1/3 finite-height crossover 0.615 → 0.603 (proof is liminf/asymptotic); CP1 stays
+  load-bearing — the proof routes through proven moment bounds, no "arithmetic ⟹ chaotic" step.
+- **Status:** CLOSED — record amendment, no measurement.
