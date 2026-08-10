@@ -53,15 +53,15 @@ def diff_step(r):
     if not np.all(b > a):
         raise GateFail("degenerate bracket: input roots not strictly increasing")
     lo, hi = a.copy(), b.copy()
-    for _ in range(60):
+    for _ in range(25):                    # bracket to ~3e-8 of the gap ...
         mid = 0.5 * (lo + hi)
         s = np.sum(1.0 / (mid[:, None] - r[None, :]), axis=1)
         neg = s < 0.0                      # S decreasing: S(mid)<0 -> root left of mid
         hi = np.where(neg, mid, hi)
         lo = np.where(neg, lo, mid)
     x = 0.5 * (lo + hi)
-    for _ in range(3):                     # Newton polish, clamped to the bracket
-        d = x[:, None] - r[None, :]
+    for _ in range(5):                     # ... then Newton, clamped to the bracket (quadratic
+        d = x[:, None] - r[None, :]        # from 3e-8: two steps to eps, five for margin)
         s = np.sum(1.0 / d, axis=1)
         sp = -np.sum(1.0 / d**2, axis=1)
         x = np.clip(x - s / sp, a + 1e-300, b - 1e-300)
