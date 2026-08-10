@@ -52,6 +52,14 @@ post-window count crosses below 64 spacings at s ≈ 0.37. The gate itself is va
 0.2·(1 − s_max)·n ≥ 64 ⇒ **n ≥ 3250 for s_max = 0.9; use n = 4096.** This lands exactly as
 scope §4 anticipated — the floor binds on post-window count, per Will's note 3.
 
+**Solver change 2026-08-10 (same day):** `diff_step` moved from 60-bisection+3-Newton to
+25-bisection+5-clamped-Newton for the n = 4096 science runs; the gate was re-run before anything
+consumed the new solver and **re-PASSED with bit-identical worst deviation (1.35×10⁻¹³)**.
+Caveat, so this doesn't sound stronger than what it certifies: bit-identical means both solvers
+converge to the same float64 fixed points at the checked points — which is exactly what
+bracket-clamped iterations should do — not that the solvers are equivalent in general. The
+gate's authority is unchanged either way.
+
 **Verdict: PASS.** Gates §6.i (Hermite exactness) and §6.ii-on-Hermite (interlacing) are green.
 Remaining before the seal: §6.iii (unfolding residual vs fractional-free-convolution density,
 iid seed), §6.iv (jitter floor per s, iid seed), and the §9 adversarial literature pull.

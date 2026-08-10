@@ -1,7 +1,8 @@
 # derivflow Track-0 — SCOPE
 
-**Status: SCOPED 2026-08-10 (v1.2 — adds Will's free-convolution-evaluator design to §4 and the
-compact-support pin to §5a after the Hermite gate PASS).** Drafted, cut down by Will same day (Hermite gate swapped in
+**Status: SCOPED 2026-08-10 (v1.3 — v1.2 added Will's free-convolution-evaluator design to §4 and
+the compact-support pin to §5a after the Hermite gate PASS; v1.3 pre-commits the §6.iii gate rule
+and slope-interpretation frame while the n-sweep was in flight, table unseen).** Drafted, cut down by Will same day (Hermite gate swapped in
 for the mis-specified picket-fence gate; order-of-limits split added to §9; v2/citation-graph rider
 added to the pre-seal pull), DRAFT label removed on his call. Nothing here is sealed. Per TOOLKIT
 §10 discipline, the sealed prediction is written only AFTER the Track-0 harness validation and null
@@ -124,6 +125,27 @@ replicates near any class boundary, distributions reported, not just means.
   Hermite seed supplying the **finite-n ceiling arm** (order-of-limits: §9).
 - **FAIL (harness):** a Hermite step misses its known answer, a bracket fails, or unfolding
   residual exceeds tolerance. No science claims are made from a FAIL run; fix and rerun.
+
+**§6.iii gate rule — PRE-COMMITTED 2026-08-10 before the n-scaling table was read** (v1.3; the
+n ∈ {1024, 2048, 4096} sweep was in flight, its output unseen, when this was filed and committed):
+
+- **PASS bar: strict monotonicity on all 18 comparisons** (9 sampled s × 2 adjacent-n pairs) of
+  the KS residual vs the empirical-seed free-convolution reference.
+- **Escalation, not tolerance:** if EXACTLY ONE pair fails, AND it is a 2048→4096 pair, AND it is
+  at s ≥ 0.7 (the fluctuation-plausible corner), the verdict is **INCONCLUSIVE-PENDING-REPLICATION**
+  — resolved by a pre-declared 10-seed replicate at that s for both n, gate then requiring the
+  MEDIAN residual to be monotone. This is escalation to more power (seed-replicate-near-boundary
+  rule), not a noise waiver: no reference to the §6.iv jitter floor, which does not exist yet and
+  would make the gate unevaluable.
+- **Outright FAIL:** more than one failed pair, any failed 1024→2048 pair, or any failed pair at
+  s < 0.7.
+- **Slope is recorded separately from the verdict** (Will's interpretation frame, fixed before
+  the table): fluctuation-dominated residual ⇒ log-slope ≈ −1/2 in n at low-to-mid s is the
+  healthy signature. At s = 0.8–0.9 the slope may legitimately flatten from two NUMERICAL causes
+  — windowed count shrinking as (1−s)·n, and the ε/inversion floor — so a high-s flattening is
+  checked against the per-s ε trace before being read as a gate concern. Monotone-in-n can
+  survive a flattened slope; the artifact records both so they cannot be conflated. If a seal is
+  later written on top of a PASS obtained through the escalation branch, the seal must say so.
 - Only after PASS is the §7 question sealed.
 
 ## 7. The question to seal (draft wording — sealed only after Track-0 PASS)
