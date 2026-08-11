@@ -27,8 +27,23 @@ without amending this header with the reason.
 
 ## STEP 1 — Standalone k=1 lattice computation (instrument credibility)
 
-**STATE:** NOT STARTED
-**LOG:** —
+**STATE:** EXITED 2026-08-11 — INSTRUMENT-OWNED (branch 2 of the pre-committed adjudication).
+F-2 is a reference-layer artifact, not root dynamics. Escalation clause active: the
+fit-window contamination probe is REQUIRED before Step 4 (running; see LOG).
+**LOG:** `step1_lattice_k1.py` + `step1_lattice_k1.json`. Part A: raw bulk gaps of the
+once-differentiated lattice are 9.4e-8 / 2.4e-8 / 5.9e-9 at n = 1024/2048/4096 —
+DECREASING with n, 3–6 orders below the flagged pipeline values (3.0e-4 / 5.8e-4 / 4.6e-3),
+which the pipeline readout on the SAME roots reproduces exactly. Rootfinder independently
+verified (mpmath dps 30, dev ≤ 1e-13 of spacing). Part B attribution: grid 16001 drops the
+artifact 15–51×; 2ε drops it ~20× — the artifact is reference-CDF resolution at near-atomic κ,
+worst at the n = 4096 aliasing crossover (4001 grid points < n roots). Runge-envelope magnitude
+test moot (branch 1 not taken); the raw values' n-DECREASE matches the envelope-displacement
+direction, consistent with real dynamics being ≤ 1e-8 in bulk. CONSEQUENCE FOR THE VERDICT
+(measured, not assumed — probe in flight): the fit-window rows (iid/GUE k = 1, 2) were computed
+on the same grid-4001 instrument; shift-vs-σ_mean probe running (6 replicates per seed class,
+grid 4001 vs 16001). If material, the seal's post-change protocol governs: gate re-runs, then
+instrument-corrected recomputation, verdict updated with full disclosure — F-1's misfit may be
+partly this systematic.
 
 **Question:** Is the F-2 picket-fence row real root dynamics or an instrument artifact
 in the near-atomic reference regime?
@@ -139,9 +154,9 @@ the intensive step this doc exists for.
 
 ## STEP 4 — The writeup (short arXiv note)
 
-**STATE:** NOT STARTED — BLOCKED on Step 1 exit (instrument credibility). NOT blocked
-on Steps 2–3: publishable at three n's, scale bounded-not-resolved, mechanism section
-conditional on whatever Step 2 filed by then.
+**STATE:** NOT STARTED — BLOCKED on the Step 1 escalation (instrument-owned branch taken
+2026-08-11): the fit-window contamination probe, and any instrument-corrected recomputation it
+mandates, must complete before this step opens. Original Step-1 block is exited.
 **LOG:** —
 
 **Claim of the note:** First sealed, gate-certified measurement of fixed-k local

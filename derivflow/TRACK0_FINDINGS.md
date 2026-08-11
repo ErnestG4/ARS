@@ -253,3 +253,27 @@ and the ε-smoothed inversion may ripple at exactly the readout's scale, a regim
 exercised at ceiling-level signal (the §6.iv-a floor was measured on iid seeds where the signal
 is O(0.1)). Deciding between them needs a designed instance (e.g., the ε-doubling trace at that
 row, or a wider bulk window) and is queued as the arc's first post-seal question.
+
+## 8. F-2 RESOLVED: instrument-owned (ROADMAP Step 1, 2026-08-11)
+
+Runner: `step1_lattice_k1.py`. Artifact: `step1_lattice_k1.json`. Pre-committed adjudication
+branch 2 fired: **the picket-fence clause row is a reference-layer artifact, not root dynamics.**
+
+- **Part A (standalone, no pipeline):** raw central-window gaps of the once-differentiated
+  lattice give 1 − ⟨r̃⟩ = 9.4×10⁻⁸ / 2.4×10⁻⁸ / 5.9×10⁻⁹ at n = 1024/2048/4096 — DECREASING
+  with n (the direction the envelope-displacement estimate predicts for real dynamics), 3–6
+  orders below the flagged values, while the pipeline readout on the SAME roots reproduces the
+  banked picket rows exactly (3.021×10⁻⁴ / 5.783×10⁻⁴ / 4.570×10⁻³). Rootfinder independently
+  verified by mpmath Newton at dps 30: deviation ≤ 10⁻¹³ of spacing.
+- **Part B (attribution):** grid 16001 drops the artifact 15–51×; ε-doubling drops it ~20×.
+  Mechanism: reference-CDF resolution at near-atomic κ — at n = 4096 the 4001-point grid is
+  COARSER than the root spacing (aliasing crossover), which is why the clause fired there and
+  why the artifact GROWS with n while the real dynamics shrink.
+- **Physical statement:** the picket fence IS ceiling-invariant under one differentiation to
+  ≤ 10⁻⁸ in bulk. The sealed clause fired on the instrument, and the seal's design (clause
+  excluded from the verdict) contained the damage.
+- **Open exposure, being measured (required before ROADMAP Step 4):** the verdict's fit-window
+  rows (iid/GUE, k = 1, 2) used the same grid-4001 instrument; a shift-vs-σ_mean probe
+  (6 replicates per seed class, grid 4001 vs 16001) is in flight. If the shift is material, the
+  seal's post-change protocol governs the recomputation, and F-1's misfit (χ²/dof 31 / 1062)
+  may be partly this shared per-k systematic.

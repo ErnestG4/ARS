@@ -1,0 +1,35 @@
+{
+ "step": "ROADMAP Step 1",
+ "rows": [
+  {
+   "n": 1024,
+   "raw_one_minus_rtilde": 9.430062530846328e-08,
+   "pipeline_flagged": 0.0003021239505541784,
+   "ratio_pipeline_over_raw": 3203.838252036102,
+   "mp_rootfinder_dev_of_spacing": 1.7369671305680767e-15,
+   "grid4001_eps": 0.0003021239505541784,
+   "grid16001_eps": 5.9075706532185635e-06,
+   "grid4001_2eps": 1.2979136598922913e-05
+  },
+  {
+   "n": 2048,
+   "raw_one_minus_rtilde": 2.3685237104942303e-08,
+   "pipeline_flagged": 0.0005783471040475829,
+   "ratio_pipeline_over_raw": 24418.04156256057,
+   "mp_rootfinder_dev_of_spacing": 9.435105532084285e-14,
+   "grid4001_eps": 0.0005783471040475829,
+   "grid16001_eps": 7.913158462602432e-06,
+   "grid4001_2eps": 1.5280855447774577e-05
+  },
+  {
+   "n": 4096,
+   "raw_one_minus_rtilde": 5.927227375579491e-09,
+   "pipeline_flagged": 0.004570456927377342,
+   "ratio_pipeline_over_raw": 771095.2588402261,
+   "mp_rootfinder_dev_of_spacing": 7.40355437265828e-15,
+   "grid4001_eps": 0.004570456927377342,
+   "grid16001_eps": 0.00030833287748799343,
+   "grid4001_2eps": 0.00019860139622018824
+  }
+ ]
+}
