@@ -65,10 +65,13 @@ in **k ∈ {1, 2, 4, 8, …} up to ~n/10**, with s = k/n derived, not the revers
 at the small end: real-rootedness Rolle-interlaces every derivative — exactly one new root per
 gap — so k = 1 is a near-deterministic local map on the gap sequence and a Poisson-gapped seed
 CANNOT be crystalline after one step; its spacing distribution is a smoothed transform of the
-seed's, not the ceiling. (Exact real-rooted statements to pin via the §9 pull — the
-Pemantle–Rivin / Kabluchko critical-points-pairing line is the complex-coefficient cousin; shape
-confident, citations not.) The transition Poisson → crystal is thus BRACKETED: seed-like at
-k = O(1) by interlacing, Hermite-ceiling by k = n/10 by measurement.
+seed's, not the ceiling. (Pull verdict 2026-08-11: this floor is **program-derived** —
+unchallenged and unduplicated in the literature; the complex pairing theorems exclude real
+support by hypothesis, and Kabluchko arXiv:1206.6692 covers real-rooted k = 1 at the global
+level only. The seal labels it accordingly.) The transition Poisson → crystal is thus BRACKETED:
+seed-like at k = O(1) by interlacing, Hermite-ceiling by k = n/10 by measurement — and at n = ∞
+the Poisson seed's crystalline endpoint is a theorem with no rate (Pemantle–Subramanian
+arXiv:1409.7956), making the rate/scale the open content at every degree.
 
 Harness modification (the one real change vs Phase 2): at each sampled s, recompute the unfolding
 against the predicted push-forward density before evaluating any spacing statistic. Validation of
@@ -256,15 +259,30 @@ Filed with exact conditionality per the row-c-suspect rule:
   ceiling arms.** A deeper adversarial pull (someone trying to find the theorem that DOES cover
   fixed-s local statistics) is a mandatory pre-seal step — this section records a search, and a
   search is not a proof of absence. **The pull's concrete targets (Will's rider):** diff
-  2410.06403 v1 → v2 (v2 is 2026-05-21, seven months of possible strengthening), and sweep the
-  2025–26 papers citing it — if anyone has closed fixed-s local spacing, it will be in that
-  citation graph. **Widened v1.4 (after the k-re-parameterization):** hunt specifically for
-  local statistics after **o(n) derivatives** of real-rooted polynomials — transition-scale
-  results, if they exist, live under that description, not under fixed-s language, which is
-  presumably why the fixed-s-scoped pull did not surface them. OPEN-AS-SEARCHED must be
-  re-verified against the re-parameterized question, not just the original. Also pin exact
-  real-rooted statements for the k = O(1) interlacing floor (the Pemantle–Rivin / Kabluchko
-  critical-points-pairing line is the complex cousin; the real-rooted citations are unpinned).
+  2410.06403 v1 → v2, sweep its 2025–26 citation graph; **widened v1.4:** local statistics after
+  o(n) derivatives of real-rooted polynomials; pin real-rooted k = O(1) statements.
+- **ADVERSARIAL PULL EXECUTED 2026-08-11 (agent, four targets, ~30 sources). GAP STANDS under
+  BOTH parameterizations.** (1) 2410.06403 v2 is a presentational revision — abstract verbatim
+  identical, same result set renumbered; hypothesis class clarified to even entire, order < 2,
+  real-rooted, root-counting function regularly varying with exponent α ∈ (0, 2). No new
+  local-statistics content. (2) Seven 2025–26 citing papers, none local-at-fixed-s-or-small-k;
+  near-miss **Campbell–Jalowy arXiv:2605.31356 Thm 2.7**: bulk cosine/Plancherel–Rotach local
+  asymptotics for Appell/Pólya–Benz sequences — proves **the TARGETS of the flow are locally
+  lattice**, not the flow itself. (3) **No theorem gives local spacing of p^(k) for degree-n
+  real-rooted polynomials in any regime 1 ≪ k ≤ sn, s < 1.** Proven endpoints now cited: at
+  n = ∞, a Poisson-zeroed entire function crystallizes locally — zeros of f^(k) → uniform random
+  translate of ℤ as k → ∞, **with no rate** (Pemantle–Subramanian arXiv:1409.7956, Trans. AMS
+  2017) — the infinite-degree anchor of our question, rate/scale open even there; at k = n − O(1)
+  the surviving roots are Hermite/Appell up to random shift (Hoskins–Steinerberger
+  arXiv:2005.09809; Arizmendi–Campbell–Fujie arXiv:2506.08910; Campbell arXiv:2412.20488);
+  k ≲ log n is global-law only (Michelen–Vu arXiv:2212.11867); a quantitative crystallization
+  RATE exists only in the periodic cousin model (Farmer–Yerrington math-ph/0601007), whose
+  top-frequency mechanism does not transfer. (4) The k = O(1) local pairing theorems
+  (Kabluchko–Seidel arXiv:1807.02140; Hanin arXiv:1601.06417) **exclude real support by
+  hypothesis** (planar Lebesgue density required); Kabluchko arXiv:1206.6692 covers real-rooted
+  seeds at the k = 1 GLOBAL level only. **Consequence: the §4 interlacing floor is
+  program-derived — unchallenged and unduplicated — and the seal must label it so.**
+  Nearest-approach papers flagged for next audit: 2605.31356 and successors of 1409.7956.
 
 ## 10. Methodological commitments carried through
 

@@ -22,8 +22,14 @@
   ε-adjudication branch was not needed. **Design fact for the seal: the iid seed is already at
   the crystalline ceiling by s = 0.1** (1 − ⟨r̃⟩ ~ 10⁻⁵–10⁻⁷); the rate action lives at small s
   and the science-phase s-grid must be log-spaced there.
-- Sealed rate question: **still unsealed**, per scope — pending §6.iv (jitter floor) and the
-  pre-seal adversarial literature pull (2410.06403 v1→v2 diff + 2025–26 citation graph).
+- **§4 Adversarial literature pull: GAP STANDS under both parameterizations** (2026-08-11,
+  agent, four targets). 2410.06403 v2 is presentational; seven citing papers all global-scale
+  (near-miss 2605.31356 proves the flow's TARGETS are locally lattice, not the flow); no theorem
+  on local spacing of p^(k) for 1 ≪ k ≤ sn; the n = ∞ Poisson anchor (Pemantle–Subramanian
+  1409.7956: crystallization theorem, NO rate) and the k = n − O(1) Hermite/Appell endpoint are
+  now cited; the k = O(1) interlacing floor is program-derived (complex pairing theorems exclude
+  real support by hypothesis). Full verdicts in scope §9.
+- Sealed rate question: **still unsealed**, per scope — pending §6.iv-a (running) and §6.iv-b.
 
 ## 1. Hermite self-map gate (scope §5c / §6)
 
