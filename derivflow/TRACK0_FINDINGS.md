@@ -277,3 +277,34 @@ branch 2 fired: **the picket-fence clause row is a reference-layer artifact, not
   (6 replicates per seed class, grid 4001 vs 16001) is in flight. If the shift is material, the
   seal's post-change protocol governs the recomputation, and F-1's misfit (χ²/dof 31 / 1062)
   may be partly this shared per-k systematic.
+
+## 9. Fit-window contamination MATERIAL: the verdict enters instrument review (2026-08-11)
+
+The Step-1 escalation probe (6 replicates per seed class, n = 4096, grid 4001 vs 16001):
+
+| row | mean shift (4001 − 16001) | σ_mean | shift/σ_mean |
+|---|---|---|---|
+| iid k=1 | +5.14×10⁻² | 2.1×10⁻³ | **+24.1** |
+| iid k=2 | +3.22×10⁻² | 1.7×10⁻³ | **+18.6** |
+| GUE k=1 | +3.60×10⁻² | 9.8×10⁻⁴ | **+36.8** |
+| GUE k=2 | +2.04×10⁻² | 5.3×10⁻⁴ | **+38.2** |
+
+The reference-grid artifact is a shared per-k systematic 24–38 σ_mean wide on the fits' anchor
+rows (~15% of signal at k = 1). Consequences, filed before any recomputation:
+
+- **The sealed verdict is UNDER INSTRUMENT REVIEW.** The form selection (F3 vs F2) was fitted
+  to contaminated small-k points. Per the seal's `post_seal_change_protocol`, the sequence is:
+  fix the instrument (grid rule), re-run the affected gates (§6.iii, §6.iv-a, §6.iv-b consume
+  `reference_cdf`; the Hermite and closed-form evaluator gates do not), then recompute the
+  science under the corrected instrument and update the verdict with full disclosure. The seal
+  anticipated exactly this; nothing is discarded silently.
+- **F-1 reread:** the χ²/dof of 31/1062 is very plausibly dominated by this systematic — the
+  "no form fits at the achieved precision" finding may soften or dissolve under the corrected
+  instrument. Richer-form exploration stays parked until the corrected fits exist.
+- **What survives regardless:** the k* separation (iid ≈ 2× GUE) is far larger than the shift;
+  the ceiling-phase rows (k ≥ 8–16) are orders below the artifact's reach only at ceiling —
+  mid-window rows (k = 4–16) shifted little in the picket probe and the qualitative
+  seed-dependence is expected to survive. That expectation is NOT a result; the corrected
+  adjudication decides.
+- Grid convergence study (16001 vs 32001 at the worst row) in flight to spec the corrected
+  instrument before the recompute campaign is costed.
