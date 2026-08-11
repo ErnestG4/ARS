@@ -29,7 +29,41 @@
   1409.7956: crystallization theorem, NO rate) and the k = n − O(1) Hermite/Appell endpoint are
   now cited; the k = O(1) interlacing floor is program-derived (complex pairing theorems exclude
   real support by hypothesis). Full verdicts in scope §9.
-- Sealed rate question: **still unsealed**, per scope — pending §6.iv-a (running) and §6.iv-b.
+- **§5 Numerical jitter floor (§6.iv-a): PASS, all three declared gates** (2026-08-11). Transfer
+  ratios 0.86 → 0.09 across k = 1…64 (theorem bound ≤ 1, measured strictly contractive and
+  tightening with k); floor-vs-signal ratio ~10⁻¹³ in the fit window (gate: 10⁻²); amplification
+  slopes 0.46–1.17 (gate: ≤ 1.3). The rate fits cannot be reading solver noise by ~11 orders.
+- Sealed rate question: **still unsealed** — all Track-0 GATES are now green; §6.iv-b (the error
+  bar, not a gate) and the seal itself remain.
+
+## 5. Numerical jitter floor (scope §6.iv-a, gates declared v1.4 before the run)
+
+Runner: `track0_jitter_floor.py`. Artifact: `track0_jitter_floor.json`. n = 4096,
+k ∈ {1, 2, 4, 8, 16, 32, 64}, δ ∈ {10⁻¹², 10⁻¹⁰, 10⁻⁸} × local spacing, R = 6, 19 flows,
+runtime 81 min.
+
+| k | 1−⟨r̃⟩ (unpert.) | spread @δ=10⁻¹² | transfer max | amp slope | window |
+|---|---|---|---|---|---|
+| 1 | 3.29×10⁻¹ | 4.7×10⁻¹⁴ | 0.858 | 1.03 | FIT |
+| 4 | 8.61×10⁻² | 1.1×10⁻¹⁴ | 0.621 | 0.94 | FIT |
+| 16 | 3.27×10⁻³ | 6.6×10⁻¹⁵ | 0.348 | 1.17 | FIT |
+| 64 | 1.43×10⁻⁴ | 3.5×10⁻¹⁵ | 0.090 | 0.46 | ceiling |
+
+- **Gate (i), transfer:** every ratio strictly below 1 at every k and gated δ — the ℓ∞
+  non-expansivity lemma is not just satisfied but strengthens with k (0.86 at k = 1 down to
+  0.09 at k = 64): the flow actively contracts seed perturbations, so the small-k floor
+  upper-bounds downstream by a widening margin.
+- **Gate (ii), floor-vs-signal:** in the fit window the replicate spread at δ = 10⁻¹² sits
+  ~11 orders below the signal (ratio ~10⁻¹³ vs the 1% gate). Ceiling rows: spreads
+  3.5–8.7×10⁻¹⁵ vs the 10⁻⁷ bound.
+- **Gate (iii), amplification:** log-log slopes 0.46–1.17, all ≤ 1.3 — linear-or-below transfer,
+  no chaotic amplification anywhere on the grid.
+- **Pre-registration ordering, for the record:** the functional-form ladder was committed
+  (v1.4, 87437a7) BEFORE any k-resolved transition data existed (§6.iii saw only the s ≥ 0.1
+  ceiling plateau; the n = 256 smoke's two points and this run's 7-point unperturbed curve came
+  after the ladder was filed). The iid transition curve incidentally visible in this artifact's
+  unperturbed column is banked, unfitted, and uncompared — no form has been selected and no
+  second seed class has been run; the sealed adjudication is untouched.
 
 ## 1. Hermite self-map gate (scope §5c / §6)
 
