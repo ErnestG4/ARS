@@ -1,0 +1,80 @@
+{
+  "seal": "derivflow rate question — crystallization transition scale, shape, and seed-class dependence",
+  "sealed": "2026-08-11",
+  "scope_ref": "TRACK0_SCOPE.md v1.4 §7 (question), §4 (k-parameterization + interlacing floor), §6.iv (a/b split), §9 (literature status incl. 2026-08-11 adversarial pull)",
+  "preamble_ordering": "This seal is written BEFORE the §6.iv-b realization ensemble runs. Reason, stated as the seal's own justification: -b replicates are same-pipeline transition data, so the only ordering under which the error-bar ensemble contributes zero pre-seal information is seal-first. Consequence: the fitted iid data will be entirely post-seal (the -b ensemble mean), and the disclosed pre-seal iid curve (RNG seed 0) is NOT consumed by any fit.",
+
+  "disclosure_ledger": {
+    "note": "'Seen' and 'fitted' are different slots; both sides are named. A referee who finds the pre-seal artifacts in history and no disclosure here has found a real problem; disclosed, they are Track-0 doing its job.",
+    "seen_pre_seal": [
+      "iid transition LOCATION at n=4096: k in ~1..32 (1-<rtilde> falls 0.329 at k=1 to 5.8e-4 at k=32; ceiling ~1.4e-4 by k=64). Source: track0_jitter_floor.json unperturbed column — a 7-point k-curve (k in {1,2,4,8,16,32,64}); Will's message said '19-point'; 19 was the flow count, 7 is the point count — corrected here per filing discipline.",
+      "iid coarse shape, 2 points at n=256 (smoke): 1-<rtilde> 0.275 (k=1), 0.029 (k=4).",
+      "iid at-ceiling plateau for s >= 0.1 at n in {1024,2048,4096} (track0_iid_scaling.json): 1-<rtilde> ~ 1e-5..1e-7, sigma2(8) 0.00-0.04.",
+      "Hermite ceiling arm at n=512 across all s (track0_hermite_gate.json): 1-<rtilde> 2.4e-7..4.2e-5.",
+      "KS n-scaling slopes ~ -1 (rigidity witness), pop-vs-emp reference gap, jitter floor and transfer ratios (all Track-0 artifacts)."
+    ],
+    "blind_at_sealing": [
+      "Every fit and every functional-form selection (no form has been fit to anything).",
+      "The GUE seed's transition curve, entirely (never generated).",
+      "The picket-fence seed's flow behavior, entirely (never flowed).",
+      "The -b ensemble (not yet run) and therefore every sigma the fits will consume.",
+      "The cross-seed universality comparison — the sealed question itself."
+    ],
+    "predictive_content": "Form (blind), rate parameters (blind), cross-seed agreement (blind). Transition LOCATION is explicitly EXCLUDED from what this seal claims to predict for the iid seed (disclosed above as known); location remains a genuine prediction for the GUE and picket-fence seeds."
+  },
+
+  "question": "Bracketed by the program-derived interlacing floor at k = O(1) (unchallenged and unduplicated per the 2026-08-11 pull; rests on deterministic Rolle interlacing plus this program's computation) and the measured Hermite ceiling at k = n/10: at what scale and with what shape does local crystallization complete along the derivative flow, and are the selected form and its shape parameters seed-class-independent?",
+
+  "design": {
+    "n_science": [1024, 2048, 4096],
+    "k_grid_fit": [1, 2, 4, 8, 16, 32, 64],
+    "k_grid_documentation": [128, 256, 410],
+    "k_grid_doc_note": "documentation rows at n=4096 only, base curves, outside all fits; marked ceiling",
+    "readouts": {
+      "primary": "log10(1 - <rtilde>) on the bulk window (BULK_FRACTION 0.20, inherited Phase 1/3 convention), per k",
+      "secondary_consistency_witness": "Sigma2(L=8) slope per k — consistency check only, never a second chance at the verdict"
+    },
+    "fit_window_rule": "per (seed, n): k-points with ensemble-mean 1 - <rtilde> > 1e-3 enter the fit (rule fixed here; consistent with 6.iv-a FLOOR_SIGNAL_MIN); remaining rows marked ceiling",
+    "functional_form_ladder": {
+      "F1_power": "log10(1-rt) = log10(a) - b*log10(k)",
+      "F2_exponential": "log10(1-rt) = log10(a) - (k/tau)*log10(e)",
+      "F3_stretched_exponential": "log10(1-rt) = log10(a) - ((k/tau)^beta)*log10(e)",
+      "fit_space": "log10(1 - <rtilde>) of the ensemble MEAN per k, weighted by sigma_mean propagated from the -b ensemble (delta method)",
+      "selection": "AICc on the fit-window points, per (seed, n); parameter counts 2/2/3",
+      "preregistration_ordering": "ladder filed in scope v1.4 commit 87437a7, before any k-resolved transition data existed"
+    },
+    "sigma_source": {
+      "instrument": "6.iv-b realization ensemble — NOT a gate; the only sigma the fits and verdict consume",
+      "replicates": 16,
+      "replicates_note": "pinned at 16, not '8-16' — a range resolved after seeing spread would be a choice; 16 gives the sigma estimate honest degrees of freedom and is cheap at small k",
+      "per_k_sigma": "sample std across the 16 replicates; sigma_mean = std/sqrt(16)"
+    },
+    "seeds": {
+      "iid": "Uniform[-1,1], n iid draws, sorted. The fitted iid data is the -b ensemble (16 fresh draws per n); the pre-seal RNG-seed-0 curve is disclosed, not consumed.",
+      "gue": "Dumitriu-Edelman Hermite beta=2 tridiagonal (same generator family as arsrh/phase1_zeta_crossover.py's GUE arm): diagonal N(0,2), off-diagonal chi_{2(n-i)}, matrix divided by sqrt(2); FULL spectrum via eigvalsh_tridiagonal (not a central window — the seed is the whole point set); eigenvalues rescaled by 1/sqrt(n); 16 replicates per n.",
+      "picket_fence": "deterministic: x_j = -1 + 2j/(n-1), j = 0..n-1; single run per n (no ensemble; no randomness)",
+      "hermite_ceiling": "roots of H_n; the measured finite-n ceiling arm (order-of-limits per scope §9); not a fitted seed"
+    },
+    "rng_protocol": {
+      "master_seed": 20260811,
+      "derivation": "numpy SeedSequence(20260811).spawn(96); children 0-47 = iid replicates (16 per n, n ascending); children 48-95 = GUE replicates (16 per n, n ascending)",
+      "property": "ensemble enumerable in advance; replicate selection impossible by construction"
+    }
+  },
+
+  "adjudication": {
+    "universality_primary": "at n = 4096: iid vs GUE. If AICc selects DIFFERENT forms for the two seeds: RATE-SEED-DEPENDENT (form disagreement is itself the verdict). If the same form: compare SHAPE parameters only (b for F1; tau for F2; tau and beta for F3) — amplitude a is excluded (seed-dependent prefactor allowed). z = |theta_iid - theta_gue| / sqrt(var_iid + var_gue) with variances from the weighted-fit covariance. ALL shape parameters z < 3: RATE-UNIVERSAL. ANY z >= 5: RATE-SEED-DEPENDENT. Otherwise: INCONCLUSIVE, which MUST carry the power statement (the parameter separation that WOULD have been resolvable at the achieved sigma) or be declared a clean FAIL of the design.",
+    "scale_secondary": "descriptive, no forced verdict: k*(n) = fitted-curve crossing of 1 - <rtilde> = 1e-2, reported per seed with CI at n in {1024, 2048, 4096}; the k*(n) trend (log n vs n^alpha) is reported as a table with the honest statement that 3 n-points bound but do not select the scale law",
+    "picket_fence_clause": "starts crystalline, so the form ladder is inapplicable by construction; adjudicated on its own pre-registered prediction: 1 - <rtilde> < 1e-3 at every fit-grid k and every n (ceiling invariance under the flow). Holds: CEILING-INVARIANT witness banked, excluded from the form comparison. Fails: that is a FINDING (the flow moved a crystal off ceiling), filed separately, and it does NOT enter the universality verdict.",
+    "verdicts": ["RATE-UNIVERSAL", "RATE-SEED-DEPENDENT", "INCONCLUSIVE (with mandatory power statement)"],
+    "escalation_note": "the §6.iii gate passed through the STRICT branch; the pre-committed escalation rule exists in scope v1.3 but was never exercised and this seal does not rest on it"
+  },
+
+  "bindings": {
+    "harness_commit": "90a17876c9e7ca56f06a620214b65cf9e379ed18",
+    "adjudicates_under": "track0_harness.py, free_conv.py, track0_iid_scaling.py (reference_cdf), track0_jitter_floor.py as of that commit",
+    "post_seal_change_protocol": "any post-seal change to flow solver, evaluator, unfolding, or readout code triggers re-run of the affected gates BEFORE any science curve is computed under the new code. Precedent, cited as the protocol working: the 25+5 solver speedup (commit 286420d) triggered Hermite gate re-certification against the 655700f baseline and re-passed bit-identical before §6.iii consumed the new solver.",
+    "floor_label": "the k = O(1) interlacing floor is PROGRAM-DERIVED (scope §4, pull 2026-08-11): unchallenged and unduplicated; complex pairing theorems exclude real support by hypothesis; Kabluchko arXiv:1206.6692 is real-rooted-inclusive but global-only",
+    "literature_anchor": "at n = infinity the Poisson seed's crystalline endpoint is a theorem WITH NO RATE (Pemantle-Subramanian arXiv:1409.7956); the rate/scale content of this question is open at every degree as of 2026-08-11 (scope §9 pull); nearest-approach papers to re-check at next audit: arXiv:2605.31356 and successors of 1409.7956"
+  }
+}
