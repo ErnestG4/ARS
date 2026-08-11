@@ -308,3 +308,14 @@ rows (~15% of signal at k = 1). Consequences, filed before any recomputation:
   adjudication decides.
 - Grid convergence study (16001 vs 32001 at the worst row) in flight to spec the corrected
   instrument before the recompute campaign is costed.
+
+**§9 addendum — grid convergence at the worst row (iid, n = 4096, k = 1, 3 replicates):**
+4001 → 16001 shifts −0.051; 16001 → 32001 still shifts −0.0044 ≈ 2σ_mean. **16001-class grids
+are NOT converged**; the decay in grid resolution is slow. Diagnosis, filed for the instrument
+review: at k = O(1) the empirical-seed free-convolution reference is intrinsically rippled at
+the gap scale — κ − 1 = k/(n−k) barely exceeds the atom-dissolution threshold, so the exact
+μ_s is a.c. but carries n near-atomic spikes, and grid refinement converges toward that rippled
+(ε-smoothed) limit rather than toward the smooth macroscopic density the unfolding wants.
+"Converge the grid" is therefore chasing the wrong limit at small k; the corrected instrument
+needs a DEFINITION decision (what the small-k reference is), not just a resolution bump.
+Design fork filed for cut-down before the recompute campaign is launched.
