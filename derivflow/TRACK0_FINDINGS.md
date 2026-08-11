@@ -33,8 +33,18 @@
   ratios 0.86 → 0.09 across k = 1…64 (theorem bound ≤ 1, measured strictly contractive and
   tightening with k); floor-vs-signal ratio ~10⁻¹³ in the fit window (gate: 10⁻²); amplification
   slopes 0.46–1.17 (gate: ≤ 1.3). The rate fits cannot be reading solver noise by ~11 orders.
-- Sealed rate question: **still unsealed** — all Track-0 GATES are now green; §6.iv-b (the error
-  bar, not a gate) and the seal itself remain.
+- **SEALED 2026-08-11** (`seals/RATE_QUESTION_SEAL.json`, commit 95e1ad3, bound to harness commit
+  90a1787): disclosure ledger, 16-replicate ensemble under SeedSequence(20260811), form ladder +
+  AICc + 3σ/5σ z-rule on shape parameters, picket-fence ceiling-invariance clause, k*(n)
+  descriptive table. Seal written BEFORE §6.iv-b ran, so the fitted iid data is entirely
+  post-seal.
+- **§6 Realization ensemble (§6.iv-b): banked** (2026-08-11, 48 flows, 94 min,
+  `track0_ensemble.json`). Relative σ 2.5–25% across the fit window; 5 fit-window points at every
+  n; the §6.iv-a numerical floor sits ~11 orders below this σ — the -a/-b separation the scope
+  demanded, confirmed. No verdict field by design: this is the error bar.
+- **TRACK-0 COMPLETE.** Every gate green, error bar banked, seal locked. The science phase (GUE
+  ensemble from seal children 48–95, picket-fence, fits, z-adjudication) executes a fully
+  pre-committed procedure.
 
 ## 5. Numerical jitter floor (scope §6.iv-a, gates declared v1.4 before the run)
 
