@@ -44,6 +44,9 @@ on the same grid-4001 instrument; shift-vs-σ_mean probe running (6 replicates p
 grid 4001 vs 16001). If material, the seal's post-change protocol governs: gate re-runs, then
 instrument-corrected recomputation, verdict updated with full disclosure — F-1's misfit may be
 partly this systematic.
+PROBE LANDED (findings §9, be7f2b9): MATERIAL — shifts +24 to +38 σ_mean on the k = 1, 2 anchor
+rows (~15% of signal at k = 1). VERDICT UNDER INSTRUMENT REVIEW; recompute campaign to be costed
+after the grid-convergence study; Steps 2–4 all inherit the corrected instrument.
 
 **Question:** Is the F-2 picket-fence row real root dynamics or an instrument artifact
 in the near-atomic reference regime?
