@@ -45,6 +45,14 @@
 - **TRACK-0 COMPLETE.** Every gate green, error bar banked, seal locked. The science phase (GUE
   ensemble from seal children 48–95, picket-fence, fits, z-adjudication) executes a fully
   pre-committed procedure.
+- **§7 SEALED SCIENCE VERDICT: RATE-SEED-DEPENDENT** (2026-08-11, via the seal's
+  form-disagreement clause: iid selects F3 stretched-exponential at every n, GUE selects F2 at
+  n = 4096). Supporting descriptives: k*(iid, 4096) = 11.31 ± 0.07 vs k*(GUE, 4096) = 5.90 ± 0.01;
+  k* nearly flat in n for both seeds (bounds any power-law scale at α ≲ 0.1; consistent with
+  O(1)–O(log n)). Two separately-filed findings: the picket-fence clause fired at exactly one row
+  (n = 4096, k = 1, transient, mechanism unresolved), and both selected forms MISFIT at the
+  achieved precision (χ²/dof 31 and 1062) — the ladder's verdict clause executed as sealed, but
+  no 2–3-parameter form in the ladder describes either curve within the ensemble σ.
 
 ## 5. Numerical jitter floor (scope §6.iv-a, gates declared v1.4 before the run)
 
@@ -191,3 +199,57 @@ was never approached (worst KS at n = 4096: 0.00175, at s = 0.9).
   s-grid must be log-spaced down to s ~ O(1/n).** Filed as an s-grid design output of Track-0.
   Deliberately NOT done here, to keep the seal honest: no rate was fitted, and no second seed
   class was run or compared — the rate-universality question remains fully open.
+
+## 7. Sealed science phase — the verdict and its two caveats (2026-08-11)
+
+Runner: `science_rate_question.py` (transcription of `seals/RATE_QUESTION_SEAL.json`, zero free
+choices). Artifact: `science_rate_question.json`. 48 GUE flows (seal children 48–95), 3
+picket-fence flows, doc rows, adjudication. Runtime 113 min. Operational note: the first launch
+was killed by a machine reboot mid-run with no artifact written; the run was RESTARTED from
+scratch, not resumed — under the seal's deterministic SeedSequence protocol the restart executes
+the identical intended computation, so the interruption is wall-clock only.
+
+**VERDICT: RATE-SEED-DEPENDENT**, by the seal's form-disagreement clause. At n = 4096, AICc
+selects F3 (stretched exponential, β = 0.68) for the iid seed — decisively, AICc 92 vs 880 (F2)
+vs 3451 (F1), and consistently at all three n — while the GUE seed selects F2 (exponential) at
+n = 4096 (F1 at n = 1024, 2048). Per the seal, form disagreement IS the verdict; the shape-z
+comparison is never reached.
+
+Descriptive support (the k* table, reported per the seal's 3-points-bound-not-select rule):
+
+| n | k*(iid) | k*(GUE) |
+|---|---|---|
+| 1024 | 10.35 ± 0.16 | 4.26 ± 0.03 |
+| 2048 | 10.18 ± 0.12 | 4.37 ± 0.02 |
+| 4096 | 11.31 ± 0.07 | 5.90 ± 0.01 |
+
+The two seeds' transition scales are separated far beyond σ at every n, GUE crystallizing ~2×
+faster from its more-rigid start (1 − ⟨r̃⟩ = 0.153 at k = 1 vs iid 0.335). k* is nearly flat in
+n for both seeds: the 1024 → 4096 growth factors (1.09 iid, 1.38 GUE) bound any power-law scale
+at α ≲ 0.1 and are consistent with O(1) or O(log n); three n-points cannot select between those,
+as the seal says.
+
+**Caveat 1 — the ladder misfits at the achieved precision (filed as its own finding).** The
+selected forms are AICc-best of the pre-registered ladder, but neither is a good fit: χ²/dof ≈ 31
+(iid F3) and ≈ 1062 (GUE F2). The 16-replicate σ_mean (0.6–6% relative) resolves structure that
+no 2–3-parameter form in the ladder captures. Consequences filed honestly: (i) the verdict rests
+on the form-disagreement clause exactly as sealed — and the underlying curve-shape difference is
+real and large (the iid/GUE k* separation is ~50σ under the quoted errors) — but (ii) the k*
+uncertainties are optimistic, since ensemble σ captures realization variance and not any shared
+per-k systematic, and (iii) "iid is stretched-exponential" should be read as "F3 is the best of
+three forms," not as a demonstrated law. A post-seal follow-up may fit richer forms EXPLORATORY
+and UNSEALED; the sealed verdict stands on the sealed procedure.
+
+**Caveat 2 — the picket-fence clause fired, on one row (filed separately per the seal; NOT a
+verdict input).** The ceiling-invariance prediction (1 − ⟨r̃⟩ < 10⁻³ at every fit-grid k, every n)
+fails at exactly one of 21 rows: n = 4096, k = 1 (4.57×10⁻³). The excursion is transient — back
+to 10⁻⁵ by k = 4 and 1.6×10⁻⁸ by k = 8 at that same n — and GROWS with n at k = 1
+(3.0×10⁻⁴ → 5.8×10⁻⁴ → 4.6×10⁻³), which is the wrong direction for a finite-size edge effect.
+Mechanism UNRESOLVED, two candidates named without adjudication (premise-before-mechanism):
+(a) real k = 1 dynamics — a perfect finite lattice is not a cosine and its derivative genuinely
+perturbs near-edge gaps that the bulk window may not fully exclude; (b) instrument — at k = 1 the
+free-convolution reference of a lattice empirical measure at κ − 1 = 1/(n−1) is nearly atomic,
+and the ε-smoothed inversion may ripple at exactly the readout's scale, a regime no gate
+exercised at ceiling-level signal (the §6.iv-a floor was measured on iid seeds where the signal
+is O(0.1)). Deciding between them needs a designed instance (e.g., the ε-doubling trace at that
+row, or a wider bulk window) and is queued as the arc's first post-seal question.
