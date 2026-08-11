@@ -15,8 +15,14 @@
   κ = 1.5 measured **0.250000** vs 0.25 predicted, absent at κ = 3 (**0.000000**); contraction
   residual certified < 10⁻¹³ everywhere. The evaluator has earned the empirical-measure input
   and the iid seed: **§6.iii not yet run.**
-- Sealed rate question: **still unsealed**, per scope — pending the remaining §6 gates on the iid
-  seed (unfolding residual vs the fractional-free-convolution density, jitter floor) and the
+- **§3 iid-seed n-scaling gate (§6.iii): PASS through the strict branch** — all 18 comparisons
+  monotone, escalation rule not invoked (2026-08-10, verdict rule pre-committed in scope v1.3
+  before the table was read, commit dbb0321). Log-slopes ≈ **−1.0 at every s** (fits −0.91 to
+  −1.04) — steeper than the −1/2 fluctuation-dominated signature; no high-s flattening, so the
+  ε-adjudication branch was not needed. **Design fact for the seal: the iid seed is already at
+  the crystalline ceiling by s = 0.1** (1 − ⟨r̃⟩ ~ 10⁻⁵–10⁻⁷); the rate action lives at small s
+  and the science-phase s-grid must be log-spaced there.
+- Sealed rate question: **still unsealed**, per scope — pending §6.iv (jitter floor) and the
   pre-seal adversarial literature pull (2410.06403 v1→v2 diff + 2025–26 citation graph).
 
 ## 1. Hermite self-map gate (scope §5c / §6)
@@ -86,3 +92,49 @@ two closed-form gates → (checkpoint reported here) → empirical input → §6
   factor approaching 1 exactly where the scope said the R-transform route would have died).
 
 **Verdict: PASS.** The evaluator has earned the empirical-measure input and the iid seed.
+
+## 3. iid-seed unfolding residual, n-scaling gate (scope §6.iii, rule pre-committed v1.3)
+
+Runner: `track0_iid_scaling.py`. Artifact: `track0_iid_scaling.json` (raw per-(s,n) records;
+`derived_slopes_computed_at_read_time` added post hoc from the banked KS values, raw data
+unchanged). Seed Uniform[−1, 1], RNG seed 0, n ∈ {1024, 2048, 4096}, s ∈ {0.1 … 0.9}.
+Runtime 4 h 32 m single-core, dominated by the n = 4096 flow + high-s subordination.
+
+**Verdict: PASS through the strict branch.** All 18 adjacent-n comparisons of the KS residual
+vs the empirical-seed free-convolution reference are strictly monotone decreasing. The
+escalation branch (INCONCLUSIVE-PENDING-REPLICATION) was not invoked; the 0.05 sanity ceiling
+was never approached (worst KS at n = 4096: 0.00175, at s = 0.9).
+
+| s | KS 1024 → 2048 → 4096 | slope (LS fit) | pop-ref diag @4096 | iters @4096 |
+|---|---|---|---|---|
+| 0.1 | 0.00111 → 0.00062 → 0.00031 | −0.91 | 0.0068 | 241 |
+| 0.3 | 0.00125 → 0.00065 → 0.00034 | −0.95 | 0.0057 | 744 |
+| 0.5 | 0.00162 → 0.00084 → 0.00042 | −0.97 | 0.0053 | 1670 |
+| 0.7 | 0.00256 → 0.00132 → 0.00064 | −1.00 | 0.0056 | 3906 |
+| 0.9 | 0.00739 → 0.00349 → 0.00175 | −1.04 | 0.0087 | 14792 |
+
+(Full 9-row table in the artifact.)
+
+- **Slope, recorded separately from the verdict per the pre-commitment:** ≈ −1.0 in n at every
+  s, uniformly steeper than the −1/2 fluctuation-dominated signature the frame named as healthy.
+  Interpretive note, filed as observation not claim: KS ~ 1/m is the discrepancy scaling of a
+  RIGID point process (suppressed count fluctuations), consistent with the flowed set being
+  strongly rigidified at every sampled s — see the design fact below. No high-s flattening
+  appeared, so the ε-trace adjudication was not needed (ε-doubling deviations 0.8–2.9×10⁻²
+  in density units; CDF-level KS sits 1–2 orders below, as expected from integration).
+- **Empirical-reference design vindicated at scale:** the population-law diagnostic runs 5–20×
+  above the empirical-reference residual at matched (s, n) — that gap is the seed-sampling
+  offset the gate would otherwise have spent its budget on. Worst mass defect 9.1×10⁻⁴, logged
+  not hidden.
+- **Subordination cost, measured for §6.iv to inherit:** iteration counts grow steeply in s on
+  the empirical measure — 241 (s = 0.1) → 14,792 (s = 0.9) at n = 4096, vs ≤ 2,082 for the
+  smooth closed-form gates even at κ = 16. Converged and certified everywhere (residual
+  < 10⁻¹³), but the jitter-floor run's cost model must use these counts, not the gate-run's.
+- **★ Design fact for the sealed phase (instrument property, not a science claim):** the iid
+  seed's bulk is already at the crystalline ceiling at the FIRST grid point — 1 − ⟨r̃⟩ ranges
+  10⁻⁵ (n = 1024, s = 0.1) down to 10⁻⁷, i.e. Hermite-ceiling level, at every sampled s, with
+  Σ²(L=8) at 0.00–0.04. Crystallization of this seed is essentially complete before s = 0.1 at
+  these n. **Consequence: the sealed rate question's action lives at small s, and the science
+  s-grid must be log-spaced down to s ~ O(1/n).** Filed as an s-grid design output of Track-0.
+  Deliberately NOT done here, to keep the seal honest: no rate was fitted, and no second seed
+  class was run or compared — the rate-universality question remains fully open.
