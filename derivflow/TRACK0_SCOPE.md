@@ -1,8 +1,11 @@
 # derivflow Track-0 — SCOPE
 
-**Status: SCOPED 2026-08-10 (v1.3 — v1.2 added Will's free-convolution-evaluator design to §4 and
-the compact-support pin to §5a after the Hermite gate PASS; v1.3 pre-commits the §6.iii gate rule
-and slope-interpretation frame while the n-sweep was in flight, table unseen).** Drafted, cut down by Will same day (Hermite gate swapped in
+**Status: SCOPED 2026-08-11 (v1.4 — v1.2 added Will's free-convolution-evaluator design to §4 and
+the compact-support pin to §5a after the Hermite gate PASS; v1.3 pre-committed the §6.iii gate rule
+and slope-interpretation frame while the n-sweep was in flight, table unseen; v1.4, after §6.iii
+PASS and its ceiling finding: k-parameterization of the science grid, the interlacing floor
+bracket, the pre-registered functional-form ladder, the §6.iv-a/-b split, and the widened
+adversarial-pull target).** Drafted, cut down by Will same day (Hermite gate swapped in
 for the mis-specified picket-fence gate; order-of-limits split added to §9; v2/citation-graph rider
 added to the pre-seal pull), DRAFT label removed on his call. Nothing here is sealed. Per TOOLKIT
 §10 discipline, the sealed prediction is written only AFTER the Track-0 harness validation and null
@@ -54,6 +57,18 @@ resolution, the density here evolves strongly along the flow (support shrinks as
 Clock: **s = k/n**, fraction of derivatives taken — the scaling in which the free-convolution
 results are stated: after ⌊sn⌋ differentiations the empirical root measure is the fractional free
 convolution power μ^⊞ 1/(1−s) of the seed measure, rescaled (Hoskins–Kabluchko; Steinerberger PDE).
+
+**Science-grid parameterization (v1.4, forced by §6.iii's ceiling finding):** the crystallization
+action lives at **small integer derivative count k, not at order-one s** — the iid seed is at the
+crystalline ceiling by s = 0.1 already (findings §3). The science grid is therefore parameterized
+in **k ∈ {1, 2, 4, 8, …} up to ~n/10**, with s = k/n derived, not the reverse. Theorem-side floor
+at the small end: real-rootedness Rolle-interlaces every derivative — exactly one new root per
+gap — so k = 1 is a near-deterministic local map on the gap sequence and a Poisson-gapped seed
+CANNOT be crystalline after one step; its spacing distribution is a smoothed transform of the
+seed's, not the ceiling. (Exact real-rooted statements to pin via the §9 pull — the
+Pemantle–Rivin / Kabluchko critical-points-pairing line is the complex-coefficient cousin; shape
+confident, citations not.) The transition Poisson → crystal is thus BRACKETED: seed-like at
+k = O(1) by interlacing, Hermite-ceiling by k = n/10 by measurement.
 
 Harness modification (the one real change vs Phase 2): at each sampled s, recompute the unfolding
 against the predicted push-forward density before evaluating any spacing statistic. Validation of
@@ -121,8 +136,31 @@ replicates near any class boundary, distributions reported, not just means.
   bracket-verified at every step on all four seeds; (iii) per-step unfolding residual vs the
   fractional-free-convolution prediction within tolerance on the iid seed, and exact on the
   Hermite seed (this doubles as a live derivation of the theorem-side density — no unattributed
-  constants); (iv) estimator jitter floor measured per s on the iid seed (the floor arm), the
-  Hermite seed supplying the **finite-n ceiling arm** (order-of-limits: §9).
+  constants); (iv) estimator jitter floor per §6.iv-a below, the Hermite seed supplying the
+  **finite-n ceiling arm** (order-of-limits: §9).
+
+**§6.iv split (v1.4, Will's design): two perturbation models, two INSTRUMENTS, never blended.**
+
+- **§6.iv-a — numerical jitter floor. A GATE.** iid position jitter at δ ∈ {10⁻¹², 10⁻¹⁰, 10⁻⁸}
+  × local spacing on the seed, replicated flows (R = 6 per δ), spread of unfolded readouts per k
+  on the k-grid. Certifies the rate fits aren't reading solver noise. Measured in the small-k
+  action window — which is also the cheap window (κ = 1 + k/(n−k) ≈ 1, so §6.iii's 14,792-iter
+  corner at s = 0.9 is irrelevant to where the science lives). Downstream extension is
+  theorem-side, not assumed: the derivative-root map is **globally ℓ∞ non-expansive**
+  (∂x*ᵢ/∂rⱼ = (x*−rⱼ)⁻² / Σₗ(x*−rₗ)⁻² are positive convex weights along any segment of sorted
+  root vectors ⇒ Lipschitz-1 per step), so the floor measured at small k upper-bounds every
+  later k. Declared gates: (i) **position transfer ratio** ‖Δx(k)‖∞ / ‖Δx(0)‖∞ ≤ 1.02 at every
+  k for δ ∈ {10⁻¹⁰, 10⁻⁸} (theorem-exact ≤ 1; slack is solver noise; at δ = 10⁻¹² the ratio is
+  logged only — solver accuracy 1.35×10⁻¹³ is a nontrivial fraction of δ there); (ii) **readout
+  floor-vs-signal**: at δ = 10⁻¹², for every k with unperturbed 1 − ⟨r̃⟩ > 10⁻³ (the window the
+  fits consume), replicate spread < 1% of signal; at-ceiling k rows require spread < 10⁻⁷
+  absolute and are labeled as such; (iii) **no super-linear amplification**: log-log slope of
+  spread vs δ over the top two decades ≤ 1.3.
+- **§6.iv-b — realization ensemble. NOT a gate: the error bar.** Fresh Uniform[−1, 1] draws
+  (8–16 replicates), same pipeline. The σ consumed by the functional-form fits and the
+  universality verdict comes from -b and only -b; -a has to sit decades below it. Named and
+  separate in the artifact, to block the specific failure where a tight numerical floor gets
+  quoted as the statistical uncertainty on the rate.
 - **FAIL (harness):** a Hermite step misses its known answer, a bracket fails, or unfolding
   residual exceeds tolerance. No science claims are made from a FAIL run; fix and rerun.
 
@@ -150,12 +188,24 @@ n ∈ {1024, 2048, 4096} sweep was in flight, its output unseen, when this was f
 
 ## 7. The question to seal (draft wording — sealed only after Track-0 PASS)
 
-**Does the crystallization rate depend on seed class, or is it universal in s?**
-Rate = fitted decay, along s, of (i) the Σ²(L) slope and (ii) ⟨r̃⟩'s distance from the
-crystalline value (r̃ = 1) — both fits specified in the seal with their windows. Free probability
-suggests universality in s; a seed-class-dependent rate is the surprising outcome. Either verdict
-is publishable-grade for the arc. Verdicts: RATE-UNIVERSAL / RATE-SEED-DEPENDENT /
-INCONCLUSIVE (with the power statement that would make it a clean FAIL of the design instead).
+**(Re-cast v1.4, k-parameterized, after §6.iii bracketed the transition.)** The transition
+Poisson → crystal is bracketed: seed-like at k = O(1) by Rolle interlacing (theorem), at the
+Hermite ceiling by k = n/10 (measurement, findings §3). **The sealed question is the transition's
+scale and shape, and whether they are seed-class-independent:** does crystallization complete at
+k ~ log n, k ~ n^α, or within O(1) decades of k — and is the answer, and the fitted form's
+parameters, the same across seed classes? Readouts: 1 − ⟨r̃⟩ (log space — ceiling compression)
+and the Σ²(L) slope, along the k-grid, with σ from §6.iv-b.
+
+**Functional-form ladder — PRE-REGISTERED HERE, before any transition curve has been seen**
+(fitting an unknown decay with post-hoc form selection is exactly the freedom the seal exists to
+remove): candidate forms for 1 − ⟨r̃⟩ vs k are **(F1) power law** a·k^(−b), **(F2) exponential**
+a·exp(−k/τ), **(F3) stretched exponential** a·exp(−(k/τ)^β). Selection rule: **AICc on the
+pre-declared k-grid points** (deterministic; a held-out split would itself require a choice the
+seal would have to defend). RATE-UNIVERSAL vs RATE-SEED-DEPENDENT is adjudicated on the selected
+form's parameters per seed, against §6.iv-b's σ; **form disagreement across seeds itself
+constitutes RATE-SEED-DEPENDENT.** Either verdict is publishable-grade for the arc. Verdicts:
+RATE-UNIVERSAL / RATE-SEED-DEPENDENT / INCONCLUSIVE (with the power statement that would make it
+a clean FAIL of the design instead).
 
 ## 8. Explicitly out of scope
 
@@ -208,7 +258,13 @@ Filed with exact conditionality per the row-c-suspect rule:
   search is not a proof of absence. **The pull's concrete targets (Will's rider):** diff
   2410.06403 v1 → v2 (v2 is 2026-05-21, seven months of possible strengthening), and sweep the
   2025–26 papers citing it — if anyone has closed fixed-s local spacing, it will be in that
-  citation graph.
+  citation graph. **Widened v1.4 (after the k-re-parameterization):** hunt specifically for
+  local statistics after **o(n) derivatives** of real-rooted polynomials — transition-scale
+  results, if they exist, live under that description, not under fixed-s language, which is
+  presumably why the fixed-s-scoped pull did not surface them. OPEN-AS-SEARCHED must be
+  re-verified against the re-parameterized question, not just the original. Also pin exact
+  real-rooted statements for the k = O(1) interlacing floor (the Pemantle–Rivin / Kabluchko
+  critical-points-pairing line is the complex cousin; the real-rooted citations are unpinned).
 
 ## 10. Methodological commitments carried through
 

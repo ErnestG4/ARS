@@ -117,9 +117,12 @@ was never approached (worst KS at n = 4096: 0.00175, at s = 0.9).
 
 - **Slope, recorded separately from the verdict per the pre-commitment:** ≈ −1.0 in n at every
   s, uniformly steeper than the −1/2 fluctuation-dominated signature the frame named as healthy.
-  Interpretive note, filed as observation not claim: KS ~ 1/m is the discrepancy scaling of a
-  RIGID point process (suppressed count fluctuations), consistent with the flowed set being
-  strongly rigidified at every sampled s — see the design fact below. No high-s flattening
+  **Filed (2026-08-11, Will's read, adopted) as a SECOND WITNESS for the ceiling fact below, not
+  an anomaly:** KS ~ 1/m is the CDF-discrepancy scaling of a rigid process, n^(−1/2) of an
+  independent-increments one; the −1/2 pre-frame assumed the flowed set would still be
+  fluctuation-dominated at the measured s, and the ceiling fact says it isn't, anywhere on the
+  grid. Two mechanically independent readouts, one conclusion: everything from s = 0.1 up is
+  already crystal. The pre-frame was wrong for a coherent reason. No high-s flattening
   appeared, so the ε-trace adjudication was not needed (ε-doubling deviations 0.8–2.9×10⁻²
   in density units; CDF-level KS sits 1–2 orders below, as expected from integration).
 - **Empirical-reference design vindicated at scale:** the population-law diagnostic runs 5–20×
