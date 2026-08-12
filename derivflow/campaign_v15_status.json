@@ -1,0 +1,44 @@
+{
+ "campaign": "v1.5.1 corrected instrument",
+ "started": 1786519493.9099975,
+ "stages": {
+  "reference_gates": {
+   "state": "DONE",
+   "returncode": 0,
+   "minutes": 0.5,
+   "tail": "L n=1024: 1-rt=4.906e-08 (tol 1e-07)\nL n=2048: 1-rt=7.064e-09 (tol 1e-07)\nL n=4096: 1-rt=9.938e-10 (tol 1e-07)\nH k=1: pipeline=1.956e-10 truth=3.794e-09 |diff|=3.599e-09 (tol 1e-05)\nH k=2: pipeline=9.914e-11 truth=3.797e-09 |diff|=3.698e-09 (tol 1e-05)\nVERDICT: PASS"
+  },
+  "sec6iii_rescale": {
+   "state": "DONE",
+   "returncode": 0,
+   "minutes": 93.5,
+   "tail": "n=4096 s=0.9 m=410: KS_emp=0.00171 KS_pop=0.00873 iters=3518 eps_dbl=1.55e-04\n\nVERDICT: PASS  (runtime 5612.7s)\ns=0.1: KS_emp 0.00069 -> 0.00037 -> 0.00019   (pop-ref diag at n=4096: 0.00681)\ns=0.2: KS_emp 0.00086 -> 0.00044 -> 0.00021   (pop-ref diag at n=4096: 0.00614)\ns=0.3: KS_emp 0.00095 -> 0.00048 -> 0.00025   (pop-ref diag at n=4096: 0.00569)\ns=0.4: KS_emp 0.00118 -> 0.00057 -> 0.00028   (pop-ref diag at n=4096: 0.00546)\ns=0.5: KS_emp 0.00138 -> 0.00070 -> 0.00035   (pop-ref diag at n=4096: 0.00530)\ns=0.6: KS_emp 0.00167 -> 0.00089 -> 0.00045   (pop-ref diag at n=4096: 0.00528)\ns=0.7: KS_emp 0.00238 -> 0.00122 -> 0.00058   (pop-ref diag at n=4096: 0.00561)\ns=0.8: KS_emp 0.00342 -> 0.00170 -> 0.00090   (pop-ref diag at n=4096: 0.00628)\ns=0.9: KS_emp 0.00740 -> 0.00345 -> 0.00171   (pop-ref diag at n=4096: 0.00873)"
+  },
+  "sec6iva_jitter": {
+   "state": "DONE",
+   "returncode": 0,
+   "minutes": 89.9,
+   "tail": "  flow delta=1e-08 rep=3 done\n  flow delta=1e-08 rep=4 done\n  flow delta=1e-08 rep=5 done\n\nVERDICT: PASS  (runtime 5390.9s)\nk=  1: 1-rt=3.587e-01 spread@1e-12=4.27e-14 @1e-10=4.82e-12 @1e-08=5.38e-10 transfer_max=0.8575 amp=1.02 FIT\nk=  2: 1-rt=2.299e-01 spread@1e-12=3.35e-14 @1e-10=1.93e-12 @1e-08=2.83e-10 transfer_max=0.7552 amp=1.08 FIT\nk=  4: 1-rt=1.000e-01 spread@1e-12=1.52e-14 @1e-10=8.29e-13 @1e-08=9.61e-11 transfer_max=0.6208 amp=1.03 FIT\nk=  8: 1-rt=2.171e-02 spread@1e-12=1.17e-14 @1e-10=2.20e-13 @1e-08=1.54e-11 transfer_max=0.5162 amp=0.92 FIT\nk= 16: 1-rt=2.113e-03 spread@1e-12=9.84e-15 @1e-10=1.20e-14 @1e-08=2.11e-12 transfer_max=0.3479 amp=1.12 FIT\nk= 32: 1-rt=3.230e-04 spread@1e-12=8.70e-15 @1e-10=7.20e-15 @1e-08=1.15e-13 transfer_max=0.1818 amp=0.6 ceiling\nk= 64: 1-rt=6.818e-05 spread@1e-12=4.57e-15 @1e-10=7.02e-15 @1e-08=2.26e-14 transfer_max=0.0896 amp=0.25 ceiling"
+  },
+  "sec6ivb_ensemble": {
+   "state": "DONE",
+   "returncode": 0,
+   "minutes": 98.0,
+   "tail": "  n=4096 rep=6 done\n  n=4096 rep=7 done\n  n=4096 rep=8 done\n  n=4096 rep=9 done\n  n=4096 rep=10 done\n  n=4096 rep=11 done\n  n=4096 rep=12 done\n  n=4096 rep=13 done\n  n=4096 rep=14 done\n  n=4096 rep=15 done\nn=4096: k=1:3.662e-01\u00b16.9e-03  k=2:2.346e-01\u00b16.3e-03  k=4:1.030e-01\u00b14.8e-03  k=8:2.380e-02\u00b12.4e-03  k=16:2.531e-03\u00b13.9e-04  k=32:3.653e-04\u00b13.0e-05  k=64:8.153e-05\u00b17.9e-06\ndone in 5881.1s -> derivflow/track0_ensemble.json"
+  },
+  "science": {
+   "state": "DONE",
+   "returncode": 0,
+   "minutes": 120.4,
+   "tail": "\nVERDICT: INCONCLUSIVE-ON-INSTRUMENT-GROUNDS  (picket ceiling-invariant: True)\nforms: iid=F3 gue=F2\nk*(iid, n=1024) = 11.12 \u00b1 0.16  [F3]\nk*(iid, n=2048) = 10.76 \u00b1 0.12  [F3]\nk*(iid, n=4096) = 11.03 \u00b1 0.06  [F3]\nk*(gue, n=1024) = 6.33 \u00b1 0.03  [F2]\nk*(gue, n=2048) = 6.40 \u00b1 0.02  [F2]\nk*(gue, n=4096) = 6.22 \u00b1 0.01  [F2]\nruntime 7221.3s -> derivflow/science_rate_question.json\n/home/combust/fmexplorer/criticality_tool/derivflow/science_rate_question.py:65: RuntimeWarning: invalid value encountered in power\n  def f3(k, la, tau, beta):   return la - ((k / tau) ** beta) * np.log10(np.e)"
+  }
+ },
+ "archived": [
+  "track0_iid_scaling.json",
+  "track0_jitter_floor.json",
+  "track0_ensemble.json",
+  "science_rate_question.json"
+ ],
+ "resumed_after_reboot": 1786545110.7983463,
+ "finished": 1786558214.8403554
+}

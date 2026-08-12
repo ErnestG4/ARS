@@ -66,22 +66,47 @@ def f3(k, la, tau, beta):   return la - ((k / tau) ** beta) * np.log10(np.e)
 
 
 def fit_ladder(ks, means, sig_means):
+    """v1.5.1 re-adjudication fix (2026-08-12): deterministic MULTI-START p0 grid with bounds.
+
+    The single hardcoded p0 left F3 non-converged (aicc=inf) on the GUE primary arm, which
+    defaulted that arm's selection to F2 and fired the band clause on an optimizer artifact.
+    An inf from non-convergence is a missing value, not the form's AICc; the sealed rule
+    requires the fits to execute. Multi-start grid is fixed and deterministic — no tuning."""
     y = np.log10(means)
     sy = sig_means / (means * LN10)
     N = len(ks)
+    TAUS0 = [2.0, 5.0, 10.0, 30.0]
+    BETAS0 = [0.5, 0.75, 1.0]
+    starts = {"F1": [[y[0], 1.0], [y[0], 2.0]],
+              "F2": [[y[0], t] for t in TAUS0],
+              "F3": [[y[0], t, b] for t in TAUS0 for b in BETAS0]}
+    bounds = {"F1": ([-np.inf, 0.0], [np.inf, 20.0]),
+              "F2": ([-np.inf, 1e-3], [np.inf, 1e4]),
+              "F3": ([-np.inf, 1e-3, 0.05], [np.inf, 1e4, 3.0])}
+    xs = {"F1": np.log10(ks), "F2": ks, "F3": ks}
+    fns = {"F1": f1, "F2": f2, "F3": f3}
     out = {}
-    for name, fn, p0, x in [("F1", f1, [y[0], 1.0], np.log10(ks)),
-                            ("F2", f2, [y[0], 5.0], ks),
-                            ("F3", f3, [y[0], 5.0, 1.0], ks)]:
-        try:
-            p, cov = curve_fit(fn, x, y, p0=p0, sigma=sy, absolute_sigma=True, maxfev=20000)
-            chi2 = float(np.sum(((y - fn(x, *p)) / sy) ** 2))
-            npar = len(p)
-            aicc = chi2 + 2 * npar + (2 * npar * (npar + 1) / (N - npar - 1)) if N - npar - 1 > 0 else np.inf
-            out[name] = {"params": p.tolist(), "cov": cov.tolist(), "chi2": chi2,
-                         "aicc": float(aicc), "dof": N - npar}
-        except Exception as e:
-            out[name] = {"error": str(e), "aicc": np.inf}
+    for name in ("F1", "F2", "F3"):
+        best = None
+        for p0 in starts[name]:
+            try:
+                p, cov = curve_fit(fns[name], xs[name], y, p0=p0, sigma=sy,
+                                   absolute_sigma=True, bounds=bounds[name], maxfev=20000)
+                chi2 = float(np.sum(((y - fns[name](xs[name], *p)) / sy) ** 2))
+                if not np.isfinite(chi2) or not np.all(np.isfinite(cov)):
+                    continue
+                if best is None or chi2 < best[0]:
+                    best = (chi2, p, cov)
+            except Exception:
+                continue
+        if best is None:
+            out[name] = {"error": "no start converged", "aicc": np.inf}
+            continue
+        chi2, p, cov = best
+        npar = len(p)
+        aicc = chi2 + 2 * npar + (2 * npar * (npar + 1) / (N - npar - 1)) if N - npar - 1 > 0 else np.inf
+        out[name] = {"params": p.tolist(), "cov": cov.tolist(), "chi2": chi2,
+                     "aicc": float(aicc), "dof": N - npar}
     sel = min(out, key=lambda f: out[f]["aicc"])
     return sel, out
 

@@ -319,3 +319,41 @@ the gap scale — κ − 1 = k/(n−k) barely exceeds the atom-dissolution thres
 "Converge the grid" is therefore chasing the wrong limit at small k; the corrected instrument
 needs a DEFINITION decision (what the small-k reference is), not just a resolution bump.
 Design fork filed for cut-down before the recompute campaign is launched.
+
+## 10. v1.5.1 campaign complete: corrected-instrument verdict INCONCLUSIVE-ON-INSTRUMENT-GROUNDS (2026-08-12)
+
+Campaign (detached, survived one Windows-Update reboot mid-§6.iv-b via resume): reference gates
+PASS 0.5 min; **§6.iii re-PASS** under its pre-committed rule, KS ~40% smaller at low s than the
+v1-grid run (0.00069 → 0.00019 at s = 0.1); **§6.iv-a re-PASS** (transfer ratios unchanged);
+§6.iv-b re-banked; science re-run 120 min. Artifacts: campaign set + `archive_v1grid/` for v1.
+
+**Verdict as sealed: INCONCLUSIVE-ON-INSTRUMENT-GROUNDS** — the v1.5.1 band clause fired:
+band forms {primary: iid F3 / gue F2; raw-ε: F3/F3; raw-2ε: F3/F3}.
+
+**Diagnosis, two layers, both filed:** (1) first read blamed optimizer non-convergence (F3
+aicc = inf on the GUE primary arm); the deterministic multi-start fix
+(`readjudicate_v151.py`, data unchanged) converges F3 there with χ² = 0.0 — exposing the real
+cause: (2) **the corrected primary arm's fit window is 4 points for GUE** (Richardson lowers
+k = 8 to 0.00455 and pushes k = 16 under the 10⁻³ floor), and AICc's small-sample guard
+(N − p − 1 = 0) correctly refuses to rank a 3-parameter form on 4 points. The sealed
+powers-of-2 k-grid is too sparse below k = 16 to adjudicate a k* ≈ 6 transition. The verdict
+label is earned, not technical: as sealed, the design cannot answer GUE's form question.
+Re-adjudication artifact: `science_readjudicated.json` (same verdict).
+
+**What IS robust across every arm where the ladder is assessable:**
+- iid selects **F3 (stretched exponential)** on all three arms, all three n, decisively.
+- GUE selects **F3 on both raw arms** (AICc 78 vs 6006; 42 vs 5904), β ≈ 0.43–0.49 — the
+  corrected data points toward BOTH seeds stretched with different parameters, i.e. the v1
+  form-disagreement verdict does not survive the corrected instrument as a form-level claim.
+- **k\* table (corrected): iid 11.12/10.76/11.03, GUE 6.33/6.40/6.22** — both FLAT in n; the
+  v1 GUE k\*(n) growth (4.26 → 5.90) was instrument artifact. Scale bound sharpens toward O(1).
+- **Picket-fence ceiling-invariance now HOLDS through the full pipeline** (True at every row) —
+  F-2 cured end-to-end, the two permanent gates holding it there.
+- χ²/dof improved 3–90× (iid F3: 20.8/2 vs v1's 62/2; GUE raw arms 48/2 and 12/2 vs v1's
+  2123/2) — F-1's misfit was substantially the instrument systematic, as suspected, though
+  residual misfit above σ remains.
+
+**Path to a conclusive verdict (decision for Will, seal-amendment level):** a dense small-k grid
+(all integers 1…16, then 24, 32, 48, 64) — the flows already visit every k, so the cost is
+references only (~9–10 fit points for GUE vs 4). This is a new sealed run under the amended
+grid, not a re-read of banked data.
