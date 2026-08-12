@@ -14,8 +14,10 @@ the same commit as the finding and note it in the step's LOG.
 RATE-SEED-DEPENDENT (iid → F3 stretched exponential β ≈ 0.68; GUE → F2 exponential;
 form disagreement adjudicated per seal 95e1ad3). Gates all green (Hermite 655700f,
 §6.iii c2538de, §6.iv-a 90a1787). Open findings: (F-1) ladder misfit at achieved
-precision, χ²/dof ≈ 31 (iid) / ≈ 1062 (GUE); (F-2) picket-fence clause fired on one
-row (n=4096, k=1, 4.6×10⁻³ vs 10⁻³ bound, transient by k=8, grows with n).
+precision, χ²/dof ≈ 31 (iid) / ≈ 1062 (GUE) — **now with an instrument prime suspect,
+findings §9**; (F-2) picket-fence clause fired on one row — **RESOLVED
+INSTRUMENT-OWNED, findings §8**; verdict UNDER INSTRUMENT REVIEW pending the v1.5
+corrected-reference recompute campaign (findings §9 + scope §4 v1.5).
 Do not inherit numbers from this paragraph into new work without repo confirmation
 (row-c rule).
 
@@ -27,9 +29,9 @@ without amending this header with the reason.
 
 ## STEP 1 — Standalone k=1 lattice computation (instrument credibility)
 
-**STATE:** EXITED 2026-08-11 — INSTRUMENT-OWNED (branch 2 of the pre-committed adjudication).
-F-2 is a reference-layer artifact, not root dynamics. Escalation clause active: the
-fit-window contamination probe is REQUIRED before Step 4 (running; see LOG).
+**STATE:** EXITED 2026-08-11, DONE-WITH-CONSEQUENCE — INSTRUMENT-OWNED (branch 2 of the
+pre-committed adjudication); the consequence is the v1.5 corrected-reference definition
+(scope §4) and the overnight recompute campaign that Steps 2–4 now sit behind.
 **LOG:** `step1_lattice_k1.py` + `step1_lattice_k1.json`. Part A: raw bulk gaps of the
 once-differentiated lattice are 9.4e-8 / 2.4e-8 / 5.9e-9 at n = 1024/2048/4096 —
 DECREASING with n, 3–6 orders below the flagged pipeline values (3.0e-4 / 5.8e-4 / 4.6e-3),
@@ -79,7 +81,9 @@ this doc's STATE updated; if instrument-owned, Step 4 gains a blocking dependenc
 
 ## STEP 2 — Environment-conditioned decomposition of the stretch (mechanism)
 
-**STATE:** NOT STARTED — may start in parallel with Step 1 (no shared dependency)
+**STATE:** NOT STARTED — BLOCKED (added 2026-08-11) on the v1.5 corrected-instrument campaign:
+the binning first pass would consume contaminated curves (findings §9). Binning-rule
+pre-commitment MAY be drafted during the campaign (pure pre-registration, blind to outcome).
 **LOG:** —
 
 **Question:** Does iid's stretched exponential decompose into narrower per-environment
@@ -121,7 +125,8 @@ prize fired, the new seal committed before any cross-seed mixture computation.
 
 **STATE:** NOT STARTED — BLOCKED until Steps 1–2 exit (Step 1 for instrument
 credibility; Step 2 because its outcome may add a sealed per-environment prediction
-to this run for free)
+to this run for free). ADDED 2026-08-11: also blocked on the v1.5 campaign — the two
+point predictions must be re-derived from CORRECTED anchors, not the banked k* values.
 **LOG:** —
 
 **Question:** Is k*(n) O(1)-flat or O(log n)? Three existing n's bound (α ≲ 0.1)

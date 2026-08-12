@@ -1,11 +1,13 @@
 # derivflow Track-0 — SCOPE
 
-**Status: SCOPED 2026-08-11 (v1.4 — v1.2 added Will's free-convolution-evaluator design to §4 and
+**Status: SCOPED 2026-08-11 (v1.5 — v1.2 added Will's free-convolution-evaluator design to §4 and
 the compact-support pin to §5a after the Hermite gate PASS; v1.3 pre-committed the §6.iii gate rule
 and slope-interpretation frame while the n-sweep was in flight, table unseen; v1.4, after §6.iii
-PASS and its ceiling finding: k-parameterization of the science grid, the interlacing floor
-bracket, the pre-registered functional-form ladder, the §6.iv-a/-b split, and the widened
-adversarial-pull target).** Drafted, cut down by Will same day (Hermite gate swapped in
+PASS and its ceiling finding: k-parameterization, interlacing floor bracket, functional-form
+ladder, §6.iv-a/-b split, widened pull target; v1.5, under the seal's post-change protocol after
+findings §8/§9: corrected reference definition — per-gap quadrature, smooth ε_k rule, ε/2ε
+adjudication teeth, two permanent known-answer gates — pinned before any corrected curve was
+seen).** Drafted, cut down by Will same day (Hermite gate swapped in
 for the mis-specified picket-fence gate; order-of-limits split added to §9; v2/citation-graph rider
 added to the pre-seal pull), DRAFT label removed on his call. Nothing here is sealed. Per TOOLKIT
 §10 discipline, the sealed prediction is written only AFTER the Track-0 harness validation and null
@@ -83,7 +85,51 @@ subordinator solves ω(z) = z/κ + (1 − 1/κ)·F_μ(ω(z)) by fixed-point iter
 contraction on C⁺ (Denjoy–Wolff), so convergence is certified, and the harness logs the
 contraction residual per z-point. Density by Stieltjes inversion at x + iε with ε tied to local
 mean spacing; an ε-doubling stability check is folded into the §6.iii residual so bandwidth
-sensitivity cannot masquerade as density mismatch. **The reference is derived from the EMPIRICAL
+sensitivity cannot masquerade as density mismatch.
+
+**REFERENCE DEFINITION v1.5 (2026-08-11, post instrument review — findings §8/§9; supersedes the
+grid-interpolated CDF; the grid concept is REMOVED from the reference definition, not carried
+alongside):** the Step-1 episode showed the small-k empirical reference is intrinsically rippled
+— at k = O(1), κ − 1 = k/(n−k) sits marginally at the 1/n-atom dissolution threshold (k = 1 is
+worst by construction, exactly as the atom-threshold formula predicts), so the exact μ_s is a.c.
+plus gap-scale lumps, and grid refinement converges to the wrong limit (rippled) while grid
+coarseness aliases (the F-2 artifact). Unfolding wants the MACROSCOPIC density. Corrected
+definition, pinned before any corrected curve is seen:
+
+- **Per-gap quadrature, no grid:** unfolded increments u_{i+1} − u_i = m∫ρ_s over each root gap
+  by 3-point Gauss–Legendre; ρ_s evaluated by the (unchanged, closed-form-gated) subordination
+  evaluator directly at the quadrature nodes. No interpolation layer exists, so grid aliasing is
+  impossible by construction. r̃ and Σ² are translation-invariant, so the absolute anchor is not
+  needed.
+- **ε_k: ONE smooth formula, no regime switch** (a piecewise small-k mode would put a kink
+  inside the fit window, where injected structure masquerades as relaxation shape):
+  **ε_k = Δ_s · sqrt(0.25 + 16·(n−k)/(k·n))**, Δ_s = flowed support width / m, applied in flowed
+  coordinates. Limits: → 0.5·Δ_s as k grows (strict refinement of the old rule, reached
+  smoothly), → ~4 gaps at k = 1 (several-gap smoothing at the dissolution-marginal point — lump
+  width tracks the dissolution margin). Constants 0.25 and 16 are pinned HERE, sight unseen.
+- **The ε/2ε band has adjudication teeth:** every corrected science readout is computed at ε_k
+  and 2ε_k; the corrected verdict's form selection must be INVARIANT under the pair. If F3-vs-F2
+  flips between ε and 2ε, the verdict is **INCONCLUSIVE-ON-INSTRUMENT-GROUNDS** with that stated
+  as the reason. Pinned in the same commit as the definition — the last post-hoc door this
+  episode leaves open, closed.
+- **Two permanent known-answer gates bracket the reference's operating range**, run green before
+  anything else consumes the corrected instrument, and re-run on any future reference change:
+  (i) **lattice row** (maximally rippled input): picket-fence k = 1 through the full corrected
+  path must read ≤ 10⁻⁷ at n ∈ {1024, 2048, 4096} (true value ≤ 10⁻⁸, Step 1 standalone);
+  (ii) **Hermite-through-reference rows** (maximally smooth input): Hermite seed at k ∈ {1, 2}
+  through the full corrected EMPIRICAL-reference path — flow, quadrature, ε_k, unfolding,
+  statistic — gated against the exact Hₙ₋ₖ truth (semicircle-unfolded, same window) at
+  tolerance 10⁻⁵. The existing Hermite gate certifies the flow but never exercised the
+  reference; this row certifies the reference at exactly the k's under review.
+- **Why Option 1 over the alternatives (recorded because this is a definition inside a
+  seal-governed instrument):** it keeps what the empirical design was built to keep (the seed's
+  macroscopic sampling fluctuation, killing the O(n^−1/2) offset) and smooths away exactly the
+  scale that was never signal. A population-law small-k reference would reinstate the sampling
+  offset at the largest-signal rows AND create an empirical/population definitional seam in k
+  that the seal would defend forever. Unfolding against the rippled limit is circular: at
+  k = O(1) the derivative roots interlace the seed atoms, so dividing by the seed's own lumps
+  divides out the local relaxation being measured — the rippled limit is the right answer to
+  the wrong question. **The reference is derived from the EMPIRICAL
 seed measure** (G_emp(z) = (1/n)Σ 1/(z − rᵢ), exact and free), not the population law — the seed
 is a draw, already O(n^(−1/2)) off the population law before the flow acts, and a population-law
 gate would spend tolerance budget on sampling noise the flow didn't cause. The population-law
