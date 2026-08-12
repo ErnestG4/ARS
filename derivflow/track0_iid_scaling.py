@@ -110,7 +110,8 @@ def run():
     t0 = time.time()
     rng = np.random.default_rng(RNG_SEED)
     out = {"constants": {"NS": NS, "S_SAMPLES": S_SAMPLES, "RNG_SEED": RNG_SEED,
-                         "EPS_FRAC": EPS_FRAC, "GRID_PTS": GRID_PTS, "GRID_PAD": GRID_PAD,
+                         "reference": "v1.5.1 per-gap quadrature, Richardson primary (scope §4)",
+                         "TAIL_GAPS": TAIL_GAPS, "TAIL_PANELS": TAIL_PANELS, "CHUNK": CHUNK,
                          "SANITY_CEILING": SANITY_CEILING, "BULK_FRACTION": BULK_FRACTION},
            "runs": {}, "verdict": "PASS", "failures": []}
     for n in NS:
