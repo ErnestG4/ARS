@@ -357,3 +357,22 @@ Re-adjudication artifact: `science_readjudicated.json` (same verdict).
 (all integers 1…16, then 24, 32, 48, 64) — the flows already visit every k, so the cost is
 references only (~9–10 fit points for GUE vs 4). This is a new sealed run under the amended
 grid, not a re-read of banked data.
+
+## 11. ROADMAP Step 2: environment-conditioned decomposition — NOT_SUPPORTED (2026-08-12)
+
+Runner: `step2_env_decomposition.py` (rules pinned blind, b28c082). Artifact:
+`step2_env_decomposition.json`. 16 seal-protocol iid replicates, n = 4096, 78 min. Exploratory
+and unsealed throughout; the prize clause did not fire.
+
+**The pinned NOT_SUPPORTED clause fired:** 4 of 5 ancestry-cone-gap quintile bins still select
+F3 with β ≈ 0.67–0.72 (< 0.9 in ≥ 3 bins). Conditioning on initial local environment does NOT
+decompose the iid stretch into per-environment exponentials — the heterogeneity behind β < 1 is
+not (only) the seed's initial gap environment. Per the pinned ladder: filed, stopped;
+richer-form fits return to the exploratory backlog and stay there.
+
+Texture, reported without interpretation: bin0 alone is exponential (F2, τ = 3.07) while
+bins 1–4 are stretched with τ ≈ 1.1–1.3 — one environment class relaxes cleanly, the rest carry
+the stretch internally. All five per-bin fit windows got the full 5 points (the Step-2 per-bin
+signals sit higher than the aggregate GUE curve, so the sparse-grid limitation did not bind
+here). Mechanism candidates for the surviving heterogeneity (dynamically generated correlations;
+beyond-nearest-neighbor environment) are backlog items, not findings.
