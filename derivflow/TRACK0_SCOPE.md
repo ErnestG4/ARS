@@ -257,6 +257,25 @@ k ~ log n, k ~ n^α, or within O(1) decades of k — and is the answer, and the 
 parameters, the same across seed classes? Readouts: 1 − ⟨r̃⟩ (log space — ceiling compression)
 and the Σ²(L) slope, along the k-grid, with σ from §6.iv-b.
 
+**DENSE-GRID AMENDMENT (v1.6, 2026-08-12, Will's word; filed before any dense-grid fit exists):**
+the fit grid becomes **k ∈ {1…16} ∪ {24, 32, 48, 64}** — references-only against flows the seal's
+deterministic RNG protocol reproduces exactly. **Amendment scope: grid density and NOTHING
+else.** The form ladder, AICc rule, fit-window rule (mean > 10⁻³), z-thresholds (3σ/5σ), the
+v1.5.1 ε/2ε triple-invariance clause, the seed roster, and the RNG protocol are untouched from
+95e1ad3 + v1.5.1; the multi-start fitter (findings §10) is inherited as faithful execution of
+the unchanged AICc rule. **Second disclosure ledger, mandatory:** SEEN before this adjudication
+(corrected coarse-grid run) — both seeds selecting stretched where the ladder is assessable
+(GUE raw arms β ≈ 0.43–0.49; iid β ≈ 0.68 everywhere), the parameter neighborhoods, and
+k* ≈ 11.0 (iid) / 6.3 (GUE), flat in n. RESIDUAL BLIND CONTENT, named: the fine structure
+inside GUE's transition window at primary-arm precision (the coarse grid held 4 points there;
+the dense grid is new instrument resolution on never-fitted territory), and the z-adjudication
+outcome on shape parameters if both seeds again select F3. **Grade label carried by the eventual
+verdict: SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK** — pre-committed rules executed faithfully; a
+confirmatory-resolution run, not a blind one. The verdict-history chain is preserved as the
+record of how the instrument earned the dense grid: RATE-SEED-DEPENDENT (v1 instrument) →
+instrument review (findings §8/§9) → INCONCLUSIVE-ON-INSTRUMENT-GROUNDS (v1.5.1 coarse,
+findings §10) → this adjudication.
+
 **Functional-form ladder — PRE-REGISTERED HERE, before any transition curve has been seen**
 (fitting an unknown decay with post-hoc form selection is exactly the freedom the seal exists to
 remove): candidate forms for 1 − ⟨r̃⟩ vs k are **(F1) power law** a·k^(−b), **(F2) exponential**
