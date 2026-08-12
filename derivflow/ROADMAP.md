@@ -81,9 +81,11 @@ this doc's STATE updated; if instrument-owned, Step 4 gains a blocking dependenc
 
 ## STEP 2 — Environment-conditioned decomposition of the stretch (mechanism)
 
-**STATE:** RUNNING 2026-08-12 (early am) — campaign complete, instrument certified, block
-cleared; first pass launched detached under the pinned rules (b28c082, committed blind
-mid-campaign).
+**STATE:** EXITED 2026-08-12 — **NOT_SUPPORTED** (pinned clause: 4/5 bins still F3, β ≈ 0.67–0.72).
+The stretch is not (only) initial-environment heterogeneity. Richer-form fits returned to
+exploratory backlog per the pinned ladder. Prize clause did not fire; no seal. Findings §11.
+Texture banked without interpretation: bin0 alone exponential (τ = 3.07), bins 1–4 stretched
+(τ ≈ 1.1–1.3).
 **LOG:** Campaign outcome the run inherits: verdict INCONCLUSIVE-ON-INSTRUMENT-GROUNDS
 (findings §10 — sealed powers-of-2 grid cannot adjudicate GUE's k* ≈ 6 transition; 4-point
 primary window). Robust: both seeds stretched-exp where ladder assessable; k* flat in n
