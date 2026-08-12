@@ -47,10 +47,14 @@ def one_flow(seed_roots, n, k_list, label):
         if k not in k_list:
             continue
         m = n - k
-        F_at, _ = reference_cdf(F_seed, r, k / n, m)
+        F_at, diag = reference_cdf(F_seed, r, k / n, m)
         u = F_at * m
         du = np.diff(u[bulk_idx(m)])
-        rec[k] = {"one_minus_rtilde": 1.0 - rtilde(du), "sigma2_8": sigma2(u[bulk_idx(m)], 8)}
+        u1 = diag["F_at_eps_raw"] * m                 # band arms (scope v1.5.1: raw eps / 2eps)
+        u2 = diag["F_at_2eps"] * m
+        rec[k] = {"one_minus_rtilde": 1.0 - rtilde(du), "sigma2_8": sigma2(u[bulk_idx(m)], 8),
+                  "one_minus_rtilde_epsraw": 1.0 - rtilde(np.diff(u1[bulk_idx(m)])),
+                  "one_minus_rtilde_2eps": 1.0 - rtilde(np.diff(u2[bulk_idx(m)]))}
     print(f"  {label} done", flush=True)
     return rec
 
@@ -116,6 +120,10 @@ def run():
             "mean": float(np.mean([r[k]["one_minus_rtilde"] for r in reps])),
             "std": float(np.std([r[k]["one_minus_rtilde"] for r in reps], ddof=1)),
             "sigma_mean": float(np.std([r[k]["one_minus_rtilde"] for r in reps], ddof=1) / np.sqrt(R)),
+            "mean_epsraw": float(np.mean([r[k]["one_minus_rtilde_epsraw"] for r in reps])),
+            "sigma_mean_epsraw": float(np.std([r[k]["one_minus_rtilde_epsraw"] for r in reps], ddof=1) / np.sqrt(R)),
+            "mean_2eps": float(np.mean([r[k]["one_minus_rtilde_2eps"] for r in reps])),
+            "sigma_mean_2eps": float(np.std([r[k]["one_minus_rtilde_2eps"] for r in reps], ddof=1) / np.sqrt(R)),
             "sigma2_8_mean": float(np.mean([r[k]["sigma2_8"] for r in reps]))} for k in K_GRID_FIT}
 
     for n in N_SCIENCE:
@@ -129,26 +137,39 @@ def run():
         art["doc_rows"][label] = {str(k): v for k, v in
                                   one_flow(seed, n, K_GRID_DOC, f"doc {label}").items()}
 
-    # ---- sealed adjudication ----
+    # ---- sealed adjudication (v1.5: run at eps AND 2eps; band invariance has teeth) ----
     iid = json.load(open("derivflow/track0_ensemble.json"))["ensembles"]
     rng_ci = np.random.default_rng(12345)
-    for seed_class, data in [("iid", {nn: iid[nn] for nn in iid}), ("gue", art["gue"])]:
-        art["fits"][seed_class] = {}
-        for nn in map(str, N_SCIENCE):
-            ks = [k for k in K_GRID_FIT if data[nn][str(k)]["mean"] > FIT_WINDOW_MIN]
-            means = np.array([data[nn][str(k)]["mean"] for k in ks])
-            sm = np.array([data[nn][str(k)]["sigma_mean"] for k in ks])
-            sel, fits = fit_ladder(np.array(ks, dtype=float), means, sm)
-            art["fits"][seed_class][nn] = {"fit_window_k": ks, "selected": sel, "ladder": fits}
-            if "params" in fits[sel]:
-                k0, kerr = kstar(sel, np.array(fits[sel]["params"]), np.array(fits[sel]["cov"]), rng_ci)
-                art["kstar_table"].setdefault(seed_class, {})[nn] = {"kstar": k0, "err": kerr, "form": sel}
+    for band, mkey, skey in [("primary", "mean", "sigma_mean"),
+                             ("eps", "mean_epsraw", "sigma_mean_epsraw"),
+                             ("2eps", "mean_2eps", "sigma_mean_2eps")]:
+        for seed_class, data in [("iid", {nn: iid[nn] for nn in iid}), ("gue", art["gue"])]:
+            art["fits"].setdefault(band, {})[seed_class] = {}
+            for nn in map(str, N_SCIENCE):
+                ks = [k for k in K_GRID_FIT if data[nn][str(k)][mkey] > FIT_WINDOW_MIN]
+                means = np.array([data[nn][str(k)][mkey] for k in ks])
+                sm = np.array([data[nn][str(k)][skey] for k in ks])
+                sel, fits = fit_ladder(np.array(ks, dtype=float), means, sm)
+                art["fits"][band][seed_class][nn] = {"fit_window_k": ks, "selected": sel, "ladder": fits}
+                if band == "primary" and "params" in fits[sel]:
+                    k0, kerr = kstar(sel, np.array(fits[sel]["params"]), np.array(fits[sel]["cov"]), rng_ci)
+                    art["kstar_table"].setdefault(seed_class, {})[nn] = {"kstar": k0, "err": kerr, "form": sel}
 
-    fi, fg = art["fits"]["iid"]["4096"], art["fits"]["gue"]["4096"]
-    adj = {"n_adjudicated": 4096, "iid_form": fi["selected"], "gue_form": fg["selected"]}
-    if fi["selected"] != fg["selected"]:
+    fi, fg = art["fits"]["primary"]["iid"]["4096"], art["fits"]["primary"]["gue"]["4096"]
+    adj = {"n_adjudicated": 4096, "iid_form": fi["selected"], "gue_form": fg["selected"],
+           "band_forms": {b: {sc: art["fits"][b][sc]["4096"]["selected"] for sc in ("iid", "gue")}
+                          for b in ("primary", "eps", "2eps")}}
+    # v1.5.1 strengthened clause: selection must agree across {primary, raw-eps, raw-2eps} per seed
+    band_invariant = all(len({art["fits"][b][sc]["4096"]["selected"] for b in ("primary", "eps", "2eps")}) == 1
+                         for sc in ("iid", "gue"))
+    adj["band_invariant"] = band_invariant
+    if not band_invariant:
+        adj["verdict"] = "INCONCLUSIVE-ON-INSTRUMENT-GROUNDS"
+        adj["basis"] = ("form selection not invariant across {primary, eps, 2eps} "
+                        f"(scope v1.5.1 band clause): {adj['band_forms']}")
+    elif fi["selected"] != fg["selected"]:
         adj["verdict"] = "RATE-SEED-DEPENDENT"
-        adj["basis"] = "form disagreement (seal adjudication clause)"
+        adj["basis"] = "form disagreement (seal adjudication clause), invariant under the v1.5.1 band"
     else:
         form = fi["selected"]
         pi, ci = np.array(fi["ladder"][form]["params"]), np.array(fi["ladder"][form]["cov"])

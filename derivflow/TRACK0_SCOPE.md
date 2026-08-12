@@ -112,6 +112,18 @@ definition, pinned before any corrected curve is seen:
   flips between ε and 2ε, the verdict is **INCONCLUSIVE-ON-INSTRUMENT-GROUNDS** with that stated
   as the reason. Pinned in the same commit as the definition — the last post-hoc door this
   episode leaves open, closed.
+- **v1.5.1 amendment (2026-08-11, same day, forced by the known-answer gates and filed before
+  any science curve was seen under it):** the v1.5 primary readout FAILED its own lattice gate
+  at n ∈ {1024, 2048} with a clean 1/n²-scaling residual (2.0×10⁻⁶ → 5.1×10⁻⁷ → 1.3×10⁻⁷),
+  uniformly ~21× the physical truth — diagnostic of O(ε²) smoothing bias. **Primary readout is
+  now the Richardson pair-extrapolation 2F(ε_k) − F(2ε_k)** (smooth in k — applies identically
+  at every k, no seam), which the gates verify removes the bias on BOTH bracket inputs: lattice
+  4.9×10⁻⁸ / 7.1×10⁻⁹ / 9.9×10⁻¹⁰ (all inside 10⁻⁷), Hermite-through-reference ~10⁻¹⁰ vs the
+  10⁻⁵ tolerance. The raw ε and 2ε arms are retained as the sensitivity band; the invariance
+  clause is STRENGTHENED: form selection must agree across {primary, raw-ε, raw-2ε} per seed
+  class, else INCONCLUSIVE-ON-INSTRUMENT-GROUNDS. Disclosure: at amendment time the only values
+  ever computed under the extrapolated readout were the six gate rows (lattice ×3, Hermite ×2,
+  plus the same rows at ε) — no iid, GUE, or fit-window curve.
 - **Two permanent known-answer gates bracket the reference's operating range**, run green before
   anything else consumes the corrected instrument, and re-run on any future reference change:
   (i) **lattice row** (maximally rippled input): picket-fence k = 1 through the full corrected

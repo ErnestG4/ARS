@@ -33,7 +33,11 @@ def one_flow(seed_roots, n, label):
         F_at, diag = reference_cdf(F_seed, r, k / n, m)
         u = F_at * m
         du = np.diff(u[bulk_idx(m)])
-        rec[k] = {"one_minus_rtilde": 1.0 - rtilde(du), "sigma2_8": sigma2(u[bulk_idx(m)], 8)}
+        u1 = diag["F_at_eps_raw"] * m                 # band arms (scope v1.5.1: raw eps / 2eps)
+        u2 = diag["F_at_2eps"] * m
+        rec[k] = {"one_minus_rtilde": 1.0 - rtilde(du), "sigma2_8": sigma2(u[bulk_idx(m)], 8),
+                  "one_minus_rtilde_epsraw": 1.0 - rtilde(np.diff(u1[bulk_idx(m)])),
+                  "one_minus_rtilde_2eps": 1.0 - rtilde(np.diff(u2[bulk_idx(m)]))}
     print(f"  {label} done", flush=True)
     return rec
 
@@ -56,11 +60,18 @@ def run():
         per_k = {}
         for k in K_GRID_FIT:
             vals = np.array([r[k]["one_minus_rtilde"] for r in reps])
+            v1 = np.array([r[k]["one_minus_rtilde_epsraw"] for r in reps])
+            v2 = np.array([r[k]["one_minus_rtilde_2eps"] for r in reps])
             s2 = np.array([r[k]["sigma2_8"] for r in reps], dtype=float)
             per_k[str(k)] = {"one_minus_rtilde_values": vals.tolist(),
                              "mean": float(np.mean(vals)),
                              "std": float(np.std(vals, ddof=1)),
                              "sigma_mean": float(np.std(vals, ddof=1) / np.sqrt(R)),
+                             "mean_epsraw": float(np.mean(v1)),
+                             "sigma_mean_epsraw": float(np.std(v1, ddof=1) / np.sqrt(R)),
+                             "mean_2eps": float(np.mean(v2)),
+                             "std_2eps": float(np.std(v2, ddof=1)),
+                             "sigma_mean_2eps": float(np.std(v2, ddof=1) / np.sqrt(R)),
                              "sigma2_8_mean": float(np.mean(s2)),
                              "sigma2_8_std": float(np.std(s2, ddof=1))}
         out["ensembles"][str(n)] = per_k
