@@ -81,10 +81,15 @@ this doc's STATE updated; if instrument-owned, Step 4 gains a blocking dependenc
 
 ## STEP 2 — Environment-conditioned decomposition of the stretch (mechanism)
 
-**STATE:** NOT STARTED — BLOCKED (added 2026-08-11) on the v1.5 corrected-instrument campaign:
-the binning first pass would consume contaminated curves (findings §9). Binning-rule
-pre-commitment MAY be drafted during the campaign (pure pre-registration, blind to outcome).
-**LOG:** —
+**STATE:** RUNNING 2026-08-12 (early am) — campaign complete, instrument certified, block
+cleared; first pass launched detached under the pinned rules (b28c082, committed blind
+mid-campaign).
+**LOG:** Campaign outcome the run inherits: verdict INCONCLUSIVE-ON-INSTRUMENT-GROUNDS
+(findings §10 — sealed powers-of-2 grid cannot adjudicate GUE's k* ≈ 6 transition; 4-point
+primary window). Robust: both seeds stretched-exp where ladder assessable; k* flat in n
+(iid ~11.0, GUE ~6.3). NOTE for interpretation: Step 2's per-bin fit windows use the same
+sparse k-grid — fast bins may hit the same 4-point limitation; exploratory status absorbs
+this, but the ladder outcome should name it if it binds.
 
 **Question:** Does iid's stretched exponential decompose into narrower per-environment
 exponentials when conditioned on initial local gap environment?
