@@ -20,8 +20,10 @@ rearrangement invisible to the strongest global theorems. The relaxation follows
 family for every seed class tested — a stretched exponential in k — but with seed-dependent
 parameters: iid-uniform seeds relax with (τ, β) = (1.73, 0.79) against GUE-eigenvalue seeds'
 (0.89, 0.70), separated at 20σ and 9σ respectively. Same-family universality, refuted one level
-down. The crystallization scale k* is flat in n across a 4× range (bounding any power-law scale
-at α ≲ 0.1) [SCALE-LAW SECTION STATE PER INCLUSION RULE]. The stretch itself is a puzzle with
+down. The crystallization scale is O(1) in n: a sealed two-hypothesis discrimination at
+n = 16384 returns SCALE-FLAT, with k* = 10.828 ± 0.011 landing on the flat prediction (10.827)
+to three decimal places and excluding proportional-logarithmic growth at ~10σ — eleven
+derivatives crystallize an iid seed at every n across a 16× range. The stretch itself is a puzzle with
 its most natural explanation already eliminated: conditioning on initial gap environment fails
 to decompose it (falsified under blind-committed binning rules), and rigid, homogeneous GUE
 seeds stretch too — pointing at flow-generated dynamical heterogeneity in the glass-relaxation
@@ -88,9 +90,12 @@ resolution — is fully auditable, commit by commit, in the public repository.
 - **Seed-dependent parameters**: (τ, β) = (1.734, 0.788) iid vs (0.888, 0.703) GUE at n = 4096;
   z(τ) = 20.4, z(β) = 9.3 against the sealed 5σ threshold. VERDICT: RATE-SEED-DEPENDENT
   [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK].
-- **Scale in n**: k* flat across 4× in n; α ≲ 0.1; anchors non-monotone (χ²_flat = 27.9/2 —
-  real n-to-n scatter, filed). [16384 SECTION PER INCLUSION RULE: sealed SCALE-FLAT/SCALE-LOG/
-  INCONCLUSIVE verdict if landed by 2026-08-19, else bounded-not-resolved statement.]
+- **Scale in n — sealed verdict SCALE-FLAT**: two point predictions committed before the run
+  (H_flat = 10.827 from precision-weighted anchors with σ_sys = 0.192 absorbing the anchors'
+  non-monotone scatter, χ²_flat = 27.9/2 filed openly; H_log = 12.704, proportional growth
+  anchored at n = 4096; affine log rejected as non-identifiable on near-flat anchors);
+  measured k*(16384) = 10.828 ± 0.011 — d_flat = 0.001, d_log = 1.876 ≈ 10σ_eff. F3 holds on
+  all three bands at n = 16384. [GUE if-time arm: appends, does not gate.]
 - **Ceiling and floor**: Hermite arm measured crystalline at every s (1 − ⟨r̃⟩ 10⁻⁷–10⁻⁵);
   picket-fence ceiling-invariant under the flow (≤ 10⁻³ every k, every n, corrected
   instrument); interlacing floor at k = O(1) (program-derived — labeled as such; complex
