@@ -207,8 +207,9 @@ around the two-scale contrast with Angst–Nguyen–Poly 2601.01212: the global 
 provably FROZEN through k = o(n/log n) while our measurement shows local spacing fully
 crystallized by k ≈ 10 at every n — small-k crystallization is a purely local rearrangement
 beneath a provably preserved macroscopic profile, open AND provably invisible to the strongest
-global theorems. Care-flag: verify ANP's dimension-nondegeneracy condition covers real support
-before citing it for our case (real-rooted lineage stands regardless). Writing-time re-sweep
+global theorems. Care-flag DISCHARGED (scope §9): Uniform[−1,1] is inside ANP Thm 1.3(2) via
+their C¹-curve example; the paper is verified silent on local statistics — the citation is safe
+and the contrast exact. Writing-time re-sweep
 must specifically check Jalowy–Kabluchko–Marynych Part III (fluctuations/functional limit
 theorems — either the theory our curves test or the scooping result). Cite the complex-flow
 exclusion as a live boundary (Galligo–Najnudel–Vu line).

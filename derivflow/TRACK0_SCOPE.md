@@ -369,10 +369,16 @@ Filed with exact conditionality per the row-c-suspect rule:
   k = o(n/log n) while local spacing fully crystallizes by k ≈ 10 at every n we ran —
   crystallization at small k is a purely local rearrangement beneath a provably preserved
   macroscopic profile.** The local regime is open AND provably invisible to the strongest
-  global theorems. CARE-FLAG before citing: their setting is general complex μ; whether
-  dimension-nondegeneracy covers real-supported measures needs checking against the paper body
-  (the real-rooted lineage stands regardless: Kabluchko k=1, Byun–Lee–Reddy fixed k,
-  Michelen–Vu 2212.11867 + 2307.06788). (2) **Jalowy–Kabluchko–Marynych series — WATCH ITEM
+  global theorems. CARE-FLAG DISCHARGED (2026-08-12, agent verification against the full
+  text): Uniform[−1, 1] is COVERED — ANP's own example (3) admits measures a.c. w.r.t.
+  arc-length on a C¹ curve (local dimension 1 a.e. ⇒ dimension-nondegenerate ⇒ Thm 1.3(2),
+  k = o(n/log n), a.s.); real discrete measures are covered by the separate clause Thm 1.3(1)
+  at the wider o(n) (atoms have local dimension 0 — the discrete case is deliberately its own
+  clause). The paper is SILENT on local statistics (verified: zero occurrences of spacing /
+  point process / pair correlation / rigidity / fluctuation; weak convergence of the empirical
+  measure only). Citation-safe: our iid seed is literally an instance of their theorem and the
+  two-scale contrast is exact. (Real-rooted lineage stands alongside: Kabluchko k=1,
+  Byun–Lee–Reddy fixed k, Michelen–Vu 2212.11867 + 2307.06788.) (2) **Jalowy–Kabluchko–Marynych series — WATCH ITEM
   WITH A FUSE:** Part I out (2504.11593); Part III, "Fluctuations and functional limit
   theorems," listed in preparation — the nearest theorem-shaped object to our σ-resolved
   relaxation curves; the Step-4 writing-time re-sweep must name this series specifically.
