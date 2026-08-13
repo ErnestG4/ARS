@@ -1,0 +1,107 @@
+  iid n=1024 rep=0 done
+  iid n=1024 rep=1 done
+  iid n=1024 rep=2 done
+  iid n=1024 rep=3 done
+  iid n=1024 rep=4 done
+  iid n=1024 rep=5 done
+  iid n=1024 rep=6 done
+  iid n=1024 rep=7 done
+  iid n=1024 rep=8 done
+  iid n=1024 rep=9 done
+  iid n=1024 rep=10 done
+  iid n=1024 rep=11 done
+  iid n=1024 rep=12 done
+  iid n=1024 rep=13 done
+  iid n=1024 rep=14 done
+  iid n=1024 rep=15 done
+  iid n=2048 rep=0 done
+  iid n=2048 rep=1 done
+  iid n=2048 rep=2 done
+  iid n=2048 rep=3 done
+  iid n=2048 rep=4 done
+  iid n=2048 rep=5 done
+  iid n=2048 rep=6 done
+  iid n=2048 rep=7 done
+  iid n=2048 rep=8 done
+  iid n=2048 rep=9 done
+  iid n=2048 rep=10 done
+  iid n=2048 rep=11 done
+  iid n=2048 rep=12 done
+  iid n=2048 rep=13 done
+  iid n=2048 rep=14 done
+  iid n=2048 rep=15 done
+  iid n=4096 rep=0 done
+  iid n=4096 rep=1 done
+  iid n=4096 rep=2 done
+  iid n=4096 rep=3 done
+  iid n=4096 rep=4 done
+  iid n=4096 rep=5 done
+  iid n=4096 rep=6 done
+  iid n=4096 rep=7 done
+  iid n=4096 rep=8 done
+  iid n=4096 rep=9 done
+  iid n=4096 rep=10 done
+  iid n=4096 rep=11 done
+  iid n=4096 rep=12 done
+  iid n=4096 rep=13 done
+  iid n=4096 rep=14 done
+  iid n=4096 rep=15 done
+  gue n=1024 rep=0 done
+  gue n=1024 rep=1 done
+  gue n=1024 rep=2 done
+  gue n=1024 rep=3 done
+  gue n=1024 rep=4 done
+  gue n=1024 rep=5 done
+  gue n=1024 rep=6 done
+  gue n=1024 rep=7 done
+  gue n=1024 rep=8 done
+  gue n=1024 rep=9 done
+  gue n=1024 rep=10 done
+  gue n=1024 rep=11 done
+  gue n=1024 rep=12 done
+  gue n=1024 rep=13 done
+  gue n=1024 rep=14 done
+  gue n=1024 rep=15 done
+  gue n=2048 rep=0 done
+  gue n=2048 rep=1 done
+  gue n=2048 rep=2 done
+  gue n=2048 rep=3 done
+  gue n=2048 rep=4 done
+  gue n=2048 rep=5 done
+  gue n=2048 rep=6 done
+  gue n=2048 rep=7 done
+  gue n=2048 rep=8 done
+  gue n=2048 rep=9 done
+  gue n=2048 rep=10 done
+  gue n=2048 rep=11 done
+  gue n=2048 rep=12 done
+  gue n=2048 rep=13 done
+  gue n=2048 rep=14 done
+  gue n=2048 rep=15 done
+  gue n=4096 rep=0 done
+  gue n=4096 rep=1 done
+  gue n=4096 rep=2 done
+  gue n=4096 rep=3 done
+  gue n=4096 rep=4 done
+  gue n=4096 rep=5 done
+  gue n=4096 rep=6 done
+  gue n=4096 rep=7 done
+  gue n=4096 rep=8 done
+  gue n=4096 rep=9 done
+  gue n=4096 rep=10 done
+  gue n=4096 rep=11 done
+  gue n=4096 rep=12 done
+  gue n=4096 rep=13 done
+  gue n=4096 rep=14 done
+  gue n=4096 rep=15 done
+
+VERDICT [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK]: RATE-SEED-DEPENDENT
+band_forms: {"primary": {"iid": "F3", "gue": "F3"}, "eps": {"iid": "F3", "gue": "F3"}, "2eps": {"iid": "F3", "gue": "F3"}}
+shape z: {'param1': 20.407198127148565, 'param2': 9.31401329890724} params: {'iid': [-0.15120559225906094, 1.733844941327674, 0.7883706184835696], 'gue': [-0.30528765762166554, 0.8883697801905952, 0.7029521914155871], 'form': 'F3'}
+k*(iid, n=1024) = 10.95 ± 0.07  [F3]
+k*(iid, n=2048) = 10.59 ± 0.05  [F3]
+k*(iid, n=4096) = 10.89 ± 0.03  [F3]
+k*(gue, n=1024) = 6.23 ± 0.02  [F3]
+k*(gue, n=2048) = 6.26 ± 0.01  [F3]
+k*(gue, n=4096) = 6.16 ± 0.01  [F3]
+runtime 19570.3s

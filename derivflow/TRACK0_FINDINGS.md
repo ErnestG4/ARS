@@ -376,3 +376,32 @@ the stretch internally. All five per-bin fit windows got the full 5 points (the 
 signals sit higher than the aggregate GUE curve, so the sparse-grid limitation did not bind
 here). Mechanism candidates for the surviving heterogeneity (dynamically generated correlations;
 beyond-nearest-neighbor environment) are backlog items, not findings.
+
+## 12. v1.6 dense-grid adjudication: RATE-SEED-DEPENDENT [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK] (2026-08-12)
+
+Runner: `science_dense.py` (transcription of the v1.6 amendment, c986573). Artifact:
+`science_dense_grid.json`. 96 exact-reproduction flows under the seal's SeedSequence, dense grid
+k ∈ {1…16} ∪ {24, 32, 48, 64}, 5.4 h. Grade label per the amendment's second disclosure ledger.
+
+**VERDICT: RATE-SEED-DEPENDENT — same form, different shape parameters.**
+- **Triple-band invariance HOLDS: F3 (stretched exponential) selected for BOTH seeds on ALL
+  THREE arms** {primary, raw-ε, raw-2ε}. The v1.5.1 instrument clause is satisfied; the form
+  question that was INCONCLUSIVE on the sparse grid is closed by resolution, exactly as the
+  amendment intended.
+- **The z-adjudication (reached for the first time in the arc):** shape parameters at n = 4096,
+  iid (τ = 1.734, β = 0.788) vs GUE (τ = 0.888, β = 0.703): **z(τ) = 20.4, z(β) = 9.3** — both
+  far beyond the sealed 5σ threshold. The two seed classes relax along the same functional form
+  at genuinely different rates and stretches.
+- **k\* table (dense, final):** iid 10.95 ± 0.07 / 10.59 ± 0.05 / 10.89 ± 0.03; GUE
+  6.23 ± 0.02 / 6.26 ± 0.01 / 6.16 ± 0.01. Flat in n at tightened precision; the O(1)-scale
+  reading strengthens; τ_iid/τ_GUE ≈ 1.95.
+- **Verdict-history chain, complete:** RATE-SEED-DEPENDENT (v1, form clause — the form-level
+  claim was instrument artifact) → instrument review (§8/§9) → INCONCLUSIVE-ON-INSTRUMENT-
+  GROUNDS (v1.5.1 coarse, earned: 4-point window) → **RATE-SEED-DEPENDENT (v1.6 dense,
+  parameter clause, z = 20.4/9.3)**. The label returned; the content changed: not "different
+  forms" but "same stretched-exponential family, seed-dependent (τ, β)." Both seeds' stretch
+  (β < 1) stands with the Step-2 NOT_SUPPORTED finding: the heterogeneity is flow-generated,
+  not seed-carried (roadmap backlog: dynamical-heterogeneity discriminator).
+- Two-scale statement for Step 4, now fully anchored: ANP freeze the global measure through
+  k = o(n/log n) for exactly our seed class (care-flag discharged); we measure local
+  crystallization complete by k* ≈ 6–11 with seed-dependent stretched-exponential relaxation.
