@@ -405,3 +405,22 @@ k ∈ {1…16} ∪ {24, 32, 48, 64}, 5.4 h. Grade label per the amendment's seco
 - Two-scale statement for Step 4, now fully anchored: ANP freeze the global measure through
   k = o(n/log n) for exactly our seed class (care-flag discharged); we measure local
   crystallization complete by k* ≈ 6–11 with seed-dependent stretched-exponential relaxation.
+
+## 13. ROADMAP Step 3 — sealed scale-law verdict: SCALE-FLAT (iid arm, 2026-08-13)
+
+Runner: `step3_parallel.py` (replicate-level pool, 5 workers; solver memory-chunked
+bitwise-identically, gates re-certified b30f60f). Artifact: `step3_scale_law.json`. Seal:
+`SCALE_LAW_SEAL.json` (889f472). Grade: SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK.
+
+**VERDICT (iid arm, alone sufficient per the seal): SCALE-FLAT.**
+k*(iid, n = 16384) = **10.828 ± 0.011** vs H_flat = 10.827 (d = 0.001) and H_log = 12.704
+(d = 1.876 ≈ 10σ_eff). The flat prediction was hit to three decimal places; the log hypothesis
+is excluded at the full sealed separation. **The crystallization scale is O(1) in n across a
+16× range**: ~11 derivatives crystallize an iid-uniform seed at every n from 1024 to 16384.
+Form-consistency rider: F3 on all three bands at n = 16384 — the stretched exponential holds at
+the largest n measured. Power statement banked (3σ_eff = 0.577 vs separation 1.877).
+
+GUE if-time arm running; its result appends here without touching the sealed verdict.
+Parallel-driver note for the record: per-rep wall stretched to ~3.7 h under 5-way bandwidth
+contention (net arm ~12 h vs ~16–24 h serial — the bandwidth wall sits lower than the core
+count, as the banked 5900X lesson predicted).
