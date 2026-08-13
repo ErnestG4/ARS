@@ -13,7 +13,7 @@
   "MPMATH_DPS": 40,
   "N_CHECKPOINTS": 8
  },
- "runtime_s": 11.5,
+ "runtime_s": 12.3,
  "checkpoints": [
   {
    "k": 1,

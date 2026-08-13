@@ -43,6 +43,12 @@ class GateFail(Exception):
     pass
 
 
+DS_BLOCK = 2048  # candidate-axis block size: caps solver temporaries at DS_BLOCK x n. Every
+                 # operation below is per-candidate-row, so block processing is BITWISE
+                 # IDENTICAL to the unblocked solve — a memory-layout change only (2026-08-12,
+                 # for n=16384 parallelism; gates re-run per the seal's post-change protocol).
+
+
 def diff_step(r):
     """Roots of p' from roots r of p: solve S(x) = sum 1/(x-r_i) = 0 on each (r_i, r_{i+1}).
 
@@ -52,19 +58,23 @@ def diff_step(r):
     a, b = r[:-1].copy(), r[1:].copy()
     if not np.all(b > a):
         raise GateFail("degenerate bracket: input roots not strictly increasing")
-    lo, hi = a.copy(), b.copy()
-    for _ in range(25):                    # bracket to ~3e-8 of the gap ...
-        mid = 0.5 * (lo + hi)
-        s = np.sum(1.0 / (mid[:, None] - r[None, :]), axis=1)
-        neg = s < 0.0                      # S decreasing: S(mid)<0 -> root left of mid
-        hi = np.where(neg, mid, hi)
-        lo = np.where(neg, lo, mid)
-    x = 0.5 * (lo + hi)
-    for _ in range(5):                     # ... then Newton, clamped to the bracket (quadratic
-        d = x[:, None] - r[None, :]        # from 3e-8: two steps to eps, five for margin)
-        s = np.sum(1.0 / d, axis=1)
-        sp = -np.sum(1.0 / d**2, axis=1)
-        x = np.clip(x - s / sp, a + 1e-300, b - 1e-300)
+    x = np.empty_like(a)
+    for i0 in range(0, len(a), DS_BLOCK):
+        sl = slice(i0, min(i0 + DS_BLOCK, len(a)))
+        lo, hi = a[sl].copy(), b[sl].copy()
+        for _ in range(25):                # bracket to ~3e-8 of the gap ...
+            mid = 0.5 * (lo + hi)
+            s = np.sum(1.0 / (mid[:, None] - r[None, :]), axis=1)
+            neg = s < 0.0                  # S decreasing: S(mid)<0 -> root left of mid
+            hi = np.where(neg, mid, hi)
+            lo = np.where(neg, lo, mid)
+        xb = 0.5 * (lo + hi)
+        for _ in range(5):                 # ... then Newton, clamped to the bracket (quadratic
+            d = xb[:, None] - r[None, :]   # from 3e-8: two steps to eps, five for margin)
+            s = np.sum(1.0 / d, axis=1)
+            sp = -np.sum(1.0 / d**2, axis=1)
+            xb = np.clip(xb - s / sp, a[sl] + 1e-300, b[sl] - 1e-300)
+        x[sl] = xb
     if not (np.all(x > a) & np.all(x < b) & np.all(np.diff(x) > 0)):
         raise GateFail("interlacing violated after solve")
     return x
