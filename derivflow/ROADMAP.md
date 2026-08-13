@@ -130,11 +130,12 @@ prize fired, the new seal committed before any cross-seed mixture computation.
 
 ## STEP 3 — Sealed n = 16384 scale-law discrimination (one expensive number)
 
-**STATE:** NOT STARTED — Steps 1–2 both exited (Step 2 NOT_SUPPORTED: no per-environment
-prediction rides along). REMAINING BLOCK (2026-08-12): the v1.6 dense-grid adjudication — the
-two point predictions get re-derived from the DENSE-GRID k* anchors once they exist. Value
-proposition survived the instrument review intact: flat-in-n was a robust cross-arm fact, and
-the 16384 run is still the only thing that splits O(1) from O(log n).
+**STATE:** UNBLOCKED 2026-08-12 — all deps exited. Dense-grid anchors now exist for the two
+point predictions: k*(iid) = 10.95 ± 0.07 / 10.59 ± 0.05 / 10.89 ± 0.03 and k*(GUE) =
+6.23 ± 0.02 / 6.26 ± 0.01 / 6.16 ± 0.01 at n = 1024/2048/4096 (science_dense_grid.json —
+re-derive from the artifact at seal time per the row-c rule, these are pointers not anchors).
+Value proposition intact: flat-in-n held at tightened precision; 16384 still the only splitter
+of O(1) vs O(log n).
 **LOG:** —
 
 **Question:** Is k*(n) O(1)-flat or O(log n)? Three existing n's bound (α ≲ 0.1)
@@ -170,8 +171,10 @@ the intensive step this doc exists for.
 
 ## STEP 4 — The writeup (short arXiv note)
 
-**STATE:** NOT STARTED — BLOCKED on the v1.6 dense-grid adjudication settling the corrected
-verdict (either outcome unblocks). UPGRADED 2026-08-12 (Will): the paper is now better than the
+**STATE:** UNBLOCKED 2026-08-12 — the corrected story is settled (findings §12):
+RATE-SEED-DEPENDENT via the z-clause [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK], triple-band
+invariant F3/F3, z(τ) = 20.4 / z(β) = 9.3, k* flat. The verdict-history chain is the paper's
+methodology section. UPGRADED 2026-08-12 (Will): the paper is now better than the
 one queued — the instrument-review episode (artifact found by the roadmap's own regression step,
 cured under the seal's pre-committed protocol, two permanent known-answer gates added, verdict
 downgraded honestly rather than defended) is publishable methodology in its own right, and F-1's
