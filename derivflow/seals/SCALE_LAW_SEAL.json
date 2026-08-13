@@ -1,0 +1,49 @@
+{
+  "seal": "derivflow Step 3 — scale-law discrimination at n = 16384",
+  "sealed": "2026-08-12",
+  "parent_seal": "RATE_QUESTION_SEAL.json (95e1ad3) + scope v1.5.1/v1.6 instrument; this seal adds ONE new measurement and changes nothing else",
+  "grade": "SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK (the three anchor k* values and the full v1.6 adjudication have been seen; the n = 16384 point has never been computed at any instrument version)",
+
+  "question": "Is k*(n) flat (O(1)) or proportional-logarithmic in n? Three anchors bound (alpha <~ 0.1) but cannot split these; n = 16384 can.",
+
+  "predictions_rederived_from_repo": {
+    "source": "science_dense_grid.json kstar_table (v1.6 dense adjudication), re-derived 2026-08-12 — NOT conversation-level arithmetic; the conversation numbers ('~13.2', '~12+ affine') were checked and corrected: an affine log fit through the near-flat anchors is non-identifiable (predicts 10.97, dumping growth into the intercept), so the sealed log hypothesis is PROPORTIONAL growth anchored at n = 4096",
+    "iid": {
+      "anchors": "k* = 10.951 +- 0.074 / 10.592 +- 0.051 / 10.889 +- 0.030 at n = 1024/2048/4096",
+      "H_flat": 10.827,
+      "H_log": 12.704,
+      "separation": 1.876,
+      "sigma_sys": 0.192,
+      "sigma_sys_note": "std of the three anchors; the flat model's chi2 = 27.9/2 dof shows real n-to-n scatter beyond fit errors (anchors are NON-monotone); sigma_sys absorbs it — filed openly, not hidden in the fit errors"
+    },
+    "gue_if_time": {
+      "anchors": "k* = 6.23 +- 0.02 / 6.26 +- 0.01 / 6.16 +- 0.01",
+      "H_flat": 6.202, "H_log": 7.190, "separation": 0.988, "sigma_sys": 0.052
+    }
+  },
+
+  "design": {
+    "n": 16384,
+    "k_grid": "dense v1.6 grid: {1..16} u {24, 32, 48, 64}",
+    "replicates": 16,
+    "rng_protocol": "SeedSequence(20260811).spawn(128): children 96-111 = iid n=16384; children 112-127 = GUE n=16384 (if-time arm). Children 0-95 are NEVER reused.",
+    "instrument": "v1.5.1 corrected reference (per-gap quadrature, Richardson primary, eps_k rule), fit machinery and window rule unchanged; multi-start fitter inherited",
+    "arm_order_predecided": "iid FIRST and alone sufficient for the sealed question; GUE arm runs only after the iid arm completes and only if budget allows — scope creep on the run is pre-declined. If the box dies mid-GUE, the iid verdict stands.",
+    "readout": "k*(16384) = fitted-curve crossing of 1 - <rtilde> = 1e-2 from the primary-arm F3 fit (same kstar machinery), with measurement error sigma_m from the fit-covariance draw method"
+  },
+
+  "adjudication": {
+    "sigma_eff": "sqrt(sigma_m^2 + sigma_sys^2) per arm",
+    "SCALE-FLAT": "|k* - H_flat| < 3*sigma_eff AND |k* - H_log| > 5*sigma_eff",
+    "SCALE-LOG": "|k* - H_log| < 3*sigma_eff AND |k* - H_flat| > 5*sigma_eff",
+    "INCONCLUSIVE": "anything else — including intermediate affine-log behavior, which this design deliberately does not claim to resolve; carries the mandatory power statement (the separation that WAS resolvable at the achieved sigma_eff)",
+    "sanity": "with sigma_m ~ 0.03-0.09 and sigma_sys = 0.192, sigma_eff ~ 0.20: 3*sigma_eff ~ 0.59 and 5*sigma_eff ~ 0.98 against separation 1.88 — the two acceptance bands cannot overlap; the design cannot produce a double-positive",
+    "form_consistency_rider": "the F3 selection at 16384 is reported (band triple per v1.5.1) but does NOT gate the scale verdict; a form flip at 16384 would be filed as its own finding"
+  },
+
+  "paper_inclusion_rule_cross_ref": "ROADMAP Step 4 pre-commitment (2026-08-12): the paper ships on its pinned date with whatever scale-law state exists then — sealed verdict if landed, three-n's bounded-not-resolved if not. This seal does not hold the paper hostage.",
+  "bindings": {
+    "instrument_commits": "v1.5.1 chain through 6cc2562; post-seal instrument change protocol inherited from RATE_QUESTION_SEAL",
+    "verdicts": ["SCALE-FLAT", "SCALE-LOG", "INCONCLUSIVE (with power statement)"]
+  }
+}

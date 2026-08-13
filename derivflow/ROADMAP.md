@@ -130,13 +130,16 @@ prize fired, the new seal committed before any cross-seed mixture computation.
 
 ## STEP 3 — Sealed n = 16384 scale-law discrimination (one expensive number)
 
-**STATE:** UNBLOCKED 2026-08-12 — all deps exited. Dense-grid anchors now exist for the two
-point predictions: k*(iid) = 10.95 ± 0.07 / 10.59 ± 0.05 / 10.89 ± 0.03 and k*(GUE) =
-6.23 ± 0.02 / 6.26 ± 0.01 / 6.16 ± 0.01 at n = 1024/2048/4096 (science_dense_grid.json —
-re-derive from the artifact at seal time per the row-c rule, these are pointers not anchors).
-Value proposition intact: flat-in-n held at tightened precision; 16384 still the only splitter
-of O(1) vs O(log n).
-**LOG:** —
+**STATE:** SEALED + LAUNCHED 2026-08-12 (`seals/SCALE_LAW_SEAL.json`; runner
+`step3_scale_law.py`, detached). Multi-day intensive step; the draft does not wait up for it.
+**LOG:** Predictions re-derived from science_dense_grid.json — and the row-c rule caught the
+conversation-level arithmetic: an affine log fit through the near-flat anchors is
+non-identifiable (predicts 10.97, growth absorbed into the intercept), so the sealed log
+hypothesis is PROPORTIONAL growth anchored at n = 4096. iid: H_flat = 10.827 vs
+H_log = 12.704, separation 1.876; σ_sys = 0.192 filed openly (flat-model χ² = 27.9/2 — the
+anchors are non-monotone with scatter beyond fit errors). GUE if-time arm: 6.202 vs 7.190.
+Acceptance bands (3σ_eff/5σ_eff ≈ 0.6/1.0) cannot overlap — no double-positive possible.
+Form-consistency rider reported, non-gating.
 
 **Question:** Is k*(n) O(1)-flat or O(log n)? Three existing n's bound (α ≲ 0.1)
 but cannot split these.
@@ -204,6 +207,21 @@ string appears before narrative, same as the findings convention.
 precisely because finite-n local statistics lacked results; they are the natural
 first readers. Check 2410.06403 v2 (2026-05-21) and its citation graph one more
 time at writing time — the pull's OPEN verdict ages.
+
+**PAPER PRE-COMMITMENTS (2026-08-12, pinned before drafting starts — the last place discretion
+was hiding):** (1) **Target submission date: 2026-08-19.** (2) **Inclusion rule for the 16384
+arm:** the paper ships on that date with whatever scale-law state exists then — the sealed
+Step-3 verdict if landed, else three-n's bounded-not-resolved (α ≲ 0.1, non-monotone anchors,
+O(1)-consistent). The paper is publishable today; the 16384 arm makes it better, not viable —
+better does not take viable hostage. (3) The run's scope is pre-pruned in the seal itself:
+iid-first, GUE-if-time. (4) The grade label travels with the verdict everywhere it appears,
+abstract included; the v1 → review → INCONCLUSIVE → resolution chain is the honesty appendix
+with commit hashes. (5) Abstract framing: ONE functional family (stretched exponential) with
+seed-dependent parameters at 20σ/9σ, beneath a global measure ANP-class theorems freeze at
+these k — same-family universality and its refutation one level down, measured under a sealed
+procedure that survived its own instrument crisis in public. The β-composition (both seeds
+stretch; Step 2 falsified seed-carried heterogeneity under blind rules) goes in the discussion
+as the open mechanism question.
 
 **FRAMING REBUILD (2026-08-12, Will's post-pull sweep — scope §9):** the introduction is built
 around the two-scale contrast with Angst–Nguyen–Poly 2601.01212: the global zero measure is
