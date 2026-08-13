@@ -202,6 +202,17 @@ precisely because finite-n local statistics lacked results; they are the natural
 first readers. Check 2410.06403 v2 (2026-05-21) and its citation graph one more
 time at writing time — the pull's OPEN verdict ages.
 
+**FRAMING REBUILD (2026-08-12, Will's post-pull sweep — scope §9):** the introduction is built
+around the two-scale contrast with Angst–Nguyen–Poly 2601.01212: the global zero measure is
+provably FROZEN through k = o(n/log n) while our measurement shows local spacing fully
+crystallized by k ≈ 10 at every n — small-k crystallization is a purely local rearrangement
+beneath a provably preserved macroscopic profile, open AND provably invisible to the strongest
+global theorems. Care-flag: verify ANP's dimension-nondegeneracy condition covers real support
+before citing it for our case (real-rooted lineage stands regardless). Writing-time re-sweep
+must specifically check Jalowy–Kabluchko–Marynych Part III (fluctuations/functional limit
+theorems — either the theory our curves test or the scooping result). Cite the complex-flow
+exclusion as a live boundary (Galligo–Najnudel–Vu line).
+
 **Exit criteria:** Preprint on arXiv; repo tagged; STATE updated with the identifier.
 
 **Budget guess:** Days, spread.
@@ -223,6 +234,12 @@ one statistic.
 seal → verdict), authored fresh; this doc's role ends at handing over the measured
 derivflow form pair as the comparison target. ζ′/Speiser stays queued behind this —
 differentiation statistics of ζ is where those threads meet.
+
+**VALUE/URGENCY RAISED (2026-08-12, scope §9 sweep):** the heat-flow half of the bridge is now
+built and published (Hall–Ho–Jalowy–Kabluchko: Indiana 2025, EJP 2025, LMP 2025), and the
+literature is already citing Lehmer-pair/dBN work alongside differentiation-flow papers — the
+local-statistics comparison this step queues is the unclaimed measurement in a visibly
+converging field. Worth moving while that's true.
 
 **Exit criteria (for THIS doc):** Cross-flow scope doc committed; STATE here updated
 with its path; this roadmap is then complete and archives.

@@ -360,6 +360,31 @@ Filed with exact conditionality per the row-c-suspect rule:
   seeds at the k = 1 GLOBAL level only. **Consequence: the §4 interlacing floor is
   program-derived — unchallenged and unduplicated — and the seal must label it so.**
   Nearest-approach papers flagged for next audit: 2605.31356 and successors of 1409.7956.
+- **POST-PULL SWEEP (Will, 2026-08-12). GAP STANDS with a stronger boundary drawn around it.**
+  (1) **Angst–Nguyen–Poly arXiv:2601.01212** (Jan 2026, postdates the pull's window) — the new
+  nearest-miss and the paper's perfect foil: for iid-rooted random polynomials the empirical
+  zero distribution of the k-th derivative converges back to μ for ALL k = o(n/log n)
+  (discrete measures included, under a dimension-nondegeneracy condition), breaking the log-n
+  barrier. Against our measurement: **the global measure is provably frozen through
+  k = o(n/log n) while local spacing fully crystallizes by k ≈ 10 at every n we ran —
+  crystallization at small k is a purely local rearrangement beneath a provably preserved
+  macroscopic profile.** The local regime is open AND provably invisible to the strongest
+  global theorems. CARE-FLAG before citing: their setting is general complex μ; whether
+  dimension-nondegeneracy covers real-supported measures needs checking against the paper body
+  (the real-rooted lineage stands regardless: Kabluchko k=1, Byun–Lee–Reddy fixed k,
+  Michelen–Vu 2212.11867 + 2307.06788). (2) **Jalowy–Kabluchko–Marynych series — WATCH ITEM
+  WITH A FUSE:** Part I out (2504.11593); Part III, "Fluctuations and functional limit
+  theorems," listed in preparation — the nearest theorem-shaped object to our σ-resolved
+  relaxation curves; the Step-4 writing-time re-sweep must name this series specifically.
+  (3) Complex/rotationally-invariant flow is an ACTIVE parallel track (Galligo–Najnudel–Vu
+  2506.06263; successor 2607.05054; randomized-derivative k = o(n/log n)) — the scope's
+  complex exclusion is a live boundary, cited as such, not a dead one. (4) Heat-flow side
+  matured (Hall–Ho–Jalowy–Kabluchko now published: Indiana 2025, EJP 2025, LMP 2025; a Dec 2025
+  preprint cites Csordas–Smith–Varga Lehmer-pair/dBN work alongside differentiation-flow
+  papers) — Step 5 enters a literature that built the heat-flow half of the bridge and has NOT
+  measured the local-statistics comparison; value and urgency both raised. (5) Reference pins:
+  Hoskins–Steinerberger 2005.09809 for the Hermite attractor/ceiling; Arizmendi–Campbell–Fujie
+  2506.08910 as the modern finite-free-cumulants machinery citation alongside COR.
 
 ## 10. Methodological commitments carried through
 
