@@ -210,6 +210,11 @@ precisely because finite-n local statistics lacked results; they are the natural
 first readers. Check 2410.06403 v2 (2026-05-21) and its citation graph one more
 time at writing time — the pull's OPEN verdict ages.
 
+**FRAME NOTE (2026-08-13, Will):** this is exploration published live on codeberg — the date
+below was Will's own anti-completionism device (pinned 08-12 to stop the draft waiting on
+runs), not an external obligation. It did its job (every slot filled ahead of it) and now
+converts to: ship when ready, don't let the draft age, share what matters.
+
 **PAPER PRE-COMMITMENTS (2026-08-12, pinned before drafting starts — the last place discretion
 was hiding):** (1) **Target submission date: 2026-08-19.** (2) **Inclusion rule for the 16384
 arm:** the paper ships on that date with whatever scale-law state exists then — the sealed
