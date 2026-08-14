@@ -215,11 +215,20 @@ harness performs, with one precision owed: in molecular dynamics the resampled q
 momenta, bona fide dynamical degrees of freedom; the derivative flow is deterministic and has
 no momentum-like variable, so our ensemble resamples seed-adjacent perturbation at fixed
 conditioning. The structural match — condition on configuration, ensemble over realization —
-is claimed with that limit conceded. The natural next probe is the isoconfigurational move
-translated to root flows: re-condition mid-flow (bin on environment at k = 2 rather than
-k = 0). One filed texture constrains any candidate mechanism: exactly one environment
-quintile — the largest cone-gap — selects a pure exponential, three times slower than the
-stretched rest (itself at χ²/dof 8.6; no per-bin fit is clean). A deterministic,
+is claimed with that limit conceded. We performed that probe: re-conditioning mid-flow (bin
+on environment at k = 2 rather than k = 0, rules pinned blind) ALSO fails to decompose the
+stretch — 3 of 5 quintiles remain stretched (β = 0.70/0.55/0.49). Neither the initial nor the
+instantaneous configuration's local gap environment carries the rate distribution: within the
+dichotomy's terms, and under the pinned caveat that the environment variable may be too crude,
+the evidence now leans toward intrinsic local nonexponentiality. Three textures constrain any
+candidate mechanism: a STABLE slow subpopulation — the largest-gap quintile selects a pure
+exponential at both conditioning times with nearly unchanged rate (τ = 3.07 at k = 0,
+3.18 at k = 2); an emergent fast power-law tail (the smallest-gap quintile at k = 2 selects
+F1, χ²/dof 1.2); and the fact that the per-bin fits at k = 2 conditioning are mostly GOOD
+(χ²/dof 0.5–1.2 for the middle quintiles) while the aggregate misfits — the residual
+structure lives in the mixture, not the components. Rates DO order monotonically by
+environment (τ = 3.18 → 0.30 across quintiles); what environment fails to explain is the
+stretch WITHIN each bin. A deterministic,
 exactly-specified interacting system with a proven Lipschitz structure exhibiting measured
 KWW relaxation under a certified error model is, we believe, an unusual specimen for this
 literature: simpler than any glass-former, richer than any solvable toy.
