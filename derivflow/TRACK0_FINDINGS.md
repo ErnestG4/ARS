@@ -491,3 +491,19 @@ assessable forms, per-bin χ²/dof 15–47 (poor). Design note for the backlog: 
 probe needs K_COND = 1 with a k-grid starting at 2 (k ∈ {2, 3, 4, 5, 6, 8, …}) to give the
 fast bins assessable windows. The iid arm's NOT_SUPPORTED stands as §14's result; the GUE arm
 is filed as an instructive incompleteness, not a datum.
+
+**§14 closing note — the slow subpopulation's status change (Will, 2026-08-14):** three
+independent, unsought appearances — Step 2 bin0 (F2, τ = 3.07), the k = 2 re-conditioning
+(F2, τ = 3.18), and the GUE arm's slow pair (τ = 2.34/2.35) — across two seed classes and
+independent designs: a slow, UN-stretched component inside a stretched ensemble, every time.
+All were correctly filed as texture (none pre-registered); three sightings is the threshold
+where texture earns a pre-registration of its own. The composed picture is strange in a
+testable way: identified subpopulations keep selecting exponentials (the heterogeneous
+scenario's signature) while the conditioning that should decompose the stretch fails (the
+intrinsic scenario's signature) — BOTH fingerprints at once. Either the conditioning variable
+is wrong (heterogeneity real but not measured by ancestry-cone gaps — an open design
+question), or the mechanisms COEXIST (a slow exponential subpopulation riding an intrinsically
+stretched bulk — the glass literature's coexistence story in root-flow clothes). **Binding on
+the backlogged GUE-adapted probe: when its scope is written, the slow-population question
+enters as a SEALED SECONDARY, not a fourth accidental appearance.** A pattern with a
+pre-registration is a finding-in-waiting.

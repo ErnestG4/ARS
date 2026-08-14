@@ -306,7 +306,12 @@ with its path; this roadmap is then complete and archives.
   underpowered (findings §14 addendum — 3–4-point windows, F3 unassessable); the adapted design
   is K_COND = 1 with k-grid from 2. Whether GUE's stretch decomposes under conditioning —
   which would make the STRETCH MECHANISM itself seed-dependent, not just the parameters — is
-  the open question this probe exists to answer.
+  the open question this probe exists to answer. BINDING (2026-08-14, findings §14 closing
+  note): the probe's scope must carry the SLOW-SUBPOPULATION question as a sealed secondary —
+  three unsought sightings (τ 3.07 / 3.18 / 2.34–2.35) across two seed classes and independent
+  conditionings; both heterogeneous and intrinsic fingerprints present at once; the sealed
+  secondary adjudicates coexistence vs wrong-conditioning-variable rather than waiting for a
+  fourth accident.
 
 ## Resumption protocol (the reason this doc exists)
 
