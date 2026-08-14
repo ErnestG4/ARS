@@ -1,11 +1,10 @@
 # Review filing: "A universality class is a lemma, and ARS is a lemmatizer" (2026-08-13)
 
-**Status:** the essay's full text has NOT landed in this repo — the copy transmitted here
-truncates mid-sentence ("The class is not any dataset (no inflection i…"). It was evidently
-synthesized in another session (plausibly the wrap arc) from a stale snapshot of the derivflow
-arc. This file banks the REVIEW and its two mandatory amendments so that when the essay's full
-text lands, it gets filed corrected, not raw. Until then, this review is the authoritative
-record of what the essay may and may not claim about the arc.
+**Status:** RESOLVED 2026-08-13 — the full text landed same day and is filed at
+`essays/lemmatizer_essay.md`, verbatim with the two mandatory amendments as editorial
+annotations at their anchor points (the essay is another session's document; annotated, not
+rewritten, per the seals-unedited discipline). This review remains the expanded record of the
+corrections and the practice triage.
 
 ## The catch (mandatory correction — a lemmatization error inside the essay about lemmatization)
 
