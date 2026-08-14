@@ -424,3 +424,11 @@ GUE if-time arm running; its result appends here without touching the sealed ver
 Parallel-driver note for the record: per-rep wall stretched to ~3.7 h under 5-way bandwidth
 contention (net arm ~12 h vs ~16–24 h serial — the bandwidth wall sits lower than the core
 count, as the banked 5900X lesson predicted).
+
+**§13 append — GUE if-time arm (2026-08-13, unsealed-confirmatory per the seal's arm-order
+clause; gates nothing):** k*(GUE, 16384) = **6.220 ± 0.004** vs H_flat = 6.202 (d = 0.018 =
+0.35σ_eff); proportional-log (7.190) excluded at 18.7σ_eff. Mechanically the same adjudication
+lands SCALE-FLAT, reported here with its confirmatory grade: both seed classes crystallize on
+an O(1) clock across the full 16× range in n, and both landed on their pre-committed flat
+predictions inside a small fraction of σ — a second, independent certification of the error
+model at ±0.004 precision. F3 rider holds on all three bands. Total both-arm runtime 23.5 h.

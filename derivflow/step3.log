@@ -1,0 +1,71 @@
+  iid rep=3 done
+    iid rep 3: 215.3 min
+  iid rep=4 done
+    iid rep 4: 216.9 min
+  iid rep=0 done
+    iid rep 0: 216.9 min
+  iid rep=1 done
+    iid rep 1: 217.8 min
+  iid rep=2 done
+    iid rep 2: 218.2 min
+  iid rep=9 done
+    iid rep 9: 214.9 min
+  iid rep=5 done
+    iid rep 5: 218.5 min
+  iid rep=7 done
+    iid rep 7: 217.3 min
+  iid rep=8 done
+    iid rep 8: 216.6 min
+  iid rep=6 done
+    iid rep 6: 217.6 min
+  iid rep=13 done
+    iid rep 13: 220.0 min
+  iid rep=14 done
+    iid rep 14: 221.5 min
+  iid rep=11 done
+    iid rep 11: 222.3 min
+  iid rep=10 done
+    iid rep 10: 223.9 min
+  iid rep=12 done
+    iid rep 12: 223.6 min
+  iid rep=15 done
+    iid rep 15: 138.9 min
+
+IID ARM VERDICT [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK]: SCALE-FLAT
+  k*(16384) = 10.828 +- 0.011  (sigma_eff 0.192)  d_flat=0.001 d_log=1.876
+  gue rep=0 done
+    gue rep 0: 161.4 min
+  gue rep=1 done
+    gue rep 1: 161.6 min
+  gue rep=4 done
+    gue rep 4: 161.8 min
+  gue rep=3 done
+    gue rep 3: 162.2 min
+  gue rep=2 done
+    gue rep 2: 162.6 min
+  gue rep=5 done
+    gue rep 5: 175.4 min
+  gue rep=6 done
+    gue rep 6: 176.2 min
+  gue rep=8 done
+    gue rep 8: 175.9 min
+  gue rep=7 done
+    gue rep 7: 176.7 min
+  gue rep=9 done
+    gue rep 9: 176.6 min
+  gue rep=10 done
+    gue rep 10: 174.1 min
+  gue rep=11 done
+    gue rep 11: 173.8 min
+  gue rep=12 done
+    gue rep 12: 174.0 min
+  gue rep=14 done
+    gue rep 14: 173.6 min
+  gue rep=13 done
+    gue rep 13: 174.7 min
+  gue rep=15 done
+    gue rep 15: 103.5 min
+
+GUE ARM VERDICT [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK]: SCALE-FLAT
+  k*(16384) = 6.220 +- 0.004  (sigma_eff 0.052)  d_flat=0.018 d_log=0.970
+total 23.47 h
