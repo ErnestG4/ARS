@@ -40,14 +40,26 @@ NBINS = 5
 FIT_WINDOW_MIN = 1e-3
 MASTER_SEED = 20260811
 
+# GUE-ARM EXTENSION (pinned blind 2026-08-14, before any GUE per-bin curve at any conditioning
+# existed): same rules, seed class parameterized. GUE children 80-95 (n=4096 block of the seal's
+# allocation). Discriminating logic, pre-committed: the GUE seed is rigid — its gap-environment
+# variance is small — so (i) per-bin curves nearly coincident AND still stretched = the cleanest
+# intrinsic-nonexponentiality datum available (stretch with nothing to average over);
+# (ii) rates still ordering strongly by the narrow environment = high environmental sensitivity,
+# heterogeneity story regains ground. Same ladder thresholds adjudicate.
 
-def run():
+
+def run(seed_class="iid"):
     t0 = time.time()
     children = np.random.SeedSequence(MASTER_SEED).spawn(96)
     acc = {k: [[] for _ in range(NBINS)] for k in K_GRID}
     agg = {k: [] for k in K_GRID}
     for i in range(R):
-        seed = np.sort(np.random.default_rng(children[32 + i]).uniform(-1.0, 1.0, N))
+        if seed_class == "iid":
+            seed = np.sort(np.random.default_rng(children[32 + i]).uniform(-1.0, 1.0, N))
+        else:
+            from science_rate_question import gue_seed
+            seed = gue_seed(N, np.random.default_rng(children[80 + i]))
         F_seed = F_empirical(seed)
         r = seed.copy()
         x2 = None
@@ -75,7 +87,8 @@ def run():
             agg[k].append(1.0 - float(np.mean(rj)))
         print(f"  rep {i} done", flush=True)
 
-    out = {"step": "Step 2b isoconfigurational (exploratory, unsealed)", "K_COND": K_COND,
+    out = {"step": f"Step 2b isoconfigurational (exploratory, unsealed) — {seed_class} arm",
+           "K_COND": K_COND,
            "per_bin": {}, "aggregate": {}, "fits": {}, "ladder_outcome": None}
     for k in K_GRID:
         out["aggregate"][str(k)] = {"mean": float(np.mean(agg[k])),
@@ -105,7 +118,9 @@ def run():
     out["taus"] = taus
     out["betas"] = betas
     out["runtime_s"] = round(time.time() - t0, 1)
-    with open("derivflow/step2b_isoconfig.json", "w") as f:
+    fname = "derivflow/step2b_isoconfig.json" if seed_class == "iid" else \
+        "derivflow/step2b_isoconfig_gue.json"
+    with open(fname, "w") as f:
         json.dump(out, f, indent=1)
     print(f"\nLADDER OUTCOME: {out['ladder_outcome']}")
     print("forms:", sel_forms)
