@@ -143,7 +143,8 @@ for ax, (title, d) in zip(axes[0], panels):
             ax.annotate("Q1 (largest gaps): F2, slow", (ks[0], m[0]),
                         textcoords="offset points", xytext=(6, 6), fontsize=7, color=col)
         if b == 4:
-            ax.annotate("Q2–Q5: stretched (F3)", (ks[0], m[0]), textcoords="offset points",
+            others = "/".join(sorted(set(d["selected_forms"][1:])))
+            ax.annotate(f"Q2–Q5: {others}", (ks[0], m[0]), textcoords="offset points",
                         xytext=(6, -13), fontsize=7, color=col)
     ma = np.array([d["aggregate"][str(k)]["mean"] for k in ks])
     ax.plot(ks, ma, "--", color=INK, lw=1.0)
