@@ -38,14 +38,16 @@
   AICc + 3σ/5σ z-rule on shape parameters, picket-fence ceiling-invariance clause, k*(n)
   descriptive table. Seal written BEFORE §6.iv-b ran, so the fitted iid data is entirely
   post-seal.
-- **§6 Realization ensemble (§6.iv-b): banked** (2026-08-11, 48 flows, 94 min,
-  `track0_ensemble.json`). Relative σ 2.5–25% across the fit window; 5 fit-window points at every
+- **§6 Realization ensemble (§6.iv-b): banked** (2026-08-11, 48 flows, 94 min; [v1-grid values,
+  archived per §10 — live `track0_ensemble.json` is the v1.5.1 re-run; archived relative σ
+  range 2.5–31.9%, not 2.5–25% — review correction 2026-08-13]). Relative σ across the fit window; 5 fit-window points at every
   n; the §6.iv-a numerical floor sits ~11 orders below this σ — the -a/-b separation the scope
   demanded, confirmed. No verdict field by design: this is the error bar.
 - **TRACK-0 COMPLETE.** Every gate green, error bar banked, seal locked. The science phase (GUE
   ensemble from seal children 48–95, picket-fence, fits, z-adjudication) executes a fully
   pre-committed procedure.
-- **§7 SEALED SCIENCE VERDICT: RATE-SEED-DEPENDENT** (2026-08-11, via the seal's
+- **[SUPERSEDED BY §10/§12 — v1 instrument; the form-level claim did not survive review]**
+  **§7 SEALED SCIENCE VERDICT: RATE-SEED-DEPENDENT** (2026-08-11, via the seal's
   form-disagreement clause: iid selects F3 stretched-exponential at every n, GUE selects F2 at
   n = 4096). Supporting descriptives: k*(iid, 4096) = 11.31 ± 0.07 vs k*(GUE, 4096) = 5.90 ± 0.01;
   k* nearly flat in n for both seeds (bounds any power-law scale at α ≲ 0.1; consistent with
@@ -53,8 +55,18 @@
   (n = 4096, k = 1, transient, mechanism unresolved), and both selected forms MISFIT at the
   achieved precision (χ²/dof 31 and 1062) — the ladder's verdict clause executed as sealed, but
   no 2–3-parameter form in the ladder describes either curve within the ensemble σ.
+- **FINAL STATE (read §§8–13, which supersede the bullets above where marked):** instrument
+  review §§8–9 → corrected-instrument INCONCLUSIVE §10 → dense-grid **RATE-SEED-DEPENDENT via
+  the z-clause** [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK] §12 (same F3 family both seeds;
+  z(τ)=20.4, z(β)=9.3; 12.0/5.84 under conservative χ²-rescaled covariance) → sealed
+  **SCALE-FLAT** §13 (k*(iid,16384)=10.828±0.011; GUE rider concurs). Fit-quality disclosure
+  (2026-08-13 review): selected-fit χ²/dof runs 0.76→23.4 (iid primary, n ascending) and up to
+  ~98 on raw arms at 16384 — F3 is AICc-best of the ladder, not a demonstrated law.
 
 ## 5. Numerical jitter floor (scope §6.iv-a, gates declared v1.4 before the run)
+
+**[Values below are the v1-grid run, archived at `archive_v1grid/track0_jitter_floor.json`;
+the live artifact is the v1.5.1 re-run per §10 (e.g., k=1 unpert 0.3587, not 0.329).]**
 
 Runner: `track0_jitter_floor.py`. Artifact: `track0_jitter_floor.json`. n = 4096,
 k ∈ {1, 2, 4, 8, 16, 32, 64}, δ ∈ {10⁻¹², 10⁻¹⁰, 10⁻⁸} × local spacing, R = 6, 19 flows,
@@ -427,8 +439,11 @@ count, as the banked 5900X lesson predicted).
 
 **§13 append — GUE if-time arm (2026-08-13, unsealed-confirmatory per the seal's arm-order
 clause; gates nothing):** k*(GUE, 16384) = **6.220 ± 0.004** vs H_flat = 6.202 (d = 0.018 =
-0.35σ_eff); proportional-log (7.190) excluded at 18.7σ_eff. Mechanically the same adjudication
+0.35σ_eff); proportional-log (7.190) excluded at 18.6σ_eff. Mechanically the same adjudication
 lands SCALE-FLAT, reported here with its confirmatory grade: both seed classes crystallize on
-an O(1) clock across the full 16× range in n, and both landed on their pre-committed flat
-predictions inside a small fraction of σ — a second, independent certification of the error
-model at ±0.004 precision. F3 rider holds on all three bands. Total both-arm runtime 23.5 h.
+an O(1) clock across the full 16× range in n, and both landed inside their sealed acceptance
+bands (0.003σ_eff and 0.34σ_eff). [Correction 2026-08-13, review: the earlier "certification
+of the error model at ±0.004 precision" framing was unsound — in σ_m units the GUE landing is
+4.2σ_m, accepted because σ_sys dominates σ_eff, exactly as the seal designed; the landings
+certify the DISCRIMINATION, and the three-decimal iid coincidence is luck under our own error
+model (~0.4%).] F3 rider holds on all three bands. Total both-arm runtime 23.5 h.

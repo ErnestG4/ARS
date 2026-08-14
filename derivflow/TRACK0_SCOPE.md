@@ -118,8 +118,8 @@ definition, pinned before any corrected curve is seen:
   uniformly ~21× the physical truth — diagnostic of O(ε²) smoothing bias. **Primary readout is
   now the Richardson pair-extrapolation 2F(ε_k) − F(2ε_k)** (smooth in k — applies identically
   at every k, no seam), which the gates verify removes the bias on BOTH bracket inputs: lattice
-  4.9×10⁻⁸ / 7.1×10⁻⁹ / 9.9×10⁻¹⁰ (all inside 10⁻⁷), Hermite-through-reference ~10⁻¹⁰ vs the
-  10⁻⁵ tolerance. The raw ε and 2ε arms are retained as the sensitivity band; the invariance
+  4.9×10⁻⁸ / 7.1×10⁻⁹ / 9.9×10⁻¹⁰ (all inside 10⁻⁷), Hermite-through-reference gated |diff| 3.6×10⁻⁹ vs the
+  10⁻⁵ tolerance (the ~10⁻¹⁰ figure is the raw pipeline readout, not the gated slot). The raw ε and 2ε arms are retained as the sensitivity band; the invariance
   clause is STRENGTHENED: form selection must agree across {primary, raw-ε, raw-2ε} per seed
   class, else INCONCLUSIVE-ON-INSTRUMENT-GROUNDS. Disclosure: at amendment time the only values
   ever computed under the extrapolated readout were the six gate rows (lattice ×3, Hermite ×2,
@@ -382,11 +382,13 @@ Filed with exact conditionality per the row-c-suspect rule:
   WITH A FUSE:** Part I out (2504.11593); Part III, "Fluctuations and functional limit
   theorems," listed in preparation — the nearest theorem-shaped object to our σ-resolved
   relaxation curves; the Step-4 writing-time re-sweep must name this series specifically.
-  [RE-CHECKED 2026-08-13 (Will): Part II now posted — a catalog of exactly-characterized seed
-  families (Touchard, Fubini, Eulerian, Narayana, hypergeometric incl. Hermite/Laguerre/
-  Jacobi), banked as the seed-roster extension for follow-on work; Part III still in
-  preparation, absent from both authors' publication lists. Fixed-k local spacing remains
-  unclaimed; our verdicts remain the only measurements in the regime.]
+  [RE-CHECKED 2026-08-13 (Will), AUDIT-CORRECTED same day: Part II = arXiv:2509.11248, posted
+  **2025-09-14 — up for eleven months before any of our sweeps found it**. Catalog: Touchard,
+  Fubini, Eulerian, Narayana, little q-Laguerre, hypergeometric incl. Hermite/Laguerre/Jacobi;
+  global-only, gap intact; banked as the seed-roster extension. Part III confirmed NOT posted
+  as of 2026-08-13 (four independent checks). PROCESS LESSON, filed where it fires: a
+  literature sweep is a snapshot with a measured miss rate — the submission-day re-sweep must
+  RE-RUN the searches, never cite a prior audit as evidence of current absence.]
   (3) Complex/rotationally-invariant flow is an ACTIVE parallel track (Galligo–Najnudel–Vu
   2506.06263; successor 2607.05054; randomized-derivative k = o(n/log n)) — the scope's
   complex exclusion is a live boundary, cited as such, not a dead one. (4) Heat-flow side

@@ -43,9 +43,11 @@ the proven k → ∞ endpoints. Four sealed or graded results: (1) **Form**: rel
 pre-committed AICc on all three instrument bands, at every n from 1024 to 16384.
 (2) **Parameters**: seed-dependent — iid (τ = 1.734, β = 0.788) vs GUE (τ = 0.888, β = 0.703),
 separated at 20σ and 9σ. Universality of family, non-universality of rate. (3) **Scale**: k*
-is flat in n across a 16× range — ~11 derivatives crystallize a Poisson seed, ~6 a GUE seed,
-at any degree — with both flat point-predictions sealed before the runs and landing at 0.09σ
-and 0.35σ, excluding proportional-log scaling at 10σ and 18.7σ. (4) **Mechanism constraint**:
+is flat across the measured 16× range in n — ~11 derivatives crystallize a Poisson seed, ~6 a
+GUE seed, at every n measured — with both flat point-predictions sealed before the
+runs and landing at 0.003σ_eff and 0.34σ_eff (same units, both arms), excluding
+proportional-log scaling at 9.8σ_eff and 18.6σ_eff. (k* throughout = the fitted curve's
+crossing of 1 − ⟨r̃⟩ = 10⁻²; completion to the ~10⁻⁴ ceiling occurs by k ≈ 48–64.) (4) **Mechanism constraint**:
 conditioning on initial gap environment does not decompose the stretch (4 of 5 quintile bins
 remain stretched), falsifying seed-carried heterogeneity as the sole origin of β < 1 under
 blind-committed rules.
@@ -69,19 +71,26 @@ that no global theorem can see and no endpoint theorem reaches.
 - Frame: the derivative flow k ↦ roots(p^(k)) as a one-parameter flow on point configurations.
 - The global rail (theorem): ANP 2601.01212 Thm 1.3 — empirical measure → μ, a.s., all
   k = o(n/log n), for dimension-nondegenerate μ; Uniform[−1,1] is their example (3) (C¹-curve,
-  local dimension 1). Lineage: Kabluchko k=1 (1206.6692), Byun–Lee–Reddy fixed k, Michelen–Vu
-  k ≲ log n (2212.11867), a.s. sequel 2307.06788.
+  local dimension 1). Lineage: Kabluchko k=1 (1206.6692), Byun–Lee–Reddy fixed k (1801.08974),
+  Michelen–Vu k ≲ log n (2212.11867); Michelen–Vu 2307.06788 is fixed-k a.s. convergence (the
+  Angst–Malicet–Poly conjecture), now superseded by ANP's o(n/log n) a.s. result.
 - The endpoint rails: Cosine Universality at k → ∞ for entire functions (Campbell–O'Rourke–
-  Renfrew 2410.06403, conj. Farmer–Rhoades math/0310252); Hermite endpoint at k = n − O(1)
-  (Hoskins–Steinerberger 2005.09809); the flow's Appell targets are locally lattice
-  (Campbell–Jalowy 2605.31356 Thm 2.7). n = ∞ Poisson anchor: zeros of f^(k) → random
-  ℤ-translate, NO rate (Pemantle–Subramanian 1409.7956).
+  Renfrew 2410.06403 v2 — Cosine + Hermite Universality in the abstract, Laguerre in the body;
+  conj. Farmer–Rhoades math/0310252, Trans. AMS 357 (2005); same lineage for L-functions:
+  Gunns–Hughes arXiv:1803.10001, Selberg Ξ high derivatives → cosine); Hermite endpoint at
+  k = n − O(1) (Hoskins–Steinerberger 2005.09809; root-LEVEL fluctuations around that limit:
+  Arizmendi–Campbell–Fujie 2506.08910 — endpoint regime, explicitly outside our gap); the
+  flow's Appell targets are locally lattice (Campbell–Jalowy, "Pólya–Schur problems and free
+  probability," arXiv:2605.31356, Thm 2.7). n = ∞ Poisson anchor: zeros of f^(k) → random
+  ℤ-translate, NO rate (Pemantle–Subramanian 1409.7956, Trans. AMS 369 (2017)).
 - The gap (verified open, twice, adversarially — §Appendix B): local spacing statistics of
   p^(k) for degree-n real-rooted polynomials, ANY regime 1 ≪ k ≤ sn. ANP verified SILENT on
   local statistics (full-text check).
-- Our contribution: the first measurements in that gap, under a sealed protocol; the two-scale
-  statement — crystallization completes at k = O(10) while the global measure provably cannot
-  move until k ~ n/log n.
+- Our contribution: to our knowledge the first measurements in that gap (two adversarial
+  literature pulls plus a dated submission-day re-sweep, Appendix B), under a sealed protocol; the two-scale
+  statement — crystallization completes at k = O(10) while the global measure is asymptotically
+  frozen through every k = o(n/log n) (ANP's regime; a weak-convergence statement as n → ∞,
+  not a finite-n impossibility).
 
 ## 2. Instrument
 
@@ -92,9 +101,12 @@ that no global theorem can see and no endpoint theorem reaches.
   via Belinschi–Bercovici subordination (contraction-certified), per-gap Gauss quadrature,
   smooth ε_k rule, Richardson primary. Two permanent known-answer gates bracket the operating
   range (lattice ≤ 10⁻⁷ rippled worst case; Hermite-through-reference ≤ 10⁻⁵ smooth case).
-- Machinery citations: Marcus–Spielman–Srivastava finite free convolution; Steinerberger PDE;
-  Hoskins–Kabluchko; Arizmendi–Campbell–Fujie 2506.08910 (finite free cumulants, critical
-  points); Campbell–O'Rourke–Renfrew 2307.11935.
+- Machinery citations: Marcus–Spielman–Srivastava finite free convolution (Interlacing
+  Families, Ann. Math. 2015; PTRF 2022); Steinerberger PDE; Hoskins–Kabluchko (Exp. Math.
+  32(4), 573–599 — online 2021, issue 2023); Hall–Ho–Jalowy–Kabluchko fractional differential
+  operators (arXiv:2312.14883, published Trans. AMS Ser. B 13 (2026), 190–239);
+  Arizmendi–Campbell–Fujie 2506.08910 (finite free cumulants, critical points);
+  Campbell–O'Rourke–Renfrew 2307.11935 (IMRN 2024, Issue 13).
 - Error architecture: numerical jitter floor (gated, ~11 orders below signal) vs realization
   ensemble σ (16 replicates, SeedSequence-enumerable) — two instruments, never blended.
 - Readout: 1 − ⟨r̃⟩ on the central bulk window (log-space; ceiling compression), Σ²(L) as
@@ -118,25 +130,42 @@ that no global theorem can see and no endpoint theorem reaches.
   k*(iid) = 10.95 ± 0.07 / 10.59 ± 0.05 / 10.89 ± 0.03, k*(GUE) = 6.23 / 6.26 / 6.16 (± ≤ 0.02)
   at n = 1024/2048/4096. [Figure: relaxation curves, both seeds, three n, with σ bands.]
 - **One family**: F3 (stretched exponential) selected for BOTH seed classes on ALL THREE
-  instrument-band arms (triple-band invariant), all n.
-- **Seed-dependent parameters**: (τ, β) = (1.734, 0.788) iid vs (0.888, 0.703) GUE at n = 4096;
-  z(τ) = 20.4, z(β) = 9.3 against the sealed 5σ threshold. VERDICT: RATE-SEED-DEPENDENT
-  [SEALED-PROCEDURE, DISCLOSED-PRIOR-LOOK].
+  instrument-band arms (triple-band invariant), all n. Stated with its grade everywhere:
+  **F3 is AICc-best of the pre-registered three-form ladder, not a demonstrated law** —
+  residual structure beyond the ensemble σ remains. Fit-quality table (selected-fit χ²/dof,
+  REQUIRED disclosure): iid primary 0.76 / 2.29 / 3.76 / 23.4 at n = 1024/2048/4096/16384;
+  raw arms up to ~98 at 16384; GUE primary underdispersed (0.02–0.22, the signature of
+  cross-k correlation from shared replicates). Conservative check: rescaling covariances by
+  max(1, χ²/dof) gives z(τ) = 12.0, z(β) = 5.84 — the verdict survives, with z(β) near the
+  sealed 5σ bar; both the sealed and rescaled z are reported.
+- **Seed-dependent parameters**: (τ, β) = (1.734, 0.788) iid vs (0.888, 0.703) GUE — PRIMARY
+  readout, n = 4096; the quoted values are readout-definition- and n-dependent (raw-arm β
+  spread ~0.26; iid τ scatter ~0.19 across n), and what is band- and n-ROBUST is the ordering:
+  iid > GUE in both τ and β on every band at every n, with Δτ = 0.65–0.85 ≫ the drift.
+  z(τ) = 20.4, z(β) = 9.3 against the sealed 5σ threshold (12.0 / 5.84 under the conservative
+  χ²-rescaled covariance). VERDICT: RATE-SEED-DEPENDENT [SEALED-PROCEDURE,
+  DISCLOSED-PRIOR-LOOK].
 - **Scale in n — sealed verdict SCALE-FLAT**: two point predictions committed before the run
   (H_flat = 10.827 from precision-weighted anchors with σ_sys = 0.192 absorbing the anchors'
   non-monotone scatter, χ²_flat = 27.9/2 filed openly; H_log = 12.704, proportional growth
   anchored at n = 4096; affine log rejected as non-identifiable on near-flat anchors);
   measured k*(16384) = 10.828 ± 0.011 — d_flat = 0.001, d_log = 1.876 ≈ 10σ_eff. F3 holds on
   all three bands at n = 16384.
-- **What the three-decimal agreement certifies** (the sentence, per Will): a post-hoc analysis
-  hitting three decimals would invite suspicion of tuning; the commit ordering makes tuning
-  impossible, so the agreement converts entirely into evidence that the instrument's error
-  model is honest — the ±0.011 means what it says. The prediction's precision certifies the
-  error bars, not just the hypothesis, and every error-barred number in this section comes from
-  the same certified pipeline.
+- **What the landings do and do not certify (audit-corrected 2026-08-13; supersedes the earlier
+  "certifies the error bars" framing, which review found statistically unsound):** both arms
+  land within their sealed acceptance bands — iid at 0.003σ_eff, GUE at 0.34σ_eff — and the
+  commit ordering makes tuning impossible. What that certifies is the DISCRIMINATION: flat
+  accepted, proportional-log excluded at 9.8σ_eff and 18.6σ_eff. The three-decimal iid
+  coincidence itself is luck under our own error model (σ_eff ≈ 0.19 is anchor-scatter-
+  dominated; a 0.001 landing has ~0.4% probability) and is claimed as nothing more. The fit
+  errors σ_m (±0.011, ±0.004) are optimistic: the selected fits carry residual misfit
+  (χ²/dof up to 23 on the 16384 primary arm; see the fit-quality table) and cross-k
+  correlation from shared replicates, which is why the sealed adjudication runs on σ_eff,
+  never σ_m alone — the GUE landing sits at 4.2σ_m and is accepted only because σ_sys
+  dominates, exactly as designed.
 - **GUE arm (landed under the pinned rule, its one sentence):** the GUE arm, run
   unsealed-confirmatory per the seal's if-time clause, read k*(16384) = 6.220 ± 0.004 against
-  its flat prediction 6.202 (0.35σ_eff; proportional-log excluded at 18.7σ_eff) — both seed
+  its flat prediction 6.202 (0.34σ_eff; proportional-log excluded at 18.6σ_eff) — both seed
   classes crystallize on an O(1) clock, and both landed on their pre-committed predictions
   within a small fraction of σ.
 - **Ceiling and floor**: Hermite arm measured crystalline at every s (1 − ⟨r̃⟩ 10⁻⁷–10⁻⁵);
@@ -161,15 +190,25 @@ that no global theorem can see and no endpoint theorem reaches.
   4/5 quintile bins), and both seed classes — including rigid, homogeneous GUE — stretch
   anyway. In glass language: the stretching is not quenched-disorder-carried, so it is either
   dynamically generated heterogeneity or intrinsic local nonexponentiality — and the field's
-  own instrument for separating those, the ISOCONFIGURATIONAL ENSEMBLE, is structurally the
-  experiment this harness already performs (fixed seed, ensemble over dynamics-adjacent
-  perturbation). The backlogged mid-flow re-conditioning probe is precisely the
-  isoconfigurational move translated to root flows. Specimen sentence: a deterministic,
+  own instrument for separating those, the ISOCONFIGURATIONAL ENSEMBLE
+  (Widmer-Cooper–Harrowell–Fynewever, PRL 93, 135701 (2004); applied to KWW origins in
+  arXiv:2011.00579), is structurally the experiment this harness already performs — with one
+  sentence of precision the audit requires: in MD the resampled quantity is momenta, bona fide
+  dynamical degrees of freedom; the derivative flow is deterministic and has no momentum-like
+  DOF, so what our ensemble resamples is seed-adjacent perturbation (replicate draws at fixed
+  environment conditioning), stated exactly so the structural match — condition on
+  configuration, ensemble over realization — is claimed and its limit conceded in the same
+  breath. The backlogged mid-flow re-conditioning probe is the isoconfigurational move
+  translated to root flows. Dichotomy citations: Ediger, Annu. Rev. Phys. Chem. 51, 99 (2000);
+  Richert, JPCM 14, R703 (2002); Sillescu, J. Non-Cryst. Solids 243, 81 (1999); modern caveat
+  literature (PNAS 2015, doi 10.1073/pnas.1424636112) cited to inoculate against
+  "the dichotomy is dated." Specimen sentence: a deterministic,
   exactly-specified interacting system — convex-weight root dynamics with a proven Lipschitz
   structure — exhibiting measured KWW relaxation with a certified error model is a genuinely
   unusual object for that literature: simpler than any glass-former, richer than any solvable
-  toy. Filed texture any mechanism must face: exactly one environment quintile (largest
-  cone-gap) relaxes as a clean exponential, 3× slower than the stretched rest.
+  toy. Filed texture any mechanism must face: exactly one environment quintile (largest cone-gap)
+  SELECTS the pure exponential (F2, itself at χ²/dof 8.6 — no per-bin fit is clean), 3× slower
+  than the stretched rest.
 - Complex/rotationally-invariant flow: excluded here, live boundary (Galligo–Najnudel–Vu
   2506.06263, 2607.05054). Heat flow: the published half-bridge (Hall–Ho–Jalowy–Kabluchko,
   Indiana/EJP/LMP 2025) and the queued cross-flow comparison (dBN connection).
@@ -182,17 +221,26 @@ that no global theorem can see and no endpoint theorem reaches.
   anchored to a lemma the paper proves — and it dovetails with, rather than competes against,
   the open mechanism question: locality explains why the clock is O(1); it conspicuously fails
   to explain why the clock is STRETCHED, which is exactly what the β-composition poses.
-- Watch item, updated 2026-08-13 (a dated re-sweep datum): JKM Part I AND Part II now posted —
-  Part II is a catalog of exactly-characterized seed families (Touchard, Fubini, Eulerian,
-  Narayana, hypergeometric incl. Hermite/Laguerre/Jacobi), a ready-made extension of the seed
-  roster if the parameter-dependence question wants a third and fourth class. Part III
-  (fluctuations/functional limit theorems — the one that would touch these σ-resolved curves)
-  remains in preparation and absent from both authors' publication lists: fixed-k local
-  spacing stays unclaimed; these verdicts remain the only measurements in the regime.
-- Boundary hardening: the complex/rotationally-invariant flow (Galligo–Najnudel–Vu and
-  successors) and the heat-flow program (Hall–Ho–Jalowy–Kabluchko: Indiana, EJP, LMP) are both
-  producing steadily; neither touches real-rooted fixed-k local statistics; both cited as LIVE
-  adjacent tracks. The heat-flow set is Step 5's opening citation spine.
+- Watch item, audit-corrected 2026-08-13: JKM Part II is **arXiv:2509.11248, posted
+  2025-09-14** — up for eleven months before our sweeps found it (process lesson filed: the
+  submission-day re-sweep must RE-RUN, never cite a prior audit). Catalog (verbatim-corrected):
+  Touchard, Fubini, Eulerian, Narayana AND little q-Laguerre, plus hypergeometric families
+  incl. classical Hermite/Laguerre/Jacobi — the seed-roster extension. Part III
+  (fluctuations/functional limit theorems) confirmed NOT posted as of 2026-08-13, checked four
+  ways (arXiv listings, both authors' pages): fixed-k local spacing stays unclaimed; these
+  verdicts remain the only measurements in the regime.
+- Boundary hardening (attributions audit-corrected): complex/rotationally-invariant flow —
+  Galligo–Najnudel–Vu arXiv:2506.06263, successor **Najnudel–Vu arXiv:2607.05054** (Galligo not
+  an author), with the randomized-derivative k = o(n/log n) result in **GNV arXiv:2404.12472**;
+  heat-flow program — Hall–Ho–Jalowy–Kabluchko: Indiana Univ. Math. J. 74 (2025) 1153–1206;
+  EJP 30 (2025) #159; Hall–Ho, Lett. Math. Phys. 115 (2025) #60; plus Höfert–Jalowy–Kabluchko
+  arXiv:2512.17808 (global, complex — still nothing local on the heat side). Neither track
+  touches real-rooted fixed-k local statistics; both cited LIVE. The heat-flow set is Step 5's
+  opening citation spine.
+- Gap-statement hardening (audit): §1 must explicitly exclude the k = n − O(1) endpoint window
+  from the claimed gap, so Arizmendi–Campbell–Fujie 2506.08910 — root-LEVEL fluctuations
+  around the Hermite limit, the closest theorem-shaped object found — cannot be waved at it;
+  characterize it accurately as endpoint-regime (ℓ = n − k fixed), not fixed-s.
 
 ## Appendix A — Honesty chain (the feature, not the confession)
 
@@ -224,7 +272,14 @@ count; budget accordingly. Solver temporaries are candidate-axis-chunked (bitwis
 known-answer gates re-certified after the change, per the seal's post-change protocol). All
 RNG derives from a single committed SeedSequence master; every replicate is enumerable in
 advance and every run is exactly reproducible, including across the two OS reboots this
-campaign absorbed mid-flight.
+campaign absorbed mid-flight. Two disclosed limitations: the dense-grid and 16384 artifacts
+bank per-k ensemble statistics but not per-replicate readouts (an internal-rule violation
+caught in review; per-replicate k* error estimation would need a re-run), and σ_sys — a
+3-point anchor std, itself uncertain by ~±50% — enters the scale adjudication as a Gaussian
+in quadrature, a disclosed modeling choice. The anchors are mutually inconsistent as an EXACT
+constant (χ² = 27.9/2 iid, 44.0/2 GUE, both filed): SCALE-FLAT is a two-hypothesis
+discrimination between flat-plus-scatter and proportional-log, never a claim that k* is
+constant.
 
 ## TODO (drafting)
 
