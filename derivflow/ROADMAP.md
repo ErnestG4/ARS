@@ -302,6 +302,11 @@ with its path; this roadmap is then complete and archives.
   incl. Hermite/Laguerre/Jacobi) — the ready-made third and fourth seed classes if the
   (τ, β) parameter-dependence question graduates from two-point comparison to a
   parameter-surface measurement.
+- **GUE-adapted isoconfigurational probe (backlog, 2026-08-14):** the 2b GUE arm was
+  underpowered (findings §14 addendum — 3–4-point windows, F3 unassessable); the adapted design
+  is K_COND = 1 with k-grid from 2. Whether GUE's stretch decomposes under conditioning —
+  which would make the STRETCH MECHANISM itself seed-dependent, not just the parameters — is
+  the open question this probe exists to answer.
 
 ## Resumption protocol (the reason this doc exists)
 
