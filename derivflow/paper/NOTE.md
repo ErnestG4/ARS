@@ -137,7 +137,12 @@ that no global theorem can see and no endpoint theorem reaches.
   raw arms up to ~98 at 16384; GUE primary underdispersed (0.02–0.22, the signature of
   cross-k correlation from shared replicates). Conservative check: rescaling covariances by
   max(1, χ²/dof) gives z(τ) = 12.0, z(β) = 5.84 — the verdict survives, with z(β) near the
-  sealed 5σ bar; both the sealed and rescaled z are reported.
+  sealed 5σ bar; both the sealed and rescaled z are reported. **The misfit growth is itself a
+  finding, not a wart (Will's rider, 2026-08-13):** χ²/dof rising 0.76 → 23.4 as n grows means
+  the instrument's precision improves faster than the three-form ladder's fidelity — at 16384
+  the measurement resolves structure beyond F3. That is the quantitative statement of
+  "best-of-three, not a law," it is the natural opening sentence for future richer-form work,
+  and the paper states it before a referee can discover it as a gotcha.
 - **Seed-dependent parameters**: (τ, β) = (1.734, 0.788) iid vs (0.888, 0.703) GUE — PRIMARY
   readout, n = 4096; the quoted values are readout-definition- and n-dependent (raw-arm β
   spread ~0.26; iid τ scatter ~0.19 across n), and what is band- and n-ROBUST is the ordering:
