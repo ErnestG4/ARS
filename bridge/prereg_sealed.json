@@ -78,5 +78,6 @@
   "park_branch": "ONLY if G_B1 fails (prereg-fixed, not post-B1 preference)."
  },
  "tripwires_carried": "brief \u00a73 items 1-6 verbatim; TOOLKIT.md \u00a711 founded this arc (edge correction, intensity estimation).",
- "filing_note_tripwire2_catch": "The draft brief filed Ginibre under 'logarithmic number-variance growth' \u2014 a dimension-slot (tripwire-2) violation caught in CC review before sealing: log growth (Torquato class II) is 1D sine-kernel/GUE; Ginibre is class I (perimeter law, S(k)~k^2). Recorded here as an instance of the genus per amended brief."
+ "filing_note_tripwire2_catch": "The draft brief filed Ginibre under 'logarithmic number-variance growth' \u2014 a dimension-slot (tripwire-2) violation caught in CC review before sealing: log growth (Torquato class II) is 1D sine-kernel/GUE; Ginibre is class I (perimeter law, S(k)~k^2). Recorded here as an instance of the genus per amended brief.",
+ "post_seal_addendum_2026_08_14": "ANNOTATION ONLY \u2014 no tolerance, window, or criterion is altered. Record-completeness item from Will's post-arc audit: the G-A3 gate WINDOWS (2-D R=2 only; 1-D zeta L<=5 only) were PILOT-INFORMED, not blind. Sequence: pilots 1-4 surfaced the (lam|B|)^2/Var amplification -> the window restriction was decided and documented (pilot2_gluing.py header, G_A3 gate text) -> seal -> gate runs on disjoint seeds. The pilots' declared purpose was tolerance/window derivation; no gate-seed data informed any seal content."
 }

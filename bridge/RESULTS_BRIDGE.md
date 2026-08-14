@@ -45,6 +45,17 @@ KS_Poisson = 0.2982, Σ²(20) = 0.584 (GUE asymptotic reference 0.650, `universa
 number_variance docstring). Same data, Observer B: pcf hugs 1−(sin πs/πs)² to 0.064 max dev.
 The two dialects read the same substrate the same way through their own charts.
 
+*⟨r̃⟩ annotation (descriptive row — NO gate consumed ⟨r̃⟩; G-A2 is pcf-based):* the +0.008
+excess over the GUE reference 0.60266 (constant owner:
+`arsrh/phase1_zeta_crossover_measured.json` `reference_GUE_rtilde`; Atas–Bohigas–Roux–Vivo
+2013 per `arsrh/PHASE1_PREREG_SEALED.json` "reference") is NOT tolerance headroom and NOT
+finite-window jitter (≈9× the n=100k jitter scale). It is the **already-banked P1 low-height
+crossover**: P1's matched-window GUE null band at W=10⁴ is [0.5952, 0.6065] with
+`all_heights_inside_null_band: false`, and the excess decreases with height inside our own
+window (low half 0.6119 → high half 0.6100; heights 14–74,921 = the low-γ leg P1/P5b/5c
+chased). Implementation validated on synthetic GUE (0.60305 ± 0.002, 4 seeds). Cross-ref
+`arsrh/PHASE1_FINDINGS.md`; no new claim here.
+
 **P3 attribution-slot outcome:** the GUE R₂ analytic *form* is owned by `universality.py`
 (pair_correlation); **no repo file owned a g(s)-shape tolerance** — `arsrh/phase3_sigma2.py:78`
 holds a Σ²-slot tolerance and citing it in the R₂ slot would have been an attribution-slot
@@ -86,11 +97,16 @@ The peaks are prime *constellations* (both endpoints prime at lattice offset —
 of twin primes), Hardy–Littlewood-weighted. The other atlas's own dialect displays the
 support-set discipline (TOOLKIT §9) raw.
 
-**Class-level fit outcome:** best DPP improves the contrast over Poisson by only 2.3%
-(D 12.98 vs 13.28, dominated by the comb); Thomas degenerates to Poisson in both
-implementations (python: κ→bound; spatstat: κ=256, scale=239 → flat). Coarse-grained g
-(bins 1.5) fluctuates about 1 with no systematic inhibition or clustering trend. Read:
-**Poisson-class at r ≳ 2 with arithmetic constellation microstructure at lattice offsets.**
+**Class-level fit outcome (one row, two clauses — scale-qualified by requirement):** best DPP
+improves the contrast over Poisson by only 2.3% (D 12.98 vs 13.28, dominated by the comb);
+Thomas degenerates to Poisson in both implementations (python: κ→bound; spatstat: κ=256,
+scale=239 → flat). Coarse-grained g (bins 1.5) fluctuates about 1 with no systematic
+inhibition or clustering trend. Read, both halves inseparable: **(i) Poisson-class AT SPACING
+SCALE** — a coarse-grained statement, bins ≥ lattice pitch, r ≳ 2; **(ii) BELOW spacing scale
+the pcf is by construction a lattice comb** (points live on the checkerboard sublattice, so
+discrete support with Hardy–Littlewood constellation weights is the support set talking, not a
+class property). Quoting clause (i) without clause (ii) — or reading them as contradictory —
+is the slot hazard this wording exists to prevent: same fact, two scales.
 spatstat cross-check (θ-subwindow n=7,727; full wedge + dppPowerExp OOM at 15GB — declared
 limitation): same D ordering (12.99–13.01 vs 13.28).
 
@@ -141,7 +157,7 @@ central sub-window (`bridge/ginibre_sampler.py`, C_WINDOW=0.8).
 |---|---|
 | BRIDGE-A | **CONFIRMED** — all 8 sealed gates pass; both dialects reproduce each other's numbers within sealed tolerance |
 | BRIDGE-B1 | **CONFIRMED** — sealed class-level claim passes; python and spatstat agree to 3 decimals |
-| BRIDGE-B2/B3 | **TRIANGULATION-AGREEMENT** — Poisson-class in both atlases (34d Hecke-Poisson ↔ DPP-fit near-Poisson); lattice-comb microstructure filed as observable-binding capability note, no class claim |
+| BRIDGE-B2/B3 | **TRIANGULATION-AGREEMENT (scale-qualified)** — Poisson-class *at spacing scale* in both atlases (34d Hecke-Poisson ↔ DPP-fit near-Poisson, coarse-grained r ≳ 2); *below spacing scale* the pcf is by construction a lattice comb (checkerboard-ℤ[i] support, HL constellation weights) — one fact, two scales, both clauses required in any quotation; observable-binding capability note, no class claim |
 | BRIDGE-C | **DELIVERED** — TOOLKIT §11 founded; cross-referenced from EPISTEMIC_STATE.md |
 
 No OBSTRUCTION-BANKED verdicts: every apparent non-gluing during the arc (Ginibre gluing 111%,
@@ -156,3 +172,53 @@ filed). The transitions themselves glue.
 `seal_prereg.py` → `run_bridge_a.py` → `run_bridge_b.py` → `patch_b2_addenda.py`.
 R env: `bridge/.rquarantine/envs/rspat` (micromamba; not a runtime dependency of core ARS).
 Python: `/home/combust/fmexplorer/bin/python3` with `PYTHONPATH=criticality_tool`.
+
+---
+
+## Defect ledger (exposure audit — every found defect, its window, its consumers)
+
+**D-1: 1.05× proposal-count bug in the FIX-2 synthetic sampler.**
+- *What:* `patch_b2_addenda.py` block (b), first execution, drew Poisson(λ_max·A·**1.05**)
+  proposals instead of the thinning-theorem-exact Poisson(λ_max·A) — realized intensity 5%
+  above the model handed to K_inhom, which reported +5% across all r and seeds.
+- *Exposure window:* one run (the first `fix2_powered` execution). The sampler was **created
+  after every gate had already run** — sequence: seal → `run_bridge_a.py` (all 8 A-gates +
+  G-B1) → `run_bridge_b.py` (B1 criteria, B2 fits, inert demo on *real* Gaussian primes) →
+  `patch_b2_addenda.py` (first use of any rejection-thinning synthetic).
+- *Could it have touched a gate in principle?* No gate consumes rejection-thinned synthetics:
+  gate samplers are numpy uniform/poisson (Poisson calibrators), matrix eigensolves
+  (Ginibre/GUE), offspring sums (Thomas), deterministic sieve (Gaussian primes).
+- *Runs in the window and verdict on each:* `fix2_powered` first run — AFFECTED, retained
+  with `sampler_bug_note`, superseded by `fix2_powered_replicates` (3 seeds, fixed sampler:
+  right lens ±1–2%, wrong lens +13.4–15.6%). All gate rows — UNTOUCHED.
+- *Commits:* bug, catch, and fixed replicates all occurred pre-commit inside `7b488ba`; this
+  audit found `7b488ba`'s copy of `patch_b2_addenda.py` still carried the 1.05 line and the
+  replicates had no committed generator — both corrected in the follow-up commit
+  (`patch_b2_addenda.py` fixed; `fix2_replicates.py` added as the committed generator).
+
+**D-2 (found by this audit): reproduction gap.** The replicate generator existed only as an
+inline session script. Closed: `bridge/fix2_replicates.py`.
+
+No other defects were found in-arc; the three large pilot anomalies (Ginibre gluing 111%,
+2D Poisson gluing 34–48%, GUE-1D gluing 194%) were attributed pre-seal to the §11.3
+amplification law — instrument property, not defect — and shaped the sealed gate windows.
+
+## Registered follow-ups (parked; anti-claim intact)
+
+1. **Gaussian-prime comb as a 2D arithmetic calibrator candidate — REGISTERED.** A pcf
+   supported on computable checkerboard-ℤ[i] offsets with Hardy–Littlewood constellation
+   weights is a 2D point process whose two-point structure is predicted by number theory.
+   **Epistemic tier (header-grade): conjecture-backed-computable** — the HL singular-series
+   constants are computable to arbitrary precision but unproven, a distinct tier from the
+   theorem-backed zoo entries (zeta window / Farey / Ginibre) and it must be filed as such.
+   The future micro-arc: gate empirical comb weights (B2 measured g(√2)=3.07, g(2)=2.01,
+   g(2√2)=1.48, g(√10)=3.66) against computed singular series; would give the calibrator zoo
+   its first 2D arithmetic entry. B2 was, in effect, its unplanned pilot. Until that arc runs,
+   the observable-binding finding remains a capability statement.
+2. **Commutativity/holonomy pilot cell — still open (atlas-review recommendation).**
+   Unfold-then-window vs window-then-unfold; orderings that disagree get filed. Now cheaper:
+   this arc built dual implementations of every transition involved. One pre-registered pilot
+   cell, next protocol arc.
+3. **DES/DESI entry unblocked** — K_inhom, edge-corrected pcf, DPP fits, hyperuniformity-class
+   Σ² all KAG-validated; §11.3 supplies the large-window validity constraint galaxy catalogs
+   will hit first.

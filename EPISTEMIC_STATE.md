@@ -1892,12 +1892,20 @@ What the tool now knows that it didn't:
 - **The gluing identity (Σ² from pcf) has a measured SNR law** — amplifies pcf baseline offset
   by ~(λ|B|)²/Var, i.e. worst exactly where rigidity/hyperuniformity is strongest (TOOLKIT
   §11.3). Gate it small-window only; large-window disagreement is the law, not a defect.
-- **B2/B3 triangulation (Gaussian-prime wedge): AGREEMENT.** DPP-fit read = Poisson-class
-  (best DPP beats Poisson by 2.3% only; Thomas degenerates in both implementations),
-  concordant with Phase 34d's Hecke-Poisson angle verdict. The spatial dialect additionally
-  resolves what the angle observable cannot: a lattice comb — pcf support exactly at
-  checkerboard-Z[i] offsets with Hardy–Littlewood constellation weights (g(√2)=3.07,
-  g(√10)=3.66, zero between). Filed as observable-binding capability, not a class claim.
+- **B2/B3 triangulation (Gaussian-prime wedge): AGREEMENT, scale-qualified — one fact, two
+  clauses, both required in any quotation.** (i) Poisson-class **at spacing scale**
+  (coarse-grained, bins ≥ lattice pitch, r ≳ 2: best DPP beats Poisson by 2.3% only; Thomas
+  degenerates in both implementations), concordant with Phase 34d's Hecke-Poisson angle
+  verdict. (ii) **Below spacing scale** the pcf is **by construction** a lattice comb — the
+  points live on the checkerboard-Z[i] sublattice, so discrete support with Hardy–Littlewood
+  constellation weights (g(√2)=3.07, g(√10)=3.66, zero between) is the support set talking,
+  not a class property. Quoting (i) without (ii) — or welding them into a contradiction — is
+  the slot hazard this wording prevents. Filed as observable-binding capability, not a class
+  claim. **Registered follow-up:** the comb is a 2D arithmetic calibrator CANDIDATE
+  (epistemic tier: conjecture-backed-computable — HL singular series computable to arbitrary
+  precision, unproven; distinct tier from theorem-backed zoo entries) — future micro-arc gates
+  empirical comb weights against computed singular series (`bridge/RESULTS_BRIDGE.md`
+  Registered follow-ups).
 - **The FIX-2 twin fires on demand in the spatial dialect:** wrong-intensity K_inhom on a
   4.7×-gradient synthetic manufactures +14% clustering while the correct lens sits at ±1–2%
   (3-seed replicate); at thin-window (2%) variation the lens choice is provably immaterial —

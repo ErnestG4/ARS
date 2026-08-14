@@ -153,3 +153,9 @@ seal = {
 
 json.dump(seal, open(OUT, "w"), indent=1)
 print("SEALED:", json.dumps(seal["tolerances"], indent=1))
+
+# POST-SEAL ADDENDUM (2026-08-14, annotation only — mirrored into the sealed
+# JSON as "post_seal_addendum_2026_08_14"): the G-A3 gate windows (R=2 / L<=5)
+# were PILOT-INFORMED, not blind — pilots 1-4 surfaced the amplification law,
+# the window restriction was decided pre-seal, gates ran on disjoint seeds.
+# No tolerance, window, or criterion was altered by this addendum.

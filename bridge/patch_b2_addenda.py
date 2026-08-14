@@ -48,7 +48,11 @@ c0 = 30000.0 / base
 # sample by thinning a uniform Poisson at the max intensity
 lam_max = c0 * lam_fn(R2)
 area = W.area()
-n_prop = rng.poisson(lam_max * area * 1.05)
+# Thinning theorem: proposal count is Poisson(lam_max*area) EXACTLY. The first
+# run drew Poisson(lam_max*area*1.05) — a 5% intensity-model mismatch that
+# K_inhom faithfully reported as +5% (caught by fix2_replicates.py; the buggy
+# run's numbers are retained in fix2_powered with sampler_bug_note).
+n_prop = rng.poisson(lam_max * area)
 th = rng.uniform(T1, T2, n_prop)
 rad = np.sqrt(rng.uniform(R1**2, R2**2, n_prop))    # uniform-in-area radii
 keep = rng.uniform(0, lam_max, n_prop) < c0 * lam_fn(rad)
