@@ -447,3 +447,34 @@ of the error model at ±0.004 precision" framing was unsound — in σ_m units t
 4.2σ_m, accepted because σ_sys dominates σ_eff, exactly as the seal designed; the landings
 certify the DISCRIMINATION, and the three-decimal iid coincidence is luck under our own error
 model (~0.4%).] F3 rider holds on all three bands. Total both-arm runtime 23.5 h.
+
+## 14. Step 2b — mid-flow re-conditioning (isoconfigurational move): NOT_SUPPORTED (2026-08-14)
+
+Runner: `step2b_isoconfig.py` (rules pinned blind 75910e6 — Step 2's exact machinery with the
+conditioning configuration moved from k = 0 to k = 2). Artifact: `step2b_isoconfig.json`.
+16 seal-protocol iid replicates, n = 4096, 86 min. Exploratory, unsealed.
+
+**The pinned NOT_SUPPORTED clause fired again:** 3 of 5 quintile bins stretched (β = 0.701,
+0.553, 0.493). Conditioning on the INSTANTANEOUS local gap environment — the isoconfigurational
+move translated to root flows — fails to decompose the stretch, just as seed-conditioning did.
+Per the pre-committed reading: the rate heterogeneity behind β < 1 is not captured by local gap
+environment at ANY single conditioning time; **intrinsic local nonexponentiality gains ground**,
+under the caveat (pinned before the run) that the environment variable may be too crude.
+
+Textures, filed without interpretation:
+- **The slow-exponential large-gap population is STABLE under re-conditioning**: bin0 (largest
+  cone-gaps) selects F2 at both k = 0 (τ = 3.07) and k = 2 (τ = 3.18) conditioning — a
+  persistent, exponentially-relaxing, 3×-slow subpopulation whatever the mechanism is.
+- **The smallest-gap quintile at k = 2 selects F1 (power law)** — not a window artifact (all
+  five bins got identical 5-point windows; χ² = 3.5/3). New object.
+- Per-bin fit quality at k = 2 conditioning is mostly GOOD (bins 1–2 at χ²/dof 0.5–1.2) —
+  unlike the aggregate, the conditioned curves are well-described by the ladder; the misfit
+  lives in the mixture, not the components.
+- Monotone τ ordering across bins 0–3 (3.18 → 1.15 → 0.46 → 0.30): rates DO order by
+  environment; what environment fails to explain is the residual stretch within bins.
+
+Glass-language summary for the paper's discussion: both standard conditioning moves — initial
+configuration and instantaneous configuration — leave the stretch intact in the majority bins,
+while a stable slow-exponential subpopulation and an emergent fast power-law tail bracket it.
+That is a datum the heterogeneity-vs-intrinsic debate can consume directly, from a system with
+no thermal bath, no quenched disorder, and a certified error model.
