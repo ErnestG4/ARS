@@ -382,6 +382,11 @@ Filed with exact conditionality per the row-c-suspect rule:
   WITH A FUSE:** Part I out (2504.11593); Part III, "Fluctuations and functional limit
   theorems," listed in preparation — the nearest theorem-shaped object to our σ-resolved
   relaxation curves; the Step-4 writing-time re-sweep must name this series specifically.
+  [RE-CHECKED 2026-08-13 (Will): Part II now posted — a catalog of exactly-characterized seed
+  families (Touchard, Fubini, Eulerian, Narayana, hypergeometric incl. Hermite/Laguerre/
+  Jacobi), banked as the seed-roster extension for follow-on work; Part III still in
+  preparation, absent from both authors' publication lists. Fixed-k local spacing remains
+  unclaimed; our verdicts remain the only measurements in the regime.]
   (3) Complex/rotationally-invariant flow is an ACTIVE parallel track (Galligo–Najnudel–Vu
   2506.06263; successor 2607.05054; randomized-derivative k = o(n/log n)) — the scope's
   complex exclusion is a live boundary, cited as such, not a dead one. (4) Heat-flow side
