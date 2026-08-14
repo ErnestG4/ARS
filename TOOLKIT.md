@@ -757,3 +757,75 @@ to support it. We closed an m=2 hypothesis as null at three radii where the
 north/south count imbalance was 0.5–8.4%, and explicitly REFUSED to close it
 inside R ≈ 7 kpc where imbalance reached 11–15%. "No signal" and "no power to
 see a signal" are different claims and must be reported as different claims.
+
+## 11. 2D point-process protocol — edge correction & intensity estimation
+*(Founded 2026-08-14 by the Bridge arc (`bridge/`); this section is the birth of the 2D protocol,
+not an amendment. First customer: the Ginibre central-sub-window KAG run, `bridge/ginibre_sampler.py`.)*
+
+### 11.1 Edge correction (C1)
+
+An observation window clips pairs whose second point falls outside it; uncorrected K/g/L are biased
+low at all r > 0. Three standard corrections (Ripley/Baddeley lineage) and the decision rule:
+
+- **Border (minus-sampling):** count pairs only from "eroded" points ≥ r from the boundary;
+  denominator uses eroded-set intensity. Statistically wasteful, but **bias-transparent** — no
+  correction-weight code path to get wrong. **Mandatory for known-answer-gate runs**: a KAG should
+  not certify a correction-weight implementation and the statistic in one stroke.
+- **Translation:** weight each pair (x,y) by |W|/|W ∩ W_{x−y}|. Exact for stationary processes,
+  efficient, geometry-general. **Default for rectangular windows in production runs.**
+- **Isotropic (Ripley):** weight by the reciprocal fraction of the circle ∂b(x,|x−y|) inside W.
+  Assumes isotropy. **Default for disk/annulus windows** (e.g. Ginibre central sub-window,
+  Gaussian-prime annulus).
+
+**r_max rule:** never evaluate K/g beyond r_max = ¼ of the shortest window dimension (annulus:
+¼ of the radial width). Beyond that, correction weights dominate and variance explodes.
+
+**1D ancestor (filed):** the per-sector Weyl-completeness window gate
+(`sessionK/maass_analysis.py:5`) — same defect genus: objects missing near the window boundary
+bias the statistic. The 1D remedy is *gate the window's completeness before computing*; the 2D
+remedy is *weight or discard near the boundary*. Both are boundary-accounting, and both must be
+declared per run.
+
+### 11.2 Intensity estimation for inhomogeneous substrates (C2)
+
+For stationary substrates: single global λ̂ = n/|W|; done. For inhomogeneous substrates, in order
+of preference:
+
+1. **Parametric / theory-supplied λ(x)** (e.g. Gaussian primes: λ ∝ 1/(2 ln r) from the Landau
+   ideal-count asymptotic). External, non-circular — the analogue of unfolding with an external
+   rate (§9 "the right null is substrate-specific").
+2. **Thin-window near-constancy:** window the data so λ varies less than a **pre-registered
+   variation budget**; then use the stationary estimators with the residual variation filed as a
+   declared approximation.
+3. **Kernel-smoothed λ̂(x):** bandwidth is a free parameter and **must be pre-registered**.
+   Too-small bandwidth absorbs the very repulsion/clustering being measured — the 2D twin of the
+   structurally-circular self-derived rate-unfold (§9). Never tune bandwidth on the statistic
+   being reported.
+
+**Double-application tripwire (pre-registered, Bridge §3.1):** never unfold AND intensity-reweight
+the same data path. A path in mean-spacing (unfolded) units takes the *stationary* estimators; a
+path handed to K_inhom keeps raw coordinates and carries λ(x). Each pipeline declares which
+transition it uses — one transition per path, cited by file:line.
+
+**FIX-2 twin (filed):** wrong intensity ⇒ corrupted K_inhom is the same defect class as wrong
+unfolding lens ⇒ inverted Σ² (the FIX-2 precedent). The intensity model is part of the claim and
+gets audited first when a 2D reading surprises.
+
+### 11.3 The gluing identity loses SNR exactly where rigidity is strongest (Bridge-arc instrument note)
+
+The Σ²-from-pcf identity (Var N = λ|B| + λ²∫(g−1)γ_B) is a **near-cancellation** for
+hyperuniform/rigid processes: exact Ginibre gives Var N(R) = R/√π against an area term λπR² = R²,
+and 1D GUE gives Σ²(L) ~ (1/π²)ln L against L. Two consequences, both measured in the Bridge arc
+(`bridge/pilot2_gluing.py`, `bridge/pilot4_thomas.json`):
+
+1. **Offset amplification ~ (λ|B|)²·δ / Var.** Any baseline offset δ in ĝ−1 — bin noise, the
+   residual normalization offset (~1/√n_pairs, irreducible whether ĝ is normalized by the model λ
+   or by λ̂; pilot-4 measured ~4·10⁻³ at n≈14k in a 120² window), finite-sample bias — enters the
+   identity multiplied by the *area term squared* and then competes with Var. On plain 2D Poisson
+   this already grows 2.7%→48% across R=2→6; rigidity makes it strictly worse because Var is
+   smaller still (2D Ginibre R=6 ~100× amplification; 1D GUE at L=20: L²/Σ² ≈ 555×).
+2. **Consequence: gate the identity only at small windows, whatever the substrate** (Bridge arc
+   sealed R=2 / L≤5 at n~10⁴–10⁵), and report large-window rows descriptively with the
+   amplification factor alongside. A gluing "failure" at large R/L is the amplification law, not
+   a transition defect — but a failure at small R/L is a real defect (dimension slip, factor
+   error, normalization inversion — the FIX-2 class the gate exists to catch).

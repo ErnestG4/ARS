@@ -1872,3 +1872,37 @@ when an Allen-bound finding requires the explicit token; currently the
 Allen-bound findings (per-window p=7 in natural_movie_one,
 drifting_pooled p=2 STATIONARY) are described in prose without the
 shorthand.*
+
+## Bridge arc — transition functions to the spatial-statistics atlas (2026-08-14)
+
+ARS and the Ripley/Baddeley spatial-statistics lineage are two chart systems on point
+processes; this arc wrote and validated the transitions between them. No new science claims
+(binding anti-claim); the deliverables are the dictionary, the cross-checks, and the 2D
+protocol. Full results: `bridge/RESULTS_BRIDGE.md`; prereg `bridge/prereg_sealed.json`;
+dictionary `bridge/TRANSLATION_TABLE.md`; protocol **TOOLKIT.md §11** (founded by this arc —
+edge correction, intensity estimation, and the gluing-identity SNR law).
+
+What the tool now knows that it didn't:
+- **The transitions glue.** Zeta window read identically through both dialects (⟨r̃⟩ 0.611 /
+  KS_GUE 0.019 home-side; pcf on the sine-kernel curve to 0.064 spatial-side, sealed tol
+  0.091). Our estimators and spatstat agree to ≤1.1% on K; our DPP fitter and spatstat `dppm`
+  agree to 3 decimals on the Ginibre KAG. New calibrator capability: true Ginibre sampler
+  (`bridge/ginibre_sampler.py`, KAG-passed) and a banked GUE pcf-shape tolerance anchor
+  (`bridge/gue_pcf_anchor.json` — P3 found NO prior owner of that slot).
+- **The gluing identity (Σ² from pcf) has a measured SNR law** — amplifies pcf baseline offset
+  by ~(λ|B|)²/Var, i.e. worst exactly where rigidity/hyperuniformity is strongest (TOOLKIT
+  §11.3). Gate it small-window only; large-window disagreement is the law, not a defect.
+- **B2/B3 triangulation (Gaussian-prime wedge): AGREEMENT.** DPP-fit read = Poisson-class
+  (best DPP beats Poisson by 2.3% only; Thomas degenerates in both implementations),
+  concordant with Phase 34d's Hecke-Poisson angle verdict. The spatial dialect additionally
+  resolves what the angle observable cannot: a lattice comb — pcf support exactly at
+  checkerboard-Z[i] offsets with Hardy–Littlewood constellation weights (g(√2)=3.07,
+  g(√10)=3.66, zero between). Filed as observable-binding capability, not a class claim.
+- **The FIX-2 twin fires on demand in the spatial dialect:** wrong-intensity K_inhom on a
+  4.7×-gradient synthetic manufactures +14% clustering while the correct lens sits at ±1–2%
+  (3-seed replicate); at thin-window (2%) variation the lens choice is provably immaterial —
+  the quantitative safety margin behind TOOLKIT §11.2 option 2.
+
+Standing instrument notes: spatstat quarantined at `bridge/.rquarantine` (cross-check only,
+never a core dependency); wedge-scale `dppm` and `dppPowerExp` OOM at 15GB (declared, subwindow
+scope used); ⟨r̃⟩ and Δ₃ have no spatial twin (their-atlas gap, TRANSLATION_TABLE rows 6-7).

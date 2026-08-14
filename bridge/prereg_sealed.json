@@ -1,0 +1,82 @@
+{
+ "sealed_utc_date": "2026-08-14",
+ "author": "Claude Fable 5, sealed BEFORE any gate-seed compute. Pilot seeds (100-105, 910-915) and anchor seeds (700-723) were run solely to derive tolerances and are disjoint from gate seeds (1-3, 920-931).",
+ "arc": "ARS Bridge Arc \u2014 transition functions to the spatial-statistics atlas.",
+ "anti_claim": "BINDING (brief \u00a75): no new universality-class claims. Deliverables are translations, cross-checks, protocol.",
+ "step_zero_outcome": "R + spatstat 3.6-2 installed user-space (micromamba) at bridge/.rquarantine (gitignored). Observer B is genuine spatstat; the pure-Python fallback caveat is NOT needed. No-black-box rule (tripwire 5) still applies.",
+ "substrates": {
+  "1d": [
+   "homogeneous Poisson n=1e5 (gate seeds 1-3)",
+   "zeta window: data/odlyzko_zeros1.txt (100k zeros), unfolded by arsrh/phase1_zeta_crossover.py:61 unfold_zeta (reused by import). Fallback (pre-registered, P2): large-N CUE via phase34d/circular_sampler.py. No HKPV sine-kernel sampler is promised."
+  ],
+  "2d": [
+   "homogeneous Poisson rect 120x120 (gate seeds 1-3)",
+   "Ginibre N=2048 UNSCALED (intensity 1/pi), central sub-window 0.8*sqrtN, gate seeds 920-931; sampler KAG PASSED (bridge/ginibre_kag_measured.json)"
+  ]
+ },
+ "tolerances": {
+  "G_A1_1d_K": 0.05,
+  "G_A1_1d_g": 0.10881222987030759,
+  "G_A3_1d_rel": 0.05,
+  "G_A1_2d_L": 0.08813529480363158,
+  "G_A1_2d_g": 0.12150204702739242,
+  "G_A2_gue_pcf": 0.09081222037068182,
+  "G_A3_1d_gue_rel": {
+   "2.0": 0.11275031070653252,
+   "5.0": 0.2170933091124198
+  },
+  "G_B1_ginibre_pcf_rms": 0.040825403798799946,
+  "G_A3_2d_pois_rel": 0.1,
+  "G_A3_2d_thomas_rel": 0.15,
+  "XCHECK_rel": 0.02,
+  "B2_intensity_budget": 0.05
+ },
+ "G_A3_ginibre_descriptive": "2-D gluing on Ginibre is reported DESCRIPTIVELY, not gated: for a class-I hyperuniform process Var N(R) is a near-cancellation (= R/sqrt(pi) exactly, vs area term R^2), so pcf noise eps is amplified by ~(lam*pi*R^2)/Var \u2014 divergent with R. Mechanism derived pre-seal from the exact g (pilot2_gluing.py header); the limitation is banked as a TOOLKIT \u00a711 instrument note. The identity ITSELF is gated with SNR on 2-D Poisson (area term) + Thomas designed instance (integral term, positive g-1) \u2014 decompose-confound-with-designed-instance discipline.",
+ "tolerance_provenance": {
+  "rule": "tol = 2 x worst pilot deviation, floored (0.02 abs pcf, 0.05 rel 1d-gluing, 0.10 rel 2d-gluing [400-disk direct-variance noise], 0.05 abs K/L)",
+  "G_A2": "banked anchor bridge/gue_pcf_anchor.json: max|dev|=0.0454 over s in [0.25, 5.0], 88512 pooled GUE levels, semicircle-CDF analytic unfold; analytic-form owner universality.py pair_correlation (R2_gue)",
+  "pilot_raw": {
+   "pois1d": {
+    "devK": 0.013071045683654692,
+    "devg": 0.05440611493515379,
+    "relSigma": 0.003677272688708991
+   },
+   "pois2d": {
+    "devL": 0.04406764740181579,
+    "devg": 0.06075102351369621
+   },
+   "ginibre": {
+    "dev_pcf": 0.1213729511748537,
+    "relSigma": 1.1115300201234801
+   }
+  }
+ },
+ "gates": {
+  "G_A1": "2D Poisson: max|L(r)-r| and max|g-1| within tolerance on r in [0.25,5]; 1D Poisson: max|K-2r|, max|g-1|, same window.",
+  "G_A2": "zeta window empirical g vs 1-(sin pi s/pi s)^2, s in [0.25,5], max abs dev <= G_A2_gue_pcf.",
+  "G_A3": "Sigma^2 via (g-1) integral identity vs direct, rel dev within tolerance: 1D Poisson at L in {2,5,10,20} (tol G_A3_1d_rel); zeta GATED at L in {2,5} only (tol G_A3_1d_gue_rel from the GUE gluing pilot), L in {10,20} descriptive \u2014 rigid substrates amplify identity noise by L^2/Sigma^2(L) (~555x at L=20), the 1-D face of the same class-I mechanism; 2D GATED at R=2 only, on Poisson + Thomas designed instance (pooled grid-count direct, pilot-4 config) \u2014 R in {4,6} descriptive: pilot-4 measured the identity error growing ~(lam*pi*R^2)^2/Var from an irreducible ~4e-3 pcf baseline offset at these sample sizes (2.7%->48% Poisson, 6%->26% Thomas across R=2->6), with model-lambda vs lambda-hat both leaving the offset; Ginibre 2-D fully descriptive (see G_A3_ginibre_descriptive). Disagreement inside gated cells = transition-function defect, not a finding.",
+  "G_B1": "Ginibre pooled pcf (12 gate seeds, central sub-window, border-corrected, erosion 4.0, bins 0.1 \u2014 pilot-3 config) vs exact g(r)=1-exp(-r^2) [intensity 1/pi units], r in [0.25,4]: RMS dev <= G_B1_ginibre_pcf_rms (RMS is the sealed metric \u2014 noise-robust; max-abs reported descriptively).",
+  "XCHECK": "no-black-box: our border-corrected K vs spatstat Kest border column, max rel dev <= 2% on r in [1,5]."
+ },
+ "B1_criteria": {
+  "claim_level": "CLASS-LEVEL ONLY (tripwire 6). A repulsive DPP family must beat Poisson AND Thomas on the uniform contrast D = int_[0.25,4] (g_emp - g_model)^2 dr (upper limit = the G-B1 pcf grid reach), and the fitted interaction range must cohere with mean spacing.",
+  "r_half_ratio": [
+   0.2,
+   1.0
+  ],
+  "r_half_derivation": "theory-fixed before compute: exact Ginibre g gives r_half = sqrt(ln 2) = 0.8326, mean spacing sqrt(pi) = 1.7725, ratio 0.470; repulsive DPPs cross g=0.5 below one mean spacing, hence [0.2, 1.0].",
+  "family_list_declared": "spatstat: dppGauss, dppCauchy, dppMatern, dppPowerExp (verified installed); python: gauss, cauchy, powerexp, matern (dpp_python.py). Ginibre kernel (complex) in NO family: declared approximation, kernel-level ID out of scope."
+ },
+ "B2_sealed_before_B1": {
+  "substrate": "split Gaussian primes, annular wedge r in [3000,3600], theta in [0.15,0.35] rad (bridge/gaussian_prime_annulus.py)",
+  "intensity_model": "lambda(r) = 2/(pi ln r), theory-supplied (Landau); predicted variation across annulus 2.24% <= 5% budget",
+  "declared_approximations": [
+   "wedge excludes axes -> no inert primes (measure-zero rays)",
+   "support set is the checkerboard sublattice {a+b odd} of Z[i], min pair distance sqrt(2): continuous families cannot express lattice support (TOOLKIT \u00a79 support-set discipline expected to surface)",
+   "residual 2.24% intensity variation treated as stationary for the DPP fits; K_inhom exercise uses the theory lambda(r)"
+  ],
+  "park_branch": "ONLY if G_B1 fails (prereg-fixed, not post-B1 preference)."
+ },
+ "tripwires_carried": "brief \u00a73 items 1-6 verbatim; TOOLKIT.md \u00a711 founded this arc (edge correction, intensity estimation).",
+ "filing_note_tripwire2_catch": "The draft brief filed Ginibre under 'logarithmic number-variance growth' \u2014 a dimension-slot (tripwire-2) violation caught in CC review before sealing: log growth (Torquato class II) is 1D sine-kernel/GUE; Ginibre is class I (perimeter law, S(k)~k^2). Recorded here as an instance of the genus per amended brief."
+}

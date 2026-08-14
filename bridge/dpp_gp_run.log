@@ -1,0 +1,16 @@
+fitted dppGauss 
+Warning messages:
+1: default settings have changed for pcf.ppp in spatstat.explore >= 3.8-1 
+2: The value of the empirical function ‘pcf’ for r= 0 was NaN. Range of r values was reset to [0.124728942880578, 11.9739785165355] 
+fitted dppCauchy 
+Warning messages:
+1: The value of the empirical function ‘pcf’ for r= 0 was NaN. Range of r values was reset to [0.124728942880578, 11.9739785165355] 
+2: Iteration limit maxit was reached after 501 function evaluations 
+fitted dppMatern 
+Warning messages:
+1: The value of the empirical function ‘pcf’ for r= 0 was NaN. Range of r values was reset to [0.124728942880578, 11.9739785165355] 
+2: Iteration limit maxit was reached after 501 function evaluations 
+fitted Thomas 
+Warning message:
+The value of the empirical function ‘pcf’ for r= 0 was NaN. Range of r values was reset to [0.124728942880578, 11.9739785165355] 
+dppm_fit done: n = 7727 

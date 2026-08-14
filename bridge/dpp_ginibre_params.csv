@@ -1,0 +1,16 @@
+"model","param","value"
+"dppGauss","alpha",1.00011168898707
+"dppGauss","lambda",0.318238776474818
+"dppGauss","d",2
+"dppCauchy","nu",3.62170277219031
+"dppCauchy","alpha",1.90328979222297
+"dppCauchy","lambda",0.318238776474818
+"dppCauchy","d",2
+"dppMatern","nu",20.5479039047381
+"dppMatern","alpha",0.110314822276263
+"dppMatern","lambda",0.318238776474818
+"dppMatern","d",2
+"Thomas","trend",0.318238776474818
+"Thomas","kappa",2160.33832868523
+"Thomas","scale",194.396336272233
+"Thomas","mu",0.000147309693231475
