@@ -130,8 +130,10 @@ prize fired, the new seal committed before any cross-seed mixture computation.
 
 ## STEP 3 — Sealed n = 16384 scale-law discrimination (one expensive number)
 
-**STATE:** SEALED + LAUNCHED 2026-08-12 (`seals/SCALE_LAW_SEAL.json`; runner
-`step3_scale_law.py`, detached). Multi-day intensive step; the draft does not wait up for it.
+**STATE:** EXITED 2026-08-13 — **SCALE-FLAT, sealed (iid arm: k* = 10.828 ± 0.011 vs
+H_flat = 10.827, three decimals; log excluded ~10σ_eff)**; GUE rider unsealed-confirmatory
+SCALE-FLAT (6.220 ± 0.004 vs 6.202, 0.35σ_eff). Both-arm runtime 23.5 h under the parallel
+driver. Findings §13 + append.
 **LOG:** Predictions re-derived from science_dense_grid.json — and the row-c rule caught the
 conversation-level arithmetic: an affine log fit through the near-flat anchors is
 non-identifiable (predicts 10.97, growth absorbed into the intercept), so the sealed log

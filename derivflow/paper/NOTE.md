@@ -104,10 +104,11 @@ resolution — is fully auditable, commit by commit, in the public repository.
   model is honest — the ±0.011 means what it says. The prediction's precision certifies the
   error bars, not just the hypothesis, and every error-barred number in this section comes from
   the same certified pipeline.
-- **GUE arm (decision rule pinned 2026-08-13, before it landed):** run unsealed-confirmatory
-  per the seal's if-time clause. If it lands before submission it appends to findings §13 and
-  gets ONE results sentence, labeled unsealed-confirmatory; if after, it is a v2 note. It is
-  not a reason the finished draft waits — same hostage logic, smaller hostage.
+- **GUE arm (landed under the pinned rule, its one sentence):** the GUE arm, run
+  unsealed-confirmatory per the seal's if-time clause, read k*(16384) = 6.220 ± 0.004 against
+  its flat prediction 6.202 (0.35σ_eff; proportional-log excluded at 18.7σ_eff) — both seed
+  classes crystallize on an O(1) clock, and both landed on their pre-committed predictions
+  within a small fraction of σ.
 - **Ceiling and floor**: Hermite arm measured crystalline at every s (1 − ⟨r̃⟩ 10⁻⁷–10⁻⁵);
   picket-fence ceiling-invariant under the flow (≤ 10⁻³ every k, every n, corrected
   instrument); interlacing floor at k = O(1) (program-derived — labeled as such; complex
