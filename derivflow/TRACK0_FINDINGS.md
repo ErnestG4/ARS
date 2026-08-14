@@ -478,3 +478,16 @@ configuration and instantaneous configuration — leave the stretch intact in th
 while a stable slow-exponential subpopulation and an emergent fast power-law tail bracket it.
 That is a datum the heterogeneity-vs-intrinsic debate can consume directly, from a system with
 no thermal bath, no quenched disorder, and a certified error model.
+
+**§14 addendum — Step 2b GUE arm (2026-08-14, pinned blind d9d3c09): MIXED, and UNDERPOWERED
+for the form question.** Ladder outcome MIXED per the pinned thresholds (forms F2/F2/F1/F1/F1,
+zero F3). But the per-bin fit windows collapsed to 3–4 points (GUE relaxes fast; the pinned
+K_GRID starts at k = 4 because K_COND = 2), so **F3 was unassessable in every bin** — the AICc
+small-sample guard (N − p − 1 ≤ 0) is the v1.5.1 coarse-grid pathology recurring in the
+exploratory lane, caught by the same mechanism. The "no per-bin stretch" reading is therefore
+NOT available; what IS banked: two slow bins exponential at nearly identical τ (2.34, 2.35 —
+echoing the iid arm's stable slow subpopulation), three fast bins best-fit power-law among the
+assessable forms, per-bin χ²/dof 15–47 (poor). Design note for the backlog: a GUE-adapted
+probe needs K_COND = 1 with a k-grid starting at 2 (k ∈ {2, 3, 4, 5, 6, 8, …}) to give the
+fast bins assessable windows. The iid arm's NOT_SUPPORTED stands as §14's result; the GUE arm
+is filed as an instructive incompleteness, not a datum.

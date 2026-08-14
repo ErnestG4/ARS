@@ -1,0 +1,22 @@
+  rep 0 done
+  rep 1 done
+  rep 2 done
+  rep 3 done
+  rep 4 done
+  rep 5 done
+  rep 6 done
+  rep 7 done
+  rep 8 done
+  rep 9 done
+  rep 10 done
+  rep 11 done
+  rep 12 done
+  rep 13 done
+  rep 14 done
+  rep 15 done
+
+LADDER OUTCOME: MIXED
+forms: ['F2', 'F2', 'F1', 'F1', 'F1']
+taus: [2.338, 2.354, None, None, None]
+betas: [None, None, None, None, None]
+runtime 4112.7s
