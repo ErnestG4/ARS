@@ -257,6 +257,12 @@ seal → verdict), authored fresh; this doc's role ends at handing over the meas
 derivflow form pair as the comparison target. ζ′/Speiser stays queued behind this —
 differentiation statistics of ζ is where those threads meet.
 
+**SCOPE-TEMPLATE REQUIREMENT (2026-08-13, from the lemmatizer-essay review — the frame's first
+falsifiable export):** the cross-flow scope doc MUST pre-register a commutativity audit — two
+or three view-move orderings (e.g., unfold∘window vs window∘unfold), both run, discrepancy
+either banked as a commutativity certificate or named as a transition-function bug / genuine
+path-dependence before it names itself. See essays/lemmatizer_review_2026_08_13.md.
+
 **VALUE/URGENCY RAISED (2026-08-12, scope §9 sweep):** the heat-flow half of the bridge is now
 built and published (Hall–Ho–Jalowy–Kabluchko: Indiana 2025, EJP 2025, LMP 2025), and the
 literature is already citing Lehmer-pair/dBN work alongside differentiation-flow papers — the

@@ -23,7 +23,9 @@ parameters: iid-uniform seeds relax with (τ, β) = (1.73, 0.79) against GUE-eig
 down. The crystallization scale is O(1) in n: a sealed two-hypothesis discrimination at
 n = 16384 returns SCALE-FLAT, with k* = 10.828 ± 0.011 landing on the flat prediction (10.827)
 to three decimal places and excluding proportional-logarithmic growth at ~10σ — eleven
-derivatives crystallize an iid seed at every n across a 16× range. The stretch itself is a puzzle with
+derivatives crystallize an iid seed at every n across a 16× range. In one sentence: relaxation
+form universal, parameters seed-dependent, scale flat in n — universality holds one level up,
+breaks one level down, and the whole stack is invisible to every global theorem in the field. The stretch itself is a puzzle with
 its most natural explanation already eliminated: conditioning on initial gap environment fails
 to decompose it (falsified under blind-committed binning rules), and rigid, homogeneous GUE
 seeds stretch too — pointing at flow-generated dynamical heterogeneity in the glass-relaxation
@@ -95,7 +97,17 @@ resolution — is fully auditable, commit by commit, in the public repository.
   non-monotone scatter, χ²_flat = 27.9/2 filed openly; H_log = 12.704, proportional growth
   anchored at n = 4096; affine log rejected as non-identifiable on near-flat anchors);
   measured k*(16384) = 10.828 ± 0.011 — d_flat = 0.001, d_log = 1.876 ≈ 10σ_eff. F3 holds on
-  all three bands at n = 16384. [GUE if-time arm: appends, does not gate.]
+  all three bands at n = 16384.
+- **What the three-decimal agreement certifies** (the sentence, per Will): a post-hoc analysis
+  hitting three decimals would invite suspicion of tuning; the commit ordering makes tuning
+  impossible, so the agreement converts entirely into evidence that the instrument's error
+  model is honest — the ±0.011 means what it says. The prediction's precision certifies the
+  error bars, not just the hypothesis, and every error-barred number in this section comes from
+  the same certified pipeline.
+- **GUE arm (decision rule pinned 2026-08-13, before it landed):** run unsealed-confirmatory
+  per the seal's if-time clause. If it lands before submission it appends to findings §13 and
+  gets ONE results sentence, labeled unsealed-confirmatory; if after, it is a v2 note. It is
+  not a reason the finished draft waits — same hostage logic, smaller hostage.
 - **Ceiling and floor**: Hermite arm measured crystalline at every s (1 − ⟨r̃⟩ 10⁻⁷–10⁻⁵);
   picket-fence ceiling-invariant under the flow (≤ 10⁻³ every k, every n, corrected
   instrument); interlacing floor at k = O(1) (program-derived — labeled as such; complex
@@ -119,6 +131,15 @@ resolution — is fully auditable, commit by commit, in the public repository.
 - Complex/rotationally-invariant flow: excluded here, live boundary (Galligo–Najnudel–Vu
   2506.06263, 2607.05054). Heat flow: the published half-bridge (Hall–Ho–Jalowy–Kabluchko,
   Indiana/EJP/LMP 2025) and the queued cross-flow comparison (dBN connection).
+- **Why the clock is O(1) — one graded paragraph, anchored to the paper's own lemma.** The
+  derivative-root map's sensitivities ∂x*ᵢ/∂rⱼ = (x*−rⱼ)⁻² / Σₗ(x*−rₗ)⁻² are positive convex
+  weights decaying quadratically in distance: each new root is overwhelmingly determined by its
+  near neighbors (measured transfer ratios 0.86 → 0.09, §2). Relaxation is therefore a local
+  process whose interaction range is measured in spacings, not fractions of the support — and a
+  local process has no way to know n. This is interpretation, not theorem, but interpretation
+  anchored to a lemma the paper proves — and it dovetails with, rather than competes against,
+  the open mechanism question: locality explains why the clock is O(1); it conspicuously fails
+  to explain why the clock is STRETCHED, which is exactly what the β-composition poses.
 - Watch item named: Jalowy–Kabluchko–Marynych Part III (fluctuations/functional limit
   theorems) — the nearest theorem-shaped object to these curves.
 
@@ -139,6 +160,20 @@ A hostile referee looking for the weakness should find we published it first.
 Adversarial pulls (agent-executed, four targets, ~30 sources) 2026-08-11; post-pull sweep
 2026-08-12 (ANP verified: hypothesis class covers Uniform[−1,1] via C¹-curve example; full-text
 silent on local statistics). GAP STANDS under both the fixed-s and small-k parameterizations.
+Writing-time re-sweep, DATED here so the paper's own OPEN claims carry their verification date:
+Jalowy–Kabluchko–Marynych Part III by name, the 2410.06403/ANP citation graphs, and the
+Galligo–Najnudel–Vu line. [Date stamp at execution.]
+
+## Appendix C — Reproducibility and cost
+
+Wall-clock economics for replicators: the n = 16384 arm ran 16 replicates on a Ryzen 5900X
+under 5-way replicate-level multiprocessing and netted ~1.5–2× over serial — these kernels are
+streaming-dominated (~3 flops/byte), so the memory-bandwidth wall binds well below the core
+count; budget accordingly. Solver temporaries are candidate-axis-chunked (bitwise-identical;
+known-answer gates re-certified after the change, per the seal's post-change protocol). All
+RNG derives from a single committed SeedSequence master; every replicate is enumerable in
+advance and every run is exactly reproducible, including across the two OS reboots this
+campaign absorbed mid-flight.
 
 ## TODO (drafting)
 
