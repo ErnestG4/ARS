@@ -829,7 +829,11 @@ return DD/RR ≡ 1) is the witness. Analytic border corrections survive only in 
 Estimator-null musts, both caught by the first real-window KAG run (survey/D1_LOG.md): the
 cell-expectation variance carries a randoms-shot-noise term (W_D/W_R)·w̄₂_R·Ē alongside the
 weighted-Poisson term, and weighted-pair z-scores use effective counts DD²/Σ(pairweight²),
-never raw √DD.
+never raw √DD. **The quantitative case against "just use a simple window":** the D1 red path
+ran the forbidden uniform-box analytic window against DESI DR1 Poisson-through-mask data and
+manufactured F(1°) = 15–19 — an order of magnitude of fake super-Poissonianity from mask
+holes alone (|z| = 130). That number is why tripwire 6 exists and why the randoms-backed
+architecture is not a convenience choice.
 
 **r_max rule:** never evaluate K/g beyond r_max = ¼ of the shortest window dimension (annulus:
 ¼ of the radial width). Beyond that, correction weights dominate and variance explodes.

@@ -35,3 +35,16 @@
 - Watch item for D3 (filed, not fixed): F(L=1.0°) leans low across tiles (0.82–1.08,
   mean ≈ 0.93) — within the arms, but the largest-L cells interact with tile edges and the
   adjacency clause; revisit when sealing the D3 R-range.
+
+## Record items (Will's D1 audit, 2026-08-15)
+- **Grand-mean arm, formula and provenance:** thresh = max(3·SD(per-tile mean-z)/√n_tiles, 0.3).
+  This is the comb arc's correlated-z self-calibration inherited verbatim: within-tile z's are
+  positively correlated (shared points across bins and scales), so independence-based pooled
+  thresholds are wrong in principle; tiles are the independent axis and the threshold
+  calibrates itself from their scatter. The 0.3 floor (≈0.2% on the ratio statistics) is far
+  below every science tolerance.
+- **Worst-z census (too-good-to-be-true screen, passed from the nominal side):** the green
+  re-run's worst |z| = 3.43 is the maximum over 7 tiles × ~24 statistics ≈ 168 tests; the
+  expected maximum for a true null at that count is ≈ 2.9–3.3, so 3.43 is statistically
+  unremarkable in the good sense — as a board of all-sub-1σ values would NOT have been.
+  (Same screen the comb's worst mandatory z = −2.33 of 12 passed from the other side.)
