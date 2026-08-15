@@ -68,7 +68,7 @@ amplifies any pcf baseline offset δ by ~(λ|B|)²/Var. Measured, all filed desc
 `bridge_a_measured.json`:
 - 2D Poisson: rel dev 6.4% → 32% across R=2→6 (identity vs pooled grid-count direct);
 - zeta: 7.9% → 142% across L=2→20 (amplification L²/Σ² ≈ 555 at L=20);
-- Ginibre (Class I, worst case): 1% → 33% across R=2→6, amplification factor 3.6→14.7.
+- Ginibre (Class I, worst case): 1% → 33% across R=2→6; per-unit-offset amplification A=(λπR²)²/Var = 14→528 (column corrected 2026-08-15 — the original banked μ/Var, renamed area_term_over_var; see defect ledger part 2).
 Consequence sealed pre-gate: gate the identity only at small windows (R=2 / L≤5); large-window
 rows are the amplification law, not transition defects. A *small-window* failure remains a real
 defect (dimension slip, factor error, normalization inversion — the FIX-2 class).
@@ -129,7 +129,7 @@ arithmetic 2D substrate, end to end.
   lens choice is immaterial — which is *why* the thin-window option (TOOLKIT §11.2 option 2) is
   safe. A falsifier that cannot fire certifies nothing (powered-falsifier discipline), so:
 - **Powered designed instance (replacement, 3 seeds):** inhomogeneous Poisson on the same
-  wedge, λ(r) ∝ (r/3000)⁸ (4.7× variation). Correct lens: K_inhom/πr² − 1 within ±1–2% (all r,
+  wedge, λ(r) ∝ (r/3000)⁸ (4.30× variation; 1.2⁸). Correct lens: K_inhom/πr² − 1 within ±1–2% (all r,
   all seeds). Wrong lens (stationary K, gradient ignored): **+13.4% to +15.6% everywhere** —
   manufactured clustering, the FIX-2 twin firing on demand.
 - **Bonus in-vivo catch:** the first powered run drew Poisson(λ_max·A·**1.05**) proposals — a 5%
@@ -247,3 +247,52 @@ window-then-reweight through `observer_b.k_inhom`. Orderings that disagree get f
 transitions with non-trivial holonomy (the OBSTRUCTION-BANKED genus from this arc's §2 is
 the natural verdict vocabulary). Pre-registration should seal which differences count,
 per the powered-falsifier discipline.
+
+## Defect ledger, part 2 — post-closure high-effort code review (2026-08-15 overnight)
+
+A dedicated review of `bridge/` returned **10 verified findings** (2 candidates refuted by
+the verifier; estimator math, samplers, unfolds, and seed disjointness all cleared). None
+overturns a banked verdict — checked individually — but the arc's verification layer was
+weaker than its prose. Dispositions:
+
+1. **`g_below_sqrt2` witness miscomputed (F1):** a bin-center mask included the bin
+   *containing* √2, so the banked support-set witness reported the comb peak (3.067) it
+   exists to exclude. **Fixed** (bin-upper-edge mask, `patch_review_fixes.py`): true value
+   **0.0** — the witness now actually witnesses.
+2. **Layered-artifact provenance (F2):** `bridge_b_measured.json` is built by four layers
+   and re-running the documented chain would destroy the D-1 retained record. **Fixed:**
+   run-once guards on all three writers; provenance = the commit chain, declared in the
+   seal addendum.
+3. **Data-free budget gate (F3):** `intensity_budget.within` gated on the theory curve
+   only — a falsifier that could not fire, in the arc that named that discipline.
+   **Fixed:** gates on the measured banded deviation (0.0104 ≤ 0.05 — outcome unchanged,
+   now data-backed).
+4. **Amplification column one factor of μ short of its law (F4):** banked
+   `noise_amplification` was μ/Var while §11.3 states A = μ²/Var per unit pcf offset.
+   **Fixed:** column renamed `area_term_over_var`, law column added (A = 14/98/528 at
+   R=2/4/6), TOOLKIT and this file corrected. **Material for DES/DESI**: the SNR cutoff is
+   ~36× harsher at R=6 than the mislabeled column suggested.
+5. **Unreproducible spatstat skip (F5):** the banked B2 spatstat success needed
+   SKIP_POWEREXP=1, which no committed code set; stale `spatstat_error` coexisted with the
+   success keys. **Fixed:** env set in `run_bridge_b.py`; stale key superseded.
+6. **Seal integrity (F6):** bridge's seal was refuse-to-overwrite only, while comb already
+   had blob-SHA enforcement. **Backported:** 11 blob SHAs recorded in the dated addendum;
+   `verify_bridge.py` asserts them against the working tree.
+7. **No live checker (F7):** eight PASS booleans had no asserting consumer anywhere.
+   **Fixed:** `bridge/verify_bridge.py` + `comb/verify_comb.py` (both green); a red gate
+   now exits nonzero.
+8. **Powered FIX-2 had no in-code firing criterion (F8):** powered in prose only.
+   **Fixed:** criterion (right lens ≤3%, wrong lens ≥8%, all r × seeds) in
+   `fix2_replicates.py` and evaluated on the banked replicates: FIRED=true.
+9. **Claimed-but-absent equality witness (F9):** two committed comments cited a
+   sigma2_direct_1d ≡ number_variance assertion that existed only as a session heredoc.
+   **Fixed:** `bridge/test_sigma2_equality.py`, exact to 0.0 on three configs.
+10. **G-A1 1D window discrepancy (F10):** the executed pcf gate (and its pilot tolerance)
+    used r∈[0.25,25) vs the sealed [0.25,5] — mutually consistent and strictly
+    *conservative* (PASS under the executed criterion implies PASS under the sealed one).
+    Filed in the seal addendum, not recomputed.
+
+Also corrected from the review's confirmed-but-cut list: the FIX-2 gradient is 4.30×
+(1.2⁸), not "4.7×"; the seal's seed-provenance sentence understated both seed sets
+(correction in the addendum); `gaussian_prime_annulus.py` gained the t2 ≤ π/4 guard its
+comb sibling already had.

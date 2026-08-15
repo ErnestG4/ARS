@@ -27,6 +27,9 @@ T1, T2 = 0.15, 0.35
 
 
 def build():
+    assert T2 <= np.pi / 4, ("canonical reps (a>=b>0) end at pi/4 — a wider "
+                             "window cannot be filled by this builder "
+                             "(2026-08-15 review; see comb/exact_offsets.py)")
     lo, hi = int(R1**2), int(R2**2)
     primes = sieve_primes(hi)
     primes = primes[(primes >= lo) & (primes % 4 == 1)]

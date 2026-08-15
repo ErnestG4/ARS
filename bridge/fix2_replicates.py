@@ -40,7 +40,20 @@ for seed in (11, 12, 13):
     print(seed, "right", [f"{v:+.1%}" for v in rows[-1]["right"]],
           "wrong", [f"{v:+.1%}" for v in rows[-1]["wrong"]], flush=True)
 
+# FIRING CRITERION (review F8 — a designed falsifier needs an in-code
+# criterion or it is powered in prose only): right lens within +/-3% at every
+# r and seed; wrong lens >= +8% at every r and seed.
+right_ok = all(abs(v) <= 0.03 for r_ in rows for v in r_["right"])
+wrong_fired = all(v >= 0.08 for r_ in rows for v in r_["wrong"])
+FIRED = bool(right_ok and wrong_fired)
+print("FIX2 criterion: right_ok", right_ok, "wrong_fired", wrong_fired,
+      "-> FIRED =", FIRED)
+
 res = json.load(open(f"{BR}/bridge_b_measured.json"))
 res["B2"]["fix2_powered_replicates"] = rows
+res["B2"]["fix2_criterion"] = dict(right_within=0.03, wrong_at_least=0.08,
+                                   right_ok=right_ok, wrong_fired=wrong_fired,
+                                   FIRED=FIRED)
+assert FIRED, "powered FIX-2 designed instance failed to fire — investigate"
 json.dump(res, open(f"{BR}/bridge_b_measured.json", "w"), indent=1)
 print("REPLICATES SAVED")

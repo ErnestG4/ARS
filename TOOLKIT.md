@@ -847,7 +847,7 @@ and 1D GUE gives Σ²(L) ~ (1/π²)ln L against L. Two consequences, both measur
    or by λ̂; pilot-4 measured ~4·10⁻³ at n≈14k in a 120² window), finite-sample bias — enters the
    identity multiplied by the *area term squared* and then competes with Var. On plain 2D Poisson
    this already grows 2.7%→48% across R=2→6; rigidity makes it strictly worse because Var is
-   smaller still (2D Ginibre R=6 ~100× amplification; 1D GUE at L=20: L²/Σ² ≈ 555×).
+   smaller still (2D Ginibre, per-unit-offset A=(λπR²)²/Var: 14→528 across R=2→6; 1D GUE at L=20: L²/Σ² ≈ 555×). [Numbers corrected 2026-08-15: an earlier column banked μ/Var — one factor of μ short of the law; see bridge seal addendum.]
 2. **Consequence: gate the identity only at small windows, whatever the substrate** (Bridge arc
    sealed R=2 / L≤5 at n~10⁴–10⁵), and report large-window rows descriptively with the
    amplification factor alongside. A gluing "failure" at large R/L is the amplification law, not

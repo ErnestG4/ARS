@@ -110,7 +110,8 @@
    "sealed": 0.05,
    "predicted_variation": 0.018748692886969415,
    "banded_dev_vs_model": 0.010440729435952423,
-   "within": true
+   "within": true,
+   "note": "2026-08-15 (review F3): 'within' now gates on the measured banded deviation (0.0104) as well as the theory prediction; the earlier value used theory alone \u2014 a gate that could not fail. Outcome unchanged on the banked data."
   },
   "g_centers": [
    0.125,
@@ -236,7 +237,7 @@
    0.5979260462174207,
    0.5780467334146893
   ],
-  "g_below_sqrt2": 3.067267403203323,
+  "g_below_sqrt2": 0.0,
   "python_fits": {
    "poisson": {
     "family": "poisson",
@@ -351,7 +352,6 @@
    380.132711084365,
    452.3893421169302
   ],
-  "spatstat_error": "Command '['/home/combust/fmexplorer/criticality_tool/bridge/.rquarantine/envs/rspat/bin/Rscript', '/home/combust/fmexplorer/criticality_tool/bridge/dppm_fit.R', '/home/combust/fmexplorer/criticality_tool/bridge/xp_gp.csv', '/home/combust/fmexplorer/criticality_tool/bridge/xw_gp.csv', '/home/combust/fmexplorer/criticality_tool/bridge/dpp_gp', '12.0']' died with <Signals.SIGKILL: 9>.",
   "g_coarse_centers": [
    0.75,
    2.25,
@@ -524,6 +524,16 @@
    "dppMatern": 13.004979108319974,
    "Thomas": 13.279558510131757
   },
-  "spatstat_scope": "theta subwindow [0.15,0.20], n=7727 (full 31k wedge and dppPowerExp OOM at 15GB RAM \u2014 declared limitation); D evaluated on the full-wedge empirical ghat, python full-data fits remain primary"
+  "spatstat_scope": "theta subwindow [0.15,0.20], n=7727 (full 31k wedge and dppPowerExp OOM at 15GB RAM \u2014 declared limitation); D evaluated on the full-wedge empirical ghat, python full-data fits remain primary",
+  "g_below_sqrt2_note": "recomputed 2026-08-15 (review F1): bin-upper-edge mask; earlier value 3.0673 was the sqrt(2) peak itself via a center-based mask. A zero here IS the support-set witness.",
+  "spatstat_error_superseded": "Command '['/home/combust/fmexplorer/criticality_tool/bridge/.rquarantine/envs/rspat/bin/Rscript', '/home/combust/fmexplorer/criticality_tool/bridge/dppm_fit.R', '/home/combust/fmexplorer/criticality_tool/bridge/xp_gp.csv', '/home/combust/fmexplorer/criticality_tool/bridge/xw_gp.csv', '/home/combust/fmexplorer/criticality_tool/bridge/dpp_gp', '12.0']' died with <Signals.SIGKILL: 9>.",
+  "fix2_criterion": {
+   "right_within": 0.03,
+   "wrong_at_least": 0.08,
+   "right_ok": true,
+   "wrong_fired": true,
+   "FIRED": true,
+   "note": "criterion added 2026-08-15 (review F8)"
+  }
  }
 }

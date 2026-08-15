@@ -79,5 +79,25 @@
  },
  "tripwires_carried": "brief \u00a73 items 1-6 verbatim; TOOLKIT.md \u00a711 founded this arc (edge correction, intensity estimation).",
  "filing_note_tripwire2_catch": "The draft brief filed Ginibre under 'logarithmic number-variance growth' \u2014 a dimension-slot (tripwire-2) violation caught in CC review before sealing: log growth (Torquato class II) is 1D sine-kernel/GUE; Ginibre is class I (perimeter law, S(k)~k^2). Recorded here as an instance of the genus per amended brief.",
- "post_seal_addendum_2026_08_14": "ANNOTATION ONLY \u2014 no tolerance, window, or criterion is altered. Record-completeness item from Will's post-arc audit: the G-A3 gate WINDOWS (2-D R=2 only; 1-D zeta L<=5 only) were PILOT-INFORMED, not blind. Sequence: pilots 1-4 surfaced the (lam|B|)^2/Var amplification -> the window restriction was decided and documented (pilot2_gluing.py header, G_A3 gate text) -> seal -> gate runs on disjoint seeds. The pilots' declared purpose was tolerance/window derivation; no gate-seed data informed any seal content."
+ "post_seal_addendum_2026_08_14": "ANNOTATION ONLY \u2014 no tolerance, window, or criterion is altered. Record-completeness item from Will's post-arc audit: the G-A3 gate WINDOWS (2-D R=2 only; 1-D zeta L<=5 only) were PILOT-INFORMED, not blind. Sequence: pilots 1-4 surfaced the (lam|B|)^2/Var amplification -> the window restriction was decided and documented (pilot2_gluing.py header, G_A3 gate text) -> seal -> gate runs on disjoint seeds. The pilots' declared purpose was tolerance/window derivation; no gate-seed data informed any seal content.",
+ "post_seal_addendum_2026_08_15": {
+  "status": "ANNOTATION + integrity backport after high-effort review of bridge/ (10 findings; dispositions in RESULTS_BRIDGE.md defect ledger part 2). No tolerance or criterion of the original gates changed; banked gate outcomes unchanged and now asserted by bridge/verify_bridge.py.",
+  "amplification_law_clarified": "the sealed record carried both factorizations of the G-A3 SNR law (mu/Var in G_A3_ginibre_descriptive, mu^2/Var in gates.G_A3). The per-unit-pcf-offset law is A = (lam*pi*R^2)^2/Var; banked column renamed area_term_over_var and the A column added (14/98/528 at R=2/4/6).",
+  "G_A1_1d_window_note": "the executed 1D Poisson pcf gate (and its pilot-derived tolerance) used r in [0.25,25) \u2014 wider than the sealed [0.25,5] text. Gate and tolerance are mutually consistent and STRICTER than sealed (max over 5x more bins); PASS under the executed criterion implies PASS under the sealed one. Filed as a discrepancy, not recomputed.",
+  "seed_provenance_correction": "the seal author field says pilot seeds (100-105, 910-915) vs gate seeds (1-3, 920-931); executed sets also included gluing gate seeds 4-6 (Poisson) and 310-315 (Thomas), and pilot seeds 300-305/400-405 (pilot-2/4). All pilot/gate sets remain disjoint in fact.",
+  "layered_artifact_provenance": "bridge_b_measured.json is a LAYERED artifact: gate run (7b488ba) -> subwindow spatstat fold + addenda (b14689e..) -> replicates -> 2026-08-15 review patches (patch_review_fixes.py). Its provenance is the commit chain; run-once guards now prevent accidental layer destruction.",
+  "frozen_blob_shas": {
+   "bridge/observer_b.py": "79111f7e88ed423aa8620605bfb7df71f66afa8c",
+   "bridge/ginibre_sampler.py": "23cda8971532f99adf3fbd1578d9e05f4be8c03b",
+   "bridge/dpp_python.py": "629a9459f3e192039dfc73d12a62e96caf01d957",
+   "bridge/run_bridge_a.py": "8a29f672b6bf41631115a9647e04aefbb8092b56",
+   "bridge/run_bridge_b.py": "605693146b270a15f258063a167aedb14a7c75b2",
+   "bridge/gaussian_prime_annulus.py": "effb0c2fb91bfca73b6da074cb06acacee7cc227",
+   "bridge/patch_b2_addenda.py": "ff2f7888c2f1019ab66b51d84961575fe2adabb2",
+   "bridge/fix2_replicates.py": "259fc47584486666b60cc7b1c3c63b6ac2d0f517",
+   "bridge/patch_review_fixes.py": "ed37e6ec9068c0ac0a23c09e539684b610eac21d",
+   "bridge/test_sigma2_equality.py": "48a1d7910b349f65d4383b25b9ac5e8bfe3d3521"
+  },
+  "sha_note": "verify_bridge.py itself is excluded from the list (it is the checker); its integrity is the commit history's job"
+ }
 }

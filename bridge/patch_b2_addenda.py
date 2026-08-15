@@ -9,7 +9,7 @@
     intensity variation there is nothing for the lens to corrupt.  A falsifier
     that cannot fire certifies nothing, so the demonstration is replaced by a
     powered one: inhomogeneous Poisson on the same wedge with λ(r) ∝ (r/R1)^8
-    (4.7× variation).  Correct lens (model λ) must return K ≈ πr²; wrong lens
+    (4.30x variation; 1.2^8).  Correct lens (model λ) must return K ≈ πr²; wrong lens
     (constant λ̂, i.e. ignoring the gradient) must manufacture spurious
     clustering.  The inert original is RETAINED in the record as the
     thin-window-regime observation it actually is.
@@ -26,6 +26,10 @@ from gaussian_prime_annulus import R1, R2, T1, T2
 from observer_b import k_inhom  # the same estimator under test
 
 res = json.load(open(f"{BR}/bridge_b_measured.json"))
+if "g_coarse" in res["B2"] and __name__ == "__main__":
+    sys.exit("addenda already applied — re-running would overwrite the "
+             "RETAINED buggy-run fix2_powered block (the D-1 defect-ledger "
+             "record). The layered artifact's provenance is its git history.")
 pts = np.load(f"{BR}/gp_annulus_points.npy")
 W = WedgeWindow(R1, R2, T1, T2)
 lam_hat = res["B2"]["lam_hat"]

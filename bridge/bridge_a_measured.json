@@ -233,7 +233,8 @@
     "direct": 1.1247060756515843,
     "n_ind": 2712,
     "rel": 0.01218281800720259,
-    "noise_amplification": 3.556484744409912
+    "area_term_over_var": 3.556484744409912,
+    "amplification_per_unit_offset": 14.225938977639649
    },
    {
     "R": 4.0,
@@ -241,7 +242,8 @@
     "direct": 2.6118784878374464,
     "n_ind": 564,
     "rel": 0.09382837039068398,
-    "noise_amplification": 6.125859252069379
+    "area_term_over_var": 6.125859252069379,
+    "amplification_per_unit_offset": 98.01374803311006
    },
    {
     "R": 6.0,
@@ -249,7 +251,8 @@
     "direct": 2.454815663176266,
     "n_ind": 192,
     "rel": 0.32646610768638695,
-    "noise_amplification": 14.66505226442131
+    "area_term_over_var": 14.66505226442131,
+    "amplification_per_unit_offset": 527.9418815191672
    }
   ],
   "g_b1_centers": [
@@ -335,7 +338,8 @@
    0.9986363245923103,
    0.9963680609360611,
    1.0154982516583921
-  ]
+  ],
+  "amplification_note": "2026-08-15 (review F4): the sealed record carried BOTH factorizations of the SNR law; the banked column was mu/Var (labelled 'noise_amplification') while TOOLKIT \u00a711.3 states the per-unit-pcf-offset law A = mu^2/Var = (lam*pi*R^2)^2/Var. Column renamed to what it is (area_term_over_var) and the law's own column added: relative identity error = delta * A for pcf baseline offset delta."
  },
  "G_B1_PASS": true,
  "spatstat_xcheck_maxrel": {

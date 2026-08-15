@@ -17,6 +17,15 @@ sys.path.insert(0, BR)
 from observer_b import WedgeWindow, pcf_2d          # noqa
 from dpp_python import fit_all, contrast, g_dpp     # noqa
 
+import os
+if os.path.exists(f"{BR}/bridge_b_measured.json") and \
+        os.environ.get("BRIDGE_B_FORCE") != "1":
+    sys.exit("bridge_b_measured.json exists — it is a LAYERED banked artifact "
+             "(gate run + addenda + replicates + review patches; provenance = "
+             "its git commit chain, see RESULTS_BRIDGE.md defect ledger). "
+             "Re-running would destroy later layers. Set BRIDGE_B_FORCE=1 "
+             "only for a from-scratch regeneration with a filed justification.")
+
 SEAL = json.load(open(f"{BR}/prereg_sealed.json"))
 TOL = SEAL["tolerances"]
 CRIT = SEAL["B1_criteria"]
@@ -26,9 +35,14 @@ res = {"seal_cited": f"{BR}/prereg_sealed.json"}
 
 
 def spatstat_fits(tag, rmax):
+    env = dict(os.environ)
+    if tag == "gp":
+        env["SKIP_POWEREXP"] = "1"   # dppPowerExp OOMs at wedge scale (15GB);
+                                     # the banked success ran with this skip —
+                                     # committed here so reproduction matches
     subprocess.run([RENV, f"{BR}/dppm_fit.R", f"{BR}/xp_{tag}.csv",
                     f"{BR}/xw_{tag}.csv", f"{BR}/dpp_{tag}", str(rmax)],
-                   check=True, capture_output=True, text=True)
+                   check=True, capture_output=True, text=True, env=env)
     import csv
     params = {}
     with open(f"{BR}/dpp_{tag}_params.csv") as f:
@@ -122,9 +136,16 @@ res["B2"] = dict(window=dict(R1=R1, R2=R2, T1=T1, T2=T2), n=len(pts),
                  intensity_budget=dict(sealed=TOL["B2_intensity_budget"],
                                        predicted_variation=pred_var,
                                        banded_dev_vs_model=budget_dev,
-                                       within=bool(pred_var <= TOL["B2_intensity_budget"])),
+                                       # gate on the MEASURED deviation (a
+                                       # theory-only check is a gate that
+                                       # cannot fail — 2026-08-15 review F3)
+                                       within=bool(budget_dev <= TOL["B2_intensity_budget"]
+                                                   and pred_var <= TOL["B2_intensity_budget"])),
                  g_centers=cb.tolist(), g_emp=gb.tolist(),
-                 g_below_sqrt2=float(gb[cb < np.sqrt(2)].max()) if (cb < np.sqrt(2)).any() else None,
+                 # bins whose UPPER EDGE <= sqrt(2): the earlier center-based
+                 # mask included the bin CONTAINING sqrt(2), so the witness
+                 # reported the very comb peak it exists to exclude (review F1)
+                 g_below_sqrt2=float(gb[(cb + 0.125) <= np.sqrt(2)].max()),
                  python_fits={k: v for k, v in fits2.items() if k != "best_dpp"},
                  best_dpp=best2, r_half_over_spacing=float(rh2),
                  K_inhom_right=K_in_right.tolist(),
@@ -160,6 +181,7 @@ try:
     res["B2"]["spatstat_params"] = sp2_params
     res["B2"]["spatstat_D_uniform"] = sp2_D
     res["B2"]["spatstat_scope"] = f"theta subwindow [0.15,{T2_SP}], n={len(sub)}"
+    res["B2"].pop("spatstat_error", None)   # success supersedes a stale failure key
     print("B2 spatstat D:", {k: round(v, 4) for k, v in sp2_D.items()}, flush=True)
 except Exception as exc:                                # noqa: BLE001
     res["B2"]["spatstat_error"] = str(exc)
