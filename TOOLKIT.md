@@ -674,6 +674,26 @@ The durable methodology — apply these regardless of substrate:
   audit-cycle form is mechanical — enumerate banked artifacts, demand a generator path in the commit
   lineage of each. (`bridge/RESULTS_BRIDGE.md` Defect ledger; `bridge/fix2_replicates.py` is the
   reference instance.)
+- **Sealed contingencies get a dry-run before sealing.** (Comb arc, 2026-08-15: the sealed
+  extension wedge θ∈[0.45,0.85] was geometrically unfillable — canonical reps end at π/4 — and would
+  have manufactured a ~16% spurious FAIL from pure geometry had it fired.) Every pre-registered
+  escape hatch (extension rule, fallback substrate, park branch) is executed once on synthetic or
+  cheap data at seal time, proving it CAN run. An untested contingency is a sealed promise that the
+  arc's own gates never audit — precisely where a defect survives longest.
+- **Vocabulary rulings must be code, not prose.** (Comb arc: the verdict-lattice holes closed at
+  brief level survived one floor down in the runner — knowledge-does-not-propagate operating across
+  the design→implementation boundary.) A sealed verdict lattice lives as a shared module/enum the
+  runner imports, so a ruling lands once and every consumer inherits it; a lattice transcribed by
+  hand into an if/elif chain re-opens every cell the ruling closed. Next arc with a sealed lattice
+  implements it this way; retro-fitting frozen runners is not required — their completed lattices
+  are addendum-documented.
+- **A witness must be able to fail.** (Bridge review, 2026-08-15: an intensity-budget gate computed
+  from theory alone could never fail; a support-set witness reported the very peak it existed to
+  exclude.) Same genus as the committed-generator rule: checks that check nothing are recorded as
+  green. For every gate/witness, name the input that would flip it red — if none exists, it is not
+  a check. Terminal form: `verify_*.py` live checkers with nonzero exits
+  (`bridge/verify_bridge.py`, `comb/verify_comb.py` are the reference instances), run after any
+  edit touching a banked arc.
 - **Pilot-informed seals carry their pedigree as a dated addendum.** When pilot runs legitimately shape a
   seal's windows or metrics (their declared purpose), the sealed JSON gets a clearly-dated,
   annotation-only field stating the sequence (pilots → decision → seal → disjoint-seed gates), mirrored

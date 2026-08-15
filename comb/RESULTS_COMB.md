@@ -121,11 +121,13 @@ Dispositions, most severe first:
    ⇒ spurious FAIL had it fired, and the KAG could not have caught it (synthetic sites are
    built directly, not via `build_points`). **Fixed:** corrected numeric rule θ∈[0.36, 0.78]
    in the dated seal addendum; `build_points` now refuses t2 > π/4 loudly.
-3. **KAG scope gap:** the estimator null gate had run at band-1 geometry only while band-2
-   pooled with equal standing. **Remediated by extension:** band-2 KAG run post-measurement
-   (null recovery on synthetics is science-data-independent) — **PASS**, worst |z| 4.33
-   (≤4.5 over 152 tests; single hot seed at ~0.3% null probability, noted; grand mean
-   +0.082). `comb/exact_offsets_kag_band2_measured.json`.
+3. **KAG scope gap — three events, dated (record ruling):** (1) verdict BANKED on
+   band-1-gated estimator coverage; (2) the coverage gap was identified by this review and
+   the KAG extended to band-2 geometry AFTER banking — a post-hoc gate on an already-banked
+   verdict, labeled as such; (3) the extension PASSED — worst |z| 4.33 (≤4.5 over 152
+   tests; single hot seed at ~0.3% null probability, noted; grand mean +0.082). A failure
+   at (3) would have re-opened the banked verdict.
+   `comb/exact_offsets_kag_band2_measured.json`; sequence mirrored in the seal addendum.
 4. **Validated-range overclaim:** "[9·10⁶, 5.184·10⁷]" spanned the unmeasured gap between
    the two sealed bands. **Corrected in all three copies** (panel, TOOLKIT, this file) —
    the attribution-slot lesson applied to a range slot.

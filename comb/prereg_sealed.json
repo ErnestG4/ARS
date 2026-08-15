@@ -205,7 +205,8 @@
   },
   "kag_scope_extension": {
    "defect": "the sealed 'estimator_kag: PASS' was band-1-geometry only; band-2 entered pooled statistics ungated.",
-   "remediation": "KAG re-run at band-2 geometry post-measurement (extend-the-checker; null-recovery on synthetics is independent of the science data): PASS \u2014 worst |z| 4.33 (<=4.5 over 152 tests; single hot seed 708, ~0.3% null probability, grand mean z +0.082, fresh-data band-2 z's all unremarkable). comb/exact_offsets_kag_band2_measured.json."
+   "remediation": "KAG re-run at band-2 geometry post-measurement (extend-the-checker; null-recovery on synthetics is independent of the science data): PASS \u2014 worst |z| 4.33 (<=4.5 over 152 tests; single hot seed 708, ~0.3% null probability, grand mean z +0.082, fresh-data band-2 z's all unremarkable). comb/exact_offsets_kag_band2_measured.json.",
+   "three_events": "EXPLICIT SEQUENCE (record ruling 2026-08-15): (1) verdict banked 2026-08-15 on band-1-gated estimator coverage [commit 3832a70]; (2) coverage gap identified by post-closure review and the KAG extended to band-2 geometry AFTER banking [post-hoc gate, seeds 701-708]; (3) extension PASSED [worst |z| 4.33/152, grand mean +0.082]. Three events, not one; a band-2 KAG failure at step 3 would have re-opened the banked verdict, not quietly annotated it."
   },
   "verdict_lattice_completed": "runner originally left (level_ok, disc unresolved, no drift) UNBOUND (NameError), let SOFT PASS bypass the discriminator, and had no measured-power/UNDERPOWERED cell. All cells now have one address incl. DISCRIMINATOR_UNRESOLVED; measured-power check added (banked run: all sigma_pooled <= 0.0059 vs 0.02 criterion).",
   "validated_range_correction": "gp_comb is validated at TWO DISJOINT bands [9e6,1.296e7] and [3.6e7,5.184e7]; the gap is UNMEASURED. The earlier contiguous-interval wording was an overclaim; corrected in calibrator_panel.py, TOOLKIT.md, RESULTS_COMB.md.",

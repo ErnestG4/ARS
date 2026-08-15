@@ -161,7 +161,12 @@ CALIBRATOR_TIERS = {
     'beta=1_GOE':       TIER_THEOREM,
     'beta=2_GUE':       TIER_THEOREM,
     'beta=4_GSE':       TIER_THEOREM,
-    'zeta_first_400':   TIER_CONJECTURE,   # Montgomery pair correlation
+    'zeta_first_400':   TIER_CONJECTURE,   # Montgomery pair correlation.
+                                           # The tier attaches to the CLASS
+                                           # ASSIGNMENT, not the point set:
+                                           # the zeros are computed to
+                                           # certainty; their GUE label rides
+                                           # Montgomery + Odlyzko numerics.
     'uniform_jitter':   TIER_CONSTRUCTION,
     'periodic_q7':      TIER_CONSTRUCTION,
     'mixed_q7_q12':     TIER_CONSTRUCTION,
