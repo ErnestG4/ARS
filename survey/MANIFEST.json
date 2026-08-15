@@ -1,0 +1,75 @@
+{
+ "base_url": "https://data.desi.lbl.gov/public/dr1/survey/catalogs/dr1/LSS/iron/LSScats/v1.5",
+ "version": "v1.5",
+ "tracer": "LRG",
+ "cap": "NGC",
+ "randoms_split": {
+  "kag_half": [
+   0,
+   2,
+   4,
+   6
+  ],
+  "null_half": [
+   1,
+   3,
+   5,
+   7
+  ]
+ },
+ "files": {
+  "LRG_NGC_clustering.dat.fits": {
+   "bytes": 143196480,
+   "sha256": "84548c4ea5208232f1c2f04416ddf272c72fa31313e3bbb60e67d134f186a027",
+   "nrows": 1476135
+  },
+  "LRG_NGC_0_clustering.ran.fits": {
+   "bytes": 985916160,
+   "sha256": "f80aaa1bd48f2695c07cbccd480065f74e8e393e6a9e93b209af42419749e2bd",
+   "nrows": 9389588
+  },
+  "LRG_NGC_1_clustering.ran.fits": {
+   "bytes": 985394880,
+   "sha256": "92ddf5980dc83e5b503df6f3f4e21e651f8701bdd5abf9435e0ad04f3d647e5a",
+   "nrows": 9384611
+  },
+  "LRG_NGC_2_clustering.ran.fits": {
+   "bytes": 985570560,
+   "sha256": "00d2af1b89bb04669484da3743e6d701dd3efc3c1e0c3d1caeaf619bb6212f9a",
+   "nrows": 9386285
+  },
+  "LRG_NGC_3_clustering.ran.fits": {
+   "bytes": 985976640,
+   "sha256": "7d108cc86e14435e2380e9e103986fa2162608cfe41e932ce01811588c15995e",
+   "nrows": 9390153
+  },
+  "LRG_NGC_4_clustering.ran.fits": {
+   "bytes": 985622400,
+   "sha256": "955d30cb842ebe6df0bfdf1d44ae28edf654faa11c7a14509e5d047f2fc0b64d",
+   "nrows": 9386791
+  },
+  "LRG_NGC_5_clustering.ran.fits": {
+   "bytes": 986011200,
+   "sha256": "0ea46600fe194cd97af736cb81f70e95913ddb0bca84f10184e1a6d7300fbded",
+   "nrows": 9390486
+  },
+  "LRG_NGC_6_clustering.ran.fits": {
+   "bytes": 986123520,
+   "sha256": "b83ea5e5fcddd38a1fda4f31174547e9189647a29ad89cedcbf8d5b78d110562",
+   "nrows": 9391558
+  },
+  "LRG_NGC_7_clustering.ran.fits": {
+   "bytes": 985731840,
+   "sha256": "89e07386e15ebec8115661e72000b2e3b5b1902ba7694e66878af53e956bb6a3",
+   "nrows": 9387813
+  },
+  "LRG_NGC_nz.txt": {
+   "bytes": 6161,
+   "sha256": "0f9ab616e5e136adc6ddad448ba2067e407adbfac9ecb51f4fa315fb94d24677"
+  },
+  "BGS_BRIGHT_NGC_nz.txt": {
+   "bytes": 4382,
+   "sha256": "28de65876c5a08ace1ffbf4c983b26508039e5e43c1e4fc50f9e20e3bb330d14"
+  }
+ }
+}
