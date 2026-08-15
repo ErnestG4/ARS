@@ -821,6 +821,16 @@ low at all r > 0. Three standard corrections (Ripley/Baddeley lineage) and the d
   Assumes isotropy. **Default for disk/annulus windows** (e.g. Ginibre central sub-window,
   Gaussian-prime annulus).
 
+**Survey-mask row (survey arc D1, 2026-08-15):** when the window is a survey mask, the mask
+is NOT geometry to correct for — it is a point set the survey ships. **Randoms-backed ratio
+estimators are primary** (DD/RR for pcf/K; randoms-normalized cell expectations for Σ²): the
+window cancels in the ratio, holes and all, and the mask KAG (thinned-randoms-as-data must
+return DD/RR ≡ 1) is the witness. Analytic border corrections survive only in synthetic KAGs.
+Estimator-null musts, both caught by the first real-window KAG run (survey/D1_LOG.md): the
+cell-expectation variance carries a randoms-shot-noise term (W_D/W_R)·w̄₂_R·Ē alongside the
+weighted-Poisson term, and weighted-pair z-scores use effective counts DD²/Σ(pairweight²),
+never raw √DD.
+
 **r_max rule:** never evaluate K/g beyond r_max = ¼ of the shortest window dimension (annulus:
 ¼ of the radial width). Beyond that, correction weights dominate and variance explodes.
 
