@@ -93,9 +93,10 @@ Pure axis functions on a substrate's **unfolded positions** (unit-mean; `canonic
   conjecture-backed, Montgomery), `assert_sole_anchor_allowed(name, claim_tier)` (gate hook,
   RAISES when a non-theorem calibrator would solely anchor a theorem-tier claim), and
   `CALIBRATORS_2D` = {`poisson2d`, `ginibre2d` (theorem-backed; bridge sampler),
-  `gp_comb` (conjecture-backed; ℤ[i] HL comb, validated norm range [9·10⁶, 5.184·10⁷] —
-  `comb/RESULTS_COMB.md`)}. Register a tier with every new calibrator; the guard rejects
-  unregistered names.
+  `gp_comb` (conjecture-backed; ℤ[i] HL comb, validated at TWO DISJOINT norm bands
+  [9·10⁶, 1.296·10⁷] and [3.6·10⁷, 5.184·10⁷] — the gap between them is UNMEASURED —
+  `comb/RESULTS_COMB.md`; deterministic, seed ignored)}. Register a tier with every new
+  calibrator; an import-time self-check rejects untiered entries.
 - **`field_generator.py`** — `generate(class_name, params, n_events, seed) -> t_k` for
   `poisson|wigner_gue/goe/gse|periodic|uniform_jitter`; `generate_mixed(component_specs, …)` superposes
   weighted components (preserves component periodicities, not unit-mean).

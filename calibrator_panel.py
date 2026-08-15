@@ -212,15 +212,29 @@ def _gen_ginibre2d(seed: int):
     return pts
 
 
+_GP_COMB_CACHE = None
+
+
 def _gen_gp_comb(seed: int):
-    """Split Gaussian primes, comb-arc band-1 window (deterministic; seed
-    ignored).  Two-point comb weights match the ZZ[i] Hardy-Littlewood
-    singular series: comb arc PASS (comb/RESULTS_COMB.md), validated norm
-    range [9e6, 5.184e7] (comb/prereg_sealed.json windows)."""
-    import sys as _sys
-    _sys.path.insert(0, '/home/combust/fmexplorer/criticality_tool/comb')
-    from exact_offsets import build_points
-    return build_points(9_000_000, 12_960_000, 0.45, 0.65)
+    """Split Gaussian primes, comb-arc band-1 window.
+
+    DETERMINISTIC — the seed is IGNORED (arithmetic data, not a sample).
+    Listed in DETERMINISTIC_CALIBRATORS; consumers iterating a seed grid get
+    zero across-seed variance BY DESIGN and must not feed this entry to
+    resampling-based reliability statistics.  Cached (the sieve costs ~10s).
+
+    Two-point comb weights match the ZZ[i] Hardy-Littlewood singular series
+    (comb arc PASS, comb/RESULTS_COMB.md).  Validated at TWO DISJOINT norm
+    bands: [9e6, 1.296e7] and [3.6e7, 5.184e7]; the gap (1.296e7, 3.6e7) is
+    UNMEASURED — extend the validation before relying on weights there
+    (2026-08-15 review correction of an earlier contiguous-range overclaim)."""
+    global _GP_COMB_CACHE
+    if _GP_COMB_CACHE is None:
+        import sys as _sys
+        _sys.path.insert(0, '/home/combust/fmexplorer/criticality_tool/comb')
+        from exact_offsets import build_points
+        _GP_COMB_CACHE = build_points(9_000_000, 12_960_000, 0.45, 0.65)
+    return _GP_COMB_CACHE
 
 
 CALIBRATORS_2D = [
@@ -229,5 +243,30 @@ CALIBRATORS_2D = [
     ('gp_comb',    _gen_gp_comb),
 ]
 
-__all__ += ['CALIBRATOR_TIERS', 'CALIBRATORS_2D', 'assert_sole_anchor_allowed',
+DETERMINISTIC_CALIBRATORS = {'gp_comb', 'zeta_first_400'}   # seed ignored /
+                                                            # fixed data
+
+
+def _schema_self_check() -> None:
+    """Runs at import in EVERY consumer (the point: schema that can't drift
+    silently).  (1) every panel entry has a tier; (2) the sole-anchor guard
+    actually raises.  2026-08-15 review finding: a blocking hook with zero
+    callers is documentation cosplaying as schema one level up — this check
+    plus the DES/DESI arc's gates are its consumers."""
+    for _n, _ in EXTENDED_CALIBRATORS + CALIBRATORS_2D:
+        if _n not in CALIBRATOR_TIERS:
+            raise RuntimeError(f"calibrator {_n!r} has no tier — register it "
+                               "in CALIBRATOR_TIERS (comb-arc schema)")
+    try:
+        assert_sole_anchor_allowed('gp_comb', TIER_THEOREM)
+    except ValueError:
+        pass
+    else:
+        raise RuntimeError("tier guard failed to fire — schema is broken")
+
+
+_schema_self_check()
+
+__all__ += ['CALIBRATOR_TIERS', 'CALIBRATORS_2D', 'DETERMINISTIC_CALIBRATORS',
+            'assert_sole_anchor_allowed',
             'TIER_THEOREM', 'TIER_CONJECTURE', 'TIER_CONSTRUCTION']

@@ -276,6 +276,7 @@
   "z": 53.94226548244005,
   "resolved": true
  },
+ "measured_power_ok": true,
  "drift": {
   "n_mandatory": 12,
   "majority_sign_count": 8,

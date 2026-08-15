@@ -38,12 +38,23 @@ def build_points(norm_lo, norm_hi, t1, t2):
     angle in [t1,t2].  Returns int64 array (n,2)."""
     primes = sieve_primes(int(norm_hi))
     primes = primes[(primes >= norm_lo) & (primes % 4 == 1)]
+    # Canonical reps have a >= b > 0, i.e. theta in (0, pi/4]. A window with
+    # t2 > pi/4 CANNOT be filled by this builder — the conjugate reps (b,a)
+    # are never emitted, and E(h) would integrate an area the data never
+    # covers (a ~16%-low bias for the originally sealed [0.45,0.85] extension
+    # wedge; 2026-08-15 review finding, seal addendum re-specifies extension
+    # geometry to theta [0.36,0.78]).  Refuse loudly rather than bias.
+    assert t2 <= np.pi / 4, (f"build_points: t2={t2} exceeds pi/4 — canonical "
+                             "reps cannot fill this window (see seal addendum "
+                             "2026-08-15)")
     pts = []
     for p in primes:
         a, b = split_p_as_sum_of_two_squares(int(p))
         th = np.arctan2(b, a)
         if t1 <= th <= t2:
             pts.append((a, b))
+    if not pts:                       # empty window degrades, not crashes
+        return np.empty((0, 2), dtype=np.int64)
     return np.array(pts, dtype=np.int64)
 
 
@@ -78,8 +89,12 @@ def measure(pts, classes, norm_lo, norm_hi, t1, t2):
             idx = np.searchsorted(enc, senc)
             idx = np.clip(idx, 0, len(enc) - 1)
             Csum += int((enc[idx] == senc).sum())
-        out[cid] = dict(C=Csum, E=Esum, S_hat=Csum / Esum,
-                        sigma=float(np.sqrt(max(Csum, 1)) / Esum))
+        if Esum <= 0.0:               # no expectation mass: degrade to a
+            out[cid] = dict(C=Csum, E=Esum, S_hat=float("nan"),
+                            sigma=float("inf"))   # power check catches this
+        else:
+            out[cid] = dict(C=Csum, E=Esum, S_hat=Csum / Esum,
+                            sigma=float(np.sqrt(max(Csum, 1)) / Esum))
     return out
 
 

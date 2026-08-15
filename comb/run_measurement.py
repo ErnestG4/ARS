@@ -7,6 +7,7 @@ estimator logic (frozen in exact_offsets.py at the sealed commit) — it wires
 sealed windows to frozen estimators and applies the sealed 2x2.
 """
 
+import hashlib
 import json
 import sys
 import numpy as np
@@ -16,6 +17,22 @@ sys.path.insert(0, f"{CT}/comb")
 from exact_offsets import build_points, measure
 
 SEAL = json.load(open(f"{CT}/comb/prereg_sealed.json"))
+
+
+def _blob_sha(path):
+    data = open(path, "rb").read()
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+# Freeze enforcement (2026-08-15 amendment): the seal addendum records git
+# blob SHAs of the analysis files; refuse to run against drifted code.  The
+# original freeze was convention-only and omitted this runner from the list.
+_add = SEAL.get("post_seal_addendum_2026_08_15", {})
+for _f, _sha in _add.get("frozen_blob_shas", {}).items():
+    cur = _blob_sha(f"{CT}/{_f}")
+    assert cur == _sha, (f"FREEZE VIOLATION: {_f} blob {cur[:12]} != sealed "
+                         f"{_sha[:12]} — a post-freeze edit requires a dated "
+                         "seal addendum re-recording the SHA")
 T1, T2 = SEAL["windows"]["wedge_theta"]
 BAND1 = tuple(SEAL["windows"]["band1_norm"])
 BAND2 = tuple(SEAL["windows"]["band2_norm"])
@@ -66,12 +83,27 @@ disc_ok = bool(d > 0 and d / sd >= 3.0)
 res["discriminator"] = dict(diff=float(d), sigma=float(sd), z=float(d / sd),
                             resolved=disc_ok)
 
-if level_ok and disc_ok and not coherent_drift:
-    verdict = "PASS (WEIGHTS_MATCH_SINGULAR_SERIES)"
-elif level_ok and coherent_drift:
-    verdict = "SOFT PASS (MATCH_WITH_BOUNDED_DRIFT)"
+# Complete verdict lattice (2026-08-15 amendment, post-freeze, documented in
+# the seal addendum): the original if/elif left (level_ok, not disc_ok, no
+# drift) unbound -> NameError, let SOFT PASS ignore the discriminator, and
+# implemented no measured-power cell.  Every cell now has exactly one address.
+POWER_CRIT = 0.02          # sealed power criterion, applied to MEASURED sigma
+power_ok = all(r["sigma_pooled"] <= POWER_CRIT
+               for r in rows.values() if r["mandatory"])
+res["measured_power_ok"] = bool(power_ok)
+if not power_ok:
+    verdict = ("UNDERPOWERED (fire numeric extension once per seal addendum "
+               "2026-08-15 — corrected geometry theta [0.36,0.78])")
 elif not level_ok:
     verdict = "FAIL substantive (DEVIATION_BEYOND_ERRORS)"
+elif not disc_ok:
+    verdict = ("DISCRIMINATOR_UNRESOLVED (level matches but N50 separation "
+               "not resolved at 3 sigma in predicted order — no seating; "
+               "neither PASS nor SOFT PASS per seal 'required for PASS')")
+elif coherent_drift:
+    verdict = "SOFT PASS (MATCH_WITH_BOUNDED_DRIFT)"
+else:
+    verdict = "PASS (WEIGHTS_MATCH_SINGULAR_SERIES)"
 res["drift"] = dict(n_mandatory=n_mand, majority_sign_count=int(maj),
                     hits_2sigma=int(drift_hits), coherent=coherent_drift)
 res["level_all_mandatory_within_k"] = bool(level_ok)

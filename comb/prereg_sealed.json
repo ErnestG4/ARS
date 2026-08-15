@@ -196,5 +196,26 @@
   },
   "secondary_shells": "N in {34, 36, 64, 80, 90, 100} DESCRIPTIVE \u2014 reported with the same statistics, gate nothing"
  },
- "pilot_informed_pedigree": "Windows, shell list, estimator config and this seal's thresholds were informed by: the disclosed B2 glimpse (brief \u00a70.5), the estimator-KAG pilots (601-608), and the analytic power computation above. Sequence: theory + pilots -> seal -> fresh sieve. No fresh-wedge datum existed when this file was written."
+ "pilot_informed_pedigree": "Windows, shell list, estimator config and this seal's thresholds were informed by: the disclosed B2 glimpse (brief \u00a70.5), the estimator-KAG pilots (601-608), and the analytic power computation above. Sequence: theory + pilots -> seal -> fresh sieve. No fresh-wedge datum existed when this file was written.",
+ "post_seal_addendum_2026_08_15": {
+  "status": "DATED AMENDMENT after high-effort code review of the frozen package (10 verified findings; full dispositions in RESULTS_COMB.md defect log part 2). The banked verdict was re-derived after every fix: all class statistics bit-identical.",
+  "extension_geometry_corrected": {
+   "defect": "sealed extension wedge theta [0.45,0.85] is INVALID: canonical reps (a>=b>0) end at pi/4=0.7854, so (0.7854,0.85] can never contain data while E(h) integrates it -> ~16% low bias, guaranteed spurious FAIL. Never fired (power was abundant).",
+   "corrected_numeric_rule": "fires ONCE on UNDERPOWERED: widen wedge to theta [0.36, 0.78] (within the octant, disjoint from the B2 pilot wedge [0.15,0.35]), same two norm bands. build_points now refuses t2 > pi/4 loudly."
+  },
+  "kag_scope_extension": {
+   "defect": "the sealed 'estimator_kag: PASS' was band-1-geometry only; band-2 entered pooled statistics ungated.",
+   "remediation": "KAG re-run at band-2 geometry post-measurement (extend-the-checker; null-recovery on synthetics is independent of the science data): PASS \u2014 worst |z| 4.33 (<=4.5 over 152 tests; single hot seed 708, ~0.3% null probability, grand mean z +0.082, fresh-data band-2 z's all unremarkable). comb/exact_offsets_kag_band2_measured.json."
+  },
+  "verdict_lattice_completed": "runner originally left (level_ok, disc unresolved, no drift) UNBOUND (NameError), let SOFT PASS bypass the discriminator, and had no measured-power/UNDERPOWERED cell. All cells now have one address incl. DISCRIMINATOR_UNRESOLVED; measured-power check added (banked run: all sigma_pooled <= 0.0059 vs 0.02 criterion).",
+  "validated_range_correction": "gp_comb is validated at TWO DISJOINT bands [9e6,1.296e7] and [3.6e7,5.184e7]; the gap is UNMEASURED. The earlier contiguous-interval wording was an overclaim; corrected in calibrator_panel.py, TOOLKIT.md, RESULTS_COMB.md.",
+  "freeze_enforcement": "blob SHAs below are now asserted at runner start; any post-amendment edit requires a new dated addendum.",
+  "frozen_blob_shas": {
+   "comb/singular_series.py": "510088c1cc817e79a092989f50234c075e9399a8",
+   "comb/exact_offsets.py": "072fb85b0b023c0011234c7abb5e21e60db08b56",
+   "comb/run_kag.py": "c423286d915d16828d4cfbd21ba44ba2813b7b93",
+   "comb/run_measurement.py": "c472a5b9e3f3d62b594bd3308dfd590226efad57",
+   "comb/seal_prereg.py": "99ad335fd1e7350d6a107de32b284ba166c01274"
+  }
+ }
 }
