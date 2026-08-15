@@ -1941,3 +1941,23 @@ outside it, extend the validation first.
 This closes Bridge registered follow-up #1. Remaining from that list: commutativity/holonomy
 pilot (next protocol arc's opening cell), DES/DESI (own scope brief; now inherits a 2D
 calibrator triple spanning theorem/conjecture tiers plus the §11.3 large-window constraint).
+
+## Survey arc — DESI DR1 LRG projected slices (2026-08-15): first survey-data contact
+
+**CLASS_MEASURED, both slices, no flags** (`survey/RESULTS_SURVEY.md`; seal 93ce1d7 with
+binding null-model freeze). The projected 2D LRG point process is SUPER-Poissonian in 28/28
+tiles in both sealed slices, with a clean power law F−1 ∝ L^s over L ∈ [0.1, 0.5]°:
+s = 1.190 ± 0.026 (z 0.6–0.8) and 1.190 ± 0.033 (z 0.4–0.6) — amplitudes differ between
+slices, exponents agree to three digits (descriptive inter-slice row; physics, never gated).
+Validity remark: s = 1.19 ↔ effective w(θ) slope −0.81, canonical LRG territory. Anti-claim
+binding: no cosmology, no 3D statements, no hyperuniformity-of-universe claims either way.
+
+The durable output is the mask-and-selection discipline, now gate-covered end to end:
+randoms-as-window with ratio estimators (window cancels; TOOLKIT §11.1 mask row); mask KAG
+that caught a real estimator-null bias on first contact (randoms-shot-noise term, +4%,
+algebraically forced — fixed pre-seal on synthetic, three-event labeled); red path
+quantifying the forbidden analytic window at F(1°)=15–19; FIX-2 weights gate with the
+powered instance firing ≥5σ every tile and the real-amplitude observation (ignoring released
+weights shifts F by up to 4.47σ); verdict lattice as a shared module (which caught a lattice
+hole — tile-inconsistent class — at authoring time); r_min = 0.05° hardware-anchored;
+L = 1.0° capped out by the adjudicated watch item. Live checker: survey/verify_survey.py.
