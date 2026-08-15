@@ -233,3 +233,17 @@ pipeline and §11.3 as founding constraints.
 **Follow-up #1 CLOSED (2026-08-15):** the comb micro-arc ran and PASSED —
 `comb/RESULTS_COMB.md` (WEIGHTS_MATCH_SINGULAR_SERIES; N=50 discriminator 53.9σ; gp_comb
 seated in `calibrator_panel.py` CALIBRATORS_2D, tier conjecture-backed-computable).
+
+**Follow-up #2 scoping note (2026-08-15 overnight — design only, NO compute; the protocol
+arc still opens with Will's brief):** the commutativity/holonomy pilot cell is now concretely
+cheap. Both orderings of every transition exist as committed code: unfold-then-window = 
+`arsrh/phase1_zeta_crossover.py:61` → `bridge/observer_b.py` stationary estimators;
+window-then-unfold = window the raw γ's first, then unfold the windowed segment.
+Proposed test object: the zeta window (both orderings on identical data), statistic = the
+full Observer-B battery (K, g, Σ²-gluing at gated L) + home ⟨r̃⟩; holonomy = per-statistic
+difference vs a tolerance derived from the estimator-KAG scatter machinery built in the comb
+arc. Second object: Gaussian-prime wedge with intensity-reweight-then-window vs
+window-then-reweight through `observer_b.k_inhom`. Orderings that disagree get filed as
+transitions with non-trivial holonomy (the OBSTRUCTION-BANKED genus from this arc's §2 is
+the natural verdict vocabulary). Pre-registration should seal which differences count,
+per the powered-falsifier discipline.

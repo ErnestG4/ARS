@@ -87,6 +87,15 @@ Pure axis functions on a substrate's **unfolded positions** (unit-mean; `canonic
 
 ## 3. Point-process generators, calibrators, extractors (`criticality_tool/`)
 
+- **`calibrator_panel.py` carries the epistemic-tier schema and the 2D calibrators**
+  (comb arc, 2026-08-15): `CALIBRATOR_TIERS` (theorem-backed / conjecture-backed-computable /
+  construction-defined — the tier of a calibrator's GROUND TRUTH; `zeta_first_400` is
+  conjecture-backed, Montgomery), `assert_sole_anchor_allowed(name, claim_tier)` (gate hook,
+  RAISES when a non-theorem calibrator would solely anchor a theorem-tier claim), and
+  `CALIBRATORS_2D` = {`poisson2d`, `ginibre2d` (theorem-backed; bridge sampler),
+  `gp_comb` (conjecture-backed; ℤ[i] HL comb, validated norm range [9·10⁶, 5.184·10⁷] —
+  `comb/RESULTS_COMB.md`)}. Register a tier with every new calibrator; the guard rejects
+  unregistered names.
 - **`field_generator.py`** — `generate(class_name, params, n_events, seed) -> t_k` for
   `poisson|wigner_gue/goe/gse|periodic|uniform_jitter`; `generate_mixed(component_specs, …)` superposes
   weighted components (preserves component periodicities, not unit-mean).
