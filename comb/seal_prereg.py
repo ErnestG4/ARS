@@ -128,3 +128,13 @@ seal = {
 json.dump(seal, open(OUT, "w"), indent=1)
 print("SEALED. Worst predicted sigma_pooled:",
       max(v["sigma_pooled_pred"] for v in power.values()))
+
+# POST-SEAL ADDENDUM (2026-08-15, mirrored — canonical text lives in
+# prereg_sealed.json "post_seal_addendum_2026_08_15"): review-driven dated
+# amendment. Extension geometry corrected to theta [0.36,0.78] (the sealed
+# [0.45,0.85] was unfillable past pi/4); KAG extended to band-2 geometry
+# (PASS); verdict lattice completed in the runner incl. measured-power cell;
+# validated range restated as two disjoint bands; blob SHAs of the five
+# analysis files recorded and asserted at runner start. No tolerance, window
+# (other than the never-fired extension), or criterion of the ORIGINAL
+# measurement changed; banked statistics re-derived bit-identical.
