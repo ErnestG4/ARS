@@ -56,15 +56,16 @@ def thin_to_data(kag, w_target, seed):
 def run_tile(xy_d, w_d, xy_r, w_r, extent):
     res = g_ratio(xy_d, w_d, xy_r, w_r, BINS)
     zs = []
-    # Poisson z per g bin: sigma_g ~ g/sqrt(DD_pairs) (weights ~1)
-    for gval, dd in zip(res["g"], res["DD"]):
-        if dd > 25:
-            zs.append((gval - 1.0) * np.sqrt(dd))
+    # weighted-pair z per g bin: effective counts on both sides (D1 lesson)
+    for gval, de, re_ in zip(res["g"], res["DD_eff"], res["RR_eff"]):
+        if np.isfinite(de) and de > 25:
+            sig = np.sqrt(1.0 / de + 1.0 / max(re_, 1.0))
+            zs.append((gval - 1.0) / sig)
     Fs = []
     for L in L_LIST:
         out = cells_F(xy_d, w_d, xy_r, w_r, L, extent)
         if out is not None:
-            zF = (out["F"] - 1.0) / np.sqrt(2.0 / out["n_cells"])
+            zF = (out["F"] - 1.0) / out["sigma_F"]
             Fs.append(dict(L=L, F=out["F"], n_cells=out["n_cells"], z=zF))
             zs.append(zF)
     return res, Fs, zs

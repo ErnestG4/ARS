@@ -40,15 +40,23 @@ def pair_counts(xy_a, w_a, xy_b, w_b, bins, same=False):
 
 
 def g_ratio(xy_d, w_d, xy_r, w_r, bins):
-    """Natural DD/RR estimator per bin + cumulative-ratio K analog."""
+    """Natural DD/RR estimator per bin + cumulative-ratio K analog.
+    Also returns EFFECTIVE pair counts DD_eff = DD^2/sum(pairweight^2) —
+    the D1 green-gate failure taught that raw sqrt(DD) mis-calibrates
+    weighted-pair z-scores (weights up to ~2-3 in DESI LSS)."""
     WD, WR = w_d.sum(), w_r.sum()
     DD = pair_counts(xy_d, w_d, xy_d, w_d, bins, same=True)
     RR = pair_counts(xy_r, w_r, xy_r, w_r, bins, same=True)
+    DD2 = pair_counts(xy_d, w_d**2, xy_d, w_d**2, bins, same=True)
+    RR2 = pair_counts(xy_r, w_r**2, xy_r, w_r**2, bins, same=True)
     with np.errstate(divide="ignore", invalid="ignore"):
         g = (DD / WD**2) / (RR / WR**2)
         Kratio = (np.cumsum(DD) / WD**2) / (np.cumsum(RR) / WR**2)
+        DD_eff = DD**2 / DD2
+        RR_eff = RR**2 / RR2
     return dict(centers=0.5 * (bins[:-1] + bins[1:]), g=g, K_ratio=Kratio,
-                DD=DD, RR=RR, WD=float(WD), WR=float(WR))
+                DD=DD, RR=RR, DD_eff=DD_eff, RR_eff=RR_eff,
+                WD=float(WD), WR=float(WR))
 
 
 def cells_F(xy_d, w_d, xy_r, w_r, L, extent):
@@ -76,7 +84,18 @@ def cells_F(xy_d, w_d, xy_r, w_r, L, extent):
     if keep.sum() < 8:
         return None
     resid = (Nd - E)[keep]
-    w2bar = float((w_d**2).sum() / w_d.sum())
-    F = float(resid.var(ddof=1) / (w2bar * E[keep].mean()))
+    w2bar_d = float((w_d**2).sum() / w_d.sum())
+    w2bar_r = float((w_r**2).sum() / w_r.sum())
+    Ebar = float(E[keep].mean())
+    # Null model of the residual variance (D1 green-gate lesson): the cell
+    # expectation E_c is built from FINITE randoms, so under weighted Poisson
+    #   Var(N_c - E_c) = w2bar_d*E_c  +  scale*w2bar_r*E_c
+    # The second (randoms shot noise) term is ~4% at 25x randoms density and
+    # the uncorrected F sat at 1.04 across every tile — the KAG caught it.
+    rr_term = scale * w2bar_r
+    F = float((resid.var(ddof=1) / Ebar - rr_term) / w2bar_d)
+    mu_eff = w2bar_d * Ebar
+    # small-mean Poisson 4th-moment correction to Var(F_hat)
+    sigma_F = float(np.sqrt((2.0 + 1.0 / max(mu_eff, 0.05)) / keep.sum()))
     return dict(L=float(L), F=F, n_cells=int(keep.sum()),
-                mean_E=float(E[keep].mean()))
+                mean_E=Ebar, sigma_F=sigma_F, rr_term=float(rr_term))
