@@ -135,3 +135,14 @@ only currently-queued reading mechanistically independent of the r̃/finite-heig
 shared-provenance seam. Certify θ-order height/flow-stability first (see `PHASE2_FINDINGS.md`
 θ-certification), or a θ-truncation artifact rides underneath both the r̃ residual and Σ². One certification
 clears it for both.
+
+---
+
+**Cross-sighting (2026-08-14, Bridge arc — unplanned replication).** A descriptive dual-dialect
+row in the Bridge protocol arc (`bridge/RESULTS_BRIDGE.md`, A1), computed through independently
+built plumbing (fresh ⟨r̃⟩ implementation validated on synthetic GUE at 0.60305 ± 0.002; Observer-B
+pcf estimators), landed on this phase's low-height crossover without looking for it: zeta
+⟨r̃⟩ = 0.61092 over the first 100k zeros (heights 14–74,921), excess falling with height within
+the window (low half 0.6119 → high half 0.6100), outside the matched-window GUE null band as
+banked here. Same object, second chart system, transition functions holding. No new claim; filed
+as corroborating sighting pointing back to this record.

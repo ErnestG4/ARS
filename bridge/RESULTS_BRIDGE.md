@@ -222,3 +222,10 @@ amplification law — instrument property, not defect — and shaped the sealed 
 3. **DES/DESI entry unblocked** — K_inhom, edge-corrected pcf, DPP fits, hyperuniformity-class
    Σ² all KAG-validated; §11.3 supplies the large-window validity constraint galaxy catalogs
    will hit first.
+
+**Follow-up priority (decided 2026-08-14, Will's recommendation adopted):** (1) comb
+micro-arc first — small, fully scoped, pilot data already banked; seats the zoo's first 2D
+arithmetic entry and forces the conjecture-backed-computable tier into the zoo header schema.
+(2) commutativity/holonomy pilot as the next protocol arc's opening cell (registered there;
+loses nothing by waiting). (3) DES/DESI under its own scope brief, inheriting the validated
+pipeline and §11.3 as founding constraints.

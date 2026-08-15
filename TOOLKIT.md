@@ -655,6 +655,20 @@ The durable methodology — apply these regardless of substrate:
 - **Ops:** GPU for wide parameter-matrix sweeps, CPU for precise refinement; local 5900x streaming/large-
   array work peaks ~10 threads. Never `xargs -P` / overlapping curls on shared paths (corruption) —
   sequential + size-verify.
+- **Every banked number has a committed generator that reproduces it.** (Bridge arc D-1/D-2, 2026-08-14.)
+  Gates check numbers against theory, never numbers against committed code — so a banked artifact whose
+  generator lives only in an uncommitted session script, or a committed file that still carries a bug the
+  banked numbers were produced *without*, is a provenance gap **invisible to every gate**. Closure
+  standard: the generator is committed in the same lineage as the artifact, and re-running it reproduces
+  the banked numbers (bit-identically where seeded). Companion to "every ledger entry has a test twin";
+  audit-cycle form is mechanical — enumerate banked artifacts, demand a generator path in the commit
+  lineage of each. (`bridge/RESULTS_BRIDGE.md` Defect ledger; `bridge/fix2_replicates.py` is the
+  reference instance.)
+- **Pilot-informed seals carry their pedigree as a dated addendum.** When pilot runs legitimately shape a
+  seal's windows or metrics (their declared purpose), the sealed JSON gets a clearly-dated,
+  annotation-only field stating the sequence (pilots → decision → seal → disjoint-seed gates), mirrored
+  in the sealing script, altering no criterion. Cheap enough to be the default; precedent:
+  `bridge/prereg_sealed.json` `post_seal_addendum_2026_08_14`.
 
 ## 10. Condemned paths & known gotchas
 
