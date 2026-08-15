@@ -229,3 +229,7 @@ arithmetic entry and forces the conjecture-backed-computable tier into the zoo h
 (2) commutativity/holonomy pilot as the next protocol arc's opening cell (registered there;
 loses nothing by waiting). (3) DES/DESI under its own scope brief, inheriting the validated
 pipeline and §11.3 as founding constraints.
+
+**Follow-up #1 CLOSED (2026-08-15):** the comb micro-arc ran and PASSED —
+`comb/RESULTS_COMB.md` (WEIGHTS_MATCH_SINGULAR_SERIES; N=50 discriminator 53.9σ; gp_comb
+seated in `calibrator_panel.py` CALIBRATORS_2D, tier conjecture-backed-computable).

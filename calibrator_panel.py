@@ -137,3 +137,97 @@ __all__ = [
     'STATIONARY_CALIBRATORS', 'TRANSITION_CALIBRATORS',
     'EXTENDED_CALIBRATORS', 'N_POINTS',
 ]
+
+
+# ─── Epistemic-tier schema (comb arc, 2026-08-15) ──────────────────────────
+#
+# The tier of a calibrator is the epistemic status of its GROUND TRUTH.
+# This registry is deliberately placed HERE — the module gate code imports —
+# so the tier is capable of blocking (a tier field no gate can see is
+# documentation cosplaying as schema; COMB_CALIBRATOR_BRIEF.md §8 ruling).
+#
+# Retroactive application note: zeta_first_400's GUE-class ground truth is
+# Montgomery-conjecture-backed (exact data, conjectured class) — the schema's
+# first act is this honest reclassification of an existing entry.
+
+TIER_THEOREM = 'theorem-backed'                    # ground truth by theorem
+TIER_CONJECTURE = 'conjecture-backed-computable'   # unproven, computable to
+                                                   # arbitrary precision
+TIER_CONSTRUCTION = 'construction-defined'         # ground truth IS the
+                                                   # generating construction
+
+CALIBRATOR_TIERS = {
+    'poisson':          TIER_THEOREM,
+    'beta=1_GOE':       TIER_THEOREM,
+    'beta=2_GUE':       TIER_THEOREM,
+    'beta=4_GSE':       TIER_THEOREM,
+    'zeta_first_400':   TIER_CONJECTURE,   # Montgomery pair correlation
+    'uniform_jitter':   TIER_CONSTRUCTION,
+    'periodic_q7':      TIER_CONSTRUCTION,
+    'mixed_q7_q12':     TIER_CONSTRUCTION,
+    'blended_GUE_to_Poisson_sharp':     TIER_CONSTRUCTION,
+    'blended_Poisson_to_GUE_sigmoidal': TIER_CONSTRUCTION,
+    'blended_GUE_TL_GUE_metastable':    TIER_CONSTRUCTION,
+    'blended_Poisson_to_TL_linear':     TIER_CONSTRUCTION,
+    'logistic_chaos_r=3.7':             TIER_CONSTRUCTION,
+    'logistic_period_4_r=3.5':          TIER_CONSTRUCTION,
+    # 2D entries (bridge + comb arcs):
+    'poisson2d':        TIER_THEOREM,
+    'ginibre2d':        TIER_THEOREM,
+    'gp_comb':          TIER_CONJECTURE,   # Gross-Smith/HL singular series;
+                                           # seated PASS by the comb arc
+}
+
+
+def assert_sole_anchor_allowed(calibrator_name: str, claim_tier: str) -> None:
+    """Gate hook: a conjecture- or construction-tier calibrator must not be
+    the SOLE anchor of a theorem-tier claim.  Raises ValueError to block."""
+    tier = CALIBRATOR_TIERS.get(calibrator_name)
+    if tier is None:
+        raise ValueError(f"unregistered calibrator {calibrator_name!r} — "
+                         "register a tier before gate use")
+    if claim_tier == TIER_THEOREM and tier != TIER_THEOREM:
+        raise ValueError(
+            f"calibrator {calibrator_name!r} is {tier}; it cannot be the sole "
+            f"anchor of a theorem-tier claim (comb-arc tier discipline)")
+
+
+# ─── 2D calibrators (lazy imports; bridge + comb arcs) ─────────────────────
+
+def _gen_poisson2d(seed: int):
+    """Unit-intensity Poisson in [0,120]^2; returns (n,2) array."""
+    rng = np.random.default_rng(seed)
+    n = rng.poisson(120.0 * 120.0)
+    return rng.uniform(0, 120.0, size=(n, 2))
+
+
+def _gen_ginibre2d(seed: int):
+    """Central sub-window of an unscaled N=2048 Ginibre spectrum
+    (intensity 1/pi; exact pcf 1-exp(-r^2)); bridge sampler, KAG-passed."""
+    import sys as _sys
+    _sys.path.insert(0, '/home/combust/fmexplorer/criticality_tool/bridge')
+    from ginibre_sampler import sample_ginibre, central_points
+    ev = sample_ginibre(2048, seed)
+    pts, _R = central_points(ev, 2048)
+    return pts
+
+
+def _gen_gp_comb(seed: int):
+    """Split Gaussian primes, comb-arc band-1 window (deterministic; seed
+    ignored).  Two-point comb weights match the ZZ[i] Hardy-Littlewood
+    singular series: comb arc PASS (comb/RESULTS_COMB.md), validated norm
+    range [9e6, 5.184e7] (comb/prereg_sealed.json windows)."""
+    import sys as _sys
+    _sys.path.insert(0, '/home/combust/fmexplorer/criticality_tool/comb')
+    from exact_offsets import build_points
+    return build_points(9_000_000, 12_960_000, 0.45, 0.65)
+
+
+CALIBRATORS_2D = [
+    ('poisson2d',  _gen_poisson2d),
+    ('ginibre2d',  _gen_ginibre2d),
+    ('gp_comb',    _gen_gp_comb),
+]
+
+__all__ += ['CALIBRATOR_TIERS', 'CALIBRATORS_2D', 'assert_sole_anchor_allowed',
+            'TIER_THEOREM', 'TIER_CONJECTURE', 'TIER_CONSTRUCTION']

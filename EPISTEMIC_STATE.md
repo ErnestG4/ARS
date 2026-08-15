@@ -1914,3 +1914,30 @@ What the tool now knows that it didn't:
 Standing instrument notes: spatstat quarantined at `bridge/.rquarantine` (cross-check only,
 never a core dependency); wedge-scale `dppm` and `dppPowerExp` OOM at 15GB (declared, subwindow
 scope used); ⟨r̃⟩ and Δ₃ have no spatial twin (their-atlas gap, TRANSLATION_TABLE rows 6-7).
+
+## Comb calibrator micro-arc (2026-08-15, overnight) — the zoo's first 2D arithmetic entry
+
+**PASS (WEIGHTS_MATCH_SINGULAR_SERIES).** The Gaussian-prime constellation comb found by
+Bridge B2 is now a seated calibrator: fresh-wedge measurement (θ∈[0.45,0.65], two norm bands
+to 5.2·10⁷; the B2 window was the disclosed pilot glimpse and gated nothing) matches the
+computed ℤ[i] Hardy–Littlewood singular series — C′_G = 0.83829544 (tail 3.2·10⁻⁸), 𝔖′(h) =
+C′_G·∏_{π|h}(q−1)/(q−2) — across 19 offset classes spanning 0.838→1.490 at few-per-mille
+precision, zero free parameters. 12/12 mandatory classes within 3σ; the N=50 discriminator
+(two classes at the SAME Euclidean distance, predictions 4/3 apart — only exact-offset
+counting can see it) resolved at 53.9σ in the predicted order, confirming the
+membership-not-valuation rule; no coherent drift between bands. L1: no discrepancy vs
+Gross–Smith as stated in Kuperberg–Rodgers–Roditty-Gershon (arXiv:2001.09513, Ramanujan J.
+58, 2022; source archived comb/lit/). Full record: `comb/RESULTS_COMB.md`; seal
+`comb/prereg_sealed.json` (prediction-first, code frozen pre-data at 9eb285a).
+
+**Epistemic tier (binding): CONJECTURE-BACKED-COMPUTABLE** — and the tier is now SCHEMA:
+`calibrator_panel.py` carries `CALIBRATOR_TIERS` (all existing entries tiered; the
+retroactive pass honestly reclassified `zeta_first_400` as conjecture-backed — Montgomery),
+`assert_sole_anchor_allowed()` (a gate hook that RAISES when a conjecture-tier calibrator
+would solely anchor a theorem-tier claim — verified to fire), and `CALIBRATORS_2D`
+(poisson2d, ginibre2d, gp_comb). Validated norm range for gp_comb: [9·10⁶, 5.184·10⁷];
+outside it, extend the validation first.
+
+This closes Bridge registered follow-up #1. Remaining from that list: commutativity/holonomy
+pilot (next protocol arc's opening cell), DES/DESI (own scope brief; now inherits a 2D
+calibrator triple spanning theorem/conjecture tiers plus the §11.3 large-window constraint).
