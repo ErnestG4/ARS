@@ -31,7 +31,17 @@ slice (weight budget max observed dev 2.35% vs the 5% seal).
 identical (expected); amplitude lower in the 0.4–0.6 slice at every L; and the scaling
 exponents agree to three digits (1.190 vs 1.190) — the projected clustering *amplitude*
 evolves between slices while the *exponent* does not, at this precision. Filed as
-observation; no gate, no interpretation.
+observation; no gate, no interpretation. *Validity remark on the pattern (added at review):
+slope-preservation under amplitude evolution is precisely the Limber-projection expectation
+for scale-free clustering with fixed 3D slope and evolving amplitude — the gateless row read
+the specific physics the per-slice lattice amendment was protecting, and the original
+(pre-amendment) lattice would have gated on behavior the correct theory says must decouple.*
+
+*drift χ² dof annotation (record ruling, too-good screen third application, first from the
+too-good side):* the log(F−1)-vs-log(L) fit has 3 points − 2 parameters = **1 dof**; χ² of
+0.27 and 0.01 against 1 dof are unremarkable (P(χ²₁ < 0.01) ≈ 8% — mildly lucky, not
+suspicious). No conservative-error diagnosis needed; the adjacency effective-N statement is
+not deflating anything at the sealed scales.
 
 **Validity remark (cross-check, not inference):** s = 1.19 corresponds to an effective
 angular-correlation slope w(θ) ∝ θ^−0.81 over the sealed range — consistent with canonical
