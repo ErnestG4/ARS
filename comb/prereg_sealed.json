@@ -1,0 +1,200 @@
+{
+ "sealed_utc_date": "2026-08-14",
+ "author": "Claude Fable 5. Sealed before any fresh-wedge data exists. The B2 window (theta [0.15,0.35]) is the DISCLOSED PILOT GLIMPSE (brief \u00a70.5) and gates nothing here.",
+ "arc": "Comb calibrator micro-arc (COMB_CALIBRATOR_BRIEF.md, approved with amendments 2026-08-14).",
+ "epistemic_tier": "CONJECTURE-BACKED-COMPUTABLE (binding on every artifact): HL constellation weights unproven; singular series computable to arbitrary precision.",
+ "anti_claim": "No universality-class claims; no promotion of the B2/B3 scale-qualified filing.",
+ "code_freeze": {
+  "commit": "9eb285a8d426a4210d5586d0050053746c687e1d",
+  "files": [
+   "comb/singular_series.py",
+   "comb/exact_offsets.py",
+   "comb/run_kag.py"
+  ],
+  "rule": "No analysis-code change after fresh data exists; a post-freeze defect fix requires a dated seal addendum and re-derivation of every affected number.",
+  "estimator_kag": "PASS (comb/exact_offsets_kag_measured.json: worst |z| 3.07 over 152 tests, grand mean z +0.015)"
+ },
+ "prediction_first": {
+  "C_prime_G": 0.8382954371018082,
+  "tail_bound_rel": 3.2304039500662857e-08,
+  "anchor": "Gross-Smith via KRR arXiv:2001.09513 (Ramanujan J. 58, 2022); source archived comb/lit/; S_GS(h) = 2*S'(h)",
+  "classes": {
+   "N2": {
+    "S_prime_pred": 0.8382954371018082,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N4": {
+    "S_prime_pred": 0.8382954371018082,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N8": {
+    "S_prime_pred": 0.8382954371018082,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N16": {
+    "S_prime_pred": 0.8382954371018082,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N32": {
+    "S_prime_pred": 0.8382954371018082,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N10_q5m1": {
+    "S_prime_pred": 1.1177272494690775,
+    "n_offsets": 8,
+    "mandatory": true
+   },
+   "N20_q5m1": {
+    "S_prime_pred": 1.1177272494690775,
+    "n_offsets": 8,
+    "mandatory": true
+   },
+   "N40_q5m1": {
+    "S_prime_pred": 1.1177272494690775,
+    "n_offsets": 8,
+    "mandatory": true
+   },
+   "N18_q9m1": {
+    "S_prime_pred": 0.9580519281163522,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N26_q13m1": {
+    "S_prime_pred": 0.9145041132019726,
+    "n_offsets": 8,
+    "mandatory": true
+   },
+   "N50_q5m1": {
+    "S_prime_pred": 1.1177272494690775,
+    "n_offsets": 8,
+    "mandatory": true
+   },
+   "N50_q5m2": {
+    "S_prime_pred": 1.4903029992921033,
+    "n_offsets": 4,
+    "mandatory": true
+   },
+   "N34_q17m1": {
+    "S_prime_pred": 0.8941817995752621,
+    "n_offsets": 8,
+    "mandatory": false
+   },
+   "N36_q9m1": {
+    "S_prime_pred": 0.9580519281163522,
+    "n_offsets": 4,
+    "mandatory": false
+   },
+   "N64": {
+    "S_prime_pred": 0.8382954371018082,
+    "n_offsets": 4,
+    "mandatory": false
+   },
+   "N80_q5m1": {
+    "S_prime_pred": 1.1177272494690775,
+    "n_offsets": 8,
+    "mandatory": false
+   },
+   "N90_q9m1xq5m1": {
+    "S_prime_pred": 1.2774025708218029,
+    "n_offsets": 8,
+    "mandatory": false
+   },
+   "N100_q5m1": {
+    "S_prime_pred": 1.1177272494690775,
+    "n_offsets": 8,
+    "mandatory": false
+   },
+   "N100_q5m2": {
+    "S_prime_pred": 1.4903029992921033,
+    "n_offsets": 4,
+    "mandatory": false
+   }
+  }
+ },
+ "windows": {
+  "wedge_theta": [
+   0.45,
+   0.65
+  ],
+  "band1_norm": [
+   9000000,
+   12960000
+  ],
+  "band2_norm": [
+   36000000,
+   51840000
+  ],
+  "fresh_declaration": "band1 shares B2's norms with a DISJOINT wedge; band2 is fully new (4x norm). B2 wedge excluded."
+ },
+ "power_seal": {
+  "N2": {
+   "sigma_pooled_pred": 0.004416405134348925,
+   "ok": true
+  },
+  "N4": {
+   "sigma_pooled_pred": 0.004416405134348925,
+   "ok": true
+  },
+  "N8": {
+   "sigma_pooled_pred": 0.004416405134348925,
+   "ok": true
+  },
+  "N16": {
+   "sigma_pooled_pred": 0.004416405134348925,
+   "ok": true
+  },
+  "N32": {
+   "sigma_pooled_pred": 0.004416405134348925,
+   "ok": true
+  },
+  "N10_q5m1": {
+   "sigma_pooled_pred": 0.003605979692187552,
+   "ok": true
+  },
+  "N20_q5m1": {
+   "sigma_pooled_pred": 0.003605979692187552,
+   "ok": true
+  },
+  "N40_q5m1": {
+   "sigma_pooled_pred": 0.003605979692187552,
+   "ok": true
+  },
+  "N18_q9m1": {
+   "sigma_pooled_pred": 0.004721335683978005,
+   "ok": true
+  },
+  "N26_q13m1": {
+   "sigma_pooled_pred": 0.003261731356534738,
+   "ok": true
+  },
+  "N50_q5m1": {
+   "sigma_pooled_pred": 0.003605979692187552,
+   "ok": true
+  },
+  "N50_q5m2": {
+   "sigma_pooled_pred": 0.0058885401791319006,
+   "ok": true
+  }
+ },
+ "power_criterion": "predicted sigma_pooled <= 0.02 for every mandatory class (all pass; worst listed above)",
+ "extension_rule_numeric": "Fires ONCE, only on UNDERPOWERED: widen wedge to theta [0.45, 0.85] (double the angular width), same two norm bands, same estimator, same seal.",
+ "acceptance_2x2": {
+  "k": 3,
+  "level_test": "PER CLASS: inverse-variance pooled S'_hat across the two bands; |pooled - S_prime_pred| <= 3*sigma_pooled for ALL mandatory classes -> pooled match.",
+  "drift_test": "sign-coherence form (per-class z's are positively correlated within a band \u2014 independence pooling is wrong in principle, estimator-KAG lesson): drift z_d = (S'_b2 - S'_b1)/sqrt(s1^2+s2^2) per mandatory class; COHERENT DRIFT := (>= 2/3 of mandatory classes share drift sign) AND (>= 3 classes with |z_d| >= 2).",
+  "discriminator": "N50_q5m2 minus N50_q5m1 must be positive with >= 3 sigma on the difference (predicted separation 4/3), required for PASS.",
+  "cells": {
+   "pooled match x no drift": "PASS (WEIGHTS_MATCH_SINGULAR_SERIES)",
+   "pooled match x coherent drift": "SOFT PASS (MATCH_WITH_BOUNDED_DRIFT) \u2014 seated BOUNDED-AT-SCALE; drift law filed with SIGN and FITTED COEFFICIENT vs 1/ln(norm); registry entry carries validated norm range",
+   "pooled deviation (any class)": "FAIL substantive (DEVIATION_BEYOND_ERRORS) \u2014 drift does not rescue",
+   "insufficient counts": "UNDERPOWERED -> numeric extension once"
+  },
+  "secondary_shells": "N in {34, 36, 64, 80, 90, 100} DESCRIPTIVE \u2014 reported with the same statistics, gate nothing"
+ },
+ "pilot_informed_pedigree": "Windows, shell list, estimator config and this seal's thresholds were informed by: the disclosed B2 glimpse (brief \u00a70.5), the estimator-KAG pilots (601-608), and the analytic power computation above. Sequence: theory + pilots -> seal -> fresh sieve. No fresh-wedge datum existed when this file was written."
+}
