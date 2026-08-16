@@ -1,0 +1,81 @@
+{
+ "null_1d": {
+  "dilations": 0.0,
+  "powers": 0.0,
+  "identity_smoke": 0.0
+ },
+ "null_2d": {
+  "marks": 0.0,
+  "identity_smoke": 0.0
+ },
+ "null_survey": {
+  "weights": 1.4710710671973274e-16,
+  "identity_smoke": 0.0
+ },
+ "fp_headroom": {
+  "worst_rel_delta": 1.4710710671973274e-16,
+  "tol_candidate": 1e-12,
+  "within": true
+ },
+ "red_p1": {
+  "mean": -313.23412510814745,
+  "sem": 0.9328304779814687,
+  "fired": true
+ },
+ "red_p2": {
+  "mean": 0.09800543674675725,
+  "sem": 0.01349455365257262,
+  "fired": true
+ },
+ "leg_witness": {
+  "separated": {
+   "mean_bias_A": 0.1279253400624546,
+   "mean_bias_B": 0.06213352347590201,
+   "diff": 0.06579181658655259,
+   "sem": 0.011750788352572985,
+   "ruled_correctly": true
+  },
+  "null": {
+   "diff": 0.007921123798548313,
+   "sem": 0.010302355251751081,
+   "indistinguishable": true
+  },
+  "PASS": true
+ },
+ "p3": {
+  "scalars": {
+   "W_data": 536802.6376852085,
+   "N_data": 533955,
+   "wbar_data": 1.0053331042601126,
+   "wbar_kag": 1.0245020925518635,
+   "N_kag": 13574443,
+   "W_kag": 13907045.258725995
+  },
+  "p_weight_then_thin": 0.03859933060535565,
+  "p_thin_then_weight": 0.03933531563689206,
+  "predicted_sign_retained_diff": -1,
+  "predicted_abs_count_diff": 9990.586859444253,
+  "equivalence_thin": {
+   "bit_identical": true,
+   "n_kept": 523603
+  },
+  "red_A_detection_in_principle": {
+   "z_injected_1pct": 6.239852010024333,
+   "fired": true,
+   "z_real_amplitude": 11.974579108233792,
+   "note": "retained-mass z = the F statistic minus its self-normalisation; tests a modified estimator (labeled)"
+  },
+  "red_B_unmodified_path": {
+   "delta_inj": 0.05,
+   "L": 0.5,
+   "mean_dF": 0.012816520970520773,
+   "sem": 0.0009289850822010346,
+   "fired": true
+  },
+  "timing": {
+   "t_per_draw_pair_sec": 0.8475416600704193,
+   "n_draws_proposed": 32
+  }
+ },
+ "PASS": true
+}
