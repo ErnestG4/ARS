@@ -135,24 +135,27 @@ panels = [("Step 2: seed conditioning (k=0)", step2)] + \
          ([("Step 2b: mid-flow conditioning (k=2)", step2b)] if have_2b else [])
 for ax, (title, d) in zip(axes[0], panels):
     ks = sorted(int(k) for k in d["per_bin"])
+    # direct labels collided with the title and with the curves; the same information
+    # is carried by a legend in the empty lower-left quadrant (2026-08-16 review)
+    handles = []
     for b in range(5):
         m = np.array([d["per_bin"][str(k)][b]["mean"] for k in ks])
         col = shade(BLUE, b / 4)
-        ax.plot(ks, m, "-", color=col, lw=1.2)
+        ln, = ax.plot(ks, m, "-", color=col, lw=1.2)
         if b == 0:
-            ax.annotate("Q1 (largest gaps): F2, slow", (ks[0], m[0]),
-                        textcoords="offset points", xytext=(6, 6), fontsize=7, color=col)
+            ln.set_label(f"Q1 (largest gaps): {d['selected_forms'][0]}, slow")
+            handles.append(ln)
         if b == 4:
-            others = "/".join(sorted(set(d["selected_forms"][1:])))
-            ax.annotate(f"Q2–Q5: {others}", (ks[0], m[0]), textcoords="offset points",
-                        xytext=(6, -13), fontsize=7, color=col)
+            ln.set_label(f"Q2–Q5: {'/'.join(sorted(set(d['selected_forms'][1:])))}")
+            handles.append(ln)
     ma = np.array([d["aggregate"][str(k)]["mean"] for k in ks])
-    ax.plot(ks, ma, "--", color=INK, lw=1.0)
-    ax.annotate("aggregate", (ks[1], ma[1]), textcoords="offset points",
-                xytext=(4, 4), fontsize=7, color=INK)
+    la, = ax.plot(ks, ma, "--", color=INK, lw=1.0, label="aggregate")
+    handles.append(la)
+    ax.legend(handles=handles, fontsize=6.6, frameon=False, loc="lower left",
+              handlelength=1.8, borderaxespad=0.3, labelspacing=0.3)
     forms = d["selected_forms"]
     ax.set_title(f"{title}\nforms: {'/'.join(forms)} → {d['ladder_outcome']}",
-                 fontsize=8, loc="left")
+                 fontsize=8, loc="left", pad=8)
     ax.set_xscale("log"); ax.set_yscale("log")
     ax.set_xlabel("k")
 axes[0][0].set_ylabel(r"$1-\langle \tilde r\rangle$ (per environment quintile)")
