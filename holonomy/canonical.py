@@ -69,6 +69,15 @@ CANONICAL = {
     "surrogate_unfold_1d": dict(
         order="matched_lens",
         basis="RULED_CONSISTENT",
+        separation_status="UNDER_RESOLVED",
+        separation_note="NOT a genuine null: direction confirmed in BOTH "
+                        "correctness runs (mixed order biases marginal-"
+                        "class data rigid-ward), separation ~1.4 sigma — "
+                        "under-resolved at k=3, not absent.  The pre-"
+                        "committed rerun is consumed; no second bite.  A "
+                        "future arc with a sharper comparator may upgrade "
+                        "this to RULED_CORRECT; a reader must not cite it "
+                        "as evidence the orders are equivalent.",
         transfer_note="bare-pair Delta Sigma^2(20) = +1.15 +- 0.23 (z=4.9) "
                       "is REAL; materiality vs the RIGID_GUE gate NOT clean "
                       "under the worst-case screen (margin 1.4x < k=3, "

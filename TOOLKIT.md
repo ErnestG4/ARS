@@ -712,6 +712,25 @@ The durable methodology — apply these regardless of substrate:
   red is *reachable* at construction time. Two-line invariance checks (is my probe invariant
   under rank selection? under monotone maps? under the estimator's self-normalisation?) are the
   cheapest form and would have caught both this near-miss and the P3 suppressor structure.
+- **Sealed obligations fail closed and are inherited by default.** (Holonomy audit, 2026-08-16:
+  the §2 materiality obligation was wired into the mandatory pairs' resolver but not
+  `run_opt.py`, so the optional pair banked to green with the obligation silently undischarged;
+  the census enumeration likewise excluded surrogate sites, so OP1's call-site facts surfaced
+  only during the late repair. Same underlying shape both times: the optional work inherited the
+  mandatory work's *language* but not its *machinery*.) Two clauses. **Fail closed:** a per-item
+  obligation lives in the shared resolver and RAISES when undischarged — a new runner that
+  forgets to wire it in cannot run to green; skipping must be impossible, not merely
+  discouraged. Preventing divergence between two wired paths is not enough; the failure mode is
+  silence in the third path nobody wired. **Inherited by default:** optional, later-added, or
+  extension work inherits every sealed obligation (materiality, census coverage, controls,
+  power) automatically; any exclusion is declared explicitly AT SEAL, never arising from which
+  code path happened to get wired. An undeclared exclusion is a defect even when the excluded
+  check would have passed.
+- **A retraction leaves a test behind.** When a ruling, constant, or claim is reversed, the
+  repair includes a negative test asserting the retracted version is rejected (reference
+  instance: `verify_holonomy.py` asserts `assert_canonical` refuses the retracted OP1 order) —
+  otherwise a later refactor reading old prose can silently reintroduce it. Prose retractions
+  decay; failing tests don't.
 
 ## 10. Condemned paths & known gotchas
 
@@ -919,7 +938,7 @@ synthetic analogue, applied where truth is absent), **RULED_CONSISTENT** (coordi
 | unfold ↔ window (1D) | **window, then unfold** | RULED_CORRECT (transfer at zeta) | estimate/normalise the unfolding on the analysis window; bias 0.09 vs 4.85 at the resonance dial. `compute_nns` self-enforces this for NNS as a *mechanism* (its internal renorm — census C1); the both-orders-equivalence *datum* is zeta-only (seal ADD-4). **Σ² consumers do not inherit either and must re-unfold per window** |
 | reweight ↔ edge-correct (2D) | **edge-correct, then fit λ̂** | RULED_CORRECT (by transfer to future callers) | fit intensity on the eroded domain the statistic integrates over; continuum law confirmed to 4.30× gradient. No live λ̂-estimating caller exists today (census C3) |
 | weight ↔ thin (survey) | weight, then thin (frozen semantics) | RULED_CONSISTENT | POINT_CHECK_CLEAN **at sealed points/power only — not COMMUTES**: mechanism real (−10⁴ counts/draw, 12σ suppressor-free), suppression owned by the ratio/self-normalising estimator family; a refactor abandoning DD/RR normalisation does not inherit the clean row |
-| surrogate ↔ unfold (1D) | **MATCHED LENS** (surrogate and data pass the identical unfold apparatus; no bare sequence order) | RULED_CONSISTENT, leg run (seal ADD-1/ADD-3; original blanket order retracted) | measured non-commutation ΔΣ²(20)=+1.15±0.23; materiality NOT clean at the RIGID_GUE gate under the worst-case screen (1.4×<k=3) → correctness leg run: mixed order biases marginal-class data rigid-ward (z −0.32 vs −0.04) but does not separate at k=3; site-specific effect ~0.3σ of the classification band |
+| surrogate ↔ unfold (1D) | **MATCHED LENS** (surrogate and data pass the identical unfold apparatus; no bare sequence order) | RULED_CONSISTENT, leg run, **separation UNDER_RESOLVED — not a null** (seal ADD-1/ADD-3; original blanket order retracted) | measured non-commutation ΔΣ²(20)=+1.15±0.23; materiality NOT clean at the RIGID_GUE gate under the worst-case screen (1.4×<k=3) → correctness leg run: mixed order biases marginal-class data rigid-ward in both runs (z −0.32 vs −0.04, ~1.4σ) — under-resolved at k=3, not absent; site-specific effect ~0.3σ of the classification band; rerun consumed |
 | disattenuate ↔ pool | **disattenuate, then pool** | RULED_CORRECT | pooled-then-disattenuated biased by the Jensen factor; sealed formula confirmed z=0.64 |
 | window ↔ project (survey, C4) | *(unruled — census-found, unmeasured)* | — | fused single order in `tile_points`; registered for a future arc, do not treat as free |
 

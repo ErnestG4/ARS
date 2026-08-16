@@ -118,7 +118,9 @@ MATCHED_LENS** (surrogate and data pass the identical unfolding apparatus; no ba
 order enforced), basis RULED_CONSISTENT **with the leg run and the site-specific effect
 quantified** (~0.3σ of the classification band — 4× smaller than the bare-pair Δ measured on the
 trended substrate; the worst-case screen and the site measurement are both banked and do not
-conflict). Site-hardening watch item ADD-5: the discriminator's absolute renewal-to-RIGID margin
+conflict). **Separation status: UNDER_RESOLVED, not null** (registry field, audit round 2) —
+the direction confirmed in both runs at ~1.4σ; this row must not be read as evidence the orders
+are equivalent, and the pre-committed rerun is consumed. Site-hardening watch item ADD-5: the discriminator's absolute renewal-to-RIGID margin
 is thin in its own units independent of order effects; registered to the cross-substrate program.
 **OP2 disattenuate↔pool:** sealed Jensen-gap formula confirmed (z 0.64); ruled
 `disattenuate_then_pool`, RULED_CORRECT (truth by construction).

@@ -499,3 +499,18 @@ population-level) and Tier-2 Buzsaki / Tier-3 IBL are future arcs. Figures: figu
   (control). No single "population fingerprint" — the aggregate picks the class; population-level is a
   FAMILY of mutually-disagreeing observables (sharpens §7(h)). coordinates/population-fingerprint.jsonl.
 - **Landscape v1 consolidation** (landscape.md §0 dashboard): mapped / pending / surprises at a glance.
+
+**REGISTERED-OPEN (2026-08-16, from holonomy pilot ADD-5, priority-ranked by Will above the
+protocol work): RIGID_GUE gate margin hardening.** The long-range discriminator's renewal-band
+margin to the RIGID_GUE boundary is ~1.1σ of the band at (L=20, deg-6 lens, n=1200): renewal
+min Σ²(20)=2.71 vs boundary 1.056 with band sd ~1.5 (holonomy/op1_materiality.json, computed
+through this module's own ensembles). That is thin *in the gate's own units*, independent of
+transition-order effects, and the gate carries class claims (RIGID_GUE certifications, Thread-E
+promotables). **Proposed trigger (adopt or amend at the next seal that touches this gate):
+before any NEW RIGID_GUE verdict is banked, re-derive the renewal-band margin at that verdict's
+own (n, L, lens) configuration and require margin ≥ 3× band-sd; below that, the verdict HOLDS
+pending either a config change that shrinks the band (more windows / matched-L adjustment) or
+an explicit margin-accepting ruling.** Already-banked RIGID_GUE rows are not retroactively
+reopened by this entry; the existing validate_rate_unfold guard covers the lens-bandwidth
+failure mode but not this absolute-margin one. Owner: the next arc that consumes or produces a
+RIGID_GUE verdict.

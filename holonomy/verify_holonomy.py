@@ -72,6 +72,9 @@ chk(assert_canonical("reweight_edge_2d", "edge_then_reweight"),
     "canonical P2 order")
 chk(assert_canonical("surrogate_unfold_1d", "matched_lens"),
     "canonical OP1 invariant (ADD-3 revision)")
+chk(CANONICAL["surrogate_unfold_1d"].get("separation_status")
+    == "UNDER_RESOLVED",
+    "OP1 UNDER_RESOLVED marker missing (Will's audit round 2)")
 try:
     assert_canonical("unfold_window_1d", "unfold_then_window")
     fails.append("assert_canonical failed to reject a wrong order")
