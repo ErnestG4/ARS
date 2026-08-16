@@ -699,6 +699,19 @@ The durable methodology — apply these regardless of substrate:
   annotation-only field stating the sequence (pilots → decision → seal → disjoint-seed gates), mirrored
   in the sealing script, altering no criterion. Cheap enough to be the default; precedent:
   `bridge/prereg_sealed.json` `post_seal_addendum_2026_08_14`.
+- **A witness's non-inertness is proven, not assumed.** (Holonomy KAG, 2026-08-16: the first P1
+  red-demo construction — rank-windowing composed with renormalisation — was *invariant under the
+  very transformation it was built to probe* (rank selection commutes with every monotone map), so
+  its Δ was a pure scale factor Σ² barely feels. It was caught only because the demo carried a
+  fire requirement inside a gated KAG; in any context without one, the silence would have read as
+  COMMUTES.) An inert witness that goes uncaught certifies a detector that cannot detect — the
+  failure is silent and looks like a pass. Rule: every witness construction is sealed WITH an
+  analytic non-inertness argument — name the mechanism by which the construction CAN move the
+  detector (and the invariances it must avoid) *before* running it. This is the witness for the
+  witness: [[witness_must_be_able_to_fail]] demands a demonstrated red; this demands proof the
+  red is *reachable* at construction time. Two-line invariance checks (is my probe invariant
+  under rank selection? under monotone maps? under the estimator's self-normalisation?) are the
+  cheapest form and would have caught both this near-miss and the P3 suppressor structure.
 
 ## 10. Condemned paths & known gotchas
 
@@ -903,10 +916,10 @@ synthetic analogue, applied where truth is absent), **RULED_CONSISTENT** (coordi
 
 | pair | canonical order | basis | short reason |
 |---|---|---|---|
-| unfold ↔ window (1D) | **window, then unfold** | RULED_CORRECT (transfer at zeta) | estimate/normalise the unfolding on the analysis window; bias 0.09 vs 4.85 at the resonance dial. `compute_nns` self-enforces this for NNS (its internal renorm — census C1); **Σ² consumers do not inherit that and must re-unfold per window** |
+| unfold ↔ window (1D) | **window, then unfold** | RULED_CORRECT (transfer at zeta) | estimate/normalise the unfolding on the analysis window; bias 0.09 vs 4.85 at the resonance dial. `compute_nns` self-enforces this for NNS as a *mechanism* (its internal renorm — census C1); the both-orders-equivalence *datum* is zeta-only (seal ADD-4). **Σ² consumers do not inherit either and must re-unfold per window** |
 | reweight ↔ edge-correct (2D) | **edge-correct, then fit λ̂** | RULED_CORRECT (by transfer to future callers) | fit intensity on the eroded domain the statistic integrates over; continuum law confirmed to 4.30× gradient. No live λ̂-estimating caller exists today (census C3) |
 | weight ↔ thin (survey) | weight, then thin (frozen semantics) | RULED_CONSISTENT | POINT_CHECK_CLEAN **at sealed points/power only — not COMMUTES**: mechanism real (−10⁴ counts/draw, 12σ suppressor-free), suppression owned by the ratio/self-normalising estimator family; a refactor abandoning DD/RR normalisation does not inherit the clean row |
-| surrogate ↔ unfold (1D) | **unfold, then surrogate** | RULED_CONSISTENT | measured non-commutation ΔΣ²(20)=+1.15±0.23; surrogates belong in the frame where the null is defined |
+| surrogate ↔ unfold (1D) | **MATCHED LENS** (surrogate and data pass the identical unfold apparatus; no bare sequence order) | RULED_CONSISTENT, leg run (seal ADD-1/ADD-3; original blanket order retracted) | measured non-commutation ΔΣ²(20)=+1.15±0.23; materiality NOT clean at the RIGID_GUE gate under the worst-case screen (1.4×<k=3) → correctness leg run: mixed order biases marginal-class data rigid-ward (z −0.32 vs −0.04) but does not separate at k=3; site-specific effect ~0.3σ of the classification band |
 | disattenuate ↔ pool | **disattenuate, then pool** | RULED_CORRECT | pooled-then-disattenuated biased by the Jensen factor; sealed formula confirmed z=0.64 |
 | window ↔ project (survey, C4) | *(unruled — census-found, unmeasured)* | — | fused single order in `tile_points`; registered for a future arc, do not treat as free |
 

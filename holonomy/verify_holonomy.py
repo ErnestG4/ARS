@@ -50,6 +50,19 @@ opt = json.load(open(f"{HL}/opt_measured.json"))
 chk(opt["trigger_fired"] is True, "optional trigger record changed")
 chk(opt["op2"]["law_agrees"], "OP2 sealed formula regressed")
 
+# seal addenda (ADD-1..5, Will's post-banking audit) + their artifacts
+chk([a["id"] for a in seal.get("addenda", [])]
+    == ["ADD-1", "ADD-2", "ADD-3", "ADD-4", "ADD-5"],
+    "seal addenda block changed")
+m1 = json.load(open(f"{HL}/op1_materiality.json"))
+chk(m1["clean"] is False and abs(m1["margin_over_delta"] - 1.4) < 0.3,
+    "OP1 materiality banked result drifted")
+c1 = json.load(open(f"{HL}/op1_correctness.json"))
+chk(c1["ruled_correct_matched_lens"] is False
+    and c1["z_mixed"] < c1["z_matched"] <= 0.05
+    and "first_run" in c1,
+    "OP1 correctness banked result drifted")
+
 # canonical registry importable and self-consistent with banked orders
 sys.path.insert(0, HL)
 from canonical import CANONICAL, assert_canonical      # noqa: E402
@@ -57,6 +70,8 @@ chk(assert_canonical("unfold_window_1d", "window_then_unfold"),
     "canonical P1 order")
 chk(assert_canonical("reweight_edge_2d", "edge_then_reweight"),
     "canonical P2 order")
+chk(assert_canonical("surrogate_unfold_1d", "matched_lens"),
+    "canonical OP1 invariant (ADD-3 revision)")
 try:
     assert_canonical("unfold_window_1d", "unfold_then_window")
     fails.append("assert_canonical failed to reject a wrong order")

@@ -26,9 +26,13 @@ CANONICAL = {
                       "give identical NNS class calls, delta KS ~5e-14)",
         statement="Estimate/normalise the unfolding on the ANALYSIS WINDOW, "
                   "not on the pooled set.  compute_nns's internal unit-mean "
-                  "renormalisation (census C1) already self-enforces this "
-                  "for NNS consumers; Sigma^2 consumers must window first "
-                  "or re-unfold per window.",
+                  "renormalisation (census C1) self-enforces this for NNS "
+                  "consumers as a MECHANISM (the renorm is unconditional in "
+                  "code) — but the both-orders-equivalence DATUM is "
+                  "zeta-window-only (seal ADD-4); other substrates inherit "
+                  "the mechanism, not the measurement.  Sigma^2 consumers "
+                  "have no self-enforcement and must window first or "
+                  "re-unfold per window.",
         measured="holonomy/p1_measured.json, arc_verdicts.json P1"),
     # P2 — COMMUTATOR_MEASURED; ruling pre-positioned for future callers
     "reweight_edge_2d": dict(
@@ -59,18 +63,31 @@ CANONICAL = {
                   "a refactor abandoning DD/RR-style normalisation does "
                   "NOT inherit this row.",
         measured="holonomy/p3_measured.json"),
-    # OP1 — exploratory, measured non-commutation
+    # OP1 — measured non-commutation; ruling REVISED under seal addendum
+    # ADD-3 (original 'unfold_then_surrogate' RETRACTED: it would break the
+    # matched-lens design the live sites implement deliberately)
     "surrogate_unfold_1d": dict(
-        order="unfold_then_surrogate",
+        order="matched_lens",
         basis="RULED_CONSISTENT",
-        transfer_note="no truth leg in this pilot; rationale: surrogates "
-                      "belong in the coordinate frame where the null is "
-                      "defined (unfolded).  Delta Sigma^2(20) = +1.15 +- "
-                      "0.23 (z=4.9) — a REAL non-commutation; any future "
-                      "live surrogate machinery must consult this row",
-        statement="Generate surrogates AFTER unfolding, in the unfolded "
-                  "frame.",
-        measured="holonomy/opt_measured.json op1"),
+        transfer_note="bare-pair Delta Sigma^2(20) = +1.15 +- 0.23 (z=4.9) "
+                      "is REAL; materiality vs the RIGID_GUE gate NOT clean "
+                      "under the worst-case screen (margin 1.4x < k=3, "
+                      "op1_materiality.json) -> correctness leg RUN "
+                      "(op1_correctness.json): direction favors matched-"
+                      "lens in both runs (mixed order biases marginal-class "
+                      "data rigid-ward, z -0.32 vs -0.04) but separation "
+                      "0.28+-0.20 < k=3 — biases do not separate at arc "
+                      "power; site-specific verdict-level effect ~0.3 sigma "
+                      "of the classification band",
+        statement="The ruled invariant is MATCHED LENS: a surrogate/null "
+                  "and the data it nulls must pass the IDENTICAL unfolding "
+                  "apparatus (live sites already do — "
+                  "longrange_discriminator '# same lens', "
+                  "local_rate_unfold readouts).  No bare sequence order is "
+                  "enforced; breaking lens-matching in either direction is "
+                  "the violation.",
+        measured="holonomy/opt_measured.json op1 + op1_materiality.json + "
+                 "op1_correctness.json (seal ADD-1/ADD-3)"),
     # OP2 — sealed-formula law confirmed
     "disattenuate_pool": dict(
         order="disattenuate_then_pool",

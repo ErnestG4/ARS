@@ -1,0 +1,31 @@
+{
+ "three_event_label": [
+  "banked-without-pass 2026-08-16",
+  "flagged by Will's audit 2026-08-16",
+  "run under addendum ADD-1"
+ ],
+ "consumer": "cross_substrate/longrange_discriminator.py (RIGID_GUE gate; matched-lens references, '# same lens')",
+ "n": 1200,
+ "L": 20.0,
+ "seeds": 8,
+ "unfold_deg": 6,
+ "gue_band": {
+  "mean": 0.6793541788427819,
+  "sd": 0.1507286682564782
+ },
+ "poisson_band": {
+  "mean": 18.99228277810247,
+  "sd": 3.7678411758978836
+ },
+ "rigid_boundary": 1.0561758494839775,
+ "renewal_sigma2": {
+  "mean": 3.6039012273524254,
+  "min": 2.7107344632768364,
+  "sd": 0.5927290139187882
+ },
+ "delta_op1": 1.1499704516334017,
+ "margin_to_rigid": 1.654558613792859,
+ "margin_over_delta": 1.438783589128527,
+ "clean": false,
+ "structural_note": "Live sites are MATCHED-LENS (surrogate rides the identical unfold as data), so the OP1 absorption is common-mode to first order; the margin above is the worst case (full |Delta| applied to one arm)."
+}

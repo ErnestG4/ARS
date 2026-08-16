@@ -1989,9 +1989,19 @@ checker `holonomy/verify_holonomy.py` on the standing green board).
   ratio/self-normalising estimator family (registry ownership clause). §7a promotion trigger
   did NOT fire — survey synthetic analogue stays parked.
 - **Optional pairs (sealed wall-clock trigger fired, 270s<3600s):** OP1 surrogate↔unfold =
-  real non-commutation (ΔΣ²(20)=+1.15±0.23, z 4.9), ruled unfold-then-surrogate
-  (RULED_CONSISTENT); OP2 disattenuate↔pool = sealed Jensen-gap formula confirmed (z 0.64),
-  ruled disattenuate-then-pool (RULED_CORRECT).
+  real non-commutation (ΔΣ²(20)=+1.15±0.23, z 4.9). *Post-banking audit (Will, seal
+  ADD-1..5): the §2-owed materiality pass had been omitted; run late, it came back NOT
+  clean at the RIGID_GUE gate (margin 1.4×|Δ| < k=3) — the original bare-order ruling was
+  a load-bearing coin flip AND would have broken the live sites' deliberate matched-lens
+  design. §3-forced correctness leg run (prediction committed first): direction confirmed
+  both runs (mixed order biases marginal-class data rigid-ward, z −0.32 vs −0.04) but no
+  k=3 separation → ruling revised to the MATCHED_LENS invariant (surrogate and data pass
+  the identical unfold apparatus), RULED_CONSISTENT-with-leg-run; site-specific effect
+  ~0.3σ of the classification band. ADD-5 registers the discriminator's thin absolute
+  margin as a cross-substrate watch item. ADD-2 declares NONCOMMUTING_UNPREDICTED as a
+  pre-seal implementation-time lattice completion (git-timeline-proven) whose declaration
+  was omitted from the seal text.* OP2 disattenuate↔pool = sealed Jensen-gap formula
+  confirmed (z 0.64), ruled disattenuate-then-pool (RULED_CORRECT).
 - Census: 53/53, coverage 1.000 vs 0.9 floor, committed denominator; C4 window↔project
   registered-unmeasured. KAG: nulls non-vacuous at 1.5e-16; one inert red construction
   caught and replaced inside the legal window (rank-window invariance — labeled in-code).

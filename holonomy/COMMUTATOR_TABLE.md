@@ -13,8 +13,14 @@ with the seal, D1 clause verbatim). **Protocol arc — no new science claims.** 
 | **P1** unfold↔window (1D) | **ORDER_RULING_REQUIRED** | NONCOMMUTING_UNPREDICTED | census found BOTH orders live (C1/C2); law confirmed 14/15 cells, the one violation at the registered omitted-term cell; **ruled: window-then-unfold (RULED_CORRECT)** |
 | **P2** reweight↔edge (2D) | **COMMUTATOR_MEASURED** | COMMUTATOR_MEASURED | sealed continuum law confirmed across the full gradient ladder (max fam-z 2.16 / 3.58); ruling pre-positioned for future λ̂-estimating callers |
 | **P3** weight↔thin (survey) | **POINT_CHECK_CLEAN** | POINT_CHECK_CLEAN | mechanism real (−10,003 counts/draw, sealed sign −1 hit 32/32; 12σ suppressor-free), estimator suppression holds (max fam-z 2.49 / 3.21, powered, MDD 0.0018 ≤ 0.01) |
-| **OP1** surrogate↔unfold (1D, exploratory) | NONCOMMUTING_UNPREDICTED | — | ΔΣ²(20) = +1.15 ± 0.23 (z 4.9) — real; ruled unfold-then-surrogate, RULED_CONSISTENT |
+| **OP1** surrogate↔unfold (1D, exploratory) | **ORDER_RULING_REQUIRED → resolved (seal ADD-1/ADD-3)** | NONCOMMUTING_UNPREDICTED | ΔΣ²(20) = +1.15 ± 0.23 (z 4.9) — real; worst-case materiality NOT clean at the RIGID_GUE gate → correctness leg run → **ruled MATCHED_LENS, RULED_CONSISTENT-with-leg-run** (original blanket order retracted) |
 | **OP2** disattenuate↔pool | COMMUTATOR_MEASURED | — | sealed Jensen-gap formula confirmed: +0.02484 ± 0.00042 vs +0.02457 (z 0.64) |
+
+*Lattice-vocabulary declaration (seal ADD-2):* the measurement-layer value NONCOMMUTING_UNPREDICTED
+is an implementation-time completion of the brief's §3 lattice, authored pre-seal (dc2448c,
+frozen blob 52a1e575 in a583d9f, 11 seconds before the seal, measurement after) — same class as
+the survey's CLASS_INCONSISTENT_ACROSS_TILES. The survey seal declared its completion; this one
+did not — a declaration defect caught by Will's post-banking audit and repaired by dated addendum.
 
 §7a promotion trigger: **did not fire** (P3 clean) — the survey synthetic analogue stays parked.
 Optional-pair trigger: fired (mandatory wall-clock 270 s < 3600 s sealed) — both optional pairs run
@@ -58,8 +64,10 @@ rows, pre-arc; (2) census C2 + this ruling triggered re-examination; (3) re-deri
 orders on `zeros_2000.npy`: identical class calls (gue/gue), ΔKS ≈ 5×10⁻¹⁴ — no banked verdict
 moves. Materiality clean by the sealed rule. Closure note: compute_nns's hidden renormalisation
 (C1) — flagged by the census as a defect-shaped finding — turns out to be the thing that has been
-*silently enforcing the low-bias order* for every NNS consumer all along; Σ² consumers have no
-such self-enforcement, which is where the ruling has teeth. Zeta leg ΔΣ² ∈ {−0.015, −0.017,
+*silently enforcing the low-bias order* for NNS consumers; the enforcement **mechanism** is
+unconditional in code (the renorm runs on every input), but the both-orders-equivalence **datum**
+is zeta-window-only (seal ADD-4) — other substrates inherit the mechanism, not the measurement.
+Σ² consumers have no such self-enforcement, which is where the ruling has teeth. Zeta leg ΔΣ² ∈ {−0.015, −0.017,
 +0.014}, within its jitter envelope (envelope_ok).
 
 ## P2 — intensity-reweight → edge-correct vs edge-correct → reweight
@@ -91,10 +99,27 @@ clause); witness for the unmodified path: injected spatial δ=0.05 detected at 1
 
 ## Optional pairs (ran by sealed trigger)
 
-**OP1 surrogate↔unfold:** ΔΣ²(20) = +1.15 ± 0.23 (z 4.9) — surrogates generated before unfolding
-inherit the fit's variance absorption; real non-commutation, exploratory lane (no sealed
-prediction by design). Ruled `unfold_then_surrogate`, RULED_CONSISTENT (surrogates belong in the
-frame where the null is defined); any future live surrogate machinery must consult the registry.
+**OP1 surrogate↔unfold — the audit-driven arc within the arc (seal ADD-1/ADD-3):**
+ΔΣ²(20) = +1.15 ± 0.23 (z 4.9) — surrogates passing the unfold lens inherit the fit's variance
+absorption; real non-commutation, exploratory lane (no sealed prediction by design). The pair
+was first banked RULED_CONSISTENT on a bare order with **no materiality pass — a §2 obligation,
+omitted; Will's audit caught it.** The owed pass (op1_materiality.py, run through the consumer's
+own module) came back **NOT clean**: the nearest downstream consumer is the RIGID_GUE gate
+(`cross_substrate/longrange_discriminator.py`), renewal-arm min 2.71 vs boundary 1.056 → margin
+1.65 = **1.4× |Δ| against k=3**. The call-site search simultaneously found that every live site
+runs surrogate-then-SHARED-lens *deliberately* (the module's own "# same lens"; the
+instrument-matched-null doctrine) — so the originally ruled order would have **broken** the
+principled design it claimed to govern; it is retracted. The §3-forced correctness cell
+(op1_correctness.py, prediction committed before running): direction as predicted in both runs —
+matched-lens marginal-class data reads its own null (z −0.04) while the mixed order biases it
+rigid-ward (z −0.32) — but separation 0.28 ± 0.20 does not reach k=3 (8-seed first run banked
+in-file; one pre-committed 64-seed rerun). Per §3, biases-don't-separate → **ruled
+MATCHED_LENS** (surrogate and data pass the identical unfolding apparatus; no bare sequence
+order enforced), basis RULED_CONSISTENT **with the leg run and the site-specific effect
+quantified** (~0.3σ of the classification band — 4× smaller than the bare-pair Δ measured on the
+trended substrate; the worst-case screen and the site measurement are both banked and do not
+conflict). Site-hardening watch item ADD-5: the discriminator's absolute renewal-to-RIGID margin
+is thin in its own units independent of order effects; registered to the cross-substrate program.
 **OP2 disattenuate↔pool:** sealed Jensen-gap formula confirmed (z 0.64); ruled
 `disattenuate_then_pool`, RULED_CORRECT (truth by construction).
 

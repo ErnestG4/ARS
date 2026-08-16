@@ -1,0 +1,37 @@
+{
+ "three_event_label": [
+  "RULED_CONSISTENT banked without correctness leg",
+  "ADD-1 materiality found ruling load-bearing (margin 1.4x < k=3)",
+  "this cell run under addendum ADD-3"
+ ],
+ "prediction": "matched-lens correct; mixed order biases marginal-class data toward false rigidity (docstring, committed first)",
+ "n": 1200,
+ "L": 20.0,
+ "seeds": 64,
+ "unfold_deg": 6,
+ "renewal_null_lensed": {
+  "mean": 3.589123380576661,
+  "sd": 0.6770817590269376
+ },
+ "renewal_null_unlensed": {
+  "mean": 3.775801881968907,
+  "sd": 0.6589396074621096
+ },
+ "renewal_data_lensed": {
+  "mean": 3.564536150886421,
+  "sem": 0.09248279605608466
+ },
+ "z_matched": -0.03631353136078486,
+ "z_mixed": -0.32061470989150453,
+ "separation": 0.2843011785307197,
+ "separation_se": 0.19584508100346737,
+ "first_run": {
+  "seeds": 8,
+  "z_matched": -0.19,
+  "z_mixed": -0.82,
+  "separation": 0.63,
+  "separation_se": 0.64,
+  "note": "direction confirmed, underpowered"
+ },
+ "ruled_correct_matched_lens": false
+}
