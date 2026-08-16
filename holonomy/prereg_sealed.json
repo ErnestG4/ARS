@@ -1,0 +1,137 @@
+{
+ "sealed_utc_date": "2026-08-16",
+ "arc": "Holonomy pilot (HOLONOMY_PILOT_BRIEF.md, approved+amended af7a94f; protocol arc, NO new science claims).",
+ "debug_freeze": "BINDING (D1 precedent, verbatim): the KAG is the one place debugging is legal, and THE DEBUGGING WINDOW CLOSES WHEN THE SEAL CLOSES.  Any post-seal change requires a dated addendum and re-derivation of every affected number.",
+ "k_arc": 3.0,
+ "family_wise_rule": "Bonferroni on the two-sided k-sigma alpha: z_fam = norm.isf(2*norm.sf(k)/(2*n_cells)); applied to law cells, control (n=dials), and P3 L-cells.  Stated here, not chosen after curves (brief Q6).",
+ "fp_tol_relative": 1e-12,
+ "fp_headroom_measured": 1.4710710671973274e-16,
+ "fp_scope": "exact-commutation regime ONLY (A2): does NOT apply to P3.",
+ "census": {
+  "coverage": 1.0,
+  "floor": 0.9,
+  "verdict": "COMPLETE (1.000 >= 0.9)",
+  "both_orders_pairs": [
+   "P1 (C1/C2 renormalisation half)"
+  ]
+ },
+ "p1": {
+  "a": 0.25,
+  "deg": 5,
+  "n_full": 1200,
+  "n_W": 600,
+  "dials": [
+   0.25,
+   0.5,
+   1.0,
+   2.0,
+   4.0
+  ],
+  "L_fracs": [
+   0.016666666666666666,
+   0.03333333333333333,
+   0.06666666666666667
+  ],
+  "jitter_degs": [
+   4,
+   6
+  ]
+ },
+ "p1_seeds": 24,
+ "p1_env_seeds": 8,
+ "p1_prediction_scope": "continuum derivation captures the TREND-TRACKING term only; fluctuation absorption by the finite-n fit is KNOWN-OMITTED and its signature (law misfit concentrated at small predicted-Delta cells) is registered in advance.",
+ "p1_materiality_frac": 0.1,
+ "p1_materiality_rule": "zeta NNS consumer: clean iff class call identical under both orders AND |delta ks_gue| < frac * (second_best - best) gap",
+ "zeta_env_degs": [
+  4,
+  5,
+  6
+ ],
+ "zeta_env_mult": 3.0,
+ "zeta_env_floor": 1e-09,
+ "p2": {
+  "Lx": 10.0,
+  "Ly": 10.0,
+  "rmax": 1.0,
+  "n_target": 3000,
+  "n_strips": 10,
+  "r_list": [
+   0.5,
+   1.0
+  ],
+  "ladder": [
+   1.44,
+   2.0736,
+   2.9859839999999993,
+   4.2998169599999985
+  ]
+ },
+ "p2_seeds": 24,
+ "p2_materiality": "STRUCTURAL_CLEAN by census C3: no live caller estimates lambda-hat from data (bridge designed instances used known intensity); the ruling applies to FUTURE estimated-lambda callers by transfer (registry basis field).",
+ "p3": {
+  "n_draws": 32,
+  "u_seed0": 3000,
+  "L_list": [
+   0.1,
+   0.5
+  ],
+  "mdd_F": 0.01,
+  "sign_predicted": -1,
+  "extension_increment": "n_draws x2 (-> 64), u_seed0 continues"
+ },
+ "p3_mechanism": {
+  "p_weight_then_thin": 0.03859933060535565,
+  "p_thin_then_weight": 0.03933531563689206,
+  "wbar_data": 1.0053331042601126,
+  "wbar_kag": 1.0245020925518635,
+  "predicted_abs_count_diff": 9990.586859444253,
+  "suppressor": "DD/RR + randoms-derived F expectations self-normalise scalar density shifts; suppressor-free retained-mass z at real amplitude = 12.0 (kag_measured.json red_A)",
+  "sign_clause": "A3: measured retained-count sign opposite the prediction => HALT_PLUMBING flag, audit before any holonomy claim"
+ },
+ "p3_q2_ruling": "null_half loaded READ-ONLY via the frozen loader as the fixed reference (survey seal language: disjoint halves by file index, no untouched clause; D1-certified configuration).  Quarter-split recorded as fallback.",
+ "p3_variant": "thin_pre (transitions.py) = u-threading variant of frozen mask_kag.thin_to_data; banked diff in its docstring; equivalence PROVEN bit-identical (kag_measured.json equivalence_thin, n_kept 523603) \u2014 TESTED transfer surface (R2).",
+ "promotion_trigger_7a": "If P3 -> ORDER_RULING_REQUIRED, the survey-dialect synthetic analogue is promoted to next-in-queue; else it stays parked.",
+ "optional_trigger_wallclock_sec": 3600.0,
+ "optional_pairs": {
+  "op1_seeds": 16,
+  "op1_L": 20.0,
+  "op1_mdd": 1.0,
+  "op2_rho": 0.5,
+  "op2_reliabilities": [
+   [
+    0.9,
+    0.4
+   ],
+   [
+    0.5,
+    0.8
+   ]
+  ],
+  "op2_n_per_group": 2000,
+  "op2_seeds": 16,
+  "note": "OP1 exploratory-lane point-check (no sealed continuum prediction; \u00a70 pre-drawn uniforms mandatory).  OP2 sealed Jensen-gap formula in run_opt.py docstring."
+ },
+ "dry_runs": {
+  "p1_p2_executed_sec": 1.812814712524414,
+  "p3_evidence": "n_draws x2 hatch = the same per-draw-seeded loop at higher count; executed 8 sequential draws through the identical thin+pooled_F path in kag_measured.json red_B (per-draw rng seeds 2000..2007) \u2014 the loop runs at arbitrary count by construction"
+ },
+ "kag_pointer": "kag_measured.json PASS=true (frozen in this seal); one red construction replaced inside the window and labeled in-code (red_p1 docstring).",
+ "code_freeze_blob_shas": {
+  "ownership_map.py": "049b7ec009fbc87e29398c2f6f68bccdf73dbcdb",
+  "transitions.py": "e3afd3c256ce93b1205d251d2dcbe0dcd979956c",
+  "lattice_h.py": "52a1e5758af3c3068793c45b84b09f37bd77b2d9",
+  "predict_p1.py": "6737f4fb922db38289157053f6f725d597c45a4b",
+  "predict_p2.py": "e4f79d1760cac7a8db2187de3f77b9ad79bb94db",
+  "p3_common.py": "bbd46391c34eeec065ec026d794030c9e6a2207c",
+  "kag_holonomy.py": "7b6a16592ee82b26cd250734822825931ed360ab",
+  "run_p1.py": "3f5d65ca974f9b663f474eb52818c364249d8956",
+  "run_p2.py": "8c28d5aa0bff8c29d43db49858c2b6d343e351d9",
+  "run_p3.py": "69a3e38e56bcfa1ab6c9254d566ee5e1561b2e30",
+  "run_opt.py": "7d12c152e4690b7d155570b706dd44c7f80520a0",
+  "resolve_arc.py": "49e7bec08855b413d80235a31146d0502d9beb5f",
+  "p1_prediction.json": "5d3ad1f72d076ae41ac3688513090007d6632559",
+  "p2_prediction.json": "4957187941406b0f71d3f0fc1a2dc872f70bb283",
+  "ownership_map.json": "46f8decf5ec339f32b4ac96f8bf73f6f4803a8b9",
+  "kag_measured.json": "66bf02b19ffed9d56d61192ef64c2738ed42a4f3"
+ }
+}
