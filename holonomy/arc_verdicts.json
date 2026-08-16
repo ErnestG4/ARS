@@ -1,0 +1,134 @@
+{
+ "P1": {
+  "verdict": {
+   "primary": "ORDER_RULING_REQUIRED",
+   "measurement": "NONCOMMUTING_UNPREDICTED",
+   "flags": [
+    "CENSUS_BOTH_ORDERS"
+   ]
+  },
+  "law": {
+   "z_fam": 3.745567554506254,
+   "max_abs_z": 7.7852082830241764,
+   "worst_cell": {
+    "z": 7.7852082830241764,
+    "dial": 2.0,
+    "frac": 0.016666666666666666,
+    "measured": 0.2114175889376538,
+    "predicted": -0.01275083397174015
+   },
+   "law_agrees": false
+  },
+  "control": {
+   "max_abs_z": 1.9730143589215734,
+   "ok": true
+  },
+  "zeta": {
+   "delta_sigma2": {
+    "L16.7": -0.014790941267877167,
+    "L33.3": -0.017456150817324878,
+    "L66.7": 0.01438848920863306
+   },
+   "jitter": {
+    "deg4": {
+     "L16.7": -0.03762121237374738,
+     "L33.3": -0.04172147886678218,
+     "L66.7": 0.014376573275541149
+    },
+    "deg5": {
+     "L16.7": -0.006851163119101555,
+     "L33.3": -0.04783687308594836,
+     "L66.7": -0.060431654676258995
+    },
+    "deg6": {
+     "L16.7": -0.018109069075816442,
+     "L33.3": -0.001484508610746449,
+     "L66.7": -0.030575539568345356
+    }
+   },
+   "spread": {
+    "L16.7": 0.030770049254645826,
+    "L33.3": 0.04635236447520191,
+    "L66.7": 0.07482014388489205
+   },
+   "envelope_ok": true,
+   "nns_ks": {
+    "A": {
+     "poisson": 0.3193773828476828,
+     "goe": 0.11141460280553199,
+     "gue": 0.04341238161423572,
+     "best": "gue"
+    },
+    "B": {
+     "poisson": 0.319377382847697,
+     "goe": 0.11141460280557351,
+     "gue": 0.0434123816141877,
+     "best": "gue"
+    }
+   }
+  },
+  "materiality": {
+   "same_class": true,
+   "class_gap": 0.06800222119129627,
+   "delta_ks_gue": 4.801714581503802e-14,
+   "clean": true
+  },
+  "census_row": "BOTH ORDERS LIVE (via the renormalisation half of the unfold).  The pointwise RvM/semicircle map commutes with windowing exactly; the per-set renormalisation does NOT."
+ },
+ "P2": {
+  "verdict": {
+   "primary": "COMMUTATOR_MEASURED",
+   "measurement": "COMMUTATOR_MEASURED",
+   "flags": []
+  },
+  "law": {
+   "z_fam": 3.5846933285005127,
+   "max_abs_z": 2.164391655708356,
+   "law_agrees": true
+  },
+  "ruling_input": {
+   "bias_A_top": [
+    0.031626365898655674,
+    0.16756605361212049
+   ],
+   "bias_B_top": [
+    0.011069406787164388,
+    0.06781299367728531
+   ]
+  },
+  "materiality": "STRUCTURAL_CLEAN (census C3)",
+  "census_row": "SINGLE ORDER, FUSED: k_inhom erodes centres then applies 1/lambda marks with lambda GIVEN (not estimated); the estimation-domain mechanism is caller-side and no live caller estimates lambda-hat from data (designed instances used known intensity)."
+ },
+ "P3": {
+  "verdict": {
+   "primary": "POINT_CHECK_CLEAN",
+   "measurement": "POINT_CHECK_CLEAN",
+   "flags": []
+  },
+  "cells": {
+   "L0.1": {
+    "mean": 0.00021103690504811062,
+    "sem": 8.480579988519162e-05,
+    "z": 2.4884725494460063
+   },
+   "L0.5": {
+    "mean": -0.0005138747191313284,
+    "sem": 0.0005726551388186217,
+    "z": -0.8973545931875223
+   }
+  },
+  "dcount": {
+   "mean": -10002.59375,
+   "sd": 129.7406493305382,
+   "sign_predicted": -1,
+   "sign_ok_all_draws": true
+  },
+  "materiality": {
+   "margin_min_sigma": 3.1649102659543775,
+   "worst_dF_bound": 0.0022318401355871935,
+   "med_sigma_F": 0.04585849733038538,
+   "clean": true
+  },
+  "census_row": "SINGLE ORDER: thin_to_data normalises by the weighted total (weight-first semantics); no count-normalised variant exists in live code."
+ }
+}

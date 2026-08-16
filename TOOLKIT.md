@@ -887,3 +887,30 @@ and 1D GUE gives Σ²(L) ~ (1/π²)ln L against L. Two consequences, both measur
    amplification factor alongside. A gluing "failure" at large R/L is the amplification law, not
    a transition defect — but a failure at small R/L is a real defect (dimension slip, factor
    error, normalization inversion — the FIX-2 class the gate exists to catch).
+
+## §12 Canonical Order Registry (Holonomy pilot, 2026-08-16)
+
+**The executable owner of every ruling below is `holonomy/canonical.py`** (rulings-as-code;
+call sites guard with `assert_canonical(pair_key, order)`; if this prose ever disagrees with
+that module, the module wins and the prose is the defect). Full evidence:
+`holonomy/COMMUTATOR_TABLE.md`; seal `holonomy/prereg_sealed.json`.
+
+Transitions in a pipeline are applied in an order, and the order is part of the estimator.
+The pilot measured which orders matter, under what law, and ruled the ones that do. The
+ruling-basis field says what kind of weight each ruling carries: **RULED_CORRECT** (bias
+separated against ground truth where measured), **RULED_CORRECT_BY_TRANSFER** (separated on a
+synthetic analogue, applied where truth is absent), **RULED_CONSISTENT** (coordination only).
+
+| pair | canonical order | basis | short reason |
+|---|---|---|---|
+| unfold ↔ window (1D) | **window, then unfold** | RULED_CORRECT (transfer at zeta) | estimate/normalise the unfolding on the analysis window; bias 0.09 vs 4.85 at the resonance dial. `compute_nns` self-enforces this for NNS (its internal renorm — census C1); **Σ² consumers do not inherit that and must re-unfold per window** |
+| reweight ↔ edge-correct (2D) | **edge-correct, then fit λ̂** | RULED_CORRECT (by transfer to future callers) | fit intensity on the eroded domain the statistic integrates over; continuum law confirmed to 4.30× gradient. No live λ̂-estimating caller exists today (census C3) |
+| weight ↔ thin (survey) | weight, then thin (frozen semantics) | RULED_CONSISTENT | POINT_CHECK_CLEAN **at sealed points/power only — not COMMUTES**: mechanism real (−10⁴ counts/draw, 12σ suppressor-free), suppression owned by the ratio/self-normalising estimator family; a refactor abandoning DD/RR normalisation does not inherit the clean row |
+| surrogate ↔ unfold (1D) | **unfold, then surrogate** | RULED_CONSISTENT | measured non-commutation ΔΣ²(20)=+1.15±0.23; surrogates belong in the frame where the null is defined |
+| disattenuate ↔ pool | **disattenuate, then pool** | RULED_CORRECT | pooled-then-disattenuated biased by the Jensen factor; sealed formula confirmed z=0.64 |
+| window ↔ project (survey, C4) | *(unruled — census-found, unmeasured)* | — | fused single order in `tile_points`; registered for a future arc, do not treat as free |
+
+**Standing distinctions this section exists to preserve:** POINT_CHECK_CLEAN ≠ COMMUTES (the
+former claims nothing off its sealed points); a clean row can be OWNED by an estimator family
+rather than by the transition pair; and pairwise cleanliness does not bound full-sequence
+holonomy (brief §7 scope limit).

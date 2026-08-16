@@ -1,0 +1,21 @@
+{
+ "seal_cited": "holonomy/prereg_sealed.json",
+ "mandatory_wallclock_sec": 270.0506579875946,
+ "trigger_fired": true,
+ "op1": {
+  "mean": 1.1499704516334017,
+  "sem": 0.2336837376326731,
+  "z": 4.92105468392087,
+  "powered": true,
+  "measurement": "NONCOMMUTING_UNPREDICTED"
+ },
+ "op2": {
+  "mean": 0.02483769785430825,
+  "sem": 0.00041663685489464765,
+  "delta_pred": 0.02456995681972879,
+  "z_vs_pred": 0.6426244616481773,
+  "law_agrees": true,
+  "measurement": "COMMUTATOR_MEASURED"
+ },
+ "elapsed_sec": 14.216201543807983
+}

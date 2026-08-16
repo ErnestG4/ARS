@@ -248,6 +248,20 @@ transitions with non-trivial holonomy (the OBSTRUCTION-BANKED genus from this ar
 the natural verdict vocabulary). Pre-registration should seal which differences count,
 per the powered-falsifier discipline.
 
+**Follow-up #2 CLOSED (2026-08-16):** the holonomy pilot ran as its own sealed arc —
+`HOLONOMY_PILOT_BRIEF.md` (Will's brief, amended) → `holonomy/COMMUTATOR_TABLE.md`.
+Verdict board: P1 unfold↔window **ORDER_RULING_REQUIRED** (both orders were live in the repo
+via the renormalisation half of the unfold; ruled window-then-unfold, RULED_CORRECT; zeta
+re-derived under both orders — identical class calls); P2 reweight↔edge
+**COMMUTATOR_MEASURED** (sealed continuum law confirmed to the 4.30× gradient top); P3
+weight↔thin **POINT_CHECK_CLEAN** (mechanism real at 10⁴ points/draw, suppressed by the
+ratio-estimator family below a powered detection floor). Canonical orders live as code in
+`holonomy/canonical.py`; registry prose in TOOLKIT §12. The OBSTRUCTION-BANKED vocabulary
+proposal above was superseded by the pilot's own sealed lattice (POINT_CHECK_CLEAN /
+COMMUTATOR_MEASURED / ORDER_RULING_REQUIRED), which distinguishes measured-law
+non-commutation from unpredicted non-commutation — a finer partition than this note
+anticipated.
+
 ## Defect ledger, part 2 — post-closure high-effort code review (2026-08-15 overnight)
 
 A dedicated review of `bridge/` returned **10 verified findings** (2 candidates refuted by

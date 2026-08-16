@@ -1,0 +1,54 @@
+{
+ "seal_cited": "holonomy/prereg_sealed.json",
+ "scalars": {
+  "W_data": 536802.6376852085,
+  "N_data": 533955,
+  "wbar_data": 1.0053331042601126,
+  "wbar_kag": 1.0245020925518635,
+  "N_kag": 13574443,
+  "W_kag": 13907045.258725995
+ },
+ "p_wt": 0.03859933060535565,
+ "p_tw": 0.03933531563689206,
+ "dcount": {
+  "mean": -10002.59375,
+  "sd": 129.7406493305382,
+  "sign_predicted": -1,
+  "sign_ok_all_draws": true
+ },
+ "cells": {
+  "L0.1": {
+   "mean": 0.00021103690504811062,
+   "sem": 8.480579988519162e-05,
+   "z": 2.4884725494460063
+  },
+  "L0.5": {
+   "mean": -0.0005138747191313284,
+   "sem": 0.0005726551388186217,
+   "z": -0.8973545931875223
+  }
+ },
+ "z_fam": 3.2051549205989334,
+ "mean_within_ksem": true,
+ "mdd_F": {
+  "achieved": 0.0018354484359907706,
+  "sealed": 0.01,
+  "powered": true
+ },
+ "materiality": {
+  "margin_min_sigma": 3.1649102659543775,
+  "worst_dF_bound": 0.0022318401355871935,
+  "med_sigma_F": 0.04585849733038538,
+  "clean": true
+ },
+ "n_tiles_per_L": {
+  "0.1": 28,
+  "0.5": 28
+ },
+ "verdict": {
+  "primary": "POINT_CHECK_CLEAN",
+  "measurement": "POINT_CHECK_CLEAN",
+  "flags": []
+ },
+ "elapsed_sec": 57.37842106819153
+}

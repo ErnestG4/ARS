@@ -1961,3 +1961,42 @@ powered instance firing ≥5σ every tile and the real-amplitude observation (ig
 weights shifts F by up to 4.47σ); verdict lattice as a shared module (which caught a lattice
 hole — tile-inconsistent class — at authoring time); r_min = 0.05° hardware-anchored;
 L = 1.0° capped out by the adjudicated watch item. Live checker: survey/verify_survey.py.
+
+## Holonomy pilot (2026-08-16, sealed a583d9f) — protocol arc, COMPLETE
+
+The measurement stack's transition orders are now measured objects with a code-enforced
+registry (`holonomy/canonical.py`, TOOLKIT §12; evidence `holonomy/COMMUTATOR_TABLE.md`;
+checker `holonomy/verify_holonomy.py` on the standing green board).
+
+- **P1 unfold↔window: ORDER_RULING_REQUIRED.** The census found BOTH orders live in the repo
+  before any Δ was measured (the per-set renormalisation half of the unfold: compute_nns
+  internal renorm C1; zeta height path windows-then-unfolds C2). Sealed continuum law
+  confirmed in 14/15 cells (sub-percent at the resonance top); the single violated cell is
+  exactly the pre-registered known-omitted-term signature (fluctuation absorption, positive
+  residual at the small-|pred| sign-flip cell) — lattice read as sealed, no exception cells.
+  Ruled window-then-unfold (RULED_CORRECT; bias 0.09 vs 4.85 at the resonance). Affected
+  banked zeta NNS rows re-derived under both orders: identical class calls (ΔKS ~5e-14),
+  three-event labeled. Closure: C1's hidden renorm has been silently enforcing the low-bias
+  order for NNS consumers all along; Σ² consumers have no such self-enforcement — that is
+  where the ruling has teeth.
+- **P2 reweight↔edge: COMMUTATOR_MEASURED** — λ̂-estimation-domain mechanism; law confirmed
+  to the 4.30× ladder top (max fam-z 2.16/3.58). Materiality STRUCTURAL_CLEAN (census C3: no
+  live λ̂-estimating caller). Ruling pre-positioned for future callers: edge-then-reweight.
+- **P3 weight↔thin: POINT_CHECK_CLEAN** — the A1 amendment (dial-less ≠ seed-less) made this
+  a powered test: 32 u-draw pairs, sealed A3 sign −1 hit 32/32 (dcount −10,003 vs predicted
+  −9,991), mean ΔF consistent with zero at family-wise power, MDD 0.0018 ≤ 0.01, materiality
+  clean vs survey margins. Mechanism real (12σ suppressor-free); cleanliness OWNED by the
+  ratio/self-normalising estimator family (registry ownership clause). §7a promotion trigger
+  did NOT fire — survey synthetic analogue stays parked.
+- **Optional pairs (sealed wall-clock trigger fired, 270s<3600s):** OP1 surrogate↔unfold =
+  real non-commutation (ΔΣ²(20)=+1.15±0.23, z 4.9), ruled unfold-then-surrogate
+  (RULED_CONSISTENT); OP2 disattenuate↔pool = sealed Jensen-gap formula confirmed (z 0.64),
+  ruled disattenuate-then-pool (RULED_CORRECT).
+- Census: 53/53, coverage 1.000 vs 0.9 floor, committed denominator; C4 window↔project
+  registered-unmeasured. KAG: nulls non-vacuous at 1.5e-16; one inert red construction
+  caught and replaced inside the legal window (rank-window invariance — labeled in-code).
+- Scope: pairwise only; no full-sequence holonomy claim; prediction upgrade (absorption
+  term) registered for any future 1D-order arc.
+
+This closes Bridge registered follow-up #2. Registered-open from the queue: comb k-tuple
+constellations; C4 pair; survey extensions via sealed rules only.
