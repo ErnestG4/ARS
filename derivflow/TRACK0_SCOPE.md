@@ -118,7 +118,7 @@ definition, pinned before any corrected curve is seen:
   uniformly ~21× the physical truth — diagnostic of O(ε²) smoothing bias. **Primary readout is
   now the Richardson pair-extrapolation 2F(ε_k) − F(2ε_k)** (smooth in k — applies identically
   at every k, no seam), which the gates verify removes the bias on BOTH bracket inputs: lattice
-  4.9×10⁻⁸ / 7.1×10⁻⁹ / 9.9×10⁻¹⁰ (all inside 10⁻⁷), Hermite-through-reference gated |diff| 3.6×10⁻⁹ vs the
+  4.9×10⁻⁸ / 7.1×10⁻⁹ / 9.9×10⁻¹⁰ (all inside 10⁻⁷), Hermite-through-reference gated |diff| 3.7×10⁻⁹ worst row (the k=1 row alone is 3.6×10⁻⁹) vs the
   10⁻⁵ tolerance (the ~10⁻¹⁰ figure is the raw pipeline readout, not the gated slot). The raw ε and 2ε arms are retained as the sensitivity band; the invariance
   clause is STRENGTHENED: form selection must agree across {primary, raw-ε, raw-2ε} per seed
   class, else INCONCLUSIVE-ON-INSTRUMENT-GROUNDS. Disclosure: at amendment time the only values

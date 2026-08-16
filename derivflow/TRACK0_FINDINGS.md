@@ -301,8 +301,9 @@ The Step-1 escalation probe (6 replicates per seed class, n = 4096, grid 4001 vs
 | GUE k=1 | +3.60×10⁻² | 9.8×10⁻⁴ | **+36.8** |
 | GUE k=2 | +2.04×10⁻² | 5.3×10⁻⁴ | **+38.2** |
 
-The reference-grid artifact is a shared per-k systematic 24–38 σ_mean wide on the fits' anchor
-rows (~15% of signal at k = 1). Consequences, filed before any recomputation:
+The reference-grid artifact is a shared per-k systematic 19–38 σ_mean wide on the fits' anchor
+rows [range corrected 2026-08-16, packaging audit: the earlier "24–38" silently dropped this
+section's OWN smallest row, iid k=2 at +18.6; the table above is authoritative] (~15% of signal at k = 1). Consequences, filed before any recomputation:
 
 - **The sealed verdict is UNDER INSTRUMENT REVIEW.** The form selection (F3 vs F2) was fitted
   to contaminated small-k points. Per the seal's `post_seal_change_protocol`, the sequence is:

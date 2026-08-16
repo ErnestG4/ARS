@@ -161,8 +161,10 @@ treatment — rescaling each covariance by max(1, χ²/dof) — z = 12.0 and 5.8
 survives, with z(β) near the bar, and both numbers are reported so the reader can weight them.
 The quoted parameter values are readout-definition- and n-dependent (the deliberately biased
 raw arms give lower (τ, β); iid τ scatters ~0.19 across n); what is robust across every band
-and every n is the ordering — iid > GUE in both τ and β, with Δτ = 0.65–0.85 far exceeding
-the drift. **Verdict: RATE-SEED-DEPENDENT.**
+and every n is the ordering — iid > GUE in both τ and β in all 12 band × degree comparisons,
+with Δτ = 0.63–0.85 on the primary arm (0.39–0.85 across all bands) far exceeding the drift.
+[Corrected 2026-08-16, packaging audit: the earlier "0.65–0.85" did not trace — the n = 2048
+primary cell gives 0.628. The artifacts are authoritative; the prose was the defective slot.] **Verdict: RATE-SEED-DEPENDENT.**
 
 **Scale.** Two point predictions were sealed before the n = 16384 run from the three smaller
 anchors: H_flat = 10.827 (precision-weighted mean, with σ_sys = 0.192 absorbing the anchors'
