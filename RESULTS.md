@@ -10617,37 +10617,29 @@ dominated and fires on only 0–20% of bands).  See
 `cross_substrate/nns_certifies_marginal_not_class` (memory).
 
 **Arithmetic — mostly CONFIRMED or caveated, not downgraded:**
-- ζ zeros: ~~GUE is **confirmed at class level** — ζ_first is RIGID_GUE,
-  lens-invariant on Σ²~~ — **SUPERSEDED 2026-08-16, pending the vocabulary split**
-  (`rigidgate/RESULTS_RIGIDGATE.md`).
-  > **Why superseded, not merely narrowed:** `RIGID_GUE` as deployed is a **one-sided**
-  > branch (`o <= gue_mean + 2.5·gue_sd`, deliberate since 78e0ee1) certifying *"not
-  > floppier than GUE"* — a perfect clock earns the same label at z=−5.09. ζ_first sits
-  > **below** the band (**z = −2.33** at the banked L=50 configuration), which under the
-  > proposed and agreed split is a **different branch (`HYPER_RIGID`), not a narrower
-  > reading of the same one**. When the split lands, this row changes value. The row was
-  > additionally judged at **8.3× ζ's own Berry saturation scale** (L=50 vs
-  > ln(T/2π)=5.99), where GUE-like growth is not expected at all.
-  >
-  > **What survives, stated positively and without qualification:** ζ_first is GUE at the
-  > **marginal** level, and it is **measurably more rigid than the finite-N GUE ensemble
-  > at every L from 2 to 40** — lens-invariant across deg 3/6/10/15, with the deg-6 lens
-  > absorbing 0.0% at n=2000. That is a stronger and more specific statement than "class
-  > level" ever was; it is what the data supports, and it is not in dispute. The open
-  > question is only what to *call* it, and that is the owning program's call under the
-  > split.
-  >
-  > **MOVE 3 (2026-08-16, `lcap/RESULTS_LCAP.md`):** judged inside its own Berry validity
-  > window (L=5.99 rather than the deployed L=50), under a policy validated on the
-  > calibrator zoo before ζ was touched, the row reads **HYPER_RIGID at z = −9.10** —
-  > *four times more significant* than at L=50, effect 3.6× the resolution floor,
-  > lens-invariant (deg 3→15: −8.94…−9.53). The large-L policy had been diluting a 9σ
-  > effect to 2.3σ. **The measurement never moved** — ζ's deficit vs finite-N GUE has been
-  > present and lens-invariant at every L from 2 to 40 throughout; what moved is the scale
-  > it was judged at and the vocabulary available to name it. This does **not** say ζ
-  > violates GUE asymptotically (Montgomery–Odlyzko concerns T→∞; these are the first 2000
-  > zeros at T ≲ 2.5×10³, where slow convergence is expected). Full three-move history
-  > banked beside the value in `lcap/RESULTS_LCAP.md`.
+- **ζ zeros — HYPER_RIGID at the validity scale (2026-08-16).** For the first 2000
+  zeros (T ≲ 2.5×10³), the number variance is **measurably more rigid than the
+  finite-N GUE ensemble**: judged at ζ's own Berry validity scale (L = 5.99 =
+  ln(T/2π); Berry 1988, Nonlinearity 1:399) the row reads **z = −9.10**, with the
+  effect 3.6× the resolution floor and lens-invariant across deg 3→15 (−8.94 …
+  −9.53). **Scope, in the row because a HYPER_RIGID label on ζ is exactly the kind
+  of thing that gets quoted without it:** this is a statement about *finite-N
+  convergence at low height*, not about ζ asymptotically. Montgomery–Odlyzko
+  concerns T → ∞; at T ≲ 2.5×10³ slow convergence of ζ's long-range statistics to
+  RMT is expected and documented, and Berry saturation sets in at L ≈ 6. The
+  **marginal** (NNS) GUE result stands untouched.
+  > *Row history — three moves, banked adjacent (`lcap/RESULTS_LCAP.md`), because a
+  > row that has moved three times is trustworthy only if the moves are visible:*
+  > (1) 2026-06-04 "GUE confirmed at class level" — the deployed one-sided rule
+  > returned RIGID_GUE and the prose read that as class confirmation; (2) 2026-08-16
+  > SUPERSEDED — `RIGID_GUE` was one-sided and certified "not floppier than GUE",
+  > a label a perfect clock also earned, while ζ sat *below* the band on the
+  > untested side; (3) 2026-08-16 HYPER_RIGID at z = −9.10 — judged inside its
+  > validity window under a policy validated on the calibrator zoo before ζ was
+  > touched. **The measurement never moved**: ζ's deficit against finite-N GUE has
+  > been present and lens-invariant at every L from 2 to 40 throughout. What moved
+  > is the scale it was judged at (the deployed L=50 was diluting a 9σ effect to
+  > 2.3σ) and the vocabulary available to name it.
 - LMFDB EC / Dirichlet **pooled** spacings: the bulk-GUE *marginal* stands,
   but the **pooled long-range is MARGINAL_ONLY** — pooling superposes
   spectra and Poissonizes the long-range statistic even if components are

@@ -1,0 +1,223 @@
+{
+ "three_event": [
+  "sealed policy used a single global discrimination_L=40 derived at n_ref=2000",
+  "Will's review: check the small-n case against the banked approximability rows at their own n",
+  "measured here \u2014 the cap is n-dependent and the sealed constant was wrong in FORM, not just value"
+ ],
+ "registration": "GOE-DERIVED: GOE is the nearest neighbour in the zoo we have, not necessarily the nearest in the space. A future zoo member closer to GUE at large L tightens this cap as a refinement of a stated basis.",
+ "Z_SEP": 3.0,
+ "by_n": {
+  "343": {
+   "discrimination_L": 5.0,
+   "scan": {
+    "3.0": {
+     "gue_mean": 0.46790175567975983,
+     "gue_sd": 0.05660779095017895,
+     "goe": 0.6473216596062427,
+     "z_goe": 3.169526683780895,
+     "separated": true
+    },
+    "5.0": {
+     "gue_mean": 0.5082309043020193,
+     "gue_sd": 0.0723108873225304,
+     "goe": 0.8453321627158324,
+     "z_goe": 4.6618326907016145,
+     "separated": true
+    },
+    "6.86": {
+     "gue_mean": 0.598326247165533,
+     "gue_sd": 0.13863376621066167,
+     "goe": 0.8950226757369615,
+     "z_goe": 2.1401454831760245,
+     "separated": false
+    },
+    "8.0": {
+     "gue_mean": 0.565379403794038,
+     "gue_sd": 0.10936195927101604,
+     "goe": 0.8267518389469609,
+     "z_goe": 2.3899757913553943,
+     "separated": false
+    },
+    "12.0": {
+     "gue_mean": 0.6693121693121693,
+     "gue_sd": 0.1406052095046952,
+     "goe": 0.964506172839506,
+     "z_goe": 2.0994528194738002,
+     "separated": false
+    },
+    "20.0": {
+     "gue_mean": 0.7153799019607844,
+     "gue_sd": 0.25259501619990593,
+     "goe": 1.0968137254901962,
+     "z_goe": 1.5100607655201783,
+     "separated": false
+    },
+    "30.0": {
+     "gue_mean": 0.7287878787878789,
+     "gue_sd": 0.301187579026783,
+     "goe": 0.8151515151515151,
+     "z_goe": 0.28674368525654353,
+     "separated": false
+    },
+    "40.0": {
+     "gue_mean": 0.6681547619047619,
+     "gue_sd": 0.38323291996836395,
+     "goe": 0.9910714285714285,
+     "z_goe": 0.8426120248054983,
+     "separated": false
+    },
+    "50.0": {
+     "gue_mean": 0.7013888888888888,
+     "gue_sd": 0.45881077826030975,
+     "goe": 1.544444444444444,
+     "z_goe": 1.8374798402779486,
+     "separated": false
+    }
+   }
+  },
+  "1200": {
+   "discrimination_L": 8.0,
+   "scan": {
+    "3.0": {
+     "gue_mean": 0.45790775095191916,
+     "gue_sd": 0.03679847256350292,
+     "goe": 0.665993926398912,
+     "z_goe": 5.65475034562643,
+     "separated": true
+    },
+    "5.0": {
+     "gue_mean": 0.5278998628740199,
+     "gue_sd": 0.05173980813784869,
+     "goe": 0.7844104413034391,
+     "z_goe": 4.957702543967816,
+     "separated": true
+    },
+    "6.86": {
+     "gue_mean": 0.5636184195955972,
+     "gue_sd": 0.0752811239136769,
+     "goe": 0.8070670830288131,
+     "z_goe": 3.233860638323795,
+     "separated": true
+    },
+    "8.0": {
+     "gue_mean": 0.5519794122982042,
+     "gue_sd": 0.050066349957266366,
+     "goe": 0.8559167220912186,
+     "z_goe": 6.070690394894715,
+     "separated": true
+    },
+    "12.0": {
+     "gue_mean": 0.6346715453858311,
+     "gue_sd": 0.0980480458040293,
+     "goe": 0.8428677935820792,
+     "z_goe": 2.1234104819628357,
+     "separated": false
+    },
+    "20.0": {
+     "gue_mean": 0.6942090395480226,
+     "gue_sd": 0.12006584994545988,
+     "goe": 1.0209932463146958,
+     "z_goe": 2.721708186925054,
+     "separated": false
+    },
+    "30.0": {
+     "gue_mean": 0.6975933423301844,
+     "gue_sd": 0.14291189829628245,
+     "goe": 1.141722896986055,
+     "z_goe": 3.1077157322136246,
+     "separated": true
+    },
+    "40.0": {
+     "gue_mean": 0.7785303776683087,
+     "gue_sd": 0.16433684557956818,
+     "goe": 1.1853585112205798,
+     "z_goe": 2.4755746778362866,
+     "separated": false
+    },
+    "50.0": {
+     "gue_mean": 0.762022397891963,
+     "gue_sd": 0.1976942550780137,
+     "goe": 1.4469971453667105,
+     "z_goe": 3.4648186777326644,
+     "separated": true
+    }
+   }
+  },
+  "2000": {
+   "discrimination_L": 40.0,
+   "scan": {
+    "3.0": {
+     "gue_mean": 0.45956819131161236,
+     "gue_sd": 0.03406582911820376,
+     "goe": 0.6939317042606516,
+     "z_goe": 6.879724316582169,
+     "separated": true
+    },
+    "5.0": {
+     "gue_mean": 0.5147342838881123,
+     "gue_sd": 0.04555155434931757,
+     "goe": 0.7520728118453589,
+     "z_goe": 5.210327756045109,
+     "separated": true
+    },
+    "6.86": {
+     "gue_mean": 0.5537899435162144,
+     "gue_sd": 0.05820302412575952,
+     "goe": 0.8923055654303433,
+     "z_goe": 5.816117409684708,
+     "separated": true
+    },
+    "8.0": {
+     "gue_mean": 0.5660525435073628,
+     "gue_sd": 0.062563147694409,
+     "goe": 0.8359027507880987,
+     "z_goe": 4.313245372480696,
+     "separated": true
+    },
+    "12.0": {
+     "gue_mean": 0.6049105512960935,
+     "gue_sd": 0.06916166925978476,
+     "goe": 0.8944626992819765,
+     "z_goe": 4.186598604181581,
+     "separated": true
+    },
+    "20.0": {
+     "gue_mean": 0.6440175565175567,
+     "gue_sd": 0.09185248527883376,
+     "goe": 1.0552119837834122,
+     "z_goe": 4.476682650639286,
+     "separated": true
+    },
+    "30.0": {
+     "gue_mean": 0.731439393939394,
+     "gue_sd": 0.10842502915572048,
+     "goe": 1.1031468531468531,
+     "z_goe": 3.428244032783347,
+     "separated": true
+    },
+    "40.0": {
+     "gue_mean": 0.7182610544217688,
+     "gue_sd": 0.14106416685749967,
+     "goe": 1.191609977324263,
+     "z_goe": 3.355557498742131,
+     "separated": true
+    },
+    "50.0": {
+     "gue_mean": 0.764823717948718,
+     "gue_sd": 0.1938124753383146,
+     "goe": 1.286099865047234,
+     "z_goe": 2.6895902659959754,
+     "separated": false
+    }
+   }
+  }
+ },
+ "banked_approximability_rows": {
+  "n": 343,
+  "L_banked": 6.86,
+  "discrimination_L_at_own_n": 5.0,
+  "inside_discrimination_window": false,
+  "z_goe_at_banked_L": 2.1401454831760245,
+  "consequence": "FLAGGED, NOT RE-VERDICTED: at their own n the banked rows were judged OUTSIDE the discrimination window (GOE separated by only 2.14 sigma at L=6.86, against the required 3.0). Their RIGID_GUE label therefore does not distinguish GUE from GOE at that configuration. Re-judging requires the substrate data, which this arc does not hold \u2014 so this is a flag for the owning program, not a move."
+ }
+}

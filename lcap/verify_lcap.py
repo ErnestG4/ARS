@@ -53,6 +53,26 @@ chk(m["verdict"]["primary"] == "L_POLICY_FIXED", "arc verdict changed")
 chk(not m["L1_rows"]["brocot_golden"]["moved_by_policy"],
     "brocot row unexpectedly moved")
 
+# LC-ADD-1: the n-dependent discrimination cap and the brocot flag
+pn = json.load(open(f"{LC}/policy_n.json"))
+chk(pn["by_n"]["343"]["discrimination_L"] == 5.0, "n=343 cap drifted")
+chk(pn["by_n"]["2000"]["discrimination_L"] == 40.0, "n=2000 cap drifted")
+chk(not pn["banked_approximability_rows"]["inside_discrimination_window"],
+    "the brocot out-of-window flag vanished — it is load-bearing")
+
+# adoption into the deployed module (Will's call): both must be live
+sys.path.insert(0, "/home/combust/fmexplorer/criticality_tool/cross_substrate")
+import numpy as np                                            # noqa: E402
+from longrange_discriminator import (l_judge, longrange_verdict,   # noqa: E402
+                                     DISCRIMINATION_L_BY_N)
+chk(l_judge(50, 2000, "zeta_first_2000")[0] == 5.99, "zeta L policy not live")
+chk(l_judge(6.86, 343, "gue_n343")[0] == 5.0, "n=343 L policy not live")
+chk(DISCRIMINATION_L_BY_N[343] == 5.0, "installed cap table changed")
+_clock = longrange_verdict(np.arange(2000, dtype=float), L=40.0, n_seeds=8,
+                           ref_n=2000)
+chk(_clock["verdict"] == "HYPER_RIGID",
+    "the deployed split regressed — a clock earns the GUE pole again")
+
 if fails:
     print("VERIFY_LCAP: FAIL")
     for f in fails:

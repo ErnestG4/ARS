@@ -957,3 +957,26 @@ Registry (`holonomy/canonical.py` remains the owner):
 `NO_TRUTH_BY_CONSTRUCTION` is a third separation status alongside `UNDER_RESOLVED`: the former
 means no correctness leg *can* exist (both arms are legitimate), the latter means one exists but
 did not resolve at arc power. A reader must not read either as evidence the orders are equivalent.
+
+- **A calibrated boundary certifies its reference ensemble, not its power to exclude neighbours.**
+  (RIGID_GUE arc + L-policy arc, 2026-08-16, Will's naming.) The long-range gate's boundary was
+  properly calibrated — bands validated against the Mehta and renewal asymptotes to 0.2%, a stated
+  2.5·sd tolerance — and its **separation from adjacent classes was never characterized as a
+  function of the judging scale.** At the deployed L=50, **GOE — a genuinely different universality
+  class — read `RIGID_GUE`**, because across L=3→50 the GUE band's spread grows ~5.7× while the
+  GUE–GOE gap grows only ~1.4×. Calibration is a statement about the reference; **discrimination is
+  a separate statement about the neighbours, and it must be measured against the nearest confusable
+  class at the configuration actually deployed** — and re-measured per n, since the band widens as n
+  falls (the same gate separates GOE by +4.0σ at n=2000/L=40 and only +2.2σ at n=343/L=6.86, the
+  configuration banked rows used). Distinct defect class from the one-sided-vocabulary problem, and
+  both of that arc's caps came from asking a question nobody had asked of the deployed
+  configuration. Record which neighbour a discrimination cap was derived against
+  (`policy_n.json` registers GOE), so a closer neighbour discovered later tightens a stated basis
+  rather than looking like an arbitrary move.
+- **A validity cap is not automatically a power sacrifice.** (L-policy arc; Will's update.) The
+  intuition "narrower window ⇒ less data ⇒ weaker result" is not reliable: significance under a cap
+  can *rise*, because the reference band's spread can shrink with L faster than the effect does. ζ
+  measured at its Berry validity scale reads **z = −9.10** against **−2.33** at the deployed L=50 —
+  the wide-L policy was diluting a 9σ effect. So a proposed cap needs its power measured, not
+  assumed in either direction; that measurement is what an L3-style power cell is for, and it can
+  return "the cap is free" as easily as "the cap is expensive."

@@ -2,8 +2,10 @@
 
 **Date:** 2026-08-16. **Brief:** `LCAP_BRIEF.md`. **Seal:** `lcap/prereg_sealed.json` (7 files
 frozen). Run under Will's three conditions, with the ordering enforced in code.
-**Instrument arc — no new science claims; nothing under `cross_substrate/` written; no banked row
-re-verdicted.**
+**Instrument arc — no new science claims; no banked row re-verdicted.** *(Note: the arc RAN
+propose-only. The split and the L policy were subsequently **adopted into
+`cross_substrate/longrange_discriminator.py` on Will's explicit call** — see the adoption section
+at the end.)*
 
 ## TL;DR
 
@@ -103,11 +105,53 @@ Montgomery–Odlyzko picture concerns T → ∞, these are the first 2000 zeros 
 convergence of low-height ζ statistics to RMT is expected and documented. Naming that outcome is
 the owning program's call; this arc supplies the number, the window, and the vocabulary.
 
-**Unmoved rows:** brocot/golden (n=343, judged at 6.86 against its 8.0 cap — inside, z=+0.49,
-RIGID_GUE under both rules). Allen V1's "0/100 RIGID_GUE" is a negative result and the policy can
-only tighten the rigid branch, so its direction cannot flip; not re-run.
+**Unmoved rows:** Allen V1's "0/100 RIGID_GUE" is a negative result and the policy can only tighten
+the rigid branch, so its direction cannot flip; not re-run. ~~brocot/golden unmoved~~ — **CORRECTED
+by LC-ADD-1 below: under the n-dependent discrimination cap the brocot rows ARE outside their
+window.** The claim here was derived from the validity cap plus the n=2000 discrimination constant,
+which was the wrong form.
 
 ## Reproduction
 
 `lcap/`: `validity.py` → `policy.py` → `zoo_validate.py` (gate, must pass) → `seal_prereg.py` →
 `run_lcap.py` (refuses to touch ζ unless the gate recorded PASS) → `verify_lcap.py`.
+
+---
+
+## LC-ADD-1 (2026-08-16, Will's review) — the discrimination cap is n-DEPENDENT
+
+**Three-event label.** (1) The sealed policy derived `discrimination_L = 40` at n_ref = 2000 and
+applied it as a single global constant. (2) Will's review asked whether the small-n
+reference-window finding needed its own check against the banked approximability rows, which run
+at exactly that n — *"a third cap binding on the configuration those rows used."* (3) Measured: it
+does, and **the sealed constant was wrong in form, not merely in value.**
+
+| n | discrimination_L | why it moves |
+|---|---|---|
+| 343 | **5.0** | the GUE band's spread grows as n falls while the GUE–GOE gap does not |
+| 1200 | 8.0 | |
+| 2000 | 40.0 | (the sealed value — correct only at this n) |
+
+**Consequence for the banked approximability rows — FLAGGED, NOT RE-VERDICTED.** brocot/golden was
+judged at **L = 6.86 with n = 343**, where GOE is separated by only **+2.14σ** against the required
+3.0. So at their own configuration those rows sit **outside the discrimination window**, and their
+`RIGID_GUE` label does not distinguish GUE from GOE. Re-judging requires the substrate data, which
+this arc does not hold — so this is a flag for the owning program, not a move. (My earlier report
+that "the policy does not move this row" was derived from the validity cap plus the n=2000
+discrimination constant; under the corrected n-dependent form it does.)
+
+**Registration (Will's addition, adopted).** The discrimination cap is **GOE-derived**: GOE is the
+nearest neighbour in the zoo we have, not necessarily the nearest in the space. Recording the basis
+means a future zoo member sitting closer to GUE at large L tightens the cap as a *refinement of a
+stated basis* rather than an arbitrary-looking move.
+
+## Adopted into the deployed module (2026-08-16, Will's call)
+
+`cross_substrate/longrange_discriminator.py`: the **HYPER_RIGID split** is installed in `_judge`
+(same formula, same 2.5 multiplier — the branch is split, not moved), and the **L policy** is
+installed as `l_judge()` / `discrimination_L()` / `VALIDITY_L`, documented with its GOE basis.
+The policy is deliberately **not wired into the default path**: call sites pass `L` explicitly and
+silently re-scaling them would change banked outputs without a re-run anyone asked for. Verified
+live on the deployed path: a clock now returns **HYPER_RIGID** (was RIGID_GUE); Poisson still
+returns POISSON_INDEP; `l_judge(50, 2000, "zeta_first_2000") = 5.99 [validity]`;
+`l_judge(6.86, 343, "gue_n343") = 5.0 [discrimination]`.

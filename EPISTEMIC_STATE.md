@@ -1809,20 +1809,18 @@ RF `a_q` leg is marginal-dominated, fires on 0–20% of bands, and needs a
 near-delta marginal or a sharp bounded-phase grid to fire at all).
 
 **What this downgrades, what it leaves standing:**
-- **Arithmetic — the ζ class-level line is SUPERSEDED (2026-08-16), the results stand.**
-  ~~ζ is *confirmed at class level* (ζ_first RIGID_GUE, lens-invariant on Σ²).~~
-  `RIGID_GUE` is a one-sided branch certifying "not floppier than GUE" — a clock earns it
-  too — and ζ_first sits **below** the band (z=−2.33 at the banked L=50), which under the
-  agreed vocabulary split is **a different branch (`HYPER_RIGID`), not a narrower reading**;
-  the row changes value when the split lands. It was also judged at 8.3× ζ's Berry
-  saturation scale. **What stands, positively:** ζ_first is GUE at the marginal level and
-  is measurably **more rigid than the finite-N GUE ensemble at every L from 2 to 40**,
-  lens-invariant — a sharper claim than "class level" was. L-function bulk GUE + edge
-  signatures stand untouched. **Move 3 (2026-08-16, `lcap/`):** judged inside its Berry
-  validity window under a zoo-validated policy, the row reads **HYPER_RIGID at z = −9.10**
-  (vs −2.33 at the deployed L=50) — the large-L policy had been diluting a 9σ effect. Not a
-  claim about asymptotic ζ. Three-move history banked in `lcap/RESULTS_LCAP.md`. See also
-  `rigidgate/RESULTS_RIGIDGATE.md`, `rigidgate/SINGLE_L_CENSUS.md`.  *New caveat:* pooled (LMFDB/Dirichlet)
+- **Arithmetic — ζ reads HYPER_RIGID at its validity scale; L-functions stand.** For the
+  first 2000 zeros (T ≲ 2.5×10³) the number variance is measurably **more rigid than the
+  finite-N GUE ensemble**: **z = −9.10** judged at ζ's Berry validity scale (L = 5.99 =
+  ln(T/2π)), effect 3.6× the resolution floor, lens-invariant deg 3→15. **Scope, stated in
+  the row:** a result about *finite-N convergence at low height*, NOT about ζ asymptotically
+  — Montgomery–Odlyzko concerns T→∞, and at these heights slow convergence is expected with
+  Berry saturation at L≈6. The marginal (NNS) GUE result and the L-function bulk GUE + edge
+  signatures stand untouched. *Row history (three moves, kept adjacent by standing rule —
+  `lcap/RESULTS_LCAP.md`): "confirmed at class level" → SUPERSEDED (the one-sided RIGID_GUE
+  label was one a clock also earned) → HYPER_RIGID. The measurement never moved; the scale
+  it was judged at and the vocabulary to name it did.* See also
+  `rigidgate/RESULTS_RIGIDGATE.md`, `rigidgate/SINGLE_L_CENSUS.md`.
   long-range is MARGINAL_ONLY — pooling Poissonizes the long-range statistic
   (the arithmetic twin of the neural no-pooling rule).
 - **Neural — downgraded from class to marginal.**  On real neural data

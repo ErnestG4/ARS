@@ -157,6 +157,56 @@ def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int,
     return out
 
 
+# ── L POLICY (adopted 2026-08-16; evidence lcap/RESULTS_LCAP.md) ─────────────
+# The judging scale must be capped by BOTH the substrate's physics and the
+# instrument's power:
+#
+#     L_judge = min( requested_L , validity_L(substrate) , discrimination_L(n) )
+#
+# VALIDITY — beyond it the GUE form is not expected to describe the substrate.
+#   zeta / L-functions: Berry saturation ln(T/2pi)  [Berry 1988, Nonlinearity
+#   1:399].  For the first 2000 zeros that is 5.99, against a deployed L of 50.
+#   Finite random-matrix spectra: the largest L within 10% of the Mehta
+#   asymptotic (derived: n=343 -> 8.0, n=1200 -> 30, n=2000 -> 50).
+#   Poisson / renewal: NOT APPLICABLE (linear growth; no GUE window to cap).
+#
+# DISCRIMINATION — the largest L at which the nearest confusable KNOWN class
+#   stays excluded from the GUE band by >= 3 sigma.  Strongly n-DEPENDENT,
+#   because the band's spread grows as n falls while the class gap does not.
+#   REGISTERED BASIS: GOE-derived — GOE is the nearest neighbour in the zoo we
+#   have, not necessarily the nearest in the space; a closer member found later
+#   tightens this as a refinement of a stated basis, not an arbitrary move.
+#
+# NOT WIRED INTO THE DEFAULT PATH ON PURPOSE: call sites pass L explicitly, and
+# silently re-scaling them would change banked outputs without a re-run anyone
+# asked for.  Call sites adopt this by calling l_judge() (see lcap/ for the
+# generators and the per-row consequences).
+DISCRIMINATION_L_BY_N = {343: 5.0, 1200: 8.0, 2000: 40.0}   # lcap/policy_n.json
+VALIDITY_L = {"zeta_first_2000": 5.99, "gue_n343": 8.0,
+              "gue_n1200": 30.0, "gue_n2000": 50.0}          # lcap/validity_scales.json
+
+
+def discrimination_L(n: int) -> float:
+    """Interpolate the GOE-derived discrimination cap at event count n."""
+    ns = sorted(DISCRIMINATION_L_BY_N)
+    if n <= ns[0]:
+        return DISCRIMINATION_L_BY_N[ns[0]]
+    if n >= ns[-1]:
+        return DISCRIMINATION_L_BY_N[ns[-1]]
+    import numpy as _np
+    return float(_np.interp(n, ns, [DISCRIMINATION_L_BY_N[k] for k in ns]))
+
+
+def l_judge(requested_L: float, n: int,
+            substrate: Optional[str] = None) -> tuple:
+    """Adopted L policy.  Returns (L_judge, binding_caps)."""
+    caps = {"requested": float(requested_L), "discrimination": discrimination_L(n)}
+    if substrate in VALIDITY_L:
+        caps["validity"] = VALIDITY_L[substrate]
+    L = min(caps.values())
+    return L, [k for k, v in caps.items() if v == L]
+
+
 _ENS_CACHE: Dict[tuple, tuple] = {}
 
 
@@ -184,7 +234,14 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
                       unfold_bw: Optional[float] = None) -> dict:
     """Place the data between the TWO POLES (real-GUE rigid, Poisson Σ²≈L) at matched
     n and L. Σ² is primary, Δ₃ a cross-check.
-      RIGID_GUE     — at or below the GUE rigidity level → GUE pole earned.
+      RIGID_GUE     — CONSISTENT with the GUE rigidity level (|z| <= 2.5).
+      HYPER_RIGID   — MORE rigid than the finite-N GUE reference (z < -2.5).
+                      A measurement outcome, not a class call: it says the
+                      observed rigidity exceeds what the GUE ensemble
+                      produces at this (n, L, lens) and hands adjudication
+                      back to the analyst.  Added 2026-08-16 — the previous
+                      one-sided branch could not distinguish GUE from a
+                      clock (see the module note in _judge).
       POISSON_INDEP — consistent with Poisson (Σ²≈L) → Poisson pole earned (genuinely
                       independent, not just an exponential marginal).
       SUPER_POISSON — Σ² above Poisson → clustered (or, on a putative-GUE input,
@@ -222,7 +279,20 @@ def longrange_verdict(positions: Sequence[float], L: Optional[float] = None,
         # POISSON_INDEP. POISSON_INDEP = Σ²≈L within a factor (≥0.6·Poisson);
         # SUPER_POISSON = clustered (>1.5·Poisson); strictly between GUE and the
         # Poisson band (sub-Poisson but not rigid: renewal/pooled) → INTERMEDIATE.
-        if o <= gm + 2.5 * gs:
+        # HYPER_RIGID split ADOPTED 2026-08-16 (Will's call; evidence
+        # rigidgate/RESULTS_RIGIDGATE.md).  The rigid branch was one-sided and
+        # unbounded below — deliberate since 78e0ee1 ("more rigid than GUE is
+        # still GUE-class") — so ANY process at or beneath the GUE rigidity
+        # level earned the GUE pole, including processes that are not GUE at
+        # all: a perfect CLOCK read RIGID_GUE at z = -5.09, and the clock is a
+        # banked zoo calibrator.  Same boundary formula, same 2.5 multiplier,
+        # no new constant: the branch is SPLIT, not moved.  RIGID_GUE now
+        # means "consistent with GUE rigidity"; HYPER_RIGID means "MORE rigid
+        # than the finite-N GUE reference" and is a measurement outcome that
+        # hands adjudication back to the analyst, not a class call.
+        if o < gm - 2.5 * gs:
+            v = "HYPER_RIGID"
+        elif o <= gm + 2.5 * gs:
             v = "RIGID_GUE"
         elif o > 1.5 * pm:
             v = "SUPER_POISSON"
