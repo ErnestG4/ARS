@@ -1,0 +1,429 @@
+{
+ "head_note": "enumeration committed at af7a94f (R3: denominator first)",
+ "enumerated": 53,
+ "classified": 53,
+ "coverage": 1.0,
+ "rows": [
+  {
+   "file": "universality.py",
+   "line": 24,
+   "symbol": "nns_poisson",
+   "transitions": "NONE",
+   "note": "analytic reference"
+  },
+  {
+   "file": "universality.py",
+   "line": 28,
+   "symbol": "nns_goe",
+   "transitions": "NONE",
+   "note": "analytic reference"
+  },
+  {
+   "file": "universality.py",
+   "line": 33,
+   "symbol": "nns_gue",
+   "transitions": "NONE",
+   "note": "analytic reference"
+  },
+  {
+   "file": "universality.py",
+   "line": 38,
+   "symbol": "nns_cdf_poisson",
+   "transitions": "NONE",
+   "note": "analytic reference"
+  },
+  {
+   "file": "universality.py",
+   "line": 42,
+   "symbol": "nns_cdf_goe",
+   "transitions": "NONE",
+   "note": "analytic reference"
+  },
+  {
+   "file": "universality.py",
+   "line": 47,
+   "symbol": "nns_cdf_gue",
+   "transitions": "NONE",
+   "note": "analytic reference"
+  },
+  {
+   "file": "universality.py",
+   "line": 69,
+   "symbol": "NNSResult",
+   "transitions": "NONE",
+   "note": "dataclass"
+  },
+  {
+   "file": "universality.py",
+   "line": 80,
+   "symbol": "_ks_pvalue",
+   "transitions": "NONE",
+   "note": "statistic helper"
+  },
+  {
+   "file": "universality.py",
+   "line": 103,
+   "symbol": "compute_nns",
+   "transitions": "UNFOLD",
+   "note": "CENSUS FINDING C1: renormalises spacings to unit mean INSIDE the statistic (s /= s.mean(), line 118) \u2014 a hidden per-input-set unfold; order relative to any upstream windowing is decided by the caller without knowing it"
+  },
+  {
+   "file": "universality.py",
+   "line": 134,
+   "symbol": "number_variance",
+   "transitions": "NONE",
+   "note": "internal: sliding windows are the statistic's definition"
+  },
+  {
+   "file": "universality.py",
+   "line": 181,
+   "symbol": "spectral_form_factor",
+   "transitions": "NONE",
+   "note": "statistic"
+  },
+  {
+   "file": "universality.py",
+   "line": 202,
+   "symbol": "pair_correlation",
+   "transitions": "NONE",
+   "note": "internal: 200-neighbour cap is an estimator approximation, noted"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 45,
+   "symbol": "semicircle_cdf_unit",
+   "transitions": "NONE",
+   "note": "analytic"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 51,
+   "symbol": "gen_gue_eigenvalues",
+   "transitions": "GENERATOR",
+   "note": ""
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 60,
+   "symbol": "unfold_global_mean",
+   "transitions": "UNFOLD",
+   "note": "deprecated-broken variant, retained for the record"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 67,
+   "symbol": "unfold_semicircle_R",
+   "transitions": "UNFOLD",
+   "note": "analytic semicircle CDF"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 77,
+   "symbol": "unfold_empirical",
+   "transitions": "UNFOLD",
+   "note": "polynomial CDF fit; BANDWIDTH KNOB = deg (default 11) \u2014 P1's sealed fixed coefficient"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 88,
+   "symbol": "ks_to_wigner_gue",
+   "transitions": "NONE",
+   "note": "statistic"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 181,
+   "symbol": "make_chirp",
+   "transitions": "NONE",
+   "note": "signal-domain"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 265,
+   "symbol": "per_pll_fano",
+   "transitions": "NONE",
+   "note": "signal-domain"
+  },
+  {
+   "file": "fix_gue_generator.py",
+   "line": 289,
+   "symbol": "summarise",
+   "transitions": "NONE",
+   "note": "signal-domain"
+  },
+  {
+   "file": "run_zeta_height_convergence.py",
+   "line": 38,
+   "symbol": "vonMangoldt_density",
+   "transitions": "NONE",
+   "note": "analytic"
+  },
+  {
+   "file": "run_zeta_height_convergence.py",
+   "line": 43,
+   "symbol": "unfolded_spacings",
+   "transitions": "UNFOLD",
+   "note": "CENSUS FINDING C2: Riemann\u2013von Mangoldt map (pointwise, order-inert) PLUS per-input-set renormalisation sp /= sp.mean() \u2014 the window-dependent half of the unfold"
+  },
+  {
+   "file": "run_zeta_height_convergence.py",
+   "line": 54,
+   "symbol": "classify",
+   "transitions": "NONE",
+   "note": "statistic"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 23,
+   "symbol": "k_1d",
+   "transitions": "NONE",
+   "note": "internal: border erosion + lambda-hat from full set inside statistic"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 44,
+   "symbol": "pcf_1d",
+   "transitions": "NONE",
+   "note": "internal: as k_1d"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 71,
+   "symbol": "sigma2_from_g_1d",
+   "transitions": "NONE",
+   "note": "functional"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 85,
+   "symbol": "DiskWindow",
+   "transitions": "NONE",
+   "note": "geometry"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 93,
+   "symbol": "RectWindow",
+   "transitions": "NONE",
+   "note": "geometry"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 103,
+   "symbol": "WedgeWindow",
+   "transitions": "NONE",
+   "note": "geometry"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 118,
+   "symbol": "k_2d",
+   "transitions": "NONE",
+   "note": "internal: as k_1d, 2-D"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 136,
+   "symbol": "pcf_2d",
+   "transitions": "NONE",
+   "note": "internal: as k_1d, 2-D"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 157,
+   "symbol": "disk_set_covariance",
+   "transitions": "NONE",
+   "note": "analytic"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 167,
+   "symbol": "sigma2_from_g_2d",
+   "transitions": "NONE",
+   "note": "functional"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 179,
+   "symbol": "disk_counts_grid",
+   "transitions": "NONE",
+   "note": "internal: eroded grid is the statistic's definition"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 203,
+   "symbol": "sigma2_disk_direct",
+   "transitions": "NONE",
+   "note": "internal: stochastic centres, seeded"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 234,
+   "symbol": "sigma2_direct_1d",
+   "transitions": "NONE",
+   "note": "internal: sliding windows"
+  },
+  {
+   "file": "bridge/observer_b.py",
+   "line": 254,
+   "symbol": "k_inhom",
+   "transitions": "REWEIGHT+EDGE",
+   "note": "CENSUS FINDING C3: the P2 pair is FUSED here in ONE fixed order (erode centres, then 1/lambda marks) with lambda GIVEN via lam_fn \u2014 the estimation-domain mechanism therefore lives in CALLERS; in live bridge runs lam_fn was the known model intensity (designed instances), so no both-orders instance in live code"
+  },
+  {
+   "file": "bridge/ginibre_sampler.py",
+   "line": 25,
+   "symbol": "sample_ginibre",
+   "transitions": "GENERATOR",
+   "note": ""
+  },
+  {
+   "file": "bridge/ginibre_sampler.py",
+   "line": 33,
+   "symbol": "central_points",
+   "transitions": "WINDOW",
+   "note": "C_WINDOW=0.8 central-disk cut handed downstream"
+  },
+  {
+   "file": "bridge/ginibre_sampler.py",
+   "line": 40,
+   "symbol": "kag",
+   "transitions": "NONE",
+   "note": "gate driver"
+  },
+  {
+   "file": "survey/survey_io.py",
+   "line": 19,
+   "symbol": "load_cat",
+   "transitions": "SLICE+REWEIGHT",
+   "note": "z-slice cut + WEIGHT attach in one loader (one transition per path by module docstring: slicing HERE, downstream never re-cuts)"
+  },
+  {
+   "file": "survey/survey_io.py",
+   "line": 33,
+   "symbol": "load_randoms_split",
+   "transitions": "SLICE",
+   "note": "disjoint-half concat, sliced via load_cat"
+  },
+  {
+   "file": "survey/tiling.py",
+   "line": 30,
+   "symbol": "gnomonic",
+   "transitions": "PROJECT",
+   "note": ""
+  },
+  {
+   "file": "survey/tiling.py",
+   "line": 42,
+   "symbol": "corner_distortion",
+   "transitions": "NONE",
+   "note": "budget check"
+  },
+  {
+   "file": "survey/tiling.py",
+   "line": 48,
+   "symbol": "build_tiles",
+   "transitions": "WINDOW",
+   "note": "footprint acceptance from randoms mass (rule-based)"
+  },
+  {
+   "file": "survey/tiling.py",
+   "line": 79,
+   "symbol": "tile_points",
+   "transitions": "WINDOW+PROJECT",
+   "note": "CENSUS FINDING C4: fused pair in ONE fixed order (ra/dec cut, THEN gnomonic project); the reverse order (project all, cut in plane coords) would select a different point set near tile corners; single order in live code, no both-orders instance"
+  },
+  {
+   "file": "survey/estimators.py",
+   "line": 26,
+   "symbol": "pair_counts",
+   "transitions": "NONE",
+   "note": "statistic"
+  },
+  {
+   "file": "survey/estimators.py",
+   "line": 42,
+   "symbol": "g_ratio",
+   "transitions": "NONE",
+   "note": "statistic; consumes weights, attaches none"
+  },
+  {
+   "file": "survey/estimators.py",
+   "line": 62,
+   "symbol": "cells_F",
+   "transitions": "NONE",
+   "note": "internal: CELL_FLOOR exclusion is a data-dependent cell cut inside the statistic (sealed rule), noted"
+  },
+  {
+   "file": "survey/mask_kag.py",
+   "line": 49,
+   "symbol": "thin_to_data",
+   "transitions": "THIN",
+   "note": "P3's mechanism row: SCALAR keep-prob p = W_target / sum(w_randoms) \u2014 normalised by the WEIGHTED total, so thinning-vs-weighting order changes p; internally-drawn RNG (the R2 freeze-collision reason)"
+  },
+  {
+   "file": "survey/mask_kag.py",
+   "line": 56,
+   "symbol": "run_tile",
+   "transitions": "NONE",
+   "note": "gate driver"
+  },
+  {
+   "file": "survey/mask_kag.py",
+   "line": 74,
+   "symbol": "kag",
+   "transitions": "SURROGATE",
+   "note": "red path constructs uniform-box pseudo-randoms (labeled forbidden window); green path is a driver"
+  }
+ ],
+ "census": [
+  {
+   "pair": "P1 unfold->window vs window->unfold",
+   "finding": "BOTH ORDERS LIVE (via the renormalisation half of the unfold).  The pointwise RvM/semicircle map commutes with windowing exactly; the per-set renormalisation does NOT.",
+   "sightings": [
+    "run_zeta_height_convergence.py:85 \u2014 chunk (window) FIRST, then unfolded_spacings renormalises per chunk (window->unfold)",
+    "universality.py:118-119 \u2014 compute_nns renormalises whatever set it is handed; any caller that windows after a pooled unfold then calls compute_nns re-unfolds per window (unfold->window->unfold)"
+   ],
+   "both_orders_in_live_code": true,
+   "downstream_banked": [
+    "zeta height-convergence NNS rows",
+    "every compute_nns consumer (per-set renormalisation is universal)"
+   ]
+  },
+  {
+   "pair": "P2 reweight->edge vs edge->reweight",
+   "finding": "SINGLE ORDER, FUSED: k_inhom erodes centres then applies 1/lambda marks with lambda GIVEN (not estimated); the estimation-domain mechanism is caller-side and no live caller estimates lambda-hat from data (designed instances used known intensity).",
+   "sightings": [
+    "bridge/observer_b.py:254-276 \u2014 fixed fused order"
+   ],
+   "both_orders_in_live_code": false,
+   "downstream_banked": [
+    "bridge FIX-2 K_inhom gate rows"
+   ]
+  },
+  {
+   "pair": "P3 weight->thin vs thin->weight",
+   "finding": "SINGLE ORDER: thin_to_data normalises by the weighted total (weight-first semantics); no count-normalised variant exists in live code.",
+   "sightings": [
+    "survey/mask_kag.py:49-53 \u2014 p = W_target/sum(w)"
+   ],
+   "both_orders_in_live_code": false,
+   "downstream_banked": [
+    "survey mask-KAG PASS row (D1)",
+    "survey D2 FIX-2 rows (thinned-KAG data)"
+   ]
+  },
+  {
+   "pair": "window->project vs project->window (census-found, unsealed)",
+   "finding": "SINGLE ORDER, FUSED in tile_points (C4).  Not among the sealed mandatory pairs; registered for a future arc.",
+   "sightings": [
+    "survey/tiling.py:79-86"
+   ],
+   "both_orders_in_live_code": false,
+   "downstream_banked": [
+    "all survey per-tile rows"
+   ]
+  }
+ ],
+ "scope_note": "Sealed scope: three completed arcs' estimator stacks + home 1-D stack + live unfolding modules.  Phase-scoped instruments (phase35a/ unfolds, sessionK/) are OUTSIDE the enumeration and the census verdict does not cover them."
+}
