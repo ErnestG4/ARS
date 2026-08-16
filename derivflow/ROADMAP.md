@@ -313,6 +313,20 @@ with its path; this roadmap is then complete and archives.
   secondary adjudicates coexistence vs wrong-conditioning-variable rather than waiting for a
   fourth accident.
 
+- **Correlated-error treatment of the shape-z (backlog, 2026-08-16, from the packaging audit):**
+  the conservative convention rescales each covariance by max(1, χ²/dof). On the n = 4096
+  primary arm that inflates iid by 3.76 and is **INERT on GUE**, whose χ²/dof = 0.017 — so the
+  conservative z(β) = 5.84 clears the sealed 5σ bar while resting on a GUE σ that the same
+  readout discloses as underdispersed by cross-k correlation from shared replicates. The
+  asymmetry is now STATED in the brief and in PROSE; it is not repaired, because repairing it
+  is a new analysis, not a transcription. What the repair needs: an error model that carries
+  the replicate-sharing covariance between k-points explicitly (block covariance over the
+  16-replicate ensemble), rather than treating the per-k σ_mean as independent. Until then
+  z(β)'s margin should be read as thin in the direction NOT covered by the rescale. Note the
+  under-dispersion is itself an untested mechanism claim — 'shared-replicate correlation' is
+  the diagnosis on offer, and nothing in the record tests it; the repair would test it.
+  This does not touch the sealed verdict, which stands on the sealed rule as executed.
+
 ## Resumption protocol (the reason this doc exists)
 
 On picking this doc up after a gap or an intensive detour:
