@@ -1,8 +1,9 @@
 # Full-Sequence Holonomy — Arc Brief (DRAFT FOR WILL'S REVIEW, NOT RUN)
 
 **Status:** DRAFTED 2026-08-16 under the overnight authorization, item 4 — **prepared, not
-executed**, per Will's instruction. Needs Will's review, amendments, and an explicit go before
-any compute.
+executed**. **Q1–Q4 RULED by Will 2026-08-16 and folded in below (§8).** Still needs an explicit
+go before any compute. **Queue position: BELOW `LCAP_BRIEF.md`** — Will ruled the substrate-aware
+L policy the higher-value item.
 **Lineage:** the holonomy pilot (`holonomy/COMMUTATOR_TABLE.md`, seal a583d9f + ADD-1..7) bounded
 **pairwise** order-sensitivity and said so explicitly in its §7: *approximate pairwise commutation
 does not bound full-sequence holonomy.* This is that registered follow-up. It inherits the
@@ -134,16 +135,37 @@ Stated up front so the arc can be declined on evidence rather than abandoned hal
   pairwise Δs are ≲0.005 in F units — so **this kill criterion is live and should be checked
   first**, cheaply, before S1 is built. I recommend making that check the arc's opening cell.
 
-## 8. Open questions for Will
+## 8. Rulings (Will, 2026-08-16) — binding on the seal
 
-1. **Pipeline choice** — survey dialect (my recommendation: best instrumented, real margins) or the
-   1D home dialect (more transitions, more interesting commutators, no banked survey rows at risk)?
-2. **Is §7's second kill criterion the right opening cell?** It would let the arc self-abort in
-   under an hour if the risk is not real, which I think is the responsible design — but it also
-   means the arc may return "nothing to see here," and that should be an acceptable outcome
-   *before* it starts, not a disappointment after.
-3. **Does VERDICT_FLIP_RISK license re-running banked rows**, or only registering a canonical
-   sequence and reporting? The pilot's precedent says report-not-re-verdict for another program's
-   rows; for the survey rows (ours) I'd propose re-run-under-canonical with three-event labels.
-4. **Sequence length 5, or the full census-enumerated stack?** Five is my recommendation; the full
-   stack multiplies S2 without, I think, changing the answer's shape.
+**R1 — Pipeline: Option B, the 1D home dialect. The REASON is sealed, because my stated reason
+carried a selection hazard.** I argued for B on the grounds that its commutators are resolvable
+and A's are not — but choosing the dialect where the effect is largest is choosing the dialect most
+likely to produce a positive result, and that reasoning must not be what the seal records. **The
+honest framing, which the seal carries verbatim: A and B answer different questions.** A ("is
+anything currently banked at risk?") is a *safety check with a near-certain null*. B ("does the
+composition law hold?") is *the science*. **B is chosen because the law is wanted, not because A
+would come back empty.**
+
+**R1b — A's kill criterion runs anyway, as a one-hour side cell.** Its answer is cheap and
+bankable: *"pairwise is sufficient for everything currently banked in survey"* belongs on the board
+regardless of where the arc goes. Not a gate on B; a banked result in its own right.
+
+**R2 — The restated kill criterion is sealed BEFORE S0 runs.** Restating it in 1D terms means
+authoring it after seeing which decision layers have margins, so: the 1D targets are **named** and
+**their current margins recorded** in the seal before any measurement, so the threshold cannot
+drift toward whatever the measurement finds. (Current known targets and margins for that record:
+the RIGID_GUE gate — ζ at z = −2.33, brocot/golden at z = +0.49 — and the NNS class-gap margins.)
+
+**R3 — VERDICT_FLIP_RISK licenses FLAGGING a row, not re-running it.** My proposal (re-run our own
+rows under the canonical sequence) assumed a canonical sequence exists — but full-sequence
+canonicalization is exactly what the arc is trying to establish. Re-deriving banked results under
+a sequence chosen mid-flight is **OP1's error at pipeline scale**. So: flag, measure, rule, *then*
+— in a subsequent authorized step — re-run. Report-and-propose remains the rule for another
+program's rows.
+
+**R4 — Sequence length five.** No caveat.
+
+## 9. Open questions remaining
+
+None on design. The arc is seal-ready pending (a) a go, and (b) its queue position behind
+`LCAP_BRIEF.md`.

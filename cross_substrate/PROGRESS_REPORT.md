@@ -552,3 +552,23 @@ fails only on a substrate judged 8.3× past its own saturation scale. **A Δ₃ 
 substrate-aware L cap may dominate the deployed gate on both axes** — rejecting hyper-rigid spoofs
 while keeping genuine low-height arithmetic rows. The measured power numbers carry over as its
 starting calibration. Pairs naturally with hardening step (1) above.
+
+---
+
+## ⇧ CONSOLIDATION (2026-08-16, Will's ruling): the three items above are ONE defect
+
+The single-L census, the Δ₃ "rejection", and the ζ class-level misreading are **three faces of one
+problem: a fixed L policy colliding with substrate-specific physics.**
+
+- `AUDIT_L = 50.0` applied to every arithmetic substrate, against ζ's Berry saturation scale of
+  **ln(T/2π) = 5.99** — an 8.3× mismatch.
+- The Δ₃ growth arm was filed as rejected *because* it flagged ζ — but it flagged a substrate being
+  judged 8.3× past its own validity window. The arm was right; the L was wrong.
+- The ζ row read as "class level" *because* a one-sided rule at an out-of-window L cannot say
+  anything sharper — the label absorbed a scale error.
+
+**One fix addresses all three: a substrate-aware L cap.** Cap each substrate's judging L at its own
+GUE-validity scale (for ζ-like substrates, L ≲ ln(T/2π)); inside that window the Δ₃ growth arm
+becomes deployable rather than ζ-flagging, and the class-vs-rigidity vocabulary question becomes
+answerable rather than absorbed. **Will's ruling: this is the highest-value item on the queue,
+above the full-sequence holonomy arc.** Brief drafted at `LCAP_BRIEF.md`, ready for a go.
