@@ -1811,7 +1811,13 @@ near-delta marginal or a sharp bounded-phase grid to fire at all).
 **What this downgrades, what it leaves standing:**
 - **Arithmetic — confirmed/caveated, not downgraded.**  ζ is *confirmed at
   class level* (ζ_first RIGID_GUE, lens-invariant on Σ²).  L-function bulk
-  GUE + edge signatures stand.  *New caveat:* pooled (LMFDB/Dirichlet)
+  GUE + edge signatures stand.
+  *(Scoping annotation 2026-08-16: `RIGID_GUE` is a one-sided branch and certifies "not
+  floppier than GUE", not "consistent with GUE" — a clock earns it too. ζ_first sits
+  BELOW the band (z=−2.33), i.e. on the untested side, and at 8.3× its Berry saturation
+  scale. "Class level" overstates what the gate licenses; the marginal-level GUE result
+  and the measured excess rigidity both stand. See `rigidgate/RESULTS_RIGIDGATE.md` and
+  `rigidgate/SINGLE_L_CENSUS.md`.)*  *New caveat:* pooled (LMFDB/Dirichlet)
   long-range is MARGINAL_ONLY — pooling Poissonizes the long-range statistic
   (the arithmetic twin of the neural no-pooling rule).
 - **Neural — downgraded from class to marginal.**  On real neural data

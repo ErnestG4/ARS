@@ -10620,6 +10620,19 @@ dominated and fires on only 0–20% of bands).  See
 - ζ zeros: GUE is **confirmed at class level** — ζ_first is RIGID_GUE,
   lens-invariant on Σ² (its slight excess rigidity below the GUE ensemble
   is a real residual, not unfolding).  Strengthened, not downgraded.
+  > **SCOPING ANNOTATION (2026-08-16, `rigidgate/RESULTS_RIGIDGATE.md`; claim not
+  > withdrawn, reading narrowed).** `RIGID_GUE` as deployed is a **one-sided** branch
+  > (`o <= gue_mean + 2.5·gue_sd`, deliberate since 78e0ee1) and therefore certifies
+  > *"not floppier than GUE"*, **not** *"consistent with GUE"* — a perfect clock earns
+  > the same label at z=−5.09. So "confirmed at class level" is stronger than the gate
+  > licenses. Two specifics for this row: (i) the parenthetical is right and is exactly
+  > the issue — ζ_first sits **below** the band (z=−2.33 at the banked L=50 config), so
+  > it is on the side the one-sided rule does not test; (ii) the banked row was judged at
+  > **8.3× ζ's own Berry saturation scale** (L=50 vs ln(T/2π)=5.99), where GUE-like
+  > growth is not expected. What survives unambiguously: ζ_first is GUE at the
+  > **marginal** level and is **more rigid than the finite-N GUE ensemble** at every L
+  > from 2 to 40 — measured, lens-invariant. Whether that reads as "GUE class confirmed"
+  > is the owning program's call under the proposed HYPER_RIGID split.
 - LMFDB EC / Dirichlet **pooled** spacings: the bulk-GUE *marginal* stands,
   but the **pooled long-range is MARGINAL_ONLY** — pooling superposes
   spectra and Poissonizes the long-range statistic even if components are

@@ -529,3 +529,26 @@ flags ζ for a physically real reason (Berry saturation at ln(T/2π)=5.99 vs the
 of 40). Owner's decisions still open: adopt the split; scope class claims to L ≲ ln(T/2π); record
 that single-L Σ² is not adversary-proof (a marginal-exact permutation construction sits inside the
 band with GUE NNS).
+
+**REGISTERED-OPEN (2026-08-16, from the RIGID_GUE arc, Will's review round): single-L Σ² is
+defeatable by an adversary who knows the gate.** A marginal-**exact** construction — a permutation
+of an iid Wigner spacing draw, so its NNS is identical by multiset identity — tuned to f\* ≈ 0.056
+sits **inside** the GUE band. No rule built on Σ² at one L can exclude it. Census run
+(`rigidgate/SINGLE_L_CENSUS.md`): **6 gate call sites, all single-L, none sweeps L; multi-L sites
+zero**; Δ₃ is computed at every site and discarded as secondary, so the gate is single-L *and*
+effectively single-statistic. Highest exposure is `longrange_audit.py:36`, which uses a **fixed
+AUDIT_L = 50.0 across heterogeneous arithmetic substrates** — the banked ζ row was judged at 8.3×
+its own Berry saturation scale (ln(T/2π)=5.99; measured z=−2.33 at that configuration). Scope
+statement: the spoof is adversarial, no natural substrate does it, and nothing here shows a banked
+row wrong — what is established is that every RIGID_GUE row certifies **rigidity at one scale, not
+class**. Hardening in priority order: (1) substrate-aware L cap, (2) conjoin Δ₃, (3) a second L,
+(4) record the adversarial bound in the module docstring. Owner: next arc touching the gate.
+
+**REGISTERED-OPEN (2026-08-16): Δ₃ growth arm is PROMOTABLE, not rejected** (RIGID_GUE seal
+RG-ADD-7). The arc first filed it under rejected designs because it flags the banked ζ row at
+z=−9.5. That is a mismatch between the **gate's L policy** and the **substrate's validity window**,
+not a defect in Δ₃: the arm rejects every spoof at ~12:1 power (GUE increment 0.1053 ± 0.0086) and
+fails only on a substrate judged 8.3× past its own saturation scale. **A Δ₃ variant with a
+substrate-aware L cap may dominate the deployed gate on both axes** — rejecting hyper-rigid spoofs
+while keeping genuine low-height arithmetic rows. The measured power numbers carry over as its
+starting calibration. Pairs naturally with hardening step (1) above.
