@@ -1,0 +1,29 @@
+{
+ "derivation": "fluctuation absorption by the LS polynomial unfolding fit; parameter-free",
+ "constants": {
+  "n_full": 1200,
+  "n_W": 600,
+  "deg": 5,
+  "n_grid": 1201
+ },
+ "sign_prediction": "delta_absorb > 0 at every L (ordering B fits d+1 parameters to the window alone and absorbs more of its fluctuation)",
+ "dial_independent": true,
+ "note": "the absorption term depends on (n_full, n_W, deg, L) only \u2014 NOT on the trend amplitude or scale \u2014 so it is a CONSTANT offset across the dial ladder at fixed L. That is itself a falsifiable claim: the residuals of the sealed trend-only prediction must be flat in dial at each L.",
+ "rows": {
+  "L10.0": {
+   "A_full": 0.0002461201977076137,
+   "A_window": 0.0028324669149477925,
+   "delta_absorb": 0.002586346717240179
+  },
+  "L20.0": {
+   "A_full": 0.0009759059716873424,
+   "A_window": 0.009891908775149326,
+   "delta_absorb": 0.008916002803461984
+  },
+  "L40.0": {
+   "A_full": 0.0038317296166231543,
+   "A_window": 0.03112359587303906,
+   "delta_absorb": 0.027291866256415907
+  }
+ }
+}

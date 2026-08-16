@@ -15,6 +15,7 @@ with the seal, D1 clause verbatim). **Protocol arc — no new science claims.** 
 | **P3** weight↔thin (survey) | **POINT_CHECK_CLEAN** | POINT_CHECK_CLEAN | mechanism real (−10,003 counts/draw, sealed sign −1 hit 32/32; 12σ suppressor-free), estimator suppression holds (max fam-z 2.49 / 3.21, powered, MDD 0.0018 ≤ 0.01) |
 | **OP1** surrogate↔unfold (1D, exploratory) | **ORDER_RULING_REQUIRED → resolved (seal ADD-1/ADD-3)** | NONCOMMUTING_UNPREDICTED | ΔΣ²(20) = +1.15 ± 0.23 (z 4.9) — real; worst-case materiality NOT clean at the RIGID_GUE gate → correctness leg run → **ruled MATCHED_LENS, RULED_CONSISTENT-with-leg-run** (original blanket order retracted) |
 | **OP2** disattenuate↔pool | COMMUTATOR_MEASURED | — | sealed Jensen-gap formula confirmed: +0.02484 ± 0.00042 vs +0.02457 (z 0.64) |
+| **C4** window↔project (survey) | **ORDER_RULING_REQUIRED** (seal ADD-6) | NONCOMMUTING_UNPREDICTED | mechanism real and predicted (q ≈ 0.79·θ², 0.6% of points at the deployed 10° tile; law confirmed at tiles 10/20/30, missed at tile 5 — a **demonstrated quadrature artifact of the prediction**); statistic-level effect suppressed (ΔF zero-consistent, max\|z\| 0.90); **ruled MATCHED** |
 
 *Lattice-vocabulary declaration (seal ADD-2):* the measurement-layer value NONCOMMUTING_UNPREDICTED
 is an implementation-time completion of the brief's §3 lattice, authored pre-seal (dc2448c,
@@ -135,11 +136,58 @@ window). Correctness-leg witness two-sided PASS. P3: `thin_pre` equivalence vs f
 DETECTION-IN-PRINCIPLE; red-B fired at the unmodified path. Census: 53/53 classified, coverage
 1.000 ≥ 0.9 floor, committed denominator (R3).
 
+## C4 — window → project vs project → window (seal ADD-6, measured 2026-08-16)
+
+The census-found pair, closed. **Mechanism, predicted first:** a sky-rectangle is not a
+plane-rectangle under gnomonic projection, so membership differs on the symmetric difference of
+the two regions; the committed continuum derivation gives q ≈ 0.79·θ² (θ = tile half-angle),
+i.e. **0.6% of points change tile membership at the deployed 10° tile**. Measured: z = +0.90 /
++0.77 / +1.39 at tiles 10/20/30. The tile-5 cell missed at z = +5.57 and the lattice returned
+ORDER_RULING_REQUIRED, banked as produced — then **demonstrated** to be a quadrature artifact of
+my own prediction (q_pred(t=5) converges 0.00098 → 0.00149 as NQ goes 3000 → 24000, meeting the
+measured 0.00144 ± 0.00008; both tiles land on the same q/θ² ≈ 0.79 plateau). Verdict not
+retro-changed; prediction upgrade registered.
+
+**Suppressor:** ΔF(L) under matched ordering is zero-consistent at every dial (max |z| 0.90) and
+on the real survey randoms (ΔF = −0.0004 at q = 0.0045). Suppression is owned by the DD/RR-style
+ratio estimator **and** by `cells_F`'s `CELL_FLOOR` mask — a refactor dropping either does not
+inherit this row. **No correctness leg exists by construction** (both regions are legitimate
+windows; a stationary process is unbiased on either), so the ruling is **MATCHED** — cut and
+project in the same order on both sides — basis RULED_CONSISTENT with `NO_TRUTH_BY_CONSTRUCTION`,
+which the registry distinguishes from OP1's `UNDER_RESOLVED`.
+
+**KAG note, recorded:** the red demo's first non-inertness argument was *wrong* — it named the
+mechanism but missed that `cells_F`'s own cell floor drops exactly the cells the mechanism
+creates. The KAG fired red and halted the run. The §9 non-inertness rule did its job even though
+my analytic argument was incomplete; v2 runs at the dial top and fires at z = −41.7 with a
+magnitude matching the derived −q to 4%.
+
+## P1 absorption term — derived, tested, attribution REFUTED (seal ADD-7)
+
+The seal registered a known-omitted fluctuation-absorption term and pre-registered its signature.
+Derived parameter-free (the LS unfolding fit is a linear projection, so it absorbs Π_O η and
+reduces the sliding variance by an exactly-computable A_O(L)), the term has the **predicted sign**
+and magnitude 0.003–0.027. Three tests: in-sample it improves mean |z| 1.14 → 1.03 but does not
+change the 14/15 pass count; its own falsifier (**dial-independence**) is **falsified** at L=10
+(flatness χ² = 122.5/4 dof); and out-of-sample at two new dial values it is **not resolvable**
+(mean |z| 0.88 amended vs 0.87 trend-only).
+
+**So the seal's registered attribution is refuted:** the term is real but ~80× too small to
+explain the violated cell's +0.224 residual — the pre-registered signature matched in *sign* by
+coincidence, not by mechanism. A second contribution was measured (the continuum prediction is
+ill-conditioned exactly there: an O(1%) domain-span jitter moves it across −0.001…+0.061, more
+than its own base value of −0.013) and is also ~3.6× short. **The residual is now an open,
+registered item** rather than an explained one.
+
+**Independently: the sealed P1 law is now confirmed OUT-OF-SAMPLE** — 6/6 cells at two dial values
+never measured (1.5, 3.0), all |z| ≤ 1.51. The original arc had no out-of-sample test; it does
+now. P1's banked verdict is untouched.
+
 ## Scope
 
-Pairwise order-sensitivity only (brief §7): no full-sequence holonomy claim. C4
-(window↔project, census-found) registered, unsealed, unmeasured. Survey synthetic analogue
-parked (trigger 7a did not fire). Prediction upgrade for P1 (absorption term) registered.
+Pairwise order-sensitivity only (brief §7): no full-sequence holonomy claim — see
+`FULL_SEQUENCE_BRIEF.md` (drafted, not run). Survey synthetic analogue parked (trigger 7a did not
+fire). Open: the dial-2.0/L=10 residual (ADD-7); the C4 prediction's NQ-scaling upgrade (ADD-6).
 
 ## Reproduction
 

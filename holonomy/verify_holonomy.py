@@ -52,8 +52,7 @@ chk(opt["op2"]["law_agrees"], "OP2 sealed formula regressed")
 
 # seal addenda (ADD-1..5, Will's post-banking audit) + their artifacts
 chk([a["id"] for a in seal.get("addenda", [])]
-    == ["ADD-1", "ADD-2", "ADD-3", "ADD-4", "ADD-5"],
-    "seal addenda block changed")
+    == [f"ADD-{i}" for i in range(1, 8)], "seal addenda block changed")
 m1 = json.load(open(f"{HL}/op1_materiality.json"))
 chk(m1["clean"] is False and abs(m1["margin_over_delta"] - 1.4) < 0.3,
     "OP1 materiality banked result drifted")
@@ -80,7 +79,28 @@ try:
     fails.append("assert_canonical failed to reject a wrong order")
 except AssertionError:
     pass
-chk(len(CANONICAL) == 5, "registry row count changed")
+chk(len(CANONICAL) == 6, "registry row count changed")
+chk(assert_canonical("window_project_survey", "matched"),
+    "canonical C4 invariant (ADD-6)")
+chk(CANONICAL["window_project_survey"].get("separation_status")
+    == "NO_TRUTH_BY_CONSTRUCTION", "C4 truth-absence marker missing")
+
+# C4 cell (ADD-6): law confirmed at 10/20/30, mechanism real, statistic clean
+c4 = json.load(open(f"{HL}/c4_measured.json"))
+chk(c4["kag"]["PASS"] and c4["kag"]["red_fired"], "C4 KAG regressed")
+chk(abs(c4["law"]["rows"]["tile10"]["z"]) <= 3.0
+    and abs(c4["law"]["rows"]["tile30"]["z"]) <= 3.0,
+    "C4 membership law regressed at the converged tiles")
+chk(c4["statistic_clean"], "C4 statistic-level suppression regressed")
+chk(c4["materiality"]["clean"], "C4 materiality regressed")
+
+# P1 absorption upgrade (ADD-7): honest mixed result, pinned as such
+ab = json.load(open(f"{HL}/p1_absorption_test.json"))
+chk(ab["verdict"]["term_sign_confirmed"], "absorption sign prediction lost")
+chk(ab["verdict"]["dial_independent"] is False,
+    "T2 falsification vanished — the attribution refutation is load-bearing")
+chk(ab["T3"]["n_pass_trend_only"] == ab["T3"]["n_cells"],
+    "P1 out-of-sample confirmation regressed")
 
 if fails:
     print("VERIFY_HOLONOMY: FAIL")

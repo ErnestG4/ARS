@@ -514,3 +514,18 @@ an explicit margin-accepting ruling.** Already-banked RIGID_GUE rows are not ret
 reopened by this entry; the existing validate_rate_unfold guard covers the lens-bandwidth
 failure mode but not this absolute-margin one. Owner: the next arc that consumes or produces a
 RIGID_GUE verdict.
+
+**DISCHARGED 2026-08-16 — see `rigidgate/RESULTS_RIGIDGATE.md`** (sealed characterization arc,
+`rigidgate/verify_rigidgate.py` on the green board). Headline: the boundary is *calibrated*, not
+fitted (bands match the Mehta and renewal asymptotes to 0.2–10.6%); the ADD-5 thinness figure was
+a small-sample artifact of the holonomy arc's own materiality run (corrected: 3.6σ, false-RIGID
+0.000 at n=1200) **but is re-vindicated at n=343 — the configuration the banked approximability
+rows use — where the false-RIGID rate is 3.5%.** The bigger finding is not a margin at all: the
+rule is one-sided by design, so **a perfect clock (a banked zoo calibrator) earns RIGID_GUE at
+z=−5.09**. Proposed minimal fix (not applied here): split the branch into RIGID_GUE (|z|≤2.5) and
+**HYPER_RIGID** (z<−2.5) — same boundary formula, same multiplier, zero specificity cost, moves
+neither banked row. Two growth-based fixes were measured and rejected, one of them because it
+flags ζ for a physically real reason (Berry saturation at ln(T/2π)=5.99 vs the matched-L default
+of 40). Owner's decisions still open: adopt the split; scope class claims to L ≲ ln(T/2π); record
+that single-L Σ² is not adversary-proof (a marginal-exact permutation construction sits inside the
+band with GUE NNS).

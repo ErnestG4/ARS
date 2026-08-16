@@ -946,3 +946,14 @@ synthetic analogue, applied where truth is absent), **RULED_CONSISTENT** (coordi
 former claims nothing off its sealed points); a clean row can be OWNED by an estimator family
 rather than by the transition pair; and pairwise cleanliness does not bound full-sequence
 holonomy (brief §7 scope limit).
+
+**§12 registry additions (2026-08-16, overnight items 2–3).** Two rows join the Canonical Order
+Registry (`holonomy/canonical.py` remains the owner):
+
+| pair | canonical | basis | short reason |
+|---|---|---|---|
+| window ↔ project (survey, C4) | **matched** (same order for data and randoms) | RULED_CONSISTENT, `NO_TRUTH_BY_CONSTRUCTION` | mechanism real and predicted — q ≈ 0.79·θ², 0.6% of points change tile membership at the deployed 10° tile — but statistic-level effect suppressed by the ratio estimator **and** `cells_F`'s CELL_FLOOR; mismatching the order inflates F by ≈ q (measured −0.054 at 30°) |
+
+`NO_TRUTH_BY_CONSTRUCTION` is a third separation status alongside `UNDER_RESOLVED`: the former
+means no correctness leg *can* exist (both arms are legitimate), the latter means one exists but
+did not resolve at arc power. A reader must not read either as evidence the orders are equivalent.

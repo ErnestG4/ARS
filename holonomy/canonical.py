@@ -97,6 +97,36 @@ CANONICAL = {
                   "the violation.",
         measured="holonomy/opt_measured.json op1 + op1_materiality.json + "
                  "op1_correctness.json (seal ADD-1/ADD-3)"),
+    # C4 — census-found pair, measured 2026-08-16 under seal ADD-6
+    "window_project_survey": dict(
+        order="matched",
+        basis="RULED_CONSISTENT",
+        separation_status="NO_TRUTH_BY_CONSTRUCTION",
+        separation_note="both regions are legitimate windows and a "
+                        "stationary process is unbiased on either, so the "
+                        "ordering question has no ground truth and no "
+                        "correctness leg exists to separate the arms — this "
+                        "is a structural absence, not an under-resolved "
+                        "measurement (contrast surrogate_unfold_1d).",
+        transfer_note="mechanism REAL and predicted: q ~ 0.79*theta^2, i.e. "
+                      "0.6% of points change tile membership at the "
+                      "deployed 10 deg tile (law confirmed at tiles "
+                      "10/20/30, z=+0.90/+0.77/+1.39; the tile-5 miss is a "
+                      "demonstrated quadrature artifact of the prediction, "
+                      "seal ADD-6). Statistic-level effect SUPPRESSED by "
+                      "the ratio estimator: dF zero-consistent at every "
+                      "dial (max|z| 0.90), real-data point check dF=-0.0004 "
+                      "at q=0.0045. Suppression is owned by the "
+                      "DD/RR-style estimator AND by cells_F's CELL_FLOOR "
+                      "mask — a refactor dropping either does not inherit "
+                      "this row.",
+        statement="Cut and project in the SAME order for data and randoms. "
+                  "No bare sequence order is enforced; breaking the match "
+                  "in either direction is the violation (mismatched "
+                  "ordering inflates F by ~q: measured -0.0544 at TILE=30 "
+                  "against a derived -0.0523).",
+        measured="holonomy/c4_measured.json + c4_prediction.json "
+                 "(seal ADD-6)"),
     # OP2 — sealed-formula law confirmed
     "disattenuate_pool": dict(
         order="disattenuate_then_pool",
