@@ -2010,3 +2010,43 @@ checker `holonomy/verify_holonomy.py` on the standing green board).
 
 This closes Bridge registered follow-up #2. Registered-open from the queue: comb k-tuple
 constellations; C4 pair; survey extensions via sealed rules only.
+
+## Overnight 2026-08-16 — RIGID_GUE gate, C4, P1 absorption, full-sequence brief
+
+Four items on Will's sequence; three run, the fourth prepared.
+
+**1. RIGID_GUE gate characterized (`rigidgate/`, sealed; discharges holonomy ADD-5).**
+GATE_CONFIG_DEPENDENT + BOUNDED. The boundary (`gue_mean + 2.5·gue_ensemble_sd`) is calibrated,
+not fitted — bands match the Mehta and renewal asymptotes to 0.2–10.6%. The margin against the
+calibrated decoy family is comfortable at n≥1200 (3.6–3.8σ, false-RIGID 0.000) and **thin at
+n=343 — the configuration the banked approximability rows use — at 1.5σ / 0.035**; ADD-5's own
+1.1σ figure was a small-sample artifact, corrected and then re-vindicated at the smaller n.
+**The larger finding is not a margin: the rule is one-sided by design, so a perfect clock (a
+banked zoo calibrator) earns RIGID_GUE at z=−5.09.** Proposed minimal fix: split the branch into
+RIGID_GUE (|z|≤2.5) and HYPER_RIGID (z<−2.5) — zero specificity cost, moves neither banked row.
+Two growth-based fixes measured and rejected; the Δ₃ one is well-powered but flags ζ **for a
+physically real reason** (ζ's variance is flat in L, lens absorbs 0.0%, Berry saturation at
+ln(T/2π)=5.99 against a matched-L of 40). A marginal-exact permutation spoof sits inside the band
+with identical NNS, so single-L Σ² is not adversary-proof — the module's founding lesson one
+level up. Five self-corrections filed as RG-ADD-1..5, including a lattice hole in this arc's own
+seal (the raw JSON keeps the unauthorised else-branch output visible rather than being retitled).
+
+**2. C4 window↔project closed (holonomy ADD-6).** Prediction-first continuum law q ≈ 0.79·θ²
+confirmed at tiles 10/20/30; the tile-5 miss was banked as the lattice produced it and then
+demonstrated to be a quadrature artifact of the prediction itself. Statistic-level effect
+suppressed; **ruled MATCHED** with a third separation status, `NO_TRUTH_BY_CONSTRUCTION`
+(distinct from OP1's `UNDER_RESOLVED`). The red demo's first non-inertness argument was wrong and
+the KAG caught it — the §9 rule worked despite the flawed argument.
+
+**3. P1 absorption term derived and tested (holonomy ADD-7).** Parameter-free derivation, correct
+sign, magnitude 0.003–0.027 — and **the seal's registered attribution is refuted**: the term is
+~80× too small for the residual it was supposed to explain, and its own falsifier
+(dial-independence) fails. The residual is now an open item rather than an explained one.
+Independently, the sealed P1 law is **confirmed out-of-sample** at two new dial values (6/6,
+|z|≤1.51) — a test the original arc did not have.
+
+**4. Full-sequence holonomy brief drafted, NOT run** (`FULL_SEQUENCE_BRIEF.md`). Frames the arc
+around a falsifiable first-order (BCH-style) composition of the pairwise commutators, with the
+residual H(σ) as the actual scientific object; carries a dial-propagation prerequisite, a
+verdict-flip-probability materiality cell, and **two kill criteria** so the arc can be declined
+on evidence. Awaiting Will's review.
