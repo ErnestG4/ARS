@@ -1,0 +1,60 @@
+{
+ "witness": {
+  "C-brocot": {
+   "boundary": 0.9449106626921872,
+   "gue_rigid_rate": 1.0,
+   "poisson_rigid_rate": 0.0,
+   "gue_mean": 0.6092687074829931,
+   "poisson_mean": 6.61448885139162
+  },
+  "C-add5": {
+   "boundary": 0.9943736644116723,
+   "gue_rigid_rate": 1.0,
+   "poisson_rigid_rate": 0.0,
+   "gue_mean": 0.6759935710111047,
+   "poisson_mean": 18.2413287794662
+  },
+  "C-zeta": {
+   "boundary": 1.070921471565518,
+   "gue_rigid_rate": 1.0,
+   "poisson_rigid_rate": 0.0,
+   "gue_mean": 0.7481930272108843,
+   "poisson_mean": 36.34509566326531
+  }
+ },
+ "hyper_arm": {
+  "C-brocot": {
+   "clock_verdict": "HYPER_RIGID",
+   "clock_z": -4.168667559835663,
+   "gue_false_hyper_rate": 0.0
+  },
+  "C-add5": {
+   "clock_verdict": "HYPER_RIGID",
+   "clock_z": -5.781902513190622,
+   "gue_false_hyper_rate": 0.0
+  },
+  "C-zeta": {
+   "clock_verdict": "HYPER_RIGID",
+   "clock_z": -5.0917328647135625,
+   "gue_false_hyper_rate": 0.0
+  }
+ },
+ "marginal_exact_identity": {
+  "all_identical": true,
+  "n_checks": 18
+ },
+ "rejected_designs": {
+  "sigma2_growth_arm": {
+   "why": "failed witness C as specified in brief \u00a72",
+   "gue_pass_rate": 0.42,
+   "flat_pass_rate": 0.75,
+   "diagnosis": "2x L lever: GUE log-increment ~0.07 under single-realization noise ~0.13 \u2014 underpowered by construction"
+  },
+  "delta3_growth_arm": {
+   "why": "well powered (12:1) but rejects the banked zeta row",
+   "zeta_growth_z": -9.5,
+   "diagnosis": "zeta_first_2000 Sigma^2 is nearly flat in L (0.30->0.39 over L=2->40 vs GUE 0.40->0.74); lens absorbs 0.0% at n=2000 and the deviation is lens-invariant, so the flatness is real (Berry saturation, ln(T/2pi)=5.99) \u2014 a growth arm cannot separate low-height zeta from a clock"
+  }
+ },
+ "PASS": true
+}
