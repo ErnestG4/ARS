@@ -1,0 +1,196 @@
+{
+ "tolerance": 0.1,
+ "L_scan": [
+  2.0,
+  3.0,
+  5.0,
+  8.0,
+  12.0,
+  20.0,
+  30.0,
+  40.0,
+  50.0,
+  70.0,
+  100.0
+ ],
+ "substrates": {
+  "zeta_first_2000": {
+   "kind": "arithmetic/L-function",
+   "n": 2000,
+   "T_max": 2515.286482924713,
+   "validity_L": 5.992264919348891,
+   "basis": "BERRY_SATURATION",
+   "anchor": "Berry 1988, Nonlinearity 1:399 \u2014 Sigma^2 follows RMT only for L << ln(T/2pi); saturates above",
+   "derived_not_fitted": true
+  },
+  "gue_n2000": {
+   "kind": "finite random-matrix spectrum",
+   "n": 2000,
+   "validity_L": 50.0,
+   "basis": "FINITE_N_DERIVED",
+   "anchor": "largest scanned L within 10% of the Mehta asymptotic (measured here)",
+   "scan": {
+    "2.0": {
+     "measured": 0.4074389097744361,
+     "analytic": 0.4162517305574453,
+     "rel_dev": 0.021171853799159132
+    },
+    "3.0": {
+     "measured": 0.4641756735588973,
+     "analytic": 0.45733393523663296,
+     "rel_dev": 0.014960049528632228
+    },
+    "5.0": {
+     "measured": 0.5089222742786615,
+     "analytic": 0.5090913920714386,
+     "rel_dev": 0.0003321953492258833
+    },
+    "8.0": {
+     "measured": 0.5817827762663558,
+     "analytic": 0.556712716102811,
+     "rel_dev": 0.04503231098984799
+    },
+    "12.0": {
+     "measured": 0.6199776378240234,
+     "analytic": 0.5977949207819987,
+     "rel_dev": 0.037107570290170096
+    },
+    "20.0": {
+     "measured": 0.6558312719027005,
+     "analytic": 0.6495523776168044,
+     "rel_dev": 0.009666494192405646
+    },
+    "30.0": {
+     "measured": 0.7480040792540792,
+     "analytic": 0.6906345822959921,
+     "rel_dev": 0.08306780232082227
+    },
+    "40.0": {
+     "measured": 0.745748299319728,
+     "analytic": 0.7197828703894873,
+     "rel_dev": 0.03607397452538753
+    },
+    "50.0": {
+     "measured": 0.786268556005398,
+     "analytic": 0.7423920391307978,
+     "rel_dev": 0.059101545493364195
+    },
+    "70.0": {
+     "measured": 0.8547453703703703,
+     "analytic": 0.7764838044080438,
+     "rel_dev": 0.1007896951849365
+    }
+   },
+   "derived_not_fitted": true
+  },
+  "gue_n1200": {
+   "kind": "finite random-matrix spectrum",
+   "n": 1200,
+   "validity_L": 30.0,
+   "basis": "FINITE_N_DERIVED",
+   "anchor": "largest scanned L within 10% of the Mehta asymptotic (measured here)",
+   "scan": {
+    "2.0": {
+     "measured": 0.42082824248120304,
+     "analytic": 0.4162517305574453,
+     "rel_dev": 0.010994577530353728
+    },
+    "3.0": {
+     "measured": 0.45099872797571816,
+     "analytic": 0.45733393523663296,
+     "rel_dev": 0.013852475779294285
+    },
+    "5.0": {
+     "measured": 0.5285503322667979,
+     "analytic": 0.5090913920714386,
+     "rel_dev": 0.038222881978386955
+    },
+    "8.0": {
+     "measured": 0.5564971431162706,
+     "analytic": 0.556712716102811,
+     "rel_dev": 0.00038722482944074
+    },
+    "12.0": {
+     "measured": 0.6384894867037724,
+     "analytic": 0.5977949207819987,
+     "rel_dev": 0.06807445916157925
+    },
+    "20.0": {
+     "measured": 0.6975818234950322,
+     "analytic": 0.6495523776168044,
+     "rel_dev": 0.0739423756009437
+    },
+    "30.0": {
+     "measured": 0.6953441295546559,
+     "analytic": 0.6906345822959921,
+     "rel_dev": 0.00681915933460363
+    },
+    "40.0": {
+     "measured": 0.8086514778325125,
+     "analytic": 0.7197828703894873,
+     "rel_dev": 0.12346585491113005
+    }
+   },
+   "derived_not_fitted": true
+  },
+  "gue_n343": {
+   "kind": "finite random-matrix spectrum",
+   "n": 343,
+   "validity_L": 8.0,
+   "basis": "FINITE_N_DERIVED",
+   "anchor": "largest scanned L within 10% of the Mehta asymptotic (measured here)",
+   "scan": {
+    "2.0": {
+     "measured": 0.41613405613465154,
+     "analytic": 0.4162517305574453,
+     "rel_dev": 0.00028270014069651226
+    },
+    "3.0": {
+     "measured": 0.46380331359371885,
+     "analytic": 0.45733393523663296,
+     "rel_dev": 0.014145852425620923
+    },
+    "5.0": {
+     "measured": 0.5089168129938543,
+     "analytic": 0.5090913920714386,
+     "rel_dev": 0.00034292286277713756
+    },
+    "8.0": {
+     "measured": 0.5613748548199767,
+     "analytic": 0.556712716102811,
+     "rel_dev": 0.008374406731361094
+    },
+    "12.0": {
+     "measured": 0.6598048941798942,
+     "analytic": 0.5977949207819987,
+     "rel_dev": 0.10373118145061828
+    }
+   },
+   "derived_not_fitted": true
+  },
+  "poisson": {
+   "kind": "linear-growth process",
+   "validity_L": null,
+   "basis": "NOT_APPLICABLE",
+   "anchor": "Sigma^2 grows linearly at all L; the GUE form never applied, so there is no GUE-validity window to cap"
+  },
+  "wigner_renewal": {
+   "kind": "linear-growth process",
+   "validity_L": null,
+   "basis": "NOT_APPLICABLE",
+   "anchor": "Sigma^2 grows linearly at all L; the GUE form never applied, so there is no GUE-validity window to cap"
+  },
+  "clock": {
+   "kind": "hyper-rigid deterministic",
+   "validity_L": null,
+   "basis": "NO_GUE_WINDOW",
+   "anchor": "not a GUE substrate at any scale; the rule must classify it correctly at every L (zoo gate)"
+  },
+  "jitter_clock": {
+   "kind": "hyper-rigid deterministic",
+   "validity_L": null,
+   "basis": "NO_GUE_WINDOW",
+   "anchor": "not a GUE substrate at any scale; the rule must classify it correctly at every L (zoo gate)"
+  }
+ }
+}

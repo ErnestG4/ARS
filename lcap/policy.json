@@ -1,0 +1,161 @@
+{
+ "Z_SEP": 3.0,
+ "deployed_L": 50.0,
+ "n_ref": 2000,
+ "deg": 6,
+ "discrimination_L": 40.0,
+ "discrimination_scan": {
+  "3.0": {
+   "gue_mean": 0.45956819131161236,
+   "gue_sd": 0.03406582911820376,
+   "goe_mean": 0.7113659147869674,
+   "z_goe": 7.391504331265547,
+   "separated": true
+  },
+  "5.0": {
+   "gue_mean": 0.5147342838881123,
+   "gue_sd": 0.04555155434931757,
+   "goe_mean": 0.7965233907633406,
+   "z_goe": 6.186157879801305,
+   "separated": true
+  },
+  "8.0": {
+   "gue_mean": 0.5660525435073628,
+   "gue_sd": 0.062563147694409,
+   "goe_mean": 0.862916914971715,
+   "z_goe": 4.745035734365419,
+   "separated": true
+  },
+  "12.0": {
+   "gue_mean": 0.6049105512960935,
+   "gue_sd": 0.06916166925978476,
+   "goe_mean": 0.9188755020080323,
+   "z_goe": 4.539580291687654,
+   "separated": true
+  },
+  "20.0": {
+   "gue_mean": 0.6440175565175567,
+   "gue_sd": 0.09185248527883376,
+   "goe_mean": 1.013831855974713,
+   "z_goe": 4.0261763014307395,
+   "separated": true
+  },
+  "30.0": {
+   "gue_mean": 0.731439393939394,
+   "gue_sd": 0.10842502915572048,
+   "goe_mean": 1.1014374514374514,
+   "z_goe": 3.412478284572695,
+   "separated": true
+  },
+  "40.0": {
+   "gue_mean": 0.7182610544217688,
+   "gue_sd": 0.14106416685749967,
+   "goe_mean": 1.2885600907029477,
+   "z_goe": 4.042834186638512,
+   "separated": true
+  },
+  "50.0": {
+   "gue_mean": 0.764823717948718,
+   "gue_sd": 0.1938124753383146,
+   "goe_mean": 1.1152777777777778,
+   "z_goe": 1.808212083444656,
+   "separated": false
+  }
+ },
+ "policy": {
+  "zeta_first_2000": {
+   "L_judge": 5.992264919348891,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0,
+    "validity": 5.992264919348891
+   },
+   "binding": [
+    "validity"
+   ],
+   "basis": "BERRY_SATURATION"
+  },
+  "gue_n2000": {
+   "L_judge": 40.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0,
+    "validity": 50.0
+   },
+   "binding": [
+    "discrimination"
+   ],
+   "basis": "FINITE_N_DERIVED"
+  },
+  "gue_n1200": {
+   "L_judge": 30.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0,
+    "validity": 30.0
+   },
+   "binding": [
+    "validity"
+   ],
+   "basis": "FINITE_N_DERIVED"
+  },
+  "gue_n343": {
+   "L_judge": 8.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0,
+    "validity": 8.0
+   },
+   "binding": [
+    "validity"
+   ],
+   "basis": "FINITE_N_DERIVED"
+  },
+  "poisson": {
+   "L_judge": 40.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0
+   },
+   "binding": [
+    "discrimination"
+   ],
+   "basis": "NOT_APPLICABLE"
+  },
+  "wigner_renewal": {
+   "L_judge": 40.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0
+   },
+   "binding": [
+    "discrimination"
+   ],
+   "basis": "NOT_APPLICABLE"
+  },
+  "clock": {
+   "L_judge": 40.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0
+   },
+   "binding": [
+    "discrimination"
+   ],
+   "basis": "NO_GUE_WINDOW"
+  },
+  "jitter_clock": {
+   "L_judge": 40.0,
+   "caps": {
+    "deployed": 50.0,
+    "discrimination": 40.0
+   },
+   "binding": [
+    "discrimination"
+   ],
+   "basis": "NO_GUE_WINDOW"
+  }
+ },
+ "rule": "L_judge = min(deployed_L, validity_L, discrimination_L)",
+ "derived_without_zeta": true
+}

@@ -572,3 +572,17 @@ GUE-validity scale (for ζ-like substrates, L ≲ ln(T/2π)); inside that window
 becomes deployable rather than ζ-flagging, and the class-vs-rigidity vocabulary question becomes
 answerable rather than absorbed. **Will's ruling: this is the highest-value item on the queue,
 above the full-sequence holonomy arc.** Brief drafted at `LCAP_BRIEF.md`, ready for a go.
+
+**⇧ DISCHARGED 2026-08-16 — `lcap/RESULTS_LCAP.md`** (sealed arc, `lcap/verify_lcap.py` on the
+green board). Two caps, both derived without reference to ζ: **validity** (Berry ln(T/2π)=5.99 for
+ζ; finite-n departure from Mehta for RMT spectra — note n=343 caps at L=8.0, so the gate's *own
+reference ensemble* goes out of window at small n) and **discrimination** (zoo-derived: across
+L=3→50 the GUE band's spread grows ~5.7× while the GUE–GOE gap grows only ~1.4×, so **GOE read
+`RIGID_GUE` at the deployed L=50** — the zoo gate caught this before ζ was touched). Policy:
+`L_judge = min(deployed_L, validity_L, discrimination_L)`, `discrimination_L = 40`. Zoo gate passes
+6/6 known-class members under it. **ζ at its own validity scale reads HYPER_RIGID at z = −9.10**
+(vs −2.33 at L=50): the large-L policy was diluting a 9σ effect, and the "excess is an artifact of
+judging past validity" hypothesis is ruled out — the effect grows when the artifact is removed and
+is 3.6× the resolution floor. Verdict **L_POLICY_FIXED** — the cap fixes the physics *and* improves
+discrimination at no meaningful power cost. Still the owning program's calls: adopt the policy;
+adopt the HYPER_RIGID split it depends on; what the ζ row should say.

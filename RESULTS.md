@@ -10636,6 +10636,18 @@ dominated and fires on only 0–20% of bands).  See
   > level" ever was; it is what the data supports, and it is not in dispute. The open
   > question is only what to *call* it, and that is the owning program's call under the
   > split.
+  >
+  > **MOVE 3 (2026-08-16, `lcap/RESULTS_LCAP.md`):** judged inside its own Berry validity
+  > window (L=5.99 rather than the deployed L=50), under a policy validated on the
+  > calibrator zoo before ζ was touched, the row reads **HYPER_RIGID at z = −9.10** —
+  > *four times more significant* than at L=50, effect 3.6× the resolution floor,
+  > lens-invariant (deg 3→15: −8.94…−9.53). The large-L policy had been diluting a 9σ
+  > effect to 2.3σ. **The measurement never moved** — ζ's deficit vs finite-N GUE has been
+  > present and lens-invariant at every L from 2 to 40 throughout; what moved is the scale
+  > it was judged at and the vocabulary available to name it. This does **not** say ζ
+  > violates GUE asymptotically (Montgomery–Odlyzko concerns T→∞; these are the first 2000
+  > zeros at T ≲ 2.5×10³, where slow convergence is expected). Full three-move history
+  > banked beside the value in `lcap/RESULTS_LCAP.md`.
 - LMFDB EC / Dirichlet **pooled** spacings: the bulk-GUE *marginal* stands,
   but the **pooled long-range is MARGINAL_ONLY** — pooling superposes
   spectra and Poissonizes the long-range statistic even if components are

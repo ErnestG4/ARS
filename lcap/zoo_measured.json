@@ -1,0 +1,78 @@
+{
+ "gate_L": 50.0,
+ "deg": 6,
+ "n": 2000,
+ "members": {
+  "gue_n2000": {
+   "L": 40.0,
+   "cap": "binding: discrimination",
+   "sigma2_mean": 0.8169642857142857,
+   "z": 0.6997044925819115,
+   "verdict": "RIGID_GUE",
+   "expected": "RIGID_GUE",
+   "unanimous": true,
+   "PASS": true
+  },
+  "goe": {
+   "L": 40.0,
+   "cap": "binding: discrimination",
+   "sigma2_mean": 1.2751913265306123,
+   "z": 3.948063385022816,
+   "verdict": "INTERMEDIATE",
+   "expected": "NOT RIGID_GUE",
+   "unanimous": false,
+   "PASS": true
+  },
+  "poisson": {
+   "L": 40.0,
+   "cap": "binding: discrimination",
+   "sigma2_mean": 36.50732142857143,
+   "z": 253.70766489765674,
+   "verdict": "POISSON_INDEP",
+   "expected": "POISSON_INDEP",
+   "unanimous": true,
+   "PASS": true
+  },
+  "clock": {
+   "L": 40.0,
+   "cap": "binding: discrimination",
+   "sigma2_mean": 0.0,
+   "z": -5.0917328647135625,
+   "verdict": "HYPER_RIGID",
+   "expected": "HYPER_RIGID",
+   "unanimous": true,
+   "PASS": true
+  },
+  "jitter_clock": {
+   "L": 40.0,
+   "cap": "binding: discrimination",
+   "sigma2_mean": 0.1407312925170068,
+   "z": -4.094092601760244,
+   "verdict": "HYPER_RIGID",
+   "expected": "HYPER_RIGID",
+   "unanimous": true,
+   "PASS": true
+  },
+  "wigner_renewal": {
+   "L": 40.0,
+   "cap": "binding: discrimination",
+   "sigma2_mean": 6.333210034013605,
+   "z": 39.804218921619906,
+   "verdict": "INTERMEDIATE",
+   "expected": "INTERMEDIATE",
+   "unanimous": true,
+   "PASS": true
+  }
+ },
+ "reported": {
+  "farey": {
+   "L": 40.0,
+   "sigma2": 16.18962585034014,
+   "z": 109.67607962089514,
+   "verdict": "INTERMEDIATE",
+   "note": "REPORTED ONLY \u2014 no independently established Sigma^2 class expectation, so this row carries no pass/fail weight"
+  }
+ },
+ "PASS": true,
+ "failures": []
+}

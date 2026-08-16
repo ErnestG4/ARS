@@ -1,0 +1,81 @@
+{
+ "seal_cited": "lcap/prereg_sealed.json",
+ "order": "zoo -> power -> banked rows -> zeta LAST",
+ "L3_power": {
+  "zeta_first_2000": {
+   "L_judge": 5.992264919348891,
+   "n": 2000,
+   "band_mean": 0.5168692789174717,
+   "band_sd": 0.03593289723951069,
+   "MDD": 0.08983224309877672
+  },
+  "gue_n343": {
+   "L_judge": 8.0,
+   "n": 343,
+   "band_mean": 0.565379403794038,
+   "band_sd": 0.10936195927101604,
+   "MDD": 0.2734048981775401
+  },
+  "gue_n2000": {
+   "L_judge": 40.0,
+   "n": 2000,
+   "band_mean": 0.7182610544217688,
+   "band_sd": 0.14106416685749967,
+   "MDD": 0.3526604171437492
+  }
+ },
+ "L1_rows": {
+  "brocot_golden": {
+   "L_deployed": 6.86,
+   "L_judge": 8.0,
+   "moved_by_policy": false,
+   "z": 0.49,
+   "deployed": "RIGID_GUE",
+   "proposed": "RIGID_GUE",
+   "note": "6.86 < 8.0 cap \u2014 the policy does not move this row"
+  },
+  "zeta_first_2000": {
+   "L_deployed": 50.0,
+   "L_judge": 5.992264919348891,
+   "binding": "validity (Berry ln(T/2pi)=5.99)",
+   "sigma2": 0.18974999095481024,
+   "band_mean": 0.5168692789174717,
+   "band_sd": 0.03593289723951069,
+   "z": -9.103615714097534,
+   "z_at_deployed_L": -2.33,
+   "deployed": "RIGID_GUE",
+   "proposed": "HYPER_RIGID",
+   "effect_size": 0.32711928796266143,
+   "MDD": 0.08983224309877672,
+   "resolvable": true,
+   "lens_sweep": {
+    "deg3": {
+     "sigma2": 0.19570172582220774,
+     "z": -8.93798100816981
+    },
+    "deg6": {
+     "sigma2": 0.18974999095481024,
+     "z": -9.103615714097534
+    },
+    "deg10": {
+     "sigma2": 0.18974999095481027,
+     "z": -9.103615714097534
+    },
+    "deg15": {
+     "sigma2": 0.17455407214443358,
+     "z": -9.526512835615133
+    }
+   },
+   "sealed_prediction_sign_held": true,
+   "halt": false
+  }
+ },
+ "verdict": {
+  "primary": "L_POLICY_FIXED",
+  "zeta_reads": "HYPER_RIGID",
+  "sign_precommitment_held": true,
+  "magnitude_counter_expectation_held": true,
+  "zoo_gate": "PASS",
+  "discrimination_L": 40.0
+ }
+}

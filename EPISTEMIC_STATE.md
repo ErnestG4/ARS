@@ -1818,8 +1818,11 @@ near-delta marginal or a sharp bounded-phase grid to fire at all).
   saturation scale. **What stands, positively:** ζ_first is GUE at the marginal level and
   is measurably **more rigid than the finite-N GUE ensemble at every L from 2 to 40**,
   lens-invariant — a sharper claim than "class level" was. L-function bulk GUE + edge
-  signatures stand untouched. See `rigidgate/RESULTS_RIGIDGATE.md`,
-  `rigidgate/SINGLE_L_CENSUS.md`.  *New caveat:* pooled (LMFDB/Dirichlet)
+  signatures stand untouched. **Move 3 (2026-08-16, `lcap/`):** judged inside its Berry
+  validity window under a zoo-validated policy, the row reads **HYPER_RIGID at z = −9.10**
+  (vs −2.33 at the deployed L=50) — the large-L policy had been diluting a 9σ effect. Not a
+  claim about asymptotic ζ. Three-move history banked in `lcap/RESULTS_LCAP.md`. See also
+  `rigidgate/RESULTS_RIGIDGATE.md`, `rigidgate/SINGLE_L_CENSUS.md`.  *New caveat:* pooled (LMFDB/Dirichlet)
   long-range is MARGINAL_ONLY — pooling Poissonizes the long-range statistic
   (the arithmetic twin of the neural no-pooling rule).
 - **Neural — downgraded from class to marginal.**  On real neural data
