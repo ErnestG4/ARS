@@ -1020,3 +1020,11 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   mean-based validation tests **bias**, which is legitimate; it does not test **per-realization
   reliability**, and if nothing else supplies that half the certification is incomplete. When the
   idiom turns out to be house-wide, the repair is a policy change, not a per-gate fix.
+  **The purest instance, worth quoting because it needs no estimator subtlety at all:**
+  `validate_fitters.py` banks `brody_q_per_seed` and then computes its PASS from `mean(qs)` — the
+  harness *had the per-realization data and threw it away*. The fix is a few lines; that it was
+  never made means **nobody ever asked what the PASS was for.** Alongside the 57% number, that is
+  the failure in its two forms: one where the wrong estimand hid a coin-flip gate behind a
+  marginal-looking +2.48, and one where the right data sat unused in the same function.
+  Corollary for thresholds: **fix the derivation rule per gate type BEFORE measuring**, or the
+  threshold drifts toward whatever the harnesses turn out to do (`lcap/RELIABILITY_THRESHOLDS.md`).
