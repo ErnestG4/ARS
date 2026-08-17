@@ -2,7 +2,7 @@
 
 Sealed measurements of what happens to the *local* root-spacing statistics of real-rooted
 polynomials as you differentiate them repeatedly — the regime between the proven global laws
-(the empirical root measure is asymptotically frozen for all k = o(n/log n);
+(the empirical root measure is asymptotically frozen for all k = o(n) for real roots;
 Angst–Nguyen–Poly 2026) and the proven k → ∞ endpoints (Cosine/Hermite universality). To our
 knowledge these are the first measurements in that regime, and it is live exploration: everything
 here — scope amendments, seals, verdicts, retractions, and the instrument crisis in the middle —

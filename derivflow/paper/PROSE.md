@@ -9,8 +9,8 @@ LaTeX conversion and figures pending. Target submission 2026-08-19.**
 
 Let p be a real-rooted polynomial of degree n with roots drawn from a seed ensemble, and let
 p^(k) denote its k-th derivative. Recent theorems prove that the *global* empirical root measure
-of p^(k) is asymptotically frozen at the seed measure through every k = o(n/log n)
-(Angst–Nguyen–Poly 2026, extending Kabluchko, Byun–Lee–Reddy, and Michelen–Vu). We measure what
+of p^(k) is asymptotically frozen at the seed measure through every k = o(n) for real roots
+(Angst–Nguyen–Poly 2026, extending Kabluchko, Byun–Lee–Reddy, and Michelen–Vu). [Corrected 2026-08-17 on A. Campbell's correction: o(n/log n) is the best known for COMPLEX roots; for real roots the seed measure remains the limit to o(n). The earlier text quoted the complex-root bound for our real-rooted seeds, understating the window over which the global measure is frozen — i.e. understating the two-scale contrast.] We measure what
 happens beneath that frozen profile: the *local spacing statistics*, for which, to our
 knowledge, no theorem and no prior measurement exists in any regime 1 ≪ k ≤ sn, s < 1
 (adversarial literature verification included, dated). Under a pre-registered, seal-adjudicated
@@ -68,7 +68,7 @@ convergence of the empirical measure (verified against the full text) — and, t
 no measurement existed either (two adversarial literature audits plus a dated submission-day
 re-sweep; Appendix B). This paper reports the first measurements in that gap, under a sealed
 protocol, and the headline is a two-scale structure: **the global measure is asymptotically
-frozen through every k = o(n/log n), while local spacing fully crystallizes by k ≈ 10
+frozen through every k = o(n) for real roots, while local spacing fully crystallizes by k ≈ 10
 underneath it.** Macroscopically invariant, microscopically resolved — a regime no global
 theorem can see and no endpoint theorem reaches.
 
@@ -192,7 +192,7 @@ support by hypothesis.
 ## 5. Discussion
 
 **The two-scale statement.** ANP freeze the macroscopic profile — asymptotically, almost
-surely, for every k = o(n/log n), for exactly our seed class — while the local spacing
+surely, for every k = o(n) for real roots — our seed class — while the local spacing
 completes its crystallization by k* ≈ 6–11, n-independent across the measured range. The
 mechanistic grounding is the paper's own lemma, offered as interpretation and graded as such:
 convex-weight sensitivities decaying quadratically make each root's update a near-neighbor

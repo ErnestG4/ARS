@@ -181,7 +181,7 @@ fig, (top, bot) = plt.subplots(2, 1, figsize=(6.2, 3.4),
 for k, f, lab in [(0, 0.35, "k = 0 (seed)"), (10, 1.0, "k = 10")]:
     top.hist(snap[k], bins=48, density=True, histtype="step",
              color=shade(BLUE, f), lw=1.4)
-top.annotate("global density: k=0 and k=10 indistinguishable\n(ANP: frozen through k = o(n/log n))",
+top.annotate("global density: k=0 and k=10 indistinguishable\n(frozen through k = o(n) for real roots)",
              (0.02, 0.72), xycoords="axes fraction", fontsize=8, color=INK)
 top.set_ylabel("density"); top.set_xlim(-1.05, 1.05)
 top.set_yticks([])
