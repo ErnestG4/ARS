@@ -1028,6 +1028,13 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   marginal-looking +2.48, and one where the right data sat unused in the same function.
   Corollary for thresholds: **fix the derivation rule per gate type BEFORE measuring**, or the
   threshold drifts toward whatever the harnesses turn out to do (`lcap/RELIABILITY_THRESHOLDS.md`).
+  **And the correct estimand still needs its own witness** — a miniature worth keeping because it
+  happened immediately: the per-realization reliability arm added to `validate_fitters` **scored
+  CENSORING as precision** on its first run (a railed fitter returns a bit-identical value every
+  seed, so it posts sd = 0.0000 and looks perfectly reliable), and the rail guard added to fix that
+  then **over-fired on GOE's ρ**, whose true value legitimately sits at the bound. A reliability arm
+  that cannot distinguish a rail from real agreement is inert in exactly the direction it exists to
+  guard. Getting the estimand right buys you nothing if the new arm is unwitnessed.
 - **A sealed sample protects against post-hoc selection, not against unrepresentativeness — enumerate
   when you can.** (Full-sequence arc, 2026-08-17.) The arc sealed a 7-ordering sample by rule before
   measuring, which correctly prevented adding or dropping orderings after seeing the answers. Its
@@ -1063,3 +1070,12 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   each checker's load-bearing assertions when the checker is written, not later; (b) for every
   headline, ask *which arc owns this, and does that arc's checker fail without it?* — cross-pin when
   a measurement lands outside the arc that claims it.
+- **A presence check is not a value check.** (Checker sweep, 2026-08-17.) Red-pathing every arc's
+  headline against its own `verify_*.py` found two checkers that asserted a **key exists** or a
+  **boolean flag is True** where the finding is a *number*: the bridge SNR law (14/98/528) survived
+  having every amplification value set to 1.0, and the comb discriminator survived its 53.94σ
+  collapsing to 2.0 because only `resolved: true` was pinned. Both were green for the same reason —
+  the checker was written to catch structural regression and read as if it covered numeric drift.
+  Rule: for every banked *number*, assert the number with a tolerance; presence and flag checks are
+  a complement to that, never a substitute. This is `witness_must_be_able_to_fail` applied to the
+  witnesses themselves, and red-pathing is what distinguishes the two cases in seconds.
