@@ -320,3 +320,23 @@ every deployed thinning level the median-based gate certifies survival while 9�
 trains fail, of which ~6 points would fail anyway. The repaired arm reports the per-train rate so a
 reader sees both. Whether the gate's *threshold* should move is the owning program's call; this arc
 supplies the decomposition, not the ruling.
+
+## Two findings that must NOT be absorbed into the thinning story
+
+**(A) The small-n boundary-rate problem — a separate, invisible defect class.** The battery's printed
+`survival 1.00` at p_keep = 0.7 was not a bug in the repair; it was **a certification computed at a
+sample size too small to distinguish "always survives" from "survives 78% of the time."** Unlike the
+estimand mismatch, this one gives no signal: a clean 1.00 looks like the strongest possible result.
+Swept the banked artifacts: **105 rates sit at exactly 0.0 or 1.0**, mostly with no denominator
+recorded beside them (concrete: `high_osi_super_frac = 1.0` at **n=4**, whose 95% lower bound is
+≈ 0.40). Filed as a standing sweep target with its own TOOLKIT §9 rule; each such rate needs its n
+recovered and an interval attached before it can be read.
+
+**(B) ~6% intrinsic failure is a property of the GENERATOR, not of any gate.** The unthinned control
+shows **6% of `periodic_q7` trains fail their own period test with no thinning at all** — roughly one
+in sixteen. That is not something the thinning story explains and **it must not be absorbed into
+it**: it says the decoy generator emits trains that do not exhibit the period it is built to
+inject. Whether that is expected depends on the generator's design (jitter amplitude, train length,
+the a_q estimator's own floor at that n), none of which this arc examined. **Registered as an open
+question against the generator**, separate from the thinning defect, and separate from the gate's
+certification threshold.

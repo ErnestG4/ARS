@@ -1102,3 +1102,17 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   corrupting one and restoring it. Without that clause the entry reads as satisfied and arc eight
   ships with a schema-only checker. Treat this as part of an arc's definition of done, alongside the
   committed generator and the seal.
+- **A rate is uninterpretable without its n, and a rate AT A BOUNDARY is maximally misleading.**
+  (2026-08-17.) Distinct from the estimand rule and, unlike it, **invisible**: a clean `1.00` reads
+  as the strongest possible result, when it may be the weakest evidence in the document. The
+  `rf_decoy_battery` repair printed `survival 1.00` at p_keep = 0.7 on its first run; measured at 32
+  seeds the true rate there is **0.78**, and 8/8 is entirely consistent with that (p ≈ 0.14). Nothing
+  about the printed 1.00 signalled the problem. **A boundary rate has no visible variance at all** —
+  0/n and n/n both look certain — so its uncertainty must be supplied explicitly: report the
+  denominator always, and an interval (Wilson or Jeffreys) whenever the rate touches 0 or 1.
+  For orientation: **1.00 from n=8 has a 95% lower bound near 0.63; from n=4, near 0.40.**
+  Repo state when the rule was written: **105 banked rates sit at exactly 0.0 or 1.0**, the majority
+  with no sample size recorded beside them (concrete instance:
+  `longrange_allen_psth_results.json.high_osi_super_frac = 1.0` at **n=4**). Filing this as a
+  standing sweep target rather than a fixed defect: each needs its n recovered and an interval
+  attached before it can be read.
