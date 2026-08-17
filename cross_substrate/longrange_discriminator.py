@@ -412,7 +412,22 @@ def validate_rate_unfold(verbose: bool = True) -> dict:
         out[bw] = {"real": vr["verdict"], "decoy": vd["verdict"], "pole_sep": round(sep, 1)}
     decoy_false_rigid = any(o["decoy"] == "RIGID_GUE" for o in out.values())
     sep_collapsed = all(o["pole_sep"] < 10 for o in out.values())
-    out["INADEQUATE"] = bool(decoy_false_rigid and sep_collapsed)
+    # REPAIRED 2026-08-17. Was: INADEQUATE = decoy_false_rigid AND
+    # sep_collapsed.  INADEQUATE is a NEGATIVE verdict, so requiring both arms
+    # to fire in order to REJECT meant either arm could VETO a rejection — and
+    # one of them (pole_sep) is a ratio of ENSEMBLE MEANS while the gate
+    # classifies ONE realization at a time.  A lens whose decoy genuinely read
+    # false-RIGID escaped rejection whenever the ensemble ratio happened not to
+    # collapse: the population arm held veto power over the per-realization
+    # arm.  (Recurrence of the sealed_conjunction_inert_arm class.)  The
+    # rejection now fires on the per-realization arm ALONE; pole_sep is
+    # retained as a reported diagnostic, not a gate arm.  No banked verdict
+    # changes: in the measured case both arms fired.
+    out["INADEQUATE"] = bool(decoy_false_rigid)
+    out["pole_sep_diagnostic"] = dict(
+        collapsed=bool(sep_collapsed),
+        note="ratio of ensemble means — DIAGNOSTIC ONLY, not a gate arm; "
+             "the deployment decision is made per realization")
     if verbose:
         print("rate-aware self-unfold NEGATIVE validation (should be INADEQUATE=True):")
         for bw, o in out.items():

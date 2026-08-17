@@ -110,6 +110,111 @@ CASES = [
 N_SYNTH = 4000
 SEEDS = (0, 1, 2)
 
+# ── PER-REALIZATION RELIABILITY ARM (added 2026-08-17) ──────────────────────
+# The bias arm above passes when mean(qs) is within tol. That tests BIAS, which
+# is real — but fitters DEPLOY per substrate: one substrate yields one q. A
+# fitter whose per-seed values scatter widely but average correctly passes the
+# bias arm and is useless in deployment. The harness already banked
+# brody_q_per_seed, so the data for the correct test was present and simply was
+# not what the PASS was computed from.
+#
+# Threshold rule, fixed in advance (lcap/RELIABILITY_THRESHOLDS.md, gate type B):
+# a fitter is deployed to place one substrate relative to reference classes, so
+# the tolerance it must clear is the GAP to the nearest adjacent expected class
+# value; requiring one realization to land on the correct side with the same
+# k=2.5 confidence the classifier gate demands gives
+#     sd(estimate across seeds) <= gap_to_nearest_class / (2 * 2.5) = gap / 5.
+# BOTH arms are required for certification. The bias arm is retained, not
+# replaced.
+RELIABILITY_SEEDS = tuple(range(12))   # 3 seeds cannot estimate an sd
+K_RELIABILITY = 2.5
+
+
+def _nearest_gap(exp_val, all_vals):
+    """Distance to the nearest OTHER expected class value."""
+    others = [v for v in all_vals if abs(v - exp_val) > 1e-12]
+    return min(abs(v - exp_val) for v in others) if others else float("inf")
+
+
+# Rails, from the bounds asserted by the fitters themselves (see the CASES
+# commentary above): brody_q is bounded to [0,1] and BR rho is a GOE FRACTION
+# bounded to [0,1].
+_RAILS = {"brody_q": (0.0, 1.0), "br_rho": (0.0, 1.0)}
+_RAIL_SD_TOL = 1e-3      # scatter indistinguishable from zero
+_RAIL_EDGE_TOL = 1e-2    # within 1% of the bound RANGE counts as at the bound
+
+
+def _railed(vals, nm, exp_val=None):
+    """Zero scatter AT a bound is CENSORING, not reliability. A railed fitter
+    returns the same boundary value every time, so it scores a perfect sd and
+    carries no information — the arm must not hand it a PASS. (Caught by
+    reading the arm's own first output: clustered/GUE brody_q reported
+    sd=0.0000 because they rail, not because they are precise.)"""
+    if not vals:
+        return True
+    lo, hi = _RAILS[nm]
+    span = hi - lo
+    at_rail = all(min(abs(v - lo), abs(v - hi)) <= _RAIL_EDGE_TOL * span
+                  for v in vals)
+    sd = float(np.std(vals, ddof=1)) if len(vals) > 1 else 0.0
+    # near-zero scatter on RANDOM inputs is itself the red flag: a fitter that
+    # returns a bit-identical value across independent realizations is
+    # saturated, not precise.
+    #
+    # ...UNLESS the class's TRUE value sits at that bound. GOE has rho = 1.0
+    # exactly, so a fitter pinned at 1.0 there is correct, not censored. The
+    # guard fires only when the expectation is AWAY from the bound the values
+    # are pinned to — i.e. when the rail is masking a value that belongs
+    # elsewhere. (Caught by the guard over-firing on GOE rho on its first run.)
+    if exp_val is not None and at_rail:
+        exp_at_rail = min(abs(exp_val - lo), abs(exp_val - hi)) <= \
+            _RAIL_EDGE_TOL * span
+        if exp_at_rail:
+            return False
+    return bool(at_rail and sd <= _RAIL_SD_TOL)
+
+
+def reliability_arm():
+    """Per-seed scatter of each fitter against gap/5, per class.
+
+    A class whose estimate is RAILED is reported UNCERTIFIABLE_RAILED and does
+    NOT pass: zero scatter at a bound is censoring, and an arm that cannot
+    distinguish precision from censoring is inert in exactly the direction it
+    exists to guard."""
+    q_targets = [c[2] for c in CASES]
+    rho_targets = [c[3] for c in CASES]
+    out, ok_all = {}, True
+    for label, sampler, exp_q, exp_rho, _tol in CASES:
+        qs = [I8_brody_q(sampler(N_SYNTH, sd)) for sd in RELIABILITY_SEEDS]
+        rhos = [I9_berry_robnik_rho(sampler(N_SYNTH, sd))
+                for sd in RELIABILITY_SEEDS]
+        qs = [x for x in qs if x is not None]
+        rhos = [x for x in rhos if x is not None]
+        row = {}
+        for nm, vals, exp_v, targets in (("brody_q", qs, exp_q, q_targets),
+                                         ("br_rho", rhos, exp_rho, rho_targets)):
+            gap = _nearest_gap(exp_v, targets)
+            need = gap / (2.0 * K_RELIABILITY)
+            sd = float(np.std(vals, ddof=1)) if len(vals) > 1 else float("nan")
+            railed = _railed(vals, nm, exp_v)
+            passes = bool((sd <= need) and not railed)
+            row[nm] = dict(sd=sd, gap_to_nearest=float(gap),
+                           sd_allowed=float(need), pass_=passes,
+                           railed=railed,
+                           status=("UNCERTIFIABLE_RAILED" if railed
+                                   else "PASS" if passes else "FAIL"),
+                           n_seeds=len(vals),
+                           per_seed=[round(float(v), 4) for v in vals])
+            ok_all = ok_all and passes
+        out[label] = row
+        print(f"  [{label}] brody_q sd={row['brody_q']['sd']:.4f} "
+              f"(allow {row['brody_q']['sd_allowed']:.4f}) "
+              f"{row['brody_q']['status']}   "
+              f"BR_rho sd={row['br_rho']['sd']:.4f} "
+              f"(allow {row['br_rho']['sd_allowed']:.4f}) "
+              f"{row['br_rho']['status']}")
+    return out, ok_all
+
 
 def main() -> int:
     print("=" * 72)
@@ -148,16 +253,32 @@ def main() -> int:
         print(f"  Berry-Robnik ρ: {rho_mean:.4f}  (expect {exp_rho}±{tol})  "
               f"{'PASS' if rho_ok else 'FAIL'}")
 
+    print("\n" + "=" * 72)
+    print("PER-REALIZATION RELIABILITY ARM (sd across seeds vs gap/5)")
+    print("=" * 72)
+    rel, rel_pass = reliability_arm()
+
     out = {"n_synth": N_SYNTH, "seeds": list(SEEDS), "cases": rec,
            "all_pass": all_pass,
-           "gate": "Brody/BR values may be banked ONLY if all_pass is true; "
-                   "else bank null + flag (§7.ter.57)."}
+           "reliability_seeds": list(RELIABILITY_SEEDS),
+           "reliability": rel,
+           "reliability_pass": rel_pass,
+           "certified": bool(all_pass and rel_pass),
+           "gate": "Brody/BR values may be banked ONLY if CERTIFIED — i.e. "
+                   "the bias arm (all_pass) AND the per-realization "
+                   "reliability arm (reliability_pass) both hold. The bias "
+                   "arm alone was the deployed criterion until 2026-08-17; "
+                   "it tests bias, not per-realization reliability, and a "
+                   "gate that classifies one realization needs both "
+                   "(§7.ter.57 + TOOLKIT §9 estimand rule)."}
     p = os.path.join(_HERE, "fitter_validation.json")
     with open(p, "w") as f:
         json.dump(out, f, indent=2)
-    print(f"\nALL_PASS = {all_pass}")
+    print(f"\nBIAS ARM all_pass = {all_pass}")
+    print(f"RELIABILITY ARM  pass = {rel_pass}")
+    print(f"CERTIFIED (both) = {bool(all_pass and rel_pass)}")
     print(f"→ wrote {p}")
-    return 0 if all_pass else 1
+    return 0 if (all_pass and rel_pass) else 1
 
 
 if __name__ == "__main__":

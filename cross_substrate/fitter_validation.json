@@ -158,5 +158,263 @@
     }
   },
   "all_pass": false,
-  "gate": "Brody/BR values may be banked ONLY if all_pass is true; else bank null + flag (\u00a77.ter.57)."
+  "reliability_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "reliability": {
+    "poisson": {
+      "brody_q": {
+        "sd": 0.010550913578915534,
+        "gap_to_nearest": 0.3,
+        "sd_allowed": 0.06,
+        "pass_": true,
+        "railed": false,
+        "status": "PASS",
+        "n_seeds": 12,
+        "per_seed": [
+          0.0001,
+          0.0039,
+          0.0166,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0238,
+          0.0001,
+          0.018,
+          0.0242,
+          0.0001,
+          0.0204
+        ]
+      },
+      "br_rho": {
+        "sd": 0.04582810234449324,
+        "gap_to_nearest": 0.3,
+        "sd_allowed": 0.06,
+        "pass_": true,
+        "railed": false,
+        "status": "PASS",
+        "n_seeds": 12,
+        "per_seed": [
+          0.0015,
+          0.0935,
+          0.1165,
+          0.1185,
+          0.1225,
+          0.1335,
+          0.1365,
+          0.0395,
+          0.1155,
+          0.1565,
+          0.1245,
+          0.1565
+        ]
+      }
+    },
+    "goe": {
+      "brody_q": {
+        "sd": 0.01643551378140655,
+        "gap_to_nearest": 0.53,
+        "sd_allowed": 0.10600000000000001,
+        "pass_": true,
+        "railed": false,
+        "status": "PASS",
+        "n_seeds": 12,
+        "per_seed": [
+          0.9886,
+          0.9879,
+          0.9862,
+          0.9671,
+          0.9981,
+          0.9465,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9897,
+          0.9999
+        ]
+      },
+      "br_rho": {
+        "sd": 0.0008852893327115537,
+        "gap_to_nearest": 1.0,
+        "sd_allowed": 0.2,
+        "pass_": true,
+        "railed": false,
+        "status": "PASS",
+        "n_seeds": 12,
+        "per_seed": [
+          0.9965,
+          0.9965,
+          0.9965,
+          0.9955,
+          0.9965,
+          0.9935,
+          0.9965,
+          0.9965,
+          0.9965,
+          0.9965,
+          0.9966,
+          0.9966
+        ]
+      }
+    },
+    "clustered": {
+      "brody_q": {
+        "sd": 1.4155152957626385e-20,
+        "gap_to_nearest": 0.3,
+        "sd_allowed": 0.06,
+        "pass_": false,
+        "railed": true,
+        "status": "UNCERTIFIABLE_RAILED",
+        "n_seeds": 12,
+        "per_seed": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ]
+      },
+      "br_rho": {
+        "sd": 0.02726455432635968,
+        "gap_to_nearest": 0.3,
+        "sd_allowed": 0.06,
+        "pass_": true,
+        "railed": false,
+        "status": "PASS",
+        "n_seeds": 12,
+        "per_seed": [
+          0.0075,
+          0.0065,
+          0.0015,
+          0.0045,
+          0.1005,
+          0.0245,
+          0.0065,
+          0.0065,
+          0.0065,
+          0.0065,
+          0.0065,
+          0.0135
+        ]
+      }
+    },
+    "clustered_extreme": {
+      "brody_q": {
+        "sd": 1.4155152957626385e-20,
+        "gap_to_nearest": 0.3,
+        "sd_allowed": 0.06,
+        "pass_": false,
+        "railed": true,
+        "status": "UNCERTIFIABLE_RAILED",
+        "n_seeds": 12,
+        "per_seed": [
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001,
+          0.0001
+        ]
+      },
+      "br_rho": {
+        "sd": 0.0011664763449834709,
+        "gap_to_nearest": 0.3,
+        "sd_allowed": 0.06,
+        "pass_": true,
+        "railed": false,
+        "status": "PASS",
+        "n_seeds": 12,
+        "per_seed": [
+          0.0025,
+          0.0015,
+          0.0045,
+          0.0025,
+          0.0015,
+          0.0014,
+          0.0015,
+          0.0005,
+          0.0015,
+          0.0005,
+          0.0035,
+          0.0015
+        ]
+      }
+    },
+    "gue": {
+      "brody_q": {
+        "sd": 1.1595901302887535e-16,
+        "gap_to_nearest": 0.53,
+        "sd_allowed": 0.10600000000000001,
+        "pass_": false,
+        "railed": true,
+        "status": "UNCERTIFIABLE_RAILED",
+        "n_seeds": 12,
+        "per_seed": [
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999,
+          0.9999
+        ]
+      },
+      "br_rho": {
+        "sd": 1.4362822028839938e-05,
+        "gap_to_nearest": 1.0,
+        "sd_allowed": 0.2,
+        "pass_": false,
+        "railed": true,
+        "status": "UNCERTIFIABLE_RAILED",
+        "n_seeds": 12,
+        "per_seed": [
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9975,
+          0.9976
+        ]
+      }
+    }
+  },
+  "reliability_pass": false,
+  "certified": false,
+  "gate": "Brody/BR values may be banked ONLY if CERTIFIED \u2014 i.e. the bias arm (all_pass) AND the per-realization reliability arm (reliability_pass) both hold. The bias arm alone was the deployed criterion until 2026-08-17; it tests bias, not per-realization reliability, and a gate that classifies one realization needs both (\u00a77.ter.57 + TOOLKIT \u00a79 estimand rule)."
 }

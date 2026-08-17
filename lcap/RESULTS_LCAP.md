@@ -313,3 +313,74 @@ So the work is a **policy change, not a cap fix**: establish the per-realization
 to every harness certifying a per-realization gate, and re-derive this gate's caps under it —
 **measuring both directions** (false positive AND false negative) at every candidate cap, since a
 cap that fixes discrimination can destroy sensitivity and one rate cannot see that.
+
+## LC-ADD-6 — the policy re-derivation at the correct estimand, both directions
+
+Caps re-derived from per-realization error rates against thresholds fixed in advance
+(`RELIABILITY_THRESHOLDS.md`: FP_p95 ≤ 0.05 **and** FN_p95 ≤ 0.05). Reference band built from
+**disjoint** GUE draws from the test set — testing draws against a band they helped define would
+bias FN optimistically.
+
+**False-positive rates (GOE admitted as RIGID_GUE) — the robust arm:**
+
+| L | n=343 | n=1200 | n=2000 |
+|---|---|---|---|
+| 3 | 0.39 | 0.00 | 0.00 |
+| 5 | 0.57 | 0.07 | 0.04 |
+| 8 | 0.54 | 0.04 | 0.04 |
+| 20 | 0.86 | 0.32 | 0.18 |
+| 40 | 0.86 | 0.54 | 0.32 |
+| 50 | 0.82 | 0.54 | 0.50 |
+
+**At n=343 the gate is effectively blind**: GOE is admitted 39–86% of the time at *every* L tested.
+At n=2000 the rate climbs from 0.00 at L=3 to 0.50 at L=50. Against `matched_L` of 6.9 / 24 / 40
+respectively, the default scale policy sits deep in the bad region at every n — **the conclusion is
+re-established on the FP arm, which is the arm that does not depend on my draw count.**
+
+### Power caveat on the FN arm — flagged against my own measurement
+
+With 28 test draws, the bootstrap p95 of a *zero-count* sample is ≈0.11. **So FN_p95 ≤ 0.05 is not
+demonstrable at 28 draws regardless of the truth**, and every "INADMISSIBLE on FN" reading in the
+run is an artifact of my sampling, not a property of the gate. Reaching the sealed FN threshold
+needs roughly **n_draws ≥ 60**. Consequently:
+
+- **FP-based conclusions stand** (rates of 0.3–0.86 are far above any threshold and far above
+  sampling noise);
+- **FN-based inadmissibility is not interpretable** and the combined "no admissible L anywhere"
+  verdict must not be quoted as a finding;
+- **registered-open:** re-run the FN arm at ≥60 draws before any cap is quoted as final.
+
+This is the fourth time in this arc that a number needed its own estimator's power checked before
+it could be read — recorded here rather than discovered later.
+
+### Corrected caps (FP arm only, provisional pending the FN re-run)
+
+n=2000 → L ≈ 3–5; n=1200 → L ≈ 3–5; **n=343 → none exists at any tested L.** These are an order of
+magnitude below the separation-of-means values (30–50) the withdrawn derivation produced, in the
+direction the estimand error predicted: the wrong estimand was understating the defect throughout.
+
+## LC-ADD-7 — the two harness repairs
+
+**`validate_rate_unfold` (pole_sep):** `INADEQUATE` now fires on the **per-realization arm alone**;
+the ensemble-mean ratio is retained as `pole_sep_diagnostic`, not a gate arm. No banked verdict
+changes — both arms fired in the measured case.
+
+**`validate_fitters` — per-realization reliability arm added** (additive; the bias arm is retained
+and still reported, matching the harness's existing "second column, not a swap" pattern).
+Certification now requires **both** arms. Threshold from the fixed rule: sd across seeds ≤
+gap-to-nearest-class / 5, at 12 seeds (3 cannot estimate an sd).
+
+**Two defects found in my own arm by reading its first outputs, both fixed:**
+1. *Censoring scored as precision.* `brody_q` is bounded to [0,1], so GUE and the clustered classes
+   rail and return a **bit-identical value every seed — sd = 0.0000 — which my arm scored as
+   perfect reliability.** A rail guard now reports `UNCERTIFIABLE_RAILED` instead of PASS. An arm
+   that cannot distinguish precision from censoring is inert in exactly the direction it exists to
+   guard.
+2. *The guard then over-fired.* GOE's ρ **is** 1.0 — its true value sits at the bound, so being
+   pinned there is correct, not censored. The guard now fires only when the expectation lies **away**
+   from the bound the values are pinned to.
+
+Result: `poisson` and `goe` certify on both arms; `clustered`, `clustered_extreme`, and `gue`
+report `UNCERTIFIABLE_RAILED` on `brody_q` — which is exactly the set the harness's own commentary
+already identifies as out-of-representable-range. The reliability arm independently rediscovers the
+rail finding it was not built to look for.
