@@ -1,0 +1,14 @@
+{
+ "pairwise_bounds_F": {
+  "C4": 0.0013776857659036099,
+  "P3": 0.0022318401355871935,
+  "sum": 0.0036095259014908036,
+  "k": 3.0
+ },
+ "smallest_banked_margin_F": 0.06242033881218614,
+ "margin_over_bound": 17.293223685250556,
+ "median_sigma_F": 0.0316846821010862,
+ "verdict": "NO_RISK \u2014 pairwise is sufficient for everything currently banked in the survey dialect",
+ "transfer_label": "the sum-as-upper-bound step relies on sub-additive composition, measured in the 1-D dialect and NOT in this one; it survives because the margin exceeds the bound by 17x (measured) and because each pairwise effect was separately measured suppressed to within noise of zero. 17x is comfortable, not unassailable: super-additivity beyond 17x in this dialect would close it.",
+ "note": "A bankable protocol result in its own right: it says the pairwise table is sufficient for the survey rows AS BANKED, not that the survey dialect has no holonomy."
+}

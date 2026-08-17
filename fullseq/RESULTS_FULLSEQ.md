@@ -85,3 +85,26 @@ pipeline scale. No flip risk arose in any case — the kill criterion's named ma
 ## Reproduction
 
 `fullseq/`: `transitions_1d.py` → `seal_prereg.py` → `run_fullseq.py` → `verify_fullseq.py`.
+
+## Side cell — the survey-dialect kill criterion, banked as promised
+
+Option A was not chosen as the arc, but its answer is cheap and belongs on the board regardless.
+Bounding the full-sequence effect by the **sum** of the banked survey-dialect pairwise commutators
+(C4 window↔project 0.00138 F-units, P3 weight↔thin 0.00223) gives **0.00361**, against a smallest
+banked margin of **0.0624 F-units (1.97σ)** — a ratio of **17×**.
+
+> **NO_RISK — pairwise is sufficient for everything currently banked in the survey dialect.**
+
+Two labels on that, both required for it to be read correctly:
+
+- **Transfer.** Using the pairwise sum as an *upper* bound relies on sub-additive composition, which
+  this arc measured in the **1-D** dialect and did **not** measure in the survey dialect. It
+  survives the transfer because each survey pairwise effect was separately measured *suppressed to
+  within noise of zero*, so the sum is a sum of near-zeros rather than of real effects.
+- **Size, stated honestly.** 17× is comfortable but **not unassailable** — composition would have to
+  be super-additive by more than 17× in this dialect to close it, which is large but not absurd.
+  (An earlier draft of the generator's docstring claimed "~2 orders of magnitude" before the number
+  existed; corrected in place rather than left to flatter the conclusion.)
+
+And the scope that matters for reuse: this says the pairwise table is sufficient for the survey rows
+**as banked** — not that the survey dialect has no holonomy.
