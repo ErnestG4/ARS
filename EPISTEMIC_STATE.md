@@ -2087,7 +2087,19 @@ criterion sealed with named targets before S0. The criterion did not fire (Δ_ma
 S0 confirmed the premise: two of five transitions move density/CV by 40–55%, so mid-stack dials are
 genuinely different. The first-order predictor is exact for single transpositions by construction
 and **breaks at multi-inversion orderings** (H up to +0.785 at z = 10.0), with H growing faster than
-linearly in inversion count — a BCH-shaped result. **H > 0 everywhere: composition is sub-additive,
-so the pairwise table overestimates and remains a valid upper bound.** The pairwise arc's scope
-caveat is sharpened rather than lifted. Survey side cell banked as promised: **NO_RISK at 17×**,
-with the transfer and the size of that ratio both labelled.
+linearly in inversion count — a BCH-shaped result.
+
+**The night's headline was then RETRACTED by this arc's own pre-registered exhaustive out-of-sample
+test.** From the sealed 7-ordering sample I concluded H > 0 everywhere, hence sub-additive
+composition and a conservative pairwise upper bound. Tested on all 59 admissible orderings (52
+untouched, predictions committed before the run): **12/52 have H ≤ 0, 10 significant at z < −3 —
+the pairwise table can UNDERESTIMATE by up to 6.9×.** Sub-additive on average, not in general. The
+mechanism is clean: all 10 super-additive orderings place UNFOLD last or second-to-last and their
+measured Δ is pinned at ≈ −3.20, a **saturation signature** — unfolding last re-flattens whatever
+the upstream ordering built, and an additive predictor cannot represent a composition that has
+stopped moving. The sealed sample missed it because its three multi-inversion members were
+low-inversion and none placed UNFOLD last: unrepresentative of the space rather than badly chosen,
+which is exactly what an exhaustive test exists to catch. Knock-on: the survey side cell's
+sum-as-upper-bound relied on the retracted premise — re-read, its margin is **2.5× rather than
+17×**; verdict stays NO_RISK but should be derived directly if any survey row moves toward its
+boundary.
