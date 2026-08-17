@@ -36,6 +36,15 @@ PARAMETERIZED = {
                               "`python3 verify_brody_repair.py hc3-port-cell`",
 }
 
+# External datasets a checker needs but the repository does not redistribute.
+# Missing input is reported as SKIP, never as FAIL: a row that is permanently
+# red for a benign reason trains the reader to ignore red rows, which is how a
+# guard goes inert. See data/README.md for how to obtain these.
+REQUIRES = {
+    "arsrh/verify_brief_v2.py": ["data/odlyzko_zeros1.txt"],
+    "phase22a/verify_calibrators.py": ["data/odlyzko_zeros1.txt"],
+}
+
 
 def discover():
     found = []
@@ -68,15 +77,22 @@ def main():
         print("no checkers found", file=sys.stderr)
         return 1
 
-    board, skipped = [], []
+    board, skipped, no_data = [], [], []
     for c in checkers:
         rel = os.path.relpath(c, HERE)
         if os.path.basename(c) in PARAMETERIZED:
             skipped.append((rel, PARAMETERIZED[os.path.basename(c)]))
             continue
+        missing = [d for d in REQUIRES.get(rel.replace(os.sep, "/"), [])
+                   if not os.path.exists(os.path.join(HERE, d))]
+        if missing:
+            no_data.append((rel, missing))
+            continue
         board.append((rel, c))
 
     if a.list:
+        for rel, missing in no_data:
+            print(f"  (would skip {rel}: needs {', '.join(missing)})")
         print(f"{len(board)} board checkers:")
         for rel, _ in board:
             print(f"  {rel}")
@@ -86,6 +102,10 @@ def main():
                 print(f"  {rel}\n      {why}")
         return 0
 
+    for rel, missing in no_data:
+        print(f"  SKIP  {rel} — needs {', '.join(missing)} (see data/README.md)")
+    if no_data:
+        print()
     print(f"running {len(board)} checkers from {HERE}\n", flush=True)
     width = max(len(r) for r, _ in board)
     results = []
@@ -106,6 +126,11 @@ def main():
     bad = [r for r in results if r[1] != 0]
     print("\n" + "-" * (width + 22))
     print(f"  {len(results) - len(bad)}/{len(results)} passed")
+    if no_data:
+        print(f"  {len(no_data)} skipped for missing external data "
+              f"(not a failure — see data/README.md):")
+        for rel, missing in no_data:
+            print(f"      {rel} — {', '.join(missing)}")
     if skipped:
         print(f"  {len(skipped)} parameterized tool(s) not run:")
         for rel, why in skipped:

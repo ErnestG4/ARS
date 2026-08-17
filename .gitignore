@@ -76,3 +76,6 @@ bridge/.rquarantine/
 */lit/*.txt
 !*/lit/README.md
 !*/lit/LIT_SUMMARY.md
+
+# the data manifest itself IS tracked; the datasets are not
+!data/README.md
