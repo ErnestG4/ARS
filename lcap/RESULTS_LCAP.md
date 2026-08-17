@@ -297,5 +297,19 @@ measurement** — but the other n remain **unmeasured under the correct definiti
 verdicts stand withdrawn until they are. (iii) The structural argument (LC-ADD-3, layer 1) is
 untouched throughout: it never depended on a cap value.
 
-**Registered-open, now the top item:** re-derive the cap at every deployed n under the
-misclassification-rate definition with bootstrap CIs, and re-issue the census n-column from it.
+**Evidential-status note (Will's record item).** The two surviving "OUTSIDE" verdicts do **not**
+rest on the same footing and the record must not let them read as if they do:
+
+| n | verdict | evidential status |
+|---|---|---|
+| 2000 | OUTSIDE | **re-established by a correct measurement** — the per-realization misclassification rate (0.60 at L=40, 0.57 at L=50 vs 0.03–0.05 at L≤20) |
+| 343 | OUTSIDE | **survives from a WITHDRAWN table** — it was never re-measured under the corrected estimand, and its original derivation used the downward-biased hard-max rule on separation-of-means. It is *not evidence*; it is an un-retracted entry awaiting re-measurement. |
+
+**Registered-open, now the top item — and RESCOPED (see `lcap/ESTIMAND_CENSUS.md`).** The estimand
+mismatch is not confined to this gate: censusing found it in `validate_rate_unfold` (a ratio of
+ensemble means as one arm of a deployment decision) and in `validate_fitters.py` (the calibrator
+zoo's fitter certification passes on the *mean across seeds*, while fitters deploy per substrate).
+So the work is a **policy change, not a cap fix**: establish the per-realization form once, apply it
+to every harness certifying a per-realization gate, and re-derive this gate's caps under it —
+**measuring both directions** (false positive AND false negative) at every candidate cap, since a
+cap that fixes discrimination can destroy sensitivity and one rate cannot see that.

@@ -999,3 +999,24 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   passing their parameter explicitly, and a live checker pins the policy present and correct** so
   the adoption cannot silently lapse either. Migration of a call site is then its own dated,
   authorized step with its own re-run.
+- **Before measuring how well, establish WHAT — tie the estimand to the operational decision.**
+  (L-policy arc, 2026-08-16; Will's promotion of the round's closing observation.) Three numbers in
+  that arc dissolved on inspection because an *estimator's variance* went unmeasured — a **precision**
+  failure. The fourth dissolved for a worse reason: the **estimand was wrong**. The cap was measuring
+  separation of population means while the gate it certified classifies **one point set at a time**,
+  and separation-of-means cannot see the spread that decides a single realization's fate. **A wrong
+  estimand is a different and worse category than imprecision, because more precision on the wrong
+  quantity converges confidently on the wrong answer** — and it retroactively explains why the caps
+  kept moving: an estimator cannot be stabilised while it is estimating the wrong thing.
+  Rule: **a gate that classifies one realization must be certified by a per-realization error rate,
+  in BOTH directions** (false positive AND false negative — a restriction that fixes discrimination
+  can destroy sensitivity, and one rate alone cannot see that). Separation-of-means is valid only
+  where the decision itself is about populations. Measured instance: at the deployed configuration
+  the separation-of-means statistic read a merely-marginal +2.48 while the true per-realization
+  misclassification rate was **57%** — the wrong estimand was understating a coin-flip gate by an
+  order of magnitude. **The mismatch is not usually confined to one gate:** censusing for it found
+  two further validation harnesses certifying per-realization machinery with population statistics,
+  including the one that certifies the calibrator zoo's fitters (`lcap/ESTIMAND_CENSUS.md`). A
+  mean-based validation tests **bias**, which is legitimate; it does not test **per-realization
+  reliability**, and if nothing else supplies that half the certification is incomplete. When the
+  idiom turns out to be house-wide, the repair is a policy change, not a per-gate fix.
