@@ -279,7 +279,13 @@ def run_apparatus_gate(floor, n_seeds=8):
                 pre.append(a0); post.append(a1)
             m0, m1 = np.nanmedian(pre), np.nanmedian(post)
             gate = "OK (no injection)" if m1 < floor else "FAIL: spurious period"
-            print(f"      {name:<14}{tau_frac:>8.1f}{m0:>11.2f}{m1:>12.2f}  {gate}")
+            # per-realization companion (see 3b note): the fraction of
+            # individual trains in which dead time DID push a_q above floor
+            _p1 = np.asarray(post, float)
+            _okm = np.isfinite(_p1)
+            inj = float(np.mean(_p1[_okm] >= floor)) if _okm.any() else float("nan")
+            print(f"      {name:<14}{tau_frac:>8.1f}{m0:>11.2f}{m1:>12.2f}  {gate}"
+                  f"   [per-train injection {inj:.2f}]")
 
     # 3b. thinning on periodic_q7 — the real a_q=7 must SURVIVE finite efficiency.
     print("\n  3b. thinning survival test (real a_q=7 must stay above floor):")
@@ -298,7 +304,19 @@ def run_apparatus_gate(floor, n_seeds=8):
         modal = Counter(pkq).most_common(1)[0][0]
         m7 = np.nanmedian(a7)
         gate = "OK" if (m7 >= floor) else "FAIL: period erased"
-        print(f"      {p_keep:>8.1f}{modal:>8}{m7:>8.2f}  {gate}")
+        # PER-REALIZATION ARM (2026-08-17, TOOLKIT §9 estimand rule). The
+        # median across seeds says what a TYPICAL train does; the decoy
+        # question — "did efficiency loss erase a genuine period?" — is asked
+        # of ONE train. A median can sit comfortably above the floor while a
+        # large minority of individual trains fall below it, and only the
+        # per-train rate can see that. The per-seed values already exist in
+        # a7; they were averaged away before being looked at. ADDITIVE: the
+        # median-based `gate` above is unchanged.
+        _a7 = np.asarray(a7, float)
+        _ok = np.isfinite(_a7)
+        surv = float(np.mean(_a7[_ok] >= floor)) if _ok.any() else float("nan")
+        print(f"      {p_keep:>8.1f}{modal:>8}{m7:>8.2f}  {gate}"
+              f"   [per-train survival {surv:.2f}]")
     print("\n  Dead time is subtractive (carves small spacings) — it cannot ADD a")
     print("  periodic comb, so 3a is the expected-pass control. 3b probes the real")
     print("  exposure: efficiency loss erasing a genuine period (the a_q analog of")
