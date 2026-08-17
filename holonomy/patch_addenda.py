@@ -17,7 +17,7 @@ seal["addenda"] = [
         title="OP1 materiality pass — owed by brief §2, omitted at banking",
         three_event=["arc banked without the pass (defect: |Delta|=1.15 "
                      "qualifies under §2)",
-                     "Will's post-arc audit flagged the omission",
+                     "the post-arc audit flagged the omission",
                      "pass run: holonomy/op1_materiality.py"],
         result="NOT CLEAN: nearest downstream consumer is the RIGID_GUE "
                "gate (cross_substrate/longrange_discriminator.py); "
@@ -39,7 +39,7 @@ seal["addenda"] = [
                "split primary/measurement layers and needed a "
                "measurement-layer cell for law-misfit).  DEFECT: the "
                "survey seal DECLARED its completion; this seal did not — "
-               "declared here after Will's audit asked for the timeline "
+               "declared here after the audit asked for the timeline "
                "check.",
     ),
     dict(

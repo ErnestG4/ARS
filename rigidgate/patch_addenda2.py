@@ -1,4 +1,4 @@
-"""RIGID_GUE arc addenda RG-ADD-6..8 (Will's review round, 2026-08-16).
+"""RIGID_GUE arc addenda RG-ADD-6..8 (review round, 2026-08-16).
 Run once.  COMMITTED GENERATOR of the seal's addenda extension."""
 
 import json
@@ -14,9 +14,9 @@ seal["addenda"] += [
     dict(
         id="RG-ADD-6", date="2026-08-16",
         title="The ADD-5 correction is luck, not vindication — recorded as "
-              "such at Will's instruction",
+              "such at the instruction",
         detail="ADD-5's '~1.1 sigma' originated with CC and was repeated in "
-               "Will's audit; NEITHER of us checked the standard deviation "
+               "the audit; NEITHER of us checked the standard deviation "
                "the figure was built on (8 draws, sd 1.5 against a "
                "200-draw value of 0.72, and a min compared to a boundary "
                "rather than a band). The concern re-vindicating at n=343 "
@@ -37,7 +37,7 @@ seal["addenda"] += [
         title="Delta_3 arm reclassified: PROMOTABLE, not rejected",
         detail="The arc filed the Delta_3 growth arm under rejected "
                "designs because it flags the banked zeta row at z=-9.5. "
-               "Will's correction, adopted: that is a mismatch between the "
+               "correction adopted: that is a mismatch between the "
                "GATE'S L POLICY and the SUBSTRATE'S validity window, not a "
                "defect in Delta_3. The arm rejects every spoof at ~12:1 "
                "power and fails only on a substrate being judged 8.3x past "

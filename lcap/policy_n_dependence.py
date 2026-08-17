@@ -4,7 +4,7 @@ COMMITTED GENERATOR of lcap/policy_n.json.
 THREE-EVENT LABEL:
   (1) the sealed policy derived discrimination_L = 40 at n_ref = 2000 and
       applied it as a single global constant;
-  (2) Will's review asked whether the small-n reference-window finding
+  (2) review asked whether the small-n reference-window finding
       (GUE n=343 caps at L=8.0) needs its own check against the banked
       approximability rows, which run at exactly that n — "a third cap
       binding on the configuration those rows used";
@@ -13,7 +13,7 @@ THREE-EVENT LABEL:
       because the GUE band's spread grows as n falls while the GUE-GOE gap
       does not.
 
-REGISTRATION (Will's addition, adopted): the discrimination cap is
+REGISTRATION (adopted): the discrimination cap is
 GOE-DERIVED — GOE is the nearest neighbour in the zoo we have, not
 necessarily the nearest in the space.  A future zoo member sitting closer to
 GUE at large L can tighten this cap, and because the derivation is recorded
@@ -60,7 +60,7 @@ def main():
     out = dict(
         three_event=["sealed policy used a single global "
                      "discrimination_L=40 derived at n_ref=2000",
-                     "Will's review: check the small-n case against the "
+                     "review: check the small-n case against the "
                      "banked approximability rows at their own n",
                      "measured here — the cap is n-dependent and the sealed "
                      "constant was wrong in FORM, not just value"],

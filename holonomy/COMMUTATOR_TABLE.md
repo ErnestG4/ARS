@@ -21,7 +21,7 @@ with the seal, D1 clause verbatim). **Protocol arc — no new science claims.** 
 is an implementation-time completion of the brief's §3 lattice, authored pre-seal (dc2448c,
 frozen blob 52a1e575 in a583d9f, 11 seconds before the seal, measurement after) — same class as
 the survey's CLASS_INCONSISTENT_ACROSS_TILES. The survey seal declared its completion; this one
-did not — a declaration defect caught by Will's post-banking audit and repaired by dated addendum.
+did not — a declaration defect caught by the post-banking audit and repaired by dated addendum.
 
 §7a promotion trigger: **did not fire** (P3 clean) — the survey synthetic analogue stays parked.
 Optional-pair trigger: fired (mandatory wall-clock 270 s < 3600 s sealed) — both optional pairs run
@@ -104,7 +104,7 @@ clause); witness for the unmodified path: injected spatial δ=0.05 detected at 1
 ΔΣ²(20) = +1.15 ± 0.23 (z 4.9) — surrogates passing the unfold lens inherit the fit's variance
 absorption; real non-commutation, exploratory lane (no sealed prediction by design). The pair
 was first banked RULED_CONSISTENT on a bare order with **no materiality pass — a §2 obligation,
-omitted; Will's audit caught it.** The owed pass (op1_materiality.py, run through the consumer's
+omitted; the audit caught it.** The owed pass (op1_materiality.py, run through the consumer's
 own module) came back **NOT clean**: the nearest downstream consumer is the RIGID_GUE gate
 (`cross_substrate/longrange_discriminator.py`), renewal-arm min 2.71 vs boundary 1.056 → margin
 1.65 = **1.4× |Δ| against k=3**. The call-site search simultaneously found that every live site

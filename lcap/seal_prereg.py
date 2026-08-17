@@ -1,6 +1,6 @@
 """L-policy arc seal.  COMMITTED GENERATOR of lcap/prereg_sealed.json.
 
-Ordering is Will's ruling (2026-08-16) and is enforced in code: validity map
+Ordering is the ruling (2026-08-16) and is enforced in code: validity map
 -> policy derivation -> ZOO GATE (condition 1, must PASS) -> THIS SEAL ->
 power cell -> banked rows -> ZETA LAST.  run_lcap.py refuses to evaluate
 zeta unless zoo_measured.json records PASS.
@@ -25,7 +25,7 @@ pol = json.load(open(f"{ROOT}/lcap/policy.json"))
 
 seal = dict(
     sealed_utc_date="2026-08-16",
-    arc="Substrate-aware L policy (LCAP_BRIEF.md), run under Will's three "
+    arc="Substrate-aware L policy (LCAP_BRIEF.md), run under the three "
         "conditions.",
     posture="Instrument arc, propose-only. Nothing under cross_substrate/ is "
             "written; NO banked row is re-verdicted — L1 reports what the "
@@ -54,7 +54,7 @@ seal = dict(
         sealed_prediction="z(zeta) < 0 at L_judge = 5.99",
         halt_condition="z >= 0 -> HALT_INCONSISTENT, no reclassification, "
                        "audit the banked lens-invariance measurement first",
-        DISCLOSURE="Will's stated expectation was 'negative at REDUCED "
+        DISCLOSURE="the stated expectation was 'negative at REDUCED "
                    "significance'. I must disclose that I already hold "
                    "pre-seal data bearing on the magnitude: the rigidgate "
                    "arc measured zeta at L = 2,3,5,8,12,20,40 with z_d6 = "
@@ -92,7 +92,7 @@ seal = dict(
 
     verdicts=["L_POLICY_FIXED", "L_POLICY_TRADEOFF", "NO_VALIDITY_SCALE",
               "UNDER_RESOLVED", "HALT_INCONSISTENT"],
-    presentational_requirement="Will's note: the zeta row has now moved "
+    presentational_requirement="the note: the zeta row has now moved "
                                "three times (confirmed-at-class-level -> "
                                "superseded -> whatever the cap yields). Its "
                                "OWN HISTORY is banked beside its value in "

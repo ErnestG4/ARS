@@ -2,7 +2,7 @@
 
 **Status:** DRAFTED 2026-08-16 under the overnight authorization, item 4 — **prepared, not
 executed**. **Q1–Q4 RULED by Will 2026-08-16 and folded in below (§8).** Still needs an explicit
-go before any compute. **Queue position: BELOW `LCAP_BRIEF.md`** — Will ruled the substrate-aware
+go before any compute. **Queue position: BELOW `LCAP_BRIEF.md`** — ruled the substrate-aware
 L policy the higher-value item.
 **Lineage:** the holonomy pilot (`holonomy/COMMUTATOR_TABLE.md`, seal a583d9f + ADD-1..7) bounded
 **pairwise** order-sensitivity and said so explicitly in its §7: *approximate pairwise commutation
@@ -135,7 +135,7 @@ Stated up front so the arc can be declined on evidence rather than abandoned hal
   pairwise Δs are ≲0.005 in F units — so **this kill criterion is live and should be checked
   first**, cheaply, before S1 is built. I recommend making that check the arc's opening cell.
 
-## 8. Rulings (Will, 2026-08-16) — binding on the seal
+## 8. Rulings (review, 2026-08-16) — binding on the seal
 
 **R1 — Pipeline: Option B, the 1D home dialect. The REASON is sealed, because my stated reason
 carried a selection hazard.** I argued for B on the grounds that its commutators are resolvable

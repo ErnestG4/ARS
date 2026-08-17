@@ -1,4 +1,4 @@
-"""Census n-column (Will's ruling, 2026-08-16) — closes the flank the
+"""Census n-column (ruling, 2026-08-16) — closes the flank the
 n-dependence opened.  COMMITTED GENERATOR of lcap/census_n.json.
 
 The single-L census established WHICH call sites judge at one L.  The

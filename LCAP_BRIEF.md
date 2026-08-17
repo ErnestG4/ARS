@@ -1,9 +1,9 @@
 # Substrate-Aware L Policy — Arc Brief (DRAFT, READY FOR A GO)
 
-**Status:** DRAFTED 2026-08-16 following Will's ruling that this is **the highest-value item on the
+**Status:** DRAFTED 2026-08-16 following the ruling that this is **the highest-value item on the
 queue, above the full-sequence holonomy arc**. Not run.
 **Lineage:** the RIGID_GUE characterization arc (`rigidgate/`, seal + RG-ADD-1..8) produced three
-findings that Will's review collapsed into one defect: a **fixed L policy colliding with
+findings that review collapsed into one defect: a **fixed L policy colliding with
 substrate-specific physics**. This arc fixes the defect the three findings share.
 **Posture:** instrument arc. **No new science claims.** The owning program adopts or amends; this
 arc proposes, validates, and quantifies — it does not install, and it does not re-verdict.

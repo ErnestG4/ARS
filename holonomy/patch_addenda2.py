@@ -1,5 +1,5 @@
 """Holonomy seal addenda ADD-6 (C4 cell) and ADD-7 (P1 absorption upgrade),
-run once, 2026-08-16, under Will's overnight authorization (items 2 and 3).
+run once, 2026-08-16, under the overnight authorization (items 2 and 3).
 COMMITTED GENERATOR of the seal's addenda extension."""
 
 import hashlib

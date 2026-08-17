@@ -1,6 +1,6 @@
 # Per-Realization Reliability — thresholds fixed BEFORE any measurement
 
-**Date:** 2026-08-16. **Why this exists before the policy work runs** (Will's requirement): if the
+**Date:** 2026-08-16. **Why this exists before the policy work runs** (the requirement): if the
 threshold is set after seeing which harnesses would fail, it drifts toward the answer — the same
 drift the 1D kill criterion was sealed against. The two gate types have genuinely different natural
 forms, so this is not one number; what is fixed in advance is **the rule for deriving it, stated

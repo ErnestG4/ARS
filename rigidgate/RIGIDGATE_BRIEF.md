@@ -1,11 +1,11 @@
 # RIGID_GUE Gate Characterization — Micro-Arc Brief
 
-**Status:** ARCHITECTED BY CC under Will's overnight authorization (2026-08-16), item 1 of 3.
+**Status:** ARCHITECTED BY CC under the overnight authorization (2026-08-16), item 1 of 3.
 Discharges `cross_substrate/PROGRESS_REPORT.md` REGISTERED-OPEN (holonomy seal ADD-5).
 **Posture:** instrument-characterization arc. **No new science claims.** No banked verdict is
 re-verdicted by this arc; no file under `cross_substrate/` is modified. Any fix is **proposed**
 for the owning program to adopt or amend.
-**Question (Will's framing, verbatim):** is the margin a property of the discriminator or of the
+**Question (the framing, verbatim):** is the margin a property of the discriminator or of the
 specific decoy family, and does the boundary have a derivation or was it fitted? Answer either
 "the gate is fine, here's why" or "the gate is thin, here's the fix."
 

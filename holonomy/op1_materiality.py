@@ -5,7 +5,7 @@ THREE-EVENT LABEL (post-banking, addendum-covered):
   (1) 2026-08-16 arc banked with OP1 lacking this pass — a defect: brief §2
       owes a materiality check to every pair with |Delta| above tolerance,
       and OP1's Delta Sigma^2(20) = +1.15 +/- 0.23 qualifies;
-  (2) Will's post-arc audit flagged the omission (same day);
+  (2) the post-arc audit flagged the omission (same day);
   (3) this pass, run under dated addendum ADD-1.
 
 Scope note: 1-D surrogate call sites live OUTSIDE the sealed census
@@ -65,7 +65,7 @@ def main():
     clean = bool(margin >= K_ARC * abs(DELTA_OP1))
     out = dict(
         three_event_label=["banked-without-pass 2026-08-16",
-                           "flagged by Will's audit 2026-08-16",
+                           "flagged by the audit 2026-08-16",
                            "run under addendum ADD-1"],
         consumer="cross_substrate/longrange_discriminator.py (RIGID_GUE "
                  "gate; matched-lens references, '# same lens')",

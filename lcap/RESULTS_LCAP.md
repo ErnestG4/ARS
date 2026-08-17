@@ -1,10 +1,10 @@
 # RESULTS — Substrate-Aware L Policy
 
 **Date:** 2026-08-16. **Brief:** `LCAP_BRIEF.md`. **Seal:** `lcap/prereg_sealed.json` (7 files
-frozen). Run under Will's three conditions, with the ordering enforced in code.
+frozen). Run under the three conditions, with the ordering enforced in code.
 **Instrument arc — no new science claims; no banked row re-verdicted.** *(Note: the arc RAN
 propose-only. The split and the L policy were subsequently **adopted into
-`cross_substrate/longrange_discriminator.py` on Will's explicit call** — see the adoption section
+`cross_substrate/longrange_discriminator.py` on the explicit call** — see the adoption section
 at the end.)*
 
 ## TL;DR
@@ -56,7 +56,7 @@ clock → NO_GUE_WINDOW.
 **Sealed before the run:** z(ζ) < 0 at L_judge, with z ≥ 0 halting as an inconsistency with the
 banked lens-invariant measurement. **Held: z = −9.10.**
 
-The seal also **disclosed in advance** that Will's *"at reduced significance"* expectation was
+The seal also **disclosed in advance** that the *"at reduced significance"* expectation was
 likely to be violated — the rigidgate arc had already measured ζ at L = 2…40 (z_d6 = −3.90, −6.07,
 −4.40, −4.33, −4.76, −2.89, −2.57), which implies significance *increases* as L falls because the
 band's sd shrinks faster than the deficit does. That disclosure was registered rather than
@@ -83,7 +83,7 @@ opposite of the L3 trade-off the brief was prepared to accept.
 
 ## The ζ row's own history, banked beside its value
 
-Per Will's presentational requirement: *a row that has moved three times is trustworthy if the
+Per the presentational requirement: *a row that has moved three times is trustworthy if the
 moves are visible and merely unstable if they aren't.*
 
 | # | date | reading | why it moved |
@@ -118,10 +118,10 @@ which was the wrong form.
 
 ---
 
-## LC-ADD-1 (2026-08-16, Will's review) — the discrimination cap is n-DEPENDENT
+## LC-ADD-1 (2026-08-16, review) — the discrimination cap is n-DEPENDENT
 
 **Three-event label.** (1) The sealed policy derived `discrimination_L = 40` at n_ref = 2000 and
-applied it as a single global constant. (2) Will's review asked whether the small-n
+applied it as a single global constant. (2) review asked whether the small-n
 reference-window finding needed its own check against the banked approximability rows, which run
 at exactly that n — *"a third cap binding on the configuration those rows used."* (3) Measured: it
 does, and **the sealed constant was wrong in form, not merely in value.**
@@ -150,12 +150,12 @@ program, not a move. (My earlier report that "the policy does not move this row"
 the validity cap plus the n=2000 discrimination constant; under the corrected n-dependent form it
 does.)
 
-**Registration (Will's addition, adopted).** The discrimination cap is **GOE-derived**: GOE is the
+**Registration (adopted).** The discrimination cap is **GOE-derived**: GOE is the
 nearest neighbour in the zoo we have, not necessarily the nearest in the space. Recording the basis
 means a future zoo member sitting closer to GUE at large L tightens the cap as a *refinement of a
 stated basis* rather than an arbitrary-looking move.
 
-## Adopted into the deployed module (2026-08-16, Will's call)
+## Adopted into the deployed module (2026-08-16, the owner's call)
 
 `cross_substrate/longrange_discriminator.py`: the **HYPER_RIGID split** is installed in `_judge`
 (same formula, same 2.5 multiplier — the branch is split, not moved), and the **L policy** is
@@ -168,7 +168,7 @@ returns POISSON_INDEP; `l_judge(50, 2000, "zeta_first_2000") = 5.99 [validity]`;
 
 ## LC-ADD-2 — the census n-column: this is a property of the DEFAULT SCALE POLICY
 
-Will's ruling: the n-dependence reaches all six single-L call sites, not just the one row that
+Ruling: the n-dependence reaches all six single-L call sites, not just the one row that
 happened to get checked. The sharp form of the question is whether the exposure belongs to
 individual call sites or to `matched_L(n) = clip(0.02n, 5, 50)` itself, which grows **linearly** in
 n while the discrimination cap does not.
@@ -210,7 +210,7 @@ default policy* as supported, with n = 2000 marked undetermined.
 
 ## LC-ADD-3 — the structural argument, stated separately because it cannot dissolve
 
-Will's note, adopted: the finding has two layers and they should not share a fate.
+note adopted: the finding has two layers and they should not share a fate.
 
 **Layer 1 — structural, independent of every measured cap value.**
 `matched_L(n) = clip(0.02n, 5, 50)` grows **linearly** in n. The discrimination cap is
@@ -223,7 +223,7 @@ layer does not depend on any number in LC-ADD-2's table and cannot be dissolved 
 
 **Layer 2 — the specific crossings, currently NOT load-bearing.** The per-n cap values, and
 therefore each individual "OUTSIDE" verdict, rest on an estimator whose own variance was never
-measured. Worse, per Will: the cap rule is a **max over a monotone condition**, and extrema of noisy
+measured. Worse, per review: the cap rule is a **max over a monotone condition**, and extrema of noisy
 quantities are **systematically biased downward** — one unlucky draw at a small L truncates the
 whole run. Downward bias in the cap pushes rows *outside* their window, which is **the same
 direction as the finding.** The estimator's known failure mode therefore cannot be distinguished
@@ -236,14 +236,14 @@ smooth crossing that cannot truncate on one point. Their difference *is* the dow
 measured rather than argued, and the "outside" test becomes `matched_L > cap's 95th percentile`
 rather than an inequality between two point estimates.
 
-**Why this runs before full-sequence holonomy** (Will's ruling): this arc has now produced two
+**Why this runs before full-sequence holonomy** (the ruling): this arc has now produced two
 numbers that dissolved on inspection — ADD-5's 1.1σ, and possibly LC-ADD-2's caps — and both
 dissolved because *an estimator's own variance went unmeasured*. A third would be a pattern rather
 than an accident. Full-sequence is seal-ready and will still be seal-ready afterwards.
 
-## LC-ADD-4 — the cap re-derivation: Will's bias prediction CONFIRMED, LC-ADD-2's table WITHDRAWN
+## LC-ADD-4 — the cap re-derivation: the bias prediction CONFIRMED, LC-ADD-2's table WITHDRAWN
 
-Run before anything else, per Will's ruling. Paired realizations across L, 32 draws per class,
+Run before anything else, per the ruling,. Paired realizations across L, 32 draws per class,
 400-replicate bootstrap, two estimators on the same replicates.
 
 **The hard-max estimator is downward-biased, as predicted from its structure:** mean
@@ -262,7 +262,7 @@ percentile, two of three verdicts reverse:
 
 **LC-ADD-2's table is withdrawn.** The "outside at every n tested" claim was an artifact of a
 downward-biased estimator, pointing in the same direction as the finding — precisely the
-confound Will named before the measurement ran. **That is the third number in this arc to dissolve
+confound named in review before the measurement ran. **That is the third number in this arc to dissolve
 on inspection** (ADD-5's 1.1σ, RG-ADD-6's re-vindication-by-luck, now this), and all three
 dissolved for the same reason: *an estimator's own variance went unmeasured.*
 
@@ -297,7 +297,7 @@ measurement** — but the other n remain **unmeasured under the correct definiti
 verdicts stand withdrawn until they are. (iii) The structural argument (LC-ADD-3, layer 1) is
 untouched throughout: it never depended on a cap value.
 
-**Evidential-status note (Will's record item).** The two surviving "OUTSIDE" verdicts do **not**
+**Evidential-status note (the record item).** The two surviving "OUTSIDE" verdicts do **not**
 rest on the same footing and the record must not let them read as if they do:
 
 | n | verdict | evidential status |

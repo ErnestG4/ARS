@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-16. **Why:** the L-policy arc found that its own cap was measuring
 **separation of population means** while the gate it certified **classifies one point set at a
-time**. Will's question before spending a session re-deriving one gate's caps: *is that mismatch
+time**. the question before spending a session re-deriving one gate's caps: *is that mismatch
 confined to this gate, or is separation-of-means the house idiom?* If the latter, the work is a
 **policy change, not a cap fix**.
 
@@ -63,7 +63,7 @@ and leaving the idiom in place.
 
 ## Design requirement carried into it: BOTH directions
 
-Will's second pre-check. The misclassification table so far reports only **GOE earning
+the second pre-check. The misclassification table so far reports only **GOE earning
 `RIGID_GUE`** (false positive). The complementary rate — **GUE failing to earn `RIGID_GUE`**, or
 earning `HYPER_RIGID` (false negative) — is what determines whether a cap that fixes discrimination
 destroys sensitivity. That is the L3 question restated at the correct estimand. A cap at L=8 with a
@@ -81,7 +81,7 @@ not examined. That distinction is itself the ADD-5 lesson applied to a census.
 
 ## Instance 1, RESOLVED — `pole_sep` is a LIVE LATENT DEFECT, not a documentation fix
 
-Will's question: does the deployable verdict require both arms, or either? The code settles it:
+the question: does the deployable verdict require both arms, or either? The code settles it:
 
 ```python
 decoy_false_rigid = any(o["decoy"] == "RIGID_GUE" for o in out.values())   # per-realization
@@ -129,7 +129,7 @@ certification, and it would not protect a weaker or smaller-margin claim resting
 The correct reading: the claim is probably fine and is **uncertified**, and the fix (a few lines,
 using data already banked) converts "probably" into "measured".
 
-## Census scope — the named complement, per Will
+## Census scope — the named complement, per review
 
 A reader cannot infer what a search missed from what it found. **Examined:**
 `cross_substrate/`, `arsrh/`, `rf_lenses/` — classification and validation harnesses, searched for

@@ -2,7 +2,7 @@
 that determines whether LC-ADD-2 found anything.  COMMITTED GENERATOR of
 lcap/cap_rederive.json.
 
-WHY THIS RUNS BEFORE ANYTHING ELSE (Will's ruling, 2026-08-16): the cap
+WHY THIS RUNS BEFORE ANYTHING ELSE (ruling, 2026-08-16): the cap
 estimator is a MAX over a monotone condition ("largest L separated at that L
 and all smaller").  Extrema of noisy quantities are systematically biased
 DOWNWARD — one unlucky draw at a small L truncates the whole run.  That bias
