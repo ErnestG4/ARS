@@ -384,3 +384,34 @@ Result: `poisson` and `goe` certify on both arms; `clustered`, `clustered_extrem
 report `UNCERTIFIABLE_RAILED` on `brody_q` — which is exactly the set the harness's own commentary
 already identifies as out-of-representable-range. The reliability arm independently rediscovers the
 rail finding it was not built to look for.
+
+## LC-ADD-8 — FN power caveat RESOLVED at 60 draws; the binding arm is FP
+
+Re-run of LC-ADD-6 at 60 reference + 60 test draws per class, which brings the bootstrap p95 of a
+zero-count sample to ≈0.03 and so makes the sealed FN_p95 ≤ 0.05 threshold demonstrable.
+
+**FN is small everywhere** (0.00–0.08, p95 0.00–0.18) — the true-positive side is not what the gate
+is failing on. **FP is the binding arm at every n**, and the picture is unchanged from the
+under-powered run, which is the point of re-running it:
+
+| L | FP n=343 | FP n=1200 | FP n=2000 |
+|---|---|---|---|
+| 3 | 0.32 | 0.03 | **0.00** |
+| 5 | 0.48 | 0.07 | **0.00** ← only admissible cell |
+| 8 | 0.68 | 0.08 | 0.02 |
+| 20 | 0.72 | 0.43 | 0.12 |
+| 40 | 0.90 | 0.55 | 0.40 |
+| 50 | 0.87 | 0.62 | 0.55 |
+
+**Exactly one admissible cell exists in the whole grid: n=2000, L=5** (FP p95 0.03, FN p95 0.03).
+At n=1200 nothing is admissible at any tested L (best is L=5 at FP p95 0.13); **at n=343 the gate is
+blind** — GOE is admitted 32–90% of the time everywhere.
+
+Against `matched_L` of 40 / 24 / 6.9, the default policy sits **8× or more above** the only
+admissible scale. The conclusion is now established on a powered measurement of the correct
+estimand in both directions, and the earlier caveat is discharged.
+
+*Estimator note, again:* the hard-max rule returns `None` even at n=2000, because L=3 fails on FN
+(p95 0.07) and the rule requires every smaller L to pass — the same truncation behaviour measured
+at +7.11 bias earlier. The smooth crossing gives 7.4. **Quote the admissible cell (L=5), not either
+cap estimator.**
