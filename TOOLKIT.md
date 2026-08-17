@@ -1042,3 +1042,13 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   as provisional until an exhaustive or independently-drawn set confirms it. Corollary that made the
   catch cheap: the sampled result becomes a *falsifiable prediction* for the rest of the space, so
   the follow-up is a real out-of-sample test rather than a re-analysis.
+- **Validate a census detector on known answers before trusting its silence.** (Estimand census,
+  2026-08-17.) A search that returns few hits is only reassuring if it can find the hits you already
+  know about. An AST detector built to census one defect pattern across the repo was run first
+  against the two instances confirmed by hand: it found one and **missed the other**, because that
+  one hides as a ratio of two dictionary lookups with no syntactic collapse to key on. Reporting the
+  sweep as a clean census would have converted a 50%-sensitive instrument into a false all-clear over
+  17 directories. Rule: **every automated census names its known-positive self-test and its measured
+  false-negative rate in the same breath as its result**, and reports as a LOWER BOUND when the test
+  is not perfect. Companion to the "not examined ≠ cleared" scoping rule — that one covers what the
+  search never looked at, this one covers what it looked at and could not see.
