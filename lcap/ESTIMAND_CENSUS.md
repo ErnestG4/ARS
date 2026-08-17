@@ -140,3 +140,57 @@ phase scripts (`run_phase*.py`, `run_calibration.py`, `universality.py`'s consum
 those (`bridge/`, `comb/`, `survey/`, `holonomy/`) were built under the sealed-arc discipline and
 carry their own per-realization gates, so they are *plausible* clean — but plausible is not
 examined, and this list is what a follow-up census would have to cover.
+
+---
+
+## Census extension (2026-08-17) — the named complement, scanned
+
+The previous section named 12 directories as *"not examined, therefore not cleared."* They have now
+been scanned with an AST-based detector for the shape that matters: **a gate/verdict assignment
+whose decision consumes an ensemble-collapsed value** (mean / median / average, including
+`float(np.mean(...))` wrappers and `d["mean"]` lookups of precomputed means).
+
+### The detector was validated on known answers first, and it is imperfect
+
+Run against the two instances already confirmed by hand:
+
+| known instance | detector |
+|---|---|
+| `validate_fitters.py` | **FOUND** |
+| `longrange_discriminator.validate_rate_unfold` | **MISSED** |
+
+**1 of 2 — so everything below is a LOWER BOUND with a measured false-negative rate, not a clean
+census.** (The miss is instructive: `pole_sep` is a ratio of two dict lookups, and neither the
+division nor the lookup names read as a collapse to a syntactic scanner. A pattern that hides from
+its own detector is exactly why the "not examined ≠ cleared" label was worth writing down.)
+
+### Result: 26 candidate sites across 19 files
+
+**Candidates are not defects.** Each needs the judgement the census exists to make: *is the
+operational decision about a realization or about a population?* Where the ensemble genuinely **is**
+the question, a mean-based gate is correct. Triage of what I read:
+
+- **Legitimate by design (ensemble is the decision):** `comb/exact_offsets.py:143` and
+  `survey/mask_kag.py:111` — both are across-seed / across-tile grand-mean *bias* arms, built
+  deliberately on the independent axis; `holonomy/*` seed-ensemble arms and family-wise controls,
+  same. These are not the pattern.
+- **Confirmed further instances of the pattern** (read and judged): `arsrh/taskB_falpha.py:195`
+  certifies that an estimator recovers an analytic reference from the **mean of 8 draws**, while
+  K(α) deploys per substrate; `cross_substrate/rf_decoy_battery.py:281,300` gate "period erased" on
+  a **median across trials**, while the decoy question is asked of one train.
+- **Defensible-by-intent:** `arsrh/phase3_sigma2.py:73` selects an *unfolding order* — an instrument
+  setting, where "does this order preserve the known class ordering on average" is legitimately an
+  ensemble question.
+- **Unclassified candidates, left as such:** `approximability/class_probe.py`,
+  `approximability/panel_B_farey.py`, `arsrh/cubic/r077_control.py`,
+  `cross_substrate/population_temporal.py`, `derivflow/science_rate_question.py`,
+  `intermittency.py`, `run_phase17_limits.py`, `run_phase17_pure_recovery.py`. **Not examined
+  closely enough to classify — listed so the next pass has a work-list rather than a search.**
+
+### Running total
+
+**Four confirmed instances of the pattern repo-wide** (`validate_fitters`, `validate_rate_unfold`,
+`taskB_falpha`, `rf_decoy_battery`), two of them repaired. All four sit in **validation or
+calibration harnesses**; none is in a deployed judge. That distribution is itself the finding: the
+judges were written to classify one thing, and the harnesses that certify them were written to
+describe many.

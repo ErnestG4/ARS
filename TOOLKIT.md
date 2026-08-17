@@ -1028,3 +1028,17 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   marginal-looking +2.48, and one where the right data sat unused in the same function.
   Corollary for thresholds: **fix the derivation rule per gate type BEFORE measuring**, or the
   threshold drifts toward whatever the harnesses turn out to do (`lcap/RELIABILITY_THRESHOLDS.md`).
+- **A sealed sample protects against post-hoc selection, not against unrepresentativeness — enumerate
+  when you can.** (Full-sequence arc, 2026-08-17.) The arc sealed a 7-ordering sample by rule before
+  measuring, which correctly prevented adding or dropping orderings after seeing the answers. Its
+  three multi-inversion members all came back sub-additive, and the write-up concluded composition
+  is sub-additive so the pairwise table is a conservative upper bound. Tested **exhaustively** on all
+  59 admissible orderings hours later, **that claim was false**: 12 have H ≤ 0 and 10 are
+  significantly super-additive, because the failures concentrate in a region (UNFOLD applied after
+  POOL) that the sealed sample happened not to reach. **The sample was not biased — it was chosen by
+  a rule fixed in advance — it was unrepresentative**, and no amount of sealing discipline detects
+  that. Rule: when the space of possibilities is small enough to enumerate (here 5! filtered to 59),
+  **enumerate it**; sample only when you cannot, and when you must sample, treat any structure found
+  as provisional until an exhaustive or independently-drawn set confirms it. Corollary that made the
+  catch cheap: the sampled result becomes a *falsifiable prediction* for the rest of the space, so
+  the follow-up is a real out-of-sample test rather than a re-analysis.
