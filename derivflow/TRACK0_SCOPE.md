@@ -389,6 +389,46 @@ Filed with exact conditionality per the row-c-suspect rule:
   as of 2026-08-13 (four independent checks). PROCESS LESSON, filed where it fires: a
   literature sweep is a snapshot with a measured miss rate — the submission-day re-sweep must
   RE-RUN the searches, never cite a prior audit as evidence of current absence.]
+- **EXTERNAL CORRECTION 2026-08-17 — A. Campbell (ISTA), by correspondence. The OPEN verdict
+  is NARROWED, and one of our own statements is corrected.** He was sent the measured-values
+  sheet and replied unprompted. Three consequences, each verified against the sources before
+  filing rather than taken on authority:
+  1. **Our global bound was the wrong regime's.** "For real roots the seed measure is still the
+     limit up to k = o(n)"; o(n/log n) is the best known **for COMPLEX roots**. We had been
+     quoting ANP's o(n/log n) as the ceiling for our own real-rooted seeds. §9 had already
+     recorded an o(n) clause but scoped it to real DISCRETE measures (Thm 1.3(1)); the correct
+     statement is broader. NOTE THE DIRECTION: this WIDENS the window over which the global
+     measure is frozen, so the two-scale contrast (global frozen / local crystallized by
+     k ≈ 11) gets STRONGER, not weaker. A correction that helps us is still a correction.
+  2. **The three references he cites do NOT close the local question — verified individually.**
+     `doi:10.4171/dm/1071` (Campbell, Documenta) = limiting shape / global distribution at
+     fixed remaining degree. `arXiv:2506.08910` (Arizmendi–Campbell–Fujie) = CLTs for
+     FLUCTUATIONS in the endpoint regime — the paper PROSE already cites as "explicitly
+     outside the regime studied here". `arXiv:2408.09337` (Arizmendi–Fujie–Perales–Ueda,
+     S-transform in finite free probability) = GLOBAL empirical root measure via finite free
+     cumulants. All three are global-measure or endpoint-fluctuation results. None is about
+     local spacing at fixed k.
+  3. **But the OPEN framing is materially weakened, and this is the part that costs us.**
+     "Basically all regimes for k are either understood or follow from work that's out there
+     (but haven't really been written up yet)", and "on a local level the roots should
+     crystalize (and pretty quickly) in the bulk and form a specific structure at the edge."
+     So: expected by the people who would know, and believed derivable from existing
+     machinery. "No theorem addresses it" stays literally true of WRITTEN theorems and our
+     claim was always dated and protocol-qualified — but **"open regime" must stop being used
+     as a headline.** The defensible claim is narrower and should be stated as such: a
+     quantified measurement of something expected but, as far as we or he can point to,
+     unquantified. What he did not address, and what therefore still stands unclaimed by any
+     citation: the RATE (he says "pretty quickly"; we say k* ≈ 11 iid / 6 GUE, flat across a
+     16× range in n), the stretched-exponential FORM, and its seed-dependence.
+  4. **He identified a gap in OUR coverage, not just our framing:** "form a specific structure
+     at the edge." Every number we have is the central 20% bulk window (`BULK_FRACTION`). The
+     edge is unmeasured. Queued as its own scoped measurement — and note the instrument's two
+     calibrators were validated in the BULK; neither certifies the edge, where the unfolding
+     reference is weakest because the density vanishes.
+  PROCESS NOTE: this is the first check on this arc by a reader who does not share our priors.
+  It found in one email a framing error that four internal review passes (two agent reviews
+  included) did not, which is the expected asymmetry — internal review is correlated with the
+  author and cannot reduce this class of risk.
   (3) Complex/rotationally-invariant flow is an ACTIVE parallel track (Galligo–Najnudel–Vu
   2506.06263; successor 2607.05054; randomized-derivative k = o(n/log n)) — the scope's
   complex exclusion is a live boundary, cited as such, not a dead one. (4) Heat-flow side
