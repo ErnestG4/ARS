@@ -4,7 +4,10 @@ import hashlib
 import json
 import sys
 
-LC = "/home/combust/fmexplorer/criticality_tool/lcap"
+import os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_REPO = _os.path.dirname(_HERE)
+LC = _HERE
 fails = []
 
 
@@ -77,7 +80,7 @@ chk(not pn["banked_approximability_rows"]["inside_discrimination_window"],
     "the brocot out-of-window flag vanished — it is load-bearing")
 
 # adoption into the deployed module (the owner's call): both must be live
-sys.path.insert(0, "/home/combust/fmexplorer/criticality_tool/cross_substrate")
+sys.path.insert(0, _os.path.join(_REPO, "cross_substrate"))
 import numpy as np                                            # noqa: E402
 from longrange_discriminator import (l_judge, longrange_verdict,   # noqa: E402
                                      DISCRIMINATION_L_BY_N)

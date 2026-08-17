@@ -5,7 +5,10 @@ import hashlib
 import json
 import sys
 
-RG = "/home/combust/fmexplorer/criticality_tool/rigidgate"
+import os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_REPO = _os.path.dirname(_HERE)
+RG = _HERE
 fails = []
 
 
@@ -60,7 +63,7 @@ chk(rigid_cell(2.0, band)[0] is None, "rule: above-band falls through")
 # running only this arc's checker must learn if the headline regresses —
 # filing the check in the neighbouring arc's checker left this owner blind.
 import os                                                     # noqa: E402
-_mc = "/home/combust/fmexplorer/criticality_tool/lcap/misclass_rate.json"
+_mc = _os.path.join(_REPO, "lcap", "misclass_rate.json")
 if os.path.exists(_mc):
     mc = json.load(open(_mc))
     chk(mc["rows"]["50.0"]["misclass_rate"] > 0.4,

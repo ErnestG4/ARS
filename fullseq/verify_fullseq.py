@@ -5,7 +5,10 @@ import hashlib
 import json
 import sys
 
-FS = "/home/combust/fmexplorer/criticality_tool/fullseq"
+import os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_REPO = _os.path.dirname(_HERE)
+FS = _HERE
 fails = []
 
 

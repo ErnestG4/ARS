@@ -6,7 +6,10 @@ Run after any edit touching bridge/ or its dependencies."""
 import json
 import sys
 
-BR = "/home/combust/fmexplorer/criticality_tool/bridge"
+import os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_REPO = _os.path.dirname(_HERE)
+BR = _HERE
 fails = []
 
 
@@ -55,7 +58,7 @@ print("VERIFY_BRIDGE: all banked gates and witnesses green")
 import hashlib
 seal = json.load(open(f"{BR}/prereg_sealed.json"))
 for f, sha in seal.get("post_seal_addendum_2026_08_15", {}).get("frozen_blob_shas", {}).items():
-    data = open(f"/home/combust/fmexplorer/criticality_tool/{f}", "rb").read()
+    data = open(_os.path.join(_REPO, f), "rb").read()
     cur = hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
     if cur != sha:
         print(f"VERIFY_BRIDGE: FAIL — {f} blob {cur[:12]} != addendum {sha[:12]}")

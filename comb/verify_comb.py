@@ -4,7 +4,10 @@ the sibling arc in the same stroke).  Exit nonzero on regression."""
 import json
 import sys
 
-CT = "/home/combust/fmexplorer/criticality_tool"
+import os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_REPO = _os.path.dirname(_HERE)
+CT = _REPO
 fails = []
 
 

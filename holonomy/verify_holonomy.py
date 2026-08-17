@@ -6,7 +6,10 @@ import hashlib
 import json
 import sys
 
-HL = "/home/combust/fmexplorer/criticality_tool/holonomy"
+import os as _os
+_HERE = _os.path.dirname(_os.path.abspath(__file__))
+_REPO = _os.path.dirname(_HERE)
+HL = _HERE
 fails = []
 
 
