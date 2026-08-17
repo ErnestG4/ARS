@@ -183,16 +183,35 @@ p("seal: seals/TASKB_SEAL.json (+ ADDENDUM_1), both committed pre-run\n")
 # ============================================================== G — estimator gate (FLAT)
 p("[G] estimator gate on FLAT decoys (abort if fail)")
 gate = {}
+# PER-REALIZATION ARM added 2026-08-17 (TOOLKIT §9 estimand rule). The gate
+# below certifies that the ENSEMBLE MEAN of 8 draws recovers the analytic
+# reference. But K(alpha) DEPLOYS per substrate: one substrate yields one K.
+# An estimator whose per-draw errors scatter widely but average correctly
+# passes a mean-based gate and is unusable in deployment. The per-draw errors
+# already exist inside this loop; they were simply averaged away before being
+# looked at. ADDITIVE ONLY: every pre-existing field and the gate_pass
+# criterion below are untouched, so no banked verdict can move.
+PER_DRAW_TOL = 0.25          # same scale as the existing mean-based criteria
 for kind in ("Poisson", "GUE", "superrigid"):
     ks, s2 = [], []
     for _ in range(8):
         u = UNIT[kind](N)
         ks.append(K_of(u)); s2.append(sigma2(u, Ls))
+    ks_draws = np.asarray(ks)                      # keep the per-draw curves
     ks = np.mean(ks, 0); s2 = np.mean(s2, 0)
     ref = K_analytic(ALPHA_OUT, kind)
     band = (ALPHA_OUT >= 0.3) & (ALPHA_OUT <= 2.5)
     err = float(np.median(np.abs(ks[band] - ref[band]) / ref[band])) if ref is not None else None
+    if ref is not None:
+        per_draw = [float(np.median(np.abs(d[band] - ref[band]) / ref[band]))
+                    for d in ks_draws]
+        frac_bad = float(np.mean([e > PER_DRAW_TOL for e in per_draw]))
+    else:
+        per_draw, frac_bad = None, None
     gate[kind] = {"K_median_relerr_vs_analytic": err,
+                  "per_draw_median_relerr": per_draw,
+                  "per_draw_frac_exceeding_tol": frac_bad,
+                  "per_draw_tol": PER_DRAW_TOL,
                   "K_at_0.15_0.5_1.0_2.0": [float(np.interp(v, ALPHA_OUT, ks)) for v in (0.15, 0.5, 1.0, 2.0)],
                   "K_full": ks.tolist(), "sigma2": s2.tolist()}
     p(f"  {kind:11s} K(0.15,0.5,1,2) = " +
@@ -210,7 +229,23 @@ p(f"  GATE {'PASS' if gate_pass else 'FAIL'}")
 p(f"  (note: super-rigid K at integer alpha = "
   f"{gate['superrigid']['K_at_0.15_0.5_1.0_2.0'][2]:.2f}/{gate['superrigid']['K_at_0.15_0.5_1.0_2.0'][3]:.2f} "
   f"-> Bragg peaks; crystalline decoys are NOT a valid rigid bracket for a form factor)\n")
-OUT["G_estimator_gate"] = {"rows": gate, "pass": bool(gate_pass), "alphas": ALPHA_OUT.tolist()}
+# reported alongside the deployed verdict, NOT folded into it: the deployed
+# criterion stays exactly as sealed, and the per-realization reading is a
+# second column a reader can act on (same pattern as validate_fitters).
+_pr = {k: gate[k].get("per_draw_frac_exceeding_tol") for k in gate}
+p("  [per-realization arm] fraction of individual draws exceeding "
+  f"tol={PER_DRAW_TOL}: " +
+  ", ".join(f"{k}={v:.2f}" if v is not None else f"{k}=n/a"
+            for k, v in _pr.items()))
+OUT["G_estimator_gate"] = {"rows": gate, "pass": bool(gate_pass),
+                           "alphas": ALPHA_OUT.tolist(),
+                           "per_realization_arm": {
+                               "tol": PER_DRAW_TOL, "frac_exceeding": _pr,
+                               "note": "REPORTED, not folded into 'pass' — "
+                                       "the deployed criterion is unchanged. "
+                                       "K(alpha) deploys per substrate, so a "
+                                       "mean-based gate certifies the wrong "
+                                       "estimand (TOOLKIT §9)."}}
 if not gate_pass:
     json.dump(OUT, open(os.path.join(HERE, "taskB_falpha_measured.json"), "w"), indent=2)
     raise SystemExit("estimator gate FAILED — abort before any zeta reading")
