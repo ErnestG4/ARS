@@ -1070,6 +1070,20 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   each checker's load-bearing assertions when the checker is written, not later; (b) for every
   headline, ask *which arc owns this, and does that arc's checker fail without it?* — cross-pin when
   a measurement lands outside the arc that claims it.
+- **A green board must be informative about the thing it guards — audit that property directly.**
+  (Checker sweep, 2026-08-17.) Stated at the level the finding deserves rather than as a count of
+  bugs: **until this sweep, the standing green board could not have detected the silent corruption
+  of any arc's central result.** Bridge's SNR law (14/98/528) survived every value being set to 1.0;
+  comb's 53.94σ discriminator survived collapsing to 2.0. The board was reporting on **schema, not
+  content** — and that is a worse failure than any individual wrong number, because it is the
+  property the board exists to have, and it went unexamined for as long as the board had existed.
+  A checker suite is itself an instrument and inherits every rule here: it needs a red path, and
+  "all green" is evidence only after each checker has been shown to go red on the finding it
+  guards. Audit the property, not the count. **Adjacent mode, also to be tested and cheap:** a pin
+  that reads a MISSING key and silently passes fails the same way one level down — so delete the
+  key as well as mutating the value (tested 2026-08-17 across five arcs: all five went red, so this
+  one did not bite here, but three of three examined pins had already turned out to be
+  presence-checks in disguise, which is reason enough not to assume it).
 - **A presence check is not a value check.** (Checker sweep, 2026-08-17.) Red-pathing every arc's
   headline against its own `verify_*.py` found two checkers that asserted a **key exists** or a
   **boolean flag is True** where the finding is a *number*: the bridge SNR law (14/98/528) survived
