@@ -194,3 +194,28 @@ fire). Open: the dial-2.0/L=10 residual (ADD-7); the C4 prediction's NQ-scaling 
 `holonomy/` order: `ownership_map.py` → `predict_p1.py` + `predict_p2.py` → `kag_holonomy.py` →
 `seal_prereg.py` → `run_p1.py` + `run_p2.py` + `run_p3.py` → `run_opt.py` → `resolve_arc.py` →
 `verify_holonomy.py` (live checker, nonzero exit).
+
+---
+
+## Full-sequence follow-up (2026-08-17) — this table is NOT a bound on sequences
+
+`fullseq/RESULTS_FULLSEQ.md` measured what happens when the pairwise results here are composed into
+whole-sequence reorderings, and the answer bears directly on how this table may be used.
+
+**The scope caveat in §7 is confirmed and strengthened, not lifted.** A first-order predictor —
+summing the pairwise commutators of an ordering's inversions, evaluated at mid-stack dials — is
+exact for single transpositions by construction and **fails at multi-inversion orderings**. Tested
+exhaustively over all 59 admissible orderings of a 5-transition 1-D pipeline, **12 have H ≤ 0 and 10
+are significantly super-additive (z < −3): the pairwise sum can UNDERESTIMATE the true effect by up
+to 6.9×.**
+
+**Mechanism:** every significantly super-additive ordering places UNFOLD in the last or
+second-to-last slot, and their measured Δ is pinned at a floor (≈ −3.20) independent of the sum —
+a **saturating** composition, which no additive predictor can represent.
+
+**So, concretely, for anyone reading this table:** a pairwise Δ here bounds the effect of swapping
+*those two* transitions in *that* configuration. It does not bound, and must not be summed to
+estimate, the effect of reordering a sequence — **in either direction.** An earlier version of the
+full-sequence write-up claimed the sum was a conservative upper bound; that claim was retracted the
+same night by its own pre-registered out-of-sample test, and the retraction is pinned in
+`fullseq/verify_fullseq.py`.
