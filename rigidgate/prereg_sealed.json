@@ -150,6 +150,15 @@
    "date": "2026-08-16",
    "title": "Single-L census run; F4 promoted from scope note to registered-open",
    "detail": "Census of every long-range gate call site at head: 6 gate sites, ALL single-L, NONE sweeps L; multi-L sites = zero. Delta_3 is computed at every site and discarded as secondary, so the gate is single-L AND effectively single-statistic. Highest exposure: cross_substrate/longrange_audit.py:36 uses a FIXED AUDIT_L=50.0 across heterogeneous arithmetic substrates \u2014 the banked zeta row was judged at 8.3x its own saturation scale (z=-2.33 measured at that exact configuration). Full table and priority-ordered hardening in rigidgate/SINGLE_L_CENSUS.md. Scope statement stands: the spoof is adversarial, no natural substrate does this, and nothing here shows a banked row to be wrong \u2014 what is established is that every RIGID_GUE row certifies rigidity AT ONE SCALE, not class."
+  },
+  {
+   "id": "RG-ADD-9",
+   "date": "2026-08-17",
+   "title": "Delta_3 promotion RE-CONFIRMED against current evidence \u2014 and downgraded to PROMOTABLE-PENDING-POWER-INSIDE-WINDOW",
+   "why_rechecked": "RG-ADD-7 reclassified the Delta_3 growth arm from 'rejected' to PROMOTABLE on the reasoning that its zeta failure was an L-POLICY mismatch rather than a defect. That diagnosis has since been through three corrections (LC-ADD-1 the cap is n-dependent; LC-ADD-4/5 the caps were withdrawn as biased AND measuring the wrong estimand; LC-ADD-6/8 re-derived at the correct estimand). A promotion resting on superseded reasoning is exactly the kind of thing that survives by not being re-read.",
+   "what_survives": "The QUALITATIVE claim survives and is strengthened: the Delta_3 arm rejected every spoof and failed only on a substrate judged far outside its own validity window, and the current evidence puts that window at L <= 5.99 for zeta (Berry) against a deployed L of 50 \u2014 a larger mismatch than the original diagnosis assumed.",
+   "the_gap": "But the POWER FIGURE that made it 'promotable' (GUE increment 0.1053 +/- 0.0086, ~12:1) was measured across a lever of L = 5 -> 40. Under the CURRENT banked policy the only admissible cell at n=2000 is L = 5, and nothing is admissible at n=1200 or n=343. A growth arm needs TWO L values, so inside a window capped near 6 the available lever is at best L in [2, 6] \u2014 roughly 3x, against the 8x lever the 12:1 figure was measured on. POWER INSIDE THE DEPLOYABLE WINDOW WAS NEVER MEASURED, and a growth statistic's power falls with the lever.",
+   "status": "PROMOTABLE-PENDING-POWER-INSIDE-WINDOW. The brief for the Delta_3 variant must OPEN by measuring the arm's increment and its variance over L in [2, 6] at the deployed n. If the 12:1 does not survive the shorter lever, the variant is not a candidate instrument and the n=343 problem needs more data rather than a different statistic."
   }
  ]
 }

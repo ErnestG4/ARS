@@ -1093,3 +1093,12 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   Rule: for every banked *number*, assert the number with a tolerance; presence and flag checks are
   a complement to that, never a substitute. This is `witness_must_be_able_to_fail` applied to the
   witnesses themselves, and red-pathing is what distinguishes the two cases in seconds.
+- **Pin every new arc's headline in that arc's own checker — an obligation on future work, not a
+  repair of past work.** (Board audit follow-up, 2026-08-17.) The audit entry above is written in the
+  past tense and reads as though the property is now *fixed*. What is actually true is narrower:
+  **five arcs' headline values are now pinned and red-path-verified.** The property that would make
+  the board trustworthy going forward is a **process commitment** — every arc, on the day it closes,
+  pins its central number(s) in its own `verify_*.py` with a tolerance, and demonstrates red by
+  corrupting one and restoring it. Without that clause the entry reads as satisfied and arc eight
+  ships with a schema-only checker. Treat this as part of an arc's definition of done, alongside the
+  committed generator and the seal.

@@ -23,7 +23,7 @@ for f, sha in seal["code_freeze_blob_shas"].items():
     chk(hashlib.sha1(b"blob %d\0" % len(d) + d).hexdigest() == sha,
         f"freeze violation: {f}")
 chk([a["id"] for a in seal.get("addenda", [])]
-    == [f"RG-ADD-{i}" for i in range(1, 9)], "addenda block changed")
+    == [f"RG-ADD-{i}" for i in range(1, 10)], "addenda block changed")
 
 kag = json.load(open(f"{RG}/kag_measured.json"))
 chk(kag["PASS"], "KAG not PASS")
