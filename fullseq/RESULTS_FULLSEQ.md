@@ -161,3 +161,40 @@ factor (6.9×): the bound becomes 0.00361 × 6.9 = 0.0249 F-units against a smal
 0.0624 — **2.5× rather than 17×.** The verdict stays **NO_RISK**, but the margin is now thin enough
 that it should be re-derived directly rather than transferred if any survey row moves closer to its
 boundary. Recorded rather than left standing on a retracted premise.
+
+## Can the law be repaired? A structural rule, not a predictive law
+
+The saturation mechanism suggested a two-regime repair: *UNFOLD late ⇒ Δ sits at a constant floor;
+otherwise Δ = additive sum.* Derived on run 1 (n=1600, seeds 0–23), then **tested on run 2 with
+fresh seeds at a different n (2400)**, parameters carried over unchanged.
+
+**The two-regime law is NOT supported, and the generator's own verdict line overstates it.**
+`regime_law.py` printed `REGIME_LAW_SUPPORTED` on two weak criteria — a 9% RMSE improvement
+(3.779 → 3.421) and a "floor" that transferred across n. But the floor is **not a floor**: its
+spread is sd ≈ 1.9–2.3 against a mean of ≈ −1.0, so the regime is not constant and calling its
+transfer a success is measuring the wrong thing. The verdict is **corrected here to
+REGIME_LAW_NOT_SUPPORTED**; the JSON keeps the generator's raw output so the disagreement stays
+visible rather than being edited away.
+
+**What DOES replicate is a structural risk factor.** The condition that actually separates the
+failures is **UNFOLD applied after POOL** (not merely "UNFOLD late"):
+
+| | run 1 (n=1600) | run 2 (n=2400, fresh seeds) |
+|---|---|---|
+| UNFOLD **after** POOL | **55%** of orderings have H ≤ 0 (10 significant) | **50%** (9 significant) |
+| UNFOLD **before** POOL | 13% | 13% |
+
+Nearly identical rates at a different n with independent seeds — the structure replicates
+out-of-sample even though the law built on it does not. Mechanistically it is the sensible
+condition: unfolding *after* superposition re-flattens the pooled set and destroys the pooling
+signature, which is exactly the operation whose contribution the additive sum is still carrying.
+
+**So the usable output is a warning, not a predictor:** the pairwise sum is unreliable for any
+ordering that unfolds after pooling — roughly half of those orderings are super-additive — and no
+corrected additive law recovered Δ there. **Which orderings you cannot trust is now known; what Δ
+will be in those orderings is not.** That is a smaller claim than a repaired law, and it is the one
+the data supports.
+
+*Discipline note:* the risk-factor condition was formed by inspecting run 1, so run 1 can only
+describe it. Run 2 — fresh seeds, different n, condition carried over unchanged — is the test, and
+it is the only reason this is reported as replicated rather than observed.

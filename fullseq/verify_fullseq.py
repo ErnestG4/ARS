@@ -65,6 +65,22 @@ chk(sub["P1"]["significant_violations"] >= 5,
 chk(sub["n_orderings"] == 59, "exhaustive set is no longer exhaustive")
 chk(sub["P2"]["monotone"] is False, "P2 falsification vanished")
 
+# regime-law follow-up: the STRUCTURE replicates out-of-sample, the LAW does not
+rl = json.load(open(f"{FS}/regime_law.json"))
+chk(rl["run2"]["run2_B_sd"] > 1.0,
+    "the 'floor' became constant — if it ever does, the two-regime law "
+    "should be revisited; as banked it is not a floor")
+sub2 = json.load(open(f"{FS}/subadditivity.json"))
+_after = [v for v in sub2["rows"].values()
+          if v["order"].index("T2") > v["order"].index("T5")]
+_before = [v for v in sub2["rows"].values()
+           if v["order"].index("T2") < v["order"].index("T5")]
+_fa = sum(1 for v in _after if v["H"] <= 0) / len(_after)
+_fb = sum(1 for v in _before if v["H"] <= 0) / len(_before)
+chk(_fa > 2 * _fb,
+    "the UNFOLD-after-POOL risk factor collapsed — it is the replicated "
+    "structural finding")
+
 if fails:
     print("VERIFY_FULLSEQ: FAIL")
     for f in fails:
