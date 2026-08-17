@@ -6,14 +6,22 @@ and their margins recorded **before S0 ran**).
 **Protocol arc — no new science claims; nothing under `cross_substrate/` or `survey/` written; no
 banked row re-verdicted.**
 
-## TL;DR — HIGHER_ORDER_MEASURED, and the pairwise table errs conservatively
+## TL;DR — HIGHER_ORDER_MEASURED; the conservative-bound claim is RETRACTED
 
-The pairwise commutator table does **not** exactly bound full-sequence holonomy — but it fails in
-the safe direction. The first-order predictor (sum of pairwise commutators at mid-stack dials) is
-exact for single transpositions by construction, and **breaks at multi-inversion orderings with H
-resolvable up to 10σ**. In every case **H > 0**, meaning the measured effect is *smaller* in
-magnitude than the pairwise sum predicts: **composition is sub-additive, so the pairwise table is a
-valid upper bound in this dialect.**
+The pairwise commutator table does **not** bound full-sequence holonomy. The first-order predictor
+(sum of pairwise commutators at mid-stack dials) is exact for single transpositions by construction
+and **breaks at multi-inversion orderings with H resolvable up to 10σ**.
+
+> ### ⚠ RETRACTION (2026-08-17, same night, by this arc's own pre-registered out-of-sample test)
+> The first version of this document concluded that **H > 0 in every case, so composition is
+> sub-additive and the pairwise table is a valid conservative upper bound.** That rested on the
+> three multi-inversion orderings in the sealed 7-ordering sample. Tested **exhaustively** on all
+> 59 admissible orderings — the other 52 being untouched out-of-sample data —
+> **the claim is false: 12 of 52 have H ≤ 0 and 10 are significantly super-additive (z < −3).**
+> The pairwise table can therefore **underestimate**, by up to **6.9×** in the worst measured case
+> (−3.3σ of the reference band). *Sub-additive on average, not in general.* See
+> "Sub-additivity, tested exhaustively" below; the original per-ordering table is retained
+> unaltered as the record of what the sealed sample showed.
 
 ## The kill criterion did not fire
 
@@ -68,10 +76,10 @@ not an instrument defect masquerading as holonomy.
 
 ## What this licenses, and what it does not
 
-**Licensed:** the pairwise table's scope caveat can be **sharpened, not lifted** — pairwise
-commutators do not compose exactly, but they compose *conservatively* at these magnitudes, so a
-pairwise-derived bound is an upper bound rather than an estimate. That is a stronger and more
-useful statement than the caveat it replaces.
+**Licensed (as revised):** the pairwise table's scope caveat is **confirmed and strengthened**, not
+lifted. Pairwise commutators do not compose exactly; they compose sub-additively *on average* but
+super-additively in a structured minority of orderings, so a pairwise-derived bound is **neither an
+estimate nor a safe upper bound** — it is a typical-case figure that can be exceeded by ~7×.
 
 **Not licensed:** this is one dialect, one sequence length, one substrate family, and a 7-ordering
 sample. Sub-additivity is measured, not derived; a different dialect (especially one with
@@ -108,3 +116,48 @@ Two labels on that, both required for it to be read correctly:
 
 And the scope that matters for reuse: this says the pairwise table is sufficient for the survey rows
 **as banked** — not that the survey dialect has no holonomy.
+
+---
+
+## Sub-additivity, tested exhaustively — the headline retracted, with a mechanism
+
+Predictions committed in `subadditivity_test.py`'s docstring **before the run** (generator committed
+first): **P1** H > 0 at every multi-inversion ordering; **P2** mean H monotone in inversion count;
+**P3** H = 0 at single transpositions. Exhaustive over all **59** admissible orderings, so there is
+no sample to have chosen badly and no post-hoc addition is possible.
+
+| prediction | outcome |
+|---|---|
+| **P1** sub-additivity is general | **FALSIFIED** — 12/52 out-of-sample orderings have H ≤ 0, **10 significant at z < −3** |
+| **P2** mean H monotone in inversions | **FALSIFIED** — means run +0.00, +1.80, +2.32, **+2.14**, +2.60, +4.00 (dips at 4) |
+| **P3** single transpositions exact | **HOLDS** — the sanity floor is intact, so the failures are in the law, not the machinery |
+
+**The mechanism, and it is clean.** All 10 significantly super-additive orderings place **T2
+(UNFOLD) in the last or second-to-last slot** (positions 3 or 4 — every one of them), and their
+measured Δ is **pinned at ≈ −3.20** (values: −3.23, −3.21 ×4, −3.20, −3.19 ×4). That is a
+**saturation signature**: unfolding *last* re-flattens whatever structure the upstream ordering
+built, so Σ² lands on a fixed floor independent of what preceded it. An additive predictor cannot
+represent a saturating composition — it keeps summing while the truth has stopped moving. Sign and
+size follow directly: H = measured − predicted goes negative exactly when the prediction is less
+negative than the floor.
+
+Consistent secondary structure: mean H rises steeply with T3's position (+0.33 when THIN is first,
+**+5.50** when it is last) and falls with T5's (+3.99 when POOL is early, +1.81 when late) — both
+are the dial-moving transitions, and both matter most when they act early enough for the rest of
+the stack to inherit their dial change.
+
+**Why the sealed sample missed it.** Its three multi-inversion members were all low-inversion (2 and
+3) and none placed UNFOLD last. Super-additivity concentrates at higher inversion counts (31% at
+inv=4, 27% at inv=5) where UNFOLD has room to migrate to the end. The sample was not biased by
+choice — the type constraint and the dedup left exactly those three — but it was **unrepresentative
+of the space**, which is precisely what an exhaustive out-of-sample test exists to catch.
+
+### Knock-on: the survey side cell survives, with much less room
+
+The side cell bounded the survey full-sequence effect by the **sum** of pairwise commutators,
+explicitly labelled as relying on sub-additivity transferred from this dialect. **That premise is
+now falsified in its source dialect.** Re-reading the number with the worst measured underestimate
+factor (6.9×): the bound becomes 0.00361 × 6.9 = 0.0249 F-units against a smallest banked margin of
+0.0624 — **2.5× rather than 17×.** The verdict stays **NO_RISK**, but the margin is now thin enough
+that it should be re-derived directly rather than transferred if any survey row moves closer to its
+boundary. Recorded rather than left standing on a retracted premise.

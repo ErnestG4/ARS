@@ -40,9 +40,12 @@ for k, v in H.items():
 # the finding: H resolvable at multi-inversion orderings, and POSITIVE
 multi = [(k, v) for k, v in H.items() if rows[k]["n_inversions"] > 1]
 chk(len(multi) >= 3, "multi-inversion sample shrank")
+# NOTE: the sealed sample's multi-inversion H are all positive, which is what
+# the ORIGINAL headline rested on. That headline was RETRACTED by the
+# exhaustive out-of-sample test (subadditivity.json) — this check pins what
+# the sealed sample showed, NOT a claim that sub-additivity is general.
 chk(all(v["H"] > 0 for _, v in multi),
-    "sub-additivity regressed — H must stay positive for the pairwise table "
-    "to remain a conservative upper bound")
+    "the sealed sample's multi-inversion H changed sign")
 chk(max(abs(v["z"]) for _, v in multi) > 3.0,
     "H no longer resolvable at any multi-inversion ordering")
 # second-order growth: the 3-inversion H exceeds both 2-inversion H's
@@ -50,6 +53,17 @@ h3 = [v["H"] for k, v in multi if rows[k]["n_inversions"] == 3]
 h2 = [v["H"] for k, v in multi if rows[k]["n_inversions"] == 2]
 chk(h3 and h2 and min(h3) > max(h2),
     "H no longer grows with inversion count")
+
+# the exhaustive out-of-sample test and its RETRACTION of the headline
+sub = json.load(open(f"{FS}/subadditivity.json"))
+chk(sub["P3"]["holds"], "single-transposition exactness (sanity floor) broke")
+chk(sub["P1"]["holds"] is False,
+    "the sub-additivity FALSIFICATION vanished — the retraction is "
+    "load-bearing and must not be quietly reversed")
+chk(sub["P1"]["significant_violations"] >= 5,
+    "significant super-additive orderings dropped below the banked count")
+chk(sub["n_orderings"] == 59, "exhaustive set is no longer exhaustive")
+chk(sub["P2"]["monotone"] is False, "P2 falsification vanished")
 
 if fails:
     print("VERIFY_FULLSEQ: FAIL")
