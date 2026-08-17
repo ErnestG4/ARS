@@ -181,19 +181,53 @@ def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int,
 # silently re-scaling them would change banked outputs without a re-run anyone
 # asked for.  Call sites adopt this by calling l_judge() (see lcap/ for the
 # generators and the per-row consequences).
-# PROVISIONAL (lcap/policy_n.json + census_n.json): two independent derivations
-# at different seed counts disagree by up to ~2x per entry (n=1200: 8 vs 20;
-# n=2000: 40 vs 30), because the "largest separated L" rule is sensitive to a
-# single noisy band sd.  ROBUST across both: matched_L(n)=clip(0.02n,5,50)
-# exceeds this cap at every n tested (n=2000 straddles).  Re-derive at higher
-# seed counts before quoting an entry.  Registered-open in lcap/RESULTS_LCAP.md.
+# WITHDRAWN AS DERIVED (lcap/ LC-ADD-4/5).  These values came from a hard-max
+# rule over a monotone condition, which is DOWNWARD-BIASED (measured: +7.11 vs a
+# smooth crossing on the same bootstrap replicates) AND from the wrong quantity:
+# separation-of-MEANS, when the gate classifies ONE realization at a time.  The
+# operationally correct measure is the per-realization MISCLASSIFICATION RATE,
+# and under it the defect is far worse than these numbers imply — at n=2000 a GOE
+# spectrum earns RIGID_GUE 57% of the time at L=50 and 60% at L=40, against 3-5%
+# at L<=20.  The table below is retained ONLY as a conservative placeholder (it
+# caps LOWER than the correct measure would at n=2000); it must not be quoted.
+# Re-derivation under the misclassification-rate definition is the top open item.
 DISCRIMINATION_L_BY_N = {343: 5.0, 1200: 8.0, 2000: 40.0}   # provisional
 VALIDITY_L = {"zeta_first_2000": 5.99, "gue_n343": 8.0,
               "gue_n1200": 30.0, "gue_n2000": 50.0}          # lcap/validity_scales.json
 
 
-def discrimination_L(n: int) -> float:
-    """Interpolate the GOE-derived discrimination cap at event count n."""
+class ProvisionalCapError(RuntimeError):
+    """Raised when a provisional discrimination cap is requested without an
+    explicit acknowledgement.  A provisional table wired into a live policy
+    would otherwise be read as authoritative by the next caller — so the
+    number is not obtainable without its caveat."""
+
+
+_CAP_CAVEAT = (
+    "discrimination_L is WITHDRAWN AS DERIVED and retained only as a "
+    "conservative placeholder. Two defects, both measured (lcap/ LC-ADD-4/5): "
+    "(1) the hard-max estimator is DOWNWARD-BIASED by +7.11 against a smooth "
+    "crossing on the same bootstrap replicates; (2) it measured "
+    "separation-of-MEANS, when the gate classifies ONE realization at a time "
+    "— the correct measure is the per-realization MISCLASSIFICATION RATE, "
+    "under which the defect is WORSE: at n=2000 a GOE spectrum earns "
+    "RIGID_GUE 57% of the time at L=50 and 60% at L=40, versus 3-5% at "
+    "L<=20. Do not quote these values. Pass accept_provisional=True to "
+    "proceed with that understood. The STRUCTURAL argument stands "
+    "independently of every cap value: matched_L(n)=clip(0.02n,5,50) grows "
+    "LINEARLY in n while the discrimination cap is flat-to-slowly-growing, "
+    "so the two diverge with n BY CONSTRUCTION."
+)
+
+
+def discrimination_L(n: int, accept_provisional: bool = False) -> float:
+    """GOE-derived discrimination cap at event count n.
+
+    Raises ProvisionalCapError unless the caller acknowledges the caveat —
+    see _CAP_CAVEAT for why the bare number must not travel alone.
+    """
+    if not accept_provisional:
+        raise ProvisionalCapError(_CAP_CAVEAT)
     ns = sorted(DISCRIMINATION_L_BY_N)
     if n <= ns[0]:
         return DISCRIMINATION_L_BY_N[ns[0]]
@@ -203,10 +237,15 @@ def discrimination_L(n: int) -> float:
     return float(_np.interp(n, ns, [DISCRIMINATION_L_BY_N[k] for k in ns]))
 
 
-def l_judge(requested_L: float, n: int,
-            substrate: Optional[str] = None) -> tuple:
-    """Adopted L policy.  Returns (L_judge, binding_caps)."""
-    caps = {"requested": float(requested_L), "discrimination": discrimination_L(n)}
+def l_judge(requested_L: float, n: int, substrate: Optional[str] = None,
+            accept_provisional: bool = False) -> tuple:
+    """Adopted L policy.  Returns (L_judge, binding_caps).
+
+    The discrimination cap is provisional; this raises ProvisionalCapError
+    unless the caller acknowledges it (see discrimination_L).
+    """
+    caps = {"requested": float(requested_L),
+            "discrimination": discrimination_L(n, accept_provisional)}
     if substrate in VALIDITY_L:
         caps["validity"] = VALIDITY_L[substrate]
     L = min(caps.values())

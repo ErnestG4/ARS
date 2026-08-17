@@ -53,6 +53,22 @@ chk(m["verdict"]["primary"] == "L_POLICY_FIXED", "arc verdict changed")
 chk(not m["L1_rows"]["brocot_golden"]["moved_by_policy"],
     "brocot row unexpectedly moved")
 
+# LC-ADD-4/5: the bias confirmation and the corrected foundational finding.
+# These pin the SELF-CORRECTIONS, so a future edit cannot quietly restore the
+# withdrawn table or lose the misclassification measurement.
+cr = json.load(open(f"{LC}/cap_rederive.json"))
+chk(cr["estimator_bias"]["hardmax_is_downward_biased"],
+    "the measured hard-max downward bias vanished")
+chk(cr["conclusion_survives"] is False,
+    "LC-ADD-2's withdrawal was reversed without a re-derivation")
+mc = json.load(open(f"{LC}/misclass_rate.json"))
+chk(mc["finding"]["goe_defect_stands"],
+    "the foundational GOE defect vanished")
+chk(mc["rows"]["50.0"]["misclass_rate"] > 0.4,
+    "the deployed-L misclassification rate regressed below its measured value")
+chk(mc["rows"]["20.0"]["misclass_rate"] < 0.15,
+    "the small-L control regressed — the defect must be L-dependent")
+
 # LC-ADD-1: the n-dependent discrimination cap and the brocot flag
 pn = json.load(open(f"{LC}/policy_n.json"))
 chk(pn["by_n"]["343"]["discrimination_L"] == 5.0, "n=343 cap drifted")
@@ -65,8 +81,18 @@ sys.path.insert(0, "/home/combust/fmexplorer/criticality_tool/cross_substrate")
 import numpy as np                                            # noqa: E402
 from longrange_discriminator import (l_judge, longrange_verdict,   # noqa: E402
                                      DISCRIMINATION_L_BY_N)
-chk(l_judge(50, 2000, "zeta_first_2000")[0] == 5.99, "zeta L policy not live")
-chk(l_judge(6.86, 343, "gue_n343")[0] == 5.0, "n=343 L policy not live")
+chk(l_judge(50, 2000, "zeta_first_2000", accept_provisional=True)[0] == 5.99,
+    "zeta L policy not live")
+chk(l_judge(6.86, 343, "gue_n343", accept_provisional=True)[0] == 5.0,
+    "n=343 L policy not live")
+# the provisional cap must NOT be obtainable without acknowledgement
+from longrange_discriminator import (discrimination_L,               # noqa: E402
+                                     ProvisionalCapError)
+try:
+    discrimination_L(2000)
+    fails.append("provisional cap returned a bare number without caveat")
+except ProvisionalCapError:
+    pass
 chk(DISCRIMINATION_L_BY_N[343] == 5.0, "installed cap table changed")
 _clock = longrange_verdict(np.arange(2000, dtype=float), L=40.0, n_seeds=8,
                            ref_n=2000)

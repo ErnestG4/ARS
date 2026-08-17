@@ -207,3 +207,95 @@ default policy* as supported, with n = 2000 marked undetermined.
 **Registered-open:** re-derive the discrimination cap per n at seed counts sufficient to quote it
 (the estimator's own variance needs measuring first — the same discipline that caught ADD-5's
 1.1σ). Until then the cap ships in `DISCRIMINATION_L_BY_N` as an explicitly provisional table.
+
+## LC-ADD-3 — the structural argument, stated separately because it cannot dissolve
+
+Will's note, adopted: the finding has two layers and they should not share a fate.
+
+**Layer 1 — structural, independent of every measured cap value.**
+`matched_L(n) = clip(0.02n, 5, 50)` grows **linearly** in n. The discrimination cap is
+**flat-to-slowly-growing** in n, because it is set by where the GUE band's spread overtakes the
+class gap, and the band's spread shrinks only slowly as n rises. Two curves of those shapes
+**diverge with n by construction.** So the *form* of the default scale policy is wrong regardless of
+where any individual crossing sits: a policy whose scale grows linearly in n cannot track a cap
+that doesn't, and the mismatch necessarily widens over the range the repo actually uses. **This
+layer does not depend on any number in LC-ADD-2's table and cannot be dissolved by re-measurement.**
+
+**Layer 2 — the specific crossings, currently NOT load-bearing.** The per-n cap values, and
+therefore each individual "OUTSIDE" verdict, rest on an estimator whose own variance was never
+measured. Worse, per Will: the cap rule is a **max over a monotone condition**, and extrema of noisy
+quantities are **systematically biased downward** — one unlucky draw at a small L truncates the
+whole run. Downward bias in the cap pushes rows *outside* their window, which is **the same
+direction as the finding.** The estimator's known failure mode therefore cannot be distinguished
+from the effect it is being used to demonstrate. Until that is ruled out, layer 2 is suspended.
+
+`lcap/cap_rederive.py` is the check: paired realizations across L (so the z-curve is not
+independently noisy per point), a bootstrap over draws giving each cap its own sampling
+distribution, and **two estimators compared on the same replicates** — the hard-max rule against a
+smooth crossing that cannot truncate on one point. Their difference *is* the downward bias,
+measured rather than argued, and the "outside" test becomes `matched_L > cap's 95th percentile`
+rather than an inequality between two point estimates.
+
+**Why this runs before full-sequence holonomy** (Will's ruling): this arc has now produced two
+numbers that dissolved on inspection — ADD-5's 1.1σ, and possibly LC-ADD-2's caps — and both
+dissolved because *an estimator's own variance went unmeasured*. A third would be a pattern rather
+than an accident. Full-sequence is seal-ready and will still be seal-ready afterwards.
+
+## LC-ADD-4 — the cap re-derivation: Will's bias prediction CONFIRMED, LC-ADD-2's table WITHDRAWN
+
+Run before anything else, per Will's ruling. Paired realizations across L, 32 draws per class,
+400-replicate bootstrap, two estimators on the same replicates.
+
+**The hard-max estimator is downward-biased, as predicted from its structure:** mean
+(smooth − hard-max) = **+7.11**, positive at every n (+0.9, +13.2, +7.1). One unlucky draw at a
+small L truncates the whole run, and the z-curves are visibly non-monotone (n=1200:
+7.32, 4.64, 3.52, **4.56**, 2.25, …), which is exactly the condition the max rule cannot survive.
+
+**LC-ADD-2's conclusion does not survive as measured.** Against the smooth estimator's 95th
+percentile, two of three verdicts reverse:
+
+| n | matched_L | hard-max cap (biased) | smooth cap [p05, p95] | outside vs p95? |
+|---|---|---|---|---|
+| 343 | 6.86 | 3.2 | 4.2 [3.0, 6.4] | **yes** |
+| 1200 | 24.00 | 11.7 | 24.9 [18.4, 33.5] | **no** |
+| 2000 | 40.00 | 42.7 | 49.9 [50.0, 50.0] | **no** |
+
+**LC-ADD-2's table is withdrawn.** The "outside at every n tested" claim was an artifact of a
+downward-biased estimator, pointing in the same direction as the finding — precisely the
+confound Will named before the measurement ran. **That is the third number in this arc to dissolve
+on inspection** (ADD-5's 1.1σ, RG-ADD-6's re-vindication-by-luck, now this), and all three
+dissolved for the same reason: *an estimator's own variance went unmeasured.*
+
+## LC-ADD-5 — a specification error in my cap definition, and the foundational finding re-established
+
+The re-derivation surfaced something worse than bias: **the cap was measuring the wrong quantity.**
+I defined separation as `z = (mean_GOE − mean_GUE)/sd_GUE ≥ 3` — a statement about **population
+means**. But the gate never classifies a population; it classifies **one point set**, via
+`|o − gue_mean| ≤ 2.5·gue_sd`. The operationally correct quantity is the **per-realization
+misclassification rate**, which separation-of-means cannot see because it ignores the GOE spread
+entirely.
+
+Measured at n=2000, 40 paired realizations, with bootstrap CIs:
+
+| L | GUE band | GOE | z of means | **misclassification rate** |
+|---|---|---|---|---|
+| 8 | [0.457, 0.676] | 0.894 ± 0.095 | +7.48 | **0.05** [0.00, 0.10] |
+| 20 | [0.432, 0.850] | 1.070 ± 0.170 | +5.13 | **0.03** [0.00, 0.12] |
+| 40 | [0.414, 1.133] | 1.148 ± 0.261 | +2.61 | **0.60** [0.23, 0.75] |
+| 50 | [0.293, 1.235] | 1.232 ± 0.255 | +2.48 | **0.57** [0.30, 0.75] |
+
+**The foundational GOE defect stands, and it is far worse than anything reported so far: at the
+deployed L=50 a GOE spectrum earns `RIGID_GUE` roughly 57% of the time — a coin flip.** The
+separation-of-means number at L=40 (+2.61) reads "marginal"; the truth at that L is a **60%**
+misclassification rate. My wrong definition was *understating* the defect, not inventing it.
+
+**Consequences.** (i) The cap must be defined by misclassification rate, not separation of means —
+at n=2000 the rate jumps from 3% at L=20 to 60% at L=40, so the correct cap there is between 20 and
+40, well below both the 40 and 50 the biased estimator produced. (ii) `matched_L(2000) = 40` sits
+squarely in the bad region, so LC-ADD-2's conclusion is **re-established at n=2000 by a correct
+measurement** — but the other n remain **unmeasured under the correct definition** and their
+verdicts stand withdrawn until they are. (iii) The structural argument (LC-ADD-3, layer 1) is
+untouched throughout: it never depended on a cap value.
+
+**Registered-open, now the top item:** re-derive the cap at every deployed n under the
+misclassification-rate definition with bootstrap CIs, and re-issue the census n-column from it.

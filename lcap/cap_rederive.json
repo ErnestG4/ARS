@@ -1,0 +1,107 @@
+{
+ "Z_SEP": 3.0,
+ "L_scan": [
+  3.0,
+  5.0,
+  8.0,
+  12.0,
+  20.0,
+  30.0,
+  40.0,
+  50.0
+ ],
+ "n_draws": 32,
+ "n_boot": 400,
+ "by_n": {
+  "343": {
+   "matched_L": 6.86,
+   "z_curve": [
+    3.610175139638388,
+    2.2090940664818395,
+    1.9462172662845896,
+    2.0272268761644687,
+    1.2346696519568026,
+    0.8252310639572451,
+    0.4333661031582216,
+    0.8947039635226118
+   ],
+   "hard_max": {
+    "point": 3.0,
+    "mean": 3.239669421487603,
+    "p05": 3.0,
+    "p95": 5.0
+   },
+   "smooth": {
+    "point": 3.4365087779489136,
+    "mean": 4.187807195079228,
+    "p05": 3.0,
+    "p95": 6.434512485501716
+   },
+   "downward_bias": 0.9481377735916245,
+   "outside_vs_hardmax_p95": true,
+   "outside_vs_smooth_p95": true
+  },
+  "1200": {
+   "matched_L": 24.0,
+   "z_curve": [
+    7.315877394093146,
+    4.635426513261606,
+    3.51920578732439,
+    4.560774086305101,
+    2.2526831320916463,
+    2.146737056637377,
+    2.632595577007137,
+    2.3917713193487438
+   ],
+   "hard_max": {
+    "point": 12.0,
+    "mean": 11.7125,
+    "p05": 5.0,
+    "p95": 20.0
+   },
+   "smooth": {
+    "point": 22.265111109820396,
+    "mean": 24.940535179205234,
+    "p05": 18.44945058824354,
+    "p95": 33.548632952758666
+   },
+   "downward_bias": 13.228035179205234,
+   "outside_vs_hardmax_p95": true,
+   "outside_vs_smooth_p95": false
+  },
+  "2000": {
+   "matched_L": 40.0,
+   "z_curve": [
+    5.782016053872708,
+    5.106383731775158,
+    5.560751989301692,
+    5.934055753340358,
+    5.072538530622255,
+    3.4793254283446453,
+    3.482147561963848,
+    3.377345577504635
+   ],
+   "hard_max": {
+    "point": 50.0,
+    "mean": 42.725,
+    "p05": 20.0,
+    "p95": 50.0
+   },
+   "smooth": {
+    "point": 50.0,
+    "mean": 49.872735146551534,
+    "p05": 50.0,
+    "p95": 50.0
+   },
+   "downward_bias": 7.147735146551533,
+   "outside_vs_hardmax_p95": false,
+   "outside_vs_smooth_p95": false
+  }
+ },
+ "estimator_bias": {
+  "mean_smooth_minus_hardmax": 7.107969366449463,
+  "hardmax_is_downward_biased": true,
+  "note": "positive = the hard-max rule reports a SMALLER cap than the smooth crossing on the same bootstrap replicates, i.e. it is downward-biased exactly as the max-of-noisy-quantities argument predicts"
+ },
+ "conclusion_survives": false
+}

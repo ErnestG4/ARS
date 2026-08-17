@@ -1,0 +1,69 @@
+{
+ "n": 2000,
+ "deg": 6,
+ "mult": 2.5,
+ "n_draws": 40,
+ "rows": {
+  "8.0": {
+   "gue_mean": 0.5665363518590492,
+   "gue_sd": 0.04371296602001136,
+   "goe_mean": 0.8935832296929653,
+   "goe_sd": 0.09482099563788636,
+   "band": [
+    0.45725393680902077,
+    0.6758187669090776
+   ],
+   "misclass_rate": 0.05,
+   "misclass_p05": 0.0,
+   "misclass_p95": 0.1,
+   "z_of_means": 7.48169039099743
+  },
+  "20.0": {
+   "gue_mean": 0.6410279323850752,
+   "gue_sd": 0.08367503406924369,
+   "goe_mean": 1.0704505256648114,
+   "goe_sd": 0.16962265112110594,
+   "band": [
+    0.43184034721196596,
+    0.8502155175581844
+   ],
+   "misclass_rate": 0.025,
+   "misclass_p05": 0.0,
+   "misclass_p95": 0.125,
+   "z_of_means": 5.132027707623945
+  },
+  "40.0": {
+   "gue_mean": 0.7734328231292518,
+   "gue_sd": 0.14364381331379455,
+   "goe_mean": 1.1482329931972788,
+   "goe_sd": 0.26060097587323594,
+   "band": [
+    0.4143232898447654,
+    1.132542356413738
+   ],
+   "misclass_rate": 0.6,
+   "misclass_p05": 0.225,
+   "misclass_p95": 0.75,
+   "z_of_means": 2.6092329451687832
+  },
+  "50.0": {
+   "gue_mean": 0.7637980769230769,
+   "gue_sd": 0.1884561023500355,
+   "goe_mean": 1.2316008771929825,
+   "goe_sd": 0.2549591910147778,
+   "band": [
+    0.29265782104798815,
+    1.2349383327981656
+   ],
+   "misclass_rate": 0.575,
+   "misclass_p05": 0.3,
+   "misclass_p95": 0.75,
+   "z_of_means": 2.482290541067308
+  }
+ },
+ "finding": {
+  "worst_misclass_rate": 0.6,
+  "goe_defect_stands": true,
+  "note": "the arc's FOUNDATIONAL claim is that GOE can earn RIGID_GUE at the deployed configuration. The operationally correct test is the per-realization misclassification rate, not separation-of-means."
+ }
+}
