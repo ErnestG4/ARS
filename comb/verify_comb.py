@@ -22,6 +22,12 @@ m = json.load(open(f"{CT}/comb/comb_measured.json"))
 chk(m["VERDICT"].startswith("PASS"), f"comb verdict regressed: {m['VERDICT']}")
 chk(m["measured_power_ok"] is True, "measured power criterion not met")
 chk(m["discriminator"]["resolved"] is True, "N50 discriminator unresolved")
+# The 53.9 sigma IS the headline; the resolved flag alone could stay True with
+# the separation collapsed. Found by red-pathing (busting sigma left this
+# green). Value pinned.
+chk(abs(m["discriminator"]["z"] - 53.94) < 0.5,
+    f"N50 discriminator z drifted from the banked 53.94: "
+    f"{m['discriminator']['z']}")
 chk(m["level_all_mandatory_within_k"] is True, "level test regressed")
 
 s = json.load(open(f"{CT}/comb/prereg_sealed.json"))

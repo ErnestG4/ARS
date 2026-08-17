@@ -7,6 +7,20 @@ propose-only. The split and the L policy were subsequently **adopted into
 `cross_substrate/longrange_discriminator.py` on the explicit call** — see the adoption section
 at the end.)*
 
+## THE OPERATIONAL HEADLINE, stated in the strongest terms the data supports
+
+> **This gate has essentially never distinguished GUE from GOE at deployed configurations.**
+
+Not "the default scale policy needs revision" — that framing invites a scale fix, and **at n=343 no
+scale fix exists.** GOE is admitted as `RIGID_GUE` **32–90% of the time at every L tested**, so
+there is **no admissible configuration at that n**: the gate can only be repaired there by a
+different statistic or more data, not by choosing L better. And n=343 is **where the banked
+approximability rows live.**
+
+Across the whole (n, L) grid, **exactly one admissible cell exists** — n=2000, L=5 — against a
+deployed default of L=40. So the default was wrong **by 8× at its best point and had no correct
+answer at two of the three n tested.** Everything below is the derivation of that sentence.
+
 ## TL;DR
 
 **The fix revealed more signal, not less.** Judged inside its own validity window, ζ_first_2000's

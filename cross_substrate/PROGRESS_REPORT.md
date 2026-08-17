@@ -607,3 +607,13 @@ own numbers:** two independent derivations at different seed counts disagree by 
 boundary; the *ordering* is what is robust. Registered-open: re-derive the cap at seed counts
 sufficient to quote it, measuring the estimator's own variance first (the ADD-5 discipline). The
 installed `DISCRIMINATION_L_BY_N` table is marked provisional in the module.
+
+**⇧ OPERATIONAL HEADLINE (2026-08-17), stated hard because the soft version invites a fix that
+cannot work:** *this gate has essentially never distinguished GUE from GOE at deployed
+configurations.* Measured per-realization false-positive rates (the operationally correct estimand):
+GOE earns `RIGID_GUE` **32–90% of the time at EVERY L tested at n=343** — so **no admissible
+configuration exists at that n**, and it cannot be fixed by choosing L; it needs a different
+statistic or more data. n=343 is the configuration the banked approximability rows use. Across the
+full (n, L) grid **exactly one admissible cell exists** (n=2000, L=5) against a deployed default of
+40 — wrong by 8× at its best point, with no correct answer at two of three n. Full derivation and
+the both-directions error table: `lcap/RESULTS_LCAP.md`.

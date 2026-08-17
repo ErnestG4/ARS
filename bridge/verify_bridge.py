@@ -19,8 +19,20 @@ a = json.load(open(f"{BR}/bridge_a_measured.json"))
 for k in ("G_A1_1d_PASS", "G_A3_1d_pois_PASS", "G_A2_PASS", "G_A3_1d_zeta_PASS",
           "G_A1_2d_PASS", "G_A3_2d_PASS", "G_B1_PASS", "XCHECK_PASS"):
     chk(a.get(k) is True, f"bridge_a gate {k} not True")
+# The SNR law A = mu^2/Var is TOOLKIT §11.3's headline (14 / 98 / 528 across
+# R = 2/4/6). The original check asserted only that the COLUMN EXISTS, which
+# could fail solely by the key vanishing — a presence check standing in for a
+# value check. Found by red-pathing: busting every amplification value to 1.0
+# left this checker green. Values now pinned.
+_AMP_BANKED = {2.0: 14.2, 4.0: 98.0, 6.0: 527.9}
 for row in a["A2_ginibre"]["glue_descriptive"]:
     chk("amplification_per_unit_offset" in row, "amplification column missing")
+    _R = row.get("R")
+    if _R in _AMP_BANKED:
+        _got = row["amplification_per_unit_offset"]
+        chk(abs(_got / _AMP_BANKED[_R] - 1.0) < 0.02,
+            f"SNR-law amplification drifted at R={_R}: {_got} vs banked "
+            f"{_AMP_BANKED[_R]} (TOOLKIT §11.3)")
 
 b = json.load(open(f"{BR}/bridge_b_measured.json"))
 chk(b["B1"]["B1_PASS"] is True, "B1_PASS not True")
