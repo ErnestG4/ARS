@@ -1,0 +1,8 @@
+{
+ "p_keep": 1.0,
+ "median": 15.224740515215991,
+ "survival": 0.9375,
+ "n": 32,
+ "floor": 6.098101123900647,
+ "role": "unthinned control for the survival curve"
+}

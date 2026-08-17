@@ -250,3 +250,73 @@ advance; keep the median as the central-tendency arm.
 In both cases the change is additive, the raw per-realization values already exist in the loop, and
 the pattern to copy is in-repo (`run_phase17_pure_recovery.py`: coverage **and** median relative
 error, both reported, both required).
+
+## Both open instances REPAIRED (2026-08-17) — and one of them found a live defect
+
+The earlier "leave them proposed, they sit in sealed runners" call was **over-strict and is
+corrected**: `TASKB_SEAL.json` pre-registers *claims* (predictions, anti-claim, failure conditions)
+and does **not** blob-freeze the runner; `rf_decoy_battery` has no seal referencing it at all. An
+additive arm therefore cannot violate a pre-registration or move a banked verdict.
+
+**`arsrh/taskB_falpha.py` — repaired, came back CLEAN.** The gate certified that the ensemble mean
+of 8 draws recovers the analytic reference while K(α) deploys per substrate. Per-draw errors are now
+kept and the fraction exceeding tolerance reported: **0.00 for both Poisson and GUE.** The estimator
+*is* per-realization reliable, so the mean-based gate was not hiding anything here. Banked as a
+measured negative. *(The arc was started to exercise the arm and killed once the gate block printed
+— letting it finish would have rewritten its banked measured JSON, re-deriving another program's
+results as a side effect. Banked JSON confirmed untouched.)*
+
+**`cross_substrate/rf_decoy_battery.py` — repaired, and the arm immediately found something.** Both
+3a and 3b gated on a **median across seeds**, while the decoy question ("did efficiency loss erase a
+genuine period?") is asked of **one train**. With the per-train rate added, at p_keep = 0.4 the
+median a_q@7 is 11.70 — comfortably above the calibrated floor of 6.098, gate says OK — while
+**per-train survival is 0.75: one train in four loses the period the gate certifies as surviving.**
+
+**The contrast is the evidence.** A rule that flagged everything it touched would only be finding
+what it was looking for. One instance clean, one instance a live defect, is the rule discriminating.
+
+### Follow-up: the p_keep dependence, and a control that changed the reading
+
+Deployed values matter here, so they were checked rather than assumed. The named decoy classes use
+p_keep **0.90** and **0.75**; `instrument_confound`'s trajectory sweep defaults to removal fractions
+`(0.0 … 0.5)`, i.e. **p_keep down to 0.50** — inside the range of interest. Measured at 32 seeds:
+
+| p_keep | 0.75 | 0.70 | 0.65 | 0.60 | 0.55 | 0.50 | 0.45 | 0.40 |
+|---|---|---|---|---|---|---|---|---|
+| per-train survival | 0.91 | 0.78 | 0.78 | 0.84 | 0.81 | 0.75 | 0.78 | 0.78 |
+
+Two things this says, and one it does not:
+
+1. **The battery's own printed `survival 1.00` at p_keep = 0.7 is a small-sample artifact.** At 32
+   seeds the rate there is **0.78**; 8/8 is entirely consistent with a true rate of 0.78 (p ≈ 0.14).
+   The first repair's own output needed the same sample-size scepticism as everything else.
+2. **The curve is essentially FLAT across 0.40–0.75** — it does not degrade with thinning depth.
+   That is *not* the signature of thinning erasing a period.
+3. **So the attribution is not yet established.** A flat ~20% failure rate across all thinning
+   levels is equally consistent with intrinsic seed-to-seed variability in the `periodic_q7`
+   generator — some realizations simply do not show a strong a_q = 7 peak, thinning or no thinning.
+   The decisive control is the **unthinned** case at the same seed count (`premise before
+   mechanism`: establish *that* thinning causes it before attributing to thinning).
+
+**Control result — attribution established, and both of my earlier readings needed correcting.**
+Unthinned (p_keep = 1.0), same 32 seeds, same floor: **per-train survival 0.94.**
+
+| | survival | reading |
+|---|---|---|
+| p_keep = 1.00 (control) | **0.94** | ~6% of trains fail with **no thinning at all** — intrinsic generator variability |
+| p_keep = 0.75 (deployed) | 0.91 | barely above the intrinsic floor |
+| p_keep = 0.70 → 0.40 | 0.75–0.84 | a **step**, not a gradient |
+
+So: **thinning does erase the period in a real fraction of trains** — the failure rate roughly
+triples from ~6% to ~20% — but it is **not the whole story**, and the dependence is a *step* between
+0.75 and 0.70 rather than a slope that deepens with thinning. Corrections to what I wrote before the
+control existed: "one train in four loses the period" is right as a raw rate but **~6 points of it
+are intrinsic**, so the thinning-attributable share is ~19 points; and "the flat curve suggests
+intrinsic variability" was too strong — the control at 0.94 sits distinctly above the 0.75–0.84
+band, so thinning is genuinely implicated.
+
+**Status: a real defect in the gate's certification, with the size now properly decomposed.** At
+every deployed thinning level the median-based gate certifies survival while 9–25% of individual
+trains fail, of which ~6 points would fail anyway. The repaired arm reports the per-train rate so a
+reader sees both. Whether the gate's *threshold* should move is the owning program's call; this arc
+supplies the decomposition, not the ruling.
