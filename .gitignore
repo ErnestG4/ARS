@@ -70,9 +70,15 @@ approximability/fifth_instrument.html
 paths.toml
 bridge/.rquarantine/
 
-# Personal outreach artifacts — deliberately NOT part of the scientific record.
-# The derivflow outreach brief carries a name and an email; it is generated
-# outside this repo (~/derivflow_outreach/) and reads the repo read-only.
+# Correspondence artifacts — not part of the scientific record. Generated
+# outside this repository, which they read read-only.
 derivflow/paper/make_brief.py
 derivflow/paper/DERIVFLOW_BRIEF.pdf
 derivflow/paper/figs_print/
+
+# Third-party literature: cite it, do not redistribute it. Local copies only.
+*/lit/*.pdf
+*/lit/*.tex
+*/lit/*.txt
+!*/lit/README.md
+!*/lit/LIT_SUMMARY.md
