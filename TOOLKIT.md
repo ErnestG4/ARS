@@ -1052,3 +1052,14 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   false-negative rate in the same breath as its result**, and reports as a LOWER BOUND when the test
   is not perfect. Companion to the "not examined ≠ cleared" scoping rule — that one covers what the
   search never looked at, this one covers what it looked at and could not see.
+- **Red-path your checkers, and check that a finding is pinned in the checker of the arc that OWNS
+  it.** (Overnight quality pass, 2026-08-17.) Running every `verify_*.py` and seeing green says
+  nothing until each has been shown to go red. Deliberately corrupting one banked value per arc took
+  minutes and immediately found a real gap: the RIGID_GUE arc's headline (a 57% misclassification
+  rate at the deployed configuration) was measured during a *neighbouring* arc and pinned only in
+  that arc's checker, so anyone running `verify_rigidgate.py` alone would not learn if the arc's
+  own central finding regressed. The value was pinned; it was pinned in the wrong **slot** — the
+  `filing_discipline_attribution_slot` pattern, one level up. Two habits: (a) corrupt-and-restore
+  each checker's load-bearing assertions when the checker is written, not later; (b) for every
+  headline, ask *which arc owns this, and does that arc's checker fail without it?* — cross-pin when
+  a measurement lands outside the arc that claims it.

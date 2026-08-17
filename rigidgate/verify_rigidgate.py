@@ -54,6 +54,23 @@ chk(rigid_cell(1.0, band)[0] == "RIGID_GUE", "rule: in-band")
 chk(rigid_cell(0.5, band)[0] == "HYPER_RIGID", "rule: below-band")
 chk(rigid_cell(2.0, band)[0] is None, "rule: above-band falls through")
 
+# The arc's HEADLINE lives in lcap/misclass_rate.json (it was measured during
+# the L-policy work) but it is RIGIDGATE's finding: at the deployed L=50 a GOE
+# spectrum earns RIGID_GUE ~57% of the time. Pinned here too, because a reader
+# running only this arc's checker must learn if the headline regresses —
+# filing the check in the neighbouring arc's checker left this owner blind.
+import os                                                     # noqa: E402
+_mc = "/home/combust/fmexplorer/criticality_tool/lcap/misclass_rate.json"
+if os.path.exists(_mc):
+    mc = json.load(open(_mc))
+    chk(mc["rows"]["50.0"]["misclass_rate"] > 0.4,
+        "the arc's headline regressed: deployed-L misclassification rate")
+    chk(mc["rows"]["20.0"]["misclass_rate"] < 0.15,
+        "the small-L control regressed — the defect must stay L-dependent")
+    chk(mc["finding"]["goe_defect_stands"], "GOE defect finding vanished")
+else:
+    fails.append("lcap/misclass_rate.json missing — the headline is unpinned")
+
 if fails:
     print("VERIFY_RIGIDGATE: FAIL")
     for f in fails:
