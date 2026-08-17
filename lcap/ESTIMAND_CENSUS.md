@@ -194,3 +194,35 @@ the question, a mean-based gate is correct. Triage of what I read:
 calibration harnesses**; none is in a deployed judge. That distribution is itself the finding: the
 judges were written to classify one thing, and the harnesses that certify them were written to
 describe many.
+
+## Census CLOSED (2026-08-17) — all 8 candidates classified, and the correct idiom already exists in-house
+
+| site | classification |
+|---|---|
+| `approximability/class_probe.py:79` | **legitimate** — asks whether a *set* of cubics clusters; population is the question |
+| `arsrh/cubic/r077_control.py:198` | **legitimate** — checks a null distribution is centred and correctly scaled, a population property by definition |
+| `cross_substrate/population_temporal.py:101` | **legitimate** — within-vs-between across cells is inherently an ensemble comparison |
+| `arsrh/phase3_sigma2.py:73` | **legitimate by intent** — selects an instrument *order*; "preserves the class ordering on average" is the right question for a setting |
+| `run_phase17_limits.py:121` | **EXEMPLARY** — gates on **CI coverage**, a per-realization rate expressed as a mean over realizations |
+| `run_phase17_pure_recovery.py:153` | **EXEMPLARY** — coverage **and** median relative error: the per-realization arm and the bias arm, both present |
+| `approximability/panel_B_farey.py:64` | detector false positive — `dens_cv` summarises bins *within one* window, not across realizations |
+| `derivflow/science_rate_question.py:216` | detector false positive — an `all()` universal quantifier over individual values, i.e. the *strictest* per-realization form |
+| `intermittency.py:600` | detector false positive — **substring artefact: "aggre`gate`_fano" matched the word list**, and it is a stored statistic, not a gate |
+
+### The useful discovery: the fix has a house precedent
+
+`run_phase17_limits.py` and `run_phase17_pure_recovery.py` **already do exactly what the estimand
+rule prescribes** — they gate on the fraction of realizations whose CI covers truth, which *is* a
+per-realization error rate, and the recovery harness pairs it with a bias-style arm. So the repair
+applied to `validate_fitters` is not a new idiom being imported; it is **an idiom the repo already
+uses elsewhere and simply had not applied to the fitter harness.** That is a better argument for
+adopting it than any appeal to principle, and it is the form to point at when the remaining two
+instances (`taskB_falpha`, `rf_decoy_battery`) are repaired.
+
+### Final tally, repo-wide
+
+**4 confirmed instances** of the pattern (2 repaired: `validate_fitters`, `validate_rate_unfold`;
+2 open: `taskB_falpha`, `rf_decoy_battery`) · **4 legitimate ensemble gates** · **2 exemplary
+per-realization gates** · **3 detector false positives**. All 4 confirmed instances sit in
+validation/calibration harnesses; none in a deployed judge. Scope reminder: the detector's measured
+sensitivity was **1 of 2** on known positives, so the confirmed count remains a lower bound.
