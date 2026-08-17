@@ -2103,3 +2103,27 @@ which is exactly what an exhaustive test exists to catch. Knock-on: the survey s
 sum-as-upper-bound relied on the retracted premise — re-read, its margin is **2.5× rather than
 17×**; verdict stays NO_RISK but should be derived directly if any survey row moves toward its
 boundary.
+
+**Same night, continued — the headline retracted and the census closed.** The full-sequence result
+above was tested exhaustively over all 59 admissible orderings with predictions committed first, and
+**the sub-additivity claim was falsified**: 12/52 out-of-sample orderings have H ≤ 0, 10 significant
+at z < −3, so the pairwise sum can *underestimate* by up to 6.9×. The mechanism is a **saturation**
+regime — every significantly super-additive ordering applies UNFOLD after POOL, pinning Δ at a floor
+an additive predictor cannot represent. A two-regime repair was derived and then **failed its own
+out-of-sample test** (the "floor" has sd ≈ 2 against a mean ≈ −1, and the generator's optimistic
+`REGIME_LAW_SUPPORTED` line is corrected in the write-up with the raw JSON left unedited); what does
+replicate at a different n with fresh seeds is a **structural risk factor** — UNFOLD-after-POOL
+gives 55%/50% super-additive across two runs against 13% otherwise. Usable output: a warning about
+which orderings the pairwise sum cannot be trusted for, not a corrected law. The pairwise table now
+carries this at its point of use.
+
+**Estimand census closed.** All 12 previously-unexamined directories scanned with an AST detector
+that was **self-tested on known positives first — it found 1 of 2, so the census is an explicit
+lower bound.** All 8 candidates classified: 4 legitimate ensemble gates, 3 detector false positives
+(one a substring artefact — "aggre*gate*_fano"), and **2 exemplary sites that already do it right**.
+That last is the useful discovery: `run_phase17_limits.py` and `run_phase17_pure_recovery.py`
+already gate on **CI coverage**, which *is* a per-realization error rate, paired with a bias-style
+arm — so the `validate_fitters` repair is an idiom **the repo already uses** and had simply not
+applied to the fitter harness, which is a better argument for adoption than any appeal to principle.
+Repo-wide: 4 confirmed instances, 2 repaired, 2 proposed-with-recipe (both in sealed runners, so
+left uninstalled), none in a deployed judge.
