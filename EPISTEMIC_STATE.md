@@ -2058,4 +2058,36 @@ Independently, the sealed P1 law is **confirmed out-of-sample** at two new dial 
 around a falsifiable first-order (BCH-style) composition of the pairwise commutators, with the
 residual H(σ) as the actual scientific object; carries a dial-propagation prerequisite, a
 verdict-flip-probability materiality cell, and **two kill criteria** so the arc can be declined
-on evidence. Awaiting Will's review.
+on evidence. *(Ran 2026-08-17 — see the overnight entry below; verdict HIGHER_ORDER_MEASURED.)*
+
+## Overnight 2026-08-17 — estimand policy + full-sequence holonomy
+
+**Per-realization estimand policy (rescoped from a cap fix).** The estimand mismatch found in the
+L-policy arc turned out not to be confined to one gate: censusing found it in `validate_rate_unfold`
+(a ratio of ensemble means as one arm of a lens-deployment decision) and in `validate_fitters.py`
+(the calibrator zoo's fitter certification passing on the mean across seeds while fitters deploy per
+substrate). The deployed *judges* were fine — the mismatch lived one level up, in what certifies
+them. Both repaired: `pole_sep` now rejects on the per-realization arm alone with the ensemble ratio
+demoted to a diagnostic (it was a **live latent defect** — `INADEQUATE` required both arms, so the
+population arm held veto power over the per-realization one); `validate_fitters` gained a
+per-realization reliability arm alongside the retained bias arm. **Two defects in my own new arm,
+found by reading its first outputs:** it scored *censoring* as precision (railed fitters return a
+bit-identical value every seed, sd = 0.0000), and the rail guard then over-fired on GOE's ρ, whose
+true value legitimately sits at the bound. Both fixed; the arm now independently rediscovers the
+rail finding it was not built to look for.
+
+Caps re-derived at the correct estimand, both directions, disjoint reference band, 60 draws:
+**FP is the binding arm everywhere.** Exactly one admissible cell exists in the whole grid
+(n=2000, L=5); nothing at n=1200; and **at n=343 the gate is blind** — GOE admitted 32–90% of the
+time at every L. Against `matched_L` of 40/24/6.9 the default scale policy sits 8× or more above
+the only admissible scale. The earlier FN power caveat is discharged.
+
+**Full-sequence holonomy — HIGHER_ORDER_MEASURED (`fullseq/`).** 1-D dialect, length 5, kill
+criterion sealed with named targets before S0. The criterion did not fire (Δ_max = 2.32σ vs 0.201σ).
+S0 confirmed the premise: two of five transitions move density/CV by 40–55%, so mid-stack dials are
+genuinely different. The first-order predictor is exact for single transpositions by construction
+and **breaks at multi-inversion orderings** (H up to +0.785 at z = 10.0), with H growing faster than
+linearly in inversion count — a BCH-shaped result. **H > 0 everywhere: composition is sub-additive,
+so the pairwise table overestimates and remains a valid upper bound.** The pairwise arc's scope
+caveat is sharpened rather than lifted. Survey side cell banked as promised: **NO_RISK at 17×**,
+with the transfer and the size of that ratio both labelled.
