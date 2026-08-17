@@ -132,13 +132,23 @@ does, and **the sealed constant was wrong in form, not merely in value.**
 | 1200 | 8.0 | |
 | 2000 | 40.0 | (the sealed value — correct only at this n) |
 
-**Consequence for the banked approximability rows — FLAGGED, NOT RE-VERDICTED.** brocot/golden was
-judged at **L = 6.86 with n = 343**, where GOE is separated by only **+2.14σ** against the required
-3.0. So at their own configuration those rows sit **outside the discrimination window**, and their
-`RIGID_GUE` label does not distinguish GUE from GOE. Re-judging requires the substrate data, which
-this arc does not hold — so this is a flag for the owning program, not a move. (My earlier report
-that "the policy does not move this row" was derived from the validity cap plus the n=2000
-discrimination constant; under the corrected n-dependent form it does.)
+**Consequence for the banked approximability rows — FLAGGED, NOT RE-VERDICTED, AND THE FLAG NAMES
+EXACTLY WHAT IT IMPEACHES.** brocot/golden was judged at **L = 6.86 with n = 343**, where GOE is
+separated by only **+2.14σ** against the required 3.0 — outside its own discrimination window. What
+that does and does not touch, itemised, because a flag left as a general caution will be read six
+months out as impeaching the row wholesale:
+
+| component | status |
+|---|---|
+| the **measurement** (Σ² = 0.635 at L = 6.86, z = +0.49 vs its GUE band) | **STANDS** — untouched |
+| the **`RIGID_GUE` label** read as *"not floppier than GUE"* | **STANDS** — that is what the branch certifies and the row satisfies it |
+| the **GUE-vs-GOE discrimination** at that configuration | **UNSUPPORTED** — this and only this |
+
+So the row is not impeached; one specific inference from it is. Re-judging inside the window
+requires the substrate point set, which this arc does not hold — hence a flag for the owning
+program, not a move. (My earlier report that "the policy does not move this row" was derived from
+the validity cap plus the n=2000 discrimination constant; under the corrected n-dependent form it
+does.)
 
 **Registration (Will's addition, adopted).** The discrimination cap is **GOE-derived**: GOE is the
 nearest neighbour in the zoo we have, not necessarily the nearest in the space. Recording the basis

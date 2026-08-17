@@ -970,13 +970,32 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   falls (the same gate separates GOE by +4.0σ at n=2000/L=40 and only +2.2σ at n=343/L=6.86, the
   configuration banked rows used). Distinct defect class from the one-sided-vocabulary problem, and
   both of that arc's caps came from asking a question nobody had asked of the deployed
-  configuration. Record which neighbour a discrimination cap was derived against
-  (`policy_n.json` registers GOE), so a closer neighbour discovered later tightens a stated basis
-  rather than looking like an arbitrary move.
-- **A validity cap is not automatically a power sacrifice.** (L-policy arc; Will's update.) The
-  intuition "narrower window ⇒ less data ⇒ weaker result" is not reliable: significance under a cap
-  can *rise*, because the reference band's spread can shrink with L faster than the effect does. ζ
-  measured at its Berry validity scale reads **z = −9.10** against **−2.33** at the deployed L=50 —
-  the wide-L policy was diluting a 9σ effect. So a proposed cap needs its power measured, not
-  assumed in either direction; that measurement is what an L3-style power cell is for, and it can
-  return "the cap is free" as easily as "the cap is expensive."
+  configuration.
+  **"Nearest confusable class" is a LIVE obligation, not a fixed reference.** Naming a specific
+  neighbour once (this arc named GOE) makes the rule satisfiable by re-measuring against that same
+  neighbour forever, while the zoo grows underneath it. So: the nearest confusable class is
+  **re-identified from the CURRENT zoo at each measurement** — whichever member sits closest to the
+  target's band at the deployed configuration — and **adding a zoo member that sits closer than the
+  incumbent automatically triggers a re-measure of every cap derived against the incumbent.** Record
+  which neighbour a cap was derived against (`lcap/policy_n.json` registers GOE) so the trigger has
+  something to compare to; the record is the mechanism, not the exemption.
+- **A principled RESTRICTION is not automatically a power sacrifice.** (L-policy arc; Will's
+  update, stated at the general level with L as the instance that produced it.) The intuition
+  "narrower ⇒ less data ⇒ weaker result" is not reliable, because a restriction acts on the null
+  band and on the effect *separately*: whenever it shrinks the reference band faster than it
+  shrinks the effect, significance **rises**. Nothing in that mechanism is specific to window
+  length — it applies to **any restriction carrying a validity argument: a scale cap, a quality
+  cut, a subsample, a mask, a redshift or height slice.** So a proposed restriction has its power
+  measured on both terms, never assumed in either direction, and the measurement can return "the
+  restriction is free" as readily as "the restriction is expensive." Instance that produced the
+  rule: ζ judged at its Berry validity scale reads **z = −9.10** against **−2.33** at the deployed
+  L=50 — the wide-L policy was diluting a 9σ effect, so the cap *bought* significance. An
+  L3-style power cell is the general instrument.
+- **A policy adopted into shared code does not silently re-scale existing call sites.** (L-policy
+  adoption, 2026-08-14→16.) Installing a scale/threshold policy so that it takes effect wherever a
+  parameter was previously passed explicitly would change banked outputs without a re-run anyone
+  authorized — the same shape as enforcing a blanket ordering mid-flight (the OP1 retraction). The
+  correct division: **the policy ships as a helper the call sites opt into, the call sites keep
+  passing their parameter explicitly, and a live checker pins the policy present and correct** so
+  the adoption cannot silently lapse either. Migration of a call site is then its own dated,
+  authorized step with its own re-run.

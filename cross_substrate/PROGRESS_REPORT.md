@@ -586,3 +586,13 @@ judging past validity" hypothesis is ruled out — the effect grows when the art
 is 3.6× the resolution floor. Verdict **L_POLICY_FIXED** — the cap fixes the physics *and* improves
 discrimination at no meaningful power cost. Still the owning program's calls: adopt the policy;
 adopt the HYPER_RIGID split it depends on; what the ζ row should say.
+
+**FLAG (2026-08-16, `lcap/` LC-ADD-1) — banked approximability rows judged outside their own
+discrimination window.** brocot/golden (n=343) was judged at L=6.86, where GOE is separated from
+the GUE band by only **+2.14σ** against the required 3.0. **What this flag does and does not
+impeach, itemised:** the *measurement* (Σ²=0.635, z=+0.49) **stands**; the `RIGID_GUE` label read
+as *"not floppier than GUE"* **stands** — that is what the branch certifies and the row satisfies
+it; **only the GUE-vs-GOE discrimination at that configuration is unsupported.** The row is not
+impeached, one specific inference from it is. Re-judging inside the window needs the substrate
+point set, which the L-policy arc does not hold — so this is a flag for the owning program, not a
+move.
