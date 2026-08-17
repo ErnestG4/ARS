@@ -226,3 +226,27 @@ instances (`taskB_falpha`, `rf_decoy_battery`) are repaired.
 per-realization gates** · **3 detector false positives**. All 4 confirmed instances sit in
 validation/calibration harnesses; none in a deployed judge. Scope reminder: the detector's measured
 sensitivity was **1 of 2** on known positives, so the confirmed count remains a lower bound.
+
+## Repair recipe for the two open instances (proposed, NOT installed)
+
+Both remaining instances sit in **sealed arc runners** (`taskB_falpha.py` cites
+`seals/TASKB_SEAL.json`; `rf_decoy_battery.py` is part of the Thread-E battery), so they are left
+**proposed**: modifying a sealed runner would change banked outputs without a re-run anyone
+authorised, which is the adoption doctrine already recorded in §9. What follows is the recipe, in
+the form the house precedent uses.
+
+**`arsrh/taskB_falpha.py:~191`** — currently `ks = np.mean(ks, 0)` over 8 draws, then a median
+relative error against the analytic reference. That certifies the *ensemble mean* recovers the
+reference. Add, alongside: compute the relative error **per draw**, and gate on the **fraction of
+draws exceeding the tolerance** — the same quantity `run_phase17_*` calls coverage. Keep the
+existing mean-based number as the bias arm; require both. The 8 draws are already generated, so the
+per-draw errors cost nothing extra.
+
+**`cross_substrate/rf_decoy_battery.py:281,300`** — currently `m7 = np.nanmedian(a7)` across trials,
+gated `OK if m7 >= floor`. The decoy question ("did efficiency loss erase a genuine period?") is
+asked of **one** train. Add: the **fraction of trials with `a7 < floor`**, gated at a rate fixed in
+advance; keep the median as the central-tendency arm.
+
+In both cases the change is additive, the raw per-realization values already exist in the loop, and
+the pattern to copy is in-repo (`run_phase17_pure_recovery.py`: coverage **and** median relative
+error, both reported, both required).
