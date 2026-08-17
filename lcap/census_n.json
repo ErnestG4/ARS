@@ -1,0 +1,243 @@
+{
+ "Z_SEP": 3.0,
+ "seeds": 12,
+ "draws": 5,
+ "default_policy": "matched_L(n) = clip(0.02n, 5, 50)",
+ "by_n": {
+  "343": {
+   "matched_L": 6.86,
+   "discrimination_L": 5.0,
+   "default_inside_window": false,
+   "scan": {
+    "3.0": {
+     "z_goe": 3.1508811832437567,
+     "separated": true
+    },
+    "5.0": {
+     "z_goe": 4.988529158110874,
+     "separated": true
+    },
+    "8.0": {
+     "z_goe": 2.926107182647163,
+     "separated": false
+    },
+    "12.0": {
+     "z_goe": 0.05459317302559135,
+     "separated": false
+    },
+    "20.0": {
+     "z_goe": 3.5311354091831033,
+     "separated": true
+    },
+    "30.0": {
+     "z_goe": 0.5909888576294878,
+     "separated": false
+    },
+    "40.0": {
+     "z_goe": 3.7518355636019254,
+     "separated": true
+    },
+    "50.0": {
+     "z_goe": 0.7652441425574624,
+     "separated": false
+    }
+   }
+  },
+  "700": {
+   "matched_L": 14.0,
+   "discrimination_L": 8.0,
+   "default_inside_window": false,
+   "scan": {
+    "3.0": {
+     "z_goe": 6.266373331267345,
+     "separated": true
+    },
+    "5.0": {
+     "z_goe": 5.901805806299409,
+     "separated": true
+    },
+    "8.0": {
+     "z_goe": 4.681404686724618,
+     "separated": true
+    },
+    "12.0": {
+     "z_goe": 2.8419149376275183,
+     "separated": false
+    },
+    "20.0": {
+     "z_goe": 4.399995542948771,
+     "separated": true
+    },
+    "30.0": {
+     "z_goe": 1.0896349910577454,
+     "separated": false
+    },
+    "40.0": {
+     "z_goe": 0.8934388589088028,
+     "separated": false
+    },
+    "50.0": {
+     "z_goe": 4.502524434501493,
+     "separated": true
+    }
+   }
+  },
+  "1200": {
+   "matched_L": 24.0,
+   "discrimination_L": 20.0,
+   "default_inside_window": false,
+   "scan": {
+    "3.0": {
+     "z_goe": 5.437734314520328,
+     "separated": true
+    },
+    "5.0": {
+     "z_goe": 7.101977450997162,
+     "separated": true
+    },
+    "8.0": {
+     "z_goe": 4.580138354427984,
+     "separated": true
+    },
+    "12.0": {
+     "z_goe": 3.4559931896907576,
+     "separated": true
+    },
+    "20.0": {
+     "z_goe": 3.3531757645961178,
+     "separated": true
+    },
+    "30.0": {
+     "z_goe": 2.316365402688073,
+     "separated": false
+    },
+    "40.0": {
+     "z_goe": 1.6622240621547506,
+     "separated": false
+    },
+    "50.0": {
+     "z_goe": 2.995889744896689,
+     "separated": false
+    }
+   }
+  },
+  "1600": {
+   "matched_L": 32.0,
+   "discrimination_L": 20.0,
+   "default_inside_window": false,
+   "scan": {
+    "3.0": {
+     "z_goe": 6.497906549434452,
+     "separated": true
+    },
+    "5.0": {
+     "z_goe": 4.76721131365493,
+     "separated": true
+    },
+    "8.0": {
+     "z_goe": 3.721803743738923,
+     "separated": true
+    },
+    "12.0": {
+     "z_goe": 4.4071936882925575,
+     "separated": true
+    },
+    "20.0": {
+     "z_goe": 4.432147628976634,
+     "separated": true
+    },
+    "30.0": {
+     "z_goe": 2.3719727454220423,
+     "separated": false
+    },
+    "40.0": {
+     "z_goe": 4.297041193324553,
+     "separated": true
+    },
+    "50.0": {
+     "z_goe": 0.8419151999892466,
+     "separated": false
+    }
+   }
+  },
+  "2000": {
+   "matched_L": 40.0,
+   "discrimination_L": 30.0,
+   "default_inside_window": false,
+   "scan": {
+    "3.0": {
+     "z_goe": 5.493943106170685,
+     "separated": true
+    },
+    "5.0": {
+     "z_goe": 4.879603958556261,
+     "separated": true
+    },
+    "8.0": {
+     "z_goe": 5.033433975649439,
+     "separated": true
+    },
+    "12.0": {
+     "z_goe": 4.90138471021144,
+     "separated": true
+    },
+    "20.0": {
+     "z_goe": 4.233293270683029,
+     "separated": true
+    },
+    "30.0": {
+     "z_goe": 3.90436774567615,
+     "separated": true
+    },
+    "40.0": {
+     "z_goe": 2.9175181430789214,
+     "separated": false
+    },
+    "50.0": {
+     "z_goe": 4.129781046177838,
+     "separated": true
+    }
+   }
+  }
+ },
+ "default_policy_outside_at": [
+  343,
+  700,
+  1200,
+  1600,
+  2000
+ ],
+ "finding": "matched_L grows linearly in n while the discrimination cap does not, so the DEFAULT scale policy is out-of-window over the range [343, 700, 1200, 1600, 2000] of the n values tested. This is a property of the scale policy itself, not of any individual call site.",
+ "call_sites": {
+  "longrange_audit.py:36": {
+   "L": "fixed 50.0",
+   "n": "per row (zeta n=2000; others vary)",
+   "exposure": "zeta n=2000: 50 > discrimination_L(2000)=40 -> OUTSIDE. Other arithmetic rows depend on their own n and are unaudited here (their point sets are not held by this arc)."
+  },
+  "longrange_allen_audit.py:73": {
+   "L": "fixed 50.0",
+   "n": "per cell (spike counts, >= MIN_N=200)",
+   "exposure": "fixed L=50 exceeds discrimination_L at every n tested below 2000 -> OUTSIDE for any cell with n < ~2000. Direction note: these rows are the NEGATIVE result 0/100 RIGID_GUE, and a discrimination failure cannot manufacture a rigid reading \u2014 it can only fail to separate GUE from GOE, both of which are non-results here."
+  },
+  "longrange_allen_psth_audit.py:78": {
+   "L": "fixed 50.0",
+   "n": "per cell",
+   "exposure": "as above"
+  },
+  "trial_psth_unfold.py:124": {
+   "L": "caller-supplied",
+   "n": "per cell",
+   "exposure": "depends on the caller; the policy helper l_judge() is now available to bound it"
+  },
+  "threadE_universality_diff.py:36": {
+   "L": "matched_L default",
+   "n": "per input",
+   "exposure": "follows the default-policy row above"
+  },
+  "threadE_figure.py:12": {
+   "L": "matched_L default",
+   "n": "per input",
+   "exposure": "descriptive figure; follows the default-policy row"
+  }
+ }
+}

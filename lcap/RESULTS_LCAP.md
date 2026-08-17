@@ -165,3 +165,45 @@ silently re-scaling them would change banked outputs without a re-run anyone ask
 live on the deployed path: a clock now returns **HYPER_RIGID** (was RIGID_GUE); Poisson still
 returns POISSON_INDEP; `l_judge(50, 2000, "zeta_first_2000") = 5.99 [validity]`;
 `l_judge(6.86, 343, "gue_n343") = 5.0 [discrimination]`.
+
+## LC-ADD-2 — the census n-column: this is a property of the DEFAULT SCALE POLICY
+
+Will's ruling: the n-dependence reaches all six single-L call sites, not just the one row that
+happened to get checked. The sharp form of the question is whether the exposure belongs to
+individual call sites or to `matched_L(n) = clip(0.02n, 5, 50)` itself, which grows **linearly** in
+n while the discrimination cap does not.
+
+| n | matched_L | discrimination_L | default policy |
+|---|---|---|---|
+| 343 | 6.86 | 5.0 | **OUTSIDE** |
+| 700 | 14.00 | 8.0 | **OUTSIDE** |
+| 1200 | 24.00 | 20.0 | **OUTSIDE** |
+| 1600 | 32.00 | 20.0 | **OUTSIDE** |
+| 2000 | 40.00 | 30.0 | **OUTSIDE** |
+
+**The default scale policy is outside the discrimination window at every n tested.** So the
+exposure is not five unaudited call sites — it is the repo's default L policy, and the call sites
+inherit it. Any site using `matched_L` is judging at a scale where the nearest confusable known
+class is not reliably excluded.
+
+### Precision caveat — flagged against my own numbers (the ADD-5 lesson, applied)
+
+The per-n cap values above carry **substantial sampling noise** and must not be quoted as precise.
+Two independent runs at different seed counts disagree materially:
+
+| n | run A (24 band seeds, 6 GOE draws) | run B (12 seeds, 5 draws) |
+|---|---|---|
+| 343 | 5.0 | 5.0 |
+| 1200 | **8.0** | **20.0** |
+| 2000 | **40.0** | **30.0** |
+
+The `largest L separated at that L and all smaller` rule is sensitive to a single noisy band sd, so
+individual entries can move by a factor of ~2. **What is robust across both runs is the ordering** —
+`matched_L ≥ discrimination_L` at every n tested — **except at n = 2000, where the two runs
+straddle the boundary** (run A: 40 ≤ 40, inside; run B: 40 > 30, outside). Treat the per-n numbers
+as order-of-magnitude until re-derived at higher seed counts; treat the *conclusion about the
+default policy* as supported, with n = 2000 marked undetermined.
+
+**Registered-open:** re-derive the discrimination cap per n at seed counts sufficient to quote it
+(the estimator's own variance needs measuring first — the same discipline that caught ADD-5's
+1.1σ). Until then the cap ships in `DISCRIMINATION_L_BY_N` as an explicitly provisional table.

@@ -596,3 +596,14 @@ it; **only the GUE-vs-GOE discrimination at that configuration is unsupported.**
 impeached, one specific inference from it is. Re-judging inside the window needs the substrate
 point set, which the L-policy arc does not hold — so this is a flag for the owning program, not a
 move.
+
+**⇧ ESCALATION (2026-08-16, `lcap/` LC-ADD-2): the exposure is the DEFAULT SCALE POLICY, not five
+call sites.** `matched_L(n) = clip(0.02n, 5, 50)` grows linearly in n while the discrimination cap
+does not, and the census n-column finds `matched_L` **outside the discrimination window at every n
+tested** (343, 700, 1200, 1600, 2000). Any site using `matched_L` judges at a scale where the
+nearest confusable known class is not reliably excluded. **Precision caveat, flagged against our
+own numbers:** two independent derivations at different seed counts disagree by up to ~2× per entry
+(n=1200: 8 vs 20; n=2000: 40 vs 30) — the per-n values are provisional and n=2000 straddles the
+boundary; the *ordering* is what is robust. Registered-open: re-derive the cap at seed counts
+sufficient to quote it, measuring the estimator's own variance first (the ADD-5 discipline). The
+installed `DISCRIMINATION_L_BY_N` table is marked provisional in the module.

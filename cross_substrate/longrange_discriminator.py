@@ -181,7 +181,13 @@ def _ensemble(sampler, n: int, L: float, n_seeds: int, base_seed: int,
 # silently re-scaling them would change banked outputs without a re-run anyone
 # asked for.  Call sites adopt this by calling l_judge() (see lcap/ for the
 # generators and the per-row consequences).
-DISCRIMINATION_L_BY_N = {343: 5.0, 1200: 8.0, 2000: 40.0}   # lcap/policy_n.json
+# PROVISIONAL (lcap/policy_n.json + census_n.json): two independent derivations
+# at different seed counts disagree by up to ~2x per entry (n=1200: 8 vs 20;
+# n=2000: 40 vs 30), because the "largest separated L" rule is sensitive to a
+# single noisy band sd.  ROBUST across both: matched_L(n)=clip(0.02n,5,50)
+# exceeds this cap at every n tested (n=2000 straddles).  Re-derive at higher
+# seed counts before quoting an entry.  Registered-open in lcap/RESULTS_LCAP.md.
+DISCRIMINATION_L_BY_N = {343: 5.0, 1200: 8.0, 2000: 40.0}   # provisional
 VALIDITY_L = {"zeta_first_2000": 5.99, "gue_n343": 8.0,
               "gue_n1200": 30.0, "gue_n2000": 50.0}          # lcap/validity_scales.json
 
