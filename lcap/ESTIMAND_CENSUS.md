@@ -406,3 +406,28 @@ treatments, split at the point where the interval crosses 0.5.**
 **And the interval choice is not cosmetic:** Wilson gives 0.510 for 4/4 where Clopper–Pearson gives
 0.398 — the two disagree precisely at the borderline row, one calling it a result and the other
 calling it noise. Naming the interval is therefore part of the rule, not a footnote to it.
+
+### Is the 6% attribution worth paying for? — answered on consequence, and the answer is "not as posed"
+
+The queue entry said "attribution needs ~10× the seeds." Before that sits as a default yes, the
+question is what decision changes on each branch:
+
+- **If estimator-side:** a_q has a detection floor at ~400 events *on trains that provably contain a
+  period*. That propagates to **every a_q reading at that train length, including real substrates** —
+  it would mean banked a_q verdicts on short trains carry an unquantified miss rate. **Consequential.**
+- **If generator-side:** the decoy generator emits off-spec trains a few percent of the time. That
+  perturbs the *calibrated floor* (computed from those trains) but does **not** propagate to
+  real-substrate readings. **Narrow.**
+
+So the branches genuinely differ — but **the 10× seed run is the wrong instrument for the
+consequential one.** Paying 10× to split 3% from 3% answers "which mechanism", when what matters is
+only "does a_q miss periods it should catch at this train length". That second question is
+answerable **far more cheaply and more directly**: inject a period at high SNR (minimal jitter),
+sweep train length, and measure the detection rate on trains known by construction to contain it.
+
+**Recommendation: do not pay the 10×.** Run the targeted estimator-floor test instead. If a_q detects
+at ~100% on high-SNR trains at n≈400, the consequential branch is retired and the residual 6% can sit
+**unattributed indefinitely with its honest label** — which is already banked and costs nothing to
+leave. If a_q *does* miss at high SNR, that is a documented instrument property worth having on its
+own terms, independent of the decoy question that surfaced it. Queue entry amended accordingly:
+the 10× attribution is **withdrawn**; the targeted test replaces it.
