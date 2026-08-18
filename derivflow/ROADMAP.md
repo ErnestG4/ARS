@@ -336,3 +336,35 @@ On picking this doc up after a gap or an intensive detour:
    the numbers in this doc's own context paragraph.
 4. Continue. If the plan no longer fits what was found, amend the doc FIRST, in its
    own commit, then work.
+
+## QUEUE REORDER 2026-08-18 — the correspondence is not a collaboration
+
+**STATE:** Campbell (ISTA) replied to the measured-values sheet with corrections and
+pointers. He is not a collaborator and this is not a joint project; he was told
+something possibly interesting and pointed at places to look. Consequences for the
+queue, in Will's framing:
+
+- **NO REPLY IS PENDING, and no draft is held.** If a reply happens at all it is weeks
+  out, three lines, and only if the reading produces something worth saying. The arXiv
+  posting can itself be the next contact. He learns the exchange mattered by seeing his
+  references cited correctly and his corrections absorbed in a finished artifact —
+  which is the only currency this community runs on. Asking him to summarise his own
+  field's unwritten folklore is the thing not to do.
+- **PRIORITY 1 — read arXiv:2408.09337 (Arizmendi–Fujie–Perales–Ueda, S-transform in
+  finite free probability) properly.** This is the load-bearing one and we have only
+  skimmed it. His "understood or follow from work that's out there" almost certainly
+  routes through this machinery. The real question, and it is checkable rather than
+  rhetorical: **is the local relaxation form derivable from finite free cumulants /
+  S-transform asymptotics by someone willing to grind?** Specifically, does a
+  stretched exponential in k with seed-dependent (τ, β) fall out, or does the machinery
+  control only the global measure? Days of reading, not an email.
+- **PRIORITY 2 — absorb doi:10.4171/dm/1071 (Campbell, Appell polynomials).** This is
+  now the correct citation for the endpoint regime and should be cited as such rather
+  than via the Hoskins–Steinerberger shorthand.
+- **PRIORITY 3 — finish the note under the corrected framing** (§9 amendment
+  2026-08-17): real-roots o(n), and folklore re-grade — the local regime is EXPECTED by
+  the people who would know, so the note is a quantified measurement of something
+  believed but unquantified, not a report from open territory.
+- **CLOSED, needs nothing from him:** EDGE-0 (`edge0_gate.py`, verdict
+  EDGE_NOT_READABLE) is complete as an internal result — gate-before-science, the
+  definitional diagnosis, and the limitation line all stand on our own run.
