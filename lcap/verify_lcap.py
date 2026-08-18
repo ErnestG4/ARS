@@ -102,6 +102,21 @@ _clock = longrange_verdict(np.arange(2000, dtype=float), L=40.0, n_seeds=8,
 chk(_clock["verdict"] == "HYPER_RIGID",
     "the deployed split regressed — a clock earns the GUE pole again")
 
+# The boundary-rate convention is pinned HERE because the 19-row sweep will
+# restate rows against it: Clopper-Pearson and Wilson disagree at 4/4
+# (0.398 vs 0.510 — uninformative vs result), so a re-run under the other
+# convention would flip that row SILENTLY and the board would stay green.
+sys.path.insert(0, "/home/combust/fmexplorer/criticality_tool")
+try:
+    import boundary_rate as _br
+    _br.self_test()
+    chk(_br.CONVENTION == "clopper-pearson", "boundary-rate convention changed")
+    chk(_br.COIN_FLIP_SPLIT == 0.5, "coin-flip split changed (a CHOSEN convention)")
+    chk(_br.classify(4, 4)["treatment"] == "UNINFORMATIVE",
+        "the borderline 4/4 row reclassified — the convention decides it")
+except AssertionError as _e:
+    fails.append(f"boundary_rate self-test failed: {_e}")
+
 if fails:
     print("VERIFY_LCAP: FAIL")
     for f in fails:

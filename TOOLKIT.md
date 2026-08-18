@@ -1110,6 +1110,15 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   about the printed 1.00 signalled the problem. **A boundary rate has no visible variance at all** —
   0/n and n/n both look certain — so its uncertainty must be supplied explicitly: report the
   denominator always, and an interval (Wilson or Jeffreys) whenever the rate touches 0 or 1.
+  **Pin the convention where a checker asserts it.** Naming it in prose is not enough: a later
+  re-run under the other convention would reclassify a borderline row **silently**, and a green board
+  would stay green through the flip. One implementation, one named convention, asserted by a checker
+  (`boundary_rate.py` + its self-test, pinned in `lcap/verify_lcap.py`; red-path confirmed).
+  **And record the 0.5 split as a CHOSEN convention, not a derived threshold** — a bright line has to
+  sit somewhere and 0.5 is the natural place for an "at least" claim about a fraction, but nothing
+  derives it, and it must not be back-justified later as though something did. It is load-bearing at
+  the margin: the n=6 row (bound 0.541) sits close enough that a slightly different convention moves
+  it.
   **Name the interval — the choice decides borderline rows.** Clopper–Pearson (exact,
   conservative) and Wilson disagree exactly where it matters: for 4/4 they give **0.398 vs 0.510**,
   i.e. one calls the row uninformative and the other calls it a result. For a boundary rate the
@@ -1128,6 +1137,15 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   `longrange_allen_psth_results.json.high_osi_super_frac = 1.0` at **n=4**). Filing this as a
   standing sweep target rather than a fixed defect: each needs its n recovered and an interval
   attached before it can be read.
+- **A positive control that passes tells you nothing about the operating point.** (a_q floor test
+  design, 2026-08-18.) A test built as "inject the signal at high SNR and confirm detection" will
+  return ~100% and is consistent with two different worlds: the instrument has no floor, or the floor
+  only bites at the SNR the deployment actually produces. That is a **positive control** — it shows
+  the instrument can detect *something*, which was never in doubt — and it is not a test of the
+  question. The informative form **sweeps the operating parameter down to and past the deployed
+  value** and delivers a curve **with the deployed point marked on it**; plateau retires the concern,
+  shoulder explains the defect. Same shape as certifying an estimator at a scale it is not deployed
+  at (§ the L-policy arc): the measurement must be taken where the instrument actually works.
 - **Bank rates as k/n, never as a bare float — a banking rule, not just a sweep.** (2026-08-17,
   companion to the boundary-rate rule above.) A rate written to an artifact without its denominator
   is **unauditable afterwards**: you cannot tell a `1.00` from n=200 (fine) from a `1.00` from n=4

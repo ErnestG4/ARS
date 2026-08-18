@@ -425,9 +425,25 @@ only "does a_q miss periods it should catch at this train length". That second q
 answerable **far more cheaply and more directly**: inject a period at high SNR (minimal jitter),
 sweep train length, and measure the detection rate on trains known by construction to contain it.
 
-**Recommendation: do not pay the 10×.** Run the targeted estimator-floor test instead. If a_q detects
-at ~100% on high-SNR trains at n≈400, the consequential branch is retired and the residual 6% can sit
-**unattributed indefinitely with its honest label** — which is already banked and costs nothing to
-leave. If a_q *does* miss at high SNR, that is a documented instrument property worth having on its
-own terms, independent of the decoy question that surfaced it. Queue entry amended accordingly:
-the 10× attribution is **withdrawn**; the targeted test replaces it.
+**Recommendation: do not pay the 10×.** Run the targeted estimator-floor test instead — **but not
+the version first written here.**
+
+**Design correction (before the test runs).** "Inject a period at high SNR and measure detection"
+will almost certainly return ~100%, and that result is consistent with **two different worlds**: the
+estimator has no floor at n≈400, *or* the floor only bites at the SNR the decoy generator actually
+produces. **High SNR is a positive control, not a test** — it establishes the instrument can detect
+*something*, which was never in doubt. Retiring the consequential branch requires the operating
+point the deployment actually uses.
+
+**The informative version sweeps SNR down to and past the decoy generator's own level**, and the
+deliverable is a **detection curve with the deployed operating point marked on it**:
+
+- deployed point on the **plateau** → the estimator is not the explanation; the consequential branch
+  retires and the 6% sits unattributed with its honest label (already banked, costs nothing to leave);
+- deployed point on the **shoulder** → the 6% is explained, the branch does **not** retire, and the
+  a_q estimator has a documented detection floor at its own operating point — which is a finding
+  about the instrument, not about the decoy.
+
+Note the shape: a positive control that passes tells you nothing about the operating point, which is
+the same error as certifying an estimator at a scale it is not deployed at. Queue entry amended: the
+10× attribution is **withdrawn**; the SNR-swept test with the deployed point marked replaces it.
