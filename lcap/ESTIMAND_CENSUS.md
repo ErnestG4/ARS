@@ -340,3 +340,22 @@ inject. Whether that is expected depends on the generator's design (jitter ampli
 the a_q estimator's own floor at that n), none of which this arc examined. **Registered as an open
 question against the generator**, separate from the thinning defect, and separate from the gate's
 certification threshold.
+
+### Boundary-rate sweep — denominator recovery first, and it collapses fast
+
+Triage before re-measuring anything, because a boundary rate whose n is unknown cannot even be
+sorted: **105 boundary rates → 64 carry a recoverable sibling denominator, 41 do not.** Of the 64,
+**19 have n < 20** — that is the actual work list, and it is small. Concrete banked rows currently
+reading as certainty:
+
+| row | value | n | 95% lower/upper bound |
+|---|---|---|---|
+| `phase37/…frac_reg` | 1.0 | 17 | ≥ 0.82 |
+| `phase28…sign_consistency_frac` | 1.0 | 12 | ≥ 0.76 |
+| `phase34c…fraction_modal` | 1.0 | 10 | ≥ 0.72 |
+| `phase37/…frac_clust` | 0.0 | 6 | ≤ 0.39 |
+| `longrange_allen_psth…high_osi_super_frac` | 1.0 | 4 | ≥ 0.40 |
+
+**22 of the 41 denominator-less rows are in this session's own `rigidgate/` artifacts** — the sweep's
+first obligation is therefore our own house, and those n are recoverable from the committed
+generators, which is precisely what the committed-generator rule was for.

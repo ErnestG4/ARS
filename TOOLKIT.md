@@ -1116,3 +1116,13 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   `longrange_allen_psth_results.json.high_osi_super_frac = 1.0` at **n=4**). Filing this as a
   standing sweep target rather than a fixed defect: each needs its n recovered and an interval
   attached before it can be read.
+- **Bank rates as k/n, never as a bare float — a banking rule, not just a sweep.** (2026-08-17,
+  companion to the boundary-rate rule above.) A rate written to an artifact without its denominator
+  is **unauditable afterwards**: you cannot tell a `1.00` from n=200 (fine) from a `1.00` from n=4
+  (meaningless), and the information needed to distinguish them exists only at write time. The fix
+  costs nothing then and is expensive-to-impossible later. Measured state when the rule was written:
+  of **105 banked boundary rates, 41 carry no recoverable denominator** and 19 of the remaining 64
+  turn out to have n < 20 — i.e. the triage is cheap and collapses fast **once the denominators
+  exist**, which is exactly the argument for recording them. This belongs in an arc's
+  **definition of done** beside the committed generator and the pin-your-headline obligation:
+  otherwise a sweep closes 105 rows and the next arc opens the 106th.
