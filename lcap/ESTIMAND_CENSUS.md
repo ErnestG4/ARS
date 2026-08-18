@@ -359,3 +359,28 @@ reading as certainty:
 **22 of the 41 denominator-less rows are in this session's own `rigidgate/` artifacts** — the sweep's
 first obligation is therefore our own house, and those n are recoverable from the committed
 generators, which is precisely what the committed-generator rule was for.
+
+### The intrinsic ~6% is UNATTRIBUTED — the earlier filing was premature
+
+The estimator-floor explanation was tested **before** anything else, because if the a_q estimator
+itself fails at that train length then the failure is not in the generator and the open question is
+misfiled. Discriminator: for each unthinned train, is the a_q **peak** still at q=7? Peak at 7 but
+below floor ⇒ the period is present and the estimator did not resolve it. Peak elsewhere ⇒ the train
+genuinely lacks the injected period.
+
+| unthinned, 32 seeds, median 400 events | count |
+|---|---|
+| survive (a_q@7 ≥ floor) | 30/32 |
+| fail, **peak still at q=7** → estimator power | **1**/32 |
+| fail, **peak elsewhere** → generator | **1**/32 |
+
+**One each — the 6% cannot be attributed at this sample size.** Two failure events split evenly
+between two mechanisms resolves nothing, and each count of 1 carries an interval spanning roughly
+[0, 16%].
+
+So the honest state is **unattributed**, not "a property of the generator". The earlier phrasing
+named a mechanism from **two events** — the same small-n error this section exists to document,
+committed one level up, and caught only because the estimator explanation was checked rather than
+assumed away. Attribution needs on the order of **10× the seeds** (~20 failure events) to separate a
+~3% estimator floor from a ~3% generator floor. **Registered with that cost attached, and against
+neither component until it is paid.**
