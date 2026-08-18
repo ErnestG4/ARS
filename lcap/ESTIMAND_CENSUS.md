@@ -384,3 +384,25 @@ committed one level up, and caught only because the estimator explanation was ch
 assumed away. Attribution needs on the order of **10× the seeds** (~20 failure events) to separate a
 ~3% estimator floor from a ~3% generator floor. **Registered with that cost attached, and against
 neither component until it is paid.**
+
+### The 19-row cut, computed — and the interval choice decides the borderline
+
+Applying Clopper–Pearson (exact, conservative — the right choice because a boundary rate is an
+*at least* claim) to the 19 small-n rows:
+
+| n (k=n) | CP lower bound | treatment |
+|---|---|---|
+| 4 | **0.398** | **UNINFORMATIVE** — spans a coin flip; must be marked as carrying no result |
+| 6 | 0.541 | real but overstated → restate at the bound |
+| 10 | 0.692 | real but overstated → restate at the bound |
+| 12 | 0.735 | real but overstated → restate at the bound |
+| 17 | 0.805 | real but overstated → restate at the bound |
+
+**A single sweep verdict across all 19 would be wrong in both directions**, exactly as anticipated:
+the n=4 rows carry no result and marking them "overstated" would credit them with one, while the
+n=17 rows *are* findings and marking them uninformative would discard real evidence. **Two
+treatments, split at the point where the interval crosses 0.5.**
+
+**And the interval choice is not cosmetic:** Wilson gives 0.510 for 4/4 where Clopper–Pearson gives
+0.398 — the two disagree precisely at the borderline row, one calling it a result and the other
+calling it noise. Naming the interval is therefore part of the rule, not a footnote to it.

@@ -1110,7 +1110,19 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   about the printed 1.00 signalled the problem. **A boundary rate has no visible variance at all** —
   0/n and n/n both look certain — so its uncertainty must be supplied explicitly: report the
   denominator always, and an interval (Wilson or Jeffreys) whenever the rate touches 0 or 1.
-  For orientation: **1.00 from n=8 has a 95% lower bound near 0.63; from n=4, near 0.40.**
+  **Name the interval — the choice decides borderline rows.** Clopper–Pearson (exact,
+  conservative) and Wilson disagree exactly where it matters: for 4/4 they give **0.398 vs 0.510**,
+  i.e. one calls the row uninformative and the other calls it a result. For a boundary rate the
+  claim being made is an *at least* claim, so the **conservative interval is the honest one**;
+  quoting a bound without naming its construction is half a number. Orientation, Clopper–Pearson
+  lower bound for k=n: **n=4 → 0.40, n=6 → 0.54, n=8 → 0.63, n=10 → 0.69, n=17 → 0.81, n=32 → 0.89,
+  n=60 → 0.94.**
+  **THE RULE'S OWN AUTHOR BROKE IT ONE ITEM LATER, which is the instance worth keeping.** In the
+  same session this entry was written, a ~6% failure rate was attributed to "a property of the
+  generator" on the strength of **two events** (1 estimator-side, 1 generator-side out of 32 seeds —
+  a split that resolves nothing, each count of 1 spanning roughly [0, 16%]). Naming a mechanism from
+  n=2 is the same error as reading 8/8 as certainty, committed by the person who had just written
+  the warning. No orientation table is as persuasive as that.
   Repo state when the rule was written: **105 banked rates sit at exactly 0.0 or 1.0**, the majority
   with no sample size recorded beside them (concrete instance:
   `longrange_allen_psth_results.json.high_osi_super_frac = 1.0` at **n=4**). Filing this as a
