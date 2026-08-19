@@ -1,0 +1,345 @@
+{
+ "a": 0.25,
+ "L": 10.0,
+ "n_full": 1200,
+ "n_W": 600,
+ "seeds": 24,
+ "dials": [
+  0.5,
+  1.0,
+  2.0,
+  3.0,
+  4.0,
+  6.0,
+  8.0,
+  10.0,
+  12.0,
+  16.0
+ ],
+ "degs": [
+  5,
+  9,
+  13
+ ],
+ "law": "peak at dial* ~ (deg-1)/2 (straddle of the resolution limit)",
+ "prediction": "peak near dial 2.0 / 4.0 / 6.0 at deg 5 / 9 / 13",
+ "grid": {
+  "5": {
+   "rows": {
+    "0.5": {
+     "dial": 0.5,
+     "periods_full": 1.0,
+     "periods_window": 0.5,
+     "measured": 0.0079724297422029,
+     "sem": 0.009461926908911022,
+     "predicted": 0.006921489733813133,
+     "residual": 0.0010509400083897665
+    },
+    "1.0": {
+     "dial": 1.0,
+     "periods_full": 2.0,
+     "periods_window": 1.0,
+     "measured": 1.174682580328376,
+     "sem": 0.00932824943185084,
+     "predicted": 1.182867538226219,
+     "residual": -0.008184957897843015
+    },
+    "2.0": {
+     "dial": 2.0,
+     "periods_full": 4.0,
+     "periods_window": 2.0,
+     "measured": 0.2114175889376538,
+     "sem": 0.02879414586738781,
+     "predicted": -0.01275083397174015,
+     "residual": 0.22416842290939396
+    },
+    "3.0": {
+     "dial": 3.0,
+     "periods_full": 6.0,
+     "periods_window": 3.0,
+     "measured": 0.410458564681995,
+     "sem": 0.011107887237733568,
+     "predicted": 0.4161075414056472,
+     "residual": -0.0056489767236522215
+    },
+    "4.0": {
+     "dial": 4.0,
+     "periods_full": 8.0,
+     "periods_window": 4.0,
+     "measured": 0.30407955773115797,
+     "sem": 0.012144126303548728,
+     "predicted": 0.3101599756147406,
+     "residual": -0.006080417883582656
+    },
+    "6.0": {
+     "dial": 6.0,
+     "periods_full": 12.0,
+     "periods_window": 6.0,
+     "measured": 0.09549708511930531,
+     "sem": 0.012155329257752668,
+     "predicted": 0.08038999877037467,
+     "residual": 0.01510708634893064
+    },
+    "8.0": {
+     "dial": 8.0,
+     "periods_full": 16.0,
+     "periods_window": 8.0,
+     "measured": 0.014812543722359498,
+     "sem": 0.011355018804715247,
+     "predicted": 0.028875678930132764,
+     "residual": -0.014063135207773267
+    },
+    "10.0": {
+     "dial": 10.0,
+     "periods_full": 20.0,
+     "periods_window": 10.0,
+     "measured": -0.004010068111228153,
+     "sem": 0.012096615754343525,
+     "predicted": 0.013028065318350102,
+     "residual": -0.017038133429578255
+    },
+    "12.0": {
+     "dial": 12.0,
+     "periods_full": 24.0,
+     "periods_window": 12.0,
+     "measured": -0.023037074159592757,
+     "sem": 0.019186341623013404,
+     "predicted": 0.0065550020925631,
+     "residual": -0.029592076252155857
+    },
+    "16.0": {
+     "dial": 16.0,
+     "periods_full": 32.0,
+     "periods_window": 16.0,
+     "measured": 0.02151874348326434,
+     "sem": 0.017017439589031735,
+     "predicted": 0.0011574069546451682,
+     "residual": 0.020361336528619173
+    }
+   },
+   "peak_dial": 2.0,
+   "predicted_peak": 2.0,
+   "peak_residual": 0.22416842290939396,
+   "peak_at_grid_edge": false,
+   "peak_margin_sem": 6.757496734001576,
+   "peak_resolved": true
+  },
+  "9": {
+   "rows": {
+    "0.5": {
+     "dial": 0.5,
+     "periods_full": 1.0,
+     "periods_window": 0.5,
+     "measured": 0.015516757700339431,
+     "sem": 0.010367439940521719,
+     "predicted": 2.8020064876706605e-08,
+     "residual": 0.015516729680274555
+    },
+    "1.0": {
+     "dial": 1.0,
+     "periods_full": 2.0,
+     "periods_window": 1.0,
+     "measured": 0.02342114133500584,
+     "sem": 0.009503203894845052,
+     "predicted": 0.0027280954452601164,
+     "residual": 0.02069304588974572
+    },
+    "2.0": {
+     "dial": 2.0,
+     "periods_full": 4.0,
+     "periods_window": 2.0,
+     "measured": 3.17432004111417,
+     "sem": 0.01945382223962227,
+     "predicted": 3.180135189565697,
+     "residual": -0.005815148451526753
+    },
+    "3.0": {
+     "dial": 3.0,
+     "periods_full": 6.0,
+     "periods_window": 3.0,
+     "measured": 2.5144996519555103,
+     "sem": 0.03153908804889539,
+     "predicted": 2.4527562682694404,
+     "residual": 0.06174338368606991
+    },
+    "4.0": {
+     "dial": 4.0,
+     "periods_full": 8.0,
+     "periods_window": 4.0,
+     "measured": 0.2569330392871005,
+     "sem": 0.014995619032407993,
+     "predicted": 0.18848349892271843,
+     "residual": 0.06844954036438206
+    },
+    "6.0": {
+     "dial": 6.0,
+     "periods_full": 12.0,
+     "periods_window": 6.0,
+     "measured": 0.35632121177087467,
+     "sem": 0.014156345379875819,
+     "predicted": 0.2996441654425879,
+     "residual": 0.056677046328286795
+    },
+    "8.0": {
+     "dial": 8.0,
+     "periods_full": 16.0,
+     "periods_window": 8.0,
+     "measured": 0.2639004410409359,
+     "sem": 0.014293162799941868,
+     "predicted": 0.2712136047512015,
+     "residual": -0.00731316371026558
+    },
+    "10.0": {
+     "dial": 10.0,
+     "periods_full": 20.0,
+     "periods_window": 10.0,
+     "measured": 0.12622372282118094,
+     "sem": 0.017805132441384257,
+     "predicted": 0.1607593745651048,
+     "residual": -0.03453565174392387
+    },
+    "12.0": {
+     "dial": 12.0,
+     "periods_full": 24.0,
+     "periods_window": 12.0,
+     "measured": 0.08226245268423622,
+     "sem": 0.014667689621718428,
+     "predicted": 0.09034080320485671,
+     "residual": -0.00807835052062049
+    },
+    "16.0": {
+     "dial": 16.0,
+     "periods_full": 32.0,
+     "periods_window": 16.0,
+     "measured": 0.04574859232797653,
+     "sem": 0.018358207273560172,
+     "predicted": 0.028589431606563576,
+     "residual": 0.017159160721412957
+    }
+   },
+   "peak_dial": 4.0,
+   "predicted_peak": 4.0,
+   "peak_residual": 0.06844954036438206,
+   "peak_at_grid_edge": false,
+   "peak_margin_sem": 0.447207725390932,
+   "peak_resolved": false
+  },
+  "13": {
+   "rows": {
+    "0.5": {
+     "dial": 0.5,
+     "periods_full": 1.0,
+     "periods_window": 0.5,
+     "measured": -0.0023757119113691355,
+     "sem": 0.009916029818421865,
+     "predicted": 4.422452527318213e-15,
+     "residual": -0.0023757119113735578
+    },
+    "1.0": {
+     "dial": 1.0,
+     "periods_full": 2.0,
+     "periods_window": 1.0,
+     "measured": 0.005486352850707694,
+     "sem": 0.010212937592075574,
+     "predicted": 1.30893219879499e-07,
+     "residual": 0.005486221957487815
+    },
+    "2.0": {
+     "dial": 2.0,
+     "periods_full": 4.0,
+     "periods_window": 2.0,
+     "measured": 0.16082291009134828,
+     "sem": 0.009768516397527018,
+     "predicted": 0.16353938406771654,
+     "residual": -0.002716473976368261
+    },
+    "3.0": {
+     "dial": 3.0,
+     "periods_full": 6.0,
+     "periods_window": 3.0,
+     "measured": 3.3659037550203195,
+     "sem": 0.02643496172541923,
+     "predicted": 3.3663928331390425,
+     "residual": -0.0004890781187230075
+    },
+    "4.0": {
+     "dial": 4.0,
+     "periods_full": 8.0,
+     "periods_window": 4.0,
+     "measured": 2.806238847029693,
+     "sem": 0.029309724791957835,
+     "predicted": 2.807969298350518,
+     "residual": -0.001730451320824944
+    },
+    "6.0": {
+     "dial": 6.0,
+     "periods_full": 12.0,
+     "periods_window": 6.0,
+     "measured": 0.9826627979747666,
+     "sem": 0.020083229376520028,
+     "predicted": 0.956737580418316,
+     "residual": 0.025925217556450608
+    },
+    "8.0": {
+     "dial": 8.0,
+     "periods_full": 16.0,
+     "periods_window": 8.0,
+     "measured": 0.31683791736495504,
+     "sem": 0.01687394463141625,
+     "predicted": 0.261787809875198,
+     "residual": 0.05505010748975703
+    },
+    "10.0": {
+     "dial": 10.0,
+     "periods_full": 20.0,
+     "periods_window": 10.0,
+     "measured": 0.2103888857961842,
+     "sem": 0.020728737699005052,
+     "predicted": 0.2191949860270168,
+     "residual": -0.008806100230832614
+    },
+    "12.0": {
+     "dial": 12.0,
+     "periods_full": 24.0,
+     "periods_window": 12.0,
+     "measured": 0.2089951854860059,
+     "sem": 0.017256636879945,
+     "predicted": 0.20131245566530653,
+     "residual": 0.007682729820699369
+    },
+    "16.0": {
+     "dial": 16.0,
+     "periods_full": 32.0,
+     "periods_window": 16.0,
+     "measured": 0.1448492542685638,
+     "sem": 0.018957445142516093,
+     "predicted": 0.11427684755842638,
+     "residual": 0.030572406710137418
+    }
+   },
+   "peak_dial": 8.0,
+   "predicted_peak": 6.0,
+   "peak_residual": 0.05505010748975703,
+   "peak_at_grid_edge": false,
+   "peak_margin_sem": 1.450621138939056,
+   "peak_resolved": false
+  }
+ },
+ "peaks": [
+  2.0,
+  4.0,
+  8.0
+ ],
+ "predicted_peaks": [
+  2.0,
+  4.0,
+  6.0
+ ],
+ "peak_moved_with_degree": true,
+ "n_hits": 1,
+ "degs_with_resolved_peak": [
+  5
+ ],
+ "any_peak_at_grid_edge": false,
+ "verdict": "UNDERPOWERED_FOR_LOCATION \u2014 only deg [5] has a peak resolved above its own row's runner-up by >= 2.0 sem, so the CLAIM 'the peak tracks (deg-1)/2' cannot be tested by argmax at this seed count. What IS established: the elevated region moves to higher dial with degree (argmaxes [2.0, 4.0, 8.0] against predicted [2.0, 4.0, 6.0]) and the deg-5 spike is isolated at 6.8 sem. Locating the higher-degree peaks needs more seeds, not a wider grid."
+}
