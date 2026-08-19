@@ -1188,3 +1188,16 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   Companion: when a construction ties two variables together by definition (here the unfolded
   coordinate has unit mean spacing, so n and window length cannot vary independently), **no amount
   of extra sampling separates them** — the fix is a different design, not a bigger run.
+- **A statistic can only separate classes that differ in the feature it measures — and the NEAREST
+  CONFUSABLE class sets the requirement, not the spoof you happened to test.** (Δ₃ growth arm,
+  2026-08-19.) The arm rejects every hyper-rigid spoof — clock, jittered clock, marginal-exact
+  permutations — at 0.00 false-positive, and admits **GOE at 1.00 at every n and both levers**. That
+  is not a defect in Δ₃: **logarithmic growth is precisely what GUE and GOE SHARE**, so a growth
+  statistic cannot distinguish them in principle, however much power it has. (Its power was never the
+  problem — short-lever SNR was 10.8 / 20.1 / 24.0, *higher* than the long lever it was promoted on.)
+  The general form: before adopting a statistic as a discriminator, name the **nearest confusable
+  class** and ask whether it differs from the target *in the feature the statistic measures*. A
+  battery of spoofs it rejects tells you nothing about that — spoofs are chosen for being far away,
+  and the class that matters is the one that is close. Pairs directly with the
+  calibration-vs-discrimination rule: **calibration is about the reference, discrimination is about
+  the neighbours, and the statistic's choice is about which axis the neighbours differ on.**

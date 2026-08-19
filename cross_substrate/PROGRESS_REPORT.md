@@ -643,3 +643,41 @@ is precisely the discrimination the L-policy arc exists to protect.
 outcome RG-ADD-9 named as emptying the queue slot. The remaining route is raising n into the range
 where an admissible L exists (the only admissible cell measured anywhere is n=2000 / L=5), which for
 the approximability rows means more partials, not a re-analysis.
+
+**BROCOT n-SCOPING — MEASURED (2026-08-19).** The cost question is now well-posed and answered by
+running the generator rather than estimating.
+
+*The bar:* n ≥ 2000. The only admissible cell measured anywhere is n=2000/L=5, and the grid tested
+{343, 1200, 2000} — **n=1200 has no admissible cell either**, so the requirement is not softly
+satisfied somewhere in between. Deployed rows are n=343, i.e. **5.8× short**.
+
+*Is it reachable?* **Yes, but only on one knob, and it is the wrong knob.** Sweeping the three
+candidates on `predict_partials([1, φ⁻¹], [d, d])`:
+
+| knob | deployed → best | reaches 2000? |
+|---|---|---|
+| amplitude threshold (−50 → −120 dB) | 343 → 439 | **no** — saturates at 1.28× |
+| audio band `f_max` (20 kHz → 1 MHz) | 343 → 343 | **no** — not binding at any depth |
+| bin resolution (0.5 → 0.05 Hz) | 343 → 343 | **no** — partials are not colliding |
+| **FM index** (8 → 24 / 32 / 48) | 343 → 1857 / 2994 / 4845 | **yes** |
+
+So the only route to the bar is raising the FM modulation index to ≳24. Two things make that a
+different proposition from "collect more data":
+
+1. **n is non-monotone in index** — depth 40 gives **1531**, *below* depth 32's 2994 — and the fold
+   is not an artifact of any of the three obvious caps: it survives −120 dB (1662), a 1 MHz band,
+   and 0.05 Hz bins. It is the Bessel sideband arithmetic itself. The count also saturates near
+   ~5167 by index 48. **There is no "turn it up until it's enough" dial.**
+2. **The index IS this program's independent variable.** FM depth is the coupling analogue here
+   (higher depth → sharper mode-locking); the banked rows measure Brody q against approximability
+   *at* depth [8,8]. Re-measuring at [32,32] does not extend those rows — **it replaces the
+   substrate**, on the very axis the finding is about.
+
+**Terminal state, sharpened: the banked n=343 approximability rows are not rescuable.** Not by a
+different statistic (Δ₃ settled that), not by re-analysis, and not by more partials at their own
+operating point — because the only knob that reaches the admissibility bar is the one that changes
+what is being measured. What remains available is a **new arc at high FM index**, which would be a
+fresh measurement of the same question on a differently-coupled instrument, and worth costing on its
+own merits rather than as a repair. The existing rows keep their standing label: the measurement and
+the "not floppier than GUE" reading stand; only GUE-vs-GOE discrimination at that configuration is
+unsupported.
