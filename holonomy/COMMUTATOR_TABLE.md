@@ -349,8 +349,37 @@ about *where* something is, carrying no error bar on the where.
 | deg 5 | isolated spike at dial 2.0, **6.8 sem** above anything else in its row | — |
 | deg 9, 13 | the elevated region **moves to higher dial** with degree | that the peak sits at (deg−1)/2 |
 
-**Verdict: `UNDERPOWERED_FOR_LOCATION`.** The mechanism (ADD-7's closure) does not depend on this —
+**Verdict at 24 seeds: `UNDERPOWERED_FOR_LOCATION`.** The mechanism (ADD-7's closure) does not depend on this —
 that rests on deg 5 being the only degree where the continuum law fails, which is measured at 403×
 dynamic range. What is open is only the finer claim about *where* the straddle sits as a function of
 degree. Follow-up in `p1_straddle_centroid.py`: 200 seeds on the narrowed grid with a **centroid**
 statistic, since a centroid uses the whole profile and an argmax uses one point.
+
+### Straddle localized at 200 seeds — mechanism SUPPORTED, my formula is not
+
+`p1_straddle_centroid.py`, 200 seeds on the narrowed grid, centroid instead of argmax. At this seed
+count the profiles are clean unimodal bumps rather than noise with a maximum:
+
+| deg | dial 2.0 | 3.0 | 4.0 | 6.0 | 8.0 | 10.0 | centroid (95% CI) | (deg−1)/2 |
+|---|---|---|---|---|---|---|---|---|
+| 9 | +0.0088 | +0.0762 | **+0.0829** | +0.0691 | +0.0088 | −0.0100 | **4.20** [4.00, 4.42] | 4.0 |
+| 13 | +0.0031 | +0.0047 | −0.0023 | +0.0552 | **+0.0635** | +0.0138 | **7.21** [6.81, 7.44] | 6.0 |
+
+sems 0.005–0.010, so deg 9's peak is **13 sem** from zero — a measurement, where the 24-seed version
+was an argmax over noise.
+
+**What this establishes: the elevation demonstrably MOVES with degree.** The two centroid CIs are
+**disjoint** ([4.00, 4.42] vs [6.81, 7.44]) and the deg-5 spike sits at 2.0. A peak that relocates
+monotonically as the polynomial's resolution changes is what a resolution-limit straddle requires and
+what a coincidence at dial 2.0 does not predict. **The straddle mechanism is SUPPORTED.**
+
+**What this does NOT establish: the specific form (deg−1)/2.** It contains the deg-9 centroid only
+marginally (the CI's lower bound *is* 4.00) and **misses deg 13 outright** — 7.21 against a predicted
+6.0, well outside [6.81, 7.44]. At the peak the full range spans ≈ 4, 8.4 and 14.4 periods for
+deg 5, 9, 13, i.e. roughly *deg* periods rather than *deg−1* — but that is three points and a
+post-hoc reading, so **no closed form is claimed here**. The mechanism does not depend on one: it
+needs the peak to move with resolution, which is measured, not to sit at any particular formula.
+
+**Status: `STRADDLE_MECHANISM_SUPPORTED, FORM_UNRESOLVED`.** Filed as such rather than promoted —
+the sealed instrument's dial-2.0 under-ordering (ADD-7's closure) rests on the deg-5 cell and the
+403× dynamic-range validation, neither of which touches the form question.
