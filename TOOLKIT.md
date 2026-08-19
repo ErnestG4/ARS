@@ -1174,3 +1174,17 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   well-designed sweep can still be read wrongly at the last step. When the quantity has a known
   ideal (a detection rate should reach 1, a null should centre on 0), **the comparison is to the
   ideal**; "no worse than elsewhere on the curve" is not a pass.
+- **Seal the UNITS a prediction will be judged in, not just its direction.** (P1 residual scaling,
+  2026-08-19.) A test pre-committed two opposite signatures — "the residual shrinks with n" versus
+  "it survives" — ran cleanly, and then could not be read: in **absolute Σ² units the residual grew
+  ×2.3**, while **relative to the prediction's own magnitude it fell 17.6 → 10.1** and **in units of
+  the measurement's sem it fell 7.8 → 4.8**. All three normalizations are defensible, they disagree,
+  and none was sealed. A direction pre-commitment is only falsifiable once the quantity is fixed, and
+  a **dimensionful** statistic (Σ² grows with L) makes "absolute" a choice rather than a default —
+  especially when the design scales the very parameter the statistic depends on. Rule: **seal the
+  normalization with the prediction.** The cheap check at seal time is to ask what else in the test
+  changes when the knob is turned; if the answer includes the statistic's own scale, "absolute" is
+  not neutral.
+  Companion: when a construction ties two variables together by definition (here the unfolded
+  coordinate has unit mean spacing, so n and window length cannot vary independently), **no amount
+  of extra sampling separates them** — the fix is a different design, not a bigger run.
