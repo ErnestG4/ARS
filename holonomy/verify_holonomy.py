@@ -105,6 +105,32 @@ chk(ab["verdict"]["dial_independent"] is False,
 chk(ab["T3"]["n_pass_trend_only"] == ab["T3"]["n_cells"],
     "P1 out-of-sample confirmation regressed")
 
+# ADD-7 CLOSURE (2026-08-19): the dial-2.0 residual is an under-ordered
+# estimator, not a missing continuum term. Three pins, each naming what flips
+# it red -- and note pin (a) asserts a NULL while (b) asserts a NON-null, so no
+# degenerate run satisfies both.
+fa = json.load(open(f"{HL}/p1_finite_n_arm.json"))
+chk(abs(fa["rows"]["0.00"]["z_from_zero"]) < 3.0,
+    "the a=0 finite-n arm is no longer inert — if a finite-n response has "
+    "appeared, the ADD-7 closure needs re-reading, since it rests on there "
+    "being none")
+chk(fa["rows"]["0.25"]["residual"] > 0.15,
+    "the dial-2.0 residual being explained has itself moved; the closure is "
+    "an explanation OF +0.2242 and does not survive that number changing")
+
+dg = json.load(open(f"{HL}/p1_degree_diagnostic.json"))
+chk(dg["verdict"].startswith("UNDER_ORDERED_ESTIMATOR"),
+    f"ADD-7 mechanism regressed: {dg['verdict'][:70]}")
+chk(dg["high_deg_all_consistent_with_zero"],
+    "high-degree residuals no longer all within 3 sem of zero — the claim "
+    "'deg 5 is the ONLY failing degree' is exactly this")
+chk(dg["measured_dynamic_range"] >= 100,
+    "the law's validation rests on tracking a measured value across a wide "
+    "range; if the sweep no longer spans it, the validation is weaker than stated")
+chk(dg["periods_full"] > dg["periods_window"],
+    "the mechanism requires the full fit range to span MORE density periods "
+    "than the window; if not, the explanation does not apply")
+
 if fails:
     print("VERIFY_HOLONOMY: FAIL")
     for f in fails:
