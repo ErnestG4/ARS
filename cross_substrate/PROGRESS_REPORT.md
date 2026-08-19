@@ -628,9 +628,16 @@ false-positive rate of 1.00 on BOTH levers at every n measured so far.** A Δ₃
 separate GUE from GOE because **both are RMT classes and both grow logarithmically** — growth is
 exactly the feature they share. The arm rejects hyper-rigid spoofs (clock 0.00, antithetic 0.00 on
 the long lever) and is blind to the nearest confusable class, which is the specific discrimination
-the whole L-policy arc was about. **CONFIRMED at n=2000** (14 draws, targeted at the FP question after the full run timed out on the
-n=2000 eigensolves): GUE increment 0.1043±0.0112 long / 0.0552±0.0023 short — SNR **24.0** on the
-short lever, the highest of any configuration — and **FP(GOE) = 14/14 = 1.00 on both levers.**
+the whole L-policy arc was about. **CONFIRMED at n=2000** (originally 14 draws, targeted at the FP question after the full run was
+believed to have timed out on the n=2000 eigensolves — **that attribution was WRONG, corrected
+2026-08-19**: the full three-n run completes in **~3 minutes, exit 0**, and the clean 40-draw
+numbers below are from it. One eigensolve at n=2000 is 0.27 s and a Δ₃ evaluation is 0.02 s, so the
+whole n=2000 row is ~1.4 min of compute. Whatever consumed the 50-minute cap that night, it was not
+this arithmetic — most likely BLAS thread oversubscription against the other sessions then running,
+i.e. the already-banked bandwidth-bound lesson firing again unrecognised. **No hardware was ever the
+constraint here**): GUE increment 0.1043±0.0112 long / 0.0552±0.0023 short — SNR **23.6** on the
+short lever (40 draws, full run), the highest of any configuration — and **FP(GOE) = 1.00 on both
+levers at every n.**
 
 **FINAL: the Δ₃ growth arm is NOT a candidate instrument.** Not for the reason RG-ADD-9 feared. The
 lever worry was wrong twice over — short-lever SNR is *higher* at every n (10.8 / 20.1 / 24.0 against
