@@ -484,3 +484,36 @@ against the generator" filing was misfiled, exactly as suspected. (2) a_q carrie
 detection floor that propagates to **every a_q reading at this train length**, real substrates
 included. (3) The floor constant deserves the two-sided treatment the RIGID_GUE branch got: calibrate
 it against both error rates, not the 95th percentile of one class family.
+
+## The one-sided-calibration class — swept, and the TELL DOES NOT GREP
+
+Priority item: run the tell repo-wide before anything else. Done, twice, and the useful result is
+about the method.
+
+**Detector 1 — "a constant set from a percentile of a single class family."** Found 73 percentile
+sites; 34 diagnostic-only, 15 surrogate nulls (one-sided *by construction* — a surrogate p-value is
+correctly one-sided; its unmeasured **power** is a separate, already-banked concern), 24 flagged as
+classification thresholds. Spot-checking the top non-ours: `longrange_allen_audit:98` is a **quartile
+split** for a concordance comparison, `slow_structure_ruler:30` is a **99th-percentile trim** for a
+robustness statistic, `mathpath_acrossband:61` is an **IQR** — none is the pattern. The classifier
+over-counts badly. **And critically it misses a known positive: the RIGID_GUE branch's one-sidedness
+is a hardcoded literal `2.5` in a one-sided comparison, with no percentile call anywhere.**
+
+**Detector 2 — "a one-sided comparison that assigns a class label."** Self-tested against the same
+known positive: **0 hits in `longrange_discriminator.py`.** It missed because the assignment is
+`v = "RIGID_GUE"` and the detector required the assigned variable's *name* to look like a verdict.
+
+**Both detectors fail their known-positive self-test.** Reporting "no third instance found" from
+either would be exactly the false all-clear the validate-your-detector rule exists to prevent — and
+it is the *second* time in two days that a census detector has come in at ~1-of-2 sensitivity.
+
+**Conclusion about the method, which is the actual deliverable:** **this class is not cheaply
+greppable.** Its deployed forms are a bare literal and a single-letter variable — syntactically
+invisible, semantically obvious. The reliable sweep is **not a grep but a short manual enumeration**:
+the repo's classification gates are few and individually named (the verdict lattices, the calibrator
+panel's tier assignments, the decoy floors, the fitter tolerances), and the question to ask of each
+is one sentence — *which side was calibrated, and was the other ever measured?* That is a bounded
+list, not a search, and it is the honest way to look for instance three.
+
+**Status: 2 confirmed instances, no third found, and the search that would find one is manual.**
+Registered as such rather than as a clean sweep.
