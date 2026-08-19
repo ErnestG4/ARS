@@ -368,3 +368,48 @@ queue, in Will's framing:
 - **CLOSED, needs nothing from him:** EDGE-0 (`edge0_gate.py`, verdict
   EDGE_NOT_READABLE) is complete as an internal result — gate-before-science, the
   definitional diagnosis, and the limitation line all stand on our own run.
+
+## RESUME HERE — state at 2026-08-19
+
+**One-line state:** the arc is in its READING phase, not its measuring phase. Priority 1
+is done and produced a memo that changes the note's framing; Priority 2 is next and has
+not been started. **No reply to Campbell is pending or drafted — that is deliberate, not
+an omission** (see the 2026-08-18 queue reorder above before considering one).
+
+### Done since the correspondence
+- `TRACK0_SCOPE.md` §9 — external-correction amendment (2026-08-17). Real-roots **o(n)**,
+  not o(n/log n); the OPEN verdict is narrowed to a folklore re-grade. Propagated to
+  PROSE, README, fig4.
+- `edge0_gate.py` → `edge0_gate.json`. **EDGE_NOT_READABLE**, 0/10 cells, acceptance rule
+  stated before the run. The bulk unfolding has no valid edge extension; this is
+  definitional, not a resolution bug. CLOSED — needs nothing from anyone.
+- `cumulant_gate.py` → `cumulant_gate.json`. **PASS** at machine precision, 42 cells. New
+  independent gate from AFPU Lemma 3.2 (normalized coefficients invariant under
+  differentiation). Tests the FLOW, where every other gate tests the readout.
+- `DERIVABILITY_MEMO.md` — **Priority 1 COMPLETE.** arXiv:2408.09337 read in full text.
+  Verdict: the measured form is NOT derivable from that machinery, structurally. The
+  controlled quantity is invariant to 2.6e-14 while the measured one moves 4,492x.
+
+### Next, in order
+1. **Priority 2 — doi:10.4171/dm/1071 (Campbell, Appell) at full depth.** Only read at
+   abstract level so far. It is the correct citation for the k = n−d endpoint and should
+   replace the Hoskins–Steinerberger shorthand. Route: fetch the PDF and extract with
+   `pypdf` (available in the venv; no pdftotext/gs on this box) exactly as was done for
+   2408.09337.
+2. **Priority 3 — finish the note under the corrected framing.** The memo §5 gives the
+   new lead: *the scale confirms the folklore; the form is what it does not reach.*
+   Retire "the local regime is open" and retire the flat scale as headline novelty.
+   `paper/PROSE.md` is the draft; the outreach PDFs live OUTSIDE this repo.
+3. The reply question answers itself from 1–2, or does not, and then there is no reply.
+
+### Housekeeping a fresh session should know
+- **55 commits unpushed.** `git push origin cubics-wilderness` needs Will's ssh key; it
+  cannot be done from an agent shell (no ssh-agent, passphrase-protected).
+- **`git gc` is warning on every commit** (`.git/gc.log`, too many unreachable loose
+  objects). `git prune` clears it — and would also drop the unreachable objects from an
+  earlier local history rewrite, which is desirable. Not run: it discards ALL unreachable
+  objects repo-wide and this repo has other sessions' history in it.
+- **Another session works in this repo concurrently.** Check `git status` before assuming
+  a dirty tree is yours.
+- Verification board: `python3 verify_all.py` (~20 s, 9/9). `AUDIT.md` and `REPRODUCE.md`
+  are the outside-reader entry points.
