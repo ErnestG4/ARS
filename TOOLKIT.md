@@ -1156,3 +1156,21 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   exist**, which is exactly the argument for recording them. This belongs in an arc's
   **definition of done** beside the committed generator and the pin-your-headline obligation:
   otherwise a sweep closes 105 rows and the next arc opens the 106th.
+- **A threshold calibrated from one side has an unmeasured error rate on the other.** (RIGID_GUE
+  boundary and the a_q floor, 2026-08-16/18 — the same defect found independently in two
+  instruments.) The `RIGID_GUE` branch was one-sided by design and could not distinguish GUE from a
+  clock. The `a_q` period floor is set at the **95th percentile of the no-period classes** — i.e.
+  calibrated at a nominal **5% false-positive rate with the false-negative side never measured** —
+  and it turns out to carry a **~10% miss rate at its own deployed operating point**, persistent
+  across every jitter and every train length tested. In both cases the missing side was invisible
+  because nothing in the calibration produced a number for it. Rule: **a threshold gets both error
+  rates measured at the configuration it is deployed at, or it is a one-sided instrument and must be
+  labelled as one.** The tell is a constant derived from a percentile of a single class family;
+  whenever you see one, the complementary rate is unmeasured until proven otherwise.
+- **Compare against the ideal, not against the best you observed.** (a_q sweep, 2026-08-18.) A sweep
+  designed to find a shoulder concluded "deployed point is on the plateau, therefore no floor" — but
+  **the plateau was at 0.90, not 1.00**. Testing whether the operating point is as good as the best
+  observed answers a different question from whether it is as good as it should be, and a
+  well-designed sweep can still be read wrongly at the last step. When the quantity has a known
+  ideal (a detection rate should reach 1, a null should centre on 0), **the comparison is to the
+  ideal**; "no worse than elsewhere on the curve" is not a pass.
