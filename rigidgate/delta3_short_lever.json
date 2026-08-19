@@ -1,0 +1,109 @@
+{
+ "long_lever": [
+  5.0,
+  40.0
+ ],
+ "short_lever": [
+  2.0,
+  6.0
+ ],
+ "n_draws": 40,
+ "thresholds": {
+  "FP_MAX": 0.05,
+  "FN_MAX": 0.05
+ },
+ "by_n": {
+  "343": {
+   "long": {
+    "gue_increment_mean": 0.10812367132474976,
+    "gue_increment_sd": 0.0256094095994026,
+    "snr": 4.222029051668259,
+    "arm_threshold": 0.03784328496366241,
+    "FN_gue": 0.0,
+    "FP": {
+     "clock": 0.0,
+     "antithetic_f0": 0.0,
+     "goe": 1.0
+    },
+    "admissible": false
+   },
+   "short": {
+    "gue_increment_mean": 0.054672898915574974,
+    "gue_increment_sd": 0.005060130978170389,
+    "snr": 10.804641056019317,
+    "arm_threshold": 0.01913551462045124,
+    "FN_gue": 0.0,
+    "FP": {
+     "clock": 0.0,
+     "antithetic_f0": 0.6,
+     "goe": 1.0
+    },
+    "admissible": false
+   },
+   "snr_ratio_short_over_long": 2.5591110160054575
+  },
+  "1200": {
+   "long": {
+    "gue_increment_mean": 0.10521424028092947,
+    "gue_increment_sd": 0.010916353962489607,
+    "snr": 9.638221758149557,
+    "arm_threshold": 0.03682498409832531,
+    "FN_gue": 0.0,
+    "FP": {
+     "clock": 0.0,
+     "antithetic_f0": 0.0,
+     "goe": 1.0
+    },
+    "admissible": false
+   },
+   "short": {
+    "gue_increment_mean": 0.0558045666765226,
+    "gue_increment_sd": 0.002775766023106993,
+    "snr": 20.104204105092034,
+    "arm_threshold": 0.019531598336782908,
+    "FN_gue": 0.0,
+    "FP": {
+     "clock": 0.0,
+     "antithetic_f0": 0.35,
+     "goe": 1.0
+    },
+    "admissible": false
+   },
+   "snr_ratio_short_over_long": 2.0858831234188
+  },
+  "2000": {
+   "long": {
+    "gue_increment_mean": 0.106315138609402,
+    "gue_increment_sd": 0.009356396402769595,
+    "snr": 11.362829665696033,
+    "arm_threshold": 0.0372102985132907,
+    "FN_gue": 0.0,
+    "FP": {
+     "clock": 0.0,
+     "antithetic_f0": 0.0,
+     "goe": 1.0
+    },
+    "admissible": false
+   },
+   "short": {
+    "gue_increment_mean": 0.05488971986197,
+    "gue_increment_sd": 0.002328009486188806,
+    "snr": 23.57796228392101,
+    "arm_threshold": 0.019211401951689498,
+    "FN_gue": 0.0,
+    "FP": {
+     "clock": 0.0,
+     "antithetic_f0": 0.3,
+     "goe": 1.0
+    },
+    "admissible": false
+   },
+   "snr_ratio_short_over_long": 2.075007984595775
+  }
+ },
+ "verdict": {
+  "survives_short_lever_at": [],
+  "arm_is_a_candidate": false,
+  "note": "If empty: the Delta_3 arm cannot be deployed inside the admissible L window, the RG-ADD-9 promotion does not survive, and the n=343 problem needs MORE DATA rather than a different statistic."
+ }
+}
