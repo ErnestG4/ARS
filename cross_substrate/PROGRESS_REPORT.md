@@ -688,3 +688,63 @@ fresh measurement of the same question on a differently-coupled instrument, and 
 own merits rather than as a repair. The existing rows keep their standing label: the measurement and
 the "not floppier than GUE" reading stand; only GUE-vs-GOE discrimination at that configuration is
 unsupported.
+
+## BROCOT RESOLVED (2026-08-19) — the claim was mis-indexed, not underpowered
+
+Ran the exact-question check before buying the high-index arc. It changed the answer, and the arc
+turned out not to be needed.
+
+**Stage 1 — the class-indexed claim fails.** The banked headline is ρ(rank, Brody q) = **−0.91**
+across 9 Lagrange classes. Reproduced exactly (−0.909), then given the two things it never had:
+
+- *An error bar.* A Lagrange class contains infinitely many α; the banked run used **one
+  representative per class**. Twelve representatives per class — generated *exactly*, since
+  prepending CF terms preserves the tail and hence the class by construction — give **within-class
+  RMS sd 0.192 against between-class sd 0.217, a ratio of 0.88.**
+- *An honest x-axis.* ρ is taken against `np.arange(9)`, annotated "already ~approximability-
+  ordered". But **six of the nine classes have identical μ = 2.0**; their listed order comes from max
+  CF quotient, a finer and different notion. The deployed axis splices two orderings and imposes a
+  strict order on six tied points.
+
+Swapping the single representative for the class mean: ρ **−0.909 → −0.717**, 95% CI
+**[−0.862, −0.033]**. Against μ: **[−0.900, 0.000]**. Against max CF quotient: **[−0.818, +0.044]**.
+**Both include zero.** The banked representatives are systematic outliers for their own classes at
+the approximable end — ln2 banked 0.515 vs class mean 0.905 ± 0.107 (**3.6 sd**), e−2 0.568 vs
+0.933 ± 0.153 — and that is what manufactured the slope. *The famous constants are not typical
+members of their classes*, the same trap as the banked "anchor a.e. Khinchin, not π" lesson.
+
+**Stage 2 — the phenomenon is real; the class was the wrong index.** The sideband lattice is
+k₁ + k₂α with |k| bounded by the FM index, so it can only resolve near-resonance at **small
+denominators** — set by the *first* CF terms, which is exactly what prepending changes. Stage 1's
+"noise" is the quantity the instrument responds to. Measuring approximability **per α** at the
+matched scale, D_Q(α) = min_{q≤Q} q‖qα‖ with **Q = 2·depth** (matched, not assumed), over **n = 255**
+α spanning all nine classes plus 40 generic:
+
+| x-axis | ρ(x, q) | 95% CI |
+|---|---|---|
+| **D_Q** (small = resonant) | **+0.699** | [+0.612, +0.768] |
+| max CF term, first 8 | −0.599 | [−0.683, −0.511] |
+
+Both in the predicted direction, both clear of zero, at **28× the n** of the class-level test. The
+prediction committed before the run (|ρ| > 0.5, CI clear of zero) is **met**.
+
+**Confound audit — SURVIVES_BOTH.** *(a) Partial count:* near-resonance collides sidebands, so n
+could drive q. Measured — n ∈ [276, 345], ρ(D, n) = −0.067 and ρ(n, q) = −0.055, both CIs spanning
+zero, and the **partial correlation controlling for n is +0.678 [+0.590, +0.750]**, essentially
+unmoved. *(b) Brody rail:* **39.6% of q sit at the bound 1.000**, so the rank correlation could be an
+artifact of which side of the rail things fall on. Through the unbounded estimator (range −0.585 to
++2.378) it is **+0.658 [+0.560, +0.742]** — the rail was compressing real variation and the result
+does not depend on it.
+
+**VERDICT: brocot's finding is corroborated in refined form and its scale problem dissolves.** "q
+tracks approximability" holds as a **per-α** statement at the instrument's own resolution; it does
+**not** hold indexed by Lagrange class, which is an asymptotic label the instrument cannot see. The
+earlier statement that the trigger is *boundedness of partial quotients* survives as the first-8-term
+version (ρ = −0.599), not the asymptotic one.
+
+**Consequence for the queue: the high-FM-index arc is NOT NEEDED for this question.** n ≥ 2000 came
+from the GUE-vs-GOE gate, which class-assigns a single row; the actual claim is correlational and is
+now measured at **n = 343 per α with n = 255 α** and tighter CIs than the original ever had. No
+bigger n, no GPU, no new substrate. The high-index arc remains available as a genuine
+*generalization* test (does the relation survive a 4× change in coupling?) — now a real question
+rather than a repair, and costed on its own merits.
