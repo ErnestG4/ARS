@@ -297,7 +297,11 @@ mechanism is right the residual must collapse while the law keeps tracking.
 | 13 | +0.1608 ± 0.0098 | +0.1635 | −0.0027 | 0.012 |
 | 15 | +0.0079 ± 0.0121 | +0.0116 | −0.0037 | 0.017 |
 
-**Degree 5 is the only degree at which the continuum law fails.** Across the others the measured Δ
+**Degree 5 is the only degree at which the continuum law fails *at this dial*** — scoping added
+2026-08-19 after the straddle sweep, which finds the law also failing at **deg 9 / dial 4.0
+(+0.0684 ± 0.0150, 4.6 sem)**. The unscoped sentence would have read as a universal claim about the
+law and it is not one: what is degree-5-specific is the *dial-2.0 cell*, and each degree has its own
+dial where it strains. Across the other degrees **at dial 2.0** the measured Δ
 spans a factor of **403** — from 0.0079 to 3.17 — and the prediction tracks all of it, with every
 residual **within 3 sem of zero**. |residual| falls **23×** by deg ≥ 9.
 
