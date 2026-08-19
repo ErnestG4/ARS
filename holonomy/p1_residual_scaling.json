@@ -1,0 +1,45 @@
+{
+ "dial": 2.0,
+ "L_frac": 0.016666666666666666,
+ "deg": 5,
+ "a": 0.25,
+ "seeds": 24,
+ "prediction": "residual SHRINKS with n (finite-n floor); flat would falsify and imply a missing continuum term",
+ "rows": {
+  "1200": {
+   "n_full": 1200,
+   "n_W": 600,
+   "ell": 300.0,
+   "L": 10.0,
+   "predicted": -0.01275083397174015,
+   "measured": 0.2114175889376538,
+   "sem": 0.02879414586738781,
+   "residual": 0.22416842290939396,
+   "residual_over_sem": 7.7852082830241764
+  },
+  "2400": {
+   "n_full": 2400,
+   "n_W": 1200,
+   "ell": 600.0,
+   "L": 20.0,
+   "predicted": -0.0510033358869606,
+   "measured": 0.46650232400478037,
+   "sem": 0.10678903768360865,
+   "residual": 0.5175056598917409,
+   "residual_over_sem": 4.846056028943637
+  }
+ },
+ "scaling": {
+  "residuals": [
+   0.22416842290939396,
+   0.5175056598917409
+  ],
+  "n": [
+   1200,
+   2400
+  ],
+  "power_law_exponent": 1.20699157150938,
+  "shrinks_with_n": false,
+  "verdict": "MISSING_TERM \u2014 the residual survives growing n, so the continuum derivation omits a real contribution"
+ }
+}

@@ -219,3 +219,39 @@ estimate, the effect of reordering a sequence — **in either direction.** An ea
 full-sequence write-up claimed the sum was a conservative upper bound; that claim was retracted the
 same night by its own pre-registered out-of-sample test, and the retraction is pinned in
 `fullseq/verify_fullseq.py`.
+
+## The dial-2.0 residual — scaling test run, and it is INCONCLUSIVE by my own design gap
+
+The residual is **isolated**: at L=10 the measured-minus-predicted values across the dial ladder are
+−0.003, +0.001, −0.008, **+0.224**, −0.006 at sems ~0.01–0.03. Four dials match the continuum law
+within noise and one does not, and that one is the only cell in the grid where the prediction passes
+through **zero** (−0.0128). Two readings were pre-committed with opposite signatures: a **missing
+continuum term** survives growing n; a **finite-n floor** shrinks.
+
+Measured at n_full = 1200 → 2400, geometry held dimensionless-fixed:
+
+| | n=1200 | n=2400 | direction |
+|---|---|---|---|
+| residual, absolute Σ² units | 0.2242 | 0.5175 | **grew** ×2.3 |
+| residual / \|predicted\| | 17.6 | 10.1 | **fell** |
+| residual / sem | 7.8 | 4.8 | **fell** |
+
+**The generator printed `MISSING_TERM`, and that verdict is not safe.** It reads the absolute-Σ²
+column — but **Σ² is dimensionful and grows with L, and the design scaled L with n** (L = n_W/60), so
+"absolute units" is not a neutral choice. Two other defensible normalizations point the opposite way.
+**I sealed the prediction ("shrinks") without sealing the units it would be judged in**, and the
+three natural choices disagree, so the test cannot settle the question it was built for. The raw JSON
+keeps the script's verdict so the disagreement stays visible.
+
+**Why a clean version is not simply a rerun.** In this construction the unfolded coordinate has unit
+mean spacing by definition, so *n and the geometry cannot be varied independently* — more points
+means a longer window in the same units. There is no pure density knob to turn. Settling the question
+therefore needs a **different design**, not a bigger run: isolate the fit's finite-n response on a
+substrate with **no trend at all** (where the continuum term is exactly zero by construction, so
+anything left is the finite-n contribution measured directly), then ask whether that contribution
+accounts for +0.224 at the sealed geometry.
+
+**Status: the residual remains OPEN**, now with one candidate explanation tested and rejected
+(absorption, ~80× too small), one measured but insufficient (continuum ill-conditioning, ~3.6× short),
+and one attempted and inconclusive (n-scaling, normalization-dependent). Registered with the
+corrected design attached.

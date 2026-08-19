@@ -50,7 +50,11 @@ DEG = 5
 DIAL = 2.0
 L_FRAC = 1.0 / 60          # the cell: L = n_W/60
 SEEDS = 24
-SCALES = [1, 2, 4]          # n_full = 1200 * scale
+# SCALES: the substrate is a GUE spectrum, so scale k costs an O((2048k)^3)
+# eigensolve — scale 4 (N=8192) is hours, not minutes. Two points give the
+# direction (shrink vs flat), which is what the test needs; the power-law
+# exponent from two points is reported but explicitly weak.
+SCALES = [1, 2]             # n_full = 1200 * scale
 
 
 def predict(n_full, n_W, ell, L):
