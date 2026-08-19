@@ -11,7 +11,9 @@ venv/
 signals_cache/
 
 # External datasets — download separately, see README.md
-data/*
+**/data/
+!/data/
+/data/*
 cohh_data/
 
 # Bulk PhysioNet / LMFDB / fungal downloads (multi-GB, fetched separately)
