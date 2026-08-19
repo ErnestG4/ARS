@@ -131,6 +131,19 @@ chk(dg["periods_full"] > dg["periods_window"],
     "the mechanism requires the full fit range to span MORE density periods "
     "than the window; if not, the explanation does not apply")
 
+# Straddle localization (2026-08-19): mechanism supported, FORM unresolved.
+# Both halves are pinned, so a later run cannot quietly promote the form.
+st = json.load(open(f"{HL}/p1_straddle_centroid.json"))
+chk(st["cis_disjoint"],
+    "straddle centroid CIs overlap — 'the elevation MOVES with degree' is the "
+    "whole mechanism claim and this is the measurement of it")
+chk(st["n_targets_in_ci"] < 2,
+    "both centroids now contain their (deg-1)/2 targets — that would PROMOTE the "
+    "form from unresolved to supported, and COMMUTATOR_TABLE.md still says it is "
+    "unresolved; update the prose deliberately rather than letting a rerun do it")
+chk(max(abs(x) for x in st["grid"]["9"]["residuals"]) > 8 * max(st["grid"]["9"]["sems"]),
+    "deg-9 straddle bump no longer stands clear of its own noise")
+
 if fails:
     print("VERIFY_HOLONOMY: FAIL")
     for f in fails:
