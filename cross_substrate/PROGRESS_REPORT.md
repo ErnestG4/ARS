@@ -36,6 +36,10 @@ means) → repulsive / GUE-like / higher fractal dimension; most-approximable (L
   universal across all quasi-periodic operators.
 - **FM synthesis** (brocot.fm, partial spectra): Brody q falls with approximability, ρ(rank,q)=−0.91 — a
   mechanistically-different substrate confirming the axis is a substrate-CLASS property.
+  **⚠ SUPERSEDED 2026-08-19 — see "BROCOT RESOLVED" at the end of this file. The −0.91 is an artifact
+  of using ONE representative per Lagrange class; on class means the CI includes zero, so the
+  "substrate-CLASS property" reading specifically DOES NOT HOLD. The phenomenon survives as a
+  PER-α relation at the instrument's resolution (ρ = +0.699, n = 255).**
 Two structural claims recur across all: (1) a "Diophantine GUE corner" the least-approximable classes share
 (universal-ish); (2) graded separation of the approximable classes. **GROSS-axis agreement, FINE-structure
 SPLIT:** the operator family agrees on fine structure (continuous-in-approximability / quotient-magnitude;
@@ -57,7 +61,10 @@ quotient alphabet fixed at {1,2} and vary ONLY periodicity (periodic_12=√3−1
 / Fibonacci-word bounded-NONquadratic). The bounded-nonquadratic α give brocot q=1.000, WITH the bounded-
 quadratic anchor (golden/silver/periodic_12 mean 0.969), far from the unbounded anchor (e/liouville 0.284);
 flipping periodicity left q unchanged. **⇒ the brocot trigger is BOUNDEDNESS of partial quotients (the
-badly-approximable / Diophantine class), NOT the algebraic quadratic class** — quotient MAGNITUDE sets
+badly-approximable / Diophantine class), NOT the algebraic quadratic class**
+**[REFINED 2026-08-19, see "BROCOT RESOLVED" below: this survives in its FINITE-WINDOW form — max CF
+term over the first 8, ρ = −0.599 — but NOT as an asymptotic class statement. The instrument's
+sidebands are bounded by the FM index, so it cannot see the CF tail that defines the class.]** — quotient MAGNITUDE sets
 convergent-denominator growth → three-distance gap balance; CF periodicity is irrelevant. Operator control:
 all μ=2 bounded targets D_box=0.785±0.016 (flat across periodicity) — operators read μ, blind to the split.
 **Split is SUBSTRATE-TYPE-GROUNDED, not an axis artifact (observable-binding clarification):** the
