@@ -1,0 +1,107 @@
+{
+ "floor": 6.098101123900647,
+ "period": 7.0,
+ "n_points": 400,
+ "deployed_jitter": 0.05,
+ "n_seeds": 40,
+ "jitter_sweep": {
+  "0.005": {
+   "jitter": 0.005,
+   "ratio": 0.0007142857142857143,
+   "k": 36,
+   "n": 40,
+   "rate": 0.9,
+   "deployed": false
+  },
+  "0.01": {
+   "jitter": 0.01,
+   "ratio": 0.0014285714285714286,
+   "k": 36,
+   "n": 40,
+   "rate": 0.9,
+   "deployed": false
+  },
+  "0.02": {
+   "jitter": 0.02,
+   "ratio": 0.002857142857142857,
+   "k": 36,
+   "n": 40,
+   "rate": 0.9,
+   "deployed": false
+  },
+  "0.05": {
+   "jitter": 0.05,
+   "ratio": 0.0071428571428571435,
+   "k": 36,
+   "n": 40,
+   "rate": 0.9,
+   "deployed": true
+  },
+  "0.1": {
+   "jitter": 0.1,
+   "ratio": 0.014285714285714287,
+   "k": 36,
+   "n": 40,
+   "rate": 0.9,
+   "deployed": false
+  },
+  "0.2": {
+   "jitter": 0.2,
+   "ratio": 0.028571428571428574,
+   "k": 36,
+   "n": 40,
+   "rate": 0.9,
+   "deployed": false
+  },
+  "0.4": {
+   "jitter": 0.4,
+   "ratio": 0.05714285714285715,
+   "k": 35,
+   "n": 40,
+   "rate": 0.875,
+   "deployed": false
+  },
+  "0.8": {
+   "jitter": 0.8,
+   "ratio": 0.1142857142857143,
+   "k": 30,
+   "n": 40,
+   "rate": 0.75,
+   "deployed": false
+  },
+  "1.6": {
+   "jitter": 1.6,
+   "ratio": 0.2285714285714286,
+   "k": 10,
+   "n": 40,
+   "rate": 0.25,
+   "deployed": false
+  }
+ },
+ "train_length_at_deployed": {
+  "200": {
+   "k": 20,
+   "n": 24,
+   "rate": 0.8333333333333334
+  },
+  "400": {
+   "k": 23,
+   "n": 24,
+   "rate": 0.9583333333333334
+  },
+  "800": {
+   "k": 23,
+   "n": 24,
+   "rate": 0.9583333333333334
+  },
+  "1600": {
+   "k": 23,
+   "n": 24,
+   "rate": 0.9583333333333334
+  }
+ },
+ "deployed_rate": 0.9,
+ "plateau_rate": 0.9,
+ "deployed_on_shoulder": false,
+ "verdict": "PLATEAU \u2014 the estimator is not the explanation; the consequential branch retires and the ~6% stays unattributed with its honest label"
+}

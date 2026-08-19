@@ -447,3 +447,40 @@ deliverable is a **detection curve with the deployed operating point marked on i
 Note the shape: a positive control that passes tells you nothing about the operating point, which is
 the same error as certifying an estimator at a scale it is not deployed at. Queue entry amended: the
 10× attribution is **withdrawn**; the SNR-swept test with the deployed point marked replaces it.
+
+### a_q floor sweep — the consequential branch does NOT retire, and my verdict logic was wrong
+
+The SNR-swept test ran with the deployed point marked, as designed. Detection at n=400:
+
+| jitter | 0.005 | 0.010 | 0.020 | **0.050 (deployed)** | 0.100 | 0.200 | 0.400 | 0.800 | 1.600 |
+|---|---|---|---|---|---|---|---|---|---|
+| rate | 0.90 | 0.90 | 0.90 | **0.90** | 0.90 | 0.90 | 0.88 | 0.75 | 0.25 |
+
+Train length at the deployed jitter: 0.83 (n=200), then **0.96 at n=400, 800 and 1600** — flat.
+
+**There is a real SNR shoulder** (it begins around jitter 0.4–0.8) **and the deployed point sits well
+inside the plateau** — the design worked. **But the plateau is at 0.90, not 1.00**, and it does not
+reach 1.00 at any jitter however sharp, nor at any train length up to 1600.
+
+**My scripted verdict compared the deployed point to the plateau and concluded "not on the shoulder ⇒
+the estimator is not the explanation." That comparison is the wrong one.** The informative question
+is whether the plateau reaches 1.0, and it does not. So the correct reading is the opposite of what
+the script printed: **a_q has a detection floor at its own deployed operating point** — a persistent
+~10% miss rate (CP interval on 36/40: detection **[0.763, 0.972]**, i.e. a miss rate as high as 24%)
+that is neither SNR-limited nor sample-size-limited. *The raw JSON keeps the script's verdict string
+so the disagreement stays visible.*
+
+**And the mechanism is one this session has already named.** The calibrated floor is **6.098 = the
+95th percentile of the no-period classes** — i.e. the floor was calibrated on its **false-positive**
+side, at a nominal 5%, and its **false-negative side was never measured.** The ~10% miss rate is
+exactly the unmeasured complementary error. **This is the same defect as the RIGID_GUE boundary:
+a threshold calibrated from one side only.** The identical 36/40 across five different jitters also
+indicates the same seeds fail throughout, consistent with a fixed subset sitting just under a
+one-sidedly-placed floor rather than with anything stochastic.
+
+**Consequences.** (1) The ~6% intrinsic decoy failure is now **explained**: it is the estimator's own
+miss rate at the deployed operating point, not a generator property — so the earlier "registered
+against the generator" filing was misfiled, exactly as suspected. (2) a_q carries a documented
+detection floor that propagates to **every a_q reading at this train length**, real substrates
+included. (3) The floor constant deserves the two-sided treatment the RIGID_GUE branch got: calibrate
+it against both error rates, not the 95th percentile of one class family.
