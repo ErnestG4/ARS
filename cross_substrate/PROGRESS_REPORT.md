@@ -617,3 +617,18 @@ statistic or more data. n=343 is the configuration the banked approximability ro
 full (n, L) grid **exactly one admissible cell exists** (n=2000, L=5) against a deployed default of
 40 — wrong by 8× at its best point, with no correct answer at two of three n. Full derivation and
 the both-directions error table: `lcap/RESULTS_LCAP.md`.
+
+**Δ₃ VARIANT — INTERIM (2026-08-18, `rigidgate/delta3_short_lever.py`, run in progress).** The
+opening obligation from RG-ADD-9 is measured at n=343 and n=1200, and it settles the question in an
+unexpected direction. **The lever was not the problem:** SNR on the short lever L∈[2,6] is
+**higher**, not lower, than on the long lever (n=343: 10.8 vs 4.2; n=1200: pending/9.6 long) —
+the increment's spread shrinks faster than the increment itself, so the promotion's worry about a
+3× lever was misplaced. **But the arm fails for a different and fatal reason: GOE has a
+false-positive rate of 1.00 on BOTH levers at every n measured so far.** A Δ₃ *growth* test cannot
+separate GUE from GOE because **both are RMT classes and both grow logarithmically** — growth is
+exactly the feature they share. The arm rejects hyper-rigid spoofs (clock 0.00, antithetic 0.00 on
+the long lever) and is blind to the nearest confusable class, which is the specific discrimination
+the whole L-policy arc was about. **Provisional consequence: the Δ₃ variant is not a candidate
+instrument for the n=343 problem, and brocot needs MORE DATA rather than a different statistic** —
+the outcome RG-ADD-9 named as the one that empties the queue slot. Held as interim until the run
+completes at n=2000.
