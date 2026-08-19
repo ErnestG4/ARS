@@ -306,13 +306,47 @@ failing to track four density periods — a property of the *estimator*, not an 
 continuum derivation. Far from the derivation being incomplete, this is now its **strongest
 validation**: it predicts a quantity varying over 400× across five degrees it was never tuned on.
 
-**Operational consequence, and it is a rule rather than a constant.** The sealed instrument uses
-deg = 5, and at dial 2.0 the full fit range spans four periods — **the deployed instrument is
-under-ordered in that cell**. The required degree scales with **how many density periods the fit
-range spans**, so any transition that widens the fit range at fixed ℓ (or shortens ℓ at fixed range)
-needs its degree revisited. Flagged for the owning program rather than changed here: this run varied
+**Operational consequence.** The sealed instrument uses deg = 5, and at dial 2.0 the full fit range
+spans four periods — **the deployed instrument is under-ordered in that cell**.
+
+**⚠ CORRECTION (2026-08-19, same day): the rule I attached here was wrong.** I wrote that "the
+required degree scales with how many density periods the fit range spans", which sounds right and is
+refuted by the banked ladder on sight — **dial 4.0 spans eight periods with residual −0.006** while
+dial 2.0 spans four and gives +0.2242. More periods is not worse. The corrected reading is a
+**straddle**: the window always spans *half* as many periods as the full range, so the residual is
+the asymmetry between the two fits and peaks when they fall on **opposite sides** of the polynomial's
+resolution limit — B can track its periods, A cannot. When both can (small dial) or neither can
+(large dial) the two orders fail identically and the difference cancels. Measured in
+`p1_straddle_law.py`; the peak-location claim is **not yet established** (see below). Flagged for the owning program rather than changed here: this run varied
 the sealed instrument *diagnostically* and issues no re-verdict on any sealed row.
 
 *Caveat carried:* `np.polyfit` emits conditioning warnings at the top of the degree range, so the
 deg 13/15 rows are ill-conditioned. The load-bearing rows are deg 9 and 11, and the conclusion does
 not rest on the top two.
+
+### Straddle follow-up — what is and is not established
+
+`p1_straddle_law.py` sweeps dial × degree at a = 0.25, L = 10, 24 seeds. Two self-catches shaped the
+result and are the more useful part of it.
+
+**Grid truncation.** deg 13 first peaked at the largest dial sampled with the residual still rising —
+"the peak is at 8" was indistinguishable from "the grid stopped at 8". Extended to dial 16; the peak
+is genuinely at 8.0, against a predicted 6.0.
+
+**Argmax without a location error bar.** The first verdict read "matches (deg−1)/2 at 2/3 degrees" by
+taking the argmax of each row. But the peak exceeds its own row's runner-up by **6.8 sem at deg 5,
+0.4 sem at deg 9, and 1.5 sem at deg 13** — only the first is a located peak; the others are argmaxes
+over noise. A resolution gate now requires ≥ 2 sem over the runner-up before a peak *position* counts
+as measured. **This is the same defect class as a rate banked without its denominator**: a claim
+about *where* something is, carrying no error bar on the where.
+
+| | established | not established |
+|---|---|---|
+| deg 5 | isolated spike at dial 2.0, **6.8 sem** above anything else in its row | — |
+| deg 9, 13 | the elevated region **moves to higher dial** with degree | that the peak sits at (deg−1)/2 |
+
+**Verdict: `UNDERPOWERED_FOR_LOCATION`.** The mechanism (ADD-7's closure) does not depend on this —
+that rests on deg 5 being the only degree where the continuum law fails, which is measured at 403×
+dynamic range. What is open is only the finer claim about *where* the straddle sits as a function of
+degree. Follow-up in `p1_straddle_centroid.py`: 200 seeds on the narrowed grid with a **centroid**
+statistic, since a centroid uses the whole profile and an argmax uses one point.
