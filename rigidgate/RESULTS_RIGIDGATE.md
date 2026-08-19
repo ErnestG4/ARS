@@ -26,8 +26,10 @@ GUE."*
 
 **Fix: split the cell, don't move the boundary.** `|z| ≤ 2.5 → RIGID_GUE`, `z < −2.5 →
 HYPER_RIGID`. Same formula, same multiplier, no new constant, no new statistic. It rejects every
-hyper-rigid spoof, costs **zero** specificity (real-GUE false-HYPER rate 0.00 at all three
-configs), and **moves neither banked row** (brocot z=+0.49; ζ z=−2.36).
+hyper-rigid spoof, **moves neither banked row** (brocot z=+0.49; ζ z=−2.36), and shows no measured
+specificity cost — but see RG-ADD-10: that last leg rests on `false_hyper_rate = 0/16`, which bounds
+only at **≤ 0.206**, so the honest claim is "below ~21%", not "zero". ~60 draws would support a
+"under 5%" claim.
 
 ## Findings
 
@@ -102,8 +104,10 @@ round-trip, not the construction.
 
 ## Recommendations to the owning program (proposed, not applied)
 
-1. **Adopt the HYPER_RIGID split** (`proposed_rule.rigid_cell`) — minimal, zero specificity cost,
-   moves no banked row today. Decide deliberately what ζ_first_2000 should read, given F5.
+1. **Adopt the HYPER_RIGID split** (`proposed_rule.rigid_cell`) — minimal, moves no banked row
+   today, and no measured specificity cost **bounded at ≤21% from 0/16, not zero** (RG-ADD-10);
+   ~60 GUE draws per configuration would support a "under 5%" claim, which is the cheap prerequisite
+   if the split is adopted anywhere a 5–20% false-HYPER rate would matter. Decide deliberately what ζ_first_2000 should read, given F5.
 2. **Report the per-verdict false-RIGID rate** at the verdict's own (n, L, lens), as the ADD-5
    trigger proposed; the n=343 row is where it earns its keep.
 3. **Scope the class claim to the L window where GUE growth is expected** — for ζ at height T that
