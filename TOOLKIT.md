@@ -1201,3 +1201,15 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   and the class that matters is the one that is close. Pairs directly with the
   calibration-vs-discrimination rule: **calibration is about the reference, discrimination is about
   the neighbours, and the statistic's choice is about which axis the neighbours differ on.**
+- **An ARGMAX is a location claim, and it needs a location error bar.** (P1 straddle sweep,
+  2026-08-19.) A sweep that reports "the effect peaks at x = 4" has made a claim about *where*, but
+  `argmax` throws away every point but one and carries no uncertainty about its own position. Measured
+  here: the peak exceeded its own row's runner-up by **6.8 sem at deg 5, 0.4 sem at deg 9, 1.5 sem at
+  deg 13** — a verdict scoring "matches prediction at 2/3" was really scoring one located peak and two
+  coin flips. **Gate: a peak position counts as measured only if it clears the next-best candidate in
+  the same sweep by a stated margin** (≥ 2 sem here); otherwise report the profile and say the
+  location is unresolved. Two companions: (a) prefer a **centroid** or a fit to the whole profile —
+  it uses every point and has a real CI, where argmax has neither; (b) **a peak at the edge of the
+  grid is not a peak**, it is a lower bound — extend the grid before reading it (the
+  out-of-sample-window rule, in a new place). This is the same defect as a rate banked without its
+  denominator: the quantity is reported, the uncertainty on it never was.
