@@ -628,7 +628,18 @@ false-positive rate of 1.00 on BOTH levers at every n measured so far.** A Δ₃
 separate GUE from GOE because **both are RMT classes and both grow logarithmically** — growth is
 exactly the feature they share. The arm rejects hyper-rigid spoofs (clock 0.00, antithetic 0.00 on
 the long lever) and is blind to the nearest confusable class, which is the specific discrimination
-the whole L-policy arc was about. **Provisional consequence: the Δ₃ variant is not a candidate
-instrument for the n=343 problem, and brocot needs MORE DATA rather than a different statistic** —
-the outcome RG-ADD-9 named as the one that empties the queue slot. Held as interim until the run
-completes at n=2000.
+the whole L-policy arc was about. **CONFIRMED at n=2000** (14 draws, targeted at the FP question after the full run timed out on the
+n=2000 eigensolves): GUE increment 0.1043±0.0112 long / 0.0552±0.0023 short — SNR **24.0** on the
+short lever, the highest of any configuration — and **FP(GOE) = 14/14 = 1.00 on both levers.**
+
+**FINAL: the Δ₃ growth arm is NOT a candidate instrument.** Not for the reason RG-ADD-9 feared. The
+lever worry was wrong twice over — short-lever SNR is *higher* at every n (10.8 / 20.1 / 24.0 against
+4.2 / 9.6 / 9.3 long) — but the arm admits GOE **100% of the time at every n and both levers**,
+because a *growth* test cannot separate GUE from GOE when logarithmic growth is exactly what the two
+classes **share**. It rejects hyper-rigid spoofs and is blind to the nearest confusable class, which
+is precisely the discrimination the L-policy arc exists to protect.
+
+**Consequence for brocot, now settled: n=343 needs MORE DATA, not a different statistic** — the
+outcome RG-ADD-9 named as emptying the queue slot. The remaining route is raising n into the range
+where an admissible L exists (the only admissible cell measured anywhere is n=2000 / L=5), which for
+the approximability rows means more partials, not a re-analysis.
