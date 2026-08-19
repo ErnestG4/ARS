@@ -1,0 +1,51 @@
+{
+ "geometry": {
+  "n_full": 1200,
+  "n_W": 600,
+  "dial": 2.0,
+  "L": 10.0,
+  "deg": 5,
+  "seeds": 24
+ },
+ "target_residual": 0.2242,
+ "prediction": "a=0 response NON-ZERO but SMALLER than +0.2242",
+ "rows": {
+  "0.00": {
+   "a": 0.0,
+   "measured": -0.0017111456656382893,
+   "sem": 0.009723362676463678,
+   "predicted": 0.0,
+   "residual": -0.0017111456656382893,
+   "z_from_zero": -0.17598291070436772
+  },
+  "0.05": {
+   "a": 0.05,
+   "measured": 0.0028724846382113625,
+   "sem": 0.008742510312446695,
+   "predicted": 0.0020673256168156906,
+   "residual": 0.0008051590213956719,
+   "z_from_zero": 0.32856519873037054
+  },
+  "0.10": {
+   "a": 0.1,
+   "measured": 0.016177241455781855,
+   "sem": 0.007701356082783244,
+   "predicted": 0.0053903335500300464,
+   "residual": 0.010786907905751809,
+   "z_from_zero": 2.1005705075690324
+  },
+  "0.25": {
+   "a": 0.25,
+   "measured": 0.2114175889376538,
+   "sem": 0.02879414586738781,
+   "predicted": -0.01275083397174015,
+   "residual": 0.22416842290939396,
+   "z_from_zero": 7.342380979499897
+  }
+ },
+ "non_inertness": {
+  "z_at_a0": -0.17598291070436772,
+  "fires": false
+ },
+ "verdict": "ARM_INERT \u2014 no finite-n response to measure; test says nothing"
+}

@@ -255,3 +255,64 @@ accounts for +0.224 at the sealed geometry.
 (absorption, ~80× too small), one measured but insufficient (continuum ill-conditioning, ~3.6× short),
 and one attempted and inconclusive (n-scaling, normalization-dependent). Registered with the
 corrected design attached.
+
+## The dial-2.0 residual — RESOLVED (2026-08-19): an under-ordered estimator, not a missing term
+
+Ran the corrected design registered above, plus one step past it. The registered arm settled nothing;
+the step past it settled everything.
+
+**The registered arm came back INERT, and that is the honest headline for it.** Isolating the fit's
+finite-n response on a no-trend substrate (a = 0, where the continuum prediction is exactly zero by
+construction) gives **Δ = −0.0017 ± 0.0097, 0.2 sem from zero** — there is no finite-n fit response to
+measure. **My non-inertness argument for that arm was wrong**: I reasoned that a degree-5 fit would
+absorb counting-function fluctuations differently over the full and windowed ranges. It does not, to
+within 0.01. The guard caught it and refused to read a null as an answer.
+
+**The a-sweep run beside it pointed somewhere specific.** Residual by trend amplitude, seeds paired
+across a (same GUE spectra at every amplitude, so this is a within-spectrum contrast):
+
+| a | 0.00 | 0.05 | 0.10 | 0.25 |
+|---|---|---|---|---|
+| residual | −0.0017 | +0.0008 | +0.0108 | **+0.2242** |
+| sem | 0.0097 | 0.0087 | 0.0077 | 0.0288 |
+
+Absent at small a, exploding by a = 0.25, scaling **≈ a³·³** — a *trend-amplitude* dependence, which a
+finite-n floor has no reason to have.
+
+**The mechanism, read off the geometry rather than the numbers.** The truth density is
+ρ(x) = 1 + a·sin(2πx/ℓ) with ℓ = n_W/dial = **300**. So the full fit range (n_full = 1200) spans
+**four periods** and the window (600) spans **two**. A degree-5 polynomial has at most four turning
+points: it can approximately track two periods and **cannot track four**. Order A fits the full range
+and is forced to mis-track the density in a way order B is not.
+
+**The test, and it is decisive.** Raise the degree; the prediction knows nothing about DEG, so if the
+mechanism is right the residual must collapse while the law keeps tracking.
+
+| deg | measured Δ | predicted | residual | \|res\|/\|res₅\| |
+|---|---|---|---|---|
+| **5** | +0.2114 ± 0.0288 | −0.0128 | **+0.2242** | 1.000 |
+| 7 | +2.9800 ± 0.0286 | +2.9658 | +0.0142 | 0.063 |
+| 9 | +3.1743 ± 0.0195 | +3.1801 | −0.0058 | 0.026 |
+| 11 | +1.0718 ± 0.0101 | +1.0814 | −0.0097 | 0.043 |
+| 13 | +0.1608 ± 0.0098 | +0.1635 | −0.0027 | 0.012 |
+| 15 | +0.0079 ± 0.0121 | +0.0116 | −0.0037 | 0.017 |
+
+**Degree 5 is the only degree at which the continuum law fails.** Across the others the measured Δ
+spans a factor of **403** — from 0.0079 to 3.17 — and the prediction tracks all of it, with every
+residual **within 3 sem of zero**. |residual| falls **23×** by deg ≥ 9.
+
+**VERDICT: `UNDER_ORDERED_ESTIMATOR`. ADD-7 CLOSES.** The dial-2.0 anomaly is the sealed degree-5 fit
+failing to track four density periods — a property of the *estimator*, not an omission in the
+continuum derivation. Far from the derivation being incomplete, this is now its **strongest
+validation**: it predicts a quantity varying over 400× across five degrees it was never tuned on.
+
+**Operational consequence, and it is a rule rather than a constant.** The sealed instrument uses
+deg = 5, and at dial 2.0 the full fit range spans four periods — **the deployed instrument is
+under-ordered in that cell**. The required degree scales with **how many density periods the fit
+range spans**, so any transition that widens the fit range at fixed ℓ (or shortens ℓ at fixed range)
+needs its degree revisited. Flagged for the owning program rather than changed here: this run varied
+the sealed instrument *diagnostically* and issues no re-verdict on any sealed row.
+
+*Caveat carried:* `np.polyfit` emits conditioning warnings at the top of the degree range, so the
+deg 13/15 rows are ill-conditioned. The load-bearing rows are deg 9 and 11, and the conclusion does
+not rest on the top two.

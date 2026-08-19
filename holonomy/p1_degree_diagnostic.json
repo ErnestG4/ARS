@@ -1,0 +1,60 @@
+{
+ "a": 0.25,
+ "dial": 2.0,
+ "ell": 300.0,
+ "L": 10.0,
+ "seeds": 24,
+ "periods_full": 4.0,
+ "periods_window": 2.0,
+ "sealed_deg": 5,
+ "target": 0.2242,
+ "prediction": "residual falls >=10x between deg 5 and 13",
+ "rows": {
+  "5": {
+   "deg": 5,
+   "measured": 0.2114175889376538,
+   "sem": 0.02879414586738781,
+   "predicted": -0.01275083397174015,
+   "residual": 0.22416842290939396
+  },
+  "7": {
+   "deg": 7,
+   "measured": 2.9799758739937694,
+   "sem": 0.0286132074176097,
+   "predicted": 2.965779238221108,
+   "residual": 0.014196635772661281
+  },
+  "9": {
+   "deg": 9,
+   "measured": 3.17432004111417,
+   "sem": 0.01945382223962227,
+   "predicted": 3.180135189565697,
+   "residual": -0.005815148451526753
+  },
+  "11": {
+   "deg": 11,
+   "measured": 1.0717602400822495,
+   "sem": 0.0100947138286595,
+   "predicted": 1.0814419957489751,
+   "residual": -0.009681755666725689
+  },
+  "13": {
+   "deg": 13,
+   "measured": 0.16082291009134828,
+   "sem": 0.009768516397527018,
+   "predicted": 0.16353938406771654,
+   "residual": -0.002716473976368261
+  },
+  "15": {
+   "deg": 15,
+   "measured": 0.00788194194790965,
+   "sem": 0.012066410309964082,
+   "predicted": 0.011612980470112303,
+   "residual": -0.0037310385222026534
+  }
+ },
+ "drop_deg5_to_high": 23.15369553063782,
+ "high_deg_all_consistent_with_zero": true,
+ "measured_dynamic_range": 402.7332429105271,
+ "verdict": "UNDER_ORDERED_ESTIMATOR \u2014 deg 5 is the ONLY degree where the continuum law fails. |residual| falls 23x by deg>=9 and every higher-degree residual is within 3 sem of zero, while the law tracks a measured value spanning 403x. The dial-2.0 residual is the degree-5 fit failing to track 4 density periods, NOT a missing continuum term"
+}
