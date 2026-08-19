@@ -1,0 +1,209 @@
+{
+ "convention": "clopper-pearson",
+ "alpha": 0.05,
+ "denominator_source": "sealed constants in the committed generators (run_gate.py, kag_gate.py) \u2014 recoverable ONLY because those generators were committed",
+ "sidecar_note": "the sealed artifacts are inside a blob-SHA freeze and are NOT edited; this file carries the denominators and intervals alongside them",
+ "n_rows": 22,
+ "n_uninformative": 0,
+ "uninformative": [],
+ "rows": {
+  "gate_measured.R2.rows.C-brocot.gue_rigid_rate": {
+   "rate": 1.0,
+   "k": 48,
+   "n": 48,
+   "lo": 0.9260272146527198,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.926"
+  },
+  "gate_measured.R2.rows.C-brocot.poisson_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 48,
+   "lo": 0.0,
+   "hi": 0.07397278534728022,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.074"
+  },
+  "gate_measured.R2.rows.C-add5.false_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 200,
+   "lo": 0.0,
+   "hi": 0.01827534035513624,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.018"
+  },
+  "gate_measured.R2.rows.C-add5.gue_rigid_rate": {
+   "rate": 1.0,
+   "k": 48,
+   "n": 48,
+   "lo": 0.9260272146527198,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.926"
+  },
+  "gate_measured.R2.rows.C-add5.poisson_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 48,
+   "lo": 0.0,
+   "hi": 0.07397278534728022,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.074"
+  },
+  "gate_measured.R2.rows.C-zeta.false_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 200,
+   "lo": 0.0,
+   "hi": 0.01827534035513624,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.018"
+  },
+  "gate_measured.R2.rows.C-zeta.poisson_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 48,
+   "lo": 0.0,
+   "hi": 0.07397278534728022,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.074"
+  },
+  "gate_measured.R3.f_grid.0.0.rigid_rate": {
+   "rate": 1.0,
+   "k": 12,
+   "n": 12,
+   "lo": 0.7353515306029488,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.735"
+  },
+  "gate_measured.R3.f_grid.0.02.rigid_rate": {
+   "rate": 1.0,
+   "k": 12,
+   "n": 12,
+   "lo": 0.7353515306029488,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.735"
+  },
+  "gate_measured.R3.f_grid.0.12.rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 12,
+   "lo": 0.0,
+   "hi": 0.2646484693970512,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.265"
+  },
+  "gate_measured.R3.f_grid.0.2.rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 12,
+   "lo": 0.0,
+   "hi": 0.2646484693970512,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.265"
+  },
+  "gate_measured.R3.f_grid.0.5.rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 12,
+   "lo": 0.0,
+   "hi": 0.2646484693970512,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.265"
+  },
+  "gate_measured.R3.f_grid.1.0.rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 12,
+   "lo": 0.0,
+   "hi": 0.2646484693970512,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.265"
+  },
+  "kag_measured.witness.C-brocot.gue_rigid_rate": {
+   "rate": 1.0,
+   "k": 16,
+   "n": 16,
+   "lo": 0.7940927857921772,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.794"
+  },
+  "kag_measured.witness.C-brocot.poisson_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 16,
+   "lo": 0.0,
+   "hi": 0.2059072142078227,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.206"
+  },
+  "kag_measured.witness.C-add5.gue_rigid_rate": {
+   "rate": 1.0,
+   "k": 16,
+   "n": 16,
+   "lo": 0.7940927857921772,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.794"
+  },
+  "kag_measured.witness.C-add5.poisson_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 16,
+   "lo": 0.0,
+   "hi": 0.2059072142078227,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.206"
+  },
+  "kag_measured.witness.C-zeta.gue_rigid_rate": {
+   "rate": 1.0,
+   "k": 16,
+   "n": 16,
+   "lo": 0.7940927857921772,
+   "hi": 1.0,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": ">= 0.794"
+  },
+  "kag_measured.witness.C-zeta.poisson_rigid_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 16,
+   "lo": 0.0,
+   "hi": 0.2059072142078227,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.206"
+  },
+  "kag_measured.hyper_arm.C-brocot.gue_false_hyper_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 16,
+   "lo": 0.0,
+   "hi": 0.2059072142078227,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.206"
+  },
+  "kag_measured.hyper_arm.C-add5.gue_false_hyper_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 16,
+   "lo": 0.0,
+   "hi": 0.2059072142078227,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.206"
+  },
+  "kag_measured.hyper_arm.C-zeta.gue_false_hyper_rate": {
+   "rate": 0.0,
+   "k": 0,
+   "n": 16,
+   "lo": 0.0,
+   "hi": 0.2059072142078227,
+   "treatment": "OVERSTATED_RESTATE",
+   "honest_claim": "<= 0.206"
+  }
+ }
+}

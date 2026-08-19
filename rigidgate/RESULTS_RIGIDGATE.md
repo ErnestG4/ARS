@@ -114,3 +114,33 @@ round-trip, not the construction.
 
 `rigidgate/`: `gate_probe.py` → `kag_gate.py` → `seal_prereg.py` → `run_gate.py` →
 `patch_addenda.py` → `verify_rigidgate.py` (live checker, nonzero exit).
+
+## RG-ADD-10 — this arc's own boundary rates annotated, and one of my claims was overstated
+
+The boundary-rate sweep's first obligation was our own house: **22 of the 41 denominator-less banked
+boundary rates are in this arc's artifacts.** Denominators recovered from the *sealed constants in
+the committed generators* (`run_gate.py`, `kag_gate.py`) — recoverable **only because those
+generators were committed**, which is the committed-generator rule paying off in an audit nobody had
+in mind when it was adopted. Intervals from the pinned convention (`boundary_rate.py`,
+Clopper–Pearson, α=0.05). Written to a **sidecar** (`rate_annotations.json`): the artifacts are
+inside the seal's blob-SHA freeze and are not edited for a documentation improvement.
+
+**None of the 22 is uninformative** — the weakest are 12/12 (≥0.735) and 0/12 (≤0.265), and the
+strongest rest on 200 draws (≤0.018). Our own house is in reasonable shape. But:
+
+### The correction: "zero specificity cost" was overstated
+
+When proposing the HYPER_RIGID split I wrote that it costs **zero specificity**, on the strength of
+`gue_false_hyper_rate = 0.00` at every configuration. That rate is **0/16**, which bounds only at
+
+> **≤ 0.206 at 95% confidence.**
+
+So the honest claim is *"the false-HYPER rate is below ~21%"*, not *"zero"*. The split may well cost
+nothing — but **0/16 cannot establish it**, and I asserted it as though it could, in the same arc
+that later produced the rule against exactly this. The proposal's other legs (the boundary formula
+is unchanged, no banked row moves, the clock is correctly reclassified) are untouched; it is
+specifically the *specificity-cost* claim that was resting on an unquotable number.
+
+**What it would take:** 0/60 bounds at ≤0.049, so ~60 GUE draws per configuration would support a
+"under 5%" claim. Registered as the cheap follow-up before the split is adopted anywhere that a
+5–20% false-HYPER rate would matter.
