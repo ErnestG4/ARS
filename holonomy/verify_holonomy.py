@@ -6,6 +6,8 @@ import hashlib
 import json
 import sys
 
+import numpy as np
+
 import os as _os
 _HERE = _os.path.dirname(_os.path.abspath(__file__))
 _REPO = _os.path.dirname(_HERE)
@@ -137,21 +139,37 @@ st = json.load(open(f"{HL}/p1_straddle_centroid.json"))
 chk(st["cis_disjoint"],
     "straddle centroid CIs overlap — 'the elevation MOVES with degree' is the "
     "whole mechanism claim and this is the measurement of it")
-chk(st["n_targets_in_ci"] < 2,
-    "both centroids now contain their (deg-1)/2 targets — that would PROMOTE the "
-    "form from unresolved to supported, and COMMUTATOR_TABLE.md still says it is "
-    "unresolved; update the prose deliberately rather than letting a rerun do it")
+# The form was re-graded DELIBERATELY on 2026-08-19 (SLOPE_RESOLVED,
+# OFFSET_UNRESOLVED) after the sealed predictive test, which is what the old
+# promotion pin existed to force. Replaced with pins on the new grade: the slope
+# half is now asserted, the offset half still pins its own promotion condition.
+rb = json.load(open(f"{HL}/ridge_stageB.json"))
+ra = json.load(open(f"{HL}/ridge_stageA.json"))
+chk(rb["verdict"].startswith("RIDGE_PREDICTIVE"),
+    f"the sealed predictive test no longer passes: {rb['verdict'][:80]}")
+chk(rb["ci_covers_prediction"] == 2,
+    "the held-out centroid CIs no longer both cover their SEALED predictions — "
+    "that is the whole predictive claim")
+_deg = [5, 7, 9, 11, 13]
+_cen = [ra["rows"][str(d)]["centroid"] if str(d) in ra["rows"]
+        else rb["rows"][str(d)]["centroid"] for d in _deg]
+_slope = float(np.polyfit(_deg, _cen, 1)[0])
+chk(abs(_slope - 0.5) < 0.05,
+    f"the ridge slope is {_slope:.3f}, no longer 1/2 — SLOPE_RESOLVED rests on "
+    "this and on its mechanistic reading periods_full ~ deg")
+chk(rb["ci_excludes_baseline"] < 2,
+    "the held-out CIs now BOTH exclude the (deg-1)/2 baseline — that would "
+    "promote OFFSET_UNRESOLVED to resolved, and COMMUTATOR_TABLE.md still says "
+    "unresolved; re-grade deliberately rather than letting a rerun do it")
 chk(max(abs(x) for x in st["grid"]["9"]["residuals"]) > 8 * max(st["grid"]["9"]["sems"]),
     "deg-9 straddle bump no longer stands clear of its own noise")
-# The deviation from (deg-1)/2 is SIGNED and GROWING, not scatter. Pinned so the
-# two misses cannot later be re-read as noise, which is how a wrong form gets
-# quietly rehabilitated.
-_d9 = st["grid"]["9"]["centroid"] - st["grid"]["9"]["target"]
-_d13 = st["grid"]["13"]["centroid"] - st["grid"]["13"]["target"]
-chk(_d9 > 0 and _d13 > _d9,
-    f"the deviation from (deg-1)/2 is no longer signed-and-growing "
-    f"({_d9:+.2f} then {_d13:+.2f}); COMMUTATOR_TABLE.md states that it is, and "
-    "it is the constraint on any eventual form")
+# PIN REMOVED 2026-08-19. It asserted the deviation from (deg-1)/2 was
+# signed-and-growing. That "fact" came from a deg-13 centroid computed against an
+# ill-conditioned prediction; with the numerics repaired the deviation is FLAT
+# (+0.173/+0.182/+0.170). Recorded because the pin worked exactly as designed and
+# that was the problem: it defended a wrong number against correction. A pin on a
+# measured fact inherits every defect of the measurement, so pinning is not a
+# substitute for validating what is pinned.
 
 if fails:
     print("VERIFY_HOLONOMY: FAIL")
