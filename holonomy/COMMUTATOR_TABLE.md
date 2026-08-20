@@ -297,13 +297,29 @@ mechanism is right the residual must collapse while the law keeps tracking.
 | 13 | +0.1608 ± 0.0098 | +0.1635 | −0.0027 | 0.012 |
 | 15 | +0.0079 ± 0.0121 | +0.0116 | −0.0037 | 0.017 |
 
-**Degree 5 is the only degree at which the continuum law fails *at this dial*** — scoping added
-2026-08-19 after the straddle sweep, which finds the law also failing at **deg 9 / dial 4.0
-(+0.0684 ± 0.0150, 4.6 sem)**. The unscoped sentence would have read as a universal claim about the
-law and it is not one: what is degree-5-specific is the *dial-2.0 cell*, and each degree has its own
-dial where it strains. Across the other degrees **at dial 2.0** the measured Δ
+**Degree 5 is the only failing degree *in the dial-2.0 column*** — and the scoping matters more than
+a wording fix, because **deg 9 is a validation cell here and an exception elsewhere**: at dial 2.0 its
+residual is −0.0058 (0.3 sem, clean), at dial 4.0 it is +0.0684 (4.6 sem) and at dial 6.0 +0.0567
+(4.0 sem). The same degree appears on both sides of the ledger at different dials, so **the 403×
+figure below credits ONE COLUMN of a two-dimensional grid**, not the law in general. See the failure
+surface immediately after this table. Across the other degrees **at dial 2.0** the measured Δ
 spans a factor of **403** — from 0.0079 to 3.17 — and the prediction tracks all of it, with every
 residual **within 3 sem of zero**. |residual| falls **23×** by deg ≥ 9.
+
+**The failure surface — what the 403× figure does and does not cover.** Mapping |residual| > 3 sem
+over the full sweep (3 degrees × 10 dials, `p1_straddle_law.json`):
+
+| deg | 0.5 | 1.0 | **2.0** | 3.0 | 4.0 | 6.0 | 8.0 | 10.0 | 12.0 | 16.0 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 5 | · | · | **FAIL** | · | · | · | · | · | · | · |
+| 9 | · | · | · | · | **FAIL** | **FAIL** | · | · | · | · |
+| 13 | · | · | · | · | · | · | **FAIL** | · | · | · |
+
+**4 of 30 cells fail, and all four lie on a diagonal ridge that moves to higher dial with degree** —
+which is exactly the straddle. The 403× validation is the **dial-2.0 column only**: six cells, one
+failing (deg 5). So the honest statement is *the continuum law is validated OFF the straddle ridge and
+fails ON it*, and the 403× figure describes one traverse that crosses the ridge once. It is **not**
+evidence that the law holds across the grid, and quoting it unqualified would have implied that.
 
 **VERDICT: `UNDER_ORDERED_ESTIMATOR`. ADD-7 CLOSES.** The dial-2.0 anomaly is the sealed degree-5 fit
 failing to track four density periods — a property of the *estimator*, not an omission in the
