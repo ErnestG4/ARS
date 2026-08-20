@@ -317,3 +317,41 @@ Six substrates, ~12,700 slots, **one number to sixteen significant figures** —
 floor output, not a property of any dataset. `sd = 1.42e-20` across seeds is the same fact from the
 other side. **A railed coordinate does not carry degraded information; it carries the optimizer's
 return address.**
+
+### Provenance of the rail constant — the solver's terminal step, NOT a hardcoded floor
+
+The exact figure decides how to describe the artifact, so it was measured rather than assumed. Source
+inspection rules out a written-down epsilon immediately — there is no `max(q, …)` anywhere and the
+bound is literally `(0.0, 1.0)`:
+
+```python
+minimize_scalar(nll, bounds=(0.0, 1.0), method="bounded", options={"xatol": 1e-4})
+```
+
+`method="bounded"` is scipy's Brent-bounded (`fminbound`), so the `differential_evolution`/grid-seed
+candidate is out too. Four tests, all agreeing:
+
+| test | result | reading |
+|---|---|---|
+| **vary `xatol`** | 1e-3→**3.998e-4**, 1e-4→**6.611e-5**, 1e-5→**5.961e-6**, 1e-6→**5.363e-7** | **scales with the tolerance** (≈0.4–0.66 × `xatol`) — a solver stopping point, not a constant |
+| **move the lower bound** | (0,1)→6.611e-5; (−0.5,1)→**−0.49994**; (−1,1)→**−0.5617** | the value **vanishes** when the bound moves; at (−0.5,1) it simply rails on the NEW bound |
+| **different data** | three independent clustered draws → **identical to 17 significant figures** | carries **zero** information about the data |
+| **interior optimum** | Poisson-ish draw → 0.00411, varying | the estimator works fine when the optimum is inside |
+
+**Verdict: `6.610696135189609e-05` is the terminal step of Brent's bounded search sitting a
+tolerance-scaled distance inside a lower bound of exactly zero.** The correct sentence for the record
+is *"the optimizer's terminal step inside a bound at zero"*, **not** *"a floor constant in the
+wrapper"* — so there is **no magic number loose in the codebase** and the reach is confined to
+bounded-solver call sites.
+
+**But test 2 also delivers the substantive number:** with room to move, the clustered synthetic's true
+optimum is **q ≈ −0.56** — a genuine interior minimum. The banked rail was standing in for a real,
+strongly negative value.
+
+**Where else the same exposure exists** — every `method="bounded"` call whose optimum can lie outside
+its bounds: `axes.py:160` (Brody, the known case), `axes.py:246` (Berry–Robnik ρ, also `(0.0, 1.0)`,
+and `axes.py:212` already documents that ρ saturates), `brody_cut_diagnostic.py:34`,
+`overnight_2026_07_12/run_overnight.py:346`, `phase34e/run_berry_robnik.py:128,144`, and
+`bridge/dpp_python.py:72,86` (bounds `(1e-3, amax)` and `(1e-4, 100.0)` — lower bounds *near* zero,
+same shape). **The general tell, now checkable by grep: a bounded solver whose bound is a
+scientifically reachable value rather than a mathematical impossibility.**
