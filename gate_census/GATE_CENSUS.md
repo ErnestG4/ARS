@@ -355,3 +355,36 @@ and `axes.py:212` already documents that ρ saturates), `brody_cut_diagnostic.py
 `bridge/dpp_python.py:72,86` (bounds `(1e-3, amax)` and `(1e-4, 100.0)` — lower bounds *near* zero,
 same shape). **The general tell, now checkable by grep: a bounded solver whose bound is a
 scientifically reachable value rather than a mathematical impossibility.**
+
+### Bounded-solver triage — MATHEMATICAL bounds vs CONVENTIONS encoding a prior
+
+These are **two different defects with the same symptom**, and they need different fixes. A class
+space with Poisson as an endpoint is a *modelling choice about what can be represented* → fix is a
+**wider class space**. A bound at 0 on a parameter where negative means clustering is a *constraint
+accidentally encoding a prior* → fix is **move the bound**. Both rail, both silently.
+
+The census question is the one already asked of class spaces: **what lies beyond this endpoint, and
+can data legitimately go there?**
+
+| # | site | bound | beyond it | verdict |
+|---|---|---|---|---|
+| 1 | `axes.py:160` Brody q | (0.0, 1.0) | **q<0 = clustering, physically real** — measured optimum **−0.56** | **CONVENTION** — repaired via `_unbounded` |
+| 2 | `axes.py:191` Brody unbounded | (−1.0, 4.0) | q<−1 for extreme clustering | **WIDER CONVENTION** — "unbounded" is a misnomer; still a bound, just further out |
+| 3 | `axes.py:246` Berry–Robnik ρ | (0.0, 1.0) | **nothing — ρ is a mixing fraction** | **MATHEMATICAL** — saturation is a real answer (pure Poisson / pure GOE), and the rail census found only **0.2%** there, consistent with that |
+| 4 | `brody_cut_diagnostic.py:34` | `(lo, hi)` **required args, no default** | caller's choice | **CALLER-DETERMINED** — low risk |
+| 5 | `run_overnight.py:346` | (−1.0, 4.0) | as #2 | already the wide version |
+| 6 | `phase34e/run_berry_robnik.py:128,144` | (0.0, 1.0) | nothing | **MATHEMATICAL**, as #3 |
+| 7 | **`bridge/dpp_python.py:72,86`** | (1e-3, amax), (1e-4, 100.0) | **α→0 = no repulsion; κ→0 = no clustering — both reachable** | **NUMERICAL GUARDS, and see below** |
+
+**The DPP bridge carries a one-sided boundary check.** `fit_dpp` records
+`at_boundary = bool(res.x > 0.995 * amax)` — it tests the **upper** bound (a genuine DPP existence
+condition) and **never the lower one**, which is the numerical guard at `1e-3`. `fit_thomas` has no
+boundary check at all on `(1e-4, 100.0)`. So a fit that has railed at "no repulsion" or "no
+clustering" is reported as **a small but measured value**, not as a rail — and 1e-3 does not announce
+itself the way 0.0 does. **One-sided boundary reporting, in the same session and the same shape as
+one-sided calibration.** Not swept here; registered as the next bounded-solver item.
+
+**Keep visible, because it is the size of the error and not merely its sign:** the clustered synthetic's
+true optimum is **q ≈ −0.56**, banked as **6.6e-05**. That is not a slightly-shifted value — it is a
+substantial clustering signal reported as *marginally more Poisson than Poisson*, **at the wrong sign
+entirely**.
