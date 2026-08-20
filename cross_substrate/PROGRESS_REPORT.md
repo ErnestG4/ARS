@@ -782,6 +782,16 @@ rather than a repair, and costed on its own merits.
 straddle form (needs 3–4 more degrees at 200 seeds, under an hour, not urgent — the mechanism carries
 ADD-7 without it).
 
+## ⚠ CORRECTION TO THE C2 BRIEF CELL (filed 2026-08-20)
+
+**The next-session brief's C2 cell quotes the PROBE: "140 cells, 100% negative, median −0.412,
+uniformly clustered." Those numbers are correct and their population is superseded.** The probe
+covered `_spontaneous` recordings from **3 of 15**; the full file gives **99.4%, median −0.373, range
+to +0.098**. Correct numbers, wrong slot — filed against the brief itself so the next session does not
+quote **−0.412** as the finding. The full-file numbers below are the finding. *(The change is a strict
+improvement: the 7 exceptions are exactly the cells where bounded and repaired agree, which
+strengthens the repair's validity rather than weakening the result.)*
+
 ## C2 COMPLETE (2026-08-19) — pvc-11 repaired, and a recovered substrate signal
 
 **Instrument half.** All **1,159** pvc-11 records now carry `I.8_brody_q_unbounded` alongside an
