@@ -404,9 +404,12 @@ deg 5, 9, 13, i.e. roughly *deg* periods rather than *deg−1* — but that is t
 post-hoc reading, so **no closed form is claimed here**. The mechanism does not depend on one: it
 needs the peak to move with resolution, which is measured, not to sit at any particular formula.
 
-**The deviation is SIGNED and GROWING — a fact about the data, banked alongside the non-form.** The
-two misses are not scatter: deg 9 lands **+0.20** above (deg−1)/2 and deg 13 **+1.21** above, ratios
-1.051 and 1.202. Both high, and the miss grows with degree. That is consistent with the peak sitting
+**⚠ RETRACTED 2026-08-19 — the deviation is CONSTANT, not growing.** The paragraph below was written
+from a deg-13 centroid of 7.21 that was produced against an **ill-conditioned prediction** (see the
+numerics repair section). With the conditioned fit the three centroids are 2.17 / 4.18 / 6.17 and the
+deviations from (deg−1)/2 are **+0.173 / +0.182 / +0.170 — flat**. The growth was the artifact.
+*Original text, kept visible:* ~~The two misses are not scatter: deg 9 lands +0.20 above (deg−1)/2 and
+deg 13 +1.21 above, ratios 1.051 and 1.202. Both high, and the miss grows with degree.~~ That is consistent with the peak sitting
 nearer *deg* than *deg−1* periods, and **inconsistent with (deg−1)/2 being right-but-noisy**, which
 would scatter the misses in sign. Recorded because it constrains what any eventual form can look
 like, and because two same-signed growing misses read as scatter to anyone who only sees
@@ -424,6 +427,64 @@ straddle peak at that degree — the FAIL cells and the centroids are two readin
 not two findings. So the extra degrees that would settle the form **also extend the ridge map**, and
 both open items close on a single run. I costed it as the form question alone; it covers both.
 
-**Status: `STRADDLE_MECHANISM_SUPPORTED, FORM_UNRESOLVED`.** Filed as such rather than promoted —
+**Status (superseded 2026-08-19 — see the numerics repair and the predictive test below): `STRADDLE_MECHANISM_SUPPORTED, FORM_UNRESOLVED`.** Filed as such rather than promoted —
 the sealed instrument's dial-2.0 under-ordering (ADD-7's closure) rests on the deg-5 cell and the
 403× dynamic-range validation, neither of which touches the form question.
+
+## NUMERICS REPAIR + PREDICTIVE TEST (2026-08-19) — the ridge predicts, and one banked claim dies
+
+### The repair
+
+Stage A of the ridge map turned up a **96-sem** cell (deg 13, dial 5.0, residual +0.8085 ± 0.0084).
+It was not physics. `np.polyfit` on the raw coordinate spanning 0–1200 has Vandermonde condition
+number **4.5e15 at deg 5, 1.2e28 at deg 9, 2.9e40 at deg 13**, against ~1e16 of usable double
+precision. numpy's SVD lstsq degrades gracefully and then stops: at that cell the raw prediction
+reads **0.2467**, the conditioned one **1.0410**, and the measured value is **1.0408** — the residual
+is *zero*, and the anomaly was the prediction's own arithmetic.
+
+Checked rather than assumed: the **measurement** path (`unfold_poly`) uses the same raw polyfit and is
+clean to four decimals at every degree including 13 — it fits a counting function nearly linear in x,
+so the fit is well determined despite the basis. **The deployed instrument was never at risk and
+every measured value stands.** The **entire dial-2.0 column** is clean at deg 5/7/9/11/13/15 (worst
+shift 0.00001), so **ADD-7's closure and the 403× validation are untouched**. Repair is in
+`condfit.py`: a basis change, identical model, with `assert_deg5_unchanged` as a standing guard that
+it stays a no-op at the sealed degree (measured move 1.8e-12) — because a "fix" that moves sealed
+numbers is a re-verdict, not a fix.
+
+**RETRACTED by the repair: "the deviation is signed and growing."** With the conditioned prediction
+the deviations from (deg−1)/2 are **+0.173 / +0.182 / +0.170 — flat**. The growth came entirely from
+the contaminated deg-13 centroid of 7.21. Its checker pin is removed, and the removal is recorded
+where the pin was: **it worked exactly as designed, and what it was defending was a wrong fact. A pin
+on a measured quantity inherits every defect of that measurement — pinning is not validating.**
+
+### The predictive test
+
+Stage A fitted ridge(deg) on **deg 5, 9, 13** and **committed sealed predictions to git** for the
+untested **deg 7 and 11** — interpolation points, no extrapolation slack — before stage B ran.
+
+| deg | centroid | CI | sealed pred | (deg−1)/2 | dev vs baseline |
+|---|---|---|---|---|---|
+| 5 | 2.17 | [2.06, 2.57] | — | 2.0 | +0.173 |
+| **7** | **3.13** | [3.01, 3.43] | **3.18** | 3.0 | +0.129 |
+| 9 | 4.18 | [4.07, 4.33] | — | 4.0 | +0.182 |
+| **11** | **5.47** | [4.70, 6.05] | **5.17** | 5.0 | +0.471 |
+| 13 | 6.17 | [4.84, 7.40] | — | 6.0 | +0.170 |
+
+**`RIDGE_PREDICTIVE`.** A ridge cell appeared near the sealed dial at **both** held-out degrees, and
+the centroid CI covers the sealed prediction at **2/2**. The mechanism said where the failures would
+be before they were measured.
+
+**Form, re-graded deliberately — `SLOPE_RESOLVED, OFFSET_UNRESOLVED`.** The slope is **½ across all
+five degrees** (5-point fit `0.517·deg − 0.427`), and that is the mechanistic content: peak dial ≈
+deg/2 means **periods_full ≈ deg** — the straddle peaks when the full fit range spans about as many
+density periods as the polynomial has degrees, while the window spans half that and stays trackable.
+The **offset is not resolved**: −0.322 (3 points), −0.427 (5 points), −0.5 (baseline), and the CI
+excludes the baseline at only **1/2** held-out degrees, barely (deg 7's lower bound 3.01 against 3.0).
+**The limitation was stated before the run and held exactly.**
+
+*Scoring correction:* test (ii) — centroid between the linear and quadratic predictors — became
+**degenerate** once the repair made the stage-A points collinear, so the interval collapsed to a
+point and no measurement could satisfy it. The first run scored that **0/2 as a failure**; it is an
+arm that cannot fire, reported as a negative result — the inert-witness error, and the **second**
+instance this session. Now flagged inapplicable, with two arms that can discriminate substituted:
+whether the CI covers the prediction, and whether it excludes the baseline.

@@ -1,0 +1,182 @@
+{
+ "seeds": 200,
+ "dials": [
+  1.0,
+  1.5,
+  2.0,
+  2.5,
+  3.0,
+  4.0,
+  5.0,
+  6.0,
+  8.0,
+  10.0,
+  12.0
+ ],
+ "sealed_prediction": {
+  "7": {
+   "linear": 3.175745639154169,
+   "quadratic": 3.180278121311896,
+   "baseline_deg_minus_1_over_2": 3.0
+  },
+  "11": {
+   "linear": 5.1744668323760825,
+   "quadratic": 5.17899931453381,
+   "baseline_deg_minus_1_over_2": 5.0
+  }
+ },
+ "rows": {
+  "7": {
+   "deg": 7,
+   "dials": [
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    4.0,
+    5.0,
+    6.0,
+    8.0,
+    10.0,
+    12.0
+   ],
+   "residuals": [
+    0.004987872582277085,
+    -0.0024201803530466905,
+    0.02147551144803299,
+    -0.07055113466837142,
+    0.05994504802708035,
+    0.07797604806509094,
+    -0.008085767518025417,
+    0.007904158247167028,
+    0.0071148669413950705,
+    0.004283450911588866,
+    -0.001127585855632769
+   ],
+   "sems": [
+    0.003316828458447919,
+    0.0056424368589487305,
+    0.007800798589767557,
+    0.0093278785162862,
+    0.007963253059604297,
+    0.005839942526101281,
+    0.005454923848003313,
+    0.004515019903418741,
+    0.004675943411257901,
+    0.004989347893368697,
+    0.005723077904313683
+   ],
+   "centroid": 3.128658088722716,
+   "ci95": [
+    3.0067991923589785,
+    3.429239013241937
+   ],
+   "fail_dials": [
+    2.5,
+    3.0,
+    4.0
+   ],
+   "max_sem_ratio": 13.352194429411172
+  },
+  "11": {
+   "deg": 11,
+   "dials": [
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    4.0,
+    5.0,
+    6.0,
+    8.0,
+    10.0,
+    12.0
+   ],
+   "residuals": [
+    0.0022153821512807333,
+    0.009538724344836873,
+    -0.0005454695004179,
+    0.015389699614808551,
+    0.0012493463215283195,
+    -0.05074242385619529,
+    -0.001475546034601627,
+    0.047318983503523135,
+    0.024314422091321196,
+    0.014096550084625651,
+    -0.0008506014499550552
+   ],
+   "sems": [
+    0.0030620080605249763,
+    0.00337222601110161,
+    0.0043383663947551936,
+    0.007940643551530189,
+    0.008554810401581788,
+    0.010597688590368467,
+    0.006232681870106959,
+    0.005649350379140695,
+    0.005823996909507315,
+    0.0058889060066169814,
+    0.006142630609328586
+   ],
+   "centroid": 5.471019199314866,
+   "ci95": [
+    4.7004915033280446,
+    6.045099766466268
+   ],
+   "fail_dials": [
+    4.0,
+    6.0,
+    8.0
+   ],
+   "max_sem_ratio": 8.376004377112237
+  }
+ },
+ "tests": {
+  "7": {
+   "ridge_cell_present": true,
+   "ridge_cell_near_prediction": true,
+   "fail_dials": [
+    2.5,
+    3.0,
+    4.0
+   ],
+   "predicted_centre": 3.178011880233033,
+   "predictor_interval_degenerate": true,
+   "centroid_between_lin_quad": null,
+   "centroid_ci_covers_prediction": true,
+   "ci_excludes_baseline": true,
+   "centroid_above_baseline": true,
+   "centroid": 3.128658088722716,
+   "ci95": [
+    3.0067991923589785,
+    3.429239013241937
+   ]
+  },
+  "11": {
+   "ridge_cell_present": true,
+   "ridge_cell_near_prediction": true,
+   "fail_dials": [
+    4.0,
+    6.0,
+    8.0
+   ],
+   "predicted_centre": 5.176733073454946,
+   "predictor_interval_degenerate": true,
+   "centroid_between_lin_quad": null,
+   "centroid_ci_covers_prediction": true,
+   "ci_excludes_baseline": false,
+   "centroid_above_baseline": true,
+   "centroid": 5.471019199314866,
+   "ci95": [
+    4.7004915033280446,
+    6.045099766466268
+   ]
+  }
+ },
+ "ii_applicable_at": [],
+ "ci_covers_prediction": 2,
+ "ci_excludes_baseline": 1,
+ "verdict": "RIDGE_PREDICTIVE \u2014 a ridge cell appeared near the sealed prediction at BOTH held-out degrees and the centroid CI covers the prediction at 2/2. Test (ii) applicable at 0/2 (the predictor interval is degenerate once the points are collinear) and passed at 0. Centroid above the (deg-1)/2 baseline at 2/2, but the CI EXCLUDES that baseline at only 1/2 \u2014 so the sealed trend is confirmed as predictive while remaining statistically indistinguishable from the baseline, exactly as flagged before the run"
+}
