@@ -11,8 +11,14 @@ Classification was committed **before** these numbers were read
 | `alpha` (DPP) | MIXED, lower CONVENTION | 558 | 0.0% | — | no | only if non-repulsive data | **✓** |
 | `kappa` (Thomas) | CONVENTION both ends | 17 | 0.0% | 11.8% | no (n=17) | only if non-clustered data | **✓** |
 
-**5/5 sealed predictions met** — but one of them only after the *measurement* was corrected, and that
-correction is the cell's real output.
+**Scoreboard, stated with its provenance: 4/5 clean, 1 resolved via a corrected measurement under a
+discriminator adopted AFTER apparent falsification.** Same number of true predictions; honest lineage
+on the fifth. The distance-only pass put ρ at 36.1% "railed" and appeared to falsify its sealed
+`MATHEMATICAL` call; the distinct-ratio rule was then introduced and resolved the contradiction **in
+the seal's favour**. The sealing did its job — it forced the contradiction into the open rather than
+letting the classification drift — **but the resolution rule was chosen after seeing the result it
+resolves.** That is a rationalisation surface one level up, and "almost certainly correct" does not
+exempt it.
 
 ## A rail is a PILEUP, not a PROXIMITY
 
@@ -32,7 +38,31 @@ first measurement was wrong — which is the ordering working as intended, since
 could not be retrofitted to the number.
 
 **New criterion, now in the generator:** a bound counts as railed only if values are near it **and**
-the distinct-value ratio among them is **< 1%**.
+the distinct-value ratio among them is **< 1%** — *and* the near-bound sample is at least **1/ratio =
+100**, below which the test cannot fire at all.
+
+### Red-path of the post-hoc rule (required, because it was adopted post-contradiction)
+
+Applied to **every** classified site, asking whether it moves any verdict other than ρ's:
+
+| site @ bound | near | distinct | ratio | distance-only | discriminator | changed |
+|---|---|---|---|---|---|---|
+| `brody_q` @ 0 | 15,174 | 4 | 0.0003 | rail | **rail** | no |
+| `brody_q` @ 1 | 352 | 11 | 0.0312 | no | no | no |
+| `brody_q_unbounded` @ 4 | 34 | 3 | 0.0882 | no | INDETERMINATE (n<100) | no |
+| **`berry_robnik` @ 0** | 7,328 | 7,319 | 0.9988 | rail | **not a rail** | **YES** |
+| `berry_robnik` @ 1 | 33 | 2 | 0.0606 | no | INDETERMINATE (n<100) | no |
+| `kappa` @ 100 | 2 | 2 | 1.0000 | rail | INDETERMINATE (n<100) | no |
+
+**The first red-path FAILED**, and usefully: `kappa@hi` also flipped. Diagnosis — it has **n=2**, and a
+2-sample distinct-ratio cannot discriminate a pileup from a concentration in either direction. That
+exposed a real defect in the rule rather than in the census: **below n = 1/RAIL_RATIO = 100 the ratio
+can never fall under the threshold, so the arm cannot fire and was being scored as a verdict** — the
+non-inertness rule, applied to my own discriminator. The minimum-n guard is *derived from the
+threshold*, not chosen to make the test pass.
+
+**With the guard: `DISCRIMINATOR_SCOPED`** — it moves only the ρ verdict it was adopted to resolve.
+It was not tuned into existence at the cost of the rest of the census.
 
 ## DPP / Thomas — the latent one-sided reporting gap
 

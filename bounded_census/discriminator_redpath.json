@@ -1,0 +1,69 @@
+{
+ "rows": {
+  "brody_q@lo": {
+   "n": 20558,
+   "near": 15174,
+   "distinct": 4,
+   "ratio": 0.00026360880453407144,
+   "distance_only": true,
+   "discriminator": true,
+   "changed": false,
+   "note": ""
+  },
+  "brody_q@hi": {
+   "n": 20558,
+   "near": 352,
+   "distinct": 11,
+   "ratio": 0.03125,
+   "distance_only": false,
+   "discriminator": false,
+   "changed": false,
+   "note": ""
+  },
+  "brody_q_unbounded@hi": {
+   "n": 20725,
+   "near": 34,
+   "distinct": 3,
+   "ratio": 0.08823529411764706,
+   "distance_only": false,
+   "discriminator": null,
+   "changed": false,
+   "note": "INDETERMINATE (n=34 < 100)"
+  },
+  "berry_robnik@lo": {
+   "n": 20290,
+   "near": 7328,
+   "distinct": 7319,
+   "ratio": 0.9987718340611353,
+   "distance_only": true,
+   "discriminator": false,
+   "changed": true,
+   "note": ""
+  },
+  "berry_robnik@hi": {
+   "n": 20290,
+   "near": 33,
+   "distinct": 2,
+   "ratio": 0.06060606060606061,
+   "distance_only": false,
+   "discriminator": null,
+   "changed": false,
+   "note": "INDETERMINATE (n=33 < 100)"
+  },
+  "kappa@hi": {
+   "n": 17,
+   "near": 2,
+   "distinct": 2,
+   "ratio": 1.0,
+   "distance_only": true,
+   "discriminator": null,
+   "changed": false,
+   "note": "INDETERMINATE (n=2 < 100)"
+  }
+ },
+ "flips": [
+  "berry_robnik@lo"
+ ],
+ "flips_other_than_rho": [],
+ "verdict": "DISCRIMINATOR_SCOPED \u2014 it changes only the rho verdict it was adopted to resolve; no other classified site moves, so it was not tuned into existence at the cost of the rest of the census"
+}

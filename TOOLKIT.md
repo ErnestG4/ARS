@@ -1387,3 +1387,19 @@ MUTATING TOOL AT BANKED DATA.** `phase2b_recompute.py --limit 3` rewrote its tar
 three processed records, truncating a 1,159-record artifact to 3 — **a generator that rewrites its
 input under a flag named for reading less**. That is a trap careful use does not avoid; only checking
 the writer first does, and that check happens at construction time.
+- **A rail is a PILEUP, not a PROXIMITY — and the test needs a minimum n.** (Bounded-solver census,
+  2026-08-19.) Distance-to-bound alone conflates *pinned at the optimizer's floor* with *genuinely
+  small*. The discriminator is the **distinct-value ratio** among near-bound values: an optimizer floor
+  emits one number (`I.8_brody_q`: **15,174 near zero, 4 distinct, ratio 0.0003**), a real distribution
+  concentrated near a bound emits as many values as it has samples (Berry–Robnik ρ: **7,328 near zero,
+  7,319 distinct, ratio 0.9988** — ρ is a phase-space fraction and a chaotic system legitimately reports
+  it near 0). **Railed ⟺ near the bound AND distinct-ratio < 1% AND near-sample ≥ 1/ratio.** That last
+  clause is derived, not chosen: a rail's ratio is ~1/n, so below n = 100 the test *cannot* return
+  "rail" for any input — an arm that cannot fire, scored as a verdict.
+  **PROVENANCE, which is part of the rule:** this was adopted *after* a distance-only measurement
+  appeared to falsify a sealed classification, i.e. the resolution was chosen after seeing the result
+  it resolves. The sealing still worked — it forced the contradiction into the open instead of letting
+  the classification drift — but a post-contradiction rule **must be red-pathed against every other
+  case it could touch**. Done here: the first red-path FAILED (a second site flipped), which is what
+  produced the minimum-n clause; with it, the rule moves only the verdict it was adopted for.
+  **Report such a scoreboard as "4/5 clean, 1 resolved under a post-hoc discriminator", never 5/5.**
