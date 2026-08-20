@@ -431,3 +431,39 @@ test suggested and not proven exhaustive.**
 73.8%, already addressed by C2 plus the accessor. Everything else measured clean — Berry–Robnik 0.2%
 (mathematical bound, a real answer), `rep_int` 2.4% on n=83, DPP/Thomas 0%. **C1 is a classification
 and prevention cell, not damage discovery**, and it can follow C2 rather than precede it.
+
+### C2 population join — "100% railed" survives, but its SCOPE does not
+
+The brief said *"measured on 140 cells: bounded 100% railed."* The file shows **1,152 railed of 1,159
+= 99.4%**. Two correct numbers, and the unverified assumption was that they describe the same
+population. Joined, read-only:
+
+**The 7 interior fits, and where they live:**
+
+| value | cell |
+|---|---|
+| 0.1012 | `monkey5_spontaneous/M5_ch086_u2` |
+| 0.0967 | `monkey2_gratings_movie/M2_ch032_u2` |
+| 0.0878 | `monkey2_gratings/M2_ch017_u1` |
+| 0.0544 | `monkey5_spontaneous/M5_ch032_u2` |
+| 0.0340 | `monkey3_gratings/M3_ch090_u1` |
+| 0.0321 | `monkey2_gratings/M2_ch060_u1` |
+| 0.0252 | `monkey1_gratings/M1_ch057_u1` |
+
+**Result: 0 of the 7 lie inside the 140-cell roster, and banked values on the roster are 140/140 at
+the rail constant. "100% railed on the 140" STANDS.**
+
+**But the join exposes a scope limit the count alone hid.** The roster covers **three recordings, all
+`_spontaneous`** (monkey1/2/3) — the probe took the first 140 cells it could process and never reached
+a gratings condition. **Five of the 7 interior fits are in gratings or movie conditions**, and the
+other two in `monkey5_spontaneous`, which the roster also never reached.
+
+So the honest C2 characterisation is narrower than the brief's: **median q = −0.412, 100% negative, is
+measured on spontaneous-condition cells from 3 of 15 recordings.** It does *not* establish that
+gratings-condition cells behave the same — and the interior fits being **concentrated in exactly the
+conditions the probe missed** is mild evidence they may not. **"pvc-11 is uniformly clustered" must
+become "pvc-11 spontaneous is uniformly clustered"** until the full run says otherwise.
+
+**Consequence for C2's execution:** the full run covers all 1,159, so the write-up must recompute the
+characterisation on the complete set rather than quoting the probe. The probe's job was viability, and
+it did that — the repaired estimator has headroom and does not rail. Its numbers are not the finding.

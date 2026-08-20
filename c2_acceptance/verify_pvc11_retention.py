@@ -42,18 +42,44 @@ WHAT IT CHECKS, and why each arm is here:
                                         count, so it survives baseline drift.
                                         Reported as a backstop, not as an
                                         independently-demonstrated arm.
+                                        D IS ALSO A TRIPWIRE ON THE WRITE ITSELF:
+                                        the count is invariant only if C2 leaves
+                                        the bounded key untouched, which is the
+                                        design (repaired value lands under a NEW
+                                        key). So 1152 is load-bearing FOR THIS ARC
+                                        and is not a universal law of the file --
+                                        a future session that legitimately banks
+                                        new bounded values into pvc-11 (a new
+                                        substrate, a re-extraction) WILL trip D,
+                                        and should re-baseline deliberately rather
+                                        than edit the constant.
   E. NO NULLS                        -- the specific gate-False signature
 """
 import json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-BASE = json.load(open(f"{HERE}/pvc11_bounded_baseline.json"))
+# BASELINE PINNED IN THIS FILE. Arm C compares against the baseline snapshot, so
+# regenerating that snapshot alongside the data makes C vacuous -- the seal would
+# just move one file over. The baseline's own sha256 is therefore committed HERE,
+# in the verifier, in the same motion. Changing the baseline now breaks the
+# verifier loudly instead of silently re-anchoring it.
+BASELINE_SHA256 = "fa44393069e160ee98ab9c064b145982c39b53ccad638077c7e3b9a48ad4d98b"
+_raw = open(f"{HERE}/pvc11_bounded_baseline.json").read()
+BASE = json.loads(_raw)
+_recomputed = __import__("hashlib").sha256(
+    json.dumps(BASE["per_cell"], sort_keys=True).encode()).hexdigest()
 SRC = f"{ROOT}/{BASE['source']}"
 RAIL = 6.610696135189609e-05
 EXPECT_RECORDS, EXPECT_PRESENT, EXPECT_RAILED = 1159, 1159, 1152
 
 fails = []
+if _recomputed != BASELINE_SHA256:
+    fails.append(f"BASELINE DRIFT: snapshot hashes {_recomputed[:16]}… but this "
+                 f"verifier is pinned to {BASELINE_SHA256[:16]}… — the baseline "
+                 "was regenerated, which would make arm C compare the data "
+                 "against itself")
+
 recs = [json.loads(l) for l in open(SRC)]
 
 # A — record count
