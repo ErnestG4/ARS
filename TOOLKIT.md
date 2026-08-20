@@ -1244,13 +1244,39 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   internally self-consistent, and had a tiny sem** — every marker of a solid measurement. **What
   caught it was two runs disagreeing about the same quantity** (7.21 vs 5.22), which happened only
   because one grid sampled a dial the other skipped. Either run alone would have looked fine.
-  **THE CHECK: vary something that should NOT matter and confirm the answer doesn't move** — grid
-  resolution, basis scaling/centring, point ordering, precision. Do it *before* a number becomes
-  load-bearing, because significance testing is blind here: dividing by a small sem cannot detect that
-  the numerator is wrong. Corollary for fitting specifically: **centre and scale the abscissa**, and
-  keep a guard asserting the change is a no-op at any sealed setting — a "fix" that moves sealed
-  numbers is a re-verdict, not a fix.
-- **A pin on a measured quantity inherits every defect of that measurement.** (Same run.) The
-  "deviation is signed and growing" pin fired correctly on a number that was an artifact; it would
-  have defended a wrong fact against correction. **Pinning is not validating.** Pin *after* the
-  stability check above, not instead of it.
+  **WHY THE OTHER GUARDS CANNOT HELP, stated precisely: every defense in this repo operates on
+  SAMPLING error, and a deterministic error has zero variance — so it does not merely evade them, it
+  INVERTS them.** It looks *stronger* the more you check it the way you have been checking. Sealing,
+  pre-registration, red-pathing, pins, committed generators, boundary bounds and estimand matching all
+  ask **"how precisely did we measure this"** — they probe the **denominator**. Invariance testing asks
+  **"did we measure THE THING"** — it probes the **numerator**. Same distinction as the estimand rule,
+  one level lower down.
+  **THE CHECK: name the transformations this number is theoretically INVARIANT under, then test one or
+  two.** Read them off the computation — they are obvious to whoever wrote it and invisible to everyone
+  else — rather than from a generic list; **same construction as a sealed coverage argument, where the
+  axes come from what you already know.** Defaults only when nothing more specific suggests itself:
+  sampling-grid resolution, basis centring/scaling, point ordering, float precision, unit choice.
+  **THE STRONGEST CHEAP FORM, because it is what actually caught this one: evaluate any load-bearing
+  quantity on TWO OVERLAPPING-BUT-DIFFERENT SAMPLING GRIDS and require agreement on the overlap.** The
+  historical detection was exactly this and it was an accident — one grid sampled a dial the other
+  skipped. Made deliberate it is nearly free against the seed count such a quantity already costs.
+  Implemented as `invariance.dual_grid_statistic`, and **validated by construction**: it fires on the
+  historical ill-conditioned arithmetic and passes after the repair (`holonomy/invariance_demo.py`).
+  Corollary for fitting specifically: **centre and scale the abscissa**, and keep a guard asserting the
+  change is a no-op at any sealed setting — a "fix" that moves sealed numbers is a re-verdict, not a fix.
+- **A pin locks a value against DRIFT, which is protection only if the value was RIGHT — so pins go
+  AFTER invariance testing, never before.** (Same run, and it deserves equal billing with the habit
+  above.) The "deviation is signed and growing" pin fired correctly on a number that was an artifact.
+  Read that consequence plainly: **the checker was actively working against the record** — it would
+  have flagged the honest recomputation as the regression and defended the error against correction.
+  A guard that preserves a wrong value is worse than no guard, because it launders the error as
+  verified. **Pinning is not validating.** Sequence: measure → invariance-test → *then* pin.
+- **Non-inertness applies to EVERY ARM of every multi-arm test, not just to red-demo constructions.**
+  (Two instances 2026-08-19: the a=0 finite-n arm, and the degenerate lin/quad predictor interval
+  scored 0/2 as a *failure* when no measurement could have satisfied it.) The failure pattern is
+  constant: **an arm that cannot fire is scored as a pass or a failure rather than as NON-EVIDENCE**,
+  and both directions corrupt the verdict — a dead arm reads as corroboration on one side and as
+  refutation on the other. The existing rule covers witnesses; extend it to arms. **Before scoring any
+  arm, state the measurement that would make it fire; if none exists at the current configuration,
+  score it INAPPLICABLE and say so in the verdict string** rather than letting it contribute a
+  fraction to an n/m tally.
