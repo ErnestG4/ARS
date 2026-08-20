@@ -1,0 +1,13 @@
+{
+ "n_records": 1159,
+ "n_repaired": 1159,
+ "n_skipped": 0,
+ "skipped": [],
+ "railed_lo": 0.0,
+ "railed_hi": 0.0,
+ "frac_negative": 0.993960310612597,
+ "qmin": -0.6339385710705056,
+ "qmax": 0.09836323341272432,
+ "qmedian": -0.3728210687510792,
+ "headroom_to_lo": 0.36606142892949445
+}

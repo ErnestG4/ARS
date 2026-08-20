@@ -781,3 +781,39 @@ rather than a repair, and costed on its own merits.
 *Not on the queue:* the high-FM-index arc (optional generalization test, see above) and the P1
 straddle form (needs 3–4 more degrees at 200 seeds, under an hour, not urgent — the mechanism carries
 ADD-7 without it).
+
+## C2 COMPLETE (2026-08-19) — pvc-11 repaired, and a recovered substrate signal
+
+**Instrument half.** All **1,159** pvc-11 records now carry `I.8_brody_q_unbounded` alongside an
+**untouched** `I.8_brody_q`, matching the five-substrate layout. Run took 22 s, 0 skipped. The write
+went through a direct estimator call, **not** `phase2b_recompute._matched_axes`, which nulls the
+bounded key when the fitter gate fails — policy-correct behaviour that would still have destroyed the
+banked record this finding rests on. Gated by the acceptance verifier **sealed before the write**
+(baseline pinned by hash): 1,159 records, 1,159 bounded keys present, all bit-identical, 1,152 at the
+rail constant, 0 nulls. Re-checked independently after the write rather than assumed.
+
+**Science half — this is a recovered signal, not hygiene.** Across all 1,159 cells and all conditions:
+
+| | value |
+|---|---|
+| railed at either bound | **0.0%** |
+| range | **−0.634 … +0.098** |
+| median | **−0.373** |
+| negative (clustered) | **99.4%** |
+| headroom to the −1.0 bound | **0.366** |
+
+**pvc-11 (macaque V1) is clustered in 99.4% of cells, median Brody q ≈ −0.37**, and the bounded
+coordinate reported **1,152 of them as the identical positive constant `6.610696135189609e-05`** —
+wrong sign, wrong magnitude, zero variance. The headroom number is recorded so the wider-bound
+question is not reopened: the most extreme cell sits **0.366 away** from the (−1.0) bound.
+
+**Scope correction the probe forced, and it changed the number.** The 140-cell probe covered only
+`_spontaneous` recordings from 3 of 15, and reported *100% negative, median −0.412*. The full file
+gives **99.4% and −0.373** — the probe was not representative, exactly as the population join
+predicted, and its numbers are **not** the finding.
+
+**Independent internal validation.** The **7** cells whose repaired q is non-negative are **exactly**
+the 7 whose bounded fit was interior rather than railed (7/7), with the two estimators agreeing
+closely where both are informative (0.101↔0.098, 0.088↔0.094, 0.034↔0.031). So the repair reproduces
+the bounded estimator wherever the bounded one was actually measuring, and diverges only where it was
+pinned to its floor.
