@@ -1412,3 +1412,31 @@ the writer first does, and that check happens at construction time.
   existing rule's own constants cannot be rationalisation, because there is nothing to rationalise
   with.** That is the stopping condition for post-hoc adoption: a free parameter continues the regress,
   a derivation ends it. State the derivation; do not leave it to be inferred.
+- **A hardcoded constant in a checker is one of TWO things, and it must say which.** Opposite
+  semantics, identical syntax — so a future constant in either role cites which it is.
+  - **LOWER BOUND ON DETECTION** — the true count may legitimately rise; tripping means **the
+    instrument broke**. *Fix the extractor; do not raise the number.* (`ASSERT_MIN_BLOBS = 10` against
+    60 resolving frozen objects: sealing a seventh arc raises the true count and cannot trip it.)
+  - **EXACT INVARIANT** — any change trips **by design**, and whether the change was legitimate is
+    decided by the party who tripped it. *Do not edit the constant; re-baseline deliberately.*
+    (`verify_pvc11_retention` arm D's `1152`: a future session legitimately banking new bounded values
+    into that file **should** trip it.)
+  Getting this backwards is silent in both directions — raising a lower bound hides a broken
+  instrument; re-baselining an invariant launders an unreviewed change.
+- **A FREE PARAMETER CONTINUES THE REGRESS; A DERIVATION ENDS IT.** The general criterion for when a
+  post-hoc resolution rule is legitimate, and it applies every time a sealed prediction meets an
+  apparent falsification and the resolving rule arrives late. Ask: **does the new rule contain a
+  constant that could have been chosen differently?** If yes, it is a rationalisation surface and the
+  regress continues — the rule needs its own red-path against every case it could touch. If the rule
+  is derived **entirely from the existing rule's own constants**, it has zero degrees of freedom,
+  would read identically had it been written first, and **cannot be rationalisation because there is
+  nothing to rationalise with**. Worked instance: `n = 1/RAIL_RATIO` (2026-08-19). *State the
+  derivation explicitly — a reader who sees "clause added after the flip" deserves the
+  derivation-not-choice defense written down, not left to be inferred.*
+- **Answer the CATEGORY, not the case — silent states are the thing to forbid.** Asked to give one
+  site-bound an explicit verdict, making the *generator* emit one for **every** site-bound surfaced two
+  more slots (`brody_q_unbounded@4` n=34, `berry_robnik@1` n=33) sitting in the same unlabeled state
+  that nobody had asked about. **A slot with no verdict is one someone later fills from memory.** Same
+  move as the retention verifier's presence-arm preceding its value-arm, and as making the machine
+  write PASS/FAIL rather than trusting a human to read `$?`. When a question exposes an unlabeled
+  state, fix the schema so the state cannot be unlabeled — the instance is a sample of the class.
