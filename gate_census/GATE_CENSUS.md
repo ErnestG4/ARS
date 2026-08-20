@@ -245,3 +245,31 @@ refused. It also carries `rail_check`, which reports the boundary-pileup fractio
 the structural analogue of the named-negative-set requirement, and it is the version that would have
 caught all three instruments — because each would have had to answer *"what lies beyond Poisson?"* at
 construction time, and none of them could.
+
+### Rail concentration — measured before deciding, and it shrinks the problem to a read-through change
+
+**Correction to my own 37.9% first.** That denominator wrongly included `brody_q_unbounded` values
+(the substring `brody_q` matches both). Separating them: **15,174 of 20,558 BOUNDED Brody q values are
+railed — 73.8%, not 37.9%.** The bounded estimator carries no information nearly three-quarters of
+the time, which is *worse* than reported. But the migration is far smaller than either number suggests:
+
+| railed | of | frac | cum | unbounded banked alongside? | file |
+|---|---|---|---|---|---|
+| 4,325 | 4,326 | **100.0%** | 28.5% | yes | `allen-hpf-cell.jsonl` |
+| 3,983 | 4,006 | 99.4% | 54.8% | yes | `buzsaki-port-cell.jsonl` |
+| 1,346 | 1,365 | 98.6% | 63.6% | yes | `dr-port-cell.jsonl` |
+| 1,152 | 1,159 | 99.4% | 71.2% | **no** | `pvc-11.jsonl` |
+| 986 | 1,139 | 86.6% | 77.7% | yes | `ibl-port-cell.jsonl` |
+| 868 | 916 | 94.8% | **83.4%** | yes | `hc3-port-cell.jsonl` |
+
+**Two facts decide the migration.**
+
+1. **6 files carry 80% of all railed values** (of 44 with any). R-178's numbers were representative —
+   the same cell datasets, at the same near-100% rates.
+2. **91.7% of railed values (13,908 of 15,174) sit in artifacts that ALREADY carry an
+   unbounded-estimator value alongside.** For those the repair is *already banked* — nothing needs
+   recomputing, only a **read-through change** so the consumer sees the informative number.
+
+**So the migration is not 15,195 recomputes. It is a read-through change covering 91.7%, plus one
+file — `pvc-11.jsonl`, 1,152 railed values, no unbounded companion — that genuinely needs a decision.**
+That is the boundary-rate collapse again: 105 → 19, and here 15,174 → effectively one file.

@@ -1,0 +1,361 @@
+{
+ "total_values": 20558,
+ "total_railed": 15174,
+ "files_with_any_rail": 44,
+ "per_file": [
+  {
+   "file": "cross_substrate/coordinates/allen-hpf-cell.jsonl",
+   "n": 4326,
+   "railed": 4325,
+   "frac": 0.9997688395746648,
+   "cum_share": 0.28502701990246476,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/buzsaki-port-cell.jsonl",
+   "n": 4006,
+   "railed": 3983,
+   "frac": 0.9942586120818772,
+   "cum_share": 0.5475154870172664,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/dr-port-cell.jsonl",
+   "n": 1365,
+   "railed": 1346,
+   "frac": 0.9860805860805861,
+   "cum_share": 0.6362198497429814,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/pvc-11.jsonl",
+   "n": 1159,
+   "railed": 1152,
+   "frac": 0.993960310612597,
+   "cum_share": 0.712139185448794,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/ibl-port-cell.jsonl",
+   "n": 1139,
+   "railed": 986,
+   "frac": 0.8656716417910447,
+   "cum_share": 0.7771187557664426,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/hc3-port-cell.jsonl",
+   "n": 916,
+   "railed": 868,
+   "frac": 0.9475982532751092,
+   "cum_share": 0.8343218663503361,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/population-strat.jsonl",
+   "n": 1454,
+   "railed": 471,
+   "frac": 0.32393397524071527,
+   "cum_share": 0.8653618030842231,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/ibl-port-cell-visual.jsonl",
+   "n": 417,
+   "railed": 364,
+   "frac": 0.8729016786570744,
+   "cum_share": 0.8893502042968235,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/ret1-cell.jsonl",
+   "n": 325,
+   "railed": 278,
+   "frac": 0.8553846153846154,
+   "cum_share": 0.9076710162119415,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/buzsaki-port-pop.jsonl",
+   "n": 340,
+   "railed": 216,
+   "frac": 0.6352941176470588,
+   "cum_share": 0.9219058916567814,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/quasiperiodic-operators.jsonl",
+   "n": 216,
+   "railed": 193,
+   "frac": 0.8935185185185185,
+   "cum_share": 0.9346250164755503,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/allen-hpf-pop.jsonl",
+   "n": 252,
+   "railed": 189,
+   "frac": 0.75,
+   "cum_share": 0.9470805324897852,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/brocot-landscape.jsonl",
+   "n": 3643,
+   "railed": 188,
+   "frac": 0.05160581937963217,
+   "cum_share": 0.9594701463028865,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/quasiperiodic-deepening.jsonl",
+   "n": 180,
+   "railed": 164,
+   "frac": 0.9111111111111111,
+   "cum_share": 0.9702781072887835,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/lambda-star-classes.jsonl",
+   "n": 108,
+   "railed": 108,
+   "frac": 1.0,
+   "cum_share": 0.9773955450112034,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/hc3-port-pop.jsonl",
+   "n": 115,
+   "railed": 56,
+   "frac": 0.48695652173913045,
+   "cum_share": 0.9810860682746804,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/fibonacci-lambda-theta.jsonl",
+   "n": 44,
+   "railed": 43,
+   "frac": 0.9772727272727273,
+   "cum_share": 0.9839198629234216,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/dr-port-pop.jsonl",
+   "n": 128,
+   "railed": 40,
+   "frac": 0.3125,
+   "cum_share": 0.9865559509687624,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA3_p_ec013.922.jsonl",
+   "n": 36,
+   "railed": 36,
+   "frac": 1.0,
+   "cum_share": 0.988928430209569,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/population-fingerprint-all.jsonl",
+   "n": 96,
+   "railed": 24,
+   "frac": 0.25,
+   "cum_share": 0.9905100830367735,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA1_p_ec016.106.jsonl",
+   "n": 16,
+   "railed": 16,
+   "frac": 1.0,
+   "cum_share": 0.9915645182549098,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/fibonacci-lambda.jsonl",
+   "n": 13,
+   "railed": 12,
+   "frac": 0.9230769230769231,
+   "cum_share": 0.9923553446685119,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/am-confluence.jsonl",
+   "n": 15,
+   "railed": 12,
+   "frac": 0.8,
+   "cum_share": 0.9931461710821141,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA3_i_ec016.749.jsonl",
+   "n": 12,
+   "railed": 11,
+   "frac": 0.9166666666666666,
+   "cum_share": 0.9938710952945828,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA3_i_ec016.733.jsonl",
+   "n": 12,
+   "railed": 10,
+   "frac": 0.8333333333333334,
+   "cum_share": 0.994530117305918,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/lambda-star-nconv.jsonl",
+   "n": 9,
+   "railed": 9,
+   "frac": 1.0,
+   "cum_share": 0.9951232371161197,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA3_i_ec016.799.jsonl",
+   "n": 10,
+   "railed": 8,
+   "frac": 0.8,
+   "cum_share": 0.9956504547251879,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/liouville-nconv.jsonl",
+   "n": 8,
+   "railed": 8,
+   "frac": 1.0,
+   "cum_share": 0.9961776723342559,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA3_i_ec016.674.jsonl",
+   "n": 10,
+   "railed": 8,
+   "frac": 0.8,
+   "cum_share": 0.9967048899433241,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/comcat-fingerprint.jsonl",
+   "n": 7,
+   "railed": 7,
+   "frac": 1.0,
+   "cum_share": 0.9971662053512588,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/brocot-approximability.jsonl",
+   "n": 54,
+   "railed": 7,
+   "frac": 0.12962962962962962,
+   "cum_share": 0.9976275207591934,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/sturmian-hamiltonian.jsonl",
+   "n": 7,
+   "railed": 6,
+   "frac": 0.8571428571428571,
+   "cum_share": 0.9980229339659945,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/ibl-port-pop.jsonl",
+   "n": 15,
+   "railed": 4,
+   "frac": 0.26666666666666666,
+   "cum_share": 0.9982865427705285,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/am-confluence-theta.jsonl",
+   "n": 4,
+   "railed": 4,
+   "frac": 1.0,
+   "cum_share": 0.9985501515750627,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/mertens.jsonl",
+   "n": 3,
+   "railed": 3,
+   "frac": 1.0,
+   "cum_share": 0.9987478581784631,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/liouville.jsonl",
+   "n": 3,
+   "railed": 3,
+   "frac": 1.0,
+   "cum_share": 0.9989455647818637,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/goes-fingerprint.jsonl",
+   "n": 3,
+   "railed": 3,
+   "frac": 1.0,
+   "cum_share": 0.9991432713852643,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/fitter_validation.json",
+   "n": 5,
+   "railed": 2,
+   "frac": 0.4,
+   "cum_share": 0.9992750757875313,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/population-fingerprint.jsonl",
+   "n": 8,
+   "railed": 2,
+   "frac": 0.25,
+   "cum_share": 0.9994068801897983,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/L-zeros-dirichlet.jsonl",
+   "n": 2,
+   "railed": 2,
+   "frac": 1.0,
+   "cum_share": 0.9995386845920654,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/cf-discriminator.jsonl",
+   "n": 14,
+   "railed": 2,
+   "frac": 0.14285714285714285,
+   "cum_share": 0.9996704889943324,
+   "has_unbounded_companion": true
+  },
+  {
+   "file": "cross_substrate/coordinates/maass-gamma0.jsonl",
+   "n": 6,
+   "railed": 2,
+   "frac": 0.3333333333333333,
+   "cum_share": 0.9998022933965994,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/L-zeros-ec.jsonl",
+   "n": 4,
+   "railed": 2,
+   "frac": 0.5,
+   "cum_share": 0.9999340977988664,
+   "has_unbounded_companion": false
+  },
+  {
+   "file": "cross_substrate/coordinates/instrument_lensing_ledger_hc3_CA3_p_ec016.674.jsonl",
+   "n": 1,
+   "railed": 1,
+   "frac": 1.0,
+   "cum_share": 1.0,
+   "has_unbounded_companion": false
+  }
+ ],
+ "files_covering_80pct": 6,
+ "railed_with_unbounded_companion": 13908
+}
