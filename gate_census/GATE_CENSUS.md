@@ -88,9 +88,20 @@ tolerance — *a threshold referenced to the wrong scale* — and the same root 
 Calibration comes from `gate1_specificity.py`, through this same gate: true Poisson **0.012**,
 uniform **0.091**, lognormal **0.104**, bimodal **0.334**, perfect clock **0.533**.
 
+**⚠ THRESHOLD SUPERSEDED — 0.09 → 0.0629.** The 0.09 below was read off ONE calibrator (uniform at
+n=2000 measured 0.091) and therefore sat *exactly on it*: at n=3000 uniform reads 0.0878, making the
+gate a coin flip on its own nearest confusable case. **One-sided calibration, committed inside the
+census that found the class — the fourth instance.** Recalibrated with both error rates across
+n ∈ {500, 1000, 2000, 5000, 10000} × 12 reps (`calibrate_fitpoor.py`): worst **genuine member 0.0567**,
+best **non-member 0.0699** — separated — so the threshold is the **geometric midpoint 0.0629**,
+sitting off both calibrators. `DetectorSpec` certifies **sensitivity 5/5, specificity 2/2**. Effect of
+the correction on the work list: **754 → 936 rows** at the poor-fit tier, i.e. the too-high threshold
+was *missing* 182 poor fits.
+
 **THE METHOD, worth naming because it generalizes past this gate: when a goodness threshold is
 needed, calibrate it against MEASURED NON-MEMBERS THROUGH THE SAME INSTRUMENT, not against a
-theoretical distribution.** The 0.09 tier is not a distributional cutoff — it is *"fits no better than
+theoretical distribution — and calibrate it from the SEPARATION between measured members and measured
+non-members, never from where one calibrator happened to land.** The 0.09 tier is not a distributional cutoff — it is *"fits no better than
 uniform spacings do when passed through this exact classifier"*. That is why it works where the KS
 critical value does not: it inherits the instrument's own quirks, unfolding included, instead of
 assuming them away. Same move as measuring a misclassification-rate estimand directly rather than

@@ -137,7 +137,15 @@ def _classify(spacings: np.ndarray) -> dict:
     # uniform spacings read 0.091 and lognormal 0.104 through this same gate.
     # So best_ks >= 0.09 means "this fits no better than something we have
     # measured NOT to be a member of any of these classes".
-    KS_NONMEMBER = 0.09
+    # THRESHOLD CALIBRATED WITH BOTH ERROR RATES (gate_census/calibrate_fitpoor.py).
+    # The first cut used 0.09 because uniform spacings measured 0.091 at n=2000 --
+    # a threshold read off ONE calibrator, which then sat exactly on it (uniform
+    # reads 0.0878 at n=3000, a coin flip). Measured properly across n in
+    # {500,1000,2000,5000,10000} x 12 reps: worst GENUINE member 0.0567, best
+    # NON-member 0.0699 -- separated -- so the threshold is the geometric midpoint
+    # of the gap, sitting off both calibrators. DetectorSpec certifies it at
+    # sensitivity 5/5, specificity 2/2.
+    KS_NONMEMBER = 0.0629
     return dict(n=n, ks_p=ks_p, ks_o=ks_o, ks_u=ks_u, gap=ks_o - ks_u,
                 mass03=float((spacings < 0.3).mean()), best=best,
                 best_ks=best_ks, ks_crit_01=float(ks_crit_01),

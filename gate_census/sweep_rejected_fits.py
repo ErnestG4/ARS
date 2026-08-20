@@ -94,11 +94,11 @@ def main():
     # The significance column is retained but is NOT the work list -- it flags
     # 97.5% because n is large, which is the KS test working as designed and
     # answering a question nobody asked.
-    TIERS = [("as bad as a known non-member (>=0.09)", 0.09),
+    TIERS = [("as bad as a known non-member (>=0.0629, both-sided)", 0.0629),
              ("worse than lognormal non-member (>=0.104)", 0.104),
              ("worse than bimodal non-member (>=0.334)", 0.334)]
     for r in rows:
-        r["fit_poor"] = bool(r["best_ks"] >= 0.09)
+        r["fit_poor"] = bool(r["best_ks"] >= 0.0629)
     rej = [r for r in rows if r["rejected"]]
     poor = [r for r in rows if r["fit_poor"]]
     by_file = {}

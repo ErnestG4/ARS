@@ -5,11 +5,11 @@
  "rejected_fraction": 0.9746223564954682,
  "significance_caveat": "97.5% is large-n hypersensitivity, NOT 1613 bad classifications. Median n 6150, max 5.3e7. Use the effect-size tiers below as the work list.",
  "effect_size_tiers": {
-  "as bad as a known non-member (>=0.09)": 754,
+  "as bad as a known non-member (>=0.0629, both-sided)": 936,
   "worse than lognormal non-member (>=0.104)": 747,
   "worse than bimodal non-member (>=0.334)": 45
  },
- "fit_poor": 754,
+ "fit_poor": 936,
  "note": "WORK LIST, NOT VERDICTS. ks_crit=1.63/sqrt(n) is demanding at large n and mild unfolding imperfection can fail it while the class is still right. A rejected fit does not change WHICH class is nearest -- rejection is about the residual to the best fit, not the ordering -- so an affected row becomes UNGRADED, never a different class.",
  "by_file": {
   "data/mertens_liouville_results.json": {
@@ -29,9 +29,9 @@
    ]
   },
   "data/earthquake_results.json": {
-   "n_rejected": 17,
+   "n_rejected": 23,
    "worst_ks": 0.5788987151230415,
-   "worst_ratio": 8.180647622863434,
+   "worst_ratio": 8.902098679067405,
    "classes": [
     "Poiss"
    ]
@@ -45,7 +45,7 @@
    ]
   },
   "data/phase9_fingerprints.json": {
-   "n_rejected": 6,
+   "n_rejected": 9,
    "worst_ks": 0.40042653128057604,
    "worst_ratio": 117.28769663250914,
    "classes": [
@@ -70,7 +70,7 @@
    ]
   },
   "data/phase10_llm_fingerprints.json": {
-   "n_rejected": 63,
+   "n_rejected": 81,
    "worst_ks": 0.3186688081066281,
    "worst_ratio": 14.051709168542196,
    "classes": [
@@ -80,7 +80,7 @@
    ]
   },
   "data/phase11_model_family.json": {
-   "n_rejected": 14,
+   "n_rejected": 18,
    "worst_ks": 0.3119622091458196,
    "worst_ratio": 2.9956938297100706,
    "classes": [
@@ -123,9 +123,25 @@
    ]
   },
   "data/dirichlet_results.json": {
-   "n_rejected": 4,
+   "n_rejected": 153,
    "worst_ks": 0.09296991180937778,
    "worst_ratio": 4.678752570655246,
+   "classes": [
+    "GUE"
+   ]
+  },
+  "data/lmfdb_results.json": {
+   "n_rejected": 1,
+   "worst_ks": 0.07943023905734076,
+   "worst_ratio": 4.656986661653431,
+   "classes": [
+    "GUE"
+   ]
+  },
+  "data/lmfdb_edge_results.json": {
+   "n_rejected": 1,
+   "worst_ks": 0.06989494267599514,
+   "worst_ratio": 0.5304004257968455,
    "classes": [
     "GUE"
    ]
@@ -636,7 +652,7 @@
    "ks_crit": 0.008441744022248428,
    "ratio": 8.902098679067405,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/earthquake_results.json",
@@ -647,7 +663,7 @@
    "ks_crit": 0.009639571794690329,
    "ratio": 7.835460097898904,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/earthquake_results.json",
@@ -658,7 +674,7 @@
    "ks_crit": 0.02035751277327728,
    "ratio": 3.204268727857006,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/earthquake_results.json",
@@ -669,7 +685,7 @@
    "ks_crit": 0.040422887577440586,
    "ratio": 1.710390559681753,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/earthquake_results.json",
@@ -680,7 +696,7 @@
    "ks_crit": 0.06756567379160877,
    "ratio": 1.080730397052144,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/earthquake_results.json",
@@ -691,7 +707,7 @@
    "ks_crit": 0.1991361943007775,
    "ratio": 0.36859596890150575,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/earthquake_results.json",
@@ -1010,7 +1026,7 @@
    "ks_crit": 0.13177768960307426,
    "ratio": 0.5304004257968455,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/lmfdb_edge_results.json",
@@ -1241,7 +1257,7 @@
    "ks_crit": 0.008441970454769215,
    "ratio": 8.898709341790633,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase9_fingerprints.json",
@@ -1252,7 +1268,7 @@
    "ks_crit": 0.0018422736969718532,
    "ratio": 40.77878408912391,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase9_fingerprints.json",
@@ -1263,7 +1279,7 @@
    "ks_crit": 0.0018422242785280268,
    "ratio": 40.784465505039535,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase9_fingerprints.json",
@@ -7137,7 +7153,7 @@
    "ks_crit": 0.02772285252140611,
    "ratio": 2.670958037393829,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7148,7 +7164,7 @@
    "ks_crit": 0.026833320708980517,
    "ratio": 2.842785155428929,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7159,7 +7175,7 @@
    "ks_crit": 0.02603089996761931,
    "ratio": 2.723726076725711,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7170,7 +7186,7 @@
    "ks_crit": 0.026114284446564058,
    "ratio": 2.589917008864575,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7181,7 +7197,7 @@
    "ks_crit": 0.025026624201161776,
    "ratio": 2.5803536489785843,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7214,7 +7230,7 @@
    "ks_crit": 0.02474530318991506,
    "ratio": 3.1466678091828344,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7291,7 +7307,7 @@
    "ks_crit": 0.023660490163446467,
    "ratio": 3.2846062100607396,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7302,7 +7318,7 @@
    "ks_crit": 0.023512332850830073,
    "ratio": 2.82561216730997,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7335,7 +7351,7 @@
    "ks_crit": 0.023512332850830073,
    "ratio": 3.068151245586836,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7357,7 +7373,7 @@
    "ks_crit": 0.023184209852525485,
    "ratio": 3.3563121836227987,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7368,7 +7384,7 @@
    "ks_crit": 0.023245425502510374,
    "ratio": 3.761613732857282,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7379,7 +7395,7 @@
    "ks_crit": 0.023118823151420543,
    "ratio": 3.2664345937151094,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7401,7 +7417,7 @@
    "ks_crit": 0.022925933294165066,
    "ratio": 2.8362360370332165,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7478,7 +7494,7 @@
    "ks_crit": 0.022689277923447975,
    "ratio": 2.8286695702823157,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7500,7 +7516,7 @@
    "ks_crit": 0.022577996474199134,
    "ratio": 3.7164096650860667,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7511,7 +7527,7 @@
    "ks_crit": 0.022599687320275928,
    "ratio": 3.0280528582214576,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7522,7 +7538,7 @@
    "ks_crit": 0.02252619220752837,
    "ratio": 3.6494372286234023,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7533,7 +7549,7 @@
    "ks_crit": 0.022515444465035964,
    "ratio": 3.732842075478593,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7544,7 +7560,7 @@
    "ks_crit": 0.02252619220752837,
    "ratio": 3.324025086093952,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7588,7 +7604,7 @@
    "ks_crit": 0.02228906779133509,
    "ratio": 3.859463817147557,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7599,7 +7615,7 @@
    "ks_crit": 0.022274495009266402,
    "ratio": 3.3902602011406167,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7610,7 +7626,7 @@
    "ks_crit": 0.022150746857256456,
    "ratio": 3.0151072526898886,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7632,7 +7648,7 @@
    "ks_crit": 0.022132361948687913,
    "ratio": 2.9983138029287106,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7665,7 +7681,7 @@
    "ks_crit": 0.021984912219296174,
    "ratio": 3.838528273344451,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7676,7 +7692,7 @@
    "ks_crit": 0.02195696951430736,
    "ratio": 3.4933413912238165,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7874,7 +7890,7 @@
    "ks_crit": 0.021690956856489696,
    "ratio": 3.4002720846040506,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7896,7 +7912,7 @@
    "ks_crit": 0.02156152563193414,
    "ratio": 3.3800521456962973,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7907,7 +7923,7 @@
    "ks_crit": 0.02155586866590947,
    "ratio": 3.352028053875202,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7918,7 +7934,7 @@
    "ks_crit": 0.021572852938012015,
    "ratio": 3.0696165227963377,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7940,7 +7956,7 @@
    "ks_crit": 0.02156152563193414,
    "ratio": 3.063450540223426,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7951,7 +7967,7 @@
    "ks_crit": 0.02152952823874302,
    "ratio": 3.2642122741763213,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -7962,7 +7978,7 @@
    "ks_crit": 0.021495803432702652,
    "ratio": 3.326166507450751,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8006,7 +8022,7 @@
    "ks_crit": 0.021465958498583765,
    "ratio": 3.0219466567837654,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8061,7 +8077,7 @@
    "ks_crit": 0.021362471870013413,
    "ratio": 3.0794333956953723,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8083,7 +8099,7 @@
    "ks_crit": 0.021384521563001715,
    "ratio": 3.0234901589847207,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8094,7 +8110,7 @@
    "ks_crit": 0.02140110371291658,
    "ratio": 3.119180655761858,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8116,7 +8132,7 @@
    "ks_crit": 0.021309465441011043,
    "ratio": 3.5781760643861635,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8127,7 +8143,7 @@
    "ks_crit": 0.021369814187422172,
    "ratio": 3.719617747708271,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8138,7 +8154,7 @@
    "ks_crit": 0.021311286685015998,
    "ratio": 3.4428192440227106,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8314,7 +8330,7 @@
    "ks_crit": 0.02114032574446292,
    "ratio": 3.622475917625143,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8380,7 +8396,7 @@
    "ks_crit": 0.021119022085295067,
    "ratio": 3.2712372255553097,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8435,7 +8451,7 @@
    "ks_crit": 0.020999506020667084,
    "ratio": 3.087701034051617,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8479,7 +8495,7 @@
    "ks_crit": 0.021004736066662588,
    "ratio": 2.9957186749949947,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8490,7 +8506,7 @@
    "ks_crit": 0.020911188735974504,
    "ratio": 3.72044074829414,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8512,7 +8528,7 @@
    "ks_crit": 0.020961271350826108,
    "ratio": 3.258483428243614,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8545,7 +8561,7 @@
    "ks_crit": 0.020894001925529145,
    "ratio": 3.0733185001979875,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8556,7 +8572,7 @@
    "ks_crit": 0.020890569645928902,
    "ratio": 4.170029275569685,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8644,7 +8660,7 @@
    "ks_crit": 0.020807003621538037,
    "ratio": 3.4876381339178155,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8655,7 +8671,7 @@
    "ks_crit": 0.020803614030634788,
    "ratio": 3.19198569680827,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8666,7 +8682,7 @@
    "ks_crit": 0.02080022609574861,
    "ratio": 3.075807715801748,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8688,7 +8704,7 @@
    "ks_crit": 0.020781621995018172,
    "ratio": 3.5701429183234747,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8732,7 +8748,7 @@
    "ks_crit": 0.02091290975064644,
    "ratio": 3.607134508166997,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8743,7 +8759,7 @@
    "ks_crit": 0.020786690889437638,
    "ratio": 3.1495213592449267,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8754,7 +8770,7 @@
    "ks_crit": 0.020761383436091206,
    "ratio": 3.255675157092936,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8765,7 +8781,7 @@
    "ks_crit": 0.0207968398155315,
    "ratio": 3.6592801946416342,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8776,7 +8792,7 @@
    "ks_crit": 0.02073952491740298,
    "ratio": 3.2593685117420566,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8787,7 +8803,7 @@
    "ks_crit": 0.020785000845864827,
    "ratio": 3.3672324264329543,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8864,7 +8880,7 @@
    "ks_crit": 0.020667712520644678,
    "ratio": 4.146682391155321,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -8875,7 +8891,7 @@
    "ks_crit": 0.020699351465798644,
    "ratio": 4.2871290544773695,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9007,7 +9023,7 @@
    "ks_crit": 0.02056383329667825,
    "ratio": 3.1023413908111053,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9018,7 +9034,7 @@
    "ks_crit": 0.020591709802921278,
    "ratio": 3.4767609748378647,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9040,7 +9056,7 @@
    "ks_crit": 0.020608160800035073,
    "ratio": 3.4767187823156465,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9051,7 +9067,7 @@
    "ks_crit": 0.02061805034429783,
    "ratio": 3.159210289975493,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9062,7 +9078,7 @@
    "ks_crit": 0.02056874445384655,
    "ratio": 3.4563008097133965,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9073,7 +9089,7 @@
    "ks_crit": 0.020594996850560206,
    "ratio": 3.538992734192057,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9084,7 +9100,7 @@
    "ks_crit": 0.020599930374849577,
    "ratio": 3.1924137735299576,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9139,7 +9155,7 @@
    "ks_crit": 0.020550754056495684,
    "ratio": 3.105374146190399,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9172,7 +9188,7 @@
    "ks_crit": 0.020550754056495684,
    "ratio": 3.2881538124327445,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9183,7 +9199,7 @@
    "ks_crit": 0.020557290556042815,
    "ratio": 3.6315232722583297,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9205,7 +9221,7 @@
    "ks_crit": 0.020576937540988383,
    "ratio": 3.4861301603484764,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9227,7 +9243,7 @@
    "ks_crit": 0.020572020514145074,
    "ratio": 3.589142106822894,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9260,7 +9276,7 @@
    "ks_crit": 0.020547488144030644,
    "ratio": 3.127964092726274,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9513,7 +9529,7 @@
    "ks_crit": 0.020408510223527233,
    "ratio": 3.1977992481235686,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9535,7 +9551,7 @@
    "ks_crit": 0.020421319583158702,
    "ratio": 3.340517878242237,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9667,7 +9683,7 @@
    "ks_crit": 0.02031951458285047,
    "ratio": 3.6343136881450797,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9689,7 +9705,7 @@
    "ks_crit": 0.02034957890463608,
    "ratio": 3.145019480814565,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9832,7 +9848,7 @@
    "ks_crit": 0.020302169710220627,
    "ratio": 3.7591153268666555,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9931,7 +9947,7 @@
    "ks_crit": 0.020272314717520227,
    "ratio": 3.9673761646093832,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9942,7 +9958,7 @@
    "ks_crit": 0.020220772865510044,
    "ratio": 3.727606812651318,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9953,7 +9969,7 @@
    "ks_crit": 0.020239469839329286,
    "ratio": 3.382083040285503,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -9975,7 +9991,7 @@
    "ks_crit": 0.020228556972071425,
    "ratio": 3.5158684860634226,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10052,7 +10068,7 @@
    "ks_crit": 0.020169622156576455,
    "ratio": 4.022083053934882,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10074,7 +10090,7 @@
    "ks_crit": 0.02020057616827632,
    "ratio": 4.091934178632222,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10085,7 +10101,7 @@
    "ks_crit": 0.02013266450361838,
    "ratio": 3.7053363633217566,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10107,7 +10123,7 @@
    "ks_crit": 0.02016653457566949,
    "ratio": 3.240896788377215,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10118,7 +10134,7 @@
    "ks_crit": 0.020161905861808205,
    "ratio": 3.285995855234968,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10151,7 +10167,7 @@
    "ks_crit": 0.020168078188865953,
    "ratio": 3.5561931992318723,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10173,7 +10189,7 @@
    "ks_crit": 0.02015573919830204,
    "ratio": 3.1330617941522303,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10195,7 +10211,7 @@
    "ks_crit": 0.02014034726081602,
    "ratio": 3.4105122291357195,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10261,7 +10277,7 @@
    "ks_crit": 0.02011426169858096,
    "ratio": 3.1924619756539214,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10404,7 +10420,7 @@
    "ks_crit": 0.020044182258234698,
    "ratio": 3.4902789840897412,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10426,7 +10442,7 @@
    "ks_crit": 0.020044182258234698,
    "ratio": 3.333485369594033,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10470,7 +10486,7 @@
    "ks_crit": 0.020062393208924615,
    "ratio": 3.4701394542606945,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10481,7 +10497,7 @@
    "ks_crit": 0.020045697943688733,
    "ratio": 3.3059596009912684,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10525,7 +10541,7 @@
    "ks_crit": 0.02006847456499303,
    "ratio": 3.1628333473281325,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10558,7 +10574,7 @@
    "ks_crit": 0.020056317378013347,
    "ratio": 3.438304298365129,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10602,7 +10618,7 @@
    "ks_crit": 0.020054799282611103,
    "ratio": 3.4645770301195493,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10613,7 +10629,7 @@
    "ks_crit": 0.020131129006952634,
    "ratio": 3.1650250239882824,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10646,7 +10662,7 @@
    "ks_crit": 0.02006695370753452,
    "ratio": 3.1778357553203582,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10800,7 +10816,7 @@
    "ks_crit": 0.020019977953848755,
    "ratio": 3.7865353477814283,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10811,7 +10827,7 @@
    "ks_crit": 0.02002904428895936,
    "ratio": 3.2300670606526856,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -10822,7 +10838,7 @@
    "ks_crit": 0.019973330566881775,
    "ratio": 3.242552162394081,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11020,7 +11036,7 @@
    "ks_crit": 0.019965837289346672,
    "ratio": 3.3875646414475886,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11053,7 +11069,7 @@
    "ks_crit": 0.019955360855131464,
    "ratio": 4.17662854631773,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11064,7 +11080,7 @@
    "ks_crit": 0.01993445736626874,
    "ratio": 3.2339371550052802,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11086,7 +11102,7 @@
    "ks_crit": 0.019949381720658636,
    "ratio": 3.484742941737199,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11350,7 +11366,7 @@
    "ks_crit": 0.019882484689818247,
    "ratio": 3.3655383208682803,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11383,7 +11399,7 @@
    "ks_crit": 0.019891365424880226,
    "ratio": 4.2366554386691915,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11394,7 +11410,7 @@
    "ks_crit": 0.019867709860780822,
    "ratio": 3.8589707448942976,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11405,7 +11421,7 @@
    "ks_crit": 0.01987361583887227,
    "ratio": 4.043058546944213,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11416,7 +11432,7 @@
    "ks_crit": 0.019889884475957735,
    "ratio": 3.6695591645008436,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11471,7 +11487,7 @@
    "ks_crit": 0.019826514920419792,
    "ratio": 3.6215986980065416,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11592,7 +11608,7 @@
    "ks_crit": 0.019822116359096573,
    "ratio": 3.1893142519542406,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11625,7 +11641,7 @@
    "ks_crit": 0.01977829115323882,
    "ratio": 3.402453412161333,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11713,7 +11729,7 @@
    "ks_crit": 0.01976229459147423,
    "ratio": 3.3712822428050115,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11746,7 +11762,7 @@
    "ks_crit": 0.01978703293981074,
    "ratio": 3.2348218291149085,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11757,7 +11773,7 @@
    "ks_crit": 0.0197695609426377,
    "ratio": 3.3845867996011987,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11944,7 +11960,7 @@
    "ks_crit": 0.019705890693717424,
    "ratio": 3.2569389424122313,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11955,7 +11971,7 @@
    "ks_crit": 0.01974923532566075,
    "ratio": 3.3181969443724397,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -11999,7 +12015,7 @@
    "ks_crit": 0.019736201915043675,
    "ratio": 3.63951851618785,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12021,7 +12037,7 @@
    "ks_crit": 0.01971453678877054,
    "ratio": 3.4275987093164426,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12043,7 +12059,7 @@
    "ks_crit": 0.01970013294613105,
    "ratio": 3.787354904840815,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12142,7 +12158,7 @@
    "ks_crit": 0.019697255964305393,
    "ratio": 3.308199608225493,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12241,7 +12257,7 @@
    "ks_crit": 0.019687196445044974,
    "ratio": 3.4930629255268415,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12274,7 +12290,7 @@
    "ks_crit": 0.019708771461321984,
    "ratio": 3.6061706190174445,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12296,7 +12312,7 @@
    "ks_crit": 0.019667123557280158,
    "ratio": 3.4358310667711387,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12307,7 +12323,7 @@
    "ks_crit": 0.019687196445044974,
    "ratio": 3.4316637521636855,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12318,7 +12334,7 @@
    "ks_crit": 0.019681455063632402,
    "ratio": 3.6520784854575763,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12329,7 +12345,7 @@
    "ks_crit": 0.019668555299251066,
    "ratio": 4.316909717101332,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12439,7 +12455,7 @@
    "ks_crit": 0.019677152322448474,
    "ratio": 4.172141230912064,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12483,7 +12499,7 @@
    "ks_crit": 0.019637129016080595,
    "ratio": 3.327287218422919,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12494,7 +12510,7 @@
    "ks_crit": 0.019618629596980228,
    "ratio": 3.4104878610515814,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12868,7 +12884,7 @@
    "ks_crit": 0.01955218069127259,
    "ratio": 3.275667177996381,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -12890,7 +12906,7 @@
    "ks_crit": 0.019550774211344768,
    "ratio": 3.956073457394723,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13066,7 +13082,7 @@
    "ks_crit": 0.019583200251787666,
    "ratio": 3.4856777160591244,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13077,7 +13093,7 @@
    "ks_crit": 0.01958461374200942,
    "ratio": 3.391932625634253,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13143,7 +13159,7 @@
    "ks_crit": 0.019542341701048974,
    "ratio": 3.772409578963547,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13198,7 +13214,7 @@
    "ks_crit": 0.019532517549334206,
    "ratio": 3.414907222868317,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13440,7 +13456,7 @@
    "ks_crit": 0.019461386005630656,
    "ratio": 4.577089649464219,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13462,7 +13478,7 @@
    "ks_crit": 0.019507323320583286,
    "ratio": 3.924675228841108,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13484,7 +13500,7 @@
    "ks_crit": 0.019500342207622874,
    "ratio": 3.885200556166722,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13495,7 +13511,7 @@
    "ks_crit": 0.01949476271045355,
    "ratio": 3.7797947871079858,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13616,7 +13632,7 @@
    "ks_crit": 0.01945722596012252,
    "ratio": 3.616357413651086,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13660,7 +13676,7 @@
    "ks_crit": 0.019471103164625487,
    "ratio": 3.369812734987604,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13726,7 +13742,7 @@
    "ks_crit": 0.019432321586175413,
    "ratio": 4.255250261402478,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13759,7 +13775,7 @@
    "ks_crit": 0.019436465674707224,
    "ratio": 3.357655126811068,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13814,7 +13830,7 @@
    "ks_crit": 0.019417149242062285,
    "ratio": 3.5617986994145965,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13858,7 +13874,7 @@
    "ks_crit": 0.019413017494118483,
    "ratio": 4.042897780582725,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -13891,7 +13907,7 @@
    "ks_crit": 0.019421283629257453,
    "ratio": 3.37292087486147,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/dirichlet_results.json",
@@ -14199,7 +14215,7 @@
    "ks_crit": 0.15402052275126007,
    "ratio": 0.5774705253784866,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14210,7 +14226,7 @@
    "ks_crit": 0.03361003352782464,
    "ratio": 2.6463023941527326,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14221,7 +14237,7 @@
    "ks_crit": 0.03361003352782464,
    "ratio": 2.6463023941527326,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14298,7 +14314,7 @@
    "ks_crit": 0.10587987780124583,
    "ratio": 0.8073183080254762,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14309,7 +14325,7 @@
    "ks_crit": 0.023104883552232548,
    "ratio": 3.8735208783569077,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14320,7 +14336,7 @@
    "ks_crit": 0.023104883552232548,
    "ratio": 3.8735208783569077,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14496,7 +14512,7 @@
    "ks_crit": 0.15757804771444314,
    "ratio": 0.412855707691233,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14507,7 +14523,7 @@
    "ks_crit": 0.03438634911975233,
    "ratio": 1.891942531589372,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14518,7 +14534,7 @@
    "ks_crit": 0.03438634911975233,
    "ratio": 1.891942531589372,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14595,7 +14611,7 @@
    "ks_crit": 0.10587987780124583,
    "ratio": 0.8282705766893541,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14606,7 +14622,7 @@
    "ks_crit": 0.023104883552232548,
    "ratio": 3.870577917727715,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14617,7 +14633,7 @@
    "ks_crit": 0.023104883552232548,
    "ratio": 3.870577917727715,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14793,7 +14809,7 @@
    "ks_crit": 0.15333750154652634,
    "ratio": 0.46545440364520607,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14804,7 +14820,7 @@
    "ks_crit": 0.033460986081541196,
    "ratio": 2.1329800372546233,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14815,7 +14831,7 @@
    "ks_crit": 0.033460986081541196,
    "ratio": 2.13298003725458,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14892,7 +14908,7 @@
    "ks_crit": 0.1056572069390028,
    "ratio": 0.7653230104048034,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14903,7 +14919,7 @@
    "ks_crit": 0.023056292786456843,
    "ratio": 3.680708477800901,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -14914,7 +14930,7 @@
    "ks_crit": 0.023056292786456843,
    "ratio": 3.6807084778008674,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase10_llm_fingerprints.json",
@@ -16949,7 +16965,7 @@
    "ks_crit": 0.01705614484820955,
    "ratio": 4.656986661653431,
    "rejected": true,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/binance_results.json",
@@ -17323,7 +17339,7 @@
    "ks_crit": 0.15402052275126007,
    "ratio": 0.5774705253784866,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase11_model_family.json",
@@ -17345,7 +17361,7 @@
    "ks_crit": 0.10587987780124583,
    "ratio": 0.8073183080254762,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase11_model_family.json",
@@ -17389,7 +17405,7 @@
    "ks_crit": 0.14757326604930518,
    "ratio": 0.5528656731209093,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/phase11_model_family.json",
@@ -17477,7 +17493,7 @@
    "ks_crit": 0.0947418255762127,
    "ratio": 0.7552744416378383,
    "rejected": false,
-   "fit_poor": false
+   "fit_poor": true
   },
   {
    "file": "data/mertens_liouville_results.json",

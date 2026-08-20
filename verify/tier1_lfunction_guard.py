@@ -71,8 +71,25 @@ def classify(pooled):
     ks_p = ks_to(pooled, nns_cdf_poisson); ks_o = ks_to(pooled, nns_cdf_goe)
     ks_u = ks_to(pooled, nns_cdf_gue)
     best = min([('Poiss', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]
+    # ── FIT-QUALITY ARM added 2026-08-19 (gate census). ─────────────────────
+    # The `classify` above is a VERBATIM mirror of run_lmfdb_family.py so this
+    # guard reproduces the banked computation bit-identically — that is its job
+    # and it must not change. But a verbatim mirror also inherits the mirrored
+    # code's BLIND SPOT: `best` is an argmin over three surmises with no null
+    # option, so every input gets a class and a fit that matches NOTHING still
+    # reads as one of the three. A guard sharing the defect it would need in
+    # order to catch it is worse than no guard.
+    #
+    # So `best`, `gap`, `ks_*` and `n` stay bit-identical — validation against
+    # banked values is unaffected — and the quality of the winning fit is
+    # reported ALONGSIDE. Calibrated against non-members measured through this
+    # same argmin (gate_census/gate1_specificity.py): true Poisson 0.012,
+    # uniform 0.091, lognormal 0.104, bimodal 0.334, perfect clock 0.533.
+    best_ks = min(ks_p, ks_o, ks_u)
     return dict(n=int(pooled.size), ks_p=ks_p, ks_o=ks_o, ks_u=ks_u,
-                gap=ks_o - ks_u, mass03=float((pooled < 0.3).mean()), best=best)
+                gap=ks_o - ks_u, mass03=float((pooled < 0.3).mean()), best=best,
+                best_ks=float(best_ks), fit_poor=bool(best_ks >= 0.0629))   # calibrated both-sided; see
+                # gate_census/calibrate_fitpoor.py (sens 5/5, spec 2/2)
 
 # Driver params (module constants; FC_REF=1.0, Q_MAX=8, DUR=300, TRANSIENT_S=0.5, etc.)
 P = dict(fc_ref=1.0, q_max=8, dur_s=300.0, transient_s=0.5,
@@ -97,9 +114,10 @@ def run_curve_driver(name, zeros_path, banked_path, group_fn):
     n_drop = int(((f > DRIFT[0]) & ~((f > CANON[0]) & (f < CANON[1]))).sum())
     out.append(f"- bands: {len(f)} total; {n_drop} admitted by 0.5-guard but dropped by canonical "
                f"(f_pll range [{f.min():.3f},{f.max():.3f}])\n")
-    out.append(f"\n| group | guard | n_pool | ks_u | gap | best |\n|---|---|---|---|---|---|\n")
+    out.append(f"\n| group | guard | n_pool | ks_u | gap | best | fit |\n|---|---|---|---|---|---|---|\n")
     validated = True
     verdict_lines = []
+    poor_fits = []
     for gname, gcurves in groups.items():
         cl_drift = classify(aggregate_pool(gcurves, DRIFT))
         cl_canon = classify(aggregate_pool(gcurves, CANON))
@@ -114,9 +132,15 @@ def run_curve_driver(name, zeros_path, banked_path, group_fn):
                 vflag = f"  ⚠VALIDATION-MISMATCH vs banked(gap={b.get('gap'):+.3f},best={b.get('best')})"
         for tag, cl in (("0.5-drift", cl_drift), ("canonical", cl_canon)):
             if cl.get('best') == 'insufficient':
-                out.append(f"| {gname} | {tag} | {cl['n']} | — | — | insufficient |\n")
+                out.append(f"| {gname} | {tag} | {cl['n']} | — | — | insufficient | — |\n")
             else:
-                out.append(f"| {gname} | {tag} | {cl['n']} | {cl['ks_u']:.3f} | {cl['gap']:+.3f} | {cl['best']} |\n")
+                fit = (f"**POOR {cl['best_ks']:.3f}**" if cl['fit_poor']
+                       else f"ok {cl['best_ks']:.3f}")
+                out.append(f"| {gname} | {tag} | {cl['n']} | {cl['ks_u']:.3f} | "
+                           f"{cl['gap']:+.3f} | {cl['best']} | {fit} |\n")
+                if cl['fit_poor']:
+                    poor_fits.append(f"{gname}/{tag} best={cl['best']} "
+                                     f"best_ks={cl['best_ks']:.3f}")
         # did the verdict flip?
         if cl_drift.get('best') != 'insufficient' and cl_canon.get('best') != 'insufficient':
             flip = "FLIP" if cl_drift['best'] != cl_canon['best'] else "stable"
@@ -124,6 +148,14 @@ def run_curve_driver(name, zeros_path, banked_path, group_fn):
                                  f"gap {cl_drift['gap']:+.3f}→{cl_canon['gap']:+.3f}{vflag}")
     out.append(f"\n**Validation ({name}): {'PASS — 0.5-repro matches banked' if validated else 'FAILED — see ⚠'}**\n")
     out.append("**Guard-robustness:**\n" + "\n".join(verdict_lines) + "\n")
+    if poor_fits:
+        out.append("\n**⚠ FIT QUALITY — the winning class fits no better than a MEASURED "
+                   "NON-MEMBER (best_ks ≥ 0.0629, calibrated with BOTH error rates: worst "
+                   "genuine member 0.0567, best non-member 0.0699). `best` is a SELECTION, not a test — these rows are "
+                   "UNGRADED, not a different class:**\n"
+                   + "".join(f"  - {p}\n" for p in poor_fits))
+    else:
+        out.append("\n**Fit quality: all winning fits better than a measured non-member.**\n")
     return "".join(out)
 
 def run_mertens_liouville():
