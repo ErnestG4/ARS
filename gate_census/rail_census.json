@@ -1,0 +1,54 @@
+{
+ "tol": 0.001,
+ "params": {
+  "berry_robnik": {
+   "n": 20290,
+   "boundary": 1.0,
+   "n_railed": 33,
+   "railed_fraction": 0.001626416954164613,
+   "rail_is_defect": false,
+   "verdict": "ok",
+   "note": "rho=1 legitimately IS pure Poisson \u2014 flagged, not counted",
+   "files": [
+    "cross_substrate/coordinates/am.jsonl",
+    "cross_substrate/coordinates/brocot-landscape.jsonl",
+    "cross_substrate/coordinates/dynamical-breadth.jsonl",
+    "cross_substrate/coordinates/logistic.jsonl",
+    "cross_substrate/coordinates/mackey-glass.jsonl",
+    "cross_substrate/coordinates/population-strat.jsonl",
+    "cross_substrate/coordinates/sturmian.jsonl"
+   ]
+  },
+  "brody_q": {
+   "n": 40106,
+   "boundary": 0.0,
+   "n_railed": 15195,
+   "railed_fraction": 0.37887099187154044,
+   "rail_is_defect": true,
+   "verdict": "RAILED \u2014 class space likely too narrow",
+   "note": "q=0 is Poisson and the search floor; clustered wants q<0",
+   "files": [
+    "cross_substrate/coordinates/L-zeros-dirichlet.jsonl",
+    "cross_substrate/coordinates/L-zeros-ec.jsonl",
+    "cross_substrate/coordinates/allen-hpf-cell.jsonl",
+    "cross_substrate/coordinates/allen-hpf-pop.jsonl",
+    "cross_substrate/coordinates/am-confluence-theta.jsonl",
+    "cross_substrate/coordinates/am-confluence.jsonl",
+    "cross_substrate/coordinates/brocot-approximability.jsonl",
+    "cross_substrate/coordinates/brocot-landscape.jsonl"
+   ]
+  },
+  "rep_int": {
+   "n": 83,
+   "boundary": 0.0,
+   "n_railed": 2,
+   "railed_fraction": 0.024096385542168676,
+   "rail_is_defect": true,
+   "verdict": "ok",
+   "note": "the quadrant floor: R2=1 makes the integrand 0",
+   "files": [
+    "data/phase13_calibrators.json"
+   ]
+  }
+ }
+}

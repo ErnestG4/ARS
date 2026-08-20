@@ -204,3 +204,44 @@ one. That is the checker-cannot-see-its-own-class problem, in the strongest poss
 *The owner's prediction was right and the scale is worse than "more than one": three instruments
 independently reinvented the one-sided class space, and within just this instrument there are
 nineteen copies of it.*
+
+---
+
+## RAIL CENSUS — the pileup is silent by design, and it is 37.9%
+
+Unrepresentable data does not land *near* an endpoint, it lands *on* it. So the signature of a
+too-narrow class space is a **mass of outputs sitting within numerical tolerance of a boundary** —
+checkable with the same instrument as the boundary-rate sweep, pointed at **parameters** instead of
+**rates**, and it is evidence about the **instrument** rather than about any individual row.
+
+| parameter | n banked | at boundary | fraction | reading |
+|---|---|---|---|---|
+| **`I.8_brody_q`** (floor q=0) | **40,106** | **15,195** | **37.9%** | **RAILED — class space too narrow** |
+| `I.9_berry_robnik_rho` (ρ=1) | 20,290 | 33 | 0.2% | ok *(and ρ=1 legitimately IS pure Poisson)* |
+| `rep_int` (floor 0) | 83 | 2 | 2.4% | ok (small n) |
+
+**Over a third of every Brody q ever banked in this repo sits exactly on the (0,1) floor** — a value
+that means *"Poisson, or anything more clustered than Poisson, and we cannot tell which."*
+
+### And the knowledge was already here, twice
+
+`cross_substrate/axes.py:294` records **rail audit R-178**, which measured exactly this and in
+stronger terms — *"`I.8_brody_q` is not merely degraded on the Tier-B substrates, it is ENTIRELY RAIL
+— allen-hpf-cell 100.0%, buzsaki-port-cell 99.4%, pvc-11 99.4%, dr-port-cell 98.6%. Those coordinates
+carry no information at all."* **An unbounded estimator, `I8_brody_q_unbounded`, was written in
+response and sits in the registry.**
+
+So: the failure was documented (TOOLKIT §9, two instruments), **the fix was built** (an unbounded
+estimator, already deployed in the axis registry), and **15,195 banked values are still on the rail.**
+That is the strongest available statement of the owner's point — *documenting a failure mode does not
+immunize against it*, and neither does **fixing** it, if the fix is optional and the old key is
+retained bit-identical for comparability.
+
+### Consequence: the requirement moved into code
+
+`detector_spec.ClassSpace` now refuses to construct unless **each endpoint declares what lies beyond
+it and where such data is represented**; `None` is the admission that it has nowhere to go, and is
+refused. It also carries `rail_check`, which reports the boundary-pileup fraction directly. This is
+the structural analogue of the named-negative-set requirement, and it is the version that would have
+caught all three instruments — because each would have had to answer *"what lies beyond Poisson?"* at
+construction time, and none of them could.

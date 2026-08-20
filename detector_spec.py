@@ -108,3 +108,81 @@ class DetectorSpec:
                 f"{r['specificity']} — a detector wrong in EITHER direction is "
                 "not usable; a false pass and a false fire are one defect")
         return r
+
+
+class ClassSpaceNotCertified(AssertionError):
+    pass
+
+
+class ClassSpace:
+    """A declared class space must say what lies BEYOND each of its endpoints.
+
+    WHY THIS IS CODE AND NOT PROSE.  TOOLKIT.md had already documented this exact
+    failure in TWO instruments -- the quadrant classifier's `BL` collapse class
+    and Brody `q` railing at its (0,1) floor -- in writing, with worked numbers.
+    It did not prevent `arithmetic_toolkit._classify` from having the same defect,
+    and did not cause anyone to look until a census pointed at it. **Documenting a
+    failure mode does not immunize against it.** So the requirement moves into the
+    same place as the named-negative-set requirement: a thing you cannot construct
+    without answering.
+
+    THE DEFECT IT CATCHES.  A class space parameterised [rigid ... Poisson] treats
+    Poisson as an ENDPOINT. Super-Poisson data is then not mis-measured, it is
+    UNREPRESENTABLE -- so it lands exactly ON the boundary rather than near it,
+    and reads as the endpoint class. Measured across three independent instruments:
+    a CV=6.5 burst process reads Brody q=0.0001 (more Poisson than Poisson's own
+    0.0023); GOES flares read `rep_int_q`=0.000 -> "Poisson noise"; clustered
+    synthetic reads `best='Poisson'` at KS 0.535. A perfect clock reading GUE is
+    the SAME failure at the other end.
+
+        ClassSpace(
+            name="NNS surmise argmin",
+            ordered_classes=["GUE", "GOE", "Poisson"],   # rigid -> random
+            beyond={"GUE": "hyper-rigid / clock-like — REPRESENTED as HYPER_RIGID",
+                    "Poisson": None},                    # <-- refuses: nothing beyond
+        )
+
+    `beyond` must name, for EACH endpoint, what lies past it and where such data
+    goes. `None` is the admission that it has nowhere to go, and is refused.
+    """
+
+    def __init__(self, name, ordered_classes, beyond):
+        if len(ordered_classes) < 2:
+            raise ValueError("a class space needs at least two ordered classes")
+        self.name = name
+        self.ordered_classes = list(ordered_classes)
+        self.endpoints = (self.ordered_classes[0], self.ordered_classes[-1])
+        missing = [e for e in self.endpoints if e not in beyond]
+        if missing:
+            raise ClassSpaceNotCertified(
+                f"{name}: endpoints {missing} have no `beyond` entry. State what "
+                "lies past each end of the space and where such data is "
+                "represented — an endpoint with an unstated exterior is where "
+                "unrepresentable data silently piles up.")
+        unrepresented = [e for e in self.endpoints if not beyond.get(e)]
+        if unrepresented:
+            raise ClassSpaceNotCertified(
+                f"{name}: NOTHING LIES BEYOND {unrepresented} — data past that "
+                "end has nowhere to go and will land ON the boundary, reading as "
+                "the endpoint class. Measured three times in this repo: burst "
+                "data reads 'more Poisson than Poisson'; a perfect clock reads "
+                "GUE. Either extend the space, or add an explicit refusal branch "
+                "and declare it here.")
+        self.beyond = dict(beyond)
+
+    def rail_check(self, values, endpoint_value, tol=1e-3):
+        """Fraction of outputs sitting AT a boundary rather than near it.
+        A pileup exactly on an endpoint is the signature of unrepresentable data
+        (see gate_census/). Returns the fraction and a verdict."""
+        import numpy as np
+        v = np.asarray(list(values), float)
+        v = v[np.isfinite(v)]
+        if v.size == 0:
+            return dict(n=0, railed_fraction=None, verdict="NO DATA")
+        railed = float(np.mean(np.abs(v - endpoint_value) <= tol))
+        return dict(n=int(v.size), railed_fraction=railed,
+                    verdict=("RAILED — a mass of outputs sits exactly at the "
+                             f"boundary ({railed:.1%}); the class space is likely "
+                             "too narrow for the data being fed to it"
+                             if railed > 0.05 else
+                             f"OK — {railed:.1%} at the boundary"))
