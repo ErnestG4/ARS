@@ -43,7 +43,8 @@ ROOT = "/home/combust/fmexplorer/criticality_tool"
 sys.path.insert(0, f"{ROOT}/holonomy")
 from transitions import (gen_gue_unfolded, make_trend_maps, p1_apply,   # noqa: E402
                          sigma2_at)
-import predict_p1 as PP                                                 # noqa: E402
+import predict_p1 as PP
+from condfit import fit_eval                                            # noqa: E402                                                 # noqa: E402
 
 N_FULL, N_W, DIAL, DEG = 1200, 600, 2.0, 5
 ELL, L = N_W / DIAL, N_W / 60.0
@@ -61,9 +62,9 @@ def predict(a):
     x = x_of_u(u)
     lo, hi = (N_FULL - N_W) / 2.0, (N_FULL + N_W) / 2.0
     w = (u >= lo) & (u <= hi)
-    cA, cB = np.polyfit(x, u, DEG), np.polyfit(x[w], u[w] - lo, DEG)
-    return float(PP.spurious_var(np.polyval(cA, x[w]), u[w], L)
-                 - PP.spurious_var(np.polyval(cB, x[w]), u[w], L))
+    fA = fit_eval(x, u, DEG, x[w])
+    fB = fit_eval(x[w], u[w] - lo, DEG, x[w])
+    return float(PP.spurious_var(fA, u[w], L) - PP.spurious_var(fB, u[w], L))
 
 
 def main():
