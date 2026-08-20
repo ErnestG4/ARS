@@ -112,8 +112,24 @@ def _classify(spacings: np.ndarray) -> dict:
     ks_u = float(np.max(np.abs(F - nns_cdf_gue(s))))
     best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)],
                key=lambda x: x[1])[0]
+    # ADDED 2026-08-19 (gate enumeration #1). `best` is an ARGMIN over exactly
+    # three surmises with no 'none of the above' branch, so every input with
+    # n >= 5 is assigned a class: specificity against a NON-MEMBER distribution
+    # is not merely unmeasured, it is structurally zero. Measured: a perfect
+    # clock reads GUE (the RIGID_GUE failure, reached by a different route),
+    # uniform spacings read GOE, lognormal/bimodal/clustered read Poisson --
+    # 7/7 non-members labelled, every best fit rejected by a standard KS test,
+    # one of them at 15x the critical value.
+    #
+    # The information needed to refuse was ALREADY COMPUTED. These keys expose
+    # it. `best` and every pre-existing key are bit-identical, so no banked
+    # number moves; callers that want a refusal now have one available.
+    best_ks = min(ks_p, ks_o, ks_u)
+    ks_crit_01 = 1.63 / np.sqrt(n)          # KS critical value, alpha = 0.01
     return dict(n=n, ks_p=ks_p, ks_o=ks_o, ks_u=ks_u, gap=ks_o - ks_u,
-                mass03=float((spacings < 0.3).mean()), best=best)
+                mass03=float((spacings < 0.3).mean()), best=best,
+                best_ks=best_ks, ks_crit_01=float(ks_crit_01),
+                fit_rejected=bool(best_ks > ks_crit_01))
 
 
 def _direct_nns(t_k: np.ndarray) -> dict:
