@@ -284,3 +284,36 @@ the time, which is *worse* than reported. But the migration is far smaller than 
 **So the migration is not 15,195 recomputes. It is a read-through change covering 91.7%, plus one
 file — `pvc-11.jsonl`, 1,152 railed values, no unbounded companion — that genuinely needs a decision.**
 That is the boundary-rate collapse again: 105 → 19, and here 15,174 → effectively one file.
+
+### The rail is ONE FLOAT, repeated — and pvc-11's recompute is already refused by the repo's own gate
+
+Investigating the pvc-11 recompute turned up the closing datum. `cross_substrate/fitter_validation.json`
+**already measured this**, in its own words:
+
+- clustered case: **expected q = −0.3**, bounded `brody_q_mean` = **6.611e-05**, `brody_q_pass` = **False**
+- the **repaired/unbounded** estimator on the same data: **−0.1235 / −0.1462 / −0.1322**, `pass` = **True**
+- reliability: **sd = 1.42e-20** across 12 seeds, `railed` = True, status = **`UNCERTIFIABLE_RAILED`**
+- and therefore **`all_pass = False`** — *the fitter gate is False because of exactly this case*
+
+**So the recompute answer changes: the current pipeline does not need to be asked to add an unbounded
+companion for pvc-11 — it already REFUSES to emit bounded Brody at all** (`_matched_axes` sets
+`I.8_brody_q = None` when the gate fails). The 1,152 pvc-11 values are outputs the repo's own gate
+would no longer produce. What the file needs is the **repaired** estimator, which the validation shows
+passing.
+
+**And the rail is not 15,174 measurements that happened to land at zero. It is ONE FLOAT.** The value
+`6.610696135189609e-05` appears **bit-for-bit identical**:
+
+| occurrences | file |
+|---|---|
+| 4,325 | `allen-hpf-cell.jsonl` |
+| 3,983 | `buzsaki-port-cell.jsonl` |
+| 1,346 | `dr-port-cell.jsonl` |
+| 1,152 | `pvc-11.jsonl` |
+| 985 | `ibl-port-cell.jsonl` |
+| 919 | `population-temporal.jsonl` |
+
+Six substrates, ~12,700 slots, **one number to sixteen significant figures** — the bounded optimizer's
+floor output, not a property of any dataset. `sd = 1.42e-20` across seeds is the same fact from the
+other side. **A railed coordinate does not carry degraded information; it carries the optimizer's
+return address.**
