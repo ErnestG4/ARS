@@ -74,11 +74,25 @@ def _matched_axes(positions, gate_pass: bool) -> dict:
 # it against a working tree with uncommitted changes to the target.
 
 
-def recompute_pvc11(limit=None):
+def recompute_pvc11(limit=None, allow_partial_write=False):
     gate = _fitter_gate()
     path, recs = _read_records("pvc-11")
+    n_total = len(recs)
     if limit:
         recs = recs[:limit]
+        if not allow_partial_write:
+            # STRUCTURAL FIX, not a comment. `--limit` selects a subset and the
+            # writer then rewrites the file with ONLY that subset, so `--limit 3`
+            # truncated this artifact from 1159 records to 3. That is a bug, not
+            # a policy: records are destroyed outright. A flag named for reading
+            # LESS must not write less. Refusing is the only version of this that
+            # survives being forgotten -- the previous fix was a docstring, and a
+            # rule you consult is a rule you skip.
+            raise SystemExit(
+                f"REFUSED: --limit {limit} would rewrite {path} with only "
+                f"{len(recs)} of {n_total} records, destroying the rest. "
+                "--limit is DRY-RUN-ONLY. Pass allow_partial_write=True only if "
+                "truncating the artifact is genuinely what you want.")
 
     # group cells by recording (cell_id = "recording/unit_id/condition")
     by_rec: dict[str, list] = {}
