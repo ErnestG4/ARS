@@ -388,3 +388,46 @@ one-sided calibration.** Not swept here; registered as the next bounded-solver i
 true optimum is **q ≈ −0.56**, banked as **6.6e-05**. That is not a slightly-shifted value — it is a
 substantial clustering signal reported as *marginally more Poisson than Poisson*, **at the wrong sign
 entirely**.
+
+---
+
+## Pre-brief verification (2026-08-19) — four claims tested, two of mine wrong
+
+Run before committing the next-session brief, because three of its cells rested on unverified reads.
+
+**1. C2 is VIABLE — my worry that the repaired estimator would also rail is REFUTED.** Read-only probe
+over 140 pvc-11 cells:
+
+| estimator | result |
+|---|---|
+| bounded `I.8_brody_q` | **100% railed**, and **100% exactly `6.610696135189609e-05`** |
+| repaired `I.8_brody_q_unbounded` | **0% railed** at either bound; range **−0.571 … −0.077**, median **−0.412** |
+| sign | **100% negative** |
+
+Every probed pvc-11 cell is clustered, with median q ≈ **−0.41**, and the bounded fit reported all of
+them as the same positive constant. The repair has ample headroom (worst −0.571 against a bound at
+−1.0), so **C2 works and does not need a wider bound.**
+
+**2. C2's destruction risk is CONFIRMED.** With `all_pass: False`, `_matched_axes` nulls
+`I.8_brody_q` and leaves `I.8_brody_q_unbounded` populated. So running `phase2b_recompute.py pvc-11`
+today would **add the repair and destroy the 1,152 banked bounded values in one pass** — breaking
+bit-identical retention on the one file the accessor exists to protect. Verified against a copy; the
+artifact was not touched.
+
+**3. C1's DPP item is LATENT, not live — this changes the brief's premise.** Swept every banked
+`alpha`/`kappa`: **558 α values, min 0.022** (22× the 1e-3 bound); **17 κ values, min 1.2**
+(12,000× the 1e-4 bound). **Zero at a lower bound.** The one-sided boundary *reporting* gap in
+`fit_dpp`/`fit_thomas` is real and worth fixing, but it has **produced no damage** — the code is
+one-sided, the data never went there.
+
+**4. Coverage self-test on the rail census — honest partial.** Pattern-matching banked keys flagged
+**251** that the census's `brody_q|berry_robnik|rep_int` match would miss. Checked the largest,
+**`rho1` (1,439 values)**: it ranges **−0.79 … 0.59**, so it is a correlation coefficient, not a
+bounded fit — out of scope, and my self-test over-counted the same way the one-sided-calibration grep
+did. The remaining 250 are unchecked, so **census coverage is a lower bound, better than the naive
+test suggested and not proven exhaustive.**
+
+**Consequence for the brief: C1 is not the live cell.** The only site with banked damage is Brody at
+73.8%, already addressed by C2 plus the accessor. Everything else measured clean — Berry–Robnik 0.2%
+(mathematical bound, a real answer), `rep_int` 2.4% on n=83, DPP/Thomas 0%. **C1 is a classification
+and prevention cell, not damage discovery**, and it can follow C2 rather than precede it.
