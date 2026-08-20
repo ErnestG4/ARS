@@ -1,0 +1,90 @@
+{
+ "coverage": "LOWER BOUND \u2014 251 keys unmatched; rho1 checked and excluded by measurement (range -0.79..0.59, a correlation coefficient, not a bounded fit); 250 unchecked",
+ "sites": {
+  "brody_q_unbounded": {
+   "n": 20725,
+   "bounds": [
+    -1.0,
+    4.0
+   ],
+   "sealed_class": "CONVENTION (wider)",
+   "near_lo_frac": 0.0,
+   "near_hi_frac": 0.0016405307599517492,
+   "distinct_ratio_lo": 0.0,
+   "distinct_ratio_hi": 0.08823529411764706,
+   "TRUE_RAIL_lo": false,
+   "TRUE_RAIL_hi": false,
+   "vmin": -0.8874966925655533,
+   "vmax": 3.999955363978439,
+   "prediction": "little/none"
+  },
+  "brody_q": {
+   "n": 20558,
+   "bounds": [
+    0.0,
+    1.0
+   ],
+   "sealed_class": "CONVENTION",
+   "near_lo_frac": 0.7381068197295457,
+   "near_hi_frac": 0.01712228816032688,
+   "distinct_ratio_lo": 0.00026360880453407144,
+   "distinct_ratio_hi": 0.03125,
+   "TRUE_RAIL_lo": true,
+   "TRUE_RAIL_hi": false,
+   "vmin": 6.610696135189609e-05,
+   "vmax": 0.9999660825635956,
+   "prediction": "substantial rail"
+  },
+  "berry_robnik": {
+   "n": 20290,
+   "bounds": [
+    0.0,
+    1.0
+   ],
+   "sealed_class": "MATHEMATICAL",
+   "near_lo_frac": 0.3611631345490389,
+   "near_hi_frac": 0.001626416954164613,
+   "distinct_ratio_lo": 0.9987718340611353,
+   "distinct_ratio_hi": 0.06060606060606061,
+   "TRUE_RAIL_lo": false,
+   "TRUE_RAIL_hi": false,
+   "vmin": 3.3345845738584214e-05,
+   "vmax": 0.9999338930386481,
+   "prediction": "rare, and real answers"
+  },
+  "alpha": {
+   "n": 558,
+   "bounds": [
+    0.001,
+    null
+   ],
+   "sealed_class": "MIXED (lower CONVENTION)",
+   "near_lo_frac": 0.0,
+   "near_hi_frac": null,
+   "distinct_ratio_lo": 0.0,
+   "distinct_ratio_hi": null,
+   "TRUE_RAIL_lo": false,
+   "TRUE_RAIL_hi": false,
+   "vmin": 0.022029308983154694,
+   "vmax": 15.6,
+   "prediction": "only if non-repulsive data"
+  },
+  "kappa": {
+   "n": 17,
+   "bounds": [
+    0.0001,
+    100.0
+   ],
+   "sealed_class": "CONVENTION both ends",
+   "near_lo_frac": 0.0,
+   "near_hi_frac": 0.11764705882352941,
+   "distinct_ratio_lo": 0.0,
+   "distinct_ratio_hi": 1.0,
+   "TRUE_RAIL_lo": false,
+   "TRUE_RAIL_hi": false,
+   "vmin": 1.2,
+   "vmax": 2160.33832868523,
+   "prediction": "only if non-clustered data"
+  }
+ }
+}
