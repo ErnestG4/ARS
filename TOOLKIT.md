@@ -1260,8 +1260,16 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   quantity on TWO OVERLAPPING-BUT-DIFFERENT SAMPLING GRIDS and require agreement on the overlap.** The
   historical detection was exactly this and it was an accident — one grid sampled a dial the other
   skipped. Made deliberate it is nearly free against the seed count such a quantity already costs.
-  Implemented as `invariance.dual_grid_statistic`, and **validated by construction**: it fires on the
-  historical ill-conditioned arithmetic and passes after the repair (`holonomy/invariance_demo.py`).
+  Implemented as `invariance.dual_grid_statistic`, and **validated on BOTH sides**
+  (`holonomy/invariance_demo.py`): **sensitivity 1/1** — it fires where the bug exists, reproducing the
+  historical 7.21-vs-5.22 on demand — and **specificity 1/1** — it stays silent at deg 9, where the raw
+  and conditioned predictions are identical and firing would be a false positive. *I built this guard,
+  checked it only where it fires, and was about to bank that as validation: a guard checked only where
+  it fires is calibrated on one side, which is this section's own lesson turned on its author.*
+  **Set the invariance tolerance from the quantity's OWN stated uncertainty, not a flat percentage.**
+  A 6.8% grid spread was first scored a failure on a number whose CI half-width was 21% — a test
+  stricter than the value was ever known to, which manufactures alarm exactly where precision is
+  lowest and is therefore backwards.
   Corollary for fitting specifically: **centre and scale the abscissa**, and keep a guard asserting the
   change is a no-op at any sealed setting — a "fix" that moves sealed numbers is a re-verdict, not a fix.
 - **A pin locks a value against DRIFT, which is protection only if the value was RIGHT — so pins go
