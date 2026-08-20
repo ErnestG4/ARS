@@ -57,8 +57,14 @@ for f in sorted(glob.glob(f"{ROOT}/*/prereg_sealed.json")):
         else:
             missing.append((arc, where, sha))
 
-ASSERT_MIN_BLOBS = 10          # measured floor; a seal set this small means the
-                               # extractor broke, not that freezes vanished
+# FLOOR SEMANTICS, stated so tripping it is unambiguous. 60 objects resolve
+# across 6 sealed arcs today; this floor is 10. It is therefore a detector for
+# ONE thing only -- THE EXTRACTOR BROKE -- and NOT a per-arc counter. Sealing a
+# seventh arc raises the true count and cannot trip it; deleting five arcs' seals
+# would, and should. If this fires, fix the extractor; do not raise the number.
+# (Contrast the C2 verifier's arm D, where 1152 IS load-bearing for that arc and a
+# legitimate new banking trips it by design.)
+ASSERT_MIN_BLOBS = 10
 n_checked = len(found) + len(missing)
 if n_checked < ASSERT_MIN_BLOBS:
     print(f"VERIFY_FROZEN_BLOBS: FAIL — only {n_checked} SHAs extracted "

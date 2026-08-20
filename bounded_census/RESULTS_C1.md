@@ -64,6 +64,36 @@ threshold*, not chosen to make the test pass.
 **With the guard: `DISCRIMINATOR_SCOPED`** — it moves only the ρ verdict it was adopted to resolve.
 It was not tuned into existence at the cost of the rest of the census.
 
+**Where the regress bottoms out.** The minimum-n clause was *also* adopted after seeing the flip it
+dismisses — the same shape, one level down. It is legitimate for exactly one reason: **it has zero
+degrees of freedom.** `n = 1/RAIL_RATIO` falls out of the existing threshold arithmetically; no
+constant was chosen, none could have been chosen differently, and the clause would read identically
+had it been written before the flip. **A rule derived entirely from an existing rule's own constants
+cannot be rationalisation, because there is nothing to rationalise with.** A free parameter continues
+the regress; a derivation ends it.
+
+## Verdict of record for EVERY site-bound — no silences
+
+A site-bound with no explicit verdict is a slot someone later fills from memory, so "the arm cannot
+fire here" is now recorded as a **verdict**, not an exemption. Emitted by the generator, not the prose:
+
+| site @ bound | near-n | verdict of record |
+|---|---|---|
+| `brody_q` @ 0 | 15,174 | **TRUE_RAIL** |
+| `brody_q` @ 1 | 352 | CONCENTRATION (real measurements) |
+| `brody_q_unbounded` @ −1 | 0 | CLEAR (nothing near the bound) |
+| `brody_q_unbounded` @ 4 | 34 | **INSUFFICIENT_N** (< 100) — sealed classification retained |
+| `berry_robnik` @ 0 | 7,328 | CONCENTRATION (real measurements) |
+| `berry_robnik` @ 1 | 33 | **INSUFFICIENT_N** (< 100) — sealed classification retained |
+| `alpha` @ 1e-3 | 0 | CLEAR (nothing near the bound) |
+| `alpha` @ upper | — | NO_BOUND (`amax` is per-family) |
+| `kappa` @ 1e-4 | 0 | CLEAR (nothing near the bound) |
+| **`kappa` @ 100** | **2** | **INSUFFICIENT_N (n=2 < 100) — sealed `CONVENTION both ends` RETAINED as the standing call pending more samples** |
+
+`kappa @ 100` is the row that prompted this: the discriminator's exemption told us what does *not*
+classify it, which is not a classification. The standing call is the sealed one, and the reason it is
+unresolved is recorded with its denominator.
+
 ## DPP / Thomas — the latent one-sided reporting gap
 
 `alpha` 0.0% at its lower bound (min 0.022, **22×** it) and `kappa` 0.0% at its lower bound (min 1.2,

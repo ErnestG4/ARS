@@ -100,12 +100,32 @@ for key, (bnds, cls) in SITES.items():
     flo, dlo, rlo = _rail(lo)
     fhi, dhi, rhi = _rail(hi)
     RAIL_RATIO = 0.01
+    MIN_N = int(1 / RAIL_RATIO)
     flo_is_rail = bool(flo and rlo is not None and rlo < RAIL_RATIO)
     fhi_is_rail = bool(fhi and rhi is not None and rhi < RAIL_RATIO)
+
+    def _verdict(bound, frac, ratio, is_rail):
+        """EVERY site-bound gets an explicit verdict. A site with no verdict is a
+        slot someone later fills from memory, so 'the arm cannot fire here' is
+        recorded as INSUFFICIENT_N rather than left as an exemption."""
+        if bound is None:
+            return "NO_BOUND"
+        near_n = int(round((frac or 0.0) * v.size))
+        if near_n == 0:
+            return "CLEAR (nothing near the bound)"
+        if near_n < MIN_N:
+            return (f"INSUFFICIENT_N (n={near_n} < {MIN_N}) — the discriminator "
+                    "cannot fire; SEALED CLASSIFICATION RETAINED as the standing "
+                    "call pending more samples")
+        return "TRUE_RAIL" if is_rail else "CONCENTRATION (real measurements)"
+
+    verdict_lo = _verdict(lo, flo, rlo, flo_is_rail)
+    verdict_hi = _verdict(hi, fhi, rhi, fhi_is_rail)
     out["sites"][key] = dict(n=int(v.size), bounds=list(bnds), sealed_class=cls,
                              near_lo_frac=flo, near_hi_frac=fhi,
                              distinct_ratio_lo=rlo, distinct_ratio_hi=rhi,
                              TRUE_RAIL_lo=flo_is_rail, TRUE_RAIL_hi=fhi_is_rail,
+                             verdict_lo=verdict_lo, verdict_hi=verdict_hi,
                              vmin=float(v.min()), vmax=float(v.max()),
                              prediction=PRED[key])
     s_lo = (f"{flo:.1%}{'*' if flo_is_rail else ' '}") if flo is not None else "   -"

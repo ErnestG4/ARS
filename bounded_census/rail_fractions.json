@@ -14,6 +14,8 @@
    "distinct_ratio_hi": 0.08823529411764706,
    "TRUE_RAIL_lo": false,
    "TRUE_RAIL_hi": false,
+   "verdict_lo": "CLEAR (nothing near the bound)",
+   "verdict_hi": "INSUFFICIENT_N (n=34 < 100) \u2014 the discriminator cannot fire; SEALED CLASSIFICATION RETAINED as the standing call pending more samples",
    "vmin": -0.8874966925655533,
    "vmax": 3.999955363978439,
    "prediction": "little/none"
@@ -31,6 +33,8 @@
    "distinct_ratio_hi": 0.03125,
    "TRUE_RAIL_lo": true,
    "TRUE_RAIL_hi": false,
+   "verdict_lo": "TRUE_RAIL",
+   "verdict_hi": "CONCENTRATION (real measurements)",
    "vmin": 6.610696135189609e-05,
    "vmax": 0.9999660825635956,
    "prediction": "substantial rail"
@@ -48,6 +52,8 @@
    "distinct_ratio_hi": 0.06060606060606061,
    "TRUE_RAIL_lo": false,
    "TRUE_RAIL_hi": false,
+   "verdict_lo": "CONCENTRATION (real measurements)",
+   "verdict_hi": "INSUFFICIENT_N (n=33 < 100) \u2014 the discriminator cannot fire; SEALED CLASSIFICATION RETAINED as the standing call pending more samples",
    "vmin": 3.3345845738584214e-05,
    "vmax": 0.9999338930386481,
    "prediction": "rare, and real answers"
@@ -65,6 +71,8 @@
    "distinct_ratio_hi": null,
    "TRUE_RAIL_lo": false,
    "TRUE_RAIL_hi": false,
+   "verdict_lo": "CLEAR (nothing near the bound)",
+   "verdict_hi": "NO_BOUND",
    "vmin": 0.022029308983154694,
    "vmax": 15.6,
    "prediction": "only if non-repulsive data"
@@ -82,6 +90,8 @@
    "distinct_ratio_hi": 1.0,
    "TRUE_RAIL_lo": false,
    "TRUE_RAIL_hi": false,
+   "verdict_lo": "CLEAR (nothing near the bound)",
+   "verdict_hi": "INSUFFICIENT_N (n=2 < 100) \u2014 the discriminator cannot fire; SEALED CLASSIFICATION RETAINED as the standing call pending more samples",
    "vmin": 1.2,
    "vmax": 2160.33832868523,
    "prediction": "only if non-clustered data"

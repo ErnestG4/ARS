@@ -1403,3 +1403,12 @@ the writer first does, and that check happens at construction time.
   case it could touch**. Done here: the first red-path FAILED (a second site flipped), which is what
   produced the minimum-n clause; with it, the rule moves only the verdict it was adopted for.
   **Report such a scoreboard as "4/5 clean, 1 resolved under a post-hoc discriminator", never 5/5.**
+  **WHERE THE REGRESS BOTTOMS OUT, stated because the next reader will notice that the minimum-n clause
+  was ALSO adopted after seeing the flip it dismisses — the same shape, one level down.** It is
+  legitimate here for one reason and only that reason: **the clause has zero degrees of freedom.**
+  n = 1/RAIL_RATIO falls out of the existing threshold arithmetically, so there was nothing to tune
+  toward the answer — no constant was chosen, none could have been chosen differently, and the clause
+  would read identically had it been written before the flip. **A rule derived entirely from an
+  existing rule's own constants cannot be rationalisation, because there is nothing to rationalise
+  with.** That is the stopping condition for post-hoc adoption: a free parameter continues the regress,
+  a derivation ends it. State the derivation; do not leave it to be inferred.
