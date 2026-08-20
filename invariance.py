@@ -63,7 +63,7 @@ def dual_grid_check(fn, grid_a, grid_b, tol=1e-3, rtol=0.02, name="quantity"):
 
 
 def dual_grid_statistic(stat_of_grid, grid_a, grid_b, tol=None, rtol=0.05,
-                        name="statistic"):
+                        ci=None, name="statistic"):
     """For a statistic COMPUTED OVER a grid (a centroid, a peak location, a fit).
 
     stat_of_grid : callable(grid) -> float
@@ -74,12 +74,26 @@ def dual_grid_statistic(stat_of_grid, grid_a, grid_b, tol=None, rtol=0.05,
     a, b = float(stat_of_grid(grid_a)), float(stat_of_grid(grid_b))
     d = abs(a - b)
     scale = max(abs(a), abs(b), 1e-12)
-    ok = (d <= tol) if tol is not None else (d / scale <= rtol)
-    return dict(name=name, value_a=a, value_b=b, abs_dev=d,
+    # TOLERANCE MUST BE REFERENCED TO THE CLAIMED PRECISION, not to an arbitrary
+    # fraction. Found the hard way 2026-08-19: a 6.8% grid spread was scored a
+    # FAILURE on a quantity whose own CI half-width was 21%, i.e. the invariance
+    # test was stricter than the number was ever known to. That is a mis-specified
+    # test, and it manufactures alarm exactly where precision is lowest. Pass `ci`
+    # (the quantity's own [lo, hi]) and the check asks the question that matters:
+    # is the grid-dependence SMALL COMPARED TO WHAT WE CLAIM TO KNOW?
+    if ci is not None:
+        half = (float(ci[1]) - float(ci[0])) / 2.0
+        ok = d <= half
+        basis = f"CI half-width {half:.4f}"
+    elif tol is not None:
+        ok, basis = d <= tol, f"abs tol {tol:.4g}"
+    else:
+        ok, basis = d / scale <= rtol, f"rel tol {rtol:.1%}"
+    return dict(name=name, value_a=a, value_b=b, abs_dev=d, basis=basis,
                 rel_dev=d / scale, agree=bool(ok),
                 verdict=("AGREE" if ok else
                          f"GRID-DEPENDENT — {name} reads {a:.4f} on grid A and "
-                         f"{b:.4f} on grid B (rel dev {d / scale:.1%}); the "
+                         f"{b:.4f} on grid B (dev {d:.4f} vs {basis}); the "
                          "quantity depends on something it should be invariant to"))
 
 

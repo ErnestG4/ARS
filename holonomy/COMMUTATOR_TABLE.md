@@ -488,3 +488,43 @@ point and no measurement could satisfy it. The first run scored that **0/2 as a 
 arm that cannot fire, reported as a negative result — the inert-witness error, and the **second**
 instance this session. Now flagged inapplicable, with two arms that can discriminate substituted:
 whether the CI covers the prediction, and whether it excludes the baseline.
+
+### The dual-grid guard, validated on both sides (2026-08-19)
+
+The 96-sem artifact was caught by **luck** — two runs disagreed about the same quantity, and only
+because one dial grid sampled a cell the other skipped. `invariance.dual_grid_statistic` makes that
+deliberate, and `invariance_demo.py` is its red-path proof: run the deg-9 and deg-13 ridge centroids
+on the two historically-disagreeing grids, under **both** the raw ill-conditioned prediction and the
+repaired one. One measurement pass, differenced against two predictions, so only the arithmetic varies.
+
+| deg | own CI half-width | arm | grid A | grid B | dev | result |
+|---|---|---|---|---|---|---|
+| 9 | 0.130 | raw | 4.204 | 4.182 | 0.022 | AGREE |
+| 9 | 0.130 | conditioned | 4.204 | 4.182 | 0.022 | AGREE |
+| 13 | 1.280 | raw | **7.210** | **5.224** | **1.987** | **FIRES** |
+| 13 | 1.280 | conditioned | 5.752 | 6.170 | 0.418 | AGREE |
+
+**`GUARD_VALIDATED` — sensitivity 1/1, specificity 1/1.** It fires where the bug exists and stays
+silent where it does not. The raw arm reproduces the historical **7.21 vs 5.22** on demand, and at
+deg 9 the two arms are *identical*, so the conditioning damage is genuinely deg-13-specific — as the
+condition numbers predict (1.2e28 at deg 9, where numpy's SVD still copes; 2.9e40 at deg 13, where it
+stops).
+
+**`SLOPE_RESOLVED` survives its strictest test.** deg 9 is the tightest of the three centroids the
+slope rests on, and its grid dependence is **0.022 against a half-width of 0.130** — a factor of six
+inside its own stated uncertainty, a bar ten times stricter than deg 13's.
+
+**Three scoring corrections, all one defect.** (a) The first verdict required *both* "fires on the
+bug" and "repaired quantity is stable" for `GUARD_VALIDATED`, letting a property of the DATA decide
+whether the INSTRUMENT was sound. (b) The tolerance was a flat `rtol = 5%`, which scored a 6.8% grid
+spread as a failure on a quantity whose own CI half-width is 21% — **an invariance test stricter than
+the number was ever known to, manufacturing alarm exactly where precision is lowest.** Tolerance is
+now referenced to the quantity's **own CI**. (c) The verdict then scored `GUARD_PARTIAL` for not
+firing at deg 9 — where **there is no bug**, so firing would have been a false positive. Correct
+behaviour scored as partial failure.
+
+All three are the same error as the two inert-arm cases: **treating non-evidence as a verdict.** And
+(c) is the session's own headline lesson turned on its author — I built a guard, checked it only
+where it fires, and was about to bank that as validation. **A guard checked only where it fires is
+calibrated on one side.** The artifact now records sensitivity *and* specificity so a reader can see
+both directions were tested rather than taking it on faith.

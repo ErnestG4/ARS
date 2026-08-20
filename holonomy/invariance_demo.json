@@ -1,0 +1,153 @@
+{
+ "seeds": 200,
+ "grid_a": [
+  2.0,
+  3.0,
+  4.0,
+  6.0,
+  8.0,
+  10.0
+ ],
+ "grid_b": [
+  1.0,
+  1.5,
+  2.0,
+  2.5,
+  3.0,
+  4.0,
+  5.0,
+  6.0,
+  8.0,
+  10.0,
+  12.0
+ ],
+ "overlap": [
+  2.0,
+  3.0,
+  4.0,
+  6.0,
+  8.0,
+  10.0
+ ],
+ "by_deg": {
+  "9": {
+   "ci": [
+    4.07,
+    4.33
+   ],
+   "ci_half_width": 0.1299999999999999,
+   "arms": {
+    "RAW_ill_conditioned": {
+     "residuals": {
+      "1.0": 0.006307673701547957,
+      "1.5": 0.003800397082811713,
+      "2.0": 0.008801582595530544,
+      "2.5": 0.033122319566901925,
+      "3.0": 0.07623129455445898,
+      "4.0": 0.0829016649577447,
+      "5.0": 0.03833259127461447,
+      "6.0": 0.0690519174973111,
+      "8.0": 0.00884004315118575,
+      "10.0": -0.010005349312493445,
+      "12.0": -0.0017339566084112329
+     },
+     "value_a": 4.203869668209525,
+     "value_b": 4.182358171164447,
+     "abs_dev": 0.021511497045078265,
+     "basis": "CI half-width 0.1300",
+     "rel_dev": 0.005117070400101212,
+     "agree": true,
+     "verdict": "AGREE"
+    },
+    "CONDITIONED_repaired": {
+     "residuals": {
+      "1.0": 0.006307673701593427,
+      "1.5": 0.0038003970845958412,
+      "2.0": 0.008801582577648404,
+      "2.5": 0.03312231949968503,
+      "3.0": 0.07623128684023728,
+      "4.0": 0.08290166482551048,
+      "5.0": 0.03833259005075301,
+      "6.0": 0.06905191790239773,
+      "8.0": 0.008840043167274658,
+      "10.0": -0.010005349325891172,
+      "12.0": -0.0017339566012738311
+     },
+     "value_a": 4.203869759088088,
+     "value_b": 4.182358207217488,
+     "abs_dev": 0.021511551870599277,
+     "basis": "CI half-width 0.1300",
+     "rel_dev": 0.005117083331160481,
+     "agree": true,
+     "verdict": "AGREE"
+    }
+   },
+   "bug_present": false,
+   "guard_fires": false,
+   "guard_correct": true
+  },
+  "13": {
+   "ci": [
+    4.84,
+    7.4
+   ],
+   "ci_half_width": 1.2800000000000002,
+   "arms": {
+    "RAW_ill_conditioned": {
+     "residuals": {
+      "1.0": 0.0025934704743831583,
+      "1.5": 0.012252982959418542,
+      "2.0": 0.0030750780517445064,
+      "2.5": 0.014156891918231107,
+      "3.0": 0.004736673207183628,
+      "4.0": -0.0023267633971819635,
+      "5.0": 0.8084689448150886,
+      "6.0": 0.05516027395569112,
+      "8.0": 0.06353156124771497,
+      "10.0": 0.013838896590324251,
+      "12.0": 0.007305623789996302
+     },
+     "value_a": 7.210424900073926,
+     "value_b": 5.223643235491102,
+     "abs_dev": 1.986781664582824,
+     "basis": "CI half-width 1.2800",
+     "rel_dev": 0.2755429384698888,
+     "agree": false,
+     "verdict": "GRID-DEPENDENT \u2014 deg-13 ridge centroid [RAW_ill_conditioned] reads 7.2104 on grid A and 5.2236 on grid B (dev 1.9868 vs CI half-width 1.2800); the quantity depends on something it should be invariant to"
+    },
+    "CONDITIONED_repaired": {
+     "residuals": {
+      "1.0": 0.002593470474299962,
+      "1.5": 0.012252981469184203,
+      "2.0": 0.003074020036945707,
+      "2.5": 0.014155201007278073,
+      "3.0": 0.0031254895104630975,
+      "4.0": 0.036201526941766815,
+      "5.0": 0.014112170965064452,
+      "6.0": 0.027596536135283456,
+      "8.0": 0.03277597786548214,
+      "10.0": 0.018352689725401633,
+      "12.0": 0.009306081304628483
+     },
+     "value_a": 5.752222493165516,
+     "value_b": 6.170201443260873,
+     "abs_dev": 0.4179789500953568,
+     "basis": "CI half-width 1.2800",
+     "rel_dev": 0.06774154035957378,
+     "agree": true,
+     "verdict": "AGREE"
+    }
+   },
+   "bug_present": true,
+   "guard_fires": true,
+   "guard_correct": true
+  }
+ },
+ "sensitivity": "1/1",
+ "specificity": "1/1",
+ "guard_fires_on_known_bug": true,
+ "repaired_quantity_grid_stable": true,
+ "verdict_guard": "GUARD_VALIDATED \u2014 the dual-grid check FIRES on the historical ill-conditioned arithmetic wherever the bug EXISTS (sensitivity 1/1) and stays silent where it does not (specificity 1/1) \u2014 validated on BOTH sides, not just where it fires",
+ "verdict_data": "REPAIRED_QUANTITY_GRID_STABLE at every degree \u2014 each within its own stated CI, including deg 9 whose half-width is only 0.13",
+ "verdict": "GUARD_VALIDATED \u2014 the dual-grid check FIRES on the historical ill-conditioned arithmetic wherever the bug EXISTS (sensitivity 1/1) and stays silent where it does not (specificity 1/1) \u2014 validated on BOTH sides, not just where it fires  ||  REPAIRED_QUANTITY_GRID_STABLE at every degree \u2014 each within its own stated CI, including deg 9 whose half-width is only 0.13"
+}
