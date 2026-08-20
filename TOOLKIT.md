@@ -1324,3 +1324,20 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   arm, state the measurement that would make it fire; if none exists at the current configuration,
   score it INAPPLICABLE and say so in the verdict string** rather than letting it contribute a
   fraction to an n/m tally.
+- **A threshold must be referenced to the SCALE THE CLAIM IS MADE AT — and a SIGNIFICANCE threshold
+  goes uninformative as n grows.** (Three instances 2026-08-19: an invariance tolerance of 5% on a
+  quantity whose own CI half-width was 21%; a KS significance bar that flagged 97.5% of 1655 banked
+  classifications; and the same bar's `fit_rejected` field shipped as if it were a work list.) The
+  narrow, checkable form: **any test whose n spans orders of magnitude cannot use a fixed significance
+  bar** — here median n was 6,150 against a maximum of 52,501,662, where a deviation of 0.0002 is
+  "rejected at α = 0.01". Significance answers *"is this deviation larger than sampling noise"*, which
+  at large n is always yes and is almost never the question. Narrower than the estimand rule and
+  easier to apply: **look at the spread of n across the rows before choosing the bar.**
+- **Calibrate a goodness threshold against MEASURED NON-MEMBERS THROUGH THE SAME INSTRUMENT, not
+  against a theoretical distribution.** (Gate census, 2026-08-19.) The usable tier was not a KS
+  critical value but *"fits no better than uniform spacings do when passed through this exact
+  classifier"* — 0.09, read off measured calibrators (true Poisson 0.012, uniform 0.091, lognormal
+  0.104, bimodal 0.334, perfect clock 0.533). An empirical calibration **inherits the instrument's own
+  quirks — unfolding imperfection included — instead of assuming them away**, which is exactly why it
+  discriminates where the theoretical bar cannot. Same move as measuring a misclassification-rate
+  estimand directly rather than inferring it from a separation of means.

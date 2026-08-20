@@ -88,6 +88,14 @@ tolerance — *a threshold referenced to the wrong scale* — and the same root 
 Calibration comes from `gate1_specificity.py`, through this same gate: true Poisson **0.012**,
 uniform **0.091**, lognormal **0.104**, bimodal **0.334**, perfect clock **0.533**.
 
+**THE METHOD, worth naming because it generalizes past this gate: when a goodness threshold is
+needed, calibrate it against MEASURED NON-MEMBERS THROUGH THE SAME INSTRUMENT, not against a
+theoretical distribution.** The 0.09 tier is not a distributional cutoff — it is *"fits no better than
+uniform spacings do when passed through this exact classifier"*. That is why it works where the KS
+critical value does not: it inherits the instrument's own quirks, unfolding included, instead of
+assuming them away. Same move as measuring a misclassification-rate estimand directly rather than
+inferring it from a separation of means.
+
 | tier | count | share |
 |---|---|---|
 | significance (any deviation) | 1613 | 97.5% — *large-n artifact, discarded* |
@@ -103,11 +111,17 @@ Note `eeg_full_results.json` contributes **520** rows at up to 0.262 — the lar
 **Q2 — how many are load-bearing for a stated finding: NOT YET DETERMINED.** This is the triage step
 and it is deliberately not automated. The file list above is the input to it, not its output.
 
-**Q3 — does the class change, or does the row become ungraded? STRUCTURALLY, ALWAYS UNGRADED.** No
-measurement needed: rejection is about the residual to the *best* fit, not about the ordering of the
-three, so a poor fit never makes a different class nearer. **Every affected row becomes NO class, not
-a DIFFERENT class** — which is the distinction that matters in prose, and it means no banked
-classification flips; some simply stop being classifications.
+**Q3 — a THEOREM, not a finding.** *Claim: a rejected row loses its class; it never changes class.*
+*Proof:* `best = argmin(ks_p, ks_o, ks_u)` and `best_ks = min(ks_p, ks_o, ks_u)`. Rejection is a
+predicate on `best_ks` alone — the residual to the best fit. The **ordering** of the three distances
+is independent of the magnitude of their minimum, so no predicate on `best_ks` can change which
+element attains the argmin. ∎ This is provable from the function's form and depends on **no
+measurement**.
+
+**Consequence, and it caps the blast radius of the entire sweep: the 754 rows are OVERCLAIMED, not
+MISDIRECTED.** None of them is wrong in a way that propagates a *different* answer downstream — a
+row either keeps its class or has none. So the work list can be cleared at any pace without racing a
+contaminated conclusion through the record.
 
 **Nothing has been demoted.** Same discipline as the boundary-rate triage where 105 candidates
 collapsed to 19: the sweep produces a work list, a human decides. A mild unfolding imperfection can
