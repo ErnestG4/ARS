@@ -1236,3 +1236,21 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   becomes supported"* from a hope into a red exit. Corollary already used here: pin the **shape** of
   the negative evidence too (the deviation being signed and growing), since re-reading it as scatter
   is the other route by which a rejected form gets rehabilitated.
+- **Numerical conditioning is a SILENT, HIGH-SIGNIFICANCE failure mode — and no pin can catch it.**
+  (P1 ridge map, 2026-08-19.) A cell reported a residual of **+0.8085 ± 0.0084 — 96 sem** — and it was
+  pure arithmetic. `np.polyfit` on a raw coordinate spanning 0–1200 has Vandermonde condition number
+  4.5e15 at deg 5, 1.2e28 at deg 9 and **2.9e40 at deg 13**, against ~1e16 of usable double precision;
+  numpy's SVD lstsq degrades gracefully and then stops. The false value was **stable across 200 seeds,
+  internally self-consistent, and had a tiny sem** — every marker of a solid measurement. **What
+  caught it was two runs disagreeing about the same quantity** (7.21 vs 5.22), which happened only
+  because one grid sampled a dial the other skipped. Either run alone would have looked fine.
+  **THE CHECK: vary something that should NOT matter and confirm the answer doesn't move** — grid
+  resolution, basis scaling/centring, point ordering, precision. Do it *before* a number becomes
+  load-bearing, because significance testing is blind here: dividing by a small sem cannot detect that
+  the numerator is wrong. Corollary for fitting specifically: **centre and scale the abscissa**, and
+  keep a guard asserting the change is a no-op at any sealed setting — a "fix" that moves sealed
+  numbers is a re-verdict, not a fix.
+- **A pin on a measured quantity inherits every defect of that measurement.** (Same run.) The
+  "deviation is signed and growing" pin fired correctly on a number that was an artifact; it would
+  have defended a wrong fact against correction. **Pinning is not validating.** Pin *after* the
+  stability check above, not instead of it.
