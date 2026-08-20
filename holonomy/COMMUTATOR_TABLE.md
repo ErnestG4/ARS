@@ -396,6 +396,21 @@ deg 5, 9, 13, i.e. roughly *deg* periods rather than *deg−1* — but that is t
 post-hoc reading, so **no closed form is claimed here**. The mechanism does not depend on one: it
 needs the peak to move with resolution, which is measured, not to sit at any particular formula.
 
+**The deviation is SIGNED and GROWING — a fact about the data, banked alongside the non-form.** The
+two misses are not scatter: deg 9 lands **+0.20** above (deg−1)/2 and deg 13 **+1.21** above, ratios
+1.051 and 1.202. Both high, and the miss grows with degree. That is consistent with the peak sitting
+nearer *deg* than *deg−1* periods, and **inconsistent with (deg−1)/2 being right-but-noisy**, which
+would scatter the misses in sign. Recorded because it constrains what any eventual form can look
+like, and because two same-signed growing misses read as scatter to anyone who only sees
+`FORM_UNRESOLVED`. *(The neighbouring candidates are not better: deg/2 gives −0.30/+0.71 and
+(deg+1)/2 gives −0.80/+0.21 — both mixed-sign. Nothing here is a fit; two points cannot select a
+form, which is the point.)*
+
+**If the form is ever worth resolving:** two degrees cannot distinguish (deg−1)/2 from deg/2 from any
+similar slope. **Three or four more degrees at 200 seeds would**, and the cost is now known — the
+200-seed run covered 2 degrees × 6 dials in ~4 minutes wall, so the whole question is well under an
+hour. Not urgent: the mechanism carries ADD-7's closure without it.
+
 **Status: `STRADDLE_MECHANISM_SUPPORTED, FORM_UNRESOLVED`.** Filed as such rather than promoted —
 the sealed instrument's dial-2.0 under-ordering (ADD-7's closure) rests on the deg-5 cell and the
 403× dynamic-range validation, neither of which touches the form question.

@@ -143,6 +143,15 @@ chk(st["n_targets_in_ci"] < 2,
     "unresolved; update the prose deliberately rather than letting a rerun do it")
 chk(max(abs(x) for x in st["grid"]["9"]["residuals"]) > 8 * max(st["grid"]["9"]["sems"]),
     "deg-9 straddle bump no longer stands clear of its own noise")
+# The deviation from (deg-1)/2 is SIGNED and GROWING, not scatter. Pinned so the
+# two misses cannot later be re-read as noise, which is how a wrong form gets
+# quietly rehabilitated.
+_d9 = st["grid"]["9"]["centroid"] - st["grid"]["9"]["target"]
+_d13 = st["grid"]["13"]["centroid"] - st["grid"]["13"]["target"]
+chk(_d9 > 0 and _d13 > _d9,
+    f"the deviation from (deg-1)/2 is no longer signed-and-growing "
+    f"({_d9:+.2f} then {_d13:+.2f}); COMMUTATOR_TABLE.md states that it is, and "
+    "it is the constraint on any eventual form")
 
 if fails:
     print("VERIFY_HOLONOMY: FAIL")
