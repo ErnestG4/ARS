@@ -126,10 +126,23 @@ def _classify(spacings: np.ndarray) -> dict:
     # number moves; callers that want a refusal now have one available.
     best_ks = min(ks_p, ks_o, ks_u)
     ks_crit_01 = 1.63 / np.sqrt(n)          # KS critical value, alpha = 0.01
+    # TWO DIFFERENT QUESTIONS, and only the second is usually the one you want.
+    # `fit_rejected` is SIGNIFICANCE: is the deviation from the surmise larger
+    # than sampling noise. At large n this is nearly always True and carries
+    # almost no information -- swept 2026-08-19 over 1655 banked classifications
+    # and it flagged 97.5%, because median n is 6150 and the largest is 5.3e7,
+    # where a deviation of 0.0002 is "rejected". Significance is not badness.
+    # `fit_poor` is EFFECT SIZE, calibrated against MEASURED non-members rather
+    # than chosen: a true Poisson sample reads best_ks = 0.012 at n=2000, while
+    # uniform spacings read 0.091 and lognormal 0.104 through this same gate.
+    # So best_ks >= 0.09 means "this fits no better than something we have
+    # measured NOT to be a member of any of these classes".
+    KS_NONMEMBER = 0.09
     return dict(n=n, ks_p=ks_p, ks_o=ks_o, ks_u=ks_u, gap=ks_o - ks_u,
                 mass03=float((spacings < 0.3).mean()), best=best,
                 best_ks=best_ks, ks_crit_01=float(ks_crit_01),
-                fit_rejected=bool(best_ks > ks_crit_01))
+                fit_rejected=bool(best_ks > ks_crit_01),
+                fit_poor=bool(best_ks >= KS_NONMEMBER))
 
 
 def _direct_nns(t_k: np.ndarray) -> dict:

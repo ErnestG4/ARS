@@ -67,3 +67,52 @@ is now a cheap sweep and it is the natural next step of this census.
 named negative set. But it still ends in a bare `min(scores, ...)` with no fit-quality rejection, so
 it refuses on **preconditions** and not on **goodness of fit**. Partial pass: the negative set exists
 and is named, but does not cover the non-member case.
+
+---
+
+## The 93-file sweep — Q1/Q2/Q3, and a mis-specified first cut
+
+**Nothing was re-measured.** The banked artifacts already store `ks_p / ks_o / ks_u` and `n`, so the
+rejection test is arithmetic on existing records. **85 files, 1655 banked classifications.**
+
+### First cut was WRONG, in the way the owner predicted
+
+Using `fit_rejected` — the n-dependent KS significance threshold I had just added — **1613 of 1655
+(97.5%)** came back rejected. That is not a work list, it is a **mis-specified test**: median n is
+**6,150** and the largest is **52,501,662**, where a deviation of 0.0002 is "rejected at α=0.01".
+**Significance is not badness.** Same error I had caught two hours earlier in the invariance
+tolerance — *a threshold referenced to the wrong scale* — and the same root as the estimand rule.
+
+### The work list, on EFFECT SIZE calibrated against measured non-members
+
+Calibration comes from `gate1_specificity.py`, through this same gate: true Poisson **0.012**,
+uniform **0.091**, lognormal **0.104**, bimodal **0.334**, perfect clock **0.533**.
+
+| tier | count | share |
+|---|---|---|
+| significance (any deviation) | 1613 | 97.5% — *large-n artifact, discarded* |
+| **≥ 0.09 — fits no better than a known non-member** | **754** | **45.6%** |
+| ≥ 0.104 — worse than lognormal non-member | 747 | 45.1% |
+| **≥ 0.334 — worse than bimodal non-member** | **45** | **2.7%** |
+
+**Q1 — how many banked classifications sit on a genuinely poor fit: 754**, of which **45 fit worse
+than a bimodal distribution does through the same gate** and are near-certainly ungradeable. Worst
+files: `mertens_liouville` (0.786), `solar_flare` (0.736), `earthquake` (0.579), `binance` (0.414).
+Note `eeg_full_results.json` contributes **520** rows at up to 0.262 — the largest single block.
+
+**Q2 — how many are load-bearing for a stated finding: NOT YET DETERMINED.** This is the triage step
+and it is deliberately not automated. The file list above is the input to it, not its output.
+
+**Q3 — does the class change, or does the row become ungraded? STRUCTURALLY, ALWAYS UNGRADED.** No
+measurement needed: rejection is about the residual to the *best* fit, not about the ordering of the
+three, so a poor fit never makes a different class nearer. **Every affected row becomes NO class, not
+a DIFFERENT class** — which is the distinction that matters in prose, and it means no banked
+classification flips; some simply stop being classifications.
+
+**Nothing has been demoted.** Same discipline as the boundary-rate triage where 105 candidates
+collapsed to 19: the sweep produces a work list, a human decides. A mild unfolding imperfection can
+raise `best_ks` without the class being wrong, and the 0.09 tier is calibrated but not sacred.
+
+**Repair to the repair:** `_classify` now returns **both** `fit_rejected` (significance — low
+information at large n, retained for completeness) and **`fit_poor`** (effect size, `best_ks ≥ 0.09`,
+calibrated against measured non-members). The second is the one callers should consult.
