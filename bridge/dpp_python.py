@@ -69,10 +69,21 @@ def fit_family(family, r, g_emp, lam, lo=0.25, hi=5.0):
         amax = alpha_max(family, nv, lam)
         def D_of(a):
             return contrast(r, g_emp, g_dpp(family, r, a, nv), lo, hi)
-        res = minimize_scalar(D_of, bounds=(1e-3, amax), method="bounded")
+        LO_A = 1e-3
+        res = minimize_scalar(D_of, bounds=(LO_A, amax), method="bounded")
+        # BOUNDARY REPORTING WAS ONE-SIDED (fixed 2026-08-19). `at_boundary`
+        # checked only the UPPER bound -- a genuine DPP existence condition -- and
+        # never the lower one, which is a NUMERICAL GUARD that a Poisson-like
+        # (no-repulsion) field legitimately wants to reach. A fit railed at "no
+        # repulsion" was therefore reported as a small but MEASURED alpha, and
+        # 1e-3 does not announce itself the way 0.0 does. Currently UNEXERCISED:
+        # 558 banked alphas have min 0.022, 22x this bound. Fixed because it is
+        # cheap and latent, not because it is producing wrong numbers. The bound
+        # itself is NOT moved.
         cand = dict(family=family, alpha=float(res.x), nu=(None if nu is None else nv),
                     alpha_max=float(amax), at_boundary=bool(res.x > 0.995 * amax),
-                    D=float(res.fun))
+                    at_lower_boundary=bool(res.x < 1.05 * LO_A),
+                    alpha_min=float(LO_A), D=float(res.fun))
         if best is None or cand["D"] < best["D"]:
             best = cand
     return best
@@ -83,8 +94,15 @@ def fit_thomas(r, g_emp, lam, lo=0.25, hi=5.0):
     for sigma in np.geomspace(0.05, 10.0, 60):
         def D_of(k):
             return contrast(r, g_emp, g_thomas(r, k, sigma), lo, hi)
-        res = minimize_scalar(D_of, bounds=(1e-4, 100.0), method="bounded")
-        cand = dict(family="thomas", kappa=float(res.x), sigma=float(sigma), D=float(res.fun))
+        LO_K, HI_K = 1e-4, 100.0
+        res = minimize_scalar(D_of, bounds=(LO_K, HI_K), method="bounded")
+        # No boundary check existed here at all. Both ends are practical guards:
+        # a non-clustered field wants kappa -> 0, a very clustered one can exceed
+        # 100. Reported, not moved.
+        cand = dict(family="thomas", kappa=float(res.x), sigma=float(sigma),
+                    at_lower_boundary=bool(res.x < 1.05 * LO_K),
+                    at_upper_boundary=bool(res.x > 0.995 * HI_K),
+                    kappa_bounds=[LO_K, HI_K], D=float(res.fun))
         if best is None or cand["D"] < best["D"]:
             best = cand
     return best
