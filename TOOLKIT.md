@@ -1341,3 +1341,49 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   quirks — unfolding imperfection included — instead of assuming them away**, which is exactly why it
   discriminates where the theoretical bar cannot. Same move as measuring a misclassification-rate
   estimand directly rather than inferring it from a separation of means.
+
+### §9.C — CONSTRUCTION-TIME vs REVIEW-TIME RULES (2026-08-19)
+
+**Every rule that held in this repo acts at CONSTRUCTION or at READ. Every rule that was violated acts
+at REVIEW — including by the person who wrote it hours earlier.** This is not a stylistic preference.
+It is the only pattern that has actually held, and the evidence is three cases where **the repo
+already knew and it did not propagate**:
+
+1. **Rail audit R-178** measured `I.8_brody_q` as *"ENTIRELY RAIL — allen-hpf-cell 100.0%,
+   buzsaki-port-cell 99.4%, pvc-11 99.4% … those coordinates carry no information at all"*, and an
+   unbounded estimator was **built in response**. Outcome: **15,174 values still railed**, because the
+   fix was optional and bit-identical retention (correctly) froze the old key.
+2. **`TOOLKIT.md:444`** documented the one-sided-class-space collapse in **two** instruments — the
+   quadrant classifier's `BL` ("a collapse class named after one of the two things it collapses") and
+   Brody `q` railing at its floor. Outcome: `arithmetic_toolkit._classify` had the **same defect**,
+   unexamined until a census pointed at it, in **19 independent copies**, one of them a verifier.
+3. **`fitter_validation.json`** carried the clustered case failing **by name** — `brody_q_pass: False`,
+   `status: UNCERTIFIABLE_RAILED`, `all_pass: False`. Outcome: the values it condemns were banked
+   anyway, ~12,700 of them, all the **same float**: `6.610696135189609e-05`.
+
+In each case the knowledge was **present, correct, and in writing**. Knowing is a **review-time** act
+and nothing structural depended on it.
+
+**Why review-time rules fail:** they fire when a result already exists and there is a reason it looks
+fine — precisely the condition under which judgment is worst. **Construction-time rules fire before
+there is anything to defend.**
+
+**What survived this session, and where each acts:**
+
+| rule | acts at | form |
+|---|---|---|
+| `DetectorSpec` | construction | refuses without a named negative set + nearest confusable |
+| `ClassSpace` | construction | refuses unless each endpoint declares what lies beyond it |
+| `railed.Bounded.__float__` | read | refuses to hand out a value without its status |
+| promotion pins | write (checker) | fail on the condition that would *upgrade* an unresolved claim |
+| `assert_deg5_unchanged` | construction | refuses a "fix" that moves a sealed number |
+
+**Design test for any new rule: can the work proceed without consulting it?** If yes it will be
+skipped, eventually by its own author — measured here at *four* one-sided-calibration instances and
+*five* non-evidence-as-verdict instances in a single day, several within hours of writing the rule.
+
+**Same class, and it belongs here rather than as an incident report: READ THE WRITER BEFORE POINTING A
+MUTATING TOOL AT BANKED DATA.** `phase2b_recompute.py --limit 3` rewrote its target with *only* the
+three processed records, truncating a 1,159-record artifact to 3 — **a generator that rewrites its
+input under a flag named for reading less**. That is a trap careful use does not avoid; only checking
+the writer first does, and that check happens at construction time.
