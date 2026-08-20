@@ -48,6 +48,24 @@ class DetectorSpec:
                 "must NOT fire on, before measuring anything. A detector checked "
                 "only where it fires is calibrated on one side — three instances "
                 "in this repo so far.")
+        # EMPTY-BUT-PRESENT is the obvious way to satisfy this without
+        # satisfying it: a declared set whose cases name nothing. Blank and
+        # placeholder keys are refused. NOTE HONESTLY WHAT THIS CANNOT DO: it is
+        # a syntactic check on a semantic requirement, and this repo has twice
+        # measured such checks failing their own known-positive self-tests. A
+        # negative set of real-looking but irrelevant cases will pass here. What
+        # actually does the work is `nearest_confusable` — naming the case that
+        # most resembles a positive without being one is the part a placeholder
+        # cannot fake, because it has to be a specific claim about the domain.
+        _PLACEHOLDER = {"todo", "tbd", "fixme", "none", "n/a", "na", "xxx",
+                        "placeholder", "tbc", "?", "-"}
+        bad = [k for k in negative_set
+               if not str(k).strip() or str(k).strip().lower() in _PLACEHOLDER]
+        if bad:
+            raise DetectorNotCertified(
+                f"{name}: negative set contains blank/placeholder cases {bad}. "
+                "A declared set that names nothing is an empty set with extra "
+                "steps — name the actual inputs this detector must stay silent on.")
         if not nearest_confusable:
             raise DetectorNotCertified(
                 f"{name}: nearest_confusable is unset. A specificity number "

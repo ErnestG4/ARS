@@ -1301,7 +1301,20 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   correct behaviour is silence. Vigilance is therefore the wrong instrument; the omission has to be
   made structurally visible. `detector_spec.DetectorSpec` refuses to construct without a declared
   negative set and a named **nearest confusable** case, and refuses to certify with either rate
-  untested — so forgetting shows up as **a blank required field rather than an absence**.
+  untested — so forgetting shows up as **a blank required field rather than an absence**. It also
+  refuses blank and placeholder case names, since a declared set that names nothing is an empty set
+  with extra steps. *What it cannot do, stated plainly: a negative set of real-looking but irrelevant
+  cases passes — it is a syntactic check on a semantic requirement, and this repo has twice measured
+  such checks failing their own known-positive self-tests. The field that does the real work is
+  `nearest_confusable`, because naming the case that most resembles a positive is a specific claim
+  about the domain and a placeholder cannot fake it.*
+- **The sub-case that will fool the next reviewer: a gate with a REFUSAL BRANCH that still cannot say
+  "none of these."** `sessionK/nns_stats.classify_empirical` refuses on `n < 200` and on mean spacing
+  outside (0.7, 1.4) — a genuinely named negative set, and it *looks* two-sided. But it then ends in a
+  bare `min(scores, ...)`: it refuses on **preconditions**, never on **goodness of fit**. **The
+  presence of a refusal branch reads as the question having been asked**, which is exactly why this
+  form is more dangerous than a gate with no refusal at all. Check what the branch refuses ON, not
+  that it exists.
 - **Non-inertness applies to EVERY ARM of every multi-arm test, not just to red-demo constructions.**
   (Two instances 2026-08-19: the a=0 finite-n arm, and the degenerate lin/quad predictor interval
   scored 0/2 as a *failure* when no measurement could have satisfied it.) The failure pattern is
