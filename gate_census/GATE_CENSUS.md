@@ -130,3 +130,52 @@ raise `best_ks` without the class being wrong, and the 0.09 tier is calibrated b
 **Repair to the repair:** `_classify` now returns **both** `fit_rejected` (significance — low
 information at large n, retained for completeness) and **`fit_poor`** (effect size, `best_ks ≥ 0.09`,
 calibrated against measured non-members). The second is the one callers should consult.
+
+---
+
+## Severity-first triage (Q2) — and the finding is structural, not a row count
+
+Sorted by **severity, not block size**: 8 rows fit worse than the **perfect clock (0.533)**, the
+calibrator already known to be unclassifiable. They fall in two programs.
+
+| best_ks | n | label | source |
+|---|---|---|---|
+| **0.786** | 3,865 | Poiss | `mertens_liouville_results.json` → `mertens.direct_nns` |
+| **0.752** | 95,863 | Poiss | `mertens_liouville_results.json` → `mertens.analytical_nns` |
+| **0.736** | 141 | Poisson | `solar_flare_results.json` → `solar_min.primary` |
+| 0.705 ×3 | 422k / 20k | Poisson | `solar_flare_results.json` → `strata.solar_min.*` |
+| 0.582 | 6,428 | Poisson | `solar_flare_results.json` → `solar_max.primary` |
+| 0.579 | 528 | Poiss | `earthquake_results.json` → `by_tile[13]` |
+
+**Q2 answer for both worst files: NO stated finding rests on the bad label — and in both cases the
+record ALREADY CONTAINS THE CORRECT VERDICT, from a better instrument.**
+
+- **Mertens.** `verify/00-summary.md` records the verified, **lens-invariant** verdict as
+  **`SUPER_POISSON`**. The argmin says `Poiss` at 0.786.
+- **Solar flares.** `COMCAT_SOC_RUNSTATE.md` G5 records *"flares clustered > Poisson floor; solar MAX
+  more clustered than solar MIN"*, established against a Poisson floor rather than by this classifier.
+  The argmin says `Poisson` at 0.705–0.736.
+
+So the labels are **inert leftovers**, exactly as Q3's theorem predicts — overclaimed, not misdirected.
+
+### The structural finding: the CLASS SPACE is one-sided
+
+`TOOLKIT.md:444` already documents this collapse in **two** other instruments — the quadrant
+classifier, whose `BL` class is *"a collapse class named after one of the two things it collapses"*
+and which read known-clustered GOES flares as *"Poisson noise"*; and Brody `q`, where a **CV = 6.5
+burst process reads q = 0.0001, more Poisson than Poisson's own 0.0023**, because clustered data wants
+`q < 0` and rails at the `bounds=(0,1)` floor.
+
+**`_classify` is the third instrument with the same blind spot, and the cause is shared: each
+parameterises [rigid … Poisson] with POISSON AS AN ENDPOINT.** Super-Poisson data is not
+mis-measured — it is **unrepresentable**, so it piles up at the boundary. Confirmed here in synthetic
+(clustered → Poisson at 0.535) *and* in real data twice over (flares 0.705, Mertens 0.786).
+
+**This is one-sided calibration one level up: not a one-sided THRESHOLD but a one-sided CLASS SPACE.**
+The family of failures now reads: a one-sided threshold (`RIGID_GUE`), a one-sided class space (these
+three instruments), and an argmin with no null option (gate 1). All three are the same sentence —
+**the answer space does not contain the truth**, so the gate returns the nearest thing it can say.
+
+*Also noted:* `run_mertens_liouville.py:139` carries its **own copy** of `classify()` (`'Poiss'`
+rather than `'Poisson'`), so the 93-file import count **undercounts** the blast radius — duplicated
+implementations do not import the repaired one and will not pick up `fit_poor`.
