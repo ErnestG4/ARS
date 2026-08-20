@@ -66,6 +66,14 @@ def _matched_axes(positions, gate_pass: bool) -> dict:
     return out
 
 
+# ⚠ DESTRUCTIVE-FLAG WARNING (found 2026-08-19). `--limit N` does NOT process a
+# subset in place: the runner writes back only the records it processed, so
+# `--limit 3` TRUNCATED pvc-11.jsonl from 1159 records to 3. Recovered from git,
+# no data lost, but this is a committed generator that silently destroys the
+# artifact it is pointed at. Treat `--limit` as a DRY-RUN-ONLY flag and never run
+# it against a working tree with uncommitted changes to the target.
+
+
 def recompute_pvc11(limit=None):
     gate = _fitter_gate()
     path, recs = _read_records("pvc-11")
