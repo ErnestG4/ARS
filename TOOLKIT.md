@@ -1213,3 +1213,26 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   grid is not a peak**, it is a lower bound — extend the grid before reading it (the
   out-of-sample-window rule, in a new place). This is the same defect as a rate banked without its
   denominator: the quantity is reported, the uncertainty on it never was.
+- **An asymptotic index read by a bounded instrument is MIS-INDEXED, not underpowered — and no n fixes
+  that.** (brocot, 2026-08-19.) The claim "Brody q falls with approximability" was indexed by
+  **Lagrange class**, which is defined by the continued-fraction *tail*. The substrate is an FM
+  sideband lattice k₁ + k₂α with |k| bounded by the modulation index, so it resolves near-resonance
+  only at **small denominators**, fixed by the *first* CF terms. The instrument cannot see the tail
+  that defines the index. Symptom: within-class spread at 88% of between-class spread and a CI
+  covering zero. Re-indexed to a per-α quantity at the matched scale, the same data gave ρ = +0.699 at
+  n = 255 — tighter than the original ever had — and the scatter that looked like noise was the signal.
+  **THE CHECK, and it costs nothing: when a scaling arc is proposed, first ask whether the INDEX and
+  the INSTRUMENT live at the same scale.** Had that been asked, the entire costing exercise (what n
+  clears the bar, is it reachable) would never have been commissioned — it was a well-posed question
+  about the wrong quantity. Re-indexing is usually cheaper than scaling, and it is available when
+  scaling is not.
+- **A finding graded UNRESOLVED must carry a pin that fires on the condition that would PROMOTE it.**
+  (P1 straddle, 2026-08-19.) Most pins guard a value against changing. This one guards a *claim
+  against being upgraded*: `verify_holonomy` fails if both straddle centroids come to contain their
+  (deg−1)/2 targets, because that is the evidence state which would turn `FORM_UNRESOLVED` into
+  support for a formula **nobody has adjudicated**, while the prose still says unresolved. Generalize
+  it: any `*_UNRESOLVED`, `AMBIGUOUS`, `REGISTERED_OPEN` or equivalently-graded finding should pin the
+  promotion condition, so a rerun cannot silently upgrade it. That converts *"we will notice if this
+  becomes supported"* from a hope into a red exit. Corollary already used here: pin the **shape** of
+  the negative evidence too (the deviation being signed and growing), since re-reading it as scatter
+  is the other route by which a rejected form gets rehabilitated.
