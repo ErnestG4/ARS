@@ -179,3 +179,28 @@ three instruments), and an argmin with no null option (gate 1). All three are th
 *Also noted:* `run_mertens_liouville.py:139` carries its **own copy** of `classify()` (`'Poiss'`
 rather than `'Poisson'`), so the 93-file import count **undercounts** the blast radius — duplicated
 implementations do not import the repaired one and will not pick up `fit_poor`.
+
+---
+
+## Duplicate hunt — 19 independent copies, one of them a VERIFIER
+
+Grepping by **structure** (argmin over a Poisson/GOE/GUE KS triple) and by **value** (the distinctive
+short string `'Poiss'`, the `nns_cdf_*` triple computed together), as the owner suggested — a
+paraphrased copy that dodges a structural grep usually still carries the constants.
+
+**19 files define their own argmin classifier rather than importing the repaired one.** The repair to
+`arithmetic_toolkit._classify` therefore reaches **one of nineteen**; the other eighteen will not pick
+up `fit_poor` or `fit_rejected`:
+
+`run_lmfdb_family` · `run_controls` · `run_fungal_nns` · `run_mertens_liouville` · `run_eeg_full` ·
+`run_lmfdb_postprocess` · `run_dirichlet_family` · `run_zeta_height_convergence` · `run_phase5` ·
+`run_eeg_depth` · `run_phase4` · `run_analytical_nns` · `run_earthquake_nns` · `run_lmfdb_extend` ·
+`run_per_pll_nns` · `universality.py` · `run_lmfdb_edge` · **`verify/tier1_lfunction_guard.py`**
+
+**The last one is the finding.** A **verifier** carries its own copy of the defective classifier — so
+a gate whose job is to catch regressions shares the blind spot it would need in order to catch this
+one. That is the checker-cannot-see-its-own-class problem, in the strongest possible location.
+
+*The owner's prediction was right and the scale is worse than "more than one": three instruments
+independently reinvented the one-sided class space, and within just this instrument there are
+nineteen copies of it.*
