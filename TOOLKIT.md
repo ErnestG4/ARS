@@ -1270,6 +1270,12 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   A 6.8% grid spread was first scored a failure on a number whose CI half-width was 21% — a test
   stricter than the value was ever known to, which manufactures alarm exactly where precision is
   lowest and is therefore backwards.
+  **The guard has a PREDICTED DOMAIN, which is more useful than "it works on the case we built it
+  from": it should fire roughly above the point where the linear solver breaks down.** Measured here,
+  numpy's SVD still copes at Vandermonde cond **1.2e28** (deg 9 — raw and conditioned identical, guard
+  correctly silent) and stops by **2.9e40** (deg 13 — guard fires). So apply it where conditioning is
+  plausibly past the solver's tolerance, and do not expect it to fire uniformly; a next reader running
+  it everywhere and seeing nothing should conclude the solver is coping, not that the guard is inert.
   Corollary for fitting specifically: **centre and scale the abscissa**, and keep a guard asserting the
   change is a no-op at any sealed setting — a "fix" that moves sealed numbers is a re-verdict, not a fix.
 - **A pin locks a value against DRIFT, which is protection only if the value was RIGHT — so pins go
@@ -1279,6 +1285,23 @@ did not resolve at arc power. A reader must not read either as evidence the orde
   have flagged the honest recomputation as the regression and defended the error against correction.
   A guard that preserves a wrong value is worse than no guard, because it launders the error as
   verified. **Pinning is not validating.** Sequence: measure → invariance-test → *then* pin.
+- **DOMINANT ERROR MODE OF THIS WORK: non-evidence scored as a verdict.** Five instances in one
+  session (2026-08-19) — the inert a=0 finite-n arm; the degenerate lin/quad interval scored 0/2 as a
+  *failure*; a guard's validation requiring a property of the DATA; an invariance tolerance stricter
+  than the quantity's own CI; and a guard scored PARTIAL for correctly staying silent where no bug
+  existed. **In every case a test that could not discriminate was scored as though it had**, in
+  whichever direction the arithmetic happened to point. This ranks alongside *correct-fact-wrong-slot*
+  as a root cause, and the tell is the same each time: an n/m tally whose denominator includes an arm
+  that had no way to contribute information.
+- **Definition-of-done for any threshold or detector: BOTH rates recorded, and the NEGATIVE SET named
+  before the detector is built.** One-sided calibration has now appeared three times — the RIGID_GUE
+  boundary, the a_q floor, and a guard built during the session that named the class, *by the person
+  who named it.* That is not carelessness: **"check whether the detector fires" feels like completion,
+  and the false-positive side has no natural prompt** — nothing draws attention to a case where the
+  correct behaviour is silence. Vigilance is therefore the wrong instrument; the omission has to be
+  made structurally visible. `detector_spec.DetectorSpec` refuses to construct without a declared
+  negative set and a named **nearest confusable** case, and refuses to certify with either rate
+  untested — so forgetting shows up as **a blank required field rather than an absence**.
 - **Non-inertness applies to EVERY ARM of every multi-arm test, not just to red-demo constructions.**
   (Two instances 2026-08-19: the a=0 finite-n arm, and the degenerate lin/quad predictor interval
   scored 0/2 as a *failure* when no measurement could have satisfied it.) The failure pattern is
