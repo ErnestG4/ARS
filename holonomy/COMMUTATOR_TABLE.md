@@ -419,6 +419,11 @@ similar slope. **Three or four more degrees at 200 seeds would**, and the cost i
 200-seed run covered 2 degrees × 6 dials in ~4 minutes wall, so the whole question is well under an
 hour. Not urgent: the mechanism carries ADD-7's closure without it.
 
+**And that estimate buys more than it was scoped to.** The ridge location at a given degree *is* the
+straddle peak at that degree — the FAIL cells and the centroids are two readings of **one surface**,
+not two findings. So the extra degrees that would settle the form **also extend the ridge map**, and
+both open items close on a single run. I costed it as the form question alone; it covers both.
+
 **Status: `STRADDLE_MECHANISM_SUPPORTED, FORM_UNRESOLVED`.** Filed as such rather than promoted —
 the sealed instrument's dial-2.0 under-ordering (ADD-7's closure) rests on the deg-5 cell and the
 403× dynamic-range validation, neither of which touches the form question.
