@@ -315,6 +315,14 @@ over the full sweep (3 degrees × 10 dials, `p1_straddle_law.json`):
 | 9 | · | · | · | · | **FAIL** | **FAIL** | · | · | · | · |
 | 13 | · | · | · | · | · | · | **FAIL** | · | · | · |
 
+*Multiplicity, since a later reader may want to quote a single cell:* the map applies a 3-sem
+threshold across 30 cells, so the expected false-positive count under the null is **0.08**, not one —
+the "roughly one" intuition corresponds to a **2**-sem threshold (1.37 expected), not this one. The
+Bonferroni threshold for 30 cells at α = 0.05 is **z = 3.14**, and **all four FAIL cells clear it**
+(7.8, 4.6, 4.0, 3.3 sem), so the ridge map is already multiplicity-safe as drawn. The caution still
+holds in kind: **the surface claim rests on the diagonal PATTERN, and any single cell quoted on its
+own needs the corrected threshold** — deg 13 / dial 8.0 at 3.3 sem clears 3.14 with little to spare.
+
 **4 of 30 cells fail, and all four lie on a diagonal ridge that moves to higher dial with degree** —
 which is exactly the straddle. The 403× validation is the **dial-2.0 column only**: six cells, one
 failing (deg 5). So the honest statement is *the continuum law is validated OFF the straddle ridge and
