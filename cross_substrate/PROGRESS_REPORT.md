@@ -749,9 +749,35 @@ tracks approximability" holds as a **per-α** statement at the instrument's own 
 earlier statement that the trigger is *boundedness of partial quotients* survives as the first-8-term
 version (ρ = −0.599), not the asymptotic one.
 
+**Kept visible because it is the cost of the error, not a footnote: the high-FM-index arc sat on the
+queue as NECESSARY for two rounds** — first as "brocot needs more partials, not a different
+statistic", then as a scoped costing exercise ("what n clears the bar, is that reachable") that ran to
+a measured answer about FM index, Bessel folding and band limits. All of it was downstream of a
+correlation that was mis-indexed rather than underpowered. The costing was competent work on a
+question that should never have been asked, and the check that would have pre-empted it costs
+nothing: *does the index live at the same scale as the instrument?* Filed in TOOLKIT §9.
+
 **Consequence for the queue: the high-FM-index arc is NOT NEEDED for this question.** n ≥ 2000 came
 from the GUE-vs-GOE gate, which class-assigns a single row; the actual claim is correlational and is
 now measured at **n = 343 per α with n = 255 α** and tighter CIs than the original ever had. No
 bigger n, no GPU, no new substrate. The high-index arc remains available as a genuine
 *generalization* test (does the relation survive a 4× change in coupling?) — now a real question
 rather than a repair, and costed on its own merits.
+
+### Queue after the brocot resolution (2026-08-19)
+
+1. **Gate enumeration for one-sided calibration — interactive, next session.** The highest-value open
+   item. One-sided calibration is a confirmed class with **two** instances, and both syntactic
+   detectors failed their known-positive self-test, so **the number of instances is unknown rather
+   than two**. Judgment-heavy is exactly where a manual pass earns its cost; the population is small
+   and named (verdict lattices, tier assignments, decoy floors, fitter tolerances) and the question
+   per gate is one sentence — *which side was calibrated, and was the other ever measured?*
+2. **The 19 small-n boundary rows in other programs' artifacts.** Mechanical, two treatments already
+   defined. These live in others' artifacts, so the deliverable is **report-and-propose, not repair**.
+3. **Comb k-tuple arc — last, and cheap to start.** Its brief already frames the right question:
+   whether the k-tuple prediction is **separable from the pairwise product**. If it is not, the arc
+   is one cell and closes early — a good property for the back of a queue.
+
+*Not on the queue:* the high-FM-index arc (optional generalization test, see above) and the P1
+straddle form (needs 3–4 more degrees at 200 seeds, under an hour, not urgent — the mechanism carries
+ADD-7 without it).
