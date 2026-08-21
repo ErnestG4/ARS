@@ -61,3 +61,41 @@ correlation-like, other — with unclassifiable keys landing in the same triage 
 **Deliverable is the triage table.** Adjudication happens interactively, on the table, afterwards —
 the judgment Gate 1 required was *recognising* the defect class, and that is done and named. What
 remains is adjudication, and adjudication wants a table in front of it.
+
+---
+
+## AMENDMENT 1 — measured dedup, with the denominator-scaling rule fixed BEFORE the count is known
+
+**Sealed 2026-08-20, still with zero sweep output in existence.**
+
+**The defect this fixes:** the prediction above is stated over "~12 distinct implementations", derived
+from "~19 of ~30 sites are copies of `_classify`" — and **that is an unverified read, not a
+measurement.** It inherits the assumption that the 19 copies are *identical*, which is precisely what
+C3 exists to check and has not. A drifted copy is **not a copy**: it is a distinct implementation with
+its own verdict row, and the denominator moves. Standing obligation 7 was written because three cells
+rested on unverified reads; here it catches one **inside a sealing document**, which is the strongest
+evidence yet that the obligation covers *predictions*, not only execution plans.
+
+**Amendment, in two ordered parts.**
+
+**(a) The scaling rule — fixed HERE, before any hash is computed, and derivation-shaped so it carries
+no free parameter.** The original prediction is **4–6 of 12**, i.e. **one-third to one-half** of
+distinct implementations. That *fraction* is the sealed quantity; only the denominator is measured:
+
+> **predicted_low = round(N_distinct / 3), predicted_high = round(N_distinct / 2)**, where
+> `N_distinct` = the **measured** count of distinct `classify()` implementations by content hash.
+
+At N=12 this reproduces 4–6 exactly, so the amendment **extends** the seal rather than restating it.
+No constant is chosen; the fraction was fixed before the count was known, and would read identically
+had the count turned out to be anything.
+
+**(b) The measurement, run after (a) is committed.** Hash all 19 `_classify` copies; the dedup map
+becomes a **measured artifact**, not an input assumption.
+- **All 19 identical** → the sealed prediction stands on its stated basis, **and C3's precondition is
+  verified for free.**
+- **Any differ** → that is a **finding in its own right** — a drifted copy of a classifier is a quiet
+  fork — each divergent copy takes its own verdict row, and `N_distinct` rises with the predicted
+  range scaling by the rule above.
+
+**Both outcomes are pre-committed as results.** Neither has a story available afterward that was not
+written first.

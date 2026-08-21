@@ -852,8 +852,17 @@ brocot's rail **compresses**; it does not invert.
 golden (21), silver (18), bronze (15), metallic5 (8) — the **badly-approximable** classes — plus
 e_minus_2 (17) and ln2 (9). Unbounded, those cells span **+1.015 … +2.378** (median +1.122; 6.9% are
 GUE-like at 1.5–2.5; none beyond 2.5). **The bounded estimator reports that entire span as a single
-number.** Per-class medians inside the rail: golden **+1.316**, e_minus_2 +1.175, bronze +1.105,
-silver +1.101, ln2 +1.055, metallic4 +1.055, metallic5 +1.053.
+number.**
+
+**⚠ The per-class medians I quoted here are WITHDRAWN, for the same reason the correlation below is
+not banked — I applied the knife to one and not the other.** Golden +1.316 > e−2 +1.175 > bronze
++1.105 was computed over cells **selected by bounded-q railing**. Unless every class rails at the same
+rate, those are **differentially truncated** distributions: a class with mass just below q=1
+contributes only its upper tail and its median inflates relative to a class that rails wholesale. So
+the within-rail ordering is exactly as untrustworthy as the subgroup correlation. **And it is
+unnecessary** — unbounded q is banked for all 255 cells, so the unselected version of the same number
+already exists. Neither the ordering nor the correlation should be quoted before the full-population
+re-run, which answers both in one pass.
 
 **5. Whether the compressed region carries SIGNAL is unresolved, and the obvious test is confounded.**
 Inside the rail, ρ(D_Q, unbounded q) = **−0.209, CI [−0.400, −0.002], p = 0.036** — nominally
@@ -861,6 +870,16 @@ significant, opposite in sign to the global relation, and **not trustworthy as i
 is defined *by the bounded value railing*, i.e. selected on q itself, so range restriction can induce
 a correlation. A CI whose upper bound is −0.002 is a `PLAUSIBLE`, not a `CONFIRMED`. **Do not bank the
 sign reversal.** The properly-powered version is a designed test, not a subgroup correlation.
+
+**THE MIRROR — file this against the one-sided class-space finding, not as a new defect.** The banked
+class-space result was that the quadrant classifier, Brody q, and `_classify` all parameterise
+**[rigid … Poisson] with Poisson as an endpoint** — instruments that cannot see past the *clustered*
+end. brocot exhibits **the same wall at the rigid end**: GUE (≈2) and GSE (≈4) are physically ordinary
+and the bounded coordinate reports them all as 1. **One finding, two instances** —
+*clustered-beyond-zero* (pvc-11, 1,152 cells) and *rigid-beyond-one* (brocot, 101 cells) — rather than
+two findings. That symmetry strengthens the systemic reading the sealed sweep pre-committed as its
+12/12 tail, and it gives the sweep's *"what lies beyond each endpoint?"* question **two measured
+answers** instead of one.
 
 **Recommended, cheap, not urgent:** re-run the brocot per-α analysis with `I8_brody_q_unbounded` as
 the **primary** axis (it is validated and already banked alongside). The finding does not need
