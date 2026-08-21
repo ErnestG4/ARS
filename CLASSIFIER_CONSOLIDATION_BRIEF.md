@@ -1,7 +1,15 @@
 # BRIEF — Consolidating the 19 `classify()` copies
 
 **Status:** DRAFT, authored 2026-08-19. **Not executed.** Deliverable of C3 was the brief.
-**Posture:** refactor with real regression risk against banked outputs. Not an overnight.
+**Posture:** ~~refactor with real regression risk~~ → **ADJUDICATION-SHAPED. RECLASSIFIED 2026-08-20.**
+
+**⚠ THE PREMISE BELOW IS FALSIFIED. Measured (`gate_census/copy_dedup.json`): these are NOT 19 copies
+of one classifier — they are ELEVEN DISTINCT IMPLEMENTATIONS**, mostly singletons (only a 4-way and a
+2-way group share a hash), and the differences are **substantive**: `run_lmfdb_family` guards on
+`pooled.size < 50` while `run_phase4` has **no minimum-n guard at all** and additionally **computes KS
+p-values the canonical `_classify` never computes**. Consolidating onto `_classify` would **silently
+lose capability**. This is a **reconciliation**, not a de-duplication. Read the two added acceptance
+clauses below before the rest of this brief.
 
 ## The problem
 
@@ -61,6 +69,19 @@ For **every one of the 19 call sites**, on its own banked inputs:
 The detector is a two-pronged grep: structure (`min([...])` over a KS triple) **and** value (`'Poiss'`,
 `nns_cdf_goe`). Committed as `gate_census/` output. **Run it after consolidation**; a non-zero count
 that is not the shared module is a new copy.
+
+## ADDED 2026-08-20 — two acceptance clauses the falsified premise requires
+
+6. **No site loses a computed quantity it currently returns.** `run_phase4`'s `pv_*` values are the
+   worked case: they exist, they are unused, and consolidating them away would destroy information the
+   repaired `_classify` does not have.
+7. **A divergence inventory, ruled on BEFORE any site is migrated.** The variants differ in
+   **behaviour**, not only in outputs — a `pooled.size < 50` guard versus none is a **policy fork**, not
+   a quantity. Consolidation must either pick a policy or preserve both behind an explicit parameter,
+   and that is a ruling, not a refactor step.
+
+**Consequence:** mechanical inventory first, adjudication second — the same triage-table shape as the
+gate sweep, rather than a migrate-and-check loop.
 
 ## Out of scope
 

@@ -183,3 +183,41 @@ a changed threshold, or any logic difference does.** A stricter rule (AST-shape 
 normalised) would lower the count; a looser one (raw bytes) would raise it. **The count of 11 is
 reproducible only against this spec**, which is why it is committed rather than left implicit — same
 status as the discriminator's `RAIL_RATIO`.
+
+### AMENDMENT 1 — `run_phase4` GOES TO `NEEDS_JUDGMENT`, and the taxonomy is NOT extended
+
+`run_phase4.classify` **computes** `pv_p`/`pv_o`/`pv_u`, **returns them, and never acts on them.** The
+sealed question *"was the negative set measured?"* is binary; this site **measures-but-ignores** and
+fits neither `MEASURED_NEGATIVE_SET` nor `UNMEASURED` without distortion.
+
+**The tempting move is to add a `COMPUTED_UNUSED` verdict. Refused.** That is refining classification
+rules after output exists — the exact move this seal forbids — and the refusal region was built for
+precisely this case. **`run_phase4` → `NEEDS_JUDGMENT`, with the ambiguity stated.** Any taxonomy
+extension happens **at adjudication**, as a ruled-on outcome, in its own commit, **applicable to
+future sweeps rather than retrofitted into this one.** *The seal surviving its first hard case matters
+more than the tidiness of the table.*
+
+**Recorded for the adjudication session, not applied now — a severity gradient, which is likely that
+session's organizing axis:**
+
+> **no rejection region  <  computes-and-ignores  <  computes-and-acts**
+
+`computes-and-ignores` is a **nearer miss** than `never-computes`: the information was in hand and the
+marginal cost of acting on it was almost zero. That ordering is an observation offered to adjudication,
+**not** a verdict assigned here.
+
+### AMENDMENT 1 — C3 CONSEQUENCE: a divergence inventory, not just a preservation clause
+
+The variants differ in **behaviour**, not only in returned quantities: `run_lmfdb_family` guards on
+`pooled.size < 50`, `run_phase4` has **no minimum-n guard at all**. A guard is not a quantity to
+preserve — it is a **policy fork**, and consolidation must either **pick a policy** or **preserve both
+behind an explicit parameter**.
+
+So C3's brief needs **two** additions, not one:
+1. *(named earlier)* **no site loses a computed quantity it currently returns**;
+2. **a divergence inventory** — every behavioural difference between the 11 variants listed and
+   **ruled on before any site is migrated.**
+
+**That reclassifies C3.** It is no longer "tedious, wants its own session"; it is
+**adjudication-shaped**, and wants the same **triage-table** treatment as this sweep: mechanical
+inventory first, ruling second.
