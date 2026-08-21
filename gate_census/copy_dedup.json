@@ -1,0 +1,49 @@
+{
+ "sites_checked": 19,
+ "bodies_found": 15,
+ "N_distinct": 11,
+ "groups": {
+  "8af5c1b4cd0860ad": [
+   "run_lmfdb_family.py"
+  ],
+  "0cbcf4e37201608a": [
+   "run_fungal_nns.py"
+  ],
+  "362c40e998048a7e": [
+   "run_mertens_liouville.py",
+   "run_lmfdb_postprocess.py",
+   "run_dirichlet_family.py",
+   "run_lmfdb_extend.py"
+  ],
+  "84782fcb7972729b": [
+   "run_eeg_full.py"
+  ],
+  "9fc4073c2b43f68d": [
+   "run_zeta_height_convergence.py",
+   "run_earthquake_nns.py"
+  ],
+  "6b19f7840691fb49": [
+   "run_phase5.py"
+  ],
+  "a36421c8c4a0a75e": [
+   "run_eeg_depth.py"
+  ],
+  "3c3d136399cdebbb": [
+   "run_phase4.py"
+  ],
+  "a857f79bc482c621": [
+   "run_lmfdb_edge.py"
+  ],
+  "4112275fdff8a145": [
+   "verify/tier1_lfunction_guard.py"
+  ],
+  "20f03f925665de9f": [
+   "arithmetic_toolkit.py"
+  ]
+ },
+ "sealed_rule": "predicted_low = round(N/3), predicted_high = round(N/2)",
+ "predicted_range": [
+  4,
+  6
+ ]
+}

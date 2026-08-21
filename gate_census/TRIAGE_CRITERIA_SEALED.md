@@ -99,3 +99,41 @@ becomes a **measured artifact**, not an input assumption.
 
 **Both outcomes are pre-committed as results.** Neither has a story available afterward that was not
 written first.
+
+### AMENDMENT 1 — MEASURED RESULT (run after the rule above was committed)
+
+**The "any differ" branch fired, and it is a finding rather than a denominator tweak.**
+
+| | |
+|---|---|
+| sites inspected | 19 |
+| classifier bodies found | **15** (4 sites carry no `classify`/`_classify` function) |
+| **distinct implementations by normalised content hash** | **11** |
+| sealed rule applied → predicted | **4–6 of 11** |
+
+**"~19 of ~30 are copies of `_classify`" was wrong.** Only two groups share a hash — a 4-way
+(`mertens_liouville`, `lmfdb_postprocess`, `dirichlet_family`, `lmfdb_extend`) and a 2-way
+(`zeta_height_convergence`, `earthquake_nns`). **The other nine are singletons.** This is not one
+classifier copied nineteen times; it is **eleven distinct implementations**, mostly one-offs.
+
+**The differences are SUBSTANTIVE, not cosmetic.** Diffing two singletons:
+`run_lmfdb_family` guards on `pooled.size < 50` and `run_phase4` **has no minimum-n guard at all**;
+and `run_phase4` **computes KS p-values** (`pv_p`, `pv_o`, `pv_u`) that the canonical `_classify`
+never computes. It **returns them and never acts on them** — so it holds refusal information and
+discards it, which is a *different* defect from having none, and arguably a nearer-miss.
+
+**Consequence for C3, which must be reflected before that session runs: the consolidation brief's
+premise is materially wrong.** It assumes 19 copies of one thing, with bit-identity as the acceptance
+criterion. They are **variants**, at least one of which (`run_phase4`) carries capability the
+canonical implementation lacks. **Consolidating onto `_classify` would silently LOSE that capability.**
+C3 is therefore not a de-duplication but a **reconciliation**, and its acceptance criteria need a
+sixth clause: *no site loses a computed quantity it currently returns.*
+
+**Consequence for this sweep:** each of the 11 takes its own verdict row, which the sealed vocabulary
+already provides for. The prediction stands on its stated basis, rescaled by the pre-committed rule
+with no free parameter — and 4–6 of 11 happens to coincide with the original 4–6 of 12, so no
+prediction was loosened by the correction.
+
+**Also surfaced:** 4 sites (`run_controls`, `run_analytical_nns`, `run_per_pll_nns`, `universality.py`)
+have the argmin but no function of that name. They are **not** exempt — they enter the sweep as
+`NEEDS_JUDGMENT` pending extraction by a different route.
