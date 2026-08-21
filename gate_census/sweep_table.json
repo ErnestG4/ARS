@@ -1,0 +1,250 @@
+{
+ "N_distinct_sealed": 11,
+ "n_impl_rows": 15,
+ "verdict_counts": {
+  "NO_NAMED_SET": 8,
+  "NEEDS_JUDGMENT": 5,
+  "UNMEASURED": 1,
+  "MEASURED_NEGATIVE_SET": 1
+ },
+ "hits_NO_NAMED_SET_or_UNMEASURED": 9,
+ "predicted_dual": [
+  "4-5 (half-down)",
+  "4-6 (half-up / half-to-even)"
+ ],
+ "by_impl": {
+  "8af5c1b4cd0860ad": {
+   "sites": [
+    "run_lmfdb_family.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "<none:run_controls.py>": {
+   "sites": [
+    "run_controls.py"
+   ],
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required"
+  },
+  "0cbcf4e37201608a": {
+   "sites": [
+    "run_fungal_nns.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "362c40e998048a7e": {
+   "sites": [
+    "run_mertens_liouville.py",
+    "run_lmfdb_postprocess.py",
+    "run_dirichlet_family.py",
+    "run_lmfdb_extend.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "84782fcb7972729b": {
+   "sites": [
+    "run_eeg_full.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "9fc4073c2b43f68d": {
+   "sites": [
+    "run_zeta_height_convergence.py",
+    "run_earthquake_nns.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "6b19f7840691fb49": {
+   "sites": [
+    "run_phase5.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "a36421c8c4a0a75e": {
+   "sites": [
+    "run_eeg_depth.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "3c3d136399cdebbb": {
+   "sites": [
+    "run_phase4.py"
+   ],
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "fit-quality quantities COMPUTED but never COMPARED (pv_o, pv_p, pv_u, pvalue) \u2014 measures-but-ignores fits neither MEASURED nor UNMEASURED; taxonomy extension deferred to adjudication"
+  },
+  "<none:run_analytical_nns.py>": {
+   "sites": [
+    "run_analytical_nns.py"
+   ],
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required"
+  },
+  "<none:run_per_pll_nns.py>": {
+   "sites": [
+    "run_per_pll_nns.py"
+   ],
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required"
+  },
+  "<none:universality.py>": {
+   "sites": [
+    "universality.py"
+   ],
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required"
+  },
+  "a857f79bc482c621": {
+   "sites": [
+    "run_lmfdb_edge.py"
+   ],
+   "verdict": "NO_NAMED_SET",
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')"
+  },
+  "4112275fdff8a145": {
+   "sites": [
+    "verify/tier1_lfunction_guard.py"
+   ],
+   "verdict": "UNMEASURED",
+   "why": "rejection region present (best_ks, fit_poor) and COMPARED; but no complementary error rate is recorded at this site"
+  },
+  "20f03f925665de9f": {
+   "sites": [
+    "arithmetic_toolkit.py"
+   ],
+   "verdict": "MEASURED_NEGATIVE_SET",
+   "why": "rejection region present (best_ks, fit_poor, fit_rejected, ks_crit) and COMPARED; threshold calibrated against measured non-members"
+  }
+ },
+ "by_site": {
+  "run_lmfdb_family.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "8af5c1b4cd0860ad"
+  },
+  "run_controls.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+   "impl_hash": null
+  },
+  "run_fungal_nns.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "0cbcf4e37201608a"
+  },
+  "run_mertens_liouville.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "362c40e998048a7e"
+  },
+  "run_eeg_full.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "84782fcb7972729b"
+  },
+  "run_lmfdb_postprocess.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "362c40e998048a7e"
+  },
+  "run_dirichlet_family.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "362c40e998048a7e"
+  },
+  "run_zeta_height_convergence.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "9fc4073c2b43f68d"
+  },
+  "run_phase5.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "6b19f7840691fb49"
+  },
+  "run_eeg_depth.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "a36421c8c4a0a75e"
+  },
+  "run_phase4.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "size_guard": false,
+   "why": "fit-quality quantities COMPUTED but never COMPARED (pv_o, pv_p, pv_u, pvalue) \u2014 measures-but-ignores fits neither MEASURED nor UNMEASURED; taxonomy extension deferred to adjudication",
+   "impl_hash": "3c3d136399cdebbb"
+  },
+  "run_analytical_nns.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+   "impl_hash": null
+  },
+  "run_earthquake_nns.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "9fc4073c2b43f68d"
+  },
+  "run_lmfdb_extend.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "362c40e998048a7e"
+  },
+  "run_per_pll_nns.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+   "impl_hash": null
+  },
+  "universality.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+   "impl_hash": null
+  },
+  "run_lmfdb_edge.py": {
+   "verdict": "NO_NAMED_SET",
+   "size_guard": true,
+   "has_none_branch": false,
+   "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+   "impl_hash": "a857f79bc482c621"
+  },
+  "verify/tier1_lfunction_guard.py": {
+   "verdict": "UNMEASURED",
+   "why": "rejection region present (best_ks, fit_poor) and COMPARED; but no complementary error rate is recorded at this site",
+   "size_guard": true,
+   "impl_hash": "4112275fdff8a145"
+  },
+  "arithmetic_toolkit.py": {
+   "verdict": "MEASURED_NEGATIVE_SET",
+   "why": "rejection region present (best_ks, fit_poor, fit_rejected, ks_crit) and COMPARED; threshold calibrated against measured non-members",
+   "size_guard": true,
+   "impl_hash": "20f03f925665de9f"
+  }
+ }
+}
