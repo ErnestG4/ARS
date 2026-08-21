@@ -137,3 +137,49 @@ prediction was loosened by the correction.
 **Also surfaced:** 4 sites (`run_controls`, `run_analytical_nns`, `run_per_pll_nns`, `universality.py`)
 have the argmin but no function of that name. They are **not** exempt — they enter the sweep as
 `NEEDS_JUDGMENT` pending extraction by a different route.
+
+### AMENDMENT 1 — ROUNDING CONVENTION: the zero-degrees-of-freedom claim DOES NOT STAND as stated
+
+**Self-audit result, against my own claim.** The rule as committed reads `round(N_distinct / 2)` and
+**names no rounding convention**. At the count that actually occurred, that matters:
+
+| convention | `round(11/2)` |
+|---|---|
+| half-to-even (Python's `round`) | **6** |
+| half-up | **6** |
+| half-down | **5** |
+
+**And the commit record cannot exonerate it.** `measure_copy_dedup.py` (which pins the convention by
+using Python's `round`) and `copy_dedup.json` (the result) were committed **in the same commit**,
+`3b501fe`. The generator was **not** in the record before the count was known. I wrote it before
+running it — but *commit order is the evidence, not recollection*, which is the standard applied to
+the classification seal and it applies here to me.
+
+**So the honest scoring for this sweep: predicted 4–5 **or** 4–6, upper end ambiguous.** The substance
+barely moves; **the standard being invoked fails**, and that is the part worth recording. A rule
+claiming zero degrees of freedom had a one-unit freedom at exactly the boundary the count hit.
+
+**Not resolved by picking one now** — choosing a convention after seeing N = 11 is the defect itself.
+The sweep will be scored against **both readings**, and a result of exactly 6 will be reported as
+*met under two of three conventions*, stated rather than smoothed.
+
+**Going forward (binding on future amendments, no retroactive effect):** rounding is **half-to-even**,
+and any rule with a rounding step must name its convention in the same commit that seals it. *A
+derivation with an unspecified convention is not a derivation; it is a derivation plus a choice.*
+
+### AMENDMENT 1 — NORMALISATION SPEC (a constant doing classification work gets written down)
+
+`N_distinct = 11` is a count **under a normalisation**, so the normalisation is part of the
+denominator and is specified here beside the map. `measure_copy_dedup.py` extracts each
+`classify`/`_classify` body via `ast.get_source_segment`, then:
+
+- **strips** comments and blank lines (`tokenize.COMMENT`, `tokenize.NL`)
+- **collapses** all whitespace runs to a single space
+- **preserves** variable names, constants, call structure, and control flow
+- hashes the result with SHA-256, first 16 hex
+
+**Therefore:** cosmetic reformatting and comment edits do **not** split a group; a **variable rename,
+a changed threshold, or any logic difference does.** A stricter rule (AST-shape only, names
+normalised) would lower the count; a looser one (raw bytes) would raise it. **The count of 11 is
+reproducible only against this spec**, which is why it is committed rather than left implicit — same
+status as the discriminator's `RAIL_RATIO`.
