@@ -827,3 +827,42 @@ the 7 whose bounded fit was interior rather than railed (7/7), with the two esti
 closely where both are informative (0.101↔0.098, 0.088↔0.094, 0.034↔0.031). So the repair reproduces
 the bounded estimator wherever the bounded one was actually measuring, and diverges only where it was
 pinned to its floor.
+
+### Implications of the rail arc for the BROCOT program (2026-08-20)
+
+The bounded-Brody rail affects brocot, **at the opposite end from every neuro substrate**, and it
+lands on exactly the classes the program is about.
+
+**1. brocot rails UP, not down.** Per-α study (n=255): **5.9%** at q=0, **39.6% at q=1 — with exactly
+ONE distinct value**, a true rail by the pileup criterion. The neuro substrates rail at 0 (clustered
+data with nowhere to go); brocot rails at 1 (**rigid** data with nowhere to go). Beyond q=1 lie GUE
+(≈2) and GSE (≈4), which are physically ordinary — so this is a **CONVENTION** bound, same class as
+the q<0 case, mirrored.
+
+**2. The headline finding SURVIVES.** ρ(D_Q, q) = **+0.699 bounded, +0.658 unbounded**. The per-α
+approximability relation is not an artifact of the rail, and the confound audit had already checked
+this. **No banked brocot conclusion is overturned.**
+
+**3. The rail is directionally HONEST here, which makes it much milder than the neuro case.** Of the
+101 railed cells, **zero** have a true q below 1 — everything pinned at 1 genuinely is ≥1. Contrast
+pvc-11, where clustered cells were reported as *marginally more Poisson than Poisson* — **wrong sign**.
+brocot's rail **compresses**; it does not invert.
+
+**4. But it compresses precisely where the program's subject lives.** The upper rail is owned by
+golden (21), silver (18), bronze (15), metallic5 (8) — the **badly-approximable** classes — plus
+e_minus_2 (17) and ln2 (9). Unbounded, those cells span **+1.015 … +2.378** (median +1.122; 6.9% are
+GUE-like at 1.5–2.5; none beyond 2.5). **The bounded estimator reports that entire span as a single
+number.** Per-class medians inside the rail: golden **+1.316**, e_minus_2 +1.175, bronze +1.105,
+silver +1.101, ln2 +1.055, metallic4 +1.055, metallic5 +1.053.
+
+**5. Whether the compressed region carries SIGNAL is unresolved, and the obvious test is confounded.**
+Inside the rail, ρ(D_Q, unbounded q) = **−0.209, CI [−0.400, −0.002], p = 0.036** — nominally
+significant, opposite in sign to the global relation, and **not trustworthy as it stands**: the subset
+is defined *by the bounded value railing*, i.e. selected on q itself, so range restriction can induce
+a correlation. A CI whose upper bound is −0.002 is a `PLAUSIBLE`, not a `CONFIRMED`. **Do not bank the
+sign reversal.** The properly-powered version is a designed test, not a subgroup correlation.
+
+**Recommended, cheap, not urgent:** re-run the brocot per-α analysis with `I8_brody_q_unbounded` as
+the **primary** axis (it is validated and already banked alongside). The finding does not need
+rescuing — this buys **resolution at the rigid end**, where 40% of measurements are currently a single
+point, and where golden-vs-metallic ordering is currently unmeasurable by construction.
