@@ -1,5 +1,5 @@
 {
- "n_decision_sites": 19,
+ "n_decision_sites": 20,
  "n_newly_visible": 5,
  "def_only_inventory_variants": 11,
  "label_vocabularies": 3,
@@ -24,7 +24,8 @@
    "verify/tier1_lfunction_guard.py:73"
   ],
   "[\"GOE\", \"GUE\", \"Poisson\"]": [
-   "run_per_pll_nns.py:138"
+   "run_per_pll_nns.py:138",
+   "arithmetic_toolkit.py:113"
   ],
   "[\"goe\", \"gue\", \"poisson\"]": [
    "universality.py:129"
@@ -627,6 +628,43 @@
     "GOE",
     "GUE",
     "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "arithmetic_toolkit.py",
+   "line": 113,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "_classify",
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "best_ks",
+    "fit_poor",
+    "fit_rejected",
+    "gap",
+    "ks_crit_01",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poisson"
    ],
    "defaults": [],
    "previously_inventoried": true
