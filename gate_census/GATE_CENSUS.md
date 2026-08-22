@@ -191,6 +191,21 @@ of three:
 
 > **One-sidedness is what an UNAUDITED classifier looks like. Two-sidedness is an artifact of audit.**
 
+**⇧ MECHANISM, adjudicated 2026-08-22 (Ruling 3) — this is the finding's final form.** `COMPUTED_UNUSED`
+is **four of fifteen sites**, not one: `run_phase4`, `run_analytical_nns`, `run_per_pll_nns`,
+`universality.compute_nns` all compute KS p-values and never compare them. **One site
+holding-and-discarding is a near miss; four is a population.** So the house default is not merely
+*instruments that cannot refuse* — it includes **instruments that manufacture the refusal information
+and drop it**:
+
+> **One-sidedness arises not from failing to ask the question, but from computing the answer and never
+> reading it.**
+
+That is a stronger and more actionable claim than ignorance: the compute cost was already paid at four
+sites and the benefit discarded. **C3 inherits the directive** — where variants differ on comparison
+state, the reconciled classifier **compares**, and computed-unused quantities are **promoted to used**,
+not merely preserved under acceptance clause 6.
+
 **Independently rederived along a second axis (2026-08-22).** The C3 divergence inventory — a
 *separate* generator under a *separate* sealed rule, asking about behavioural differences rather than
 negative sets — flagged the KS distances themselves as **computed but never compared** in several

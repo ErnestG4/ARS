@@ -34,12 +34,23 @@ default**, not three unlucky instruments.
 | `NO_NAMED_SET` | `run_eeg_depth` | ″ |
 | `NO_NAMED_SET` | `run_lmfdb_edge` | ″ |
 | `UNMEASURED` | `verify/tier1_lfunction_guard` | rejection region present **and compared**, but no complementary error rate recorded at the site |
-| `NEEDS_JUDGMENT` | `run_phase4` | **computes** `pv_p/pv_o/pv_u`, **never compares them** — measures-but-ignores, taxonomy extension deferred |
+| **`COMPUTED_UNUSED`** *(was `NEEDS_JUDGMENT`, Ruling 2)* | `run_phase4` | computes `pv_p/pv_o/pv_u`, never compares them |
 | `MEASURED_NEGATIVE_SET` | `arithmetic_toolkit` | rejection region compared, threshold calibrated against measured non-members |
 
-**Plus 4 rows outside the sealed 11** — `run_controls`, `run_analytical_nns`, `run_per_pll_nns`,
-`universality` — all `NEEDS_JUDGMENT`: they carry the argmin but no function of that name. **Not
-exempt**; extraction by another route required.
+**Plus 4 rows outside the sealed 11**, now classified by the B4 extraction route and finalised under
+Ruling 2:
+
+| verdict | site | basis |
+|---|---|---|
+| `NO_NAMED_SET` | `run_controls` | argmin at module level, no fit-quality quantity, no size guard |
+| **`COMPUTED_UNUSED`** | `run_analytical_nns` | `p_p/p_o/p_u` computed, never compared |
+| **`COMPUTED_UNUSED`** | `run_per_pll_nns` | `p_p/p_o/p_u` computed, never compared |
+| **`COMPUTED_UNUSED`** | `universality.compute_nns` | `pp/po/pu` computed, never compared |
+
+*Extraction-route note:* `universality` was first **silently missed** (lowercase labels against an
+uppercase matcher) and emitted `NEEDS_JUDGMENT` **for a tooling reason** — indistinguishable in a
+table from genuine ambiguity. That is exactly why the non-vacuity floor was the right fix, and it is
+**yesterday's rule catching today's detector**: the guard ecosystem working across days.
 
 **The headline, with its tautological half removed.** It is tempting to write *"the only
 `MEASURED_NEGATIVE_SET` is the one this arc repaired, and the only `UNMEASURED` is the verifier this
@@ -56,7 +67,23 @@ exception was manufactured."**
 have been examined first *because something already smelled wrong* — a non-random draw inflating the
 expected rate. It was not unusual. **It was the house style, sampled.**
 
-## Disclosed interpretation layer — **DECLARED, NOT SEALED** (commit-order test applied)
+## ⚖ ADJUDICATED 2026-08-22 — the DECLARED label is DISCHARGED
+
+**Ruling 1** upheld the size-guard clause and made its exception operational: *can the guard's
+constant be deleted and re-derived from the classifier's own parameters?* Applied to the 8 rows —
+**every guard is a free constant (5, 50), none re-derivable. All 8 stay `NO_NAMED_SET`. The sweep's
+headline stands as measured.**
+
+**Ruling 2** extended the taxonomy with **`COMPUTED_UNUSED`** — *the site computes a quantity whose
+designed use is hypothesis rejection, and no control path compares it to any threshold; consumption by
+`argmin` does not count.* `run_phase4` and the three extraction rows reclassify from `NEEDS_JUDGMENT`.
+**Forward-applicable only: the sealed score of 9/11 was taken under the sealed taxonomy and stays
+scored there.** That is precisely why the extension waited.
+
+**Mapping status: `ADJUDICATED`** (Rulings 1 and 2), superseding the `DECLARED` label below, which is
+retained for the record.
+
+## Disclosed interpretation layer — DECLARED, NOT SEALED (commit-order test applied; superseded above)
 
 The seal fixed the four questions and the five verdicts; it did **not** fix the mapping from code
 features to verdicts. **And the mapping does not have seal status**: `run_sweep.py` and

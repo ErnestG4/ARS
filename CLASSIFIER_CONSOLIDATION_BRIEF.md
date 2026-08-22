@@ -80,6 +80,10 @@ that is not the shared module is a new copy.
    a quantity. Consolidation must either pick a policy or preserve both behind an explicit parameter,
    and that is a ruling, not a refactor step.
 
+8. **COMPARE-DIRECTIVE (Ruling 3, 2026-08-22).** Where variants differ on comparison state, **the
+   reconciled classifier COMPARES.** Computed-unused quantities are **promoted to used**, not merely
+   preserved under clause 6 — four sites already paid the compute cost and dropped the benefit.
+
 **Consequence:** mechanical inventory first, adjudication second — the same triage-table shape as the
 gate sweep, rather than a migrate-and-check loop.
 
