@@ -14420,5 +14420,7 @@
    "n_occurrences": 719,
    "why": "range 600.5..600.7"
   }
- }
+ },
+ "scoring_order": "SCORED FIRST: sealed prediction MISSED at 69 BOUNDED_FIT of 2,882 distinct keys, under criteria that sealed the NUMBER but left the RULER loose. TRIAGED SECOND, post-hoc and unscored: >=20-occurrence filter (chosen after seeing the 69) identifies <=5 candidate estimator families for a NEXT SEALED PASS with denominator, categoriser and threshold all committed up front.",
+ "coverage_restatement": "materially worse than reported, as pre-committed \u2014 with the honest shape 'UNKNOWN until the five families are classified under a sealed instrument', neither 69-alarming nor 5-reassuring"
 }

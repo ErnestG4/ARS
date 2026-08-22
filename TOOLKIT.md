@@ -1450,3 +1450,29 @@ the writer first does, and that check happens at construction time.
   a qualitatively wrong ORDER, not just attenuated estimates.* **Never rank on a selected subset when
   the unselected version exists** — and here it did, banked alongside, which is what made the
   withdrawal cheap. Worked example to cite: silver/bronze in brocot.
+- **A SEALED PREDICTION BINDS ONLY IF ITS MEASUREMENT PROCEDURE IS SEALED WITH IT — denominator,
+  categoriser, the whole ruler.** (Measured three times: the dedup denominator, B3's denominator, B3's
+  categoriser.) A prediction scored against an unsealed ruler tests **the ruler as much as the prior**,
+  and the two defects **compose**: B3's scan inflated the population 11× (2,882 distinct keys against a
+  sealed "~250") *and* its categoriser over-fired on the inflated portion. **Neither alone produces the
+  miss** — a correct denominator with the loose categoriser, or the broad scan with a tight one, both
+  land near the seal. Seal the number *and* the instrument that will measure it, in the same commit.
+- **The disposition of a denominator error is decided ENTIRELY by what was committed beforehand — and
+  the pair makes the rule vivid.** Same defect class, opposite outcomes:
+  - **Amendment 1**: denominator moved 12 → 11, and the score **rescaled**, because
+    `predicted = round(N/3)..round(N/2)` was committed **before the count was known**.
+  - **B3**: denominator moved ~250 → 2,882, and the score **stands at MISSED**, because no scaling rule
+    existed and inventing one after seeing 69 would be choosing after the fact.
+  *Neither instance alone teaches this; the pair does.* **Pre-commitment is not ceremony — it is the
+  thing that decides whether a surprise is absorbable or fatal to the claim.**
+- **Post-hoc triage is not a scored result, and the ordering must survive into the record.** B3's
+  "actionable subset is five, not 69" is correct and necessary — 32 of the 69 occur exactly once and
+  are *reported result scalars*, several produced by the same session (`rho_top_tercile` was that hour's
+  own statistic). But the **≥20-occurrence filter was chosen after seeing the 69**, so it lives on the
+  wrong side of the seal. Bank it in that order, explicitly: *"sealed prediction MISSED at 69/2,882
+  under the sealed-if-loose criteria; post-hoc triage identifies ≤5 candidates for the next SEALED
+  pass."* The successor gets its ruler committed — occurrence threshold, categoriser, denominator, all
+  in the sealing commit.
+- **Small structural finding about the bank itself:** instruments and reported results share a
+  namespace, so a name-shape-plus-range scan **cannot tell a measurement from a measurer**. A namespace
+  distinction between estimator outputs and reported scalars would let this class of scan be sharp.
