@@ -115,15 +115,13 @@ def labels_at(seg, src, node, tree):
     return []
 
 
-def analyse_site(path, src, tree, node, seg, labels, mech):
-    fn = enclosing_def(tree, node.lineno)
-    scope_node, scope = (fn, "def") if fn is not None else (tree, "module")
-    scope_src = ast.get_source_segment(src, fn) if fn is not None else src
+def computed_unused_names(scope_node):
+    """D2: quality quantities ASSIGNED in this scope and never appearing in a
+    Compare within it. Extracted so the certifier can exercise THIS function
+    rather than a copy of it -- a verifier holding a mirrored body is the exact
+    defect (verify/tier1_lfunction_guard.py) that C3 exists to reconcile.
 
-    guards = sorted(set(int(m) for m in re.findall(r"\.size\s*<\s*(\d+)", scope_src)))
-    if not guards:
-        guards = sorted(set(int(m) for m in re.findall(r"len\([^)]*\)\s*<\s*(\d+)", scope_src)))
-
+    Consumption by min()/argmin() is deliberately NOT use: Ruling 2."""
     assigned, compared = set(), set()
     for n in ast.walk(scope_node):
         if isinstance(n, ast.Assign):
@@ -137,7 +135,19 @@ def analyse_site(path, src, tree, node, seg, labels, mech):
                 if isinstance(sub, ast.Name):
                     compared.add(sub.id)
     quality = {a for a in assigned if re.match(r"^(pv_|ks_|best_ks|p_)", a) and a != "_"}
-    unused = sorted(quality - compared)
+    return sorted(quality - compared)
+
+
+def analyse_site(path, src, tree, node, seg, labels, mech):
+    fn = enclosing_def(tree, node.lineno)
+    scope_node, scope = (fn, "def") if fn is not None else (tree, "module")
+    scope_src = ast.get_source_segment(src, fn) if fn is not None else src
+
+    guards = sorted(set(int(m) for m in re.findall(r"\.size\s*<\s*(\d+)", scope_src)))
+    if not guards:
+        guards = sorted(set(int(m) for m in re.findall(r"len\([^)]*\)\s*<\s*(\d+)", scope_src)))
+
+    unused = computed_unused_names(scope_node)
 
     if fn is not None:
         keys = set()
@@ -160,55 +170,60 @@ def analyse_site(path, src, tree, node, seg, labels, mech):
                 previously_inventoried=(path in INVENTORIED))
 
 
-rows = []
-for s in SITES:
-    path = s + ".py"
-    full = os.path.join(ROOT, path)
-    if not os.path.exists(full):
-        continue
-    src = open(full, errors="replace").read()
-    tree = ast.parse(src)
-    for node, seg, labels, mech in decision_sites(src, tree):
-        labs = labels or labels_at(seg, src, node, tree)
-        rows.append(analyse_site(path, src, tree, node, seg, labs, mech))
+def main():
+    rows = []
+    for s in SITES:
+        path = s + ".py"
+        full = os.path.join(ROOT, path)
+        if not os.path.exists(full):
+            continue
+        src = open(full, errors="replace").read()
+        tree = ast.parse(src)
+        for node, seg, labels, mech in decision_sites(src, tree):
+            labs = labels or labels_at(seg, src, node, tree)
+            rows.append(analyse_site(path, src, tree, node, seg, labs, mech))
 
-newly = [r for r in rows if not r["previously_inventoried"]]
+    newly = [r for r in rows if not r["previously_inventoried"]]
 
-# NON-VACUITY FLOOR: the four uninventoried files are known to hold decision sites
-# (measured by hand at adjudication: run_controls:217, run_analytical_nns:184 and
-# :249, run_per_pll_nns:138, universality:129). An extractor that reaches fewer
-# than five of them is still blind and must not be allowed to report a clean count.
-with redpath("C3 inline decision sites at previously-uninventoried files", expect_min=5) as rp:
-    rp.observed(len(newly))
+    # NON-VACUITY FLOOR: the four uninventoried files are known to hold decision sites
+    # (measured by hand at adjudication: run_controls:217, run_analytical_nns:184 and
+    # :249, run_per_pll_nns:138, universality:129). An extractor that reaches fewer
+    # than five of them is still blind and must not be allowed to report a clean count.
+    with redpath("C3 inline decision sites at previously-uninventoried files", expect_min=5) as rp:
+        rp.observed(len(newly))
 
-by_file = {}
-for r in newly:
-    by_file.setdefault(r["path"], []).append(r["line"])
+    by_file = {}
+    for r in newly:
+        by_file.setdefault(r["path"], []).append(r["line"])
 
-all_labels = {}
-for r in rows:
-    all_labels.setdefault(json.dumps(r["labels"], sort_keys=True), []).append(
-        f"{r['path']}:{r['line']}")
+    all_labels = {}
+    for r in rows:
+        all_labels.setdefault(json.dumps(r["labels"], sort_keys=True), []).append(
+            f"{r['path']}:{r['line']}")
 
-print(f"decision sites found across {len(SITES)} call sites: {len(rows)}")
-print(f"  of which PREVIOUSLY UNINVENTORIED: {len(newly)} at {len(by_file)} files")
-for p, ls in sorted(by_file.items()):
-    print(f"    {p}:{ls}")
-print()
-print("D5 LABEL VOCABULARY over the completed population:")
-for v, where in sorted(all_labels.items()):
-    print(f"  {v:44s} {len(where):2d} site(s)  e.g. {where[0]}")
-print(f"  distinct vocabularies: {len(all_labels)}   (def-only inventory reported 2)")
-print()
-print("NEWLY VISIBLE SITES:")
-for r in newly:
-    print(f"  {r['path']}:{r['line']:<4d} mech={r['mechanism']:<6s} scope={r['scope']:<6s} "
-          f"guards={r['guards']} labels={r['labels']}")
-    print(f"      computed_unused={r['computed_unused']} ({r['computed_unused_search']})  "
-          f"returned_keys={r['returned_keys']}")
+    print(f"decision sites found across {len(SITES)} call sites: {len(rows)}")
+    print(f"  of which PREVIOUSLY UNINVENTORIED: {len(newly)} at {len(by_file)} files")
+    for p, ls in sorted(by_file.items()):
+        print(f"    {p}:{ls}")
+    print()
+    print("D5 LABEL VOCABULARY over the completed population:")
+    for v, where in sorted(all_labels.items()):
+        print(f"  {v:44s} {len(where):2d} site(s)  e.g. {where[0]}")
+    print(f"  distinct vocabularies: {len(all_labels)}   (def-only inventory reported 2)")
+    print()
+    print("NEWLY VISIBLE SITES:")
+    for r in newly:
+        print(f"  {r['path']}:{r['line']:<4d} mech={r['mechanism']:<6s} scope={r['scope']:<6s} "
+              f"guards={r['guards']} labels={r['labels']}")
+        print(f"      computed_unused={r['computed_unused']} ({r['computed_unused_search']})  "
+              f"returned_keys={r['returned_keys']}")
 
-out = dict(n_decision_sites=len(rows), n_newly_visible=len(newly),
-           def_only_inventory_variants=11,
-           label_vocabularies=len(all_labels), label_groups=all_labels, rows=rows)
-json.dump(out, open(f"{ROOT}/gate_census/c3_inline_divergences.json", "w"), indent=1)
-print(f"\nwritten -> gate_census/c3_inline_divergences.json")
+    out = dict(n_decision_sites=len(rows), n_newly_visible=len(newly),
+               def_only_inventory_variants=11,
+               label_vocabularies=len(all_labels), label_groups=all_labels, rows=rows)
+    json.dump(out, open(f"{ROOT}/gate_census/c3_inline_divergences.json", "w"), indent=1)
+    print(f"\nwritten -> gate_census/c3_inline_divergences.json")
+
+
+if __name__ == "__main__":
+    main()
