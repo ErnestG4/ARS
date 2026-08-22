@@ -191,6 +191,14 @@ of three:
 
 > **One-sidedness is what an UNAUDITED classifier looks like. Two-sidedness is an artifact of audit.**
 
+**Independently rederived along a second axis (2026-08-22).** The C3 divergence inventory — a
+*separate* generator under a *separate* sealed rule, asking about behavioural differences rather than
+negative sets — flagged the KS distances themselves as **computed but never compared** in several
+variants. Not a false positive: `min()` is a call, not a comparison, so in those variants the
+distances are consumed by the **argmin** and never tested against any threshold. **Selection without
+rejection, reached by two sealed instruments along different axes.** As close to independent
+confirmation as static analysis gets.
+
 The three instruments were not unlucky; they were **sampled from the default**. No instrument in this
 codebase acquired a rejection region except through deliberate intervention — every exception was
 manufactured. This also **dissolves the selection worry raised when the sweep was sealed** (that Gate 1

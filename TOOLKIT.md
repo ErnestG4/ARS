@@ -1440,3 +1440,13 @@ the writer first does, and that check happens at construction time.
   move as the retention verifier's presence-arm preceding its value-arm, and as making the machine
   write PASS/FAIL rather than trusting a human to read `$?`. When a question exposes an unlabeled
   state, fix the schema so the state cannot be unlabeled — the instance is a sample of the class.
+- **Differential truncation does not merely bias magnitudes — it can INVERT ORDER.** (brocot, measured
+  2026-08-22.) On a subset selected by bounded-q railing, per-class medians read golden 1.316 >
+  e−2 1.175 > **bronze 1.105 > silver 1.101** > metallics ≈ 1.05 — silver and bronze **inverted**, the
+  metallics flat. On the **full population** the same classes separate cleanly and monotonically:
+  golden 1.247 > silver 1.054 > bronze 1.045 > metallic4 0.774 > metallic5 0.641, ρ = −1.000. **The
+  selected table was not imprecise, it was ANTI-INFORMATIVE on the exact question it was being read
+  for** — a ranking. This is stronger than the usual range-restriction caution: *selection can produce
+  a qualitatively wrong ORDER, not just attenuated estimates.* **Never rank on a selected subset when
+  the unselected version exists** — and here it did, banked alongside, which is what made the
+  withdrawal cheap. Worked example to cite: silver/bronze in brocot.
