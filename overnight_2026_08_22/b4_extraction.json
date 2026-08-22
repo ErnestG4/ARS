@@ -1,0 +1,57 @@
+{
+ "mapping_status": "DECLARED, not SEALED (8ba9d52); size-guard clause is docket item one",
+ "rows": {
+  "run_controls.py": {
+   "verdict": "NO_NAMED_SET",
+   "scope": "<module>",
+   "quality_computed": [],
+   "quality_compared": [],
+   "size_guards": [],
+   "why": "argmin over a fixed class set with no fit-quality quantity at all; no size guard",
+   "mapping_label": "DECLARED \u2014 size-guard clause pending adjudication"
+  },
+  "run_analytical_nns.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "scope": "<module>",
+   "quality_computed": [
+    "p_o",
+    "p_p",
+    "p_u"
+   ],
+   "quality_compared": [],
+   "size_guards": [
+    5
+   ],
+   "why": "fit-quality quantities COMPUTED but never COMPARED (p_o, p_p, p_u) \u2014 measures-but-ignores; same shape as run_phase4, taxonomy extension deferred",
+   "mapping_label": "DECLARED \u2014 size-guard clause pending adjudication"
+  },
+  "run_per_pll_nns.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "scope": "<module>",
+   "quality_computed": [
+    "p_o",
+    "p_p",
+    "p_u"
+   ],
+   "quality_compared": [],
+   "size_guards": [],
+   "why": "fit-quality quantities COMPUTED but never COMPARED (p_o, p_p, p_u) \u2014 measures-but-ignores; same shape as run_phase4, taxonomy extension deferred",
+   "mapping_label": "DECLARED \u2014 size-guard clause pending adjudication"
+  },
+  "universality.py": {
+   "verdict": "NEEDS_JUDGMENT",
+   "scope": "compute_nns",
+   "quality_computed": [
+    "po",
+    "pp",
+    "pu"
+   ],
+   "quality_compared": [],
+   "size_guards": [
+    5
+   ],
+   "why": "fit-quality quantities COMPUTED but never COMPARED (po, pp, pu) \u2014 measures-but-ignores; same shape as run_phase4, taxonomy extension deferred",
+   "mapping_label": "DECLARED \u2014 size-guard clause pending adjudication"
+  }
+ }
+}
