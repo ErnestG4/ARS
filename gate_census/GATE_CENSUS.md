@@ -182,6 +182,22 @@ parameterises [rigid … Poisson] with POISSON AS AN ENDPOINT.** Super-Poisson d
 mis-measured — it is **unrepresentable**, so it piles up at the boundary. Confirmed here in synthetic
 (clustered → Poisson at 0.535) *and* in real data twice over (flares 0.705, Mertens 0.786).
 
+**⇧ RECALIBRATED 2026-08-21 BY THE SWEEP — the finding is not what it was written as.** It was filed
+as *"three instruments independently share a defect."* Measured across all 11 distinct classifier
+implementations: **9 of 11 have no rejection region, or one whose complementary rate is unrecorded.**
+The prediction (4–6) missed **high** under both readings, and its stated reasoning — *"no rejection
+region is a severe, rare defect"* — is **falsified**. It is neither severe-and-rare nor a coincidence
+of three:
+
+> **One-sidedness is what an UNAUDITED classifier looks like. Two-sidedness is an artifact of audit.**
+
+The three instruments were not unlucky; they were **sampled from the default**. No instrument in this
+codebase acquired a rejection region except through deliberate intervention — every exception was
+manufactured. This also **dissolves the selection worry raised when the sweep was sealed** (that Gate 1
+might have been examined first *because* something smelled wrong): it was not unusual, it was the
+house style, sampled. **Any future instrument should be assumed one-sided until its negative set is
+named and measured** — that is now a prior with a measured base rate, not a caution.
+
 **This is one-sided calibration one level up: not a one-sided THRESHOLD but a one-sided CLASS SPACE.**
 The family of failures now reads: a one-sided threshold (`RIGID_GUE`), a one-sided class space (these
 three instruments), and an argmin with no null option (gate 1). All three are the same sentence —
