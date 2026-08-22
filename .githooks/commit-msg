@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# commit-msg — refuse OUTCOME CLAIMS in prose that no machine line supports.
+#
+# WHY: twice a commit message asserted a run outcome that was false. Once
+# ("verify_bridge green") from misreading a piped $?; once ("red-pathed ... exits
+# 1") with "exit=0 (expect 1)" printed on screen — the expectation overwrote the
+# observation. checkrun fixed the INPUT to that step; this guards the step.
+#
+# RULE: if the message makes an explicit outcome claim, a CHECKRUN line must be
+# present in the SAME message, and must not contradict it.
+#   "exits 1" + "CHECKRUN ... EXIT=0"  -> REFUSED (contradiction)
+#   "exits 1" + no CHECKRUN line       -> REFUSED (unsupported)
+#   "exits 1" + "CHECKRUN ... EXIT=1"  -> allowed
+# KNOWN LIMITATION, found when this hook refused the commit that introduced it:
+# it cannot distinguish an ASSERTION from a QUOTATION. A message describing a past
+# false claim ("the message claimed exit 1 while the terminal said 0") trips the
+# contradiction check, because the literal pattern is present either way. That is
+# the right failure direction -- the guard stays strict and the writer rephrases --
+# but it means messages ABOUT outcome claims should paraphrase rather than quote.
+# Bypass for a deliberate exception: git commit --no-verify
+MSG_FILE="$1"
+MSG=$(grep -v '^#' "$MSG_FILE")
+
+CLAIM=$(printf '%s' "$MSG" | grep -oiE '\bexits? *=? *[0-9]+|\bgreen\b' | head -3)
+[ -z "$CLAIM" ] && exit 0
+
+CHECKRUN=$(printf '%s' "$MSG" | grep -oE 'CHECKRUN [^ ]+ EXIT=[0-9]+ (PASS|FAIL)' | head -5)
+if [ -z "$CHECKRUN" ]; then
+  echo "commit-msg REFUSED: the message makes an outcome claim --"
+  printf '    %s\n' $CLAIM
+  echo "  -- but contains no CHECKRUN line to support it."
+  echo "  Run  ./checkrun.sh <checker>  and paste its machine-written line, or"
+  echo "  drop the claim. (--no-verify to override deliberately.)"
+  exit 1
+fi
+
+# contradiction check: a numeric claim that no CHECKRUN exit code matches
+NUMS=$(printf '%s' "$MSG" | grep -oiE '\bexits? *=? *[0-9]+' | grep -oE '[0-9]+')
+CODES=$(printf '%s' "$CHECKRUN" | grep -oE 'EXIT=[0-9]+' | grep -oE '[0-9]+')
+for n in $NUMS; do
+  ok=0
+  for c in $CODES; do [ "$n" = "$c" ] && ok=1; done
+  if [ "$ok" -eq 0 ]; then
+    echo "commit-msg REFUSED: message claims exit $n, but the CHECKRUN line(s) say:"
+    printf '    %s\n' "$CHECKRUN"
+    echo "  The prose contradicts the machine record. This is the 2026-08-21 failure."
+    exit 1
+  fi
+done
+exit 0
