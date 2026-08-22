@@ -1,0 +1,635 @@
+{
+ "n_decision_sites": 19,
+ "n_newly_visible": 5,
+ "def_only_inventory_variants": 11,
+ "label_vocabularies": 3,
+ "label_groups": {
+  "[\"GOE\", \"GUE\", \"Poiss\"]": [
+   "run_lmfdb_family.py:102",
+   "run_controls.py:217",
+   "run_fungal_nns.py:147",
+   "run_mertens_liouville.py:146",
+   "run_eeg_full.py:89",
+   "run_lmfdb_postprocess.py:53",
+   "run_dirichlet_family.py:78",
+   "run_zeta_height_convergence.py:61",
+   "run_phase5.py:100",
+   "run_eeg_depth.py:100",
+   "run_phase4.py:90",
+   "run_analytical_nns.py:184",
+   "run_analytical_nns.py:249",
+   "run_earthquake_nns.py:85",
+   "run_lmfdb_extend.py:62",
+   "run_lmfdb_edge.py:69",
+   "verify/tier1_lfunction_guard.py:73"
+  ],
+  "[\"GOE\", \"GUE\", \"Poisson\"]": [
+   "run_per_pll_nns.py:138"
+  ],
+  "[\"goe\", \"gue\", \"poisson\"]": [
+   "universality.py:129"
+  ]
+ },
+ "rows": [
+  {
+   "path": "run_lmfdb_family.py",
+   "line": 102,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_controls.py",
+   "line": 217,
+   "mechanism": "min",
+   "scope": "module",
+   "enclosing": null,
+   "guards": [],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "module-wide",
+   "n_returns": "INAPPLICABLE",
+   "returned_keys": "INAPPLICABLE",
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": "INAPPLICABLE",
+   "previously_inventoried": false
+  },
+  {
+   "path": "run_fungal_nns.py",
+   "line": 147,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_mertens_liouville.py",
+   "line": 146,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_eeg_full.py",
+   "line": 89,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_lmfdb_postprocess.py",
+   "line": 53,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_dirichlet_family.py",
+   "line": 78,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_zeta_height_convergence.py",
+   "line": 61,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_phase5.py",
+   "line": 100,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_eeg_depth.py",
+   "line": 100,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_phase4.py",
+   "line": 90,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "pv_o",
+    "pv_p",
+    "pv_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 1,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n",
+    "pv_o",
+    "pv_p",
+    "pv_u"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_analytical_nns.py",
+   "line": 184,
+   "mechanism": "min",
+   "scope": "module",
+   "enclosing": null,
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "p_o",
+    "p_p",
+    "p_two",
+    "p_u"
+   ],
+   "computed_unused_search": "module-wide",
+   "n_returns": "INAPPLICABLE",
+   "returned_keys": "INAPPLICABLE",
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": "INAPPLICABLE",
+   "previously_inventoried": false
+  },
+  {
+   "path": "run_analytical_nns.py",
+   "line": 249,
+   "mechanism": "argmin",
+   "scope": "module",
+   "enclosing": null,
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "p_o",
+    "p_p",
+    "p_two",
+    "p_u"
+   ],
+   "computed_unused_search": "module-wide",
+   "n_returns": "INAPPLICABLE",
+   "returned_keys": "INAPPLICABLE",
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": "INAPPLICABLE",
+   "previously_inventoried": false
+  },
+  {
+   "path": "run_earthquake_nns.py",
+   "line": 85,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_lmfdb_extend.py",
+   "line": 62,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "run_per_pll_nns.py",
+   "line": 138,
+   "mechanism": "min",
+   "scope": "module",
+   "enclosing": null,
+   "guards": [],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "p_o",
+    "p_p",
+    "p_u"
+   ],
+   "computed_unused_search": "module-wide",
+   "n_returns": "INAPPLICABLE",
+   "returned_keys": "INAPPLICABLE",
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poisson"
+   ],
+   "defaults": "INAPPLICABLE",
+   "previously_inventoried": false
+  },
+  {
+   "path": "universality.py",
+   "line": 129,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "compute_nns",
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 3,
+   "returned_keys": [],
+   "labels": [
+    "goe",
+    "gue",
+    "poisson"
+   ],
+   "defaults": [],
+   "previously_inventoried": false
+  },
+  {
+   "path": "run_lmfdb_edge.py",
+   "line": 69,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  },
+  {
+   "path": "verify/tier1_lfunction_guard.py",
+   "line": 73,
+   "mechanism": "min",
+   "scope": "def",
+   "enclosing": "classify",
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "computed_unused_search": "function-scoped",
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "best_ks",
+    "fit_poor",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": [],
+   "previously_inventoried": true
+  }
+ ]
+}
