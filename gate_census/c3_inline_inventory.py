@@ -58,7 +58,13 @@ INVENTORIED = {p for ps in DEDUP["groups"].values() for p in ps}
 SITES = """run_lmfdb_family run_controls run_fungal_nns run_mertens_liouville run_eeg_full
 run_lmfdb_postprocess run_dirichlet_family run_zeta_height_convergence run_phase5
 run_eeg_depth run_phase4 run_analytical_nns run_earthquake_nns run_lmfdb_extend
-run_per_pll_nns universality run_lmfdb_edge verify/tier1_lfunction_guard""".split()
+run_per_pll_nns universality run_lmfdb_edge verify/tier1_lfunction_guard
+arithmetic_toolkit""".split()
+# arithmetic_toolkit is the CANONICAL 19th site. It was omitted from the first
+# sealed run of this generator: the brief lists the 18 COPIES, and I transcribed
+# that list without adding the original back. copy_dedup.json checks 19. An
+# inventory built to fix a coverage gap must not open a smaller one, and the
+# canonical implementation is the one every migration target is measured against.
 
 CLASS_TOKEN = re.compile(r"['\"](Poiss|Poisson|poisson|GOE|goe|GUE|gue)['\"]")
 KS_TRIPLE = re.compile(r"ks_[poun]\b")
