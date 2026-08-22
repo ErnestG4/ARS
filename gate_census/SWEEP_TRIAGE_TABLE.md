@@ -41,15 +41,33 @@ default**, not three unlucky instruments.
 `universality` — all `NEEDS_JUDGMENT`: they carry the argmin but no function of that name. **Not
 exempt**; extraction by another route required.
 
-**Note the only `MEASURED_NEGATIVE_SET` is the one repaired during this arc**, and the only
-`UNMEASURED` is the verifier I added fit-quality reporting to. **Every implementation untouched by
-this work has no rejection region.** That is the cleanest statement of what the sweep found.
+**The headline, with its tautological half removed.** It is tempting to write *"the only
+`MEASURED_NEGATIVE_SET` is the one this arc repaired, and the only `UNMEASURED` is the verifier this
+arc touched"* — but **the touching WAS the measuring.** This arc is the only process that has ever
+asked these instruments the negative-set question, so its footprint and the measurement's footprint
+coincide by construction. That half is a tautology and should not be quoted as a coincidence.
 
-## Disclosed interpretation layer
+**The non-tautological content is stronger and is the right headline: no instrument in this codebase
+acquired a rejection region except through this arc's deliberate intervention.** Not *"we happened to
+fix the only broken ones"* but **"the house default produces instruments that cannot refuse, and every
+exception was manufactured."**
+
+**And the miss dissolves the selection worry raised at sealing.** The concern was that Gate 1 might
+have been examined first *because something already smelled wrong* — a non-random draw inflating the
+expected rate. It was not unusual. **It was the house style, sampled.**
+
+## Disclosed interpretation layer — **DECLARED, NOT SEALED** (commit-order test applied)
 
 The seal fixed the four questions and the five verdicts; it did **not** fix the mapping from code
-features to verdicts. That mapping is written in `run_sweep.py` **before the run** and stated rather
-than left implicit. Its load-bearing clause: **a size guard (`n < k → 'insufficient'`) is a
+features to verdicts. **And the mapping does not have seal status**: `run_sweep.py` and
+`sweep_table.json` both entered the record in the **same commit, `8ba9d52`**. By the standard applied
+to the rounding convention at `3b501fe`, that makes this **declared with its sensitivity stated**, not
+provable-prior. I wrote it before running — *and commit order is the evidence, not recollection.*
+
+**Second instance of the same pattern in two days**, so it now has a structural fix (`sealgen.sh`,
+below) rather than another resolution to be careful.
+
+The mapping is written in `run_sweep.py` and stated rather than left implicit. Its load-bearing clause: **a size guard (`n < k → 'insufficient'`) is a
 PRECONDITION refusal, not a negative-set refusal** — it says *"I cannot measure"*, not *"this is none
 of my classes"* — so it does not earn `MEASURED_NEGATIVE_SET`. Every `NO_NAMED_SET` row above has a
 size guard; none has a rejection region. **If adjudication rejects that reading, all 8 rows move**,
@@ -57,6 +75,17 @@ which is why the clause is stated at the top rather than buried.
 
 ## For adjudication (nothing ruled here)
 
+- **The size-guard clause FIRST — 8 rows hinge on it.** A size guard refuses to *measure*; a
+  rejection region refuses to *classify*. `n < k` says *"I can't produce an answer"*; a negative set
+  says *"I produced an answer-space and this input is outside it."* Conflating them would count
+  *insufficient data* as instrument self-awareness, which it is not — an instrument with a size guard
+  and no rejection region will, given enough data, classify **anything** into [rigid…Poisson].
+  **Refinement to test at adjudication, and it is derivation-shaped so it extends rather than bends:**
+  *precondition refusals do not count as negative sets, **except** where the precondition is derived
+  from the classification's own validity rather than from generic statistical caution.* Worked case
+  for the exception: this arc's own `MIN_N = 1/RAIL_RATIO`, below which the discriminator's arm
+  provably cannot fire — that guard is doing partial rejection-region work. None of the 8 rows' guards
+  are of that kind (all are generic `n < 5` / `n < 50`), but the boundary should be ruled, not assumed.
 - The severity gradient offered earlier: **no rejection region < computes-and-ignores <
   computes-and-acts**. `run_phase4` sits in the middle and is the nearest miss.
 - Whether `COMPUTED_UNUSED` becomes a verdict — **as a ruling, in its own commit, for future sweeps**,
