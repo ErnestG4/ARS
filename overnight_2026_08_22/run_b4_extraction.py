@@ -28,8 +28,13 @@ def enclosing(path):
     target = None
     for n in ast.walk(tree):
         if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == "min":
-            d = ast.dump(n)
-            if "'GOE'" in d and "'GUE'" in d:
+            d = ast.dump(n).lower()
+            # CASE-INSENSITIVE (fixed after the first run). universality.py uses
+            # lowercase labels ('poisson','goe','gue') and was silently missed,
+            # landing at NEEDS_JUDGMENT for a TOOLING reason -- which is the exact
+            # state B4 exists to resolve. A detector that misses a known target
+            # reports a verdict it has not earned.
+            if "'goe'" in d and "'gue'" in d:
                 target = n; break
     if target is None:
         return None, None, None
@@ -83,6 +88,14 @@ for p in SITES:
                    mapping_label="DECLARED — size-guard clause pending adjudication")
 
 
+
+# NON-VACUITY FLOOR (redpath.py discipline): the route must LOCATE every site it
+# was built for. A row that reads NEEDS_JUDGMENT because the extractor missed it is
+# indistinguishable, in the table, from one that genuinely resists classification.
+sys.path.insert(0, R)
+from redpath import redpath                                          # noqa: E402
+with redpath("B4 extraction route: argmin located", expect_min=len(SITES)) as rp:
+    rp.observed(sum(1 for r in rows.values() if r.get("scope") is not None))
 
 print(f"{'site':26s} {'verdict':16s} {'scope':22s} label")
 for p, r in rows.items():
