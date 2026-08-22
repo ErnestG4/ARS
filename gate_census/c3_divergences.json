@@ -1,0 +1,477 @@
+{
+ "n_variants": 11,
+ "axes": {
+  "guards": {
+   "n_distinct": 3,
+   "groups": {
+    "[50]": [
+     "run_lmfdb_family.py",
+     "run_fungal_nns.py",
+     "run_mertens_liouville.py",
+     "run_zeta_height_convergence.py",
+     "verify/tier1_lfunction_guard.py"
+    ],
+    "[5]": [
+     "run_eeg_full.py",
+     "run_phase5.py",
+     "run_eeg_depth.py",
+     "run_lmfdb_edge.py",
+     "arithmetic_toolkit.py"
+    ],
+    "[]": [
+     "run_phase4.py"
+    ]
+   }
+  },
+  "computed_unused": {
+   "n_distinct": 3,
+   "groups": {
+    "[\"ks_o\", \"ks_p\", \"ks_u\"]": [
+     "run_lmfdb_family.py",
+     "run_fungal_nns.py",
+     "run_mertens_liouville.py",
+     "run_eeg_full.py",
+     "run_zeta_height_convergence.py",
+     "run_phase5.py",
+     "run_eeg_depth.py",
+     "verify/tier1_lfunction_guard.py",
+     "arithmetic_toolkit.py"
+    ],
+    "[\"pv_o\", \"pv_p\", \"pv_u\"]": [
+     "run_phase4.py"
+    ],
+    "[]": [
+     "run_lmfdb_edge.py"
+    ]
+   }
+  },
+  "n_returns": {
+   "n_distinct": 2,
+   "groups": {
+    "2": [
+     "run_lmfdb_family.py",
+     "run_fungal_nns.py",
+     "run_mertens_liouville.py",
+     "run_eeg_full.py",
+     "run_zeta_height_convergence.py",
+     "run_phase5.py",
+     "run_eeg_depth.py",
+     "run_lmfdb_edge.py",
+     "verify/tier1_lfunction_guard.py",
+     "arithmetic_toolkit.py"
+    ],
+    "1": [
+     "run_phase4.py"
+    ]
+   }
+  },
+  "returned_keys": {
+   "n_distinct": 4,
+   "groups": {
+    "[\"best\", \"gap\", \"ks_o\", \"ks_p\", \"ks_u\", \"mass03\", \"n\"]": [
+     "run_lmfdb_family.py",
+     "run_fungal_nns.py",
+     "run_mertens_liouville.py",
+     "run_eeg_full.py",
+     "run_zeta_height_convergence.py",
+     "run_phase5.py",
+     "run_eeg_depth.py",
+     "run_lmfdb_edge.py"
+    ],
+    "[\"best\", \"gap\", \"ks_o\", \"ks_p\", \"ks_u\", \"mass03\", \"n\", \"pv_o\", \"pv_p\", \"pv_u\"]": [
+     "run_phase4.py"
+    ],
+    "[\"best\", \"best_ks\", \"fit_poor\", \"gap\", \"ks_o\", \"ks_p\", \"ks_u\", \"mass03\", \"n\"]": [
+     "verify/tier1_lfunction_guard.py"
+    ],
+    "[\"best\", \"best_ks\", \"fit_poor\", \"fit_rejected\", \"gap\", \"ks_crit_01\", \"ks_o\", \"ks_p\", \"ks_u\", \"mass03\", \"n\"]": [
+     "arithmetic_toolkit.py"
+    ]
+   }
+  },
+  "labels": {
+   "n_distinct": 2,
+   "groups": {
+    "[\"GOE\", \"GUE\", \"Poiss\"]": [
+     "run_lmfdb_family.py",
+     "run_fungal_nns.py",
+     "run_mertens_liouville.py",
+     "run_eeg_full.py",
+     "run_zeta_height_convergence.py",
+     "run_phase5.py",
+     "run_eeg_depth.py",
+     "run_phase4.py",
+     "run_lmfdb_edge.py",
+     "verify/tier1_lfunction_guard.py"
+    ],
+    "[\"GOE\", \"GUE\", \"Poisson\"]": [
+     "arithmetic_toolkit.py"
+    ]
+   }
+  },
+  "defaults": {
+   "n_distinct": 1,
+   "groups": {
+    "[]": [
+     "run_lmfdb_family.py",
+     "run_fungal_nns.py",
+     "run_mertens_liouville.py",
+     "run_eeg_full.py",
+     "run_zeta_height_convergence.py",
+     "run_phase5.py",
+     "run_eeg_depth.py",
+     "run_phase4.py",
+     "run_lmfdb_edge.py",
+     "verify/tier1_lfunction_guard.py",
+     "arithmetic_toolkit.py"
+    ]
+   }
+  }
+ },
+ "per_variant": {
+  "run_lmfdb_family.py": {
+   "impl_hash": "8af5c1b4cd0860ad",
+   "sites": [
+    "run_lmfdb_family.py"
+   ],
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_fungal_nns.py": {
+   "impl_hash": "0cbcf4e37201608a",
+   "sites": [
+    "run_fungal_nns.py"
+   ],
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_mertens_liouville.py": {
+   "impl_hash": "362c40e998048a7e",
+   "sites": [
+    "run_mertens_liouville.py",
+    "run_lmfdb_postprocess.py",
+    "run_dirichlet_family.py",
+    "run_lmfdb_extend.py"
+   ],
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_eeg_full.py": {
+   "impl_hash": "84782fcb7972729b",
+   "sites": [
+    "run_eeg_full.py"
+   ],
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_zeta_height_convergence.py": {
+   "impl_hash": "9fc4073c2b43f68d",
+   "sites": [
+    "run_zeta_height_convergence.py",
+    "run_earthquake_nns.py"
+   ],
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_phase5.py": {
+   "impl_hash": "6b19f7840691fb49",
+   "sites": [
+    "run_phase5.py"
+   ],
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_eeg_depth.py": {
+   "impl_hash": "a36421c8c4a0a75e",
+   "sites": [
+    "run_eeg_depth.py"
+   ],
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_phase4.py": {
+   "impl_hash": "3c3d136399cdebbb",
+   "sites": [
+    "run_phase4.py"
+   ],
+   "guards": [],
+   "computed_unused": [
+    "pv_o",
+    "pv_p",
+    "pv_u"
+   ],
+   "n_returns": 1,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n",
+    "pv_o",
+    "pv_p",
+    "pv_u"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "run_lmfdb_edge.py": {
+   "impl_hash": "a857f79bc482c621",
+   "sites": [
+    "run_lmfdb_edge.py"
+   ],
+   "guards": [
+    5
+   ],
+   "computed_unused": [],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "verify/tier1_lfunction_guard.py": {
+   "impl_hash": "4112275fdff8a145",
+   "sites": [
+    "verify/tier1_lfunction_guard.py"
+   ],
+   "guards": [
+    50
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "best_ks",
+    "fit_poor",
+    "gap",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poiss"
+   ],
+   "defaults": []
+  },
+  "arithmetic_toolkit.py": {
+   "impl_hash": "20f03f925665de9f",
+   "sites": [
+    "arithmetic_toolkit.py"
+   ],
+   "guards": [
+    5
+   ],
+   "computed_unused": [
+    "ks_o",
+    "ks_p",
+    "ks_u"
+   ],
+   "n_returns": 2,
+   "returned_keys": [
+    "best",
+    "best_ks",
+    "fit_poor",
+    "fit_rejected",
+    "gap",
+    "ks_crit_01",
+    "ks_o",
+    "ks_p",
+    "ks_u",
+    "mass03",
+    "n"
+   ],
+   "labels": [
+    "GOE",
+    "GUE",
+    "Poisson"
+   ],
+   "defaults": []
+  }
+ },
+ "diverging_axes": [
+  "guards",
+  "computed_unused",
+  "n_returns",
+  "returned_keys",
+  "labels"
+ ]
+}
