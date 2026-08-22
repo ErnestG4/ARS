@@ -18,6 +18,10 @@ SITES = ["run_controls.py", "run_analytical_nns.py", "run_per_pll_nns.py", "univ
 QUAL = re.compile(r"^(pv_|pp$|po$|pu$|p_[pou]$|ks_crit|best_ks|fit_poor)")
 
 
+def is_fn(scope):
+    return isinstance(scope, (ast.FunctionDef, ast.AsyncFunctionDef))
+
+
 def enclosing(path):
     src = open(os.path.join(R, path), errors="replace").read()
     tree = ast.parse(src)
@@ -62,7 +66,7 @@ for p in SITES:
                     compared.add(sub.id)
     qual = sorted(a for a in assigned if QUAL.match(a))
     qual_compared = sorted(set(qual) & compared)
-    seg = ast.get_source_segment(src, scope) if best_fn_seg(scope) else src
+    seg = ast.get_source_segment(src, scope) if is_fn(scope) else src
     guards = sorted(set(int(m) for m in re.findall(r"\.size\s*<\s*(\d+)", seg or "")))
     if qual and qual_compared:
         v, why = "UNMEASURED", f"fit-quality compared ({', '.join(qual_compared)}) but no error rate recorded"
@@ -78,9 +82,6 @@ for p in SITES:
                    quality_compared=qual_compared, size_guards=guards, why=why,
                    mapping_label="DECLARED — size-guard clause pending adjudication")
 
-
-def best_fn_seg(scope):
-    return isinstance(scope, (ast.FunctionDef, ast.AsyncFunctionDef))
 
 
 print(f"{'site':26s} {'verdict':16s} {'scope':22s} label")
