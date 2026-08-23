@@ -163,8 +163,7 @@ def closure_source(path, fn_name):
     return "\n\n".join(reversed(pieces)), sorted(seen), needed_imports
 
 
-def build(path, fn_name):
-    code, pulled, needed = closure_source(path, fn_name)
+def build_from_source(code, needed, fn_name, path="<mutated>"):
     ns = {"np": np, "numpy": np,
           "nns_cdf_poisson": nns_cdf_poisson, "nns_cdf_goe": nns_cdf_goe,
           "nns_cdf_gue": nns_cdf_gue, "math": __import__("math"),
@@ -179,85 +178,96 @@ def build(path, fn_name):
         except Exception as exc:                              # noqa: BLE001
             injected[local] = f"UNRESOLVED ({type(exc).__name__})"
     exec(compile(code, f"<closure:{path}>", "exec"), ns)     # noqa: S102
-    return ns[fn_name], pulled, injected
+    return ns[fn_name], injected
 
 
-# ── capture ─────────────────────────────────────────────────────────────────
-def_rows = [r for r in INV["rows"] if r["scope"] == "def"]
-vectors = INPUTS["vectors"]
+def build(path, fn_name):
+    code, pulled, needed = closure_source(path, fn_name)
+    fn, injected = build_from_source(code, needed, fn_name, path)
+    return fn, pulled, injected
 
-baselines, failures = {}, {}
-for r in def_rows:
-    key = f"{r['path']}:{r['line']}"
-    fn_name = r["enclosing"]
-    try:
-        fn, pulled, injected = build(r["path"], fn_name)
-    except Exception as exc:                                  # noqa: BLE001
-        failures[key] = f"closure build failed: {type(exc).__name__}: {exc}"
-        continue
 
-    per_input = {}
-    for vname in sorted(vectors):
+def main():
+    # ── capture ─────────────────────────────────────────────────────────────────
+    def_rows = [r for r in INV["rows"] if r["scope"] == "def"]
+    vectors = INPUTS["vectors"]
+
+    baselines, failures = {}, {}
+    for r in def_rows:
+        key = f"{r['path']}:{r['line']}"
+        fn_name = r["enclosing"]
         try:
-            out = fn(adapt(key, vectors[vname]))
-            per_input[vname] = {"ok": True, "value": ser(out)}
-        except Exception as exc:                              # noqa: BLE001
-            per_input[vname] = {"ok": False,
-                                "raised": f"{type(exc).__name__}: {exc}"}
-    baselines[key] = dict(path=r["path"], line=r["line"], callable=fn_name,
-                          closure_pulled=pulled, closure_injected=injected,
-                          guards=r["guards"], labels=r["labels"],
-                          adapter=ADAPTERS.get(key, ("spacings", ""))[0],
-                          results=per_input)
-
-# ── did the ruler discriminate? (SEALED_CRITERIA §3) ────────────────────────
-best_by_input = {}
-for key, b in baselines.items():
-    for vname, res in b["results"].items():
-        if not res["ok"]:
+            fn, pulled, injected = build(r["path"], fn_name)
+        except Exception as exc:                                  # noqa: BLE001
+            failures[key] = f"closure build failed: {type(exc).__name__}: {exc}"
             continue
-        v = res["value"]
-        label = v.get("best") if isinstance(v, dict) else None
-        if isinstance(label, str):
-            best_by_input.setdefault(vname, {}).setdefault(label, []).append(key)
 
-disagreeing = {v: g for v, g in best_by_input.items() if len(g) > 1}
+        per_input = {}
+        for vname in sorted(vectors):
+            try:
+                out = fn(adapt(key, vectors[vname]))
+                per_input[vname] = {"ok": True, "value": ser(out)}
+            except Exception as exc:                              # noqa: BLE001
+                per_input[vname] = {"ok": False,
+                                    "raised": f"{type(exc).__name__}: {exc}"}
+        baselines[key] = dict(path=r["path"], line=r["line"], callable=fn_name,
+                              closure_pulled=pulled, closure_injected=injected,
+                              guards=r["guards"], labels=r["labels"],
+                              adapter=ADAPTERS.get(key, ("spacings", ""))[0],
+                              results=per_input)
 
-print(f"def-scope decision sites: {len(def_rows)}")
-print(f"  captured : {len(baselines)}")
-print(f"  failed   : {len(failures)}")
-for k, why in failures.items():
-    print(f"      {k}  {why}")
+    # ── did the ruler discriminate? (SEALED_CRITERIA §3) ────────────────────────
+    best_by_input = {}
+    for key, b in baselines.items():
+        for vname, res in b["results"].items():
+            if not res["ok"]:
+                continue
+            v = res["value"]
+            label = v.get("best") if isinstance(v, dict) else None
+            if isinstance(label, str):
+                best_by_input.setdefault(vname, {}).setdefault(label, []).append(key)
 
-print(f"\ninput vectors: {len(vectors)}")
-print(f"inputs on which sites DISAGREE on `best`: {len(disagreeing)} of {len(best_by_input)}")
-for vname in sorted(disagreeing)[:8]:
-    groups = disagreeing[vname]
-    print(f"  {vname:24s} " + "  ".join(f"{lab}×{len(ks)}" for lab, ks in sorted(groups.items())))
+    disagreeing = {v: g for v, g in best_by_input.items() if len(g) > 1}
 
-# raised-vs-returned divergence is itself a behaviour to bank
-raise_counts = {}
-for key, b in baselines.items():
-    n_raise = sum(1 for res in b["results"].values() if not res["ok"])
-    raise_counts[key] = n_raise
-print("\nsites by number of inputs that RAISED (small-n paths are where they differ):")
-for k in sorted(raise_counts, key=lambda k: -raise_counts[k]):
-    if raise_counts[k]:
-        print(f"  {k:36s} {raise_counts[k]:>3d}/{len(vectors)}")
+    print(f"def-scope decision sites: {len(def_rows)}")
+    print(f"  captured : {len(baselines)}")
+    print(f"  failed   : {len(failures)}")
+    for k, why in failures.items():
+        print(f"      {k}  {why}")
 
-# NON-VACUITY: the sealed criteria pre-registered that the input set must make
-# at least one site disagree with another. Zero disagreement is a FAILURE OF THE
-# RULER, and it must not be reportable as "the variants agree".
-with redpath("inputs on which def sites disagree on `best`", expect_min=1) as rp:
-    rp.observed(len(disagreeing))
+    print(f"\ninput vectors: {len(vectors)}")
+    print(f"inputs on which sites DISAGREE on `best`: {len(disagreeing)} of {len(best_by_input)}")
+    for vname in sorted(disagreeing)[:8]:
+        groups = disagreeing[vname]
+        print(f"  {vname:24s} " + "  ".join(f"{lab}×{len(ks)}" for lab, ks in sorted(groups.items())))
 
-payload = json.dumps(dict(
-    inputs_sha=hashlib.sha256(open(f"{HERE}/inputs.json", "rb").read()).hexdigest(),
-    numpy_version=np.__version__,
-    python_version=sys.version.split()[0],
-    n_sites=len(baselines), failures=failures,
-    disagreeing_inputs=sorted(disagreeing),
-    baselines=baselines), indent=1, sort_keys=True)
-open(f"{HERE}/baselines_def.json", "w").write(payload)
-print(f"\nwritten -> overnight_2026_08_23/baselines_def.json "
-      f"(sha {hashlib.sha256(payload.encode()).hexdigest()[:16]}…)")
+    # raised-vs-returned divergence is itself a behaviour to bank
+    raise_counts = {}
+    for key, b in baselines.items():
+        n_raise = sum(1 for res in b["results"].values() if not res["ok"])
+        raise_counts[key] = n_raise
+    print("\nsites by number of inputs that RAISED (small-n paths are where they differ):")
+    for k in sorted(raise_counts, key=lambda k: -raise_counts[k]):
+        if raise_counts[k]:
+            print(f"  {k:36s} {raise_counts[k]:>3d}/{len(vectors)}")
+
+    # NON-VACUITY: the sealed criteria pre-registered that the input set must make
+    # at least one site disagree with another. Zero disagreement is a FAILURE OF THE
+    # RULER, and it must not be reportable as "the variants agree".
+    with redpath("inputs on which def sites disagree on `best`", expect_min=1) as rp:
+        rp.observed(len(disagreeing))
+
+    payload = json.dumps(dict(
+        inputs_sha=hashlib.sha256(open(f"{HERE}/inputs.json", "rb").read()).hexdigest(),
+        numpy_version=np.__version__,
+        python_version=sys.version.split()[0],
+        n_sites=len(baselines), failures=failures,
+        disagreeing_inputs=sorted(disagreeing),
+        baselines=baselines), indent=1, sort_keys=True)
+    open(f"{HERE}/baselines_def.json", "w").write(payload)
+    print(f"\nwritten -> overnight_2026_08_23/baselines_def.json "
+          f"(sha {hashlib.sha256(payload.encode()).hexdigest()[:16]}…)")
+
+
+if __name__ == "__main__":
+    main()
