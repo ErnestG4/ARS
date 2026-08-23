@@ -1,0 +1,164 @@
+{
+ "n_sites": 21,
+ "tally": {
+  "CAPTURED": 19,
+  "CAPTURED_OBSERVABLE_ABSENT": 1,
+  "CAPTURED_OBSERVABLE_IS_FIGURE_ONLY": 1
+ },
+ "unqualified_captured": 19,
+ "module_mutation_ran": true,
+ "rows": {
+  "run_lmfdb_family.py:102": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "5/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_controls.py:217": {
+   "scope": "module",
+   "verdict": "CAPTURED",
+   "discrimination": "2/3 applicable attacks detected (script-level)",
+   "qualification": null,
+   "qualification_reason": null,
+   "source": "baselines_module.json + mutations_module.json"
+  },
+  "run_fungal_nns.py:147": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_mertens_liouville.py:146": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_eeg_full.py:89": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_lmfdb_postprocess.py:53": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_dirichlet_family.py:78": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_zeta_height_convergence.py:61": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_phase5.py:100": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_eeg_depth.py:100": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_phase4.py:90": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_analytical_nns.py:184": {
+   "scope": "module",
+   "verdict": "CAPTURED_OBSERVABLE_ABSENT",
+   "discrimination": "1/4 applicable attacks detected (script-level)",
+   "qualification": "OBSERVABLE_ABSENT",
+   "qualification_reason": "p_o/p_p/p_u are computed at :180-182 and never printed, plotted, or written \u2014 no observable exists for the quantities R5 promotes at this site",
+   "source": "baselines_module.json + mutations_module.json"
+  },
+  "run_analytical_nns.py:249": {
+   "scope": "module",
+   "verdict": "CAPTURED",
+   "discrimination": "1/4 applicable attacks detected (script-level)",
+   "qualification": null,
+   "qualification_reason": null,
+   "source": "baselines_module.json + mutations_module.json"
+  },
+  "run_analytical_nns.py:297": {
+   "scope": "module",
+   "verdict": "CAPTURED_OBSERVABLE_IS_FIGURE_ONLY",
+   "discrimination": "1/4 applicable attacks detected (script-level)",
+   "qualification": "OBSERVABLE_IS_FIGURE_ONLY",
+   "qualification_reason": "its `best` reaches ax.set_title and nothing else (run_analytical_nns.py:315) \u2014 the 21st decision site emits no stdout at all",
+   "source": "baselines_module.json + mutations_module.json"
+  },
+  "run_earthquake_nns.py:85": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_lmfdb_extend.py:62": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_per_pll_nns.py:138": {
+   "scope": "module",
+   "verdict": "CAPTURED",
+   "discrimination": "2/3 applicable attacks detected (script-level)",
+   "qualification": null,
+   "qualification_reason": null,
+   "source": "baselines_module.json + mutations_module.json"
+  },
+  "universality.py:129": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "4/5 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "run_lmfdb_edge.py:69": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "verify/tier1_lfunction_guard.py:73": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "5/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  },
+  "arithmetic_toolkit.py:113": {
+   "scope": "def",
+   "verdict": "CAPTURED",
+   "discrimination": "6/6 applicable attacks detected",
+   "qualification": null,
+   "source": "mutations_def.json"
+  }
+ }
+}

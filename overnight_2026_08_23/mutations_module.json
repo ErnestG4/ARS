@@ -1,0 +1,118 @@
+{
+ "rows": {
+  "run_controls.py": {
+   "sites": [
+    "run_controls.py:217"
+   ],
+   "attacks": {
+    "label_flip": {
+     "verdict": "DETECTED",
+     "exit": 0,
+     "stdout_changed": true,
+     "figure_changed": false,
+     "witness": "stdout"
+    },
+    "argmin_swap": {
+     "verdict": "INAPPLICABLE",
+     "reason": "decision arms are not a rewritable literal triple"
+    },
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "exit": 0,
+     "stdout_changed": true,
+     "figure_changed": false,
+     "witness": "stdout"
+    },
+    "statistic_perturb": {
+     "verdict": "SURVIVED",
+     "exit": 0,
+     "stdout_changed": false,
+     "figure_changed": false,
+     "witness": "none"
+    }
+   },
+   "n_applicable": 3,
+   "n_detected": 2,
+   "verdict": "CAPTURED"
+  },
+  "run_per_pll_nns.py": {
+   "sites": [
+    "run_per_pll_nns.py:138"
+   ],
+   "attacks": {
+    "label_flip": {
+     "verdict": "DETECTED",
+     "exit": 0,
+     "stdout_changed": true,
+     "figure_changed": true,
+     "witness": "stdout"
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "exit": 0,
+     "stdout_changed": true,
+     "figure_changed": true,
+     "witness": "stdout"
+    },
+    "guard_flip": {
+     "verdict": "INAPPLICABLE",
+     "reason": "no size guard constant to flip"
+    },
+    "statistic_perturb": {
+     "verdict": "SURVIVED",
+     "exit": 0,
+     "stdout_changed": false,
+     "figure_changed": false,
+     "witness": "none"
+    }
+   },
+   "n_applicable": 3,
+   "n_detected": 2,
+   "verdict": "CAPTURED"
+  },
+  "run_analytical_nns.py": {
+   "sites": [
+    "run_analytical_nns.py:184",
+    "run_analytical_nns.py:249",
+    "run_analytical_nns.py:297"
+   ],
+   "attacks": {
+    "label_flip": {
+     "verdict": "SURVIVED",
+     "exit": 0,
+     "stdout_changed": false,
+     "figure_changed": false,
+     "witness": "none"
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "exit": 0,
+     "stdout_changed": true,
+     "figure_changed": true,
+     "witness": "stdout"
+    },
+    "guard_flip": {
+     "verdict": "SURVIVED",
+     "exit": 0,
+     "stdout_changed": false,
+     "figure_changed": false,
+     "witness": "none"
+    },
+    "statistic_perturb": {
+     "verdict": "SURVIVED",
+     "exit": 0,
+     "stdout_changed": false,
+     "figure_changed": false,
+     "witness": "none"
+    }
+   },
+   "n_applicable": 4,
+   "n_detected": 1,
+   "verdict": "CAPTURED"
+  }
+ },
+ "verdicts": {
+  "CAPTURED": 3
+ },
+ "repo_intact": true
+}
