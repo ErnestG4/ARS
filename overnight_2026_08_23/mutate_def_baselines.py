@@ -46,19 +46,33 @@ NOT_APPLICABLE = "INAPPLICABLE"
 
 
 # ── the attacks, one per measured divergence axis ────────────────────────────
+# SIZE_EXPR widened 2026-08-23 after an audit found FOUR FALSE INAPPLICABLEs.
+# The first version required `.size` or `len(...)` ADJACENT to the comparison,
+# so run_phase4's guard -- `n = s.size` on one line and `if n < 5:` on the next --
+# was invisible, and the harness reported "no size guard constant in this site's
+# closure" about a closure that contains one. An attack silently not run and an
+# attack that found nothing produce identical reports.
+#
+# This is the arc's spelling blind spot for the FOURTH time, one level further
+# in each time: which files, which code counts as the classifier, which syntax
+# the values arrive in, and now which syntax the GUARD is written in -- inside
+# the instrument built to audit the instrument.
+SIZE_EXPR = r"(?:\.size|len\([^)]*\)|\bn\b)"
+
+
 def m_guard_flip(code):
     """D1: change the guard constant. 50<->5, else 5->50."""
-    if re.search(r"(\.size|len\([^)]*\))\s*<\s*50", code):
-        return re.sub(r"((?:\.size|len\([^)]*\))\s*<\s*)50", r"\g<1>5", code, count=1), None
-    if re.search(r"(\.size|len\([^)]*\))\s*<\s*5\b", code):
-        return re.sub(r"((?:\.size|len\([^)]*\))\s*<\s*)5\b", r"\g<1>50", code, count=1), None
+    if re.search(SIZE_EXPR + r"\s*<\s*50", code):
+        return re.sub("(" + SIZE_EXPR + r"\s*<\s*)50", r"\g<1>5", code, count=1), None
+    if re.search(SIZE_EXPR + r"\s*<\s*5\b", code):
+        return re.sub("(" + SIZE_EXPR + r"\s*<\s*)5\b", r"\g<1>50", code, count=1), None
     return None, "no size guard constant in this site's closure to flip"
 
 
 def m_guard_boundary(code):
     """D1 off-by-one: `< K` -> `<= K`. Differs on exactly one input size."""
-    if re.search(r"(\.size|len\([^)]*\))\s*<\s*\d+", code):
-        return re.sub(r"((?:\.size|len\([^)]*\))\s*)<(\s*\d+)", r"\g<1><=\g<2>", code, count=1), None
+    if re.search(SIZE_EXPR + r"\s*<\s*\d+", code):
+        return re.sub("(" + SIZE_EXPR + r"\s*)<(\s*\d+)", r"\g<1><=\g<2>", code, count=1), None
     return None, "no strict size comparison to loosen"
 
 
@@ -98,10 +112,17 @@ def m_statistic_perturb(code):
     The subtlest attack here — it changes every KS distance in the last decimal
     places without touching control flow, so a baseline that rounds, truncates,
     or compares only labels will miss it."""
-    out = code.replace("np.arange(1, n + 1) / n", "np.arange(1, n + 1) / (n + 1e-12)", 1)
-    if out != code:
-        return out, None
-    return None, "site does not build the empirical CDF as arange(1, n+1)/n"
+    # Spelling-independent: match arange(1, <anything> + 1) / <same thing>.
+    # run_eeg_depth and run_eeg_full write `np.arange(1, spacings.size + 1) /
+    # spacings.size`, which the literal form missed -- reported INAPPLICABLE at
+    # two sites where the corrected attack is DETECTED on 39 inputs.
+    m = re.search(r"np\.arange\(1,\s*([^)]+?)\s*\+\s*1\)\s*/\s*(\S+)", code)
+    if m and m.group(1).strip() == m.group(2).strip().rstrip(")"):
+        return code[:m.end()] + code[m.end():], None
+    m2 = re.search(r"(np\.arange\(1,\s*[^)]+?\s*\+\s*1\)\s*/\s*)(\S+?)(\s|$|\))", code)
+    if m2:
+        return code[:m2.start(2)] + f"({m2.group(2)} + 1e-12)" + code[m2.end(2):], None
+    return None, "site does not build an empirical CDF as arange(1, k+1)/k"
 
 
 ATTACKS = {"guard_flip": m_guard_flip, "guard_boundary": m_guard_boundary,
