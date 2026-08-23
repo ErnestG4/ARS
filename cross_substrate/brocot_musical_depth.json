@@ -1,0 +1,145 @@
+{
+ "musical_indices": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "diagnostic": [
+  0.1,
+  0.5
+ ],
+ "reference": [
+  8.0
+ ],
+ "min_partials": 20,
+ "rows": [
+  {
+   "I": 0.1,
+   "n": 0,
+   "dropped": 255,
+   "of": 255,
+   "status": "NOT_MEASURABLE",
+   "why": "only 0 of 255 alpha reach 20 partials; the spacing statistic has nothing to fit"
+  },
+  {
+   "I": 0.5,
+   "n": 0,
+   "dropped": 255,
+   "of": 255,
+   "status": "NOT_MEASURABLE",
+   "why": "only 0 of 255 alpha reach 20 partials; the spacing statistic has nothing to fit"
+  },
+  {
+   "I": 0.9,
+   "n": 255,
+   "dropped": 0,
+   "of": 255,
+   "status": "MEASURED",
+   "median_partials": 31,
+   "rho_full": 0.47570309958615475,
+   "slope_full": 4.577139406694259,
+   "slope_top": 0.5527671091611859,
+   "slope_diff": -4.0243722975330725,
+   "ci": [
+    -5.485863878658262,
+    -1.8789088911148897
+   ],
+   "holds": true,
+   "partial_rho_class": -0.7082460444539609,
+   "n_classes": 10
+  },
+  {
+   "I": 1.5,
+   "n": 255,
+   "dropped": 0,
+   "of": 255,
+   "status": "MEASURED",
+   "median_partials": 42,
+   "rho_full": 0.6077660182172336,
+   "slope_full": 5.695548936030969,
+   "slope_top": 3.999210712551985,
+   "slope_diff": -1.6963382234789837,
+   "ci": [
+    -2.8135037683965214,
+    -0.02218488733620211
+   ],
+   "holds": true,
+   "partial_rho_class": 0.13751835968378154,
+   "n_classes": 10
+  },
+  {
+   "I": 2.0,
+   "n": 255,
+   "dropped": 0,
+   "of": 255,
+   "status": "MEASURED",
+   "median_partials": 55,
+   "rho_full": 0.6105065230270429,
+   "slope_full": 5.070837252066136,
+   "slope_top": 0.7704555322755231,
+   "slope_diff": -4.300381719790613,
+   "ci": [
+    -5.8903766405865285,
+    -2.2549264034732044
+   ],
+   "holds": true,
+   "partial_rho_class": -0.12757335734199998,
+   "n_classes": 10
+  },
+  {
+   "I": 3.0,
+   "n": 255,
+   "dropped": 0,
+   "of": 255,
+   "status": "MEASURED",
+   "median_partials": 92,
+   "rho_full": 0.6909239707107834,
+   "slope_full": 5.04821701572148,
+   "slope_top": 1.1827970306937925,
+   "slope_diff": -3.865419985027688,
+   "ci": [
+    -4.933028264914342,
+    -2.583841128194449
+   ],
+   "holds": true,
+   "partial_rho_class": -0.556427914118624,
+   "n_classes": 10
+  },
+  {
+   "I": 8.0,
+   "n": 255,
+   "dropped": 0,
+   "of": 255,
+   "status": "MEASURED",
+   "median_partials": 344,
+   "rho_full": 0.6581539959776598,
+   "slope_full": 4.477260040551316,
+   "slope_top": 1.161578025872662,
+   "slope_diff": -3.3156820146786545,
+   "ci": [
+    -4.363963164251651,
+    -2.2924741829579003
+   ],
+   "holds": true,
+   "partial_rho_class": -0.6512593549096949,
+   "n_classes": 10
+  }
+ ],
+ "holds_at": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "fails_at": [],
+ "predictions": {
+  "M1": true,
+  "M2": false,
+  "M3": false,
+  "M4": false
+ },
+ "verdict": "HOLDS_IN_MUSICAL_REGIME",
+ "seed": 20260823,
+ "n_boot": 2000
+}
