@@ -32,6 +32,21 @@ PY = sys.executable
 CHECKS = []
 
 
+def _raises(fn):
+    try:
+        fn()
+    except Exception:                                             # noqa: BLE001
+        return True
+    return False
+
+
+def _second_convention_refused():
+    reg = {}
+    import c3_rulings as _CR
+    _CR.guard_decision(50, _registry=reg)
+    return _raises(lambda: _CR.guard_decision(5, _registry=reg))
+
+
 def run(label, script):
     p = subprocess.run([PY, os.path.join(HERE, script)],
                        capture_output=True, text=True, cwd=ROOT)
@@ -66,6 +81,47 @@ p = subprocess.run([PY, os.path.join(ROOT, "countrecon.py")],
                    capture_output=True, text=True, cwd=ROOT)
 CHECKS.append(("countrecon fires on both historical shapes", p.returncode == 0,
                "" if p.returncode == 0 else "self-test failed"))
+
+# ── VERDICT SEMANTICS, not symbol names ─────────────────────────────────────
+# Audited 2026-08-23: gutting the module -- classify_guard always DERIVED,
+# REJECTION_ALPHA 0.5, PROMOTED_FAMILIES () -- left this checker green, because
+# every row read schema. The refusal skeleton was witnessed; the verdicts were
+# not. These rows read the values.
+sys.path.insert(0, HERE)
+sys.path.insert(0, ROOT)
+import c3_rulings as CR                                          # noqa: E402
+
+def sem(label, fn):
+    try:
+        CHECKS.append((label, bool(fn()), ""))
+    except Exception as exc:                                      # noqa: BLE001
+        CHECKS.append((label, False, f"{type(exc).__name__}: {exc}"))
+
+sem("a NAMED-but-non-closing derivation does NOT mint DERIVED",
+    lambda: CR.guard_decision(50, derivation="banana", _registry={})["kind"]
+    == CR.GUARD_GENERIC)
+sem("a CLOSING derivation does mint DERIVED",
+    lambda: CR.guard_decision(37, derivation=lambda: 37, _registry={})["kind"]
+    == CR.GUARD_DERIVED)
+sem("a derivation that returns the wrong value is refused",
+    lambda: _raises(lambda: CR.guard_decision(50, derivation=lambda: 37, _registry={})))
+sem("a second convention constant is refused",
+    lambda: _second_convention_refused())
+sem("R5 alpha is 0.05", lambda: CR.REJECTION_ALPHA == 0.05)
+sem("R5 promotes all three quantity families",
+    lambda: set(CR.PROMOTED_FAMILIES) == {"ks_*", "pv_*", "p_*"})
+sem("R3 gate refuses a baseline that does not exist",
+    lambda: _raises(lambda: CR.migration_authorised("module", "/nonexistent/b.json")))
+sem("R3 gate refuses an unknown scope",
+    lambda: _raises(lambda: CR.migration_authorised("banana", "x")))
+sem("deferred obligations are tracked and undischarged",
+    lambda: len(CR.DEFERRED_OBLIGATIONS) >= 3
+    and not any(v["discharged"] for v in CR.DEFERRED_OBLIGATIONS.values()))
+sem("clause-8 lineage record names the shed comparison",
+    lambda: "run_decisive.py:247" in CR.CLAUSE_8_LINEAGE_RECORD
+    and "shed" in CR.CLAUSE_8_LINEAGE_RECORD)
+
+run("R2 table is consumed by a certifier", "c3_certify_labels.py")
 
 # content, not schema: the unswept unit must still be named
 r = banked          # the banked object, not the freshly regenerated one
