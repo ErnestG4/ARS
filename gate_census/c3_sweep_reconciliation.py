@@ -87,33 +87,40 @@ led.report("inventory.decisions_covered_by_a_row", len(covered))
 led.report("inventory.decisions_unswept", len(unswept))
 
 # Six substantive edges span all seven counts. Completeness is not required --
-# deltas compose, and the connectivity form exists precisely so that every
-# sentence here has to carry real content.
-led.explain("inventory.decision_sites", "inventory.files", len(rows) - len(per_file),
+# deltas compose, and the connectivity form exists so every sentence carries
+# real content.
+#
+# THE DELTAS ARE COMMITTED LITERALS, NOT EXPRESSIONS. Written first as
+# `len(by_site) - SWEEP["n_impl_rows"]`, they were derived from the very source
+# they check, so they matched by construction and the ledger could not fire --
+# found by red-pathing: perturbing sweep_table.json left this arm green. A
+# computed delta is a claim about arithmetic; a LITERAL delta is a claim about
+# the population, which is the claim countrecon exists to hold you to.
+led.explain("inventory.decision_sites", "inventory.files", 1,
             "files holding more than one decision: " + ", ".join(
                 f"{p}:{[d['line'] for d in ds]}" for p, ds in sorted(per_file.items())
                 if len(ds) > 1) + " — two decisions by different mechanisms (min, np.argmin) "
             "on different data, which R4 counts as two units")
-led.explain("inventory.files", "sweep.verdict_rows_by_file", len(per_file) - len(by_site),
+led.explain("inventory.files", "sweep.verdict_rows_by_file", 0,
             "every file carrying a decision has a sweep row; FILE coverage is complete "
             "and it is DECISION coverage that is not")
 led.explain("sweep.verdict_rows_by_file", "sweep.units_impl_plus_b4",
-            len(by_site) - SWEEP["n_impl_rows"],
+            4,
             "identical-body copies share an implementation row: 362c40e9 covers "
             "run_mertens_liouville + run_lmfdb_postprocess + run_dirichlet_family + "
             "run_lmfdb_extend, and 9fc4073c covers run_zeta_height_convergence + "
             "run_earthquake_nns, so 19 files collapse to 15 units")
 led.explain("sweep.units_impl_plus_b4", "sweep.distinct_impls_sealed",
-            SWEEP["n_impl_rows"] - SWEEP["N_distinct_sealed"],
+            4,
             "the four B4 extraction rows (run_controls, run_analytical_nns, "
             "run_per_pll_nns, universality) sit OUTSIDE the sealed 11, which counts "
             "only def-extractable distinct bodies — this edge is the stratum boundary")
 led.explain("inventory.decision_sites", "inventory.decisions_covered_by_a_row",
-            len(rows) - len(covered),
+            1,
             "decisions with no verdict row of their own: a file's single row cannot "
             "be attributed to one of its several decisions")
 led.explain("inventory.decisions_covered_by_a_row", "inventory.decisions_unswept",
-            len(covered) - len(unswept), "the two parts of the decision population")
+            18, "the two parts of the decision population")
 
 led.settle()
 
