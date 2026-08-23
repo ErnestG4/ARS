@@ -4,16 +4,15 @@
  "n_return_contracts": 3,
  "n_sentinel_variants": 3,
  "two_layer_guard": {
-  "body=50,helper=5": [
+  "body=sentinel:<50,helper=5": [
    "run_lmfdb_family.py",
    "verify/tier1_lfunction_guard.py"
   ],
   "body=None,helper=5": [
    "run_controls.py",
-   "run_phase4.py",
-   "run_per_pll_nns.py"
+   "run_phase4.py"
   ],
-  "body=50,helper=None": [
+  "body=sentinel:<50,helper=None": [
    "run_fungal_nns.py",
    "run_mertens_liouville.py",
    "run_lmfdb_postprocess.py",
@@ -22,29 +21,32 @@
    "run_earthquake_nns.py",
    "run_lmfdb_extend.py"
   ],
-  "body=5,helper=None": [
+  "body=sentinel:<5,helper=None": [
    "run_eeg_full.py",
    "run_eeg_depth.py",
    "universality.py",
    "arithmetic_toolkit.py"
   ],
-  "body=5,helper=5": [
+  "body=sentinel:<5,helper=5": [
    "run_phase5.py",
    "run_analytical_nns.py",
    "run_lmfdb_edge.py"
+  ],
+  "body=enclosing:>0,helper=5": [
+   "run_per_pll_nns.py"
   ]
  },
  "per_site": {
   "run_lmfdb_family.py": {
    "site": "run_lmfdb_family.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": true,
    "helper": {
     "name": "ks_to",
     "lineno": 88,
-    "body_hash": 588575672,
+    "body_hash": 3000704376,
     "return_arities": [
      1
     ],
@@ -59,7 +61,7 @@
    "helper": {
     "name": "ks_to",
     "lineno": 84,
-    "body_hash": 1248935397,
+    "body_hash": 2264422196,
     "return_arities": [
      2
     ],
@@ -70,7 +72,7 @@
   "run_fungal_nns.py": {
    "site": "run_fungal_nns.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
@@ -78,7 +80,7 @@
   "run_mertens_liouville.py": {
    "site": "run_mertens_liouville.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
@@ -86,7 +88,7 @@
   "run_eeg_full.py": {
    "site": "run_eeg_full.py",
    "body_guard": [
-    5
+    "sentinel:<5"
    ],
    "helper_present": false,
    "helper": null
@@ -94,7 +96,7 @@
   "run_lmfdb_postprocess.py": {
    "site": "run_lmfdb_postprocess.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
@@ -102,7 +104,7 @@
   "run_dirichlet_family.py": {
    "site": "run_dirichlet_family.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
@@ -110,7 +112,7 @@
   "run_zeta_height_convergence.py": {
    "site": "run_zeta_height_convergence.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
@@ -118,13 +120,13 @@
   "run_phase5.py": {
    "site": "run_phase5.py",
    "body_guard": [
-    5
+    "sentinel:<5"
    ],
    "helper_present": true,
    "helper": {
     "name": "ks_to",
     "lineno": 85,
-    "body_hash": 588575672,
+    "body_hash": 3000704376,
     "return_arities": [
      1
     ],
@@ -135,7 +137,7 @@
   "run_eeg_depth.py": {
    "site": "run_eeg_depth.py",
    "body_guard": [
-    5
+    "sentinel:<5"
    ],
    "helper_present": false,
    "helper": null
@@ -147,7 +149,7 @@
    "helper": {
     "name": "ks_to",
     "lineno": 74,
-    "body_hash": 735027832,
+    "body_hash": 2336757914,
     "return_arities": [
      2
     ],
@@ -158,13 +160,13 @@
   "run_analytical_nns.py": {
    "site": "run_analytical_nns.py",
    "body_guard": [
-    5
+    "sentinel:<5"
    ],
    "helper_present": true,
    "helper": {
     "name": "ks_to",
     "lineno": 117,
-    "body_hash": 1248935397,
+    "body_hash": 2264422196,
     "return_arities": [
      2
     ],
@@ -175,7 +177,7 @@
   "run_earthquake_nns.py": {
    "site": "run_earthquake_nns.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
@@ -183,19 +185,21 @@
   "run_lmfdb_extend.py": {
    "site": "run_lmfdb_extend.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": false,
    "helper": null
   },
   "run_per_pll_nns.py": {
    "site": "run_per_pll_nns.py",
-   "body_guard": [],
+   "body_guard": [
+    "enclosing:>0"
+   ],
    "helper_present": true,
    "helper": {
     "name": "ks_distance",
     "lineno": 86,
-    "body_hash": 3714108225,
+    "body_hash": 3313402894,
     "return_arities": [
      2
     ],
@@ -206,7 +210,8 @@
   "universality.py": {
    "site": "universality.py",
    "body_guard": [
-    5
+    "sentinel:<5",
+    "sentinel:==0"
    ],
    "helper_present": false,
    "helper": null
@@ -214,13 +219,13 @@
   "run_lmfdb_edge.py": {
    "site": "run_lmfdb_edge.py",
    "body_guard": [
-    5
+    "sentinel:<5"
    ],
    "helper_present": true,
    "helper": {
     "name": "ks_to",
     "lineno": 43,
-    "body_hash": 885576730,
+    "body_hash": 2668776661,
     "return_arities": [
      2
     ],
@@ -231,13 +236,13 @@
   "verify/tier1_lfunction_guard.py": {
    "site": "verify/tier1_lfunction_guard.py",
    "body_guard": [
-    50
+    "sentinel:<50"
    ],
    "helper_present": true,
    "helper": {
     "name": "ks_to",
     "lineno": 62,
-    "body_hash": 588575672,
+    "body_hash": 3000704376,
     "return_arities": [
      1
     ],
@@ -248,7 +253,7 @@
   "arithmetic_toolkit.py": {
    "site": "arithmetic_toolkit.py",
    "body_guard": [
-    5
+    "sentinel:<5"
    ],
    "helper_present": false,
    "helper": null
