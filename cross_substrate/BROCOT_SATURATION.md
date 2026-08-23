@@ -52,7 +52,15 @@ Where a within-class test is well powered, the dose-response reproduces **at ful
 single class**. The sealed re-scoping clause therefore does **not** fire: this is not an ecological
 artifact.
 
-## 3. The two findings are ONE (`brocot_slope_by_class.json`)
+## 3. The two findings are ONE — **at I = 8 only** (`brocot_slope_by_class.json`)
+
+> **SCOPED 2026-08-23 (`brocot_musical_depth.json`).** Bootstrapped per modulation index, the
+> class-level partial ρ is clear of zero **only at I = 8** ([−0.958, −0.300]). At every musical
+> index the CI covers zero — 0.9 [−0.962, +0.320], 1.5 [−0.458, +0.789], 2.0 [−0.757, +0.855],
+> 3.0 [−0.940, +0.444]. This is a **power limit, not a refutation**: the point estimates at 0.9
+> (−0.708) and 3.0 (−0.556) sit close to I = 8's −0.651, but ten classes with noisier per-class
+> slopes cannot resolve them. **The unification below is established at I = 8 and unresolved in the
+> regime the instrument uses.**
 
 Larger D_Q means harder to approximate, so the top tercile *is* the rigid end. If the flat classes
 are the ones sitting there, the two results are the same statement on two cuts. They are:
@@ -86,8 +94,14 @@ marginal. S2 carries the result.
 ## The finding
 
 > **The D_Q–rigidity dose-response exists at the approximable end and vanishes at the rigid end.**
-> It is a real saturation, not a measurement limit and not a change of class composition — and the
-> population-level attenuation B2 measured is the same phenomenon as the class-level split.
+> It is a real saturation, not a measurement limit and not a change of class composition.
+>
+> **It holds in the regime the synthesizer actually uses** — slope-difference CI excludes zero at
+> every musical modulation index {0.9, 1.5, 2.0, 3.0}, and is *stronger* there (|Δslope| 4.02 at
+> I = 0.9) than at the I = 8 the programme had been measuring (3.32).
+>
+> The claim that this is *the same phenomenon* as the class-level split is established **at I = 8
+> only** — see §3.
 
 ## What is ruled out
 
@@ -106,9 +120,20 @@ marginal. S2 carries the result.
 2. **The metallics are underpowered.** `metallic4` (SD 0.016) and `metallic5` (SD 0.019) have
    slopes that carry little weight either way. **Promotes when:** a targeted α sample widens their
    within-class D_Q range to ≳0.05, comparable to golden's.
-3. **n = 10 classes is small.** **Promotes when:** more classes, or a resampling scheme over α
+3. **The rigidity axis is unusable below I ≈ 0.9.** At I = 0.5, 47 of 60 α clear the 20-partial
+   floor and `I8_brody_q_unbounded` returns `None` on **all 47** — an estimator refusal, with a
+   sharp threshold between 0.5 and 0.9. **The lower half of the instrument's own useful range
+   (0.1–0.9) is not analyzable on this axis.** **Promotes when:** an estimator that fits at ~20
+   partials replaces the current one, or the axis is declared out of scope below I = 0.9.
+4. **n = 10 classes is small.** **Promotes when:** more classes, or a resampling scheme over α
    within class rather than over classes, tightens S1's CI away from zero on its own.
-4. ~~**Everything here is at DEPTH = 8.**~~ **CLOSED 2026-08-23 — `brocot_depth_sweep.json`.**
+5. ~~**Everything here is at DEPTH = 8.**~~ **CLOSED — but the first close was over the wrong
+   interval.** `depths` is the MODULATION INDEX, not a tree depth, and BROCOT-SPEC.md puts the
+   instrument's meaningful range at 0.1–3.0 (I ≈ 0.9 typical). The sweep below covered {4…14},
+   entirely at or above the *top* of that range — the inherited-knob defect one level out from the
+   sweep written to cure it. `brocot_musical_depth.json` re-ran it where the instrument lives; the
+   saturation holds there and the class-level result does not resolve. Original sweep, retained:
+   **`brocot_depth_sweep.json`**
    Swept at depths {4, 6, 8, 10, 12, 14}, a 6-fold change in partial count (130 → 790). The
    slope-difference CI **excludes zero at every depth**; verdict `DEPTH_INVARIANT`. The magnitude
    moves only 1.6× (I predicted >2× and was wrong in the favourable direction), and the class-level
