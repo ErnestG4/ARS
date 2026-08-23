@@ -108,12 +108,22 @@ marginal. S2 carries the result.
    within-class D_Q range to ≳0.05, comparable to golden's.
 3. **n = 10 classes is small.** **Promotes when:** more classes, or a resampling scheme over α
    within class rather than over classes, tightens S1's CI away from zero on its own.
-4. **Everything here is at DEPTH = 8.** The saturation has not been swept against partial-prediction
-   depth, which is an inherited knob. **This is the caveat most likely to matter**, and the house
-   rule is explicit that a new front-end's gate must sweep its own knob.
+4. ~~**Everything here is at DEPTH = 8.**~~ **CLOSED 2026-08-23 — `brocot_depth_sweep.json`.**
+   Swept at depths {4, 6, 8, 10, 12, 14}, a 6-fold change in partial count (130 → 790). The
+   slope-difference CI **excludes zero at every depth**; verdict `DEPTH_INVARIANT`. The magnitude
+   moves only 1.6× (I predicted >2× and was wrong in the favourable direction), and the class-level
+   partial ρ is negative at every depth and **strengthens monotonically with it**, −0.655 at depth 4
+   to −0.851 at depth 14.
+
+   Two patterns fell out. The pooled ρ *declines* with depth (0.679 → 0.547) while the
+   class-position result *strengthens* — more partials sharpen the class-level structure while
+   blurring the pooled one. And at depth 14 the top-tercile slope goes slightly **negative**
+   (−0.29), so at high resolution the rigid end is not merely flat.
+
+   The caveat named here as "most likely to matter" is the one that most strengthened the finding.
 
 ## Verification
 
-`verify_brocot.py` extended with pins 5–7, each red-pathed: perturbing the slope-difference CI,
-`generic`'s within-class slope, and the partial-ρ CI each turn the checker red with the diagnosis
-naming which reading would return.
+`verify_brocot.py` extended with pins 5–8, each red-pathed: perturbing the slope-difference CI,
+`generic`'s within-class slope, the partial-ρ CI, and the depth-sweep verdict each turn the checker
+red with the diagnosis naming which reading would return.

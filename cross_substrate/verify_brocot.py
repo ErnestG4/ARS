@@ -23,6 +23,9 @@ would flip it red:
                      widest within-class D_Q range, and its slope must stay near
                      the pooled one. Red if the relation collapses to a purely
                      between-class effect.
+  8. DEPTH-INVARIANT -- the saturation still holds at EVERY swept depth. Red if
+                     it becomes true only at the depth it was discovered at,
+                     which would scope the finding to DEPTH = 8.
   7. UNIFIED     -- class position in D_Q still predicts a class's own slope,
                      AFTER controlling for that class's D_Q spread. Red if the
                      association survives only uncontrolled, which would make it
@@ -59,6 +62,7 @@ c = need(f"{H}/brocot_perAlpha_confounds.json")
 att = need(f"{H}/brocot_attenuation.json")
 wb = need(f"{H}/brocot_within_between.json")
 sbc = need(f"{H}/brocot_slope_by_class.json")
+dep = need(f"{H}/brocot_depth_sweep.json")
 
 if w:
     r = w["rho"]["assumed_rank_0_to_8"]["rho_banked_rep"]
@@ -127,6 +131,17 @@ if sbc:
     if sbc["verdict"] != "UNIFIED":
         fail.append(f"pin7b: slope-by-class verdict is {sbc['verdict']}, not UNIFIED")
 
+if dep:
+    if dep["fails_at"]:
+        fail.append(f"pin8 DEPTH-INVARIANT: saturation now fails at depths "
+                    f"{dep['fails_at']} -- the finding is scoped to {dep['holds_at']}, "
+                    "and BROCOT_SATURATION.md must be narrowed to match")
+    if dep["verdict"] != "DEPTH_INVARIANT":
+        fail.append(f"pin8b: depth-sweep verdict is {dep['verdict']}, not DEPTH_INVARIANT")
+    if len(dep["holds_at"]) < 5:
+        fail.append(f"pin8c: only {len(dep['holds_at'])} depths tested clean; the sweep "
+                    "must span the knob, not sample it")
+
 if fail:
     print("FAIL — brocot resolution")
     for f in fail:
@@ -139,3 +154,5 @@ print(f"       saturation SUBSTANTIVE (slope diff CI {att['slope_diff_ci'][0]:+.
       f"({wb['within']['generic']['slope']:+.2f} vs pooled {wb['pooled_slope']:+.2f}), "
       f"and class position predicts slope after the power control "
       f"(partial rho {sbc['partial_rho_controlling_power']:+.2f})")
+print(f"       and it is DEPTH_INVARIANT across {dep['holds_at']} "
+      f"(partial count {dep['rows'][0]['median_partials']}..{dep['rows'][-1]['median_partials']})")
