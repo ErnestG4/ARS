@@ -473,5 +473,10 @@
   "n_returns",
   "returned_keys",
   "labels"
- ]
+ ],
+ "_SUPERSEDED": {
+  "by": "gate_census/c3_inline_divergences.json",
+  "on": "2026-08-23",
+  "why": "def-only population (11 variants, not 21 decision sites) AND a guard column that scraped `.size < N` over the scope -- at module level the whole FILE -- so run_analytical_nns:184's `< 5` was attributed to :249, whose guard is `> 5` and EXCLUDES n=5. Two opposite guards recorded as the same value. Reproduces exactly from its committed generator; it is the MEASUREMENT that is superseded, not the artifact's integrity."
+ }
 }
