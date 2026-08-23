@@ -107,7 +107,7 @@ bit-identity was written for the 7 shared keys; that is what it can check.
 
 ## 5. Corrections made during the run
 
-Every one was found by something failing, not by review — and three of them were mine.
+All ten are mine. Seven were found by something failing; three (6, 9, 10) were found by asking a question no failure would have prompted.
 
 | # | defect | how it surfaced |
 |---|---|---|
@@ -118,12 +118,27 @@ Every one was found by something failing, not by review — and three of them we
 | 5 | sentinel `"Task 1"` vs printed `"TASK 1"` → a **false `INFEASIBLE_TRUNCATED_RUN`** on a clean, deterministic run | the verdict being implausible |
 | 6 | four **false `INAPPLICABLE`**s from regex spelling assumptions | independent audit |
 | 7 | the widened `statistic_perturb` rebuilt the source **unchanged** — a no-op reporting as an applied attack, manufacturing 16 false survivals | 0/16 detection on an attack that had just measured 14/14 |
+| 9 | **an inert arm**: the PNG observable was computed and printed but never copied into the results dict, so the banked baseline carried `png_sha=None` and the module mutation's entire figure arm returned `False` for every mutant | asking whether the arm *can* fire — nothing failed, nothing went red |
+| 10 | **a process race**: I launched the module mutation while the recapture it depends on was still running, because I again waited on a wrapper shell PID instead of the Python one | two generators visible in `ps` at once |
 | 8 | **a false liveness reading**: `pgrep -f mutate_module_baselines` matched the *waiter shells'* own command lines, so I reported "generator still working" about a process killed 20 minutes earlier by a 2-minute tool timeout | `ps -eo pid,etime,cmd` showing nothing at all |
 
 Defect 1 is the one worth keeping: it failed *only at large n*, because the helper returns its NaN
 sentinel before reaching the missing name at small n. **A harness gap that fails in a
 behaviourally plausible pattern is worse than one that fails everywhere** — it was ready to be
 written up as a finding about two sites.
+
+Defect 9 is the one to keep from this group. Site `run_analytical_nns.py:297`'s **only** witness is
+the figure, so an inert figure arm meant that site had **no witness at all** while its file reported
+`CAPTURED` — the discrimination requirement passing vacuously on the one site it most needed to
+cover. Nothing failed and no check went red; the arm reported a clean `False` throughout. It was
+found only by asking the question the arc keeps having to ask: *can this arm fire?* The mutation
+results computed against it were discarded and recomputed.
+
+Defect 10 compounds defect 8: the same misread, twice, and the second time it cost a wasted run and
+briefly had two generators writing overlapping state. `pgrep -f` matching a watcher's own command
+line is not an occasional nuisance — in this session it produced a confident wrong answer three
+times. The reliable form is to capture the target PID once at launch and poll `kill -0` on that
+number.
 
 Defect 8 is the repo's own `verify_liveness_not_last_line` rule, violated by its author, with a
 twist worth keeping: the check did not fail silently — it returned a confident **YES**, because the
