@@ -136,7 +136,16 @@ def closure_source(path, fn_name):
             if name in imported:
                 needed_imports[name] = imported[name]
             continue
-        pieces.append(ast.get_source_segment(src, node))
+        seg = ast.get_source_segment(src, node)
+        if getattr(node, "decorator_list", None):
+            # ast.get_source_segment starts at `class`/`def`, dropping decorators,
+            # so NNSResult arrived UNDECORATED and raised "takes no arguments" on
+            # every one of 55 inputs -- which is why its baseline was inert: 55
+            # identical exceptions cannot be perturbed.
+            lines = src.splitlines()
+            first = min(d.lineno for d in node.decorator_list)
+            seg = "\n".join(lines[first - 1:node.end_lineno])
+        pieces.append(seg)
         # names BOUND INSIDE this function shadow anything at module level. The
         # first version ignored that and pulled a module-level `ks_p = [...]`
         # into the closure merely because classify has a local named ks_p --
@@ -158,6 +167,14 @@ def closure_source(path, fn_name):
                     continue
                 if sub.id in funcs and sub.id not in seen:
                     want.append(sub.id)
+                elif sub.id in imported:
+                    # BUG FOUND BY THE MUTATION TEST: names reached the
+                    # needed_imports map only by being POPPED from `want`, and
+                    # nothing ever pushed an imported name onto it. So the
+                    # import-following added earlier never ran, and
+                    # run_lmfdb_edge / run_phase4 still failed on _ks_pvalue --
+                    # the fix was present, unreachable, and reported as applied.
+                    needed_imports[sub.id] = imported[sub.id]
                 elif sub.id in consts:
                     pieces.append(ast.get_source_segment(src, consts[sub.id]))
     return "\n\n".join(reversed(pieces)), sorted(seen), needed_imports
@@ -229,9 +246,22 @@ def main():
 
     disagreeing = {v: g for v, g in best_by_input.items() if len(g) > 1}
 
+    # A build that succeeds while every CALL raises is not a captured baseline.
+    # The first version of this report counted builds and printed "16 of 16,
+    # zero failures" while three sites were capturing nothing but exceptions --
+    # liveness read off the wrong line.
+    fully = sum(1 for b in baselines.values()
+                if all(r["ok"] for r in b["results"].values()))
+    partly = sum(1 for b in baselines.values()
+                 if any(r["ok"] for r in b["results"].values())
+                 and not all(r["ok"] for r in b["results"].values()))
+    never = sum(1 for b in baselines.values()
+                if not any(r["ok"] for r in b["results"].values()))
     print(f"def-scope decision sites: {len(def_rows)}")
-    print(f"  captured : {len(baselines)}")
-    print(f"  failed   : {len(failures)}")
+    print(f"  closure built        : {len(baselines)}   (build failures: {len(failures)})")
+    print(f"  returns on ALL inputs: {fully}")
+    print(f"  returns on SOME      : {partly}")
+    print(f"  raises on EVERY input: {never}   <- not a captured baseline")
     for k, why in failures.items():
         print(f"      {k}  {why}")
 
