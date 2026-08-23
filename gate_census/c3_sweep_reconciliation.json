@@ -1,5 +1,5 @@
 {
- "decision_sites": 20,
+ "decision_sites": 21,
  "files": 19,
  "sweep_rows_by_file": 19,
  "sweep_units": 15,
@@ -293,6 +293,19 @@
     "impl_hash": null
    },
    "coverage": "UNSWEPT AS A DISTINCT UNIT \u2014 the file's single row cannot be attributed to this decision"
+  },
+  {
+   "path": "run_analytical_nns.py",
+   "line": 297,
+   "mechanism": "argmin",
+   "scope": "module",
+   "stratum": "inline / not def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+    "impl_hash": null
+   },
+   "coverage": "UNSWEPT AS A DISTINCT UNIT \u2014 the file's single row cannot be attributed to this decision"
   }
  ],
  "denominator_restatement": {
@@ -300,8 +313,8 @@
   "denominator_is": "distinct def-extractable implementations",
   "denominator_is_not": "classifiers in the codebase",
   "def_extractable_decisions": 15,
-  "inline_decisions": 5,
-  "population_decisions": 20,
+  "inline_decisions": 6,
+  "population_decisions": 21,
   "retro_scored": false
  }
 }

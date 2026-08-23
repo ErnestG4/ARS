@@ -126,9 +126,13 @@ run("R2 table is consumed by a certifier", "c3_certify_labels.py")
 # content, not schema: the unswept unit must still be named
 r = banked          # the banked object, not the freshly regenerated one
 unswept = {f"{u['path']}:{u['line']}" for u in r["unswept"]}
-CHECKS.append(("run_analytical_nns.py:249 still named as unswept",
-               "run_analytical_nns.py:249" in unswept,
-               "" if "run_analytical_nns.py:249" in unswept else f"got {unswept}"))
+_expect_unswept = {"run_analytical_nns.py:249", "run_analytical_nns.py:297"}
+CHECKS.append(("both unswept units still named",
+               _expect_unswept <= unswept,
+               "" if _expect_unswept <= unswept else f"got {unswept}"))
+sem("R4 counting rule covers inline-call decisions",
+    lambda: "inline helper CALLS" in CR.COUNTING_RULE
+    and len(CR.UNSWEPT_AS_DISTINCT_UNITS) == 2)
 CHECKS.append(("denominator recorded as the def-extractable stratum",
                r["denominator_restatement"]["denominator_is"]
                == "distinct def-extractable implementations"

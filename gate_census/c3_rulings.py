@@ -251,11 +251,14 @@ def migration_authorised(site_scope, baseline_path=None, expected_sha=None):
 # mechanisms gets two rows, two verdicts, two migrations. This also explains part
 # of the 11-vs-20 gap, and is stated here so no future census re-derives it.
 COUNTING_RULE = ("the census unit is the DECISION SITE — a min()/argmin() over a "
-                 "Poisson/GOE/GUE KS triple. A file is a storage convention. "
-                 "run_analytical_nns.py holds two decisions (min at :184, "
-                 "np.argmin at :249) and is two rows, two verdicts, two migrations.")
+                 "Poisson/GOE/GUE KS triple, however the values reach it: as named "
+                 "variables, or as inline helper CALLS indexed by argmin. A file is "
+                 "a storage convention. run_analytical_nns.py holds THREE decisions "
+                 "(min at :184, np.argmin at :249, np.argmin at :297) and is three "
+                 "rows, three verdicts, three migrations.")
 
-UNSWEPT_AS_DISTINCT_UNITS = ("run_analytical_nns.py:249",)
+UNSWEPT_AS_DISTINCT_UNITS = ("run_analytical_nns.py:249",
+                             "run_analytical_nns.py:297")
 
 
 # ── R5 — SCOPE OF THE COMPARE-DIRECTIVE, AND ITS LINEAGE WARRANT ─────────────
