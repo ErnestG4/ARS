@@ -1,0 +1,307 @@
+{
+ "decision_sites": 20,
+ "files": 19,
+ "sweep_rows_by_file": 19,
+ "sweep_units": 15,
+ "sealed_distinct_impls": 11,
+ "covered": [
+  {
+   "path": "run_lmfdb_family.py",
+   "line": 102,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "8af5c1b4cd0860ad"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_controls.py",
+   "line": 217,
+   "mechanism": "min",
+   "scope": "module",
+   "stratum": "inline / not def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+    "impl_hash": null
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_fungal_nns.py",
+   "line": 147,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "0cbcf4e37201608a"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_mertens_liouville.py",
+   "line": 146,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "362c40e998048a7e"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_eeg_full.py",
+   "line": 89,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "84782fcb7972729b"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_lmfdb_postprocess.py",
+   "line": 53,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "362c40e998048a7e"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_dirichlet_family.py",
+   "line": 78,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "362c40e998048a7e"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_zeta_height_convergence.py",
+   "line": 61,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "9fc4073c2b43f68d"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_phase5.py",
+   "line": 100,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "6b19f7840691fb49"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_eeg_depth.py",
+   "line": 100,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "a36421c8c4a0a75e"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_phase4.py",
+   "line": 90,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "size_guard": false,
+    "why": "fit-quality quantities COMPUTED but never COMPARED (pv_o, pv_p, pv_u, pvalue) \u2014 measures-but-ignores fits neither MEASURED nor UNMEASURED; taxonomy extension deferred to adjudication",
+    "impl_hash": "3c3d136399cdebbb"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_analytical_nns.py",
+   "line": 184,
+   "mechanism": "min",
+   "scope": "module",
+   "stratum": "inline / not def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+    "impl_hash": null
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_earthquake_nns.py",
+   "line": 85,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "9fc4073c2b43f68d"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_lmfdb_extend.py",
+   "line": 62,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "362c40e998048a7e"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_per_pll_nns.py",
+   "line": 138,
+   "mechanism": "min",
+   "scope": "module",
+   "stratum": "inline / not def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+    "impl_hash": null
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "universality.py",
+   "line": 129,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "inline / not def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+    "impl_hash": null
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "run_lmfdb_edge.py",
+   "line": 69,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "NO_NAMED_SET",
+    "size_guard": true,
+    "has_none_branch": false,
+    "why": "argmin over a fixed class set with no fit-quality rejection; a size guard exists but that is a PRECONDITION refusal ('cannot measure'), not a negative-set refusal ('none of these')",
+    "impl_hash": "a857f79bc482c621"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "verify/tier1_lfunction_guard.py",
+   "line": 73,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "UNMEASURED",
+    "why": "rejection region present (best_ks, fit_poor) and COMPARED; but no complementary error rate is recorded at this site",
+    "size_guard": true,
+    "impl_hash": "4112275fdff8a145"
+   },
+   "coverage": "covered by the file's row"
+  },
+  {
+   "path": "arithmetic_toolkit.py",
+   "line": 113,
+   "mechanism": "min",
+   "scope": "def",
+   "stratum": "def-extractable",
+   "sweep_verdict": {
+    "verdict": "MEASURED_NEGATIVE_SET",
+    "why": "rejection region present (best_ks, fit_poor, fit_rejected, ks_crit) and COMPARED; threshold calibrated against measured non-members",
+    "size_guard": true,
+    "impl_hash": "20f03f925665de9f"
+   },
+   "coverage": "covered by the file's row"
+  }
+ ],
+ "unswept": [
+  {
+   "path": "run_analytical_nns.py",
+   "line": 249,
+   "mechanism": "argmin",
+   "scope": "module",
+   "stratum": "inline / not def-extractable",
+   "sweep_verdict": {
+    "verdict": "NEEDS_JUDGMENT",
+    "why": "no classify/_classify function found; the argmin is inline or under another name \u2014 extraction by another route required",
+    "impl_hash": null
+   },
+   "coverage": "UNSWEPT AS A DISTINCT UNIT \u2014 the file's single row cannot be attributed to this decision"
+  }
+ ],
+ "denominator_restatement": {
+  "sealed_rate": "9 of 11",
+  "denominator_is": "distinct def-extractable implementations",
+  "denominator_is_not": "classifiers in the codebase",
+  "def_extractable_decisions": 15,
+  "inline_decisions": 5,
+  "population_decisions": 20,
+  "retro_scored": false
+ }
+}
