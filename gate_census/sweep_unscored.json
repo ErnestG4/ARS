@@ -1,0 +1,39 @@
+{
+ "rows": {
+  "run_analytical_nns.py:249": {
+   "verdict": "COMPUTED_UNUSED",
+   "why": "fit-quality quantities COMPUTED and never COMPARED anywhere in the module (the stricter, module-wide test); consumption by argmin is not use for rejection",
+   "fitq_names": [
+    "p_o",
+    "p_p",
+    "p_two",
+    "p_u"
+   ],
+   "consumed_names": [],
+   "values_are_anonymous": false
+  },
+  "run_analytical_nns.py:297": {
+   "verdict": "COMPUTED_UNUSED",
+   "why": "fit-quality quantities COMPUTED and never COMPARED anywhere in the module (the stricter, module-wide test); consumption by argmin is not use for rejection",
+   "fitq_names": [
+    "p_o",
+    "p_p",
+    "p_two",
+    "p_u"
+   ],
+   "consumed_names": [],
+   "values_are_anonymous": true
+  }
+ },
+ "has_rejection": [],
+ "no_rejection": [
+  "run_analytical_nns.py:249",
+  "run_analytical_nns.py:297"
+ ],
+ "predictions": {
+  "P_A": true,
+  "P_B": true,
+  "P_C": false
+ },
+ "sealed_rate_not_restated": "9 of 11 distinct def-extractable implementations"
+}
