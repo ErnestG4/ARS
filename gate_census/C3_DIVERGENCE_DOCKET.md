@@ -125,3 +125,64 @@ fail loudly; it returned a plausible number. The completion generator carries a 
 non-vacuity floor for exactly this reason — but the floor was written **after** hand-measuring the
 five sites it asserts. *An extractor's reach is a claim about the world, and it needs a witness
 that can fail.*
+
+---
+
+## 5. ⚖ ADJUDICATED 2026-08-22 — all five ruled, encoded in `c3_rulings.py`
+
+**R1 — guard fork.** All free constants, so none has a claim to inherit. Sequence: attempt
+derivation from the reconciled classifier's own validity first (precedent `MIN_N = 1/RAIL_RATIO`);
+failing that, **one** convention constant chosen explicitly and typed as policy.
+**Forbidden: silent inheritance from whichever variant the migration starts at.** *A convention
+chosen is a convention; a convention inherited is an accident wearing one's clothes.*
+Encoded: `guard_decision(n_min, derivation)` has **no default for `n_min`** — a default is silent
+inheritance with extra steps.
+
+**R2 — three vocabularies.** One canonical vocabulary plus a **committed translation table**, so
+banked data stays interpretable without archaeology. Two constraints: no legacy label may be
+reused with an altered referent (a label that changes meaning is worse than a new label, because
+old readings stay syntactically valid while becoming false), and the table is **data the certifier
+consumes**, not prose. Encoded: `LABEL_TRANSLATION`, `to_canonical()`, `check_no_altered_referent()`.
+
+**R3 — the criteria generalize, they do not exempt.** Bit-identity of a returned dict was always a
+proxy for the real invariant: **identical inputs produce identical observable outputs.** For
+function sites the observable is the dict; for the five script sites it is whatever the
+straight-line code emits — banked values, printed results, written files — bit-identical under
+identical inputs, captured **before** migration. Exempting the five would exclude precisely the
+stratum the extractor already missed once. Encoded: `OBSERVABLE_BY_SCOPE`, `migration_authorised()`.
+
+**R4 — the unit is the decision.** A file is a storage convention. `run_analytical_nns.py:249` gets
+its own row, verdict, and migration. Now stated in the inventory header so no future census
+re-derives it. Encoded: `COUNTING_RULE`.
+
+**R5 — COMPARE-DIRECTIVE scope.** Every `_ks_pvalue`-idiom quantity and kin is compared against a
+threshold in the reconciled classifier; the threshold is a constant and is typed through
+`classify_guard` (α = 0.05, convention unless derived). **The lineage finding travels with the
+directive in the reconciled source** — `CLAUSE_8_LINEAGE_RECORD` — so no future reader has to
+wonder whether clause 8 was editorial. It was not: the comparison is ancestral and was shed by
+copying.
+
+## 6. Reconciliation, per the standing check
+
+`c3_sweep_reconciliation.json` (generator `cdbb6bd`, amended `adc5d26`). Seven counts, six
+enumerated differences, all connected.
+
+| | |
+|---|---|
+| inventory decisions | **20** across 19 files |
+| sweep verdict rows | 19 by file → **15** units → **11** sealed distinct bodies |
+| **unswept as a distinct unit** | **`run_analytical_nns.py:249`** (np.argmin; the file's single row cannot be attributed to it) |
+
+**Denominator restated, not re-scored.** The sealed rate is **9 of 11 distinct def-extractable
+implementations** — a stratum of 15 files and 15 decisions. It is **not** 9 of 11
+classifiers-in-the-codebase, which is 19 files and 20 decisions. Quoting the stratum rate as a
+population rate would repeat, in the presumption itself, the promotion that the extractor bias
+already punished once. The sweep is not re-scored: retro-scoring under a later rule is what
+Ruling 2 and Amendment 1 both refused, and the refusal does not weaken because the new number
+would be less flattering.
+
+## 7. Migration status: **NOT AUTHORISED**
+
+`c3_rulings.migration_may_begin()` raises. Preconditions: sweep-row reconciliation **[done]**,
+R3 artifact baselines **[not captured]**. Baseline before write — the one lapse of that rule this
+arc cost 1159 records truncated to 3.
