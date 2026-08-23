@@ -165,29 +165,73 @@ def computed_unused_names(scope_node):
     return sorted(quality - compared)
 
 
-def enclosing_guards(tree, lineno, src):
-    """Size/length conditions on the `if` statements that enclose this decision.
+SIZE_TEST = re.compile(r"(?:\.size|len\([^)]*\))\s*(<=|>=|<|>|==)\s*(\d+)")
 
-    Reported as (op, constant) so `< 5` and `> 5` cannot collapse to `5`: they
-    are opposite guards and an inventory that prints both as "5" has erased the
-    divergence it exists to record.
+
+def governing_guards(scope_node, lineno, src):
+    """Size conditions that GOVERN this decision. Two kinds, both real:
+
+      ENCLOSING — the decision sits inside the `if` body
+                  (run_analytical_nns.py:249, `if ...size > 5:`)
+      SENTINEL  — an earlier `if` in the same block whose body EXITS
+                  (`if spacings.size < 5: return dict(best='insufficient')`)
+
+    Reading only enclosing ifs loses every def site's guard, because they are all
+    sentinels; reading a regex over the scope attributes a guard to decisions it
+    does not govern. Both mistakes were made in this file within one hour, in
+    opposite directions, which is the argument for reporting the KIND rather than
+    a bare number.
+
+    The operator is kept: `< 5` and `> 5` are opposite guards and must never
+    collapse to "5".
     """
+    parent = {}
+    for n in ast.walk(scope_node):
+        for c in ast.iter_child_nodes(n):
+            parent[c] = n
+
+    # chain of ancestors from the decision up to the scope root
+    node = None
+    for n in ast.walk(scope_node):
+        if getattr(n, "lineno", None) == lineno and isinstance(n, ast.stmt):
+            node = n
+            break
+    if node is None:
+        for n in ast.walk(scope_node):
+            if isinstance(n, ast.stmt) and n.lineno <= lineno <= (n.end_lineno or n.lineno):
+                node = n if node is None or n.lineno > node.lineno else node
     out = []
-    for n in ast.walk(tree):
-        if not isinstance(n, ast.If):
-            continue
-        body_lines = [c for c in n.body if hasattr(c, "lineno")]
-        if not body_lines:
-            continue
-        lo = min(c.lineno for c in body_lines)
-        hi = max((c.end_lineno or c.lineno) for c in body_lines)
-        if not (lo <= lineno <= hi):
-            continue
-        test = ast.get_source_segment(src, n.test) or ""
-        m = re.search(r"(?:\.size|len\([^)]*\))\s*(<=|>=|<|>|==)\s*(\d+)", test)
-        if m:
-            out.append(f"{m.group(1)}{m.group(2)}")
-    return sorted(set(out))
+    seen = set()
+    cur = node
+    while cur is not None and cur is not scope_node:
+        par = parent.get(cur)
+        if par is None:
+            break
+        for field in ("body", "orelse", "finalbody"):
+            block = getattr(par, field, None)
+            if not isinstance(block, list) or cur not in block:
+                continue
+            idx = block.index(cur)
+            # ENCLOSING: the block belongs to an `if` we are inside
+            if isinstance(par, ast.If) and field == "body":
+                m = SIZE_TEST.search(ast.get_source_segment(src, par.test) or "")
+                if m and ("enclosing", m.group(1), m.group(2)) not in seen:
+                    seen.add(("enclosing", m.group(1), m.group(2)))
+                    out.append(f"enclosing:{m.group(1)}{m.group(2)}")
+            # SENTINEL: an earlier `if` in this block whose body exits
+            for prev in block[:idx]:
+                if not isinstance(prev, ast.If):
+                    continue
+                exits = any(isinstance(x, (ast.Return, ast.Continue, ast.Break, ast.Raise))
+                            for x in ast.walk(prev))
+                if not exits:
+                    continue
+                m = SIZE_TEST.search(ast.get_source_segment(src, prev.test) or "")
+                if m and ("sentinel", m.group(1), m.group(2)) not in seen:
+                    seen.add(("sentinel", m.group(1), m.group(2)))
+                    out.append(f"sentinel:{m.group(1)}{m.group(2)}")
+        cur = par
+    return sorted(out)
 
 
 def analyse_site(path, src, tree, node, seg, labels, mech):
@@ -201,7 +245,7 @@ def analyse_site(path, src, tree, node, seg, labels, mech):
     # `pooled.size < 5` was attributed to :249 as well, whose actual guard is
     # `zeta_meas_pooled.size > 5` and EXCLUDES n=5. Two opposite guards were
     # recorded as the same value.
-    guards = enclosing_guards(tree, node.lineno, src)
+    guards = governing_guards(scope_node, node.lineno, src)
 
     unused = computed_unused_names(scope_node)
 
