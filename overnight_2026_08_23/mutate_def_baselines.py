@@ -145,81 +145,86 @@ def observe(fn, key):
     return out
 
 
-rows = {}
-for key, b in sorted(BASE["baselines"].items()):
-    code, _pulled, needed = closure_source(b["path"], b["callable"])
-    baseline = b["results"]
-    per_attack = {}
-    for aname, attack in ATTACKS.items():
-        mutated, why_not = attack(code)
-        if mutated is None:
-            per_attack[aname] = {"verdict": NOT_APPLICABLE, "reason": why_not}
-            continue
-        try:
-            fn, _inj = build_from_source(mutated, needed, b["callable"])
-        except Exception as exc:                              # noqa: BLE001
-            per_attack[aname] = {"verdict": "MUTANT_UNBUILDABLE",
-                                 "reason": f"{type(exc).__name__}: {exc}"}
-            continue
-        obs = observe(fn, key)
-        differing = [v for v in baseline if obs.get(v) != baseline[v]]
-        # WHAT the attack changed, not just whether it landed. Widening the guard
-        # regex moved guard_boundary's target from the body guard to the HELPER's
-        # n<5 -- a different mutation under the same name. A verdict that does not
-        # name the edit cannot be compared across harness versions.
-        import difflib as _dl
-        edit = next((ln for ln in _dl.unified_diff(code.splitlines(),
-                                                   mutated.splitlines(), n=0)
-                     if ln.startswith("+") and not ln.startswith("+++")), "")
-        per_attack[aname] = {"verdict": "DETECTED" if differing else "SURVIVED",
-                             "inputs_differing": len(differing),
-                             "edit": edit.strip()[:120],
-                             "example": sorted(differing)[:3]}
-    applicable = {k: v for k, v in per_attack.items()
-                  if v["verdict"] not in (NOT_APPLICABLE, "MUTANT_UNBUILDABLE")}
-    detected = {k: v for k, v in applicable.items() if v["verdict"] == "DETECTED"}
-    rows[key] = dict(path=b["path"], line=b["line"],
-                     attacks=per_attack,
-                     n_applicable=len(applicable), n_detected=len(detected),
-                     verdict=("CAPTURED" if applicable and len(detected) >= 1
-                              else "CAPTURED_INERT" if applicable
-                              else "CAPTURED_UNATTACKED"))
+def main():
+    rows = {}
+    for key, b in sorted(BASE["baselines"].items()):
+        code, _pulled, needed = closure_source(b["path"], b["callable"])
+        baseline = b["results"]
+        per_attack = {}
+        for aname, attack in ATTACKS.items():
+            mutated, why_not = attack(code)
+            if mutated is None:
+                per_attack[aname] = {"verdict": NOT_APPLICABLE, "reason": why_not}
+                continue
+            try:
+                fn, _inj = build_from_source(mutated, needed, b["callable"])
+            except Exception as exc:                              # noqa: BLE001
+                per_attack[aname] = {"verdict": "MUTANT_UNBUILDABLE",
+                                     "reason": f"{type(exc).__name__}: {exc}"}
+                continue
+            obs = observe(fn, key)
+            differing = [v for v in baseline if obs.get(v) != baseline[v]]
+            # WHAT the attack changed, not just whether it landed. Widening the guard
+            # regex moved guard_boundary's target from the body guard to the HELPER's
+            # n<5 -- a different mutation under the same name. A verdict that does not
+            # name the edit cannot be compared across harness versions.
+            import difflib as _dl
+            edit = next((ln for ln in _dl.unified_diff(code.splitlines(),
+                                                       mutated.splitlines(), n=0)
+                         if ln.startswith("+") and not ln.startswith("+++")), "")
+            per_attack[aname] = {"verdict": "DETECTED" if differing else "SURVIVED",
+                                 "inputs_differing": len(differing),
+                                 "edit": edit.strip()[:120],
+                                 "example": sorted(differing)[:3]}
+        applicable = {k: v for k, v in per_attack.items()
+                      if v["verdict"] not in (NOT_APPLICABLE, "MUTANT_UNBUILDABLE")}
+        detected = {k: v for k, v in applicable.items() if v["verdict"] == "DETECTED"}
+        rows[key] = dict(path=b["path"], line=b["line"],
+                         attacks=per_attack,
+                         n_applicable=len(applicable), n_detected=len(detected),
+                         verdict=("CAPTURED" if applicable and len(detected) >= 1
+                                  else "CAPTURED_INERT" if applicable
+                                  else "CAPTURED_UNATTACKED"))
 
-print(f"{'site':38s} {'appl':>5s} {'det':>4s}  verdict")
-for key in sorted(rows):
-    r = rows[key]
-    print(f"  {key:36s} {r['n_applicable']:>5d} {r['n_detected']:>4d}  {r['verdict']}")
+    print(f"{'site':38s} {'appl':>5s} {'det':>4s}  verdict")
+    for key in sorted(rows):
+        r = rows[key]
+        print(f"  {key:36s} {r['n_applicable']:>5d} {r['n_detected']:>4d}  {r['verdict']}")
 
-verdicts = {}
-for r in rows.values():
-    verdicts[r["verdict"]] = verdicts.get(r["verdict"], 0) + 1
-print(f"\nverdict tally: {verdicts}")
+    verdicts = {}
+    for r in rows.values():
+        verdicts[r["verdict"]] = verdicts.get(r["verdict"], 0) + 1
+    print(f"\nverdict tally: {verdicts}")
 
-print("\nATTACK REACH — how often each attack could even be applied:")
-for aname in ATTACKS:
-    appl = sum(1 for r in rows.values()
-               if r["attacks"][aname]["verdict"] not in (NOT_APPLICABLE, "MUTANT_UNBUILDABLE"))
-    det = sum(1 for r in rows.values() if r["attacks"][aname]["verdict"] == "DETECTED")
-    surv = sum(1 for r in rows.values() if r["attacks"][aname]["verdict"] == "SURVIVED")
-    print(f"  {aname:20s} applicable {appl:>3d}/{len(rows)}   detected {det:>3d}   SURVIVED {surv:>3d}")
+    print("\nATTACK REACH — how often each attack could even be applied:")
+    for aname in ATTACKS:
+        appl = sum(1 for r in rows.values()
+                   if r["attacks"][aname]["verdict"] not in (NOT_APPLICABLE, "MUTANT_UNBUILDABLE"))
+        det = sum(1 for r in rows.values() if r["attacks"][aname]["verdict"] == "DETECTED")
+        surv = sum(1 for r in rows.values() if r["attacks"][aname]["verdict"] == "SURVIVED")
+        print(f"  {aname:20s} applicable {appl:>3d}/{len(rows)}   detected {det:>3d}   SURVIVED {surv:>3d}")
 
-survivors = {k: [a for a, v in r["attacks"].items() if v["verdict"] == "SURVIVED"]
-             for k, r in rows.items()}
-survivors = {k: v for k, v in survivors.items() if v}
-if survivors:
-    print("\nSURVIVING MUTANTS — a real change these baselines would NOT see:")
-    for k, v in sorted(survivors.items()):
-        for a in v:
-            print(f"  {k:36s} {a:18s} edit: {rows[k]['attacks'][a].get('edit', '')}")
+    survivors = {k: [a for a, v in r["attacks"].items() if v["verdict"] == "SURVIVED"]
+                 for k, r in rows.items()}
+    survivors = {k: v for k, v in survivors.items() if v}
+    if survivors:
+        print("\nSURVIVING MUTANTS — a real change these baselines would NOT see:")
+        for k, v in sorted(survivors.items()):
+            for a in v:
+                print(f"  {k:36s} {a:18s} edit: {rows[k]['attacks'][a].get('edit', '')}")
 
-# NON-VACUITY, both directions. An attack suite that lands nowhere proves
-# nothing; one that is detected everywhere on the first try is more likely to be
-# comparing something trivial than to have found a uniformly strong population.
-with redpath("attacks that could be applied to at least one site", expect_min=4) as rp:
-    rp.observed(sum(1 for a in ATTACKS
-                    if any(rows[k]["attacks"][a]["verdict"] not in
-                           (NOT_APPLICABLE, "MUTANT_UNBUILDABLE") for k in rows)))
+    # NON-VACUITY, both directions. An attack suite that lands nowhere proves
+    # nothing; one that is detected everywhere on the first try is more likely to be
+    # comparing something trivial than to have found a uniformly strong population.
+    with redpath("attacks that could be applied to at least one site", expect_min=4) as rp:
+        rp.observed(sum(1 for a in ATTACKS
+                        if any(rows[k]["attacks"][a]["verdict"] not in
+                               (NOT_APPLICABLE, "MUTANT_UNBUILDABLE") for k in rows)))
 
-json.dump(dict(n_sites=len(rows), verdicts=verdicts, rows=rows),
-          open(f"{HERE}/mutations_def.json", "w"), indent=1)
-print("\nwritten -> overnight_2026_08_23/mutations_def.json")
+    json.dump(dict(n_sites=len(rows), verdicts=verdicts, rows=rows),
+              open(f"{HERE}/mutations_def.json", "w"), indent=1)
+    print("\nwritten -> overnight_2026_08_23/mutations_def.json")
+
+
+if __name__ == "__main__":
+    main()

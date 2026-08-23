@@ -120,9 +120,17 @@ CHECKS.append(("every attack is applicable at 10+ sites", min(reach.values()) >=
                "" if min(reach.values()) >= 10 else f"reach={reach}"))
 
 # the pre-registered claim about the RULER (SEALED_CRITERIA §3)
-n_dis = len(banked_base["disagreeing_inputs"])
-CHECKS.append(("input set still makes sites disagree on `best`", n_dis >= 1,
+n_dis = len(banked_base.get("disagreeing_inputs_canonical",
+                            banked_base["disagreeing_inputs"]))
+CHECKS.append(("input set still makes sites disagree on the CANONICAL class",
+               n_dis >= 1,
                "" if n_dis >= 1 else "zero disagreement: the ruler has gone blind"))
+n_lab = banked_base.get("sites_contributing_a_label", 0)
+CHECKS.append(("every site contributes a class label to the rate",
+               n_lab == banked_base["n_sites"],
+               "" if n_lab == banked_base["n_sites"]
+               else f"only {n_lab} of {banked_base['n_sites']} — the rate is over an unnamed stratum"))
+run("serialiser sensitivity reproduces", "serialiser_sensitivity.py")
 
 # Full-precision serialisation is load-bearing. The first version of this row
 # sampled ONE record and asked whether it contained a hex float -- and drew

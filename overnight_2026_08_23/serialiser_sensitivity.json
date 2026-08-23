@@ -1,0 +1,229 @@
+{
+ "precisions": [
+  "hex",
+  "%.17g",
+  "%.15g",
+  "%.12g",
+  "%.9g",
+  "%.6g",
+  "%.3g"
+ ],
+ "sites_detecting": {
+  "hex": 16,
+  "%.17g": 16,
+  "%.15g": 16,
+  "%.12g": 16,
+  "%.9g": 0,
+  "%.6g": 0,
+  "%.3g": 0
+ },
+ "differing_totals": {
+  "hex": 399,
+  "%.17g": 399,
+  "%.15g": 399,
+  "%.12g": 86,
+  "%.9g": 0,
+  "%.6g": 0,
+  "%.3g": 0
+ },
+ "magnitude": {
+  "n": 1080,
+  "min": 3.885780586188048e-16,
+  "median": 9.603429163007604e-15,
+  "max": 2.000621890374532e-13
+ },
+ "rows": {
+  "arithmetic_toolkit.py:113": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 7,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_dirichlet_family.py:78": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_earthquake_nns.py:85": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_eeg_depth.py:100": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 7,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_eeg_full.py:89": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 7,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_fungal_nns.py:147": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_lmfdb_edge.py:69": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 7,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_lmfdb_extend.py:62": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_lmfdb_family.py:102": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_lmfdb_postprocess.py:53": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_mertens_liouville.py:146": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_phase4.py:90": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 21,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_phase5.py:100": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 7,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "run_zeta_height_convergence.py:61": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "universality.py:129": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 39,
+    "%.17g": 39,
+    "%.15g": 39,
+    "%.12g": 12,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  },
+  "verify/tier1_lfunction_guard.py:73": {
+   "status": "MEASURED",
+   "differing_inputs_by_precision": {
+    "hex": 14,
+    "%.17g": 14,
+    "%.15g": 14,
+    "%.12g": 2,
+    "%.9g": 0,
+    "%.6g": 0,
+    "%.3g": 0
+   }
+  }
+ }
+}

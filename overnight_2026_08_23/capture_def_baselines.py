@@ -240,11 +240,41 @@ def main():
             if not res["ok"]:
                 continue
             v = res["value"]
-            label = v.get("best") if isinstance(v, dict) else None
+            # LABEL KEY IS PER-SITE, DECLARED. universality.py:129 returns a
+            # dataclass whose field is `best_fit`, not `best`, so a lookup for
+            # "best" alone silently dropped it -- making the headline
+            # disagreement rate a statistic over 15 of 16 sites under an unnamed
+            # stratum, which SEALED_CRITERIA §1 forbids by name.
+            label = None
+            if isinstance(v, dict):
+                for cand in ("best", "best_fit"):
+                    if isinstance(v.get(cand), str):
+                        label = v[cand]
+                        break
             if isinstance(label, str):
                 best_by_input.setdefault(vname, {}).setdefault(label, []).append(key)
 
     disagreeing = {v: g for v, g in best_by_input.items() if len(g) > 1}
+
+    # TWO RATES, because one of them is saturated for a trivial reason. Including
+    # universality.py:129 lifts raw disagreement to 55/55 -- but only because its
+    # vocabulary is lowercase, so 'gue' differs from 'GUE' on every input where both
+    # answer. That is the D5 label divergence, not a classification difference, and
+    # quoting the saturated number alone would overstate what the ruler resolves.
+    # The canonical rate routes every label through R2's committed translation table
+    # (its second consumer) and measures disagreement about the CLASS.
+    sys.path.insert(0, os.path.join(ROOT, "gate_census"))
+    from c3_rulings import to_canonical, RulingViolation           # noqa: E402
+
+    canon_by_input = {}
+    for vname, groups in best_by_input.items():
+        for lab, keys in groups.items():
+            try:
+                c = to_canonical(lab)
+            except RulingViolation:
+                c = lab                     # sentinels like 'insufficient' are not classes
+            canon_by_input.setdefault(vname, {}).setdefault(c, []).extend(keys)
+    disagreeing_canonical = {v: g for v, g in canon_by_input.items() if len(g) > 1}
 
     # A build that succeeds while every CALL raises is not a captured baseline.
     # The first version of this report counted builds and printed "16 of 16,
@@ -265,8 +295,13 @@ def main():
     for k, why in failures.items():
         print(f"      {k}  {why}")
 
-    print(f"\ninput vectors: {len(vectors)}")
-    print(f"inputs on which sites DISAGREE on `best`: {len(disagreeing)} of {len(best_by_input)}")
+    sites_with_label = {k for g in best_by_input.values() for ks in g.values() for k in ks}
+    print(f"\nsites contributing a class label: {len(sites_with_label)} of {len(baselines)}")
+    print(f"input vectors: {len(vectors)}")
+    print(f"inputs on which sites DISAGREE, raw label     : "
+          f"{len(disagreeing)} of {len(best_by_input)}")
+    print(f"inputs on which sites DISAGREE, canonical class: "
+          f"{len(disagreeing_canonical)} of {len(canon_by_input)}   <- the informative one")
     for vname in sorted(disagreeing)[:8]:
         groups = disagreeing[vname]
         print(f"  {vname:24s} " + "  ".join(f"{lab}×{len(ks)}" for lab, ks in sorted(groups.items())))
@@ -293,6 +328,8 @@ def main():
         python_version=sys.version.split()[0],
         n_sites=len(baselines), failures=failures,
         disagreeing_inputs=sorted(disagreeing),
+    disagreeing_inputs_canonical=sorted(disagreeing_canonical),
+    sites_contributing_a_label=len(sites_with_label),
         baselines=baselines), indent=1, sort_keys=True)
     open(f"{HERE}/baselines_def.json", "w").write(payload)
     print(f"\nwritten -> overnight_2026_08_23/baselines_def.json "
