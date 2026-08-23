@@ -20,6 +20,13 @@ Measured consequence, before this generator runs: axis D5 reports 2 label vocabu
 A ruling on clause 7 taken against the def-only inventory would be a ruling on a sample
 biased away from the hard cases. Hence: complete the inventory, then rule.
 
+COUNTING RULE (R4, adjudicated 2026-08-22 — stated here so no future census re-derives it)
+------------------------------------------------------------------------------------------
+THE CENSUS UNIT IS THE DECISION SITE, NOT THE FILE. A file is a storage convention. One
+file holding two decisions by two mechanisms is two rows, two verdicts, two migrations.
+This rule accounts for part of the 11-vs-20 gap on its own. Canonical form and its
+enforcement live in gate_census/c3_rulings.py (COUNTING_RULE).
+
 SCOPE RULE, committed with the generator
 ----------------------------------------
 A DECISION SITE is a min()/argmin() selecting among a Poisson/GOE/GUE KS triple, wherever it
