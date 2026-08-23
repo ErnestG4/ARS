@@ -30,7 +30,7 @@ sat there being true and inert for two days.
     ledger.explain("copy_dedup.sites_checked", "copy_dedup.bodies_found", 4,
                    "four sites classify inline; a FunctionDef-named extractor "
                    "cannot see them")
-    ledger.settle()          # raises unless EVERY pair is reconciled
+    ledger.settle()          # raises unless every count is CONNECTED
 
 THE EXPLANATION MUST CARRY THE EXACT DELTA. `explain(a, b, delta, why)` verifies
 that delta equals the measured difference. A hand-wave that names the right cause
@@ -85,15 +85,46 @@ class CountLedger:
         self._expl[frozenset((a, b))] = (a, b, actual, str(why).strip())
 
     def unreconciled(self):
-        names = sorted(self._counts)
-        out = []
-        for i, a in enumerate(names):
-            for b in names[i + 1:]:
-                if self._counts[a] == self._counts[b]:
-                    continue
-                if frozenset((a, b)) not in self._expl:
-                    out.append((a, b, self._counts[a] - self._counts[b]))
-        return out
+        """Counts not CONNECTED to the rest by explained differences.
+
+        Completeness is not required and should not be: deltas compose. If
+        a - b is explained and b - c is explained, then a - c is IMPLIED, not a
+        further fact needing its own sentence. Demanding all N(N-1)/2 pairs
+        produced, on this guard's first real use, ten explanations reading "as
+        above" -- and boilerplate is how a guard goes inert. What must hold is
+        that no count stands APART from the others: an unconnected count is one
+        whose relationship to the population was never stated.
+        """
+        parent = {k: k for k in self._counts}
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        for a, b, _d, _w in self._expl.values():
+            ra, rb = find(a), find(b)
+            if ra != rb:
+                parent[ra] = rb
+        # counts sharing a value need no explanation to be reconciled
+        by_value = {}
+        for k, v in self._counts.items():
+            by_value.setdefault(v, []).append(k)
+        for ks in by_value.values():
+            for k in ks[1:]:
+                ra, rb = find(ks[0]), find(k)
+                if ra != rb:
+                    parent[ra] = rb
+        groups = {}
+        for k in self._counts:
+            groups.setdefault(find(k), []).append(k)
+        if len(groups) <= 1:
+            return []
+        comps = sorted(groups.values(), key=len, reverse=True)
+        anchor = comps[0]
+        return [(k, anchor[0], self._counts[k] - self._counts[anchor[0]])
+                for comp in comps[1:] for k in sorted(comp)]
 
     def settle(self, verbose=True):
         bad = self.unreconciled()
@@ -105,10 +136,11 @@ class CountLedger:
                 print(f"    reconciled {a} - {b} = {d}: {why}")
         if bad:
             lines = "\n".join(
-                f"    {a} ({self._counts[a]}) vs {b} ({self._counts[b]}): "
-                f"difference {abs(d)} UNEXPLAINED" for a, b, d in bad)
+                f"    {a} ({self._counts[a]}) is not connected to "
+                f"{b} ({self._counts[b]}) by any explained difference "
+                f"({abs(d)} unaccounted)" for a, b, d in bad)
             raise UnreconciledCounts(
-                f"{self.population}: {len(bad)} count pair(s) do not reconcile.\n"
+                f"{self.population}: {len(bad)} count(s) stand apart from the population.\n"
                 f"{lines}\nEach difference is a set of units one instrument saw and "
                 "the other did not. Enumerate them; do not assume they resemble the "
                 "units both instruments saw.")
