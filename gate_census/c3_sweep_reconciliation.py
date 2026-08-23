@@ -86,56 +86,34 @@ led.report("sweep.distinct_impls_sealed", SWEEP["N_distinct_sealed"])
 led.report("inventory.decisions_covered_by_a_row", len(covered))
 led.report("inventory.decisions_unswept", len(unswept))
 
-led.explain("inventory.decision_sites", "sweep.verdict_rows_by_file", len(rows) - len(by_site),
+# Six substantive edges span all seven counts. Completeness is not required --
+# deltas compose, and the connectivity form exists precisely so that every
+# sentence here has to carry real content.
+led.explain("inventory.decision_sites", "inventory.files", len(rows) - len(per_file),
             "files holding more than one decision: " + ", ".join(
                 f"{p}:{[d['line'] for d in ds]}" for p, ds in sorted(per_file.items())
-                if len(ds) > 1) + " — the sweep keys rows by file, so extra decisions "
-            "in an already-rowed file get no unit of their own")
-led.explain("inventory.decision_sites", "inventory.decisions_covered_by_a_row",
-            len(rows) - len(covered), "decisions unswept as distinct units (see above)")
+                if len(ds) > 1) + " — two decisions by different mechanisms (min, np.argmin) "
+            "on different data, which R4 counts as two units")
 led.explain("inventory.files", "sweep.verdict_rows_by_file", len(per_file) - len(by_site),
-            "every file carrying a decision has a sweep row; file coverage is complete")
+            "every file carrying a decision has a sweep row; FILE coverage is complete "
+            "and it is DECISION coverage that is not")
 led.explain("sweep.verdict_rows_by_file", "sweep.units_impl_plus_b4",
             len(by_site) - SWEEP["n_impl_rows"],
-            "four identical-body copies share one implementation row (362c40e9: "
+            "identical-body copies share an implementation row: 362c40e9 covers "
             "run_mertens_liouville + run_lmfdb_postprocess + run_dirichlet_family + "
-            "run_lmfdb_extend) and one pair shares another (9fc4073c: "
-            "run_zeta_height_convergence + run_earthquake_nns), so 19 files collapse "
-            "to 15 units")
+            "run_lmfdb_extend, and 9fc4073c covers run_zeta_height_convergence + "
+            "run_earthquake_nns, so 19 files collapse to 15 units")
 led.explain("sweep.units_impl_plus_b4", "sweep.distinct_impls_sealed",
             SWEEP["n_impl_rows"] - SWEEP["N_distinct_sealed"],
             "the four B4 extraction rows (run_controls, run_analytical_nns, "
-            "run_per_pll_nns, universality) sit outside the sealed 11, which counts "
-            "only def-extractable distinct bodies")
+            "run_per_pll_nns, universality) sit OUTSIDE the sealed 11, which counts "
+            "only def-extractable distinct bodies — this edge is the stratum boundary")
+led.explain("inventory.decision_sites", "inventory.decisions_covered_by_a_row",
+            len(rows) - len(covered),
+            "decisions with no verdict row of their own: a file's single row cannot "
+            "be attributed to one of its several decisions")
 led.explain("inventory.decisions_covered_by_a_row", "inventory.decisions_unswept",
-            len(covered) - len(unswept), "arithmetic complement of the split above")
-led.explain("inventory.decision_sites", "inventory.files", len(rows) - len(per_file),
-            "same multi-decision files as above")
-led.explain("inventory.files", "sweep.units_impl_plus_b4",
-            len(per_file) - SWEEP["n_impl_rows"], "identical-body collapse, as above")
-led.explain("inventory.files", "sweep.distinct_impls_sealed",
-            len(per_file) - SWEEP["N_distinct_sealed"],
-            "identical-body collapse plus the four B4 rows outside the sealed 11")
-led.explain("inventory.decision_sites", "sweep.units_impl_plus_b4",
-            len(rows) - SWEEP["n_impl_rows"], "multi-decision files plus identical-body collapse")
-led.explain("inventory.decision_sites", "sweep.distinct_impls_sealed",
-            len(rows) - SWEEP["N_distinct_sealed"],
-            "multi-decision files, identical-body collapse, and the four B4 rows")
-led.explain("inventory.decisions_covered_by_a_row", "sweep.verdict_rows_by_file",
-            len(covered) - len(by_site), "one covered decision per rowed file")
-led.explain("inventory.decisions_covered_by_a_row", "sweep.units_impl_plus_b4",
-            len(covered) - SWEEP["n_impl_rows"], "identical-body collapse, as above")
-led.explain("inventory.decisions_covered_by_a_row", "sweep.distinct_impls_sealed",
-            len(covered) - SWEEP["N_distinct_sealed"],
-            "identical-body collapse plus the four B4 rows")
-led.explain("inventory.decisions_unswept", "sweep.verdict_rows_by_file",
-            len(unswept) - len(by_site), "complement; unswept units carry no row by definition")
-led.explain("inventory.decisions_unswept", "sweep.units_impl_plus_b4",
-            len(unswept) - SWEEP["n_impl_rows"], "as above")
-led.explain("inventory.decisions_unswept", "sweep.distinct_impls_sealed",
-            len(unswept) - SWEEP["N_distinct_sealed"], "as above")
-led.explain("inventory.decisions_unswept", "inventory.files",
-            len(unswept) - len(per_file), "as above")
+            len(covered) - len(unswept), "the two parts of the decision population")
 
 led.settle()
 
