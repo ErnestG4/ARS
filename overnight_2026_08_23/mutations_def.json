@@ -1,0 +1,991 @@
+{
+ "n_sites": 16,
+ "verdicts": {
+  "CAPTURED": 16
+ },
+ "rows": {
+  "arithmetic_toolkit.py:113": {
+   "path": "arithmetic_toolkit.py",
+   "line": 113,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n5",
+      "goe_n6",
+      "nonmember_uniform_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 40,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_dirichlet_family.py:78": {
+   "path": "run_dirichlet_family.py",
+   "line": 78,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_earthquake_nns.py:85": {
+   "path": "run_earthquake_nns.py",
+   "line": 85,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_eeg_depth.py:100": {
+   "path": "run_eeg_depth.py",
+   "line": 100,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n5",
+      "goe_n6",
+      "nonmember_uniform_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 40,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "INAPPLICABLE",
+     "reason": "site does not build the empirical CDF as arange(1, n+1)/n"
+    }
+   },
+   "n_applicable": 5,
+   "n_detected": 5,
+   "verdict": "CAPTURED"
+  },
+  "run_eeg_full.py:89": {
+   "path": "run_eeg_full.py",
+   "line": 89,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n5",
+      "goe_n6",
+      "nonmember_uniform_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 40,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "INAPPLICABLE",
+     "reason": "site does not build the empirical CDF as arange(1, n+1)/n"
+    }
+   },
+   "n_applicable": 5,
+   "n_detected": 5,
+   "verdict": "CAPTURED"
+  },
+  "run_fungal_nns.py:147": {
+   "path": "run_fungal_nns.py",
+   "line": 147,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_lmfdb_edge.py:69": {
+   "path": "run_lmfdb_edge.py",
+   "line": 69,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n5",
+      "goe_n6",
+      "nonmember_uniform_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 40,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_lmfdb_extend.py:62": {
+   "path": "run_lmfdb_extend.py",
+   "line": 62,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_lmfdb_family.py:102": {
+   "path": "run_lmfdb_family.py",
+   "line": 102,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_lmfdb_postprocess.py:53": {
+   "path": "run_lmfdb_postprocess.py",
+   "line": 53,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_mertens_liouville.py:146": {
+   "path": "run_mertens_liouville.py",
+   "line": 146,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_phase4.py:90": {
+   "path": "run_phase4.py",
+   "line": 90,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "INAPPLICABLE",
+     "reason": "no size guard constant in this site's closure to flip"
+    },
+    "guard_boundary": {
+     "verdict": "INAPPLICABLE",
+     "reason": "no strict size comparison to loosen"
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 30,
+     "example": [
+      "clock_n0",
+      "clock_n3",
+      "clock_n4"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 55,
+     "example": [
+      "clock_n0",
+      "clock_n200",
+      "clock_n3"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    }
+   },
+   "n_applicable": 4,
+   "n_detected": 4,
+   "verdict": "CAPTURED"
+  },
+  "run_phase5.py:100": {
+   "path": "run_phase5.py",
+   "line": 100,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n5",
+      "goe_n6",
+      "nonmember_uniform_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n0",
+      "clock_n3",
+      "clock_n4"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_zeta_height_convergence.py:61": {
+   "path": "run_zeta_height_convergence.py",
+   "line": 61,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "universality.py:129": {
+   "path": "universality.py",
+   "line": 129,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 13,
+     "example": [
+      "clock_n5",
+      "clock_n6",
+      "goe_n5"
+     ]
+    },
+    "key_drop": {
+     "verdict": "INAPPLICABLE",
+     "reason": "no droppable keyword in a returned dict (site may not return one)"
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 27,
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    }
+   },
+   "n_applicable": 5,
+   "n_detected": 5,
+   "verdict": "CAPTURED"
+  },
+  "verify/tier1_lfunction_guard.py:73": {
+   "path": "verify/tier1_lfunction_guard.py",
+   "line": 73,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "clock_n50",
+      "goe_n50",
+      "gue_n50"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "example": [
+      "nonmember_uniform_n200",
+      "nonmember_uniform_n51",
+      "poisson_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 10,
+     "example": [
+      "clock_n200",
+      "clock_n50",
+      "clock_n51"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 14,
+     "example": [
+      "clock_n50",
+      "clock_n51",
+      "goe_n200"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  }
+ }
+}
