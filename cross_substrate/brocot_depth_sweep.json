@@ -1,0 +1,125 @@
+{
+ "depths": [
+  4,
+  6,
+  8,
+  10,
+  12,
+  14
+ ],
+ "rows": [
+  {
+   "depth": 4,
+   "n": 255,
+   "median_partials": 130,
+   "rho_full": 0.6787986287421891,
+   "slope_full": 4.979338667312005,
+   "slope_top": 0.9791017440141063,
+   "slope_diff": -4.000236923297899,
+   "ci": [
+    -5.12057412630241,
+    -2.793540358000313
+   ],
+   "holds": true,
+   "n_classes": 10,
+   "partial_rho_class": -0.6552234264969119
+  },
+  {
+   "depth": 6,
+   "n": 255,
+   "median_partials": 234,
+   "rho_full": 0.6384700286213119,
+   "slope_full": 4.6790835358601575,
+   "slope_top": 0.5409551901808027,
+   "slope_diff": -4.1381283456793545,
+   "ci": [
+    -5.277365353719492,
+    -3.0096118928722224
+   ],
+   "holds": true,
+   "n_classes": 10,
+   "partial_rho_class": -0.5896490010763248
+  },
+  {
+   "depth": 8,
+   "n": 255,
+   "median_partials": 344,
+   "rho_full": 0.6581539959776598,
+   "slope_full": 4.477260040551316,
+   "slope_top": 1.161578025872662,
+   "slope_diff": -3.3156820146786545,
+   "ci": [
+    -4.363963164251651,
+    -2.2924741829579003
+   ],
+   "holds": true,
+   "n_classes": 10,
+   "partial_rho_class": -0.6512593549096949
+  },
+  {
+   "depth": 10,
+   "n": 255,
+   "median_partials": 457,
+   "rho_full": 0.6357553261128172,
+   "slope_full": 4.014357993980757,
+   "slope_top": 1.3478882055890666,
+   "slope_diff": -2.66646978839169,
+   "ci": [
+    -3.5884325082071475,
+    -1.750423149861887
+   ],
+   "holds": true,
+   "n_classes": 10,
+   "partial_rho_class": -0.746594263286379
+  },
+  {
+   "depth": 12,
+   "n": 255,
+   "median_partials": 625,
+   "rho_full": 0.5818259621150171,
+   "slope_full": 4.182734568101223,
+   "slope_top": 0.4657629423859441,
+   "slope_diff": -3.7169716257152787,
+   "ci": [
+    -4.943751432672316,
+    -2.3097154551285435
+   ],
+   "holds": true,
+   "n_classes": 10,
+   "partial_rho_class": -0.7747730145298788
+  },
+  {
+   "depth": 14,
+   "n": 255,
+   "median_partials": 790,
+   "rho_full": 0.5465568284270577,
+   "slope_full": 3.946363804116372,
+   "slope_top": -0.29070873087769383,
+   "slope_diff": -4.237072534994065,
+   "ci": [
+    -5.568221962542648,
+    -2.664230926242647
+   ],
+   "holds": true,
+   "n_classes": 10,
+   "partial_rho_class": -0.8509341738002478
+  }
+ ],
+ "holds_at": [
+  4,
+  6,
+  8,
+  10,
+  12,
+  14
+ ],
+ "fails_at": [],
+ "predictions": {
+  "D1": true,
+  "D2": false,
+  "D3": true
+ },
+ "verdict": "DEPTH_INVARIANT",
+ "seed": 20260823,
+ "n_boot": 2000
+}
