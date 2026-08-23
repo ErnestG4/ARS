@@ -186,3 +186,55 @@ would be less flattering.
 `c3_rulings.migration_may_begin()` raises. Preconditions: sweep-row reconciliation **[done]**,
 R3 artifact baselines **[not captured]**. Baseline before write — the one lapse of that rule this
 arc cost 1159 records truncated to 3.
+
+---
+
+## 8. CORRECTIONS TO THIS DOCKET'S MEASURED BASIS — 2026-08-23
+
+The rulings in §5 stand. What follows corrects the **measurements they were taken against**,
+which is a different thing and is recorded separately so the distinction stays visible.
+
+### 8.1 "No size guard at all at 3 sites" (§3 R1) is FALSE
+
+Measured in `gate_census/c3_helper_axis.json`: **no site is unguarded.** `run_phase4`,
+`run_controls` and `run_per_pll_nns` each call a KS helper carrying its own `n < 5` NaN sentinel.
+The body-guard census saw only the outer layer. The real structure is a **two-layer lattice**:
+
+| body guard | helper floor | sites |
+|---|---|---|
+| `sentinel:<50` | none | 7 |
+| `sentinel:<5` | none | 4 |
+| `sentinel:<5` | 5 | 3 |
+| `sentinel:<50` | 5 | 2 |
+| none | 5 | 2 |
+| `enclosing:>0` | 5 | 1 |
+
+The helper axis is one the two prior inventories **structurally could not see** — every axis they
+measure is intra-body, so a divergence in a *called* function leaves no trace in the segment they
+read. R1's ruling is unaffected: these constants are all still free, and silent inheritance is
+still forbidden. R1's *basis* is corrected.
+
+### 8.2 The population is **21** decision sites, not 20
+
+`run_analytical_nns.py:297` was missed by both detection prongs — the KS values arrive as inline
+`ks_to(...)` **calls** and the labels sit in the enclosing **subscript**. Found by an independent
+reader of the file this docket certified complete. **Two** sites are now unswept as distinct units
+(`:249` and `:297`).
+
+### 8.3 The guard column was wrong in both directions within one hour
+
+D1 scraped `.size < N` over the scope, which at module level is the whole **file** — so `:184`'s
+`< 5` was attributed to `:249`, whose guard is `> 5` and **excludes** n=5. Two opposite guards
+printed as the same value. The first repair read only *enclosing* conditionals, which lost every
+def site's guard, since those are early-return **sentinels**. Guards now carry **kind and
+operator** (`sentinel:<50`, `enclosing:>5`) so a bare number cannot represent two opposite
+conditions again.
+
+### 8.4 The pattern these three share
+
+Each correction is the same shape at a different depth: **the extractor's structural assumption,
+not the domain, defined what was missing.** Which files → which code counts as the classifier →
+which syntax the values arrive in. Each was found only by widening the aperture *after* the
+narrower measurement had been certified complete, and twice by a reader who did not build the
+instrument. The standing check that came out of it is `countrecon.py`: two instruments counting
+one population must reconcile or say why.
