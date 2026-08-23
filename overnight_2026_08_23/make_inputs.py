@@ -111,6 +111,12 @@ print(f"vectors: {len(vectors)}  ({len(FAMILIES)} families x {len(SIZES)} sizes)
 print(f"\n{'vector':26s} {'n':>4s}  {'min':>8s} {'mean':>8s} {'max':>8s}")
 for k in sorted(vectors, key=lambda k: (k.rsplit('_n', 1)[0], int(k.rsplit('_n', 1)[1]))):
     v = np.array(vectors[k])
+    if v.size == 0:
+        # the n=0 vector exists BECAUSE universality.py:129 has a ==0 sentinel;
+        # a summary line that cannot render it would be a small instance of the
+        # thing this whole set is built to avoid
+        print(f"  {k:24s} {0:>4d}  {'—':>8s} {'—':>8s} {'—':>8s}   (empty by design)")
+        continue
     print(f"  {k:24s} {v.size:>4d}  {v.min():8.4f} {v.mean():8.4f} {v.max():8.4f}")
 print(f"\nsha256 {sha}")
 print("\nINPUTS_SEALED — the ruler is committed before any baseline is captured.")
