@@ -84,6 +84,40 @@ that "only the PNG changed" is a measurement rather than a reading of the source
   and restored the PNGs, discarding that site's only observable while reporting its file
   `CAPTURED`.
 
+### 3a. Module discrimination is much weaker than def discrimination
+
+Measured with the figure arm live (`mutations_module.json`): **5 of 10 applicable attacks
+detected**, against **92 of 95** for the def sites.
+
+| script | applicable | detected | survived |
+|---|---|---|---|
+| `run_controls.py` | 3 | 2 | `statistic_perturb` |
+| `run_per_pll_nns.py` | 3 | 2 | `statistic_perturb` |
+| `run_analytical_nns.py` | 4 | **1** | `label_flip`, `guard_flip`, `statistic_perturb` |
+
+**`statistic_perturb` survives at all three scripts.** Printed output carries 3–4 decimals, so a
+1e-14 change is invisible to stdout, and the rasterised figure does not move either. *Module-site
+baselines cannot see numerical drift at all* — the exact channel that `float.hex()` closes for the
+def sites has no analogue here, because the observable is a rendering rather than a value.
+
+`run_analytical_nns` detects only one of four. That is the script holding three decision sites,
+including the two qualified ones. `repo_intact: True` — no mutant wrote through a symlink.
+
+### 3b. All 21 sites, one verdict each (SEALED_CRITERIA §6.1)
+
+`site_verdicts.json`. The module artifacts originally carried one verdict per **script**, so five
+sites shared three — the per-file collapse R4 was ruled to prevent, not applied to this arc's own
+reporting.
+
+| verdict | n |
+|---|---|
+| `CAPTURED` | 19 |
+| `CAPTURED_OBSERVABLE_ABSENT` (`run_analytical_nns.py:184`) | 1 |
+| `CAPTURED_OBSERVABLE_IS_FIGURE_ONLY` (`run_analytical_nns.py:297`) | 1 |
+
+The qualification travels **in** the verdict rather than in a footnote, because a footnote is what
+a later reader drops.
+
 ## 4. What these baselines certify — and what they do not
 
 They are a strong **equality** gate and a weak **contract** gate. An independent adversarial review
