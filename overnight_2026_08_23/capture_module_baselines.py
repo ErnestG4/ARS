@@ -180,6 +180,15 @@ for script, meta in SCRIPTS.items():
 
     results[script] = dict(sites=[f"{script}:{ln}" for ln in meta["sites"]],
                            verdict=verdict, deterministic=deterministic,
+                           # png_sha/png_deterministic were computed into runs[]
+                           # and then NEVER COPIED HERE, so the banked baseline
+                           # carried png_sha=None and the whole figure arm of the
+                           # module mutation test was INERT -- meaning site :297,
+                           # whose ONLY witness is the figure, had no witness at
+                           # all while its file reported CAPTURED. Found by asking
+                           # whether the arm can fire, not by it failing.
+                           png_sha=runs[0].get("png_sha", {}),
+                           png_deterministic=png_deterministic,
                            diff_lines=diff_lines, missing_sentinels=missing,
                            exit=runs[0]["exit"], seconds=runs[0]["seconds"],
                            stdout_sha=hashlib.sha256(runs[0]["stdout"].encode()).hexdigest(),
