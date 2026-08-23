@@ -96,11 +96,13 @@ led.report("inventory.decisions_unswept", len(unswept))
 # found by red-pathing: perturbing sweep_table.json left this arm green. A
 # computed delta is a claim about arithmetic; a LITERAL delta is a claim about
 # the population, which is the claim countrecon exists to hold you to.
-led.explain("inventory.decision_sites", "inventory.files", 1,
+led.explain("inventory.decision_sites", "inventory.files", 2,
             "files holding more than one decision: " + ", ".join(
                 f"{p}:{[d['line'] for d in ds]}" for p, ds in sorted(per_file.items())
-                if len(ds) > 1) + " — two decisions by different mechanisms (min, np.argmin) "
-            "on different data, which R4 counts as two units")
+                if len(ds) > 1) + " — three decisions in one file: min at :184, np.argmin at :249, and a "
+            "third np.argmin at :297 that indexes a label list by an argmin over "
+            "inline ks_to() CALLS, invisible to the first two detection prongs. "
+            "R4 counts each as its own unit")
 led.explain("inventory.files", "sweep.verdict_rows_by_file", 0,
             "every file carrying a decision has a sweep row; FILE coverage is complete "
             "and it is DECISION coverage that is not")
@@ -116,11 +118,11 @@ led.explain("sweep.units_impl_plus_b4", "sweep.distinct_impls_sealed",
             "run_per_pll_nns, universality) sit OUTSIDE the sealed 11, which counts "
             "only def-extractable distinct bodies — this edge is the stratum boundary")
 led.explain("inventory.decision_sites", "inventory.decisions_covered_by_a_row",
-            1,
+            2,
             "decisions with no verdict row of their own: a file's single row cannot "
             "be attributed to one of its several decisions")
 led.explain("inventory.decisions_covered_by_a_row", "inventory.decisions_unswept",
-            18, "the two parts of the decision population")
+            17, "the two parts of the decision population")
 
 led.settle()
 
