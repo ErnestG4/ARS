@@ -144,7 +144,10 @@ CHECKS.append(("denominator recorded as the def-extractable stratum",
 
 print("C3 arc verification\n")
 for label, ok, why in CHECKS:
-    print(f"  {'PASS' if ok else 'FAIL'}  {label}" + (f"   [{why}]" if why else ""))
+    # show the diagnostic ONLY on a failing row. Passing rows were printing their
+    # own failure text -- a checker that prints a false statement on a green row
+    # spends the credibility the row exists to build.
+    print(f"  {'PASS' if ok else 'FAIL'}  {label}" + (f"   [{why}]" if why and not ok else ""))
 bad = [c for c in CHECKS if not c[1]]
 print(f"\n  {len(CHECKS) - len(bad)}/{len(CHECKS)} passed")
 if bad:
