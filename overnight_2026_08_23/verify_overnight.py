@@ -77,11 +77,39 @@ CHECKS.append((f"every one of {n_sites} def sites is CAPTURED",
                verdicts.get("CAPTURED") == n_sites,
                "" if verdicts.get("CAPTURED") == n_sites else f"verdicts={verdicts}"))
 
-blind = {k: [a for a, v in r["attacks"].items() if v["verdict"] == "SURVIVED"]
+# KNOWN-BLIND SPOTS, pinned with their causes. The first version of this row
+# asserted ZERO survivals -- true when written, false once the guard regex was
+# widened and three genuine, structurally explained survivals appeared. Weakening
+# it to pass would launder them; leaving it permanently red would make it inert.
+# So the row pins WHAT IS KNOWN BLIND and fails on any deviation.
+#
+# It fails in BOTH directions on purpose. A survival that DISAPPEARS is also news:
+# it means the attack changed meaning, which is exactly what happened when the
+# widened regex silently moved guard_boundary's target from the body guard to the
+# helper's n<5.
+EXPECTED_BLIND = {
+    "run_lmfdb_family.py:102": ["guard_boundary"],
+    "verify/tier1_lfunction_guard.py:73": ["guard_boundary"],
+    # both: the edit lands on `if n <= 5` inside ks_to, which the body guard at
+    # 50 SHADOWS -- the inner layer of the two-layer guard is unreachable
+    # wherever the outer layer is stricter
+    "universality.py:129": ["guard_boundary"],
+    # the edit lands inside _ks_pvalue, whose output nothing compares: the
+    # COMPUTED_UNUSED finding showing up as a hole in the baseline
+}
+blind = {k: sorted(a for a, v in r["attacks"].items() if v["verdict"] == "SURVIVED")
          for k, r in banked_mut["rows"].items()}
 blind = {k: v for k, v in blind.items() if v}
-CHECKS.append(("no baseline survives an applicable attack", not blind,
-               "" if not blind else f"blind: {blind}"))
+expected = {k: sorted(v) for k, v in EXPECTED_BLIND.items()}
+new_blind = {k: [a for a in v if a not in expected.get(k, [])] for k, v in blind.items()}
+new_blind = {k: v for k, v in new_blind.items() if v}
+healed = {k: [a for a in v if a not in blind.get(k, [])] for k, v in expected.items()}
+healed = {k: v for k, v in healed.items() if v}
+CHECKS.append(("no NEW blind spot beyond the three pinned", not new_blind,
+               "" if not new_blind else f"new: {new_blind}"))
+CHECKS.append(("the three pinned blind spots are still blind", not healed,
+               "" if not healed else
+               f"no longer surviving: {healed} — the attack may have changed meaning"))
 
 # an attack that lands nowhere is not evidence; require reach, not just success
 reach = {}
@@ -128,5 +156,7 @@ print(f"  attack reach: {reach}")
 if bad:
     print("\nVERIFY_OVERNIGHT: FAIL")
     sys.exit(1)
-print("\nVERIFY_OVERNIGHT: PASS — ruler reproduces, baselines reproduce, "
-      "every site still detects every applicable attack.")
+print(f"\nVERIFY_OVERNIGHT: PASS — ruler reproduces, baselines reproduce, and the "
+      f"blind-spot set is exactly the {sum(len(v) for v in EXPECTED_BLIND.values())} "
+      f"pinned and explained ones. NOT 'everything is detected': three attacks "
+      f"survive, by construction, and this row exists to notice a fourth.")
