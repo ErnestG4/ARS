@@ -185,6 +185,8 @@ mis-measured — it is **unrepresentable**, so it piles up at the boundary. Conf
 **⇧ RECALIBRATED 2026-08-21 BY THE SWEEP — the finding is not what it was written as.** It was filed
 as *"three instruments independently share a defect."* Measured across all 11 distinct classifier
 implementations: **9 of 11 have no rejection region, or one whose complementary rate is unrecorded.**
+
+**Denominator, stated 2026-08-23:** the 11 are *distinct DEF-EXTRACTABLE implementations* — the stratum an `ast.FunctionDef`-named extractor could reach. The population is 21 decision sites across 19 files. The two decisions that had no unit of their own (`run_analytical_nns.py:249`, `:297`) were swept separately on 2026-08-23 and landed **0 of 2 with a rejection region** (`sweep_unscored.json`). No pooled rate is computed across the two: implementations and decisions are not commensurable units.
 The prediction (4–6) missed **high** under both readings, and its stated reasoning — *"no rejection
 region is a severe, rare defect"* — is **falsified**. It is neither severe-and-rare nor a coincidence
 of three:
