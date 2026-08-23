@@ -82,7 +82,7 @@ class CountLedger:
                 f"{delta}, but the measured difference is {actual}. An explanation "
                 "that does not carry the exact delta is a partially-understood "
                 "coverage hole -- enumerate the missing units.")
-        self._expl[frozenset((a, b))] = (actual, str(why).strip())
+        self._expl[frozenset((a, b))] = (a, b, actual, str(why).strip())
 
     def unreconciled(self):
         names = sorted(self._counts)
@@ -101,13 +101,12 @@ class CountLedger:
             print(f"COUNT LEDGER — {self.population}")
             for k in sorted(self._counts):
                 print(f"    {k:44s} {self._counts[k]:>6d}")
-            for pair, (d, why) in self._expl.items():
-                a, b = sorted(pair)
+            for a, b, d, why in self._expl.values():
                 print(f"    reconciled {a} - {b} = {d}: {why}")
         if bad:
             lines = "\n".join(
                 f"    {a} ({self._counts[a]}) vs {b} ({self._counts[b]}): "
-                f"difference {d} UNEXPLAINED" for a, b, d in bad)
+                f"difference {abs(d)} UNEXPLAINED" for a, b, d in bad)
             raise UnreconciledCounts(
                 f"{self.population}: {len(bad)} count pair(s) do not reconcile.\n"
                 f"{lines}\nEach difference is a set of units one instrument saw and "
