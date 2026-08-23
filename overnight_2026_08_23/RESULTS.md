@@ -118,11 +118,20 @@ Every one was found by something failing, not by review — and three of them we
 | 5 | sentinel `"Task 1"` vs printed `"TASK 1"` → a **false `INFEASIBLE_TRUNCATED_RUN`** on a clean, deterministic run | the verdict being implausible |
 | 6 | four **false `INAPPLICABLE`**s from regex spelling assumptions | independent audit |
 | 7 | the widened `statistic_perturb` rebuilt the source **unchanged** — a no-op reporting as an applied attack, manufacturing 16 false survivals | 0/16 detection on an attack that had just measured 14/14 |
+| 8 | **a false liveness reading**: `pgrep -f mutate_module_baselines` matched the *waiter shells'* own command lines, so I reported "generator still working" about a process killed 20 minutes earlier by a 2-minute tool timeout | `ps -eo pid,etime,cmd` showing nothing at all |
 
 Defect 1 is the one worth keeping: it failed *only at large n*, because the helper returns its NaN
 sentinel before reaching the missing name at small n. **A harness gap that fails in a
 behaviourally plausible pattern is worse than one that fails everywhere** — it was ready to be
 written up as a finding about two sites.
+
+Defect 8 is the repo's own `verify_liveness_not_last_line` rule, violated by its author, with a
+twist worth keeping: the check did not fail silently — it returned a confident **YES**, because the
+pattern matched the watcher rather than the watched. *A liveness probe that can match itself is not
+a liveness probe.* It also exposed a tooling limit: `sealgen.sh` runs the generator in the
+foreground of the sealing call, so any generator exceeding the shell timeout is killed mid-run with
+its seal already committed — the seal is honest, the output simply never arrives. Long-running
+generators must be sealed and then launched detached.
 
 Defect 5 is a mirror of a lesson already in this repo's ledger: the B4 extraction's uppercase-only
 matcher missed `universality.py` and emitted `NEEDS_JUDGMENT` for a tooling reason. I made the same

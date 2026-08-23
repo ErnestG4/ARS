@@ -16,3 +16,20 @@ arrive in the same channel.
 OpenBLAS here is built MAX_THREADS=64 on 24 cores; concurrent sessions each spawning full-width
 BLAS thrash a 15 GB box. Suspected cause of the 2026-08-18 "timeout" that was really a 3-minute
 job. Mitigation when sessions overlap:  export OMP_NUM_THREADS=8
+
+## sealgen.sh and long-running generators (2026-08-23)
+
+`sealgen.sh` commits the generator and then RUNS it in the foreground of the same
+call. Any generator that outlives the shell's timeout is killed mid-run — the
+seal is committed and correct, but no output is produced, and the failure looks
+like a generator that produced nothing rather than one that was interrupted.
+
+Hit by `overnight_2026_08_23/mutate_module_baselines.py` (12 GPU script runs,
+~3 min). Workaround used: seal with sealgen, then launch detached via
+`setsid nohup ... &` and wait on the PID with `kill -0`.
+
+NOT fixed in sealgen itself, deliberately: making it background its runs would
+break the CHECKRUN line it emits, which is what the commit-msg hook checks
+outcome claims against. Better fix if this recurs: a `--detach` flag that seals,
+launches, and prints the PID instead of a CHECKRUN line — so the absence of a
+CHECKRUN line is itself the signal that the outcome is not yet known.
