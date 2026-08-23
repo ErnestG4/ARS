@@ -11,6 +11,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if spacings.size < 50:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -20,6 +21,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if spacings.size <= 5:",
      "example": [
       "clock_n5",
       "goe_n5",
@@ -29,6 +31,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_o), ('GUE', ks_u)],",
      "example": [
       "clock_n5",
       "goe_n6",
@@ -38,6 +41,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 40,
+     "edit": "+    return dict(n=n, ks_p=ks_p, ks_o=ks_o, ks_u=ks_u, mass03=float((spacings < 0.3).mean()), best=best,",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -47,6 +51,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_u), ('GUE', ks_o)],",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -56,6 +61,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 39,
+     "edit": "+    F = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -74,6 +80,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -83,6 +90,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if pooled.size <= 50: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -92,6 +100,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -101,6 +110,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -110,6 +120,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -119,6 +130,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -137,6 +149,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if spacings.size < 5: return dict(n=int(spacings.size), best='insufficient')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -146,6 +159,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if spacings.size <= 50: return dict(n=int(spacings.size), best='insufficient')",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -155,6 +169,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -164,6 +179,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((spacings < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -173,6 +189,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -182,6 +199,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -200,6 +218,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if spacings.size < 50:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -209,6 +228,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if spacings.size <= 5:",
      "example": [
       "clock_n5",
       "goe_n5",
@@ -218,6 +238,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n5",
       "goe_n6",
@@ -227,6 +248,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 40,
+     "edit": "+                mass03=float((spacings < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -236,6 +258,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -243,12 +266,18 @@
      ]
     },
     "statistic_perturb": {
-     "verdict": "INAPPLICABLE",
-     "reason": "site does not build the empirical CDF as arange(1, n+1)/n"
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "edit": "+    F_em = np.arange(1, spacings.size + 1) / (spacings.size + 1e-12)",
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
     }
    },
-   "n_applicable": 5,
-   "n_detected": 5,
+   "n_applicable": 6,
+   "n_detected": 6,
    "verdict": "CAPTURED"
   },
   "run_eeg_full.py:89": {
@@ -258,6 +287,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if spacings.size < 50:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -267,6 +297,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if spacings.size <= 5:",
      "example": [
       "clock_n5",
       "goe_n5",
@@ -276,6 +307,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n5",
       "goe_n6",
@@ -285,6 +317,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 40,
+     "edit": "+                mass03=float((spacings < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -294,6 +327,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -301,12 +335,18 @@
      ]
     },
     "statistic_perturb": {
-     "verdict": "INAPPLICABLE",
-     "reason": "site does not build the empirical CDF as arange(1, n+1)/n"
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "edit": "+    F_em = np.arange(1, spacings.size + 1) / (spacings.size + 1e-12)",
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
     }
    },
-   "n_applicable": 5,
-   "n_detected": 5,
+   "n_applicable": 6,
+   "n_detected": 6,
    "verdict": "CAPTURED"
   },
   "run_fungal_nns.py:147": {
@@ -316,6 +356,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -325,6 +366,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if pooled.size <= 50: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -334,6 +376,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -343,6 +386,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+    return dict(n=n, ks_p=ks_p, ks_o=ks_o, ks_u=ks_u, mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -352,6 +396,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -361,6 +406,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -379,6 +425,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if n < 50: return float('nan'), float('nan')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -388,6 +435,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if n <= 5: return float('nan'), float('nan')",
      "example": [
       "clock_n5",
       "goe_n5",
@@ -397,6 +445,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n5",
       "goe_n6",
@@ -406,6 +455,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 40,
+     "edit": "+                mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -415,6 +465,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -424,6 +475,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 39,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -442,6 +494,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -451,6 +504,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if pooled.size <= 50: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -460,6 +514,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -469,6 +524,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -478,6 +534,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -487,6 +544,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -505,6 +563,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -512,17 +571,15 @@
      ]
     },
     "guard_boundary": {
-     "verdict": "DETECTED",
-     "inputs_differing": 5,
-     "example": [
-      "clock_n50",
-      "goe_n50",
-      "gue_n50"
-     ]
+     "verdict": "SURVIVED",
+     "inputs_differing": 0,
+     "edit": "+    if n <= 5: return float('nan')",
+     "example": []
     },
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -532,6 +589,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -541,6 +599,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -550,6 +609,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -558,7 +618,7 @@
     }
    },
    "n_applicable": 6,
-   "n_detected": 6,
+   "n_detected": 5,
    "verdict": "CAPTURED"
   },
   "run_lmfdb_postprocess.py:53": {
@@ -568,6 +628,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -577,6 +638,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if pooled.size <= 50:",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -586,6 +648,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -595,6 +658,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -604,6 +668,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -613,6 +678,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -631,6 +697,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -640,6 +707,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if pooled.size <= 50: return dict(n=int(pooled.size), best='insufficient')",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -649,6 +717,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -658,6 +727,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+    return dict(n=n, ks_p=ks_p, ks_o=ks_o, ks_u=ks_u, mass03=float((pooled < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -667,6 +737,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -676,6 +747,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -692,61 +764,9 @@
    "line": 90,
    "attacks": {
     "guard_flip": {
-     "verdict": "INAPPLICABLE",
-     "reason": "no size guard constant in this site's closure to flip"
-    },
-    "guard_boundary": {
-     "verdict": "INAPPLICABLE",
-     "reason": "no strict size comparison to loosen"
-    },
-    "label_flip": {
-     "verdict": "DETECTED",
-     "inputs_differing": 30,
-     "example": [
-      "clock_n0",
-      "clock_n3",
-      "clock_n4"
-     ]
-    },
-    "key_drop": {
-     "verdict": "DETECTED",
-     "inputs_differing": 55,
-     "example": [
-      "clock_n0",
-      "clock_n200",
-      "clock_n3"
-     ]
-    },
-    "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
-     "example": [
-      "clock_n200",
-      "clock_n30",
-      "clock_n49"
-     ]
-    },
-    "statistic_perturb": {
-     "verdict": "DETECTED",
-     "inputs_differing": 39,
-     "example": [
-      "clock_n30",
-      "clock_n49",
-      "clock_n5"
-     ]
-    }
-   },
-   "n_applicable": 4,
-   "n_detected": 4,
-   "verdict": "CAPTURED"
-  },
-  "run_phase5.py:100": {
-   "path": "run_phase5.py",
-   "line": 100,
-   "attacks": {
-    "guard_flip": {
-     "verdict": "DETECTED",
-     "inputs_differing": 25,
+     "edit": "+    if n < 50: return float('nan'), float('nan')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -756,6 +776,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if n <= 5: return float('nan'), float('nan')",
      "example": [
       "clock_n5",
       "goe_n5",
@@ -764,25 +785,28 @@
     },
     "label_flip": {
      "verdict": "DETECTED",
-     "inputs_differing": 15,
-     "example": [
-      "clock_n5",
-      "goe_n6",
-      "nonmember_uniform_n200"
-     ]
-    },
-    "key_drop": {
-     "verdict": "DETECTED",
-     "inputs_differing": 15,
+     "inputs_differing": 30,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n0",
       "clock_n3",
       "clock_n4"
      ]
     },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 55,
+     "edit": "+                  best=best, n=n,",
+     "example": [
+      "clock_n0",
+      "clock_n200",
+      "clock_n3"
+     ]
+    },
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -792,6 +816,76 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 39,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    }
+   },
+   "n_applicable": 6,
+   "n_detected": 6,
+   "verdict": "CAPTURED"
+  },
+  "run_phase5.py:100": {
+   "path": "run_phase5.py",
+   "line": 100,
+   "attacks": {
+    "guard_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "edit": "+    if n < 50: return float('nan')",
+     "example": [
+      "clock_n30",
+      "clock_n49",
+      "clock_n5"
+     ]
+    },
+    "guard_boundary": {
+     "verdict": "DETECTED",
+     "inputs_differing": 5,
+     "edit": "+    if n <= 5: return float('nan')",
+     "example": [
+      "clock_n5",
+      "goe_n5",
+      "gue_n5"
+     ]
+    },
+    "label_flip": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
+     "example": [
+      "clock_n5",
+      "goe_n6",
+      "nonmember_uniform_n200"
+     ]
+    },
+    "key_drop": {
+     "verdict": "DETECTED",
+     "inputs_differing": 15,
+     "edit": "+                    best='insufficient', gap=np.nan, n=pooled.size)",
+     "example": [
+      "clock_n0",
+      "clock_n3",
+      "clock_n4"
+     ]
+    },
+    "argmin_swap": {
+     "verdict": "DETECTED",
+     "inputs_differing": 25,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
+     "example": [
+      "clock_n200",
+      "clock_n30",
+      "clock_n49"
+     ]
+    },
+    "statistic_perturb": {
+     "verdict": "DETECTED",
+     "inputs_differing": 39,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -810,6 +904,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if spacings.size < 5: return dict(n=int(spacings.size), best='insufficient')",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -819,6 +914,7 @@
     "guard_boundary": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    if spacings.size <= 50: return dict(n=int(spacings.size), best='insufficient')",
      "example": [
       "clock_n50",
       "goe_n50",
@@ -828,6 +924,7 @@
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -837,6 +934,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((spacings < 0.3).mean()), best=best)",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -846,6 +944,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -855,6 +954,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -873,6 +973,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if e.size < 50:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -880,17 +981,15 @@
      ]
     },
     "guard_boundary": {
-     "verdict": "DETECTED",
-     "inputs_differing": 5,
-     "example": [
-      "clock_n5",
-      "goe_n5",
-      "gue_n5"
-     ]
+     "verdict": "SURVIVED",
+     "inputs_differing": 0,
+     "edit": "+    if n <= 2 or ks <= 0:",
+     "example": []
     },
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 13,
+     "edit": "+    best = min([('Poisson', ks_p), ('goe', ks_o), ('gue', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n5",
       "clock_n6",
@@ -904,6 +1003,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 27,
+     "edit": "+    best = min([('poisson', ks_p), ('goe', ks_u), ('gue', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n30",
@@ -913,6 +1013,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 39,
+     "edit": "+    emp = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -921,7 +1022,7 @@
     }
    },
    "n_applicable": 5,
-   "n_detected": 5,
+   "n_detected": 4,
    "verdict": "CAPTURED"
   },
   "verify/tier1_lfunction_guard.py:73": {
@@ -931,6 +1032,7 @@
     "guard_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 25,
+     "edit": "+    if pooled.size < 5:",
      "example": [
       "clock_n30",
       "clock_n49",
@@ -938,17 +1040,15 @@
      ]
     },
     "guard_boundary": {
-     "verdict": "DETECTED",
-     "inputs_differing": 5,
-     "example": [
-      "clock_n50",
-      "goe_n50",
-      "gue_n50"
-     ]
+     "verdict": "SURVIVED",
+     "inputs_differing": 0,
+     "edit": "+    if n <= 5: return float('nan')",
+     "example": []
     },
     "label_flip": {
      "verdict": "DETECTED",
      "inputs_differing": 5,
+     "edit": "+    best = min([('Poisson', ks_p), ('GOE', ks_o), ('GUE', ks_u)], key=lambda x: x[1])[0]",
      "example": [
       "nonmember_uniform_n200",
       "nonmember_uniform_n51",
@@ -958,6 +1058,7 @@
     "key_drop": {
      "verdict": "DETECTED",
      "inputs_differing": 15,
+     "edit": "+                mass03=float((pooled < 0.3).mean()), best=best,",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -967,6 +1068,7 @@
     "argmin_swap": {
      "verdict": "DETECTED",
      "inputs_differing": 10,
+     "edit": "+    best = min([('Poiss', ks_p), ('GOE', ks_u), ('GUE', ks_o)], key=lambda x: x[1])[0]",
      "example": [
       "clock_n200",
       "clock_n50",
@@ -976,6 +1078,7 @@
     "statistic_perturb": {
      "verdict": "DETECTED",
      "inputs_differing": 14,
+     "edit": "+    F_em = np.arange(1, n + 1) / (n + 1e-12)",
      "example": [
       "clock_n50",
       "clock_n51",
@@ -984,7 +1087,7 @@
     }
    },
    "n_applicable": 6,
-   "n_detected": 6,
+   "n_detected": 5,
    "verdict": "CAPTURED"
   }
  }

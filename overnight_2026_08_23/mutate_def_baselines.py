@@ -116,12 +116,17 @@ def m_statistic_perturb(code):
     # run_eeg_depth and run_eeg_full write `np.arange(1, spacings.size + 1) /
     # spacings.size`, which the literal form missed -- reported INAPPLICABLE at
     # two sites where the corrected attack is DETECTED on 39 inputs.
-    m = re.search(r"np\.arange\(1,\s*([^)]+?)\s*\+\s*1\)\s*/\s*(\S+)", code)
-    if m and m.group(1).strip() == m.group(2).strip().rstrip(")"):
-        return code[:m.end()] + code[m.end():], None
-    m2 = re.search(r"(np\.arange\(1,\s*[^)]+?\s*\+\s*1\)\s*/\s*)(\S+?)(\s|$|\))", code)
-    if m2:
-        return code[:m2.start(2)] + f"({m2.group(2)} + 1e-12)" + code[m2.end(2):], None
+    # NOTE: the first rewrite of this matched the pattern and then rebuilt the
+    # source UNCHANGED -- a no-op that reported as an applied attack and
+    # "survived" at all 16 sites. A no-op attack is worse than the false
+    # INAPPLICABLE it replaced: that one under-counted the denominator, this one
+    # manufactured 16 false survivals. Caught because 0/16 detection on the
+    # attack that had just been 14/14 is not a believable population change.
+    m = re.search(r"(np\.arange\(1,\s*[^)]+?\s*\+\s*1\)\s*/\s*)([A-Za-z_][\w.]*)", code)
+    if m:
+        out = code[:m.start(2)] + f"({m.group(2)} + 1e-12)" + code[m.end(2):]
+        assert out != code, "statistic_perturb produced an identical source"
+        return out, None
     return None, "site does not build an empirical CDF as arange(1, k+1)/k"
 
 
@@ -158,8 +163,17 @@ for key, b in sorted(BASE["baselines"].items()):
             continue
         obs = observe(fn, key)
         differing = [v for v in baseline if obs.get(v) != baseline[v]]
+        # WHAT the attack changed, not just whether it landed. Widening the guard
+        # regex moved guard_boundary's target from the body guard to the HELPER's
+        # n<5 -- a different mutation under the same name. A verdict that does not
+        # name the edit cannot be compared across harness versions.
+        import difflib as _dl
+        edit = next((ln for ln in _dl.unified_diff(code.splitlines(),
+                                                   mutated.splitlines(), n=0)
+                     if ln.startswith("+") and not ln.startswith("+++")), "")
         per_attack[aname] = {"verdict": "DETECTED" if differing else "SURVIVED",
                              "inputs_differing": len(differing),
+                             "edit": edit.strip()[:120],
                              "example": sorted(differing)[:3]}
     applicable = {k: v for k, v in per_attack.items()
                   if v["verdict"] not in (NOT_APPLICABLE, "MUTANT_UNBUILDABLE")}
@@ -195,7 +209,8 @@ survivors = {k: v for k, v in survivors.items() if v}
 if survivors:
     print("\nSURVIVING MUTANTS — a real change these baselines would NOT see:")
     for k, v in sorted(survivors.items()):
-        print(f"  {k:36s} {v}")
+        for a in v:
+            print(f"  {k:36s} {a:18s} edit: {rows[k]['attacks'][a].get('edit', '')}")
 
 # NON-VACUITY, both directions. An attack suite that lands nowhere proves
 # nothing; one that is detected everywhere on the first try is more likely to be
