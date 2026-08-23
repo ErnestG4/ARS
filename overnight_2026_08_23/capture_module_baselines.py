@@ -72,10 +72,22 @@ SCRIPTS = {
 # declared, literal, minimal
 MASKS = [(re.compile(r"(PLL bank: )\d+\.\d+s"), r"\1<WALLCLOCK>s")]
 
+PNG_OF = {"run_controls.py": ("08_controls.png",),
+          "run_per_pll_nns.py": ("07_per_pll_nns.png",),
+          "run_analytical_nns.py": ("14_analytical_vs_measured.png",)}
+
 OBSERVABLE_ABSENT = {
     "run_analytical_nns.py:184": "p_o/p_p/p_u are computed at :180-182 and never "
                                  "printed, plotted, or written — no observable exists "
                                  "for the quantities R5 promotes at this site",
+}
+
+# Sites whose only observable is the figure. Captured as a PNG hash, which is
+# weaker than stdout: it detects that something changed, never what.
+OBSERVABLE_IS_FIGURE_ONLY = {
+    "run_analytical_nns.py:297": "its `best` reaches ax.set_title and nothing else "
+                                 "(run_analytical_nns.py:315) — the 21st decision "
+                                 "site emits no stdout at all",
 }
 
 
@@ -125,17 +137,37 @@ for script, meta in SCRIPTS.items():
         runs.append(dict(exit=p.returncode, stdout=mask(p.stdout),
                          stderr_tail=p.stderr.strip().splitlines()[-3:],
                          seconds=round(time.time() - t0, 1)))
+        # THE PNG IS AN OBSERVABLE, and the archive-and-restore would discard
+        # it. run_analytical_nns.py:297's `best` reaches only ax.set_title --
+        # never stdout -- so without this the 21st decision site has NO captured
+        # observable at all while its file reports CAPTURED.
+        pngs = {}
+        for fn in sorted(os.listdir(os.path.join(ROOT, "plots"))):
+            fp = os.path.join(ROOT, "plots", fn)
+            if os.path.isfile(fp) and fn in PNG_OF.get(script, ()):
+                pngs[fn] = hashlib.sha256(open(fp, "rb").read()).hexdigest()
+        runs[-1]["png_sha"] = pngs
         print(f"  {script} run {attempt}: exit={p.returncode} "
-              f"{runs[-1]['seconds']}s  stdout {len(runs[-1]['stdout'])} bytes")
+              f"{runs[-1]['seconds']}s  stdout {len(runs[-1]['stdout'])} bytes  "
+              f"png {list(pngs.values())[0][:12] if pngs else '—'}")
 
     deterministic = runs[0]["stdout"] == runs[1]["stdout"]
+    png_deterministic = runs[0].get("png_sha") == runs[1].get("png_sha")
     diff_lines = []
     if not deterministic:
         a, b = runs[0]["stdout"].splitlines(), runs[1]["stdout"].splitlines()
         diff_lines = [f"{i}: {x!r} vs {y!r}"
                       for i, (x, y) in enumerate(zip(a, b)) if x != y][:6]
 
-    missing = [s for s in meta["sentinels"] if s not in runs[0]["stdout"]]
+    # CASE-INSENSITIVE. The first run scored run_controls
+    # INFEASIBLE_TRUNCATED_RUN because the sentinel read "Task 1" and the script
+    # prints "TASK 1" -- a verdict about the SUBJECT assigned for a defect in the
+    # HARNESS, on a run that exited 0 and was byte-identical across two attempts.
+    # This repo already has that exact failure on record: the B4 extraction's
+    # uppercase-only matcher silently missed universality.py and emitted
+    # NEEDS_JUDGMENT for a tooling reason. Same defect, mirrored.
+    low = runs[0]["stdout"].lower()
+    missing = [s for s in meta["sentinels"] if s.lower() not in low]
 
     if runs[0]["exit"] != 0:
         verdict = "INFEASIBLE_NONZERO_EXIT"
@@ -174,8 +206,13 @@ print("\nOBSERVABLE_ABSENT (declared, not discovered):")
 for k, why in OBSERVABLE_ABSENT.items():
     print(f"  {k}\n      {why}")
 
+print("\nOBSERVABLE_IS_FIGURE_ONLY:")
+for k, why in OBSERVABLE_IS_FIGURE_ONLY.items():
+    print(f"  {k}\n      {why}")
+
 json.dump(dict(scripts=results, snapshot_changed=changed,
                observable_absent=OBSERVABLE_ABSENT,
+               observable_figure_only=OBSERVABLE_IS_FIGURE_ONLY,
                masks=[p.pattern for p, _ in MASKS]),
           open(f"{HERE}/baselines_module.json", "w"), indent=1)
 print("\nwritten -> overnight_2026_08_23/baselines_module.json")
