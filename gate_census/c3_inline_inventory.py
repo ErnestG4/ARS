@@ -75,6 +75,8 @@ arithmetic_toolkit""".split()
 
 CLASS_TOKEN = re.compile(r"['\"](Poiss|Poisson|poisson|GOE|goe|GUE|gue)['\"]")
 KS_TRIPLE = re.compile(r"ks_[poun]\b")
+KS_HELPERS = ("ks_to", "ks_distance", "quick_ks")
+CDF_TOKEN = re.compile(r"nns_cdf_(poisson|goe|gue)")
 INAPPLICABLE = "INAPPLICABLE"
 
 
@@ -94,8 +96,26 @@ def decision_sites(src, tree):
         seg = ast.get_source_segment(src, n) or ""
         labels = set(CLASS_TOKEN.findall(seg))
         # a decision needs to name the classes, or index a ks triple by argmin
-        if len({l.lower() for l in labels}) >= 2 or (
-                fname == "argmin" and len(set(KS_TRIPLE.findall(seg))) >= 2):
+        hit = (len({l.lower() for l in labels}) >= 2
+               or (fname == "argmin" and len(set(KS_TRIPLE.findall(seg))) >= 2))
+        # THIRD PRONG, added 2026-08-23. The first two assume the KS values
+        # arrive as NAMED VARIABLES (ks_p) or that the class labels sit inside
+        # the min/argmin call. run_analytical_nns.py:297 does neither: it is
+        # `['Poiss','GOE','GUE'][int(np.argmin([ks_to(x, cdf_p)[0], ...]))]`,
+        # where the arguments are inline CALLS and the labels live in the
+        # enclosing subscript. Both prongs were blind to it, and the site was
+        # found by an independent reader of a file this census had certified
+        # complete -- the same structural-assumption blind spot for the third
+        # time in this arc, one level further in each time.
+        if not hit and fname in ("min", "argmin"):
+            calls_to_ks = [c for c in ast.walk(n)
+                           if isinstance(c, ast.Call)
+                           and ((isinstance(c.func, ast.Name) and c.func.id in KS_HELPERS)
+                                or (isinstance(c.func, ast.Attribute)
+                                    and c.func.attr in KS_HELPERS))]
+            cdfs = set(CDF_TOKEN.findall(seg))
+            hit = len(calls_to_ks) >= 2 and len(cdfs) >= 2
+        if hit:
             out.append((n, seg, sorted(labels), fname))
     return out
 
@@ -145,14 +165,43 @@ def computed_unused_names(scope_node):
     return sorted(quality - compared)
 
 
+def enclosing_guards(tree, lineno, src):
+    """Size/length conditions on the `if` statements that enclose this decision.
+
+    Reported as (op, constant) so `< 5` and `> 5` cannot collapse to `5`: they
+    are opposite guards and an inventory that prints both as "5" has erased the
+    divergence it exists to record.
+    """
+    out = []
+    for n in ast.walk(tree):
+        if not isinstance(n, ast.If):
+            continue
+        body_lines = [c for c in n.body if hasattr(c, "lineno")]
+        if not body_lines:
+            continue
+        lo = min(c.lineno for c in body_lines)
+        hi = max((c.end_lineno or c.lineno) for c in body_lines)
+        if not (lo <= lineno <= hi):
+            continue
+        test = ast.get_source_segment(src, n.test) or ""
+        m = re.search(r"(?:\.size|len\([^)]*\))\s*(<=|>=|<|>|==)\s*(\d+)", test)
+        if m:
+            out.append(f"{m.group(1)}{m.group(2)}")
+    return sorted(set(out))
+
+
 def analyse_site(path, src, tree, node, seg, labels, mech):
     fn = enclosing_def(tree, node.lineno)
     scope_node, scope = (fn, "def") if fn is not None else (tree, "module")
     scope_src = ast.get_source_segment(src, fn) if fn is not None else src
 
-    guards = sorted(set(int(m) for m in re.findall(r"\.size\s*<\s*(\d+)", scope_src)))
-    if not guards:
-        guards = sorted(set(int(m) for m in re.findall(r"len\([^)]*\)\s*<\s*(\d+)", scope_src)))
+    # D1 is the guard GOVERNING THIS DECISION, read from the conditionals that
+    # enclose it -- not a regex over the whole scope. At module scope the old
+    # form scraped every `.size < N` in the FILE, so run_analytical_nns:184's
+    # `pooled.size < 5` was attributed to :249 as well, whose actual guard is
+    # `zeta_meas_pooled.size > 5` and EXCLUDES n=5. Two opposite guards were
+    # recorded as the same value.
+    guards = enclosing_guards(tree, node.lineno, src)
 
     unused = computed_unused_names(scope_node)
 
