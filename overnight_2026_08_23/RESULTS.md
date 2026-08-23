@@ -35,11 +35,20 @@ Baselines: `baselines_def.json` (generator `capture_def_baselines.py`). Mutation
 `mutations_def.json` (generator `mutate_def_baselines.py`). Ruler: `inputs.json`, 55 vectors,
 5 families × 11 sizes, seed 20260823, sealed before capture.
 
-**The ruler discriminates.** 45 of 55 inputs produce disagreement on `best` across sites. The
-band added by Amendment 1 is where the R1 fork is legible: at `clock_n30`, **four sites answer GUE
-and nine answer `insufficient`** — the 5≤n<50 guard band that the first sealed input set had
-nothing in the middle of. At `clock_n5`, three sites say `'Poiss'`, one `'Poisson'`, nine
-`insufficient`: label divergence and guard boundary in one cell.
+**The ruler discriminates.** Two rates, because one is saturated for a trivial reason:
+
+| rate | value | |
+|---|---|---|
+| raw label | **55 of 55** | saturated: `universality`'s vocabulary is lowercase, so `'gue'` differs from `'GUE'` wherever both answer — that is the D5 divergence, not a classification difference |
+| **canonical class** | **45 of 55** | the informative one; labels routed through R2's translation table |
+
+All **16 of 16** sites contribute a label to both rates.
+
+The band added by Amendment 1 is where the R1 fork is legible: at `clock_n30`, **six sites answer
+GUE, one answers `gue`, and nine answer `insufficient`** — the 5≤n<50 guard band that the first
+sealed input set had nothing in the middle of. At `clock_n5`: five `'Poiss'`, one `'Poisson'`, one
+`'poisson'`, nine `insufficient` — **all three label vocabularies and the guard boundary in one
+cell.**
 
 **Discrimination: 95 applicable attacks, 92 detected, 3 genuine survivals.**
 
@@ -60,10 +69,23 @@ The three survivals are real and each is structurally explained by the edit it m
 - `universality.py:129` — edit inside `_ks_pvalue`, whose output nothing compares. Unobservable by
   construction, which is the `COMPUTED_UNUSED` finding showing up as a hole in the baseline.
 
-`statistic_perturb` is the load-bearing attack: it moves every KS distance by ~1e-14 without
-touching control flow, and is detected at all 16 sites. An independent check measured that a
-9-significant-digit serialiser would catch **0 of 55**, and `%.12g` only 2 of 55. The `float.hex()`
-choice is doing demonstrated work rather than decorative work.
+`statistic_perturb` is the load-bearing attack: it moves the KS distances without touching control
+flow, and is detected at all 16 sites. Measured (`serialiser_sensitivity.json`, generator
+committed): induced |ΔKS| has median **9.6e-15** and max **2.0e-13**, and the counterfactual
+serialiser sweep is
+
+| precision | sites detecting | comparisons differing |
+|---|---|---|
+| `float.hex()` (exact) | **16/16** | 399 |
+| `%.17g` / `%.15g` | 16/16 | 399 |
+| `%.12g` | 16/16 | **86** |
+| `%.9g` and coarser | **0/16** | 0 |
+
+So a nine-significant-digit serialiser loses the attack entirely. The `float.hex()` choice is doing
+demonstrated work rather than decorative work.
+
+The single def-stratum `INAPPLICABLE` is `universality.py:129` / `key_drop`: it returns a positional
+dataclass, so there is no keyword to drop. Named here because §6.3 requires it.
 
 ## 3. Module-scope sites — 3 of 3 scripts `CAPTURED`, repo unmutated
 
@@ -154,6 +176,9 @@ All ten are mine. Seven were found by something failing; three (6, 9, 10) were f
 | 7 | the widened `statistic_perturb` rebuilt the source **unchanged** — a no-op reporting as an applied attack, manufacturing 16 false survivals | 0/16 detection on an attack that had just measured 14/14 |
 | 9 | **an inert arm**: the PNG observable was computed and printed but never copied into the results dict, so the banked baseline carried `png_sha=None` and the module mutation's entire figure arm returned `False` for every mutant | asking whether the arm *can* fire — nothing failed, nothing went red |
 | 10 | **a process race**: I launched the module mutation while the recapture it depends on was still running, because I again waited on a wrapper shell PID instead of the Python one | two generators visible in `ps` at once |
+| 11 | **the §2 showcase cells were copied from the discarded first capture** — I wrote "four sites answer GUE" from terminal output of the run in which three sites were raising, not from the banked artifact | audit of this document |
+| 12 | the headline disagreement rate was computed over **15 of 16 sites** — `universality` returns `best_fit`, not `best`, and was silently dropped: a rate over an unnamed stratum | audit of this document |
+| 13 | the serialiser counterfactual was an **unattributed constant** quoted from a reviewer, with no committed generator | audit of this document |
 | 8 | **a false liveness reading**: `pgrep -f mutate_module_baselines` matched the *waiter shells'* own command lines, so I reported "generator still working" about a process killed 20 minutes earlier by a 2-minute tool timeout | `ps -eo pid,etime,cmd` showing nothing at all |
 
 Defect 1 is the one worth keeping: it failed *only at large n*, because the helper returns its NaN
@@ -161,7 +186,13 @@ sentinel before reaching the missing name at small n. **A harness gap that fails
 behaviourally plausible pattern is worse than one that fails everywhere** — it was ready to be
 written up as a finding about two sites.
 
-Defect 9 is the one to keep from this group. Site `run_analytical_nns.py:297`'s **only** witness is
+Defect 11 is defect 3 wearing the report's clothes. Defect 3 was "read the wrong output" in the
+harness; defect 11 is the same act in the write-up — I quoted numbers I had read off a terminal
+from a run I had already declared untrustworthy, while the corrected artifact sat committed beside
+them. The corrected cell is *stronger* than the one I wrote: all three label vocabularies appear at
+`clock_n5`, which the stale numbers concealed.
+
+Defect 9 is the one to keep from the harness group. Site `run_analytical_nns.py:297`'s **only** witness is
 the figure, so an inert figure arm meant that site had **no witness at all** while its file reported
 `CAPTURED` — the discrimination requirement passing vacuously on the one site it most needed to
 cover. Nothing failed and no check went red; the arm reported a clean `False` throughout. It was
