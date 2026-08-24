@@ -46,8 +46,8 @@ STATED LIMITS, so the feature wording cannot outrun them:
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║ SEALED PREDICTIONS                                                            ║
 ║                                                                              ║
-║ H1  SELF distance is exactly 0 and JND distance is tiny — the metric works    ║
-║     and has a floor.                                                         ║
+║ H1  SELF distance is exactly 0 AND the 1-cent floor is NONZERO — a floor of  ║
+║     zero is not a floor, and an inert anchor makes H2 unfalsifiable.         ║
 ║ H2  ABOVE-horizon pairs are NOT alike: their median mel distance exceeds the  ║
 ║     1-cent JND floor by at least 10x.                                        ║
 ║ H3  ABOVE and BELOW pair distances are COMPARABLE — median ABOVE is at least  ║
@@ -104,6 +104,33 @@ def render(alpha, I):
     return f[m], a[m]
 
 
+# AMENDED before the result was banked. The first form binned partials into 40
+# mel bands with hard edges, and the 1-cent reference detune came out EXACTLY 0 --
+# giving ABOVE/JND ratios of ~1e11. That anchor was INERT: it measured the
+# binning's insensitivity, not a small perceptual distance, so H2's "at least 10x
+# the floor" was satisfied by any nonzero number at all.
+#
+# A hard-binned histogram cannot express "slightly different frequency": a shift
+# either crosses an edge or vanishes. So each partial is now smeared over one ERB
+# (Glasberg-Moore), which is what makes a small shift small and a large shift
+# large -- the property an anchor needs to be an anchor.
+def erb_hz(f):
+    return 24.7 * (4.37 * f / 1000.0 + 1.0)
+
+
+def smeared_vec(f, a, centres):
+    """Excitation pattern: each partial spread over its own critical band."""
+    v = np.zeros(len(centres))
+    for freq, amp in zip(f, a):
+        if amp <= 0:
+            continue
+        w = erb_hz(freq)
+        v += (amp * amp) * np.exp(-0.5 * ((centres - freq) / w) ** 2)
+    v = np.sqrt(v)
+    n = np.linalg.norm(v)
+    return v / n if n > 0 else v
+
+
 def band_vec(f, a, edges):
     v = np.zeros(len(edges) - 1)
     idx = np.digitize(f, edges) - 1
@@ -115,9 +142,15 @@ def band_vec(f, a, edges):
     return v / n if n > 0 else v                    # loudness-normalised
 
 
+ERB_CENTRES = np.geomspace(FMIN, FMAX, 400)
+
+
 def dist(alpha1, alpha2, I, edges):
     f1, a1 = render(alpha1, I)
     f2, a2 = render(alpha2, I)
+    if edges is ERB_CENTRES:
+        return float(np.linalg.norm(smeared_vec(f1, a1, ERB_CENTRES)
+                                    - smeared_vec(f2, a2, ERB_CENTRES)))
     return float(np.linalg.norm(band_vec(f1, a1, edges) - band_vec(f2, a2, edges)))
 
 
@@ -137,7 +170,7 @@ for I in INDICES:
         return [allp[i] for i in pick]
 
     res = {}
-    for name, edges in (("mel", MEL_HZ), ("logfreq", LOG_EDGES)):
+    for name, edges in (("erb", ERB_CENTRES), ("mel", MEL_HZ), ("logfreq", LOG_EDGES)):
         d_above = [dist(x, y, I, edges) for x, y in sample_pairs(above)]
         d_below = [dist(x, y, I, edges) for x, y in sample_pairs(below)]
         cents = 2 ** (1 / 1200)
@@ -160,17 +193,20 @@ for I in INDICES:
 print(f"\n{'I':>5s} {'metric':>9s} {'SELF':>8s} {'1-cent JND':>11s} "
       f"{'ABOVE pairs':>12s} {'BELOW pairs':>12s} {'ABOVE/JND':>10s} {'ABOVE/BELOW':>12s}")
 for I in INDICES:
-    for name in ("mel", "logfreq"):
+    for name in ("erb", "mel", "logfreq"):
         r = rows[I][name]
         print(f"{I:>5.1f} {name:>9s} {r['self_max']:>8.4f} {r['jnd_median']:>11.4f} "
               f"{r['above_median']:>12.4f} {r['below_median']:>12.4f} "
               f"{r['above_median']/max(r['jnd_median'],1e-12):>10.1f} "
               f"{r['above_median']/max(r['below_median'],1e-12):>12.2f}")
 
-h1 = all(rows[I][m]["self_max"] < 1e-12 for I in INDICES for m in ("mel", "logfreq"))
-h2 = all(rows[I]["mel"]["above_median"] >= 10 * rows[I]["mel"]["jnd_median"]
+# H1 now also REQUIRES the anchor to be live: a floor of exactly zero is not a
+# floor, and an inert anchor makes H2 unfalsifiable.
+h1 = (all(rows[I][m]["self_max"] < 1e-12 for I in INDICES for m in ("erb", "mel", "logfreq"))
+      and all(rows[I]["erb"]["jnd_median"] > 0 for I in INDICES))
+h2 = all(rows[I]["erb"]["above_median"] >= 10 * rows[I]["erb"]["jnd_median"]
          for I in INDICES)
-h3 = all(rows[I]["mel"]["above_median"] >= 0.5 * rows[I]["mel"]["below_median"]
+h3 = all(rows[I]["erb"]["above_median"] >= 0.5 * rows[I]["erb"]["below_median"]
          for I in INDICES)
 
 verdict = ("METRIC_BROKEN" if not h1 else
