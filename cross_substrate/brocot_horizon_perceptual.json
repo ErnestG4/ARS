@@ -1,0 +1,85 @@
+{
+ "indices": [
+  0.9,
+  2.0
+ ],
+ "n_pairs": 60,
+ "seed": 20260824,
+ "fmin": 50.0,
+ "fmax": 12000.0,
+ "n_mel": 40,
+ "rows": {
+  "0.9": {
+   "I": 0.9,
+   "order_bound": 4,
+   "horizon": 8,
+   "n_above": 114,
+   "n_below": 13,
+   "erb": {
+    "n_above_pairs": 60,
+    "n_below_pairs": 60,
+    "above_median": 0.16402131988491558,
+    "below_median": 0.32506919792843353,
+    "jnd_median": 6.375383210023278e-05,
+    "self_max": 0.0
+   },
+   "mel": {
+    "n_above_pairs": 60,
+    "n_below_pairs": 60,
+    "above_median": 0.48087923303061886,
+    "below_median": 0.5203165948342129,
+    "jnd_median": 0.0,
+    "self_max": 0.0
+   },
+   "logfreq": {
+    "n_above_pairs": 60,
+    "n_below_pairs": 60,
+    "above_median": 0.797908348368841,
+    "below_median": 0.8391660773033827,
+    "jnd_median": 0.0,
+    "self_max": 0.0
+   }
+  },
+  "2.0": {
+   "I": 2.0,
+   "order_bound": 6,
+   "horizon": 12,
+   "n_above": 99,
+   "n_below": 28,
+   "erb": {
+    "n_above_pairs": 60,
+    "n_below_pairs": 60,
+    "above_median": 0.3395298917987406,
+    "below_median": 0.31932173877743675,
+    "jnd_median": 0.0007692096170209498,
+    "self_max": 0.0
+   },
+   "mel": {
+    "n_above_pairs": 60,
+    "n_below_pairs": 60,
+    "above_median": 0.7008242440379995,
+    "below_median": 0.6920729410056119,
+    "jnd_median": 0.0,
+    "self_max": 0.0
+   },
+   "logfreq": {
+    "n_above_pairs": 60,
+    "n_below_pairs": 60,
+    "above_median": 1.1513864064025627,
+    "below_median": 1.1399026888470682,
+    "jnd_median": 0.0,
+    "self_max": 0.0
+   }
+  }
+ },
+ "predictions": {
+  "H1": true,
+  "H2": true,
+  "H3": true
+ },
+ "verdict": "WORDING_MUST_NARROW",
+ "limits": [
+  "steady-state magnitude spectra only; phase and transients out of scope",
+  "a distance ratio is not an audibility verdict"
+ ]
+}
