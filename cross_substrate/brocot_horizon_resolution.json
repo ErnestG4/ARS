@@ -1,0 +1,84 @@
+{
+ "indices": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "a0": "3/4",
+ "a1": "4/3",
+ "n_way": 12,
+ "qmax": 40,
+ "rows": {
+  "0.9": {
+   "I": 0.9,
+   "order_bound": 4,
+   "horizon": 8,
+   "status": "MEASURED",
+   "n_usable": 286,
+   "n_below": 9,
+   "cv_ratio": 0.7685744004558174,
+   "cv_timbral": 0.8390693059755215,
+   "max_ratio": 1.7801292354477973,
+   "max_timbral": 1.7801292354477973,
+   "reduction": 0.9159844067496365
+  },
+  "1.5": {
+   "I": 1.5,
+   "order_bound": 5,
+   "horizon": 10,
+   "status": "MEASURED",
+   "n_usable": 287,
+   "n_below": 16,
+   "cv_ratio": 0.7853027308597494,
+   "cv_timbral": 0.5294732434736967,
+   "max_ratio": 2.9477519135291455,
+   "max_timbral": 3.4594895351319837,
+   "reduction": 1.48317736644753
+  },
+  "2.0": {
+   "I": 2.0,
+   "order_bound": 6,
+   "horizon": 12,
+   "status": "MEASURED",
+   "n_usable": 287,
+   "n_below": 22,
+   "cv_ratio": 0.940722425115267,
+   "cv_timbral": 0.9125024681414469,
+   "max_ratio": 2.565486833275811,
+   "max_timbral": 2.383358771831639,
+   "reduction": 1.0309258965965293
+  },
+  "3.0": {
+   "I": 3.0,
+   "order_bound": 7,
+   "horizon": 14,
+   "status": "MEASURED",
+   "n_usable": 287,
+   "n_below": 32,
+   "cv_ratio": 0.8976657251839527,
+   "cv_timbral": 0.5160951200548807,
+   "max_ratio": 2.0246805108622983,
+   "max_timbral": 2.7930348601519777,
+   "reduction": 1.7393416258004852
+  }
+ },
+ "node_counts": [
+  9,
+  16,
+  22,
+  32
+ ],
+ "reductions": [
+  0.9159844067496365,
+  1.48317736644753,
+  1.0309258965965293,
+  1.7393416258004852
+ ],
+ "predictions": {
+  "R1": true,
+  "R2": false,
+  "R3": false
+ },
+ "verdict": "PUNCTUATION_IS_SCALE_FREE"
+}
