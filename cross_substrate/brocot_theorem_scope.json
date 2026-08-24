@@ -1,0 +1,99 @@
+{
+ "indices": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "epsilons": [
+  0.01,
+  0.001,
+  0.0001
+ ],
+ "qmax": 24,
+ "channel_rows": {
+  "0.9": {
+   "I": 0.9,
+   "B": 4,
+   "horizon": 8,
+   "n_nodes": 127,
+   "direct_matches_horizon": true,
+   "k0_fires_everywhere": true,
+   "k0_above_horizon": "114/114",
+   "folded_coincidence_at_every_node": true,
+   "median_refl_k0": 9.0,
+   "median_refl_other": 0.0
+  },
+  "1.5": {
+   "I": 1.5,
+   "B": 5,
+   "horizon": 10,
+   "n_nodes": 127,
+   "direct_matches_horizon": true,
+   "k0_fires_everywhere": true,
+   "k0_above_horizon": "107/107",
+   "folded_coincidence_at_every_node": true,
+   "median_refl_k0": 14.0,
+   "median_refl_other": 0.0
+  },
+  "2.0": {
+   "I": 2.0,
+   "B": 6,
+   "horizon": 12,
+   "n_nodes": 127,
+   "direct_matches_horizon": true,
+   "k0_fires_everywhere": true,
+   "k0_above_horizon": "99/99",
+   "folded_coincidence_at_every_node": true,
+   "median_refl_k0": 20.0,
+   "median_refl_other": 0.0
+  },
+  "3.0": {
+   "I": 3.0,
+   "B": 7,
+   "horizon": 14,
+   "n_nodes": 127,
+   "direct_matches_horizon": true,
+   "k0_fires_everywhere": true,
+   "k0_above_horizon": "89/89",
+   "folded_coincidence_at_every_node": true,
+   "median_refl_k0": 27.0,
+   "median_refl_other": 0.0
+  }
+ },
+ "ladder_by_epsilon": {
+  "4/3": {
+   "0.01": 0.29,
+   "0.001": 0.09,
+   "0.0001": 0.05
+  },
+  "9/7": {
+   "0.01": 2.16,
+   "0.001": 1.33,
+   "0.0001": 0.84
+  },
+  "14/11": {
+   "0.01": 3.74,
+   "0.001": 2.6,
+   "0.0001": 1.85
+  },
+  "43/34": {
+   "0.01": null,
+   "0.001": null,
+   "0.0001": null
+  }
+ },
+ "ladder_order_preserved": [
+  true,
+  true,
+  true
+ ],
+ "ladder_thresholds_moved": true,
+ "predictions": {
+  "T1": true,
+  "T2": true,
+  "T3": true,
+  "T4": true
+ },
+ "verdict": "SCOPE_IS_DIRECT_CHANNEL"
+}
