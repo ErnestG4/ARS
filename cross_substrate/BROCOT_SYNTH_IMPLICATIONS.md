@@ -124,3 +124,88 @@ Generators sealed before their outputs: `brocot_musical_depth.py` (§0), `brocot
 (§1, §3), with §2 resting on `brocot_slope_by_class.json` and `brocot_within_between.json`.
 Predictions were scored — **M2, M3, M4, G3 all missed**, and §0 and §3 are consequences of those
 misses rather than of the hits.
+
+---
+
+# ADDENDUM 2026-08-23 — the structure horizon, and why morphs lurch
+
+## 4. Are we missing pieces of the FM pie by sticking to rationals? **No — the opposite.**
+
+`brocot_useful_depth.json`, **MECHANISM_CONFIRMED**, exact at all 508 node×index combinations
+(accuracy 1.0000, tested per node with no aggregation):
+
+> **A ratio p/q has sideband-coincidence structure at modulation index I
+> ⟺ max(p, q) ≤ 2·order_bound(I).**
+
+Two sidebands collide when `n₁ + n₂α = n₁′ + n₂′α`. Writing `a = n₁−n₁′`, `b = n₂′−n₂` gives
+`a·q = b·p`, and `gcd(p,q)=1` forces `b = mq`, `a = mp` — both bounded by 2·order_bound. Above that,
+**no coincidence is reachable at all.**
+
+| modulation index | order_bound | structure horizon max(p,q) ≤ |
+|---|---|---|
+| 0.9 (spec typical) | 4 | **8** |
+| 1.5 | 5 | 10 |
+| 2.0 | 6 | 12 |
+| 3.0 | 7 | 14 |
+
+**This is why complex ratios sound like noise.** Above the horizon every ratio yields the same
+structureless dense cluster — identical partial count, top-5 energy and spectral entropy — differing
+only in where the partials sit. Measured at I = 0.9: q ≥ 7 all give 31 partials, 0.716, 0.709.
+
+**And it answers the rationals question directly.** An irrational has no finite q, so it is *always*
+above the horizon. **The rationals are not a restriction on the interesting region — they are the
+interesting region**, and everything the tree cannot reach is exactly the part with no coincidence
+structure. The constraint the spec calls "the feature" is better founded than it knew.
+
+**What is actually being missed** is the other direction: the instrument lets the tree be navigated
+arbitrarily deep at any modulation index, when the mathematics binds them. At I = 0.9 every node
+past max(p,q) = 8 is spectrally equivalent to every other.
+
+> **Proposed feature — the structure horizon.** Compute `2·order_bound(depth)` live and mark
+> tree nodes beyond it as inert. It costs one Bessel order bound, already computed in
+> `order_bound()`. This gives the depth slider a second, visible meaning: *how much of the tree is
+> alive right now.* Turning depth up does not merely brighten — it extends the horizon and brings
+> new ratios into structure.
+
+## 5. Why the wormholes lurch — and why reweighting will not fix it
+
+`brocot_linear_morph.json`, on the path 3/4 → 4/3 at I = 0.9, 24 waypoints:
+
+| parameterisation | CV of per-step \|Δu\| | worst step | waypoints near a simple ratio |
+|---|---|---|---|
+| uniform in ratio | **1.129** | 2.235 | 11 |
+| arc length in timbre | 0.697 | **2.670** | 19 |
+
+Arc-length reparameterisation moves in the right direction — it concentrates waypoints where the
+ground moves fast (11 → 19) — but cuts variability only **1.6×** against a sealed 3× bar, and the
+**worst step gets worse**. Verdict: `NOT_LINEARISABLE_BY_REWEIGHTING`.
+
+**The reason is structural, not statistical.** `u(α)` is deterministic — no RNG anywhere in
+`predict_partials` or the Brody fit — so its roughness is not estimation noise that smoothing could
+remove. It *is* the soundspace. And §4 says why: coincidences appear and vanish **discontinuously**
+at every p/q below the horizon, so ratio space is **punctuated by coincidence events**, not a smooth
+manifold. A densely punctuated space cannot be linearised by reparameterising a continuous
+coordinate.
+
+> **What would actually work.** Stop treating the path as continuous. Choose **waypoints over tree
+> nodes**, spaced by measured timbral distance rather than by ratio distance, with the horizon
+> deciding which nodes are eligible. That is what Stern–Brocot navigation already *is* — the
+> linearisation belongs in waypoint *selection*, not in the interpolator.
+>
+> Concretely, for `Landscape`: keep the existing gradient fields, but score candidate next-hops by
+> Δu rather than by ratio-histogram distance, and skip nodes above the horizon. All of it is
+> offline-computable; nothing is added to the audio thread.
+
+## 6. Do the criticality measurements need re-running for the maps? **No.**
+
+- The shipped maps are **already in the musical regime**: median modulation index **1.078**, 93.6%
+  at or below 3.0, max 5.0. They do not inherit the I = 8 error of §0.
+- The maps' `crit` field is a **layout** property — the angular-gap / void-rim score of the 2D
+  embedding (`gpu_paths.py:52`) — not an approximability measure, so the saturation result does not
+  govern it.
+- `phase3/butterfly_map_study.py` already tested the CF-sum criticality insight against the shipped
+  maps and found it **not confirmed** (op-count dominates at whole-config level; only a weak
+  single-op prominence signal survived). Nothing here overturns that, and §4–§5 do not depend on it.
+
+What the maps *lack* is a **timbral-distance field** — §5's Δu between adjacent nodes. That is new
+work, not a re-run.
