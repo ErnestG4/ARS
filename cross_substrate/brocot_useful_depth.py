@@ -88,7 +88,22 @@ SAT_TOL = 0.5          # retained for the (superseded) count-based detector
 # when n1 + n2*(p/q) = n1' + n2'*(p/q), i.e. when q divides (n2' - n2). With
 # |n2| <= B the largest available difference is 2B, so
 #
-#       a coincidence is reachable  <=>  q <= 2B
+#       a coincidence is reachable  <=>  max(p, q) <= 2B
+#
+# SECOND AMENDMENT, again before any output was banked. The first form said
+# "q <= 2B" and aggregated each q with a MEDIAN. Both were wrong:
+#
+#   (a) Solving a*q = b*p with gcd(p,q)=1 forces b = m*q and a = m*p, and BOTH
+#       |a|,|b| <= 2B. So the binding condition is max(p,q) <= 2B, not q alone.
+#       At q=8, B=4: 7/8 collides (max 8 <= 8) while 9/8 and 11/8 do not.
+#   (b) A MEDIAN over the nodes at a given q answers "does the typical node
+#       collide", when the question is "does ANY node collide". At q=8 two of
+#       three nodes are collision-free, so the median read 0 and the detector
+#       declared q=8 saturated. A central-tendency summary cannot answer an
+#       existence question.
+#
+# Both showed up as Q3 missing by exactly 1 at two of four indices -- the
+# signature of an off-by-one in the reasoning, not noise in the data.
 #
 # That is a lattice fact, so it is testable EXACTLY instead of by thresholding a
 # noisy curve. The measurement below counts coincidences directly.
@@ -136,7 +151,8 @@ for I in INDICES:
             dict(coin=frac, distinct=distinct,
                  entropy=(d["entropy"] if d else float("nan"))))
     qs = sorted(byq)
-    coin = {q: float(np.median([r["coin"] for r in byq[q]])) for q in qs}
+    # ANY, not median: this is an existence question (see amendment (b))
+    coin = {q: float(max(r["coin"] for r in byq[q])) for q in qs}
     ents = {q: float(np.median([r["entropy"] for r in byq[q]])) for q in qs}
 
     # q* = smallest q at and above which NO coincidence is reachable
@@ -153,6 +169,34 @@ for I in INDICES:
                    n_nodes=sum(len(v) for v in byq.values()),
                    coincidence_by_q={str(k): round(v, 4) for k, v in coin.items()},
                    entropy={str(k): round(v, 4) for k, v in ents.items()})
+
+# EXACT PER-NODE TEST of the stated mechanism: no aggregation at all.
+pred_rows = {}
+for I in INDICES:
+    B = order_bound(I)
+    agree = disagree = 0
+    misses = []
+    for fr in NODES:
+        frac, _d, _t = coincidences(fr, I)
+        predicted = max(fr.numerator, fr.denominator) <= 2 * B
+        observed = frac > 0.0
+        if predicted == observed:
+            agree += 1
+        else:
+            disagree += 1
+            if len(misses) < 5:
+                misses.append(f"{fr} pred={predicted} obs={observed}")
+    pred_rows[I] = dict(B=B, agree=agree, disagree=disagree, misses=misses,
+                        accuracy=agree / (agree + disagree))
+
+print("EXACT per-node test of  'coincidence <=> max(p,q) <= 2*order_bound':")
+for I in INDICES:
+    r = pred_rows[I]
+    print(f"    I={I:>4.1f}  B={r['B']}  agree {r['agree']:>3d}  disagree {r['disagree']:>3d}"
+          f"   accuracy {r['accuracy']:.4f}"
+          + (f"   e.g. {r['misses'][0]}" if r["misses"] else ""))
+exact = all(r["disagree"] == 0 for r in pred_rows.values())
+print(f"    MECHANISM EXACT AT EVERY NODE: {exact}\n")
 
 print(f"{'I':>5s} {'order_bound':>12s} {'predicted q*':>13s} {'measured q*':>12s} "
       f"{'|err|':>6s} {'entropy spread above q*':>24s}")
@@ -189,6 +233,9 @@ with redpath("indices measured", expect_min=len(INDICES)) as rp:
     rp.observed(sum(1 for I in INDICES if rows[I]["qstar"] is not None))
 
 json.dump(dict(indices=INDICES, lo=LO, hi=HI, qmax=QMAX, sat_tol=SAT_TOL,
+               mechanism="coincidence <=> max(p,q) <= 2*order_bound(I)",
+               mechanism_exact_at_every_node=bool(exact),
+               per_node_test={str(k): v for k, v in pred_rows.items()},
                rows={str(k): v for k, v in rows.items()},
                predictions=dict(Q1=bool(q1), Q2=bool(q2), Q3=bool(q3), Q4=bool(q4)),
                verdict=verdict),
