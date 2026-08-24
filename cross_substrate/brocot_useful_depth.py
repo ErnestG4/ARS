@@ -43,7 +43,9 @@ depth-slider are uncoupled where the mathematics couples them.
 ║     some q*(I) the count is constant.                                        ║
 ║ Q2  q* TRACKS the modulation index: q*(I) rises monotonically with           ║
 ║     order_bound(I) across I in {0.9, 1.5, 2.0, 3.0}.                         ║
-║ Q3  q* is within +/-3 of the predicted 2*order_bound(I).                     ║
+║ Q3  q* equals EXACTLY 2*order_bound(I) + 1 -- the first denominator at which ║
+║     no coincidence is reachable. Amended from "within +/-3" once the         ║
+║     mechanism was seen to be exact rather than approximate.                  ║
 ║ Q4  Above q*, spectra are indistinguishable on entropy too, not merely on    ║
 ║     count: the spread of spectral entropy among q > q* nodes is under 0.02.  ║
 ║                                                                              ║
@@ -74,10 +76,41 @@ from phase3.partial_prediction import predict_partials, order_bound  # noqa: E40
 
 INDICES = [0.9, 1.5, 2.0, 3.0]
 LO, HI, QMAX = 0.70, 1.40, 24
-SAT_TOL = 0.5          # partial-count spread counted as "constant"
+SAT_TOL = 0.5          # retained for the (superseded) count-based detector
+
+# AMENDED before any output was banked. The first detector looked for the median
+# PARTIAL COUNT to stop moving, and returned q* at only 2 of 4 indices -- the
+# redpath floor caught it and refused to let NO_SATURATION be read off a
+# half-finished measurement.
+#
+# It was measuring the wrong quantity. The mechanism is about COINCIDENCES, and
+# those are exactly characterisable rather than empirical: two sidebands collide
+# when n1 + n2*(p/q) = n1' + n2'*(p/q), i.e. when q divides (n2' - n2). With
+# |n2| <= B the largest available difference is 2B, so
+#
+#       a coincidence is reachable  <=>  q <= 2B
+#
+# That is a lattice fact, so it is testable EXACTLY instead of by thresholding a
+# noisy curve. The measurement below counts coincidences directly.
 
 NODES = sorted({Fraction(p, q) for q in range(1, QMAX + 1) for p in range(1, 40)
                 if LO <= p / q <= HI and np.gcd(p, q) == 1}, key=float)
+
+
+def coincidences(alpha, I):
+    """Fraction of (n1,n2) sideband pairs that land on an already-occupied
+    frequency. Computed from the lattice, not from the estimator."""
+    B = order_bound(I)
+    seen, total, coll = set(), 0, 0
+    for n1 in range(-B, B + 1):
+        for n2 in range(-B, B + 1):
+            v = Fraction(n1) + Fraction(n2) * alpha      # exact rational arithmetic
+            total += 1
+            if v in seen:
+                coll += 1
+            else:
+                seen.add(v)
+    return coll / total, len(seen), total
 
 
 def descriptors(alpha, I):
@@ -97,28 +130,28 @@ for I in INDICES:
     ob = order_bound(I)
     byq = {}
     for fr in NODES:
+        frac, distinct, total = coincidences(fr, I)
         d = descriptors(fr, I)
-        if d is None:
-            continue
-        byq.setdefault(fr.denominator, []).append(d)
+        byq.setdefault(fr.denominator, []).append(
+            dict(coin=frac, distinct=distinct,
+                 entropy=(d["entropy"] if d else float("nan"))))
     qs = sorted(byq)
-    counts = {q: float(np.median([d["n_partials"] for d in byq[q]])) for q in qs}
-    ents = {q: float(np.median([d["entropy"] for d in byq[q]])) for q in qs}
+    coin = {q: float(np.median([r["coin"] for r in byq[q]])) for q in qs}
+    ents = {q: float(np.median([r["entropy"] for r in byq[q]])) for q in qs}
 
-    # q* = smallest q beyond which the median partial count never moves by > SAT_TOL
+    # q* = smallest q at and above which NO coincidence is reachable
     qstar = None
     for i, q in enumerate(qs):
-        tail = [counts[x] for x in qs[i:]]
-        if len(tail) >= 3 and (max(tail) - min(tail)) <= SAT_TOL:
+        if all(coin[x] == 0.0 for x in qs[i:]):
             qstar = q
             break
     above = [q for q in qs if qstar is not None and q >= qstar]
     ent_spread = (max(ents[q] for q in above) - min(ents[q] for q in above)) if above else float("nan")
 
-    rows[I] = dict(I=I, order_bound=ob, predicted_qstar=2 * ob, qstar=qstar,
+    rows[I] = dict(I=I, order_bound=ob, predicted_qstar=2 * ob + 1, qstar=qstar,
                    entropy_spread_above=ent_spread,
                    n_nodes=sum(len(v) for v in byq.values()),
-                   counts={str(k): v for k, v in counts.items()},
+                   coincidence_by_q={str(k): round(v, 4) for k, v in coin.items()},
                    entropy={str(k): round(v, 4) for k, v in ents.items()})
 
 print(f"{'I':>5s} {'order_bound':>12s} {'predicted q*':>13s} {'measured q*':>12s} "
@@ -133,7 +166,7 @@ qstars = [rows[I]["qstar"] for I in INDICES]
 obs = [rows[I]["order_bound"] for I in INDICES]
 q1 = all(q is not None for q in qstars)
 q2 = q1 and all(a <= b for a, b in zip(qstars, qstars[1:]))
-q3 = q1 and all(abs(rows[I]["qstar"] - rows[I]["predicted_qstar"]) <= 3 for I in INDICES)
+q3 = q1 and all(rows[I]["qstar"] == rows[I]["predicted_qstar"] for I in INDICES)
 q4 = all(rows[I]["entropy_spread_above"] < 0.02 for I in INDICES
          if np.isfinite(rows[I]["entropy_spread_above"]))
 
@@ -142,7 +175,7 @@ verdict = ("MECHANISM_CONFIRMED" if q1 and q2 and q3 else
 
 print(f"\nQ1  partial count saturates in q at every index   {'MET' if q1 else 'MISSED'}")
 print(f"Q2  q* rises monotonically with the index: {qstars}   {'MET' if q2 else 'MISSED'}")
-print(f"Q3  q* within +/-3 of 2*order_bound {[r['predicted_qstar'] for r in rows.values()]}   "
+print(f"Q3  q* EXACTLY 2*order_bound+1 {[r['predicted_qstar'] for r in rows.values()]}   "
       f"{'MET' if q3 else 'MISSED'}")
 print(f"Q4  entropy spread above q* under 0.02   {'MET' if q4 else 'MISSED'}")
 print(f"\nVERDICT: {verdict}")
