@@ -53,6 +53,14 @@ ENTRIES = [
          verdict="P2_IS_A_THEOREM_ON_1_OVER_A_TO_A",
          note="P1 definitional; P2 proved via Lagrange + prefix-in-q, boundary "
               "at alpha outside (1/A, A) characterised as the carrier category"),
+    dict(id="tie-lemma", status=LANDED,
+         request="prove or bound the tie case left as 'empirical, n = 304' in "
+                 "the parent theorem — an empirical 100% is not a resting place",
+         artifact="cross_substrate/brocot_tie_lemma.json",
+         verdict="TIE_CASE_IS_A_THEOREM",
+         note="max(p,q) is strictly increasing in q, so the shipped tie-break "
+              "selects the smallest-q minimiser and Lagrange applies; 545/545 "
+              "over 546 ties, with three decoy tie-breaks firing at 0%/2.4%/2.4%"),
     dict(id="amplitude-event-layer", status=QUEUED,
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
