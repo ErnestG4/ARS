@@ -212,12 +212,21 @@ within = [iqr(fuse[fam == f]) for f in np.unique(fam) if (fam == f).sum() >= 30]
 g3 = float(np.median(within) / gi) if gi > 0 and within else 0.0
 g4 = float(((minsep > 0) & (minsep < BEAT_HZ)).mean())
 
-B1a = Bar("distinct values of the fuse field", 50, floor=1, ceiling=N,
-          why="a per-node fraction over at most C(16,2)=120 pairs; at most one "
-              "distinct value per node")
+# CEILINGS CORRECTED 2026-08-25 (adversarial review). B1a's ceiling was N, the
+# node count -- but the field is nf/nt with nt <= C(16,2) = 120, so it can only
+# take 4387 distinct values however many nodes there are. A value in
+# (4387, 25772] is arithmetically impossible and would have gone unflagged: a
+# ceiling 5.9x too loose, in the arc that produced the guard. B1b's floor
+# followed from the same error.
+N_ACHIEVABLE = 4387          # distinct a/b with 1 <= b <= 120, 0 <= a <= b
+B1a = Bar("distinct values of the fuse field", 50, floor=1,
+          ceiling=min(N, N_ACHIEVABLE),
+          why=f"the field is nf/nt with nt <= C(16,2) = 120, so it can take at "
+              f"most {N_ACHIEVABLE} distinct values regardless of node count")
 B1b = Bar("largest single value's share", 0.60, direction="le",
-          floor=1.0 / N, ceiling=1.0,
-          why="a share of nodes: 1/N to 1 by construction")
+          floor=1.0 / N_ACHIEVABLE, ceiling=1.0,
+          why=f"with at most {N_ACHIEVABLE} achievable values, the most even "
+              f"possible split still gives the largest 1/{N_ACHIEVABLE}")
 B2 = Bar("max |Spearman| vs an existing field", 0.60, direction="le",
          floor=0.0, ceiling=1.0, why="|Spearman| is bounded by 1")
 # CEILING CORRECTED, after out_of_range fired at 1.541. The first `why` read
@@ -226,10 +235,16 @@ B2 = Bar("max |Spearman| vs an existing field", 0.60, direction="le",
 # widely has an IQR larger than the pooled IQR. The true bound is the field's
 # full range over its global IQR, since no subgroup IQR can exceed the range.
 # Third wrong ceiling in this arc, third caught by its own data.
+# HONEST LIMIT, recorded 2026-08-25: this ceiling is DATA-DERIVED (the global
+# IQR is measured), so `out_of_range` cannot independently audit it -- the bound
+# is a rearrangement of the same numbers. reachable.py's doctrine says a range
+# is a property of the DESIGN; this statistic has no design-side ceiling because
+# its denominator is a measurement. Declared rather than disguised.
 B3 = Bar("median within-family IQR / global IQR", 0.30, floor=0.0,
          ceiling=(float(fuse.max() - fuse.min()) / gi) if gi > 0 else 1.0,
          why="no subgroup IQR can exceed the field's full range, so the ratio "
-             "is bounded by range / global IQR")
+             "is bounded by range / global IQR — NOTE: DATA-DERIVED, so the "
+             "out_of_range audit on this bar is not independent")
 B4 = Bar("nodes beating below 20 Hz", 0.20, floor=0.0, ceiling=1.0,
          why="a fraction of nodes: 0 to 1 by construction")
 
@@ -254,9 +269,20 @@ for b, v, f in ((B1a, g1_distinct, "{:.0f}"), (B1b, g1_top, "{:.1%}"),
     print("  " + b.line(v, f))
 
 v = compose([Arm("not_railed", EX_ROLE, not_railed,
-                 value=g1_distinct, thresh=50),
+                 value=g1_distinct, thresh=50,
+                 claim="the field is not one value on nearly every node "
+                       "(fuses B1a distinct-count AND B1b largest-share; "
+                       "the cited value is B1a's)"),
              Arm.from_bar(s2, EX_ROLE, note="vs bright/dense/odd/tonal/crit"),
-             Arm.from_bar(s3, RES_ROLE, note="within-family resolution"),
+             # ROLE CORRECTED (adversarial review): the seal lists "A
+             # RELABELLING" as one of the three ways the dimension is
+             # WORTHLESS, so a G3 miss must be able to negate. It was wired
+             # RESOLUTION, where it could only qualify. It passed at 1.54 so
+             # the arm never fired, but its negating power had been removed
+             # relative to the sealed semantics.
+             Arm.from_bar(s3, EX_ROLE, note="within-family resolution",
+                          claim="the field resolves inside families, so it is "
+                                "not `family` under another name"),
              Arm.from_bar(s4, MECH_ROLE, note="the beat mechanism is live")],
             holds="EARNS_A_DIMENSION", fails="DOES_NOT_EARN_A_DIMENSION")
 print(f"\nVERDICT: {v['citation']}")

@@ -128,22 +128,45 @@ for par in PARENTS:
 b1 = all(r["err"] <= 1e-9 * max(r["delta_hz"], 1.0) for r in rows)
 assert b1, f"B1 round-trip failed, worst {max(r['err'] for r in rows):.3e}"
 
-# B2 basin membership at every accepted solve (solve() enforces it; verified here
-# independently rather than trusting the function that produced the row)
-for r in rows:
-    got, _ = parent_of(Fraction(r["alpha"]), 2 * order_bound(0.9))
-    assert str(got) == r["parent"], f"B2 failed at {r}"
+# B2 basin membership. CORRECTED 2026-08-25 (adversarial review): this
+# previously re-ran the SAME parent_of on the SAME input and called itself
+# "independent", so a broken parent_of passed identically. It now recomputes the
+# parent by brute force over the box, sharing no code with parent_of.
+def parent_bruteforce(alpha, A):
+    p_, q_ = alpha.numerator, alpha.denominator
+    cands = []
+    for a1 in range(-A, A + 1):
+        for a2 in range(-A, A + 1):
+            if (a1, a2) != (0, 0):
+                cands.append((abs(a1 * q_ + a2 * p_), max(abs(a1), abs(a2)),
+                              -a2, a1, a2))
+    cands.sort()
+    _, _, _, a1, a2 = cands[0]
+    return Fraction(abs(a1), abs(a2)) if a2 else None
 
-# B3 the refusal must fire
-big = []
+
+for r in rows:
+    got = parent_bruteforce(Fraction(r["alpha"]), 2 * order_bound(0.9))
+    assert str(got) == r["parent"], f"B2 failed at {r} (brute force says {got})"
+
+# B3 the refusal must fire. CORRECTED: `assert refused` was satisfied by
+# refusals already collected from the main grid, and `big` -- the parents
+# ACCEPTED at 60 Hz -- was collected and never checked, so a regression that
+# accepted every one of them still passed. Both fixed: the 60 Hz sweep gets its
+# own counter and `big` must be empty.
+big, refused_60 = [], 0
 for par in PARENTS:
     try:
         solve(par, 60.0, f_c=220.0)
         big.append(str(par))
     except OutOfBasin as e:
+        refused_60 += 1
         refused.append(dict(parent=str(par), delta=60.0, f_c=220.0,
                             why=str(e)[:80]))
-assert refused, "B3 failed: the basin guard never refused — an inert guard"
+assert not big, f"B3 failed: 60 Hz accepted for {big} — the basin guard let a " \
+                "target through that lands under another parent"
+assert refused_60 == len(PARENTS), \
+    f"B3 failed: only {refused_60}/{len(PARENTS)} parents refused 60 Hz"
 
 # B4 carrier scaling
 a1, _ = solve(Fraction(4, 3), 3.0, f_c=220.0)
@@ -166,7 +189,8 @@ for w in refused[:4]:
 
 print(f"\nB1 round-trip to 1e-9 relative            {len(rows)}/{len(rows)}")
 print(f"B2 basin membership, independently checked {len(rows)}/{len(rows)}")
-print(f"B3 refusal fires on large targets          {len(refused)} refusals")
+print(f"B3 refusal fires on large targets          {refused_60}/{len(PARENTS)} "
+      f"parents refuse 60 Hz; {len(refused)} refusals overall")
 print(f"B4 carrier scaling is real                 3 Hz@220 -> {float(a1):.6f}, "
       f"3 Hz@440 -> {float(a2):.6f}")
 print("\nUNITS: sep_Hz = f_c * r1 * gap, so alpha = (p +/- delta/(f_c*r1)) / q.")
@@ -181,7 +205,9 @@ with redpath("accepted beat-target solves", expect_min=60) as rp:
 json.dump(dict(I=0.9, A=2 * order_bound(0.9), parents=[str(p) for p in PARENTS],
                deltas=DELTAS, carriers=CARRIERS, n_accepted=len(rows),
                n_refused=len(refused), rows=rows, refusals=refused[:12],
-               assertions=dict(B1=bool(b1), B2=True, B3=bool(refused),
+               assertions=dict(B1=bool(b1), B2="brute-force recomputed",
+                               B3=dict(refused_at_60hz=refused_60,
+                                       accepted_at_60hz=big),
                                B4=bool(b4)),
                units="sep_Hz = f_c * r1 * gap; alpha = (p +/- delta/(f_c*r1))/q",
                verdict="INVERSION_VERIFIED"),

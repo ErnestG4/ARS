@@ -213,8 +213,13 @@ import math                                                        # noqa: E402
 se_l = math.sqrt(0.25 / n_diff_index) if n_diff_index else float("inf")
 se_a = math.sqrt(0.25 / n_sens) if n_sens else float("inf")
 z_l = (larger_rate - 0.5) / se_l if se_l else 0.0
-amended = ("ORDER_DEPENDENT_BUT_UNBIASED" if (s1["met"] and s3["met"]
-                                             and not s2["met"])
+# LABEL CORRECTED (adversarial review): "UNBIASED" asserts what a null
+# non-rejection cannot. The supported statement is that no convention larger
+# than roughly +/-0.001 is detectable at 95%, which is an absence of evidence
+# at a stated precision, not evidence of absence. This is the censoring-at-the-
+# null lesson applied to a label.
+amended = ("ORDER_DEPENDENT_NO_CONVENTION_DETECTED" if (s1["met"] and s3["met"]
+                                                        and not s2["met"])
            else v["head"])
 print(f"\nVERDICT (sealed lattice, unchanged): {v['citation']}")
 print(f"VERDICT (amendment 1(ii)):           {amended}")
@@ -222,7 +227,9 @@ print(f"\n  higher index on the larger ratio: {larger_rate:.6f} "
       f"+/- {1.96 * se_l:.6f} at 95%  (z = {z_l:+.2f})")
 print(f"  alignment among swap-sensitive:   {align:.4f} "
       f"+/- {1.96 * se_a:.4f} at 95%")
-print("  NO SIDE TO NAME. The map carries no routing convention.")
+print("  NO SIDE TO NAME at this precision: no convention larger than about "
+      f"+/-{1.96 * se_l:.4f} is detectable at 95%. That is an absence of "
+      "evidence\n  with its precision stated, not evidence of absence.")
 print(f"\n  But the field IS order-dependent: {w1:.1%} of pairs swap-sensitive,")
 print(f"  {float((da != ds).mean()):.1%} of nodes would change, median change {w3:.4f}.")
 print("  So fusion density is a function of the stored operator ORDER, not of")

@@ -29,24 +29,24 @@
    "value": 260,
    "thresh": 50,
    "floor": 1,
-   "ceiling": 25772,
+   "ceiling": 4387,
    "met": true,
    "direction": "ge",
    "out_of_range": false,
-   "headroom": 25722,
-   "why": "a per-node fraction over at most C(16,2)=120 pairs; at most one distinct value per node"
+   "headroom": 4337,
+   "why": "the field is nf/nt with nt <= C(16,2) = 120, so it can take at most 4387 distinct values regardless of node count"
   },
   "largest single value's share": {
    "name": "largest single value's share",
    "value": 0.10363960887785194,
    "thresh": 0.6,
-   "floor": 3.8801800403538726e-05,
+   "floor": 0.00022794620469569182,
    "ceiling": 1.0,
    "met": true,
    "direction": "le",
    "out_of_range": false,
-   "headroom": 0.5999611981995965,
-   "why": "a share of nodes: 1/N to 1 by construction"
+   "headroom": 0.5997720537953043,
+   "why": "with at most 4387 achievable values, the most even possible split still gives the largest 1/4387"
   },
   "max |Spearman| vs an existing field": {
    "name": "max |Spearman| vs an existing field",
@@ -70,7 +70,7 @@
    "direction": "ge",
    "out_of_range": false,
    "headroom": 5.387500000000001,
-   "why": "no subgroup IQR can exceed the field's full range, so the ratio is bounded by range / global IQR"
+   "why": "no subgroup IQR can exceed the field's full range, so the ratio is bounded by range / global IQR \u2014 NOTE: DATA-DERIVED, so the out_of_range audit on this bar is not independent"
   },
   "nodes beating below 20 Hz": {
    "name": "nodes beating below 20 Hz",
@@ -87,19 +87,18 @@
  },
  "verdict": "EARNS_A_DIMENSION",
  "composed": {
-  "label": "EARNS_A_DIMENSION_AT_median within-family IQR / global IQR_BUT_NOT_BY_nodes beating below 20 Hz",
+  "label": "EARNS_A_DIMENSION_BUT_NOT_BY_nodes beating below 20 Hz",
   "head": "EARNS_A_DIMENSION",
   "qualifiers": [
-   "AT_median within-family IQR / global IQR",
    "BUT_NOT_BY_nodes beating below 20 Hz"
   ],
-  "citation": "EARNS_A_DIMENSION  [not_railed 260 vs >=50 MET; max |Spearman| vs an existing field 0.04158 vs <=0.6 MET; nodes beating below 20 Hz 0.07019 vs >=0.2 MISSED]",
+  "citation": "EARNS_A_DIMENSION  [not_railed 260 vs >=50 MET \u2014 \"the field is not one value on nearly every node (fuses B1a distinct-count AND B1b largest-share; the cited value is B1a's)\"; max |Spearman| vs an existing field 0.04158 vs <=0.6 MET; median within-family IQR / global IQR 1.541 vs >=0.3 MET \u2014 \"the field resolves inside families, so it is not `family` under another name\"; nodes beating below 20 Hz 0.07019 vs >=0.2 MISSED]",
   "dropped": [],
   "unread": [],
   "arms": [
    "Arm('not_railed', EXISTENCE, MET)",
    "Arm('max |Spearman| vs an existing field', EXISTENCE, MET)",
-   "Arm('median within-family IQR / global IQR', RESOLUTION, MET)",
+   "Arm('median within-family IQR / global IQR', EXISTENCE, MET)",
    "Arm('nodes beating below 20 Hz', MECHANISM, MISSED)"
   ]
  }

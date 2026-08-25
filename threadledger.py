@@ -106,7 +106,9 @@ ENTRIES = [
          artifact="cross_substrate/brocot_index_routing.json",
          verdict="COLUMN_IS_CONDITIONED_ON_ROUTING",
          note="SEALED head reported unchanged; the amended reading is "
-              "ORDER_DEPENDENT_BUT_UNBIASED. 6.1% of 1.14M pairs swap-sensitive "
+              "ORDER_DEPENDENT_NO_CONVENTION_DETECTED (was 'BUT_UNBIASED' -- a "
+              "null non-rejection cannot assert absence, only bound it). "
+              "6.1% of 1.12M unequal-index pairs swap-sensitive "
               "and 64.0% of nodes would change, but alignment is 0.4995 +/- "
               "0.0037 -- no convention. The head's NAME presumed the mechanism "
               "arm's conclusion, a limit now recorded in verdictlattice"),

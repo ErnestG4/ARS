@@ -872,8 +872,11 @@
  ],
  "assertions": {
   "B1": true,
-  "B2": true,
-  "B3": true,
+  "B2": "brute-force recomputed",
+  "B3": {
+   "refused_at_60hz": 6,
+   "accepted_at_60hz": []
+  },
   "B4": true
  },
  "units": "sep_Hz = f_c * r1 * gap; alpha = (p +/- delta/(f_c*r1))/q",

@@ -37,6 +37,11 @@ have been planted to be met rather than to be informative.
 """
 import sys
 
+# NOTE 2026-08-25 (adversarial review): `expect_exit` was accepted by __init__
+# and used by nothing -- a parameter that looked like a guard and guarded
+# nothing. It is now enforced in __exit__; `assert_exit` remains for callers
+# that check an exit code without a reach floor.
+
 
 class VacuousRedPath(AssertionError):
     pass
@@ -46,12 +51,15 @@ class redpath:
     def __init__(self, what, expect_min=1, expect_exit=None):
         self.what, self.expect_min, self.expect_exit = what, expect_min, expect_exit
         self._n = None
+        self._exit = None
 
     def __enter__(self):
         return self
 
-    def observed(self, n):
+    def observed(self, n, exit_code=None):
         self._n = int(n)
+        if exit_code is not None:
+            self._exit = int(exit_code)
         return self._n
 
     def __exit__(self, exc_type, exc, tb):
@@ -68,6 +76,18 @@ class redpath:
                 f"expected >= {self.expect_min}. The probe did not reach its "
                 "planted target, so a clean exit here means NOTHING about the "
                 "guard. Fix the probe before reading the guard's verdict.")
+        if self.expect_exit is not None:
+            if self._exit is None:
+                raise VacuousRedPath(
+                    f"red-path '{self.what}' declared expect_exit="
+                    f"{self.expect_exit} and never reported one. Pass it to "
+                    "observed(n, exit_code=...). A declared expectation that "
+                    "nothing supplies is a guard that guards nothing — this "
+                    "parameter was accepted and ignored until 2026-08-25.")
+            if self._exit != self.expect_exit:
+                raise VacuousRedPath(
+                    f"red-path '{self.what}' expected exit "
+                    f"{self.expect_exit}, observed {self._exit}")
         return False
 
 
@@ -80,3 +100,44 @@ def assert_exit(claimed, actual, what="probe"):
             "2026-08-21, where a commit message asserted 'exits 1' with "
             "'exit=0 (expect 1)' printed on screen.")
     return actual
+
+
+if __name__ == "__main__":
+    print("--- the probe that started this: reach below the planted floor ---")
+    try:
+        with redpath("seal-order pairs", expect_min=1) as rp:
+            rp.observed(0)
+        raise SystemExit("RED PATH FAILED: a zero-reach probe exited clean")
+    except VacuousRedPath as e:
+        print(f"    raised: {str(e)[:88]}...")
+
+    print("\n--- a probe that never counts its own reach ---")
+    try:
+        with redpath("silent probe", expect_min=1):
+            pass
+        raise SystemExit("RED PATH FAILED: a probe that counted nothing passed")
+    except VacuousRedPath as e:
+        print(f"    raised: {str(e)[:88]}...")
+
+    print("\n--- expect_exit, which was accepted and ignored until 2026-08-25 ---")
+    try:
+        with redpath("probe", expect_min=1, expect_exit=1) as rp:
+            rp.observed(5)
+        raise SystemExit("RED PATH FAILED: a declared expect_exit went unchecked")
+    except VacuousRedPath as e:
+        print(f"    unsupplied exit raised: {str(e)[:76]}...")
+    try:
+        with redpath("probe", expect_min=1, expect_exit=1) as rp:
+            rp.observed(5, exit_code=0)
+        raise SystemExit("RED PATH FAILED: a wrong exit code was accepted")
+    except VacuousRedPath as e:
+        print(f"    wrong exit raised:      {str(e)[:76]}...")
+
+    print("\n--- green path ---")
+    with redpath("probe", expect_min=3, expect_exit=1) as rp:
+        rp.observed(7, exit_code=1)
+    print("    reach 7 >= 3 and exit 1 == 1: clean")
+
+    print("\nREDPATH_SELF_TEST_PASS — a probe below its floor, a probe that "
+          "counts nothing, and a declared-but-unsupplied or wrong exit code "
+          "are all refused.")

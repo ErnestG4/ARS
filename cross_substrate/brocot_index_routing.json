@@ -51,7 +51,7 @@
   }
  },
  "verdict": "COLUMN_IS_CONDITIONED_ON_ROUTING",
- "verdict_amended": "ORDER_DEPENDENT_BUT_UNBIASED",
+ "verdict_amended": "ORDER_DEPENDENT_NO_CONVENTION_DETECTED",
  "composed": {
   "label": "COLUMN_IS_CONDITIONED_ON_ROUTING_BUT_NOT_BY_|alignment rate - 0.5|",
   "head": "COLUMN_IS_CONDITIONED_ON_ROUTING",
