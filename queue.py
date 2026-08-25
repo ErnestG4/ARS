@@ -61,6 +61,33 @@ ENTRIES = [
          note="max(p,q) is strictly increasing in q, so the shipped tie-break "
               "selects the smallest-q minimiser and Lagrange applies; 545/545 "
               "over 546 ties, with three decoy tie-breaks firing at 0%/2.4%/2.4%"),
+    dict(id="map-fusion-density", status=LANDED,
+         request="does a pairwise horizon field earn a graph dimension, or is "
+                 "it a column the map already has under another name?",
+         artifact="cross_substrate/brocot_map_dimension.json",
+         verdict="EARNS_A_DIMENSION",
+         note="fusion density: 260 distinct values, max |Spearman| 0.042 "
+              "against every existing field, resolves within families. Ships "
+              "as a FUSION DENSITY readout, not a beat readout -- only 7.0% of "
+              "nodes beat in (0,20) Hz because some pair almost always fuses "
+              "at N=16"),
+    dict(id="hofstadter-horizon-cutoff", status=QUEUED,
+         request="re-test the butterfly correspondence with the horizon as its "
+                 "CUTOFF: BROCOT-SPEC D§0 was falsified partly because gap "
+                 "prominence was 'fully shadowed by plain Farey simplicity q', "
+                 "and the horizon supplies the bounded-denominator structure "
+                 "that distinguishes the two",
+         note="the butterfly is a q -> infinity object; the instrument only "
+              "ever resolves q <= A = 2*order_bound(I), so the object to "
+              "compare against is the butterfly TRUNCATED at the horizon, "
+              "which has finitely many bands and MOVES with the depth control. "
+              "Design constraint from D§1: nothing ships as a visual layer "
+              "unless it beats a shuffle null AND an effect-size floor AND the "
+              "trivial baselines -- and q is the baseline that shadowed it "
+              "last time, so the sealed test must show the horizon-truncated "
+              "predictor separating FROM q, not merely correlating with the "
+              "geometry. Needs the asymmetric-horizon extension already used "
+              "in brocot_map_dimension."),
     dict(id="amplitude-event-layer", status=QUEUED,
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
