@@ -33,6 +33,23 @@ the record where a reader can see it.
     summarise("refl_other", counts, CENTRAL_TENDENCY) -> RAISES: the name is
                                                          detection-shaped
 
+THE FAMILY GENERALISES — SECOND MEMBER, 2026-08-24
+---------------------------------------------------
+The same category error appeared again in a different costume. A verdict lattice
+keyed `SURVIVES_EXTENSION` on ONE threshold at ONE value of N — "> 50% at N = 4" —
+and read 44.5%, returning a label that contradicted its own table, because the
+series ran 5% -> 17% -> 45% -> 66%. The measured quantity was a TREND and it was
+scored with a scalar sampled at an arbitrary point.
+
+So the type is over QUESTION SHAPES, not just over existence:
+
+    EXISTENCE         does ANY case fire        -> count, any, witness
+    CENTRAL_TENDENCY  what is the typical case  -> median, mean, spread
+    TREND             which way does it go      -> direction, endpoints, crossing
+
+A trend answered by a scalar at one sample point is the same defect as an
+existence answered by a median: right number, wrong question shape.
+
 WHAT THIS CANNOT DO, stated plainly: it cannot know your intent. A field named
 `slope` that is secretly a detection count passes as central tendency. The name
 heuristic is a syntactic check on a semantic property — the same honest limit
@@ -43,7 +60,8 @@ import re
 
 EXISTENCE = "EXISTENCE"
 CENTRAL_TENDENCY = "CENTRAL_TENDENCY"
-_QUESTIONS = (EXISTENCE, CENTRAL_TENDENCY)
+TREND = "TREND"
+_QUESTIONS = (EXISTENCE, CENTRAL_TENDENCY, TREND)
 
 # Names that look like detections. Deliberately broad: a false positive costs
 # one `acknowledge=` argument, a false negative costs a buried finding.
@@ -84,6 +102,30 @@ def summarise(name, values, question, acknowledge=None):
                     any=bool(nz), all=bool(nz) and len(nz) == len(vals),
                     first_witness=(nz[0] if nz else None),
                     witnesses=nz[:8])
+
+    if question is TREND or question == TREND:
+        if len(vals) < 3:
+            raise WrongStatisticForQuestion(
+                f"'{name}': a TREND needs at least 3 points; got {len(vals)}. "
+                "Two points are a difference, not a direction.")
+        up = all(b >= a for a, b in zip(vals, vals[1:]))
+        down = all(b <= a for a, b in zip(vals, vals[1:]))
+        cross = None
+        if acknowledge is not None:
+            try:
+                thr = float(acknowledge)
+                for i, v in enumerate(vals):
+                    if (up and v >= thr) or (down and v <= thr):
+                        cross = i
+                        break
+            except (TypeError, ValueError):
+                thr = None
+        return dict(question=TREND, n=len(vals), first=vals[0], last=vals[-1],
+                    monotone=(up or down),
+                    direction=("rising" if up and not down else
+                               "falling" if down and not up else "non-monotone"),
+                    ratio=(vals[-1] / vals[0] if vals[0] else None),
+                    crossing_index=cross)
 
     if looks_like_a_detection(name) and not acknowledge:
         raise WrongStatisticForQuestion(
@@ -130,6 +172,21 @@ if __name__ == "__main__":
 
     print("\n--- green path: a genuine central-tendency field ---")
     print(f"    {summarise('slope', [4.94, 8.63, 7.86, 0.31], CENTRAL_TENDENCY)}")
+
+    print("\n--- red path 3: the real dissolution series, read as a scalar ---")
+    series=[0.047,0.173,0.445,0.659]      # above-horizon coincidence rate, N=2..5
+    print(f"    series {series}  (N = 2,3,4,5)")
+    print(f"    scalar read at N=4: {series[2]:.3f} < 0.50  ->  verdict 'SURVIVES'")
+    tr=summarise("above_rate",series,TREND,acknowledge=0.5)
+    print(f"    TREND: {tr['direction']}, monotone={tr['monotone']}, "
+          f"{tr['first']:.3f} -> {tr['last']:.3f} ({tr['ratio']:.1f}x), "
+          f"crosses 0.5 at index {tr['crossing_index']} (N={2+tr['crossing_index']})")
+    print("    the trend answers the question the scalar got wrong")
+    try:
+        summarise("above_rate",[0.047,0.659],TREND)
+        raise SystemExit("RED PATH FAILED: a 2-point trend was accepted")
+    except WrongStatisticForQuestion as e:
+        print(f"    2-point trend raised: {str(e)[:72]}...")
 
     print("\n--- green path: a detection name, average argued for out loud ---")
     print(f"    {summarise('n_partials', [31, 31, 30, 29], CENTRAL_TENDENCY, acknowledge='partial COUNT is a magnitude here, not a detection')}")

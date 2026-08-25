@@ -79,6 +79,7 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/brocot"))
 from redpath import redpath                                       # noqa: E402
 from existence import summarise, EXISTENCE                        # noqa: E402
+from ratiopinned import counts as rp_counts                       # noqa: E402
 from phase3.partial_prediction import order_bound                 # noqa: E402
 
 I_MUS = 0.9
@@ -141,18 +142,24 @@ for N in NS:
 
 # ── E4 · a non-sine modulator as a harmonic stack ───────────────────────────
 def rings_with_stack(alpha, harmonics):
-    """Modulator at alpha rendered as sines at k*alpha for k in `harmonics`,
-    each with its own order bound B. Coincidence in the resulting lattice."""
-    rs = [Fraction(1)] + [alpha * k for k in harmonics]
-    return has_coincidence(rs, HOR, require_first_nonzero=True)
+    """Modulator at alpha rendered as sines at k*alpha for k in `harmonics`.
+
+    MIGRATED to the shared filter (ratiopinned.py). The local
+    require_first_nonzero heuristic happened to agree here, but it was a
+    re-implementation at the measurement site -- which is where all three
+    universal-family defects were born. Verified: the canonical filter
+    reproduces this artifact's banked wave numbers exactly (13/17/17/17 ringing,
+    reach 8/11/11/11)."""
+    spec = [(1, 0)] + [(0, k) for k in harmonics]
+    return rp_counts(spec, HOR, alpha)[2] > 0
 
 
 WAVES = {"sine": [1], "triangle": [1, 3, 5], "square": [1, 3, 5, 7], "saw": [1, 2, 3, 4]}
 wave_rows = {}
 for name, harm in WAVES.items():
     ring = [f for f in NODES if rings_with_stack(f, harm)]
-    universal = [f for f in NODES
-                 if has_coincidence([Fraction(1)] + [f * k for k in harm], HOR)
+    spec_h = [(1, 0)] + [(0, k) for k in harm]
+    universal = [f for f in NODES if rp_counts(spec_h, HOR, f)[1] > 0
                  and not rings_with_stack(f, harm)]
     reach = max((max(f.numerator, f.denominator) for f in ring), default=0)
     wave_rows[name] = dict(harmonics=harm, n_ringing=len(ring), of=len(NODES),
