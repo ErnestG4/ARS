@@ -61,6 +61,36 @@ with anything.
 ║ document owes a second table rather than a correction — both are true, they  ║
 ║ answer different questions, and only one of them is what a player hears.     ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — RETRACTING A "LADDER" I ASSERTED ONE COMMIT EARLIER.
+
+Reading the printed top rows at I = 0.9 (-6.0, -37.3, -53.6, -69.9, -88.8,
+-107.7 dB) I described the witness levels as "a near-exact ladder, roughly
+16-19 dB per rung", and wrote into a commit message that the audible horizon is
+therefore set by the dynamic-range budget at about one rung per 17 dB, calling
+that "more robust than any particular count and the durable finding here".
+
+Computing the full per-rung series rather than the sorted head:
+
+    I = 0.9   10.4, 16.3, 16.3,  2.6, 35.2                      mean 16.2
+    I = 1.5    4.8, 11.6, 11.6,  2.7, 25.9,  2.0, 14.3          mean 10.4
+    I = 2.0    0.1,  8.7,  8.7,  2.8, 20.3,  2.1, 11.6, ...     mean 11.0
+    I = 3.0   -1.8,  0.8,  3.9,  3.5, 11.3,  2.4,  7.4, ...     mean  6.7
+
+The scatter runs from -1.8 to +35.2 dB and the mean FALLS with the index. There
+is no 17 dB law. The step size depends on how p and q split into Bessel orders,
+which turns on their parity, so adjacent rungs can be nearly free or cost 35 dB.
+
+The retraction matters more than the claim did: I read a regular series off six
+sorted rows, which is the shape of every argmax-without-an-error-bar mistake in
+this repo, and asserted it was the durable finding while the arms that were
+actually sealed sat right beside it. E1-E4 are what this cell measured. The
+ladder was a decoration I added on the way out.
+
+WHAT SURVIVES: the counts, which were sealed and scored. At I = 0.9, thirteen
+structurally-fusing ratios are three audible ones at -40 dB and five at -60 dB.
+And E4, which failed, says the count is floor-sensitive -- so even those numbers
+travel with their floor attached.
 """
 import json
 import os
