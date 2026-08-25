@@ -1,0 +1,1333 @@
+{
+ "I_list": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "floors": [
+  30.0,
+  40.0,
+  50.0,
+  60.0,
+  80.0
+ ],
+ "lo": "7/10",
+ "hi": "7/5",
+ "primary_I": 0.9,
+ "primary_floor": 40.0,
+ "per_I": {
+  "0.9": {
+   "B": 4,
+   "A": 8,
+   "n": 13,
+   "audible": {
+    "30.0": 1,
+    "40.0": 3,
+    "50.0": 3,
+    "60.0": 5,
+    "80.0": 9
+   },
+   "rows": [
+    {
+     "ratio": "5/7",
+     "maxpq": 7,
+     "level_db": -72.46984683085604,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "3/4",
+     "maxpq": 4,
+     "level_db": -37.25308292974654,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/5",
+     "maxpq": 5,
+     "level_db": -53.58189691111275,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/6",
+     "maxpq": 6,
+     "level_db": -69.91071089247896,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/7",
+     "maxpq": 7,
+     "level_db": -88.79866081222225,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "7/8",
+     "maxpq": 8,
+     "level_db": -107.68661073196554,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "1",
+     "maxpq": 1,
+     "level_db": -5.973665398743902,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/7",
+     "maxpq": 8,
+     "level_db": -107.68661073196554,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "7/6",
+     "maxpq": 7,
+     "level_db": -88.79866081222225,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "6/5",
+     "maxpq": 6,
+     "level_db": -69.91071089247896,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/4",
+     "maxpq": 5,
+     "level_db": -53.58189691111275,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/3",
+     "maxpq": 4,
+     "level_db": -37.25308292974654,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/5",
+     "maxpq": 7,
+     "level_db": -72.46984683085604,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    }
+   ]
+  },
+  "1.5": {
+   "B": 5,
+   "A": 10,
+   "n": 20,
+   "audible": {
+    "30.0": 5,
+    "40.0": 7,
+    "50.0": 9,
+    "60.0": 11,
+    "80.0": 15
+   },
+   "rows": [
+    {
+     "ratio": "7/10",
+     "maxpq": 10,
+     "level_db": -83.34658086724798,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "5/7",
+     "maxpq": 7,
+     "level_db": -41.13619881185703,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "3/4",
+     "maxpq": 4,
+     "level_db": -15.23730829343501,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/9",
+     "maxpq": 9,
+     "level_db": -69.05926967274868,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/5",
+     "maxpq": 5,
+     "level_db": -26.84888761735774,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/6",
+     "maxpq": 6,
+     "level_db": -38.46046694128047,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/7",
+     "maxpq": 7,
+     "level_db": -52.74777813577976,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/8",
+     "maxpq": 8,
+     "level_db": -67.03508933027906,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/9",
+     "maxpq": 9,
+     "level_db": -83.34658086724798,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "9/10",
+     "maxpq": 10,
+     "level_db": -99.6580724042169,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "1",
+     "maxpq": 1,
+     "level_db": -0.7492203551475868,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "10/9",
+     "maxpq": 10,
+     "level_db": -99.6580724042169,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "9/8",
+     "maxpq": 9,
+     "level_db": -83.34658086724798,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "8/7",
+     "maxpq": 8,
+     "level_db": -67.03508933027906,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/6",
+     "maxpq": 7,
+     "level_db": -52.74777813577976,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/5",
+     "maxpq": 6,
+     "level_db": -38.46046694128047,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/4",
+     "maxpq": 5,
+     "level_db": -26.84888761735774,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/7",
+     "maxpq": 9,
+     "level_db": -69.05926967274868,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/3",
+     "maxpq": 4,
+     "level_db": -15.23730829343501,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/5",
+     "maxpq": 7,
+     "level_db": -41.13619881185703,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    }
+   ]
+  },
+  "2.0": {
+   "B": 6,
+   "A": 12,
+   "n": 28,
+   "audible": {
+    "30.0": 9,
+    "40.0": 11,
+    "50.0": 13,
+    "60.0": 15,
+    "80.0": 24
+   },
+   "rows": [
+    {
+     "ratio": "7/10",
+     "maxpq": 10,
+     "level_db": -62.859264128231665,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/7",
+     "maxpq": 7,
+     "level_db": -28.85885122629539,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/11",
+     "maxpq": 11,
+     "level_db": -78.2090718598437,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "3/4",
+     "maxpq": 4,
+     "level_db": -8.535926780083322,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/9",
+     "maxpq": 9,
+     "level_db": -51.27977673914074,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/5",
+     "maxpq": 5,
+     "level_db": -17.279363837204464,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/11",
+     "maxpq": 11,
+     "level_db": -78.2090718598437,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/6",
+     "maxpq": 6,
+     "level_db": -26.0228008943256,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/7",
+     "maxpq": 7,
+     "level_db": -37.60228828341653,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/8",
+     "maxpq": 8,
+     "level_db": -49.181775672507456,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/9",
+     "maxpq": 9,
+     "level_db": -62.859264128231665,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/10",
+     "maxpq": 10,
+     "level_db": -76.53675258395589,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "10/11",
+     "maxpq": 11,
+     "level_db": -91.88656031556792,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "11/12",
+     "maxpq": 12,
+     "level_db": -107.23636804717997,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "1",
+     "maxpq": 1,
+     "level_db": -8.218648505080896,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "12/11",
+     "maxpq": 12,
+     "level_db": -107.23636804717997,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "11/10",
+     "maxpq": 11,
+     "level_db": -91.88656031556792,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "10/9",
+     "maxpq": 10,
+     "level_db": -76.53675258395589,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/8",
+     "maxpq": 9,
+     "level_db": -62.859264128231665,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/7",
+     "maxpq": 8,
+     "level_db": -49.181775672507456,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/6",
+     "maxpq": 7,
+     "level_db": -37.60228828341653,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/5",
+     "maxpq": 6,
+     "level_db": -26.0228008943256,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/9",
+     "maxpq": 11,
+     "level_db": -78.2090718598437,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/4",
+     "maxpq": 5,
+     "level_db": -17.279363837204464,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/7",
+     "maxpq": 9,
+     "level_db": -51.27977673914074,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/3",
+     "maxpq": 4,
+     "level_db": -8.535926780083322,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/8",
+     "maxpq": 11,
+     "level_db": -78.2090718598437,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/5",
+     "maxpq": 7,
+     "level_db": -28.85885122629539,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    }
+   ]
+  },
+  "3.0": {
+   "B": 7,
+   "A": 14,
+   "n": 38,
+   "audible": {
+    "30.0": 15,
+    "40.0": 18,
+    "50.0": 24,
+    "60.0": 26,
+    "80.0": 36
+   },
+   "rows": [
+    {
+     "ratio": "7/10",
+     "maxpq": 10,
+     "level_db": -32.37987382365131,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/7",
+     "maxpq": 7,
+     "level_db": -11.320628549499677,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/11",
+     "maxpq": 11,
+     "level_db": -43.921512091493476,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "3/4",
+     "maxpq": 4,
+     "level_db": -3.1288517860877842,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "10/13",
+     "maxpq": 13,
+     "level_db": -66.67201854028396,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/9",
+     "maxpq": 9,
+     "level_db": -24.992669022002993,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/14",
+     "maxpq": 14,
+     "level_db": -78.21365680812613,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/5",
+     "maxpq": 5,
+     "level_db": -3.933423747851358,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/11",
+     "maxpq": 11,
+     "level_db": -43.921512091493476,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/6",
+     "maxpq": 6,
+     "level_db": -7.866847495702718,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/13",
+     "maxpq": 13,
+     "level_db": -66.67201854028396,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/7",
+     "maxpq": 7,
+     "level_db": -15.254052297351032,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/8",
+     "maxpq": 8,
+     "level_db": -22.641257098999354,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/9",
+     "maxpq": 9,
+     "level_db": -32.37987382365131,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/10",
+     "maxpq": 10,
+     "level_db": -42.11849054830328,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "10/11",
+     "maxpq": 11,
+     "level_db": -53.660128816145445,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/12",
+     "maxpq": 12,
+     "level_db": -65.20176708398762,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "12/13",
+     "maxpq": 13,
+     "level_db": -78.21365680812613,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "13/14",
+     "maxpq": 14,
+     "level_db": -91.22554653226464,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "1",
+     "maxpq": 1,
+     "level_db": -8.56200558839462,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "14/13",
+     "maxpq": 14,
+     "level_db": -91.22554653226464,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": false
+     }
+    },
+    {
+     "ratio": "13/12",
+     "maxpq": 13,
+     "level_db": -78.21365680812613,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "12/11",
+     "maxpq": 12,
+     "level_db": -65.20176708398762,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/10",
+     "maxpq": 11,
+     "level_db": -53.660128816145445,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "10/9",
+     "maxpq": 10,
+     "level_db": -42.11849054830328,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/8",
+     "maxpq": 9,
+     "level_db": -32.37987382365131,
+     "audible": {
+      "30.0": false,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "8/7",
+     "maxpq": 8,
+     "level_db": -22.641257098999354,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/6",
+     "maxpq": 7,
+     "level_db": -15.254052297351032,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "13/11",
+     "maxpq": 13,
+     "level_db": -66.67201854028396,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "6/5",
+     "maxpq": 6,
+     "level_db": -7.866847495702718,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/9",
+     "maxpq": 11,
+     "level_db": -43.921512091493476,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "5/4",
+     "maxpq": 5,
+     "level_db": -3.933423747851358,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "14/11",
+     "maxpq": 14,
+     "level_db": -78.21365680812613,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "9/7",
+     "maxpq": 9,
+     "level_db": -24.992669022002993,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "13/10",
+     "maxpq": 13,
+     "level_db": -66.67201854028396,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": false,
+      "60.0": false,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "4/3",
+     "maxpq": 4,
+     "level_db": -3.1288517860877842,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "11/8",
+     "maxpq": 11,
+     "level_db": -43.921512091493476,
+     "audible": {
+      "30.0": false,
+      "40.0": false,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    },
+    {
+     "ratio": "7/5",
+     "maxpq": 7,
+     "level_db": -11.320628549499677,
+     "audible": {
+      "30.0": true,
+      "40.0": true,
+      "50.0": true,
+      "60.0": true,
+      "80.0": true
+     }
+    }
+   ]
+  }
+ },
+ "bars": {
+  "audible share at -60 dB": {
+   "name": "audible share at -60 dB",
+   "value": 0.38461538461538464,
+   "thresh": 1.0,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 1.0,
+   "why": "a fraction of below-horizon ratios: 0 to 1"
+  },
+  "audible share at -40 dB": {
+   "name": "audible share at -40 dB",
+   "value": 0.23076923076923078,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.5,
+   "why": "a fraction of below-horizon ratios: 0 to 1"
+  },
+  "regions surviving at -40 dB": {
+   "name": "regions surviving at -40 dB",
+   "value": 3,
+   "thresh": 13,
+   "floor": 0,
+   "ceiling": 13,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 13,
+   "why": "a region per audible below-horizon ratio; at most all 13 of them"
+  },
+  "relative change in count, -40 vs -60 dB": {
+   "name": "relative change in count, -40 vs -60 dB",
+   "value": 0.4,
+   "thresh": 0.25,
+   "floor": 0.0,
+   "ceiling": 13.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.25,
+   "why": "a relative change against the -60 dB count, which is at least 1"
+  }
+ },
+ "verdict": "EPS_HORIZON_OVERSTATES_AUDIBILITY",
+ "composed": {
+  "label": "EPS_HORIZON_OVERSTATES_AUDIBILITY_AT_audible share at -40 dB_BUT_NOT_BY_relative change in count, -40 vs -60 dB",
+  "head": "EPS_HORIZON_OVERSTATES_AUDIBILITY",
+  "qualifiers": [
+   "AT_audible share at -40 dB",
+   "BUT_NOT_BY_relative change in count, -40 vs -60 dB"
+  ],
+  "citation": "EPS_HORIZON_OVERSTATES_AUDIBILITY  [audible share at -60 dB 0.3846 vs <=1 MET \u2014 \"not every structurally-fusing ratio is audibly fusing\"; regions surviving at -40 dB 3 vs <=13 MET \u2014 \"the shipped 13-region field shrinks under an audibility floor\"; relative change in count, -40 vs -60 dB 0.4 vs <=0.25 MISSED \u2014 \"the product floor is floor-robust, as the review claimed\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('audible share at -60 dB', EXISTENCE, MET)",
+   "Arm('regions surviving at -40 dB', EXISTENCE, MET)",
+   "Arm('audible share at -40 dB', RESOLUTION, MET)",
+   "Arm('relative change in count, -40 vs -60 dB', MECHANISM, MISSED)"
+  ]
+ }
+}
