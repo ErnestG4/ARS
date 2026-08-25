@@ -2,7 +2,13 @@
 
 WHAT TURNS THIS RED:
   (a) verdictlattice.py stops refusing a roleless arm, a lattice with no
-      EXISTENCE arm, or a MECHANISM miss that negates the head.
+      EXISTENCE arm, or a MECHANISM miss that negates the head — OR stops
+      NEGATING on an EXISTENCE miss. That last one was unguarded until
+      2026-08-25: adversarial review replaced the head computation with
+      `head = holds`, so the negative label became unreachable, and this board
+      returned 8/8 PASS. Every check tested the positive direction. It is
+      checked directly below, not only via the module's self-test, because a
+      broken module could in principle also break its own self-test.
   (b) either HISTORICAL SITE stops carrying both labels. The discipline is that
       a mislabelled seal is REPORTED unchanged and corrected beside itself; a
       site that keeps only one of the two has either rewritten its seal or
@@ -27,6 +33,15 @@ sys.path.insert(0, HERE)
 from verdictlattice import Arm, compose, EXISTENCE, RESOLUTION   # noqa: E402
 
 CHECKS = []
+
+# (a) the negation path, checked HERE and not only in the module's self-test
+_neg = compose([Arm("holds", EXISTENCE, False)], holds="H", fails="N")
+_mix = compose([Arm("a", EXISTENCE, True), Arm("b", EXISTENCE, False)],
+               holds="H", fails="N")
+CHECKS.append(("an EXISTENCE miss produces the negative head",
+               _neg["head"] == "N" and _mix["head"] == "N",
+               f"single-miss head {_neg['head']!r}, mixed head {_mix['head']!r} "
+               "— compose() can no longer reach its own negative label"))
 
 p = subprocess.run([PY, os.path.join(HERE, "verdictlattice.py")],
                    capture_output=True, text=True, cwd=HERE)

@@ -209,6 +209,24 @@ if __name__ == "__main__":
     print(f"    sealed lattice said : PARENT_LABEL_DOES_NOT_HOLD  (P1 = P2 = 100.0%)")
     print(f"    composed            : {v3['label']}")
 
+    print("\n--- red path 0 · an EXISTENCE MISS MUST produce the negative head ---")
+    # Until 2026-08-25 nothing asserted this. Adversarial review replaced the
+    # head computation with `head = holds` -- so compose() could never return
+    # the negative label, the exact laundering this module exists to prevent --
+    # and the board stayed green, 8/8. Every red path tested the positive
+    # direction. A guard against laundering whose own negation path was
+    # unfalsifiable.
+    neg0 = compose([Arm("holds", EXISTENCE, False)], holds="H", fails="N")
+    if neg0["head"] != "N":
+        raise SystemExit("RED PATH FAILED: an EXISTENCE miss did not negate")
+    mixed = compose([Arm("a", EXISTENCE, True), Arm("b", EXISTENCE, False)],
+                    holds="H", fails="N")
+    if mixed["head"] != "N":
+        raise SystemExit("RED PATH FAILED: one EXISTENCE miss among two did "
+                         "not negate — the head must require ALL of them")
+    print(f"    one arm missed -> {neg0['head']};  "
+          f"one of two missed -> {mixed['head']}")
+
     print("\n--- red path 1 · a MECHANISM miss cannot produce a negative head ---")
     neg = compose([Arm("holds", EXISTENCE, True), Arm("cause", MECHANISM, False)],
                   holds="HOLDS", fails="DOES_NOT_HOLD")
@@ -267,7 +285,8 @@ if __name__ == "__main__":
                           Arm("fine", RESOLUTION, True)],
                          holds="HOLDS", fails="DOES_NOT_HOLD")["label"])
 
-    print("\nVERDICTLATTICE_SELF_TEST_PASS — the head is a function of the "
-          "EXISTENCE arms alone, a roleless arm is refused, both historical "
-          "mislabellings re-compose to what their own tables said, and the "
-          "quotable form carries its arms' values.")
+    print("\nVERDICTLATTICE_SELF_TEST_PASS — an EXISTENCE miss negates and a "
+          "MECHANISM miss cannot, the head is a function of the EXISTENCE arms "
+          "alone, a roleless arm is refused, both historical mislabellings "
+          "re-compose to what their own tables said, and the quotable form "
+          "carries its arms' values.")

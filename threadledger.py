@@ -1,4 +1,10 @@
-"""Queued threads and their disposition, machine-checked. A compact kills threads.
+"""Threads and their disposition, machine-checked. A compact kills threads.
+
+NAMED threadledger, NOT queue: `queue` is a stdlib module, and the repo root
+precedes stdlib on sys.path, so a file called queue.py here broke
+`concurrent.futures` for every script run from the root. Found by adversarial
+review, demonstrated, fixed. A ledger for visibility that silently breaks
+unrelated imports is not a good trade.
 
 WHY THIS EXISTS
 ---------------

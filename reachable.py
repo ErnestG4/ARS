@@ -61,6 +61,22 @@ class Bar:
                 "from. An undefended range is a number, not a bound.")
         if floor > ceiling:
             raise UnreachableBar(f"'{name}': floor {floor} exceeds ceiling {ceiling}")
+        # BOTH SIDES. Until 2026-08-25 this refused only bars that could not be
+        # MET, which is the one-sided-threshold-calibration lesson committed
+        # inside the guard written against it: a bar that cannot MISS launders
+        # a null into a pass just as surely. Found by adversarial review, which
+        # constructed Bar("x", 0.5, floor=1.0, ceiling=5.0) and watched it
+        # report MET on every reachable value.
+        if direction == "ge" and thresh <= floor:
+            raise UnreachableBar(
+                f"'{name}': bar {thresh} sits AT OR BELOW the reachable floor "
+                f"{floor} — every possible value meets it, so the arm cannot "
+                f"MISS and any MET it reports is non-evidence. ({why})")
+        if direction == "le" and thresh >= ceiling:
+            raise UnreachableBar(
+                f"'{name}': bar {thresh} sits AT OR ABOVE the reachable ceiling "
+                f"{ceiling} — every possible value meets it, so the arm cannot "
+                f"MISS. ({why})")
         if direction == "ge" and thresh > ceiling:
             raise UnreachableBar(
                 f"'{name}': bar {thresh} sits ABOVE the reachable ceiling "
@@ -129,6 +145,16 @@ if __name__ == "__main__":
     except UnreachableBar as e:
         print(f"    no `why`    refused: {str(e)[:72]}...")
 
+    print("\n--- red path 3b · a bar that cannot MISS, both directions ---")
+    for kw, lab in ((dict(thresh=0.5, floor=1.0, ceiling=5.0), "ge under floor"),
+                    (dict(thresh=1.0, floor=0.0, ceiling=1.0, direction="le"),
+                     "le at ceiling")):
+        try:
+            Bar("x", why="an arm that every value satisfies", **kw)
+            raise SystemExit(f"RED PATH FAILED: {lab} was accepted")
+        except UnreachableBar as e:
+            print(f"    {lab:16s} refused: {str(e)[:64]}...")
+
     print("\n--- red path 3 · the other direction, a 'le' bar under the floor ---")
     try:
         Bar("p-value", thresh=1e-6, floor=1.0 / 999, ceiling=1.0, direction="le",
@@ -154,6 +180,16 @@ if __name__ == "__main__":
     print("   ", b.line(5.72, "{:.2f}"))
     print(f"    headroom above the bar: {b.score(5.72)['headroom']:.2f}")
 
-    print("\nREACHABLE_SELF_TEST_PASS — an inert bar cannot be constructed, an "
-          "unstated range is a refusal, both directions are covered, and a "
-          "value outside its declared range is flagged as a broken range.")
+    print("\n--- score() must actually score, not always agree ---")
+    b = Bar("s", 0.5, floor=0.0, ceiling=1.0, why="a fraction")
+    if not (b.score(0.9)["met"] and not b.score(0.1)["met"]):
+        raise SystemExit("RED PATH FAILED: score() does not discriminate")
+    bl = Bar("s", 0.5, floor=0.0, ceiling=1.0, direction="le", why="a fraction")
+    if not (bl.score(0.1)["met"] and not bl.score(0.9)["met"]):
+        raise SystemExit("RED PATH FAILED: 'le' score() does not discriminate")
+    print("    ge: 0.9 MET / 0.1 MISSED    le: 0.1 MET / 0.9 MISSED")
+
+    print("\nREACHABLE_SELF_TEST_PASS — a bar that cannot be MET and a bar that "
+          "cannot MISS are both refused, an unstated range is a refusal, "
+          "score() discriminates in both directions, and a value outside its "
+          "declared range is flagged as a broken range.")

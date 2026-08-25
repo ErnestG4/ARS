@@ -1262,19 +1262,23 @@
    ]
   }
  },
- "bars": {
-  "audible share at -60 dB": {
-   "name": "audible share at -60 dB",
+ "e1_inert": {
+  "value": 0.38461538461538464,
+  "reason": "bar 1.0 == ceiling 1.0; cannot miss; not scored"
+ },
+ "inert_arms": {
+  "E1": {
    "value": 0.38461538461538464,
-   "thresh": 1.0,
-   "floor": 0.0,
-   "ceiling": 1.0,
-   "met": true,
-   "direction": "le",
-   "out_of_range": false,
-   "headroom": 1.0,
-   "why": "a fraction of below-horizon ratios: 0 to 1"
+   "reason": "bar 1.0 == ceiling 1.0"
   },
+  "E3": {
+   "value": 3,
+   "reason": "bar 13 == ceiling 13"
+  }
+ },
+ "regions_surviving_at_40db": 3,
+ "n_below_horizon": 13,
+ "bars": {
   "audible share at -40 dB": {
    "name": "audible share at -40 dB",
    "value": 0.23076923076923078,
@@ -1286,18 +1290,6 @@
    "out_of_range": false,
    "headroom": 0.5,
    "why": "a fraction of below-horizon ratios: 0 to 1"
-  },
-  "regions surviving at -40 dB": {
-   "name": "regions surviving at -40 dB",
-   "value": 3,
-   "thresh": 13,
-   "floor": 0,
-   "ceiling": 13,
-   "met": true,
-   "direction": "le",
-   "out_of_range": false,
-   "headroom": 13,
-   "why": "a region per audible below-horizon ratio; at most all 13 of them"
   },
   "relative change in count, -40 vs -60 dB": {
    "name": "relative change in count, -40 vs -60 dB",
@@ -1314,19 +1306,21 @@
  },
  "verdict": "EPS_HORIZON_OVERSTATES_AUDIBILITY",
  "composed": {
-  "label": "EPS_HORIZON_OVERSTATES_AUDIBILITY_AT_audible share at -40 dB_BUT_NOT_BY_relative change in count, -40 vs -60 dB",
+  "label": "EPS_HORIZON_OVERSTATES_AUDIBILITY_BUT_NOT_BY_relative change in count, -40 vs -60 dB",
   "head": "EPS_HORIZON_OVERSTATES_AUDIBILITY",
   "qualifiers": [
-   "AT_audible share at -40 dB",
    "BUT_NOT_BY_relative change in count, -40 vs -60 dB"
   ],
-  "citation": "EPS_HORIZON_OVERSTATES_AUDIBILITY  [audible share at -60 dB 0.3846 vs <=1 MET \u2014 \"not every structurally-fusing ratio is audibly fusing\"; regions surviving at -40 dB 3 vs <=13 MET \u2014 \"the shipped 13-region field shrinks under an audibility floor\"; relative change in count, -40 vs -60 dB 0.4 vs <=0.25 MISSED \u2014 \"the product floor is floor-robust, as the review claimed\"]",
-  "dropped": [],
+  "citation": "EPS_HORIZON_OVERSTATES_AUDIBILITY  [audible share at -40 dB 0.2308 vs <=0.5 MET \u2014 \"fewer than half of structurally-fusing ratios are audibly fusing\"; relative change in count, -40 vs -60 dB 0.4 vs <=0.25 MISSED \u2014 \"the product floor is floor-robust, as the review claimed\"]",
+  "dropped": [
+   "audible share at -60 dB",
+   "regions surviving at -40 dB"
+  ],
   "unread": [],
   "arms": [
-   "Arm('audible share at -60 dB', EXISTENCE, MET)",
-   "Arm('regions surviving at -40 dB', EXISTENCE, MET)",
-   "Arm('audible share at -40 dB', RESOLUTION, MET)",
+   "Arm('audible share at -60 dB', EXISTENCE, INERT)",
+   "Arm('regions surviving at -40 dB', EXISTENCE, INERT)",
+   "Arm('audible share at -40 dB', EXISTENCE, MET)",
    "Arm('relative change in count, -40 vs -60 dB', MECHANISM, MISSED)"
   ]
  }

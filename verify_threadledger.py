@@ -1,4 +1,11 @@
-"""Board row for the queued-thread ledger.
+"""Board row for the thread ledger.
+
+RENAMED 2026-08-25, from queue.py / verify_queue.py: `queue` shadows a stdlib
+module, and because the repo root precedes stdlib on sys.path, ANY script run
+from the root that imported `concurrent.futures` died with
+`AttributeError: module 'queue' has no attribute 'SimpleQueue'`.
+`run_phase20_acquire.py` does exactly that. A ledger built to make things
+visible was silently breaking unrelated scripts.
 
 WHAT TURNS THIS RED: a LANDED entry whose artifact is missing, or whose recorded
 verdict no longer matches the artifact on disk. Either means the ledger is
@@ -13,7 +20,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from queue import LANDED, QUEUED, load                          # noqa: E402
+from threadledger import DROPPED, LANDED, QUEUED, load                          # noqa: E402
 
 rows = load(HERE)
 bad = []
@@ -31,11 +38,23 @@ for e in rows:
 for e in rows:
     if e["status"] == QUEUED:
         print(f"        QUEUED   {e['id']:<24s} {e['request'][:64]}")
+# DROPPED rows were rendered by nothing at all until 2026-08-25 — a disposition
+# class invisible on the board, in the file whose purpose is visibility.
+for e in rows:
+    if e["status"] == DROPPED:
+        print(f"        DROPPED  {e['id']:<24s} {e['request'][:64]}")
+bad_status = [e for e in rows if e["status"] not in (LANDED, QUEUED, DROPPED)]
+for e in bad_status:
+    print(f"  FAIL  UNKNOWN STATUS {e['status']!r} on {e['id']} — a typo'd "
+          "status made an entry vanish silently before this check existed")
+bad += bad_status
 
 n = sum(1 for e in rows if e["status"] == LANDED)
 q = sum(1 for e in rows if e["status"] == QUEUED)
-print(f"\n  {n - len(bad)}/{n} landed threads verify; {q} still open "
-      "(visible by design; does not fail the board)")
+dr = sum(1 for e in rows if e["status"] == DROPPED)
+nbad = sum(1 for e in bad if e["status"] == LANDED)
+print(f"\n  {n - nbad}/{n} landed threads verify; {q} open, {dr} dropped "
+      "(all visible by design; open and dropped do not fail the board)")
 if bad:
     print("\nVERIFY_QUEUE: FAIL")
     sys.exit(1)

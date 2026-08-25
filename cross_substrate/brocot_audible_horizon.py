@@ -91,6 +91,45 @@ WHAT SURVIVES: the counts, which were sealed and scored. At I = 0.9, thirteen
 structurally-fusing ratios are three audible ones at -40 dB and five at -60 dB.
 And E4, which failed, says the count is floor-sensitive -- so even those numbers
 travel with their floor attached.
+
+AMENDMENT 2 — E1 WAS INERT, and `reachable.Bar` now refuses it.
+
+E1 was "audible share at -60 dB <= 1.0". A share is bounded by 1 by
+construction, so every possible value meets it: the arm could not MISS, and the
+MET it reported was non-evidence. I sealed it describing it as "a weak arm on
+purpose", which is a description of a weak arm, not of a dead one.
+
+`reachable.Bar` refused only bars that could not be MET until adversarial review
+pointed out the mirror. It now refuses both, and refused this one on the next
+run -- an inert arm from this same session, caught by the guard hardened hours
+later.
+
+E1 is therefore NOT SCORED. It is reported as INERT_BY_CONSTRUCTION and dropped
+from the verdict, per the rule that a dead arm never sits in a tally.
+
+AMENDMENT 3 — AND SO WAS E3, WHICH I CALLED "THE ONE THAT COSTS SOMETHING".
+
+"regions surviving at -40 dB <= 13" was sealed against a ceiling of 13 (there
+are 13 below-horizon ratios, so at most 13 can survive). Every possible value
+meets it. Off by one: a bar of 12 would have been the real claim -- "strictly
+fewer than thirteen" -- and would have been met at 3. That is a counterfactual
+and is stated as one, not scored.
+
+So BOTH arms I designated EXISTENCE were dead, and the cell as sealed could not
+have failed to find what it found. The measurement is unaffected -- 3 of 13
+audible at -40 dB is a computation, not a test -- but the SEAL certified
+nothing, and that distinction is the whole point of sealing.
+
+E2 IS RE-ROLED TO EXISTENCE, recorded here rather than done quietly. Its claim,
+"fewer than half of structurally-fusing ratios are audibly fusing", is the
+existence proposition the head names; it has a real bar (0.50 against a [0,1]
+range) and it discriminates. E4 stays MECHANISM. The head is therefore carried
+by the one arm that was alive, which is less than the seal promised and is what
+there is.
+
+WHAT THE THREE DEAD ARMS HAVE IN COMMON: each set a bound at the edge of its own
+declared range. That is what an inert bar looks like from the inside, and it is
+why `reachable.Bar` now refuses both edges instead of one.
 """
 import json
 import os
@@ -158,17 +197,17 @@ e2 = aud[40.0] / n9
 e3 = aud[PRIMARY_FLOOR]                       # regions == audible parents
 e4 = abs(aud[40.0] - aud[60.0]) / max(aud[60.0], 1)
 
-E1 = Bar("audible share at -60 dB", 1.0, direction="le", floor=0.0, ceiling=1.0,
-         why="a fraction of below-horizon ratios: 0 to 1")
+# E1 IS NOT CONSTRUCTED. "share <= 1.0" against a ceiling of 1.0 cannot miss;
+# reachable.Bar refuses it, correctly. See amendment 2. The value is still
+# computed and printed, as an observation rather than as a scored arm.
 E2 = Bar("audible share at -40 dB", 0.50, direction="le", floor=0.0,
          ceiling=1.0, why="a fraction of below-horizon ratios: 0 to 1")
-E3 = Bar("regions surviving at -40 dB", 13, direction="le", floor=0,
-         ceiling=n9, why="a region per audible below-horizon ratio; at most all "
-                         f"{n9} of them")
+# E3 IS NOT CONSTRUCTED EITHER — "<= 13" against a ceiling of 13. See
+# amendment 3. The count is computed and printed as an observation.
 E4 = Bar("relative change in count, -40 vs -60 dB", 0.25, direction="le",
          floor=0.0, ceiling=float(n9),
          why="a relative change against the -60 dB count, which is at least 1")
-s1, s2, s3, s4 = E1.score(e1), E2.score(e2), E3.score(e3), E4.score(e4)
+s2, s4 = E2.score(e2), E4.score(e4)
 
 print("witness level at the eps horizon, re the strongest lattice partial:")
 print(f"{'I':>5s} {'B':>3s} {'A':>3s} {'n ratios':>9s} " +
@@ -189,18 +228,22 @@ for r in sorted(p9["rows"], key=lambda r: -r["level_db"])[-3:]:
           f"{r['level_db']:>7.1f} dB")
 
 print()
-for b, v, f in ((E1, e1, "{:.1%}"), (E2, e2, "{:.1%}"), (E3, e3, "{:.0f}"),
-                (E4, e4, "{:.1%}")):
+print(f"  audible share at -60 dB: {e1:.1%}   INERT_BY_CONSTRUCTION "
+      f"(bar 1.0 == ceiling 1.0; not scored — amendment 2)")
+print(f"  regions surviving at -40 dB: {e3:.0f} of {n9}   INERT_BY_CONSTRUCTION "
+      f"(bar {n9} == ceiling {n9}; not scored — amendment 3)")
+for b, v, f in ((E2, e2, "{:.1%}"), (E4, e4, "{:.1%}")):
     print("  " + b.line(v, f))
 
-v = compose([Arm.from_bar(s1, EX_ROLE,
-                          claim="not every structurally-fusing ratio is "
-                                "audibly fusing"),
-             Arm.from_bar(s3, EX_ROLE,
-                          claim="the shipped 13-region field shrinks under an "
-                                "audibility floor"),
-             Arm.from_bar(s2, RES_ROLE,
-                          claim="the reduction is large at a conservative floor"),
+v = compose([Arm("audible share at -60 dB", EX_ROLE, met=False, inert=True,
+                 note="bar 1.0 == ceiling 1.0; cannot miss",
+                 claim="not every structurally-fusing ratio is audibly fusing"),
+             Arm("regions surviving at -40 dB", EX_ROLE, met=False, inert=True,
+                 note=f"bar {n9} == ceiling {n9}; cannot miss",
+                 claim="the shipped 13-region field shrinks"),
+             Arm.from_bar(s2, EX_ROLE,
+                          claim="fewer than half of structurally-fusing ratios "
+                                "are audibly fusing"),
              Arm.from_bar(s4, MECH_ROLE,
                           claim="the product floor is floor-robust, as the "
                                 "review claimed")],
@@ -218,7 +261,12 @@ json.dump(dict(I_list=I_LIST, floors=FLOORS, lo=str(LO), hi=str(HI),
                                                         for r in d["rows"])
                                             for x in FLOORS},
                                    rows=d["rows"]) for k, d in per_I.items()},
-               bars={s["name"]: s for s in (s1, s2, s3, s4)},
+               e1_inert=dict(value=e1, reason="bar 1.0 == ceiling 1.0; "
+                             "cannot miss; not scored"),
+               inert_arms=dict(E1=dict(value=e1, reason="bar 1.0 == ceiling 1.0"),
+                               E3=dict(value=e3, reason=f"bar {n9} == ceiling {n9}")),
+               regions_surviving_at_40db=e3, n_below_horizon=n9,
+               bars={s["name"]: s for s in (s2, s4)},
                verdict=v["head"], composed=v),
           open(f"{HERE}/brocot_audible_horizon.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_audible_horizon.json")
