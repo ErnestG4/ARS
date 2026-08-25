@@ -22,7 +22,10 @@
    "k0_above_horizon": "114/114",
    "folded_coincidence_at_every_node": true,
    "median_refl_k0": 9.0,
-   "median_refl_other": 0.0
+   "median_refl_other": 0.0,
+   "n_ratio_pinned_reflected": 10,
+   "ratio_pinned_obey_shifted_horizon": "10/10",
+   "t5_holds": true
   },
   "1.5": {
    "I": 1.5,
@@ -34,7 +37,10 @@
    "k0_above_horizon": "107/107",
    "folded_coincidence_at_every_node": true,
    "median_refl_k0": 14.0,
-   "median_refl_other": 0.0
+   "median_refl_other": 0.0,
+   "n_ratio_pinned_reflected": 17,
+   "ratio_pinned_obey_shifted_horizon": "17/17",
+   "t5_holds": true
   },
   "2.0": {
    "I": 2.0,
@@ -46,7 +52,10 @@
    "k0_above_horizon": "99/99",
    "folded_coincidence_at_every_node": true,
    "median_refl_k0": 20.0,
-   "median_refl_other": 0.0
+   "median_refl_other": 0.0,
+   "n_ratio_pinned_reflected": 25,
+   "ratio_pinned_obey_shifted_horizon": "25/25",
+   "t5_holds": true
   },
   "3.0": {
    "I": 3.0,
@@ -58,7 +67,10 @@
    "k0_above_horizon": "89/89",
    "folded_coincidence_at_every_node": true,
    "median_refl_k0": 27.0,
-   "median_refl_other": 0.0
+   "median_refl_other": 0.0,
+   "n_ratio_pinned_reflected": 34,
+   "ratio_pinned_obey_shifted_horizon": "34/34",
+   "t5_holds": true
   }
  },
  "ladder_by_epsilon": {
@@ -93,7 +105,8 @@
   "T1": true,
   "T2": true,
   "T3": true,
-  "T4": true
+  "T4": true,
+  "T5": true
  },
  "verdict": "SCOPE_IS_DIRECT_CHANNEL"
 }
