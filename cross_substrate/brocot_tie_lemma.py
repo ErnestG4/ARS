@@ -47,6 +47,16 @@ cell does three things, and the third is the one that can fail:
       one, and (b) is measuring the population rather than the rule.
 
 (c) is the non-inertness argument. A witness that cannot fail is not a witness.
+
+AMENDMENT 1 — BEFORE ANY VERDICT WAS READ. The planted non-vacuity floor (300
+tie cases) FIRED on the first run: the population reached only 214. That is an
+underpowered design, and the fix is more power, not a smaller bar — lowering the
+floor to 214 would have been calibrating the probe against the data it was meant
+to police, which is the same defect as setting a bar from the best observed
+rather than the ideal. The horizon list is widened from (8, 10, 14) to
+(6, 8, 10, 12, 14, 20) instead; larger A admits more lattice pairs and therefore
+more ties. Nothing else changed, and the verdict below was not read until the
+floor cleared.
 """
 import json
 import os
@@ -117,7 +127,7 @@ def prefix_monotone(alpha, A):
 
 POP = [Fraction(p, q) for q in range(1, 121) for p in range(1, 200)
        if Fraction(1, 8) < Fraction(p, q) < 8 and gcd(p, q) == 1]
-HORIZONS = (8, 10, 14)
+HORIZONS = (6, 8, 10, 12, 14, 20)
 
 mono_fail, tie_cases = [], 0
 per_rule = {k: dict(selected=0, convergent=0, nonconv_witness=None) for k in RULES}
@@ -149,7 +159,7 @@ print(f"population: {len(POP)} ratios in (1/8, 8), horizons {HORIZONS}")
 print(f"step 2 — max(p,q) strictly increasing over the prefix: "
       f"{'HOLDS everywhere' if not mono_fail else f'FAILS at {mono_fail[:3]}'}")
 print(f"genuine ties in the argmin: {tie_cases}   "
-      f"(the parent theorem exercised 304)\n")
+      f"(the parent theorem exercised 304; floor 300)\n")
 print(f"{'tie-break rule':>34s} {'selected':>9s} {'convergent':>11s} "
       f"{'rate':>7s}   first non-convergent")
 for name, v in per_rule.items():

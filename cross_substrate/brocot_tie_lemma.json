@@ -1,0 +1,62 @@
+{
+ "n_population": 12539,
+ "horizons": [
+  6,
+  8,
+  10,
+  12,
+  14,
+  20
+ ],
+ "tie_cases": 546,
+ "monotonicity_failures": [],
+ "rules": {
+  "shipped: smallest max(|a1|,|a2|)": {
+   "selected": 545,
+   "convergent": 545,
+   "nonconv_witness": null
+  },
+  "decoy: largest max": {
+   "selected": 546,
+   "convergent": 0,
+   "nonconv_witness": {
+    "alpha": "7",
+    "A": 6,
+    "chose": "6",
+    "n_ties": 2
+   }
+  },
+  "decoy: largest |a2|": {
+   "selected": 546,
+   "convergent": 13,
+   "nonconv_witness": {
+    "alpha": "7",
+    "A": 6,
+    "chose": "6",
+    "n_ties": 2
+   }
+  },
+  "decoy: lexicographic on (a1,a2)": {
+   "selected": 546,
+   "convergent": 13,
+   "nonconv_witness": {
+    "alpha": "7",
+    "A": 6,
+    "chose": "6",
+    "n_ties": 2
+   }
+  }
+ },
+ "decoys_that_fire": 3,
+ "lemma_holds": true,
+ "existence": {
+  "question": "EXISTENCE",
+  "n": 1,
+  "n_nonzero": 0,
+  "any": false,
+  "all": false,
+  "first_witness": null,
+  "witnesses": []
+ },
+ "verdict": "TIE_CASE_IS_A_THEOREM"
+}
