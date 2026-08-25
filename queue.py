@@ -187,6 +187,47 @@ ENTRIES = [
               "this design. Result was a weak one-field positive, not a "
               "shippable layer. Reopen only with a mechanism for why crit "
               "responds and tonal/dense do not."),
+    dict(id="audible-horizon", status=LANDED,
+         request="is the epsilon = 1e-3 horizon audible, or does it classify "
+                 "using partials no listener could hear?",
+         artifact="cross_substrate/brocot_audible_horizon.json",
+         verdict="EPS_HORIZON_OVERSTATES_AUDIBILITY",
+         note="witness partials sit -78 to -92 dB below the strongest partial "
+              "at the epsilon horizon. At I=0.9 the 13 structural regions are "
+              "3 audible at -40 dB and 5 at -60 dB. E4 FAILED: the count moves "
+              "40% between those floors, so it is not floor-free. A '17 dB per "
+              "rung' law I asserted in a commit message was RETRACTED the same "
+              "session -- read off six sorted rows, contradicted by the full "
+              "series"),
+    dict(id="audible-horizon-calibration", status=QUEUED,
+         request="fix the audibility floor empirically instead of picking it: "
+                 "(A) excitation-pattern masked-threshold census over the 508 "
+                 "cells and the asymmetric grid; (B) 2AFC detune-twin "
+                 "discrimination using the instrument's own setDetuneCents, "
+                 "adaptive staircase on max(p,q), >=1 s sustain",
+         note="the -40/-60 dB split is a guess and the 40% swing between them "
+              "is why it must not stay one. B also discharges heard-as-"
+              "listening: below the audible horizon the detuned twin BEATS "
+              "where the exact one fuses, which is a dynamic cue in the regime "
+              "the marker gate could not reach. Sustain length is load-bearing "
+              "-- separations of 1-24 Hz need 40 ms to 1 s to exist at all, so "
+              "a staccato stimulus cannot carry the category"),
+    dict(id="coherence-model-gap", status=QUEUED,
+         request="Coherence.h models the spectrum as a SUM of independent combs "
+                 "(partials only at |1 +/- m*r|, energy J_m(I)^2) when "
+                 "simultaneous modulators produce a PRODUCT lattice at "
+                 "1 + n1*r1 + n2*r2 with energy J_n1*J_n2. Measure what the "
+                 "meter misses.",
+         note="raised by independent review. The omitted cross-partials carry "
+              "(1 - J0(I)^2)^2 of the energy: ~12% at I=0.9, ~55% at 1.5, ~90% "
+              "at 2.0 -- so at I>=1.5 the meter scores a minority of the "
+              "spectrum. Distinct from the CoherenceSuggest criterion defect: "
+              "that one is the docstring, this one is the score's generative "
+              "model. NOT yet independently verified by me -- the (1-J0^2)^2 "
+              "figure reproduces arithmetically but the claim that the comb "
+              "model misses the theorem's witnesses needs checking, since "
+              "comb-comb overlaps ARE lattice coincidences with both "
+              "coordinates nonzero"),
     dict(id="amplitude-event-layer", status=QUEUED,
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
