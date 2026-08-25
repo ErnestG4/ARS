@@ -13,6 +13,27 @@ pass vacuously, and this arc has now twice measured what such tests are worth.
 
     with redpath("seal-order INVERTED", expect_min=1) as rp:
         rp.observed(n_inverted)          # raises if < 1
+
+HOW TO PLANT expect_min, AND WHAT TO DO WHEN IT FIRES
+------------------------------------------------------
+    OPTIMISTIC FLOORS FAIL LOUD. PESSIMISTIC FLOORS PASS VACUOUS.
+
+Plant the number you would want the probe to reach if the design were as strong
+as you intend it, not the number you expect it to scrape past. A floor set at
+what a run is likely to produce has stopped policing anything before it is ever
+evaluated.
+
+**When it fires, raise the POWER, never lower the floor.** On 2026-08-25 it
+fired three times in one session -- 3248/4000, 5456/20000, 214/300 -- and each
+time the fix was a wider population, a longer base, another horizon, with the
+amendment recorded BEFORE the verdict was read. Lowering the bar to what the
+run produced is recalibrating the probe against the data it polices; doing it at
+planting time is the same defect as doing it at scoring time, one step earlier
+and harder to see.
+
+A high fire rate is therefore the CORRECT equilibrium for this guard, not a
+nuisance to tune out. If this floor stops firing, suspect that expectations
+have been planted to be met rather than to be informative.
 """
 import sys
 
