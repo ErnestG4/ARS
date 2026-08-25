@@ -1,0 +1,223 @@
+{
+ "I": 0.9,
+ "a0": 0.7,
+ "a1": 1.4,
+ "coarse": 1401,
+ "fine": 3501,
+ "delta": 0.005,
+ "n_markers": 50,
+ "markers": [
+  {
+   "value": 0.74925,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.7497499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.75025,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.75075,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.78725,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.78775,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.79975,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.8002499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.83275,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.8332499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.83375,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.86225,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.8627499999999999,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.88725,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.8877499999999999,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.9092499999999999,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.95475,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.96975,
+   "kind": "threshold"
+  },
+  {
+   "value": 0.99825,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.9987499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.99925,
+   "kind": "coincidence"
+  },
+  {
+   "value": 0.9997499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.0002499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.00075,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.00125,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.00175,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.03025,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.04525,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.08725,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.08775,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.0907499999999999,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.11225,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.1127500000000001,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.1372499999999999,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.13775,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.16225,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.16275,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.1997499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.20025,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.24925,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.24975,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.2502499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.25075,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.3327499999999999,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.33325,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.33375,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.33725,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.33775,
+   "kind": "coincidence"
+  },
+  {
+   "value": 1.3872499999999999,
+   "kind": "threshold"
+  },
+  {
+   "value": 1.38775,
+   "kind": "threshold"
+  }
+ ],
+ "coverage_in_sample": 0.6642857142857143,
+ "coverage_held_out": 0.45689655172413796,
+ "contrast": 1.116803610762857,
+ "median_jump_coincidence": 0.3832294903316213,
+ "median_jump_threshold": 0.007388639549908052,
+ "predictions": {
+  "K1": false,
+  "K2": false,
+  "K3": false,
+  "K4": true
+ },
+ "verdict": "NOT_VALIDATED"
+}
