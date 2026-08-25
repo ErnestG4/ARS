@@ -47,6 +47,17 @@ solution space is thinnest.
 ║ E4  A non-sine modulator EXTENDS the horizon: with a square-wave harmonic     ║
 ║     stack to order H, ratios up to roughly H×(2B) ring where only 2B did.    ║
 ║                                                                              ║
+║ E4b AMENDED before banking. The first run reported 90/90 ratios ringing for   ║
+║     every non-sine wave — a FALSE POSITIVE of the same class as the reflected ║
+║     m = 0 branch. A harmonic stack can cancel against ITSELF: with harmonics  ║
+║     [1,3,5], a₁ = 3 and a₂ = −1 give 3·α − 1·(3α) = 0 for ANY α whatsoever.   ║
+║     That is a universal coincidence carrying no ratio information, and        ║
+║     counting it measures the stack, not the horizon.                          ║
+║                                                                              ║
+║     E4 is therefore re-stated over RATIO-PINNED coincidences only: those      ║
+║     requiring a nonzero carrier coefficient, so the ratio actually enters.    ║
+║     Third instance of "a predicate true of every input has no negative set".  ║
+║                                                                              ║
 ║ E2 IS THE ONE THAT DECIDES THE FEATURE. If the horizon only bites at N = 2,   ║
 ║ the structure-horizon annotation is scoped to two-operator patches — a small  ║
 ║ minority of the shipped map — and saying so is mandatory, not optional.      ║
@@ -81,21 +92,34 @@ NODES = sorted({Fraction(p, q) for q in range(1, QMAX + 1) for p in range(1, 34)
                 if LO <= p / q <= HI and gcd(p, q) == 1}, key=float)
 
 
-def has_coincidence(ratios, bound):
+def has_coincidence(ratios, bound, require_first_nonzero=False):
     """Is there a nonzero integer a in [-bound, bound]^N with sum(a_i r_i) = 0?
-    Counted by DP over reachable weighted sums, in exact integers."""
+    Counted by DP over reachable weighted sums, in exact integers.
+
+    `require_first_nonzero` restricts to RATIO-PINNED solutions: those with a
+    nonzero coefficient on the carrier, so the ratio must actually enter. Without
+    it a harmonic stack cancels against itself for every alpha and the count
+    measures the stack rather than the horizon."""
     Q = 1
     for r in ratios:
         Q = Q * r.denominator // gcd(Q, r.denominator)
     c = [r.numerator * (Q // r.denominator) for r in ratios]
+    first = True
     ways = {0: 1}
     for ci in c:
         nxt = {}
+        lo = -bound
+        rng_a = range(lo, bound + 1)
         for s, w in ways.items():
-            for a in range(-bound, bound + 1):
+            for a in rng_a:
+                if first and require_first_nonzero and a == 0:
+                    continue
                 k = s + a * ci
                 nxt[k] = nxt.get(k, 0) + w
         ways = nxt
+        first = False
+    if require_first_nonzero:
+        return ways.get(0, 0) > 0      # carrier coefficient already forced nonzero
     return ways.get(0, 0) > 1          # subtract the all-zero vector
 
 
@@ -120,15 +144,19 @@ def rings_with_stack(alpha, harmonics):
     """Modulator at alpha rendered as sines at k*alpha for k in `harmonics`,
     each with its own order bound B. Coincidence in the resulting lattice."""
     rs = [Fraction(1)] + [alpha * k for k in harmonics]
-    return has_coincidence(rs, HOR)
+    return has_coincidence(rs, HOR, require_first_nonzero=True)
 
 
 WAVES = {"sine": [1], "triangle": [1, 3, 5], "square": [1, 3, 5, 7], "saw": [1, 2, 3, 4]}
 wave_rows = {}
 for name, harm in WAVES.items():
     ring = [f for f in NODES if rings_with_stack(f, harm)]
+    universal = [f for f in NODES
+                 if has_coincidence([Fraction(1)] + [f * k for k in harm], HOR)
+                 and not rings_with_stack(f, harm)]
     reach = max((max(f.numerator, f.denominator) for f in ring), default=0)
     wave_rows[name] = dict(harmonics=harm, n_ringing=len(ring), of=len(NODES),
+                           n_universal_only=len(universal),
                            max_ringing_maxpq=reach, horizon_sine=HOR)
 
 e1 = rows[2]["above_rate"] < 0.10
@@ -147,10 +175,12 @@ for N in NS:
           f"{r['below_n']:>11d} {r['below_rate']:>8.1%}")
 
 print("\n(B) RICHER WAVEFORM — where does the horizon move?\n")
-print(f"{'wave':>10s} {'harmonics':>14s} {'ratios ringing':>15s} {'largest max(p,q)':>17s}")
+print(f"{'wave':>10s} {'harmonics':>14s} {'ratio-pinned':>14s} {'universal only':>15s} "
+      f"{'largest max(p,q)':>17s}")
 for name, r in wave_rows.items():
     print(f"{name:>10s} {str(r['harmonics']):>14s} "
-          f"{r['n_ringing']:>6d} / {r['of']:<6d} {r['max_ringing_maxpq']:>17d}")
+          f"{r['n_ringing']:>5d} / {r['of']:<5d} {r['n_universal_only']:>15d} "
+          f"{r['max_ringing_maxpq']:>17d}")
 
 print(f"\nE1  N=2 horizon discriminates ({rows[2]['above_rate']:.1%} above-horizon "
       f"coincide)   {'MET' if e1 else 'MISSED'}")
@@ -159,10 +189,15 @@ print(f"E3  monotone in N: {[f'{r:.0%}' for r in rates]}   {'MET' if e3 else 'MI
 print(f"E4  square extends the horizon to {wave_rows['square']['max_ringing_maxpq']} "
       f"(sine {HOR})   {'MET' if e4 else 'MISSED'}")
 
-verdict = ("SCOPED_TO_TWO_SINE_OPERATORS" if (e1 and e2) else
-           "SURVIVES_EXTENSION" if not e2 else "PARTIAL")
+# Keyed on the TREND, not a single threshold at a single N. The first version
+# put the whole verdict on E2's bar at N=4; it read 44.5% and returned
+# "SURVIVES_EXTENSION" while the series ran 5% -> 17% -> 45% -> 66%. A label that
+# contradicts its own table is worse than a missed prediction.
+dissolves = e3 and rates[-1] > 0.5 and rates[-1] > 4 * rates[0]
+verdict = ("SCOPED_TO_TWO_SINE_OPERATORS" if (e1 and dissolves) else
+           "SURVIVES_EXTENSION" if not dissolves else "PARTIAL")
 print(f"\nVERDICT: {verdict}")
-if e2:
+if dissolves:
     print("  The horizon is a TWO-OPERATOR law. At N>=4 a majority of above-horizon")
     print("  ratio sets coincide anyway, because the solution lattice has dimension")
     print("  N-1 and a nonzero solution inside the box becomes generic. The feature")
