@@ -53,6 +53,37 @@ BEAT RATE.
 ║ describes but does not make audible." That is a weaker claim and it must be   ║
 ║ stated as such rather than dressed up.                                       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — AFTER OUTPUT, 2026-08-24.  Recorded, not rewritten: the sealed
+scores below stand exactly as they fell.  Three findings about the SEAL itself.
+
+(a) H2 WAS AN INERT ARM.  Dirichlet's approximation theorem says that for any α
+    there are |a| ≤ A with |a₁ + a₂α| ≤ 1/A, so gap ≤ 1/A = 0.125 everywhere;
+    and gap = k/q ≥ 1/QMAX = 0.025.  The span inside the box I chose is therefore
+    capped at QMAX/A = 5.0, and I sealed a bar of 10.  **H2 could not have been
+    met by any data.**  It is scored INAPPLICABLE_UNPOWERED, not MISSED — a dead
+    arm in an n/m tally is non-evidence dressed as a verdict, which is this
+    repo's dominant recorded error mode.  The power was computable BEFORE the
+    run from A and QMAX alone; it is computed below and now gates the arm.
+
+(b) H3's PREMISE WAS WRONG, AND THE MISS IS REAL.  The docstring argued "Bézout
+    says the minimum is 1 whenever the coefficients fit in the box — so gap ≈
+    1/q".  Bézout guarantees a solution to a₁q + a₂p = 1 in INTEGERS; it says
+    nothing about those integers fitting in [−A, A].  They usually do not: the
+    minimum is k/q with k = 1 in only 197 of 332 nodes.  What actually controls
+    the gap is best rational approximation with denominator ≤ A — a continued-
+    fraction quantity, not q.  Premise falsified, and the falsification names
+    the right coordinate.
+
+(c) THE LATTICE CONFLATED MECHANISM WITH DIFFERENTIATION.  `NOT_DIFFERENTIATED`
+    required H3, but H3 asks whether the spread is EXPLAINED BY 1/q, not whether
+    a spread exists.  Wiring a mechanism arm into a differentiation conjunction
+    makes a wrong guess about WHY read as an absence of WHAT.  H1 and H4 both
+    fired: every above-horizon node has a positive gap, and 79.2% of them beat
+    below 20 Hz.  These ratios ARE differentiated, and audibly; the sealed label
+    says otherwise because I built it wrong.  Third member of the family the
+    existence-vs-median rule opened (`existence.py`), and the first where the
+    defect is a conjunction ARM TYPE rather than a summary statistic.
 """
 import json
 import os
@@ -117,7 +148,13 @@ above = [r for r in rows if r["above"]]
 h1 = all(r["gap"] == 0.0 for r in below) and all(r["gap"] > 0 for r in above)
 gaps = np.array([r["gap"] for r in above])
 span = gaps.max() / gaps.min() if gaps.min() > 0 else float("inf")
-h2 = span >= 10
+H2_BAR = 10
+# power, computable from the box alone and BEFORE any data: Dirichlet caps the
+# gap at 1/A, and the smallest attainable gap is 1/QMAX, so no dataset drawn
+# from this box can show a span above QMAX/A.
+span_ceiling = QMAX / A
+h2_reachable = span_ceiling >= H2_BAR
+h2 = span >= H2_BAR
 rho = float(stats.spearmanr([r["gap"] for r in above],
                             [1.0 / r["q"] for r in above])[0])
 h3 = rho >= 0.9
@@ -125,9 +162,15 @@ beats = np.array([r["beat_hz"] for r in above])
 frac_audible = float((beats < BEAT_HZ).mean())
 h4 = frac_audible >= 1 / 3
 
+# the lattice EXACTLY AS SEALED. Reported unchanged; see amendment (c).
 verdict = ("ORDERED_BY_BEAT_RATE" if (h1 and h2 and h3 and h4) else
            "DIFFERENTIATED_BUT_NOT_AS_BEATING" if (h1 and h2 and h3) else
            "NOT_DIFFERENTIATED")
+# and the reading after the amendment, with the inert arm dropped and the
+# mechanism arm separated from the differentiation arms. NOT a re-score: H3
+# stays MISSED and drives the mechanism half of the label.
+amended = (("DIFFERENTIATED" if (h1 and frac_audible >= 1/3) else "NOT_DIFFERENTIATED")
+           + ("_AND_ORDERED_BY_1/q" if h3 else "_BUT_NOT_BY_1/q"))
 
 print(f"I = {I_MUS}, B = {B}, horizon max(p,q) ≤ {A}, f_c = {F_C:.0f} Hz")
 print(f"nodes: {len(rows)}  ({len(below)} below the horizon, {len(above)} above)\n")
@@ -148,11 +191,15 @@ for r in sorted(above, key=lambda r: r["beat_hz"])[:6] + sorted(above, key=lambd
     print(f"{r['ratio']:>8s} {r['maxpq']:>9d} {r['gap']:>8.4f} {r['beat_hz']:>9.1f}   {ch}")
 
 print(f"\nH1  gap = 0 below, > 0 above   {'MET' if h1 else 'MISSED'}")
-print(f"H2  above-horizon gap spans {span:.1f}×   (≥ 10 ?)  {'MET' if h2 else 'MISSED'}")
+print(f"H2  above-horizon gap spans {span:.1f}×   (≥ {H2_BAR} ?)  "
+      f"{'MET' if h2 else 'INAPPLICABLE_UNPOWERED' if not h2_reachable else 'MISSED'}")
+print(f"      the box caps the span at QMAX/A = {span_ceiling:.1f}× (Dirichlet), so "
+      f"the bar of {H2_BAR} was unreachable by any data — a dead arm, not a miss")
 print(f"H3  gap tracks 1/q: Spearman {rho:+.3f}   (≥ 0.9 ?)  {'MET' if h3 else 'MISSED'}")
 print(f"H4  {frac_audible:.1%} of above-horizon nodes beat below {BEAT_HZ:.0f} Hz   "
       f"(≥ 33% ?)  {'MET' if h4 else 'MISSED'}")
-print(f"\nVERDICT: {verdict}")
+print(f"\nVERDICT (sealed lattice, unchanged): {verdict}")
+print(f"VERDICT (amendment 1, inert arm dropped): {amended}")
 if verdict == "ORDERED_BY_BEAT_RATE":
     print("  Above the horizon the denominator still orders the ratios — it has")
     print("  stopped controlling FUSION and started controlling BEAT RATE. The")
@@ -168,6 +215,10 @@ json.dump(dict(I=I_MUS, B=B, horizon=A, f_c=F_C, beat_threshold_hz=BEAT_HZ,
                gap_span=float(span), spearman_gap_vs_inv_q=rho,
                fraction_audible_beating=frac_audible,
                predictions=dict(H1=bool(h1), H2=bool(h2), H3=bool(h3), H4=bool(h4)),
-               verdict=verdict, rows=rows),
+               power=dict(H2_bar=H2_BAR, H2_span_ceiling=span_ceiling,
+                          H2_reachable=bool(h2_reachable),
+                          H2_score=("MET" if h2 else "INAPPLICABLE_UNPOWERED"
+                                    if not h2_reachable else "MISSED")),
+               verdict=verdict, verdict_amended=amended, rows=rows),
           open(f"{HERE}/brocot_above_horizon.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_above_horizon.json")
