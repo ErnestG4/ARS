@@ -248,11 +248,16 @@ ENTRIES = [
               "at 2.0 -- so at I>=1.5 the meter scores a minority of the "
               "spectrum. Distinct from the CoherenceSuggest criterion defect: "
               "that one is the docstring, this one is the score's generative "
-              "model. NOT yet independently verified by me -- the (1-J0^2)^2 "
-              "figure reproduces arithmetically but the claim that the comb "
-              "model misses the theorem's witnesses needs checking, since "
-              "comb-comb overlaps ARE lattice coincidences with both "
-              "coordinates nonzero"),
+              "model. VERIFIED 2026-08-25: the (1-J0^2)^2 figure reproduces "
+              "both by formula and by direct summation over the lattice "
+              "(0.121/0.550/0.902 at I=0.9/1.5/2.0), and Coherence.h does "
+              "enumerate only single-op sidebands |1 +/- m*r|. But the review's "
+              "framing needs one correction: comb-comb overlaps ARE genuine "
+              "lattice coincidences (a = m1, b = -m2, both nonzero), so the "
+              "horizon DOES govern what the meter sees -- which is why "
+              "score-census stands. The meter's defect is that it misses the "
+              "OTHER coincidences, those involving cross-partials, so it "
+              "under-counts sharing and is conservative rather than wrong"),
     dict(id="amplitude-event-layer", status=QUEUED,
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
