@@ -29,9 +29,17 @@ then a2 > 0 — selects a CONVERGENT of alpha.
   4. That is exactly the definition of a best approximation of the second kind,
      so by Lagrange's theorem (p, q) is a convergent of alpha.               []
 
-The lemma is unconditional in alpha > 0. What still needs (1/A, A) is the step
-from convergent to Stern-Brocot ANCESTOR: at alpha < 1/A the selected p can be 0,
-and 0/1 is the tree's boundary rather than a node on the descent.
+SCOPE, CORRECTED 2026-08-25 (adversarial review). The first draft said "the
+lemma is unconditional in alpha > 0". It is not. Step 1 takes a2 > 0, but the
+tie-break can select a pair with a2 = 0, which names no rational at all --
+witness alpha = 7, A = 6, where the tie is broken to (-1, 0). The correct scope
+is: **whenever the selected minimiser names a rational**, which holds inside
+(1/A, A) and can fail outside it. That is the same boundary the parent theorem
+already carries, reached by a different route.
+
+The step from convergent to Stern-Brocot ANCESTOR needs (1/A, A) for the
+related reason that at alpha < 1/A the selected p can be 0, and 0/1 is the
+tree's boundary rather than a node on the descent.
 
 WHAT MAKES THIS A TEST AND NOT A RESTATEMENT
 ---------------------------------------------
@@ -130,7 +138,8 @@ POP = [Fraction(p, q) for q in range(1, 121) for p in range(1, 200)
 HORIZONS = (6, 8, 10, 12, 14, 20)
 
 mono_fail, tie_cases = [], 0
-per_rule = {k: dict(selected=0, convergent=0, nonconv_witness=None) for k in RULES}
+per_rule = {k: dict(selected=0, convergent=0, names_no_rational=0,
+                    nonconv_witness=None) for k in RULES}
 
 for A in HORIZONS:
     for f in POP:
@@ -146,7 +155,10 @@ for A in HORIZONS:
         for name, key in RULES.items():
             a1, a2 = min(ties, key=key)
             if a2 == 0:
-                continue                              # names no rational
+                # CORRECTED: this was a silent `continue`, so 546 tie cases
+                # produced 545 selections with no field explaining the gap.
+                per_rule[name]["names_no_rational"] += 1
+                continue
             par = Fraction(abs(a1), abs(a2))
             per_rule[name]["selected"] += 1
             if par in cv:
@@ -161,13 +173,13 @@ print(f"step 2 — max(p,q) strictly increasing over the prefix: "
 print(f"genuine ties in the argmin: {tie_cases}   "
       f"(the parent theorem exercised 304; floor 300)\n")
 print(f"{'tie-break rule':>34s} {'selected':>9s} {'convergent':>11s} "
-      f"{'rate':>7s}   first non-convergent")
+      f"{'rate':>7s} {'no-rat':>5s}   first non-convergent")
 for name, v in per_rule.items():
     w = v["nonconv_witness"]
     rate = v["convergent"] / v["selected"] if v["selected"] else 0.0
     wit = (f"alpha={w['alpha']} A={w['A']} -> {w['chose']}" if w else "— none —")
     print(f"{name:>34s} {v['selected']:>9d} {v['convergent']:>11d} "
-          f"{rate:>6.1%}   {wit}")
+          f"{rate:>6.1%} {v['names_no_rational']:>5d}   {wit}")
 
 shipped = per_rule["shipped: smallest max(|a1|,|a2|)"]
 lemma_holds = (not mono_fail) and shipped["selected"] == shipped["convergent"]
@@ -177,7 +189,8 @@ decoys_fire = sum(1 for v in decoys.values()
 
 print(f"\nnon-inertness: {decoys_fire}/{len(decoys)} decoy tie-breaks DO select "
       f"a non-convergent")
-verdict = ("TIE_CASE_IS_A_THEOREM" if (lemma_holds and decoys_fire)
+verdict = ("TIE_CASE_IS_A_THEOREM_WHERE_IT_NAMES_A_RATIONAL"
+           if (lemma_holds and decoys_fire)
            else "LEMMA_HOLDS_BUT_TEST_IS_INERT" if lemma_holds
            else "LEMMA_FALSIFIED")
 print(f"\nVERDICT: {verdict}")
@@ -200,6 +213,7 @@ with redpath("genuine tie cases exercised", expect_min=300) as rp:
 json.dump(dict(n_population=len(POP), horizons=list(HORIZONS),
                tie_cases=tie_cases, monotonicity_failures=mono_fail[:20],
                rules={k: dict(selected=v["selected"], convergent=v["convergent"],
+                              names_no_rational=v["names_no_rational"],
                               nonconv_witness=v["nonconv_witness"])
                       for k, v in per_rule.items()},
                decoys_that_fire=decoys_fire, lemma_holds=bool(lemma_holds),

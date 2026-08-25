@@ -63,10 +63,14 @@ ENTRIES = [
          request="prove or bound the tie case left as 'empirical, n = 304' in "
                  "the parent theorem — an empirical 100% is not a resting place",
          artifact="cross_substrate/brocot_tie_lemma.json",
-         verdict="TIE_CASE_IS_A_THEOREM",
+         verdict="TIE_CASE_IS_A_THEOREM_WHERE_IT_NAMES_A_RATIONAL",
          note="max(p,q) is strictly increasing in q, so the shipped tie-break "
               "selects the smallest-q minimiser and Lagrange applies; 545/545 "
-              "over 546 ties, with three decoy tie-breaks firing at 0%/2.4%/2.4%"),
+              "of the 546 ties WHERE IT NAMES A RATIONAL -- the remaining 1 "
+              "selects a2 = 0 (alpha = 7, A = 6) and names none, which is why "
+              "'unconditional in alpha > 0' was withdrawn. The three decoy "
+              "tie-breaks select non-convergents 100%/97.6%/97.6% of the time "
+              "(their CONVERGENT rates are 0%/2.4%/2.4%)"),
     dict(id="map-fusion-density", status=LANDED,
          request="does a pairwise horizon field earn a graph dimension, or is "
                  "it a column the map already has under another name?",
@@ -84,7 +88,9 @@ ENTRIES = [
          verdict="ASYMMETRIC_COROLLARY_VERIFIED",
          note="4784/4784 exact across 16 index pairs, witness re-derived "
               "against two boxes at 1250 reachable triples, relabelling "
-              "invariant, 468 ratios flip when the higher index moves"),
+              "invariant, 234 flips across 78 distinct ratios when the higher "
+              "index moves (was banked as '468 ratios' -- an ordered-pair "
+              "double count read as a ratio count; corrected)"),
     dict(id="suggest-census", status=LANDED,
          request="measure CoherenceSuggest's wrong-criterion rate before "
                  "repairing it, so the repair has a before",
@@ -104,15 +110,19 @@ ENTRIES = [
               "and 64.0% of nodes would change, but alignment is 0.4995 +/- "
               "0.0037 -- no convention. The head's NAME presumed the mechanism "
               "arm's conclusion, a limit now recorded in verdictlattice"),
-    dict(id="suggest-docstring", status=LANDED,
+    dict(id="suggest-docstring", status=DROPPED,
          request="rewrite CoherenceSuggest's docstring: correct criterion, cite "
                  "the census, leave the score's status explicitly open",
          artifact="cross_substrate/brocot_suggest_census.json",
          verdict="CRITERION_WRONG_IN_PRACTICE",
-         note="landed in brocot source/audio/CoherenceSuggest.h; states the "
-              "horizon test, cites 97.5%/99.7-100%, records the index-blindness "
-              "gap, and explicitly does NOT claim the ranking is fixed"),
-    dict(id="suggest-score-census", status=QUEUED,
+         note="the deliverable is an .h edit in the BROCOT repo, which this "
+              "ledger cannot verify — its `artifact` pointed at another "
+              "thread's JSON, so verdict_matches was trivially green and could "
+              "never detect the edit reverting. An inert row inside a 'n/n "
+              "verify' tally. Reclassified DROPPED rather than left as a false "
+              "LANDED; the edit is real and lives at brocot "
+              "source/audio/CoherenceSuggest.h."),
+    dict(id="suggest-score-census", status=DROPPED,
          request="census Coherence.h's actual score, not just the docstring's "
                  "criterion — does the shipped RANKING inherit the defect?",
          note="brocot_suggest_census deliberately did not call the score. The "
@@ -120,7 +130,11 @@ ENTRIES = [
               "whether the topN a user sees is correspondingly wrong depends "
               "on what coherence computes, which may be a softer notion. "
               "Without this, 'the engine is broken' is an overclaim and only "
-              "'the engine's justification is false' is supported."),
+              "'the engine's justification is false' is supported. DROPPED "
+              "2026-08-25: superseded by score-census, which answered exactly "
+              "this. The board showed both -- one OPEN and one LANDED on the "
+              "same question -- which is the failure this ledger exists to "
+              "prevent, committed in the ledger."),
     dict(id="score-census", status=LANDED,
          request="does the shipped ranking inherit CoherenceSuggest's false "
                  "criterion, or does its 12-cent binning put it outside the "
@@ -144,12 +158,15 @@ ENTRIES = [
               "(0.309 vs 0.083). Suggestive, NOT a shippable layer under D1; "
               "D0 stays falsified. H2 was inert as first written and is left "
               "MISSED after replacement rather than repaired into a pass"),
-    dict(id="butterfly-prior-art", status=LANDED,
+    dict(id="butterfly-prior-art", status=DROPPED,
          request="is a bounded-denominator / truncated Hofstadter butterfly a "
                  "known object, and is the Arnold-tongue analogy formal?",
          artifact="cross_substrate/brocot_truncated_butterfly.json",
          verdict="MAP_TRACKS_THE_TRUNCATION",
-         note="written up in brocot phase3/butterfly.md. No named truncated "
+         note="SAME INERT-ROW PROBLEM as suggest-docstring: the deliverable is "
+              "brocot phase3/butterfly.md, which this ledger cannot verify, and "
+              "its artifact pointed at another thread's JSON. Reclassified. "
+              "Content: no named truncated "
               "object; the literature's analogue is exponential gap-width decay "
               "in |label| (arXiv:1712.04700), structurally like our epsilon "
               "floor. NO Hofstadter<->FM link exists anywhere -- open "

@@ -14,11 +14,13 @@
   "shipped: smallest max(|a1|,|a2|)": {
    "selected": 545,
    "convergent": 545,
+   "names_no_rational": 1,
    "nonconv_witness": null
   },
   "decoy: largest max": {
    "selected": 546,
    "convergent": 0,
+   "names_no_rational": 0,
    "nonconv_witness": {
     "alpha": "7",
     "A": 6,
@@ -29,6 +31,7 @@
   "decoy: largest |a2|": {
    "selected": 546,
    "convergent": 13,
+   "names_no_rational": 0,
    "nonconv_witness": {
     "alpha": "7",
     "A": 6,
@@ -39,6 +42,7 @@
   "decoy: lexicographic on (a1,a2)": {
    "selected": 546,
    "convergent": 13,
+   "names_no_rational": 0,
    "nonconv_witness": {
     "alpha": "7",
     "A": 6,
@@ -58,5 +62,5 @@
   "first_witness": null,
   "witnesses": []
  },
- "verdict": "TIE_CASE_IS_A_THEOREM"
+ "verdict": "TIE_CASE_IS_A_THEOREM_WHERE_IT_NAMES_A_RATIONAL"
 }

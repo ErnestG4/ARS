@@ -5,8 +5,9 @@
  "n_swap_sensitive": 69097,
  "swap_sensitive_share": 0.06061108450306402,
  "alignment_rate": 0.49951517432015863,
- "n_unequal_index": 1139612,
- "higher_index_on_larger_ratio_rate": 0.5003018571233017,
+ "n_unequal_index": 1121650,
+ "n_equal_ratio_excluded": 17962,
+ "higher_index_on_larger_ratio_rate": 0.5002772700931664,
  "median_density_actual": 0.17777777777777778,
  "median_density_swapped": 0.17777777777777778,
  "median_abs_change": 0.021978021978021955,
@@ -66,7 +67,7 @@
    "Arm('|alignment rate - 0.5|', MECHANISM, MISSED)"
   ]
  },
- "larger_rate_se": 0.0004683726180896719,
- "larger_rate_z": 0.6444807224914915,
+ "larger_rate_se": 0.00047210796115144076,
+ "larger_rate_z": 0.5873023036724817,
  "alignment_se": 0.0019021309335501922
 }

@@ -56,12 +56,27 @@ p <= 2*order_bound(I_i) and q <= 2*order_bound(I_j).
 AMENDMENT 1 — AFTER OUTPUT. Two corrections, and the second is a gap in a guard.
 
 (i) THERE IS NO CONVENTION, AND THE CLOSING REPORT NEARLY NAMED A SIDE ANYWAY.
-    Alignment came out at 50.0% and higher-index-on-larger-ratio at 0.5004848 —
-    which the original print turned into "the map drives the LARGER-ratio
-    operator harder", because the code branched on rate > 0.5. At n = 1,139,612
-    the standard error is 0.00047, so that is z = 1.04: indistinguishable from
-    a coin. An argmax read off a grid with no location error bar, in this repo,
-    again. The report now states the absence and its precision instead.
+    The original print branched on rate > 0.5 and would have announced "the map
+    drives the LARGER-ratio operator harder" off a third-decimal excess. An
+    argmax read with no location error bar, in the repo that keeps a note about
+    exactly that. The report now states the absence with its precision.
+
+    AND THE FIX WAS ITSELF MIS-DERIVED (adversarial review, 2026-08-25). This
+    paragraph originally read "higher-index-on-larger-ratio at 0.5004848 ... SE
+    0.00047, so z = 1.04". Those are two different statistics: 0.5004848 is
+    1 - alignment (n = 69,097), while 0.00047 is the standard error of the
+    LARGER-RATIO rate (n = 1,139,612). One statistic's deviation was paired with
+    the other's error bar. The banked values are alignment 0.4995 +/- 0.0037 and
+    larger-ratio 0.5003 +/- 0.0009, z = +0.64. The conclusion -- a coin -- is
+    unchanged; the constant defending it was wrong, which is the same defect
+    one level up from the one being fixed.
+
+(ia) EQUAL-RATIO PAIRS WERE SCORED AGAINST. When r_i == r_j there is no larger
+    ratio, but `(Ii > Ij) == (ri > rj)` evaluates False and counted the pair as
+    "higher index on the smaller". 17,962 such pairs, 1.58% of the denominator —
+    undefined cases sitting untallied in a rate, which is this repo's recorded
+    failure mode. They are now excluded and counted separately. Ties-excluded
+    rate 0.500277, z = +0.59; the verdict is robust to it.
 
 (ii) THE HEAD LABEL EMBEDDED THE MECHANISM ARM'S CONCLUSION. The sealed head
     was COLUMN_IS_CONDITIONED_ON_ROUTING, chosen from the EXISTENCE arms W1 and
@@ -123,7 +138,7 @@ def walk(path):
 G = json.load(gzip.open(GRAPH))
 nodes = G["nodes"]
 
-n_pairs = n_sens = n_aligned = 0
+n_pairs = n_sens = n_aligned = n_equal_ratio = 0
 dens_actual, dens_swapped, higher_on_larger = [], [], 0
 n_diff_index = 0
 for nd in nodes:
@@ -150,9 +165,11 @@ for nd in nodes:
             if act != swp:
                 n_sens += 1
                 n_aligned += act
-            if Ii != Ij:
+            if Ii != Ij and ri != rj:
                 n_diff_index += 1
                 higher_on_larger += ((Ii > Ij) == (ri > rj))
+            elif Ii != Ij:
+                n_equal_ratio += 1          # no larger ratio: undefined, not 0
     if tot:
         dens_actual.append(fa / tot)
         dens_swapped.append(fs / tot)
@@ -177,7 +194,8 @@ s1, s2, s3 = W1.score(w1), W2.score(w2), W3.score(w3)
 print(f"{os.path.basename(GRAPH)}: {len(da)} nodes, {n_pairs} enabled pairs\n")
 print(f"swap-sensitive pairs        {n_sens:>8d}  ({w1:.1%})")
 print(f"  of those, ACTUAL fuses    {n_aligned:>8d}  (alignment {align:.1%})")
-print(f"pairs with unequal indices  {n_diff_index:>8d}")
+print(f"pairs with unequal indices  {n_diff_index:>8d}  "
+      f"(+{n_equal_ratio} equal-ratio pairs excluded: no larger ratio exists)")
 print(f"  higher index on the LARGER ratio  {larger_rate:.1%}")
 print(f"\nfusion density  actual median {np.median(da):.4f}   "
       f"swapped median {np.median(ds):.4f}")
@@ -219,6 +237,7 @@ json.dump(dict(graph=os.path.basename(GRAPH), n_nodes=len(da),
                n_pairs=n_pairs, n_swap_sensitive=n_sens,
                swap_sensitive_share=w1, alignment_rate=align,
                n_unequal_index=n_diff_index,
+               n_equal_ratio_excluded=n_equal_ratio,
                higher_index_on_larger_ratio_rate=larger_rate,
                median_density_actual=float(np.median(da)),
                median_density_swapped=float(np.median(ds)),

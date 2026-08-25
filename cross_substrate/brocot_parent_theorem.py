@@ -44,8 +44,15 @@ Stern-Brocot ancestor.
      (p', q') with q' <= q, so it is a BEST APPROXIMATION OF THE SECOND KIND,
      and by Lagrange's theorem every such approximation is a convergent of
      alpha.
-  4. Convergents are ancestors. Each convergent appears on the Stern-Brocot
+  4. Convergents WITH p >= 1 are ancestors: each appears on the Stern-Brocot
      descent to alpha.                                                     [] 
+
+     CORRECTED 2026-08-25 (adversarial review). "Convergents are ancestors" is
+     FALSE as stated: 0/1 is the 0th convergent of every alpha < 1 and is the
+     LEFT BOUNDARY of the Stern-Brocot tree, not a node on any descent. That is
+     exactly the degenerate case the (1/A, A) scope already isolates -- the
+     minimiser with a1 = 0 names 0/1 -- so the theorem is unaffected and the
+     proof text was overreaching by one case.
 
 WHERE IT CAN FAIL, WHICH IS THE PART WORTH TESTING
 ---------------------------------------------------
@@ -110,8 +117,9 @@ the claim sharper.
 So the honest split, which is what the writeup must carry:
 
     P1  DEFINITIONAL           the box forces max(p,q) <= A
-    P2  THEOREM on (1/A, A)    strict minima: the minimiser is a CONVERGENT,
-                               via Lagrange plus the prefix-in-q argument
+    P2  THEOREM on (1/A, A)    strict minima: the minimiser is a CONVERGENT
+                               with p >= 1, hence an ancestor; via Lagrange
+                               plus the prefix-in-q argument
         EMPIRICAL, n = 304     ties also landed on convergents, unproved
         BOUNDARY, characterised alpha outside (1/A, A) has parent 0: the carrier
         SKIPPED, n = 85        a2 = 0 names no rational; not tested, not passed
@@ -253,8 +261,19 @@ ties_seen = sum(v["with_ties"] for v in results.values())
 print(f"\nP1  parent below the horizon: {sum(v['parent_below'] for v in results.values())}"
       f"/{N} — and DEFINITIONAL: |a1|,|a2| <= A forces max(p,q) <= A.")
 print("    Reported as a wiring check from here on, never as a measured rate.")
-print(f"P2  parent is a Stern-Brocot ancestor: {N - bad}/{N} TESTED, across "
-      f"{len(POPS)} populations and 3 horizons")
+# CORRECTED (adversarial review): the headline used N - bad, where `bad` counts
+# only IN-SCOPE failures. The 7 out-of-scope non-ancestors were therefore
+# laundered into the numerator as passes. Both numbers are now reported, with
+# the in-scope denominator that "a boundary rate needs its n" requires.
+n_anc = sum(v["ancestor"] for v in results.values())
+n_inscope = N - (N - n_anc - bad) - bad + bad   # tested minus out-of-scope fails
+n_outscope_fail = N - n_anc - bad
+print(f"P2  parent is a Stern-Brocot ancestor: {n_anc}/{N} TESTED overall, "
+      f"across {len(POPS)} populations and 3 horizons")
+print(f"    IN SCOPE (1/A < alpha < A): {N - n_outscope_fail - bad}/"
+      f"{N - n_outscope_fail} — {bad} failures")
+print(f"    OUT OF SCOPE: {n_outscope_fail} non-ancestors, all parent 0/1, "
+      f"which is a convergent but not a tree node")
 print(f"    {skipped_total} further ratios SKIPPED, not passed: the minimiser "
       f"had a2 = 0 and names no rational.\n    They are excluded from the "
       f"denominator rather than counted as agreement.")

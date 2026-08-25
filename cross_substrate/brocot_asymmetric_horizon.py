@@ -118,6 +118,7 @@ def witness(alpha, B1, B2):
 
 
 rows, wit_ok, wit_n, inv_bad, sharp = [], 0, 0, [], []
+sharp_seen = set()
 for I1 in I_GRID:
     for I2 in I_GRID:
         B1, B2 = order_bound(I1), order_bound(I2)
@@ -135,9 +136,15 @@ for I1 in I_GRID:
                 inv_bad.append((str(a), I1, I2))
             # A4 the asymmetric line: reachable one way round, not the other
             if I1 != I2 and pr != predicted(a, B2, B1):
-                sharp.append(dict(alpha=str(a), I1=I1, I2=I2,
-                                  at_I1I2=bool(pr),
-                                  at_I2I1=bool(predicted(a, B2, B1))))
+                # DE-DUPLICATED 2026-08-25 (adversarial review): each flip was
+                # recorded under both (I1,I2) and (I2,I1), so the headline
+                # double-counted. Keyed on the UNORDERED index pair now.
+                key = (str(a), min(I1, I2), max(I1, I2))
+                if key not in sharp_seen:
+                    sharp_seen.add(key)
+                    sharp.append(dict(alpha=str(a), I1=I1, I2=I2,
+                                      at_I1I2=bool(pr),
+                                      at_I2I1=bool(predicted(a, B2, B1))))
         rows.append(dict(I1=I1, I2=I2, B1=B1, B2=B2, n=n, agree=agree,
                          accuracy=agree / n))
 
@@ -162,8 +169,10 @@ print(f"\nA1  predicate vs exact enumeration: {tot_a}/{tot_n}   "
 print(f"A2  sufficiency witness in-box and telescoping: {wit_ok}/{wit_n}   "
       f"{'PASS' if a2 else 'FAIL'}")
 print(f"A3  relabelling invariance: {'PASS' if a3 else f'FAIL {inv_bad[:3]}'}")
-print(f"A4  asymmetric line non-empty: {len(sharp)} ratios flip when the "
-      f"higher index moves   {'PASS' if a4 else 'FAIL — INERT'}")
+n_distinct_ratios = len({w["alpha"] for w in sharp})
+print(f"A4  asymmetric line non-empty: {len(sharp)} (alpha, index-pair) flips "
+      f"across {n_distinct_ratios} distinct ratios   "
+      f"{'PASS' if a4 else 'FAIL — INERT'}")
 if sharp:
     print("\n    exhibit — same two ratios, same two indices, swapped between ops:")
     for w in sharp[:6]:
@@ -188,7 +197,9 @@ json.dump(dict(I_grid=I_GRID, pq_max=PQ_MAX, n_ratios=len(RATIOS),
                n_checks=tot_n, n_agree=tot_a, rows=rows,
                witness_checked=wit_n, witness_ok=wit_ok,
                invariance_failures=inv_bad[:20],
-               asymmetric_flips=len(sharp), exhibit=sharp[:12],
+               asymmetric_flips=len(sharp),
+               asymmetric_flip_distinct_ratios=n_distinct_ratios,
+               exhibit=sharp[:12],
                checks=dict(A1=bool(a1), A2=bool(a2), A3=bool(a3), A4=bool(a4)),
                verdict=verdict),
           open(f"{HERE}/brocot_asymmetric_horizon.json", "w"), indent=1)

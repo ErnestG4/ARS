@@ -158,7 +158,8 @@
  "witness_checked": 1250,
  "witness_ok": 1250,
  "invariance_failures": [],
- "asymmetric_flips": 468,
+ "asymmetric_flips": 234,
+ "asymmetric_flip_distinct_ratios": 78,
  "exhibit": [
   {
    "alpha": "1/10",
