@@ -83,7 +83,12 @@ NODES = sorted({Fraction(p, q) for q in range(1, QMAX + 1) for p in range(1, 60)
 
 
 def gap(alpha):
-    """min over nonzero |a| <= A of |a1 + a2*alpha|, exact."""
+    """min over nonzero |a| <= A of |a1 + a2*alpha|, exact.
+
+    FIXED: the first version skipped v == 0 with `if v and ...`, so it returned
+    the minimum NONZERO value everywhere and could never report an exact
+    coincidence as gap 0. H1 is a definitional check -- it cannot fail for a
+    substantive reason -- and its failure caught exactly this."""
     p, q = alpha.numerator, alpha.denominator
     best = None
     for a1 in range(-A, A + 1):
@@ -91,11 +96,11 @@ def gap(alpha):
             if a1 == 0 and a2 == 0:
                 continue
             v = abs(a1 * q + a2 * p)
-            if v and (best is None or v < best):
+            if v == 0:
+                return Fraction(0)              # exact coincidence: fuses
+            if best is None or v < best:
                 best = v
-                if best == 1:
-                    return Fraction(1, q)
-    return Fraction(best, q) if best is not None else None
+    return Fraction(best, q)
 
 
 rows = []
