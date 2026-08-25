@@ -4,7 +4,6 @@
  "a1": 1.4,
  "coarse": 1401,
  "fine": 3501,
- "delta": 0.005,
  "n_markers": 50,
  "markers": [
   {
@@ -81,7 +80,7 @@
   },
   {
    "value": 0.99825,
-   "kind": "coincidence"
+   "kind": "threshold"
   },
   {
    "value": 0.9987499999999999,
@@ -109,7 +108,7 @@
   },
   {
    "value": 1.00175,
-   "kind": "coincidence"
+   "kind": "threshold"
   },
   {
    "value": 1.03025,
@@ -149,11 +148,11 @@
   },
   {
    "value": 1.16225,
-   "kind": "coincidence"
+   "kind": "threshold"
   },
   {
    "value": 1.16275,
-   "kind": "coincidence"
+   "kind": "threshold"
   },
   {
    "value": 1.1997499999999999,
@@ -193,11 +192,11 @@
   },
   {
    "value": 1.33725,
-   "kind": "coincidence"
+   "kind": "threshold"
   },
   {
    "value": 1.33775,
-   "kind": "coincidence"
+   "kind": "threshold"
   },
   {
    "value": 1.3872499999999999,
@@ -208,15 +207,18 @@
    "kind": "threshold"
   }
  ],
- "coverage_in_sample": 0.6642857142857143,
- "coverage_held_out": 0.45689655172413796,
- "contrast": 1.116803610762857,
- "median_jump_coincidence": 0.3832294903316213,
- "median_jump_threshold": 0.007388639549908052,
+ "delta_steps": 3,
+ "abs_jump": 0.05,
+ "n_large_jumps_held_out": 69,
+ "coverage_in_sample": 0.46218487394957986,
+ "coverage_held_out": 0.37681159420289856,
+ "contrast": 1.1399972565823642,
+ "median_jump_coincidence": 1.3691313243457015,
+ "median_jump_threshold": 0.008143438520506807,
  "predictions": {
   "K1": false,
   "K2": false,
-  "K3": false,
+  "K3": true,
   "K4": true
  },
  "verdict": "NOT_VALIDATED"
