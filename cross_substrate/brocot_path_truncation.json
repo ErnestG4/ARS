@@ -1,0 +1,3067 @@
+{
+ "lo": 0.7,
+ "hi": 1.4,
+ "qmax": 40,
+ "I_list": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "I_mus": 0.9,
+ "n_nodes": 345,
+ "max_path_len": 40,
+ "mean_cut": {
+  "0.9": 5.605421686746988,
+  "1.5": 6.532307692307692,
+  "2.0": 7.37223974763407,
+  "3.0": 8.120521172638437
+ },
+ "match_rate": {
+  "0.9": 0.30120481927710846,
+  "1.5": 0.28307692307692306,
+  "2.0": 0.26498422712933756,
+  "3.0": 0.23778501628664495
+ },
+ "bars": {
+  "parent is the deepest in-box ancestor": {
+   "name": "parent is the deepest in-box ancestor",
+   "value": 0.30120481927710846,
+   "thresh": 0.9,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "out_of_range": false,
+   "headroom": 0.09999999999999998,
+   "why": "a fraction over the above-horizon ratios: 0 to 1 by construction"
+  },
+  "distinct truncation depths": {
+   "name": "distinct truncation depths",
+   "value": 4,
+   "thresh": 4,
+   "floor": 1,
+   "ceiling": 40,
+   "met": true,
+   "out_of_range": false,
+   "headroom": 36,
+   "why": "a truncation depth is a proper prefix length, so it lies in [0, 40] over this fixed node set"
+  },
+  "mean depth at I=3.0 / at I=0.9": {
+   "name": "mean depth at I=3.0 / at I=0.9",
+   "value": 1.4486905047372172,
+   "thresh": 1.2,
+   "floor": 0.0,
+   "ceiling": 40,
+   "met": true,
+   "out_of_range": false,
+   "headroom": 38.8,
+   "why": "the ratio of two mean prefix lengths; the numerator cannot exceed the longest path, 40, and the denominator is at least 1 in practice"
+  }
+ },
+ "verdict": "PARENT_NEEDS_AN_ARGMIN",
+ "composed": {
+  "label": "PARENT_NEEDS_AN_ARGMIN_AT_distinct truncation depths_AT_mean depth at I=3.0 / at I=0.9",
+  "head": "PARENT_NEEDS_AN_ARGMIN",
+  "qualifiers": [
+   "AT_distinct truncation depths",
+   "AT_mean depth at I=3.0 / at I=0.9"
+  ],
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('parent is the deepest in-box ancestor', EXISTENCE, MISSED)",
+   "Arm('distinct truncation depths', RESOLUTION, MET)",
+   "Arm('mean depth at I=3.0 / at I=0.9', RESOLUTION, MET)"
+  ]
+ },
+ "rows": [
+  {
+   "ratio": "7/10",
+   "A": 8,
+   "parent": "2/3",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 5,
+   "matches": false
+  },
+  {
+   "ratio": "26/37",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "19/27",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "12/17",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": true
+  },
+  {
+   "ratio": "17/24",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "22/31",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "27/38",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "28/39",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "23/32",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "18/25",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "13/18",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": true
+  },
+  {
+   "ratio": "21/29",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "29/40",
+   "A": 8,
+   "parent": "5/7",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "8/11",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 5,
+   "matches": false
+  },
+  {
+   "ratio": "27/37",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "19/26",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "11/15",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": false
+  },
+  {
+   "ratio": "25/34",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "14/19",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "17/23",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "20/27",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "23/31",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "26/35",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "29/39",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "5/7",
+   "trunc_depth": 4,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "28/37",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "25/33",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "22/29",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "19/25",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "16/21",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "29/38",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "13/17",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "23/30",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "10/13",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": false
+  },
+  {
+   "ratio": "27/35",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "17/22",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "24/31",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "31/40",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "7/9",
+   "A": 8,
+   "parent": "3/4",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 5,
+   "matches": false
+  },
+  {
+   "ratio": "25/32",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "18/23",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "29/37",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "11/14",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": true
+  },
+  {
+   "ratio": "26/33",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "15/19",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "19/24",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "23/29",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "27/34",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "31/39",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "4/5",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "29/36",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "25/31",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "21/26",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "17/21",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "30/37",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "13/16",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "22/27",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "31/38",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "9/11",
+   "A": 8,
+   "parent": "4/5",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 6,
+   "matches": false
+  },
+  {
+   "ratio": "32/39",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "23/28",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "14/17",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "33/40",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "19/23",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "24/29",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "29/35",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "5/6",
+   "trunc_depth": 5,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "31/37",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "26/31",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "21/25",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "16/19",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "27/32",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "11/13",
+   "A": 8,
+   "parent": "5/6",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "28/33",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "17/20",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "23/27",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "29/34",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "6/7",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "31/36",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "25/29",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "19/22",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "32/37",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "13/15",
+   "A": 8,
+   "parent": "6/7",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "33/38",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "20/23",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "27/31",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "34/39",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "29/33",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "22/25",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "15/17",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "23/26",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "31/35",
+   "A": 8,
+   "parent": "7/8",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "8/9",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "33/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "25/28",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "17/19",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "26/29",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "35/39",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "9/10",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "28/31",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "19/21",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "29/32",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "10/11",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "31/34",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "21/23",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "32/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "11/12",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "34/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "23/25",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "35/38",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "12/13",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "37/40",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "25/27",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "13/14",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "27/29",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "14/15",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "29/31",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 16,
+   "matches": false
+  },
+  {
+   "ratio": "15/16",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "31/33",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 17,
+   "matches": false
+  },
+  {
+   "ratio": "16/17",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 16,
+   "matches": false
+  },
+  {
+   "ratio": "33/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 18,
+   "matches": false
+  },
+  {
+   "ratio": "17/18",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 17,
+   "matches": false
+  },
+  {
+   "ratio": "35/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 19,
+   "matches": false
+  },
+  {
+   "ratio": "18/19",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 18,
+   "matches": false
+  },
+  {
+   "ratio": "37/39",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 20,
+   "matches": false
+  },
+  {
+   "ratio": "19/20",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 19,
+   "matches": false
+  },
+  {
+   "ratio": "20/21",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 20,
+   "matches": false
+  },
+  {
+   "ratio": "21/22",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 21,
+   "matches": false
+  },
+  {
+   "ratio": "22/23",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 22,
+   "matches": false
+  },
+  {
+   "ratio": "23/24",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 23,
+   "matches": false
+  },
+  {
+   "ratio": "24/25",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 24,
+   "matches": false
+  },
+  {
+   "ratio": "25/26",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 25,
+   "matches": false
+  },
+  {
+   "ratio": "26/27",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 26,
+   "matches": false
+  },
+  {
+   "ratio": "27/28",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 27,
+   "matches": false
+  },
+  {
+   "ratio": "28/29",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 28,
+   "matches": false
+  },
+  {
+   "ratio": "29/30",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 29,
+   "matches": false
+  },
+  {
+   "ratio": "30/31",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 30,
+   "matches": false
+  },
+  {
+   "ratio": "31/32",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 31,
+   "matches": false
+  },
+  {
+   "ratio": "32/33",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 32,
+   "matches": false
+  },
+  {
+   "ratio": "33/34",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 33,
+   "matches": false
+  },
+  {
+   "ratio": "34/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 34,
+   "matches": false
+  },
+  {
+   "ratio": "35/36",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 35,
+   "matches": false
+  },
+  {
+   "ratio": "36/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 36,
+   "matches": false
+  },
+  {
+   "ratio": "37/38",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 37,
+   "matches": false
+  },
+  {
+   "ratio": "38/39",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 38,
+   "matches": false
+  },
+  {
+   "ratio": "39/40",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "7/8",
+   "trunc_depth": 7,
+   "path_len": 39,
+   "matches": false
+  },
+  {
+   "ratio": "41/40",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 40,
+   "matches": false
+  },
+  {
+   "ratio": "40/39",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 39,
+   "matches": false
+  },
+  {
+   "ratio": "39/38",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 38,
+   "matches": false
+  },
+  {
+   "ratio": "38/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 37,
+   "matches": false
+  },
+  {
+   "ratio": "37/36",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 36,
+   "matches": false
+  },
+  {
+   "ratio": "36/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 35,
+   "matches": false
+  },
+  {
+   "ratio": "35/34",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 34,
+   "matches": false
+  },
+  {
+   "ratio": "34/33",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 33,
+   "matches": false
+  },
+  {
+   "ratio": "33/32",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 32,
+   "matches": false
+  },
+  {
+   "ratio": "32/31",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 31,
+   "matches": false
+  },
+  {
+   "ratio": "31/30",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 30,
+   "matches": false
+  },
+  {
+   "ratio": "30/29",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 29,
+   "matches": false
+  },
+  {
+   "ratio": "29/28",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 28,
+   "matches": false
+  },
+  {
+   "ratio": "28/27",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 27,
+   "matches": false
+  },
+  {
+   "ratio": "27/26",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 26,
+   "matches": false
+  },
+  {
+   "ratio": "26/25",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 25,
+   "matches": false
+  },
+  {
+   "ratio": "25/24",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 24,
+   "matches": false
+  },
+  {
+   "ratio": "24/23",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 23,
+   "matches": false
+  },
+  {
+   "ratio": "23/22",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 22,
+   "matches": false
+  },
+  {
+   "ratio": "22/21",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 21,
+   "matches": false
+  },
+  {
+   "ratio": "21/20",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 20,
+   "matches": false
+  },
+  {
+   "ratio": "41/39",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 21,
+   "matches": false
+  },
+  {
+   "ratio": "20/19",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 19,
+   "matches": false
+  },
+  {
+   "ratio": "39/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 20,
+   "matches": false
+  },
+  {
+   "ratio": "19/18",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 18,
+   "matches": false
+  },
+  {
+   "ratio": "37/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 19,
+   "matches": false
+  },
+  {
+   "ratio": "18/17",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 17,
+   "matches": false
+  },
+  {
+   "ratio": "35/33",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 18,
+   "matches": false
+  },
+  {
+   "ratio": "17/16",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 16,
+   "matches": false
+  },
+  {
+   "ratio": "33/31",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 17,
+   "matches": false
+  },
+  {
+   "ratio": "16/15",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "31/29",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 16,
+   "matches": false
+  },
+  {
+   "ratio": "15/14",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "29/27",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "43/40",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 16,
+   "matches": false
+  },
+  {
+   "ratio": "14/13",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "41/38",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "27/25",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "40/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "13/12",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "38/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "25/23",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "37/34",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "12/11",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "35/32",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "23/21",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "34/31",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "11/10",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "43/39",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "32/29",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "21/19",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "31/28",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "41/37",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "10/9",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "39/35",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "29/26",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "19/17",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "28/25",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "37/33",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "9/8",
+   "A": 8,
+   "parent": "1",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "44/39",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": true
+  },
+  {
+   "ratio": "35/31",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "26/23",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "43/38",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "17/15",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "42/37",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "25/22",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "33/29",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "41/36",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": true
+  },
+  {
+   "ratio": "39/34",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "31/27",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "23/20",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "38/33",
+   "A": 8,
+   "parent": "8/7",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "15/13",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "37/32",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "22/19",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "29/25",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "36/31",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "43/37",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "8/7",
+   "trunc_depth": 7,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "41/35",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "34/29",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "27/23",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "47/40",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "20/17",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "33/28",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "46/39",
+   "A": 8,
+   "parent": "7/6",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "13/11",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "45/38",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "32/27",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "19/16",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "44/37",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "25/21",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "31/26",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "37/31",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "43/36",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "7/6",
+   "trunc_depth": 6,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "47/39",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 12,
+   "matches": true
+  },
+  {
+   "ratio": "41/34",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "35/29",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "29/24",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "23/19",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "40/33",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "17/14",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "45/37",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "28/23",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "39/32",
+   "A": 8,
+   "parent": "6/5",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "11/9",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 6,
+   "matches": false
+  },
+  {
+   "ratio": "49/40",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "38/31",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "27/22",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "43/35",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "16/13",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "37/30",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "21/17",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "47/38",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "26/21",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "31/25",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "36/29",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "41/33",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "46/37",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "6/5",
+   "trunc_depth": 5,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "49/39",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 13,
+   "matches": true
+  },
+  {
+   "ratio": "44/35",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 12,
+   "matches": true
+  },
+  {
+   "ratio": "39/31",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": true
+  },
+  {
+   "ratio": "34/27",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "29/23",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "24/19",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "43/34",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "19/15",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "33/26",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "47/37",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "14/11",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": true
+  },
+  {
+   "ratio": "51/40",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "37/29",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "23/18",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "32/25",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "41/32",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "50/39",
+   "A": 8,
+   "parent": "5/4",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "9/7",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 5,
+   "matches": false
+  },
+  {
+   "ratio": "49/38",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "40/31",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "31/24",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "22/17",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "35/27",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "48/37",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "13/10",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": false
+  },
+  {
+   "ratio": "43/33",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "30/23",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "47/36",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "17/13",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "38/29",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "21/16",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "46/35",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "25/19",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "29/22",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "33/25",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "37/28",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "41/31",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "45/34",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "49/37",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "53/40",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "5/4",
+   "trunc_depth": 4,
+   "path_len": 16,
+   "matches": false
+  },
+  {
+   "ratio": "51/38",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 15,
+   "matches": false
+  },
+  {
+   "ratio": "47/35",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 14,
+   "matches": false
+  },
+  {
+   "ratio": "43/32",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 13,
+   "matches": false
+  },
+  {
+   "ratio": "39/29",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 12,
+   "matches": false
+  },
+  {
+   "ratio": "35/26",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": false
+  },
+  {
+   "ratio": "31/23",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "27/20",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "50/37",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": false
+  },
+  {
+   "ratio": "23/17",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "42/31",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "19/14",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "53/39",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "34/25",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "49/36",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "15/11",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": false
+  },
+  {
+   "ratio": "41/30",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "26/19",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": false
+  },
+  {
+   "ratio": "37/27",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": false
+  },
+  {
+   "ratio": "48/35",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": false
+  },
+  {
+   "ratio": "11/8",
+   "A": 8,
+   "parent": "4/3",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 5,
+   "matches": false
+  },
+  {
+   "ratio": "51/37",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "40/29",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "29/21",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "47/34",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "18/13",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 6,
+   "matches": true
+  },
+  {
+   "ratio": "43/31",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "25/18",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 7,
+   "matches": true
+  },
+  {
+   "ratio": "32/23",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 8,
+   "matches": true
+  },
+  {
+   "ratio": "39/28",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 9,
+   "matches": true
+  },
+  {
+   "ratio": "46/33",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 10,
+   "matches": true
+  },
+  {
+   "ratio": "53/38",
+   "A": 8,
+   "parent": "7/5",
+   "deepest_inbox": "7/5",
+   "trunc_depth": 4,
+   "path_len": 11,
+   "matches": true
+  }
+ ]
+}

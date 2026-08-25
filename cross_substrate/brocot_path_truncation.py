@@ -52,6 +52,38 @@ anything is drawn.
 ║ is a slower and much less elegant feature, and should be described as such   ║
 ║ rather than papered over.                                                    ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — AFTER OUTPUT, 2026-08-24. T1 missed at 30.1%, and the reason is
+worth more than the prediction was.
+
+THE PARENT IS NOT THE CLOSEST ANCESTOR. It is the one minimising
+DENOMINATOR-WEIGHTED error: |a1 + a2*alpha| = |a2| * |alpha - a1/a2|. A deeper
+ancestor is closer in VALUE but carries a larger denominator, and the
+denominator multiplies the error — because the gap is a frequency difference
+between actual partials, and a partial at n2 = 7 is a different partial from
+one at n2 = 1.
+
+The case that shows it, at I = 0.9, A = 8:
+
+    alpha = 19/18.  Deepest in-box ancestor: 8/7.  Perceptual parent: 1/1.
+        1/1 -> |1*alpha - 1| = 1/18  = 0.0556  -> beats at 12.2 Hz
+        8/7 -> |7*alpha - 8| = 11/18 = 0.6111  -> 134 Hz apart, not a beat
+
+19/18 is about a semitone above unison and it is heard as a slightly detuned
+UNISON beating twelve times a second, which is what any player would say and
+what the argmin says. It is not heard as a detuned 8/7. The premise "closest
+ancestor" mistook proximity in ratio for proximity in frequency.
+
+IMPLEMENTATION CONSEQUENCE, STATED PLAINLY RATHER THAN PAPERED OVER. The
+category is not a stored prefix, so the map cannot read it off PullIndex's path
+string; it needs the argmin over the box. That argmin is (2A+1)^2 = 289 integer
+operations at I = 0.9 and the map field is computed offline, so the cost is
+nothing — but the elegant version is not available and the docs should not
+imply it is. What survives from the seal is that the parent IS still always an
+ancestor (100%, measured separately), so the path string bounds the search.
+
+T2 and T3 both held: 4 distinct truncation depths, and the cut deepens by 1.45x
+from I = 0.9 to I = 3.0. The depth slider moves the map.
 """
 import json
 import os
