@@ -57,11 +57,11 @@ BEAT RATE.
 AMENDMENT 1 — AFTER OUTPUT, 2026-08-24.  Recorded, not rewritten: the sealed
 scores below stand exactly as they fell.  Three findings about the SEAL itself.
 
-(a) H2 WAS AN INERT ARM.  Dirichlet's approximation theorem says that for any α
-    there are |a| ≤ A with |a₁ + a₂α| ≤ 1/A, so gap ≤ 1/A = 0.125 everywhere;
-    and gap = k/q ≥ 1/QMAX = 0.025.  The span inside the box I chose is therefore
-    capped at QMAX/A = 5.0, and I sealed a bar of 10.  **H2 could not have been
-    met by any data.**  It is scored INAPPLICABLE_UNPOWERED, not MISSED — a dead
+(a) H2 WAS AN INERT ARM.  The node set is finite and fixed by LO, HI and QMAX
+    before any measurement, so the reachable span is exactly enumerable — and it
+    is 5.72, against a sealed bar of 10.  **H2 could not have been met by any
+    data.**  (The first ceiling written here was itself wrong, and is corrected
+    in amendment 2 below.)  It is scored INAPPLICABLE_UNPOWERED, not MISSED — a dead
     arm in an n/m tally is non-evidence dressed as a verdict, which is this
     repo's dominant recorded error mode.  The power was computable BEFORE the
     run from A and QMAX alone; it is computed below and now gates the arm.
@@ -84,6 +84,16 @@ scores below stand exactly as they fell.  Three findings about the SEAL itself.
     says otherwise because I built it wrong.  Third member of the family the
     existence-vs-median rule opened (`existence.py`), and the first where the
     defect is a conjunction ARM TYPE rather than a summary statistic.
+
+AMENDMENT 2 — SAME DAY, AND IT CORRECTS AMENDMENT 1.  Amendment (a) defended
+its ceiling with "Dirichlet caps the gap at 1/A".  That is the wrong theorem
+for this box: Dirichlet bounds the DENOMINATOR of the approximation, while this
+box bounds a₁ as well as a₂, so 1/A is not an upper bound at all — 4 of the 332
+above-horizon gaps exceed it, and the true span is 5.72 rather than 5.0.  The
+conclusion is untouched (both are far under the bar of 10), and the correction
+is banked anyway, because a bound defended by the wrong theorem is a bound
+nobody can check.  `reachable.Bar.score` now flags any value falling outside
+its own declared range, which is the only audit a trusted ceiling can get.
 """
 import json
 import os
@@ -149,10 +159,12 @@ h1 = all(r["gap"] == 0.0 for r in below) and all(r["gap"] > 0 for r in above)
 gaps = np.array([r["gap"] for r in above])
 span = gaps.max() / gaps.min() if gaps.min() > 0 else float("inf")
 H2_BAR = 10
-# power, computable from the box alone and BEFORE any data: Dirichlet caps the
-# gap at 1/A, and the smallest attainable gap is 1/QMAX, so no dataset drawn
-# from this box can show a span above QMAX/A.
-span_ceiling = QMAX / A
+# power, a property of the DESIGN and computable before any measurement: the
+# node set is fixed by LO/HI/QMAX, so the reachable span is the max/min gap
+# over that whole enumerated set. Exact, not a theorem bound — see amendment 2.
+_all = [r["gap"] for r in rows if r["above"]]
+span_ceiling = max(_all) / min(_all)
+span_floor = 1.0
 h2_reachable = span_ceiling >= H2_BAR
 h2 = span >= H2_BAR
 rho = float(stats.spearmanr([r["gap"] for r in above],

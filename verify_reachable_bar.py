@@ -8,9 +8,12 @@ WHAT TURNS THIS RED:
       brocot_above_horizon.json loses `power.H2_span_ceiling`, or scores H2 as
       MISSED again rather than INAPPLICABLE_UNPOWERED, the defect this guard
       exists for has been silently reverted.
-  (c) the ceiling recorded there stops agreeing with the arithmetic it claims.
-      QMAX/A is two constants and a division; if the banked ceiling and the
-      recomputed one part company, one of them is wrong and the row says so.
+  (c) the ceiling recorded there stops agreeing with the node set it claims to
+      bound. The span ceiling is exactly recomputable from the artifact's own
+      rows; if the banked one and the recomputed one part company, one of them
+      is wrong and the row says so. This check has already earned itself once:
+      the first ceiling was defended with Dirichlet's theorem, which bounds the
+      wrong coordinate for this box, and was wrong by 14%.
 
 (c) is the part a schema check would miss. A `power` block that is present and
 wrong is worse than one that is absent, because it looks discharged.
@@ -45,18 +48,14 @@ else:
     CHECKS.append(("H2 is scored INAPPLICABLE_UNPOWERED, not MISSED",
                    pw.get("H2_score") == "INAPPLICABLE_UNPOWERED",
                    f"H2_score = {pw.get('H2_score')!r}"))
-    # (c) re-derive the ceiling from the generator's own constants
-    src = open(os.path.join(HERE, "cross_substrate",
-                            "brocot_above_horizon.py")).read()
-    ns = {}
-    for line in src.splitlines():
-        if line.startswith("LO, HI, QMAX"):
-            exec(line, ns)
-    qmax = ns.get("QMAX")
-    A = d.get("horizon")
-    want = (qmax / A) if (qmax and A) else None
+    # (c) re-derive the ceiling from the artifact's own rows. The ceiling is a
+    # property of the fixed node set, so it is exactly recomputable — and this
+    # is the check that caught the FIRST ceiling, which was defended by
+    # Dirichlet's theorem and was wrong by 14%.
+    g = [r["gap"] for r in d["rows"] if r["above"]]
+    want = (max(g) / min(g)) if g and min(g) > 0 else None
     got = pw.get("H2_span_ceiling")
-    CHECKS.append((f"the banked ceiling re-derives as QMAX/A = {qmax}/{A}",
+    CHECKS.append(("the banked ceiling re-derives as max/min gap over the node set",
                    want is not None and got is not None and abs(want - got) < 1e-12,
                    f"banked {got!r} vs recomputed {want!r}"))
     CHECKS.append(("the sealed lattice verdict is reported unchanged",

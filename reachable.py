@@ -75,9 +75,21 @@ class Bar:
         self.direction, self.why = direction, why
 
     def score(self, value):
+        """Score a value, and FLAG it if it falls outside the declared range.
+
+        The module says the ceiling is taken on trust. This is where that trust
+        is audited by the only thing that can audit it: an observation the
+        range said was impossible. It happened within the hour of writing that
+        sentence — brocot_above_horizon_parent declared a ceiling of 13
+        parents and observed 14, because the ceiling assumed parents were drawn
+        from the in-range nodes and they are not. A value outside its range
+        does not mean the measurement is wrong; it means the RANGE is wrong,
+        and the bar that shares that range is now unaudited."""
         met = value >= self.thresh if self.direction == "ge" else value <= self.thresh
+        out = value > self.ceiling or value < self.floor
         return dict(name=self.name, value=value, thresh=self.thresh,
                     floor=self.floor, ceiling=self.ceiling, met=bool(met),
+                    out_of_range=bool(out),
                     headroom=(self.ceiling - self.thresh if self.direction == "ge"
                               else self.thresh - self.floor),
                     why=self.why)
@@ -87,7 +99,9 @@ class Bar:
         op = "≥" if self.direction == "ge" else "≤"
         return (f"{self.name}: {fmt.format(value)} ({op} {self.thresh} ?) "
                 f"{'MET' if s['met'] else 'MISSED'}"
-                f"   [reachable {fmt.format(self.floor)}–{fmt.format(self.ceiling)}]")
+                f"   [reachable {fmt.format(self.floor)}–{fmt.format(self.ceiling)}]"
+                + ("  << OUT OF DECLARED RANGE: the range is wrong, so this "
+                   "bar is unaudited" if s["out_of_range"] else ""))
 
 
 if __name__ == "__main__":
@@ -123,11 +137,23 @@ if __name__ == "__main__":
     except UnreachableBar as e:
         print(f"    refused: {str(e)[:96]}...")
 
+    print("\n--- red path 4 · the real wrong ceiling, caught by its own data ---")
+    b = Bar("distinct parents", 8, floor=1, ceiling=13,
+            why="a parent must be an in-range node, and there are 13 of them")
+    print("   ", b.line(14, "{:.0f}"))
+    if not b.score(14)["out_of_range"]:
+        raise SystemExit("RED PATH FAILED: 14 against a ceiling of 13 was not flagged")
+    print("    the premise 'parents are in-range nodes' was false; the bar "
+          "passed anyway and would have gone unexamined")
+
     print("\n--- green path · a bar with honest headroom ---")
-    b = Bar("gap span", thresh=3.0, floor=1.0, ceiling=QMAX / A,
-            why="Dirichlet caps gap at 1/A; the box floors it at 1/QMAX")
+    b = Bar("gap span", thresh=3.0, floor=1.0, ceiling=5.72,
+            why="exact: the max/min gap over the whole fixed node set, "
+                "enumerated — the analytic 1/A bound is LOOSE here, because "
+                "Dirichlet bounds a2 only and this box bounds a1 as well")
     print("   ", b.line(5.72, "{:.2f}"))
     print(f"    headroom above the bar: {b.score(5.72)['headroom']:.2f}")
 
     print("\nREACHABLE_SELF_TEST_PASS — an inert bar cannot be constructed, an "
-          "unstated range is a refusal, and both directions are covered.")
+          "unstated range is a refusal, both directions are covered, and a "
+          "value outside its declared range is flagged as a broken range.")

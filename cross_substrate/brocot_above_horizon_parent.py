@@ -55,6 +55,30 @@ horizon depth and read the node it stopped on.
 ║ "categorised, but the categories are lopsided", and the map gets the gap      ║
 ║ coordinate without the parent labels.                                        ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — AFTER OUTPUT, 2026-08-24.  Sealed bars and their thresholds are
+untouched; two things about the SEAL are corrected and recorded.
+
+(a) P3A's DECLARED CEILING WAS WRONG, and its own data caught it: 14 distinct
+    parents were observed against a ceiling of 13.  The ceiling assumed the
+    parent is drawn from the in-RANGE node set, but the minimiser |a1|/|a2| is
+    only constrained to the BOX — it need not lie in [LO, HI] at all.  The true
+    ceiling is the number of distinct |a1|/|a2| with 1 <= |a1|,|a2| <= A, which
+    is 43.  The bar of 8 was reachable either way and P3A stands MET, but a
+    ceiling that the data steps over is a ceiling nobody was auditing.  This is
+    the honest limit `reachable.py` states about itself, firing within the hour,
+    and it is why `Bar.score` now flags `out_of_range`.
+
+(b) THE SEALED LATTICE MISLABELLED ITS OWN TABLE, AGAIN.  It returned
+    PARENT_LABEL_DOES_NOT_HOLD while P1 and P2 both read 100.0% — because P4,
+    an INJECTIVITY arm, missed at 77.7%.  A resolution arm was wired to negate
+    an existence result.  This is the same defect as amendment (c) of
+    brocot_above_horizon.py, which I wrote one file and one hour earlier.
+    Knowing the rule and having just written it down did not prevent breaking
+    it, which is the whole case for `verdictlattice.py`: the head is now a
+    function of the EXISTENCE arms alone, and the wrong lattice is not
+    discouraged but unrepresentable.  The sealed label is reported unchanged
+    below; the composed one is reported beside it.
 """
 import json
 import os
@@ -68,6 +92,8 @@ sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/brocot"))
 from redpath import redpath                                       # noqa: E402
 from reachable import Bar                                         # noqa: E402
+from verdictlattice import (Arm, compose, EXISTENCE as EX_ROLE,   # noqa: E402
+                            RESOLUTION as RES_ROLE)
 from existence import summarise, EXISTENCE, CENTRAL_TENDENCY      # noqa: E402
 from phase3.partial_prediction import order_bound                 # noqa: E402
 
@@ -88,13 +114,20 @@ P1 = Bar("parent is below the horizon", 0.90, floor=0.0, ceiling=1.0,
          why="a fraction over the above-horizon nodes: 0 to 1 by construction")
 P2 = Bar("parent is a Stern-Brocot ancestor", 0.70, floor=0.0, ceiling=1.0,
          why="a fraction over the above-horizon nodes: 0 to 1 by construction")
-P3A = Bar("distinct parents used", 8, floor=1, ceiling=len(BELOW),
-          why=f"a parent must be an in-box rational in [{LO},{HI}]; there are "
-              f"{len(BELOW)} of them, and at least one is used")
+# AMENDMENT 1(a): the ceiling below originally read len(BELOW) = 13, on the
+# false premise that a parent is an in-RANGE node. The minimiser is constrained
+# to the BOX only, so the reachable parent set is every distinct |a1|/|a2| with
+# 1 <= |a1|,|a2| <= A. Corrected here; the bar of 8 is unchanged.
+PARENTS_AVAILABLE = len({Fraction(a, b) for a in range(1, A + 1)
+                         for b in range(1, A + 1)})
+P3A = Bar("distinct parents used", 8, floor=1, ceiling=PARENTS_AVAILABLE,
+          why=f"a parent is |a1|/|a2| with both in [1,{A}]; there are "
+              f"{PARENTS_AVAILABLE} such rationals, and at least one is used")
 P3B = Bar("largest parent class share", 0.40, direction="le",
-          floor=1.0 / max(len(BELOW), 1), ceiling=1.0,
-          why=f"with {len(BELOW)} available parents the most even possible "
-              f"partition still gives the largest class 1/{len(BELOW)}")
+          floor=1.0 / PARENTS_AVAILABLE, ceiling=1.0,
+          why=f"with {PARENTS_AVAILABLE} reachable parents the most even "
+              f"possible partition still gives the largest class "
+              f"1/{PARENTS_AVAILABLE}")
 P4 = Bar("(parent, beat) is injective", 0.90, floor=0.0, ceiling=1.0,
          why="a fraction over the above-horizon nodes: 0 to 1 by construction")
 
@@ -185,11 +218,22 @@ for b, v, f in ((P1, v1, "{:.1%}"), (P2, v2, "{:.1%}"), (P3A, v3a, "{:.0f}"),
                 (P3B, v3b, "{:.1%}"), (P4, v4, "{:.1%}")):
     print("  " + b.line(v, f))
 
+# the lattice EXACTLY AS SEALED, reported unchanged. See amendment 1(b).
 verdict = ("HEARD_AS_A_DETUNED_PARENT" if (s1["met"] and s2["met"] and p3 and s4["met"])
            else "CATEGORISED_BUT_LOPSIDED" if (s1["met"] and s2["met"] and not p3)
            else "PARENT_LABEL_DOES_NOT_HOLD")
-print(f"\nVERDICT: {verdict}")
-if verdict == "HEARD_AS_A_DETUNED_PARENT":
+# and composed through verdictlattice, where a RESOLUTION miss cannot negate an
+# EXISTENCE result. Not a re-score: P4 stays MISSED and becomes the qualifier.
+composed = compose(
+    [Arm.from_bar(s1, EX_ROLE), Arm.from_bar(s2, EX_ROLE),
+     Arm("nondegenerate", RES_ROLE, p3,
+         note="P3A distinct parents and P3B largest share, both met"),
+     Arm.from_bar(s4, RES_ROLE, note="0.1 Hz readout resolution")],
+    holds="HEARD_AS_A_DETUNED_PARENT", fails="PARENT_LABEL_DOES_NOT_HOLD")
+print(f"\nVERDICT (sealed lattice, unchanged): {verdict}")
+print(f"VERDICT (composed, amendment 1b):     {composed['head']}")
+print(f"   qualified by: {', '.join(composed['qualifiers'])}")
+if composed["head"] == "HEARD_AS_A_DETUNED_PARENT":
     print("  Above the horizon a ratio is its nearest in-box rational plus a beat.")
     print("  The category is a Stern-Brocot ancestor the synth already computes;")
     print("  the coordinate within the category is the beat rate in Hz.")
@@ -203,6 +247,6 @@ json.dump(dict(I=I_MUS, B=B, horizon=A, f_c=F_C, hz_resolution=HZ_RES,
                n_above=n, n_parents_available=len(BELOW),
                bars={s["name"]: s for s in (s1, s2, s3a, s3b, s4)},
                parent_histogram=dict(cnt), beat_hz=ct, existence=ex,
-               verdict=verdict, rows=rows),
+               verdict=verdict, composed=composed, rows=rows),
           open(f"{HERE}/brocot_above_horizon_parent.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_above_horizon_parent.json")

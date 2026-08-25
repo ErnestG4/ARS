@@ -17,7 +17,7 @@
  },
  "power": {
   "H2_bar": 10,
-  "H2_span_ceiling": 5.0,
+  "H2_span_ceiling": 5.7142857142857135,
   "H2_reachable": false,
   "H2_score": "INAPPLICABLE_UNPOWERED"
  },
