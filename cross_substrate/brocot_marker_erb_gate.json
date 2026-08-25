@@ -1,0 +1,23 @@
+{
+ "I": 0.9,
+ "a0": 0.7,
+ "a1": 1.4,
+ "grid": 2101,
+ "n_markers": 13,
+ "delta_steps": 3,
+ "erb_at_marker": 0.000102818623296709,
+ "erb_away": 6.375071327836035e-06,
+ "separation_erb": 16.128231043904243,
+ "u_at_marker": 0.00954206612084152,
+ "u_away": 0.004519085601897177,
+ "separation_u": 2.111503733595049,
+ "erb_1cent_anchor": 0.00015380121162625394,
+ "marker_vs_1cent": 0.6685163413833458,
+ "predictions": {
+  "P1": true,
+  "P2": true,
+  "P2b": false,
+  "P3": false
+ },
+ "verdict": "MAY_SAY_STRUCTURAL_EVENT_ONLY"
+}
