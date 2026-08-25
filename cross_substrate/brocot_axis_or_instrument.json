@@ -1,0 +1,25 @@
+{
+ "I": 0.9,
+ "a0": 0.7,
+ "a1": 1.4,
+ "grid": 701,
+ "abs_jump": 0.05,
+ "erb_at_big_brody": 0.0016120852927627508,
+ "erb_elsewhere": 0.00012377747021647564,
+ "ratio": 13.024060759549851,
+ "cv_brody": 5.021924168960302,
+ "cv_erb": 9.552803848920421,
+ "spearman": 0.20184949985294154,
+ "spearman_ci": [
+  0.12225492798731849,
+  0.28211573500177173
+ ],
+ "erb_jumps_at_setchange": 0.05714285714285714,
+ "erb_setchange_baseline": 0.019230769230769232,
+ "predictions": {
+  "X1": true,
+  "X2": true,
+  "X3": true
+ },
+ "verdict": "SOUNDSPACE_NOT_AXIS"
+}
