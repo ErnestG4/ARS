@@ -1,0 +1,106 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "n_ops": 16,
+ "f_c": 220.0,
+ "n_nodes_scored": 25772,
+ "n_pairs": 1140006,
+ "fuse": {
+  "min": 0.0,
+  "median": 0.17777777777777778,
+  "max": 1.0,
+  "distinct": 260,
+  "top_share": 0.10363960887785194
+ },
+ "min_separation_hz": {
+  "min": 0.0,
+  "median": 0.0,
+  "max": 395.99999999999994
+ },
+ "spearman_vs_existing": {
+  "bright": 0.02567305993133378,
+  "dense": 0.0030029097811916134,
+  "odd": 0.038660190179405106,
+  "tonal": 0.0415822525764431,
+  "crit": 0.016338215017926476
+ },
+ "bars": {
+  "distinct values of the fuse field": {
+   "name": "distinct values of the fuse field",
+   "value": 260,
+   "thresh": 50,
+   "floor": 1,
+   "ceiling": 25772,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 25722,
+   "why": "a per-node fraction over at most C(16,2)=120 pairs; at most one distinct value per node"
+  },
+  "largest single value's share": {
+   "name": "largest single value's share",
+   "value": 0.10363960887785194,
+   "thresh": 0.6,
+   "floor": 3.8801800403538726e-05,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.5999611981995965,
+   "why": "a share of nodes: 1/N to 1 by construction"
+  },
+  "max |Spearman| vs an existing field": {
+   "name": "max |Spearman| vs an existing field",
+   "value": 0.0415822525764431,
+   "thresh": 0.6,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.6,
+   "why": "|Spearman| is bounded by 1"
+  },
+  "median within-family IQR / global IQR": {
+   "name": "median within-family IQR / global IQR",
+   "value": 1.540625,
+   "thresh": 0.3,
+   "floor": 0.0,
+   "ceiling": 5.687500000000001,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 5.387500000000001,
+   "why": "no subgroup IQR can exceed the field's full range, so the ratio is bounded by range / global IQR"
+  },
+  "nodes beating below 20 Hz": {
+   "name": "nodes beating below 20 Hz",
+   "value": 0.07019245693000155,
+   "thresh": 0.2,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.8,
+   "why": "a fraction of nodes: 0 to 1 by construction"
+  }
+ },
+ "verdict": "EARNS_A_DIMENSION",
+ "composed": {
+  "label": "EARNS_A_DIMENSION_AT_median within-family IQR / global IQR_BUT_NOT_BY_nodes beating below 20 Hz",
+  "head": "EARNS_A_DIMENSION",
+  "qualifiers": [
+   "AT_median within-family IQR / global IQR",
+   "BUT_NOT_BY_nodes beating below 20 Hz"
+  ],
+  "citation": "EARNS_A_DIMENSION  [not_railed 260 vs >=50 MET; max |Spearman| vs an existing field 0.04158 vs <=0.6 MET; nodes beating below 20 Hz 0.07019 vs >=0.2 MISSED]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('not_railed', EXISTENCE, MET)",
+   "Arm('max |Spearman| vs an existing field', EXISTENCE, MET)",
+   "Arm('median within-family IQR / global IQR', RESOLUTION, MET)",
+   "Arm('nodes beating below 20 Hz', MECHANISM, MISSED)"
+  ]
+ }
+}

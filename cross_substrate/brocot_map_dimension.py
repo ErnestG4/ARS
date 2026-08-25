@@ -220,9 +220,16 @@ B1b = Bar("largest single value's share", 0.60, direction="le",
           why="a share of nodes: 1/N to 1 by construction")
 B2 = Bar("max |Spearman| vs an existing field", 0.60, direction="le",
          floor=0.0, ceiling=1.0, why="|Spearman| is bounded by 1")
-B3 = Bar("median within-family IQR / global IQR", 0.30, floor=0.0, ceiling=1.0,
-         why="a within-group spread cannot exceed the pooled spread it is a "
-             "subset of, so the ratio is bounded by 1")
+# CEILING CORRECTED, after out_of_range fired at 1.541. The first `why` read
+# "a within-group spread cannot exceed the pooled spread it is a subset of",
+# which is FALSE: when the pooled distribution is peaked, a family that spans
+# widely has an IQR larger than the pooled IQR. The true bound is the field's
+# full range over its global IQR, since no subgroup IQR can exceed the range.
+# Third wrong ceiling in this arc, third caught by its own data.
+B3 = Bar("median within-family IQR / global IQR", 0.30, floor=0.0,
+         ceiling=(float(fuse.max() - fuse.min()) / gi) if gi > 0 else 1.0,
+         why="no subgroup IQR can exceed the field's full range, so the ratio "
+             "is bounded by range / global IQR")
 B4 = Bar("nodes beating below 20 Hz", 0.20, floor=0.0, ceiling=1.0,
          why="a fraction of nodes: 0 to 1 by construction")
 
