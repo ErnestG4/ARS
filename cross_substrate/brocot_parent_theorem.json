@@ -1,0 +1,176 @@
+{
+ "populations": [
+  "(a) brocot regime, q <= 200",
+  "(b) outside the regime, 0.1-8.0",
+  "(c) half-integers (step 2 excludes these)"
+ ],
+ "horizons": [
+  8,
+  10,
+  14
+ ],
+ "n_probed": 37023,
+ "results": {
+  "(a) brocot regime, q <= 200 | A=8": {
+   "n": 8546,
+   "skipped_no_rational": 0,
+   "parent_below": 8546,
+   "ancestor": 8546,
+   "convergent": 8546,
+   "with_ties": 13,
+   "non_ancestor_in_scope": 0
+  },
+  "(a) brocot regime, q <= 200 | A=10": {
+   "n": 8539,
+   "skipped_no_rational": 0,
+   "parent_below": 8539,
+   "ancestor": 8539,
+   "convergent": 8539,
+   "with_ties": 19,
+   "non_ancestor_in_scope": 0
+  },
+  "(a) brocot regime, q <= 200 | A=14": {
+   "n": 8521,
+   "skipped_no_rational": 0,
+   "parent_below": 8521,
+   "ancestor": 8521,
+   "convergent": 8521,
+   "with_ties": 37,
+   "non_ancestor_in_scope": 0
+  },
+  "(b) outside the regime, 0.1-8.0 | A=8": {
+   "n": 3830,
+   "skipped_no_rational": 0,
+   "parent_below": 3830,
+   "ancestor": 3823,
+   "convergent": 3830,
+   "with_ties": 43,
+   "non_ancestor_in_scope": 0
+  },
+  "(b) outside the regime, 0.1-8.0 | A=10": {
+   "n": 3812,
+   "skipped_no_rational": 0,
+   "parent_below": 3812,
+   "ancestor": 3812,
+   "convergent": 3812,
+   "with_ties": 60,
+   "non_ancestor_in_scope": 0
+  },
+  "(b) outside the regime, 0.1-8.0 | A=14": {
+   "n": 3756,
+   "skipped_no_rational": 0,
+   "parent_below": 3756,
+   "ancestor": 3756,
+   "convergent": 3756,
+   "with_ties": 116,
+   "non_ancestor_in_scope": 0
+  },
+  "(c) half-integers (step 2 excludes these) | A=8": {
+   "n": 5,
+   "skipped_no_rational": 31,
+   "parent_below": 5,
+   "ancestor": 5,
+   "convergent": 5,
+   "with_ties": 4,
+   "non_ancestor_in_scope": 0
+  },
+  "(c) half-integers (step 2 excludes these) | A=10": {
+   "n": 6,
+   "skipped_no_rational": 29,
+   "parent_below": 6,
+   "ancestor": 6,
+   "convergent": 6,
+   "with_ties": 5,
+   "non_ancestor_in_scope": 0
+  },
+  "(c) half-integers (step 2 excludes these) | A=14": {
+   "n": 8,
+   "skipped_no_rational": 25,
+   "parent_below": 8,
+   "ancestor": 8,
+   "convergent": 8,
+   "with_ties": 7,
+   "non_ancestor_in_scope": 0
+  }
+ },
+ "non_ancestor_in_scope_total": 0,
+ "skipped_no_rational": 85,
+ "ties_encountered": 304,
+ "p1_definitional": true,
+ "p2_holds": true,
+ "witnesses": [
+  {
+   "alpha": "1/9",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.1111111111111111,
+   "n_ties": 2,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  },
+  {
+   "alpha": "1/10",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.1,
+   "n_ties": 1,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  },
+  {
+   "alpha": "2/19",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.10526315789473684,
+   "n_ties": 1,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  },
+  {
+   "alpha": "3/28",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.10714285714285714,
+   "n_ties": 1,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  },
+  {
+   "alpha": "3/29",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.10344827586206896,
+   "n_ties": 1,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  },
+  {
+   "alpha": "4/37",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.10810810810810811,
+   "n_ties": 1,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  },
+  {
+   "alpha": "4/39",
+   "A": 8,
+   "parent": "0",
+   "gap": 0.10256410256410256,
+   "n_ties": 1,
+   "in_scope": false,
+   "pop": "(b) outside the regime, 0.1-8.0"
+  }
+ ],
+ "existence": {
+  "question": "EXISTENCE",
+  "n": 9,
+  "n_nonzero": 0,
+  "any": false,
+  "all": false,
+  "first_witness": null,
+  "witnesses": []
+ },
+ "verdict": "P2_IS_A_THEOREM_ON_1_OVER_A_TO_A"
+}

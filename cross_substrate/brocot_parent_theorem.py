@@ -66,6 +66,55 @@ from. It PROBES THE STATED FAILURE MODES:
 A witness that cannot fail is not a witness. If (c) or (d) produce a
 non-ancestor, the theorem is true as stated and the SCOPE is what the writeup
 must carry — which is a better outcome than a 100% with no denominator.
+
+AMENDMENT 1 — AFTER OUTPUT. The probe fired, twice, and both corrections make
+the claim sharper.
+
+(i) THE BOUNDARY IS alpha in (1/A, A), AND IT IS A REAL ONE. Seven ratios
+    returned a non-ancestor, every one of them with parent = 0: at alpha = 1/9
+    with A = 8, (a1, a2) = (0, 1) gives |alpha| = 1/9, and (-1, 8) gives
+    |-1 + 8/9| = 1/9 as well — a TIE, broken toward the shallower pair, which
+    has a1 = 0 and therefore names the rational 0/1. Step 1 of the proof ruled
+    out a2 = 0 and never considered a1 = 0. It arises exactly when the best p
+    is round(q*alpha) = 0, i.e. when alpha sits below 1/(2q) for the winning q,
+    and every witness has alpha < 1/A. By the reciprocal symmetry of the box
+    (|a1 + a2*alpha| = alpha*|a2 + a1/alpha|, with L and R exchanged in the
+    tree) the mirror case is alpha > A.
+
+    This is not a defect to hide — it is interpretable. Outside (1/A, A) there
+    is no in-box ringing ratio at all, and the nearest lattice point is the
+    CARRIER. "Heard against the carrier, with no ratio partner" is the correct
+    reading, and it is a category the display should have.
+
+    brocot's regime is [0.70, 1.40], deep inside (1/8, 8). The theorem covers
+    the instrument with three orders of margin.
+
+(ii) THE DENOMINATOR WAS WRONG, AND FIXING IT MADE THE RESULT STRONGER. The
+    first pass reported "37101/37108 ancestors, 37023 convergents" and I read
+    the 85-case difference as SEMIconvergents selected by the tie-break. It was
+    not. Those 85 are ratios whose minimiser has a2 = 0 — it names no rational
+    at all — which the loop skipped while the denominator kept counting them.
+    A dead arm sitting in an n/m tally, which is this repo's dominant recorded
+    error mode, committed here by the person who wrote the module against it.
+
+    With the denominator corrected to what was actually tested: 37023/37023
+    minimisers are CONVERGENTS, including all 304 tie cases. The tie-break
+    never selected a semiconvergent; there were none to select.
+
+    So Lagrange's step is not merely almost-right. It remains formally proved
+    only for a STRICT minimum — a tie could in principle be broken toward a
+    semiconvergent — but over 304 exercised ties it never was. That sub-claim
+    stays EMPIRICAL with n = 304 attached rather than being absorbed into the
+    theorem.
+
+So the honest split, which is what the writeup must carry:
+
+    P1  DEFINITIONAL           the box forces max(p,q) <= A
+    P2  THEOREM on (1/A, A)    strict minima: the minimiser is a CONVERGENT,
+                               via Lagrange plus the prefix-in-q argument
+        EMPIRICAL, n = 304     ties also landed on convergents, unproved
+        BOUNDARY, characterised alpha outside (1/A, A) has parent 0: the carrier
+        SKIPPED, n = 85        a2 = 0 names no rational; not tested, not passed
 """
 import json
 import os
@@ -136,6 +185,8 @@ def parent(alpha, A):
     return Fraction(abs(a1), abs(a2)) if a2 else None
 
 
+IN_SCOPE = lambda f, A: Fraction(1, A) < f < A     # noqa: E731  the theorem's range
+
 POPS = {
     "(a) brocot regime, q <= 200": [
         Fraction(p, q) for q in range(1, 201) for p in range(1, 300)
@@ -150,44 +201,50 @@ POPS = {
 results, worst = {}, []
 for label, pop in POPS.items():
     for A in (8, 10, 14):
-        below = anc = conv = tied = nonanc = 0
+        tested = skipped = below = anc = conv = tied = nonanc = 0
         for f in pop:
             if max(f.numerator, f.denominator) <= A:
-                continue
+                continue                       # below the horizon: gap 0, fuses
             g, ties, ch = minimisers(f, A)
             if g == 0:
                 continue
-            par = Fraction(abs(ch[0]), abs(ch[1])) if ch[1] else None
-            if par is None:
+            if ch[1] == 0:
+                # a2 = 0: the minimiser names no rational at all. NOT a pass and
+                # NOT a fail -- it is untested, and it must be counted as such
+                # rather than sitting silently in a denominator.
+                skipped += 1
                 continue
+            tested += 1
+            par = Fraction(abs(ch[0]), abs(ch[1]))
             below += max(par.numerator, par.denominator) <= A
             isanc = par in ancestors(f)
             anc += isanc
             conv += par in convergents(f)
-            if len(ties) > 2:                     # (a,b) and (-a,-b) always pair
+            if len(ties) > 2:                  # (a,b) and (-a,-b) always pair
                 tied += 1
             if not isanc:
-                nonanc += 1
-                if len(worst) < 6:
+                if IN_SCOPE(f, A):
+                    nonanc += 1
+                if len(worst) < 8:
                     worst.append(dict(alpha=str(f), A=A, parent=str(par),
                                       gap=float(g), n_ties=len(ties) // 2,
-                                      pop=label))
-            n = below  # placeholder to keep names honest below
-        tot = sum(1 for f in pop
-                  if max(f.numerator, f.denominator) > A
-                  and minimisers(f, A)[0] != 0)
+                                      in_scope=bool(IN_SCOPE(f, A)), pop=label))
         results[f"{label} | A={A}"] = dict(
-            n=tot, parent_below=below, ancestor=anc, convergent=conv,
-            with_ties=tied, non_ancestor=nonanc)
+            n=tested, skipped_no_rational=skipped, parent_below=below,
+            ancestor=anc, convergent=conv, with_ties=tied,
+            non_ancestor_in_scope=nonanc)
 
 print("PARENT THEOREM — probing the proof's own stated failure modes\n")
-print(f"{'population | A':>44s} {'n':>6s} {'below':>7s} {'anc':>7s} "
-      f"{'conv':>7s} {'ties':>6s} {'BAD':>4s}")
+print(f"{'population | A':>44s} {'tested':>7s} {'skip':>5s} {'below':>7s} "
+      f"{'anc':>7s} {'conv':>7s} {'ties':>6s} {'BAD':>4s}")
 for k, v in results.items():
-    print(f"{k:>44s} {v['n']:>6d} {v['parent_below']:>7d} {v['ancestor']:>7d} "
-          f"{v['convergent']:>7d} {v['with_ties']:>6d} {v['non_ancestor']:>4d}")
+    print(f"{k:>44s} {v['n']:>7d} {v['skipped_no_rational']:>5d} "
+          f"{v['parent_below']:>7d} {v['ancestor']:>7d} "
+          f"{v['convergent']:>7d} {v['with_ties']:>6d} "
+          f"{v['non_ancestor_in_scope']:>4d}")
 
-bad = sum(v["non_ancestor"] for v in results.values())
+bad = sum(v["non_ancestor_in_scope"] for v in results.values())
+skipped_total = sum(v["skipped_no_rational"] for v in results.values())
 N = sum(v["n"] for v in results.values())
 p1_definitional = all(v["parent_below"] == v["n"] for v in results.values())
 p2_holds = bad == 0
@@ -196,32 +253,44 @@ ties_seen = sum(v["with_ties"] for v in results.values())
 print(f"\nP1  parent below the horizon: {sum(v['parent_below'] for v in results.values())}"
       f"/{N} — and DEFINITIONAL: |a1|,|a2| <= A forces max(p,q) <= A.")
 print("    Reported as a wiring check from here on, never as a measured rate.")
-print(f"P2  parent is a Stern-Brocot ancestor: {N - bad}/{N} across "
+print(f"P2  parent is a Stern-Brocot ancestor: {N - bad}/{N} TESTED, across "
       f"{len(POPS)} populations and 3 horizons")
+print(f"    {skipped_total} further ratios SKIPPED, not passed: the minimiser "
+      f"had a2 = 0 and names no rational.\n    They are excluded from the "
+      f"denominator rather than counted as agreement.")
 print(f"    convergent (the stronger form): "
       f"{sum(v['convergent'] for v in results.values())}/{N}")
+nconv = sum(v["convergent"] for v in results.values())
 print(f"    cases with a genuine tie in the argmin: {ties_seen} — the proof's "
       f"named soft spot, exercised")
+print(f"    ancestors that are SEMIconvergents (tie-selected): {N - bad - nconv}"
+      f" — Lagrange proves the strict case; these stay EMPIRICAL with n stated")
 if worst:
-    print("\n    NON-ANCESTOR WITNESSES (the theorem's scope boundary):")
+    print("\n    NON-ANCESTOR WITNESSES — all OUTSIDE (1/A, A), all parent 0:")
     for w in worst:
         print(f"      alpha={w['alpha']:>9s} A={w['A']:<3d} parent={w['parent']:>7s} "
               f"ties={w['n_ties']:<3d} {w['pop']}")
 
-verdict = ("P2_IS_A_THEOREM" if p2_holds else "P2_HOLDS_ON_A_STATED_POPULATION")
+verdict = ("P2_IS_A_THEOREM_ON_1_OVER_A_TO_A" if p2_holds
+           else "P2_HOLDS_ON_A_STATED_POPULATION")
 print(f"\nVERDICT: {verdict}")
 if p2_holds:
     print("  The 332/332 is confirmation of a proof, not evidence for a rate.")
-    print("  Lagrange's theorem on best approximations of the second kind, with")
-    print("  the box reduced to a prefix in q. Both 100%s leave the table.")
+    print("  Lagrange on best approximations of the second kind, with the box")
+    print("  reduced to a prefix in q. Both 100%s leave the table.")
+    print("  Outside (1/A, A) the parent degenerates to 0 — no in-box ringing")
+    print("  ratio exists and the nearest lattice point is the CARRIER. That is")
+    print("  a category, not a counterexample. brocot's [0.70, 1.40] sits deep")
+    print("  inside (1/8, 8).")
 
-ex = summarise("n_non_ancestor", [v["non_ancestor"] for v in results.values()],
-               EXISTENCE)
+ex = summarise("n_non_ancestor",
+               [v["non_ancestor_in_scope"] for v in results.values()], EXISTENCE)
 with redpath("ratios probed outside the originating population", expect_min=2000) as rp:
     rp.observed(N)
 
 json.dump(dict(populations=list(POPS), horizons=[8, 10, 14], n_probed=N,
-               results=results, non_ancestor_total=bad,
+               results=results, non_ancestor_in_scope_total=bad,
+               skipped_no_rational=skipped_total,
                ties_encountered=ties_seen,
                p1_definitional=bool(p1_definitional), p2_holds=bool(p2_holds),
                witnesses=worst, existence=ex, verdict=verdict),
