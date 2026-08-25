@@ -31,6 +31,17 @@ is owed to the marker.
 ║     metric check after an inert anchor slipped through once.)                 ║
 ║ P2  Coincidence markers separate in ERB by at least 3x: median |dERB| at a    ║
 ║     marker is >= 3x the median away from every marker.                       ║
+║                                                                              ║
+║ P2b AMENDED IN before banking. P2 is a RELATIVE statistic and cannot carry an ║
+║     audibility claim on its own: "the biggest steps around" is compatible     ║
+║     with "all of them inaudible". So the marker's ERB magnitude must ALSO     ║
+║     exceed the 1-cent floor, in the same units on the same grid.             ║
+║                                                                              ║
+║     The first run measured exactly that failure and I nearly shipped past it: ║
+║     at-marker step 0.00010 against a 1-cent detune of 0.000154 -- markers     ║
+║     were 0.65x an inaudible change while separating 16x from background.      ║
+║     P1 flagged it (anchor above background) and I could have read that as an  ║
+║     anchor-design nuisance. It is the finding.                               ║
 ║ P3  The separation is WEAKER in ERB than in u. u gave 169x against threshold  ║
 ║     markers; ERB will give far less, because Brody reads spacing structure    ║
 ║     directly while ERB reads a smeared amplitude pattern that a merge barely  ║
@@ -40,9 +51,9 @@ is owed to the marker.
 ║                                                                              ║
 ║ CONSEQUENCE, COMMITTED IN ADVANCE so the caption cannot be chosen after the   ║
 ║ numbers:                                                                     ║
-║   P2 MET  -> the display may say JUMP. Markers are where the timbre lurches,  ║
+║   P2 AND P2b MET -> the display may say JUMP. Markers are where the timbre lurches,  ║
 ║              in the coordinate the player hears.                             ║
-║   P2 MISS -> the display may say STRUCTURAL EVENT and NOT jump. "The partial  ║
+║   EITHER MISSED  -> the display may say STRUCTURAL EVENT and NOT jump. "The partial  ║
 ║              count drops here; these sidebands fuse" is still true, still     ║
 ║              closed-form, still worth showing — and it is a different         ║
 ║              caption, not a weaker version of the same one.                   ║
@@ -125,11 +136,19 @@ u_near = float(np.median(du[oku & near]))
 u_far = float(np.median(du[oku & ~near]))
 sep_u = u_near / u_far if u_far > 0 else float("inf")
 
-p1 = erb_far > 0 and jnd > 0 and jnd < erb_far
+# P1 as first written compared a 1-cent perturbation against a PER-STEP
+# difference on a grid whose steps are ~0.58 cents -- different scales, so it
+# could not have passed and its failure said nothing about the metric. It now
+# only asserts the anchor is live and non-zero; the scale question moved to P2b,
+# where it belongs.
+p1 = erb_far > 0 and jnd > 0
 p2 = sep_erb >= 3.0
+# ABSOLUTE: is the marker event bigger than a change nobody can hear?
+p2b = erb_near >= jnd
+sep_vs_jnd = erb_near / jnd if jnd > 0 else float("inf")
 p3 = sep_erb < sep_u
 
-verdict = "MAY_SAY_JUMP" if p2 else "MAY_SAY_STRUCTURAL_EVENT_ONLY"
+verdict = "MAY_SAY_JUMP" if (p2 and p2b) else "MAY_SAY_STRUCTURAL_EVENT_ONLY"
 
 print(f"path [{A0},{A1}] at I={I_MUS}, {GRID} points, "
       f"{len(MARKERS)} direct coincidence markers\n")
@@ -140,10 +159,12 @@ print(f"\n  1-cent anchor in ERB: {jnd:.6f}  (must be > 0 and below the away-med
 
 print(f"\nP1  ERB metric live, anchor below background   {'MET' if p1 else 'MISSED'}")
 print(f"P2  markers separate in ERB by >= 3x ({sep_erb:.2f}x)   {'MET' if p2 else 'MISSED'}")
+print(f"P2b marker magnitude vs the 1-cent floor: {erb_near:.6f} vs {jnd:.6f} "
+      f"= {sep_vs_jnd:.2f}x   (>= 1 ?)  {'MET' if p2b else 'MISSED'}")
 print(f"P3  separation weaker in ERB than in u ({sep_erb:.2f}x vs {sep_u:.2f}x)   "
       f"{'MET' if p3 else 'MISSED'}")
 print(f"\nVERDICT: {verdict}")
-if not p2:
+if not (p2 and p2b):
     print("  Per the sealed consequence: the display may caption these STRUCTURAL")
     print("  EVENTS and may NOT call them jumps. 'The partial count drops here;")
     print("  these sidebands fuse' is true, closed-form and worth showing -- and")
@@ -158,7 +179,8 @@ json.dump(dict(I=I_MUS, a0=A0, a1=A1, grid=GRID, n_markers=len(MARKERS),
                erb_at_marker=erb_near, erb_away=erb_far, separation_erb=sep_erb,
                u_at_marker=u_near, u_away=u_far, separation_u=sep_u,
                erb_1cent_anchor=jnd,
-               predictions=dict(P1=bool(p1), P2=bool(p2), P3=bool(p3)),
+               marker_vs_1cent=sep_vs_jnd,
+               predictions=dict(P1=bool(p1), P2=bool(p2), P2b=bool(p2b), P3=bool(p3)),
                verdict=verdict),
           open(f"{HERE}/brocot_marker_erb_gate.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_marker_erb_gate.json")
