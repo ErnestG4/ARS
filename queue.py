@@ -88,6 +88,24 @@ ENTRIES = [
               "stratum is WORSE at 99.7-100%. Owed on this evidence: a "
               "docstring rewrite. NOT owed: a ranking rewrite, until "
               "Coherence.h's actual score is censused separately"),
+    dict(id="index-routing", status=LANDED,
+         request="does A4's swap non-invariance reach the shipped column, and "
+                 "is the map conditioned on a routing convention?",
+         artifact="cross_substrate/brocot_index_routing.json",
+         verdict="COLUMN_IS_CONDITIONED_ON_ROUTING",
+         note="SEALED head reported unchanged; the amended reading is "
+              "ORDER_DEPENDENT_BUT_UNBIASED. 6.1% of 1.14M pairs swap-sensitive "
+              "and 64.0% of nodes would change, but alignment is 0.4995 +/- "
+              "0.0037 -- no convention. The head's NAME presumed the mechanism "
+              "arm's conclusion, a limit now recorded in verdictlattice"),
+    dict(id="suggest-docstring", status=LANDED,
+         request="rewrite CoherenceSuggest's docstring: correct criterion, cite "
+                 "the census, leave the score's status explicitly open",
+         artifact="cross_substrate/brocot_suggest_census.json",
+         verdict="CRITERION_WRONG_IN_PRACTICE",
+         note="landed in brocot source/audio/CoherenceSuggest.h; states the "
+              "horizon test, cites 97.5%/99.7-100%, records the index-blindness "
+              "gap, and explicitly does NOT claim the ranking is fixed"),
     dict(id="suggest-score-census", status=QUEUED,
          request="census Coherence.h's actual score, not just the docstring's "
                  "criterion — does the shipped RANKING inherit the defect?",
