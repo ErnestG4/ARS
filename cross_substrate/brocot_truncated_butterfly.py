@@ -62,6 +62,49 @@ constancy rather than by being out-correlated. That is the whole design.
 ║ MAP GEOMETRY does not respond to, and D§0 stays falsified with a sharper     ║
 ║ reason than "shadowed by q".                                                ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — H2 AS FIRST WRITTEN WAS INERT, and it was the non-inertness arm.
+
+The code computed
+
+    max(abs(rho(static_prom, crit) - rho(static_prom, crit)), ...)
+
+which subtracts an expression from itself. It is identically 0.0 and cannot
+fail for any data. The arm whose entire job was to prove the apparatus does not
+manufacture matched/mismatched gaps was itself incapable of reporting one — the
+defect this arc audits, in the guard against it, written by its auditor. It
+passed on the first run at exactly 0.0000, which is what an inert arm looks like
+and why a suspiciously perfect number is worth a second read.
+
+The mistake was thinking a STATIC predictor could test the machinery. It cannot:
+static means index-independent, so its two conditions are the same computation
+and the gap is 0 by definition, not by measurement.
+
+REPLACED WITH A REAL NULL. The machinery is run end to end against a SHUFFLED
+`crit` field: if permuting indices manufactures a matched/mismatched gap, it
+will manufacture one against noise too. The arm now reports the maximum |gap|
+over those shuffles, and can fail. The bar and direction are unchanged.
+
+AMENDMENT 2 — H2's BAR TESTS THE WRONG THING, and it is left MISSED rather than
+repaired into a pass.
+
+Keeping the bar at 0.005 asked "is the null gap small in absolute terms". That
+is not the question. Two different predictors correlated against the same
+shuffled field differ by chance, so the null gap has real spread and nothing
+pins it near zero — the right question is whether the REAL gap stands out from
+that spread, which is a permutation test, not a magnitude threshold.
+
+The sealed arm is reported as it fell: MISSED. The permutation p-value is
+reported beside it as an explicitly POST-HOC statistic, and the shuffle count is
+raised from 20 to 200 so that p-value has resolution finer than 0.05. Raising
+resolution on a statistic is not the same as moving a bar to clear it, and the
+distinction is the reason the sealed arm stays failed.
+
+READ THE RESULT CONSERVATIVELY. Even at its best this is a small effect on one
+field: matched 0.137 against plain q's 0.111 on `crit`, while plain q dominates
+`tonal` (0.217 vs 0.090) and `dense` (0.309 vs 0.083). The truncated predictor
+wins only on the field it was sealed against. A single-field win with a
+permutation p is suggestive; it is not the layer D-section-1 would let ship.
 """
 import gzip
 import json
@@ -185,22 +228,32 @@ res = {f: dict(matched=rho(M["matched"], M[f]),
                static_q=rho(M["static_q"], M[f])) for f in FIELDS}
 p = res[PRIMARY]
 
-# the static baselines need their own matched/mismatched pair to be testable at
-# all: recompute them under the permuted index. They do not depend on it, so the
-# gap must be exactly zero — which is the point.
-static_gap = max(abs(rho(M["static_prom"], M[PRIMARY])
-                     - rho(M["static_prom"], M[PRIMARY])),
-                 abs(rho(M["static_q"], M[PRIMARY])
-                     - rho(M["static_q"], M[PRIMARY])))
+h1v_pre = res[PRIMARY]["matched"] - res[PRIMARY]["mismatched"]
+h1v = h1v_pre
+# AMENDMENT 1: a real null. Run the SAME matched-vs-mismatched comparison
+# against a shuffled field. If permuting indices manufactures a gap, it will
+# manufacture one against noise. This can fail; the first version could not.
+N_SHUF = 200
+shuf_rng = np.random.default_rng(SEED + 1)
+shuf_gaps = []
+for _ in range(N_SHUF):
+    y = shuf_rng.permutation(M[PRIMARY])
+    shuf_gaps.append(abs(rho(M["matched"], y) - rho(M["mismatched"], y)))
+static_gap = float(max(shuf_gaps))
+shuf_mean = float(np.mean(shuf_gaps))
+# post-hoc, amendment 2: the test the arm should have been.
+perm_p = float((np.sum(np.array(shuf_gaps) >= abs(h1v)) + 1) / (N_SHUF + 1))
 
 h1v = p["matched"] - p["mismatched"]
+
 h3v = p["matched"] - p["static_q"]
 H1 = Bar("matched minus mismatched |rho|", 0.03, floor=-1.0, ceiling=1.0,
          why="a difference of two |Spearman| values, each in [0,1]")
-H2 = Bar("static predictors' matched/mismatched gap", 0.005, direction="le",
-         floor=0.0, ceiling=1.0,
-         why="a static predictor's value does not depend on the index, so its "
-             "gap is identically 0; the bound is the same [0,1]")
+H2 = Bar("matched/mismatched gap against a SHUFFLED field", 0.005,
+         direction="le", floor=0.0, ceiling=1.0,
+         why="an absolute difference of two |Spearman| values, each in [0,1]; "
+             "under a shuffled field both are near 0 but neither is pinned "
+             "there, so this arm can and does vary")
 H3 = Bar("matched minus plain-q |rho|", 0.02, floor=-1.0, ceiling=1.0,
          why="a difference of two |Spearman| values, each in [0,1]")
 H4 = Bar("matched |rho| effect floor", 0.05, floor=0.0, ceiling=1.0,
@@ -216,6 +269,11 @@ for f in FIELDS:
           f"{v['matched'] - v['mismatched']:>+8.4f} {v['static_prom']:>12.4f} "
           f"{v['static_q']:>9.4f}")
 print(f"\nprimary field: {PRIMARY}")
+print(f"shuffled-field null over {N_SHUF} draws: max |gap| {static_gap:.4f}, "
+      f"mean {shuf_mean:.4f}   (real gap {h1v:.4f})")
+print(f"POST-HOC permutation p (amendment 2, NOT the sealed arm): {perm_p:.4f}")
+print(f"static predictors are index-INDEPENDENT, so their own gap is 0 by "
+      f"definition and is not scored")
 print()
 for b, v in ((H1, h1v), (H2, static_gap), (H3, h3v), (H4, p["matched"])):
     print("  " + b.line(v, "{:.4f}"))
@@ -227,8 +285,8 @@ v = compose([Arm.from_bar(s1, EX_ROLE,
                           claim="the matched correlation clears D-section-1's "
                                 "effect floor"),
              Arm.from_bar(s2, MECH_ROLE,
-                          claim="static predictors show no index gap, so the "
-                                "apparatus is not manufacturing one"),
+                          claim="permuting indices does not manufacture a gap "
+                                "against a shuffled field"),
              Arm.from_bar(s3, RES_ROLE,
                           claim="it clears the plain-q baseline that shadowed "
                                 "the first attempt")],
@@ -245,6 +303,9 @@ json.dump(dict(graph=os.path.basename(GRAPH), seed=SEED, n_nodes=N,
                scope="untruncated prominence is capped at q <= %d (O(q^3) "
                      "eigensolve); ratios above that contribute 0 to the "
                      "static-prominence baseline only" % QCAP,
+               shuffle_null=dict(n=N_SHUF, max_gap=static_gap,
+                                 mean_gap=shuf_mean, real_gap=h1v,
+                                 permutation_p_posthoc=perm_p),
                bars={s["name"]: s for s in (s1, s2, s3, s4)},
                verdict=v["head"], composed=v),
           open(f"{HERE}/brocot_truncated_butterfly.json", "w"), indent=1)

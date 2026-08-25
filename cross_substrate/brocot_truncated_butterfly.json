@@ -1,0 +1,108 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "seed": 20260825,
+ "n_nodes": 4000,
+ "primary": "crit",
+ "fields": [
+  "crit",
+  "tonal",
+  "dense"
+ ],
+ "correlations": {
+  "crit": {
+   "matched": 0.13698453490936363,
+   "mismatched": 0.09361319006089525,
+   "static_prom": 0.0889143219085765,
+   "static_q": 0.11118365778974192
+  },
+  "tonal": {
+   "matched": 0.08999421866435454,
+   "mismatched": 0.04023861101989506,
+   "static_prom": 0.03070503320278537,
+   "static_q": 0.2166330699471315
+  },
+  "dense": {
+   "matched": 0.0828092737150464,
+   "mismatched": 0.00868829478410198,
+   "static_prom": 0.015718173725240148,
+   "static_q": 0.3089862703776594
+  }
+ },
+ "qcap": 60,
+ "scope": "untruncated prominence is capped at q <= 60 (O(q^3) eigensolve); ratios above that contribute 0 to the static-prominence baseline only",
+ "shuffle_null": {
+  "n": 200,
+  "max_gap": 0.03517898519138275,
+  "mean_gap": 0.008608123186679258,
+  "real_gap": 0.043371344848468385,
+  "permutation_p_posthoc": 0.004975124378109453
+ },
+ "bars": {
+  "matched minus mismatched |rho|": {
+   "name": "matched minus mismatched |rho|",
+   "value": 0.043371344848468385,
+   "thresh": 0.03,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.97,
+   "why": "a difference of two |Spearman| values, each in [0,1]"
+  },
+  "matched/mismatched gap against a SHUFFLED field": {
+   "name": "matched/mismatched gap against a SHUFFLED field",
+   "value": 0.03517898519138275,
+   "thresh": 0.005,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.005,
+   "why": "an absolute difference of two |Spearman| values, each in [0,1]; under a shuffled field both are near 0 but neither is pinned there, so this arm can and does vary"
+  },
+  "matched minus plain-q |rho|": {
+   "name": "matched minus plain-q |rho|",
+   "value": 0.025800877119621715,
+   "thresh": 0.02,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.98,
+   "why": "a difference of two |Spearman| values, each in [0,1]"
+  },
+  "matched |rho| effect floor": {
+   "name": "matched |rho| effect floor",
+   "value": 0.13698453490936363,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.95,
+   "why": "|Spearman| is bounded by 1"
+  }
+ },
+ "verdict": "MAP_TRACKS_THE_TRUNCATION",
+ "composed": {
+  "label": "MAP_TRACKS_THE_TRUNCATION_BUT_NOT_BY_matched/mismatched gap against a SHUFFLED field_AT_matched minus plain-q |rho|",
+  "head": "MAP_TRACKS_THE_TRUNCATION",
+  "qualifiers": [
+   "BUT_NOT_BY_matched/mismatched gap against a SHUFFLED field",
+   "AT_matched minus plain-q |rho|"
+  ],
+  "citation": "MAP_TRACKS_THE_TRUNCATION  [matched minus mismatched |rho| 0.04337 vs >=0.03 MET \u2014 \"the predictor does better with the right index than with a wrong one\"; matched |rho| effect floor 0.137 vs >=0.05 MET \u2014 \"the matched correlation clears D-section-1's effect floor\"; matched/mismatched gap against a SHUFFLED field 0.03518 vs <=0.005 MISSED \u2014 \"permuting indices does not manufacture a gap against a shuffled field\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('matched minus mismatched |rho|', EXISTENCE, MET)",
+   "Arm('matched |rho| effect floor', EXISTENCE, MET)",
+   "Arm('matched/mismatched gap against a SHUFFLED field', MECHANISM, MISSED)",
+   "Arm('matched minus plain-q |rho|', RESOLUTION, MET)"
+  ]
+ }
+}
