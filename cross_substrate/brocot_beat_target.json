@@ -1,0 +1,881 @@
+{
+ "I": 0.9,
+ "A": 8,
+ "parents": [
+  "1",
+  "4/3",
+  "3/4",
+  "5/4",
+  "7/5",
+  "8/7"
+ ],
+ "deltas": [
+  0.5,
+  1.0,
+  3.0,
+  6.0,
+  12.0
+ ],
+ "carriers": [
+  110.0,
+  220.0,
+  440.0
+ ],
+ "n_accepted": 89,
+ "n_refused": 7,
+ "rows": [
+  {
+   "parent": "1",
+   "delta_hz": 0.5,
+   "f_c": 110.0,
+   "alpha": "221/220",
+   "alpha_f": 1.0045454545454546,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 0.5,
+   "f_c": 220.0,
+   "alpha": "441/440",
+   "alpha_f": 1.0022727272727272,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 0.5,
+   "f_c": 440.0,
+   "alpha": "881/880",
+   "alpha_f": 1.0011363636363637,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 1.0,
+   "f_c": 110.0,
+   "alpha": "111/110",
+   "alpha_f": 1.009090909090909,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 1.0,
+   "f_c": 220.0,
+   "alpha": "221/220",
+   "alpha_f": 1.0045454545454546,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 1.0,
+   "f_c": 440.0,
+   "alpha": "441/440",
+   "alpha_f": 1.0022727272727272,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 3.0,
+   "f_c": 110.0,
+   "alpha": "113/110",
+   "alpha_f": 1.0272727272727273,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 3.0,
+   "f_c": 220.0,
+   "alpha": "223/220",
+   "alpha_f": 1.0136363636363637,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 3.0,
+   "f_c": 440.0,
+   "alpha": "443/440",
+   "alpha_f": 1.0068181818181818,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 6.0,
+   "f_c": 110.0,
+   "alpha": "58/55",
+   "alpha_f": 1.0545454545454545,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 6.0,
+   "f_c": 220.0,
+   "alpha": "113/110",
+   "alpha_f": 1.0272727272727273,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 6.0,
+   "f_c": 440.0,
+   "alpha": "223/220",
+   "alpha_f": 1.0136363636363637,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 12.0,
+   "f_c": 110.0,
+   "alpha": "61/55",
+   "alpha_f": 1.1090909090909091,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 12.0,
+   "f_c": 220.0,
+   "alpha": "58/55",
+   "alpha_f": 1.0545454545454545,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "1",
+   "delta_hz": 12.0,
+   "f_c": 440.0,
+   "alpha": "113/110",
+   "alpha_f": 1.0272727272727273,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 0.5,
+   "f_c": 110.0,
+   "alpha": "881/660",
+   "alpha_f": 1.334848484848485,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 0.5,
+   "f_c": 220.0,
+   "alpha": "587/440",
+   "alpha_f": 1.334090909090909,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 0.5,
+   "f_c": 440.0,
+   "alpha": "3521/2640",
+   "alpha_f": 1.3337121212121212,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 1.0,
+   "f_c": 110.0,
+   "alpha": "147/110",
+   "alpha_f": 1.3363636363636364,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 1.0,
+   "f_c": 220.0,
+   "alpha": "881/660",
+   "alpha_f": 1.334848484848485,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 1.0,
+   "f_c": 440.0,
+   "alpha": "587/440",
+   "alpha_f": 1.334090909090909,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 3.0,
+   "f_c": 110.0,
+   "alpha": "443/330",
+   "alpha_f": 1.3424242424242425,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 3.0,
+   "f_c": 220.0,
+   "alpha": "883/660",
+   "alpha_f": 1.337878787878788,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 3.0,
+   "f_c": 440.0,
+   "alpha": "1763/1320",
+   "alpha_f": 1.3356060606060607,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 6.0,
+   "f_c": 110.0,
+   "alpha": "223/165",
+   "alpha_f": 1.3515151515151516,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 6.0,
+   "f_c": 220.0,
+   "alpha": "443/330",
+   "alpha_f": 1.3424242424242425,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 6.0,
+   "f_c": 440.0,
+   "alpha": "883/660",
+   "alpha_f": 1.337878787878788,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 12.0,
+   "f_c": 110.0,
+   "alpha": "226/165",
+   "alpha_f": 1.3696969696969696,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 12.0,
+   "f_c": 220.0,
+   "alpha": "223/165",
+   "alpha_f": 1.3515151515151516,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "4/3",
+   "delta_hz": 12.0,
+   "f_c": 440.0,
+   "alpha": "443/330",
+   "alpha_f": 1.3424242424242425,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 0.5,
+   "f_c": 110.0,
+   "alpha": "661/880",
+   "alpha_f": 0.7511363636363636,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 0.5,
+   "f_c": 220.0,
+   "alpha": "1321/1760",
+   "alpha_f": 0.7505681818181819,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 0.5,
+   "f_c": 440.0,
+   "alpha": "2641/3520",
+   "alpha_f": 0.7502840909090909,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 1.0,
+   "f_c": 110.0,
+   "alpha": "331/440",
+   "alpha_f": 0.7522727272727273,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 1.0,
+   "f_c": 220.0,
+   "alpha": "661/880",
+   "alpha_f": 0.7511363636363636,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 1.0,
+   "f_c": 440.0,
+   "alpha": "1321/1760",
+   "alpha_f": 0.7505681818181819,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 3.0,
+   "f_c": 110.0,
+   "alpha": "333/440",
+   "alpha_f": 0.7568181818181818,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 3.0,
+   "f_c": 220.0,
+   "alpha": "663/880",
+   "alpha_f": 0.7534090909090909,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 3.0,
+   "f_c": 440.0,
+   "alpha": "1323/1760",
+   "alpha_f": 0.7517045454545455,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 6.0,
+   "f_c": 110.0,
+   "alpha": "42/55",
+   "alpha_f": 0.7636363636363637,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 6.0,
+   "f_c": 220.0,
+   "alpha": "333/440",
+   "alpha_f": 0.7568181818181818,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 6.0,
+   "f_c": 440.0,
+   "alpha": "663/880",
+   "alpha_f": 0.7534090909090909,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 12.0,
+   "f_c": 110.0,
+   "alpha": "171/220",
+   "alpha_f": 0.7772727272727272,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 12.0,
+   "f_c": 220.0,
+   "alpha": "42/55",
+   "alpha_f": 0.7636363636363637,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "3/4",
+   "delta_hz": 12.0,
+   "f_c": 440.0,
+   "alpha": "333/440",
+   "alpha_f": 0.7568181818181818,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 0.5,
+   "f_c": 110.0,
+   "alpha": "1101/880",
+   "alpha_f": 1.2511363636363637,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 0.5,
+   "f_c": 220.0,
+   "alpha": "2201/1760",
+   "alpha_f": 1.2505681818181817,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 0.5,
+   "f_c": 440.0,
+   "alpha": "4401/3520",
+   "alpha_f": 1.2502840909090909,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 1.0,
+   "f_c": 110.0,
+   "alpha": "551/440",
+   "alpha_f": 1.2522727272727272,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 1.0,
+   "f_c": 220.0,
+   "alpha": "1101/880",
+   "alpha_f": 1.2511363636363637,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 1.0,
+   "f_c": 440.0,
+   "alpha": "2201/1760",
+   "alpha_f": 1.2505681818181817,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 3.0,
+   "f_c": 110.0,
+   "alpha": "553/440",
+   "alpha_f": 1.2568181818181818,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 3.0,
+   "f_c": 220.0,
+   "alpha": "1103/880",
+   "alpha_f": 1.253409090909091,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 3.0,
+   "f_c": 440.0,
+   "alpha": "2203/1760",
+   "alpha_f": 1.2517045454545455,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 6.0,
+   "f_c": 110.0,
+   "alpha": "139/110",
+   "alpha_f": 1.2636363636363637,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 6.0,
+   "f_c": 220.0,
+   "alpha": "553/440",
+   "alpha_f": 1.2568181818181818,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 6.0,
+   "f_c": 440.0,
+   "alpha": "1103/880",
+   "alpha_f": 1.253409090909091,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 12.0,
+   "f_c": 110.0,
+   "alpha": "281/220",
+   "alpha_f": 1.2772727272727273,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 12.0,
+   "f_c": 220.0,
+   "alpha": "139/110",
+   "alpha_f": 1.2636363636363637,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "5/4",
+   "delta_hz": 12.0,
+   "f_c": 440.0,
+   "alpha": "553/440",
+   "alpha_f": 1.2568181818181818,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 0.5,
+   "f_c": 110.0,
+   "alpha": "1541/1100",
+   "alpha_f": 1.4009090909090909,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 0.5,
+   "f_c": 220.0,
+   "alpha": "3081/2200",
+   "alpha_f": 1.4004545454545454,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 0.5,
+   "f_c": 440.0,
+   "alpha": "6161/4400",
+   "alpha_f": 1.4002272727272727,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 1.0,
+   "f_c": 110.0,
+   "alpha": "771/550",
+   "alpha_f": 1.4018181818181819,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 1.0,
+   "f_c": 220.0,
+   "alpha": "1541/1100",
+   "alpha_f": 1.4009090909090909,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 1.0,
+   "f_c": 440.0,
+   "alpha": "3081/2200",
+   "alpha_f": 1.4004545454545454,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 3.0,
+   "f_c": 110.0,
+   "alpha": "773/550",
+   "alpha_f": 1.4054545454545455,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 3.0,
+   "f_c": 220.0,
+   "alpha": "1543/1100",
+   "alpha_f": 1.4027272727272728,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 3.0,
+   "f_c": 440.0,
+   "alpha": "3083/2200",
+   "alpha_f": 1.4013636363636364,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 6.0,
+   "f_c": 110.0,
+   "alpha": "388/275",
+   "alpha_f": 1.410909090909091,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 6.0,
+   "f_c": 220.0,
+   "alpha": "773/550",
+   "alpha_f": 1.4054545454545455,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 6.0,
+   "f_c": 440.0,
+   "alpha": "1543/1100",
+   "alpha_f": 1.4027272727272728,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 12.0,
+   "f_c": 110.0,
+   "alpha": "391/275",
+   "alpha_f": 1.4218181818181819,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 12.0,
+   "f_c": 220.0,
+   "alpha": "388/275",
+   "alpha_f": 1.410909090909091,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "7/5",
+   "delta_hz": 12.0,
+   "f_c": 440.0,
+   "alpha": "773/550",
+   "alpha_f": 1.4054545454545455,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 0.5,
+   "f_c": 110.0,
+   "alpha": "1761/1540",
+   "alpha_f": 1.1435064935064936,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 0.5,
+   "f_c": 220.0,
+   "alpha": "503/440",
+   "alpha_f": 1.143181818181818,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 0.5,
+   "f_c": 440.0,
+   "alpha": "7041/6160",
+   "alpha_f": 1.1430194805194804,
+   "achieved_hz": 0.5,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 1.0,
+   "f_c": 110.0,
+   "alpha": "881/770",
+   "alpha_f": 1.1441558441558441,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 1.0,
+   "f_c": 220.0,
+   "alpha": "1761/1540",
+   "alpha_f": 1.1435064935064936,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 1.0,
+   "f_c": 440.0,
+   "alpha": "503/440",
+   "alpha_f": 1.143181818181818,
+   "achieved_hz": 1.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 3.0,
+   "f_c": 110.0,
+   "alpha": "883/770",
+   "alpha_f": 1.1467532467532469,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 3.0,
+   "f_c": 220.0,
+   "alpha": "1763/1540",
+   "alpha_f": 1.1448051948051947,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 3.0,
+   "f_c": 440.0,
+   "alpha": "3523/3080",
+   "alpha_f": 1.1438311688311689,
+   "achieved_hz": 3.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 6.0,
+   "f_c": 110.0,
+   "alpha": "443/385",
+   "alpha_f": 1.1506493506493507,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 6.0,
+   "f_c": 220.0,
+   "alpha": "883/770",
+   "alpha_f": 1.1467532467532469,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 6.0,
+   "f_c": 440.0,
+   "alpha": "1763/1540",
+   "alpha_f": 1.1448051948051947,
+   "achieved_hz": 6.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 12.0,
+   "f_c": 220.0,
+   "alpha": "443/385",
+   "alpha_f": 1.1506493506493507,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  },
+  {
+   "parent": "8/7",
+   "delta_hz": 12.0,
+   "f_c": 440.0,
+   "alpha": "883/770",
+   "alpha_f": 1.1467532467532469,
+   "achieved_hz": 12.0,
+   "err": 0.0
+  }
+ ],
+ "refusals": [
+  {
+   "parent": "8/7",
+   "delta": 12.0,
+   "f_c": 110.0,
+   "why": "12.0 Hz against 8/7 lands under 7/6, not 8/7: alpha = 1.158442. Reduce the targe"
+  },
+  {
+   "parent": "1",
+   "delta": 60.0,
+   "f_c": 220.0,
+   "why": "60.0 Hz against 1 lands under 5/4, not 1: alpha = 1.272727. Reduce the target or"
+  },
+  {
+   "parent": "4/3",
+   "delta": 60.0,
+   "f_c": 220.0,
+   "why": "60.0 Hz against 4/3 lands under 7/5, not 4/3: alpha = 1.424242. Reduce the targe"
+  },
+  {
+   "parent": "3/4",
+   "delta": 60.0,
+   "f_c": 220.0,
+   "why": "60.0 Hz against 3/4 lands under 4/5, not 3/4: alpha = 0.818182. Reduce the targe"
+  },
+  {
+   "parent": "5/4",
+   "delta": 60.0,
+   "f_c": 220.0,
+   "why": "60.0 Hz against 5/4 lands under 4/3, not 5/4: alpha = 1.318182. Reduce the targe"
+  },
+  {
+   "parent": "7/5",
+   "delta": 60.0,
+   "f_c": 220.0,
+   "why": "60.0 Hz against 7/5 lands under 3/2, not 7/5: alpha = 1.454545. Reduce the targe"
+  },
+  {
+   "parent": "8/7",
+   "delta": 60.0,
+   "f_c": 220.0,
+   "why": "60.0 Hz against 8/7 lands under 6/5, not 8/7: alpha = 1.181818. Reduce the targe"
+  }
+ ],
+ "assertions": {
+  "B1": true,
+  "B2": true,
+  "B3": true,
+  "B4": true
+ },
+ "units": "sep_Hz = f_c * r1 * gap; alpha = (p +/- delta/(f_c*r1))/q",
+ "verdict": "INVERSION_VERIFIED"
+}
