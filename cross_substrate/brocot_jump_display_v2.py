@@ -197,7 +197,7 @@ ev = summarise("n_markers", [1] * len(mark), EXISTENCE)
 with redpath("markers derived on the coarse grid", expect_min=10) as rp:
     rp.observed(ev["n_nonzero"])
 
-json.dump(dict(I=I_MUS, a0=A0, a1=A1, coarse=COARSE, fine=FINE, delta=DELTA,
+json.dump(dict(I=I_MUS, a0=A0, a1=A1, coarse=COARSE, fine=FINE,
                n_markers=len(mark), markers=mark,
                delta_steps=DELTA_STEPS, abs_jump=ABS_JUMP,
                n_large_jumps_held_out=int(top_f.sum()),
