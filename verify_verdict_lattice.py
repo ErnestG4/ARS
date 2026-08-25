@@ -10,6 +10,11 @@ WHAT TURNS THIS RED:
   (c) the composed head stops re-deriving from the banked arm scores. This is
       the check a schema cannot make: a `composed` block that is present and
       disagrees with its own bars looks discharged and is not.
+  (d) the composed block loses its CITATION. A head alone is a disposition and
+      says nothing about which way the arms went — the mirror of (a)'s defect,
+      committed in this arc when "the morph question is closed" was reported in
+      place of "L2 = 0.985x against a bar of 3x". The quotable form carries the
+      numbers or the guard is only covering one direction.
 """
 import json
 import os
@@ -69,6 +74,13 @@ if os.path.exists(path):
     banked = (d.get("composed") or {}).get("head")
     CHECKS.append(("the composed head re-derives from the banked bar scores",
                    head == banked, f"recomputed {head!r} vs banked {banked!r}"))
+    # the quotable form must carry its arms' values, not just the head
+    cited = (d.get("composed") or {}).get("citation")
+    CHECKS.append(("the composed verdict carries a citation, not just a head",
+                   bool(cited) and cited != banked,
+                   f"citation = {cited!r} — a disposition standing in for a "
+                   "finding is the mirror of the defect this guard exists for"))
+
     # and the head must NOT be driven by the resolution arms
     CHECKS.append(("no EXISTENCE arm missed, so the head is positive",
                    banked == "HEARD_AS_A_DETUNED_PARENT",

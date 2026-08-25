@@ -35,6 +35,29 @@ that makes a MECHANISM or RESOLUTION miss produce a negative head, because the
 head is a function of the EXISTENCE arms alone. The wrong lattice is not
 discouraged here; it is unrepresentable.
 
+THE MIRROR: A DISPOSITION MUST NOT STAND IN FOR A FINDING
+-----------------------------------------------------------
+The three instances above are a LABEL computed from the wrong arms. The same
+defect runs in the other direction, and it was committed in this arc too:
+reporting "the morph question is closed rather than parked" as though that were
+the result. It is not. The result is L2 = 0.985x against a sealed bar of 3x.
+"Closed" is a status compatible with either outcome — validated and the feature
+reopens, or missed and the negative claim strengthens — so a reader who accepts
+the status has learned nothing about which happened. It took being asked twice.
+
+The two directions bracket one defect:
+
+    a RESOLUTION miss must not negate an EXISTENCE result   (label from wrong arms)
+    a DISPOSITION must not stand in for a FINDING           (label without its arms)
+
+So the affordance: `cite()` renders a verdict together with the governing arm
+values and their bars, and it is the form to quote. Quoting the head alone is
+still possible — nothing can stop a sentence being typed — but the cheap path
+now carries the numbers, which is the only fix that has ever held here.
+
+    compose(...)["citation"]
+    -> "NOT_LINEARISABLE_ON_ERB  [L2 0.985 vs >=3.0 MISSED; L4 0.43 vs >=2.0 MISSED]"
+
 Inert arms are dropped from the composition with a note and never counted in a
 tally -- `reachable.Bar` is the natural source of that flag.
 
@@ -56,10 +79,15 @@ class BadLattice(AssertionError):
 
 
 class Arm:
-    """One sealed arm: a name, a role, whether it fired, and whether it could."""
-    __slots__ = ("name", "role", "met", "inert", "note")
+    """One sealed arm: a name, a role, whether it fired, and whether it could.
 
-    def __init__(self, name, role, met, inert=False, note=""):
+    `value` and `thresh` are optional but strongly preferred: they are what
+    makes `cite()` carry a finding rather than a disposition."""
+    __slots__ = ("name", "role", "met", "inert", "note", "value", "thresh",
+                 "direction")
+
+    def __init__(self, name, role, met, inert=False, note="",
+                 value=None, thresh=None, direction="ge"):
         if role not in _ROLES:
             raise BadLattice(
                 f"'{name}': role must be one of {_ROLES}, not {role!r}. There is "
@@ -67,12 +95,25 @@ class Arm:
                 "whether it may negate, and it has been got wrong three times.")
         self.name, self.role = name, role
         self.met, self.inert, self.note = bool(met), bool(inert), note
+        self.value, self.thresh, self.direction = value, thresh, direction
+
+    def cite(self):
+        """This arm as evidence: value against bar, not just MET/MISSED."""
+        state = "INERT" if self.inert else "MET" if self.met else "MISSED"
+        if self.value is None or self.thresh is None:
+            return f"{self.name} {state}"
+        op = ">=" if self.direction == "ge" else "<="
+        v = f"{self.value:.4g}" if isinstance(self.value, float) else self.value
+        t = f"{self.thresh:.4g}" if isinstance(self.thresh, float) else self.thresh
+        return f"{self.name} {v} vs {op}{t} {state}"
 
     @classmethod
     def from_bar(cls, score, role, note=""):
         """Build from a `reachable.Bar.score()` dict, inheriting its inertness."""
         return cls(score["name"], role, score["met"],
-                   inert=score.get("out_of_range", False), note=note)
+                   inert=score.get("out_of_range", False), note=note,
+                   value=score.get("value"), thresh=score.get("thresh"),
+                   direction=score.get("direction", "ge"))
 
     def __repr__(self):
         state = ("INERT" if self.inert else "MET" if self.met else "MISSED")
@@ -117,7 +158,13 @@ def compose(arms, holds, fails, sep="_"):
             quals.append(("AT" if a.met else "COARSELY_AT") + sep + a.name)
 
     label = sep.join([head] + quals) if quals else head
-    return dict(label=label, head=head, qualifiers=quals,
+    # the citation is the quotable form: a head is a disposition, a head with
+    # its governing arms is a finding. Governing = the arms that decided it.
+    gov = [a for a in live if a.role == EXISTENCE and not a.met] or \
+          [a for a in live if a.role == EXISTENCE]
+    gov = gov + [a for a in live if a.role in (MECHANISM, RESOLUTION) and not a.met]
+    citation = f"{head}  [" + "; ".join(a.cite() for a in gov) + "]"
+    return dict(label=label, head=head, qualifiers=quals, citation=citation,
                 dropped=[a.name for a in dropped], unread=[],
                 arms=[repr(a) for a in arms])
 
@@ -174,11 +221,25 @@ if __name__ == "__main__":
     if pv["head"] != "INVALID":
         raise SystemExit("RED PATH FAILED: a broken premise was read past")
 
+    print("\n--- the mirror · the real ERB linearisation, cited not dispositioned ---")
+    erb = compose([Arm("smoothness", EXISTENCE, False, value=0.985, thresh=3.0),
+                   Arm("worst_step", RESOLUTION, False, value=0.43, thresh=2.0)],
+                  holds="LINEARISABLE_ON_ERB", fails="NOT_LINEARISABLE_ON_ERB")
+    print(f"    disposition : {erb['head']}          <- says nothing about which way")
+    print(f"    finding     : {erb['citation']}")
+    if erb["citation"] == erb["head"]:
+        raise SystemExit("RED PATH FAILED: the citation carried no arm values")
+
+    print("\n--- red path 5 · an arm with no value still cites honestly ---")
+    bare = compose([Arm("holds", EXISTENCE, True)], holds="H", fails="N")
+    print(f"    {bare['citation']}   (no numbers claimed where none were given)")
+
     print("\n--- green path · everything fires ---")
     print("   ", compose([Arm("holds", EXISTENCE, True), Arm("cause", MECHANISM, True),
                           Arm("fine", RESOLUTION, True)],
                          holds="HOLDS", fails="DOES_NOT_HOLD")["label"])
 
     print("\nVERDICTLATTICE_SELF_TEST_PASS — the head is a function of the "
-          "EXISTENCE arms alone, a roleless arm is refused, and both historical "
-          "mislabellings re-compose to what their own tables said.")
+          "EXISTENCE arms alone, a roleless arm is refused, both historical "
+          "mislabellings re-compose to what their own tables said, and the "
+          "quotable form carries its arms' values.")

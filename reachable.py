@@ -89,7 +89,7 @@ class Bar:
         out = value > self.ceiling or value < self.floor
         return dict(name=self.name, value=value, thresh=self.thresh,
                     floor=self.floor, ceiling=self.ceiling, met=bool(met),
-                    out_of_range=bool(out),
+                    direction=self.direction, out_of_range=bool(out),
                     headroom=(self.ceiling - self.thresh if self.direction == "ge"
                               else self.thresh - self.floor),
                     why=self.why)

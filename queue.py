@@ -72,7 +72,15 @@ ENTRIES = [
                  "then the display says 'nearest ringing ratio + beat rate'",
          note="the beat coordinate crosses perceptual regimes within one region "
               "(5.5 Hz fusion-with-beating vs 31 Hz separation), so the "
-              "perceptual wording is not carried by the structural evidence"),
+              "perceptual wording is not carried by the structural evidence. "
+              "SHARPENED 2026-08-25: brocot_marker_erb_gate measured events "
+              "STATICALLY, at a point, and found them sharply resolved (16.13x "
+              "separation in ERB, better than u's 2.11x) but at 0.67x a 1-cent "
+              "detune -- below the floor of noticing. The listening cell must "
+              "seal the DYNAMIC question instead: a coincidence forming as the "
+              "player sweeps through it may register in transition at "
+              "magnitudes that are static-invisible. Re-asking the static "
+              "question would only reproduce a gate that has already fired."),
 ]
 
 
