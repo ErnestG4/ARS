@@ -46,6 +46,17 @@ convention and would agree with each other whether or not it matched the synth.
 ║ T4  The ladder's ORDERING is eps-invariant across eps in {1e-2, 1e-3, 1e-4}   ║
 ║     while its absolute I-thresholds are not: at least one rung moves.         ║
 ║                                                                              ║
+║ T5  AMENDED IN, 2026-08-24, after review caught an overclaim this run's own   ║
+║     data could have refuted. The reflected channel's m != 0 solutions are     ║
+║     RATIO-PINNED and obey the SAME horizon shifted by +2 in p: every node     ║
+║     carrying one satisfies q <= 2B and p <= 2B + 2.                          ║
+║                                                                              ║
+║     The first version reported refl_other by MEDIAN, which read 0.0 at every  ║
+║     index and was taken as absence. A median cannot answer an existence       ║
+║     question -- the same defect caught in brocot_useful_depth.py two runs     ║
+║     earlier, committed again in the file that records the fix. The data was   ║
+║     collected and buried by the summary statistic.                           ║
+║                                                                              ║
 ║ IF T2 FAILS the fold is harmless and one scope sentence suffices. IF T2       ║
 ║ HOLDS the document must say which lattice the theorem is about, because a     ║
 ║ reader who assumes standard FM folding would otherwise find the proof         ║
@@ -93,6 +104,14 @@ def channels(alpha, B):
             direct += 1
         else:
             seen.add(v)
+    # Split the reflected channel by the divisibility solution class.
+    #   1 + n1 + n2*a = -(1 + n1' + n2'*a)  =>  a_ + b_*(p/q) = 0  with
+    #   a_ = 2 + n1 + n1',  b_ = n2 + n2'.  Then a_*q = -b_*p, and gcd(p,q)=1
+    #   forces a_ = m*p, b_ = -m*q.
+    #   m = 0 : the UNIVERSAL family (+m*alpha folding onto -m*alpha), true of
+    #           every alpha, rational or not -- carries no ratio information.
+    #   m != 0: RATIO-PINNED, and bounded by |m*q| <= 2B and |m*p| <= 2B + 2
+    #           (the +2 from the constant in a_'s range).
     refl_k0 = refl_other = 0
     keys = list(vals)
     for i, k1 in enumerate(keys):
@@ -102,7 +121,9 @@ def channels(alpha, B):
         for k2 in keys[i + 1:]:
             if vals[k2] != -v1:
                 continue
-            if k1[0] + k2[0] == -2 and k1[1] + k2[1] == 0:
+            a_ = 2 + k1[0] + k2[0]
+            b_ = k1[1] + k2[1]
+            if a_ == 0 and b_ == 0:
                 refl_k0 += 1
             else:
                 refl_other += 1
@@ -120,6 +141,11 @@ for I in INDICES:
                         below=max(fr.numerator, fr.denominator) <= hor,
                         direct=d, refl_k0=r0, refl_other=ro))
     t1 = all((r["direct"] > 0) == r["below"] for r in per)
+    # ANY, not median: existence questions need an existence statistic.
+    ratio_pinned = [r for r in per if r["refl_other"] > 0]
+    obey = [r for r in ratio_pinned
+            if Fraction(r["node"]).denominator <= hor
+            and Fraction(r["node"]).numerator <= hor + 2]
     k0_everywhere = all(r["refl_k0"] > 0 for r in per)
     k0_above = sum(1 for r in per if not r["below"] and r["refl_k0"] > 0)
     n_above = sum(1 for r in per if not r["below"])
@@ -130,7 +156,10 @@ for I in INDICES:
                    k0_above_horizon=f"{k0_above}/{n_above}",
                    folded_coincidence_at_every_node=bool(folded_any),
                    median_refl_k0=float(np.median([r["refl_k0"] for r in per])),
-                   median_refl_other=float(np.median([r["refl_other"] for r in per])))
+                   median_refl_other=float(np.median([r["refl_other"] for r in per])),
+                   n_ratio_pinned_reflected=len(ratio_pinned),
+                   ratio_pinned_obey_shifted_horizon=f"{len(obey)}/{len(ratio_pinned)}",
+                   t5_holds=bool(ratio_pinned and len(obey) == len(ratio_pinned)))
 
 print("(A) CHANNEL SPLIT — direct vs reflected\n")
 print(f"{'I':>5s} {'B':>3s} {'horizon':>8s} {'direct==horizon':>16s} "
@@ -142,6 +171,13 @@ for I in INDICES:
           f"{r['k0_above_horizon']:>17s} {str(r['folded_coincidence_at_every_node']):>18s}")
 
 t1 = all(rows[I]["direct_matches_horizon"] for I in INDICES)
+t5 = all(rows[I]["t5_holds"] for I in INDICES)
+print("\n(A2) RATIO-PINNED reflected coincidences (m != 0)\n")
+print(f"{'I':>5s} {'horizon':>8s} {'nodes with one':>15s} {'obey q<=2B and p<=2B+2':>24s}")
+for I in INDICES:
+    r = rows[I]
+    print(f"{I:>5.1f} {r['horizon']:>8d} {r['n_ratio_pinned_reflected']:>15d} "
+          f"{r['ratio_pinned_obey_shifted_horizon']:>24s}")
 t2 = all(rows[I]["k0_fires_everywhere"] for I in INDICES)
 t3 = all(rows[I]["folded_coincidence_at_every_node"] for I in INDICES)
 
@@ -181,6 +217,7 @@ print(f"\nT1  direct channel reproduces the horizon exactly   {'MET' if t1 else 
 print(f"T2  k=0 reflected branch fires at EVERY node   {'MET' if t2 else 'MISSED'}")
 print(f"T3  folded lattice has a coincidence at every node (predicate vacuous)   "
       f"{'MET' if t3 else 'MISSED'}")
+print(f"T5  reflected m!=0 coincidences obey q<=2B, p<=2B+2   {'MET' if t5 else 'MISSED'}")
 print(f"T4  ladder ORDER eps-invariant ({all(orders)}) while thresholds MOVE ({moved})   "
       f"{'MET' if t4 else 'MISSED'}")
 
@@ -199,7 +236,8 @@ json.dump(dict(indices=INDICES, epsilons=EPSILONS, qmax=QMAX,
                channel_rows={str(k): v for k, v in rows.items()},
                ladder_by_epsilon=ladder, ladder_order_preserved=orders,
                ladder_thresholds_moved=bool(moved),
-               predictions=dict(T1=bool(t1), T2=bool(t2), T3=bool(t3), T4=bool(t4)),
+               predictions=dict(T1=bool(t1), T2=bool(t2), T3=bool(t3), T4=bool(t4),
+                                T5=bool(t5)),
                verdict=verdict),
           open(f"{HERE}/brocot_theorem_scope.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_theorem_scope.json")
