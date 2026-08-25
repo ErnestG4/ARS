@@ -61,10 +61,26 @@ now carries the numbers, which is the only fix that has ever held here.
 Inert arms are dropped from the composition with a note and never counted in a
 tally -- `reachable.Bar` is the natural source of that flag.
 
-WHAT THIS CANNOT DO: it cannot tell you that you assigned a role wrongly. Call
-an existence arm MECHANISM and it will qualify instead of negate. What it buys
-is that the role is now written down beside the arm, in the seal, where the
-reader who disagrees can see the choice was made.
+WHAT THIS CANNOT DO — two limits, the second found the hard way.
+
+(1) It cannot tell you that you assigned a role wrongly. Call an existence arm
+    MECHANISM and it will qualify instead of negate. What it buys is that the
+    role is written down beside the arm, in the seal, where a reader who
+    disagrees can see the choice was made.
+
+(2) IT CANNOT STOP THE HEAD'S NAME FROM PRESUMING A MECHANISM ARM'S CONCLUSION.
+    `brocot_index_routing` sealed the positive head as
+    COLUMN_IS_CONDITIONED_ON_ROUTING, composed correctly from two EXISTENCE
+    arms that both fired — while the MECHANISM arm testing whether a routing
+    CONVENTION exists came back at 50.0%, a coin. The composition obeyed every
+    rule in this module and the resulting label still asserted the thing the
+    data denied, because "conditioned on routing" is a string the author chose
+    and the head is only ever a string.
+
+    The guard covers the LOGIC of the label, not its SEMANTICS. The practical
+    defence is `cite()`: the citation carries every governing arm's value, so a
+    head that overreaches sits next to the number that contradicts it. That is
+    weaker than unrepresentability and it is what is available.
 """
 
 PREMISE = "PREMISE"

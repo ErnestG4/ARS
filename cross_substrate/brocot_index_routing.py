@@ -52,6 +52,35 @@ p <= 2*order_bound(I_i) and q <= 2*order_bound(I_j).
 ║ convention is real and inert, and the honest note is one sentence. W1 and    ║
 ║ W3 together mean the column carries a conditioning statement.                ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — AFTER OUTPUT. Two corrections, and the second is a gap in a guard.
+
+(i) THERE IS NO CONVENTION, AND THE CLOSING REPORT NEARLY NAMED A SIDE ANYWAY.
+    Alignment came out at 50.0% and higher-index-on-larger-ratio at 0.5004848 —
+    which the original print turned into "the map drives the LARGER-ratio
+    operator harder", because the code branched on rate > 0.5. At n = 1,139,612
+    the standard error is 0.00047, so that is z = 1.04: indistinguishable from
+    a coin. An argmax read off a grid with no location error bar, in this repo,
+    again. The report now states the absence and its precision instead.
+
+(ii) THE HEAD LABEL EMBEDDED THE MECHANISM ARM'S CONCLUSION. The sealed head
+    was COLUMN_IS_CONDITIONED_ON_ROUTING, chosen from the EXISTENCE arms W1 and
+    W3 — both of which fired. But "conditioned on routing" asserts a CONVENTION,
+    which is exactly what W2 tests and W2 missed. The composition was correct;
+    the NAME was not.
+
+    `verdictlattice` stops a MECHANISM arm from negating a head. It cannot stop
+    the head's name from presuming that mechanism's conclusion, because the name
+    is a string the author chooses. That is a genuine limit and it is recorded
+    in the module rather than patched over.
+
+    The honest head is ORDER_DEPENDENT_BUT_UNBIASED, and it is reported beside
+    the sealed one, not in place of it. The distinction has teeth: individual
+    node values ARE order-dependent (6.1% of pairs swap-sensitive, 64% of nodes
+    would change, median change 0.022), so the field is a function of the stored
+    operator ORDER and not of the ratio multiset alone — but the population
+    carries no systematic bias, so the column is not skewed, and the doc owes a
+    well-definedness note rather than a conditioning caveat.
 """
 import gzip
 import json
@@ -162,14 +191,25 @@ v = compose([Arm.from_bar(s1, EX_ROLE, note="A4 reaches the instrument"),
              Arm.from_bar(s2, MECH_ROLE, note="a routing convention exists")],
             holds="COLUMN_IS_CONDITIONED_ON_ROUTING",
             fails="ROUTING_DOES_NOT_REACH_THE_COLUMN")
-print(f"\nVERDICT: {v['citation']}")
-if v["head"] == "COLUMN_IS_CONDITIONED_ON_ROUTING":
-    side = ("the LARGER-ratio operator" if larger_rate > 0.5
-            else "the SMALLER-ratio operator")
-    print(f"  The map drives {side} harder in {max(larger_rate, 1 - larger_rate):.1%}")
-    print(f"  of unequal-index pairs, and {w1:.1%} of pairs would change verdict")
-    print("  under a swap. The fusion-density column's values are conditioned on")
-    print("  that convention and the doc must name the side.")
+import math                                                        # noqa: E402
+se_l = math.sqrt(0.25 / n_diff_index) if n_diff_index else float("inf")
+se_a = math.sqrt(0.25 / n_sens) if n_sens else float("inf")
+z_l = (larger_rate - 0.5) / se_l if se_l else 0.0
+amended = ("ORDER_DEPENDENT_BUT_UNBIASED" if (s1["met"] and s3["met"]
+                                             and not s2["met"])
+           else v["head"])
+print(f"\nVERDICT (sealed lattice, unchanged): {v['citation']}")
+print(f"VERDICT (amendment 1(ii)):           {amended}")
+print(f"\n  higher index on the larger ratio: {larger_rate:.6f} "
+      f"+/- {1.96 * se_l:.6f} at 95%  (z = {z_l:+.2f})")
+print(f"  alignment among swap-sensitive:   {align:.4f} "
+      f"+/- {1.96 * se_a:.4f} at 95%")
+print("  NO SIDE TO NAME. The map carries no routing convention.")
+print(f"\n  But the field IS order-dependent: {w1:.1%} of pairs swap-sensitive,")
+print(f"  {float((da != ds).mean()):.1%} of nodes would change, median change {w3:.4f}.")
+print("  So fusion density is a function of the stored operator ORDER, not of")
+print("  the ratio multiset alone. The doc owes a well-definedness note — not a")
+print("  conditioning caveat, because the population is unbiased.")
 
 ex = summarise("n_swap_sensitive_pairs", [n_sens], EXISTENCE)
 with redpath("enabled operator pairs censused", expect_min=500000) as rp:
@@ -185,6 +225,7 @@ json.dump(dict(graph=os.path.basename(GRAPH), n_nodes=len(da),
                median_abs_change=w3,
                nodes_changed=float((da != ds).mean()),
                bars={s["name"]: s for s in (s1, s2, s3)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"], verdict_amended=amended, composed=v,
+               larger_rate_se=se_l, larger_rate_z=z_l, alignment_se=se_a),
           open(f"{HERE}/brocot_index_routing.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_index_routing.json")

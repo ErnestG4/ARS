@@ -1,0 +1,72 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "n_nodes": 25772,
+ "n_pairs": 1140006,
+ "n_swap_sensitive": 69097,
+ "swap_sensitive_share": 0.06061108450306402,
+ "alignment_rate": 0.49951517432015863,
+ "n_unequal_index": 1139612,
+ "higher_index_on_larger_ratio_rate": 0.5003018571233017,
+ "median_density_actual": 0.17777777777777778,
+ "median_density_swapped": 0.17777777777777778,
+ "median_abs_change": 0.021978021978021955,
+ "nodes_changed": 0.6404237156604067,
+ "bars": {
+  "swap-sensitive share of pairs": {
+   "name": "swap-sensitive share of pairs",
+   "value": 0.06061108450306402,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.95,
+   "why": "a fraction of enabled operator pairs: 0 to 1 by construction"
+  },
+  "|alignment rate - 0.5|": {
+   "name": "|alignment rate - 0.5|",
+   "value": 0.0004848256798413719,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 0.5,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.45,
+   "why": "an alignment rate lies in [0,1], so its distance from 0.5 is bounded by 0.5"
+  },
+  "median |change in fusion density|": {
+   "name": "median |change in fusion density|",
+   "value": 0.021978021978021955,
+   "thresh": 0.01,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.99,
+   "why": "fusion density is a fraction in [0,1], so a change is bounded by 1"
+  }
+ },
+ "verdict": "COLUMN_IS_CONDITIONED_ON_ROUTING",
+ "verdict_amended": "ORDER_DEPENDENT_BUT_UNBIASED",
+ "composed": {
+  "label": "COLUMN_IS_CONDITIONED_ON_ROUTING_BUT_NOT_BY_|alignment rate - 0.5|",
+  "head": "COLUMN_IS_CONDITIONED_ON_ROUTING",
+  "qualifiers": [
+   "BUT_NOT_BY_|alignment rate - 0.5|"
+  ],
+  "citation": "COLUMN_IS_CONDITIONED_ON_ROUTING  [swap-sensitive share of pairs 0.06061 vs >=0.05 MET; median |change in fusion density| 0.02198 vs >=0.01 MET; |alignment rate - 0.5| 0.0004848 vs >=0.05 MISSED]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('swap-sensitive share of pairs', EXISTENCE, MET)",
+   "Arm('median |change in fusion density|', EXISTENCE, MET)",
+   "Arm('|alignment rate - 0.5|', MECHANISM, MISSED)"
+  ]
+ },
+ "larger_rate_se": 0.0004683726180896719,
+ "larger_rate_z": 0.6444807224914915,
+ "alignment_se": 0.0019021309335501922
+}
