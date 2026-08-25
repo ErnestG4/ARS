@@ -63,6 +63,12 @@ WHAT IS CHECKED HERE, ON THE SAME FOOTING AS THE 508/508
 
 A4 is the non-inertness arm. Without it, A1 passing would be compatible with
 the asymmetric predicate never differing from the symmetric one on this grid.
+
+AMENDMENT 1 — BEFORE ANY VERDICT WAS READ. The planted non-vacuity floor (4000
+exact checks) fired: PQ_MAX = 22 reached only 3248. Raised to 22, not lowered to
+3248 — the same call as brocot_tie_lemma, and for the same reason: a floor
+retuned to what the run happened to produce is a floor that has stopped
+policing anything. Nothing else changed.
 """
 import json
 import os
@@ -79,7 +85,7 @@ from existence import summarise, EXISTENCE                        # noqa: E402
 from phase3.partial_prediction import order_bound                 # noqa: E402
 
 I_GRID = [0.9, 1.5, 2.0, 3.0]
-PQ_MAX = 18
+PQ_MAX = 22
 RATIOS = sorted({Fraction(p, q) for p in range(1, PQ_MAX + 1)
                  for q in range(1, PQ_MAX + 1) if gcd(p, q) == 1}, key=float)
 
