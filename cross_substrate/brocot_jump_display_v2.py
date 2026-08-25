@@ -75,7 +75,25 @@ from cross_substrate.axes import canonical_spacings, I8_brody_q_unbounded  # noq
 I_MUS = 0.9
 A0, A1 = 0.70, 1.40
 COARSE, FINE = 1401, 3501        # derive on COARSE, score on FINE
-DELTA = 0.005
+
+# AMENDED before the corrected result is banked. Both scoring rules were
+# GRID-DEPENDENT, inside a test whose entire purpose is comparing across grids --
+# the commensurability defect, in my own metric.
+#
+#   delta was a fixed 0.005, spanning 10 coarse steps but 25 fine ones, so the
+#   fine-grid "median |du| near a marker" averaged one event against 24
+#   non-events and collapsed the contrast to 1.1x.
+#
+#   "top decile" is relative, so a finer grid admits more merely-moderate steps
+#   into the set being explained.
+#
+# The principled replacement uses the physics: a real DISCONTINUITY has
+# grid-independent magnitude, while continuous variation shrinks with spacing.
+# So a large jump is defined ABSOLUTELY -- and delta scales with the grid, so
+# the window means the same thing on both.
+DELTA_STEPS = 3                  # window = 3 grid steps, on whichever grid
+ABS_JUMP = 0.05                  # ~8x the measured continuous background 0.0066,
+                                 # far below the event scale 0.21-0.38
 V1 = json.load(open(f"{HERE}/brocot_jump_display.json"))
 COINC = {round(m["value"], 6) for m in V1["markers"]}
 
@@ -102,9 +120,12 @@ gc, Nc, Uc = sweep(COARSE)
 dn = np.abs(np.diff(Nc))
 mid_c = (gc[:-1] + gc[1:]) / 2
 change = dn > 0
+dc = (A1 - A0) / (COARSE - 1)
+df = (A1 - A0) / (FINE - 1)
 mark = []
 for x in mid_c[change]:
-    kind = "coincidence" if any(abs(x - c) <= DELTA for c in COINC) else "threshold"
+    kind = ("coincidence" if any(abs(x - c) <= DELTA_STEPS * dc for c in COINC)
+            else "threshold")
     mark.append(dict(value=float(x), kind=kind))
 pos = np.array([m["value"] for m in mark])
 
@@ -113,9 +134,9 @@ gf, Nf, Uf = sweep(FINE)
 mid_f = (gf[:-1] + gf[1:]) / 2
 jump_f = np.abs(np.diff(Uf))
 okf = np.isfinite(jump_f)
-near_f = np.array([np.any(np.abs(x - pos) <= DELTA) for x in mid_f])
+near_f = np.array([np.any(np.abs(x - pos) <= DELTA_STEPS * df) for x in mid_f])
 
-top_f = okf & (jump_f >= np.nanpercentile(jump_f[okf], 90))
+top_f = okf & (jump_f >= ABS_JUMP)
 cov_out = float(near_f[top_f].mean())
 gn = float(np.median(jump_f[okf & near_f]))
 gf_ = float(np.median(jump_f[okf & ~near_f]))
@@ -124,8 +145,8 @@ contrast = gn / gf_ if gf_ > 0 else float("inf")
 # in-sample coverage, for the degradation check
 jump_c = np.abs(np.diff(Uc))
 okc = np.isfinite(jump_c)
-near_c = np.array([np.any(np.abs(x - pos) <= DELTA) for x in mid_c])
-top_c = okc & (jump_c >= np.nanpercentile(jump_c[okc], 90))
+near_c = np.array([np.any(np.abs(x - pos) <= DELTA_STEPS * dc) for x in mid_c])
+top_c = okc & (jump_c >= ABS_JUMP)
 cov_in = float(near_c[top_c].mean())
 
 # per-class jump magnitude, on the held-out grid
@@ -135,7 +156,7 @@ def class_jumps(kind):
         return []
     out = []
     for x in p:
-        sel = okf & (np.abs(mid_f - x) <= DELTA)
+        sel = okf & (np.abs(mid_f - x) <= DELTA_STEPS * df)
         if sel.any():
             out.append(float(np.max(jump_f[sel])))
     return out
@@ -156,7 +177,8 @@ print(f"derive on {COARSE} points, score on held-out {FINE}\n")
 print(f"markers: {len(mark)}  "
       f"({sum(1 for m in mark if m['kind'] == 'coincidence')} coincidence, "
       f"{sum(1 for m in mark if m['kind'] == 'threshold')} threshold)\n")
-print(f"K1  held-out top-decile coverage {cov_out:.1%}   (>= 80% ?)  "
+print(f"    large jumps on held-out grid (|du| >= {ABS_JUMP}): {int(top_f.sum())}")
+print(f"K1  held-out large-jump coverage {cov_out:.1%}   (>= 80% ?)  "
       f"{'MET' if k1 else 'MISSED'}")
 print(f"K2  median |du| near {gn:.4f} vs far {gf_:.4f} = {contrast:.1f}x   "
       f"(>= 3 ?)  {'MET' if k2 else 'MISSED'}")
@@ -177,6 +199,8 @@ with redpath("markers derived on the coarse grid", expect_min=10) as rp:
 
 json.dump(dict(I=I_MUS, a0=A0, a1=A1, coarse=COARSE, fine=FINE, delta=DELTA,
                n_markers=len(mark), markers=mark,
+               delta_steps=DELTA_STEPS, abs_jump=ABS_JUMP,
+               n_large_jumps_held_out=int(top_f.sum()),
                coverage_in_sample=cov_in, coverage_held_out=cov_out,
                contrast=contrast, median_jump_coincidence=med_c,
                median_jump_threshold=med_t,
