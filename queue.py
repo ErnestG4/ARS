@@ -71,6 +71,32 @@ ENTRIES = [
               "as a FUSION DENSITY readout, not a beat readout -- only 7.0% of "
               "nodes beat in (0,20) Hz because some pair almost always fuses "
               "at N=16"),
+    dict(id="asymmetric-corollary", status=LANDED,
+         request="prove and verify the asymmetric horizon the fusion-density "
+                 "column rests on, to the symmetric theorem's standard",
+         artifact="cross_substrate/brocot_asymmetric_horizon.json",
+         verdict="ASYMMETRIC_COROLLARY_VERIFIED",
+         note="4784/4784 exact across 16 index pairs, witness re-derived "
+              "against two boxes at 1250 reachable triples, relabelling "
+              "invariant, 468 ratios flip when the higher index moves"),
+    dict(id="suggest-census", status=LANDED,
+         request="measure CoherenceSuggest's wrong-criterion rate before "
+                 "repairing it, so the repair has a before",
+         artifact="cross_substrate/brocot_suggest_census.json",
+         verdict="CRITERION_WRONG_IN_PRACTICE",
+         note="97.5% of the enumerated candidate pool at I=0.9; the near-unity "
+              "stratum is WORSE at 99.7-100%. Owed on this evidence: a "
+              "docstring rewrite. NOT owed: a ranking rewrite, until "
+              "Coherence.h's actual score is censused separately"),
+    dict(id="suggest-score-census", status=QUEUED,
+         request="census Coherence.h's actual score, not just the docstring's "
+                 "criterion — does the shipped RANKING inherit the defect?",
+         note="brocot_suggest_census deliberately did not call the score. The "
+              "stated justification is false at 97.5-100% of candidates, but "
+              "whether the topN a user sees is correspondingly wrong depends "
+              "on what coherence computes, which may be a softer notion. "
+              "Without this, 'the engine is broken' is an overclaim and only "
+              "'the engine's justification is false' is supported."),
     dict(id="hofstadter-horizon-cutoff", status=QUEUED,
          request="re-test the butterfly correspondence with the horizon as its "
                  "CUTOFF: BROCOT-SPEC D§0 was falsified partly because gap "
@@ -87,7 +113,16 @@ ENTRIES = [
               "last time, so the sealed test must show the horizon-truncated "
               "predictor separating FROM q, not merely correlating with the "
               "geometry. Needs the asymmetric-horizon extension already used "
-              "in brocot_map_dimension."),
+              "in brocot_map_dimension. SHARPENED 2026-08-25: the "
+              "discriminating arm is INDEX-DEPENDENCE, because plain q is "
+              "STATIC and the horizon-truncated predictor moves with I by "
+              "construction. So the sealed test is not a single-I correlation "
+              "contest -- which is what plain q won last time -- but whether "
+              "the map geometry TRACKS THE TRUNCATION as I varies: pre-register "
+              "which features appear or vanish, and at which I the theorem says "
+              "they cross. No static predictor can match a moving target as "
+              "anything but coincidence, so the baseline is ruled out by its "
+              "own constancy rather than by out-correlating it."),
     dict(id="amplitude-event-layer", status=QUEUED,
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
