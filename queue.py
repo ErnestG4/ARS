@@ -115,7 +115,49 @@ ENTRIES = [
               "on what coherence computes, which may be a softer notion. "
               "Without this, 'the engine is broken' is an overclaim and only "
               "'the engine's justification is false' is supported."),
-    dict(id="hofstadter-horizon-cutoff", status=QUEUED,
+    dict(id="score-census", status=LANDED,
+         request="does the shipped ranking inherit CoherenceSuggest's false "
+                 "criterion, or does its 12-cent binning put it outside the "
+                 "horizon's jurisdiction?",
+         artifact="cross_substrate/brocot_suggest_score_census.json",
+         verdict="RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+         note="SEALED head reported unchanged; the roles were mis-assigned and "
+              "the amended head is RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE. "
+              "64.9% of the score's shared energy is EXACTLY coincident, so the "
+              "horizon does govern it; 57.7% of top-1 suggestions cannot "
+              "coincide with anything in the patch; filter Jaccard 0.329. A "
+              "reachability filter is warranted and needs current's indices"),
+    dict(id="truncated-butterfly", status=LANDED,
+         request="re-test D-section-0 with the horizon as a CUTOFF, using "
+                 "index-dependence as the discriminating arm",
+         artifact="cross_substrate/brocot_truncated_butterfly.json",
+         verdict="MAP_TRACKS_THE_TRUNCATION",
+         note="WEAK AND ONE-FIELD. matched-mismatched +0.0434 on crit, "
+              "permutation p = 0.005 post-hoc, but matched 0.137 vs plain q "
+              "0.111 there while q dominates tonal (0.217 vs 0.090) and dense "
+              "(0.309 vs 0.083). Suggestive, NOT a shippable layer under D1; "
+              "D0 stays falsified. H2 was inert as first written and is left "
+              "MISSED after replacement rather than repaired into a pass"),
+    dict(id="butterfly-prior-art", status=LANDED,
+         request="is a bounded-denominator / truncated Hofstadter butterfly a "
+                 "known object, and is the Arnold-tongue analogy formal?",
+         artifact="cross_substrate/brocot_truncated_butterfly.json",
+         verdict="MAP_TRACKS_THE_TRUNCATION",
+         note="written up in brocot phase3/butterfly.md. No named truncated "
+              "object; the literature's analogue is exponential gap-width decay "
+              "in |label| (arXiv:1712.04700), structurally like our epsilon "
+              "floor. NO Hofstadter<->FM link exists anywhere -- open "
+              "territory. CORRECTION: Bjerklov-Jager's AMO<->mode-locking "
+              "bridge uses ENERGY as the tongue parameter, not flux, so the "
+              "queued Arnold-tongue identification is WITHDRAWN"),
+    dict(id="suggest-reachability-filter", status=QUEUED,
+         request="pass current's indices into suggestExtensions and filter "
+                 "candidates by the asymmetric horizon; measure the change in "
+                 "user-visible top-4 against the censused before",
+         note="warranted by score-census: Jaccard 0.329 means the filter "
+              "materially changes what is shown. Blocked on the signature "
+              "change -- suggestExtensions currently receives only newIndex"),
+    dict(id="hofstadter-horizon-cutoff", status=DROPPED,
          request="re-test the butterfly correspondence with the horizon as its "
                  "CUTOFF: BROCOT-SPEC D§0 was falsified partly because gap "
                  "prominence was 'fully shadowed by plain Farey simplicity q', "
@@ -140,7 +182,11 @@ ENTRIES = [
               "which features appear or vanish, and at which I the theorem says "
               "they cross. No static predictor can match a moving target as "
               "anything but coincidence, so the baseline is ruled out by its "
-              "own constancy rather than by out-correlating it."),
+              "own constancy rather than by out-correlating it. DROPPED "
+              "2026-08-25: superseded by truncated-butterfly, which ran exactly "
+              "this design. Result was a weak one-field positive, not a "
+              "shippable layer. Reopen only with a mechanism for why crit "
+              "responds and tonal/dense do not."),
     dict(id="amplitude-event-layer", status=QUEUED,
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
