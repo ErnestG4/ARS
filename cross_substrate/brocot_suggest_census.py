@@ -74,7 +74,8 @@ from phase3.partial_prediction import order_bound                 # noqa: E402
 
 I_LIST = [0.9, 1.5, 2.0, 3.0]
 MAXEXTRA = [1, 2, 3]                       # the engine's default is 3
-BASE_LEN = range(1, 6)                     # base paths of length 1..5
+BASE_LEN = range(1, 8)                     # base paths of length 1..7
+NEAR_LO, NEAR_HI = Fraction(7, 10), Fraction(7, 5)   # the instrument's regime
 
 
 def walk(path):
@@ -108,18 +109,25 @@ def reachable(r_base, r_ext, I_base, I_ext):
 rows = {}
 for I in I_LIST:
     for mx in MAXEXTRA:
-        tot = silent = 0
+        tot = silent = n_tot = n_silent = 0
         for b in BASES:
             rb = walk(b)
+            near = NEAR_LO <= rb <= NEAR_HI
             tails = [t for n in range(1, mx + 1) for t in paths(n)]
             for t in tails:
                 re_ = walk(b + t)
                 if re_ == rb:
                     continue                    # the engine skips duplicates
+                bad = not reachable(rb, re_, I, I)
                 tot += 1
-                silent += not reachable(rb, re_, I, I)
+                silent += bad
+                if near:
+                    n_tot += 1
+                    n_silent += bad
         rows[(I, mx)] = dict(I=I, maxextra=mx, n=tot, silent=silent,
-                             rate=silent / tot if tot else 0.0)
+                             rate=silent / tot if tot else 0.0,
+                             n_near=n_tot, silent_near=n_silent,
+                             rate_near=n_silent / n_tot if n_tot else 0.0)
 
 r_09 = rows[(0.9, 3)]["rate"]
 r_30 = rows[(3.0, 3)]["rate"]
@@ -143,6 +151,13 @@ for I in I_LIST:
     print(f"{I:>5.1f} {cells}")
 print("\n   cell = fraction of shared-prefix candidates that are ABOVE the "
       "horizon (count in brackets)")
+print(f"\nNEAR-UNITY STRATUM — bases with ratio in [{float(NEAR_LO)}, "
+      f"{float(NEAR_HI)}], reported not scored (amendment 1(ii)):")
+print(f"{'I':>5s} " + "".join(f"{'mx=' + str(m):>16s}" for m in MAXEXTRA))
+for I in I_LIST:
+    cells = "".join(f"{rows[(I, m)]['rate_near']:>9.1%}"
+                    f" ({rows[(I, m)]['silent_near']:>4d})" for m in MAXEXTRA)
+    print(f"{I:>5.1f} {cells}")
 
 print()
 for b, v, f in ((S1, r_09, "{:.1%}"), (S2, r_09 - r_30, "{:+.1%}"),
@@ -170,6 +185,7 @@ with redpath("candidate pairs censused", expect_min=20000) as rp:
 json.dump(dict(I_list=I_LIST, maxextra=MAXEXTRA, n_bases=len(BASES),
                rows=[dict(v) for v in rows.values()],
                rate_at_I09_mx3=r_09, rate_at_I30_mx3=r_30,
+               rate_near_at_I09_mx3=rows[(0.9, 3)]["rate_near"],
                bars={s["name"]: s for s in (s1, s2, s3)},
                scope="candidate POOL, not the topN the user sees; a pool rate "
                      "is an upper bound on how often a shown suggestion is wrong",

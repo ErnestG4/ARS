@@ -1,0 +1,195 @@
+{
+ "I_list": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "maxextra": [
+  1,
+  2,
+  3
+ ],
+ "n_bases": 254,
+ "rows": [
+  {
+   "I": 0.9,
+   "maxextra": 1,
+   "n": 508,
+   "silent": 490,
+   "rate": 0.9645669291338582,
+   "n_near": 104,
+   "silent_near": 104,
+   "rate_near": 1.0
+  },
+  {
+   "I": 0.9,
+   "maxextra": 2,
+   "n": 1524,
+   "silent": 1480,
+   "rate": 0.9711286089238845,
+   "n_near": 312,
+   "silent_near": 312,
+   "rate_near": 1.0
+  },
+  {
+   "I": 0.9,
+   "maxextra": 3,
+   "n": 3556,
+   "silent": 3468,
+   "rate": 0.9752530933633295,
+   "n_near": 728,
+   "silent_near": 726,
+   "rate_near": 0.9972527472527473
+  },
+  {
+   "I": 1.5,
+   "maxextra": 1,
+   "n": 508,
+   "silent": 482,
+   "rate": 0.9488188976377953,
+   "n_near": 104,
+   "silent_near": 104,
+   "rate_near": 1.0
+  },
+  {
+   "I": 1.5,
+   "maxextra": 2,
+   "n": 1524,
+   "silent": 1458,
+   "rate": 0.9566929133858267,
+   "n_near": 312,
+   "silent_near": 310,
+   "rate_near": 0.9935897435897436
+  },
+  {
+   "I": 1.5,
+   "maxextra": 3,
+   "n": 3556,
+   "silent": 3434,
+   "rate": 0.9656917885264342,
+   "n_near": 728,
+   "silent_near": 724,
+   "rate_near": 0.9945054945054945
+  },
+  {
+   "I": 2.0,
+   "maxextra": 1,
+   "n": 508,
+   "silent": 480,
+   "rate": 0.9448818897637795,
+   "n_near": 104,
+   "silent_near": 104,
+   "rate_near": 1.0
+  },
+  {
+   "I": 2.0,
+   "maxextra": 2,
+   "n": 1524,
+   "silent": 1448,
+   "rate": 0.9501312335958005,
+   "n_near": 312,
+   "silent_near": 310,
+   "rate_near": 0.9935897435897436
+  },
+  {
+   "I": 2.0,
+   "maxextra": 3,
+   "n": 3556,
+   "silent": 3410,
+   "rate": 0.9589426321709786,
+   "n_near": 728,
+   "silent_near": 722,
+   "rate_near": 0.9917582417582418
+  },
+  {
+   "I": 3.0,
+   "maxextra": 1,
+   "n": 508,
+   "silent": 478,
+   "rate": 0.9409448818897638,
+   "n_near": 104,
+   "silent_near": 104,
+   "rate_near": 1.0
+  },
+  {
+   "I": 3.0,
+   "maxextra": 2,
+   "n": 1524,
+   "silent": 1442,
+   "rate": 0.9461942257217848,
+   "n_near": 312,
+   "silent_near": 310,
+   "rate_near": 0.9935897435897436
+  },
+  {
+   "I": 3.0,
+   "maxextra": 3,
+   "n": 3556,
+   "silent": 3392,
+   "rate": 0.953880764904387,
+   "n_near": 728,
+   "silent_near": 720,
+   "rate_near": 0.989010989010989
+  }
+ ],
+ "rate_at_I09_mx3": 0.9752530933633295,
+ "rate_at_I30_mx3": 0.953880764904387,
+ "rate_near_at_I09_mx3": 0.9972527472527473,
+ "bars": {
+  "wrong-suggestion rate at I=0.9": {
+   "name": "wrong-suggestion rate at I=0.9",
+   "value": 0.9752530933633295,
+   "thresh": 0.1,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 0.9,
+   "why": "a fraction of enumerated candidates: 0 to 1 by construction"
+  },
+  "rate at I=0.9 minus rate at I=3.0": {
+   "name": "rate at I=0.9 minus rate at I=3.0",
+   "value": 0.021372328458942547,
+   "thresh": 0.0,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 1.0,
+   "why": "a difference of two fractions each in [0,1]"
+  },
+  "rate at maxExtra=3 minus at maxExtra=1": {
+   "name": "rate at maxExtra=3 minus at maxExtra=1",
+   "value": 0.010686164229471329,
+   "thresh": 0.0,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "headroom": 1.0,
+   "why": "a difference of two fractions each in [0,1]"
+  }
+ },
+ "scope": "candidate POOL, not the topN the user sees; a pool rate is an upper bound on how often a shown suggestion is wrong",
+ "verdict": "CRITERION_WRONG_IN_PRACTICE",
+ "composed": {
+  "label": "CRITERION_WRONG_IN_PRACTICE_AND_BY_rate at I=0.9 minus rate at I=3.0_AT_rate at maxExtra=3 minus at maxExtra=1",
+  "head": "CRITERION_WRONG_IN_PRACTICE",
+  "qualifiers": [
+   "AND_BY_rate at I=0.9 minus rate at I=3.0",
+   "AT_rate at maxExtra=3 minus at maxExtra=1"
+  ],
+  "citation": "CRITERION_WRONG_IN_PRACTICE  [wrong-suggestion rate at I=0.9 0.9753 vs >=0.1 MET]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('wrong-suggestion rate at I=0.9', EXISTENCE, MET)",
+   "Arm('rate at I=0.9 minus rate at I=3.0', MECHANISM, MET)",
+   "Arm('rate at maxExtra=3 minus at maxExtra=1', RESOLUTION, MET)"
+  ]
+ }
+}
