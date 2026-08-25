@@ -21,8 +21,42 @@
    "k0_fires_everywhere": true,
    "k0_above_horizon": "114/114",
    "folded_coincidence_at_every_node": true,
-   "median_refl_k0": 9.0,
-   "median_refl_other": 0.0,
+   "refl_k0": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 127,
+    "any": true,
+    "all": true,
+    "first_witness": 0,
+    "witnesses": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "refl_other": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 10,
+    "any": true,
+    "all": false,
+    "first_witness": 9,
+    "witnesses": [
+     9,
+     19,
+     25,
+     54,
+     83,
+     89,
+     99,
+     105
+    ]
+   },
    "n_ratio_pinned_reflected": 10,
    "ratio_pinned_obey_shifted_horizon": "10/10",
    "t5_holds": true
@@ -36,8 +70,42 @@
    "k0_fires_everywhere": true,
    "k0_above_horizon": "107/107",
    "folded_coincidence_at_every_node": true,
-   "median_refl_k0": 14.0,
-   "median_refl_other": 0.0,
+   "refl_k0": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 127,
+    "any": true,
+    "all": true,
+    "first_witness": 0,
+    "witnesses": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "refl_other": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 17,
+    "any": true,
+    "all": false,
+    "first_witness": 3,
+    "witnesses": [
+     3,
+     9,
+     19,
+     25,
+     29,
+     33,
+     54,
+     75
+    ]
+   },
    "n_ratio_pinned_reflected": 17,
    "ratio_pinned_obey_shifted_horizon": "17/17",
    "t5_holds": true
@@ -51,8 +119,42 @@
    "k0_fires_everywhere": true,
    "k0_above_horizon": "99/99",
    "folded_coincidence_at_every_node": true,
-   "median_refl_k0": 20.0,
-   "median_refl_other": 0.0,
+   "refl_k0": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 127,
+    "any": true,
+    "all": true,
+    "first_witness": 0,
+    "witnesses": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "refl_other": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 25,
+    "any": true,
+    "all": false,
+    "first_witness": 0,
+    "witnesses": [
+     0,
+     3,
+     9,
+     14,
+     19,
+     25,
+     29,
+     33
+    ]
+   },
    "n_ratio_pinned_reflected": 25,
    "ratio_pinned_obey_shifted_horizon": "25/25",
    "t5_holds": true
@@ -66,8 +168,42 @@
    "k0_fires_everywhere": true,
    "k0_above_horizon": "89/89",
    "folded_coincidence_at_every_node": true,
-   "median_refl_k0": 27.0,
-   "median_refl_other": 0.0,
+   "refl_k0": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 127,
+    "any": true,
+    "all": true,
+    "first_witness": 0,
+    "witnesses": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   "refl_other": {
+    "question": "EXISTENCE",
+    "n": 127,
+    "n_nonzero": 34,
+    "any": true,
+    "all": false,
+    "first_witness": 0,
+    "witnesses": [
+     0,
+     3,
+     5,
+     9,
+     14,
+     19,
+     22,
+     25
+    ]
+   },
    "n_ratio_pinned_reflected": 34,
    "ratio_pinned_obey_shifted_horizon": "34/34",
    "t5_holds": true
