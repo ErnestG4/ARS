@@ -76,6 +76,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.expandvars("$HOME/fmexplorer/brocot"))
 from redpath import redpath                                       # noqa: E402
+from existence import summarise, EXISTENCE                        # noqa: E402
 from phase3.partial_prediction import order_bound                 # noqa: E402
 
 INDICES = [0.9, 1.5, 2.0, 3.0]
@@ -155,8 +156,16 @@ for I in INDICES:
                    k0_fires_everywhere=bool(k0_everywhere),
                    k0_above_horizon=f"{k0_above}/{n_above}",
                    folded_coincidence_at_every_node=bool(folded_any),
-                   median_refl_k0=float(np.median([r["refl_k0"] for r in per])),
-                   median_refl_other=float(np.median([r["refl_other"] for r in per])),
+                   # Routed through existence.summarise. The medians that used
+                   # to sit here read 0.0 for refl_other at every index and were
+                   # taken as absence; they were the defect, not a harmless
+                   # companion to the fix, so they are gone rather than kept
+                   # alongside. An existence field summarised centrally is the
+                   # thing verify_existence_statistic.py exists to catch, and it
+                   # caught this file still doing it after the fix.
+                   refl_k0=summarise("refl_k0", [r["refl_k0"] for r in per], EXISTENCE),
+                   refl_other=summarise("refl_other", [r["refl_other"] for r in per],
+                                        EXISTENCE),
                    n_ratio_pinned_reflected=len(ratio_pinned),
                    ratio_pinned_obey_shifted_horizon=f"{len(obey)}/{len(ratio_pinned)}",
                    t5_holds=bool(ratio_pinned and len(obey) == len(ratio_pinned)))
