@@ -60,6 +60,48 @@ for a conclusion about blame.
 ║ would change anything. Any two can hold with the third failing, and each     ║
 ║ combination writes a different sentence in the docstring.                    ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — TWO DEFECTS IN THIS CELL'S OWN INSTRUMENT, found on the first run
+and corrected before anything was banked.
+
+(i) REACHABILITY WAS TESTED AGAINST THE BASE ONLY. `Coherence.h` counts energy
+    shared by ANY two operators in the config, but the first version asked only
+    whether the candidate could coincide with the BASE. A candidate that fuses
+    with a different existing operator was scored as unreachable. The rate was
+    therefore an underestimate of "can this candidate coincide with anything in
+    the patch", which is the quantity the score actually responds to.
+
+(ii) BOTH INDICES WERE PASSED AS `new_idx`. The asymmetric corollary needs each
+    operator's OWN index, and the existing operators carry theirs from the
+    patch. Passing the candidate's index for both is exactly the index-blindness
+    this arc is auditing CoherenceSuggest for, committed in the auditor.
+
+Both corrected. The sealed bars and their directions are untouched.
+
+AMENDMENT 2 — THE ROLE ASSIGNMENT WAS WRONG, and the sealed head is therefore
+backwards. Recorded, not rewritten.
+
+C1 was sealed as the EXISTENCE arm, so it alone set the head. But C1 MET means
+"fewer than half of top-1 suggestions can coincide at all" — which does not
+support a head reading RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE. It is
+evidence in the other direction. The proposition the head names is tested by
+C2, the JURISDICTION arm, which was assigned MECHANISM.
+
+`verdictlattice` limit (1) says exactly this: the module cannot tell you a role
+was mis-assigned. This is its third instance, so limit (1b) was added in
+response — arms now carry a `claim` clause and `cite()` renders it, which makes
+a head contradicting its own existence arm legible on sight rather than
+requiring a reader to notice a role. The claims below are populated.
+
+THE CORRECT READING, composed with C2 as EXISTENCE:
+
+    RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE
+
+64.9% of the energy the score counts as shared comes from EXACTLY equal
+partials, so the horizon does have jurisdiction over the ranking; 57.7% of top-1
+suggestions cannot coincide with anything in the patch; and a horizon filter
+would change the shipped top-4 substantially (Jaccard 0.329). The docstring's
+justification was false AND the ranking partly inherits it.
 """
 import gzip
 import json
@@ -145,10 +187,20 @@ def score(ops):
     return shared / total, shared, exact
 
 
-def reachable(r_base, r_cand, I_base, I_cand):
-    al = r_cand / r_base
-    return (al.numerator <= 2 * order_bound(I_base)
-            and al.denominator <= 2 * order_bound(I_cand))
+def reachable(r_a, r_b, I_a, I_b):
+    """The asymmetric corollary for one ordered pair, each index its own."""
+    al = r_b / r_a
+    return (al.numerator <= 2 * order_bound(I_a)
+            and al.denominator <= 2 * order_bound(I_b))
+
+
+def reachable_any(r_cand, I_cand, current):
+    """Can the candidate coincide with ANY operator already in the patch?
+
+    Amendment 1(i): Coherence.h scores sharing across all pairs, so this is the
+    quantity the score responds to. Each existing operator brings its own index
+    (amendment 1(ii))."""
+    return any(reachable(r_i, r_cand, I_i, I_cand) for r_i, I_i in current)
 
 
 def tails(mx):
@@ -189,11 +241,11 @@ for nd in sample:
     scored.sort(key=lambda x: -x[0])
     n_cases += 1
     top = scored[:TOPN]
-    top1_reach += reachable(base_r, top[0][2], new_idx, new_idx)
+    top1_reach += reachable_any(top[0][2], new_idx, cur)
     for _, _, _, sh, ex in top:
         sh_tot += sh
         ex_tot += ex
-    filt = [s for s in scored if reachable(base_r, s[2], new_idx, new_idx)]
+    filt = [s for s in scored if reachable_any(s[2], new_idx, cur)]
     ftop = set(p for _, p, _, _, _ in filt[:TOPN])
     stop = set(p for _, p, _, _, _ in top)
     jacc.append(len(stop & ftop) / len(stop | ftop) if (stop | ftop) else 1.0)
@@ -223,12 +275,29 @@ print(f"mean Jaccard vs filtered     {c3:.3f}\n")
 for b, v in ((C1, c1), (C2, c2), (C3, c3)):
     print("  " + b.line(v, "{:.1%}"))
 
-v = compose([Arm.from_bar(s1, EX_ROLE, note="what the user is shown"),
-             Arm.from_bar(s2, MECH_ROLE, note="does the horizon have jurisdiction"),
-             Arm.from_bar(s3, RES_ROLE, note="would a filter change anything")],
+CLAIM1 = "fewer than half of top-1 suggestions can coincide at all"
+CLAIM2 = "less than half the shared energy is exact, so the horizon has no "\
+         "jurisdiction over this score"
+CLAIM3 = "a horizon filter would change what is shown"
+# the lattice EXACTLY AS SEALED, reported unchanged. See amendment 2.
+v = compose([Arm.from_bar(s1, EX_ROLE, note="what the user is shown",
+                          claim=CLAIM1),
+             Arm.from_bar(s2, MECH_ROLE, claim=CLAIM2,
+                          note="does the horizon have jurisdiction"),
+             Arm.from_bar(s3, RES_ROLE, claim=CLAIM3,
+                          note="would a filter change anything")],
             holds="RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
             fails="RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE")
-print(f"\nVERDICT: {v['citation']}")
+# and re-composed with the JURISDICTION arm as EXISTENCE, which is what the
+# head's proposition actually tests. Not a re-score: every bar is unchanged.
+v2 = compose([Arm.from_bar(s2, EX_ROLE, claim=CLAIM2),
+              Arm.from_bar(s1, RES_ROLE, claim=CLAIM1),
+              Arm.from_bar(s3, RES_ROLE, claim=CLAIM3)],
+             holds="RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+             fails="RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE")
+print(f"\nVERDICT (sealed roles, unchanged): {v['citation']}")
+print(f"\nVERDICT (amendment 2, jurisdiction arm as EXISTENCE):")
+print(f"  {v2['citation']}")
 print(f"\n  C2 is the jurisdiction arm: {c2:.1%} of the energy the score counts")
 if s2["met"]:
     print("  as shared comes from exactly-equal partials, so the score is")
@@ -250,6 +319,7 @@ json.dump(dict(graph=os.path.basename(GRAPH), seed=SEED, n_cases=n_cases,
                top1_reachable_rate=c1, exact_share_of_shared=c2,
                mean_jaccard=c3,
                bars={s["name"]: s for s in (s1, s2, s3)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"], composed=v,
+               verdict_amended=v2["head"], composed_amended=v2),
           open(f"{HERE}/brocot_suggest_score_census.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_suggest_score_census.json")

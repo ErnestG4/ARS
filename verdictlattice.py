@@ -100,10 +100,10 @@ class Arm:
     `value` and `thresh` are optional but strongly preferred: they are what
     makes `cite()` carry a finding rather than a disposition."""
     __slots__ = ("name", "role", "met", "inert", "note", "value", "thresh",
-                 "direction")
+                 "direction", "claim")
 
     def __init__(self, name, role, met, inert=False, note="",
-                 value=None, thresh=None, direction="ge"):
+                 value=None, thresh=None, direction="ge", claim=""):
         if role not in _ROLES:
             raise BadLattice(
                 f"'{name}': role must be one of {_ROLES}, not {role!r}. There is "
@@ -112,6 +112,7 @@ class Arm:
         self.name, self.role = name, role
         self.met, self.inert, self.note = bool(met), bool(inert), note
         self.value, self.thresh, self.direction = value, thresh, direction
+        self.claim = claim
 
     def cite(self):
         """This arm as evidence: value against bar, not just MET/MISSED."""
@@ -121,15 +122,16 @@ class Arm:
         op = ">=" if self.direction == "ge" else "<="
         v = f"{self.value:.4g}" if isinstance(self.value, float) else self.value
         t = f"{self.thresh:.4g}" if isinstance(self.thresh, float) else self.thresh
-        return f"{self.name} {v} vs {op}{t} {state}"
+        out = f"{self.name} {v} vs {op}{t} {state}"
+        return out + (f' — "{self.claim}"' if self.claim else "")
 
     @classmethod
-    def from_bar(cls, score, role, note=""):
+    def from_bar(cls, score, role, note="", claim=""):
         """Build from a `reachable.Bar.score()` dict, inheriting its inertness."""
         return cls(score["name"], role, score["met"],
                    inert=score.get("out_of_range", False), note=note,
                    value=score.get("value"), thresh=score.get("thresh"),
-                   direction=score.get("direction", "ge"))
+                   direction=score.get("direction", "ge"), claim=claim)
 
     def __repr__(self):
         state = ("INERT" if self.inert else "MET" if self.met else "MISSED")
@@ -245,6 +247,16 @@ if __name__ == "__main__":
     print(f"    finding     : {erb['citation']}")
     if erb["citation"] == erb["head"]:
         raise SystemExit("RED PATH FAILED: the citation carried no arm values")
+
+    print("\n--- (1b) · a head contradicting its own existence arm's claim ---")
+    bad = compose([Arm("top-1 reachable", EXISTENCE, True, value=0.423,
+                       thresh=0.5, direction="le",
+                       claim="fewer than half of top-1 suggestions can "
+                             "coincide at all")],
+                  holds="RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+                  fails="RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE")
+    print(f"    {bad['citation']}")
+    print("    the head and the claim cannot both be right — legible on sight")
 
     print("\n--- red path 5 · an arm with no value still cites honestly ---")
     bare = compose([Arm("holds", EXISTENCE, True)], holds="H", fails="N")

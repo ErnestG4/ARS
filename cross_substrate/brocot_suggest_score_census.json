@@ -1,0 +1,84 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "seed": 20260825,
+ "n_cases": 300,
+ "cents_tolerance": 12.0,
+ "max_order": 24,
+ "maxextra": 3,
+ "topn": 4,
+ "top1_reachable_rate": 0.42333333333333334,
+ "exact_share_of_shared": 0.6490414139869731,
+ "mean_jaccard": 0.3287857142857143,
+ "bars": {
+  "top-1 suggestions that are horizon-reachable": {
+   "name": "top-1 suggestions that are horizon-reachable",
+   "value": 0.42333333333333334,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.5,
+   "why": "a fraction of cases: 0 to 1"
+  },
+  "shared energy that is EXACTLY coincident": {
+   "name": "shared energy that is EXACTLY coincident",
+   "value": 0.6490414139869731,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.5,
+   "why": "exactly-shared energy is a subset of shared energy, so the ratio lies in [0,1]"
+  },
+  "Jaccard(shipped top-4, horizon-filtered top-4)": {
+   "name": "Jaccard(shipped top-4, horizon-filtered top-4)",
+   "value": 0.3287857142857143,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "headroom": 0.5,
+   "why": "a Jaccard index lies in [0,1]"
+  }
+ },
+ "verdict": "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+ "composed": {
+  "label": "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE_BUT_NOT_BY_shared energy that is EXACTLY coincident_AT_Jaccard(shipped top-4, horizon-filtered top-4)",
+  "head": "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+  "qualifiers": [
+   "BUT_NOT_BY_shared energy that is EXACTLY coincident",
+   "AT_Jaccard(shipped top-4, horizon-filtered top-4)"
+  ],
+  "citation": "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE  [top-1 suggestions that are horizon-reachable 0.4233 vs <=0.5 MET \u2014 \"fewer than half of top-1 suggestions can coincide at all\"; shared energy that is EXACTLY coincident 0.649 vs <=0.5 MISSED \u2014 \"less than half the shared energy is exact, so the horizon has no jurisdiction over this score\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('top-1 suggestions that are horizon-reachable', EXISTENCE, MET)",
+   "Arm('shared energy that is EXACTLY coincident', MECHANISM, MISSED)",
+   "Arm('Jaccard(shipped top-4, horizon-filtered top-4)', RESOLUTION, MET)"
+  ]
+ },
+ "verdict_amended": "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE",
+ "composed_amended": {
+  "label": "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE_AT_top-1 suggestions that are horizon-reachable_AT_Jaccard(shipped top-4, horizon-filtered top-4)",
+  "head": "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE",
+  "qualifiers": [
+   "AT_top-1 suggestions that are horizon-reachable",
+   "AT_Jaccard(shipped top-4, horizon-filtered top-4)"
+  ],
+  "citation": "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE  [shared energy that is EXACTLY coincident 0.649 vs <=0.5 MISSED \u2014 \"less than half the shared energy is exact, so the horizon has no jurisdiction over this score\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('shared energy that is EXACTLY coincident', EXISTENCE, MISSED)",
+   "Arm('top-1 suggestions that are horizon-reachable', RESOLUTION, MET)",
+   "Arm('Jaccard(shipped top-4, horizon-filtered top-4)', RESOLUTION, MET)"
+  ]
+ }
+}
