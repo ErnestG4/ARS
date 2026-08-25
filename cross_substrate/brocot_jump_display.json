@@ -1,0 +1,152 @@
+{
+ "I": 0.9,
+ "a0": 0.7,
+ "a1": 1.4,
+ "B": 4,
+ "horizon": 8,
+ "delta": 0.005,
+ "n_markers": 14,
+ "markers": [
+  {
+   "ratio": "5/7",
+   "value": 0.7142857142857143,
+   "maxpq": 7,
+   "direct": 8,
+   "reflected": 0,
+   "weight": 8,
+   "kind": "direct"
+  },
+  {
+   "ratio": "3/4",
+   "value": 0.75,
+   "maxpq": 4,
+   "direct": 30,
+   "reflected": 4,
+   "weight": 34,
+   "kind": "direct"
+  },
+  {
+   "ratio": "4/5",
+   "value": 0.8,
+   "maxpq": 5,
+   "direct": 20,
+   "reflected": 2,
+   "weight": 22,
+   "kind": "direct"
+  },
+  {
+   "ratio": "5/6",
+   "value": 0.8333333333333334,
+   "maxpq": 6,
+   "direct": 12,
+   "reflected": 2,
+   "weight": 14,
+   "kind": "direct"
+  },
+  {
+   "ratio": "6/7",
+   "value": 0.8571428571428571,
+   "maxpq": 7,
+   "direct": 6,
+   "reflected": 0,
+   "weight": 6,
+   "kind": "direct"
+  },
+  {
+   "ratio": "7/8",
+   "value": 0.875,
+   "maxpq": 8,
+   "direct": 2,
+   "reflected": 0,
+   "weight": 2,
+   "kind": "direct"
+  },
+  {
+   "ratio": "1",
+   "value": 1.0,
+   "maxpq": 1,
+   "direct": 64,
+   "reflected": 28,
+   "weight": 92,
+   "kind": "direct"
+  },
+  {
+   "ratio": "8/7",
+   "value": 1.1428571428571428,
+   "maxpq": 8,
+   "direct": 2,
+   "reflected": 0,
+   "weight": 2,
+   "kind": "direct"
+  },
+  {
+   "ratio": "7/6",
+   "value": 1.1666666666666667,
+   "maxpq": 7,
+   "direct": 6,
+   "reflected": 1,
+   "weight": 7,
+   "kind": "direct"
+  },
+  {
+   "ratio": "6/5",
+   "value": 1.2,
+   "maxpq": 6,
+   "direct": 12,
+   "reflected": 1,
+   "weight": 13,
+   "kind": "direct"
+  },
+  {
+   "ratio": "5/4",
+   "value": 1.25,
+   "maxpq": 5,
+   "direct": 20,
+   "reflected": 5,
+   "weight": 25,
+   "kind": "direct"
+  },
+  {
+   "ratio": "9/7",
+   "value": 1.2857142857142858,
+   "maxpq": 9,
+   "direct": 0,
+   "reflected": 1,
+   "weight": 1,
+   "kind": "reflected-only"
+  },
+  {
+   "ratio": "4/3",
+   "value": 1.3333333333333333,
+   "maxpq": 4,
+   "direct": 30,
+   "reflected": 7,
+   "weight": 37,
+   "kind": "direct"
+  },
+  {
+   "ratio": "7/5",
+   "value": 1.4,
+   "maxpq": 7,
+   "direct": 8,
+   "reflected": 3,
+   "weight": 11,
+   "kind": "direct"
+  }
+ ],
+ "coverage_top_decile": 0.55,
+ "grad_near": 0.011871360199464553,
+ "grad_far": 0.006030035115122581,
+ "contrast": 1.968704986425809,
+ "weight_vs_jump_rho": 0.5676571091779195,
+ "weight_ci": [
+  -0.029851077787707063,
+  0.9535861124819958
+ ],
+ "predictions": {
+  "J1": false,
+  "J2": false,
+  "J3": false
+ },
+ "verdict": "NOT_VALIDATED"
+}
