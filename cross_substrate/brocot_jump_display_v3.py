@@ -66,6 +66,42 @@ got wrong three times by hand.
 ║ the honest reading is "the parent boundaries contain the jumps but the set   ║
 ║ is too dense to display", which is a real result and a worse feature.        ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — AFTER OUTPUT, 2026-08-24. The sealed bars stand; what follows is
+the mechanism behind the miss, and it is analytic rather than statistical.
+
+COVERAGE WAS 0.0%, AND THAT IS A THEOREM, NOT AN ACCIDENT. A below-horizon node
+is its own parent with gap exactly 0, so a whole neighbourhood of it takes that
+node as its parent; the argmin can only switch strictly BETWEEN two nodes, and
+the kept markers duly land on their mediants (8/9 between 7/8 and 1, 9/8
+between 1 and 8/7, 9/7 between 5/4 and 4/3). The measured jumps sit on the
+nodes themselves — the eight largest are 1.5 grid steps from a node marker and
+89 to 140 steps from any parent boundary.
+
+So the two objects are DISJOINT BY CONSTRUCTION: the perceptual category
+boundary is the point farthest from either category's spectral event. The
+premise of v3 — "the structural event is the moment the category changes" — is
+false, and false for a reason worth keeping: a category change is not a
+spectral change. Nothing merges at a mediant. The parent switches while the
+partial set moves continuously.
+
+THIS IS A DESIGN RESULT, NOT ONLY A NEGATIVE. It says the map needs two layers
+and that they cannot collide:
+
+    REGION  parent identity — a categorical field, piecewise constant, whose
+            boundaries are mediants of node pairs. 13 regions across [0.7, 1.4].
+    EVENT   spectral discontinuity — at and beside the nodes, where partials
+            merge or cross the amplitude floor. v1/v2's marker set.
+
+A display that draws the region fill and the event ticks together has no
+contention for the same pixel, because the events sit at region CENTRES and the
+boundaries sit where nothing happens. That is a better property than the one
+this cell set out to demonstrate.
+
+STILL UNEXPLAINED, AND UNCHANGED FROM v2: the node set covers only 30.4% of
+large jumps. The remaining ~70% are amplitude-threshold crossings, which no
+Farey-enumerable set will ever mark. That was v2's finding and v3 does not
+improve on it.
 """
 import json
 import os

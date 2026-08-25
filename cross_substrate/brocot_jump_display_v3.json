@@ -1,0 +1,164 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "A": 8,
+ "a0": 0.7,
+ "a1": 1.4,
+ "grid": 3501,
+ "delta_steps": 3,
+ "abs_jump": 0.05,
+ "n_candidates": 47,
+ "n_markers": 13,
+ "n_node_markers": 12,
+ "n_large_jumps": 69,
+ "coverage": 0.0,
+ "coverage_node_set": 0.30434782608695654,
+ "contrast": 1.6356222302802497,
+ "median_near": 0.003787626109762021,
+ "median_far": 0.00231570960558114,
+ "contrast_oracle_ceiling": 34.60549153362891,
+ "density_ratio": 1.0833333333333333,
+ "bars": {
+  "coverage of large jumps": {
+   "name": "coverage of large jumps",
+   "value": 0.0,
+   "thresh": 0.8,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "out_of_range": false,
+   "headroom": 0.19999999999999996,
+   "why": "a fraction of the large-jump steps: 0 to 1 by construction"
+  },
+  "contrast near vs away": {
+   "name": "contrast near vs away",
+   "value": 1.6356222302802497,
+   "thresh": 3.0,
+   "floor": 0.0,
+   "ceiling": 34.60549153362891,
+   "met": false,
+   "out_of_range": false,
+   "headroom": 31.605491533628907,
+   "why": "the ORACLE marker set \u2014 markers placed exactly on the large jumps \u2014 is the best contrast any marker set can reach on this series; compare to the ideal, not to the best observed"
+  },
+  "parent coverage / node coverage": {
+   "name": "parent coverage / node coverage",
+   "value": 0.0,
+   "thresh": 1.5,
+   "floor": 0.0,
+   "ceiling": 3.2857142857142856,
+   "met": false,
+   "out_of_range": false,
+   "headroom": 1.7857142857142856,
+   "why": "coverage cannot exceed 1, so the ratio cannot exceed 1/cov_node"
+  },
+  "marker density vs node set": {
+   "name": "marker density vs node set",
+   "value": 1.0833333333333333,
+   "thresh": 3.0,
+   "floor": 0.08333333333333333,
+   "ceiling": 3.9166666666666665,
+   "met": true,
+   "out_of_range": false,
+   "headroom": 2.9166666666666665,
+   "why": "at least one marker; at most every candidate tie point, which is the full |num|,|den| <= 2A set in range"
+  }
+ },
+ "verdict": "JUMPS_NOT_EXPLAINED",
+ "composed": {
+  "label": "JUMPS_NOT_EXPLAINED_BUT_NOT_BY_parent coverage / node coverage_AT_marker density vs node set",
+  "head": "JUMPS_NOT_EXPLAINED",
+  "qualifiers": [
+   "BUT_NOT_BY_parent coverage / node coverage",
+   "AT_marker density vs node set"
+  ],
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('coverage of large jumps', EXISTENCE, MISSED)",
+   "Arm('contrast near vs away', EXISTENCE, MISSED)",
+   "Arm('parent coverage / node coverage', MECHANISM, MISSED)",
+   "Arm('marker density vs node set', RESOLUTION, MET)"
+  ]
+ },
+ "markers": [
+  {
+   "value": 0.7,
+   "ratio": "7/10",
+   "left": "2/3",
+   "right": "5/7"
+  },
+  {
+   "value": 0.7272727272727273,
+   "ratio": "8/11",
+   "left": "5/7",
+   "right": "3/4"
+  },
+  {
+   "value": 0.7777777777777778,
+   "ratio": "7/9",
+   "left": "3/4",
+   "right": "4/5"
+  },
+  {
+   "value": 0.8181818181818182,
+   "ratio": "9/11",
+   "left": "4/5",
+   "right": "5/6"
+  },
+  {
+   "value": 0.8461538461538461,
+   "ratio": "11/13",
+   "left": "5/6",
+   "right": "6/7"
+  },
+  {
+   "value": 0.8666666666666667,
+   "ratio": "13/15",
+   "left": "6/7",
+   "right": "7/8"
+  },
+  {
+   "value": 0.8888888888888888,
+   "ratio": "8/9",
+   "left": "7/8",
+   "right": "1"
+  },
+  {
+   "value": 1.125,
+   "ratio": "9/8",
+   "left": "1",
+   "right": "8/7"
+  },
+  {
+   "value": 1.1538461538461537,
+   "ratio": "15/13",
+   "left": "8/7",
+   "right": "7/6"
+  },
+  {
+   "value": 1.1818181818181819,
+   "ratio": "13/11",
+   "left": "7/6",
+   "right": "6/5"
+  },
+  {
+   "value": 1.2222222222222223,
+   "ratio": "11/9",
+   "left": "6/5",
+   "right": "5/4"
+  },
+  {
+   "value": 1.2857142857142858,
+   "ratio": "9/7",
+   "left": "5/4",
+   "right": "4/3"
+  },
+  {
+   "value": 1.375,
+   "ratio": "11/8",
+   "left": "4/3",
+   "right": "7/5"
+  }
+ ]
+}
