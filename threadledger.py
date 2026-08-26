@@ -242,6 +242,19 @@ ENTRIES = [
               "the marker gate could not reach. Sustain length is load-bearing "
               "-- separations of 1-24 Hz need 40 ms to 1 s to exist at all, so "
               "a staccato stimulus cannot carry the category"),
+    dict(id="masked-horizon-stage-a", status=LANDED,
+         request="Stage A of audible-horizon-calibration: derive the floor from "
+                 "masking instead of choosing it",
+         artifact="cross_substrate/brocot_masked_horizon.json",
+         verdict="MASKING_GIVES_A_DERIVED_HORIZON",
+         note="at I=0.9 only the UNISON coincidence clears threshold (1 of 13; "
+              "1/1 at +10.7 dB SMR, 3/4 at -21 to -34 dB). M2 decisive: 0% "
+              "change across 12 dB of margin vs the chosen floor's 40%. M3 "
+              "MISSED in the unpredicted direction -- masking is MORE "
+              "restrictive than -40 dB, not less. Filter width was the untested "
+              "knob: robust at I=0.9 (1-2 over a 4x change), NOT at I>=2 (0-6). "
+              "Bounds EXACT-coincidence audibility only; the beat coordinate is "
+              "dynamic and outside static masking's jurisdiction"),
     dict(id="coherence-model-gap", status=QUEUED,
          request="Coherence.h models the spectrum as a SUM of independent combs "
                  "(partials only at |1 +/- m*r|, energy J_m(I)^2) when "
