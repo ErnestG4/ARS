@@ -66,6 +66,43 @@ at moderate level, and not "would a listener report it" -- that is Stage B, the
 ║ M2 IS THE CELL. M1 can hold trivially if masking is severe and M3 can hold   ║
 ║ by luck; M2 is the claim that this criterion is worth preferring.            ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — THE FREE PARAMETER I DID NOT SEAL AGAINST.
+
+M2 tested robustness to the MARGIN and got 0.0% change over 12 dB, which is a
+real improvement on the chosen floor's 40%. But the margin is not the only free
+parameter: the Gaussian spreading uses sigma = ERB, and a real auditory filter
+is NARROWER than that -- ERB is the equivalent rectangular bandwidth, so a
+Gaussian with sigma = ERB over-masks. Filter width is the more consequential
+knob and nothing sealed here tested it. Measured after the fact:
+
+    sigma        I=0.9  I=1.5  I=2.0  I=3.0
+    ERB              1      1      0      0
+    ERB/2            1      1      1      2
+    ERB/2.5          1      1      2      3
+    ERB/4            2      3      4      6
+
+AT THE INSTRUMENT'S OWN INDEX THE RESULT IS ROBUST: 1 to 2 audible coincidences
+across a fourfold change in filter width, and 0% change across 12 dB of margin.
+AT HIGHER INDICES IT IS NOT: at I = 3.0 the count runs 0 to 6 over the same
+range, so any count quoted for I >= 2 must carry its filter width. That is the
+same discipline the dB floor got, applied to the parameter that turned out to
+matter more.
+
+WHAT THIS DOES AND DOES NOT TOUCH -- stated because the headline invites
+overreading.
+
+  IT BOUNDS: the audibility of EXACT COINCIDENCE. At I = 0.9, under relative
+  masking, essentially only the unison coincidence clears threshold. The
+  coincidence horizon as a PERCEPTUAL object nearly collapses to 1/1.
+
+  IT DOES NOT TOUCH: the theorem, which is arithmetic; the parent taxonomy,
+  which is about NEAR-coincidence; or the separation coordinate, which is a
+  BEAT -- a dynamic amplitude modulation at gap*f_c Hz, not a static partial
+  competing for an auditory filter. `brocot_beat_target` records exactly this
+  asymmetry: a 3 Hz beat lives in a regime static masking has no jurisdiction
+  over. The structural field organises the space; what a player hears moving
+  through it is the beat, not the merge.
 """
 import json
 import os
@@ -113,19 +150,20 @@ def lattice(alpha, I, B):
     return np.array(sorted(out)), np.array([out[k] for k in sorted(out)])
 
 
-def audible(fk, ak, f, a, margin_db):
+def audible(fk, ak, f, a, margin_db, width_scale=1.0):
     """Is the partial at fk above the masking its neighbours produce there?"""
     other = f != fk
     if not other.any():
         return True
     e = np.sqrt(np.sum((a[other] ** 2)
-                       * np.exp(-0.5 * ((fk - f[other]) / erb_w(f[other])) ** 2)))
+                       * np.exp(-0.5 * ((fk - f[other])
+                                        / (erb_w(f[other]) * width_scale)) ** 2)))
     if e <= 0:
         return True
     return 20.0 * np.log10(ak / e) > margin_db
 
 
-def witness_audible(alpha, I, B, margin_db):
+def witness_audible(alpha, I, B, margin_db, width_scale=1.0):
     p, q = alpha.numerator, alpha.denominator
     n1, n1p = -(-p // 2), -(p // 2)
     n2, n2p = -(q // 2), -(-q // 2)
@@ -137,7 +175,7 @@ def witness_audible(alpha, I, B, margin_db):
         amp = abs(float(jv(x, I)) * float(jv(y, I)))
         nu = abs(1.0 + x + y * float(alpha)) * F_C
         idx = np.argmin(np.abs(f - nu))
-        if not audible(f[idx], amp, f, a, margin_db):
+        if not audible(f[idx], amp, f, a, margin_db, width_scale):
             ok = False
     return ok
 
@@ -177,14 +215,12 @@ M3 = Bar("audible ratios at 0 dB margin, vs the crude floor's 3", 4,
          why=f"the same count, 0 to {n0}, with the bar strictly inside")
 s1, s2, s3 = M1.score(m1), M2.score(m2), M3.score(m3)
 
-# the declared domain gets its own edge probe, per the construction-time rule
-probe = edge_probe(f"margin in [{MARGINS[0]}, {MARGINS[-1]}] dB",
-                   MARGINS[0], MARGINS[-1],
-                   lambda m: per[PRIMARY_I]["counts"].get(
-                       m, sum(bool(witness_audible(f, PRIMARY_I,
-                                                   per[PRIMARY_I]["B"], m))
-                              for f in [Fraction(1), Fraction(4, 3)])) > 2,
-                   step=6.0)
+# NO EDGE PROBE ON THE MARGIN. It was written here and it RAISED, correctly:
+# the margin range is a SWEEP, not a declared domain. Nothing is claimed to
+# change at -6 or +6 dB; they are sampling points. The probe belongs on domains
+# whose edge is load-bearing, and misapplying it within an hour of writing the
+# rule is recorded in reachable.py rather than quietly deleted. The margin's
+# stability is what M2 measures, which is the right instrument for it.
 
 print(f"masked-threshold census, f_c = {F_C:.0f} Hz, Glasberg-Moore ERB\n")
 print(f"{'I':>5s} {'B':>3s} {'A':>3s} {'n':>4s} " +
@@ -200,8 +236,23 @@ print(f"\nI = {PRIMARY_I}, margin {PRIMARY_MARGIN:+.0f} dB — audible: "
 print()
 for b, v, f in ((M1, m1, "{:.0f}"), (M2, m2, "{:.1%}"), (M3, m3, "{:.0f}")):
     print("  " + b.line(v, f))
-print(f"\n  margin-domain edge probe: lower bound bites = "
-      f"{probe['lo_is_a_boundary']}, upper = {probe['hi_is_a_boundary']}")
+print("\n  (no edge probe on the margin: a sweep range is not a declared "
+      "domain — see reachable.edge_probe)")
+print("\n  FILTER-WIDTH SENSITIVITY (amendment 1, measured not sealed):")
+print(f"  {'sigma':>9s} " + "".join(f"{'I=' + str(I):>7s}" for I in I_LIST))
+for lab, sc in (("ERB", 1.0), ("ERB/2", 0.5), ("ERB/2.5", 0.4), ("ERB/4", 0.25)):
+    row = []
+    for I in I_LIST:
+        B = order_bound(I)
+        A = 2 * B
+        rs = sorted({Fraction(p, q) for q in range(1, A + 1)
+                     for p in range(1, A + 1)
+                     if gcd(p, q) == 1 and LO <= Fraction(p, q) <= HI
+                     and max(p, q) <= A}, key=float)
+        row.append(sum(bool(witness_audible(f, I, B, PRIMARY_MARGIN, sc))
+                       for f in rs))
+    print(f"  {lab:>9s} " + "".join(f"{c:>7d}" for c in row))
+print("  robust at I = 0.9 (1-2 across a 4x width change); NOT at I >= 2")
 
 v = compose([Arm.from_bar(s1, EX_ROLE,
                           claim="masking excludes at least one ratio the eps "
@@ -224,10 +275,21 @@ json.dump(dict(I_list=I_LIST, margins=MARGINS, f_c=F_C,
                                    counts={str(m): c for m, c in d["counts"].items()},
                                    audible=d["audible_at_primary"])
                       for k, d in per.items()},
-               margin_edge_probe={k: str(x) for k, x in probe.items()},
                bars={s["name"]: s for s in (s1, s2, s3)},
                scope="relative masking only: no absolute threshold in quiet, no "
-                     "temporal integration, no binaural effects",
+                     "temporal integration, no binaural effects. Gaussian "
+                     "sigma = ERB over-masks; see amendment 1's width table.",
+               width_sensitivity={lab: {str(I): sum(
+                   bool(witness_audible(f, I, order_bound(I), PRIMARY_MARGIN, sc))
+                   for f in sorted({Fraction(p, q)
+                                    for q in range(1, 2 * order_bound(I) + 1)
+                                    for p in range(1, 2 * order_bound(I) + 1)
+                                    if gcd(p, q) == 1
+                                    and LO <= Fraction(p, q) <= HI
+                                    and max(p, q) <= 2 * order_bound(I)},
+                                   key=float)) for I in I_LIST}
+                   for lab, sc in (("ERB", 1.0), ("ERB/2", 0.5),
+                                   ("ERB/2.5", 0.4), ("ERB/4", 0.25))},
                verdict=v["head"], composed=v),
           open(f"{HERE}/brocot_masked_horizon.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_masked_horizon.json")

@@ -1,0 +1,163 @@
+{
+ "I_list": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "margins": [
+  -6.0,
+  0.0,
+  6.0
+ ],
+ "f_c": 220.0,
+ "primary_I": 0.9,
+ "primary_margin": 0.0,
+ "per_I": {
+  "0.9": {
+   "B": 4,
+   "A": 8,
+   "n": 13,
+   "counts": {
+    "-6.0": 1,
+    "0.0": 1,
+    "6.0": 1
+   },
+   "audible": [
+    "1"
+   ]
+  },
+  "1.5": {
+   "B": 5,
+   "A": 10,
+   "n": 20,
+   "counts": {
+    "-6.0": 1,
+    "0.0": 1,
+    "6.0": 0
+   },
+   "audible": [
+    "1"
+   ]
+  },
+  "2.0": {
+   "B": 6,
+   "A": 12,
+   "n": 28,
+   "counts": {
+    "-6.0": 0,
+    "0.0": 0,
+    "6.0": 0
+   },
+   "audible": []
+  },
+  "3.0": {
+   "B": 7,
+   "A": 14,
+   "n": 38,
+   "counts": {
+    "-6.0": 0,
+    "0.0": 0,
+    "6.0": 0
+   },
+   "audible": []
+  }
+ },
+ "bars": {
+  "audible ratios at 0 dB margin": {
+   "name": "audible ratios at 0 dB margin",
+   "value": 1,
+   "thresh": 12,
+   "floor": 0,
+   "ceiling": 13,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 12,
+   "why": "a count of the 13 below-horizon ratios at I = 0.9: 0 to 13, and the bar sits strictly inside"
+  },
+  "relative change over a 12 dB margin swing": {
+   "name": "relative change over a 12 dB margin swing",
+   "value": 0.0,
+   "thresh": 0.25,
+   "floor": 0.0,
+   "ceiling": 13.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0.25,
+   "why": "a relative change against a count of at least 1, bounded above by 13"
+  },
+  "audible ratios at 0 dB margin, vs the crude floor's 3": {
+   "name": "audible ratios at 0 dB margin, vs the crude floor's 3",
+   "value": 1,
+   "thresh": 4,
+   "floor": 0,
+   "ceiling": 13,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 9,
+   "why": "the same count, 0 to 13, with the bar strictly inside"
+  }
+ },
+ "scope": "relative masking only: no absolute threshold in quiet, no temporal integration, no binaural effects. Gaussian sigma = ERB over-masks; see amendment 1's width table.",
+ "width_sensitivity": {
+  "ERB": {
+   "0.9": 1,
+   "1.5": 1,
+   "2.0": 0,
+   "3.0": 0
+  },
+  "ERB/2": {
+   "0.9": 1,
+   "1.5": 1,
+   "2.0": 1,
+   "3.0": 2
+  },
+  "ERB/2.5": {
+   "0.9": 1,
+   "1.5": 1,
+   "2.0": 2,
+   "3.0": 3
+  },
+  "ERB/4": {
+   "0.9": 2,
+   "1.5": 3,
+   "2.0": 4,
+   "3.0": 6
+  }
+ },
+ "verdict": "MASKING_GIVES_A_DERIVED_HORIZON",
+ "composed": {
+  "label": "MASKING_GIVES_A_DERIVED_HORIZON_AND_BY_relative change over a 12 dB margin swing_COARSELY_AT_audible ratios at 0 dB margin, vs the crude floor's 3",
+  "head": "MASKING_GIVES_A_DERIVED_HORIZON",
+  "qualifiers": [
+   "AND_BY_relative change over a 12 dB margin swing",
+   "COARSELY_AT_audible ratios at 0 dB margin, vs the crude floor's 3"
+  ],
+  "citation": "MASKING_GIVES_A_DERIVED_HORIZON  [audible ratios at 0 dB margin 1 vs <=12 MET \u2014 \"masking excludes at least one ratio the eps horizon admits\"; audible ratios at 0 dB margin, vs the crude floor's 3 1 vs >=4 MISSED \u2014 \"it is not the -40 dB floor under another name\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('audible ratios at 0 dB margin', EXISTENCE, MET)",
+   "Arm('relative change over a 12 dB margin swing', MECHANISM, MET)",
+   "Arm(\"audible ratios at 0 dB margin, vs the crude floor's 3\", RESOLUTION, MISSED)"
+  ]
+ }
+}

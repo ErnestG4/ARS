@@ -71,6 +71,15 @@ def edge_probe(name, lo, hi, predicate, step=1, inside=None):
     declared bound, because then the bound is not the thing doing the work.
     `inside` optionally supplies a point known to be interior, for domains where
     lo+step is not yet inside.
+
+    WHAT THIS IS NOT FOR, learned by misapplying it within an hour of writing
+    it: a SWEEP RANGE is not a declared domain. "I evaluated the margin at -6,
+    0 and +6 dB" claims nothing about -6 or +6 being boundaries; it is a
+    sampling choice. Probing it raises, correctly and uselessly. The probe
+    belongs on domains whose EDGE IS LOAD-BEARING -- "alpha in (1/A, A)",
+    "convergents with p >= 1", "q inside the usable prefix" -- where the claim
+    is precisely that something changes there. If nothing is claimed to change
+    at the bound, there is no edge to probe.
     """
     at_lo, at_hi = predicate(lo), predicate(hi)
     below, above = predicate(lo - step), predicate(hi + step)
