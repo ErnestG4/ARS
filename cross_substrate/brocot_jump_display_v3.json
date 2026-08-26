@@ -26,6 +26,7 @@
    "floor": 0.0,
    "ceiling": 1.0,
    "met": false,
+   "direction": "ge",
    "out_of_range": false,
    "headroom": 0.19999999999999996,
    "why": "a fraction of the large-jump steps: 0 to 1 by construction"
@@ -37,6 +38,7 @@
    "floor": 0.0,
    "ceiling": 34.60549153362891,
    "met": false,
+   "direction": "ge",
    "out_of_range": false,
    "headroom": 31.605491533628907,
    "why": "the ORACLE marker set \u2014 markers placed exactly on the large jumps \u2014 is the best contrast any marker set can reach on this series; compare to the ideal, not to the best observed"
@@ -48,6 +50,7 @@
    "floor": 0.0,
    "ceiling": 3.2857142857142856,
    "met": false,
+   "direction": "ge",
    "out_of_range": false,
    "headroom": 1.7857142857142856,
    "why": "coverage cannot exceed 1, so the ratio cannot exceed 1/cov_node"
@@ -59,6 +62,7 @@
    "floor": 0.08333333333333333,
    "ceiling": 3.9166666666666665,
    "met": true,
+   "direction": "le",
    "out_of_range": false,
    "headroom": 2.9166666666666665,
    "why": "at least one marker; at most every candidate tie point, which is the full |num|,|den| <= 2A set in range"
@@ -72,6 +76,7 @@
    "BUT_NOT_BY_parent coverage / node coverage",
    "AT_marker density vs node set"
   ],
+  "citation": "JUMPS_NOT_EXPLAINED  [coverage of large jumps 0 vs >=0.8 MISSED; contrast near vs away 1.636 vs >=3 MISSED; parent coverage / node coverage 0 vs >=1.5 MISSED]",
   "dropped": [],
   "unread": [],
   "arms": [

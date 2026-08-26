@@ -1,0 +1,56 @@
+{
+ "baseline": "0dd7bb6",
+ "rows": [
+  {
+   "cell": "brocot_above_horizon_parent",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_audible_horizon",
+   "state": "REFUSED",
+   "why": "reachable.UnreachableBar: 'audible share at -60 dB': bar 1.0 sits AT OR ABOVE the reachable ceiling 1.0 \u2014 every possible value meets it, so the arm cannot MISS. (a fraction of below-horizon ratios: 0 to 1)"
+  },
+  {
+   "cell": "brocot_index_routing",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_jump_display_v3",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_map_dimension",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_path_truncation",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_suggest_census",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_suggest_score_census",
+   "state": "SURVIVES",
+   "why": ""
+  },
+  {
+   "cell": "brocot_truncated_butterfly",
+   "state": "SURVIVES",
+   "why": ""
+  }
+ ],
+ "n_surviving": 8,
+ "n_refused": 1,
+ "disclosed": {
+  "brocot_audible_horizon": "SHIPPED. Its -40/-60 dB region tables are in brocot MAP-FIELD.md. Both arms it designated EXISTENCE were inert -- E1 ('share <= 1.0' against ceiling 1.0) and E3 ('<= 13 regions' against ceiling 13, off by one from the real claim, 12) -- so the cell as sealed could not have failed to find a shrinkage. The COUNTS are computations and do not depend on any bar; what was uncertified was the CLAIM that they constitute a shrinkage. E2 (23.1% audible at -40 dB against a bar of 50%) is a live arm on a [0,1] range and does certify it. MAP-FIELD.md carries the disclosure."
+ },
+ "undisclosed": []
+}

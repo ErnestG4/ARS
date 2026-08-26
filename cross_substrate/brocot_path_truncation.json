@@ -31,6 +31,7 @@
    "floor": 0.0,
    "ceiling": 1.0,
    "met": false,
+   "direction": "ge",
    "out_of_range": false,
    "headroom": 0.09999999999999998,
    "why": "a fraction over the above-horizon ratios: 0 to 1 by construction"
@@ -42,6 +43,7 @@
    "floor": 1,
    "ceiling": 40,
    "met": true,
+   "direction": "ge",
    "out_of_range": false,
    "headroom": 36,
    "why": "a truncation depth is a proper prefix length, so it lies in [0, 40] over this fixed node set"
@@ -53,6 +55,7 @@
    "floor": 0.0,
    "ceiling": 40,
    "met": true,
+   "direction": "ge",
    "out_of_range": false,
    "headroom": 38.8,
    "why": "the ratio of two mean prefix lengths; the numerator cannot exceed the longest path, 40, and the denominator is at least 1 in practice"
@@ -66,6 +69,7 @@
    "AT_distinct truncation depths",
    "AT_mean depth at I=3.0 / at I=0.9"
   ],
+  "citation": "PARENT_NEEDS_AN_ARGMIN  [parent is the deepest in-box ancestor 0.3012 vs >=0.9 MISSED]",
   "dropped": [],
   "unread": [],
   "arms": [

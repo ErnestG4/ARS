@@ -38,6 +38,54 @@ class UnreachableBar(AssertionError):
     pass
 
 
+class UnprobedEdge(AssertionError):
+    pass
+
+
+def edge_probe(name, lo, hi, predicate, step=1, inside=None):
+    """Probe a DECLARED DOMAIN at its edges. Construction-time obligation.
+
+    THE MEASURED REGULARITY THIS ENFORCES. Every wrong bound found in this arc
+    sat at the edge of its own declared range, and every one was found by
+    somebody else:
+
+        "convergents are ancestors"        broken by 0/1, the 0th convergent
+        "unconditional in alpha > 0"       broken by alpha = 7, where the
+                                           tie-break names no rational
+        H2's Dirichlet ceiling             exceeded by 4 of 332 gaps
+        P3A's parent ceiling               13 declared, 14 observed
+        B1a's distinct-value ceiling       25,772 declared, 4,387 achievable
+        B3's range                         data-derived, so unauditable
+        E1 and E3                          bars sitting ON their own ceilings
+
+    Edges are where claims die. So a declared domain must be evaluated AT its
+    bounds and ONE STEP PAST them, at planting time rather than at adversarial
+    review, and the predicate must actually CHANGE across the boundary -- a
+    boundary nothing crosses is not a boundary, it is a decoration.
+
+        edge_probe("alpha in (1/A, A)", Fraction(1, 8), 8,
+                   lambda a: parent_of(a) is not None,
+                   step=Fraction(1, 100))
+
+    Raises UnprobedEdge when the predicate holds (or fails) on both sides of a
+    declared bound, because then the bound is not the thing doing the work.
+    `inside` optionally supplies a point known to be interior, for domains where
+    lo+step is not yet inside.
+    """
+    at_lo, at_hi = predicate(lo), predicate(hi)
+    below, above = predicate(lo - step), predicate(hi + step)
+    mid = predicate(inside) if inside is not None else predicate((lo + hi) / 2)
+    if below == at_lo == mid and mid == at_hi == above:
+        raise UnprobedEdge(
+            f"'{name}': the predicate is constant across both declared bounds "
+            f"({lo} and {hi}) — nothing changes at either edge, so the domain "
+            "is not doing the work the declaration claims for it.")
+    return dict(name=name, lo=lo, hi=hi, at_lo=at_lo, below_lo=below,
+                at_hi=at_hi, above_hi=above, interior=mid,
+                lo_is_a_boundary=(below != at_lo or below != mid),
+                hi_is_a_boundary=(above != at_hi or above != mid))
+
+
 class Bar:
     """A sealed threshold with its own reachable range attached.
 
@@ -45,7 +93,8 @@ class Bar:
     A 'ge' bar above the ceiling can never fire; a 'le' bar below the floor
     can never fire. Either is a refusal, not a warning.
     """
-    __slots__ = ("name", "thresh", "floor", "ceiling", "direction", "why")
+    __slots__ = ("name", "thresh", "floor", "ceiling", "direction", "why",
+                 "edges")
 
     def __init__(self, name, thresh, floor, ceiling, why, direction="ge"):
         if direction not in ("ge", "le"):
@@ -89,6 +138,13 @@ class Bar:
         self.name, self.thresh = name, thresh
         self.floor, self.ceiling = floor, ceiling
         self.direction, self.why = direction, why
+        # EDGE PROBE, at construction. The refusals above are exactly this
+        # probe's two failure modes; recording it makes the obligation visible
+        # in the score rather than implicit in a raise that did not happen.
+        lo_met = (floor >= thresh) if direction == "ge" else (floor <= thresh)
+        hi_met = (ceiling >= thresh) if direction == "ge" else (ceiling <= thresh)
+        self.edges = dict(at_floor=bool(lo_met), at_ceiling=bool(hi_met),
+                          discriminates=bool(lo_met != hi_met))
 
     def score(self, value):
         """Score a value, and FLAG it if it falls outside the declared range.
@@ -106,6 +162,7 @@ class Bar:
         return dict(name=self.name, value=value, thresh=self.thresh,
                     floor=self.floor, ceiling=self.ceiling, met=bool(met),
                     direction=self.direction, out_of_range=bool(out),
+                    edges=self.edges,
                     headroom=(self.ceiling - self.thresh if self.direction == "ge"
                               else self.thresh - self.floor),
                     why=self.why)
@@ -180,6 +237,27 @@ if __name__ == "__main__":
     print("   ", b.line(5.72, "{:.2f}"))
     print(f"    headroom above the bar: {b.score(5.72)['headroom']:.2f}")
 
+    print("\n--- edge_probe · a declared domain whose bounds do nothing ---")
+    try:
+        # a domain declared [1, 10] for a predicate true everywhere near it:
+        # neither bound is where anything changes, so the declaration is doing
+        # no work — which is what "alpha > 0" was for the tie lemma.
+        edge_probe("declared [1, 10]", 1, 10, lambda a: a > -100, step=1)
+        raise SystemExit("RED PATH FAILED: a boundary nothing crosses passed")
+    except UnprobedEdge as e:
+        print(f"    refused: {str(e)[:92]}...")
+
+    print("\n--- edge_probe · the real scope, whose lower bound DOES bite ---")
+    from fractions import Fraction as F
+    pr = edge_probe("alpha in (1/A, A), A = 8", F(1, 8), 8,
+                    lambda a: a > F(1, 8), step=F(1, 100))
+    print(f"    lower bound is real: {pr['lo_is_a_boundary']}   "
+          f"at {pr['lo']} -> {pr['at_lo']}, one step below -> {pr['below_lo']}")
+
+    print("\n--- every Bar now carries its edge probe ---")
+    b2 = Bar("f", 0.5, floor=0.0, ceiling=1.0, why="a fraction")
+    print(f"    {b2.edges}")
+
     print("\n--- score() must actually score, not always agree ---")
     b = Bar("s", 0.5, floor=0.0, ceiling=1.0, why="a fraction")
     if not (b.score(0.9)["met"] and not b.score(0.1)["met"]):
@@ -189,7 +267,8 @@ if __name__ == "__main__":
         raise SystemExit("RED PATH FAILED: 'le' score() does not discriminate")
     print("    ge: 0.9 MET / 0.1 MISSED    le: 0.1 MET / 0.9 MISSED")
 
-    print("\nREACHABLE_SELF_TEST_PASS — a bar that cannot be MET and a bar that "
+    print("\nREACHABLE_SELF_TEST_PASS — every declared range is probed at its "
+          "edges at construction, a bar that cannot be MET and a bar that "
           "cannot MISS are both refused, an unstated range is a refusal, "
           "score() discriminates in both directions, and a value outside its "
           "declared range is flagged as a broken range.")
