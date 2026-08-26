@@ -241,7 +241,16 @@ ENTRIES = [
               "where the exact one fuses, which is a dynamic cue in the regime "
               "the marker gate could not reach. Sustain length is load-bearing "
               "-- separations of 1-24 Hz need 40 ms to 1 s to exist at all, so "
-              "a staccato stimulus cannot carry the category"),
+              "a staccato stimulus cannot carry the category. STAKES RAISED "
+              "2026-08-26 by masked-horizon-stage-a: the masking model now "
+              "predicts near-total inaudibility of STATIC merges (1 of 13 at "
+              "I=0.9, and 1/1 is the one). That is a strong pre-registered "
+              "target a listening session can cleanly confirm or embarrass, "
+              "which is the best inheritance a listening test can get -- it "
+              "arrives with a falsifiable prediction rather than an open "
+              "question. Note the prediction is about MERGES; the detune-twin "
+              "stimulus also probes the BEAT, where audibility was never in "
+              "doubt, so the two arms must be scored separately."),
     dict(id="masked-horizon-stage-a", status=LANDED,
          request="Stage A of audible-horizon-calibration: derive the floor from "
                  "masking instead of choosing it",
