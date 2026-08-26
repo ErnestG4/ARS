@@ -35,6 +35,27 @@ import os
 
 QUEUED, LANDED, DROPPED = "QUEUED", "LANDED", "DROPPED"
 
+# WARRANT STALENESS, added 2026-08-26 after the second instance.
+#
+# A queued row's WARRANT is a finding with a timestamp: "warranted, not tidy"
+# was minted against a world in which coincidence-reachability and audibility
+# were the same thing. Stage A severed them, and the action inherited a premise
+# change in silence. Twice now:
+#
+#   hofstadter-horizon-cutoff   superseded by truncated-butterfly running its
+#                               own design; dropped only because a human noticed
+#   suggest-reachability-filter warranted by score-census, which predated
+#                               masked-horizon-stage-a; a C++ signature change
+#                               was one step from shipping on a dead premise
+#
+# The queue is exactly where premises age while actions wait, so a QUEUED row
+# may name the artifacts its warrant rests on AND the verdict each carried when
+# the row was minted. If a warrant artifact's verdict has since MOVED, the row
+# is WARRANT_STALE and the board FAILS until it is re-adjudicated -- which means
+# recording the new verdict in `warrant_reviewed`, i.e. saying out loud that the
+# action still makes sense under the changed premise. Seeing staleness is not
+# enough; the bite is having to re-affirm.
+
 # id, status, one-line request, artifact (LANDED only), verdict (LANDED only)
 ENTRIES = [
     dict(id="erb-marker-gate", status=LANDED,
@@ -189,6 +210,10 @@ ENTRIES = [
               "5000+ pairs). What is unsettled is whether the consequence is "
               "audible"),
     dict(id="suggest-reachability-filter", status=QUEUED,
+         warrant=[("cross_substrate/brocot_suggest_score_census.json",
+                   "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE"),
+                  ("cross_substrate/brocot_filter_worth_it.json",
+                   "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY")],
          request="pass current's indices into suggestExtensions and filter "
                  "candidates by the asymmetric horizon; measure the change in "
                  "user-visible top-4 against the censused before",
@@ -245,6 +270,10 @@ ENTRIES = [
               "session -- read off six sorted rows, contradicted by the full "
               "series"),
     dict(id="audible-horizon-calibration", status=QUEUED,
+         warrant=[("cross_substrate/brocot_audible_horizon.json",
+                   "EPS_HORIZON_OVERSTATES_AUDIBILITY"),
+                  ("cross_substrate/brocot_masked_horizon.json",
+                   "MASKING_GIVES_A_DERIVED_HORIZON")],
          request="fix the audibility floor empirically instead of picking it: "
                  "(A) excitation-pattern masked-threshold census; (B) 2AFC "
                  "detune-twin discrimination using the instrument's own "
@@ -294,6 +323,8 @@ ENTRIES = [
               "Bounds EXACT-coincidence audibility only; the beat coordinate is "
               "dynamic and outside static masking's jurisdiction"),
     dict(id="coherence-model-gap", status=QUEUED,
+         warrant=[("cross_substrate/brocot_suggest_score_census.json",
+                   "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE")],
          request="Coherence.h models the spectrum as a SUM of independent combs "
                  "(partials only at |1 +/- m*r|, energy J_m(I)^2) when "
                  "simultaneous modulators produce a PRODUCT lattice at "
@@ -315,12 +346,18 @@ ENTRIES = [
               "OTHER coincidences, those involving cross-partials, so it "
               "under-counts sharing and is conservative rather than wrong"),
     dict(id="amplitude-event-layer", status=QUEUED,
+         warrant=[("cross_substrate/brocot_jump_display_v3.json",
+                   "JUMPS_NOT_EXPLAINED")],
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
                  "needed for a complete EVENT layer",
          note="scoped out of the shipped display, which says structural events "
               "only. Open by choice, not by oversight."),
     dict(id="heard-as-listening", status=QUEUED,
+         warrant=[("cross_substrate/brocot_marker_erb_gate.json",
+                   "MAY_SAY_STRUCTURAL_EVENT_ONLY"),
+                  ("cross_substrate/brocot_masked_horizon.json",
+                   "MASKING_GIVES_A_DERIVED_HORIZON")],
          request="validate 'heard as a detuned X' by ERB or by listening; until "
                  "then the display says 'nearest ringing ratio + beat rate'",
          note="the beat coordinate crosses perceptual regimes within one region "
@@ -337,10 +374,28 @@ ENTRIES = [
 ]
 
 
+def _verdict_of(root, rel):
+    p = os.path.join(root, rel)
+    if not os.path.exists(p):
+        return None
+    try:
+        return json.load(open(p)).get("verdict")
+    except Exception:                                          # noqa: BLE001
+        return None
+
+
 def load(root):
     out = []
     for e in ENTRIES:
         e = dict(e)
+        stale = []
+        for art, minted in e.get("warrant", []):
+            now = _verdict_of(root, art)
+            if now != minted:
+                reviewed = dict(e.get("warrant_reviewed", []))
+                if reviewed.get(art) != now:
+                    stale.append(dict(artifact=art, minted=minted, now=now))
+        e["warrant_stale"] = stale
         if e["status"] == LANDED:
             p = os.path.join(root, e["artifact"])
             e["artifact_exists"] = os.path.exists(p)

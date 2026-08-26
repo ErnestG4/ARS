@@ -35,9 +35,18 @@ for e in rows:
                "  [verdict no longer matches the artifact]")
         print(f"  {'PASS' if ok else 'FAIL'}  LANDED   {e['id']:<24s} "
               f"{e['verdict']}{why}")
+stale = [e for e in rows if e.get("warrant_stale")]
 for e in rows:
     if e["status"] == QUEUED:
-        print(f"        QUEUED   {e['id']:<24s} {e['request'][:64]}")
+        mark = "  WARRANT_STALE" if e.get("warrant_stale") else ""
+        print(f"        QUEUED   {e['id']:<24s} {e['request'][:52]}{mark}")
+for e in stale:
+    for w in e["warrant_stale"]:
+        print(f"  FAIL  WARRANT_STALE  {e['id']}: {os.path.basename(w['artifact'])} "
+              f"was {w['minted']!r} when this row was minted, is now {w['now']!r}. "
+              "Re-adjudicate and record the new verdict in warrant_reviewed — "
+              "an action inherits its premise's changes.")
+bad += stale
 # DROPPED rows were rendered by nothing at all until 2026-08-25 — a disposition
 # class invisible on the board, in the file whose purpose is visibility.
 for e in rows:
