@@ -116,6 +116,60 @@
    "why": "the same count, 0 to 13, with the bar strictly inside"
   }
  },
+ "instrument": {
+  "model": "relative masking, Glasberg-Moore ERB",
+  "params": [
+   {
+    "name": "margin_db",
+    "kind": "TESTED",
+    "why": "signal-to-masker ratio inside one auditory filter; M2 scores the count's stability across it",
+    "sweep": [
+     -6.0,
+     0.0,
+     6.0
+    ],
+    "value": null
+   },
+   {
+    "name": "sigma_scale",
+    "kind": "TESTED",
+    "why": "ERB is an equivalent RECTANGULAR bandwidth, not a Gaussian sigma, so sigma = ERB over-masks. Amendment 1's table.",
+    "sweep": [
+     1.0,
+     0.5,
+     0.4,
+     0.25
+    ],
+    "value": null
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "the criterion is a RATIO of amplitudes at one frequency, so it is invariant in f_c up to the ERB width's mild frequency dependence; the field itself is scale-invariant in f_c",
+    "sweep": null,
+    "value": 220.0
+   },
+   {
+    "name": "f_range_hz",
+    "kind": "DECLARED",
+    "why": "partials outside human hearing cannot mask or be masked; the bound only removes terms that contribute nothing",
+    "sweep": null,
+    "value": [
+     20.0,
+     16000.0
+    ]
+   },
+   {
+    "name": "both_witnesses_required",
+    "kind": "DECLARED",
+    "why": "a coincidence is two partials landing together, so one audible partial arriving where nothing else is does not fuse",
+    "sweep": null,
+    "value": true
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 3
+ },
  "scope": "relative masking only: no absolute threshold in quiet, no temporal integration, no binaural effects. Gaussian sigma = ERB over-masks; see amendment 1's width table.",
  "width_sensitivity": {
   "ERB": {

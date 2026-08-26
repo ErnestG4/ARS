@@ -121,7 +121,31 @@ from redpath import redpath                                       # noqa: E402
 from reachable import Bar, edge_probe                             # noqa: E402
 from verdictlattice import (Arm, compose, EXISTENCE as EX_ROLE,   # noqa: E402
                             MECHANISM as MECH_ROLE, RESOLUTION as RES_ROLE)
+from modelparams import Model, Param, TESTED, DECLARED         # noqa: E402
 from phase3.partial_prediction import order_bound                 # noqa: E402
+
+# THE INSTRUMENT, ENUMERATED. This cell is the reason `modelparams` exists: it
+# sealed M2 against the margin and let sigma ride in unlisted, and sigma turned
+# out to matter more. Every free parameter of the masking model is now TESTED
+# with its sweep or DECLARED with its value and a defence.
+INSTRUMENT = Model("relative masking, Glasberg-Moore ERB", [
+    Param("margin_db", TESTED, sweep=[-6.0, 0.0, 6.0],
+          why="signal-to-masker ratio inside one auditory filter; M2 scores "
+              "the count's stability across it"),
+    Param("sigma_scale", TESTED, sweep=[1.0, 0.5, 0.4, 0.25],
+          why="ERB is an equivalent RECTANGULAR bandwidth, not a Gaussian "
+              "sigma, so sigma = ERB over-masks. Amendment 1's table."),
+    Param("f_c", DECLARED, value=220.0,
+          why="the criterion is a RATIO of amplitudes at one frequency, so it "
+              "is invariant in f_c up to the ERB width's mild frequency "
+              "dependence; the field itself is scale-invariant in f_c"),
+    Param("f_range_hz", DECLARED, value=(20.0, 16000.0),
+          why="partials outside human hearing cannot mask or be masked; the "
+              "bound only removes terms that contribute nothing"),
+    Param("both_witnesses_required", DECLARED, value=True,
+          why="a coincidence is two partials landing together, so one audible "
+              "partial arriving where nothing else is does not fuse"),
+])
 
 I_LIST = [0.9, 1.5, 2.0, 3.0]
 MARGINS = [-6.0, 0.0, 6.0]
@@ -222,6 +246,8 @@ s1, s2, s3 = M1.score(m1), M2.score(m2), M3.score(m3)
 # rule is recorded in reachable.py rather than quietly deleted. The margin's
 # stability is what M2 measures, which is the right instrument for it.
 
+print(INSTRUMENT.report())
+print()
 print(f"masked-threshold census, f_c = {F_C:.0f} Hz, Glasberg-Moore ERB\n")
 print(f"{'I':>5s} {'B':>3s} {'A':>3s} {'n':>4s} " +
       "".join(f"{'m=' + str(int(m)):>8s}" for m in MARGINS))
@@ -276,6 +302,7 @@ json.dump(dict(I_list=I_LIST, margins=MARGINS, f_c=F_C,
                                    audible=d["audible_at_primary"])
                       for k, d in per.items()},
                bars={s["name"]: s for s in (s1, s2, s3)},
+               instrument=INSTRUMENT.seal(),
                scope="relative masking only: no absolute threshold in quiet, no "
                      "temporal integration, no binaural effects. Gaussian "
                      "sigma = ERB over-masks; see amendment 1's width table.",
