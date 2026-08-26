@@ -175,13 +175,33 @@ ENTRIES = [
               "territory. CORRECTION: Bjerklov-Jager's AMO<->mode-locking "
               "bridge uses ENERGY as the tongue parameter, not flux, so the "
               "queued Arnold-tongue identification is WITHDRAWN"),
+    dict(id="filter-worth-it", status=LANDED,
+         request="given Stage A, does the reachability filter improve what a "
+                 "player HEARS, or optimise an inaudible property?",
+         artifact="cross_substrate/brocot_filter_worth_it.json",
+         verdict="FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY",
+         note="sigma-CONDITIONAL and the declared sweep made it visible. At the "
+              "sealed primary (sigma = ERB) the audible gain is +2.1% against a "
+              "0.10 bar; at sigma = ERB/2.5 it is +19.9%. sigma = ERB "
+              "over-masks and so understates the benefit. Settled regardless: "
+              "the filter changes what is shown (Jaccard 0.335) and the "
+              "predicate is exactly right (0 disagreements vs brute force over "
+              "5000+ pairs). What is unsettled is whether the consequence is "
+              "audible"),
     dict(id="suggest-reachability-filter", status=QUEUED,
          request="pass current's indices into suggestExtensions and filter "
                  "candidates by the asymmetric horizon; measure the change in "
                  "user-visible top-4 against the censused before",
-         note="warranted by score-census: Jaccard 0.329 means the filter "
-              "materially changes what is shown. Blocked on the signature "
-              "change -- suggestExtensions currently receives only newIndex"),
+         note="WARRANT DOWNGRADED 2026-08-26 by filter-worth-it. The row read "
+              "'warranted, not tidy' on a census that predated Stage A, and "
+              "would have shipped a C++ change on a warrant that no longer "
+              "stands alone: at the conservative filter width the filter "
+              "changes what is SHOWN without changing what is HEARD. Now "
+              "blocked on Stage B (the listening test), which settles the "
+              "auditory filter width the decision hinges on -- the same "
+              "measurement audible-horizon-calibration waits for. Also still "
+              "blocked on the signature change: suggestExtensions receives "
+              "only newIndex and the filter needs current's indices."),
     dict(id="hofstadter-horizon-cutoff", status=DROPPED,
          request="re-test the butterfly correspondence with the horizon as its "
                  "CUTOFF: BROCOT-SPEC D§0 was falsified partly because gap "

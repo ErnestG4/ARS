@@ -43,6 +43,44 @@ ledger row still says "warranted".
 ║     candidate pairs. A correctness arm, so that an F2 miss cannot be blamed  ║
 ║     on a broken filter.                                                     ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — BEFORE ANY VERDICT WAS READ. The planted floor (5000 candidate
+pairs against brute force) fired at 2246. N_NODES raised from 90 to 220, not the
+floor lowered. Fifth firing this session, same call every time.
+
+AMENDMENT 2 — AFTER OUTPUT. THE ANSWER IS sigma-CONDITIONAL, AND THE DECLARED
+SWEEP IS WHAT MADE THAT VISIBLE RATHER THAN HIDDEN.
+
+    margin  sigma   shipped  filtered    gain
+       -6    0.40     16.1%    40.0%   +23.9%
+       -6    1.00      4.4%    10.7%    +6.3%
+       +0    0.40     13.5%    33.4%   +19.9%
+       +0    1.00      1.5%     3.6%    +2.1%     <- the sealed primary
+       +6    0.40     11.4%    27.9%   +16.6%
+       +6    1.00      0.7%     1.6%    +1.0%
+
+At the sealed primary (sigma = ERB) the gain is +2.1% against a bar of 0.10:
+F2 MISSES and the verdict stands as FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY.
+At sigma = ERB/2.5 the same measurement gives +19.9% and would clear the bar
+twice over.
+
+sigma = ERB is the CONSERVATIVE choice -- ERB is an equivalent rectangular
+bandwidth, so a Gaussian with that sigma is too wide and over-masks, which
+UNDERSTATES audibility and therefore understates the filter's benefit. The more
+physically defensible width says the filter helps substantially.
+
+SO THE DISPOSITION IS NOT "DO NOT SHIP" AND NOT "SHIP". It is: the decision
+hinges on a parameter with a pending empirical answer, and that answer is
+Stage B. The filter's warrant is now blocked on exactly the measurement the
+audible horizon is blocked on -- which is a real result, because the queue row
+previously read "warranted, not tidy" on a census that predated Stage A, and
+would have shipped a C++ change on a warrant that no longer stood alone.
+
+WHAT IS SETTLED REGARDLESS: F1 (the filter changes what is shown, Jaccard 0.335)
+and F3 (the predicate is exactly right, 0 disagreements with brute-force
+enumeration over 5000+ pairs). Whatever Stage B says about sigma, the filter is
+correct and consequential; what is unsettled is whether the consequence is
+audible.
 """
 import gzip
 import json
@@ -67,7 +105,7 @@ from verdictlattice import (Arm, compose, EXISTENCE as EX_ROLE,   # noqa: E402
 from phase3.partial_prediction import order_bound                 # noqa: E402
 
 GRAPH = f"{BROCOT}/resources/landscape_graph_16mix.json.gz"
-SEED, N_NODES = 20260826, 90
+SEED, N_NODES = 20260826, 220
 CENTS_TOL, MAX_ORDER, MIN_IDX = 12.0, 24, 0.02
 MAXEXTRA, TOPN, F_C = 3, 4, 220.0
 
