@@ -226,10 +226,15 @@ ENTRIES = [
               "series"),
     dict(id="audible-horizon-calibration", status=QUEUED,
          request="fix the audibility floor empirically instead of picking it: "
-                 "(A) excitation-pattern masked-threshold census over the 508 "
-                 "cells and the asymmetric grid; (B) 2AFC detune-twin "
-                 "discrimination using the instrument's own setDetuneCents, "
-                 "adaptive staircase on max(p,q), >=1 s sustain",
+                 "(A) excitation-pattern masked-threshold census; (B) 2AFC "
+                 "detune-twin discrimination using the instrument's own "
+                 "setDetuneCents, adaptive staircase on max(p,q), >=1 s "
+                 "sustain. AND (C) RE-SEAL brocot_audible_horizon with "
+                 "falsifiable arms -- the disclosure is the honest interim "
+                 "state, not the end state; the end state is a cell whose "
+                 "EXISTENCE designation is load-bearing again, so that "
+                 "exposure_audit's single refusal clears on its own merits "
+                 "rather than by being explained.",
          note="the -40/-60 dB split is a guess and the 40% swing between them "
               "is why it must not stay one. B also discharges heard-as-"
               "listening: below the audible horizon the detuned twin BEATS "
