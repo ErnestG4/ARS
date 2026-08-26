@@ -250,7 +250,16 @@ ENTRIES = [
               "arrives with a falsifiable prediction rather than an open "
               "question. Note the prediction is about MERGES; the detune-twin "
               "stimulus also probes the BEAT, where audibility was never in "
-              "doubt, so the two arms must be scored separately."),
+              "doubt, so the two arms must be scored separately. BUILT-IN "
+              "CALIBRATION, which the arm-split hands over for free: the BEAT "
+              "arm inherits the POSITIVE prediction (squarely audible, "
+              "Hz-scale) and the MERGE arm the negative one. A listener who "
+              "fails the beat arm is not hearing the stimulus, so the merge "
+              "arm's null cannot quietly mean 'nobody was listening'. The beat "
+              "arm is therefore a required pass-gate on each listener before "
+              "their merge data counts, and that gate must be DECLARED in the "
+              "seal rather than applied after seeing results -- a post-hoc "
+              "listener exclusion is the oldest way to manufacture a null."),
     dict(id="masked-horizon-stage-a", status=LANDED,
          request="Stage A of audible-horizon-calibration: derive the floor from "
                  "masking instead of choosing it",
