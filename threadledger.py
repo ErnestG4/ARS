@@ -353,6 +353,19 @@ ENTRIES = [
                  "needed for a complete EVENT layer",
          note="scoped out of the shipped display, which says structural events "
               "only. Open by choice, not by oversight."),
+    dict(id="stageb-protocol", status=LANDED,
+         request="take Stage B as far as it goes without listeners: generate "
+                 "the stimuli, seal the predictions, declare the gate",
+         artifact="cross_substrate/brocot_stageb_protocol.json",
+         verdict="PROTOCOL_SEALED_AWAITING_DATA",
+         note="26 stimuli at 44.1 kHz / 2 s under cross_substrate/"
+              "stageb_stimuli (gitignored, regenerate with the cell). MERGE "
+              "arm: 7 below-horizon ratios, exact vs 6-cent twin, masking "
+              "predicts only 1/1 discriminable. BEAT arm: 6 above-horizon "
+              "ratios at 3-8 Hz separation, the per-listener >=90% inclusion "
+              "gate. B4 is the number two dispositions wait on: the count "
+              "discriminated above 60% pins sigma. NO audibility claim is made "
+              "by this cell"),
     dict(id="heard-as-listening", status=QUEUED,
          warrant=[("cross_substrate/brocot_marker_erb_gate.json",
                    "MAY_SAY_STRUCTURAL_EVENT_ONLY"),

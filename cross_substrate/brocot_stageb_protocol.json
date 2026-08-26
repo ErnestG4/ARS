@@ -1,0 +1,370 @@
+{
+ "sr": 44100,
+ "duration_s": 2.0,
+ "f_c": 220.0,
+ "I": 0.9,
+ "detune_cents": 6.0,
+ "gate_pct": 0.9,
+ "chance": 0.5,
+ "protocol": {
+  "model": "2AFC detune-twin discrimination",
+  "params": [
+   {
+    "name": "detune_cents",
+    "kind": "TESTED",
+    "why": "the twin's offset from the exact ratio; too small and the twin is the same stimulus, too large and it is a different ratio. Swept so the staircase has room and so a null cannot be blamed on one unlucky offset.",
+    "sweep": [
+     3.0,
+     6.0,
+     12.0
+    ],
+    "value": null
+   },
+   {
+    "name": "sustain_s",
+    "kind": "DECLARED",
+    "why": "separations of 1-24 Hz need 40 ms to 1 s to exist at all, so a staccato stimulus cannot carry the category. 2 s clears the slowest beat in the field by 2x.",
+    "sweep": null,
+    "value": 2.0
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "the field is scale-invariant in f_c; 220 Hz places the whole partial set in the region where ERB is well characterised",
+    "sweep": null,
+    "value": 220.0
+   },
+   {
+    "name": "I",
+    "kind": "DECLARED",
+    "why": "BROCOT-SPEC's own typical index, and the index at which the masking prediction is sharpest (1 of 13)",
+    "sweep": null,
+    "value": 0.9
+   },
+   {
+    "name": "gate_pct",
+    "kind": "DECLARED",
+    "why": "a listener below 90% on a squarely-audible arm is not hearing the stimulus; declared before data so it is an inclusion criterion and not a post-hoc exclusion",
+    "sweep": null,
+    "value": 0.9
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 4
+ },
+ "manifest": [
+  {
+   "arm": "merge",
+   "ratio": "5/7",
+   "cents": 0.0,
+   "file": "merge_5-7_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "5/7",
+   "cents": 6.0,
+   "file": "merge_5-7_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "3/4",
+   "cents": 0.0,
+   "file": "merge_3-4_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "3/4",
+   "cents": 6.0,
+   "file": "merge_3-4_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "4/5",
+   "cents": 0.0,
+   "file": "merge_4-5_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "4/5",
+   "cents": 6.0,
+   "file": "merge_4-5_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "5/6",
+   "cents": 0.0,
+   "file": "merge_5-6_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "5/6",
+   "cents": 6.0,
+   "file": "merge_5-6_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "6/7",
+   "cents": 0.0,
+   "file": "merge_6-7_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "6/7",
+   "cents": 6.0,
+   "file": "merge_6-7_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "7/8",
+   "cents": 0.0,
+   "file": "merge_7-8_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "7/8",
+   "cents": 6.0,
+   "file": "merge_7-8_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "1",
+   "cents": 0.0,
+   "file": "merge_1-1_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "1",
+   "cents": 6.0,
+   "file": "merge_1-1_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "8/7",
+   "cents": 0.0,
+   "file": "merge_8-7_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "8/7",
+   "cents": 6.0,
+   "file": "merge_8-7_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "7/6",
+   "cents": 0.0,
+   "file": "merge_7-6_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "7/6",
+   "cents": 6.0,
+   "file": "merge_7-6_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "6/5",
+   "cents": 0.0,
+   "file": "merge_6-5_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "6/5",
+   "cents": 6.0,
+   "file": "merge_6-5_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "5/4",
+   "cents": 0.0,
+   "file": "merge_5-4_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "5/4",
+   "cents": 6.0,
+   "file": "merge_5-4_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "4/3",
+   "cents": 0.0,
+   "file": "merge_4-3_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "4/3",
+   "cents": 6.0,
+   "file": "merge_4-3_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "7/5",
+   "cents": 0.0,
+   "file": "merge_7-5_0c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "merge",
+   "ratio": "7/5",
+   "cents": 6.0,
+   "file": "merge_7-5_6c.wav",
+   "separation_hz": 0.0,
+   "fuses": true
+  },
+  {
+   "arm": "beat",
+   "ratio": "22/31",
+   "cents": 0.0,
+   "file": "beat_22-31_0c.wav",
+   "separation_hz": 7.097,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "22/31",
+   "cents": 6.0,
+   "file": "beat_22-31_6c.wav",
+   "separation_hz": 7.097,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "27/38",
+   "cents": 0.0,
+   "file": "beat_27-38_0c.wav",
+   "separation_hz": 5.789,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "27/38",
+   "cents": 6.0,
+   "file": "beat_27-38_6c.wav",
+   "separation_hz": 5.789,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "28/39",
+   "cents": 0.0,
+   "file": "beat_28-39_0c.wav",
+   "separation_hz": 5.641,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "28/39",
+   "cents": 6.0,
+   "file": "beat_28-39_6c.wav",
+   "separation_hz": 5.641,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "23/32",
+   "cents": 0.0,
+   "file": "beat_23-32_0c.wav",
+   "separation_hz": 6.875,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "23/32",
+   "cents": 6.0,
+   "file": "beat_23-32_6c.wav",
+   "separation_hz": 6.875,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "23/31",
+   "cents": 0.0,
+   "file": "beat_23-31_0c.wav",
+   "separation_hz": 7.097,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "23/31",
+   "cents": 6.0,
+   "file": "beat_23-31_6c.wav",
+   "separation_hz": 7.097,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "26/35",
+   "cents": 0.0,
+   "file": "beat_26-35_0c.wav",
+   "separation_hz": 6.286,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "26/35",
+   "cents": 6.0,
+   "file": "beat_26-35_6c.wav",
+   "separation_hz": 6.286,
+   "fuses": false
+  }
+ ],
+ "n_merge_ratios": 13,
+ "n_beat_ratios": 6,
+ "predictions_sealed": [
+  "B1 gate >=90% beat arm, per listener",
+  "B2 non-unison merges <=60%",
+  "B3 unison >=75%",
+  "B4 the count above 60% pins sigma"
+ ],
+ "verdict": "PROTOCOL_SEALED_AWAITING_DATA"
+}
