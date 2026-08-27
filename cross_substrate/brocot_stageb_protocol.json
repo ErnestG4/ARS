@@ -5,9 +5,9 @@
  "I": 0.9,
  "detune_cents": 6.0,
  "gate_pct": 0.9,
- "chance": 0.5,
+ "chance": 0.3333333333333333,
  "protocol": {
-  "model": "2AFC detune-twin discrimination",
+  "model": "3-interval odd-one-out detune-twin discrimination",
   "params": [
    {
     "name": "detune_cents",
@@ -360,11 +360,14 @@
  ],
  "n_merge_ratios": 13,
  "n_beat_ratios": 6,
+ "task": "3-interval odd-one-out",
+ "b2_bar": 0.45,
+ "b3_bar": 0.6,
  "predictions_sealed": [
   "B1 gate >=90% beat arm, per listener",
-  "B2 non-unison merges <=60%",
-  "B3 unison >=75%",
-  "B4 the count above 60% pins sigma"
+  "B2 non-unison merges <=45% (chance 33.3%)",
+  "B3 unison >=60%",
+  "B4 the count above 45% pins sigma"
  ],
  "verdict": "PROTOCOL_SEALED_AWAITING_DATA"
 }

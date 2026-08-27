@@ -65,6 +65,24 @@ than resolve them.
 ║     sigma ~ ERB, 3 implies sigma ~ ERB/2.5, and the audible-horizon and      ║
 ║     filter rows re-adjudicate against whichever lands.                      ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — BEFORE ANY DATA EXISTS. THE TASK WAS UNDER-SPECIFIED.
+
+"2AFC detune-twin discrimination" named a stimulus pair and not a question. With
+two files per ratio the task would have to be either "same or different?", which
+has a response-criterion problem a null cannot be cleaned of, or "which is the
+exact one?", which a listener has no way to know. Neither is scorable.
+
+REPLACED WITH 3-INTERVAL ODD-ONE-OUT. Each trial presents three intervals: two
+are the same stimulus and one is its twin. The listener names the odd interval.
+Chance is 1/3, there is no criterion to drift, and no reference knowledge is
+required. B2's bar moves from "<= 60% against a chance of 50%" to
+"<= 45% against a chance of 33.3%" and B3's from ">= 75%" to ">= 60%", both
+preserving roughly the same distance from chance as sealed. B1's gate stays at
+90%, which is far above 1/3 and unambiguous.
+
+This is a pre-data amendment and it is the last moment one is honest. After a
+single response is recorded, changing the task is choosing an analysis.
 """
 import json
 import os
@@ -87,10 +105,11 @@ from phase3.partial_prediction import order_bound                 # noqa: E402
 OUT = os.path.join(HERE, "stageb_stimuli")
 SR, DUR, FC, I_MUS = 44100, 2.0, 220.0, 0.9
 DETUNE_CENTS = 6.0
-GATE_PCT, CHANCE = 0.90, 0.50
+GATE_PCT, CHANCE = 0.90, 1.0 / 3.0
+B2_BAR, B3_BAR = 0.45, 0.60      # amendment 1: re-expressed against 1/3
 LO, HI = Fraction(7, 10), Fraction(7, 5)
 
-PROTOCOL = Model("2AFC detune-twin discrimination", [
+PROTOCOL = Model("3-interval odd-one-out detune-twin discrimination", [
     Param("detune_cents", TESTED, sweep=[3.0, 6.0, 12.0],
           why="the twin's offset from the exact ratio; too small and the twin "
               "is the same stimulus, too large and it is a different ratio. "
@@ -188,7 +207,8 @@ print(f"\nBEAT arm (the gate) — {n_beat} above-horizon ratios, 3-8 Hz separati
 for f in above:
     print(f"    {str(f):>6s}  separation {gap_hz(f):.2f} Hz")
 
-print(f"\nGATE: a listener scores >= {GATE_PCT:.0%} on the beat arm before any "
+print(f"\nTASK: 3-interval odd-one-out, chance {CHANCE:.1%} (amendment 1)")
+print(f"GATE: a listener scores >= {GATE_PCT:.0%} on the beat arm before any "
       f"of their merge\n      trials are counted. Declared here, before data.")
 print("\nVERDICT: PROTOCOL_SEALED_AWAITING_DATA")
 print("  No audibility claim is made or implied by this cell. It generates the")
@@ -202,10 +222,12 @@ json.dump(dict(sr=SR, duration_s=DUR, f_c=FC, I=I_MUS,
                detune_cents=DETUNE_CENTS, gate_pct=GATE_PCT, chance=CHANCE,
                protocol=PROTOCOL.seal(), manifest=manifest,
                n_merge_ratios=n_merge, n_beat_ratios=n_beat,
-               predictions_sealed=["B1 gate >=90% beat arm, per listener",
-                                   "B2 non-unison merges <=60%",
-                                   "B3 unison >=75%",
-                                   "B4 the count above 60% pins sigma"],
+               task="3-interval odd-one-out",
+               b2_bar=B2_BAR, b3_bar=B3_BAR,
+               predictions_sealed=[f"B1 gate >={GATE_PCT:.0%} beat arm, per listener",
+                                   f"B2 non-unison merges <={B2_BAR:.0%} (chance 33.3%)",
+                                   f"B3 unison >={B3_BAR:.0%}",
+                                   f"B4 the count above {B2_BAR:.0%} pins sigma"],
                verdict="PROTOCOL_SEALED_AWAITING_DATA"),
           open(f"{HERE}/brocot_stageb_protocol.json", "w"), indent=1)
 print(f"\nwritten -> cross_substrate/brocot_stageb_protocol.json")

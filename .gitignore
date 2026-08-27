@@ -82,3 +82,4 @@ bridge/.rquarantine/
 # the data manifest itself IS tracked; the datasets are not
 !data/README.md
 cross_substrate/stageb_stimuli/
+cross_substrate/stageb_trials/
