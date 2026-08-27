@@ -151,22 +151,6 @@
   },
   {
    "arm": "merge",
-   "ratio": "1",
-   "cents": 0.0,
-   "file": "merge_1-1_0c.wav",
-   "separation_hz": 0.0,
-   "fuses": true
-  },
-  {
-   "arm": "merge",
-   "ratio": "1",
-   "cents": 6.0,
-   "file": "merge_1-1_6c.wav",
-   "separation_hz": 0.0,
-   "fuses": true
-  },
-  {
-   "arm": "merge",
    "ratio": "8/7",
    "cents": 0.0,
    "file": "merge_8-7_0c.wav",
@@ -263,38 +247,6 @@
   },
   {
    "arm": "beat",
-   "ratio": "22/31",
-   "cents": 0.0,
-   "file": "beat_22-31_0c.wav",
-   "separation_hz": 7.097,
-   "fuses": false
-  },
-  {
-   "arm": "beat",
-   "ratio": "22/31",
-   "cents": 6.0,
-   "file": "beat_22-31_6c.wav",
-   "separation_hz": 7.097,
-   "fuses": false
-  },
-  {
-   "arm": "beat",
-   "ratio": "27/38",
-   "cents": 0.0,
-   "file": "beat_27-38_0c.wav",
-   "separation_hz": 5.789,
-   "fuses": false
-  },
-  {
-   "arm": "beat",
-   "ratio": "27/38",
-   "cents": 6.0,
-   "file": "beat_27-38_6c.wav",
-   "separation_hz": 5.789,
-   "fuses": false
-  },
-  {
-   "arm": "beat",
    "ratio": "28/39",
    "cents": 0.0,
    "file": "beat_28-39_0c.wav",
@@ -311,54 +263,86 @@
   },
   {
    "arm": "beat",
-   "ratio": "23/32",
+   "ratio": "29/34",
    "cents": 0.0,
-   "file": "beat_23-32_0c.wav",
-   "separation_hz": 6.875,
+   "file": "beat_29-34_0c.wav",
+   "separation_hz": 6.471,
    "fuses": false
   },
   {
    "arm": "beat",
-   "ratio": "23/32",
+   "ratio": "29/34",
    "cents": 6.0,
-   "file": "beat_23-32_6c.wav",
-   "separation_hz": 6.875,
+   "file": "beat_29-34_6c.wav",
+   "separation_hz": 6.471,
    "fuses": false
   },
   {
    "arm": "beat",
-   "ratio": "23/31",
+   "ratio": "39/40",
    "cents": 0.0,
-   "file": "beat_23-31_0c.wav",
+   "file": "beat_39-40_0c.wav",
+   "separation_hz": 5.5,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "39/40",
+   "cents": 6.0,
+   "file": "beat_39-40_6c.wav",
+   "separation_hz": 5.5,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "33/29",
+   "cents": 0.0,
+   "file": "beat_33-29_0c.wav",
+   "separation_hz": 7.586,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "33/29",
+   "cents": 6.0,
+   "file": "beat_33-29_6c.wav",
+   "separation_hz": 7.586,
+   "fuses": false
+  },
+  {
+   "arm": "beat",
+   "ratio": "39/31",
+   "cents": 0.0,
+   "file": "beat_39-31_0c.wav",
    "separation_hz": 7.097,
    "fuses": false
   },
   {
    "arm": "beat",
-   "ratio": "23/31",
+   "ratio": "39/31",
    "cents": 6.0,
-   "file": "beat_23-31_6c.wav",
+   "file": "beat_39-31_6c.wav",
    "separation_hz": 7.097,
    "fuses": false
   },
   {
    "arm": "beat",
-   "ratio": "26/35",
+   "ratio": "53/38",
    "cents": 0.0,
-   "file": "beat_26-35_0c.wav",
-   "separation_hz": 6.286,
+   "file": "beat_53-38_0c.wav",
+   "separation_hz": 5.789,
    "fuses": false
   },
   {
    "arm": "beat",
-   "ratio": "26/35",
+   "ratio": "53/38",
    "cents": 6.0,
-   "file": "beat_26-35_6c.wav",
-   "separation_hz": 6.286,
+   "file": "beat_53-38_6c.wav",
+   "separation_hz": 5.789,
    "fuses": false
   }
  ],
- "n_merge_ratios": 13,
+ "n_merge_ratios": 12,
  "n_beat_ratios": 6,
  "task": "3-interval odd-one-out",
  "b2_bar": 0.45,
@@ -366,7 +350,8 @@
  "predictions_sealed": [
   "B1 gate >=90% beat arm, per listener",
   "B2 non-unison merges <=45% (chance 33.3%)",
-  "B3 unison >=60%",
+  "B3 WITHDRAWN (alpha=1 degenerate; the corrected model predicts no audible merge)",
+  "B3' any merge ratio >45% refutes the corrected masking model",
   "B4 the count above 45% pins sigma"
  ],
  "verdict": "PROTOCOL_SEALED_AWAITING_DATA"

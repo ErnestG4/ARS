@@ -358,7 +358,15 @@ ENTRIES = [
                  "the stimuli, seal the predictions, declare the gate",
          artifact="cross_substrate/brocot_stageb_protocol.json",
          verdict="PROTOCOL_SEALED_AWAITING_DATA",
-         note="26 stimuli at 44.1 kHz / 2 s under cross_substrate/"
+         note="AMENDED TWICE PRE-DATA. (1) task was under-specified as 2AFC; "
+              "now 3-interval odd-one-out, chance 1/3. (2) a listener's first "
+              "impression broke the blinding and the positive control: the arms "
+              "were categorically distinguishable by partial density, and "
+              "alpha=1 is DEGENERATE (identical operators, 7-partial harmonic "
+              "series) so B3 is WITHDRAWN and the gate is the only positive. "
+              "This also corrected Stage A: ZERO non-degenerate ratios clear "
+              "masking, at every index. Stimuli at 44.1 kHz / 2 s under "
+              "cross_substrate/"
               "stageb_stimuli (gitignored, regenerate with the cell). MERGE "
               "arm: 7 below-horizon ratios, exact vs 6-cent twin, masking "
               "predicts only 1/1 discriminable. BEAT arm: 6 above-horizon "

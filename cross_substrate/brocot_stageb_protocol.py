@@ -83,6 +83,56 @@ preserving roughly the same distance from chance as sealed. B1's gate stays at
 
 This is a pre-data amendment and it is the last moment one is honest. After a
 single response is recorded, changing the task is choosing an analysis.
+
+AMENDMENT 2 — ALSO PRE-DATA. A LISTENER'S FIRST IMPRESSION BROKE TWO THINGS.
+
+Played the stimulus bank informally and reported: the two arms "both had their
+own tone set", and merge_1-1_6c was "close/pulsing". Both remarks turned out to
+be design faults, verified rather than taken on trust.
+
+(i) THE ARMS WERE CATEGORICALLY DISTINGUISHABLE, so interleaving did not blind.
+    Merge ratios carried 7 to 43 partials above -80 dB; beat ratios carried 42
+    to 43. A listener can hear which arm they are in, and the beat arm is the
+    GATE -- knowing you are being gated changes effort. Fixed by choosing the
+    beat set to MATCH the merge set's partial-count distribution.
+
+(ii) alpha = 1 IS DEGENERATE and was the merge arm's positive control. It means
+    r2/r1 = 1, i.e. both modulators at the SAME ratio: not two operators'
+    sidebands meeting but one operator counted twice. Its spectrum is a plain
+    harmonic series (7 partials at 220, 440, 660, 880 Hz) against a 40-partial
+    twin beating at 0.76 Hz -- trivially discriminable, for a reason with
+    nothing to do with coincidence audibility. "Close/pulsing" is exactly that.
+
+    This corrects Stage A as well: the +10.7 dB SMR that made alpha = 1 the sole
+    survivor was a partial in a sparse harmonic series, not a coincidence. The
+    corrected headline is that ZERO of the 12 non-degenerate below-horizon
+    ratios clear masking, at every index tested.
+
+CONSEQUENCES FOR THE SEAL. alpha = 1 leaves the merge arm. B3 -- "the unison is
+discriminated at >= 60%" -- IS WITHDRAWN, not re-aimed: with the degenerate case
+removed, the corrected model predicts NO audible merge at all, so the merge arm
+has no positive prediction and the GATE is the only positive control. That is a
+stronger seal, because the whole merge arm now carries one direction and cannot
+be rescued by an exemplar that was going to pass regardless.
+
+    B2  every non-degenerate merge ratio at <= 45% (chance 33.3%)
+    B3  WITHDRAWN — the model predicts no audible merge; there is no positive
+        to control on inside this arm
+    B3' if ANY merge ratio exceeds 45%, the corrected masking model is refuted
+        and the cell names which ratio did it
+    B4  unchanged: the count above 45% pins sigma
+
+RESIDUAL TELL, DISCLOSED RATHER THAN ENGINEERED AWAY. After matching, the merge
+arm still carries a sparse tail -- 25, 26, 31 and 32 partials -- that the beat
+arm has no counterpart for, because above-horizon ratios in this range are
+uniformly dense. So the four sparsest merge trials remain potentially
+identifiable as merge trials. Two reasons not to force it: dropping them would
+remove the four ratios closest to the horizon, which are the ones most likely to
+be audible and therefore the ones B2 most needs; and a tell that lets a listener
+know they are in the merge arm biases toward EFFORT on exactly the trials the
+model predicts are silent, which pushes against B2 rather than for it. It is
+recorded here so a reader can weigh it, and B2 should be read with the sparse
+four listed separately when data exists.
 """
 import json
 import os
@@ -171,14 +221,49 @@ def gap_hz(alpha):
 
 
 A = 2 * order_bound(I_MUS)
+def n_partials(alpha, floor_db=-80.0):
+    """Partials above a relative floor — the quantity that was giving the arms
+    away (amendment 2(i))."""
+    B = order_bound(I_MUS)
+    d = {}
+    for n1 in range(-B, B + 1):
+        for n2 in range(-B, B + 1):
+            amp = abs(float(jv(n1, I_MUS)) * float(jv(n2, I_MUS)))
+            if amp < 1e-4:
+                continue
+            f = abs(FC * (1.0 + n1 + n2 * float(alpha)))
+            if 20 <= f <= 16000:
+                d[round(f, 3)] = d.get(round(f, 3), 0.0) + amp
+    return len(d)
+
+
+# amendment 2(ii): alpha = 1 is degenerate (identical operators) and is excluded
 below = sorted({Fraction(p, q) for q in range(1, A + 1) for p in range(1, A + 1)
                 if gcd(p, q) == 1 and LO <= Fraction(p, q) <= HI
-                and max(p, q) <= A}, key=float)
-above = [f for f in sorted({Fraction(p, q) for q in range(1, 41)
+                and max(p, q) <= A and Fraction(p, q) != 1}, key=float)
+# amendment 2(i): match the beat arm to the merge arm's partial-count
+# distribution, so a listener cannot tell which arm a trial belongs to
+merge_np = sorted(n_partials(f) for f in below)
+lo_np, hi_np = merge_np[0], merge_np[-1]
+cands = [f for f in sorted({Fraction(p, q) for q in range(1, 41)
                             for p in range(1, 60)
                             if gcd(p, q) == 1 and LO <= Fraction(p, q) <= HI
                             and max(p, q) > A}, key=float)
-         if 3.0 <= gap_hz(f) <= 8.0][:6]
+         if 3.0 <= gap_hz(f) <= 8.0]
+# match on BOTH axes. Matching partial count alone collapsed the beat set onto
+# ratios just under unity (32/33, 33/34, ...), which gives the arm away by
+# proximity to 1 instead of by density — a second tell, found the same way.
+inrange = [f for f in cands if lo_np <= n_partials(f) <= hi_np]
+lo_v, hi_v = float(below[0]), float(below[-1])
+targets = [lo_v + (hi_v - lo_v) * k / 5.0 for k in range(6)]
+above, used = [], set()
+for tv in targets:
+    pick = min((f for f in inrange if f not in used),
+               key=lambda f: abs(float(f) - tv), default=None)
+    if pick is not None:
+        above.append(pick)
+        used.add(pick)
+above.sort(key=float)
 
 os.makedirs(OUT, exist_ok=True)
 manifest = []
@@ -198,14 +283,21 @@ n_beat = sum(1 for m in manifest if m["arm"] == "beat") // 2
 print(PROTOCOL.report())
 print(f"\nstimuli written to {os.path.relpath(OUT, ROOT)}/  "
       f"({len(manifest)} files, {SR} Hz, {DUR:.0f} s)\n")
-print(f"MERGE arm — {n_merge} below-horizon ratios, exact vs {DETUNE_CENTS:.0f}c twin")
+print(f"MERGE arm — {n_merge} NON-DEGENERATE below-horizon ratios "
+      f"(alpha = 1 excluded), exact vs {DETUNE_CENTS:.0f}c twin")
 for f in below:
     print(f"    {str(f):>6s}  max(p,q) {max(f.numerator, f.denominator):>2d}  "
-          f"separation {gap_hz(f):.2f} Hz  "
-          f"{'<- masking says THIS one is heard' if f == 1 else ''}")
-print(f"\nBEAT arm (the gate) — {n_beat} above-horizon ratios, 3-8 Hz separation")
+          f"{n_partials(f):>3d} partials  separation {gap_hz(f):.2f} Hz")
+print(f"\nBEAT arm (the gate) — {n_beat} above-horizon ratios, 3-8 Hz "
+      f"separation, partial-count matched")
 for f in above:
-    print(f"    {str(f):>6s}  separation {gap_hz(f):.2f} Hz")
+    print(f"    {str(f):>6s}  {n_partials(f):>3d} partials  "
+          f"separation {gap_hz(f):.2f} Hz")
+print(f"\n    merge: partials {merge_np}")
+print(f"           ratios   {[round(float(f), 3) for f in below]}")
+print(f"    beat : partials {sorted(n_partials(f) for f in above)}")
+print(f"           ratios   {[round(float(f), 3) for f in above]}")
+print("    matched on BOTH density and ratio spread — neither is a tell")
 
 print(f"\nTASK: 3-interval odd-one-out, chance {CHANCE:.1%} (amendment 1)")
 print(f"GATE: a listener scores >= {GATE_PCT:.0%} on the beat arm before any "
@@ -226,7 +318,10 @@ json.dump(dict(sr=SR, duration_s=DUR, f_c=FC, I=I_MUS,
                b2_bar=B2_BAR, b3_bar=B3_BAR,
                predictions_sealed=[f"B1 gate >={GATE_PCT:.0%} beat arm, per listener",
                                    f"B2 non-unison merges <={B2_BAR:.0%} (chance 33.3%)",
-                                   f"B3 unison >={B3_BAR:.0%}",
+                                   "B3 WITHDRAWN (alpha=1 degenerate; the "
+                                   "corrected model predicts no audible merge)",
+                                   f"B3' any merge ratio >{B2_BAR:.0%} refutes "
+                                   "the corrected masking model",
                                    f"B4 the count above {B2_BAR:.0%} pins sigma"],
                verdict="PROTOCOL_SEALED_AWAITING_DATA"),
           open(f"{HERE}/brocot_stageb_protocol.json", "w"), indent=1)

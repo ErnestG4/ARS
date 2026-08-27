@@ -93,8 +93,29 @@ WHAT THIS DOES AND DOES NOT TOUCH -- stated because the headline invites
 overreading.
 
   IT BOUNDS: the audibility of EXACT COINCIDENCE. At I = 0.9, under relative
-  masking, essentially only the unison coincidence clears threshold. The
-  coincidence horizon as a PERCEPTUAL object nearly collapses to 1/1.
+  masking, only alpha = 1 clears threshold — and see amendment 2, because that
+  case is degenerate and the honest headline is stronger than "collapses to
+  1/1".
+
+AMENDMENT 2 — alpha = 1 IS DEGENERATE, AND THE RESULT IS STRONGER WITHOUT IT.
+
+Raised by a listener's first impression of the Stage B stimuli, then verified:
+alpha = 1 means r2/r1 = 1, i.e. THE TWO MODULATORS SIT AT THE SAME RATIO. Its
+"coincidence" is not two sidebands of different operators meeting; it is one
+operator counted twice. The spectrum is a plain harmonic series — 7 partials at
+220, 440, 660, 880 Hz — where every other below-horizon ratio carries 25 to 43.
+
+So the +10.7 dB signal-to-masker that made alpha = 1 the sole survivor is the
+SMR of a partial in a sparse harmonic series, not of a coincidence.
+
+    THE CORRECTED HEADLINE: at I = 0.9, ZERO of the 12 non-degenerate
+    below-horizon ratios clear masking. The same holds at 1.5, and at 2.0 and
+    3.0 nothing cleared at any margin to begin with.
+
+That is a cleaner and stronger statement than the one first banked, and it
+removes a confound rather than adding a caveat. The banked counts are unchanged
+as counts; what changes is that the single survivor was never evidence for the
+proposition it was carrying.
 
   IT DOES NOT TOUCH: the theorem, which is arithmetic; the parent taxonomy,
   which is about NEAR-coincidence; or the separation coordinate, which is a
