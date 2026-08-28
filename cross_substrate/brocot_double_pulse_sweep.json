@@ -1,0 +1,259 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "bound": 8,
+ "betas": [
+  0.0,
+  0.25,
+  0.5,
+  0.75,
+  0.9,
+  1.0
+ ],
+ "h_max": 7,
+ "pulse_width": 0.25,
+ "instrument": {
+  "model": "double-pulse modulator + Stage A relative masking",
+  "params": [
+   {
+    "name": "beta",
+    "kind": "TESTED",
+    "why": "Fritz's timbre control: 0 = single pulse, 1 = antisymmetric double pulse. The whole point of the cell.",
+    "sweep": [
+     0.0,
+     0.25,
+     0.5,
+     0.75,
+     0.9,
+     1.0
+    ],
+    "value": null
+   },
+   {
+    "name": "sigma_scale",
+    "kind": "TESTED",
+    "why": "ERB is an equivalent RECTANGULAR bandwidth; Stage A showed the audible count is width-sensitive",
+    "sweep": [
+     1.0,
+     0.4
+    ],
+    "value": null
+   },
+   {
+    "name": "pulse_width",
+    "kind": "DECLARED",
+    "why": "sets P_n, the pulse's own envelope, which multiplies BOTH parities equally and so cannot affect A1; it scales A2's absolute level, not the ratio across beta",
+    "sweep": null,
+    "value": 0.25
+   },
+   {
+    "name": "h_max",
+    "kind": "DECLARED",
+    "why": "brocot_waveform_parity showed only a stack's EXTENT moves the ringing set, so the extent is held fixed while parity content sweeps \u2014 the control this cell needs",
+    "sweep": null,
+    "value": 7
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "the criterion is a ratio of amplitudes; scale-invariant",
+    "sweep": null,
+    "value": 220.0
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 3
+ },
+ "levels": {
+  "0.0": {
+   "even": 0.2122065907891938,
+   "odd": 0.37727540867535875,
+   "ratio_db": -4.997992599358048
+  },
+  "0.25": {
+   "even": 0.15915494309189535,
+   "odd": 0.4715942608441985,
+   "ratio_db": -9.434967591685176
+  },
+  "0.5": {
+   "even": 0.1061032953945969,
+   "odd": 0.5659131130130381,
+   "ratio_db": -14.540417693751298
+  },
+  "0.75": {
+   "even": 0.05305164769729845,
+   "odd": 0.6602319651818778,
+   "ratio_db": -21.899953399643188
+  },
+  "0.9": {
+   "even": 0.021220659078919374,
+   "odd": 0.7168232764831817,
+   "ratio_db": -30.57306461841463
+  },
+  "1.0": {
+   "even": 0,
+   "odd": 0.7545508173507175,
+   "ratio_db": -Infinity
+  }
+ },
+ "ringing_base": [
+  "1",
+  "3/4",
+  "4/3",
+  "4/5",
+  "5/4",
+  "5/6",
+  "5/7",
+  "6/5",
+  "6/7",
+  "7/10",
+  "7/5",
+  "7/6",
+  "7/8",
+  "7/9",
+  "8/11",
+  "8/7",
+  "8/9"
+ ],
+ "symdiff_below_one": 0,
+ "symdiff_at_one": 0,
+ "audible": {
+  "beta=0.0,sigma=1.0": 0,
+  "beta=0.0,sigma=0.4": 0,
+  "beta=0.25,sigma=1.0": 0,
+  "beta=0.25,sigma=0.4": 0,
+  "beta=0.5,sigma=1.0": 0,
+  "beta=0.5,sigma=0.4": 0,
+  "beta=0.75,sigma=1.0": 0,
+  "beta=0.75,sigma=0.4": 0,
+  "beta=0.9,sigma=1.0": 0,
+  "beta=0.9,sigma=0.4": 0,
+  "beta=1.0,sigma=1.0": 0,
+  "beta=1.0,sigma=0.4": 0
+ },
+ "q_ringing": [
+  1,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "q_shared": [
+  7,
+  8,
+  9,
+  10,
+  11
+ ],
+ "bars": {
+  "symmetric difference of ringing sets across beta": {
+   "name": "symmetric difference of ringing sets across beta",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 90,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0,
+   "why": "a symmetric difference of subsets of 90 nodes"
+  },
+  "even-harmonic level swing across beta, dB": {
+   "name": "even-harmonic level swing across beta, dB",
+   "value": 20.0,
+   "thresh": 6.0,
+   "floor": 0.0,
+   "ceiling": 120.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 114.0,
+   "why": "a level ratio in dB; 0 if the control does nothing, and bounded well under 120 dB by the smallest nonzero beta step tested"
+  },
+  "non-degenerate ratios audible at any beta": {
+   "name": "non-degenerate ratios audible at any beta",
+   "value": 0,
+   "thresh": 2,
+   "floor": 0,
+   "ceiling": 16,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 2,
+   "why": "a count of the 16 non-degenerate below-horizon ratios"
+  },
+  "distinct denominators among ringing ratios": {
+   "name": "distinct denominators among ringing ratios",
+   "value": 10,
+   "thresh": 4,
+   "floor": 1,
+   "ceiling": 19,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 15,
+   "why": "a count of distinct q values present in the enumerated set"
+  },
+  "q values shared between ringing and non-ringing": {
+   "name": "q values shared between ringing and non-ringing",
+   "value": 5,
+   "thresh": 1,
+   "floor": 0,
+   "ceiling": 19,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 18,
+   "why": "a count of shared q values, 0 to the number of distinct q"
+  }
+ },
+ "verdict": "SWEEP_IS_HORIZON_ORTHOGONAL",
+ "composed": {
+  "label": "SWEEP_IS_HORIZON_ORTHOGONAL_AND_BY_even-harmonic level swing across beta, dB_AT_non-degenerate ratios audible at any beta_AT_q values shared between ringing and non-ringing",
+  "head": "SWEEP_IS_HORIZON_ORTHOGONAL",
+  "qualifiers": [
+   "AND_BY_even-harmonic level swing across beta, dB",
+   "AT_non-degenerate ratios audible at any beta",
+   "AT_q values shared between ringing and non-ringing"
+  ],
+  "citation": "SWEEP_IS_HORIZON_ORTHOGONAL  [symmetric difference of ringing sets across beta 0 vs <=0 MET \u2014 \"the ringing set does not move across the sweep\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('symmetric difference of ringing sets across beta', EXISTENCE, MET)",
+   "Arm('even-harmonic level swing across beta, dB', MECHANISM, MET)",
+   "Arm('non-degenerate ratios audible at any beta', RESOLUTION, MET)",
+   "Arm('q values shared between ringing and non-ringing', RESOLUTION, MET)"
+  ]
+ }
+}
