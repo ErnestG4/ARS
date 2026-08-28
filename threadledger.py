@@ -336,7 +336,20 @@ ENTRIES = [
               "knob: robust at I=0.9 (1-2 over a 4x change), NOT at I>=2 (0-6). "
               "Bounds EXACT-coincidence audibility only; the beat coordinate is "
               "dynamic and outside static masking's jurisdiction"),
-    dict(id="the-0017-offset", status=QUEUED,
+    dict(id="offset-mechanism", status=LANDED,
+         request="is the 0.0017 offset explained by the spacing scale, and do "
+                 "offset markers locate anything?",
+         artifact="cross_substrate/brocot_offset_mechanism.json",
+         verdict="MARKERS_ARE_THE_WRONG_OBJECT",
+         note="SEALED head unchanged; amended reading OFFSET_REAL_BUT_"
+              "UNEXPLAINED. The spacing-scale hypothesis is FALSIFIED: CV ratio "
+              "1.126 vs a shuffled null of 1.094, indistinguishable. O3's +16% "
+              "gain was carpet-bombing -- predicted offsets beat random by "
+              "+1.7% (sd 3.5%) and lose to simply widening the window "
+              "(53.1% vs 55.6%). Exact markers + a 1.8e-3 window is the best "
+              "event layer available, at 55.6%. The offset itself stands: "
+              "median 0.0017 alpha, grid-stable, unexplained"),
+    dict(id="the-0017-offset", status=DROPPED,
          warrant=[("cross_substrate/brocot_event_layer.json",
                    "RESIDUAL_SURVIVES_CLOSED_FORM",
                    "STRUCTURAL/measured offset, grid-stable")],
@@ -355,7 +368,12 @@ ENTRIES = [
               "constant, which is directly testable and would explain why four "
               "marker sets built on exact events all missed. If it holds, the "
               "event layer's markers are the wrong OBJECT rather than an "
-              "incomplete list -- a different repair from adding a channel."),
+              "incomplete list -- a different repair from adding a channel. "
+              "DROPPED 2026-08-27: run as offset-mechanism, hypothesis "
+              "falsified. Reopen only with a DIFFERENT mechanism -- the "
+              "spacing scale is excluded, and any successor must carry an "
+              "economy control, since this one's coverage arm turned out to be "
+              "alpha-area rather than information."),
     dict(id="coherence-model-measured", status=LANDED,
          request="does the sum-of-combs model error reach the RANKING, or is it "
                  "documentation only?",
