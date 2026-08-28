@@ -1,0 +1,138 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "A": 8,
+ "coarse": 3501,
+ "fine": 7001,
+ "abs_jump": 0.05,
+ "fixed_window": 0.0006,
+ "instrument": {
+  "model": "Brody-q over canonical spacings, with a near-coincidence model",
+  "params": [
+   {
+    "name": "abs_jump",
+    "kind": "TESTED",
+    "why": "what counts as a large jump; inherited from v2 at 0.05 and swept here because the offset's meaning should not depend on it",
+    "sweep": [
+     0.03,
+     0.05,
+     0.08
+    ],
+    "value": null
+   },
+   {
+    "name": "fixed_window",
+    "kind": "TESTED",
+    "why": "the coverage window, fixed in alpha per brocot_event_layer's amendment 1; swept because O3's gain must not be a window effect",
+    "sweep": [
+     0.0003,
+     0.0006,
+     0.0012
+    ],
+    "value": null
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "delta scales with f_c and so does the spacing scale s, so kappa is dimensionless and f_c cancels from the prediction",
+    "sweep": null,
+    "value": 220.0
+   },
+   {
+    "name": "spacing_statistic",
+    "kind": "DECLARED",
+    "why": "the median is the scale the smallest spacings are anomalous RELATIVE TO; a mean would be dragged by the anomaly itself",
+    "sweep": null,
+    "value": "median of canonical_spacings"
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 2
+ },
+ "n_markers": 15,
+ "n_jumps_coarse": 69,
+ "n_jumps_fine": 81,
+ "raw_offset_median": 0.0016999999999998128,
+ "raw_cv": 1.3619696768096874,
+ "nu_cv": 1.5339701215196424,
+ "kappa": 0.027500000000002522,
+ "shuffled_cv_ratio": 1.0942479577665356,
+ "coverage_exact": 0.37037037037037035,
+ "coverage_predicted": 0.5308641975308642,
+ "coverage_widened_window": 0.5555555555555556,
+ "coverage_random": 0.5138888888888888,
+ "random_sd": 0.03375222618499742,
+ "beats_random": 0.016975308641975384,
+ "beats_widened": -0.024691358024691357,
+ "verdict_amended": "OFFSET_REAL_BUT_UNEXPLAINED",
+ "bars": {
+  "CV(normalised) / CV(raw offset)": {
+   "name": "CV(normalised) / CV(raw offset)",
+   "value": 1.126288013337311,
+   "thresh": 0.667,
+   "floor": 0.0,
+   "ceiling": 5.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0.667,
+   "why": "a ratio of two coefficients of variation; 0 if normalising collapses the spread entirely, and bounded well under 5 by the observed spreads"
+  },
+  "same ratio with the spacing scale SHUFFLED": {
+   "name": "same ratio with the spacing scale SHUFFLED",
+   "value": 1.0942479577665356,
+   "thresh": 0.85,
+   "floor": 0.0,
+   "ceiling": 5.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 4.15,
+   "why": "the same ratio under a permutation null"
+  },
+  "coverage gain from predicted offsets": {
+   "name": "coverage gain from predicted offsets",
+   "value": 0.16049382716049387,
+   "thresh": 0.15,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 0.85,
+   "why": "a difference of two coverages each in [0,1]"
+  }
+ },
+ "verdict": "MARKERS_ARE_THE_WRONG_OBJECT",
+ "composed": {
+  "label": "MARKERS_ARE_THE_WRONG_OBJECT_COARSELY_AT_CV(normalised) / CV(raw offset)_AND_BY_same ratio with the spacing scale SHUFFLED",
+  "head": "MARKERS_ARE_THE_WRONG_OBJECT",
+  "qualifiers": [
+   "COARSELY_AT_CV(normalised) / CV(raw offset)",
+   "AND_BY_same ratio with the spacing scale SHUFFLED"
+  ],
+  "citation": "MARKERS_ARE_THE_WRONG_OBJECT  [coverage gain from predicted offsets 0.1605 vs >=0.15 MET \u2014 \"predicted offsets locate jumps the exact markers miss\"; CV(normalised) / CV(raw offset) 1.126 vs <=0.667 MISSED \u2014 \"the spacing scale is the right normaliser\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('coverage gain from predicted offsets', EXISTENCE, MET)",
+   "Arm('CV(normalised) / CV(raw offset)', RESOLUTION, MISSED)",
+   "Arm('same ratio with the spacing scale SHUFFLED', MECHANISM, MET)"
+  ]
+ }
+}

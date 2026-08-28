@@ -54,6 +54,36 @@ channels at alpha_m.
 ║ measured, and unexplained -- which is a better place to leave it than an      ║
 ║ attribution nobody tested.                                                   ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — O3 HAD NO ECONOMY ARM, AND THE CONTROL KILLS IT.
+
+O3 compared 45 predicted markers against 15 exact ones and counted the coverage
+gain. v3 states the rule this cell then failed to apply: "coverage bought by
+carpet-bombing is not a display." Three controls, run before reading the
+verdict:
+
+    exact only, window 6e-4                 15 markers    37.0%
+    exact + PREDICTED offsets, window 6e-4  45 markers    53.1%
+    exact only, window 1.8e-3 (3x area)     15 markers    55.6%
+    exact + RANDOM offsets, window 6e-4     45 markers    50.9%  (sd 3.5%)
+
+The predicted offsets beat random offsets of the same median magnitude by +2.2%,
+which is well inside the null's own spread, and they are WORSE than simply
+widening the window threefold. The +16% gain is alpha-area, not information. O3
+is reported MET as it fell and it establishes nothing.
+
+AND THE HYPOTHESIS IS FALSIFIED ON ITS OWN TERMS. O1 asked whether normalising
+the offset by the local spacing scale concentrates it: CV ratio 1.126 against a
+bar of 0.667, and the SHUFFLED-scale null gives 1.094. The measured value is
+indistinguishable from the null -- normalising by the spacing scale does nothing
+whatsoever. The near-coincidence-enters-the-spacing-distribution story is wrong.
+
+SO THE AMENDED VERDICT IS OFFSET_REAL_BUT_UNEXPLAINED, which the seal named as
+the honest place to leave it. What stands: the offset is real, its median is
+0.0017 in alpha, and it is stable under grid doubling. What falls: that the
+spacing scale explains it, and that offset markers locate anything. The exact
+markers plus a wider window remain the best available event layer, and they
+cover 55.6%.
 """
 import json
 import os
@@ -182,11 +212,6 @@ def coverage(pos, xs, win):
     return float(np.mean([np.any(np.abs(x - pos) <= win) for x in xs])) if xs.size else 0.0
 
 
-pred = []
-for m in MARKS:
-    a2 = A2[m] or 1
-    for sgn in (+1, -1):
-        pred.append(float(m))          # placeholder, replaced per-jump below
 base_cov = coverage(POS, xs_f, FIXED_WIN)
 # predicted markers use the LOCAL spacing scale, so they are per-jump offsets
 s_at = np.interp(POS, gf_, np.nan_to_num(sf, nan=np.nanmedian(sf)))
@@ -194,6 +219,19 @@ off = KAPPA * s_at / (F_C * np.array([A2[m] or 1 for m in MARKS], float))
 PRED = np.concatenate([POS - off, POS, POS + off])
 pred_cov = coverage(PRED, xs_f, FIXED_WIN)
 o3 = pred_cov - base_cov
+
+# AMENDMENT 1: the economy controls O3 lacked. Same alpha area via a widened
+# window, and the same marker count at RANDOM offsets of matched magnitude.
+wide_cov = coverage(POS, xs_f, 3 * FIXED_WIN)
+_r = np.random.default_rng(SEED)
+_rand = []
+for _ in range(200):
+    ro = _r.uniform(0.3, 1.7, size=len(off)) * float(np.median(off))
+    _rand.append(coverage(np.concatenate([POS - ro, POS, POS + ro]),
+                          xs_f, FIXED_WIN))
+rand_cov, rand_sd = float(np.mean(_rand)), float(np.std(_rand))
+beats_random = pred_cov - rand_cov
+beats_wide = pred_cov - wide_cov
 
 O1 = Bar("CV(normalised) / CV(raw offset)", 0.667, direction="le", floor=0.0,
          ceiling=5.0,
@@ -216,6 +254,12 @@ print(f"\nkappa fitted on the coarse grid = {KAPPA:.3f}")
 print(f"coverage on the FINE grid, window {FIXED_WIN}:")
 print(f"   exact markers only        {base_cov:.1%}")
 print(f"   plus predicted offsets    {pred_cov:.1%}   ({len(PRED)} markers)")
+print(f"\nECONOMY CONTROLS (amendment 1):")
+print(f"   exact only, window widened 3x  {wide_cov:>7.1%}  ({len(POS)} markers)")
+print(f"   exact + RANDOM offsets         {rand_cov:>7.1%}  sd {rand_sd:.1%}, "
+      f"200 draws")
+print(f"   predicted beats random         {beats_random:>+7.1%}   "
+      f"beats widened window {beats_wide:>+.1%}")
 print()
 for b, v, f in ((O1, o1, "{:.3f}"), (O2, o2, "{:.3f}"), (O3, o3, "{:+.1%}")):
     print("  " + b.line(v, f))
@@ -230,7 +274,16 @@ v = compose([Arm.from_bar(s3, EX_ROLE,
                                 "dividing by a varying quantity")],
             holds="MARKERS_ARE_THE_WRONG_OBJECT",
             fails="OFFSET_REAL_BUT_UNEXPLAINED")
-print(f"\nVERDICT: {v['citation']}")
+amended = ("OFFSET_REAL_BUT_UNEXPLAINED"
+           if (beats_random < 2 * rand_sd or beats_wide < 0) else v["head"])
+print(f"\nVERDICT (sealed lattice, unchanged): {v['citation']}")
+print(f"VERDICT (amendment 1, economy controlled): {amended}")
+if amended == "OFFSET_REAL_BUT_UNEXPLAINED":
+    print("  The offset is real, 0.0017 in alpha, stable under grid doubling.")
+    print("  The spacing scale does not explain it -- O1 is indistinguishable")
+    print("  from its own shuffled null -- and offset markers locate nothing")
+    print("  beyond the alpha area they cover. Exact markers with a wider")
+    print(f"  window remain the best event layer available, at {wide_cov:.1%}.")
 
 with redpath("large jumps with an offset measured", expect_min=60) as rp:
     rp.observed(len(xs_c))
@@ -242,6 +295,9 @@ json.dump(dict(I=I_MUS, B=B, A=A, coarse=COARSE, fine=FINE,
                raw_offset_median=float(np.median(d_c)), raw_cv=cv(d_c),
                nu_cv=cv(nu_c), kappa=KAPPA, shuffled_cv_ratio=o2,
                coverage_exact=base_cov, coverage_predicted=pred_cov,
+               coverage_widened_window=wide_cov, coverage_random=rand_cov,
+               random_sd=rand_sd, beats_random=beats_random,
+               beats_widened=beats_wide, verdict_amended=amended,
                bars={s["name"]: s for s in (s1, s2, s3)},
                verdict=v["head"], composed=v),
           open(f"{HERE}/brocot_offset_mechanism.json", "w"), indent=1)
