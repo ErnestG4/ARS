@@ -336,6 +336,26 @@ ENTRIES = [
               "knob: robust at I=0.9 (1-2 over a 4x change), NOT at I>=2 (0-6). "
               "Bounds EXACT-coincidence audibility only; the beat coordinate is "
               "dynamic and outside static masking's jurisdiction"),
+    dict(id="the-0017-offset", status=QUEUED,
+         warrant=[("cross_substrate/brocot_event_layer.json",
+                   "RESIDUAL_SURVIVES_CLOSED_FORM",
+                   "STRUCTURAL/measured offset, grid-stable")],
+         request="what IS the 0.0017 offset? The median large jump sits that "
+                 "far in alpha from the nearest closed-form marker, and the "
+                 "distance percentiles are stable under grid doubling, so it "
+                 "is a physical scale and not a sampling artifact",
+         note="LEADING SUSPECT, to be sealed against: the jump may not be AT a "
+              "coincidence but where a NEAR-coincidence enters the spacing "
+              "distribution. u = I8_brody_q_unbounded(canonical_spacings(...)) "
+              "is most sensitive to the SMALLEST spacings, so a pair at gap "
+              "delta perturbs it hardest when delta is comparable to the "
+              "smallest spacings already present -- which happens at some "
+              "offset FROM the exact coincidence, not at it. That predicts the "
+              "offset scales with the local spacing scale rather than being a "
+              "constant, which is directly testable and would explain why four "
+              "marker sets built on exact events all missed. If it holds, the "
+              "event layer's markers are the wrong OBJECT rather than an "
+              "incomplete list -- a different repair from adding a channel."),
     dict(id="coherence-model-gap", status=QUEUED,
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
                    "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
