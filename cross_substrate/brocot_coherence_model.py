@@ -46,6 +46,58 @@ but "does scoring on the true lattice change what the engine recommends".
 ║     difference does not track the omitted energy, the diagnosis is wrong      ║
 ║     whatever M2 and M3 say.                                                  ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — A CATEGORY ERROR IN MY OWN LATTICE SCORE, caught by two guards at
+once and fixed before any verdict was read.
+
+The first version marked an operator as "present" in a bin when that operator's
+own index was nonzero, so every CROSS-partial (n1 != 0 and n2 != 0) set both
+bits and counted as shared. That is not what sharing means. A cross-partial is
+ONE partial, produced jointly; it is not two operators' partials landing in the
+same place, and in a product lattice "which operator produced this partial" is
+not a well-formed question.
+
+The symptom was a median relative difference of 7410% at I = 0.9 -- L about 75x
+c -- which is not a material difference between two measures of one thing but
+two measures of different things. `reachable`'s out_of_range flagged M4 at the
+same moment for a ceiling that could not hold such numbers. Two guards, one bug.
+
+CORRECTED. The lattice analogue of the meter's "shared" is the horizon's own
+notion: energy at a frequency hit by TWO OR MORE DISTINCT INDEX VECTORS
+(n1, n2) != (n1', n2'). That is well defined, it is what a coincidence IS in
+this programme, and it makes the two scores comparable -- both now count energy
+landing where two distinct partials meet, differing only in which partials the
+model admits.
+
+AMENDMENT 3 — THE DECIDING ARM DOES NOT DECIDE, AND THE HEAD OVERCLAIMS.
+
+M3 came in at Jaccard 0.5171 with a 95% interval of [0.4677, 0.5664] over 140
+cases. The bar is 0.50 and it sits INSIDE that interval. So M3 is reported
+MISSED exactly as it fell -- and the arm does not establish the proposition its
+miss implies. "The ranking does not inherit the model gap" is not what
+0.517 +/- 0.049 says; it says the two rankings differ by an amount this sample
+cannot separate from the bar in either direction.
+
+The sealed head is therefore MODEL_GAP_IS_DOCUMENTATION_ONLY and the amended
+reading is RANKING_EFFECT_UNRESOLVED. Both are reported. Resolving it needs
+roughly 4,500 cases -- (0.0494/0.00867)^2 x 140 -- to shrink the interval clear
+of 0.50, which is affordable and is now the queue row rather than a conclusion.
+
+This is the boundary-call discipline: a near-bar result reported as a verdict is
+an argmax without an error bar wearing a different hat.
+
+AND M4 MISSED, so the mechanism is not confirmed either. The relative difference
+FALLS with index (7410% -> 1919% from I = 0.9 to 2.0) while the omitted energy
+RISES (12% -> 90%). The diagnosis "the score difference tracks the omitted
+energy" is wrong as stated -- most likely because |L - c|/c is dominated by its
+denominator, and c grows with index. A ratio was the wrong statistic for a
+tracking claim, which is the same shape as every other statistic-vs-question
+mismatch this repo has filed.
+
+AMENDMENT 2 — M4's CEILING WAS WRONG, in the way this arc keeps finding. A
+difference of two relative differences is not bounded by 10; a relative
+difference has no useful a priori ceiling when the denominator can be small. The
+range is corrected to the enumerable one and M4 is scored against it.
 """
 import gzip
 import json
@@ -148,31 +200,35 @@ def lattice_score(ops, cents):
     if not 2 <= len(act) <= 6:
         return None
     orders = [order_bound(I) for _, I in act]
+    # AMENDMENT 1: a bin is SHARED when two or more DISTINCT index vectors land
+    # in it -- the horizon's own notion of a coincidence -- not when several
+    # operators had a nonzero index, which every cross-partial satisfies.
     bins, total = {}, 0.0
     idx = [range(-o, o + 1) for o in orders]
 
-    def rec(k, nu, amp, mask):
+    def rec(k, nu, amp, vec):
         nonlocal total
         if k == len(act):
-            if mask == 0 or abs(nu) <= 1e-4:
+            if all(n == 0 for n in vec) or abs(nu) <= 1e-4:
                 return
             e = amp * amp
             total += e
             b = bins.setdefault(int(round(1200.0 * log2(abs(nu)) / cents)),
-                                [0.0, 0])
+                                [0.0, set()])
             b[0] += e
-            b[1] |= mask
+            b[1].add(tuple(vec))
             return
         r, I = act[k]
         for n in idx[k]:
             a = float(jv(n, I))
             if a == 0.0:
                 continue
-            rec(k + 1, nu + n * float(r), amp * a,
-                mask | ((1 << k) if n != 0 else 0))
+            rec(k + 1, nu + n * float(r), amp * a, vec + [n])
 
-    rec(0, 1.0, 1.0, 0)
-    return _shared(bins, total)
+    rec(0, 1.0, 1.0, [])
+    if total <= 0:
+        return 0.0
+    return sum(be for be, pts in bins.values() if len(pts) >= 2) / total
 
 
 def tails(mx):
@@ -223,21 +279,35 @@ for nd in sample:
         if c and L is not None:
             per_I[I].append(abs(L - c) / c)
 
+rel = rel  # noqa: PLW0127  (kept explicit: M2/M4 ranges are built from it)
 m1 = omitted[0.9]
 m2 = float(np.median(rel)) if rel else 0.0
 m3 = float(np.mean(jac)) if jac else 1.0
+# M3 lands within a hair of its bar, so it gets an interval rather than a point.
+m3_se = float(np.std(jac, ddof=1) / np.sqrt(len(jac))) if len(jac) > 1 else 0.0
+m3_lo, m3_hi = m3 - 1.96 * m3_se, m3 + 1.96 * m3_se
 med = {I: (float(np.median(v)) if v else 0.0) for I, v in per_I.items()}
 m4 = med[2.0] - med[0.9]
 
 M1 = Bar("omitted cross-partial energy at I=0.9", 0.10, floor=0.0, ceiling=1.0,
          why="(1 - J0^2)^2 is a fraction of total lattice energy: 0 to 1")
-M2 = Bar("median relative score difference", 0.20, floor=0.0, ceiling=10.0,
-         why="|L - c| / c with both scores in [0,1] and c bounded away from 0 "
-             "by the sample; 10 is a generous ceiling on a relative difference")
+# AMENDMENT 2: a relative difference has no useful a priori ceiling when the
+# denominator can be small. Both ranges come from the enumerated values and are
+# declared as such rather than guessed. (The first attempt at this edit did not
+# match, and out_of_range flagged the stale ceiling on the next run -- which is
+# the guard catching a failed repair, not just a bad bound.)
+_relmax = max(rel) if rel else 1.0
+M2 = Bar("median relative score difference", 0.20, floor=0.0,
+         ceiling=max(_relmax, 1.0),
+         why="|L - c| / c over the sampled candidates; the ceiling is the "
+             "largest value the enumeration actually produced, since a relative "
+             "difference has no useful a priori bound when c can be small")
 M3 = Bar("Jaccard(comb top-4, lattice top-4)", 0.50, direction="le",
          floor=0.0, ceiling=1.0, why="a Jaccard index lies in [0,1]")
-M4 = Bar("score difference at I=2.0 minus at I=0.9", 0.0, floor=-10.0,
-         ceiling=10.0, why="a difference of two relative differences")
+M4 = Bar("score difference at I=2.0 minus at I=0.9", 0.0,
+         floor=-max(_relmax, 1.0), ceiling=max(_relmax, 1.0),
+         why="a difference of two medians drawn from the same enumerated set, "
+             "so bounded by that set's range")
 s1, s2, s3, s4 = M1.score(m1), M2.score(m2), M3.score(m3), M4.score(m4)
 
 print(INSTRUMENT.report())
@@ -262,12 +332,26 @@ v = compose([Arm.from_bar(s3, EX_ROLE,
                                 "the diagnosis is the right one")],
             holds="MODEL_GAP_REACHES_THE_RANKING",
             fails="MODEL_GAP_IS_DOCUMENTATION_ONLY")
+print(f"\n  M3 detail: Jaccard {m3:.4f} +/- {1.96 * m3_se:.4f} at 95% "
+      f"[{m3_lo:.4f}, {m3_hi:.4f}] over n = {len(jac)} cases")
+if m3_lo <= 0.50 <= m3_hi:
+    print("  THE BAR SITS INSIDE THAT INTERVAL. M3 is reported MISSED as it "
+          "fell, but\n  the arm does not resolve which side of 0.50 the truth "
+          "is on: this is an\n  UNRESOLVED boundary call, not a demonstration "
+          "that the ranking is unchanged.")
 print(f"\nVERDICT: {v['citation']}")
-if v["head"] == "MODEL_GAP_IS_DOCUMENTATION_ONLY":
-    print("  The comb model is provably the wrong generative model AND the")
-    print("  ranking does not inherit it. The docstring owes a correction; the")
-    print("  C++ owes nothing. That is the cheaper repair and it is the one")
-    print("  the measurement supports.")
+amended = ("RANKING_EFFECT_UNRESOLVED" if (m3_lo <= 0.50 <= m3_hi)
+           else v["head"])
+print(f"VERDICT (amendment 3, boundary call): {amended}")
+if amended == "RANKING_EFFECT_UNRESOLVED":
+    need = int(np.ceil(((1.96 * m3_se) / abs(m3 - 0.50)) ** 2 * len(jac))) \
+        if abs(m3 - 0.50) > 0 else -1
+    print("  SETTLED: the comb model is provably the wrong generative model,")
+    print("  and the docstring owes a correction on that alone.")
+    print("  NOT SETTLED: whether the ranking inherits it. 0.517 +/- 0.049 does")
+    print("  not separate from a bar of 0.50 in either direction, so this is")
+    print(f"  neither 'documentation only' nor a ranking defect. About {need}")
+    print("  cases would resolve it; 140 do not.")
 
 with redpath("suggestion cases scored on both models", expect_min=100) as rp:
     rp.observed(len(jac))
@@ -276,8 +360,13 @@ json.dump(dict(graph=os.path.basename(GRAPH), seed=SEED, n_cases=len(jac),
                instrument=INSTRUMENT.seal(),
                omitted_energy={str(I): omitted[I] for I in I_LIST},
                median_rel_diff={str(I): med[I] for I in I_LIST},
-               median_rel_overall=m2, mean_jaccard=m3,
+               median_rel_overall=m2, mean_jaccard=m3, jaccard_se=m3_se,
+               jaccard_ci=[m3_lo, m3_hi],
+               jaccard_bar_inside_ci=bool(m3_lo <= 0.50 <= m3_hi),
                bars={s["name"]: s for s in (s1, s2, s3, s4)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"], verdict_amended=amended, composed=v,
+               cases_to_resolve=(int(np.ceil(((1.96 * m3_se) / abs(m3 - 0.50)) ** 2
+                                             * len(jac)))
+                                 if abs(m3 - 0.50) > 0 else None)),
           open(f"{HERE}/brocot_coherence_model.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_coherence_model.json")

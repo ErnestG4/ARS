@@ -1,0 +1,164 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "seed": 20260827,
+ "n_cases": 140,
+ "instrument": {
+  "model": "Coherence.h, reproduced exactly, against the product lattice",
+  "params": [
+   {
+    "name": "cents_tolerance",
+    "kind": "TESTED",
+    "why": "the engine's bin width. It is the free parameter of the SCORE, and a ranking change that only appears at one bin width is a property of the bin, not of the model",
+    "sweep": [
+     6.0,
+     12.0,
+     24.0
+    ],
+    "value": null
+   },
+   {
+    "name": "index",
+    "kind": "TESTED",
+    "why": "the omitted energy is (1-J0(I)^2)^2, so the gap is a strong function of index; M4 tests that the effect tracks it",
+    "sweep": [
+     0.9,
+     1.5,
+     2.0
+    ],
+    "value": null
+   },
+   {
+    "name": "max_order",
+    "kind": "DECLARED",
+    "why": "the engine's own cap, reproduced rather than chosen",
+    "sweep": null,
+    "value": 24
+   },
+   {
+    "name": "min_index",
+    "kind": "DECLARED",
+    "why": "the engine's own audibility floor for a modulator",
+    "sweep": null,
+    "value": 0.02
+   },
+   {
+    "name": "lattice_order",
+    "kind": "DECLARED",
+    "why": "the product lattice is truncated at the same Bessel order bound the horizon uses, so the two models are compared over the same reachable set and the difference is the MODEL, not the cutoff",
+    "sweep": null,
+    "value": "order_bound(I) per operator"
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 3
+ },
+ "omitted_energy": {
+  "0.9": 0.1210381085293156,
+  "1.5": 0.5446918742933877,
+  "2.0": 0.9022585622790845
+ },
+ "median_rel_diff": {
+  "0.9": 73.8845459652938,
+  "1.5": 37.40091896777336,
+  "2.0": 19.185835552594888
+ },
+ "median_rel_overall": 6.460808743226036,
+ "mean_jaccard": 0.5170748299319728,
+ "jaccard_se": 0.025183105954839254,
+ "jaccard_ci": [
+  0.4677159422604879,
+  0.5664337176034577
+ ],
+ "jaccard_bar_inside_ci": true,
+ "bars": {
+  "omitted cross-partial energy at I=0.9": {
+   "name": "omitted cross-partial energy at I=0.9",
+   "value": 0.1210381085293156,
+   "thresh": 0.1,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 0.9,
+   "why": "(1 - J0^2)^2 is a fraction of total lattice energy: 0 to 1"
+  },
+  "median relative score difference": {
+   "name": "median relative score difference",
+   "value": 6.460808743226036,
+   "thresh": 0.2,
+   "floor": 0.0,
+   "ceiling": 41440376778.07927,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 41440376777.87927,
+   "why": "|L - c| / c over the sampled candidates; the ceiling is the largest value the enumeration actually produced, since a relative difference has no useful a priori bound when c can be small"
+  },
+  "Jaccard(comb top-4, lattice top-4)": {
+   "name": "Jaccard(comb top-4, lattice top-4)",
+   "value": 0.5170748299319728,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0.5,
+   "why": "a Jaccard index lies in [0,1]"
+  },
+  "score difference at I=2.0 minus at I=0.9": {
+   "name": "score difference at I=2.0 minus at I=0.9",
+   "value": -54.69871041269891,
+   "thresh": 0.0,
+   "floor": -41440376778.07927,
+   "ceiling": 41440376778.07927,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 41440376778.07927,
+   "why": "a difference of two medians drawn from the same enumerated set, so bounded by that set's range"
+  }
+ },
+ "verdict": "MODEL_GAP_IS_DOCUMENTATION_ONLY",
+ "verdict_amended": "RANKING_EFFECT_UNRESOLVED",
+ "composed": {
+  "label": "MODEL_GAP_IS_DOCUMENTATION_ONLY_AT_median relative score difference_AT_omitted cross-partial energy at I=0.9_BUT_NOT_BY_score difference at I=2.0 minus at I=0.9",
+  "head": "MODEL_GAP_IS_DOCUMENTATION_ONLY",
+  "qualifiers": [
+   "AT_median relative score difference",
+   "AT_omitted cross-partial energy at I=0.9",
+   "BUT_NOT_BY_score difference at I=2.0 minus at I=0.9"
+  ],
+  "citation": "MODEL_GAP_IS_DOCUMENTATION_ONLY  [Jaccard(comb top-4, lattice top-4) 0.5171 vs <=0.5 MISSED \u2014 \"scoring on the true lattice changes what the engine recommends\"; score difference at I=2.0 minus at I=0.9 -54.7 vs >=0 MISSED \u2014 \"the difference tracks the omitted energy, so the diagnosis is the right one\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('Jaccard(comb top-4, lattice top-4)', EXISTENCE, MISSED)",
+   "Arm('median relative score difference', RESOLUTION, MET)",
+   "Arm('omitted cross-partial energy at I=0.9', RESOLUTION, MET)",
+   "Arm('score difference at I=2.0 minus at I=0.9', MECHANISM, MISSED)"
+  ]
+ },
+ "cases_to_resolve": 1170
+}
