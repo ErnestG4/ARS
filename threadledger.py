@@ -48,6 +48,16 @@ QUEUED, LANDED, DROPPED = "QUEUED", "LANDED", "DROPPED"
 #                               masked-horizon-stage-a; a C++ signature change
 #                               was one step from shipping on a dead premise
 #
+# WARRANTS CARRY A LAYER, added the same week. A row's warrants are not all the
+# same KIND of claim: some are theorem-grade and unconditional, others are
+# measurements sitting downstream of a parameter that is not yet settled. A row
+# whose warrants are listed flat invites the reader to treat the weakest as
+# though it had the strength of the strongest -- which is exactly the
+# compression COINCIDENCE-HORIZON now warns about for "parity can't matter".
+# So a warrant is (artifact, verdict_at_minting, layer), and the layer is
+# printed beside it. Two-tuples are still accepted and shown as "unlabelled",
+# because a missing label should be visible rather than assumed benign.
+#
 # The queue is exactly where premises age while actions wait, so a QUEUED row
 # may name the artifacts its warrant rests on AND the verdict each carried when
 # the row was minted. If a warrant artifact's verdict has since MOVED, the row
@@ -211,9 +221,11 @@ ENTRIES = [
               "audible"),
     dict(id="suggest-reachability-filter", status=QUEUED,
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
-                   "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE"),
+                   "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+                   "STRUCTURAL/the score's exact-coincidence share"),
                   ("cross_substrate/brocot_filter_worth_it.json",
-                   "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY")],
+                   "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY",
+                   "AUDIBILITY/sigma-conditional")],
          request="pass current's indices into suggestExtensions and filter "
                  "candidates by the asymmetric horizon; measure the change in "
                  "user-visible top-4 against the censused before",
@@ -271,9 +283,11 @@ ENTRIES = [
               "series"),
     dict(id="audible-horizon-calibration", status=QUEUED,
          warrant=[("cross_substrate/brocot_audible_horizon.json",
-                   "EPS_HORIZON_OVERSTATES_AUDIBILITY"),
+                   "EPS_HORIZON_OVERSTATES_AUDIBILITY",
+                   "AUDIBILITY/chosen-floor, and its seal was vacuous"),
                   ("cross_substrate/brocot_masked_horizon.json",
-                   "MASKING_GIVES_A_DERIVED_HORIZON")],
+                   "MASKING_GIVES_A_DERIVED_HORIZON",
+                   "AUDIBILITY/sigma-conditional")],
          request="fix the audibility floor empirically instead of picking it: "
                  "(A) excitation-pattern masked-threshold census; (B) 2AFC "
                  "detune-twin discrimination using the instrument's own "
@@ -324,7 +338,8 @@ ENTRIES = [
               "dynamic and outside static masking's jurisdiction"),
     dict(id="coherence-model-gap", status=QUEUED,
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
-                   "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE")],
+                   "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
+                   "STRUCTURAL/the meter's generative model")],
          request="Coherence.h models the spectrum as a SUM of independent combs "
                  "(partials only at |1 +/- m*r|, energy J_m(I)^2) when "
                  "simultaneous modulators produce a PRODUCT lattice at "
@@ -373,22 +388,31 @@ ENTRIES = [
               "ringing ratios span 10 denominators and 5 of them (7-11) also "
               "appear among non-ringing, so the trace cannot indicate fusion"),
     dict(id="double-pulse-control", status=QUEUED,
-         warrant=[("cross_substrate/brocot_double_pulse_sweep.json",
-                   "SWEEP_IS_HORIZON_ORTHOGONAL"),
-                  ("cross_substrate/brocot_waveform_parity.json",
-                   "PARITY_IS_HORIZON_ORTHOGONAL")],
+         warrant=[("cross_substrate/brocot_waveform_parity.json",
+                   "PARITY_IS_HORIZON_ORTHOGONAL", "STRUCTURAL/unconditional"),
+                  ("cross_substrate/brocot_double_pulse_sweep.json",
+                   "SWEEP_IS_HORIZON_ORTHOGONAL", "STRUCTURAL/unconditional"),
+                  ("cross_substrate/brocot_masked_horizon.json",
+                   "MASKING_GIVES_A_DERIVED_HORIZON", "AUDIBILITY/sigma-conditional")],
          request="add a continuous even-suppression control to Operator: a "
                  "beta knob mixing a pulse with its half-period-displaced "
                  "inverted copy, per Fritz's double-pulse construction",
-         note="warranted by two measurements: the axis is real (20 dB reach) "
-              "and provably orthogonal to everything COINCIDENCE-HORIZON "
-              "proves, so it can be designed without re-deriving anything. "
-              "Blocked on nothing measured -- it is an audio-thread change and "
-              "needs the usual anti-aliasing care a pulse train demands, which "
-              "is an engineering question and not a research one."),
+         note="TWO WARRANTS AT TWO LAYERS, deliberately not flattened. The "
+              "STRUCTURAL half is theorem-grade: the ringing predicate sees "
+              "SUPPORT, never amplitude, so beta cannot move the ringing set "
+              "for any pulse width, carrier or listener. The AUDIBILITY half "
+              "-- 'no coincidence becomes audible at any beta' -- is a "
+              "measurement under the masking model and is sigma-conditional "
+              "like everything downstream of Stage A, so masked_horizon is "
+              "listed as a warrant and WARRANT_STALE will force re-adjudication "
+              "if Stage B moves it. The null held at BOTH widths tested so it "
+              "very likely survives; the point is that it is flagged now rather "
+              "than assumed later. Blocked on nothing measured -- the "
+              "anti-aliasing a pulse train demands is engineering, not "
+              "research."),
     dict(id="amplitude-event-layer", status=QUEUED,
          warrant=[("cross_substrate/brocot_jump_display_v3.json",
-                   "JUMPS_NOT_EXPLAINED")],
+                   "JUMPS_NOT_EXPLAINED", "STRUCTURAL/coverage of large jumps")],
          request="the ~70% of large timbral jumps that are amplitude-threshold "
                  "crossings — an amplitude scan the horizon cannot supply; "
                  "needed for a complete EVENT layer",
@@ -417,9 +441,11 @@ ENTRIES = [
               "by this cell"),
     dict(id="heard-as-listening", status=QUEUED,
          warrant=[("cross_substrate/brocot_marker_erb_gate.json",
-                   "MAY_SAY_STRUCTURAL_EVENT_ONLY"),
+                   "MAY_SAY_STRUCTURAL_EVENT_ONLY",
+                   "AUDIBILITY/static, 0.67x a 1-cent detune"),
                   ("cross_substrate/brocot_masked_horizon.json",
-                   "MASKING_GIVES_A_DERIVED_HORIZON")],
+                   "MASKING_GIVES_A_DERIVED_HORIZON",
+                   "AUDIBILITY/sigma-conditional")],
          request="validate 'heard as a detuned X' by ERB or by listening; until "
                  "then the display says 'nearest ringing ratio + beat rate'",
          note="the beat coordinate crosses perceptual regimes within one region "
@@ -451,12 +477,15 @@ def load(root):
     for e in ENTRIES:
         e = dict(e)
         stale = []
-        for art, minted in e.get("warrant", []):
+        for w in e.get("warrant", []):
+            art, minted = w[0], w[1]
+            layer = w[2] if len(w) > 2 else "unlabelled"
             now = _verdict_of(root, art)
             if now != minted:
                 reviewed = dict(e.get("warrant_reviewed", []))
                 if reviewed.get(art) != now:
-                    stale.append(dict(artifact=art, minted=minted, now=now))
+                    stale.append(dict(artifact=art, minted=minted, now=now,
+                                      layer=layer))
         e["warrant_stale"] = stale
         if e["status"] == LANDED:
             p = os.path.join(root, e["artifact"])

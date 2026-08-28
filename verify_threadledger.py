@@ -42,7 +42,8 @@ for e in rows:
         print(f"        QUEUED   {e['id']:<24s} {e['request'][:52]}{mark}")
 for e in stale:
     for w in e["warrant_stale"]:
-        print(f"  FAIL  WARRANT_STALE  {e['id']}: {os.path.basename(w['artifact'])} "
+        print(f"  FAIL  WARRANT_STALE  {e['id']} [{w.get('layer', 'unlabelled')}]: "
+              f"{os.path.basename(w['artifact'])} "
               f"was {w['minted']!r} when this row was minted, is now {w['now']!r}. "
               "Re-adjudicate and record the new verdict in warrant_reviewed — "
               "an action inherits its premise's changes.")

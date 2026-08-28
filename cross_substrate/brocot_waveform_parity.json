@@ -1,0 +1,209 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "bound": 8,
+ "lo": 0.7,
+ "hi": 1.4,
+ "wide_lo": 0.2,
+ "n_narrow": 290,
+ "n_wide": 534,
+ "matched": {
+  "odd  [1,3,5]": [
+   "1",
+   "3/4",
+   "4/3",
+   "4/5",
+   "5/4",
+   "5/6",
+   "5/7",
+   "6/5",
+   "6/7",
+   "7/10",
+   "7/5",
+   "7/6",
+   "7/8",
+   "7/9",
+   "8/11",
+   "8/7",
+   "8/9"
+  ],
+  "mix  [1,2,6]": [
+   "1",
+   "3/4",
+   "4/3",
+   "4/5",
+   "5/4",
+   "5/6",
+   "5/7",
+   "6/5",
+   "6/7",
+   "7/10",
+   "7/5",
+   "7/6",
+   "7/8",
+   "7/9",
+   "8/11",
+   "8/7",
+   "8/9"
+  ],
+  "mix  [1,4,4]": [
+   "1",
+   "3/4",
+   "4/3",
+   "4/5",
+   "5/4",
+   "5/6",
+   "5/7",
+   "6/5",
+   "6/7",
+   "7/10",
+   "7/5",
+   "7/6",
+   "7/8",
+   "7/9",
+   "8/11",
+   "8/7",
+   "8/9"
+  ]
+ },
+ "matched_pairs": [
+  {
+   "a": "odd  [1,3,5]",
+   "b": "mix  [1,2,6]",
+   "symdiff": 0
+  },
+  {
+   "a": "odd  [1,3,5]",
+   "b": "mix  [1,4,4]",
+   "symdiff": 0
+  },
+  {
+   "a": "mix  [1,2,6]",
+   "b": "mix  [1,4,4]",
+   "symdiff": 0
+  }
+ ],
+ "real": {
+  "sine": {
+   "harmonics": [
+    1
+   ],
+   "n_ringing": 13,
+   "max_numerator": 8,
+   "max_denominator": 8
+  },
+  "triangle": {
+   "harmonics": [
+    1,
+    3,
+    5
+   ],
+   "n_ringing": 17,
+   "max_numerator": 8,
+   "max_denominator": 11
+  },
+  "square": {
+   "harmonics": [
+    1,
+    3,
+    5,
+    7
+   ],
+   "n_ringing": 17,
+   "max_numerator": 8,
+   "max_denominator": 11
+  },
+  "saw": {
+   "harmonics": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "n_ringing": 17,
+   "max_numerator": 8,
+   "max_denominator": 11
+  }
+ },
+ "triangle_adds": [
+  "7/10",
+  "8/11",
+  "7/9",
+  "8/9"
+ ],
+ "wide": {
+  "triangle_max_den": 39,
+  "triangle_max_num": 8,
+  "sine_max_den": 8
+ },
+ "bars": {
+  "symmetric difference over matched-parity pairs": {
+   "name": "symmetric difference over matched-parity pairs",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 290,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0,
+   "why": "a symmetric difference of subsets of 290 nodes; 0 to 290"
+  },
+  "max ringing numerator over all waves": {
+   "name": "max ringing numerator over all waves",
+   "value": 8,
+   "thresh": 8,
+   "floor": 1,
+   "ceiling": 40,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 7,
+   "why": "a numerator in the enumerated set, 1 to 40"
+  },
+  "max ringing denominator, range widened down": {
+   "name": "max ringing denominator, range widened down",
+   "value": 39,
+   "thresh": 24,
+   "floor": 1,
+   "ceiling": 40,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 16,
+   "why": "a denominator in the enumerated set, 1 to 40"
+  }
+ },
+ "verdict": "PARITY_IS_HORIZON_ORTHOGONAL",
+ "composed": {
+  "label": "PARITY_IS_HORIZON_ORTHOGONAL_AND_BY_max ringing numerator over all waves_AT_max ringing denominator, range widened down",
+  "head": "PARITY_IS_HORIZON_ORTHOGONAL",
+  "qualifiers": [
+   "AND_BY_max ringing numerator over all waves",
+   "AT_max ringing denominator, range widened down"
+  ],
+  "citation": "PARITY_IS_HORIZON_ORTHOGONAL  [symmetric difference over matched-parity pairs 0 vs <=0 MET \u2014 \"parity-matched stacks ring on identical sets, so even-suppression is horizon-orthogonal\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('symmetric difference over matched-parity pairs', EXISTENCE, MET)",
+   "Arm('max ringing numerator over all waves', MECHANISM, MET)",
+   "Arm('max ringing denominator, range widened down', RESOLUTION, MET)"
+  ]
+ }
+}
