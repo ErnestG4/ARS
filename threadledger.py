@@ -358,6 +358,34 @@ ENTRIES = [
               "the waveform -- widened down, triangle reaches q = 39 while sine "
               "stays at 8. A continuous even-suppression control is therefore "
               "SAFE to add: it moves no ratio in or out of the ringing set"),
+    dict(id="double-pulse-sweep", status=LANDED,
+         request="does Fritz's CONTINUOUS control touch the horizon, and is the "
+                 "frozen oscilloscope trace the same structure as the horizon?",
+         artifact="cross_substrate/brocot_double_pulse_sweep.json",
+         verdict="SWEEP_IS_HORIZON_ORTHOGONAL",
+         note="20 dB even-harmonic swing across beta, ZERO ratios moved in or "
+              "out of the ringing set at any beta, ZERO coincidences audible at "
+              "either filter width. Closes the gap the endpoint test left: an "
+              "intermediate double pulse has saw's SUPPORT with different "
+              "amplitudes, and support is all the predicate sees. SCOPE ARM: a "
+              "carrier-triggered trace freezes on q carrier cycles (period-lock, "
+              "denominator alone) while the horizon is max(p,q) vs 2B -- "
+              "ringing ratios span 10 denominators and 5 of them (7-11) also "
+              "appear among non-ringing, so the trace cannot indicate fusion"),
+    dict(id="double-pulse-control", status=QUEUED,
+         warrant=[("cross_substrate/brocot_double_pulse_sweep.json",
+                   "SWEEP_IS_HORIZON_ORTHOGONAL"),
+                  ("cross_substrate/brocot_waveform_parity.json",
+                   "PARITY_IS_HORIZON_ORTHOGONAL")],
+         request="add a continuous even-suppression control to Operator: a "
+                 "beta knob mixing a pulse with its half-period-displaced "
+                 "inverted copy, per Fritz's double-pulse construction",
+         note="warranted by two measurements: the axis is real (20 dB reach) "
+              "and provably orthogonal to everything COINCIDENCE-HORIZON "
+              "proves, so it can be designed without re-deriving anything. "
+              "Blocked on nothing measured -- it is an audio-thread change and "
+              "needs the usual anti-aliasing care a pulse train demands, which "
+              "is an engineering question and not a research one."),
     dict(id="amplitude-event-layer", status=QUEUED,
          warrant=[("cross_substrate/brocot_jump_display_v3.json",
                    "JUMPS_NOT_EXPLAINED")],
