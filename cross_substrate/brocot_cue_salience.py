@@ -48,6 +48,43 @@ stays unexplained.
 ║     Twelve points make a rho of 0.6 unremarkable; without S3 the other two   ║
 ║     arms are decoration.                                                    ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — S1's VALUE IS A SELECTED MAXIMUM AND ITS INTERVAL IS NOT A CI.
+
+`best_k` is chosen by maximising |rho| over NINE combinations (three
+concentration statistics x three band widths) and the bootstrap is then run on
+the winner. A bootstrap around a selected maximum does not carry the selection,
+so [+0.235, +0.960] is not a 95% interval for anything -- it is the interval of
+the winner conditional on its having won. Selecting an argmax and reporting it
+without a selection penalty is this repo's oldest measurement defect, committed
+here in a cell written to be careful.
+
+The spread across the nine makes the selection obvious in hindsight:
+
+    participation_ratio  0.5 Hz  0.749      1.0 Hz  0.418      2.0 Hz  0.459
+    gini                 0.5 Hz  0.741      1.0 Hz  0.275      2.0 Hz  0.470
+    top_band_share       0.5 Hz  0.568      1.0 Hz  0.056      2.0 Hz  0.527
+
+A concept that survives its own binning should not swing from 0.056 to 0.749.
+
+THE PRE-REGISTRABLE CHOICE, stated so the selection is visible: participation
+ratio at 1.0 Hz -- the band width every other cell in this line uses, and the
+one I would have named without seeing the table. It gives |rho| = 0.418, which
+MISSES S1's bar of 0.60.
+
+AMENDMENT 2 — AND S1 DOES NOT DISCRIMINATE THE HYPOTHESIS ANYWAY. Total energy
+alone gives |rho| = 0.621 at every band width, which also clears S1's bar. An
+arm both the hypothesis and its rival pass is not evidence for either; S2 was
+the arm that separated them and S2 MISSED (+0.128 against 0.20).
+
+SO THE AMENDED VERDICT IS SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED. What
+stands: the skip pattern is not noise -- something about the exact-vs-twin
+difference predicts it, at |rho| around 0.6 for the plainest statistic
+available, and the structure is worth explaining. What falls: that concentration
+rather than loudness is what the listener was classifying. Twelve ratios from
+one listener cannot separate two statistics that are themselves correlated, and
+the sealed head names salience on the strength of an arm that only asked whether
+twelve points support saying anything.
 """
 import csv
 import json
@@ -226,7 +263,18 @@ v = compose([Arm.from_bar(sc3, EX_ROLE,
              Arm.from_bar(sc2, MECH_ROLE,
                           claim="and beats loudness, the rival account")],
             holds="SKIPS_TRACK_SALIENCE", fails="SKIP_STRUCTURE_UNRESOLVED")
-print(f"\nVERDICT: {v['citation']}")
+pre = abs(rho("participation_ratio|1.0"))
+amended = ("SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED"
+           if (not sc2["met"] or pre < 0.60) else v["head"])
+print(f"\nVERDICT (sealed lattice, unchanged): {v['citation']}")
+print(f"VERDICT (amendments 1-2):            {amended}")
+print(f"  pre-registrable choice (participation_ratio at 1.0 Hz): "
+      f"|rho| = {pre:.3f}, which misses S1's bar of 0.60.")
+print(f"  the reported {s1:.3f} is the max of 9 combinations; its bootstrap")
+print("  interval does not carry that selection.")
+print(f"  total energy alone gives {e_best:.3f}, clearing S1 too -- so S1 does")
+print("  not discriminate the hypothesis from its rival, and S2, which does,")
+print("  missed.")
 print("  One listener, twelve ratios, a self-set skip criterion. Whatever this")
 print("  says, it is a lead and not a perceptual result.")
 
@@ -237,6 +285,8 @@ json.dump(dict(I=I_MUS, sr=SR, f_c=F_C, cents=CENTS, floor=FLOOR,
                instrument=INSTRUMENT.seal(), rows=data,
                rho_candidates=cands, best=best_k, energy_best=e_best,
                boot_ci=[float(lo), float(hi)], n_boot=len(boot),
+               ci_is_post_selection=True, n_candidates=len(cands),
+               preregistrable_rho=float(pre), verdict_amended=amended,
                bars={s["name"]: s for s in (sc1, sc2, sc3)},
                verdict=v["head"], composed=v),
           open(f"{HERE}/brocot_cue_salience.json", "w"), indent=1)
