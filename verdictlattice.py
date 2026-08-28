@@ -128,8 +128,17 @@ class Arm:
     @classmethod
     def from_bar(cls, score, role, note="", claim=""):
         """Build from a `reachable.Bar.score()` dict, inheriting its inertness."""
+        # An arm whose named rival also clears the bar is INERT: it separates
+        # nothing, so it is dropped rather than counted as a pass. See
+        # reachable.Bar's rival note.
+        dead = score.get("out_of_range", False)
+        if score.get("discriminating") is False:
+            dead = True
+            note = (note + "; " if note else "") + (
+                f"rival {score.get('rival')!r} also clears this bar "
+                f"({score.get('rival_value')})")
         return cls(score["name"], role, score["met"],
-                   inert=score.get("out_of_range", False), note=note,
+                   inert=dead, note=note,
                    value=score.get("value"), thresh=score.get("thresh"),
                    direction=score.get("direction", "ge"), claim=claim)
 

@@ -42,6 +42,10 @@ class UnprobedEdge(AssertionError):
     pass
 
 
+class NonDiscriminatingBar(AssertionError):
+    pass
+
+
 def edge_probe(name, lo, hi, predicate, step=1, inside=None):
     """Probe a DECLARED DOMAIN at its edges. Construction-time obligation.
 
@@ -103,9 +107,12 @@ class Bar:
     can never fire. Either is a refusal, not a warning.
     """
     __slots__ = ("name", "thresh", "floor", "ceiling", "direction", "why",
-                 "edges")
+                 "edges", "rival")
 
-    def __init__(self, name, thresh, floor, ceiling, why, direction="ge"):
+    def __init__(self, name, thresh, floor, ceiling, why, direction="ge",
+                 rival=None):
+        """`rival` names a LIVE competing account that this bar must separate
+        from the hypothesis. See the class note below."""
         if direction not in ("ge", "le"):
             raise UnreachableBar(f"{name}: direction must be 'ge' or 'le'")
         if floor is None or ceiling is None:
@@ -154,9 +161,22 @@ class Bar:
         hi_met = (ceiling >= thresh) if direction == "ge" else (ceiling <= thresh)
         self.edges = dict(at_floor=bool(lo_met), at_ceiling=bool(hi_met),
                           discriminates=bool(lo_met != hi_met))
+        self.rival = rival
 
-    def score(self, value):
+    def score(self, value, rival_value=None):
         """Score a value, and FLAG it if it falls outside the declared range.
+
+        AN ARM EARNS ITS PLACE ONLY IF SOME LIVE RIVAL FAILS IT. This is the
+        decoy battery run in the DESIGN direction: the tie lemma meant something
+        because wrong tie-breaks scored 0% and 2.4%, and brocot_cue_salience's
+        S1 meant nothing because plain total energy cleared the same bar at
+        0.621 while the hypothesis scored 0.749. An arm both the hypothesis and
+        its competitor pass is evidence for neither.
+
+        So a bar that names a `rival` REQUIRES that rival's value at scoring
+        time, and marks itself NOT DISCRIMINATING if the rival also meets it --
+        which `verdictlattice` then treats as inert and drops, rather than
+        counting a pass nobody could have failed.
 
         The module says the ceiling is taken on trust. This is where that trust
         is audited by the only thing that can audit it: an observation the
@@ -166,12 +186,25 @@ class Bar:
         from the in-range nodes and they are not. A value outside its range
         does not mean the measurement is wrong; it means the RANGE is wrong,
         and the bar that shares that range is now unaudited."""
+        if self.rival is not None and rival_value is None:
+            raise NonDiscriminatingBar(
+                f"'{self.name}' names the rival account '{self.rival}' and was "
+                "scored without it. A bar that cannot be shown to separate its "
+                "hypothesis from a live rival is not evidence for either -- "
+                "pass rival_value=.")
         met = value >= self.thresh if self.direction == "ge" else value <= self.thresh
+        rival_met = None
+        if rival_value is not None:
+            rival_met = (rival_value >= self.thresh if self.direction == "ge"
+                         else rival_value <= self.thresh)
         out = value > self.ceiling or value < self.floor
         return dict(name=self.name, value=value, thresh=self.thresh,
                     floor=self.floor, ceiling=self.ceiling, met=bool(met),
                     direction=self.direction, out_of_range=bool(out),
-                    edges=self.edges,
+                    edges=self.edges, rival=self.rival,
+                    rival_value=rival_value, rival_met=rival_met,
+                    discriminating=(None if rival_met is None
+                                    else bool(met and not rival_met)),
                     headroom=(self.ceiling - self.thresh if self.direction == "ge"
                               else self.thresh - self.floor),
                     why=self.why)
@@ -266,6 +299,28 @@ if __name__ == "__main__":
     print("\n--- every Bar now carries its edge probe ---")
     b2 = Bar("f", 0.5, floor=0.0, ceiling=1.0, why="a fraction")
     print(f"    {b2.edges}")
+
+    print("\n--- the real S1 · a bar the rival account also clears ---")
+    b = Bar("|rho| concentration vs answer rate", 0.60, floor=0.0, ceiling=1.0,
+            why="|Spearman| is bounded by 1",
+            rival="total difference energy")
+    sc = b.score(0.749, rival_value=0.621)
+    print(f"    hypothesis {sc['value']} MET={sc['met']}, "
+          f"rival {sc['rival_value']} MET={sc['rival_met']}")
+    if sc["discriminating"]:
+        raise SystemExit("RED PATH FAILED: a bar the rival also clears was "
+                         "reported as discriminating")
+    print("    -> discriminating=False; verdictlattice drops it as inert")
+    try:
+        b.score(0.749)
+        raise SystemExit("RED PATH FAILED: a rival-bearing bar scored without one")
+    except NonDiscriminatingBar as e:
+        print(f"    scoring without the rival refused: {str(e)[:66]}...")
+    good = Bar("tie-break selects a convergent", 0.90, floor=0.0, ceiling=1.0,
+               why="a rate in [0,1]", rival="largest-max tie-break")
+    gs = good.score(1.0, rival_value=0.0)
+    print(f"    the tie lemma for contrast: 1.0 vs rival 0.0 -> "
+          f"discriminating={gs['discriminating']}")
 
     print("\n--- score() must actually score, not always agree ---")
     b = Bar("s", 0.5, floor=0.0, ceiling=1.0, why="a fraction")

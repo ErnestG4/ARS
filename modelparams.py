@@ -58,6 +58,61 @@ class UnsealedInstrument(AssertionError):
     pass
 
 
+class SelectedMaximum(AssertionError):
+    pass
+
+
+def swept(name, results, prereg, swing_tol=0.25):
+    """Report a swept statistic by its PRE-REGISTERED configuration, never its max.
+
+    THE DEFECT THIS PREVENTS, measured 2026-08-28 in brocot_cue_salience. A
+    correlation was computed over nine configurations (three concentration
+    statistics x three band widths), the largest was taken as the result, and a
+    bootstrap was run on the winner. That interval is not a confidence interval;
+    it is the winner's interval conditional on having won -- selection on the
+    dependent variable wearing a CI as camouflage.
+
+    THE TELL IS REUSABLE: a concept that survives its own binning does not swing
+    like this.
+
+        participation_ratio   0.5 Hz 0.749   1.0 Hz 0.418   2.0 Hz 0.459
+        gini                  0.5 Hz 0.741   1.0 Hz 0.275   2.0 Hz 0.470
+        top_band_share        0.5 Hz 0.568   1.0 Hz 0.056   2.0 Hz 0.527
+
+    Those are not one measurement with noise. They are several measurements of
+    possibly different things, and the largest is the least trustworthy of them.
+
+    So: a swept statistic is reported by the configuration NAMED IN ADVANCE. The
+    spread travels with it, and the maximum is not available as an answer --
+    this function has no way to return it. If the swing exceeds `swing_tol` the
+    result carries `unstable=True`, because a bar cleared by a configuration
+    that varies that much has not been cleared by the concept.
+
+        swept("rho vs answer rate", {"pr|0.5": 0.749, "pr|1.0": 0.418, ...},
+              prereg="pr|1.0")     -> value 0.418, swing 0.693, unstable True
+
+    The estimator choice is part of the ruler, and the sealed-ruler clause
+    covers rulers.
+    """
+    if not results:
+        raise SelectedMaximum(f"'{name}': no results to report")
+    if prereg not in results:
+        raise SelectedMaximum(
+            f"'{name}': the pre-registered configuration {prereg!r} is not "
+            f"among the {len(results)} computed. Naming it AFTER seeing the "
+            "table is choosing an analysis; naming it before is the whole "
+            f"point. Available: {sorted(results)}")
+    vals = [abs(v) for v in results.values()]
+    swing = (max(vals) - min(vals)) / max(max(vals), 1e-30)
+    best = max(results, key=lambda k: abs(results[k]))
+    return dict(name=name, value=results[prereg], prereg=prereg,
+                n_configs=len(results), spread=dict(results),
+                minimum=min(vals), maximum=max(vals), swing=float(swing),
+                unstable=bool(swing > swing_tol),
+                max_config=best, max_value=results[best],
+                selection_penalty=(abs(results[best]) - abs(results[prereg])))
+
+
 class Param:
     __slots__ = ("name", "kind", "sweep", "value", "why")
 
@@ -170,6 +225,29 @@ if __name__ == "__main__":
         except UnsealedInstrument as e:
             print(f"    {lab:9s} refused: {str(e)[:74]}...")
 
+    print("\n--- the real swept correlation, reported honestly ---")
+    r = swept("rho vs answer rate",
+              {"participation_ratio|0.5": 0.749, "participation_ratio|1.0": 0.418,
+               "participation_ratio|2.0": 0.459, "gini|0.5": 0.741,
+               "gini|1.0": 0.275, "gini|2.0": 0.470, "top_band_share|0.5": 0.568,
+               "top_band_share|1.0": 0.056, "top_band_share|2.0": 0.527},
+              prereg="participation_ratio|1.0")
+    print(f"    reported {r['value']:.3f} at the pre-registered "
+          f"{r['prereg']}, not {r['max_value']:.3f} at {r['max_config']}")
+    print(f"    swing {r['swing']:.3f} over {r['n_configs']} configs -> "
+          f"unstable={r['unstable']};  selection penalty "
+          f"{r['selection_penalty']:+.3f}")
+    if r["value"] >= 0.60:
+        raise SystemExit("RED PATH FAILED: the pre-registered value should miss")
+    print("    the pre-registered value MISSES the 0.60 bar the max cleared")
+
+    print("\n--- red path 5 · naming the configuration after seeing the table ---")
+    try:
+        swept("rho", {"a": 0.4, "b": 0.7}, prereg="c")
+        raise SystemExit("RED PATH FAILED: an unlisted prereg was accepted")
+    except SelectedMaximum as e:
+        print(f"    refused: {str(e)[:84]}...")
+
     print("\n--- red path 4 · a model that lists nothing ---")
     try:
         Model("some criterion", [])
@@ -183,4 +261,5 @@ if __name__ == "__main__":
 
     print("\nMODELPARAMS_SELF_TEST_PASS — an unclassified parameter, a "
           "one-point sweep, a valueless DECLARED, an undefended constant and "
-          "an empty model are all refused.")
+          "an empty model are all refused, and a swept statistic reports its "
+          "pre-registered configuration with the maximum unavailable.")
