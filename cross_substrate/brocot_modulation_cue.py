@@ -69,11 +69,23 @@ is this repo's oldest recorded defect appearing in a new cell.
     cue fraction ~1.0:  3/4, 4/5, 5/4, 6/5, 7/5, 4/3     q = 3..5
     cue fraction ~0.0:  5/7, 5/6, 6/7, 7/8, 8/7, 7/6     q = 6..8
 
-The split is by DENOMINATOR, and the mechanism is not masking. For q >= 6 the
-witness partials carry Bessel orders whose product falls under the render
-threshold, so those partials are NOT IN THE SIGNAL AT ALL. There is no cue to
-bury. "Masked below threshold" and "not present" are different claims, and the
-second is stronger and needs no perceptual model to make.
+The split is by DENOMINATOR.
+
+    *** THE MECHANISM STATED HERE WAS WRONG. RETRACTED 2026-08-28. ***
+
+This paragraph read: "For q >= 6 the witness partials carry Bessel orders whose
+product falls under the render threshold, so those partials are NOT IN THE
+SIGNAL AT ALL. There is no cue to bury." That is false.
+`brocot_cue_presence` measured the beat-band SNR directly, per ratio, over a
+render-floor sweep and through int16: every ratio carries the cue, 7/8 lowest at
+21.3 dB and 3/4 highest at 101.0 dB, unchanged from 1e-4 down to 1e-9 and
+surviving quantisation.
+
+The error was reading a small cue FRACTION as an absence. Fraction is the beat
+band's SHARE of the total exact-vs-twin difference; a small share of a large
+difference means the CONFOUND dominates, which is what a 6-cent detune moving 26
+of 31 partials predicts. The bimodality below is real and it is about
+ATTRIBUTABILITY, not presence.
 
 P2's median of 0.274 and P3's median of 2 both summarise a distribution with
 nothing at its centre. The verdict head STIMULUS_CONTRAST_IS_CLEAN is therefore
@@ -89,14 +101,18 @@ selected on discriminability). The answers cannot give a rate. But the SKIP
 PATTERN can, because it is a report of "these sounded the same", and it lines up
 with the signal measurement:
 
-    ratios with NO cue in the signal (frac < 0.1):  answered 10/29 = 34%
-    ratios with a cue present     (frac > 0.5):  answered 29/30 = 97%
+    low cue FRACTION  (< 0.1):  answered 10/29 = 34%
+    high cue FRACTION (> 0.5):  answered 29/30 = 97%
 
-The listener answered where the beat exists and skipped where it does not, at a
-97-vs-34 separation. That validates the signal-level measurement against a human
-independently of any threshold model, and it is worth more than the rate the
-protocol was designed to collect. It also explains the 61/61: every answered
-trial was one where a real isolated beat was present.
+    *** DEMOTED TO UNEXPLAINED, same retraction. ***
+
+This was reported as "the listener answered where the beat exists and skipped
+where it does not", validating the measurement against a human. It does not show
+that: the beat exists everywhere. What it shows is skips tracking the cue's
+SHARE of the difference, and neither presence nor SNR separates the cases --
+8/7 carries 55 dB of cue and was skipped 7 times out of 7, while 5/6 carries
+63 dB and was answered 5 out of 5. The correlation is real and its cause is
+open. It is not a validation.
 
 AMENDMENT 3 — P1's CEILING WAS WRONG, flagged by out_of_range at 118 dB against
 a declared 60. The framing was the error, not just the bound: at the exact ratio
