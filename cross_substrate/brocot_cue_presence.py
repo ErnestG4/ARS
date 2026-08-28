@@ -52,6 +52,40 @@ comparison, so it needs no external reference.
 ║     high-q ratios cannot carry a fusion cue at 16 bits however anyone        ║
 ║     listens.                                                                ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — THE PREMISE IS FALSE AND THIS CELL RETRACTS ITS OWN PREDECESSOR.
+
+Q2 and Q3 both assume some ratios LACK the cue at the shipped 1e-4 floor. They
+do not. Measured SNR of the beat band against the envelope spectrum's own floor,
+for all twelve non-degenerate ratios, at every render floor and both
+quantisations:
+
+    lowest   7/8   21.3 dB      highest  3/4  101.0 dB
+    and every value is identical across 1e-4, 1e-6 and 1e-9, and survives int16
+
+So there is nothing to restore, Q2 scores 0 against a bar of 3, and Q3 is
+INAPPLICABLE -- an arm with an empty population, which `reachable` refused to
+let me construct at all and was right to.
+
+WHAT THIS RETRACTS. `brocot_modulation_cue`'s amendment 1 said that for q >= 6
+"the witness partials' Bessel product falls under the render threshold, so they
+are NOT IN THE SIGNAL AT ALL", and called that a stronger claim than masking.
+It is not a claim at all -- it is false. The witness partials are present and
+their beat is 21 to 62 dB above the envelope floor for exactly those ratios.
+
+WHERE THE ERROR CAME FROM. That cell measured cue FRACTION -- the share of the
+total exact-vs-twin difference lying in the beat band -- and I read a small
+fraction as absence. A small share of a large difference is not an absence; it
+means the CONFOUND dominates, which is what the 6-cent detune moving 26 of 31
+partials would predict. The bimodality is real and it is about attributability,
+not presence.
+
+AND THE 97-vs-34 SKIP CORRELATION INHERITS THE DOUBT. It split ratios by cue
+fraction, so it shows the listener's skips tracking the cue's SHARE of the
+difference, not its presence. Whether that is a perceptual story or a
+coincidence is now open: 8/7 has 55 dB of cue and was skipped 7 times out of 7,
+while 5/6 has 63 dB and was answered 5 out of 5. Presence does not separate
+them and neither does SNR. That correlation is demoted to unexplained.
 """
 import json
 import os
@@ -195,11 +229,14 @@ Q1 = Bar("denominators with mixed cue presence", 0, direction="le", floor=0,
          ceiling=len(byq), why=f"a count of the {len(byq)} denominators present")
 Q2 = Bar("ratios restored by dropping the render floor", 3, floor=0,
          ceiling=len(rows), why=f"a count of the {len(rows)} ratios tested")
-Q3 = Bar("restored ratios surviving int16", 1, direction="le", floor=0,
-         ceiling=max(len(restored), 1),
-         why="a count of the restored ratios, so bounded by how many were "
-             "restored in the first place")
-s1, s2, s3 = Q1.score(q1), Q2.score(q2), Q3.score(q3)
+# Q3 IS INAPPLICABLE when nothing was restored: an arm with an empty population.
+# `reachable` refuses to construct it, correctly, so it is not constructed.
+Q3 = (Bar("restored ratios surviving int16", 1, direction="le", floor=0,
+          ceiling=len(restored),
+          why="a count of the restored ratios")
+      if len(restored) > 1 else None)
+s1, s2 = Q1.score(q1), Q2.score(q2)
+s3 = Q3.score(q3) if Q3 else None
 
 print(INSTRUMENT.report())
 print(f"\n{len(rows)} non-degenerate below-horizon ratios, {CENTS:.0f}-cent twin, "
@@ -219,20 +256,38 @@ print(f"present at 1e-9/float: {sorted(deep)}")
 print(f"restored by the floor sweep: {sorted(restored)}")
 print(f"of those, surviving int16:   {sorted(survive)}")
 print()
-for b, v in ((Q1, q1), (Q2, q2), (Q3, q3)):
+for b, v in ((Q1, q1), (Q2, q2)):
     print("  " + b.line(v, "{:.0f}"))
+if Q3:
+    print("  " + Q3.line(q3, "{:.0f}"))
+else:
+    print(f"  restored ratios surviving int16: INAPPLICABLE — "
+          f"{len(restored)} ratios were restored, so there is no population")
 
-v = compose([Arm.from_bar(s3, EX_ROLE,
-                          claim="16-bit delivery removes the cue the floor "
-                                "sweep restored, so absence is a property of "
-                                "the WAV and not of my cutoff"),
-             Arm.from_bar(s1, RES_ROLE,
-                          claim="q is the variable, not a coincidence"),
-             Arm.from_bar(s2, MECH_ROLE,
-                          claim="the render floor was doing the work at 1e-4")],
-            holds="ABSENCE_IS_A_DELIVERY_FLOOR",
-            fails="ABSENCE_IS_MY_CUTOFF")
+arms = [Arm.from_bar(s2, EX_ROLE,
+                     claim="some ratios lacked the cue and the render floor "
+                           "was why"),
+        Arm.from_bar(s1, RES_ROLE, claim="q is the variable, not a coincidence")]
+if Q3:
+    arms.append(Arm.from_bar(s3, MECH_ROLE,
+                             claim="16-bit delivery removes what the sweep "
+                                   "restored"))
+else:
+    arms.append(Arm("restored ratios surviving int16", MECH_ROLE, met=False,
+                    inert=True, note="empty population: nothing was restored",
+                    claim="16-bit delivery removes what the sweep restored"))
+v = compose(arms, holds="ABSENCE_IS_A_DELIVERY_FLOOR",
+            fails="CUE_IS_PRESENT_THROUGHOUT")
 print(f"\nVERDICT: {v['citation']}")
+if v["head"] == "CUE_IS_PRESENT_THROUGHOUT":
+    lo = min(rows, key=lambda x: x[f"{FLOORS[0]:g}|float64"])
+    hi = max(rows, key=lambda x: x[f"{FLOORS[0]:g}|float64"])
+    print(f"  Every ratio carries the beat, {lo['ratio']} lowest at "
+          f"{lo[f'{FLOORS[0]:g}|float64']:.1f} dB and {hi['ratio']} highest at "
+          f"{hi[f'{FLOORS[0]:g}|float64']:.1f} dB,")
+    print("  unchanged by the render floor and surviving int16. The previous")
+    print("  cell's 'not in the signal' is retracted: it read a small SHARE of")
+    print("  a large difference as an absence.")
 
 with redpath("ratio x floor x quantisation renders", expect_min=60) as rp:
     rp.observed(len(rows) * len(FLOORS) * 2)
@@ -243,7 +298,8 @@ json.dump(dict(I=I_MUS, B=B, sr=SR, duration_s=DUR, f_c=F_C, cents=CENTS,
                                 for k, v_ in byq.items()},
                present_base=sorted(base), present_deep=sorted(deep),
                restored=sorted(restored), survive_int16=sorted(survive),
-               bars={s["name"]: s for s in (s1, s2, s3)},
+               bars={sc["name"]: sc for sc in (s1, s2, s3) if sc},
+               q3_inapplicable=bool(Q3 is None),
                verdict=v["head"], composed=v),
           open(f"{HERE}/brocot_cue_presence.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_cue_presence.json")

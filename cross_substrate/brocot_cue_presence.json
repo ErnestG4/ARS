@@ -1,0 +1,320 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "sr": 44100,
+ "duration_s": 3.0,
+ "f_c": 220.0,
+ "cents": 6.0,
+ "floors": [
+  0.0001,
+  1e-06,
+  1e-09
+ ],
+ "snr_db": 6.0,
+ "instrument": {
+  "model": "Hilbert modulation spectrum of the delivered signal",
+  "params": [
+   {
+    "name": "render_floor",
+    "kind": "TESTED",
+    "why": "the relative amplitude below which a partial is not synthesised. 1e-4 was MY inherited choice and the previous cell attributed an absence to it; sweeping is the whole point of this redo",
+    "sweep": [
+     0.0001,
+     1e-06,
+     1e-09
+    ],
+    "value": null
+   },
+   {
+    "name": "quantisation",
+    "kind": "TESTED",
+    "why": "16-bit is the delivery format, and its noise floor is a fact about the WAV rather than a criterion about ears",
+    "sweep": [
+     "float64",
+     "int16"
+    ],
+    "value": null
+   },
+   {
+    "name": "snr_db",
+    "kind": "DECLARED",
+    "why": "presence is judged against the envelope spectrum's OWN floor in neighbouring bands, so this is a within-signal contrast and not an external threshold; 6 dB is one doubling of amplitude",
+    "sweep": null,
+    "value": 6.0
+   },
+   {
+    "name": "duration_s",
+    "kind": "DECLARED",
+    "why": "3 s resolves 0.33 Hz, below the slowest witness beat here",
+    "sweep": null,
+    "value": 3.0
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "beat frequencies and the noise floor both scale with f_c, so the SNR is f_c-invariant",
+    "sweep": null,
+    "value": 220.0
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 3
+ },
+ "rows": [
+  {
+   "ratio": "5/7",
+   "q": 7,
+   "beat_hz": 3.818923360453084,
+   "witness_amp": 0.00020834117804211584,
+   "0.0001|float64": 51.669631570075836,
+   "0.0001|int16": 51.4642826545265,
+   "1e-06|float64": 51.65794041266238,
+   "1e-06|int16": 52.7860508096859,
+   "1e-09|float64": 51.65794041266238,
+   "1e-09|int16": 52.7860508096859
+  },
+  {
+   "ratio": "3/4",
+   "q": 4,
+   "beat_hz": 2.291354016271953,
+   "witness_amp": 0.008946568956365268,
+   "0.0001|float64": 101.03837002359472,
+   "0.0001|int16": 90.33149818101556,
+   "1e-06|float64": 101.0362650333094,
+   "1e-06|int16": 90.3959712502697,
+   "1e-09|float64": 101.0362650333094,
+   "1e-09|int16": 90.3959712502697
+  },
+  {
+   "ratio": "4/5",
+   "q": 5,
+   "beat_hz": 3.0551386883626037,
+   "witness_amp": 0.008946568956365268,
+   "0.0001|float64": 71.02216550035219,
+   "0.0001|int16": 62.158223238586444,
+   "1e-06|float64": 71.01391069661246,
+   "1e-06|int16": 63.808017916299164,
+   "1e-09|float64": 71.01391069661246,
+   "1e-09|int16": 63.808017916299164
+  },
+  {
+   "ratio": "5/6",
+   "q": 6,
+   "beat_hz": 3.8189233604532546,
+   "witness_amp": 0.00020834117804211584,
+   "0.0001|float64": 62.6834913122719,
+   "0.0001|int16": 60.511752766821644,
+   "1e-06|float64": 62.68425133099185,
+   "1e-06|int16": 59.94302445251661,
+   "1e-09|float64": 62.68425133099185,
+   "1e-09|int16": 59.94302445251661
+  },
+  {
+   "ratio": "6/7",
+   "q": 7,
+   "beat_hz": 4.582708032543735,
+   "witness_amp": 0.00020834117804211584,
+   "0.0001|float64": 24.434662756365917,
+   "0.0001|int16": 24.12386968286354,
+   "1e-06|float64": 24.380644417257088,
+   "1e-06|int16": 24.25153235393562,
+   "1e-09|float64": 24.380644417257088,
+   "1e-09|int16": 24.25153235393562
+  },
+  {
+   "ratio": "7/8",
+   "q": 8,
+   "beat_hz": 5.346492704634443,
+   "witness_amp": 2.691411622551591e-06,
+   "0.0001|float64": 21.25279848268621,
+   "0.0001|int16": 21.076400400777775,
+   "1e-06|float64": 21.271492603418906,
+   "1e-06|int16": 20.706515769313718,
+   "1e-09|float64": 21.271492603418906,
+   "1e-09|int16": 20.706515769313718
+  },
+  {
+   "ratio": "8/7",
+   "q": 7,
+   "beat_hz": 6.110277376724923,
+   "witness_amp": 2.3679777618014934e-05,
+   "0.0001|float64": 55.540727485884844,
+   "0.0001|int16": 55.47769924916616,
+   "1e-06|float64": 55.51937966857774,
+   "1e-06|int16": 55.27913853033386,
+   "1e-09|float64": 55.51937966857774,
+   "1e-09|int16": 55.27913853033386
+  },
+  {
+   "ratio": "7/6",
+   "q": 6,
+   "beat_hz": 5.346492704634443,
+   "witness_amp": 2.3679777618014934e-05,
+   "0.0001|float64": 49.12906938151249,
+   "0.0001|int16": 48.843016213386974,
+   "1e-06|float64": 49.16082896762127,
+   "1e-06|int16": 48.72028758854953,
+   "1e-09|float64": 49.16082896762127,
+   "1e-09|int16": 48.72028758854953
+  },
+  {
+   "ratio": "6/5",
+   "q": 5,
+   "beat_hz": 4.582708032543621,
+   "witness_amp": 0.0013652614093294232,
+   "0.0001|float64": 70.92286662877902,
+   "0.0001|int16": 70.79626862974737,
+   "1e-06|float64": 70.91567574974111,
+   "1e-06|int16": 70.97700373980646,
+   "1e-09|float64": 70.91567574974111,
+   "1e-09|int16": 70.97700373980646
+  },
+  {
+   "ratio": "5/4",
+   "q": 4,
+   "beat_hz": 3.8189233604530273,
+   "witness_amp": 0.0013652614093294232,
+   "0.0001|float64": 85.7137115759611,
+   "0.0001|int16": 85.62921395807439,
+   "1e-06|float64": 85.69622523347478,
+   "1e-06|int16": 85.74552675445838,
+   "1e-09|float64": 85.69622523347478,
+   "1e-09|int16": 85.74552675445838
+  },
+  {
+   "ratio": "4/3",
+   "q": 3,
+   "beat_hz": 3.0551386883623763,
+   "witness_amp": 0.03839726728562733,
+   "0.0001|float64": 83.63452924457663,
+   "0.0001|int16": 77.85691409167086,
+   "1e-06|float64": 83.63911879582668,
+   "1e-06|int16": 78.35270566890186,
+   "1e-09|float64": 83.63911879582668,
+   "1e-09|int16": 78.35270566890186
+  },
+  {
+   "ratio": "7/5",
+   "q": 5,
+   "beat_hz": 5.346492704634102,
+   "witness_amp": 0.00015517377249754788,
+   "0.0001|float64": 73.45633568661759,
+   "0.0001|int16": 72.07775385966502,
+   "1e-06|float64": 73.45925476159562,
+   "1e-06|int16": 73.4931926949584,
+   "1e-09|float64": 73.45925476159562,
+   "1e-09|int16": 73.4931926949584
+  }
+ ],
+ "by_q": {
+  "7": [
+   "5/7",
+   "6/7",
+   "8/7"
+  ],
+  "4": [
+   "3/4",
+   "5/4"
+  ],
+  "5": [
+   "4/5",
+   "6/5",
+   "7/5"
+  ],
+  "6": [
+   "5/6",
+   "7/6"
+  ],
+  "8": [
+   "7/8"
+  ],
+  "3": [
+   "4/3"
+  ]
+ },
+ "present_base": [
+  "3/4",
+  "4/3",
+  "4/5",
+  "5/4",
+  "5/6",
+  "5/7",
+  "6/5",
+  "6/7",
+  "7/5",
+  "7/6",
+  "7/8",
+  "8/7"
+ ],
+ "present_deep": [
+  "3/4",
+  "4/3",
+  "4/5",
+  "5/4",
+  "5/6",
+  "5/7",
+  "6/5",
+  "6/7",
+  "7/5",
+  "7/6",
+  "7/8",
+  "8/7"
+ ],
+ "restored": [],
+ "survive_int16": [],
+ "bars": {
+  "denominators with mixed cue presence": {
+   "name": "denominators with mixed cue presence",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 6,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0,
+   "why": "a count of the 6 denominators present"
+  },
+  "ratios restored by dropping the render floor": {
+   "name": "ratios restored by dropping the render floor",
+   "value": 0,
+   "thresh": 3,
+   "floor": 0,
+   "ceiling": 12,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 9,
+   "why": "a count of the 12 ratios tested"
+  }
+ },
+ "q3_inapplicable": true,
+ "verdict": "CUE_IS_PRESENT_THROUGHOUT",
+ "composed": {
+  "label": "CUE_IS_PRESENT_THROUGHOUT_AT_denominators with mixed cue presence",
+  "head": "CUE_IS_PRESENT_THROUGHOUT",
+  "qualifiers": [
+   "AT_denominators with mixed cue presence"
+  ],
+  "citation": "CUE_IS_PRESENT_THROUGHOUT  [ratios restored by dropping the render floor 0 vs >=3 MISSED \u2014 \"some ratios lacked the cue and the render floor was why\"]",
+  "dropped": [
+   "restored ratios surviving int16"
+  ],
+  "unread": [],
+  "arms": [
+   "Arm('ratios restored by dropping the render floor', EXISTENCE, MISSED)",
+   "Arm('denominators with mixed cue presence', RESOLUTION, MET)",
+   "Arm('restored ratios surviving int16', MECHANISM, INERT)"
+  ]
+ }
+}
