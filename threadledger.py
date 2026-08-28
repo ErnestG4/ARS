@@ -292,12 +292,18 @@ ENTRIES = [
                  "(A) excitation-pattern masked-threshold census; (B) 2AFC "
                  "detune-twin discrimination using the instrument's own "
                  "setDetuneCents, adaptive staircase on max(p,q), >=1 s "
-                 "sustain. AND (C) RE-SEAL brocot_audible_horizon with "
-                 "falsifiable arms -- the disclosure is the honest interim "
-                 "state, not the end state; the end state is a cell whose "
-                 "EXISTENCE designation is load-bearing again, so that "
-                 "exposure_audit's single refusal clears on its own merits "
-                 "rather than by being explained.",
+                 "sustain. (C) WAS MIS-SPECIFIED AND IS CORRECTED HERE. It "
+                 "read 'RE-SEAL brocot_audible_horizon so exposure_audit's "
+                 "refusal clears on its own merits'. That refusal CANNOT "
+                 "clear: exposure_audit runs the cell as it stood at the "
+                 "BASELINE COMMIT, which is frozen in history, so no present "
+                 "edit can change what it does. The exposure is a permanent "
+                 "historical fact and disclosure is its only honest treatment "
+                 "-- which is what verify_exposure_window enforces. What CAN "
+                 "be discharged is the QUESTION, and it already is: "
+                 "brocot_masked_horizon asks it with a DERIVED floor and live "
+                 "arms, and supersedes the chosen-floor cell. Cite the "
+                 "successor, not the exposed cell.",
          note="the -40/-60 dB split is a guess and the 40% swing between them "
               "is why it must not stay one. B also discharges heard-as-"
               "listening: below the audible horizon the detuned twin BEATS "
@@ -387,7 +393,7 @@ ENTRIES = [
               "the docstring correction is owed on that alone. M4 missed: the "
               "relative difference FALLS with index while omitted energy rises, "
               "so a ratio was the wrong statistic for a tracking claim"),
-    dict(id="coherence-model-gap", status=QUEUED,
+    dict(id="coherence-model-gap", status=DROPPED,
          warrant_reviewed=[("cross_substrate/brocot_suggest_score_census.json",
                             "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE")],
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
@@ -475,7 +481,7 @@ ENTRIES = [
               "The attribution is now a measurement. V4's miss was a window "
               "artifact -- grid-scaled window on a physical offset -- corrected "
               "to 1.11 under a fixed-alpha window"),
-    dict(id="amplitude-event-layer", status=QUEUED,
+    dict(id="amplitude-event-layer", status=DROPPED,
          warrant_reviewed=[("cross_substrate/brocot_jump_display_v3.json",
                             "JUMPS_NOT_EXPLAINED")],
          warrant=[("cross_substrate/brocot_jump_display_v3.json",
