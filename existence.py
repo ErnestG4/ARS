@@ -50,6 +50,25 @@ So the type is over QUESTION SHAPES, not just over existence:
 A trend answered by a scalar at one sample point is the same defect as an
 existence answered by a median: right number, wrong question shape.
 
+FOURTH MEMBER, 2026-08-28: PRESENCE ANSWERED BY A SHARE.
+`brocot_modulation_cue` measured cue FRACTION -- a beat band's share of the
+total exact-vs-twin difference -- and reported a small share as "the partials
+are NOT IN THE SIGNAL AT ALL". They were: measured directly, every ratio carried
+the cue at 21 to 101 dB above the envelope floor. A small share of a large
+difference means the CONFOUND dominates, which is a statement about
+attributability and says nothing about presence.
+
+The claim lasted an hour and was overturned by its own redo. It was also MORE
+confident than the claim it replaced -- "not present" was offered as stronger
+than "masked below threshold" precisely because it needs no perceptual model.
+A share can be small for two reasons and only one of them is absence.
+
+    EXISTENCE         does ANY case fire        -> count, any, witness
+    CENTRAL_TENDENCY  what is the typical case  -> median, mean, spread
+    TREND             which way does it go      -> direction, endpoints, crossing
+    PRESENCE          is the thing THERE        -> measure IT, not its share of
+                                                   something else
+
 WHAT THIS CANNOT DO, stated plainly: it cannot know your intent. A field named
 `slope` that is secretly a detection count passes as central tendency. The name
 heuristic is a syntactic check on a semantic property — the same honest limit
@@ -58,10 +77,11 @@ detection-shaped name, now has to be argued for out loud.
 """
 import re
 
+PRESENCE = "PRESENCE"
 EXISTENCE = "EXISTENCE"
 CENTRAL_TENDENCY = "CENTRAL_TENDENCY"
 TREND = "TREND"
-_QUESTIONS = (EXISTENCE, CENTRAL_TENDENCY, TREND)
+_QUESTIONS = (EXISTENCE, CENTRAL_TENDENCY, TREND, PRESENCE)
 
 # Names that look like detections. Deliberately broad: a false positive costs
 # one `acknowledge=` argument, a false negative costs a buried finding.
@@ -102,6 +122,25 @@ def summarise(name, values, question, acknowledge=None):
                     any=bool(nz), all=bool(nz) and len(nz) == len(vals),
                     first_witness=(nz[0] if nz else None),
                     witnesses=nz[:8])
+
+    if question is PRESENCE or question == PRESENCE:
+        # A presence question is answered by measuring the thing against its own
+        # noise floor, never by its share of a total. `values` must therefore be
+        # the quantity itself; a ratio-valued input is refused.
+        if acknowledge is None and all(0.0 <= v <= 1.0 for v in vals if v is not None):
+            raise WrongStatisticForQuestion(
+                f"'{name}': every value lies in [0, 1], which is what a SHARE "
+                "looks like. A presence question is answered by measuring the "
+                "quantity against its own floor, not by its fraction of a "
+                "total -- a small share can mean absence OR a dominant "
+                "confound, and only one of those is absence. Measured once, "
+                "cost an hour and a retraction.\n    Pass the quantity itself, "
+                "or acknowledge='<why a fraction IS the presence measure here>'.")
+        return dict(question=PRESENCE, n=len(vals),
+                    n_present=sum(1 for v in vals if v),
+                    minimum=(min(vals) if vals else None),
+                    maximum=(max(vals) if vals else None),
+                    acknowledged=acknowledge)
 
     if question is TREND or question == TREND:
         if len(vals) < 3:
@@ -191,5 +230,16 @@ if __name__ == "__main__":
     print("\n--- green path: a detection name, average argued for out loud ---")
     print(f"    {summarise('n_partials', [31, 31, 30, 29], CENTRAL_TENDENCY, acknowledge='partial COUNT is a magnitude here, not a detection')}")
 
+    print("\n--- red path 4 · a presence question answered by a share ---")
+    try:
+        summarise("cue_present", [0.000, 0.003, 0.816, 0.994, 1.000], PRESENCE)
+        raise SystemExit("RED PATH FAILED: a share was accepted as presence")
+    except WrongStatisticForQuestion as e:
+        print(f"    raised as required: {str(e)[:92]}...")
+    print("    the real values that caused the retraction: cue FRACTION, read")
+    print("    as absence, while the measured cue sat 21-101 dB above the floor")
+    print(f"    {summarise('cue_snr_db', [21.3, 24.4, 51.7, 101.0], PRESENCE)}")
+
     print("\nEXISTENCE_SELF_TEST_PASS — a detection-shaped median is refused, the "
-          "question type has no default, and the honest admission is one argument.")
+          "question type has no default, a share cannot answer a presence question, and "
+          "the honest admission is one argument.")

@@ -78,21 +78,21 @@
    "prediction": "only if non-repulsive data"
   },
   "kappa": {
-   "n": 17,
+   "n": 18,
    "bounds": [
     0.0001,
     100.0
    ],
    "sealed_class": "CONVENTION both ends",
    "near_lo_frac": 0.0,
-   "near_hi_frac": 0.11764705882352941,
+   "near_hi_frac": 0.1111111111111111,
    "distinct_ratio_lo": 0.0,
    "distinct_ratio_hi": 1.0,
    "TRUE_RAIL_lo": false,
    "TRUE_RAIL_hi": false,
    "verdict_lo": "CLEAR (nothing near the bound)",
    "verdict_hi": "INSUFFICIENT_N (n=2 < 100) \u2014 the discriminator cannot fire; SEALED CLASSIFICATION RETAINED as the standing call pending more samples",
-   "vmin": 1.2,
+   "vmin": 0.027500000000002522,
    "vmax": 2160.33832868523,
    "prediction": "only if non-clustered data"
   }

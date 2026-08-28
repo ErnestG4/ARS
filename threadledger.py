@@ -58,6 +58,20 @@ QUEUED, LANDED, DROPPED = "QUEUED", "LANDED", "DROPPED"
 # printed beside it. Two-tuples are still accepted and shown as "unlabelled",
 # because a missing label should be visible rather than assumed benign.
 #
+# FRAMING DEATH, added 2026-08-28. WARRANT_STALE compares VERDICTS, and that
+# misses the case that actually arrived: a warrant whose verdict is unchanged
+# and whose MEANING is dead. brocot_masked_horizon still says
+# MASKING_GIVES_A_DERIVED_HORIZON and the measurement behind it is untouched --
+# but "audible" was reclassified from a property of the spectrum to a property
+# of a model with a criterion in it, so "Stage B will pin sigma" was always
+# "Stage B fits a parameter for one listener at one attention level". The
+# verdict did not move; the question it was answering did.
+#
+# A row may therefore declare `framing_dead`: (artifact, reason) pairs that
+# force WARRANT_STALE regardless of verdict, clearable only by naming the
+# artifact in `warrant_reviewed`. Semantic staleness needs a human; the flag
+# just refuses to let it pass unnoticed.
+#
 # The queue is exactly where premises age while actions wait, so a QUEUED row
 # may name the artifacts its warrant rests on AND the verdict each carried when
 # the row was minted. If a warrant artifact's verdict has since MOVED, the row
@@ -220,13 +234,29 @@ ENTRIES = [
               "5000+ pairs). What is unsettled is whether the consequence is "
               "audible"),
     dict(id="suggest-reachability-filter", status=QUEUED,
+         framing_dead=[("cross_substrate/brocot_masked_horizon.json",
+                        "'audible' was reclassified from a property of the "
+                        "spectrum to a property of a model with a criterion in "
+                        "it. There is no perceptual wall, so 'Stage B pins "
+                        "sigma' was always 'Stage B fits a parameter for one "
+                        "listener at one attention level'. Re-frame the "
+                        "question before acting on this warrant.")],
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
                    "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
                    "STRUCTURAL/the score's exact-coincidence share"),
                   ("cross_substrate/brocot_filter_worth_it.json",
                    "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY",
                    "AUDIBILITY/sigma-conditional")],
-         request="pass current's indices into suggestExtensions and filter "
+         warrant_reviewed=[("cross_substrate/brocot_masked_horizon.json",
+                            "MASKING_GIVES_A_DERIVED_HORIZON")],
+         request="RE-FRAMED 2026-08-28. The decision was parked on 'Stage B "
+                 "pins sigma', which is not a thing that can happen. Re-posed: "
+                 "the filter's benefit is +2.1% at sigma = ERB and +19.9% at "
+                 "ERB/2.5, so state the DECISION as a function of criterion and "
+                 "let a human choose the operating point, rather than waiting "
+                 "for a measurement that cannot arrive. Still blocked on the "
+                 "signature change either way. Superseded ask: pass current's "
+                 "indices into suggestExtensions and filter "
                  "candidates by the asymmetric horizon; measure the change in "
                  "user-visible top-4 against the censused before",
          note="WARRANT DOWNGRADED 2026-08-26 by filter-worth-it. The row read "
@@ -282,13 +312,30 @@ ENTRIES = [
               "session -- read off six sorted rows, contradicted by the full "
               "series"),
     dict(id="audible-horizon-calibration", status=QUEUED,
+         framing_dead=[("cross_substrate/brocot_masked_horizon.json",
+                        "'audible' was reclassified from a property of the "
+                        "spectrum to a property of a model with a criterion in "
+                        "it. There is no perceptual wall, so 'Stage B pins "
+                        "sigma' was always 'Stage B fits a parameter for one "
+                        "listener at one attention level'. Re-frame the "
+                        "question before acting on this warrant.")],
          warrant=[("cross_substrate/brocot_audible_horizon.json",
                    "EPS_HORIZON_OVERSTATES_AUDIBILITY",
                    "AUDIBILITY/chosen-floor, and its seal was vacuous"),
                   ("cross_substrate/brocot_masked_horizon.json",
                    "MASKING_GIVES_A_DERIVED_HORIZON",
                    "AUDIBILITY/sigma-conditional")],
-         request="fix the audibility floor empirically instead of picking it: "
+         warrant_reviewed=[("cross_substrate/brocot_masked_horizon.json",
+                            "MASKING_GIVES_A_DERIVED_HORIZON")],
+         request="RE-FRAMED 2026-08-28 after the framing death. The old ask was "
+                 "'fix the audibility floor empirically', which presumed a "
+                 "floor exists to be fixed. It does not: detection has no wall, "
+                 "so there is no sigma to pin. The question becomes AT WHAT "
+                 "CRITERION DOES EACH CLAIM HOLD -- report the audible count as "
+                 "a FUNCTION of criterion rather than a number, exactly as "
+                 "audible counts already travel with their dB floor. That is "
+                 "answerable without listeners and mostly already computed. "
+                 "Superseded ask, kept for provenance: "
                  "(A) excitation-pattern masked-threshold census; (B) 2AFC "
                  "detune-twin discrimination using the instrument's own "
                  "setDetuneCents, adaptive staircase on max(p,q), >=1 s "
@@ -513,13 +560,33 @@ ENTRIES = [
               "discriminated above 60% pins sigma. NO audibility claim is made "
               "by this cell"),
     dict(id="heard-as-listening", status=QUEUED,
+         framing_dead=[("cross_substrate/brocot_masked_horizon.json",
+                        "'audible' was reclassified from a property of the "
+                        "spectrum to a property of a model with a criterion in "
+                        "it. There is no perceptual wall, so 'Stage B pins "
+                        "sigma' was always 'Stage B fits a parameter for one "
+                        "listener at one attention level'. Re-frame the "
+                        "question before acting on this warrant.")],
          warrant=[("cross_substrate/brocot_marker_erb_gate.json",
                    "MAY_SAY_STRUCTURAL_EVENT_ONLY",
                    "AUDIBILITY/static, 0.67x a 1-cent detune"),
                   ("cross_substrate/brocot_masked_horizon.json",
                    "MASKING_GIVES_A_DERIVED_HORIZON",
                    "AUDIBILITY/sigma-conditional")],
-         request="validate 'heard as a detuned X' by ERB or by listening; until "
+         warrant_reviewed=[("cross_substrate/brocot_masked_horizon.json",
+                            "MASKING_GIVES_A_DERIVED_HORIZON")],
+         request="RE-FRAMED 2026-08-28, TWICE OVER. (i) The framing death: "
+                 "'is it heard' has no criterion-free answer. (ii) The "
+                 "stimulus cannot isolate fusion at all -- a ratio detune moves "
+                 "every partial that depends on alpha (26 of 31 at 5/4), so "
+                 "no ratio-detune contrast can attribute a discrimination to "
+                 "the coincidence. BLOCKED ON A CONTRAST, not on listeners: "
+                 "until someone finds a manipulation that splits the witness "
+                 "pair while leaving the rest within a JND, this cell cannot "
+                 "be run at all. My instinct is that no such manipulation "
+                 "exists by ratio detune, since one alpha controls both. "
+                 "Superseded ask: validate 'heard as a detuned X' by ERB or by "
+                 "listening; until "
                  "then the display says 'nearest ringing ratio + beat rate'",
          note="the beat coordinate crosses perceptual regimes within one region "
               "(5.5 Hz fusion-with-beating vs 31 Hz separation), so the "
@@ -559,6 +626,11 @@ def load(root):
                 if reviewed.get(art) != now:
                     stale.append(dict(artifact=art, minted=minted, now=now,
                                       layer=layer))
+        for art, why in e.get("framing_dead", []):
+            if art not in dict(e.get("warrant_reviewed", [])):
+                stale.append(dict(artifact=art, minted="(verdict unchanged)",
+                                  now="FRAMING DEAD: " + why,
+                                  layer="SEMANTIC"))
         e["warrant_stale"] = stale
         if e["status"] == LANDED:
             p = os.path.join(root, e["artifact"])
