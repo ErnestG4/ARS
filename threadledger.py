@@ -345,6 +345,19 @@ ENTRIES = [
               "score-census stands. The meter's defect is that it misses the "
               "OTHER coincidences, those involving cross-partials, so it "
               "under-counts sharing and is conservative rather than wrong"),
+    dict(id="waveform-parity", status=LANDED,
+         request="does Ian Fritz's even-harmonic suppression touch the horizon, "
+                 "and what does a harmonic stack actually extend?",
+         artifact="cross_substrate/brocot_waveform_parity.json",
+         verdict="PARITY_IS_HORIZON_ORTHOGONAL",
+         note="parity-matched stacks ([1,3,5] vs [1,2,6] vs [1,4,4]) ring on "
+              "IDENTICAL sets, symmetric difference 0 -- only extent matters. "
+              "Corrected the paper twice over: the extension is ASYMMETRIC (max "
+              "numerator stays 8 = 2B for every wave; only the denominator "
+              "grows) and the banked '8 -> 11' is brocot's ratio WINDOW, not "
+              "the waveform -- widened down, triangle reaches q = 39 while sine "
+              "stays at 8. A continuous even-suppression control is therefore "
+              "SAFE to add: it moves no ratio in or out of the ringing set"),
     dict(id="amplitude-event-layer", status=QUEUED,
          warrant=[("cross_substrate/brocot_jump_display_v3.json",
                    "JUMPS_NOT_EXPLAINED")],
