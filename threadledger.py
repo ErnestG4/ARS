@@ -356,7 +356,22 @@ ENTRIES = [
               "marker sets built on exact events all missed. If it holds, the "
               "event layer's markers are the wrong OBJECT rather than an "
               "incomplete list -- a different repair from adding a channel."),
+    dict(id="coherence-model-measured", status=LANDED,
+         request="does the sum-of-combs model error reach the RANKING, or is it "
+                 "documentation only?",
+         artifact="cross_substrate/brocot_coherence_model.json",
+         verdict="MODEL_GAP_IS_DOCUMENTATION_ONLY",
+         note="SEALED head reported unchanged; amended reading is "
+              "RANKING_EFFECT_UNRESOLVED. M3 Jaccard 0.517 with 95% CI "
+              "[0.468, 0.566] and the 0.50 bar INSIDE it, so the arm does not "
+              "resolve either way; ~1170 cases would, 140 do not. M1 settles "
+              "that the model IS wrong (12/55/90% omitted at I=0.9/1.5/2.0) so "
+              "the docstring correction is owed on that alone. M4 missed: the "
+              "relative difference FALLS with index while omitted energy rises, "
+              "so a ratio was the wrong statistic for a tracking claim"),
     dict(id="coherence-model-gap", status=QUEUED,
+         warrant_reviewed=[("cross_substrate/brocot_suggest_score_census.json",
+                            "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE")],
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
                    "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
                    "STRUCTURAL/the meter's generative model")],
