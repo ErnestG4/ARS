@@ -60,6 +60,48 @@ cells and into a shipped document without anyone testing it.
 ║ misses, the attribution survives a real attempt to break it and becomes a     ║
 ║ measurement rather than a guess.                                             ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — V4's MISS IS AN ARTIFACT OF THE WINDOW, AND THE WINDOW WAS
+INHERITED FROM A FIX FOR ITS MIRROR.
+
+v2 found a commensurability defect -- a FIXED delta of 0.005 spanning 10 coarse
+steps but 25 fine ones -- and fixed it by scaling delta with the grid. This cell
+inherited that unchanged. But a grid-scaled window SHRINKS when the grid
+refines, so if a jump sits at a fixed offset in alpha from its marker, doubling
+the grid halves the window and the jump falls out. That is what happened:
+coverage went 23/69 to 9/81 while the markers did not move.
+
+Which window is right depends on whether the jump-to-marker offset is a GRID
+quantity or a PHYSICAL one, and that is testable rather than arguable. Measured
+distances from each large jump to its nearest marker, in alpha:
+
+    grid 3501   p10 0.00030  p25 0.00050  p50 0.00170  p75 0.00350  p90 0.01030
+    grid 7001   p10 0.00025  p25 0.00042  p50 0.00118  p75 0.00422  p90 0.01245
+
+Stable across a doubling. The offset is PHYSICAL, so the window must be fixed in
+alpha, and under a fixed 0.0006 window coverage is 33.3% coarse and 37.0% fine --
+stable, and V4 holds. The sealed V4 is reported MISSED as it fell, with the
+corrected measurement beside it, because the arm tested the marker set through
+an instrument that was wrong for this quantity.
+
+Both fixes are the same lesson from opposite sides: a window's scaling must match
+the scaling of the thing it is windowing. v2 got caught by a fixed window on a
+grid-borne quantity; this cell by a grid-scaled window on a physical one.
+
+AMENDMENT 2 — A THRESHOLD STATISTIC WAS HIDING A DISTRIBUTION. Four marker sets
+returned coverage 33.3% to the digit, which is not a result but a smell: a
+binary near/far count cannot show that the union's extra 16 markers help only
+the far tail (p75 0.00343 vs 0.00350, p90 0.00790 vs 0.01030) while leaving the
+median untouched. The distance distribution is now the reported quantity and
+coverage is a derived summary of it.
+
+V1 AND V2 MISS FOR REAL, and that is the cell's finding. The residual is NOT
+closed-form enumerable by direct, reflected and floor markers together: the
+median large jump sits 0.0017 in alpha from the nearest one, about eight coarse
+grid steps. The shipped attribution survives a genuine attempt to break it, which
+is what the seal said a miss would mean -- it is now a measurement rather than a
+guess, and MAP-FIELD.md may keep its sentence with a citation instead of a
+shrug.
 """
 import json
 import os
@@ -130,6 +172,21 @@ def sweep(n):
     return g, np.array(u, float)
 
 
+FIXED_WIN = 6e-4          # amendment 1: fixed in alpha, not in grid steps
+
+
+def distances(marks, g, u):
+    """Distance in alpha from each large jump to its nearest marker."""
+    mid = (g[:-1] + g[1:]) / 2
+    j = np.abs(np.diff(u))
+    ok = np.isfinite(j)
+    big = ok & (j >= ABS_JUMP)
+    pos = np.array(sorted(float(m) for m in marks))
+    xs = mid[big]
+    d = np.array([np.min(np.abs(x - pos)) for x in xs]) if xs.size else np.array([])
+    return d, int(big.sum())
+
+
 def score(marks, g, u):
     mid = (g[:-1] + g[1:]) / 2
     j = np.abs(np.diff(u))
@@ -141,7 +198,12 @@ def score(marks, g, u):
     cov = float(near[big].mean()) if big.any() else 0.0
     m_near = float(np.median(j[ok & near])) if (ok & near).any() else 0.0
     m_far = float(np.median(j[ok & ~near])) if (ok & ~near).any() else 0.0
-    return dict(coverage=cov, n_big=int(big.sum()),
+    dd, nb = distances(marks, g, u)
+    fixed = float(np.mean(dd <= FIXED_WIN)) if dd.size else 0.0
+    pct = (np.percentile(dd, [10, 25, 50, 75, 90]).tolist() if dd.size
+           else [0.0] * 5)
+    return dict(coverage=cov, coverage_fixed_window=fixed, n_big=int(big.sum()),
+                dist_pctiles=pct,
                 contrast=(m_near / m_far if m_far > 0 else float("inf")))
 
 
@@ -157,6 +219,9 @@ v1v = S["union"]["coverage"]
 v2v = S["direct+refl"]["coverage"] - S["direct"]["coverage"]
 v3v = len(UNION) / len(DIRECT)
 v4v = Sf["union"]["coverage"] / S["union"]["coverage"] if S["union"]["coverage"] else 0.0
+# amendment 1: the same arm through a window fixed in alpha rather than in steps
+v4_fixed = (Sf["union"]["coverage_fixed_window"] / S["union"]["coverage_fixed_window"]
+            if S["union"]["coverage_fixed_window"] else 0.0)
 
 V1 = Bar("union coverage of large jumps", 0.60, floor=0.0, ceiling=1.0,
          why="a fraction of large-jump steps: 0 to 1")
@@ -180,10 +245,22 @@ for name, m in (("direct", DIRECT), ("direct+refl", DIRECT | REFL),
                 ("direct+floor", DIRECT | FLOOR), ("union", UNION)):
     print(f"{name:>14s} {len(m):>8d} {S[name]['coverage']:>8.1%} "
           f"{S[name]['contrast']:>9.2f}")
+print(f"\ndistance from each large jump to its nearest marker (alpha):")
+print(f"{'set':>14s} {'grid':>6s} {'p10':>8s} {'p25':>8s} {'p50':>8s} "
+      f"{'p75':>8s} {'p90':>8s}")
+for lab, T in (("direct", S), ("union", S)):
+    q = T[lab]["dist_pctiles"]
+    print(f"{lab:>14s} {COARSE:>6d} " + "".join(f"{x:>8.5f}" for x in q))
+for lab in ("direct", "union"):
+    q = Sf[lab]["dist_pctiles"]
+    print(f"{lab:>14s} {FINE:>6d} " + "".join(f"{x:>8.5f}" for x in q))
 print(f"\nlarge jumps on the coarse grid: {S['direct']['n_big']}")
-print(f"out of sample (grid {COARSE} -> {FINE}): "
-      f"direct {S['direct']['coverage']:.1%} -> {Sf['direct']['coverage']:.1%}, "
-      f"union {S['union']['coverage']:.1%} -> {Sf['union']['coverage']:.1%}")
+print(f"out of sample, GRID-SCALED window (as sealed): "
+      f"union {S['union']['coverage']:.1%} -> {Sf['union']['coverage']:.1%}  "
+      f"ratio {v4v:.2f}")
+print(f"out of sample, FIXED {FIXED_WIN} window (amendment 1): "
+      f"union {S['union']['coverage_fixed_window']:.1%} -> "
+      f"{Sf['union']['coverage_fixed_window']:.1%}  ratio {v4_fixed:.2f}")
 print(f"\nfloor markers (|1 + n1 + n2a| = {F_MIN:.0f}/{F_C:.0f}): "
       f"{sorted(str(x) for x in FLOOR)[:6]} ...")
 print()
@@ -209,7 +286,8 @@ json.dump(dict(I=I_MUS, B=B, A=A, a0=A0, a1=A1, coarse=COARSE, fine=FINE,
                delta_steps=DELTA_STEPS, abs_jump=ABS_JUMP,
                n_direct=len(DIRECT), n_reflected=len(REFL), n_floor=len(FLOOR),
                n_union=len(UNION),
-               coarse=S, fine=Sf,
+               coarse_scores=S, fine_scores=Sf,
+               fixed_window=FIXED_WIN, v4_fixed_window_ratio=v4_fixed,
                floor_markers=sorted(str(x) for x in FLOOR),
                bars={s["name"]: s for s in (s1, s2, s3, s4)},
                verdict=v["head"], composed=v),

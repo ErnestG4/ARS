@@ -1,0 +1,204 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "A": 8,
+ "a0": 0.7,
+ "a1": 1.4,
+ "coarse": 3501,
+ "fine": 7001,
+ "delta_steps": 3,
+ "abs_jump": 0.05,
+ "n_direct": 13,
+ "n_reflected": 15,
+ "n_floor": 14,
+ "n_union": 29,
+ "coarse_scores": {
+  "direct": {
+   "coverage": 0.3333333333333333,
+   "coverage_fixed_window": 0.3333333333333333,
+   "n_big": 69,
+   "dist_pctiles": [
+    0.00029999999999996696,
+    0.0004999999999999449,
+    0.0016999999999998128,
+    0.0034999999999998366,
+    0.010299999999999998
+   ],
+   "contrast": 2.476646942060054
+  },
+  "direct+refl": {
+   "coverage": 0.3333333333333333,
+   "coverage_fixed_window": 0.3333333333333333,
+   "n_big": 69,
+   "dist_pctiles": [
+    0.00029999999999996696,
+    0.0004999999999999449,
+    0.0016999999999998128,
+    0.0034999999999998366,
+    0.010299999999999998
+   ],
+   "contrast": 2.0865822484347505
+  },
+  "direct+floor": {
+   "coverage": 0.3333333333333333,
+   "coverage_fixed_window": 0.3333333333333333,
+   "n_big": 69,
+   "dist_pctiles": [
+    0.00029999999999996696,
+    0.0004999999999999449,
+    0.0016999999999998128,
+    0.0034272727272726122,
+    0.007900000000000018
+   ],
+   "contrast": 0.9508741717432847
+  },
+  "union": {
+   "coverage": 0.3333333333333333,
+   "coverage_fixed_window": 0.3333333333333333,
+   "n_big": 69,
+   "dist_pctiles": [
+    0.00029999999999996696,
+    0.0004999999999999449,
+    0.0016999999999998128,
+    0.0034272727272726122,
+    0.007900000000000018
+   ],
+   "contrast": 0.9681950364208707
+  }
+ },
+ "fine_scores": {
+  "direct": {
+   "coverage": 0.1111111111111111,
+   "coverage_fixed_window": 0.37037037037037035,
+   "n_big": 81,
+   "dist_pctiles": [
+    0.0002500000000000835,
+    0.00041666666666650976,
+    0.001183333333333425,
+    0.004216666666666535,
+    0.012450000000000072
+   ],
+   "contrast": Infinity
+  },
+  "union": {
+   "coverage": 0.1111111111111111,
+   "coverage_fixed_window": 0.37037037037037035,
+   "n_big": 81,
+   "dist_pctiles": [
+    0.0002500000000000835,
+    0.00041666666666650976,
+    0.001183333333333425,
+    0.003450000000000064,
+    0.007950000000000013
+   ],
+   "contrast": Infinity
+  }
+ },
+ "fixed_window": 0.0006,
+ "v4_fixed_window_ratio": 1.1111111111111112,
+ "floor_markers": [
+  "10/11",
+  "12/11",
+  "14/11",
+  "15/11",
+  "17/22",
+  "21/22",
+  "23/22",
+  "27/22",
+  "32/33",
+  "34/33",
+  "43/33",
+  "43/44",
+  "45/44",
+  "8/11"
+ ],
+ "bars": {
+  "union coverage of large jumps": {
+   "name": "union coverage of large jumps",
+   "value": 0.3333333333333333,
+   "thresh": 0.6,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 0.4,
+   "why": "a fraction of large-jump steps: 0 to 1"
+  },
+  "coverage gain from the reflected class": {
+   "name": "coverage gain from the reflected class",
+   "value": 0.0,
+   "thresh": 0.1,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 0.9,
+   "why": "a difference of two coverages each in [0,1]"
+  },
+  "union markers / direct markers": {
+   "name": "union markers / direct markers",
+   "value": 2.230769230769231,
+   "thresh": 4.0,
+   "floor": 1.0,
+   "ceiling": 29.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 3.0,
+   "why": "the union contains the direct set, so the ratio is at least 1 and at most |union| = 29 when direct has one member"
+  },
+  "fine-grid coverage / coarse-grid coverage": {
+   "name": "fine-grid coverage / coarse-grid coverage",
+   "value": 0.3333333333333333,
+   "thresh": 0.8,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 1.2,
+   "why": "a ratio of two coverages each in [0,1]; bounded by 2 in practice since a doubled grid cannot double a fraction already near 1"
+  }
+ },
+ "verdict": "RESIDUAL_SURVIVES_CLOSED_FORM",
+ "composed": {
+  "label": "RESIDUAL_SURVIVES_CLOSED_FORM_BUT_NOT_BY_coverage gain from the reflected class_AT_union markers / direct markers_COARSELY_AT_fine-grid coverage / coarse-grid coverage",
+  "head": "RESIDUAL_SURVIVES_CLOSED_FORM",
+  "qualifiers": [
+   "BUT_NOT_BY_coverage gain from the reflected class",
+   "AT_union markers / direct markers",
+   "COARSELY_AT_fine-grid coverage / coarse-grid coverage"
+  ],
+  "citation": "RESIDUAL_SURVIVES_CLOSED_FORM  [union coverage of large jumps 0.3333 vs >=0.6 MISSED \u2014 \"the residual IS closed-form enumerable, so the shipped attribution is wrong\"; coverage gain from the reflected class 0 vs >=0.1 MISSED \u2014 \"the reflected channel is what was missing\"; fine-grid coverage / coarse-grid coverage 0.3333 vs >=0.8 MISSED \u2014 \"holds out of sample\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('union coverage of large jumps', EXISTENCE, MISSED)",
+   "Arm('coverage gain from the reflected class', MECHANISM, MISSED)",
+   "Arm('union markers / direct markers', RESOLUTION, MET)",
+   "Arm('fine-grid coverage / coarse-grid coverage', RESOLUTION, MISSED)"
+  ]
+ }
+}
