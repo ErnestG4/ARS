@@ -410,7 +410,21 @@ ENTRIES = [
               "than assumed later. Blocked on nothing measured -- the "
               "anti-aliasing a pulse train demands is engineering, not "
               "research."),
+    dict(id="event-layer-closed-form", status=LANDED,
+         request="is the residual 70% of timbral jumps really beyond closed "
+                 "form, as four cells and a shipped document assert?",
+         artifact="cross_substrate/brocot_event_layer.json",
+         verdict="RESIDUAL_SURVIVES_CLOSED_FORM",
+         note="tested direct + REFLECTED (q<=2B, p<=2B+2, never previously "
+              "marked) + f_min crossings, all exactly enumerable. Union covers "
+              "33.3% against a 60% bar; the reflected class adds EXACTLY 0. "
+              "Median large jump sits 0.0017 in alpha from the nearest marker. "
+              "The attribution is now a measurement. V4's miss was a window "
+              "artifact -- grid-scaled window on a physical offset -- corrected "
+              "to 1.11 under a fixed-alpha window"),
     dict(id="amplitude-event-layer", status=QUEUED,
+         warrant_reviewed=[("cross_substrate/brocot_jump_display_v3.json",
+                            "JUMPS_NOT_EXPLAINED")],
          warrant=[("cross_substrate/brocot_jump_display_v3.json",
                    "JUMPS_NOT_EXPLAINED", "STRUCTURAL/coverage of large jumps")],
          request="the ~70% of large timbral jumps that are amplitude-threshold "
