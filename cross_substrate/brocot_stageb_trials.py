@@ -97,7 +97,8 @@ print(f"built {len(key)} blinded trials -> {os.path.relpath(OUT, ROOT)}/")
 print(f"   {n_merge} merge (the prediction)   {n_beat} beat (the gate), interleaved")
 print(f"   each trial: 3 intervals, one is the {PROTO['detune_cents']:.0f}-cent "
       f"twin, {GAP_S:.1f} s gaps")
-print(f"\n   listen to trial_NNNN.wav, write 1/2/3 in responses.csv `odd`")
+print(f"\n   open listen.html in a browser (keys 1/2/3, r replay, s skip),")
+print(f"   or play trial_NNNN.wav and write 1/2/3 in responses.csv `odd`")
 print(f"   the key is in KEY_do_not_open.json — the name is the whole protocol")
 print(f"\n   partial data is fine: the scorer reports per-arm n and refuses to "
       f"read\n   a merge null that has not cleared its gate.")
