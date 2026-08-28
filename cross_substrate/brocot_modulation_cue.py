@@ -62,6 +62,48 @@ stimulus can attribute anything, and it needs no ears.
 ║ different situation from no cue at all, and it says the redesign must change ║
 ║ the CONTRAST, not the threshold.                                            ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
+
+AMENDMENT 1 — THE RESULT IS BIMODAL AND A MEDIAN WAS THE WRONG STATISTIC, which
+is this repo's oldest recorded defect appearing in a new cell.
+
+    cue fraction ~1.0:  3/4, 4/5, 5/4, 6/5, 7/5, 4/3     q = 3..5
+    cue fraction ~0.0:  5/7, 5/6, 6/7, 7/8, 8/7, 7/6     q = 6..8
+
+The split is by DENOMINATOR, and the mechanism is not masking. For q >= 6 the
+witness partials carry Bessel orders whose product falls under the render
+threshold, so those partials are NOT IN THE SIGNAL AT ALL. There is no cue to
+bury. "Masked below threshold" and "not present" are different claims, and the
+second is stronger and needs no perceptual model to make.
+
+P2's median of 0.274 and P3's median of 2 both summarise a distribution with
+nothing at its centre. The verdict head STIMULUS_CONTRAST_IS_CLEAN is therefore
+not readable as sealed: the contrast is clean for low q, absent for high q, and
+a single number for both is the wrong shape of answer.
+
+AMENDMENT 2 — A LISTENER'S SKIPS CONFIRMED IT, WHICH IS THE ONLY THING THE
+LISTENING SESSION SHOULD EVER HAVE BEEN ASKED FOR.
+
+90 trials were run before this cell existed, with an ill-designed task (a
+forced-choice paradigm that offered a skip button, so the answered set is
+selected on discriminability). The answers cannot give a rate. But the SKIP
+PATTERN can, because it is a report of "these sounded the same", and it lines up
+with the signal measurement:
+
+    ratios with NO cue in the signal (frac < 0.1):  answered 10/29 = 34%
+    ratios with a cue present     (frac > 0.5):  answered 29/30 = 97%
+
+The listener answered where the beat exists and skipped where it does not, at a
+97-vs-34 separation. That validates the signal-level measurement against a human
+independently of any threshold model, and it is worth more than the rate the
+protocol was designed to collect. It also explains the 61/61: every answered
+trial was one where a real isolated beat was present.
+
+AMENDMENT 3 — P1's CEILING WAS WRONG, flagged by out_of_range at 118 dB against
+a declared 60. The framing was the error, not just the bound: at the exact ratio
+the witness pair is MERGED and contributes no beat, so the band holds numerical
+noise and the "gain" is presence-versus-absence, limited by float precision
+rather than by anything physical. A dB ratio was the wrong statistic for a
+presence question.
 """
 import json
 import os

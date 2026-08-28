@@ -1,0 +1,223 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "sr": 44100,
+ "duration_s": 4.0,
+ "f_c": 220.0,
+ "cents": 6.0,
+ "mod_band": [
+  0.5,
+  40.0
+ ],
+ "bandwidth": 1.0,
+ "instrument": {
+  "model": "Hilbert envelope modulation spectrum of the rendered signal",
+  "params": [
+   {
+    "name": "detune_cents",
+    "kind": "TESTED",
+    "why": "the twin's offset; the confound scales with it and the cue frequency does too, so both must be swept together",
+    "sweep": [
+     3.0,
+     6.0,
+     12.0
+    ],
+    "value": null
+   },
+   {
+    "name": "mod_band_hz",
+    "kind": "TESTED",
+    "why": "the width around the predicted beat used to collect cue energy; P2 must not be an artifact of a narrow window",
+    "sweep": [
+     0.5,
+     1.0,
+     2.0
+    ],
+    "value": null
+   },
+   {
+    "name": "duration_s",
+    "kind": "DECLARED",
+    "why": "4 s resolves a 0.25 Hz modulation, comfortably below the slowest beat any witness pair produces here",
+    "sweep": null,
+    "value": 4.0
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "beat frequencies scale with f_c, so the cue and confound move together and the FRACTION in P2 is f_c-invariant",
+    "sweep": null,
+    "value": 220.0
+   },
+   {
+    "name": "envelope",
+    "kind": "DECLARED",
+    "why": "a full-band envelope is the crudest and most conservative reading; a per-critical-band envelope would only ADD cue visibility, so this cannot inflate P1",
+    "sweep": null,
+    "value": "Hilbert magnitude, full-band"
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 3
+ },
+ "rows": [
+  {
+   "ratio": "5/7",
+   "beat_hz": 3.818923360453084,
+   "cue_gain_db": 95.90878131455916,
+   "cue_fraction": 7.833698268476816e-05,
+   "live_bands": 4
+  },
+  {
+   "ratio": "3/4",
+   "beat_hz": 2.291354016271953,
+   "cue_gain_db": 170.01372371441735,
+   "cue_fraction": 0.9996511363241406,
+   "live_bands": 2
+  },
+  {
+   "ratio": "4/5",
+   "beat_hz": 3.0551386883626037,
+   "cue_gain_db": 143.51031583688564,
+   "cue_fraction": 0.9497151980077471,
+   "live_bands": 2
+  },
+  {
+   "ratio": "5/6",
+   "beat_hz": 3.8189233604532546,
+   "cue_gain_db": 89.81992259389105,
+   "cue_fraction": 1.6706575644007663e-05,
+   "live_bands": 2
+  },
+  {
+   "ratio": "6/7",
+   "beat_hz": 4.582708032543735,
+   "cue_gain_db": 59.20796668796318,
+   "cue_fraction": 3.8323678036909047e-08,
+   "live_bands": 2
+  },
+  {
+   "ratio": "7/8",
+   "beat_hz": 5.346492704634443,
+   "cue_gain_db": 103.68490504550486,
+   "cue_fraction": 2.127059592636863e-08,
+   "live_bands": 2
+  },
+  {
+   "ratio": "8/7",
+   "beat_hz": 6.110277376724923,
+   "cue_gain_db": 107.87086427289752,
+   "cue_fraction": 0.0033318405758472488,
+   "live_bands": 3
+  },
+  {
+   "ratio": "7/6",
+   "beat_hz": 5.346492704634443,
+   "cue_gain_db": 100.39282764597371,
+   "cue_fraction": 0.00018778696295177876,
+   "live_bands": 3
+  },
+  {
+   "ratio": "6/5",
+   "beat_hz": 4.582708032543621,
+   "cue_gain_db": 176.24022238122097,
+   "cue_fraction": 0.8158505718324212,
+   "live_bands": 4
+  },
+  {
+   "ratio": "5/4",
+   "beat_hz": 3.8189233604530273,
+   "cue_gain_db": 186.89754162329422,
+   "cue_fraction": 0.9938663356130728,
+   "live_bands": 1
+  },
+  {
+   "ratio": "4/3",
+   "beat_hz": 3.0551386883623763,
+   "cue_gain_db": 128.18369616314098,
+   "cue_fraction": 0.543819227251234,
+   "live_bands": 2
+  },
+  {
+   "ratio": "7/5",
+   "beat_hz": 5.346492704634102,
+   "cue_gain_db": 155.12095310392024,
+   "cue_fraction": 0.8737831633293868,
+   "live_bands": 4
+  }
+ ],
+ "median_cue_gain_db": 118.02728021801926,
+ "median_cue_fraction": 0.2735755339135406,
+ "median_live_bands": 2,
+ "bars": {
+  "median cue gain, twin over exact, dB": {
+   "name": "median cue gain, twin over exact, dB",
+   "value": 118.02728021801926,
+   "thresh": 6.0,
+   "floor": -60.0,
+   "ceiling": 60.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": true,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 54.0,
+   "why": "a ratio of band energies in dB; bounded by the dynamic range of the rendered signals"
+  },
+  "median fraction of the difference at the cue frequency": {
+   "name": "median fraction of the difference at the cue frequency",
+   "value": 0.2735755339135406,
+   "thresh": 0.25,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "headroom": 0.25,
+   "why": "a fraction of total spectral difference: 0 to 1"
+  },
+  "median live 1 Hz bands in the difference": {
+   "name": "median live 1 Hz bands in the difference",
+   "value": 2,
+   "thresh": 8,
+   "floor": 1,
+   "ceiling": 39,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "headroom": 31,
+   "why": "the number of 1 Hz bands between 0.5 and 40.0 Hz"
+  }
+ },
+ "verdict": "STIMULUS_CONTRAST_IS_CLEAN",
+ "composed": {
+  "label": "STIMULUS_CONTRAST_IS_CLEAN_BUT_NOT_BY_median live 1 Hz bands in the difference",
+  "head": "STIMULUS_CONTRAST_IS_CLEAN",
+  "qualifiers": [
+   "BUT_NOT_BY_median live 1 Hz bands in the difference"
+  ],
+  "citation": "STIMULUS_CONTRAST_IS_CLEAN  [median fraction of the difference at the cue frequency 0.2736 vs <=0.25 MISSED \u2014 \"but most of what changes is NOT that beat, so the stimulus cannot attribute a discrimination\"; median live 1 Hz bands in the difference 2 vs >=8 MISSED \u2014 \"the confound is broadband, not one filterable component\"]",
+  "dropped": [
+   "median cue gain, twin over exact, dB"
+  ],
+  "unread": [],
+  "arms": [
+   "Arm('median cue gain, twin over exact, dB', EXISTENCE, INERT)",
+   "Arm('median fraction of the difference at the cue frequency', EXISTENCE, MISSED)",
+   "Arm('median live 1 Hz bands in the difference', MECHANISM, MISSED)"
+  ]
+ }
+}
