@@ -87,6 +87,73 @@ with open(os.path.join(OUT, "responses.csv"), "w", newline="") as fh:
     for k in key:
         w.writerow([k["trial"], k["file"], ""])
 
+# The listening page ships WITH the trials, from here, because the trials
+# directory is gitignored: anything written there by hand is lost on the next
+# regeneration. Committed-generator discipline applied to a UI file.
+LISTEN_HTML = r"""<!doctype html><html><head><meta charset="utf-8"><title>Stage B — odd one out</title>
+<style>
+:root{--bg:#14171a;--fg:#e9edef;--dim:#8b969c;--line:#2a3136;--hi:#1E9AA8}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,sans-serif;
+ margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center}
+.wrap{width:min(560px,92vw);padding:28px}
+h1{font-size:19px;font-weight:600;margin:0 0 4px}
+.sub{color:var(--dim);font-size:14px;margin:0 0 24px}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin:0 0 22px}
+.bar i{display:block;height:100%;background:var(--hi);width:0}
+.count{font-variant-numeric:tabular-nums;color:var(--dim);font-size:13px;margin-bottom:14px}
+button{font:inherit;color:var(--fg);background:#1e2429;border:1px solid var(--line);
+ border-radius:6px;padding:14px 0;cursor:pointer}
+button:hover{border-color:var(--hi)}
+.choices{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.choices button{font-size:22px;font-weight:600;padding:22px 0}
+.aux{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.aux button{font-size:14px;color:var(--dim)}
+.done{text-align:center;padding:40px 0}
+code{background:#1e2429;padding:2px 6px;border-radius:4px;font-size:13px}
+</style></head><body><div class="wrap">
+<h1>Three sounds. One is different.</h1>
+<p class="sub">Which interval was the odd one? No feedback is given — that is deliberate.</p>
+<div class="bar"><i id="pr"></i></div>
+<div class="count" id="ct"></div>
+<div id="live">
+<div class="choices"><button data-a="1">1</button><button data-a="2">2</button><button data-a="3">3</button></div>
+<div class="aux"><button id="rp">replay</button><button id="sk">skip</button><button id="dl">save CSV</button></div>
+</div>
+<div class="done" id="fin" hidden><p>All answered.</p><button id="dl2">save CSV</button></div>
+</div><script>
+const N=__N_TRIALS__, KEY='stageb.responses';
+let ans=JSON.parse(localStorage.getItem(KEY)||'{}'), i=1, au=new Audio();
+const pad=n=>String(n).padStart(4,'0');
+function next(){ while(i<=N && ans[i]) i++; return i<=N; }
+function show(){
+  if(!next()){ document.getElementById('live').hidden=true;
+    document.getElementById('fin').hidden=false; upd(); return; }
+  au.src='trial_'+pad(i)+'.wav'; au.play().catch(()=>{}); upd();
+}
+function upd(){ const d=Object.keys(ans).length;
+  document.getElementById('pr').style.width=(100*d/N)+'%';
+  document.getElementById('ct').textContent=d+' of '+N+' answered'+(d<N?'  ·  trial '+i:''); }
+document.querySelectorAll('.choices button').forEach(b=>b.onclick=()=>{
+  ans[i]=b.dataset.a; localStorage.setItem(KEY,JSON.stringify(ans)); i++; show(); });
+document.getElementById('rp').onclick=()=>{ au.currentTime=0; au.play().catch(()=>{}); };
+document.getElementById('sk').onclick=()=>{ i++; show(); };
+function csv(){ let s='trial,file,odd\n';
+  for(let k=1;k<=N;k++) s+=k+',trial_'+pad(k)+'.wav,'+(ans[k]||'')+'\n';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));
+  a.download='responses.csv'; a.click(); }
+document.getElementById('dl').onclick=csv; document.getElementById('dl2').onclick=csv;
+document.onkeydown=e=>{ if('123'.includes(e.key)){ ans[i]=e.key;
+  localStorage.setItem(KEY,JSON.stringify(ans)); i++; show(); }
+  else if(e.key==='r'){ au.currentTime=0; au.play().catch(()=>{}); }
+  else if(e.key==='s'){ i++; show(); } };
+show();
+</script></body></html>
+"""
+open(os.path.join(OUT, "listen.html"), "w").write(
+    LISTEN_HTML.replace("__N_TRIALS__", str(len(key))))
+
 json.dump(dict(seed=SEED, trials_per_ratio=TRIALS_PER_RATIO, gap_s=GAP_S,
                n_trials=len(key), key=key),
           open(os.path.join(OUT, "KEY_do_not_open.json"), "w"), indent=1)
@@ -100,6 +167,7 @@ print(f"   each trial: 3 intervals, one is the {PROTO['detune_cents']:.0f}-cent 
 print(f"\n   open listen.html in a browser (keys 1/2/3, r replay, s skip),")
 print(f"   or play trial_NNNN.wav and write 1/2/3 in responses.csv `odd`")
 print(f"   the key is in KEY_do_not_open.json — the name is the whole protocol")
+print(f"   listening page written: {os.path.relpath(OUT, ROOT)}/listen.html")
 print(f"\n   partial data is fine: the scorer reports per-arm n and refuses to "
       f"read\n   a merge null that has not cleared its gate.")
 
