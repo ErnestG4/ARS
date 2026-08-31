@@ -2,7 +2,10 @@
 
 *Internal working reference.  Body 2026-05-11/12 (V1 / cross-domain
 arc); arithmetic-spectral arc (Phases 34a–34f) appended 2026-05-16 —
-see "## Arithmetic-spectral arc" below.  Not a writeup, not a
+see "## Arithmetic-spectral arc" below.  **Fact-checked and updated
+through 2026-08-28 on 2026-08-31**: stale claims corrected in place
+with dated bracketed boxes (never silently rewritten), and the
+2026-08-18 → 08-28 arcs appended at the end.  Not a writeup, not a
 publication draft, not a hierarchy of what to lead with.  A map of what
 the tool currently knows, at what confidence, under which disciplines,
 and what is still open — so that future phase briefs can scope against
@@ -26,8 +29,13 @@ aggregates `|a_q|` over q's divisible by a chosen prime, normalised
 against the total amplitude.  These two engines are formally distinct
 objects (§7.ter.39, Phase 31a derivation); the parallel `pll_bank`
 infrastructure with K_p, K_i, IIR LP and lock detection has *never been
-called by the deployed analyses* and is not the basis of any deployed
-finding.
+called by the deployed **neural** analyses* and is not the basis of any
+deployed neural finding.  [2026-08-31 fact-check: the unqualified
+"never called" was false — `run_analytical_nns.py:220` calls
+`pll_bank_gpu` to produce the measured ζ NNS in the canonical
+analytical-vs-measured comparison (and runs it at K_p=0.02/K_i=0.001
+against `PLLParams` defaults 0.10/0.005, per `audit/04-discrepancies.md`
+Bucket 4 §6); `arithmetic_toolkit.py` imports `farey_rationals` from it.]
 
 The tool measures at **two timescales**.  Full-sequence statistics treat
 the entire recording (or entire signal) as one object and ask whether
@@ -101,7 +109,28 @@ on the recording.  Numbers: pvc-11 anesthetised macaque V1 partial
 ρ = +0.720 (n=210 H1-passing pairs, p < 1e-37, controlling for mean
 firing rate); Allen awake mouse V1 meta-fixed ρ = +0.363 across 12
 sessions (all 12 positive sign, 10 of 12 individually significant,
-I² = 43%).  The cross-substrate magnitude attenuation is ~50–58%; the
+I² = 43%).
+
+> **[2026-08-31 fact-check — provenance caveat.]** +0.720 lives in the same
+> hardcoded `PVC11_REF` dict (`phase24/run_meta_analysis.py:123–128`,
+> re-hardcoded in `phase37/crcns_pillar2_ratematch.py`) whose F1/F0 entry
+> R-181 audited and found unreproducible (+0.388 vs re-derived +0.298).
+> +0.720 *does* trace to an artifact
+> (`data/phase22a_results/PHASE22A_FINDINGS.md:234`, partial-ρ column), so
+> it is not untraceable in the +0.388 sense — but the other five
+> `PVC11_REF` entries were never swept by R-181 and none has been
+> re-derived post-repair.  The partial's p-value circulates in three
+> mutually inconsistent forms (< 1e-37 here; 0.00e+00 in the Phase 22a
+> findings table; < 1e-300 in RESULTS.md §7.ter) — traceable, but one
+> number should be elected and the others struck.
+
+**Extension (2026-07, banked after this section was written):** H1
+generalises beyond the two-substrate pair — Allen full visual hierarchy
+pooled ρ = +0.445 (n = 7,846 cells, 7 areas + LGN), per-area ρ ≈
+0.39–0.46, burst-orthogonal everywhere (OSI↔burst ρ = +0.029 n.s.,
+burst-residual H1 +0.496), with a CA1 analogue (spatial information ↔
+ks_gue ρ = +0.279).  See `RESULTS_MATRIX.md` row 24 and
+`cross_substrate/findings_log.md`.  The cross-substrate magnitude attenuation is ~50–58%; the
 direction is preserved.  **Engine: NNS** (KS-to-GUE on Farey-band
 analytical passages).  **Mechanism status: open.**  H1 is a
 correlational finding between a cellular tuning property and an
@@ -164,8 +193,14 @@ gradient", not "↔ a level-repulsion *class*".
 The finding is that the modulation index F1/F0 (a per-unit simple-vs-
 complex-cell marker) correlates with `rep_med` (repulsion integral
 median) in **opposite directions** across the two substrates: pvc-11
-+0.388 (p = 6e-9), Allen meta-fixed −0.183, all 12 Allen sessions
-negative sign across 4 Cre lines.  **Engine: NNS** (RF amplitudes do
+~~+0.388 (p = 6e-9)~~ **+0.298 reproducible** (R-181: +0.388 was an
+unattributed literal in `phase24/run_meta_analysis.py:127`, ~30%
+overstated; the reproducible value is +0.29834625,
+`data/phase27_results/analysis1_verdict.json`), Allen meta-fixed
+~~−0.183~~ **−0.2502 on the repaired axis (12/12 negative; deployed-axis
+−0.2016, 11/12)** across 4 Cre lines — per the R-181…R-184 box above;
+this prose previously left the superseded numbers standing under its own
+retraction box.  **Engine: NNS** (RF amplitudes do
 not figure here).  **Mechanism status: open.**  The substrate-systematic
 direction is real and survives the Hietanen 2013 spike-count-bias
 deflation (Phase 27 Analysis 1: 210 rate-matched cross-substrate pairs
@@ -200,6 +235,12 @@ effects on cortical dynamics that interact with the modulation index?
 > the CLIPPED repulsion field, which on pvc-11 sits on its lower rail for ~79% of cells. This
 > section does not name its own load-bearing statistic; it was resolved from code. **Exposure
 > is established; the effect on the verdict is UNTESTED.** Not downgraded — flagged.
+>
+> **[Resolved 2026-07-29 (R-183), folded in 2026-08-31.]** The direction *was* then measured:
+> 240/1,260 q-bands (19.0%) are railed at 0.0 and survive at **0.0%** vs 57.7% for un-railed
+> bands.  The clip can only make H2 *harder* to pass.  Exposure: REAL.  Direction:
+> CONSERVATIVE.  Downgrade: NOT WARRANTED.  (The definitive re-run — Pass-E surrogate battery
+> on `rep_int_signed_q` — is still not done.)
 
 The finding is that on specific pvc-11 recordings, population-event NNS
 structure on (q=30) Farey-band passages survives the required
@@ -330,8 +371,13 @@ produce expected p-adic signatures on synthetic Wigner ensembles?
 The finding is that on Allen Neuropixels awake-mouse-V1 sessions,
 per-window p-adic at q_max=200 shows p=7 enrichment in natural_movie_one
 windows: mean z = +3.49 across 4 Cre lines (Pvalb +3.81, Sst +2.90,
-Vip +1.97, wt +1.75), 28/60 windows z>2 (47%), all 4 Cre lines
-positive.  At full-recording scope these same sessions are null
+Vip +1.97, wt +1.75), 19/30 windows z>2 (63%), all 4 Cre lines
+positive.  [2026-08-31 fact-check: this sentence previously spliced two
+cohorts — "28/60 (47%)" belongs to the Round-4 12-session cohort, whose
+mean is +2.19 (RESULTS.md §7.ter table), while mean z = +3.49 and 19/30
+belong to the 6-session Phase 32a cohort
+(`data/phase32a_results/natural_movie_per_window_padic_verdict.json`);
+the doc's other citations of this finding already used 19/30.]  At full-recording scope these same sessions are null
 (mean z = −0.14 spontaneous, −0.44 natural_movie_one).  **Engine: RF
 (p-adic v4) at per-window scope.**  **Mechanism status: open.**  The
 cross-substrate finding is a temporal-scope inversion: pvc-11
@@ -469,6 +515,25 @@ FA decomposition AND outside the standard per-cell tuning properties.**
 statistic that doesn't require gratings stimulus, for cross-recording
 per-recording-level test on the pvc-11 side; higher-rank FA sensitivity
 (max_factors > 8) on Allen as a bound on the BOTH_ORTHOGONAL classification.
+
+> **⚠ SUPERSEDED 2026-07-12 (Phase 38 reliability ledger), folded in 2026-08-31.**
+> The 32b per-cell estimator **leaks**: `phase32b/per_cell_decomposition.py:173`
+> re-seeds `default_rng(seed + 98765)` inside the window loop, so equal-n cells
+> get byte-identical surrogates — a pure rate-matched-Poisson cell with no axis
+> at all returns ρ = +0.257.  Repaired at 100 surrogates, `p7_mean_z` reads
+> ρ = 0.281 [0.131, 0.401] and carries **INDETERMINATE ×3 — no orthogonality
+> verdict at any baseline, on any cohort**; leakage-corrected disattenuation
+> returns R²_true = 1.59 (an R² above 1).  The FA-drift R² for `ks_gue_med`
+> moves 0.126 → 0.238 under the frozen unfold (INDETERMINATE, B4 flip), and
+> `~ raw props` grades NOT-ORTHOGONAL.  The 32b `rep_med`/`ks_gue_med` values
+> also came from a *different event set* than the banked ones (median n_events
+> 1,596 vs 3,153; cross-version ρ +0.547/+0.643), so **the banked orthogonality
+> verdicts remain uncertified** (`phase38/PHASE38_FINDINGS.md` §1–§8).  The
+> retro-scope of RESULTS.md §7.ter.50 is **PROPOSED, NOT APPLIED**
+> (`phase32b/PROPOSED_7TER50_RETROSCOPE.md`, held per standing rule) — so the
+> BOTH_ORTHOGONAL verdict above should be read as **WITHDRAWN-PENDING-RERUN**,
+> and the actual outstanding bound is reliability + the unfold, not
+> max_factors.
 
 **Substrate-specific FA decomposability (secondary observation from
 the per-cell pass):** Phase 27 Analysis 2 on pvc-11 H2 sessions had
@@ -641,6 +706,22 @@ electrode drift) cannot be distinguished from the current data.
 > correlation 0→0.95) — BL throughout, a genuine long-range transition INVISIBLE to both axes (could have
 > fired, didn't). Adds an addressability bound: correlation-only transitions at fixed marginal are in the
 > pivot blind spot.
+>
+> **⚠ CENSORED-INSTRUMENT EXPOSURE (2026-07-12 estimator-provenance audit, folded in 2026-08-31).**
+> Every `rep_med → 0.0` / "clean BL" reading in the boxes above was taken on an estimator
+> **censored at the null**: `np.maximum(0, 1−R₂)` floors `I_rep`/`rep_int_q` at the Poisson value
+> (`ESTIMATOR_CLAIM_PROVENANCE.md`).  Consequences: (i) **`BL` as a verdict class is RETIRED**
+> (`d20f2b9`) — it was a partition, never a class; exact-0.000 is unreachable by the repo's own
+> Poisson calibrator (0/1000), so an exact-0.000 read is a **clustering detection**, not blindness.
+> (ii) The Kuramoto "repulsion-BLIND (upgraded from inconclusive)" and the Kaneko
+> `REPULSION-AXIS-BLIND_CLASS-WIDE` verdicts rest on floored values and are **FLAGGED** — the
+> axis-blindness may be real but the evidence shown here cannot establish it.  (iii) The
+> falsification calibrator's Arm B ("a genuine long-range transition INVISIBLE to both axes —
+> could have fired, didn't") is **FLAGGED, NOT RETRACTED**: the silence is manufactured by the
+> clip (`phase32b/RAIL_AS_DETECTOR.md` Face 2 — "a censored instrument MANUFACTURES a
+> CONFIRMATION"); it must be re-run on the unclipped `I_rep`, which now exists
+> (`ESTIMATOR_CLAIM_PROVENANCE.md` open debt #2, UNBLOCKED) — **the re-run has still not been
+> done as of 2026-08-31.**
 
 Phase 30 ran ARS on classical and stochastic Kuramoto networks across
 the canonical (K, σ) parameter space and located the existing pvc-11 /
@@ -790,6 +871,12 @@ discrimination.  H1 pvc-11 SURVIVES_STRATIFIED, DSI pvc-11
 PARTIAL_SURVIVAL (monkey2 sign-flip in high-rate tertile, ultimately
 not-significant), F1/F0 pvc-11 PARTIAL_SURVIVAL, F1/F0 Allen
 SUBSTRATE_SYSTEMATIC_SURVIVES_STRATIFIED at session-aggregate.
+[2026-08-31 caveat: the F1/F0 pvc-11 PARTIAL_SURVIVAL sub-grade was
+computed on the clipped `rep_med` — the axis R-180 measured at 79–82%
+on the rail for pvc-11 — and has never been re-run on
+`rep_int_signed_q`; post-repair the pvc-11 F1/F0 arm is +0.1088,
+p = 0.116 (see the R-181…R-184 box in the F1/F0 section).  The
+stratified grade is inherited, not re-verified.]
 **Commitment:** every future ARS finding that rests on a rate-matched
 surrogate should also be checked at within-cell rate-stratified
 resolution before being claimed as locked.
@@ -1248,9 +1335,22 @@ characters, 4.05M pooled spacings: bulk GUE, conductor-normalised
 **Engine: NNS.**  These are reported as **instrument-validation outputs
 only** — they do not extend the corresponding literatures, but they
 do verify that the tool reads what arithmetic-side literatures predict
-it should read.  **Open:** none on the validation side; the open
-question is whether ARS produces *novel* arithmetic-side measurements
-beyond reproducing existing literature, and the current answer is no.
+it should read.  ~~**Open:** none on the validation side~~
+**[Reopened 2026-08-19, gate census.]**  The classifier these
+validations route through — `arithmetic_toolkit._classify`, depended on
+by 93 files — is an argmin over {Poisson, GOE, GUE} with **no rejection
+region**: 7/7 non-member inputs received a confident class label, a
+perfect clock reads GUE at 15× the KS critical value, and 754 banked
+classifications fit no better than a known non-member
+(`gate_census/GATE_CENSUS.md`).  The ζ / L-function marginal numbers
+above trace and stand, but "the tool reads what the literature
+predicts" is now conditioned on the class space having no null option;
+the non-breaking repair adds `best_ks` / `ks_crit_01` / `fit_rejected`
+to every read.  Separately, ζ's *long-range* reading moved: judged
+inside its Berry validity window it is **HYPER_RIGID, z = −9.10**
+(see the substrate-aware-L entry near the end of this file).  The open
+question — whether ARS produces *novel* arithmetic-side measurements —
+remains, and the current answer is still no.
 
 ### Physical / biological signal classifications (§7.ter.4 through §7.ter.18)
 
@@ -1262,6 +1362,14 @@ The tool classifies these test inputs as expected:
 - Solar X-ray flares (NOAA GOES, M+ class): Poisson-clustered.
 - Binance BTCUSDT trade timing (one trading day): essentially random
   (BL quadrant).
+
+> **⚠ INVERTED / RELABELLED (2026-07-12 estimator-provenance audit, folded in 2026-08-31).**
+> The `BL` label used above is **retired** and two of these reads are **inverted**
+> (`ESTIMATOR_CLAIM_PROVENANCE.md`): on the full sweep, the fungal pool is 194/194 exact-0
+> and solar flares 191/191 exact-0 on the censored repulsion axis — which the validated
+> detector reads as **CLUSTERING DETECTIONS**, not "Poisson noise"; Binance is **0/185**
+> exact-0, i.e. the one substrate here with **genuine weak repulsion**, not "essentially
+> random".  The earthquake read is unaffected in direction.
 
 These are **single-dataset classifications** on small samples; they
 should be read as findings about the specific datasets tested rather
@@ -1534,7 +1642,10 @@ decomposition follow-up (2026-05-12) ran the within-session per-cell
 regression discipline on n = 465 H1∩ARS Allen cells: BOTH_ORTHOGONAL
 — per-cell per-window p=7 ORTHOGONAL on FA-nmo (R²=0.113) and on raw
 per-cell properties (R²=0.045); per-cell rep_med ORTHOGONAL on
-FA-drift (R²=0.113) and on raw per-cell properties (R²=0.150).**  The
+FA-drift (R²=0.113) and on raw per-cell properties (R²=0.150).**
+[WITHDRAWN-PENDING-RERUN — the 32b per-cell estimator leaks surrogates
+and the verdicts grade INDETERMINATE on repair; see the Phase 38
+supersession box in the cross-engine section above.]  The
 two engines on Allen read substrate-systematic axes that are
 independent of each other *and* independent of the Williamson
 noise-correlation FA *and* independent of the standard per-cell
@@ -1623,6 +1734,13 @@ future findings only," is a scoping decision.
 
 ### V1-side closure status (as of 2026-05-12)
 
+[2026-08-31 note: "closure" is dated — H1 was later extended well past
+the two-substrate pair (Allen full visual hierarchy pooled +0.445,
+n = 7,846, 7 areas + LGN, burst-orthogonal; CA1 analogue +0.279 — see
+the H1 extension note near the top of this file), and the Phase 32b
+per-cell items listed below are WITHDRAWN-PENDING-RERUN per the
+Phase 38 box.]
+
 The V1 substrate-side has reached closure on what bounded-effort
 public data permits.  **Closed (this consolidation window):** Phase 28
 spatial-scale at <300 µm on Allen NP (SPATIAL-SCALE-DEPENDENT, local
@@ -1701,7 +1819,10 @@ the event-extracted spectral instrument for that transition class, not the subst
   Chialvo lacked), regimes marked by sync order parameter R; NOT temporal timing (the reconfirmation
   trap). Feasibility pre-check passed (snapshot gap-CV 1.18→54 across desync→clustered ⇒ test can be
   positive). Result, in- AND out-of-sample (N=1500,K=1.0): **repulsion axis (rep_med) FLAT at 0/BL across
-  the whole transition — blind** (⇒ Chialvo's repulsion-axis negative is CLASS-WIDE, not Chialvo-specific,
+  the whole transition — blind** [FLAGGED 2026-08-31: "FLAT at 0/BL" is a reading of the
+  censored-at-null `I_rep` (floored at the Poisson value) and `BL` is a retired verdict class — see
+  the censored-instrument box in the Phase 30 section; blindness is not established by a floored
+  value] (⇒ Chialvo's repulsion-axis negative is CLASS-WIDE, not Chialvo-specific,
   spanning temporal AND spatial observables); **clustering axis (CV/mass<τ) SEPARATES robustly**
   (in-sample +36.95, oos +25.89; mass<.3 0.30→0.9997) (⇒ "spectrally invisible" was AXIS-SPECIFIC — the
   right ARS readout sees it). Mechanism = the collective transition is a CLUSTERING transition
@@ -1827,7 +1948,13 @@ near-delta marginal or a sharp bounded-phase grid to fire at all).
   *both* NNS poles are marginal-only: 0/100 Allen V1 cells RIGID_GUE; 54/57
   hc-3 NNS-exponential cells NOT process-Poisson.  Cells live in a clustered
   regime and the "poles" are gradients within it.  The per-unit BL/TR
-  quadrant is a marginal classification.
+  quadrant is a marginal classification.  [Refined 2026-07-13,
+  `NEGATIVE_HALFLINE_CLASSES.md`: "every neural substrate is clustered" was a
+  SHORT-RANGE verdict.  On the per-cell Σ²(L=5) class certifier the
+  substrates split in two — ibl-port 73% and ret-1 60% of cells are
+  individually indistinguishable from Poisson at long range, vs hc-3 6% and
+  allen-hpf 0%.  The two supporting figures above are still correct; the
+  uniform generalisation drawn from them is not.]
 - **H1 specifically.**  The marginal correlation (OSI↔`ks_gue`) STANDS in
   full.  The structural reading is walked back: trial-PSTH external-rate
   unfold collapses OSI↔Σ²(clustering) +0.135→−0.077 (null) — the OSI-graded
@@ -2032,8 +2159,13 @@ n=343 — the configuration the banked approximability rows use — at 1.5σ / 0
 1.1σ figure was a small-sample artifact, corrected and then re-vindicated at the smaller n.
 **The larger finding is not a margin: the rule is one-sided by design, so a perfect clock (a
 banked zoo calibrator) earns RIGID_GUE at z=−5.09.** Proposed minimal fix: split the branch into
-RIGID_GUE (|z|≤2.5) and HYPER_RIGID (z<−2.5) — zero specificity cost, moves neither banked row.
-Two growth-based fixes measured and rejected; the Δ₃ one is well-powered but flags ζ **for a
+RIGID_GUE (|z|≤2.5) and HYPER_RIGID (z<−2.5) — ~~zero specificity cost~~ **[corrected 2026-08-18,
+RG-ADD-10: `gue_false_hyper_rate = 0/16` bounds only at ≤0.206 at 95% confidence — the honest
+claim is "below ~21%", not zero; 0/60 would bound ≤0.049]**, moves neither banked row.
+Two growth-based fixes measured and rejected; the Δ₃ one ~~is well-powered~~ **[closed FINAL
+2026-08-19, `967fd6d` / `rigidgate/delta3_n2000_confirm.json`: NOT a candidate instrument —
+FP(GOE) = 14/14 = 1.00 on both levers at n = 343/1200/2000; a growth test cannot separate GUE
+from GOE because logarithmic growth is what they share]** but flags ζ **for a
 physically real reason** (ζ's variance is flat in L, lens absorbs 0.0%, Berry saturation at
 ln(T/2π)=5.99 against a matched-L of 40). A marginal-exact permutation spoof sits inside the band
 with identical NNS, so single-L Σ² is not adversary-proof — the module's founding lesson one
@@ -2051,6 +2183,14 @@ the KAG caught it — the §9 rule worked despite the flawed argument.
 sign, magnitude 0.003–0.027 — and **the seal's registered attribution is refuted**: the term is
 ~80× too small for the residual it was supposed to explain, and its own falsifier
 (dial-independence) fails. The residual is now an open item rather than an explained one.
+**[Closed 2026-08-19: ADD-7 CLOSES with verdict `UNDER_ORDERED_ESTIMATOR`
+(`holonomy/COMMUTATOR_TABLE.md:332`) — deg 5 is the only failing degree; across deg 7–15 the
+measured Δ spans a factor 403 with every residual within 3 sem.  En route, a numerics repair
+retracted an intermediate "signed-and-growing deviation" claim (the deg-13 anomaly was
+manufactured by ill-conditioned `np.polyfit` in the *prediction* code; the measurement path is
+clean), and the continuum form was re-graded RIDGE_PREDICTIVE / SLOPE_RESOLVED,
+OFFSET_UNRESOLVED — sealed predictions for two held-out degrees both hit; slope 1/2, offset
+open.]**
 Independently, the sealed P1 law is **confirmed out-of-sample** at two new dial values (6/6,
 |z|≤1.51) — a test the original arc did not have.
 
@@ -2081,6 +2221,12 @@ Caps re-derived at the correct estimand, both directions, disjoint reference ban
 (n=2000, L=5); nothing at n=1200; and **at n=343 the gate is blind** — GOE admitted 32–90% of the
 time at every L. Against `matched_L` of 40/24/6.9 the default scale policy sits 8× or more above
 the only admissible scale. The earlier FN power caveat is discharged.
+[Resolution, 2026-08-19 (`967fd6d`): **BROCOT SETTLED — n=343 needs MORE DATA, not a different
+statistic**; the only admissible cell measured anywhere is n=2000/L=5, and the n=343 rows are not
+rescuable by re-analysis (n ≥ 2000 is reachable only by raising FM index, which is the program's
+own independent variable and non-monotone in depth).  Also LC-ADD-1: under the n-dependent cap the
+brocot/golden rows *are* outside their validity window — reversing the earlier "unmoved rows"
+reading.]
 
 **Full-sequence holonomy — HIGHER_ORDER_MEASURED (`fullseq/`).** 1-D dialect, length 5, kill
 criterion sealed with named targets before S0. The criterion did not fire (Δ_max = 2.32σ vs 0.201σ).
@@ -2127,3 +2273,182 @@ arm — so the `validate_fitters` repair is an idiom **the repo already uses** a
 applied to the fitter harness, which is a better argument for adoption than any appeal to principle.
 Repo-wide: 4 confirmed instances, 2 repaired, 2 proposed-with-recipe (both in sealed runners, so
 left uninstalled), none in a deployed judge.
+
+## 2026-08-18/19 — derivability memo, rigidgate close-out, the a_q floor, holonomy ADD-7
+
+**derivflow: NOT_DERIVABLE — STRUCTURAL (`derivflow/`).** New independent gate from the AFPU
+reference (arXiv:2408.09337 Lemma 3.2): normalized cumulant coefficients exactly invariant under
+differentiation — 42 cells, worst relative residual 6.8e-10 (`derivflow/cumulant_gate.py`). The
+decisive argument (`derivflow/DERIVABILITY_MEMO.md`): along the same flow the invariant quantity is
+constant to 2.6e-14 while the measured statistic moves 4,492× — **the target is not in the image of
+the machinery**; the paper has zero local content.  A prior internal reading that DBM universality
+supplies the bridge was judged wrong and removed; SCALE-FLAT (k* ≈ 11 iid / 6 GUE) is conceded as
+the folklore's own prediction, measured.
+
+**rigidgate close-out (RG-ADD-10 + Δ₃ FINAL).** 22 of the 41 denominator-less banked boundary rates
+are this arc's; denominators recovered from committed generators, intervals written to a sidecar
+(`rigidgate/rate_annotations.json`), none uninformative.  The "zero specificity cost" of the
+HYPER_RIGID split was retracted in-place (0/16 bounds only ≤0.206).  Δ₃ was then closed FINAL:
+FP(GOE) = 14/14 = 1.00 on both levers at n = 343/1200/2000 — a growth test cannot separate GUE from
+GOE because logarithmic growth is what they *share*.  TOOLKIT gains the positive rule: **the nearest
+confusable class sets the requirement, not the spoof you tested.**
+
+**lcap: the a_q floor is one-sided at its own operating point (`cross_substrate/aq_floor_sweep.json`).**
+The calibrated floor 6.098 is the 95th percentile of the *no-period* classes — FP side at nominal
+5%, FN side never measured.  Measured: detection plateaus at 0.90, never reaches 1.0 at any jitter
+or train length to 1600; CP on 36/40 gives a miss rate up to 24%.  The verdict logic in the sweep
+script was itself wrong (the raw JSON keeps the wrong string visible).  A third confirmed one-sided
+calibration alongside RIGID_GUE and `_classify`.  Separately, both syntactic one-sidedness
+detectors failed their known-positive self-test — this class is not cheaply greppable; the reliable
+sweep is manual enumeration.  `boundary_rate.py` pins Clopper–Pearson α=0.05 in code with a
+self-test.
+
+**Holonomy ADD-7 closes (`holonomy/COMMUTATOR_TABLE.md`).** See the bracketed closure note in the
+2026-08-16 overnight entry above: `UNDER_ORDERED_ESTIMATOR`, 403× dynamic-range validation,
+the numerics retraction (ill-conditioned prediction-side `np.polyfit`, cond up to 2.9e40; the
+96-sem anomaly was manufactured; measurement path clean), RIDGE_PREDICTIVE with two held-out
+degrees hit, slope 1/2, offset unresolved.  The dual-grid guard (`invariance.py`) validated both
+sides: sensitivity 1/1, specificity 1/1.
+
+## Gate census + the rail recovery (2026-08-19 → 08-23, `gate_census/`, `bounded_census/`, `c2_acceptance/`)
+
+The period's spine.  **`arithmetic_toolkit._classify` — depended on by 93 files — is an ARGMIN WITH
+NO NULL OPTION**: 7/7 non-members received a confident label, every best fit KS-rejected at α=0.01;
+a perfect clock reads GUE at 15× critical (`gate_census/GATE_CENSUS.md`).  The 93-file sweep found
+**754 banked classifications fitting no better than a known non-member** (45 worse than the clock);
+Q3 restated as a theorem — a rejected row loses its class, never changes class, so the 754 are
+**overclaimed, not misdirected**; no stated finding rests on a bad label (the record already
+contains the correct verdict from a better instrument in both worst cases).  A sealed prediction of
+"4–6 of 11 one-sided" **missed high: 9 of 11** deployed classifier implementations have no
+rejection region or an unrecorded complementary rate — *one-sidedness is what an unaudited
+classifier looks like; two-sidedness is an artifact of audit*.  19 files define their own argmin
+copy (11 distinct implementations by content hash — so C3 is a reconciliation, not a
+de-duplication; `gate_census/c3_rulings.py` encodes rulings R1–R5 and `migration_may_begin()`
+still raises).  Four of fifteen sites compute KS p-values and never compare them.
+
+**The rail recovery (C1/C2).** 73.8% of banked bounded `I.8_brody_q` values (15,174/20,558) sit on
+one bit-identical float, `6.610696135189609e-05` — measured to be the terminal step of Brent's
+bounded search inside a lower bound of zero (scales with `xatol`, vanishes when the bound moves),
+not a hardcoded constant.  **A rail is a PILEUP, not a proximity**: `brody_q` 15,174 near zero with
+4 distinct values (ratio 0.0003) vs `berry_robnik_rho` 7,328 near zero with 7,319 distinct (0.9988
+— real measurements).  C2 repaired all 1,159 pvc-11 records (`I.8_brody_q_unbounded`, bounded key
+untouched, acceptance-gated): **pvc-11 is 99.4% clustered, median Brody q = −0.373, range
+−0.634…+0.098, 0.0% railed** — where the bounded coordinate had reported 1,152 cells as the
+identical positive constant, wrong sign and wrong magnitude.  The earlier 140-cell probe's
+100%/−0.412 is explicitly not the finding.  ("pvc-11 forms an arc hugging the Poisson axis" is
+INVERTED in `ESTIMATOR_CLAIM_PROVENANCE.md`.)
+
+## Brocot re-indexed: per-α, not per-class (2026-08-19/20)
+
+The banked ρ(rank, q) = −0.909 reproduces exactly but was never error-barred: within-class RMS sd
+0.192 vs between-class 0.217; swapping the single lucky representative for the class mean collapses
+the CI to include zero.  **RESOLVED at 28× the n**: per-α, D_Q = min_{q≤Q} q‖qα‖ gives
+ρ = +0.699 [+0.612, +0.768], n = 255, surviving both confound controls
+(`cross_substrate/brocot_perAlpha.json`).  A Lagrange class is an *asymptotic* label the
+sideband-bounded instrument cannot see: **"q tracks approximability" holds per-α and fails
+per-class** — mis-indexed, not underpowered.  Supersession markers were attached at the stale call
+sites, not only at the new section.  Rail note: brocot rails at the *opposite* end from neural
+(39.6% at q=1, one distinct value); the per-class rail medians were withdrawn (computed over cells
+selected by railing).
+
+## Overnights 2026-08-22 (B1–B4) and 2026-08-23 (R3 baselines)
+
+**08-22, criteria sealed before any generator existed (`verify_seal_order.py`-confirmed).**
+B1 SURVIVES: perfect monotone metallic-class ordering (golden +1.2472 → metallic5 +0.6407),
+reported as the ordering with ρ = −1.000 [−1.000, −0.800] as test statistic; cell-level +0.658 over
+255 α.  B2 DOES NOT: the −0.209 reversal was a range-restriction artifact — under predictor
+terciles ρ = +0.362 [+0.132, +0.565]; banked as ATTENUATION WITHOUT REVERSAL.  B3 MISSED (69
+BOUNDED_FIT vs sealed ≤15) and was **not rescaled** — the denominator was 11× off and the
+categoriser over-inclusive; the actionable subset is five.  B4: computes-and-ignores is four sites;
+two detector failures were the author's own, one indistinguishable in-table from genuine
+resistance — hence `redpath.py`'s non-vacuity floor.  Rulings encoded as a shared module committed
+alone before application.
+
+**08-23, R3 artifact baselines: CAPTURED AND DISCRIMINATING; the module stratum is blind to
+numerical drift.  Nothing migrated.**  Def stratum 16/16 captured; 95 applicable attacks, 92
+detected, 3 survivals each structurally explained (one is `universality.py:129`, unobservable by
+construction — the COMPUTED_UNUSED finding appearing as a hole in the baseline).  Serialiser
+sensitivity: `%.17g` detects 16/16; `%.9g` and coarser 0/16; module scripts print 3–4 decimals, so
+`statistic_perturb` survives there (5/10 vs 92/95).  P3 and P5 both MISSED as predictions; P5's one
+INERT verdict was a property of the instrument (`ast.get_source_segment` dropping decorators) —
+*"had I banked the verdict instead of diagnosing it, the arc would carry a false finding that
+matched a pre-registration — the most durable kind of wrong."*  13 defects banked, three of them
+found by auditing the arc's own RESULTS.md.
+
+## Stern–Brocot synthesis arc (2026-08-23 → 08-28, `cross_substrate/brocot_*`)
+
+Largest arc of the period (~120 commits, every cell sealed before output; shipped docs
+`cross_substrate/BROCOT_SYNTH_IMPLICATIONS.md`, `BROCOT_SATURATION.md`; thread state in
+`threadledger.py`, 19 LANDED / 7 DROPPED / 4 QUEUED).  Governing correction first:
+`predict_partials`' `depths` parameter **is the modulation index, not a tree depth** — all prior
+brocot measurements ran at I=8 against a musical range of 0.1–3.0.  Re-run at musical indices the
+saturation *strengthens*; the class-level result does not reach the instrument (power limit).
+
+**The structure horizon is a theorem (MECHANISM_CONFIRMED):** a ratio p/q has sideband-coincidence
+structure at index I ⟺ max(p,q) ≤ 2·order_bound(I); exact at 508/508 node×index combinations,
+two-line proof.  Horizons 8/10/12/14 at I = 0.9/1.5/2.0/3.0.  *The rationals are not a restriction
+on the interesting region — they are the interesting region.*  Companion theorems: the perceptual
+parent is the denominator-weighted minimiser (P2 a theorem on α ∈ (1/A, A), 37016/37023 overall
+after the review de-laundered 7 out-of-scope failures; path truncation FALSIFIED at 30.1% vs 90%);
+the tie case is a theorem (545/545 where a rational is named); the map field is a Voronoi
+tessellation of horizon nodes.  Scope: SCOPED_TO_TWO_SINE_OPERATORS — with N partials the
+above-horizon coincidence fraction follows a nothing-fitted local-CLT curve (max error 0.076);
+horizon gone by N≈7–8.  Three linearisation attempts failed → PUNCTUATION_IS_SCALE_FREE; the map
+needs two non-colliding layers (REGION at mediants, EVENT at nodes).
+
+**Shipped-code cells:** fusion density EARNS_A_DIMENSION; asymmetric corollary 4784/4784;
+CoherenceSuggest's stated criterion is WRONG_IN_PRACTICE for 97.5–100% of its own regime; the
+ranking is ORDER_DEPENDENT_NO_CONVENTION_DETECTED (6.1% of unequal-index pairs swap-sensitive) and
+RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE (64.9% of scored shared energy exactly coincident);
+truncated butterfly weak/one-field, not shippable; the reachability filter OPTIMISES AN INAUDIBLE
+PROPERTY at conservative width (+2.1% audible gain; σ-conditional +19.9% at ERB/2.5) — the C++
+change did not ship.
+
+**The audible horizon and its corrections.**  EPS_HORIZON_OVERSTATES_AUDIBILITY (13 structural
+regions are 3 audible at −40 dB); the "17 dB per rung" law was RETRACTED the next commit (read off
+six sorted rows — the argmax-without-an-error-bar shape).  Stage A replaced the chosen dB floor
+with Glasberg–Moore masking: MASKING_GIVES_A_DERIVED_HORIZON, more restrictive than −40 dB, filter-
+width-robust at I=0.9 but not I≥2.  A listener's first impression then **broke the blinding and the
+positive control** (α=1 is degenerate — a plain harmonic series), correcting Stage A's headline to
+**zero of the 12 non-degenerate below-horizon ratios clear masking at any index**.  The listening
+question was then computed instead of listened for ("compute what is computable before spending a
+listener"): the phasing cue is bimodal in q, and the listener's skip pattern matched (97% answered
+where cue present vs 34% where absent) — then **CUE_IS_PRESENT_THROUGHOUT retracted its own
+predecessor** (beat-band SNR 21–101 dB in *every* non-degenerate ratio at every render floor; the
+"not in the signal" claim mistook small share for absence; the 97-vs-34 correlation is demoted to
+unexplained).  Terminal: SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED — something predicts the
+skips; the sealed arm does not discriminate which thing (plain total energy passes wherever the
+hypothesis passes; the pre-registrable configuration misses the bar the selected maximum cleared —
+the swing rule and rival rule entered `modelparams.py`/`reachable.py` from this cell's self-audit).
+
+**Adversarial review (08-25, three batches).**  Sixteen findings against the arc's own guards, the
+load-bearing ones: `verdictlattice.compose()`'s negation path was unfalsifiable (board stayed green
+under a stubbed head); the inertness check was one-sided and immediately caught two of the arc's
+own arms as unable to fail; `queue.py` shadowed the stdlib and became `threadledger.py`; the parent
+theorem's headline had laundered 7 failures; the tie lemma's "unconditional" was falsified at
+α=7, A=6 and renamed to carry its scope; a routing constant was a chimera of two mismatched n's;
+"468 flips" was a 6× double count (234 distinct across 78 ratios).
+
+## Standing infrastructure as of 2026-08-28 (rulings as code)
+
+`threadledger.py` (QUEUED/LANDED/DROPPED as data; a LANDED row whose artifact is missing or verdict
+drifted fails the board; WARRANT_STALE — a queued row names the artifacts and verdicts its warrant
+rests on; framing-death staleness — a warrant can be stale with an unchanged verdict, and all three
+σ-gated rows fired and were re-posed).  `verdictlattice.py` (head is a function of EXISTENCE arms
+alone; `compose()` returns a citation so a disposition cannot stand in for a finding).
+`reachable.py` (a Bar constructs only with a stated range and defended reason, raises at both
+edges, computes an `edge_probe`, and may name a rival — non-discriminating if the rival also
+clears).  `modelparams.py` (every instrument parameter TESTED-with-sweep or DECLARED-with-defence;
+`swept()` reports the pre-registered configuration, not the maximum — on the real table a +0.331
+selection penalty).  `redpath.py` (a probe asserts its own reach; when `expect_min` fires, raise
+the power, never lower the floor — fired 3×).  `detector_spec.py` (no detector without a declared
+negative set and named nearest confusable; `ClassSpace` requires each endpoint to declare what lies
+beyond it).  `boundary_rate.py` (Clopper–Pearson pinned in code).  `existence.py` (typed question
+shapes: existence needs an existence statistic; two-point trends refused; PRESENCE on [0,1] values
+refused without acknowledgement).  `countrecon.py` (two instruments counting one population must
+reconcile the exact delta).  `ratiopinned.py` (universal-coincidence quotient with its own red
+path).  `checkrun.sh` / `sealgen.sh` / `verify_seal_order.py` / `.githooks/commit-msg` (the machine
+writes the verdict; generators commit alone; seal order is a property of the commit graph; a commit
+message may not claim an outcome without a CHECKRUN line — the hook refused its own installing
+commit, correctly).  `verify_frozen_blobs.py` + `verify_pending_debt.py` (frozen objects re-resolve
+with a non-vacuity floor; un-actioned proposals print on every green board).  Board at 25/25.

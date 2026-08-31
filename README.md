@@ -195,7 +195,10 @@ structure NNS cannot:
   2/(βπ²), so GOE has asymptotically twice GUE's number variance.  The
   long-range rigidity test.  (The deployed long-range discriminator
   judges against empirical GUE/Poisson ensembles at matched (n, L), not
-  these analytic curves.)
+  these analytic curves.  As of 2026-08 the judged L is substrate-aware
+  and capped — `L_judge = min(requested_L, validity_L,
+  discrimination_L)` — after the L-policy arc showed a large default L
+  can dilute a real 9σ effect and admit GOE at small n; see `lcap/`.)
 - **Spectral rigidity** Δ₃(L): mean-square deviation of the counting
   staircase from its best-fit line over length L (`axes.II2_delta3_at_L`).
 - **Spectral form factor** K(t) = (1/N)·|Σ_n e^{2πi t x_n}|²
@@ -244,6 +247,13 @@ first (`calibrator_panel.py`, `extractor_distinctness.STANDARD_CALIBRATORS`,
 A signal's class is read as its position *relative to* this panel — never
 on an absolute threshold the panel has not been shown to separate.  This
 is the operational form of the boundary-readout commitment below.
+(Deployed practice lagged this commitment for a long time: a 2026-08
+census found the workhorse `_classify` — depended on by 93 files — is an
+argmin over {Poisson, GOE, GUE} with **no rejection region**; 7/7
+non-member inputs received a confident label, and 9 of 11 deployed
+classifier implementations were one-sided or had an unrecorded
+complementary rate.  See `gate_census/GATE_CENSUS.md`; the HYPER_RIGID
+split and per-realization gates are the first repairs.)
 
 ## Why this exists
 
@@ -389,9 +399,14 @@ apparatus-subtraction stage established the load-bearing correction:
 **NNS / `ks_gue` / `rep_med` certify the marginal gap distribution, not
 the universality class.**  An order-scramble surrogate reproduces
 0.87–1.00 of the quadrant's per-band labels on every real substrate —
-the quadrant is order-blind by construction.  Consequences: ζ is
-*confirmed at class level* and L-function bulk-GUE stands, but pooled
-long-range claims are caveated to marginal-only; the neural per-cell
+the quadrant is order-blind by construction.  Consequences: ζ was read
+as *confirmed at class level* — a reading **SUPERSEDED 2026-08-16**:
+the one-sided RIGID_GUE rule certifies only "not floppier than GUE" (a
+perfect clock earns it too), and judged inside its own Berry validity
+window ζ_first_2000 is **HYPER_RIGID, z = −9.10**, the same marginal
+measurement sharpened, not overturned (`lcap/RESULTS_LCAP.md`,
+`rigidgate/RESULTS_RIGIDGATE.md`) — while L-function bulk-GUE stands
+and pooled long-range claims are caveated to marginal-only; the neural per-cell
 "poles" are downgraded to gradients within an intrinsically clustered
 regime; H1's marginal correlation survives in full, but the structural
 reading that selective cells are a distinct level-repulsion class is
@@ -470,8 +485,13 @@ They do not extend those literatures.
 ### Arithmetic instrument validation
 
 - Riemann ζ first 2,000 Odlyzko zeros: KS_GUE = 0.041, rep_int_q = 0.425.
-  ζ at heights ~10⁶: KS_GUE = 0.012–0.015.  Consistent with the GUE
-  conjecture. (§7.ter.7, §7.ter.21.)
+  ζ at heights ~10⁶: KS_GUE = 0.012–0.015.  Marginal spacings consistent
+  with the GUE conjecture. (§7.ter.7, §7.ter.21.)  The long-range reading
+  is window-sensitive: inside its Berry validity window (L ≈ 6),
+  ζ_first_2000 is measurably *more* rigid than the finite-N GUE ensemble
+  — HYPER_RIGID, z = −9.10, lens-invariant.  This is expected slow
+  low-height convergence, not a claimed asymptotic GUE violation
+  (`lcap/RESULTS_LCAP.md`).
 - LMFDB elliptic curve L-functions, 87 curves, ~10,000 zeros: bulk
   GUE, edge separation by root number. (§7.ter.4.)
 - Dirichlet L-functions, q ≤ 149, 630 primitive non-trivial characters,
@@ -490,7 +510,10 @@ V1).  Each has cleared the disciplines listed in parentheses; the
 detailed per-finding map is in `EPISTEMIC_STATE.md`.
 
 - **H1: OSI ↔ ks_gue_med.**  Cellular orientation selectivity
-  correlates with the global level-repulsion class statistic.
+  correlates with the global marginal-spacing statistic.  Read as
+  "selectivity ↔ a marginal-spacing *gradient*", not "↔ a
+  level-repulsion *class*": the class reading collapsed under the
+  external-rate unfold (see The journey above; `EPISTEMIC_STATE.md`).
   pvc-11 partial ρ = +0.720; Allen meta-fixed ρ = +0.363 across 12
   sessions (all positive sign).  *Disciplines: full-sequence
   surrogate, within-recording, within-SNR-tertile, cross-substrate,
@@ -572,7 +595,11 @@ broader Allen Brain Observatory cell population, additional neural ports (Buzsá
 entorhinal / CA3, retinal ganglion cells), Kuramoto, arithmetic L-functions (ζ / Dirichlet /
 elliptic-curve), Mertens / Liouville, Gaussian + Eisenstein primes, Maass forms, NANOGrav
 pulsar timing, the dynamical systems Mackey-Glass / Lorenz / logistic (and Rössler / Chua /
-Duffing / Hénon), the brocot.fm synthesis corpus, self-organised-criticality calibrators
+Duffing / Hénon), the brocot.fm synthesis corpus (its class-level headline ρ(rank,q) = −0.91
+was superseded 2026-08-19 as a one-representative-per-Lagrange-class artifact; the relation
+survives per-α at ρ = +0.699, n = 255, and the arc continued into a masking-derived
+audible-horizon / listening program — `cross_substrate/brocot_*`,
+`cross_substrate/BROCOT_SYNTH_IMPLICATIONS.md`), self-organised-criticality calibrators
 (earthquake and solar-flare catalogues), the Sturmian word and the Sturmian / Fibonacci
 Hamiltonian, generalised-Harper / mosaic / Maryland variants, and the almost-Mathieu (AM)
 operator.  The run-by-run record and the synthesis are in
@@ -624,7 +651,9 @@ overstate what the tool currently claims.
   data has no Kuramoto-match (156/160 well-powered rows; aggregate
   modal = BR_artifact uniformly).  Kuramoto per-window p-adic at
   q_max=200 is also null.  **Four-way joint null** across both
-  engines and both timescales.
+  engines and both timescales.  (Phase 36's two-axis re-audit refines
+  the reading: the null is clustering-type and repulsion-blind — a
+  refinement, not an overturn; see `RESULTS_MATRIX.md`.)
 - **History-coupled GLM as H2 elimination target: FIT-CEILING.**
   24-cell grid (n_lags × bin_ms × variant) produces zero FIT-PROPER
   cells; canonical → kernel collapse, unconstrained → runaway with
@@ -693,15 +722,46 @@ The toolkit has been characterised to fail in these specific ways.
   capability-uncertain territory pending an explicit per-cell rate-
   matched discipline. (§7.ter.36.)
 
+Four further failure modes were characterised in the 2026-08 audit arcs:
+
+- **Argmin classification with no null option.**  The workhorse
+  `_classify` selects the nearest of {Poisson, GOE, GUE} with no
+  rejection region: 7/7 non-member inputs received a confident label,
+  and a perfect clock reads GUE at 15× the KS critical value.  9 of 11
+  deployed classifier implementations shared the defect in some form.
+  (`gate_census/GATE_CENSUS.md`, `gate_census/SWEEP_TRIAGE_TABLE.md`.)
+- **One-sided thresholds admit the far side.**  RIGID_GUE meant "not
+  floppier than GUE", so a perfect clock earned the GUE pole at
+  z = −5.09.  Fixed by the RIGID_GUE / HYPER_RIGID split.  A threshold
+  calibrated from one side has an unmeasured error rate on the other.
+  (`rigidgate/RESULTS_RIGIDGATE.md`.)
+- **Bounded fitters rail and return a constant.**  pvc-11's Brody-q
+  coordinate returned the identical positive constant for 1,152 of
+  1,159 cells — wrong sign and wrong magnitude; after repair pvc-11 is
+  clustered in 99.4% of cells with median q = −0.373.  Distinct-value
+  ratio is the diagnostic: an optimizer floor gives few distinct values,
+  real concentration gives many. (`cross_substrate/PROGRESS_REPORT.md`.)
+- **Pairwise holonomy tables are not a conservative bound.**  Exhaustive
+  out-of-sample testing over all 59 admissible orderings falsified
+  sub-additivity: the pairwise sum can *underestimate* composed
+  transition holonomy by up to 6.9×, concentrated where UNFOLD follows
+  POOL (a saturation regime). (`fullseq/RESULTS_FULLSEQ.md`.)
+
 ## Application to LLM internal states (canonical retracted-claim arc)
 
 The toolkit was applied to transformer residual stream activations
 and attention dynamics across four architectures (Qwen 2.5 3B,
 Phi-3-mini-4k, TinyLlama 1.1B, Mistral 7B v0.1) and eight extractor
 mechanisms.  After three rounds of artifact diagnosis (§7.ter.19,
-§7.ter.22, Finding F at §7.ter.23), **no measurement was obtained
-that could be attributed to the model rather than to the extraction
-pipeline**.
+§7.ter.22, Finding F at §7.ter.23), **with one exception no
+measurement was obtained that could be attributed to the model rather
+than to the extraction pipeline**.  The exception (Phase 37,
+`phase37/VERIFICATION.md` Set 3): the fp16→int4 quantisation contrast
+survives its extractor controls — int4 genuinely restructures the
+surprisal sequence toward clustering (mass03 shift +0.0604, identical
+plain and dithered, surrogate-controlled; verdict SUBSTRATE, not
+readout).  It is a *within-extractor differential*, not a model-state
+classification.
 
 This section is preserved as the canonical worked example of the
 boundary-readout problem the tool is built to handle.  Provisional
@@ -738,6 +798,14 @@ record under which each measurement was produced.  See
 and outstanding.  See `cross_substrate/PROGRESS_REPORT.md` for the
 cross-substrate universality-class landscape program (synthesis) and
 `cross_substrate/findings_log.md` for its run-by-run record.
+See `TOOLKIT.md` for the cross-cutting disciplines (§9), condemned
+paths (§10), the 2D point-process protocol (§11), and the canonical
+order registry (§12).  `AUDIT.md` + `REPRODUCE.md` define the
+`verify_all.py` green-board contract (green means the checkers pass,
+not that the instrument measures what we claim); `threadledger.py`
+is the machine-checked queue of open/landed/dropped threads, and
+`verdictlattice.py` / `redpath.py` / `reachable.py` carry rulings as
+code.
 
 Installation:
 ```
@@ -751,9 +819,10 @@ from arithmetic_toolkit import joint_q_profile, padic_amplitude_v4
 # t_k is a sorted numpy array of event timestamps
 
 # NNS engine: dynamics-class signal at recording-aggregate level
-result_nns = joint_q_profile(t_k, q_max=200)
-ks_gue_med = result_nns['ks_gue_med']
-rep_med = result_nns['rep_med']
+profile = joint_q_profile(t_k, q_max=200)   # DataFrame, one row per q
+well = profile[~profile['underpowered']]
+ks_gue_med = well['ks_gue_q'].median()
+rep_med = well['rep_int_q'].median()
 
 # RF engine: per-prime arithmetic-class signal
 result_rf = padic_amplitude_v4(t_k, q_max=200)

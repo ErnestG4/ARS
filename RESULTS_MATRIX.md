@@ -6,6 +6,13 @@ number against the exact file it is cited from). Result: **61/61 rows CERTIFIED*
 their headline numbers; corrections and additions the pass produced are in the ledger
 at the bottom.
 
+> **[2026-08-31 header repair.]** The ✅ marks certify the 2026-07-10 pass only.  The
+> document has since grown past 61 rows (the completeness hunt added rows, and the Allen
+> F1/F0 row was rewritten 2026-07-29 under an unchanged ✅) — so "61/61" is the count *at
+> certification*, not the current row count, and rows added or edited after 2026-07-10
+> are certified by their own cited artifacts, not by this banner.  Amendments from the
+> 2026-08 arcs are marked inline below with **[2026-08]**.
+
 **Cert** column: ✅ = byte-verified this pass. **Status** — banked/closed/open/
 data-blocked. **Openness** — live question remaining. **ρ (reliability)** — the column
 forced by Phase 38 (`TOOLKIT.md` §9 ceiling arm): any **orthogonality / independence**
@@ -64,7 +71,7 @@ larger catalogs (ComCat 173,122; SWPC 50,999) — not double-counting rows 1–2
 
 | Substrate | Result / class | Status | Open | Cert |
 |---|---|---|---|---|
-| Riemann ζ zeros | GUE, KS **0.0193→0.0109** convergence (21 bins) | closed (pub figure) | none | ✅ |
+| Riemann ζ zeros | **Marginal leg:** GUE, KS **0.0193→0.0109** convergence (21 bins) — unmoved. **Rigidity leg [2026-08]:** "confirmed at class level" SUPERSEDED — the one-sided RIGID_GUE label was one a clock also earned; judged inside its Berry validity window ζ_first_2000 is **HYPER_RIGID z=−9.10** (`lcap/RESULTS_LCAP.md`, row history kept adjacent there) | marginal closed (pub figure); rigidity amended | window vocab | ✅ marginal / **[2026-08]** rigidity |
 | LMFDB EC L-functions | 87 curves, bulk GUE, edge separated by root number | closed | low | ✅ |
 | Dirichlet L | q≤149, 630 chars, bulk GUE, γ₁ separates Sp/U (p=0.001) | closed | low | ✅ |
 | Gaussian/Eisenstein prime angles | RW_SHAPE_CONFIRMED at finite X (Eisenstein 1.000±0.022 @ X=10⁸) | closed | low–mod | ✅ |
@@ -90,10 +97,12 @@ larger catalogs (ComCat 173,122; SWPC 50,999) — not double-counting rows 1–2
 | EC root-minus q=17 (34c) | AMBIGUOUS_AT_BOUNDARY — spike survives RMT nulls p<0.001 but q=K pooling artefact | open (methodology boundary) | mod | ✅ **[+]** |
 | Part C refusal-zoo | NULL vs baseline B; re-encodes trivial descriptors | dark-appendixed | closed | ✅ |
 
-¹ *Source-doc fix pending:* `PHASE34E_FINDINGS.md` headline still quotes Berry-Robnik
-ρ≈0.458, retracted in its own SQ-2 amendment + 34f as a **fitter-bias artifact**
-(corrected ρ_GOE≈0.13). The load-bearing NNS Sarnak verdict is independent of the fitter
-and unaffected; the stale number should be struck from the 34e headline separately.
+¹ *Source-doc fix pending — re-pointed 2026-08-31:* the `PHASE34E_FINDINGS.md` **headline
+already carries** the SUPERSEDED marker (verified at the certifying commit, so this note was
+mis-located when written).  The genuinely unmarked quote is **§G.3** (the Sarnak-anomaly canon
+entry), which still states ρ ≈ 0.458 ± 0.010 with no supersession marker — that is where the
+fitter-bias correction (ρ_GOE≈0.13) needs to be struck in.  The load-bearing NNS Sarnak verdict
+is independent of the fitter and unaffected.
 
 *(Prior "Higher-rank GL(m) L-functions (Phase 35)" row — CONFIRMED PHANTOM, deleted; no
 GL(m)/Rankin–Selberg substrate exists in the repo. Phase 35 = Almost-Mathieu, below.)*
@@ -204,7 +213,15 @@ CERN = MATCH_BOUNDED (not mismatch); Cohomological Bianchi COMPLETE (not held); 
 deleted; FHN phantom deleted; NANOGrav §7.ter.44; CP1 parity even=sym0=0.399; r\*=45±5.
 
 **One source-doc fix queued (not a matrix issue):** strike the retracted BR ρ≈0.458 from
-the `PHASE34E_FINDINGS.md` headline (superseded by ρ_GOE≈0.13; NNS Sarnak verdict unaffected).
+`PHASE34E_FINDINGS.md` **§G.3** (the headline is already marked; see re-pointed footnote ¹).
+
+**[2026-08] Configuration flag on rigidity verdicts:** the RIGID_GUE gate's margin at the
+n=343 configuration is 1.5σ with false-RIGID 0.035 (vs 3.6–3.8σ / 0.000 at n≥1200), and the
+L-policy arc found **no admissible L at n=343 at all** (GOE admitted 32–90%;
+`rigidgate/RESULTS_RIGIDGATE.md`, `lcap/RESULTS_LCAP.md`).  Any row whose rigidity verdict
+was produced at n=343 carries this flag; the numbers stay byte-accurate, the verdicts are
+configuration-limited.  Terminal resolution (`967fd6d`): n=343 needs more data, not a
+different statistic.
 
 **No load-bearing inter-doc contradictions** surfaced across any of the five families —
 only stale labels, method-labeled dual estimates (metallic-5 C 1.099 vs 1.160), and
