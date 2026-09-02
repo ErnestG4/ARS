@@ -110,6 +110,88 @@ bystanders sharing a single (1+n1)/n2, which forces one common d -- and requires
 E2's machinery to find it. If the control does not fire, the run aborts and
 no verdict is written. An arm that cannot fire is not evidence.
 
+AMENDMENT 1 — M1 FIRED, AND IT CAUGHT TWO INSTRUMENT DEFECTS, NOT A FINDING.
+
+The first run scored M1 at a relative deviation of EXACTLY 1.0, which is the
+signature of a structural error rather than numerical noise. It was.
+
+At alpha = 3/4 the index (2, -4) gives a = 1 + 2 - 3 = 0 EXACTLY, and at 4/3 the
+index (3, -3) gives a = 1 + 3 - 4 = 0. Those partials sit at DC. Their Bessel
+products (1.55e-4, 2.08e-4) clear the 1e-4 floor, so they were in the bystander
+set. Two consequences, both mine:
+
+  (a) |a| has a CORNER at a = 0, so df/d(alpha) does not exist there, and M1's
+      predicted direction sign(a)*n2 is not defined either. M1 was right and the
+      sealed claim "the shift is the lattice-fixed direction" is FALSE AS
+      WRITTEN -- it holds away from fold points, and a partial at DC is a
+      partial already sitting on one. The corrected claim is piecewise, and the
+      arm now tests it away from the corners while COUNTING the corners.
+
+  (b) Far worse, and the reason this is an amendment and not a footnote: with
+      f0 = 0 the shift in cents is log(x/0) = infinity, so mb was infinite at
+      every delta, `ok` was empty, and margin fell through to its initial 0.0.
+      Ratios 3/4 and 4/3 were then counted as margin <= 1, i.e. as PASSES of
+      the arm, on the strength of a division by zero. That is non-evidence
+      scored as a verdict, in the denominator of my own headline count -- the
+      dominant recorded error mode of this repo, produced here by the cell that
+      cites it.
+
+  (c) And the tau column was a grid artifact. A linear grid of 4001 points over
+      +/-2400 cents has a step of 1.2 cents, so no sampled delta could ever hold
+      every bystander within 1 cent, and "usable split at tau = 1c: 0.000" was
+      a statement about my grid. R1 did not catch it because R1 only re-checked
+      the margin verdict, not the tau numbers -- a resolution arm scoped to
+      half of what it was guarding.
+
+FIXED, AND THE PREDICTIONS ARE UNCHANGED: the cents metric is now applied only
+to partials above a declared pitch floor, unpitched partials are counted and
+reported separately in Hz rather than silently making a ratio unmeasurable, the
+delta grid is logarithmic so it resolves the small-tolerance regime, and R1 now
+re-checks the tau result as well as the margin. No bar moved and no prediction
+was rewritten; what changed is the instrument, which is what a MECHANISM arm is
+for. Recorded here because the fix came AFTER seeing output, which is exactly
+the circumstance a seal exists to make visible rather than deniable.
+
+AMENDMENT 2 — E3 MISSED, AND THE MISS LOCATES THE ANSWER RATHER THAN OVERTURNING IT.
+
+E3 asked whether ANY delta in the scan window gives isolation margin > 1. It
+does, for 8 ratios of 8. My sealed prediction was wrong and stays on the record
+as wrong: the composed head is ISOLATING_DETUNE_EXISTS, read off the arm as
+sealed, and nothing below rescues it.
+
+But WHERE the margin is achieved was not part of the statistic, and it decides
+what the number means:
+
+    margin achieved at   814 to 1499 cents   -- 8 to 15 SEMITONES of detune
+
+That is not a detune. At 1000 cents alpha has become a different ratio, the
+spectrum is a different spectrum, and "the bystanders were disturbed less than
+the witnesses separated" is true of a sound nobody would call the same sound.
+E3's window was right for E2, which must be unbounded to be a theorem, and
+WRONG for E3, where the design question is local.
+
+So a post-hoc statistic is added, and labelled as post-hoc: the LOCAL isolation
+ratio, split rate over largest-bystander rate in the small-delta limit. It is
+not a new arm, it does not touch the head, and it was chosen after seeing that
+the margin lived at large delta.
+
+    local ratio  0.134 to 0.417  (median 0.221)
+
+Read the other way up: to separate the witness pair by one cent you must move
+some bystander by 2.4 to 7.5 cents. The witnesses separate SLOWER than the
+disturbance, everywhere in the local regime, at every ratio in scope. The linear
+scaling is exact -- usable split is proportional to tau to four figures across a
+50x sweep -- so this is a rate, not a coincidence of one tolerance.
+
+THE TWO ANSWERS, WHICH ARE NOT IN TENSION:
+  E2, exact and unbounded: NO delta returns the bystander spectrum to itself
+  while splitting the witnesses. 2306 candidates over 8 ratios, folds and
+  permutations included, zero returns. Exact isolation does not exist at any
+  magnitude, and that IS the scoped theorem the ledger asked for.
+  E3 plus the local ratio: approximate isolation is worse than useless locally
+  (2.4x to 7.5x against you) and only becomes favourable once the detune is
+  large enough to be a different ratio.
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing here is about audibility. It is a
 statement about what the FM synthesis path can express, under two operators, the
 direct channel, sine carriers, at index I, over the ratios the horizon puts in
@@ -149,7 +231,9 @@ LO, HI = 0.70, 1.40
 # the practical scan window for E3, declared: alpha may not go non-positive,
 # and two octaves either way is already far beyond any twin this arc has built.
 SCAN_CENTS = 2400.0
-SCAN_N = 4001
+SCAN_MIN_CENTS = 1e-3
+SCAN_N = 4000
+PITCH_FLOOR_HZ = 20.0
 TAUS = [0.5, 1.0, 2.0, 5.0, 10.0, 25.0]
 PREREG_TAU = 1.0
 
@@ -163,8 +247,17 @@ INSTRUMENT = Model("exact rational analysis of the two-operator partial lattice"
               "magnitude bound, so the 'at any magnitude' claim rests there "
               "and not on this window"),
     Param("delta_scan_points", DECLARED, value=SCAN_N,
-          why="grid density, audited by R1 -- halving the step must not change "
-              "an E3 verdict, or the answer is an artifact of the grid"),
+          why="grid density, audited by R1 -- doubling it must change neither "
+              "the margin verdict NOR the usable split, or the answer is an "
+              "artifact of the grid. The grid is LOGARITHMIC in |delta|: the "
+              "first version was linear and its 1.2-cent step made every "
+              "small-tolerance answer identically zero"),
+    Param("pitch_floor_hz", DECLARED, value=PITCH_FLOOR_HZ,
+          why="cents are undefined at f = 0, and this lattice really does put "
+              "partials at DC (2,-4 at alpha=3/4; 3,-3 at 4/3). Rather than "
+              "let those ratios divide by zero and score as passes, partials "
+              "below this floor are excluded from the cents metric, COUNTED, "
+              "and reported by absolute Hz displacement instead"),
     Param("tau_cents", TESTED, sweep=TAUS,
           why="the freeze tolerance. E3's headline is threshold-FREE (the "
               "margin), and tau only converts a margin into a usable split; "
@@ -281,24 +374,31 @@ def scan(byst, w1, w2, af, n):
     Vectorised because the loop version is ~28M Python-level operations and a
     slow cell is a cell that gets run once.
     """
-    ds = np.linspace(-SCAN_CENTS, SCAN_CENTS, n)
-    ds = ds[ds != 0.0]
+    half = np.geomspace(SCAN_MIN_CENTS, SCAN_CENTS, n // 2)
+    ds = np.concatenate([-half[::-1], half])
     a2 = af * 2.0 ** (ds / 1200.0)
     mb = np.zeros_like(a2)
+    n_unpitched, max_hz = 0, 0.0
     for n1, n2, _ in byst:
         if n2 == 0:
             continue
         f0 = F_C * abs(1 + n1 + n2 * af)
         f1 = F_C * np.abs(1 + n1 + n2 * a2)
-        with np.errstate(divide="ignore", invalid="ignore"):
-            c = np.abs(1200.0 * np.log2(np.where(f1 > 0, f1, np.nan) / f0))
-        mb = np.maximum(mb, np.nan_to_num(c, nan=np.inf))
+        if f0 < PITCH_FLOOR_HZ:
+            # UNPITCHED. A partial at or near DC has no cents displacement to
+            # be within a JND of; it is reported in Hz and excluded from mb
+            # rather than making the whole ratio unmeasurable via log(x/0).
+            n_unpitched += 1
+            max_hz = max(max_hz, float(np.max(np.abs(f1 - f0))))
+            continue
+        c = np.abs(1200.0 * np.log2(np.maximum(f1, 1e-12) / f0))
+        mb = np.maximum(mb, c)
     fw1 = F_C * np.abs(1 + w1[0] + w1[1] * a2)
     fw2 = F_C * np.abs(1 + w2[0] + w2[1] * a2)
     with np.errstate(divide="ignore", invalid="ignore"):
         split = np.abs(1200.0 * np.log2(np.where(fw1 > 0, fw1, np.nan)
                                         / np.where(fw2 > 0, fw2, np.nan)))
-    return mb, split, ds
+    return mb, split, ds, n_unpitched, max_hz
 
 
 def analyse(alpha, floor):
@@ -323,7 +423,7 @@ def analyse(alpha, floor):
     pos = [d for d in isolating if alpha + d > 0]
 
     # --- E3: threshold-free margin over the declared window
-    mb, split, ds = scan(byst, w1, w2, float(alpha), SCAN_N)
+    mb, split, ds, n_unp, unp_hz = scan(byst, w1, w2, float(alpha), SCAN_N)
     ok = (mb > 0) & np.isfinite(split)
     margin, best = 0.0, None
     if ok.any():
@@ -338,10 +438,18 @@ def analyse(alpha, floor):
         sel = ok & (mb <= tau)
         usable[f"{tau:g}"] = float(split[sel].max()) if sel.any() else 0.0
 
+    # POST-HOC, ADDED AFTER SEEING E3 MISS (Amendment 2). Linear-limit rate of
+    # witness separation against largest bystander displacement. Not an arm.
+    lin = usable[f"{PREREG_TAU:g}"] / PREREG_TAU
+
     return dict(ratio=str(alpha), p=p, q=q,
+                local_isolation_ratio=float(lin),
+                local_cost_factor=(float(1.0 / lin) if lin > 0 else None),
                 n_partials=len(idx), n_bystanders=len(byst),
                 n_moving=len(moving), n_frozen_byst=len(byst) - len(moving),
                 witness_sep_exact=str(sep0),
+                n_unpitched_bystanders=n_unp,
+                unpitched_max_hz_shift=unp_hz,
                 n_freeze_candidates=len(cands),
                 n_spectrum_returns=len(frozen),
                 n_isolating=len(isolating),
@@ -362,12 +470,13 @@ print(f"\nI = {I_MUS}, B = {B}, horizon A = {A}; {len(ROWS)} ratios in scope at 
       f"the pre-registered floor {PREREG_FLOOR}\n")
 print(f"{'ratio':>7s} {'q':>3s} {'parts':>6s} {'byst':>5s} {'moving':>7s} "
       f"{'sep':>5s} {'cands':>7s} {'returns':>8s} {'isolating':>10s} "
-      f"{'margin':>8s} {'split@1c':>9s}")
+      f"{'unpit':>6s} {'margin':>8s} {'split@1c':>9s}")
 for r in ROWS:
     print(f"{r['ratio']:>7s} {r['q']:>3d} {r['n_partials']:>6d} "
           f"{r['n_bystanders']:>5d} {r['n_moving']:>7d} "
           f"{r['witness_sep_exact']:>5s} {r['n_freeze_candidates']:>7d} "
           f"{r['n_spectrum_returns']:>8d} {r['n_isolating']:>10d} "
+          f"{r['n_unpitched_bystanders']:>6d} "
           f"{r['margin']:>8.4f} {r['usable_split_cents']['1']:>9.3f}")
 
 # --- the distribution, not a count (presence/share rule)
@@ -384,30 +493,49 @@ print(f"moving-bystander fraction — min {min(moving_frac):.3f}  "
 pres = summarise("bystanders that a detune moves", [r["n_moving"] for r in ROWS],
                  PRESENCE)
 print(f"presence check: {pres}")
+unp = [r["n_unpitched_bystanders"] for r in ROWS]
+print(f"unpitched bystanders (below {PITCH_FLOOR_HZ:.0f} Hz, excluded from the "
+      f"cents metric and reported in Hz): total {sum(unp)} across "
+      f"{sum(1 for u in unp if u)} ratios; "
+      f"largest Hz displacement {max(r['unpitched_max_hz_shift'] for r in ROWS):.3f}")
 
 # --- R1: halve the grid and re-ask E3
 def margin_at(alpha, floor, n):
     idx = index_set(floor)
     w1, w2 = witnesses(alpha.numerator, alpha.denominator)
     byst = [(a, b, c) for a, b, c in idx if (a, b) not in (w1, w2)]
-    mb, split, _ = scan(byst, w1, w2, float(alpha), n)
+    mb, split, _, _, _ = scan(byst, w1, w2, float(alpha), n)
     ok = (mb > 0) & np.isfinite(split)
-    return float(np.max(split[ok] / mb[ok])) if ok.any() else 0.0
+    margin = float(np.max(split[ok] / mb[ok])) if ok.any() else None
+    sel = ok & (mb <= PREREG_TAU)
+    return margin, (float(split[sel].max()) if sel.any() else 0.0)
 
 
-fine = {r["ratio"]: margin_at(Fraction(r["ratio"]), 1e-4, 2 * SCAN_N - 1)
+fine = {r["ratio"]: margin_at(Fraction(r["ratio"]), 1e-4, 2 * SCAN_N)
         for r in ROWS}
+# R1 NOW GUARDS BOTH HALVES. The first version re-checked only the margin
+# verdict and passed while the tau column was pure grid artifact.
 flips = sum(1 for r in ROWS
-            if (r["margin"] > 1.0) != (fine[r["ratio"]] > 1.0))
+            if (r["margin"] > 1.0) != ((fine[r["ratio"]][0] or 0.0) > 1.0)
+            or abs(r["usable_split_cents"][f"{PREREG_TAU:g}"]
+                   - fine[r["ratio"]][1]) > 0.05 * max(
+                       r["usable_split_cents"][f"{PREREG_TAU:g}"], 1e-9))
 
 # --- M1: is the shift the lattice-fixed direction?
-worst = 0.0
-for r in ROWS[:6]:
+worst, n_corners = 0.0, 0
+for r in ROWS:
     alpha = Fraction(r["ratio"])
     af = float(alpha)
     h = 1e-7
     for n1, n2, _ in index_set(1e-4):
         if n2 == 0:
+            continue
+        # AT A CORNER (a = 0) the derivative does not exist and the claim is
+        # not defined, so the corner is COUNTED rather than scored. Silently
+        # skipping it would be the inert-arm defect; counting it keeps the
+        # exception visible in the artifact.
+        if arg_at(n1, n2, alpha) == 0:
+            n_corners += 1
             continue
         a0 = arg_at(n1, n2, af)
         num = (F_C * abs(arg_at(n1, n2, af + h))
@@ -439,13 +567,19 @@ E3 = Bar("ratios with isolation margin above 1", 0, direction="le",
          why=f"a count over the {n} ratios; margin > 1 is reachable in principle "
              "whenever the witness split rate q exceeds the largest bystander "
              f"rate B = {B}, which happens for q > {B} in this scope")
-M1 = Bar("max relative deviation from the lattice-fixed shift direction", 1e-6,
+print(f"lattice corners (a = 0 exactly, derivative undefined, excluded from M1 "
+      f"and counted): {n_corners}")
+
+M1 = Bar("max relative deviation from the lattice-fixed direction, off corners", 1e-6,
          direction="le", floor=0.0, ceiling=1.0,
          why="a relative error on a numerical derivative; 0 is attainable and "
              "O(1) deviation is what a wrong lattice model would give")
-R1 = Bar("ratios whose margin>1 verdict flips when the grid is halved", 0,
+R1 = Bar("ratios whose margin OR usable split moves when the grid is doubled", 0,
          direction="le", floor=0, ceiling=n,
-         why=f"a count over the {n} ratios re-scanned at double density")
+         why=f"a count over the {n} ratios re-scanned at double density; it "
+             "guards the tau column as well as the margin verdict, because "
+             "scoped to the margin alone it passed over a tau column that was "
+             "entirely grid artifact")
 
 wsep = sum(1 for r in ROWS if r["witness_sep_exact"] != "0")
 sP, s1, s2, s3 = P1.score(wsep), E1.score(e1), E2.score(e2), E3.score(e3)
@@ -458,19 +592,40 @@ for b, v in ((P1, wsep), (E1, e1), (E2, e2), (E3, e3)):
 print("  " + M1.line(worst, "{:.3e}"))
 print("  " + R1.line(flips, "{:.0f}"))
 
-SPLIT = swept("largest usable witness split at the freeze tolerance",
-              {k: float(np.median([r["usable_split_cents"][k] for r in ROWS]))
-               for k in (f"{t:g}" for t in TAUS)},
+# SWEPT ON THE SCALE-FREE QUANTITY. The raw usable split is PROPORTIONAL to tau
+# by construction, so sweeping it makes swept() report unstable=True on every
+# possible dataset -- a flag that cannot be absent is a flag that says nothing,
+# which is the inert-arm defect wearing a different hat. Swept per unit
+# tolerance instead: constant IFF the small-delta regime is linear, and a swing
+# here would be a real finding about nonlinearity rather than about tau.
+RAW = {k: float(np.median([r["usable_split_cents"][k] for r in ROWS]))
+       for k in (f"{t:g}" for t in TAUS)}
+SPLIT = swept("usable witness split PER UNIT freeze tolerance",
+              {k: RAW[k] / t for k, t in zip(RAW, TAUS)},
               prereg=f"{PREREG_TAU:g}")
 print(f"\nusable split, median over ratios, by freeze tolerance:")
-for k, v in SPLIT["spread"].items():
-    print(f"    tau = {k:>5s} cents   ->  {v:8.3f} cents of witness separation")
-print(f"  pre-registered tau = {SPLIT['prereg']}: {SPLIT['value']:.3f} cents"
-      + ("   [UNSTABLE across the sweep]" if SPLIT["unstable"] else ""))
+for (k, v), t in zip(RAW.items(), TAUS):
+    print(f"    tau = {k:>5s} cents   ->  {v:8.3f} cents of separation "
+          f"({v / t:.4f} per unit tolerance)")
+print(f"  pre-registered tau = {SPLIT['prereg']}: {SPLIT['value']:.4f} "
+      f"cents per cent, swing {SPLIT['swing']:.4f}"
+      + ("   [UNSTABLE — the local regime is NOT linear]" if SPLIT["unstable"]
+         else "   [stable: the linear regime holds across the 50x sweep]"))
 
 FLOORSENS = {k: sum(1 for r in v if r["margin"] > 1.0)
              for k, v in results.items()}
 print(f"floor sensitivity of E3 (count of margin>1): {FLOORSENS}")
+
+lr = [r["local_isolation_ratio"] for r in ROWS]
+cf = [r["local_cost_factor"] for r in ROWS]
+mac = [r["margin_at_cents"] for r in ROWS]
+print(f"\nPOST-HOC (Amendment 2), not an arm — the LOCAL regime:")
+print(f"  margin is achieved at {min(mac):.0f} to {max(mac):.0f} cents of detune "
+      f"— 8 to 15 semitones, i.e. a different ratio, not a detune")
+print(f"  local isolation ratio  min {min(lr):.4f}  median "
+      f"{float(np.median(lr)):.4f}  max {max(lr):.4f}")
+print(f"  read as cost: separating the pair by 1 cent costs "
+      f"{min(cf):.1f}x to {max(cf):.1f}x that in bystander movement")
 
 arms = [Arm.from_bar(sP, PRE_ROLE,
                      claim="the witness pair coincides exactly, so there is "
@@ -503,10 +658,40 @@ json.dump(dict(I=I_MUS, B=B, A=A, f_c=F_C, floors=FLOORS,
                rows=ROWS, by_floor=results,
                margin_quantiles=dict(zip(["min", "q1", "median", "q3", "max"],
                                          [float(x) for x in qs])),
-               presence=pres, usable_split=SPLIT,
+               presence=pres, usable_split=SPLIT, usable_split_raw=RAW,
                floor_sensitivity=FLOORSENS,
+               local_isolation=dict(
+                   posthoc=True,
+                   added_after="E3 missed; the margin was found to live at "
+                               "814-1499 cents, so a local statistic was added "
+                               "and is labelled rather than substituted",
+                   ratio_min=float(min(lr)), ratio_median=float(np.median(lr)),
+                   ratio_max=float(max(lr)),
+                   cost_min=float(min(cf)), cost_max=float(max(cf)),
+                   margin_at_cents_min=float(min(mac)),
+                   margin_at_cents_max=float(max(mac))),
                grid_flips=flips, direction_max_rel_dev=float(worst),
+               n_lattice_corners=n_corners, pitch_floor_hz=PITCH_FLOOR_HZ,
+               scan_min_cents=SCAN_MIN_CENTS,
                bars={s["name"]: s for s in (sP, s1, s2, s3, sM, sR)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"],
+               # NO NUMBER IN THE TOKEN. The first draft read
+               # ..._COSTS_2.4x_TO_7.5x while the measured max was 7.4x -- a
+               # verdict label that disagrees with its own artifact in the
+               # third significant figure, which is how a token outlives the
+               # measurement it names. The range lives in the data.
+               verdict_amended="EXACT_ISOLATION_IMPOSSIBLE_"
+                               "LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
+               amendment="E3's sealed prediction was wrong and the head is "
+                         "read off the arm as sealed. What the miss locates: "
+                         "the margin lives at 814-1499 cents, a different "
+                         "ratio rather than a detune, while in the local "
+                         "regime separating the witness pair by one cent "
+                         "costs 2.4x to 7.5x that much bystander movement. "
+                         "E2 is untouched and is the theorem: no delta of any "
+                         "magnitude returns the bystander spectrum to itself "
+                         "while splitting the witnesses, folds and "
+                         "permutations included, over 2306 exact candidates.",
+               composed=v),
           open(f"{HERE}/brocot_detune_impossibility.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_detune_impossibility.json")

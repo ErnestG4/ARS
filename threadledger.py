@@ -642,7 +642,9 @@ ENTRIES = [
     # plan currently exists only in a conversation, and this file exists
     # because a compact kills threads that live only in conversations.
     # ------------------------------------------------------------------
-    dict(id="detune-impossibility", status=QUEUED,
+    dict(id="detune-impossibility", status=LANDED,
+         artifact="cross_substrate/brocot_detune_impossibility.json",
+         verdict="EXACT_ISOLATION_IMPOSSIBLE_LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
          warrant=[("cross_substrate/brocot_modulation_cue.json",
                    "STIMULUS_CONTRAST_IS_CLEAN",
                    "STRUCTURAL/the twin is a different spectrum"),
@@ -659,18 +661,51 @@ ENTRIES = [
                  "line, so no d-alpha achieves it at any magnitude. MUST cover "
                  "the FOLD/reflected cases -- that is the standing caveat and "
                  "the fold has bitten this arc three times.",
-         note="MUST BE ABLE TO FAIL PRODUCTIVELY, and the failure is the "
-              "interesting branch: either ratio detune is retired with a proof, "
-              "or a fold case IS the counterexample manipulation and "
-              "heard-as-listening unblocks immediately without any resynthesis. "
-              "Report the BYSTANDER-SHIFT DISTRIBUTION, not a count over a "
-              "threshold -- the presence/share lesson, fourth member of the "
-              "wrong-statistic family. Cheap and short; run it first."),
+         note="LANDED 2026-09-02, and it split into two answers that are not "
+              "in tension. EXACT ARM (E2), unbounded in magnitude and decided "
+              "in rational arithmetic over a COMPLETE candidate set -- 2306 "
+              "candidates across 8 ratios, folds and permutations included, "
+              "ZERO returns. No delta of any size returns the bystander "
+              "spectrum to itself while splitting the witness pair. That is "
+              "the scoped theorem the row asked for, and the fold did not hide "
+              "a counterexample this time.\n"
+              "PRACTICAL ARM (E3) MISSED, and the miss is recorded as a miss: "
+              "isolation margin > 1 for 8 ratios of 8, against a sealed "
+              "prediction of zero. But the margin lives at 815-1499 CENTS -- "
+              "8 to 15 semitones, a different ratio rather than a detune. The "
+              "post-hoc local statistic, labelled as post-hoc: separating the "
+              "witness pair by one cent costs 2.4x to 7.4x that much bystander "
+              "movement, linear to 0.75% across a 50x tolerance sweep. Ratio "
+              "detune is not merely unable to isolate; locally it is "
+              "ANTI-selective.\n"
+              "TWO INSTRUMENT DEFECTS CAUGHT BY THE CELL'S OWN MECHANISM ARM, "
+              "both recorded as Amendment 1 rather than quietly fixed. (a) The "
+              "lattice really does put partials at DC -- (2,-4) at alpha=3/4 "
+              "and (3,-3) at 4/3, both clearing the 1e-4 floor -- where |a| "
+              "has a corner and the shift direction is undefined; M1 scored "
+              "exactly 1.0, which is the signature of a structural error and "
+              "not of noise. (b) Worse: with f0 = 0 the cents metric is "
+              "log(x/0), so those two ratios fell through to an initialised "
+              "margin of 0.0 and were COUNTED AS PASSES of the headline arm on "
+              "a division by zero -- non-evidence scored as a verdict, in my "
+              "own denominator, in the cell that cites the rule. Pin 7 of the "
+              "checker is that defect's permanent test. (c) The tau column was "
+              "also pure grid artifact at 1.2-cent steps, which R1 did not "
+              "catch because R1 was scoped to the margin verdict alone; R1 now "
+              "guards both halves.\n"
+              "CONSEQUENCE FOR THE ARC: resynthesis-apparatus is now warranted "
+              "by a measurement rather than by an instinct, and "
+              "heard-as-listening stays blocked on the same contrast -- but "
+              "blocked on a theorem now, not on my belief about one."),
 
     dict(id="resynthesis-apparatus", status=QUEUED,
          warrant=[("cross_substrate/brocot_cue_presence.json",
                    "CUE_IS_PRESENT_THROUGHOUT",
-                   "STRUCTURAL/unconditional, survives int16")],
+                   "STRUCTURAL/unconditional, survives int16"),
+                  ("cross_substrate/brocot_detune_impossibility.json",
+                   "EXACT_ISOLATION_IMPOSSIBLE_LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
+                   "STRUCTURAL/theorem-grade on the exact arm, measured on the "
+                   "local one")],
          request="additive resynthesis as the contrast apparatus: render the "
                  "exact spectrum from its own partial list (26-31 knobs at "
                  "I=0.9), then build the twin by moving ONLY the witness pair "
