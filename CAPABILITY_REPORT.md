@@ -495,7 +495,9 @@ New since:
 10. **34f data acquisition** (Then 2003 / Z[ω] Maass) — still the
     blocker for the Q(√−3) closer; cohomological-H executed and
     bounded (see memory), Δ-Maass legs still blocked.
-12. **Four orphaned July-2026 session branches** — `cf-convergence-bridge`
+12. **Orphaned July-2026 session branches — Session G LANDED
+    2026-09-02 (`c0f1037`); three remain.** Original entry:
+    **Four orphaned July-2026 session branches** — `cf-convergence-bridge`
     (G), `genus-ff-calibrator` (F), `third-refit` (H arm 2),
     `thouless-amo-identify` (D): one commit each, reachable from
     **neither** `main` nor `cubics-wilderness`. Found 2026-09-02 by the
@@ -512,6 +514,19 @@ New since:
     commits are reachable at all, and deleting them orphans the objects
     to `gc`. main was fast-forwarded without them by
     deliberate choice, to keep that merge a zero-risk fast-forward.
+    **Update 2026-09-02:** `cf-convergence-bridge` (Session G) is merged
+    — it was the urgent one. `G_fifth_measured.json` carries
+    `"note": "BLIND — seal not opened"`, announcing a governing seal that
+    did not exist on the branch consuming it, and Session G's verdict is
+    PARTIAL with the strict-monotonicity falsifier **tripped at depth 12**
+    — the a=1 step `H_arm1_seal.py` fits its curve from. Landing it also
+    exposed a defect in `verify_seal_order`: git's default history
+    simplification attributed the measurement to a commit twelve hours
+    after the seal, reporting SEALED for a pair whose honest label is
+    DECLARED (both files are in one commit). Fixed with `--full-history`;
+    no previously registered pair changed verdict. Still out:
+    `genus-ff-calibrator` (F — needs its stray `criticality_tool/` path
+    prefix repaired), `third-refit` (H arm 2), `thouless-amo-identify` (D).
 
 11. Longer-horizon: Kuramoto alternatives (Stuart–Landau etc.);
     RIGID_GUE 0/60 specificity run (bounds false-HYPER ≤0.049);
