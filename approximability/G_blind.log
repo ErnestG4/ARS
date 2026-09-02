@@ -1,0 +1,5 @@
+depth 10: q=  31867 a=2 count_eq_q=True W=3.74375839e-06 dim=0.45351 [27s]
+depth 11: q=  79335 a=2 count_eq_q=True W=6.84164043e-07 dim=0.44282 [165s]
+depth 12: q= 111202 a=1 count_eq_q=True W=4.88904234e-07 dim=0.44432 [329s]
+depth 13: q= 190537 a=1 count_eq_q=True W=1.37695309e-07 dim=0.43489 [967s]
+BLIND MEASUREMENT COMPLETE. wrote G_fifth_measured.json (seal still sealed)

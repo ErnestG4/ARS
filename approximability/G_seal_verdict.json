@@ -1,0 +1,24 @@
+{
+ "measured": {
+  "10": 0.45350715489425325,
+  "11": 0.4428172408287085,
+  "12": 0.4443217405150331,
+  "13": 0.4348861834210311
+ },
+ "predicted": {
+  "10": 0.44420687227036315,
+  "11": 0.4311532511845115,
+  "12": 0.4309598775954313,
+  "13": 0.4267126591377724
+ },
+ "residuals": [
+  0.0093002826238901,
+  0.011663989644197015,
+  0.013361862919601786,
+  0.008173524283258682
+ ],
+ "monotone_retreat": false,
+ "max_dev": 0.013361862919601786,
+ "falsifier_tripped": true,
+ "verdict": "PARTIAL \u2014 magnitudes transfer within tolerance (<=0.013) and convergence is Farey-governed (residual confirms \u00a79), BUT the sealed strict-monotonicity falsifier TRIPS at depth 12: the a=1 factor curve does not transfer precisely from pi to the fifth (fifth's a=1 f=0.287 factor 1.40 vs pi-fit 1.58), flipping that step from marginal-drop to marginal-rise. Law is directionally-general for a>=2 + magnitude-general within a context-dependent g-offset, but the a=1 fine structure at the rise/drop crossover is NOT precisely transferable."
+}
