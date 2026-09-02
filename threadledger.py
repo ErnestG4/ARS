@@ -746,8 +746,10 @@ ENTRIES = [
               "DECIDED 2026-09-02: main was fast-forwarded to cubics-wilderness "
               "WITHOUT these four, deliberately, so the merge stayed a "
               "zero-risk fast-forward and the adjudication kept its own "
-              "commit. Do not delete the four branches -- they are the only "
-              "copy."),
+              "commit. Do not delete the four branches: they are already on origin "
+              "(0 unpushed), so nothing is at risk of loss, but they are the "
+              "only refs from which these four commits are reachable AT ALL -- "
+              "deleting them orphans the objects to gc."),
 ]
 
 

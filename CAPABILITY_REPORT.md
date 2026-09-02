@@ -506,8 +506,11 @@ New since:
     `approximability/H_arm1_seal.py:22` reads that measurement — an
     unsealed measurement in load-bearing use. Session F also needs a path
     repair (its commit carries a stray `criticality_tool/` prefix from
-    being committed one directory up). **Do not delete these branches;
-    they are the only copy.** main was fast-forwarded without them by
+    being committed one directory up). **Do not delete these branches.**
+    They are already pushed to origin (0 unpushed), so nothing is at
+    risk of loss — but they are the only refs from which these four
+    commits are reachable at all, and deleting them orphans the objects
+    to `gc`. main was fast-forwarded without them by
     deliberate choice, to keep that merge a zero-risk fast-forward.
 
 11. Longer-horizon: Kuramoto alternatives (Stuart–Landau etc.);
