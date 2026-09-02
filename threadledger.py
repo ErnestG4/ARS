@@ -706,6 +706,48 @@ ENTRIES = [
               "reports detection AS A FUNCTION OF CRITERION per manipulation, "
               "never a threshold: criterion-as-axis survives the framing "
               "death."),
+
+    dict(id="orphan-session-branches", status=QUEUED,
+         request="adjudicate and land the four July-2026 session branches whose "
+                 "single commit each is reachable from NEITHER main NOR "
+                 "cubics-wilderness: cf-convergence-bridge (af5349f, Session G "
+                 "CF-convergence bridge PARTIAL), genus-ff-calibrator (c93a363, "
+                 "Session F certified genus>0 point-counter), third-refit "
+                 "(b823c68, Session H arm 2, 1/3 genus-0 refit "
+                 "INDISTINGUISHABLE at 3 base fields), thouless-amo-identify "
+                 "(352231a, Session D AMO identification NEGATIVE -- Sturmian "
+                 "!= cosine -- plus the pi-292 Thouless predictor).",
+         note="FOUND 2026-09-02 during a loose-ends sweep, not by any checker. "
+              "The tell is arithmetic and was sitting in plain sight: the "
+              "MORNING_* series on HEAD runs A,B,C,E,E_run,H_arm1,I,J,K,lambda "
+              "-- and the four missing letters, D/F/G/H_arm2, are EXACTLY the "
+              "four unmerged branches. A gap in a numbered series is a "
+              "detector nobody had pointed at anything.\n"
+              "TWO THINGS MAKE THIS MORE THAN TIDYING. (1) THE SEAL/MEASUREMENT "
+              "SPLIT: G_fifth_measured.json IS on HEAD -- carried forward by "
+              "Session H Arm 1 (479de0b), identical blob -- while its "
+              "G_fifth_prediction_SEALED.json is NOT, and "
+              "approximability/H_arm1_seal.py:22 reads that measurement. So a "
+              "SEALING script on the working branch stands on a measurement "
+              "whose own sealed prediction exists only on an unmerged branch. "
+              "By this repo's own standard that is an unsealed measurement in "
+              "load-bearing use, and it is the one gap that should not wait. "
+              "(2) SESSION F CANNOT BE MERGED AS-IS: its commit writes to "
+              "criticality_tool/approximability/... -- committed from the "
+              "PARENT directory, so the paths carry a stray repo-name prefix. "
+              "Almost certainly why it never merged, and it needs a path repair "
+              "before it lands, which is why this is a queued adjudication and "
+              "not a drive-by merge.\n"
+              "Also orphaned: Session D's pi292_thouless_prediction.py -- the "
+              "GENERATOR of pi292_prediction_SEALED.json, which IS on HEAD. A "
+              "banked sealed number whose generator is on no reachable branch "
+              "is the committed-generator rule failing quietly; the rest of "
+              "that arc (measured/unseal_compare/seal_verdict) did survive.\n"
+              "DECIDED 2026-09-02: main was fast-forwarded to cubics-wilderness "
+              "WITHOUT these four, deliberately, so the merge stayed a "
+              "zero-risk fast-forward and the adjudication kept its own "
+              "commit. Do not delete the four branches -- they are the only "
+              "copy."),
 ]
 
 

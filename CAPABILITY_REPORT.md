@@ -486,7 +486,8 @@ New since:
    ratio detune with a proof (fold cases included — the standing
    caveat) or finds the counterexample manipulation in a fold case, in
    which case heard-as-listening unblocks with no resynthesis at all.
-   None of the three has been run.
+   None of the three has been run. Plus `orphan-session-branches`
+   (×8 total) — see item 12.
 7. **C3 classifier consolidation** — rulings encoded, migration not
    authorised; 18 argmin copies outstanding.
 8. **COMB_KTUPLE_BRIEF.md** — drafted, needs review + go.
@@ -494,6 +495,21 @@ New since:
 10. **34f data acquisition** (Then 2003 / Z[ω] Maass) — still the
     blocker for the Q(√−3) closer; cohomological-H executed and
     bounded (see memory), Δ-Maass legs still blocked.
+12. **Four orphaned July-2026 session branches** — `cf-convergence-bridge`
+    (G), `genus-ff-calibrator` (F), `third-refit` (H arm 2),
+    `thouless-amo-identify` (D): one commit each, reachable from
+    **neither** `main` nor `cubics-wilderness`. Found 2026-09-02 by the
+    gap in the `MORNING_*` series (A,B,C,E,H₁,I,J,K,λ present — D,F,G,H₂
+    missing, exactly the four branches). **The urgent piece:**
+    `G_fifth_measured.json` is on HEAD but its
+    `G_fifth_prediction_SEALED.json` is not, and
+    `approximability/H_arm1_seal.py:22` reads that measurement — an
+    unsealed measurement in load-bearing use. Session F also needs a path
+    repair (its commit carries a stray `criticality_tool/` prefix from
+    being committed one directory up). **Do not delete these branches;
+    they are the only copy.** main was fast-forwarded without them by
+    deliberate choice, to keep that merge a zero-risk fast-forward.
+
 11. Longer-horizon: Kuramoto alternatives (Stuart–Landau etc.);
     RIGID_GUE 0/60 specificity run (bounds false-HYPER ≤0.049);
     within-GCM magnitude↔R sweep.
