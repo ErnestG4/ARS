@@ -297,8 +297,11 @@ Phases 34a–34f as before (Mertens/Liouville NULL at right-null; L-zeros
 5/6 NULL_BEYOND_RMT; Gaussian/Eisenstein RW_SHAPE_CONFIRMED; Γ₀(N)
 Maass SARNAK_ANOMALY_REPLICATED; Bianchi 3-D pipelines validated,
 DATA_ACQUISITION_BLOCKED; BCGNT-2025 proven-theorem calibration tier).
-Note the 34e §G.3 canon entry still quotes the retracted ρ≈0.458
-(queued source-doc fix; headline already marked).
+**[CLOSED 2026-09-02]** The 34e §G.3 canon entry quoted the retracted
+ρ≈0.458 with no marker; it now carries the retraction, the corrected
+ρ_GOE≈0.1264±0.0321, the withdrawal of the "upper end of the literature
+range" placement, and a newly-visible undischarged debt (the ρ-convention
+alignment against the literature interval was never audited).
 
 **ARS-RH program (arsrh/)** — Riemann-adjacent calibration under a §0
 anti-claim binding. Highlights: P1 ζ crossover real-beyond-density; Σ²
@@ -356,7 +359,14 @@ green board (25/25; **green means the checkers pass, not that the
 instrument measures what we claim** — AUDIT.md). Components:
 `threadledger.py` (QUEUED/LANDED/DROPPED as data; verdict drift or
 missing artifact fails the board; WARRANT_STALE; framing-death
-staleness), `verdictlattice.py` (head from EXISTENCE arms alone;
+staleness — **and, since 2026-09-02, drift measured against the
+EFFECTIVE verdict**: it had read the sealed `verdict` key while
+corrections are recorded in a sibling `verdict_amended`, so the drift
+detector was blind to the repo's only drift mechanism and passed six
+citations across five rows, four of them amended to the reverse of
+their seal. Fixed at one resolver, red-pathed by a self-test; the two
+checkers that legitimately read the seal for INTEGRITY are documented
+as such so they are not "fixed" to match. TOOLKIT §9), `verdictlattice.py` (head from EXISTENCE arms alone;
 `compose()` returns citations), `reachable.py` (Bars with defended
 ranges, both-edge raises, edge probes, rival rule), `modelparams.py`
 (every instrument parameter tested-with-sweep or declared-with-defence;
@@ -451,8 +461,13 @@ New since:
 
 ## 16. Open items (the planning queue, priority-ordered)
 
-1. **PHASE34E_FINDINGS.md §G.3** — strike the retracted ρ≈0.458 (the
-   one queued source-doc fix; headline already marked).
+1. ~~**PHASE34E_FINDINGS.md §G.3** — strike the retracted ρ≈0.458.~~
+   **DONE 2026-09-02.** Struck, corrected, and the "upper end of the
+   literature range" placement withdrawn rather than re-aimed. It
+   surfaced one new debt, deliberately left open in the entry: **the
+   ρ-convention alignment between our fit and the quoted literature
+   interval [0.3, 0.5] was never audited** — do not re-quote that
+   interval until it is.
 2. **Falsification calibrator Arm B re-run on unclipped I_rep**
    (`ESTIMATOR_CLAIM_PROVENANCE.md` debt #2 — UNBLOCKED, never run).
 3. **Pass-E surrogate battery on rep_int_signed_q** — the definitive
@@ -461,10 +476,17 @@ New since:
    constants** (R-181 checked one of six; it was wrong).
 5. **Phase 32b per-cell re-run** on the repaired estimator (verdicts
    WITHDRAWN-PENDING-RERUN; retro-scope held for review).
-6. **Thread ledger QUEUED ×4:** heard-as-listening,
+6. **Thread ledger QUEUED ×7** (was ×4): heard-as-listening,
    audible-horizon-calibration, double-pulse-control,
    suggest-reachability-filter (all three σ-gated rows were re-posed
-   after framing-death fired — read the re-posed wording).
+   after framing-death fired — read the re-posed wording), plus the
+   **contrast arc registered 2026-09-02** — `detune-impossibility`,
+   `resynthesis-apparatus`, `decorrelation-battery`, in that order.
+   The first is cheap and decides the other two: it either retires
+   ratio detune with a proof (fold cases included — the standing
+   caveat) or finds the counterexample manipulation in a fold case, in
+   which case heard-as-listening unblocks with no resynthesis at all.
+   None of the three has been run.
 7. **C3 classifier consolidation** — rulings encoded, migration not
    authorised; 18 argmin copies outstanding.
 8. **COMB_KTUPLE_BRIEF.md** — drafted, needs review + go.

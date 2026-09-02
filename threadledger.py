@@ -149,8 +149,10 @@ ENTRIES = [
          request="does A4's swap non-invariance reach the shipped column, and "
                  "is the map conditioned on a routing convention?",
          artifact="cross_substrate/brocot_index_routing.json",
-         verdict="COLUMN_IS_CONDITIONED_ON_ROUTING",
-         note="SEALED head reported unchanged; the amended reading is "
+         verdict="ORDER_DEPENDENT_NO_CONVENTION_DETECTED",
+         note="RE-POINTED 2026-09-02 to the AMENDED head (the seal, "
+              "COLUMN_IS_CONDITIONED_ON_ROUTING, is preserved in the artifact's "
+              "`verdict` key and is what was pre-registered). The amended reading is "
               "ORDER_DEPENDENT_NO_CONVENTION_DETECTED (was 'BUT_UNBIASED' -- a "
               "null non-rejection cannot assert absence, only bound it). "
               "6.1% of 1.12M unequal-index pairs swap-sensitive "
@@ -187,9 +189,12 @@ ENTRIES = [
                  "criterion, or does its 12-cent binning put it outside the "
                  "horizon's jurisdiction?",
          artifact="cross_substrate/brocot_suggest_score_census.json",
-         verdict="RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
-         note="SEALED head reported unchanged; the roles were mis-assigned and "
-              "the amended head is RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE. "
+         verdict="RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE",
+         note="RE-POINTED 2026-09-02 to the AMENDED head (seal preserved in the "
+              "artifact). The roles were mis-assigned and the amended head is "
+              "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE -- the NEGATION of the "
+              "sealed one, and the most consequential of the six amendments the "
+              "ledger was blind to, because two other rows warrant off it. "
               "64.9% of the score's shared energy is EXACTLY coincident, so the "
               "horizon does govern it; 57.7% of top-1 suggestions cannot "
               "coincide with anything in the patch; filter Jaccard 0.329. A "
@@ -248,7 +253,23 @@ ENTRIES = [
                    "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY",
                    "AUDIBILITY/sigma-conditional")],
          warrant_reviewed=[("cross_substrate/brocot_masked_horizon.json",
-                            "MASKING_GIVES_A_DERIVED_HORIZON")],
+                            "MASKING_GIVES_A_DERIVED_HORIZON"),
+                           # RE-ADJUDICATED 2026-09-02, and the direction matters:
+                           # the structural warrant did not weaken, it REVERSED
+                           # TOWARD the action. Minted as "the ranking does not
+                           # depend on exact coincidence" (i.e. the horizon has no
+                           # jurisdiction here), the artifact now says it PARTLY
+                           # does -- 64.9% of the score's shared energy is exactly
+                           # coincident. So the structural case for filtering is
+                           # STRONGER than when this row was parked, and the row
+                           # stays QUEUED for two unrelated reasons only: the C++
+                           # signature change, and the fact that its AUDIBILITY
+                           # warrant is framing-dead. Recorded rather than acted
+                           # on -- a warrant that moves in your favour is still a
+                           # premise change, and gets the same re-adjudication as
+                           # one that moves against you.
+                           ("cross_substrate/brocot_suggest_score_census.json",
+                            "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE")],
          request="RE-FRAMED 2026-08-28. The decision was parked on 'Stage B "
                  "pins sigma', which is not a thing that can happen. Re-posed: "
                  "the filter's benefit is +2.1% at sigma = ERB and +19.9% at "
@@ -393,9 +414,9 @@ ENTRIES = [
          request="is the 0.0017 offset explained by the spacing scale, and do "
                  "offset markers locate anything?",
          artifact="cross_substrate/brocot_offset_mechanism.json",
-         verdict="MARKERS_ARE_THE_WRONG_OBJECT",
-         note="SEALED head unchanged; amended reading OFFSET_REAL_BUT_"
-              "UNEXPLAINED. The spacing-scale hypothesis is FALSIFIED: CV ratio "
+         verdict="OFFSET_REAL_BUT_UNEXPLAINED",
+         note="RE-POINTED 2026-09-02 to the AMENDED head (seal "
+              "MARKERS_ARE_THE_WRONG_OBJECT preserved in the artifact). The spacing-scale hypothesis is FALSIFIED: CV ratio "
               "1.126 vs a shuffled null of 1.094, indistinguishable. O3's +16% "
               "gain was carpet-bombing -- predicted offsets beat random by "
               "+1.7% (sd 3.5%) and lose to simply widening the window "
@@ -431,9 +452,12 @@ ENTRIES = [
          request="does the sum-of-combs model error reach the RANKING, or is it "
                  "documentation only?",
          artifact="cross_substrate/brocot_coherence_model.json",
-         verdict="MODEL_GAP_IS_DOCUMENTATION_ONLY",
-         note="SEALED head reported unchanged; amended reading is "
-              "RANKING_EFFECT_UNRESOLVED. M3 Jaccard 0.517 with 95% CI "
+         verdict="RANKING_EFFECT_UNRESOLVED",
+         note="RE-POINTED 2026-09-02 to the AMENDED head (seal "
+              "MODEL_GAP_IS_DOCUMENTATION_ONLY preserved in the artifact). Note the "
+              "direction: the seal said the gap was DOCUMENTATION ONLY and the "
+              "amendment says the ranking effect is UNRESOLVED, so the ledger was "
+              "recording a closure where the artifact records an open question. M3 Jaccard 0.517 with 95% CI "
               "[0.468, 0.566] and the 0.50 bar INSIDE it, so the arm does not "
               "resolve either way; ~1170 cases would, 140 do not. M1 settles "
               "that the model IS wrong (12/55/90% omitted at I=0.9/1.5/2.0) so "
@@ -441,8 +465,15 @@ ENTRIES = [
               "relative difference FALLS with index while omitted energy rises, "
               "so a ratio was the wrong statistic for a tracking claim"),
     dict(id="coherence-model-gap", status=DROPPED,
+         # RE-ADJUDICATED 2026-09-02: this row had ALREADY been marked reviewed
+         # against this artifact -- at the artifact's SEALED verdict, which the
+         # artifact had by then amended. A warrant_reviewed entry pinned to a
+         # superseded value is worse than none: it silences the staleness check
+         # while recording a review that never saw the current claim. The DROP
+         # stands and is strengthened -- the note's own correction ("the horizon
+         # DOES govern what the meter sees") is exactly what the amendment says.
          warrant_reviewed=[("cross_substrate/brocot_suggest_score_census.json",
-                            "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE")],
+                            "RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE")],
          warrant=[("cross_substrate/brocot_suggest_score_census.json",
                    "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE",
                    "STRUCTURAL/the meter's generative model")],
@@ -598,18 +629,144 @@ ENTRIES = [
               "seal the DYNAMIC question instead: a coincidence forming as the "
               "player sweeps through it may register in transition at "
               "magnitudes that are static-invisible. Re-asking the static "
-              "question would only reproduce a gate that has already fired."),
+              "question would only reproduce a gate that has already fired. "
+              "UNBLOCKING PATH REGISTERED 2026-09-02: the contrast this row "
+              "waits on is now three QUEUED rows below -- detune-impossibility, "
+              "resynthesis-apparatus, decorrelation-battery. If the first "
+              "finds a fold case that DOES split the witness pair, this row "
+              "unblocks without the other two."),
+
+    # ------------------------------------------------------------------
+    # THE CONTRAST ARC, queued 2026-09-02. Design given in session; not one
+    # line of it has been run. It is written down here for one reason: the
+    # plan currently exists only in a conversation, and this file exists
+    # because a compact kills threads that live only in conversations.
+    # ------------------------------------------------------------------
+    dict(id="detune-impossibility", status=QUEUED,
+         warrant=[("cross_substrate/brocot_modulation_cue.json",
+                   "STIMULUS_CONTRAST_IS_CLEAN",
+                   "STRUCTURAL/the twin is a different spectrum"),
+                  ("cross_substrate/brocot_cue_presence.json",
+                   "CUE_IS_PRESENT_THROUGHOUT",
+                   "STRUCTURAL/unconditional, survives int16")],
+         request="turn 'no ratio detune can isolate the fusion cue' from a "
+                 "belief into a scoped theorem. Every partial sits at "
+                 "|1 + n1 + n2*alpha|*f_c, so a detune has ONE degree of "
+                 "freedom and moves each alpha-dependent partial with velocity "
+                 "|n2|: the shift vector is confined to a one-dimensional "
+                 "subspace whose direction the lattice fixes. 'Split the "
+                 "witnesses, freeze the rest' needs a shift vector off that "
+                 "line, so no d-alpha achieves it at any magnitude. MUST cover "
+                 "the FOLD/reflected cases -- that is the standing caveat and "
+                 "the fold has bitten this arc three times.",
+         note="MUST BE ABLE TO FAIL PRODUCTIVELY, and the failure is the "
+              "interesting branch: either ratio detune is retired with a proof, "
+              "or a fold case IS the counterexample manipulation and "
+              "heard-as-listening unblocks immediately without any resynthesis. "
+              "Report the BYSTANDER-SHIFT DISTRIBUTION, not a count over a "
+              "threshold -- the presence/share lesson, fourth member of the "
+              "wrong-statistic family. Cheap and short; run it first."),
+
+    dict(id="resynthesis-apparatus", status=QUEUED,
+         warrant=[("cross_substrate/brocot_cue_presence.json",
+                   "CUE_IS_PRESENT_THROUGHOUT",
+                   "STRUCTURAL/unconditional, survives int16")],
+         request="additive resynthesis as the contrast apparatus: render the "
+                 "exact spectrum from its own partial list (26-31 knobs at "
+                 "I=0.9), then build the twin by moving ONLY the witness pair "
+                 "with every other partial bit-frozen -- the manipulation "
+                 "detune-impossibility says the FM synthesis path cannot "
+                 "express.",
+         note="CARRIES A VALIDATION OBLIGATION, and shipping without it is the "
+              "model-ran-on-abstraction defect one layer down: the resynthesized "
+              "EXACT stimulus must be verified against the FM render under a "
+              "SEALED spectral-distance bar on an ERB metric, so 'the same "
+              "sound' is measured and not assumed. Parameters go through "
+              "modelparams.swept() -- PHASES ESPECIALLY. Beat salience is "
+              "phase-sensitive and the FM render chose the phases for us, so "
+              "phase is a free parameter that must hold TESTED status, not "
+              "DECLARED. Blocked on nothing but detune-impossibility's result, "
+              "which decides whether this apparatus is needed at all."),
+
+    dict(id="decorrelation-battery", status=QUEUED,
+         warrant=[("cross_substrate/brocot_cue_salience.json",
+                   "SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED",
+                   "MECHANISM/open -- selected max + undiscriminating arm")],
+         request="rides on resynthesis-apparatus: matched-energy / "
+                 "differing-concentration stimulus pairs and the reverse, to "
+                 "decorrelate the two accounts brocot_cue_salience could not "
+                 "separate. Constructible under resynthesis; NEVER constructible "
+                 "by ratio detune, where one alpha moves both together.",
+         note="this is why the salience lead and the fusion question share one "
+              "apparatus, and it is the whole reason the resynthesis cost is "
+              "worth paying. DESIGN-TIME OBLIGATION: every arm names the rival "
+              "stimulus family that must FAIL it, via Bar(rival=...) -- the "
+              "rule minted from this row's own warrant, applied to the cell "
+              "that produced it. When a listening session eventually runs, it "
+              "reports detection AS A FUNCTION OF CRITERION per manipulation, "
+              "never a threshold: criterion-as-axis survives the framing "
+              "death."),
 ]
 
 
 def _verdict_of(root, rel):
+    """The artifact's EFFECTIVE verdict: the amendment if one exists, else the
+    seal.
+
+    BLIND SPOT FOUND 2026-09-02, in the file built to make verdict drift fail
+    the board. This read `.get("verdict")` alone. But a sealed cell that is
+    later corrected does NOT overwrite its seal -- the seal is the whole point,
+    it records what was pre-registered -- it writes a sibling `verdict_amended`
+    key. So every amendment in the repo was invisible to exactly the check whose
+    job is to catch a verdict that no longer says what a row claims it says.
+
+    Six citations across five rows were reporting superseded verdicts, and four
+    of the six amendments REVERSE or materially weaken the seal they replaced:
+
+        NOT_DIFFERENTIATED                        -> DIFFERENTIATED_BUT_NOT_BY_1/q
+        MODEL_GAP_IS_DOCUMENTATION_ONLY           -> RANKING_EFFECT_UNRESOLVED
+        RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE
+                                                  -> RANKING_PARTLY_DEPENDS_...
+        MARKERS_ARE_THE_WRONG_OBJECT              -> OFFSET_REAL_BUT_UNEXPLAINED
+        COLUMN_IS_CONDITIONED_ON_ROUTING           -> ORDER_DEPENDENT_NO_...
+
+    The worst of them is a WARRANT, not a record: `suggest-reachability-filter`
+    is QUEUED, one C++ signature change from shipping, and it was warranted by
+    "RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE" while the artifact had
+    already amended to the NEGATION of that sentence. That is the precise
+    scenario WARRANT_STALE was built for -- the second recorded instance of it
+    -- and the mechanism sat green through it because the amendment was in a
+    key it never read.
+
+    NOT every verdict reader wants this. The sweep that followed found two
+    board checkers that read `verdict` directly and MUST keep reading the seal:
+    `verify_reachable_bar` ("the sealed lattice verdict is reported unchanged
+    -- the seal must not be rewritten") and `verify_verdict_lattice` ("reports
+    its sealed label unchanged" + "carries the correction beside it"). Those are
+    the opposite obligation -- seal INTEGRITY, that a correction was made by
+    addition and not by quietly overwriting the pre-registration -- and they are
+    right as written. Do not "fix" them to match this. The rule is by question:
+    integrity checks read `verdict`; anything asking WHAT IS TRUE NOW reads the
+    effective verdict through here.
+
+    Lesson, general: a staleness detector reads ONE field, and a correction
+    convention that writes a DIFFERENT field is invisible to it by construction.
+    Whenever a repo gains a way to supersede a value, every checker that reads
+    the superseded value has to be re-pointed the same day. Filed with
+    `filing-discipline-attribution-slot` and `knowledge-does-not-propagate`.
+    """
     p = os.path.join(root, rel)
     if not os.path.exists(p):
         return None
     try:
-        return json.load(open(p)).get("verdict")
+        d = json.load(open(p))
     except Exception:                                          # noqa: BLE001
         return None
+    if not isinstance(d, dict):
+        return None
+    # Amendment wins. A row that wants to cite the seal must say so explicitly
+    # via warrant_reviewed, which is a human act and leaves a trace.
+    return d.get("verdict_amended") or d.get("verdict")
 
 
 def load(root):
@@ -637,11 +794,14 @@ def load(root):
             e["artifact_exists"] = os.path.exists(p)
             e["verdict_matches"] = False
             if e["artifact_exists"]:
-                try:
-                    e["verdict_matches"] = (
-                        json.load(open(p)).get("verdict") == e["verdict"])
-                except Exception:                              # noqa: BLE001
-                    pass
+                # THROUGH _verdict_of, not a second inlined json.load. The
+                # 2026-09-02 amendment fix landed on the warrant path and this
+                # branch stayed blind, because the same read existed TWICE --
+                # so half the ledger was fixed and the board said nothing. Same
+                # shape as the 18 outstanding argmin copies in the C3 census:
+                # a duplicated read is a place a correction does not reach.
+                e["verdict_matches"] = (
+                    _verdict_of(root, e["artifact"]) == e["verdict"])
         out.append(e)
     return out
 

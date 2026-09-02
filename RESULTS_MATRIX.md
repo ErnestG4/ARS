@@ -97,12 +97,14 @@ larger catalogs (ComCat 173,122; SWPC 50,999) — not double-counting rows 1–2
 | EC root-minus q=17 (34c) | AMBIGUOUS_AT_BOUNDARY — spike survives RMT nulls p<0.001 but q=K pooling artefact | open (methodology boundary) | mod | ✅ **[+]** |
 | Part C refusal-zoo | NULL vs baseline B; re-encodes trivial descriptors | dark-appendixed | closed | ✅ |
 
-¹ *Source-doc fix pending — re-pointed 2026-08-31:* the `PHASE34E_FINDINGS.md` **headline
-already carries** the SUPERSEDED marker (verified at the certifying commit, so this note was
-mis-located when written).  The genuinely unmarked quote is **§G.3** (the Sarnak-anomaly canon
-entry), which still states ρ ≈ 0.458 ± 0.010 with no supersession marker — that is where the
-fitter-bias correction (ρ_GOE≈0.13) needs to be struck in.  The load-bearing NNS Sarnak verdict
-is independent of the fitter and unaffected.
+¹ *Source-doc fix — re-pointed 2026-08-31, **CLOSED 2026-09-02**:* the `PHASE34E_FINDINGS.md`
+**headline already carried** the SUPERSEDED marker (verified at the certifying commit, so this
+note was mis-located when written).  The genuinely unmarked quote was **§G.3** (the
+Sarnak-anomaly canon entry).  It now carries the retraction and the corrected ρ_GOE≈0.1264±0.0321,
+and the "lands at the upper end of the literature range" placement is **withdrawn, not re-aimed** —
+the corrected value falls outside that interval, and the entry now records the debt that the
+ρ-convention alignment against the literature was never audited.  The load-bearing NNS Sarnak
+verdict is independent of the fitter and unaffected.
 
 *(Prior "Higher-rank GL(m) L-functions (Phase 35)" row — CONFIRMED PHANTOM, deleted; no
 GL(m)/Rankin–Selberg substrate exists in the repo. Phase 35 = Almost-Mathieu, below.)*
@@ -212,8 +214,9 @@ PROMOTED; FF-error-rate PROMOTED; Track 4 F1/F2; Poisson-Pivot calibrator; dynam
 CERN = MATCH_BOUNDED (not mismatch); Cohomological Bianchi COMPLETE (not held); GL(m) phantom
 deleted; FHN phantom deleted; NANOGrav §7.ter.44; CP1 parity even=sym0=0.399; r\*=45±5.
 
-**One source-doc fix queued (not a matrix issue):** strike the retracted BR ρ≈0.458 from
-`PHASE34E_FINDINGS.md` **§G.3** (the headline is already marked; see re-pointed footnote ¹).
+**One source-doc fix, now CLOSED 2026-09-02 (was never a matrix issue):** the retracted BR
+ρ≈0.458 has been struck from `PHASE34E_FINDINGS.md` **§G.3** (the headline was already marked;
+see re-pointed footnote ¹).
 
 **[2026-08] Configuration flag on rigidity verdicts:** the RIGID_GUE gate's margin at the
 n=343 configuration is 1.5σ with false-RIGID 0.035 (vs 3.6–3.8σ / 0.000 at n≥1200), and the

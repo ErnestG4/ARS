@@ -731,6 +731,32 @@ The durable methodology — apply these regardless of substrate:
   instance: `verify_holonomy.py` asserts `assert_canonical` refuses the retracted OP1 order) —
   otherwise a later refactor reading old prose can silently reintroduce it. Prose retractions
   decay; failing tests don't.
+- **A supersession convention blinds every checker that reads the superseded field.**
+  (Thread ledger, 2026-09-02.) This repo corrects a sealed cell by *adding* `verdict_amended`
+  beside `verdict`, never by overwriting the seal — which is right, and is itself enforced by two
+  checkers. But `threadledger`, the module whose entire stated purpose is that *verdict drift
+  fails the board*, resolved artifacts through `.get("verdict")` alone. So it was structurally
+  incapable of seeing the repo's only mechanism for verdict drift, and sat green over **six
+  citations across five rows**, four of whose amendments *reverse or materially weaken* the seal
+  they replaced — including `RANKING_DOES_NOT_DEPEND_ON_EXACT_COINCIDENCE` →
+  `RANKING_PARTLY_DEPENDS_ON_EXACT_COINCIDENCE`, the literal negation, which warranted a QUEUED
+  row one signature change from shipping a C++ filter. That is the second recorded WARRANT_STALE
+  scenario, and the mechanism built after the first one missed it.
+  Three clauses. **(i) Re-point the readers the same day.** The moment a repo gains a way to
+  supersede a value, every checker reading the old field is silently reading history; the
+  supersession is not landed until they are re-pointed. **(ii) The question decides which field.**
+  Integrity checks ("was the seal rewritten?") read `verdict`; anything asking *what is true now*
+  reads the effective value through one resolver. Both obligations are real and they are
+  opposites — say which is which at the call site, or the next reader will "fix" the wrong one.
+  **(iii) Look for the second copy.** The first fix here landed on the warrant path while the
+  LANDED path kept its own inlined `json.load(...).get("verdict")` — half the ledger repaired,
+  board silent. Same shape as the 18 outstanding argmin copies in the C3 census: *a duplicated
+  read is a place a correction does not reach.* Grep for the field, not for the function.
+  Note the tell that was available and unread for a week: every one of the five rows already
+  **narrated its amendment in prose**. The human-readable half was correct throughout; only the
+  machine-checked field carried the dead seal — so the check was certifying the half that was
+  wrong, and its greenness was evidence about the wrong thing. Filed with
+  [[knowledge_does_not_propagate]] and [[filing_discipline_attribution_slot]].
 
 ## 10. Condemned paths & known gotchas
 

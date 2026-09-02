@@ -22,6 +22,42 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from threadledger import DROPPED, LANDED, QUEUED, load                          # noqa: E402
 
+# ---------------------------------------------------------------------------
+# SELF-TEST, added 2026-09-02 with the amendment fix. A sealed cell records a
+# correction in `verdict_amended`, NOT by overwriting `verdict` -- and for as
+# long as the resolver read `verdict` alone, this board certified six citations
+# whose artifacts had already been amended, four of them to the REVERSE of the
+# seal. The check that exists to catch verdict drift was blind to the repo's
+# only mechanism for verdict drift.
+#
+# So the checker red-paths itself on that exact finding before it grades
+# anything: build an artifact carrying both keys and require the resolver to
+# return the AMENDMENT. If anyone re-points it at the seal, this fails loudly
+# here instead of going quietly green on a superseded claim.
+def _self_test():
+    import json as _json, tempfile as _tf
+    from threadledger import _verdict_of
+    d = _tf.mkdtemp()
+    with open(os.path.join(d, "a.json"), "w") as fh:
+        _json.dump({"verdict": "SEALED_HEAD",
+                    "verdict_amended": "AMENDED_HEAD"}, fh)
+    got = _verdict_of(d, "a.json")
+    if got != "AMENDED_HEAD":
+        print("  FAIL  SELF-TEST: _verdict_of returned %r, not the amendment. "
+              "The 2026-09-02 blind spot is back: an amended artifact would "
+              "read as its dead seal and every row citing it would pass."
+              % (got,))
+        sys.exit(1)
+    with open(os.path.join(d, "b.json"), "w") as fh:
+        _json.dump({"verdict": "SEALED_HEAD"}, fh)
+    if _verdict_of(d, "b.json") != "SEALED_HEAD":
+        print("  FAIL  SELF-TEST: an un-amended artifact no longer resolves -- "
+              "the fix would then hide every row it was meant to check.")
+        sys.exit(1)
+    print("  self-test: amendment beats seal, seal still resolves\n")
+
+
+_self_test()
 rows = load(HERE)
 bad = []
 print("queued-thread ledger\n")
