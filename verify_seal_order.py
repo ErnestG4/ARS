@@ -38,11 +38,33 @@ PAIRS = [
      "the retention baseline"),
     ("holonomy/ridge_stageA.json", "holonomy/ridge_stageB.json",
      "sealed ridge predictions for the held-out degrees"),
+    # Session G, registered 2026-09-02 when the arc was merged back. It reads
+    # DECLARED and that is the honest label: MORNING_G.md says "Sealed
+    # byte-locked before measuring", which may well be true of what happened,
+    # but seal and measurement entered the record in the SAME commit and the
+    # graph cannot show the order. Registered anyway -- an unregistered pair is
+    # not "not DECLARED", it is unexamined, and this one was consumed by
+    # H_arm1_seal.py on a branch where the seal was absent entirely.
+    ("approximability/G_fifth_prediction_SEALED.json",
+     "approximability/G_fifth_measured.json",
+     "the sealed out-of-sample dim predictions for fifth depths 10-13"),
 ]
 
 
 def first_commit(path):
-    r = subprocess.run(["git", "log", "--format=%H %ct", "--diff-filter=A", "--", path],
+    # --full-history IS LOad-BEARING, added 2026-09-02. Without it git applies
+    # history simplification and can attribute a file to a LATER commit on the
+    # mainline, hiding the earlier commit on a since-merged branch that really
+    # introduced it. Found landing Session G: G_fifth_measured.json and its
+    # G_fifth_prediction_SEALED.json are in ONE commit (af5349f) and are
+    # therefore DECLARED -- but the simplified log reported the measurement at
+    # 479de0b, twelve hours LATER, which would have made the pair read SEALED.
+    # This checker exists so that "SEALED" is a property of the graph rather
+    # than of recollection; a traversal flag that manufactures the label is the
+    # same defect one level down. No existing registered pair changes verdict
+    # under the fix, which is how it was verified safe.
+    r = subprocess.run(["git", "log", "--full-history", "--format=%H %ct",
+                        "--diff-filter=A", "--", path],
                        cwd=ROOT, capture_output=True, text=True)
     lines = [l for l in r.stdout.strip().splitlines() if l.strip()]
     if not lines:
