@@ -1,0 +1,393 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "sr": 44100,
+ "duration_s": 2.0,
+ "f_c": 220.0,
+ "floor": 0.0001,
+ "seed": 20240517,
+ "n_manip": 120,
+ "beats": [
+  2.0,
+  3.0,
+  5.0,
+  7.0,
+  11.0,
+  13.0,
+  17.0,
+  19.0
+ ],
+ "subset_sizes": [
+  1,
+  2,
+  3,
+  4,
+  6,
+  8
+ ],
+ "stat": "participation_ratio",
+ "band_width": 1.0,
+ "mod_lo": 0.5,
+ "mod_hi": 40.0,
+ "fm_cents": [
+  1.0,
+  2.0,
+  3.0,
+  6.0,
+  10.0,
+  15.0,
+  20.0,
+  30.0,
+  45.0,
+  60.0
+ ],
+ "excluded": [
+  "5/7"
+ ],
+ "instrument": {
+  "model": "modulation-difference energy and concentration under additive resynthesis",
+  "params": [
+   {
+    "name": "subset_size",
+    "kind": "TESTED",
+    "why": "how many coincident bins are split. This is the CONCENTRATION knob -- more bins at more distinct beat rates spreads the modulation difference across bands",
+    "sweep": [
+     1,
+     2,
+     3,
+     4,
+     6,
+     8
+    ],
+    "value": null
+   },
+   {
+    "name": "beat_rates_hz",
+    "kind": "TESTED",
+    "why": "distinct rates so split bins land in different 1.0 Hz bands; if they coincided, subset size would stop controlling spread",
+    "sweep": [
+     2.0,
+     3.0,
+     5.0,
+     7.0,
+     11.0,
+     13.0,
+     17.0,
+     19.0
+    ],
+    "value": null
+   },
+   {
+    "name": "concentration_stat",
+    "kind": "DECLARED",
+    "why": "the configuration brocot_cue_salience NAMED IN ADVANCE, not the one that scored highest there -- taking the max is the defect the swing rule was minted to prevent, and this cell inherits that cell's question and so inherits its pre-registration",
+    "sweep": null,
+    "value": "participation_ratio"
+   },
+   {
+    "name": "band_width_hz",
+    "kind": "DECLARED",
+    "why": "1.0 Hz, the width every other cell in this line uses; changing it here would break comparability with the salience result this battery exists to decide",
+    "sweep": null,
+    "value": 1.0
+   },
+   {
+    "name": "seed",
+    "kind": "DECLARED",
+    "why": "subsets are sampled, so the battery is a random object and must be reproducible; the repo's BASE_SEED",
+    "sweep": null,
+    "value": 20240517
+   },
+   {
+    "name": "duration_s",
+    "kind": "DECLARED",
+    "why": "2 s resolves 0.5 Hz, half the band width, so a beat cannot straddle two bands unresolved",
+    "sweep": null,
+    "value": 2.0
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "rows": [
+  {
+   "ratio": "3/4",
+   "n_bins": 20,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 4108,
+   "rho": -0.35462273585953996,
+   "energy_span": 43628821974.78771,
+   "conc_span": 1.142198555263137
+  },
+  {
+   "ratio": "4/5",
+   "n_bins": 22,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 4963,
+   "rho": -0.4882436895125584,
+   "energy_span": 62372048.82813062,
+   "conc_span": 1.1706514095913816
+  },
+  {
+   "ratio": "5/6",
+   "n_bins": 25,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 2973,
+   "rho": -0.7032746466645832,
+   "energy_span": 93446.94997180153,
+   "conc_span": 1.2140982449071287
+  },
+  {
+   "ratio": "6/7",
+   "n_bins": 27,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 3380,
+   "rho": -0.7961315414800154,
+   "energy_span": 151504.59801178728,
+   "conc_span": 1.271286861673231
+  },
+  {
+   "ratio": "7/8",
+   "n_bins": 25,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 2868,
+   "rho": -0.7890310303636413,
+   "energy_span": 583076.8874450182,
+   "conc_span": 1.2638862089157263
+  },
+  {
+   "ratio": "8/7",
+   "n_bins": 25,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 2676,
+   "rho": -0.8127205044864849,
+   "energy_span": 3637.0082105175625,
+   "conc_span": 1.1964748368077749
+  },
+  {
+   "ratio": "7/6",
+   "n_bins": 28,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 3446,
+   "rho": -0.760183635340774,
+   "energy_span": 104414.0057967185,
+   "conc_span": 1.2187270566310655
+  },
+  {
+   "ratio": "6/5",
+   "n_bins": 26,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 5033,
+   "rho": -0.38088160736733173,
+   "energy_span": 6011123006.460883,
+   "conc_span": 1.168275261526032
+  },
+  {
+   "ratio": "5/4",
+   "n_bins": 23,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 4929,
+   "rho": -0.2901527594984182,
+   "energy_span": 47281896.161806025,
+   "conc_span": 1.1171672499119385
+  },
+  {
+   "ratio": "4/3",
+   "n_bins": 20,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 4433,
+   "rho": -0.4174225271901435,
+   "energy_span": 2817895.3636143636,
+   "conc_span": 1.1809362918967943
+  },
+  {
+   "ratio": "7/5",
+   "n_bins": 28,
+   "n_points": 120,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 4589,
+   "rho": -0.3970448823682611,
+   "energy_span": 122026235154.40836,
+   "conc_span": 1.2301368174817806
+  }
+ ],
+ "rho_fm_family": -0.4319590649865879,
+ "rho_battery": -0.5459001350241636,
+ "matched_energy_pairs": 0,
+ "matched_conc_pairs": 43398,
+ "ratios_with_both": 0,
+ "amplitude_violations": 0,
+ "bars": {
+  "|rho| between energy and concentration in the FM detune family": {
+   "name": "|rho| between energy and concentration in the FM detune family",
+   "value": 0.4319590649865879,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a Spearman magnitude; 0 and 1 are both attainable, and if the FM family is ALREADY decorrelated this battery is unnecessary"
+  },
+  "matched-energy pairs differing in concentration": {
+   "name": "matched-energy pairs differing in concentration",
+   "value": 0,
+   "thresh": 5,
+   "floor": 0,
+   "ceiling": 78540,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 78535,
+   "why": "a count of within-ratio pairs; the ceiling is every pair in every ratio and 0 is attainable if the plane cannot be spanned"
+  },
+  "matched-concentration pairs differing in energy": {
+   "name": "matched-concentration pairs differing in energy",
+   "value": 43398,
+   "thresh": 5,
+   "floor": 0,
+   "ceiling": 78540,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 78535,
+   "why": "the same count in the other direction, on the same ceiling"
+  },
+  "|rho| over the constructed battery": {
+   "name": "|rho| over the constructed battery",
+   "value": 0.5459001350241636,
+   "thresh": 0.2,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": "the FM detune family this battery replaces",
+   "rival_value": 0.4319590649865879,
+   "rival_met": false,
+   "discriminating": false,
+   "headroom": 0.2,
+   "why": "a Spearman magnitude on the pooled battery; 0 is attainable by construction and 1 by a battery that failed to decorrelate"
+  },
+  "battery members whose amplitude multiset differs from exact": {
+   "name": "battery members whose amplitude multiset differs from exact",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 1320,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "a count over every rendered member; every one is meant to be a pure frequency move"
+  },
+  "ratios where BOTH matched-pair families exist within the ratio": {
+   "name": "ratios where BOTH matched-pair families exist within the ratio",
+   "value": 0,
+   "thresh": 5,
+   "floor": 0,
+   "ceiling": 11,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 6,
+   "why": "a count over the 11 ratios; pooling across ratios manufactures spread, so the contrast must be constructible inside one"
+  }
+ },
+ "verdict": "INVALID",
+ "amendment1": {
+  "premise_failed": true,
+  "rho_fm": -0.4319590649865879,
+  "rho_battery": -0.5459001350241636,
+  "conc_span_min": 1.1171672499119385,
+  "conc_span_max": 1.271286861673231,
+  "energy_span_max": 122026235154.40836,
+  "diagnosis": "subset size is not a concentration knob: the modulation difference is broadband and its concentration is near-saturated regardless of k, while amplitudes span three decades so subset choice moves energy by up to 1e11. The battery reproduced the one-knob defect it was built to remove.",
+  "untested_condition": "same-rate splitting (k bins at ONE beat rate) never appears in this battery; its absence is not evidence about it",
+  "scope_mismatch": "docstring says 7 ratios, code ran 11"
+ },
+ "composed": {
+  "label": "INVALID_|rho| between energy and concentration in the FM detune family",
+  "head": "INVALID",
+  "qualifiers": [],
+  "citation": "INVALID  [premise failed: |rho| between energy and concentration in the FM detune family 0.432 vs >=0.5 MISSED \u2014 \"energy and concentration really are confounded in the family the salience question was asked in\"; 4 arm(s) UNREAD -- a failed premise makes the rest unreadable, not false]",
+  "dropped": [
+   "|rho| over the constructed battery"
+  ],
+  "unread": [
+   "matched-energy pairs differing in concentration",
+   "matched-concentration pairs differing in energy",
+   "battery members whose amplitude multiset differs from exact",
+   "ratios where BOTH matched-pair families exist within the ratio"
+  ],
+  "arms": [
+   "Arm('|rho| between energy and concentration in the FM detune family', PREMISE, MISSED)",
+   "Arm('matched-energy pairs differing in concentration', EXISTENCE, MISSED)",
+   "Arm('matched-concentration pairs differing in energy', EXISTENCE, MET)",
+   "Arm('|rho| over the constructed battery', EXISTENCE, INERT)",
+   "Arm('battery members whose amplitude multiset differs from exact', MECHANISM, MET)",
+   "Arm('ratios where BOTH matched-pair families exist within the ratio', RESOLUTION, MISSED)"
+  ]
+ }
+}

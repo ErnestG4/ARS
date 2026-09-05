@@ -86,6 +86,52 @@ envelope readout. The pre-registered statistic is participation_ratio at 1.0 Hz
 bands -- the configuration named in advance in that cell, not the one that
 happened to score highest, which is the defect the swing rule exists for.
 
+AMENDMENT 1 — THE CELL IS INVALID AT ITS OWN PREMISE, THE BATTERY MADE THINGS
+WORSE, AND THE STATED SCOPE WAS NOT THE EXECUTED SCOPE. Three findings, none of
+them the one I sealed for.
+
+(1) P1 MISSED: 0.432 against a 0.5 bar, so the lattice returns INVALID and the
+four arms below it are UNREAD -- not false, unread. The confound between energy
+and concentration in the FM detune family is MODERATE, not the strong thing I
+predicted. That matters beyond bookkeeping: the battery's whole justification was
+"these cannot be separated by detuning", and at |rho| = 0.43 that premise is
+weaker than the argument needed. I do not get to read the rest and I do not get
+to keep the parts that passed.
+
+(2) THE BATTERY IS MORE CORRELATED THAN THE FAMILY IT REPLACES: 0.546 against the
+FM family's 0.432, both far above the 0.20 bar. And E1 is ZERO at every single
+ratio -- not one matched-energy pair with differing concentration, anywhere.
+
+The diagnosis is visible in the table and is a design error, not noise:
+
+    energy span      up to 1.2e11 across the battery
+    concentration    span 1.12 to 1.27, i.e. it BARELY MOVES
+
+I assumed subset size was a concentration knob. It is not. Splitting k bins does
+not spread the modulation difference across k bands, because the difference is
+broadband -- splitting any bin perturbs the envelope's cross-terms everywhere,
+not just at that bin's beat rate -- and its concentration sits near saturation
+whatever k is. Meanwhile amplitudes span three decades, so subset choice moves
+energy enormously. One knob again, pointed at the wrong axis. The battery
+reproduced the very defect it was built to remove.
+
+WHAT I NEVER VARIED, AND SHOULD HAVE: every manipulation assigned DISTINCT beat
+rates (BEATS[i % len(BEATS)]). The obvious concentration handle is the opposite
+contrast -- k bins all split at the SAME rate, piling the difference into ONE
+band, against k bins at k rates. That condition does not appear anywhere in this
+battery, so its absence is not evidence about it. Registered as its own sealed
+cell rather than re-run here: a design changed after seeing the table, and then
+run until it goes green, is the thing the seal exists to prevent.
+
+(3) SCOPE MISMATCH, MINE. The docstring above says the battery runs on "the 7
+ratios on which the apparatus was validated AND carries the cue". The code
+excludes only 5/7 from a 12-ratio enumeration and ran on ELEVEN. The two are not
+the same set and I wrote both. There is a real argument for 11 -- this battery
+splits arbitrary coincident bins and never touches the witness pair, so
+"carries the cue" was never the binding constraint here -- but that argument is
+one I am making now, after the fact, and the sealed text says 7. Recorded as a
+mismatch rather than resolved in the direction that flatters the run.
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing about what any listener hears. It says a
 CONTRAST IS CONSTRUCTIBLE. Whether concentration or energy drives the skips is a
 question this battery makes askable and does not answer, and answering it needs
@@ -401,6 +447,23 @@ json.dump(dict(I=I_MUS, B=B, sr=SR, duration_s=DUR, f_c=F_C, floor=FLOOR,
                matched_energy_pairs=e1, matched_conc_pairs=e2,
                ratios_with_both=r1, amplitude_violations=n_amp_bad,
                bars={s["name"]: s for s in (sP, s1, s2, s3, sM, sR)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"],
+               amendment1=dict(
+                   premise_failed=True, rho_fm=rho_fm, rho_battery=rho_batt,
+                   conc_span_min=float(min(r["conc_span"] for r in rows)),
+                   conc_span_max=float(max(r["conc_span"] for r in rows)),
+                   energy_span_max=float(max(r["energy_span"] for r in rows)),
+                   diagnosis="subset size is not a concentration knob: the "
+                             "modulation difference is broadband and its "
+                             "concentration is near-saturated regardless of k, "
+                             "while amplitudes span three decades so subset "
+                             "choice moves energy by up to 1e11. The battery "
+                             "reproduced the one-knob defect it was built to "
+                             "remove.",
+                   untested_condition="same-rate splitting (k bins at ONE beat "
+                                      "rate) never appears in this battery; "
+                                      "its absence is not evidence about it",
+                   scope_mismatch="docstring says 7 ratios, code ran 11"),
+               composed=v),
           open(f"{HERE}/brocot_decorrelation_battery.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_decorrelation_battery.json")

@@ -225,11 +225,23 @@ class Bar:
         op = "≥" if self.direction == "ge" else "≤"
         disc = ""
         if s["discriminating"] is not None:
-            disc = ("  [rival "
-                    + (f"{fmt.format(rival_value)} "
-                       if rival_value is not None else "")
-                    + ("FAILS it — arm discriminates]" if s["discriminating"]
-                       else "ALSO CLEARS IT — arm is INERT]"))
+            # THREE CASES, NOT TWO. `discriminating` is False whenever the arm
+            # fails to separate -- which happens EITHER because the rival also
+            # cleared the bar OR because the hypothesis itself missed it. The
+            # first version printed "rival ALSO CLEARS IT" for both, and said so
+            # on a run where the rival had plainly missed too (battery 0.546,
+            # rival 0.432, bar 0.20). A message that misreports which side
+            # failed is worse than none: it tells the reader the rival is
+            # strong when the truth is that neither side cleared.
+            rv = (f"{fmt.format(rival_value)} " if rival_value is not None
+                  else "")
+            if s["discriminating"]:
+                disc = f"  [rival {rv}FAILS it — arm discriminates]"
+            elif s["rival_met"]:
+                disc = f"  [rival {rv}ALSO CLEARS IT — arm is INERT]"
+            else:
+                disc = (f"  [rival {rv}also MISSED — the bar separates nothing "
+                        "here because neither side cleared it]")
         return (f"{self.name}: {fmt.format(value)} ({op} {self.thresh} ?) "
                 f"{'MET' if s['met'] else 'MISSED'}"
                 f"   [reachable {fmt.format(self.floor)}–{fmt.format(self.ceiling)}]"

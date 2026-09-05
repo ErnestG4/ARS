@@ -166,8 +166,21 @@ def compose(arms, holds, fails, sep="_"):
 
     bad_premise = [a for a in live if a.role == PREMISE and not a.met]
     if bad_premise:
+        # CITATION ON THE INVALID PATH, added 2026-09-05. This branch returned
+        # no `citation` key, so every caller that quotes v["citation"] -- which
+        # is the documented way to report a verdict, and what every cell in the
+        # brocot line does -- crashed with KeyError the moment a PREMISE arm
+        # actually failed. The path had never been exercised: no premise had
+        # missed until brocot_decorrelation_battery's did. A refusal path that
+        # cannot report its own refusal is a guard that fails exactly when it
+        # is needed, and it looks like a bug in the caller.
+        cite = (f"INVALID  [premise failed: "
+                + "; ".join(a.cite() for a in bad_premise)
+                + f"; {len([a for a in live if a.role != PREMISE])} arm(s) "
+                  "UNREAD -- a failed premise makes the rest unreadable, not "
+                  "false]")
         return dict(label=f"INVALID{sep}{bad_premise[0].name}",
-                    head="INVALID", qualifiers=[],
+                    head="INVALID", qualifiers=[], citation=cite,
                     dropped=[a.name for a in dropped],
                     unread=[a.name for a in live if a.role != PREMISE],
                     arms=[repr(a) for a in arms])

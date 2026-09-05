@@ -757,7 +757,9 @@ ENTRIES = [
               "DECLARED. Blocked on nothing but detune-impossibility's result, "
               "which decides whether this apparatus is needed at all."),
 
-    dict(id="decorrelation-battery", status=QUEUED,
+    dict(id="decorrelation-battery", status=LANDED,
+         artifact="cross_substrate/brocot_decorrelation_battery.json",
+         verdict="INVALID",
          warrant=[("cross_substrate/brocot_cue_salience.json",
                    "SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED",
                    "MECHANISM/open -- selected max + undiscriminating arm"),
@@ -771,7 +773,43 @@ ENTRIES = [
                  "decorrelate the two accounts brocot_cue_salience could not "
                  "separate. Constructible under resynthesis; NEVER constructible "
                  "by ratio detune, where one alpha moves both together.",
-         note="this is why the salience lead and the fusion question share one "
+         note="LANDED 2026-09-05 as a NEGATIVE, three ways, and the row stays "
+              "open in spirit via decorrelation-battery-v2 below.\n"
+              "(1) INVALID AT ITS OWN PREMISE. P1 asked whether energy and "
+              "concentration really are confounded in the FM detune family: "
+              "|rho| = 0.432 against a 0.5 bar. MISSED, so the lattice refuses "
+              "and the four arms below are UNREAD -- not false, unread. The "
+              "battery's entire justification was 'these cannot be separated "
+              "by detuning', and at 0.43 that premise is weaker than the "
+              "argument needed. No partial credit taken.\n"
+              "(2) THE BATTERY CAME OUT WORSE THAN THE FAMILY IT REPLACES: "
+              "|rho| 0.546 vs 0.432, and ZERO matched-energy/differing-"
+              "concentration pairs at every one of 11 ratios. Diagnosis, "
+              "visible in the table: concentration span 1.12-1.27 while energy "
+              "spans 1.2e11. Subset size is an ENERGY knob, not a "
+              "concentration one -- splitting k bins does not spread the "
+              "modulation difference across k bands, because that difference "
+              "is broadband and its concentration sits near saturation "
+              "whatever k is. One knob again, pointed at the wrong axis. The "
+              "battery reproduced the very defect it was built to remove.\n"
+              "(3) SCOPE MISMATCH, MINE: the sealed docstring says 7 ratios "
+              "(the apparatus's validated set), the code excluded only 5/7 "
+              "from 12 and ran 11. There is a real argument for 11 -- this "
+              "battery splits arbitrary coincident bins and never touches the "
+              "witness pair, so 'carries the cue' was never binding here -- but "
+              "I am making it after the fact and the seal says 7. Recorded as "
+              "a mismatch, not resolved in the flattering direction.\n"
+              "TWO GUARD BUGS FELL OUT, both on paths never previously walked. "
+              "compose()'s failed-premise branch returned no `citation` key, so "
+              "the documented way to report a verdict crashed with KeyError the "
+              "first time a PREMISE arm ever actually missed -- a refusal path "
+              "that cannot report its own refusal, looking like a caller bug. "
+              "And Bar.line()'s rival message printed 'rival ALSO CLEARS IT' "
+              "whenever the arm failed to discriminate, including when the "
+              "rival had plainly missed too; `discriminating is False` has TWO "
+              "causes and the message assumed one. Both fixed, both pinned "
+              "(pin 6 of the checker).\n"
+              "ORIGINAL RATIONALE: this is why the salience lead and the fusion question share one "
               "apparatus, and it is the whole reason the resynthesis cost is "
               "worth paying. DESIGN-TIME OBLIGATION: every arm names the rival "
               "stimulus family that must FAIL it, via Bar(rival=...) -- the "
@@ -780,6 +818,41 @@ ENTRIES = [
               "reports detection AS A FUNCTION OF CRITERION per manipulation, "
               "never a threshold: criterion-as-axis survives the framing "
               "death."),
+
+    dict(id="decorrelation-battery-v2", status=QUEUED,
+         warrant=[("cross_substrate/brocot_decorrelation_battery.json",
+                   "INVALID",
+                   "NEGATIVE/the v1 diagnosis this row is built on"),
+                  ("cross_substrate/brocot_resynthesis_fidelity.json",
+                   "APPARATUS_IS_FAITHFUL_AND_CARRIES_THE_CUE_"
+                   "WHERE_THE_WITNESS_PAIR_IS_AUDIBLE",
+                   "STRUCTURAL/the apparatus still stands")],
+         request="rebuild the battery with a REAL concentration knob. v1 varied "
+                 "subset size and always assigned DISTINCT beat rates, so the "
+                 "one contrast that would actually concentrate the modulation "
+                 "difference -- k bins split at ONE COMMON rate, piling it into "
+                 "a single band, against k bins at k rates -- never appears in "
+                 "it at all. Its absence there is not evidence about it.",
+         note="REGISTERED RATHER THAN RE-RUN, deliberately. v1's design was "
+              "changed in my head the moment I saw its table, and a design "
+              "adjusted after seeing the result and then run until it goes "
+              "green is precisely what the seal exists to prevent. So v2 gets "
+              "its own sealed predictions and its own commit, and v1's "
+              "negative stays on the record with its diagnosis pinned by "
+              "verify_decorrelation_battery.\n"
+              "TWO OBLIGATIONS v2 INHERITS. (a) P1 must be RE-POSED, not "
+              "reused: v1's premise bar of 0.5 was missed at 0.432, so 'the FM "
+              "family confounds them' is not established at that strength and "
+              "v2 cannot quietly assume it. Either defend a lower bar in "
+              "advance or drop the premise and make the battery's value an "
+              "unconditional claim. (b) The scope must be ONE set, stated once: "
+              "7 or 11, decided before the run and not narrated afterwards.\n"
+              "AND THE DESIGN-TIME RULE FROM THE APPARATUS CELL APPLIES HERE "
+              "TOO: each arm names the ruler appropriate to ITS OWN axis. "
+              "Energy and concentration are different observables and v1 read "
+              "both off one banded difference spectrum; the resynthesis cell "
+              "already showed what happens when one ruler is asked two "
+              "questions."),
 
     dict(id="orphan-session-branches", status=QUEUED,
          request="PARTLY DONE 2026-09-02 -- Session G LANDED (see note), three "
