@@ -48,6 +48,18 @@ PAIRS = [
     ("approximability/G_fifth_prediction_SEALED.json",
      "approximability/G_fifth_measured.json",
      "the sealed out-of-sample dim predictions for fifth depths 10-13"),
+    # Session D, registered 2026-09-05 when its branch was landed. Same shape as
+    # Session G's: generator and sealed output in ONE commit (352231a), so the
+    # honest label is DECLARED. Registered because the sealed JSON had been on
+    # this branch since 44a7ca1 with its GENERATOR on no reachable branch at
+    # all -- an unregistered pair is not "not DECLARED", it is unexamined.
+    ("approximability/pi292_thouless_prediction.py",
+     "approximability/pi292_prediction_SEALED.json",
+     "the locked pi-292 Thouless depth predictions"),
+    # Session F's independent replication, 2026-09-05. This one is a genuine
+    # SEALED: sealgen committed the generator alone, then it ran.
+    ("approximability/F_reproduce.py", "approximability/F_reproduce.json",
+     "the declared curve family and the gate/rate predictions over it"),
 ]
 
 

@@ -495,8 +495,15 @@ New since:
 10. **34f data acquisition** (Then 2003 / Z[ω] Maass) — still the
     blocker for the Q(√−3) closer; cohomological-H executed and
     bounded (see memory), Δ-Maass legs still blocked.
-12. **Orphaned July-2026 session branches — Session G LANDED
-    2026-09-02 (`c0f1037`); three remain.** Original entry:
+12. ~~**Orphaned July-2026 session branches.**~~ **ALL FOUR LANDED
+    2026-09-05** (G, D, H arm 2, F). The `MORNING_*` series now reads
+    A B C D E E_run F G H₁ H₂ I J K λ with no gaps — the detector that
+    found them reads clean. Two generator gaps were closed on the way
+    (Session D restored `pi292_thouless_prediction.py`, the producer of
+    a sealed JSON that had been banked here without one) and one was
+    found and left open: `F_results.json`'s four numbers still have no
+    committed driver, and `F_reproduce.py` is an independent replication
+    rather than a recovery of it. Original entry:
     **Four orphaned July-2026 session branches** — `cf-convergence-bridge`
     (G), `genus-ff-calibrator` (F), `third-refit` (H arm 2),
     `thouless-amo-identify` (D): one commit each, reachable from
@@ -527,6 +534,31 @@ New since:
     no previously registered pair changed verdict. Still out:
     `genus-ff-calibrator` (F — needs its stray `criticality_tool/` path
     prefix repaired), `third-refit` (H arm 2), `thouless-amo-identify` (D).
+
+13. **`ff-curve-singularity-guard`** — `approximability/ff_curve.py`'s
+    `g2_Nv` checks only degree and leading coefficient and performs **no
+    squarefree test**, so a singular `f` returns confidently wrong `N_v`.
+    Found by running it: `y² = x⁵+x³ = x³(x²+1)` passed straight through
+    at p=13 and p=29 and was caught only afterwards, by the Weil gates.
+    Session F filtered singular curves in the driver that was never
+    committed, so the check left the repo with it. The replacement code
+    is already written and tested (`F_reproduce.poly_gcd_deg`); queued
+    rather than patched in passing because the module belongs to an arc
+    landed the same day.
+
+14. **`decorrelation-battery-v2`** — v1 came out INVALID at its own
+    premise and *more* confounded than the FM family it replaces.
+    Diagnosis pinned: subset size is an energy knob, not a concentration
+    one. The untested contrast is same-rate vs distinct-rate splitting.
+    Two inherited obligations: re-pose P1 rather than reuse it (its 0.5
+    bar was missed at 0.432), and state one scope once.
+
+15. **Banked constants with no error bar** — `F_results.json`'s
+    `genus2_rate_ratio` is quoted to 17 significant figures on a quantity
+    whose curve-to-curve spread is sd 0.296 over the range 0.65–1.86. It
+    is a property of the family that was averaged. Worth a sweep for
+    siblings: any banked scalar with more digits than its dispersion
+    supports.
 
 11. Longer-horizon: Kuramoto alternatives (Stuart–Landau etc.);
     RIGID_GUE 0/60 specificity run (bounds false-HYPER ≤0.049);
