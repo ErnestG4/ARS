@@ -205,8 +205,19 @@ equally consistent with the correct account, and I read a compressed statistic a
 a dead knob.
 
 WHAT SURVIVES: E3 is untouched -- the battery really is more correlated (0.546)
-than the FM family (0.432), and that is not a bar artifact. What is retracted is
-the CAUSE. v2 inherits a sharpened obligation: pick the concentration statistic
+than the FM family (0.432), and that is not a bar artifact.
+
+[AMENDMENT 3 IS ITSELF HALF-RETRACTED, 2026-09-05, by v2's M1 arm. Its claim
+that C_FACTOR = 2.0 exceeded participation_ratio's reachable ratio STANDS -- a
+fact about the statistic's range, and E1 was inert for that reason alone. Its
+INFERENCE from there, that the concentration knob therefore worked and
+Amendment 1's diagnosis was wrong, is withdrawn. v2 measured top_band_share
+under a common-rate knob and got 0.61-0.73 where the closed form predicted 1.0:
+the modulation difference is not confined to the bands the manipulation targets,
+one band carries ~62% of it regardless, and Amendment 1's "broadband, near
+saturation whatever k" was substantially right. The closed form was correct
+arithmetic about an assumption I never checked against the signal. The bar was
+unreachable AND the knob is weak; those were never alternatives.] v2 inherits a sharpened obligation: pick the concentration statistic
 by its DERIVED dynamic range, put every threshold through Bar so an unreachable
 one is refused at construction, and test the contrast v1 never ran (k bins at one
 COMMON rate against k bins at k rates).

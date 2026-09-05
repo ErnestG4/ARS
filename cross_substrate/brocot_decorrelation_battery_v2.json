@@ -1,0 +1,392 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "sr": 44100,
+ "duration_s": 2.0,
+ "f_c": 220.0,
+ "floor": 0.0001,
+ "seed": 20240517,
+ "n_per_mode": 50,
+ "beats": [
+  2.0,
+  3.0,
+  5.0,
+  7.0,
+  11.0,
+  13.0,
+  17.0,
+  19.0
+ ],
+ "subset_sizes": [
+  2,
+  3,
+  4,
+  6,
+  8
+ ],
+ "stat": "top_band_share",
+ "band_width": 1.0,
+ "n_bands": 39,
+ "tbs_reach": 8.0,
+ "pr_reach": 1.225806451612903,
+ "c_factor": 3.0,
+ "e_factor": 3.0,
+ "excluded": [
+  "5/7"
+ ],
+ "instrument": {
+  "model": "modulation-difference energy and concentration under additive resynthesis, v2",
+  "params": [
+   {
+    "name": "rate_mode",
+    "kind": "TESTED",
+    "why": "THE KNOB v1 NEVER TURNED. k bins split at ONE common rate pile the modulation difference into a single band; k bins at k rates spread it over k. v1 always used distinct rates, so the concentrating condition appears nowhere in it",
+    "sweep": [
+     "common",
+     "distinct"
+    ],
+    "value": null
+   },
+   {
+    "name": "subset_size",
+    "kind": "TESTED",
+    "why": "how many coincident bins are split. Under distinct rates this sets the number of occupied bands; under a common rate it moves energy without moving concentration, which is what makes the two knobs separable at all",
+    "sweep": [
+     2,
+     3,
+     4,
+     6,
+     8
+    ],
+    "value": null
+   },
+   {
+    "name": "concentration_stat",
+    "kind": "DECLARED",
+    "why": "CHOSEN BY DERIVED DYNAMIC RANGE, before running: top_band_share reaches a ratio of 8.00 across the swept k against participation_ratio's 1.226. v1 used the latter with a 2.0 bar, which exceeded its reachable ratio and made the arm inert. Both are among the three the salience cell swept, so this is a choice from a pre-existing set on an analytic criterion; participation_ratio is reported alongside",
+    "sweep": null,
+    "value": "top_band_share"
+   },
+   {
+    "name": "band_width_hz",
+    "kind": "DECLARED",
+    "why": "1.0 Hz, as every other cell in this line, so the numbers stay comparable with the salience result this battery would decide",
+    "sweep": null,
+    "value": 1.0
+   },
+   {
+    "name": "seed",
+    "kind": "DECLARED",
+    "why": "subsets are sampled, so the battery is a random object and must be reproducible; the repo's BASE_SEED",
+    "sweep": null,
+    "value": 20240517
+   },
+   {
+    "name": "duration_s",
+    "kind": "DECLARED",
+    "why": "2 s resolves 0.5 Hz, half the band width, so a beat cannot straddle two bands unresolved",
+    "sweep": null,
+    "value": 2.0
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "rows": [
+  {
+   "ratio": "3/4",
+   "n_points": 100,
+   "matched_energy_pairs": 2,
+   "matched_conc_pairs": 547,
+   "rho": -0.36100810081008095,
+   "conc_span": 4.270496618305471,
+   "energy_span": 10845677.141794596
+  },
+  {
+   "ratio": "4/5",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 648,
+   "rho": -0.1909270927092709,
+   "conc_span": 3.3858840536530885,
+   "energy_span": 6849173.022855643
+  },
+  {
+   "ratio": "5/6",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 205,
+   "rho": -0.7471707170717071,
+   "conc_span": 5.349365013438205,
+   "energy_span": 17493.598403030323
+  },
+  {
+   "ratio": "6/7",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 294,
+   "rho": -0.7701396348012888,
+   "conc_span": 4.706340436097203,
+   "energy_span": 21904.21651385763
+  },
+  {
+   "ratio": "7/8",
+   "n_points": 100,
+   "matched_energy_pairs": 1,
+   "matched_conc_pairs": 246,
+   "rho": -0.7865106510651064,
+   "conc_span": 4.767374085294041,
+   "energy_span": 201733.16063420128
+  },
+  {
+   "ratio": "8/7",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 302,
+   "rho": -0.5517311731173117,
+   "conc_span": 3.929873133782422,
+   "energy_span": 63747.16348862908
+  },
+  {
+   "ratio": "7/6",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 513,
+   "rho": -0.6543534353435344,
+   "conc_span": 3.8173734316774626,
+   "energy_span": 25759.980869501625
+  },
+  {
+   "ratio": "6/5",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 634,
+   "rho": -0.36518451845184513,
+   "conc_span": 3.5384290133737526,
+   "energy_span": 66140871.9961286
+  },
+  {
+   "ratio": "5/4",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 628,
+   "rho": -0.2185298529852985,
+   "conc_span": 2.6498375285327973,
+   "energy_span": 76104585.06739523
+  },
+  {
+   "ratio": "4/3",
+   "n_points": 100,
+   "matched_energy_pairs": 2,
+   "matched_conc_pairs": 559,
+   "rho": -0.2598259825982598,
+   "conc_span": 3.7638352792096623,
+   "energy_span": 1037573.0471012844
+  },
+  {
+   "ratio": "7/5",
+   "n_points": 100,
+   "matched_energy_pairs": 0,
+   "matched_conc_pairs": 780,
+   "rho": -0.4666034599667564,
+   "conc_span": 3.778853911109475,
+   "energy_span": 4986194007.287008
+  }
+ ],
+ "fm_within": {
+  "3/4": -0.5151515151515151,
+  "4/5": -0.2606060606060606,
+  "5/6": -0.8787878787878788,
+  "6/7": -0.7939393939393938,
+  "7/8": -0.8060606060606059,
+  "8/7": -0.8424242424242423,
+  "7/6": -0.6727272727272726,
+  "6/5": -0.5515151515151515,
+  "5/4": -0.12727272727272726,
+  "4/3": -0.35757575757575755,
+  "7/5": -0.05454545454545454
+ },
+ "premise_within_median": 0.5515151515151515,
+ "rho_battery": -0.4971604874849453,
+ "mech_by_k": {
+  "2": {
+   "common": 0.7254941402581215,
+   "distinct": 0.724916160796999,
+   "ratio": 1.0007973052504264
+  },
+  "3": {
+   "common": 0.7021020747887528,
+   "distinct": 0.686573328662845,
+   "ratio": 1.0226177532356975
+  },
+  "4": {
+   "common": 0.6891916533725841,
+   "distinct": 0.6151822826325279,
+   "ratio": 1.1203047825489227
+  },
+  "6": {
+   "common": 0.6532984140510466,
+   "distinct": 0.5338861596616106,
+   "ratio": 1.223666135988845
+  },
+  "8": {
+   "common": 0.605537035974344,
+   "distinct": 0.5237255719336218,
+   "ratio": 1.1562105584011682
+  }
+ },
+ "mech_ratio": 1.1203047825489227,
+ "e1_applicable": true,
+ "conc_span_max": 5.349365013438205,
+ "matched_energy_pairs": 5,
+ "matched_conc_pairs": 5356,
+ "ratios_with_both": 3,
+ "bars": {
+  "within-ratio median |rho|, FM detune family": {
+   "name": "within-ratio median |rho|, FM detune family",
+   "value": 0.5515151515151515,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a Spearman magnitude scored per ratio then medianed, which is what R1 demands and what v1 violated by pooling"
+  },
+  "top_band_share, common-rate over distinct-rate at matched k": {
+   "name": "top_band_share, common-rate over distinct-rate at matched k",
+   "value": 1.1203047825489227,
+   "thresh": 3.0,
+   "floor": 0.0,
+   "ceiling": 8.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 5.0,
+   "why": "a ratio of concentrations. The CEILING IS DERIVED: one band gives 1.0 and k bands give 1/k, so the reachable ratio is k_max = 8.0. 1.0 is 'the knob does nothing' and is attainable, so the arm can fail"
+  },
+  "matched-energy pairs differing in concentration": {
+   "name": "matched-energy pairs differing in concentration",
+   "value": 5,
+   "thresh": 5,
+   "floor": 0,
+   "ceiling": 54450,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 54445,
+   "why": "a count of within-ratio pairs; 0 is attainable and the ceiling is every pair in every ratio"
+  },
+  "matched-concentration pairs differing in energy": {
+   "name": "matched-concentration pairs differing in energy",
+   "value": 5356,
+   "thresh": 5,
+   "floor": 0,
+   "ceiling": 54450,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 54445,
+   "why": "the same count in the other direction, on the same ceiling"
+  },
+  "|rho| over the constructed battery": {
+   "name": "|rho| over the constructed battery",
+   "value": 0.4971604874849453,
+   "thresh": 0.2,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": "the FM detune family, scored the same way",
+   "rival_value": 0.5515151515151515,
+   "rival_met": false,
+   "discriminating": false,
+   "headroom": 0.2,
+   "why": "a Spearman magnitude; 0 attainable by construction and 1 by a battery that failed to decorrelate"
+  },
+  "ratios where BOTH matched-pair families exist within the ratio": {
+   "name": "ratios where BOTH matched-pair families exist within the ratio",
+   "value": 3,
+   "thresh": 5,
+   "floor": 0,
+   "ceiling": 11,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 6,
+   "why": "a count over the 11 ratios; pooling manufactures spread, so the contrast must be constructible inside one"
+  }
+ },
+ "verdict": "DECORRELATION_NOT_ACHIEVED",
+ "composed": {
+  "label": "DECORRELATION_NOT_ACHIEVED_BUT_NOT_BY_top_band_share, common-rate over distinct-rate at matched k_COARSELY_AT_ratios where BOTH matched-pair families exist within the ratio",
+  "head": "DECORRELATION_NOT_ACHIEVED",
+  "qualifiers": [
+   "BUT_NOT_BY_top_band_share, common-rate over distinct-rate at matched k",
+   "COARSELY_AT_ratios where BOTH matched-pair families exist within the ratio"
+  ],
+  "citation": "DECORRELATION_NOT_ACHIEVED  [|rho| over the constructed battery 0.4972 vs <=0.2 MISSED \u2014 \"the battery decorrelates them where the detune family cannot\"; top_band_share, common-rate over distinct-rate at matched k 1.12 vs >=3 MISSED \u2014 \"rate_mode really is a concentration knob\"; ratios where BOTH matched-pair families exist within the ratio 3 vs >=5 MISSED \u2014 \"and it holds within ratios, not only pooled\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('within-ratio median |rho|, FM detune family', PREMISE, MET)",
+   "Arm('top_band_share, common-rate over distinct-rate at matched k', MECHANISM, MISSED)",
+   "Arm('matched-energy pairs differing in concentration', EXISTENCE, MET)",
+   "Arm('matched-concentration pairs differing in energy', EXISTENCE, MET)",
+   "Arm('|rho| over the constructed battery', EXISTENCE, MISSED)",
+   "Arm('ratios where BOTH matched-pair families exist within the ratio', RESOLUTION, MISSED)"
+  ]
+ }
+}

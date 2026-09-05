@@ -851,7 +851,9 @@ ENTRIES = [
               "never a threshold: criterion-as-axis survives the framing "
               "death."),
 
-    dict(id="decorrelation-battery-v2", status=QUEUED,
+    dict(id="decorrelation-battery-v2", status=LANDED,
+         artifact="cross_substrate/brocot_decorrelation_battery_v2.json",
+         verdict="DECORRELATION_NOT_ACHIEVED",
          warrant=[("cross_substrate/brocot_decorrelation_battery.json",
                    "INVALID",
                    "NEGATIVE/the v1 diagnosis this row is built on"),
@@ -898,6 +900,41 @@ ENTRIES = [
               "the narrower one of scoring it within ratio from the start -- "
               "the same rule v1 stated in R1 and then broke in P1. (b) The scope must be ONE set, stated once: "
               "7 or 11, decided before the run and not narrated afterwards.\n"
+              "LANDED 2026-09-05, AND IT CLOSES THE ROUTE RATHER THAN ASKING "
+              "FOR A THIRD KNOB. M1 was placed FIRST by design -- if the knob "
+              "does not work, E1 is untestable rather than false -- and M1 "
+              "MISSED: common-rate over distinct-rate concentration is 1.12x "
+              "against a 3x bar.\n"
+              "AND IT CORRECTS THE CORRECTION THAT BUILT IT. The closed form "
+              "this cell rested on predicted top_band_share = 1/k for distinct "
+              "rates and 1.0 for common. Measured: 0.52-0.73 across every k and "
+              "both modes. The modulation difference is NOT confined to the "
+              "bands the manipulation targets -- one band carries ~62% of it "
+              "regardless -- so v1's ORIGINAL diagnosis ('broadband, near "
+              "saturation whatever k') was substantially right and my v1 "
+              "Amendment 3 retraction of it was an over-correction.\n"
+              "THE TWO HALVES OF THAT AMENDMENT ARE NOT EQUALLY WRONG. Its "
+              "claim that C_FACTOR = 2.0 exceeded participation_ratio's "
+              "reachable 1.226x STANDS -- a fact about the statistic's range, "
+              "independent of any model, and v1's E1 was inert for that reason "
+              "alone. What falls is the inference from there to 'so the knob "
+              "works'. The bar was unreachable AND the knob is weak; those were "
+              "never alternatives.\n"
+              "THE LESSON IS ABOUT THE FIX. The reachability argument exists to "
+              "stop bars being guessed, and here it replaced a guessed bar with "
+              "an ANALYTIC BOUND COMPUTED ON AN IDEALISATION -- a more "
+              "confident way to be wrong, because it arrives with a derivation "
+              "attached. A reachability argument must be anchored in a "
+              "measurement of the actual signal, not in a model of it, or it "
+              "launders an assumption into a bound.\n"
+              "CONCLUSION FOR THE ARC: two independent manipulations, subset "
+              "size and rate mode, were designed to move concentration and "
+              "neither does, because the difference is broadband as an "
+              "empirical property of this stimulus family. The battery is not "
+              "one knob short -- it is measuring a quantity that does not vary "
+              "under anything this apparatus can express, and a third knob is "
+              "NOT indicated. P1 held (0.552 within ratio), E3 missed (0.497 vs "
+              "the family's 0.552), R1 missed (3 of 11).\n"
               "AND THE DESIGN-TIME RULE FROM THE APPARATUS CELL APPLIES HERE "
               "TOO: each arm names the ruler appropriate to ITS OWN axis. "
               "Energy and concentration are different observables and v1 read "

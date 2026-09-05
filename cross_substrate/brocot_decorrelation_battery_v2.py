@@ -96,6 +96,59 @@ the arm was vacuous -- it compared a dict to itself. A property provable by
 reading eleven lines does not need a lattice arm; it needs an assertion, which
 is below.
 
+AMENDMENT 1 — M1 MISSED, AND IT CORRECTS THE CORRECTION THAT BUILT THIS CELL.
+
+M1 was put FIRST on purpose: if the knob does not work, E1 is untestable rather
+than false. It does not work. Common-rate over distinct-rate concentration is
+1.12x against a 3.0x bar.
+
+The closed form this cell was built on predicted otherwise, and the gap between
+prediction and measurement is the finding:
+
+    k        predicted distinct (1/k)   measured distinct   measured common
+    2              0.5000                    0.7249             0.7255
+    4              0.2500                    0.6152             0.6892
+    8              0.1250                    0.5237             0.6055
+
+    predicted common: 1.0000 at every k.  measured: 0.61 - 0.73.
+
+The modulation difference is NOT confined to the k bands the manipulation
+targets. One band carries about 62% of it regardless of k, regardless of mode.
+So `top_band_share` sits in a narrow high range whatever is done to the
+stimulus, exactly as `participation_ratio` did.
+
+WHICH MEANS v1's ORIGINAL DIAGNOSIS WAS SUBSTANTIALLY RIGHT AND MY RETRACTION OF
+IT WAS AN OVER-CORRECTION. v1 said "the difference is broadband and its
+concentration sits near saturation whatever k is". That is what these numbers
+say. What I did in v1's Amendment 3 was compute PR = 1 - k/n_bands from the
+assumption that the manipulation's energy lands in exactly k bands, find that it
+predicted a real range, and conclude the knob worked. The arithmetic was right
+and the assumption was false, and I never checked the assumption against the
+signal -- I checked it against itself.
+
+BOTH HALVES OF AMENDMENT 3 ARE NOT EQUALLY WRONG, and the distinction matters.
+Its claim that C_FACTOR = 2.0 exceeded participation_ratio's reachable ratio of
+1.226 STANDS -- that is a fact about the statistic's range, independent of any
+model of the signal, and v1's E1 was inert for that reason alone. What falls is
+its inference from there to "so the knob works". The bar was unreachable AND the
+knob is weak; those were never alternatives.
+
+THE LESSON IS ABOUT THE FIX, NOT THE BUG. The reachability argument exists to
+stop bars being guessed. Here it replaced a guessed bar with an ANALYTIC bound
+computed on an idealisation -- which is a more confident way to be wrong, because
+it arrives with a derivation attached. A reachability argument has to be
+anchored in a measurement of the actual signal, not in a model of it, or it
+launders an assumption into a bound.
+
+WHAT THIS CELL NOW SAYS, and it is a stronger closing statement than another
+iteration would be. Two independent manipulations -- subset size and rate mode --
+were designed to move concentration and neither does, because the modulation
+difference is broadband as an empirical property of this stimulus family. The
+battery route to decorrelation is not one knob short. It is measuring a quantity
+that does not vary under any manipulation this apparatus can express, and a
+third knob is not indicated. E3 (0.497 against the family's 0.552) and R1 (3 of
+11) both miss, and they miss for that reason.
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing about what a listener hears. It asks
 whether a CONTRAST IS CONSTRUCTIBLE. Whether concentration or energy drives the
 skips is the question this battery would make askable, and answering it needs
