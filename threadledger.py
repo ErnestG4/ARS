@@ -698,7 +698,10 @@ ENTRIES = [
               "heard-as-listening stays blocked on the same contrast -- but "
               "blocked on a theorem now, not on my belief about one."),
 
-    dict(id="resynthesis-apparatus", status=QUEUED,
+    dict(id="resynthesis-apparatus", status=LANDED,
+         artifact="cross_substrate/brocot_resynthesis_fidelity.json",
+         verdict="APPARATUS_IS_FAITHFUL_AND_CARRIES_THE_CUE_"
+                 "WHERE_THE_WITNESS_PAIR_IS_AUDIBLE",
          warrant=[("cross_substrate/brocot_cue_presence.json",
                    "CUE_IS_PRESENT_THROUGHOUT",
                    "STRUCTURAL/unconditional, survives int16"),
@@ -712,7 +715,38 @@ ENTRIES = [
                  "with every other partial bit-frozen -- the manipulation "
                  "detune-impossibility says the FM synthesis path cannot "
                  "express.",
-         note="CARRIES A VALIDATION OBLIGATION, and shipping without it is the "
+         note="LANDED 2026-09-04. The obligation was discharged and it paid "
+              "for itself twice.\n"
+              "FIDELITY HOLDS. Ground truth is the TIME-DOMAIN FM render, not "
+              "the partial list -- comparing the additive render against the "
+              "list it was built from is circular and passes by construction -- "
+              "so what the gate measures is box TRUNCATION. Median error 0.013 "
+              "of the contrast against a 0.10 bar, monotone in B, and the "
+              "deliberately truncated B=2 rival FAILS the same bar at 3.30, so "
+              "the arm discriminates instead of merely passing.\n"
+              "AND THE SELECTIVITY ARM WAS MIS-RULERED, caught by the arm I "
+              "expected to be boring. ERB's kernel is ~57 Hz at the witness "
+              "frequencies; the manipulation moves each partial 1-3 Hz. The "
+              "static metric CANNOT SEE ITS OWN OBJECT, and two ratios reported "
+              "selectivity of 5770 and 8735 -- not excellence, a zero "
+              "denominator. The tell was R1: witness phase changed the result "
+              "by nothing to six figures, and beat salience is phase-sensitive, "
+              "which is the entire reason phase held TESTED status. A PASSING "
+              "resolution arm certified that the existence arm above it was "
+              "inert. Observable-choice-is-per-axis: fidelity is a snapshot "
+              "question, selectivity is a MODULATION-domain one.\n"
+              "THE CORRECT READOUT PASSES WITH BOTH CONTROLS, using "
+              "brocot_cue_presence's envelope instrument unchanged: FM twin "
+              "shows the beat 8/8 (positive), additive EXACT does not 8/8 "
+              "(negative -- its pair is merged), additive twin carries it 7/8 "
+              "at 37-88 dB while moving ~30x less on ERB.\n"
+              "SCOPE, NAMED NOT AVERAGED: 5/7 is excluded. Its witness pair "
+              "sits at amplitude ~2e-4 and cannot beat audibly alone -- and its "
+              "FM twin scores 25.9 dB against 42-117 dB elsewhere, so that "
+              "ratio's apparent cue was mostly COLLATERAL, which is the arc's "
+              "own thesis surfacing as a control failure. Pin 4 of the checker "
+              "fails if 5/7 starts passing OR if a second ratio joins it.\n"
+              "ORIGINAL OBLIGATION TEXT: it "
               "model-ran-on-abstraction defect one layer down: the resynthesized "
               "EXACT stimulus must be verified against the FM render under a "
               "SEALED spectral-distance bar on an ERB metric, so 'the same "
@@ -726,7 +760,12 @@ ENTRIES = [
     dict(id="decorrelation-battery", status=QUEUED,
          warrant=[("cross_substrate/brocot_cue_salience.json",
                    "SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED",
-                   "MECHANISM/open -- selected max + undiscriminating arm")],
+                   "MECHANISM/open -- selected max + undiscriminating arm"),
+                  ("cross_substrate/brocot_resynthesis_fidelity.json",
+                   "APPARATUS_IS_FAITHFUL_AND_CARRIES_THE_CUE_"
+                   "WHERE_THE_WITNESS_PAIR_IS_AUDIBLE",
+                   "STRUCTURAL/the apparatus this row rides on, scoped to 7 "
+                   "ratios with 5/7 excluded by name")],
          request="rides on resynthesis-apparatus: matched-energy / "
                  "differing-concentration stimulus pairs and the reverse, to "
                  "decorrelate the two accounts brocot_cue_salience could not "

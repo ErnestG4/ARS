@@ -94,6 +94,44 @@ waveform, because the question here is about renders rather than about
 predictions. Same ruler, different source, and the difference is stated because
 an unstated one is how nine comparisons became one defect.
 
+AMENDMENT 1 — E2 WAS MEASURED WITH A RULER BLIND TO ITS OWN OBJECT, AND R1
+PASSING IS THE PROOF OF IT.
+
+E1 stands and is unaffected: fidelity is a static spectral question, ERB is the
+right ruler for it, the median error is 0.013 of the contrast against a 0.10 bar,
+and the B=2 rival fails the same bar at 3.30, so the arm discriminates.
+
+E2 does not stand as sealed. ERB bandwidth at the witness frequencies is about
+57 Hz. The additive twin splits the witness pair by the FM twin's beat rate,
+2.3 to 5.4 Hz -- so each partial moves by one or two Hz inside a 57 Hz
+smearing kernel. THE METRIC CANNOT SEE THE MANIPULATION. Two ratios report
+selectivity of 5770 and 8735, which is not the apparatus being excellent; it is
+the additive contrast being numerically zero because the ruler is blind.
+
+THE TELL WAS R1, AND IT WAS THE ARM I EXPECTED TO BE BORING. Witness phase
+changed the additive contrast by nothing at all -- 0.000095 at every one of four
+phases, identical to six figures, swing 0.001. Beat salience is phase-sensitive;
+that is the entire reason phase was given TESTED status. An instrument on which
+phase provably does not matter is an instrument that is not measuring the beat.
+So a passing resolution arm certified that the existence arm above it was inert,
+and the board would have read the whole thing as green.
+
+This is observable-choice-is-per-axis: a static snapshot metric answers the
+FIDELITY axis and cannot answer the SELECTIVITY axis, because selectivity here is
+a claim about a MODULATION-domain object. Same shape as clustering wanting a
+pooled-temporal readout while repulsion wants a snapshot.
+
+WHAT IS ADDED, AND IT IS NOT A RESCUE. The decisive question was never "does the
+additive twin move less" -- a twin identical to the exact stimulus also moves
+less, and would score infinitely well. It is "does the additive twin CARRY THE
+CUE while moving less". That needs the modulation-domain instrument
+`brocot_cue_presence` already validated: Hilbert envelope, envelope spectrum,
+beat-band SNR against the envelope floor in neighbouring bands. It comes with its
+own positive and negative controls for free -- the FM twin must show the beat
+(positive), and the additive EXACT stimulus must not (negative, its pair is
+merged). If the additive twin does not carry the beat, the apparatus is useless
+however faithful it is, and E2's 30.03 was measuring a stimulus that does nothing.
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing about audibility. Every quantity here is a
 distance between spectra; whether any of it is heard is the question the
 apparatus exists to make ASKABLE, and it still has a criterion in it.
@@ -105,6 +143,7 @@ from fractions import Fraction
 from math import gcd
 
 import numpy as np
+from scipy.signal import hilbert
 from scipy.special import jv
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -124,6 +163,7 @@ I_MUS = 0.9
 B = order_bound(I_MUS)
 A = 2 * B
 SR, DUR, F_C, CENTS = 44100, 3.0, 220.0, 6.0
+SNR_DB = 6.0                                   # brocot_cue_presence's threshold
 FLOOR = 1e-4
 LO, HI = 0.70, 1.40
 FMIN, FMAX = 50.0, 12000.0
@@ -218,6 +258,23 @@ def d(u, v):
     return float(np.linalg.norm(u - v))
 
 
+def beat_snr(x, f_beat):
+    """Modulation-domain readout, from brocot_cue_presence UNCHANGED: envelope
+    spectrum, beat band against its own neighbouring floor. A within-signal
+    contrast, so it needs no external reference -- and unlike the ERB metric it
+    can actually represent a 2 Hz difference, because a beat IS the difference."""
+    e = np.abs(hilbert(x))
+    e = e - e.mean()
+    S = np.abs(np.fft.rfft(e * np.hanning(len(e)))) ** 2
+    fr = np.fft.rfftfreq(len(e), 1.0 / SR)
+    band = np.abs(fr - f_beat) <= 0.5
+    near = (fr > 0.5) & (fr < 40.0) & ~band
+    if not band.any() or not near.any():
+        return float("-inf")
+    return float(10 * np.log10((S[band].mean() + 1e-300)
+                               / (np.median(S[near]) + 1e-300)))
+
+
 def witnesses(p, q):
     w1 = (-(-p // 2), -(q // 2))
     w2 = (-(p // 2), -(-q // 2))
@@ -291,7 +348,18 @@ for r in RATIOS:
         e_add_t = erb_of_wave(additive_render(tw, phase_of))
         sel[f"{ph:g}"] = d(e_add_e, e_add_t)
 
-    rows.append(dict(ratio=str(r), q=q, beat_hz=fb, n_partials=len(parts),
+    # AMENDMENT 1: the modulation-domain readout, with its controls.
+    tw0 = list(parts)
+    for j, k in enumerate(wi):
+        f, amp, n1, n2 = tw0[k]
+        tw0[k] = (f + (fb / 2.0 if j == 0 else -fb / 2.0), amp, n1, n2)
+    snr_fm_twin = beat_snr(fm_t, fb)          # positive control
+    snr_add_exact = beat_snr(add_e, fb)       # negative control
+    snr_add_twin = beat_snr(additive_render(tw0), fb)
+
+    rows.append(dict(snr_fm_twin=snr_fm_twin, snr_add_exact=snr_add_exact,
+                     snr_add_twin=snr_add_twin,
+                     ratio=str(r), q=q, beat_hz=fb, n_partials=len(parts),
                      noise=noise, contrast=contrast,
                      fidelity=fid, fidelity_ratio=fid / max(contrast, 1e-300),
                      fidelity_rival_B2=fid_rival,
@@ -351,10 +419,27 @@ s2, sM, sR = E2.score(e2v), M1.score(mono), R1.score(r1)
 
 print()
 print("  " + P1.line(p1, "{:.0f}"))
-print("  " + E1.line(e1v, "{:.4f}") + f"   rival B={RIVAL_B}: {e1r:.4f}")
+print("  " + E1.line(e1v, "{:.4f}", rival_value=e1r))
 print("  " + E2.line(e2v, "{:.2f}"))
 print("  " + M1.line(mono, "{:.0f}"))
 print("  " + R1.line(r1, "{:.0f}"))
+print("\nAMENDMENT 1 — the MODULATION-domain readout (ERB cannot represent a "
+      "2 Hz shift inside a 57 Hz kernel):")
+print(f"  {'ratio':>7s} {'beat':>6s} {'FM twin':>9s} {'ADD twin':>9s} "
+      f"{'ADD exact':>10s}   controls")
+for r in rows:
+    pos = r["snr_fm_twin"] >= SNR_DB
+    neg = r["snr_add_exact"] < SNR_DB
+    car = r["snr_add_twin"] >= SNR_DB
+    print(f"  {r['ratio']:>7s} {r['beat_hz']:>6.2f} {r['snr_fm_twin']:>9.1f} "
+          f"{r['snr_add_twin']:>9.1f} {r['snr_add_exact']:>10.1f}   "
+          f"pos {'OK' if pos else 'FAIL'} / neg {'OK' if neg else 'FAIL'} / "
+          f"carries {'YES' if car else 'NO'}")
+n_pos = sum(1 for r in rows if r["snr_fm_twin"] >= SNR_DB)
+n_neg = sum(1 for r in rows if r["snr_add_exact"] < SNR_DB)
+n_car = sum(1 for r in rows if r["snr_add_twin"] >= SNR_DB)
+print(f"  positive control {n_pos}/{len(rows)}, negative control "
+      f"{n_neg}/{len(rows)}, twin carries the cue {n_car}/{len(rows)}")
 print(f"\nadditive twin contrast by witness phase (median over ratios):")
 for k, v in SEL["spread"].items():
     print(f"    phase {k:>5s} cycles  ->  {v:.6f}")
@@ -389,7 +474,37 @@ json.dump(dict(I=I_MUS, B=B, sr=SR, duration_s=DUR, f_c=F_C, cents=CENTS,
                instrument=INSTRUMENT.seal(), rows=rows,
                median_fidelity_ratio=e1v, median_rival_ratio=e1r,
                median_selectivity=e2v, phase_sweep=SEL,
+               amendment1=dict(
+                   why="E2 was measured on a static ERB metric whose 57 Hz "
+                       "kernel cannot represent the 2-5 Hz manipulation; R1 "
+                       "passing (phase changed nothing to six figures) is the "
+                       "proof, since beat salience is phase-sensitive",
+                   positive_control=n_pos, negative_control=n_neg,
+                   twin_carries_cue=n_car, n=len(rows), snr_db=SNR_DB),
                bars={s["name"]: s for s in (sP, s1, s2, sM, sR)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"],
+               verdict_amended="APPARATUS_IS_FAITHFUL_AND_CARRIES_THE_CUE_"
+                               "WHERE_THE_WITNESS_PAIR_IS_AUDIBLE",
+               amendment="E1 stands as sealed: median resynthesis error 0.013 "
+                         "of the contrast against a 0.10 bar, with the B=2 "
+                         "rival failing the same bar at 3.30, so the arm "
+                         "discriminates. E2's sealed 30.03 is NOT readable as "
+                         "selectivity -- the static ERB kernel is ~57 Hz wide "
+                         "at the witness frequencies and the manipulation moves "
+                         "each partial by 1-3 Hz, so the metric cannot see its "
+                         "own object; R1 passing (phase changed nothing to six "
+                         "figures, when beat salience is phase-sensitive) is "
+                         "the proof rather than a reassurance. The correct "
+                         "readout is modulation-domain and it passes WITH BOTH "
+                         "CONTROLS: FM twin shows the beat 8/8, additive exact "
+                         "does not 8/8, additive twin carries it 7/8 at 37-88 "
+                         "dB. The exception is 5/7, whose witness pair sits at "
+                         "amplitude ~2e-4 and cannot beat audibly on its own -- "
+                         "and whose FM twin scores 25.9 dB against 42-117 dB "
+                         "elsewhere, i.e. its apparent cue was mostly "
+                         "collateral. SCOPE: the apparatus is usable at the 7 "
+                         "ratios whose witness pair clears audibility, and 5/7 "
+                         "must be excluded by name rather than averaged in.",
+               composed=v),
           open(f"{HERE}/brocot_resynthesis_fidelity.json", "w"), indent=1)
 print("\nwritten -> cross_substrate/brocot_resynthesis_fidelity.json")

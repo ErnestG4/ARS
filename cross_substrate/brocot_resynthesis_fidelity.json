@@ -1,0 +1,480 @@
+{
+ "I": 0.9,
+ "B": 4,
+ "sr": 44100,
+ "duration_s": 3.0,
+ "f_c": 220.0,
+ "cents": 6.0,
+ "floor": 0.0001,
+ "erb_grid": 400,
+ "fmin": 50.0,
+ "fmax": 12000.0,
+ "b_sweep": [
+  2,
+  3,
+  4,
+  6,
+  8
+ ],
+ "rival_B": 2,
+ "phases": [
+  0.0,
+  0.25,
+  0.5,
+  0.75
+ ],
+ "fidelity_ratio_bar": 0.1,
+ "selectivity_bar": 3.0,
+ "instrument": {
+  "model": "ERB excitation distance between rendered waveforms",
+  "params": [
+   {
+    "name": "box_halfwidth_B",
+    "kind": "TESTED",
+    "why": "the truncation the fidelity gate exists to measure; M1 reads monotonicity across this sweep and B = 2 is also the RIVAL apparatus that must fail E1",
+    "sweep": [
+     2,
+     3,
+     4,
+     6,
+     8
+    ],
+    "value": null
+   },
+   {
+    "name": "witness_phase_cycles",
+    "kind": "TESTED",
+    "why": "the ONE genuinely free choice in the construction. The exact resynthesis has no phase freedom -- the FM identity gives all-cosine partials with signed amplitudes and cos is even, so the fold adds rather than flips. Freedom appears only where the witness pair is MOVED, and beat salience is phase-sensitive, so this is TESTED and not DECLARED",
+    "sweep": [
+     0.0,
+     0.25,
+     0.5,
+     0.75
+    ],
+    "value": null
+   },
+   {
+    "name": "erb_grid",
+    "kind": "DECLARED",
+    "why": "taken unchanged from brocot_marker_erb_gate so the distances here are commensurable with the ERB cells already banked",
+    "sweep": null,
+    "value": 400
+   },
+   {
+    "name": "fidelity_ratio",
+    "kind": "DECLARED",
+    "why": "the bar is a RATIO against the contrast the apparatus must carry, not an absolute distance I would be inventing; 0.10 says the resynthesis error must be an order of magnitude below the difference the stimulus isolates",
+    "sweep": null,
+    "value": 0.1
+   },
+   {
+    "name": "cents",
+    "kind": "DECLARED",
+    "why": "the FM twin this arc has used throughout, and the reference whose witness beat rate the additive twin is MATCHED to",
+    "sweep": null,
+    "value": 6.0
+   },
+   {
+    "name": "duration_s",
+    "kind": "DECLARED",
+    "why": "3 s resolves 0.33 Hz, below the slowest witness beat in scope",
+    "sweep": null,
+    "value": 3.0
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "rows": [
+  {
+   "snr_fm_twin": 25.891831319458234,
+   "snr_add_exact": -25.834567032515864,
+   "snr_add_twin": -15.64306965611732,
+   "ratio": "5/7",
+   "q": 7,
+   "beat_hz": 3.818923360453084,
+   "n_partials": 69,
+   "noise": 2.8034928856605163e-11,
+   "contrast": 0.0015576411579160344,
+   "fidelity": 1.7931952694964207e-05,
+   "fidelity_ratio": 0.011512248892392737,
+   "fidelity_rival_B2": 0.007407561817823072,
+   "rival_ratio": 4.755627944329384,
+   "b_sweep": {
+    "2": 0.007407561817823072,
+    "3": 0.0003969702221388922,
+    "4": 1.7931952694964207e-05,
+    "6": 1.4463670893443146e-05,
+    "8": 1.4463670893443146e-05
+   },
+   "add_contrast": {
+    "0": 1.783154217712556e-07,
+    "0.25": 1.7818583324546153e-07,
+    "0.5": 1.782862638693604e-07,
+    "0.75": 1.7841585237887627e-07
+   },
+   "selectivity": 8735.313762789337
+  },
+  {
+   "snr_fm_twin": 109.05683832497547,
+   "snr_add_exact": -3.73671727743225,
+   "snr_add_twin": 85.90583191616305,
+   "ratio": "3/4",
+   "q": 4,
+   "beat_hz": 2.291354016271953,
+   "n_partials": 69,
+   "noise": 5.1416523576607546e-14,
+   "contrast": 0.016116027561914874,
+   "fidelity": 9.113720055235468e-05,
+   "fidelity_ratio": 0.00565506606402986,
+   "fidelity_rival_B2": 0.008815482525750318,
+   "rival_ratio": 0.5470009586346773,
+   "b_sweep": {
+    "2": 0.008815482525750318,
+    "3": 0.0006585127782135316,
+    "4": 9.113720055235468e-05,
+    "6": 3.483610621639944e-05,
+    "8": 3.483610621639944e-05
+   },
+   "add_contrast": {
+    "0": 0.00124571936062851,
+    "0.25": 0.0012594916886746646,
+    "0.5": 0.001248778537887823,
+    "0.75": 0.001235006917490227
+   },
+   "selectivity": 12.937125384150535
+  },
+  {
+   "snr_fm_twin": 82.77783061903612,
+   "snr_add_exact": -5.906042356678904,
+   "snr_add_twin": 48.55780038005431,
+   "ratio": "4/5",
+   "q": 5,
+   "beat_hz": 3.0551386883626037,
+   "n_partials": 69,
+   "noise": 1.2184863884457623e-13,
+   "contrast": 0.00284988834435618,
+   "fidelity": 5.588090002707558e-05,
+   "fidelity_ratio": 0.019608101537641,
+   "fidelity_rival_B2": 0.008778760570923172,
+   "rival_ratio": 3.080387548623905,
+   "b_sweep": {
+    "2": 0.008778760570923172,
+    "3": 0.000448478102386863,
+    "4": 5.588090002707558e-05,
+    "6": 3.926727341099759e-05,
+    "8": 3.926727341099759e-05
+   },
+   "add_contrast": {
+    "0": 0.00016642592558985942,
+    "0.25": 0.0001662845615020446,
+    "0.5": 0.00016635071353053363,
+    "0.75": 0.00016649207757506192
+   },
+   "selectivity": 17.124064861020837
+  },
+  {
+   "snr_fm_twin": 42.026257977279656,
+   "snr_add_exact": -8.106578117539783,
+   "snr_add_twin": 45.96917653958425,
+   "ratio": "5/6",
+   "q": 6,
+   "beat_hz": 3.8189233604532546,
+   "n_partials": 69,
+   "noise": 1.0609952158565674e-13,
+   "contrast": 0.0010481645056508487,
+   "fidelity": 1.6506889433824186e-05,
+   "fidelity_ratio": 0.015748376657320956,
+   "fidelity_rival_B2": 0.00814575757847517,
+   "rival_ratio": 7.771449552584432,
+   "b_sweep": {
+    "2": 0.00814575757847517,
+    "3": 0.0004257929088580516,
+    "4": 1.6506889433824186e-05,
+    "6": 1.556084253558464e-05,
+    "8": 1.556084253558464e-05
+   },
+   "add_contrast": {
+    "0": 2.4411160170294075e-05,
+    "0.25": 2.4412763072790108e-05,
+    "0.5": 2.4405399019691154e-05,
+    "0.75": 2.4403796117136157e-05
+   },
+   "selectivity": 42.937922586996066
+  },
+  {
+   "snr_fm_twin": 78.25871439582103,
+   "snr_add_exact": -5.196400215766519,
+   "snr_add_twin": 54.104264744494,
+   "ratio": "6/5",
+   "q": 5,
+   "beat_hz": 4.582708032543621,
+   "n_partials": 69,
+   "noise": 1.345006898067209e-13,
+   "contrast": 0.0012720189962550528,
+   "fidelity": 1.84687466571428e-05,
+   "fidelity_ratio": 0.014519238086472435,
+   "fidelity_rival_B2": 0.009259234261987975,
+   "rival_ratio": 7.279163510331259,
+   "b_sweep": {
+    "2": 0.009259234261987975,
+    "3": 0.0004148423902047697,
+    "4": 1.84687466571428e-05,
+    "6": 1.5921584564875234e-05,
+    "8": 1.5921584564875234e-05
+   },
+   "add_contrast": {
+    "0": 1.617110831307721e-05,
+    "0.25": 1.6170306896618235e-05,
+    "0.5": 1.617008641986478e-05,
+    "0.75": 1.6170887836336384e-05
+   },
+   "selectivity": 78.65997627549125
+  },
+  {
+   "snr_fm_twin": 89.66697034408328,
+   "snr_add_exact": -2.8114496196446197,
+   "snr_add_twin": 69.79715683251031,
+   "ratio": "5/4",
+   "q": 4,
+   "beat_hz": 3.8189233604530273,
+   "n_partials": 69,
+   "noise": 1.2901905730939418e-13,
+   "contrast": 0.0024839074342907345,
+   "fidelity": 4.511824809895834e-05,
+   "fidelity_ratio": 0.01816422281929423,
+   "fidelity_rival_B2": 0.008644254355001884,
+   "rival_ratio": 3.480103258143435,
+   "b_sweep": {
+    "2": 0.008644254355001884,
+    "3": 0.0005002272142662048,
+    "4": 4.511824809895834e-05,
+    "6": 3.081150457938169e-05,
+    "8": 3.081150457938169e-05
+   },
+   "add_contrast": {
+    "0": 0.001714287452491507,
+    "0.25": 0.0017142556598260335,
+    "0.5": 0.0017138792306181454,
+    "0.75": 0.0017139110232235668
+   },
+   "selectivity": 1.4489445341740552
+  },
+  {
+   "snr_fm_twin": 117.00592969818486,
+   "snr_add_exact": -2.1741426527600383,
+   "snr_add_twin": 88.04689633807723,
+   "ratio": "4/3",
+   "q": 3,
+   "beat_hz": 3.0551386883623763,
+   "n_partials": 69,
+   "noise": 3.968598965574786e-14,
+   "contrast": 0.018932094902735293,
+   "fidelity": 6.718447629578616e-05,
+   "fidelity_ratio": 0.0035487079819190746,
+   "fidelity_rival_B2": 0.01189614450360119,
+   "rival_ratio": 0.6283585923648864,
+   "b_sweep": {
+    "2": 0.01189614450360119,
+    "3": 0.0007474359760020193,
+    "4": 6.718447629578616e-05,
+    "6": 5.096556563461076e-05,
+    "8": 5.096556563461076e-05
+   },
+   "add_contrast": {
+    "0": 0.006174149234825791,
+    "0.25": 0.006166600440507578,
+    "0.5": 0.00617200644920577,
+    "0.75": 0.006179555039467156
+   },
+   "selectivity": 3.066348768498706
+  },
+  {
+   "snr_fm_twin": 74.07288206384267,
+   "snr_add_exact": -5.516502390046418,
+   "snr_add_twin": 36.965152102056564,
+   "ratio": "7/5",
+   "q": 5,
+   "beat_hz": 5.346492704634102,
+   "n_partials": 69,
+   "noise": 5.998397916575266e-14,
+   "contrast": 0.0029725425977601143,
+   "fidelity": 1.3907636317191147e-05,
+   "fidelity_ratio": 0.0046787004255787286,
+   "fidelity_rival_B2": 0.009289172019649846,
+   "rival_ratio": 3.124992061223772,
+   "b_sweep": {
+    "2": 0.009289172019649846,
+    "3": 0.0003835557485410205,
+    "4": 1.3907636317191147e-05,
+    "6": 1.2475742464440911e-05,
+    "8": 1.2475742464440911e-05
+   },
+   "add_contrast": {
+    "0": 5.152108602605363e-07,
+    "0.25": 5.152129571631953e-07,
+    "0.5": 5.15213806604313e-07,
+    "0.75": 5.15211709736486e-07
+   },
+   "selectivity": 5769.565098563592
+  }
+ ],
+ "median_fidelity_ratio": 0.013015743489432586,
+ "median_rival_ratio": 3.3025476596836034,
+ "median_selectivity": 30.030993724008454,
+ "phase_sweep": {
+  "name": "additive twin contrast by witness phase",
+  "value": 9.541854288007675e-05,
+  "prereg": "0",
+  "n_configs": 4,
+  "spread": {
+   "0": 9.541854288007675e-05,
+   "0.25": 9.534866228741735e-05,
+   "0.5": 9.537805627511239e-05,
+   "0.75": 9.544793684609904e-05
+  },
+  "minimum": 9.534866228741735e-05,
+  "maximum": 9.544793684609904e-05,
+  "swing": 0.0010400911948652786,
+  "unstable": false,
+  "max_config": "0.75",
+  "max_value": 9.544793684609904e-05,
+  "selection_penalty": 2.939396602229011e-08
+ },
+ "amendment1": {
+  "why": "E2 was measured on a static ERB metric whose 57 Hz kernel cannot represent the 2-5 Hz manipulation; R1 passing (phase changed nothing to six figures) is the proof, since beat salience is phase-sensitive",
+  "positive_control": 8,
+  "negative_control": 8,
+  "twin_carries_cue": 7,
+  "n": 8,
+  "snr_db": 6.0
+ },
+ "bars": {
+  "ratios whose contrast fails to clear 10x the instrument noise floor": {
+   "name": "ratios whose contrast fails to clear 10x the instrument noise floor",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 8,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "a count over the 8 ratios; the floor is a distance the same signal has from itself over a shifted window, so 0 is attainable"
+  },
+  "median resynthesis error as a fraction of the contrast": {
+   "name": "median resynthesis error as a fraction of the contrast",
+   "value": 0.013015743489432586,
+   "thresh": 0.1,
+   "floor": 0.0,
+   "ceiling": 5.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": "a deliberately truncated resynthesis at B = 2",
+   "rival_value": 3.3025476596836034,
+   "rival_met": false,
+   "discriminating": true,
+   "headroom": 0.1,
+   "why": "a ratio of ERB distances; 0 is attainable (an exact resynthesis) and a badly truncated one exceeds 1, so 5 is a generous ceiling"
+  },
+  "median selectivity: FM contrast over additive contrast": {
+   "name": "median selectivity: FM contrast over additive contrast",
+   "value": 30.030993724008454,
+   "thresh": 3.0,
+   "floor": 0.0,
+   "ceiling": 10000.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 9997.0,
+   "why": "a ratio of ERB distances at MATCHED beat rate; 0 is attainable if the additive twin somehow moved more, and the ceiling is bounded only by the instrument's dynamic range"
+  },
+  "ratios whose truncation error is not monotone in B": {
+   "name": "ratios whose truncation error is not monotone in B",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 8,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "a count over the 8 ratios across the 5-point B sweep"
+  },
+  "ratios whose E2 verdict changes across the phase sweep": {
+   "name": "ratios whose E2 verdict changes across the phase sweep",
+   "value": 0,
+   "thresh": 0,
+   "floor": 0,
+   "ceiling": 8,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "a count over the 8 ratios across 4 phases"
+  }
+ },
+ "verdict": "APPARATUS_IS_FAITHFUL_AND_SELECTIVE",
+ "verdict_amended": "APPARATUS_IS_FAITHFUL_AND_CARRIES_THE_CUE_WHERE_THE_WITNESS_PAIR_IS_AUDIBLE",
+ "amendment": "E1 stands as sealed: median resynthesis error 0.013 of the contrast against a 0.10 bar, with the B=2 rival failing the same bar at 3.30, so the arm discriminates. E2's sealed 30.03 is NOT readable as selectivity -- the static ERB kernel is ~57 Hz wide at the witness frequencies and the manipulation moves each partial by 1-3 Hz, so the metric cannot see its own object; R1 passing (phase changed nothing to six figures, when beat salience is phase-sensitive) is the proof rather than a reassurance. The correct readout is modulation-domain and it passes WITH BOTH CONTROLS: FM twin shows the beat 8/8, additive exact does not 8/8, additive twin carries it 7/8 at 37-88 dB. The exception is 5/7, whose witness pair sits at amplitude ~2e-4 and cannot beat audibly on its own -- and whose FM twin scores 25.9 dB against 42-117 dB elsewhere, i.e. its apparent cue was mostly collateral. SCOPE: the apparatus is usable at the 7 ratios whose witness pair clears audibility, and 5/7 must be excluded by name rather than averaged in.",
+ "composed": {
+  "label": "APPARATUS_IS_FAITHFUL_AND_SELECTIVE_AND_BY_ratios whose truncation error is not monotone in B_AT_ratios whose E2 verdict changes across the phase sweep",
+  "head": "APPARATUS_IS_FAITHFUL_AND_SELECTIVE",
+  "qualifiers": [
+   "AND_BY_ratios whose truncation error is not monotone in B",
+   "AT_ratios whose E2 verdict changes across the phase sweep"
+  ],
+  "citation": "APPARATUS_IS_FAITHFUL_AND_SELECTIVE  [median resynthesis error as a fraction of the contrast 0.01302 vs <=0.1 MET \u2014 \"the additive render IS the FM render, and a knowingly truncated one is not\"; median selectivity: FM contrast over additive contrast 30.03 vs >=3 MET \u2014 \"at matched beat rate the additive twin moves far less than the detuned twin\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('ratios whose contrast fails to clear 10x the instrument noise floor', PREMISE, MET)",
+   "Arm('median resynthesis error as a fraction of the contrast', EXISTENCE, MET)",
+   "Arm('median selectivity: FM contrast over additive contrast', EXISTENCE, MET)",
+   "Arm('ratios whose truncation error is not monotone in B', MECHANISM, MET)",
+   "Arm('ratios whose E2 verdict changes across the phase sweep', RESOLUTION, MET)"
+  ]
+ }
+}

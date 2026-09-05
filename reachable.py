@@ -209,12 +209,31 @@ class Bar:
                               else self.thresh - self.floor),
                     why=self.why)
 
-    def line(self, value, fmt="{:.3f}"):
-        s = self.score(value)
+    def line(self, value, fmt="{:.3f}", rival_value=None):
+        """Printable form. TAKES rival_value, added 2026-09-04.
+
+        GAP FOUND BY THE RULE ITSELF, on the first cell written after it: a bar
+        that names a rival could be SCORED but not PRINTED, because line()
+        called score() with no rival and score() rightly raises. So the rival
+        rule made its own reporting path unreachable, and the failure surfaced
+        as a crash inside a print statement rather than as a design refusal.
+        A guard whose only egress is an exception in the display layer is a
+        guard that will be worked around, so the display layer now carries the
+        rival too -- and SHOWS whether the arm discriminated, because that, not
+        MET, is what a rival-bearing bar actually reports."""
+        s = self.score(value, rival_value=rival_value)
         op = "≥" if self.direction == "ge" else "≤"
+        disc = ""
+        if s["discriminating"] is not None:
+            disc = ("  [rival "
+                    + (f"{fmt.format(rival_value)} "
+                       if rival_value is not None else "")
+                    + ("FAILS it — arm discriminates]" if s["discriminating"]
+                       else "ALSO CLEARS IT — arm is INERT]"))
         return (f"{self.name}: {fmt.format(value)} ({op} {self.thresh} ?) "
                 f"{'MET' if s['met'] else 'MISSED'}"
                 f"   [reachable {fmt.format(self.floor)}–{fmt.format(self.ceiling)}]"
+                + disc
                 + ("  << OUT OF DECLARED RANGE: the range is wrong, so this "
                    "bar is unaudited" if s["out_of_range"] else ""))
 
