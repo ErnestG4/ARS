@@ -854,6 +854,41 @@ ENTRIES = [
               "already showed what happens when one ruler is asked two "
               "questions."),
 
+    dict(id="bank-aggregates-with-their-spread", status=QUEUED,
+         warrant=[("approximability/F_reproduce.json",
+                   "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
+                   "STRUCTURAL/the artifact that motivated it")],
+         request="enforce at CONSTRUCTION TIME that a banked aggregate is "
+                 "written with its n and its spread -- in the module where "
+                 "cells bank numbers, not by searching for violations "
+                 "afterwards.",
+         note="REGISTERED AFTER TWO FAILED SWEEPS, 2026-09-05, and the "
+              "failures are the argument for doing it at construction time. "
+              "aggregate_dispersion_triage.py is kept as their record.\n"
+              "Attempt 1 keyed on PRECISION: 2410 hits across 50 files, one "
+              "file contributing 594. JSON serialises full float precision, so "
+              "every computed float here carries seventeen digits and the "
+              "criterion had no discriminating power at all. I had built on the "
+              "incidental property that made me notice the defect.\n"
+              "Attempt 2 keyed on a MISSING DISPERSION COMPANION and produced a "
+              "clean-looking 54.1% of 6698 plus a ranked list of files that "
+              "carry spread for some aggregates and not others. Then four of "
+              "the top hits were hand-checked and ALL FOUR were false "
+              "positives, each differently: `separation` was carried by "
+              "`separation_se` (regex had no `_se`); `grand_mean_z` had its "
+              "spread recoverable from the `rows` array beside it; "
+              "`worst_misclass_rate` is an EXTREMUM and does not want an error "
+              "bar at all; `rejected_fraction` sat beside its own numerator and "
+              "denominator. Widening the regex does not fix it -- `rows` counts "
+              "because a human can read the array, and `worst_` is exempt "
+              "because of what the word MEANS.\n"
+              "So the defect is SEMANTIC and semantic defects have no syntactic "
+              "tell -- a recorded lesson of this repo that I re-learned by "
+              "ignoring it, and by building both detectors without a negative "
+              "set or a nearest-confusable case in advance. A sweep gives a "
+              "lower bound whose misses are the hard tail. The rule belongs "
+              "where aggregates are WRITTEN."),
+
     dict(id="ff-curve-singularity-guard", status=QUEUED,
          warrant=[("approximability/F_reproduce.json",
                    "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
