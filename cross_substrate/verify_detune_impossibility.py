@@ -75,13 +75,35 @@ if cands < 2000:
                 f"{len(rows)} ratios (was 2306). Pin 2's zero is vacuous below "
                 "a real candidate set")
 
-bad = [(r["ratio"], r["local_isolation_ratio"]) for r in rows
-       if r["local_isolation_ratio"] >= 1.0]
-if bad:
-    fail.append(f"pin4 LOCAL-COSTS: {bad} now separate the witnesses faster "
-                "than they disturb the bystanders. A ratio-detune stimulus "
-                "becomes viable at those ratios and the arc's blocking premise "
-                "is gone")
+# pin4 REPLACED 2026-09-05. It used to assert every ratio's local isolation
+# ratio was BELOW 1 -- i.e. that detuning costs more than it buys. That claim is
+# RETRACTED: it holds only under the unweighted cents-max ruler, which is an
+# extreme-value pick of whichever partial is nearest DC, and every driver of it
+# sat at 31-110 Hz at the 1e-4 render floor. Under an Hz ruler and under an
+# amplitude-weighted cents ruler the sign REVERSES. So the pin now guards the
+# thing that is actually true: the quantity is RULER-DEPENDENT, and no single
+# ruler may be quoted as the answer.
+rul = [r.get("rulers") or {} for r in rows]
+if not rul or any(not r for r in rul):
+    fail.append("pin4a RULERS-PRESENT: per-ratio `rulers` is missing. The local "
+                "claim is ruler-dependent and all three must stay banked, or "
+                "the retracted single-ruler number creeps back")
+else:
+    import statistics as _st
+    med = {k: _st.median([r[k] for r in rul if r.get(k) is not None])
+           for k in ("cents_max", "hz_max", "cents_amp_weighted")}
+    if not (med["cents_max"] < 1.0 < med["cents_amp_weighted"]):
+        fail.append(f"pin4 RULER-DEPENDENT: the medians no longer straddle 1 "
+                    f"({med}). The retraction rested on the sign REVERSING "
+                    "between the cents-max and amplitude-weighted rulers; if "
+                    "they now agree, re-adjudicate the retraction rather than "
+                    "leaving it in place")
+if d.get("verdict_amended") != ("EXACT_ISOLATION_IMPOSSIBLE_"
+                                "LOCAL_COST_CLAIM_RETRACTED_RULER_DEPENDENT"):
+    fail.append(f"pin4b RETRACTION-STANDS: verdict_amended is "
+                f"{d.get('verdict_amended')!r}. The local-cost gloss was quoted "
+                "forward into three other artifacts before it was retracted; "
+                "the token is what stops it being re-quoted")
 
 sw = d["usable_split"]
 if sw.get("unstable"):
@@ -119,9 +141,11 @@ print(f"PASS — detune impossibility, {len(rows)} ratios at I={d['I']}, "
       f"horizon A={d['A']}")
 print(f"       EXACT: 0 isolating detunes over {cands} candidates at unbounded "
       "magnitude, folds and permutations included — the theorem holds")
-print(f"       LOCAL: isolation ratio {min(lr):.3f}..{max(lr):.3f}, so splitting "
-      f"the pair by 1 cent costs {loc['cost_min']:.1f}x-{loc['cost_max']:.1f}x "
-      "that in bystander movement")
+print(f"       LOCAL: RULER-DEPENDENT, claim retracted. medians — cents-max "
+      f"{med['cents_max']:.3f}, Hz-max {med['hz_max']:.3f}, "
+      f"amplitude-weighted {med['cents_amp_weighted']:.3f}. The sign of "
+      "'costs more than it buys' flips with the weighting, and the cents-max "
+      "ruler is set by a sub-floor partial near DC")
 print(f"       the margin>1 that E3 found lives at "
       f"{loc['margin_at_cents_min']:.0f}-{loc['margin_at_cents_max']:.0f} cents "
       "— a different ratio, not a detune")

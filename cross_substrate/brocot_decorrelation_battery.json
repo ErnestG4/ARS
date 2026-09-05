@@ -356,6 +356,46 @@
   }
  },
  "verdict": "INVALID",
+ "verdict_amended": "DECORRELATION_NOT_ACHIEVED",
+ "composed_amended": {
+  "label": "DECORRELATION_NOT_ACHIEVED_AND_BY_battery members whose amplitude multiset differs from exact_COARSELY_AT_ratios where BOTH matched-pair families exist within the ratio",
+  "head": "DECORRELATION_NOT_ACHIEVED",
+  "qualifiers": [
+   "AND_BY_battery members whose amplitude multiset differs from exact",
+   "COARSELY_AT_ratios where BOTH matched-pair families exist within the ratio"
+  ],
+  "citation": "DECORRELATION_NOT_ACHIEVED  [matched-energy pairs differing in concentration 0 vs >=5 MISSED \u2014 \"concentration can be varied at fixed energy\"; |rho| over the constructed battery 0.5459 vs <=0.2 MISSED \u2014 \"the battery decorrelates them where the detune family cannot\"; ratios where BOTH matched-pair families exist within the ratio 0 vs >=5 MISSED \u2014 \"and it holds within ratios, not only pooled\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('|rho| between energy and concentration in the FM detune family', PREMISE, MET)",
+   "Arm('matched-energy pairs differing in concentration', EXISTENCE, MISSED)",
+   "Arm('matched-concentration pairs differing in energy', EXISTENCE, MET)",
+   "Arm('|rho| over the constructed battery', EXISTENCE, MISSED)",
+   "Arm('battery members whose amplitude multiset differs from exact', MECHANISM, MET)",
+   "Arm('ratios where BOTH matched-pair families exist within the ratio', RESOLUTION, MISSED)"
+  ]
+ },
+ "amendment2": {
+  "rho_fm_pooled": -0.4319590649865879,
+  "rho_fm_within": {
+   "3/4": -0.6,
+   "4/5": -0.2606060606060606,
+   "5/6": -0.8787878787878788,
+   "6/7": -0.7818181818181817,
+   "7/8": -0.7575757575757575,
+   "8/7": -0.8424242424242423,
+   "7/6": -0.6363636363636362,
+   "6/5": -0.6727272727272726,
+   "5/4": -0.12727272727272726,
+   "4/3": -0.35757575757575755,
+   "7/5": 0.01818181818181818
+  },
+  "rho_fm_within_median": 0.6363636363636362,
+  "n_ratios_clearing": 7,
+  "n_ratios": 11,
+  "why": "P1 was scored by pooling 11 ratios x 10 detunes, which this cell's own R1 forbids ('within substrate before pooled'). Within ratio the premise HOLDS (median 0.636, 7/11 individually), so the four arms below it are readable and the corrected head is the negative with its arms READ rather than INVALID with them unread. Found by adversarial review."
+ },
  "amendment1": {
   "premise_failed": true,
   "rho_fm": -0.4319590649865879,
@@ -371,13 +411,12 @@
   "label": "INVALID_|rho| between energy and concentration in the FM detune family",
   "head": "INVALID",
   "qualifiers": [],
-  "citation": "INVALID  [premise failed: |rho| between energy and concentration in the FM detune family 0.432 vs >=0.5 MISSED \u2014 \"energy and concentration really are confounded in the family the salience question was asked in\"; 4 arm(s) UNREAD -- a failed premise makes the rest unreadable, not false]",
-  "dropped": [
-   "|rho| over the constructed battery"
-  ],
+  "citation": "INVALID  [premise failed: |rho| between energy and concentration in the FM detune family 0.432 vs >=0.5 MISSED \u2014 \"energy and concentration really are confounded in the family the salience question was asked in\"; 5 arm(s) UNREAD -- a failed premise makes the rest unreadable, not false]",
+  "dropped": [],
   "unread": [
    "matched-energy pairs differing in concentration",
    "matched-concentration pairs differing in energy",
+   "|rho| over the constructed battery",
    "battery members whose amplitude multiset differs from exact",
    "ratios where BOTH matched-pair families exist within the ratio"
   ],
@@ -385,7 +424,7 @@
    "Arm('|rho| between energy and concentration in the FM detune family', PREMISE, MISSED)",
    "Arm('matched-energy pairs differing in concentration', EXISTENCE, MISSED)",
    "Arm('matched-concentration pairs differing in energy', EXISTENCE, MET)",
-   "Arm('|rho| over the constructed battery', EXISTENCE, INERT)",
+   "Arm('|rho| over the constructed battery', EXISTENCE, MISSED)",
    "Arm('battery members whose amplitude multiset differs from exact', MECHANISM, MET)",
    "Arm('ratios where BOTH matched-pair families exist within the ratio', RESOLUTION, MISSED)"
   ]

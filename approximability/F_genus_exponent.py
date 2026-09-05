@@ -64,6 +64,40 @@ SAME BATTERY, DELIBERATELY. Identical primes and families to F_reproduce, so the
 two cells differ in exactly one thing: the estimator. Changing the family at the
 same time would confound the comparison this cell exists to make.
 
+AMENDMENT 1 — THE MECHANISM IS CONFIRMED, THE CONCLUSION IS NOT. The estimator
+explains about thirty per cent of the gap, not the gap.
+
+WHAT LANDED AS PREDICTED. P1, E1 and M1 all fire. The estimators disagree
+(median 0.0498); the disagreement is genus-asymmetric at 2.51x, above the 2x
+bar; and it sits exactly where I said it would -- rho(estimator gap, deepest
+dip) = -0.500, so the curves whose two slopes disagree most are the curves that
+come closest to zero. The diagnosis F_reproduce recorded as a caveat was a
+correct account of a real effect, and it was written before this cell measured
+it.
+
+WHAT DID NOT. E2 misses: the genus gap falls from 0.1138 under OLS to 0.0800
+under Theil-Sen, still above the 0.05 bar. So the estimator accounts for roughly
+30% of the gap and a residual of 0.08 SURVIVES a robust estimator. E3 misses
+too, narrowly -- the genus-2 Theil-Sen ratio is 1.0559 against the RH value of
+1.0, over by 0.056.
+
+SO GENUS-INDEPENDENCE IS NOT RESCUED, AND IT IS ALSO NOT REFUTED, and the second
+half matters as much as the first. A THIRD account is now the live one and this
+cell cannot exclude it: FINITE VMAX. The fit uses v = 1..6 only. The 2g prefactor
+does not touch the asymptotic slope, but at small n the residual is |s_n|/p^n
+with s_n a sum of 2g eigenvalue powers, and four terms approach their asymptotic
+behaviour differently from two. A finite-window bias and a real genus dependence
+predict the same sign here, exactly as estimator bias and real dependence did
+before -- I have replaced one confounded pair with another, having bounded the
+first at 30%.
+
+That is progress and it is not an answer. The test that separates them is cheap
+and is queued rather than run here, because it changes a DECLARED parameter of a
+sealed cell after seeing the cell's output: extend vmax to 10-12 and ask whether
+the residual gap shrinks. If it shrinks toward zero the exponent is
+genus-independent and every gap so far was window and estimator; if it holds at
+0.08 the claim in MORNING_F is wrong.
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing about Session F's banked 0.9583, which
 came from a family that was never stated and cannot be recovered. This is about
 whether the EXPONENT is genus-dependent, which is a claim about all curves.
@@ -268,6 +302,23 @@ json.dump(dict(primes=PRIMES, vmax=VMAX, n=len(rows),
                gap_ols=gap_ols, gap_theil_sen=gap_ts, asymmetry=asym,
                rh_worst=rh_worst, rho_gap_vs_dip=rho_dip, rows=rows,
                bars={s["name"]: s for s in (sP, s1, s2, s3, sM)},
-               verdict=v["head"], composed=v),
+               verdict=v["head"],
+               amendment1=dict(
+                   mechanism_confirmed=True,
+                   gap_explained_fraction=float((gap_ols - gap_ts)
+                                                / max(gap_ols, 1e-12)),
+                   residual_gap=gap_ts,
+                   live_alternative="finite vmax: the fit uses v=1..6, and a "
+                                    "sum of 2g eigenvalue powers approaches "
+                                    "its asymptotic slope differently for g=2 "
+                                    "than g=1. A finite-window bias and a real "
+                                    "genus dependence predict the same sign, "
+                                    "so one confounded pair has replaced "
+                                    "another with the first bounded at ~30%",
+                   next_test="extend vmax to 10-12 and ask whether the "
+                             "residual gap shrinks; queued, not run here, "
+                             "because it changes a DECLARED parameter after "
+                             "seeing this cell's output"),
+               composed=v),
           open(f"{HERE}/F_genus_exponent.json", "w"), indent=1)
 print("\nwritten -> approximability/F_genus_exponent.json")

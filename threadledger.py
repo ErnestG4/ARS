@@ -644,7 +644,8 @@ ENTRIES = [
     # ------------------------------------------------------------------
     dict(id="detune-impossibility", status=LANDED,
          artifact="cross_substrate/brocot_detune_impossibility.json",
-         verdict="EXACT_ISOLATION_IMPOSSIBLE_LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
+         verdict="EXACT_ISOLATION_IMPOSSIBLE_"
+                 "LOCAL_COST_CLAIM_RETRACTED_RULER_DEPENDENT",
          warrant=[("cross_substrate/brocot_modulation_cue.json",
                    "STIMULUS_CONTRAST_IS_CLEAN",
                    "STRUCTURAL/the twin is a different spectrum"),
@@ -675,9 +676,17 @@ ENTRIES = [
               "8 to 15 semitones, a different ratio rather than a detune. The "
               "post-hoc local statistic, labelled as post-hoc: separating the "
               "witness pair by one cent costs 2.4x to 7.4x that much bystander "
-              "movement, linear to 0.75% across a 50x tolerance sweep. Ratio "
-              "detune is not merely unable to isolate; locally it is "
-              "ANTI-selective.\n"
+              "movement. **RETRACTED 2026-09-05 by adversarial review** -- that "
+              "held only under an unweighted cents-max ruler, which is an "
+              "extreme-value pick of whichever partial is nearest DC, and every "
+              "driver of it sat at 31-110 Hz AT the 1e-4 render floor (~-76 dB). "
+              "The sign REVERSES under an Hz ruler (median 1.25, 5/8 favourable) "
+              "and under an amplitude-weighted cents ruler (median 1.15, 7/8), "
+              "and the second is the one that tracks audibility. E3's own Bar "
+              "`why` defended its range in Hz while the statistic was in cents "
+              "-- a commensurability failure inside the guard's call site. "
+              "pitch_floor_hz was DECLARED and never swept and no arm guarded "
+              "it. THE EXACT ARM IS UNTOUCHED: E2 is ruler-free.\n"
               "TWO INSTRUMENT DEFECTS CAUGHT BY THE CELL'S OWN MECHANISM ARM, "
               "both recorded as Amendment 1 rather than quietly fixed. (a) The "
               "lattice really does put partials at DC -- (2,-4) at alpha=3/4 "
@@ -709,6 +718,16 @@ ENTRIES = [
                    "EXACT_ISOLATION_IMPOSSIBLE_LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
                    "STRUCTURAL/theorem-grade on the exact arm, measured on the "
                    "local one")],
+         # RE-ADJUDICATED 2026-09-05: the local half of that warrant was
+         # RETRACTED as ruler-dependent hours after this row landed. The row is
+         # unaffected in substance -- its warrant was always "theorem-grade on
+         # the EXACT arm", and the exact arm is ruler-free and untouched. What
+         # changes is that the apparatus can no longer cite the local cost as
+         # part of its motivation, and its docstring has been corrected to say
+         # so.
+         warrant_reviewed=[("cross_substrate/brocot_detune_impossibility.json",
+                            "EXACT_ISOLATION_IMPOSSIBLE_"
+                            "LOCAL_COST_CLAIM_RETRACTED_RULER_DEPENDENT")],
          request="additive resynthesis as the contrast apparatus: render the "
                  "exact spectrum from its own partial list (26-31 knobs at "
                  "I=0.9), then build the twin by moving ONLY the witness pair "
@@ -759,7 +778,7 @@ ENTRIES = [
 
     dict(id="decorrelation-battery", status=LANDED,
          artifact="cross_substrate/brocot_decorrelation_battery.json",
-         verdict="INVALID",
+         verdict="DECORRELATION_NOT_ACHIEVED",
          warrant=[("cross_substrate/brocot_cue_salience.json",
                    "SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED",
                    "MECHANISM/open -- selected max + undiscriminating arm"),
@@ -773,9 +792,22 @@ ENTRIES = [
                  "decorrelate the two accounts brocot_cue_salience could not "
                  "separate. Constructible under resynthesis; NEVER constructible "
                  "by ratio detune, where one alpha moves both together.",
-         note="LANDED 2026-09-05 as a NEGATIVE, three ways, and the row stays "
-              "open in spirit via decorrelation-battery-v2 below.\n"
-              "(1) INVALID AT ITS OWN PREMISE. P1 asked whether energy and "
+         note="LANDED 2026-09-05 as a NEGATIVE, and CORRECTED the same night "
+              "after adversarial review. The row stays open in spirit via "
+              "decorrelation-battery-v2 below.\n"
+              "(0) THE INVALID VERDICT WAS AN ARTIFACT OF MY OWN POOLING. P1 "
+              "was scored by pooling 11 ratios x 10 detunes into one Spearman, "
+              "which this cell's OWN R1 arm forbids -- 'within substrate before "
+              "pooled'. I applied that doctrine to the battery arms and not to "
+              "the premise arm that killed the run. Within ratio the premise "
+              "HOLDS: median |rho| 0.636, and 7 of 11 ratios clear 0.5 "
+              "individually, against 0.432 pooled. So the amended head is "
+              "DECORRELATION_NOT_ACHIEVED with its arms READ, which is a "
+              "STRONGER negative than INVALID with them unread -- the "
+              "correction removes the excuse that the battery was never "
+              "properly tested, rather than rescuing it. Sealed P1 preserved; "
+              "correction additive and labelled.\n"
+              "(1) [SEALED READING] INVALID AT ITS OWN PREMISE. P1 asked whether energy and "
               "concentration really are confounded in the FM detune family: "
               "|rho| = 0.432 against a 0.5 bar. MISSED, so the lattice refuses "
               "and the four arms below are UNREAD -- not false, unread. The "
@@ -827,6 +859,15 @@ ENTRIES = [
                    "APPARATUS_IS_FAITHFUL_AND_CARRIES_THE_CUE_"
                    "WHERE_THE_WITNESS_PAIR_IS_AUDIBLE",
                    "STRUCTURAL/the apparatus still stands")],
+         # RE-ADJUDICATED 2026-09-05, hours after minting. v1's head moved from
+         # INVALID to DECORRELATION_NOT_ACHIEVED when adversarial review found
+         # its premise had been scored by pooling, which v1's own R1 forbids.
+         # The direction matters for THIS row: v1's premise HOLDS after all, so
+         # obligation (a) below inverts -- v2 does not have to defend a weaker
+         # premise or drop it, it has to score the one it has correctly, WITHIN
+         # RATIO, from the start.
+         warrant_reviewed=[("cross_substrate/brocot_decorrelation_battery.json",
+                            "DECORRELATION_NOT_ACHIEVED")],
          request="rebuild the battery with a REAL concentration knob. v1 varied "
                  "subset size and always assigned DISTINCT beat rates, so the "
                  "one contrast that would actually concentrate the modulation "
@@ -840,12 +881,13 @@ ENTRIES = [
               "its own sealed predictions and its own commit, and v1's "
               "negative stays on the record with its diagnosis pinned by "
               "verify_decorrelation_battery.\n"
-              "TWO OBLIGATIONS v2 INHERITS. (a) P1 must be RE-POSED, not "
-              "reused: v1's premise bar of 0.5 was missed at 0.432, so 'the FM "
-              "family confounds them' is not established at that strength and "
-              "v2 cannot quietly assume it. Either defend a lower bar in "
-              "advance or drop the premise and make the battery's value an "
-              "unconditional claim. (b) The scope must be ONE set, stated once: "
+              "TWO OBLIGATIONS v2 INHERITS. (a) REVISED 2026-09-05: P1 does "
+              "NOT need re-posing downward. v1's premise looked failed at 0.432 "
+              "only because it was scored by pooling; within ratio it holds at "
+              "median 0.636 with 7 of 11 clearing individually. So the confound "
+              "IS established at the sealed strength, and v2's obligation is "
+              "the narrower one of scoring it within ratio from the start -- "
+              "the same rule v1 stated in R1 and then broke in P1. (b) The scope must be ONE set, stated once: "
               "7 or 11, decided before the run and not narrated afterwards.\n"
               "AND THE DESIGN-TIME RULE FROM THE APPARATUS CELL APPLIES HERE "
               "TOO: each arm names the ruler appropriate to ITS OWN axis. "

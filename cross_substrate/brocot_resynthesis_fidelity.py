@@ -8,8 +8,14 @@ WHY THIS CELL EXISTS
 `brocot_detune_impossibility` closed the ratio-detune route. Exactly: over 2306
 candidate detunes across 8 ratios, at unbounded magnitude, folds and permutations
 included, none returns the bystander spectrum to itself while splitting the
-witness pair. Locally it is worse than useless -- separating the pair by one cent
-costs 2.4x to 7.4x that much bystander movement.
+witness pair.
+
+[CORRECTED 2026-09-05.] This paragraph originally continued "locally it is worse
+than useless -- separating the pair by one cent costs 2.4x to 7.4x that much
+bystander movement." THAT IS RETRACTED: it held only under an unweighted
+cents-max ruler dominated by a sub-floor partial near DC, and reverses under an
+amplitude-weighted one. The case for this apparatus rests on the EXACT arm
+above, which is ruler-free, and not on the local cost.
 
 So the contrast has to be BUILT rather than dialled. Render the exact spectrum
 additively from its own partial list, then make the twin by moving ONLY the

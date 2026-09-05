@@ -53,11 +53,21 @@ d = json.load(open(SRC))
 a = d["amendment1"]
 fail = []
 
-if abs(a["rho_fm"]) >= 0.5:
-    fail.append(f"pin1 PREMISE: |rho| in the FM family is now "
-                f"{abs(a['rho_fm']):.3f} >= 0.5, so the premise HOLDS and the "
-                "four arms this cell left UNREAD are now readable. "
-                "Re-adjudicate; do not leave the verdict at INVALID")
+a2 = d.get("amendment2") or {}
+if not a2:
+    fail.append("pin1a PREMISE-SCORING: amendment2 is gone. The sealed P1 was "
+                "scored by POOLING 11 ratios, which this cell's own R1 forbids; "
+                "the within-ratio scoring is what makes the arms readable and "
+                "it must stay recorded beside the seal")
+elif a2["rho_fm_within_median"] < 0.5:
+    fail.append(f"pin1 PREMISE: the WITHIN-RATIO premise is now "
+                f"{a2['rho_fm_within_median']:.3f} < 0.5, so the confound no "
+                "longer holds even scored correctly and the amended verdict "
+                "must go back to INVALID")
+if d.get("verdict_amended") != "DECORRELATION_NOT_ACHIEVED":
+    fail.append(f"pin1b AMENDED HEAD is {d.get('verdict_amended')!r}. With the "
+                "premise scored within-ratio the arms are READ, and three of "
+                "them miss; anything else means the composition changed")
 if abs(a["rho_battery"]) < abs(a["rho_fm"]):
     fail.append(f"pin2 BATTERY-NOT-BETTER: the battery ({abs(a['rho_battery']):.3f}) "
                 f"is now LESS correlated than the FM family ({abs(a['rho_fm']):.3f}). "

@@ -99,6 +99,11 @@
    "p": 5,
    "q": 7,
    "local_isolation_ratio": 0.13431166279441753,
+   "rulers": {
+    "cents_max": 0.13461346374810512,
+    "hz_max": 1.7499999999354052,
+    "cents_amp_weighted": 1.7191965547240629
+   },
    "local_cost_factor": 7.44536981520836,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -128,6 +133,11 @@
    "p": 3,
    "q": 4,
    "local_isolation_ratio": 0.22066465553746656,
+   "rulers": {
+    "cents_max": 0.2222235555725441,
+    "hz_max": 0.9999999998708105,
+    "cents_amp_weighted": 1.1021058708155371
+   },
    "local_cost_factor": 4.531763356321513,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -157,6 +167,11 @@
    "p": 4,
    "q": 5,
    "local_isolation_ratio": 0.1776934936684937,
+   "rulers": {
+    "cents_max": 0.17857315051849568,
+    "hz_max": 1.2500000000645948,
+    "cents_amp_weighted": 1.2204097832605956
+   },
    "local_cost_factor": 5.627668066820766,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -186,6 +201,11 @@
    "p": 5,
    "q": 6,
    "local_isolation_ratio": 0.33181525863280575,
+   "rulers": {
+    "cents_max": 0.33333533337094834,
+    "hz_max": 1.5000000001291895,
+    "cents_amp_weighted": 1.1549830937711607
+   },
    "local_cost_factor": 3.013725179849618,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -215,6 +235,11 @@
    "p": 6,
    "q": 5,
    "local_isolation_ratio": 0.4167814947146267,
+   "rulers": {
+    "cents_max": 0.4166649739221037,
+    "hz_max": 1.2499999999677025,
+    "cents_amp_weighted": 1.0853687883285228
+   },
    "local_cost_factor": 2.3993387726696147,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -244,6 +269,11 @@
    "p": 5,
    "q": 4,
    "local_isolation_ratio": 0.22148719357235472,
+   "rulers": {
+    "cents_max": 0.2222208889017653,
+    "hz_max": 0.9999999998708105,
+    "cents_amp_weighted": 1.1438119792683301
+   },
    "local_cost_factor": 4.514933725381839,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -273,6 +303,11 @@
    "p": 4,
    "q": 3,
    "local_isolation_ratio": 0.3000239838110466,
+   "rulers": {
+    "cents_max": 0.299999009962971,
+    "hz_max": 0.7499999998062156,
+    "cents_amp_weighted": 0.9994979212351051
+   },
    "local_cost_factor": 3.333066867846786,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -302,6 +337,11 @@
    "p": 7,
    "q": 5,
    "local_isolation_ratio": 0.1507720338443338,
+   "rulers": {
+    "cents_max": 0.1515162533948745,
+    "hz_max": 1.2499999999031077,
+    "cents_amp_weighted": 1.4676609315296207
+   },
    "local_cost_factor": 6.632529750394299,
    "n_partials": 69,
    "n_bystanders": 67,
@@ -334,6 +374,11 @@
     "p": 5,
     "q": 7,
     "local_isolation_ratio": 0.13431166279441753,
+    "rulers": {
+     "cents_max": 0.13461346374810512,
+     "hz_max": 1.7499999999354052,
+     "cents_amp_weighted": 1.7191965547240629
+    },
     "local_cost_factor": 7.44536981520836,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -363,6 +408,11 @@
     "p": 3,
     "q": 4,
     "local_isolation_ratio": 0.22066465553746656,
+    "rulers": {
+     "cents_max": 0.2222235555725441,
+     "hz_max": 0.9999999998708105,
+     "cents_amp_weighted": 1.1021058708155371
+    },
     "local_cost_factor": 4.531763356321513,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -392,6 +442,11 @@
     "p": 4,
     "q": 5,
     "local_isolation_ratio": 0.1776934936684937,
+    "rulers": {
+     "cents_max": 0.17857315051849568,
+     "hz_max": 1.2500000000645948,
+     "cents_amp_weighted": 1.2204097832605956
+    },
     "local_cost_factor": 5.627668066820766,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -421,6 +476,11 @@
     "p": 5,
     "q": 6,
     "local_isolation_ratio": 0.33181525863280575,
+    "rulers": {
+     "cents_max": 0.33333533337094834,
+     "hz_max": 1.5000000001291895,
+     "cents_amp_weighted": 1.1549830937711607
+    },
     "local_cost_factor": 3.013725179849618,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -450,6 +510,11 @@
     "p": 6,
     "q": 5,
     "local_isolation_ratio": 0.4167814947146267,
+    "rulers": {
+     "cents_max": 0.4166649739221037,
+     "hz_max": 1.2499999999677025,
+     "cents_amp_weighted": 1.0853687883285228
+    },
     "local_cost_factor": 2.3993387726696147,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -479,6 +544,11 @@
     "p": 5,
     "q": 4,
     "local_isolation_ratio": 0.22148719357235472,
+    "rulers": {
+     "cents_max": 0.2222208889017653,
+     "hz_max": 0.9999999998708105,
+     "cents_amp_weighted": 1.1438119792683301
+    },
     "local_cost_factor": 4.514933725381839,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -508,6 +578,11 @@
     "p": 4,
     "q": 3,
     "local_isolation_ratio": 0.3000239838110466,
+    "rulers": {
+     "cents_max": 0.299999009962971,
+     "hz_max": 0.7499999998062156,
+     "cents_amp_weighted": 0.9994979212351051
+    },
     "local_cost_factor": 3.333066867846786,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -537,6 +612,11 @@
     "p": 7,
     "q": 5,
     "local_isolation_ratio": 0.1507720338443338,
+    "rulers": {
+     "cents_max": 0.1515162533948745,
+     "hz_max": 1.2499999999031077,
+     "cents_amp_weighted": 1.4676609315296207
+    },
     "local_cost_factor": 6.632529750394299,
     "n_partials": 69,
     "n_bystanders": 67,
@@ -568,6 +648,11 @@
     "p": 5,
     "q": 7,
     "local_isolation_ratio": 0.13431166279441753,
+    "rulers": {
+     "cents_max": 0.13461346374810512,
+     "hz_max": 1.7499999999354052,
+     "cents_amp_weighted": 1.71919654884554
+    },
     "local_cost_factor": 7.44536981520836,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -597,6 +682,11 @@
     "p": 3,
     "q": 4,
     "local_isolation_ratio": 0.22066465553746656,
+    "rulers": {
+     "cents_max": 0.2222235555725441,
+     "hz_max": 0.9999999998708105,
+     "cents_amp_weighted": 1.102105870259016
+    },
     "local_cost_factor": 4.531763356321513,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -626,6 +716,11 @@
     "p": 4,
     "q": 5,
     "local_isolation_ratio": 0.1776934936684937,
+    "rulers": {
+     "cents_max": 0.17857315051849568,
+     "hz_max": 1.249999999741621,
+     "cents_amp_weighted": 1.2204097832489176
+    },
     "local_cost_factor": 5.627668066820766,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -655,6 +750,11 @@
     "p": 5,
     "q": 6,
     "local_isolation_ratio": 0.33181525863280575,
+    "rulers": {
+     "cents_max": 0.33333533337094834,
+     "hz_max": 1.5000000001291895,
+     "cents_amp_weighted": 1.1549830946148596
+    },
     "local_cost_factor": 3.013725179849618,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -684,6 +784,11 @@
     "p": 6,
     "q": 7,
     "local_isolation_ratio": 0.5250533483899468,
+    "rulers": {
+     "cents_max": 0.5250022662497502,
+     "hz_max": 1.7499999999354052,
+     "cents_amp_weighted": 1.2217287300165742
+    },
     "local_cost_factor": 1.9045683701788712,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -713,6 +818,11 @@
     "p": 7,
     "q": 8,
     "local_isolation_ratio": 0.6659217156855236,
+    "rulers": {
+     "cents_max": 0.6666640000171917,
+     "hz_max": 1.999999999741621,
+     "cents_amp_weighted": 1.1687302029257507
+    },
     "local_cost_factor": 1.501678014765691,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -742,6 +852,11 @@
     "p": 8,
     "q": 7,
     "local_isolation_ratio": 0.4743275384788373,
+    "rulers": {
+     "cents_max": 0.4772703481388892,
+     "hz_max": 1.749999999741621,
+     "cents_amp_weighted": 1.116690192195552
+    },
     "local_cost_factor": 2.1082478221841976,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -771,6 +886,11 @@
     "p": 7,
     "q": 6,
     "local_isolation_ratio": 0.3312855855372417,
+    "rulers": {
+     "cents_max": 0.3333313333524441,
+     "hz_max": 1.5000000000645948,
+     "cents_amp_weighted": 1.165263379422685
+    },
     "local_cost_factor": 3.0185436483096977,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -800,6 +920,11 @@
     "p": 6,
     "q": 5,
     "local_isolation_ratio": 0.15567727314516527,
+    "rulers": {
+     "cents_max": 0.15624838866481564,
+     "hz_max": 1.2499999998062157,
+     "cents_amp_weighted": 1.0853687887502323
+    },
     "local_cost_factor": 6.423545195755866,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -829,6 +954,11 @@
     "p": 5,
     "q": 4,
     "local_isolation_ratio": 0.22148719357235472,
+    "rulers": {
+     "cents_max": 0.2222208889017653,
+     "hz_max": 0.9999999998708105,
+     "cents_amp_weighted": 1.1438119798212671
+    },
     "local_cost_factor": 4.514933725381839,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -858,6 +988,11 @@
     "p": 4,
     "q": 3,
     "local_isolation_ratio": 0.14926192183419557,
+    "rulers": {
+     "cents_max": 0.15000085498250584,
+     "hz_max": 0.7499999998062156,
+     "cents_amp_weighted": 0.9994979199864279
+    },
     "local_cost_factor": 6.699632349038281,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -887,6 +1022,11 @@
     "p": 7,
     "q": 5,
     "local_isolation_ratio": 0.1507720338443338,
+    "rulers": {
+     "cents_max": 0.1515162533948745,
+     "hz_max": 1.2499999999031077,
+     "cents_amp_weighted": 1.4676609266815088
+    },
     "local_cost_factor": 6.632529750394299,
     "n_partials": 81,
     "n_bystanders": 79,
@@ -1106,8 +1246,8 @@
   }
  },
  "verdict": "ISOLATING_DETUNE_EXISTS",
- "verdict_amended": "EXACT_ISOLATION_IMPOSSIBLE_LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
- "amendment": "E3's sealed prediction was wrong and the head is read off the arm as sealed. What the miss locates: the margin lives at 814-1499 cents, a different ratio rather than a detune, while in the local regime separating the witness pair by one cent costs 2.4x to 7.5x that much bystander movement. E2 is untouched and is the theorem: no delta of any magnitude returns the bystander spectrum to itself while splitting the witnesses, folds and permutations included, over 2306 exact candidates.",
+ "verdict_amended": "EXACT_ISOLATION_IMPOSSIBLE_LOCAL_COST_CLAIM_RETRACTED_RULER_DEPENDENT",
+ "amendment": "E3's sealed prediction was wrong and the head is read off the arm as sealed. What the miss locates: the margin lives at 814-1499 cents, a different ratio rather than a detune, while in the local regime separating the witness pair by one cent costs 2.4x to 7.5x that much bystander movement [THIS CLAUSE RETRACTED BY AMENDMENT 3: ruler-dependent in sign; see verdict_amended and the per-ratio `rulers` field]. E2 is untouched and is the theorem: no delta of any magnitude returns the bystander spectrum to itself while splitting the witnesses, folds and permutations included, over 2306 exact candidates.",
  "composed": {
   "label": "ISOLATING_DETUNE_EXISTS_AND_BY_max relative deviation from the lattice-fixed direction, off corners_AT_ratios whose margin OR usable split moves when the grid is doubled",
   "head": "ISOLATING_DETUNE_EXISTS",

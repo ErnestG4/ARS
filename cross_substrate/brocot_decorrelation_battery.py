@@ -19,9 +19,11 @@ SKIP_STRUCTURE_IS_REAL_MECHANISM_UNRESOLVED for exactly this reason, and the
 rival rule and the swing rule were both minted from its wreckage.
 
 `brocot_detune_impossibility` then closed the route formally: no detune of any
-magnitude splits a witness pair while returning the rest, and locally the attempt
-costs 2.4x to 7.4x more collateral than it buys. So the decorrelation cannot be
-dialled. It has to be built.
+magnitude splits a witness pair while returning the rest. [CORRECTED 2026-09-05:
+this sentence originally added "and locally the attempt costs 2.4x to 7.4x more
+collateral than it buys". RETRACTED -- ruler-dependent in sign, and reversed
+under an amplitude-weighted ruler.] The EXACT result is what stands, and it is
+enough: the decorrelation cannot be dialled, so it has to be built.
 
 WHAT THE APPARATUS MAKES POSSIBLE
 ---------------------------------
@@ -131,6 +133,44 @@ splits arbitrary coincident bins and never touches the witness pair, so
 "carries the cue" was never the binding constraint here -- but that argument is
 one I am making now, after the fact, and the sealed text says 7. Recorded as a
 mismatch rather than resolved in the direction that flatters the run.
+
+AMENDMENT 2 — P1 WAS SCORED BY POOLING, WHICH THIS CELL'S OWN R1 FORBIDS, AND
+THE INVALID VERDICT WAS AN ARTIFACT OF THAT. Found by adversarial review, not by
+me.
+
+R1 above reads: "WITHIN SUBSTRATE BEFORE POOLED ... Pooling across ratios
+manufactures spread and would let a between-ratio effect masquerade as a
+constructible contrast." I applied that doctrine to the battery arms and then
+scored the PREMISE arm -- the one that killed the run -- on a single Spearman
+over all 11 ratios x 10 detunes pooled together.
+
+Scored the way this cell's own methodology demands:
+
+    pooled (what P1 scored)        |rho| = 0.4320   MISSES the 0.5 bar
+    within-ratio median            |rho| = 0.6360   MEETS it
+    ratios individually clearing 0.5              7 of 11
+
+So the confound between energy and concentration in the FM detune family is
+REAL, at the strength the premise asked for, and the INVALID verdict came from
+scoring it with the instrument the cell elsewhere refuses.
+
+WHAT THIS CHANGES, AND WHICH DIRECTION. The premise holds, so the four arms below
+it become READABLE rather than unread -- and they are the negative. E1 is zero
+matched-energy pairs at every ratio; E3 is a battery MORE correlated (0.546) than
+the family it replaces (0.432). The corrected reading is therefore
+DECORRELATION_NOT_ACHIEVED with its arms read, which is a STRONGER and better
+supported negative than INVALID with nothing readable. The correction does not
+rescue the battery; it removes the excuse that the battery was never properly
+tested.
+
+HOW IT IS RECORDED. The sealed P1 stays in the artifact exactly as scored, and
+the corrected within-ratio premise is reported beside it, with `verdict_amended`
+carrying the corrected head. Re-scoring an arm after seeing it fail is the move
+this repo's seals exist to prevent, so the discipline is: the seal is not
+rewritten, the correction is additive and labelled, and the reason it is
+legitimate is stated -- the arm violated the cell's OWN stated rule, and an
+outside reviewer found it, and the fix makes the result worse for the
+hypothesis rather than better.
 
 WHAT THIS CELL DOES NOT CLAIM. Nothing about what any listener hears. It says a
 CONTRAST IS CONSTRUCTIBLE. Whether concentration or energy drives the skips is a
@@ -349,16 +389,24 @@ for r in RATIOS:
                      conc_span=float(C.max() / max(C.min(), 1e-300))))
 
 # --- the RIVAL: the FM detune family, where the two are confounded
-fe, fc = [], []
+fe, fc, fm_per_ratio = [], [], {}
 for r in RATIOS:
-    bd = bins_of(r)
     Se = modspec(fm_render(float(r)))
+    ee, cc = [], []
     for cents in FM_CENTS:
         v = banded_diff(modspec(fm_render(float(r) * 2 ** (cents / 1200.0))), Se)
         if v.sum() > 0:
-            fe.append(float(v.sum()))
-            fc.append(concentration(v))
+            ee.append(float(v.sum()))
+            cc.append(concentration(v))
+    fm_per_ratio[str(r)] = (ee, cc)
+    fe += ee
+    fc += cc
 rho_fm = float(spearmanr(fe, fc).statistic)
+# AMENDMENT 2: the premise, scored WITHIN RATIO as R1 demands.
+rho_fm_within = {k: float(spearmanr(v[0], v[1]).statistic)
+                 for k, v in fm_per_ratio.items() if len(v[0]) > 3}
+rho_fm_median = float(np.median([abs(x) for x in rho_fm_within.values()]))
+n_clear = sum(1 for x in rho_fm_within.values() if abs(x) >= PREMISE_BAR)
 rho_batt = float(spearmanr(pooled_e, pooled_c).statistic)
 
 print(INSTRUMENT.report())
@@ -409,7 +457,10 @@ s3 = E3.score(abs(rho_batt), rival_value=abs(rho_fm))
 sM, sR = M1.score(n_amp_bad), R1.score(r1)
 
 print()
-print("  " + P1.line(abs(rho_fm), "{:.3f}"))
+print("  " + P1.line(abs(rho_fm), "{:.3f}") + "   [SEALED, pooled]")
+print("  " + P1.line(rho_fm_median, "{:.3f}")
+      + f"   [AMENDMENT 2, within-ratio median; {n_clear}/{len(rho_fm_within)} "
+        "ratios clear individually]")
 print("  " + E1.line(e1, "{:.0f}"))
 print("  " + E2.line(e2, "{:.0f}"))
 print("  " + E3.line(abs(rho_batt), "{:.3f}", rival_value=abs(rho_fm)))
@@ -432,6 +483,15 @@ arms = [Arm.from_bar(sP, PRE_ROLE,
                      claim="and it holds within ratios, not only pooled")]
 v = compose(arms, holds="BATTERY_IS_CONSTRUCTIBLE",
             fails="DECORRELATION_NOT_ACHIEVED")
+# the corrected lattice: identical arms, premise scored within-ratio
+arms_amended = [Arm.from_bar(P1.score(rho_fm_median), PRE_ROLE,
+                             claim="energy and concentration are confounded in "
+                                   "the FM family, scored within ratio as R1 "
+                                   "demands")] + arms[1:]
+v_amended = compose(arms_amended, holds="BATTERY_IS_CONSTRUCTIBLE",
+                    fails="DECORRELATION_NOT_ACHIEVED")
+print(f"\nSEALED   : {v['citation']}")
+print(f"AMENDED  : {v_amended['citation']}")
 print(f"\nrho: FM family {rho_fm:+.3f}   constructed battery {rho_batt:+.3f}")
 print(f"VERDICT: {v['citation']}")
 
@@ -448,6 +508,19 @@ json.dump(dict(I=I_MUS, B=B, sr=SR, duration_s=DUR, f_c=F_C, floor=FLOOR,
                ratios_with_both=r1, amplitude_violations=n_amp_bad,
                bars={s["name"]: s for s in (sP, s1, s2, s3, sM, sR)},
                verdict=v["head"],
+               verdict_amended=v_amended["head"],
+               composed_amended=v_amended,
+               amendment2=dict(
+                   rho_fm_pooled=rho_fm, rho_fm_within=rho_fm_within,
+                   rho_fm_within_median=rho_fm_median,
+                   n_ratios_clearing=n_clear, n_ratios=len(rho_fm_within),
+                   why="P1 was scored by pooling 11 ratios x 10 detunes, which "
+                       "this cell's own R1 forbids ('within substrate before "
+                       "pooled'). Within ratio the premise HOLDS (median 0.636, "
+                       "7/11 individually), so the four arms below it are "
+                       "readable and the corrected head is the negative with "
+                       "its arms READ rather than INVALID with them unread. "
+                       "Found by adversarial review."),
                amendment1=dict(
                    premise_failed=True, rho_fm=rho_fm, rho_battery=rho_batt,
                    conc_span_min=float(min(r["conc_span"] for r in rows)),

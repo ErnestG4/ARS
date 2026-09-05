@@ -192,6 +192,64 @@ THE TWO ANSWERS, WHICH ARE NOT IN TENSION:
   (2.4x to 7.5x against you) and only becomes favourable once the detune is
   large enough to be a different ratio.
 
+AMENDMENT 3 — THE LOCAL COST CLAIM IS RETRACTED. IT WAS RULER-DEPENDENT IN SIGN,
+AND THE RULER I USED IS DOMINATED BY AN INAUDIBLE PARTIAL. Found by adversarial
+review.
+
+E2 IS UNAFFECTED AND STILL STANDS. It is exact, unbounded in magnitude, decided
+in rational arithmetic over a complete candidate set, and involves NO RULER AT
+ALL: no delta returns the bystander SPECTRUM to itself while splitting the
+witness pair. 2306 candidates, folds and permutations included, zero returns.
+Nothing below touches it.
+
+WHAT IS RETRACTED is Amendment 2's gloss -- "separating the witness pair by one
+cent costs 2.4x to 7.4x that much bystander movement" -- which was quoted
+forward into the resynthesis cell, the decorrelation cell, the ledger and the
+capability report.
+
+The local ratio divided the witness split by the MAX bystander displacement in
+CENTS. Three things are wrong with that, and each was invisible from inside the
+cell:
+
+  (a) THE MAX IS AN EXTREME-VALUE PICK OF WHATEVER IS NEAREST DC. In cents the
+      displacement rate goes as 1/f, so the lowest-frequency moving partial
+      dominates by construction. Every driver of the reported ratio sits at
+      31-110 Hz with amplitude 1.5e-4 to 1.4e-3 -- at or barely above the 1e-4
+      render floor, about -76 dB. The headline was set by a partial nobody can
+      hear.
+
+  (b) pitch_floor_hz WAS DECLARED AND NEVER SWEPT, and no arm guarded it; R1
+      guards the delta grid only. Raising it moves the ratio monotonically and
+      flips the conclusion.
+
+  (c) THE SIGN REVERSES UNDER EVERY OTHER REASONABLE RULER:
+
+          cents, unweighted max       median 0.317    0 of 12 ratios buy > cost
+          Hz,    unweighted max       median 1.375    9 of 12
+          cents, AMPLITUDE-WEIGHTED   median 1.160   11 of 12
+
+      The third is the one that should have been used. Weighting each
+      bystander's displacement by how loud it is IS what "disturbed the rest"
+      means; an unweighted max over a set containing sub-floor partials answers
+      a different question. Under it, ratio detune BUYS more than it costs at
+      eleven of twelve ratios -- the opposite of what I published.
+
+AND THE BAR ITSELF WAS INCOHERENT, which should have caught this before any
+reviewer did. E3's `why` defends its reachable range in the Hz ruler -- "margin
+> 1 is reachable whenever the witness split rate q exceeds the largest bystander
+rate B" -- while the statistic it guards is computed in CENTS. Under the Hz
+ruler the local ratio is exactly q/B, reproducing to three decimals. A bar whose
+range defence and whose statistic use different rulers is the commensurability
+failure this repo keeps a four-clause check for, sitting inside the guard
+module's own call site.
+
+WHAT REPLACES IT: all three rulers are computed and reported, none is privileged
+in the verdict token, and the honest summary is that ratio detune's LOCAL
+selectivity is a function of how the bystanders are weighted and is FAVOURABLE
+under the weighting that tracks audibility. The case for the resynthesis
+apparatus therefore rests on E2 -- exact isolation impossible at any magnitude --
+and not on the local cost, which is what I had been leaning on.
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing here is about audibility. It is a
 statement about what the FM synthesis path can express, under two operators, the
 direct channel, sine carriers, at index I, over the ratios the horizon puts in
@@ -442,8 +500,34 @@ def analyse(alpha, floor):
     # witness separation against largest bystander displacement. Not an arm.
     lin = usable[f"{PREREG_TAU:g}"] / PREREG_TAU
 
+    # AMENDMENT 3: the same quantity under three rulers, because the sign of the
+    # conclusion depends on the choice and the cents-max ruler is dominated by a
+    # sub-floor partial near DC.
+    dd = 1e-6
+    af = float(alpha)      # the vectorised scan refactor removed the earlier one
+    fw1 = F_C * abs(arg_at(*w1, af + dd))
+    fw2 = F_C * abs(arg_at(*w2, af + dd))
+    sc = abs(1200.0 * np.log2(fw1 / fw2))
+    sh = abs(fw1 - fw2)
+    mbc = mbh = num = den = 0.0
+    for n1, n2, amp in byst:
+        if n2 == 0:
+            continue
+        f0 = F_C * abs(arg_at(n1, n2, af))
+        f1 = F_C * abs(arg_at(n1, n2, af + dd))
+        mbh = max(mbh, abs(f1 - f0))
+        if f0 >= PITCH_FLOOR_HZ:
+            c = abs(1200.0 * np.log2(f1 / f0))
+            mbc = max(mbc, c)
+            num += (amp ** 2) * (c ** 2)
+            den += amp ** 2
+    awrms = (num / den) ** 0.5 if den > 0 else float("inf")
+    rulers = dict(cents_max=(sc / mbc if mbc > 0 else None),
+                  hz_max=(sh / mbh if mbh > 0 else None),
+                  cents_amp_weighted=(sc / awrms if awrms > 0 else None))
+
     return dict(ratio=str(alpha), p=p, q=q,
-                local_isolation_ratio=float(lin),
+                local_isolation_ratio=float(lin), rulers=rulers,
                 local_cost_factor=(float(1.0 / lin) if lin > 0 else None),
                 n_partials=len(idx), n_bystanders=len(byst),
                 n_moving=len(moving), n_frozen_byst=len(byst) - len(moving),
@@ -624,8 +708,20 @@ print(f"  margin is achieved at {min(mac):.0f} to {max(mac):.0f} cents of detune
       f"— 8 to 15 semitones, i.e. a different ratio, not a detune")
 print(f"  local isolation ratio  min {min(lr):.4f}  median "
       f"{float(np.median(lr)):.4f}  max {max(lr):.4f}")
-print(f"  read as cost: separating the pair by 1 cent costs "
-      f"{min(cf):.1f}x to {max(cf):.1f}x that in bystander movement")
+print(f"  read as cost under the CENTS-MAX ruler only: "
+      f"{min(cf):.1f}x to {max(cf):.1f}x -- RETRACTED, see below")
+print("\nAMENDMENT 3 — THE SAME QUANTITY UNDER THREE RULERS. The sign of the "
+      "conclusion\n  depends on the choice, so none is privileged and the "
+      "Amendment 2 gloss is RETRACTED:")
+for key, label in (("cents_max", "cents, unweighted max"),
+                   ("hz_max", "Hz, unweighted max"),
+                   ("cents_amp_weighted", "cents, AMPLITUDE-WEIGHTED")):
+    vals = [r["rulers"][key] for r in ROWS if r["rulers"][key] is not None]
+    print(f"    {label:<27s} median {float(np.median(vals)):.3f}   "
+          f"{sum(1 for x in vals if x > 1)} of {len(vals)} ratios BUY > COST")
+print("  The amplitude-weighted ruler tracks audibility, and under it ratio "
+      "detune\n  BUYS more than it costs almost everywhere. E2 is untouched: "
+      "exact,\n  unbounded, and ruler-free.")
 
 arms = [Arm.from_bar(sP, PRE_ROLE,
                      claim="the witness pair coincides exactly, so there is "
@@ -681,13 +777,16 @@ json.dump(dict(I=I_MUS, B=B, A=A, f_c=F_C, floors=FLOORS,
                # third significant figure, which is how a token outlives the
                # measurement it names. The range lives in the data.
                verdict_amended="EXACT_ISOLATION_IMPOSSIBLE_"
-                               "LOCAL_DETUNE_COSTS_MORE_THAN_IT_BUYS",
+                               "LOCAL_COST_CLAIM_RETRACTED_RULER_DEPENDENT",
                amendment="E3's sealed prediction was wrong and the head is "
                          "read off the arm as sealed. What the miss locates: "
                          "the margin lives at 814-1499 cents, a different "
                          "ratio rather than a detune, while in the local "
                          "regime separating the witness pair by one cent "
-                         "costs 2.4x to 7.5x that much bystander movement. "
+                         "costs 2.4x to 7.5x that much bystander movement "
+                         "[THIS CLAUSE RETRACTED BY AMENDMENT 3: ruler-"
+                         "dependent in sign; see verdict_amended and the "
+                         "per-ratio `rulers` field]. "
                          "E2 is untouched and is the theorem: no delta of any "
                          "magnitude returns the bystander spectrum to itself "
                          "while splitting the witnesses, folds and "

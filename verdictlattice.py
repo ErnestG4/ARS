@@ -131,12 +131,42 @@ class Arm:
         # An arm whose named rival also clears the bar is INERT: it separates
         # nothing, so it is dropped rather than counted as a pass. See
         # reachable.Bar's rival note.
+        # THREE CASES, NOT TWO — corrected 2026-09-05 after adversarial review.
+        #
+        # `discriminating` is False whenever the arm fails to SEPARATE, and that
+        # has two utterly different causes:
+        #   (a) both the hypothesis and the rival cleared the bar. The arm is
+        #       genuinely non-discriminating and dropping it is right.
+        #   (b) the HYPOTHESIS ITSELF MISSED. That is a real negative result and
+        #       it must NEGATE the head, not vanish from it.
+        #
+        # This branch treated both as inert. Because compose() drops inert arms
+        # from `live`, a MISSED EXISTENCE arm was removed from the head
+        # computation AND from the citation, turning a failure into the positive
+        # head. Demonstrated on this repo's own banked numbers (battery 0.546,
+        # rival 0.432, bar <= 0.20 -- BOTH missed): the arm was dropped and the
+        # head came out BATTERY_IS_CONSTRUCTIBLE, with a note asserting the
+        # rival "also clears this bar" when it had missed it by more than 2x.
+        # That is exactly the laundering this module's docstring calls
+        # unrepresentable.
+        #
+        # It is also the SECOND copy of a defect fixed the day before in
+        # reachable.Bar.line, where the same two-case confusion produced only a
+        # wrong message. Fixed there, not propagated here. Grep for the concept,
+        # not the function.
         dead = score.get("out_of_range", False)
         if score.get("discriminating") is False:
-            dead = True
-            note = (note + "; " if note else "") + (
-                f"rival {score.get('rival')!r} also clears this bar "
-                f"({score.get('rival_value')})")
+            if score.get("met"):
+                dead = True
+                note = (note + "; " if note else "") + (
+                    f"rival {score.get('rival')!r} also clears this bar "
+                    f"({score.get('rival_value')}) — arm separates nothing")
+            else:
+                note = (note + "; " if note else "") + (
+                    f"MISSED, and rival {score.get('rival')!r} "
+                    f"({score.get('rival_value')}) missed too — the bar "
+                    "separates nothing here, but this arm still FAILED and "
+                    "negates rather than dropping out")
         return cls(score["name"], role, score["met"],
                    inert=dead, note=note,
                    value=score.get("value"), thresh=score.get("thresh"),
@@ -164,7 +194,15 @@ def compose(arms, holds, fails, sep="_"):
     dropped = [a for a in arms if a.inert]
     live = [a for a in arms if not a.inert]
 
-    bad_premise = [a for a in live if a.role == PREMISE and not a.met]
+    # PREMISE ARMS ARE CHECKED AGAINST `arms`, NOT `live` — corrected 2026-09-05.
+    # Filtering `live` skipped INERT premises, and Arm.from_bar marks an arm
+    # inert when its value fell OUT OF ITS DECLARED RANGE, which reachable.py
+    # describes as "the RANGE is wrong, and the bar that shares that range is
+    # now unaudited". Unaudited was being converted into silently dropped: a
+    # premise that both MISSED and blew its range produced the positive head,
+    # appearing in neither `dropped`-driven reading nor `unread`. A premise is
+    # the one role whose failure must be unconditional.
+    bad_premise = [a for a in arms if a.role == PREMISE and not a.met]
     if bad_premise:
         # CITATION ON THE INVALID PATH, added 2026-09-05. This branch returned
         # no `citation` key, so every caller that quotes v["citation"] -- which
