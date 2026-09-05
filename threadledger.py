@@ -896,6 +896,50 @@ ENTRIES = [
               "already showed what happens when one ruler is asked two "
               "questions."),
 
+    dict(id="csprng-one-sided-calibrator", status=LANDED,
+         artifact="csprng_calibrator.json",
+         verdict="ONE_SIDED_CALIBRATOR_SEATED_BLIND_SPOT_EXHIBITED",
+         request="seat a calibrator whose only failure mode is an instrument "
+                 "bug, and turn 'no finite battery of tests is complete' from "
+                 "a slogan into a measurement.",
+         note="LANDED 2026-09-05. THE IDEAL VERSION CANNOT BE BUILT: a "
+              "Martin-Lof random sequence is random relative to every "
+              "computable test, so any ARS reading on one is by construction an "
+              "instrument bug -- but no ML-random sequence is COMPUTABLE, which "
+              "is close to the definition. Omega is random and uncomputable; "
+              "anything a program emits is, by being emitted, not ML-random. So "
+              "the ideal calibrator is unavailable in principle.\n"
+              "THE BUILDABLE VERSION KEEPS THE ONE-SIDEDNESS ON CRYPTOGRAPHIC "
+              "GROUNDS. Drive the process from os.urandom (ChaCha20 here): a "
+              "departure from Poisson is either an instrument bug or a "
+              "distinguisher against the cipher, and the second is a far larger "
+              "result than anything this repo tests. Weaker in kind, sufficient "
+              "in use. Seated THEOREM-tier for the Poisson LABEL, because "
+              "exponential gaps from uniforms IS a homogeneous Poisson process "
+              "by construction; only the generator's indistinguishability is "
+              "cryptographic.\n"
+              "AND THE SECOND HALF IS THE POINT. RANDU (a=65539, m=2^31) is the "
+              "textbook-broken generator whose triples lie on 15 planes. The "
+              "NNS battery reads it as POISSON at 12 of 12 seeds -- "
+              "indistinguishable from ChaCha20 -- while a 3-D lattice probe on "
+              "the SAME stream measures its distance to those planes at exactly "
+              "0.000000 against the CSPRNG's 0.016918 (a uniform residual "
+              "PREDICTS 1/60 = 0.01667, so the rival's value is derived, not "
+              "observed). MT19937 is likewise indistinguishable.\n"
+              "So 'there is always computable structure the instruments do not "
+              "see' stops being a theorem about all finite batteries and "
+              "becomes an ARTIFACT about this one: the defect is present, "
+              "measured, and invisible to a 1-D marginal test. The mechanism "
+              "arm is what makes the null mean something -- without it, 'RANDU "
+              "reads Poisson' is compatible with there being nothing to find.\n"
+              "POWERED: a periodic control is rejected at 12/12, so the three "
+              "nulls are not the nulls of a battery that rejects nothing. M1's "
+              "first form blew its declared range (ratio 1.7e10 vs a guessed "
+              "1e6 ceiling) because RANDU's denominator is exactly zero; the "
+              "guard was right and the statistic was wrong, so it was re-posed "
+              "as a rival comparison on the distance itself, with a derived "
+              "ceiling of 1/30."),
+
     dict(id="bank-aggregates-with-their-spread", status=QUEUED,
          warrant=[("approximability/F_reproduce.json",
                    "SESSION_F_CLAIMS_DO_NOT_REPLICATE",

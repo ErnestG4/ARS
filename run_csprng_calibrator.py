@@ -105,7 +105,7 @@ from universality import (nns_cdf_poisson, nns_cdf_goe,           # noqa: E402
 N_POINTS = 400
 SEEDS = list(range(20240517, 20240517 + 12))
 KS_ALPHA = 0.01
-LATTICE_FACTOR = 10.0
+LATTICE_FACTOR = 1e-6   # M1 bar, re-posed; see the note at its construction
 
 INSTRUMENT = Model("ARS nearest-neighbour battery on generator-driven Poisson "
                    "processes", [
@@ -253,18 +253,34 @@ E2 = Bar("seeds where MT19937 reads Poisson", n, floor=0, ceiling=n,
 E3 = Bar("seeds where RANDU reads Poisson", n, floor=0, ceiling=n,
          why="same count; a MISS here would mean the battery DOES catch the "
              "textbook lattice defect and its reach is wider than claimed")
-M1 = Bar("CSPRNG lattice-spread over RANDU lattice-spread", LATTICE_FACTOR,
-         floor=0.0, ceiling=1e6,
-         why="a ratio of mean distances to RANDU's 15 planes; 1.0 is 'no "
-             "lattice structure detected' and is attainable, so the arm can "
-             "fail and would then leave E3 as 'we found nothing'")
+# M1 RE-POSED after its first form blew its declared range (ratio 1.7e10
+# against a ceiling of 1e6). The guard was right and the STATISTIC was wrong:
+# RANDU's mean distance to its own 15 planes is EXACTLY 0.0, so a ratio with it
+# in the denominator is unbounded and no honest ceiling exists. The quantity
+# that is bounded is the DISTANCE itself, and the arm becomes a rival
+# comparison -- which is what it always was in substance: RANDU must sit on the
+# planes and the CSPRNG must not.
+#
+# The CSPRNG's expected value is not a free parameter either: a uniform
+# residual has mean distance 1/60 = 0.01667 to the nearest of 15 equally
+# spaced planes, and it measures 0.01668. So the rival's value is PREDICTED,
+# not merely observed, which is what makes the comparison a test.
+M1 = Bar("RANDU mean distance to its own 15 lattice planes", 1e-6,
+         direction="le", floor=0.0, ceiling=1.0 / 30.0,
+         why="a mean distance to the nearest of 15 planes spaced 1/15 apart. "
+             "0 is attainable (perfect lattice) and the ceiling 1/30 is the "
+             "worst possible mean distance for any residual distribution, so "
+             "the range is derived rather than guessed",
+         rival="the CSPRNG on the same statistic, whose uniform residual "
+               "predicts 1/60 = 0.01667")
 
 sP, s1, s2, s3 = P1.score(p1), E1.score(e1), E2.score(e2), E3.score(e3)
-sM = M1.score(lat_ratio)
+sM = M1.score(lat_r, rival_value=lat_c)
 print()
 for b, v, f in ((P1, p1, "{:.0f}"), (E1, e1, "{:.0f}"), (E2, e2, "{:.0f}"),
-                (E3, e3, "{:.0f}"), (M1, lat_ratio, "{:.1f}")):
+                (E3, e3, "{:.0f}")):
     print("  " + b.line(v, f))
+print("  " + M1.line(lat_r, "{:.6f}", rival_value=lat_c))
 
 arms = [Arm.from_bar(sP, PRE_ROLE, claim="the battery can reject something"),
         Arm.from_bar(s1, EX_ROLE, claim="the CSPRNG reads Poisson, so any "

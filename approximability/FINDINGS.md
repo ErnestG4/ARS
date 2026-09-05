@@ -71,6 +71,59 @@ The K order parameter (`panel_A_K_reframe.py` Part A) — note the **epistemic a
   ⇒ **π is in the finite family CONDITIONAL on `liminf K(π)<∞` (empirically supported, unprovable at present).**
 - GK-random control: `K→K₀` — finite (generic, by construction).
 
+#### Why the π leg is stuck: a classified obstruction, not a shrug (added 2026-09-05)
+
+The three "special" criteria this arc keeps circling are not merely different tests. **They sit at
+different levels of the arithmetical hierarchy, and one of them is not an arithmetical sentence at
+all** — which is a structural reason they cannot be made to coincide, independent of any
+computation.
+
+For a computable irrational with computable continued fraction, every inner predicate below is
+decidable (`(a₁···a_n)^{1/n} ≤ M` is just the integer comparison `a₁···a_n ≤ Mⁿ`), so the level is
+read straight off the quantifier prefix:
+
+| criterion | sentence | level |
+|---|---|---|
+| CF-bounded (badly approximable) | `∃K ∀n (a_n ≤ K)` | **Σ₂** |
+| its negation, `limsup a_n = ∞` | `∀K ∃n (a_n > K)` | **Π₂** |
+| **`liminf K < ∞`** (the Liu–Wen order parameter) | `∃M ∀N ∃n>N (a₁···a_n ≤ Mⁿ)` | **Σ₃** |
+| **`liminf K = ∞`** | `∀M ∃N ∀n>N (a₁···a_n > Mⁿ)` | **Π₃** |
+| Borel–Bernstein genericity | a statement about **measure over all reals** | not arithmetical about any α |
+
+Three consequences worth stating plainly.
+
+**(1) The criteria are not rival answers to one question.** CF-boundedness is Σ₂ and the order
+parameter is Σ₃ — a full level apart, and the Σ₂ one is not even the negation of anything in the
+Σ₃ pair. The section above corrects "boundedness plateau → liminf K" as a *factual* mistake; the
+hierarchy says the two were never the same **kind** of sentence, so the correction was not a near
+miss.
+
+**(2) Borel–Bernstein cannot transfer to π, ever, and not for want of effort.** It quantifies over a
+measure-one set of reals. A measure-one statement says nothing whatever about any *named* point,
+and π is named. Generic results and anchor results are different objects; this is the same failure
+as any global machinery asked for a local answer.
+
+**(3) THE π OBSTRUCTION IS LOCATED, AND IT IS NOT THE LEVEL.** `liminf K(π) < ∞` is Σ₃ with an
+**outermost existential over M**. The only instrument this arc has is exact computation over a
+finite prefix of π's CF — and *no finite prefix can discharge an outermost `∃`*. Every deeper
+computation returns the same thing: "still going, hasn't broken bound M yet." That is the halting
+asymmetry exactly: the empirical support is real and accumulating, the silence never becomes a
+proof, and there is no N at which it would.
+
+**And the level alone is not what blocks it — `liminf K(e) = ∞` is Π₃, one level ABOVE π's
+criterion, and it is a THEOREM.** Euler's closed form hands over the entire tail at once, so the
+Π₃ sentence is discharged by an argument about all of it rather than by a computation over a
+prefix. What separates e from π is not hardness of the sentence but whether an instrument exists
+whose reach matches its quantifier structure. e has one. π has a prefix computer, and a prefix
+computer is the wrong shape for `∃M ∀N ∃n>N` no matter how far it runs.
+
+So "empirically supported but unproven" is upgraded here from a disclaimer to a **classified
+obstruction**: the leg is not stuck for want of compute, it is stuck because the available
+instrument and the sentence's outermost quantifier are mismatched by construction. The
+window-scaling reformulation below is the right response precisely because it replaces an
+undischargeable `∃M` with a claim about how a finite-window statistic MOVES — which is a question a
+prefix computer can actually answer.
+
 **Consequence for Panel B (the fact B must inherit — with its two unprovables labeled):** π and e sit on **OPPOSITE
 sides** of the C-axis, even though both are μ=2 / tier-generic (the tier groups by irrationality measure; C responds to
 liminf K, and e proves μ=2 ⊥ K). B's prediction is therefore a **stack of two explicitly-labelled unprovables**:

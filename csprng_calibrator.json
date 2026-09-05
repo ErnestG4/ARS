@@ -1,0 +1,674 @@
+{
+ "n_points": 400,
+ "seeds": [
+  20240517,
+  20240518,
+  20240519,
+  20240520,
+  20240521,
+  20240522,
+  20240523,
+  20240524,
+  20240525,
+  20240526,
+  20240527,
+  20240528
+ ],
+ "ks_alpha": 0.01,
+ "instrument": {
+  "model": "ARS nearest-neighbour battery on generator-driven Poisson processes",
+  "params": [
+   {
+    "name": "generator",
+    "kind": "TESTED",
+    "why": "THE ONLY THING THAT VARIES. The transform to a Poisson process is identical for all four, so any difference in the reading is a difference the battery sees in the GENERATOR",
+    "sweep": [
+     "csprng_chacha20",
+     "mt19937",
+     "randu_lcg",
+     "periodic_control"
+    ],
+    "value": null
+   },
+   {
+    "name": "n_points",
+    "kind": "DECLARED",
+    "why": "400, the panel's standing size, so these entries are commensurable with the existing calibrator zoo",
+    "sweep": null,
+    "value": 400
+   },
+   {
+    "name": "seeds",
+    "kind": "DECLARED",
+    "why": "12 seeds; every arm is asserted AT EVERY SEED rather than on a mean, because a battery that reads Poisson on average while failing on one seed has not read Poisson",
+    "sweep": null,
+    "value": 12
+   },
+   {
+    "name": "ks_alpha",
+    "kind": "DECLARED",
+    "why": "0.01 on the KS p-value. Deliberately permissive for the NULL arms (E1-E3), which makes them EASIER to pass and so makes P1's rejection of the periodic control the load-bearing check",
+    "sweep": null,
+    "value": 0.01
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 3
+ },
+ "rows": [
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240517,
+   "lattice": 0.015552439662425843,
+   "ks_p": 0.04417829041952959,
+   "ks_o": 0.2303772805404506,
+   "ks_u": 0.2968888012054631,
+   "best": "Poiss",
+   "pv_p": 0.4063838204837314
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240517,
+   "lattice": 0.016921262105817136,
+   "ks_p": 0.04441030899942966,
+   "ks_o": 0.24604803064247333,
+   "ks_u": 0.314180088815762,
+   "best": "Poiss",
+   "pv_p": 0.3998262322786132
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240517,
+   "lattice": 0.0,
+   "ks_p": 0.030535336551463677,
+   "ks_o": 0.2413659815064666,
+   "ks_u": 0.30406891381257334,
+   "best": "Poiss",
+   "pv_p": 0.843396517222477
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240517,
+   "lattice": NaN,
+   "ks_p": 0.6170508178376852,
+   "ks_o": 0.5184299289100563,
+   "ks_u": 0.5019237490476843,
+   "best": "GUE",
+   "pv_p": 4.804308586573092e-134
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240518,
+   "lattice": 0.016868806291634293,
+   "ks_p": 0.04428820644271525,
+   "ks_o": 0.21043722469363468,
+   "ks_u": 0.2712435123520669,
+   "best": "Poiss",
+   "pv_p": 0.40326929948395057
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240518,
+   "lattice": 0.017101828836810707,
+   "ks_p": 0.05449503758197943,
+   "ks_o": 0.20658995354933157,
+   "ks_u": 0.2737288585493005,
+   "best": "Poiss",
+   "pv_p": 0.17920484161709815
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240518,
+   "lattice": 0.0,
+   "ks_p": 0.037782459382161515,
+   "ks_o": 0.21661268777662995,
+   "ks_u": 0.2639243472620428,
+   "best": "Poiss",
+   "pv_p": 0.6081222820919834
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240518,
+   "lattice": NaN,
+   "ks_p": 0.6190113282062379,
+   "ks_o": 0.5210469199738599,
+   "ks_u": 0.504570099775318,
+   "best": "GUE",
+   "pv_p": 6.779595422463094e-135
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240519,
+   "lattice": 0.01813384559898382,
+   "ks_p": 0.03405285314771578,
+   "ks_o": 0.2212325836851422,
+   "ks_u": 0.287675034112902,
+   "best": "Poiss",
+   "pv_p": 0.734099642320903
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240519,
+   "lattice": 0.016854400881135143,
+   "ks_p": 0.02189066155421665,
+   "ks_o": 0.22993360488239384,
+   "ks_u": 0.28503867038403086,
+   "best": "Poiss",
+   "pv_p": 0.9899788967981312
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240519,
+   "lattice": 0.0,
+   "ks_p": 0.039276119770305984,
+   "ks_o": 0.20390474657393898,
+   "ks_u": 0.27183307486042735,
+   "best": "Poiss",
+   "pv_p": 0.5581427223144749
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240519,
+   "lattice": NaN,
+   "ks_p": 0.6182400270353319,
+   "ks_o": 0.5195658674321242,
+   "ks_u": 0.5029303360610589,
+   "best": "GUE",
+   "pv_p": 1.46588359122411e-134
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240520,
+   "lattice": 0.01697434106157466,
+   "ks_p": 0.031232675680070515,
+   "ks_o": 0.22507041778492176,
+   "ks_u": 0.29036979382316036,
+   "best": "Poiss",
+   "pv_p": 0.8231991033858311
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240520,
+   "lattice": 0.01646931699452407,
+   "ks_p": 0.029620731445102244,
+   "ks_o": 0.2172674054312057,
+   "ks_u": 0.28048183703404744,
+   "best": "Poiss",
+   "pv_p": 0.8683974656101742
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240520,
+   "lattice": 0.0,
+   "ks_p": 0.04002509750455502,
+   "ks_o": 0.22057700472162783,
+   "ks_u": 0.28031175896026783,
+   "best": "Poiss",
+   "pv_p": 0.5335638748533662
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240520,
+   "lattice": NaN,
+   "ks_p": 0.6180573328056717,
+   "ks_o": 0.5215259171448533,
+   "ks_u": 0.5058418515393297,
+   "best": "GUE",
+   "pv_p": 1.759395110759155e-134
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240521,
+   "lattice": 0.017443173765069566,
+   "ks_p": 0.030213651169248013,
+   "ks_o": 0.2441974378281273,
+   "ks_u": 0.30611180248560654,
+   "best": "Poiss",
+   "pv_p": 0.8523936122293816
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240521,
+   "lattice": 0.01623992810606687,
+   "ks_p": 0.019646156787703817,
+   "ks_o": 0.23200075093997863,
+   "ks_u": 0.294335443345967,
+   "best": "Poiss",
+   "pv_p": 0.9975858155036306
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240521,
+   "lattice": 0.0,
+   "ks_p": 0.022698542306110958,
+   "ks_o": 0.213253574572832,
+   "ks_u": 0.2801149808565222,
+   "best": "Poiss",
+   "pv_p": 0.9849442899661429
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240521,
+   "lattice": NaN,
+   "ks_p": 0.6187677859641909,
+   "ks_o": 0.5205791054920954,
+   "ks_u": 0.5043744925453154,
+   "best": "GUE",
+   "pv_p": 8.64955760553111e-135
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240522,
+   "lattice": 0.01761351424040818,
+   "ks_p": 0.030029258132171388,
+   "ks_o": 0.20226631978710957,
+   "ks_u": 0.26521700751657484,
+   "best": "Poiss",
+   "pv_p": 0.8574532649893339
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240522,
+   "lattice": 0.016927558049732744,
+   "ks_p": 0.025368039094164435,
+   "ks_o": 0.23185338813680195,
+   "ks_u": 0.2967478942235042,
+   "best": "Poiss",
+   "pv_p": 0.956341804174368
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240522,
+   "lattice": 0.0,
+   "ks_p": 0.035833220224045226,
+   "ks_o": 0.24411312446578326,
+   "ks_u": 0.3025606569554083,
+   "best": "Poiss",
+   "pv_p": 0.6742732538913766
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240522,
+   "lattice": NaN,
+   "ks_p": 0.6193476841421062,
+   "ks_o": 0.5216932670378582,
+   "ks_u": 0.5053880424461059,
+   "best": "GUE",
+   "pv_p": 4.842043716508543e-135
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240523,
+   "lattice": 0.01718980830403759,
+   "ks_p": 0.037433680427699234,
+   "ks_o": 0.24205477076455045,
+   "ks_u": 0.30949883595737926,
+   "best": "Poiss",
+   "pv_p": 0.6199218015973004
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240523,
+   "lattice": 0.015839217831354106,
+   "ks_p": 0.03614460154712518,
+   "ks_o": 0.2288790081553223,
+   "ks_u": 0.29586470732280623,
+   "best": "Poiss",
+   "pv_p": 0.6637006932143004
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240523,
+   "lattice": 0.0,
+   "ks_p": 0.03827851064067822,
+   "ks_o": 0.22555654115996615,
+   "ks_u": 0.2932569868619065,
+   "best": "Poiss",
+   "pv_p": 0.591409559159336
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240523,
+   "lattice": NaN,
+   "ks_p": 0.6184680016541735,
+   "ks_o": 0.5203769221229022,
+   "ks_u": 0.5043875994478882,
+   "best": "GUE",
+   "pv_p": 1.1672324072454024e-134
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240524,
+   "lattice": 0.016661202583807818,
+   "ks_p": 0.02110615535927729,
+   "ks_o": 0.22339866544892167,
+   "ks_u": 0.2907227288667731,
+   "best": "Poiss",
+   "pv_p": 0.9935692950821892
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240524,
+   "lattice": 0.016991607505693535,
+   "ks_p": 0.02650812919786072,
+   "ks_o": 0.2384361309998349,
+   "ks_u": 0.30356107719511083,
+   "best": "Poiss",
+   "pv_p": 0.9378334457490063
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240524,
+   "lattice": 0.0,
+   "ks_p": 0.03407883297798425,
+   "ks_o": 0.19842387761729802,
+   "ks_u": 0.2628362422281899,
+   "best": "Poiss",
+   "pv_p": 0.7332391788309869
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240524,
+   "lattice": NaN,
+   "ks_p": 0.6193517745733659,
+   "ks_o": 0.5217283209213551,
+   "ks_u": 0.5060980718845894,
+   "best": "GUE",
+   "pv_p": 4.822259523910972e-135
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240525,
+   "lattice": 0.016691434516799105,
+   "ks_p": 0.03554596690022771,
+   "ks_o": 0.24935526597917457,
+   "ks_u": 0.316759336166159,
+   "best": "Poiss",
+   "pv_p": 0.6840107418227127
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240525,
+   "lattice": 0.017987976795513796,
+   "ks_p": 0.03564172648918407,
+   "ks_o": 0.2511400518096868,
+   "ks_u": 0.31412935559371447,
+   "best": "Poiss",
+   "pv_p": 0.6807667617406095
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240525,
+   "lattice": 0.0,
+   "ks_p": 0.036276450345124944,
+   "ks_o": 0.23397750031629339,
+   "ks_u": 0.29653832907341526,
+   "best": "Poiss",
+   "pv_p": 0.6592205904062687
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240525,
+   "lattice": NaN,
+   "ks_p": 0.6171702521356133,
+   "ks_o": 0.5182172931564165,
+   "ks_u": 0.5016547091305589,
+   "best": "GUE",
+   "pv_p": 4.2648134447874956e-134
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240526,
+   "lattice": 0.016682788096436637,
+   "ks_p": 0.041846569271006384,
+   "ks_o": 0.2572917132824476,
+   "ks_u": 0.3201041773820068,
+   "best": "Poiss",
+   "pv_p": 0.47566393891533826
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240526,
+   "lattice": 0.01675085990734138,
+   "ks_p": 0.02434117919482988,
+   "ks_o": 0.2174504495066314,
+   "ks_u": 0.28283831418496413,
+   "best": "Poiss",
+   "pv_p": 0.9697057137420756
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240526,
+   "lattice": 0.0,
+   "ks_p": 0.02879706202715271,
+   "ks_o": 0.20707535547391293,
+   "ks_u": 0.27335905064633015,
+   "best": "Poiss",
+   "pv_p": 0.8892743690458098
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240526,
+   "lattice": NaN,
+   "ks_p": 0.6173406139890607,
+   "ks_o": 0.5199336799858549,
+   "ks_u": 0.5038266559758134,
+   "best": "GUE",
+   "pv_p": 3.598267826044608e-134
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240527,
+   "lattice": 0.016555154258628333,
+   "ks_p": 0.023398982670527313,
+   "ks_o": 0.21285930489476612,
+   "ks_u": 0.2809811396746485,
+   "best": "Poiss",
+   "pv_p": 0.9793205559796254
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240527,
+   "lattice": 0.01673893266295886,
+   "ks_p": 0.028094450082023492,
+   "ks_o": 0.23324594175262453,
+   "ks_u": 0.29281970300249804,
+   "best": "Poiss",
+   "pv_p": 0.9057260324340239
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240527,
+   "lattice": 0.0,
+   "ks_p": 0.03588645237929744,
+   "ks_o": 0.22724487660404108,
+   "ks_u": 0.2888583534592576,
+   "best": "Poiss",
+   "pv_p": 0.6724668628504072
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240527,
+   "lattice": NaN,
+   "ks_p": 0.619898894773004,
+   "ks_o": 0.5227531045516545,
+   "ks_u": 0.5067292564534351,
+   "best": "GUE",
+   "pv_p": 2.788106935812767e-135
+  },
+  {
+   "gen": "csprng_chacha20",
+   "seed": 20240528,
+   "lattice": 0.01664867239002338,
+   "ks_p": 0.054188865986433965,
+   "ks_o": 0.18731951282028825,
+   "ks_u": 0.23918431385934535,
+   "best": "Poiss",
+   "pv_p": 0.1841022706805586
+  },
+  {
+   "gen": "mt19937",
+   "seed": 20240528,
+   "lattice": 0.015738912206154875,
+   "ks_p": 0.02518515939096952,
+   "ks_o": 0.23912034019512624,
+   "ks_u": 0.30459047620417035,
+   "best": "Poiss",
+   "pv_p": 0.9589492090467105
+  },
+  {
+   "gen": "randu_lcg",
+   "seed": 20240528,
+   "lattice": 0.0,
+   "ks_p": 0.02853088456349273,
+   "ks_o": 0.2010412555267828,
+   "ks_u": 0.2681703409768967,
+   "best": "Poiss",
+   "pv_p": 0.8956596194082793
+  },
+  {
+   "gen": "periodic_control",
+   "seed": 20240528,
+   "lattice": NaN,
+   "ks_p": 0.6191330299915814,
+   "ks_o": 0.5212807508083024,
+   "ks_u": 0.5048659674389429,
+   "best": "GUE",
+   "pv_p": 6.002376562944108e-135
+  }
+ ],
+ "periodic_rejected": 12,
+ "csprng_poisson": 12,
+ "mt_poisson": 12,
+ "randu_poisson": 12,
+ "lattice_csprng": 0.016917931730819104,
+ "lattice_randu": 0.0,
+ "lattice_ratio": 16917931730.819103,
+ "tier_note": "CSPRNG entry is THEOREM-tier for its Poisson label (exponential gaps from uniforms IS a homogeneous Poisson process, by construction). What is cryptographic rather than proven is only that the generator is indistinguishable from uniform.",
+ "ml_random_note": "the ideal calibrator -- a Martin-Lof random sequence -- is UNCOMPUTABLE and cannot be built; this substitutes cryptographic one-sidedness for computability-theoretic",
+ "bars": {
+  "seeds where the periodic control is REJECTED as Poisson": {
+   "name": "seeds where the periodic control is REJECTED as Poisson",
+   "value": 12,
+   "thresh": 12,
+   "floor": 0,
+   "ceiling": 12,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "a count over the 12 seeds; 0 is attainable by a battery that rejects nothing, which is exactly the failure this arm exists to exclude before any null below is read"
+  },
+  "seeds where the CSPRNG reads Poisson": {
+   "name": "seeds where the CSPRNG reads Poisson",
+   "value": 12,
+   "thresh": 12,
+   "floor": 0,
+   "ceiling": 12,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "a count over the 12 seeds; both ends attainable"
+  },
+  "seeds where MT19937 reads Poisson": {
+   "name": "seeds where MT19937 reads Poisson",
+   "value": 12,
+   "thresh": 12,
+   "floor": 0,
+   "ceiling": 12,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "same count; a MISS here would mean the battery distinguishes Mersenne Twister from a stream cipher, which would be a finding about the battery's reach in the opposite direction"
+  },
+  "seeds where RANDU reads Poisson": {
+   "name": "seeds where RANDU reads Poisson",
+   "value": 12,
+   "thresh": 12,
+   "floor": 0,
+   "ceiling": 12,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0,
+   "why": "same count; a MISS here would mean the battery DOES catch the textbook lattice defect and its reach is wider than claimed"
+  },
+  "RANDU mean distance to its own 15 lattice planes": {
+   "name": "RANDU mean distance to its own 15 lattice planes",
+   "value": 0.0,
+   "thresh": 1e-06,
+   "floor": 0.0,
+   "ceiling": 0.03333333333333333,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": "the CSPRNG on the same statistic, whose uniform residual predicts 1/60 = 0.01667",
+   "rival_value": 0.016917931730819104,
+   "rival_met": false,
+   "discriminating": true,
+   "headroom": 1e-06,
+   "why": "a mean distance to the nearest of 15 planes spaced 1/15 apart. 0 is attainable (perfect lattice) and the ceiling 1/30 is the worst possible mean distance for any residual distribution, so the range is derived rather than guessed"
+  }
+ },
+ "verdict": "ONE_SIDED_CALIBRATOR_SEATED_BLIND_SPOT_EXHIBITED",
+ "composed": {
+  "label": "ONE_SIDED_CALIBRATOR_SEATED_BLIND_SPOT_EXHIBITED_AND_BY_RANDU mean distance to its own 15 lattice planes",
+  "head": "ONE_SIDED_CALIBRATOR_SEATED_BLIND_SPOT_EXHIBITED",
+  "qualifiers": [
+   "AND_BY_RANDU mean distance to its own 15 lattice planes"
+  ],
+  "citation": "ONE_SIDED_CALIBRATOR_SEATED_BLIND_SPOT_EXHIBITED  [seeds where the CSPRNG reads Poisson 12 vs >=12 MET \u2014 \"the CSPRNG reads Poisson, so any reading here would be an instrument bug\"; seeds where MT19937 reads Poisson 12 vs >=12 MET \u2014 \"and Mersenne Twister is indistinguishable from it\"; seeds where RANDU reads Poisson 12 vs >=12 MET \u2014 \"and so is RANDU, whose defect is textbook\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('seeds where the periodic control is REJECTED as Poisson', PREMISE, MET)",
+   "Arm('seeds where the CSPRNG reads Poisson', EXISTENCE, MET)",
+   "Arm('seeds where MT19937 reads Poisson', EXISTENCE, MET)",
+   "Arm('seeds where RANDU reads Poisson', EXISTENCE, MET)",
+   "Arm('RANDU mean distance to its own 15 lattice planes', MECHANISM, MET)"
+  ]
+ }
+}

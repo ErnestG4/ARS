@@ -181,6 +181,22 @@ CALIBRATOR_TIERS = {
     'ginibre2d':        TIER_THEOREM,
     'gp_comb':          TIER_CONJECTURE,   # Gross-Smith/HL singular series;
                                            # seated PASS by the comb arc
+    # ── one-sided calibrators (2026-09-05, run_csprng_calibrator.py) ──────
+    # THEOREM-tier for the POISSON LABEL: exponential gaps from uniform
+    # variates is a homogeneous Poisson process by construction, not by
+    # conjecture. What rides on cryptography is only the claim that the
+    # GENERATOR is indistinguishable from uniform -- so a departure from
+    # Poisson here is an instrument bug, or a distinguisher against ChaCha20,
+    # which would be the larger result. The ideal version of this entry, a
+    # Martin-Lof random sequence, is UNCOMPUTABLE and cannot be seated.
+    'csprng_chacha20':  TIER_THEOREM,
+    # CONSTRUCTION-tier and seated deliberately as a KNOWN-DEFECT entry: RANDU's
+    # triples lie on 15 planes, its lattice distance measures 0.000000 against
+    # the CSPRNG's 0.016918, and the NNS battery reads it as Poisson at 12/12
+    # seeds. It is the repo's witness that a finite battery is incomplete --
+    # not as a theorem about batteries, as an artifact about THIS one.
+    'randu_lcg':        TIER_CONSTRUCTION,
+    'mt19937':          TIER_CONSTRUCTION,
 }
 
 
