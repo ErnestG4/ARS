@@ -37,9 +37,39 @@ def count_g2_affine(fc,p):
         for c in reversed(fc): rhs=(rhs*x+c)%p
         n += 1 + legendre(rhs,p)
     return n
+def _squarefree(f,p):
+    """Is f squarefree over F_p, i.e. deg gcd(f,f')==0? Added 2026-09-05.
+
+    WHY: g2_Nv previously asserted only degree and leading coefficient, so a
+    SINGULAR f -- y^2=x^5+x^3=x^3(x^2+1), say -- returned confidently wrong N_v
+    instead of failing. MORNING_F records singular curves being "filtered by a
+    squarefree-f check", so Session F did that in its driver; the driver was
+    never committed, and the check left the repo with it. An importer who does
+    not know to filter is caught only when a Weil gate happens to notice, and
+    Hasse-Weil is a loose bound, so sometimes it does not. Found by running the
+    module on an unfiltered family (approximability/F_reproduce.py): two of 246
+    cases failed gates that are theorems, and both were that same singular
+    curve.
+
+    This guard cannot change a correct result -- every smooth input is
+    unaffected -- it only converts a silent wrong answer into a raise."""
+    def trim(a):
+        while a and a[-1]%p==0: a=a[:-1]
+        return [c%p for c in a]
+    def rem(a,b):
+        a=a[:]; db=len(b)-1; inv=pow(b[-1],p-2,p)
+        for i in range(len(a)-1,db-1,-1):
+            c=(a[i]*inv)%p
+            for j in range(db+1): a[i-db+j]=(a[i-db+j]-c*b[j])%p
+        return trim(a)
+    a,b=trim(list(f)),trim([(i*c)%p for i,c in enumerate(f)][1:])
+    while b: a,b=b,rem(a,b)
+    return max(len(a)-1,0)==0
+
 def g2_Nv(fc,p,vmax=6):
     """genus-2 (deg f=5): 1 point at infinity. Need N1,N2 to fix the deg-4 L-poly, then all N_v."""
     assert len(fc)==6 and fc[5]%p!=0, "need deg-5 monic-ish f"
+    assert _squarefree(fc,p), "singular curve: f is not squarefree mod p"
     N1=count_g2_affine(fc,p)+1
     # N2: count over F_{p^2}. Direct enumeration in F_{p^2} via a quadratic non-residue extension.
     N2=count_g2_over_Fp2(fc,p)+1

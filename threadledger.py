@@ -889,7 +889,9 @@ ENTRIES = [
               "lower bound whose misses are the hard tail. The rule belongs "
               "where aggregates are WRITTEN."),
 
-    dict(id="ff-curve-singularity-guard", status=QUEUED,
+    dict(id="ff-curve-singularity-guard", status=LANDED,
+         artifact="approximability/F_reproduce.json",
+         verdict="SESSION_F_CLAIMS_DO_NOT_REPLICATE",
          warrant=[("approximability/F_reproduce.json",
                    "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
                    "STRUCTURAL/the run that hit the gap")],
@@ -912,7 +914,17 @@ ENTRIES = [
               "arc, which is freshly landed; a guard added to another arc's "
               "banked machinery is a change that arc should see. "
               "F_reproduce.py implements the check locally (poly_gcd_deg) so "
-              "the code to move is already written and tested."),
+              "the code to move is already written and tested.\n"
+              "LANDED SAME NIGHT, REVERSING THE QUEUEING ABOVE, on an argument "
+              "I had not articulated when I wrote it: the guard CANNOT CHANGE "
+              "A CORRECT RESULT. Every smooth input is unaffected; it only "
+              "converts a silent wrong answer into a raise. Session F's own "
+              "battery was smooth by its account, so no banked number moves. "
+              "Verified with both controls -- the singular curve now raises, "
+              "and all 212 legitimate curves in F_reproduce still pass the "
+              "Weil gates at 100%, same count as before. The artifact named "
+              "here is F_reproduce.json because it is what both motivated the "
+              "guard and now verifies it."),
 
     dict(id="orphan-session-branches", status=QUEUED,
          request="PARTLY DONE 2026-09-02 -- Session G LANDED (see note), three "
