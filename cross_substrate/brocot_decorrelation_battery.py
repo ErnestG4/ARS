@@ -172,6 +172,45 @@ legitimate is stated -- the arm violated the cell's OWN stated rule, and an
 outside reviewer found it, and the fix makes the result worse for the
 hypothesis rather than better.
 
+AMENDMENT 3 — AMENDMENT 1's DIAGNOSIS IS WRONG. THE KNOB WORKED; THE BAR WAS
+UNREACHABLE. Found while deriving v2's reachability argument, before sealing it.
+
+Amendment 1 concluded: "subset size is an ENERGY knob, not a concentration one
+... the modulation difference is broadband and its concentration sits near
+saturation whatever k is." That is false, and it is checkable in closed form.
+
+participation_ratio here is 1 - 1/(n_bands * sum p^2). With the instrument's 39
+bands, energy spread evenly over k of them gives PR = 1 - k/39:
+
+    k = 1   PR 0.9744        k = 4   PR 0.8974
+    k = 2   PR 0.9487        k = 6   PR 0.8462
+    k = 3   PR 0.9231        k = 8   PR 0.7949
+
+    maximum reachable RATIO over the swept k:  0.9744 / 0.7949 = 1.226
+
+The knob moves concentration exactly as designed. What it cannot do is move it
+by a FACTOR OF TWO, because C_FACTOR = 2.0 exceeds the statistic's reachable
+ratio by 1.6x. E1 could not have fired for any battery, at any ratio, under any
+manipulation. It was an inert arm.
+
+AND NO GUARD CAUGHT IT, for a reason worth recording: C_FACTOR was a bare module
+constant used inside a pair-matching loop, never passed through `reachable.Bar`.
+The guard that exists precisely to refuse a threshold outside its reachable range
+was not applied to the threshold that decided the cell. Every bar in this file is
+checked; the number that actually gated E1 is not a bar.
+
+The analytic model also reproduces the measurement: it predicts a span of 1.226
+and v1 measured 1.117-1.271. So the evidence for Amendment 1's diagnosis was
+equally consistent with the correct account, and I read a compressed statistic as
+a dead knob.
+
+WHAT SURVIVES: E3 is untouched -- the battery really is more correlated (0.546)
+than the FM family (0.432), and that is not a bar artifact. What is retracted is
+the CAUSE. v2 inherits a sharpened obligation: pick the concentration statistic
+by its DERIVED dynamic range, put every threshold through Bar so an unreachable
+one is refused at construction, and test the contrast v1 never ran (k bins at one
+COMMON rate against k bins at k rates).
+
 WHAT THIS CELL DOES NOT CLAIM. Nothing about what any listener hears. It says a
 CONTRAST IS CONSTRUCTIBLE. Whether concentration or energy drives the skips is a
 question this battery makes askable and does not answer, and answering it needs

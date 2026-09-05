@@ -868,7 +868,16 @@ ENTRIES = [
          # RATIO, from the start.
          warrant_reviewed=[("cross_substrate/brocot_decorrelation_battery.json",
                             "DECORRELATION_NOT_ACHIEVED")],
-         request="rebuild the battery with a REAL concentration knob. v1 varied "
+         request="[REVISED 2026-09-05 -- v1's diagnosis was itself wrong. The "
+                 "concentration knob WORKED; PR = 1 - k/39 moves 0.974 -> 0.795 "
+                 "across the swept k, exactly as the closed form predicts and "
+                 "matching v1's measured span. What failed was C_FACTOR = 2.0, "
+                 "which exceeds the statistic's maximum reachable ratio of "
+                 "1.226 by 1.6x -- an INERT arm that could not have fired for "
+                 "any battery. No guard caught it because C_FACTOR was a bare "
+                 "constant in a pair-matching loop and never went through "
+                 "reachable.Bar.] Rebuild the battery with a REAL concentration "
+                 "knob. v1 varied "
                  "subset size and always assigned DISTINCT beat rates, so the "
                  "one contrast that would actually concentrate the modulation "
                  "difference -- k bins split at ONE COMMON rate, piling it into "
