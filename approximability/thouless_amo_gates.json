@@ -1,0 +1,39 @@
+{
+ "gate1_operator": "sturmian_step  lam*indicator{(n p mod q)>=q-p}  (NOT AMO cosine)",
+ "gate2_lambda": "on-site step height (coeff of 0/1 Sturmian indicator)",
+ "gate2_thinning": "per-step approximant total-bandwidth ratio W_{k-1}/W_k (Thouless law), NOT measure-of-spectrum",
+ "gate3_lambda0_measure": 4.0,
+ "gate4_count_eq_q": true,
+ "sturmian_measure_vs_lambda": [
+  {
+   "lam": 0.25,
+   "W": 3.0927710790824428,
+   "frac_removed": 0.2268072302293893
+  },
+  {
+   "lam": 0.5,
+   "W": 2.404927588221606,
+   "frac_removed": 0.3987681029445985
+  },
+  {
+   "lam": 0.75,
+   "W": 1.8949660022691313,
+   "frac_removed": 0.5262584994327172
+  },
+  {
+   "lam": 1.0,
+   "W": 1.5087664664480336,
+   "frac_removed": 0.6228083833879916
+  },
+  {
+   "lam": 1.5,
+   "W": 0.9877490299487759,
+   "frac_removed": 0.753062742512806
+  },
+  {
+   "lam": 2.0,
+   "W": 0.6782150310028093,
+   "frac_removed": 0.8304462422492976
+  }
+ ]
+}
