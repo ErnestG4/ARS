@@ -68,6 +68,79 @@ are dropped by the module's own asserts, and the count that survives is reported
 rather than aimed at. p >= 7 because the genus-2 discriminant machinery and the
 Legendre symbol both degrade at very small p, and 29 is Session F's stated top.
 
+AMENDMENT 1 — MY SCOPE SAID "SMOOTH" AND MY CODE DID NOT ENFORCE IT, AND THE
+REASON IS A GAP IN THE BANKED MODULE.
+
+The first run reported 2 failures out of 246 on gates that are THEOREMS. Both
+were the same curve, y^2 = x^5 + x^3 = x^3(x^2 + 1) -- a triple root at 0, so f
+is not squarefree and the curve is SINGULAR. It is not a genus-2 curve at all,
+and the Weil gates were right to reject it.
+
+The sealed text above says "singular cases are dropped by the module's own
+asserts". THAT SENTENCE IS FALSE, and I wrote it without checking. `g2_Nv`
+asserts only `len(fc)==6 and fc[5]%p!=0` -- degree five, leading coefficient
+nonzero. It performs NO squarefree test. MORNING_F describes singular curves
+being "filtered by a squarefree-f check", so Session F did that filtering in the
+driver that was never committed, and the check left the repo with it.
+
+SO THE MODULE SHIPS WITHOUT A SINGULARITY GUARD. Anyone importing
+ff_curve.g2_Nv on an unfiltered family gets confidently wrong N_v, and will
+notice only when a Weil gate happens to catch it -- which, Hasse-Weil being a
+loose bound, is sometimes. That is precisely the shape of Session F's own
+recorded bug, where the loose gate passed some buggy curves and failed others.
+Recorded here; guarding the module is a change to another arc's banked artifact
+and is registered rather than made in passing.
+
+FIXED BY IMPLEMENTING MY OWN STATED SCOPE, not by changing it: an explicit
+squarefree test over F_p (deg gcd(f, f') == 0) now filters genus-2 candidates,
+and the genus-1 case keeps the module's discriminant assert, which IS the right
+test there. No prediction is altered and no bar moves -- the sealed text always
+said the battery was smooth; only the code failed to be.
+
+AMENDMENT 2 — WHAT REPLICATES, WHAT DOES NOT, AND WHAT I AM NOT ENTITLED TO
+CONCLUDE FROM THE DIFFERENCE.
+
+REPLICATES, CLEANLY. Hasse-Weil 212/212 and RH-for-curves 212/212 on a family
+Session F never used. Its load-bearing claim was never the count 77 -- it was
+METHOD-INVARIANCE on provable gates, and that is exactly what an independent
+family can corroborate. It does.
+
+DOES NOT REPLICATE. The banked rate ratios:
+
+    genus 1   mine 1.0008 +/- 0.0108 sem (sd 0.081, n=57)    banked 0.9748
+    genus 2   mine 1.1147 +/- 0.0238 sem (sd 0.296, n=155)   banked 0.9583
+
+That is -2.4 sem at genus 1 and -6.6 sem at genus 2.
+
+THE REAL POINT IS NOT THE DISAGREEMENT, IT IS THE DISPERSION. The genus-2 ratio
+ranges from 0.650 to 1.862 across individual curves, a factor of 2.9, with a
+standard deviation of 0.296. F_results.json banks it as
+
+    "genus2_rate_ratio": 0.9583126741064829
+
+-- seventeen significant figures on a quantity whose curve-to-curve spread is
+0.3. Whatever that number is, it is a property of the family that was averaged,
+and it was banked with no error bar and no n. A reader meeting it has no way to
+know it is a mean over a wide distribution rather than a constant. That is the
+unattributed-constant failure, and it is the substantive finding here.
+
+AND WHAT I AM NOT ENTITLED TO SAY. M1 misses -- my genus means differ by 0.114
+against a 0.05 bar -- but I will NOT report "genus-independence is refuted",
+because my own estimator is suspect in exactly the direction of that miss. It
+fits log10|N_n/p^n - 1| against n; when that quantity dips near zero at some n
+the log dives, steepening the fitted slope and biasing the ratio UP. Genus 2 has
+four Frobenius eigenvalues rather than two, so cancellation near zero is far more
+frequent there -- which is also why its sd is 3.6x the genus-1 sd. A
+genus-dependent BIAS IN MY ESTIMATOR and a genus-dependent EXPONENT predict the
+same sign of miss, and this cell does not separate them.
+
+So the honest reading of E3 and M1 is: the banked constants do not reproduce
+under a natural estimator on an independent family, and they are quoted with a
+precision the quantity does not support. Whether the exponent itself is
+genus-dependent is UNRESOLVED and needs an estimator that is robust to
+near-zero dips -- median-of-slopes, or a fit on the bound-normalised quantity
+|N_n - (p^n+1)|/(2g p^(n/2)) instead.
+
 WHAT THIS CELL DOES NOT CLAIM. It does not recover Session F's run, does not
 establish that 77 was the right count, and says nothing about the beta question
 MORNING_F explicitly banked as a genus-0 matter.
@@ -89,6 +162,34 @@ from verdictlattice import (Arm, compose, PREMISE as PRE_ROLE,    # noqa: E402
                             EXISTENCE as EX_ROLE,
                             MECHANISM as MECH_ROLE)
 from ff_curve import g1_Nv, g2_Nv, hasse_weil_gate, rh_gate       # noqa: E402
+
+def poly_gcd_deg(f, p):
+    """Degree of gcd(f, f') over F_p; 0 means f is squarefree. Written here
+    because the module it complements does not test this and the battery's
+    stated scope requires it."""
+    def trim(a):
+        while a and a[-1] % p == 0:
+            a = a[:-1]
+        return [c % p for c in a]
+
+    def divmod_(a, b):
+        a = a[:]
+        db = len(b) - 1
+        inv = pow(b[-1], p - 2, p)
+        q = [0] * max(0, len(a) - db)
+        for i in range(len(a) - 1, db - 1, -1):
+            c = (a[i] * inv) % p
+            q[i - db] = c
+            for j in range(db + 1):
+                a[i - db + j] = (a[i - db + j] - c * b[j]) % p
+        return trim(a)
+
+    fp = trim([(i * c) % p for i, c in enumerate(f)][1:])
+    a, b = trim(f[:]), fp
+    while b:
+        a, b = b, divmod_(a, b)
+    return max(len(a) - 1, 0)
+
 
 PRIMES = [7, 11, 13, 17, 19, 23, 29]
 G1_AB = [(a, b) for a in range(1, 4) for b in range(1, 4)]
@@ -150,6 +251,8 @@ for p in PRIMES:
                          rh=bool(rh_gate(res)), ratio=rate_ratio(res)))
     for (c3, c1, c0) in G2_C:
         fc = [c0, c1, 0, c3, 0, 1]        # low->high, deg 5 monic
+        if poly_gcd_deg(fc, p) != 0:
+            continue                      # SINGULAR: the module does not check
         try:
             res = g2_Nv(fc, p, vmax=VMAX)
         except Exception:
@@ -231,6 +334,25 @@ json.dump(dict(primes=PRIMES, vmax=VMAX, banked=BANKED, tol=TOL,
                hasse_weil_pass=n_hw, rh_pass=n_rh,
                rate_ratio_g1=rat[1], rate_ratio_g2=rat[2],
                worst_delta=worst, genus_gap=gap, rows=rows,
+               dispersion={str(g): dict(
+                   n=int(len(vv)), mean=float(np.mean(vv)),
+                   sd=float(np.std(vv, ddof=1)),
+                   sem=float(np.std(vv, ddof=1) / np.sqrt(len(vv))),
+                   minimum=float(np.min(vv)), maximum=float(np.max(vv)),
+                   banked_z=float((BANKED["g" + str(g)] - np.mean(vv))
+                                  / (np.std(vv, ddof=1) / np.sqrt(len(vv)))))
+                   for g, vv in ((g, np.array([r["ratio"] for r in rows
+                                               if r["genus"] == g
+                                               and r["ratio"] is not None]))
+                                 for g in (1, 2))},
+               estimator_caveat="the log-slope fit is biased UP when "
+                                "|N_n/p^n - 1| dips near zero, which happens "
+                                "more often at genus 2 (four eigenvalues, more "
+                                "cancellation). A genus-dependent estimator "
+                                "bias and a genus-dependent exponent predict "
+                                "the same sign of miss; this cell does not "
+                                "separate them, so M1's miss is NOT read as "
+                                "refuting genus-independence",
                bars={s["name"]: s for s in (sP, s1, s2, s3, sM)},
                verdict=v["head"], composed=v),
           open(f"{HERE}/F_reproduce.json", "w"), indent=1)

@@ -1,0 +1,1913 @@
+{
+ "primes": [
+  7,
+  11,
+  13,
+  17,
+  19,
+  23,
+  29
+ ],
+ "vmax": 6,
+ "banked": {
+  "g1": 0.9747993542043758,
+  "g2": 0.9583126741064829
+ },
+ "tol": 0.05,
+ "instrument": {
+  "model": "provable Weil gates on an independently declared curve battery",
+  "params": [
+   {
+    "name": "primes",
+    "kind": "TESTED",
+    "why": "the base fields; Session F states p up to 29 and the gates are provable at every one, so a sweep is the test rather than a robustness garnish",
+    "sweep": [
+     7,
+     11,
+     13,
+     17,
+     19,
+     23,
+     29
+    ],
+    "value": null
+   },
+   {
+    "name": "vmax",
+    "kind": "DECLARED",
+    "why": "extension degrees 1..6, the module's own default and the range over which the Newton-identity bug showed itself (v >= 3)",
+    "sweep": null,
+    "value": 6
+   },
+   {
+    "name": "banked_tolerance",
+    "kind": "DECLARED",
+    "why": "how close my ratio must land to Session F's banked one. The enumerations differ deliberately, so exact agreement is not expected and would be suspicious; 0.05 is about 5% of a quantity that sits near 1",
+    "sweep": null,
+    "value": 0.05
+   },
+   {
+    "name": "min_smooth_per_genus",
+    "kind": "DECLARED",
+    "why": "the non-vacuity floor: gates cannot pass 100% meaningfully on an empty or near-empty battery",
+    "sweep": null,
+    "value": 20
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 3
+ },
+ "n_cases": 212,
+ "n_g1": 57,
+ "n_g2": 155,
+ "hasse_weil_pass": 212,
+ "rh_pass": 212,
+ "rate_ratio_g1": 1.0008458040004944,
+ "rate_ratio_g2": 1.1146679201583616,
+ "worst_delta": 0.15635524605187867,
+ "genus_gap": 0.11382211615786719,
+ "rows": [
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9925116404877453
+  },
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+1x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9293773542563216
+  },
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9925116404877453
+  },
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+2x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9293773542563216
+  },
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8771052238516663
+  },
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9931022900753423
+  },
+  {
+   "genus": 1,
+   "p": 7,
+   "curve": "y^2=x^3+3x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9293773542563216
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.844855449223562
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.844855449223562
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0810064861233828
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.060476523479606
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0810064861233828
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.060476523479606
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7987733927825974
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0142298856916259
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7189531839088282
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0103686736000193
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.079850299654531
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1868471864395553
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.017951875141455
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1130189106075865
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0140131583222287
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0142298856916259
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.017951875141455
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2309401957225694
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1775530381667925
+  },
+  {
+   "genus": 2,
+   "p": 7,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8997634529329737
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.074125581862105
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.092022311200482
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+1x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0290058532223225
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.092022311200482
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8837789801547489
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0290058532223225
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9260756152732547
+  },
+  {
+   "genus": 1,
+   "p": 11,
+   "curve": "y^2=x^3+3x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0299758469386842
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.847397713307642
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.3826398849278263
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.120725338892533
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.83539557730107
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8511230101253519
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1258849940383917
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2908652102667555
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8811501713376587
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8060242000331174
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8185147263751439
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0538926913579816
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0232340224857728
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0548960712965358
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8877276699649584
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.763001723040035
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1754820503153975
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.6533703918872706
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8877276699649584
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.4316000902433204
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2585349836212478
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0029011524009404
+  },
+  {
+   "genus": 2,
+   "p": 11,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.3902083986342373
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0245584958822684
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0263669015402865
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8702848985150572
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9141504471005873
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+2x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0245584958822684
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0245584958822684
+  },
+  {
+   "genus": 1,
+   "p": 13,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0263669015402865
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.8547969933853239
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.8547969933853239
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.108640311763545
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7965488913655993
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9206711119785828
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.8547969933853239
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.7222328663665372
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.3496761085526112
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.899478650906379
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7326193684253507
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1262191405470536
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.026458750320579
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8224080753890086
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.695490088245648
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1411156465032786
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.966443141567414
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9917261622543734
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.6498398338002467
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8727848422492085
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9473578627945931
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.595248915585245
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9939354882982259
+  },
+  {
+   "genus": 2,
+   "p": 13,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9036871755732729
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1598385111515528
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9496797774747137
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+1x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0096519773546266
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9496797774747137
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9019129877266159
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+2x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9649328507490768
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9415129697659452
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0207341717186003
+  },
+  {
+   "genus": 1,
+   "p": 17,
+   "curve": "y^2=x^3+3x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.916133358301001
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.857736784290747
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.857736784290747
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9668836952142039
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9853520753597775
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9294995981928711
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1337361516441167
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.897166884097959
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7529808621485614
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0771771392989478
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.6743032396115127
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9668836952142039
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0738228511868382
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9134873037595006
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.3508578783746816
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8575794730889291
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1773110249926595
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0878981774644085
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9707210285345547
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.5916564843640197
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1481501955040476
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.3508578783746816
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.5903732896575598
+  },
+  {
+   "genus": 2,
+   "p": 17,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9150224242376972
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8985290362374003
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.056929565590651
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9213404422394291
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9636500872508137
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+2x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.16117633338457
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9213404422394291
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9636500872508137
+  },
+  {
+   "genus": 1,
+   "p": 19,
+   "curve": "y^2=x^3+3x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.16117633338457
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.120059351658115
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.120059351658115
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2894389805918578
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9295256284072276
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.755550613553029
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2877655664659753
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9360934615471
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7050350017774238
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.936014485540015
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1370346612382882
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1141733224373604
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8846819250317011
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8443800993217062
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1778468876962025
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9615006203823397
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.3292743513702654
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0273453012321085
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8404486550502696
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2225888547955617
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8311435681762183
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.09941179686303
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0362912819353245
+  },
+  {
+   "genus": 2,
+   "p": 19,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7845427009740398
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9776812915218877
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.163292498623891
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+1x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0290515769052624
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0168367131373681
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9313312445013379
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+2x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.163292498623891
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.136759469503967
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9776812915218877
+  },
+  {
+   "genus": 1,
+   "p": 23,
+   "curve": "y^2=x^3+3x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9003573002015072
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.860441134508937
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.860441134508937
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1248041919757634
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2413416844929057
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1248041919757634
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.5365822131971298
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9948641475014002
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2174335029916912
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2413416844929057
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1248041919757634
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1129502726868394
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8051375302545718
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0842141201595599
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0598677206900369
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1421296039160629
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0851133776203934
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7813145408534403
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9775465901977409
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0901225231329672
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9007652772912731
+  },
+  {
+   "genus": 2,
+   "p": 23,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8017677386509785
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0143647803362583
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9859864939812201
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+1x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0143647803362583
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0966473173288438
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9089676800955431
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+2x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0143647803362583
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+3x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.165590599426537
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+3x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0143647803362583
+  },
+  {
+   "genus": 1,
+   "p": 29,
+   "curve": "y^2=x^3+3x+3",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9651871749265912
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1298651158691324
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1298651158691324
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.1298651158691324
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.148968647374228
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.0353075556060674
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.8621838920875082
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9279484410980674
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+0x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9050590416967919
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9336030876447607
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.041012506366044
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+1x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.905878293170558
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.7990177409382867
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8599121613862392
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.728705261983147
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.020150917128998
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+1x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.5852495615474187
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+0x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.6287085922343711
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+0x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.2559306467409812
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+1x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.8493377872849129
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+1x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9128972129875131
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+2x+0",
+   "hw": true,
+   "rh": true,
+   "ratio": 1.70489898814678
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+2x+1",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9998667504330873
+  },
+  {
+   "genus": 2,
+   "p": 29,
+   "curve": "y^2=x^5+2x^3+2x+2",
+   "hw": true,
+   "rh": true,
+   "ratio": 0.9777133454835251
+  }
+ ],
+ "dispersion": {
+  "1": {
+   "n": 57,
+   "mean": 1.0008458040004944,
+   "sd": 0.08134991020791546,
+   "sem": 0.010775058831471993,
+   "minimum": 0.8702848985150572,
+   "maximum": 1.165590599426537,
+   "banked_z": -2.4172907269927504
+  },
+  "2": {
+   "n": 155,
+   "mean": 1.1146679201583616,
+   "sd": 0.2963471959277603,
+   "sem": 0.0238031795835233,
+   "minimum": 0.6498398338002467,
+   "maximum": 1.8621838920875082,
+   "banked_z": -6.568670605674407
+  }
+ },
+ "estimator_caveat": "the log-slope fit is biased UP when |N_n/p^n - 1| dips near zero, which happens more often at genus 2 (four eigenvalues, more cancellation). A genus-dependent estimator bias and a genus-dependent exponent predict the same sign of miss; this cell does not separate them, so M1's miss is NOT read as refuting genus-independence",
+ "bars": {
+  "smallest smooth-case count in either genus": {
+   "name": "smallest smooth-case count in either genus",
+   "value": 57,
+   "thresh": 20,
+   "floor": 0,
+   "ceiling": 189,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 169,
+   "why": "a count; 0 is attainable if the singularity filter removes everything and the ceiling is the full declared grid"
+  },
+  "Hasse-Weil pass fraction": {
+   "name": "Hasse-Weil pass fraction",
+   "value": 1.0,
+   "thresh": 1.0,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.0,
+   "why": "a fraction over the smooth battery; the gate is PROVABLE so anything below 1 is a defect in the counter, and both ends are attainable"
+  },
+  "RH-for-curves pass fraction": {
+   "name": "RH-for-curves pass fraction",
+   "value": 1.0,
+   "thresh": 1.0,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.0,
+   "why": "same, and needed alongside Hasse-Weil because Session F's bug left RH passing while N_v was wrong"
+  },
+  "worst |replicated - banked| rate ratio across the two genera": {
+   "name": "worst |replicated - banked| rate ratio across the two genera",
+   "value": 0.15635524605187867,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.05,
+   "why": "an absolute difference between two quantities near 1; 0 is attainable and a wholly different exponent would give O(1)"
+  },
+  "|genus-1 minus genus-2| mean rate ratio": {
+   "name": "|genus-1 minus genus-2| mean rate ratio",
+   "value": 0.11382211615786719,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.05,
+   "why": "the genus-independence claim, on the same scale as E3"
+  }
+ },
+ "verdict": "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
+ "composed": {
+  "label": "SESSION_F_CLAIMS_DO_NOT_REPLICATE_BUT_NOT_BY_|genus-1 minus genus-2| mean rate ratio",
+  "head": "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
+  "qualifiers": [
+   "BUT_NOT_BY_|genus-1 minus genus-2| mean rate ratio"
+  ],
+  "citation": "SESSION_F_CLAIMS_DO_NOT_REPLICATE  [worst |replicated - banked| rate ratio across the two genera 0.1564 vs <=0.05 MISSED \u2014 \"the banked rate ratios replicate\"; |genus-1 minus genus-2| mean rate ratio 0.1138 vs <=0.05 MISSED \u2014 \"because the exponent is genus-independent\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('smallest smooth-case count in either genus', PREMISE, MET)",
+   "Arm('Hasse-Weil pass fraction', EXISTENCE, MET)",
+   "Arm('RH-for-curves pass fraction', EXISTENCE, MET)",
+   "Arm('worst |replicated - banked| rate ratio across the two genera', EXISTENCE, MISSED)",
+   "Arm('|genus-1 minus genus-2| mean rate ratio', MECHANISM, MISSED)"
+  ]
+ }
+}

@@ -854,6 +854,31 @@ ENTRIES = [
               "already showed what happens when one ruler is asked two "
               "questions."),
 
+    dict(id="ff-curve-singularity-guard", status=QUEUED,
+         warrant=[("approximability/F_reproduce.json",
+                   "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
+                   "STRUCTURAL/the run that hit the gap")],
+         request="give approximability/ff_curve.py a squarefree guard. g2_Nv "
+                 "asserts only len(fc)==6 and fc[5]%p!=0 -- degree five with a "
+                 "nonzero leading coefficient -- and performs NO squarefree "
+                 "test, so a singular f returns confidently wrong N_v.",
+         note="FOUND 2026-09-05 by running it: y^2 = x^5 + x^3 = x^3(x^2+1) "
+              "sailed through at p=13 and p=29 and was caught only because the "
+              "Weil gates rejected it afterwards. MORNING_F says singular "
+              "curves were 'filtered by a squarefree-f check' -- so Session F "
+              "did that filtering in the DRIVER, and the driver was never "
+              "committed, so the check left the repo with it. The module is "
+              "banked as 'a real asset: provable ground-truth curves beyond "
+              "the genus-0 line', and an importer who does not know to filter "
+              "gets wrong answers caught only sometimes, because Hasse-Weil is "
+              "a loose bound. That is the same shape as Session F's own "
+              "recorded Newton-identity bug.\n"
+              "NOT DONE IN PASSING because ff_curve.py belongs to Session F's "
+              "arc, which is freshly landed; a guard added to another arc's "
+              "banked machinery is a change that arc should see. "
+              "F_reproduce.py implements the check locally (poly_gcd_deg) so "
+              "the code to move is already written and tested."),
+
     dict(id="orphan-session-branches", status=QUEUED,
          request="PARTLY DONE 2026-09-02 -- Session G LANDED (see note), three "
                  "remain. Adjudicate and land the July-2026 session branches whose "
@@ -912,6 +937,22 @@ ENTRIES = [
               "built so that SEALED is a property of the graph rather than of "
               "recollection was being fooled by a traversal flag. Fixed with "
               "--full-history, red-pathed, no existing pair changes verdict.\n"
+              "ALL FOUR LANDED 2026-09-05. G (c0f1037), then D, H arm 2 and "
+              "F. D restored pi292_thouless_prediction.py, the GENERATOR of a "
+              "pi292_prediction_SEALED.json that had been sitting on this "
+              "branch without one. F needed its criticality_tool/ path prefix "
+              "repaired (git mv, so the rename shows in the graph) and then "
+              "exposed a SECOND generator gap: ff_curve.py is a pure module "
+              "with no __main__, so F_results.json's four banked numbers have "
+              "no producing code on any branch. Rather than reconstruct a "
+              "driver to hit '77/77' -- tuning to a target, and a "
+              "reconstruction is a hypothesis about what was run -- "
+              "F_reproduce.py declares its OWN family and reports what that "
+              "gives: gates replicate 212/212 (the load-bearing "
+              "method-invariance claim, corroborated on curves Session F never "
+              "used), rate ratios do NOT, and the genus-2 one is banked to 17 "
+              "significant figures on a quantity with sd 0.296 spanning "
+              "0.65-1.86. See ff-curve-singularity-guard above.\n"
               "DECIDED 2026-09-02: main was fast-forwarded to cubics-wilderness "
               "WITHOUT these four, deliberately, so the merge stayed a "
               "zero-risk fast-forward and the adjudication kept its own "
