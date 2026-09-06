@@ -1,0 +1,140 @@
+{
+ "corpus": {
+  "data/odlyzko_zeros1.txt": 10,
+  "data/odlyzko_zeros6.txt": 40,
+  "zeros_1000.npy": 4,
+  "zeros_2000.npy": 8
+ },
+ "top_reuse": 40,
+ "n_sealed": 52,
+ "n_blind": 7,
+ "ratio": 7.428571428571429,
+ "sealed_examples": [
+  "./approximability/F_genus_exponent.py",
+  "./approximability/F_reproduce.py",
+  "./citation_provenance.py",
+  "./cross_substrate/brocot_above_horizon.py",
+  "./cross_substrate/brocot_above_horizon_parent.py",
+  "./cross_substrate/brocot_attenuation.py",
+  "./cross_substrate/brocot_audible_horizon.py",
+  "./cross_substrate/brocot_axis_or_instrument.py"
+ ],
+ "blind_examples": [
+  "./approximability/G_fifth_measured.json",
+  "./approximability/G_fifth_prediction_SEALED.json",
+  "./approximability/pi292_measured.json",
+  "./arsrh/seals/F1F0_REFERENCE_REREGISTRATION.json",
+  "./csprng_calibrator.json",
+  "./holonomy/prereg_sealed.json",
+  "./holonomy/ridge_stageB.json"
+ ],
+ "anchor": "Dwork, Feldman, Hardt, Pitassi, Reingold & Roth, 'The reusable holdout: Preserving validity in adaptive data analysis', Science 349(6248), 2015",
+ "amendment1": {
+  "probe_defect": "the census matched coordinate-file STEMS as bare substrings; stem 'am' matched 850 files via parameter/name/sample, and P1 met a bar of 15 on that noise. Fixed to require the literal coordinates/<name>.jsonl path.",
+  "bar_defect": "E2 (<=6) and M1 (>=10x) were chosen without a reachability argument and the data landed at 7 and 7.4x -- a boundary drawn through the middle of the data. The counts illustrate the argument; they do not establish it, and the argument does not depend on them."
+ },
+ "scope_note": "claims ABOUT THE BANKED OBJECT are immune (exact arithmetic over a specified finite set); claims that GENERALISE from the corpus are exposed. Sealing addresses within-cell adaptivity; Dwork's concern is across-cell, and they are orthogonal.",
+ "bars": {
+  "generators opening the most-consulted data file": {
+   "name": "generators opening the most-consulted data file",
+   "value": 40,
+   "thresh": 15,
+   "floor": 0,
+   "ceiling": 2000,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1985,
+   "why": "a count of files; 0 is attainable if nothing is shared and the ceiling is every python file in the tree"
+  },
+  "cells carrying sealed predictions": {
+   "name": "cells carrying sealed predictions",
+   "value": 52,
+   "thresh": 30,
+   "floor": 0,
+   "ceiling": 2000,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1970,
+   "why": "a count of files on the same scale"
+  },
+  "artifacts showing a blind/held-out measurement": {
+   "name": "artifacts showing a blind/held-out measurement",
+   "value": 7,
+   "thresh": 6,
+   "floor": 0,
+   "ceiling": 2000,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 6,
+   "why": "a count on the same scale; a LARGE value would mean holdout is already the habit and this cell's concern is misplaced"
+  },
+  "sealed-to-heldout ratio": {
+   "name": "sealed-to-heldout ratio",
+   "value": 7.428571428571429,
+   "thresh": 10.0,
+   "floor": 0.0,
+   "ceiling": 2000.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1990.0,
+   "why": "a ratio of the two counts; 1.0 is 'the repo holds out as often as it seals' and is attainable"
+  }
+ },
+ "verdict": "HOLDOUT_PRACTICE_IS_ALREADY_IN_PLACE",
+ "composed": {
+  "label": "HOLDOUT_PRACTICE_IS_ALREADY_IN_PLACE_BUT_NOT_BY_sealed-to-heldout ratio",
+  "head": "HOLDOUT_PRACTICE_IS_ALREADY_IN_PLACE",
+  "qualifiers": [
+   "BUT_NOT_BY_sealed-to-heldout ratio"
+  ],
+  "citation": "HOLDOUT_PRACTICE_IS_ALREADY_IN_PLACE  [artifacts showing a blind/held-out measurement 7 vs <=6 MISSED \u2014 \"holdout is not\"; sealed-to-heldout ratio 7.429 vs >=10 MISSED \u2014 \"because sealing and holdout are different protections and only one is practised\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('generators opening the most-consulted data file', PREMISE, MET)",
+   "Arm('cells carrying sealed predictions', EXISTENCE, MET)",
+   "Arm('artifacts showing a blind/held-out measurement', EXISTENCE, MISSED)",
+   "Arm('sealed-to-heldout ratio', MECHANISM, MISSED)"
+  ]
+ }
+}

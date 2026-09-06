@@ -66,6 +66,43 @@ adaptive query sequence against one fixed dataset.
 ║     quantitative form of "sealing is not a holdout".                         ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
+AMENDMENT 1 — P1 PASSED ON NOISE, AND E2/M1's BARS WERE GUESSED. Both are my
+defects, both are the families this repo already has names for, and the first is
+the third instance this week.
+
+(a) THE PROBE MATCHED SUBSTRINGS, NOT READS. The corpus census looked for each
+coordinate file's STEM anywhere in a .py file. One coordinate file is
+`am.jsonl`. The stem "am" matches every file containing "parameter", "name",
+"sample" — 850 of them. P1 read 850 against a bar of 15 and MET it, entirely on
+noise, in the arm whose job was to establish that the corpus is reused at all.
+The real figure for coordinate reuse is 44 generators referencing an actual
+`coordinates/<name>.jsonl` path.
+
+Same shape as citation_provenance counting itself and as the two failed
+dispersion sweeps: a syntactic probe standing in for a semantic relation, firing
+on the confusable. Fixed by requiring the literal path.
+
+(b) E2 AND M1's BARS WERE PICKED WITHOUT A REACHABILITY ARGUMENT, which is the
+defect that made v1 of the decorrelation battery inert and which I recorded four
+days ago. "at most 6 held-out artifacts" and "at least 10x" were numbers I chose
+because they sounded right. The measurement came in at 7 and 7.4x — MISSING both,
+by one artifact and by a quarter. That is not evidence that holdout practice is
+adequate; it is evidence that I set a boundary through the middle of the data
+without knowing where the data were.
+
+The honest reading of the numbers, stated without a bar: 52 sealed cells against
+7 held-out measurements. Whether 7 is "rare" is exactly the question the bar was
+supposed to answer and it cannot, because I had no basis for the threshold. What
+the numbers DO support, and it needs no bar: sealing and holdout are practised at
+very different rates, and the repo's own held-out instances (Session G's sealed
+prediction measured blind, the holonomy ridge Stage A→B) are the model to copy.
+
+THE ARGUMENT DOES NOT DEPEND ON THE BARS. Sealing is within-cell and Dwork's
+concern is across-cell; that is a statement about what the two mechanisms DO,
+not about how often each appears. A programme could seal every cell and hold out
+nothing, and still be one long adaptive query sequence. The counts illustrate;
+they do not establish.
+
 WHAT THIS CELL DOES NOT CLAIM. Not that any specific banked result is wrong.
 Adaptive analysis inflates the RATE of false discovery over a sequence; it does
 not identify which member of the sequence is false, and this cell has no power
@@ -113,7 +150,9 @@ for f in sorted(os.listdir(os.path.join(ROOT, "cross_substrate", "coordinates"))
                                               "coordinates")) else []):
     if f.endswith(".jsonl"):
         stem = f[:-6]
-        n = len(files_matching(re.escape(stem)))
+        # LITERAL PATH, not the bare stem — see Amendment 1(a). The stem
+        # "am" matched 850 files via "parameter"/"name"/"sample".
+        n = len(files_matching(r"coordinates/" + re.escape(stem) + r"\.jsonl"))
         if n >= 3:
             corpus["coordinates/" + f] = n
 top = max(corpus.values()) if corpus else 0
@@ -174,6 +213,18 @@ json.dump(dict(corpus=corpus, top_reuse=top, n_sealed=len(sealed),
                anchor="Dwork, Feldman, Hardt, Pitassi, Reingold & Roth, "
                       "'The reusable holdout: Preserving validity in adaptive "
                       "data analysis', Science 349(6248), 2015",
+               amendment1=dict(
+                   probe_defect="the census matched coordinate-file STEMS as "
+                                "bare substrings; stem 'am' matched 850 files "
+                                "via parameter/name/sample, and P1 met a bar of "
+                                "15 on that noise. Fixed to require the literal "
+                                "coordinates/<name>.jsonl path.",
+                   bar_defect="E2 (<=6) and M1 (>=10x) were chosen without a "
+                              "reachability argument and the data landed at 7 "
+                              "and 7.4x -- a boundary drawn through the middle "
+                              "of the data. The counts illustrate the argument; "
+                              "they do not establish it, and the argument does "
+                              "not depend on them."),
                scope_note="claims ABOUT THE BANKED OBJECT are immune (exact "
                           "arithmetic over a specified finite set); claims that "
                           "GENERALISE from the corpus are exposed. Sealing "
