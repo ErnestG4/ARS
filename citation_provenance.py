@@ -45,6 +45,43 @@ it is not connected to anything.
 ║     absence on the methodology side is specific rather than a house style.   ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
+AMENDMENT 1 — THE FIRST RUN COUNTED ITSELF, AND THE SELF-COUNT FLIPPED THE
+VERDICT. Caught immediately, and it is the cleanest instance of this programme's
+own recurring failure that has appeared yet.
+
+Every one of the sixteen methodology concept-terms returned EXACTLY ONE file-hit.
+Every one of the twelve methodology surnames returned exactly one. That file is
+THIS FILE: to probe for "construct validity" and "jingle" and "experimenter's
+regress" the generator has to contain those strings, so grep found the instrument
+and counted it as evidence. E2 read 16 present against a bar of <= 2 and MISSED,
+and the composed head came out METHODOLOGY_IS_LITERATURE_ANCHORED -- the
+OPPOSITE of the truth, produced entirely by the measurement contaminating itself.
+
+A cell written to ask "did this repo ever look outside itself?" answered "yes,
+once, in the file asking the question."
+
+FIXED by excluding this generator and its artifact from the corpus. The exclusion
+is not cosmetic and is stated rather than silently applied: an instrument that
+appears in its own sample is measuring itself, and the direction of the resulting
+bias is toward whatever the instrument was built to look for -- which is the
+worst possible direction.
+
+The domain arms were never affected, because the probe list contains those names
+too but the domain corpus is 441 hits deep and one self-hit each is noise. That
+asymmetry is itself the lesson: SELF-CONTAMINATION IS INVISIBLE WHERE THE SIGNAL
+IS LARGE AND DECISIVE WHERE IT IS SMALL. The arm that was near zero is exactly
+the arm the contamination could flip, and it is exactly the arm the cell was
+built to read.
+
+AMENDMENT 2 — THE COUNT IS ZERO, NOT ONE. The single surviving methodology
+surname hit is "Hacking(1)", and it is not Ian Hacking: it is the phrase
+"hardware hacking" in WHYTHISEXISTS.md. Checked rather than assumed, because a
+count of 1 and a count of 0 support different sentences and the difference here
+is the whole claim. Across 16 concept-terms and 12 methodology surnames, this
+repo contains ZERO citations of the literature on measurement validity,
+interpretation error, or research methodology -- against 429 file-hits for nine
+domain-science surnames.
+
 WHAT THIS DOES NOT CLAIM. Not that the rules are wrong, and not that they are
 unoriginal — that is exactly what the literature search underway is for. It
 measures one thing: whether the connection was ever made. A rule can be correct,
@@ -76,11 +113,19 @@ METHOD_TERMS = ["construct validity", "jingle", "jangle", "forking paths",
                 "Simpson's paradox"]
 
 
+SELF = {"./citation_provenance.py", "./citation_provenance.json"}
+
+
 def hits(term):
+    """Files containing `term`, EXCLUDING this generator and its artifact.
+
+    See Amendment 1: without the exclusion the probe finds itself, every
+    methodology term reads exactly 1, and the verdict inverts."""
     r = subprocess.run(["grep", "-rli", term, "--include=*.md",
                         "--include=*.py", "."],
                        cwd=ROOT, capture_output=True, text=True)
-    return [l for l in r.stdout.splitlines() if not l.startswith("./.git")]
+    return [l for l in r.stdout.splitlines()
+            if not l.startswith("./.git") and l not in SELF]
 
 
 dom = {t: len(hits(t)) for t in DOMAIN}
@@ -147,6 +192,15 @@ json.dump(dict(domain=dom, method_names=mnm, method_terms=mtm,
                ratio=ratio, terms_present=terms_present,
                domain_present=dom_present,
                bars={s["name"]: s for s in (sP, s1, s2, sM)},
+               self_excluded=sorted(SELF),
+               amendment1="the first run counted this generator itself: every "
+                          "methodology term returned exactly 1 hit, E2 missed "
+                          "at 16 against a bar of 2, and the head came out "
+                          "METHODOLOGY_IS_LITERATURE_ANCHORED -- the opposite "
+                          "of the truth. Self-contamination is invisible where "
+                          "the signal is large and decisive where it is small, "
+                          "and the small arm was the one the cell existed to "
+                          "read.",
                verdict=v["head"], composed=v),
           open(f"{ROOT}/citation_provenance.json", "w"), indent=1)
 print("\nwritten -> citation_provenance.json")
