@@ -45,6 +45,34 @@ does the work is the part a placeholder cannot fake -- here, the enumeration the
 arithmetic demands.
 """
 
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+# NOT SEARCHED — see the retraction note in existence.py. The same sweep
+# fabricated this module's result too.
+LITERATURE = dict(
+    status="NOT_SEARCHED",
+    note="RETRACTED SWEEP, 2026-09-06. Discarded in full: the ISA 315 "
+         "paragraph and appendix quotations, PCAOB AS 1105.11, the CONSORT "
+         "2010 E&E table and CONSORT 2025 item 26, the Cochrane Handbook "
+         "section quotations, the claim about what Rubin 1976 does and does "
+         "not contain, Wu & Carroll, Diggle & Kenward, the Biemer "
+         "undercoverage-bias formula, the RoB 2 domain renaming, Bird et al. "
+         "2009, and the Wang & Strong definition. None was retrieved; all "
+         "carried verification labels saying otherwise.\n"
+         "The sweep's VERDICT was that both halves of this rule are "
+         "thoroughly named and nothing here is ours. That verdict is plausible "
+         "on its face — reconciliation and completeness are auditing "
+         "vocabulary, and informative missingness is a large literature — but "
+         "it has no evidence behind it, and 'plausible and unchecked' is the "
+         "state this whole exercise exists to eliminate.\n"
+         "WHAT A REAL SWEEP MUST DO: Half A, does the ledger requirement (two "
+         "instruments counting one population must reconcile or say why not) "
+         "have a name in auditing or in trial-reporting guidelines? Half B, is "
+         "the specific danger that THE MISSING CASES ARE THE INFORMATIVE ONES "
+         "covered by the missing-data literature? Check the Rubin/Little "
+         "attribution carefully; it is commonly mis-cited.",
+)
+
+
 
 class UnreconciledCounts(AssertionError):
     pass

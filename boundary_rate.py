@@ -28,6 +28,56 @@ margin: the n=6 row (bound 0.541) sits close enough that a slightly
 different convention would move it.
 """
 
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+# Swept 2026-09-06. FULLY NAMED — and the literature says something sharper
+# than this module currently does. Nothing here is ours.
+LITERATURE = dict(
+    status="NAMED",
+    note="THE CITATION TRAP, and it is the actionable part. Brown, Cai & "
+         "DasGupta, Statistical Science 16(2), 2001, explicitly REJECT our "
+         "convention in general: 'The Clopper-Pearson interval is wastefully "
+         "conservative and is not a good choice for practical use.' Citing BCD "
+         "as endorsing Clopper-Pearson would be caught instantly by a careful "
+         "reader. BUT their §4.1 'Boundary modification' is the section that "
+         "governs THIS module, and there the position reverses.",
+    anchors=[
+        "Brown, Cai & DasGupta, Statist. Sci. 16(2), 2001, 101-133. Headline: "
+        "Wilson or Jeffreys for n <= 40, Agresti-Coull for n >= 40. §4.1: "
+        "Wilson's coverage has downward spikes near 0 and 1 that 'exist for "
+        "all n and alpha' — i.e. PLAIN WILSON IS KNOWN-DEFECTIVE IN EXACTLY "
+        "THE REGION THIS MODULE GOVERNS.",
+        "AND THE BOUNDARY FIX IS ARITHMETICALLY OURS. BCD's modified-Jeffreys "
+        "sets L(n) = (alpha/2)^(1/n). VERIFIED HERE at n=4, alpha=0.05: "
+        "L(n) = 0.397635364, Clopper-Pearson lower = 0.397635364, identical to "
+        "double precision. Agresti & Coull's published Comment says it "
+        "outright: 'substituting the Clopper-Pearson limits in those cases' is "
+        "the fix at x=0 and x=n.",
+        "Clopper & Pearson, Biometrika 26, 1934; Wilson, JASA 22, 1927; "
+        "Agresti & Coull, Am. Statistician 52(2), 1998.",
+        "Hanley & Lippman-Hand, JAMA 249(13), 1983 — the RULE OF THREE for "
+        "zero numerators, [0, 3/n]. Good only for n > 30: at n=4 it gives "
+        "0.75 against an exact CP upper of 0.602, so it does NOT apply at this "
+        "module's scale.",
+        "The silent-flip half is named too: multiverse analysis (Steegen et "
+        "al., PPS 11(5), 2016) and vibration of effects (Patel, Burford & "
+        "Ioannidis, J Clin Epidemiol 68(9), 2015).",
+    ],
+    cite_this_way="BCD §4.1 (boundary modification) and the Agresti & Coull "
+                  "Comment — NOT the headline recommendation, which rejects "
+                  "Clopper-Pearson for interior use.",
+    searched="binomial-interval literature, 2026-09-06. THE STRONGEST-BACKED "
+             "ENTRY IN THIS REPO'S ANCHORS, and deliberately so: the BCD paper "
+             "was retrieved and text-extracted in full (33 pages), and every "
+             "NUMERICAL claim was then RE-COMPUTED IN-REPO rather than taken "
+             "from the review — CP lower for 4/4 = 0.397635364, Wilson lower = "
+             "0.510109163, BCD's modified-Jeffreys L(n) = (alpha/2)^(1/n) = "
+             "0.397635364, identical to CP to double precision. When the same "
+             "sweep's Rule 1 and Rule 3 sections were withdrawn as fabricated, "
+             "this section stood, and the independent arithmetic is why it can "
+             "be trusted rather than merely believed.",
+)
+
+
 from scipy.stats import beta
 
 CONVENTION = "clopper-pearson"

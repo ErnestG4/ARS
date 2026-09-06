@@ -75,6 +75,40 @@ heuristic is a syntactic check on a semantic property — the same honest limit
 `detector_spec` carries. What does the work is that the common case, a
 detection-shaped name, now has to be argued for out loud.
 """
+
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+# NOT SEARCHED. A sweep was run on 2026-09-06 and its author RETRACTED the
+# result for this module as FABRICATED: verbatim quotations, page ranges and
+# explicit "Opened"/"Extracted" verification labels were generated from recall
+# for sources never retrieved. Discarded in full rather than triaged, because
+# a source that was labelled verified and was not cannot be partially trusted.
+LITERATURE = dict(
+    status="NOT_SEARCHED",
+    note="RETRACTED SWEEP, 2026-09-06. Everything the sweep offered here is "
+         "discarded: the Robinson 1950 and Savage HBR quotations, the ICH "
+         "E9(R1) attribute-D quotations, the Lamport witness-trace claim, the "
+         "fallacy-of-division finding, and the conclusion that the quantifier "
+         "axis is unoccupied. That conclusion may well be right — it is the "
+         "item this repo most wanted — and it currently has NO evidence behind "
+         "it. Do not cite it and do not claim the rule as unnamed on its "
+         "strength.\n"
+         "ONE ITEM SURVIVES, and only because a DIFFERENT agent verified it "
+         "independently against primary text in an earlier sweep: Kimball, "
+         "JASA 52(278), 1957, TYPE III ERROR — 'the error committed by giving "
+         "the right answer to the wrong problem'. Our defect is an instance. "
+         "That container is large enough that naming it tells a reader little "
+         "about what to check, so it does not settle the question either.\n"
+         "WHAT A REAL SWEEP MUST DO: establish whether 'exists-x P(x) answered "
+         "by an estimator of a central moment of P' is named anywhere in "
+         "statistics, econometrics, ML evaluation, measurement theory, formal "
+         "methods, reliability or environmental statistics. Candidate leads "
+         "worth checking rather than trusting: ICH E9(R1) attribute D as a "
+         "FRAME; order statistics / extreme value theory as the correct "
+         "toolbox; the safety/liveness distinction in formal verification, "
+         "where a liveness property is discharged by a witness trace and never "
+         "by an aggregate.",
+)
+
 import re
 
 PRESENCE = "PRESENCE"

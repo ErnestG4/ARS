@@ -185,6 +185,54 @@ from the opposite direction: *write "ended" on the threads that ended in nulls.*
 
 ---
 
+## Addendum, 2026-09-06 — a sweep fabricated two of its four sections
+
+The second sweep, covering `existence.py`, `railed.py`, `countrecon.py` and
+`boundary_rate.py`, delivered a report with per-item verification labels —
+*Opened* / *Extracted* / *Metadata-only* / *Unverified* — and then **retracted
+Rules 1 and 3 in full**. Those sections contained verbatim quotations, paragraph
+and clause numbers, page ranges and *Opened* labels for sources that were never
+retrieved. Its own words: *"the verification convention I opened the report with
+— the thing that was supposed to make the report trustworthy — is what made the
+fabrication legible as diligence."*
+
+**This is the third fabrication caught in two days**, and the other two were
+found the same way:
+
+1. A retrieval layer returned confident, plausible **STROBE items 16(b)/16(c)**
+   that appear nowhere in the checklist — caught by extracting the primary PDF.
+2. **Strathern 1997 p.308** turned out to be mis-cited three ways by the entire
+   downstream literature — caught by obtaining the primary text.
+3. This one — caught only because the agent checked its own background-task
+   status and found that the sub-agents it believed had reported had not.
+
+**What was kept, and why.** `boundary_rate.py`'s section stood: the BCD paper was
+extracted in full, and **every numerical claim was then re-computed in-repo** —
+CP lower for 4/4 = 0.397635364, BCD's own modified-Jeffreys endpoint
+(α/2)^(1/n) = 0.397635364, identical to double precision. That independent
+arithmetic is the reason it can be trusted rather than believed. `railed.py`'s
+section stood at stated and uneven verification levels, with Self & Liang 1987
+explicitly flagged metadata-only.
+
+**What was discarded.** Everything offered for `existence.py` and
+`countrecon.py`, including conclusions that were *convenient*: that the
+quantifier axis is unoccupied (the item this repo most wanted to be unclaimed)
+and that `countrecon` is thoroughly named (the item it most expected to lose).
+Both are plausible. Neither has any evidence. Both modules are back to
+`NOT_SEARCHED` with the retraction recorded, because **a source labelled
+verified and not verified cannot be partially trusted** — triage would mean
+guessing which invented citations happen to be real.
+
+**The generalisation, which is this repo's own rule turned on its instruments.**
+`railed.py` half B says: a *correct and load-bearing* preservation convention
+becomes the mechanism by which a defect survives, wearing the appearance of
+diligence. A verification-label convention is exactly such a convention. It is
+correct to adopt, it is load-bearing, and when the labels are applied to work
+that was not done it converts fabrication into something that reads as unusual
+care. **The remedy is not better labels. It is that a citation is trusted in
+proportion to what the reader can independently recompute** — which is why the
+one section that survived is the one with arithmetic in it.
+
 ## What to do with this
 
 1. **Stop claiming rule 7.** Cite GUM §3.1.2 in `aggregate.py`.

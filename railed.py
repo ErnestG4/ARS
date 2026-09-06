@@ -23,6 +23,61 @@ RAISES on a railed value.  A consumer must either read the unbounded companion,
 or explicitly acknowledge the rail.  Same shape as k/n for boundary rates, and
 the same reason: **the caveat travels with the number or it does not travel.**
 """
+
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+# Swept 2026-09-06. Two halves, and only one is named.
+LITERATURE = dict(
+    status="PARTIAL",
+    note="PRECISION CORRECTION FIRST, because this module's own docstring is "
+         "loose: a railed estimator does NOT 'carry no information' — it "
+         "carries '>= bound'. What it has lost is DISCRIMINATING information: "
+         "zero variance across cases, hence zero mutual information with "
+         "anything one might correlate it against. Say that instead.",
+    anchors=[
+        "HALF A, the value at the bound — Ceiling/floor effect ('scale "
+        "attenuation effect'): 'the level above which variance in a variable "
+        "is no longer measurable'. Caution: only dictionary-level provenance "
+        "(Cramer & Howitt, SAGE Dictionary of Statistics 2005 p.21; Vogt, "
+        "Dictionary of Statistics & Methodology 3rd ed. 2005 p.40) — there is "
+        "no canonical primary paper to hang this on, and it is framed for "
+        "observed scores rather than estimators.",
+        "HALF A, rigorous form — Self & Liang, JASA 82(398), 1987, boundary of "
+        "the parameter space: at the boundary the MLE's limiting distribution "
+        "is a Gaussian projected onto the admissible region (an atom AT the "
+        "bound) and the LRT limit is a chi-squared mixture. This is the exact "
+        "statement that standard errors and intervals at the rail are WRONG. "
+        "It does not say the value is uninformative.",
+        "Heywood case (Heywood 1931; named Harman & Fukuda, Psychometrika "
+        "31(4), 1966) — PARTIAL and about the wrong side: a Heywood case is "
+        "BEYOND the admissible bound (inadmissible), not AT it. Borrow only "
+        "its diagnostic force: treated as a strong signal of misspecification.",
+    ],
+    unnamed_half="HALF B — that a CORRECT and LOAD-BEARING preservation "
+                 "convention is the mechanism by which the defect survives, "
+                 "wearing the appearance of diligence. Closest analogue found, "
+                 "and it is from software engineering rather than statistics: "
+                 "Michael Feathers, Working Effectively with Legacy Code, 2004 "
+                 "— a CHARACTERIZATION TEST 'does not verify the correct "
+                 "behavior of the code ... it verifies the behavior that was "
+                 "observed when they were written', so it cannot distinguish "
+                 "stable-because-correct from stable-because-frozen. Also "
+                 "adjacent: bug-for-bug compatibility (deliberate, ours is "
+                 "incidental); Leek & Peng, PNAS 112(6), 2015, "
+                 "reproducible-can-still-be-wrong; normalization of deviance "
+                 "(Vaughan 1996, cultural rather than conventional).",
+    searched="statistics / psychometrics / control theory / software "
+             "engineering sweep, 2026-09-06. THIS MODULE'S RESULT WAS NOT "
+             "RETRACTED when the same sweep's Rule 1 and Rule 3 sections were "
+             "withdrawn as fabricated — its author identified these items as "
+             "resting on pages actually retrieved. Verification is UNEVEN and "
+             "is stated per item above: the ceiling-effect definition and the "
+             "characterization-test definition come from pages opened; Heywood "
+             "1931 and Harman & Fukuda 1966 via a PMC article opened; SELF & "
+             "LIANG 1987 IS METADATA-ONLY (the primary PDF is a scan that "
+             "could not be text-extracted), so its content above is secondary "
+             "and should be confirmed before being quoted.",
+)
+
 import math
 
 
