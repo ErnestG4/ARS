@@ -463,7 +463,26 @@ ENTRIES = [
               "that the model IS wrong (12/55/90% omitted at I=0.9/1.5/2.0) so "
               "the docstring correction is owed on that alone. M4 missed: the "
               "relative difference FALLS with index while omitted energy rises, "
-              "so a ratio was the wrong statistic for a tracking claim"),
+              "so a ratio was the wrong statistic for a tracking claim.\n"
+              "SHARPENED 2026-09-05 by a lead-mining sweep, and it is stronger "
+              "than 'the wrong statistic': the relation is PERFECTLY "
+              "MONOTONE-OPPOSITE across the whole swept range. omitted_energy "
+              "0.1210 -> 0.5447 -> 0.9023 (up 7.5x) while median_rel_diff "
+              "73.88 -> 37.40 -> 19.19 (down 3.9x), Spearman = -1.000 over the "
+              "three indices. The sealed head MODEL_GAP_IS_DOCUMENTATION_ONLY "
+              "rested on the gap BEING the omitted cross-partial energy; the "
+              "cell's own index sweep has the cause and the effect moving in "
+              "opposite directions throughout. n=3 so this is a DIRECTION, not "
+              "a significance claim -- but a direction is what a mechanism "
+              "claim asserts, and this one is reversed.\n"
+              "AND THE RANKING QUESTION IS RESOLVABLE WITH DATA ALREADY "
+              "ENUMERATED: mean_jaccard 0.5171, CI [0.4677, 0.5664] with the "
+              "0.50 bar inside it, on n_cases=140 -- while the artifact records "
+              "cases_to_resolve=1170. Running the full set takes the SE from "
+              "0.0252 to ~0.0092. Note before spending: even then 0.5171 is "
+              "only ~1.9 sigma, so the re-run needs a pre-registered "
+              "DIRECTIONAL bar or it will land in the same undecided place "
+              "with a tighter interval."),
     dict(id="coherence-model-gap", status=DROPPED,
          # RE-ADJUDICATED 2026-09-02: this row had ALREADY been marked reviewed
          # against this artifact -- at the artifact's SEALED verdict, which the
