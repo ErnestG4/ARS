@@ -12,9 +12,20 @@ briefing a fresh planning session. **Current as of 2026-08-31** (commit
 > disciplines, §10 condemned paths, §11 2D protocol, §12 canonical order
 > registry), `cross_substrate/PROGRESS_REPORT.md` (landscape program),
 > `AUDIT.md` + `REPRODUCE.md` (green-board contract).
-> **Note `main` is frozen at 2026-07-05; everything below lives on
-> `cubics-wilderness` (679 commits ahead, 0 behind — merge is effectively
-> a fast-forward).**
+> **[CORRECTED 2026-09-05.] This note used to read "`main` is frozen at
+> 2026-07-05 ... `cubics-wilderness` 679 commits ahead". That is stale and
+> would mislead anyone reading it to plan a merge that already happened:
+> local `main` was fast-forwarded to `cubics-wilderness` on 2026-09-02 and
+> has been kept identical since, so the two are the same commit.
+> SEPARATELY, AND STILL TRUE AT THE TIME OF WRITING: the REMOTE is behind.
+> `origin/main` sits at `9b84cf7` and `origin/cubics-wilderness` at
+> `2f74da3`, so a reader who clones this repo today gets a record that
+> stops before the arithmetical-hierarchy section, the CSPRNG calibrator,
+> the Session F non-replication and the orphan-branch landings. Item 12
+> below says "ALL FOUR LANDED" — they landed LOCALLY, and on the remote
+> three of the four are still reachable only from their standalone branch
+> refs, which is the same class of defect item 12 exists to fix: a
+> reachability claim asserted against the wrong ref.**
 
 ---
 
