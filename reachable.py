@@ -33,6 +33,31 @@ bar, where a reader can disagree with it — which is exactly what nobody could
 do when the number was never written down.
 """
 
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+LITERATURE = dict(
+    status="UNCLAIMED",
+    note="The SYMMETRIC construction-time inert-bar refusal — a bar that "
+         "cannot be MET or cannot be MISSED is refused where it is built — is "
+         "the strongest unclaimed item in this repo's methodology, per two "
+         "cross-disciplinary searches. Adjacent work exists and none of it "
+         "refuses construction.",
+    adjacent=[
+        "Design-time statistical power — answers 'can this detect an effect', "
+        "at planning time, as advice rather than as a constraint.",
+        "Ceiling and floor effects (psychometrics) — a measure whose range "
+        "cannot express the variation, diagnosed POST HOC from data.",
+        "Kriegeskorte et al., Nat. Neuro. 12(5), 2009 — circular analysis / "
+        "double dipping; the selection-and-test independence rule, stated as "
+        "a practice to follow.",
+    ],
+    searched="philosophy/metascience and measurement/statistics/metrology "
+             "sweeps, 2026-09-06; searched specifically for a named "
+             "construction-time refusal and found none.",
+    caution="An UNCLAIMED status is a claim about a SEARCH, not about the "
+            "world. It ages. Re-check before publishing it as novel.",
+)
+
+
 
 class UnreachableBar(AssertionError):
     pass

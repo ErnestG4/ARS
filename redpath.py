@@ -35,6 +35,29 @@ A high fire rate is therefore the CORRECT equilibrium for this guard, not a
 nuisance to tune out. If this floor stops firing, suspect that expectations
 have been planted to be met rather than to be informative.
 """
+
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+LITERATURE = dict(
+    status="NAMED",
+    note="A guard that has never been shown to fire is not known to work. This "
+         "is the positive-control requirement, and it is the FIRST item in the "
+         "canonical answer to the experimenter's regress.",
+    anchors=[
+        "Allan Franklin, SHPS A 25(3), 1994 — 'How to Avoid the Experimenters' "
+        "Regress'; strategy 1 is experimental checks and calibration in which "
+        "the apparatus REPRODUCES KNOWN PHENOMENA, strategy 2 is reproducing "
+        "artifacts known in advance to be present. redpath is strategy 2 "
+        "mechanised.",
+        "H. M. Collins, Changing Order, 1985 — the regress this answers: a "
+        "good apparatus is one that gives correct results, and a correct "
+        "result is one from a good apparatus.",
+        "Wimsatt, 'Robustness, Reliability, and Overdetermination', 1981 — "
+        "triangulation by PARTIALLY INDEPENDENT procedures; the independence "
+        "is what does the epistemic work.",
+    ],
+    ours="Nothing. This is Franklin's strategy 2 with an exception attached.",
+)
+
 import sys
 
 # NOTE 2026-08-25 (adversarial review): `expect_exit` was accepted by __init__

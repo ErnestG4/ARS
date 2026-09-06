@@ -30,6 +30,36 @@ A LANDED entry whose artifact is missing, or whose recorded verdict no longer
 matches the artifact, FAILS the board. That is what stops this file drifting
 into the decorative changelog every such file becomes.
 """
+
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+LITERATURE = dict(
+    status="UNCLAIMED",
+    note="The defect this file exists for — a NULL RESULT PRODUCES NO CLOSURE "
+         "ARTIFACT, so the thread stays live in the researcher's own queue by "
+         "default — appears to have no name. Reached independently by two "
+         "reviews from opposite directions on 2026-09-05/06.",
+    adjacent=[
+        "Rosenthal, Psych. Bulletin 86(3), 1979 — THE FILE DRAWER PROBLEM. "
+        "Closer than 'publication bias' because Rosenthal's framing IS about "
+        "the investigator's own files — but his concern is bias in the "
+        "aggregate literature and his instrument (fail-safe N) is a "
+        "meta-analytic correction. It offers a solo researcher nothing.",
+        "Heidorn, Library Trends 57(2), 2008 — DARK DATA: heterogeneous, "
+        "individually curated, unmaintained, explicitly including 'results "
+        "from failed experiments'. Names the remainder, not the asymmetry.",
+        "Staw 1976 and after — ESCALATION OF COMMITMENT; the relevant finding "
+        "is that persistence is likeliest WHEN THERE IS NO STOPPING RULE.",
+        "Lakatos — DEGENERATING RESEARCH PROGRAMME, identifiable only in "
+        "hindsight, by his own concession.",
+    ],
+    searched="philosophy/metascience sweep, 2026-09-06.",
+    ours="The asymmetry itself: positives emit a document that closes a "
+         "question and nulls emit nothing, so unclosed threads accumulate "
+         "STRUCTURALLY rather than through any error of judgement. Also "
+         "unclaimed and adjacent: intra-programme caveat loss where the label "
+         "ALLOCATES EFFORT rather than belief.",
+)
+
 import json
 import os
 
@@ -333,6 +363,29 @@ ENTRIES = [
               "session -- read off six sorted rows, contradicted by the full "
               "series"),
     dict(id="audible-horizon-calibration", status=QUEUED,
+         # PICK-UP NOTE 2026-09-06 — THIS ONE IS CHEAP AND NOBODY HAS RUN IT.
+         # I guessed on 09-06 that this row and heard-as-listening were both
+         # lightning that had already struck, and checking says NEITHER is.
+         # This row's own re-posed request states the position exactly: report
+         # the audible count as a FUNCTION of criterion rather than as a number,
+         # and "that is answerable without listeners and mostly already
+         # computed". So there is charge left in it and the medium is not
+         # exhausted -- it is simply unrun.
+         #
+         # CONCRETELY, for whoever picks it up: the deliverable is a curve, not
+         # a count. Every audibility statement in this arc already travels with
+         # a dB floor; this makes the floor the X AXIS. The masked-horizon
+         # census supplies the numbers; what is missing is reporting them
+         # swept rather than at one criterion. That is the criterion-as-axis
+         # discipline applied to the one place it was invented for.
+         #
+         # AND ONE THING IT CANNOT DO, stated so nobody re-attempts it: part
+         # (C) of the superseded ask -- "RE-SEAL brocot_audible_horizon so
+         # exposure_audit's refusal clears on its own merits" -- is impossible
+         # in principle, not merely hard. exposure_audit runs the cell AS IT
+         # STOOD AT THE BASELINE COMMIT, which is frozen in history, so no
+         # present edit can change what it does. The exposure is a permanent
+         # historical fact and is disclosed in MAP-FIELD.md. Leave it.
          framing_dead=[("cross_substrate/brocot_masked_horizon.json",
                         "'audible' was reclassified from a property of the "
                         "spectrum to a property of a model with a criterion in "
@@ -638,7 +691,41 @@ ENTRIES = [
                  "Superseded ask: validate 'heard as a detuned X' by ERB or by "
                  "listening; until "
                  "then the display says 'nearest ringing ratio + beat rate'",
-         note="the beat coordinate crosses perceptual regimes within one region "
+         note="PICK-UP NOTE 2026-09-06 — THE CONTRAST BLOCKER IS DISCHARGED. "
+              "This row's request says 'BLOCKED ON A CONTRAST, not on "
+              "listeners: until someone finds a manipulation that splits the "
+              "witness pair while leaving the rest within a JND, this cell "
+              "cannot be run at all.' That manipulation now exists and is "
+              "validated: brocot_resynthesis_fidelity builds the twin by moving "
+              "ONLY the witness pair, is faithful to the FM render at 0.013 of "
+              "the contrast against a 0.10 bar (with a deliberately truncated "
+              "B=2 rival FAILING the same bar at 3.30, so the arm "
+              "discriminates), and the twin CARRIES THE CUE at 7 of 8 ratios "
+              "at 37-88 dB with both controls firing, while moving ~30x less on "
+              "the ERB metric. 5/7 is excluded by name: its witness pair sits "
+              "at amplitude ~2e-4 and cannot beat audibly alone.\n"
+              "DO NOT CONFUSE THIS WITH THE DECORRELATION CLOSURE. Two "
+              "different contrasts, and I conflated them once already. The "
+              "FUSION contrast -- split the pair, freeze the rest -- is "
+              "CONSTRUCTIBLE and built. The DECORRELATION contrast -- vary "
+              "concentration at fixed energy -- is NOT, on two measured knobs "
+              "(brocot_decorrelation_battery_v2, mechanism arm 1.12x against a "
+              "3x bar, difference broadband with one band carrying ~62% "
+              "regardless). This row needs the first, not the second.\n"
+              "SO WHAT REMAINS IS LISTENERS, AND ONLY LISTENERS. n = 1, and "
+              "that one listener is also the experimenter, whose first "
+              "impression broke the blinding and the positive control. The "
+              "apparatus, the 180 blinded trials, the browser runner with "
+              "save/resume, the sealed 3-interval odd-one-out protocol at "
+              "chance 1/3 and the per-listener >=90% inclusion gate are all "
+              "finished and correct. Either 8-12 people go through the existing "
+              "page, or this row closes as INAPPLICABLE with 'no listeners "
+              "recruited' as the stated reason -- which is an honest closure "
+              "and not a failure. What it must NOT do is sit QUEUED implying "
+              "the science is blocked, because the science is not: the "
+              "recruitment is.\n"
+              "ORIGINAL NOTE FOLLOWS. the beat coordinate crosses perceptual "
+              "regimes within one region "
               "(5.5 Hz fusion-with-beating vs 31 Hz separation), so the "
               "perceptual wording is not carried by the structural evidence. "
               "SHARPENED 2026-08-25: brocot_marker_erb_gate measured events "

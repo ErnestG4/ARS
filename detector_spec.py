@@ -32,6 +32,27 @@ information (see TOOLKIT: the nearest confusable class sets the requirement).
 naming it is the part that does the work.
 """
 
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+LITERATURE = dict(
+    status="PARTIAL",
+    note="The components are named; the conjunction as a BUILD-TIME "
+         "PRECONDITION is the narrower of this repo's two candidate "
+         "contributions. ICH Q2(R2) §3.1.2.1 comes close enough that the claim "
+         "is weak and should be stated weakly.",
+    anchors=[
+        "Campbell & Fiske, Psych. Bulletin 56(2), 1959 — DISCRIMINANT VALIDITY "
+        "and the multitrait-multimethod matrix: a measure must be shown to "
+        "differ from what it is not, not merely to correlate with what it is.",
+        "Hard negative mining (ML) — training explicitly on the confusable "
+        "cases rather than on random negatives.",
+        "Assay validation / specificity and positive controls; ICH Q2(R2) "
+        "§3.1.2.1 on demonstrating discrimination against nearest analogues.",
+    ],
+    ours="Requiring the negative set and the nearest confusable BEFORE the "
+         "detector is built, and refusing to construct one without them.",
+)
+
+
 
 class DetectorNotCertified(AssertionError):
     pass

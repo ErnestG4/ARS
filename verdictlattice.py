@@ -83,6 +83,34 @@ WHAT THIS CANNOT DO — two limits, the second found the hard way.
     weaker than unrepresentability and it is what is available.
 """
 
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+LITERATURE = dict(
+    status="NAMED",
+    note="The failure this module prevents — a verdict composed from the wrong "
+         "arms, so the answer is right about something other than the question "
+         "— is named, and named twice.",
+    anchors=[
+        "A. W. Kimball, JASA 52(278), 1957, p.134 — TYPE III ERROR, 'the error "
+        "committed by giving the right answer to the wrong problem.' "
+        "[verified against primary text] His detectability point is the one to "
+        "keep: 'the only errors of the third kind which become known are those "
+        "which are corrected, and for every one which is corrected there must "
+        "be many which we will never know about.'",
+        "Marascuilo & Levin, 1970 — TYPE IV ERROR, 'the incorrect "
+        "interpretation of a correctly rejected hypothesis.' Arguably a closer "
+        "match than type III to what compose() guards.",
+        "Mitroff & Featheringham, Behav. Sci. 19(6), 1974 — 'the error of "
+        "having solved the wrong problem', reframed as CHOOSING THE WRONG "
+        "PROBLEM REPRESENTATION. The framing that transfers best to a solo "
+        "researcher, since Kimball's diagnosis is dyadic.",
+    ],
+    ours="The SINGLE-AGENT case appears unclaimed: Kimball's mechanism is "
+         "inadequate communication between a consultant and a research worker. "
+         "When both are the same person there is no miscommunication to "
+         "diagnose and no remedy in that literature transfers.",
+)
+
+
 PREMISE = "PREMISE"
 EXISTENCE = "EXISTENCE"
 MECHANISM = "MECHANISM"

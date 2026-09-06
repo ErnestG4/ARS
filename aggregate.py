@@ -46,6 +46,47 @@ WHAT IT REFUSES, AND WHY EACH REFUSAL EXISTS
                        selected maximum, which is the defect the swing rule
                        exists for.
 """
+
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+# Added 2026-09-06 after citation_provenance.json measured this repo at 429
+# domain-science citations against ZERO methodology citations. See
+# METHODOLOGY_LITERATURE_MAP.md.
+LITERATURE = dict(
+    status="NAMED",
+    note="THIS RULE IS NOT OURS. It is stated in a standards document as a "
+         "DEFINITION, not a recommendation, and this module should be read as "
+         "an implementation of it rather than as a discovery.",
+    anchors=[
+        "GUM (JCGM 100:2008) §3.1.2 — 'the result of a measurement is only an "
+        "approximation or estimate of the value of the measurand and thus is "
+        "COMPLETE ONLY when accompanied by a statement of the uncertainty of "
+        "that estimate.' [verified against primary text]",
+        "GUM §7.2.6 — output and input estimates rounded consistently with "
+        "their uncertainties; worked example 10.05762 Ω, u=27 mΩ → 10.058 Ω. "
+        "This names the seventeen-significant-figure defect directly.",
+        "VIM 2.9 vs 2.10 — 'measurement result' (value PLUS relevant "
+        "information) vs 'measured quantity value' (the bare number). Our "
+        "defect stated exactly: a measured quantity VALUE propagated "
+        "downstream as though it were a measurement RESULT.",
+        "Pagan, Int. Econ. Review 25(1), 1984 — GENERATED REGRESSORS. Using a "
+        "first-stage estimate downstream while discarding its sampling "
+        "variance; known consequence, understated standard errors. The "
+        "propagation half, named in 1984.",
+        "Wasserstein, Schirm & Lazar, Am. Statistician 73(sup1), 2019, §3.1; "
+        "ARRIVE 2.0 item 10a; CONSORT 2025 item 26; Cole, ADC 100(7), 2015.",
+    ],
+    verified_negative=[
+        "'orphan value' is NOT metrological vocabulary — zero occurrences "
+        "across GUM, VIM, BIPM/JCGM/NIST. Coin it explicitly or drop it.",
+        "NIST TN 1297 contains no significant-digit guidance; cite GUM or "
+        "NIST SP 811 §7.9.",
+    ],
+    ours="Only the construction-time REFUSAL: banked() returns a dict and "
+         "cannot emit a bare scalar. GUM says report the uncertainty; this "
+         "makes omitting it unrepresentable. See the through-line in "
+         "METHODOLOGY_LITERATURE_MAP.md §6.",
+)
+
 import math
 
 __all__ = ["banked", "extremum", "AggregateWithoutSpread"]

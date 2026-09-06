@@ -49,6 +49,30 @@ nothing will not run — and that TESTED carries its sweep, so "we checked" is a
 claim with data attached rather than a recollection.
 """
 
+# ── LITERATURE ────────────────────────────────────────────────────────────────
+LITERATURE = dict(
+    status="NAMED",
+    note="swept() prevents reporting a selected maximum as if it were a "
+         "measurement. This is among the best-named problems in all of "
+         "metascience and we should cite rather than re-derive it.",
+    anchors=[
+        "Gelman & Loken, 2013 — THE GARDEN OF FORKING PATHS: analysis choices "
+        "contingent on the data inflate the result even with no explicit "
+        "multiple testing and no intent.",
+        "Simmons, Nelson & Simonsohn, Psych. Science 22(11), 2011 — "
+        "RESEARCHER DEGREES OF FREEDOM / false-positive psychology.",
+        "Steegen, Tuerlinckx, Gelman & Vanpaemel, PPS 11(5), 2016 — MULTIVERSE "
+        "ANALYSIS; Simonsohn, Simmons & Nelson — SPECIFICATION CURVE ANALYSIS. "
+        "swept()'s 'report the pre-registered configuration WITH the full "
+        "spread beside it' is a small specification curve, and should be "
+        "described as one.",
+    ],
+    ours="Nothing here is ours except that swept() HAS NO WAY TO RETURN THE "
+         "MAXIMUM. The literature recommends reporting the spread; this makes "
+         "reporting only the winner unrepresentable.",
+)
+
+
 TESTED = "TESTED"
 DECLARED = "DECLARED"
 _KINDS = (TESTED, DECLARED)
