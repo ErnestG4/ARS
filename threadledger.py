@@ -986,7 +986,9 @@ ENTRIES = [
               "as a rival comparison on the distance itself, with a derived "
               "ceiling of 1/30."),
 
-    dict(id="bank-aggregates-with-their-spread", status=QUEUED,
+    dict(id="bank-aggregates-with-their-spread", status=LANDED,
+         artifact="approximability/F_reproduce.json",
+         verdict="SESSION_F_CLAIMS_DO_NOT_REPLICATE",
          warrant=[("approximability/F_reproduce.json",
                    "SESSION_F_CLAIMS_DO_NOT_REPLICATE",
                    "STRUCTURAL/the artifact that motivated it")],
@@ -1019,7 +1021,26 @@ ENTRIES = [
               "ignoring it, and by building both detectors without a negative "
               "set or a nearest-confusable case in advance. A sweep gives a "
               "lower bound whose misses are the hard tail. The rule belongs "
-              "where aggregates are WRITTEN."),
+              "where aggregates are WRITTEN.\n"
+              "LANDED 2026-09-05 as aggregate.py + verify_aggregate.py. "
+              "`banked()` RETURNS A DICT, NEVER A SCALAR, so the spread cannot "
+              "be dropped by forgetting -- only by reaching past the API, which "
+              "leaves a visible reach. Four refusals, each constructed from a "
+              "defect the sweeps chased: a collapsed scalar (Session F "
+              "exactly), n < 2, an EXTREMUM-named aggregate (the false positive "
+              "the census produced 4 times out of 4 -- `worst_*` does not want "
+              "an error bar), and extremum() called without `over=` naming the "
+              "population it was selected from, which is the swing rule's own "
+              "defect. Plus four acceptance checks so the guard cannot pass by "
+              "refusing everything.\n"
+              "AND ONE REAL CALL SITE RETROFITTED, not just a demo: "
+              "F_reproduce's rate ratios -- the cell that FOUND the Session F "
+              "constant -- had written its own dispersion block by hand and was "
+              "therefore compliant by memory rather than by construction. It "
+              "now goes through banked(). Under the rule, Session F's "
+              "seventeen-figure constant reads as value 1.157, n 10, sd 0.327, "
+              "range 0.65-1.86: a reader can see it is a mean over a wide "
+              "distribution, which the seventeen figures actively hid."),
 
     dict(id="ff-curve-singularity-guard", status=LANDED,
          artifact="approximability/F_reproduce.json",
@@ -1058,7 +1079,9 @@ ENTRIES = [
               "here is F_reproduce.json because it is what both motivated the "
               "guard and now verifies it."),
 
-    dict(id="orphan-session-branches", status=QUEUED,
+    dict(id="orphan-session-branches", status=LANDED,
+         artifact="approximability/F_reproduce.json",
+         verdict="SESSION_F_CLAIMS_DO_NOT_REPLICATE",
          request="PARTLY DONE 2026-09-02 -- Session G LANDED (see note), three "
                  "remain. Adjudicate and land the July-2026 session branches whose "
                  "single commit each is reachable from NEITHER main NOR "

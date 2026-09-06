@@ -158,6 +158,7 @@ sys.path.insert(0, HERE)
 from redpath import redpath                                       # noqa: E402
 from reachable import Bar                                         # noqa: E402
 from modelparams import Model, Param, TESTED, DECLARED            # noqa: E402
+from aggregate import banked                                      # noqa: E402
 from verdictlattice import (Arm, compose, PREMISE as PRE_ROLE,    # noqa: E402
                             EXISTENCE as EX_ROLE,
                             MECHANISM as MECH_ROLE)
@@ -334,16 +335,22 @@ json.dump(dict(primes=PRIMES, vmax=VMAX, banked=BANKED, tol=TOL,
                hasse_weil_pass=n_hw, rh_pass=n_rh,
                rate_ratio_g1=rat[1], rate_ratio_g2=rat[2],
                worst_delta=worst, genus_gap=gap, rows=rows,
+               # ROUTED THROUGH aggregate.banked(), 2026-09-05. This cell is
+               # the one that found Session F's constant banked to seventeen
+               # figures with no n; its own dispersion block was written by
+               # hand and was therefore compliant by memory rather than by
+               # construction. banked() cannot return a bare scalar, so the
+               # spread now travels with the value whether or not anyone
+               # remembers to attach it.
                dispersion={str(g): dict(
-                   n=int(len(vv)), mean=float(np.mean(vv)),
-                   sd=float(np.std(vv, ddof=1)),
-                   sem=float(np.std(vv, ddof=1) / np.sqrt(len(vv))),
-                   minimum=float(np.min(vv)), maximum=float(np.max(vv)),
-                   banked_z=float((BANKED["g" + str(g)] - np.mean(vv))
-                                  / (np.std(vv, ddof=1) / np.sqrt(len(vv)))))
-                   for g, vv in ((g, np.array([r["ratio"] for r in rows
-                                               if r["genus"] == g
-                                               and r["ratio"] is not None]))
+                   **{k: v for k, v in banked(f"rate_ratio_genus{g}",
+                                              vv).items() if k != "name"},
+                   banked_z=float((BANKED["g" + str(g)] - float(np.mean(vv)))
+                                  / (float(np.std(vv, ddof=1))
+                                     / np.sqrt(len(vv)))))
+                   for g, vv in ((g, [r["ratio"] for r in rows
+                                      if r["genus"] == g
+                                      and r["ratio"] is not None])
                                  for g in (1, 2))},
                estimator_caveat="the log-slope fit is biased UP when "
                                 "|N_n/p^n - 1| dips near zero, which happens "
