@@ -1,0 +1,167 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "seed": 20260826,
+ "n_cases": 220,
+ "instrument": {
+  "model": "relative masking (Stage A criterion), applied per pair",
+  "params": [
+   {
+    "name": "margin_db",
+    "kind": "TESTED",
+    "why": "signal-to-masker ratio inside one auditory filter; F2 is reported at each sweep point",
+    "sweep": [
+     -6.0,
+     0.0,
+     6.0
+    ],
+    "value": null
+   },
+   {
+    "name": "sigma_scale",
+    "kind": "TESTED",
+    "why": "ERB is an equivalent RECTANGULAR bandwidth; Stage A showed the count is width-sensitive above I = 2",
+    "sweep": [
+     1.0,
+     0.4
+    ],
+    "value": null
+   },
+   {
+    "name": "masker_scope",
+    "kind": "DECLARED",
+    "why": "the full N-op product lattice is 9^N terms and infeasible here. Omitting the other operators' partials REMOVES maskers, so this OVERSTATES audibility -- conservative in the direction that matters, since F2 asks whether the filter finds audible cases",
+    "sweep": null,
+    "value": "the fusing PAIR's own 2-op lattice"
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "the criterion is a ratio of amplitudes; the field is scale-invariant in f_c up to the ERB width's frequency dependence",
+    "sweep": null,
+    "value": 220.0
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 2
+ },
+ "mean_jaccard": 0.34530303030303033,
+ "audible_gain": 0.015518084066471163,
+ "disagreement": 0.0,
+ "sweep": {
+  "margin=-6.0,sigma=1.0": {
+   "shipped": 0.028409090909090908,
+   "filtered": 0.06720430107526881
+  },
+  "margin=-6.0,sigma=0.4": {
+   "shipped": 0.1534090909090909,
+   "filtered": 0.3709677419354839
+  },
+  "margin=0.0,sigma=1.0": {
+   "shipped": 0.011363636363636364,
+   "filtered": 0.026881720430107527
+  },
+  "margin=0.0,sigma=0.4": {
+   "shipped": 0.125,
+   "filtered": 0.29838709677419356
+  },
+  "margin=6.0,sigma=1.0": {
+   "shipped": 0.003409090909090909,
+   "filtered": 0.008064516129032258
+  },
+  "margin=6.0,sigma=0.4": {
+   "shipped": 0.10568181818181818,
+   "filtered": 0.25
+  }
+ },
+ "bars": {
+  "Jaccard(shipped top-4, filtered top-4)": {
+   "name": "Jaccard(shipped top-4, filtered top-4)",
+   "value": 0.34530303030303033,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a Jaccard index lies in [0,1]"
+  },
+  "audible coincidences per suggestion, filtered minus shipped": {
+   "name": "audible coincidences per suggestion, filtered minus shipped",
+   "value": 0.015518084066471163,
+   "thresh": 0.1,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.9,
+   "why": "a difference of two rates each in [0,1]"
+  },
+  "filter/brute-force disagreement rate": {
+   "name": "filter/brute-force disagreement rate",
+   "value": 0.0,
+   "thresh": 0.001,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.001,
+   "why": "a disagreement rate in [0,1]"
+  }
+ },
+ "verdict": "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY",
+ "composed": {
+  "label": "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY_AND_BY_Jaccard(shipped top-4, filtered top-4)_AT_filter/brute-force disagreement rate",
+  "head": "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY",
+  "qualifiers": [
+   "AND_BY_Jaccard(shipped top-4, filtered top-4)",
+   "AT_filter/brute-force disagreement rate"
+  ],
+  "citation": "FILTER_OPTIMISES_AN_INAUDIBLE_PROPERTY  [audible coincidences per suggestion, filtered minus shipped 0.01552 vs >=0.1 MISSED \u2014 \"the filter raises the share of shown suggestions whose coincidence is audible\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('audible coincidences per suggestion, filtered minus shipped', EXISTENCE, MISSED)",
+   "Arm('Jaccard(shipped top-4, filtered top-4)', MECHANISM, MET)",
+   "Arm('filter/brute-force disagreement rate', RESOLUTION, MET)"
+  ]
+ },
+ "provenance": {
+  "generator": "cross_substrate/brocot_filter_worth_it.py @ d37115a (unmodified arithmetic; the sandbox copy patched only the ROOT path so the banked artifact could not be overwritten)",
+  "run_date": "2026-09-06",
+  "graph": "brocot/resources/landscape_graph_16mix.json.gz",
+  "graph_sha256": "1b6c755f4174ca38dfe8411f5c03b52df4eac7d9229cd9873fb86f26feeaa30c",
+  "graph_brocot_commit": "3197126 (2026-08-31, 'Pulse map fleet: 6pls joins, six mixes regen'd with pulse, all re-mined')",
+  "why": "brocot_filter_worth_it.json was banked 2026-08-26 against the pre-pulse graph; brocot regenerated the graph 2026-08-31, so the banked rates stopped being re-derivable from the declared input. Found 2026-09-06 by criterion-scope v1's premise arm R2. The banked VERDICT survives on the new graph: gain at the sealed primary is +1.6% (was +2.1%) against the 0.10 bar -- still MISSED, the filter still does not ship. The numbers moved; the decision did not.",
+  "lesson": "an input in a SIBLING repo's working tree is not pinned by being named. Pin cross-repo inputs by content hash at banking time."
+ }
+}

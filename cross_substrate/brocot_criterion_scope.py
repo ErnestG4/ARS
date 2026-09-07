@@ -75,6 +75,27 @@ temporal integration, no binaural). Everything here is sigma-conditional BY
 CONSTRUCTION -- that is the point: the criterion-dependence is promoted from a
 caveat to the object of measurement. Stage B (listeners) would select an
 operating point on these curves; nothing here needs it or waits for it.
+
+AMENDMENT 1 -- AFTER OUTPUT. R2 MISSED (12 of 13), THE HEAD IS INVALID, AND
+THE MISS IS A DISCOVERY, NOT A DEFECT IN THIS CELL.
+
+Diagnosis, run to ground the same day: the replica is exact. The committed
+brocot_filter_worth_it.py, re-run unmodified in a sandbox on the CURRENT
+graph, agrees with this cell's Part-2 pipeline at 0 of 12 rates mismatched
+(1e-15). What no longer re-derives is the BANKED artifact: it was committed
+2026-08-26, and brocot regenerated landscape_graph_16mix.json.gz on
+2026-08-31 ('six mixes regen'd with pulse'). The banked cell named its input
+by PATH in a sibling repo's working tree, which is not a pin. The re-run is
+banked as brocot_filter_worth_it_regraph.json with the graph pinned by
+sha256; the banked no-ship verdict SURVIVES on the new graph (+1.6% at the
+sealed primary vs the 0.10 bar -- still MISSED).
+
+Per gate-certifies-half-say-so, R2's miss stands in this artifact: the seal
+predicted agreement with the 2026-08-26 numbers and there is none. The
+corrected premise -- agreement with the committed generator ON THE DECLARED
+INPUT AS IT EXISTS -- is re-sealed as v2, which changes ONLY that comparison
+and inherits every other bar verbatim from this seal, all of which predate
+any output.
 """
 import gzip
 import json
