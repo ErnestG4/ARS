@@ -628,7 +628,28 @@ ENTRIES = [
               "denominator alone) while the horizon is max(p,q) vs 2B -- "
               "ringing ratios span 10 denominators and 5 of them (7-11) also "
               "appear among non-ringing, so the trace cannot indicate fusion"),
-    dict(id="double-pulse-control", status=QUEUED,
+    dict(id="double-pulse-control", status=LANDED,
+         artifact="cross_substrate/brocot_double_pulse_sweep.json",
+         verdict="SWEEP_IS_HORIZON_ORTHOGONAL",
+         landed_note_2026_09_07="LANDED, and it turned out to be lightning "
+                     "that had ALREADY struck: brocot commit 9dca513 "
+                     "(2026-08-31, 'Double-pulse even-suppression knob "
+                     "(op.evensup), pulse waveform only') implemented "
+                     "exactly the sealed construction -- (s1 - beta*s2) / "
+                     "(1 + beta), odd harmonics held, evens scaled "
+                     "(1-beta)/(1+beta), beta=0 bit-exact old path -- with "
+                     "full plumbing (ParameterTree, processor, panel, preset "
+                     "schema) and three targeted TEST_CASEs. Re-verified "
+                     "2026-09-07: build current, all [Operator] tests pass "
+                     "(323 assertions / 6 cases). The anti-aliasing concern "
+                     "in this row's note was resolved by SCOPE, recorded in "
+                     "Operator.h: pulse shapes are modulator-only and the "
+                     "carrier stays a pure sine, so naive-shape aliasing "
+                     "barely reaches the output. This row sat QUEUED for a "
+                     "week after its request shipped -- the queue was blind "
+                     "to a sibling repo's commits, the same one-level-down "
+                     "shape as the stale-graph catch of 09-06: cross-repo "
+                     "state neither pins nor notifies.",
          warrant=[("cross_substrate/brocot_waveform_parity.json",
                    "PARITY_IS_HORIZON_ORTHOGONAL", "STRUCTURAL/unconditional"),
                   ("cross_substrate/brocot_double_pulse_sweep.json",
