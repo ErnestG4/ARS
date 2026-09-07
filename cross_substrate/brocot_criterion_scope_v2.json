@@ -1,0 +1,806 @@
+{
+ "I_list": [
+  0.9,
+  1.5,
+  2.0,
+  3.0
+ ],
+ "margins": [
+  -6.0,
+  0.0,
+  6.0
+ ],
+ "sigmas": [
+  1.0,
+  0.7,
+  0.5,
+  0.4,
+  0.25
+ ],
+ "f_c": 220.0,
+ "ship_bar": 0.1,
+ "graph": "landscape_graph_16mix.json.gz",
+ "seed": 20260826,
+ "n_cases": 220,
+ "grid": {
+  "I=0.9,m=-6.0,s=1.0": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=-6.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=-6.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=-6.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=-6.0,s=0.25": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=0.9,m=0.0,s=1.0": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=0.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=0.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=0.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=0.0,s=0.25": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=0.9,m=6.0,s=1.0": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=6.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=6.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=6.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=0.9,m=6.0,s=0.25": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=-6.0,s=1.0": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=-6.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=-6.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=-6.0,s=0.4": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=1.5,m=-6.0,s=0.25": {
+   "total": 4,
+   "nondeg": 3,
+   "audible": [
+    "3/4",
+    "1",
+    "5/4",
+    "4/3"
+   ]
+  },
+  "I=1.5,m=0.0,s=1.0": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=0.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=0.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=0.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=0.0,s=0.25": {
+   "total": 3,
+   "nondeg": 2,
+   "audible": [
+    "3/4",
+    "1",
+    "4/3"
+   ]
+  },
+  "I=1.5,m=6.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=1.5,m=6.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=6.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=6.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=1.5,m=6.0,s=0.25": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=2.0,m=-6.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=2.0,m=-6.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=2.0,m=-6.0,s=0.5": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=2.0,m=-6.0,s=0.4": {
+   "total": 3,
+   "nondeg": 2,
+   "audible": [
+    "3/4",
+    "1",
+    "4/3"
+   ]
+  },
+  "I=2.0,m=-6.0,s=0.25": {
+   "total": 5,
+   "nondeg": 4,
+   "audible": [
+    "3/4",
+    "4/5",
+    "1",
+    "5/4",
+    "4/3"
+   ]
+  },
+  "I=2.0,m=0.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=2.0,m=0.0,s=0.7": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=2.0,m=0.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=2.0,m=0.0,s=0.4": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=2.0,m=0.0,s=0.25": {
+   "total": 4,
+   "nondeg": 3,
+   "audible": [
+    "3/4",
+    "1",
+    "5/4",
+    "4/3"
+   ]
+  },
+  "I=2.0,m=6.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=2.0,m=6.0,s=0.7": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=2.0,m=6.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=2.0,m=6.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=2.0,m=6.0,s=0.25": {
+   "total": 3,
+   "nondeg": 2,
+   "audible": [
+    "3/4",
+    "1",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=-6.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=3.0,m=-6.0,s=0.7": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=-6.0,s=0.5": {
+   "total": 4,
+   "nondeg": 3,
+   "audible": [
+    "3/4",
+    "1",
+    "5/4",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=-6.0,s=0.4": {
+   "total": 5,
+   "nondeg": 4,
+   "audible": [
+    "3/4",
+    "4/5",
+    "1",
+    "5/4",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=-6.0,s=0.25": {
+   "total": 8,
+   "nondeg": 7,
+   "audible": [
+    "3/4",
+    "4/5",
+    "5/6",
+    "1",
+    "6/5",
+    "5/4",
+    "4/3",
+    "7/5"
+   ]
+  },
+  "I=3.0,m=0.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=3.0,m=0.0,s=0.7": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=3.0,m=0.0,s=0.5": {
+   "total": 2,
+   "nondeg": 1,
+   "audible": [
+    "1",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=0.0,s=0.4": {
+   "total": 3,
+   "nondeg": 2,
+   "audible": [
+    "3/4",
+    "1",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=0.0,s=0.25": {
+   "total": 6,
+   "nondeg": 5,
+   "audible": [
+    "3/4",
+    "4/5",
+    "1",
+    "6/5",
+    "5/4",
+    "4/3"
+   ]
+  },
+  "I=3.0,m=6.0,s=1.0": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=3.0,m=6.0,s=0.7": {
+   "total": 0,
+   "nondeg": 0,
+   "audible": []
+  },
+  "I=3.0,m=6.0,s=0.5": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=3.0,m=6.0,s=0.4": {
+   "total": 1,
+   "nondeg": 0,
+   "audible": [
+    "1"
+   ]
+  },
+  "I=3.0,m=6.0,s=0.25": {
+   "total": 5,
+   "nondeg": 4,
+   "audible": [
+    "3/4",
+    "4/5",
+    "1",
+    "5/4",
+    "4/3"
+   ]
+  }
+ },
+ "filter_rates": {
+  "m=-6.0,s=1.0": {
+   "shipped": 0.028409090909090908,
+   "filtered": 0.06720430107526881,
+   "gain": 0.0387952101661779
+  },
+  "m=-6.0,s=0.7": {
+   "shipped": 0.07727272727272727,
+   "filtered": 0.18548387096774194,
+   "gain": 0.10821114369501467
+  },
+  "m=-6.0,s=0.5": {
+   "shipped": 0.12613636363636363,
+   "filtered": 0.30376344086021506,
+   "gain": 0.17762707722385143
+  },
+  "m=-6.0,s=0.4": {
+   "shipped": 0.1534090909090909,
+   "filtered": 0.3709677419354839,
+   "gain": 0.21755865102639296
+  },
+  "m=-6.0,s=0.25": {
+   "shipped": 0.2159090909090909,
+   "filtered": 0.5483870967741935,
+   "gain": 0.33247800586510257
+  },
+  "m=0.0,s=1.0": {
+   "shipped": 0.011363636363636364,
+   "filtered": 0.026881720430107527,
+   "gain": 0.015518084066471163
+  },
+  "m=0.0,s=0.7": {
+   "shipped": 0.03636363636363636,
+   "filtered": 0.08602150537634409,
+   "gain": 0.04965786901270773
+  },
+  "m=0.0,s=0.5": {
+   "shipped": 0.09318181818181819,
+   "filtered": 0.22311827956989247,
+   "gain": 0.1299364613880743
+  },
+  "m=0.0,s=0.4": {
+   "shipped": 0.125,
+   "filtered": 0.29838709677419356,
+   "gain": 0.17338709677419356
+  },
+  "m=0.0,s=0.25": {
+   "shipped": 0.19886363636363635,
+   "filtered": 0.5,
+   "gain": 0.30113636363636365
+  },
+  "m=6.0,s=1.0": {
+   "shipped": 0.003409090909090909,
+   "filtered": 0.008064516129032258,
+   "gain": 0.004655425219941349
+  },
+  "m=6.0,s=0.7": {
+   "shipped": 0.020454545454545454,
+   "filtered": 0.04838709677419355,
+   "gain": 0.027932551319648093
+  },
+  "m=6.0,s=0.5": {
+   "shipped": 0.06704545454545455,
+   "filtered": 0.1586021505376344,
+   "gain": 0.09155669599217986
+  },
+  "m=6.0,s=0.4": {
+   "shipped": 0.10568181818181818,
+   "filtered": 0.25,
+   "gain": 0.14431818181818182
+  },
+  "m=6.0,s=0.25": {
+   "shipped": 0.18181818181818182,
+   "filtered": 0.4489247311827957,
+   "gain": 0.26710654936461387
+  }
+ },
+ "crossing_intervals": [
+  [
+   0.7,
+   0.5
+  ]
+ ],
+ "headline_region": {
+  "holds_on": "sigma >= 0.4, margins [-6.0, 0.0, 6.0], I = 0.9",
+  "failing_wide_cells": 0,
+  "edge": {
+   "question": "EXISTENCE",
+   "n": 3,
+   "n_nonzero": 2,
+   "any": true,
+   "all": false,
+   "first_witness": 0,
+   "witnesses": [
+    0,
+    1
+   ]
+  }
+ },
+ "bars": {
+  "Part-1 mismatches vs 28 banked masked_horizon counts": {
+   "name": "Part-1 mismatches vs 28 banked masked_horizon counts",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 28,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count of disagreements with the committed artifact, 0 to 28"
+  },
+  "Part-2 mismatches vs 13 regraph-pinned filter_worth_it numbers": {
+   "name": "Part-2 mismatches vs 13 regraph-pinned filter_worth_it numbers",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 13,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "12 regraph rates + n_cases; a count of disagreements, 0 to 13"
+  },
+  "cells with sigma >= 0.4 where a non-degenerate ratio is audible (I=0.9)": {
+   "name": "cells with sigma >= 0.4 where a non-degenerate ratio is audible (I=0.9)",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 12,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 12 wide-filter cells"
+  },
+  "margin cells at sigma = 0.25 with a non-degenerate audible ratio": {
+   "name": "margin cells at sigma = 0.25 with a non-degenerate audible ratio",
+   "value": 2,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 2.5,
+   "why": "a count over the 3 margin cells; >= 1 means the headline's region has an edge inside the swept plane"
+  },
+  "adjacent gain inversions along the sigma axis, all margins": {
+   "name": "adjacent gain inversions along the sigma axis, all margins",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 12,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "4 adjacent pairs x 3 margins = 12 chances to invert"
+  },
+  "0.10-bar crossings along sigma at margin 0": {
+   "name": "0.10-bar crossings along sigma at margin 0",
+   "value": 1,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 4,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 3.5,
+   "why": "4 adjacent intervals; >= 1 means a crossing exists"
+  },
+  "0.10-bar crossings along sigma at margin 0 (uniqueness)": {
+   "name": "0.10-bar crossings along sigma at margin 0 (uniqueness)",
+   "value": 1,
+   "thresh": 1.5,
+   "floor": 0,
+   "ceiling": 4,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1.5,
+   "why": "the same count; <= 1 means the decision is one interval"
+  }
+ },
+ "instrument": {
+  "model": "relative masking, Glasberg-Moore ERB, criterion-plane sweep",
+  "params": [
+   {
+    "name": "margin_db",
+    "kind": "TESTED",
+    "why": "signal-to-masker ratio inside one auditory filter",
+    "sweep": [
+     -6.0,
+     0.0,
+     6.0
+    ],
+    "value": null
+   },
+   {
+    "name": "sigma_scale",
+    "kind": "TESTED",
+    "why": "ERB is an equivalent RECTANGULAR bandwidth; the sigma axis is the criterion the framing death made first-class. 0.7 added so the ship-bar crossing lands in an interval, not a chasm",
+    "sweep": [
+     1.0,
+     0.7,
+     0.5,
+     0.4,
+     0.25
+    ],
+    "value": null
+   },
+   {
+    "name": "f_c",
+    "kind": "DECLARED",
+    "why": "criterion is a ratio of amplitudes; invariant in f_c up to the ERB width's mild frequency dependence",
+    "sweep": null,
+    "value": 220.0
+   },
+   {
+    "name": "both_witnesses_required",
+    "kind": "DECLARED",
+    "why": "a coincidence is two partials landing together",
+    "sweep": null,
+    "value": true
+   },
+   {
+    "name": "masker_scope_part2",
+    "kind": "DECLARED",
+    "why": "inherited from filter_worth_it verbatim; omitting other operators REMOVES maskers, overstating audibility -- conservative for the filter question",
+    "sweep": null,
+    "value": "the fusing PAIR's own 2-op lattice"
+   },
+   {
+    "name": "graph_and_seed",
+    "kind": "DECLARED",
+    "why": "the SAME sample as filter_worth_it so R2 is exact replication, not a fresh draw",
+    "sweep": null,
+    "value": "16mix graph sha256 1b6c755f4174ca38..., seed 20260826, 220 nodes"
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "scope": "relative masking only; sigma-conditional BY CONSTRUCTION \u2014 the criterion-dependence is the measured object, not a caveat",
+ "verdict": "CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION",
+ "composed": {
+  "label": "CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION_AND_BY_adjacent gain inversions along the sigma axis, all margins_AT_0.10-bar crossings along sigma at margin 0_AT_0.10-bar crossings along sigma at margin 0 (uniqueness)",
+  "head": "CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION",
+  "qualifiers": [
+   "AND_BY_adjacent gain inversions along the sigma axis, all margins",
+   "AT_0.10-bar crossings along sigma at margin 0",
+   "AT_0.10-bar crossings along sigma at margin 0 (uniqueness)"
+  ],
+  "citation": "CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION  [cells with sigma >= 0.4 where a non-degenerate ratio is audible (I=0.9) 0 vs <=0.5 MET \u2014 \"the corrected headline holds across the whole sigma >= 0.4 subplane, margins -6..+6\"; margin cells at sigma = 0.25 with a non-degenerate audible ratio 2 vs >=0.5 MET \u2014 \"and its region has a measured edge by sigma = 0.25\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('Part-1 mismatches vs 28 banked masked_horizon counts', PREMISE, MET)",
+   "Arm('Part-2 mismatches vs 13 regraph-pinned filter_worth_it numbers', PREMISE, MET)",
+   "Arm('cells with sigma >= 0.4 where a non-degenerate ratio is audible (I=0.9)', EXISTENCE, MET)",
+   "Arm('margin cells at sigma = 0.25 with a non-degenerate audible ratio', EXISTENCE, MET)",
+   "Arm('adjacent gain inversions along the sigma axis, all margins', MECHANISM, MET)",
+   "Arm('0.10-bar crossings along sigma at margin 0', RESOLUTION, MET)",
+   "Arm('0.10-bar crossings along sigma at margin 0 (uniqueness)', RESOLUTION, MET)"
+  ]
+ }
+}
