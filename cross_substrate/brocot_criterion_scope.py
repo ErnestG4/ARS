@@ -90,6 +90,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
 BROCOT = os.path.expandvars("$HOME/fmexplorer/brocot")
+sys.path.insert(0, BROCOT)
 from redpath import redpath                                       # noqa: E402
 from reachable import Bar                                         # noqa: E402
 from verdictlattice import (Arm, compose, PREMISE as PREM_ROLE,   # noqa: E402
