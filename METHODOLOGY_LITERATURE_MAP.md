@@ -245,3 +245,49 @@ one section that survived is the one with arithmetic in it.
 4. **The termination question is the open one**, and it is the one this
    programme is actually positioned to answer, because it has been running the
    loop for four months with the receipts kept.
+
+## Addendum 2026-09-06 (later): the honest re-sweep, and it inverts the fabrication
+
+The two stripped modules were re-swept the same day, under a stricter rule:
+**a claim enters an anchor only as a quote from text actually fetched in the
+session, or as arithmetic recomputed in-repo.** Two semantic queries plus
+primary-text fetches (ICH PDF from database.ich.org, PCAOB AS 1105 from
+pcaobus.org, CONSORT 2010 from bmj.com, PMC full texts, two course PDFs,
+Seaman et al. on the Rubin attribution).
+
+**`existence.py` — the quantifier axis is OCCUPIED.** The fabricated report
+said unoccupied — the conclusion this repo most wanted. The real search found
+the defect named at least three ways in psychology alone: the
+**group-to-person generalizability problem** (McManus, Young & Sweetman, AMPPS
+2023 — simulated group effects "can emerge without a single participant's
+responses matching"), the **ergodic fallacy** (Speelman & McGann 2020, whose
+title *is* our rule: "Statements About the Pervasiveness of Behavior Require
+Data About the Pervasiveness of Behavior"), and the **nonergodicity threat**
+(Fisher, Medaglia & Jeronimus, PNAS 2018; Molenaar 2004 lineage). The repair
+is named in formal methods — the witness/counterexample duality (an
+existential formula is discharged by one witness trace, never an aggregate;
+CGP ch. 6.3–6.4 via two independent course texts). The frame is
+regulation-grade — ICH E9(R1) splits "establish the existence" from "estimate
+the magnitude" in its opening and makes the population-level summary a
+mandatory declared estimand attribute. **What is ours shrinks to the
+enforcement**: nothing found *refuses* — no type system raises on a mismatched
+statistic. Status PARTIAL.
+
+**`countrecon.py` — both halves named; the fail-closed conjunction is not
+found.** Half A: the **completeness assertion** is verbatim in PCAOB AS
+1105.11 (with an *existence* assertion beside it — auditing separates the two
+axes the way this repo does), and CONSORT 2010's flow diagram makes
+per-unit accounting constitutive of trial reporting. Half B: **informative
+missingness** is standard vocabulary (Little, Annual Review). The brief's
+predicted mis-citation was confirmed: **Rubin 1976 contains MAR and
+"observed at random" and never mentions MCAR or MNAR** (Seaman et al.); the
+acronym taxonomy is Little & Rubin 1987. Status PARTIAL.
+
+**The symmetry worth keeping.** Of the two fabricated verdicts, the one this
+repo *wanted* (unoccupied) proved false and the one it *expected to lose*
+(thoroughly named) proved largely true. A fabrication can land on the truth,
+which is exactly why it cannot be triaged by plausibility — both were equally
+unevidenced until the primary text was fetched.
+
+Board effect: **0 of 11 guard modules remain NOT_SEARCHED** (5 NAMED,
+4 PARTIAL, 2 UNCLAIMED).

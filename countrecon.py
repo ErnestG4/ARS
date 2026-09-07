@@ -49,27 +49,66 @@ arithmetic demands.
 # NOT SEARCHED — see the retraction note in existence.py. The same sweep
 # fabricated this module's result too.
 LITERATURE = dict(
-    status="NOT_SEARCHED",
-    note="RETRACTED SWEEP, 2026-09-06. Discarded in full: the ISA 315 "
-         "paragraph and appendix quotations, PCAOB AS 1105.11, the CONSORT "
-         "2010 E&E table and CONSORT 2025 item 26, the Cochrane Handbook "
-         "section quotations, the claim about what Rubin 1976 does and does "
-         "not contain, Wu & Carroll, Diggle & Kenward, the Biemer "
-         "undercoverage-bias formula, the RoB 2 domain renaming, Bird et al. "
-         "2009, and the Wang & Strong definition. None was retrieved; all "
-         "carried verification labels saying otherwise.\n"
-         "The sweep's VERDICT was that both halves of this rule are "
-         "thoroughly named and nothing here is ours. That verdict is plausible "
-         "on its face — reconciliation and completeness are auditing "
-         "vocabulary, and informative missingness is a large literature — but "
-         "it has no evidence behind it, and 'plausible and unchecked' is the "
-         "state this whole exercise exists to eliminate.\n"
-         "WHAT A REAL SWEEP MUST DO: Half A, does the ledger requirement (two "
-         "instruments counting one population must reconcile or say why not) "
-         "have a name in auditing or in trial-reporting guidelines? Half B, is "
-         "the specific danger that THE MISSING CASES ARE THE INFORMATIVE ONES "
-         "covered by the missing-data literature? Check the Rubin/Little "
-         "attribution carefully; it is commonly mis-cited.",
+    status="PARTIAL",
+    note="BOTH HALVES ARE NAMED; THE CONJUNCTION-AS-MACHINERY IS NOT FOUND. "
+         "The fabricated 2026-09-06 report claimed 'thoroughly named, nothing "
+         "here is ours' with invented quotations. The honest re-sweep "
+         "(primary text fetched per claim) lands NEAR the same verdict for "
+         "half A and half B separately -- a reminder that fabrication cannot "
+         "be triaged by plausibility: the invented verdict this repo WANTED "
+         "(existence.py 'unoccupied') proved false, and the invented verdict "
+         "it expected to lose proved largely true. Both were unevidenced "
+         "until today.",
+    anchors=[
+        "HALF A, auditing: PCAOB AS 1105 fetched from pcaobus.org. AS "
+        "1105.11, verbatim: 'Completeness -- All transactions and accounts "
+        "that should be presented in the financial statements are so "
+        "included.' (The retracted report's paragraph number happened to be "
+        "real; now it is verified rather than lucky.) Beside it, verbatim: "
+        "'Existence or occurrence' as a distinct assertion -- auditing "
+        "separates the two axes the way existence.py does. AS 1105.10: 'Test "
+        "the accuracy and completeness of the information' produced by the "
+        "company. AS 1105.07: relevance includes whether a procedure is "
+        "designed to 'test for understatement or overstatement' -- "
+        "DIRECTIONAL evidence design, kin to onesidedness_is_the_default.",
+        "HALF A, trials: CONSORT 2010 (Schulz, Altman & Moher, BMJ "
+        "2010;340:c332), fetched: 'The CONSORT 2010 Statement is this paper "
+        "including the 25 item checklist ... and the FLOW DIAGRAM' tracking "
+        "every participant through enrolment, allocation, follow-up, "
+        "analysis. Accounting for every unit at every stage is constitutive "
+        "of the reporting standard, not an appendix. Current: CONSORT 2025, "
+        "BMJ 388:e081123 (bibliographic via EQUATOR; not fetched).",
+        "HALF B, the name: 'informative missingness' and 'informative "
+        "censoring' are standard vocabulary -- verified in Little, 'Missing "
+        "Data Assumptions', Annual Review of Statistics, which lists them as "
+        "alternatives to MAR. The danger this module guards -- THE MISSING "
+        "CASES ARE THE INFORMATIVE ONES -- is the nonignorable/MNAR branch "
+        "of a large literature, not an in-house discovery.",
+        "HALF B, attribution CORRECTED (the brief predicted mis-citation; "
+        "confirmed): Rubin, Biometrika 63(3), 1976, 581-592 defines 'missing "
+        "at random' AND 'observed at random' and does NOT contain MCAR or "
+        "MNAR -- verified via Seaman, Galati, Jackson & Carlin (arXiv "
+        "1306.2812): 'In his original 1976 paper, Rubin did not mention "
+        "MCAR'; realised-MCAR = realised-MAR + observed-at-random (Heitjan "
+        "1994; Little 1976 discussion). The acronym taxonomy is Little & "
+        "Rubin 1987; Rubin 1987 himself 'largely avoided the term MAR', "
+        "preferring 'ignorable'. Downstream usage is inconsistent (realised "
+        "vs everywhere MAR -- Seaman et al.'s core point). Cite Rubin 1976 "
+        "for MAR/OAR/ignorability ONLY.",
+    ],
+    ours="the conjunction as fail-closed machinery: CountLedger makes two "
+         "instruments counting one population RECONCILE AT CONSTRUCTION TIME "
+         "or refuse to report, and treats the unreconciled remainder as the "
+         "hypothesis (blind_spot_correlates_with_defect), where auditing and "
+         "CONSORT are reporting duties on humans and the missing-data "
+         "literature models the mechanism after the fact.",
+    searched="2026-09-06 re-sweep after the fabricated report was struck. "
+             "Method: direct fetch of PCAOB AS 1105 and CONSORT 2010 BMJ "
+             "text; Rubin-attribution chased through Seaman et al. and "
+             "Little's review, quotes from fetched text only. NOT re-checked "
+             "from the discarded list: ISA 315, Cochrane Handbook, RoB 2, "
+             "Wu & Carroll, Diggle & Kenward, Biemer, Bird et al. 2009 -- "
+             "those names remain unevidenced here and are NOT cited.",
 )
 
 

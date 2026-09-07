@@ -83,30 +83,79 @@ detection-shaped name, now has to be argued for out loud.
 # for sources never retrieved. Discarded in full rather than triaged, because
 # a source that was labelled verified and was not cannot be partially trusted.
 LITERATURE = dict(
-    status="NOT_SEARCHED",
-    note="RETRACTED SWEEP, 2026-09-06. Everything the sweep offered here is "
-         "discarded: the Robinson 1950 and Savage HBR quotations, the ICH "
-         "E9(R1) attribute-D quotations, the Lamport witness-trace claim, the "
-         "fallacy-of-division finding, and the conclusion that the quantifier "
-         "axis is unoccupied. That conclusion may well be right — it is the "
-         "item this repo most wanted — and it currently has NO evidence behind "
-         "it. Do not cite it and do not claim the rule as unnamed on its "
-         "strength.\n"
-         "ONE ITEM SURVIVES, and only because a DIFFERENT agent verified it "
-         "independently against primary text in an earlier sweep: Kimball, "
-         "JASA 52(278), 1957, TYPE III ERROR — 'the error committed by giving "
-         "the right answer to the wrong problem'. Our defect is an instance. "
-         "That container is large enough that naming it tells a reader little "
-         "about what to check, so it does not settle the question either.\n"
-         "WHAT A REAL SWEEP MUST DO: establish whether 'exists-x P(x) answered "
-         "by an estimator of a central moment of P' is named anywhere in "
-         "statistics, econometrics, ML evaluation, measurement theory, formal "
-         "methods, reliability or environmental statistics. Candidate leads "
-         "worth checking rather than trusting: ICH E9(R1) attribute D as a "
-         "FRAME; order statistics / extreme value theory as the correct "
-         "toolbox; the safety/liveness distinction in formal verification, "
-         "where a liveness property is discharged by a witness trace and never "
-         "by an aggregate.",
+    status="PARTIAL",
+    note="THE HONEST SWEEP FOUND THE OPPOSITE OF THE FABRICATED ONE. The "
+         "retracted 2026-09-06 report concluded the quantifier axis was "
+         "unoccupied -- the conclusion this repo most wanted. The re-sweep "
+         "(same day, primary text fetched for every claim) found the axis "
+         "OCCUPIED under at least three names in psychology alone, plus a "
+         "regulation-grade frame and an exact formal-methods dual. The DEFECT "
+         "is named. The REPAIR is named. What is not found anywhere searched "
+         "is the ENFORCEMENT: a construction-time type system that classifies "
+         "the question and RAISES on a mismatched statistic.",
+    anchors=[
+        "McManus, Young & Sweetman, Adv. Methods Pract. Psychol. Sci. (AMPPS) "
+        "2023: 'the group-to-person generalizability problem'. Verified from "
+        "fetched full text: group-level claims can 'describe only a "
+        "(sometimes tiny) minority of participants', and simulated group "
+        "effects 'can emerge without a single participant's responses "
+        "matching' -- an aggregate asserting what NO unit exhibits.",
+        "Speelman & McGann 2020 (Front. Psychol., PMC7711086), title verbatim: "
+        "'Statements About the Pervasiveness of Behavior Require Data About "
+        "the Pervasiveness of Behavior' -- the title IS this module's rule. "
+        "They coined 'the ergodic fallacy' for it (coinage confirmed in "
+        "Collabra 2024, 10.1525/collabra.92888, which measured the fallacy's "
+        "prevalence across a year of three journals). Verified text: 'it is "
+        "not the fashion to report the number of people in the study that "
+        "showed the effect', and the repair 'will often require that a "
+        "precise criterion is defined whereby we can determine if the "
+        "behavior has been observed, or not' -- an existence statistic, as "
+        "exhortation.",
+        "Fisher, Medaglia & Jeronimus, PNAS 2018 (PMC6142277): 'Lack of "
+        "group-to-individual generalizability is a threat to human subjects "
+        "research.' Only for ERGODIC processes do group-level inferences "
+        "transfer to individuals; measured intraindividual variance 2.09-4x "
+        "the interindividual estimate across six samples. Lineage: Molenaar "
+        "2004.",
+        "ICH E9(R1) addendum (database.ich.org official PDF, "
+        "EMA/CHMP/ICH/436221/2017), fetched: 'Central questions ... are to "
+        "establish the EXISTENCE, and to estimate the MAGNITUDE, of "
+        "treatment effects' -- the framework itself splits this module's "
+        "axis -- and 'a population-level summary for the variable should be "
+        "specified' is a MANDATORY estimand attribute (A.3.3): the summary "
+        "statistic is a declared property of the question, chosen in advance.",
+        "Formal-methods dual, verified from two independent course texts "
+        "(Willemse, TU/e 2IW55, explicitly 'Chapter 6.3, 6.4' of Clarke, "
+        "Grumberg & Peled, Model Checking, MIT Press 1999; Chechik, Toronto "
+        "csc2108): 'A formula with a universal path quantifier has a "
+        "counterexample consisting of one trace; a formula with an "
+        "existential path quantifier has a WITNESS consisting of one trace.' "
+        "An existential claim is discharged by exhibiting one trace, never by "
+        "an aggregate. (CGP book itself not fetched; cited via both courses.)",
+        "Kimball, JASA 52(278), 1957, Type III error -- 'the right answer to "
+        "the wrong problem' -- verified against primary text by a different "
+        "agent in the earlier sweep; kept. The container is too large to be "
+        "actionable alone.",
+        "Kravitz, Duan & Braslow's RCT-side statement (PMC2953542), fetched: "
+        "if 50% of patients improve, 'an equally valid inference is that ALL "
+        "of the patients' respond half the time -- the group summary "
+        "underdetermines the per-unit distribution entirely.",
+    ],
+    ours="the enforcement: summarise() classifies the QUESTION (EXISTENCE / "
+         "CENTRAL_TENDENCY / TREND / PRESENCE) and raises "
+         "WrongStatisticForQuestion at construction time. The literature "
+         "names the defect and pleads; nothing found REFUSES. Also the "
+         "application to per-realization gates on point-process substrates "
+         "(estimand_matches_decision).",
+    searched="2026-09-06 re-sweep after the fabricated report was struck. "
+             "Method: 2 semantic queries (Exa), then primary text fetched for "
+             "EVERY anchored claim -- ICH PDF from database.ich.org, PMC full "
+             "texts, both course PDFs; quotes above are from fetched text "
+             "only. Bound: psychology/clinical/formal-methods reached; "
+             "econometrics, measurement theory, reliability engineering NOT "
+             "specifically swept. What would upgrade PARTIAL->NAMED: finding "
+             "a refusing implementation (type system, linter, estimand "
+             "checker) that enforces question-statistic match; none surfaced.",
 )
 
 import re
