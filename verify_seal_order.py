@@ -60,6 +60,15 @@ PAIRS = [
     # SEALED: sealgen committed the generator alone, then it ran.
     ("approximability/F_reproduce.py", "approximability/F_reproduce.json",
      "the declared curve family and the gate/rate predictions over it"),
+    # criterion-scope, 2026-09-06. v1: sealgen committed the generator (and a
+    # path fix, pre-output) before the output; its INVALID head is the banked
+    # record of R2 catching filter_worth_it's stale input. v2: same flow.
+    ("cross_substrate/brocot_criterion_scope.py",
+     "cross_substrate/brocot_criterion_scope.json",
+     "v1's criterion-region predictions, R1/R2 premises included"),
+    ("cross_substrate/brocot_criterion_scope_v2.py",
+     "cross_substrate/brocot_criterion_scope_v2.json",
+     "v2's corrected premise (regraph-pinned) and inherited bars"),
 ]
 
 

@@ -269,6 +269,22 @@ ENTRIES = [
               "5000+ pairs). What is unsettled is whether the consequence is "
               "audible"),
     dict(id="suggest-reachability-filter", status=QUEUED,
+         # UPDATE 2026-09-06: the re-framed ask's MEASUREMENT half is done --
+         # criterion_scope_v2 banked the decision as a function of criterion.
+         # gain(sigma, margin) is monotone in sigma at every margin, and the
+         # 0.10 ship bar is crossed EXACTLY ONCE along the sigma axis at
+         # margin 0, in sigma (0.50, 0.70). Read it as: believe the auditory
+         # filter is narrower than 0.70*ERB and the filter ships; believe
+         # 0.70*ERB or wider and it does not. What remains is (a) a human
+         # picking the operating point on that curve and (b) the C++
+         # signature change, which was never a measurement. ALSO 2026-09-06:
+         # this row's warrant artifact brocot_filter_worth_it.json went
+         # STALE against its input -- brocot regenerated the 16mix graph
+         # 08-31, five days after banking. Caught by criterion_scope v1's
+         # premise arm. The re-run on the pinned current graph
+         # (brocot_filter_worth_it_regraph.json, sha256-pinned) PRESERVES the
+         # no-ship-at-conservative-width verdict: +1.6% at the sealed
+         # primary vs the 0.10 bar, still MISSED.
          framing_dead=[("cross_substrate/brocot_masked_horizon.json",
                         "'audible' was reclassified from a property of the "
                         "spectrum to a property of a model with a criterion in "
@@ -362,7 +378,23 @@ ENTRIES = [
               "rung' law I asserted in a commit message was RETRACTED the same "
               "session -- read off six sorted rows, contradicted by the full "
               "series"),
-    dict(id="audible-horizon-calibration", status=QUEUED,
+    dict(id="audible-horizon-calibration", status=LANDED,
+         artifact="cross_substrate/brocot_criterion_scope_v2.json",
+         verdict="CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION",
+         landed_note_2026_09_06="LANDED on the re-framed ask: the audible "
+                     "count now travels as a FUNCTION of criterion. Full "
+                     "(sigma x margin x I) grid banked with the degenerate "
+                     "alpha=1 split out; the corrected headline (0 "
+                     "non-degenerate audible at I=0.9) holds on ALL 12 cells "
+                     "with sigma >= 0.4 including the permissive corner "
+                     "(0.4, -6 dB), and its region has a measured edge: at "
+                     "sigma = 0.25, 2 of 3 margin cells go nonzero. No "
+                     "listener was needed, exactly as the re-framing said. "
+                     "The Stage-B design in the note below (beat arm as a "
+                     "per-listener pass-gate on the merge arm) remains the "
+                     "inheritance for any future listening session -- a "
+                     "listening test would now SELECT an operating point on "
+                     "banked curves rather than discover them.",
          # PICK-UP NOTE 2026-09-06 — THIS ONE IS CHEAP AND NOBODY HAS RUN IT.
          # I guessed on 09-06 that this row and heard-as-listening were both
          # lightning that had already struck, and checking says NEITHER is.
