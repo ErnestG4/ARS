@@ -743,6 +743,32 @@ ENTRIES = [
               "discriminated above 60% pins sigma. NO audibility claim is made "
               "by this cell"),
     dict(id="heard-as-listening", status=QUEUED,
+         # RE-POSED 2026-09-07 (Will: "is there no standard test that matches
+         # my responses at least mostly?"). THERE IS, and it mirrors this
+         # row's own arm split. Verified against fetched primary text:
+         # Moore, Glasberg & Peters, JASA 80:479 (1986) measured hearing a
+         # mistuned partial AS A SEPARATE TONE (1-3% mistuning, 2AFC/adaptive
+         # to d'=1) and found the exact dichotomy our beat/merge split
+         # declares -- "for the lower harmonics ... the mistuned harmonic
+         # appeared to 'stand out' ... whereas for the higher harmonics
+         # beats and roughness were heard." Its companion (Moore, Peters &
+         # Glasberg, JASA 77:1861, 1985) gives detection-by-any-cue
+         # thresholds ~constant in Hz (~4 Hz at 410 ms, rising to ~40 Hz at
+         # 50 ms) -- normative backing for this row's own sustain-length
+         # note (1-24 Hz separations need 40 ms - 1 s). Beat arm norms:
+         # Viemeister JASA 66:1364 (1979) TMTF; Kohlrausch, Fassel & Dau,
+         # JASA 108:723 (2000) -- beat-detection on TONAL carriers, ~6 dB
+         # above per-sideband modulation threshold, flat to ~100-130 Hz.
+         # THE ROUTE THIS OPENS (queued for the overnight): a NORMATIVE
+         # ANCHOR cell -- run Stage A's masking criterion at the literature
+         # operating point (sigma = ERB/sqrt(2pi)) on the NORMS' OWN
+         # stimuli (10-12 equal-amplitude harmonics, 60 dB/component, one
+         # partial mistuned) and compare predicted thresholds to the
+         # published 1-3% / ~4 Hz values. If the instrument reproduces the
+         # norms on their stimuli, the model inherits population backing
+         # and n=1 need only be CONSISTENT with norms, not carry the
+         # evidence. Listeners stop being the blocker unless the anchor
+         # fails.
          framing_dead=[("cross_substrate/brocot_masked_horizon.json",
                         "'audible' was reclassified from a property of the "
                         "spectrum to a property of a model with a criterion in "
