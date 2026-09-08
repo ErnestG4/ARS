@@ -268,7 +268,34 @@ ENTRIES = [
               "predicate is exactly right (0 disagreements vs brute force over "
               "5000+ pairs). What is unsettled is whether the consequence is "
               "audible"),
-    dict(id="suggest-reachability-filter", status=QUEUED,
+    dict(id="suggest-reachability-filter", status=LANDED,
+         artifact="cross_substrate/brocot_criterion_scope_v2.json",
+         verdict="CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION",
+         landed_note_2026_09_07="LANDED on an operator decision plus a "
+                     "discovery that the engineering had already shipped. "
+                     "THE DECISION (Will, 2026-09-07): follow the "
+                     "literature. The ERB-matched Gaussian criterion is "
+                     "sigma = ERB/sqrt(2*pi) = 0.3989*ERB -- derivation: the "
+                     "equivalent rectangular bandwidth of a peak-1 Gaussian "
+                     "is its integral, sigma*sqrt(2*pi); verified "
+                     "numerically to full double precision "
+                     "(2.5066282746310002). That lands on the 0.40 grid "
+                     "point of criterion_scope_v2, where the filter's gain "
+                     "clears the 0.10 ship bar at EVERY margin (+21.8% / "
+                     "+17.3% / +14.4% at -6/0/+6 dB) -- the decision is "
+                     "margin-insensitive at the literature point. THE "
+                     "ENGINEERING: brocot b84022d (2026-08-31) had already "
+                     "landed the signature change, the reachableFromAny "
+                     "filter, the SteerTab wiring, and 62 lines of tests. "
+                     "Semantics verified against the measured reach() "
+                     "2026-09-07: alpha orientation, per-side index "
+                     "assignment, and eps=1e-3 all match exactly; 41 "
+                     "assertions / 11 cases pass. RECORDED PLAINLY: the "
+                     "implementation preceded the decision by a week, and "
+                     "the 08-26 conservative-criterion verdict had said "
+                     "don't-ship -- the shipped state was unwarranted until "
+                     "today's operating-point choice. Third "
+                     "sibling-repo-blindness instance of the week.",
          # UPDATE 2026-09-06: the re-framed ask's MEASUREMENT half is done --
          # criterion_scope_v2 banked the decision as a function of criterion.
          # gain(sigma, margin) is monotone in sigma at every margin, and the
