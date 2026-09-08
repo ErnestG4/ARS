@@ -2452,3 +2452,38 @@ writes the verdict; generators commit alone; seal order is a property of the com
 message may not claim an outcome without a CHECKRUN line — the hook refused its own installing
 commit, correctly).  `verify_frozen_blobs.py` + `verify_pending_debt.py` (frozen objects re-resolve
 with a non-vacuity floor; un-actioned proposals print on every green board).  Board at 25/25.
+
+
+## Survey arc (DESI DR1): CLASS_MEASURED — the landscape's first sky substrate
+**(measured 2026-08-15; this filing 2026-09-07 — see the lateness note)**
+
+The projected 2D point process of DESI DR1 LRG NGC, two sealed tomographic
+slices, under sealed pre-registration (93ce1d7) with the anti-claim binding
+(no cosmology, no 3D matter-field statements, claims attach to the projected
+process over the sealed scale range only). Verdict per slice via the shared
+lattice: **CLASS_MEASURED, SUPER-Poissonian on 28/28 tiles in both slices**,
+with F−1 ∝ L^s at **s = 1.190 ± 0.026** (0.6–0.8) and **1.190 ± 0.033**
+(0.4–0.6) — amplitude evolves between slices while the exponent holds to
+three digits, which is the Limber-projection expectation for fixed 3D slope
+and evolving amplitude. The gate record is the arc's real product: the mask
+KAG caught a randoms-shot-noise estimator bias on its first run (fixed on
+synthetic, pre-seal, three-event labeled in survey/D1_LOG.md); the red path
+manufactured F(1°) = 15–19 (|z| = 130) from mask holes alone under the
+forbidden analytic window; the D2 powered wrong-lens gate fires ≥5σ
+everywhere while the released weights matter at 4.47σ real amplitude.
+`survey/RESULTS_SURVEY.md` is the record; `survey/verify_survey.py` sits on
+the board; the 8.1 GB of FITS are local-only with MANIFEST.json SHA
+provenance.
+
+**Lateness note, in the spirit of the record:** D4 (this filing, the TOOLKIT
+§11 amendments, and the memory update) was specified in the approved brief
+and not executed for 23 days. The stale queue state propagated: a 2026-09-06
+meta-review recommended "run DESI D0+D1 or kill it" about an arc that had
+been green for three weeks. Same failure shape as the double-pulse row
+(implemented in the sibling repo 08-31, still QUEUED 09-07) and the stale
+16mix graph (regenerated 08-31 under an artifact banked 08-26): state that
+lives outside the ledger's field of view neither pins nor notifies. The
+remedy applied to inputs is content-hash pinning; the remedy applied to
+filing is that a brief's D-final filing stage is part of the arc, not an
+epilogue — an arc whose filing is unexecuted reads as un-run to every
+downstream consumer, including the operator's own memory.

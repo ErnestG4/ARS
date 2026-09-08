@@ -918,6 +918,15 @@ of preference:
    structurally-circular self-derived rate-unfold (§9). Never tune bandwidth on the statistic
    being reported.
 
+**Survey-weights entry (survey arc D2, 2026-08-15; filed 2026-09-07 per D4):** when a
+survey ships per-object weights (completeness, systematics, fiber-collision), they are the
+release's own intensity/selection model and belong at the TOP of the preference order — a
+pipeline-supplied λ correction, not an optional refinement. Measured at real amplitude on
+DESI DR1 LRG: ignoring the released WEIGHT column shifts F by up to **4.47σ** (just under
+the 5σ firing line the powered wrong-lens gate certifies). The FIX-2 crucible generalises:
+a powered WRONG lens (injected gradient the expectations are blind to) must fire ≥5σ before
+the right lens's silence means anything (survey/run_d2_gates.py).
+
 **Double-application tripwire (pre-registered, Bridge §3.1):** never unfold AND intensity-reweight
 the same data path. A path in mean-spacing (unfolded) units takes the *stationary* estimators; a
 path handed to K_inhom keeps raw coordinates and carries λ(x). Each pipeline declares which
