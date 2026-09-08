@@ -390,12 +390,34 @@ an omission** (see the 2026-08-18 queue reorder above before considering one).
   Verdict: the measured form is NOT derivable from that machinery, structurally. The
   controlled quantity is invariant to 2.6e-14 while the measured one moves 4,492x.
 
+### Update 2026-09-08 — the regime sweep Priority 1 did not do
+
+Priorities 1–3 were organised around the three papers Campbell NAMED. Enumerating a
+correspondent's citations is not a literature sweep of the surrounding regime, and the
+difference cost three weeks: **arXiv:2408.13851 (Martínez-Finkelshtein–Rakhmanov, "Flow
+of the zeros of polynomials under iterated differentiation", v3 2025-09-21)** — the most
+general global treatment of the proportional regime k/n → t, unifying Burgers/Hopf,
+fractional free convolution and the nonlocal diffusion equation — was in no document in
+this repo until today. It was found by sweeping the regime rather than the correspondence.
+Read in extracted full text on the same vocabulary as 2408.09337: **0 hits** for spacing,
+gap, microscopic, consecutive roots, fluctuation, rigidity, point process, pair
+correlation, universality, nearest-neighbour, crystalliz-; all 12 *local* hits are
+"nonlocal transport/diffusion" (the PDE's name) or "locally uniformly". The gap claim is
+INTACT, and PROSE now states it regime-by-regime — proportional / small-k / endpoint, each
+covered globally, none containing a local-spacing statement — which is a stronger and more
+falsifiable form of the claim than the two-territory sandwich it replaces.
+Also filed today: PROSE contained **no mention of the edge anywhere**, so a reader could
+have taken bulk results for edge claims; the EDGE-0 verdict is now stated at the readout.
+
 ### Next, in order
-1. **Priority 2 — doi:10.4171/dm/1071 (Campbell, Appell) at full depth.** Only read at
-   abstract level so far. It is the correct citation for the k = n−d endpoint and should
-   replace the Hoskins–Steinerberger shorthand. Route: fetch the PDF and extract with
+1. **Priority 2 — doi:10.4171/dm/1071 (Campbell, Appell) at full depth.** Abstract now
+   VERIFIED at the published DOI (Documenta Math., 2026-05-03), which states the regime in
+   the author's own words — the limits are the real rooted Appell sequences when "the
+   number of derivatives is such that the remaining degree is fixed" — so the endpoint
+   placement no longer rests on context. Full-text depth is still open, and is now a
+   citation-quality item rather than a scoping risk. Route: fetch the PDF and extract with
    `pypdf` (available in the venv; no pdftotext/gs on this box) exactly as was done for
-   2408.09337.
+   2408.09337 and 2408.13851.
 2. **Priority 3 — finish the note under the corrected framing.** The memo §5 gives the
    new lead: *the scale confirms the folklore; the form is what it does not reach.*
    Retire "the local regime is open" and retire the flat scale as headline novelty.
