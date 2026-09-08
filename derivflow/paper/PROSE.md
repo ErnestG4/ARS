@@ -61,12 +61,20 @@ Gunns–Hughes. The limiting Appell configurations are themselves locally lattic
 entire function — the n = ∞ shadow of our iid seed — Pemantle–Subramanian proved that zeros of
 f^(k) converge to a uniform random translate of ℤ as k → ∞, with no rate.
 
-Between these two proven territories lies a gap: the local spacing statistics of p^(k) for
-degree-n polynomials at fixed or slowly growing k. No theorem addresses it — ANP's paper, the
-strongest global result in the small-k regime, contains no statement finer than weak
-convergence of the empirical measure (verified against the full text) — and, to our knowledge,
-no measurement existed either (two adversarial literature audits plus a dated submission-day
-re-sweep; Appendix B). This paper reports the first measurements in that gap, under a sealed
+Between these two proven territories lies a gap, and it is worth stating regime by regime
+because every regime is now covered globally. In the proportional regime k = ⌊tn⌋ the global
+zero flow is characterized by the Hopf/inviscid-Burgers equation
+(Martínez-Finkelshtein–Rakhmanov, arXiv:2408.13851) and by free probability
+(Arizmendi–Fujie–Perales–Ueda, arXiv:2408.09337; Campbell–O'Rourke–Renfrew); in the small-k
+regime by ANP and Michelen–Vu; in the endpoint regime ℓ = n − k fixed by Hoskins–Steinerberger,
+Campbell (Documenta Math., doi:10.4171/dm/1071) and Arizmendi–Campbell–Fujie. **In every one of
+these the object is the empirical root measure and the mode of convergence is weak.** No result
+among them contains a statement about local spacing statistics — gap ratios, crystallization
+rates, or the functional form of relaxation — in any regime. That is not an inference from
+abstracts: ANP, arXiv:2408.09337 and arXiv:2408.13851 were each read in extracted full text and
+searched exhaustively for the vocabulary of local statistics, with the counts reported under
+*Adjacent tracks* below. To our knowledge no measurement existed either (two adversarial
+literature audits plus a dated submission-day re-sweep; Appendix B). This paper reports the first measurements in that gap, under a sealed
 protocol, and the headline is a two-scale structure: **the global measure is asymptotically
 frozen through every k = o(n) for real roots, while local spacing fully crystallizes by k ≈ 10
 underneath it.** Macroscopically invariant, microscopically resolved — a regime no global
@@ -103,7 +111,14 @@ perturbations — and it underwrites the error architecture below.
 
 **Readout.** The primary statistic is 1 − ⟨r̃⟩, the mean adjacent-gap ratio's distance from the
 crystalline value, computed on unfolded spacings over a fixed central bulk window; Σ²(L) rides
-along as a consistency witness. Unfolding is against the theorem-side macroscopic density: the
+along as a consistency witness. **The bulk window is the scope of every claim below, and the
+edge is not merely unmeasured here but unreadable by this instrument.** A dedicated
+exploratory gate (EDGE-0, `edge0_gate.json`) asked whether the pipeline can resolve edge
+spacings at all, at n = 4096, k ∈ {1, 2, 4, 8, 16}, over the outer 5% and 2% of the support:
+no k was usable at either fraction (`usable_k = []`), verdict EDGE_NOT_READABLE. The
+obstruction is definitional rather than a matter of tuning — unfolding against a macroscopic
+density whose support endpoint is itself moving does not define a local coordinate there — so
+nothing in this paper should be read as a claim about edge statistics, in either direction. Unfolding is against the theorem-side macroscopic density: the
 empirical-seed fractional free convolution μ_s = D_{1−s}(μ^⊞1/(1−s)), evaluated by
 Belinschi–Bercovici subordination (a Denjoy–Wolff contraction, convergence certified per call),
 integrated per root gap by Gauss quadrature with a single smooth ε_k bandwidth rule, and read
@@ -235,7 +250,28 @@ exactly-specified interacting system with a proven Lipschitz structure exhibitin
 KWW relaxation under a certified error model is, we believe, an unusual specimen for this
 literature: simpler than any glass-former, richer than any solvable toy.
 
-**Adjacent tracks.** The complex/rotationally-invariant flow (Galligo–Najnudel–Vu; Najnudel–Vu)
+**Adjacent tracks.** Two global treatments cover the regimes surrounding ours and are recorded
+here with the searches that place them. The Hopf-equation approach of
+Martínez-Finkelshtein–Rakhmanov (arXiv:2408.13851) is the most general treatment of the global
+zero flow for k/n → t: it establishes convergence of the Cauchy transform of the normalized
+zero-counting measure, with connections to the inviscid Burgers equation, fractional free
+convolution, and a nonlocal diffusion equation for the density. An exhaustive search of its
+extracted full text returns **zero** occurrences of *spacing*, *gap*, *microscopic*,
+*consecutive roots*, *fluctuation*, *rigidity*, *point process*, *pair correlation*,
+*universality*, *nearest neighbour* or *crystalliz-*; all twelve occurrences of *local* are
+either the PDE's name (*nonlocal* transport/diffusion, a statement about the macroscopic
+density) or *locally uniformly*, a convergence topology. Arizmendi–Fujie–Perales–Ueda
+(arXiv:2408.09337) connect repeated differentiation to the S-transform and the finite free
+cumulants in the proportional and o(n) regimes; the same search of its full text returns zero
+for the same terms, with all four occurrences of *local* being *locally uniform convergence*.
+Both are global empirical-measure results, and neither contains a local-spacing statement to
+compare our curves against — which is what makes the gap above a scoped claim rather than an
+absence of citation. The endpoint papers are outside our regime by their own statements:
+Campbell (doi:10.4171/dm/1071) identifies the limits of repeated differentiation as the real
+rooted Appell sequences precisely when *the remaining degree is fixed*, and
+Arizmendi–Campbell–Fujie (arXiv:2506.08910) give CLTs in the same endpoint regime; both are
+read at abstract-and-structure depth, which is sufficient to place a regime and is stated as
+the depth reached. The complex/rotationally-invariant flow (Galligo–Najnudel–Vu; Najnudel–Vu)
 and the heat flow (Hall–Ho–Jalowy–Kabluchko, Indiana Univ. Math. J. 74 (2025); EJP 30 (2025);
 Hall–Ho, Lett. Math. Phys. 115 (2025)) are both active; neither touches real-rooted fixed-k
 local statistics. The nearest theorem-shaped object to our σ-resolved curves is the announced

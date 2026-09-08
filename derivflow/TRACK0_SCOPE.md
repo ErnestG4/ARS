@@ -408,6 +408,28 @@ Filed with exact conditionality per the row-c-suspect rule:
      S-transform in finite free probability) = GLOBAL empirical root measure via finite free
      cumulants. All three are global-measure or endpoint-fluctuation results. None is about
      local spacing at fixed k.
+     **DEPTHS UPGRADED 2026-09-08, and one paper ADDED that the 08-17 pass missed.**
+     `arXiv:2408.09337` was subsequently read in extracted full text and searched
+     exhaustively (`DERIVABILITY_MEMO.md`): 0 hits for spacing / gap / microscopic /
+     consecutive roots / fluctuation / rigidity / point process / pair correlation /
+     universality; 4 for *local*, all "locally uniform convergence".
+     `doi:10.4171/dm/1071` was verified at the published DOI (Documenta Math., 2026-05-03,
+     "Free infinite divisibility, fractional convolution powers, and Appell polynomials"),
+     whose abstract states the regime in its own words — the limits are the real rooted
+     Appell sequences when "the number of derivatives is such that the remaining degree is
+     fixed" — confirming the endpoint placement from primary text rather than from context.
+     **ADDED: `arXiv:2408.13851` (Martínez-Finkelshtein–Rakhmanov, "Flow of the zeros of
+     polynomials under iterated differentiation", v3 2025-09-21)** — the most general global
+     treatment for k/n → t (Cauchy transform of the normalized zero-counting measure; Hopf /
+     inviscid Burgers, fractional free convolution, nonlocal diffusion for the density). It
+     was NOT in this record before today, which is the finding: the 08-17 pass enumerated the
+     three papers Campbell named in his email and did not sweep the surrounding regime
+     independently, so a paper covering the proportional regime more generally than any we
+     cited sat unlisted for three weeks. Full text extracted and searched on the same
+     vocabulary as 09337: **0 hits on every local-statistics term**; all 12 *local*
+     occurrences are "nonlocal transport/diffusion equation" (the PDE's name, a macroscopic
+     density statement) or "locally uniformly". The gap claim is intact after the reading and
+     is now stated regime-by-regime in PROSE rather than as a two-territory sandwich.
   3. **But the OPEN framing is materially weakened, and this is the part that costs us.**
      "Basically all regimes for k are either understood or follow from work that's out there
      (but haven't really been written up yet)", and "on a local level the roots should
