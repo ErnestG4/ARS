@@ -1,0 +1,176 @@
+{
+ "status": "POST-HOC, UNSEALED CENSUS \u2014 reproducible; re-runs each committed generator in a temp dir and diffs against the banked artifact",
+ "graph": "landscape_graph_16mix.json.gz",
+ "graph_sha256": "1b6c755f4174ca38dfe8411f5c03b52df4eac7d9229cd9873fb86f26feeaa30c",
+ "graph_regenerated": "2026-08-31 (brocot 3197126)",
+ "subjects": [
+  "brocot_horizon_extensions",
+  "brocot_index_routing",
+  "brocot_map_dimension",
+  "brocot_suggest_score_census",
+  "brocot_truncated_butterfly",
+  "brocot_coherence_model"
+ ],
+ "excluded": {
+  "brocot_filter_worth_it": "already caught 2026-09-06 and re-banked with its input pinned by sha256 (brocot_filter_worth_it_regraph.json)"
+ },
+ "rows": {
+  "brocot_horizon_extensions": {
+   "rerun_ok": true,
+   "n_numeric": 57,
+   "n_drift": 0,
+   "arm_flips": [],
+   "verdict_changed": [],
+   "examples": []
+  },
+  "brocot_index_routing": {
+   "rerun_ok": true,
+   "n_numeric": 30,
+   "n_drift": 16,
+   "arm_flips": [],
+   "verdict_changed": [],
+   "examples": [
+    {
+     "field": "/larger_rate_se",
+     "banked": 0.00047210796115144076,
+     "now": 0.0004759684094029206
+    },
+    {
+     "field": "/bars/|alignment rate - 0.5|/value",
+     "banked": 0.0004848256798413719,
+     "now": 0.004472904661547761
+    },
+    {
+     "field": "/alignment_rate",
+     "banked": 0.49951517432015863,
+     "now": 0.49552709533845224
+    }
+   ]
+  },
+  "brocot_map_dimension": {
+   "rerun_ok": true,
+   "n_numeric": 42,
+   "n_drift": 17,
+   "arm_flips": [],
+   "verdict_changed": [],
+   "examples": [
+    {
+     "field": "/spearman_vs_existing/bright",
+     "banked": 0.02567305993133378,
+     "now": 0.04129628692844431
+    },
+    {
+     "field": "/spearman_vs_existing/crit",
+     "banked": 0.016338215017926476,
+     "now": 0.011358624960603065
+    },
+    {
+     "field": "/spearman_vs_existing/tonal",
+     "banked": 0.0415822525764431,
+     "now": 0.05438006692500383
+    }
+   ]
+  },
+  "brocot_suggest_score_census": {
+   "rerun_ok": true,
+   "n_numeric": 24,
+   "n_drift": 6,
+   "arm_flips": [],
+   "verdict_changed": [],
+   "examples": [
+    {
+     "field": "/mean_jaccard",
+     "banked": 0.3287857142857143,
+     "now": 0.30446825396825394
+    },
+    {
+     "field": "/bars/Jaccard(shipped top-4, horizon-filtered top-4)/value",
+     "banked": 0.3287857142857143,
+     "now": 0.30446825396825394
+    },
+    {
+     "field": "/bars/shared energy that is EXACTLY coincident/value",
+     "banked": 0.6490414139869731,
+     "now": 0.6512396277092886
+    }
+   ]
+  },
+  "brocot_truncated_butterfly": {
+   "rerun_ok": true,
+   "n_numeric": 40,
+   "n_drift": 19,
+   "arm_flips": [
+    {
+     "bar": "/bars/matched minus plain-q |rho|/met",
+     "banked": true,
+     "now": false
+    }
+   ],
+   "verdict_changed": [],
+   "examples": [
+    {
+     "field": "/correlations/dense/matched",
+     "banked": 0.0828092737150464,
+     "now": 0.052511941803649445
+    },
+    {
+     "field": "/shuffle_null/real_gap",
+     "banked": 0.043371344848468385,
+     "now": 0.042682580910028675
+    },
+    {
+     "field": "/shuffle_null/max_gap",
+     "banked": 0.03517898519138275,
+     "now": 0.039168903477578114
+    }
+   ]
+  },
+  "brocot_coherence_model": {
+   "rerun_ok": true,
+   "n_numeric": 44,
+   "n_drift": 17,
+   "arm_flips": [],
+   "verdict_changed": [],
+   "examples": [
+    {
+     "field": "/jaccard_se",
+     "banked": 0.025183105954839254,
+     "now": 0.02635798356109692
+    },
+    {
+     "field": "/mean_jaccard",
+     "banked": 0.5170748299319728,
+     "now": 0.5308843537414967
+    },
+    {
+     "field": "/median_rel_diff/0.9",
+     "banked": 73.8845459652938,
+     "now": 89.35602115428046
+    }
+   ]
+  }
+ },
+ "stale": [
+  "brocot_index_routing",
+  "brocot_map_dimension",
+  "brocot_suggest_score_census",
+  "brocot_truncated_butterfly",
+  "brocot_coherence_model"
+ ],
+ "clean": [
+  "brocot_horizon_extensions"
+ ],
+ "n_verdicts_changed": 0,
+ "arm_reversals": {
+  "brocot_truncated_butterfly": [
+   {
+    "bar": "/bars/matched minus plain-q |rho|/met",
+    "banked": true,
+    "now": false
+   }
+  ]
+ },
+ "reading": "Numbers move in most; NO composed verdict changes; ONE arm reverses sign (brocot_truncated_butterfly, 'matched minus plain-q |rho|', +0.0258 MET -> -0.0093 MISSED). Its head survives on other arms, so a head-level check would have missed it entirely.",
+ "negative_worth_keeping": "brocot_horizon_extensions re-derives exactly. Naming a moving input does not make an artifact stale, it makes it UNCHECKED, and those are different.",
+ "carry_forward": "a path is not a pin. Record which input VERSION each artifact was banked against, so that when an input moves the re-check list is derivable rather than remembered."
+}
