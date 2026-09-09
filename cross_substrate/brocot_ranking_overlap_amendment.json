@@ -1,0 +1,23 @@
+{
+ "status": "POST-HOC, UNSEALED AMENDMENT to brocot_coherence_ranking_census.json",
+ "amends": "shared_top4_distribution only; no arm, bar or verdict changes",
+ "defect": "the census inverted the Jaccard to recover k: round(4*j/(1+j)). The coefficient is wrong (k = 8J/(1+J) for two 4-sets) AND inverting a float to recover an integer is the wrong move at all -- J=3/5 is unrepresentable, so the expression lands at 1.4999999999999998 and rounds the wrong way. Together they collapsed five values into three buckets: {0,1}->0, {2,3}->1, {4}->2.",
+ "fix": "count |su & sl| directly; it was already an integer in the loop and the census threw it away to reconstruct it from a ratio",
+ "n_cases": 6367,
+ "mean_jaccard_recomputed": 0.5212292550128266,
+ "mean_jaccard_banked": 0.5212292550128266,
+ "tie_to_sealed_run_exact": true,
+ "exact_overlap_distribution": {
+  "0": 251,
+  "1": 1155,
+  "2": 1547,
+  "3": 1940,
+  "4": 1474
+ },
+ "census_lossy_buckets": {
+  "0": 1406,
+  "1": 3487,
+  "2": 1474
+ },
+ "arms_unaffected": "mean Jaccard, its SE and the per-index means are all computed from the per-case J values and never touch the inversion; the banked verdict stands"
+}

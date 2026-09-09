@@ -93,6 +93,12 @@ PAIRS = [
      "the vmax sweep and the queued gap-shrinks decision rule"),
     ("derivflow/seed_roster_beta.py", "derivflow/seed_roster_beta.json",
      "the beta-roster surface, its matched-design premise and the k* ordering"),
+    # The overlap amendment is POST-HOC and deliberately unregistered, as with
+    # the other amendments: DECLARED would overstate a generator written after
+    # its subject was read.
+    ("cross_substrate/brocot_coherence_ranking_census.py",
+     "cross_substrate/brocot_coherence_ranking_census.json",
+     "the full-pool ranking decision and its per-index robustness arm"),
 ]
 
 
