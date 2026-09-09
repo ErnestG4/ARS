@@ -77,10 +77,18 @@ if len(stdlib_only) != len(GUARDS) - 2:
     bad.append(f"{len(GUARDS) - len(stdlib_only)} guards now reach outside "
                "stdlib; the census claims exactly two")
 
-for g in GUARDS:
-    got, want = len(consumers[g]), c["guards"][g]["n_consumers"]
-    if got != want:
-        bad.append(f"{g}: {got} consumers now, census recorded {want}")
+# Consumer COUNTS are reported, never failed on. The first version of this check
+# froze them exactly, and the very next cell that imported a guard turned the
+# board red -- punishing a guard for being USED MORE, which is the opposite of
+# what this row exists to protect. What matters is a guard going dark (checked
+# above), not the census's arithmetic staying frozen.
+drifted = [(g, len(consumers[g]), c["guards"][g]["n_consumers"])
+           for g in GUARDS if len(consumers[g]) != c["guards"][g]["n_consumers"]]
+gone_thin = [(g, n, w) for g, n, w in drifted if n < w]
+if gone_thin:
+    for g, n, w in gone_thin:
+        print(f"  note: {g} lost consumers ({w} -> {n}) — not a failure unless "
+              "it reaches zero, but worth a look")
 
 if "railed" not in known_unused:
     bad.append("railed is no longer declared as unused debt — either it was "
@@ -89,6 +97,10 @@ if "railed" not in known_unused:
 
 print(f"  {len(GUARDS)} guards, {edges} guard-to-guard edges, "
       f"{len(set().union(*consumers.values()) if consumers else set())} consumer files")
+if drifted:
+    print(f"  consumer counts moved since the census: "
+          + ", ".join(f"{g} {w}->{n}" for g, n, w in drifted)
+          + "  (reported, not failed)")
 print(f"  unused now: {sorted(now_unused) or 'none'}"
       + (f"   (revived since census: {revived})" if revived else ""))
 

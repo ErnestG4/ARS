@@ -105,6 +105,32 @@ field: matched 0.137 against plain q's 0.111 on `crit`, while plain q dominates
 `tonal` (0.217 vs 0.090) and `dense` (0.309 vs 0.083). The truncated predictor
 wins only on the field it was sealed against. A single-field win with a
 permutation p is suggestive; it is not the layer D-section-1 would let ship.
+
+AMENDMENT — AFTER OUTPUT, 2026-09-09. **H3 NO LONGER HOLDS ON THE CURRENT
+GRAPH, AND THE HEAD DOES NOT SHOW IT.**
+
+brocot regenerated `landscape_graph_16mix.json.gz` on 2026-08-31, four working
+days after this cell was banked (2026-08-25). `graph_staleness_census` re-ran
+this committed generator unchanged on the current graph: 19 of 40 numeric fields
+move, and **H3 reverses sign** —
+
+    matched minus plain-q |rho|   +0.025801 (MET, bar 0.02)  ->  -0.009335 (MISSED)
+
+The composed head is a function of EXISTENCE arms alone, so it still reads
+MAP_TRACKS_THE_TRUNCATION on both graphs. That is the lattice working as
+designed, and it is exactly why the head is not the whole report: **H3 is the
+RESOLUTION arm whose claim is "it clears the plain-q baseline that shadowed the
+first attempt", and on the current graph it does not clear it.** The shadow this
+cell was written to escape is back, and a reader who checked only the verdict
+would not learn that.
+
+NOT REPAIRED HERE, deliberately. The banked numbers stand as what was measured
+on the graph they were measured against; the re-run stands in
+`graph_staleness_census.json`. What this arc owes is a decision, not an edit:
+either re-bank against the current graph with the input pinned by sha256 (as
+`brocot_filter_worth_it_regraph.json` did), or state that the H3 result was
+graph-specific. Until then, **do not cite H3.** The conservative reading above
+was already the right one and is now the only one.
 """
 import gzip
 import json
