@@ -144,6 +144,10 @@ json.dump(dict(
     excluded=dict(brocot_filter_worth_it="already caught 2026-09-06 and re-banked "
                                          "with its input pinned by sha256 "
                                          "(brocot_filter_worth_it_regraph.json)"),
+    re_banked_since=dict(brocot_truncated_butterfly="re-banked 2026-09-09 as "
+                         "brocot_truncated_butterfly_regraph.json, input pinned. It "
+                         "REMAINS a subject here: the census records what the move "
+                         "cost, and a re-bank does not undo that record."),
     rows=rows, stale=stale, clean=clean,
     n_verdicts_changed=len(vchanged),
     arm_reversals=flipped,

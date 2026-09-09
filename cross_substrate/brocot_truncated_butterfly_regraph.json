@@ -1,0 +1,177 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "seed": 20260825,
+ "n_nodes": 4000,
+ "primary": "crit",
+ "fields": [
+  "crit",
+  "tonal",
+  "dense"
+ ],
+ "correlations": {
+  "crit": {
+   "matched": 0.09879720731159045,
+   "mismatched": 0.05611462640156177,
+   "static_prom": 0.08111631664654383,
+   "static_q": 0.1081322633656891
+  },
+  "tonal": {
+   "matched": 0.052255663331790325,
+   "mismatched": 0.002781336743504656,
+   "static_prom": 0.03899247852669419,
+   "static_q": 0.2266601064027007
+  },
+  "dense": {
+   "matched": 0.052511941803649445,
+   "mismatched": 0.017354448846591132,
+   "static_prom": 0.030642452127971915,
+   "static_q": 0.28669997032869593
+  }
+ },
+ "qcap": 60,
+ "scope": "untruncated prominence is capped at q <= 60 (O(q^3) eigensolve); ratios above that contribute 0 to the static-prominence baseline only",
+ "shuffle_null": {
+  "n": 200,
+  "max_gap": 0.039168903477578114,
+  "mean_gap": 0.009837475535872841,
+  "real_gap": 0.042682580910028675,
+  "permutation_p_posthoc": 0.004975124378109453
+ },
+ "bars": {
+  "matched minus mismatched |rho|": {
+   "name": "matched minus mismatched |rho|",
+   "value": 0.042682580910028675,
+   "thresh": 0.03,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.97,
+   "why": "a difference of two |Spearman| values, each in [0,1]"
+  },
+  "matched/mismatched gap against a SHUFFLED field": {
+   "name": "matched/mismatched gap against a SHUFFLED field",
+   "value": 0.039168903477578114,
+   "thresh": 0.005,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.005,
+   "why": "an absolute difference of two |Spearman| values, each in [0,1]; under a shuffled field both are near 0 but neither is pinned there, so this arm can and does vary"
+  },
+  "matched minus plain-q |rho|": {
+   "name": "matched minus plain-q |rho|",
+   "value": -0.00933505605409865,
+   "thresh": 0.02,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.98,
+   "why": "a difference of two |Spearman| values, each in [0,1]"
+  },
+  "matched |rho| effect floor": {
+   "name": "matched |rho| effect floor",
+   "value": 0.09879720731159045,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.95,
+   "why": "|Spearman| is bounded by 1"
+  }
+ },
+ "verdict": "MAP_TRACKS_THE_TRUNCATION",
+ "composed": {
+  "label": "MAP_TRACKS_THE_TRUNCATION_BUT_NOT_BY_matched/mismatched gap against a SHUFFLED field_COARSELY_AT_matched minus plain-q |rho|",
+  "head": "MAP_TRACKS_THE_TRUNCATION",
+  "qualifiers": [
+   "BUT_NOT_BY_matched/mismatched gap against a SHUFFLED field",
+   "COARSELY_AT_matched minus plain-q |rho|"
+  ],
+  "citation": "MAP_TRACKS_THE_TRUNCATION  [matched minus mismatched |rho| 0.04268 vs >=0.03 MET \u2014 \"the predictor does better with the right index than with a wrong one\"; matched |rho| effect floor 0.0988 vs >=0.05 MET \u2014 \"the matched correlation clears D-section-1's effect floor\"; matched/mismatched gap against a SHUFFLED field 0.03917 vs <=0.005 MISSED \u2014 \"permuting indices does not manufacture a gap against a shuffled field\"; matched minus plain-q |rho| -0.009335 vs >=0.02 MISSED \u2014 \"it clears the plain-q baseline that shadowed the first attempt\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('matched minus mismatched |rho|', EXISTENCE, MET)",
+   "Arm('matched |rho| effect floor', EXISTENCE, MET)",
+   "Arm('matched/mismatched gap against a SHUFFLED field', MECHANISM, MISSED)",
+   "Arm('matched minus plain-q |rho|', RESOLUTION, MISSED)"
+  ]
+ },
+ "provenance": {
+  "generator": "cross_substrate/brocot_truncated_butterfly.py @ 8fbea9b (unmodified; run from a copied directory so the banked artifact could not be overwritten)",
+  "run_date": "2026-09-09",
+  "graph": "brocot/resources/landscape_graph_16mix.json.gz",
+  "graph_sha256": "1b6c755f4174ca38dfe8411f5c03b52df4eac7d9229cd9873fb86f26feeaa30c",
+  "graph_brocot_commit": "3197126 (2026-08-31, 'Pulse map fleet: 6pls joins, six mixes regen'd with pulse, all re-mined')",
+  "why": "brocot_truncated_butterfly.json was banked 2026-08-25 against the pre-pulse graph; brocot regenerated the graph 2026-08-31, so 19 of its 40 numeric fields stopped being re-derivable from the declared input. Found 2026-09-09 by graph_staleness_census, which re-ran every generator naming that graph.",
+  "what_moved": {
+   "matched minus mismatched |rho| (H1)": {
+    "banked": 0.04337,
+    "now": 0.04268,
+    "met": "MET both"
+   },
+   "shuffled-field gap (H2)": {
+    "banked": 0.03524,
+    "now": 0.03917,
+    "met": "MISSED both \u2014 it was ALREADY missing before the graph moved"
+   },
+   "matched minus plain-q |rho| (H3)": {
+    "banked": 0.0258,
+    "now": -0.00934,
+    "met": "MET -> MISSED \u2014 THE FLIP, and a sign change"
+   },
+   "matched |rho| effect floor (H4)": {
+    "banked": 0.13698,
+    "now": 0.0988,
+    "met": "MET both, but down 28%"
+   }
+  },
+  "head": "MAP_TRACKS_THE_TRUNCATION on BOTH graphs \u2014 the head is a function of EXISTENCE arms (H1, H4) alone and both still hold.",
+  "what_this_costs": "H3 is the RESOLUTION arm whose claim is 'it clears the plain-q baseline that shadowed the first attempt'. On the current graph it does not clear it, and the sign is negative: the matched predictor is very slightly WORSE than plain q. The banked cell's own conservative reading ('a single-field win with a permutation p is suggestive; it is not the layer D-section-1 would let ship') was already the right one; on the current graph even the single-field win over plain q is gone.",
+  "lesson": "an input in a SIBLING repo's working tree is not pinned by being named. Pin cross-repo inputs by content hash at banking time."
+ }
+}

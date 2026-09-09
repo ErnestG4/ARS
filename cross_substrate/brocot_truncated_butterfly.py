@@ -124,13 +124,28 @@ first attempt", and on the current graph it does not clear it.** The shadow this
 cell was written to escape is back, and a reader who checked only the verdict
 would not learn that.
 
-NOT REPAIRED HERE, deliberately. The banked numbers stand as what was measured
-on the graph they were measured against; the re-run stands in
-`graph_staleness_census.json`. What this arc owes is a decision, not an edit:
-either re-bank against the current graph with the input pinned by sha256 (as
-`brocot_filter_worth_it_regraph.json` did), or state that the H3 result was
-graph-specific. Until then, **do not cite H3.** The conservative reading above
-was already the right one and is now the only one.
+RE-BANKED 2026-09-09 (operator decision). The banked numbers above stand as what
+was measured on the graph they were measured against; the current-graph run is
+banked separately as `brocot_truncated_butterfly_regraph.json`, with the graph
+pinned by sha256 and full provenance -- the same treatment
+`brocot_filter_worth_it_regraph.json` got. Nothing here is edited, because a
+number measured against a specific input is not made wrong by that input moving;
+it is made SCOPED to it.
+
+What the two artifacts say together, arm by arm:
+
+    H1  matched minus mismatched |rho|   0.04337 -> 0.04268   MET both
+    H2  shuffled-field gap               0.03524 -> 0.03917   MISSED both
+                                         (it was ALREADY missing before the move)
+    H3  matched minus plain-q |rho|      0.02580 -> -0.00934  MET -> MISSED
+    H4  matched |rho| effect floor       0.13698 ->  0.09880  MET both, down 28%
+
+**DO NOT CITE H3 WITHOUT ITS GRAPH.** On the current map the matched predictor is
+very slightly WORSE than plain q, so the single-field win this cell was written to
+establish is gone -- while the head, which reads EXISTENCE arms only, is unchanged
+on both graphs. The conservative reading above ("a single-field win with a
+permutation p is suggestive; it is not the layer D-section-1 would let ship") was
+already the right one, and is now the only one.
 """
 import gzip
 import json

@@ -52,6 +52,30 @@ for name in c["subjects"]:
         bad.append(f"{name} no longer loads {c['graph']} — it should leave the "
                    "census, not sit in it as a false positive")
 
+# The re-banked artifact must exist, be pinned to the graph it was measured on,
+# and still record the flip. Re-banking preserves a number by SCOPING it to its
+# input; an unpinned re-bank would just restage the original defect.
+RG = os.path.join(HERE, "brocot_truncated_butterfly_regraph.json")
+if not os.path.exists(RG):
+    bad.append("brocot_truncated_butterfly_regraph.json is missing — the arm "
+               "reversal was re-banked on 2026-09-09 and that artifact is where "
+               "the current-graph numbers live")
+else:
+    rg = json.load(open(RG))
+    prov = rg.get("provenance", {})
+    if prov.get("graph_sha256") != c["graph_sha256"]:
+        bad.append("the re-banked truncated_butterfly names a different graph "
+                   "sha than the census — one of them is measuring another tree")
+    h3 = rg["bars"].get("matched minus plain-q |rho|")
+    if h3 is None or h3["met"] or h3["value"] >= 0:
+        bad.append(f"the re-bank no longer records H3 as MISSED with a negative "
+                   f"value ({h3}) — that reversal is the whole reason it exists")
+    if rg.get("verdict") != c["rows"]["brocot_truncated_butterfly"].get("verdict_changed", []) and \
+       rg.get("verdict") != "MAP_TRACKS_THE_TRUNCATION":
+        bad.append(f"the re-bank's head is {rg.get('verdict')!r}; it should still "
+                   "read MAP_TRACKS_THE_TRUNCATION, since the head reads EXISTENCE "
+                   "arms only and both still hold")
+
 if "brocot_truncated_butterfly" not in c["arm_reversals"]:
     bad.append("the recorded arm reversal is gone. It is the census's sharpest "
                "finding precisely because the composed head did NOT change, and "

@@ -14,6 +14,9 @@
  "excluded": {
   "brocot_filter_worth_it": "already caught 2026-09-06 and re-banked with its input pinned by sha256 (brocot_filter_worth_it_regraph.json)"
  },
+ "re_banked_since": {
+  "brocot_truncated_butterfly": "re-banked 2026-09-09 as brocot_truncated_butterfly_regraph.json, input pinned. It REMAINS a subject here: the census records what the move cost, and a re-bank does not undo that record."
+ },
  "rows": {
   "brocot_horizon_extensions": {
    "rerun_ok": true,
@@ -31,19 +34,19 @@
    "verdict_changed": [],
    "examples": [
     {
-     "field": "/larger_rate_se",
-     "banked": 0.00047210796115144076,
-     "now": 0.0004759684094029206
+     "field": "/larger_rate_z",
+     "banked": 0.5873023036724817,
+     "now": 4.227551412316677
     },
     {
-     "field": "/bars/|alignment rate - 0.5|/value",
-     "banked": 0.0004848256798413719,
-     "now": 0.004472904661547761
+     "field": "/n_swap_sensitive",
+     "banked": 69097,
+     "now": 67853
     },
     {
-     "field": "/alignment_rate",
-     "banked": 0.49951517432015863,
-     "now": 0.49552709533845224
+     "field": "/n_pairs",
+     "banked": 1140006,
+     "now": 1121633
     }
    ]
   },
@@ -55,19 +58,19 @@
    "verdict_changed": [],
    "examples": [
     {
-     "field": "/spearman_vs_existing/bright",
-     "banked": 0.02567305993133378,
-     "now": 0.04129628692844431
-    },
-    {
-     "field": "/spearman_vs_existing/crit",
-     "banked": 0.016338215017926476,
-     "now": 0.011358624960603065
-    },
-    {
-     "field": "/spearman_vs_existing/tonal",
+     "field": "/bars/max |Spearman| vs an existing field/value",
      "banked": 0.0415822525764431,
      "now": 0.05438006692500383
+    },
+    {
+     "field": "/n_nodes_scored",
+     "banked": 25772,
+     "now": 25880
+    },
+    {
+     "field": "/spearman_vs_existing/odd",
+     "banked": 0.038660190179405106,
+     "now": 0.033240769499992336
     }
    ]
   },
@@ -79,12 +82,12 @@
    "verdict_changed": [],
    "examples": [
     {
-     "field": "/mean_jaccard",
+     "field": "/bars/Jaccard(shipped top-4, horizon-filtered top-4)/value",
      "banked": 0.3287857142857143,
      "now": 0.30446825396825394
     },
     {
-     "field": "/bars/Jaccard(shipped top-4, horizon-filtered top-4)/value",
+     "field": "/mean_jaccard",
      "banked": 0.3287857142857143,
      "now": 0.30446825396825394
     },
@@ -109,17 +112,17 @@
    "verdict_changed": [],
    "examples": [
     {
-     "field": "/correlations/dense/matched",
-     "banked": 0.0828092737150464,
-     "now": 0.052511941803649445
+     "field": "/bars/matched |rho| effect floor/value",
+     "banked": 0.13698453490936363,
+     "now": 0.09879720731159045
     },
     {
-     "field": "/shuffle_null/real_gap",
+     "field": "/bars/matched minus mismatched |rho|/value",
      "banked": 0.043371344848468385,
      "now": 0.042682580910028675
     },
     {
-     "field": "/shuffle_null/max_gap",
+     "field": "/bars/matched/mismatched gap against a SHUFFLED field/value",
      "banked": 0.03517898519138275,
      "now": 0.039168903477578114
     }
@@ -133,9 +136,9 @@
    "verdict_changed": [],
    "examples": [
     {
-     "field": "/jaccard_se",
-     "banked": 0.025183105954839254,
-     "now": 0.02635798356109692
+     "field": "/bars/score difference at I=2.0 minus at I=0.9/ceiling",
+     "banked": 41440376778.07927,
+     "now": 1625110243557.624
     },
     {
      "field": "/mean_jaccard",
@@ -143,9 +146,9 @@
      "now": 0.5308843537414967
     },
     {
-     "field": "/median_rel_diff/0.9",
-     "banked": 73.8845459652938,
-     "now": 89.35602115428046
+     "field": "/bars/score difference at I=2.0 minus at I=0.9/headroom",
+     "banked": 41440376778.07927,
+     "now": 1625110243557.624
     }
    ]
   }
