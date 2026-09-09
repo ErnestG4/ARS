@@ -581,3 +581,51 @@ longer window ever touched it.
   Fitting a slope to estimate a theorem-fixed quantity can only measure the
   contamination. A genus-comparable observable is the oscillation itself,
   |1 − s_n|/p^{n/2}, bounded by 2g — not the slope of its logarithm.
+
+
+## The 23-step dimension jump is λ-invariant — a fourth coupling, and its rival excluded
+**(2026-09-09; `fifth_lambda16_v2.py/.json` sealed, `fifth_lambda16.json` the
+INVALID v1 kept as record, `verify_fifth_lambda16.py` on the board)**
+
+`fifth_ladder` ran λ ∈ {8, 24, 32}. Sixteen was the gap — and the interesting
+value, since `outside_proven_regime` is λ ≤ 20, so 8 and 16 sit outside the
+Liu–Wen band while 24 and 32 sit inside, and 16 is the Casdagli–Sütő V ≥ 16
+boundary this document calls "genuinely messy point-wise".
+
+| λ | dim @ q665 | dim @ q15601 | 23-step jump | estimator disagreement |
+|---|---|---|---|---|
+| 8 | 0.4202 | 0.4660 | **+0.0458** | 0.0956 |
+| **16** | 0.3334 | **0.3797** | **+0.0463** | 0.0564 |
+| 24 | 0.2968 | 0.3420 | **+0.0452** | 0.0597 |
+| 32 | 0.2752 | 0.3208 | **+0.0455** | 0.0347 |
+
+The dimension **level** spans 0.3208–0.4660 across a 4× range in λ — a spread of
+**0.1452** — while the **jump** spans 0.0452–0.0463, a spread of **0.0011**. The
+23 step adds the same increment at every coupling tested, while the coupling
+strongly sets where the spectrum sits.
+
+**The rival is excluded, which is what makes this a test.** Were the jump a fixed
+*fraction* of the dimension, λ=16 would give 0.0458 × (0.3797/0.4660) = 0.0373.
+Measured 0.0463 — off by 0.0090, nearly twice the 0.005 bar. λ=16 also passes the
+layer-zero `count_eq_q` gate at 9/9 and its box estimator rails to a single value
+across q = 41…15601, as at every banked λ.
+
+**Two cautions, both recorded rather than smoothed.**
+
+1. **The estimator disagreement is NOT monotone in λ** — λ=16 (0.0564) sits
+   *below* λ=24 (0.0597). The "box-counting and band-pressure agree only
+   asymptotically" reading is not a simple ordering in λ. Unsealed observation,
+   flagged for whoever revisits the C extrapolation; nothing here bears on it.
+2. **The banked ladder is reproducible only up to BLAS configuration.** v1's
+   premise demanded bit-equality with the banked λ=8 ladder and MISSED at 6 of
+   36, with deviations growing with q (rel 4.7e-11 at q=306 → 9.2e-8 at 15601).
+   Measured cause: `sla.eigvalsh(…, driver='evr')` returns three different values
+   at `OMP_NUM_THREADS` = 1/2/8, none matching the banked one (older
+   numpy/scipy), while repeating exactly within one configuration.
+   `eigvalsh_tridiagonal` — the derivflow path — is stable across thread counts.
+   v2 re-specified the premise to 1e-4 relative (50× the measured floor, ~1000×
+   tighter than the four decimals quoted) and got **0 of 36**. The v2 artifact
+   records numpy/scipy versions and the BLAS thread variables.
+
+**Scope:** this adds one λ to a banked ladder. It does not bear on the λ→∞ `C`
+extrapolation, the metallic columns, or any asymptotic dimension claim.

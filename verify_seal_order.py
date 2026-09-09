@@ -99,6 +99,14 @@ PAIRS = [
     ("cross_substrate/brocot_coherence_ranking_census.py",
      "cross_substrate/brocot_coherence_ranking_census.json",
      "the full-pool ranking decision and its per-index robustness arm"),
+    # lambda-16, 2026-09-09. v1's INVALID head is the banked record of a
+    # bit-equality premise failing on BLAS reduction order; v2 re-specifies only
+    # that bar. Both sealed generator-then-output.
+    ("approximability/fifth_lambda16.py", "approximability/fifth_lambda16.json",
+     "v1's jump-invariance predictions and its bit-equality premise"),
+    ("approximability/fifth_lambda16_v2.py",
+     "approximability/fifth_lambda16_v2.json",
+     "v2's tolerance premise and the inherited invariance arms"),
 ]
 
 
