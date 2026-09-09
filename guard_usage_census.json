@@ -1,0 +1,165 @@
+{
+ "status": "CENSUS, unsealed \u2014 measures the repo, makes no prediction",
+ "guards": {
+  "aggregate": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 4,
+   "consumers": [
+    "approximability/F_reproduce.py",
+    "derivflow/seed_roster_beta.py",
+    "derivflow/zbeta_correlated_error.py",
+    "verify_aggregate.py"
+   ]
+  },
+  "reachable": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 35,
+   "consumers": [
+    "adaptive_reuse.py",
+    "approximability/F_genus_exponent.py",
+    "approximability/F_reproduce.py",
+    "approximability/F_window_exponent.py",
+    "citation_provenance.py",
+    "cross_substrate/brocot_above_horizon_parent.py",
+    "cross_substrate/brocot_audible_horizon.py",
+    "cross_substrate/brocot_coherence_model.py",
+    "cross_substrate/brocot_criterion_scope.py",
+    "cross_substrate/brocot_criterion_scope_v2.py",
+    "cross_substrate/brocot_cue_presence.py",
+    "cross_substrate/brocot_cue_salience.py"
+   ]
+  },
+  "verdictlattice": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 36,
+   "consumers": [
+    "adaptive_reuse.py",
+    "approximability/F_genus_exponent.py",
+    "approximability/F_reproduce.py",
+    "approximability/F_window_exponent.py",
+    "citation_provenance.py",
+    "cross_substrate/brocot_above_horizon_parent.py",
+    "cross_substrate/brocot_audible_horizon.py",
+    "cross_substrate/brocot_coherence_model.py",
+    "cross_substrate/brocot_criterion_scope.py",
+    "cross_substrate/brocot_criterion_scope_v2.py",
+    "cross_substrate/brocot_cue_presence.py",
+    "cross_substrate/brocot_cue_salience.py"
+   ]
+  },
+  "modelparams": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 23,
+   "consumers": [
+    "approximability/F_genus_exponent.py",
+    "approximability/F_reproduce.py",
+    "approximability/F_window_exponent.py",
+    "cross_substrate/brocot_coherence_model.py",
+    "cross_substrate/brocot_criterion_scope.py",
+    "cross_substrate/brocot_criterion_scope_v2.py",
+    "cross_substrate/brocot_cue_presence.py",
+    "cross_substrate/brocot_cue_salience.py",
+    "cross_substrate/brocot_decorrelation_battery.py",
+    "cross_substrate/brocot_decorrelation_battery_v2.py",
+    "cross_substrate/brocot_detune_impossibility.py",
+    "cross_substrate/brocot_double_pulse_sweep.py"
+   ]
+  },
+  "detector_spec": {
+   "guard_deps": [],
+   "third_party": [
+    "numpy"
+   ],
+   "n_consumers": 2,
+   "consumers": [
+    "gate_census/c3_certify_d2.py",
+    "gate_census/calibrate_fitpoor.py"
+   ]
+  },
+  "redpath": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 70,
+   "consumers": [
+    "adaptive_reuse.py",
+    "approximability/F_genus_exponent.py",
+    "approximability/F_reproduce.py",
+    "citation_provenance.py",
+    "cross_substrate/brocot_above_horizon.py",
+    "cross_substrate/brocot_above_horizon_parent.py",
+    "cross_substrate/brocot_asymmetric_horizon.py",
+    "cross_substrate/brocot_attenuation.py",
+    "cross_substrate/brocot_audible_horizon.py",
+    "cross_substrate/brocot_axis_or_instrument.py",
+    "cross_substrate/brocot_beat_target.py",
+    "cross_substrate/brocot_coherence_model.py"
+   ]
+  },
+  "threadledger": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 1,
+   "consumers": [
+    "verify_threadledger.py"
+   ]
+  },
+  "existence": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 20,
+   "consumers": [
+    "cross_substrate/brocot_above_horizon.py",
+    "cross_substrate/brocot_above_horizon_parent.py",
+    "cross_substrate/brocot_asymmetric_horizon.py",
+    "cross_substrate/brocot_criterion_scope.py",
+    "cross_substrate/brocot_criterion_scope_v2.py",
+    "cross_substrate/brocot_detune_impossibility.py",
+    "cross_substrate/brocot_dissolution_curve.py",
+    "cross_substrate/brocot_horizon_extensions.py",
+    "cross_substrate/brocot_index_routing.py",
+    "cross_substrate/brocot_jump_display.py",
+    "cross_substrate/brocot_jump_display_v2.py",
+    "cross_substrate/brocot_jump_display_v3.py"
+   ]
+  },
+  "railed": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 0,
+   "consumers": []
+  },
+  "countrecon": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 3,
+   "consumers": [
+    "gate_census/c3_sweep_reconciliation.py",
+    "gate_census/sweep_unscored_decisions.py",
+    "overnight_2026_08_23/site_verdicts.py"
+   ]
+  },
+  "boundary_rate": {
+   "guard_deps": [],
+   "third_party": [
+    "scipy"
+   ],
+   "n_consumers": 2,
+   "consumers": [
+    "lcap/verify_lcap.py",
+    "rigidgate/annotate_rates.py"
+   ]
+  }
+ },
+ "unused_guards": [
+  "railed"
+ ],
+ "guard_dependency_edges": 0,
+ "n_distinct_consumers": 83,
+ "extraction_note": "zero guard-to-guard dependencies and only two third-party reaches (detector_spec:numpy, boundary_rate:scipy), so the eleven modules can be packaged flat; the cost is in the 83 consumer files' import lines, not in the guards themselves",
+ "live_instance": "bridge/dpp_python.py:fit_thomas rails at its upper bound on 2 of 2 fits with no boundary check; the only record is prose in RESULTS_BRIDGE.md, while railed.py sits unused. Filed at bridge/proposals/PROPOSED_boundary_reporting.md",
+ "railed_detail": "railed.py exports Bounded and brody_q; the repo's Brody work runs through cross_substrate/axes.py:I8_brody_q instead, whose two-ended rail defect is documented in class_collapse_sweep.py (R-140/R-144) and repaired ad hoc in the c2_acceptance arc. The rule was codified and never wired."
+}
