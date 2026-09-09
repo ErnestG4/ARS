@@ -1,0 +1,451 @@
+{
+ "alpha": "log2(3/2)",
+ "seed": 20240517,
+ "lambdas": [
+  8.0,
+  16.0
+ ],
+ "ladder": [
+  1,
+  2,
+  5,
+  12,
+  41,
+  53,
+  306,
+  665,
+  15601
+ ],
+ "results": {
+  "8.0": {
+   "1": {
+    "q": 1,
+    "p": 1,
+    "bands": 1,
+    "count_eq_q": true,
+    "total_width": 4.0,
+    "dim_bandscaling": NaN,
+    "dim_boxcount": NaN,
+    "estimator_agreement": null,
+    "width_ratio_vs_prev": null,
+    "outside_proven_regime": true,
+    "wall_s": 3.504753112792969e-05
+   },
+   "2": {
+    "q": 2,
+    "p": 1,
+    "bands": 2,
+    "count_eq_q": true,
+    "total_width": 0.0,
+    "dim_bandscaling": NaN,
+    "dim_boxcount": NaN,
+    "estimator_agreement": null,
+    "width_ratio_vs_prev": 0.0,
+    "outside_proven_regime": true,
+    "wall_s": 0.011320352554321289
+   },
+   "5": {
+    "q": 5,
+    "p": 3,
+    "bands": 5,
+    "count_eq_q": true,
+    "total_width": 0.1734259515228153,
+    "dim_bandscaling": 0.4787938285903405,
+    "dim_boxcount": 0.3431120173314944,
+    "estimator_agreement": 0.1356818112588461,
+    "width_ratio_vs_prev": null,
+    "outside_proven_regime": true,
+    "wall_s": 0.008916616439819336
+   },
+   "12": {
+    "q": 12,
+    "p": 7,
+    "bands": 12,
+    "count_eq_q": true,
+    "total_width": 0.03484180109023301,
+    "dim_bandscaling": 0.42536339807700163,
+    "dim_boxcount": 0.34346652621159507,
+    "estimator_agreement": 0.08189687186540656,
+    "width_ratio_vs_prev": 0.2009030412363016,
+    "outside_proven_regime": true,
+    "wall_s": 0.009183645248413086
+   },
+   "41": {
+    "q": 41,
+    "p": 24,
+    "bands": 41,
+    "count_eq_q": true,
+    "total_width": 0.00459890625670914,
+    "dim_bandscaling": 0.4082863456818545,
+    "dim_boxcount": 0.3704166842140177,
+    "estimator_agreement": 0.037869661467836824,
+    "width_ratio_vs_prev": 0.13199393007264265,
+    "outside_proven_regime": true,
+    "wall_s": 0.009510040283203125
+   },
+   "53": {
+    "q": 53,
+    "p": 31,
+    "bands": 53,
+    "count_eq_q": true,
+    "total_width": 0.004325445207191123,
+    "dim_bandscaling": 0.4217643136716813,
+    "dim_boxcount": 0.3704166842140177,
+    "estimator_agreement": 0.051347629457663635,
+    "width_ratio_vs_prev": 0.9405378074147354,
+    "outside_proven_regime": true,
+    "wall_s": 0.008989810943603516
+   },
+   "306": {
+    "q": 306,
+    "p": 179,
+    "bands": 306,
+    "count_eq_q": true,
+    "total_width": 0.0005316253084179517,
+    "dim_bandscaling": 0.4315401845961417,
+    "dim_boxcount": 0.3704166842140177,
+    "estimator_agreement": 0.061123500382123996,
+    "width_ratio_vs_prev": 0.12290649469657275,
+    "outside_proven_regime": true,
+    "wall_s": 0.02402806282043457
+   },
+   "665": {
+    "q": 665,
+    "p": 389,
+    "bands": 665,
+    "count_eq_q": true,
+    "total_width": 0.00012715461391539506,
+    "dim_bandscaling": 0.4201571850582087,
+    "dim_boxcount": 0.3704166842140177,
+    "estimator_agreement": 0.049740500844191016,
+    "width_ratio_vs_prev": 0.23918088906224344,
+    "outside_proven_regime": true,
+    "wall_s": 0.06315755844116211
+   },
+   "15601": {
+    "q": 15601,
+    "p": 9126,
+    "bands": 15601,
+    "count_eq_q": true,
+    "total_width": 1.5650279317616644e-05,
+    "dim_bandscaling": 0.46597674052892857,
+    "dim_boxcount": 0.3704166842140177,
+    "estimator_agreement": 0.09556005631491088,
+    "width_ratio_vs_prev": 0.12308070337132933,
+    "outside_proven_regime": true,
+    "wall_s": 333.2304747104645
+   }
+  },
+  "16.0": {
+   "1": {
+    "q": 1,
+    "p": 1,
+    "bands": 1,
+    "count_eq_q": true,
+    "total_width": 4.0,
+    "dim_bandscaling": NaN,
+    "dim_boxcount": NaN,
+    "estimator_agreement": null,
+    "width_ratio_vs_prev": null,
+    "outside_proven_regime": true,
+    "wall_s": 1.239776611328125e-05
+   },
+   "2": {
+    "q": 2,
+    "p": 1,
+    "bands": 2,
+    "count_eq_q": true,
+    "total_width": 0.0,
+    "dim_bandscaling": NaN,
+    "dim_boxcount": NaN,
+    "estimator_agreement": null,
+    "width_ratio_vs_prev": 0.0,
+    "outside_proven_regime": true,
+    "wall_s": 0.013849735260009766
+   },
+   "5": {
+    "q": 5,
+    "p": 3,
+    "bands": 5,
+    "count_eq_q": true,
+    "total_width": 0.04592497846877447,
+    "dim_bandscaling": 0.34315026924985864,
+    "dim_boxcount": 0.2643549517767452,
+    "estimator_agreement": 0.07879531747311347,
+    "width_ratio_vs_prev": null,
+    "outside_proven_regime": true,
+    "wall_s": 0.012362480163574219
+   },
+   "12": {
+    "q": 12,
+    "p": 7,
+    "bands": 12,
+    "count_eq_q": true,
+    "total_width": 0.004738687761208976,
+    "dim_bandscaling": 0.31707768616124976,
+    "dim_boxcount": 0.29401809144489643,
+    "estimator_agreement": 0.023059594716353327,
+    "width_ratio_vs_prev": 0.10318323315994427,
+    "outside_proven_regime": true,
+    "wall_s": 0.013855934143066406
+   },
+   "41": {
+    "q": 41,
+    "p": 24,
+    "bands": 41,
+    "count_eq_q": true,
+    "total_width": 0.00030597502343517047,
+    "dim_bandscaling": 0.31456076994571996,
+    "dim_boxcount": 0.32329144231598644,
+    "estimator_agreement": 0.008730672370266479,
+    "width_ratio_vs_prev": 0.06456956838133336,
+    "outside_proven_regime": true,
+    "wall_s": 0.015078544616699219
+   },
+   "53": {
+    "q": 53,
+    "p": 31,
+    "bands": 53,
+    "count_eq_q": true,
+    "total_width": 0.0002956722873748083,
+    "dim_bandscaling": 0.32821686030789465,
+    "dim_boxcount": 0.32329144231598644,
+    "estimator_agreement": 0.00492541799190821,
+    "width_ratio_vs_prev": 0.9663281795203617,
+    "outside_proven_regime": true,
+    "wall_s": 0.01593470573425293
+   },
+   "306": {
+    "q": 306,
+    "p": 179,
+    "bands": 306,
+    "count_eq_q": true,
+    "total_width": 1.8399303801534816e-05,
+    "dim_bandscaling": 0.3442388800935163,
+    "dim_boxcount": 0.32329144231598644,
+    "estimator_agreement": 0.02094743777752983,
+    "width_ratio_vs_prev": 0.062228705858425555,
+    "outside_proven_regime": true,
+    "wall_s": 0.11103653907775879
+   },
+   "665": {
+    "q": 665,
+    "p": 389,
+    "bands": 665,
+    "count_eq_q": true,
+    "total_width": 2.273519048162642e-06,
+    "dim_bandscaling": 0.3334255395607051,
+    "dim_boxcount": 0.32329144231598644,
+    "estimator_agreement": 0.010134097244718643,
+    "width_ratio_vs_prev": 0.12356549316681166,
+    "outside_proven_regime": true,
+    "wall_s": 0.07001638412475586
+   },
+   "15601": {
+    "q": 15601,
+    "p": 9126,
+    "bands": 15601,
+    "count_eq_q": true,
+    "total_width": 1.4157994121521966e-07,
+    "dim_bandscaling": 0.37974055483283653,
+    "dim_boxcount": 0.32329144231598644,
+    "estimator_agreement": 0.056449112516850086,
+    "width_ratio_vs_prev": 0.06227347922580122,
+    "outside_proven_regime": true,
+    "wall_s": 367.4276285171509
+   }
+  }
+ },
+ "p1_mismatches": 6,
+ "banked_jumps": [
+  0.045819598323393884,
+  0.04523189418879253,
+  0.04554952233119647
+ ],
+ "mean_banked_jump": 0.04553367161446096,
+ "jump_lam16": 0.04631501527213144,
+ "level_lam16": 0.37974055483283653,
+ "level_interval": [
+  0.3420187019052965,
+  0.46597678327647896
+ ],
+ "level_margin": 0.037721852927540045,
+ "box_dim_distinct_values": [
+  0.3232914423
+ ],
+ "bars": {
+  "lam=8 mismatches vs the 36 banked ladder numbers": {
+   "name": "lam=8 mismatches vs the 36 banked ladder numbers",
+   "value": 6,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 36,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "9 rungs x {bands, total_width, dim_bandscaling, dim_boxcount}; a count of disagreements, 0 to 36"
+  },
+  "lam=16 rungs passing the count_eq_q gate": {
+   "name": "lam=16 rungs passing the count_eq_q gate",
+   "value": 9,
+   "thresh": 8.5,
+   "floor": 0,
+   "ceiling": 9,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 9 convergent rungs"
+  },
+  "margin of dim(lam=16) inside (dim@24, dim@8)": {
+   "name": "margin of dim(lam=16) inside (dim@24, dim@8)",
+   "value": 0.037721852927540045,
+   "thresh": 0.005,
+   "floor": -1.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.995,
+   "why": "a signed distance from the nearer endpoint; negative means outside the interval, and both endpoints are banked dimensions in [0,1]"
+  },
+  "|jump(16) - mean of the banked jumps|": {
+   "name": "|jump(16) - mean of the banked jumps|",
+   "value": 0.0007813436576704844,
+   "thresh": 0.005,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.005,
+   "why": "a difference of two dimension increments, each bounded by 1"
+  },
+  "distinct box-dim values across q=41..15601 at lam=16": {
+   "name": "distinct box-dim values across q=41..15601 at lam=16",
+   "value": 1,
+   "thresh": 1.5,
+   "floor": 1,
+   "ceiling": 5,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count of distinct values over the 5 rungs where box_dim is defined; 1 means fully railed, as at every banked lambda"
+  }
+ },
+ "instrument": {
+  "model": "Sturmian Floquet ladder at alpha=log2(3/2)",
+  "params": [
+   {
+    "name": "lam",
+    "kind": "TESTED",
+    "why": "8 is the PREMISE (it must reproduce the banked ladder); 16 is the gap in LAMBDAS=[8,24,32] and the only untested value inside the messy Casdagli-Suto V>=16 / outside-Liu-Wen band",
+    "sweep": [
+     8.0,
+     16.0
+    ],
+    "value": null
+   },
+   {
+    "name": "alpha",
+    "kind": "DECLARED",
+    "why": "the diatonic value; the banked ladder's only new input, unchanged",
+    "sweep": null,
+    "value": "log2(3/2)"
+   },
+   {
+    "name": "q_max",
+    "kind": "DECLARED",
+    "why": "the banked ladder's convergent cutoff; a different cutoff would make the 23-step jump a different quantity",
+    "sweep": null,
+    "value": 15601
+   },
+   {
+    "name": "estimators",
+    "kind": "DECLARED",
+    "why": "copied from the committed fifth_ladder.py, which measures at import; P1 is what makes the copies trustworthy",
+    "sweep": null,
+    "value": "bs_dim and box_dim, verbatim"
+   },
+   {
+    "name": "seed",
+    "kind": "DECLARED",
+    "why": "the arc's seed, unused by this deterministic path but declared",
+    "sweep": null,
+    "value": 20240517
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 4
+ },
+ "scope": "adds one lambda to the banked ladder; does NOT bear on the lambda->infinity C extrapolation or any asymptotic dimension claim",
+ "verdict": "INVALID",
+ "composed": {
+  "label": "INVALID_lam=8 mismatches vs the 36 banked ladder numbers",
+  "head": "INVALID",
+  "qualifiers": [],
+  "citation": "INVALID  [premise failed: lam=8 mismatches vs the 36 banked ladder numbers 6 vs <=0.5 MISSED \u2014 \"the copied machinery IS the banked ladder's\"; 4 arm(s) UNREAD -- a failed premise makes the rest unreadable, not false]",
+  "dropped": [],
+  "unread": [
+   "lam=16 rungs passing the count_eq_q gate",
+   "margin of dim(lam=16) inside (dim@24, dim@8)",
+   "|jump(16) - mean of the banked jumps|",
+   "distinct box-dim values across q=41..15601 at lam=16"
+  ],
+  "arms": [
+   "Arm('lam=8 mismatches vs the 36 banked ladder numbers', PREMISE, MISSED)",
+   "Arm('lam=16 rungs passing the count_eq_q gate', EXISTENCE, MET)",
+   "Arm('margin of dim(lam=16) inside (dim@24, dim@8)', MECHANISM, MET)",
+   "Arm('|jump(16) - mean of the banked jumps|', RESOLUTION, MET)",
+   "Arm('distinct box-dim values across q=41..15601 at lam=16', RESOLUTION, MET)"
+  ]
+ },
+ "runtime_s": 701.0
+}
