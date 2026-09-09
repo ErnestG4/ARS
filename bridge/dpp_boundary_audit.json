@@ -1,0 +1,121 @@
+{
+ "status": "POST-HOC, UNSEALED AUDIT \u2014 reads banked artifacts, makes no prediction, and touches no frozen file",
+ "source": "bridge_b_measured.json",
+ "frozen_file_untouched": "dpp_python.py is read only; its blob SHA is unchanged and verify_bridge's addendum check still passes",
+ "successor_module": "dpp_boundary.py (declares the bounds and verifies they are still the literals in the frozen source)",
+ "fits": {
+  "B1/poisson": {
+   "family": "poisson",
+   "any_rail": null,
+   "no_free_parameter": true,
+   "frozen_fitter_reported": null
+  },
+  "B1/gauss": {
+   "family": "gauss",
+   "alpha_railed_upper": true,
+   "alpha_railed_lower": false,
+   "any_rail": true,
+   "frozen_fitter_reported": true
+  },
+  "B1/cauchy": {
+   "family": "cauchy",
+   "alpha_railed_upper": true,
+   "alpha_railed_lower": false,
+   "any_rail": true,
+   "frozen_fitter_reported": true
+  },
+  "B1/powerexp": {
+   "family": "powerexp",
+   "alpha_railed_upper": true,
+   "alpha_railed_lower": false,
+   "any_rail": true,
+   "frozen_fitter_reported": true
+  },
+  "B1/matern": {
+   "family": "matern",
+   "alpha_railed_upper": true,
+   "alpha_railed_lower": false,
+   "any_rail": true,
+   "frozen_fitter_reported": true
+  },
+  "B1/thomas": {
+   "family": "thomas",
+   "kappa_railed_upper": true,
+   "kappa_railed_lower": false,
+   "sigma_at_grid_edge": true,
+   "any_rail": true,
+   "frozen_fitter_reported": null
+  },
+  "B2/poisson": {
+   "family": "poisson",
+   "any_rail": null,
+   "no_free_parameter": true,
+   "frozen_fitter_reported": null
+  },
+  "B2/gauss": {
+   "family": "gauss",
+   "alpha_railed_upper": false,
+   "alpha_railed_lower": false,
+   "any_rail": false,
+   "frozen_fitter_reported": false
+  },
+  "B2/cauchy": {
+   "family": "cauchy",
+   "alpha_railed_upper": false,
+   "alpha_railed_lower": false,
+   "any_rail": false,
+   "frozen_fitter_reported": false
+  },
+  "B2/powerexp": {
+   "family": "powerexp",
+   "alpha_railed_upper": false,
+   "alpha_railed_lower": false,
+   "any_rail": false,
+   "frozen_fitter_reported": false
+  },
+  "B2/matern": {
+   "family": "matern",
+   "alpha_railed_upper": false,
+   "alpha_railed_lower": false,
+   "any_rail": false,
+   "frozen_fitter_reported": false
+  },
+  "B2/thomas": {
+   "family": "thomas",
+   "kappa_railed_upper": true,
+   "kappa_railed_lower": false,
+   "sigma_at_grid_edge": true,
+   "any_rail": true,
+   "frozen_fitter_reported": null
+  }
+ },
+ "successor_vs_frozen": {
+  "agree": 8,
+  "disagree": 0,
+  "fitter_reports_nothing": 4
+ },
+ "rails_without_machine_record": [
+  "B1/thomas",
+  "B2/thomas"
+ ],
+ "dpp_upper_rails": [
+  "B1/gauss",
+  "B1/cauchy",
+  "B1/powerexp",
+  "B1/matern"
+ ],
+ "dpp_lower_rails": [],
+ "thomas_sigma_grid_edge": [
+  "B1/thomas",
+  "B2/thomas"
+ ],
+ "bounded_refuses_float": "kappa (upper: Poisson limit)=99.99999455050113 is AT the boundary 100.0 \u2014 it means 'at or beyond this bound, cannot tell which' and has no information in that direction.",
+ "findings": [
+  "the successor reproduces at_boundary on 8 of 8 DPP fits, so its relative tolerance is measuring the same thing the fitter did",
+  "both Thomas fits are railed at kappa's upper bound with no check of any kind in the frozen fitter; the rail is CORRECT (kappa -> infinity is the Poisson limit) and is stated in RESULTS_BRIDGE prose, but had no machine record",
+  "sigma is scanned, not optimised, and both Thomas fits land on a grid ENDPOINT \u2014 a second unrecorded coordinate the proposal did not mention",
+  "the DPP lower bound is unexercised: 0 of 8, smallest alpha 0.3535 against a bound of 1e-3",
+  "all four of B1's DPP families rail at the upper bound, which is a DPP EXISTENCE condition \u2014 B1 wants more repulsion than these families can express. Flagged in the banked artifact, but it reads as a footnote and means the family may be the wrong shape for the data."
+ ],
+ "railed_py_first_call_site": "guard_usage_census found railed.py had no importers. This is its first, on the case it was written for."
+}
