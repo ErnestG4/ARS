@@ -82,6 +82,9 @@ PAIRS = [
     ("derivflow/gue_isoconfig_adapted.py",
      "derivflow/gue_isoconfig_adapted.json",
      "the adapted-design mechanism arms and the binding slow-subpopulation secondary"),
+    ("cross_substrate/brocot_normative_anchor.py",
+     "cross_substrate/brocot_normative_anchor.json",
+     "the resolvability calibration and its pre-registered permissive direction"),
 ]
 
 

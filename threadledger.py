@@ -743,6 +743,28 @@ ENTRIES = [
               "discriminated above 60% pins sigma. NO audibility claim is made "
               "by this cell"),
     dict(id="heard-as-listening", status=QUEUED,
+         # 2026-09-08 -- THE BLOCKER IS NARROWED, NOT CLEARED, AND THE HALVES
+         # SPLIT CLEANLY. brocot_normative_anchor lands
+         # AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY:
+         # the Stage A criterion, run on Moore/Glasberg/Peters 1986's own
+         # equal-amplitude stimulus at the literature operating point, is
+         # PERMISSIVE relative to the declared resolvability standard by a
+         # consistent bounded factor (n*/n_std = 2.67 / 2.12 / 2.12 at f0 =
+         # 100/200/400), with a clean prefix and zero holes. So the banked
+         # NEGATIVE -- zero non-degenerate below-horizon ratios audible at
+         # I = 0.9 -- is CONSERVATIVE: a stricter, better-validated criterion
+         # would also return zero. That half no longer waits on listeners.
+         # WHAT STILL DOES, and the source itself draws the line: its summary
+         # sentence is "provided a partial is RESOLVABLE, it is heard as
+         # separate when it is rejected by a harmonic SIEVE whose mesh size is
+         # a constant percentage of the harmonic frequency". Two stages. Our
+         # criterion models resolvability; it holds no template and cannot
+         # produce their 1-3% mistuning thresholds. The POSITIVE claim this row
+         # actually asks about -- is the coincidence HEARD, is the twin heard as
+         # a detuned X -- is a sieve-stage question. It needs listeners OR a
+         # second instrument that models the sieve, and Table I is banked in the
+         # anchor artifact as the target such an instrument would have to hit.
+         # So: merge-arm null anchored; fusion claim still open.
          # RE-POSED 2026-09-07 (Will: "is there no standard test that matches
          # my responses at least mostly?"). THERE IS, and it mirrors this
          # row's own arm split. Verified against fetched primary text:
