@@ -22,11 +22,16 @@ WHAT IT FINDS
   * Only two reach outside the standard library: detector_spec (numpy) and
     boundary_rate (scipy). The other nine are stdlib-only.
   * 83 distinct files import at least one guard; redpath leads at 70.
-  * `railed.py` HAS NO IMPORTERS AT ALL. It is mentioned once in a docstring
-    (`cross_substrate/brocot_map_dimension.py`) and is otherwise reached only by
-    `verify_literature_anchors`, which imports it to read its LITERATURE dict --
-    that is, the only thing that loads it is the checker that asks where its rule
-    came from, never anything that uses the rule.
+  * `railed.py` HAD NO IMPORTERS AT ALL when this census was first run. It was
+    mentioned once in a docstring (`cross_substrate/brocot_map_dimension.py`) and
+    otherwise reached only by `verify_literature_anchors`, which imports it to
+    read its LITERATURE dict -- that is, the only thing that loaded it was the
+    checker asking where its rule came from, never anything that used the rule.
+    **WIRED UP 2026-09-09**: `bridge/dpp_boundary.py` and its audit are its first
+    call sites, on the bridge's railed Thomas fits -- the case it was written for,
+    two directories away, unread since August. All eleven guards now have call
+    sites, and the check that used to assert railed's absence is retired in
+    favour of the general form (the census's unused list must match the tree).
 
 WHY THAT LAST ONE IS NOT A TIDINESS ISSUE. railed.py exports `Bounded` (refuses
 to hand back a railed value silently) and `brody_q`. The Brody work in this repo

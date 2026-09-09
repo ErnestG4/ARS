@@ -90,10 +90,18 @@ if gone_thin:
         print(f"  note: {g} lost consumers ({w} -> {n}) — not a failure unless "
               "it reaches zero, but worth a look")
 
-if "railed" not in known_unused:
-    bad.append("railed is no longer declared as unused debt — either it was "
-               "wired up (good: re-run the census) or it was dropped from the "
-               "roster (not good)")
+# railed.py was the one unused guard when this census was written, and it was
+# WIRED UP on 2026-09-09 (bridge/dpp_boundary*.py — its first call sites, on the
+# railed Thomas fits it was designed for). The check that used to assert its
+# absence has done its job and is retired rather than left to fire forever. What
+# replaces it is the general form: the census's own unused list must match the
+# tree, so a guard cannot go dark OR be quietly dropped from the roster.
+if sorted(now_unused) != sorted(known_unused):
+    bad.append(f"the census's unused list {sorted(known_unused)} does not match "
+               f"the tree {sorted(now_unused)} — re-run guard_usage_census.py")
+if len(GUARDS) != 11:
+    bad.append(f"the guard roster is {len(GUARDS)}, not 11 — a module joined or "
+               "left the set and the extraction facts need re-deriving")
 
 print(f"  {len(GUARDS)} guards, {edges} guard-to-guard edges, "
       f"{len(set().union(*consumers.values()) if consumers else set())} consumer files")

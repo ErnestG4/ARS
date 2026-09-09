@@ -15,25 +15,6 @@
   "reachable": {
    "guard_deps": [],
    "third_party": [],
-   "n_consumers": 35,
-   "consumers": [
-    "adaptive_reuse.py",
-    "approximability/F_genus_exponent.py",
-    "approximability/F_reproduce.py",
-    "approximability/F_window_exponent.py",
-    "citation_provenance.py",
-    "cross_substrate/brocot_above_horizon_parent.py",
-    "cross_substrate/brocot_audible_horizon.py",
-    "cross_substrate/brocot_coherence_model.py",
-    "cross_substrate/brocot_criterion_scope.py",
-    "cross_substrate/brocot_criterion_scope_v2.py",
-    "cross_substrate/brocot_cue_presence.py",
-    "cross_substrate/brocot_cue_salience.py"
-   ]
-  },
-  "verdictlattice": {
-   "guard_deps": [],
-   "third_party": [],
    "n_consumers": 36,
    "consumers": [
     "adaptive_reuse.py",
@@ -44,29 +25,48 @@
     "cross_substrate/brocot_above_horizon_parent.py",
     "cross_substrate/brocot_audible_horizon.py",
     "cross_substrate/brocot_coherence_model.py",
+    "cross_substrate/brocot_coherence_ranking_census.py",
     "cross_substrate/brocot_criterion_scope.py",
     "cross_substrate/brocot_criterion_scope_v2.py",
-    "cross_substrate/brocot_cue_presence.py",
-    "cross_substrate/brocot_cue_salience.py"
+    "cross_substrate/brocot_cue_presence.py"
+   ]
+  },
+  "verdictlattice": {
+   "guard_deps": [],
+   "third_party": [],
+   "n_consumers": 37,
+   "consumers": [
+    "adaptive_reuse.py",
+    "approximability/F_genus_exponent.py",
+    "approximability/F_reproduce.py",
+    "approximability/F_window_exponent.py",
+    "citation_provenance.py",
+    "cross_substrate/brocot_above_horizon_parent.py",
+    "cross_substrate/brocot_audible_horizon.py",
+    "cross_substrate/brocot_coherence_model.py",
+    "cross_substrate/brocot_coherence_ranking_census.py",
+    "cross_substrate/brocot_criterion_scope.py",
+    "cross_substrate/brocot_criterion_scope_v2.py",
+    "cross_substrate/brocot_cue_presence.py"
    ]
   },
   "modelparams": {
    "guard_deps": [],
    "third_party": [],
-   "n_consumers": 23,
+   "n_consumers": 24,
    "consumers": [
     "approximability/F_genus_exponent.py",
     "approximability/F_reproduce.py",
     "approximability/F_window_exponent.py",
     "cross_substrate/brocot_coherence_model.py",
+    "cross_substrate/brocot_coherence_ranking_census.py",
     "cross_substrate/brocot_criterion_scope.py",
     "cross_substrate/brocot_criterion_scope_v2.py",
     "cross_substrate/brocot_cue_presence.py",
     "cross_substrate/brocot_cue_salience.py",
     "cross_substrate/brocot_decorrelation_battery.py",
     "cross_substrate/brocot_decorrelation_battery_v2.py",
-    "cross_substrate/brocot_detune_impossibility.py",
-    "cross_substrate/brocot_double_pulse_sweep.py"
+    "cross_substrate/brocot_detune_impossibility.py"
    ]
   },
   "detector_spec": {
@@ -83,7 +83,7 @@
   "redpath": {
    "guard_deps": [],
    "third_party": [],
-   "n_consumers": 70,
+   "n_consumers": 71,
    "consumers": [
     "adaptive_reuse.py",
     "approximability/F_genus_exponent.py",
@@ -129,8 +129,12 @@
   "railed": {
    "guard_deps": [],
    "third_party": [],
-   "n_consumers": 0,
-   "consumers": []
+   "n_consumers": 3,
+   "consumers": [
+    "bridge/dpp_boundary.py",
+    "bridge/dpp_boundary_audit.py",
+    "bridge/verify_dpp_boundary.py"
+   ]
   },
   "countrecon": {
    "guard_deps": [],
@@ -154,12 +158,10 @@
    ]
   }
  },
- "unused_guards": [
-  "railed"
- ],
+ "unused_guards": [],
  "guard_dependency_edges": 0,
- "n_distinct_consumers": 83,
- "extraction_note": "zero guard-to-guard dependencies and only two third-party reaches (detector_spec:numpy, boundary_rate:scipy), so the eleven modules can be packaged flat; the cost is in the 83 consumer files' import lines, not in the guards themselves",
+ "n_distinct_consumers": 87,
+ "extraction_note": "zero guard-to-guard dependencies and only two third-party reaches (detector_spec:numpy, boundary_rate:scipy), so the eleven modules can be packaged flat; the cost is in the 87 consumer files' import lines, not in the guards themselves",
  "live_instance": "bridge/dpp_python.py:fit_thomas rails at its upper bound on 2 of 2 fits with no boundary check; the only record is prose in RESULTS_BRIDGE.md, while railed.py sits unused. Filed at bridge/proposals/PROPOSED_boundary_reporting.md",
  "railed_detail": "railed.py exports Bounded and brody_q; the repo's Brody work runs through cross_substrate/axes.py:I8_brody_q instead, whose two-ended rail defect is documented in class_collapse_sweep.py (R-140/R-144) and repaired ad hoc in the c2_acceptance arc. The rule was codified and never wired."
 }
