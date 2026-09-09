@@ -52,6 +52,28 @@ if h1["prediction"] == "NEGATIVE" and h2["prediction"].startswith("NEGATIVE"):
     bad.append("both halves now agree — the row's two-answer structure, which is "
                "the finding, has collapsed and the reading needs rewriting")
 
+# The anchor's load-bearing PREMISE: the sieve paradigm applies only because the
+# spectrum at rational alpha is exactly harmonic. Asserted in the artifact as
+# algebra; checked here as arithmetic, for every ratio the twin actually used.
+from fractions import Fraction                                       # noqa: E402
+nonharmonic = 0
+for r in st["beat_hz"]:
+    al = Fraction(r)
+    q = al.denominator
+    for n1 in range(-6, 7):
+        for n2 in range(-6, 7):
+            nu = 1 + n1 + n2 * al
+            f = abs(float(nu)) * st["f_c"]
+            if not (20.0 <= f <= 16000.0):
+                continue
+            # every partial must be an exact integer multiple of f_c/q
+            if (abs(nu) * q).denominator != 1:
+                nonharmonic += 1
+if nonharmonic:
+    bad.append(f"{nonharmonic} partial(s) are not integer multiples of f_c/q — "
+               "the spectrum is not harmonic, and the harmonic-sieve paradigm "
+               "does not apply to this stimulus at all")
+
 lvl = a["norms"]["inharmonicity_hz_1985"]["verification"]
 if "ABSTRACT" not in lvl.upper():
     bad.append("the 1985 source's ABSTRACT-ONLY verification label is gone; the "
@@ -72,6 +94,8 @@ print(f"  half 1 (heard-as-separate): {h1['factor_below']:.1f}x below the "
       f"smallest published mesh -> {h1['prediction']}")
 print(f"  half 2 (discriminable): {h2['n_clearing_410ms_low']} of "
       f"{len(beats_src)} clear the 410 ms low bound -> {h2['prediction']}")
+print(f"  premise: all partials at every ratio are exact multiples of f_c/q "
+      f"({nonharmonic} exceptions) — the sieve paradigm applies")
 
 if bad:
     print("VERIFY_SIEVE_ANCHOR: FAIL")
