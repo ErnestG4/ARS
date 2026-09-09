@@ -1,0 +1,497 @@
+{
+ "n": 4096,
+ "replicates": 16,
+ "B": 2000,
+ "boot_seed": 20260908,
+ "shrinkage": [
+  0.05,
+  0.1,
+  0.2,
+  0.4
+ ],
+ "fit_window": {
+  "iid": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16
+  ],
+  "gue": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11
+  ]
+ },
+ "p1_mismatches": 0,
+ "correlation": {
+  "iid": {
+   "name": "|pearson r| across fit-window k-pairs (iid)",
+   "kind": "median",
+   "value": 0.8753592724019049,
+   "n": 120,
+   "sd": 0.29745844996040344,
+   "sem": 0.027154117160639108,
+   "minimum": 0.006904860845095239,
+   "maximum": 0.9985039789178992,
+   "spread_ratio": 144.60884894257805,
+   "acknowledged": null
+  },
+  "gue": {
+   "name": "|pearson r| across fit-window k-pairs (gue)",
+   "kind": "median",
+   "value": 0.7287921325672659,
+   "n": 55,
+   "sd": 0.3217812022995296,
+   "sem": 0.043388968466719906,
+   "minimum": 0.0017737843722691337,
+   "maximum": 0.9915665527526402,
+   "spread_ratio": 559.0118890743001,
+   "acknowledged": null
+  }
+ },
+ "chi2_over_dof": {
+  "iid": 3.7586694949809445,
+  "gue": 0.017454906718481412
+ },
+ "indep": {
+  "iid": {
+   "params": [
+    -0.15120559225906094,
+    1.733844941327674,
+    0.7883706184835696
+   ],
+   "se_beta": 0.00685796930861165,
+   "se_tau": 0.034388729024716694
+  },
+  "gue": {
+   "params": [
+    -0.30528765762166554,
+    0.8883697801905952,
+    0.7029521914155871
+   ],
+   "se_beta": 0.00608890237350016,
+   "se_tau": 0.023105849589343624
+  }
+ },
+ "bootstrap": {
+  "sealed_fixed": {
+   "iid": {
+    "tau": {
+     "name": "bootstrap tau (iid, sealed_fixed)",
+     "kind": "mean",
+     "value": 1.7264376203911838,
+     "n": 2000,
+     "sd": 0.05331171298387645,
+     "sem": 0.0011920861422890588,
+     "minimum": 1.5076045295878022,
+     "maximum": 1.868268009317332,
+     "spread_ratio": 1.2392295012725516,
+     "acknowledged": null
+    },
+    "beta": {
+     "name": "bootstrap beta (iid, sealed_fixed)",
+     "kind": "mean",
+     "value": 0.7870440472169711,
+     "n": 2000,
+     "sd": 0.009347406459449216,
+     "sem": 0.00020901436256649076,
+     "minimum": 0.7466178147521,
+     "maximum": 0.8152174553465933,
+     "spread_ratio": 1.0918805300905798,
+     "acknowledged": null
+    },
+    "se_tau": 0.05331171298387645,
+    "se_beta": 0.009347406459449216,
+    "n_ok": 2000
+   },
+   "gue": {
+    "tau": {
+     "name": "bootstrap tau (gue, sealed_fixed)",
+     "kind": "mean",
+     "value": 0.8873247825258169,
+     "n": 2000,
+     "sd": 0.01796150393587537,
+     "sem": 0.0004016314377874735,
+     "minimum": 0.8292114802680205,
+     "maximum": 0.952735775497059,
+     "spread_ratio": 1.1489659732992512,
+     "acknowledged": null
+    },
+    "beta": {
+     "name": "bootstrap beta (gue, sealed_fixed)",
+     "kind": "mean",
+     "value": 0.7026800385700843,
+     "n": 2000,
+     "sd": 0.004476065332601506,
+     "sem": 0.00010008786355427172,
+     "minimum": 0.6886407849812344,
+     "maximum": 0.7194447786455401,
+     "spread_ratio": 1.0447315847915473,
+     "acknowledged": null
+    },
+    "se_tau": 0.01796150393587537,
+    "se_beta": 0.004476065332601506,
+    "n_ok": 2000
+   }
+  },
+  "per_resample": {
+   "iid": {
+    "tau": {
+     "name": "bootstrap tau (iid, per_resample)",
+     "kind": "mean",
+     "value": 1.726564669429446,
+     "n": 2000,
+     "sd": 0.054033100582055675,
+     "sem": 0.0012082168593655993,
+     "minimum": 1.5177957040549896,
+     "maximum": 1.8882888501486719,
+     "spread_ratio": 1.2440994826272478,
+     "acknowledged": null
+    },
+    "beta": {
+     "name": "bootstrap beta (iid, per_resample)",
+     "kind": "mean",
+     "value": 0.7870846795135795,
+     "n": 2000,
+     "sd": 0.009393559031131453,
+     "sem": 0.00021004636544266991,
+     "minimum": 0.7502155094154821,
+     "maximum": 0.8175625494630396,
+     "spread_ratio": 1.0897702582822233,
+     "acknowledged": null
+    },
+    "se_tau": 0.054033100582055675,
+    "se_beta": 0.009393559031131453,
+    "n_ok": 2000
+   },
+   "gue": {
+    "tau": {
+     "name": "bootstrap tau (gue, per_resample)",
+     "kind": "mean",
+     "value": 0.8879417098511231,
+     "n": 2000,
+     "sd": 0.01768680121622127,
+     "sem": 0.0003954888982399671,
+     "minimum": 0.8308359640562336,
+     "maximum": 0.9562838827497337,
+     "spread_ratio": 1.150989995764085,
+     "acknowledged": null
+    },
+    "beta": {
+     "name": "bootstrap beta (gue, per_resample)",
+     "kind": "mean",
+     "value": 0.7027920696705994,
+     "n": 2000,
+     "sd": 0.004357602890306627,
+     "sem": 9.743896281675178e-05,
+     "minimum": 0.6884827711604915,
+     "maximum": 0.7191169865453049,
+     "spread_ratio": 1.0444952534297656,
+     "acknowledged": null
+    },
+    "se_tau": 0.017686801216221272,
+    "se_beta": 0.004357602890306627,
+    "n_ok": 2000
+   }
+  }
+ },
+ "gls": {
+  "0.05": {
+   "iid": {
+    "p": [
+     -0.15408646367032355,
+     1.729728482586432,
+     0.7612468648574755
+    ],
+    "se_beta": 0.006349481846129116
+   },
+   "gue": {
+    "p": [
+     -0.30454489852539296,
+     0.8862613779982108,
+     0.7025602832621715
+    ],
+    "se_beta": 0.004320002238463135
+   },
+   "z_beta": 11.12257392634554
+  },
+  "0.1": {
+   "iid": {
+    "p": [
+     -0.15568437404123428,
+     1.7410485729570617,
+     0.766754655917144
+    ],
+    "se_beta": 0.0065374073145927775
+   },
+   "gue": {
+    "p": [
+     -0.3048676555266626,
+     0.8871003900242159,
+     0.7027234301622203
+    ],
+    "se_beta": 0.004540710347729482
+   },
+   "z_beta": 10.731454023823598
+  },
+  "0.2": {
+   "iid": {
+    "p": [
+     -0.1562629298120953,
+     1.7468996307074247,
+     0.7728178457195015
+    ],
+    "se_beta": 0.006699481492010639
+   },
+   "gue": {
+    "p": [
+     -0.3050864037423557,
+     0.8877150696603192,
+     0.702833897695163
+    ],
+    "se_beta": 0.0048052576361053674
+   },
+   "z_beta": 10.360520719501805
+  },
+  "0.4": {
+   "iid": {
+    "p": [
+     -0.15528396004074863,
+     1.7459276520451492,
+     0.7794914947929633
+    ],
+    "se_beta": 0.0068186434558686546
+   },
+   "gue": {
+    "p": [
+     -0.30521265435972744,
+     0.8881055606130217,
+     0.7029035319041409
+    ],
+    "se_beta": 0.005186463610762776
+   },
+   "z_beta": 9.970647262012507
+  }
+ },
+ "z": {
+  "sealed_recomputed": 9.31401329890724,
+  "bootstrap": 8.241967408588193,
+  "conservative_convention": 5.8410961226,
+  "gls_sweep": [
+   11.12257392634554,
+   10.731454023823598,
+   10.360520719501805,
+   9.970647262012507
+  ]
+ },
+ "ratios": {
+  "gue": 0.7351185908452122,
+  "iid": 1.3629991676561666
+ },
+ "bars": {
+  "recovered-vs-banked mismatches (80 numbers)": {
+   "name": "recovered-vs-banked mismatches (80 numbers)",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 80,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "20 k-points x 2 classes x {mean, sigma_mean}; a count of disagreements at 1e-12 relative, 0 to 80"
+  },
+  "median |pearson r| over fit-window k-pairs, GUE": {
+   "name": "median |pearson r| over fit-window k-pairs, GUE",
+   "value": 0.7287921325672659,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a median of absolute correlations, 0 to 1, bar strictly inside"
+  },
+  "sigma_boot(beta_GUE) / sigma_indep(beta_GUE)": {
+   "name": "sigma_boot(beta_GUE) / sigma_indep(beta_GUE)",
+   "value": 0.7351185908452122,
+   "thresh": 0.95,
+   "floor": 0.0,
+   "ceiling": 100.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.95,
+   "why": "a ratio of two standard errors of the same parameter: positive, and 100 is a stated practical ceiling (a 100x error-bar change would mean the two estimators are not measuring the same thing)"
+  },
+  "z_boot(beta)": {
+   "name": "z_boot(beta)",
+   "value": 8.241967408588193,
+   "thresh": 5.0,
+   "floor": 0.0,
+   "ceiling": 100.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 95.0,
+   "why": "the sealed Z_DEPENDENT bar; a z is non-negative and 100 is a stated practical ceiling"
+  },
+  "max |z_gls - z_boot| / z_boot over the shrinkage sweep": {
+   "name": "max |z_gls - z_boot| / z_boot over the shrinkage sweep",
+   "value": 0.34950472077282574,
+   "thresh": 0.25,
+   "floor": 0.0,
+   "ceiling": 100.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.25,
+   "why": "a relative discrepancy between two error treatments; non-negative, 100 a stated practical ceiling"
+  }
+ },
+ "instrument": {
+  "model": "replicate-sharing error model for the sealed shape-z",
+  "params": [
+   {
+    "name": "bootstrap_B",
+    "kind": "DECLARED",
+    "why": "resamples of the 16-replicate ensemble; the bootstrap SE's own relative precision at R=16 is ~1/sqrt(2(R-1)) ~ 18%, which B cannot improve -- B only removes Monte-Carlo noise on top of it, and 2000 puts that well below the 18% floor",
+    "sweep": null,
+    "value": 2000
+   },
+   {
+    "name": "shrinkage_intensity",
+    "kind": "TESTED",
+    "why": "C(a) = (1-a)S + a*diag(S). A free regularisation parameter, and the reason this Model exists: the sample covariance at R=16 over a 16-point window is rank-deficient, so SOME choice is forced and an unlisted one would be the exact defect modelparams was built for. C4 scores the answer's stability across it",
+    "sweep": [
+     0.05,
+     0.1,
+     0.2,
+     0.4
+    ],
+    "value": null
+   },
+   {
+    "name": "fit_window_rule",
+    "kind": "TESTED",
+    "why": "the sealed window is means > 1e-3 on the FULL ensemble. Holding it fixed across resamples treats it as a property of the sealed data; recomputing it per resample lets it fluctuate. Both are defensible, so neither is assumed",
+    "sweep": [
+     "sealed_fixed",
+     "per_resample"
+    ],
+    "value": null
+   },
+   {
+    "name": "form",
+    "kind": "DECLARED",
+    "why": "fixed from the sealed adjudication. Re-selecting per resample would be a different question (form stability), reported as a diagnostic below rather than allowed to move the error bar",
+    "sweep": null,
+    "value": "F3"
+   },
+   {
+    "name": "n",
+    "kind": "DECLARED",
+    "why": "the adjudicated arm; the sealed shape-z is defined at n=4096",
+    "sweep": null,
+    "value": 4096
+   },
+   {
+    "name": "band",
+    "kind": "DECLARED",
+    "why": "the sealed primary band (Richardson 2F(eps)-F(2eps)); the eps/2eps arms exist to test FORM invariance, not to carry the error model",
+    "sweep": null,
+    "value": "primary"
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "scope": "n=4096 primary band, form F3 fixed from the sealed adjudication. An ERROR MODEL for the sealed point estimates: it does not refit the science and does not touch the sealed verdict.",
+ "verdict": "SHAPE_Z_SURVIVES_THE_CORRELATED_ERROR_MODEL",
+ "composed": {
+  "label": "SHAPE_Z_SURVIVES_THE_CORRELATED_ERROR_MODEL_AND_BY_sigma_boot(beta_GUE) / sigma_indep(beta_GUE)_AT_z_boot(beta)_COARSELY_AT_max |z_gls - z_boot| / z_boot over the shrinkage sweep",
+  "head": "SHAPE_Z_SURVIVES_THE_CORRELATED_ERROR_MODEL",
+  "qualifiers": [
+   "AND_BY_sigma_boot(beta_GUE) / sigma_indep(beta_GUE)",
+   "AT_z_boot(beta)",
+   "COARSELY_AT_max |z_gls - z_boot| / z_boot over the shrinkage sweep"
+  ],
+  "citation": "SHAPE_Z_SURVIVES_THE_CORRELATED_ERROR_MODEL  [median |pearson r| over fit-window k-pairs, GUE 0.7288 vs >=0.5 MET \u2014 \"the shared-replicate correlation the audit diagnosed is present and strong\"; max |z_gls - z_boot| / z_boot over the shrinkage sweep 0.3495 vs <=0.25 MISSED \u2014 \"and two independent error treatments agree\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('recovered-vs-banked mismatches (80 numbers)', PREMISE, MET)",
+   "Arm('median |pearson r| over fit-window k-pairs, GUE', EXISTENCE, MET)",
+   "Arm('sigma_boot(beta_GUE) / sigma_indep(beta_GUE)', MECHANISM, MET)",
+   "Arm('z_boot(beta)', RESOLUTION, MET)",
+   "Arm('max |z_gls - z_boot| / z_boot over the shrinkage sweep', RESOLUTION, MISSED)"
+  ]
+ },
+ "runtime_s": 5788.2
+}
