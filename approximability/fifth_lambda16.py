@@ -71,6 +71,24 @@ SCOPE: this adds one lambda to a banked ladder. It does not re-open the C
 extrapolation, the metallic columns, or any dimension claim quoted elsewhere;
 those are lambda->infinity readouts and a single finite lambda does not bear on
 them. What it tests is an INVARIANCE across lambda that three points suggested.
+
+AMENDMENT 1 -- AFTER OUTPUT. P1 MISSED AT 6 OF 36, AND THE BAR WAS WRONG.
+
+The head composed INVALID and the four science arms went UNREAD, which is the
+lattice working. The diagnosis, measured rather than assumed: the six deviations
+are floating-point sized and GROW WITH q (rel 4.7e-11 at q=306, 2.5e-10 at 665,
+9.2e-8 at 15601 for the dimension) -- the signature of reduction-order
+nondeterminism in a threaded LAPACK. Running the same q=665 computation at
+OMP_NUM_THREADS = 1, 2 and 8 gives three DIFFERENT values, none of them the
+banked one, which came from an older numpy/scipy build; within a fixed
+configuration it repeats exactly (3 of 3).
+
+So `fifth_ladder.json` is reproducible only up to BLAS configuration, and
+demanding bit-equality from an `eigvalsh` pipeline was a mis-specified premise,
+not a detected defect. The MISS STANDS -- P1 asked for exact equality and did not
+get it. What follows is a v2 that changes ONLY the premise comparison, to a
+relative tolerance justified by the measured floor, and inherits every other bar
+verbatim from this seal, all of which predate any output.
 """
 import gc
 import json
