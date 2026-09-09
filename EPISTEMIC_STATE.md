@@ -2487,3 +2487,44 @@ remedy applied to inputs is content-hash pinning; the remedy applied to
 filing is that a brief's D-final filing stage is part of the arc, not an
 epilogue — an arc whose filing is unexecuted reads as un-run to every
 downstream consumer, including the operator's own memory.
+
+## 2026-09-08 overnight — two estimator artifacts, and what they cost to find
+
+Three cells and two amendments closed a pattern that had been producing findings
+for weeks: **a fitted parameter standing in for the quantity of interest.**
+
+**In approximability**, three cells in a row measured a "genus-dependent decay
+exponent", each correctly excluding one rival account and none able to name the
+cause from inside: `F_reproduce` (0.1138, named estimator bias), `F_genus_exponent`
+(confirmed the bias, bounded it at ~30%, 0.0800 survived), `F_window_exponent`
+(excluded finite window — doubling it moved the gap 0.0049 against a 0.01 bar).
+The exponent was never an empirical quantity: RH-for-curves fixes |α_i| = √p
+exactly, verified by our own gate on **212/212 curves at vmax 12**, so the fitted
+ratio equals `1 − trend(log oscillation)/(0.5 log p)` — an identity holding to
+2.8×10⁻³. Genus 2 beats two cosines against genus 1's one: **10.7× more trend**.
+MORNING_F's genus-independence claim is correct about the arithmetic; its numbers
+still do not replicate.
+
+**In derivflow**, the same shape twice: a sealed arm (`gue_isoconfig_adapted` C2)
+ratioed τ across conditioning times where the slow bin fits F2 at one and F3 at
+the other. On k*, a level crossing, the reading reversed (1.009 / 1.042 against a
+1.5 bar). The census that followed found k* orders monotonically in **4 of 5**
+conditionings where τ reports it in 1 — and that τ is unsafe *within* a
+uniformly-F3 cell too, so "check the forms match" is necessary and not sufficient.
+No verdict moved; PROSE now quotes k*.
+
+**The cost of finding this** is the honest part. Both were caught only because
+cells carried PREMISE arms that re-derived banked numbers before trusting them
+(0/80, 0/10, 0/16, 0/40 across the night's cells), and because the misses were
+kept rather than tuned. The arc that spent three cells on the genus gap was not
+being careless — each exclusion was correct — but a slope fitted to a
+theorem-fixed quantity can only measure its contamination, and no amount of
+robustness or window fixes that.
+
+**Board 41/41.** New rows: `verify_criterion_scope`, `verify_zbeta_correlated_error`,
+`verify_gue_isoconfig`, `verify_tau_vs_kstar_census`, `verify_F_window_exponent`,
+`verify_normative_anchor`, `verify_sieve_anchor`, `verify_guard_usage`.
+New standing guards worth naming: the guard census fails if a guard module that
+currently has consumers ever drops to zero — the failure mode `railed.py` already
+exhibits, being a codified rule with no call sites while a live rail sits
+unflagged in the bridge arc.
