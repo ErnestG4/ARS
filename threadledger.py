@@ -743,7 +743,35 @@ ENTRIES = [
               "discriminated above 60% pins sigma. NO audibility claim is made "
               "by this cell"),
     dict(id="heard-as-listening", status=QUEUED,
-         # 2026-09-08 -- THE BLOCKER IS NARROWED, NOT CLEARED, AND THE HALVES
+         # 2026-09-08 (LATER) -- THE SIEVE STAGE IS ANCHORED TOO, and it
+         # answers the two halves OPPOSITELY. The stage-one anchor below left
+         # the sieve un-anchored; it turned out to be reachable for a reason
+         # already in front of us: at rational alpha = p/q the FM spectrum is
+         # HARMONIC (partials at f_c*integer/q), and the resynthesis twin
+         # mistunes ONLY the witness pair against it -- Moore et al.'s own
+         # paradigm rather than an analogue. brocot_sieve_anchor (POST-HOC,
+         # unsealed, checker red-pathed) compares the twin AS BUILT:
+         #   HALF 1, "heard as a detuned X" = heard-as-SEPARATE-TONE. Our
+         #   6.0 cents is 0.347% of frequency against Moore/Glasberg/Peters
+         #   1986's published mesh of 1.3-2.1% (Table I, full text). We are
+         #   3.7x BELOW the smallest published threshold, so this claim is
+         #   PREDICTED NEGATIVE at the stimulus we actually built.
+         #   HALF 2, "a listener can tell them apart". Beat rates 2.29-5.35 Hz;
+         #   inharmonicity detection is ~constant in Hz at ~4 Hz mean (range
+         #   2.4-7.3) at 410 ms, and falls with duration. 7 of 8 ratios clear
+         #   the bottom of that range and our stimulus is 3.0 s, so this is
+         #   PREDICTED DETECTABLE (as a bound; the duration scaling comes from
+         #   an ABSTRACT-level source and is labelled as such).
+         # SO THE ROW'S POSITIVE CLAIM IS MIS-WORDED RATHER THAN UNTESTED, and
+         # it does not need listeners to see that. Two honest options, both
+         # cheap: (a) re-word to DISCRIMINABILITY, which the norms support at
+         # the built stimulus and which is what the apparatus was validated
+         # for; or (b) keep the "heard as" wording and re-run the fidelity cell
+         # at >= 1.3% (~22 cents), noting the twin's fidelity was certified at
+         # 6 cents and may not survive a 3.7x larger move. This is an operator
+         # decision about what we are claiming, not a measurement gap.
+         # ---- earlier the same day ----
+         # THE BLOCKER IS NARROWED, NOT CLEARED, AND THE HALVES
          # SPLIT CLEANLY. brocot_normative_anchor lands
          # AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY:
          # the Stage A criterion, run on Moore/Glasberg/Peters 1986's own

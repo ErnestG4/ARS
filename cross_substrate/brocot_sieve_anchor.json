@@ -1,0 +1,79 @@
+{
+ "status": "POST-HOC, UNSEALED ANCHOR \u2014 no sealed prediction; arithmetic on banked numbers against published thresholds",
+ "stimulus": {
+  "cents": 6.0,
+  "percent_of_frequency": 0.34717485095028255,
+  "duration_s": 3.0,
+  "f_c": 220.0,
+  "n_ratios": 8,
+  "beat_hz": {
+   "5/7": 3.818923360453084,
+   "3/4": 2.291354016271953,
+   "4/5": 3.0551386883626037,
+   "5/6": 3.8189233604532546,
+   "6/5": 4.582708032543621,
+   "5/4": 3.8189233604530273,
+   "4/3": 3.0551386883623763,
+   "7/5": 5.346492704634102
+  }
+ },
+ "why_the_sieve_applies": "at rational alpha = p/q the FM spectrum is harmonic with fundamental f_c/q, and the twin mistunes ONLY the witness pair against it \u2014 Moore et al.'s paradigm, not an analogue",
+ "norms": {
+  "separate_tone_1986": {
+   "values_percent": {
+    "1": 1.7,
+    "2": 1.7,
+    "3": 1.3,
+    "4": 1.8,
+    "5": 2.0,
+    "6": 2.1
+   },
+   "verification": "FULL TEXT fetched, Table I transcribed",
+   "citation": "Moore, Glasberg & Peters, JASA 80(2), 1986, 479-483; f0=200 Hz, 410 ms"
+  },
+  "any_cue_1985b": {
+   "values_percent": {
+    "1": 1.2,
+    "2": 1.3,
+    "3": 1.0,
+    "4": 0.94,
+    "5": 0.89,
+    "6": 0.29
+   },
+   "verification": "FULL TEXT (same Table I)"
+  },
+  "inharmonicity_hz_1985": {
+   "mean": 4.0,
+   "lo": 2.4,
+   "hi": 7.3,
+   "verification": "ABSTRACT LEVEL ONLY \u2014 the duration scaling is a direction from an abstract and is used only as a bound",
+   "citation": "Moore, Peters & Glasberg, JASA 77, 1985, 1861-1867"
+  }
+ },
+ "half1_heard_as_separate": {
+  "our_percent": 0.34717485095028255,
+  "smallest_published": 1.3,
+  "factor_below": 3.7445108608577398,
+  "prediction": "NEGATIVE"
+ },
+ "half2_discriminable": {
+  "beat_hz_range": [
+   2.291354016271953,
+   5.346492704634102
+  ],
+  "n_clearing_410ms_mean": 2,
+  "n_clearing_410ms_low": 7,
+  "duration_s": 3.0,
+  "prediction": "DETECTABLE (as a bound, duration favourable)"
+ },
+ "reading": "The row's two halves get OPPOSITE answers. The twin carries a discriminable difference by the norms, but at 6 cents it is 3.7x below the smallest published threshold for being HEARD AS A SEPARATE TONE. So the positive claim as worded \u2014 'heard as a detuned X' \u2014 is predicted NEGATIVE at the stimulus we actually built, while 'a listener can tell the two apart' is predicted positive.",
+ "options_for_the_row": [
+  "raise the detune to >= 1.3% (~22 cents) if the 'heard as' wording is wanted, and re-run the fidelity cell at that detune \u2014 note this may break the twin's fidelity, which was certified at 6 cents",
+  "re-word the claim to discriminability, which the norms support at the built stimulus and which is what the apparatus was actually validated for"
+ ],
+ "what_this_does_not_settle": [
+  "the duration extrapolation from 410 ms to 3 s is a DIRECTION from an abstract, not a fitted curve",
+  "Moore's complexes carry 10-12 equal-amplitude components; ours carry 69 partials at FM amplitudes, so the masking environment differs and the resolvability precondition must be checked per partial (that is what brocot_normative_anchor does, and it found our criterion permissive)",
+  "a beat between two formerly-coincident partials is not identical to a single partial mistuned against a complex; the 1985 threshold is the closest published quantity, not the same quantity"
+ ]
+}
