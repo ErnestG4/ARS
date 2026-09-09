@@ -229,3 +229,29 @@ different statistic.
 **No load-bearing inter-doc contradictions** surfaced across any of the five families —
 only stale labels, method-labeled dual estimates (metallic-5 C 1.099 vs 1.160), and
 completeness gaps, all now reconciled.
+
+
+## 2026-08/09 arcs — ADDED 2026-09-08, uncertified (each row stands on its cited artifact)
+
+**Why this section exists, and it is the finding as much as the rows are.** This matrix
+was last updated 2026-09-02 and contained **zero** of the verdicts below — including the
+survey arc, which had been green since 2026-08-15. An index that is updated only when
+someone remembers to update it is blind to exactly the work it exists to enumerate; the
+same failure shape was banked three other ways this week (a path-named input, a sibling
+repo's commits, an arc's own unexecuted filing stage). These rows are **not** covered by
+the 2026-07-10 certification banner: each stands on its own cited artifact and checker.
+
+| Arc / cell | Verdict and headline | Status | Artifact + checker |
+|---|---|---|---|
+| Survey (DESI DR1 LRG NGC) | **CLASS_MEASURED** — super-Poissonian **28/28 tiles in both slices**; F−1 ∝ L^s, s = **1.190 ± 0.026** (0.6–0.8) and **1.190 ± 0.033** (0.4–0.6): amplitude evolves between slices, exponent does not (the Limber expectation). Anti-claim binding: projected 2D process only | banked | `survey/RESULTS_SURVEY.md`, `verify_survey.py` |
+| derivflow — shape-z error model | **SHAPE_Z_SURVIVES_THE_CORRELATED_ERROR_MODEL** — z(β) clears the sealed 5σ bar under **all seven** treatments (bootstrap 8.24, GLS 9.97–11.12, sealed 9.31, conservative 5.84). Correlation is real (median \|r\| 0.73/0.88) and **tightens** β for GUE (0.735) while **loosening** it for iid (1.363). C4 missed → a range, not a point | banked | `derivflow/zbeta_correlated_error.json`, `verify_zbeta_correlated_error.py` |
+| derivflow — mechanism | **STRETCH_MECHANISM_IS_NOT_SEED_DEPENDENT** — smallest GUE per-bin window 3 → 10, and both classes read NOT_SUPPORTED at **5/5 bins** under one adapted design (iid = control). Seed-dependence is in the **parameters**, not the mechanism | banked | `derivflow/gue_isoconfig_adapted.json`, `verify_gue_isoconfig.py` |
+| derivflow — τ census | **k\* orders monotonically in 4 of 5** conditionings; τ reports it in 1. τ is unsafe across forms *and* within a uniformly-F3 cell. No verdict moves; PROSE corrected to quote k\* | post-hoc | `derivflow/tau_vs_kstar_census.json`, `verify_tau_vs_kstar_census.py` |
+| approximability — genus exponent | **GENUS_GAP_SURVIVES_A_LONGER_WINDOW**, then resolved: RH fixes \|α\|=√p (verified **212/212** at vmax 12), so the fitted ratio is `1 − trend(log oscillation)/(0.5 log p)` — an identity to **2.8e-3**. Genus 2 beats two cosines against one: **10.7×** more trend. MORNING_F's genus-independence claim is correct about the **arithmetic**; its numbers still do not replicate | banked | `approximability/F_window_exponent.json` + `F_oscillation_amendment.json`, `verify_F_window_exponent.py` |
+| brocot — criterion plane | **CLAIMS_NOW_TRAVEL_WITH_THEIR_CRITERION_REGION** — the corrected headline holds on all 12 cells with σ ≥ 0.4 with a measured edge at σ = 0.25; the suggest-filter's ship bar is crossed **exactly once**, in σ ∈ (0.50, 0.70) | banked | `cross_substrate/brocot_criterion_scope_v2.json`, `verify_criterion_scope.py` |
+| brocot — normative anchor | **AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY** — on Moore–Glasberg–Peters 1986's own stimulus the criterion is permissive by **2.67/2.12/2.12×** (f0 = 100/200/400), clean prefix, zero holes. Anchors resolvability only; the harmonic-sieve stage is explicitly **not** anchored | banked | `cross_substrate/brocot_normative_anchor.json`, `verify_normative_anchor.py` |
+| brocot — detune | **EXACT_ISOLATION_IMPOSSIBLE** (2306 candidates, 0 returns, exact rationals); local-cost claim **retracted** as ruler-dependent | banked | `cross_substrate/brocot_detune_impossibility.json` |
+| brocot — decorrelation | **DECORRELATION_NOT_ACHIEVED** (v2) — the route closes on two measured knobs; v1's own diagnosis was wrong and is corrected in place | closed | `cross_substrate/brocot_decorrelation_battery_v2.json` |
+| approximability — Session F replication | **SESSION_F_CLAIMS_DO_NOT_REPLICATE** — the provable Weil gates corroborate on an independent declared family; the banked constants do not (and the genus difference even had the opposite sign) | banked | `approximability/F_reproduce.json`, `verify_F_reproduce.py` |
+| Methodology — provenance | **METHODOLOGY_DERIVED_IN_ISOLATION** — 429 domain citations against **zero** methodology citations. Repaired by construction-time anchoring: 11 guard modules now read 5 NAMED / 4 PARTIAL / 2 UNCLAIMED / **0 NOT_SEARCHED** | banked | `citation_provenance.json`, `verify_literature_anchors.py` |
+| Methodology — adaptive reuse | **HOLDOUT_PRACTICE_IS_ALREADY_IN_PLACE** — sealing addresses *within-cell* adaptivity, Dwork's concern is *across-cell*; orthogonal axes. Sealed prediction **missed and kept** | banked | `adaptive_reuse.json` |
