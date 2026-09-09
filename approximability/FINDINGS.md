@@ -532,3 +532,52 @@ The two widest gaps are the **fourth and the fifth**; the small-k labels reprodu
 - λ=8 flagged `outside_proven_regime` (Liu–Wen V>20) throughout, as in the π table.
 - q=2 Floquet-degenerate → exact period-2 discriminant (certified `disc_direct` path), noted inline.
 - **Falsification (P1 K-coupling demotion) reported at equal prominence to the P2/P3/gap confirmations, per spec §4.**
+
+
+## The genus "exponent gap" resolved: it was the oscillating prefactor all along
+**(2026-09-08; `F_window_exponent.py/.json` sealed, `F_oscillation_amendment.py/.json`
+POST-HOC, `verify_F_window_exponent.py` on the board)**
+
+Three cells in a row measured a genus-dependent decay exponent for
+|N_n/p^n − 1| and each excluded one account of it. The chain and its close:
+
+| cell | measured gap | account excluded |
+|---|---|---|
+| `F_reproduce` | 0.1138 vs a 0.05 bar | named estimator bias, refused to call it a refutation |
+| `F_genus_exponent` | 0.0800 under Theil-Sen | estimator bias CONFIRMED (2.51× asymmetry, ρ = −0.500) but bounded at ~30% |
+| `F_window_exponent` | 0.0751 at vmax = 12 | finite window EXCLUDED: doubling it moved the gap 0.0049 against a 0.01 bar |
+
+**The exponent was never an empirical quantity.** RH-for-curves gives
+|α_i| = √p *exactly*, which this repo's own `rh_gate` verifies on **212 of 212
+curves at vmax = 12**. Writing α_i = √p·e^{iθ_i},
+
+    log₁₀|residual_n| = −(n/2)·log₁₀(p) + log₁₀( |1 − s_n| / p^{n/2} )
+                         └─── exponent, fixed by theorem ───┘  └── oscillation ──┘
+
+so the fitted ratio is not the exponent but
+
+    ratio = 1 − trend(log₁₀ oscillation) / (0.5·log₁₀ p)
+
+— an identity verified on all 212 curves to a maximum error of **2.8×10⁻³**.
+
+**Why it is genus-dependent, measured.** Genus 1 has one conjugate eigenvalue
+pair, so the oscillation is a single cosine with near-zero finite-window trend.
+Genus 2 has two pairs that **beat** against each other. At vmax = 12: genus 1
+mean |trend| = 0.00608 (ratio 1.0009), genus 2 mean |trend| = 0.06530 (ratio
+1.0760) — **10.7× more trend**, and the ratios follow it. The gap *is* the trend.
+It does not shrink with the window because the oscillation is not noise but a
+bounded almost-periodic function, which is exactly why no robust estimator and no
+longer window ever touched it.
+
+**Consequences.**
+- **MORNING_F's genus-independence claim (line 30) is CORRECT about the
+  arithmetic** and is hereby un-retracted on that point. Its *numbers* still do
+  not replicate (`SESSION_F_CLAIMS_DO_NOT_REPLICATE` stands — it even had the
+  sign of the genus difference the other way), but the proposition it asserted
+  holds by theorem on every curve we can check.
+- Every measured "gap" in this arc — 0.1138, 0.0800, 0.0751 — is one artifact
+  with one cause, seen three times.
+- **Carry-forward: do not fit a decay exponent that RH already determines.**
+  Fitting a slope to estimate a theorem-fixed quantity can only measure the
+  contamination. A genus-comparable observable is the oscillation itself,
+  |1 − s_n|/p^{n/2}, bounded by 2g — not the slope of its logarithm.

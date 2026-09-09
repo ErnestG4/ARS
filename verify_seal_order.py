@@ -85,6 +85,12 @@ PAIRS = [
     ("cross_substrate/brocot_normative_anchor.py",
      "cross_substrate/brocot_normative_anchor.json",
      "the resolvability calibration and its pre-registered permissive direction"),
+    # F_window_exponent, 2026-09-08: executes the test F_genus_exponent queued in
+    # its own amendment. Its POST-HOC companion (F_oscillation_amendment) is
+    # deliberately NOT registered, for the same reason as the isoconfig one.
+    ("approximability/F_window_exponent.py",
+     "approximability/F_window_exponent.json",
+     "the vmax sweep and the queued gap-shrinks decision rule"),
 ]
 
 

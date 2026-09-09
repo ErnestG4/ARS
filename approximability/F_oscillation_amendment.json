@@ -1,0 +1,36 @@
+{
+ "status": "POST-HOC, UNSEALED AMENDMENT to F_window_exponent.json",
+ "amends": "F_window_exponent's E1-E4, all four of which MISSED and all four of which remain missed; this identifies what they were measuring",
+ "vmax": 12,
+ "primes": [
+  7,
+  11,
+  13,
+  17,
+  19,
+  23,
+  29
+ ],
+ "n_curves": 212,
+ "gates_hold": 212,
+ "theorem": "RH-for-curves gives |alpha_i| = sqrt(p) exactly, so log10|residual_n| = -(n/2)log10(p) + log10(|1-s_n|/p^(n/2)); the first term is the exponent and is genus-independent by theorem",
+ "identity": "ratio = 1 - trend(log10 oscillation)/(0.5*log10 p)",
+ "identity_max_error": 0.0027695151708773125,
+ "by_genus": {
+  "1": {
+   "n": 57,
+   "mean_ratio": 1.0009192001529237,
+   "mean_osc_trend": -0.00016402348947837606,
+   "mean_abs_osc_trend": 0.006079615360352551
+  },
+  "2": {
+   "n": 155,
+   "mean_ratio": 1.0760110941606105,
+   "mean_osc_trend": -0.043765667450066714,
+   "mean_abs_osc_trend": 0.06530480595443776
+  }
+ },
+ "oscillation_amplitude_ratio": 10.741601578993773,
+ "reading": "MORNING_F's genus-independence claim is CORRECT about the arithmetic. Every measured gap (0.1138, 0.0800, 0.0751) is the finite-window trend of a bounded almost-periodic prefactor whose richness grows with the number of eigenvalue pairs. It is not noise, so no robust estimator or longer window removes it.",
+ "carry_forward": "do not fit a decay exponent that RH already determines; if a genus-comparable observable is wanted, use the oscillation |1-s_n|/p^(n/2) (bounded by 2g) rather than the slope of its logarithm."
+}
