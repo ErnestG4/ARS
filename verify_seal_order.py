@@ -91,6 +91,8 @@ PAIRS = [
     ("approximability/F_window_exponent.py",
      "approximability/F_window_exponent.json",
      "the vmax sweep and the queued gap-shrinks decision rule"),
+    ("derivflow/seed_roster_beta.py", "derivflow/seed_roster_beta.json",
+     "the beta-roster surface, its matched-design premise and the k* ordering"),
 ]
 
 

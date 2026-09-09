@@ -297,6 +297,33 @@ with its path; this roadmap is then complete and archives.
   separation, and structurally an experiment the harness already performs. The bin0 texture
   (clean exponential, 3× slower, one tail of the environment distribution) is the fact any
   mechanism must face.
+- **Seed-roster extension — DONE 2026-09-09** (`seed_roster_beta.py/.json`,
+  `verify_seed_roster.py`, board row). Verdict
+  **RELAXATION_SCALE_ORDERS_WITH_SEED_REPULSION**: the (τ, β) seed-dependence is a
+  SURFACE and local repulsion is its coordinate. **Roster changed from the wording
+  below, with reasons**: the JKM combinatorial families are catalogued by their
+  GLOBAL shape, their roots at n = 4096 are numerically out of reach, and varying
+  global shape would confound the very two-scale structure this arc separates.
+  β-Hermite ensembles fix all three — the existing GUE seed is already the DE β = 2
+  tridiagonal, every β shares the same semicircle global law, and β *is* the
+  repulsion exponent. P1 = **0 of 40** (β = 2 reproduces the banked GUE arm
+  exactly, so the existing science run became this cell's premise); P2 max
+  pairwise seed-law KS **0.0012** against a 0.05 bar, so the global measure is
+  genuinely held fixed. The matched surface:
+
+  | β | k* | τ | stretch |
+  |---|---|---|---|
+  | 1 | 6.9223 | 0.9732 | 0.7172 |
+  | 2 | 6.1628 | 0.8884 | 0.7030 |
+  | 4 | 5.4664 | 0.8031 | 0.6837 |
+
+  k* strictly decreasing, 0 inversions, ends separated by **122.9 σ**; τ and the
+  stretch exponent order with it, so all three fit coordinates move together with
+  repulsion. **Scope:** the matched comparison is the β-ensembles only. iid
+  (k* 10.889, τ 1.734, stretch 0.788) continues the trend in every coordinate but
+  carries a *different* global law (uniform, not semicircle), so it is an
+  unmatched reference and not a fourth point on the surface. All comparisons at
+  k*, never τ. ORIGINAL ITEM, kept for provenance:
 - **Seed-roster extension (backlog, 2026-08-13):** JKM Part II is a catalog of
   exactly-characterized seed families (Touchard, Fubini, Eulerian, Narayana, hypergeometric
   incl. Hermite/Laguerre/Jacobi) — the ready-made third and fourth seed classes if the
