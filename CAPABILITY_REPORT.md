@@ -487,18 +487,26 @@ New since:
    constants** (R-181 checked one of six; it was wrong).
 5. **Phase 32b per-cell re-run** on the repaired estimator (verdicts
    WITHDRAWN-PENDING-RERUN; retro-scope held for review).
-6. **Thread ledger QUEUED ×7** (was ×4): heard-as-listening,
-   audible-horizon-calibration, double-pulse-control,
-   suggest-reachability-filter (all three σ-gated rows were re-posed
-   after framing-death fired — read the re-posed wording), plus the
-   **contrast arc registered 2026-09-02** — `detune-impossibility`,
-   `resynthesis-apparatus`, `decorrelation-battery`, in that order.
-   The first is cheap and decides the other two: it either retires
-   ratio detune with a proof (fold cases included — the standing
-   caveat) or finds the counterexample manipulation in a fold case, in
-   which case heard-as-listening unblocks with no resynthesis at all.
-   None of the three has been run. Plus `orphan-session-branches`
-   (×8 total) — see item 12.
+6. **Thread ledger QUEUED ×1** — corrected 2026-09-09; this item read
+   "QUEUED ×7" and listed six rows that have since landed, which is the
+   supersession failure this report exists to avoid. Current state, from
+   `verify_threadledger.py` rather than from recollection: **30 landed,
+   1 open, 7 dropped.** The six that closed: `audible-horizon-calibration`
+   (criterion_scope_v2 — claims now travel with their criterion region),
+   `suggest-reachability-filter` (operator chose the literature operating
+   point; brocot b84022d had already shipped the filter),
+   `double-pulse-control` (brocot 9dca513 shipped the sealed construction
+   with tests), and the contrast arc's three — `detune-impossibility`
+   (EXACT_ISOLATION_IMPOSSIBLE, 2306 candidates / 0 returns),
+   `resynthesis-apparatus` (twin certified faithful and cue-carrying),
+   `decorrelation-battery` (closed on two measured knobs).
+   `orphan-session-branches` also landed (see item 12).
+   **The one open row is `heard-as-listening`**, and as of 2026-09-09 it is
+   re-posed to DISCRIMINABILITY rather than "heard as a detuned X":
+   `brocot_sieve_anchor` showed those are different questions with opposite
+   answers at the stimulus already built. It needs listeners and nothing
+   else — the contrast is built, the apparatus is certified for exactly
+   this claim, and the norms predict positive.
 7. **C3 classifier consolidation** — rulings encoded, migration not
    authorised; 18 argmin copies outstanding.
 8. **COMB_KTUPLE_BRIEF.md** — drafted, needs review + go.
