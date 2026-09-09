@@ -1,0 +1,294 @@
+{
+ "primes": [
+  7,
+  11,
+  13,
+  17,
+  19,
+  23,
+  29
+ ],
+ "vmaxes": [
+  6,
+  8,
+  10,
+  12
+ ],
+ "sweep": {
+  "6": {
+   "n": 212,
+   "gate_fail": 0,
+   "gap_ols": 0.11382211615786719,
+   "gap_ts": 0.07996058950898566,
+   "asymmetry": 2.507794146631427,
+   "rh_worst": 0.05591280135721188,
+   "rho": -0.4996666653264447,
+   "ts_by_genus": {
+    "1": 0.9759522118482262,
+    "2": 1.0559128013572119
+   },
+   "n_by_genus": {
+    "1": 57,
+    "2": 155
+   }
+  },
+  "8": {
+   "n": 212,
+   "gate_fail": 0,
+   "gap_ols": 0.026629944736221045,
+   "gap_ts": 0.06270944460986594,
+   "asymmetry": 1.5072831686930308,
+   "rh_worst": 0.057515065239303054,
+   "rho": -0.5821329128491309,
+   "ts_by_genus": {
+    "1": 0.9948056206294371,
+    "2": 1.057515065239303
+   },
+   "n_by_genus": {
+    "1": 57,
+    "2": 155
+   }
+  },
+  "10": {
+   "n": 212,
+   "gate_fail": 0,
+   "gap_ols": 0.10839781256805892,
+   "gap_ts": 0.07448435788410523,
+   "asymmetry": 1.593946677434662,
+   "rh_worst": 0.06604863088036028,
+   "rho": -0.5811457205854658,
+   "ts_by_genus": {
+    "1": 0.991564272996255,
+    "2": 1.0660486308803603
+   },
+   "n_by_genus": {
+    "1": 57,
+    "2": 155
+   }
+  },
+  "12": {
+   "n": 212,
+   "gate_fail": 0,
+   "gap_ols": 0.06488224252684383,
+   "gap_ts": 0.07509189400768679,
+   "asymmetry": 2.0147454970512504,
+   "rh_worst": 0.07601109416061047,
+   "rho": -0.5562562813705263,
+   "ts_by_genus": {
+    "1": 1.0009192001529237,
+    "2": 1.0760110941606105
+   },
+   "n_by_genus": {
+    "1": 57,
+    "2": 155
+   }
+  }
+ },
+ "banked_vmax6": {
+  "gap_ols": 0.11382211615786719,
+  "gap_ts": 0.07996058950898566,
+  "asymmetry": 2.507794146631427,
+  "rh_worst": 0.05591280135721188,
+  "rho": -0.4996666653264447,
+  "n": 212
+ },
+ "p1_mismatches": 0,
+ "gate_failures_vmax12": 0,
+ "gap_ts_trend": [
+  0.07996058950898566,
+  0.06270944460986594,
+  0.07448435788410523,
+  0.07509189400768679
+ ],
+ "delta_gap": 0.00486869550129887,
+ "bars": {
+  "vmax=6 mismatches vs the 6 banked F_genus_exponent numbers": {
+   "name": "vmax=6 mismatches vs the 6 banked F_genus_exponent numbers",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 6,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "gap_ols, gap_ts, asymmetry, rh_worst, rho and the curve count; a count of disagreements at 1e-9 relative, 0 to 6"
+  },
+  "provable-gate failures at vmax=12": {
+   "name": "provable-gate failures at vmax=12",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 212,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "Hasse-Weil and RH-for-curves are theorems; a failure is a recurrence bug at high v, not a finding"
+  },
+  "|gap_ts(12) - gap_ts(6)|": {
+   "name": "|gap_ts(12) - gap_ts(6)|",
+   "value": 0.00486869550129887,
+   "thresh": 0.01,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1.99,
+   "why": "a change in a difference of two ratios near 1; 0 is attainable if the window is irrelevant"
+  },
+  "adjacent increases in gap_ts across the vmax sweep": {
+   "name": "adjacent increases in gap_ts across the vmax sweep",
+   "value": 2,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "3 adjacent pairs; monotone decreasing is the predicted shape"
+  },
+  "gap_ts at vmax=12": {
+   "name": "gap_ts at vmax=12",
+   "value": 0.07509189400768679,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.05,
+   "why": "the bar F_reproduce's M1 and F_genus_exponent's E2 both missed; a difference of two ratios near 1"
+  },
+  "worst |Theil-Sen ratio - 1| at vmax=12": {
+   "name": "worst |Theil-Sen ratio - 1| at vmax=12",
+   "value": 0.07601109416061047,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.05,
+   "why": "the RH slope check; missed at 0.0559 with the short window"
+  }
+ },
+ "instrument": {
+  "model": "finite-window test of the genus exponent gap",
+  "params": [
+   {
+    "name": "vmax",
+    "kind": "TESTED",
+    "why": "THE variable of this cell: the fit window in v. Everything else is held at F_genus_exponent's values so the window is the only thing that moves",
+    "sweep": [
+     6,
+     8,
+     10,
+     12
+    ],
+    "value": null
+   },
+   {
+    "name": "primes",
+    "kind": "DECLARED",
+    "why": "identical battery; P1 demands the banked vmax=6 numbers back",
+    "sweep": null,
+    "value": "[7, 11, 13, 17, 19, 23, 29]"
+   },
+   {
+    "name": "estimators",
+    "kind": "DECLARED",
+    "why": "changing the estimator and the window together would rebuild the confound F_genus_exponent spent a whole cell bounding",
+    "sweep": null,
+    "value": "OLS and Theil-Sen, verbatim"
+   },
+   {
+    "name": "residual_arithmetic",
+    "kind": "DECLARED",
+    "why": "F_genus_exponent's expression, verbatim. Checked before sealing: at p=29, v=12 the residual is ~7e-9 against a float noise floor of ~2e-16, so no high-precision path is warranted",
+    "sweep": null,
+    "value": "abs(Nv/float(p**v) - 1.0)"
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 3
+ },
+ "executes": "the test queued verbatim by F_genus_exponent's amendment 1",
+ "verdict": "GENUS_GAP_SURVIVES_A_LONGER_WINDOW",
+ "composed": {
+  "label": "GENUS_GAP_SURVIVES_A_LONGER_WINDOW_BUT_NOT_BY_adjacent increases in gap_ts across the vmax sweep_COARSELY_AT_gap_ts at vmax=12_COARSELY_AT_worst |Theil-Sen ratio - 1| at vmax=12",
+  "head": "GENUS_GAP_SURVIVES_A_LONGER_WINDOW",
+  "qualifiers": [
+   "BUT_NOT_BY_adjacent increases in gap_ts across the vmax sweep",
+   "COARSELY_AT_gap_ts at vmax=12",
+   "COARSELY_AT_worst |Theil-Sen ratio - 1| at vmax=12"
+  ],
+  "citation": "GENUS_GAP_SURVIVES_A_LONGER_WINDOW  [|gap_ts(12) - gap_ts(6)| 0.004869 vs >=0.01 MISSED \u2014 \"the fit window moves the genus gap\"; adjacent increases in gap_ts across the vmax sweep 2 vs <=0.5 MISSED \u2014 \"and it moves it downward, monotonically\"; gap_ts at vmax=12 0.07509 vs <=0.05 MISSED \u2014 \"the gap closes below the bar the short window missed, so the exponent is genus-independent\"; worst |Theil-Sen ratio - 1| at vmax=12 0.07601 vs <=0.05 MISSED \u2014 \"and both genera sit on the RH slope\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('vmax=6 mismatches vs the 6 banked F_genus_exponent numbers', PREMISE, MET)",
+   "Arm('provable-gate failures at vmax=12', PREMISE, MET)",
+   "Arm('|gap_ts(12) - gap_ts(6)|', EXISTENCE, MISSED)",
+   "Arm('adjacent increases in gap_ts across the vmax sweep', MECHANISM, MISSED)",
+   "Arm('gap_ts at vmax=12', RESOLUTION, MISSED)",
+   "Arm('worst |Theil-Sen ratio - 1| at vmax=12', RESOLUTION, MISSED)"
+  ]
+ }
+}
