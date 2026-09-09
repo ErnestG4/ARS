@@ -1,0 +1,205 @@
+{
+ "graph": "landscape_graph_16mix.json.gz",
+ "graph_sha256": "1b6c755f4174ca38dfe8411f5c03b52df4eac7d9229cd9873fb86f26feeaa30c",
+ "pool_size": 6386,
+ "n_cases": 6367,
+ "mean_jaccard": 0.5212292550128266,
+ "jaccard_se": 0.00396766354977407,
+ "jaccard_ci": [
+  0.5134526344552695,
+  0.5290058755703837
+ ],
+ "bar": 0.5,
+ "excess_in_halfwidths": 2.729881811218933,
+ "shared_top4_distribution": {
+  "0": 1406,
+  "1": 3487,
+  "2": 1474
+ },
+ "mean_by_fixed_index": {
+  "0.9": 0.5337731008847704,
+  "1.5": 0.5409260547316146,
+  "2.0": 0.5079210512538611
+ },
+ "n_indices_clearing": 3,
+ "supersedes": {
+  "cell": "brocot_coherence_model.json M3",
+  "banked_value": 0.5170748299319728,
+  "banked_n": 140,
+  "why": "that artifact is stale against the 2026-08-31 graph regeneration (graph_staleness_census: 17 of 44 numeric fields move, mean_jaccard 0.5171 -> 0.5309), and its interval spanned the bar"
+ },
+ "prior_look": "0.5171 banked and 0.5309 on the current graph at n=140 were both known before sealing; C1 is stated directionally for that reason",
+ "bars": {
+  "analytic-quantity mismatches vs the banked cell": {
+   "name": "analytic-quantity mismatches vs the banked cell",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "omitted cross-partial energy at 3 indices; a count of disagreements, 0 to 3"
+  },
+  "scored cases": {
+   "name": "scored cases",
+   "value": 6367,
+   "thresh": 6000,
+   "floor": 0,
+   "ceiling": 6386,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 386,
+   "why": "a count over the 6386-node pool; below 6000 this is a sample with an unstated selection rule, not a census"
+  },
+  "population mean Jaccard": {
+   "name": "population mean Jaccard",
+   "value": 0.5212292550128266,
+   "thresh": 0.5,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a Jaccard index lies in [0,1]; 0.50 sits between 'share 2 of 4' (0.333) and 'share 3 of 4' (0.600)"
+  },
+  "mean Jaccard minus 0.50, in 95% half-widths": {
+   "name": "mean Jaccard minus 0.50, in 95% half-widths",
+   "value": 2.729881811218933,
+   "thresh": 1.0,
+   "floor": -100.0,
+   "ceiling": 100.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 99.0,
+   "why": "a signed distance from the bar in units of its own interval; negative means below the bar"
+  },
+  "fixed indices where the mean clears 0.50": {
+   "name": "fixed indices where the mean clears 0.50",
+   "value": 3,
+   "thresh": 2.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 3 swept indices"
+  }
+ },
+ "instrument": {
+  "model": "comb vs product-lattice ranking, full pool",
+  "params": [
+   {
+    "name": "pool",
+    "kind": "DECLARED",
+    "why": "the banked cell's own pool rule, unchanged; taking ALL of it is what turns the estimate into a census",
+    "sweep": null,
+    "value": "all nodes with 1-2 enabled operators"
+   },
+   {
+    "name": "index",
+    "kind": "TESTED",
+    "why": "C3 recomputes the ranking at each FIXED index because the model gap's size varies strongly with it (omitted energy 12%->90%), so a pooled answer could be carried by one index alone",
+    "sweep": [
+     0.9,
+     1.5,
+     2.0
+    ],
+    "value": null
+   },
+   {
+    "name": "cents_tol",
+    "kind": "DECLARED",
+    "why": "Coherence.h's own binning width; changing it would compare a different pair of models",
+    "sweep": null,
+    "value": 12.0
+   },
+   {
+    "name": "max_order",
+    "kind": "DECLARED",
+    "why": "the comb model's Bessel order cap, as shipped",
+    "sweep": null,
+    "value": 24
+   },
+   {
+    "name": "graph_sha256",
+    "kind": "DECLARED",
+    "why": "pinned and fail-closed. The artifact this supersedes was stale precisely because it named its input by path",
+    "sweep": null,
+    "value": "1b6c755f4174ca38..."
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 4
+ },
+ "scope": "supersedes M3 of brocot_coherence_model on the pinned current graph; does not re-open M1/M2/M4",
+ "verdict": "RANKING_EFFECT_RESOLVED_MODEL_GAP_IS_DOCUMENTATION_ONLY",
+ "composed": {
+  "label": "RANKING_EFFECT_RESOLVED_MODEL_GAP_IS_DOCUMENTATION_ONLY_AND_BY_mean Jaccard minus 0.50, in 95% half-widths_AT_fixed indices where the mean clears 0.50",
+  "head": "RANKING_EFFECT_RESOLVED_MODEL_GAP_IS_DOCUMENTATION_ONLY",
+  "qualifiers": [
+   "AND_BY_mean Jaccard minus 0.50, in 95% half-widths",
+   "AT_fixed indices where the mean clears 0.50"
+  ],
+  "citation": "RANKING_EFFECT_RESOLVED_MODEL_GAP_IS_DOCUMENTATION_ONLY  [population mean Jaccard 0.5212 vs >=0.5 MET \u2014 \"the two rankings agree on more than half\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('analytic-quantity mismatches vs the banked cell', PREMISE, MET)",
+   "Arm('scored cases', PREMISE, MET)",
+   "Arm('population mean Jaccard', EXISTENCE, MET)",
+   "Arm('mean Jaccard minus 0.50, in 95% half-widths', MECHANISM, MET)",
+   "Arm('fixed indices where the mean clears 0.50', RESOLUTION, MET)"
+  ]
+ }
+}

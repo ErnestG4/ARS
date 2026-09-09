@@ -31,6 +31,13 @@ echo "SEALED GENERATOR: $(git rev-parse --short HEAD)  $GEN"
 echo "-- running --"
 /home/combust/fmexplorer/bin/python3 "$GEN" "$@"
 RC=$?
-echo "CHECKRUN $GEN EXIT=$RC $([ $RC -eq 0 ] && echo PASS || echo FAIL)"
+SEALLINE="CHECKRUN $GEN EXIT=$RC $([ $RC -eq 0 ] && echo PASS || echo FAIL)"
+echo "$SEALLINE"
+# Log it where the commit-msg hook can verify it, exactly as checkrun.sh does.
+# Added 2026-09-09, minutes after the provenance hook went in and immediately
+# REFUSED a legitimate sealgen line: sealgen emits its own machine record, and a
+# guard that trusts only one of two producers turns honest work into a forgery.
+# Found by the guard rejecting honest work, which is the good direction.
+printf '%s\t%s\n' "$(date +%s)" "$SEALLINE" >> "$(dirname "$0")/.checkrun_log"
 echo "Now commit the OUTPUT separately; the graph will show generator-then-result."
 exit $RC
