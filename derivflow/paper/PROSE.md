@@ -244,7 +244,9 @@ exponential at both conditioning times with nearly unchanged rate (τ = 3.07 at 
 F1, χ²/dof 1.2); and the fact that the per-bin fits at k = 2 conditioning are mostly GOOD
 (χ²/dof 0.5–1.2 for the middle quintiles) while the aggregate misfits — the residual
 structure lives in the mixture, not the components. Rates DO order monotonically by
-environment (τ = 3.18 → 0.30 across quintiles); what environment fails to explain is the
+environment (k* = 13.63 → 8.02 across quintiles, strictly monotone; τ = 3.18 → 0.30 is the
+same ordering read off a shape parameter, and is quoted only for continuity with the banked
+per-bin fits — see below); what environment fails to explain is the
 stretch WITHIN each bin. A deterministic,
 exactly-specified interacting system with a proven Lipschitz structure exhibiting measured
 KWW relaxation under a certified error model is, we believe, an unusual specimen for this
@@ -279,6 +281,22 @@ Part III (fluctuations and functional limit theorems) of the Jalowy–Kabluchko�
 program, unposted as of this writing; Part II's catalog of exactly-characterized seed families
 is a ready-made extension of the seed roster for mapping the (τ, β) dependence beyond two
 classes.
+
+**A note on which quantity carries the ordering** (`tau_vs_kstar_census.json`,
+post-hoc, 2026-09-08). The per-bin fits select their functional form independently
+by AICc, so a τ compared across bins is generally compared across *forms* — and
+τ in a stretched exponential is degenerate with its stretch exponent besides.
+Re-reading all five per-bin conditionings at k*, the level crossing that is
+defined identically for every form in the ladder, the environmental ordering is
+**strictly monotone in four of the five**, while the τ readings report it in only
+one. τ misses it for two non-physical reasons: an F1 bin yields no τ at all, so
+the ordering is scored on a missing value; and within a uniformly-F3 cell the
+τ/β degeneracy alone can shuffle a real ordering. The ordering claim in this
+paper is therefore *stronger* than its τ-based statement suggested, and is quoted
+at k* above. No verdict moves: the per-bin ladder's SUPPORTED branch requires
+`n_f2 ≥ 4` **and** monotone τ, and it never fired in any cell. The one genuine
+non-monotonicity is seed-conditioning (k = 0) in its last quintile only
+(k* = 9.280 → 9.337), which the τ reading could not have shown.
 
 ## Appendix A — The measurement chain
 

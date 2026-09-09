@@ -1,0 +1,162 @@
+{
+ "status": "POST-HOC, UNSEALED CENSUS \u2014 a re-reading of banked fits; no flow re-run, no fit refitted, no artifact edited",
+ "kstar_level": 0.01,
+ "scope": "fit_ladder is used in 10 files, all in derivflow. science_dense.py compares shape parameters only within the same-form branch, so the SEALED shape-z is safe by construction; the exposure is the per-bin cells.",
+ "cells": {
+  "step2_K0": {
+   "origin": "step2_env_decomposition.json",
+   "forms": [
+    "F2",
+    "F3",
+    "F3",
+    "F3",
+    "F3"
+   ],
+   "mixed_forms": true,
+   "taus": [
+    3.0704669810102656,
+    1.2871959180126287,
+    1.1242414488474028,
+    1.2441298378057741,
+    1.1452147179129122
+   ],
+   "kstar": [
+    13.413330400717523,
+    10.97736608406547,
+    9.856576236661546,
+    9.280104140851597,
+    9.336551233575765
+   ],
+   "tau_monotone": false,
+   "kstar_monotone": false,
+   "tau_missing": 0
+  },
+  "step2b_iid_K2": {
+   "origin": "step2b_isoconfig.json",
+   "forms": [
+    "F2",
+    "F3",
+    "F3",
+    "F3",
+    "F1"
+   ],
+   "mixed_forms": true,
+   "taus": [
+    3.1844046190529083,
+    1.1494682057300394,
+    0.4592827957731558,
+    0.2965630748683466,
+    null
+   ],
+   "kstar": [
+    13.631123772989989,
+    10.872824442154549,
+    9.490136505714347,
+    8.814596915561888,
+    8.01565068743067
+   ],
+   "tau_monotone": false,
+   "kstar_monotone": true,
+   "tau_missing": 1
+  },
+  "step2b_gue_K2": {
+   "origin": "step2b_isoconfig_gue.json",
+   "forms": [
+    "F2",
+    "F2",
+    "F1",
+    "F1",
+    "F1"
+   ],
+   "mixed_forms": true,
+   "taus": [
+    2.3381133004364894,
+    2.3543548386233706,
+    null,
+    null,
+    null
+   ],
+   "kstar": [
+    7.03931956856448,
+    6.558357622337704,
+    5.903314203432919,
+    5.66511302973869,
+    5.226929085130285
+   ],
+   "tau_monotone": false,
+   "kstar_monotone": true,
+   "tau_missing": 3
+  },
+  "adapted_gue_K1": {
+   "origin": "gue_isoconfig_adapted.json:gue_new",
+   "forms": [
+    "F3",
+    "F3",
+    "F3",
+    "F3",
+    "F3"
+   ],
+   "mixed_forms": false,
+   "taus": [
+    0.5522277290516547,
+    1.1073847891506197,
+    1.2408112656035293,
+    0.9206991759737637,
+    0.745406500630745
+   ],
+   "kstar": [
+    6.753761524766848,
+    6.408976947059794,
+    6.157973360967112,
+    5.830128979888354,
+    5.413910943203154
+   ],
+   "tau_monotone": false,
+   "kstar_monotone": true,
+   "tau_missing": 0
+  },
+  "adapted_iid_K1": {
+   "origin": "gue_isoconfig_adapted.json:iid_new",
+   "forms": [
+    "F3",
+    "F3",
+    "F3",
+    "F3",
+    "F3"
+   ],
+   "mixed_forms": false,
+   "taus": [
+    2.47654140632148,
+    1.3977648323454313,
+    1.1113688172817544,
+    0.8234517392041021,
+    0.050637590829051345
+   ],
+   "kstar": [
+    13.510403783761916,
+    10.92320778233373,
+    9.626241092849973,
+    8.921307609904083,
+    8.302907878577987
+   ],
+   "tau_monotone": true,
+   "kstar_monotone": true,
+   "tau_missing": 0
+  }
+ },
+ "summary": {
+  "n_cells": 5,
+  "n_mixed_forms": 3,
+  "n_kstar_monotone": 4,
+  "n_tau_monotone": 1,
+  "disagreements": [
+   "step2b_iid_K2",
+   "step2b_gue_K2",
+   "adapted_gue_K1"
+  ]
+ },
+ "reading": "k* orders monotonically in 4 of 5 conditionings; tau reports it in 1 of those 4. tau fails for two non-physical reasons: an F1 bin yields no tau (ordering scored False on a missing value), and F3's tau is degenerate with its stretch exponent. The environmental ordering is more robust than the banked tau readings suggest.",
+ "genuine_nonmonotonicity": "step2_K0 only, and only in the last quintile (k* 9.280 -> 9.337). Seed-conditioning breaks the ordering in one extreme bin where both mid-flow conditionings do not.",
+ "verdicts_unaffected": "the per-bin SUPPORTED branch requires n_f2>=4 AND tau_ok and never fired in any cell, so no banked outcome rested on a cross-form tau.",
+ "carry_forward": "compare relaxation timescales at a level crossing, never by a shape parameter, whenever form selection is data-driven"
+}
