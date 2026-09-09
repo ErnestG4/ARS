@@ -1,0 +1,252 @@
+{
+ "sigma_scale": 0.3989422804014327,
+ "margin_db": 0.0,
+ "f0_list": [
+  100.0,
+  200.0,
+  400.0
+ ],
+ "n_components": {
+  "norms": 12,
+  "extended": 60
+ },
+ "resolvability_standard": "ERB(n*f0) < f0 (DECLARED)",
+ "per_f0": {
+  "100.0": {
+   "n_star": 16,
+   "n_std": 6,
+   "ratio": 2.6666666666666665
+  },
+  "200.0": {
+   "n_star": 17,
+   "n_std": 8,
+   "ratio": 2.125
+  },
+  "400.0": {
+   "n_star": 17,
+   "n_std": 8,
+   "ratio": 2.125
+  }
+ },
+ "audible_of_12_norms_stimulus": {
+  "100.0": 12,
+  "200.0": 12,
+  "400.0": 12
+ },
+ "audible_prefix": {
+  "100.0": 16,
+  "200.0": 17,
+  "400.0": 17
+ },
+ "source": {
+  "citation": "Moore, Glasberg & Peters, JASA 80(2), 1986, 479-483",
+  "stimulus": "10 or 12 equal-amplitude components, 60 dB SPL per component, f0 in {100,200,400} Hz, 410 ms, adaptive to d'=1, harmonics 1-6",
+  "scope_sentence": "provided a partial is resolvable, it is heard as separate when it is rejected by a harmonic sieve whose mesh size is a constant percentage of the harmonic frequency",
+  "table_I": {
+   "f0_hz": 200.0,
+   "duration_ms": 410,
+   "any_cue_1985b": {
+    "1": 1.2,
+    "2": 1.3,
+    "3": 1.0,
+    "4": 0.94,
+    "5": 0.89,
+    "6": 0.29
+   },
+   "separate_tone_1986": {
+    "1": 1.7,
+    "2": 1.7,
+    "3": 1.3,
+    "4": 1.8,
+    "5": 2.0,
+    "6": 2.1
+   }
+  },
+  "companion": "Moore, Peters & Glasberg, JASA 77, 1985, 1861-1867 (inharmonicity detection, ~4 Hz at 410 ms)",
+  "verified": "full text fetched and extracted 2026-09-08; Table I and the stimulus line transcribed from the fetched text"
+ },
+ "what_this_does_not_anchor": "the harmonic-sieve stage: this criterion contains no template and cannot produce the 1-3% mistuning thresholds. Anchoring that stage needs a different instrument.",
+ "bars": {
+  "copied-criterion mismatches vs 16 banked FM numbers": {
+   "name": "copied-criterion mismatches vs 16 banked FM numbers",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 16,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "4 masked_horizon ERB-row counts + 12 criterion_scope sigma>=0.4 cells at I=0.9; a count of disagreements, 0 to 16"
+  },
+  "f0 values where the criterion discriminates": {
+   "name": "f0 values where the criterion discriminates",
+   "value": 3,
+   "thresh": 2.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 3 fundamentals; 'some audible and some not'"
+  },
+  "holes in the audible prefix, summed over f0": {
+   "name": "holes in the audible prefix, summed over f0",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 180,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "an audible harmonic above the first masked one, counted over all three complexes"
+  },
+  "f0 values where n* >= n_std (criterion not stricter)": {
+   "name": "f0 values where n* >= n_std (criterion not stricter)",
+   "value": 3,
+   "thresh": 2.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 3 fundamentals"
+  },
+  "max over f0 of n*/n_std": {
+   "name": "max over f0 of n*/n_std",
+   "value": 2.6666666666666665,
+   "thresh": 3.0,
+   "floor": 0.0,
+   "ceiling": 60.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 3.0,
+   "why": "a ratio of harmonic numbers; bounded above by N_EXT/1"
+  }
+ },
+ "instrument": {
+  "model": "Stage A masking criterion on a harmonic complex",
+  "params": [
+   {
+    "name": "sigma_scale",
+    "kind": "DECLARED",
+    "why": "the ERB-matched Gaussian, sigma = ERB/sqrt(2pi): the ERB of a peak-1 Gaussian is its integral, sigma*sqrt(2pi). This is the operating point the operator chose on 2026-09-07 (follow the literature), so the anchor tests the criterion as it is actually used, not a tuned variant",
+    "sweep": null,
+    "value": 0.3989422804014327
+   },
+   {
+    "name": "margin_db",
+    "kind": "DECLARED",
+    "why": "the primary margin throughout the arc; masked_horizon showed the count is stable across a 12 dB swing at this index",
+    "sweep": null,
+    "value": 0.0
+   },
+   {
+    "name": "f0_hz",
+    "kind": "TESTED",
+    "why": "the three fundamentals of the norms' own design; resolvability depends on f0 through ERB growth, so a single f0 would not distinguish a calibration from a coincidence",
+    "sweep": [
+     100.0,
+     200.0,
+     400.0
+    ],
+    "value": null
+   },
+   {
+    "name": "n_components",
+    "kind": "TESTED",
+    "why": "12 is the norms' stimulus and is REPORTED as such; 60 is the extension needed for a crossover to exist at all, since the pre-registered expectation is a crossover above 12",
+    "sweep": [
+     12,
+     60
+    ],
+    "value": null
+   },
+   {
+    "name": "resolvability_standard",
+    "kind": "DECLARED",
+    "why": "DECLARED, not cited: a harmonic is resolved when the auditory filter at its frequency is narrower than the spacing. Arithmetic shown in the report; lands at n_std = 8 for f0 = 200, inside the 8-10 range this literature commonly quotes",
+    "sweep": null,
+    "value": "ERB(n*f0) < f0"
+   },
+   {
+    "name": "equal_amplitude",
+    "kind": "DECLARED",
+    "why": "the norms' stimulus is equal-amplitude components (60 dB SPL each); using anything else would not be their stimulus",
+    "sweep": null,
+    "value": true
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "verdict": "AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY",
+ "composed": {
+  "label": "AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY_AND_BY_holes in the audible prefix, summed over f0_AND_BY_f0 values where n* >= n_std (criterion not stricter)_AT_max over f0 of n*/n_std",
+  "head": "AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY",
+  "qualifiers": [
+   "AND_BY_holes in the audible prefix, summed over f0",
+   "AND_BY_f0 values where n* >= n_std (criterion not stricter)",
+   "AT_max over f0 of n*/n_std"
+  ],
+  "citation": "AUDIBILITY_NULLS_ARE_CONSERVATIVE_AGAINST_PUBLISHED_RESOLVABILITY  [f0 values where the criterion discriminates 3 vs >=2.5 MET \u2014 \"the criterion has a resolvability limit to compare\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('copied-criterion mismatches vs 16 banked FM numbers', PREMISE, MET)",
+   "Arm('f0 values where the criterion discriminates', EXISTENCE, MET)",
+   "Arm('holes in the audible prefix, summed over f0', MECHANISM, MET)",
+   "Arm('f0 values where n* >= n_std (criterion not stricter)', MECHANISM, MET)",
+   "Arm('max over f0 of n*/n_std', RESOLUTION, MET)"
+  ]
+ }
+}
