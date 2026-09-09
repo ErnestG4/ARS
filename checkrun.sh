@@ -24,5 +24,14 @@ fi
 RC=$?                       # captured BEFORE anything else touches $?
 cat "$OUT"; rm -f "$OUT"
 if [ "$RC" -eq 0 ]; then VERDICT=PASS; else VERDICT=FAIL; fi
-echo "CHECKRUN $CHECKER EXIT=$RC $VERDICT"
+LINE="CHECKRUN $CHECKER EXIT=$RC $VERDICT"
+echo "$LINE"
+# ALSO record it where the commit-msg hook can VERIFY it. Added 2026-09-09 after
+# a commit message carried "CHECKRUN verify_all.py EXIT=0 PASS" while the board
+# was red: the line had been TYPED, not pasted, because `checkrun ... | grep ...
+# && git commit` tested grep's status instead of the checker's -- an exit code
+# read through a pipe, the exact defect this script exists to prevent. The hook
+# could not catch it, because it checked that a CHECKRUN line was PRESENT and
+# self-consistent, never that it had actually been produced by a run.
+printf '%s\t%s\n' "$(date +%s)" "$LINE" >> "$(dirname "$0")/.checkrun_log"
 exit "$RC"

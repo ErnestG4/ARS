@@ -83,3 +83,6 @@ bridge/.rquarantine/
 !data/README.md
 cross_substrate/stageb_stimuli/
 cross_substrate/stageb_trials/
+
+# checkrun provenance log — local machine record, never committed
+.checkrun_log

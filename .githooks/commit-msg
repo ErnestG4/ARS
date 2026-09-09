@@ -47,4 +47,41 @@ for n in $NUMS; do
     exit 1
   fi
 done
+# PROVENANCE: every CHECKRUN line must have actually been PRODUCED by a run.
+# Added 2026-09-09. checkrun.sh appends each line it writes to .checkrun_log with
+# a timestamp; a line in a commit message that is not in that log within the
+# window was TYPED rather than pasted -- which is how a false "EXIT=0 PASS" got
+# into a message while the board was red. The hook already checked that a
+# CHECKRUN line was PRESENT and self-consistent; it never checked that a run
+# produced it.
+LOG="$(git rev-parse --show-toplevel)/.checkrun_log"
+WINDOW=${CHECKRUN_WINDOW_SECS:-10800}
+NOW=$(date +%s)
+FAILED=0
+while IFS= read -r line; do
+  [ -z "$line" ] && continue
+  if [ ! -f "$LOG" ]; then
+    echo "commit-msg REFUSED: message carries a CHECKRUN line but no .checkrun_log"
+    echo "  exists, so nothing produced it. Run ./checkrun.sh and paste its output."
+    FAILED=1; break
+  fi
+  HIT=$(grep -F -- "	$line" "$LOG" | tail -1 | cut -f1)
+  if [ -z "$HIT" ]; then
+    echo "commit-msg REFUSED: this CHECKRUN line was never produced by a run --"
+    printf '    %s\n' "$line"
+    echo "  It is not in .checkrun_log. A CHECKRUN line is a MACHINE record;"
+    echo "  typing one by hand is the failure the log exists to make impossible."
+    FAILED=1; break
+  fi
+  AGE=$(( NOW - HIT ))
+  if [ "$AGE" -gt "$WINDOW" ]; then
+    echo "commit-msg REFUSED: this CHECKRUN line is ${AGE}s old (window ${WINDOW}s) --"
+    printf '    %s\n' "$line"
+    echo "  A stale pass is not evidence about the tree you are committing."
+    FAILED=1; break
+  fi
+done <<EOF
+$CHECKRUN
+EOF
+[ "$FAILED" -eq 1 ] && exit 1
 exit 0
