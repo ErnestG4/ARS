@@ -313,6 +313,28 @@ with its path; this roadmap is then complete and archives.
   secondary adjudicates coexistence vs wrong-conditioning-variable rather than waiting for a
   fourth accident.
 
+- **Correlated-error treatment of the shape-z — DONE 2026-09-08**
+  (`zbeta_correlated_error.py/.json`, `verify_zbeta_correlated_error.py`, board row).
+  The repair the item below asks for was built and run: the 16 per-replicate curves were
+  RECOVERED (they were never banked — only means and SEs were) and reproduce the sealed
+  artifact exactly, 0 of 80 numbers mismatched, with the recovered fit parameters equal to
+  the banked `shape_params` to double precision. Findings, in the order they matter:
+  (i) **the decision is invariant** — z(beta) clears the sealed 5-sigma bar under all seven
+  treatments (bootstrap 8.24, GLS shrinkage sweep 9.97–11.12, sealed 9.31, conservative
+  5.84), so beta's margin is not an artifact of the independent-sigma assumption and the
+  "thin margin" worry is retired; (ii) **the diagnosed mechanism is real** — median |r|
+  across fit-window k-pairs is 0.729 (GUE) and 0.875 (iid); (iii) **but the audit's reading
+  of its DIRECTION was backwards for GUE** — correlation TIGHTENS beta there
+  (sigma_boot/sigma_indep = 0.735) because the common mode is degenerate with the amplitude
+  parameter while the shape lives in cross-k differences; (iv) **and the direction is itself
+  seed-dependent**, which the seal did not anticipate: iid LOOSENS (1.363), since its
+  chi2/dof = 3.76 misfit is absorbed as genuine parameter scatter where GUE's 0.0175 is
+  dominated by common-mode cancellation. (v) **C4 MISSED and is kept**: bootstrap and GLS
+  disagree by up to 34.9% against a 25% bar, so this cell licenses a RANGE and not a point
+  value — plausibly the bootstrap's own declared ~18% SE floor at R=16 plus GLS
+  regularisation sensitivity (the GLS sweep trends to the sealed value as shrinkage rises,
+  which is its sanity check passing), but that reading is a diagnosis and is not tested here.
+  ORIGINAL ITEM, kept for provenance:
 - **Correlated-error treatment of the shape-z (backlog, 2026-08-16, from the packaging audit):**
   the conservative convention rescales each covariance by max(1, χ²/dof). On the n = 4096
   primary arm that inflates iid by 3.76 and is **INERT on GUE**, whose χ²/dof = 0.017 — so the

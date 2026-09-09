@@ -69,6 +69,11 @@ PAIRS = [
     ("cross_substrate/brocot_criterion_scope_v2.py",
      "cross_substrate/brocot_criterion_scope_v2.json",
      "v2's corrected premise (regraph-pinned) and inherited bars"),
+    # derivflow correlated-error repair, 2026-09-08. sealgen committed the
+    # generator alone, then it ran for 5477s; the output landed separately.
+    ("derivflow/zbeta_correlated_error.py",
+     "derivflow/zbeta_correlated_error.json",
+     "the replicate-sharing error model and its C2 directional prediction"),
 ]
 
 
