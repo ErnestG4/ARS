@@ -85,6 +85,32 @@ EXPLORATORY STATUS: this probe inherits Step 2b's exploratory, unsealed-science
 grade -- it adjudicates a mechanism question with a pre-committed ladder, and it
 does not touch the sealed RATE-SEED-DEPENDENT verdict, which stands on the sealed
 rule as executed. What is sealed here is THIS cell's own prediction set.
+
+AMENDMENT 1 -- AFTER OUTPUT. C2 MISSED, AND C2'S COMPARISON WAS THE DEFECT.
+
+C2 ratioed "the largest fitted tau" across conditioning times. The slow bin is F2
+at K_COND = 2 and F3 at K_COND = 1 in BOTH classes, so the arm compared tau
+between different functional forms, where F3's tau is degenerate with beta. That
+ratio measures nothing, which is the commensurability rule failing inside a cell
+whose premise arms were built to catch exactly this at the instrument level -- the
+arms guarded the instrument and the comparison walked in through the parameters.
+
+The miss STANDS in the artifact. On the commensurable statistic -- k*, the
+crossing of KSTAR_LEVEL, defined for F1/F2/F3 alike and already this arc's
+scale-law quantity -- the reading REVERSES: iid 13.631 -> 13.510 (ratio 1.009),
+gue 7.039 -> 6.754 (1.042), both stable to within 5% against C2's 1.5 bar, and
+every bin stable, not only the slowest. So C2's SCIENTIFIC claim is supported and
+C2's ARM is not, and the two facts are recorded separately.
+
+Same cause, second place: this cell reports tau_monotone = False for adapted GUE;
+its k* sequence decreases strictly, so GUE does order monotonically by
+environment. Both corrections live in gue_isoconfig_kstar_amendment.py/.json,
+POST-HOC and unsealed by construction, deliberately NOT registered as a seal pair
+because the only label verify_seal_order could give it is DECLARED, and DECLARED
+would overstate a generator written after its subject was read.
+
+CARRY-FORWARD: tau is not a safe cross-fit comparison quantity in this arc.
+Compare relaxation timescales at a level crossing.
 """
 import json
 import os

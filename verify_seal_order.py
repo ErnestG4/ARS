@@ -74,6 +74,14 @@ PAIRS = [
     ("derivflow/zbeta_correlated_error.py",
      "derivflow/zbeta_correlated_error.json",
      "the replicate-sharing error model and its C2 directional prediction"),
+    # GUE-adapted isoconfig probe, 2026-09-08. Generator committed alone (dedc4ba)
+    # while still blind to the zbeta result, then run. Its POST-HOC amendment
+    # (gue_isoconfig_kstar_amendment) is deliberately NOT registered here: the
+    # only label this checker could give it is DECLARED, and DECLARED would
+    # overstate a generator written after its subject had been read.
+    ("derivflow/gue_isoconfig_adapted.py",
+     "derivflow/gue_isoconfig_adapted.json",
+     "the adapted-design mechanism arms and the binding slow-subpopulation secondary"),
 ]
 
 

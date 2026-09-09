@@ -1,0 +1,130 @@
+{
+ "status": "POST-HOC, UNSEALED AMENDMENT to gue_isoconfig_adapted.json",
+ "amends": "C2 (worst-class slow-tau ratio across conditioning times), which MISSED at 1.897 vs 1.5 and remains MISSED in the sealed artifact",
+ "defect": "C2 compared tau across DIFFERENT FUNCTIONAL FORMS -- the slow bin is F2 at K_COND=2 and F3 at K_COND=1 in both classes. tau in F3 is degenerate with beta; a ratio between an F2 tau and an F3 tau is not a measurement.",
+ "commensurable_statistic": "k*, the crossing of 0.01, defined for F1/F2/F3 alike and already the arc's scale-law statistic",
+ "kstar_level": 0.01,
+ "per_bin_kstar": {
+  "gue_K2": [
+   7.03931956856448,
+   6.558357622337704,
+   5.903314203432919,
+   5.66511302973869,
+   5.226929085130285
+  ],
+  "iid_K2": [
+   13.631123772989989,
+   10.872824442154549,
+   9.490136505714347,
+   8.814596915561888,
+   8.01565068743067
+  ],
+  "gue_K1": [
+   6.753761524766848,
+   6.408976947059794,
+   6.157973360967112,
+   5.830128979888354,
+   5.413910943203154
+  ],
+  "iid_K1": [
+   13.510403783761916,
+   10.92320778233373,
+   9.626241092849973,
+   8.921307609904083,
+   8.302907878577987
+  ]
+ },
+ "forms": {
+  "gue_K2": [
+   "F2",
+   "F2",
+   "F1",
+   "F1",
+   "F1"
+  ],
+  "iid_K2": [
+   "F2",
+   "F3",
+   "F3",
+   "F3",
+   "F1"
+  ],
+  "gue_K1": [
+   "F3",
+   "F3",
+   "F3",
+   "F3",
+   "F3"
+  ],
+  "iid_K1": [
+   "F3",
+   "F3",
+   "F3",
+   "F3",
+   "F3"
+  ]
+ },
+ "taus": {
+  "gue_K2": [
+   2.3381133004364894,
+   2.3543548386233706,
+   null,
+   null,
+   null
+  ],
+  "iid_K2": [
+   3.1844046190529083,
+   1.1494682057300394,
+   0.4592827957731558,
+   0.2965630748683466,
+   null
+  ],
+  "gue_K1": [
+   0.5522277290516547,
+   1.1073847891506197,
+   1.2408112656035293,
+   0.9206991759737637,
+   0.745406500630745
+  ],
+  "iid_K1": [
+   2.47654140632148,
+   1.3977648323454313,
+   1.1113688172817544,
+   0.8234517392041021,
+   0.050637590829051345
+  ]
+ },
+ "slowest_bin": {
+  "iid": {
+   "kstar_K2": 13.631123772989989,
+   "kstar_K1": 13.510403783761916,
+   "ratio": 1.0089353354022745
+  },
+  "gue": {
+   "kstar_K2": 7.03931956856448,
+   "kstar_K1": 6.753761524766848,
+   "ratio": 1.042281333557671
+  }
+ },
+ "monotonicity": {
+  "gue_K2": {
+   "kstar_monotone": true,
+   "tau_monotone_reported": null
+  },
+  "iid_K2": {
+   "kstar_monotone": true,
+   "tau_monotone_reported": null
+  },
+  "gue_K1": {
+   "kstar_monotone": true,
+   "tau_monotone_reported": false
+  },
+  "iid_K1": {
+   "kstar_monotone": true,
+   "tau_monotone_reported": true
+  }
+ },
+ "reading": "C2's SCIENTIFIC claim is SUPPORTED on the commensurable measure: both classes stable to within 5% (iid 1.009, gue 1.042) across the third conditioning time, and every bin is stable, not only the slowest. The sealed arm's MISS was an artifact of the comparison design and is retained as a miss.",
+ "second_artifact": "the adapted GUE arm's tau_monotone = False is the same degeneracy: its k* sequence decreases strictly, so GUE DOES order monotonically by environment.",
+ "carry_forward": "tau is not a safe cross-fit comparison quantity in this arc; compare relaxation timescales at a level crossing."
+}

@@ -302,6 +302,32 @@ with its path; this roadmap is then complete and archives.
   incl. Hermite/Laguerre/Jacobi) — the ready-made third and fourth seed classes if the
   (τ, β) parameter-dependence question graduates from two-point comparison to a
   parameter-surface measurement.
+- **GUE-adapted isoconfigurational probe — DONE 2026-09-08**
+  (`gue_isoconfig_adapted.py/.json`, amendment `gue_isoconfig_kstar_amendment.py/.json`,
+  `verify_gue_isoconfig.py`, board row). Verdict
+  **STRETCH_MECHANISM_IS_NOT_SEED_DEPENDENT.** The adaptation worked as designed:
+  smallest GUE per-bin window 3 -> 10, so the question became askable. Under the
+  IDENTICAL adapted design both classes read NOT_SUPPORTED with **5/5 bins selecting
+  F3 with beta < 0.9** — iid 5/5 is the control, so the result is not an artifact of
+  the redesign. **What is seed-dependent is the parameters, not the mechanism**;
+  conditioning fails to decompose the stretch in either seed class, at a third
+  conditioning time. The pre-committed GUE texture appeared: its bins span only 2.2x
+  in tau against iid's 49x, yet every one is stretched at beta 0.62-0.78 — stretch
+  with almost nothing left to average over, which the 08-14 note named in advance as
+  the cleanest intrinsic-nonexponentiality datum available.
+  **THE BINDING SECONDARY, and my own defect in it.** C2 MISSED (1.897 vs 1.5) and is
+  kept missed, but the arm compared tau across DIFFERENT FORMS — the slow bin is F2 at
+  K_COND=2 and F3 at K_COND=1 in both classes, and F3's tau is degenerate with beta.
+  On k* (level crossing, form-independent, already this arc's scale-law statistic) the
+  reading REVERSES: iid 13.631 -> 13.510 (1.009), gue 7.039 -> 6.754 (1.042), both
+  stable to within 5%, every bin stable rather than only the slowest. So the slow
+  subpopulation DOES keep its timescale across a third conditioning time — the
+  scientific claim is supported, the arm is not, and the two are recorded separately.
+  Same cause found in a second place: the artifact's tau_monotone = False for adapted
+  GUE is a degeneracy artifact; k* decreases strictly, so GUE does order monotonically
+  by environment. **CARRY-FORWARD: tau is not a safe cross-fit comparison quantity in
+  this arc — compare relaxation timescales at a level crossing.**
+  ORIGINAL ITEM, kept for provenance:
 - **GUE-adapted isoconfigurational probe (backlog, 2026-08-14):** the 2b GUE arm was
   underpowered (findings §14 addendum — 3–4-point windows, F3 unassessable); the adapted design
   is K_COND = 1 with k-grid from 2. Whether GUE's stretch decomposes under conditioning —
