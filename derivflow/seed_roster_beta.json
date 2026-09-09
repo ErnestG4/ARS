@@ -1,0 +1,329 @@
+{
+ "n": 4096,
+ "replicates": 16,
+ "betas": [
+  1.0,
+  2.0,
+  4.0
+ ],
+ "k_grid": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  24,
+  32,
+  48,
+  64
+ ],
+ "roster_seed": 20260908,
+ "p1_mismatches": 0,
+ "seed_law_ks": {
+  "1.0v2.0": 0.001220703125,
+  "1.0v4.0": 0.0009765625,
+  "2.0v4.0": 0.000732421875
+ },
+ "arms": {
+  "1.0": {
+   "selected": "F3",
+   "fit_window_k": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "params": [
+    -0.22632623911069424,
+    0.9732433772936836,
+    0.7172155947262484
+   ],
+   "kstar": 6.922321620475012,
+   "kstar_err": 0.007274993391862101,
+   "tau": 0.9732433772936836,
+   "beta_stretch": 0.7172155947262484,
+   "chi2": 0.8337811779787131,
+   "dof": 9
+  },
+  "2.0": {
+   "selected": "F3",
+   "fit_window_k": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "params": [
+    -0.3052876576845517,
+    0.8883697803341085,
+    0.7029521914531325
+   ],
+   "kstar": 6.162786595147035,
+   "kstar_err": 0.009453217242840638,
+   "tau": 0.8883697803341085,
+   "beta_stretch": 0.7029521914531325,
+   "chi2": 0.13963925374784789,
+   "dof": 8
+  },
+  "4.0": {
+   "selected": "F3",
+   "fit_window_k": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "params": [
+    -0.38836845482094634,
+    0.8030685244933138,
+    0.6836947215328288
+   ],
+   "kstar": 5.466376951770707,
+   "kstar_err": 0.009344606139959034,
+   "tau": 0.8030685244933138,
+   "beta_stretch": 0.6836947215328288,
+   "chi2": 0.4222193475455623,
+   "dof": 8
+  }
+ },
+ "banked_reference": {
+  "iid": {
+   "kstar": 10.88906683260332,
+   "err": 0.030462635711202578,
+   "form": "F3"
+  },
+  "gue": {
+   "kstar": 6.162786595114327,
+   "err": 0.00923404087032987,
+   "form": "F3"
+  }
+ },
+ "kstar_by_beta": {
+  "1.0": {
+   "kstar": 6.922321620475012,
+   "err": 0.007274993391862101
+  },
+  "2.0": {
+   "kstar": 6.162786595147035,
+   "err": 0.009453217242840638
+  },
+  "4.0": {
+   "kstar": 5.466376951770707,
+   "err": 0.009344606139959034
+  }
+ },
+ "bars": {
+  "beta=2 mismatches vs the 40 banked GUE numbers": {
+   "name": "beta=2 mismatches vs the 40 banked GUE numbers",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 40,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "20 k-points x {mean, sigma_mean} at n=4096; a count of disagreements at 1e-12 relative, 0 to 40"
+  },
+  "max pairwise seed-law KS across beta": {
+   "name": "max pairwise seed-law KS across beta",
+   "value": 0.001220703125,
+   "thresh": 0.05,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.05,
+   "why": "a two-sample KS statistic lies in [0,1]; a same-law KS at n=4096 sits near 0.03, so 0.05 admits sampling noise and excludes a real difference in the global law"
+  },
+  "beta arms selecting F3": {
+   "name": "beta arms selecting F3",
+   "value": 3,
+   "thresh": 2.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 3 beta-ensembles"
+  },
+  "adjacent k* inversions across increasing beta": {
+   "name": "adjacent k* inversions across increasing beta",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 2,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "2 adjacent pairs over the 3 ensembles"
+  },
+  "|k*(beta=1) - k*(beta=4)| in combined sigma": {
+   "name": "|k*(beta=1) - k*(beta=4)| in combined sigma",
+   "value": 122.94129458559317,
+   "thresh": 3.0,
+   "floor": 0.0,
+   "ceiling": 1000.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 997.0,
+   "why": "a separation in units of the combined MVN k* error; non-negative, 1000 a stated practical ceiling"
+  }
+ },
+ "instrument": {
+  "model": "beta-Hermite seed roster (Dumitriu-Edelman tridiagonal)",
+  "params": [
+   {
+    "name": "beta_ensemble",
+    "kind": "TESTED",
+    "why": "the repulsion exponent in |x_i - x_j|^beta. THE axis of this cell: it varies local statistics while leaving the semicircle global law unchanged, which P2 verifies rather than assumes",
+    "sweep": [
+     1.0,
+     2.0,
+     4.0
+    ],
+    "value": null
+   },
+   {
+    "name": "n",
+    "kind": "DECLARED",
+    "why": "the adjudicated size of the arc; P1 compares against the banked n=4096 arm",
+    "sweep": null,
+    "value": 4096
+   },
+   {
+    "name": "replicates",
+    "kind": "DECLARED",
+    "why": "the seal's own ensemble size, so per-k sigma_mean is computed the same way as in the banked artifact",
+    "sweep": null,
+    "value": 16
+   },
+   {
+    "name": "k_grid",
+    "kind": "DECLARED",
+    "why": "the v1.6 dense grid verbatim; any other grid would make P1 incomparable to the banked numbers",
+    "sweep": null,
+    "value": "dense {1..16} u {24,32,48,64}"
+   },
+   {
+    "name": "seed_streams",
+    "kind": "DECLARED",
+    "why": "beta=2 must REPRODUCE, so it takes the seal's own stream; the new arms take an independent stream because they are new draws and reusing a stream across ensembles would correlate them",
+    "sweep": null,
+    "value": "beta=2 reuses the science seal's children 80-95; beta=1 and 4 from SeedSequence(20260908)"
+   },
+   {
+    "name": "comparison_statistic",
+    "kind": "DECLARED",
+    "why": "tau in F3 is degenerate with the stretch exponent and is not commensurable across fits that may select different forms (gue_isoconfig_kstar_amendment, 2026-09-08). Every cross-seed comparison here is at k*",
+    "sweep": null,
+    "value": "k* (level crossing)"
+   }
+  ],
+  "n_tested": 1,
+  "n_declared": 5
+ },
+ "scope": "exploratory, unsealed science. Does not touch the sealed RATE-SEED-DEPENDENT verdict. Global law held fixed BY CONSTRUCTION and verified by P2, so k* differences are attributable to local repulsion.",
+ "verdict": "RELAXATION_SCALE_ORDERS_WITH_SEED_REPULSION",
+ "composed": {
+  "label": "RELAXATION_SCALE_ORDERS_WITH_SEED_REPULSION_AND_BY_adjacent k* inversions across increasing beta_AT_|k*(beta=1) - k*(beta=4)| in combined sigma",
+  "head": "RELAXATION_SCALE_ORDERS_WITH_SEED_REPULSION",
+  "qualifiers": [
+   "AND_BY_adjacent k* inversions across increasing beta",
+   "AT_|k*(beta=1) - k*(beta=4)| in combined sigma"
+  ],
+  "citation": "RELAXATION_SCALE_ORDERS_WITH_SEED_REPULSION  [beta arms selecting F3 3 vs >=2.5 MET \u2014 \"the stretched form is not special to beta=2\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('beta=2 mismatches vs the 40 banked GUE numbers', PREMISE, MET)",
+   "Arm('max pairwise seed-law KS across beta', PREMISE, MET)",
+   "Arm('beta arms selecting F3', EXISTENCE, MET)",
+   "Arm('adjacent k* inversions across increasing beta', MECHANISM, MET)",
+   "Arm('|k*(beta=1) - k*(beta=4)| in combined sigma', RESOLUTION, MET)"
+  ]
+ },
+ "runtime_s": 7025.9
+}
