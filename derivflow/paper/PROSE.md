@@ -279,8 +279,37 @@ Hall–Ho, Lett. Math. Phys. 115 (2025)) are both active; neither touches real-r
 local statistics. The nearest theorem-shaped object to our σ-resolved curves is the announced
 Part III (fluctuations and functional limit theorems) of the Jalowy–Kabluchko–Marynych
 program, unposted as of this writing; Part II's catalog of exactly-characterized seed families
-is a ready-made extension of the seed roster for mapping the (τ, β) dependence beyond two
+was the natural extension of the seed roster for mapping the (τ, β) dependence beyond two
 classes.
+
+**That extension has since been run, on a different roster and with a sharper design**
+(`seed_roster_beta`, 2026-09-09, exploratory and unsealed; it does not touch the sealed
+verdict). The JKM families are catalogued by their *global* shape, and varying global
+shape would confound the two scales this paper separates — so the roster used instead is
+the β-Hermite ensembles, for which every member shares the **same semicircle global law**
+while β is precisely the repulsion exponent. The design is therefore matched by
+construction: local statistics vary, the global measure does not (verified — max pairwise
+seed-law KS 0.0012). Since the GUE seed used throughout this paper is already the
+Dumitriu–Edelman β = 2 tridiagonal, the family generalises by one parameter and β = 2
+reproduces the banked GUE arm to all 40 numbers, making the existing science run the
+extension's premise rather than a neighbouring result. The outcome is that **the (τ, β)
+seed-dependence is a surface, and local repulsion is its coordinate**:
+
+| β | k* | τ | stretch exponent |
+|---|---|---|---|
+| 1 | 6.9223 | 0.9732 | 0.7172 |
+| 2 | 6.1628 | 0.8884 | 0.7030 |
+| 4 | 5.4664 | 0.8031 | 0.6837 |
+
+k* decreases strictly with repulsion (ends separated by 122.9 combined σ), and τ and the
+stretch exponent order with it. The iid seed continues the trend in every coordinate
+(k* = 10.889, τ = 1.734, stretch = 0.788) but carries a *different* global law, so it is
+an unmatched reference rather than a fourth point on the surface. Two consequences for
+this paper's claims: the stretched form is not a property of the GUE seed — every member
+of the roster selects F3 — and the seed-dependence reported in §"Rate" is not a two-point
+accident but a monotone function of a named physical parameter. What the roster does not
+supply is a mechanism for the *stretch itself*, which remains what nothing on offer
+predicts.
 
 **A note on which quantity carries the ordering** (`tau_vs_kstar_census.json`,
 post-hoc, 2026-09-08). The per-bin fits select their functional form independently
