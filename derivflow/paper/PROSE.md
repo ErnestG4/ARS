@@ -276,11 +276,22 @@ read at abstract-and-structure depth, which is sufficient to place a regime and 
 the depth reached. The complex/rotationally-invariant flow (Galligo–Najnudel–Vu; Najnudel–Vu)
 and the heat flow (Hall–Ho–Jalowy–Kabluchko, Indiana Univ. Math. J. 74 (2025); EJP 30 (2025);
 Hall–Ho, Lett. Math. Phys. 115 (2025)) are both active; neither touches real-rooted fixed-k
-local statistics. The nearest theorem-shaped object to our σ-resolved curves is the announced
-Part III (fluctuations and functional limit theorems) of the Jalowy–Kabluchko–Marynych
-program, unposted as of this writing; Part II's catalog of exactly-characterized seed families
-was the natural extension of the seed roster for mapping the (τ, β) dependence beyond two
-classes.
+local statistics. Two further rate-shaped results sit adjacent and neither reaches this
+regime. Kiselev–Tan (arXiv:2012.09080) rigorously connect root evolution to Steinerberger's
+PDE for a class of *trigonometric* polynomials in the periodic setting and obtain
+**exponential** convergence to uniform density — but in t = k/n, the proportional regime,
+and for the *density*, a global object; the contrast with a stretched exponential in fixed k
+for a *local* statistic is the whole distance between their setting and ours. And the
+announced Part III of the Jalowy–Kabluchko–Marynych program is **still unposted** as of the
+submission-day re-sweep (Part I, arXiv:2504.11593, April 2025; Part II, arXiv:2509.11248,
+September 2025). Part I describes Part III as establishing functional limit theorems for the
+random *profiles* of random polynomials, relating profile fluctuations to **the rate of
+convergence of the empirical zero distribution** — so when it lands it will sharpen a global
+object, not a local one. An earlier draft of this paragraph called it "the nearest
+theorem-shaped object to our σ-resolved curves"; on the series' own description that
+overstates it, and the sentence is corrected rather than left standing. Part II's catalog of
+exactly-characterized seed families was the natural extension of the seed roster for mapping
+the (τ, β) dependence beyond two classes.
 
 **That extension has since been run, on a different roster and with a sharper design**
 (`seed_roster_beta`, 2026-09-09, exploratory and unsealed; it does not touch the sealed
