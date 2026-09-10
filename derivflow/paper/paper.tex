@@ -55,9 +55,9 @@ measured $16\times$ range in $n$: a sealed two-hypothesis discrimination at $n=1
 \verdict{scale-flat}, excluding proportional-logarithmic growth at ${\sim}10\seff$. The
 stretch itself arrives with its most natural explanation already eliminated --- conditioning
 on initial gap environment fails to decompose it, under blind-committed binning rules, and
-rigid, homogeneous GUE seeds stretch too --- placing the mechanism question in the Kohlrausch
-stretched-exponential literature's own terms, with one of its standard moves already
-performed. Verdict grade: \verdict{sealed-procedure, disclosed-prior-look}. The full
+rigid, homogeneous GUE seeds stretch too. The stretched form is
+reported as a measured functional form of this system; no claim is made that it is evidence
+about relaxation in any physical system. Verdict grade: \verdict{sealed-procedure, disclosed-prior-look}. The full
 measurement chain --- including an instrument artifact found by the protocol's own regression
 step, cured under pre-committed amendment rules, and a verdict honestly downgraded and then
 resolved at higher resolution --- is auditable commit by commit in the public repository.
@@ -301,27 +301,27 @@ $k=o(n)$ while local spacing crystallizes by $k\approx10$ beneath it.}
 \label{fig:twoscale}
 \end{figure}
 
-\paragraph{The stretch.} The relaxation form is Kohlrausch--Williams--Watts, and the origin of
-KWW stretching is a fifty-year question in the glass literature, standardly framed as a
-dichotomy (Ediger, \emph{Annu.\ Rev.\ Phys.\ Chem.}\ \textbf{51} (2000) 99; Richert,
-\emph{J.\ Phys.: Condens.\ Matter} \textbf{14} (2002) R703; Sillescu, \emph{J.\ Non-Cryst.\
-Solids} \textbf{243} (1999) 81): dynamical heterogeneity --- $\beta<1$ as an average over
-spatially varying exponential rates --- versus intrinsically nonexponential local dynamics. Our
-measurements contribute a datum from a system with none of glass physics' confounds. The
-initial-configuration version of the heterogeneous scenario is falsified here under
-blind-committed rules: binning roots by seed gap environment leaves 4 of 5 quintiles stretched,
-and the rigid, homogeneous GUE seed stretches too --- so the stretching is not
-quenched-disorder-carried.
+\paragraph{The stretch.} The selected form, $\exp(-(k/\tau)^{\beta})$ with $\beta<1$, is the
+function known as the stretched exponential, or Kohlrausch--Williams--Watts. We use that name
+for the function and intend no claim beyond it. This paper does not assert that the derivative
+flow is a model of, an analogue of, or evidence about any physical relaxation process, and
+nothing below should be read as such a claim; the measurements are of this system only.
 
-In the field's terms, what remains is dynamically generated heterogeneity or intrinsic
-nonexponentiality, and the field's own instrument for separating them --- the
-isoconfigurational ensemble (Widmer-Cooper--Harrowell--Fynewever, \emph{PRL} \textbf{93} (2004)
-135701; applied to KWW origins in arXiv:2011.00579) --- is structurally the experiment this
-harness performs, with one precision owed: in molecular dynamics the resampled quantity is
-momenta, bona fide dynamical degrees of freedom; the derivative flow is deterministic and has no
-momentum-like variable, so our ensemble resamples seed-adjacent perturbation at fixed
-conditioning. The structural match --- condition on configuration, ensemble over realization ---
-is claimed with that limit conceded.
+What we can state about $\beta<1$ here is a negative, and it is measured rather than argued. The
+most immediate account of a stretched relaxation is a mixture: a distribution of local rates
+carried by the initial configuration, whose superposition is stretched even though each
+component is not. In this system that account fails. Binning roots by their seed gap environment
+under rules committed before the data were seen leaves 4 of 5 quintiles stretched; re-binning
+mid-flow, on the environment at $k=2$ rather than $k=0$, leaves 3 of 5
+($\beta=0.70/0.55/0.49$); and the GUE seed, which is rigid and homogeneous, stretches as much as
+the disordered one.\footnote{A later probe (2026-09-08) rebuilt the GUE arm of this experiment,
+whose original design left F3 unassessable in most bins (3--4 point windows). Under an adapted
+design run identically on both classes, \emph{both} read \verdict{not\_supported} at 5 of 5
+bins: what is seed-dependent is the parameters, not the mechanism.} Neither the initial nor the
+instantaneous local gap environment carries the rate distribution. The design is of a familiar
+shape --- condition on configuration, then ensemble over realization --- though with a
+difference worth stating: the flow is deterministic and has no momentum-like variable, so the
+ensemble resamples seed-adjacent perturbation at fixed conditioning rather than velocities.
 
 \begin{figure}[t]
 \centering
@@ -331,30 +331,20 @@ the residual structure lives in the mixture, not the components.}
 \label{fig:bins}
 \end{figure}
 
-We performed that probe: re-conditioning mid-flow (bin on environment at $k=2$ rather than
-$k=0$, rules pinned blind) \emph{also} fails to decompose the stretch --- 3 of 5 quintiles remain
-stretched ($\beta=0.70/0.55/0.49$). Neither the initial nor the instantaneous configuration's
-local gap environment carries the rate distribution: within the dichotomy's terms, and under the
-pinned caveat that the environment variable may be too crude, the evidence now leans toward
-intrinsic local nonexponentiality.\footnote{A later probe (2026-09-08) rebuilt the GUE arm of
-this experiment, whose original design left $F3$ unassessable in most bins (3--4 point windows).
-Under an adapted design run identically on both classes, \emph{both} read
-\verdict{not\_supported} at 5 of 5 bins: what is seed-dependent is the parameters, not the
-mechanism.}
+Three textures constrain any candidate mechanism, and we report them without proposing one. A
+stable slow subpopulation: the largest-gap quintile selects a pure exponential at both
+conditioning times with nearly unchanged rate ($\tau=3.07$ at $k=0$, $3.18$ at $k=2$). An
+emergent fast power-law component: the smallest-gap quintile at $k=2$ selects F1,
+$\chi^2/\mathrm{dof}=1.2$. And a mixture effect: the per-bin fits at $k=2$ conditioning are
+mostly good ($\chi^2/\mathrm{dof}=0.5$--$1.2$ for the middle quintiles) while the aggregate
+misfits, so the residual structure lives in the mixture rather than in the components. Rates do
+order monotonically by environment ($\kstar=13.63\to8.02$ across quintiles, strictly monotone;
+$\tau=3.18\to0.30$ is the same ordering read off a shape parameter, and is quoted only for
+continuity with the banked per-bin fits --- see \S\ref{sec:ordering}); what environment fails to
+account for is the stretch \emph{within} each bin.
 
-Three textures constrain any candidate mechanism: a stable slow subpopulation --- the
-largest-gap quintile selects a pure exponential at both conditioning times with nearly unchanged
-rate ($\tau=3.07$ at $k=0$, $3.18$ at $k=2$); an emergent fast power-law tail (the smallest-gap
-quintile at $k=2$ selects F1, $\chi^2/\mathrm{dof}=1.2$); and the fact that the per-bin fits at
-$k=2$ conditioning are mostly good ($\chi^2/\mathrm{dof}=0.5$--$1.2$ for the middle quintiles)
-while the aggregate misfits --- the residual structure lives in the mixture, not the components.
-Rates \emph{do} order monotonically by environment ($\kstar=13.63\to8.02$ across quintiles,
-strictly monotone; $\tau=3.18\to0.30$ is the same ordering read off a shape parameter, and is
-quoted only for continuity with the banked per-bin fits --- see \S\ref{sec:ordering}); what
-environment fails to explain is the stretch \emph{within} each bin. A deterministic,
-exactly-specified interacting system with a proven Lipschitz structure exhibiting measured KWW
-relaxation under a certified error model is, we believe, an unusual specimen for this literature:
-simpler than any glass-former, richer than any solvable toy.
+We have no mechanism for $\beta<1$ in this system. That is the paper's open question, and we
+state it as open rather than assigning it to any existing account.
 
 \subsection*{Adjacent tracks}
 

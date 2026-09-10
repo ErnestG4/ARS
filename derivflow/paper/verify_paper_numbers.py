@@ -15,8 +15,9 @@ What it protects, in order:
      zbeta_correlated_error.json at check time rather than allowlisted as
      strings, so editing the artifact breaks this row.
   2. NO DROPPED NUMBER.  Every numeral in PROSE.md must appear in paper.tex,
-     except draft-management tokens listed with a reason below.  This is the
-     arm that catches a paragraph lost in conversion.
+     except tokens listed with a reason below -- draft management, and the
+     citations dropped when section 5 was de-linked from the glass literature.
+     This is the arm that catches a paragraph lost in conversion.
   3. STRUCTURE.  Every PROSE section heading has a sectioning command in the
      .tex, and every \\includegraphics target exists on disk.
 
@@ -85,11 +86,31 @@ if c4["met"]:
     bad.append("C4 now reads MET; the .tex footnote says the stability bar was "
                "MISSED, so one of the two is wrong")
 
-# --- draft-management tokens PROSE carries and the paper should not ----------
+# --- numerals PROSE carries that the paper deliberately does not --------------
+# Two classes, each entry named with its reason.  This list is the ONLY way a
+# numeral may go missing, so adding to it is a deliberate, reviewable act; a
+# conversion that silently dropped a paragraph would still fail the row.
 DRAFT_ONLY = {
     "1.0": "the prose draft's own version marker (v1.0)",
     "19": "the draft header's target submission date, 2026-08-19, now past",
 }
+# 2026-09-09, on Will's instruction to "back off of any claims of linkage and
+# only point out facts": section 5 no longer places this system's stretched
+# exponential inside the glass-relaxation literature's open question, so the
+# bibliographic numerals of the works cited ONLY to make that linkage are gone
+# with it.  The measurements they sat beside are all still in the paper -- what
+# was removed is the claim of kinship, not a result.
+DELINKED = {
+    "51": "Ediger, Annu. Rev. Phys. Chem. 51", "2000": "Ediger, year",
+    "99": "Ediger, page", "14": "Richert, J. Phys. Condens. Matter 14",
+    "2002": "Richert, year", "703": "Richert, page R703",
+    "243": "Sillescu, J. Non-Cryst. Solids 243", "1999": "Sillescu, year",
+    "81": "Sillescu, page", "93": "Widmer-Cooper et al., PRL 93",
+    "2004": "Widmer-Cooper et al., year",
+    "135701": "Widmer-Cooper et al., article number",
+    "2011.00579": "arXiv preprint on KWW origins",
+}
+EXCLUDED = {**DRAFT_ONLY, **DELINKED}
 
 tex_nums = numerals(tex_body)
 src_nums = numerals(prose) | numerals(note)
@@ -99,13 +120,13 @@ if invented:
     bad.append("numerals in paper.tex with no source and no derivation: "
                + ", ".join(invented))
 
-dropped = sorted(numerals(prose) - tex_nums - set(DRAFT_ONLY),
+dropped = sorted(numerals(prose) - tex_nums - set(EXCLUDED),
                  key=lambda s: (len(s), s))
 if dropped:
     bad.append("numerals in PROSE.md missing from paper.tex: "
                + ", ".join(dropped))
 
-for tok, why in DRAFT_ONLY.items():
+for tok, why in EXCLUDED.items():
     if tok in tex_nums:
         bad.append(f"{tok!r} is in paper.tex but was excluded as {why}")
 
