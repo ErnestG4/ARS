@@ -152,3 +152,85 @@ Appendix A of the paper and it is the paper's strongest section. This would be i
 - Per-replicate curves are now banked for the roster (`roster_stretch_error.json`); the dense-grid
   science still banks only stats(), so any per-replicate work at Stage 3 costs a re-run. Bank them
   this time.
+
+---
+
+# AMENDMENT 1 — 2026-09-11. What the first three stages found, and why Stage 2 changed.
+
+Appended rather than edited in. The predictions above stay visible because half of
+them were wrong, and which half is the useful part.
+
+## Status
+
+| stage | state | outcome |
+|---|---|---|
+| 0 — the missing gate | **DONE** `2110f9b` | Gate D built, red-pathed, on the board as `verify_knownanswer` |
+| 1 — bias surface | **DONE** `89354ae` | `NO_RESOLVABLE_BANDWIDTH_BIAS_AT_THE_SCIENCES_OPERATING_POINT` |
+| 2a — section sweep | **DONE** `3be4d7e` | `FLATNESS_IS_AN_ARTIFACT_OF_THE_CENTRAL_WINDOW` |
+| 2b — finite reference | **RUNNING** `b8789f3` | — |
+| 2 — choose an operating point | **OBSOLETE** | see below |
+| 3 — what moves | **BLOCKED** on 2b | re-pointed, see below |
+| 4 — the decision | unchanged | Will's |
+
+`verify_recert` (`b93df29`) holds the series on the board: resolutions re-derive
+from `knownanswer`, headline bars re-derive from their own surfaces, and the two
+cells are checked against each other ACROSS artifacts.
+
+## What was found
+
+**The bandwidth is not the defect.** Against a known answer on a disordered
+configuration, the Richardson readout is biased +0.73%, identical at every
+eps/Delta from 0.125 to 4.5. The raw and Richardson arms agree to every printed
+digit -- there is no O(eps^2) bias here for Richardson to correct. The science's
+whole operating span, 0.704 to 4.031, sits inside that.
+
+**But only at the centre.** Sectioning (Will's proposal) found the bias varies by
+21.8% across (position, size) cells. The inner two-thirds read true at every
+window size; past |pos| ~ 0.70 of the half-support it degrades, reaching +20.2%
+at 0.95. Stage 1's single central window could not have seen it.
+
+**Which quantifies EDGE-0.** The paper ARGUES the edge is unreadable because
+unfolding against a moving support endpoint does not define a local coordinate.
+Stage 2a MEASURES where: the boundary is near |pos| = 0.70, not at the edge. The
+science's own window (BULK_FRACTION = 0.20, centred) lies entirely inside the
+clean region -- so this scopes the instrument without indicting banked numbers.
+
+## Why Stage 2 as written is obsolete
+
+Stage 2 said: "pick the bandwidth rule from the measured valid region." There is
+nothing to pick. The surface is flat across the whole swept range at the centre,
+so no bandwidth choice trades against another, and the valid region contains the
+science's entire span. A stage whose job is to optimise a flat function has no
+job. It is retired rather than quietly skipped.
+
+## Stage 3, re-pointed
+
+Stage 3 was written as "recompute the science and report a diff", on the
+assumption that Stage 2 would change the operating point. It will not. So Stage 3
+now depends entirely on 2b:
+
+- **If 2b MEETS** (`THE_FINITE_REFERENCE_CARRIES_THE_COST`): the mechanism is
+  reference accuracy, not smoothing. Stage 3 is then *fix the reference*, not
+  *recompute the windows* -- and the fix is a different piece of engineering
+  (more seed points, or a smoothed/analytic reference where one is available)
+  whose cost must be scoped before anything is re-run.
+- **If 2b MISSES** (`THE_FINITE_REFERENCE_IS_INNOCENT_TOO`): the audit's
+  17%-271% has no remaining candidate in this family, and the honest next move
+  is to reproduce the audit's own measurement directly on flowed configurations
+  rather than on Gate D. That is a different cell again, and it should be sealed
+  before it is run, not after the answer is known.
+
+Either way, **the original Stage 3 question is unchanged and still the only one
+that matters**: the sealed verdict is that the seed classes DIFFER, and their fit
+windows differ by class (16 points vs 11) because of a bias that is itself
+class-dependent. Nothing found so far touches that. It is not yet answered.
+
+## One standing rule added, from five instances in three days
+
+**Cross-cell values are READ from the artifact, never typed.** Stage 2a typed its
+Stage-1 reference as `0.007265` and so carries four significant figures with no
+source; `verify_recert` prints that on every board run rather than hiding it
+behind a loosened tolerance. Same shape as `knownanswer._REL_SD_PER_ROOT_GAP`
+(typed 0.0654, measured 0.905, wrong by 14x in the direction that OVERSTATES
+sensitivity) and the hardcoded grid indices in Stages 1 and 2b. Every one was
+caught by a guard rather than by reading the code.
