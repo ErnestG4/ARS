@@ -1,0 +1,671 @@
+{
+ "n": 4096,
+ "k_test": [
+  8,
+  64
+ ],
+ "reps": 16,
+ "eps_grid": [
+  0.125,
+  0.25,
+  0.5,
+  0.704,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  4.0,
+  4.5
+ ],
+ "eta_grid": [
+  1e-05,
+  0.0001,
+  0.001,
+  0.1
+ ],
+ "eta_primary": 0.0001,
+ "gate_resolution": 0.039577427676868386,
+ "bias": {
+  "k8_eta1e-05": {
+   "raw@0.125": 0.0008261980491217624,
+   "rich@0.125": 0.0008281417556490478,
+   "raw@0.25": 0.0008243219027428417,
+   "rich@0.25": 0.0008281420354483426,
+   "raw@0.5": 0.0008205697262093636,
+   "rich@0.5": 0.0008281389545816698,
+   "raw@0.704": 0.0008175357230808533,
+   "rich@0.704": 0.0008281360403645799,
+   "raw@1.0": 0.0008133097959497348,
+   "rich@1.0": 0.0008281291880496422,
+   "raw@1.5": 0.0008063778746874029,
+   "rich@1.5": 0.0008281130623872812,
+   "raw@2.0": 0.000799515446340715,
+   "rich@2.0": 0.0008280889498391009,
+   "raw@3.0": 0.0007867241629881949,
+   "rich@3.0": 0.0008280207329312006,
+   "raw@4.0": 0.0007754146941350015,
+   "rich@4.0": 0.0008279250311251651,
+   "raw@4.5": 0.000770546144937656,
+   "rich@4.5": 0.000827866758467799
+  },
+  "k8_eta1e-04": {
+   "raw@0.125": 0.0008735459820616853,
+   "rich@0.125": 0.0008735084417312855,
+   "raw@0.25": 0.0008735834675392962,
+   "rich@0.25": 0.0008735084317077479,
+   "raw@0.5": 0.0008736584796955604,
+   "rich@0.5": 0.0008735085824917999,
+   "raw@0.704": 0.0008737196607280229,
+   "rich@0.704": 0.000873508564227965,
+   "raw@1.0": 0.0008738084126274082,
+   "rich@1.0": 0.0008735087441604783,
+   "raw@1.5": 0.0008739582313643801,
+   "rich@1.5": 0.0008735089701521481,
+   "raw@2.0": 0.0008741080334977447,
+   "rich@2.0": 0.0008735093389953263,
+   "raw@3.0": 0.0008744320422264806,
+   "rich@3.0": 0.000873510565684521,
+   "raw@4.0": 0.000874769380530882,
+   "rich@4.0": 0.0008735125330117111,
+   "raw@4.5": 0.0008749378179724321,
+   "rich@4.5": 0.0008735134822999147
+  },
+  "k8_eta1e-03": {
+   "raw@0.125": 0.002552822496714402,
+   "rich@0.125": 0.0025528353764898704,
+   "raw@0.25": 0.002552809608354245,
+   "rich@0.25": 0.0025528353627459754,
+   "raw@0.5": 0.0025527838563852434,
+   "rich@0.5": 0.0025528353492909606,
+   "raw@0.704": 0.002552762845249301,
+   "rich@0.704": 0.0025528353378467816,
+   "raw@1.0": 0.0025527323642422495,
+   "rich@1.0": 0.0025528352860193504,
+   "raw@1.5": 0.002552680891684922,
+   "rich@1.5": 0.002552835170736012,
+   "raw@2.0": 0.002552629452962085,
+   "rich@2.0": 0.002552835015327437,
+   "raw@3.0": 0.002552526651209419,
+   "rich@3.0": 0.0025528346018086623,
+   "raw@4.0": 0.002552423957508543,
+   "rich@4.0": 0.002552833985641545,
+   "raw@4.5": 0.0025523726372114197,
+   "rich@4.5": 0.002552833609412941
+  },
+  "k8_eta1e-01": {
+   "raw@0.125": -0.07694580691362607,
+   "rich@0.125": -0.07694580694931064,
+   "raw@0.25": -0.07694580687803698,
+   "rich@0.25": -0.07694580694913544,
+   "raw@0.5": -0.076945806806889,
+   "rich@0.5": -0.07694580694912545,
+   "raw@0.704": -0.07694580674891871,
+   "rich@0.704": -0.07694580694907416,
+   "raw@1.0": -0.0769458066647487,
+   "rich@1.0": -0.07694580694891284,
+   "raw@1.5": -0.07694580652261074,
+   "rich@1.5": -0.07694580694862996,
+   "raw@2.0": -0.0769458063805909,
+   "rich@2.0": -0.07694580694820286,
+   "raw@3.0": -0.07694580609672852,
+   "rich@3.0": -0.07694580694715414,
+   "raw@4.0": -0.0769458058131588,
+   "rich@4.0": -0.0769458069454163,
+   "raw@4.5": -0.07694580567147724,
+   "rich@4.5": -0.07694580694447073
+  },
+  "k64_eta1e-05": {
+   "raw@0.125": -0.006448226424820569,
+   "rich@0.125": -0.006449397457963801,
+   "raw@0.25": -0.006447031491899735,
+   "rich@0.25": -0.00644939649619225,
+   "raw@0.5": -0.006444571726049841,
+   "rich@0.5": -0.00644939569553582,
+   "raw@0.704": -0.00644249820680276,
+   "rich@0.704": -0.006449393437463424,
+   "raw@1.0": -0.006439326822230251,
+   "rich@1.0": -0.006449389351779078,
+   "raw@1.5": -0.006433603229817009,
+   "rich@1.5": -0.006449379362637564,
+   "raw@2.0": -0.006427302206108876,
+   "rich@2.0": -0.006449365811128427,
+   "raw@3.0": -0.006413131675906625,
+   "rich@3.0": -0.006449324558261305,
+   "raw@4.0": -0.006396399658366803,
+   "rich@4.0": -0.006449269453177808,
+   "raw@4.5": -0.006386765021851759,
+   "rich@4.5": -0.006449235171309686
+  },
+  "k64_eta1e-04": {
+   "raw@0.125": 0.00726497684125782,
+   "rich@0.125": 0.0072650043849444845,
+   "raw@0.25": 0.007264949261043707,
+   "rich@0.25": 0.007265004329722435,
+   "raw@0.5": 0.0072649014298187264,
+   "rich@0.5": 0.00726500422844123,
+   "raw@0.704": 0.007264863378654729,
+   "rich@0.704": 0.007265004187793522,
+   "raw@1.0": 0.007264821653019116,
+   "rich@1.0": 0.007265004157476884,
+   "raw@1.5": 0.00726476751118299,
+   "rich@1.5": 0.007265003767418232,
+   "raw@2.0": 0.007264713366579745,
+   "rich@2.0": 0.007265003423418959,
+   "raw@3.0": 0.007264605261917412,
+   "rich@3.0": 0.007265002516623209,
+   "raw@4.0": 0.00726449728141243,
+   "rich@4.0": 0.0072650010069985616,
+   "raw@4.5": 0.007264443264225262,
+   "rich@4.5": 0.007265000199331739
+  },
+  "k64_eta1e-03": {
+   "raw@0.125": 0.0002596114426427487,
+   "rich@0.125": 0.0002596198595028465,
+   "raw@0.25": 0.0002596030350987544,
+   "rich@0.25": 0.0002596198587343501,
+   "raw@0.5": 0.00025958621391697356,
+   "rich@0.5": 0.0002596198511950476,
+   "raw@0.704": 0.0002595724881082617,
+   "rich@0.704": 0.0002596198341426881,
+   "raw@1.0": 0.00025955258076493237,
+   "rich@1.0": 0.0002596198024238383,
+   "raw@1.5": 0.000259518973452888,
+   "rich@1.5": 0.00025961973145327555,
+   "raw@2.0": 0.00025948537180453535,
+   "rich@2.0": 0.00025961962965559415,
+   "raw@3.0": 0.0002594182299469061,
+   "rich@3.0": 0.000259619331346439,
+   "raw@4.0": 0.0002593511569812801,
+   "rich@4.0": 0.00025961891218861943,
+   "raw@4.5": 0.00025931764445052963,
+   "rich@4.5": 0.00025961866358548136
+  },
+  "k64_eta1e-01": {
+   "raw@0.125": -0.07700708704088322,
+   "rich@0.125": -0.07700708695544001,
+   "raw@0.25": -0.0770070871262607,
+   "rich@0.25": -0.07700708695568048,
+   "raw@0.5": -0.07700708729685268,
+   "rich@0.5": -0.0770070869556636,
+   "raw@0.704": -0.07700708743607998,
+   "rich@0.704": -0.0770070869557834,
+   "raw@1.0": -0.07700708763804809,
+   "rich@1.0": -0.07700708695616221,
+   "raw@1.5": -0.07700708797901457,
+   "rich@1.5": -0.07700708695695246,
+   "raw@2.0": -0.0770070883198185,
+   "rich@2.0": -0.07700708695791669,
+   "raw@3.0": -0.07700708900086173,
+   "rich@3.0": -0.07700708696072012,
+   "raw@4.0": -0.07700708968127579,
+   "rich@4.0": -0.0770070869648366,
+   "raw@4.5": -0.0770070900212122,
+   "rich@4.5": -0.07700708696743486
+  }
+ },
+ "mu_s_identity_rel_err": {
+  "8": 1.6028344082396146e-06,
+  "64": 1.6139267292293928e-06
+ },
+ "sigma": 1.0,
+ "ordered_control": {
+  "rich@0.125": 6.34936547783127e-13,
+  "rich@0.25": 9.394707234378075e-13,
+  "rich@0.5": 3.0496716263428425e-12,
+  "rich@0.704": 5.991651619297045e-12,
+  "rich@1.0": 1.2155720874318376e-11,
+  "rich@1.5": 2.7657098833344662e-11,
+  "rich@2.0": 4.965661215550199e-11,
+  "rich@3.0": 1.1359446716596722e-10,
+  "rich@4.0": 2.0476254025680873e-10,
+  "rich@4.5": 2.607702942469814e-10
+ },
+ "ordered_worst": 2.607702942469814e-10,
+ "eod_node": 0.704,
+ "science_operating_curve": {
+  "iid": [
+   {
+    "k": 1,
+    "eps_over_delta": 4.030644334346557,
+    "statistic": 0.3662207175624665,
+    "eta_equiv": 0.32455466056248755
+   },
+   {
+    "k": 2,
+    "eps_over_delta": 2.8716012519150356,
+    "statistic": 0.23461908955374994,
+    "eta_equiv": 0.2079257543877451
+   },
+   {
+    "k": 3,
+    "eps_over_delta": 2.3620810916082737,
+    "statistic": 0.15366165176522548,
+    "eta_equiv": 0.13617909320388813
+   },
+   {
+    "k": 4,
+    "eps_over_delta": 2.060605190229317,
+    "statistic": 0.10299837474122506,
+    "eta_equiv": 0.09127993297354689
+   },
+   {
+    "k": 5,
+    "eps_over_delta": 1.8563657371326374,
+    "statistic": 0.06982352275468101,
+    "eta_equiv": 0.061879485895161644
+   },
+   {
+    "k": 6,
+    "eps_over_delta": 1.7066811115925162,
+    "statistic": 0.0482476266605538,
+    "eta_equiv": 0.04275834583577511
+   },
+   {
+    "k": 7,
+    "eps_over_delta": 1.5911656217107901,
+    "statistic": 0.03372057114628204,
+    "eta_equiv": 0.029884078091480516
+   },
+   {
+    "k": 8,
+    "eps_over_delta": 1.4986973510352248,
+    "statistic": 0.023802525961132144,
+    "eta_equiv": 0.021094439400543594
+   },
+   {
+    "k": 9,
+    "eps_over_delta": 1.4226283870982532,
+    "statistic": 0.017064742304037456,
+    "eta_equiv": 0.015123234105750729
+   },
+   {
+    "k": 10,
+    "eps_over_delta": 1.3587103260077182,
+    "statistic": 0.012437131373942534,
+    "eta_equiv": 0.011022120698981128
+   },
+   {
+    "k": 11,
+    "eps_over_delta": 1.3040855817566017,
+    "statistic": 0.009197889188724898,
+    "eta_equiv": 0.008151417056378828
+   },
+   {
+    "k": 12,
+    "eps_over_delta": 1.256752594321306,
+    "statistic": 0.006895133103979996,
+    "eta_equiv": 0.006110652611327724
+   },
+   {
+    "k": 13,
+    "eps_over_delta": 1.215262515166674,
+    "statistic": 0.005246712672483687,
+    "eta_equiv": 0.004649778040469242
+   },
+   {
+    "k": 14,
+    "eps_over_delta": 1.178537607739839,
+    "statistic": 0.004036253867238611,
+    "eta_equiv": 0.003577036855109679
+   },
+   {
+    "k": 15,
+    "eps_over_delta": 1.1457575732530274,
+    "statistic": 0.003166808534103359,
+    "eta_equiv": 0.002806510990675975
+   },
+   {
+    "k": 16,
+    "eps_over_delta": 1.1162856937182344,
+    "statistic": 0.0025310389737607103,
+    "eta_equiv": 0.0022430748879170583
+   },
+   {
+    "k": 24,
+    "eps_over_delta": 0.9553849573165084,
+    "statistic": 0.0007162481147336835,
+    "eta_equiv": 0.0006347583645817666
+   },
+   {
+    "k": 32,
+    "eps_over_delta": 0.8637671850678283,
+    "statistic": 0.0003653419108748876,
+    "eta_equiv": 0.00032377583841368716
+   },
+   {
+    "k": 48,
+    "eps_over_delta": 0.7612010794352129,
+    "statistic": 0.0001549463831565373,
+    "eta_equiv": 0.00013731765675484305
+   },
+   {
+    "k": 64,
+    "eps_over_delta": 0.7043392293490403,
+    "statistic": 8.152643567849865e-05,
+    "eta_equiv": 7.22509224344779e-05
+   }
+  ],
+  "gue": [
+   {
+    "k": 1,
+    "eps_over_delta": 4.030644334346557,
+    "statistic": 0.16703000925761022,
+    "eta_equiv": 0.1480264915627176
+   },
+   {
+    "k": 2,
+    "eps_over_delta": 2.8716012519150356,
+    "statistic": 0.08432859651744762,
+    "eta_equiv": 0.07473427281940376
+   },
+   {
+    "k": 3,
+    "eps_over_delta": 2.3620810916082737,
+    "statistic": 0.047195688734609054,
+    "eta_equiv": 0.041826090121897946
+   },
+   {
+    "k": 4,
+    "eps_over_delta": 2.060605190229317,
+    "statistic": 0.027763555557265313,
+    "eta_equiv": 0.02460481048115207
+   },
+   {
+    "k": 5,
+    "eps_over_delta": 1.8563657371326374,
+    "statistic": 0.017062864648627503,
+    "eta_equiv": 0.015121570076969706
+   },
+   {
+    "k": 6,
+    "eps_over_delta": 1.7066811115925162,
+    "statistic": 0.010759451982963568,
+    "eta_equiv": 0.009535316050418383
+   },
+   {
+    "k": 7,
+    "eps_over_delta": 1.5911656217107901,
+    "statistic": 0.006932122036001,
+    "eta_equiv": 0.006143433198828479
+   },
+   {
+    "k": 8,
+    "eps_over_delta": 1.4986973510352248,
+    "statistic": 0.004553170482539455,
+    "eta_equiv": 0.004035142277803192
+   },
+   {
+    "k": 9,
+    "eps_over_delta": 1.4226283870982532,
+    "statistic": 0.0030400874683069595,
+    "eta_equiv": 0.0026942073701451356
+   },
+   {
+    "k": 10,
+    "eps_over_delta": 1.3587103260077182,
+    "statistic": 0.0020567438991913115,
+    "eta_equiv": 0.0018227418222240333
+   },
+   {
+    "k": 11,
+    "eps_over_delta": 1.3040855817566017,
+    "statistic": 0.001408005228307009,
+    "eta_equiv": 0.0012478121445039293
+   },
+   {
+    "k": 12,
+    "eps_over_delta": 1.256752594321306,
+    "statistic": 0.0009733434700645166,
+    "eta_equiv": 0.0008626031908847951
+   },
+   {
+    "k": 13,
+    "eps_over_delta": 1.215262515166674,
+    "statistic": 0.0006789112931379626,
+    "eta_equiv": 0.0006016694679728127
+   },
+   {
+    "k": 14,
+    "eps_over_delta": 1.178537607739839,
+    "statistic": 0.0004779504095908174,
+    "eta_equiv": 0.0004235725220105565
+   },
+   {
+    "k": 15,
+    "eps_over_delta": 1.1457575732530274,
+    "statistic": 0.00034008225977259776,
+    "eta_equiv": 0.0003013900554792955
+   },
+   {
+    "k": 16,
+    "eps_over_delta": 1.1162856937182344,
+    "statistic": 0.0002458779308212103,
+    "eta_equiv": 0.00021790364266836712
+   },
+   {
+    "k": 24,
+    "eps_over_delta": 0.9553849573165084,
+    "statistic": 7.903292327099409e-05,
+    "eta_equiv": 7.004110459999683e-05
+   },
+   {
+    "k": 32,
+    "eps_over_delta": 0.8637671850678283,
+    "statistic": 5.5622962338540416e-05,
+    "eta_equiv": 4.929456689785922e-05
+   },
+   {
+    "k": 48,
+    "eps_over_delta": 0.7612010794352129,
+    "statistic": 2.418158156083927e-05,
+    "eta_equiv": 2.1430368679247694e-05
+   },
+   {
+    "k": 64,
+    "eps_over_delta": 0.7043392293490403,
+    "statistic": 1.179384668866662e-05,
+    "eta_equiv": 1.045202449015821e-05
+   }
+  ]
+ },
+ "science_span": [
+  0.7043392293490403,
+  4.030644334346557
+ ],
+ "valid_edge": 4.5,
+ "bars": {
+  "max rel. error, analytic mu_s vs the pipeline's free convolution": {
+   "name": "max rel. error, analytic mu_s vs the pipeline's free convolution",
+   "value": 1.6139267292293928e-06,
+   "thresh": 0.0001,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.0001,
+   "why": "the configuration is placed using the CLAIM that mu_s is semicircle(sigma*sqrt(1-s)). If that identity is wrong the truth is wrong and nothing below means anything. A relative density error lies in [0,1] for any non-negative density pair; 1e-4 is two orders above the 1e-6 smoothing floor of the comparison"
+  },
+  "worst |ordered-control reading| across the eps grid": {
+   "name": "worst |ordered-control reading| across the eps grid",
+   "value": 2.607702942469814e-10,
+   "thresh": 1e-06,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1e-06,
+   "why": "an absolute reading of 1-<r~> on a configuration whose truth is exactly 0; the statistic lies in [0,1] by construction"
+  },
+  "max |Richardson bias| over the eps grid (k=64)": {
+   "name": "max |Richardson bias| over the eps grid (k=64)",
+   "value": 0.0072650043849444845,
+   "thresh": 0.039577427676868386,
+   "floor": 0.0,
+   "ceiling": 10.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 9.960422572323132,
+   "why": "a relative bias against a known answer; non-negative, 10 a stated practical ceiling. The bar is Gate D's own resolution, so MISSED means no bias is resolvable anywhere on the swept axis"
+  },
+  "|Richardson bias| at eps/Delta = 0.704 (k=64 operating point)": {
+   "name": "|Richardson bias| at eps/Delta = 0.704 (k=64 operating point)",
+   "value": 0.007265004187793522,
+   "thresh": 0.039577427676868386,
+   "floor": 0.0,
+   "ceiling": 10.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 9.960422572323132,
+   "why": "the science's own operating point at the largest k on the dense grid, read off eps_rule_v15 rather than chosen"
+  },
+  "largest eps/Delta still within the gate's resolution": {
+   "name": "largest eps/Delta still within the gate's resolution",
+   "value": 4.5,
+   "thresh": 4.031,
+   "floor": 0.0,
+   "ceiling": 4.5,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 4.031,
+   "why": "compared against the science's span, whose top is eps_rule_v15 at k=1, n=4096. The ceiling is the grid's own top. MET means part of the science's range is outside the valid region; MISSED means the instrument is valid across all of it"
+  }
+ },
+ "instrument": {
+  "model": "Gate D at s>0, driven through the science's CDF primitive",
+  "params": [
+   {
+    "name": "eps_over_delta",
+    "kind": "TESTED",
+    "why": "THE axis. eps_rule_v15 puts the science at 0.70 (k=64) to 4.03 (k=1) at n=4096, so the grid spans that and reaches below it. It stops at 0.125 rather than going lower because the first version of this cell showed the small-eps end is where a reference-granularity resonance lives, and this grid stays out of it rather than pretending it is not there",
+    "sweep": [
+     0.125,
+     0.25,
+     0.5,
+     0.704,
+     1.0,
+     1.5,
+     2.0,
+     3.0,
+     4.0,
+     4.5
+    ],
+    "value": null
+   },
+   {
+    "name": "k_flow",
+    "kind": "TESTED",
+    "why": "sets s = k/n, i.e. HOW MUCH the free convolution has smoothed the reference. Two values because the smoothing at k=8 and k=64 differ by 8x and the whole point of the s>0 rebuild is that this matters",
+    "sweep": [
+     8,
+     64
+    ],
+    "value": null
+   },
+   {
+    "name": "eta",
+    "kind": "TESTED",
+    "why": "sets the true statistic (2/sqrt(pi))*eta. The science's readings span 0.37 down to 1e-5, so this asks whether any bias depends on WHERE on that axis it is read, not only on bandwidth",
+    "sweep": [
+     1e-05,
+     0.001,
+     0.1
+    ],
+    "value": null
+   },
+   {
+    "name": "reference",
+    "kind": "DECLARED",
+    "why": "CONTINUOUS at every s, so the staircase resonance that wrecked the first construction cannot occur, and CLOSED FORM under free convolution, so the configuration can be placed by bisection instead of by interpolating a numerical CDF -- which is what wrecked the second. P1 verifies the identity rather than assuming it",
+    "sweep": null,
+    "value": "analytic semicircle, sigma=1.0"
+   },
+   {
+    "name": "replicates",
+    "kind": "DECLARED",
+    "why": "the ensemble size Gate D's stated resolution is quoted at; verify_knownanswer already refused to certify at a smaller one",
+    "sweep": null,
+    "value": 16
+   },
+   {
+    "name": "bulk_window",
+    "kind": "DECLARED",
+    "why": "the science's own central-window convention",
+    "sweep": null,
+    "value": 0.2
+   }
+  ],
+  "n_tested": 3,
+  "n_declared": 3
+ },
+ "scope": "RECERT_SCOPE Stage 1, second construction. Measures the INSTRUMENT against a known answer at the science's own s. Refits nothing and touches no banked verdict.",
+ "verdict": "NO_RESOLVABLE_BANDWIDTH_BIAS_AT_THE_SCIENCES_OPERATING_POINT",
+ "composed": {
+  "label": "NO_RESOLVABLE_BANDWIDTH_BIAS_AT_THE_SCIENCES_OPERATING_POINT_BUT_NOT_BY_|Richardson bias| at eps/Delta = 0.704 (k=64 operating point)_COARSELY_AT_largest eps/Delta still within the gate's resolution",
+  "head": "NO_RESOLVABLE_BANDWIDTH_BIAS_AT_THE_SCIENCES_OPERATING_POINT",
+  "qualifiers": [
+   "BUT_NOT_BY_|Richardson bias| at eps/Delta = 0.704 (k=64 operating point)",
+   "COARSELY_AT_largest eps/Delta still within the gate's resolution"
+  ],
+  "citation": "NO_RESOLVABLE_BANDWIDTH_BIAS_AT_THE_SCIENCES_OPERATING_POINT  [max |Richardson bias| over the eps grid (k=64) 0.007265 vs >=0.03958 MISSED \u2014 \"a bandwidth-dependent bias exists\"; |Richardson bias| at eps/Delta = 0.704 (k=64 operating point) 0.007265 vs >=0.03958 MISSED \u2014 \"and the sealed setting sits in it\"; largest eps/Delta still within the gate's resolution 4.5 vs <=4.031 MISSED \u2014 \"with part of the science's range outside the valid region\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm(\"max rel. error, analytic mu_s vs the pipeline's free convolution\", PREMISE, MET)",
+   "Arm('worst |ordered-control reading| across the eps grid', PREMISE, MET)",
+   "Arm('max |Richardson bias| over the eps grid (k=64)', EXISTENCE, MISSED)",
+   "Arm('|Richardson bias| at eps/Delta = 0.704 (k=64 operating point)', MECHANISM, MISSED)",
+   "Arm(\"largest eps/Delta still within the gate's resolution\", RESOLUTION, MISSED)"
+  ]
+ },
+ "runtime_s": 13.7
+}
