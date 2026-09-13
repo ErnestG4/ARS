@@ -1,0 +1,456 @@
+{
+ "n": 4096,
+ "replicates": 16,
+ "k_grid": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  24,
+  32,
+  48,
+  64
+ ],
+ "k_lo": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "upper_rules": [
+  "sealed_1e-3",
+  "shared_11",
+  "shared_16"
+ ],
+ "B": 1000,
+ "boot_seed": 20260913,
+ "p1_mismatches": 0,
+ "p2_worst_in_sigma": 2.449329776176162e-07,
+ "surface": {
+  "lo1_sealed_1e-3": {
+   "z_tau": 20.407198833773542,
+   "z_beta": 9.314013494917097,
+   "sep": 4.726280239330536,
+   "z_kstar": 46.272240919852806,
+   "kstar_iid": 10.889066834477571,
+   "kstar_gue": 6.162786595147035,
+   "n_iid": 16,
+   "n_gue": 11,
+   "dec_iid": 2.2226610749183964,
+   "dec_gue": 2.0746760057849802,
+   "chi2dof_iid": 3.75866949498094,
+   "chi2dof_gue": 0.017454906718480986
+  },
+  "lo1_shared_11": {
+   "z_tau": 20.486240724332045,
+   "z_beta": 10.987213864501197,
+   "sep": 4.444255643807646,
+   "z_kstar": 41.86896156134446,
+   "kstar_iid": 10.607042238954682,
+   "kstar_gue": 6.162786595147035,
+   "n_iid": 11,
+   "n_gue": 11,
+   "dec_iid": 1.6210096289753895,
+   "dec_gue": 2.0746760057849802,
+   "chi2dof_iid": 0.6506066112359635,
+   "chi2dof_gue": 0.017454906718480986
+  },
+  "lo1_shared_16": {
+   "z_tau": 22.634291054534692,
+   "z_beta": 11.268075730764979,
+   "sep": 4.727695787604884,
+   "z_kstar": 48.137838084766365,
+   "kstar_iid": 10.889066834477571,
+   "kstar_gue": 6.161371046872687,
+   "n_iid": 16,
+   "n_gue": 16,
+   "dec_iid": 2.2226610749183964,
+   "dec_gue": 2.8381791640574505,
+   "chi2dof_iid": 3.75866949498094,
+   "chi2dof_gue": 0.09128105639449989
+  },
+  "lo2_sealed_1e-3": {
+   "z_tau": 7.046550314897734,
+   "z_beta": 2.122444802154513,
+   "sep": 4.703281399747449,
+   "z_kstar": 44.79724615961758,
+   "kstar_iid": 10.866349966322629,
+   "kstar_gue": 6.16306856657518,
+   "n_iid": 15,
+   "n_gue": 10,
+   "dec_iid": 2.0106352935374394,
+   "dec_gue": 1.7783234736922955,
+   "chi2dof_iid": 1.793995554196813,
+   "chi2dof_gue": 0.019592519485522143
+  },
+  "lo2_shared_11": {
+   "z_tau": 7.863785594013082,
+   "z_beta": 4.332350061870203,
+   "sep": 4.492928801760525,
+   "z_kstar": 41.29552085022564,
+   "kstar_iid": 10.655997368335704,
+   "kstar_gue": 6.16306856657518,
+   "n_iid": 10,
+   "n_gue": 10,
+   "dec_iid": 1.4192034938462763,
+   "dec_gue": 1.7783234736922955,
+   "chi2dof_iid": 0.22308633257892657,
+   "chi2dof_gue": 0.019592519485522143
+  },
+  "lo2_shared_16": {
+   "z_tau": 8.114726620303204,
+   "z_beta": 2.9043675929988018,
+   "sep": 4.706416718492085,
+   "z_kstar": 45.86270184835457,
+   "kstar_iid": 10.866349966322629,
+   "kstar_gue": 6.159933247830543,
+   "n_iid": 15,
+   "n_gue": 15,
+   "dec_iid": 2.0106352935374394,
+   "dec_gue": 2.5412841330798193,
+   "chi2dof_iid": 1.793995554196813,
+   "chi2dof_gue": 0.08855011487906221
+  },
+  "lo3_sealed_1e-3": {
+   "z_tau": 2.282282223836051,
+   "z_beta": 0.3693100046671181,
+   "sep": 4.674050814399433,
+   "z_kstar": 44.41734979065003,
+   "kstar_iid": 10.835539028776916,
+   "kstar_gue": 6.161488214377483,
+   "n_iid": 14,
+   "n_gue": 9,
+   "dec_iid": 1.8150057398892216,
+   "dec_gue": 1.5252856270385877,
+   "chi2dof_iid": 1.0008679689626165,
+   "chi2dof_gue": 0.011657414809390488
+  },
+  "lo3_shared_11": {
+   "z_tau": 3.524580003368189,
+   "z_beta": 1.887530087081098,
+   "sep": 4.518052977454442,
+   "z_kstar": 41.65184585619442,
+   "kstar_iid": 10.679541191831925,
+   "kstar_gue": 6.161488214377483,
+   "n_iid": 9,
+   "n_gue": 9,
+   "dec_iid": 1.231374106726963,
+   "dec_gue": 1.5252856270385877,
+   "chi2dof_iid": 0.12788069041477323,
+   "chi2dof_gue": 0.011657414809390488
+  },
+  "lo3_shared_16": {
+   "z_tau": 2.819174097446605,
+   "z_beta": 0.2164147501887251,
+   "sep": 4.677107886534102,
+   "z_kstar": 44.31532663453044,
+   "kstar_iid": 10.835539028776916,
+   "kstar_gue": 6.158431142242814,
+   "n_iid": 14,
+   "n_gue": 14,
+   "dec_iid": 1.8150057398892216,
+   "dec_gue": 2.2877421171831855,
+   "chi2dof_iid": 1.0008679689626165,
+   "chi2dof_gue": 0.06414351087843989
+  },
+  "lo4_sealed_1e-3": {
+   "z_tau": 0.17107399671473128,
+   "z_beta": 1.649856472970745,
+   "sep": 4.635976572361065,
+   "z_kstar": 42.96735808886379,
+   "kstar_iid": 10.798139009018454,
+   "kstar_gue": 6.16216243665739,
+   "n_iid": 13,
+   "n_gue": 8,
+   "dec_iid": 1.6322148582125915,
+   "dec_gue": 1.2956441542047963,
+   "chi2dof_iid": 0.4966146876867702,
+   "chi2dof_gue": 0.010102482726664882
+  },
+  "lo4_shared_11": {
+   "z_tau": 1.3061061870879973,
+   "z_beta": 0.48266565100733905,
+   "sep": 4.536718960662727,
+   "z_kstar": 40.52301537716191,
+   "kstar_iid": 10.698881397320116,
+   "kstar_gue": 6.16216243665739,
+   "n_iid": 8,
+   "n_gue": 8,
+   "dec_iid": 1.0539083988679647,
+   "dec_gue": 1.2956441542047963,
+   "chi2dof_iid": 0.048230548805694405,
+   "chi2dof_gue": 0.010102482726664882
+  },
+  "lo4_shared_16": {
+   "z_tau": 0.05162110362103309,
+   "z_beta": 1.8270926021189038,
+   "sep": 4.639631761918706,
+   "z_kstar": 40.16517679453201,
+   "kstar_iid": 10.798139009018454,
+   "kstar_gue": 6.158507247099748,
+   "n_iid": 13,
+   "n_gue": 13,
+   "dec_iid": 1.6322148582125915,
+   "dec_gue": 2.0578098151693425,
+   "chi2dof_iid": 0.4966146876867702,
+   "chi2dof_gue": 0.06796228418536274
+  },
+  "lo5_sealed_1e-3": {
+   "z_tau": 0.888247945868855,
+   "z_beta": 1.707991684805683,
+   "sep": 4.604297182716105,
+   "z_kstar": 40.65399507481052,
+   "kstar_iid": 10.766489863730245,
+   "kstar_gue": 6.162192681014139,
+   "n_iid": 12,
+   "n_gue": 7,
+   "dec_iid": 1.458213340133815,
+   "dec_gue": 1.0836043470985972,
+   "chi2dof_iid": 0.28469418373562316,
+   "chi2dof_gue": 0.0012170478596832796
+  },
+  "lo5_shared_11": {
+   "z_tau": 0.5495362710453469,
+   "z_beta": 0.11790445999518694,
+   "sep": 4.544110452231551,
+   "z_kstar": 39.13710259698762,
+   "kstar_iid": 10.70630313324569,
+   "kstar_gue": 6.162192681014139,
+   "n_iid": 7,
+   "n_gue": 7,
+   "dec_iid": 0.8839603907943598,
+   "dec_gue": 1.0836043470985972,
+   "chi2dof_iid": 0.03933364487332444,
+   "chi2dof_gue": 0.0012170478596832796
+  },
+  "lo5_shared_16": {
+   "z_tau": 1.041116144092708,
+   "z_beta": 2.1698591601912556,
+   "sep": 4.605250087734583,
+   "z_kstar": 42.05528025085727,
+   "kstar_iid": 10.766489863730245,
+   "kstar_gue": 6.161239775995662,
+   "n_iid": 12,
+   "n_gue": 12,
+   "dec_iid": 1.458213340133815,
+   "dec_gue": 1.8452496548874895,
+   "chi2dof_iid": 0.28469418373562316,
+   "chi2dof_gue": 0.049316239136567054
+  }
+ },
+ "sep_min": 4.444255643807646,
+ "sep_max": 4.727695787604884,
+ "sep_spread": 0.06140734245112106,
+ "zbeta_min": 0.11790445999518694,
+ "zbeta_max": 11.268075730764979,
+ "zbeta_swing": 95.56954614969578,
+ "sealed_zbeta": 9.314013494917097,
+ "sealed_percentile": 0.8666666666666667,
+ "bars": {
+  "banked-curve mismatches vs the sealed ensemble (80 numbers)": {
+   "name": "banked-curve mismatches vs the sealed ensemble (80 numbers)",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 80,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "2 classes x 20 k x {mean, sigma_mean}; a count of disagreements at 1e-12 relative, 0 to 80 by construction"
+  },
+  "worst |recovered - banked| in units of that parameter's own sigma": {
+   "name": "worst |recovered - banked| in units of that parameter's own sigma",
+   "value": 2.449329776176162e-07,
+   "thresh": 0.001,
+   "floor": 0.0,
+   "ceiling": 10.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.001,
+   "why": "a discrepancy measured in the fit's OWN uncertainty, so a shallow optimum is judged by what it can support. 10 sigma is a stated practical ceiling; 1e-3 sigma is far below any difference that could matter and far above optimizer noise. Stage 3's 1e-9 ABSOLUTE bar failed here for exactly this reason"
+  },
+  "(max - min) / mean of the k* separation across the surface": {
+   "name": "(max - min) / mean of the k* separation across the surface",
+   "value": 0.06140734245112106,
+   "thresh": 0.25,
+   "floor": 0.0,
+   "ceiling": 2.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.25,
+   "why": "a relative spread of a positive quantity; 0 is perfect invariance and 2 is the practical ceiling (a spread of twice the mean would mean the separation changes sign somewhere). 0.25 is well inside both ends"
+  },
+  "max/min of z(beta) across the same surface": {
+   "name": "max/min of z(beta) across the same surface",
+   "value": 95.56954614969578,
+   "thresh": 3.0,
+   "floor": 1.0,
+   "ceiling": 1000.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 997.0,
+   "why": "a ratio of a positive quantity to its own minimum, so 1.0 is the reachable floor (perfect stability) and 1000 a stated practical ceiling. MISSED is a clean negative: the published sigma needs no window caveat"
+  },
+  "percentile rank of the SEALED window's z(beta) on the surface": {
+   "name": "percentile rank of the SEALED window's z(beta) on the surface",
+   "value": 0.8666666666666667,
+   "thresh": 0.75,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.75,
+   "why": "a percentile, so [0,1] by construction. MISSED means the published number sits in the top quartile of what a window choice can produce, which is a disclosure obligation"
+  }
+ },
+ "instrument": {
+  "model": "sealed science refitted over a window surface",
+  "params": [
+   {
+    "name": "window_lower_k",
+    "kind": "TESTED",
+    "why": "THE axis Stage 3 omitted. It declared only an upper edge, so modelparams could not flag the gap -- a parameter that is not declared cannot be swept and cannot be missed. On the same window this edge moves z(k*) by three orders of magnitude while leaving the separation flat",
+    "sweep": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "value": null
+   },
+   {
+    "name": "window_upper_rule",
+    "kind": "TESTED",
+    "why": "sealed_1e-3 is the science's own OBSERVABLE-matched rule (both classes get ~2.1 decades); shared_11 and shared_16 equalise k instead, which de-equalises the observable. Carrying all three makes the trade visible rather than assumed",
+    "sweep": [
+     "sealed_1e-3",
+     "shared_11",
+     "shared_16"
+    ],
+    "value": null
+   },
+   {
+    "name": "discriminant",
+    "kind": "DECLARED",
+    "why": "what the PAPER quotes. Stage 3 adjudicated on z(k*), which exists only inside that cell and appears in no published claim. k* is carried alongside precisely to show the two diverge",
+    "sweep": null,
+    "value": "z(beta) and z(tau) from the fit covariance"
+   },
+   {
+    "name": "form",
+    "kind": "DECLARED",
+    "why": "held from the sealed adjudication. An independent audit ran the full ladder on all 24 (n, class, window) cells and F3 wins every one by AICc margins of 10.3 to 5642, so holding it is defensible rather than question-begging",
+    "sweep": null,
+    "value": "F3"
+   },
+   {
+    "name": "bootstrap_B",
+    "kind": "DECLARED",
+    "why": "resamples of the 16-replicate ensemble per cell; 15 cells x 2 classes, and the bootstrap is a diagnostic here rather than the discriminant, so 1000 suffices",
+    "sweep": null,
+    "value": 1000
+   },
+   {
+    "name": "error_model",
+    "kind": "DECLARED",
+    "why": "the sealed fit's own error model, kept so the reproduced z matches the published one. zbeta established it is optimistic (median |r| 0.875 iid across k-pairs); that is a known and filed limitation, not one this cell introduces",
+    "sweep": null,
+    "value": "absolute_sigma diagonal, as sealed"
+   },
+   {
+    "name": "n",
+    "kind": "DECLARED",
+    "why": "the adjudicated size; the published shape-z is defined here",
+    "sweep": null,
+    "value": 4096
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 5
+ },
+ "scope": "RECERT_SCOPE Stage 3b. Refits BANKED data over a surface of window rules; runs no flows, changes no instrument, re-grades nothing. DECLARED-WITH-PRIOR-LOOK: three cells of this surface were computed while diagnosing Stage 3.",
+ "verdict": "SEPARATION_IS_ROBUST_ACROSS_THE_WINDOW_SURFACE",
+ "composed": {
+  "label": "SEPARATION_IS_ROBUST_ACROSS_THE_WINDOW_SURFACE_AND_BY_max/min of z(beta) across the same surface_COARSELY_AT_percentile rank of the SEALED window's z(beta) on the surface",
+  "head": "SEPARATION_IS_ROBUST_ACROSS_THE_WINDOW_SURFACE",
+  "qualifiers": [
+   "AND_BY_max/min of z(beta) across the same surface",
+   "COARSELY_AT_percentile rank of the SEALED window's z(beta) on the surface"
+  ],
+  "citation": "SEPARATION_IS_ROBUST_ACROSS_THE_WINDOW_SURFACE  [(max - min) / mean of the k* separation across the surface 0.06141 vs <=0.25 MET \u2014 \"the separation is robust to the window\"; percentile rank of the SEALED window's z(beta) on the surface 0.8667 vs <=0.75 MISSED \u2014 \"and the published value is not favourably placed\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('banked-curve mismatches vs the sealed ensemble (80 numbers)', PREMISE, MET)",
+   "Arm(\"worst |recovered - banked| in units of that parameter's own sigma\", PREMISE, MET)",
+   "Arm('(max - min) / mean of the k* separation across the surface', EXISTENCE, MET)",
+   "Arm('max/min of z(beta) across the same surface', MECHANISM, MET)",
+   "Arm(\"percentile rank of the SEALED window's z(beta) on the surface\", RESOLUTION, MISSED)"
+  ]
+ },
+ "runtime_s": 1844.8
+}
