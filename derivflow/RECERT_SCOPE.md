@@ -178,6 +178,20 @@ cells are checked against each other ACROSS artifacts.
 
 ## What was found
 
+> **SUPERSEDED IN PART, 2026-09-13 — see `RECERT_CORRECTIONS.md` before quoting
+> anything in this section.** An independent audit of this series' commit
+> messages against its banked artifacts found twelve overstatements, all
+> verified. Three of them are quoted below and are corrected there:
+> **"+0.73%" is a noise draw** (~1 sigma, sign-flipping across eta; supportable
+> statement is "no bias resolvable, |bias| < 0.79%"); **"+20.2% at 0.95"
+> understates the artifact by 48x** (the same cell reads +965.94% at
+> eps/Delta = 2.0, inside the science's own span); and **the "|pos| = 0.70
+> boundary" is not an instrument property** but an eta- and bandwidth-contingent
+> crossing of a relative resolution by a fixed ~2e-5 absolute offset -- it
+> vanishes entirely at eta = 0.01 and must NOT be used to put a number on
+> EDGE-0. The two VERDICTS below are unaffected and both stand.
+
+
 **The bandwidth is not the defect.** Against a known answer on a disordered
 configuration, the Richardson readout is biased +0.73%, identical at every
 eps/Delta from 0.125 to 4.5. The raw and Richardson arms agree to every printed
