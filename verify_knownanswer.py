@@ -103,26 +103,58 @@ if not fired.get(0.17) or not fired.get(0.50):
     bad.append("gate did NOT fire on a bias the audit measured in the real "
                "instrument (17%/50%) — it is inert where it matters")
 
-# ---- 4. THE BLINDNESS DEMONSTRATION -----------------------------------------
-print("\n  why Gates L and H could not object — same bias, ORDERED configuration:")
-picket = np.arange(N_GAPS + 1, dtype=float)
-base = rtilde_distance(picket)
-moved = []
-for damp in (0.17, 0.50, 0.90):
-    # damping a fluctuation that is identically zero changes nothing
-    p = np.arange(N_GAPS + 1, dtype=float) * (1.0 - damp)   # common rescaling too
-    v = rtilde_distance(p)
-    moved.append(abs(v - base))
-    print(f"    damping {damp:5.1%}   picket reads {v:.3e}  "
-          f"(moved {abs(v - base):.1e})")
-if max(moved) > 1e-12:
-    bad.append("the ordered configuration DID move — the blindness argument is "
-               "wrong and this module's premise needs rewriting")
+# ---- 4. THE BLINDNESS DEMONSTRATION, corrected 2026-09-13 ------------------
+# The first version applied `np.arange(N+1) * (1 - damp)` -- a COMMON RESCALING --
+# and reported the picket fence "unmoved to 1e-12". That demonstrated nothing:
+# r-tilde = min/max is invariant under a common rescaling on ANY configuration,
+# ordered or not, so the test could not discriminate the two cases. Its
+# "unmoved" was 0/0 float noise on a statistic that is identically zero.
+#
+# The real mechanism is that an ORDERED configuration has no fluctuation to
+# damp. This version shows both halves, and shows the rescaling control failing
+# to discriminate, so the distinction cannot be lost again.
+def damp_gaps(s_, d):
+    """The bias under test: shrink the FLUCTUATION about the mean gap."""
+    mu = np.mean(s_)
+    return mu + (1.0 - d) * (s_ - mu)
+
+def stat_of_gaps(s_):
+    a, b = s_[:-1], s_[1:]
+    return float(1.0 - np.mean(np.minimum(a, b) / np.maximum(a, b)))
+
+rng4 = np.random.default_rng(777)
+dis = 1.0 + ETA * rng4.standard_normal(N_GAPS)      # disordered
+orq = np.ones(N_GAPS)                                # ordered (picket fence)
+print("\n  the bias under test is FLUCTUATION DAMPING, not rescaling:")
+print(f"    {'damping':>9} {'disordered':>14} {'ordered':>12}")
+disc = []
+for d in (0.17, 0.50, 0.90):
+    sd_ = stat_of_gaps(damp_gaps(dis, d)) / stat_of_gaps(dis) - 1.0
+    so_ = stat_of_gaps(damp_gaps(orq, d)) - stat_of_gaps(orq)
+    disc.append((sd_, so_))
+    print(f"    {d:>8.0%} {sd_:>13.2%} {so_:>12.2e}")
+if not all(abs(a) > 0.5 * d for (a, _), d in zip(disc, (0.17, 0.50, 0.90))):
+    bad.append("damping did NOT move the disordered statistic — the gate cannot "
+               "see the bias class it exists for")
+if max(abs(b) for _, b in disc) > 1e-12:
+    bad.append("damping DID move the ordered statistic — the blindness claim is "
+               "wrong and knownanswer.py's premise needs rewriting")
+
+print("  and a COMMON RESCALING is invisible on BOTH, so it cannot be the reason:")
+resc = []
+for c in (0.5, 7.0):
+    resc.append((abs(stat_of_gaps(dis * c) - stat_of_gaps(dis)),
+                 abs(stat_of_gaps(orq * c) - stat_of_gaps(orq))))
+    print(f"    x{c:<7} disordered moved {resc[-1][0]:.2e}   "
+          f"ordered moved {resc[-1][1]:.2e}")
+if max(max(r) for r in resc) > 1e-12:
+    bad.append("a common rescaling moved the statistic — r-tilde's scale "
+               "invariance does not hold and every bar in the series is affected")
 else:
-    print("    -> unmoved to 1e-12. A gap-RATIO statistic is invariant under a "
-          "common\n       rescaling, and an ordered configuration has no "
-          "fluctuation to damp.\n       Gate D reads the same bias at "
-          f"{abs((read(ETA, 0.17, N_GAPS, 303) - exact_statistic(ETA)) / exact_statistic(ETA)):.0%}.")
+    print("    -> rescaling moves NEITHER. It is scale invariance, which is "
+          "configuration-\n       independent, so it cannot explain why ordered "
+          "gates are blind.\n       The discriminating fact is that a picket "
+          "fence has no fluctuation to damp.")
 
 if bad:
     print("\nVERIFY_KNOWNANSWER: FAIL")

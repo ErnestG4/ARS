@@ -16,7 +16,12 @@ they get a row rather than sitting in a JSON nobody re-reads:
      the per-cell bias dictionaries and compared to the banked bar value. A cell
      whose summary no longer follows from its own data is the defect this
      catches.
-  3. CROSS-CELL CONTINUITY. Stage 2a's central window at the science's own size
+  3. THE WHOLE SWEPT SURFACE, not one slice of it. Added after an audit found
+     that five separate overstatements in this series' commit messages all
+     passed an earlier version of this checker, because it read only the primary
+     eta and primary bandwidth. Stage 2b is covered too; it had no checker at
+     all, having been banked after this file was written.
+  4. CROSS-CELL CONTINUITY. Stage 2a's central window at the science's own size
      must agree with Stage 1's reading. The two cells share a construction and a
      truth; if one is re-run and the other is not, they drift apart silently and
      the section table stops being comparable to the surface it was built to
@@ -133,6 +138,87 @@ if S2["verdict"] != "FLATNESS_IS_AN_ARTIFACT_OF_THE_CENTRAL_WINDOW":
     bad.append(f"Stage 2a verdict changed: {S2['verdict']!r}")
 print(f"  verdicts: {S1['verdict']}")
 print(f"            {S2['verdict']}")
+
+# ---- 5. EVERY SLICE, not just the primary one -------------------------------
+# Added 2026-09-13 after an audit found that items 1, 2, 4, 5 and 8 of
+# RECERT_CORRECTIONS.md ALL passed this checker untouched, because every check
+# above reads only `eta_primary` and `eps_nodes[0]`. The artifacts hold a
+# +965.94% cell and a sign-flipping eta column that no check had ever looked at.
+# A checker that reads one slice of a swept surface is not checking the surface.
+def _extremes(bias_dict, pick=lambda v: v):
+    vals = {k: pick(v) for k, v in bias_dict.items()}
+    lo = min(vals, key=vals.get)
+    hi = max(vals, key=vals.get)
+    return lo, vals[lo], hi, vals[hi]
+
+s1_all = {f"{kk}|{a}": v for kk, row in S1["bias"].items()
+          for a, v in row.items() if a.startswith("rich@")}
+lo1, lv1, hi1, hv1 = _extremes(s1_all)
+lo2, lv2, hi2, hv2 = _extremes(S2["bias"])
+print(f"  FULL SURFACE, Stage 1 ({len(s1_all)} cells): min {lv1:+.3%} @ {lo1}")
+print(f"                                    max {hv1:+.3%} @ {hi1}")
+print(f"  FULL SURFACE, Stage 2a ({len(S2['bias'])} cells): min {lv2:+.3%} @ {lo2}")
+print(f"                                     max {hv2:+.3%} @ {hi2}")
+print(f"  full-surface spread: Stage 1 {hv1 - lv1:.4f}, "
+      f"Stage 2a {hv2 - lv2:.4f} (banked primary-panel spread "
+      f"{S2['section_spread']:.4f})")
+if hv2 - lv2 <= S2["section_spread"] * 1.001:
+    bad.append("the full-surface spread no longer exceeds the banked "
+               "primary-panel spread — one of the two is stale")
+
+# ---- 6. section_idx CLAMPING: which requested positions are the same window? -
+# The clamp `lo = min(max(0, centre - w//2), m - w)` collapses outer positions
+# onto a single window, so table rows that look independent are not. Reported
+# rather than failed: it is a property of the design, and the correction
+# document records which rows duplicate.
+def _sidx(m_, pos, size):
+    w = max(8, int(round(size * m_)))
+    c = int(round(0.5 * m_ * (1.0 + pos)))
+    lo_ = min(max(0, c - w // 2), m_ - w)
+    return lo_, lo_ + w
+dup_report = []
+for sz in S2["sizes"]:
+    seen = {}
+    for pos in S2["positions"]:
+        seen.setdefault(_sidx(S2["m"], pos, sz), []).append(pos)
+    for win, ps in seen.items():
+        if len(ps) > 1:
+            dup_report.append(f"size {sz}: positions {ps} are ONE window {win}")
+print(f"  clamped-duplicate windows: {len(dup_report)}")
+for d_ in dup_report:
+    print(f"    {d_}")
+if not dup_report:
+    bad.append("no clamped duplicates found — section_idx changed, so "
+               "RECERT_CORRECTIONS item 6 is stale and needs re-deriving")
+
+# ---- 7. Stage 2b has a checker now ------------------------------------------
+S3 = json.load(open(os.path.join(HERE, "recert_finite_seed.json")))
+r2b = detectable_bias(int(BULK * S3["m"]), S3["reps"] * S3["seed_realisations"])
+if abs(r2b - S3["gate_resolution"]) > 1e-12 * max(r2b, 1e-300):
+    bad.append(f"Stage 2b gate_resolution {S3['gate_resolution']:.6f} != "
+               f"re-derived {r2b:.6f}")
+# INVALID is a LEGITIMATE head here: Stage 2b's P2 premise failed, and a failed
+# premise composing INVALID is the lattice working, not a defect. Omitting it
+# from this list was an error caught on the first run of this check.
+if S3["verdict"] not in ("THE_FINITE_REFERENCE_IS_INNOCENT_TOO",
+                         "THE_FINITE_REFERENCE_CARRIES_THE_COST", "INVALID"):
+    bad.append(f"Stage 2b verdict changed: {S3['verdict']!r}")
+unread = set(S3["composed"].get("unread", []))
+if not unread:
+    bad.append("Stage 2b no longer reports UNREAD arms — its premise failure "
+               "has been resolved without this checker being updated")
+# The floor is QUADRATURE, not additive (RECERT_CORRECTIONS item 8): the implied
+# absolute deviation must VARY strongly with eta. If it stops varying, the
+# correction is stale.
+C = 2.0 / np.sqrt(np.pi)
+dev = {e: C * float(e) * S3["bias"][f"n4096_eta{e}_eps0.704"]
+       for e in ("1e-05", "1e-04", "1e-02")}
+ratio = max(dev.values()) / min(dev.values())
+print(f"  Stage 2b: {len(unread)} arms UNREAD; implied deviation varies "
+      f"{ratio:.1f}x across eta at n=4096 (additive would be 1.0x)")
+if ratio < 2.0:
+    bad.append(f"Stage 2b deviation is eta-independent ({ratio:.2f}x) — the "
+               "QUADRATURE correction in RECERT_CORRECTIONS item 8 is stale")
 
 if bad:
     print("VERIFY_RECERT: FAIL")

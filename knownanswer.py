@@ -9,12 +9,23 @@ derivflow's two known-answer gates are Gate L (picket fence, exactly periodic)
 and Gate H (Hermite seed, near-crystalline). Both are ORDERED configurations,
 and that is a structural blindness rather than a strictness setting:
 
-    a smoothing bandwidth that biases every gap by the same factor is
-    TRANSLATION-INVARIANT, and r-tilde = min(s_i, s_{i+1}) / max(s_i, s_{i+1})
-    is invariant under a common rescaling of the gaps.
+    an ORDERED configuration has no gap FLUCTUATION, and the bias class of
+    interest damps the fluctuation about the mean gap.
 
-So on an ordered configuration such a bias cancels IDENTICALLY, and neither gate
-can object no matter how large it gets. Measured 2026-09-09: picket-fence
+Damping s -> mu + (1-d)(s - mu) moves a disordered configuration's statistic by
+exactly -d and leaves a picket fence at identically zero, because a picket
+fence's gaps are already all mu. So neither ordered gate can object no matter
+how large the damping gets.
+
+CORRECTED 2026-09-13. This docstring, and the demonstration in
+verify_knownanswer.py, previously attributed the blindness to r-tilde's
+invariance under a COMMON RESCALING of the gaps. That invariance is real but it
+is CONFIGURATION-INDEPENDENT -- rescaling a disordered lattice by any factor
+moves the statistic by 0 to 3.4e-15 as well -- so it cannot explain why an
+ordered gate is blind and a disordered one is not. The conclusion was right and
+the stated reason was wrong; an independent audit found it. The checker now
+exercises the damping map on both configurations AND shows the rescaling control
+failing to discriminate, so the two cannot be conflated again. Measured 2026-09-09: picket-fence
 readouts sit at 1e-9..1e-11 while the same instrument carried a +17% to +271%
 bias on disordered input (TAIL_AUDIT_2026_09_09.md). The gates were not lax.
 They were blind, and running them harder would never have helped.
