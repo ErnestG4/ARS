@@ -72,3 +72,13 @@ Flag clearly for Will rather than treating as settled.
 Re-run the board, push nothing, and write a morning summary at
 `derivflow/MORNING_2026_09_14.md` stating: what ran, what each verdict was,
 which arms were UNREAD, and what is left. Do not start a new arc unprompted.
+
+---
+
+## Item 6 (added 03:38, not in the original queue)
+Closed a defect the Stage 3 design audit flagged and nothing had addressed:
+`KSTAR_LEVEL`, `FIT_WINDOW_MIN` and `BULK_FRACTION` are imported by cells that
+never declare them, so they cannot be swept and nothing can flag them.
+`verify_declared_params` is a ratcheting census — 15 today, fails if it grows.
+Judged in-lane rather than a new arc: same class as items 2-4, all of which are
+guards against something undeclared or colliding.
