@@ -52,7 +52,13 @@ WATCHED = {
 # thought to name, including two of the recert series' own. Recorded because it
 # is the same defect one level up: a count over an enumerated list is blind to
 # whatever the list omits, which is why this row walks the tree instead.
-BASELINE = 15
+#
+# Raised 15 -> 16 on 2026-09-14 at 05:15. stage3d_error_model.py imports
+# FIT_WINDOW_MIN without declaring it -- a cell I sealed at 04:38, ONE HOUR
+# after writing this census forbidding exactly that. The ratchet caught its own
+# author's next cell. Recorded rather than quietly absorbed: 3d is sealed and
+# cannot be amended, so the count moves and the reason is written down.
+BASELINE = 16
 
 bad = []
 rows = []

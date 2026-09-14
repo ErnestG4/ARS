@@ -17,6 +17,7 @@ import warnings
 import collections
 import json
 import os
+import re
 import sys
 
 # Parsing the whole tree surfaces SyntaxWarnings from files this census
@@ -111,6 +112,53 @@ if drifted:
           + "  (reported, not failed)")
 print(f"  unused now: {sorted(now_unused) or 'none'}"
       + (f"   (revived since census: {revived})" if revived else ""))
+
+# ---- DISCOVERY, added 2026-09-14 -------------------------------------------
+# The banked census enumerates a FIXED list of 11 guards, so it is structurally
+# blind to any guard created after it ran: it reported "unused now: none" on the
+# night two new guards (spacings, lineage) sat with zero importers. That is
+# [[record-is-blind-to-what-it-did-not-enumerate]] applied to the very row whose
+# job is finding unused guards.
+#
+# A guard module is DISCOVERABLE rather than listed: a top-level .py that has a
+# verify_<name>.py beside it and is not itself a checker. Anything discovered
+# that the census never knew about is reported, and a discovered guard with NO
+# consumer fails the row -- because a codified rule with no call site is
+# indistinguishable from a working one from inside the repo, which is exactly
+# how railed.py sat inert for weeks with a docstring, a checker and a board slot.
+import glob as _glob
+_top = {os.path.basename(f)[:-3] for f in _glob.glob(os.path.join(HERE, "*.py"))}
+_discovered = {m for m in _top
+               if not m.startswith("verify_")
+               and os.path.exists(os.path.join(HERE, f"verify_{m}.py"))}
+_new = sorted(_discovered - GS)
+if _new:
+    print(f"  guards the banked census never enumerated: {', '.join(_new)}")
+    _dark = []
+    for m in _new:
+        users = set()
+        for dp2, dn2, fn2 in os.walk(HERE):
+            dn2[:] = [d for d in dn2 if d not in SKIP]
+            for f2 in fn2:
+                if not f2.endswith(".py") or f2 == f"verify_{m}.py" or f2 == f"{m}.py":
+                    continue
+                try:
+                    src2 = open(os.path.join(dp2, f2), encoding="utf-8").read()
+                except Exception:
+                    continue
+                if re.search(rf"^\s*(from\s+{m}\s+import|import\s+{m})", src2,
+                             re.M):
+                    users.add(os.path.relpath(os.path.join(dp2, f2), HERE))
+        print(f"    {m}: {len(users)} consumer(s)"
+              + (f" -> {sorted(users)}" if users else "  <-- DARK"))
+        if not users:
+            _dark.append(m)
+    if _dark:
+        bad.append(
+            f"guard(s) with NO call site: {', '.join(_dark)}. A codified rule "
+            "nothing imports is indistinguishable from a working guard from "
+            "inside the repo — it has a docstring, a checker and a board slot, "
+            "and enforces nothing. Wire it or delete it.")
 
 if bad:
     print("VERIFY_GUARD_USAGE: FAIL")

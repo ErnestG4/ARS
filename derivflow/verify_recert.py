@@ -44,6 +44,7 @@ sys.path.insert(0, os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 
 from knownanswer import detectable_bias                               # noqa: E402
+from lineage import Lineage, SharedLineage, assert_independent        # noqa: E402
 
 bad = []
 S1 = json.load(open(os.path.join(HERE, "recert_bias_surface.json")))
@@ -122,8 +123,29 @@ if _typed_rel > 1e-5:
 if gap > res_bulk:
     bad.append(f"cross-cell continuity BROKEN: Stage 2a centre {centre:+.4%} vs "
                f"Stage 1 {s1_read:+.4%}, gap {gap:.4%} exceeds {res_bulk:.4%}")
+# CLASSIFY the continuity check rather than assuming it corroborates. Stage 2a
+# shares Stage 1's entire construction, so agreement between them is a
+# REPRODUCTION and not independent evidence — the mirror failure this arc
+# committed and had to correct. lineage.assert_independent is the thing that
+# says so, and the row fails if it ever stops saying it.
+_S1 = Lineage("recert_bias_surface", "analytic-semicircle + bisection",
+              "gate-D perturbed lattice n=4096",
+              "richardson pair via _abs_cdf_at_roots")
+_S2A = Lineage("recert_section_sweep", "analytic-semicircle + bisection",
+               "gate-D perturbed lattice n=4096",
+               "richardson pair via _abs_cdf_at_roots")
+try:
+    assert_independent(_S1, _S2A, about="construction")
+    bad.append("lineage no longer refuses the Stage 1 / Stage 2a pair — either "
+               "a construction genuinely diverged, or the guard stopped "
+               "guarding and the continuity check is being read as "
+               "corroboration again")
+    _cls = "INDEPENDENT (unexpected)"
+except SharedLineage:
+    _cls = "REPRODUCTION (shared construction) — not corroboration"
 print(f"  continuity: Stage 2a centre {centre:+.4%} vs Stage 1 {s1_read:+.4%} "
       f"(gap {gap:.4%}, bar {res_bulk:.4%})")
+print(f"  classified by lineage: {_cls}")
 print(f"  KNOWN DEFECT: Stage 2a TYPED its Stage-1 reference ({_typed_rel:.1e} "
       f"from the artifact, i.e. rounding). Cross-cell values must be READ.")
 

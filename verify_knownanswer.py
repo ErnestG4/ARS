@@ -28,6 +28,7 @@ from knownanswer import (EXACT_COEFF, exact_statistic, perturbed_lattice,   # no
                          _REL_SD_PER_ROOT_GAP)
 sys.path.insert(0, os.path.join(HERE, "derivflow"))
 from track0_harness import rtilde as _instrument_rtilde                   # noqa: E402
+from spacings import Unfolding, Spacings, ProvenanceMismatch              # noqa: E402
 
 bad = []
 rng = np.random.default_rng(20260910)
@@ -174,6 +175,31 @@ print(f"\n  gate vs instrument on identical gaps: {gate5:.17g} vs {inst5:.17g}")
 if gate5 != inst5:
     bad.append(f"gate and instrument disagree by {abs(gate5 - inst5):.2e} — the "
                "same quantity has two estimators again")
+
+# ---- 5b. THE GATE'S OWN STATISTIC CARRIES ITS PROVENANCE ------------------
+# Gate D's readings are only comparable to readings taken the same way. Tagging
+# them makes that checkable rather than remembered: the gate's own configuration
+# is unfolded by construction (the perturbed lattice IS the unfolded object), and
+# a reading tagged that way must refuse comparison with one taken through the
+# science's empirical reference — the swap that cost 2.6e-03 in recert_finite_seed.
+GATE_U = Unfolding("none-perturbed-lattice", "exact", 0.0, "full")
+SCI_U = Unfolding("empirical-n4096", "richardson", 0.704, "bulk-0.20")
+_sp = Spacings(np.diff(pos5), GATE_U, "gate-D")
+_tag = _sp.rtilde_distance()
+print(f"  tagged statistic: {float(_tag):.17g}  [{_tag.unfolding}]")
+if float(_tag) != gate5:
+    bad.append(f"the tagged statistic {float(_tag):.17g} differs from the "
+               f"untagged {gate5:.17g} — tagging must not change arithmetic")
+_refused = False
+try:
+    _tag - Spacings(np.diff(pos5), SCI_U, "science").rtilde_distance()
+except ProvenanceMismatch:
+    _refused = True
+print(f"  comparison across unfolding estimators: "
+      f"{'REFUSED' if _refused else 'ALLOWED  <-- BAD'}")
+if not _refused:
+    bad.append("a gate reading was comparable with a science-unfolded reading — "
+               "the provenance tag is not being enforced")
 
 # ---- 6. THE DETECTOR FIRES, AND THE INSTRUMENT DOES NOT --------------------
 bad6 = pos5.copy()

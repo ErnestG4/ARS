@@ -66,6 +66,25 @@ while IFS= read -r line; do
     FAILED=1; break
   fi
   HIT=$(grep -F -- "	$line" "$LOG" | tail -1 | cut -f1)
+  # SUPERSESSION, added 2026-09-14. The check above finds the most recent line
+  # MATCHING the pasted text and checks its age. It never asked whether a NEWER
+  # run of the SAME CHECKER said something different -- so a genuine
+  # "EXIT=0 PASS" from an hour ago stayed acceptable after the board had since
+  # gone red. That is exactly the false-CHECKRUN failure the log was built to
+  # make impossible, surviving in the gap between "was produced" and "is still
+  # true". Found 2026-09-14 when a commit claiming 52/52 landed on a 51/52 tree.
+  CHK=$(printf '%s' "$line" | awk '{print $2}')
+  NEWEST=$(grep -E "	CHECKRUN $CHK EXIT=" "$LOG" | tail -1)
+  NEWEST_TXT=$(printf '%s' "$NEWEST" | cut -f2)
+  if [ -n "$NEWEST_TXT" ] && [ "$NEWEST_TXT" != "$line" ]; then
+    echo "commit-msg REFUSED: this CHECKRUN line has been SUPERSEDED --"
+    printf '    pasted: %s\n' "$line"
+    printf '    newest: %s\n' "$NEWEST_TXT"
+    echo "  A later run of the same checker disagrees. The pasted line was"
+    echo "  produced, but it is no longer what the tree says. Re-run and paste"
+    echo "  the current result, or fix what broke."
+    FAILED=1; break
+  fi
   if [ -z "$HIT" ]; then
     echo "commit-msg REFUSED: this CHECKRUN line was never produced by a run --"
     printf '    %s\n' "$line"
