@@ -64,6 +64,58 @@ def numerals(text):
 
 
 # --- numbers the .tex adds, re-derived from the artifact ---------------------
+# --- Stage 3c window surface: every numeral in the paper's window-disclosure
+# paragraph is READ from the artifact, never typed. Added 2026-09-14 with that
+# paragraph; the standing rule this arc paid five times to learn.
+s3c = json.load(open(os.path.join(DFLOW, "stage3c_window_surface_alln.json")))
+w3c = set()
+for nn, v in s3c["per_n"].items():
+    w3c |= {"%.4f" % v["sep_min"], "%.4f" % v["sep_max"],
+            "%.1f" % (v["spread"] * 100), "%.2f" % v["zb_min"],
+            "%.2f" % v["zb_max"], "%.1f" % v["swing"],
+            "%.2f" % v["sealed_zbeta"], "%d" % round(v["pct"] * 100)}
+w3c |= {"%d" % (len(s3c["k_lo"]) * len(s3c["upper_rules"])),
+        "%d" % max(s3c["k_lo"]), "%d" % len(s3c["ns"])}
+
+# --- the iid sealed-window residuals and the AICc margins, DERIVED not typed.
+sys.path.insert(0, DFLOW)
+import numpy as _np                                                   # noqa: E402
+from science_rate_question import (f3 as _f3, fit_ladder as _ladder,   # noqa: E402
+                                   LN10 as _LN10, FIT_WINDOW_MIN as _FWM)
+_bank = json.load(open(os.path.join(DFLOW, "science_dense_grid.json")))
+_c = _bank["data"]["iid"]["4096"]
+_ks = sorted((int(k) for k in _c), key=int)
+_m = _np.array([_c[str(k)]["mean"] for k in _ks])
+_sg = _np.array([_c[str(k)]["sigma_mean"] for k in _ks])
+_w = _m > _FWM
+_r = ((_np.log10(_m[_w]) - _f3(_np.array(_ks, float)[_w],
+                               *_bank["adjudication"]["shape_params"]["iid"]))
+      / (_sg[_w] / (_m[_w] * _LN10)))
+w3c |= {"%.2f" % abs(v) for v in _r[:3]}
+_mg, _cells = [], 0
+for _n in (1024, 2048, 4096):
+    for _sc in ("iid", "gue"):
+        _cc = _bank["data"][_sc][str(_n)]
+        _kk = sorted((int(k) for k in _cc), key=int)
+        _mm = _np.array([_cc[str(k)]["mean"] for k in _kk])
+        _ss = _np.array([_cc[str(k)]["sigma_mean"] for k in _kk])
+        for _keep in (_mm > _FWM, _np.array(_kk) <= 11, _np.array(_kk) <= 16,
+                      _np.array(_kk) <= 8):
+            if _keep.sum() < 5:
+                continue
+            _sel, _f = _ladder(_np.array(_kk, float)[_keep], _mm[_keep], _ss[_keep])
+            if _sel != "F3":
+                raise SystemExit(f"F3 is no longer AICc-best at {_sc} n={_n}: "
+                                 f"selected {_sel} — the paper's footnote is stale")
+            _a = {k_: v_["aicc"] for k_, v_ in _f.items()
+                  if _np.isfinite(v_.get("aicc", _np.inf))}
+            _mg.append(min(v_ for k_, v_ in _a.items() if k_ != "F3") - _a["F3"])
+            _cells += 1
+# both the rounded and one-decimal forms, because prose quotes whichever reads
+# better and the checker must not force the prose to a format.
+w3c |= {"%.1f" % min(_mg), "%.1f" % max(_mg), "%d" % round(min(_mg)),
+        "%d" % round(max(_mg)), "%d" % _cells}
+
 z = json.load(open(os.path.join(DFLOW, "zbeta_correlated_error.json")))
 gls = z["z"]["gls_sweep"]
 c4 = z["bars"]["max |z_gls - z_boot| / z_boot over the shrinkage sweep"]
@@ -102,7 +154,10 @@ DRAFT_ONLY = {
 # was removed is the claim of kinship, not a result.
 DELINKED = {
     "51": "Ediger, Annu. Rev. Phys. Chem. 51", "2000": "Ediger, year",
-    "99": "Ediger, page", "14": "Richert, J. Phys. Condens. Matter 14",
+    "99": "Ediger, page",
+    # "14" was Richert's volume number. It re-entered the paper on 2026-09-14 as
+    # part of that date in the window-disclosure footnote, so the exclusion is
+    # retired rather than the date being reworded to dodge a checker.
     "2002": "Richert, year", "703": "Richert, page R703",
     "243": "Sillescu, J. Non-Cryst. Solids 243", "1999": "Sillescu, year",
     "81": "Sillescu, page", "93": "Widmer-Cooper et al., PRL 93",
@@ -115,7 +170,7 @@ EXCLUDED = {**DRAFT_ONLY, **DELINKED}
 tex_nums = numerals(tex_body)
 src_nums = numerals(prose) | numerals(note)
 
-invented = sorted(tex_nums - src_nums - derived, key=lambda s: (len(s), s))
+invented = sorted(tex_nums - src_nums - derived - w3c, key=lambda s: (len(s), s))
 if invented:
     bad.append("numerals in paper.tex with no source and no derivation: "
                + ", ".join(invented))
@@ -127,7 +182,7 @@ if dropped:
                + ", ".join(dropped))
 
 for tok, why in EXCLUDED.items():
-    if tok in tex_nums:
+    if tok in tex_nums and tok not in w3c:
         bad.append(f"{tok!r} is in paper.tex but was excluded as {why}")
 
 # --- structure ---------------------------------------------------------------

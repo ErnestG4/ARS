@@ -247,7 +247,51 @@ every $n$ is the ordering --- iid $>$ GUE in both $\tau$ and $\beta$ in all 12 b
 degree comparisons, with $\Delta\tau=0.63$--$0.85$ on the primary arm ($0.39$--$0.85$ across all
 bands) far exceeding the drift.\footnote{Corrected 2026-08-16, packaging audit: the earlier
 ``$0.65$--$0.85$'' did not trace --- the $n=2048$ primary cell gives $0.628$. The artifacts are
-authoritative; the prose was the defective slot.} \textbf{Verdict:} \verdict{rate-seed-dependent}.
+authoritative; the prose was the defective slot.} 
+
+\paragraph{What the window is worth, and what it is not.} The fit window is set by a
+threshold, $\text{mean}>10^{-3}$ on the full ensemble, and that threshold lands in a different
+place for each class --- iid is fitted on $16$ points, GUE on $11$. Refitting both classes over a
+surface of $15$ defensible window rules (lower edge $k_{\mathrm{lo}}\in\{1,\dots,5\}$, upper edge
+by the sealed threshold or at a shared $k\le11$ or $k\le16$) separates two quantities that the
+paragraph above reports together:
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+$n$ & $|\kstar_{\mathrm{iid}}-\kstar_{\mathrm{gue}}|$ & spread & $z(\beta)$ range & swing &
+sealed $z(\beta)$ \\
+\midrule
+1024 & 4.4302--4.7175 & 6.3\% & 0.04--4.58 & $108.9\times$ & 3.80 \\
+2048 & 4.0044--4.3311 & 7.8\% & 0.36--5.46 & $15.1\times$ & 3.11 \\
+4096 & 4.4443--4.7277 & 6.1\% & 0.12--11.27 & $95.6\times$ & 9.31 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+The \emph{separation} is robust: it moves by $6$--$8\%$ across every window rule at every $n$.
+The \emph{significance} is not: $z(\beta)$ moves by one to two orders of magnitude over the same
+rules, and the sealed window sits at the $87$th percentile of that range at all three $n$ --- the
+same percentile to two decimals, which is a property of the threshold rule rather than a
+coincidence of one fit. The sealed $z(\beta)$ is also not stable in $n$: $3.80$, $3.11$ and
+$9.31$ at $n=1024$, $2048$ and $4096$, so two of the three sizes sit below the $5\sigma$ bar
+under the identical rule.\footnote{Measured 2026-09-14. The lower edge is the sensitive one and
+is the axis a first attempt failed to declare: the separation is flat in it while $z$ is not,
+because dropping iid's $k=1..3$ removes the points that identify $(\tau,\beta)$ --- and those are
+exactly the points F3 fits worst (residuals $-1.77,+2.59,+1.90$). Holding F3 fixed is not
+question-begging: it is AICc-best on all $24$ (class, window, $n$) cells by margins of $10.3$ to
+$5642$.}
+
+We therefore report the separation as the result and the $z$ as a window-dependent summary of it.
+The window sensitivity is larger than the covariance-treatment sensitivity disclosed above, and
+it does not touch \verdict{rate-seed-dependent}: the classes separate under every window rule
+tested, at every $n$. What it means is that a reader should weight the $6$--$8\%$ stability of
+$|\Delta\kstar|$ rather than the particular $\sigma$ attached to it.
+
+\textbf{Verdict:} \verdict{rate-seed-dependent}.
 
 \begin{figure}[t]
 \centering
