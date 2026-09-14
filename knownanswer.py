@@ -60,7 +60,7 @@ import numpy as np
 
 __all__ = ["EXACT_COEFF", "exact_statistic", "perturbed_lattice", "rtilde_distance",
            "truth_by_simulation", "detectable_bias", "assert_recovers",
-           "KnownAnswerFailure"]
+           "KnownAnswerFailure", "NonPositiveGap"]
 
 EXACT_COEFF = 2.0 / np.sqrt(np.pi)      # 1.1283791670955126
 
@@ -80,6 +80,24 @@ _REL_SD_PER_ROOT_GAP = 0.905
 
 class KnownAnswerFailure(AssertionError):
     """A known-answer gate did not recover its own truth."""
+
+
+class NonPositiveGap(ValueError):
+    """A gap was zero or negative: the unfolding is non-monotone there.
+
+    RAISED, not filtered. Until 2026-09-14 this module silently dropped
+    non-positive gaps (`s = s[s > 0]`) while the instrument it certifies --
+    `track0_harness.rtilde` -- applies no filter at all and would propagate them
+    into the statistic unbounded (one negative beside a positive gives a NEGATIVE
+    ratio; two adjacent negatives give a ratio above 1). A gate strictly more
+    forgiving than its instrument can pass a configuration on which the real
+    statistic is corrupted, and the divergence appears exactly in the tail this
+    arc classifies on.
+
+    Verified before removing the filter: over 806,200 gaps spanning every eta the
+    recert series used, the smallest gap was 0.532 -- it never fired, so no
+    banked number moves. It is a detector now precisely so that a future
+    configuration where it WOULD fire cannot pass quietly."""
 
 
 def exact_statistic(eta):
@@ -104,10 +122,22 @@ def perturbed_lattice(n, eta, rng):
     return np.concatenate(([0.0], np.cumsum(g)))
 
 
-def rtilde_distance(positions):
-    """1 - <r-tilde> over the gaps of `positions`. The statistic under test."""
+def rtilde_distance(positions, on_nonpositive="raise"):
+    """1 - <r-tilde> over the gaps of `positions`. The statistic under test.
+
+    Computes EXACTLY what `track0_harness.rtilde` computes on the same gaps --
+    no filtering, no clipping -- so the gate and the instrument cannot disagree
+    about what the quantity is. `on_nonpositive` controls only whether a
+    non-monotone unfolding is refused ("raise", the default) or counted and
+    allowed through ("allow"); it never changes the arithmetic.
+    """
     s = np.diff(np.asarray(positions, dtype=np.float64))
-    s = s[s > 0]
+    bad = int(np.count_nonzero(s <= 0))
+    if bad and on_nonpositive == "raise":
+        raise NonPositiveGap(
+            f"{bad} of {s.size} gaps are non-positive: the unfolding is not "
+            "monotone, so these are not spacings. track0_harness.rtilde would "
+            "propagate them into the statistic without complaint.")
     if s.size < 2:
         return float("nan")
     a, b = s[:-1], s[1:]

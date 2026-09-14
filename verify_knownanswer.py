@@ -24,8 +24,10 @@ sys.path.insert(0, HERE)
 
 from knownanswer import (EXACT_COEFF, exact_statistic, perturbed_lattice,   # noqa: E402
                          rtilde_distance, truth_by_simulation, detectable_bias,
-                         assert_recovers, KnownAnswerFailure,
+                         assert_recovers, KnownAnswerFailure, NonPositiveGap,
                          _REL_SD_PER_ROOT_GAP)
+sys.path.insert(0, os.path.join(HERE, "derivflow"))
+from track0_harness import rtilde as _instrument_rtilde                   # noqa: E402
 
 bad = []
 rng = np.random.default_rng(20260910)
@@ -155,6 +157,44 @@ else:
           "configuration-\n       independent, so it cannot explain why ordered "
           "gates are blind.\n       The discriminating fact is that a picket "
           "fence has no fluctuation to damp.")
+
+# ---- 5. THE GATE AND THE INSTRUMENT COMPUTE THE SAME QUANTITY --------------
+# Until 2026-09-14 this module filtered `s = s[s > 0]` while
+# track0_harness.rtilde filters nothing. Same name, two estimators, and the
+# gate was strictly MORE FORGIVING than the instrument it certifies -- so it
+# could pass a configuration on which the real statistic is corrupted. The
+# filter provably never fired (smallest gap 0.532 over 806,200 gaps spanning
+# every eta the series used), so no banked number moved when it was replaced by
+# a detector. This row keeps the two definitions welded together.
+rng5 = np.random.default_rng(4242)
+pos5 = np.concatenate(([0.0], np.cumsum(1.0 + 1e-3 * rng5.standard_normal(4031))))
+gate5 = rtilde_distance(pos5)
+inst5 = 1.0 - _instrument_rtilde(np.diff(pos5))
+print(f"\n  gate vs instrument on identical gaps: {gate5:.17g} vs {inst5:.17g}")
+if gate5 != inst5:
+    bad.append(f"gate and instrument disagree by {abs(gate5 - inst5):.2e} — the "
+               "same quantity has two estimators again")
+
+# ---- 6. THE DETECTOR FIRES, AND THE INSTRUMENT DOES NOT --------------------
+bad6 = pos5.copy()
+bad6[2000] = bad6[2001] + 0.5            # force one non-monotone point
+fired = False
+try:
+    rtilde_distance(bad6)
+except NonPositiveGap:
+    fired = True
+allowed = rtilde_distance(bad6, "allow")
+unguarded = 1.0 - _instrument_rtilde(np.diff(bad6))
+print(f"  one non-positive gap in {len(pos5) - 1}: detector "
+      f"{'FIRES' if fired else 'SILENT'}; statistic moves {gate5:.5f} -> "
+      f"{allowed:.5f} ({allowed / gate5:.1f}x), and the instrument reports "
+      f"{unguarded:.5f} without complaint")
+if not fired:
+    bad.append("the non-positive-gap detector did NOT fire — the silent filter "
+               "is back, or the raise path is unreachable")
+if allowed != unguarded:
+    bad.append("gate('allow') and instrument disagree on a non-monotone input — "
+               "the refusal is changing the arithmetic, which it must not")
 
 if bad:
     print("\nVERIFY_KNOWNANSWER: FAIL")
