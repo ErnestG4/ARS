@@ -274,9 +274,16 @@ sealed $z(\beta)$ \\
 \noindent
 The \emph{separation} is robust: it moves by $6$--$8\%$ across every window rule at every $n$.
 The \emph{significance} is not: $z(\beta)$ moves by one to two orders of magnitude over the same
-rules, and the sealed window sits at the $87$th percentile of that range at all three $n$ --- the
-same percentile to two decimals, which is a property of the threshold rule rather than a
-coincidence of one fit. The sealed $z(\beta)$ is also not stable in $n$: $3.80$, $3.11$ and
+rules, and the sealed window sits at the $87$th percentile of that range at all three
+$n$.\footnote{\emph{Corrected 2026-09-14}: that percentile, and the equality of it across $n$,
+are artifacts of the diagonal \texttt{absolute\_sigma} error model these $z$ were computed with.
+Recomputed with a replicate bootstrap --- which carries the across-$k$ correlation that error
+model omits --- the sealed window sits at $0.93$, $0.47$ and $0.87$ at $n=1024$, $2048$ and
+$4096$, i.e.\ at the \emph{median} at $n=2048$. The window sensitivity itself survives the
+correction (the swing is $98.3\times$, $11.4\times$ and $42.9\times$ under bootstrap errors), but
+it is not true that the threshold rule places the sealed window favourably at every $n$. The
+$z$ values quoted in this paragraph are the covariance-model ones throughout; the
+bootstrap column is in \texttt{stage3d\_error\_model.json}.} The sealed $z(\beta)$ is also not stable in $n$: $3.80$, $3.11$ and
 $9.31$ at $n=1024$, $2048$ and $4096$, so two of the three sizes sit below the $5\sigma$ bar
 under the identical rule.\footnote{Measured 2026-09-14. The lower edge is the sensitive one and
 is the axis a first attempt failed to declare: the separation is flat in it while $z$ is not,

@@ -1,5 +1,25 @@
 # The window disclosure quotes z(beta) from the wrong error model
 
+> **SUPERSEDED 2026-09-14 05:37 by `stage3d_error_model.json` (c639d08). The
+> DIAGNOSIS below is right; my EXTRAPOLATION from it was not.** Measured across
+> all 45 cells at three n rather than 4 cells at one, the covariance model
+> inflates the swing by **1.11x / 1.32x / 2.23x** at n=1024/2048/4096 — real,
+> n-dependent, and far smaller than the "nearer 20x" this file inferred. The
+> swing clears 3x at every n under bootstrap errors (98.3 / 11.4 / 42.9), so the
+> paper's paragraph does NOT need withdrawing.
+>
+> What Stage 3d DID overturn is a claim this file did not question: the sealed
+> window's percentile. Under covariance errors it read 0.87 at all three n;
+> under bootstrap it is **0.93 / 0.47 / 0.87**, with n=2048 at the MEDIAN. The
+> "favourably placed at every n" claim is wrong as stated, in the paper and
+> implicitly here.
+>
+> This file said in its own scope line that 4 cells of 45 "is not enough to
+> replace the table", and then its arithmetic was carried further than that
+> anyway. Left standing as written, with this banner, because the overreach is
+> the instructive part.
+
+
 **2026-09-14 04:08. Diagnostic, not a sealed measurement. FLAGGED FOR WILL — the
 paper paragraph is committed (`be1823c`) and marked FOR REVIEW; it has not been
 edited on the strength of this.**

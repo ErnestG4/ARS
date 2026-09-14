@@ -77,6 +77,14 @@ for nn, v in s3c["per_n"].items():
 w3c |= {"%d" % (len(s3c["k_lo"]) * len(s3c["upper_rules"])),
         "%d" % max(s3c["k_lo"]), "%d" % len(s3c["ns"])}
 
+# --- Stage 3d: the bootstrap correction to the percentile claim. Same rule --
+# every numeral READ from the artifact, so the correction footnote cannot drift
+# from the measurement that motivated it.
+s3d = json.load(open(os.path.join(DFLOW, "stage3d_error_model.json")))
+for nn, v in s3d["per_n"].items():
+    w3c |= {"%.2f" % v["pct_boot"], "%.1f" % v["swing_boot"],
+            "%.2f" % v["sealed_boot"], "%.2f" % v["swing_cov"]}
+
 # --- the iid sealed-window residuals and the AICc margins, DERIVED not typed.
 sys.path.insert(0, DFLOW)
 import numpy as _np                                                   # noqa: E402
