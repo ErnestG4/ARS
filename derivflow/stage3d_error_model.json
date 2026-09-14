@@ -1,0 +1,544 @@
+{
+ "ns": [
+  1024,
+  2048,
+  4096
+ ],
+ "replicates": 16,
+ "k_lo": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "upper_rules": [
+  "sealed_1e-3",
+  "shared_11",
+  "shared_16"
+ ],
+ "error_models": [
+  "covariance",
+  "bootstrap"
+ ],
+ "B": 400,
+ "boot_seed": 20260914,
+ "zbeta_reference_read": 8.241967408588193,
+ "p1_mismatches": 0,
+ "surface": {
+  "n1024_lo1_sealed_1e-3": {
+   "z_covariance": 3.803874968151025,
+   "z_bootstrap": 5.682474837091678,
+   "delta_beta": 0.07652219394763038,
+   "n_ok": 400
+  },
+  "n1024_lo1_shared_11": {
+   "z_covariance": 4.582156777951142,
+   "z_bootstrap": 7.43368237319,
+   "delta_beta": 0.13000560214062862,
+   "n_ok": 400
+  },
+  "n1024_lo1_shared_16": {
+   "z_covariance": 3.8128937923471558,
+   "z_bootstrap": 5.3406376434764855,
+   "delta_beta": 0.06996961499788357,
+   "n_ok": 400
+  },
+  "n1024_lo2_sealed_1e-3": {
+   "z_covariance": 0.18992341595211296,
+   "z_bootstrap": 0.33316753824367284,
+   "delta_beta": 0.006553811172517854,
+   "n_ok": 400
+  },
+  "n1024_lo2_shared_11": {
+   "z_covariance": 1.3567980184398392,
+   "z_bootstrap": 3.2915583784873235,
+   "delta_beta": 0.0739376311082599,
+   "n_ok": 400
+  },
+  "n1024_lo2_shared_16": {
+   "z_covariance": 0.043543641256383485,
+   "z_bootstrap": 0.07565946200477348,
+   "delta_beta": 0.0013712359833808474,
+   "n_ok": 400
+  },
+  "n1024_lo3_sealed_1e-3": {
+   "z_covariance": 0.8891285715304184,
+   "z_bootstrap": 1.838488978431119,
+   "delta_beta": 0.049491904066785275,
+   "n_ok": 400
+  },
+  "n1024_lo3_shared_11": {
+   "z_covariance": 0.4188284455663423,
+   "z_bootstrap": 1.2154962737832777,
+   "delta_beta": 0.041256466586490737,
+   "n_ok": 400
+  },
+  "n1024_lo3_shared_16": {
+   "z_covariance": 1.0406864229722428,
+   "z_bootstrap": 2.062878848075604,
+   "delta_beta": 0.0525403423632782,
+   "n_ok": 400
+  },
+  "n1024_lo4_sealed_1e-3": {
+   "z_covariance": 1.3745857506737766,
+   "z_bootstrap": 3.330575005724335,
+   "delta_beta": 0.11797433870563734,
+   "n_ok": 400
+  },
+  "n1024_lo4_shared_11": {
+   "z_covariance": 0.04208837060265585,
+   "z_bootstrap": 0.1738430261015458,
+   "delta_beta": 0.007197958885075684,
+   "n_ok": 400
+  },
+  "n1024_lo4_shared_16": {
+   "z_covariance": 1.3911111872521749,
+   "z_bootstrap": 3.213705647052172,
+   "delta_beta": 0.10659889030680614,
+   "n_ok": 400
+  },
+  "n1024_lo5_sealed_1e-3": {
+   "z_covariance": 1.418572330092956,
+   "z_bootstrap": 4.085834553276827,
+   "delta_beta": 0.18423355710421385,
+   "n_ok": 400
+  },
+  "n1024_lo5_shared_11": {
+   "z_covariance": 0.11376717752598198,
+   "z_bootstrap": 0.7012551809650008,
+   "delta_beta": 0.033887277080922096,
+   "n_ok": 400
+  },
+  "n1024_lo5_shared_16": {
+   "z_covariance": 1.456454737645987,
+   "z_bootstrap": 4.19622699595433,
+   "delta_beta": 0.1670963496769321,
+   "n_ok": 400
+  },
+  "n2048_lo1_sealed_1e-3": {
+   "z_covariance": 3.1124420819378185,
+   "z_bootstrap": 3.509868584269205,
+   "delta_beta": 0.04820144822259542,
+   "n_ok": 400
+  },
+  "n2048_lo1_shared_11": {
+   "z_covariance": 5.458493949746544,
+   "z_bootstrap": 7.136387598812231,
+   "delta_beta": 0.11179794331087722,
+   "n_ok": 400
+  },
+  "n2048_lo1_shared_16": {
+   "z_covariance": 3.684628076492616,
+   "z_bootstrap": 3.6337552039826106,
+   "delta_beta": 0.05045115093354324,
+   "n_ok": 400
+  },
+  "n2048_lo2_sealed_1e-3": {
+   "z_covariance": 0.8740700526942536,
+   "z_bootstrap": 1.2955456652566406,
+   "delta_beta": 0.02288181703436265,
+   "n_ok": 400
+  },
+  "n2048_lo2_shared_11": {
+   "z_covariance": 1.7565993221973804,
+   "z_bootstrap": 2.896414884268116,
+   "delta_beta": 0.06694910349583982,
+   "n_ok": 400
+  },
+  "n2048_lo2_shared_16": {
+   "z_covariance": 0.7405040826501761,
+   "z_bootstrap": 0.8601881689550283,
+   "delta_beta": 0.016988741085591008,
+   "n_ok": 400
+  },
+  "n2048_lo3_sealed_1e-3": {
+   "z_covariance": 2.3245157626339337,
+   "z_bootstrap": 4.4612209807669,
+   "delta_beta": 0.09623333354154273,
+   "n_ok": 400
+  },
+  "n2048_lo3_shared_11": {
+   "z_covariance": 0.362354784805245,
+   "z_bootstrap": 0.8663263825523849,
+   "delta_beta": 0.02438114030799865,
+   "n_ok": 400
+  },
+  "n2048_lo3_shared_16": {
+   "z_covariance": 2.3534660408624113,
+   "z_bootstrap": 3.780850185831504,
+   "delta_beta": 0.08561797333656918,
+   "n_ok": 400
+  },
+  "n2048_lo4_sealed_1e-3": {
+   "z_covariance": 2.9466849710335574,
+   "z_bootstrap": 7.7301047806736936,
+   "delta_beta": 0.18654703125516836,
+   "n_ok": 400
+  },
+  "n2048_lo4_shared_11": {
+   "z_covariance": 0.3651893309606022,
+   "z_bootstrap": 1.2808650964278188,
+   "delta_beta": 0.04227084312487528,
+   "n_ok": 400
+  },
+  "n2048_lo4_shared_16": {
+   "z_covariance": 2.974134509848644,
+   "z_bootstrap": 5.9166293724434444,
+   "delta_beta": 0.1642273470275737,
+   "n_ok": 400
+  },
+  "n2048_lo5_sealed_1e-3": {
+   "z_covariance": 2.792463621849642,
+   "z_bootstrap": 9.8107635553089,
+   "delta_beta": 0.26857269871856276,
+   "n_ok": 400
+  },
+  "n2048_lo5_shared_11": {
+   "z_covariance": 0.5753403323359484,
+   "z_bootstrap": 3.1900032300698773,
+   "delta_beta": 0.11496454632475639,
+   "n_ok": 400
+  },
+  "n2048_lo5_shared_16": {
+   "z_covariance": 2.917636043867604,
+   "z_bootstrap": 8.297000773938443,
+   "delta_beta": 0.23972556992363608,
+   "n_ok": 400
+  },
+  "n4096_lo1_sealed_1e-3": {
+   "z_covariance": 9.314013494917097,
+   "z_bootstrap": 8.281803201277665,
+   "delta_beta": 0.08541842535069433,
+   "n_ok": 400
+  },
+  "n4096_lo1_shared_11": {
+   "z_covariance": 10.987213864501197,
+   "z_bootstrap": 12.436632315614027,
+   "delta_beta": 0.1342216973601721,
+   "n_ok": 400
+  },
+  "n4096_lo1_shared_16": {
+   "z_covariance": 11.268075730764979,
+   "z_bootstrap": 8.769327608319086,
+   "delta_beta": 0.08830086272058613,
+   "n_ok": 400
+  },
+  "n4096_lo2_sealed_1e-3": {
+   "z_covariance": 2.122444802154513,
+   "z_bootstrap": 2.596875890804989,
+   "delta_beta": 0.0338410468209247,
+   "n_ok": 400
+  },
+  "n4096_lo2_shared_11": {
+   "z_covariance": 4.332350061870203,
+   "z_bootstrap": 6.99069384665956,
+   "delta_beta": 0.10016726371941198,
+   "n_ok": 400
+  },
+  "n4096_lo2_shared_16": {
+   "z_covariance": 2.9043675929988018,
+   "z_bootstrap": 2.8790303479589845,
+   "delta_beta": 0.038708627288700725,
+   "n_ok": 400
+  },
+  "n4096_lo3_sealed_1e-3": {
+   "z_covariance": 0.3693100046671181,
+   "z_bootstrap": 0.5872435404109853,
+   "delta_beta": 0.009526624881465717,
+   "n_ok": 400
+  },
+  "n4096_lo3_shared_11": {
+   "z_covariance": 1.887530087081098,
+   "z_bootstrap": 3.987070930833794,
+   "delta_beta": 0.07683127543488721,
+   "n_ok": 400
+  },
+  "n4096_lo3_shared_16": {
+   "z_covariance": 0.2164147501887251,
+   "z_bootstrap": 0.28989699271741415,
+   "delta_beta": 0.004494794955998249,
+   "n_ok": 400
+  },
+  "n4096_lo4_sealed_1e-3": {
+   "z_covariance": 1.649856472970745,
+   "z_bootstrap": 3.872333485988868,
+   "delta_beta": 0.06809897516735464,
+   "n_ok": 400
+  },
+  "n4096_lo4_shared_11": {
+   "z_covariance": 0.48266565100733905,
+   "z_bootstrap": 1.6085088208809026,
+   "delta_beta": 0.03450100475523221,
+   "n_ok": 400
+  },
+  "n4096_lo4_shared_16": {
+   "z_covariance": 1.8270926021189038,
+   "z_bootstrap": 3.2354503646731194,
+   "delta_beta": 0.05844146886019341,
+   "n_ok": 400
+  },
+  "n4096_lo5_sealed_1e-3": {
+   "z_covariance": 1.707991684805683,
+   "z_bootstrap": 5.561435267244515,
+   "delta_beta": 0.11289024601835174,
+   "n_ok": 400
+  },
+  "n4096_lo5_shared_11": {
+   "z_covariance": 0.11790445999518694,
+   "z_bootstrap": 0.6797423144500843,
+   "delta_beta": 0.014875742634258837,
+   "n_ok": 400
+  },
+  "n4096_lo5_shared_16": {
+   "z_covariance": 2.1698591601912556,
+   "z_bootstrap": 4.973012219678629,
+   "delta_beta": 0.1054133985255723,
+   "n_ok": 400
+  }
+ },
+ "per_n": {
+  "1024": {
+   "swing_cov": 108.86990188358587,
+   "swing_boot": 98.25185345252649,
+   "sealed_cov": 3.803874968151025,
+   "sealed_boot": 5.682474837091678,
+   "pct_boot": 0.9333333333333333,
+   "zb_min": 0.07565946200477348,
+   "zb_max": 7.43368237319
+  },
+  "2048": {
+   "swing_cov": 15.063948866248099,
+   "swing_boot": 11.405369091773476,
+   "sealed_cov": 3.1124420819378185,
+   "sealed_boot": 3.509868584269205,
+   "pct_boot": 0.4666666666666667,
+   "zb_min": 0.8601881689550283,
+   "zb_max": 9.8107635553089
+  },
+  "4096": {
+   "swing_cov": 95.56954614969578,
+   "swing_boot": 42.90017705612079,
+   "sealed_cov": 9.314013494917097,
+   "sealed_boot": 8.281803201277665,
+   "pct_boot": 0.8666666666666667,
+   "zb_min": 0.28989699271741415,
+   "zb_max": 12.436632315614027
+  }
+ },
+ "worst_inflation": 2.227719154274688,
+ "n_with_swing": 3,
+ "min_percentile": 0.4666666666666667,
+ "lineage": {
+  "shares_with_3b3c": [
+   "fitter",
+   "window rules",
+   "data"
+  ],
+  "independent_of_3b3c": [
+   "error model"
+  ],
+  "note": "a CORRECTION to 3b/3c, not corroboration of them; P2 is a reproduction check against zbeta, a third cell"
+ },
+ "bars": {
+  "banked-curve mismatches across all three n (240 numbers)": {
+   "name": "banked-curve mismatches across all three n (240 numbers)",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 240,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "3 n x 2 classes x 20 k x {mean, sigma_mean}; 0 to 240 by construction"
+  },
+  "|sealed bootstrap z(beta) - zbeta's independent value| / zbeta's": {
+   "name": "|sealed bootstrap z(beta) - zbeta's independent value| / zbeta's",
+   "value": 0.004833286849443527,
+   "thresh": 0.1,
+   "floor": 0.0,
+   "ceiling": 10.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.1,
+   "why": "a relative difference between two INDEPENDENT bootstrap computations of the same quantity, one read from zbeta_correlated_error.json. Non-negative; 10 a practical ceiling. 0.10 is half the bootstrap's own ~18% precision floor at R=16"
+  },
+  "n at which the BOOTSTRAP z(beta) swing reaches 3x": {
+   "name": "n at which the BOOTSTRAP z(beta) swing reaches 3x",
+   "value": 3,
+   "thresh": 2.5,
+   "floor": 0,
+   "ceiling": 3,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 3 sizes; 2.5 requires all three. MISSED means the window sensitivity was largely an error-model artifact and the paper's paragraph must be WITHDRAWN, not renumbered"
+  },
+  "worst-over-n swing_covariance / swing_bootstrap": {
+   "name": "worst-over-n swing_covariance / swing_bootstrap",
+   "value": 2.227719154274688,
+   "thresh": 1.5,
+   "floor": 0.0,
+   "ceiling": 1000.0,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 998.5,
+   "why": "a ratio of two swings of the same quantity; 1.0 is exact agreement and 1000 a practical ceiling. MISSED means the two error models agree and 3b/3c's published numbers stand"
+  },
+  "minimum over n of the sealed window's BOOTSTRAP z(beta) percentile": {
+   "name": "minimum over n of the sealed window's BOOTSTRAP z(beta) percentile",
+   "value": 0.4666666666666667,
+   "thresh": 0.75,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.25,
+   "why": "a percentile, [0,1] by construction. Stated so MET is the uncomfortable answer, as in Stage 3c"
+  }
+ },
+ "instrument": {
+  "model": "window surface under two error models",
+  "params": [
+   {
+    "name": "error_model",
+    "kind": "TESTED",
+    "why": "THE axis, and the one 3b and 3c left undeclared while depending on it. 'covariance' is absolute_sigma diagonal, which zbeta showed is wrong for these curves (replicates SHARED across k, median |r| 0.875 iid / 0.729 GUE). 'bootstrap' resamples whole replicate curves and carries that correlation automatically",
+    "sweep": [
+     "covariance",
+     "bootstrap"
+    ],
+    "value": null
+   },
+   {
+    "name": "n",
+    "kind": "TESTED",
+    "why": "the disclosure is quoted at all three sizes, so the correction must be too",
+    "sweep": [
+     1024,
+     2048,
+     4096
+    ],
+    "value": null
+   },
+   {
+    "name": "window_lower_k",
+    "kind": "TESTED",
+    "why": "the sensitive edge; Stage 3 omitted it entirely and the significance lives there while the separation does not",
+    "sweep": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "value": null
+   },
+   {
+    "name": "window_upper_rule",
+    "kind": "TESTED",
+    "why": "sealed_1e-3 is the science's own observable-matched rule; the shared_k rules equalise k and de-equalise the observable",
+    "sweep": [
+     "sealed_1e-3",
+     "shared_11",
+     "shared_16"
+    ],
+    "value": null
+   },
+   {
+    "name": "bootstrap_B",
+    "kind": "DECLARED",
+    "why": "90 cells x 2 classes. The bootstrap SE's own relative precision at R=16 is ~1/sqrt(2(R-1)) ~ 18%, which B cannot improve; 400 puts Monte-Carlo noise well under that floor and keeps the surface affordable",
+    "sweep": null,
+    "value": 400
+   },
+   {
+    "name": "resample_unit",
+    "kind": "DECLARED",
+    "why": "the correlation under correction is replicate-sharing ACROSS k within one curve; resampling k-points would destroy it",
+    "sweep": null,
+    "value": "replicate (whole curve)"
+   },
+   {
+    "name": "form",
+    "kind": "DECLARED",
+    "why": "held from the sealed adjudication; AICc-best on all 24 (class, window, n) cells by margins of 10.3 to 5642",
+    "sweep": null,
+    "value": "F3"
+   }
+  ],
+  "n_tested": 4,
+  "n_declared": 3
+ },
+ "scope": "RECERT_SCOPE Stage 3d. Refits banked data under two error models; runs no flows, changes no instrument, re-grades nothing. Supplies the numbers the paper's window-disclosure paragraph should carry.",
+ "verdict": "WINDOW_SWING_SURVIVES_THE_CORRECT_ERROR_MODEL",
+ "composed": {
+  "label": "WINDOW_SWING_SURVIVES_THE_CORRECT_ERROR_MODEL_AND_BY_worst-over-n swing_covariance / swing_bootstrap_COARSELY_AT_minimum over n of the sealed window's BOOTSTRAP z(beta) percentile",
+  "head": "WINDOW_SWING_SURVIVES_THE_CORRECT_ERROR_MODEL",
+  "qualifiers": [
+   "AND_BY_worst-over-n swing_covariance / swing_bootstrap",
+   "COARSELY_AT_minimum over n of the sealed window's BOOTSTRAP z(beta) percentile"
+  ],
+  "citation": "WINDOW_SWING_SURVIVES_THE_CORRECT_ERROR_MODEL  [n at which the BOOTSTRAP z(beta) swing reaches 3x 3 vs >=2.5 MET \u2014 \"the window swing survives the correct error model\"; minimum over n of the sealed window's BOOTSTRAP z(beta) percentile 0.4667 vs >=0.75 MISSED \u2014 \"and the sealed window is still favourably placed\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('banked-curve mismatches across all three n (240 numbers)', PREMISE, MET)",
+   "Arm(\"|sealed bootstrap z(beta) - zbeta's independent value| / zbeta's\", PREMISE, MET)",
+   "Arm('n at which the BOOTSTRAP z(beta) swing reaches 3x', EXISTENCE, MET)",
+   "Arm('worst-over-n swing_covariance / swing_bootstrap', MECHANISM, MET)",
+   "Arm(\"minimum over n of the sealed window's BOOTSTRAP z(beta) percentile\", RESOLUTION, MISSED)"
+  ]
+ },
+ "runtime_s": 2318.7
+}
