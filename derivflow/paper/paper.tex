@@ -317,17 +317,40 @@ $n$. A referee who varies the window will reproduce the swing immediately; the p
 reporting it here is that they should also reproduce the $6$--$8\%$ stability of
 $|\Delta\kstar|$, which is the claim.
 
-One further caution on the error model, since the $z$ above are quoted from it. The
-\texttt{absolute\_sigma} covariance treats the supplied $\sigma$ as exact, so a growing
-$\chi^2/\mathrm{dof}$ --- $0.76$, $2.29$, $3.76$ for iid at $n=1024$, $2048$, $4096$ --- does not
-widen it. The ratio of covariance-model to bootstrap $z(\beta)$ at the sealed window tracks that
-growth: $0.67$, $0.89$, $1.12$. Neither error model is correct at both ends of the window: the
-covariance sees the $(\tau,\beta)$ degeneracy on short windows (correlation $0.999$ on seven
-points) and is blind to the across-$k$ replicate correlation and to misspecification; the
-bootstrap sees the correlation and part of the misspecification, and is blind to the
-degeneracy because sixteen near-identical replicates do not explore it. The separation at
-$\kstar$ is reported with bootstrap errors because it is not degenerate in the way the shape
-parameters are.
+Two cautions on what the shape parameters are, both measured. First, $\tau$ and $\beta$ are
+\emph{not separately identified} by F3 on this data --- at any window, including the sealed one.
+The fitted correlation $|\mathrm{corr}(\tau,\beta)|$ is $0.982$ (iid) and $0.994$ (GUE) on the
+sealed $16$/$11$-point windows and at least $0.999$ on the shortest, so what the fit constrains
+is one combination of
+the two, and the individual values and errors quoted above are marginals of a single
+elongated constraint.\footnote{This is the arc's own rule --- compare curves at a level crossing,
+never at a shape parameter --- with a number attached, and it is the structural reason the
+section leads with $\kstar$. It also means $z(\tau)=20.4$ and $z(\beta)=9.3$ are not two pieces
+of evidence: they are one constraint reported along two axes.} Second, the growing
+$\chi^2/\mathrm{dof}$ --- $0.76$, $2.29$, $3.76$ for iid at $n=1024$, $2048$, $4096$ --- is a
+model-adequacy finding, not an error-bar one. F3 describes the data \emph{worse} as more of it
+arrives, which is the signature of a structurally incomplete form being revealed by increasing
+power; so $\tau$ and $\beta$ at $n=4096$ are estimates of something F3 names only approximately,
+and their error bars are downstream of that. The obvious patch --- rescaling the covariance by
+$\chi^2/\mathrm{dof}$ (\texttt{absolute\_sigma=False}) --- is \emph{not} a fix: it assumes the
+misspecification inflates uncertainty isotropically in parameter space, and with correlations
+this close to $1$ there is plainly a direction, so the scaling is wrong exactly where it matters. The
+$5.84$ quoted above under that rescaling is reported for continuity and should be read with
+this in mind.
+
+On the error models themselves: the \texttt{absolute\_sigma} covariance sees the
+$(\tau,\beta)$ degeneracy and is blind to across-$k$ replicate correlation and to
+misspecification; the replicate bootstrap sees the correlation and part of the
+misspecification, and is blind to the degeneracy, because sixteen near-identical replicates
+do not explore a flat direction. On this fit the degeneracy is present at every window, so
+the covariance-model $z$ are the ones reported here and the bootstrap column
+(\texttt{stage3d\_error\_model.json}) is the understated one --- the reverse of a reading
+given in an earlier draft of this paragraph. The separation at $\kstar$ is reported with
+bootstrap errors because $\kstar$ is a level crossing, defined without reference to
+$(\tau,\beta)$ individually, and is not degenerate in the way they are. The selection between
+the two models is made by a declared threshold on the fitted correlation
+(\texttt{errormodel.py}, $0.95$), not by inspection, and both values are recorded for every
+cell.
 
 \textbf{Verdict:} \verdict{rate-seed-dependent}.
 

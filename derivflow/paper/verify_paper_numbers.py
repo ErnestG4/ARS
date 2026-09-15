@@ -121,6 +121,48 @@ for _sc in ("iid", "gue"):
     _r = abs(_best[2][1, 2] / _np.sqrt(_best[2][1, 1] * _best[2][2, 2]))
     _worst_corr = min(_worst_corr, _r)
 w3c |= {"%.3f" % _worst_corr}
+
+# --- the sealed-window degeneracy and the fork threshold, DERIVED. The paper
+# now says corr(tau,beta) is 0.994 on the sealed window and the fork's
+# threshold is 0.95; both come from code, not from a number I typed here.
+sys.path.insert(0, os.path.dirname(DFLOW))
+from errormodel import degeneracy_of as _deg                       # noqa: E402
+import importlib.util as _ilu                                      # noqa: E402
+_spec = _ilu.spec_from_file_location(
+    "_ve", os.path.join(os.path.dirname(DFLOW), "verify_errormodel.py"))
+_thr = None
+for _line in open(_spec.origin):
+    if _line.startswith("DEGENERACY_THRESHOLD"):
+        _thr = float(_line.split("=")[1].split("#")[0])
+w3c |= {"%.2f" % _thr}
+_sealed_corr = 1.0
+_sealed_by_class = {}
+for _sc in ("iid", "gue"):
+    _c = _np.array(_s3["per_replicate_curves"][_sc])
+    _mu, _sg = _c.mean(axis=0), _c.std(axis=0, ddof=1) / _np.sqrt(16)
+    _w = _mu > _FWM
+    _y, _sy = _np.log10(_mu[_w]), _sg[_w] / (_mu[_w] * _LN10)
+    _best = None
+    for _t in (2.0, 5.0, 10.0, 30.0):
+        for _b in (0.5, 0.75, 1.0):
+            try:
+                _p, _cov = _cf(_f3, _KA[_w], _y, p0=[_y[0], _t, _b], sigma=_sy,
+                               absolute_sigma=True,
+                               bounds=([-_np.inf, 1e-3, 0.05], [_np.inf, 1e4, 3.0]),
+                               maxfev=20000)
+                _c2 = float(_np.sum(((_y - _f3(_KA[_w], *_p)) / _sy) ** 2))
+                if _np.isfinite(_c2) and (_best is None or _c2 < _best[0]):
+                    _best = (_c2, _p, _cov)
+            except Exception:
+                pass
+    _sealed_by_class[_sc] = _deg(_best[2])
+    _sealed_corr = min(_sealed_corr, _sealed_by_class[_sc])
+w3c |= {"%.3f" % v for v in _sealed_by_class.values()}
+w3c |= {"%.3f" % _sealed_corr, "%.3f" % max(_worst_corr, _sealed_corr)}
+if _sealed_corr < _thr:
+    raise SystemExit(f"the sealed-window degeneracy reads {_sealed_corr:.3f}, below "
+                     f"the fork threshold {_thr} — the paper's 'not separately "
+                     "identified at any window' claim is stale")
 if _worst_corr < 0.99:
     raise SystemExit(f"the (tau,beta) degeneracy the paper quotes as 0.999 now "
                      f"reads {_worst_corr:.3f} — the paper's claim is stale")

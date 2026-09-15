@@ -249,3 +249,28 @@ full ordering is NOT pinned (covariance rank-correlation across n is 0.92 /
 0.50 / 0.58) — only the sealed cell's rank is, because it always has the most
 points and covariance-z is driven by point count. Filed as
 [[suspicious-agreement-is-a-shared-determinant]].
+
+## 16. Stage 3d's C2 "the covariance model inflated it" — BACKWARDS. Found by the fork refusing its own threshold.
+
+Building the error-model fork as code (`errormodel.py`) with a declared
+degeneracy threshold of 0.95 and applying it to 3d's surface: **15 of 15 cells
+are degenerate, including the sealed 16/11-point windows** (|corr(τ,β)| = 0.982
+iid, 0.994 GUE; ≥ 0.999 on the shortest). The (τ,β) degeneracy is a property of
+F3 on this data at every window length, not a short-window pathology.
+
+So the covariance model — which sees the degeneracy — is the one whose swing is
+honest, and the bootstrap — blind to it — is the one that UNDERSTATES. 3d's C2
+read "worst swing_cov / swing_boot = 2.23 ≥ 1.5 MET, the covariance inflated
+it". The direction is reversed: the bootstrap deflated it. The 04:08 caveat and
+the paper paragraph written from it carried the same reversed reading; the paper
+now says so explicitly.
+
+The verdict string `WINDOW_SWING_SURVIVES_THE_CORRECT_ERROR_MODEL` stands as a
+measurement (the bootstrap swing does clear 3x everywhere) and is mis-named as a
+claim about which model is correct. There is no correct model here; there is a
+declared rule and both numbers.
+
+And the consequence for the headline: z(τ) = 20.4 and z(β) = 9.3 are marginals
+of ONE elongated constraint, reported along two axes. They are not two pieces of
+evidence. §4 says this now, and it is the structural reason the section leads
+with k*.
