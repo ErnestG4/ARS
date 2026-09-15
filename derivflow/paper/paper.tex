@@ -228,51 +228,87 @@ structure beyond F3. That is the quantitative form of ``best-of-three,'' and it 
 datum for any richer-form successor.
 
 \paragraph{Rate.} The comparison statistic is $\kstar$, the level crossing at which the fitted
-curve reaches $10^{-2}$ --- defined identically for every form in the ladder, and therefore
-the one shape quantity that is commensurable across fits that may differ in window or form.
-At $n=4096$, $\kstar_{\mathrm{iid}}=10.89$ and $\kstar_{\mathrm{gue}}=6.16$: a Poisson seed
-takes roughly eleven derivatives to crystallize and a GUE seed roughly six. The separation
-$|\kstar_{\mathrm{iid}}-\kstar_{\mathrm{gue}}|$ is the result of this section, and it is
-robust in the sense that matters --- across $15$ defensible choices of fit window (both
-edges varied) it moves by $6.1\%$, $7.8\%$ and $6.3\%$ at $n=4096$, $2048$ and $1024$, and
-it clears the sealed $5\sigma$ bar under every one of them at every $n$ (bootstrap errors
-throughout).\footnote{Reframed 2026-09-15. An earlier draft of this section led with the
-shape-parameter significances $z(\tau)$ and $z(\beta)$, which are reported below. They are
-correct as computed, but they are window-dependent by one to two orders of magnitude while
-the separation is not, and a statistic that moves that much under a nuisance choice is a
-diagnostic of the choice rather than a result. The separation is therefore promoted to the
-lead and the significances demoted to a sensitivity finding. Nothing about the verdict
-changes; what changes is which number a reader is asked to weight.} \textbf{Verdict:}
-\verdict{rate-seed-dependent}.
+curve reaches $10^{-2}$. It is defined identically for every form in the ladder, and --- as
+shown below --- it is the well-conditioned coordinate of the fit, which is why it is reported
+directly rather than derived. At $n=4096$, $\kstar_{\mathrm{iid}}=10.89$ and
+$\kstar_{\mathrm{gue}}=6.16$: a Poisson seed takes roughly eleven derivatives to crystallize
+and a GUE seed roughly six. The separation $|\kstar_{\mathrm{iid}}-\kstar_{\mathrm{gue}}|$ is
+the result of this section. Across $15$ defensible choices of fit window (both edges varied)
+it moves by $6.1\%$, $7.8\%$ and $6.3\%$ at $n=4096$, $2048$ and $1024$, and it clears the
+sealed $5\sigma$ bar under every one of them at every $n$, with bootstrap errors throughout.
+\textbf{Verdict:} \verdict{rate-seed-dependent}.
 
-\paragraph{Shape parameters, and their sensitivity.} At $n=4096$ on the primary readout, iid $(\tau=1.734,\ \beta=0.788)$
-versus GUE $(0.888,\ 0.703)$: $z(\tau)=20.4$, $z(\beta)=9.3$ against the sealed $5\sigma$
-threshold. Under a conservative treatment --- rescaling each covariance by
-$\max(1,\chi^2/\mathrm{dof})$ --- $z=12.0$ and $5.84$: the verdict survives, with $z(\beta)$ near
-the bar, and both numbers are reported so the reader can weight them.\footnote{A subsequent
-error-model study (2026-09-08) recovered the per-replicate curves --- never banked --- and
-propagated the replicate-sharing covariance explicitly. $z(\beta)$ clears the sealed $5\sigma$
-bar under all seven treatments examined (bootstrap $8.24$; GLS with shrinkage $9.97$--$11.12$;
-sealed $9.31$; conservative $5.84$), so the margin is not an artifact of the independent-$\sigma$
-assumption. That study's own stability bar was \emph{missed}: the GLS and bootstrap treatments
-disagree by up to $35\%$ in $z$-magnitude against a pre-set $25\%$ ceiling, so what it licenses is a
-range, not a point value. The direction of the correlation effect is class-dependent and was
-predicted before the run: sharing replicates \emph{tightens} $\beta$ for GUE (ratio $0.735$) and
-\emph{loosens} it for iid ($1.363$).} The quoted parameter values are
-readout-definition- and $n$-dependent (the deliberately biased raw arms give lower
-$(\tau,\beta)$; iid $\tau$ scatters ${\sim}0.19$ across $n$); what is robust across every band and
-every $n$ is the ordering --- iid $>$ GUE in both $\tau$ and $\beta$ in all 12 band $\times$
-degree comparisons, with $\Delta\tau=0.63$--$0.85$ on the primary arm ($0.39$--$0.85$ across all
-bands) far exceeding the drift.\footnote{Corrected 2026-08-16, packaging audit: the earlier
-``$0.65$--$0.85$'' did not trace --- the $n=2048$ primary cell gives $0.628$. The artifacts are
-authoritative; the prose was the defective slot.} 
+\paragraph{Shape parameters.} At $n=4096$ on the primary readout the stretched-exponential
+fit gives iid $(\tau=1.734,\ \beta=0.788)$ and GUE $(0.888,\ 0.703)$, with marginal
+significances $z(\tau)=20.4$ and $z(\beta)=9.3$ against the sealed $5\sigma$
+threshold.\footnote{These two numbers are not two pieces of evidence. The fitted
+$(\tau,\beta)$ correlation is $0.982$ (iid) and $0.994$ (GUE) on the sealed windows, so
+$z(\tau)$ and $z(\beta)$ are marginals of \emph{one} elongated constraint reported along two
+axes. The number the data support is the separation along the constrained direction, given
+under \emph{Identifiability} below; the marginals are quoted for continuity with the sealed
+adjudication.} A replicate-sharing error model, applied after the seal, gives $z(\beta)$ of
+$8.24$ (bootstrap), $9.97$--$11.12$ (generalised least squares with shrinkage) and $5.84$
+(covariance rescaled by $\chi^2/\mathrm{dof}$); the bar is cleared under every treatment, but
+the treatments disagree by up to $35\%$, so what that study licenses is a range rather than a
+point. The replicate correlation tightens $\beta$ for GUE (ratio $0.735$) and loosens it for
+iid ($1.363$). The quoted values are readout-definition- and $n$-dependent (the deliberately biased raw
+arms give lower $(\tau,\beta)$; iid $\tau$ scatters ${\sim}0.19$ across $n$); what is robust
+across every band and every $n$ is the ordering --- iid $>$ GUE in both $\tau$ and $\beta$ in
+all $12$ band $\times$ degree comparisons, with $\Delta\tau$ of $0.63$--$0.85$ on the primary
+arm ($0.39$--$0.85$ across all bands) far exceeding the drift.
 
-\paragraph{The significances are a window diagnostic.} The fit window is set by a
-threshold, $\text{mean}>10^{-3}$ on the full ensemble, and that threshold lands in a different
-place for each class --- iid is fitted on $16$ points, GUE on $11$. Refitting both classes over a
-surface of $15$ defensible window rules (lower edge $k_{\mathrm{lo}}\in\{1,\dots,5\}$, upper edge
-by the sealed threshold or at a shared $k\le11$ or $k\le16$) separates two quantities that the
-paragraph above reports together:
+\paragraph{Identifiability.} $\tau$ and $\beta$ are not separately identified by F3 on this
+data, at any window. The reason is intrinsic to the form: on exact synthetic F3 data the
+$(\tau,\beta)$ correlation \emph{rises} from $0.992$ at $11$ points to $0.997$ at $256$ points
+spanning $22$ decades, so more range does not decouple them. Eigendecomposing the pooled
+covariance of the class difference at the sealed $n=4096$ window, the constrained eigenvector
+is $(+0.21,\,-0.98)$ in $(\tau,\beta)$ --- essentially $\beta$ --- and the class separation
+along it is $\Delta=+0.096$, $\sigma=0.0019$, $z=50.9$; along the flat eigenvector
+$(-0.98,\,-0.21)$ it is $z=19.9$; the full two-dimensional Mahalanobis separation is $54.7$.
+$\tau$ is the over-parameterization. Eliminating it through the level crossing --- writing F3
+as $\lambda-(\lambda-y_0)(k/\kstar)^{\beta}$ with $y_0=\log_{10}10^{-2}$ --- drops the
+$(\beta,\kstar)$ correlation to $0.32$ (iid) and $0.52$ (GUE) on the sealed windows. That is
+the substantive result of this paragraph: the reparameterized form is genuinely better
+conditioned. (As a check on the algebra, $\kstar$ fitted directly in that form returns
+$10.8891$ and $6.1628$, identical to the values derived from $(\lambda,\tau,\beta)$; this
+confirms an identity, not an estimate.) The successor form is F3 in $(\lambda,\beta,\kstar)$,
+and the design constraint it imposes is specific: remove $\tau$, not F3.
+
+\paragraph{Two error models, bracketing.} The \texttt{absolute\_sigma} covariance has the
+geometry right and the scale wrong: it sees the $(\tau,\beta)$ degeneracy, and it treats the
+supplied $\sigma$ as exact, so with $\chi^2/\mathrm{dof}=3.76$ (iid, $n=4096$) it understates
+parameter uncertainty by roughly $1.9\times$, an error that grows with $n$. The replicate
+bootstrap has the scale closer and sees the \emph{same} flat direction --- its $(\tau,\beta)$
+cloud correlation converges by $2000$ draws to $0.93$--$0.99$ against the covariance's
+$0.98$--$0.999$ --- but estimates the extent along it as up to $6.5\times$ shorter
+($\sigma_\tau=0.099$ against $0.643$ on seven iid points). Neither is honest about both, and
+the two $z$ columns in \texttt{stage3d\_error\_model.json} bracket rather than compete. The
+obvious repair --- rescaling the covariance by $\chi^2/\mathrm{dof}$
+(\texttt{absolute\_sigma=False}) --- is \emph{not} a fix: it assumes the misspecification
+inflates uncertainty isotropically in parameter space, and with correlations this close to $1$
+there is plainly a direction, so the scaling is wrong exactly where it matters. The selection
+between the two models is made by a declared threshold on the fitted correlation
+(\texttt{errormodel.py}, $0.95$), and both values are recorded for every cell. $\kstar$ is
+reported with bootstrap errors because it is not degenerate in the way $(\tau,\beta)$ are.
+
+\paragraph{Model adequacy.} The growing $\chi^2/\mathrm{dof}$ --- $0.76$, $2.29$, $3.76$ for
+iid at $n=1024$, $2048$, $4096$ --- is a model-adequacy finding, not an error-bar one: F3
+describes the data \emph{worse} as more of it arrives. A generalised least squares that
+carries the across-$k$ replicate covariance decides where the misspecification lives. If it
+were in the error structure, GLS would bring $\chi^2/\mathrm{dof}$ toward $1$; instead, for
+iid it gives $11.4$ down to $5.7$ across shrinkages $0.05$--$0.4$ --- worse than the diagonal
+model --- while for GUE it moves from $0.017$ toward $1$. Carrying the correlation does not
+absorb iid's misfit; it exposes it. The misspecification is therefore in the parameterization,
+not the weighting: F3 is structurally incomplete for the iid class at $n=4096$ and no weighting
+scheme rescues it, while for GUE it is a sound form with a mis-scaled error model. Taken with
+the identifiability result, the successor form is motivated by evidence rather than by
+discomfort --- the same defect, $\tau$, is named from both directions.
+
+\paragraph{The significances are a window diagnostic.} The fit window is set by a threshold,
+$\text{mean}>10^{-3}$ on the full ensemble, and that threshold lands in a different place for
+each class --- iid is fitted on $16$ points, GUE on $11$. Refitting both classes over a surface
+of $15$ defensible window rules (lower edge $k_{\mathrm{lo}}\in\{1,\dots,5\}$, upper edge by
+the sealed threshold or at a shared $k\le11$ or $k\le16$):
 
 \begin{table}[h]
 \centering
@@ -291,120 +327,19 @@ sealed $z(\beta)$ \\
 
 \noindent
 The \emph{separation} is robust: it moves by $6$--$8\%$ across every window rule at every $n$.
-The \emph{significance} is not: $z(\beta)$ moves by one to two orders of magnitude over the same
-rules, and the sealed window sits at the $87$th percentile of that range at all three
-$n$.\footnote{\emph{Corrected 2026-09-14}: that percentile, and the equality of it across $n$,
-are artifacts of the diagonal \texttt{absolute\_sigma} error model these $z$ were computed with.
-Recomputed with a replicate bootstrap --- which carries the across-$k$ correlation that error
-model omits --- the sealed window sits at $0.93$, $0.47$ and $0.87$ at $n=1024$, $2048$ and
-$4096$, i.e.\ at the \emph{median} at $n=2048$. The window sensitivity itself survives the
-correction (the swing is $98.3\times$, $11.4\times$ and $42.9\times$ under bootstrap errors), but
-it is not true that the threshold rule places the sealed window favourably at every $n$. The
-$z$ values quoted in this paragraph are the covariance-model ones throughout; the
-bootstrap column is in \texttt{stage3d\_error\_model.json}.} The sealed $z(\beta)$ is also not stable in $n$: $3.80$, $3.11$ and
-$9.31$ at $n=1024$, $2048$ and $4096$, so two of the three sizes sit below the $5\sigma$ bar
-under the identical rule.\footnote{Measured 2026-09-14. The lower edge is the sensitive one and
-is the axis a first attempt failed to declare: the separation is flat in it while $z$ is not,
-because dropping iid's $k=1..3$ removes the points that identify $(\tau,\beta)$ --- and those are
-exactly the points F3 fits worst (residuals $-1.77,+2.59,+1.90$). Holding F3 fixed is not
-question-begging: it is AICc-best on all $24$ (class, window, $n$) cells by margins of $10.3$ to
-$5642$.}
-
-This is why the section leads with the separation. The window sensitivity of $z(\beta)$ is
-larger than the covariance-treatment sensitivity disclosed above, and it does not touch
-\verdict{rate-seed-dependent}: the classes separate under every window rule tested, at every
-$n$. A referee who varies the window will reproduce the swing immediately; the point of
-reporting it here is that they should also reproduce the $6$--$8\%$ stability of
-$|\Delta\kstar|$, which is the claim.
-
-Two cautions on what the shape parameters are, both measured. First, $\tau$ and $\beta$ are
-\emph{not separately identified} by F3 on this data --- at any window, including the sealed one.
-The fitted correlation $|\mathrm{corr}(\tau,\beta)|$ is $0.982$ (iid) and $0.994$ (GUE) on the
-sealed $16$/$11$-point windows and at least $0.999$ on the shortest, so what the fit constrains
-is one combination of
-the two, and the individual values and errors quoted above are marginals of a single
-elongated constraint.\footnote{This is the arc's own rule --- compare curves at a level crossing,
-never at a shape parameter --- with a number attached, and it is the structural reason the
-section leads with $\kstar$. It also means $z(\tau)=20.4$ and $z(\beta)=9.3$ are not two pieces
-of evidence: they are one constraint reported along two axes.} Second, the growing
-$\chi^2/\mathrm{dof}$ --- $0.76$, $2.29$, $3.76$ for iid at $n=1024$, $2048$, $4096$ --- is a
-model-adequacy finding, not an error-bar one. F3 describes the data \emph{worse} as more of it
-arrives, which is the signature of a structurally incomplete form being revealed by increasing
-power; so $\tau$ and $\beta$ at $n=4096$ are estimates of something F3 names only approximately,
-and their error bars are downstream of that. The obvious patch --- rescaling the covariance by
-$\chi^2/\mathrm{dof}$ (\texttt{absolute\_sigma=False}) --- is \emph{not} a fix: it assumes the
-misspecification inflates uncertainty isotropically in parameter space, and with correlations
-this close to $1$ there is plainly a direction, so the scaling is wrong exactly where it matters. The
-$5.84$ quoted above under that rescaling is reported for continuity and should be read with
-this in mind.
-
-On the error models themselves: the \texttt{absolute\_sigma} covariance has the geometry
-right and the scale wrong --- it sees the $(\tau,\beta)$ degeneracy, and with
-$\chi^2/\mathrm{dof}=3.76$ it understates parameter uncertainty by roughly $\sqrt{3.76}\approx1.9\times$
-at $n=4096$, an error that grows with $n$. The replicate bootstrap has the scale closer and sees the
-\emph{same} flat direction --- its $(\tau,\beta)$ cloud correlation converges by $2000$ draws to
-$0.93$--$0.99$ against the covariance's $0.98$--$0.999$ --- but estimates the extent along it as
-up to $6.5\times$ shorter ($\sigma_\tau=0.099$ against $0.643$ on seven iid points at
-$n=4096$).\footnote{A draft of this sentence read ``$3\times$, $0.096$ against $0.284$'' --- the
-$0.284$ was $\sigma_\beta$, not $\sigma_\tau$, and from $n=1024$, not $4096$: a table misread
-twice over. The numeral checker refused it because it derived from nothing; every value in
-this paragraph is now read from \texttt{stage3e\_identifiability.json} or recomputed from the
-banked curves.} Same direction,
-different length: the disagreement is about scale, not about blindness, and an earlier draft
-that called the bootstrap ``blind'' to the degeneracy is withdrawn on that measurement. Neither
-is honest about both, and the two $z$ columns in
-\texttt{stage3d\_error\_model.json} should be read as bracketing rather than as a right and a
-wrong answer.\footnote{An earlier draft of this paragraph called one of them ``the honest
-one,'' twice, in opposite directions on successive days. Both readings are withdrawn.} The
-separation at $\kstar$ is reported with bootstrap errors because $\kstar$ is a level crossing,
-defined without reference to $(\tau,\beta)$ individually, and is not degenerate in the way they
-are. The selection between the two models is made by a declared threshold on the fitted
-correlation (\texttt{errormodel.py}, $0.95$), not by inspection, and both values are recorded
-for every cell.
-
-What the data actually constrain is one direction in $(\tau,\beta)$, and it is worth quoting
-along that direction rather than along the axes. Eigendecomposing the pooled covariance of the
-class difference at the sealed $n=4096$ window: the constrained eigenvector is $(+0.21,\,-0.98)$
-in $(\tau,\beta)$ --- essentially $\beta$ --- and the class separation along it is
-$\Delta=+0.096$ with $\sigma=0.0019$, i.e.\ $z=50.9$; along the flat eigenvector
-$(-0.98,\,-0.21)$ it is $z=19.9$; the full two-dimensional Mahalanobis separation is $54.7$.
-The marginal $z(\tau)=20.4$ and $z(\beta)=9.3$ quoted above were \emph{understating} the
-separation, because they project a two-dimensional difference onto axes along which the
-$0.98$ correlation smears it. The honest summary is one number and a stated blind spot: the
-classes separate at ${\sim}50\sigma$ along the combination F3 determines, and the orthogonal
-combination --- mostly $\tau$ --- is the over-parameterization.
-
-That over-parameterization is intrinsic to the form, not to the window: on synthetic exact-F3
-data the $(\tau,\beta)$ correlation \emph{rises} from $0.992$ at $11$ points to $0.997$ at $256$
-points spanning $22$ decades. Eliminating $\tau$ through the level crossing --- writing F3 as
-$\lambda-(\lambda-y_0)(k/\kstar)^{\beta}$ with $y_0=\log_{10}10^{-2}$ --- drops the
-$(\beta,\kstar)$ correlation to $0.32$ (iid) and $0.52$ (GUE) on the sealed windows, and
-$\kstar$ fitted directly returns $10.889$ against the $10.8891$ previously derived from
-$(\lambda,\tau,\beta)$. The arc's rule of comparing at the level crossing was, in hindsight,
-identifying the well-conditioned coordinate; the successor form is F3 in $(\lambda,\beta,\kstar)$,
-and the design constraint is to remove $\tau$, not F3.
-
-One more thing the error structure can decide, and does. Refitting with a generalised least
-squares that carries the across-$k$ replicate covariance (shrinkage $0.05$--$0.4$) gives iid
-$\chi^2/\mathrm{dof}$ of $11.4$ down to $5.7$ --- \emph{worse} than the diagonal model's $3.76$ ---
-while GUE moves from $0.017$ toward $1$ ($0.22$ to $0.04$). Accounting for the correlation does
-not absorb iid's misfit; it exposes it, because the residuals carry a systematic shape that a
-covariance saying ``these points move together'' makes more prominent, not less. The
-misspecification is therefore not in the error structure. F3 is structurally incomplete for
-the iid class at $n=4096$, and no weighting scheme rescues it; for GUE it is a sound form with
-a mis-scaled error model. That asymmetry is the finding, and it makes the richer-form
-successor a requirement rather than an option.
-
-\textbf{Verdict:} \verdict{rate-seed-dependent}.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.85\textwidth]{figs/fig2_kstar.pdf}
-\caption{$\kstar(n)$ with the sealed point predictions and their acceptance bands. The
-discrimination is between flat-plus-scatter and proportional-log; tuning is impossible by commit
-order.}
-\label{fig:kstar}
-\end{figure}
+The \emph{significance} is not: $z(\beta)$ moves by one to two orders of magnitude over the
+same rules (covariance-model values above; $98.3\times$, $11.4\times$ and $42.9\times$ under
+bootstrap errors), and the sealed $z(\beta)$ is itself unstable in $n$ --- $3.80$, $3.11$,
+$9.31$ --- so two of the three sizes sit below the $5\sigma$ bar under the identical rule.
+Under bootstrap errors the sealed window sits at the $0.93$, $0.47$ and $0.87$ percentile of the
+window-dependence range at $n=1024$, $2048$ and $4096$ --- at the median at $n=2048$ --- so it
+is not the case that the threshold rule places it favourably at every $n$. The lower edge is
+the sensitive one: dropping iid's $k=1..3$ removes the points that identify $(\tau,\beta)$, and
+those are the points F3 fits worst (residuals $-1.77,+2.59,+1.90$). Holding F3 fixed across the
+surface is not question-begging: it is AICc-best on all $24$ (class, window, $n$) cells by
+margins of $10.3$ to $5642$. A statistic that moves by two orders of magnitude under a
+nuisance choice is a diagnostic of the choice, not a result --- which is why the section leads
+with the separation.
 
 \paragraph{Scale.} Two point predictions were sealed before the $n=16384$ run from the three
 smaller anchors: $H_{\mathrm{flat}}=10.827$ (precision-weighted mean, with $\ssys=0.192$
@@ -645,6 +580,44 @@ re-sweep re-runs the searches rather than citing prior audits. The open-regime c
 always ``as of [date], verified by [protocol],'' never a standing fact. The submission-day
 re-sweep confirmed: Part~III still unposted; Kiselev--Tan added as an adjacent rate result; no
 new work reaching local spacing statistics in this regime.
+
+\section{Corrections to Section 4, and their order}
+\label{app:corrections}
+
+Section~4 was rewritten several times between 2026-08-16 and 2026-09-15 as the sealed
+analysis was audited. The current text states what is true; this appendix records what was
+wrong and in what order, for a reader who wants to distrust the paper correctly rather than
+reconstruct the path.
+
+\begin{enumerate}
+\item \textbf{2026-08-16, packaging audit.} The $\Delta\tau$ range was quoted as
+``$0.65$--$0.85$''; it did not trace, the $n=2048$ primary cell giving $0.628$. The artifacts
+were authoritative and the prose was the defective slot. Corrected to $0.63$--$0.85$.
+\item \textbf{2026-09-14.} The section led with $z(\tau)=20.4$ and $z(\beta)=9.3$. A
+window-surface measurement found the $\kstar$ separation robust at $6$--$8\%$ while $z(\beta)$
+swung by two orders of magnitude; the section was reframed to lead with the separation. The
+same measurement reported the sealed window at the $87$th percentile of the window-dependence
+range ``at all three $n$, to two decimals'' and read that as a property of the threshold
+rule. It was an artifact of the diagonal error model: under bootstrap errors the percentile
+is $0.93$, $0.47$, $0.87$. The tell was the agreement itself --- a rank on $15$ cells
+resolves to $1/15$, and three independent conditions agreeing beyond the resolution of the
+quantity is evidence of a shared upstream cause, not of a law.
+\item \textbf{2026-09-14/15.} Successive drafts called the covariance $z$ column ``the honest
+one'' and then the bootstrap column ``the correct error model,'' on successive days. Both
+rankings are withdrawn: each model is overconfident on a different axis, and the surviving
+statement is that they bracket. A draft also described the bootstrap as ``blind'' to the
+$(\tau,\beta)$ degeneracy; measured, its cloud correlation converges to within $0.02$ of the
+covariance's, and the disagreement is in extent along the direction, not in seeing it.
+\item \textbf{2026-09-15.} One sentence quoted ``$\sigma_\tau=0.096$ against $0.284$, $3\times$''.
+The $0.284$ was $\sigma_\beta$, not $\sigma_\tau$, and from $n=1024$, not $4096$ --- a table
+misread twice over, refused by the numeral checker because it derived from nothing.
+Corrected to $0.099$ against $0.643$, $6.5\times$.
+\end{enumerate}
+
+\noindent
+Every numeral in Section~4 is now either traced to the prose draft or derived at check time
+from a banked artifact (\texttt{verify\_paper\_numbers.py}); the one numeral above that
+derives from nothing, $0.284$, is retained here only as a disclosed error.
 
 \section{Reproducibility and cost}
 \label{app:repro}

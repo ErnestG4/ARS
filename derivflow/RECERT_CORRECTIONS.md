@@ -368,3 +368,29 @@ The sentence above first read "3×, σ_τ = 0.096 against 0.284". The 0.284 was
 value (0.643) is recomputed from the banked curves on every board run; the wrong
 one stays in the paper's footnote as a disclosed error and is named in the
 checker's `DISCLOSED_WRONG` list so it cannot be mistaken for a source.
+
+---
+
+## Section 4 collapsed, 2026-09-15 — the history moved to the paper's Appendix D.
+
+Will's test per footnote: does it prevent an error the READER could make, or
+record an error I made? The first stays in §4; the second moves. Result: §4 went
+from 180 lines and 8 footnotes to 115 lines and 1. The survivor is the warning
+that z(τ) and z(β) are marginals of one elongated constraint — a natural
+misreading that does not compress into "we report k*". Also kept inline as
+load-bearing negatives: `absolute_sigma=False` is not the fix; the lower window
+edge is the sensitive one; F3 is AICc-best on all 24 cells so holding it is not
+question-begging.
+
+Strengthened during the collapse, not only softened: GLS making iid worse at all
+four shrinkages means the misspecification was the PARAMETERIZATION, not the
+weighting — and 3e names the same defect (τ) from the identifiability side. §4
+now says the successor is motivated by evidence rather than discomfort.
+
+Re-filed: 3e's P2 at 0.000σ is an algebraic identity confirmed numerically, not
+reproduction — k* is a deterministic function of (λ,τ,β), so agreement to all
+digits is what correctness looks like and disagreement would have been a bug.
+§4 files it as a check on the algebra and leads 3e with C1 (corr 0.99 → 0.52),
+which is the claim that the new form is actually better conditioned.
+
+This ledger stays as the working record; the paper's Appendix D is the reader's.
