@@ -1,0 +1,477 @@
+{
+ "n": 4096,
+ "replicates": 16,
+ "shrink": [
+  0.05,
+  0.1,
+  0.2,
+  0.4
+ ],
+ "b_sweep": [
+  400,
+  2000,
+  8000
+ ],
+ "syn_ranges": [
+  11,
+  16,
+  64,
+  256
+ ],
+ "p1_mismatches": 0,
+ "p2_worst_sigma": 7.071916446576381e-07,
+ "native": {
+  "iid": {
+   "params": [
+    -0.15120559066193134,
+    1.7338449329383812,
+    0.7883706168038268
+   ],
+   "corr_tau_beta": 0.9822185995843493,
+   "chi2dof": 3.75866949498094
+  },
+  "gue": {
+   "params": [
+    -0.3052876576845517,
+    0.8883697803341085,
+    0.7029521914531325
+   ],
+   "corr_tau_beta": 0.9941584342934845,
+   "chi2dof": 0.017454906718480986
+  }
+ },
+ "reparam": {
+  "iid": {
+   "params": [
+    -0.15120560469522562,
+    0.7883706318651125,
+    10.889066812864398
+   ],
+   "corr_beta_kstar": 0.316008903116369,
+   "worst_pair": 0.9442711574214593,
+   "se_kstar": 0.03056197515401843,
+   "kstar_derived": 10.889066834477571
+  },
+  "gue": {
+   "params": [
+    -0.30528765747887565,
+    0.7029521913310771,
+    6.162786595036955
+   ],
+   "corr_beta_kstar": 0.5218832401554869,
+   "worst_pair": 0.9622806891391958,
+   "se_kstar": 0.009148640103474852,
+   "kstar_derived": 6.162786595147035
+  }
+ },
+ "short_window": {
+  "iid": {
+   "corr_native": 0.9993505743715339,
+   "corr_reparam_worst": 0.9967636112136822
+  },
+  "gue": {
+   "corr_native": 0.9995134272315307,
+   "corr_reparam_worst": 0.9968045813033172
+  }
+ },
+ "eigen": {
+  "constrained": {
+   "direction": [
+    0.211957746917853,
+    -0.9772788310003995
+   ],
+   "delta": 0.0957273895484081,
+   "se": 0.0018791291597581266,
+   "z": 50.94242141435862
+  },
+  "flat": {
+   "direction": [
+    -0.9772788310003995,
+    -0.211957746917853
+   ],
+   "delta": -0.844370065759592,
+   "se": 0.04239151044131401,
+   "z": 19.91837650910131
+  },
+  "mahalanobis_z": 54.69800748031334,
+  "marginal_z": {
+   "tau": 20.407198833773542,
+   "beta": 9.314013494917097
+  }
+ },
+ "per_class_eigen": {
+  "iid": {
+   "constrained": {
+    "direction": [
+     0.1924760755482551,
+     -0.9813016663297492
+    ],
+    "sd": 0.0012634779693891374
+   },
+   "flat": {
+    "direction": [
+     -0.9813016663297492,
+     -0.1924760755482551
+    ],
+    "sd": 0.03504311584824618
+   },
+   "condition": 27.73543876288458
+  },
+  "gue": {
+   "constrained": {
+    "direction": [
+     0.2536096182983914,
+     -0.9673066532938478
+    ],
+    "sd": 0.0006357087630052318
+   },
+   "flat": {
+    "direction": [
+     -0.9673066532938478,
+     -0.2536096182983914
+    ],
+    "sd": 0.02388620550298838
+   },
+   "condition": 37.574132830998586
+  }
+ },
+ "gls": {
+  "iid": {
+   "0.05": {
+    "chi2": 148.1543625433187,
+    "dof": 13,
+    "chi2dof": 11.396489426409131
+   },
+   "0.1": {
+    "chi2": 117.67805002057301,
+    "dof": 13,
+    "chi2dof": 9.052157693890232
+   },
+   "0.2": {
+    "chi2": 94.35701698992278,
+    "dof": 13,
+    "chi2dof": 7.258232076147906
+   },
+   "0.4": {
+    "chi2": 73.99348565204555,
+    "dof": 13,
+    "chi2dof": 5.691806588618888
+   }
+  },
+  "gue": {
+   "0.05": {
+    "chi2": 1.791171238796925,
+    "dof": 8,
+    "chi2dof": 0.22389640484961562
+   },
+   "0.1": {
+    "chi2": 1.0858901589584682,
+    "dof": 8,
+    "chi2dof": 0.13573626986980852
+   },
+   "0.2": {
+    "chi2": 0.6159216200657879,
+    "dof": 8,
+    "chi2dof": 0.07699020250822348
+   },
+   "0.4": {
+    "chi2": 0.33194347216596054,
+    "dof": 8,
+    "chi2dof": 0.04149293402074507
+   }
+  }
+ },
+ "ols_chi2dof_iid": 3.75866949498094,
+ "synthetic": {
+  "11": {
+   "points": 11,
+   "decades": 1.6130030652214782,
+   "corr": 0.9919311579466855
+  },
+  "16": {
+   "points": 16,
+   "decades": 2.2670286702236746,
+   "corr": 0.9929479821283559
+  },
+  "64": {
+   "points": 64,
+   "decades": 7.3459527575754215,
+   "corr": 0.9958094272833129
+  },
+  "256": {
+   "points": 256,
+   "decades": 22.530404469278718,
+   "corr": 0.9974571407854614
+  }
+ },
+ "bootstrap_cloud": {
+  "iid_sealed": {
+   "400": {
+    "corr": 0.9260412542832156,
+    "sd_tau": 0.0496871768919505,
+    "sd_beta": 0.00866443935651562
+   },
+   "2000": {
+    "corr": 0.9294358742103639,
+    "sd_tau": 0.05207072439365968,
+    "sd_beta": 0.009152213761309827
+   },
+   "8000": {
+    "corr": 0.9334192695161275,
+    "sd_tau": 0.05273920850975994,
+    "sd_beta": 0.009268196945926573
+   }
+  },
+  "iid_k5_11": {
+   "400": {
+    "corr": 0.9820880842066629,
+    "sd_tau": 0.09950072828387552,
+    "sd_beta": 0.01892422531042257
+   },
+   "2000": {
+    "corr": 0.9815045751730481,
+    "sd_tau": 0.10069238770400817,
+    "sd_beta": 0.019015396799992867
+   },
+   "8000": {
+    "corr": 0.9811644695118847,
+    "sd_tau": 0.09935203816452427,
+    "sd_beta": 0.018719365827696923
+   }
+  },
+  "gue_sealed": {
+   "400": {
+    "corr": 0.9631224856475763,
+    "sd_tau": 0.01688491625147007,
+    "sd_beta": 0.0041849352568933094
+   },
+   "2000": {
+    "corr": 0.9680843419123474,
+    "sd_tau": 0.017905909306295188,
+    "sd_beta": 0.004486658670544012
+   },
+   "8000": {
+    "corr": 0.9673159904754867,
+    "sd_tau": 0.01793582437949318,
+    "sd_beta": 0.004495766951260232
+   }
+  },
+  "gue_k5_11": {
+   "400": {
+    "corr": 0.9952478268262998,
+    "sd_tau": 0.04928442513297876,
+    "sd_beta": 0.011063716377921874
+   },
+   "2000": {
+    "corr": 0.99498334646495,
+    "sd_tau": 0.04860592062282931,
+    "sd_beta": 0.01090566573767306
+   },
+   "8000": {
+    "corr": 0.9948033727234219,
+    "sd_tau": 0.0483587564297719,
+    "sd_beta": 0.010830204018666663
+   }
+  }
+ },
+ "lineage": {
+  "cell": "stage3e_identifiability",
+  "construction": "none (refit of banked science)",
+  "data": "science per-replicate curves n=4096 (Stage 3 recovery)",
+  "protocol": "F3 native + F3 in (lambda,beta,k*); GLS; replicate bootstrap"
+ },
+ "bars": {
+  "banked-curve mismatches vs the sealed ensemble (80 numbers)": {
+   "name": "banked-curve mismatches vs the sealed ensemble (80 numbers)",
+   "value": 0,
+   "thresh": 0.5,
+   "floor": 0,
+   "ceiling": 80,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "2 x 20 x {mean, sigma}; 0..80"
+  },
+  "worst |k* direct - k* derived| in units of the direct fit's own sigma": {
+   "name": "worst |k* direct - k* derived| in units of the direct fit's own sigma",
+   "value": 7.071916446576381e-07,
+   "thresh": 1.0,
+   "floor": 0.0,
+   "ceiling": 100.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 1.0,
+   "why": "a discrepancy in the fit's own uncertainty; 100 a practical ceiling. 1.0 sigma is a genuine reproduction bar for two parameterizations of the same curve at the same window"
+  },
+  "max over classes of |corr(beta, k*)| at the sealed window": {
+   "name": "max over classes of |corr(beta, k*)| at the sealed window",
+   "value": 0.5218832401554869,
+   "thresh": 0.8,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": true,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.8,
+   "why": "a correlation magnitude, [0,1] by construction; 0.80 is well below the native 0.98-0.99 and well above what noise would give on two genuinely orthogonal parameters"
+  },
+  "shrinkages at which GLS chi2/dof >= OLS chi2/dof for iid": {
+   "name": "shrinkages at which GLS chi2/dof >= OLS chi2/dof for iid",
+   "value": 4,
+   "thresh": 3.5,
+   "floor": 0,
+   "ceiling": 4,
+   "met": true,
+   "direction": "ge",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": false,
+    "at_ceiling": true,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.5,
+   "why": "a count over the 4 shrinkages; 3.5 requires all four. If GLS brought chi2/dof toward 1 at any shrinkage, the misfit would be attributable to the error structure"
+  },
+  "max over classes of bootstrap-cloud |corr(tau,beta)| at B=8000, k=5..11": {
+   "name": "max over classes of bootstrap-cloud |corr(tau,beta)| at B=8000, k=5..11",
+   "value": 0.9948033727234219,
+   "thresh": 0.95,
+   "floor": 0.0,
+   "ceiling": 1.0,
+   "met": false,
+   "direction": "le",
+   "out_of_range": false,
+   "edges": {
+    "at_floor": true,
+    "at_ceiling": false,
+    "discriminates": true
+   },
+   "rival": null,
+   "rival_value": null,
+   "rival_met": null,
+   "discriminating": null,
+   "headroom": 0.95,
+   "why": "a correlation magnitude, [0,1]. The covariance reads 0.999 there. MET: the bootstrap does not resolve the flat direction and the 'blind' claim is earned. MISSED: it was under-resampling. Bar set before these rows were seen"
+  }
+ },
+ "instrument": {
+  "model": "identifiability of F3's shape parameters",
+  "params": [
+   {
+    "name": "parameterization",
+    "kind": "TESTED",
+    "why": "THE axis. Native F3 vs F3 with tau eliminated through the level crossing, so the (beta, k*) pair can be judged for conditioning against the (tau, beta) pair",
+    "sweep": [
+     "(lambda,tau,beta)",
+     "(lambda,beta,kstar)"
+    ],
+    "value": null
+   },
+   {
+    "name": "gls_shrinkage",
+    "kind": "TESTED",
+    "why": "the sample covariance at R=16 over a 16-point window is rank-deficient, so a shrinkage is forced; the discriminator must hold across the sweep or it holds at a choice",
+    "sweep": [
+     0.05,
+     0.1,
+     0.2,
+     0.4
+    ],
+    "value": null
+   },
+   {
+    "name": "bootstrap_B",
+    "kind": "TESTED",
+    "why": "the structural-vs-under-resampling question IS a question about B; a single B cannot answer it",
+    "sweep": [
+     400,
+     2000,
+     8000
+    ],
+    "value": null
+   },
+   {
+    "name": "synthetic_range",
+    "kind": "TESTED",
+    "why": "whether the native degeneracy is a window effect is tested on exact-F3 data over increasing ranges, up to 22 decades",
+    "sweep": [
+     11,
+     16,
+     64,
+     256
+    ],
+    "value": null
+   },
+   {
+    "name": "degeneracy_threshold",
+    "kind": "DECLARED",
+    "why": "the fork's declared threshold (verify_errormodel); carried verbatim so this cell and the fork agree on what degenerate means",
+    "sweep": null,
+    "value": 0.95
+   },
+   {
+    "name": "n",
+    "kind": "DECLARED",
+    "why": "the adjudicated size",
+    "sweep": null,
+    "value": 4096
+   }
+  ],
+  "n_tested": 4,
+  "n_declared": 2
+ },
+ "scope": "RECERT_SCOPE Stage 3e. Identifiability of F3's shape parameters, from banked data. Runs no flows; re-grades nothing. Disclosed prior look on all but C3's short-window rows.",
+ "verdict": "TAU_IS_THE_OVERPARAMETERIZATION",
+ "composed": {
+  "label": "TAU_IS_THE_OVERPARAMETERIZATION_AND_BY_shrinkages at which GLS chi2/dof >= OLS chi2/dof for iid_COARSELY_AT_max over classes of bootstrap-cloud |corr(tau,beta)| at B=8000, k=5..11",
+  "head": "TAU_IS_THE_OVERPARAMETERIZATION",
+  "qualifiers": [
+   "AND_BY_shrinkages at which GLS chi2/dof >= OLS chi2/dof for iid",
+   "COARSELY_AT_max over classes of bootstrap-cloud |corr(tau,beta)| at B=8000, k=5..11"
+  ],
+  "citation": "TAU_IS_THE_OVERPARAMETERIZATION  [max over classes of |corr(beta, k*)| at the sealed window 0.5219 vs <=0.8 MET \u2014 \"tau is the over-parameterization\"; max over classes of bootstrap-cloud |corr(tau,beta)| at B=8000, k=5..11 0.9948 vs <=0.95 MISSED \u2014 \"and bootstrap-blindness at the short window is structural\"]",
+  "dropped": [],
+  "unread": [],
+  "arms": [
+   "Arm('banked-curve mismatches vs the sealed ensemble (80 numbers)', PREMISE, MET)",
+   "Arm(\"worst |k* direct - k* derived| in units of the direct fit's own sigma\", PREMISE, MET)",
+   "Arm('max over classes of |corr(beta, k*)| at the sealed window', EXISTENCE, MET)",
+   "Arm('shrinkages at which GLS chi2/dof >= OLS chi2/dof for iid', MECHANISM, MET)",
+   "Arm('max over classes of bootstrap-cloud |corr(tau,beta)| at B=8000, k=5..11', RESOLUTION, MISSED)"
+  ]
+ },
+ "runtime_s": 2293.5
+}

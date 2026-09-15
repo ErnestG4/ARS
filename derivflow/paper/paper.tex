@@ -338,19 +338,62 @@ this close to $1$ there is plainly a direction, so the scaling is wrong exactly 
 $5.84$ quoted above under that rescaling is reported for continuity and should be read with
 this in mind.
 
-On the error models themselves: the \texttt{absolute\_sigma} covariance sees the
-$(\tau,\beta)$ degeneracy and is blind to across-$k$ replicate correlation and to
-misspecification; the replicate bootstrap sees the correlation and part of the
-misspecification, and is blind to the degeneracy, because sixteen near-identical replicates
-do not explore a flat direction. On this fit the degeneracy is present at every window, so
-the covariance-model $z$ are the ones reported here and the bootstrap column
-(\texttt{stage3d\_error\_model.json}) is the understated one --- the reverse of a reading
-given in an earlier draft of this paragraph. The separation at $\kstar$ is reported with
-bootstrap errors because $\kstar$ is a level crossing, defined without reference to
-$(\tau,\beta)$ individually, and is not degenerate in the way they are. The selection between
-the two models is made by a declared threshold on the fitted correlation
-(\texttt{errormodel.py}, $0.95$), not by inspection, and both values are recorded for every
-cell.
+On the error models themselves: the \texttt{absolute\_sigma} covariance has the geometry
+right and the scale wrong --- it sees the $(\tau,\beta)$ degeneracy, and with
+$\chi^2/\mathrm{dof}=3.76$ it understates parameter uncertainty by roughly $\sqrt{3.76}\approx1.9\times$
+at $n=4096$, an error that grows with $n$. The replicate bootstrap has the scale closer and sees the
+\emph{same} flat direction --- its $(\tau,\beta)$ cloud correlation converges by $2000$ draws to
+$0.93$--$0.99$ against the covariance's $0.98$--$0.999$ --- but estimates the extent along it as
+up to $6.5\times$ shorter ($\sigma_\tau=0.099$ against $0.643$ on seven iid points at
+$n=4096$).\footnote{A draft of this sentence read ``$3\times$, $0.096$ against $0.284$'' --- the
+$0.284$ was $\sigma_\beta$, not $\sigma_\tau$, and from $n=1024$, not $4096$: a table misread
+twice over. The numeral checker refused it because it derived from nothing; every value in
+this paragraph is now read from \texttt{stage3e\_identifiability.json} or recomputed from the
+banked curves.} Same direction,
+different length: the disagreement is about scale, not about blindness, and an earlier draft
+that called the bootstrap ``blind'' to the degeneracy is withdrawn on that measurement. Neither
+is honest about both, and the two $z$ columns in
+\texttt{stage3d\_error\_model.json} should be read as bracketing rather than as a right and a
+wrong answer.\footnote{An earlier draft of this paragraph called one of them ``the honest
+one,'' twice, in opposite directions on successive days. Both readings are withdrawn.} The
+separation at $\kstar$ is reported with bootstrap errors because $\kstar$ is a level crossing,
+defined without reference to $(\tau,\beta)$ individually, and is not degenerate in the way they
+are. The selection between the two models is made by a declared threshold on the fitted
+correlation (\texttt{errormodel.py}, $0.95$), not by inspection, and both values are recorded
+for every cell.
+
+What the data actually constrain is one direction in $(\tau,\beta)$, and it is worth quoting
+along that direction rather than along the axes. Eigendecomposing the pooled covariance of the
+class difference at the sealed $n=4096$ window: the constrained eigenvector is $(+0.21,\,-0.98)$
+in $(\tau,\beta)$ --- essentially $\beta$ --- and the class separation along it is
+$\Delta=+0.096$ with $\sigma=0.0019$, i.e.\ $z=50.9$; along the flat eigenvector
+$(-0.98,\,-0.21)$ it is $z=19.9$; the full two-dimensional Mahalanobis separation is $54.7$.
+The marginal $z(\tau)=20.4$ and $z(\beta)=9.3$ quoted above were \emph{understating} the
+separation, because they project a two-dimensional difference onto axes along which the
+$0.98$ correlation smears it. The honest summary is one number and a stated blind spot: the
+classes separate at ${\sim}50\sigma$ along the combination F3 determines, and the orthogonal
+combination --- mostly $\tau$ --- is the over-parameterization.
+
+That over-parameterization is intrinsic to the form, not to the window: on synthetic exact-F3
+data the $(\tau,\beta)$ correlation \emph{rises} from $0.992$ at $11$ points to $0.997$ at $256$
+points spanning $22$ decades. Eliminating $\tau$ through the level crossing --- writing F3 as
+$\lambda-(\lambda-y_0)(k/\kstar)^{\beta}$ with $y_0=\log_{10}10^{-2}$ --- drops the
+$(\beta,\kstar)$ correlation to $0.32$ (iid) and $0.52$ (GUE) on the sealed windows, and
+$\kstar$ fitted directly returns $10.889$ against the $10.8891$ previously derived from
+$(\lambda,\tau,\beta)$. The arc's rule of comparing at the level crossing was, in hindsight,
+identifying the well-conditioned coordinate; the successor form is F3 in $(\lambda,\beta,\kstar)$,
+and the design constraint is to remove $\tau$, not F3.
+
+One more thing the error structure can decide, and does. Refitting with a generalised least
+squares that carries the across-$k$ replicate covariance (shrinkage $0.05$--$0.4$) gives iid
+$\chi^2/\mathrm{dof}$ of $11.4$ down to $5.7$ --- \emph{worse} than the diagonal model's $3.76$ ---
+while GUE moves from $0.017$ toward $1$ ($0.22$ to $0.04$). Accounting for the correlation does
+not absorb iid's misfit; it exposes it, because the residuals carry a systematic shape that a
+covariance saying ``these points move together'' makes more prominent, not less. The
+misspecification is therefore not in the error structure. F3 is structurally incomplete for
+the iid class at $n=4096$, and no weighting scheme rescues it; for GUE it is a sound form with
+a mis-scaled error model. That asymmetry is the finding, and it makes the richer-form
+successor a requirement rather than an option.
 
 \textbf{Verdict:} \verdict{rate-seed-dependent}.
 

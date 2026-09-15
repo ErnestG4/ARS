@@ -25,6 +25,24 @@ if ! git diff --cached --quiet -- . 2>/dev/null; then
     exit 2
   fi
 fi
+# PRE-SEAL: refuse a generator that imports a watched instrument constant
+# without declaring it as a Param. Added 2026-09-15 after the board-time census
+# (derivflow/verify_declared_params.py) caught two consecutive cells sealed by
+# the person who wrote it. A census that fires after the seal can only record
+# the defect; a check that fires before it can prevent it. Same move as the
+# commit-msg hook: construction-time over advisory.
+if printf '%s' "$GEN" | grep -q '^derivflow/'; then
+  for C in KSTAR_LEVEL FIT_WINDOW_MIN BULK_FRACTION; do
+    if grep -qE "\b$C\b" "$GEN" && ! grep -qE "Param\(\s*[\"']$C[\"']" "$GEN" \
+                                   && ! grep -qzE "Param\([^)]*value\s*=\s*$C\b" "$GEN"; then
+      echo "REFUSED: $GEN uses $C without declaring it as a Param."
+      echo "  An undeclared instrument constant cannot be swept and nothing can"
+      echo "  flag it; that is how Stage 3 missed its lower window edge. Declare"
+      echo "  it (TESTED with a sweep, or DECLARED with a defence) and re-seal."
+      exit 2
+    fi
+  done
+fi
 git add "$GEN" || exit 1
 git commit -q -m "$MSG" || exit 1
 echo "SEALED GENERATOR: $(git rev-parse --short HEAD)  $GEN"

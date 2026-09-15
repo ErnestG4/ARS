@@ -65,7 +65,8 @@ def numerals(text):
 
 # --- numbers the .tex adds, re-derived from the artifact ---------------------
 sys.path.insert(0, DFLOW)
-import numpy as _np                                                   # noqa: E402
+import numpy as _np
+np = _np                                                   # noqa: E402
 from science_rate_question import (f3 as _f3, fit_ladder as _ladder,   # noqa: E402
                                    LN10 as _LN10, FIT_WINDOW_MIN as _FWM)
 
@@ -86,6 +87,7 @@ w3c |= {"%d" % (len(s3c["k_lo"]) * len(s3c["upper_rules"])),
 # every numeral READ from the artifact, so the correction footnote cannot drift
 # from the measurement that motivated it.
 s3d = json.load(open(os.path.join(DFLOW, "stage3d_error_model.json")))
+s3e = json.load(open(os.path.join(DFLOW, "stage3e_identifiability.json")))
 for nn, v in s3d["per_n"].items():
     w3c |= {"%.2f" % v["pct_boot"], "%.1f" % v["swing_boot"],
             "%.2f" % v["sealed_boot"], "%.2f" % v["swing_cov"],
@@ -121,6 +123,29 @@ for _sc in ("iid", "gue"):
     _r = abs(_best[2][1, 2] / _np.sqrt(_best[2][1, 1] * _best[2][2, 2]))
     _worst_corr = min(_worst_corr, _r)
 w3c |= {"%.3f" % _worst_corr}
+w3c |= {"%.3f" % float(_np.sqrt(_best[2][1, 1]))}   # sigma_tau, covariance, last class fitted (gue)
+# and for iid specifically, which is the one the paper quotes:
+_c = _np.array(_s3["per_replicate_curves"]["iid"])
+_mu, _sg = _c.mean(axis=0), _c.std(axis=0, ddof=1) / _np.sqrt(16)
+_w = (_KA >= 5) & (_KA <= 11)
+_y, _sy = _np.log10(_mu[_w]), _sg[_w] / (_mu[_w] * _LN10)
+_bi = None
+for _t in (2.0, 5.0, 10.0, 30.0):
+    for _b in (0.5, 0.75, 1.0):
+        try:
+            _p, _cov = _cf(_f3, _KA[_w], _y, p0=[_y[0], _t, _b], sigma=_sy,
+                           absolute_sigma=True,
+                           bounds=([-_np.inf, 1e-3, 0.05], [_np.inf, 1e4, 3.0]),
+                           maxfev=20000)
+            _c2 = float(_np.sum(((_y - _f3(_KA[_w], *_p)) / _sy) ** 2))
+            if _np.isfinite(_c2) and (_bi is None or _c2 < _bi[0]):
+                _bi = (_c2, _p, _cov)
+        except Exception:
+            pass
+_sd_tau_cov = float(_np.sqrt(_bi[2][1, 1]))
+_sd_tau_boot = s3e["bootstrap_cloud"]["iid_k5_11"][str(max(s3e["b_sweep"]))]["sd_tau"]
+w3c |= {"%.3f" % _sd_tau_cov, "%.3f" % _sd_tau_boot,
+        "%.1f" % (_sd_tau_cov / _sd_tau_boot)}          # the 6.5x
 
 # --- the sealed-window degeneracy and the fork threshold, DERIVED. The paper
 # now says corr(tau,beta) is 0.994 on the sealed window and the fork's
@@ -166,6 +191,34 @@ if _sealed_corr < _thr:
 if _worst_corr < 0.99:
     raise SystemExit(f"the (tau,beta) degeneracy the paper quotes as 0.999 now "
                      f"reads {_worst_corr:.3f} — the paper's claim is stale")
+
+# --- Stage 3e: identifiability. Every numeral in the eigendecomposition, GLS,
+# reparameterization and bootstrap-cloud paragraphs is READ from its artifact.
+e = s3e["eigen"]
+w3c |= {"%.1f" % e["constrained"]["z"], "%.1f" % e["flat"]["z"],
+        "%.1f" % e["mahalanobis_z"], "%.3f" % abs(e["constrained"]["delta"]),
+        "%.4f" % e["constrained"]["se"], "%.1f" % e["marginal_z"]["tau"],
+        "%.1f" % e["marginal_z"]["beta"]}
+for lab in ("constrained", "flat"):
+    w3c |= {"%.2f" % abs(v) for v in e[lab]["direction"]}
+for sc, v in s3e["reparam"].items():
+    w3c |= {"%.2f" % v["corr_beta_kstar"], "%.3f" % v["params"][2],
+            "%.4f" % v["kstar_derived"], "%.3f" % v["worst_pair"]}
+for sc, v in s3e["native"].items():
+    w3c |= {"%.3f" % v["corr_tau_beta"], "%.2f" % v["chi2dof"]}
+w3c |= {"%.1f" % g["chi2dof"] for g in s3e["gls"]["iid"].values()}
+w3c |= {"%.2f" % g["chi2dof"] for g in s3e["gls"]["gue"].values()}
+w3c |= {"%.3f" % s3e["ols_chi2dof_iid"], "%.2f" % s3e["ols_chi2dof_iid"]}
+w3c |= {"%.3f" % v["corr"] for v in s3e["synthetic"].values()}
+w3c |= {"%d" % v["points"] for v in s3e["synthetic"].values()}
+w3c |= {"%d" % round(v["decades"]) for v in s3e["synthetic"].values()}
+w3c |= {"%d" % int(v["decades"]) for v in s3e["synthetic"].values()}     # "spanning 22 decades"
+w3c |= {"%.3f" % round(v["corr"], 3) for v in s3e["synthetic"].values()}
+for cell, byB in s3e["bootstrap_cloud"].items():
+    for B, v in byB.items():
+        w3c |= {"%.2f" % v["corr"], "%.3f" % v["sd_tau"], B}
+w3c |= {"%.1f" % round(np.sqrt(s3e["ols_chi2dof_iid"]), 1)}   # the ~1.9x scale factor
+w3c |= {"%d" % max(s3e["b_sweep"]), "%d" % s3e["b_sweep"][1]}
 
 # --- the iid sealed-window residuals and the AICc margins, DERIVED not typed.
 _bank = json.load(open(os.path.join(DFLOW, "science_dense_grid.json")))
@@ -251,12 +304,18 @@ DELINKED = {
     "135701": "Widmer-Cooper et al., article number",
     "2011.00579": "arXiv preprint on KWW origins",
 }
+# Numbers the paper quotes ONLY to disclose that they were wrong. They derive
+# from nothing because they were wrong; the footnote that carries them says so.
+DISCLOSED_WRONG = {
+    "0.284": "sigma_beta at n=1024, misread as sigma_tau at n=4096 (2026-09-15 footnote)",
+}
 EXCLUDED = {**DRAFT_ONLY, **DELINKED}
 
 tex_nums = numerals(tex_body)
 src_nums = numerals(prose) | numerals(note)
 
-invented = sorted(tex_nums - src_nums - derived - w3c, key=lambda s: (len(s), s))
+invented = sorted(tex_nums - src_nums - derived - w3c - set(DISCLOSED_WRONG),
+                  key=lambda s: (len(s), s))
 if invented:
     bad.append("numerals in paper.tex with no source and no derivation: "
                + ", ".join(invented))

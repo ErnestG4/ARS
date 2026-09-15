@@ -58,7 +58,20 @@ WATCHED = {
 # after writing this census forbidding exactly that. The ratchet caught its own
 # author's next cell. Recorded rather than quietly absorbed: 3d is sealed and
 # cannot be amended, so the count moves and the reason is written down.
-BASELINE = 16
+#
+# Raised 16 -> 18 on 2026-09-15. stage3e_identifiability.py imports KSTAR_LEVEL
+# and FIT_WINDOW_MIN undeclared — the SECOND cell in 24 hours I sealed after
+# writing this census, and the second it caught. A board-time census that fires
+# after the seal cannot prevent the seal. sealgen.sh now runs this check on the
+# generator BEFORE committing it and refuses on a new undeclared dependency.
+#
+# Then 18 -> 17 the same hour: the census had a FALSE POSITIVE. It accepted only
+# a Param whose NAME matched the constant, so recert_bias_surface's
+# Param("bulk_window", DECLARED, value=BULK_FRACTION) was miscounted as
+# undeclared. Both forms are accepted now. recert_section_sweep stays counted:
+# it sweeps window sizes that include 0.20 but never declares that BULK_FRACTION
+# is the reference value it indexes results by, which is a real omission.
+BASELINE = 17
 
 bad = []
 rows = []
@@ -77,7 +90,12 @@ for root, dirs, files in os.walk(ROOT):
         for const in WATCHED:
             if not re.search(rf"\b{const}\b", src):
                 continue
-            if re.search(rf"Param\(\s*[\"']{const}[\"']", src):
+            # declared under its own name, OR declared under any name with the
+            # constant as its value -- recert_section_sweep declares
+            # Param("bulk_window", DECLARED, value=BULK_FRACTION), which the
+            # first version of this census miscounted as undeclared.
+            if re.search(rf"Param\(\s*[\"']{const}[\"']", src) or \
+               re.search(rf"Param\([^)]*?value\s*=\s*{const}\b", src, re.S):
                 continue
             rows.append((os.path.relpath(path, ROOT), const))
 

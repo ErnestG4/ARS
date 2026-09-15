@@ -274,3 +274,97 @@ And the consequence for the headline: z(τ) = 20.4 and z(β) = 9.3 are marginals
 of ONE elongated constraint, reported along two axes. They are not two pieces of
 evidence. §4 says this now, and it is the structural reason the section leads
 with k*.
+
+---
+
+# Items 17–19, added 2026-09-15 on Will's second review
+
+## 17. "The covariance swing is the honest one" — re-committed the error item 14 disowned.
+
+Item 14 said there is no correct model, then item 16 picked a winner anyway.
+Retracted. The statement that survives: **covariance is honest about SHAPE,
+bootstrap about SCALE, neither about both.** The covariance has the geometry
+right and the scale wrong — `absolute_sigma=True` with χ²/dof = 3.76 understates
+parameter uncertainty by roughly √3.76 ≈ 1.9× at n=4096, and that error grows
+with n. The bootstrap has the scale closer and sees less of the flat direction.
+Neither swing is "the honest one".
+
+## 18. GLS as a discriminator — F3 is wrong as a FUNCTION for iid, not just mis-weighted.
+
+Will: if GLS (carrying the across-k correlation) fits at χ²/dof ≈ 1 where OLS
+gives 3.76, the misspecification was in the error structure and F3 is fine as a
+form; if GLS is still ≈ 3.76, no weighting rescues F3. Computed from the banked
+n=4096 per-replicate curves (GLS χ² was banked nowhere):
+
+| class | OLS diagonal | GLS shrink 0.05 / 0.1 / 0.2 / 0.4 |
+|---|---|---|
+| iid | 3.76 | **11.40 / 9.05 / 7.26 / 5.69** |
+| gue | 0.017 | 0.22 / 0.14 / 0.08 / 0.04 |
+
+GLS makes iid's fit WORSE. The residuals carry a systematic S-shape, and
+whitening by a covariance that says "these points move together" makes a
+trend that is NOT noise-like stand out more. **The misspecification is not in
+the error structure. F3 is structurally incomplete for iid at n=4096.** For
+GUE, GLS moves χ²/dof toward 1 — the signature of a sound form with a mis-scaled
+error model. The asymmetry is the finding, and it decides which paper this is:
+the richer-form successor is not optional. It also decides where zbeta's GLS
+z(β) = 9.97–11.12 belongs — they are the least-wrong error model for a form
+that is itself wrong for one class, which is not a footnote.
+
+## 19. The degenerate direction IS the measurement — and the successor form falls out of it.
+
+Eigendecomposing the (τ,β) covariance block at the sealed n=4096 window:
+
+| | direction (τ,β) | sd | |
+|---|---|---|---|
+| iid | (+0.19, −0.98) | 0.0013 | constrained |
+| iid | (−0.98, −0.19) | 0.035 | flat — condition 27.7× |
+| gue | (+0.25, −0.97) | 0.0006 | constrained |
+| gue | (−0.97, −0.25) | 0.024 | flat — condition 37.6× |
+
+The class difference (Δτ, Δβ) = (+0.846, +0.085) projected onto the pooled
+frame: **z = 50.9 along the constrained direction, 19.9 along the flat one,
+Mahalanobis 54.7.** The marginals z(τ) = 20.4 and z(β) = 9.3 were
+UNDERSTATING the separation — they project a 2D difference onto axes where
+the 0.98 correlation smears it. One honest number plus a stated blind spot,
+replacing two misleading marginals. (Covariance-model errors; scale
+understated by ~1.9× per item 17, conclusion robust to that.)
+
+The constrained direction is essentially **β** (weight −0.98). F3 measures β
+well; τ is the flat over-parameterization. Tested three reparameterizations:
+
+| parameterization | corr, sealed iid | corr, sealed gue |
+|---|---|---|
+| (λ, τ, β) native | 0.982 | 0.994 |
+| (λ, β, c = β·ln τ) | 0.988 | — |
+| **(λ, β, k\*)** — τ eliminated via the level crossing | **0.316** | **0.522** |
+
+And the native degeneracy does NOT decrease with range — synthetic exact-F3 data
+gives corr 0.9916 at 11 points and 0.9975 at 256 points across 22 decades. It is
+intrinsic to `(k/τ)^β`, not a window effect. Parameterized in (λ, β, k\*), the
+(β, k\*) pair is well-conditioned, k\* fitted directly returns 10.889 against the
+banked 10.8891, and on the sealed iid window the fork's bootstrap branch FIRES
+(worst remaining correlation 0.944, now λ-vs-shape) — the real red-path Will
+asked for. **The arc's "compare at the level crossing" rule was identifying the
+well-conditioned coordinate all along.** The successor form is F3 in (λ, β, k\*),
+and the design constraint is specific: remove τ, not F3.
+
+## 20. "Blind to the flat direction" (items 14, 16) — WITHDRAWN by Stage 3e's C3, whose bar was set first.
+
+Will: test before accepting bootstrap-blindness as structural. C3's bar (cloud
+|corr(τ,β)| ≤ 0.95 at k=5..11, B=8000) was sealed before those rows existed.
+Measured: **0.981 (iid), 0.995 (GUE)**, against the covariance's 0.999. Plateaued
+by B=2000 — not under-resampling. The bootstrap SEES the flat direction at every
+window. What it disagrees with the covariance on is the EXTENT: σ_τ = 0.099
+(bootstrap) vs 0.643 (covariance) on seven iid points at n=4096, 6.5×. Same
+direction, different length. "Blind" is withdrawn; "shape vs scale" is the
+statement that survives.
+
+## 21. A paper numeral misread twice over — caught by the checker, not by me.
+
+The sentence above first read "3×, σ_τ = 0.096 against 0.284". The 0.284 was
+σ_β, not σ_τ, and from n=1024, not n=4096: I misread my own diagnostic table.
+`verify_paper_numbers` refused it because it derived from nothing. The corrected
+value (0.643) is recomputed from the banked curves on every board run; the wrong
+one stays in the paper's footnote as a disclosed error and is named in the
+checker's `DISCLOSED_WRONG` list so it cannot be mistaken for a source.
