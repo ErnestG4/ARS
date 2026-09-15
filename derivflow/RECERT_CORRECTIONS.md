@@ -169,3 +169,83 @@ exists to catch, in a cell that does not use it.
   items 8-10 corrections to prose rather than to a standing verdict.
 - **Stage 3 is untouched by all of this.** It refits the sealed science on shared
   windows with the instrument pinned; none of the above enters it.
+
+---
+
+# Items 13–15, added 2026-09-15 on Will's review of the overnight
+
+## 13. Stage 3d's P2 "cross-cell reproduction" — the shared surface was never itemized.
+
+8.282 vs 8.242, different cell, different resampler, different night, reference
+READ from the artifact. The hygiene is right. But "independent" was doing work
+that had not been itemized. Itemized now:
+
+| | zbeta_correlated_error | stage3d_error_model | |
+|---|---|---|---|
+| data | n=4096 flows, MASTER_SEED children 32–47 / 80–95, own recovery | same seeds, Stage 3's recovery (0/80 identical) | **SHARED** |
+| spacing statistic | `one_flow` → `one_minus_rtilde` | same | **SHARED** |
+| unfolding | Richardson via `reference_cdf` | same | **SHARED** |
+| fit | multi-start F3, same grid, same bounds | structurally identical `fit_f3` | **SHARED** |
+| window rule | `mean > 1e-3` | same | **SHARED** |
+| resample unit | whole replicate curve | same | SHARED |
+| resampler | own loop, own RNG seed, B=2000 | own loop, own seed, B=400 | independent |
+
+So P2 certifies the **last mile** — that two separately written resampling loops
+with different seeds produce the same bootstrap SE on identical data through
+identical plumbing. That is worth having. It says nothing about the chain above
+the resampler, and "genuine cross-cell reproduction" suggested more. The lineage
+guard would have refused this pair about `protocol`, and was not asked.
+
+## 14. Stage 3d's "the correct error model" — overstated. Neither model is correct at both ends.
+
+Measured at the swing's denominator cell (k_lo=5, k≤11, seven points):
+
+| n | class | se_β covariance | se_β bootstrap | boot/cov | corr(τ,β) |
+|---|---|---|---|---|---|
+| 1024 | iid | 0.284 | 0.047 | 0.16 | 0.999 |
+| 4096 | iid | 0.117 | 0.019 | 0.16 | 0.999 |
+| 4096 | gue | 0.048 | 0.012 | 0.24 | 1.000 |
+
+The fit is **degenerate** there — (τ,β) correlation 0.999+ at every n. The
+covariance reports the degeneracy honestly; the bootstrap cannot see it, because
+sixteen near-identical replicates do not explore a flat direction in parameter
+space. So at short windows the *bootstrap* is the overconfident one, by 4–6×.
+
+The two models have different blind spots. Covariance: sees degeneracy, blind
+to across-k correlation and to misspecification. Bootstrap: sees correlation and
+part of the misspecification, blind to degeneracy. 3d's verdict string
+`WINDOW_SWING_SURVIVES_THE_CORRECT_ERROR_MODEL` stands as a measurement and is
+mis-named as a claim. The separation at k* is reported with bootstrap errors
+because k* is not degenerate in the way (τ,β) are.
+
+## 15. Why the inflation grows with n — answered. It is misspecification, not correlation.
+
+Will asked. The obvious hypothesis (across-k correlation grows with n) is
+**refuted**: iid median |r| is 0.906 / 0.857 / 0.859 at n=1024/2048/4096, flat.
+The denominator cell (item 14) is n-invariant. The trend lives at the **long**
+window and tracks iid's growing F3 misspecification exactly:
+
+| n | χ²/dof iid | z_cov/z_boot at sealed | inflation |
+|---|---|---|---|
+| 1024 | 0.76 | 0.67 | 1.11 |
+| 2048 | 2.29 | 0.89 | 1.32 |
+| 4096 | 3.76 | 1.12 | 2.23 |
+
+`absolute_sigma=True` treats the supplied σ as exact, so a χ²/dof of 3.76 does
+not widen the covariance. The fit is systematically wrong and the model reports
+it as if it were right, by a margin that grows with the misspecification; the
+bootstrap partly sees it because resampled fits scatter more when the model is
+wrong. **Not benign.** The paper disclosed χ²/dof growth "as a finding" without
+connecting it to the validity of the error bars it quotes. Connected now, in §4.
+
+## The 0.87 percentile, mechanism (item 5 of the morning summary, completed)
+
+Will: three n giving the same percentile to two decimals is evidence of a shared
+determinant, not a law, and it was self-flagging before the bootstrap ran.
+Confirmed and localized: the percentile is a rank among 15 cells (resolution
+1/15, so "two decimals" was never the right frame). The sealed cell sat at rank
+13 at every n under covariance and scattered to 14 / 7 / 13 under bootstrap. The
+full ordering is NOT pinned (covariance rank-correlation across n is 0.92 /
+0.50 / 0.58) — only the sealed cell's rank is, because it always has the most
+points and covariance-z is driven by point count. Filed as
+[[suspicious-agreement-is-a-shared-determinant]].

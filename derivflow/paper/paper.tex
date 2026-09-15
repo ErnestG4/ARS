@@ -227,7 +227,25 @@ improves faster than the three-form family's fidelity, so at $n=16384$ the measu
 structure beyond F3. That is the quantitative form of ``best-of-three,'' and it is the opening
 datum for any richer-form successor.
 
-\paragraph{Parameters.} At $n=4096$ on the primary readout, iid $(\tau=1.734,\ \beta=0.788)$
+\paragraph{Rate.} The comparison statistic is $\kstar$, the level crossing at which the fitted
+curve reaches $10^{-2}$ --- defined identically for every form in the ladder, and therefore
+the one shape quantity that is commensurable across fits that may differ in window or form.
+At $n=4096$, $\kstar_{\mathrm{iid}}=10.89$ and $\kstar_{\mathrm{gue}}=6.16$: a Poisson seed
+takes roughly eleven derivatives to crystallize and a GUE seed roughly six. The separation
+$|\kstar_{\mathrm{iid}}-\kstar_{\mathrm{gue}}|$ is the result of this section, and it is
+robust in the sense that matters --- across $15$ defensible choices of fit window (both
+edges varied) it moves by $6.1\%$, $7.8\%$ and $6.3\%$ at $n=4096$, $2048$ and $1024$, and
+it clears the sealed $5\sigma$ bar under every one of them at every $n$ (bootstrap errors
+throughout).\footnote{Reframed 2026-09-15. An earlier draft of this section led with the
+shape-parameter significances $z(\tau)$ and $z(\beta)$, which are reported below. They are
+correct as computed, but they are window-dependent by one to two orders of magnitude while
+the separation is not, and a statistic that moves that much under a nuisance choice is a
+diagnostic of the choice rather than a result. The separation is therefore promoted to the
+lead and the significances demoted to a sensitivity finding. Nothing about the verdict
+changes; what changes is which number a reader is asked to weight.} \textbf{Verdict:}
+\verdict{rate-seed-dependent}.
+
+\paragraph{Shape parameters, and their sensitivity.} At $n=4096$ on the primary readout, iid $(\tau=1.734,\ \beta=0.788)$
 versus GUE $(0.888,\ 0.703)$: $z(\tau)=20.4$, $z(\beta)=9.3$ against the sealed $5\sigma$
 threshold. Under a conservative treatment --- rescaling each covariance by
 $\max(1,\chi^2/\mathrm{dof})$ --- $z=12.0$ and $5.84$: the verdict survives, with $z(\beta)$ near
@@ -249,7 +267,7 @@ bands) far exceeding the drift.\footnote{Corrected 2026-08-16, packaging audit: 
 ``$0.65$--$0.85$'' did not trace --- the $n=2048$ primary cell gives $0.628$. The artifacts are
 authoritative; the prose was the defective slot.} 
 
-\paragraph{What the window is worth, and what it is not.} The fit window is set by a
+\paragraph{The significances are a window diagnostic.} The fit window is set by a
 threshold, $\text{mean}>10^{-3}$ on the full ensemble, and that threshold lands in a different
 place for each class --- iid is fitted on $16$ points, GUE on $11$. Refitting both classes over a
 surface of $15$ defensible window rules (lower edge $k_{\mathrm{lo}}\in\{1,\dots,5\}$, upper edge
@@ -292,11 +310,24 @@ exactly the points F3 fits worst (residuals $-1.77,+2.59,+1.90$). Holding F3 fix
 question-begging: it is AICc-best on all $24$ (class, window, $n$) cells by margins of $10.3$ to
 $5642$.}
 
-We therefore report the separation as the result and the $z$ as a window-dependent summary of it.
-The window sensitivity is larger than the covariance-treatment sensitivity disclosed above, and
-it does not touch \verdict{rate-seed-dependent}: the classes separate under every window rule
-tested, at every $n$. What it means is that a reader should weight the $6$--$8\%$ stability of
-$|\Delta\kstar|$ rather than the particular $\sigma$ attached to it.
+This is why the section leads with the separation. The window sensitivity of $z(\beta)$ is
+larger than the covariance-treatment sensitivity disclosed above, and it does not touch
+\verdict{rate-seed-dependent}: the classes separate under every window rule tested, at every
+$n$. A referee who varies the window will reproduce the swing immediately; the point of
+reporting it here is that they should also reproduce the $6$--$8\%$ stability of
+$|\Delta\kstar|$, which is the claim.
+
+One further caution on the error model, since the $z$ above are quoted from it. The
+\texttt{absolute\_sigma} covariance treats the supplied $\sigma$ as exact, so a growing
+$\chi^2/\mathrm{dof}$ --- $0.76$, $2.29$, $3.76$ for iid at $n=1024$, $2048$, $4096$ --- does not
+widen it. The ratio of covariance-model to bootstrap $z(\beta)$ at the sealed window tracks that
+growth: $0.67$, $0.89$, $1.12$. Neither error model is correct at both ends of the window: the
+covariance sees the $(\tau,\beta)$ degeneracy on short windows (correlation $0.999$ on seven
+points) and is blind to the across-$k$ replicate correlation and to misspecification; the
+bootstrap sees the correlation and part of the misspecification, and is blind to the
+degeneracy because sixteen near-identical replicates do not explore it. The separation at
+$\kstar$ is reported with bootstrap errors because it is not degenerate in the way the shape
+parameters are.
 
 \textbf{Verdict:} \verdict{rate-seed-dependent}.
 

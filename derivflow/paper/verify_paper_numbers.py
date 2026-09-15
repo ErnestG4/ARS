@@ -64,6 +64,11 @@ def numerals(text):
 
 
 # --- numbers the .tex adds, re-derived from the artifact ---------------------
+sys.path.insert(0, DFLOW)
+import numpy as _np                                                   # noqa: E402
+from science_rate_question import (f3 as _f3, fit_ladder as _ladder,   # noqa: E402
+                                   LN10 as _LN10, FIT_WINDOW_MIN as _FWM)
+
 # --- Stage 3c window surface: every numeral in the paper's window-disclosure
 # paragraph is READ from the artifact, never typed. Added 2026-09-14 with that
 # paragraph; the standing rule this arc paid five times to learn.
@@ -83,13 +88,44 @@ w3c |= {"%d" % (len(s3c["k_lo"]) * len(s3c["upper_rules"])),
 s3d = json.load(open(os.path.join(DFLOW, "stage3d_error_model.json")))
 for nn, v in s3d["per_n"].items():
     w3c |= {"%.2f" % v["pct_boot"], "%.1f" % v["swing_boot"],
-            "%.2f" % v["sealed_boot"], "%.2f" % v["swing_cov"]}
+            "%.2f" % v["sealed_boot"], "%.2f" % v["swing_cov"],
+            "%.2f" % (v["sealed_cov"] / v["sealed_boot"])}
+
+# --- the (tau, beta) degeneracy on the shortest window, COMPUTED not trusted.
+# The paper quotes corr(tau,beta) = 0.999 on seven points; that number came from
+# a diagnostic on 2026-09-15 and is banked nowhere, so the checker refits the
+# cell and derives it. If the correlation ever drops below what the paper
+# claims, the paper is wrong and the row says so.
+from scipy.optimize import curve_fit as _cf                            # noqa: E402
+_s3 = json.load(open(os.path.join(DFLOW, "stage3_commensurable_window.json")))
+_KA = _np.array(_s3["k_grid"], float)
+_worst_corr = 1.0
+for _sc in ("iid", "gue"):
+    _c = _np.array(_s3["per_replicate_curves"][_sc])
+    _mu, _sg = _c.mean(axis=0), _c.std(axis=0, ddof=1) / _np.sqrt(16)
+    _w = (_KA >= 5) & (_KA <= 11)
+    _y, _sy = _np.log10(_mu[_w]), _sg[_w] / (_mu[_w] * _LN10)
+    _best = None
+    for _t in (2.0, 5.0, 10.0, 30.0):
+        for _b in (0.5, 0.75, 1.0):
+            try:
+                _p, _cov = _cf(_f3, _KA[_w], _y, p0=[_y[0], _t, _b], sigma=_sy,
+                               absolute_sigma=True,
+                               bounds=([-_np.inf, 1e-3, 0.05], [_np.inf, 1e4, 3.0]),
+                               maxfev=20000)
+                _c2 = float(_np.sum(((_y - _f3(_KA[_w], *_p)) / _sy) ** 2))
+                if _np.isfinite(_c2) and (_best is None or _c2 < _best[0]):
+                    _best = (_c2, _p, _cov)
+            except Exception:
+                pass
+    _r = abs(_best[2][1, 2] / _np.sqrt(_best[2][1, 1] * _best[2][2, 2]))
+    _worst_corr = min(_worst_corr, _r)
+w3c |= {"%.3f" % _worst_corr}
+if _worst_corr < 0.99:
+    raise SystemExit(f"the (tau,beta) degeneracy the paper quotes as 0.999 now "
+                     f"reads {_worst_corr:.3f} — the paper's claim is stale")
 
 # --- the iid sealed-window residuals and the AICc margins, DERIVED not typed.
-sys.path.insert(0, DFLOW)
-import numpy as _np                                                   # noqa: E402
-from science_rate_question import (f3 as _f3, fit_ladder as _ladder,   # noqa: E402
-                                   LN10 as _LN10, FIT_WINDOW_MIN as _FWM)
 _bank = json.load(open(os.path.join(DFLOW, "science_dense_grid.json")))
 _c = _bank["data"]["iid"]["4096"]
 _ks = sorted((int(k) for k in _c), key=int)
