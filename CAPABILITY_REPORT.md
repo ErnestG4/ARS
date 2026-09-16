@@ -26,6 +26,10 @@ briefing a fresh planning session. **Current as of 2026-08-31** (commit
 > three of the four are still reachable only from their standalone branch
 > refs, which is the same class of defect item 12 exists to fix: a
 > reachability claim asserted against the wrong ref.**
+> **[UPDATED 2026-09-16.] `origin/main` = local `main` = `589d7d8`;
+> `cubics-wilderness` fast-forwarded into `main` on 2026-09-16 and left in
+> place, with every other branch, until each commit is confirmed
+> reachable from `main`. No branch has been deleted.**
 
 ---
 
@@ -328,6 +332,20 @@ now a THEOREM (BGST); the 67.2% figure is not the 2/3 slot.
 machinery (invariant to 2.6e-14 while the statistic moves 4,492×) —
 global machinery cannot give local content; SCALE-FLAT k* conceded as
 folklore's own prediction.
+**derivflow recert (2026-09-10 → 15; `derivflow/RECERT_SCOPE.md`,
+`RECERT_CORRECTIONS.md`, paper §4 + Appendix D):** the sealed
+RATE-SEED-DEPENDENT verdict stands on the k\* separation (6–8% across 15
+window rules × 3 n, >5σ under every rule); the z(β) it used to lead with
+is a window diagnostic (swings 15–109×, unstable in n: 3.80/3.11/9.31 at
+n=1024/2048/4096) and is now reported as one. The instrument reads a
+disordered known answer true at the science's operating point (Gate D,
+|bias| < 0.79% at 1σ). τ is F3's over-parameterization (corr(τ,β)
+0.98/0.99, rising with range on exact data); F3 in (λ,β,k\*) has
+corr 0.32/0.52 and is the successor form. GLS makes iid's χ²/dof worse
+(11.4 → 5.7 vs OLS 3.76) while GUE moves toward 1: F3 is wrong as a
+function for iid, not mis-weighted. Covariance and bootstrap error
+models bracket — geometry vs scale, neither both — and are selected by
+declared threshold (`errormodel.py`), both always reported.
 
 ---
 
@@ -360,6 +378,17 @@ every cell sealed before output; `BROCOT_SYNTH_IMPLICATIONS.md`).
   regime; ranking order-dependent with no convention detected; the
   reachability filter optimises an inaudible property at conservative
   width (C++ change did not ship).
+- **Prior-art position (2026-09-09; `BROCOT_LITERATURE_STATUS.md`):**
+  the object `brocot_perAlpha` measures is the 2D harmonic-oscillator
+  spectrum, with spacing-statistics literature since Berry–Tabor 1977;
+  the line carried zero citations across ~60 cells before this. The
+  direction "arithmetic of α controls repulsion" is not ours. Unoccupied:
+  the saturation at the approximable end, a bounded-scale continuous
+  Diophantine covariate, point-process statistics on synthesis spectra.
+  Boshernitzan–Dyson (bounded gap alphabet ⟺ badly approximable) is
+  operating on the roster — median 12 symbols over 343 spacings, growth
+  signature present — and explains none of the D_Q–rigidity relation
+  (retention 0.963 after controlling alphabet size; weights untested).
 
 ---
 
@@ -394,6 +423,33 @@ property), commit-msg hook (no outcome claim without a CHECKRUN line),
 review (08-25) broke the guards in scratch and hardened them
 (unfalsifiable negation path, one-sided inertness check, stdlib
 shadowing — all fixed).
+
+**Five guards added 2026-09-10→15**, each red-pathed against a defect
+that actually happened here, and each wired to a real call site
+(`verify_guard_usage` now *discovers* guards instead of reading a list
+of 11 — it had reported "unused: none" while two sat dark):
+`knownanswer.py` (Gate D — a *disordered* known-answer configuration,
+gaps 1+ηz ⇒ 1−⟨r̃⟩=(2/√π)η, because the picket-fence and Hermite gates
+are ordered and a fluctuation-damping bias cancels identically on
+them; its own silent `s>0` filter was found more forgiving than the
+instrument it certifies and replaced with a `NonPositiveGap` detector);
+`spacings.py` (unfolded spacings carry the estimator that produced
+them — reference, arm, bandwidth, window — and refuse combination
+across a mismatch; three of seven failed gate constructions were this
+collision); `lineage.py` (two cells sharing the dimension under claim
+cannot be cited as independent — the mirror of a collision, which
+inflates confidence rather than corrupting a number; red-pathed
+against Stage 2a's own "continuity" premise, which shared Stage 1's
+entire construction); `errormodel.py` (covariance vs bootstrap chosen
+by a *declared* degeneracy threshold, both values always reported —
+on F3 it never selects the bootstrap because every cell is degenerate,
+which is the finding); `verify_declared_params.py` (ratcheting census
+of cells that import `KSTAR_LEVEL` / `FIT_WINDOW_MIN` / `BULK_FRACTION`
+without declaring them, 17 today — it caught its author's next two
+sealed cells, so `sealgen.sh` now refuses at seal time). The commit-msg
+hook also gained a supersession check: a genuine-but-stale `EXIT=0
+PASS` had passed provenance while a later run of the same checker said
+`EXIT=1`. Board 47/47 on 09-09 → **54/54** (25/25 when this section was last written, 08-31).
 
 Sealing discipline: prereg sealed before output; sealed contingencies
 dry-run at seal time; **sealing ⊥ coverage** (a seal proves no
@@ -578,6 +634,17 @@ New since:
     is a property of the family that was averaged. Worth a sweep for
     siblings: any banked scalar with more digits than its dispersion
     supports.
+16. **derivflow successor form F3 in (λ,β,k\*)** — motivated from two
+    independent directions by Stage 3e (τ–β degeneracy intrinsic to
+    (k/τ)^β; k\* the well-conditioned coordinate). A new arc on a new
+    branch, not a re-grade: it changes what the paper's Table 2 reports,
+    so it wants its own seal. Stage 4 (paper decision) is Will's.
+17. **derivflow Stage 2c** — parked: a finite GUE-seed known-answer gate
+    needs a different construction, not more compute (seven tried).
+    Nothing downstream depends on it.
+18. **brocot gap-alphabet weights** — the gap-alphabet cell excludes
+    "the relation is the alphabet's size"; the multiplicity weights,
+    which is what a Brody fit actually reads, are untested.
 
 11. Longer-horizon: Kuramoto alternatives (Stuart–Landau etc.);
     RIGID_GUE 0/60 specificity run (bounds false-HYPER ≤0.049);
