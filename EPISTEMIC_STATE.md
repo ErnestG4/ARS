@@ -5,7 +5,9 @@ arc); arithmetic-spectral arc (Phases 34a–34f) appended 2026-05-16 —
 see "## Arithmetic-spectral arc" below.  **Fact-checked and updated
 through 2026-08-28 on 2026-08-31**: stale claims corrected in place
 with dated bracketed boxes (never silently rewritten), and the
-2026-08-18 → 08-28 arcs appended at the end.  Not a writeup, not a
+2026-08-18 → 08-28 arcs appended at the end; the 2026-09-10 → 15
+derivflow re-certification appended 2026-09-16, every number in it read
+from the artifact it cites.  Not a writeup, not a
 publication draft, not a hierarchy of what to lead with.  A map of what
 the tool currently knows, at what confidence, under which disciplines,
 and what is still open — so that future phase briefs can scope against
@@ -2528,3 +2530,79 @@ New standing guards worth naming: the guard census fails if a guard module that
 currently has consumers ever drops to zero — the failure mode `railed.py` already
 exhibits, being a codified rule with no call sites while a live rail sits
 unflagged in the bridge arc.
+
+## 2026-09-10 → 15 — the derivflow recert arc: no instrument defect, one paper defect, one form defect
+
+Six days that set out to check whether an instrument bias invalidated the sealed
+`RATE-SEED-DEPENDENT` verdict, found no such bias at the operating point, and found
+two other things instead.
+
+**The instrument is sound where the science reads it.** Gate D — a *disordered*
+known-answer configuration with the exact truth 1−⟨r̃⟩=(2/√π)η — was built because
+both existing gates are ordered and a fluctuation-damping bias cancels identically
+on them. Against it the Richardson readout shows no resolvable bandwidth bias at
+the centre (|bias| < 0.79% at 1σ, flat across ε/Δ 0.125–4.5), and the science's own
+bulk window sits well inside the region that reads true. The edge defect is a fixed
+~2e-5 absolute offset, so any "clean-region boundary" is η-contingent rather than a
+property of the instrument. Extending the gate to a finite GUE-seed reference (Stage
+2c) took seven constructions; six failed on how the configuration and the reference
+relate (staircase resonance, interpolation floor, broken seed correlation, estimator
+mismatch — three of them the same raw-vs-Richardson collision) and the seventh is too
+slow to ensemble, so 2c is parked and the finite-reference cell (2b) composed INVALID
+on its own premise.
+
+**The verdict survives; the number it led with does not.** Across 15 defensible fit
+windows, both edges varied, the k\* separation moves 6–8% at every n and clears 5σ
+under every rule. z(β) — the number the paper led with — swings 15–109× over the
+same rules and is unstable in n under the sealed rule (3.80 / 3.11 / 9.31 at n=1024/2048/4096). It is a
+diagnostic of the window rule, not a result. Section 4 of the paper now leads with the
+separation; the significances are reported as a window diagnostic with one footnote
+kept: z(τ) and z(β) are marginals of *one* elongated constraint, not two pieces of
+evidence.
+
+**τ is the over-parameterization, and F3 is wrong as a function for iid.** Native
+corr(τ,β) is 0.982 / 0.994 at the sealed window and *rises* with range on exact
+synthetic data (0.992 → 0.997 across 22 decades) — intrinsic to (k/τ)^β. Eliminating
+τ through the level crossing gives F3 in (λ,β,k\*) with corr(β,k\*) = 0.32 / 0.52; the
+arc's "compare at the level crossing" rule was identifying the well-conditioned
+coordinate all along. Along the constrained eigenvector the classes separate at
+z = 50.9 (Mahalanobis 54.7); the marginals understated it. GLS with the across-k
+replicate covariance makes iid's χ²/dof *worse* (11.4 → 5.7 vs OLS 3.76) while GUE
+moves toward 1: the misspecification is in the parameterization, not the weighting.
+The successor form is F3 in (λ,β,k\*), and it is now motivated from two independent
+directions rather than from discomfort.
+
+**Two error models bracket; neither is right at both ends.** The covariance has the
+geometry right (sees the degeneracy) and the scale wrong (absolute_sigma=True
+understates by ~1.9× at χ²/dof=3.76, growing with n); the bootstrap has the scale
+closer, sees the *same* flat direction (cloud corr converges to 0.93–0.99 by 2000
+draws, against the covariance's 0.98–0.999), and estimates its extent as 6.5×
+shorter on seven iid points. Rescaling by χ²/dof is not a fix —
+it assumes isotropy where there is a direction. The selection is by a declared
+threshold (`errormodel.py`), both values always recorded.
+
+**Brocot has a prior-art position for the first time.** The object `brocot_perAlpha`
+measures is the 2D harmonic-oscillator spectrum, with literature since Berry–Tabor
+1977. The direction "arithmetic of α controls repulsion" is ~50 years old; the
+saturation structure, the bounded-scale continuous covariate, and point-process
+statistics on synthesis spectra are unoccupied. The Boshernitzan–Dyson threat to the
+saturation was tested: the theorem's signature is present (median alphabet of 12 symbols
+over 343 spacings, invariant across six decades of tolerance) and it explains none of
+the D_Q–rigidity relation (retention 0.963). Alphabet *weights* remain untested.
+
+**Twenty-one overstatements in my own commit messages** were found by two
+adversarial audits and one review, verified, and corrected without deletion
+(`derivflow/RECERT_CORRECTIONS.md`; paper Appendix D). Three of the first four were one
+shape — a record blind to what it did not enumerate — and the last three were another:
+a pair of things each right about a different axis, collapsed into a ranking. Standing
+rules added: cross-cell values are READ from artifacts, never typed; agreement finer
+than the quantity's resolution is a shared upstream cause, not a law; ranking is
+misattribution's cheapest disguise. Five construction-time guards were built to make
+each of these fire on its own (`knownanswer`, `spacings`, `lineage`, `errormodel`,
+`verify_declared_params`); board 47 → 54.
+
+**Open, and deliberately not started:** the (λ,β,k\*) successor form (a new arc, now
+specified rather than motivated); Stage 2c (parked — seven constructions, the seventh
+too slow to ensemble, wants a different idea); the dBN cross-flow comparison (queued
+since before this arc). `cubics-wilderness` fast-forwarded into `main` 2026-09-16;
+vestigial branches retained until every commit is confirmed reachable.
