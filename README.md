@@ -599,7 +599,9 @@ Duffing / Hénon), the brocot.fm synthesis corpus (its class-level headline ρ(r
 was superseded 2026-08-19 as a one-representative-per-Lagrange-class artifact; the relation
 survives per-α at ρ = +0.699, n = 255, and the arc continued into a masking-derived
 audible-horizon / listening program — `cross_substrate/brocot_*`,
-`cross_substrate/BROCOT_SYNTH_IMPLICATIONS.md`), self-organised-criticality calibrators
+`cross_substrate/BROCOT_SYNTH_IMPLICATIONS.md`; prior-art position in
+`cross_substrate/BROCOT_LITERATURE_STATUS.md`: the measured object is the 2D
+harmonic-oscillator spectrum, Berry–Tabor 1977 onward), self-organised-criticality calibrators
 (earthquake and solar-flare catalogues), the Sturmian word and the Sturmian / Fibonacci
 Hamiltonian, generalised-Harper / mosaic / Maryland variants, and the almost-Mathieu (AM)
 operator.  The run-by-run record and the synthesis are in
@@ -746,6 +748,28 @@ Four further failure modes were characterised in the 2026-08 audit arcs:
   sub-additivity: the pairwise sum can *underestimate* composed
   transition holonomy by up to 6.9×, concentrated where UNFOLD follows
   POOL (a saturation regime). (`fullseq/RESULTS_FULLSEQ.md`.)
+
+Three more from the 2026-09 derivflow re-certification, each now a
+construction-time guard:
+
+- **A significance that is a window diagnostic.**  z(β) for the
+  seed-class separation swung 15–109× across 15 defensible fit windows
+  and was unstable in n under the sealed rule; the k\* separation moved
+  6–8%.  A shape parameter's z is a property of the window rule; compare
+  at the level crossing.  (`derivflow/RECERT_CORRECTIONS.md`, paper §4.)
+- **Two things each right about a different axis, ranked.**  The
+  covariance error model has the degeneracy's geometry right and the
+  scale wrong; the bootstrap has the scale closer and the extent along
+  the flat direction 6.5× short.  "The honest one" was written twice in
+  opposite directions before the pair was named instead of ordered.
+  Selection is now by declared threshold with both values reported
+  (`errormodel.py`).
+- **A record blind to what it did not enumerate.**  A guard-usage census
+  reported "unused: none" from a fixed list of 11 while two guards sat
+  dark; a stale-but-genuine CHECKRUN line passed provenance while a
+  later run said EXIT=1; the same clamped window appeared as three table
+  rows.  Each is now discovered, not listed (`verify_guard_usage.py`,
+  `.githooks/commit-msg` supersession check, `verify_declared_params.py`).
 
 ## Application to LLM internal states (canonical retracted-claim arc)
 
