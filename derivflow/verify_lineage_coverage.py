@@ -25,6 +25,24 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 READ = re.compile(r'json\.load\(\s*open\([^)]*?"([A-Za-z0-9_]+\.json)"')
 CUTOFF_UNIX = 1789400000          # ~2026-09-15 05:00 local: cells sealed after this must declare
+import subprocess
+
+
+def added_at(path):
+    """Unix time of the commit that ADDED this file — stable across checkouts.
+
+    The first version classified pre/post-rule by file mtime, which a checkout,
+    clone or touch resets. Merging the branch into main set every mtime to the
+    merge time and turned all eight pre-rule cells red. A checker that passes on
+    one checkout of the same tree and fails on another is not checking the tree.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--follow", "--format=%ct", "--", path],
+            capture_output=True, text=True, cwd=os.path.dirname(HERE)).stdout.split()
+        return int(out[-1]) if out else 0
+    except Exception:
+        return 0
 BASELINE_PRE = 8                  # pre-rule cells that read siblings without declaring; may not grow
 
 bad, pre, post = [], [], []
@@ -41,8 +59,11 @@ for fn in sorted(os.listdir(HERE)):
         continue                  # generator without a banked artifact: nothing to check yet
     art = json.load(open(own))
     has = isinstance(art.get("lineage"), dict) and bool(art["lineage"])
-    mtime = os.path.getmtime(own)
-    (post if mtime >= CUTOFF_UNIX else pre).append((fn, reads, has))
+    when = added_at(os.path.relpath(own, os.path.dirname(HERE)))
+    if when == 0:
+        # not yet committed: it is new by definition, so it must comply
+        when = CUTOFF_UNIX
+    (post if when >= CUTOFF_UNIX else pre).append((fn, reads, has))
 
 print(f"  cells that read a sibling artifact: {len(pre) + len(post)} "
       f"({len(pre)} pre-rule, {len(post)} post-rule)")
