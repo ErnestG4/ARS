@@ -91,6 +91,12 @@ the instrument measures what we claim. Specifically this row certifies:
       traversal fails the < 1.5 clause: R - 1 ~ noise-TV/net) -- pinned as the
       statistic's known false-negative channel. The traversal detector is
       certified on its DECLARED sets with that caveat printed.
+  R13b I1b (stage3c_trapped_measured.json): the TRAPPED discrete attractor
+      restores (eps=0.1, gamma=0: retention 0.02) and the sliding one retains
+      (gamma=0.02: 0.72); depinning crossing pinned as an INTERVAL (0.01,
+      0.02] (B-sup); monotonicity in gamma FAILED (well-dependent restoring
+      rate) and eps=0.03 is INAPPLICABLE at T_obs=300 -- both recorded, not
+      re-scoped.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -710,6 +716,28 @@ if RB:
                        f"CP95 {s3c['honest_claim']} [{s3c['treatment']}], spec {rates3['specificity']} CP95 {p3c['honest_claim']} "
                        f"[{p3c['treatment']}]; CAVEAT PINNED: a stepwise traversal (C_ord, not in the declared sets) reads "
                        f"R=2.1 and would be a false negative under the R<1.5 clause")
+
+# R13b — I1b
+tpath = os.path.join(HERE, "stage3c_trapped_measured.json")
+chk(os.path.exists(tpath), "R13b stage3c_trapped_measured.json missing — run stage3c_trapped.py")
+TR = json.load(open(tpath)) if os.path.exists(tpath) else None
+if TR:
+    def R(eps, g):
+        return [x["retention"] for x in TR["rows"] if x["eps"] == eps and x["gamma"] == g][0]
+    r0, r20 = R(0.1, 0.0), R(0.1, 0.02)
+    chk(r0 < 0.1, f"R13b pin: trapped discrete attractor no longer restores (R={r0:.3f})")
+    chk(r20 > 0.5, f"R13b pin: sliding pinned ring no longer retains (R={r20:.3f})")
+    seq = [R(0.1, g) for g in (0.0, 0.001, 0.003, 0.01, 0.02)]
+    mono = all(b >= a - 1e-9 for a, b in zip(seq, seq[1:]))
+    chk(TR["depinning"]["0.1"] == {"last_below": 0.01, "first_above": 0.02},
+        f"R13b pin: depinning interval at eps=0.1 moved: {TR['depinning']['0.1']}")
+    r03 = R(0.03, 0.0)
+    chk(0.5 <= r03 <= 0.95, f"R13b pin: eps=0.03 gamma=0 retention moved out of [0.5,0.95]: {r03:.3f}")
+    mono_txt = "PASS" if mono else "FAIL (well-dependent restoring rate after the drive tilts the landscape)"
+    r13["I1b"] = (f"eps=0.1: R(gamma) = {[round(v, 3) for v in seq]} for gamma 0/1e-3/3e-3/1e-2/2e-2 — trapped restores "
+                  f"(0.02 < 0.1 PASS), sliding retains (0.72 > 0.5 PASS), monotone {mono_txt}; depinning crossing in "
+                  f"(0.01, 0.02] — above the 3*c*eps guess (0.0087); eps=0.03: R(0)={r03:.2f} — INAPPLICABLE at T_obs=300 "
+                  f"(sealed as marginal; worse than marginal), needs ~3000 tau")
 
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")

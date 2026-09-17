@@ -648,6 +648,26 @@ reported with the grid's resolution (a B-sup rail: a crossing between two
 grid points is an interval, not a value). If γ* scales with ε the trapped/
 sliding boundary is the ε·T contour's third appearance.
 
+## I1b — results (`stage3c_trapped_measured.json`, sealed `c94351f`)
+
+**The trapped discrete attractor restores; the sliding one retains.** At
+ε = 0.1: R(γ = 0) = 0.019 (sealed < 0.1, PASS) and R(γ = 0.02) = 0.72 (PASS).
+With I1 this puts all three systems where the predicate says: continuous
+attractor 1.00, trapped discrete attractor 0.02, input-driven 0.00, and the
+*driven* discrete attractor at 0.72–0.88 because it is sliding. The depinning
+crossing at ε = 0.1 lies in **(0.01, 0.02]** — an interval (B-sup), and above
+the 3c·ε = 0.0087 guess.
+
+**Two sealed clauses failed, both informative.** (i) R is **not monotone in
+γ** at ε = 0.1: 0.019, 0.197, 0.040, 0.334, 0.720. After the drive tilts the
+landscape the bump settles in different wells at different γ, and the
+effective restoring rate at 300τ is well-dependent (e^{−300λ} = 0.197 needs
+λ = 0.0054; 0.040 needs 0.0107 — a 2× spread, larger than Stage 1's per-basin
+λ₁ spread of 1.2×, so the tilt is doing work). (ii) ε = 0.03 is INAPPLICABLE
+at T_obs = 300τ: R(0) = 0.74 where e^{−1.1} = 0.32 was already called marginal;
+the effective λ here is ~1e-3, not the 3.8e-3 median. The window needs
+~3000τ. Not re-run overnight; queued.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
