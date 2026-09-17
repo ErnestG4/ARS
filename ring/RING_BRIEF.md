@@ -832,6 +832,20 @@ phase offset is not conserved but *wanders* as the two bumps traverse the
 wells at different times. R is a trapped-system statistic; above 0.5 it says
 "sliding" and nothing quantitative. Recorded.
 
+## M2b — the staircase test re-posed so the rival fails it: pre-registration (overnight, before `stage4c_staircase.py`)
+
+M2's staircase test (ρ within 10⁻³ of some p/q, q ≤ 50) was passed by rigid
+rotation (0.872) because the Farey coverage 2·tol·Σ_{q≤50}φ(q) = 2·tol·774
+saturates at tol = 10⁻³. Re-posed with tol ∈ {10⁻³, 10⁻⁴, 10⁻⁵} at
+K ∈ {0, 0.5, 1.0}, ρ from N = 10⁵ iterations (Denjoy bound 10⁻⁵ on ρ_N for
+K ≤ 1 — at tol = 10⁻⁵ the instrument's own resolution is at the threshold and
+that is stated; a K = 1 point counted as unlocked at 10⁻⁵ may be resolution).
+**Sealed, at tol = 10⁻⁵:** K = 0 coverage within ±30% of the Farey value
+0.0155 (the rival's number, stated first); K = 1 coverage **> 0.5**
+(plateaus of the complete staircase with q ≤ 50); **K = 1 minus K = 0 > 0.3**
+— the test separates the staircase from its rival by construction or it is
+not a test. K = 0.5 lies between them (monotone in K at every tol).
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
