@@ -388,15 +388,42 @@ in the symmetric attractor all along. The open question (Clark's
 above-capacity slow regions vs SHC saddle-lingering) is untouched; Stage 7
 would be where it lives.
 
-## Rail class, generalized (from Stage 2 rail (i))
+## Named rail class: BOUNDARY-SUPPORTED SIGNAL (three instances, one defect)
 
-**Any supremum over a continuum computed on a grid, when the extremum sits at
-a domain edge the grid excludes.** G_max (sup at t → 0), the Kreiss constant
-(sup at Re z → ∞), the jitter ladder's τ_c when it lands on the top rung, the
-σ sweep censored at σ = 100, the smallest readable ρ below (the instrument
-stops there), and Stage 4's rotation number (a limit N → ∞ read at finite N).
-The rail for the class: every sup carries the grid edge it was taken to, and a
-sup attained *at* an edge is reported as **censored**, never as a value.
+A statistic taken over a discretized continuum whose signal lives on a
+boundary or a measure-zero set. Two forms, one rule:
+- **B-sup** — a supremum attained at an edge the grid excludes: G_max at
+  t → 0 and the Kreiss constant at Re z → ∞ (Stage 2, read 0.951 / 0.864 on a
+  normal matrix); the jitter ladder's τ_c on its top rung; σ censored at 100;
+  the smallest readable ρ (Stage 3a); Stage 4's rotation number, a limit
+  N → ∞ read at finite N.
+- **B-avg** — an average over the continuum whose signal is supported on
+  isolated points: per-step continuity on C_perm read 0.998 because the
+  signal was 15 jump boundaries in 2000 steps, and the average could not see
+  them (Stage 3a).
+**Rule:** before banking any sup or average over a continuum, state where the
+signal is supported. A sup at an excluded edge is reported **CENSORED**, never
+as a value. An average with boundary-supported signal is replaced by a
+statistic that counts or measures the boundary events (total variation,
+jump count), never by a finer average.
+
+## Two doctrines from Stage 3a, banked as rules
+
+**Topological protection, the sharper form.** The claim was posed as a window
+— θ visibly corrupted, n intact. That presupposed graceful degradation, and
+the degradation is not graceful. With a cohomological instrument **the
+integer never errs; it becomes undefined**: in every readable row |n| was
+exact (9/9), and below the censored ρ edge the class is gone, not the count
+drifting. That is what "topologically protected" looks like in practice, and
+it is the stronger statement of the original claim.
+
+**A library's graceful-degradation path is a null-laundering channel unless
+it is opt-in with its own detector spec** (failure mode #16 in *substituted*
+form: not a floored estimator, a silently swapped one). DREiMac's
+`standard_range=False` reported a different, worse class as if it were a
+reading, wrong in 14/15 rows. This is the default design in most scientific
+libraries. Rule: every fallback path a library takes on its own is treated as
+UNREADABLE unless the fallback has been given its own negative set.
 
 ## Stage 3a — path-lifting: pre-registration (2026-09-17, before `stage3_lift.py`)
 
@@ -518,6 +545,52 @@ the gap between marginal and dynamical is now bracketed by two measured
 ceilings — PH cannot see traversal (measure 2), the lift cannot see recurrence
 (L3) — and the attractor rung's first instrument failed at the rate level,
 which is the fact L4b is built on.
+
+## Stage 3b — recurrence: pre-registration (overnight 2026-09-17, before `stage3b_recurrence.py`)
+
+**Why the family changes.** L4 measured deviation from the manifold; IND lies
+on the manifold too, so no deviation statistic can separate them. The
+discriminating predicate is **recurrence with a restoring force**: an
+attractor comes back, an input-driven system is *held* there. That is an
+intervention, not an observation.
+
+- **L4b (observational, tangent-projected; run because it is cheap, sealed
+  to FAIL).** Manifold model m(φ) as an order-8 Fourier fit of X in the lifted
+  coordinate; tangent t̂ = dm/dφ normalized; e_⊥ = (X − m) − ((X − m)·t̂)t̂;
+  τ_⊥ from its autocorrelation. Rate level first (A_n vs IND_n on A_n's own
+  trajectory, 3 seeds), then spikes at ρ = 50. **Sealed: τ_⊥(A_n)/τ_⊥(IND_n)
+  < 2 in ≥ 2/3 seeds at the rate level** — fails to separate, and the reason
+  is recorded (predicted: model error is a smooth function of φ(t) and
+  dominates the residual in both).
+- **I1 along-manifold kick (the live path).** Three systems on the same
+  trajectory ψ(t) = ωt (γ = 0.02, no noise): the ring at ε = 0; the pinned
+  ring at ε = 0.1 (a *discrete* attractor with a slow restoring force,
+  λ₁ = −1.5e-2); and IND_u, independent units with first-order dynamics
+  τ_u ṙᵢ = −rᵢ + prof(θᵢ − ψ(t)), τ_u = 1 — units with a state so a kick is
+  defined, and no recurrence. At t_k the state is rotated by δ = 0.3 rad along
+  the ring; the phase offset Δψ(t) relative to the unkicked run is followed
+  for 300τ. **Sealed: retention Δψ(300τ)/δ > 0.9 for the ε = 0 ring; < 0.05
+  for IND_u (τ_u = 1); < 0.1 for the pinned ring (e^{−0.015·300} ≈ 0.01).**
+  A continuous attractor *retains*; an input-driven system and a discrete
+  attractor *restore*. That is the `implies_continuous_attractor` predicate,
+  reachable by intervention.
+- **I2 transverse kick.** r ← r + η v⊥, v⊥ ⊥ r′, η = 0.2. Both return (the
+  ring at its transverse spectrum, IND_u at 1/τ_u); the difference is rate,
+  not kind. Sealed: both below 10% at 10τ. Reported so nobody reads a
+  transverse return as an attractor signature.
+- **T1 traversal statistic re-sealed (B-avg).** On the lifted path: R = total
+  variation / |net winding| and J = count of steps with |Δφ| > π/2. Sealed:
+  R < 1.5 and J = 0 for A, IND, C_ord; **R > 3 or J ≥ 8 for C_perm** (15
+  boundaries; smoothing may merge some). Then
+  `ph_topology_with_continuous_traversal` is scored: positives A, IND;
+  negatives C_perm, D (unreadable ⇒ silent), unreadable-ρ (silent by rule).
+
+**Decision queued for Will (not taken overnight):** whether an
+intervention-only certification counts for the `implies` rung — i.e. register
+`attractor_by_along_manifold_memory` (simulation/experiment) and leave the
+observational `implies` DECLARED with "possibly unreachable observationally"
+banked as a finding — or fold I1 into `implies` with the intervention
+requirement stated in `fires_on`.
 
 ## Goals
 
