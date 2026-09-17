@@ -120,8 +120,8 @@ a second venv change** (facts checked against the packaged wheels, 2026-09-16):
 |---|---|---|
 | static barcodes + cocycles | `ripser 0.6.15` (`do_cocycles=True` from the first pass — Stage 3's path-lifting consumes them; ~10³ diagrams in measure 2 are not worth recomputing) | **installed** |
 | diagram distances (the jitter ladder's output is a bottleneck/Wasserstein curve) | `persim 0.3.8` | **installed** |
-| circular/toroidal coordinates from persistent cohomology | `DREiMac 0.3.0` (sits on ripser) | declared; install with Stage 3 |
-| zigzag persistence | **not GUDHI**: the 3.13.0 Python wheel carries no zigzag module or symbol (C++ has it, the bindings don't). `Dionysus 2.2.3` ships a cp312 `manylinux_2_39` wheel; host glibc is 2.39, so it installs without the boost build | declared; install when the time-varying case is reached |
+| circular/toroidal coordinates from persistent cohomology | `DREiMac 0.3.0` (sits on ripser) | **installed** (Stage 3a) |
+| zigzag persistence | **not GUDHI**: the 3.13.0 Python wheel carries no zigzag module or symbol (C++ has it, the bindings don't). `Dionysus 2.2.3` ships a cp312 `manylinux_2_39` wheel; host glibc is 2.39, so it installs without the boost build | **installed 2026-09-17** (wheel; `zigzag_homology_persistence` present); E-cloud work deprioritized — E was the pathological case, not the target |
 
 Point-cloud size is T (timepoints), not N: a 2000-point Rips to H₁ is
 unremarkable individually; the thousand of them wants the batching.
