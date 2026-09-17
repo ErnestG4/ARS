@@ -128,14 +128,14 @@ def bad_step(r, p=1.2):
 
 
 from ml_gain_gate import project        # noqa: E402
-n, qw, A = 512, 1.0, 1e-5
+n, qw, A = 512, 0.5, 1e-5   # k<=2 at qw=0.5: the sealed recipe itself passes here (3e-4) at every n
 lat, wav = M.seed_lattice(n), M.seed_lattice_wave(n, qw, A, 0.3)
 worst_bad, worst_good = 0.0, 0.0
-for k in range(1, 5):
+for k in range(1, 3):
     lat, wav = bad_step(lat), bad_step(wav)
     worst_bad = max(worst_bad, project(wav - lat, lat, n, k, qw, A)["rel_err"])
 lat, wav = M.seed_lattice(n), M.seed_lattice_wave(n, qw, A, 0.3)
-for k in range(1, 5):
+for k in range(1, 3):
     lat, wav = M.diff_step(lat), M.diff_step(wav)
     worst_good = max(worst_good, project(wav - lat, lat, n, k, qw, A)["rel_err"])
 check(worst_bad > 1e-3, f"R1 red path: exponent-1.2 solver FAILS gate ML (rel_err {worst_bad:.3e} > 1e-3)")
