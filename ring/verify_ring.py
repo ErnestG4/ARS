@@ -104,6 +104,10 @@ the instrument measures what we claim. Specifically this row certifies:
       sealed M2 monotonicity scored; the K=1 staircase test is recorded
       INAPPLICABLE AS POSED because rigid rotation (K=0) passes it too
       (rival rule on the arc's own sealed test).
+  R15 STAGE 4b (stage4b_ringtongue_measured.json): the pinned ring's 0/1
+      tongue with gamma* PREDICTED from the measured maximal pinning velocity
+      at gamma=0 and tested against the I1b interval (0.01, 0.02] and the
+      fine-grid rho(gamma); eps=0 rail rho = 1; eps-scaling of gamma*.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -798,6 +802,37 @@ if C4:
                  f"no prediction); multistability {[round(m, 3) for m in mu]}: 0 for K<=1 (rail PASS), fires at K>1 "
                  f"(witness PASS)")
 
+# R15 — Stage 4b
+tpath4 = os.path.join(HERE, "stage4b_ringtongue_measured.json")
+chk(os.path.exists(tpath4), "R15 stage4b_ringtongue_measured.json missing — run stage4b_ringtongue.py")
+T4 = json.load(open(tpath4)) if os.path.exists(tpath4) else None
+r15 = {}
+if T4:
+    vp1, vp3 = T4["vpin"]["0.1"]["max_speed"], T4["vpin"]["0.03"]["max_speed"]
+    tg = T4["tongue"]
+    step_g = tg["0.1"]["gamma"][1] - tg["0.1"]["gamma"][0]
+    # rail: eps = 0 -> rho = 1 for gamma > 0
+    rho0 = [r for g, r in zip(tg["0.0"]["gamma"], tg["0.0"]["rho"]) if g > 0]
+    chk(all(abs(r - 1) < 1e-3 for r in rho0), f"R15 rail: eps=0 rho != 1 (min {min(rho0):.4f}, max {max(rho0):.4f})")
+    # sealed: gamma*_pred(0.1) in (0.01, 0.02]
+    in_i1b = 0.01 < vp1 <= 0.02
+    # sealed: gamma*_pred(0.03) = 0.3 * gamma*_pred(0.1) within 25%
+    scale_ok = abs(vp3 / (0.3 * vp1) - 1) <= 0.25
+    # sealed: gamma*_meas within one grid step of gamma*_pred, each eps
+    gm1, gm3 = tg["0.1"]["gamma_star_meas"], tg["0.03"]["gamma_star_meas"]
+    meas_ok1 = gm1 is not None and abs(gm1 - vp1) <= step_g + 1e-12
+    meas_ok3 = gm3 is not None and abs(gm3 - vp3) <= step_g + 1e-12
+    # monotone rho(gamma) and rho -> 1
+    mono = {e: all(b >= a - 1e-3 for a, b in zip(tg[e]["rho"], tg[e]["rho"][1:])) for e in ("0.03", "0.1")}
+    r15["prediction"] = (f"gamma*_pred(0.1) = {vp1:.4f} {'PASS' if in_i1b else 'FAIL'} vs I1b (0.01, 0.02]; "
+                         f"gamma*_pred(0.03) = {vp3:.4f} = {vp3 / vp1:.2f} x gamma*_pred(0.1) {'PASS' if scale_ok else 'FAIL'} (0.3 +-25%)")
+    r15["tongue"] = (f"gamma*_meas(0.1) = {gm1} vs pred {vp1:.4f} {'PASS' if meas_ok1 else 'FAIL'} (one grid step {step_g:.2e}); "
+                     f"gamma*_meas(0.03) = {gm3} vs pred {vp3:.4f} {'PASS' if meas_ok3 else 'FAIL'}; rho monotone {mono}; "
+                     f"rho(0.03) at eps=0.1 = {tg['0.1']['rho'][-1]:.3f} ({'PASS' if tg['0.1']['rho'][-1] > 0.8 else 'FAIL'} > 0.8)")
+    # pins (values recorded at banking; a change is a re-read, not a re-scope)
+    chk(gm1 is not None and gm3 is not None, "R15 pin: a measured gamma* vanished (never unlocked on the grid)")
+    r15["rail"] = f"eps=0: rho in [{min(rho0):.4f}, {max(rho0):.4f}] (omega = gamma) PASS"
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -851,6 +886,10 @@ if r13:
 if r14:
     print("  R14 Stage 4, rails and sealed arms:")
     for k, v in r14.items():
+        print(f"     {k}: {v}")
+if r15:
+    print("  R15 Stage 4b, prediction from a measured quantity:")
+    for k, v in r15.items():
         print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)

@@ -772,6 +772,35 @@ I1b interval is the test.
 - **Rail:** at ε = 0 the ring's ρ(γ) = 1 for every γ > 0 (ω = γ, Stage 3a
   calibration) within 10⁻³.
 
+## Stage 4b — results (`stage4b_ringtongue_measured.json`, sealed `6d741c2`; 689 s)
+
+**The reduced model predicts the full ring's depinning to within one grid
+step.** From the maximal pinning speed measured at γ = 0 (64 starts):
+γ*_pred = 7.99·10⁻³ at ε = 0.1 and 1.98·10⁻³ at ε = 0.03. The fine-grid
+tongue gives γ*_meas = 8.25·10⁻³ and 2.25·10⁻³ — both within the 7.5·10⁻⁴
+step (PASS, PASS). The ε-scaling reads 0.248× (sealed 0.3 ± 25%, PASS): the
+pinning landscape is perturbative in ε, the contour's fourth appearance.
+ρ(γ) is monotone at both ε and reaches 0.982 at γ = 0.03 (ε = 0.1). The ε = 0
+rail holds exactly (ρ = 1.0000 at every γ > 0). Max/median of the landscape:
+2.75 at ε = 0.1, 2.27 at ε = 0.03 — the *edge* of the tongue is set by the
+landscape's maximum, the Stage 1 contour by its median.
+
+**One sealed clause failed, on a conflation I made.** γ*_pred(0.1) = 0.0080
+is *below* the I1b interval (0.01, 0.02]. I1b's "crossing" was a
+retention-at-300τ statistic (R = 0.5), not a tongue edge: just above γ* the
+bump slides slowly (ρ = 0.70 one grid step up) and two sliding bumps stay
+phase-aligned for a while, so retention crosses 0.5 at a higher γ than ρ
+leaves zero. Two observables, one seal; the physics prediction passed and
+the conflation failed. Recorded as FAIL, not re-scoped.
+
+**Report only:** ρ rises 0 → 0.70 within one step above γ* at ε = 0.1,
+steeper than the Adler √ form (0.40 at γ = 1.09γ*); the heterogeneous
+landscape depins more abruptly than a sinusoid. No verdict sealed.
+
+**Instrument note:** the batched einsum integration took 689 s where two
+BLAS matmuls would take ~30 s; not re-run (the numbers are the numbers), but
+the next ring sweep uses `r @ W_even.T + γ[:, None]·(r @ W_odd.T)`.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
