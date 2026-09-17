@@ -879,6 +879,110 @@ The rival's number is now the theorem's number, and the staircase test
 discriminates. The M2 verdict is superseded: complete-staircase behaviour at
 K = 1 is supported against its rival at tol ≤ 10⁻⁴.
 
+## Doctrines banked after the overnight read (2026-09-17, morning)
+
+**Why the along-manifold kick works — a definition, not a proxy.** A
+continuous attractor is defined by a marginal direction, and a marginal
+direction has no autonomous dynamics: that is what marginal means. A zero
+mode does nothing by itself, so there is nothing about it to observe
+passively; the only signal it can emit is a response to displacement.
+Retention of an along-manifold kick is the definition operationalized. This
+makes "unreachable observationally" a *structural* claim with L4/L4b as
+support, not a generalization from two failed statistics — **but it is not
+banked until its passive dual (the MSD arm below) has been run**, because a
+structural claim that has not survived the obvious candidate is a claim
+about the search.
+
+**Order statistics reconcile the four instruments.** Stage 1's contour used
+the *median* pinning velocity (drift averages over many wells: a typical-well
+quantity); Stage 4b's tongue edge used the *maximal* (depinning requires
+escaping every well: an extreme-value, strongest-barrier quantity). Max/median
+≈ 2.75 at ε = 0.1 and 2.27 at ε = 0.03 is a measurable property of the
+disorder, not a nuisance, and the 10× well-dependence that broke two
+monotonicity clauses is the same fact seen a third way.
+
+**Presentation correction.** "Predicts the full ring's depinning to 3%" was
+the ε = 0.1 number; ε = 0.03 is 12% (1.98e-3 vs 2.25e-3). Both within one grid
+step — the honest line is **"3% and 12% at two ε, both within a grid step."**
+Reporting the better of two is the winner's-interval shape (#19).
+
+**B-grid generalizes.** On the grid j/n, the count of points that are Farey
+fractions with q ≤ Q is Σ_{d | n, d ≤ Q} φ(d): for n = 1001 = 7·11·13 that is
+φ(1)+φ(7)+φ(11)+φ(13) = 29. Three small prime factors was maximally bad; a
+prime n has essentially no low-denominator hits. Since Arnold-tongue and
+devil's-staircase numerics are done on rational grids as a matter of course,
+this is a methods note someone should have written; the fix (random draws
+or a declared irrational offset) is checkable in advance by the arithmetic.
+*Candidate for `~/derivflow_outreach/`, not written here.*
+
+**The QUEUED ring→ARS arm is re-filed: BLOCKED ON A SPIKING RING.** Option
+(b) assumed some option was runnable on this generator; identical-in-
+distribution kills all three. A spiking ring is a generator change with
+consequences for every Stage 1–4 number's applicability — not near-term.
+
+**Drift note, kept visible.** 55 commits in, **Stage 5 — bits per window in
+the (n, ψ, r) encoding, the question the plan was written for — is unrun.**
+Stage 3a already gives its first two inputs for free: |n| exact wherever
+readable (the integer channel's error rate is 0 or undefined, never
+intermediate) and θ residual 0.02–0.04 rad (the ψ channel's floor). The arm
+is queued *after* the MSD arm and T2 below, and not behind anything else.
+
+## Stage 3e — MSD along the manifold: pre-registration (before `stage3e_msd.py`)
+
+Noise is an endogenous kick train, so the three systems should separate by
+growth law rather than by response. Input noise σ_n = 0.05 (as L4) on: the
+ring at ε = 0, γ = 0.02 (continuum); the ring at ε = 0.1, γ = 0 (trapped in
+a well); IND_u (independent first-order units, τ_u = 1, on the noiseless
+trajectory ωt, with the same input noise on each unit). Decoded angle =
+the order-parameter angle of the rate vector (passive, noise-free decoding;
+the spike-level version is a power question to run after, not before).
+T = 20,000τ per system, 3 seeds; MSD(Δ) = ⟨(ψ(t+Δ) − ψ(t) − ω_fit Δ)²⟩ over
+lags Δ ∈ [1, 2000]τ, log-spaced, after removing the mean drift.
+
+**Sealed:**
+- Continuum: log-log slope of MSD vs Δ over Δ ∈ [10, 1000]τ = **1.0 ± 0.15**;
+  MSD(1000)/MSD(100) ∈ [7, 13]. D = MSD/(2Δ) is banked (pilot: bump-position
+  std 0.031 rad over 1000τ → D ≈ 5·10⁻⁷ rad²/τ).
+- Trapped: saturates; slope over [200, 2000]τ < 0.3; **MSD_sat within a
+  factor 2 of 2D/|λ₁|** with D from the continuum row and λ₁ = −1.49·10⁻²
+  (Stage 1, ε = 0.1, median) — *stated caveat: this well's λ₁ is not the
+  median (I1c found 10× spreads), so the factor 2 is generous on purpose*;
+  crossover Δ_c (where MSD reaches half its saturation) within a factor 3 of
+  1/|λ₁| ≈ 67τ.
+- IND_u: saturates by Δ ≈ 3τ_u; MSD(1000)/MSD(10) < 1.5; slope over
+  [10, 1000]τ < 0.15.
+- Separation in kind: continuum slope − trapped slope > 0.5; IND_u
+  saturation lag < trapped crossover / 10.
+
+If all three hold, the `implies` rung is observationally reachable and
+`ph_topology_implies_continuous_attractor` gets its instrument (MSD growth
+law) and its negative set (trapped ring, IND_u) with numbers. If the
+continuum fails its own growth law or the three do not separate, "unreachable
+observationally" is banked as structural, having survived the obvious
+candidate.
+
+## T2 — traversal statistic re-sealed on MAD jumps + monotone winding (before `stage3f_traversal2.py`)
+
+R = TV/net could not separate stepwise-but-monotone (C_ord) from
+smooth-but-noisy. Two clauses, no new scale parameter beyond the
+conventional MAD multiplier: J_mad = #{steps with |Δφ| > 5·MAD(|Δφ|)};
+M = fraction of steps with sign(Δφ) = sign(net winding) among steps with
+|Δφ| > MAD. **Sealed:** A, IND: J_mad ≤ 5 and M ≥ 0.9 (smooth traversal);
+C_ord: J_mad ≥ 10 and M ≥ 0.9 (stepwise traversal — a *positive*); C_perm:
+J_mad ≥ 10 and M < 0.7 (jumpy, non-monotone — negative); D unreadable.
+The traversal detector's positive set gains `stepwise_traversal_C_ord`.
+
+## Detector registered: `attractor_by_along_manifold_memory` (intervention class)
+
+Separate from the observational ladder, because intervention is a different
+*access class* and putting it in `fires_on` would conflate statistic-reach
+with data-access. Fires when an along-manifold displacement δ is retained
+(Δψ(T_obs)/δ > 0.9). Positive: ring ε = 0 (I1: 1.00, 3/3). Negatives: IND_u
+(I1: 0.00, 3/3), trapped pinned ring (I1b γ = 0: 0.019). Nearest
+confusable: the *driven* pinned ring above depinning (0.72–0.88), which is
+sliding and retains — correctly, since above γ* it has no mean restoring
+force. Certified on banked data by R16.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in

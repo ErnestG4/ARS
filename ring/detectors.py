@@ -182,6 +182,40 @@ def ph_implies_continuous_attractor_spec() -> DetectorSpec:
     )
 
 
+def attractor_by_along_manifold_memory_spec() -> DetectorSpec:
+    """INTERVENTION CLASS (Stage 3b/I1b). Separate from the observational
+    ladder: intervention is a different ACCESS CLASS, and folding it into
+    `implies.fires_on` would conflate statistic-reach with data-access.
+
+    Why it works is a definition, not a proxy: a continuous attractor is
+    defined by a marginal direction, a marginal direction has no autonomous
+    dynamics, so the only signal a zero mode can emit is a response to
+    displacement. Retention of an along-manifold kick IS the predicate."""
+    return DetectorSpec(
+        name="attractor_by_along_manifold_memory",
+        fires_on="an along-manifold displacement delta is retained: "
+                 "dpsi(T_obs)/delta > 0.9 relative to the unkicked run",
+        positive_set={
+            "ring_eps0_driven": "continuous attractor; I1 retention 1.00 in 3/3 "
+                                "(stage3b_recurrence_measured.json)",
+        },
+        negative_set={
+            "IND_u": "independent first-order units on the same trajectory; "
+                     "restores completely (I1: 0.00, 3/3)",
+            "pinned_ring_trapped": "discrete attractor, gamma=0, eps=0.1; "
+                                   "restores (I1b: 0.019)",
+        },
+        nearest_confusable="the DRIVEN pinned ring above depinning (retention "
+                           "0.72-0.88): sliding, so it retains -- correctly, "
+                           "because above gamma* it has no mean restoring "
+                           "force; the confusable is a real continuum-for-"
+                           "phase-memory, not a false positive",
+        negative_rationale="a memory detector that fired on an input-driven "
+                           "system would certify the input's persistence as "
+                           "the network's",
+    )
+
+
 def rotation_fit_spec() -> DetectorSpec:
     """DECLARED (Stage 2). jPCA-style rotation, with a rejection region."""
     return DetectorSpec(
@@ -206,7 +240,8 @@ def rotation_fit_spec() -> DetectorSpec:
     )
 
 
-BUILT = {"ring_marginal_mode": marginal_mode_spec}
+BUILT = {"ring_marginal_mode": marginal_mode_spec,
+         "attractor_by_along_manifold_memory": attractor_by_along_manifold_memory_spec}
 DECLARED_ONLY = {
     "ph_topology_consistent_with_continuous_attractor":
         ph_consistent_with_continuous_attractor_spec,
@@ -224,4 +259,7 @@ DECLARED_ONLY = {
 #                       tangent-projected residual (L4b); L4's 32-bin residual
 #                       did not separate even at the rate level
 #   rotational_fit   -> Stage 2 (skew_frac vs TME); a real path, exists
+#   memory (intervention) -> certified on I1/I1b banked data (R16); NOT a rung
+#                       of the observational ladder by design
+#   implies (observational) -> candidate instrument: MSD growth law (Stage 3e)
 STAGE1_CANNOT_CERTIFY = {"ph_topology_implies_continuous_attractor"}

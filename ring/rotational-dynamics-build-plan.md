@@ -371,6 +371,18 @@ rails caught three instrument defects before any number was read.
   multi-second stability).
 - **Measure:** long runs, extract `(n, θ)`; check `n` survives noise that visibly
   corrupts `θ`. The topological-protection claim, tested.
+- **Stage 3b/I1b/I1c ran (2026-09-17; brief).** The along-manifold kick is the
+  attractor predicate, operationalized: the continuum retains (1.00), the
+  trapped discrete attractor restores (0.02), the input-driven look-alike
+  restores (0.00); registered as the intervention-class detector
+  `attractor_by_along_manifold_memory`, separate from the observational
+  ladder by design. Deviation statistics fail even at the rate level. The
+  passive dual — MSD along the manifold (Stage 3e) — decides whether the
+  observational `implies` rung is reachable.
+- **Stage 4/4b ran (2026-09-17; brief).** Circle-map rails all green; the
+  reduced phase model predicts the ring's depinning **to 3% and 12% at two ε,
+  both within a grid step**, from the maximal pinning speed measured at
+  γ = 0 — an extreme-value statistic, where Stage 1's contour is the median.
 - **Stage 3a ran (2026-09-17; brief §Stage 3a — results).** DREiMac circular
   coordinates + lift recover |n| = 3 exactly in 9/9 readable seeds with k = 1
   and θ residual 0.02–0.04 rad after removing the reparametrization. The
@@ -431,6 +443,13 @@ Two independent coordinates.
 ---
 
 ## Stage 5 — The (n, ψ, r) readout
+
+**UNRUN as of 2026-09-17, 55 commits in — the question this plan was written
+for.** Kept visible so the instrument-building does not become the project by
+default. Stage 3a supplies its first two inputs: the integer channel's error
+rate is 0 wherever the coordinate exists and undefined where it does not
+(never intermediate); the ψ channel's floor is 0.02–0.04 rad. Queued directly
+after Stage 3e and T2.
 
 | channel | object | robustness |
 |---|---|---|
@@ -547,15 +566,13 @@ the confound moves rather than resolves; (b) drop the long-range arm, keep
 NNS/`classify` — **chosen (2026-09-16)**; (c) drop the item — rejected: throws
 away the one thing the arm can still do.
 
-**Re-sealed under (b).** NNS and `classify` read the marginal; the marginal is
-what a rate-modulated train has; reporting it without a class claim is an
-honest statement of what the instrument sees. Keep the matched-Cox control
-and the `wigner_renewal` decoy. Drop step 4's long-range call and step 5's
-Σ²<8 comparison entirely. **Deliverable: the per-cell detection margin versus
-the dial** — for each dial setting, the distance between the ring unit's
-marginal read and its matched-Cox control's, against the surrogate floor.
-Sealed expectation stays **null**; what gets banked is **where the margin
-crosses the floor**, which is a number and needs no class claim.
+**Re-sealed under (b) — then re-filed BLOCKED ON A SPIKING RING (2026-09-17).**
+The ring's spikes are inhomogeneous Poisson from the rate envelope, so the
+matched-Cox control with the same envelope is *identical in distribution* to
+the ring unit's train: the per-cell margin is zero by construction and (b)'s
+deliverable is vacuous, as are (a) and (c). A non-vacuous version needs a
+spiking ring whose spikes feed back into the dynamics — a generator change
+with consequences for every Stage 1–4 number's applicability. Not near-term.
 
 **Baseline to expect.** phase30 built Kuramoto populations emitting spikes across
 (K, σ), fed them to ARS, and got BR_artifact at every K with 156/160 real-data

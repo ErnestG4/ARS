@@ -103,6 +103,10 @@ the instrument measures what we claim. Specifically this row certifies:
       restoring rate is 3.3e-4, 10x below the Stage 1 median); retention > 1
       above threshold is recorded: the statistic is bounded only for trapped
       systems.
+  R16 attractor_by_along_manifold_memory (intervention class) certified on
+      the banked I1 (stage3b) and I1b (stage3c) rows: positive ring eps=0
+      fires 3/3; negatives IND_u (3/3) and trapped pinned ring silent.
+      Separate from the observational ladder by design.
   R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
       convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
       step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
@@ -776,6 +780,26 @@ if L3:
                   f"between 0.001 and 0.003 PASS (4b edge 2.25e-3); R(0)={Rg[0.0]:.3f} FAIL (<0.1 sealed): this well's "
                   f"lambda_eff = {lam_eff:.1e}, 10x below the Stage 1 median 3.8e-3; R(0.003)={Rg[0.003]:.2f} > 1 — retention "
                   f"is bounded only for trapped systems, sliding phase offsets wander")
+
+# R16 — intervention-class detector on banked data
+if RB and TR:
+    spec_m = D.attractor_by_along_manifold_memory_spec()
+    rc_ = [x["retention"] for x in RB["rows"] if x["arm"] == "I" and x["kick"] == "along" and x["system"] == "ring_eps0"]
+    ri_ = [x["retention"] for x in RB["rows"] if x["arm"] == "I" and x["kick"] == "along" and x["system"] == "IND_u"]
+    rt_ = [x["retention"] for x in TR["rows"] if x["eps"] == 0.1 and x["gamma"] == 0.0]
+    spec_m.record("ring_eps0_driven", all(r > 0.9 for r in rc_) and len(rc_) == 3)
+    spec_m.record("IND_u", any(r > 0.9 for r in ri_))
+    spec_m.record("pinned_ring_trapped", any(r > 0.9 for r in rt_))
+    try:
+        rates_m = spec_m.certify()
+    except DetectorNotCertified as e:
+        chk(False, f"R16 {e}"); rates_m = spec_m.rates()
+    _tpm, _npm = map(int, rates_m["sensitivity"].split("/")); _tnm, _nnm = map(int, rates_m["specificity"].split("/"))
+    smc, pmc = _br(_tpm, _npm), _br(_tnm, _nnm)
+    r13["memory_detector"] = (f"attractor_by_along_manifold_memory certified: sens {rates_m['sensitivity']} CP95 "
+                              f"{smc['honest_claim']} [{smc['treatment']}], spec {rates_m['specificity']} CP95 "
+                              f"{pmc['honest_claim']} [{pmc['treatment']}]; margins: positive retention "
+                              f"{[round(r, 3) for r in rc_]} vs negatives {[round(r, 3) for r in ri_]} / {[round(r, 3) for r in rt_]}")
 
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")
