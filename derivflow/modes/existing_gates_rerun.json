@@ -1,0 +1,48 @@
+{
+ "hermite_selfmap": {
+  "exit": 0,
+  "verdict": "PASS",
+  "numbers_differing_from_committed": 0,
+  "first_diffs": [],
+  "stdout_tail": [
+   "steps run: 480/480  (s up to 0.9375)",
+   "gate A worst dev vs mpmath (scaled): 1.35e-13   (tol 1e-09; scipy ref floor 2.02e-13)",
+   "gate B worst unfold mean dev: 0.00784 (tol 0.02)",
+   "advisory worst dev vs scipy ref: 1.97e-13",
+   "readout-powered steps (post-window >= 64): 191, last at s = 0.373",
+   "runtime: 30.7s -> derivflow/track0_hermite_gate.json"
+  ],
+  "runtime_s": 34.246766328811646
+ },
+ "reference_v2_gates(lattice+hermite-through-reference)": {
+  "exit": 0,
+  "verdict": "PASS",
+  "numbers_differing_from_committed": 0,
+  "first_diffs": [],
+  "stdout_tail": [
+   "L n=1024: 1-rt=4.906e-08 (tol 1e-07)",
+   "L n=2048: 1-rt=7.064e-09 (tol 1e-07)",
+   "L n=4096: 1-rt=9.938e-10 (tol 1e-07)",
+   "H k=1: pipeline=1.956e-10 truth=3.794e-09 |diff|=3.599e-09 (tol 1e-05)",
+   "H k=2: pipeline=9.914e-11 truth=3.797e-09 |diff|=3.698e-09 (tol 1e-05)",
+   "VERDICT: PASS"
+  ],
+  "runtime_s": 134.48440980911255
+ },
+ "gate_D_knownanswer": {
+  "exit": 0,
+  "stdout_tail": [
+   "       The discriminating fact is that a picket fence has no fluctuation to damp.",
+   "",
+   "  gate vs instrument on identical gaps: 0.0011284316978952269 vs 0.0011284316978952269",
+   "  tagged statistic: 0.0011284316978952269  [none-perturbed-lattice/exact@0/full]",
+   "  comparison across unfolding estimators: REFUSED",
+   "  one non-positive gap in 4031: detector FIRES; statistic moves 0.00113 -> 0.00195 (1.7x), and the instrument reports 0.00195 without complaint",
+   "",
+   "VERIFY_KNOWNANSWER: PASS \u2014 closed form holds, sensitivity re-derived, the gate fires on the audit's measured bias sizes, and the ordered configuration is demonstrably blind to them"
+  ],
+  "runtime_s": 1.6905152797698975
+ },
+ "ALL_GATES_GREEN_AND_UNCHANGED": true,
+ "runtime_s": 170.4251344203949
+}
