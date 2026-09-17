@@ -38,7 +38,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
-from ring.ringnet import run_dial, BETA                       # noqa: E402
+from ring.ringnet import run_dial, BETA, RELAX_DELTAS         # noqa: E402
 from modelparams import Model, Param, TESTED, DECLARED        # noqa: E402
 
 # pre-declared check tolerances (read by verify_ring.py from the banked seal)
@@ -48,7 +48,7 @@ PRODUCTS = [0.02, 0.2, 2.0, 20.0, 60.0, 200.0]
 SPLIT_T = [200.0, 600.0, 2000.0]
 LONG_ROWS = [(0.01, 8000.0), (0.03, 8000.0), (0.1, 8000.0), (0.01, 20000.0)]
 
-INSTRUMENT = Model("ring_contour_v1", [
+INSTRUMENT = Model("ring_contour_v2", [   # v2: relax_delta declared + swept
     Param("N", DECLARED, value=128, why="as stage1_marginal"),
     Param("J0", DECLARED, value=-2.0, why="as stage1_marginal"),
     Param("J1", DECLARED, value=4.0, why="as stage1_marginal"),
@@ -58,6 +58,14 @@ INSTRUMENT = Model("ring_contour_v1", [
     Param("B", DECLARED, value=16, why="as stage1_marginal"),
     Param("seed", DECLARED, value=1, why="same xi pattern as stage1_marginal so "
                                          "the two tables are the same network"),
+    Param("relax_delta", DECLARED, value=RELAX_DELTAS[0],
+          why="displacement for the dynamic read; the banked value is the "
+              "smallest of the sweep because the read converges to lam1 as "
+              "delta -> 0 (ratio 0.965 at 0.005 vs 0.61 at 0.05, the original "
+              "hard-coded value, which was one grid step)"),
+    Param("relax_delta_sweep", TESTED, sweep=list(RELAX_DELTAS),
+          why="the dynamic read's own instrument constant; swept so its "
+              "anharmonic bias is visible in every banked row"),
     Param("P", TESTED, sweep=PRODUCTS,
           why="the contour coordinate eps*T; the claim under test is that "
               "state depends on eps and T only through it"),
