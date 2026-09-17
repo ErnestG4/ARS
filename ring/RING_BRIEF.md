@@ -284,6 +284,59 @@ predicted τ_c = 2.8/ω stated before the run, and (ii) a statement of whether
 the cloud's time-order carries the manifold's order (a sequence), because
 that is the condition under which the null manufactures the signal.
 
+## Stage 2 — non-normality: pre-registration (2026-09-17, before `stage2_nonnormal.py`)
+
+**Premise under test.** The plan's Stage 2 premise is *"dropping symmetry is
+what creates non-normality."* Pilot (one row each, disclosed): the symmetric
+ring attractor's bump Jacobian J = −I + D·W is already non-normal with **zero
+asymmetry** — Henrici 2.09 (18% of ‖J‖_F), numerical abscissa +0.178 against
+spectral 0, G_max = 1.36. The source is the gain profile D = diag(f′(u)) across
+the bump. The circulant odd coupling is normal at every γ (linear rail:
+Henrici 5e-15). So the hypotheses are about **order**, and a 64× span in γ
+separates exponent 1 from exponent 2 by a factor of 64 in the relative change:
+
+- **H_plan:** asymmetry creates non-normality — Henrici(γ)/H₀ − 1 ∝ γ¹ and is
+  large (≥ 50% at γ = 0.32).
+- **H_gain:** non-normality is set by the gain profile; asymmetry enters at
+  second order — exponent 2 ± 0.3 over γ ∈ {0.005, 0.02, 0.08, 0.32}, and
+  < 10% at γ = 0.32.
+
+**Instrument.** For γ > 0 the bump is a traveling wave, so the lab-frame
+instantaneous Jacobian is not a fixed-point linearization (pilot: spectral
+abscissa +0.016 at γ = 0.02, ε = 0.1 → G_max 10⁷, meaningless). Stage 2 uses the
+**co-moving-frame Jacobian** J_tw = −I + D·W + γ·∂_θ (central-difference
+circular derivative), which has an exact translation zero mode r₀′ — asserted
+as a rail: ‖J_tw r₀′‖/‖r₀′‖ < 1e-2. Reads per row: Henrici index (strictly
+upper part of the Schur form, Frobenius); spectral abscissa α(J); numerical
+abscissa ω(J) = λ_max((J+Jᵀ)/2); G_max = sup_t ‖e^{Jt}‖₂ on t ∈ [0.1, 1000]τ
+(60 log points); eigenvalue condition number κ of the top eigenvalue;
+Kreiss constant K on a grid Re z ∈ [1e-4, 3], Im z ∈ [−1, 1]. Threads pinned.
+
+**Rails (theorem-level; a red rail is an instrument defect, not a finding):**
+linear stable circulant (J1 = 1) at every γ: Henrici < 1e-10, ω − α < 1e-10,
+G_max = 1 ± 1e-6, K = 1 ± 1e-3. On every row: ω(J) > α(J) ⟺ G_max > 1;
+K ≤ G_max ≤ e·N·K (Kreiss); for a marginal row G_max ≥ κ(0).
+
+**Arms and sealed predictions:**
+- **S0** symmetric bump (γ = 0, ε = 0): H₀, Δ₀ = ω − α, G₀, κ₀ — banked as
+  the *baseline non-normality of a symmetric attractor*. Expected H₀ ≈ 2.1,
+  G₀ ≈ 1.36 (pilot). No prediction sealed beyond "Δ₀ > 0" (transient growth
+  with zero asymmetry).
+- **Sγ** J_tw at γ ∈ {0.005, 0.02, 0.08, 0.32}, ε = 0: exponent of
+  Henrici(γ)/H₀ − 1 → H_plan vs H_gain as above. Also G_max(γ)/G₀.
+- **Sα** random antisymmetric perturbation of W at ‖ΔW‖_F **matched** to each
+  γ (commensurable): exponent of Henrici/H₀ − 1; ratio
+  Henrici_rand/Henrici_circ − 1 at the largest matched norm. Sealed
+  two-sided: H_struct (< 0.5, structured asymmetry is the gentler source),
+  H_comparable (0.5–2), H_inv (> 2). Pilot hints ≈ 0.45; sealed anyway.
+- **Sε** heterogeneity at γ = 0, ε ∈ {1e-3, 3e-3, 1e-2, 3e-2, 1e-1} (100×):
+  H_pin: G_max(ε) decreases monotonically from κ₀ (pinning turns the
+  persistent projector norm into a true transient); H_plan: increases. And
+  the exponent of |G_max(ε) − G₀|.
+
+**The discriminating spans:** 64× in γ and matched α (exponent 1 vs 2);
+100× in ε (sign and exponent). Single points decide nothing here.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
