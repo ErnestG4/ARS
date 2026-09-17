@@ -449,8 +449,12 @@ INSTRUMENT-LIMITED flag.
   (independent Poisson units with the ring's own bump profile as tuning,
   following A's trajectory ψ(t), no recurrence): **the same** — continuity
   > 0.95, |n| = 3: the kinematic ceiling, measured. C_ord (16 static bumps in
-  angular order): continuity > 0.95, |n| = 1 — it *is* a stepwise traversal
-  and is read as one, correctly. C_perm (random segment order, 3 permutations):
+  angular order): continuity > 0.95 and **wind_est within 0.15 of 0.94** — it
+  *is* a stepwise traversal of 15/16 of the circle and is read as one,
+  correctly. *(Amended pre-seal: the first draft said |n| = 1; the 16 bumps
+  at (k+0.37)·2π/16 cover 0.94 turns, so |n| = 0 under the floor convention
+  by construction. The fractional winding is the honest read.)* C_perm (random
+  segment order, 3 permutations):
   continuity < 0.5, and the lift is ill-defined (a majority of steps > π/2).
 - **L4 the attractor rung, pilot with a sealed prediction.** Ring A_n with
   declared additive input noise σ_n = 0.05 per unit per step (the bump now
