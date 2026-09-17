@@ -110,6 +110,12 @@ the instrument measures what we claim. Specifically this row certifies:
       sealed M2 monotonicity scored; the K=1 staircase test is recorded
       INAPPLICABLE AS POSED because rigid rotation (K=0) passes it too
       (rival rule on the arc's own sealed test).
+  R14b M2b/M2c (stage4c_staircase_measured.json, stage4d_staircase_random_
+      measured.json): the staircase test re-posed at tol 1e-5 separates K=1
+      from K=0 by > 0.3 on both grids; on the RATIONAL grid j/1001 the K=0
+      coverage is exactly the 29 grid points that are Farey fractions
+      (B-grid rail, pinned); with random Omega the K=0 coverage matches the
+      Lebesgue/Farey estimate within 30% and the sealed test PASSES.
   R15 STAGE 4b (stage4b_ringtongue_measured.json): the pinned ring's 0/1
       tongue with gamma* PREDICTED from the measured maximal pinning velocity
       at gamma=0 and tested against the I1b interval (0.01, 0.02] and the
@@ -822,6 +828,24 @@ if C4:
     r14["M4"] = (f"D(K) = {D4} (grid 0.005): dead region K<1 PASS; no hysteresis observed at K>1 either (admissible, "
                  f"no prediction); multistability {[round(m, 3) for m in mu]}: 0 for K<=1 (rail PASS), fires at K>1 "
                  f"(witness PASS)")
+
+# R14b — M2b / M2c
+for fn, tag in (("stage4c_staircase_measured.json", "M2b(grid)"), ("stage4d_staircase_random_measured.json", "M2c(random)")):
+    fp_ = os.path.join(HERE, fn)
+    chk(os.path.exists(fp_), f"R14b {fn} missing")
+    if os.path.exists(fp_):
+        cv = json.load(open(fp_))["coverage"]["1e-05"]
+        k0, k1, k5, far = cv["0"], cv["1"], cv["0.5"], cv["farey_K0"]
+        sep_ok = (k1 > 0.5) and (k1 - k0 > 0.3) and (k0 <= k5 <= k1)
+        chk(sep_ok, f"R14b {tag}: separation failed (K0={k0:.3f}, K0.5={k5:.3f}, K1={k1:.3f})")
+        if tag.startswith("M2b"):
+            chk(abs(k0 * 1001 - 29) < 0.5, f"R14b pin: rational-grid K=0 coverage no longer the 29 Farey grid points ({k0 * 1001:.1f})")
+            r14["M2b"] = (f"tol 1e-5: K=1 {k1:.3f} > 0.5 PASS, separation {k1 - k0:.2f} > 0.3 PASS; K=0 {k0:.4f} = 29/1001 exactly — "
+                          f"phi(1)+phi(7)+phi(11)+phi(13) grid points of j/1001 ARE Farey fractions (B-grid rail); Farey clause FAIL, cause exact")
+        else:
+            chk(abs(k0 / far - 1) <= 0.30, f"R14b M2c: random-Omega K=0 coverage {k0:.4f} vs Farey {far:.4f} outside 30%")
+            r14["M2c"] = (f"random Omega, tol 1e-5: K=0 {k0:.4f} vs Farey {far:.4f} ({k0 / far - 1:+.0%}) PASS; K=1 {k1:.3f} PASS; "
+                          f"separation {k1 - k0:.2f} PASS; the staircase test now discriminates against its rival")
 
 # R15 — Stage 4b
 tpath4 = os.path.join(HERE, "stage4b_ringtongue_measured.json")

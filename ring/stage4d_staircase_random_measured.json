@@ -1,0 +1,95 @@
+{
+ "generator": "stage4d_staircase_random.py",
+ "instrument": {
+  "model": "circlemap_staircase_random_v1",
+  "params": [
+   {
+    "name": "n_omega",
+    "kind": "DECLARED",
+    "why": "number of random Omega draws",
+    "sweep": null,
+    "value": 1001
+   },
+   {
+    "name": "seed_omega",
+    "kind": "DECLARED",
+    "why": "uniform random Omega; a rational grid coincides with Farey fractions",
+    "sweep": null,
+    "value": 7
+   },
+   {
+    "name": "theta0",
+    "kind": "DECLARED",
+    "why": "as stage4",
+    "sweep": null,
+    "value": 0.37
+   },
+   {
+    "name": "N_trans",
+    "kind": "DECLARED",
+    "why": "as stage4",
+    "sweep": null,
+    "value": 1000
+   },
+   {
+    "name": "N_rho",
+    "kind": "DECLARED",
+    "why": "rho horizon; Denjoy bound 1e-5 on rho_N for K<=1",
+    "sweep": null,
+    "value": 100000
+   },
+   {
+    "name": "Q",
+    "kind": "DECLARED",
+    "why": "max denominator",
+    "sweep": null,
+    "value": 50
+   },
+   {
+    "name": "K",
+    "kind": "TESTED",
+    "why": "rival (rigid rotation), intermediate, complete staircase",
+    "sweep": [
+     0.0,
+     0.5,
+     1.0
+    ],
+    "value": null
+   },
+   {
+    "name": "tol",
+    "kind": "TESTED",
+    "why": "the tolerance that made M2 non-discriminating",
+    "sweep": [
+     0.001,
+     0.0001,
+     1e-05
+    ],
+    "value": null
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 6
+ },
+ "coverage": {
+  "0.001": {
+   "0": 0.8531468531468531,
+   "0.5": 0.916083916083916,
+   "1": 0.98001998001998,
+   "farey_K0": 1.0
+  },
+  "0.0001": {
+   "0": 0.15784215784215785,
+   "0.5": 0.31368631368631367,
+   "1": 0.7522477522477522,
+   "farey_K0": 0.15480000000000002
+  },
+  "1e-05": {
+   "0": 0.012987012987012988,
+   "0.5": 0.2037962037962038,
+   "1": 0.7362637362637363,
+   "farey_K0": 0.01548
+  }
+ },
+ "wall_s": 4.0
+}

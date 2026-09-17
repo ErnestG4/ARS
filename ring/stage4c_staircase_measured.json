@@ -1,0 +1,88 @@
+{
+ "generator": "stage4c_staircase.py",
+ "instrument": {
+  "model": "circlemap_staircase_v1",
+  "params": [
+   {
+    "name": "n_omega",
+    "kind": "DECLARED",
+    "why": "as stage4",
+    "sweep": null,
+    "value": 1001
+   },
+   {
+    "name": "theta0",
+    "kind": "DECLARED",
+    "why": "as stage4",
+    "sweep": null,
+    "value": 0.37
+   },
+   {
+    "name": "N_trans",
+    "kind": "DECLARED",
+    "why": "as stage4",
+    "sweep": null,
+    "value": 1000
+   },
+   {
+    "name": "N_rho",
+    "kind": "DECLARED",
+    "why": "rho horizon; Denjoy bound 1e-5 on rho_N for K<=1",
+    "sweep": null,
+    "value": 100000
+   },
+   {
+    "name": "Q",
+    "kind": "DECLARED",
+    "why": "max denominator",
+    "sweep": null,
+    "value": 50
+   },
+   {
+    "name": "K",
+    "kind": "TESTED",
+    "why": "rival (rigid rotation), intermediate, complete staircase",
+    "sweep": [
+     0.0,
+     0.5,
+     1.0
+    ],
+    "value": null
+   },
+   {
+    "name": "tol",
+    "kind": "TESTED",
+    "why": "the tolerance that made M2 non-discriminating",
+    "sweep": [
+     0.001,
+     0.0001,
+     1e-05
+    ],
+    "value": null
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 5
+ },
+ "coverage": {
+  "0.001": {
+   "0": 0.8721278721278721,
+   "0.5": 0.922077922077922,
+   "1": 0.978021978021978,
+   "farey_K0": 1.0
+  },
+  "0.0001": {
+   "0": 0.13486513486513488,
+   "0.5": 0.3096903096903097,
+   "1": 0.7602397602397603,
+   "farey_K0": 0.15480000000000002
+  },
+  "1e-05": {
+   "0": 0.028971028971028972,
+   "0.5": 0.2007992007992008,
+   "1": 0.7382617382617382,
+   "farey_K0": 0.01548
+  }
+ },
+ "wall_s": 3.8
+}

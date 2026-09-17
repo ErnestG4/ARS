@@ -865,6 +865,13 @@ uniformly at random (1001 draws, seed 7); at tol = 10⁻⁵ the K = 0 coverage i
 within ±30% of 0.0155 (the Lebesgue estimate now applies) and K = 1 stays
 > 0.5 with separation > 0.3.
 
+**M2c (`stage4d_staircase_random_measured.json`, sealed `80311b5`) — PASS.**
+Random Ω, tol 10⁻⁵: K = 0 coverage 0.0130 vs Farey 0.0155 (−16%, within
+30%); at 10⁻⁴: 0.158 vs 0.155 (+2%). K = 1: 0.736; separation 0.72; monotone.
+The rival's number is now the theorem's number, and the staircase test
+discriminates. The M2 verdict is superseded: complete-staircase behaviour at
+K = 1 is supported against its rival at tol ≤ 10⁻⁴.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
