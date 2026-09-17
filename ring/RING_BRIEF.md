@@ -143,11 +143,13 @@ instrument bound; any population-level claim.
 
 ## Open questions carried forward
 
-- QUEUED arm survival: (a) re-pose over the contour coordinate 2000ε/r with r
-  part of the dial, (b) drop the long-range arm and keep NNS/`classify` only,
-  (c) drop the item. Will's call; it stays queued until made.
-- Fit c(ε·T) properly: the linearity claim is from two points per ε; a banked
-  fit with its residual is the next measure-1 addendum, and it is what Stage 6
-  will need as its baseline c(g=1).
+- QUEUED arm: **(b) chosen** — long-range certification dropped, matched-Cox +
+  `wigner_renewal` kept, deliverable re-sealed as the per-cell detection
+  margin vs the dial; bank where the margin crosses the floor. (Plan, QUEUED.)
+- **Next, before measure 2:** the c(ε·T) fit — one task with fixing R4's n=1
+  witness (more converged rows above the floor = more live comparisons), and
+  Stage 6's c(g=1) baseline. Testable form: rows with the same ε·T product
+  must agree regardless of the split (drift in the linear regime, n_distinct
+  in the collapse regime). Tolerances pre-declared in the generator.
 - Where the QUEUED arm's "which calibrator is each dial setting redundant with"
   column is computed — `extractor_distinctness` machinery or a new panel.

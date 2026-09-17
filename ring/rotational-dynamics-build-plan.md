@@ -475,10 +475,11 @@ cross the noise floor?
    already fires at Σ²(5) = 45.4 against hc3-port's 43.1.
 3. `wigner_renewal` decoy: **already exists at
    `longrange_discriminator.py:55`** — a call, not a build.
-4. `phase22a.ars_classify.classify(events)`; long-range via
-   `longrange_discriminator.py` at n=2000 / L=5 only.
-5. Carry the declared Σ² < 8 near-Poisson threshold and its denominators if
-   comparing to the table's percentages — n=35 and n=51 are small.
+4. `phase22a.ars_classify.classify(events)` — marginal read only. ~~Long-range
+   via `longrange_discriminator.py` at n=2000 / L=5~~ — **dropped under (b)**,
+   see the confound below.
+5. ~~Carry the declared Σ² < 8 near-Poisson threshold~~ — dropped with 4; no
+   class comparison is made.
 
 **Pre-registered expectation: null per-cell at every dial setting.** The
 deliverable is the bound, not the verdict. A positive would contradict a banked
@@ -491,11 +492,22 @@ ring time; so the dial setting's position on the collapse contour is
 held fixed" is not a design that exists: moving ε moves the contour position
 *and* the certifier's window is what sets it. Co-varying r to hold the contour
 position changes the point process. This is worse than "expect null" — the arm
-is **confounded by construction, not underpowered**. Options on the table: (a)
-re-pose over the contour coordinate 2000ε/r directly and accept that r is part
-of the dial; (b) drop the long-range arm and keep only NNS/`classify` (no n
-floor of that size, but then no class claim); (c) drop the item. Not decided
-here; it does not leave the queue until it is.
+is **confounded by construction, not underpowered**. Options considered: (a)
+re-pose over the contour coordinate 2000ε/r with r in the dial — rejected: it
+changes the point process being measured while claiming to hold it fixed, so
+the confound moves rather than resolves; (b) drop the long-range arm, keep
+NNS/`classify` — **chosen (2026-09-16)**; (c) drop the item — rejected: throws
+away the one thing the arm can still do.
+
+**Re-sealed under (b).** NNS and `classify` read the marginal; the marginal is
+what a rate-modulated train has; reporting it without a class claim is an
+honest statement of what the instrument sees. Keep the matched-Cox control
+and the `wigner_renewal` decoy. Drop step 4's long-range call and step 5's
+Σ²<8 comparison entirely. **Deliverable: the per-cell detection margin versus
+the dial** — for each dial setting, the distance between the ring unit's
+marginal read and its matched-Cox control's, against the surrogate floor.
+Sealed expectation stays **null**; what gets banked is **where the margin
+crosses the floor**, which is a number and needs no class claim.
 
 **Baseline to expect.** phase30 built Kuramoto populations emitting spikes across
 (K, σ), fed them to ARS, and got BR_artifact at every K with 156/160 real-data
