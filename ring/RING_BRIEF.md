@@ -20,6 +20,24 @@ was not evidence of it.** Replaced by: δ declared and swept, banked read at
 so it cannot return silently (R4b). Tables re-sealed at v2 (`679fc38`,
 `b2b5a04`).
 
+**S2 — CORRECTED 2026-09-16, pre-seal of the coverage test.** The bump width
+carried through measure 2 ("w ≈ 0.6 rad") was the *initialisation* width. The
+steady-state FWHM at (J0, J1) = (−2, 4) is **2.06 rad** (measured,
+`stage1_coverage.fwhm`). Consequences: (i) P1's sealed prediction 30τ was
+derived from the wrong w; with the true w, H_motion gives w/ω = 103τ, which
+is the measured τ_c(A) = 100. **P1's FAIL score stands (the sealed number was
+30) but the interpretation banked with it — "the scale is the period, not
+bump-width/ω" — is retracted**: at this width both hypotheses predict 100τ
+and only F4 separates them. (ii) The coordinate formula L + w ≥ 2π/B with
+w = 2.06 says the B=4 E-clouds (spacing 1.57) are *bridged at any L*, so the
+E1/E2 contrast is arc length inside the bridged regime, not the covering
+condition; the q-flip result is unaffected (it is a measurement), its "built
+at a coordinate" framing is weakened. (iii) F4's pre-registered widths
+(−1,3)/(−4,6) span 1.33× — INAPPLICABLE by its own rule — and are swapped
+pre-seal for (−6,8)/(−0.5,2.5), span 1.69×. Sealed F4 predictions unchanged:
+H_cov → all three on the 100τ rung; H_motion → τ_c ∝ w, extremes on the
+70 and 140 rungs.
+
 ## Frame
 
 The plan's v3 carried three defects that the ARS vocabulary names as numbered
@@ -188,9 +206,10 @@ constructs from what it destroys. Reported at every rung from here on.
 - **F3 coverage multiplicity at fixed speed.** γ = 0.02, rotations ∈ {1, 3, 10}.
   H_cov: τ_c unchanged within one fine rung (×1.4).
 - **F4 bump width at fixed speed** — the discriminating arm. (J0, J1) ∈
-  {(−2, 4), (−1, 3), (−4, 6)} at γ = 0.02; width w measured as FWHM. H_cov:
-  τ_c independent of w within ×1.4; H_motion: τ_c ∝ w. INAPPLICABLE if the
-  achieved widths span < 1.5×.
+  {(−2, 4), (−6, 8), (−0.5, 2.5)} at γ = 0.02 (swapped pre-seal, see S2);
+  FWHM 2.06 / 1.57 / 2.65 rad. H_cov: τ_c independent of w within ×1.4 (all on
+  the 100 rung); H_motion: τ_c ∝ w (extremes on the 70 and 140 rungs).
+  INAPPLICABLE if the achieved widths span < 1.5× (they span 1.69×).
 - **F5 the C residual as a coverage statement.** C1 (one sweep, one block per
   unit) vs C3 (three sweeps, three blocks per unit), scrambled, 3 seeds.
   H_cov: C1 keeps a loop in ≥1 seed (as banked); C3's median r₁₂ < R_MIN.
