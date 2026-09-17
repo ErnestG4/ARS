@@ -10,7 +10,19 @@ eigenvalue read +1.7e-3 / -3.4e-3 for constants whose bump did not move in 200
 tau (drift 1e-15). A spectral read that disagrees with the dynamics by 12 orders
 is a defect of the gain's kink, so the gain is smoothed and the eigenvalue is
 cross-checked against a DYNAMIC measurement (`relaxation_rate`) that needs no
-linearisation. With
+linearisation.
+
+THE DYNAMIC READ HAS ITS OWN INSTRUMENT CONSTANT, AND IT BIT. The displacement
+`delta` was hard-coded at 0.05 rad (one grid step, 2pi/128) and undeclared.
+The first time the spectral/dynamic invariant had a second converged witness
+(eps=0.01, T=20000) the reads disagreed by 39%, and a delta sweep showed the
+dynamic read converging to lam1 as delta -> 0 (ratio 0.965 at 0.005, 0.61 at
+0.05, 0.32 at 0.1; same at T=50 and T=200; at BOTH eps). The pinning wells
+are anharmonic below half a grid step. The 5% agreement banked at eps=0.1
+before this was partly the luck of which basin bump 0 sat in -- the basin
+next to it reads 0.65 at delta=0.05. So `delta` is now a declared parameter
+with a sweep, the banked read is at the smallest delta, and verify_ring.py
+pins the delta=0.05 defect so it cannot be silently un-found. With
 J1 large enough a bump forms without tuned input, and — because W commutes with
 rotation — the bump's position is a marginal direction: the Jacobian at the
 fixed point has ONE eigenvalue at (numerically) zero and the rest strictly
@@ -142,9 +154,15 @@ def n_distinct_positions(psi: np.ndarray, tol: float) -> int:
     return int(max(1, (gaps > tol).sum()))
 
 
+RELAX_DELTAS = (0.005, 0.01, 0.02, 0.05)   # TESTED sweep; banked read is at [0]
+
+
 def run_dial(N: int, J0: float, J1: float, I0: float, eps: float, T: float,
-             B: int, seed: int, dt: float = 0.05) -> dict:
-    """One dial setting: B bumps at uniform initial angles → fixed points, eigs, positions."""
+             B: int, seed: int, dt: float = 0.05,
+             relax_deltas: tuple = RELAX_DELTAS, relax_T: float = 50.0) -> dict:
+    """One dial setting: B bumps at off-grid initial angles → fixed points, eigs, positions.
+    The dynamic read is taken at every delta in `relax_deltas`; `relax_rate_median`
+    is the smallest-delta read (the one that agrees with lam1 as delta -> 0)."""
     W = coupling(N, J0, J1)
     h = eps * heterogeneity(N, seed)
     # OFF-GRID on purpose: angles that are multiples of 2pi/N sit on exact
@@ -156,16 +174,23 @@ def run_dial(N: int, J0: float, J1: float, I0: float, eps: float, T: float,
     # residual |dr/dt| at the end: are these fixed points at all?
     resid = np.abs(-r + gain(r @ W.T + I0 + h)).max(-1)
     eigs = np.array([top_eigs(jacobian(r[b], W, I0, h)) for b in range(B)])
-    relax = np.array([relaxation_rate(r[b], W, I0, h, delta=0.05, T=50.0, dt=dt)
-                      for b in range(min(B, 8))])
+    relax_by_delta = {}
+    for dl in relax_deltas:
+        rr = [relaxation_rate(r[b], W, I0, h, delta=dl, T=relax_T, dt=dt)
+              for b in range(min(B, 8))]
+        relax_by_delta[str(dl)] = float(np.median(rr))
+    relax_med = relax_by_delta[str(relax_deltas[0])]
     return dict(
         eps=float(eps), T=float(T), B=int(B), N=int(N),
         bump_amp_median=float(np.median(amp)),
         resid_max=float(resid.max()),
         lam1_median=float(np.median(eigs[:, 0])),
         lam1_max=float(eigs[:, 0].max()),
+        lam1_min=float(eigs[:, 0].min()),
         lam2_median=float(np.median(eigs[:, 1])),
-        relax_rate_median=float(np.median(relax)),
+        relax_rate_median=relax_med,
+        relax_delta=float(relax_deltas[0]),
+        relax_by_delta=relax_by_delta,
         n_distinct=n_distinct_positions(psi, tol=1.5 * 2 * np.pi / N),
         drift_median=float(np.median(np.abs(np.angle(np.exp(1j * (psi - angles0)))))),
     )
