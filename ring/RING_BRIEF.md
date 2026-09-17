@@ -801,6 +801,18 @@ landscape depins more abruptly than a sinusoid. No verdict sealed.
 BLAS matmuls would take ~30 s; not re-run (the numbers are the numbers), but
 the next ring sweep uses `r @ W_even.T + γ[:, None]·(r @ W_odd.T)`.
 
+## I1c — ε = 0.03 at a long window, cross-checked against Stage 4b: pre-registration (overnight, before `stage3d_trapped_long.py`)
+
+I1b was inapplicable at ε = 0.03 with T_obs = 300τ. Re-run with T_obs = 3000τ
+(T_relax 8000τ, δ = 0.3 rad, γ ∈ {0, 0.001, 0.003, 0.01, 0.02}). Stage 4b
+measured the tongue edge γ*(0.03) = 2.25·10⁻³, so the retention crossing at a
+window long enough to resolve restoring should land between the grid points
+that straddle it. **Sealed:** R(γ = 0) < 0.1 (e^{−3000·λ_eff} with λ_eff ≳
+10⁻³); R(γ = 0.001) < 0.5 (trapped, below γ*); R(γ = 0.003) > 0.5 (sliding,
+above γ*); R(γ ≥ 0.01) > 0.8. If the crossing sits elsewhere, the two
+observables (retention at finite T; ρ over 20,000τ) disagree about the edge
+and that disagreement is the finding.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
