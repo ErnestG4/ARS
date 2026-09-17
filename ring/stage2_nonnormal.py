@@ -46,6 +46,9 @@ sys.path.insert(0, os.path.dirname(HERE))
 from ring.ringnet import coupling, heterogeneity, bump_init, integrate, dgain, BETA   # noqa: E402
 from modelparams import Model, Param, TESTED, DECLARED                              # noqa: E402
 
+ZERO_MODE_RAIL = 1e-2     # relative residual of J_tw r0'; rows above it are INSTRUMENT-LIMITED
+FP_RAIL = 1e-11           # max |F| after Newton polish
+RESOLVE = 3.0             # a change counts only if > RESOLVE x its error bound
 GAMMAS = [0.005, 0.02, 0.08, 0.32]
 EPSS = [1e-3, 3e-3, 1e-2, 3e-2, 1e-1]
 INSTRUMENT = Model("ring_nonnormal_v2", [
@@ -83,9 +86,6 @@ K_RE, K_IM = np.logspace(-4, 3, 40), np.linspace(-1, 1, 41)
 # spectral (FFT) derivative d/dtheta on the periodic grid
 _k = np.fft.fftfreq(N, d=1.0 / N)
 DTH = np.real(np.fft.ifft(1j * _k[:, None] * np.fft.fft(np.eye(N), axis=0), axis=0))
-ZERO_MODE_RAIL = 1e-2     # relative residual of J_tw r0'; rows above it are INSTRUMENT-LIMITED
-FP_RAIL = 1e-11           # max |F| after Newton polish
-RESOLVE = 3.0             # a change counts only if > RESOLVE x its error bound
 
 
 def w_odd(J1):
