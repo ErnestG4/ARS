@@ -1,0 +1,207 @@
+{
+ "generator": "stage3f_traversal2.py",
+ "instrument": {
+  "model": "ring_traversal2_v1",
+  "params": [
+   {
+    "name": "mad_mult",
+    "kind": "DECLARED",
+    "why": "conventional MAD multiplier for a jump; no new scale parameter",
+    "sweep": null,
+    "value": 5.0
+   },
+   {
+    "name": "mono_floor",
+    "kind": "DECLARED",
+    "why": "steps with |dphi| > 1*MAD count toward monotonicity",
+    "sweep": null,
+    "value": 1.0
+   },
+   {
+    "name": "rho",
+    "kind": "DECLARED",
+    "why": "as T1",
+    "sweep": null,
+    "value": 50.0
+   },
+   {
+    "name": "bin",
+    "kind": "DECLARED",
+    "why": "as T1",
+    "sweep": null,
+    "value": 0.5
+   },
+   {
+    "name": "sigma_s",
+    "kind": "DECLARED",
+    "why": "as T1",
+    "sweep": null,
+    "value": 1.0
+   },
+   {
+    "name": "seed_emit",
+    "kind": "TESTED",
+    "why": "as T1",
+    "sweep": [
+     41,
+     42,
+     43
+    ],
+    "value": null
+   },
+   {
+    "name": "cloud",
+    "kind": "TESTED",
+    "why": "as T1",
+    "sweep": [
+     "A",
+     "IND",
+     "C_ord",
+     "C_perm",
+     "D"
+    ],
+    "value": null
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 5
+ },
+ "rows": [
+  {
+   "cloud": "A",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 495,
+   "M": 0.9989964877069744,
+   "mad": 0.0024460604841118902,
+   "net_turns": -3.1173826277187118,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "IND",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 420,
+   "M": 0.9989939637826962,
+   "mad": 0.002555272129579844,
+   "net_turns": -3.1204074027135813,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_ord",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 204,
+   "M": 0.5631067961165048,
+   "mad": 0.0019885625593835873,
+   "net_turns": 0.9637799965382305,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_perm",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 292,
+   "M": 0.5387323943661971,
+   "mad": 0.00025821804914083474,
+   "net_turns": 0.7023510350130828,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "D",
+   "seed": 41,
+   "readable": false
+  },
+  {
+   "cloud": "A",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 338,
+   "M": 0.998991935483871,
+   "mad": 0.0026771974221744266,
+   "net_turns": -3.115161960800696,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "IND",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 302,
+   "M": 0.9994957135653051,
+   "mad": 0.002758879403312875,
+   "net_turns": 3.1054352409813513,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_ord",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 194,
+   "M": 0.5610119047619048,
+   "mad": 0.002067519338773583,
+   "net_turns": 0.9731149936333091,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_perm",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 303,
+   "M": 0.533498759305211,
+   "mad": 0.00024314601291286486,
+   "net_turns": 0.8619239550872567,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "D",
+   "seed": 42,
+   "readable": false
+  },
+  {
+   "cloud": "A",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 302,
+   "M": 0.9989858012170385,
+   "mad": 0.0028605217555690583,
+   "net_turns": 3.0983174010698544,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "IND",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 486,
+   "M": 0.998991935483871,
+   "mad": 0.0023947506336576803,
+   "net_turns": 3.109452358811258,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_ord",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 201,
+   "M": 0.5590433482810164,
+   "mad": 0.001964034405941728,
+   "net_turns": 0.9729756788215217,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_perm",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 403,
+   "M": 0.5231481481481481,
+   "mad": 0.0002685747884998181,
+   "net_turns": 0.7392869427841501,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "D",
+   "seed": 43,
+   "readable": false
+  }
+ ],
+ "wall_s": 7.8
+}

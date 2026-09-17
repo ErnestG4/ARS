@@ -1013,6 +1013,27 @@ or 10 seeds for the long-lag ±30%, and thresholds stated on the long-lag
 slope (the post-hoc ordering above is reported, not scored). The rung stays
 DECLARED with its instrument named.
 
+## T2 — results (`stage3f_traversal2_measured.json`, sealed `827dc8b`) and T3 pre-registration
+
+**T2 fails as sealed, on the statistic.** J_mad = 300–500 on A and IND
+(sealed ≤ 5): MAD of |Δφ| about its own median does not measure noise when
+the increments have a nonzero mean — A drifts 0.010 rad/step with MAD
+0.0024, so a quarter of ordinary steps exceed 5·MAD. C_ord's M = 0.56 (sealed
+≥ 0.9): the monotone clause evaluated on all above-MAD steps is polluted by
+noise steps whose signs are random; its 15 real boundaries are a few hundred
+steps' worth of noise away from being visible. C_perm passes both clauses
+for the wrong reason (noise). B-avg again, one level down: a robust scale
+must be taken about the *typical step*, not about zero.
+
+**T3, sealed:** increments centered, c = Δφ − median(Δφ); noise scale
+MAD_c = MAD(c); jumps = {|c| > 5·MAD_c}; J = their count; M = fraction of
+*jump* steps with sign(Δφ) = sign(net) (undefined → 1 if no jumps). Predictions:
+A, IND: J ≤ 10 (noise tails at 3.4σ over 2000 steps) and M ≥ 0.9 or undefined;
+C_ord: 10 ≤ J ≤ 40 (15 boundaries, each spread over ≤ 2 bins by σ_s = 1τ) and
+M ≥ 0.9; C_perm: 10 ≤ J ≤ 40 and M < 0.7; D unreadable. If C_ord's J lands
+outside [10, 40], the smoothing-spread model of a boundary is wrong and that
+is reported before the threshold is touched.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
