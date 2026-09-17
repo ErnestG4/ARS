@@ -38,6 +38,26 @@ pre-seal for (−6,8)/(−0.5,2.5), span 1.69×. Sealed F4 predictions unchanged
 H_cov → all three on the 100τ rung; H_motion → τ_c ∝ w, extremes on the
 70 and 140 rungs.
 
+**S3 — SUPERSEDED 2026-09-16 (coverage test).** Measure 2's P2 reading,
+*"τ_c(B) = 300τ vs τ_c(A) = 100τ: the pinned ring's barcode is more
+jitter-robust; PH is sensitive to pinning-modulated motion"* (banked
+`064890d`, R9 pin retained as the record of what was read). **Not
+replicated** on the fine ladder with new seeds: τ_c(A) = τ_c(B) = 140τ and
+B's b₁ is 0.8–0.9× A's at every rung (F1). The one-rung gap was realization
+noise near threshold. The residence-density mechanism proposed for it is
+retired with it (F1 ratio 1.00 against a sealed [1.2, 1.7]).
+
+**S4 — SUPERSEDED 2026-09-16 (coverage test).** Measure 2's P3 reading,
+*"jitter at 10–300τ reveals E2's loop: temporal smoothing lifting a slow
+arc's SNR."* Wrong mechanism. E2's base b₁ is 3.2; under jitter b₁ is 66–124
+at every rung (≥21× base). A bar 20× longer than the base is **constructed,
+not lifted**. The E cloud concatenates its four arcs in angular order, so any
+temporal mixing across segment boundaries **converts sequence into
+topology**; jitter (which wraps modulo t_max) also bridges the 4→1 boundary
+and builds a stronger loop than smoothing does (F6b). This is the ladder's
+construction side with a named mechanism — order-to-topology conversion —
+and it is the "null that manufactures its own signal" flagged on read.
+
 ## Frame
 
 The plan's v3 carried three defects that the ARS vocabulary names as numbered
@@ -221,6 +241,48 @@ constructs from what it destroys. Reported at every rung from here on.
   jittered r₁₂ at τ_j = 30–100 is within ×2 of the smoothing-matched base
   (what jitter constructed is smoothing); on A at τ_j ≥ τ_c the jittered b₁ is
   < 0.5× the matched b₁ (destruction beyond smoothing).
+
+## Coverage test — results (`stage1_coverage_measured.json`, sealed `1fb6d07`)
+
+**H_cov confirmed; H_motion falsified (F4, the discriminating arm).** Bump
+widths 1.57 / 2.06 / 2.65 rad (1.69× span) all give τ_c = 140τ, and the
+destruction *fraction* b₁/b₁(base) is the same at every rung across widths
+(0.27 / 0.30 / 0.32 at 70τ). H_motion predicted the extremes on the 70 and
+140 rungs; they landed on the same rung. **F2:** ω·τ_c = 3.0 / 2.8 / 2.8 rad
+across a 4× speed range (sealed ±30%; measured ±7%). **F3:** rotations
+1 / 3 / 10 give identical b₁ curves (188 / 204 / 208 at 30τ; 18.5 / 18.9 /
+19.0 at 100τ). **The single claim:** PH's jitter sensitivity is set by
+**angular displacement over τ_j alone** — ω·τ_c ≈ 2.8 rad (0.45 of the
+circle), b₁ half-life at ω·τ ≈ 1.1 rad — independent of bump width,
+coverage multiplicity, and pinning. It accounts for P1 (with the true w both
+hypotheses gave 100τ; F4 breaks the tie for coverage) and for the *absence*
+of P2 (S3). The τ ladder now has a predicted scale: τ_c ≈ 2.8/ω.
+
+**F1:** τ_c(A) = 140τ PASS [70, 140] (edge); ratio τ_c(B)/τ_c(A) = 1.00 FAIL
+[1.2, 1.7] → S3. **F5 PASS:** C1 (one block per unit) keeps a loop under
+scramble in 3/3 seeds (r₁₂ 6.7–9.2, b₁ 43–55); C3 (three blocks) dies
+(median 1.22, b₁ 15–19). **The scramble's power is visits-per-unit, measured.**
+
+**F6 / F6b — the construction boundary, and the statistic that couldn't see it.**
+On E2 the smoothing-only loop crosses R_MIN at σ = 2–5τ (sealed lower edge
+[5, 50]: FAIL at the low end) and r₁₂ is valid only to σ ≈ 10 — beyond that
+b₂ → 0 and the ratio reads 0 or 10¹²–10¹⁴. **r₁₂ = b₁/b₂ is scale-free:**
+smoothing shrinks b₁ and b₂ together, so A's r₁₂ *rises* with σ (69 → 175)
+while its b₁ falls 255 → 34. r₁₂ is retired for any smoothed or matched
+cloud; the **b₁ half-life** is the estimator that survives. On b₁: E2's
+jittered loop (66–124) exceeds the smoothing-matched one (0–55) — jitter
+constructs more than smoothing because it wraps (S4). On A at τ_c the
+jittered b₁ is 0.56× the matched b₁ (sealed < 0.5: FAIL, narrowly):
+destruction is mostly displacement along the trajectory, which smoothing
+shares, not misassignment.
+
+**What this changes for the ladder as a null.** A jitter ladder on a cloud
+whose time-order encodes the manifold's order is two-sided: below ~2.8/ω it
+destroys by displacement; on order-concatenated clouds it constructs by
+bridging. The `detector_spec` for any ladder-based claim now needs (i) the
+predicted τ_c = 2.8/ω stated before the run, and (ii) a statement of whether
+the cloud's time-order carries the manifold's order (a sequence), because
+that is the condition under which the null manufactures the signal.
 
 ## Goals
 

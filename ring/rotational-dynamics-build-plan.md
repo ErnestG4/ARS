@@ -271,6 +271,15 @@ The entry point: the only architecture where a winding count is *defined*.
   one rung more jitter-robust (P2: divergence); the ISI scramble is
   under-powered on single-visit units (blind spot recorded in the spec); the
   subsetting rule flips the verdict only at the transient confusable.
+- **Coverage test ran (2026-09-16; brief §Coverage test).** PH's jitter
+  sensitivity depends on **angular displacement over τ_j alone**: ω·τ_c ≈ 2.8
+  rad across a 4× speed range, independent of bump width (1.57–2.65 rad),
+  rotations (1–10), and pinning. The bump-width account is falsified; the
+  P2 "pinned ring more robust" reading did not replicate (brief S3); the
+  "jitter lifts SNR" reading was wrong — jitter **constructs** loops on clouds
+  whose time-order encodes the manifold's order (brief S4). r₁₂ is scale-free
+  and blind to smoothing; b₁ half-life is the estimator. The jitter ladder's
+  spec now requires a predicted τ_c = 2.8/ω and a sequence-order statement.
 - **What measure 2 can certify, by name.** PH on the cloud is order-blind, so
   no barcode promotes "PH topology ⇒ continuous attractor". The detector measure
   2 scores is `ph_topology_consistent_with_continuous_attractor` — a marginal

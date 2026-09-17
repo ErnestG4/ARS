@@ -49,7 +49,17 @@ the instrument measures what we claim. Specifically this row certifies:
       (i) subsetting q flips the verdict ONLY at the confusable E;
       (ii) the ISI scramble is under-powered on single-visit clouds (C keeps a
       loop in >= 1 seed) -- the surrogate's confound scope, recorded in the
-      spec as a blind spot; (iii) tau_c(B) is one rung above tau_c(A).
+      spec as a blind spot; (iii) tau_c(B) is one rung above tau_c(A)
+      [SUPERSEDED by R10/S4: not replicated on the fine ladder; the pin on
+      the coarse table stays so the record shows what was read].
+  R10 COVERAGE TEST (stage1_coverage_measured.json): F1-F6b scored as sealed
+      (RING_BRIEF.md c478fa0 + S2). Pins: tau_c on the fine ladder for every
+      arm; omega*tau_c constant across a 4x speed range (F2); tau_c
+      independent of rotations (F3) and of bump width (F4: H_cov PASS,
+      H_motion FAIL); the scramble's power is visits-per-unit (F5); E2's
+      jitter-grown loop is CONSTRUCTED (b1 >> base) -- order-to-topology
+      conversion, not SNR; r12 degenerates (b2 -> 0) on smoothed clouds and
+      is declared unusable there.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -358,6 +368,92 @@ if PH:
                       f"spec {rates2['specificity']} CP95 {specc2['honest_claim']} [{specc2['treatment']}]; "
                       f"margin: A r12={r12('A'):.0f} vs R_MIN={R_MIN:g} ({r12('A')/R_MIN:.0f}x), D r12={r12('D'):.2f}")
 
+# R10 — coverage test
+vpath = os.path.join(HERE, "stage1_coverage_measured.json")
+chk(os.path.exists(vpath), "R10 stage1_coverage_measured.json missing — run stage1_coverage.py")
+CV = json.load(open(vpath)) if os.path.exists(vpath) else None
+r10 = {}
+if CV:
+    VR, FINE = CV["rows"], CV["fine"]
+    RM = 3.0
+
+    def vsel(**kw):
+        return [x for x in VR if all(x.get(k) == v for k, v in kw.items())]
+
+    def vmed(rows, key="r12"):
+        return float(_st.median([x[key] for x in rows])) if rows else float("nan")
+
+    def vtau(**kw):
+        """declared rule on the fine ladder: first rung with median r12 < R_MIN"""
+        if vmed(vsel(kind="base", **kw)) < RM:
+            return None
+        for t in FINE:
+            if vmed(vsel(kind="jitter", tau_j=t, **kw)) < RM:
+                return t
+        return float("inf")
+
+    tA, tB = vtau(arm="F1", cloud="A"), vtau(arm="F1", cloud="B")
+    r10["F1"] = (f"tau_c(A)={tA} {'PASS' if 70 <= tA <= 140 else 'FAIL'} [70,140]; "
+                 f"D*=omega*tau_c(A)={0.02 * tA:.2f} rad; tau_c(B)/tau_c(A)={tB / tA:.2f} "
+                 f"{'PASS' if 1.2 <= tB / tA <= 1.7 else 'FAIL'} [1.2,1.7] "
+                 f"(residence-density account); P2 divergence "
+                 f"{'REPLICATED' if tB > tA else 'NOT REPLICATED'}")
+    chk(tA == 140.0 and tB == 140.0, f"R10 pin: F1 tau_c moved (A={tA}, B={tB})")
+    tg = {g: vtau(arm="F2", gamma=g) for g in (0.01, 0.02, 0.04)}
+    Dstar = 0.02 * tA
+    ok2 = all(abs(g * tg[g] - Dstar) / Dstar <= 0.30 for g in tg)
+    r10["F2"] = ("PASS" if ok2 else "FAIL") + " omega*tau_c = " + \
+                ", ".join(f"{g * tg[g]:.2f}" for g in tg) + f" rad (D*={Dstar:.2f} +-30%)"
+    chk(tg == {0.01: 300.0, 0.02: 140.0, 0.04: 70.0}, f"R10 pin: F2 tau_c moved {tg}")
+    tr = {r: vtau(arm="F3", rot=r) for r in (1, 3, 10)}
+    ok3 = max(tr.values()) / min(tr.values()) <= 1.4
+    r10["F3"] = ("PASS" if ok3 else "FAIL") + f" tau_c by rotations {tr}"
+    tw = {j0: vtau(arm="F4", J0=j0) for j0 in (-2.0, -6.0, -0.5)}
+    W = CV["widths"]
+    span = max(W.values()) / min(W.values())
+    if span < 1.5:
+        r10["F4"] = f"INAPPLICABLE width span {span:.2f}"
+    else:
+        ok_cov = max(tw.values()) / min(tw.values()) <= 1.4
+        r10["F4"] = (f"H_cov {'PASS' if ok_cov else 'FAIL'} / H_motion "
+                     f"{'FAIL' if ok_cov else 'OPEN'}: tau_c by (J0) {tw}, widths "
+                     f"{ {k: round(v, 2) for k, v in W.items()} } (span {span:.2f}x)")
+        chk(ok_cov, "R10 pin: tau_c now depends on bump width — the coverage claim moved")
+    c1 = [x["r12"] for x in vsel(arm="F5", cloud="C1", kind="scramble")]
+    c3 = [x["r12"] for x in vsel(arm="F5", cloud="C3", kind="scramble")]
+    ok5 = any(v >= RM for v in c1) and _st.median(c3) < RM
+    r10["F5"] = ("PASS" if ok5 else "FAIL") + f" C1 scrambled {[round(v, 2) for v in c1]}, C3 scrambled {[round(v, 2) for v in c3]}"
+    chk(ok5, "R10 pin: the scramble's visits-per-unit power statement changed")
+    # F6: construction boundary on E2 (r12 rule), A censored; degeneracy documented
+    sig = [0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0]
+    e2 = {sg: vmed(vsel(arm="F6", cloud="E2", sigma=sg)) for sg in sig}
+    e2b2 = {sg: vmed(vsel(arm="F6", cloud="E2", sigma=sg), "b2") for sg in sig}
+    valid = [sg for sg in sig if e2b2[sg] > 0.05]
+    cross = [sg for sg in valid if e2[sg] >= RM]
+    a_r12 = {sg: vmed(vsel(arm="F6", cloud="A", sigma=sg)) for sg in sig}
+    a_b1 = {sg: vmed(vsel(arm="F6", cloud="A", sigma=sg), "b1") for sg in sig}
+    r10["F6"] = (f"E2 crosses R_MIN at sigma={cross} (predicted lower edge in [5,50]: "
+                 f"{'PASS' if cross and 5 <= min(cross) <= 50 else 'FAIL'}; r12 valid only for sigma<=10, "
+                 f"b2->0 beyond); A never below R_MIN on r12 (censored at 100: FAIL as declared), "
+                 f"but A's b1 falls {a_b1[0.5]:.0f}->{a_b1[100.0]:.0f} — r12 is scale-free and blind to it")
+    chk(cross == [2.0, 5.0], f"R10 pin: E2 construction regime moved ({cross})")
+    degenerate = sum(1 for x in VR if x["kind"] == "matched" and x["b2"] < 0.05)
+    n_matched = sum(1 for x in VR if x["kind"] == "matched")
+    chk(degenerate >= n_matched // 2, "R10: matched rows no longer degenerate on r12 — re-examine the statistic note")
+    # F6b on b1 (r12 INAPPLICABLE): E2 jitter b1 >> base b1 => CONSTRUCTED
+    e2base = vmed(vsel(arm="F6b", cloud="E2", kind="base"), "b1")
+    e2jit = {t: vmed(vsel(arm="F6b", cloud="E2", kind="jitter", tau_j=t), "b1") for t in FINE}
+    e2mat = {t: vmed(vsel(arm="F6b", cloud="E2", kind="matched", tau_j=t), "b1") for t in FINE}
+    grow = min(e2jit[t] / max(e2base, 1e-9) for t in FINE)
+    r10["F6b"] = (f"r12 INAPPLICABLE (degenerate); on b1: E2 base {e2base:.1f}, jittered "
+                  f"{min(e2jit.values()):.0f}-{max(e2jit.values()):.0f} at every rung (>= {grow:.0f}x base) "
+                  f"— CONSTRUCTED, not lifted; smoothing-matched {min(e2mat.values()):.0f}-{max(e2mat.values()):.0f}: "
+                  f"jitter constructs more than smoothing (wrap bridges the 4->1 segment boundary). "
+                  f"'constructed = smoothing' FAIL. A at tau_c: jit/matched b1 = "
+                  f"{vmed(vsel(arm='F1', cloud='A', kind='jitter', tau_j=100.0), 'b1') / vmed(vsel(arm='F1', cloud='A', kind='matched', tau_j=100.0), 'b1'):.2f} "
+                  f"(<0.5 predicted: FAIL — destruction is mostly displacement, shared with smoothing)")
+    chk(grow > 20, f"R10 pin: E2's jitter-grown loop no longer >>20x base (min {grow:.1f}x)")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -391,6 +487,10 @@ if w20k:
 if r9:
     print("  R9 measure 2, sealed predictions scored as declared:")
     for k, v in r9.items():
+        print(f"     {k}: {v}")
+if r10:
+    print("  R10 coverage test, sealed arms scored as declared:")
+    for k, v in r10.items():
         print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)
