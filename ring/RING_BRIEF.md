@@ -68,13 +68,29 @@ CP95 ≥ 0.292, both UNINFORMATIVE per `boundary_rate`. The number doing the
 work is the **256× margin** on λ₁ between the ε=0 floor and the nearest
 confusable; the board leads with it.
 
-**Standing invariant.** The spectral/dynamic cross-check is now R4 on every
-row, with attribution: converged rows must agree within 20%; non-converged
-rows are flagged, not compared; a live witness (≥1 converged row above the
-floor) is required so the invariant can fail. **Known thinness:** on the
-banked table only one row (ε=0.1, T=2000) is converged above the floor, so the
-invariant has one live comparison. Longer T or a second seed adds more; the
-bar is not lowered to get them.
+**Standing invariant, and what it caught the moment it had a second witness.**
+R4 runs on every row of both tables: converged rows must agree within 20%;
+non-converged rows are flagged and attributed; ≥3 live witnesses required.
+The contour table added long-T rows, and on the first new converged witness
+(ε=0.01, T=20000) the reads were **39% apart**. A δ sweep showed the dynamic
+read converging to λ₁ as δ→0 (ratio 0.965 at 0.005, 0.61 at 0.05, 0.32 at
+0.1; same at T=50/200; at both ε): the pinning wells are anharmonic below
+half a grid step, and δ=0.05 — one grid step — was a **hard-coded, undeclared
+instrument constant**. The 5% agreement banked earlier at ε=0.1 was partly
+the luck of bump 0's basin (the next basin reads 0.65 at δ=0.05). Fix: δ
+declared and swept (`relax_delta_sweep`), banked read at δ=0.005, both
+generators re-sealed at v2 (λ₁/drift/n_distinct bit-identical — δ enters only
+the dynamic read). R4 now has **5 live witnesses**, all within 4%. R4b pins the
+δ=0.05 defect (ratio must stay < 0.8 on that row) so a refactor cannot
+silently restore the constant. The dynamic read's own floor is measured on the
+ε=0 rows (≈6e-6 at δ=0.005; it scales ~1/δ) under a declared ceiling of 1e-4.
+
+**c(ε·T) fitted, contour domain found (R8).** c = 2.905e-2 rad/τ per unit ε,
+max residual 2.3% on 9 linear-regime rows; splits at equal P agree to 0.1–3%
+(drift) and within 1 (n_distinct) at P=20, 60. **At P=200 the pre-declared
+check fails (1/4/3)** because the ε=1 split deforms the bump (amp 0.710) —
+the contour is perturbative, valid while the bump is undeformed. R8 asserts
+that failure remains, as the domain boundary.
 
 **Venv, declared as three capabilities** (checked against packaged wheels):
 `ripser 0.6.15` + `persim 0.3.8` **installed** (barcodes with
@@ -111,7 +127,8 @@ as a wheel when reached.
 - Reads: λ₁, λ₂ (Jacobian spectrum); `relax_rate` (displace the bump 0.05 rad,
   integrate 50τ, log-ratio — no linearisation); `n_distinct` final positions;
   `drift_median`; `resid_max` (is it a fixed point).
-- Instrument sealed via `modelparams.Model` in the generator; 2 TESTED, 8 DECLARED.
+- Instrument sealed via `modelparams.Model` in each generator (v2): 3 TESTED
+  (ε or P, T, `relax_delta_sweep`), 9 DECLARED.
 - Generator-before-output via `sealgen.sh`; outcome claims only with CHECKRUN lines.
 
 ## Acceptance criteria (board rows R0–R7 in `verify_ring.py`)
@@ -137,7 +154,8 @@ instrument bound; any population-level claim.
 
 1. `rotational-dynamics-build-plan.md` v5.
 2. `__init__.py` (guarded torch), `ringnet.py`, `detectors.py`, `verify_ring.py`.
-3. `stage1_marginal.py` (sealed generator) → `stage1_marginal_measured.json`.
+3. `stage1_marginal.py` (sealed generator, v2) → `stage1_marginal_measured.json`;
+   `stage1_contour.py` (sealed, v2) → `stage1_contour_measured.json`.
 4. This brief; RESULTS.md §7.ter row deferred until measure 2 lands (one
    commit per phase convention).
 
@@ -146,10 +164,9 @@ instrument bound; any population-level claim.
 - QUEUED arm: **(b) chosen** — long-range certification dropped, matched-Cox +
   `wigner_renewal` kept, deliverable re-sealed as the per-cell detection
   margin vs the dial; bank where the margin crosses the floor. (Plan, QUEUED.)
-- **Next, before measure 2:** the c(ε·T) fit — one task with fixing R4's n=1
-  witness (more converged rows above the floor = more live comparisons), and
-  Stage 6's c(g=1) baseline. Testable form: rows with the same ε·T product
-  must agree regardless of the split (drift in the linear regime, n_distinct
-  in the collapse regime). Tolerances pre-declared in the generator.
+- ~~c(ε·T) fit before measure 2~~ — **done** (above). Measure 2 is next.
+- Per-basin λ₁ spread: at ε=0.1 the three pinned basins have λ₁ = 1.28e-2 /
+  1.49e-2 / 1.53e-2; the tables bank the median, min and max. If Stage 6 needs
+  per-basin curvature, the column exists.
 - Where the QUEUED arm's "which calibrator is each dial setting redundant with"
   column is computed — `extractor_distinctness` machinery or a new panel.

@@ -27,6 +27,17 @@ the instrument measures what we claim. Specifically this row certifies:
       number doing the work, and the summary leads with it (#19: a tally is
       not a verdict).
   R7  plan hygiene: no 'verify ID' tags, no Zone.Identifier stray, v5 header
+  R8  the eps*T CONTOUR (stage1_contour_measured.json), against the tolerances
+      the generator declared BEFORE it ran: rows at the same product P agree
+      across splits in the linear regime (drift) and the collapse regime
+      (n_distinct); the fit drift = c*P has small residual. The declared check
+      FAILS at P=200 -- the eps=1 split deforms the bump and collapses to one
+      attractor -- and this row asserts that failure stays visible: it is the
+      contour's domain boundary (perturbative pinning, bump undeformed), not a
+      tolerance to loosen.
+  R4b the found delta defect stays found: at eps=0.01/T=20000 the delta=0.05
+      read is < 0.8 of lam1 while the delta=0.005 read agrees. A refactor that
+      silently restores the old constant turns this row red.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -82,7 +93,7 @@ if not os.path.exists(path):
     print("\n".join(fails)); sys.exit(1)
 M = json.load(open(path))
 inst = M["instrument"]
-chk(inst["n_tested"] == 2 and inst["n_declared"] >= 7,
+chk(inst["n_tested"] == 3 and inst["n_declared"] >= 8,
     f"R2 instrument seal shape changed: {inst['n_tested']} tested / {inst['n_declared']} declared")
 rows = [x for x in M["rows"] if x["control"] == "bump"]
 ctrl = [x for x in M["rows"] if x["control"] != "bump"]
@@ -117,15 +128,33 @@ chk(last["n_distinct"] <= last["B"] // 2,
     f"R3 no collapse at eps={last['eps']}: n_distinct={last['n_distinct']} of B={last['B']}")
 chk(last["lam1_median"] < -1e-3, f"R3 pinned row lam1 too close to zero: {last['lam1_median']:.2e}")
 
-# R4 — STANDING INVARIANT on every bump row: spectral vs dynamic read
+# R8 input (loaded here because R4 runs over both tables)
+cpath = os.path.join(HERE, "stage1_contour_measured.json")
+chk(os.path.exists(cpath), "R8 stage1_contour_measured.json missing — run stage1_contour.py")
+C = json.load(open(cpath)) if os.path.exists(cpath) else dict(rows=[], tolerances={}, fit={})
+crows = C["rows"]
+
+# R4 — STANDING INVARIANT on every bump row OF BOTH TABLES: spectral vs dynamic read
 CONVERGED = 1e-8      # resid_max below this: a fixed point, both reads valid
-FLOOR = 1e-6          # both reads below this: at the floor, agreement is "both ~0"
 AGREE = 0.2           # relative tolerance where both are valid and above floor
+# The FLOOR of each read is MEASURED on the eps=0 rows, not assumed: the
+# dynamic read's floor scales ~1/delta (resampling error on the bump shape
+# enters the log-ratio), so it is ~6e-6 at delta=0.005 where it was ~1e-7 at
+# 0.05. A declared CEILING keeps "measured floor" from becoming "whatever it is".
+FLOOR_CEILING = 1e-4
+_z = [row(T_short, 0.0), row(T_long, 0.0)]
+FLOOR_SPEC = 3 * max(abs(z["lam1_median"]) for z in _z if z)
+FLOOR_DYN = 3 * max(abs(z["relax_rate_median"]) for z in _z if z)
+chk(FLOOR_DYN < FLOOR_CEILING, f"R4 dynamic-read floor {FLOOR_DYN/3:.1e} exceeds the "
+                               f"declared ceiling {FLOOR_CEILING:.0e}; the read is too noisy to use")
 r4 = []
-for x in rows:
+for x in rows + crows:
+    chk(x.get("relax_delta", 0.05) <= 0.005,
+        f"R4 T={x['T']} eps={x['eps']}: banked dynamic read taken at delta="
+        f"{x.get('relax_delta')} — must be the smallest of the sweep")
     lam1, relax, resid = -x["lam1_median"], x["relax_rate_median"], x["resid_max"]
     conv = resid < CONVERGED
-    floor = abs(lam1) < FLOOR and abs(relax) < FLOOR
+    floor = abs(lam1) < max(FLOOR_SPEC, 1e-12) and abs(relax) < FLOOR_DYN
     if conv and floor:
         state, ok = "CONVERGED_FLOOR", True
     elif conv:
@@ -139,8 +168,20 @@ for x in rows:
     chk(ok, f"R4 T={x['T']} eps={x['eps']}: spectral {lam1:+.2e} vs dynamic "
             f"{relax:+.2e} at a converged fixed point — {state}")
 live = [t for t in r4 if t[2].startswith("CONVERGED rel_err")]
-chk(len(live) >= 1, "R4 has no converged row above the floor — the invariant "
-                    "cannot fail on this table (witness must be able to fail)")
+chk(len(live) >= 3, f"R4 has {len(live)} converged row(s) above the floor — "
+                    "fewer than 3 live witnesses is a check that has not been exercised")
+
+# R4b — the delta defect stays found
+w20k = [x for x in crows if x.get("kind") == "long" and x["T"] == 20000.0]
+chk(bool(w20k), "R4b eps=0.01/T=20000 witness row missing")
+if w20k:
+    x = w20k[0]
+    lam1 = -x["lam1_median"]
+    bad = x["relax_by_delta"].get("0.05", float("nan")) / lam1
+    good = x["relax_by_delta"].get("0.005", float("nan")) / lam1
+    chk(bad < 0.8, f"R4b delta=0.05 read now agrees with lam1 (ratio {bad:.2f}) — "
+                   "the anharmonic-pinning defect this row pins has vanished; re-examine")
+    chk(abs(good - 1) < AGREE, f"R4b delta=0.005 read disagrees with lam1 (ratio {good:.2f})")
 
 # R5 — T-dependence banked and visible
 diffs = [(e, row(T_short, e)["n_distinct"], row(T_long, e)["n_distinct"])
@@ -185,6 +226,45 @@ if w:
     chk(w_silent_by_lam1, "R6 confusable is silent only via the convergence gate, "
                           "not via lam1 — the spectral threshold is not doing work")
 
+# R8 — the eps*T contour against pre-declared tolerances
+TOLC = C["tolerances"]
+byP = {}
+for x in crows:
+    if x.get("kind") == "split":
+        byP.setdefault(x["product"], []).append(x)
+amp0 = row(T_long, 0.0)["bump_amp_median"]
+r8 = {}
+for Pv, xs in sorted(byP.items()):
+    chk(len(xs) == 3, f"R8 P={Pv}: expected 3 splits, got {len(xs)}")
+    drifts = [x["drift_median"] for x in xs]
+    nd = [x["n_distinct"] for x in xs]
+    deformed = [x for x in xs if x["bump_amp_median"] < 0.99 * amp0]
+    if Pv <= TOLC["LINEAR_P_MAX"]:
+        spread = (max(drifts) - min(drifts)) / max(drifts)
+        ok = spread <= TOLC["DRIFT_AGREE"]
+        r8[Pv] = f"linear drift spread {spread:.3f} {'OK' if ok else 'FAIL'}"
+        chk(ok, f"R8 P={Pv}: drift disagrees across splits by {spread:.2f} (>"
+                f"{TOLC['DRIFT_AGREE']}) — contour claim fails in the linear regime")
+    else:
+        spread = max(nd) - min(nd)
+        ok = spread <= TOLC["NDIST_AGREE"]
+        r8[Pv] = f"n_distinct {nd} spread {spread} {'OK' if ok else 'FAIL'}" + \
+                 (f" [bump deformed at eps={deformed[0]['eps']:g}, amp {deformed[0]['bump_amp_median']:.3f}]"
+                  if deformed else "")
+        if not deformed:
+            chk(ok, f"R8 P={Pv}: n_distinct {nd} disagrees across splits with the bump "
+                    "undeformed — the contour claim fails inside its stated domain")
+        else:
+            # the declared check FAILS here and that failure is the finding
+            chk(not ok, f"R8 P={Pv}: splits agree ({nd}) even with a deformed bump "
+                        f"(eps={deformed[0]['eps']:g}) — the domain boundary this row "
+                        "pins has moved; re-examine before re-scoping")
+fit = C["fit"]
+chk(fit["max_rel_resid"] <= TOLC["FIT_RESID"],
+    f"R8 fit residual {fit['max_rel_resid']:.3f} > {TOLC['FIT_RESID']}")
+chk(0.01 < fit["c"] < 0.1, f"R8 fitted c={fit['c']:.3e} outside the range the two-point "
+                            "estimate gave (≈0.03); re-examine the fit rows")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -209,6 +289,12 @@ print(f"  R5 collapse is an eps*T contour: T={T_short}:"
       f"T={T_long}:{[r_['n_distinct'] for r_ in long_rows]}")
 print(f"  R1 declared-only (not certified, by design): {sorted(D.DECLARED_ONLY)}; "
       f"Stage 1 cannot certify: {sorted(D.STAGE1_CANNOT_CERTIFY)}")
+print(f"  R8 contour: c = {fit['c']:.4e} rad/tau per unit eps (max rel resid "
+      f"{fit['max_rel_resid']:.3f}, {fit['n_rows']} rows); per-P: " +
+      "; ".join(f"P={k:g}: {v}" for k, v in r8.items()))
+if w20k:
+    print(f"  R4b delta defect pinned: at eps=0.01/T=20000 ratio(delta=0.05)={bad:.2f}, "
+          f"ratio(delta=0.005)={good:.2f}")
 for f in fails:
     print("FAIL:", f)
 sys.exit(1 if fails else 0)

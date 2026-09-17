@@ -296,6 +296,18 @@ not of the network. Stated cleanly by two banked rows at the same ε=0.03:
 an **ε·T contour**, and every downstream "threshold" question (Stage 6, Stage 5,
 QUEUED) is re-posed against it.
 
+**Fitted and domain-bounded (`stage1_contour_measured.json`, tolerances
+declared before the run).** Six products P = ε·T, each realised by three
+(ε, T) splits: in the linear regime (P ≤ 2) the splits agree to 0.1–3% and
+**drift = c·ε·T with c = 2.905e-2 rad/τ per unit ε** (max residual 2.3%, 9
+rows) — this is Stage 6's baseline c(g=1). In the collapse regime the splits
+agree on n_distinct at P=20 (13/14/14) and P=60 (3/4/4). **At P=200 the
+declared check fails: 1 / 4 / 3** — the ε=1 split deforms the bump (amplitude
+0.710 vs 0.780) and collapses to a single attractor. That failure is the
+contour's domain: it is a *perturbative* statement, valid while the bump is
+undeformed (ε ≲ 0.3 here), and `verify_ring.py` R8 asserts the failure stays
+visible rather than loosening the tolerance.
+
 **Standing warning:** *per-cell fingerprints cohere; population observables
 fragment — aggregation, not biology, sets the population class.* This plan is
 population-level throughout. Compute the per-unit version before trusting any
