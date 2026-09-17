@@ -634,6 +634,20 @@ continuous_traversal` is certified on its *declared* sets (A, IND fire;
 C_perm, D-unreadable, unreadable-ρ silent) with the C_ord caveat printed by
 the board every run.
 
+## I1b — the trapped negative, and the depinning curve: pre-registration (overnight, before `stage3c_trapped.py`)
+
+The same along-manifold kick (δ = 0.3 rad, T_obs = 300τ) on the pinned ring
+at ε ∈ {0.03, 0.1} over drive γ ∈ {0, 0.001, 0.003, 0.01, 0.02}. Retention
+R(γ) = Δψ(300τ)/δ. **Sealed:** at γ = 0 the trapped bump restores — R < 0.1
+at ε = 0.1 (λ₁ = −0.015 → e^{−4.5}) and R < 0.3 at ε = 0.03 (λ₁ = −0.0038 →
+e^{−1.1} = 0.32, so the 300τ window is marginal there and that is stated);
+R is monotone non-decreasing in γ at each ε; R(0.02, ε = 0.1) ≈ 0.88 as
+banked. The depinning drive γ* (R crossing 0.5) is a **measurement**, expected
+between c·ε and 3c·ε (2.9e-3–8.7e-3 at ε = 0.1; 0.9e-3–2.6e-3 at ε = 0.03) —
+reported with the grid's resolution (a B-sup rail: a crossing between two
+grid points is an interval, not a value). If γ* scales with ε the trapped/
+sliding boundary is the ε·T contour's third appearance.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
