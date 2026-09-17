@@ -718,6 +718,36 @@ q ≤ Q_max. ε_tol ∈ {10⁻³, 10⁻²} and Q_max ∈ {5, 10} are TESTED.
 **Compute.** numpy, vectorised over (K, Ω); torch is guarded and not
 needed at this size (8×1001 trajectories × 10⁵ steps ≈ 5 s).
 
+## Stage 4 — results (`stage4_circlemap_measured.json`, sealed `95be3d1`; 27 s, numpy)
+
+**Rails, all green.** Denjoy: |ρ₁₀⁴ − ρ₁₀⁵| ≤ 4.8·10⁻⁵ at every Ω for every
+K < 1 (bound 1.1·10⁻⁴); above 1 it is 6·10⁻⁵ (K = 1), 1.3·10⁻³ (1.2),
+2.8·10⁻³ (1.5) — reported. The 0/1 tongue boundary sits within one grid step
+of the exact K/2π at every K < 1 in all three protocols. Farey coverage at
+K = 0 within +5% / 0% / +11% / −8% of 2ε_tol·Σφ(q). Multistability is
+exactly 0 for K ≤ 1 and fires at K > 1 (0.035, 0.144) — the arm can fire.
+The hysteresis discrepancy D(K) is 0 at every K, including K > 1 (admissible;
+the plan's hysteresis expectation was for *adaptive* oscillators and the
+plain map shows none in this protocol, as v5 already said it should not).
+
+**Sealed arms.** Residence Ω-fraction is monotone non-decreasing in K on
+[0, 1] at every (ε_tol, Q_max) — PASS; the re-indexed question behaves.
+
+**One sealed test was evidence for neither hypothesis — my own.** The K = 1
+staircase coverage (ρ within 10⁻³ of some p/q, q ≤ 50) read 0.978 > 0.85 —
+and K = 0, rigid rotation, the rival, read **0.872**. At q ≤ 50 and
+tol 10⁻³ the Farey coverage already nearly saturates, so the test cannot
+tell a devil's staircase from a rigid rotation. Rival rule, applied to the
+arc's own sealed test; recorded INAPPLICABLE AS POSED. The informative read
+is the K-dependence, 0.872 → 0.978 → 0.992 (K = 1.2). A discriminating
+version needs tol ≪ 1/q_max² (e.g. 10⁻⁵ at q ≤ 50), pre-registered before
+re-posing.
+
+**Connection to I1b (not sealed):** the drive-vs-pinning depinning interval
+(0.01, 0.02] at ε = 0.1 and the 0/1 tongue boundary Ω_c = K/2π are the same
+competition; a quantitative mapping γ ↔ Ω, c·ε ↔ K/2π is a Stage 4b question
+for the full ring, queued.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in

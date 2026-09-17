@@ -97,6 +97,13 @@ the instrument measures what we claim. Specifically this row certifies:
       0.02] (B-sup); monotonicity in gamma FAILED (well-dependent restoring
       rate) and eps=0.03 is INAPPLICABLE at T_obs=300 -- both recorded, not
       re-scoped.
+  R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
+      convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
+      step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
+      hysteresis discrepancy D(K) <= one grid step for K<1 (the dead region);
+      sealed M2 monotonicity scored; the K=1 staircase test is recorded
+      INAPPLICABLE AS POSED because rigid rotation (K=0) passes it too
+      (rival rule on the arc's own sealed test).
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -739,6 +746,58 @@ if TR:
                   f"(0.01, 0.02] — above the 3*c*eps guess (0.0087); eps=0.03: R(0)={r03:.2f} — INAPPLICABLE at T_obs=300 "
                   f"(sealed as marginal; worse than marginal), needs ~3000 tau")
 
+# R14 — Stage 4
+cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")
+chk(os.path.exists(cpath4), "R14 stage4_circlemap_measured.json missing — run stage4_circlemap.py")
+C4 = json.load(open(cpath4)) if os.path.exists(cpath4) else None
+r14 = {}
+if C4:
+    Ks = C4["K"]
+    iK = {k: i for i, k in enumerate(Ks)}
+    sub1 = [k for k in Ks if k < 1]
+    conv = C4["M1"]["max_abs_drho_1e4_1e5_per_K"]
+    for k in sub1:
+        chk(conv[iK[k]] < 1.1e-4, f"R14 Denjoy rail: K={k} |rho_1e4-rho_1e5| = {conv[iK[k]]:.2e}")
+    r14["M1"] = (f"Denjoy rail PASS for K<1 (max {max(conv[iK[k]] for k in sub1):.1e} < 1.1e-4); above 1: "
+                 f"{ {k: round(conv[iK[k]], 5) for k in Ks if k >= 1} } — convergence reported, not assumed")
+    # M2 Farey rail + monotone
+    res, cov = C4["M2"]["residence"], C4["M2"]["farey_coverage_K0"]
+    far_ok, mono_ok, txt = True, True, []
+    for key in res:
+        f1 = res[key]["frac_f1_per_K"]
+        dev = f1[iK[0.0]] / cov[key] - 1
+        far_ok &= abs(dev) <= 0.25
+        seq = [f1[iK[k]] for k in Ks if k <= 1]
+        m = all(b >= a - 1e-12 for a, b in zip(seq, seq[1:]))
+        mono_ok &= m
+        txt.append(f"{key}: K=0 {f1[iK[0.0]]:.3f} vs Farey {cov[key]:.3f} ({dev:+.0%}); monotone on [0,1] {'yes' if m else 'NO'}")
+    chk(far_ok, "R14 Farey-coverage rail at K=0 failed")
+    chk(mono_ok, "R14 pin: residence fraction not monotone in K on [0,1]")
+    r14["M2"] = ("Farey rail PASS; monotone PASS; " if far_ok and mono_ok else "FAIL; ") + "; ".join(txt)
+    st = C4["M2"]["staircase_q50_1e3_per_K"]
+    k1, k0 = st["1.0"], st["0.0"]
+    r14["M2_staircase"] = (f"K=1 coverage {k1:.3f} > 0.85 as sealed, BUT K=0 (rigid rotation, the rival) reads {k0:.3f}: "
+                           f"the test is INAPPLICABLE AS POSED (q<=50 at tol 1e-3 saturates the Farey coverage); the "
+                           f"informative read is the K-dependence {[round(st[str(k)], 3) for k in Ks]}")
+    chk(k0 > 0.8, "R14 pin: the staircase test's rival (K=0) no longer passes it — re-examine before re-posing")
+    # M3 exact boundary within one grid step
+    m3 = C4["M3"]; dOm = m3["grid_step"]
+    for k in (0.25, 0.5, 0.75, 0.9):
+        for proto in ("omega_c_ind", "omega_c_up", "omega_c_dn"):
+            v = m3[proto][iK[k]]
+            chk(v is not None and abs(v - k / (2 * 3.141592653589793)) <= dOm + 1e-12,
+                f"R14 exact-tongue rail: K={k} {proto} = {v} vs K/2pi = {k / 6.2832:.4f}")
+    r14["M3"] = "0/1 tongue boundary within one grid step (0.005) of K/2pi at K in {0.25, 0.5, 0.75, 0.9}, all three protocols"
+    # M4 dead region + multistability rail + can-fire
+    D4 = C4["M4"]["D_per_K"]; mu = C4["M4"]["multistability_frac_per_K"]
+    for k in sub1:
+        chk(D4[iK[k]] is not None and D4[iK[k]] <= dOm + 1e-12, f"R14 hysteresis in the dead region: K={k} D={D4[iK[k]]}")
+        chk(mu[iK[k]] == 0.0, f"R14 multistability for K<1: K={k} frac={mu[iK[k]]}")
+    chk(any(mu[iK[k]] > 0 for k in Ks if k > 1), "R14 witness: multistability never fires above K=1 — the arm cannot fire")
+    r14["M4"] = (f"D(K) = {D4} (grid 0.005): dead region K<1 PASS; no hysteresis observed at K>1 either (admissible, "
+                 f"no prediction); multistability {[round(m, 3) for m in mu]}: 0 for K<=1 (rail PASS), fires at K>1 "
+                 f"(witness PASS)")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -788,6 +847,10 @@ if r12:
 if r13:
     print("  R13 Stage 3b, sealed arms scored as declared:")
     for k, v in r13.items():
+        print(f"     {k}: {v}")
+if r14:
+    print("  R14 Stage 4, rails and sealed arms:")
+    for k, v in r14.items():
         print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)
