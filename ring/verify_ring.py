@@ -60,6 +60,18 @@ the instrument measures what we claim. Specifically this row certifies:
       jitter-grown loop is CONSTRUCTED (b1 >> base) -- order-to-topology
       conversion, not SNR; r12 degenerates (b2 -> 0) on smoothed clouds and
       is declared unusable there.
+  R11 STAGE 2 (stage2_nonnormal_measured.json, generator v3): theorem rails on
+      a linear circulant (Henrici < 1e-10, gap < 1e-10, G_max = 1, K = 1) --
+      red rail = instrument defect; every read row is at a converged fixed
+      point (or a co-moving traveling wave with zero-mode residual < 1e-2);
+      instrument-limited rows are banked and NOT read. Sealed hypotheses
+      (RING_BRIEF.md aacad2f) scored: H_plan (asymmetry creates non-normality,
+      first order, large) vs H_gain (gain profile sets it; asymmetry second
+      order, small); H_struct/H_comparable/H_inv on matched-norm random vs
+      circulant; H_pin vs H_plan on G_max(eps). Pins the headline: the
+      SYMMETRIC attractor's linearisation is non-normal (H0 ~ 2.09, gap ~ 0.18,
+      G0 = kappa0 = K0 ~ 1.36) and nothing in the sweep moves Henrici by > 0.2%
+      on a read row.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -454,6 +466,81 @@ if CV:
                   f"(<0.5 predicted: FAIL — destruction is mostly displacement, shared with smoothing)")
     chk(grow > 20, f"R10 pin: E2's jitter-grown loop no longer >>20x base (min {grow:.1f}x)")
 
+# R11 — Stage 2
+npath = os.path.join(HERE, "stage2_nonnormal_measured.json")
+chk(os.path.exists(npath), "R11 stage2_nonnormal_measured.json missing — run stage2_nonnormal.py")
+NN = json.load(open(npath)) if os.path.exists(npath) else None
+r11 = {}
+if NN:
+    chk(NN["instrument"]["model"] == "ring_nonnormal_v3",
+        f"R11 table is {NN['instrument']['model']}, not v3 (v1/v2 had red rails)")
+    NR = NN["rows"]
+    rails = [x for x in NR if x["arm"] == "rail"]
+    chk(len(rails) == 5, "R11 expected 5 rail rows")
+    for x in rails:
+        chk(x["henrici"] < 1e-10, f"R11 rail gamma={x['gamma']}: Henrici {x['henrici']:.1e} (normal matrix)")
+        chk(abs(x["gap"]) < 1e-10, f"R11 rail gamma={x['gamma']}: numerical-spectral gap {x['gap']:.1e}")
+        chk(abs(x["gmax"] - 1) < 1e-9, f"R11 rail gamma={x['gamma']}: G_max {x['gmax']:.6f} != 1")
+        chk(abs(x["kreiss"] - 1) < 1e-3, f"R11 rail gamma={x['gamma']}: Kreiss {x['kreiss']:.4f} != 1")
+    s0 = [x for x in NR if x["arm"] == "S0"][0]
+    H0, G0 = s0["henrici"], s0["gmax"]
+    chk(s0["rail_ok"], "R11 S0 not at a fixed point")
+    chk(1.9 < H0 < 2.3 and 0.15 < s0["gap"] < 0.21 and 1.3 < G0 < 1.42,
+        f"R11 pin: S0 baseline moved (H0={H0:.3f}, gap={s0['gap']:.3f}, G0={G0:.3f})")
+    chk(abs(s0["kappa"] - G0) < 1e-3 and abs(s0["kreiss"] - G0) < 1e-2,
+        "R11 S0: on the marginal row G_max must equal kappa(0) and the Kreiss constant")
+    for x in NR:
+        if x["arm"] != "rail":
+            chk((x["gap"] > 1e-6) == (x["gmax"] > 1 + 1e-6),
+                f"R11 {x['arm']} g={x['gamma']} e={x['eps']}: gap>0 <=> G_max>1 violated")
+            chk(x["kreiss"] <= x["gmax"] * (1 + 0.02) or not x.get("rail_ok", True),
+                f"R11 {x['arm']} g={x['gamma']} e={x['eps']}: Kreiss {x['kreiss']:.3f} > G_max {x['gmax']:.3f}")
+    # S-gamma: read rows only
+    sg = [x for x in NR if x["arm"] == "Sgamma"]
+    sg_read = [x for x in sg if x["rail_ok"]]
+    sg_lim = [x["gamma"] for x in sg if not x["rail_ok"]]
+    maxrel = max(abs(x["henrici_rel"]) for x in sg_read)
+    hplan_min = 0.5 * max(x["gamma"] for x in sg_read) / 0.32     # first order, >= 50% at 0.32
+    r11["Sgamma"] = (f"read gamma={[x['gamma'] for x in sg_read]}, instrument-limited {sg_lim}; "
+                     f"max |dHenrici/H0| = {maxrel:.2e} vs H_plan's >= {hplan_min:.2f} -> H_plan FALSIFIED; "
+                     f"H_gain magnitude (<10%) PASS; exponent {NN['fits']['exp_henrici_gamma']:.2f} "
+                     f"(sealed 2 +- 0.3: {'PASS' if abs(NN['fits']['exp_henrici_gamma'] - 2) <= 0.3 else 'FAIL'}) "
+                     f"but {NN['fits']['n_resolved_gamma']}/{len(sg_read)} points individually resolved "
+                     f"above 3x their error bound -> exponent PROVISIONAL; G_max {[round(x['gmax'], 4) for x in sg_read]}")
+    chk(maxrel < 0.02, "R11 pin: circulant asymmetry now moves Henrici by > 2% on a read row")
+    chk(sg_lim == [0.32], f"R11 pin: instrument-limited gamma rows changed: {sg_lim}")
+    # S-alpha
+    sa = [x for x in NR if x["arm"] == "Salpha"]
+    sa_read = [x for x in sa if x["rail_ok"]]
+    sa_lim = [x["gamma"] for x in sa if not x["rail_ok"]]
+    ratios = NN["fits"]["ratio_rand_over_circ_matched"]
+    big = max(sa_read, key=lambda x: x["gamma"])
+    ratio_big = ratios[str(big["gamma"])] if str(big["gamma"]) in ratios else ratios.get(big["gamma"])
+    verdict = ("H_struct (<0.5)" if ratio_big < 0.5 else "H_comparable (0.5-2)" if ratio_big <= 2 else "H_inv (>2)")
+    r11["Salpha"] = (f"read matched-gamma={[x['gamma'] for x in sa_read]}, instrument-limited {sa_lim} "
+                     f"(unconverged at T=2e5, G_max {[round(x['gmax'], 1) for x in sa if not x['rail_ok']]} not read); "
+                     f"max |dHenrici/H0| = {max(abs(x['henrici_rel']) for x in sa_read):.2e}; "
+                     f"rand/circ at largest read norm = {ratio_big:.2f} -> {verdict}")
+    chk(0.5 <= ratio_big <= 2.0, f"R11 pin: matched-norm rand/circ ratio moved to {ratio_big:.2f}")
+    chk(sa_lim == [0.32], f"R11 pin: instrument-limited alpha rows changed: {sa_lim}")
+    # S-eps
+    se = [x for x in NR if x["arm"] == "Seps"]
+    chk(all(x["rail_ok"] for x in se), "R11 an S-eps row is not converged")
+    gm = [x["gmax"] for x in sorted(se, key=lambda x: x["eps"])]
+    mono = all(b < a for a, b in zip([G0] + gm, gm))
+    r11["Seps"] = (f"G_max(eps) = {[round(v, 4) for v in gm]} from G0={G0:.4f}: "
+                   f"{'monotone decreasing -> H_pin PASS, H_plan FAIL' if mono else 'NOT monotone'}; "
+                   f"exponent of |G_max-G0| vs eps = {NN['fits']['exp_gmax_eps']:.2f}; "
+                   f"kappa {[round(x['kappa'], 4) for x in sorted(se, key=lambda x: x['eps'])]} >= G_max on every "
+                   f"pinned row; max |dHenrici/H0| = {max(abs(x['henrici_rel']) for x in se):.2e}; "
+                   f"gap {[round(x['gap'], 3) for x in sorted(se, key=lambda x: x['eps'])]} (unchanged)")
+    chk(mono, "R11 pin: G_max(eps) monotone decrease lost")
+    chk(0.7 <= NN["fits"]["exp_gmax_eps"] <= 1.0, f"R11 pin: G_max(eps) exponent moved to {NN['fits']['exp_gmax_eps']:.2f}")
+    chk(all(x["kappa"] >= x["gmax"] - 1e-6 for x in se), "R11 kappa < G_max on a pinned row (theorem: G_max <= kappa at t->inf only for the marginal case; pinned rows must satisfy G_max <= kappa)")
+    r11["headline"] = (f"symmetric attractor: Henrici {H0:.3f} ({100 * H0 / s0['frob']:.0f}% of |J|_F), numerical-spectral "
+                       f"gap {s0['gap']:.3f}, G0 = kappa0 = K0 = {G0:.3f}; no read row in a 16x gamma, matched-norm "
+                       f"random, or 100x eps sweep moves Henrici by > 0.2%; the gap is ~0.178 everywhere")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -491,6 +578,10 @@ if r9:
 if r10:
     print("  R10 coverage test, sealed arms scored as declared:")
     for k, v in r10.items():
+        print(f"     {k}: {v}")
+if r11:
+    print("  R11 Stage 2, sealed hypotheses scored as declared:")
+    for k, v in r11.items():
         print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)

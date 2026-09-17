@@ -337,6 +337,57 @@ K ≤ G_max ≤ e·N·K (Kreiss); for a marginal row G_max ≥ κ(0).
 **The discriminating spans:** 64× in γ and matched α (exponent 1 vs 2);
 100× in ε (sign and exponent). Single points decide nothing here.
 
+## Stage 2 — results (`stage2_nonnormal_measured.json`, v3 sealed `96a1116`; v1/v2 superseded, red rails)
+
+**Headline: the plan's premise is falsified for this network.** "Dropping
+symmetry is what creates non-normality" — no. The **symmetric** ring
+attractor's linearisation is already non-normal: Henrici index 2.086 (18% of
+‖J‖_F), numerical abscissa 0.178 above the spectral abscissa, G₀ = κ₀ = K₀ =
+1.356 (on the marginal row the three coincide exactly — the Kreiss identities
+as rails). The source is the gain profile D = diag(f′(u)) of the attractor
+state. Then, on every row the rails let us read:
+- **circulant asymmetry** (co-moving frame, γ over 16×: 0.005–0.08) moves
+  Henrici by ≤ 0.14% — H_plan (first order, ≥ 12% at γ = 0.08) **falsified**
+  by ~90×; H_gain's magnitude clause passes; the exponent reads 2.00 on three
+  points but none is individually resolved above 3× its declared error bound
+  (5.5 × zero-mode residual), so the exponent is **provisional**. γ = 0.32 is
+  instrument-limited (zero-mode residual 1.5e-2 at a one-grid-point bump
+  edge) and not read.
+- **random asymmetry at matched ‖ΔW‖_F** (three read rows, converged to
+  |F| < 1e-9 with T up to 182,000τ) moves Henrici by ≤ 0.09%; rand/circ at the
+  largest read norm = 0.69 → **H_comparable**. The row matched to γ = 0.32
+  did not converge in a 2·10⁵τ budget (G_max 11.8 off a non-fixed-point: the
+  garbage the rail exists to catch) — not read.
+- **heterogeneity** (100× in ε, all five rows converged): Henrici moves
+  ≤ 0.19% and non-monotonically; **G_max decreases monotonically** 1.3542 →
+  1.2740 from G₀ = 1.3557, exponent 0.86 in ε — **H_pin PASS, H_plan FAIL**.
+  κ rises slightly (1.3558 → 1.3643) while G_max falls: pinning converts the
+  marginal mode's *persistent* amplification (G = κ) into a *transient* one
+  (G < κ) that shrinks ~linearly in ε.
+- The numerical–spectral gap is **0.178 on every read row** (γ, α, ε alike):
+  the initial growth rate is a property of the gain profile that no
+  perturbation in the sweep touches.
+
+**Instrument record (three rails were red in v1, one in v2; all fixed, none
+interpreted around):** (i) G_max and Kreiss read their *grids* on the linear
+rail (0.951, 0.864) — t = 0 and Re z → ∞ excluded; (ii) central-difference
+∂_θ left a co-moving zero-mode residual ≈ 4γ because the softplus edge is one
+grid point wide — spectral derivative cuts it 2500×; (iii) three ε rows were
+linearised at non-fixed-points (Stage 1's lesson, re-learned): Newton *and*
+Levenberg–Marquardt both fail here because the fixed point is far along the
+near-flat ring direction and the landscape is anharmonic below half a grid
+step (the δ finding again) — integrate-to-convergence with a budget and an
+INSTRUMENT-LIMITED flag is the honest instrument. Every row carries a Henrici
+error bound and a `resolved` flag; the Sγ exponent is reported provisional
+because of it.
+
+**What Stage 2 gives the plan.** Schur/Henrici/pseudospectra/G_max are all
+built and railed; the α sweep the plan asked for is answered with spans
+rather than points, and the answer is that the interesting non-normality was
+in the symmetric attractor all along. The open question (Clark's
+above-capacity slow regions vs SHC saddle-lingering) is untouched; Stage 7
+would be where it lives.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
@@ -350,6 +401,11 @@ K ≤ G_max ≤ e·N·K (Kreiss); for a marginal row G_max ≥ κ(0).
    jitter ladder, the within-cell ISI-order scramble, and the subsetting sweep.
    Scores `ph_topology_consistent_with_continuous_attractor` only. **Done**
    (results above).
+4. **Stage 2 — non-normality.** **Done** (results above). `rotational_dynamics_fit`
+   stays DECLARED: the ring's asymmetry is a traveling wave, not a rotation in
+   a fixed basis; the jPCA-style fit belongs to a Stage-2 substrate with a
+   fixed basis (W_sym + αW_rand at α large enough for limit cycles), which
+   this sweep did not reach (largest random row unconverged).
 
 ## Measure 2 — pre-registration (2026-09-16, before `stage1_ph.py` runs)
 
@@ -452,7 +508,7 @@ positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converge
 
 ## Out of scope this session
 
-Stage 2+; spikes off the ring into ARS and the QUEUED ring→ARS
+Stages 3–7; spikes off the ring into ARS and the QUEUED ring→ARS
 instrument bound; any population-level claim.
 
 ## Deliverables
@@ -470,10 +526,12 @@ instrument bound; any population-level claim.
   `wigner_renewal` kept, deliverable re-sealed as the per-cell detection
   margin vs the dial; bank where the margin crosses the floor. (Plan, QUEUED.)
 - ~~c(ε·T) fit before measure 2~~ — done. ~~Measure 2~~ — done.
-- **Next:** (a) the E-cloud SNR question — smoothing σ_s vs traversal speed is
-  an undeclared coupling (jitter at 10–300τ revealed E2's loop); sweep σ_s as
-  a TESTED param before any E verdict is read; (b) the scramble's power as a
-  visits-per-unit statement, computed per cloud; (c) Stage 2.
+- ~~(a) σ_s sweep~~ done (F6; and the "SNR" reading was wrong, S4).
+  ~~(b) visits-per-unit~~ done (F5). ~~(c) Stage 2~~ done.
+- **Next:** Stage 4 (circle map; K<1 must show zero hysteresis) or Stage 3
+  (path-lifting, DREiMac — the temporal statistic the `implies` detector
+  needs). Will's call. The Sγ exponent could be resolved with N=256 (halves
+  the zero-mode residual's grid term) if it matters.
 - Per-basin λ₁ spread: at ε=0.1 the three pinned basins have λ₁ = 1.28e-2 /
   1.49e-2 / 1.53e-2; the tables bank the median, min and max. If Stage 6 needs
   per-basin curvature, the column exists.

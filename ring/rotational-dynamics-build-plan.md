@@ -352,6 +352,16 @@ Dropping symmetry is what creates non-normality; same instruments.
 without stable attractors" and Stage 7's SHC saddle-lingering are the same object
 in two vocabularies. Nobody appears to have checked.
 
+**Stage 2 ran (2026-09-17; brief §Stage 2 — results).** The premise above —
+dropping symmetry creates non-normality — is **falsified for the ring**: the
+symmetric attractor's linearisation is already non-normal (Henrici 18% of
+‖J‖_F, numerical abscissa 0.178 above spectral, G_max = κ = K = 1.356), set by
+the gain profile of the bump. Circulant asymmetry over 16×, random asymmetry
+at matched norm, and heterogeneity over 100× each move Henrici by < 0.2% on
+every converged row; heterogeneity *reduces* G_max monotonically (exponent
+0.86), converting persistent amplification into a shrinking transient. Three
+rails caught three instrument defects before any number was read.
+
 ---
 
 ## Stage 3 — Path integration: the count accumulates
