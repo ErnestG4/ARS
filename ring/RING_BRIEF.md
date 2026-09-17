@@ -748,6 +748,30 @@ re-posing.
 competition; a quantitative mapping γ ↔ Ω, c·ε ↔ K/2π is a Stage 4b question
 for the full ring, queued.
 
+## Stage 4b — the pinned ring's 0/1 tongue, predicted from a measured quantity: pre-registration (overnight, before `stage4b_ringtongue.py`)
+
+The reduced model for a pinned, driven bump is a phase equation
+θ̇ = γ − v_pin(θ), with v_pin the drift-velocity landscape of the heterogeneity
+(the object whose median is c·ε, Stage 1). It locks (ρ = 0, trapped) iff
+γ < γ* ≡ max_θ v_pin(θ) — the 0/1 tongue edge, exactly as Ω_c = K/2π for the
+sine map. **v_pin is measurable at γ = 0**: integrate 64 off-grid bumps briefly
+and take the maximal instantaneous drift speed. That is the prediction; the
+I1b interval is the test.
+
+- **Sealed:** γ*_pred(ε = 0.1) = max drift speed at γ = 0 lies in the I1b
+  interval **(0.01, 0.02]**. γ*_pred(ε = 0.03) = 0.3 × γ*_pred(0.1) within
+  ±25% (v_pin ∝ ε in the perturbative regime — Stage 1's contour).
+- **Measured tongue:** ρ(γ) = mean bump velocity / γ on a fine γ grid (41
+  points, 0 → 0.03) at ε ∈ {0.03, 0.1}, T = 20,000τ after a 2,000τ relax,
+  from one start; ρ(γ) = 0 for γ < γ*_meas (first γ with ρ > 10⁻²); **γ*_meas
+  within one grid step (7.5·10⁻⁴) of γ*_pred** at each ε. ρ(γ) monotone
+  non-decreasing; ρ → 1 as γ/γ* → ∞ (ρ(0.03)/1 > 0.8 at ε = 0.1).
+- **Not sealed (report):** the Adler form ρ = √(1 − (γ*/γ)²) fits a
+  *sinusoidal* landscape; the heterogeneous landscape's ρ(γ) is compared to
+  it and the residual reported, no verdict.
+- **Rail:** at ε = 0 the ring's ρ(γ) = 1 for every γ > 0 (ω = γ, Stage 3a
+  calibration) within 10⁻³.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
