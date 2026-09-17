@@ -1,0 +1,282 @@
+{
+ "seal": "derivflow/modes Night 1 \u2014 gates ML/MT, M3 no-reference vs production, M6 interlacing witness",
+ "sealed": "2026-09-17 02:14:20 PDT",
+ "brief": "derivflow/modes/BRIEF.md",
+ "brief_sha256": "2e0268e0452137dadb396596ef2ee49f008297d9555678d32f49434bf27c21de",
+ "prior_look_sha256": "af3095859f9b616c3f2d765f6144854818091af66004c6f7617d07b13828512b",
+ "manifest_status_at_sealing": "MANIFEST_M0.json NOT YET WRITTEN: the M0.10 smoke cell was still running at sealing (round 2 of 2, progress log seen through k=11); all M0.1-M0.9 lookups were complete and are recorded in the manifest committed after the smoke cell",
+ "instrument": {
+  "model": "derivflow production instrument + modes arms (Night 1)",
+  "params": [
+   {
+    "name": "KSTAR_LEVEL",
+    "kind": "DECLARED",
+    "why": "science_rate_question.py:28; k* is its crossing",
+    "sweep": null,
+    "value": 0.01
+   },
+   {
+    "name": "FIT_WINDOW_MIN",
+    "kind": "DECLARED",
+    "why": "science_rate_question.py:27; sealed fit window rule",
+    "sweep": null,
+    "value": 0.001
+   },
+   {
+    "name": "BULK_FRACTION",
+    "kind": "DECLARED",
+    "why": "track0_harness.py:32; central window by ROOT INDEX",
+    "sweep": null,
+    "value": 0.2
+   },
+   {
+    "name": "phi",
+    "kind": "DECLARED",
+    "why": "BRIEF: planted phase 0.3; any fixed generic phase serves",
+    "sweep": null,
+    "value": 0.3
+   },
+   {
+    "name": "hann_taper",
+    "kind": "DECLARED",
+    "why": "BRIEF: Hann taper on the projection; suppresses window-edge leakage",
+    "sweep": null,
+    "value": "w_j = sin^2(pi (j+1/2)/W) over the W bulk indices"
+   },
+   {
+    "name": "index_shift",
+    "kind": "DECLARED",
+    "why": "BRIEF: each derivative moves the root set by half an index",
+    "sweep": null,
+    "value": "root i of p^(k) sits at seed index i + k/2"
+   },
+   {
+    "name": "local_spacing",
+    "kind": "DECLARED",
+    "why": "BRIEF: convert displacements to local spacings using the LATTICE run's gaps",
+    "sweep": null,
+    "value": "h_i = (x_{i+1} - x_{i-1})/2 of the LATTICE run (one-sided at ends)"
+   },
+   {
+    "name": "gain_estimator",
+    "kind": "DECLARED",
+    "why": "complex projection so a phase drift counts as error, not as a smaller real gain",
+    "sweep": null,
+    "value": "gain_c = i * 2 * sum_j w_j y_j exp(-i theta_j) / (A * sum_j w_j); rel_err = |gain_c - gain_pred| / gain_pred"
+   },
+   {
+    "name": "FLOAT64_FLOOR_ULPS",
+    "kind": "DECLARED",
+    "why": "assessability: a cell is FLOAT64-ASSESSABLE iff A*gain_pred >= (1/FLOAT64_RELERR_TARGET) * FLOAT64_FLOOR_ULPS * eps_mach * max|x| / h_bulk. Below that the 1e-3 bar is not testable in float64 (the int128 arm the BRIEF intended does not exist in the repo); such cells are INAPPLICABLE-FLOAT64, never PASS and never FAIL. The empirical residual RMS is reported per cell so the declared floor is checked against the measured one",
+    "sweep": null,
+    "value": 4.0
+   },
+   {
+    "name": "solver",
+    "kind": "DECLARED",
+    "why": "same algorithm and precision; GPU makes n=16384 feasible. Contingency if NOT certified: ML n=16384 restricted to A in {1e-5, 1e-3} and MT flows on CPU (declared now, before the gate result is known)",
+    "sweep": null,
+    "value": "modes_common.diff_step_gpu IF gpu_solver_gate.json reads GPU_SOLVER_CERTIFIED, else track0_harness.diff_step"
+   },
+   {
+    "name": "mt_unfolded_positions",
+    "kind": "DECLARED",
+    "why": "BRIEF: if only gaps were exposed, cumulative sums would be declared; not needed",
+    "sweep": null,
+    "value": "F_at * m from reference_cdf (production exposes positions)"
+   },
+   {
+    "name": "mt_B_kernel",
+    "kind": "DECLARED",
+    "why": "BRIEF: B is the arm's smoothing transfer at qw from the kernel recorded in M0.5 (Poisson/Cauchy kernel has Fourier transform exp(-|q| eps))",
+    "sweep": null,
+    "value": "Poisson kernel at height eps: B = exp(-qw * eps_sp), eps_sp = eps_k/Delta_s = sqrt(0.25+16(n-k)/(kn)); PROD_BW1 eps_sp, PROD_BW2 2*eps_sp; B = 1 on PROD_PRIMARY (Richardson)"
+   },
+   {
+    "name": "m6_bound",
+    "kind": "DECLARED",
+    "why": "MANIFEST_M0 M6_bound_conflict: the looser bound cannot fire on its own red path",
+    "sweep": null,
+    "value": "sharp k/n (Rolle); BRIEF's 2k/(n-k) reported alongside"
+   },
+   {
+    "name": "p_tail_range",
+    "kind": "DECLARED",
+    "why": "BRIEF M3",
+    "sweep": null,
+    "value": "k in [16, k_grid_max]; report-only if k_grid_max < 48"
+   },
+   {
+    "name": "bootstrap_resamples",
+    "kind": "DECLARED",
+    "why": "replicate bootstrap for the second error model",
+    "sweep": null,
+    "value": 200
+   },
+   {
+    "name": "kstar_ci_rng",
+    "kind": "DECLARED",
+    "why": "production kstar() draw seed",
+    "sweep": null,
+    "value": 12345
+   },
+   {
+    "name": "qlattice_semicircle_sigma",
+    "kind": "DECLARED",
+    "why": "read from the production GUE_DE normalisation (KS-minimising sigma = 1.00, MANIFEST_M0 M0.5)",
+    "sweep": null,
+    "value": 1.0
+   }
+  ],
+  "n_tested": 0,
+  "n_declared": 17
+ },
+ "seen_before_sealing": [
+  "PRIOR_LOOK.md (chat sandbox numbers) \u2014 every overlapping cell is DECLARED-WITH-PRIOR-LOOK",
+  "m0_smoke progress log: IID_UNIFORM n=4096, per-replicate omr for PROD_PRIMARY / NOUNFOLD / POPREF at k <= 32 (round 1 complete, round 2 through k=11) \u2014 e.g. k=11: PROD ~9.0e-3 vs NOUNFOLD ~3.2e-2; so the M3 iid n=4096 predictions and branch rule 2 on the smoke cell are DECLARED-WITH-PRIOR-LOOK",
+  "the banked science artifacts (science_dense_grid.json, step3_scale_law.json, seed_roster_beta.json)"
+ ],
+ "blind_at_sealing": [
+  "every ML gain measurement; every MT transfer function; the QLATTICE and LATTICE_WAVE known answers through this code; GUE_DE NOUNFOLD/POPREF at every n; iid NOUNFOLD/POPREF at n != 4096"
+ ],
+ "ML": {
+  "seeds": "LATTICE and LATTICE_WAVE(qw, A, phi=0.3), n in {4096, 16384}",
+  "qw_grid": [
+   0.02,
+   0.05,
+   0.1,
+   0.2,
+   0.5,
+   1.0,
+   1.5,
+   2.0,
+   2.5,
+   3.0
+  ],
+  "A_grid_float64": [
+   1e-09,
+   1e-07,
+   1e-05,
+   0.001,
+   0.01,
+   0.1
+  ],
+  "k_grid": [
+   1,
+   2,
+   4,
+   8,
+   16,
+   32,
+   64
+  ],
+  "int128_arm": "HELD \u2014 no int128 path exists (MANIFEST_M0 M0.6); A in {1e-9, 1e-7} run as float64 twins only",
+  "prediction": "gain(qw,k) = (1 - qw/pi)^k",
+  "pass_rule": "PASS iff rel_err <= 1e-3 in EVERY cell with A <= 1e-5, qw >= 0.1, (1-qw/pi)^k >= 1e-8 that is FLOAT64-ASSESSABLE (declared rule above); cells that are not assessable are listed, counted, and the gate's coverage is stated. qw < 0.1 report-only (finite-n corrections ~ k/(qw n))",
+  "grade": "SEALED for A >= 1e-5 float64 cells (unseen); the (1 - qw/pi) law itself is DECLARED-WITH-PRIOR-LOOK",
+  "nonlinear_onset": "report the smallest A with rel_err > 1e-2, per (n, qw, k)",
+  "red_path": "solver with sign(x-r_j)|x-r_j|^-1.2 (exists only inside the checker) must FAIL the gate",
+  "known_answers": {
+   "LATTICE_omr": "NOUNFOLD omr(LATTICE, k=0) <= 1e-12 at n in {4096, 16384}",
+   "LATTICE_WAVE_omr": "A=1e-4, qw in {1.0, 2.0}: NOUNFOLD omr at k=0 within 1% of (8A/pi) sin^2(qw/2)",
+   "QLATTICE_semicircle": "t_flow in {0, 64/n}, n in {4096, 16384}: NOUNFOLD omr reported (density-gradient floor ~1/n); POPREF omr <= 1e-10 (BRIEF bar). The repo's own Gate L bar for the same class of check is 1e-7; if 1e-10 fails and 1e-7 holds, that is reported as a BRIEF-vs-instrument conflict, not silently regraded"
+  },
+  "existing_gates_rerun": "track0_harness (Hermite self-map), reference_v2_gates (lattice + Hermite-through-reference), verify_knownanswer (Gate D) \u2014 executed in a scratch cwd so no frozen artifact is rewritten; verdicts and worst numbers recorded; any FAIL stops the night"
+ },
+ "MT": {
+  "seeds": "LATTICE_WAVE(qw, A=1e-5, phi=0.3) and LATTICE at n=16384",
+  "k_grid": [
+   1,
+   2,
+   5,
+   10,
+   20,
+   40
+  ],
+  "qw_grid": [
+   0.02,
+   0.05,
+   0.1,
+   0.2,
+   0.5,
+   1.0,
+   1.5,
+   2.0,
+   2.5,
+   3.0
+  ],
+  "arms": [
+   "PROD_PRIMARY",
+   "PROD_BW1",
+   "PROD_BW2",
+   "POPREF",
+   "RM1"
+  ],
+  "definition": "T = P_c(u_wave - u_lattice) / P_c((x_wave - x_lattice)/h_local), complex projections on exp(-i theta), theta = qw (i + k/2) + phi, Hann-tapered bulk window; each run unfolded against ITS OWN reference (F_empirical of its own seed) exactly as production",
+  "expected": {
+   "POPREF": "|T - 1| <= 0.02",
+   "RM1": "|T| <= 0.05 for qw <= 0.1"
+  },
+  "prod_prediction": "T_pred = 1 - B exp(k [-ln(1 - qw/pi) - qw/pi]), B per arm as declared (mt_B_kernel)",
+  "pass_rule": "PASS iff |T - T_pred| <= 0.1 for every PROD arm at 0.1 <= qw <= 0.5, every k in K_MT; other qw report-only",
+  "grade": "SEALED (no MT number has been seen)"
+ },
+ "M3": {
+  "cells": "IID_UNIFORM and GUE_DE x n in {1024, 2048, 4096} x sealed 16 replicates x K_DENSE, identical roots per cell; n=16384 NOT RUN tonight (MANIFEST_M0 cuts)",
+  "arms": [
+   "PROD_PRIMARY",
+   "PROD_BW1",
+   "PROD_BW2",
+   "NOUNFOLD",
+   "POPREF"
+  ],
+  "comparator": {
+   "IID_UNIFORM": "NOUNFOLD",
+   "GUE_DE": "POPREF (analytic semicircle, sigma=1)"
+  },
+  "banked_per_cell": "per-replicate omr at every k; k* by (a) production F3 ladder + kstar() and (b) monotone log-linear interpolation; p_tail over [16, 64]; both error models",
+  "predictions": [
+   {
+    "P_M3_1": "comparator k* > PROD_PRIMARY k* in every (class, n) cell",
+    "grade": "DECLARED-WITH-PRIOR-LOOK"
+   },
+   {
+    "P_M3_2": "NOUNFOLD k*_fit for IID_UNIFORM in [20, 32] at every n",
+    "grade": "DECLARED-WITH-PRIOR-LOOK"
+   },
+   {
+    "P_M3_3": "NOUNFOLD p_tail for IID_UNIFORM in [1.35, 1.65] at every n",
+    "grade": "DECLARED-WITH-PRIOR-LOOK"
+   }
+  ],
+  "lineage": "arms within a cell share roots -> non-independent along 'data' (lineage.Lineage recorded per cell)",
+  "f3_ladder_on_comparators": "run, labelled NEW OBJECT (no seal covers its form on these arms)"
+ },
+ "M6": {
+  "check": "D_k <= k/n at every banked k of every flow (sharp Rolle bound); report max D_k n/k and max D_k (n-k)/(2k) per class",
+  "red_path": "one root moved one bracket outward must fire (checker)"
+ },
+ "branch_rules": {
+  "1": "ML fails, or M0.10 fails to reproduce -> STOP",
+  "2": "smoke cell: |k*(NOUNFOLD) - k*(PROD_PRIMARY)| <= 3 sigma_eff AND |p_tail difference| <= 0.15 -> reference hypothesis DEAD, DROPPED ledger row, Night 2 cancelled (sigma_eff = sqrt(err_cov(NOUNFOLD)^2 + err_cov(PROD)^2))",
+  "3": "else if MT passes -> recommend Night 2 (needs Will's go)",
+  "4": "else -> recommend a full MT characterisation night"
+ },
+ "verdict_tokens": [
+  "GATE_ML_PASS|GATE_ML_FAIL",
+  "REFERENCE_IS_MACROSCOPIC|REFERENCE_ABSORBS_AND_INJECTS",
+  "NOUNFOLD_EXCEEDS_PRODUCTION|NOUNFOLD_MATCHES_PRODUCTION",
+  "INTERLACING_BOUND_HOLDS"
+ ],
+ "token_rules": {
+  "GATE_ML": "per ML pass_rule on float64-assessable cells; coverage stated",
+  "REFERENCE": "REFERENCE_IS_MACROSCOPIC iff MT PASS and |T_pred - 1| <= 0.1 on all PROD arms at 0.1<=qw<=0.5 for k<=40 (i.e. the reference neither absorbs nor injects at the planted scale); else REFERENCE_ABSORBS_AND_INJECTS",
+  "NOUNFOLD": "NOUNFOLD_EXCEEDS_PRODUCTION iff branch rule 2 does NOT fire on the smoke cell AND P_M3_1 holds in every run cell",
+  "INTERLACING": "INTERLACING_BOUND_HOLDS iff no flow ever exceeds k/n"
+ },
+ "bindings": {
+  "HEAD_at_seal": "10d16922024380367c09c75bdff7a9200876ebd4",
+  "branch": "derivflow-modes",
+  "modes_common_sha256": "bec76b1f1e307fb54cd5e39d4cce468b2f84a2ab5d66674bc2c22a3c06feeec5"
+ }
+}
