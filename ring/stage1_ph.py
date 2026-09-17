@@ -28,6 +28,18 @@ PRE-SEAL PILOT (2026-09-16, one seed, cloud A/D/E only; disclosed, not absorbed)
     B_E = 4 (spacing 1.57 rad > w), W_E in {100, 400} tau (L = 0.29 -> gap 0.68
     rad open; L = 1.16 -> covered). P5's "E1 < E2" is re-sealed against THIS
     design; the failure of the first form is recorded in RING_BRIEF.md.
+
+V2 (2026-09-16, after the v1 run was banked and read): two SURROGATE defects
+found by arms reading against their sealed predictions, fixed, re-sealed.
+  * ISI scramble ANCHORED each unit's train at its first spike time. On cloud C
+    (one sweep of the ring) firing ONSET is ordered by angle, so onset order --
+    a sequence channel -- survived the "sequence-destroying" surrogate, and C
+    kept 40% of its H1 bar (b1 76-89 vs 210) where P4 said the arm would be a
+    no-op. v2 adds a uniform random circular offset per unit.
+  * Jitter CLIPPED to [0, t_max]; at tau_j >= t_max/3 the clipped spikes piled
+    up at the window edges and manufactured a b1 = 1230 bar (r12 = 751) on
+    E:400 at tau_j = 1000 -- pileup, not structure. v2 wraps modulo t_max.
+The v1 table is superseded in git history (its commit is named in RING_BRIEF.md).
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -48,7 +60,7 @@ from ring.ringnet import coupling, heterogeneity, bump_init, gain, order_paramet
 from modelparams import Model, Param, TESTED, DECLARED                                # noqa: E402
 
 C_CONTOUR = 2.9048e-02       # from stage1_contour_measured.json, used for E's coordinate
-INSTRUMENT = Model("ring_ph_v1", [
+INSTRUMENT = Model("ring_ph_v2", [   # v2: scramble offset + jitter wrap
     Param("N", DECLARED, value=128, why="as stage1_marginal"),
     Param("J0", DECLARED, value=-2.0, why="as stage1_marginal"),
     Param("J1", DECLARED, value=4.0, why="as stage1_marginal"),
@@ -141,16 +153,21 @@ def emit(rates, rng):
 
 
 def jitter(spikes, tau_j, rng, t_max):
-    return [np.sort(np.clip(s + rng.normal(0, tau_j, s.size), 0, t_max)) for s in spikes]
+    # wrap, never clip: clipping piles spikes at the window edges (v1 defect)
+    return [np.sort(np.mod(s + rng.normal(0, tau_j, s.size), t_max)) for s in spikes]
 
 
-def isi_scramble(spikes, rng):
+def isi_scramble(spikes, rng, t_max):
+    """Within-cell ISI-order scramble: marginal ISI distribution kept, sequence
+    destroyed. v2: the rebuilt train gets a uniform random circular offset --
+    anchoring at the first spike preserved onset order (v1 defect, cloud C)."""
     out = []
     for s in spikes:
         if s.size < 3:
             out.append(s); continue
         isi = np.diff(s); rng.shuffle(isi)
-        out.append(s[0] + np.concatenate([[0.0], np.cumsum(isi)]))
+        t = np.concatenate([[0.0], np.cumsum(isi)]) + rng.random() * t_max
+        out.append(np.sort(np.mod(t, t_max)))
     return out
 
 
@@ -214,7 +231,7 @@ def main():
                       + " ".join(f"{r['r12']:.1f}" for r in rows if r['cloud']==name and r['arm']=='jitter' and r['seed']==seed))
             # within-cell ISI-order scramble (A, B, C, E2) at q=0.5
             if name in ("A", "B", "C", f"E:{P['W_E'].sweep[-1]:g}"):
-                sps = isi_scramble(sp, rng)
+                sps = isi_scramble(sp, rng, t_max)
                 st, h1 = ph_stat(popvecs(sps, t_max), 0.5, np.random.default_rng(seed + 1000))
                 st["bottleneck_to_base"] = float(bottleneck(base_dgm[(name, seed)], h1))
                 rows.append(dict(cloud=name, arm="scramble", q=0.5, seed=seed, tau_j=None, **st))
