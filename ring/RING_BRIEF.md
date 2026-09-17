@@ -585,6 +585,13 @@ intervention, not an observation.
   `ph_topology_with_continuous_traversal` is scored: positives A, IND;
   negatives C_perm, D (unreadable ⇒ silent), unreadable-ρ (silent by rule).
 
+**QUEUED ring→ARS arm (b) — vacuous for this generator, noted 02:35.** The
+ring's spikes are inhomogeneous Poisson from the rate envelope, so the
+matched-Cox control with the same envelope is *identical in distribution* to
+the ring unit's train and the per-cell margin is zero by construction; running
+it would score non-evidence as a verdict (#19). A non-vacuous version needs a
+spiking ring whose spikes feed back into the dynamics. Not run; for Will.
+
 **Decision queued for Will (not taken overnight):** whether an
 intervention-only certification counts for the `implies` rung — i.e. register
 `attractor_by_along_manifold_memory` (simulation/experiment) and leave the
