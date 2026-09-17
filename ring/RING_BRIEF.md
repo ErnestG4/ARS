@@ -3,6 +3,23 @@
 Companion to `rotational-dynamics-build-plan.md` (v5). This is the executable
 scope for the first arc; the plan is the standing document.
 
+## Superseded claims (read first; grep before citing)
+
+**S1 — RETRACTED 2026-09-16.** *"At ε=0.1, T=2000 the spectral (−λ₁ = 1.49e-2)
+and dynamic (1.57e-2) reads agree to 5%"*, cited as the cross-check paying for
+itself. Made in: commit message `ff4f786` (immutable — this block is its
+pointer), the Standing-invariant paragraph of this brief as of `e572593`, and
+the session report of the same round. **Why wrong:** the dynamic read was
+taken at a hard-coded, undeclared δ = 0.05 rad (one grid step) in a regime
+where the pinning wells are anharmonic below half a step; the 5% was partly
+which basin bump 0 sat in — the neighbouring basin at the same ε reads 0.65 at
+that δ. The number cited as evidence of the invariant working was produced by
+the constant the invariant later caught. **The check was sound; the witness
+was not evidence of it.** Replaced by: δ declared and swept, banked read at
+δ = 0.005, five converged witnesses within 4% (R4), the δ = 0.05 defect pinned
+so it cannot return silently (R4b). Tables re-sealed at v2 (`679fc38`,
+`b2b5a04`).
+
 ## Frame
 
 The plan's v3 carried three defects that the ARS vocabulary names as numbered
@@ -136,7 +153,9 @@ as a wheel when reached.
 - **PASS**: all eight rows green — guard real; specs construct; floor at
   |λ₁|<1e-12, drift<1e-9; λ₁ strictly decreasing with ε; ε=0.1 row converged
   (resid<1e-8) and collapsed (n_distinct ≤ B/2); spectral/dynamic agree within
-  20% on the converged row; n_distinct differs across T at some ε; built
+  20% on **every** converged row above the floor at the smallest declared δ,
+  ≥3 such witnesses (R4; was "the converged row", singular — see S1);
+  n_distinct differs across T at some ε; built
   detector two-sided-correct with the nearest confusable silent by >10×.
 - **SOFT PASS**: R5 (T-dependence) is the only red — the sweep is too short to
   show it; extend T, do not lower the bar.
