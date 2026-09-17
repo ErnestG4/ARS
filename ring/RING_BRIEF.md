@@ -175,6 +175,22 @@ median r₁₂ < R_MIN. **Within-cell ISI-order scramble** on A, B, C, E2.
   reported so, never as a pass.
 - P5 D: r₁₂ ≈ 1 (H₁ absent). E1 < E2 on r₁₂.
 
+**Pre-seal pilot amendment (one seed, A/D/E; disclosed before sealing).**
+(i) τ_c(A) under the R_MIN=3 rule was censored at the top rung (r₁₂ = 5.1 at
+τ_j = 100): the ladder range is extended to {…, 300, 1000}τ; **P1 is kept as
+sealed (30τ) and scored as written** — the pilot suggests the true scale is
+~period/2 ≈ 157τ (jitter must smear across the whole circle, not one bump
+width), which is a pilot observation, not a prediction. (ii) **The first form of
+the coordinate was wrong**: E1 read 28.8 > E2 23.6. The covering condition is
+**L + w ≥ 2π/B** with w the bump width as the Rips metric resolution, not
+L ≥ 2π/B; at B=16 the 0.39-rad spacing is under the 0.6-rad width and gaps are
+bridged at any L. E is rebuilt with **B_E = 4** (spacing 1.57 rad), W ∈ {100,
+400}τ: L = 0.29 rad leaves a 0.68-rad gap (E1, H₁ predicted absent); L = 1.16
+rad covers (E2, H₁ rank 1). **P5 is re-sealed against this design.** The
+coordinate survives; its formula acquired the term the pilot showed it was
+missing. (iii) P3's τ_c(E2) is now against the B=4 cloud; prediction unchanged
+in form (w/(c·ε) ≈ 200τ).
+
 **Detector scoring** (`ph_topology_consistent_with_continuous_attractor`):
 positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converged`
 = D, `jittered_cloud_above_tau_c` = A at τ_j=100, `within_cell_scrambled_cloud`
