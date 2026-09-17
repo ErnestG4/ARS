@@ -103,7 +103,10 @@ def eps_over_delta(n, k):
 
 
 def tag(reference, arm, n, k):
-    e = 0.0 if arm in ("nounfold", "rm1") else eps_over_delta(n, k) * (2.0 if arm == "raw-2eps" else 1.0)
+    if arm in ("nounfold", "rm1") or k == 0:      # k=0: analytic CDF directly, no smoothing
+        e = 0.0
+    else:
+        e = eps_over_delta(n, k) * (2.0 if arm == "raw-2eps" else 1.0)
     return Unfolding(reference=reference, arm=arm, eps_over_delta=e, window=WINDOW_TAG)
 
 
