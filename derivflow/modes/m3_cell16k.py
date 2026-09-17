@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """M3 at n=16384 — the same cell as m3_cell.py, restructured for the box: flows on the certified
 GPU solver (sequential), then every (replicate, k) reference evaluation in a CPU pool.
-    usage: m3_cell16k.py <iid|gue>
+    usage: m3_cell16k.py <iid|gue> [comparators]
+`comparators` mode (declared 2026-09-17 04:35 after the full mode projected past the window at
+~7.5 min per reference task under 6-way contention): computes ONLY NOUNFOLD and POPREF on the
+banked roots (seconds per task) and takes the PROD arms from the banked step3_scale_law.json
+(same sealed seeds; the GPU roots agree with the CPU solver's to 1.4e-12 of a spacing,
+gpu_solver_gate.json) — PROD is NOT recomputed and the 0/120 reproduction check is NOT
+available in this mode; the artifact says so. Full mode stays queued.
 COMMITTED GENERATOR of derivflow/modes/m3_<class>_16384.json and roots/<class>_16384.npz.
 Identical arms, tags, reproduction bars (vs step3_scale_law.json data.<class>) and banking as
 m3_cell.py. TIS.CHUNK = 1024 as in step3_scale_law.py (memory guard; reference unchanged).
@@ -23,6 +29,7 @@ from modelparams import Model, Param, DECLARED                        # noqa: E4
 from lineage import Lineage                                           # noqa: E402
 
 CLASS = sys.argv[1]
+COMPARATORS_ONLY = len(sys.argv) > 2 and sys.argv[2] == "comparators"
 N = 16384
 CHILD0 = M.SEAL_CHILDREN[(CLASS, N)]
 R = M.R_SEAL
@@ -63,13 +70,16 @@ def _task(args):
     r = np.load(OUT_NPZ)[f"rep{i}_k{k}"]
     t0 = time.time()
     F_pop = M.F_uniform if CLASS == "iid" else M.F_semicircle(M.GUE_DE_SEMICIRCLE_SIGMA)
-    pos, diag = M.prod_positions(M.F_empirical(seed), r, N, k)
-    o = {arm: M.omr(u, N, k, arm, substrate=f"{CLASS}-{N}")[0] for arm, u in pos.items()}
+    if COMPARATORS_ONLY:
+        o, diag = {}, {"sub_iters": None, "mass_defect": None}
+    else:
+        pos, diag = M.prod_positions(M.F_empirical(seed), r, N, k)
+        o = {arm: M.omr(u, N, k, arm, substrate=f"{CLASS}-{N}")[0] for arm, u in pos.items()}
     o["NOUNFOLD"] = M.omr(r, N, k, "NOUNFOLD", substrate=f"{CLASS}-{N}")[0]
     up, dpop = M.popref_positions(F_pop, r, N, k)
     o["POPREF"] = M.omr(up, N, k, "POPREF", reference=POPREF_TAG, substrate=f"{CLASS}-{N}")[0]
     D = M.interlacing_D(seed, r)
-    log(f"rep {i} k={k} prim={o['PROD_PRIMARY']:.4e} nounf={o['NOUNFOLD']:.4e} pop={o['POPREF']:.4e} D*n/k={D*N/k:.4f} ({time.time()-t0:.0f}s)")
+    log(f"rep {i} k={k} prim={o.get('PROD_PRIMARY', float('nan')):.4e} nounf={o['NOUNFOLD']:.4e} pop={o['POPREF']:.4e} D*n/k={D*N/k:.4f} ({time.time()-t0:.0f}s)")
     return i, k, o, {"prod": diag, "popref": dpop}, D
 
 
@@ -77,17 +87,21 @@ if __name__ == "__main__":
     t_all = time.time()
     open(LOG, "a").close()
     # ---- phase 1: flows on the GPU, bank roots ----
-    arrays = {}
-    for i in range(R):
-        seed = seed_of(i); arrays[f"rep{i}_k0"] = seed
-        M.flow_gpu(seed, KS, lambda k, r, i=i: arrays.__setitem__(f"rep{i}_k{k}", r.copy()))
-        log(f"rep {i} flowed ({time.time()-t_all:.0f}s)")
-    os.makedirs(os.path.dirname(OUT_NPZ), exist_ok=True)
-    np.savez(OUT_NPZ, **arrays)
+    if os.path.exists(OUT_NPZ):
+        log(f"roots already banked at {OUT_NPZ}; reusing")
+    else:
+        arrays = {}
+        for i in range(R):
+            seed = seed_of(i); arrays[f"rep{i}_k0"] = seed
+            M.flow_gpu(seed, KS, lambda k, r, i=i: arrays.__setitem__(f"rep{i}_k{k}", r.copy()))
+            log(f"rep {i} flowed ({time.time()-t_all:.0f}s)")
+        os.makedirs(os.path.dirname(OUT_NPZ), exist_ok=True)
+        np.savez(OUT_NPZ, **arrays)
     # ---- phase 2: references in a pool ----
     with Pool(WORKERS) as p:
         res = p.map(_task, [(i, k) for i in range(R) for k in KS])
-    omr = {a: {i: {} for i in range(R)} for a in ("PROD_PRIMARY", "PROD_BW1", "PROD_BW2", "NOUNFOLD", "POPREF")}
+    ARMS = ("NOUNFOLD", "POPREF") if COMPARATORS_ONLY else ("PROD_PRIMARY", "PROD_BW1", "PROD_BW2", "NOUNFOLD", "POPREF")
+    omr = {a: {i: {} for i in range(R)} for a in ARMS}
     diag, D = {i: {} for i in range(R)}, {i: {} for i in range(R)}
     for i, k, o, d, dd in res:
         for a in omr:
@@ -97,9 +111,9 @@ if __name__ == "__main__":
     bank = json.load(open(os.path.join(M.DF, "step3_scale_law.json")))
     cell = bank["data"][CLASS]
     mism = {"primary": 0, "eps": 0, "2eps": 0}; worst = 0.0
-    for arm, band, mk, sk in (("PROD_PRIMARY", "primary", "mean", "sigma_mean"),
+    for arm, band, mk, sk in (() if COMPARATORS_ONLY else (("PROD_PRIMARY", "primary", "mean", "sigma_mean"),
                               ("PROD_BW1", "eps", "mean_epsraw", "sigma_mean_epsraw"),
-                              ("PROD_BW2", "2eps", "mean_2eps", "sigma_mean_2eps")):
+                              ("PROD_BW2", "2eps", "mean_2eps", "sigma_mean_2eps"))):
         for k in KS:
             col = np.array([omr[arm][i][k] for i in range(R)])
             for got, want in ((float(col.mean()), cell[str(k)][mk]),
@@ -111,10 +125,21 @@ if __name__ == "__main__":
     rng = np.random.default_rng(12345)
     summ = {a: M.curve_summary(curves[a], KS, rng) for a in curves}
     kb = bank["adjudication"][CLASS]["kstar_16384"]
-    k_rep = summ["PROD_PRIMARY"]["kstar_fit"]["value"]; k_rel = abs(k_rep - kb) / kb
+    if COMPARATORS_ONLY:
+        means_b = [cell[str(k)]["mean"] for k in KS]
+        summ["PROD_PRIMARY_BANKED"] = {"source": f"step3_scale_law.json data.{CLASS} (mean, sigma_mean per k)",
+                                       "mean": means_b, "sigma_mean": [cell[str(k)]["sigma_mean"] for k in KS],
+                                       "kstar_fit": {"value": kb, "err_covariance": bank["adjudication"][CLASS]["sigma_m"],
+                                                     "err_bootstrap": None, "selected": "F3", "method": "banked kstar()"},
+                                       "kstar_interp": {"value": M.kstar_interp(KS, means_b), "err_bootstrap": None},
+                                       "p_tail": {"value": M.p_tail(KS, means_b, 16, 64)[0], "err_bootstrap": None, "k_range": [16, 64]},
+                                       "recomputed": False}
+        k_rep, k_rel = None, None
+    else:
+        k_rep = summ["PROD_PRIMARY"]["kstar_fit"]["value"]; k_rel = abs(k_rep - kb) / kb
     Dmax_sharp = max(D[i][k] * N / k for i in range(R) for k in KS)
     Dmax_brief = max(D[i][k] * (N - k) / (2 * k) for i in range(R) for k in KS)
-    reproduced = (sum(mism.values()) == 0) and (k_rel <= 1e-9)
+    reproduced = None if COMPARATORS_ONLY else ((sum(mism.values()) == 0) and (k_rel <= 1e-9))
     lineage = Lineage(cell=f"m3 {CLASS} n={N}",
                       construction=f"sealed SeedSequence(20260811) children {CHILD0}..{CHILD0+R-1}, diff_step_gpu, reference_cdf v1.5.1",
                       data=f"scale-law seal {CLASS} n={N} replicates (regenerated roots, banked here)",
@@ -125,24 +150,30 @@ if __name__ == "__main__":
            "reproduction": {"tolerance_rel": 1e-12, "mismatches": mism, "n_compared": 120, "worst_rel": worst,
                             "kstar_banked": {"kstar": kb, "source": "step3_scale_law.json adjudication"},
                             "kstar_reproduced": k_rep, "kstar_rel_dev": k_rel, "kstar_tol_rel": 1e-9,
-                            "REPRODUCED": bool(reproduced),
+                            "REPRODUCED": (None if COMPARATORS_ONLY else bool(reproduced)),
+                            "mode": ("comparators-only: PROD arms NOT recomputed; taken from step3_scale_law.json"
+                                     if COMPARATORS_ONLY else "full"),
                             "note": "the sealed flows used the CPU solver; this cell's flows used the certified GPU twin "
                                     "(agreement 1.4e-12 of a spacing), so 1e-12-relative equality of omr is NOT expected "
                                     "a priori — the count of mismatches is the measurement of the solver swap's effect"},
            "arms": summ,
            "interlacing": {"bound_checked": "sharp k/n", "max_D_n_over_k": Dmax_sharp,
                            "max_D_times_(n-k)_over_2k": Dmax_brief, "holds": bool(Dmax_sharp <= 1.0 + 1e-12)},
-           "reference_diag": {str(k): {"prod_sub_iters": max(diag[i][k]["prod"]["sub_iters"] for i in range(R)),
-                                       "prod_mass_defect_max": max(diag[i][k]["prod"]["mass_defect"] for i in range(R))}
-                              for k in KS},
+           "reference_diag": ({} if COMPARATORS_ONLY else
+                              {str(k): {"prod_sub_iters": max(diag[i][k]["prod"]["sub_iters"] for i in range(R)),
+                                        "prod_mass_defect_max": max(diag[i][k]["prod"]["mass_defect"] for i in range(R))}
+                               for k in KS}),
            "roots_npz": os.path.relpath(OUT_NPZ, M.ROOT), "roots_npz_sha256": M.sha256_of(OUT_NPZ),
            "runtime_s": time.time() - t_all}
     json.dump(out, open(OUT_JSON, "w"), indent=1)
-    print(f"REPRODUCTION: mismatches {mism} of 120 at 1e-12 rel (worst {worst:.2e}); k* {k_rep:.6f} vs banked {kb:.6f} "
-          f"(rel {k_rel:.2e}) -> {'REPRODUCED' if reproduced else 'NOT REPRODUCED AT 1e-12 (see note)'}")
+    if COMPARATORS_ONLY:
+        print(f"COMPARATORS-ONLY mode: PROD not recomputed; banked k* {kb:.6f}")
+    else:
+        print(f"REPRODUCTION: mismatches {mism} of 120 at 1e-12 rel (worst {worst:.2e}); k* {k_rep:.6f} vs banked {kb:.6f} "
+              f"(rel {k_rel:.2e}) -> {'REPRODUCED' if reproduced else 'NOT REPRODUCED AT 1e-12 (see note)'}")
     for a in summ:
         s = summ[a]
-        print(f"  {a:13s} k*_fit {s['kstar_fit']['value']} +- {s['kstar_fit']['err_covariance']} (boot {s['kstar_fit']['err_bootstrap']}) "
+        print(f"  {a:19s} k*_fit {s['kstar_fit']['value']} +- {s['kstar_fit']['err_covariance']} (boot {s['kstar_fit']['err_bootstrap']}) "
               f"[{s['kstar_fit']['selected']}]  k*_interp {s['kstar_interp']['value']} +- {s['kstar_interp']['err_bootstrap']}  "
               f"p_tail {s['p_tail']['value']} +- {s['p_tail']['err_bootstrap']}")
     print(f"  interlacing max D n/k {Dmax_sharp:.4f}; runtime {out['runtime_s']:.0f}s")
