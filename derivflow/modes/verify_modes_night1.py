@@ -64,10 +64,15 @@ for name in ["m0_smoke.json"] + [f"m3_{c}_{n}.json" for c in ("iid", "gue") for 
     a = art(name)
     if a is None:
         skipped.append(f"{name}: not present"); continue
-    check(a["reproduction"]["REPRODUCED"], f"{name}: PROD arms + k* reproduce the banked artifact")
+    if a["reproduction"].get("REPRODUCED") is None:
+        skipped.append(f"{name}: reproduction not available ({a['reproduction'].get('mode')})")
+    else:
+        check(a["reproduction"]["REPRODUCED"], f"{name}: PROD arms + k* reproduce the banked artifact")
     check(a["interlacing"]["holds"], f"{name}: interlacing D_k <= k/n at every k (max ratio {a['interlacing']['max_D_n_over_k']:.4f})")
     ks = a["k_grid"]
     for arm, s in a["arms"].items():
+        if "per_replicate" not in s:          # banked PROD arm in comparators-only mode
+            continue
         cur = np.array(s["per_replicate"])
         check(np.allclose(cur.mean(axis=0), s["mean"], rtol=0, atol=1e-15), f"{name} {arm}: banked mean = mean of banked replicates")
         ki = M.kstar_interp(ks, s["mean"])
