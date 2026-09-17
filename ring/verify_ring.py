@@ -115,6 +115,14 @@ the instrument measures what we claim. Specifically this row certifies:
       0.1 rad. The observational implies rung is NOT certified at sealed
       precision; nor is "unreachable observationally" banked, because the
       zero mode's integration of endogenous noise IS a passive signature.
+  R13d T2/T3 (stage3f_traversal2_measured.json, stage3g_traversal3_measured.json):
+      T2 failed as sealed (uncentered MAD under drift; M polluted by noise
+      steps). T3 (centered MAD; M on jump steps only): the monotone clause M
+      separates C_perm (<0.6) from A/IND (0.78-0.95) from C_ord (>0.99), and
+      J separates smooth (<50) from stepwise (>100); the sealed NUMERIC
+      thresholds fail (A/IND J <= 10: 1/6; C_ord J in [10,40]: 0/3 because
+      the kernel SUPPORT is 4 sigma = 8 bins, not 2). Pinned as the ordering;
+      thresholds are handed to a negative-set calibration, not a fourth seal.
   R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
       convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
       step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
@@ -861,6 +869,25 @@ if MS:
                       "continuum ratio and separation 2/3); 'unreachable observationally' NOT banked either — the zero "
                       "mode's integration of endogenous noise is a passive signature. Next seal: lambda_eff from the "
                       "delta sweep at the noise-set excursion, T >= 1e5 or 10 seeds for the long-lag +-30%")
+
+# R13d — T2 / T3
+t3p = os.path.join(HERE, "stage3g_traversal3_measured.json")
+chk(os.path.exists(t3p), "R13d stage3g_traversal3_measured.json missing")
+if os.path.exists(t3p):
+    T3 = json.load(open(t3p))["rows"]
+    def t3(cloud, key):
+        return [x[key] for x in T3 if x["cloud"] == cloud and x.get("readable")]
+    Mperm, Mord, MA, MI = t3("C_perm", "M"), t3("C_ord", "M"), t3("A", "M"), t3("IND", "M")
+    Jperm, Jord, JA, JI = t3("C_perm", "J_mad"), t3("C_ord", "J_mad"), t3("A", "J_mad"), t3("IND", "J_mad")
+    ordering = (max(Mperm) < 0.7 and min(Mord) > 0.95 and min(MA + MI) > 0.7
+                and max(JA + JI) < 50 and min(Jord + Jperm) > 100)
+    chk(ordering, "R13d pin: the T3 ordering (M: perm < smooth <= ordered; J: smooth < stepwise) broke")
+    sealed_A = sum(j <= 10 for j in JA + JI); sealed_ord = sum(10 <= j <= 40 for j in Jord)
+    r13["T3"] = (f"M: C_perm {[round(v, 2) for v in Mperm]} < 0.7 PASS; C_ord {[round(v, 2) for v in Mord]} >= 0.9 PASS; A/IND "
+                 f"{[round(v, 2) for v in MA + MI]} (>= 0.9: {sum(v >= 0.9 for v in MA + MI)}/6). J: A/IND {JA + JI} (<= 10: {sealed_A}/6 FAIL, "
+                 f"heavy-tailed coordinate noise); C_ord {Jord} in [10,40]: {sealed_ord}/3 FAIL — kernel support 4 sigma = 8 bins "
+                 f"spreads each of 15 boundaries over ~8 steps (the pre-committed 'report before touching the threshold'); "
+                 f"C_perm {Jperm} (M < 0.7 PASS). Ordering pinned; thresholds deferred to a negative-set calibration (Will)")
 
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")

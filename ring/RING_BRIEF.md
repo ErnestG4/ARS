@@ -1034,6 +1034,19 @@ M ≥ 0.9; C_perm: 10 ≤ J ≤ 40 and M < 0.7; D unreadable. If C_ord's J lands
 outside [10, 40], the smoothing-spread model of a boundary is wrong and that
 is reported before the threshold is touched.
 
+**T3 — results (`stage3g_traversal3_measured.json`, sealed `b52fcc8`).** The
+monotone clause separates cleanly: C_perm M = 0.57–0.59 (< 0.7 PASS), C_ord
+0.99–1.00 (PASS), A/IND 0.78–0.95 (≥ 0.9 in 4/6). J separates smooth (9–44)
+from stepwise (121–342). The sealed numbers fail: A/IND J ≤ 10 in 1/6 (the
+lifted coordinate's noise is heavier-tailed than Gaussian), and C_ord's J =
+121–126 sits at 8× its 15 boundaries because the Gaussian kernel's *support*
+is 4σ = 8 bins, not the 2 bins the spread model assumed — a third
+boundary-support miscount, reported before the threshold is touched, as
+pre-committed. **Three sealed versions of this statistic have each failed
+their own numbers while the qualitative separation held; that is the point to
+stop iterating.** The ordering is pinned (R13d); the thresholds go to a
+negative-set calibration, Will's call, not a fourth seal.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in

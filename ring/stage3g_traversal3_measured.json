@@ -1,0 +1,212 @@
+{
+ "generator": "stage3g_traversal3.py",
+ "instrument": {
+  "model": "ring_traversal3_v1",
+  "params": [
+   {
+    "name": "mad_mult",
+    "kind": "DECLARED",
+    "why": "conventional MAD multiplier for a jump; no new scale parameter",
+    "sweep": null,
+    "value": 5.0
+   },
+   {
+    "name": "rho",
+    "kind": "DECLARED",
+    "why": "as T1",
+    "sweep": null,
+    "value": 50.0
+   },
+   {
+    "name": "bin",
+    "kind": "DECLARED",
+    "why": "as T1",
+    "sweep": null,
+    "value": 0.5
+   },
+   {
+    "name": "sigma_s",
+    "kind": "DECLARED",
+    "why": "as T1",
+    "sweep": null,
+    "value": 1.0
+   },
+   {
+    "name": "seed_emit",
+    "kind": "TESTED",
+    "why": "as T1",
+    "sweep": [
+     41,
+     42,
+     43
+    ],
+    "value": null
+   },
+   {
+    "name": "cloud",
+    "kind": "TESTED",
+    "why": "as T1",
+    "sweep": [
+     "A",
+     "IND",
+     "C_ord",
+     "C_perm",
+     "D"
+    ],
+    "value": null
+   }
+  ],
+  "n_tested": 2,
+  "n_declared": 4
+ },
+ "rows": [
+  {
+   "cloud": "A",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 41,
+   "M": 0.9512195121951219,
+   "mad": 0.0024425388403017676,
+   "median_step": -0.008818012175254575,
+   "net_turns": -3.1173826277187118,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "IND",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 42,
+   "M": 0.9523809523809523,
+   "mad": 0.002551735629081342,
+   "median_step": -0.00888745942518332,
+   "net_turns": -3.1204074027135813,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_ord",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 121,
+   "M": 0.9917355371900827,
+   "mad": 0.003262685266745044,
+   "median_step": 0.000495611933194029,
+   "net_turns": 0.9637799965382305,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_perm",
+   "seed": 41,
+   "readable": true,
+   "J_mad": 212,
+   "M": 0.5707547169811321,
+   "mad": 0.00033799430357922544,
+   "median_step": 1.1927720846571786e-05,
+   "net_turns": 0.7023510350130828,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "D",
+   "seed": 41,
+   "readable": false
+  },
+  {
+   "cloud": "A",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 9,
+   "M": 0.7777777777777778,
+   "mad": 0.0026873586069773303,
+   "median_step": -0.00929822821981352,
+   "net_turns": -3.115161960800696,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "IND",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 20,
+   "M": 0.95,
+   "mad": 0.002759424765054863,
+   "median_step": 0.009251251183516107,
+   "net_turns": 3.1054352409813513,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_ord",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 122,
+   "M": 1.0,
+   "mad": 0.0033457218766828056,
+   "median_step": 0.0005013386954506593,
+   "net_turns": 0.9731149936333091,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_perm",
+   "seed": 42,
+   "readable": true,
+   "J_mad": 221,
+   "M": 0.5927601809954751,
+   "mad": 0.00034313666067831155,
+   "median_step": 2.0300628577274434e-05,
+   "net_turns": 0.8619239550872567,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "D",
+   "seed": 42,
+   "readable": false
+  },
+  {
+   "cloud": "A",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 17,
+   "M": 0.8823529411764706,
+   "mad": 0.0028564431956219494,
+   "median_step": 0.009117694187702252,
+   "net_turns": 3.0983174010698544,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "IND",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 44,
+   "M": 0.9545454545454546,
+   "mad": 0.0023942665992531253,
+   "median_step": 0.009104697119036054,
+   "net_turns": 3.109452358811258,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_ord",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 126,
+   "M": 1.0,
+   "mad": 0.0031916614535043575,
+   "median_step": 0.0004171962193928458,
+   "net_turns": 0.9729756788215217,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "C_perm",
+   "seed": 43,
+   "readable": true,
+   "J_mad": 342,
+   "M": 0.5701754385964912,
+   "mad": 0.0003176300120002473,
+   "median_step": 1.522811001342106e-05,
+   "net_turns": 0.7392869427841501,
+   "n_steps": 1999
+  },
+  {
+   "cloud": "D",
+   "seed": 43,
+   "readable": false
+  }
+ ],
+ "wall_s": 7.8
+}
