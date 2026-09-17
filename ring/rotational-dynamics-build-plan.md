@@ -371,6 +371,15 @@ rails caught three instrument defects before any number was read.
   multi-second stability).
 - **Measure:** long runs, extract `(n, θ)`; check `n` survives noise that visibly
   corrupts `θ`. The topological-protection claim, tested.
+- **Stage 3a ran (2026-09-17; brief §Stage 3a — results).** DREiMac circular
+  coordinates + lift recover |n| = 3 exactly in 9/9 readable seeds with k = 1
+  and θ residual 0.02–0.04 rad after removing the reparametrization. The
+  protection claim is **not reached**: the instrument fails wholesale below a
+  censored ρ edge rather than degrading θ first, and the fallback coordinate
+  emits wrong counts (never read). The lift certifies *traversal*, not
+  *attractor* — an independent-unit construction on the same trajectory reads
+  identically — so the detector ladder has a kinematic rung; the attractor
+  rung's transverse-relaxation instrument failed at the rate level (L4b next).
 - **Readout to copy, not reinvent:** "Topological decoding of grid cell activity
   via path lifting to covering spaces" (arXiv 2510.16216, Yao & Yoon 2025) —
   toroidal coordinates via persistent cohomology, then path-lift to the universal

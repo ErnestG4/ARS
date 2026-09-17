@@ -107,6 +107,44 @@ def ph_consistent_with_continuous_attractor_spec() -> DetectorSpec:
     )
 
 
+def ph_with_continuous_traversal_spec() -> DetectorSpec:
+    """DECLARED (Stage 3a) — the KINEMATIC rung between consistent_with and
+    implies: the population state moves continuously along the manifold with a
+    well-defined winding count (DREiMac circular coordinate, lifted). Stage 3a
+    measured the ceiling: an independent-unit construction on the same
+    trajectory (IND) reads identically, so this rung says nothing about an
+    attractor. Its sealed statistic (per-step continuity) was DEFEATED on the
+    random-order static cloud (0.998: smoothing bridges 15 jumps in 2000
+    steps); the replacement candidate is total variation / net winding of the
+    lifted path, to be sealed before it is scored."""
+    return DetectorSpec(
+        name="ph_topology_with_continuous_traversal",
+        fires_on="circular coordinate readable (standard-range class) AND the "
+                 "lifted path is continuous by a statistic that survives "
+                 "smoothing + rare jumps (per-step continuity does NOT)",
+        positive_set={
+            "driven_ring_A": "3.18 rotations; |n| = 3 in 9/9 readable seeds",
+            "independent_units_IND": "same trajectory, no recurrence; reads "
+                                     "identically — a POSITIVE here, the "
+                                     "confusable one rung up",
+        },
+        negative_set={
+            "random_order_static_C_perm": "16 static bumps in random order: "
+                "no traversal; per-step continuity read 0.998 (defeated); "
+                "|n| random 0/1",
+            "converged_pinned_D": "three static clusters, no motion",
+            "unreadable_low_rho": "no standard-range class: must read "
+                "UNREADABLE, never a count (the fallback emitted 14/15 wrong)",
+        },
+        nearest_confusable="C_perm — a sequence of static states whose rare "
+                           "jumps smoothing turns into fast sweeps; the "
+                           "statistic must see the jumps, not the steps",
+        negative_rationale="a lift that reads a shuffled sequence as a "
+                           "traversal would certify order-to-topology "
+                           "conversion as motion",
+    )
+
+
 def ph_implies_continuous_attractor_spec() -> DetectorSpec:
     """DECLARED THROUGH ALL OF STAGE 1, BY DESIGN. No barcode promotes it.
 
@@ -172,6 +210,8 @@ BUILT = {"ring_marginal_mode": marginal_mode_spec}
 DECLARED_ONLY = {
     "ph_topology_consistent_with_continuous_attractor":
         ph_consistent_with_continuous_attractor_spec,
+    "ph_topology_with_continuous_traversal":
+        ph_with_continuous_traversal_spec,
     "ph_topology_implies_continuous_attractor":
         ph_implies_continuous_attractor_spec,
     "rotational_dynamics_fit": rotation_fit_spec,
@@ -179,7 +219,9 @@ DECLARED_ONLY = {
 # Certification paths, so nobody reads a DECLARED detector as pending the
 # wrong measurement:
 #   consistent_with  -> Stage 1 measure 2 (ripser barcodes + persim distances)
-#   implies          -> Stage 3 path-lifting (DREiMac) or zigzag (Dionysus 2);
-#                       NOT Stage 1, by design
+#   with_traversal   -> Stage 3a path-lifting (DREiMac); statistic to be re-sealed
+#   implies          -> Stage 3b: transverse-relaxation anisotropy with a
+#                       tangent-projected residual (L4b); L4's 32-bin residual
+#                       did not separate even at the rate level
 #   rotational_fit   -> Stage 2 (skew_frac vs TME); a real path, exists
 STAGE1_CANNOT_CERTIFY = {"ph_topology_implies_continuous_attractor"}

@@ -469,6 +469,56 @@ INSTRUMENT-LIMITED flag.
   `implies` detector's negative set then gets IND_n as its nearest
   confusable with a number attached.
 
+## Stage 3a — results (`stage3_lift_measured.json`, sealed `9fd594c`)
+
+**The (n, θ) readout works, and its invariants behaved as stated.** L1 PASS:
+|n| = 3 = n_true in 9/9 readable seeds across ρ = 50/15/5, k = 0.97–1.00 (the
+longest-bar class is the generator), orientation sign random across seeds
+(reported, not predicted: −,+,−), θ residual 0.016–0.041 rad after the order-3
+reparametrization — an affine-only comparison would have said 0.11–0.31 rad,
+which was reparametrization, not noise.
+
+**L2 — the protection claim is NOT REACHED (sealed third option).** There is
+no regime in which θ is visibly corrupted and n survives: the instrument fails
+*wholesale*. Below the smallest readable ρ (5 at bin 0.5, 15 at bin 0.1 —
+**censored edges**, rail class (i)) the standard-range cohomology class is
+gone; DREiMac's nonstandard-range fallback still emits coordinates, and its
+counts are **wrong in 14/15 rows** (θ 0.9–1.9 rad). A fallback that emits
+numbers where the instrument has nothing is a null being laundered; the rule
+from here: no standard-range class ⇒ UNREADABLE, never a count. The ρ^(−½)
+law also FAILS: θ residual is flat (0.020–0.030 rad) over 10× in ρ,
+floor-limited by the reparametrization model, not by counting noise.
+
+**L3 — the kinematic ceiling, measured.** IND (independent tuned Poisson
+units on A's own trajectory, no recurrence) reads identically to A: |n| = 3,
+continuity 1.000, 3/3. Path-lifting certifies *traversal*, not *attractor*.
+C_ord PASS (wind 0.97 vs 0.94). **C_perm's sealed prediction FAILED**:
+per-step continuity 0.998, because 15 segment boundaries in 2000 steps
+cannot move a per-step fraction and σ_s = 1τ smooths each jump into a fast
+sweep. The traversal statistic must see the *jumps*, not the steps: total
+variation / net winding of the lifted path is the candidate, to be sealed
+before scored. The traversal rung is registered DECLARED
+(`ph_topology_with_continuous_traversal`).
+
+**L4 — FAIL, and the ceiling says why.** τ_tr(A_n)/τ_tr(IND_n) = 0.91, 1.12,
+1.09 — both at the smoothing floor (0.4τ). A rate-level probe with no spike
+noise (not banked; one seed): A_n 1.04τ vs IND_n 1.16τ at bin 0.1, 1.02 vs
+1.18 at bin 0.05 — **no separation at the ceiling either**, and IND_n, which
+has no transverse fluctuations by construction, reads > 1τ. The 32-bin
+manifold estimate leaves within-bin *along*-manifold motion (the bump crosses
+a φ-bin in ~10τ) in the "transverse" residual. Instrument, not SNR. **L4b**:
+tangent-projected residual (remove the component along dm/dφ), a finer
+manifold model, and the rate-level check *first* as the instrument's own
+ceiling. The `implies` rung stays DECLARED; IND_n is its nearest confusable
+with the kinematics matched by construction, which is what the arm was for.
+
+**What Stage 3a closes and what it doesn't.** The count survives the lift's
+ambiguity (integer |n|, k = 1) and reads exactly wherever a coordinate exists;
+the gap between marginal and dynamical is now bracketed by two measured
+ceilings — PH cannot see traversal (measure 2), the lift cannot see recurrence
+(L3) — and the attractor rung's first instrument failed at the rate level,
+which is the fact L4b is built on.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
@@ -482,7 +532,8 @@ INSTRUMENT-LIMITED flag.
    jitter ladder, the within-cell ISI-order scramble, and the subsetting sweep.
    Scores `ph_topology_consistent_with_continuous_attractor` only. **Done**
    (results above).
-4. **Stage 2 — non-normality.** **Done** (results above). `rotational_dynamics_fit`
+4. **Stage 2 — non-normality.** **Done** (results above).
+5. **Stage 3a — path-lifting.** **Done** (results above); L4b pending. `rotational_dynamics_fit`
    stays DECLARED: the ring's asymmetry is a traveling wave, not a rotation in
    a fixed basis; the jPCA-style fit belongs to a Stage-2 substrate with a
    fixed basis (W_sym + αW_rand at α large enough for limit cycles), which
@@ -609,10 +660,10 @@ instrument bound; any population-level claim.
 - ~~c(ε·T) fit before measure 2~~ — done. ~~Measure 2~~ — done.
 - ~~(a) σ_s sweep~~ done (F6; and the "SNR" reading was wrong, S4).
   ~~(b) visits-per-unit~~ done (F5). ~~(c) Stage 2~~ done.
-- **Next:** Stage 4 (circle map; K<1 must show zero hysteresis) or Stage 3
-  (path-lifting, DREiMac — the temporal statistic the `implies` detector
-  needs). Will's call. The Sγ exponent could be resolved with N=256 (halves
-  the zero-mode residual's grid term) if it matters.
+- ~~Stage 3~~ 3a done. **Next:** L4b (tangent-projected transverse residual;
+  rate-level ceiling first; then ρ), and the traversal statistic re-sealed on
+  total variation / net winding. Then Stage 4. The Sγ exponent could be
+  resolved with N=256 if it becomes load-bearing.
 - Per-basin λ₁ spread: at ε=0.1 the three pinned basins have λ₁ = 1.28e-2 /
   1.49e-2 / 1.53e-2; the tables bank the median, min and max. If Stage 6 needs
   per-basin curvature, the column exists.

@@ -72,6 +72,16 @@ the instrument measures what we claim. Specifically this row certifies:
       SYMMETRIC attractor's linearisation is non-normal (H0 ~ 2.09, gap ~ 0.18,
       G0 = kappa0 = K0 ~ 1.36) and nothing in the sweep moves Henrici by > 0.2%
       on a read row.
+  R12 STAGE 3a (stage3_lift_measured.json): path-lift arms L1-L4 scored as
+      sealed (RING_BRIEF.md 620e975 + pre-seal amendment). READABLE means
+      DREiMac's standard-range class existed; the nonstandard-range fallback
+      is a demonstration that a fallback launders a null (it emits counts,
+      and they are wrong) and is never read as a value. Pins: |n| exact on
+      every readable A row; the smallest readable rho per bin (a censored
+      edge, rail class (i)); IND reads identically to A (the kinematic
+      ceiling); the per-step continuity statistic is defeated on C_perm; L4's
+      transverse-relaxation ratio is ~1 (instrument, per the rate-level probe
+      recorded in the brief).
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -541,6 +551,82 @@ if NN:
                        f"gap {s0['gap']:.3f}, G0 = kappa0 = K0 = {G0:.3f}; no read row in a 16x gamma, matched-norm "
                        f"random, or 100x eps sweep moves Henrici by > 0.2%; the gap is ~0.178 everywhere")
 
+# R12 — Stage 3a
+lpath = os.path.join(HERE, "stage3_lift_measured.json")
+chk(os.path.exists(lpath), "R12 stage3_lift_measured.json missing — run stage3_lift.py")
+LF = json.load(open(lpath)) if os.path.exists(lpath) else None
+r12 = {}
+if LF:
+    LR = LF["rows"]
+    A = [x for x in LR if x["cloud"] == "A" and x["arm"] == "L2"]
+    readable = [x for x in A if x.get("readable") and x.get("mode") == "standard"]
+    fallback = [x for x in A if x.get("readable") and x.get("mode") != "standard"]
+    # L1: rho=50, bin 0.5
+    l1 = [x for x in readable if x["rho"] == 50.0 and x["bin"] == 0.5]
+    ok1 = (len(l1) == 3 and all(x["n_est"] == x["n_true"] == 3 for x in l1)
+           and all(0.9 <= x["k_est"] <= 1.1 for x in l1) and all(x["theta_rms"] < 0.1 for x in l1))
+    r12["L1"] = ("PASS" if ok1 else "FAIL") + (f" |n| {[x['n_est'] for x in l1]}/3, k {[round(x['k_est'], 2) for x in l1]}, "
+                                              f"theta_rms {[round(x['theta_rms'], 3) for x in l1]} (affine-only "
+                                              f"{[round(x['theta_rms_affine_only'], 2) for x in l1]}), sign {[x['sign'] for x in l1]}")
+    chk(ok1, "R12 pin: L1 readout regressed")
+    # L2: every readable row has |n| exact; every fallback row is not read; at least one fallback count is WRONG
+    chk(all(x["n_est"] == x["n_true"] for x in readable), "R12 pin: a readable row has a wrong count")
+    chk(any(x["n_est"] != x["n_true"] for x in fallback),
+        "R12 pin: the nonstandard-range fallback no longer produces a wrong count — re-examine before trusting it")
+    edge = {}
+    for b in (0.5, 0.1):
+        rr = sorted({x["rho"] for x in readable if x["bin"] == b})
+        edge[b] = min(rr) if rr else None
+    chk(edge == {0.5: 5.0, 0.1: 15.0}, f"R12 pin: smallest readable rho per bin moved: {edge}")
+    # theta exponent over readable rho at bin 0.5
+    import math
+    pts = {}
+    for x in readable:
+        if x["bin"] == 0.5:
+            pts.setdefault(x["rho"], []).append(x["theta_rms"])
+    xs = sorted(pts); ys = [_st.median(pts[r]) for r in xs]
+    slope = None
+    if len(xs) >= 3:
+        lx, ly = [math.log(v) for v in xs], [math.log(v) for v in ys]
+        mx, my = sum(lx) / len(lx), sum(ly) / len(ly)
+        slope = sum((a - mx) * (b - my) for a, b in zip(lx, ly)) / sum((a - mx) ** 2 for a in lx)
+    big_theta_readable = [x for x in readable if x["theta_rms"] > 0.3]
+    r12["L2"] = (f"readable rho (bin 0.5) {xs} theta_rms {[round(v, 3) for v in ys]} -> exponent "
+                 f"{slope if slope is None else round(slope, 2)} vs sealed -0.5+-0.15: "
+                 f"{'PASS' if slope is not None and abs(slope + 0.5) <= 0.15 else 'FAIL (floor-limited, flat)'}; "
+                 f"protection claim: {'PASS' if big_theta_readable else 'NOT REACHED'} — no readable row has theta > 0.3 rad; "
+                 f"the class disappears first (smallest readable rho: {edge}, CENSORED edges); fallback rows: "
+                 f"{sum(1 for x in fallback if x['n_est'] != x['n_true'])}/{len(fallback)} wrong counts (not read)")
+    # L3
+    ind = [x for x in LR if x["cloud"] == "IND"]
+    ok_ind = len(ind) == 3 and all(x.get("readable") and x["n_est"] == 3 and x["continuity"] > 0.95 for x in ind)
+    cord = [x for x in LR if x["cloud"] == "C_ord"]
+    ok_cord = all(x.get("readable") and abs(x["wind_est"] - 0.94) < 0.15 and x["continuity"] > 0.95 for x in cord)
+    cperm = [x for x in LR if x["cloud"] == "C_perm"]
+    cperm_cont = [x["continuity"] for x in cperm if x.get("readable")]
+    ok_cperm_sealed = all(c < 0.5 for c in cperm_cont)
+    r12["L3"] = (f"IND {'PASS' if ok_ind else 'FAIL'} (|n| {[x.get('n_est') for x in ind]}, continuity "
+                 f"{[round(x.get('continuity', 0), 3) for x in ind]}) — the kinematic ceiling: path-lift cannot separate "
+                 f"the attractor from the independent construction; C_ord {'PASS' if ok_cord else 'FAIL'} (wind "
+                 f"{[round(x.get('wind_est', 0), 2) for x in cord]}); C_perm sealed prediction "
+                 f"{'PASS' if ok_cperm_sealed else 'FAIL'}: continuity {[round(c, 3) for c in cperm_cont]}, |n| "
+                 f"{[x.get('n_est') for x in cperm]} — the per-step statistic is defeated by smoothing + rare jumps "
+                 f"(15 boundaries in 2000 steps); a total-variation/net-winding statistic is the candidate replacement")
+    chk(ok_ind, "R12 pin: IND no longer reads like A — the kinematic ceiling moved")
+    chk(all(c > 0.9 for c in cperm_cont), "R12 pin: C_perm continuity dropped — the defeated statistic changed behaviour")
+    # L4
+    l4 = {}
+    for x in LR:
+        if x["arm"] == "L4" and x.get("readable"):
+            l4.setdefault(x["seed"], {})[x["cloud"]] = x["tau_tr_tau"]
+    ratios = [v["A_n"] / v["IND_n"] for v in l4.values() if "A_n" in v and "IND_n" in v]
+    ok4 = len(ratios) == 3 and all(r > 2 for r in ratios)
+    r12["L4"] = (("PASS" if ok4 else "FAIL") + f" tau_tr(A_n)/tau_tr(IND_n) = {[round(r, 2) for r in ratios]}; both at "
+                 f"the smoothing floor (~0.4 tau). Rate-level probe (brief): no separation without spikes either -> the "
+                 f"32-bin manifold estimate leaves along-manifold motion in the 'transverse' residual; instrument, not SNR. "
+                 f"L4b (tangent-projected residual) is the next pre-registration; the attractor rung stays DECLARED")
+    chk(all(0.7 < r < 1.4 for r in ratios), f"R12 pin: L4 ratio moved out of [0.7,1.4]: {ratios} — re-read before re-scoping")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -582,6 +668,10 @@ if r10:
 if r11:
     print("  R11 Stage 2, sealed hypotheses scored as declared:")
     for k, v in r11.items():
+        print(f"     {k}: {v}")
+if r12:
+    print("  R12 Stage 3a, sealed arms scored as declared:")
+    for k, v in r12.items():
         print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)
