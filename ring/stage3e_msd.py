@@ -98,6 +98,11 @@ def msd(psi):
     return np.array(out), float(slope)
 
 
+def at(m, L):
+    """MSD at the grid lag nearest L (the grid is rounded log-spaced)"""
+    return float(m[int(np.argmin(np.abs(LAGS - L)))])
+
+
 def slope_between(lag_lo, lag_hi, m):
     sel = (LAGS >= lag_lo) & (LAGS <= lag_hi)
     return float(np.polyfit(np.log(LAGS[sel]), np.log(np.maximum(m[sel], 1e-300)), 1)[0])
@@ -119,9 +124,10 @@ def main():
             m, drift = msd(psi)
             row = dict(system=system, seed=seed, drift=drift, lags=[int(v) for v in LAGS], msd=[float(v) for v in m],
                        slope_10_1000=slope_between(10, 1000, m), slope_200_2000=slope_between(200, 2000, m),
-                       ratio_1000_100=float(m[LAGS == 1000][0] / m[LAGS == 100][0]) if (LAGS == 1000).any() and (LAGS == 100).any() else None,
-                       ratio_1000_10=float(m[LAGS == 1000][0] / m[LAGS == 10][0]) if (LAGS == 1000).any() and (LAGS == 10).any() else None,
-                       msd_2000=float(m[-1]), msd_10=float(m[LAGS == 10][0]) if (LAGS == 10).any() else None)
+                       ratio_1000_100=at(m, 1000) / at(m, 100), ratio_1000_10=at(m, 1000) / at(m, 10),
+                       msd_2000=float(m[-1]), msd_10=at(m, 10),
+                       lag_nearest={"10": int(LAGS[np.argmin(np.abs(LAGS - 10))]), "100": int(LAGS[np.argmin(np.abs(LAGS - 100))]),
+                                    "1000": int(LAGS[np.argmin(np.abs(LAGS - 1000))])})
             if system == "continuum":
                 sel = (LAGS >= 10) & (LAGS <= 1000)
                 row["D"] = float(np.mean(m[sel] / (2 * LAGS[sel])))
