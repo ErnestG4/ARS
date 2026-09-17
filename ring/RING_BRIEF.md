@@ -131,6 +131,56 @@ as a wheel when reached.
    Scores `ph_topology_consistent_with_continuous_attractor` only. Unblocked:
    ripser + persim are installed (see above). *Not this session.*
 
+## Measure 2 — pre-registration (2026-09-16, before `stage1_ph.py` runs)
+
+**Traversal.** A stationary ε=0 ring has no dynamics along the ring, so a
+jitter ladder on it is inert (every arm must be able to fire). The positive
+cloud therefore uses Zhang's odd coupling, `W += γ·J1·sin(Δθ)/N`, which
+rotates the bump at **ω = γ rad/τ** exactly (calibrated: 2.000e-2 at γ=0.02,
+ε=0; 4.9997e-2 at 0.05). At ε=0.1 the drive beats pinning (c·ε = 2.9e-3 ≪ ω)
+with instantaneous velocity modulated to 0.6× in the wells.
+
+**Clouds (2×2 plus the coordinate):** A intact driven (ε=0, γ=0.02) —
+positive; B pinned driven (ε=0.1, γ=0.02) — attractor with wells, still
+traces the ring; C intact undriven (ε=0, γ=0) — 16 static bumps, topology
+from sampling not dynamics; D pinned undriven converged (ε=0.1, γ=0,
+pre-relaxed 2000τ) — the declared negative, 3 clusters; **E pinned undriven
+transient at a chosen contour distance:** ε=0.1, relax 100τ, then sample a
+window W. With c known, 16 arcs of length L = c·ε·W cover the circle when
+L ≥ 2π/16 = 0.39 rad, i.e. **W ≥ 135τ**. E1 samples W=50τ (L = 0.15, gaps
+predicted → H₁ weak); E2 samples W=200τ (L = 0.58, covered → H₁ rank 1).
+The confusable is now built at a coordinate, not sampled and hoped over.
+
+**Pipeline.** Poisson spikes at ρ=50 spikes/τ per unit rate; bins Δ=0.5τ;
+Gaussian smoothing σ_s=1τ; subsetting by top-q population activity, q ∈
+{1.0, 0.5, 0.25}; ≤600 points to ripser (H₁, cocycles on); statistic
+**r₁₂ = longest H₁ bar / second longest**; detector fires at r₁₂ > R_MIN = 3.
+Bottleneck distance to the unperturbed diagram (persim) along the ladder.
+3 emission seeds; median and range reported.
+
+**Jitter ladder** τ_j ∈ {0.1, 0.3, 1, 3, 10, 30, 100}τ; τ_c = first rung with
+median r₁₂ < R_MIN. **Within-cell ISI-order scramble** on A, B, C, E2.
+
+**Predictions, sealed:**
+- P1 τ_c(A) ≈ bump width / ω ≈ 0.6/0.02 = **30τ** (within a factor 3, i.e. the
+  30τ rung or a neighbour).
+- P2 **ladder scale vs contour scale.** For B the drift timescale is 1/(c·ε) =
+  345τ and the traversal timescale w/ω = 30τ — a factor 10 apart. τ_c(B) on
+  the same rung as τ_c(A) ⇒ PH reads the traversal; τ_c(B) ≥ the 100τ rung ⇒
+  PH reads the drift. Either is informative.
+- P3 For E2 the only motion is drift: τ_c(E2) ≈ w/(c·ε) ≈ **200τ** (≥ the
+  100τ rung).
+- P4 Scramble kills A, B, E2 (r₁₂ → ~1); on C it is a **no-op in
+  distribution** (stationary rates) — that arm is INAPPLICABLE on C and is
+  reported so, never as a pass.
+- P5 D: r₁₂ ≈ 1 (H₁ absent). E1 < E2 on r₁₂.
+
+**Detector scoring** (`ph_topology_consistent_with_continuous_attractor`):
+positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converged`
+= D, `jittered_cloud_above_tau_c` = A at τ_j=100, `within_cell_scrambled_cloud`
+= A scrambled. E is not in either set — it is expected to FIRE, which is what
+"consistent with" means and why the `implies` detector stays DECLARED.
+
 ## Methodology
 
 - Model: Ben-Yishai ring, N=128, `W = (J0 + J1 cos Δθ)/N`, J0=−2, J1=4, I0=1,
