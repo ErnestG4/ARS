@@ -1,9 +1,9 @@
-# NIGHT1_REPORT — derivflow/modes (2026-09-17, 01:19 → ~06:30 PDT)
+# NIGHT1_REPORT — derivflow/modes (2026-09-17, 01:19 → 04:50 PDT)
 
 Branch `derivflow-modes` from main `13c4696`. Nothing on main touched; nothing pushed
 (PUSH_BRANCH=no). Every number below is read from a committed artifact whose generator was
 committed before it ran; `derivflow/modes/verify_modes_night1.py` re-derives them (board
-310 ok / 0 bad at the time of writing, auto-discovered by `verify_all.py`).
+320 ok / 0 bad / 3 skipped at the time of writing, auto-discovered by `verify_all.py`).
 
 ## 0. One-paragraph answer
 
@@ -11,8 +11,8 @@ committed before it ran; `derivflow/modes/verify_modes_night1.py` re-derives the
 instrument (empirical-seed free-convolution reference, Richardson primary) puts the iid
 crystallisation crossing at k* = 10.89 ± 0.03 with a k^−2.43 tail; the same roots with no
 reference at all (NOUNFOLD) cross at k* = 26.5 ± 0.4 (interpolated 25.0 ± 0.3) with a
-k^−1.44 tail — 39σ apart in k*, 1.0 apart in tail exponent, at every n ∈ {1024, 2048, 4096}
-(n = 16384 in flight, §3.4). For GUE the analytic-semicircle comparator (POPREF) gives 9.2–9.4
+k^−1.44 tail — 39σ apart in k*, 1.0 apart in tail exponent, at every n ∈ {1024, 2048, 4096,
+16384} (no-reference k* 26.5 / 25.4 / 26.5 / 25.3: scale-flat across 16× in n). For GUE the analytic-semicircle comparator (POPREF) gives 9.2–9.4
 against production 6.16–6.26 (14σ). Gate MT explains the mechanism quantitatively: the empirical
 reference transmits only 11% / 30% / 75% of a planted displacement wave at k = 1 for qw = 0.1 /
 0.2 / 0.5, and by k ≈ 20 its transfer function turns **negative** (it over-subtracts the wave);
@@ -49,7 +49,7 @@ sealed) — see §5 for what I actually recommend.
 | banking | per-replicate roots were **never banked** by the sealed runs; regenerated from the sealed SeedSequence and banked as `roots/*.npz` with sha256 (iid/gue × 1024/2048/4096, ML 4096/16384, MT 16384, iid 16384) |
 | M6 bound | the brief's 2k/(n−k) **cannot fire on its own red path** (one moved root shifts D by ≤ 1/(n−k)); the sharp Rolle bound is k/n (derivation in `modes_common.interlacing_bounds`); checked sharp, both reported |
 | solver | CPU `diff_step` is 19 s/step at n=16384 (≈20 h for ML there). A float64 GPU twin (`diff_step_gpu`, same algorithm) was **certified before use**: Hermite self-map PASS with the CPU gate's own 1.35e-13, CPU/GPU agreement ≤ 1.4e-12 of a spacing vs the 1e-9 bar, red-path solver fires. `gpu_solver_gate.json`. |
-| declared cuts (before ML) | M3 n=16384 cut on the CPU projection; **revised upward** once the GPU solver + measured reference cost made the iid cell fit (running, §3.4). GUE n=16384 not run. |
+| declared cuts (before ML) | M3 n=16384 cut on the CPU projection; revised upward at 03:59 (GPU flows + pooled references), then the full reference recomputation projected past the window (~7.5 min/task under 6-way contention) and was **cut back at 04:35 to a comparators-only cell**: NOUNFOLD + POPREF on the banked GPU roots, PROD from `step3_scale_law.json` (same sealed seeds; not recomputed). GUE n=16384 not run. |
 
 Existing gates re-run unchanged in a scratch cwd (`existing_gates_rerun.json`): Hermite self-map
 PASS, reference_v2 (lattice ≤ 1e-7, Hermite-through-reference ≤ 1e-5) PASS, Gate D PASS — **0
@@ -123,6 +123,8 @@ p_tail over k ∈ [16, 64] (bootstrap error). All arms on identical roots (non-i
 | iid | 4096 | PROD_PRIMARY | 10.889 ± 0.031 (0.10) | 10.71 ± 0.11 | 2.43 ± 0.02 | 3.8 |
 | iid | 4096 | PROD_BW1 / BW2 | 12.99 / 15.85 | 12.58 / 15.33 | 2.93 / 2.67 | 22 / 21 |
 | iid | 4096 | NOUNFOLD (= POPREF) | 26.46 ± 0.40 (0.55) | 24.96 ± 0.30 | 1.440 ± 0.011 | 60 |
+| iid | 16384 | PROD_PRIMARY (banked, not recomputed) | 10.828 ± 0.011 | 10.68 | 2.43 | — |
+| iid | 16384 | NOUNFOLD (= POPREF) | 25.26 ± 0.14 (0.20) | 24.94 ± 0.10 | 1.482 ± 0.010 | — |
 | gue | 1024 | PROD_PRIMARY | 6.233 ± 0.020 (0.04) | 6.24 ± 0.04 | 2.16 ± 0.04 | 0.13 |
 | gue | 1024 | POPREF (≈ NOUNFOLD) | 9.39 ± 0.82 (0.10) | 9.26 ± 0.13 | 1.92 ± 0.06 | 1.6 |
 | gue | 2048 | PROD_PRIMARY | 6.263 ± 0.013 (0.03) | 6.26 ± 0.03 | 2.08 ± 0.03 | 0.04 |
@@ -131,11 +133,11 @@ p_tail over k ∈ [16, 64] (bootstrap error). All arms on identical roots (non-i
 | gue | 4096 | POPREF | 9.16 ± 0.22 (0.07) | 9.00 ± 0.05 | 1.87 ± 0.03 | 19 |
 
 Observations the table forces:
-* Comparator k* > production k* in **every** cell (P_M3_1 holds; 6/6 run cells). iid NOUNFOLD k*
-  ∈ [20, 32] at every n (P_M3_2 holds: 26.5 / 25.4 / 26.5) and flat in n; p_tail ∈ [1.35, 1.65]
-  (P_M3_3 holds: 1.46 / 1.39 / 1.44). Both are DECLARED-WITH-PRIOR-LOOK (the sandbox said 27 and
+* Comparator k* > production k* in **every** cell (P_M3_1 holds; 7/7 cells). iid NOUNFOLD k*
+  ∈ [20, 32] at every n (P_M3_2 holds: 26.5 / 25.4 / 26.5 / 25.3) and flat in n; p_tail ∈ [1.35, 1.65]
+  (P_M3_3 holds: 1.46 / 1.39 / 1.44 / 1.48). Both are DECLARED-WITH-PRIOR-LOOK (the sandbox said 27 and
   −1.48) and now measured on the sealed seeds.
-* The no-reference k* is **also scale-flat**: 26.5 / 25.4 / 26.5 (iid), 9.4 / 9.4 / 9.2 (GUE).
+* The no-reference k* is **also scale-flat**: 26.5 / 25.4 / 26.5 / 25.3 (iid, 16× in n), 9.4 / 9.4 / 9.2 (GUE).
   The reference does not create SCALE-FLAT; it rescales the clock by 2.4× (iid) / 1.5× (GUE).
 * The **seed dependence survives without the reference** — iid 26.5 vs GUE 9.2, tails 1.44 vs
   1.87 — so RATE-SEED-DEPENDENT is not a reference artifact either; its *coordinates* are.
@@ -154,7 +156,7 @@ Observations the table forces:
   Neither is right at both ends; both are banked (`errormodel.py` fork logic).
 
 ### 2.5 M6 — INTERLACING_BOUND_HOLDS
-Max D_k·n/k = 1.0000 on every flow (256 flows: 96 M3 + 122 ML + 11 MT + 16 iid-16384 so far),
+Max D_k·n/k = 1.0000 on every flow (245 flows: 96 M3 at n ≤ 4096, 16 M3 at n = 16384, 122 ML, 11 MT),
 i.e. the sharp bound is *attained* (at k=1 the count deviation reaches exactly 1/n). Max
 D_k·(n−k)/(2k) = 0.4999. Red path: one root moved one bracket outward gives D = 0.0300 at
 n=64, k=1 — above k/n = 0.0156 (fires) and below the brief's 2k/(n−k) = 0.0317 (would not).
@@ -168,9 +170,9 @@ n=64, k=1 — above k/n = 0.0156 (fires) and below the brief's 2k/(n−k) = 0.03
 | QLATTICE POPREF ≤ 1e-10 | SEALED | PASS (≤ 6e-12) |
 | MT: POPREF \|T−1\| ≤ 0.02; RM1 \|T\| ≤ 0.05 (qw ≤ 0.1) | SEALED | PASS on assessable cells (1.2e-4; 0.0034) |
 | MT: PROD arms \|T − T_pred\| ≤ 0.1 in band | SEALED | FAIL on PRIMARY (B=1 mis-specified); BW1/BW2 PASS; PRIMARY PASSES the same law with B_R (post-hoc) |
-| comparator k* > PROD k* every cell | DECLARED-WITH-PRIOR-LOOK | 6/6 (+ iid 16384 pending) |
-| iid NOUNFOLD k* ∈ [20,32] every n | DECLARED-WITH-PRIOR-LOOK | 26.5 / 25.4 / 26.5 ✓ |
-| iid NOUNFOLD p_tail ∈ [1.35,1.65] | DECLARED-WITH-PRIOR-LOOK | 1.46 / 1.39 / 1.44 ✓ |
+| comparator k* > PROD k* every cell | DECLARED-WITH-PRIOR-LOOK | 7/7 |
+| iid NOUNFOLD k* ∈ [20,32] every n | DECLARED-WITH-PRIOR-LOOK | 26.5 / 25.4 / 26.5 / 25.3 ✓ |
+| iid NOUNFOLD p_tail ∈ [1.35,1.65] | DECLARED-WITH-PRIOR-LOOK | 1.46 / 1.39 / 1.44 / 1.48 ✓ |
 | D_k ≤ k/n never fires | SEALED (theorem) | holds, attained |
 | smoke rule 2 (reference dead) | DECLARED-WITH-PRIOR-LOOK | does NOT fire: Δk* = 15.6 vs 3σ_eff = 1.19; Δp_tail = 0.99 |
 
@@ -229,9 +231,10 @@ See `git log --oneline 13c4696..HEAD`. Order: BRIEF → PRIOR_LOOK → modes_com
 GPU_SOLVER_CERTIFIED → seal generator → SEAL → tag fix → ML-4096 FAIL → M0 manifest + smoke →
 diagnosis → MT flows → worker knob → existing gates → ML-16384 FAIL → profile diagnosis → M3 gue
 4096 → M3 iid 1024 → MT FAIL + diagnosis → M3 gue 1024 + iid 2048 → m3_cell16k → M3 gue 2048 →
-checker red-path fix → (pending) M3 iid 16384 → this report.
+checker red-path fix → report v1 → m3_cell16k comparators mode → M3 iid 16384 (comparators-only) → this report.
 
 ## 9. Not done / held
 * int128 ML arm (no path exists) — held for Will.
-* M3 GUE n=16384 — not run (window).
+* M3 GUE n=16384 — not run (window). M3 iid n=16384 PROD arms — not recomputed (roots banked; a
+  full run is ~13 CPU-hours of references at this n).
 * Night 2 — not started; needs Will's go and the re-seals in §5.
