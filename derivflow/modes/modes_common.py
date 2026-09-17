@@ -287,3 +287,48 @@ def sha256_of(path):
 
 def sha256_array(a):
     return hashlib.sha256(np.ascontiguousarray(a, dtype=np.float64).tobytes()).hexdigest()
+
+
+# ---------------------------------------------------------------- GPU twin of the certified solver
+def diff_step_gpu(r_np, device="cuda"):
+    """torch float64 twin of track0_harness.diff_step: SAME algorithm (25 bisections then 5
+    Newton steps clamped to the bracket, DS_BLOCK candidate blocks, interlacing checked), same
+    precision; only the reduction order inside the sums differs (tree vs pairwise), i.e. a
+    last-ulp effect. Certified before use by gpu_solver_gate.py: (1) the Hermite self-map gate
+    re-run with this solver, (2) CPU-vs-GPU root agreement at RAW_TOL of the local spacing."""
+    import torch
+    from track0_harness import DS_BLOCK
+    r = torch.as_tensor(np.ascontiguousarray(r_np, dtype=np.float64), device=device)
+    a, b = r[:-1], r[1:]
+    if not bool(torch.all(b > a)):
+        raise GateFail("degenerate bracket: input roots not strictly increasing")
+    x = torch.empty_like(a)
+    rr = r[None, :]
+    for i0 in range(0, a.numel(), DS_BLOCK):
+        sl = slice(i0, min(i0 + DS_BLOCK, a.numel()))
+        lo, hi = a[sl].clone(), b[sl].clone()
+        for _ in range(25):
+            mid = 0.5 * (lo + hi)
+            s = (1.0 / (mid[:, None] - rr)).sum(1)
+            neg = s < 0.0
+            hi = torch.where(neg, mid, hi)
+            lo = torch.where(neg, lo, mid)
+        xb = 0.5 * (lo + hi)
+        for _ in range(5):
+            d = xb[:, None] - rr
+            s = (1.0 / d).sum(1)
+            sp = -(1.0 / (d * d)).sum(1)
+            xb = torch.minimum(torch.maximum(xb - s / sp, a[sl] + 1e-300), b[sl] - 1e-300)
+        x[sl] = xb
+    if not (bool(torch.all(x > a)) and bool(torch.all(x < b)) and bool(torch.all(x[1:] > x[:-1]))):
+        raise GateFail("interlacing violated after solve (gpu)")
+    return x.cpu().numpy()
+
+
+def flow_gpu(seed, k_list, on_k):
+    r = seed.copy()
+    for k in range(1, max(k_list) + 1):
+        r = diff_step_gpu(r)
+        if k in k_list:
+            on_k(k, r)
+    return r
