@@ -36,10 +36,10 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
-from ring.ringnet import run_dial, BETA                       # noqa: E402
+from ring.ringnet import run_dial, BETA, RELAX_DELTAS         # noqa: E402
 from modelparams import Model, Param, TESTED, DECLARED        # noqa: E402
 
-INSTRUMENT = Model("ring_marginal_mode_v1", [
+INSTRUMENT = Model("ring_marginal_mode_v2", [   # v2: relax_delta declared + swept
     Param("N", DECLARED, value=128,
           why="ring size; discretisation pinning is exponentially small in N "
               "with a cosine kernel and the eps=0 row measures it directly"),
@@ -55,6 +55,14 @@ INSTRUMENT = Model("ring_marginal_mode_v1", [
                                           "so a bad step shows as a non-fixed-point"),
     Param("B", DECLARED, value=16, why="bumps per batch, off-grid starts"),
     Param("seed", DECLARED, value=1, why="the fixed heterogeneity pattern xi"),
+    Param("relax_delta", DECLARED, value=RELAX_DELTAS[0],
+          why="displacement for the dynamic read; the banked value is the "
+              "smallest of the sweep because the read converges to lam1 as "
+              "delta -> 0 (ratio 0.965 at 0.005 vs 0.61 at 0.05, the original "
+              "hard-coded value, which was one grid step)"),
+    Param("relax_delta_sweep", TESTED, sweep=list(RELAX_DELTAS),
+          why="the dynamic read's own instrument constant; swept so its "
+              "anharmonic bias is visible in every banked row"),
     Param("eps", TESTED, sweep=[0.0, 1e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1],
           why="the dial: per-unit fixed input bias eps*xi_i"),
     Param("T", TESTED, sweep=[200.0, 2000.0],
