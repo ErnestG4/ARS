@@ -813,6 +813,25 @@ above γ*); R(γ ≥ 0.01) > 0.8. If the crossing sits elsewhere, the two
 observables (retention at finite T; ρ over 20,000τ) disagree about the edge
 and that disagreement is the finding.
 
+## I1c — results (`stage3d_trapped_long_measured.json`, sealed `5c26749`)
+
+**Two observables agree about the edge.** At ε = 0.03, T_obs = 3000τ:
+R(γ = 0.001) = 0.001 (trapped, restores completely) and R(γ = 0.003) = 2.0
+(sliding) — the retention crossing straddles Stage 4b's tongue edge
+γ* = 2.25·10⁻³ as sealed. The intervention's restoring/retaining boundary and
+the driven ring's ρ-tongue edge are the same number.
+
+**R(γ = 0) = 0.368 fails the < 0.1 clause** — the well this bump settles in
+has λ_eff = 3.3·10⁻⁴, ten times below the Stage 1 median |λ₁| = 3.8·10⁻³ at
+ε = 0.03. Well-dependence of the restoring rate is now quantified at 10×,
+and 3000τ is still short for the shallowest wells. Any per-well statement
+needs the well identified; the median is not the well.
+
+**Retention above threshold exceeds 1** (2.0 at γ = 0.003): a sliding bump's
+phase offset is not conserved but *wanders* as the two bumps traverse the
+wells at different times. R is a trapped-system statistic; above 0.5 it says
+"sliding" and nothing quantitative. Recorded.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in

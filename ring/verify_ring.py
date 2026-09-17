@@ -97,6 +97,12 @@ the instrument measures what we claim. Specifically this row certifies:
       0.02] (B-sup); monotonicity in gamma FAILED (well-dependent restoring
       rate) and eps=0.03 is INAPPLICABLE at T_obs=300 -- both recorded, not
       re-scoped.
+  R13c I1c (stage3d_trapped_long_measured.json): eps=0.03 at T_obs=3000 --
+      the retention crossing straddles Stage 4b's tongue edge (0.001 trapped,
+      0.003 sliding); R(0) = 0.37 fails the < 0.1 clause (this well's
+      restoring rate is 3.3e-4, 10x below the Stage 1 median); retention > 1
+      above threshold is recorded: the statistic is bounded only for trapped
+      systems.
   R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
       convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
       step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
@@ -749,6 +755,21 @@ if TR:
                   f"(0.02 < 0.1 PASS), sliding retains (0.72 > 0.5 PASS), monotone {mono_txt}; depinning crossing in "
                   f"(0.01, 0.02] — above the 3*c*eps guess (0.0087); eps=0.03: R(0)={r03:.2f} — INAPPLICABLE at T_obs=300 "
                   f"(sealed as marginal; worse than marginal), needs ~3000 tau")
+
+# R13c — I1c
+lpath3 = os.path.join(HERE, "stage3d_trapped_long_measured.json")
+chk(os.path.exists(lpath3), "R13c stage3d_trapped_long_measured.json missing — run stage3d_trapped_long.py")
+L3 = json.load(open(lpath3)) if os.path.exists(lpath3) else None
+if L3:
+    Rg = {x["gamma"]: x["retention"] for x in L3["rows"]}
+    chk(Rg[0.001] < 0.5 and Rg[0.003] > 0.5, f"R13c pin: retention crossing no longer straddles the 4b edge: {Rg}")
+    chk(all(Rg[g] > 0.8 for g in (0.01, 0.02)), f"R13c pin: sliding retention dropped: {Rg}")
+    chk(0.2 < Rg[0.0] < 0.6, f"R13c pin: R(gamma=0) at 3000 tau moved out of [0.2,0.6]: {Rg[0.0]:.3f}")
+    lam_eff = -math.log(max(Rg[0.0], 1e-12)) / 3000.0
+    r13["I1c"] = (f"eps=0.03, T_obs=3000: R = {[round(Rg[g], 3) for g in (0.0, 0.001, 0.003, 0.01, 0.02)]}; crossing "
+                  f"between 0.001 and 0.003 PASS (4b edge 2.25e-3); R(0)={Rg[0.0]:.3f} FAIL (<0.1 sealed): this well's "
+                  f"lambda_eff = {lam_eff:.1e}, 10x below the Stage 1 median 3.8e-3; R(0.003)={Rg[0.003]:.2f} > 1 — retention "
+                  f"is bounded only for trapped systems, sliding phase offsets wander")
 
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")
