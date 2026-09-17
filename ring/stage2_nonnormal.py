@@ -22,8 +22,13 @@ V2 (2026-09-17). v1's rails were red three ways, all instrument, all fixed here:
     gamma = 0.005 / 0.02 / 0.08 / 0.32. The rail (< 1e-2) still fails at 0.32;
     that row is banked INSTRUMENT-LIMITED and not read.
   * Three S-eps rows were linearised at non-fixed-points (T = 2000 where
-    eps = 0.01 needs 20000 -- Stage 1's own lesson). v2 Newton-polishes every
-    fixed point to |F| < 1e-11 and asserts it.
+    eps = 0.01 needs 20000 -- Stage 1's own lesson). v2 tried Newton and
+    Levenberg-Marquardt polishing; NEITHER converges here, because the fixed
+    point is far along the near-flat ring direction and the pinning landscape
+    is anharmonic below half a grid step (the delta finding), so steps along
+    the flat direction overshoot. v3 does what Stage 1 validated: integrate in
+    chunks until |F| < FP_RAIL (1e-9) or T_max = 2e5 tau, and flag rows that
+    do not get there as INSTRUMENT-LIMITED. They are banked and not read.
   * Every row carries an ERROR BOUND on its Henrici change: a relative
     perturbation rho of J moves Henrici by <= rho*||J||_F, i.e. ~5.5*rho of H0.
     A change is RESOLVED only if it exceeds 3x its bound; otherwise the row
@@ -47,11 +52,13 @@ from ring.ringnet import coupling, heterogeneity, bump_init, integrate, dgain, B
 from modelparams import Model, Param, TESTED, DECLARED                              # noqa: E402
 
 ZERO_MODE_RAIL = 1e-2     # relative residual of J_tw r0'; rows above it are INSTRUMENT-LIMITED
-FP_RAIL = 1e-11           # max |F| after Newton polish
+FP_RAIL = 1e-9            # max |F| at the linearisation point (integrated to convergence)
+T_MAX = 2.0e5             # integration budget per row, tau; rows not converged by then are not read
+T_CHUNK = 2000.0
 RESOLVE = 3.0             # a change counts only if > RESOLVE x its error bound
 GAMMAS = [0.005, 0.02, 0.08, 0.32]
 EPSS = [1e-3, 3e-3, 1e-2, 3e-2, 1e-1]
-INSTRUMENT = Model("ring_nonnormal_v2", [
+INSTRUMENT = Model("ring_nonnormal_v3", [
     Param("N", DECLARED, value=128, why="as stage1_marginal"),
     Param("J0", DECLARED, value=-2.0, why="as stage1_marginal"),
     Param("J1", DECLARED, value=4.0, why="as stage1_marginal"),
@@ -71,7 +78,9 @@ INSTRUMENT = Model("ring_nonnormal_v2", [
     Param("derivative", DECLARED, value="spectral (FFT)",
           why="central differences left a zero-mode residual ~4*gamma at a one-grid-point bump edge"),
     Param("zero_mode_rail", DECLARED, value=ZERO_MODE_RAIL, why="J_tw r0' relative residual ceiling"),
-    Param("fp_rail", DECLARED, value=FP_RAIL, why="Newton-polished fixed-point residual ceiling"),
+    Param("fp_rail", DECLARED, value=FP_RAIL, why="fixed-point residual ceiling at the linearisation point"),
+    Param("T_max", DECLARED, value=T_MAX, why="integration budget per row; Stage 1 showed eps=0.01 "
+                                             "converges by 2e4 and smaller eps scales ~1/eps"),
     Param("resolve", DECLARED, value=RESOLVE, why="a Henrici change is read only above this "
                                                  "multiple of its error bound 5.5*rho"),
     Param("gamma", TESTED, sweep=GAMMAS, why="circulant asymmetry, 64x span"),
@@ -119,35 +128,27 @@ def reads(J, marginal_hint=False):
 from ring.ringnet import gain as _gain                                    # noqa: E402
 
 
-def newton_polish(r, W, h, max_iter=40):
-    """Damped Newton on F(r) = -r + f(W r + I0 + h) from the integrated state."""
+def converge(r, W, h):
+    """Integrate in chunks until the fixed-point residual is under FP_RAIL or T_MAX is spent."""
     I0 = P["I0"].value
-    for _ in range(max_iter):
-        u = W @ r + I0 + h
-        F = -r + _gain(u)
-        if np.abs(F).max() < FP_RAIL:
-            break
-        J = -np.eye(N) + dgain(u)[:, None] * W
-        step = np.linalg.solve(J, F)
-        lam = 1.0
-        while lam > 1e-4:                     # backtracking on |F|
-            rn = r - lam * step
-            if np.abs(-rn + _gain(W @ rn + I0 + h)).max() < np.abs(F).max():
-                break
-            lam *= 0.5
-        r = rn
-    return r, float(np.abs(-r + _gain(W @ r + I0 + h)).max())
+    T_used = P["T_relax"].value
+    fp = float(np.abs(-r + _gain(W @ r + I0 + h)).max())
+    while fp >= FP_RAIL and T_used < T_MAX:
+        r = integrate(r[None, :], W, I0, h, T_CHUNK, dt)[0]
+        T_used += T_CHUNK
+        fp = float(np.abs(-r + _gain(W @ r + I0 + h)).max())
+    return r, fp, T_used
 
 
 def bump_state(J0, J1, gamma, eps, polish=True):
     W = coupling(N, J0, J1) + gamma * w_odd(J1)
     h = eps * XI
     r = integrate(bump_init(N, np.array([0.37])), W, P["I0"].value, h, P["T_relax"].value, dt)[0]
-    fp = None
+    fp, T_used = None, P["T_relax"].value
     if polish:
-        r, fp = newton_polish(r, W, h)
+        r, fp, T_used = converge(r, W, h)
     D = dgain(W @ r + P["I0"].value + h)
-    return W, r, D, fp
+    return W, r, D, (fp, T_used)
 
 
 def main():
@@ -163,9 +164,9 @@ def main():
               f"gmax={rows[-1]['gmax']:.6f} K={rows[-1]['kreiss']:.4f}")
 
     # S0: symmetric bump
-    W, r, D, fp = bump_state(J0, J1, 0.0, 0.0)
+    W, r, D, (fp, Tu) = bump_state(J0, J1, 0.0, 0.0)
     Jsym = -np.eye(N) + D[:, None] * W
-    rows.append(dict(arm="S0", gamma=0.0, eps=0.0, fixed_point_resid=fp, rail_ok=fp < FP_RAIL,
+    rows.append(dict(arm="S0", gamma=0.0, eps=0.0, fixed_point_resid=fp, T_used=Tu, rail_ok=fp < FP_RAIL,
                      **reads(Jsym)))
     H0, G0 = rows[-1]["henrici"], rows[-1]["gmax"]
     print(f"S0    henrici={H0:.4f} gap={rows[-1]['gap']:+.4f} gmax={G0:.4f} kappa={rows[-1]['kappa']:.4f} "
@@ -194,27 +195,30 @@ def main():
         a = float(np.linalg.norm(g * w_odd(J1), "fro"))
         W = coupling(N, J0, J1) + a * R
         r = integrate(bump_init(N, np.array([0.37])), W, P["I0"].value, 0 * XI, P["T_relax"].value, dt)[0]
-        r, fp = newton_polish(r, W, 0 * XI)
+        r, fp, Tu = converge(r, W, 0 * XI)
         D = dgain(W @ r + P["I0"].value)
         Jr = -np.eye(N) + D[:, None] * W
         x = reads(Jr)
         rel = x["henrici"] / H0 - 1; bound = 5.5 * fp
-        rows.append(dict(arm="Salpha", gamma=g, eps=0.0, dW_frob=a, fixed_point_resid=fp, rail_ok=fp < FP_RAIL,
-                         henrici_rel=rel, henrici_rel_bound=bound, resolved=abs(rel) > RESOLVE * bound, **x))
+        rows.append(dict(arm="Salpha", gamma=g, eps=0.0, dW_frob=a, fixed_point_resid=fp, T_used=Tu,
+                         rail_ok=fp < FP_RAIL, henrici_rel=rel, henrici_rel_bound=bound,
+                         resolved=abs(rel) > RESOLVE * bound, **x))
         print(f"Sa    matched gamma={g:<6} |dW|={a:.4f} henrici={x['henrici']:.4f} (rel {rel:+.2e}) "
-              f"gap={x['gap']:+.4f} gmax={x['gmax']:.4f} fp_resid={fp:.1e}")
+              f"gap={x['gap']:+.4f} gmax={x['gmax']:.4f} fp_resid={fp:.1e} T={Tu:g} "
+              f"{'RAIL OK' if fp < FP_RAIL else 'INSTRUMENT-LIMITED'}")
 
     # S-eps: heterogeneity at gamma = 0
     for e in EPSS:
-        W, r, D, fp = bump_state(J0, J1, 0.0, e)
+        W, r, D, (fp, Tu) = bump_state(J0, J1, 0.0, e)
         Je = -np.eye(N) + D[:, None] * W
         x = reads(Je)
         rel = x["henrici"] / H0 - 1; bound = 5.5 * fp
-        rows.append(dict(arm="Seps", gamma=0.0, eps=e, fixed_point_resid=fp, rail_ok=fp < FP_RAIL,
+        rows.append(dict(arm="Seps", gamma=0.0, eps=e, fixed_point_resid=fp, T_used=Tu, rail_ok=fp < FP_RAIL,
                          henrici_rel=rel, henrici_rel_bound=bound, resolved=abs(rel) > RESOLVE * bound, **x))
         x = rows[-1]
         print(f"Se    eps={e:<6} henrici={x['henrici']:.4f} (rel {x['henrici']/H0-1:+.2e}) alpha={x['alpha']:+.2e} "
-              f"gap={x['gap']:+.4f} gmax={x['gmax']:.4f} (G0 {G0:.4f}) kappa={x['kappa']:.4f} fp_resid={fp:.1e}")
+              f"gap={x['gap']:+.4f} gmax={x['gmax']:.4f} (G0 {G0:.4f}) kappa={x['kappa']:.4f} fp_resid={fp:.1e} "
+              f"T={Tu:g} {'RAIL OK' if fp < FP_RAIL else 'INSTRUMENT-LIMITED'}")
 
     def loglog_slope(xs, ys):
         xs, ys = np.log(np.asarray(xs)), np.log(np.asarray(ys))
@@ -236,7 +240,9 @@ def main():
         exp_gmax_eps=loglog_slope([x["eps"] for x in se], ge) if len(se) >= 2 and min(ge) > 0 else None,
         gmax_eps=[x["gmax"] for x in se], eps_read=[x["eps"] for x in se],
         rel_henrici_gamma=hg, rel_henrici_alpha=ha,
-        ratio_rand_over_circ_largest_read=((ha[len(hg) - 1] / hg[-1]) if hg and hg[-1] != 0 else None),
+        ratio_rand_over_circ_matched=(
+            {x["gamma"]: (x["henrici_rel"] / y["henrici_rel"]) for x in sa for y in sg
+             if x["gamma"] == y["gamma"] and y["henrici_rel"] != 0}),
     )
     print("fits:", json.dumps({k: (round(v, 3) if isinstance(v, float) else v) for k, v in fits.items()}))
     out = dict(generator=os.path.basename(__file__), instrument=INSTRUMENT.seal(), rows=rows,
