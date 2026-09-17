@@ -388,6 +388,83 @@ in the symmetric attractor all along. The open question (Clark's
 above-capacity slow regions vs SHC saddle-lingering) is untouched; Stage 7
 would be where it lives.
 
+## Rail class, generalized (from Stage 2 rail (i))
+
+**Any supremum over a continuum computed on a grid, when the extremum sits at
+a domain edge the grid excludes.** G_max (sup at t → 0), the Kreiss constant
+(sup at Re z → ∞), the jitter ladder's τ_c when it lands on the top rung, the
+σ sweep censored at σ = 100, the smallest readable ρ below (the instrument
+stops there), and Stage 4's rotation number (a limit N → ∞ read at finite N).
+The rail for the class: every sup carries the grid edge it was taken to, and a
+sup attained *at* an edge is reported as **censored**, never as a value.
+
+## Stage 3a — path-lifting: pre-registration (2026-09-17, before `stage3_lift.py`)
+
+**What the instrument can and cannot certify — stated first.** Persistent
+cohomology → circular coordinate → lift to the universal cover (DREiMac
+`CircularCoords`, Yao & Yoon 2025) certifies that the population state
+**moves continuously along the manifold with a well-defined winding count**:
+a *kinematic* claim. It cannot by itself certify an *attractor*: an
+independent-unit construction that follows the same trajectory (di Sarra's
+route) lifts just as smoothly. So the detector ladder acquires a third rung —
+`consistent_with` (marginal) → **`with_continuous_traversal`** (kinematic,
+this stage) → `implies_continuous_attractor` (dynamical) — and the dynamical
+rung's candidate instrument is L4 below. `implies` stays DECLARED until L4 is
+scored on a declared negative set.
+
+**Invariants under the lift's ambiguity, stated before running.** The
+circular coordinate is defined up to orientation, offset, and a monotone
+reparametrization of the circle; if the selected cocycle is a k-multiple of
+the generator, windings scale by k. Therefore: (i) the **integer |n|** is the
+invariant (predicted k = 1 from DREiMac's longest-bar class; k ≠ 1 would show
+as |n_est| = k·n_true and is checked); (ii) the orientation sign is *reported,
+not predicted*; (iii) θ is compared only after removing a low-order periodic
+distortion (Fourier order ≤ 3 in the true angle) — pilot: an affine-only fit
+leaves 0.28 rad at ρ = 50 and 0.056 at ρ = 5, which is reparametrization, not
+noise; (iv) the offset is arbitrary.
+
+**Reference states.** All Stage 3a clouds are traveling waves or
+constructions; no converged fixed point is needed, so the rail-(iii)
+pathology does not arise here. Where L4 adds input noise the bump diffuses;
+that is the object, not a convergence failure. Budgeted anyway: any arm that
+does need a fixed point uses `converge()` with the 2·10⁵τ budget and the
+INSTRUMENT-LIMITED flag.
+
+**Arms and sealed predictions** (ρ in spikes/τ per unit rate; bin 0.5τ,
+σ_s 1τ unless stated; 3 emission seeds):
+- **L1 readout.** A (driven ring, ω = 0.02, 3.18 rotations) at ρ = 50:
+  |n_est| = n_true = 3 in 3/3 seeds; θ noise residual < 0.1 rad RMS after the
+  order-3 reparametrization fit; k = 1.
+- **L2 protection.** ρ ∈ {50, 15, 5, 1.5, 0.5} on A. θ noise residual scales
+  as ρ^(−0.5 ± 0.15) over the readable ρ (Poisson counting). |n| exact at
+  every readable ρ. The smallest readable ρ is the instrument's edge and is
+  reported **censored**. The claim "n survives noise that visibly corrupts θ"
+  PASSES if some readable ρ has θ residual > 0.3 rad and |n| exact, FAILS if
+  |n| breaks at a ρ where θ residual < 0.3 rad, and is **NOT REACHED** if the
+  coordinate becomes unreadable before θ reaches 0.3 rad — the pilot suggests
+  the last. A second bin width, 0.1τ, is swept on A to push θ noise up before
+  the coordinate fails.
+- **L3 the traversal detector across clouds** at ρ = 50: continuity = fraction
+  of steps with |Δφ| < π/4, and |n|. A: continuity > 0.95, |n| = 3. **IND**
+  (independent Poisson units with the ring's own bump profile as tuning,
+  following A's trajectory ψ(t), no recurrence): **the same** — continuity
+  > 0.95, |n| = 3: the kinematic ceiling, measured. C_ord (16 static bumps in
+  angular order): continuity > 0.95, |n| = 1 — it *is* a stepwise traversal
+  and is read as one, correctly. C_perm (random segment order, 3 permutations):
+  continuity < 0.5, and the lift is ill-defined (a majority of steps > π/2).
+- **L4 the attractor rung, pilot with a sealed prediction.** Ring A_n with
+  declared additive input noise σ_n = 0.05 per unit per step (the bump now
+  diffuses along the marginal mode and relaxes transversely at λ₂ = −0.55),
+  and IND_n built on **A_n's own noisy trajectory** — kinematics identical by
+  construction; the only difference is transverse dynamics. Bin 0.1τ,
+  σ_s 0.2τ. Decompose fluctuations about the fitted manifold curve m(φ) into
+  transverse residuals; measure their autocorrelation time τ_tr. Prediction:
+  τ_tr(A_n) ≈ 1/0.55 ≈ 1.8τ; τ_tr(IND_n) ≈ the smoothing floor (~0.3τ);
+  **τ_tr(A_n) > 2 × τ_tr(IND_n)** in 3/3 seeds. If this holds, it is the
+  instrument that separates an attractor from an input-driven look-alike; the
+  `implies` detector's negative set then gets IND_n as its nearest
+  confusable with a number attached.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
