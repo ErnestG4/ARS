@@ -263,6 +263,14 @@ The entry point: the only architecture where a winding count is *defined*.
   the answer*. This calibrates how much the pipeline invents before it points at
   anything unknown, and it is the **marginal-vs-dynamical result** everything
   downstream depends on.
+- **Measure 2 ran (2026-09-16; `ring/RING_BRIEF.md` §Measure 2 — results).**
+  The static 16-bump cloud reads identically to the driven ring (r₁₂ 61 vs 71,
+  q-invariant): **PH on the cloud cannot tell a traversed manifold from a
+  sampled one** — the marginal-vs-dynamical result, measured. τ_c(A) = 100τ ≈
+  rotation period/3, not bump-width/ω (P1 failed as sealed); the pinned ring is
+  one rung more jitter-robust (P2: divergence); the ISI scramble is
+  under-powered on single-visit units (blind spot recorded in the spec); the
+  subsetting rule flips the verdict only at the transient confusable.
 - **What measure 2 can certify, by name.** PH on the cloud is order-blind, so
   no barcode promotes "PH topology ⇒ continuous attractor". The detector measure
   2 scores is `ph_topology_consistent_with_continuous_attractor` — a marginal

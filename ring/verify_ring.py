@@ -38,6 +38,18 @@ the instrument measures what we claim. Specifically this row certifies:
   R4b the found delta defect stays found: at eps=0.01/T=20000 the delta=0.05
       read is < 0.8 of lam1 while the delta=0.005 read agrees. A refactor that
       silently restores the old constant turns this row red.
+  R9  MEASURE 2 (stage1_ph_measured.json, generator v2): the sealed predictions
+      P1-P5 (RING_BRIEF.md, a975089 + pilot amendment) are SCORED, not
+      re-fitted: each is recorded PASS / FAIL / INAPPLICABLE exactly as
+      declared, and the row pins the scored outcome so a regression or a
+      quiet re-scoring turns it red. The detector
+      ph_topology_consistent_with_continuous_attractor is certified on its
+      declared sets (A fires; D, A-jittered-above-tau_c, A-scrambled silent),
+      with CP intervals printed. Three findings are pinned as findings:
+      (i) subsetting q flips the verdict ONLY at the confusable E;
+      (ii) the ISI scramble is under-powered on single-visit clouds (C keeps a
+      loop in >= 1 seed) -- the surrogate's confound scope, recorded in the
+      spec as a blind spot; (iii) tau_c(B) is one rung above tau_c(A).
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -265,6 +277,87 @@ chk(fit["max_rel_resid"] <= TOLC["FIT_RESID"],
 chk(0.01 < fit["c"] < 0.1, f"R8 fitted c={fit['c']:.3e} outside the range the two-point "
                             "estimate gave (≈0.03); re-examine the fit rows")
 
+# R9 — measure 2
+ppath = os.path.join(HERE, "stage1_ph_measured.json")
+chk(os.path.exists(ppath), "R9 stage1_ph_measured.json missing — run stage1_ph.py")
+PH = json.load(open(ppath)) if os.path.exists(ppath) else None
+r9 = {}
+if PH:
+    chk(PH["instrument"]["model"] == "ring_ph_v2",
+        f"R9 table is {PH['instrument']['model']}, not v2 (v1 had the anchored scramble + clipped jitter)")
+    R_MIN = [q["value"] for q in PH["instrument"]["params"] if q["name"] == "R_MIN"][0]
+    prow = PH["rows"]
+    import statistics as _st
+
+    def r12(cloud, arm="base", q=0.5, tau=None):
+        v = [x["r12"] for x in prow if x["cloud"] == cloud and x["arm"] == arm and x["q"] == q
+             and (tau is None or x["tau_j"] == tau)]
+        return _st.median(v) if v else float("nan")
+
+    taus = sorted({x["tau_j"] for x in prow if x["arm"] == "jitter"})
+
+    def tau_c(cloud):
+        """declared rule: first rung whose median r12 < R_MIN, given a detected base"""
+        if r12(cloud) < R_MIN:
+            return None                       # INAPPLICABLE: nothing to destroy
+        for t in taus:
+            if r12(cloud, "jitter", 0.5, t) < R_MIN:
+                return t
+        return float("inf")                   # censored at the top rung
+
+    tcA, tcB, tcE = tau_c("A"), tau_c("B"), tau_c("E:400")
+    # P1: tau_c(A) ~ 30 tau within a factor 3
+    r9["P1"] = ("PASS" if tcA is not None and 10 <= tcA <= 90 else "FAIL") + f" (tau_c(A)={tcA})"
+    # P2: same rung as A => traversal; >= 100 rung and != A => drift-sensitive
+    if tcA is None or tcB is None:
+        r9["P2"] = "INAPPLICABLE"
+    elif tcB == tcA:
+        r9["P2"] = f"COINCIDENCE: tau_c(B)=tau_c(A)={tcA} -> PH reads the traversal"
+    else:
+        r9["P2"] = (f"DIVERGENCE: tau_c(B)={tcB} vs tau_c(A)={tcA} -> PH sensitive to "
+                    f"pinning-modulated motion (ladder resolution x3.16, gap = "
+                    f"{len([t for t in taus if min(tcA, tcB) <= t < max(tcA, tcB)])} rung)")
+    # P3: tau_c(E2) >= 100 rung
+    r9["P3"] = ("INAPPLICABLE (E2 base below R_MIN; loop appears only under jitter 10-300)"
+                if tcE is None else ("PASS" if tcE >= 100 else "FAIL") + f" (tau_c(E2)={tcE})")
+    # P4: scramble kills A, B, E2; on C it was predicted a no-op
+    scr = {c: r12(c, "scramble") for c in ("A", "B", "C", "E:400")}
+    r9["P4"] = ("PASS" if all(scr[c] < R_MIN for c in ("A", "B", "E:400")) else "FAIL") + \
+               f" on A/B/E2 {dict((k, round(v, 2)) for k, v in scr.items() if k != 'C')}; " + \
+               f"C: predicted no-op, read {scr['C']:.2f} (base {r12('C'):.1f}) -> FAIL as predicted, " \
+               "and the residual loop is the surrogate's blind spot (single-visit units are " \
+               "ISI-shuffle invariant)"
+    # P5: D ~ 1; E1 < E2; E2 >= R_MIN
+    r9["P5"] = (f"D={r12('D'):.2f} {'PASS' if r12('D') < R_MIN else 'FAIL'}; "
+                f"E1<E2: {r12('E:100'):.2f}<{r12('E:400'):.2f} {'PASS' if r12('E:100') < r12('E:400') else 'FAIL'}; "
+                f"E2>=R_MIN: {'PASS' if r12('E:400') >= R_MIN else 'FAIL'}")
+    # pins: scored outcomes must not drift silently
+    chk(tcA == 100.0, f"R9 pin: tau_c(A) moved from 100 to {tcA}")
+    chk(tcB == 300.0, f"R9 pin: tau_c(B) moved from 300 to {tcB}")
+    chk(tcE is None, "R9 pin: E2 base now detected — the SNR finding changed")
+    chk(scr["C"] >= R_MIN or any(x["r12"] >= R_MIN for x in prow if x["cloud"] == "C" and x["arm"] == "scramble"),
+        "R9 pin: C-scramble residual loop vanished in every seed — the surrogate blind spot has moved")
+    # finding (i): q flips the verdict only at E
+    for c in ("A", "B", "C"):
+        chk(all(r12(c, "base", q) > R_MIN for q in (1.0, 0.5, 0.25)), f"R9 {c} not q-invariant")
+    chk(r12("E:100", "base", 1.0) > R_MIN > r12("E:100", "base", 0.5),
+        "R9 pin: E1's q-dependence (fires at q=1.0, silent at q=0.5) changed")
+    # detector certification on the DECLARED sets
+    spec2 = D.ph_consistent_with_continuous_attractor_spec()
+    spec2.record("intact_ring_cloud", r12("A") > R_MIN)
+    spec2.record("pinned_ring_cloud_converged", r12("D") > R_MIN)
+    spec2.record("jittered_cloud_above_tau_c", r12("A", "jitter", 0.5, tcA if tcA else 100.0) > R_MIN)
+    spec2.record("within_cell_scrambled_cloud", r12("A", "scramble") > R_MIN)
+    try:
+        rates2 = spec2.certify()
+    except DetectorNotCertified as e:
+        chk(False, f"R9 {e}"); rates2 = spec2.rates()
+    _tp2, _np2 = map(int, rates2["sensitivity"].split("/")); _tn2, _nn2 = map(int, rates2["specificity"].split("/"))
+    sens2, specc2 = _br(_tp2, _np2), _br(_tn2, _nn2)
+    r9["detector"] = (f"sens {rates2['sensitivity']} CP95 {sens2['honest_claim']} [{sens2['treatment']}]; "
+                      f"spec {rates2['specificity']} CP95 {specc2['honest_claim']} [{specc2['treatment']}]; "
+                      f"margin: A r12={r12('A'):.0f} vs R_MIN={R_MIN:g} ({r12('A')/R_MIN:.0f}x), D r12={r12('D'):.2f}")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -295,6 +388,10 @@ print(f"  R8 contour: c = {fit['c']:.4e} rad/tau per unit eps (max rel resid "
 if w20k:
     print(f"  R4b delta defect pinned: at eps=0.01/T=20000 ratio(delta=0.05)={bad:.2f}, "
           f"ratio(delta=0.005)={good:.2f}")
+if r9:
+    print("  R9 measure 2, sealed predictions scored as declared:")
+    for k, v in r9.items():
+        print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)
 sys.exit(1 if fails else 0)

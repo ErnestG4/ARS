@@ -95,7 +95,15 @@ def ph_consistent_with_continuous_attractor_spec() -> DetectorSpec:
                            "this detector depending on the window",
         negative_rationale="PH is order-blind; the surrogates are what "
                            "separate 'has the shape' from 'happened to pass "
-                           "through the shape'",
+                           "through the shape'. KNOWN BLIND SPOT of the "
+                           "scramble (measure 2, 2026-09-16): a unit that fires "
+                           "in ONE contiguous block is invariant under ISI "
+                           "shuffling, so the surrogate only destroys sequence "
+                           "expressed as REVISITS. On a single-sweep cloud (C) "
+                           "it left a loop in 2/3 seeds; on multi-visit clouds "
+                           "(A: 3 rotations) it killed it. Its power must be "
+                           "stated per dataset as visits-per-unit before a "
+                           "silent scramble is read as evidence.",
     )
 
 

@@ -117,6 +117,53 @@ curve). `DREiMac 0.3.0` declared, install with Stage 3. Zigzag: **not GUDHI**
 ships a cp312 `manylinux_2_39` wheel and host glibc is 2.39, so it installs
 as a wheel when reached.
 
+## Measure 2 — results (v2 table `e789d2c`→banked; v1 `stage1_ph` superseded, see its commit)
+
+**Headline (the marginal-vs-dynamical result everything downstream depends on):**
+the static 16-bump cloud **C reads identically to the driven ring A** — r₁₂
+60.7 vs 70.7, q-invariant, b₁ 210 vs 250. PH on the population cloud cannot
+tell a traversed manifold from a sampled one. The `implies` detector stays
+DECLARED, now with a measured reason.
+
+Sealed predictions, scored as declared (R9):
+- **P1 FAIL.** τ_c(A) = 100τ rung (30τ predicted, ×3 allowed → ≤90). The
+  scale is the rotation period (314τ), not bump-width/ω: jitter must smear
+  across the circle, not one bump.
+- **P2 DIVERGENCE.** τ_c(B) = 300τ vs τ_c(A) = 100τ. The pinned ring's barcode
+  is *more* jitter-robust by one rung — its bump lingers in wells at 0.6×
+  velocity, so smearing costs it less. PH is sensitive to pinning-modulated
+  motion. Stated with its resolution: the ladder step is ×3.16 and the gap is
+  exactly one rung, three seeds concordant.
+- **P3 INAPPLICABLE.** E2's base r₁₂ = 2.5 < R_MIN, so there was no detection
+  to destroy. Instead the loop *appears* under jitter τ_j = 10–300 (14 → 37 →
+  44 → 19) and dies at 1000: jitter acts as temporal smoothing that lifts the
+  SNR of a slowly traversed arc (0.0015 rad per bin vs A's 0.01). Pilot
+  observation, not a prediction.
+- **P4 PASS on A/B/E2** (scramble → 1.4 / 1.3 / 1.3). **C: FAIL as
+  predicted** — "no-op" was wrong because the concatenated static bumps are a
+  *sequence*; C dropped 60.7 → 7.7 but **kept a loop in 2/3 seeds** (b₁ 12–37%
+  of base). Two surrogate defects found here and fixed in v2 (first-spike
+  anchoring; edge clipping), and one **structural blind spot** that survives
+  v2: a single-block unit is ISI-shuffle invariant, so the scramble only
+  destroys sequence expressed as revisits. Recorded in the detector spec.
+- **P5:** D = 1.09 PASS; E1 < E2 (1.06 < 2.51) PASS; **E2 ≥ R_MIN FAIL.**
+
+**Subsetting bites exactly at the confusable.** A/B/C are q-invariant (r₁₂ >
+40 at every q). E1 reads **1.06 at q=0.5 and 18.3 at q=1.0**; E2 2.5 / 18.9 /
+1.2 across q=0.5/1.0/0.25. di Sarra's load-bearing preprocessing step,
+reproduced with ground truth, and it flips the verdict only where the cloud is
+marginal. Pinned (R9).
+
+**Detector certified on its declared sets:** A fires (r₁₂ = 71, 24× R_MIN);
+D, A-jittered-above-τ_c, A-scrambled silent. Sensitivity 1/1 (CP95 ≥ 0.025),
+specificity 3/3 (CP95 ≥ 0.292) — both UNINFORMATIVE as tallies; the 24× margin
+and the three silent negatives at ~1 are the numbers.
+
+**Instrument facts:** r₁₂ = b₁/b₂ inflates when b₂ is tiny (a ratio of two
+noise bars); the v1 r₁₂ = 751 was b₁ = 1230 from clip pile-up. Absolute b₁
+against the base cloud is carried in every row and should gate any future
+threshold alongside r₁₂.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
@@ -128,8 +175,8 @@ as a wheel when reached.
    the instrument floor.
 3. **Stage 1, measure 2 — PH H₁ rank 1 on the population cloud**, through the
    jitter ladder, the within-cell ISI-order scramble, and the subsetting sweep.
-   Scores `ph_topology_consistent_with_continuous_attractor` only. Unblocked:
-   ripser + persim are installed (see above). *Not this session.*
+   Scores `ph_topology_consistent_with_continuous_attractor` only. **Done**
+   (results above).
 
 ## Measure 2 — pre-registration (2026-09-16, before `stage1_ph.py` runs)
 
@@ -232,7 +279,7 @@ positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converge
 
 ## Out of scope this session
 
-PH measure 2 (library installed, not run); Stage 2+; spikes off the ring and the QUEUED ring→ARS
+Stage 2+; spikes off the ring into ARS and the QUEUED ring→ARS
 instrument bound; any population-level claim.
 
 ## Deliverables
@@ -249,7 +296,11 @@ instrument bound; any population-level claim.
 - QUEUED arm: **(b) chosen** — long-range certification dropped, matched-Cox +
   `wigner_renewal` kept, deliverable re-sealed as the per-cell detection
   margin vs the dial; bank where the margin crosses the floor. (Plan, QUEUED.)
-- ~~c(ε·T) fit before measure 2~~ — **done** (above). Measure 2 is next.
+- ~~c(ε·T) fit before measure 2~~ — done. ~~Measure 2~~ — done.
+- **Next:** (a) the E-cloud SNR question — smoothing σ_s vs traversal speed is
+  an undeclared coupling (jitter at 10–300τ revealed E2's loop); sweep σ_s as
+  a TESTED param before any E verdict is read; (b) the scramble's power as a
+  visits-per-unit statement, computed per cloud; (c) Stage 2.
 - Per-basin λ₁ spread: at ε=0.1 the three pinned basins have λ₁ = 1.28e-2 /
   1.49e-2 / 1.53e-2; the tables bank the median, min and max. If Stage 6 needs
   per-basin curvature, the column exists.
