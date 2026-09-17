@@ -668,6 +668,56 @@ at T_obs = 300τ: R(0) = 0.74 where e^{−1.1} = 0.32 was already called margina
 the effective λ here is ~1e-3, not the 3.8e-3 median. The window needs
 ~3000τ. Not re-run overnight; queued.
 
+## Stage 4 — circle map: pre-registration (overnight 2026-09-17, before `stage4_circlemap.py`)
+
+Sine circle map θ_{n+1} = θ_n + Ω − (K/2π) sin(2πθ_n) on the lift, with the
+integer winding w carried separately from the residual φ ∈ [0, 1) (the
+(n, θ) split, in float64). Ω grid: 1001 points on [0, 1); K ∈ {0, 0.25, 0.5,
+0.75, 0.9, 1.0, 1.2, 1.5}; θ₀ = 0.37 (independent init), transient 10³.
+
+**Re-indexed per #20.** No arm asks "is it locked at p/q". The bounded
+question is **residence**: over sub-windows of L = 100 iterations inside a
+10⁴ window, the fraction f of sub-windows whose local rotation
+r_j = (θ_{(j+1)L} − θ_{jL})/L lies within ε_tol of the nearest p/q with
+q ≤ Q_max. ε_tol ∈ {10⁻³, 10⁻²} and Q_max ∈ {5, 10} are TESTED.
+
+**Rails (theorem-level; red = instrument):**
+- **M1 rotation number as a limit (B-sup).** ρ_N = (θ_N − θ₀)/N at
+  N ∈ {10³, 10⁴, 10⁵}. For K < 1 the map is a circle homeomorphism and
+  |θ_N − θ₀ − Nρ| < 1 for every N, so **|ρ_{10⁴} − ρ_{10⁵}| < 1.1·10⁻⁴ at
+  every Ω for every K < 1**, asserted. For K ≥ 1 the rail does not apply and
+  convergence is *reported*, not assumed.
+- **M3 the 0/1 tongue boundary is exact:** a fixed point exists iff
+  |Ω| ≤ K/2π. The estimator's Ω_c(K) (largest Ω with |ρ| < 10⁻³ scanning up
+  from 0) must lie within one grid step (0.005 on the hysteresis grid) of
+  K/2π for K ∈ {0.25, 0.5, 0.75, 0.9}.
+
+**Arms and sealed predictions:**
+- **M2 residence vs K.** At K = 0 (rigid rotation) the Ω-fraction with f = 1
+  is pure number theory: the Farey coverage 2ε_tol·Σ_{q≤Q} φ(q) (Q = 5: 20;
+  Q = 10: 64), i.e. 0.020 / 0.064 at ε_tol = 10⁻³ and 0.20 / 0.64 at 10⁻² —
+  **measured within ±25% of these** (overlaps neglected; a rail on the
+  residence instrument). The Ω-fraction with f = 1 is **monotone
+  non-decreasing in K on [0, 1]** at every (ε_tol, Q_max). At K = 1 (complete
+  devil's staircase) the fraction of Ω with ρ_{10⁵} within 10⁻³ of some p/q,
+  q ≤ 50, is **> 0.85**.
+- **M4 hysteresis with its must-be-zero region.** Tongue boundary Ω_c for
+  the 0/1 tongue from three protocols on a 201-point Ω grid: independent
+  init; adiabatic sweep upward in Ω carrying θ; adiabatic sweep downward.
+  Discrepancy D(K) = max pairwise |Ω_c − Ω_c'|. **Sealed: D(K) ≤ one grid
+  step for every K < 1 (Denjoy: the rotation number is unique)** — the arm's
+  dead region, so "verify it can fire" is: D(K) > one grid step for at least
+  one K > 1 is *admissible* and is reported with no prediction on magnitude.
+  Multistability at K > 1 is reported as the Ω-fraction where θ₀ = 0.37 and
+  θ₀ = 0.71 give |Δρ_{10⁴}| > 10⁻³ (must be 0 for K < 1: a second rail).
+- **Connection to I1b (report only):** the depinning interval (0.01, 0.02]
+  at ε = 0.1 is the same drive-vs-pinning competition as the 0/1 tongue
+  boundary Ω_c = K/2π, with γ playing Ω and the well's c·ε playing K/2π; no
+  quantitative mapping is sealed.
+
+**Compute.** numpy, vectorised over (K, Ω); torch is guarded and not
+needed at this size (8×1001 trajectories × 10⁵ steps ≈ 5 s).
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
