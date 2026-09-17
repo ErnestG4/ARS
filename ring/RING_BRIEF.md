@@ -846,6 +846,25 @@ that is stated; a K = 1 point counted as unlocked at 10⁻⁵ may be resolution)
 — the test separates the staircase from its rival by construction or it is
 not a test. K = 0.5 lies between them (monotone in K at every tol).
 
+## M2b — results, and M2c pre-registration (overnight)
+
+**M2b (`stage4c_staircase_measured.json`, sealed `330e84b`).** At tol = 10⁻⁵:
+K = 1 coverage 0.738 (> 0.5 PASS); K = 0.5 0.201; K = 0 **0.029**;
+K = 1 − K = 0 = 0.71 (> 0.3 PASS); monotone in K PASS. The re-posed test
+separates the staircase from rigid rotation by construction. **The K = 0
+clause FAILS against the Farey value 0.0155 for an exactly identifiable
+reason:** `linspace(0, 1, 1001, endpoint=False)` places Ω at j/1001, and
+1001 = 7·11·13, so φ(1)+φ(7)+φ(11)+φ(13) = 29 grid points *are* Farey
+fractions with q ≤ 50 — 29/1001 = 0.02897, the measured value to the digit.
+**A rational Ω grid is itself a Farey object**; at tolerances below the grid
+spacing the rival's number measures the grid, not the map. Rail, added to
+the boundary-supported-signal class as B-grid: a grid of rationals against a
+rational target set has coincidences that are a property of the grid.
+**M2c, sealed:** the same three K and three tolerances with Ω drawn
+uniformly at random (1001 draws, seed 7); at tol = 10⁻⁵ the K = 0 coverage is
+within ±30% of 0.0155 (the Lebesgue estimate now applies) and K = 1 stays
+> 0.5 with separation > 0.3.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
