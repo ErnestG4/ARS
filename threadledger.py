@@ -1450,6 +1450,37 @@ ENTRIES = [
               "(0 unpushed), so nothing is at risk of loss, but they are the "
               "only refs from which these four commits are reachable AT ALL -- "
               "deleting them orphans the objects to gc."),
+    # derivflow/modes arc, 2026-09-17 (BRIEF.md on branch derivflow-modes). Five rows
+    # appended, existing rows untouched. Each lands on its own artifact.
+    dict(id="derivflow-modes-gate-ml", status=QUEUED,
+         request="gate ML: does one derivative step multiply a planted displacement "
+                 "wave by exactly (1 - qw/pi)? LATTICE_WAVE(qw, A) at n in {4096, 16384}, "
+                 "k <= 64; PASS iff rel_err <= 1e-3 on the float64-assessable cells. "
+                 "The int128 arm the BRIEF asked for does not exist in the repo and is "
+                 "held for Will (derivflow/modes/MANIFEST_M0.json M0.6)",
+         note="artifact when landed: derivflow/modes/ml_gain_gate_<n>.json"),
+    dict(id="derivflow-modes-gate-mt", status=QUEUED,
+         request="gate MT: the production reference's transfer function T(qw, k, arm) "
+                 "on a planted wave at n=16384 for PROD_PRIMARY/BW1/BW2, POPREF, RM1; "
+                 "sealed T_pred = 1 - B exp(k[-ln(1-qw/pi) - qw/pi]), PASS iff "
+                 "|T - T_pred| <= 0.1 for 0.1 <= qw <= 0.5",
+         note="artifact when landed: derivflow/modes/mt_transfer.json"),
+    dict(id="derivflow-modes-nounfold-vs-prod", status=QUEUED,
+         request="M3: on IDENTICAL roots, does omr without unfolding (NOUNFOLD; POPREF "
+                 "for GUE) differ from the production unfolded omr in k* and tail form? "
+                 "sealed grid, sealed replicates; comparator k* > PROD k* predicted "
+                 "(DECLARED-WITH-PRIOR-LOOK)",
+         note="artifacts when landed: derivflow/modes/m0_smoke.json (iid 4096) and "
+              "m3_<class>_<n>.json"),
+    dict(id="derivflow-modes-exponent-law", status=QUEUED,
+         request="Night 2 (Will's go required): p_tail = (3 + alpha_spec)/2 on SPEC_ALPHA "
+                 "and WIGNER_RENEWAL seeds vs the local-repulsion rival; linear-mode "
+                 "prediction of the no-unfold curve",
+         note="not started; BRIEF §4"),
+    dict(id="derivflow-modes-front", status=QUEUED,
+         request="Night 2 (Will's go required): does the crystallised region grow as a "
+                 "front with L_half(k) proportional to k (gamma = 1.0 +- 0.1)?",
+         note="not started; BRIEF §4 M5"),
 ]
 
 
