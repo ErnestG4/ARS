@@ -1,4 +1,4 @@
-# NIGHT1_REPORT — derivflow/modes (2026-09-17, 01:19 → 04:50 PDT)
+# NIGHT1_REPORT — derivflow/modes (2026-09-17, 01:19 → 04:55 PDT)
 
 Branch `derivflow-modes` from main `13c4696`. Nothing on main touched; nothing pushed
 (PUSH_BRANCH=no). Every number below is read from a committed artifact whose generator was
@@ -49,7 +49,7 @@ sealed) — see §5 for what I actually recommend.
 | banking | per-replicate roots were **never banked** by the sealed runs; regenerated from the sealed SeedSequence and banked as `roots/*.npz` with sha256 (iid/gue × 1024/2048/4096, ML 4096/16384, MT 16384, iid 16384) |
 | M6 bound | the brief's 2k/(n−k) **cannot fire on its own red path** (one moved root shifts D by ≤ 1/(n−k)); the sharp Rolle bound is k/n (derivation in `modes_common.interlacing_bounds`); checked sharp, both reported |
 | solver | CPU `diff_step` is 19 s/step at n=16384 (≈20 h for ML there). A float64 GPU twin (`diff_step_gpu`, same algorithm) was **certified before use**: Hermite self-map PASS with the CPU gate's own 1.35e-13, CPU/GPU agreement ≤ 1.4e-12 of a spacing vs the 1e-9 bar, red-path solver fires. `gpu_solver_gate.json`. |
-| declared cuts (before ML) | M3 n=16384 cut on the CPU projection; revised upward at 03:59 (GPU flows + pooled references), then the full reference recomputation projected past the window (~7.5 min/task under 6-way contention) and was **cut back at 04:35 to a comparators-only cell**: NOUNFOLD + POPREF on the banked GPU roots, PROD from `step3_scale_law.json` (same sealed seeds; not recomputed). GUE n=16384 not run. |
+| declared cuts (before ML) | M3 n=16384 cut on the CPU projection; revised upward at 03:59 (GPU flows + pooled references), then the full reference recomputation projected past the window (~7.5 min/task under 6-way contention) and was **cut back at 04:35 to a comparators-only cell**: NOUNFOLD + POPREF on the banked GPU roots, PROD from `step3_scale_law.json` (same sealed seeds; not recomputed). GUE n=16384 the same. |
 
 Existing gates re-run unchanged in a scratch cwd (`existing_gates_rerun.json`): Hermite self-map
 PASS, reference_v2 (lattice ≤ 1e-7, Hermite-through-reference ≤ 1e-5) PASS, Gate D PASS — **0
@@ -131,13 +131,15 @@ p_tail over k ∈ [16, 64] (bootstrap error). All arms on identical roots (non-i
 | gue | 2048 | POPREF | 9.35 ± 0.78 (0.09) | 9.18 ± 0.09 | 1.91 ± 0.03 | 5.8 |
 | gue | 4096 | PROD_PRIMARY | 6.163 ± 0.009 (0.02) | 6.16 ± 0.02 | 2.10 ± 0.02 | 0.02 |
 | gue | 4096 | POPREF | 9.16 ± 0.22 (0.07) | 9.00 ± 0.05 | 1.87 ± 0.03 | 19 |
+| gue | 16384 | PROD_PRIMARY (banked, not recomputed) | 6.220 ± 0.004 | 6.21 | 2.12 | — |
+| gue | 16384 | POPREF | 9.23 ± 0.03 (0.04) | 9.13 ± 0.02 | 1.91 ± 0.01 | — |
 
 Observations the table forces:
-* Comparator k* > production k* in **every** cell (P_M3_1 holds; 7/7 cells). iid NOUNFOLD k*
+* Comparator k* > production k* in **every** cell (P_M3_1 holds; 8/8 cells). iid NOUNFOLD k*
   ∈ [20, 32] at every n (P_M3_2 holds: 26.5 / 25.4 / 26.5 / 25.3) and flat in n; p_tail ∈ [1.35, 1.65]
   (P_M3_3 holds: 1.46 / 1.39 / 1.44 / 1.48). Both are DECLARED-WITH-PRIOR-LOOK (the sandbox said 27 and
   −1.48) and now measured on the sealed seeds.
-* The no-reference k* is **also scale-flat**: 26.5 / 25.4 / 26.5 / 25.3 (iid, 16× in n), 9.4 / 9.4 / 9.2 (GUE).
+* The no-reference k* is **also scale-flat**: 26.5 / 25.4 / 26.5 / 25.3 (iid, 16× in n), 9.4 / 9.4 / 9.2 / 9.2 (GUE).
   The reference does not create SCALE-FLAT; it rescales the clock by 2.4× (iid) / 1.5× (GUE).
 * The **seed dependence survives without the reference** — iid 26.5 vs GUE 9.2, tails 1.44 vs
   1.87 — so RATE-SEED-DEPENDENT is not a reference artifact either; its *coordinates* are.
@@ -156,7 +158,7 @@ Observations the table forces:
   Neither is right at both ends; both are banked (`errormodel.py` fork logic).
 
 ### 2.5 M6 — INTERLACING_BOUND_HOLDS
-Max D_k·n/k = 1.0000 on every flow (245 flows: 96 M3 at n ≤ 4096, 16 M3 at n = 16384, 122 ML, 11 MT),
+Max D_k·n/k = 1.0000 on every flow (261 flows: 96 M3 at n ≤ 4096, 32 M3 at n = 16384, 122 ML, 11 MT),
 i.e. the sharp bound is *attained* (at k=1 the count deviation reaches exactly 1/n). Max
 D_k·(n−k)/(2k) = 0.4999. Red path: one root moved one bracket outward gives D = 0.0300 at
 n=64, k=1 — above k/n = 0.0156 (fires) and below the brief's 2k/(n−k) = 0.0317 (would not).
@@ -170,7 +172,7 @@ n=64, k=1 — above k/n = 0.0156 (fires) and below the brief's 2k/(n−k) = 0.03
 | QLATTICE POPREF ≤ 1e-10 | SEALED | PASS (≤ 6e-12) |
 | MT: POPREF \|T−1\| ≤ 0.02; RM1 \|T\| ≤ 0.05 (qw ≤ 0.1) | SEALED | PASS on assessable cells (1.2e-4; 0.0034) |
 | MT: PROD arms \|T − T_pred\| ≤ 0.1 in band | SEALED | FAIL on PRIMARY (B=1 mis-specified); BW1/BW2 PASS; PRIMARY PASSES the same law with B_R (post-hoc) |
-| comparator k* > PROD k* every cell | DECLARED-WITH-PRIOR-LOOK | 7/7 |
+| comparator k* > PROD k* every cell | DECLARED-WITH-PRIOR-LOOK | 8/8 |
 | iid NOUNFOLD k* ∈ [20,32] every n | DECLARED-WITH-PRIOR-LOOK | 26.5 / 25.4 / 26.5 / 25.3 ✓ |
 | iid NOUNFOLD p_tail ∈ [1.35,1.65] | DECLARED-WITH-PRIOR-LOOK | 1.46 / 1.39 / 1.44 / 1.48 ✓ |
 | D_k ≤ k/n never fires | SEALED (theorem) | holds, attained |
@@ -231,10 +233,10 @@ See `git log --oneline 13c4696..HEAD`. Order: BRIEF → PRIOR_LOOK → modes_com
 GPU_SOLVER_CERTIFIED → seal generator → SEAL → tag fix → ML-4096 FAIL → M0 manifest + smoke →
 diagnosis → MT flows → worker knob → existing gates → ML-16384 FAIL → profile diagnosis → M3 gue
 4096 → M3 iid 1024 → MT FAIL + diagnosis → M3 gue 1024 + iid 2048 → m3_cell16k → M3 gue 2048 →
-checker red-path fix → report v1 → m3_cell16k comparators mode → M3 iid 16384 (comparators-only) → this report.
+checker red-path fix → report v1 → m3_cell16k comparators mode → M3 iid 16384 (comparators-only) → M3 gue 16384 (comparators-only) → this report.
 
 ## 9. Not done / held
 * int128 ML arm (no path exists) — held for Will.
-* M3 GUE n=16384 — not run (window). M3 iid n=16384 PROD arms — not recomputed (roots banked; a
+* M3 n=16384 PROD arms (both classes) — not recomputed (roots banked; a
   full run is ~13 CPU-hours of references at this n).
 * Night 2 — not started; needs Will's go and the re-seals in §5.
