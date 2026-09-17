@@ -82,6 +82,15 @@ the instrument measures what we claim. Specifically this row certifies:
       ceiling); the per-step continuity statistic is defeated on C_perm; L4's
       transverse-relaxation ratio is ~1 (instrument, per the rate-level probe
       recorded in the brief).
+  R13 STAGE 3b (stage3b_recurrence_measured.json): L4b sealed-to-fail scored;
+      I1 along-manifold kick -- the continuous attractor RETAINS the phase
+      offset (3/3), IND_u RESTORES it (3/3); the driven pinned ring did not
+      restore (retention 0.88 vs sealed < 0.1) because drive >> pinning, so
+      that negative is re-posed trapped (I1b). T1 traversal statistic: R
+      separates C_perm (> 3) from A/IND (1.00); C_ord reads 2.06 (a stepwise
+      traversal fails the < 1.5 clause: R - 1 ~ noise-TV/net) -- pinned as the
+      statistic's known false-negative channel. The traversal detector is
+      certified on its DECLARED sets with that caveat printed.
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -627,6 +636,81 @@ if LF:
                  f"L4b (tangent-projected residual) is the next pre-registration; the attractor rung stays DECLARED")
     chk(all(0.7 < r < 1.4 for r in ratios), f"R12 pin: L4 ratio moved out of [0.7,1.4]: {ratios} — re-read before re-scoping")
 
+# R13 — Stage 3b
+bpath = os.path.join(HERE, "stage3b_recurrence_measured.json")
+chk(os.path.exists(bpath), "R13 stage3b_recurrence_measured.json missing — run stage3b_recurrence.py")
+RB = json.load(open(bpath)) if os.path.exists(bpath) else None
+r13 = {}
+if RB:
+    BR = RB["rows"]
+    # L4b: sealed to fail at the rate level (ratio < 2 in >= 2/3 seeds)
+    l4 = {}
+    for x in BR:
+        if x["arm"] == "L4b" and x.get("readable"):
+            l4.setdefault((x["level"], x["seed"]), {})[x["cloud"]] = x["tau_perp_tau"]
+    rat = {lvl: [v["A_n"] / v["IND_n"] for (l, sd), v in sorted(l4.items()) if l == lvl and len(v) == 2]
+           for lvl in ("rates", "spikes")}
+    ok4b = sum(r < 2 for r in rat["rates"]) >= 2
+    r13["L4b"] = (f"sealed-to-fail {'CONFIRMED' if ok4b else 'NOT CONFIRMED (it separated!)'}: rate-level ratio "
+                  f"{[round(r, 2) for r in rat['rates']]} (IND_n, with zero true transverse fluctuation, reads "
+                  f"{[round(v['IND_n'], 2) for (l, sd), v in sorted(l4.items()) if l == 'rates']} tau — model error, "
+                  f"smooth in phi(t)); spikes {[round(r, 2) for r in rat['spikes']]} at the floor")
+    chk(ok4b, "R13 pin: L4b now separates at the rate level — re-read before re-scoping the attractor rung")
+    # I1
+    def ret(system):
+        return [x["retention"] for x in BR if x["arm"] == "I" and x["kick"] == "along" and x["system"] == system]
+    rc, rp, ri = ret("ring_eps0"), ret("ring_eps0.1"), ret("IND_u")
+    ok_c, ok_i, ok_p = all(r > 0.9 for r in rc), all(r < 0.05 for r in ri), all(r < 0.1 for r in rp)
+    r13["I1"] = (f"continuous attractor retention {[round(r, 3) for r in rc]} {'PASS' if ok_c else 'FAIL'} (>0.9); "
+                 f"IND_u {[round(r, 3) for r in ri]} {'PASS' if ok_i else 'FAIL'} (<0.05); driven pinned ring "
+                 f"{[round(r, 3) for r in rp]} {'PASS' if ok_p else 'FAIL'} (<0.1) — drive omega=0.02 >> c*eps=2.9e-3, the "
+                 f"bump is not trapped, no mean restoring force; the discrete-attractor negative is re-posed TRAPPED (I1b)")
+    chk(ok_c and ok_i, "R13 pin: the I1 kind-level separation (attractor retains, input-driven restores) regressed")
+    chk(all(0.7 < r < 0.95 for r in rp), f"R13 pin: driven pinned ring retention moved out of [0.7,0.95]: {rp}")
+    # I2
+    def dp10(system):
+        return [x["dperp_10"] / x["dperp_0"] for x in BR if x["arm"] == "I" and x["kick"] == "transverse"
+                and x["system"] == system]
+    t_c, t_i, t_p = dp10("ring_eps0"), dp10("IND_u"), dp10("ring_eps0.1")
+    r13["I2"] = (f"transverse return at 10 tau (fraction remaining): ring {[round(v, 3) for v in t_c]}, IND_u "
+                 f"{[round(v, 3) for v in t_i]} (both <0.1: {'PASS' if all(v < 0.1 for v in t_c + t_i) else 'FAIL'}); "
+                 f"pinned {[round(v, 3) for v in t_p]} (position-dependent bump shape leaves a residual) — rate not kind")
+    chk(all(v < 0.1 for v in t_c + t_i), "R13 pin: transverse kicks no longer return in the ring/IND_u")
+    # T1 + detector
+    def T1(cloud, key):
+        return [x[key] for x in BR if x["arm"] == "T1" and x["cloud"] == cloud and x.get("readable")]
+    okA = all(r < 1.5 for r in T1("A", "R")) and all(j == 0 for j in T1("A", "J"))
+    okI = all(r < 1.5 for r in T1("IND", "R")) and all(j == 0 for j in T1("IND", "J"))
+    okO = all(r < 1.5 for r in T1("C_ord", "R"))
+    okP = all((r > 3 or j >= 8) for r, j in zip(T1("C_perm", "R"), T1("C_perm", "J")))
+    dread = [x.get("readable") for x in BR if x["arm"] == "T1" and x["cloud"] == "D"]
+    r13["T1"] = (f"A R={[round(r, 2) for r in T1('A', 'R')]} J={T1('A', 'J')} {'PASS' if okA else 'FAIL'}; IND R="
+                 f"{[round(r, 2) for r in T1('IND', 'R')]} {'PASS' if okI else 'FAIL'}; C_ord R={[round(r, 2) for r in T1('C_ord', 'R')]} "
+                 f"{'PASS' if okO else 'FAIL (R-1 ~ noise-TV/net: a stepwise traversal with small net reads high; R needs a noise correction before 1.5 is a threshold)'}; "
+                 f"C_perm R={[round(r, 2) for r in T1('C_perm', 'R')]} J={T1('C_perm', 'J')} {'PASS (via R; J clause fails: smoothing merges 13/15 boundaries)' if okP else 'FAIL'}; "
+                 f"D readable={dread} (unreadable => silent)")
+    chk(okA and okI and okP, "R13 pin: T1's separation of A/IND from C_perm regressed")
+    chk(not okO and all(1.5 <= r <= 3 for r in T1("C_ord", "R")), "R13 pin: C_ord's R moved out of [1.5,3] — the false-negative channel changed")
+    chk(not any(dread), "R13 pin: D became readable — a 3-cluster static cloud has no H1 class")
+    # detector: with_continuous_traversal on its DECLARED sets
+    spec3 = D.ph_with_continuous_traversal_spec()
+    fireA = okA; fireI = okI
+    spec3.record("driven_ring_A", fireA)
+    spec3.record("independent_units_IND", fireI)
+    spec3.record("random_order_static_C_perm", not okP)
+    spec3.record("converged_pinned_D", any(dread))
+    spec3.record("unreadable_low_rho", False)      # silent by rule (R12 pins the fallback's wrong counts)
+    try:
+        rates3 = spec3.certify()
+    except DetectorNotCertified as e:
+        chk(False, f"R13 {e}"); rates3 = spec3.rates()
+    _tp3, _np3 = map(int, rates3["sensitivity"].split("/")); _tn3, _nn3 = map(int, rates3["specificity"].split("/"))
+    s3c, p3c = _br(_tp3, _np3), _br(_tn3, _nn3)
+    r13["detector"] = (f"ph_topology_with_continuous_traversal certified on its DECLARED sets: sens {rates3['sensitivity']} "
+                       f"CP95 {s3c['honest_claim']} [{s3c['treatment']}], spec {rates3['specificity']} CP95 {p3c['honest_claim']} "
+                       f"[{p3c['treatment']}]; CAVEAT PINNED: a stepwise traversal (C_ord, not in the declared sets) reads "
+                       f"R=2.1 and would be a false negative under the R<1.5 clause")
+
 # R7 — plan hygiene
 plan = os.path.join(HERE, "rotational-dynamics-build-plan.md")
 txt = open(plan).read()
@@ -672,6 +756,10 @@ if r11:
 if r12:
     print("  R12 Stage 3a, sealed arms scored as declared:")
     for k, v in r12.items():
+        print(f"     {k}: {v}")
+if r13:
+    print("  R13 Stage 3b, sealed arms scored as declared:")
+    for k, v in r13.items():
         print(f"     {k}: {v}")
 for f in fails:
     print("FAIL:", f)

@@ -592,6 +592,48 @@ observational `implies` DECLARED with "possibly unreachable observationally"
 banked as a finding — or fold I1 into `implies` with the intervention
 requirement stated in `fires_on`.
 
+## Stage 3b — results (`stage3b_recurrence_measured.json`, sealed `ef243e7`)
+
+**The intervention separates in kind.** I1: the ε = 0 ring **retains** an
+along-manifold kick exactly — Δψ 0.300 → 0.300 at 300τ, 3/3 — and IND_u
+**restores** it completely (0.285 → 0.000 by 10τ, 3/3). That is the
+`implies_continuous_attractor` predicate — recurrence with a restoring force
+— reached by intervention, as the pre-registration said it would have to be.
+
+**One sealed prediction failed, and it re-poses the discrete-attractor
+negative.** The driven pinned ring (ε = 0.1, γ = 0.02) retained **0.88** of
+the kick (sealed < 0.1). Under drive ω = 0.02 ≫ c·ε = 2.9e-3 the bump is
+not trapped; it sweeps through the wells at a modulated velocity, and on
+average there is no restoring force — a driven discrete attractor behaves
+like a continuous one for phase memory. The competition ω vs c·ε is the
+mode-locking boundary of Stage 4 showing up in Stage 3. I1b (queued): the
+same kick with the bump *trapped* (γ = 0, or γ below the pinning threshold),
+where the restoring force is the well's λ₁ = −0.015 and retention at 300τ
+should be ≈ e^{−4.5}.
+
+**L4b failed as sealed, for the predicted reason.** At the rate level IND_n —
+zero true transverse fluctuation by construction — reads τ_⊥ = 3.0–3.5τ,
+*more* than A_n's 1.1τ: the residual is manifold-model error, a smooth
+function of φ(t). At ρ = 50 both sit at the floor (ratio 1.03). **No
+deviation-from-manifold statistic reaches the dynamical rung**; on this
+substrate the rung is reached by perturbation. Banked.
+
+**I2:** transverse kicks return in the ring (0.001–0.003 remaining at 10τ)
+and in IND_u (0) — rate, not kind — and the ring keeps the kick's projection
+on its marginal mode (−0.012…−0.019 rad), an observation consistent with I1.
+The pinned ring keeps a 7–19% shape residual because the bump's shape is
+position-dependent in a heterogeneous landscape.
+
+**T1 — the traversal statistic, re-sealed on the B-avg rail.** R = TV/|net|
+reads 1.00 on A and IND (J = 0) and 3.3–5.3 on C_perm (sealed > 3; the J ≥ 8
+clause fails — smoothing merges 13 of 15 boundaries). C_ord reads **2.06**,
+failing the sealed < 1.5: R − 1 ≈ noise-TV/net, and a stepwise traversal has
+a small net. R needs a noise correction before 1.5 is a threshold; that is
+pinned as the statistic's false-negative channel. `ph_topology_with_
+continuous_traversal` is certified on its *declared* sets (A, IND fire;
+C_perm, D-unreadable, unreadable-ρ silent) with the C_ord caveat printed by
+the board every run.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
@@ -733,10 +775,11 @@ instrument bound; any population-level claim.
 - ~~c(ε·T) fit before measure 2~~ — done. ~~Measure 2~~ — done.
 - ~~(a) σ_s sweep~~ done (F6; and the "SNR" reading was wrong, S4).
   ~~(b) visits-per-unit~~ done (F5). ~~(c) Stage 2~~ done.
-- ~~Stage 3~~ 3a done. **Next:** L4b (tangent-projected transverse residual;
-  rate-level ceiling first; then ρ), and the traversal statistic re-sealed on
-  total variation / net winding. Then Stage 4. The Sγ exponent could be
-  resolved with N=256 if it becomes load-bearing.
+- ~~Stage 3~~ 3a + 3b done. **Overnight queue:** I1b (trapped pinned ring under
+  the kick), Stage 4 (circle map; K<1 zero-hysteresis rail; rotation number
+  as a limit read at finite N — B-sup rail), a noise-corrected R for T1.
+  **For Will:** whether the intervention-only certification counts for the
+  `implies` rung (see the queued decision above); push.
 - Per-basin λ₁ spread: at ε=0.1 the three pinned basins have λ₁ = 1.28e-2 /
   1.49e-2 / 1.53e-2; the tables bank the median, min and max. If Stage 6 needs
   per-basin curvature, the column exists.
