@@ -9,12 +9,23 @@ the instrument measures what we claim. Specifically this row certifies:
       row is at the floor: |lam1| < 1e-12, drift < 1e-9
   R3  the dial does what it must: lam1 strictly decreases with eps at T=2000
       once above the floor; the eps=0.1 row is CONVERGED and collapsed
-  R4  spectral and dynamic reads agree where both are valid (converged row)
+  R4  STANDING INVARIANT, every row: two independent reads of the marginal
+      mode (Jacobian lam1; dynamic relaxation rate) must agree wherever both
+      are valid (converged fixed point), and every disagreement must be
+      accounted for by non-convergence. It is the cheapest artifact detector
+      in the arc: it caught the threshold-linear Jacobian (reads apart by
+      ~1e12 at the floor) and the on-grid starts (the obvious initial
+      condition that could not see pinning). A live witness is required: at
+      least one converged row above the floor, so the invariant CAN fail.
   R5  the T-dependence is banked, not hidden: n_distinct differs between the
       two T rows at the same eps — a collapse threshold is not a substrate
       property until T is stated
   R6  the built detector is two-sided-correct on the banked rows and certifies;
-      the nearest confusable is silent by a stated margin, not by luck
+      the nearest confusable is silent by a stated margin, not by luck. The
+      tallies (2/2, 3/3) carry Clopper-Pearson intervals via boundary_rate and
+      are printed as UNINFORMATIVE where they are — the margin on lam1 is the
+      number doing the work, and the summary leads with it (#19: a tally is
+      not a verdict).
   R7  plan hygiene: no 'verify ID' tags, no Zone.Identifier stray, v5 header
 """
 import os
@@ -106,9 +117,30 @@ chk(last["n_distinct"] <= last["B"] // 2,
     f"R3 no collapse at eps={last['eps']}: n_distinct={last['n_distinct']} of B={last['B']}")
 chk(last["lam1_median"] < -1e-3, f"R3 pinned row lam1 too close to zero: {last['lam1_median']:.2e}")
 
-# R4 — spectral vs dynamic agree on the converged row only (scoped, see ringnet)
-rel = abs(last["relax_rate_median"] - (-last["lam1_median"])) / abs(last["lam1_median"])
-chk(rel < 0.2, f"R4 spectral/dynamic disagree on converged row: rel err {rel:.2f}")
+# R4 — STANDING INVARIANT on every bump row: spectral vs dynamic read
+CONVERGED = 1e-8      # resid_max below this: a fixed point, both reads valid
+FLOOR = 1e-6          # both reads below this: at the floor, agreement is "both ~0"
+AGREE = 0.2           # relative tolerance where both are valid and above floor
+r4 = []
+for x in rows:
+    lam1, relax, resid = -x["lam1_median"], x["relax_rate_median"], x["resid_max"]
+    conv = resid < CONVERGED
+    floor = abs(lam1) < FLOOR and abs(relax) < FLOOR
+    if conv and floor:
+        state, ok = "CONVERGED_FLOOR", True
+    elif conv:
+        rel = abs(relax - lam1) / max(abs(lam1), 1e-300)
+        state, ok = f"CONVERGED rel_err={rel:.2f}", rel < AGREE
+    else:
+        # not a fixed point: the dynamic read includes ongoing drift, so the
+        # reads MAY disagree -- but that disagreement must be ATTRIBUTED, here
+        state, ok = f"NOT_CONVERGED resid={resid:.1e} (reads not compared)", True
+    r4.append((x["T"], x["eps"], state))
+    chk(ok, f"R4 T={x['T']} eps={x['eps']}: spectral {lam1:+.2e} vs dynamic "
+            f"{relax:+.2e} at a converged fixed point — {state}")
+live = [t for t in r4 if t[2].startswith("CONVERGED rel_err")]
+chk(len(live) >= 1, "R4 has no converged row above the floor — the invariant "
+                    "cannot fail on this table (witness must be able to fail)")
 
 # R5 — T-dependence banked and visible
 diffs = [(e, row(T_short, e)["n_distinct"], row(T_long, e)["n_distinct"])
@@ -138,6 +170,11 @@ try:
 except DetectorNotCertified as e:
     chk(False, f"R6 {e}")
     rates = spec.rates()
+# tallies carry intervals, one convention (boundary_rate), and are labelled
+from boundary_rate import classify as _br                            # noqa: E402
+_tp, _np_ = map(int, rates["sensitivity"].split("/"))
+_tn, _nn = map(int, rates["specificity"].split("/"))
+sens_ci, spec_ci = _br(_tp, _np_), _br(_tn, _nn)
 if w:
     margin = abs(w["lam1_median"]) / D.LAM1_TOL
     chk(margin > 10, f"R6 nearest confusable silent by only {margin:.1f}x — threshold is luck")
@@ -155,12 +192,23 @@ chk(txt.startswith("# Rotational Dynamics / Attractor Geometry — Build Plan v5
 chk("verify ID" not in txt, "R7 'verify ID' tag survives in plan")
 chk(not any(f.endswith("Zone.Identifier") for f in os.listdir(HERE)), "R7 Zone.Identifier stray in ring/")
 
-print(f"ring board: {len(fails)} failure(s); built detector rates: "
-      f"sens {rates['sensitivity']} spec {rates['specificity']}; "
-      f"floor |lam1|={abs(row(T_long, 0.0)['lam1_median']):.1e}, "
-      f"confusable margin {abs(row(T_long, 1e-4)['lam1_median']) / D.LAM1_TOL:.0f}x, "
-      f"collapse T={T_short}:{[r_['n_distinct'] for r_ in sorted([x for x in rows if x['T'] == T_short], key=lambda x: x['eps'])]} "
+_margin = abs(row(T_long, 1e-4)["lam1_median"]) / D.LAM1_TOL
+print(f"ring board: {len(fails)} failure(s).")
+print(f"  R6 built detector: nearest confusable silent by {_margin:.0f}x on lam1 "
+      f"(the number doing the work); floor |lam1|={abs(row(T_long, 0.0)['lam1_median']):.1e}")
+print(f"     tallies: sens {rates['sensitivity']} CP95 {sens_ci['honest_claim']} "
+      f"[{sens_ci['treatment']}]; spec {rates['specificity']} CP95 "
+      f"{spec_ci['honest_claim']} [{spec_ci['treatment']}] -- tallies this "
+      f"small are not verdicts")
+print(f"  R4 standing invariant: {sum(1 for t in r4 if t[2].startswith('CONVERGED rel_err'))} "
+      f"converged-above-floor row(s) compared, "
+      f"{sum(1 for t in r4 if t[2] == 'CONVERGED_FLOOR')} at floor, "
+      f"{sum(1 for t in r4 if t[2].startswith('NOT_CONVERGED'))} not converged (attributed)")
+print(f"  R5 collapse is an eps*T contour: T={T_short}:"
+      f"{[r_['n_distinct'] for r_ in sorted([x for x in rows if x['T'] == T_short], key=lambda x: x['eps'])]} "
       f"T={T_long}:{[r_['n_distinct'] for r_ in long_rows]}")
+print(f"  R1 declared-only (not certified, by design): {sorted(D.DECLARED_ONLY)}; "
+      f"Stage 1 cannot certify: {sorted(D.STAGE1_CANNOT_CERTIFY)}")
 for f in fails:
     print("FAIL:", f)
 sys.exit(1 if fails else 0)

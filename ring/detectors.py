@@ -61,33 +61,78 @@ def marginal_mode_spec() -> DetectorSpec:
     )
 
 
-def ph_continuous_attractor_spec() -> DetectorSpec:
-    """DECLARED (Stage 1, measure 2). The inference 'H1 rank 1 from PH on
-    population vectors => continuous attractor'. Negative set is two-sided:
-    topology without an attractor, attractor without a continuum."""
+def ph_consistent_with_continuous_attractor_spec() -> DetectorSpec:
+    """DECLARED (Stage 1, measure 2 — the detector measure 2 actually scores).
+
+    The MARGINAL claim: the population-vector cloud has the topology a
+    continuous attractor would leave (H1 rank 1 on S^1), and that topology
+    survives the surrogates that destroy fine-timescale coincidence (jitter
+    ladder) and sequence (within-cell ISI-order scramble). It says nothing
+    about how the state MOVES. Named "consistent with" so that a clean
+    measure-2 result cannot be banked as a dynamical finding."""
     return DetectorSpec(
-        name="ph_topology_implies_continuous_attractor",
-        fires_on="persistent H1 rank 1 on the population-vector cloud, after "
-                 "the jitter ladder, within-cell ISI-order scramble, and "
+        name="ph_topology_consistent_with_continuous_attractor",
+        fires_on="persistent H1 rank 1 on the population-vector cloud, "
+                 "stable under the jitter ladder below tau_c and under the "
                  "subsetting sweep",
         positive_set={
             "intact_ring_cloud": "population vectors from the eps=0 ring",
         },
         negative_set={
+            "pinned_ring_cloud_converged": "eps=0.1 ring sampled AFTER "
+                "collapse (T=2000, resid 3e-11): three discrete points, "
+                "H0=3, H1=0",
+            "jittered_cloud_above_tau_c": "the intact cloud with spike jitter "
+                "above the ladder's critical tau: topology destroyed (di Sarra "
+                "2025: 100-500 ms on real grid modules)",
+            "within_cell_scrambled_cloud": "the intact cloud with each cell's "
+                "ISI order scrambled (marginals kept, coincidence destroyed)",
+        },
+        nearest_confusable="the pinned ring sampled BEFORE collapse: its "
+                           "transient cloud traces the ring (H1 rank 1) while "
+                           "the attractor is three discrete points — the eps*T "
+                           "contour puts the same network on both sides of "
+                           "this detector depending on the window",
+        negative_rationale="PH is order-blind; the surrogates are what "
+                           "separate 'has the shape' from 'happened to pass "
+                           "through the shape'",
+    )
+
+
+def ph_implies_continuous_attractor_spec() -> DetectorSpec:
+    """DECLARED THROUGH ALL OF STAGE 1, BY DESIGN. No barcode promotes it.
+
+    The DYNAMICAL claim: the state moves along the manifold the cloud has.
+    Certifying it needs a temporal statistic — Stage 3's path-lifting decoder
+    (persistent cohomology -> circular coordinates -> lift to the universal
+    cover) or zigzag persistence. Until one exists the board refuses to let
+    this read as certified (verify_ring.py R1), and measure 2's output is
+    NOT the thing that clears it."""
+    return DetectorSpec(
+        name="ph_topology_implies_continuous_attractor",
+        fires_on="ph_topology_consistent_with_continuous_attractor fires AND a "
+                 "temporal statistic (path-lifted trajectory winding, or "
+                 "zigzag H1 persisting across time windows) is consistent "
+                 "with motion along the manifold",
+        positive_set={
+            "intact_ring_trajectory": "the eps=0 ring's state trajectory, "
+                                      "lifted to the universal cover",
+        },
+        negative_set={
             "independent_modulated_poisson_S1": "di Sarra et al. 2025 "
                 "construction on S^1: independent Poisson units with circular "
                 "tuning + theta/eta oscillatory rate modulation, NO recurrence "
-                "— reproduces the topology with no attractor",
-            "pinned_ring_cloud": "eps=0.1 ring: a real attractor (three "
-                "discrete points) with no continuum; H1 must NOT read rank 1 "
-                "as 'continuous'",
+                "— same barcodes, no attractor, no motion along the manifold",
+            "pinned_ring_transient": "the pinned ring before collapse: the "
+                "cloud traces the ring but the lifted trajectory slides to a "
+                "point and stops",
         },
-        nearest_confusable="the di Sarra construction — same barcodes, no "
-                           "dynamics; PH is order-blind so the cloud alone "
-                           "cannot tell them apart (plan v5, Stage 1)",
-        negative_rationale="a marginal claim (cloud shape) is being read as a "
-                           "dynamical one (attractor); the negative set holds "
-                           "the two apart",
+        nearest_confusable="the di Sarra construction — identical marginal "
+                           "topology by construction; only a temporal "
+                           "statistic separates it (plan v5, Stage 1)",
+        negative_rationale="this is the inference the manifold literature "
+                           "makes from a barcode; the negative set is the "
+                           "reason it cannot be made from one",
     )
 
 
@@ -117,6 +162,16 @@ def rotation_fit_spec() -> DetectorSpec:
 
 BUILT = {"ring_marginal_mode": marginal_mode_spec}
 DECLARED_ONLY = {
-    "ph_topology_implies_continuous_attractor": ph_continuous_attractor_spec,
+    "ph_topology_consistent_with_continuous_attractor":
+        ph_consistent_with_continuous_attractor_spec,
+    "ph_topology_implies_continuous_attractor":
+        ph_implies_continuous_attractor_spec,
     "rotational_dynamics_fit": rotation_fit_spec,
 }
+# Certification paths, so nobody reads a DECLARED detector as pending the
+# wrong measurement:
+#   consistent_with  -> Stage 1 measure 2 (ripser barcodes + persim distances)
+#   implies          -> Stage 3 path-lifting (DREiMac) or zigzag (Dionysus 2);
+#                       NOT Stage 1, by design
+#   rotational_fit   -> Stage 2 (skew_frac vs TME); a real path, exists
+STAGE1_CANNOT_CERTIFY = {"ph_topology_implies_continuous_attractor"}

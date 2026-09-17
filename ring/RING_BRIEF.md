@@ -34,6 +34,56 @@ Two analysis objects, two generative families, two right nulls:
 The wrong null for both is rate-matched Poisson; it is not used anywhere in
 this arc as the null of record.
 
+## The finding from measure 1, and what it re-indexes (second pass, 2026-09-16)
+
+**There is no ε\*.** Drift is ≈ linear in ε·T at small ε, so in the long-T
+limit any ε > 0 collapses the continuum, and "the heterogeneity at which the
+ring goes discrete" is a property of the network **and the observation window
+jointly**. Two banked rows at the same ε=0.03 say it: 16 distinct attractors
+at T=200, 4 at T=2000. The index is an **ε·T contour** (#20 on first contact).
+
+Three upstream consequences, all applied to the plan on the branch:
+1. **Stage 1's gotcha is now a measured law** citing those two rows.
+2. **Stage 6 is re-posed**: gain modulates the drift coefficient; fit c(g) and
+   report the surface, not "the g at which it stiffens".
+3. **Stage 5 / QUEUED acquire a structural confound.** The certifier needs
+   n=2000 events at rate r ⇒ T = 2000/r ⇒ contour position 2000·ε/r, fixed by
+   the certifier. Window length and attractor state cannot be chosen
+   independently. The QUEUED arm is **confounded by construction, not
+   underpowered**; it does not leave the queue until one of the three options
+   in the plan's QUEUED entry is chosen.
+
+**Detector naming.** `ph_topology_implies_continuous_attractor` asserted the
+inference Stage 1's own framing denies. Measure 2 now scores
+`ph_topology_consistent_with_continuous_attractor` (marginal claim; negative
+set = converged pinned-ring cloud, jittered cloud above τ_c, within-cell
+scrambled cloud; nearest confusable = the pinned ring's *transient* cloud,
+which traces the ring before collapse). The `implies` form stays DECLARED
+through all of Stage 1 by design (`STAGE1_CANNOT_CERTIFY`); it needs Stage 3
+path-lifting or zigzag. `rotational_dynamics_fit` has a real certification
+path (skew_frac vs TME) and is unchanged.
+
+**Rates carry intervals.** Sensitivity 2/2 → CP95 ≥ 0.158, specificity 3/3 →
+CP95 ≥ 0.292, both UNINFORMATIVE per `boundary_rate`. The number doing the
+work is the **256× margin** on λ₁ between the ε=0 floor and the nearest
+confusable; the board leads with it.
+
+**Standing invariant.** The spectral/dynamic cross-check is now R4 on every
+row, with attribution: converged rows must agree within 20%; non-converged
+rows are flagged, not compared; a live witness (≥1 converged row above the
+floor) is required so the invariant can fail. **Known thinness:** on the
+banked table only one row (ε=0.1, T=2000) is converged above the floor, so the
+invariant has one live comparison. Longer T or a second seed adds more; the
+bar is not lowered to get them.
+
+**Venv, declared as three capabilities** (checked against packaged wheels):
+`ripser 0.6.15` + `persim 0.3.8` **installed** (barcodes with
+`do_cocycles=True` from the first pass; diagram distances for the jitter
+curve). `DREiMac 0.3.0` declared, install with Stage 3. Zigzag: **not GUDHI**
+— the 3.13.0 Python wheel has no zigzag module or symbol; `Dionysus 2.2.3`
+ships a cp312 `manylinux_2_39` wheel and host glibc is 2.39, so it installs
+as a wheel when reached.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
@@ -45,8 +95,8 @@ this arc as the null of record.
    the instrument floor.
 3. **Stage 1, measure 2 — PH H₁ rank 1 on the population cloud**, through the
    jitter ladder, the within-cell ISI-order scramble, and the subsetting sweep.
-   *Not this session*: no PH library is in the venv (ripser/gudhi/persim all
-   absent); adding one is a declared venv change, made next session.
+   Scores `ph_topology_consistent_with_continuous_attractor` only. Unblocked:
+   ripser + persim are installed (see above). *Not this session.*
 
 ## Methodology
 
@@ -80,7 +130,7 @@ this arc as the null of record.
 
 ## Out of scope this session
 
-PH (no library); Stage 2+; spikes off the ring and the QUEUED ring→ARS
+PH measure 2 (library installed, not run); Stage 2+; spikes off the ring and the QUEUED ring→ARS
 instrument bound; any population-level claim.
 
 ## Deliverables
@@ -93,9 +143,11 @@ instrument bound; any population-level claim.
 
 ## Open questions carried forward
 
-- Collapse threshold vs T: drift is ≈ linear in ε·T at small ε (5.9e-4 rad at
-  ε=1e-4, T=200 → 5.9e-3 at T=2000). A collapse "threshold" is therefore an
-  ε·T contour, not an ε. State it that way when it is banked.
-- Which PH library, and whether zigzag needs a second one.
+- QUEUED arm survival: (a) re-pose over the contour coordinate 2000ε/r with r
+  part of the dial, (b) drop the long-range arm and keep NNS/`classify` only,
+  (c) drop the item. Will's call; it stays queued until made.
+- Fit c(ε·T) properly: the linearity claim is from two points per ε; a banked
+  fit with its residual is the next measure-1 addendum, and it is what Stage 6
+  will need as its baseline c(g=1).
 - Where the QUEUED arm's "which calibrator is each dial setting redundant with"
   column is computed — `extractor_distinctness` machinery or a new panel.

@@ -20,6 +20,16 @@ added as the torus-without-attractor half of the Stage 1 negative set (Stage 0
 domain nulls); the rotation-null paragraph made internally consistent; the
 `Zone.Identifier` stray dropped.
 
+**v5, second pass (2026-09-16, after Stage 1 measure 1 banked):** the ε·T
+contour is a finding, not a detail, and it re-indexes three things upstream
+(Stage 1 gotcha → measured law; Stage 6 → fit the drift coefficient c(g), not a
+threshold; Stage 5 / QUEUED → the certifier's n=2000 pins the contour position,
+so the arm is confounded by construction). Detector
+`ph_topology_implies_continuous_attractor` renamed to the claim PH can
+support; the `implies` form stays DECLARED through Stage 1 by design. Venv
+declared as three capabilities. Applied in place on the branch — a v6 written
+from v4 would fork against this file.
+
 **C1 — The joint experiment predicted the wrong sign. RETRACTED.** v3 read
 "hc-3 6% / allen-hpf 0% of cells individually indistinguishable from Poisson at
 long range" as *rigidity*. Σ² failing Poisson is two-sided, and these fail
@@ -102,6 +112,19 @@ Stage 6's plasticity is easier to express with autograd; cupy stays the path for
 anything shared with the scanner. Either way the import is **guarded** —
 `ring/__init__.py` exposes `HAVE_TORCH`, every verification file runs on numpy,
 and `verify_ring.py` proves it by importing the package with torch blocked.
+
+**PH is three capabilities, declared together so the same stage does not force
+a second venv change** (facts checked against the packaged wheels, 2026-09-16):
+
+| capability | package | status |
+|---|---|---|
+| static barcodes + cocycles | `ripser 0.6.15` (`do_cocycles=True` from the first pass — Stage 3's path-lifting consumes them; ~10³ diagrams in measure 2 are not worth recomputing) | **installed** |
+| diagram distances (the jitter ladder's output is a bottleneck/Wasserstein curve) | `persim 0.3.8` | **installed** |
+| circular/toroidal coordinates from persistent cohomology | `DREiMac 0.3.0` (sits on ripser) | declared; install with Stage 3 |
+| zigzag persistence | **not GUDHI**: the 3.13.0 Python wheel carries no zigzag module or symbol (C++ has it, the bindings don't). `Dionysus 2.2.3` ships a cp312 `manylinux_2_39` wheel; host glibc is 2.39, so it installs without the boost build | declared; install when the time-varying case is reached |
+
+Point-cloud size is T (timepoints), not N: a 2000-point Rips to H₁ is
+unremarkable individually; the thousand of them wants the batching.
 
 ---
 
@@ -240,6 +263,15 @@ The entry point: the only architecture where a winding count is *defined*.
   the answer*. This calibrates how much the pipeline invents before it points at
   anything unknown, and it is the **marginal-vs-dynamical result** everything
   downstream depends on.
+- **What measure 2 can certify, by name.** PH on the cloud is order-blind, so
+  no barcode promotes "PH topology ⇒ continuous attractor". The detector measure
+  2 scores is `ph_topology_consistent_with_continuous_attractor` — a marginal
+  claim whose negative set is the pinned-ring cloud and the jitter/scramble
+  surrogates. The `implies` form (`ph_topology_implies_continuous_attractor`)
+  stays DECLARED through all of Stage 1 **by design**: it needs a temporal
+  statistic (Stage 3 path-lifting or zigzag PH), and the board refuses to let it
+  read as certified until one exists. Naming this now is what stops a clean
+  measure-2 result from being banked as a dynamical finding.
 - **Zigzag persistence** (arXiv 2603.03037, Gardinazzi et al. 2026) for the time-varying case.
   Classical PH assumes a static point-cloud filtration, wrong from Stage 4 on.
 
@@ -251,10 +283,18 @@ analogue here: PH on a cloud of population vectors is order-blind, so
 that an order surrogate tests it (C3). It follows that **a dynamical claim needs a
 temporal statistic** — path-lifting (Stage 3) and zigzag PH are the two on hand.
 
-**Gotcha, load-bearing:** continuous attractors are structurally fragile. Fixed
-asymmetries from heterogeneity cause directed drift and collapse the continuum
-into discrete attractors. Stage 6 exploits this; Stage 1 must measure where it
-happens.
+**Measured law (was a caveat; banked 2026-09-16, `stage1_marginal_measured.json`).**
+Continuous attractors are structurally fragile — fixed asymmetries cause directed
+drift and collapse the continuum into discrete attractors — and the collapse has
+an index with a form: **drift ≈ linear in ε·T at small ε** (5.9e-4 rad at
+ε=1e-4, T=200 → 5.9e-3 at T=2000). So **there is no ε\***. In the long-T limit
+any ε > 0 collapses the continuum; "the heterogeneity at which the ring goes
+discrete" is a property of the network *and the observation window jointly*,
+not of the network. Stated cleanly by two banked rows at the same ε=0.03:
+**16 distinct attractors at T=200, 4 at T=2000.** This is failure mode #20
+(asymptotic label + bounded instrument) handled on first contact: the index is
+an **ε·T contour**, and every downstream "threshold" question (Stage 6, Stage 5,
+QUEUED) is re-posed against it.
 
 **Standing warning:** *per-cell fingerprints cohere; population observables
 fragment — aggregation, not biology, sets the population class.* This plan is
@@ -365,6 +405,14 @@ validity_L, discrimination_L)`; at n=343 the gate is blind at *every* L (GOE
 admitted 32–90%); the only admissible cell measured anywhere is **n=2000, L=5**.
 Terminal ruling on the ARS side: needs more data, not a different statistic.
 
+**And the floor couples to the ε·T contour.** n=2000 events at rate r means
+T = 2000/r, so the position on the collapse contour is **2000·ε/r — fixed by
+the certifier's sample requirement**, not chosen. Window length and attractor
+state cannot be set independently: holding the contour position while
+satisfying n=2000 means co-varying r, which changes the point process being
+measured. Any Stage 5 window that carries long-range certification inherits
+this; state the contour position of every window alongside its L.
+
 ---
 
 ## Stage 6 — Gain modulation, constrained
@@ -378,8 +426,13 @@ recalibration does not. A global gain scalar is provably insufficient.
 Build the error channel, don't just add a knob:
 - global gain `g`, temperature `T`, **plus** an explicit error-rate channel with
   Hebbian plasticity on the gain pathway.
-- **Measure:** at what `g` does the continuum stiffen into discrete points
-  (heterogeneity pinning beats marginal stability)? At what `T` does it loosen?
+- **Measure (re-indexed, #20):** v4 asked "at what `g` does the continuum
+  stiffen into discrete points." Ill-posed — same defect as ε\*. What gain
+  modulates is the **drift coefficient**: with drift ≈ c(g)·ε·T, the measurement
+  is **how `g` moves the contour. Fit c(g) and report the surface**, not a
+  threshold. Same for temperature: c(g, T_noise). Sharper and falsifiable — a
+  c(g) that is flat says gain does nothing to the continuum; one that crosses
+  zero says gain can *unpin*.
 - **Measure:** how `g` shifts Stage 4's tongue boundaries — does gain change which
   counts are selectable?
 - Bounded parameters here: check distinct-value ratios (#17).
@@ -430,6 +483,19 @@ cross the noise floor?
 **Pre-registered expectation: null per-cell at every dial setting.** The
 deliverable is the bound, not the verdict. A positive would contradict a banked
 ruling and should be treated as a defect hunt first.
+
+**Structural confound, found 2026-09-16 — decide survival BEFORE dequeue.** The
+long-range certifier needs n=2000 events; at unit rate r that is T = 2000/r of
+ring time; so the dial setting's position on the collapse contour is
+**2000·ε/r, fixed by the certifier**. "Attractor structure on a dial, window
+held fixed" is not a design that exists: moving ε moves the contour position
+*and* the certifier's window is what sets it. Co-varying r to hold the contour
+position changes the point process. This is worse than "expect null" — the arm
+is **confounded by construction, not underpowered**. Options on the table: (a)
+re-pose over the contour coordinate 2000ε/r directly and accept that r is part
+of the dial; (b) drop the long-range arm and keep only NNS/`classify` (no n
+floor of that size, but then no class claim); (c) drop the item. Not decided
+here; it does not leave the queue until it is.
 
 **Baseline to expect.** phase30 built Kuramoto populations emitting spikes across
 (K, σ), fed them to ARS, and got BR_artifact at every K with 156/160 real-data
