@@ -31,7 +31,7 @@ A = 1e-5
 QW, KS = MT["qw_grid"], MT["k_grid"]
 NPZ = os.path.join(HERE, "roots", f"mt_{N}.npz")
 LOG = os.path.join(HERE, "mt_transfer.progress.log")
-WORKERS = 6
+WORKERS = int(os.environ.get("MT_WORKERS", "6"))   # resource knob only
 PASS_TOL = 0.1
 QW_PASS = (0.1, 0.5)
 
