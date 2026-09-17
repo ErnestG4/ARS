@@ -164,6 +164,45 @@ noise bars); the v1 r₁₂ = 751 was b₁ = 1230 from clip pile-up. Absolute b�
 against the base cloud is carried in every row and should gate any future
 threshold alongside r₁₂.
 
+## Coverage test + construction boundary — pre-registration (2026-09-16, before `stage1_coverage.py`)
+
+**Claim under test (H_cov).** PH's temporal sensitivity comes entirely from
+*coverage* — the residence-time density of the trajectory on the manifold —
+not from motion per se. One mechanism for P1 (τ_c(A) at the period scale: the
+smear must cover the circle) and P2 (the pinned ring's wells raise residence
+density, so smearing costs it less). Rival H_motion: τ_c ∝ bump width / ω.
+
+**Second question.** The jitter ladder is two-sided (P3: jitter *constructed*
+E2's loop). Gaussian jitter of spike times is, in expectation, **smoothing at
+τ_j plus random misassignment**. So a **smoothing-matched baseline** — the
+unjittered spikes smoothed at σ = √(σ_s² + τ_j²) — separates what the ladder
+constructs from what it destroys. Reported at every rung from here on.
+
+**Arms and sealed predictions** (R_MIN = 3, r₁₂ rule as before; fine ladder
+τ_j ∈ {30, 50, 70, 100, 140, 200, 300}τ; 2 emission seeds unless stated):
+- **F1 fine ladder, A and B.** τ_c(A) ∈ [70, 140]; D* ≡ ω·τ_c(A) ≈ 2.0 rad.
+  Under H_cov (residence density), τ_c(B)/τ_c(A) ∈ [1.2, 1.7] (B's well
+  velocity is 0.6×ω̄). A ratio at ≥ 2.5 falsifies the residence account.
+- **F2 speed at fixed coverage.** γ ∈ {0.01, 0.02, 0.04}, T = 3 periods each.
+  H_cov: ω·τ_c = D* within ±30% (τ_c ≈ 200, 100, 50).
+- **F3 coverage multiplicity at fixed speed.** γ = 0.02, rotations ∈ {1, 3, 10}.
+  H_cov: τ_c unchanged within one fine rung (×1.4).
+- **F4 bump width at fixed speed** — the discriminating arm. (J0, J1) ∈
+  {(−2, 4), (−1, 3), (−4, 6)} at γ = 0.02; width w measured as FWHM. H_cov:
+  τ_c independent of w within ×1.4; H_motion: τ_c ∝ w. INAPPLICABLE if the
+  achieved widths span < 1.5×.
+- **F5 the C residual as a coverage statement.** C1 (one sweep, one block per
+  unit) vs C3 (three sweeps, three blocks per unit), scrambled, 3 seeds.
+  H_cov: C1 keeps a loop in ≥1 seed (as banked); C3's median r₁₂ < R_MIN.
+  This is item (b) — the scramble's power as visits-per-unit — measured.
+- **F6 construction boundary.** σ_s ∈ {0.5, 1, 2, 5, 10, 20, 50, 100}τ, no
+  jitter, on A and E2. E2 crosses R_MIN somewhere in [5, 50]τ (the
+  construction regime exists and has a lower edge); A stays above R_MIN until
+  σ_c(A) ∈ [70, 200]τ. **F6b smoothing-matched ladder** on A, B, E2: on E2 the
+  jittered r₁₂ at τ_j = 30–100 is within ×2 of the smoothing-matched base
+  (what jitter constructed is smoothing); on A at τ_j ≥ τ_c the jittered b₁ is
+  < 0.5× the matched b₁ (destruction beyond smoothing).
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
