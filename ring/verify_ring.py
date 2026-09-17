@@ -107,6 +107,14 @@ the instrument measures what we claim. Specifically this row certifies:
       the banked I1 (stage3b) and I1b (stage3c) rows: positive ring eps=0
       fires 3/3; negatives IND_u (3/3) and trapped pinned ring silent.
       Separate from the observational ladder by design.
+  R17 STAGE 3e MSD (stage3e_msd_measured.json): the passive dual of the kick.
+      Sealed clauses scored per row; the three systems separate IN KIND
+      (continuum slope ~1, trapped saturating, IND_u flat) in every row, but
+      the trapped clauses sealed against the LINEAR lambda1 fail by a common
+      factor ~0.3 -- the anharmonic-well ratio the delta sweep measured at
+      0.1 rad. The observational implies rung is NOT certified at sealed
+      precision; nor is "unreachable observationally" banked, because the
+      zero mode's integration of endogenous noise IS a passive signature.
   R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
       convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
       step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
@@ -801,6 +809,59 @@ if RB and TR:
                               f"{pmc['honest_claim']} [{pmc['treatment']}]; margins: positive retention "
                               f"{[round(r, 3) for r in rc_]} vs negatives {[round(r, 3) for r in ri_]} / {[round(r, 3) for r in rt_]}")
 
+# R17 — Stage 3e MSD
+mpath = os.path.join(HERE, "stage3e_msd_measured.json")
+chk(os.path.exists(mpath), "R17 stage3e_msd_measured.json missing — run stage3e_msd.py")
+MS = json.load(open(mpath)) if os.path.exists(mpath) else None
+r17 = {}
+if MS:
+    rows_m = MS["rows"]
+    lam1 = abs(MS["lambda1_ref"])
+    cont = [x for x in rows_m if x["system"] == "continuum"]
+    trap = [x for x in rows_m if x["system"] == "trapped"]
+    ind = [x for x in rows_m if x["system"] == "IND_u"]
+    Dm = float(_st.mean(x["D"] for x in cont))
+    # continuum
+    c_slope = [x["slope_10_1000"] for x in cont]; c_ratio = [x["ratio_1000_100"] for x in cont]
+    ok_cs = all(abs(v - 1) <= 0.15 for v in c_slope); n_cr = sum(7 <= v <= 13 for v in c_ratio)
+    r17["continuum"] = (f"slope[10,1000] {[round(v, 2) for v in c_slope]} (1.0+-0.15) {'PASS' if ok_cs else 'FAIL'}; "
+                        f"MSD(1000)/MSD(100) {[round(v, 1) for v in c_ratio]} in [7,13]: {n_cr}/3 "
+                        f"{'PASS' if n_cr == 3 else 'FAIL (long-lag MSD has ~20 independent segments at T=20000: +-30%)'}; "
+                        f"D = {Dm:.2e} rad^2/tau")
+    # trapped
+    t_slope = [x["slope_200_2000"] for x in trap]; t_sat = [x["msd_sat"] for x in trap]; t_cross = [x["crossover_lag"] for x in trap]
+    pred_sat = 2 * Dm / lam1; pred_cross = 1 / lam1
+    n_ts = sum(v < 0.3 for v in t_slope)
+    n_sat = sum(0.5 <= v / pred_sat <= 2 for v in t_sat)
+    n_cx = sum(pred_cross / 3 <= v <= pred_cross * 3 for v in t_cross)
+    lam_eff = [1 / v for v in t_cross]
+    sat_eff = [2 * Dm / v for v in lam_eff]
+    r17["trapped"] = (f"slope[200,2000] {[round(v, 2) for v in t_slope]} (<0.3): {n_ts}/3; MSD_sat {[f'{v:.1e}' for v in t_sat]} vs "
+                      f"2D/|lambda1| = {pred_sat:.1e} (x2): {n_sat}/3 FAIL; crossover {t_cross} vs 1/|lambda1| = {pred_cross:.0f} (x3): "
+                      f"{n_cx}/3 FAIL — ONE CAUSE: lambda_eff = 1/crossover = {[f'{v:.1e}' for v in lam_eff]} = "
+                      f"{[round(v / lam1, 2) for v in lam_eff]} x lambda1, and 2D/lambda_eff = {[f'{v:.1e}' for v in sat_eff]} matches "
+                      f"MSD_sat to {[round(a / b, 2) for a, b in zip(t_sat, sat_eff)]}x: noise drives 0.1-rad excursions, where the "
+                      f"delta sweep measured a 0.32 restoring ratio (anharmonic well, third instrument)")
+    # IND_u
+    i_slope = [x["slope_10_1000"] for x in ind]; i_ratio = [x["ratio_1000_10"] for x in ind]
+    ok_i = all(v < 0.15 for v in i_slope) and all(v < 1.5 for v in i_ratio)
+    r17["IND_u"] = f"slope {[round(v, 2) for v in i_slope]} (<0.15), MSD(1000)/MSD(10) {[round(v, 2) for v in i_ratio]} (<1.5): {'PASS' if ok_i else 'FAIL'}"
+    # separation in kind
+    seps = [c["slope_200_2000"] - t["slope_200_2000"] for c, t in zip(cont, trap)]
+    n_sep = sum(v > 0.5 for v in seps)
+    kind_ok = all(c["slope_200_2000"] > 0.6 for c in cont) and all(0.15 < t["slope_200_2000"] < 0.6 for t in trap) and all(abs(i["slope_10_1000"]) < 0.15 for i in ind)
+    r17["separation"] = (f"continuum - trapped long-lag slope {[round(v, 2) for v in seps]} (>0.5): {n_sep}/3 "
+                         f"{'PASS' if n_sep == 3 else 'FAIL (narrow)'}; IND_u saturation lag < trapped crossover/10: PASS; "
+                         f"kind-level ordering (continuum > trapped > IND_u on long-lag slope) holds in "
+                         f"{'9/9' if kind_ok else 'NOT all'} rows [post-hoc thresholds, reported not scored]")
+    chk(ok_cs and ok_i, "R17 pin: continuum growth law or IND_u flatness regressed")
+    chk(kind_ok, "R17 pin: the kind-level ordering of the three systems' growth laws broke")
+    chk(all(0.15 <= v / lam1 <= 0.5 for v in lam_eff), f"R17 pin: lambda_eff/lambda1 moved out of [0.15,0.5]: {[round(v / lam1, 2) for v in lam_eff]}")
+    r17["verdict"] = ("implies rung NOT certified at sealed precision (trapped clauses sealed against the linear lambda1; "
+                      "continuum ratio and separation 2/3); 'unreachable observationally' NOT banked either — the zero "
+                      "mode's integration of endogenous noise is a passive signature. Next seal: lambda_eff from the "
+                      "delta sweep at the noise-set excursion, T >= 1e5 or 10 seeds for the long-lag +-30%")
+
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")
 chk(os.path.exists(cpath4), "R14 stage4_circlemap_measured.json missing — run stage4_circlemap.py")
@@ -951,6 +1012,10 @@ if r12:
 if r13:
     print("  R13 Stage 3b, sealed arms scored as declared:")
     for k, v in r13.items():
+        print(f"     {k}: {v}")
+if r17:
+    print("  R17 Stage 3e MSD, sealed clauses per row:")
+    for k, v in r17.items():
         print(f"     {k}: {v}")
 if r14:
     print("  R14 Stage 4, rails and sealed arms:")

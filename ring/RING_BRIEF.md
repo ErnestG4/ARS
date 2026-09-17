@@ -884,8 +884,10 @@ K = 1 is supported against its rival at tol ≤ 10⁻⁴.
 **Why the along-manifold kick works — a definition, not a proxy.** A
 continuous attractor is defined by a marginal direction, and a marginal
 direction has no autonomous dynamics: that is what marginal means. A zero
-mode does nothing by itself, so there is nothing about it to observe
-passively; the only signal it can emit is a response to displacement.
+mode does nothing by itself; the only signal it can emit is a response to
+displacement — *including the endogenous displacements that noise supplies*,
+which is why its passive signature, when noise is present, is the integration
+of that noise (Stage 3e: diffusion along the manifold).
 Retention of an along-manifold kick is the definition operationalized. This
 makes "unreachable observationally" a *structural* claim with L4/L4b as
 support, not a generalization from two failed statistics — **but it is not
@@ -982,6 +984,34 @@ with data-access. Fires when an along-manifold displacement δ is retained
 confusable: the *driven* pinned ring above depinning (0.72–0.88), which is
 sliding and retains — correctly, since above γ* it has no mean restoring
 force. Certified on banked data by R16.
+
+## Stage 3e — results (`stage3e_msd_measured.json`, sealed `8164091`)
+
+**In kind, the three growth laws separate in every row.** Continuum: long-lag
+slope 0.93–1.09 (sealed 1.0 ± 0.15, PASS 3/3), D = 1.52·10⁻⁵ rad²/τ banked.
+IND_u: slope 0.00, MSD(1000)/MSD(10) = 0.98–1.01 (PASS 3/3) — white, no
+integration. Trapped: saturating, long-lag slope 0.20–0.40, MSD_sat ≈ 10⁻²
+rad². The zero mode *does* emit a passive signature: it integrates noise.
+
+**At sealed precision the rung is not certified, and the trapped failures
+have one cause.** MSD_sat is 4–5× the 2D/|λ₁| prediction (0/3) and the
+crossover is 193–346τ against 1/|λ₁| = 67τ (1/3). Both are consistent with a
+single effective restoring rate λ_eff = 1/crossover = 2.9–5.2·10⁻³ =
+**0.19–0.35 × λ₁**, and 2D/λ_eff matches MSD_sat to 1.0–1.3×. Noise drives
+0.1-rad excursions, and at 0.1 rad the δ-sweep measured a restoring ratio of
+0.32. **The anharmonic well, through a third instrument** — the linear λ₁ is
+the wrong constant for a noise-driven bump, as it was for a 0.05-rad kick.
+The continuum's MSD(1000)/MSD(100) clause (2/3) and the separation clause
+(2/3, one seed at 0.49 vs 0.5) fail on long-lag statistics: at T = 20,000τ a
+lag-1000 MSD has ~20 independent segments (±30%).
+
+**Verdict.** `ph_topology_implies_continuous_attractor` is **not certified**
+(sealed clauses missed), and **"unreachable observationally" is not banked**
+either — the growth law is a passive signature that separates in kind. The
+next seal uses λ_eff from the δ-sweep at the noise-set excursion, T ≥ 10⁵τ
+or 10 seeds for the long-lag ±30%, and thresholds stated on the long-lag
+slope (the post-hoc ordering above is reported, not scored). The rung stays
+DECLARED with its instrument named.
 
 ## Goals
 
