@@ -43,7 +43,7 @@ sealed) — see §5 for what I actually recommend.
 | grids | k: {1..16} ∪ {24,32,48,64} (c986573); n: {1024,2048,4096} + 16384; 16 replicates; SeedSequence(20260811) children per seal |
 | reference | `reference_cdf`: Stieltjes inversion at height ε_k = Δ_s·√(0.25+16(n−k)/(kn)) — a **Poisson (Cauchy) kernel**; per-gap 3-point Gauss; Richardson primary; exposes **positions**; `free_power_G` accepts any callable F ⇒ **POPREF possible** |
 | GUE_DE normalisation | DE β=2 / √n ⇒ semicircle σ = 1, R = 2 (KS-minimising σ = 1.00, KS 8.9e-4) |
-| **int128** | **denotes nothing in this repo** (0 hits). mpmath exists only as the Hermite gate's reference. M0.6 STOP honoured for that arm: A ∈ {1e-9, 1e-7} int128 cells **HELD for Will**; float64 twins ran for every A under a declared assessability floor. No arithmetic backend written. |
+| **int128** | **denotes nothing in this repo** (0 hits); mpmath exists only as the Hermite gate's reference. M0.6 STOP was honoured overnight (no backend written; the cells ran as float64 twins under a declared assessability floor). **Resolved by Will 2026-09-17 15:xx: "int128" was a figure of speech for having enough local compute, not a precision requirement** — so the float64 twins ARE the arm. Empirically the floor was never binding: A = 1e-9 and 1e-7 gave the same gains as A = 1e-5 to ~6 digits at every (qw, k). |
 | paper copies | `paper.tex` (09-15): 4 appendices (D = reproducibility, C = corrections to §4); `PROSE.md` (09-09): A–C only, leads with z(τ)/z(β); `NOTE.md` (08-13) skeleton |
 | guards | NOUNFOLD tagged `Unfolding('none','nounfold',0.0,'bulk-0.20')`; arms share roots ⇒ non-independent along `data` (Lineage recorded in every artifact); both error models on every k*/p_tail |
 | banking | per-replicate roots were **never banked** by the sealed runs; regenerated from the sealed SeedSequence and banked as `roots/*.npz` with sha256 (iid/gue × 1024/2048/4096, ML 4096/16384, MT 16384, iid 16384) |
@@ -197,8 +197,9 @@ decimals. A "full MT characterisation night" is therefore *not* what I recommend
    the band-resolved damping (M4) is probably fine, but the (3 + α_spec)/2 exponent law and the
    L_half front both read POPREF, and the seal for them should cite tonight's MT numbers for
    POPREF (transparent, |T−1| ≤ 1e-4), which is a stronger footing than the brief assumed.
-3. The int128 arm needs Will's answer: there is no such path; either accept the float64 floor
-   (declared, and the k=1 gate is decisive without it) or name a backend.
+3. ~~The int128 arm needs Will's answer~~ — resolved: not a requirement (Will, 2026-09-17). The
+   float64 runs stand as the complete ML arm; a v2 seal should drop the int128 language and the
+   INAPPLICABLE-FLOAT64 class can be re-declared from the measured noise floor rather than 4 ulp.
 
 ## 6. Paper consequences — PROPOSALS ONLY (no paper file was touched)
 
@@ -236,7 +237,7 @@ diagnosis → MT flows → worker knob → existing gates → ML-16384 FAIL → 
 checker red-path fix → report v1 → m3_cell16k comparators mode → M3 iid 16384 (comparators-only) → M3 gue 16384 (comparators-only) → this report.
 
 ## 9. Not done / held
-* int128 ML arm (no path exists) — held for Will.
+* ~~int128 ML arm~~ — resolved (Will): not a requirement; the float64 cells are the arm.
 * M3 n=16384 PROD arms (both classes) — not recomputed (roots banked; a
   full run is ~13 CPU-hours of references at this n).
 * Night 2 — not started; needs Will's go and the re-seals in §5.
