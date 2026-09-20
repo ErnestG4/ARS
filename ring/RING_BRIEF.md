@@ -1,7 +1,9 @@
-# ring/ — Stage 0 + Stage 1 brief (2026-09-16)
+# ring/ — arc brief: Stages 0–4b, 3a–3h, T1–T3 (2026-09-16 → 2026-09-20)
 
 Companion to `rotational-dynamics-build-plan.md` (v5). This is the executable
-scope for the first arc; the plan is the standing document.
+record of the first arc — pre-registrations, results, and retractions in
+order; the plan is the standing document. Board rows R0–R18 in
+`verify_ring.py` score it. Stage 5 (spiking ring) is the next unrun stage.
 
 ## Superseded claims (read first; grep before citing)
 
@@ -16,7 +18,8 @@ which basin bump 0 sat in — the neighbouring basin at the same ε reads 0.65 a
 that δ. The number cited as evidence of the invariant working was produced by
 the constant the invariant later caught. **The check was sound; the witness
 was not evidence of it.** Replaced by: δ declared and swept, banked read at
-δ = 0.005, five converged witnesses within 4% (R4), the δ = 0.05 defect pinned
+δ = 0.005, three distinct converged witnesses within 4% (R4; five rows, two
+of them the same fixed point read in both tables), the δ = 0.05 defect pinned
 so it cannot return silently (R4b). Tables re-sealed at v2 (`679fc38`,
 `b2b5a04`).
 
@@ -157,7 +160,9 @@ instrument constant**. The 5% agreement banked earlier at ε=0.1 was partly
 the luck of bump 0's basin (the next basin reads 0.65 at δ=0.05). Fix: δ
 declared and swept (`relax_delta_sweep`), banked read at δ=0.005, both
 generators re-sealed at v2 (λ₁/drift/n_distinct bit-identical — δ enters only
-the dynamic read). R4 now has **5 live witnesses**, all within 4%. R4b pins the
+the dynamic read). R4 now has **5 live rows = 3 distinct converged states**
+(ε = 0.1, 1.0, 0.01; the ε = 0.1 fixed point appears in both tables and at
+two T), all within 4%. R4b pins the
 δ=0.05 defect (ratio must stay < 0.8 on that row) so a refactor cannot
 silently restore the constant. The dynamic read's own floor is measured on the
 ε=0 rows (≈6e-6 at δ=0.005; it scales ~1/δ) under a declared ceiling of 1e-4.
@@ -172,10 +177,10 @@ that failure remains, as the domain boundary.
 **Venv, declared as three capabilities** (checked against packaged wheels):
 `ripser 0.6.15` + `persim 0.3.8` **installed** (barcodes with
 `do_cocycles=True` from the first pass; diagram distances for the jitter
-curve). `DREiMac 0.3.0` declared, install with Stage 3. Zigzag: **not GUDHI**
-— the 3.13.0 Python wheel has no zigzag module or symbol; `Dionysus 2.2.3`
-ships a cp312 `manylinux_2_39` wheel and host glibc is 2.39, so it installs
-as a wheel when reached.
+curve). `DREiMac 0.3.0` **installed** with Stage 3 (path-lifting, L1–L4b).
+Zigzag: **not GUDHI** — the 3.13.0 Python wheel has no zigzag module or
+symbol; `Dionysus 2.2.3` **installed** 2026-09-17 (zigzag present; unused so
+far — Stage 3a found the lift's ceiling before zigzag was needed).
 
 ## Measure 2 — results (v2 table `e789d2c`→banked; v1 `stage1_ph` superseded, see its commit)
 
@@ -186,19 +191,26 @@ tell a traversed manifold from a sampled one. The `implies` detector stays
 DECLARED, now with a measured reason.
 
 Sealed predictions, scored as declared (R9):
-- **P1 FAIL.** τ_c(A) = 100τ rung (30τ predicted, ×3 allowed → ≤90). The
+- **P1 FAIL.** τ_c(A) = 100τ rung (30τ predicted, ×3 allowed → ≤90). ~~The
   scale is the rotation period (314τ), not bump-width/ω: jitter must smear
-  across the circle, not one bump.
-- **P2 DIVERGENCE.** τ_c(B) = 300τ vs τ_c(A) = 100τ. The pinned ring's barcode
-  is *more* jitter-robust by one rung — its bump lingers in wells at 0.6×
-  velocity, so smearing costs it less. PH is sensitive to pinning-modulated
-  motion. Stated with its resolution: the ladder step is ×3.16 and the gap is
-  exactly one rung, three seeds concordant.
+  across the circle, not one bump.~~ *[S2: the 30τ used the initialisation
+  width; at the true FWHM 2.06 rad both hypotheses give ~100τ, and only F4
+  separates them — H_cov won, H_motion FAIL.]*
+- **P2 DIVERGENCE** *[S3 — SUPERSEDED: not replicated on the fine ladder,
+  τ_c(A) = τ_c(B) = 140τ (F1); the reading below is the record of what the
+  coarse table showed]*. ~~τ_c(B) = 300τ vs τ_c(A) = 100τ. The pinned ring's
+  barcode is *more* jitter-robust by one rung — its bump lingers in wells at
+  0.6× velocity, so smearing costs it less. PH is sensitive to
+  pinning-modulated motion.~~ Stated with its resolution: the ladder step is
+  ×3.16 and the gap is exactly one rung, three seeds concordant — which is
+  the resolution at which it then failed to replicate.
 - **P3 INAPPLICABLE.** E2's base r₁₂ = 2.5 < R_MIN, so there was no detection
   to destroy. Instead the loop *appears* under jitter τ_j = 10–300 (14 → 37 →
-  44 → 19) and dies at 1000: jitter acts as temporal smoothing that lifts the
-  SNR of a slowly traversed arc (0.0015 rad per bin vs A's 0.01). Pilot
-  observation, not a prediction.
+  44 → 19) and dies at 1000: ~~jitter acts as temporal smoothing that lifts
+  the SNR of a slowly traversed arc (0.0015 rad per bin vs A's 0.01).~~ *[S4:
+  wrong mechanism — the loop is CONSTRUCTED (b₁ ≥ 21× base), order-to-topology
+  conversion across E's segment boundaries; F6b.]* Pilot observation, not a
+  prediction.
 - **P4 PASS on A/B/E2** (scramble → 1.4 / 1.3 / 1.3). **C: FAIL as
   predicted** — "no-op" was wrong because the concatenated static bumps are a
   *sequence*; C dropped 60.7 → 7.7 but **kept a loop in 2/3 seeds** (b₁ 12–37%
@@ -293,10 +305,12 @@ smoothing shrinks b₁ and b₂ together, so A's r₁₂ *rises* with σ (69 →
 while its b₁ falls 255 → 34. r₁₂ is retired for any smoothed or matched
 cloud; the **b₁ half-life** is the estimator that survives. On b₁: E2's
 jittered loop (66–124) exceeds the smoothing-matched one (0–55) — jitter
-constructs more than smoothing because it wraps (S4). On A at τ_c the
-jittered b₁ is 0.56× the matched b₁ (sealed < 0.5: FAIL, narrowly):
-destruction is mostly displacement along the trajectory, which smoothing
-shares, not misassignment.
+constructs more than smoothing because it wraps (S4). On A at τ_c(A) = 140τ
+the jittered b₁ is **0.91×** the matched b₁ (sealed < 0.5: FAIL, and not
+narrowly — the 0.56 first written here was read at the 100 rung the brief
+had guessed pre-seal, not at the rung F1 measured; R10 now reads it at
+τ_c(A)): destruction is mostly displacement along the trajectory, which
+smoothing shares, not misassignment.
 
 **What this changes for the ladder as a null.** A jitter ladder on a cloud
 whose time-order encodes the manifold's order is two-sided: below ~2.8/ω it
@@ -619,7 +633,11 @@ intervention-only certification counts for the `implies` rung — i.e. register
 `attractor_by_along_manifold_memory` (simulation/experiment) and leave the
 observational `implies` DECLARED with "possibly unreachable observationally"
 banked as a finding — or fold I1 into `implies` with the intervention
-requirement stated in `fires_on`.
+requirement stated in `fires_on`. *[Resolved 2026-09-17, Will: the first —
+a separate intervention-class detector (R16); `implies` stays observational
+and DECLARED. "Unreachable observationally" was then NOT banked either
+(Stage 3e: the MSD growth law is a passive signature that separates in
+kind).]*
 
 ## Stage 3b — results (`stage3b_recurrence_measured.json`, sealed `ef243e7`)
 
@@ -635,7 +653,7 @@ the kick (sealed < 0.1). Under drive ω = 0.02 ≫ c·ε = 2.9e-3 the bump is
 not trapped; it sweeps through the wells at a modulated velocity, and on
 average there is no restoring force — a driven discrete attractor behaves
 like a continuous one for phase memory. The competition ω vs c·ε is the
-mode-locking boundary of Stage 4 showing up in Stage 3. I1b (queued): the
+mode-locking boundary of Stage 4 showing up in Stage 3. I1b (ran; below): the
 same kick with the bump *trapped* (γ = 0, or γ below the pinning threshold),
 where the restoring force is the well's λ₁ = −0.015 and retention at 300τ
 should be ≈ e^{−4.5}.
@@ -695,7 +713,7 @@ effective restoring rate at 300τ is well-dependent (e^{−300λ} = 0.197 needs
 λ₁ spread of 1.2×, so the tilt is doing work). (ii) ε = 0.03 is INAPPLICABLE
 at T_obs = 300τ: R(0) = 0.74 where e^{−1.1} = 0.32 was already called marginal;
 the effective λ here is ~1e-3, not the 3.8e-3 median. The window needs
-~3000τ. Not re-run overnight; queued.
+~3000τ. Not re-run overnight; ran as I1c (below).
 
 ## Stage 4 — circle map: pre-registration (overnight 2026-09-17, before `stage4_circlemap.py`)
 
@@ -775,7 +793,7 @@ re-posing.
 **Connection to I1b (not sealed):** the drive-vs-pinning depinning interval
 (0.01, 0.02] at ε = 0.1 and the 0/1 tongue boundary Ω_c = K/2π are the same
 competition; a quantitative mapping γ ↔ Ω, c·ε ↔ K/2π is a Stage 4b question
-for the full ring, queued.
+for the full ring — ran as Stage 4b (next section).
 
 ## Stage 4b — the pinned ring's 0/1 tongue, predicted from a measured quantity: pre-registration (overnight, before `stage4b_ringtongue.py`)
 
@@ -810,9 +828,11 @@ tongue gives γ*_meas = 8.25·10⁻³ and 2.25·10⁻³ — both within the 7.5�
 step (PASS, PASS). The ε-scaling reads 0.248× (sealed 0.3 ± 25%, PASS): the
 pinning landscape is perturbative in ε, the contour's fourth appearance.
 ρ(γ) is monotone at both ε and reaches 0.982 at γ = 0.03 (ε = 0.1). The ε = 0
-rail holds exactly (ρ = 1.0000 at every γ > 0). Max/median of the landscape:
-2.75 at ε = 0.1, 2.27 at ε = 0.03 — the *edge* of the tongue is set by the
-landscape's maximum, the Stage 1 contour by its median.
+rail holds exactly (ρ = 1.0000 at every γ > 0). Max/median of the landscape
+within this table: **3.02** at ε = 0.1, **2.54** at ε = 0.03; against the
+Stage 1 contour's c·ε (its median over 16 starts): 2.75 and 2.27 — the *edge*
+of the tongue is set by the landscape's maximum, the Stage 1 contour by its
+median (R15 prints both).
 
 **One sealed clause failed, on a conflation I made.** γ*_pred(0.1) = 0.0080
 is *below* the I1b interval (0.01, 0.02]. I1b's "crossing" was a
@@ -921,9 +941,10 @@ about the search.
 the *median* pinning velocity (drift averages over many wells: a typical-well
 quantity); Stage 4b's tongue edge used the *maximal* (depinning requires
 escaping every well: an extreme-value, strongest-barrier quantity). Max/median
-≈ 2.75 at ε = 0.1 and 2.27 at ε = 0.03 is a measurable property of the
-disorder, not a nuisance, and the 10× well-dependence that broke two
-monotonicity clauses is the same fact seen a third way.
+of the pinning speed — 3.02 at ε = 0.1 and 2.54 at ε = 0.03 within Stage 4b's
+64 starts; 2.75 and 2.27 against the Stage 1 contour's c·ε — is a measurable
+property of the disorder, not a nuisance, and the 10× well-dependence that
+broke two monotonicity clauses is the same fact seen a third way.
 
 **Presentation correction.** "Predicts the full ring's depinning to 3%" was
 the ε = 0.1 number; ε = 0.03 is 12% (1.98e-3 vs 2.25e-3). Both within one grid
@@ -950,6 +971,8 @@ Stage 3a already gives its first two inputs for free: |n| exact wherever
 readable (the integer channel's error rate is 0 or undefined, never
 intermediate) and θ residual 0.02–0.04 rad (the ψ channel's floor). The arm
 is queued *after* the MSD arm and T2 below, and not behind anything else.
+*[2026-09-20: the MSD arm, T2, T3 and Stage 3h have run; Stage 5 is now
+NEXT — nothing is ahead of it.]*
 
 ## Stage 3e — MSD along the manifold: pre-registration (before `stage3e_msd.py`)
 
@@ -1153,7 +1176,7 @@ measured in that well.*
    Scores `ph_topology_consistent_with_continuous_attractor` only. **Done**
    (results above).
 4. **Stage 2 — non-normality.** **Done** (results above).
-5. **Stage 3a — path-lifting.** **Done** (results above); L4b pending. `rotational_dynamics_fit`
+5. **Stage 3a — path-lifting.** **Done** (results above); L4b done (Stage 3b: sealed-to-fail CONFIRMED, rate-level ratio < 2). `rotational_dynamics_fit`
    stays DECLARED: the ring's asymmetry is a traveling wave, not a rotation in
    a fixed basis; the jPCA-style fit belongs to a Stage-2 substrate with a
    fixed basis (W_sym + αW_rand at α large enough for limit cycles), which
@@ -1242,7 +1265,12 @@ positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converge
   (ε or P, T, `relax_delta_sweep`), 9 DECLARED.
 - Generator-before-output via `sealgen.sh`; outcome claims only with CHECKRUN lines.
 
-## Acceptance criteria (board rows R0–R7 in `verify_ring.py`)
+## Acceptance criteria (board rows R0–R18 in `verify_ring.py`)
+
+*Written for Stage 0/1 (R0–R7); rows R8–R18 carry their own sealed clauses
+and pins in the sections above, and every printed verdict is a `chk`
+(2026-09-20). A deterministic row is ONE replicate: "3/3" on IND_u or the
+trapped ring counts states, not seeds.*
 
 - **PASS**: all eight rows green — guard real; specs construct; floor at
   |λ₁|<1e-12, drift<1e-9; λ₁ strictly decreasing with ε; ε=0.1 row converged
@@ -1260,8 +1288,10 @@ positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converge
 
 ## Out of scope this session
 
-Stages 3–7; spikes off the ring into ARS and the QUEUED ring→ARS
-instrument bound; any population-level claim.
+*(As written for Stage 0/1.)* Stages 3–7; spikes off the ring into ARS and
+the QUEUED ring→ARS instrument bound; any population-level claim. *Since
+then: Stages 2, 3a–3h, 4, 4b ran (above); Stage 5 is next; the ARS arm is
+BLOCKED on a spiking ring (plan, QUEUED).*
 
 ## Deliverables
 
@@ -1269,22 +1299,25 @@ instrument bound; any population-level claim.
 2. `__init__.py` (guarded torch), `ringnet.py`, `detectors.py`, `verify_ring.py`.
 3. `stage1_marginal.py` (sealed generator, v2) → `stage1_marginal_measured.json`;
    `stage1_contour.py` (sealed, v2) → `stage1_contour_measured.json`.
-4. This brief; RESULTS.md §7.ter row deferred until measure 2 lands (one
-   commit per phase convention).
+4. This brief; RESULTS.md §7.ter row — filed 2026-09-20 (one commit per
+   phase convention; deferred from measure 2 through the overnight).
 
 ## Open questions carried forward
 
-- QUEUED arm: **(b) chosen** — long-range certification dropped, matched-Cox +
-  `wigner_renewal` kept, deliverable re-sealed as the per-cell detection
-  margin vs the dial; bank where the margin crosses the floor. (Plan, QUEUED.)
+- QUEUED arm: ~~(b) chosen~~ → **BLOCKED ON A SPIKING RING** (Will,
+  2026-09-17; plan QUEUED entry). The rate ring emits no spikes to certify;
+  the arm waits for Stage 5's emitter. No option among (a)/(b)/(c) is taken.
 - ~~c(ε·T) fit before measure 2~~ — done. ~~Measure 2~~ — done.
 - ~~(a) σ_s sweep~~ done (F6; and the "SNR" reading was wrong, S4).
   ~~(b) visits-per-unit~~ done (F5). ~~(c) Stage 2~~ done.
-- ~~Stage 3~~ 3a + 3b done. **Overnight queue:** I1b (trapped pinned ring under
-  the kick), Stage 4 (circle map; K<1 zero-hysteresis rail; rotation number
-  as a limit read at finite N — B-sup rail), a noise-corrected R for T1.
-  **For Will:** whether the intervention-only certification counts for the
-  `implies` rung (see the queued decision above); push.
+- ~~Stage 3~~ 3a + 3b done. ~~**Overnight queue:** I1b, Stage 4, a
+  noise-corrected R for T1~~ — all ran (I1b/I1c, Stage 4/4b/4c/4d, T2/T3;
+  results above). ~~**For Will:** whether the intervention-only
+  certification counts for the `implies` rung~~ — resolved 2026-09-17: it
+  is its own detector (`attractor_by_along_manifold_memory`, intervention
+  class), not the observational `implies` rung. **Open (2026-09-20):** the
+  MSD arm's λ_eff/λ₁ = 0.19–0.35 has no cause banked (S5); the T3 thresholds
+  await a negative-set calibration (Will); Stage 5 is next.
 - Per-basin λ₁ spread: at ε=0.1 the three pinned basins have λ₁ = 1.28e-2 /
   1.49e-2 / 1.53e-2; the tables bank the median, min and max. If Stage 6 needs
   per-basin curvature, the column exists.

@@ -9952,6 +9952,70 @@ Methodology: matched-instrument across compared legs; carry every viewpoint
 and annotate comparison-validity rather than discarding non-matching
 instruments; fitters synthetic-validated before banking (§7.ter.57).
 
+### 7.ter.61  Ring-attractor arc (`ring/`, 2026-09-16 → 09-20) — what PH, path-lifting and intervention each certify
+
+A simulation testbed (Ben-Yishai ring, N = 128, softplus gain; heterogeneity
+dial ε; odd coupling γ drives rotation at ω = γ exactly) built to ask what
+population-topology instruments certify about a continuous attractor before
+any is pointed at data. Every stage pre-registered in `ring/RING_BRIEF.md`,
+generator sealed before output, scored by `ring/verify_ring.py` (R0–R18,
+every printed verdict a `chk`). Five retractions carried inline (S1–S5).
+
+- **The ε·T contour (Stage 1).** Collapse onto discrete attractors has no ε*;
+  drift = c·ε·T with c = 2.905·10⁻² rad/τ per unit ε, perturbative while the
+  bump is undeformed (ε ≲ 0.3). Any "threshold" downstream is a window
+  statement. The standing spectral/dynamic invariant (Jacobian λ₁ vs measured
+  relaxation rate on every converged row of both tables) caught a
+  threshold-linear Jacobian, on-grid starts, and a hard-coded probe
+  displacement (S1) — the three defects of the arc's first day.
+- **PH on the population cloud is order-blind (Measure 2, coverage test).**
+  A static sampled cloud reads identically to the driven ring (r₁₂ 61 vs 71).
+  The jitter ladder's sensitivity is angular displacement alone (ω·τ_c ≈ 2.8
+  rad across a 4× speed range; width-, rotation- and pinning-independent), and
+  on clouds whose time-order encodes the manifold's order jitter
+  **constructs** loops (b₁ ≥ 21× base) — order-to-topology conversion, a null
+  that manufactures its own signal (S4). Two Measure-2 readings did not
+  replicate on the fine ladder (S2, S3). r₁₂ = b₁/b₂ is scale-free and
+  retired on smoothed clouds.
+- **Path-lifting certifies traversal, not attractor (Stage 3a/3b).** DREiMac
+  circular coordinates recover |n| = 3 exactly wherever readable (the integer
+  never errs, it becomes undefined; the library's fallback path emits wrong
+  counts and is a null-laundering channel unless opt-in); an independent-unit
+  construction on the same trajectory reads identically. Three sealed
+  traversal statistics (T1–T3) each separated qualitatively and failed their
+  own numbers; ordering pinned, thresholds handed to a negative-set
+  calibration.
+- **The attractor predicate is interventional.** An along-manifold kick
+  separates a continuous attractor (retains 1.00), a trapped discrete
+  attractor (restores 0.02) and an input-driven look-alike (restores 0.00) —
+  registered as `attractor_by_along_manifold_memory`, an intervention-class
+  detector separate from the observational ladder. The observational
+  `implies` rung stays DECLARED: its passive dual, MSD along the manifold
+  (Stage 3e), separates the three systems **in kind** (continuum slope ~1,
+  D = 1.5·10⁻⁵ rad²/τ; trapped saturating; independent units flat) but the
+  trapped clauses sealed against the linear λ₁ miss by a common factor
+  0.19–0.35 whose cause is **open** — the anharmonic-well explanation was
+  retracted (S5) when the MSD well's own δ-sweep read harmonic to 0.1 rad
+  (Stage 3h); the same sweep confirmed anharmonicity quantitatively on the
+  ε = 0.03 well (λ₁ × 0.084 reproduces I1c's λ_eff to 5%).
+- **Non-normality is intrinsic, not induced (Stage 2).** The symmetric
+  attractor is already non-normal (Henrici 2.09 = 18% of ‖J‖_F, gap 0.178,
+  G_max = κ = K = 1.356); circulant asymmetry, matched-norm random coupling
+  and 100× heterogeneity move Henrici < 0.2% on every read row.
+- **Depinning is an extreme-value statistic (Stage 4/4b).** Circle-map rails
+  all green (Denjoy, exact tongue K/2π, Farey coverage, dead region K < 1;
+  the B-grid rail: a rational parameter grid is itself a Farey object — 29
+  of 1001 points). The reduced phase model predicts the full ring's depinning
+  from the **maximal** pinning speed to 3% and 12% at two ε, both within a
+  grid step; the Stage 1 contour is the median. Max/median 3.02 / 2.54.
+- **Stage 5 (the (n, ψ, r) readout the plan was written for) is UNRUN and
+  next.** The ring→ARS instrument bound is BLOCKED on a spiking ring.
+
+Doctrines banked: boundary-supported signal (B-sup / B-avg / B-grid); the
+integer never errs, it becomes undefined; a marginal direction's only signal
+is a response to displacement (including noise → diffusion); a cause
+attributed to a well is measured in that well.
+
 ---
 
 ## 8. Conclusions and limitations
@@ -10680,6 +10744,13 @@ dominated and fires on only 0–20% of bands).  See
   thinning), the long-range Σ²/Δ₃ discriminator with the Wigner-renewal
   decoy, the trial-PSTH external-rate unfold (decoy-battery-gated), and the
   marginal-vs-class discipline now standard for any NNS verdict.
+- **Ring-attractor testbed (§7.ter.61, 2026-09-20):** population PH is
+  order-blind and its jitter ladder is two-sided (constructs loops on
+  order-encoded clouds); path-lifting certifies traversal, not attractor;
+  the attractor predicate is reached by intervention (along-manifold kick,
+  its own detector) and the observational rung stays declared with an open
+  discrepancy (trapped MSD λ_eff/λ₁ = 0.19–0.35, S5). No neural data was
+  touched; the ring→ARS bound is blocked on a spiking ring; Stage 5 is next.
 
 ### Failure modes diagnosed during development
 

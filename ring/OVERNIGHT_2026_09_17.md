@@ -77,3 +77,28 @@ re-scoped.
 
 ---
 Cadence closed 07:42 PDT, board 53/53, 14 board-check wakes 02:54–07:42 all green.
+
+## Post-read resolutions (2026-09-17 → 2026-09-20)
+
+*The counts above ("53 commits", "board 53/53", "unpushed") were as of the
+morning close; the branch was merged by Will into `derivflow-modes` and
+pushed 2026-09-17.*
+
+1. **Resolved (Will, 09-17): separate detector.** `attractor_by_along_manifold_memory`
+   registered as an intervention-class detector (R16); the observational
+   `implies` rung stays DECLARED. Stage 3e then found the MSD growth law
+   separates in kind, so "unreachable observationally" was **not** banked.
+2. **Resolved (Will, 09-17): the ARS arm is BLOCKED ON A SPIKING RING**, not
+   option (b). Plan QUEUED entry re-filed.
+3. **Ran as T2 → T3.** MAD jump count + monotone winding; T2 failed on the
+   statistic (uncentered MAD under drift), T3 separated qualitatively and
+   failed its numbers (kernel support 4σ). Ordering pinned (R13d), thresholds
+   deferred to a negative-set calibration — Will's call, not a fourth seal.
+4. **Stands provisional** (Will).
+5. **Installed 09-17** (Dionysus 2.2.3, zigzag present); unused so far.
+6. **Done** (merge + push by Will; v4 doc and Zone.Identifier cleared).
+
+Also since: **Stage 3e** (MSD) ran — and its "anharmonic well" explanation
+of the trapped clauses' common factor was **retracted 2026-09-20 as S5**
+after Stage 3h swept the MSD well itself (harmonic to 0.1 rad). The cause of
+λ_eff/λ₁ = 0.19–0.35 is open. **Stage 5 is next.**

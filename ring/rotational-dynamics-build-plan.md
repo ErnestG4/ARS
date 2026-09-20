@@ -266,9 +266,11 @@ The entry point: the only architecture where a winding count is *defined*.
 - **Measure 2 ran (2026-09-16; `ring/RING_BRIEF.md` §Measure 2 — results).**
   The static 16-bump cloud reads identically to the driven ring (r₁₂ 61 vs 71,
   q-invariant): **PH on the cloud cannot tell a traversed manifold from a
-  sampled one** — the marginal-vs-dynamical result, measured. τ_c(A) = 100τ ≈
-  rotation period/3, not bump-width/ω (P1 failed as sealed); the pinned ring is
-  one rung more jitter-robust (P2: divergence); the ISI scramble is
+  sampled one** — the marginal-vs-dynamical result, measured. τ_c(A) = 100τ
+  (P1 failed as sealed; ~~"the period, not bump-width/ω"~~ — brief S2: at
+  the true FWHM both give ~100τ and F4 decided it, H_cov); ~~the pinned ring
+  is one rung more jitter-robust (P2: divergence)~~ (brief S3: not
+  replicated); the ISI scramble is
   under-powered on single-visit units (blind spot recorded in the spec); the
   subsetting rule flips the verdict only at the transient confusable.
 - **Coverage test ran (2026-09-16; brief §Coverage test).** PH's jitter
@@ -379,6 +381,18 @@ rails caught three instrument defects before any number was read.
   ladder by design. Deviation statistics fail even at the rate level. The
   passive dual — MSD along the manifold (Stage 3e) — decides whether the
   observational `implies` rung is reachable.
+- **Stage 3e / T2 / T3 / 3h ran (2026-09-17 → 09-20; brief).** The MSD
+  growth law separates the three systems **in kind** (continuum slope ~1,
+  D = 1.5·10⁻⁵ rad²/τ; trapped saturating; IND_u flat): the zero mode's
+  passive signature is that it integrates noise, so "unreachable
+  observationally" is NOT banked; but the trapped clauses sealed against
+  the linear λ₁ miss by a common factor 0.19–0.35, and Stage 3h (the MSD
+  well's own δ-sweep) found that well **harmonic** at the 0.1-rad excursion
+  — the anharmonic explanation is retracted (brief S5), the cause is open.
+  T2 and T3 (traversal statistics on the lifted path) each separated
+  qualitatively and failed their own sealed numbers; three versions is the
+  stopping point — ordering pinned (R13d), thresholds to a negative-set
+  calibration (Will).
 - **Stage 4/4b ran (2026-09-17; brief).** Circle-map rails all green; the
   reduced phase model predicts the ring's depinning **to 3% and 12% at two ε,
   both within a grid step**, from the maximal pinning speed measured at
@@ -444,12 +458,13 @@ Two independent coordinates.
 
 ## Stage 5 — The (n, ψ, r) readout
 
-**UNRUN as of 2026-09-17, 55 commits in — the question this plan was written
-for.** Kept visible so the instrument-building does not become the project by
-default. Stage 3a supplies its first two inputs: the integer channel's error
-rate is 0 wherever the coordinate exists and undefined where it does not
-(never intermediate); the ψ channel's floor is 0.02–0.04 rad. Queued directly
-after Stage 3e and T2.
+**UNRUN as of 2026-09-20, ~65 commits in — the question this plan was written
+for — and now NEXT: nothing is queued ahead of it.** Kept visible so the
+instrument-building does not become the project by default. Stage 3a supplies
+its first two inputs: the integer channel's error rate is 0 wherever the
+coordinate exists and undefined where it does not (never intermediate); the
+ψ channel's floor is 0.02–0.04 rad. ~~Queued directly after Stage 3e and
+T2~~ — both ran.
 
 | channel | object | robustness |
 |---|---|---|
