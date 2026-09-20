@@ -39,7 +39,7 @@ sys.path.insert(0, os.path.dirname(HERE))
 from ring.ringnet import run_dial, BETA, RELAX_DELTAS         # noqa: E402
 from modelparams import Model, Param, TESTED, DECLARED        # noqa: E402
 
-INSTRUMENT = Model("ring_marginal_mode_v2", [   # v2: relax_delta declared + swept
+INSTRUMENT = Model("ring_marginal_mode_v3", [   # v2: relax_delta declared + swept; v3: sweep extended to 0.1
     Param("N", DECLARED, value=128,
           why="ring size; discretisation pinning is exponentially small in N "
               "with a cosine kernel and the eps=0 row measures it directly"),
