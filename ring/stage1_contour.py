@@ -48,7 +48,7 @@ PRODUCTS = [0.02, 0.2, 2.0, 20.0, 60.0, 200.0]
 SPLIT_T = [200.0, 600.0, 2000.0]
 LONG_ROWS = [(0.01, 8000.0), (0.03, 8000.0), (0.1, 8000.0), (0.01, 20000.0)]
 
-INSTRUMENT = Model("ring_contour_v2", [   # v2: relax_delta declared + swept
+INSTRUMENT = Model("ring_contour_v3", [   # v2: relax_delta declared + swept; v3: sweep extended to 0.1
     Param("N", DECLARED, value=128, why="as stage1_marginal"),
     Param("J0", DECLARED, value=-2.0, why="as stage1_marginal"),
     Param("J1", DECLARED, value=4.0, why="as stage1_marginal"),
