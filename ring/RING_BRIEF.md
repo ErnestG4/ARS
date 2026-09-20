@@ -1047,6 +1047,40 @@ their own numbers while the qualitative separation held; that is the point to
 stop iterating.** The ordering is pinned (R13d); the thresholds go to a
 negative-set calibration, Will's call, not a fourth seal.
 
+## Stage 3h — the MSD well's own δ-sweep: pre-registration (2026-09-20, before `stage3h_well_delta.py`)
+
+**Why.** Stage 3e attributed the trapped ring's λ_eff = 0.19–0.35 × λ₁ to well
+anharmonicity, citing "the δ-sweep measured a restoring ratio of 0.32 at
+0.1 rad". The 2026-09-20 review found that number in no table; banking the
+sweep (Stage 1 tables v3) shows it belongs to the **ε = 0.01, T = 20000
+rows** (0.322), while the **ε = 0.1 converged rows read 1.016** at δ = 0.1 —
+harmonic. The MSD arm's trapped run is ε = 0.1 from start 0.37 rad, and the
+Stage 1 tables are medians over 16 off-grid starts, so the well the MSD arm
+sat in has never had its own sweep. The interpretation borrowed a number
+from a different ε and a different well.
+
+**Arm.** The exact trapped state of Stage 3e (ε = 0.1, γ = 0, start 0.37 rad,
+relax 2000τ; fixed-point residual asserted < 10⁻⁹) and, for the I1c well,
+ε = 0.03 from the same start (relax 8000τ). On each: λ₁ from the Jacobian;
+`relaxation_rate` at δ ∈ {0.005, 0.01, 0.02, 0.05, 0.1, 0.2} rad with
+T = 50τ and T = 200τ (the read must not depend on T, as the δ probe showed).
+**Sealed, two-sided:**
+- H_anharm (the Stage 3e interpretation): at δ = 0.1 the ratio
+  relax/λ₁ ∈ [0.15, 0.45] for the ε = 0.1 well (matching the MSD-derived
+  λ_eff/λ₁ = 0.19–0.35), and the ratio decreases monotonically with δ.
+- H_harm (falsifies the interpretation): ratio > 0.8 at δ = 0.1 for that
+  well. Then the MSD discrepancy has a different cause, the Stage 3e "one
+  cause" paragraph is retracted as S5, and the cause is open — with the
+  candidates named in advance: (a) the noise-driven D along the marginal
+  mode differs between the driven and trapped rings (checkable from the
+  banked trapped MSD at short lags: MSD(10)/20 ≈ 1.4·10⁻⁵ matches the
+  continuum's D, so (a) is already disfavoured); (b) the effective potential
+  seen by a *noisy* bump differs from the deterministic δ-sweep (shape
+  fluctuations couple to position); (c) the crossover/saturation estimator
+  itself (the 20-segment long-lag noise).
+- The ε = 0.03 well from start 0.37: ratio at δ = 0.1 reported; I1c's
+  λ_eff = 3.3·10⁻⁴ vs Jacobian λ₁ is the comparison.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
