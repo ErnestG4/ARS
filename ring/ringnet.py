@@ -154,7 +154,9 @@ def n_distinct_positions(psi: np.ndarray, tol: float) -> int:
     return int(max(1, (gaps > tol).sum()))
 
 
-RELAX_DELTAS = (0.005, 0.01, 0.02, 0.05)   # TESTED sweep; banked read is at [0]
+RELAX_DELTAS = (0.005, 0.01, 0.02, 0.05, 0.1)   # TESTED sweep; banked read is at [0]; 0.1 added 2026-09-20
+# so the anharmonic ratio at a 0.1-rad excursion -- cited by Stage 3e's MSD interpretation -- is a banked
+# value rather than a scratchpad probe (the 2026-09-20 review found it in no table).
 
 
 def run_dial(N: int, J0: float, J1: float, I0: float, eps: float, T: float,
