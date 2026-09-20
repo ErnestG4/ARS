@@ -1,8 +1,14 @@
 """Stage 3h — the MSD arm's own well: delta sweep of the restoring rate, two-sided.
 
 GENERATOR. Sealed before its output (sealgen.sh). Output: stage3h_well_delta_measured.json.
-Pre-registration: RING_BRIEF.md "Stage 3h" (bf1828e); v2 amendment "Stage 3h v2" (12d28c3).
-verify_ring.py R18 scores.
+Pre-registration: RING_BRIEF.md "Stage 3h" (bf1828e); v2 amendment "Stage 3h v2" (12d28c3);
+v3 amendment "Stage 3h v3" (cbab06c). verify_ring.py R18 scores.
+
+v3 (2026-09-20): sign(delta) declared and swept. v1/v2 displaced by +delta
+only; the well has no reason to be symmetric (random xi), and a -delta probe
+read 0.70 at -0.1 rad on the MSD well where +0.1 read 0.99. Keys are
+"T{T}_d{+/-}{delta}"; the "+" is written explicitly so v2's "T50_d0.1" cannot
+be confused with v3's "T50_d+0.1".
 
 v2 (2026-09-20): the v1 I1c-well row missed the declared fixed-point rail
 (1.4e-9 > 1e-9) and was read anyway; relax 8000 -> 16000 tau. The delta sweep
@@ -14,7 +20,7 @@ Stage 3e explained lambda_eff = 0.19-0.35 x lambda1 on the trapped ring by well
 anharmonicity, citing a 0.32 ratio at 0.1 rad that (once banked) turned out to
 belong to the eps=0.01 well; the eps=0.1 rows read 1.016. This measures the
 sweep on the MSD arm's EXACT trapped state (eps=0.1, gamma=0, start 0.37 rad,
-relax 2000 tau) and on the I1c well (eps=0.03, same start, relax 8000 tau).
+relax 2000 tau) and on the I1c well (eps=0.03, same start, relax 16000 tau since v2).
 """
 import os
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -31,7 +37,7 @@ from ring.ringnet import (coupling, heterogeneity, bump_init, gain, dgain, jacob
                           relaxation_rate, order_parameter, BETA)
 from modelparams import Model, Param, TESTED, DECLARED                                          # noqa: E402
 
-INSTRUMENT = Model("ring_well_delta_v2", [
+INSTRUMENT = Model("ring_well_delta_v3", [
     Param("N", DECLARED, value=128, why="as stage1_marginal"),
     Param("J0", DECLARED, value=-2.0, why="as stage1_marginal"),
     Param("J1", DECLARED, value=4.0, why="as stage1_marginal"),
@@ -41,7 +47,8 @@ INSTRUMENT = Model("ring_well_delta_v2", [
     Param("start", DECLARED, value=0.37, why="the MSD arm's and I1c's start angle, rad"),
     Param("fp_rail", DECLARED, value=1e-9, why="fixed-point residual ceiling at the linearisation point"),
     Param("well", TESTED, sweep=["eps0.1_relax2000", "eps0.03_relax16000"], why="the MSD well; the I1c well (v2: relax doubled for the rail)"),
-    Param("delta", TESTED, sweep=[0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3], why="displacement, rad; 0.3 = the I1c kick amplitude (v2)"),
+    Param("delta", TESTED, sweep=[0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3], why="|displacement|, rad; 0.3 = the I1c kick amplitude (v2)"),
+    Param("sign", TESTED, sweep=[1, -1], why="side of the well (v3): the landscape is random, the well need not be symmetric"),
     Param("T_relax_read", TESTED, sweep=[50.0, 200.0], why="the dynamic read must not depend on it"),
 ])
 P = {p.name: p for p in INSTRUMENT.params}
@@ -67,13 +74,15 @@ def main():
         row = dict(well=well, eps=eps, T_relax=T_relax, psi=float(psi[0]), fp_resid=fp, rail_ok=fp < P["fp_rail"].value,
                    lam1=float(lam[0]), lam2=float(lam[1]), ratio={})
         for T in P["T_relax_read"].sweep:
-            for d in P["delta"].sweep:
-                rr = relaxation_rate(r, W, I0, h, delta=d, T=T, dt=dt)
-                row["ratio"][f"T{T:g}_d{d:g}"] = float(rr / (-lam[0]))
+            for sg in P["sign"].sweep:
+                for d in P["delta"].sweep:
+                    rr = relaxation_rate(r, W, I0, h, delta=sg * d, T=T, dt=dt)
+                    row["ratio"][f"T{T:g}_d{'+' if sg > 0 else '-'}{d:g}"] = float(rr / (-lam[0]))
         rows.append(row)
         print(f"{well}: fp_resid={fp:.1e} psi={psi[0]:.3f} lam1={lam[0]:+.3e} lam2={lam[1]:+.3f}")
         for T in P["T_relax_read"].sweep:
-            print(f"   T={T:g}: ratio by delta = " + " ".join(f"{d:g}:{row['ratio'][f'T{T:g}_d{d:g}']:.3f}" for d in P["delta"].sweep))
+            for sg in ("+", "-"):
+                print(f"   T={T:g} {sg}delta: " + " ".join(f"{d:g}:{row['ratio'][f'T{T:g}_d{sg}{d:g}']:.3f}" for d in P["delta"].sweep))
     out = dict(generator=os.path.basename(__file__), instrument=INSTRUMENT.seal(), rows=rows,
                wall_s=round(time.time() - t0, 1))
     with open(os.path.join(HERE, "stage3h_well_delta_measured.json"), "w") as f:
