@@ -405,7 +405,8 @@ rails caught three instrument defects before any number was read.
   emits wrong counts (never read). The lift certifies *traversal*, not
   *attractor* — an independent-unit construction on the same trajectory reads
   identically — so the detector ladder has a kinematic rung; the attractor
-  rung's transverse-relaxation instrument failed at the rate level (L4b next).
+  rung's transverse-relaxation instrument failed at the rate level (L4b ran in
+  Stage 3b: sealed-to-fail confirmed).
 - **Readout to copy, not reinvent:** "Topological decoding of grid cell activity
   via path lifting to covering spaces" (arXiv 2510.16216, Yao & Yoon 2025) —
   toroidal coordinates via persistent cohomology, then path-lift to the universal

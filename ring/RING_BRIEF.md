@@ -46,7 +46,8 @@ H_cov → all three on the 100τ rung; H_motion → τ_c ∝ w, extremes on the
 jitter-robust; PH is sensitive to pinning-modulated motion"* (banked
 `064890d`, R9 pin retained as the record of what was read). **Not
 replicated** on the fine ladder with new seeds: τ_c(A) = τ_c(B) = 140τ and
-B's b₁ is 0.8–0.9× A's at every rung (F1). The one-rung gap was realization
+B's b₁ is 0.77–0.92× A's at every rung (F1; medians over two seeds). The
+one-rung gap was realization
 noise near threshold. The residence-density mechanism proposed for it is
 retired with it (F1 ratio 1.00 against a sealed [1.2, 1.7]).
 
@@ -169,7 +170,8 @@ silently restore the constant. The dynamic read's own floor is measured on the
 
 **c(ε·T) fitted, contour domain found (R8).** c = 2.905e-2 rad/τ per unit ε,
 max residual 2.3% on 9 linear-regime rows; splits at equal P agree to 0.1–3%
-(drift) and within 1 (n_distinct) at P=20, 60. **At P=200 the pre-declared
+in drift (P ≤ 2, the linear regime) and within 1 in n_distinct (P = 20, 60).
+**At P=200 the pre-declared
 check fails (1/4/3)** because the ε=1 split deforms the bump (amp 0.710) —
 the contour is perturbative, valid while the bump is undeformed. R8 asserts
 that failure remains, as the domain boundary.
@@ -560,8 +562,9 @@ per-step continuity 0.998, because 15 segment boundaries in 2000 steps
 cannot move a per-step fraction and σ_s = 1τ smooths each jump into a fast
 sweep. The traversal statistic must see the *jumps*, not the steps: total
 variation / net winding of the lifted path is the candidate, to be sealed
-before scored. The traversal rung is registered DECLARED
-(`ph_topology_with_continuous_traversal`).
+before scored *(sealed as T1 in Stage 3b; then T2, T3 — three versions,
+ordering pinned, thresholds deferred)*. The traversal rung is registered
+DECLARED (`ph_topology_with_continuous_traversal`).
 
 **L4 — FAIL, and the ceiling says why.** τ_tr(A_n)/τ_tr(IND_n) = 0.91, 1.12,
 1.09 — both at the smoothing floor (0.4τ). A rate-level probe with no spike
@@ -572,7 +575,8 @@ manifold estimate leaves within-bin *along*-manifold motion (the bump crosses
 a φ-bin in ~10τ) in the "transverse" residual. Instrument, not SNR. **L4b**:
 tangent-projected residual (remove the component along dm/dφ), a finer
 manifold model, and the rate-level check *first* as the instrument's own
-ceiling. The `implies` rung stays DECLARED; IND_n is its nearest confusable
+ceiling *(ran in Stage 3b: sealed-to-fail confirmed, ratio 0.33–0.36)*. The
+`implies` rung stays DECLARED; IND_n is its nearest confusable
 with the kinematics matched by construction, which is what the arm was for.
 
 **What Stage 3a closes and what it doesn't.** The count survives the lift's
@@ -667,7 +671,8 @@ substrate the rung is reached by perturbation. Banked.
 
 **I2:** transverse kicks return in the ring (0.001–0.003 remaining at 10τ)
 and in IND_u (0) — rate, not kind — and the ring keeps the kick's projection
-on its marginal mode (−0.012…−0.019 rad), an observation consistent with I1.
+on its marginal mode (+0.001 / −0.012 / −0.019 rad over the three seeds), an
+observation consistent with I1.
 The pinned ring keeps a 7–19% shape residual because the bump's shape is
 position-dependent in a heterogeneous landscape.
 
@@ -1040,7 +1045,7 @@ rad². The zero mode *does* emit a passive signature: it integrates noise.
 
 **At sealed precision the rung is not certified, and the trapped failures
 have one cause.** *[S5 — the "one cause" attribution below is RETRACTED; the
-common factor stands as a measurement, its cause is open.]* MSD_sat is 4–5×
+common factor stands as a measurement, its cause is open.]* MSD_sat is 3.6–5.2×
 the 2D/|λ₁| prediction (0/3) and the
 crossover is 193–346τ against 1/|λ₁| = 67τ (1/3). Both are consistent with a
 single effective restoring rate λ_eff = 1/crossover = 2.9–5.2·10⁻³ =
@@ -1068,8 +1073,10 @@ DECLARED with its instrument named.
 
 **T2 fails as sealed, on the statistic.** J_mad = 300–500 on A and IND
 (sealed ≤ 5): MAD of |Δφ| about its own median does not measure noise when
-the increments have a nonzero mean — A drifts 0.010 rad/step with MAD
-0.0024, so a quarter of ordinary steps exceed 5·MAD. C_ord's M = 0.56 (sealed
+the increments have a nonzero mean — A drifts ~0.010 rad/step (mean) with
+MAD 0.0024–0.0029, so 15–25% of ordinary steps exceed 5·MAD (seeds 41–43;
+the 0.0024 / "a quarter" first written here were seed 41's). C_ord's M = 0.56
+(sealed
 ≥ 0.9): the monotone clause evaluated on all above-MAD steps is polluted by
 noise steps whose signs are random; its 15 real boundaries are a few hundred
 steps' worth of noise away from being visible. C_perm passes both clauses
@@ -1183,6 +1190,12 @@ measured in that well.*
    this sweep did not reach (largest random row unconverged).
 
 ## Measure 2 — pre-registration (2026-09-16, before `stage1_ph.py` runs)
+
+*[S2 applies throughout this section: every "w ≈ 0.6 rad" below — the 30τ
+prediction for P1, the "spacing 1.57 rad > w" design of the E clouds, and
+the same premise in `stage1_ph.py`'s docstring (lines 26–28, 83–84; sealed,
+not edited — this note is its pointer) — is the initialisation width. The
+steady-state FWHM is 2.06 rad. Retained as sealed; read with S2.]*
 
 **Traversal.** A stationary ε=0 ring has no dynamics along the ring, so a
 jitter ladder on it is inert (every arm must be able to fire). The positive
