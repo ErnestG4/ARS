@@ -387,8 +387,12 @@ rails caught three instrument defects before any number was read.
   passive signature is that it integrates noise, so "unreachable
   observationally" is NOT banked; but the trapped clauses sealed against
   the linear λ₁ miss by a common factor 0.19–0.35, and Stage 3h (the MSD
-  well's own δ-sweep) found that well **harmonic** at the 0.1-rad excursion
-  — the anharmonic explanation is retracted (brief S5), the cause is open.
+  well's own δ-sweep, both signs) found that well **asymmetric but nowhere
+  near Stage 3e's number** at the 0.1-rad excursion (0.99/1.01 on one side,
+  0.70/0.87 on the other, against a cited 0.32) — the anharmonic explanation
+  is retracted (brief S5), the cause is open (candidates: noisy-bump
+  effective potential; crossover estimator; rare escapes past the basin edge
+  at −0.2 to −0.3 rad).
   T2 and T3 (traversal statistics on the lifted path) each separated
   qualitatively and failed their own sealed numbers; three versions is the
   stopping point — ordering pinned (R13d), thresholds to a negative-set

@@ -30,7 +30,7 @@ bad = []
 c = json.load(open(os.path.join(HERE, "guard_usage_census.json")))
 GUARDS = list(c["guards"])
 GS = set(GUARDS)
-SKIP = {".git", "__pycache__", "archive_v1grid", "node_modules", "proposals"}
+SKIP = {".git", "__pycache__", "archive_v1grid", "node_modules", "proposals", ".claude"}   # .claude = nested worktrees (2026-09-20)
 
 deps = collections.defaultdict(set)
 consumers = collections.defaultdict(set)

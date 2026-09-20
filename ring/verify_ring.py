@@ -455,12 +455,15 @@ if PH:
     spec2 = D.ph_consistent_with_continuous_attractor_spec()
     spec2.record("intact_ring_cloud", r12("A") > R_MIN)
     spec2.record("pinned_ring_cloud_converged", r12("D") > R_MIN)
-    # The negative is read at the DECLARED rung (brief, measure 2: tau_j = 100),
-    # not at the measured tau_c(A): reading it at tau_c makes it False by the
-    # definition of tau_c, whatever the data (review 2026-09-20).
-    TAU_J_NEG = 100.0
-    chk(TAU_J_NEG in taus, f"R9 declared negative rung tau_j={TAU_J_NEG} is not on the ladder {taus}")
-    spec2.record("jittered_cloud_above_tau_c", r12("A", "jitter", 0.5, TAU_J_NEG) > R_MIN)
+    # The negative "jittered cloud ABOVE tau_c" is read at every ladder rung
+    # STRICTLY above the measured tau_c(A) (coarse ladder: 300, 1000) and fires
+    # if a loop survives at any of them. Reading it AT tau_c (the first dead
+    # rung by definition) or at a rung equal to it is False whatever the data —
+    # a dead arm; the 2026-09-20 review's first fix (a declared 100 = tau_c)
+    # was that same tautology (final-verification critic).
+    above = [t for t in taus if tcA is not None and t > tcA]
+    chk(len(above) >= 1, f"R9 no ladder rung strictly above tau_c(A)={tcA}: the negative cannot be read")
+    spec2.record("jittered_cloud_above_tau_c", any(r12("A", "jitter", 0.5, t) > R_MIN for t in above))
     spec2.record("within_cell_scrambled_cloud", r12("A", "scramble") > R_MIN)
     try:
         rates2 = spec2.certify()
@@ -555,7 +558,8 @@ if CV:
     grow = min(e2jit[t] / max(e2base, 1e-9) for t in FINE)
     # A at tau_c(A) — the rung F1 MEASURED (140), not the 100 the brief guessed
     # pre-seal (review 2026-09-20: the printed 0.86 was read at the wrong rung)
-    a_jm = vmed(vsel(arm='F1', cloud='A', kind='jitter', tau_j=tA), 'b1') / vmed(vsel(arm='F1', cloud='A', kind='matched', tau_j=tA), 'b1')
+    _mj = vmed(vsel(arm='F1', cloud='A', kind='matched', tau_j=tA), 'b1')
+    a_jm = vmed(vsel(arm='F1', cloud='A', kind='jitter', tau_j=tA), 'b1') / (_mj if _mj > 0 else float("nan"))   # matched b1 is 0.0 one rung up: nan, not a crash
     r10["F6b"] = (f"r12 INAPPLICABLE (degenerate); on b1: E2 base {e2base:.1f}, jittered "
                   f"{min(e2jit.values()):.0f}-{max(e2jit.values()):.0f} at every rung (>= {grow:.0f}x base) "
                   f"— CONSTRUCTED, not lifted; smoothing-matched {min(e2mat.values()):.0f}-{max(e2mat.values()):.0f}: "
@@ -563,7 +567,7 @@ if CV:
                   f"'constructed = smoothing' FAIL. A at tau_c(A)={tA:g}: jit/matched b1 = {a_jm:.2f} "
                   f"(<0.5 predicted: {'PASS' if a_jm < 0.5 else 'FAIL — destruction is mostly displacement, shared with smoothing'})")
     chk(grow > 20, f"R10 pin: E2's jitter-grown loop no longer >>20x base (min {grow:.1f}x)")
-    chk(a_jm >= 0.5, f"R10 pin: A's jitter/matched b1 at tau_c(A) dropped to {a_jm:.2f} — the '<0.5' FAIL-as-declared has flipped")
+    chk(a_jm >= 0.5, f"R10 pin: A's jitter/matched b1 at tau_c(A) is {a_jm:.2f} (nan = matched b1 at floor: INAPPLICABLE) — the '<0.5' FAIL-as-declared has flipped or become unreadable")
 
 # R11 — Stage 2
 npath = os.path.join(HERE, "stage2_nonnormal_measured.json")
@@ -607,6 +611,7 @@ if NN:
                      f"but {NN['fits']['n_resolved_gamma']}/{len(sg_read)} points individually resolved "
                      f"above 3x their error bound -> exponent PROVISIONAL; G_max {[round(x['gmax'], 4) for x in sg_read]}")
     chk(maxrel < 0.10, "R11 H_gain: circulant asymmetry now moves Henrici by > 10% on a read row")
+    chk(abs(NN["fits"]["exp_henrici_gamma"] - 2) <= 0.3, f"R11 pin: the S-gamma Henrici exponent {NN['fits']['exp_henrici_gamma']:.2f} left the sealed 2 +- 0.3 (recorded PASS, provisional)")
     chk(sg_lim == [0.32], f"R11 pin: instrument-limited gamma rows changed: {sg_lim}")
     # S-alpha
     sa = [x for x in NR if x["arm"] == "Salpha"]
@@ -698,6 +703,7 @@ if LF:
                  f"protection claim: {'PASS' if big_theta_readable else 'NOT REACHED'} — no readable row has theta > 0.3 rad; "
                  f"the class disappears first (smallest readable rho: {edge}, CENSORED edges); fallback rows: "
                  f"{sum(1 for x in fallback if x['n_est'] != x['n_true'])}/{len(fallback)} wrong counts (not read)")
+    chk(slope is None or abs(slope + 0.5) > 0.15, f"R12 pin: the L2 theta-vs-rho exponent {slope} now meets the sealed -0.5 +- 0.15 — the recorded FAIL (floor-limited) flipped")
     # L3
     ind = [x for x in LR if x["cloud"] == "IND"]
     ok_ind = len(ind) == 3 and all(x.get("readable") and x["n_est"] == 3 and x["continuity"] > 0.95 for x in ind)
@@ -714,6 +720,7 @@ if LF:
                  f"{[x.get('n_est') for x in cperm]} — the per-step statistic is defeated by smoothing + rare jumps "
                  f"(15 boundaries in 2000 steps); a total-variation/net-winding statistic is the candidate replacement")
     chk(ok_ind, "R12 pin: IND no longer reads like A — the kinematic ceiling moved")
+    chk(ok_cord, "R12 pin: C_ord's L3 winding/continuity read (recorded PASS) regressed")
     chk(all(c > 0.9 for c in cperm_cont), "R12 pin: C_perm continuity dropped — the defeated statistic changed behaviour")
     # L4
     l4 = {}
@@ -884,6 +891,7 @@ if MS:
                         f"MSD(1000)/MSD(100) {[round(v, 1) for v in c_ratio]} in [7,13]: {n_cr}/3 "
                         f"{'PASS' if n_cr == 3 else 'FAIL (long-lag MSD has ~20 independent segments at T=20000: +-30%)'}; "
                         f"D = {Dm:.2e} rad^2/tau")
+    chk(n_cr == 2, f"R17 pin: continuum MSD(1000)/MSD(100) clause recorded 2/3, now {n_cr}/3")
     # trapped
     t_slope = [x["slope_200_2000"] for x in trap]; t_sat = [x["msd_sat"] for x in trap]; t_cross = [x["crossover_lag"] for x in trap]
     pred_sat = 2 * Dm / lam1; pred_cross = 1 / lam1
@@ -954,51 +962,78 @@ if os.path.exists(t3p):
     chk(ordering, "R13d pin: the T3 ordering (M: perm < smooth <= ordered; J: smooth < stepwise) broke")
     sealed_A = sum(j <= 10 for j in JA + JI); sealed_ord = sum(10 <= j <= 40 for j in Jord)
     r13["T3"] = (f"M: C_perm {[round(v, 2) for v in Mperm]} < 0.7 PASS; C_ord {[round(v, 2) for v in Mord]} >= 0.9 PASS; A/IND "
-                 f"{[round(v, 2) for v in MA + MI]} (>= 0.9: {sum(v >= 0.9 for v in MA + MI)}/6). J: A/IND {JA + JI} (<= 10: {sealed_A}/6 FAIL, "
-                 f"heavy-tailed coordinate noise); C_ord {Jord} in [10,40]: {sealed_ord}/3 FAIL — kernel support 4 sigma = 8 bins "
+                 f"{[round(v, 2) for v in MA + MI]} (>= 0.9: {sum(v >= 0.9 for v in MA + MI)}/6). J: A/IND {JA + JI} (<= 10: {sealed_A}/6 "
+                 f"{'PASS' if sealed_A == 6 else 'FAIL'}, heavy-tailed coordinate noise); C_ord {Jord} in [10,40]: {sealed_ord}/3 "
+                 f"{'PASS' if sealed_ord == 3 else 'FAIL'} — kernel support 4 sigma = 8 bins "
                  f"spreads each of 15 boundaries over ~8 steps (the pre-committed 'report before touching the threshold'); "
-                 f"C_perm {Jperm} (M < 0.7 PASS). Ordering pinned; thresholds deferred to a negative-set calibration (Will)")
+                 f"C_perm {Jperm} (M < 0.7 {'PASS' if max(Mperm) < 0.7 else 'FAIL'}). Ordering pinned; thresholds deferred to a negative-set calibration (Will)")
+    chk(sealed_A == 1 and sealed_ord == 0, f"R13d pin: T3's sealed numeric clauses recorded 1/6 and 0/3, now {sealed_A}/6 and {sealed_ord}/3 — re-read before re-scoping")
 
-# R18 — Stage 3h
+# R18 — Stage 3h (v3: sign of delta declared; keys "T{T}_d{+/-}{delta}")
 hpath = os.path.join(HERE, "stage3h_well_delta_measured.json")
 chk(os.path.exists(hpath), "R18 stage3h_well_delta_measured.json missing — run stage3h_well_delta.py")
 H3 = json.load(open(hpath)) if os.path.exists(hpath) else None
 if H3:
-    chk(H3["instrument"]["model"] == "ring_well_delta_v2", f"R18 table is {H3['instrument']['model']}, not v2 (v1's I1c row missed its rail)")
+    chk(H3["instrument"]["model"] == "ring_well_delta_v3", f"R18 table is {H3['instrument']['model']}, not v3 (v1's I1c row missed its rail; v2 was one-signed)")
     W1 = [x for x in H3["rows"] if x["well"] == "eps0.1_relax2000"][0]
     W3 = [x for x in H3["rows"] if x["well"] == "eps0.03_relax16000"][0]
-    # the declared rail, on BOTH wells (v1 checked the MSD well only and read
-    # the I1c row at 1.4e-9 > 1e-9 anyway — the review's critic, 2026-09-20)
+    # The declared rail, on BOTH wells, COMPARED here: the residual against a
+    # verifier-side ceiling (the sealed 1e-9, brief "Stage 3h" pre-reg), and
+    # the table's own ceiling pinned to it. v1 checked the MSD well only and
+    # read the I1c row at 1.4e-9 anyway; v2 read the generator's rail_ok flag
+    # and compared nothing (final-verification critic, 2026-09-20).
+    FP_RAIL_SEALED = 1e-9
+    fp_rail_tab = [q["value"] for q in H3["instrument"]["params"] if q["name"] == "fp_rail"][0]
+    chk(fp_rail_tab == FP_RAIL_SEALED, f"R18 rail: the table's fp_rail ceiling is {fp_rail_tab:g}, not the sealed {FP_RAIL_SEALED:g}")
     for Wx, nm in ((W1, "MSD"), (W3, "I1c")):
-        chk(Wx["rail_ok"], f"R18 rail: {nm} well not at a fixed point (resid {Wx['fp_resid']:.1e} vs declared ceiling) — row is INSTRUMENT-LIMITED, unread")
-    r1 = {k: v for k, v in W1["ratio"].items()}
-    at01 = [r1["T50_d0.1"], r1["T200_d0.1"]]
-    harm = all(v > 0.8 for v in at01)
-    chk(harm, f"R18 pin: the MSD well's ratio at delta=0.1 dropped to {at01} — the S5 retraction's basis moved")
-    chk(all(abs(r1[f"T50_d{d:g}"] - r1[f"T200_d{d:g}"]) < 0.1 for d in (0.005, 0.01, 0.02, 0.05, 0.1)),
-        "R18 the dynamic read depends on T on the MSD well below 0.1 rad")
-    r3 = W3["ratio"]
+        chk(Wx["fp_resid"] < FP_RAIL_SEALED and Wx["rail_ok"],
+            f"R18 rail: {nm} well not at a fixed point (resid {Wx['fp_resid']:.1e} vs sealed ceiling {FP_RAIL_SEALED:g}, "
+            f"rail_ok={Wx['rail_ok']}) — row is INSTRUMENT-LIMITED, unread")
+    r1, r3 = W1["ratio"], W3["ratio"]
+    ANH = (0.15, 0.45)                                  # Stage 3e's attribution window, sealed in the v1 pre-reg
+    # sealed v3: S5 stands iff the MSD well's |delta|=0.1 ratio is OUTSIDE the
+    # H_anharm window for BOTH signs at BOTH T
+    at01 = {f"{sg}0.1@T{T}": r1[f"T{T}_d{sg}0.1"] for T in (50, 200) for sg in ("+", "-")}
+    inside = {k: v for k, v in at01.items() if ANH[0] <= v <= ANH[1]}
+    chk(not inside, f"R18 sealed (v3): the MSD well's ratio at |delta|=0.1 is INSIDE Stage 3e's window {ANH} on {inside} — "
+                    "S5 is withdrawn (S6) and the anharmonic attribution reinstated one-sided")
+    harmonic = all(v > 0.8 for v in at01.values())
+    # recorded: NOT harmonic (the -0.1 rad, T=50 read is 0.695) -> asymmetric; pinned as recorded
+    chk(not harmonic and min(at01.values()) < 0.8 and max(at01.values()) > 0.95,
+        f"R18 pin: the MSD well's recorded asymmetry at |delta|=0.1 changed: {at01}")
+    chk(all(abs(r1[f"T50_d+{d:g}"] - r1[f"T200_d+{d:g}"]) < 0.1 for d in (0.005, 0.01, 0.02, 0.05, 0.1)),
+        "R18 the dynamic read depends on T on the MSD well's +delta side below 0.1 rad")
+    # basin edge on the -delta side: first swept |delta| whose ratio is negative (reported)
+    edge = {T: next((d for d in (0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.3) if r1[f"T{T}_d-{d:g}"] < 0), None) for T in (50, 200)}
+    chk(edge[50] == 0.3 and edge[200] == 0.3, f"R18 pin: the MSD well's -delta basin edge moved from 0.3 rad: {edge}")
     chk("LAM_I1C" in dir(), "R18 needs I1c's lambda_eff from R13c's table (stage3d) — no literal fallback")
     lam_i1c = LAM_I1C if "LAM_I1C" in dir() else float("nan")
-    chk(r3["T50_d0.1"] < 0.45, f"R18 pin: the I1c well is no longer anharmonic at 0.1 rad ({r3['T50_d0.1']:.3f})")
-    # sealed v2 clause (brief "Stage 3h v2"): at the 0.3-rad kick amplitude,
-    # lambda1 x ratio within 2x of I1c's lambda_eff at BOTH T
-    k03 = {T: -W3["lam1"] * r3[f"T{T}_d0.3"] / lam_i1c for T in (50, 200)}
+    chk(r3["T50_d+0.1"] < 0.45 and r3["T200_d+0.1"] < 0.45,
+        f"R18 pin: the I1c well is no longer anharmonic at +0.1 rad ({r3['T50_d+0.1']:.3f}/{r3['T200_d+0.1']:.3f})")
+    chk(all(r3[f"T{T}_d-{d:g}"] > 1.0 for T in (50, 200) for d in (0.05, 0.1, 0.2, 0.3)),
+        "R18 pin: the I1c well's -delta side is no longer stiffer than linear")
+    # sealed v2 clause (brief "Stage 3h v2"): at the +0.3-rad kick amplitude,
+    # lambda1 x ratio within 2x of I1c's lambda_eff at BOTH T. Recorded: FAIL.
+    k03 = {T: -W3["lam1"] * r3[f"T{T}_d+0.3"] / lam_i1c for T in (50, 200)}
     kick_ok = all(0.5 <= v <= 2.0 for v in k03.values())
-    # recorded outcome pinned as recorded: FAIL at both T (the contingency fired)
     chk(not kick_ok and all(v > 2.0 for v in k03.values()),
         f"R18 pin: the sealed 0.3-rad clause's recorded outcome (FAIL, > 2x at both T) changed: {[round(v, 2) for v in k03.values()]}")
-    nonmono = r3["T50_d0.2"] < r3["T50_d0.1"] and r3["T50_d0.3"] > r3["T50_d0.2"]
-    chk(nonmono, f"R18 pin: the I1c well's non-monotonic delta response (0.1 > 0.2 < 0.3 rad) changed: "
-                 f"{[round(r3[f'T50_d{d:g}'], 3) for d in (0.1, 0.2, 0.3)]}")
-    r13["Stage3h"] = (f"v2. MSD well (eps=0.1, start 0.37, lam1={W1['lam1']:+.3e}, resid {W1['fp_resid']:.0e}): ratio at delta=0.1 = "
-                      f"{at01[0]:.3f}/{at01[1]:.3f} (T=50/200) -> H_harm; sealed H_anharm [0.15,0.45] FAIL -> Stage 3e's anharmonic cause "
-                      f"RETRACTED (S5); harmonic to 0.2 rad ({r1['T200_d0.2']:.2f} at T=200), anharmonic by 0.3 ({r1['T50_d0.3']:.2f}/{r1['T200_d0.3']:.2f}). "
-                      f"I1c well (eps=0.03, relax 16000, resid {W3['fp_resid']:.0e}, lam1={W3['lam1']:+.3e}): ratio by delta (T=50) "
-                      f"{[round(r3[f'T50_d{d:g}'], 3) for d in (0.05, 0.1, 0.2, 0.3)]} at 0.05/0.1/0.2/0.3 rad — anharmonic at 0.1 (pre-registered read), "
-                      f"NON-MONOTONIC beyond; sealed 0.3-rad clause: lam1 x ratio / I1c lambda_eff({lam_i1c:.2e}) = "
-                      f"{k03[50]:.2f}x (T=50), {k03[200]:.2f}x (T=200) vs sealed [0.5,2] -> FAIL at both T: the v1 '5% at 0.2 rad' was "
-                      f"coincidence; the short-window deterministic rate is not the 3000-tau lambda_eff at this well either (open, as for the MSD arm)")
+    nonmono = r3["T50_d+0.2"] < r3["T50_d+0.1"] and r3["T50_d+0.3"] > r3["T50_d+0.2"]
+    chk(nonmono, f"R18 pin: the I1c well's non-monotonic +delta response (0.1 > 0.2 < 0.3 rad) changed: "
+                 f"{[round(r3[f'T50_d+{d:g}'], 3) for d in (0.1, 0.2, 0.3)]}")
+    if MS:
+        chk(abs(abs(MS["lambda1_ref"]) / -W1["lam1"] - 1) < 0.05,
+            f"R17/R18: Stage 3e's hand-typed lambda1_ref {MS['lambda1_ref']} is not within 5% of the MSD well's own Jacobian {W1['lam1']:+.4e}")
+    r13["Stage3h"] = (f"v3 (sign declared). MSD well (eps=0.1, start 0.37, lam1={W1['lam1']:+.3e}, resid {W1['fp_resid']:.0e} < {FP_RAIL_SEALED:g}): "
+                      f"ratio at |delta|=0.1 = { {k: round(v, 3) for k, v in at01.items()} } — all outside Stage 3e's window {ANH}: "
+                      f"S5 STANDS; NOT harmonic (asymmetric: -0.1 rad reads {at01['-0.1@T50']:.2f} at T=50); -delta basin edge at |delta|={edge[50]} rad "
+                      f"(ratio {r1['T50_d-0.2']:.2f}/{r1['T200_d-0.2']:.2f} at -0.2) -> candidate (d) for the MSD discrepancy: rare escapes. "
+                      f"I1c well (eps=0.03, relax 16000, resid {W3['fp_resid']:.0e}, lam1={W3['lam1']:+.3e}): +delta "
+                      f"{[round(r3[f'T50_d+{d:g}'], 3) for d in (0.05, 0.1, 0.2, 0.3)]} at 0.05/0.1/0.2/0.3 rad (T=50; anharmonic at 0.1, "
+                      f"NON-MONOTONIC beyond), -delta {[round(r3[f'T50_d-{d:g}'], 2) for d in (0.05, 0.1, 0.2, 0.3)]} (stiffer than linear); "
+                      f"sealed v2 0.3-rad clause: lam1 x ratio / I1c lambda_eff({lam_i1c:.2e}) = {k03[50]:.2f}x (T=50), {k03[200]:.2f}x (T=200) "
+                      f"vs [0.5,2] -> FAIL at both T (recorded): the v1 '5% at 0.2 rad' was a post-hoc read; the short-window deterministic "
+                      f"rate is not the 3000-tau lambda_eff at either well (open)")
 
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")

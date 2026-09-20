@@ -35,7 +35,7 @@ interventional predicate.
 
 **Drive vs pinning is one competition seen by four instruments.** Stage 1's
 contour (median pinning velocity c·ε), I1b/I1c's retention crossing, Stage
-4b's ρ-tongue edge (maximal pinning velocity, max/median ≈ 2.75), and the
+4b's ρ-tongue edge (maximal pinning velocity, max/median 3.02 in-table; 2.75 against the contour's c·ε), and the
 circle map's Ω_c = K/2π. The reduced phase model predicts the full ring's
 depinning to 3% from a quantity measured at γ = 0, at two ε.
 

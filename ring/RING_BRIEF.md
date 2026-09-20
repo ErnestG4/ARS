@@ -1299,6 +1299,41 @@ sweep runs both signs at every |δ|; the generator's docstring corrected
 - I1c well: both signs reported; the sealed v2 0.3-rad clause is not
   re-scored (its FAIL stands as recorded).
 
+## Stage 3h v3 — results (`stage3h_well_delta_measured.json`, sealed `23e50b1`, scored R18)
+
+| well | side | T=50: 0.05 / **0.1** / 0.2 / 0.3 | T=200: 0.05 / **0.1** / 0.2 / 0.3 |
+|---|---|---|---|
+| ε = 0.1 (MSD arm's), resid 1·10⁻¹⁴ | +δ | 1.031 / **0.992** / 0.751 / 0.476 | 1.018 / **1.014** / 0.944 / 0.797 |
+| | −δ | 0.893 / **0.695** / 0.076 / **−0.057** | 0.956 / **0.870** / 0.239 / **−0.032** |
+| ε = 0.03 (I1c's), resid 2·10⁻¹⁵ | +δ | 0.583 / **0.223** / 0.084 / 0.402 | 0.647 / **0.261** / 0.075 / 0.310 |
+| | −δ | 1.334 / 1.515 / 1.478 / 1.357 | 1.251 / 1.408 / 1.508 / 1.461 |
+
+Both rails pass (residuals compared against the sealed 10⁻⁹ in R18, not
+read from a flag). Every +δ cell is bit-identical to v2.
+
+**S5 stands, on its sealed basis.** At |δ| = 0.1 the MSD well reads
+0.99 / 1.01 (+) and 0.70 / 0.87 (−): all four outside Stage 3e's window
+[0.15, 0.45] by 1.5–2×. The number Stage 3e attributed to this well is not
+this well's on either side. **"Harmonic" is not claimed**: the −0.1 rad,
+T = 50 read is 0.695 < 0.8. The well is **asymmetric** — stiff on the +δ
+side to 0.2 rad, soft on the −δ side, with a **basin edge between −0.2 and
+−0.3 rad** (ratio 0.08 at −0.2, negative at −0.3: the bump leaves). That
+edge is candidate **(d)** for the MSD discrepancy: the trapped MSD's
+long-lag slope of 0.2–0.4 (not 0) is what rare escapes over a nearby edge
+would leave. Report only; (b), (c), (d) all open.
+
+**I1c well:** the +δ side is the anharmonic, non-monotonic one (0.22 / 0.08
+/ 0.40); the −δ side is *stiffer than linear* (1.3–1.5) at every |δ|. A
+0.3-rad kick relaxing through this landscape sees both; the 3000τ effective
+rate averages over it. The sealed v2 clause's FAIL stands as recorded.
+
+**Doctrine.** *Sign is a parameter.* A displacement probe on a random
+landscape reads one side of a well; "harmonic" from a one-signed sweep is a
+statement about the sweep. Three seals of the same 3-second instrument
+(v1 rail, v2 amplitude, v3 sign) each moved a word in the record; the
+finding that survives all three is the one written in terms of the sealed
+window, not the adjective.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in

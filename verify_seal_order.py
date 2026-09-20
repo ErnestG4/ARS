@@ -108,6 +108,37 @@ PAIRS = [
      "approximability/fifth_lambda16_v2.json",
      "v2's tolerance premise and the inherited invariance arms"),
 ]
+# ring/ arc, registered 2026-09-20 (the final-verification critic found no ring
+# pair here). Every ring generator is sealed alone by sealgen.sh before its
+# output; the pairs below are all 17 generator/output pairs by first commit.
+PAIRS += [(f"ring/{g}.py", f"ring/{g}_measured.json", w) for g, w in (
+    ("stage1_marginal", "the marginal-mode dial and its two-read invariant"),
+    ("stage1_contour", "the eps*T contour and its pre-declared tolerances"),
+    ("stage1_ph", "measure 2's sealed P1-P5"),
+    ("stage1_coverage", "the coverage test F1-F6b"),
+    ("stage2_nonnormal", "Stage 2's H_plan/H_gain/H_pin arms"),
+    ("stage3_lift", "Stage 3a's L1-L4"),
+    ("stage3b_recurrence", "L4b sealed-to-fail, I1/I2, T1"),
+    ("stage3c_trapped", "I1b"),
+    ("stage3d_trapped_long", "I1c"),
+    ("stage3e_msd", "Stage 3e's growth-law clauses"),
+    ("stage3f_traversal2", "T2"),
+    ("stage3g_traversal3", "T3"),
+    ("stage3h_well_delta", "Stage 3h's H_anharm/H_harm (v1), the 0.3-rad clause (v2), sign (v3)"),
+    ("stage4_circlemap", "Stage 4's theorem rails"),
+    ("stage4b_ringtongue", "Stage 4b's tongue prediction"),
+    ("stage4c_staircase", "M2b"),
+    ("stage4d_staircase_random", "M2c"),
+)]
+# RE-SEALS share the path with v1, so first-commit order cannot see them: a
+# v3 generator committed AFTER the v3 output would still read SEALED above.
+# For these the LAST-modifying commits are compared as well.
+RESEAL_PAIRS = [
+    ("ring/stage1_marginal.py", "ring/stage1_marginal_measured.json", "v3: delta sweep to 0.1"),
+    ("ring/stage1_contour.py", "ring/stage1_contour_measured.json", "v3: delta sweep to 0.1"),
+    ("ring/stage3h_well_delta.py", "ring/stage3h_well_delta_measured.json", "v2 rail + 0.3 rad; v3 sign"),
+    ("ring/stage3e_msd.py", "ring/stage3e_msd_measured.json", "re-seal 8164091 (nearest-lag lookups)"),
+]
 
 
 def first_commit(path):
@@ -132,7 +163,30 @@ def first_commit(path):
     return h, int(t)
 
 
+def last_commit(path):
+    r = subprocess.run(["git", "log", "--full-history", "--no-merges", "-1", "--format=%H %ct", "--", path],
+                       cwd=ROOT, capture_output=True, text=True)
+    line = r.stdout.strip().splitlines()
+    if not line:
+        return None
+    h, t = line[0].split()
+    return h, int(t)
+
+
 rows, bad = [], []
+for rule, out, what in RESEAL_PAIRS:
+    a, b = last_commit(rule), last_commit(out)
+    if a is None or b is None:
+        v = "UNTRACKED"
+    elif a[0] == b[0]:
+        v = "DECLARED"
+    elif a[1] < b[1]:
+        v = "SEALED"
+    else:
+        v = "INVERTED"
+    rows.append((v, rule + " (last re-seal)", out, what, (a[0][:8] if a else "-"), (b[0][:8] if b else "-")))
+    if v == "INVERTED":
+        bad.append((rule, out))
 for rule, out, what in PAIRS:
     a, b = first_commit(rule), first_commit(out)
     if a is None or b is None:

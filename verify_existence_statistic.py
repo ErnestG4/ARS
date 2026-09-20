@@ -75,7 +75,7 @@ from existence import looks_like_a_detection            # noqa: E402
 survey = []
 for root, dirs, files in os.walk(HERE):
     dirs[:] = [d for d in dirs if d not in
-               (".git", "__pycache__", "build", "external", "signals_cache")]
+               (".git", "__pycache__", "build", "external", "signals_cache", ".claude")]   # .claude = nested worktrees
     for fn in files:
         if not fn.endswith(".py") or fn == "existence.py":
             continue

@@ -9995,13 +9995,16 @@ every printed verdict a `chk`). Five retractions carried inline (S1–S5).
   D = 1.5·10⁻⁵ rad²/τ; trapped saturating; independent units flat) but the
   trapped clauses sealed against the linear λ₁ miss by a common factor
   0.19–0.35 whose cause is **open** — the anharmonic-well explanation was
-  retracted (S5) when the MSD well's own δ-sweep read harmonic to 0.2 rad
-  (Stage 3h). The ε = 0.03 well is anharmonic at 0.1 rad (ratio 0.22) but a
-  sealed clause at its 0.3-rad kick amplitude failed (λ₁ × ratio is 3.5–4.6×
-  the measured λ_eff; a v1 "5% match" read post-hoc at 0.2 rad was withdrawn
-  and the generator re-sealed after its I1c row missed a fixed-point rail):
-  at both wells the short-window deterministic restoring rate is not the
-  window's effective rate. Open, with causes pre-named.
+  retracted (S5) when the MSD well's own δ-sweep (Stage 3h, three seals:
+  v2 after a missed fixed-point rail, v3 with the sign of δ declared) read
+  0.99/1.01 and 0.70/0.87 at ±0.1 rad — an asymmetric well, nowhere near the
+  cited 0.32; its basin ends between −0.2 and −0.3 rad. The ε = 0.03 well is
+  anharmonic at +0.1 rad (0.22) and stiffer than linear on its other side,
+  and a sealed clause at its 0.3-rad kick amplitude failed (λ₁ × ratio is
+  3.5–4.6× the measured λ_eff; a v1 "5% match" read post-hoc at 0.2 rad was
+  withdrawn). At both wells the short-window deterministic restoring rate
+  is not the window's effective rate. Open, with causes pre-named, now
+  including rare escapes past the basin edge.
 - **Non-normality is intrinsic, not induced (Stage 2).** The symmetric
   attractor is already non-normal (Henrici 2.09 = 18% of ‖J‖_F, gap 0.178,
   G_max = κ = K = 1.356); circulant asymmetry, matched-norm random coupling
