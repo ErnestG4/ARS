@@ -71,7 +71,7 @@ STDLIB = {"os", "sys", "json", "math", "re", "subprocess", "collections",
           "statistics", "gzip", "csv", "random", "argparse", "textwrap",
           "pathlib", "typing", "multiprocessing", "importlib", "ast", "glob",
           "shutil", "tempfile", "warnings", "copy", "bisect", "heapq"}
-SKIP_DIRS = {".git", "__pycache__", "archive_v1grid", "node_modules", "proposals"}
+SKIP_DIRS = {".git", "__pycache__", "archive_v1grid", "node_modules", "proposals", ".claude"}
 
 
 def scan():

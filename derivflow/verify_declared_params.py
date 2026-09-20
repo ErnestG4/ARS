@@ -76,7 +76,8 @@ BASELINE = 17
 bad = []
 rows = []
 for root, dirs, files in os.walk(ROOT):
-    dirs[:] = [d for d in dirs if d not in (".git", "__pycache__", "archive_v1grid")]
+    # .claude = nested git worktrees; 17 phantom rows on 2026-09-20 were worktree copies
+    dirs[:] = [d for d in dirs if d not in (".git", "__pycache__", "archive_v1grid", ".claude")]
     for fn in sorted(files):
         if not fn.endswith(".py") or fn.startswith("verify_"):
             continue

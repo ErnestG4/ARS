@@ -15,10 +15,13 @@ THE TEST: apply the discriminator to EVERY classified site and check whether it
 changes any verdict OTHER than rho's. If it moves another site, it was tuned to
 one case and the census reopens.
 """
-import json, glob
+import json, glob, os
 import numpy as np
 
-R = "/home/combust/fmexplorer/criticality_tool"
+# Repo-relative, not a hardcoded checkout: with the absolute path a board run
+# from a nested worktree regenerated the MAIN checkout's tracked JSONs while
+# verify_bounded_census compared the worktree's own copies (2026-09-20).
+R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOL, RAIL_RATIO = 1e-3, 0.01
 SITES = {"brody_q": (0.0, 1.0), "brody_q_unbounded": (-1.0, 4.0),
          "berry_robnik": (0.0, 1.0), "alpha": (1e-3, None), "kappa": (1e-4, 100.0)}
@@ -44,7 +47,16 @@ def walk(o):
 
 
 for f in glob.glob(f"{R}/**/*.json", recursive=True) + glob.glob(f"{R}/**/*.jsonl", recursive=True):
-    if "/.git/" in f:
+    rel = os.path.relpath(f, R)
+    if rel.startswith(".git/") or rel.startswith(".claude/"):   # relative: a worktree's own path contains /.claude/
+        continue
+    # ring/ is a different arc whose tables reuse the key NAMES this census
+    # matches by (`alpha` = a Jacobian's spectral abscissa, `kappa` = an
+    # eigenvector condition number -- not the DPP alpha / Thomas kappa the
+    # sites are labelled with). 19 of each entered the census on 2026-09-20 and
+    # flipped alpha@lo from CLEAR to INSUFFICIENT_N. A key-name census must
+    # exclude arcs whose keys it does not own.
+    if rel.startswith("ring/"):
         continue
     try:
         t = open(f, errors="replace").read()

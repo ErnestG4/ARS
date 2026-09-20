@@ -43,14 +43,24 @@ PARAMETERIZED = {
 REQUIRES = {
     "arsrh/verify_brief_v2.py": ["data/odlyzko_zeros1.txt"],
     "phase22a/verify_calibrators.py": ["data/odlyzko_zeros1.txt"],
+    # The bounded census harvests every JSON in the tree INCLUDING the gitignored
+    # data/ outputs (~3,800 of its 20,725 brody_q values live there), so it only
+    # reproduces its banked numbers on a checkout that has data/. A worktree
+    # without it read 16,871 on 2026-09-20 and failed on content, not on a
+    # defect. Declared here so the dependency is visible, not laundered.
+    "bounded_census/verify_bounded_census.py": ["data/phase34f_cohh/st_results.json"],
 }
 
 
 def discover():
     found = []
     for root, dirs, files in os.walk(HERE):
+        # .claude holds nested git WORKTREES (git-excluded via .git/info/exclude
+        # but os.walk-visible): without this prune the board discovered 113
+        # checkers on 2026-09-20, 57 of them duplicates from
+        # .claude/worktrees/ring-stage0, including a second copy of this file.
         dirs[:] = [d for d in dirs if d not in
-                   (".git", "__pycache__", "node_modules", "archive_v1grid")]
+                   (".git", "__pycache__", "node_modules", "archive_v1grid", ".claude")]
         for fn in files:
             if not (fn.startswith("verify_") and fn.endswith(".py")):
                 continue

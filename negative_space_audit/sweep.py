@@ -34,8 +34,15 @@ ROOT = HERE.parent
 OUT = HERE
 SKIPPED = []          # (path, reason) — logged, never silent
 
-PY = [p for p in ROOT.rglob("*.py") if "__pycache__" not in str(p) and "negative_space_audit" not in str(p)]
-MD = [p for p in ROOT.rglob("*.md")] + [p for p in ROOT.rglob("*.txt")]
+def _in_worktree(p):
+    """nested git worktrees live under <repo>/.claude/; test RELATIVE to ROOT, because a
+    worktree's own absolute path contains /.claude/ and an absolute test would skip everything"""
+    return str(p.relative_to(ROOT)).startswith(".claude/")
+
+
+PY = [p for p in ROOT.rglob("*.py") if "__pycache__" not in str(p) and "negative_space_audit" not in str(p)
+      and not _in_worktree(p)]
+MD = [p for p in list(ROOT.rglob("*.md")) + list(ROOT.rglob("*.txt")) if not _in_worktree(p)]
 
 
 def w(fn, s):
