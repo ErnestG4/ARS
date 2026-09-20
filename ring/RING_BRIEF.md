@@ -66,15 +66,19 @@ and it is the "null that manufactures its own signal" flagged on read.
 
 **S5 — RETRACTED 2026-09-20 (Stage 3h).** Stage 3e's *"the trapped failures
 have one cause … at 0.1 rad the δ-sweep measured a restoring ratio of 0.32.
-The anharmonic well, through a third instrument"* (banked `8164091`, R17's
-message as of `bf1828e`, plan v5's Stage 3e line). **Why wrong:** the 0.32
+The anharmonic well, through a third instrument"* (banked `3f4b435` from
+generator seal `8164091`, R17's message as of `bf1828e`, plan v5's Stage 3e
+line). **Why wrong:** the 0.32
 was in no table when cited; banked (Stage 1 tables v3, δ = 0.1 column) it
 belongs to the **ε = 0.01, T = 20000** rows, a different ε and a different
 well. Stage 3h then swept the MSD arm's *own* well (ε = 0.1, start 0.37, the
-exact trapped state): ratio **0.99 / 1.01** at δ = 0.1 (T = 50 / 200τ),
-1.03 at 0.05, 0.75 only at 0.2 rad — **harmonic** at the 0.1-rad excursion
-noise drives. The sealed H_anharm window [0.15, 0.45] is missed by 2×; H_harm
-fires. The trapped clauses' common factor λ_eff/λ₁ = 0.19–0.35 has **no
+exact trapped state): ratio **0.99 / 1.01** at δ = +0.1 (T = 50 / 200τ),
+1.03 at +0.05, 0.75 / 0.94 at +0.2 rad; on the other side of the well
+(v3, sign declared) **0.70 / 0.87** at −0.1 rad. The well is *asymmetric*,
+not harmonic; but at ±0.1 rad — the excursion noise drives — the ratio is
+0.70–1.01 on both sides and at both T, and the sealed H_anharm window
+[0.15, 0.45] is missed by 1.5–2× everywhere. The specific number Stage 3e
+cited is not this well's. The trapped clauses' common factor λ_eff/λ₁ = 0.19–0.35 has **no
 explanation banked**; candidates pre-named in the Stage 3h seal, (a)
 disfavoured, (b) noisy-bump effective potential and (c) the 20-segment
 crossover estimator open. What survives of Stage 3e: the kind-level
@@ -138,7 +142,8 @@ Three upstream consequences, all applied to the plan on the branch:
    the certifier. Window length and attractor state cannot be chosen
    independently. The QUEUED arm is **confounded by construction, not
    underpowered**; it does not leave the queue until one of the three options
-   in the plan's QUEUED entry is chosen.
+   in the plan's QUEUED entry is chosen *[09-17: none chosen — the arm is
+   BLOCKED ON A SPIKING RING (Will); see Open questions]*.
 
 **Detector naming.** `ph_topology_implies_continuous_attractor` asserted the
 inference Stage 1's own framing denies. Measure 2 now scores
@@ -642,7 +647,8 @@ ring's spikes are inhomogeneous Poisson from the rate envelope, so the
 matched-Cox control with the same envelope is *identical in distribution* to
 the ring unit's train and the per-cell margin is zero by construction; running
 it would score non-evidence as a verdict (#19). A non-vacuous version needs a
-spiking ring whose spikes feed back into the dynamics. Not run; for Will.
+spiking ring whose spikes feed back into the dynamics. Not run; for Will
+*[resolved 09-17: BLOCKED ON A SPIKING RING; plan QUEUED entry]*.
 
 **Decision queued for Will (not taken overnight):** whether an
 intervention-only certification counts for the `implies` rung — i.e. register
@@ -1079,8 +1085,9 @@ next seal uses λ_eff from the δ-sweep at the noise-set excursion *[S5: the
 δ-sweep of the MSD well gives λ₁, not λ_eff — this prescription is void; see
 Stage 3h]*, T ≥ 10⁵τ
 or 10 seeds for the long-lag ±30%, and thresholds stated on the long-lag
-slope (the post-hoc ordering above is reported, not scored). The rung stays
-DECLARED with its instrument named.
+slope (the post-hoc ordering above is reported, not scored) *[2026-09-20:
+this "next seal" is NOT queued ahead of Stage 5; it is an open item behind
+it]*. The rung stays DECLARED with its instrument named.
 
 ## T2 — results (`stage3f_traversal2_measured.json`, sealed `827dc8b`) and T3 pre-registration
 
@@ -1152,30 +1159,36 @@ T = 50τ and T = 200τ (the read must not depend on T, as the δ probe showed).
 - The ε = 0.03 well from start 0.37: ratio at δ = 0.1 reported; I1c's
   λ_eff = 3.3·10⁻⁴ vs Jacobian λ₁ is the comparison.
 
-## Stage 3h — results (`stage3h_well_delta_measured.json`, sealed `b175f34`, scored R18)
+## Stage 3h v1 — results (`b175f34`; SUPERSEDED by v2/v3 below — the I1c row had `rail_ok = false` and was read anyway; not scored)
 
 | well | fp resid | λ₁ | ratio T=50: 0.005 / 0.01 / 0.02 / 0.05 / **0.1** / 0.2 | T=200: 0.1 / 0.2 |
 |---|---|---|---|---|
 | ε = 0.1, start 0.37 (the MSD arm's) | 1·10⁻¹⁴ | −1.525·10⁻² | 1.009 / 1.014 / 1.022 / 1.031 / **0.992** / 0.751 | 1.014 / 0.944 |
-| ε = 0.03, start 0.37 (I1c's) | 1.4·10⁻⁹ | −3.771·10⁻³ | 0.996 / 0.992 / 0.977 / 0.583 / **0.223** / 0.084 | 0.261 / — |
+| ε = 0.03, start 0.37 (I1c's) — **rail MISSED** | 1.4·10⁻⁹ | −3.771·10⁻³ | 0.962 / 0.921 / 0.837 / 0.583 / **0.223** / 0.084 | 0.261 / 0.075 |
 
-**H_harm fires on the MSD well** (0.99 / 1.01 at 0.1 rad against a sealed
-H_anharm window [0.15, 0.45]): Stage 3e's anharmonic cause is retracted
-(**S5**). The read is T-independent below 0.1 rad (|Δ| < 0.03); at 0.2 rad
-the T = 50 read (0.75) is the ~4-step transient, T = 200 gives 0.94 — the
-well is harmonic to within 6% out to 0.2 rad. The MSD arm's noise-driven
-excursions are ~0.1 rad; **the linear λ₁ was the right constant for that
-well**, and the λ_eff/λ₁ = 0.19–0.35 factor is unexplained. Open, with the
+*(The I1c row's first three cells and its last were mis-transcribed in the
+first filing of this table — 0.996/0.992/0.977 and "—" — and corrected
+2026-09-20 from `git show 77838cc`.)*
+
+*[v1 reading — withdrawn as written; v2/v3 below; S5]* **H_harm fires on
+the MSD well** (0.99 / 1.01 at +0.1 rad against a sealed H_anharm window
+[0.15, 0.45]): Stage 3e's anharmonic cause is retracted (**S5**). The read
+is T-independent below 0.1 rad (|Δ| < 0.03); at +0.2 rad the T = 50 read
+(0.75) is the ~4-step transient, T = 200 gives 0.94 — ~~the well is harmonic
+to within 6% out to 0.2 rad~~ *[one-signed; v3]*. The MSD arm's noise-driven
+excursions are ~0.1 rad; ~~**the linear λ₁ was the right constant for that
+well**~~ *[v3: the well is asymmetric; see below]*, and the λ_eff/λ₁ =
+0.19–0.35 factor is unexplained. Open, with the
 pre-named candidates: (b) the effective potential of a *noisy* bump — shape
 fluctuations coupling to position — and (c) the crossover/saturation
 estimator at ~20 independent long-lag segments. (a) stays disfavoured.
 
-**H_anharm holds on the I1c well**: 0.22 at 0.1 rad, 0.084 at 0.2 rad, and
-λ₁ × ratio(0.2 rad) = 3.18·10⁻⁴ against I1c's measured λ_eff = 3.33·10⁻⁴
-(0.95×). The Stage 3b I1c interpretation (a 0.3-rad kick relaxing at the
-anharmonic rate) is now quantitative at the well itself. Note λ₁ differs 4×
-between the wells (−1.5·10⁻² vs −3.8·10⁻³ at ε 0.1 vs 0.03), consistent
-with the pinning gap ∝ ε.
+*[withdrawn — v2 below; S5]* ~~**H_anharm holds on the I1c well**: 0.22 at
+0.1 rad, 0.084 at 0.2 rad, and λ₁ × ratio(0.2 rad) = 3.18·10⁻⁴ against I1c's
+measured λ_eff = 3.33·10⁻⁴ (0.95×). The Stage 3b I1c interpretation (a
+0.3-rad kick relaxing at the anharmonic rate) is now quantitative at the
+well itself.~~ Note λ₁ differs 4× between the wells (−1.5·10⁻² vs
+−3.8·10⁻³ at ε 0.1 vs 0.03), consistent with the pinning gap ∝ ε.
 
 **Doctrine.** A mechanism measured in one well was carried to another by a
 number the tables did not contain. The review caught the number; the sweep
@@ -1251,6 +1264,40 @@ The discrepancy is now the finding, at two wells, with two candidate causes
 pre-named for the noisy case ((b) noisy-bump effective potential, (c)
 crossover estimator) and one for the deterministic case (landscape
 structure between 0.2 and 0.3 rad). Open; not this arc's next seal.
+
+## Stage 3h v3 — sign of δ declared: pre-registration (2026-09-20, before `stage3h_well_delta.py` v3)
+
+**Why.** v1/v2 displaced the bump by +δ only; `sign(δ)` was not a declared
+parameter, and "harmonic at 0.1 rad" was therefore a one-signed statement
+about a well that has no reason to be symmetric (the heterogeneity ξ is
+random). The final-verification critic probed −δ on the same two states in
+scratch (unbanked; disclosed here as the reason for the re-seal): MSD well
+0.89 / 0.70 / 0.08 / −0.06 at −0.05 / −0.1 / −0.2 / −0.3 rad (T = 50) and
+0.96 / 0.87 / 0.24 / −0.03 (T = 200) — at −0.1 rad, T = 50 the read fails
+H_harm's own > 0.8 bar, and past ≈ −0.22 rad the bump leaves the basin
+(negative ratio); the I1c well reads stiffer than linear on its −δ side
+(1.3–1.5). Those numbers have been seen; what is sealed below is stated
+knowing them.
+
+**v3 instrument:** `sign ∈ {+1, −1}` added as a TESTED parameter; the
+sweep runs both signs at every |δ|; the generator's docstring corrected
+(v2's still said "relax 8000τ" for the I1c well). Nothing else changes.
+
+**Sealed:**
+- **S5's basis is the H_anharm window, not "harmonic".** S5 stands iff the
+  MSD well's ratio at |δ| = 0.1 is **outside [0.15, 0.45] for both signs at
+  both T**. If either sign at either T lands inside the window, Stage 3e's
+  0.32 has a home at this well after all: S5 is withdrawn (S6) and the
+  anharmonic attribution is reinstated as one-sided.
+- "Harmonic at ±0.1 rad" is claimed only where the ratio is > 0.8 for both
+  signs at both T; otherwise the well is reported as **asymmetric**, with
+  both sides' numbers.
+- The basin edge on the −δ side (first |δ| with a negative ratio) is
+  **reported**: it is a new candidate (d) for the MSD discrepancy — noise
+  excursions that reach the edge leave the well, and the trapped MSD's
+  long-lag slope 0.2–0.4 (not 0) is consistent with rare escapes.
+- I1c well: both signs reported; the sealed v2 0.3-rad clause is not
+  re-scored (its FAIL stands as recorded).
 
 ## Goals
 
@@ -1354,7 +1401,8 @@ positive `intact_ring_cloud` = A at q=0.5; negatives `pinned_ring_cloud_converge
   ε ∈ {0, 1e-4, 1e-3, 3e-3, 1e-2, 3e-2, 1e-1}; T ∈ {200, 2000}τ; B=16 bumps
   per batch at **off-grid** starting angles (on-grid starts sit on exact
   symmetry points and never see pinning).
-- Reads: λ₁, λ₂ (Jacobian spectrum); `relax_rate` (displace the bump 0.05 rad,
+- Reads: λ₁, λ₂ (Jacobian spectrum); `relax_rate` (displace the bump ~~0.05
+  rad~~ *[S1: δ is now declared and swept; the banked read is at 0.005 rad]*,
   integrate 50τ, log-ratio — no linearisation); `n_distinct` final positions;
   `drift_median`; `resid_max` (is it a fixed point).
 - Instrument sealed via `modelparams.Model` in each generator (v2): 3 TESTED
