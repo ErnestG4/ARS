@@ -50,7 +50,7 @@ the instrument measures what we claim. Specifically this row certifies:
       (ii) the ISI scramble is under-powered on single-visit clouds (C keeps a
       loop in >= 1 seed) -- the surrogate's confound scope, recorded in the
       spec as a blind spot; (iii) tau_c(B) is one rung above tau_c(A)
-      [SUPERSEDED by R10/S4: not replicated on the fine ladder; the pin on
+      [SUPERSEDED by R10/S3: not replicated on the fine ladder; the pin on
       the coarse table stays so the record shows what was read].
   R10 COVERAGE TEST (stage1_coverage_measured.json): F1-F6b scored as sealed
       (RING_BRIEF.md c478fa0 + S2). Pins: tau_c on the fine ladder for every
@@ -119,7 +119,7 @@ the instrument measures what we claim. Specifically this row certifies:
   R13d T2/T3 (stage3f_traversal2_measured.json, stage3g_traversal3_measured.json):
       T2 failed as sealed (uncentered MAD under drift; M polluted by noise
       steps). T3 (centered MAD; M on jump steps only): the monotone clause M
-      separates C_perm (<0.6) from A/IND (0.78-0.95) from C_ord (>0.99), and
+      separates C_perm (0.57-0.59, sealed <0.7) from A/IND (0.78-0.95) from C_ord (>0.99), and
       J separates smooth (<50) from stepwise (>100); the sealed NUMERIC
       thresholds fail (A/IND J <= 10: 1/6; C_ord J in [10,40]: 0/3 because
       the kernel SUPPORT is 4 sigma = 8 bins, not 2). Pinned as the ordering;
@@ -272,12 +272,20 @@ for x in rows + crows:
         # not a fixed point: the dynamic read includes ongoing drift, so the
         # reads MAY disagree -- but that disagreement must be ATTRIBUTED, here
         state, ok = f"NOT_CONVERGED resid={resid:.1e} (reads not compared)", True
-    r4.append((x["T"], x["eps"], state))
+    # key at 6 significant digits: the eps=0.1 rows at T=2000 and 8000 are the
+    # same fixed point to 1e-12 and must count once
+    r4.append((x["T"], x["eps"], state, (f"{lam1:.6g}", f"{relax:.6g}")))
     chk(ok, f"R4 T={x['T']} eps={x['eps']}: spectral {lam1:+.2e} vs dynamic "
             f"{relax:+.2e} at a converged fixed point — {state}")
 live = [t for t in r4 if t[2].startswith("CONVERGED rel_err")]
-chk(len(live) >= 3, f"R4 has {len(live)} converged row(s) above the floor — "
-                    "fewer than 3 live witnesses is a check that has not been exercised")
+# A converged row that is bit-identical to another (same eps, seed 1, both T
+# past convergence -> same fixed point) is the SAME witness read twice. Count
+# DISTINCT converged states, not rows (review 2026-09-20: "5 witnesses" was 3).
+live_distinct = {t[3] for t in live}
+chk(len(live_distinct) >= 3, f"R4 has {len(live)} converged row(s) but only {len(live_distinct)} DISTINCT "
+                             "converged state(s) above the floor — fewer than 3 distinct witnesses is a "
+                             "check that has not been exercised")
+R4_WITNESSES = (len(live), len(live_distinct))
 
 # R4b — the delta defect stays found
 w20k = [x for x in crows if x.get("kind") == "long" and x["T"] == 20000.0]
@@ -430,7 +438,7 @@ if PH:
     # pins: scored outcomes must not drift silently
     chk(tcA == 100.0, f"R9 pin: tau_c(A) moved from 100 to {tcA}")
     chk(tcB == 300.0, f"R9 pin: tau_c(B) moved from 300 to {tcB}")
-    chk(tcE is None, "R9 pin: E2 base now detected — the SNR finding changed")
+    chk(tcE is None, "R9 pin: E2 base now detected — the premise of the S4-retracted E2 reading (base below R_MIN) changed")
     chk(scr["C"] >= R_MIN or any(x["r12"] >= R_MIN for x in prow if x["cloud"] == "C" and x["arm"] == "scramble"),
         "R9 pin: C-scramble residual loop vanished in every seed — the surrogate blind spot has moved")
     # finding (i): q flips the verdict only at E
@@ -442,7 +450,12 @@ if PH:
     spec2 = D.ph_consistent_with_continuous_attractor_spec()
     spec2.record("intact_ring_cloud", r12("A") > R_MIN)
     spec2.record("pinned_ring_cloud_converged", r12("D") > R_MIN)
-    spec2.record("jittered_cloud_above_tau_c", r12("A", "jitter", 0.5, tcA if tcA else 100.0) > R_MIN)
+    # The negative is read at the DECLARED rung (brief, measure 2: tau_j = 100),
+    # not at the measured tau_c(A): reading it at tau_c makes it False by the
+    # definition of tau_c, whatever the data (review 2026-09-20).
+    TAU_J_NEG = 100.0
+    chk(TAU_J_NEG in taus, f"R9 declared negative rung tau_j={TAU_J_NEG} is not on the ladder {taus}")
+    spec2.record("jittered_cloud_above_tau_c", r12("A", "jitter", 0.5, TAU_J_NEG) > R_MIN)
     spec2.record("within_cell_scrambled_cloud", r12("A", "scramble") > R_MIN)
     try:
         rates2 = spec2.certify()
@@ -518,10 +531,14 @@ if CV:
     cross = [sg for sg in valid if e2[sg] >= RM]
     a_r12 = {sg: vmed(vsel(arm="F6", cloud="A", sigma=sg)) for sg in sig}
     a_b1 = {sg: vmed(vsel(arm="F6", cloud="A", sigma=sg), "b1") for sg in sig}
+    a_valid = [sg for sg in sig if vmed(vsel(arm="F6", cloud="A", sigma=sg), "b2") > 0.05]
+    a_below = [sg for sg in a_valid if a_r12[sg] < RM]
+    a_censored = not a_below
     r10["F6"] = (f"E2 crosses R_MIN at sigma={cross} (predicted lower edge in [5,50]: "
                  f"{'PASS' if cross and 5 <= min(cross) <= 50 else 'FAIL'}; r12 valid only for sigma<=10, "
-                 f"b2->0 beyond); A never below R_MIN on r12 (censored at 100: FAIL as declared), "
+                 f"b2->0 beyond); A on r12: {'never below R_MIN where b2 is readable (sigma ' + str(a_valid) + ') — censored at ' + str(max(sig)) + ': FAIL as declared' if a_censored else 'below R_MIN at sigma=' + str(a_below)}, "
                  f"but A's b1 falls {a_b1[0.5]:.0f}->{a_b1[100.0]:.0f} — r12 is scale-free and blind to it")
+    chk(a_censored, f"R10 pin: A's r12 now crosses R_MIN under smoothing at sigma={a_below} — the F6 censoring (FAIL as declared) has become a measurement")
     chk(cross == [2.0, 5.0], f"R10 pin: E2 construction regime moved ({cross})")
     degenerate = sum(1 for x in VR if x["kind"] == "matched" and x["b2"] < 0.05)
     n_matched = sum(1 for x in VR if x["kind"] == "matched")
@@ -531,14 +548,17 @@ if CV:
     e2jit = {t: vmed(vsel(arm="F6b", cloud="E2", kind="jitter", tau_j=t), "b1") for t in FINE}
     e2mat = {t: vmed(vsel(arm="F6b", cloud="E2", kind="matched", tau_j=t), "b1") for t in FINE}
     grow = min(e2jit[t] / max(e2base, 1e-9) for t in FINE)
+    # A at tau_c(A) — the rung F1 MEASURED (140), not the 100 the brief guessed
+    # pre-seal (review 2026-09-20: the printed 0.86 was read at the wrong rung)
+    a_jm = vmed(vsel(arm='F1', cloud='A', kind='jitter', tau_j=tA), 'b1') / vmed(vsel(arm='F1', cloud='A', kind='matched', tau_j=tA), 'b1')
     r10["F6b"] = (f"r12 INAPPLICABLE (degenerate); on b1: E2 base {e2base:.1f}, jittered "
                   f"{min(e2jit.values()):.0f}-{max(e2jit.values()):.0f} at every rung (>= {grow:.0f}x base) "
                   f"— CONSTRUCTED, not lifted; smoothing-matched {min(e2mat.values()):.0f}-{max(e2mat.values()):.0f}: "
                   f"jitter constructs more than smoothing (wrap bridges the 4->1 segment boundary). "
-                  f"'constructed = smoothing' FAIL. A at tau_c: jit/matched b1 = "
-                  f"{vmed(vsel(arm='F1', cloud='A', kind='jitter', tau_j=100.0), 'b1') / vmed(vsel(arm='F1', cloud='A', kind='matched', tau_j=100.0), 'b1'):.2f} "
-                  f"(<0.5 predicted: FAIL — destruction is mostly displacement, shared with smoothing)")
+                  f"'constructed = smoothing' FAIL. A at tau_c(A)={tA:g}: jit/matched b1 = {a_jm:.2f} "
+                  f"(<0.5 predicted: {'PASS' if a_jm < 0.5 else 'FAIL — destruction is mostly displacement, shared with smoothing'})")
     chk(grow > 20, f"R10 pin: E2's jitter-grown loop no longer >>20x base (min {grow:.1f}x)")
+    chk(a_jm >= 0.5, f"R10 pin: A's jitter/matched b1 at tau_c(A) dropped to {a_jm:.2f} — the '<0.5' FAIL-as-declared has flipped")
 
 # R11 — Stage 2
 npath = os.path.join(HERE, "stage2_nonnormal_measured.json")
@@ -577,11 +597,11 @@ if NN:
     hplan_min = 0.5 * max(x["gamma"] for x in sg_read) / 0.32     # first order, >= 50% at 0.32
     r11["Sgamma"] = (f"read gamma={[x['gamma'] for x in sg_read]}, instrument-limited {sg_lim}; "
                      f"max |dHenrici/H0| = {maxrel:.2e} vs H_plan's >= {hplan_min:.2f} -> H_plan FALSIFIED; "
-                     f"H_gain magnitude (<10%) PASS; exponent {NN['fits']['exp_henrici_gamma']:.2f} "
+                     f"H_gain magnitude (<10% on read rows) {'PASS' if maxrel < 0.10 else 'FAIL'}; exponent {NN['fits']['exp_henrici_gamma']:.2f} "
                      f"(sealed 2 +- 0.3: {'PASS' if abs(NN['fits']['exp_henrici_gamma'] - 2) <= 0.3 else 'FAIL'}) "
                      f"but {NN['fits']['n_resolved_gamma']}/{len(sg_read)} points individually resolved "
                      f"above 3x their error bound -> exponent PROVISIONAL; G_max {[round(x['gmax'], 4) for x in sg_read]}")
-    chk(maxrel < 0.02, "R11 pin: circulant asymmetry now moves Henrici by > 2% on a read row")
+    chk(maxrel < 0.10, "R11 H_gain: circulant asymmetry now moves Henrici by > 10% on a read row")
     chk(sg_lim == [0.32], f"R11 pin: instrument-limited gamma rows changed: {sg_lim}")
     # S-alpha
     sa = [x for x in NR if x["arm"] == "Salpha"]
@@ -611,9 +631,21 @@ if NN:
     chk(mono, "R11 pin: G_max(eps) monotone decrease lost")
     chk(0.7 <= NN["fits"]["exp_gmax_eps"] <= 1.0, f"R11 pin: G_max(eps) exponent moved to {NN['fits']['exp_gmax_eps']:.2f}")
     chk(all(x["kappa"] >= x["gmax"] - 1e-6 for x in se), "R11 kappa < G_max on a pinned row (theorem: G_max <= kappa at t->inf only for the marginal case; pinned rows must satisfy G_max <= kappa)")
+    # The headline's two "every read row" claims are PINNED on every read row
+    # of every arm (review 2026-09-20: Henrici was pinned on S-gamma alone at
+    # 2%, the gap on S0 alone, while the claim was 0.2% and "everywhere").
+    all_read = [x for x in NR if x["arm"] in ("Sgamma", "Salpha", "Seps") and x["rail_ok"]]
+    chk(len(all_read) >= 10, f"R11 only {len(all_read)} read rows across the three arms")
+    h_all = max(abs(x["henrici_rel"]) for x in all_read)
+    chk(h_all < 0.002, f"R11 pin: a read row moves Henrici by {100 * h_all:.2f}% (> 0.2% claimed) — "
+                       f"{[(x['arm'], x['gamma'], x['eps']) for x in all_read if abs(x['henrici_rel']) >= 0.002]}")
+    gaps = [x["gap"] for x in all_read] + [s0["gap"]]
+    chk(all(0.15 < g < 0.21 for g in gaps), f"R11 pin: the numerical-spectral gap is not ~0.178 on every read row: "
+                                            f"[{min(gaps):.3f}, {max(gaps):.3f}]")
     r11["headline"] = (f"symmetric attractor: Henrici {H0:.3f} ({100 * H0 / s0['frob']:.0f}% of |J|_F), numerical-spectral "
-                       f"gap {s0['gap']:.3f}, G0 = kappa0 = K0 = {G0:.3f}; no read row in a 16x gamma, matched-norm "
-                       f"random, or 100x eps sweep moves Henrici by > 0.2%; the gap is ~0.178 everywhere")
+                       f"gap {s0['gap']:.3f}, G0 = kappa0 = K0 = {G0:.3f}; no read row ({len(all_read)}) in a 16x gamma, matched-norm "
+                       f"random, or 100x eps sweep moves Henrici by > 0.2% (max {100 * h_all:.3f}%); "
+                       f"the gap is {min(gaps):.3f}-{max(gaps):.3f} on every read row")
 
 # R12 — Stage 3a
 lpath = os.path.join(HERE, "stage3_lift_measured.json")
@@ -754,7 +786,6 @@ if RB:
     spec3.record("independent_units_IND", fireI)
     spec3.record("random_order_static_C_perm", not okP)
     spec3.record("converged_pinned_D", any(dread))
-    spec3.record("unreadable_low_rho", False)      # silent by rule (R12 pins the fallback's wrong counts)
     try:
         rates3 = spec3.certify()
     except DetectorNotCertified as e:
@@ -778,13 +809,16 @@ if TR:
     chk(r20 > 0.5, f"R13b pin: sliding pinned ring no longer retains (R={r20:.3f})")
     seq = [R(0.1, g) for g in (0.0, 0.001, 0.003, 0.01, 0.02)]
     mono = all(b >= a - 1e-9 for a, b in zip(seq, seq[1:]))
+    # The NON-monotonicity is the recorded finding (well-dependent restoring
+    # rate); it is pinned like any other (review 2026-09-20: it was only printed)
+    chk(not mono, f"R13b pin: R(gamma) at eps=0.1 became monotone {[round(v, 3) for v in seq]} — the well-dependent restoring finding moved")
     chk(TR["depinning"]["0.1"] == {"last_below": 0.01, "first_above": 0.02},
         f"R13b pin: depinning interval at eps=0.1 moved: {TR['depinning']['0.1']}")
     r03 = R(0.03, 0.0)
     chk(0.5 <= r03 <= 0.95, f"R13b pin: eps=0.03 gamma=0 retention moved out of [0.5,0.95]: {r03:.3f}")
     mono_txt = "PASS" if mono else "FAIL (well-dependent restoring rate after the drive tilts the landscape)"
     r13["I1b"] = (f"eps=0.1: R(gamma) = {[round(v, 3) for v in seq]} for gamma 0/1e-3/3e-3/1e-2/2e-2 — trapped restores "
-                  f"(0.02 < 0.1 PASS), sliding retains (0.72 > 0.5 PASS), monotone {mono_txt}; depinning crossing in "
+                  f"({r0:.2f} < 0.1 {'PASS' if r0 < 0.1 else 'FAIL'}), sliding retains ({r20:.2f} > 0.5 {'PASS' if r20 > 0.5 else 'FAIL'}), monotone {mono_txt}; depinning crossing in "
                   f"(0.01, 0.02] — above the 3*c*eps guess (0.0087); eps=0.03: R(0)={r03:.2f} — INAPPLICABLE at T_obs=300 "
                   f"(sealed as marginal; worse than marginal), needs ~3000 tau")
 
@@ -821,7 +855,9 @@ if RB and TR:
     smc, pmc = _br(_tpm, _npm), _br(_tnm, _nnm)
     r13["memory_detector"] = (f"attractor_by_along_manifold_memory certified: sens {rates_m['sensitivity']} CP95 "
                               f"{smc['honest_claim']} [{smc['treatment']}], spec {rates_m['specificity']} CP95 "
-                              f"{pmc['honest_claim']} [{pmc['treatment']}]; margins: positive retention "
+                              f"{pmc['honest_claim']} [{pmc['treatment']}] — the tallies count STATES: the positive "
+                              f"has {len(rc_)} seeded replicates, each negative is ONE deterministic row "
+                              f"(IND_u n={len(ri_)} seeds, trapped n={len(rt_)}); margins: positive retention "
                               f"{[round(r, 3) for r in rc_]} vs negatives {[round(r, 3) for r in ri_]} / {[round(r, 3) for r in rt_]}")
 
 # R17 — Stage 3e MSD
@@ -865,11 +901,17 @@ if MS:
     seps = [c["slope_200_2000"] - t["slope_200_2000"] for c, t in zip(cont, trap)]
     n_sep = sum(v > 0.5 for v in seps)
     kind_ok = all(c["slope_200_2000"] > 0.6 for c in cont) and all(0.15 < t["slope_200_2000"] < 0.6 for t in trap) and all(abs(i["slope_10_1000"]) < 0.15 for i in ind)
+    # IND_u's saturation lag is COMPUTED from its MSD array (first lag at 90% of
+    # the lag-2000 plateau), not asserted (review 2026-09-20: it was a literal PASS)
+    i_sat = [min(l for l, m in zip(x["lags"], x["msd"]) if m >= 0.9 * x["msd_2000"]) for x in ind]
+    sat_ok = max(i_sat) < min(t_cross) / 10
     r17["separation"] = (f"continuum - trapped long-lag slope {[round(v, 2) for v in seps]} (>0.5): {n_sep}/3 "
-                         f"{'PASS' if n_sep == 3 else 'FAIL (narrow)'}; IND_u saturation lag < trapped crossover/10: PASS; "
+                         f"{'PASS' if n_sep == 3 else 'FAIL (narrow)'}; IND_u saturation lag {i_sat} < trapped crossover/10 "
+                         f"({min(t_cross) / 10:.0f}): {'PASS' if sat_ok else 'FAIL'}; "
                          f"kind-level ordering (continuum > trapped > IND_u on long-lag slope) holds in "
                          f"{'9/9' if kind_ok else 'NOT all'} rows [post-hoc thresholds, reported not scored]")
     chk(ok_cs and ok_i, "R17 pin: continuum growth law or IND_u flatness regressed")
+    chk(sat_ok, f"R17 pin: IND_u saturation lag {i_sat} is no longer an order below the trapped crossover {t_cross}")
     chk(kind_ok, "R17 pin: the kind-level ordering of the three systems' growth laws broke")
     chk(all(0.15 <= v / lam1 <= 0.5 for v in lam_eff), f"R17 pin: lambda_eff/lambda1 moved out of [0.15,0.5]: {[round(v / lam1, 2) for v in lam_eff]}")
     r17["verdict"] = ("implies rung NOT certified at sealed precision (trapped clauses sealed against the linear lambda1; "
@@ -878,6 +920,22 @@ if MS:
                       "for the long-lag +-30%; lambda_eff has no banked source (S5 voided 'from the delta sweep')")
 
 # R13d — T2 / T3
+# T2's table is LOADED and its recorded failure pattern pinned (review
+# 2026-09-20: the docstring described it, nothing read it).
+t2p = os.path.join(HERE, "stage3f_traversal2_measured.json")
+chk(os.path.exists(t2p), "R13d stage3f_traversal2_measured.json missing")
+if os.path.exists(t2p):
+    T2 = json.load(open(t2p))["rows"]
+    def t2(cloud, key):
+        return [x[key] for x in T2 if x["cloud"] == cloud and x.get("readable")]
+    j2 = t2("A", "J_mad") + t2("IND", "J_mad"); m2o = t2("C_ord", "M"); m2p = t2("C_perm", "M")
+    chk(len(j2) == 6 and all(j > 100 for j in j2), f"R13d T2 pin: uncentered-MAD J on A/IND no longer >> 5 ({j2}) — the B-avg failure it records moved")
+    chk(all(0.5 <= m <= 0.65 for m in m2o), f"R13d T2 pin: C_ord's noise-polluted M moved out of [0.5,0.65]: {m2o}")
+    chk(all(m < 0.7 for m in m2p), f"R13d T2 pin: C_perm M {m2p} — passes-for-the-wrong-reason record changed")
+    chk(not any(x.get("readable") for x in T2 if x["cloud"] == "D"), "R13d T2: D became readable")
+    r13["T2"] = (f"FAILED AS SEALED (statistic): J_mad on A/IND {j2} (sealed <= 5: uncentered MAD under a 0.010 rad/step "
+                 f"drift); C_ord M {[round(m, 2) for m in m2o]} (sealed >= 0.9: noise steps pollute the monotone clause); "
+                 f"C_perm M {[round(m, 2) for m in m2p]} < 0.7 for the wrong reason (noise). Pinned as the record; superseded by T3")
 t3p = os.path.join(HERE, "stage3g_traversal3_measured.json")
 chk(os.path.exists(t3p), "R13d stage3g_traversal3_measured.json missing")
 if os.path.exists(t3p):
@@ -951,9 +1009,10 @@ if C4:
     r14["M2"] = ("Farey rail PASS; monotone PASS; " if far_ok and mono_ok else "FAIL; ") + "; ".join(txt)
     st = C4["M2"]["staircase_q50_1e3_per_K"]
     k1, k0 = st["1.0"], st["0.0"]
-    r14["M2_staircase"] = (f"K=1 coverage {k1:.3f} > 0.85 as sealed, BUT K=0 (rigid rotation, the rival) reads {k0:.3f}: "
+    r14["M2_staircase"] = (f"K=1 coverage {k1:.3f} {'>' if k1 > 0.85 else '<='} 0.85 (sealed {'PASS' if k1 > 0.85 else 'FAIL'}), BUT K=0 (rigid rotation, the rival) reads {k0:.3f}: "
                            f"the test is INAPPLICABLE AS POSED (q<=50 at tol 1e-3 saturates the Farey coverage); the "
                            f"informative read is the K-dependence {[round(st[str(k)], 3) for k in Ks]}")
+    chk(k1 > 0.85, f"R14 sealed: K=1 staircase coverage {k1:.3f} <= 0.85")
     chk(k0 > 0.8, "R14 pin: the staircase test's rival (K=0) no longer passes it — re-examine before re-posing")
     # M3 exact boundary within one grid step
     m3 = C4["M3"]; dOm = m3["grid_step"]
@@ -1018,8 +1077,21 @@ if T4:
     r15["tongue"] = (f"gamma*_meas(0.1) = {gm1} vs pred {vp1:.4f} {'PASS' if meas_ok1 else 'FAIL'} (one grid step {step_g:.2e}); "
                      f"gamma*_meas(0.03) = {gm3} vs pred {vp3:.4f} {'PASS' if meas_ok3 else 'FAIL'}; rho monotone {mono}; "
                      f"rho(0.03) at eps=0.1 = {tg['0.1']['rho'][-1]:.3f} ({'PASS' if tg['0.1']['rho'][-1] > 0.8 else 'FAIL'} > 0.8)")
-    # pins (values recorded at banking; a change is a re-read, not a re-scope)
+    # pins (values recorded at banking; a change is a re-read, not a re-scope).
+    # Every verdict printed above is a chk (review 2026-09-20: none were).
     chk(gm1 is not None and gm3 is not None, "R15 pin: a measured gamma* vanished (never unlocked on the grid)")
+    chk(meas_ok1 and meas_ok3, f"R15 sealed: gamma*_meas is not within one grid step of gamma*_pred (0.1: {gm1} vs {vp1:.4f}; 0.03: {gm3} vs {vp3:.4f})")
+    chk(scale_ok, f"R15 sealed: eps-scaling gamma*(0.03)/gamma*(0.1) = {vp3 / vp1:.3f}, outside 0.3 +-25%")
+    chk(all(mono.values()), f"R15 sealed: rho(gamma) not monotone {mono}")
+    chk(tg["0.1"]["rho"][-1] > 0.8, f"R15 sealed: rho at gamma=0.03, eps=0.1 = {tg['0.1']['rho'][-1]:.3f} <= 0.8")
+    chk(not in_i1b, f"R15 pin: gamma*_pred(0.1) = {vp1:.4f} now inside the I1b interval (0.01, 0.02] — the "
+                    "FAIL-as-declared clause (retention-at-300tau conflated with the tongue edge) has flipped; re-read")
+    mm1 = T4["vpin"]["0.1"]["max_speed"] / T4["vpin"]["0.1"]["median_speed"]
+    mm3 = T4["vpin"]["0.03"]["max_speed"] / T4["vpin"]["0.03"]["median_speed"]
+    C_EPS = fit["c"]                                   # the Stage 1 contour slope from R8's table, not re-typed
+    r15["landscape"] = (f"max/median pinning speed in THIS table: {mm1:.2f} (eps=0.1), {mm3:.2f} (eps=0.03); "
+                        f"max/(c*eps) against the Stage 1 contour: {vp1 / (C_EPS * 0.1):.2f}, {vp3 / (C_EPS * 0.03):.2f} — "
+                        f"the tongue edge is the landscape's MAXIMUM, the contour its median")
     r15["rail"] = f"eps=0: rho in [{min(rho0):.4f}, {max(rho0):.4f}] (omega = gamma) PASS"
 
 # R7 — plan hygiene
@@ -1037,8 +1109,8 @@ print(f"     tallies: sens {rates['sensitivity']} CP95 {sens_ci['honest_claim']}
       f"[{sens_ci['treatment']}]; spec {rates['specificity']} CP95 "
       f"{spec_ci['honest_claim']} [{spec_ci['treatment']}] -- tallies this "
       f"small are not verdicts")
-print(f"  R4 standing invariant: {sum(1 for t in r4 if t[2].startswith('CONVERGED rel_err'))} "
-      f"converged-above-floor row(s) compared, "
+print(f"  R4 standing invariant: {R4_WITNESSES[0]} converged-above-floor row(s) compared = "
+      f"{R4_WITNESSES[1]} DISTINCT states (bit-identical rows across tables are one witness), "
       f"{sum(1 for t in r4 if t[2] == 'CONVERGED_FLOOR')} at floor, "
       f"{sum(1 for t in r4 if t[2].startswith('NOT_CONVERGED'))} not converged (attributed)")
 print(f"  R5 collapse is an eps*T contour: T={T_short}:"

@@ -133,8 +133,10 @@ def ph_with_continuous_traversal_spec() -> DetectorSpec:
                 "no traversal; per-step continuity read 0.998 (defeated); "
                 "|n| random 0/1",
             "converged_pinned_D": "three static clusters, no motion",
-            "unreadable_low_rho": "no standard-range class: must read "
-                "UNREADABLE, never a count (the fallback emitted 14/15 wrong)",
+            # "unreadable_low_rho" was listed here until 2026-09-20 and recorded
+            # False by fiat: it is a POLICY (the fallback is off, R12 pins its
+            # wrong counts), not a measured negative, and a set member that
+            # cannot fire is a dead arm in the denominator.
         },
         nearest_confusable="C_perm — a sequence of static states whose rare "
                            "jumps smoothing turns into fast sweeps; the "
