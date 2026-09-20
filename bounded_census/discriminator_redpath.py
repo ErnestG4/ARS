@@ -55,7 +55,11 @@ for f in glob.glob(f"{R}/**/*.json", recursive=True) + glob.glob(f"{R}/**/*.json
     # eigenvector condition number -- not the DPP alpha / Thomas kappa the
     # sites are labelled with). 19 of each entered the census on 2026-09-20 and
     # flipped alpha@lo from CLEAR to INSUFFICIENT_N. A key-name census must
-    # exclude arcs whose keys it does not own.
+    # exclude arcs whose keys it does not own. (Pre-existing and NOT fixed
+    # here: of the 558 alpha / 18 kappa values that remain, most are not the
+    # DPP-alpha / Thomas-kappa the sites are labelled with either -- see
+    # RESULTS_C1.md rows 11-12; scoping the harvest to the owning arcs and
+    # re-banking is Will's call, 2026-09-20.)
     if rel.startswith("ring/"):
         continue
     try:

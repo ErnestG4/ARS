@@ -1247,9 +1247,15 @@ the 0.1-rad read, which is where the MSD arm's noise-driven excursions are.
 **I1c well: the sealed 0.3-rad clause FAILS at both T.** λ₁ × ratio(0.3)
 = 1.52·10⁻³ (T = 50) and 1.17·10⁻³ (T = 200) against I1c's λ_eff = 3.33·10⁻⁴
 — **4.6× and 3.5×**, outside the sealed [0.5, 2]. The pre-registered
-contingency fires: the v1 "5% at 0.2 rad" was coincidence, and the I1c
-well's relaxation from its 0.3-rad kick is not the deterministic sweep's
-short-window rate either. **Report only:** the response is *non-monotonic*
+contingency fires: the v1 "5% at 0.2 rad" was a coincidence of path-time
+(a relaxation from 0.3 rad spends its window passing through the slow
+region near 0.2), and the I1c well's relaxation from its 0.3-rad kick is not
+the deterministic sweep's short-window rate either. *Honesty note (final
+critic):* the 0.3-rad reads were unseen by me but not unseeable — I1c's
+banked `dpsi_trace` (stage3d, γ = 0) already implied 0.42 → 0.31 × λ₁ over
+30–210τ, i.e. these exact numbers to two digits; the clause was decided by
+the record before v2 ran. Its FAIL is against the v1 story, so nothing was
+gamed, but "has not been seen" overstated the seal's blindness. **Report only:** the response is *non-monotonic*
 in δ — 0.22 at 0.1, 0.08 at 0.2, 0.40 at 0.3 rad — and T-dependent at 0.3;
 the landscape 0.2 rad from this well has structure (a plateau or an adjacent
 shallow minimum) that a single anharmonic well does not describe, and the
