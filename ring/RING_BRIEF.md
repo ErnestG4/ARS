@@ -1169,6 +1169,43 @@ number the tables did not contain. The review caught the number; the sweep
 of the right well caught the mechanism. *A cause attributed to a well is
 measured in that well.*
 
+## Stage 3h v2 — the I1c row missed its own rail; re-seal (2026-09-20, before `stage3h_well_delta.py` v2)
+
+**What the review's critic found in the v1 bank.** (i) The I1c-well row
+reads fp residual **1.4·10⁻⁹ against the declared 10⁻⁹ ceiling** —
+`rail_ok = false` in the table — and R18 checked the rail on the MSD well
+only, so every I1c conclusion above was read off a row the instrument had
+flagged. A red rail is an instrument defect: fix and re-seal, never
+interpret around. (ii) The "λ₁ × 0.084 reproduces I1c's λ_eff to 5%" line
+was read at δ = 0.2 rad, a sweep point the pre-registration did not name
+(it named 0.1, which gives 2.5×), at one of the two T (T = 200 gives 0.85×),
+and the I1c kick was 0.3 rad, which the sweep did not reach. That is a
+post-hoc comparison written as a result. It is withdrawn as a *result* here;
+what is sealed below replaces it. (iii) The generator embedded a hand-typed
+copy of Stage 3e's λ_eff/λ₁ list; dropped (R17 computes it live).
+
+**v2 instrument changes (rail fixes, not hypothesis changes).** I1c well
+relax 8000τ → **16000τ** (λ₁ = −3.8·10⁻³ ⇒ the residual falls another
+~10⁻¹³; the row must then satisfy the rail or be INSTRUMENT-LIMITED and
+unread). δ sweep gains **0.3 rad** — the I1c kick amplitude — so the
+comparison is made at the displacement the kick used, not the nearest one
+the sweep happened to contain. R18 v2 checks the rail on **both** wells and
+reads I1c's λ_eff from R13c's table with no literal fallback.
+
+**Sealed, before the v2 run (the 0.2-rad reads above have been seen; the
+0.3-rad read has not):**
+- MSD well: unchanged predictions — H_harm stands if ratio > 0.8 at 0.1 rad
+  (S5 rests on this).
+- I1c well, the pre-registered read: ratio at δ = 0.1 **reported** (v1: 0.22).
+- I1c well, at the kick amplitude: λ₁ × ratio(0.3 rad, T = 50 and T = 200)
+  against I1c's measured λ_eff = 3.3·10⁻⁴. **Within 2× at both T** ⇒ I1c's
+  failed R(0) clause is the well's anharmonicity at its kick amplitude,
+  quantitatively (the claim v1 made post-hoc, now earned or not). **Outside
+  2× at either T** ⇒ the 0.2-rad agreement was coincidence, and the I1c
+  well's relaxation from a 0.3-rad kick is not the deterministic sweep's
+  restoring rate either — the same open question as the MSD arm's, at a
+  second well.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
