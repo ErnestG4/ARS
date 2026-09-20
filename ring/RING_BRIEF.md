@@ -58,6 +58,28 @@ and builds a stronger loop than smoothing does (F6b). This is the ladder's
 construction side with a named mechanism — order-to-topology conversion —
 and it is the "null that manufactures its own signal" flagged on read.
 
+**S5 — RETRACTED 2026-09-20 (Stage 3h).** Stage 3e's *"the trapped failures
+have one cause … at 0.1 rad the δ-sweep measured a restoring ratio of 0.32.
+The anharmonic well, through a third instrument"* (banked `8164091`, R17's
+message as of `bf1828e`, plan v5's Stage 3e line). **Why wrong:** the 0.32
+was in no table when cited; banked (Stage 1 tables v3, δ = 0.1 column) it
+belongs to the **ε = 0.01, T = 20000** rows, a different ε and a different
+well. Stage 3h then swept the MSD arm's *own* well (ε = 0.1, start 0.37, the
+exact trapped state): ratio **0.99 / 1.01** at δ = 0.1 (T = 50 / 200τ),
+1.03 at 0.05, 0.75 only at 0.2 rad — **harmonic** at the 0.1-rad excursion
+noise drives. The sealed H_anharm window [0.15, 0.45] is missed by 2×; H_harm
+fires. The trapped clauses' common factor λ_eff/λ₁ = 0.19–0.35 has **no
+explanation banked**; candidates pre-named in the Stage 3h seal, (a)
+disfavoured, (b) noisy-bump effective potential and (c) the 20-segment
+crossover estimator open. What survives of Stage 3e: the kind-level
+separation (continuum ~1 / trapped saturating / IND_u flat, 9/9 rows), D,
+and "not certified at sealed precision". What Stage 3h *does* confirm: the
+**I1c well (ε = 0.03)** is anharmonic — ratio 0.22 at 0.1 rad, 0.084 at
+0.2 rad — and λ₁ × 0.084 = 3.2·10⁻⁴ reproduces I1c's measured λ_eff =
+3.3·10⁻⁴ to 5%. I1c's failed clause is anharmonicity at a 0.3-rad kick,
+quantitatively; the *MSD arm's* is not. One mechanism was carried across two
+wells; it holds in one.
+
 ## Frame
 
 The plan's v3 carried three defects that the ARS vocabulary names as numbered
@@ -994,13 +1016,17 @@ integration. Trapped: saturating, long-lag slope 0.20–0.40, MSD_sat ≈ 10⁻�
 rad². The zero mode *does* emit a passive signature: it integrates noise.
 
 **At sealed precision the rung is not certified, and the trapped failures
-have one cause.** MSD_sat is 4–5× the 2D/|λ₁| prediction (0/3) and the
+have one cause.** *[S5 — the "one cause" attribution below is RETRACTED; the
+common factor stands as a measurement, its cause is open.]* MSD_sat is 4–5×
+the 2D/|λ₁| prediction (0/3) and the
 crossover is 193–346τ against 1/|λ₁| = 67τ (1/3). Both are consistent with a
 single effective restoring rate λ_eff = 1/crossover = 2.9–5.2·10⁻³ =
 **0.19–0.35 × λ₁**, and 2D/λ_eff matches MSD_sat to 1.0–1.3×. Noise drives
 0.1-rad excursions, and at 0.1 rad the δ-sweep measured a restoring ratio of
-0.32. **The anharmonic well, through a third instrument** — the linear λ₁ is
-the wrong constant for a noise-driven bump, as it was for a 0.05-rad kick.
+0.32 *[S5: that 0.32 is the ε = 0.01 well's; the MSD well reads 0.99 at
+0.1 rad]*. ~~**The anharmonic well, through a third instrument** — the linear
+λ₁ is the wrong constant for a noise-driven bump, as it was for a 0.05-rad
+kick.~~ *[S5]*
 The continuum's MSD(1000)/MSD(100) clause (2/3) and the separation clause
 (2/3, one seed at 0.49 vs 0.5) fail on long-lag statistics: at T = 20,000τ a
 lag-1000 MSD has ~20 independent segments (±30%).
@@ -1008,7 +1034,9 @@ lag-1000 MSD has ~20 independent segments (±30%).
 **Verdict.** `ph_topology_implies_continuous_attractor` is **not certified**
 (sealed clauses missed), and **"unreachable observationally" is not banked**
 either — the growth law is a passive signature that separates in kind. The
-next seal uses λ_eff from the δ-sweep at the noise-set excursion, T ≥ 10⁵τ
+next seal uses λ_eff from the δ-sweep at the noise-set excursion *[S5: the
+δ-sweep of the MSD well gives λ₁, not λ_eff — this prescription is void; see
+Stage 3h]*, T ≥ 10⁵τ
 or 10 seeds for the long-lag ±30%, and thresholds stated on the long-lag
 slope (the post-hoc ordering above is reported, not scored). The rung stays
 DECLARED with its instrument named.
@@ -1080,6 +1108,36 @@ T = 50τ and T = 200τ (the read must not depend on T, as the δ probe showed).
   itself (the 20-segment long-lag noise).
 - The ε = 0.03 well from start 0.37: ratio at δ = 0.1 reported; I1c's
   λ_eff = 3.3·10⁻⁴ vs Jacobian λ₁ is the comparison.
+
+## Stage 3h — results (`stage3h_well_delta_measured.json`, sealed `b175f34`, scored R18)
+
+| well | fp resid | λ₁ | ratio T=50: 0.005 / 0.01 / 0.02 / 0.05 / **0.1** / 0.2 | T=200: 0.1 / 0.2 |
+|---|---|---|---|---|
+| ε = 0.1, start 0.37 (the MSD arm's) | 1·10⁻¹⁴ | −1.525·10⁻² | 1.009 / 1.014 / 1.022 / 1.031 / **0.992** / 0.751 | 1.014 / 0.944 |
+| ε = 0.03, start 0.37 (I1c's) | 1.4·10⁻⁹ | −3.771·10⁻³ | 0.996 / 0.992 / 0.977 / 0.583 / **0.223** / 0.084 | 0.261 / — |
+
+**H_harm fires on the MSD well** (0.99 / 1.01 at 0.1 rad against a sealed
+H_anharm window [0.15, 0.45]): Stage 3e's anharmonic cause is retracted
+(**S5**). The read is T-independent below 0.1 rad (|Δ| < 0.03); at 0.2 rad
+the T = 50 read (0.75) is the ~4-step transient, T = 200 gives 0.94 — the
+well is harmonic to within 6% out to 0.2 rad. The MSD arm's noise-driven
+excursions are ~0.1 rad; **the linear λ₁ was the right constant for that
+well**, and the λ_eff/λ₁ = 0.19–0.35 factor is unexplained. Open, with the
+pre-named candidates: (b) the effective potential of a *noisy* bump — shape
+fluctuations coupling to position — and (c) the crossover/saturation
+estimator at ~20 independent long-lag segments. (a) stays disfavoured.
+
+**H_anharm holds on the I1c well**: 0.22 at 0.1 rad, 0.084 at 0.2 rad, and
+λ₁ × ratio(0.2 rad) = 3.18·10⁻⁴ against I1c's measured λ_eff = 3.33·10⁻⁴
+(0.95×). The Stage 3b I1c interpretation (a 0.3-rad kick relaxing at the
+anharmonic rate) is now quantitative at the well itself. Note λ₁ differs 4×
+between the wells (−1.5·10⁻² vs −3.8·10⁻³ at ε 0.1 vs 0.03), consistent
+with the pinning gap ∝ ε.
+
+**Doctrine.** A mechanism measured in one well was carried to another by a
+number the tables did not contain. The review caught the number; the sweep
+of the right well caught the mechanism. *A cause attributed to a well is
+measured in that well.*
 
 ## Goals
 

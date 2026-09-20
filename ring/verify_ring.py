@@ -111,8 +111,9 @@ the instrument measures what we claim. Specifically this row certifies:
       Sealed clauses scored per row; the three systems separate IN KIND
       (continuum slope ~1, trapped saturating, IND_u flat) in every row, but
       the trapped clauses sealed against the LINEAR lambda1 fail by a common
-      factor ~0.3 -- the anharmonic-well ratio the delta sweep measured at
-      0.1 rad. The observational implies rung is NOT certified at sealed
+      factor ~0.3 -- cause OPEN (S5: Stage 3h / R18 found the MSD well
+      harmonic at 0.1 rad; the "anharmonic well" attribution is retracted).
+      The observational implies rung is NOT certified at sealed
       precision; nor is "unreachable observationally" banked, because the
       zero mode's integration of endogenous noise IS a passive signature.
   R13d T2/T3 (stage3f_traversal2_measured.json, stage3g_traversal3_measured.json):
@@ -123,6 +124,11 @@ the instrument measures what we claim. Specifically this row certifies:
       thresholds fail (A/IND J <= 10: 1/6; C_ord J in [10,40]: 0/3 because
       the kernel SUPPORT is 4 sigma = 8 bins, not 2). Pinned as the ordering;
       thresholds are handed to a negative-set calibration, not a fourth seal.
+  R18 STAGE 3h (stage3h_well_delta_measured.json): the MSD arm's OWN well is
+      harmonic to 0.1 rad (ratio 0.99-1.03), so Stage 3e's anharmonic "one
+      cause" is FALSIFIED for the well it was written about (brief S5); the
+      I1c well IS anharmonic (0.22 at 0.1 rad, 0.084 at 0.2 rad) and
+      lambda1 x 0.084 reproduces I1c's lambda_eff to 5%. Both pinned.
   R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
       convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
       step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
@@ -792,6 +798,7 @@ if L3:
     chk(all(Rg[g] > 0.8 for g in (0.01, 0.02)), f"R13c pin: sliding retention dropped: {Rg}")
     chk(0.2 < Rg[0.0] < 0.6, f"R13c pin: R(gamma=0) at 3000 tau moved out of [0.2,0.6]: {Rg[0.0]:.3f}")
     lam_eff = -math.log(max(Rg[0.0], 1e-12)) / 3000.0
+    LAM_I1C = lam_eff                                  # read by R18 (Stage 3h) — the I1c well's own restoring rate
     r13["I1c"] = (f"eps=0.03, T_obs=3000: R = {[round(Rg[g], 3) for g in (0.0, 0.001, 0.003, 0.01, 0.02)]}; crossing "
                   f"between 0.001 and 0.003 PASS (4b edge 2.25e-3); R(0)={Rg[0.0]:.3f} FAIL (<0.1 sealed): this well's "
                   f"lambda_eff = {lam_eff:.1e}, 10x below the Stage 1 median 3.8e-3; R(0.003)={Rg[0.003]:.2f} > 1 — retention "
@@ -846,10 +853,10 @@ if MS:
     sat_eff = [2 * Dm / v for v in lam_eff]
     r17["trapped"] = (f"slope[200,2000] {[round(v, 2) for v in t_slope]} (<0.3): {n_ts}/3; MSD_sat {[f'{v:.1e}' for v in t_sat]} vs "
                       f"2D/|lambda1| = {pred_sat:.1e} (x2): {n_sat}/3 FAIL; crossover {t_cross} vs 1/|lambda1| = {pred_cross:.0f} (x3): "
-                      f"{n_cx}/3 FAIL — ONE CAUSE: lambda_eff = 1/crossover = {[f'{v:.1e}' for v in lam_eff]} = "
+                      f"{n_cx}/3 FAIL — COMMON FACTOR: lambda_eff = 1/crossover = {[f'{v:.1e}' for v in lam_eff]} = "
                       f"{[round(v / lam1, 2) for v in lam_eff]} x lambda1, and 2D/lambda_eff = {[f'{v:.1e}' for v in sat_eff]} matches "
-                      f"MSD_sat to {[round(a / b, 2) for a, b in zip(t_sat, sat_eff)]}x: noise drives 0.1-rad excursions, where the "
-                      f"delta sweep measured a 0.32 restoring ratio (anharmonic well, third instrument)")
+                      f"MSD_sat to {[round(a / b, 2) for a, b in zip(t_sat, sat_eff)]}x — a common factor, cause OPEN "
+                      f"[S5: the 'anharmonic well' attribution is RETRACTED; Stage 3h/R18 read this well harmonic (0.99) at 0.1 rad]")
     # IND_u
     i_slope = [x["slope_10_1000"] for x in ind]; i_ratio = [x["ratio_1000_10"] for x in ind]
     ok_i = all(v < 0.15 for v in i_slope) and all(v < 1.5 for v in i_ratio)
@@ -867,8 +874,8 @@ if MS:
     chk(all(0.15 <= v / lam1 <= 0.5 for v in lam_eff), f"R17 pin: lambda_eff/lambda1 moved out of [0.15,0.5]: {[round(v / lam1, 2) for v in lam_eff]}")
     r17["verdict"] = ("implies rung NOT certified at sealed precision (trapped clauses sealed against the linear lambda1; "
                       "continuum ratio and separation 2/3); 'unreachable observationally' NOT banked either — the zero "
-                      "mode's integration of endogenous noise is a passive signature. Next seal: lambda_eff from the "
-                      "delta sweep at the noise-set excursion, T >= 1e5 or 10 seeds for the long-lag +-30%")
+                      "mode's integration of endogenous noise is a passive signature. Next seal: T >= 1e5 or 10 seeds "
+                      "for the long-lag +-30%; lambda_eff has no banked source (S5 voided 'from the delta sweep')")
 
 # R13d — T2 / T3
 t3p = os.path.join(HERE, "stage3g_traversal3_measured.json")
@@ -888,6 +895,31 @@ if os.path.exists(t3p):
                  f"heavy-tailed coordinate noise); C_ord {Jord} in [10,40]: {sealed_ord}/3 FAIL — kernel support 4 sigma = 8 bins "
                  f"spreads each of 15 boundaries over ~8 steps (the pre-committed 'report before touching the threshold'); "
                  f"C_perm {Jperm} (M < 0.7 PASS). Ordering pinned; thresholds deferred to a negative-set calibration (Will)")
+
+# R18 — Stage 3h
+hpath = os.path.join(HERE, "stage3h_well_delta_measured.json")
+chk(os.path.exists(hpath), "R18 stage3h_well_delta_measured.json missing — run stage3h_well_delta.py")
+H3 = json.load(open(hpath)) if os.path.exists(hpath) else None
+if H3:
+    W1 = [x for x in H3["rows"] if x["well"] == "eps0.1_relax2000"][0]
+    W3 = [x for x in H3["rows"] if x["well"] == "eps0.03_relax8000"][0]
+    chk(W1["rail_ok"], f"R18 MSD well not at a fixed point (resid {W1['fp_resid']:.1e})")
+    r1 = {k: v for k, v in W1["ratio"].items()}
+    at01 = [r1["T50_d0.1"], r1["T200_d0.1"]]
+    harm = all(v > 0.8 for v in at01)
+    chk(harm, f"R18 pin: the MSD well's ratio at delta=0.1 dropped to {at01} — the S5 retraction's basis moved")
+    chk(all(abs(r1[f"T50_d{d:g}"] - r1[f"T200_d{d:g}"]) < 0.1 for d in (0.005, 0.01, 0.02, 0.05, 0.1)),
+        "R18 the dynamic read depends on T on the MSD well below 0.1 rad")
+    r3 = W3["ratio"]
+    lam_i1c = LAM_I1C if "LAM_I1C" in dir() else 3.33e-4   # from R13c's table (-ln R(0)/3000), not re-typed
+    pred = -W3["lam1"] * r3["T50_d0.2"]
+    chk(0.7 < pred / lam_i1c < 1.4, f"R18 pin: I1c well lambda1 x ratio(0.2 rad) = {pred:.2e} vs I1c lambda_eff {lam_i1c:.2e}")
+    chk(r3["T50_d0.1"] < 0.45, f"R18 pin: the I1c well is no longer anharmonic at 0.1 rad ({r3['T50_d0.1']:.3f})")
+    r13["Stage3h"] = (f"MSD well (eps=0.1, start 0.37, lam1={W1['lam1']:+.3e}): ratio at delta=0.1 = {at01[0]:.3f}/{at01[1]:.3f} "
+                      f"(T=50/200) -> H_harm; sealed H_anharm [0.15,0.45] FAIL -> Stage 3e's anharmonic cause RETRACTED (S5); "
+                      f"I1c well (eps=0.03): ratio 0.1 rad {r3['T50_d0.1']:.3f}, 0.2 rad {r3['T50_d0.2']:.3f}; "
+                      f"lam1 x ratio(0.2) = {pred:.2e} vs I1c lambda_eff 3.3e-4 ({pred / lam_i1c:.2f}x) — I1c's failed clause is "
+                      f"anharmonicity at a 0.3-rad kick, quantitatively")
 
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")

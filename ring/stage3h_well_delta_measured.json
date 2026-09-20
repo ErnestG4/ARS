@@ -1,0 +1,156 @@
+{
+ "generator": "stage3h_well_delta.py",
+ "instrument": {
+  "model": "ring_well_delta_v1",
+  "params": [
+   {
+    "name": "N",
+    "kind": "DECLARED",
+    "why": "as stage1_marginal",
+    "sweep": null,
+    "value": 128
+   },
+   {
+    "name": "J0",
+    "kind": "DECLARED",
+    "why": "as stage1_marginal",
+    "sweep": null,
+    "value": -2.0
+   },
+   {
+    "name": "J1",
+    "kind": "DECLARED",
+    "why": "as stage1_marginal",
+    "sweep": null,
+    "value": 4.0
+   },
+   {
+    "name": "I0",
+    "kind": "DECLARED",
+    "why": "as stage1_marginal",
+    "sweep": null,
+    "value": 1.0
+   },
+   {
+    "name": "beta",
+    "kind": "DECLARED",
+    "why": "as stage1_marginal",
+    "sweep": null,
+    "value": 0.1
+   },
+   {
+    "name": "dt",
+    "kind": "DECLARED",
+    "why": "as stage1_marginal",
+    "sweep": null,
+    "value": 0.05
+   },
+   {
+    "name": "start",
+    "kind": "DECLARED",
+    "why": "the MSD arm's and I1c's start angle, rad",
+    "sweep": null,
+    "value": 0.37
+   },
+   {
+    "name": "fp_rail",
+    "kind": "DECLARED",
+    "why": "fixed-point residual ceiling at the linearisation point",
+    "sweep": null,
+    "value": 1e-09
+   },
+   {
+    "name": "well",
+    "kind": "TESTED",
+    "why": "the MSD well; the I1c well",
+    "sweep": [
+     "eps0.1_relax2000",
+     "eps0.03_relax8000"
+    ],
+    "value": null
+   },
+   {
+    "name": "delta",
+    "kind": "TESTED",
+    "why": "displacement, rad",
+    "sweep": [
+     0.005,
+     0.01,
+     0.02,
+     0.05,
+     0.1,
+     0.2
+    ],
+    "value": null
+   },
+   {
+    "name": "T_relax_read",
+    "kind": "TESTED",
+    "why": "the dynamic read must not depend on it",
+    "sweep": [
+     50.0,
+     200.0
+    ],
+    "value": null
+   }
+  ],
+  "n_tested": 3,
+  "n_declared": 8
+ },
+ "rows": [
+  {
+   "well": "eps0.1_relax2000",
+   "eps": 0.1,
+   "T_relax": 2000.0,
+   "psi": -0.31092324619715805,
+   "fp_resid": 9.992007221626409e-15,
+   "rail_ok": true,
+   "lam1": -0.015248353130774994,
+   "lam2": -0.5511229053331519,
+   "ratio": {
+    "T50_d0.005": 1.0085140862867075,
+    "T50_d0.01": 1.0138777021470675,
+    "T50_d0.02": 1.0224305011571961,
+    "T50_d0.05": 1.0312953435598262,
+    "T50_d0.1": 0.9920362886658796,
+    "T50_d0.2": 0.7513068655957498,
+    "T200_d0.005": 1.0037045517353471,
+    "T200_d0.01": 1.0062711485010778,
+    "T200_d0.02": 1.0106829471536711,
+    "T200_d0.05": 1.0184914604905038,
+    "T200_d0.1": 1.014410459704222,
+    "T200_d0.2": 0.9444636021903372
+   }
+  },
+  {
+   "well": "eps0.03_relax8000",
+   "eps": 0.03,
+   "T_relax": 8000.0,
+   "psi": -0.6192575253763658,
+   "fp_resid": 1.3993560754599343e-09,
+   "rail_ok": false,
+   "lam1": -0.0037706886371923487,
+   "lam2": -0.5534566128603254,
+   "ratio": {
+    "T50_d0.005": 0.9616736107248168,
+    "T50_d0.01": 0.9205767844691986,
+    "T50_d0.02": 0.8368311411380618,
+    "T50_d0.05": 0.5833355072019428,
+    "T50_d0.1": 0.2229006023474625,
+    "T50_d0.2": 0.08428139763711522,
+    "T200_d0.005": 0.9696326918055554,
+    "T200_d0.01": 0.9375394407411721,
+    "T200_d0.02": 0.8703242039655691,
+    "T200_d0.05": 0.6470139892798696,
+    "T200_d0.1": 0.2614465085549182,
+    "T200_d0.2": 0.07503952647695956
+   }
+  }
+ ],
+ "msd_lambda_eff_over_lambda1": [
+  0.19,
+  0.29,
+  0.35
+ ],
+ "wall_s": 1.7
+}
