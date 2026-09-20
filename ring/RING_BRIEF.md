@@ -3,7 +3,9 @@
 Companion to `rotational-dynamics-build-plan.md` (v5). This is the executable
 record of the first arc — pre-registrations, results, and retractions in
 order; the plan is the standing document. Board rows R0–R18 in
-`verify_ring.py` score it. Stage 5 (spiking ring) is the next unrun stage.
+`verify_ring.py` score it. Stage 5 — the (n, ψ, r) readout, the plan's own
+question — is the next unrun stage; the spiking ring (a generator change) is
+a separate, not-near-term item that blocks the ring→ARS arm.
 
 ## Superseded claims (read first; grep before citing)
 
@@ -77,12 +79,16 @@ explanation banked**; candidates pre-named in the Stage 3h seal, (a)
 disfavoured, (b) noisy-bump effective potential and (c) the 20-segment
 crossover estimator open. What survives of Stage 3e: the kind-level
 separation (continuum ~1 / trapped saturating / IND_u flat, 9/9 rows), D,
-and "not certified at sealed precision". What Stage 3h *does* confirm: the
-**I1c well (ε = 0.03)** is anharmonic — ratio 0.22 at 0.1 rad, 0.084 at
-0.2 rad — and λ₁ × 0.084 = 3.2·10⁻⁴ reproduces I1c's measured λ_eff =
-3.3·10⁻⁴ to 5%. I1c's failed clause is anharmonicity at a 0.3-rad kick,
-quantitatively; the *MSD arm's* is not. One mechanism was carried across two
-wells; it holds in one.
+and "not certified at sealed precision". The **I1c well (ε = 0.03)** is
+anharmonic at the pre-registered 0.1-rad read (0.22) — but the v1 line
+*"λ₁ × 0.084 reproduces I1c's λ_eff to 5%"* (commit `77838cc`, RESULTS
+§7.ter.61 as first filed) was a post-hoc read at 0.2 rad and is **withdrawn**:
+the v2 re-seal (rail fix; sweep extended to the 0.3-rad kick amplitude)
+scored a sealed 2× clause there and it **failed at both T** (4.6× / 3.5×).
+The short-window deterministic restoring rate is not the 3000τ effective
+rate at *either* well. One mechanism was carried across two wells; it holds
+as "anharmonic at 0.1 rad" in one and explains the λ_eff discrepancy in
+neither.
 
 ## Frame
 
@@ -155,8 +161,12 @@ non-converged rows are flagged and attributed; ≥3 live witnesses required.
 The contour table added long-T rows, and on the first new converged witness
 (ε=0.01, T=20000) the reads were **39% apart**. A δ sweep showed the dynamic
 read converging to λ₁ as δ→0 (ratio 0.965 at 0.005, 0.61 at 0.05, 0.32 at
-0.1; same at T=50/200; at both ε): the pinning wells are anharmonic below
-half a grid step, and δ=0.05 — one grid step — was a **hard-coded, undeclared
+0.1; same at T=50/200 ~~at both ε~~ *[S5: banked (tables v3) the 0.32 at 0.1
+rad is the ε = 0.01 well's; the ε = 0.1 rows read 1.016 — the ε = 0.1 wells
+are harmonic to 0.2 rad, so "anharmonic below half a grid step" is the
+ε = 0.01 well's property, not the landscape's]*): the ε = 0.01 pinning well is
+anharmonic below half a grid step, and δ=0.05 — one grid step — was a
+**hard-coded, undeclared
 instrument constant**. The 5% agreement banked earlier at ε=0.1 was partly
 the luck of bump 0's basin (the next basin reads 0.65 at δ=0.05). Fix: δ
 declared and swept (`relax_delta_sweep`), banked read at δ=0.005, both
@@ -623,7 +633,9 @@ intervention, not an observation.
   R < 1.5 and J = 0 for A, IND, C_ord; **R > 3 or J ≥ 8 for C_perm** (15
   boundaries; smoothing may merge some). Then
   `ph_topology_with_continuous_traversal` is scored: positives A, IND;
-  negatives C_perm, D (unreadable ⇒ silent), unreadable-ρ (silent by rule).
+  negatives C_perm, D (unreadable ⇒ silent), ~~unreadable-ρ (silent by
+  rule)~~ *[dropped 2026-09-20: a policy recorded False by fiat is a dead
+  arm in the denominator; spec is 2/2]*.
 
 **QUEUED ring→ARS arm (b) — vacuous for this generator, noted 02:35.** The
 ring's spikes are inhomogeneous Poisson from the rate envelope, so the
@@ -683,7 +695,8 @@ failing the sealed < 1.5: R − 1 ≈ noise-TV/net, and a stepwise traversal has
 a small net. R needs a noise correction before 1.5 is a threshold; that is
 pinned as the statistic's false-negative channel. `ph_topology_with_
 continuous_traversal` is certified on its *declared* sets (A, IND fire;
-C_perm, D-unreadable, unreadable-ρ silent) with the C_ord caveat printed by
+C_perm, D-unreadable silent — the "unreadable-ρ" negative was dropped
+2026-09-20 as a rule, not a measurement) with the C_ord caveat printed by
 the board every run.
 
 ## I1b — the trapped negative, and the depinning curve: pre-registration (overnight, before `stage3c_trapped.py`)
@@ -1206,6 +1219,39 @@ reads I1c's λ_eff from R13c's table with no literal fallback.
   restoring rate either — the same open question as the MSD arm's, at a
   second well.
 
+## Stage 3h v2 — results (`stage3h_well_delta_measured.json`, sealed `4933b45`, scored R18)
+
+| well | fp resid | λ₁ | ratio T=50: 0.05 / **0.1** / 0.2 / **0.3** | T=200: 0.1 / 0.2 / 0.3 |
+|---|---|---|---|---|
+| ε = 0.1, start 0.37, relax 2000 (the MSD arm's) | 1·10⁻¹⁴ | −1.525·10⁻² | 1.031 / **0.992** / 0.751 / 0.476 | 1.014 / 0.944 / 0.797 |
+| ε = 0.03, start 0.37, relax 16000 (I1c's) | 2·10⁻¹⁵ | −3.771·10⁻³ | 0.583 / **0.223** / 0.084 / **0.402** | 0.261 / 0.075 / 0.310 |
+
+Both rails pass. **MSD well: unchanged, H_harm stands** (0.99 / 1.01 at
+0.1 rad; every δ ≤ 0.2 read is bit-identical to v1); the well turns
+anharmonic between 0.2 and 0.3 rad (0.48 / 0.80, T-dependent). S5 rests on
+the 0.1-rad read, which is where the MSD arm's noise-driven excursions are.
+
+**I1c well: the sealed 0.3-rad clause FAILS at both T.** λ₁ × ratio(0.3)
+= 1.52·10⁻³ (T = 50) and 1.17·10⁻³ (T = 200) against I1c's λ_eff = 3.33·10⁻⁴
+— **4.6× and 3.5×**, outside the sealed [0.5, 2]. The pre-registered
+contingency fires: the v1 "5% at 0.2 rad" was coincidence, and the I1c
+well's relaxation from its 0.3-rad kick is not the deterministic sweep's
+short-window rate either. **Report only:** the response is *non-monotonic*
+in δ — 0.22 at 0.1, 0.08 at 0.2, 0.40 at 0.3 rad — and T-dependent at 0.3;
+the landscape 0.2 rad from this well has structure (a plateau or an adjacent
+shallow minimum) that a single anharmonic well does not describe, and the
+3000τ effective rate I1c measured averages over it. Not sealed; a landscape
+scan (the pinning potential along ψ, which Stage 4b's per-start speeds
+sample) is the instrument that would say what it is.
+
+**What stands after v2.** Both wells' short-window deterministic rates
+disagree with their windows' effective rates (MSD: 0.19–0.35× λ₁ against a
+harmonic well; I1c: λ_eff/λ₁ = 0.088 against a 0.3-rad read of 0.31–0.40).
+The discrepancy is now the finding, at two wells, with two candidate causes
+pre-named for the noisy case ((b) noisy-bump effective potential, (c)
+crossover estimator) and one for the deterministic case (landscape
+structure between 0.2 and 0.3 rad). Open; not this arc's next seal.
+
 ## Goals
 
 1. **Stage 0 port.** Every detector the arc will report is declared in
@@ -1355,8 +1401,11 @@ BLOCKED on a spiking ring (plan, QUEUED).*
 ## Open questions carried forward
 
 - QUEUED arm: ~~(b) chosen~~ → **BLOCKED ON A SPIKING RING** (Will,
-  2026-09-17; plan QUEUED entry). The rate ring emits no spikes to certify;
-  the arm waits for Stage 5's emitter. No option among (a)/(b)/(c) is taken.
+  2026-09-17; plan QUEUED entry). The rate ring's spikes are Poisson from
+  its rate envelope, so a matched-Cox control is identical in distribution;
+  the arm waits for a spiking ring whose spikes feed back — a generator
+  change filed "not near-term" in the plan, distinct from Stage 5. No option
+  among (a)/(b)/(c) is taken.
 - ~~c(ε·T) fit before measure 2~~ — done. ~~Measure 2~~ — done.
 - ~~(a) σ_s sweep~~ done (F6; and the "SNR" reading was wrong, S4).
   ~~(b) visits-per-unit~~ done (F5). ~~(c) Stage 2~~ done.

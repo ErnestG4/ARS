@@ -43,12 +43,26 @@ PARAMETERIZED = {
 REQUIRES = {
     "arsrh/verify_brief_v2.py": ["data/odlyzko_zeros1.txt"],
     "phase22a/verify_calibrators.py": ["data/odlyzko_zeros1.txt"],
-    # The bounded census harvests every JSON in the tree INCLUDING the gitignored
-    # data/ outputs (~3,800 of its 20,725 brody_q values live there), so it only
-    # reproduces its banked numbers on a checkout that has data/. A worktree
-    # without it read 16,871 on 2026-09-20 and failed on content, not on a
-    # defect. Declared here so the dependency is visible, not laundered.
-    "bounded_census/verify_bounded_census.py": ["data/phase34f_cohh/st_results.json"],
+    # The bounded census harvests every JSON in the tree INCLUDING gitignored
+    # generated files, so it only reproduces its banked numbers on a checkout
+    # that has them. Measured 2026-09-20 by a per-file diff of the harvest
+    # between the main tree and a worktree: 3,643 of its 20,558 brody_q values
+    # come from cross_substrate/coordinates/brocot-landscape.jsonl (.gitignore:56,
+    # made by brocot_landscape.py --run), 3 of its 558 alpha values from
+    # fifth_music_data.json + the two phase34f_cohh files, and 12 of its 20,290
+    # berry_robnik values from the two phase34f_results files. (The first
+    # version of this entry, same day, named only st_results.json -- a guess;
+    # this list is the measurement, and with these six linked into a worktree
+    # the verifier regenerates the banked JSONs bit-identically.) Without them
+    # a worktree read 16,871 and failed on content, not on a defect.
+    "bounded_census/verify_bounded_census.py": [
+        "cross_substrate/coordinates/brocot-landscape.jsonl",
+        "approximability/fifth_music_data.json",
+        "data/phase34f_cohh/st_results.json",
+        "data/phase34f_cohh/checkpoint_gate.json",
+        "data/phase34f_results/pipeline_validation.json",
+        "data/phase34f_results/pipeline_validation_e.json",
+    ],
 }
 
 

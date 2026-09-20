@@ -124,11 +124,16 @@ the instrument measures what we claim. Specifically this row certifies:
       thresholds fail (A/IND J <= 10: 1/6; C_ord J in [10,40]: 0/3 because
       the kernel SUPPORT is 4 sigma = 8 bins, not 2). Pinned as the ordering;
       thresholds are handed to a negative-set calibration, not a fourth seal.
-  R18 STAGE 3h (stage3h_well_delta_measured.json): the MSD arm's OWN well is
-      harmonic to 0.1 rad (ratio 0.99-1.03), so Stage 3e's anharmonic "one
-      cause" is FALSIFIED for the well it was written about (brief S5); the
-      I1c well IS anharmonic (0.22 at 0.1 rad, 0.084 at 0.2 rad) and
-      lambda1 x 0.084 reproduces I1c's lambda_eff to 5%. Both pinned.
+  R18 STAGE 3h v2 (stage3h_well_delta_measured.json): the MSD arm's OWN well
+      is harmonic to 0.2 rad (ratio 0.99-1.03 at 0.1), so Stage 3e's
+      anharmonic "one cause" is FALSIFIED for the well it was written about
+      (brief S5). The I1c well is anharmonic at 0.1 rad (0.22) but the sealed
+      v2 clause at its 0.3-rad kick amplitude (lambda1 x ratio within 2x of
+      I1c's lambda_eff) FAILS at both T (4.6x / 3.5x): the v1 "5% match" read
+      post-hoc at 0.2 rad was coincidence, and the short-window deterministic
+      rate is not the 3000-tau effective rate at this well either. The sweep
+      is non-monotonic in delta on the I1c well (0.22 -> 0.08 -> 0.40):
+      structure between 0.2 and 0.3 rad. Both rails checked on both wells.
   R14 STAGE 4 (stage4_circlemap_measured.json): theorem rails -- Denjoy
       convergence for K<1, exact 0/1 tongue boundary K/2pi within one grid
       step, Farey coverage at K=0 within 25%, multistability = 0 for K<=1,
@@ -959,9 +964,13 @@ hpath = os.path.join(HERE, "stage3h_well_delta_measured.json")
 chk(os.path.exists(hpath), "R18 stage3h_well_delta_measured.json missing — run stage3h_well_delta.py")
 H3 = json.load(open(hpath)) if os.path.exists(hpath) else None
 if H3:
+    chk(H3["instrument"]["model"] == "ring_well_delta_v2", f"R18 table is {H3['instrument']['model']}, not v2 (v1's I1c row missed its rail)")
     W1 = [x for x in H3["rows"] if x["well"] == "eps0.1_relax2000"][0]
-    W3 = [x for x in H3["rows"] if x["well"] == "eps0.03_relax8000"][0]
-    chk(W1["rail_ok"], f"R18 MSD well not at a fixed point (resid {W1['fp_resid']:.1e})")
+    W3 = [x for x in H3["rows"] if x["well"] == "eps0.03_relax16000"][0]
+    # the declared rail, on BOTH wells (v1 checked the MSD well only and read
+    # the I1c row at 1.4e-9 > 1e-9 anyway — the review's critic, 2026-09-20)
+    for Wx, nm in ((W1, "MSD"), (W3, "I1c")):
+        chk(Wx["rail_ok"], f"R18 rail: {nm} well not at a fixed point (resid {Wx['fp_resid']:.1e} vs declared ceiling) — row is INSTRUMENT-LIMITED, unread")
     r1 = {k: v for k, v in W1["ratio"].items()}
     at01 = [r1["T50_d0.1"], r1["T200_d0.1"]]
     harm = all(v > 0.8 for v in at01)
@@ -969,15 +978,27 @@ if H3:
     chk(all(abs(r1[f"T50_d{d:g}"] - r1[f"T200_d{d:g}"]) < 0.1 for d in (0.005, 0.01, 0.02, 0.05, 0.1)),
         "R18 the dynamic read depends on T on the MSD well below 0.1 rad")
     r3 = W3["ratio"]
-    lam_i1c = LAM_I1C if "LAM_I1C" in dir() else 3.33e-4   # from R13c's table (-ln R(0)/3000), not re-typed
-    pred = -W3["lam1"] * r3["T50_d0.2"]
-    chk(0.7 < pred / lam_i1c < 1.4, f"R18 pin: I1c well lambda1 x ratio(0.2 rad) = {pred:.2e} vs I1c lambda_eff {lam_i1c:.2e}")
+    chk("LAM_I1C" in dir(), "R18 needs I1c's lambda_eff from R13c's table (stage3d) — no literal fallback")
+    lam_i1c = LAM_I1C if "LAM_I1C" in dir() else float("nan")
     chk(r3["T50_d0.1"] < 0.45, f"R18 pin: the I1c well is no longer anharmonic at 0.1 rad ({r3['T50_d0.1']:.3f})")
-    r13["Stage3h"] = (f"MSD well (eps=0.1, start 0.37, lam1={W1['lam1']:+.3e}): ratio at delta=0.1 = {at01[0]:.3f}/{at01[1]:.3f} "
-                      f"(T=50/200) -> H_harm; sealed H_anharm [0.15,0.45] FAIL -> Stage 3e's anharmonic cause RETRACTED (S5); "
-                      f"I1c well (eps=0.03): ratio 0.1 rad {r3['T50_d0.1']:.3f}, 0.2 rad {r3['T50_d0.2']:.3f}; "
-                      f"lam1 x ratio(0.2) = {pred:.2e} vs I1c lambda_eff 3.3e-4 ({pred / lam_i1c:.2f}x) — I1c's failed clause is "
-                      f"anharmonicity at a 0.3-rad kick, quantitatively")
+    # sealed v2 clause (brief "Stage 3h v2"): at the 0.3-rad kick amplitude,
+    # lambda1 x ratio within 2x of I1c's lambda_eff at BOTH T
+    k03 = {T: -W3["lam1"] * r3[f"T{T}_d0.3"] / lam_i1c for T in (50, 200)}
+    kick_ok = all(0.5 <= v <= 2.0 for v in k03.values())
+    # recorded outcome pinned as recorded: FAIL at both T (the contingency fired)
+    chk(not kick_ok and all(v > 2.0 for v in k03.values()),
+        f"R18 pin: the sealed 0.3-rad clause's recorded outcome (FAIL, > 2x at both T) changed: {[round(v, 2) for v in k03.values()]}")
+    nonmono = r3["T50_d0.2"] < r3["T50_d0.1"] and r3["T50_d0.3"] > r3["T50_d0.2"]
+    chk(nonmono, f"R18 pin: the I1c well's non-monotonic delta response (0.1 > 0.2 < 0.3 rad) changed: "
+                 f"{[round(r3[f'T50_d{d:g}'], 3) for d in (0.1, 0.2, 0.3)]}")
+    r13["Stage3h"] = (f"v2. MSD well (eps=0.1, start 0.37, lam1={W1['lam1']:+.3e}, resid {W1['fp_resid']:.0e}): ratio at delta=0.1 = "
+                      f"{at01[0]:.3f}/{at01[1]:.3f} (T=50/200) -> H_harm; sealed H_anharm [0.15,0.45] FAIL -> Stage 3e's anharmonic cause "
+                      f"RETRACTED (S5); harmonic to 0.2 rad ({r1['T200_d0.2']:.2f} at T=200), anharmonic by 0.3 ({r1['T50_d0.3']:.2f}/{r1['T200_d0.3']:.2f}). "
+                      f"I1c well (eps=0.03, relax 16000, resid {W3['fp_resid']:.0e}, lam1={W3['lam1']:+.3e}): ratio by delta (T=50) "
+                      f"{[round(r3[f'T50_d{d:g}'], 3) for d in (0.05, 0.1, 0.2, 0.3)]} at 0.05/0.1/0.2/0.3 rad — anharmonic at 0.1 (pre-registered read), "
+                      f"NON-MONOTONIC beyond; sealed 0.3-rad clause: lam1 x ratio / I1c lambda_eff({lam_i1c:.2e}) = "
+                      f"{k03[50]:.2f}x (T=50), {k03[200]:.2f}x (T=200) vs sealed [0.5,2] -> FAIL at both T: the v1 '5% at 0.2 rad' was "
+                      f"coincidence; the short-window deterministic rate is not the 3000-tau lambda_eff at this well either (open, as for the MSD arm)")
 
 # R14 — Stage 4
 cpath4 = os.path.join(HERE, "stage4_circlemap_measured.json")
