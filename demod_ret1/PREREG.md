@@ -1,6 +1,9 @@
 # PRE-REG — ret-1 serial-order test (demodulation arc)
 
-**Status: DRAFT, 2026-09-21. Nothing runs until Will says go, and three STOP conditions below are open.**
+**Status: DRAFT, 2026-09-21, amended the same day (Will's amendments: cell sets, unit of replication,
+population-median bars, rival covering P3, ledger, instrument). Nothing runs until Will says go. STOP 1 is
+resolved by the amended cell sets; STOP 2 (instrument not received) is open; STOP 3 is folded into the
+Part A cell's gate.**
 
 - Repo: `$HOME/fmexplorer/criticality_tool/`
 - Python: `$HOME/fmexplorer/bin/python3`
@@ -12,6 +15,14 @@
   `$HOME/fmexplorer/crcns_cache/ret1/crcns_ret-1/Data`, `cross_substrate/ret1_port.py:41`).
 - Instrument: `realdata_checks.py`, to be filed under `demod_ret1/`, with `--selftest` passing in this
   environment first.
+
+## Two things that stand unconditionally, before any run
+
+1. **1.0 spikes/burst at a 5 ms threshold says nothing about bursts** when 5 ms is at or below the refractory
+   floor (rate-free).
+2. **A stationary renewal process has a long-range Σ² slope that tends to CV².** ret-1's CV² = 2.14 against a
+   sub-1 slope therefore already implies **serial correlation or nonstationarity**. What is conditional is
+   how that applies to the real trains; the shuffle test decides it.
 
 ## The claim under test (corrected from the prior look)
 
@@ -41,20 +52,26 @@ and the clustering exceeds a rate-matched Poisson at 20–50 ms while reading Po
   values, then either keep the mechanism labels where the calibrators discriminate or rename them
   SLOWER_THAN_W / FASTER_THAN_W. (STOP condition 3 below applies to it too.)
 
-## STOP conditions found while drafting (2026-09-21) — open
+## Cell sets (committed ret-1 loader `overnight_2026_07_12/loaders.py:load_ret1`; every cell ID listed in the seal)
 
-1. **Which 25 cells.** The findings say "25 cells ≥ 6k ISIs" and "11 cells ≥ 18k". The committed
-   loader (`overnight_2026_07_12/loaders.py:load_ret1`, 325 cells ≥ 100 spikes) with those rules gives
-   **183 and 60**. The July job subsampled (28 ret-1 cells appear in `demod2.log`) with a script that
-   was **never committed** (`git log` on `demod.log` shows only the log, commit `975997c`). The cell set
-   is therefore ambiguous → STOP. Options for Will: (a) run on all 183 ≥ 6k-ISI cells and state that the
-   findings' 25 were a subsample; (b) recover the subsampling seed/rule from the July session; (c) the
-   ≥ 18k set of 60.
-2. **Instrument not filed.** `realdata_checks.py` is not on disk and was never received in this
-   conversation (transcript, memory, filesystem searched) → STOP and ask.
-3. **The findings' demodulator has no committed generator.** `demod.log` / `demod2.log` (the canary and
-   the retained-vs-W curves) were produced by an uncommitted script; `run_overnight.py` does not contain
-   it. The Part A cell needs it, or a re-implementation declared as such.
+- **PRIMARY:** all cells with ≥ 6,000 ISIs (**183**), each truncated to its **first 6,000 ISIs**.
+- **TIER-2:** all cells with ≥ 18,000 ISIs (**60**), each truncated to its **first 18,000 ISIs**.
+- **JULY (secondary, disclosed):** the 28 July cells, only if `demod.log` (975997c) lists their IDs.
+  **Checked 2026-09-21: `demod.log`, `demod2.log` and `demodcoup.log` contain no cell IDs (0 hits for
+  `ret1/`). The JULY set is OMITTED.** The July selection rule is not reconstructed.
+- Full-length per-cell results: report-only.
+- Why not 25: that number came from an uncommitted subsample. The gap between 25 and 183 is the finding,
+  not a reason to guess the subsample.
+
+## Unit of replication
+
+- **Recording** = the loader's recording identifier (`ret1/{recording}/{cell}`, the `.mat` basename —
+  e.g. `20080516_R1`). The loader yields **16 recordings** (2026-09-21 count), so the bootstrap applies.
+- Recording is the **lineage group**: cells in one recording share the stimulus, so they are not
+  independent under the stated rival.
+- Population uncertainties: **bootstrap over recordings, 2,000 resamples** (declared), never over cells.
+- Fallback (not needed at 16): fewer than 8 recordings → sign test over recording medians, labelled
+  underpowered.
 
 ## Per cell, report
 
@@ -65,27 +82,69 @@ and the clustering exceeds a rate-matched Poisson at 20–50 ms while reading Po
   W = 1 s local-rate band.
 
 The capability report puts ~60 % of ret-1 cells at individually Poisson-indistinguishable long-range
-variance, so the bars below are population-level, not per-cell.
+variance: renewal-like cells (CV² ≈ slope) give z ≈ 0 whatever the truth, so per-cell fractions are
+reported, never barred. **The claim is about population medians; the bars are there.**
 
-## Predictions (to be sealed once the STOPs are cleared; n = 25 is the findings' count and will be
-## restated for whichever cell set Will chooses)
+## Predictions (sealed on the amended sets)
 
-- **P1:** real slope < shuffled slope in ≥ 21 of 25 cells (sign test p ≈ 5·10⁻⁴). Median shuffled slope
-  / median CV² ∈ [0.8, 1.2].
+- **P1a (instrument check):** median shuffled slope / median CV² ∈ [0.8, 1.2].
+- **P1:** median shuffled slope − median real slope > 5 bootstrap SE, in PRIMARY **and** in TIER-2.
+  Reported without a bar: the per-cell z distribution and the fraction of cells with real < shuffled.
 - **P2:** median |CV²(1 + 2Σρ_{k≤10}) − real slope| / real slope ≤ 0.3. Report the full K curve;
   truncation is a nuisance parameter.
-- **P3:** clusters above the homogeneous band at 20 and 50 ms in ≥ 21 of 25 cells. At 5 ms, at or below
-  the band mean.
+- **P3 at 20 and 50 ms:** median of (observed − homogeneous band-hi) > 0, by > 5 bootstrap SE.
+- **P3 at 5 ms:** median of (observed − band mean) ≤ 0, reported with its SE.
+- **P3 per-cell fractions:** reported without a bar.
 
-## Rival (stated in the seal)
+## Rival (stated in the seal; covers P3)
 
-P1–P2 pass equally for stimulus-locked firing events and for intrinsic spike-frequency adaptation
-(both give negative serial ISI correlation). A pass licenses **NON_RENEWAL_SERIAL_CORRELATION**, not a
-mechanism. Separating the two needs stimulus-repeat structure and is out of scope here.
+P1–P3 pass equally for stimulus-locked firing events, intrinsic bursting / spike-frequency adaptation,
+and fast rate modulation. A pass licenses **NON_RENEWAL_SERIAL_CORRELATION**, not a mechanism;
+**RET1_CLUSTERS_EXCEED_POISSON licenses "excess short-interval clustering", not "bursts."** Separating
+mechanisms needs stimulus-repeat structure and is out of scope here.
 
 ## Tokens
 
 - `RET1_RIGIDITY_IS_SERIAL_ORDER` or `RET1_RIGIDITY_SURVIVES_SHUFFLE`
 - `RET1_CLUSTERS_EXCEED_POISSON` or `RET1_CLUSTERS_AT_POISSON`
+
+## Ledger — UNREGENERABLE (demodulation arc)
+
+The July ret-1 values in `DEMODULATION_FINDINGS.md` have **no committed generator** (`demod.log` and
+`demod2.log` entered the repo alone in 975997c; the producing script never did): **CV² 2.14, Σ² slope
+0.44–0.78, R₂(0.1) ≈ 2.5, clusters/burst 1.01 / 1.24 / 1.78 / 2.72**, and the "25 cells ≥ 6k / 11 ≥ 18k"
+subsample. Same class as the matrix's unattributed +0.388 (`OVERNIGHT_2026_07_29.md`,
+`CAPABILITY_REPORT.md:262`). **This run's results supersede them; they are never compared against as
+measurements.** The July demodulation retentions (the W-curves, Part A's subject) are in the same class
+unless the Part A gate below reproduces them.
+
+## Instrument
+
+- `realdata_checks.py` **as delivered by Will** (shuffle test, Cox–Lewis curve, clusters against
+  rate-matched nulls; each self-tested against a planted effect and a null). **Not yet received
+  (2026-09-21: the message that said "attached below" carried these amendments, no Python) → STOP.**
+- `--selftest` must pass in this environment before any ret-1 file is read.
+- Known nit: `clusters_vs_null` draws surrogates matching the *expected* count, not the exact count
+  (~1/√n, negligible). Changing it to condition on the exact count is allowed as a declared change,
+  followed by a self-test re-run.
+
+## Part A — a separate small cell (not this seal; drafted here so it is not lost)
+
+- **Subject:** `DEMODULATION_FINDINGS.md`'s INTRINSIC/EXTRINSIC labels. The prior look showed a stand-in
+  demodulator cannot tell slow-intrinsic from slow-extrinsic; the label tracks timescale relative to W.
+- **Instrument:** the July demodulator has no committed generator and neither of us has the script.
+  Part A therefore **declares a re-implementation** built from the findings' description (rate estimate
+  at bandwidth W, time-rescale, kernel to be declared), then **gates it**: it must reproduce the file's
+  **gamma CV=2 constant-rate** calibrator retentions (72 % / 94 % / 101 % at W = 1 / 5 / 100 s) within a
+  declared tolerance before touching the new calibrators. The file's **Cox** calibrator has no stated
+  modulation timescale, so it cannot gate; the re-implementation's Cox is declared and reported.
+  **If the gate fails, the July demodulation numbers join the unregenerable ledger — itself a finding.**
+- **Statistic:** the findings' own — `I_rep` = signed ∫₀¹(1 − R₂) dr (`run_overnight.py:irep_unclipped`,
+  committed) — tested as `I_demod` against a **demodulated-Poisson null** (the findings' own replacement
+  for the ill-conditioned retained %), **not the toy's mass03**.
+- **New calibrators:** fast Cox (stimulus-locked 6.25 Hz) and slow intrinsic cycle, at the findings' W
+  values {0.05, 0.2, 1, 5, 20, 100} s.
+- **Outcome:** keep the mechanism labels where the four calibrators discriminate; otherwise rename them
+  **SLOWER_THAN_W / FASTER_THAN_W**.
 
 On any ambiguity about files, cells, or the instrument: STOP.
