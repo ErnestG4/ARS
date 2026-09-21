@@ -50,7 +50,7 @@ and the clustering exceeds a rate-matched Poisson at 20–50 ms while reading Po
 - Part A of the toy (labels track timescale relative to W) is a **separate cell**, not this pre-reg:
   run a fast Cox and a slow intrinsic cycle through the repo's own demodulator at the findings' W
   values, then either keep the mechanism labels where the calibrators discriminate or rename them
-  SLOWER_THAN_W / FASTER_THAN_W. (STOP condition 3 below applies to it too.)
+  SLOWER_THAN_W / FASTER_THAN_W. (Drafted in the Part A section at the end.)
 
 ## Cell sets (committed ret-1 loader `overnight_2026_07_12/loaders.py:load_ret1`; every cell ID listed in the seal)
 
