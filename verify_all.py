@@ -49,8 +49,11 @@ REQUIRES = {
 def discover():
     found = []
     for root, dirs, files in os.walk(HERE):
+        # .claude holds nested git WORKTREES (git-excluded but os.walk-visible):
+        # without this prune the board double-counts every checker per worktree
+        # (113 on 2026-09-20). Mirrors 7ca00aa on derivflow-modes.
         dirs[:] = [d for d in dirs if d not in
-                   (".git", "__pycache__", "node_modules", "archive_v1grid")]
+                   (".git", "__pycache__", "node_modules", "archive_v1grid", ".claude")]
         for fn in files:
             if not (fn.startswith("verify_") and fn.endswith(".py")):
                 continue

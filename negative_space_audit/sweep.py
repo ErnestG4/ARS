@@ -34,8 +34,9 @@ ROOT = HERE.parent
 OUT = HERE
 SKIPPED = []          # (path, reason) — logged, never silent
 
-PY = [p for p in ROOT.rglob("*.py") if "__pycache__" not in str(p) and "negative_space_audit" not in str(p)]
-MD = [p for p in ROOT.rglob("*.md")] + [p for p in ROOT.rglob("*.txt")]
+PY = [p for p in ROOT.rglob("*.py") if "__pycache__" not in str(p) and "negative_space_audit" not in str(p)
+      and "/.claude/" not in str(p)]   # nested git worktrees
+MD = [p for p in list(ROOT.rglob("*.md")) + list(ROOT.rglob("*.txt")) if "/.claude/" not in str(p)]
 
 
 def w(fn, s):
