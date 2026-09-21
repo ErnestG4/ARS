@@ -1489,6 +1489,24 @@ BLOCKED on a spiking ring (plan, QUEUED).*
 
 ## Open questions carried forward
 
+**Queued from the 2026-09-20 final-verification critic (report-only; none changes a banked number):**
+- `ring/*.json` (17 tables) are in no freeze list (`verify_frozen_blobs.py`) — a hand-edited table that
+  keeps the pinned values is invisible to the board; add them.
+- R10 F6b's `a_jm ≥ 0.5` pin is a ratio of two floor-level b₁ values (2.7 / 2.9 against base 256); gate
+  on both being above the no-loop floor and pin the qualitative outcome. The "FAIL, and not narrowly"
+  wording above rests on that 0.91.
+- R13b pins the banked depinning dict and R15 hard-codes (0.01, 0.02] instead of recomputing from rows;
+  R15 reads its grid-step tolerance from the table; R18 identifies wells by label only. Tamper-only
+  exposures (a real re-run rewrites rows and dict together), recorded.
+- Two tools (not board rows) still walk `.claude/`: `aggregate_dispersion_triage.py`,
+  `tools/check_publish_safe.py`.
+- Will's: `verify_bounded_census.py` regenerates the tracked bank in place and compares to itself
+  (regenerate to a tempdir instead); the census harvest's remaining alpha/kappa populations are mostly
+  foreign (`RESULTS_C1.md` rows 11–12); the T3 thresholds' negative-set calibration.
+- The MSD λ_eff/λ₁ cause (S5; candidates b/c/d) and the `implies` rung's next seal (T ≥ 10⁵τ or 10 seeds)
+  sit behind Stage 5.
+
+
 - QUEUED arm: ~~(b) chosen~~ → **BLOCKED ON A SPIKING RING** (Will,
   2026-09-17; plan QUEUED entry). The rate ring's spikes are Poisson from
   its rate envelope, so a matched-Cox control is identical in distribution;
