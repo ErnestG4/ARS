@@ -6,7 +6,8 @@ Banks (raw object, per no-forbidden-recompute): cache/spectra/<model>/<rev>/L<la
   grid_<M>      json              G4 grid audit of the stored tensor
   rownorm_<M>   (n_head, d_head)  row norms of each per-head block (dead-row diagnostic)
   rms_head_<M>  (n_head,)         entry rms per head (precision floor = u * rms * (sqrt p + sqrt n))
-Raw tensors are banked too: cache/weights/<model>/<rev>/L<layer>_<M>.npy (as stored, F32/F16).
+Raw tensors are banked too: cache/weights/<model>/<rev>/L<layer>_<M>.npy (OLMo F32 as stored; Pythia as fp16,
+asserted lossless because its F32 checkpoints are fp16 upcasts).
 for M in Q, K, V, O.  Usage: stage1_spectra.py <model> <rev> [<rev> ...]
 """
 import json, sys, time
@@ -38,7 +39,12 @@ def bank(model, rev):
         wd = ROOT / "cache" / "weights" / model / rev
         wd.mkdir(parents=True, exist_ok=True)
         for M, (full, ph, dt) in blocks.items():
-            np.save(wd / f"L{L:02d}_{M}.npy", full)
+            if model.startswith("pythia"):   # stored F32 values are fp16 upcasts (G4): fp16 is LOSSLESS
+                f16 = full.astype(np.float16)
+                assert np.array_equal(f16.astype(np.float32), full), "not on the fp16 grid; refusing lossy save"
+                np.save(wd / f"L{L:02d}_{M}.npy", f16)
+            else:
+                np.save(wd / f"L{L:02d}_{M}.npy", full)
             out[f"rownorm_{M}"] = np.linalg.norm(ph.astype(np.float64), axis=-1)
             out[f"rms_head_{M}"] = np.sqrt((ph.astype(np.float64) ** 2).mean(axis=(-1, -2)))
             out[f"sig_head_{M}"] = P.singvals(ph)

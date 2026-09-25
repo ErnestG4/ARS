@@ -19,9 +19,17 @@ class Stopped(Exception):
     pass
 
 
+HOST_DISK = "/mnt/c"          # WSL `df /` reports the VHD; the VHD grows into C:, which is what fills
+HOST_RESERVE_GB = 10.0        # Will, 2026-09-25: keep 10 GB free on C: at all times
+
+
 def check_stop():
+    import shutil
     if STOP.exists():
         raise Stopped("llmspec/STOP present")
+    free = shutil.disk_usage(HOST_DISK).free / 1e9
+    if free < HOST_RESERVE_GB:
+        raise Stopped(f"host disk {HOST_DISK} free {free:.1f} GB < reserve {HOST_RESERVE_GB} GB")
 
 
 def _get(url, lo, hi, tries=6):
@@ -35,6 +43,26 @@ def _get(url, lo, hi, tries=6):
             err = repr(e)
         time.sleep(2 ** i)
     raise IOError(f"range fetch failed {url} {lo}-{hi}: {err}")
+
+
+CHUNK = 32 * 2 ** 20
+THREADS = 8
+
+
+def _get_parallel(url, lo, hi):
+    """Range-fetch [lo, hi] in CHUNK pieces on THREADS threads into ONE in-memory buffer (no disk, no shared
+    file). Each piece is size-verified by _get; memory is bounded by the tensor size."""
+    n = hi - lo + 1
+    if n <= CHUNK:
+        return _get(url, lo, hi)
+    from concurrent.futures import ThreadPoolExecutor
+    buf = bytearray(n)
+    def piece(o):
+        e = min(o + CHUNK, n) - 1
+        buf[o:e + 1] = _get(url, lo + o, lo + e)
+    with ThreadPoolExecutor(THREADS) as ex:
+        list(ex.map(piece, range(0, n, CHUNK)))
+    return bytes(buf)
 
 
 def header(repo, fn, rev):
@@ -72,7 +100,7 @@ def fetch(idx, name):
     t = h["tensors"][name]
     a, b = t["data_offsets"]
     url = hf_hub_url(h["repo"], h["fn"], revision=h["rev"])
-    raw = _get(url, h["data_start"] + a, h["data_start"] + b - 1)
+    raw = _get_parallel(url, h["data_start"] + a, h["data_start"] + b - 1)
     arr = np.frombuffer(raw, dtype=DT[t["dtype"]]).reshape(t["shape"])
     if t["dtype"] == "BF16":
         arr = (arr.astype(np.uint32) << 16).view(np.float32)
