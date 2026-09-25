@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 15:57 PDT
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 16:25 PDT (4/26 revisions extracted; ETA ~22:00)
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
 GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
@@ -50,6 +50,8 @@ GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue f
   → results/g7_olmo_stage1end_Q.json.
 
 ## Next
+0. Chained after queue5: G2 functional witness (stage3_g2.py, pre-registered 0970140): Diffract replication
+   (bulk σ-permutation inert, full catastrophic?) with an identity control.
 1. When queue4 finishes: stage3_analyze.py, then STAGE3_FINDINGS.md (sealed-null table first; G0/G1/G4; nulls
    reported as nulls).
 2. G7 result → STAGE2_FINDINGS.md (licensed or NOT LICENSED for local statistics on peaked spectra).
