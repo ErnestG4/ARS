@@ -62,9 +62,18 @@ def rms_table(rev):
 
 def main():
     scales = {"final": rms_table("step143000"), "step0": rms_table("step0")}
+    fp = ROOT / "results" / "stage3_witness.json"
     out = {"doc": __doc__, "scales": scales, "types": {}}
+    if fp.exists():                      # resumable: keep finished types (same scales), redo the rest
+        old = json.loads(fp.read_text())
+        if old.get("scales") == scales:
+            out["types"] = old["types"]
+    if all(T in out["types"] for T in TYPES):
+        print("witness complete; nothing to do"); return
     gen = torch.Generator(device=DEV).manual_seed(20260925)
     for T, (m, n, K) in TYPES.items():
+        if T in out["types"]:
+            continue
         R.check_stop()
         t0 = time.time()
         nmin, nmax = min(m, n), max(m, n)
