@@ -28,8 +28,15 @@ Levels are sorted ascending, and the rank quantile is q = i/n.
     stage2_g7.unfold. It passed the unimodal control in the G7 dry run.
   - local(w=5) is reported alongside.
   - A setting with more than 0.1% non-positive spacings is refused.
-- **Σ²(L) and Δ₃(L), L ∈ {1, 2, 5, 10}.** Bulk, kde(4)-unfolded, averaged per spectrum then over the pool.
-  REPORTED, not part of the sealed null.
+- **Σ²(L) and Δ₃(L), L ∈ {1, 2, 5, 10}.** Bulk only, averaged per spectrum then over the pool. REPORTED, not
+  part of the sealed null.
+  - **PRE-DATA AMENDMENT A0 (2026-09-25, before any real Stage 3 statistic):** the long-range unfolding is kde(32),
+    not kde(4). kde(4) absorbs fluctuations on scales ≳ 4 spacings: Poisson Σ²(10) read 1.2 instead of 10.
+  - kde(32) recovers Wishart Σ² to within 15% of GOE on both shapes. Its known bias: Poisson reads ~27% low at
+    L = 10.
+  - Δ₃ is unfolding-insensitive and is the more robust long-range reading.
+  - Known-answer checks: verify_s3stats.py (red-pathed). All statistics come from ONE module, s3stats.py, used by
+    the witnesses and the real data alike.
 
 ## G1 pooled-null witness (the reference for every local statistic)
 - For each matrix type and unit, generate independent Gaussian matrices of IDENTICAL shape and number.

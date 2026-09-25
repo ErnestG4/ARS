@@ -17,7 +17,10 @@ Circuits per head (LayerNorm gains FOLDED, LN centering and all biases IGNORED -
   qk_sym_nr   (16,)             symmetric-energy fraction of M = (Q_nr g1)^T (K_nr g1): (|M|^2+tr(M M))/(2|M|^2)
   qk_eig_full (16,128) complex, qk_sym_full (16,)  same over all 128 dims (rotary dims included; flagged)
   copy_eig    (16,128) complex  eig(V_h diag(g1) W_E^T W_U~ O_h), W_U~ = W_U diag(g_f)   [full OV circuit]
-GLOBAL.npz: sig_EMB, sig_UNEMB (+ top-32 vectors, per-vector IPR/PT), g_f.
+GLOBAL.npz: sig_EMB, sig_UNEMB, g_f; right vectors: IPR/PT for all + top-32; left vectors: top-32 + their IPR/PT.
+  The 50304 x 2048 embedding matrices are handled in vocab chunks under the GPU cap: sigma^2 and V from the
+  chunk-accumulated fp64 Gram W^T W (eigh). Gram error ~1e-16 * sigma_max^2 sits far below the fp16 storage
+  floor (u = 2^-11), so no resolvable sigma is lost. U_32 = W V_32 / sigma_32. W_E^T W_U~ is chunk-accumulated.
 Usage: stage3_extract.py <model> <rev> [<rev> ...]
 """
 import sys, time, json
@@ -208,12 +211,31 @@ def run(model, rev):
               f"sink_frac={out['sink_frac']:.3f} max_induction={out['induction'].max():.3f}", flush=True)
         torch.cuda.empty_cache()
     gf = ck.t("gpt_neox.final_layer_norm.weight")
-    WE, WU = ck.t("gpt_neox.embed_in.weight"), ck.t("embed_out.weight")
-    EU = WE.T @ (WU * gf)                                   # (D, D) = W_E^T W_U diag(g_f)
+    WE16, WU16 = ck.get32("gpt_neox.embed_in.weight"), ck.get32("embed_out.weight")   # fp16 resident
+    CH = 4096
+    EU = torch.zeros(D, D, device=DEV, dtype=torch.float64)          # W_E^T W_U diag(g_f), chunked over vocab
+    for i in range(0, WE16.shape[0], CH):
+        EU += WE16[i:i + CH].double().T @ (WU16[i:i + CH].double() * gf)
     g = d / "GLOBAL.npz"
     if not g.exists():
         out = {"g_f": gf.cpu().numpy()}
-        full_svd(WE, out, "EMB"); full_svd(WU, out, "UNEMB")
+        for name, W16 in (("EMB", WE16), ("UNEMB", WU16)):
+            G = torch.zeros(D, D, device=DEV, dtype=torch.float64)
+            for i in range(0, W16.shape[0], CH):
+                c = W16[i:i + CH].double(); G += c.T @ c
+            ev, V = torch.linalg.eigh(G)
+            order = torch.argsort(ev, descending=True)
+            ev, V = ev[order].clamp_min(0), V[:, order]
+            sig = ev.sqrt()
+            out[f"sig_{name}"] = sig.cpu().numpy()
+            out[f"V32_{name}"] = V[:, :32].float().cpu().numpy()
+            out[f"ipr_v_{name}"], out[f"pt_v_{name}"] = vec_stats(V)
+            U32 = torch.cat([W16[i:i + CH].double() @ V[:, :32] for i in range(0, W16.shape[0], CH)]) / sig[:32]
+            out[f"U32_{name}"] = U32.float().cpu().numpy()
+            out[f"ipr_u32_{name}"], out[f"pt_u32_{name}"] = vec_stats(U32)
+            out[f"rms_{name}"] = np.array(float(torch.sqrt(torch.trace(G) / W16.numel())))
+            del G, V, U32
+            torch.cuda.empty_cache()
         R.durable_save(g, lambda t: np.savez(t, **out))
     for L in range(n_layer):
         f = d / f"L{L:02d}.npz"
