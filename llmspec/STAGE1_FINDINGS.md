@@ -33,7 +33,41 @@
 - **G4 (storage precision):** Pythia's F32 checkpoints are fp16 upcasts. OLMo 2's are fp32 masters, contrary
   to the brief's "bf16" premise.
 
-## Next (Stage 1b, POST-HOC, declared as such)
+## Stage 1b result — Hartigan dip test (POST-HOC, calibration committed first: d16caaf)
+- **Calibration.**
+  - False positives: 0/2000 for every nearest confusable (MP, Student-t with nu = 2.5/3/4, spiked MP with
+    1/3/10 outliers, lognormal), so the test is LICENSED.
+  - Power: it needs well-separated, narrow, balanced peaks. Separation 0.2 at sd 0.03 is detected 100%;
+    a 20% minority peak at sd 0.1 is detected ~0% even at separation 0.5. Hence "no peaks" is weak
+    evidence and "peaks" is strong.
+- **Heads multimodal at p < 0.01** (all levels / near-zero cluster excluded):
+
+  | run | W_Q | W_K | W_V | W_O |
+  |---|---|---|---|---|
+  | Pythia final | 0/384 | 0/384 | 0/384 | 0/384 |
+  | Pythia step 0 | 0 | 0 | 0 | 0 |
+  | OLMo `main` | 22 (8.6%) / 14 (5.5%) | 12 (4.7%) / 8 | 0 | 0 |
+  | OLMo stage-1 end | **63 (24.6%) / 34 (13.3%)** | **51 (19.9%)** / 22 (8.6%) | 1 | 1 |
+  | OLMo step 0 | 0 | 0 | 0 | 0 |
+
+- **G0 (with a sampling allowance):** passes for every matrix type in both models.
+- **Reading.**
+  - Pythia's sealed-Stage-1 "PEAKS" was entirely tail specks: no head is resolvably multimodal.
+  - OLMo's resolvable multimodality is real and Q/K-specific. It is strongest at the end of pretraining stage 1
+    and partly carried by the dead-row (near-zero) cluster: 13.3% of Q heads remain once that cluster is
+    excluded. It is largely removed by the stage-2 anneal.
+  - At `main` the excess is significant against the null (binomial P far below 1e-3) but below the declared
+    10% effect floor.
+- **Decision.**
+  - By the declared table, evaluated at the final checkpoint `main`: OLMo NO PEAKS (sub-floor), Pythia NO
+    PEAKS, so aim 1 is deferred and this is recorded as a qualified replication.
+  - Qualification: Diffract's structure is present during OLMo pretraining (stage-1 end, 4T tokens) at the
+    resolution of a licensed test, and is reduced by annealing. Pythia shows none.
+  - Pursuing aim 1 on OLMo's stage-1 trajectory is **Will's call**; it is not started. The architectural
+    contrast (QK-norm + full RoPE in OLMo vs partial rotary and no QK-norm in Pythia) is the stated hypothesis
+    if he does.
+
+## (superseded plan) Next (Stage 1b, POST-HOC, declared as such)
 - Replace "any KDE mode" with Hartigan's dip test (null = all unimodal densities, heavy tails included) at
   per-head α = 0.01.
 - Before applying it to real heads, measure:
