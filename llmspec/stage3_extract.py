@@ -23,7 +23,8 @@ GLOBAL.npz: sig_EMB, sig_UNEMB, g_f; right vectors: IPR/PT for all + top-32; lef
   floor (u = 2^-11), so no resolvable sigma is lost. U_32 = W V_32 / sigma_32. W_E^T W_U~ is chunk-accumulated.
 Usage: stage3_extract.py <model> <rev> [<rev> ...]
 """
-import sys, time, json
+import os, sys, time, json
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 from pathlib import Path
 import numpy as np
 import torch
@@ -112,22 +113,24 @@ def markers(ck, probes):
     ce = torch.nn.functional.cross_entropy
     sink = torch.zeros(nL, nH, device=DEV); tl = []
     text = torch.as_tensor(probes["text"], device=DEV)
-    for b in range(0, len(text), 2):
-        ids = text[b:b + 2]
+    for b in range(len(text)):               # batch 1; outputs freed each step (peak GPU logged)
+        ids = text[b:b + 1]
         o = m(ids, output_attentions=True)
         tl.append(ce(o.logits[:, :-1].flatten(0, 1).float(), ids[:, 1:].flatten(), reduction="none"))
         for L, A in enumerate(o.attentions):
             sink[L] += A[:, :, 16:, 0].mean(-1).sum(0)
+        del o
     sink /= len(text)
     ind = torch.zeros(nL, nH, device=DEV); rl = []
     rep = torch.as_tensor(probes["rep"], device=DEV)
     i = torch.arange(256, 512, device=DEV)
-    for b in range(0, len(rep), 2):
-        ids = rep[b:b + 2]
+    for b in range(len(rep)):
+        ids = rep[b:b + 1]
         o = m(ids, output_attentions=True)
         rl.append(ce(o.logits[:, 256:-1].flatten(0, 1).float(), ids[:, 257:].flatten(), reduction="none"))
         for L, A in enumerate(o.attentions):
             ind[L] += A[:, :, i, i - 255].mean(-1).sum(0)
+        del o
     ind /= len(rep)
     del m
     return {"loss_text": float(torch.cat(tl).mean()), "loss_rep2": float(torch.cat(rl).mean()),
@@ -208,7 +211,9 @@ def run(model, rev):
         out = markers(ck, probes)
         R.durable_save(mk, lambda t: np.savez(t, **out))
         print(f"{model} {rev} markers loss_text={out['loss_text']:.3f} loss_rep2={out['loss_rep2']:.3f} "
-              f"sink_frac={out['sink_frac']:.3f} max_induction={out['induction'].max():.3f}", flush=True)
+              f"sink_frac={out['sink_frac']:.3f} max_induction={out['induction'].max():.3f} "
+              f"peak_gpu={torch.cuda.max_memory_allocated()/2**30:.2f}GiB", flush=True)
+        torch.cuda.reset_peak_memory_stats()
         torch.cuda.empty_cache()
     gf = ck.t("gpt_neox.final_layer_norm.weight")
     WE16, WU16 = ck.get32("gpt_neox.embed_in.weight"), ck.get32("embed_out.weight")   # fp16 resident
@@ -245,7 +250,7 @@ def run(model, rev):
         t = time.time()
         out = layer(ck, L, EU)
         R.durable_save(f, lambda t: np.savez(t, **out))
-        print(f"{model} {rev} L{L:02d} {time.time()-t:.1f}s", flush=True)
+        print(f"{model} {rev} L{L:02d} {time.time()-t:.1f}s peak_gpu={torch.cuda.max_memory_allocated()/2**30:.2f}GiB", flush=True)
         torch.cuda.empty_cache()
     ck.gpu.clear(); torch.cuda.empty_cache()
     R.durable_save(d / "DONE", lambda t: t.write_text(EST))

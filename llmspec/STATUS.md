@@ -1,39 +1,45 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 13:20 PDT
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 14:25 PDT
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
-GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer / per-checkpoint caches).
+GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
 
 ## Machine limits (read before launching anything)
-- Three WSL crashes on 09-25 (10:59, 12:10, 12:32) = **Windows commit exhaustion**. Windows System log,
-  Resource-Exhaustion-Detector 2004: vmmemWSL 20.6 GB. The host has 32 GB RAM + a FIXED 18 GB pagefile, giving a
-  49.7 GB commit limit, and Windows apps hold ~30 GB of it. Page cache from downloads and GPU allocations both
-  count against vmmemWSL. Will may raise the pagefile maximum (admin + reboot); until then, budget ~10 GB for
-  all of WSL.
-- **Disk:** `df /` lies (1 TB VHD). What fills is C: (`/mnt/c`). remote_st.check_stop() refuses to proceed below
-  10 GB free on C:.
-- **Rules now in code:**
-  - No checkpoints on disk; everything streams HF → RAM → GPU.
-  - fp16 GPU storage (exact) with transient fp32 compute, verified bit-identical (verify_fp32_equivalence.py).
-  - 6 GB per-process GPU cap.
-  - fsync-durable writes (a crash had left zero-length files behind renames).
-  - memwatch.sh logs host free commit every 20 s and writes STOP below 5 GB.
+- The WSL crashes on 09-25 were **Windows commit exhaustion**: 32 GB RAM + a FIXED 18 GB pagefile, with Windows
+  apps holding ~30 GB. Page cache and GPU allocations both count against vmmemWSL.
+  - To give the GPU swap headroom, Will would raise the pagefile maximum (admin + reboot).
+  - Until then, budget ~10 GB for all of WSL.
+- **Disk:** `df /` lies. What fills is C: (`/mnt/c`); jobs refuse to proceed below 10 GB free on C:.
+- **Rules in code:**
+  - Stream HF → RAM → GPU; no checkpoints on disk.
+  - fp16 GPU storage with transient exact fp32 compute (verified bit-identical).
+  - 6 GB per-process GPU cap (it fired once as a clean OOM — the design working); batch-1 markers.
+  - fsync-durable writes.
+  - memwatch.sh writes STOP when host free commit < 5 GB.
 
-## Done
-- Stage 1 peak criterion SEALED (34de628); amendment A1 + estimator v2 (ee83e79).
-- G7 pre-registration (b1ca2b6); Stage 3 pre-registration SEALED (0cf53ba); memory-safe extractor + probes
-  (8ac8db7).
-- G4: Pythia F32 checkpoints are fp16 upcasts; OLMo 2 F32 values are fp32 masters. The brief's "OLMo bf16"
-  premise does not hold.
-- Stage 1 spectra banked for all 5 runs (7 crash-corrupted files found, removed and regenerated).
+## Done (commits)
+- **Stage 1** (21c0837, 78c2fad).
+  - The sealed KDE rule said PEAKS in both models, but that was UNRESOLVED as evidence: it counted tail specks.
+  - Stage 1b, the licensed dip test (post-hoc, calibration committed first, d16caaf):
+    - Pythia: 0 multimodal heads in any matrix type.
+    - OLMo Q/K: multimodal at stage-1 end (Q 24.6% / 13.3% with the dead-row cluster excluded); sub-floor at
+      `main` (8.6%).
+  - Decision at the final checkpoint: aim 1 deferred. **The OLMo stage-1 trajectory is Will's call.**
+  - G0: FAIL-as-sealed on Pythia W_O (rule had no sampling allowance; attributed); the dip G0 passes everywhere.
+  - Seal re-derived under estimator v2: identical (eca356d).
+- **Stage 3 prereg SEALED** (0cf53ba). Pre-data amendment A0 (long-range unfolding kde(32), 76052ed). Witness
+  generator (82ef74b). Analysis + estimator known answers (44b9f77).
 
 ## Running
-- s1_calibrate_v2check (queue3): seal re-derived under estimator v2.
-- s1_analyze_v2b: sealed Stage 1 analysis + A1, with plots.
+- **queue4 (GPU):**
+  - Extract step143000 + step0 (markers at the final checkpoint: loss 2.10, rep-loss 0.28, max induction 0.97).
+  - Then stage3_witness (~40 min).
+  - Then the other 24 revisions. ~16 min per revision; ETA ~22:00.
+- **G7 (CPU, 4 threads):** stage2_g7.py with real targets = 34 OLMo stage-1-end W_Q heads flagged by the dip test
+  → results/g7_olmo_stage1end_Q.json.
 
 ## Next
-1. Read the Stage 1 verdict + plots, then write the Stage 1 findings (nulls as nulls; decision per the sealed
-   table).
-2. Stage 2 G7 with real targets from the selected substrate.
-3. Stage 3: stage3_extract.py over the 26-revision schedule (streaming, one at a time), then the G0/G1/G4
-   witnesses and the sealed bulk null.
-- Arm B: HELD (Will).
+1. When queue4 finishes: stage3_analyze.py, then STAGE3_FINDINGS.md (sealed-null table first; G0/G1/G4; nulls
+   reported as nulls).
+2. G7 result → STAGE2_FINDINGS.md (licensed or NOT LICENSED for local statistics on peaked spectra).
+3. Motion pass (ΔW between consecutive revisions, streamed per layer).
+- Held: Arm B (Will). OLMo stage-1 trajectory (Will's call).
