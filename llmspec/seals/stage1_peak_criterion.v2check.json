@@ -1,0 +1,639 @@
+{
+ "rule": "Stage 1 peak criterion: MP-calibrated KDE (Will, 2026-09-25, v1.1 \u00a78.1 answer).\n\nRun BEFORE any real weights are examined. Output: seals/stage1_peak_criterion.json.\n\nRule (declared here, frozen by the seal):\n  x = sigma / median(sigma) per spectrum; Gaussian KDE with a FIXED bandwidth h_shape\n  (mean Silverman bandwidth over MP null draws of that shape), grid step h/8 in x units;\n  a mode is a KDE local max with prominence >= p x max density.\n  PRIMARY (the rule Will approved): count ALL modes; p*_all = smallest grid value with\n    P(n_modes == 1) >= 0.99 on calibration set A (Gaussian fp64).\n  SECONDARY (declared refinement, reported alongside, never substituted): a mode is MASSIVE if\n    its basin (between adjacent density minima) holds >= m_min points, m_min = max(5, 0.02 n);\n    p*_massive calibrated the same way on the massive count. Purpose: tell narrow multi-point\n    peaks (aim 1) from isolated BBP outliers (aim 2). A primary 'peaks' verdict carried only by\n    modes the secondary rule rejects is labelled OUTLIER_MODES_ONLY.\n  If p* sits on the grid floor (0.0) the flag p_star_on_floor is set: the criterion is then\n  \"any local max\" and its specificity comes from h alone (reported, not hidden).\n  POWER (the criterion must be able to fire): two-component spectra, n points i.i.d. from\n  equal-weight Gaussians of width w at 1 -/+ delta/2 (x units), detection = P(>=2 modes) per\n  rule, over delta x w. The minimum resolvable separation is reported with the seal.\n  Holdout B and every variant (bf16/fp16 grid, truncated-normal, uniform entries) must give\n  P(==1) >= 0.985 for both rules.\nUnits: per-head block (128 x 2048; OLMo 2 1B and Pythia-1.4B share it) = primary;\n       full layer matrix (2048 x 2048) = secondary (Diffract's unit is ambiguous).\n",
+ "units": {
+  "per_head": {
+   "shape": [
+    128,
+    2048
+   ],
+   "n_calibA": 5000,
+   "m_min": 5,
+   "h_shape": 0.043504573627715384,
+   "p_star_all": 0.002,
+   "p_star_massive": 0.002,
+   "scanA": {
+    "0.0": {
+     "P_all_eq1": 0.979,
+     "P_massive_eq1": 0.979
+    },
+    "0.0001": {
+     "P_all_eq1": 0.981,
+     "P_massive_eq1": 0.981
+    },
+    "0.0002": {
+     "P_all_eq1": 0.9824,
+     "P_massive_eq1": 0.9824
+    },
+    "0.0005": {
+     "P_all_eq1": 0.9846,
+     "P_massive_eq1": 0.9846
+    },
+    "0.001": {
+     "P_all_eq1": 0.9878,
+     "P_massive_eq1": 0.9878
+    },
+    "0.002": {
+     "P_all_eq1": 0.9924,
+     "P_massive_eq1": 0.9924
+    },
+    "0.003": {
+     "P_all_eq1": 0.9944,
+     "P_massive_eq1": 0.9944
+    },
+    "0.005": {
+     "P_all_eq1": 0.9974,
+     "P_massive_eq1": 0.9974
+    },
+    "0.01": {
+     "P_all_eq1": 0.9994,
+     "P_massive_eq1": 0.9994
+    },
+    "0.015": {
+     "P_all_eq1": 0.9998,
+     "P_massive_eq1": 0.9998
+    },
+    "0.02": {
+     "P_all_eq1": 0.9998,
+     "P_massive_eq1": 0.9998
+    },
+    "0.025": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.03": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.035": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.04": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.045": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.05": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.055": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.06": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.065": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.07": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.075": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.08": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.085": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.09": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.095": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.1": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.12": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.14": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.16": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.18": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.2": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.22": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.24": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.26": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.28": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.3": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.32": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.34": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.36": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.38": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.4": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.42": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.44": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.46": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.48": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.5": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    }
+   },
+   "checks": {
+    "holdout_gauss": {
+     "n": 5000,
+     "P_all_eq1": 0.9902,
+     "P_all_ge2": 0.0098,
+     "P_massive_eq1": 0.9902,
+     "P_massive_ge2": 0.0098,
+     "pass": true
+    },
+    "bf16": {
+     "n": 1000,
+     "P_all_eq1": 0.998,
+     "P_all_ge2": 0.002,
+     "P_massive_eq1": 0.998,
+     "P_massive_ge2": 0.002,
+     "pass": true
+    },
+    "fp16": {
+     "n": 1000,
+     "P_all_eq1": 0.991,
+     "P_all_ge2": 0.009,
+     "P_massive_eq1": 0.991,
+     "P_massive_ge2": 0.009,
+     "pass": true
+    },
+    "trunc2": {
+     "n": 1000,
+     "P_all_eq1": 0.995,
+     "P_all_ge2": 0.005,
+     "P_massive_eq1": 0.995,
+     "P_massive_ge2": 0.005,
+     "pass": true
+    },
+    "uniform": {
+     "n": 1000,
+     "P_all_eq1": 0.991,
+     "P_all_ge2": 0.009,
+     "P_massive_eq1": 0.991,
+     "P_massive_ge2": 0.009,
+     "pass": true
+    }
+   },
+   "power": {
+    "d0.04_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.06_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.08_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.10_w0.01": {
+     "P_all_ge2": 0.57,
+     "P_massive_ge2": 0.57
+    },
+    "d0.12_w0.01": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.16_w0.01": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.20_w0.01": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.30_w0.01": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.04_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.06_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.08_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.10_w0.03": {
+     "P_all_ge2": 0.0125,
+     "P_massive_ge2": 0.0125
+    },
+    "d0.12_w0.03": {
+     "P_all_ge2": 0.595,
+     "P_massive_ge2": 0.595
+    },
+    "d0.16_w0.03": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.20_w0.03": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.30_w0.03": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    }
+   },
+   "p_star_on_floor": {
+    "all": false,
+    "massive": false
+   }
+  },
+  "full_matrix": {
+   "shape": [
+    2048,
+    2048
+   ],
+   "n_calibA": 300,
+   "m_min": 41,
+   "h_shape": 0.1282320366294273,
+   "p_star_all": 0.0,
+   "p_star_massive": 0.0,
+   "scanA": {
+    "0.0": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.0001": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.0002": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.0005": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.001": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.002": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.003": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.005": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.01": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.015": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.02": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.025": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.03": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.035": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.04": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.045": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.05": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.055": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.06": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.065": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.07": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.075": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.08": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.085": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.09": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.095": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.1": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.12": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.14": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.16": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.18": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.2": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.22": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.24": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.26": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.28": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.3": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.32": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.34": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.36": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.38": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.4": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.42": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.44": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.46": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.48": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    },
+    "0.5": {
+     "P_all_eq1": 1.0,
+     "P_massive_eq1": 1.0
+    }
+   },
+   "checks": {
+    "holdout_gauss": {
+     "n": 300,
+     "P_all_eq1": 1.0,
+     "P_all_ge2": 0.0,
+     "P_massive_eq1": 1.0,
+     "P_massive_ge2": 0.0,
+     "pass": true
+    },
+    "bf16": {
+     "n": 100,
+     "P_all_eq1": 1.0,
+     "P_all_ge2": 0.0,
+     "P_massive_eq1": 1.0,
+     "P_massive_ge2": 0.0,
+     "pass": true
+    },
+    "fp16": {
+     "n": 100,
+     "P_all_eq1": 1.0,
+     "P_all_ge2": 0.0,
+     "P_massive_eq1": 1.0,
+     "P_massive_ge2": 0.0,
+     "pass": true
+    },
+    "trunc2": {
+     "n": 100,
+     "P_all_eq1": 1.0,
+     "P_all_ge2": 0.0,
+     "P_massive_eq1": 1.0,
+     "P_massive_ge2": 0.0,
+     "pass": true
+    },
+    "uniform": {
+     "n": 100,
+     "P_all_eq1": 1.0,
+     "P_all_ge2": 0.0,
+     "P_massive_eq1": 1.0,
+     "P_massive_ge2": 0.0,
+     "pass": true
+    }
+   },
+   "power": {
+    "d0.04_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.06_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.08_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.10_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.12_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.16_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.20_w0.01": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.30_w0.01": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    },
+    "d0.04_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.06_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.08_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.10_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.12_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.16_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.20_w0.03": {
+     "P_all_ge2": 0.0,
+     "P_massive_ge2": 0.0
+    },
+    "d0.30_w0.03": {
+     "P_all_ge2": 1.0,
+     "P_massive_ge2": 1.0
+    }
+   },
+   "p_star_on_floor": {
+    "all": true,
+    "massive": true
+   }
+  }
+ },
+ "decision_rule": {
+  "per_matrix_type_primary": "per-head unit, PRIMARY (all-modes) rule: matrix type 'shows peaks' iff fraction of heads with >=2 modes >= 0.10 AND binomial P(X>=k | n_heads, 0.01) < 1e-3",
+  "per_matrix_type_secondary": "full-matrix unit, PRIMARY rule: 'shows peaks' iff >= 25% of layers have >=2 modes AND binomial P(X>=k | n_layers, 0.01) < 1e-3",
+  "model": "model 'shows peaks' iff any of Q,K,V shows peaks at the primary unit; if only the secondary unit shows peaks, verdict = PEAKS_AT_LAYER_UNIT_ONLY and aim 1 proceeds at that unit",
+  "secondary": "the same two rules are evaluated with the massive-mode count at p*_massive and reported; primary-yes/secondary-no = OUTLIER_MODES_ONLY",
+  "G0_empirical": "step-0 checkpoints must reproduce >= 0.985 unimodal per head under both rules; else the criterion is suspect, not the weights"
+ },
+ "all_checks_pass": true
+}
