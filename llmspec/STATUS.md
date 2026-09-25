@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 14:50 PDT (anchors extracted; witness running, W_Q witness bulk <r~> 0.5309 q 1.008, scale-invariant)
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 15:57 PDT
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
 GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
@@ -28,6 +28,15 @@ GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue f
   - Seal re-derived under estimator v2: identical (eca356d).
 - **Stage 3 prereg SEALED** (0cf53ba). Pre-data amendment A0 (long-range unfolding kde(32), 76052ed). Witness
   generator (82ef74b). Analysis + estimator known answers (44b9f77).
+
+## Early Stage 3 (two anchors; results/stage3_*_early.*)
+- G0 MP passes for all six types.
+- Sealed bulk null HOLDS in 20/20 cells (step 0 and step 143000): max |Δ⟨r̃⟩| 0.0026, max |Δq| 0.025.
+- Witness: all 10 types read β=1 and are scale-invariant. Sealed G4 flags the lower band as PRECISION_LIMITED for
+  K, V and MLP_IN (fp16 effect 0.0024–0.0042 > 0.002). That rule has no sampling allowance, and the replicate
+  spread is of similar size; report both.
+- Amendment A1 (113089b): mp_fit_v1 collapses on non-MP bulks and is flagged DEGENERATE; mp_fit_v2
+  (median-matched) added.
 
 ## Running
 - **Automation:** chain2.sh → supervise.sh runs queue4 then queue5 (stage3_motion, stage3_analyze). It auto-resumes after a
