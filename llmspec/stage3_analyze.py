@@ -22,6 +22,8 @@ TOL_RT, TOL_Q = 0.010, 0.10
 EST = {"local": S.EST, "mp": "mp_fit_v1", "mle": "htsr_mle_v1", "liu": "liu_rankslope_v1",
        "vec": "vec_band_v1", "circ": "circuit_v1", "mk": "stage3-markers-v1"}
 rows = []
+import os
+TAG = os.environ.get("STAGE3_TAG", "")      # e.g. "_early": writes results/stage3_*_early.* instead of the final files
 
 
 def step_of(rev):
@@ -81,6 +83,24 @@ def mp_fit_v1(sig, m, n, rms, tau_p, tau_m):
     return res
 
 
+def mp_fit_v2(sig, m, n, tau_p, tau_m):
+    """POST-HOC AMENDMENT (2026-09-25, found on the step143000 anchor before the full analysis): mp_fit_v1's
+    'iterate the scale correction to a fixed point' COLLAPSES when the bulk is not MP-shaped (trained Q/K: every
+    round removes more mass, s -> 0, all 2048 sigma become 'outliers'). v2 takes the scale from the MEDIAN
+    singular value matched to the MP median (Gavish-Donoho style), which outliers cannot drag, and counts
+    departures at both edges against that scale with the same witness margins tau+/tau-."""
+    nmax, nmin = max(m, n), min(m, n)
+    g, F = mp_cdf(nmin / nmax)
+    med_x = float(np.interp(0.5, F, g))                        # median of sigma^2 / (nmax s^2) under MP
+    s = float(np.median(sig)) / math.sqrt(nmax * med_x)
+    Ep = s * (np.sqrt(m) + np.sqrt(n)); Em = s * abs(np.sqrt(m) - np.sqrt(n))
+    res = {"mp2_scale": s, "mp2_scale_over_rms": None, "mp2_n_upper_outliers": int((sig > tau_p * Ep).sum()),
+           "mp2_sigma_max_over_Eplus": float(sig.max() / Ep)}
+    if Em > 0 and tau_m is not None:
+        res["mp2_n_lower_departures"] = int((sig < tau_m * Em).sum())
+    return res
+
+
 def mle_fit(lam_desc, kmin=50):
     """Clauset: x_min over the top half (n_tail >= kmin) by minimum KS D. lam_desc sorted descending."""
     n = len(lam_desc)
@@ -136,7 +156,12 @@ def global_job(args):
     out = {"stable_rank": float((sig ** 2).sum() / sig.max() ** 2)}
     p = sig ** 2 / (sig ** 2).sum()
     out["spectral_entropy"] = float(-(p[p > 0] * np.log(p[p > 0])).sum() / math.log(len(sig)))
-    out.update(mp_fit_v1(sig, m, n, rms, tau_p, tau_m))
+    v1 = mp_fit_v1(sig, m, n, rms, tau_p, tau_m)
+    v1["mp_v1_DEGENERATE"] = bool(v1["n_upper_outliers"] > 0.5 * len(sig))   # iteration collapsed; not evidence
+    out.update(v1)
+    v2 = mp_fit_v2(sig, m, n, tau_p, tau_m)
+    v2["mp2_scale_over_rms"] = v2["mp2_scale"] / rms
+    out.update(v2)
     out.update({f"mle_{k}": v for k, v in htsr_mle_v1(sig, seed=layer).items()})
     out["liu_rankslope"] = liu_rankslope_v1(sig)
     return rev, layer, M, out
@@ -306,10 +331,11 @@ def main():
             for k, v in out.items():
                 if isinstance(v, bool):
                     v = float(v)
-                put(rev, l, M, -1, "all", k, v, EST["mle"] if k.startswith("mle_") else (EST["liu"] if k.startswith("liu") else EST["mp"]))
+                put(rev, l, M, -1, "all", k, v, EST["mle"] if k.startswith("mle_") else (EST["liu"] if k.startswith("liu") else
+                                                ("mp_fit_v2" if k.startswith("mp2_") else EST["mp"])))
     df = pd.DataFrame(rows, columns=["model", "variant", "step", "layer", "matrix", "head", "band", "metric", "value",
                                      "estimator_version"])
-    df.to_parquet(ROOT / "results" / "stage3_long.parquet")
+    df.to_parquet(ROOT / "results" / f"stage3_long{TAG}.parquet")
     verdicts = pd.DataFrame(null_cells)
     summary = {"n_cells": len(verdicts), "counts": verdicts.verdict.value_counts().to_dict(), "missing_revisions": missing,
                "G0_mp_step0": g0,
@@ -317,7 +343,7 @@ def main():
                "G4_lower_band_fp16_effect": {T: w["G4_lower_rt_fp16_minus_fp64"] for T, w in wit["types"].items()},
                "witness_scale_invariant": {T: w["scale_invariant"] for T, w in wit["types"].items()},
                "cells": null_cells, "tolerances": {"rt": TOL_RT, "q": TOL_Q}}
-    (ROOT / "results" / "stage3_null.json").write_text(json.dumps(summary, indent=1, default=float))
+    (ROOT / "results" / f"stage3_null{TAG}.json").write_text(json.dumps(summary, indent=1, default=float))
     print(json.dumps({k: summary[k] for k in ("n_cells", "counts", "missing_revisions", "G0_mp_step0")}, indent=1, default=float))
     # ---- change points on layer-mean trajectories (steps >= 1)
     cp_out = {}
@@ -329,7 +355,7 @@ def main():
         cps, xs = changepoints(np.log10(g.step.values), g.value.values)
         steps = g.step.values
         cp_out[f"{M}|{b}|{met}"] = [[int(steps[c - 1]), int(steps[c])] for c in cps]
-    (ROOT / "results" / "stage3_changepoints.json").write_text(json.dumps(cp_out, indent=1))
+    (ROOT / "results" / f"stage3_changepoints{TAG}.json").write_text(json.dumps(cp_out, indent=1))
     print("change-point series:", len(cp_out), "with >=1 change:", sum(1 for v in cp_out.values() if v))
 
 

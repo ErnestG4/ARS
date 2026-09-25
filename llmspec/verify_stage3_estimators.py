@@ -48,6 +48,25 @@ for k in (0, 3, 10):
     r = A.mp_fit_v1(sig_of(W), m, n, float(W.pow(2).mean().sqrt()), tau_p, 0.99)
     print(f"  spikes {k}: upper outliers {r['n_upper_outliers']} scale/true {r['mp_scale']/s:.4f}")
     if r["n_upper_outliers"] != k: fails.append(f"mp_fit spikes {k} -> {r['n_upper_outliers']}")
+# mp_fit_v2 on the same spiked matrices, and the v1 collapse on a heavy-tailed (Student-t nu=2.5) matrix
+for k in (0, 3, 10):
+    W = torch.randn((m, n), generator=g, device="cuda", dtype=torch.float64) * s
+    if k:
+        u = torch.linalg.qr(torch.randn((m, k), generator=g, device="cuda", dtype=torch.float64))[0]
+        v = torch.linalg.qr(torch.randn((n, k), generator=g, device="cuda", dtype=torch.float64))[0]
+        W = W + (u * (s * np.sqrt(n) * torch.linspace(2.0, 4.0, k, device="cuda", dtype=torch.float64))) @ v.T
+    r2 = A.mp_fit_v2(sig_of(W), m, n, tau_p, 0.99)
+    print(f"  v2 spikes {k}: upper outliers {r2['mp2_n_upper_outliers']} scale/true {r2['mp2_scale']/s:.4f}")
+    if r2["mp2_n_upper_outliers"] != k: fails.append(f"mp_fit_v2 spikes {k} -> {r2['mp2_n_upper_outliers']}")
+z = torch.randn((m, n), generator=g, device="cuda", dtype=torch.float64)
+chi = torch.distributions.Chi2(torch.tensor(2.5, device="cuda", dtype=torch.float64)).sample((m, n))
+Wt = z / torch.sqrt(chi / 2.5) * s
+st = sig_of(Wt)
+r1 = A.mp_fit_v1(st, m, n, float(Wt.pow(2).mean().sqrt()), tau_p, 0.99)
+r2 = A.mp_fit_v2(st, m, n, tau_p, 0.99)
+print(f"  heavy-tailed t2.5: v1 outliers {r1['n_upper_outliers']} (collapse expected), v2 outliers {r2['mp2_n_upper_outliers']}")
+if not r1["n_upper_outliers"] > 0.5 * len(st): fails.append("v1 collapse not reproduced on t2.5 (DEGENERATE flag untested)")
+if r2["mp2_n_upper_outliers"] > 0.5 * len(st): fails.append("v2 also collapses on t2.5")
 x = np.log10(np.array([1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 128000], float))
 y = np.where(x < 2.5, 1.0 + 0.1 * x, 1.25 - 0.8 * (x - 2.5)) + 0.01 * rng.standard_normal(len(x))
 cps, _ = A.changepoints(x, y)

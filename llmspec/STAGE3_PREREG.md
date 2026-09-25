@@ -128,3 +128,18 @@ Levels are sorted ascending, and the rank quantile is q = i/n.
 - **Change points:** binary segmentation on each metric vs log10(step) for steps ≥ 1, with a piecewise-linear
   model, minimum segment of 3 checkpoints, and a BIC penalty. With 25 points, change points are coarse; the
   output is reported as a checkpoint interval.
+
+## POST-HOC AMENDMENT A1 (2026-09-25 ~16:10, after the early two-checkpoint run; before the full analysis)
+- **Defect.** `mp_fit_v1`'s "iterate the scale correction to a fixed point" COLLAPSES when the bulk is not MP-shaped.
+  On trained Q/K at step 143000 it flags all 2048 σ as upper outliers, because every round removes more mass and
+  s → 0. It is reproduced on a Student-t (ν = 2.5) matrix in verify_stage3_estimators.py. The synthetic
+  validation had only tested spikes on an MP bulk.
+- **Handling.** v1 is kept as sealed but flagged `mp_v1_DEGENERATE` when more than 50% of σ are flagged. Degenerate
+  v1 counts are non-evidence and are never reported as outlier counts.
+- **Added `mp_fit_v2`.** The scale comes from the median σ matched to the MP median (Gavish–Donoho style), with
+  the same witness margins τ±.
+  - Known answers: planted spikes 0/3/10 are counted exactly, with scale within 0.1%.
+  - t₂.₅ gives 84 upper outliers, not 2048.
+- **Early two-checkpoint results** (step 0, step 143000; results/stage3_*_early.*):
+  - G0 MP passes for all six types.
+  - The sealed bulk null HOLDS in 20/20 cells: max |Δ⟨r̃⟩| = 0.0026, max |Δq| = 0.025.
