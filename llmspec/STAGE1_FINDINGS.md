@@ -1,0 +1,47 @@
+# Stage 1 findings — existence check (brief v1.1 §1b)
+
+## Verdicts
+- **As sealed:** PEAKS in both models (OLMo 2 1B `main`, Pythia-1.4B step143000), so the decision table says
+  "BOTH: aim 1 moves to Pythia". Amendment A1's bulk-mode split gives the same answer (BULK_PEAKS in both).
+- **As evidence of multi-peak structure: UNRESOLVED (non-evidence).**
+  - The sealed criterion was calibrated only on MP spectra (compact, unimodal). Its false-positive rate on the
+    nearest confusable class, unimodal heavy-tailed spectra (the documented shape of trained weights), was
+    never measured.
+  - Direct inspection shows the counted extra modes are overwhelmingly tail specks: a median of 1–2 levels,
+    median prominence 3% of the peak, median location σ/median ≈ 1.6.
+- **G0 at step 0:**
+  - OLMo passes for all four matrix types.
+  - Pythia passes Q, K, V and **FAILS-as-sealed for W_O**: 6/384 multimodal, against the 98.5% unimodal bar.
+  - Attribution: under the calibrated null rate (0.98% on the holdout), P(X ≥ 6 | n = 384) = 0.18, and the six
+    heads are spread over six layers. The sealed G0 bar had no allowance for sampling noise, so the rule itself
+    false-fails 18% of the time at n = 384 (24% at n = 256). The label stays FAIL-as-sealed. It is a defect of
+    the rule, not evidence against the criterion or the weights.
+
+## What the data do show (descriptive; the thresholds below are post-hoc)
+- Heads with a substantial secondary mode (≥ 10 levels and prominence ≥ 0.1 of the peak):
+
+  | model | W_Q | W_V |
+  |---|---|---|
+  | Pythia final | 78/384 (20%) | 2/384 |
+  | OLMo final | 96/256 (38%) | 2/256 |
+
+  This is a Q-specific candidate, pending a test calibrated against unimodal heavy tails.
+- **Dead rows (OLMo only):** some W_Q/W_K heads have rows decayed to norm ~1e-28.
+  - At stage-1 end, 8 Q heads are RANK_COLLAPSED (median σ below the fp32 floor).
+  - A near-zero mode appears in 170 Q heads (stage-1 end) and 92 Q heads (`main`).
+  - Pythia has no near-zero modes in Q or K.
+- **G4 (storage precision):** Pythia's F32 checkpoints are fp16 upcasts. OLMo 2's are fp32 masters, contrary
+  to the brief's "bf16" premise.
+
+## Next (Stage 1b, POST-HOC, declared as such)
+- Replace "any KDE mode" with Hartigan's dip test (null = all unimodal densities, heavy tails included) at
+  per-head α = 0.01.
+- Before applying it to real heads, measure:
+  - its false-positive rate on constructed confusables of matched shape: Student-t entries (ν = 2.5, 3, 4) and
+    spiked MP with 1–10 BBP outliers;
+  - its power on true two-peak spectra.
+- Report both calibrations alongside the real-head rates.
+
+## Outputs
+- results/stage1_verdict.json, results/stage1_long.parquet (G5 columns), plots/stage1_*.png.
+- Seal: seals/stage1_peak_criterion.json (34de628). Amendment A1: ee83e79.

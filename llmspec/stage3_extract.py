@@ -203,7 +203,7 @@ def run(model, rev):
         print(f"{model} {rev} streamed {sum(v.numel() for v in ck.gpu.values())*4/1e9:.2f} GB in {time.time()-t:.0f}s", flush=True)
         probes = np.load(ROOT / "results" / "probes.npz")
         out = markers(ck, probes)
-        np.savez(d / "MARKERS.tmp.npz", **out); (d / "MARKERS.tmp.npz").rename(mk)
+        R.durable_save(mk, lambda t: np.savez(t, **out))
         print(f"{model} {rev} markers loss_text={out['loss_text']:.3f} loss_rep2={out['loss_rep2']:.3f} "
               f"sink_frac={out['sink_frac']:.3f} max_induction={out['induction'].max():.3f}", flush=True)
         torch.cuda.empty_cache()
@@ -214,7 +214,7 @@ def run(model, rev):
     if not g.exists():
         out = {"g_f": gf.cpu().numpy()}
         full_svd(WE, out, "EMB"); full_svd(WU, out, "UNEMB")
-        np.savez(d / "GLOBAL.tmp.npz", **out); (d / "GLOBAL.tmp.npz").rename(g)
+        R.durable_save(g, lambda t: np.savez(t, **out))
     for L in range(n_layer):
         f = d / f"L{L:02d}.npz"
         if f.exists():
@@ -222,11 +222,11 @@ def run(model, rev):
         R.check_stop()
         t = time.time()
         out = layer(ck, L, EU)
-        np.savez(d / f"L{L:02d}.tmp.npz", **out); (d / f"L{L:02d}.tmp.npz").rename(f)
+        R.durable_save(f, lambda t: np.savez(t, **out))
         print(f"{model} {rev} L{L:02d} {time.time()-t:.1f}s", flush=True)
         torch.cuda.empty_cache()
     ck.gpu.clear(); torch.cuda.empty_cache()
-    (d / "DONE").write_text(EST)
+    R.durable_save(d / "DONE", lambda t: t.write_text(EST))
 
 
 if __name__ == "__main__":

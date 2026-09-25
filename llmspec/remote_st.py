@@ -19,6 +19,24 @@ class Stopped(Exception):
     pass
 
 
+def durable_save(path, save_fn):
+    """Write via a tmp file, fsync it, rename, fsync the directory. A WSL crash on 2026-09-25 left zero-length
+    files behind an atomic rename (the rename reached disk, the data did not); this ordering prevents that.
+    The tmp name ends in the target's own suffix so np.save/np.savez do not append another."""
+    import os
+    path = Path(path)
+    tmp = path.with_name(path.stem + ".tmp" + path.suffix)
+    save_fn(tmp)
+    with open(tmp, "rb") as f:
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
+    fd = os.open(path.parent, os.O_RDONLY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
 HOST_DISK = "/mnt/c"          # WSL `df /` reports the VHD; the VHD grows into C:, which is what fills
 HOST_RESERVE_GB = 10.0        # Will, 2026-09-25: keep 10 GB free on C: at all times
 

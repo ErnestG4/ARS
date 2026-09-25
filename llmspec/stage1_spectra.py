@@ -42,20 +42,18 @@ def bank(model, rev):
             if model.startswith("pythia"):   # stored F32 values are fp16 upcasts (G4): fp16 is LOSSLESS
                 f16 = full.astype(np.float16)
                 assert np.array_equal(f16.astype(np.float32), full), "not on the fp16 grid; refusing lossy save"
-                np.save(wd / f"L{L:02d}_{M}.npy", f16)
+                R.durable_save(wd / f"L{L:02d}_{M}.npy", lambda t: np.save(t, f16))
             else:
-                np.save(wd / f"L{L:02d}_{M}.npy", full)
+                R.durable_save(wd / f"L{L:02d}_{M}.npy", lambda t: np.save(t, full))
             out[f"rownorm_{M}"] = np.linalg.norm(ph.astype(np.float64), axis=-1)
             out[f"rms_head_{M}"] = np.sqrt((ph.astype(np.float64) ** 2).mean(axis=(-1, -2)))
             out[f"sig_head_{M}"] = P.singvals(ph)
             out[f"sig_full_{M}"] = P.singvals(full)[0]
             out[f"grid_{M}"] = np.array(json.dumps(S.grid_audit(full, dt)))
         out["estimator_version"] = np.array(EST)
-        tmp = f.with_suffix(".tmp.npz")
-        np.savez(tmp, **out)
-        tmp.rename(f)
+        R.durable_save(f, lambda t: np.savez(t, **out))
         print(f"{model} {rev} L{L:02d} {time.time()-t:.1f}s", flush=True)
-    (d / "DONE").write_text(EST)
+    R.durable_save(d / "DONE", lambda t: t.write_text(EST))
 
 
 if __name__ == "__main__":
