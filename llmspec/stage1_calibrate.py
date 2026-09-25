@@ -29,7 +29,8 @@ import numpy as np
 import torch
 import peaks as P
 
-OUT = Path(__file__).resolve().parent / "seals" / "stage1_peak_criterion.json"
+import os
+OUT = Path(__file__).resolve().parent / "seals" / os.environ.get("SEAL_OUT", "stage1_peak_criterion.json")
 PGRID = np.round(np.concatenate([[0.0, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 3e-3], np.arange(0.005, 0.1, 0.005),
                                  np.arange(0.1, 0.51, 0.02)]), 5)
 

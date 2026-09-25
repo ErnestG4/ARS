@@ -4,6 +4,20 @@ to banked spectra. Written and committed before any real spectrum was examined.
 Decision checkpoints (declared): OLMo = `main` (final, post stage-2); Pythia-1.4B = step143000.
 Also reported: OLMo stage1-step1907359 (end of stage 1); step-0 of both = G0 empirical null.
 Outputs: results/stage1_long.parquet (G5 columns), results/stage1_verdict.json, plots/stage1_*.png
+
+AMENDMENT A1 (POST-HOC, declared 2026-09-25 after the first run crashed on OLMo stage1-end and the raw
+spectra had been inspected; the sealed primary rule and decision thresholds are UNCHANGED):
+  * Spectra estimator v2 = direct fp64 SVD (v1 Gram eigvalsh could not resolve sigma < ~1e-8 sigma_max).
+  * Precision floor per head: floor = u * rms(W_head) * (sqrt(d_head) + sqrt(d_model)), u = unit roundoff
+    of the grid the stored values actually sit on (G4 audit: fp16 grid -> 2^-11, bf16 -> 2^-8, else 2^-24).
+  * RANK_COLLAPSED head: median sigma <= floor (sigma/median undefined). Excluded from mode counts; counted
+    and reported. Verdict fractions are reported over n_total (collapsed = not multimodal; the sealed
+    decision uses this, conservative) and over n_evaluable.
+  * Dead rows per head: rows with norm < t * max row norm, t in {1e-3, 1e-6, 1e-12} (robustness shown).
+  * Mode location split: NEAR_ZERO mode = KDE mode at x < 0.1; BULK modes = x >= 0.1. BULK_PEAKS verdict
+    applies the sealed thresholds to the bulk-mode count. Aim 1 (narrow peaks in the bulk) is about
+    BULK_PEAKS; a primary PEAKS carried only by near-zero modes is labelled NEAR_ZERO_MODES_ONLY.
+  * KDE grid: exact-subset sparse grid (verify_kde_sparse.py: 2040/2040 agree with dense; red-paths).
 """
 import json, sys
 from pathlib import Path
@@ -20,7 +34,7 @@ RUNS = [("olmo2-1b", "main", "final"), ("olmo2-1b", "stage1-step1907359-tokens40
         ("olmo2-1b", "stage1-step0-tokens0B", "step0"),
         ("pythia-1.4b", "step143000", "final"), ("pythia-1.4b", "step0", "step0")]
 MATS = "QKVO"
-EST = "stage1-analyze-v1"
+EST = "stage1-analyze-v2-A1"
 
 
 def load(model, rev):
@@ -45,6 +59,14 @@ def mp_sigma_pdf(c):
     return fs, lo, hi, med
 
 
+def unit_roundoff(grid):
+    if grid.get("frac_on_fp16_grid", 0) == 1.0:
+        return 2.0 ** -11
+    if grid.get("frac_on_bf16_grid", 0) == 1.0:
+        return 2.0 ** -8
+    return 2.0 ** -24
+
+
 def rule_verdict(k, n, frac_min):
     p = float(binom.sf(k - 1, n, 0.01)) if k > 0 else 1.0
     return {"k": int(k), "n": int(n), "frac": k / n, "binom_p_null01": p,
@@ -60,31 +82,65 @@ def main():
         step = rev
         v = {}
         for M in MATS:
-            xs = P.normalise(np.concatenate([z[f"sig_head_{M}"] for z in Ls]))  # (L*H, d_head)
+            grid = [json.loads(str(z[f"grid_{M}"])) for z in Ls]
+            u = unit_roundoff(grid[0])
+            assert all(unit_roundoff(g) == u for g in grid), "mixed storage grids across layers"
+            sig = np.concatenate([z[f"sig_head_{M}"] for z in Ls])          # (L*H, d_head) ascending
+            rms = np.concatenate([z[f"rms_head_{M}"] for z in Ls])
+            rn = np.concatenate([z[f"rownorm_{M}"] for z in Ls])
             H = Ls[0][f"sig_head_{M}"].shape[0]
-            a, _, info_a = P.count_batch(xs, uh["h_shape"], uh["p_star_all"], uh["m_min"], keep_info=True)
-            _, m = P.count_batch(xs, uh["h_shape"], uh["p_star_massive"], uh["m_min"])
-            xf = P.normalise(np.stack([z[f"sig_full_{M}"] for z in Ls]))
+            dh = sig.shape[1]
+            floor = u * rms * (np.sqrt(dh) + np.sqrt(S.MODELS[model]["d_model"]))
+            med = np.median(sig, 1)
+            collapsed = med <= floor
+            ev = ~collapsed
+            dead = {t: (rn < t * rn.max(1, keepdims=True)).sum(1) for t in (1e-3, 1e-6, 1e-12)}
+            n_below_floor = (sig < floor[:, None]).sum(1)
+            xs = np.zeros_like(sig); xs[ev] = sig[ev] / med[ev, None]
+            a = np.full(len(sig), -1); m = np.full(len(sig), -1); b = np.full(len(sig), -1)
+            nz = np.zeros(len(sig), int); info_a = [None] * len(sig)
+            if ev.any():
+                ae, _, ia = P.count_batch(xs[ev], uh["h_shape"], uh["p_star_all"], uh["m_min"], keep_info=True)
+                _, me = P.count_batch(xs[ev], uh["h_shape"], uh["p_star_massive"], uh["m_min"])
+                a[ev], m[ev] = ae, me
+                for j, i in enumerate(np.where(ev)[0]):
+                    info_a[i] = ia[j]
+                    b[i] = sum(1 for loc, _, _ in ia[j] if loc >= 0.1)
+                    nz[i] = sum(1 for loc, _, _ in ia[j] if loc < 0.1)
+            sf = np.stack([z[f"sig_full_{M}"] for z in Ls])
+            xf = P.normalise(sf)
             af, _ = P.count_batch(xf, uf["h_shape"], uf["p_star_all"], uf["m_min"])
             _, mf = P.count_batch(xf, uf["h_shape"], uf["p_star_massive"], uf["m_min"])
-            keep[(model, tag, M)] = (xs, a, info_a, xf, af)
-            for i in range(len(xs)):
-                for met, val in (("n_modes_all", a[i]), ("n_modes_massive", m[i])):
+            keep[(model, tag, M)] = (xs, a, info_a, xf, af, ev)
+            for i in range(len(sig)):
+                for met, val in (("n_modes_all", a[i]), ("n_modes_massive", m[i]), ("n_modes_bulk", b[i]),
+                                 ("n_modes_nearzero", nz[i]), ("rank_collapsed", collapsed[i]),
+                                 ("n_sigma_below_floor", n_below_floor[i]), ("precision_floor", floor[i]),
+                                 ("median_sigma", med[i]), ("dead_rows_1e-3", dead[1e-3][i]),
+                                 ("dead_rows_1e-6", dead[1e-6][i]), ("dead_rows_1e-12", dead[1e-12][i])):
                     rows.append((model, "base", step, i // H, M, i % H, "all", met, float(val), EST))
             for l in range(len(xf)):
                 for met, val in (("n_modes_all", af[l]), ("n_modes_massive", mf[l])):
                     rows.append((model, "base", step, l, M, -1, "all", met, float(val), EST))
-            grid = [json.loads(str(z[f"grid_{M}"])) for z in Ls]
+            n_ev = int(ev.sum())
             v[M] = {
+                "n_heads": len(sig), "n_rank_collapsed": int(collapsed.sum()),
+                "heads_with_dead_rows": {str(t): int((dead[t] > 0).sum()) for t in dead},
+                "dead_rows_total": {str(t): int(dead[t].sum()) for t in dead},
                 "per_head_primary": rule_verdict(int((a >= 2).sum()), len(a), 0.10),
+                "per_head_primary_over_evaluable": rule_verdict(int((a >= 2).sum()), max(n_ev, 1), 0.10),
                 "per_head_secondary_massive": rule_verdict(int((m >= 2).sum()), len(m), 0.10),
+                "per_head_bulk_A1": rule_verdict(int((b >= 2).sum()), len(b), 0.10),
+                "heads_with_nearzero_mode_A1": int((nz > 0).sum()),
                 "full_primary": rule_verdict(int((af >= 2).sum()), len(af), 0.25),
                 "full_secondary_massive": rule_verdict(int((mf >= 2).sum()), len(mf), 0.25),
                 "unimodal_frac_all": float((a == 1).mean()), "unimodal_frac_massive": float((m == 1).mean()),
-                "G4_grid": {"stored": grid[0]["stored"],
+                "G4_grid": {"stored": grid[0]["stored"], "unit_roundoff": u,
                             "min_frac_on_bf16": min(g.get("frac_on_bf16_grid", np.nan) for g in grid),
-                            "min_frac_on_fp16": min(g.get("frac_on_fp16_grid", np.nan) for g in grid)},
+                            "min_frac_on_fp16": min(g.get("frac_on_fp16_grid", np.nan) for g in grid),
+                            "heads_with_sigma_below_floor": int((n_below_floor > 0).sum())},
             }
+        bulk = any(v[M]["per_head_bulk_A1"]["shows_peaks"] for M in "QKV")
         prim = any(v[M]["per_head_primary"]["shows_peaks"] for M in "QKV")
         sec = any(v[M]["per_head_secondary_massive"]["shows_peaks"] for M in "QKV")
         full = any(v[M]["full_primary"]["shows_peaks"] for M in "QKV")
@@ -97,13 +153,17 @@ def main():
         else:
             label = "NO_PEAKS"
         v["model_label"] = label
+        v["model_label_bulk_A1"] = ("BULK_PEAKS" if bulk else
+                                    ("NEAR_ZERO_MODES_ONLY" if prim else "NO_BULK_PEAKS"))
         if tag == "step0":
             v["G0_pass"] = all(v[M]["unimodal_frac_all"] >= 0.985 and v[M]["unimodal_frac_massive"] >= 0.985
                                for M in MATS)
         v["flags"] = S.MODELS[model]["flags"]
         verdict[f"{model}:{tag}:{rev}"] = v
-        print(model, tag, label, {M: (v[M]["per_head_primary"]["k"], v[M]["per_head_secondary_massive"]["k"],
-                                      v[M]["full_primary"]["k"]) for M in MATS}, flush=True)
+        print(model, tag, label, v["model_label_bulk_A1"],
+              {M: dict(prim=v[M]["per_head_primary"]["k"], mass=v[M]["per_head_secondary_massive"]["k"],
+                       bulk=v[M]["per_head_bulk_A1"]["k"], nz=v[M]["heads_with_nearzero_mode_A1"],
+                       coll=v[M]["n_rank_collapsed"], full=v[M]["full_primary"]["k"]) for M in MATS}, flush=True)
 
     o = verdict["olmo2-1b:final:main"]["model_label"]
     p = verdict["pythia-1.4b:final:step143000"]["model_label"]
@@ -115,7 +175,17 @@ def main():
     else:
         dec = "BOTH: aim 1 trajectory work moves to Pythia"
     g0 = {k: v.get("G0_pass") for k, v in verdict.items() if "step0" in k}
+    ob = verdict["olmo2-1b:final:main"]["model_label_bulk_A1"]
+    pb = verdict["pythia-1.4b:final:step143000"]["model_label_bulk_A1"]
+    if ob != "BULK_PEAKS":
+        dec_b = "OLMO_NO_BULK_PEAKS"
+    elif pb != "BULK_PEAKS":
+        dec_b = "OLMO_ONLY (bulk)"
+    else:
+        dec_b = "BOTH (bulk): aim 1 trajectory work moves to Pythia"
     verdict["_decision"] = {"olmo_final": o, "pythia_final": p, "stage1_decision": dec, "G0": g0,
+                            "olmo_final_bulk_A1": ob, "pythia_final_bulk_A1": pb,
+                            "stage1_decision_bulk_A1_posthoc": dec_b,
                             "resolution_note": "per-head criterion resolves narrow peaks separated by >= ~0.12 "
                             "(sigma/median units); full-matrix unit is far coarser (h=%.3f)" % uf["h_shape"]}
     (ROOT / "results").mkdir(exist_ok=True)
@@ -135,12 +205,15 @@ def plots(keep, uh, uf):
     fs_h, lo_h, hi_h, med_h = mp_sigma_pdf(128 / 2048)
     fs_f, lo_f, hi_f, med_f = mp_sigma_pdf(1.0 - 1e-9)
     bins = np.linspace(0, 3, 61)   # FIXED binning in x = sigma/median, all heads
-    for (model, tag, M), (xs, a, info, xf, af) in keep.items():
+    for (model, tag, M), (xs, a, info, xf, af, ev) in keep.items():
         L = S.MODELS[model]["n_layer"]; H = S.MODELS[model]["n_head"]
         fig, axs = plt.subplots(L, H, figsize=(H * 1.1, L * 0.8), sharex=True)
         sg = np.linspace(lo_h, hi_h, 300)
         for i, x in enumerate(xs):
             ax = axs[i // H, i % H]
+            if not ev[i]:
+                ax.set_title(f"L{i//H}h{i%H} COLLAPSED", fontsize=4, color="C1", pad=1); ax.set_yticks([])
+                continue
             ax.hist(np.clip(x, 0, 3), bins=bins, density=True, color="0.7")
             g, d = P.kde(x, uh["h_shape"])
             ax.plot(g, d, lw=0.6, color="C0" if a[i] < 2 else "C3")

@@ -4,6 +4,9 @@ Banks (raw object, per no-forbidden-recompute): cache/spectra/<model>/<rev>/L<la
   sig_head_<M>  (n_head, d_head)  singular values of the per-head d_head x d_model block, fp64
   sig_full_<M>  (d_model,)        singular values of the full layer matrix, fp64
   grid_<M>      json              G4 grid audit of the stored tensor
+  rownorm_<M>   (n_head, d_head)  row norms of each per-head block (dead-row diagnostic)
+  rms_head_<M>  (n_head,)         entry rms per head (precision floor = u * rms * (sqrt p + sqrt n))
+Raw tensors are banked too: cache/weights/<model>/<rev>/L<layer>_<M>.npy (as stored, F32/F16).
 for M in Q, K, V, O.  Usage: stage1_spectra.py <model> <rev> [<rev> ...]
 """
 import json, sys, time
@@ -14,7 +17,7 @@ import specs as S
 import peaks as P
 
 ROOT = Path(__file__).resolve().parent
-EST = "stage1-spectra-v1 (gram-eigvalsh fp64 cuda)"
+EST = "stage1-spectra-v2 (direct svdvals fp64 cuda)"
 
 
 def bank(model, rev):
@@ -32,7 +35,12 @@ def bank(model, rev):
         t = time.time()
         blocks = S.attn_blocks(model, idx, L, R.fetch)
         out = {}
+        wd = ROOT / "cache" / "weights" / model / rev
+        wd.mkdir(parents=True, exist_ok=True)
         for M, (full, ph, dt) in blocks.items():
+            np.save(wd / f"L{L:02d}_{M}.npy", full)
+            out[f"rownorm_{M}"] = np.linalg.norm(ph.astype(np.float64), axis=-1)
+            out[f"rms_head_{M}"] = np.sqrt((ph.astype(np.float64) ** 2).mean(axis=(-1, -2)))
             out[f"sig_head_{M}"] = P.singvals(ph)
             out[f"sig_full_{M}"] = P.singvals(full)[0]
             out[f"grid_{M}"] = np.array(json.dumps(S.grid_audit(full, dt)))
