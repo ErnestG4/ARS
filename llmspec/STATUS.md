@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 14:25 PDT
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 14:25 PDT (alarm check 14:24: all jobs alive)
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
 GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
@@ -30,6 +30,9 @@ GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue f
   generator (82ef74b). Analysis + estimator known answers (44b9f77).
 
 ## Running
+- **Automation:** chain2.sh → supervise.sh runs queue4 then queue5 (stage3_motion, stage3_analyze). It auto-resumes after a
+  memwatch STOP once host commit is > 8 GB; a manual STOP ends it.
+- **Done:** G7 → STAGE2_FINDINGS.md (NOT LICENSED as registered; raw ⟨r̃⟩ licensed).
 - **queue4 (GPU):**
   - Extract step143000 + step0 (markers at the final checkpoint: loss 2.10, rep-loss 0.28, max induction 0.97).
   - Then stage3_witness (~40 min).
