@@ -28,20 +28,108 @@ import remote_st as R
 
 ROOT = Path(__file__).resolve().parent
 DEV = "cuda"
+# Memory budget after three WSL crashes (Windows commit exhaustion, 2026-09-25): checkpoint tensors live on the
+# GPU as fp16 -- EXACT, since Pythia's stored F32 values are fp16 upcasts (asserted per tensor) -- and are
+# upcast to fp64 per matrix for SVD / to fp32 per layer for the forward pass. Hard per-process cap: an
+# overrun raises OutOfMemoryError instead of taking the WSL VM down.
+GPU_CAP_GB = 6.0
+if torch.cuda.is_available():
+    torch.cuda.set_per_process_memory_fraction(GPU_CAP_GB * 2 ** 30 / torch.cuda.get_device_properties(0).total_memory)
 EST = "stage3-extract-v1 (fp64 cuda svd; LN gains folded, centering/bias ignored)"
 H, DH, D, ROT = 16, 128, 2048, 32
 SQ2 = np.sqrt(2.0)
 
 
 class Ckpt:
+    """Streams tensors HF -> GPU, cached as fp16 (exact: asserted on the fp16 grid); t() hands out fp64 copies."""
     def __init__(self, model, rev):
         import specs as S
-        self.idx = R.index(S.MODELS[model]["repo"], rev)
+        self.repo, self.rev = S.MODELS[model]["repo"], rev
+        self.idx = R.index(self.repo, rev)
         self.h = self.idx
+        self.gpu = {}
+
+    def get32(self, k):
+        if k not in self.gpu:
+            a, _ = R.fetch(self.idx, k)
+            a16 = a.astype(np.float16)
+            assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid; fp16 cache would be lossy"
+            self.gpu[k] = torch.from_numpy(a16).to(DEV)
+        return self.gpu[k]
 
     def t(self, k):
-        a, _ = R.fetch(self.idx, k)
-        return torch.from_numpy(np.array(a, dtype=np.float32)).to(DEV, torch.float64)
+        return self.get32(k).to(torch.float64)   # fp16 -> fp64 is exact
+
+    def fetch_all(self):
+        for k in self.idx:
+            self.get32(k)
+
+
+def build_model(ck):
+    """GPTNeoX on the meta device, weights ASSIGNED from the streamed GPU tensors (no second copy)."""
+    from transformers import AutoConfig, GPTNeoXForCausalLM
+    cfg = AutoConfig.from_pretrained(ck.repo, revision=ck.rev)
+    cfg._attn_implementation = "eager"
+    with torch.device("meta"):
+        m = GPTNeoXForCausalLM(cfg)
+    sd = {k: v for k, v in ck.gpu.items() if k in m.state_dict()}   # fp16 on GPU
+    missing, unexpected = m.load_state_dict(sd, strict=False, assign=True)
+    assert not missing, f"missing weights: {missing[:5]}"
+    for name, mod in m.named_modules():          # non-persistent buffers (rotary inv_freq) left on meta: rebuild
+        if any(b.is_meta for b in mod.buffers(recurse=False)):
+            if hasattr(mod, "rope_init_fn") or "rotary" in name:
+                new = type(mod)(cfg, device=DEV)
+                parent = m.get_submodule(name.rsplit(".", 1)[0]) if "." in name else m
+                setattr(parent, name.rsplit(".", 1)[-1], new)
+    bad = [n for n, t in list(m.named_parameters()) + list(m.named_buffers()) if t.is_meta]
+    assert not bad, f"meta tensors left: {bad[:5]}"
+    # EXACT fp32 inference with fp16 storage: each module's parameters are swapped for transient fp32 copies
+    # just before it runs and the ORIGINAL fp16 tensors (shared with ck.gpu) are restored after -- no second
+    # resident copy; fp16 -> fp32 is exact for these values, so the arithmetic equals an fp32 model's.
+    def up(mod, args):
+        for p in mod.parameters():
+            p._orig16 = p.data
+            p.data = p.data.float()
+    def down(mod, args, out):
+        for p in mod.parameters():
+            p.data = p._orig16
+            del p._orig16
+    for mod in [m.gpt_neox.embed_in, m.embed_out, m.gpt_neox.final_layer_norm, *m.gpt_neox.layers]:
+        mod.register_forward_pre_hook(up)
+        mod.register_forward_hook(down)
+    return m.eval()
+
+
+@torch.no_grad()
+def markers(ck, probes):
+    """STAGE3_PREREG Events: text loss, sink (mean attention to position 0, queries >= 16), induction
+    (attention i -> i-255 on r++r, second half) and second-half loss on the repeated sequences."""
+    m = build_model(ck)
+    nL, nH = m.config.num_hidden_layers, m.config.num_attention_heads
+    ce = torch.nn.functional.cross_entropy
+    sink = torch.zeros(nL, nH, device=DEV); tl = []
+    text = torch.as_tensor(probes["text"], device=DEV)
+    for b in range(0, len(text), 2):
+        ids = text[b:b + 2]
+        o = m(ids, output_attentions=True)
+        tl.append(ce(o.logits[:, :-1].flatten(0, 1).float(), ids[:, 1:].flatten(), reduction="none"))
+        for L, A in enumerate(o.attentions):
+            sink[L] += A[:, :, 16:, 0].mean(-1).sum(0)
+    sink /= len(text)
+    ind = torch.zeros(nL, nH, device=DEV); rl = []
+    rep = torch.as_tensor(probes["rep"], device=DEV)
+    i = torch.arange(256, 512, device=DEV)
+    for b in range(0, len(rep), 2):
+        ids = rep[b:b + 2]
+        o = m(ids, output_attentions=True)
+        rl.append(ce(o.logits[:, 256:-1].flatten(0, 1).float(), ids[:, 257:].flatten(), reduction="none"))
+        for L, A in enumerate(o.attentions):
+            ind[L] += A[:, :, i, i - 255].mean(-1).sum(0)
+    ind /= len(rep)
+    del m
+    return {"loss_text": float(torch.cat(tl).mean()), "loss_rep2": float(torch.cat(rl).mean()),
+            "sink_mean": sink.cpu().numpy(), "sink_frac": float((sink > 0.5).float().mean()),
+            "induction": ind.cpu().numpy(), "estimator_version": "stage3-markers-v1"}
 
 
 def vec_stats(U):
@@ -107,6 +195,18 @@ def run(model, rev):
         return
     ck = Ckpt(model, rev)
     n_layer = 1 + max(int(k.split(".")[2]) for k in ck.h if k.startswith("gpt_neox.layers."))
+    mk = d / "MARKERS.npz"
+    if not mk.exists():
+        R.check_stop()
+        t = time.time()
+        ck.fetch_all()
+        print(f"{model} {rev} streamed {sum(v.numel() for v in ck.gpu.values())*4/1e9:.2f} GB in {time.time()-t:.0f}s", flush=True)
+        probes = np.load(ROOT / "results" / "probes.npz")
+        out = markers(ck, probes)
+        np.savez(d / "MARKERS.tmp.npz", **out); (d / "MARKERS.tmp.npz").rename(mk)
+        print(f"{model} {rev} markers loss_text={out['loss_text']:.3f} loss_rep2={out['loss_rep2']:.3f} "
+              f"sink_frac={out['sink_frac']:.3f} max_induction={out['induction'].max():.3f}", flush=True)
+        torch.cuda.empty_cache()
     gf = ck.t("gpt_neox.final_layer_norm.weight")
     WE, WU = ck.t("gpt_neox.embed_in.weight"), ck.t("embed_out.weight")
     EU = WE.T @ (WU * gf)                                   # (D, D) = W_E^T W_U diag(g_f)
@@ -125,6 +225,7 @@ def run(model, rev):
         np.savez(d / f"L{L:02d}.tmp.npz", **out); (d / f"L{L:02d}.tmp.npz").rename(f)
         print(f"{model} {rev} L{L:02d} {time.time()-t:.1f}s", flush=True)
         torch.cuda.empty_cache()
+    ck.gpu.clear(); torch.cuda.empty_cache()
     (d / "DONE").write_text(EST)
 
 

@@ -7,6 +7,8 @@ import numpy as np
 MODELS = {
     "olmo2-1b": dict(repo="allenai/OLMo-2-0425-1B", n_layer=16, n_head=16, d_head=128, d_model=2048,
                      flags="QK-norm (full-width q_norm/k_norm) + full RoPE: no position-free W_Q^T W_K; Q,K analysed separately"),
+    "pythia-160m": dict(repo="EleutherAI/pythia-160m", n_layer=12, n_head=12, d_head=64, d_model=768,
+                        flags="partial rotary (25%), no QK-norm; used for the fp32-equivalence check"),
     "pythia-1.4b": dict(repo="EleutherAI/pythia-1.4b", n_layer=24, n_head=16, d_head=128, d_model=2048,
                         flags="partial rotary (25%), no QK-norm"),
 }

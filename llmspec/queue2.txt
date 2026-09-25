@@ -1,0 +1,4 @@
+s1_spectra_v2_olmo|/home/combust/fmexplorer/bin/python3 -u stage1_spectra.py olmo2-1b main stage1-step1907359-tokens4001B stage1-step0-tokens0B
+s1_spectra_v2_pythia|/home/combust/fmexplorer/bin/python3 -u stage1_spectra.py pythia-1.4b step143000 step0
+s1_analyze_v2|/home/combust/fmexplorer/bin/python3 -u stage1_analyze.py
+s1_calibrate_v2check|SEAL_OUT=stage1_peak_criterion.v2check.json /home/combust/fmexplorer/bin/python3 -u stage1_calibrate.py
