@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 14:25 PDT (alarm check 14:24: all jobs alive)
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 14:50 PDT (anchors extracted; witness running, W_Q witness bulk <r~> 0.5309 q 1.008, scale-invariant)
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
 GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
