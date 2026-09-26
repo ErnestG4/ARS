@@ -171,7 +171,12 @@ and NOT pushed.
    - **1B DONE (09:52):** null HOLDS 260/260. R1, R2, R4, R5, R6 REPLICATE. **R3 DOES NOT** (V 2.98, O 1.80 < 3).
    - **410M DONE (12:54):** null HOLDS 260/260. R2, R4, R5, R6 REPLICATE. **R1 DOES NOT** (norm clause: rows 0.2704 >
      0.27). **R3 DOES NOT** (V 1.89, O 1.43, MLP_OUT 2.11). Cross-size table in STAGE3_REPL_FINDINGS.md.
-3b. Seed leg RUNNING since 12:54 (queue_seeds; seed1 first).
+3b. Seed leg RUNNING since 12:54, split at 13:40 into two supervisors:
+   - GPU: supervise PID 128268 → queue_seeds.txt = extract + motion_eq for seeds 1..9, then scalecheck. Rewritten in
+     place; same inode; line 1 unchanged.
+   - CPU: supervise PID 182787 → queue_seeds_cpu.txt = per seed, wait for its 10 motion_eq files → analyze
+     (LLMSPEC_WITNESS=pythia-410m) → repl.
+   - ETA ~13 h total (~88 min GPU per seed). Seed 1 final loss 2.338 (standard 410M 2.33).
 3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
    Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
    - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is
