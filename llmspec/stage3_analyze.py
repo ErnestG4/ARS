@@ -98,6 +98,12 @@ def mp_fit_v2(sig, m, n, tau_p, tau_m):
            "mp2_sigma_max_over_Eplus": float(sig.max() / Ep)}
     if Em > 0 and tau_m is not None:
         res["mp2_n_lower_departures"] = int((sig < tau_m * Em).sum())
+    else:   # square: lowest-10% KS against MP conditioned on its lowest 10%, at the v2 (median-matched) scale
+        x = np.sort(sig ** 2 / (nmax * s * s))
+        k = max(1, int(0.10 * len(x)))
+        Fc = np.clip(np.interp(x[:k], g, F) / 0.10, 0, 1)
+        i = np.arange(1, k + 1)
+        res["mp2_lower10_ks"] = float(max((i / k - Fc).max(), (Fc - (i - 1) / k).max()))
     return res
 
 
