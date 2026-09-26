@@ -22,6 +22,14 @@ EST = "stage3-motion-v1"
 MATS = ("Q", "K", "V", "O", "MLP_IN", "MLP_OUT")
 
 
+def sigma_max(dW):
+    """Largest singular value via the top eigenvalue of the smaller fp64 Gram matrix. Exact for the TOP eigenvalue
+    (absolute error ~1e-16 * sigma_max^2); 25x faster than the full SVD behind matrix_norm(ord=2), which made the
+    pass GPU-bound at ~640 s per pair. Agreement with matrix_norm is checked in verify_motion_sigma.py."""
+    G = dW @ dW.T if dW.shape[0] <= dW.shape[1] else dW.T @ dW
+    return float(torch.linalg.eigvalsh(G)[-1].clamp_min(0).sqrt())
+
+
 def fetch_layer(idx, L):
     """One layer's six matrices, streamed HF -> GPU as fp16 (exact: asserted on the fp16 grid)."""
     p = f"gpt_neox.layers.{L}."
@@ -64,7 +72,7 @@ def main(revs):
                     Wa, Wb = prev[L][M].double(), cur[M].double()
                     dW = Wb - Wa
                     f2 = float((dW ** 2).sum())
-                    smax = float(torch.linalg.matrix_norm(dW, ord=2)) if f2 > 0 else 0.0
+                    smax = sigma_max(dW) if f2 > 0 else 0.0
                     U = torch.from_numpy(Ua[L][f"U32_{M}"]).to(X.DEV, torch.float64)
                     res[f"L{L:02d}_{M}_dW_fro_rel"] = np.sqrt(f2) / float(Wa.norm())
                     res[f"L{L:02d}_{M}_dW_stable_rank"] = f2 / smax ** 2 if smax > 0 else np.nan

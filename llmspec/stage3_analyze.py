@@ -333,6 +333,16 @@ def main():
                     v = float(v)
                 put(rev, l, M, -1, "all", k, v, EST["mle"] if k.startswith("mle_") else (EST["liu"] if k.startswith("liu") else
                                                 ("mp_fit_v2" if k.startswith("mp2_") else EST["mp"])))
+    # ---- motion (stage3_motion): Delta W between consecutive schedule revisions, filed at the LATER step
+    for f in sorted((ROOT / "cache" / "s3_motion").glob("*__*.npz")):
+        a, b = f.stem.split("__")
+        z = np.load(f)
+        for k in z.files:
+            if k == "estimator_version":
+                continue
+            L, M, metric = int(k[1:3]), k[4:].split("_dW_")[0], "dW_" + k.split("_dW_")[1]
+            put(b, L, M, -1, "all", metric, float(z[k]), "stage3-motion-v1")
+            put(b, L, M, -1, "all", metric + "_from_step", float(step_of(a)), "stage3-motion-v1")
     df = pd.DataFrame(rows, columns=["model", "variant", "step", "layer", "matrix", "head", "band", "metric", "value",
                                      "estimator_version"])
     df.to_parquet(ROOT / "results" / f"stage3_long{TAG}.parquet")
