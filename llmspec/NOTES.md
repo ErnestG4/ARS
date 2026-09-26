@@ -187,3 +187,7 @@ and NOT pushed.
   differ from the observed before reading "observed = null".
 - Timing claims need the training schedule (LR warmup/decay) and the checkpoint grid beside them.
 - A count against a fitted edge is only meaningful while the fit holds. Track goodness of fit.
+- A regression gate on the DEFAULT path cannot catch a default leaking into a new configuration. The model-general
+  refactor passed bit-identical 1.4B regressions while stage3_motion_eq still hard-coded 1.4B's LR peak (caught at
+  12:10 on 09-26, before any use; fixed in ba7839b). When generalising, grep for every numeric constant tied to the
+  old configuration, not just shapes.
