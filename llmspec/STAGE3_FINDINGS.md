@@ -325,3 +325,17 @@ conflict with this section.
     0.042 vs 0.034 (the band is re-sampled).
 - All six criteria read REPLICATES on 1.4B, and none is near its threshold.
 - So the scorer is validated before its Pythia-1B / 410M verdicts are read.
+
+## 15. Change-point null calibration (stage3_cp_null.py; rule declared before running; results/stage3_cp_null.json)
+- **Setup:** smooth monotone curves with NO change point, run through the same BIC binary segmentation at the 25
+  schedule steps.
+  - Noise is matched to the observed series: median relative residual SD 0.085, tested at 0.5× / 1× / 2×.
+- **False change-point rates:**
+  - sigmoid: 0.98 / 0.86 / 0.59
+  - saturating exponential: 0.98 / 0.89 / 0.70
+  - pure linear: 0.18 / 0.22 / 0.16
+- **Verdict: NOT LICENSED** (the rule required ≤ 0.05). The 270/337 series with "changes" in the 1.4B run are what
+  smooth trajectories produce under this detector.
+  - Change points carry no evidential weight, and no event alignment rests on them. The earlier "descriptive only"
+    label is now calibrated, not just asserted.
+  - A licensed change detector would need a null-calibrated penalty; this is not attempted.

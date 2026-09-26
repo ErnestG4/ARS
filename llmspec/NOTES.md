@@ -166,7 +166,7 @@ and NOT pushed.
    - When done: STAGE3_REPL_FINDINGS.md (sealed null per model first; then R1–R6 REPLICATES / DOES NOT; nulls as
      nulls).
 3. PolyPythias seed leg (410M; seeds change init + data order).
-4. Change-point null calibration.
+4. ~~Change-point null calibration~~ DONE (§15): NOT LICENSED (false-CP rate 0.59–0.98 on smooth nulls).
 5. Zoo seating of the G7 classes (branch-merge session).
 - HELD: arm B; OLMo stage-1 trajectory.
 
