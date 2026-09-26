@@ -258,3 +258,33 @@ conflict with this section.
 - **Scope differences from Diffract** (to reconcile before calling anything a non-replication): here "bulk" is a
   rank band, not the MP bulk, and every matrix is permuted simultaneously. G2b's mpbulk and dose conditions address
   both.
+
+## 11. G2b controls — result (stage3_g2b.py, pre-registered 86b6b31, amended 0190896; results/stage3_g2b.json)
+- **SIZE (registered rule, like-for-like control).** A Gaussian perturbation confined to the same bulk singular
+  subspace, size-matched on ‖W′ − W‖_F, costs **+1.80 nats** (1.79 / 1.72 / 1.87), against G2's bulk shuffle at
+  +2.67. The ratio 0.67 is ≥ 0.5, so **perturbation size explains at least half of the effect, and "the ordering of
+  bulk singular values carries function" is NOT established.**
+  - The isotropic size-matched control costs +6.23 (harsher: it also hits the top directions the shuffle leaves
+    alone).
+- **GRADED.** Shuffles confined to windows of k = 2 / 8 / 32 neighbouring bulk ranks cost ≈ 0 (≤ +0.0001 nats).
+  - Local reordering of bulk σ is functionally inert. Only large-scale reordering, which moves a direction's gain by
+    a factor of several, costs loss.
+  - This agrees with SIZE: the loss tracks how far the gains move, not their fine ordering.
+- **mpbulk.** Permuting every σ below the fitted MP edge costs +7.9 / +8.2 / +8.4.
+  - This is NOT a gentler, Diffract-style bulk. Trained spectra fail the MP fit (§9), so the fitted edge sits high:
+    "below the edge" spans ranks ~162–2048 and includes large σ.
+  - For trained Pythia the "MP bulk" is not a well-defined region, so this condition cannot serve as the Diffract
+    reconciliation.
+- **DOSE.**
+  - One matrix (L12 Q / L12 MLP_IN): +0.005 / +0.005.
+  - One layer (L12 / L0, all six): +0.035 / +0.080.
+  - All 144 (G2): +2.67.
+  - The effect is **strongly superadditive** across layers: 24 single layers at ~0.05 each would sum to ~1.2.
+- **Reading.**
+  - Shuffling the middle-80% singular values of every matrix at once is costly, but mostly because of how much it
+    perturbs the weights: a same-subspace random perturbation of equal size costs two-thirds as much. Locally
+    reordering the same values costs nothing.
+  - Per-matrix and per-layer shuffles are nearly harmless (≤ 0.08 nats). That is closer to Diffract's "bulk
+    permutation roughly harmless", which may have been per-matrix or per-layer; their scope is not confirmed here.
+  - The registered "Diffract replicates = false" stands as sealed, attributed to scope (all 144 matrices at once) and
+    size, not to evidence that bulk ordering carries function.
