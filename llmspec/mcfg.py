@@ -18,6 +18,11 @@ MODELS = {
 for _k in range(1, 10):   # PolyPythias seed leg: same architecture/config as 410M; weights only as pytorch_model.bin
     MODELS[f"pythia-410m-seed{_k}"] = dict(repo=f"EleutherAI/pythia-410m-seed{_k}", n_layer=24, H=16, DH=64, D=1024,
                                            FF=4096, sched="pythia_1.4b_schedule.txt", fmt="bin")
+LR_PEAK = {"pythia-1.4b": 2.0e-4, "pythia-1b": 2.5e-4, "pythia-410m": 3.0e-4}   # EleutherAI/pythia models/*.yml
+for _k, _m in MODELS.items():
+    _m["lr_peak"] = LR_PEAK.get(_k, 3.0e-4 if _k.startswith("pythia-410m") else None)
+    _m["lr_min"] = _m["lr_peak"] / 10 if _m["lr_peak"] else None      # cosine decay to 10% of peak (all sizes)
+    _m["warmup"] = 1430                                               # 0.01 x 143000 (all sizes)
 for _m in MODELS.values():
     _m["ROT"] = _m["DH"] // 4
     _m.setdefault("fmt", "safetensors")

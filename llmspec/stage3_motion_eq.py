@@ -16,8 +16,12 @@ import stage3_motion as MO
 import mcfg
 ROOT = Path(__file__).resolve().parent
 PAIRS = [(t, t + 1000) for t in (1000, 2000, 3000, 4000, 7000, 15000, 31000, 63000, 127000, 142000)]
-Wu, T, LR0, LRmin = 1430, 143000, 2e-4, 2e-5
-def lr(t):
+T = 143000
+def lr(t, model=None):
+    """The model's OWN schedule (mcfg: peak per EleutherAI yml, 10% floor, warmup 1430). FIXED 2026-09-26 12:10: the first
+    version hard-coded 1.4B's peak (2e-4), so lr_integral / dW_fro_per_lr for 1B and 410M were off by 1.25x / 1.5x; the
+    banked files were corrected by stage3_motion_eq_lrfix.py. Stable ranks were never affected."""
+    c = mcfg.get(model); Wu, LR0, LRmin = c["warmup"], c["lr_peak"], c["lr_min"]
     t = np.asarray(t, float)
     return np.where(t < Wu, LR0 * t / Wu, LRmin + (LR0 - LRmin) / 2 * (np.cos(np.pi * (t - Wu) / (T - Wu)) + 1))
 def main():
