@@ -34,3 +34,4 @@ s3s_extract_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 /home/combust/fmex
 s3s_motioneq_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
 s3s_analyze_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
 s3s_repl_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_scalecheck|/home/combust/fmexplorer/bin/python3 -u stage3_seed_scalecheck.py
