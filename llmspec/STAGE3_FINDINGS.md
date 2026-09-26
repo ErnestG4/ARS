@@ -240,3 +240,21 @@ conflict with this section.
   as a harsher bound.
 - **G2 bulk shuffle is stable:** +2.66 / +2.64 / +2.70 nats (3 seeds). Full shuffle: +9.30 / +9.52. What it means is
   for the controls to decide.
+
+## 10. G2 functional witness — result as pre-registered (stage3_g2.py, 0970140; results/stage3_g2.json)
+- **Setup:** step 143000, text-probe loss (baseline 2.0983), σ permuted within a rank band in all 144 layer matrices,
+  rebuilt in fp16.
+- **Results:**
+  - Identity control: Δloss +0.0000, so the witness is valid.
+  - bulk (ranks 10–90%): +2.66 / +2.64 / +2.70 → **FUNCTIONAL**.
+  - full: +9.30 / +9.52 / +9.46 → FUNCTIONAL (≥ 1 nat).
+  - upper (90–99%): +0.10 (3 seeds) → FUNCTIONAL by the registered threshold (3 × |identity| + 0.01 = 0.01).
+  - lower (1–10%): +0.007 → INERT.
+- **Registered verdict:** "Diffract replicates" = **false**, because the bulk is not inert.
+- **Interpretation is deferred to G2b** (pre-registered 86b6b31, amended 0190896 before running). The first control is
+  already in and warns against reading "bulk ordering carries function" off this: the isotropic Gaussian
+  perturbation, size-matched on ‖W′ − W‖_F, costs **+6.13 nats**, much more than the bulk shuffle it matches. So size
+  alone is ample to explain large losses. The like-for-like bulk-subspace control decides the registered rule.
+- **Scope differences from Diffract** (to reconcile before calling anything a non-replication): here "bulk" is a
+  rank band, not the MP bulk, and every matrix is permuted simultaneously. G2b's mpbulk and dose conditions address
+  both.
