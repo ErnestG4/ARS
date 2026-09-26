@@ -6,6 +6,11 @@ Conditions (each applied to the stated scope; the SVD is always taken from the O
   sizematched:s  (s = 1, 2, 3; all 144 matrices)  W + G, G i.i.d. Gaussian with ||G||_F equal to ||W'_bulk(s) - W||_F
                  for that matrix (W'_bulk(s) = G2's bulk permutation, same seed). Same perturbation SIZE, no
                  singular-value structure.
+  sizematched_bulksub:s  (s = 1, 2, 3; all 144 matrices)  AMENDMENT (review, before any G2b condition ran):
+                 W + U_b A V_b^T, where U_b and V_b are W's singular vectors of the BULK band (the pairs G2's bulk shuffle
+                 touches) and A is a k x k i.i.d. Gaussian, scaled so ||U_b A V_b^T||_F equals ||W'_bulk(s) - W||_F.
+                 Same size AND same subspace as the treatment; the isotropic sizematched hits the top singular
+                 directions the shuffle leaves untouched, so it is harsher than the treatment.
   local{k}:s     (k = 2, 8, 32; s = 1, 2; all matrices)  sigma permuted only within consecutive blocks of k ranks
                  inside the BULK band -- a graded, gentler shuffle.
   mpbulk:s       (s = 1, 2, 3; all matrices)  sigma permuted only among values at or below the fitted MP upper edge
@@ -13,9 +18,11 @@ Conditions (each applied to the stated scope; the SVD is always taken from the O
   dose_*         (bulk shuffle, seed 1)  scope = one matrix (L12 Q; L12 MLP_IN), one layer (L0; L12, all six), for
                  comparison with G2's all-144 bulk:1.
 Readings, fixed now:
-  SIZE: if the mean sizematched dloss >= 0.5 x the mean G2 bulk dloss, perturbation size explains at least half of
-    the effect, and "the ordering of bulk singular values carries function" is NOT established. Otherwise ordering
-    matters beyond size.
+  SIZE (amended: the comparison is with the like-for-like control): if the mean sizematched_bulksub dloss >= 0.5 x
+    the mean G2 bulk dloss, perturbation size explains at least half of the effect, and "the ordering of bulk
+    singular values carries function" is NOT established. Otherwise ordering matters beyond size. The isotropic
+    sizematched is reported as a harsher bound. (Both match ||W' - W||_F, never ||W||_F: a permutation preserves
+    ||W||_F.)
   GRADED: local{k} dloss is reported against k, and mpbulk against bulk; no pass/fail.
   DOSE: dloss per scope is reported; no pass/fail.
 Output: results/stage3_g2b.json (resumable per condition).
@@ -33,7 +40,7 @@ import s3stats as S
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "results" / "stage3_g2b.json"
-CONDS = ([("sizematched", s, None) for s in (1, 2, 3)] + [(f"local{k}", s, None) for k in (2, 8, 32) for s in (1, 2)]
+CONDS = ([("sizematched", s, None) for s in (1, 2, 3)] + [("sizematched_bulksub", s, None) for s in (1, 2, 3)] + [(f"local{k}", s, None) for k in (2, 8, 32) for s in (1, 2)]
          + [("mpbulk", s, None) for s in (1, 2, 3)]
          + [("dose_L12_Q", 1, [(12, "Q")]), ("dose_L12_MLP_IN", 1, [(12, "MLP_IN")]),
             ("dose_L0_all", 1, [(0, m) for m in ("Q", "K", "V", "O", "MLP_IN", "MLP_OUT")]),
@@ -95,7 +102,17 @@ def main():
                 U, s, Vh = torch.linalg.svd(W, full_matrices=False)
                 sd = s.cpu().numpy()
                 sb = G2.perm_sigma(sd, "bulk", seed + 1000 * L + (j or 0))     # G2's exact bulk permutation
-                if kind == "sizematched":
+                if kind == "sizematched_bulksub":
+                    d = float(((U * (torch.from_numpy(sb).to(X.DEV) - s)) @ Vh).norm())
+                    n = len(sd); a_, b_ = S.band_idx(n, "bulk")
+                    lo_, hi_ = n - b_, n - a_                                     # bulk band in DESCENDING order
+                    Ub, Vb = U[:, lo_:hi_], Vh[lo_:hi_]
+                    gen = torch.Generator(device=X.DEV).manual_seed(seed * 100000 + 1000 * L + (j or 0) + 7)
+                    Am = torch.randn((hi_ - lo_, hi_ - lo_), generator=gen, device=X.DEV, dtype=torch.float64)
+                    P_ = Ub @ Am @ Vb
+                    Wn = (W + P_ * (d / float(P_.norm()))).half()
+                    del P_, Am
+                elif kind == "sizematched":
                     d = float(((U * (torch.from_numpy(sb).to(X.DEV) - s)) @ Vh).norm())
                     gen = torch.Generator(device=X.DEV).manual_seed(seed * 100000 + 1000 * L + (j or 0))
                     Gm = torch.randn(W.shape, generator=gen, device=X.DEV, dtype=torch.float64)
@@ -121,8 +138,10 @@ def main():
         print(f"{key}: dloss {loss - res['baseline']:+.4f} ({time.time()-t:.0f}s)", flush=True)
     bulk = np.mean([g2["conds"][f"bulk:{s}"]["dloss"] for s in (1, 2, 3)])
     sm = np.mean([res["conds"][f"sizematched:{s}"]["dloss"] for s in (1, 2, 3)])
-    res["reading"] = {"g2_bulk_mean_dloss": bulk, "sizematched_mean_dloss": sm,
-                      "size_explains_half_or_more": bool(sm >= 0.5 * bulk)}
+    smb = np.mean([res["conds"][f"sizematched_bulksub:{s}"]["dloss"] for s in (1, 2, 3)])
+    res["reading"] = {"g2_bulk_mean_dloss": bulk, "sizematched_bulksub_mean_dloss": smb,
+                      "sizematched_isotropic_mean_dloss_harsher": sm,
+                      "size_explains_half_or_more": bool(smb >= 0.5 * bulk)}
     R.durable_save(OUT, lambda p: p.write_text(json.dumps(res, indent=1)))
     print(json.dumps(res["reading"], indent=1))
 
