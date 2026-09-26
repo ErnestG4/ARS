@@ -191,3 +191,52 @@ conflict with this section.
     Definition, probe and BOS presence all differ; no comparison is drawn.
 - **G2 (bulk permutation, +2.66 nats) — PENDING controls** (stage3_g2b.py, pre-registered 86b6b31): size-matched
   Gaussian perturbation, local-window shuffles, MP-bulk-only shuffle, dose-response.
+
+## 9. Second review round (2026-09-26 ~00:10; stage3_confounds2.py, stage3_headnull.py)
+- **MP-fit validity: "outlier vs MP edge" is UNDEFINED for trained Pythia.**
+  - Per matrix, the KS of the spectrum to MP at the median-matched scale exceeds the G1 witness 95th percentile in
+    96–100% of layers for every type: from step 512–1000 (O, MLP_OUT, Q, K, MLP_IN) and from ~2000 (V). Before that
+    it fails in ≤ 21% of layers.
+  - A bulk that is itself heavy-tailed inflates any MP edge fitted to it. **All mp_fit_v2 outlier counts after ~1000
+    steps are withdrawn**, including §3's detachment timings beyond the first departures.
+  - What remains is top-k σ (layer means): Q σ₁ 1.26 → 2.1 (512) → 7.6 (2k) → 10.9 (32k) → 17.3 (143k); K σ₁
+    peaks ~10 over 8k–32k and ends at 8.9; O and MLP_OUT rise steadily. Full table in results/stage3_confounds2.json.
+  - The gap criterion (largest σᵢ/σᵢ₊₁ in the top 10%) almost always lands at i = 1, so it is uninformative here.
+- **Head concentration: the "1/16" baseline was the wrong null.**
+  - A within-head OUTPUT rotation is degenerate for this statistic: a head's share of a left singular vector is exactly
+    invariant under it (observed = null to every digit).
+  - The informative null randomises each head's INPUT side independently (W_h O_h, Haar), keeping every head's
+    spectrum and norm. Under it, top-8 left vectors would concentrate MORE: 0.59 (Q), 0.50 (K), 0.37 (V), vs observed
+    0.24 / 0.13 / 0.22.
+  - So head norms alone would predict more concentration than exists. The actual structure is **cross-head sharing**:
+    heads read common top input directions, which spreads the top singular vectors over several heads. "Head
+    concentration vs 1/16" is not a finding.
+- **K's rotary concentration SURVIVES the norm check.**
+  - K's top-8 left vectors put 0.48 of their mass on rotary dims (0.38 at 8k). The within-head rotation null (which
+    mixes rotary and non-rotary dims) gives 0.25.
+  - K's rotary rows carry only 0.227 of ‖W_K‖_F², less than their 25% share. So this is not "rotary rows are heavier":
+    K's high-σ directions concentrate in position-coded dims.
+  - Q shows a weaker version: 0.28 vs 0.25, with rotary rows carrying only 0.146 of the norm. V, which has no rotary
+    structure, reads 0.25 as a control.
+  - This is the one localisation result that stands: position-driven structure dominates K's top spectrum.
+- **LayerNorm folding (W·diag(γ)).** The residual-side conclusions hold on both raw and folded matrices, with one
+  addition:
+  - Q/K/V share 0 of their 8 heaviest residual coordinates in every layer, raw and folded.
+  - After folding, in late layers (16–23), 3–5 of Q's 8 heaviest residual coordinates coincide with the top-8
+    LN-gain coordinates. Their mass is small (1.2% per top vector, 3× isotropic).
+  - Mild residual-coordinate specialness exists in late-layer Q. It is not the source of the left-side signal.
+- **Induction heads, reworded.**
+  - Lead with timing: the 14 heads with final induction > 0.3 leave the QK null band earlier (21% at step 512 and 100%
+    at 1000, vs 2.7% / 49% for other heads).
+  - Magnitude (0.037 vs 0.009 median |sym − 0.5| at the end) is partly built in: heads chosen for a high induction
+    score have unusual QK structure by construction.
+- **ΔW.**
+  - The equal-interval run (queued) records ‖ΔW‖/(‖W‖·LR integral) as well as equal lengths, since the cosine decay
+    changes the step size after step 1430.
+  - **The "low-rank early" half moves to arm B:** Pythia has no equally spaced checkpoints before step 1000, so it
+    cannot be tested here.
+- **G2 controls (amended before running, 0190896).** Size is matched on ‖W′ − W‖_F. The pre-registered half-cost rule
+  now compares against a Gaussian perturbation confined to the same bulk singular subspace. The isotropic one is kept
+  as a harsher bound.
+- **G2 bulk shuffle is stable:** +2.66 / +2.64 / +2.70 nats (3 seeds). Full shuffle: +9.30 / +9.52. What it means is
+  for the controls to decide.
