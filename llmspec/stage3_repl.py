@@ -29,12 +29,13 @@ def top_left(W, k=8):
 
 
 def r1_r2():
-    idx = R.index(C["repo"], "step143000")
+    import stage3_motion as MO
+    src = MO.LayerSource("step143000")                                  # either checkpoint format
     rot_obs, rot_null, rot_rows, th = [], [], [], {"Q": [], "K": []}
     for L in range(NL):
         R.check_stop()
-        a, _ = R.fetch(idx, f"gpt_neox.layers.{L}.attention.query_key_value.weight")
-        qkv = torch.from_numpy(a.astype(np.float64)).to(DEV).reshape(H, 3, DH, D)
+        mats = src.layer(L)
+        qkv = torch.stack([mats[m].double().reshape(H, DH, D) for m in "QKV"], 1)   # (H, 3, DH, D), exact from fp16
         for j, M in ((0, "Q"), (1, "K")):
             Wh = qkv[:, j]; W = Wh.reshape(H * DH, D)
             U = top_left(W) ** 2
@@ -52,6 +53,7 @@ def r1_r2():
                 Wn = torch.stack([Wh[h] @ haar(D) for h in range(H)]).reshape(H * DH, D)
                 nul.append(float((top_left(Wn) ** 2).reshape(H, DH, 8).sum(1).max(0).values.mean()))
             th[M].append((obs, float(np.mean(nul))))
+    src.close()
     r1 = {"K_rotary_mass": float(np.mean(rot_obs)), "within_head_rotation_null": float(np.mean(rot_null)),
           "rotary_rows_frob_share": float(np.mean(rot_rows)), "isotropic": ROT / DH}
     r1["REPLICATES"] = bool(r1["K_rotary_mass"] >= r1["within_head_rotation_null"] + 0.10 and r1["rotary_rows_frob_share"] <= 0.27)
@@ -105,7 +107,9 @@ def r5(df):
 
 
 def r6():
-    wit = json.loads((ROOT / "results" / f"stage3_witness{SUF}.json").read_text())
+    import os
+    wsrc = os.environ.get("LLMSPEC_WITNESS")
+    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix(wsrc) if wsrc else SUF}.json").read_text())
     def mp_cdf(c):
         a, b = (1 - np.sqrt(c)) ** 2, (1 + np.sqrt(c)) ** 2
         g = np.linspace(a, b, 40001); f = np.sqrt(np.clip((b - g) * (g - a), 0, None)) / (2 * np.pi * c * g + 1e-300)

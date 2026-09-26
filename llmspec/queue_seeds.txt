@@ -1,0 +1,36 @@
+s3s_extract_pythia-410m-seed1|LLMSPEC_MODEL=pythia-410m-seed1 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed1 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed1|LLMSPEC_MODEL=pythia-410m-seed1 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed1|LLMSPEC_MODEL=pythia-410m-seed1 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed1|LLMSPEC_MODEL=pythia-410m-seed1 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed2 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed3 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed4 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed5 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed6 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed7 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed8 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_extract_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 /home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-410m-seed9 step143000 step0 step1 step2 step4 step8 step16 step32 step64 step128 step256 step512 step1000 step2000 step3000 step4000 step6000 step8000 step12000 step16000 step24000 step32000 step48000 step64000 step96000 step128000
+s3s_motioneq_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 /home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
+s3s_analyze_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py

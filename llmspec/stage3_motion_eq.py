@@ -28,12 +28,12 @@ def main():
         if f.exists():
             continue
         R.check_stop(); t0 = time.time()
-        ia, ib = R.index(repo, f"step{a}"), R.index(repo, f"step{b}")
+        ia, ib = MO.LayerSource(f"step{a}"), MO.LayerSource(f"step{b}")   # either checkpoint format
         lri = float(lr(np.arange(a, b)).sum())
         res = {"lr_integral": lri}
         for L in range(NL):
             R.check_stop()
-            A_, B_ = MO.fetch_layer(ia, L), MO.fetch_layer(ib, L)
+            A_, B_ = ia.layer(L), ib.layer(L)
             for M in MO.MATS:
                 Wa = A_[M].double(); dW = B_[M].double() - Wa
                 f2 = float((dW ** 2).sum()); smax = MO.sigma_max(dW) if f2 > 0 else 0.0
@@ -45,6 +45,7 @@ def main():
                 res[f"L{L:02d}_{M}_dW_frac_top32"] = float(((U32.T @ dW) ** 2).sum()) / f2 if f2 > 0 else np.nan
                 del Wa, dW, G, U32
             del A_, B_; torch.cuda.empty_cache()
+        ia.close(); ib.close()
         res["estimator_version"] = np.array("stage3-motion-eq-v1")
         R.durable_save(f, lambda p: np.savez(p, **res))
         sr = np.mean([res[f"L{L:02d}_Q_dW_stable_rank"] for L in range(NL)])

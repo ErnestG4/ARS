@@ -46,6 +46,33 @@ def fetch_layer(idx, L):
             "O": got["attention.dense.weight"], "MLP_IN": got["mlp.dense_h_to_4h.weight"], "MLP_OUT": got["mlp.dense_4h_to_h.weight"]}
 
 
+class LayerSource:
+    """One revision's per-layer matrices from either checkpoint format: safetensors -> fetch_layer (streamed, unchanged);
+    pytorch_model.bin -> stage3_extract.CkptBin (downloaded + verified, parameters fp16-exact on GPU). close() releases."""
+    def __init__(self, rev, model=None):
+        self.model = model or mcfg.name()
+        c = mcfg.get(self.model)
+        self.bin = c.get("fmt") == "bin"
+        if self.bin:
+            self.ck = X.CkptBin(self.model, rev)
+        else:
+            self.idx = R.index(c["repo"], rev)
+
+    def layer(self, L):
+        if not self.bin:
+            return fetch_layer(self.idx, L)
+        c = mcfg.get(self.model); H, DH, D = c["H"], c["DH"], c["D"]
+        p = f"gpt_neox.layers.{L}."
+        qkv = self.ck.get32(p + "attention.query_key_value.weight").reshape(H, 3, DH, D)
+        return {"Q": qkv[:, 0].reshape(D, D), "K": qkv[:, 1].reshape(D, D), "V": qkv[:, 2].reshape(D, D),
+                "O": self.ck.get32(p + "attention.dense.weight"), "MLP_IN": self.ck.get32(p + "mlp.dense_h_to_4h.weight"),
+                "MLP_OUT": self.ck.get32(p + "mlp.dense_4h_to_h.weight")}
+
+    def close(self):
+        if self.bin:
+            self.ck.gpu.clear(); self.ck.close()
+
+
 def main(revs):
     """GPU holds the previous revision's layer matrices (fp16, ~2.7 GB) plus ONE layer of the current revision:
     each current layer is streamed, compared with prev[L], then replaces it."""

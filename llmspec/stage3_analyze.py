@@ -230,7 +230,8 @@ def changepoints(x, y, min_seg=3):
 
 
 def main():
-    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix()}.json").read_text())
+    wsrc = os.environ.get("LLMSPEC_WITNESS")          # seed leg: reuse another model's witness (declared, scale-checked)
+    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix(wsrc) if wsrc else mcfg.suffix()}.json").read_text())
     have = [r for r in SCHED if (ROOT / "cache" / "s3" / MODEL / r / "DONE").exists()]
     missing = [r for r in SCHED if r not in have]
     have.sort(key=step_of)
