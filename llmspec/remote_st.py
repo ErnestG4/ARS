@@ -29,6 +29,8 @@ def durable_save(path, save_fn):
     save_fn(tmp)
     with open(tmp, "rb") as f:
         os.fsync(f.fileno())
+        os.posix_fadvise(f.fileno(), 0, 0, os.POSIX_FADV_DONTNEED)   # written pages leave the page cache, which
+                                                                   # counts against vmmemWSL (host commit)
     os.replace(tmp, path)
     fd = os.open(path.parent, os.O_RDONLY)
     try:
