@@ -95,7 +95,19 @@
   2000), recovering to −0.33 by the end. The top decile turns positive after step 8000 (0.93 at the end).
 - **QK symmetric-energy fraction** (non-rotary dims 32–127): median 0.50–0.52 throughout. The top decile reaches 0.70
   at step 2000, then settles at 0.54.
-- The product-Ginibre null is not yet computed; step 0 serves as the empirical null (≈ 0.50 / 0.00).
+- **Product-Ginibre null** (stage3_circuit_null.py, 4000 draws): OV score 1–99% band [−0.027, +0.028]; QK
+  symmetric fraction [0.4994, 0.5011].
+- **Fraction of heads outside that band:**
+
+  | step | 0 | 512 | 1000 | 2000 | 8000+ |
+  |---|---|---|---|---|---|
+  | OV score | 2.3% | 98.7% | 99.7% | 100% | ~99% |
+  | QK symmetric fraction | 3.1% | 3.4% | 51% | 96% | ~96–99.5% |
+
+  - At step 0 the rates match the 2% the band admits.
+  - **The OV departure precedes the QK departure.** OV is out of band by step 512, before induction forms; QK is
+    mostly out only by step 2000.
+  - Caveat: the QK null is very narrow, so the departure is small in magnitude (median 0.51–0.52).
 
 ## 6. Motion — descriptive
 - ΔW between consecutive revisions is **low-rank early and high-rank late**.
@@ -123,6 +135,6 @@
 ## Queue / Will's calls
 - **G2 functional witness** (Diffract replication) is running (stage3_g2.py, pre-registered 0970140).
 - **Denser V trajectory** (1000-step checkpoints over 2k–16k) to resolve a V-compression wave, if wanted.
-- **Product-Ginibre circuit null.** Change-point null calibration (a smooth-sigmoid null), if change points are to
+- **Change-point null calibration** (a smooth-sigmoid null), if change points are to
   carry weight.
 - **G3 replication** (410M/1B, PolyPythias seeds): not started.

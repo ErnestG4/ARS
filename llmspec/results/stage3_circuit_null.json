@@ -1,0 +1,18 @@
+{
+ "doc": "Product-Ginibre circuit null (brief v1.1 \u00a74D): OV score = sum(lambda)/sum|lambda| over eig(V O), V 128x2048 and\nO 2048x128 independent Gaussian; QK symmetric-energy fraction of M = Q^T K, Q and K 96x2048 independent Gaussian\n(the non-rotary shape). 4000 draws each. Reports the null median and 1/5/95/99th percentiles, to be read against the\nper-head distributions in stage3_long.parquet. The full-circuit copying score keeps step 0 as its empirical null\n(it involves the real embeddings).",
+ "ov_score": {
+  "1": -0.027384616238923087,
+  "5": -0.01981819209354124,
+  "50": 0.00011896925935481084,
+  "95": 0.019382583517215866,
+  "99": 0.02840809230269779
+ },
+ "qk_sym_nr": {
+  "1": 0.49944907271710764,
+  "5": 0.49968208171567413,
+  "50": 0.5002434667059414,
+  "95": 0.5008114939680227,
+  "99": 0.5010688437194204
+ },
+ "n": 4000
+}
