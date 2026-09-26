@@ -138,3 +138,56 @@
 - **Change-point null calibration** (a smooth-sigmoid null), if change points are to
   carry weight.
 - **G3 replication** (410M/1B, PolyPythias seeds): not started.
+
+## 8. Review response (2026-09-25 ~23:55; post-hoc checks in stage3_confounds.py, results/stage3_confounds.json)
+Each earlier descriptive claim is restated below with its status. Sections 3–7 above are superseded wherever they
+conflict with this section.
+
+- **Null wording (§1), refined.**
+  - The precise claim is: no bulk departure larger than 0.010 in ⟨r̃⟩ or 0.10 in q, at any checkpoint, in any type.
+  - The Poisson check shows the instrument sees a gross departure (~0.14). The tolerances bound what could hide.
+    q ≤ 0.10 is loose; the observed worst |Δq| was 0.034.
+- **"Turning points at ~2k" — LR-CONFOUNDED, unresolved.**
+  - Pythia's warmup ends at step 1430 (config: warmup 0.01 × 143000; Adam lr 2e-4; cosine to 2e-5).
+  - The 1000 → 2000 interval straddles it, and the LR integral per interval jumps from 0.05 (512 → 1000) to 0.19
+    (1000 → 2000), then stays ~0.2 per 1000 steps.
+  - Any extremum reported "at 2k" sits at the first checkpoint after warmup ends. Pythia offers no finer checkpoints
+    there. Only arm B (own dense checkpoints, varied warmup) can separate learning from schedule.
+- **"Outliers peak ~2k then decline" — RETRACTED as outlier dynamics (edge artefact).**
+  - From 2k to the end, the fitted MP edge grows 5.6× (O: 0.28 → 1.54) and 5.4× (MLP_OUT), faster than σ_max
+    (O 1.08 → 3.35, 3.1×) and σ at rank 200 (4.3×).
+  - The top singular values keep growing; the bulk widens up to meet them.
+  - The count against a moving edge is not an outlier trajectory. Report absolute top-σ quantiles instead.
+- **"Top singular vectors localise from 2k–8k" — RE-SCOPED.**
+  - The IPR / Porter–Thomas signal is on the LEFT (output-space) vectors. What it measures:
+    - Concentration on single heads: mass in the heaviest head, Q 0.24 and V 0.22 at the end vs 1/16 isotropic.
+    - For K, concentration on rotary dims: 0.48 vs 0.25 isotropic (V, which has no rotary structure, reads exactly
+      0.25).
+  - It is NOT the massive-activation / LayerNorm phenomenon: the right (residual-space) top vectors of Q/K/V share
+    0 of their 8 heaviest residual coordinates in every layer, and put ≤ 3× isotropic mass on the top LN-gain
+    coordinates.
+  - So the claim becomes: top singular directions of Q and V concentrate in a few heads, and K's top directions
+    concentrate on rotary dims. That is a head-block/rotary structural statement per matrix type, not basis-free
+    localisation.
+- **"ΔW low-rank early, high-rank late" — PENDING** (stage3_motion_eq.py, equal 1000-step intervals).
+  - The consecutive-schedule intervals grow from 1 step to 1000+ steps, and their LR integrals from 1e-7 to 0.2. The
+    early low rank may be spacing and LR.
+  - Equal intervals exist only from step 1000 on, so the sub-1000 regime cannot be tested at equal spacing.
+- **"QK departs later and only slightly" — REVISED (aggregation).**
+  - For the 14 heads with final induction score > 0.3, the fraction outside the product-Ginibre QK band is 21% at
+    step 512 and 100% at 1000. For the other heads it is 2.7% and 49%.
+  - Median |sym − 0.5|: induction heads 0.037 vs others 0.009 at the end.
+  - The QK change is earlier and larger in exactly the heads that do induction. The all-head average had masked it.
+  - "OV departs before induction" is a single-checkpoint precedence (step 512) at the resolution limit.
+- **Sink timing — NOT COMMENSURABLE with the brief's 10–20×.**
+  - arXiv 2606.02378 defines a BOS-classified head as ≥ 30× first-token selectivity against a uniform-position
+    baseline, on a synthetic "[filler] A B [filler] A" batch with class competition.
+  - Their 10–20× is for DCLM/OLMo. For **Pythia-1B, their own numbers** are induction ≈ 6B tokens and BOS-50% at
+    300B tokens, a ≈ 50× gap.
+  - Our probes have no BOS token (Pythia does not prepend one). Approximating their threshold (the uniform baseline
+    over our query positions ≈ 0.0070, so 30× ≈ mean attention > 0.21), our "BOS-classified" fraction crosses 10% at
+    32k–48k and 50% at 64k–96k steps.
+  - Their Pythia-1B BOS-10% (~6B tokens, co-emerging with induction) is much earlier than our approximate one.
+    Definition, probe and BOS presence all differ; no comparison is drawn.
+- **G2 (bulk permutation, +2.66 nats) — PENDING controls** (stage3_g2b.py, pre-registered 86b6b31): size-matched
+  Gaussian perturbation, local-window shuffles, MP-bulk-only shuffle, dose-response.
