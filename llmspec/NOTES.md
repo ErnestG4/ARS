@@ -153,6 +153,9 @@ and NOT pushed.
     ~1.0 by 1000.
   - queue_pythia-{1b,410m}: extract 26 revisions → witness → motion_eq → analyze → report → repl. Rough ETA: 1B
     ~5–6 h, 410M ~2–3 h.
+- **PID 128268:** chain2 → supervise(queue_seeds), starting when 120469 exits.
+  - queue_seeds: PolyPythias 410M seeds 1–9, each = extract (CkptBin, .bin path) → motion_eq → analyze
+    (LLMSPEC_WITNESS=pythia-410m) → repl; then stage3_seed_scalecheck. ~2 h per seed.
 - **memwatch:** PID 12700.
 - **Alarm cron:** job 0ab464f4, `7,37 * * * *`.
 
@@ -165,7 +168,10 @@ and NOT pushed.
    - Scorer: stage3_repl.py (215e989).
    - When done: STAGE3_REPL_FINDINGS.md (sealed null per model first; then R1–R6 REPLICATES / DOES NOT; nulls as
      nulls).
-3. PolyPythias seed leg (410M; seeds change init + data order).
+3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
+   Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
+   - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is
+     read.
 4. ~~Change-point null calibration~~ DONE (§15): NOT LICENSED (false-CP rate 0.59–0.98 on smooth nulls).
 5. Zoo seating of the G7 classes (branch-merge session).
 - HELD: arm B; OLMo stage-1 trajectory.
