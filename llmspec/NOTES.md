@@ -1,0 +1,174 @@
+# llmspec NOTES — compaction-proof state (read this first)
+
+Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
+`/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra`; all work is in `llmspec/`. Commits are local
+and NOT pushed.
+
+## 0. Mandate
+- **Brief:** CC Brief v1.1, "Shapes of LLM weights and transforms over training" (Will, 2026-09-25). Staged plan:
+  - Stage 1: existence check.
+  - Stage 2: G7 multi-peak calibrator.
+  - Stage 3: Pythia trajectories + pre-registered bulk null.
+  - Stage 4: peaked-spectrum trajectory, only if G7 licenses local statistics.
+  - Stage 5: arm B, AdamW vs Muon.
+- **Will's §8 answers:**
+  1. Peak criterion = MP-calibrated KDE.
+  2. Arm B = HOLD.
+  3. Bulk NNS/⟨r̃⟩ β=1 null = ADOPTED as a pre-registered instrument check.
+  - Download budget: no cap.
+- **Standing instructions:**
+  - USE THE GPU.
+  - Runs must be interruptible (`llmspec/STOP`) and resumable.
+  - Do everything properly; never degrade an experiment for convenience or to make up for a mistake.
+  - Autonomous: don't stall on questions; pick and proceed.
+  - No fixed end time (04:50, 2026-09-26).
+  - Keep notes for compaction.
+- **HELD (Will's call):** arm B; the OLMo stage-1 trajectory for aim 1.
+- **Alarm:** cron job every 30 min at `7,37 * * * *` (session-only; recreate after a restart). Its prompt says: read
+  NOTES.md, check liveness, advance the queue.
+
+## 1. Machine rules (each learned from an incident on 09-25)
+- **Host commit.** WSL crashes = Windows commit exhaustion (vmmemWSL counts RAM + page cache + GPU allocations).
+  Will added a 64 GB pagefile on a secondary NVMe, so host free commit is now ~60–70 GB. WSL RAM is still capped at
+  12 GB (`.wslconfig`).
+- **Disk.** `df /` lies (1 TB VHD). C: (`/mnt/c`) is what fills. `remote_st.check_stop()` refuses to proceed below
+  10 GB free on C:. NEVER bank full checkpoints: stream HF → RAM → GPU.
+- **GPU.**
+  - 6 GB per-process cap in stage3_extract (an overrun raises OOM instead of crashing the VM).
+  - Weights are stored on the GPU as fp16. This is exact for Pythia (F32 checkpoints are fp16 upcasts; asserted per
+    tensor).
+  - Compute runs in fp32/fp64 via transient per-module upcast; bit-identical to plain fp32 (verify_fp32_equivalence.py).
+- **Durability.** `remote_st.durable_save` = tmp → fsync → rename → fsync dir, plus a posix_fadvise DONTNEED page-cache
+  eviction. (A crash had left zero-length files behind renames.)
+- **Streaming.** `remote_st.fetch_many`: keep-alive sessions, CDN URL resolved once per file, 4 tensors in flight;
+  ~70 MB/s, byte-identical to `fetch` (verify_fetch.py).
+- **Watchdog.** `memwatch.sh` logs RAM/cache/GPU/C:/host commit every 20 s and writes `STOP` with content "memwatch"
+  if host commit < 5 GB.
+  - `supervise.sh q1 q2 …` runs queue files and auto-resumes after a memwatch STOP. A manual STOP (any other content)
+    ends it.
+  - `chain2.sh <pid> q…` starts `supervise` after a PID exits.
+  - `resume.sh` restarts watchdog + supervise after a reboot. It references queue4–6, which are all done; edit it for
+    the current queue first.
+- **NEVER `pkill -f <pattern>`** in the Bash tool: the pattern is in the tool's own command line, so it kills the
+  shell (done twice). Use explicit PIDs.
+- **Commit hook.** A commit message that claims an outcome needs a `CHECKRUN <checker> EXIT=n PASS` line produced by
+  `../checkrun.sh <checker>`; paste it, never type it. checkrun.sh writes to `.checkrun_log`.
+- **Plots** are git-ignored. They regenerate from the scripts (stage1_analyze.py, stage3_report.py).
+
+## 2. Code map (llmspec/)
+- **I/O:**
+  - `remote_st.py`: HTTP-range safetensors reader, fetch/fetch_many, STOP + disk guard, durable_save.
+  - `specs.py`: model layouts, per-head blocks, G4 grid audit.
+- **Stage 1:**
+  - `peaks.py`: SVD, KDE, modes.
+  - `stage1_calibrate.py`: seal.
+  - `stage1_spectra.py`, `stage1_analyze.py` (sealed rule + amendment A1).
+  - `stage1b_dip.py`: Hartigan dip test (licensed).
+  - `verify_kde_sparse.py`.
+- **Stage 2:** `stage2_g7.py` (G7 calibrator; prereg in its docstring).
+- **Stage 3:**
+  - `stage3_extract.py`: streaming per-checkpoint extraction + markers.
+  - `stage3_probes.py` → `results/probes.npz` (sha256 in probes.sha256).
+  - `s3stats.py`: THE local-statistics module.
+  - `stage3_witness.py`: G1/G4/margins.
+  - `stage3_analyze.py`: sealed null, G0, globals, vectors, circuits, markers, change points, motion ingestion.
+    `STAGE3_TAG` env var gives partial-run outputs.
+  - `stage3_mp2_patch.py`, `stage3_report.py` (plots + event table).
+  - `stage3_motion.py`: consecutive ΔW. `stage3_motion_eq.py`: equal 1000-step ΔW.
+  - `stage3_g2.py`: G2 functional witness. `stage3_g2b.py`: G2 controls.
+  - `stage3_confounds.py`, `stage3_confounds2.py`, `stage3_headnull.py`, `stage3_circuit_null.py`: review checks.
+  - `stage3_wave.py`: per-layer compression timing over all revisions.
+- **Verifiers** (all red-pathed with `--redpath`): verify_kde_sparse, verify_fp32_equivalence, verify_s3stats,
+  verify_stage3_estimators, verify_fetch, verify_motion_sigma.
+- **Docs:** STAGE3_PREREG.md (+ amendments A0 and A1), STAGE1_FINDINGS.md, STAGE2_FINDINGS.md, STAGE3_FINDINGS.md
+  (§1–12; §8–12 supersede earlier sections where they conflict), STATUS.md.
+
+## 3. Results (status labels exactly as in the findings docs)
+### Stage 1 — existence (21c0837, 78c2fad, d16caaf, eca356d)
+- **Sealed KDE rule:** PEAKS in both OLMo-2-1B `main` and Pythia-1.4B, so the decision table says "BOTH". But this is
+  UNRESOLVED as evidence: the rule was never tested against its nearest confusable (unimodal heavy tails), and the
+  counted modes were tail specks.
+- **G0 FAIL-as-sealed on Pythia W_O** (6/384). Attributed: the bar had no sampling allowance, giving an 18%
+  false-fail rate.
+- **Stage 1b, Hartigan dip test** (post-hoc; licensed, 0/2000 false positives on every confusable; weak power):
+  - Pythia: 0 multimodal heads in any type.
+  - OLMo Q/K at stage-1 end: Q 24.6% (13.3% excluding dead rows), K 19.9%.
+  - OLMo `main`: Q 8.6%, below the 10% floor.
+  - **Decision: aim 1 deferred.** OLMo stage-1 trajectory = Will's call.
+- **G4:** Pythia F32 = fp16 upcasts. OLMo-2 F32 = fp32 masters (the brief's "bf16" premise was wrong). OLMo Q/K
+  have dead rows (norm ~1e-28).
+
+### Stage 2 — G7 on real OLMo stage-1-end W_Q targets (55de694)
+- **NOT LICENSED as registered.** kde(6)/kde(8) pass Poisson, β=1 and clustered on both families but fail β=2
+  (Δq ≈ −0.2).
+- Raw-x ⟨r̃⟩ LICENSED.
+- Post-hoc: dropping the optional β=2 class would license "clustering vs β=1 vs Poisson". Reported, NOT adopted
+  (Will's call).
+
+### Stage 3 — Pythia-1.4B, 26 schedule revisions (prereg 0cf53ba; findings 4ff09ee … 463ea03)
+- **SEALED NULL HOLDS 260/260 cells.** Precisely: no bulk departure > 0.010 in ⟨r̃⟩ or > 0.10 in q (loose) at any
+  checkpoint in any type. Worst |Δ⟨r̃⟩| 0.004, |Δq| 0.034.
+  - G0 passes. The witness reads β=1. The instrument fires on Poisson (⟨r̃⟩ 0.39).
+- **LR confound.** Warmup ends at 1430 (config: Adam lr 2e-4, warmup 0.01, cosine to 2e-5). Every "turning point at
+  ~2k" = LR-CONFOUNDED.
+- **MP fit invalid for trained matrices** (KS > witness 95th percentile in 96–100% of layers from ~512–2000). All
+  outlier-vs-MP-edge counts after that point are WITHDRAWN. Report top-k σ only (Q σ₁ 1.26 → 17.3).
+- **"Outlier peak then decline":** RETRACTED (edge artefact).
+- **Localisation:**
+  - K's top singular directions concentrate on rotary dims (0.48 vs 0.25 null; rotary rows carry only 0.227 of the
+    norm). SURVIVES.
+  - Head concentration is NOT norm-driven: the input-rotation null gives more concentration (Q 0.59 vs observed
+    0.24). The real structure is cross-head sharing of input directions.
+  - Not LN/massive-activation (0 shared heavy residual coordinates raw or folded; late-layer Q meets LN-gain
+    coordinates with small mass).
+- **Circuits:**
+  - Product-Ginibre null: OV departs by step 512 (98.7% of heads), QK at 1000–2000.
+  - The 14 induction heads leave the QK band earlier (21% at 512, 100% at 1000 vs 2.7% / 49%). Magnitude is partly
+    selection-built. "OV before induction" is at the resolution limit.
+- **Events:** induction 512–1000 (no checkpoints between). First sink head >0.5 at 48k–64k. Sink comparison with the
+  brief's 10–20× is NOT COMMENSURABLE: the paper's own Pythia-1B gap is ~50×, and definition, probe and BOS all
+  differ.
+- **Liu wave:** not resolved (schedule too coarse; only arm B can resolve 512–2000). Dense-V extension running.
+- **Square lower-edge rise:** NOT precision-limited (Weyl bound: ≤ 0.01 possible vs 0.19 observed).
+- **Change points:** uncalibrated → descriptive only.
+- **G2:** identity 0.000; bulk +2.67; full +9.4; upper +0.10; lower inert. "Diffract replicates" = false as sealed.
+- **G2b** (29d8f63):
+  - Same-subspace size-matched control +1.80 vs +2.67, so SIZE explains ≥ half and "bulk ordering carries function"
+    is NOT established.
+  - Local shuffles (k = 2/8/32) inert.
+  - One matrix +0.005; one layer +0.035–0.08; all at once +2.67 (superadditive).
+  - MP-bulk ill-defined for trained spectra (+8 nats).
+- **Equal-interval ΔW** (463ea03):
+  - Update stable rank rises 5–15× over 1k–31k at constant LR: dynamics, not spacing. Late decline LR-confounded.
+  - Per-LR relative update shrinks 2–10×.
+  - Q/K updates ~9× isotropic in W's top-32 early, ~2× later.
+  - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
+  - Sub-1000 "low-rank early" → arm B.
+
+## 4. Running now (check with `ps -eo pid,args | grep -E "[c]hain2|[s]upervise|[q]ueue.sh|[s]tage3_|[m]emwatch"`)
+- chain2 (PID 82578) → supervise queue8 (done) → **queue7**: dense-V extraction (step5000 … 15000, 8 revisions;
+  4/8 done at 04:50), then `stage3_wave.py` → results/stage3_wave.json.
+- memwatch (PID 12700).
+
+## 5. Next (in order; mark each done here with its commit)
+1. Dense-V + wave results → STAGE3_FINDINGS §13 (compression timing for V at 1000-step resolution).
+2. **G3 replication (brief gate): Pythia-1B and Pythia-410M on the same schedule** (same seed family). Needs:
+   - model-general extractor/witness/analysis (1B: 16 L × 8 H × d_head 256, d_model 2048; 410M: 24 L × 16 H ×
+     d_head 64, d_model 1024);
+   - a replication pre-registration (same sealed null, same tolerances) committed before any statistic;
+   - then the same review-hardened descriptives (LR, equal-interval ΔW, rotary K, circuits vs null, markers).
+3. PolyPythias seed leg (410M; seeds change init + data order): seed spread of the sealed null and key descriptives.
+4. Change-point null calibration (smooth sigmoid/log curves through the same BIC segmentation), if change points are
+   to carry weight.
+5. Zoo seating of the G7 classes in calibrator_panel.py (shared module; branch-merge session).
+- HELD: arm B; OLMo stage-1 trajectory.
+
+## 6. Lessons from this run (to carry into memory at handoff)
+- A sealed criterion must be tested against its NEAREST CONFUSABLE, not only its easy null. The KDE rule saw MP but
+  never heavy-tailed unimodal.
+- Pass/fail bars on rates need a sampling allowance (sealed G0 and G4 both lacked one).
+- Iterated estimators can collapse (mp_fit_v1); synthetic validation must include the regime the data will be in.
+- Nulls can be degenerate (within-head output rotation leaves per-head mass exactly invariant). Check that a null can
+  differ from the observed before reading "observed = null".
+- Timing claims need the training schedule (LR warmup/decay) and the checkpoint grid beside them.
+- A count against a fitted edge is only meaningful while the fit holds. Track goodness of fit.
