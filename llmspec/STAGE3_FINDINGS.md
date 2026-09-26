@@ -49,9 +49,14 @@
     MLP_IN later and growing (25 at 8k, 82 at the final step).
   - Square Q/K/V/O: the lowest-10% KS against MP stays at the witness floor (0.058) until about step 2000 (O) and
     about step 8000 (Q, K). It then rises to 0.24–0.26 for Q/K and 0.13–0.15 for V/O.
-  - Caveat: for square matrices the smallest σ lie near or below the fp16 noise floor (≈ 0.044 × rms). No G4
-    simulation of this KS statistic at trained scales was run. Treat the square-matrix lower-edge rise as UNVERIFIED
-    against precision.
+  - **Precision check (added 23:35, a bound rather than a simulation): the rise is NOT precision-limited.**
+    - The fp16 rounding error matrix has ‖E‖₂ ≲ u·rms·(√m+√n) with u = 2⁻¹¹.
+    - The lowest-decile σ sit 44–80× above that bound at step 0, 8k and 143k (median of the lowest decile, all four
+      types). Only the few very smallest σ reach it.
+    - By Weyl's inequality, rounding moves those σ by ≤ 2.3%, which shifts the lowest-10% KS by roughly ≤ 0.01. The
+      observed rise is ~0.19.
+    - The prereg's premise ("smallest σ ≈ 0.02 rms, below the fp16 floor") is true of the minimum σ, not of the
+      decile this statistic uses.
 - **Stable rank** (layer means):
   - Q/K/O/MLP_OUT collapse between steps 128 and 2000 (Q 515 → 36; K 514 → 40; O 514 → 79; MLP_OUT 913 → 111).
   - V collapses later: still 493 at step 1000, 237 at 8k.
@@ -118,7 +123,6 @@
 ## Queue / Will's calls
 - **G2 functional witness** (Diffract replication) is running (stage3_g2.py, pre-registered 0970140).
 - **Denser V trajectory** (1000-step checkpoints over 2k–16k) to resolve a V-compression wave, if wanted.
-- **G4 simulation of the square-matrix lower-edge KS** at trained scales, before any lower-edge claim.
 - **Product-Ginibre circuit null.** Change-point null calibration (a smooth-sigmoid null), if change points are to
   carry weight.
 - **G3 replication** (410M/1B, PolyPythias seeds): not started.
