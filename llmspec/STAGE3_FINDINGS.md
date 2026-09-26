@@ -306,3 +306,22 @@ conflict with this section.
   MLP_OUT 314 → 193) and recovers by 7k → 8k; Q and K do not dip. A low-rank update burst in the OV/MLP-output
   path. Reported, not interpreted (loss spike or data event are both possible; the 4k–5k markers show no loss jump:
   text loss 2.71 → 2.64).
+
+## 13. Compression timing with dense V checkpoints (post-hoc extension; stage3_wave.py; results/stage3_wave.json)
+- **Setup:** 8 extra revisions (5k, 7k, 9k, 10k, 11k, 13k, 14k, 15k) give 1000-step resolution over 2k–16k. Per layer:
+  the first step at which stable rank ≤ half its step-0 value.
+- **V (null at 1000-step resolution): NO layer ordering.** Half-times spread over 3k–12k across layers with no
+  early-to-late trend (Spearman ρ = −0.00, p = 0.995).
+  - The grid is fine enough to see a wave in V, and there is none.
+  - A null for V's compression timing at this resolution, not a failure to resolve.
+- **Q, K, O, MLP_IN, MLP_OUT:** unchanged. They all compress in 256–2000 steps, where only 512 / 1000 / 2000 exist.
+  UNRESOLVED; only arm B (own dense checkpoints) can address it.
+
+## 14. Replication-scorer consistency check on 1.4B (stage3_repl.py; results/stage3_repl.json)
+- The G3 scorer, re-run on 1.4B, reproduces the earlier review scripts:
+  - Deterministic quantities exactly: R1 rotary mass 0.484, rotary rows 0.227; R2 observed Q 0.243 / K 0.133; R3
+    ratios (Q 10.2 … MLP_OUT 4.2); R5 (512, 1000); R6.
+  - Monte-Carlo nulls within sampling noise: R1 null 0.2505 vs 0.2503; R2 null Q 0.609 vs 0.588; R4 QK fraction out
+    0.042 vs 0.034 (the band is re-sampled).
+- All six criteria read REPLICATES on 1.4B, and none is near its threshold.
+- So the scorer is validated before its Pythia-1B / 410M verdicts are read.

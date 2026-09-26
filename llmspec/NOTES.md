@@ -146,9 +146,8 @@ and NOT pushed.
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (check with `ps -eo pid,args | grep -E "[c]hain2|[s]upervise|[q]ueue.sh|[s]tage3_|[m]emwatch"`)
-- **PID 82578:** supervise queue7. Dense-V extraction (step5000 … 15000; 7/8 done at ~05:30), then stage3_wave.py →
-  results/stage3_wave.json.
-- **PID 120469:** chain2 → supervise(queue_r14 → queue_pythia-1b → queue_pythia-410m), starting when 82578 exits.
+- queue7 (dense V + wave): DONE. queue_r14 (1.4B scorer consistency): DONE, passes.
+- **PID 120469:** supervise(queue_r14 ✓ → queue_pythia-1b [running since 05:27] → queue_pythia-410m).
   - queue_r14: stage3_repl.py on 1.4B. Consistency check: it must reproduce R1 0.484 vs 0.25 / rows 0.227; R2 Q
     0.243 < 0.588, K 0.133 < 0.496; R3 ratios ≥ 4.2; R4 at step 512: OV 0.987, QK 0.034; R5 (512, 1000); R6 Q/K
     ~1.0 by 1000.
@@ -158,7 +157,8 @@ and NOT pushed.
 - **Alarm cron:** job 0ab464f4, `7,37 * * * *`.
 
 ## 5. Next (in order; mark each done here with its commit)
-1. Dense-V + wave → STAGE3_FINDINGS §13.
+1. ~~Dense-V + wave~~ DONE → STAGE3_FINDINGS §13: V shows NO layer ordering at 1000-step resolution (ρ −0.00). Scorer
+   consistency on 1.4B → §14 (all R1–R6 reproduce).
 2. **G3 replication** — PRE-REGISTERED (STAGE3_REPL_PREREG.md, 8147f53).
    - Model-general refactor, regression-gated: extraction bit-identical (verify_refactor_regression) and analysis
      16769 rows identical (verify_analyze_regression, 2990ef5).
