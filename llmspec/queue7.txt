@@ -1,0 +1,2 @@
+s3_extract_denseV|/home/combust/fmexplorer/bin/python3 -u stage3_extract.py pythia-1.4b step5000 step7000 step9000 step10000 step11000 step13000 step14000 step15000
+s3_wave|/home/combust/fmexplorer/bin/python3 -u stage3_wave.py
