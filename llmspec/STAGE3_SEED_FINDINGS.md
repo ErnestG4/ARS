@@ -22,3 +22,19 @@
     failed R3, so R3 already looks seed-sensitive.
 - The witness-reuse scale check runs at the end of the seed queue. This seed's null reading is provisional until it
   passes.
+
+## Seed 2 (completed 16:16)
+- **A. Sealed null: HOLDS 260/260**, with the worst |Δq| 0.099, just inside tolerance.
+  - Per-head Q at 143k: Δq −0.091, Δ⟨r̃⟩ −0.0034. This is the same late-training per-head-Q drift as standard 410M
+    (−0.089) and seed 1 (−0.103, ladder → DENSITY_ARTIFACT).
+  - G0 passes.
+- **B. All six replicate.**
+  - R1: rotary mass 0.461; rotary rows 0.2673 ≤ 0.27.
+  - R3 ratios: Q 7.6, K 10.2, V 7.5, O 3.4, MLP_IN 21.1, MLP_OUT 3.1 (minimum 3.09).
+  - R4 at step 512: OV 0.974, QK 0.021. R5 (512, 1000). R2 and R6 pass.
+- **Running pattern (3 of 10 seeds, counting standard 410M):**
+  - R1's norm clause straddles its 0.27 ceiling (rows 0.267–0.285), while the concentration (0.46–0.49 vs null 0.25)
+    is stable.
+  - R3's weakest ratios (O, MLP_OUT) sit near 3.
+  - Both look set to be SEED-DEPENDENT on a threshold rather than on the phenomenon. This is noted before the count
+    is in, and the verdict will be the registered count.
