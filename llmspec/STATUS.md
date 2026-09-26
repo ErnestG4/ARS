@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 21:26 PDT
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 23:47 PDT
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
 GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
@@ -38,18 +38,22 @@ GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue f
 - Amendment A1 (113089b): mp_fit_v1 collapses on non-MP bulks and is flagged DEGENERATE; mp_fit_v2
   (median-matched) added.
 
+## Stage 3 done → STAGE3_FINDINGS.md (4ff09ee, da8d0bc, 9367aee)
+- **Sealed bulk null HOLDS in 260/260 cells** (worst |Δ⟨r̃⟩| 0.004, |Δq| 0.034). G0 passes. The witness reads β=1.
+- **Descriptive:**
+  - O/MLP_OUT outliers detach first (peak ~2k steps); Q/K later; V last.
+  - O/MLP_OUT stable rank rebounds after 2k.
+  - Q/K/V upper vectors localise from 2k–8k.
+  - ΔW is low-rank early and high-rank late.
+  - The OV departure from product-Ginibre (by 512) precedes QK (1000–2000).
+  - Induction forms at 512–1000; first sink head at 48k–64k.
+- **Not resolved:** Liu's wave (schedule too coarse). The square lower-edge rise is NOT precision-limited (Weyl bound).
+
 ## Running
-- All 26 Pythia-1.4B revisions are extracted (21:05).
-- Induction forms between step 512 and step 1000: max induction 0.01 → 0.91, rep-loss 12.8 → 3.6. There are no
-  checkpoints in between.
-- The first sink head appears by step 64000.
-- supervise.sh queue5 → queue6: motion pass (~105 s/pair after the Gram σ_max fix, 893b4e0; ETA ~22:05), then
-  stage3_analyze, then G2 (~1.5 h). Everything should finish ~01:30.
-- **Speed-ups tonight** (all byte-identical or verified):
-  - fetch_many streams at ~70 MB/s vs 19 (de19821).
-  - Motion σ_max via Gram (893b4e0).
-- **Host:** Will added a 64 GB pagefile on a secondary NVMe, so host free commit is now ~71 GB (no reboot needed so
-  far). resume.sh = a one-command resume after any reboot.
+- **G2** (stage3_g2.py): the identity control passes (Δloss +0.0000). **bulk:1 gave Δloss +2.66 nats**, NOT
+  Diffract's "bulk permutation harmless". Our bulk = ranks 10–90%, permuted in all 144 matrices at once; Diffract's
+  definition and scope may differ, so check commensurability before calling it a non-replication. ETA ~01:05.
+- **Then queue7** (post-hoc, declared): dense-V extraction (5k–15k, 8 revisions) + stage3_wave.py.
 
 ## Next
 0. Chained after queue5: G2 functional witness (stage3_g2.py, pre-registered 0970140): Diffract replication
