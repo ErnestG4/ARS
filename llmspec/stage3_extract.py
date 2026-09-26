@@ -78,6 +78,46 @@ class Ckpt:
             self.gpu[k] = torch.from_numpy(a16).to(DEV)
 
 
+class CkptBin(Ckpt):
+    """Same interface as Ckpt for repos that publish only pytorch_model.bin (PolyPythias). The .bin is downloaded to
+    cache/bin_tmp (parallel ranges, size + LFS sha256 verified), loaded with torch.load(weights_only=True, mmap=True),
+    and every floating parameter is cached on the GPU as fp16 (asserted exact). Non-parameter buffers (causal-mask
+    'attention.bias' / 'masked_bias', rotary 'inv_freq') are skipped: build_model rebuilds them. close() deletes the file
+    and evicts its pages. Equivalence with the safetensors path: verify_bin_path.py."""
+    SKIP = ("attention.bias", "attention.masked_bias", "inv_freq")
+
+    def __init__(self, model, rev, repo=None, fn="pytorch_model.bin"):
+        self.repo, self.rev = repo or mcfg.get(model)["repo"], rev
+        self.path = R.download_file(self.repo, fn, rev, ROOT / "cache" / "bin_tmp" / f"{self.repo.replace('/', '__')}__{rev}.bin")
+        self.sd = torch.load(self.path, map_location="cpu", weights_only=True, mmap=True)
+        self.idx = {k: None for k, v in self.sd.items() if v.is_floating_point() and not k.endswith(self.SKIP)}
+        self.h = self.idx
+        self.gpu = {}
+
+    def get32(self, k):
+        if k not in self.gpu:
+            a = self.sd[k].float().numpy()
+            a16 = a.astype(np.float16)
+            assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid; fp16 cache would be lossy"
+            self.gpu[k] = torch.from_numpy(a16).to(DEV)
+        return self.gpu[k]
+
+    def fetch_all(self):
+        for k in self.idx:
+            self.get32(k)
+
+    def close(self):
+        self.sd = None
+        try:
+            R.evict(self.path)
+        finally:
+            self.path.unlink(missing_ok=True)
+
+
+def make_ckpt(model, rev):
+    return CkptBin(model, rev) if mcfg.get(model).get("fmt") == "bin" else Ckpt(model, rev)
+
+
 def build_model(ck):
     """GPTNeoX on the meta device, weights ASSIGNED from the streamed GPU tensors (no second copy)."""
     from transformers import AutoConfig, GPTNeoXForCausalLM
@@ -209,7 +249,7 @@ def run(model, rev):
     d.mkdir(parents=True, exist_ok=True)
     if (d / "DONE").exists():
         return
-    ck = Ckpt(model, rev)
+    ck = make_ckpt(model, rev)
     n_layer = 1 + max(int(k.split(".")[2]) for k in ck.h if k.startswith("gpt_neox.layers."))
     mk = d / "MARKERS.npz"
     if not mk.exists():
@@ -263,6 +303,8 @@ def run(model, rev):
         print(f"{model} {rev} L{L:02d} {time.time()-t:.1f}s peak_gpu={torch.cuda.max_memory_allocated()/2**30:.2f}GiB", flush=True)
         torch.cuda.empty_cache()
     ck.gpu.clear(); torch.cuda.empty_cache()
+    if hasattr(ck, "close"):
+        ck.close()
     R.durable_save(d / "DONE", lambda t: t.write_text(EST))
 
 

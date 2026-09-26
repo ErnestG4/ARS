@@ -15,8 +15,12 @@ MODELS = {
     "pythia-410m": dict(repo="EleutherAI/pythia-410m", n_layer=24, H=16, DH=64, D=1024, FF=4096,
                         sched="pythia_1.4b_schedule.txt"),
 }
+for _k in range(1, 10):   # PolyPythias seed leg: same architecture/config as 410M; weights only as pytorch_model.bin
+    MODELS[f"pythia-410m-seed{_k}"] = dict(repo=f"EleutherAI/pythia-410m-seed{_k}", n_layer=24, H=16, DH=64, D=1024,
+                                           FF=4096, sched="pythia_1.4b_schedule.txt", fmt="bin")
 for _m in MODELS.values():
     _m["ROT"] = _m["DH"] // 4
+    _m.setdefault("fmt", "safetensors")
 
 
 def name():

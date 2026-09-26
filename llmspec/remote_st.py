@@ -153,6 +153,49 @@ def fetch_many(idx, names, tensors_in_flight=4, chunk=8 * 2 ** 20):
     pieces.shutdown()
 
 
+def download_file(repo, fn, rev, dest, chunk=16 * 2 ** 20, threads=8):
+    """Download one HF file to `dest` by parallel range requests (keep-alive, CDN URL resolved once), each piece written
+    at its own offset (os.pwrite) in ONE process -- not the xargs-style shared-path corruption pattern. Size and LFS
+    sha256 are verified before returning; on any mismatch the file is deleted and IOError raised. No xet cache is used."""
+    import os, hashlib
+    from concurrent.futures import ThreadPoolExecutor
+    from huggingface_hub import HfApi
+    check_stop()
+    info = HfApi().model_info(repo, revision=rev, files_metadata=True)
+    sib = [x for x in info.siblings if x.rfilename == fn][0]
+    size, sha = sib.size, (sib.lfs.sha256 if sib.lfs else None)
+    h = {"repo": repo, "fn": fn, "rev": rev}
+    dest = Path(dest); dest.parent.mkdir(parents=True, exist_ok=True)
+    fd = os.open(dest, os.O_RDWR | os.O_CREAT | os.O_TRUNC, 0o644)
+    try:
+        os.ftruncate(fd, size)
+        def piece(o):
+            b = _get_s(h, o, min(o + chunk, size) - 1)
+            os.pwrite(fd, b, o)
+        with ThreadPoolExecutor(threads) as ex:
+            list(ex.map(piece, range(0, size, chunk)))
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+    hs = hashlib.sha256()
+    with open(dest, "rb") as f:
+        for blk in iter(lambda: f.read(64 * 2 ** 20), b""):
+            hs.update(blk)
+    if dest.stat().st_size != size or (sha and hs.hexdigest() != sha):
+        dest.unlink(missing_ok=True)
+        raise IOError(f"download verify failed {repo}/{fn}@{rev}")
+    return dest
+
+
+def evict(path):
+    import os
+    fd = os.open(path, os.O_RDONLY)
+    try:
+        os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)
+    finally:
+        os.close(fd)
+
+
 def header(repo, fn, rev):
     key = hashlib.sha1(f"{repo}|{fn}|{rev}".encode()).hexdigest()[:16]
     p = CACHE / "headers" / f"{key}.json"
