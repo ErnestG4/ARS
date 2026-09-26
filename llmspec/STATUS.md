@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-25 16:25 PDT (4/26 revisions extracted; ETA ~22:00)
+# llmspec STATUS (brief v1.1) — updated 2026-09-25 21:26 PDT
 
 Run window: until 09:00 PDT Sat 2026-09-26, alarm every 30 min (cron `7,37 * * * *`, session-only).
 GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue file>` (per-layer caches).
@@ -39,15 +39,17 @@ GPU in use (Will). Interrupt: `touch llmspec/STOP`. Resume: `./queue.sh <queue f
   (median-matched) added.
 
 ## Running
-- **Automation:** chain2.sh → supervise.sh runs queue4 then queue5 (stage3_motion, stage3_analyze). It auto-resumes after a
-  memwatch STOP once host commit is > 8 GB; a manual STOP ends it.
-- **Done:** G7 → STAGE2_FINDINGS.md (NOT LICENSED as registered; raw ⟨r̃⟩ licensed).
-- **queue4 (GPU):**
-  - Extract step143000 + step0 (markers at the final checkpoint: loss 2.10, rep-loss 0.28, max induction 0.97).
-  - Then stage3_witness (~40 min).
-  - Then the other 24 revisions. ~16 min per revision; ETA ~22:00.
-- **G7 (CPU, 4 threads):** stage2_g7.py with real targets = 34 OLMo stage-1-end W_Q heads flagged by the dip test
-  → results/g7_olmo_stage1end_Q.json.
+- All 26 Pythia-1.4B revisions are extracted (21:05).
+- Induction forms between step 512 and step 1000: max induction 0.01 → 0.91, rep-loss 12.8 → 3.6. There are no
+  checkpoints in between.
+- The first sink head appears by step 64000.
+- supervise.sh queue5 → queue6: motion pass (~105 s/pair after the Gram σ_max fix, 893b4e0; ETA ~22:05), then
+  stage3_analyze, then G2 (~1.5 h). Everything should finish ~01:30.
+- **Speed-ups tonight** (all byte-identical or verified):
+  - fetch_many streams at ~70 MB/s vs 19 (de19821).
+  - Motion σ_max via Gram (893b4e0).
+- **Host:** Will added a 64 GB pagefile on a secondary NVMe, so host free commit is now ~71 GB (no reboot needed so
+  far). resume.sh = a one-command resume after any reboot.
 
 ## Next
 0. Chained after queue5: G2 functional witness (stage3_g2.py, pre-registered 0970140): Diffract replication
