@@ -168,6 +168,8 @@ and NOT pushed.
    - Scorer: stage3_repl.py (215e989).
    - When done: STAGE3_REPL_FINDINGS.md (sealed null per model first; then R1–R6 REPLICATES / DOES NOT; nulls as
      nulls).
+   - **1B DONE (09:52):** null HOLDS 260/260. R1, R2, R4, R5, R6 REPLICATE. **R3 DOES NOT** (V 2.98, O 1.80 < 3).
+   - **410M running** (extract started 09:52).
 3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
    Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
    - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is
