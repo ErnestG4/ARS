@@ -65,8 +65,11 @@ class Ckpt:
         return self.get32(k).to(torch.float64)   # fp16 -> fp64 is exact
 
     def fetch_all(self):
-        for k in self.idx:
-            self.get32(k)
+        """Stream every tensor with remote_st.fetch_many (4 tensors in flight, keep-alive; byte-identical to fetch)."""
+        for k, a, _ in R.fetch_many(self.idx, [k for k in self.idx if k not in self.gpu]):
+            a16 = a.astype(np.float16)
+            assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid; fp16 cache would be lossy"
+            self.gpu[k] = torch.from_numpy(a16).to(DEV)
 
 
 def build_model(ck):

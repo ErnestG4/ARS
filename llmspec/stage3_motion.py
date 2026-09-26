@@ -25,14 +25,15 @@ MATS = ("Q", "K", "V", "O", "MLP_IN", "MLP_OUT")
 def fetch_layer(idx, L):
     """One layer's six matrices, streamed HF -> GPU as fp16 (exact: asserted on the fp16 grid)."""
     p = f"gpt_neox.layers.{L}."
-    def g(k):
-        a, _ = R.fetch(idx, p + k)
+    keys = ["attention.query_key_value.weight", "attention.dense.weight", "mlp.dense_h_to_4h.weight", "mlp.dense_4h_to_h.weight"]
+    got = {}
+    for k, a, _ in R.fetch_many(idx, [p + k for k in keys]):          # 4 in flight, byte-identical to fetch
         a16 = a.astype(np.float16)
         assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid"
-        return torch.from_numpy(a16).to(X.DEV)
-    qkv = g("attention.query_key_value.weight").reshape(16, 3, 128, 2048)
+        got[k[len(p):]] = torch.from_numpy(a16).to(X.DEV)
+    qkv = got["attention.query_key_value.weight"].reshape(16, 3, 128, 2048)
     return {"Q": qkv[:, 0].reshape(2048, 2048), "K": qkv[:, 1].reshape(2048, 2048), "V": qkv[:, 2].reshape(2048, 2048),
-            "O": g("attention.dense.weight"), "MLP_IN": g("mlp.dense_h_to_4h.weight"), "MLP_OUT": g("mlp.dense_4h_to_h.weight")}
+            "O": got["attention.dense.weight"], "MLP_IN": got["mlp.dense_h_to_4h.weight"], "MLP_OUT": got["mlp.dense_4h_to_h.weight"]}
 
 
 def main(revs):

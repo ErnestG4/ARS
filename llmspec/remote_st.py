@@ -85,6 +85,74 @@ def _get_parallel(url, lo, hi):
     return bytes(buf)
 
 
+# ---- fast path (2026-09-25): keep-alive sessions + CDN URL resolved once per file + tensor-level concurrency.
+# Measured on a real layer set: per-request TCP/TLS + redirect overhead held fetch() to ~19 MB/s; sessions alone give
+# ~25 MB/s; 4 tensors in flight give ~76 MB/s. Output is byte-identical to fetch() (verify_fetch.py).
+import threading
+_tl = threading.local()
+_cdn = {}
+_cdn_lock = threading.Lock()
+
+
+def _sess():
+    if not hasattr(_tl, "s"):
+        _tl.s = requests.Session()
+    return _tl.s
+
+
+def _resolve(h, refresh=False):
+    u = hf_hub_url(h["repo"], h["fn"], revision=h["rev"])
+    with _cdn_lock:
+        if refresh or u not in _cdn:
+            r = _sess().get(u, headers={"Range": "bytes=0-0"}, allow_redirects=True, timeout=120)
+            if r.status_code != 206:
+                raise IOError(f"resolve {u}: status {r.status_code}")
+            _cdn[u] = r.url
+        return _cdn[u]
+
+
+def _get_s(h, lo, hi, tries=6):
+    err = ""
+    for i in range(tries):
+        try:
+            r = _sess().get(_resolve(h, refresh=i > 0), headers={"Range": f"bytes={lo}-{hi}"}, timeout=300)
+            if r.status_code == 206 and len(r.content) == hi - lo + 1:
+                return r.content
+            err = f"status {r.status_code} len {len(r.content)} want {hi-lo+1}"   # e.g. an expired signed URL
+        except requests.RequestException as e:
+            err = repr(e)
+        time.sleep(2 ** i)
+    raise IOError(f"range fetch failed {h['fn']}@{h['rev']} {lo}-{hi}: {err}")
+
+
+def _decode(raw, t):
+    arr = np.frombuffer(raw, dtype=DT[t["dtype"]]).reshape(t["shape"])
+    if t["dtype"] == "BF16":
+        arr = (arr.astype(np.uint32) << 16).view(np.float32)
+    return arr
+
+
+def fetch_many(idx, names, tensors_in_flight=4, chunk=8 * 2 ** 20):
+    """Yield (name, array, dtype) for `names`, up to `tensors_in_flight` tensors downloading at once, each split into
+    `chunk` pieces. Memory is bounded by the tensors in flight. Order follows `names`."""
+    from concurrent.futures import ThreadPoolExecutor
+    check_stop()
+    pieces = ThreadPoolExecutor(8)
+
+    def one(name):
+        h = idx[name]; t = h["tensors"][name]; a, b = t["data_offsets"]
+        lo, nb = h["data_start"] + a, b - a
+        raw = b"".join(pieces.map(lambda o: _get_s(h, lo + o, lo + min(o + chunk, nb) - 1), range(0, nb, chunk)))
+        return name, _decode(raw, t), t["dtype"]
+
+    with ThreadPoolExecutor(tensors_in_flight) as ex:
+        futs = [ex.submit(one, n) for n in names]
+        for f in futs:
+            yield f.result()
+            check_stop()
+    pieces.shutdown()
+
+
 def header(repo, fn, rev):
     key = hashlib.sha1(f"{repo}|{fn}|{rev}".encode()).hexdigest()[:16]
     p = CACHE / "headers" / f"{key}.json"

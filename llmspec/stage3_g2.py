@@ -83,8 +83,7 @@ def main():
 
     def restore():
         """Re-stream the original tensors from HF (no resident second copy: that would double GPU memory)."""
-        for n in names:
-            a, _ = R.fetch(ck.idx, n)
+        for n, a, _ in R.fetch_many(ck.idx, names):
             a16 = a.astype(np.float16)
             assert np.array_equal(a16.astype(np.float32), a)
             params[n].data.copy_(torch.from_numpy(a16).to(X.DEV))
