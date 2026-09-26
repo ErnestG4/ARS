@@ -1,0 +1,2 @@
+s3_g2b|/home/combust/fmexplorer/bin/python3 -u stage3_g2b.py
+s3_motion_eq|/home/combust/fmexplorer/bin/python3 -u stage3_motion_eq.py
