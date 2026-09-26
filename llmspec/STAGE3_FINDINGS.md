@@ -288,3 +288,21 @@ conflict with this section.
     permutation roughly harmless", which may have been per-matrix or per-layer; their scope is not confirmed here.
   - The registered "Diffract replicates = false" stands as sealed, attributed to scope (all 144 matrices at once) and
     size, not to evidence that bulk ordering carries function.
+
+## 12. Equal-interval ΔW (stage3_motion_eq.py; cache/s3_motion_eq/)
+- **Setup:** 1000-step intervals (t → t+1000). The LR integral is 0.187–0.200 for t = 1k … 31k, then 0.127 (63k), 0.025
+  (127k) and 0.020 (142k).
+- **Update rank rises at constant step count and ~constant LR** (layer-mean stable rank of ΔW, 1k → 31k):
+  - Q 20 → 240; K 10 → 203; V 25 → 252; O 58 → 265; MLP_IN 34 → 503; MLP_OUT 88 → 343.
+  - So from step 1000 on, "updates become higher-rank" is a property of the dynamics, **not** an artefact of checkpoint
+    spacing or LR.
+  - The later decline (to ~100–165 by 127k–143k) coincides with a 10× fall in the LR integral, so it is LR-confounded.
+  - The sub-1000 half ("low-rank early") cannot be tested in Pythia and belongs to arm B.
+- **Relative update per unit LR** (‖ΔW‖ / (‖W‖ · LR integral)) falls 2–10× from 1k to 31k: O 7.7 → 0.82; MLP_OUT
+  7.9 → 0.77; Q 2.3 → 0.80; V 1.1 → 0.71.
+- **Alignment with W's top-32 left subspace.** Q and K updates carry 14–16% of their squared norm there over 1k–3k
+  (~9× the isotropic 0.016), decaying to ~2× by 15k and staying there. V, O and MLP_OUT sit at 1.3–4×.
+- **Unexplained feature at 4k → 5k.** The update rank of V, O and MLP_OUT drops sharply (V 111 → 35, O 179 → 45,
+  MLP_OUT 314 → 193) and recovers by 7k → 8k; Q and K do not dip. A low-rank update burst in the OV/MLP-output
+  path. Reported, not interpreted (loss spike or data event are both possible; the 4k–5k markers show no loss jump:
+  text loss 2.71 → 2.64).
