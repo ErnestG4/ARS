@@ -146,21 +146,28 @@ and NOT pushed.
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (check with `ps -eo pid,args | grep -E "[c]hain2|[s]upervise|[q]ueue.sh|[s]tage3_|[m]emwatch"`)
-- chain2 (PID 82578) → supervise queue8 (done) → **queue7**: dense-V extraction (step5000 … 15000, 8 revisions;
-  4/8 done at 04:50), then `stage3_wave.py` → results/stage3_wave.json.
-- memwatch (PID 12700).
+- **PID 82578:** supervise queue7. Dense-V extraction (step5000 … 15000; 7/8 done at ~05:30), then stage3_wave.py →
+  results/stage3_wave.json.
+- **PID 120469:** chain2 → supervise(queue_r14 → queue_pythia-1b → queue_pythia-410m), starting when 82578 exits.
+  - queue_r14: stage3_repl.py on 1.4B. Consistency check: it must reproduce R1 0.484 vs 0.25 / rows 0.227; R2 Q
+    0.243 < 0.588, K 0.133 < 0.496; R3 ratios ≥ 4.2; R4 at step 512: OV 0.987, QK 0.034; R5 (512, 1000); R6 Q/K
+    ~1.0 by 1000.
+  - queue_pythia-{1b,410m}: extract 26 revisions → witness → motion_eq → analyze → report → repl. Rough ETA: 1B
+    ~5–6 h, 410M ~2–3 h.
+- **memwatch:** PID 12700.
+- **Alarm cron:** job 0ab464f4, `7,37 * * * *`.
 
 ## 5. Next (in order; mark each done here with its commit)
-1. Dense-V + wave results → STAGE3_FINDINGS §13 (compression timing for V at 1000-step resolution).
-2. **G3 replication (brief gate): Pythia-1B and Pythia-410M on the same schedule** (same seed family). Needs:
-   - model-general extractor/witness/analysis (1B: 16 L × 8 H × d_head 256, d_model 2048; 410M: 24 L × 16 H ×
-     d_head 64, d_model 1024);
-   - a replication pre-registration (same sealed null, same tolerances) committed before any statistic;
-   - then the same review-hardened descriptives (LR, equal-interval ΔW, rotary K, circuits vs null, markers).
-3. PolyPythias seed leg (410M; seeds change init + data order): seed spread of the sealed null and key descriptives.
-4. Change-point null calibration (smooth sigmoid/log curves through the same BIC segmentation), if change points are
-   to carry weight.
-5. Zoo seating of the G7 classes in calibrator_panel.py (shared module; branch-merge session).
+1. Dense-V + wave → STAGE3_FINDINGS §13.
+2. **G3 replication** — PRE-REGISTERED (STAGE3_REPL_PREREG.md, 8147f53).
+   - Model-general refactor, regression-gated: extraction bit-identical (verify_refactor_regression) and analysis
+     16769 rows identical (verify_analyze_regression, 2990ef5).
+   - Scorer: stage3_repl.py (215e989).
+   - When done: STAGE3_REPL_FINDINGS.md (sealed null per model first; then R1–R6 REPLICATES / DOES NOT; nulls as
+     nulls).
+3. PolyPythias seed leg (410M; seeds change init + data order).
+4. Change-point null calibration.
+5. Zoo seating of the G7 classes (branch-merge session).
 - HELD: arm B; OLMo stage-1 trajectory.
 
 ## 6. Lessons from this run (to carry into memory at handoff)
