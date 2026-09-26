@@ -26,9 +26,12 @@ import remote_st as R
 
 ROOT = Path(__file__).resolve().parent
 DEV = "cuda"
-TYPES = {"Q": (2048, 2048, 24), "K": (2048, 2048, 24), "V": (2048, 2048, 24), "O": (2048, 2048, 24),
-         "MLP_IN": (8192, 2048, 24), "MLP_OUT": (2048, 8192, 24),
-         "head_Q": (128, 2048, 384), "head_K": (128, 2048, 384), "head_V": (128, 2048, 384), "head_O": (128, 2048, 384)}
+import mcfg
+_C = mcfg.get()
+MODEL = mcfg.name()
+TYPES = {**{M: (m, n, _C["n_layer"]) for M, (m, n) in mcfg.full_shapes().items()},
+         **{f"head_{M}": (_C["DH"], _C["D"], _C["n_layer"] * _C["H"]) for M in "QKVO"}}
+# pythia-1.4b: identical to the original hard-coded table (Q..O 2048^2 x24, MLP 8192x2048 x24, heads 128x2048 x384)
 R_MAIN, R_CHECK = 20, 5
 
 
@@ -52,8 +55,8 @@ def sig_batch(m, n, k, scale, fp16, gen):
 
 
 def rms_table(rev):
-    d = ROOT / "cache" / "s3" / "pythia-1.4b" / rev
-    Z = [np.load(d / f"L{l:02d}.npz") for l in range(24)]
+    d = ROOT / "cache" / "s3" / MODEL / rev
+    Z = [np.load(d / f"L{l:02d}.npz") for l in range(_C["n_layer"])]
     t = {M: float(np.mean([float(z[f"rms_{M}"]) for z in Z])) for M in ("Q", "K", "V", "O", "MLP_IN", "MLP_OUT")}
     for M in "QKVO":   # per-head blocks share their full matrix's entries
         t[f"head_{M}"] = t[M]
@@ -62,7 +65,7 @@ def rms_table(rev):
 
 def main():
     scales = {"final": rms_table("step143000"), "step0": rms_table("step0")}
-    fp = ROOT / "results" / "stage3_witness.json"
+    fp = ROOT / "results" / f"stage3_witness{mcfg.suffix()}.json"
     out = {"doc": __doc__, "scales": scales, "types": {}}
     if fp.exists():                      # resumable: keep finished types (same scales), redo the rest
         old = json.loads(fp.read_text())
@@ -127,7 +130,7 @@ def main():
               f"| G4 bulk {res['G4_bulk_rt_fp16_minus_fp64']:+.4f} lower {res['G4_lower_rt_fp16_minus_fp64']:+.4f} "
               f"| scale-inv {res['scale_invariant']} | tau+ {res['tau_plus']:.4f} ks95 {res['ks95']:.4f} "
               f"({time.time()-t0:.0f}s)", flush=True)
-        R.durable_save(ROOT / "results" / "stage3_witness.json", lambda p: p.write_text(json.dumps(out, indent=1)))
+        R.durable_save(fp, lambda p: p.write_text(json.dumps(out, indent=1)))
 
 
 if __name__ == "__main__":

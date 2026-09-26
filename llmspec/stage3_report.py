@@ -13,7 +13,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parent
-TAG = os.environ.get("STAGE3_TAG", "")
+import mcfg
+TAG = mcfg.suffix() + os.environ.get("STAGE3_TAG", "")
+MNAME = mcfg.name()
 TYPES = ["Q", "K", "V", "O", "MLP_IN", "MLP_OUT"]
 COL = dict(zip(TYPES, ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300"]))
 INK, MUTED, GRID = "#1f1f1f", "#6b6b66", "#e4e3dc"
@@ -89,7 +91,7 @@ def main():
             ax.axis("off")
         h, l = axs.flat[0].get_legend_handles_labels()
         fig.legend(h, l, loc="upper right", fontsize=8, frameon=False, ncol=6)
-        fig.suptitle(f"Pythia-1.4B {name} metrics vs training step (grey band: induction formation)", fontsize=10, x=0.01, ha="left", color=INK)
+        fig.suptitle(f"{MNAME} {name} metrics vs training step (grey band: induction formation)", fontsize=10, x=0.01, ha="left", color=INK)
         fig.tight_layout(rect=(0, 0, 1, 0.95)); fig.savefig(out / f"stage3_{name}{TAG}.png", dpi=120); plt.close(fig)
     # per-head types, markers, circuits
     fig, axs = plt.subplots(2, 3, figsize=(12, 6.2))
@@ -103,7 +105,7 @@ def main():
         ax.plot(d.median().index, d.median().values, lw=1.5, color=INK, marker="o", ms=2.5, label="median")
         ax.fill_between(d.quantile(.1).index, d.quantile(.1).values, d.quantile(.9).values, color="#9e9e98", alpha=0.25, lw=0, label="10-90%")
         events(ax, ev); style(ax, title, "")
-    fig.suptitle("Pythia-1.4B markers and circuits", fontsize=10, x=0.01, ha="left", color=INK)
+    fig.suptitle(f"{MNAME} markers and circuits", fontsize=10, x=0.01, ha="left", color=INK)
     fig.tight_layout(rect=(0, 0, 1, 0.95)); fig.savefig(out / f"stage3_markers_circuits{TAG}.png", dpi=120); plt.close(fig)
     cps = json.loads((ROOT / "results" / f"stage3_changepoints{TAG}.json").read_text())
     table = {"events": ev, "changepoints": {k: v for k, v in cps.items() if v}}

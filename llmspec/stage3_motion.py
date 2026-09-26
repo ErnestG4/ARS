@@ -16,6 +16,7 @@ import numpy as np
 import torch
 import remote_st as R
 import stage3_extract as X
+import mcfg
 
 ROOT = Path(__file__).resolve().parent
 EST = "stage3-motion-v1"
@@ -39,16 +40,17 @@ def fetch_layer(idx, L):
         a16 = a.astype(np.float16)
         assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid"
         got[k[len(p):]] = torch.from_numpy(a16).to(X.DEV)
-    qkv = got["attention.query_key_value.weight"].reshape(16, 3, 128, 2048)
-    return {"Q": qkv[:, 0].reshape(2048, 2048), "K": qkv[:, 1].reshape(2048, 2048), "V": qkv[:, 2].reshape(2048, 2048),
+    c = mcfg.get(); H, DH, D = c["H"], c["DH"], c["D"]
+    qkv = got["attention.query_key_value.weight"].reshape(H, 3, DH, D)
+    return {"Q": qkv[:, 0].reshape(D, D), "K": qkv[:, 1].reshape(D, D), "V": qkv[:, 2].reshape(D, D),
             "O": got["attention.dense.weight"], "MLP_IN": got["mlp.dense_h_to_4h.weight"], "MLP_OUT": got["mlp.dense_4h_to_h.weight"]}
 
 
 def main(revs):
     """GPU holds the previous revision's layer matrices (fp16, ~2.7 GB) plus ONE layer of the current revision:
     each current layer is streamed, compared with prev[L], then replaces it."""
-    import specs as S
-    out_dir = ROOT / "cache" / "s3_motion"; out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = ROOT / "cache" / f"s3_motion{mcfg.suffix()}"; out_dir.mkdir(parents=True, exist_ok=True)
+    NL = mcfg.get()["n_layer"]
     prev = {}
     for i, rev in enumerate(revs):
         a = revs[i - 1] if i else None
@@ -60,11 +62,11 @@ def main(revs):
             continue
         R.check_stop()
         t = time.time()
-        idx = R.index(S.MODELS["pythia-1.4b"]["repo"], rev)
-        do_pair = need_pair and len(prev) == 24
-        Ua = [np.load(ROOT / "cache" / "s3" / "pythia-1.4b" / a / f"L{L:02d}.npz") for L in range(24)] if do_pair else None
+        idx = R.index(mcfg.get()["repo"], rev)
+        do_pair = need_pair and len(prev) == NL
+        Ua = [np.load(ROOT / "cache" / "s3" / mcfg.name() / a / f"L{L:02d}.npz") for L in range(NL)] if do_pair else None
         res = {}
-        for L in range(24):
+        for L in range(NL):
             R.check_stop()
             cur = fetch_layer(idx, L)
             if do_pair:
@@ -88,7 +90,7 @@ def main(revs):
 
 
 if __name__ == "__main__":
-    revs = open(ROOT / "pythia_1.4b_schedule.txt").read().split()
+    revs = open(ROOT / mcfg.get()["sched"]).read().split()
     revs.sort(key=lambda r: int(r.replace("step", "")))
     try:
         main(revs)

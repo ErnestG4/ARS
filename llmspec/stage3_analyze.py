@@ -5,7 +5,7 @@ Writes results/stage3_long.parquet (G5 columns), results/stage3_null.json (the s
 G4 flags), results/stage3_changepoints.json, plots/stage3_*.png. Revisions without a DONE marker are skipped
 and listed, never silently dropped.
 """
-import json, sys, math
+import json, sys, math, os
 from pathlib import Path
 from multiprocessing import Pool
 import numpy as np
@@ -13,17 +13,22 @@ import pandas as pd
 import s3stats as S
 
 ROOT = Path(__file__).resolve().parent
-MODEL = "pythia-1.4b"
-SCHED = open(ROOT / "pythia_1.4b_schedule.txt").read().split()
-FULL = {"Q": (2048, 2048), "K": (2048, 2048), "V": (2048, 2048), "O": (2048, 2048),
-        "MLP_IN": (8192, 2048), "MLP_OUT": (2048, 8192)}
+import mcfg
+MODEL = mcfg.name()
+_C = mcfg.get()
+NL, NH = _C["n_layer"], _C["H"]
+SCHED = open(ROOT / _C["sched"]).read().split()
+_only = os.environ.get("LLMSPEC_REVS")               # regression / partial runs: comma-separated revision subset
+if _only:
+    SCHED = [r for r in SCHED if r in _only.split(",")]
+FULL = mcfg.full_shapes()
 HEADS = ["Q", "K", "V", "O"]
 TOL_RT, TOL_Q = 0.010, 0.10
 EST = {"local": S.EST, "mp": "mp_fit_v1", "mle": "htsr_mle_v1", "liu": "liu_rankslope_v1",
        "vec": "vec_band_v1", "circ": "circuit_v1", "mk": "stage3-markers-v1"}
 rows = []
 import os
-TAG = os.environ.get("STAGE3_TAG", "")      # e.g. "_early": writes results/stage3_*_early.* instead of the final files
+TAG = mcfg.suffix() + os.environ.get("STAGE3_TAG", "")   # model suffix ("" for 1.4B) + optional partial-run tag
 
 
 def step_of(rev):
@@ -40,7 +45,7 @@ def load(rev):
     d = ROOT / "cache" / "s3" / MODEL / rev
     if not (d / "DONE").exists():
         return None
-    return {"L": [np.load(d / f"L{l:02d}.npz") for l in range(24)], "G": np.load(d / "GLOBAL.npz"),
+    return {"L": [np.load(d / f"L{l:02d}.npz") for l in range(NL)], "G": np.load(d / "GLOBAL.npz"),
             "MK": np.load(d / "MARKERS.npz")}
 
 
@@ -225,7 +230,7 @@ def changepoints(x, y, min_seg=3):
 
 
 def main():
-    wit = json.loads((ROOT / "results" / "stage3_witness.json").read_text())
+    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix()}.json").read_text())
     have = [r for r in SCHED if (ROOT / "cache" / "s3" / MODEL / r / "DONE").exists()]
     missing = [r for r in SCHED if r not in have]
     have.sort(key=step_of)
@@ -274,8 +279,8 @@ def main():
         put(rev, -1, "MODEL", -1, "all", "sink_mean_all", float(mk["sink_mean"].mean()), EST["mk"])
         put(rev, -1, "MODEL", -1, "all", "induction_max", float(mk["induction"].max()), EST["mk"])
         put(rev, -1, "MODEL", -1, "all", "n_induction_heads_gt0.3", float((mk["induction"] > 0.3).sum()), EST["mk"])
-        for l in range(24):
-            for h in range(16):
+        for l in range(NL):
+            for h in range(NH):
                 put(rev, l, "ATTN", h, "all", "induction", float(mk["induction"][l, h]), EST["mk"])
                 put(rev, l, "ATTN", h, "all", "sink_mean", float(mk["sink_mean"][l, h]), EST["mk"])
         # ---- vectors
@@ -292,7 +297,7 @@ def main():
                         put(rev, l, M, -1, b, f"pt_ks_{side}_median", float(np.median(pt[sel])), EST["vec"])
         # ---- circuits
         for l, z in enumerate(D["L"]):
-            for h in range(16):
+            for h in range(NH):
                 ov, cp = z["ov_eig"][h], z["copy_eig"][h]
                 put(rev, l, "OV", h, "all", "copy_score_elhage", float(cp.real.sum() / np.abs(cp).sum()), EST["circ"])
                 put(rev, l, "OV", h, "all", "copy_frac_re_pos", float((cp.real > 0).mean()), EST["circ"])
@@ -314,13 +319,13 @@ def main():
                     Fx = np.interp(x, g, F); i = np.arange(1, len(x) + 1)
                     ks.append(max((i / len(x) - Fx).max(), (Fx - (i - 1) / len(x)).max()))
                 k_above = int((np.array(ks) > wit["types"][M]["ks95"]).sum())
-                p = float(binom.sf(k_above - 1, 24, 0.05)) if k_above else 1.0
+                p = float(binom.sf(k_above - 1, NL, 0.05)) if k_above else 1.0
                 g0[M] = {"k_above_ks95": k_above, "binom_p": p, "mp_pass": p >= 0.01,
                          "ks_median": float(np.median(ks)), "ks95_witness": wit["types"][M]["ks95"]}
     # ---- principal angles (consecutive + vs final), top-k U and V
     final = have[-1]
     for i, rev in enumerate(have):
-        for l in range(24):
+        for l in range(NL):
             for M in FULL:
                 for side in ("U", "V"):
                     A = data[rev]["L"][l][f"{side}32_{M}"]
@@ -340,7 +345,7 @@ def main():
                 put(rev, l, M, -1, "all", k, v, EST["mle"] if k.startswith("mle_") else (EST["liu"] if k.startswith("liu") else
                                                 ("mp_fit_v2" if k.startswith("mp2_") else EST["mp"])))
     # ---- motion (stage3_motion): Delta W between consecutive schedule revisions, filed at the LATER step
-    for f in sorted((ROOT / "cache" / "s3_motion").glob("*__*.npz")):
+    for f in sorted((ROOT / "cache" / f"s3_motion{mcfg.suffix()}").glob("*__*.npz")):
         a, b = f.stem.split("__")
         z = np.load(f)
         for k in z.files:

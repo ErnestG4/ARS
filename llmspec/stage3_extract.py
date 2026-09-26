@@ -40,15 +40,21 @@ GPU_CAP_GB = 6.0
 if torch.cuda.is_available():
     torch.cuda.set_per_process_memory_fraction(GPU_CAP_GB * 2 ** 30 / torch.cuda.get_device_properties(0).total_memory)
 EST = "stage3-extract-v1 (fp64 cuda svd; LN gains folded, centering/bias ignored)"
-H, DH, D, ROT = 16, 128, 2048, 32
+import mcfg
+H, DH, D, ROT = 16, 128, 2048, 32     # pythia-1.4b defaults; set_model() switches them (G3 replication)
+
+
+def set_model(model):
+    global H, DH, D, ROT
+    c = mcfg.get(model)
+    H, DH, D, ROT = c["H"], c["DH"], c["D"], c["ROT"]
 SQ2 = np.sqrt(2.0)
 
 
 class Ckpt:
     """Streams tensors HF -> GPU, cached as fp16 (exact: asserted on the fp16 grid); t() hands out fp64 copies."""
     def __init__(self, model, rev):
-        import specs as S
-        self.repo, self.rev = S.MODELS[model]["repo"], rev
+        self.repo, self.rev = mcfg.get(model)["repo"], rev
         self.idx = R.index(self.repo, rev)
         self.h = self.idx
         self.gpu = {}
@@ -84,7 +90,7 @@ def build_model(ck):
     assert not missing, f"missing weights: {missing[:5]}"
     for name, mod in m.named_modules():          # non-persistent buffers (rotary inv_freq) left on meta: rebuild
         if any(b.is_meta for b in mod.buffers(recurse=False)):
-            if hasattr(mod, "rope_init_fn") or "rotary" in name:
+            if hasattr(mod, "rope_init_fn") or "rotary" in name:   # model-agnostic (reads cfg)
                 new = type(mod)(cfg, device=DEV)
                 parent = m.get_submodule(name.rsplit(".", 1)[0]) if "." in name else m
                 setattr(parent, name.rsplit(".", 1)[-1], new)
@@ -198,6 +204,7 @@ def layer(ck, L, EU):
 
 
 def run(model, rev):
+    set_model(model)
     d = ROOT / "cache" / "s3" / model / rev
     d.mkdir(parents=True, exist_ok=True)
     if (d / "DONE").exists():

@@ -13,6 +13,7 @@ import numpy as np, torch
 import remote_st as R
 import stage3_extract as X
 import stage3_motion as MO
+import mcfg
 ROOT = Path(__file__).resolve().parent
 PAIRS = [(t, t + 1000) for t in (1000, 2000, 3000, 4000, 7000, 15000, 31000, 63000, 127000, 142000)]
 Wu, T, LR0, LRmin = 1430, 143000, 2e-4, 2e-5
@@ -20,16 +21,17 @@ def lr(t):
     t = np.asarray(t, float)
     return np.where(t < Wu, LR0 * t / Wu, LRmin + (LR0 - LRmin) / 2 * (np.cos(np.pi * (t - Wu) / (T - Wu)) + 1))
 def main():
-    od = ROOT / "cache" / "s3_motion_eq"; od.mkdir(parents=True, exist_ok=True)
+    od = ROOT / "cache" / f"s3_motion_eq{mcfg.suffix()}"; od.mkdir(parents=True, exist_ok=True)
+    NL, repo = mcfg.get()["n_layer"], mcfg.get()["repo"]
     for a, b in PAIRS:
         f = od / f"step{a}__step{b}.npz"
         if f.exists():
             continue
         R.check_stop(); t0 = time.time()
-        ia, ib = R.index("EleutherAI/pythia-1.4b", f"step{a}"), R.index("EleutherAI/pythia-1.4b", f"step{b}")
+        ia, ib = R.index(repo, f"step{a}"), R.index(repo, f"step{b}")
         lri = float(lr(np.arange(a, b)).sum())
         res = {"lr_integral": lri}
-        for L in range(24):
+        for L in range(NL):
             R.check_stop()
             A_, B_ = MO.fetch_layer(ia, L), MO.fetch_layer(ib, L)
             for M in MO.MATS:
@@ -45,7 +47,7 @@ def main():
             del A_, B_; torch.cuda.empty_cache()
         res["estimator_version"] = np.array("stage3-motion-eq-v1")
         R.durable_save(f, lambda p: np.savez(p, **res))
-        sr = np.mean([res[f"L{L:02d}_Q_dW_stable_rank"] for L in range(24)])
+        sr = np.mean([res[f"L{L:02d}_Q_dW_stable_rank"] for L in range(NL)])
         print(f"step{a}__step{b}: lr_int {lri:.3f} mean Q dW stable rank {sr:.1f} ({time.time()-t0:.0f}s)", flush=True)
 if __name__ == "__main__":
     try:
