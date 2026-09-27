@@ -217,6 +217,7 @@ and NOT pushed.
      read.
 4. ~~Change-point null calibration~~ DONE (§15): NOT LICENSED (false-CP rate 0.59–0.98 on smooth nulls).
 5. Zoo seating of the G7 classes (branch-merge session).
+6. **FINDINGS_MEMO.md** (brief §6 deliverable: every claim with its gate) written 09-27; update it when S4-sup lands.
 - HELD: arm B; OLMo stage-1 trajectory.
 
 ## 6. Lessons from this run (to carry into memory at handoff)
