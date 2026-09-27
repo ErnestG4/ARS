@@ -147,12 +147,12 @@ and NOT pushed.
 
 ## 4. Running now (check with `ps -eo pid,etime,args | grep -E "[c]heckrun|[s]tage3_|[m]emwatch"`)
 - All seed-leg queues DONE (09-27 ~07:30). No supervisor running.
-- **Addendum S4** (frozen 18804ca): `../checkrun.sh stage3_calib_v2.py 10` launched 09-27 ~08:10 (nohup; log
-  stage3_calib_v2.checkrun.log is written only at exit because checkrun buffers). Progress = line count of
-  results/stage3_calib_v2_pools.jsonl (200 pools, ~64 s each, 10 workers → ~25 min), then 70 real-run jobs
-  (7 calibrators x 10 runs, 50 draws). Resumable: re-launch the same command; the pilot, pools and real rows are kept.
-  After it ends: record known-answer table + licence + regression gate + re-score in STAGE3_SEED_FINDINGS.md, commit
-  with the CHECKRUN line pasted from the log.
+- **Addendum S4** (frozen 18804ca; S4 note 746d130 = planted effect overshoots at N=64, S4-sup arm fixed; amendment A1
+  7cfb66e = refused pools/draws fail closed, after v1 was refused on T_log truths and crashed the first launch at 7/200).
+  Running: `run_s4.sh` (PID 318134, setsid) = checkrun stage3_calib_v2.py 10 → checkrun stage3_calib_v2_sup.py 10.
+  Progress = line counts of results/stage3_calib_v2_pools.jsonl and ..._sup_pools.jsonl (200 each). Resumable: re-run
+  ./run_s4.sh. The checkrun logs are written only at exit. After it ends: record the known-answer table, licence,
+  regression gate, re-score and S4-sup in STAGE3_SEED_FINDINGS.md; commit with the pasted CHECKRUN lines.
 - **memwatch:** PID 12700. **Alarm cron:** job 0ab464f4, `7,37 * * * *` (session-only; recreate if the session restarts).
 
 ## 5. Next (in order; mark each done here with its commit)
