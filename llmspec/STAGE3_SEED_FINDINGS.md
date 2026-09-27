@@ -100,3 +100,8 @@
 ## Seed 5 (completed 20:26)
 - **A. Sealed null: {'HOLDS': 260} → HOLDS (per-head-Q drift flagged: Δq at 143k = -0.088, Δ⟨r̃⟩ = -0.0020).** Worst |Δ⟨r̃⟩| 0.0074, |Δq| 0.094. G0 passes: True.
 - **B.** R1 ✗, R2 ✓, R3 ✓, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.501, rows 0.3011. R3 ratios: Q 6.66, K 9.18, V 5.94, O 3.29, MLP_IN 20.48, MLP_OUT 3.39. R4 at 512: OV 0.974, QK 0.026. R5 [512, 1000].
+
+## Seed 6 (completed 21:46)
+- **A. Sealed null: {'HOLDS': 259, 'VIOLATED': 1}.** VIOLATED cells: [['head_Q', 96000, -0.1058, -0.0046]]. Per-head-Q drift flagged: Δq at 143k = -0.093, Δ⟨r̃⟩ = -0.0011. Worst |Δ⟨r̃⟩| 0.0063, |Δq| 0.106. G0 passes: True.
+  - Ladder step 2 (automatic, Addendum S1) on head_Q @ 96000: observed Δq -0.106 / Δ⟨r̃⟩ -0.0046; density-matched Δq -0.064 ± 0.011, Δ⟨r̃⟩ 0.0000 → **DENSITY_ARTIFACT** (the known per-head-Q drift, annotated, not relabelled).
+- **B.** R1 ✗, R2 ✓, R3 ✗, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.470, rows 0.2706. R3 ratios: Q 7.68, K 9.97, V 3.17, O 2.09, MLP_IN 19.36, MLP_OUT 3.24. R4 at 512: OV 0.982, QK 0.044. R5 [512, 1000].
