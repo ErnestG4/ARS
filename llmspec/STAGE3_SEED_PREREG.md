@@ -165,3 +165,22 @@ docstring of `stage3_calib_v2.py`, frozen by this commit. Summary:
    - It reports the recovery of every calibrator at the observed effect size.
    - A licensed calibrator whose S4-sup recovery falls outside [0.7, 1.3] is reported as "licensed at 3× effect,
      degraded at 1×". That qualifies the re-score's reading, but does not change its lattice verdict.
+
+### S4 amendment A1 — 2026-09-27 ~08:00, after a crash at 7 of 200 pools, BEFORE any summary statistic
+1. **What happened.** On T_log truths the frozen mixture v1 returned q = None in 2 of 3 pools (s3stats refuses a
+   pool with > 0.1% non-positive spacings). v1's untruncated Gaussians leak mass below λ = 0, and clipping turns it
+   into tied levels. The script crashed printing a None.
+2. **The gap.** The frozen S4 text did not say what a refused pool means (an escape hatch not dry-run at seal time).
+3. **Disclosure.** The 7 banked pool records were displayed during the diagnosis, i.e. single-pool calibrator values
+   were seen. The rule below is procedural and fails closed; nothing else changes.
+4. **Rule (A1).**
+   - **Truth-side refusal:** if the truth-side value (a, b or truth_fresh) is refused, that pool is excluded from
+     that arm for all calibrators, and the count is reported.
+   - **Calibrator-side refusal:** a calibrator refused in ANY pool of a family FAILS the licence on that arm for that
+     family ("cannot calibrate"). Its bias and recovery are still reported over the non-refused pools, labelled
+     CONDITIONAL.
+   - **Real runs:** the residual is the mean over non-refused draws, with the refused-draw count recorded.
+     - A run whose draws are ALL refused has no residual. For the regression gate that counts as a FAIL; for the
+       selected calibrator the arm becomes NOT RESOLVABLE.
+     - A selected calibrator refused in any real draw is reported as such.
+   - The 7 banked pool records are kept. They are seed-deterministic, so re-running them would reproduce them.

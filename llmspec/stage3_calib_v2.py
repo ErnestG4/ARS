@@ -47,6 +47,7 @@ RE-SCORE (the 10 runs, per-head Q, step 143000): for the selected k per arm, res
   REGRESSION GATE: v1 residual_q through this code must agree with the frozen drift test's per-run residual_q within 0.012
   (3 x the ladder's R = 10 noise) on every run; else the re-score is REFUSED.
   DESCRIPTIVE ONLY: every calibrator's real residuals are tabulated; no verdict is read from an unselected calibrator.
+A1 (STAGE3_SEED_PREREG.md, S4 amendment A1): refused pools / draws fail closed -- see summarise() and real_one().
 Output: results/stage3_calib_v2.json (pool records in results/stage3_calib_v2_pools.jsonl, resumable). STOP-aware.
 """
 import json, os, sys
@@ -168,8 +169,13 @@ def real_one(args):
     rng = np.random.default_rng(SEED + 7 + RUNS.index(m) * 100 + KINDS.index(k))
     H = real_heads(m); qo, ro = q_rt(H); Fs = [fit(k, np.sort(s ** 2)) for s in H]
     qc = [q_rt([to_sig(coe(len(s), rng), F) for s, F in zip(H, Fs)]) for _ in range(draws)]
-    mq, mr = float(np.mean([c[0] for c in qc])), float(np.mean([c[1] for c in qc]))
-    return {"run": m, "kind": k, "q_obs": qo, "rt_obs": ro, "q_cal": mq, "rt_cal": mr, "res_q": qo - mq, "res_rt": ro - mr}
+    rec = {"run": m, "kind": k, "q_obs": qo, "rt_obs": ro}
+    for i, X, obs in ((0, "q", qo), (1, "rt", ro)):               # A1: mean over non-refused draws; all refused -> None
+        v = [c[i] for c in qc if c[i] is not None]
+        rec[f"{X}_cal"] = float(np.mean(v)) if v else None
+        rec[f"{X}_refused_draws"] = draws - len(v)
+        rec[f"res_{X}"] = (obs - rec[f"{X}_cal"]) if (v and obs is not None) else None
+    return rec
 
 
 def save(out):
@@ -177,22 +183,38 @@ def save(out):
 
 
 def summarise(recs):
+    """A1: truth-side refusals (None in a / b / truth_fresh) exclude the pool from that arm; a calibrator refused in ANY
+    pool of a family fails the licence there (stats reported over its non-refused pools, labelled CONDITIONAL)."""
     ka = {}
     for fam in FAMS:
         rr = [d for d in recs if d["fam"] == fam]
         ka[fam] = {"n_pools": len(rr)}
         for i, X in enumerate(("q", "rt")):
-            E = np.array([d["b"][i] - d["a"][i] for d in rr])
+            ok = [d for d in rr if all(d[s][i] is not None for s in ("a", "b", "truth_fresh"))]
+            ka[fam][f"truth_refused_{X}"] = len(rr) - len(ok)
+            E = np.array([d["b"][i] - d["a"][i] for d in ok])
             ka[fam][f"E_{X}"] = [float(E.mean()), float(E.std(ddof=1) / np.sqrt(len(E)))]
             for k in KINDS:
-                bias = np.array([d["truth_fresh"][i] - d[k]["cal_a"][i] for d in rr])
-                absb = np.array([d[k]["cal_b"][i] - d[k]["cal_a"][i] for d in rr])
+                kk = [d for d in ok if d[k]["cal_a"][i] is not None and d[k]["cal_b"][i] is not None]
+                nref = len(ok) - len(kk)
+                bias = np.array([d["truth_fresh"][i] - d[k]["cal_a"][i] for d in kk])
+                absb = np.array([d[k]["cal_b"][i] - d[k]["cal_a"][i] for d in kk])
+                Ek = np.array([d["b"][i] - d["a"][i] for d in kk])
+                if len(kk) < 2:
+                    ka[fam].setdefault(k, {})[X] = {"cal_refused": nref, "n": len(kk), "pass": False, "note": "CANNOT CALIBRATE"}
+                    continue
                 se = float(bias.std(ddof=1) / np.sqrt(len(bias)))
-                rec_ratio = float((E.mean() - absb.mean()) / E.mean())
+                rec_ratio = float((Ek.mean() - absb.mean()) / Ek.mean())
                 ka[fam].setdefault(k, {})[X] = {"bias": float(bias.mean()), "bias_se": se, "absorb": float(absb.mean()),
-                                                 "recovery": rec_ratio,
-                                                 "pass": bool(abs(bias.mean()) + 1.96 * se <= TOL[X] and 0.7 <= rec_ratio <= 1.3)}
+                                                 "recovery": rec_ratio, "n": len(kk), "cal_refused": nref,
+                                                 "CONDITIONAL": nref > 0,
+                                                 "pass": bool(nref == 0 and abs(bias.mean()) + 1.96 * se <= TOL[X]
+                                                              and 0.7 <= rec_ratio <= 1.3)}
     return ka
+
+
+def _fmt(tf, ca):
+    return "  None " if tf is None or ca is None else f"{tf - ca:+.4f}"
 
 
 def main(workers=10):
@@ -214,7 +236,7 @@ def main(workers=10):
             with open(POOLS, "a") as fh:
                 fh.write(json.dumps(rec, default=float) + "\n"); fh.flush(); os.fsync(fh.fileno())
             print(f"{rec['fam']} pool {rec['pool']:3d}: " + " ".join(
-                f"{k} {rec['truth_fresh'][0] - rec[k]['cal_a'][0]:+.4f}" for k in KINDS), flush=True)
+                f"{k} {_fmt(rec['truth_fresh'][0], rec[k]['cal_a'][0])}" for k in KINDS), flush=True)
             RS.check_stop()
         recs = [json.loads(l) for l in POOLS.read_text().splitlines()]
         ka = summarise(recs)
@@ -232,20 +254,26 @@ def main(workers=10):
         jobs = [(m, k, 50) for k in KINDS for m in RUNS if (m, k) not in have]
         for rec in P.imap_unordered(real_one, jobs):
             real.append(rec); out["real"] = real; save(out)
-            print(f"real {rec['run']:20s} {rec['kind']:7s} res_q {rec['res_q']:+.4f} res_rt {rec['res_rt']:+.5f}", flush=True)
+            print(f"real {rec['run']:20s} {rec['kind']:7s} res_q {rec['res_q']} res_rt {rec['res_rt']} "
+                  f"refused {rec['q_refused_draws']}/{rec['rt_refused_draws']}", flush=True)
             RS.check_stop()
     drift = {r["run"]: r["residual_q"] for r in json.loads((ROOT / "results" / "stage3_drift_test.json").read_text())["rows"]}
     v1 = {d["run"]: d for d in out["real"] if d["kind"] == "v1"}
-    gate = {m: [v1[m]["res_q"], drift[m], bool(abs(v1[m]["res_q"] - drift[m]) <= 0.012)] for m in RUNS}
+    gate = {m: [v1[m]["res_q"], drift[m], bool(v1[m]["res_q"] is not None and abs(v1[m]["res_q"] - drift[m]) <= 0.012)]
+            for m in RUNS}
     out["regression_gate"] = {"rows": gate, "PASS": all(g[2] for g in gate.values())}
     arms = {}
     for X in ("q", "rt"):
         k = sel[X]
         if k is None:
             arms[X] = {"calibrator": None, "status": "NOT RESOLVABLE (no licensed calibrator)"}; continue
-        v = np.array([d[f"res_{X}"] for d in out["real"] if d["kind"] == k]); assert len(v) == 10
+        vals = [d[f"res_{X}"] for d in out["real"] if d["kind"] == k]; assert len(vals) == 10
+        if any(x is None for x in vals):
+            arms[X] = {"calibrator": None, "status": f"NOT RESOLVABLE ({k} refused on every draw of some run; A1)"}; continue
+        v = np.array(vals)
         se = float(v.std(ddof=1) / np.sqrt(10)); t = float(v.mean() / se)
-        arms[X] = {"calibrator": k, "mean": float(v.mean()), "se": se, "t": t, "df": 9, "p_one_sided": float(tdist.cdf(t, 9))}
+        arms[X] = {"calibrator": k, "mean": float(v.mean()), "se": se, "t": t, "df": 9, "p_one_sided": float(tdist.cdf(t, 9)),
+                   "refused_draws_total": int(sum(d[f"{X}_refused_draws"] for d in out["real"] if d["kind"] == k))}
     out["rescore"] = arms
     if not out["regression_gate"]["PASS"]:
         out["verdict"] = "REFUSED (v1 regression gate failed)"
