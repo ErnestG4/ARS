@@ -175,3 +175,14 @@ tests) is sealed separately, before A0 starts.
    - A1 needs 5000 because the warmup-end model can put its turning point more than 1430 steps after A0's.
    - A2 is REQUIRED, no longer optional: it is the arm that separates the LR-integral model from the other two
      (B1b Q1).
+
+## Amendment B1a-A2 — 2026-09-27 15:20, after band completion, BEFORE any validation result was seen
+- **Defect.** §3.5 (iii) scored each run's "step-2t checkpoint" as step t for t ∈ {256, 512, 1000}, but 2 × 512 = 1024 is
+  not a released checkpoint (Pythia saves 1000). The frozen scorer raised StopIteration in `validate`.
+  - That happened before validate.json was written or anything printed, so NO validation outcome was seen.
+  - Cause: `validate` was not dry-run at seal time (the S4 lesson, repeated).
+- **Fix (minimal).** Score the NEXT shared checkpoint as step t, i.e. 512 / 1000 / 2000 for t = 256 / 512 / 1000. For
+  t = 512 that is a 1.95× step instead of 2×. Nothing else changes.
+- **Scorer:** now sha256 e24e570c7f709a3c735024f6b253512ceaaacc6fc5873862be1f8f179334fa4a; the previous sha is 0eb2cdff…
+- **Dry run:** every validate branch ran on a fabricated miniature band BEFORE the real validate (this time).
+- The band (160 rows, sha256 c51a4d6a…) is unchanged and is reused.

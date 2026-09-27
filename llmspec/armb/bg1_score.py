@@ -5,7 +5,8 @@ Modes (all resumable; outputs under $BG1_DIR, default ~/llmspec_armb/bg1):
              [142000*1024, 143000*1024)), save probe.npy + sha256
   band       score the 10 reference runs (pythia-70m + PolyPythias seed1..9) at every gating + extra step -> band.jsonl
   validate   §3.5: (i) leave-one-seed-out specificity, (ii) red-path HF-default init at step 0,
-             (iii) red-path step misalignment (step 2t scored as step t, t in {256, 512, 1000}) -> validate.json
+             (iii) red-path step misalignment: the NEXT shared checkpoint scored as step t, for t in {256, 512, 1000},
+             i.e. 512 / 1000 / 2000 (amendment B1a-A2) -> validate.json
   a0 <ckpt.pt> <step>   score one A0 checkpoint (fp32 state_dict, ROUNDED TO fp16 for commensurability), append a
              verdict line to bg1_verdicts.jsonl (fail-fast semantics are applied by the GPU-side runner)
 Metrics per checkpoint: layer-mean stable rank ||W||_F^2/||W||_2^2 and layer-mean Frobenius norm for Q, K, V (split
@@ -237,9 +238,10 @@ def do_validate():
     out["ii_hf_default_init"] = {"gate_pass": bool(ok), "worst": k, "z": z, "T": T, "RED_PATH_FIRES": not ok}
     # (iii) red-path: step misalignment -- run r's step 2t scored as step t against the other 9
     mis = []
+    NEXT = {256: 512, 512: 1000, 1000: 2000}      # amendment B1a-A2: the next shared checkpoint (2*512 = 1024 does not exist)
     for repo in REFS:
         for t_ in (256, 512, 1000):
-            x = next(r["metrics"] for r in rows if r["repo"] == repo and r["step"] == 2 * t_)
+            x = next(r["metrics"] for r in rows if r["repo"] == repo and r["step"] == NEXT[t_])
             ok, k, z, T, n = gate_step(x, t_, refs_at(rows, t_, exclude=repo))
             mis.append({"repo": repo, "t": t_, "gate_pass": bool(ok), "worst": k, "z": z})
     nf = sum(not m["gate_pass"] for m in mis)
