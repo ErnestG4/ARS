@@ -60,3 +60,30 @@ was known. Nothing below changes a tolerance or a verdict. It fixes in advance h
 5. **R1 / R3 reporting:** verdicts come mechanically from the registered seed counts. The ten-run spread (median,
    range) of both R1 numbers (rotary mass, rotary-row norm share) and of every R3 ratio is reported alongside, because
    both criteria straddle their bars.
+
+## ADDENDUM S2 — committed 2026-09-26 ~19:30, BEFORE seed 5's statistics (review round 4)
+1. **The ⟨r̃⟩ arm of the drift test is underpowered for the residual, so read it that way.**
+   - Linearising the Brody interpolation, d⟨r̃⟩/dq ≈ (0.531 − 0.386)/1 ≈ 0.145. A q residual of −0.023 predicts
+     Δ⟨r̃⟩ ≈ −0.003, inside the observed −0.006 … +0.0002.
+   - ⟨r̃⟩ can rule out the FULL q drift (−0.085 → ≈ −0.012) being real, but cannot confirm or exclude the residual.
+   - Only the q arm can realistically deliver FINDING_CANDIDATE. A quiet ⟨r̃⟩ is NOT counter-evidence against the
+     residual.
+2. **The statistic is a t, not a z.** SE comes from the spread over runs, so mean/SE ~ t with n − 1 degrees of freedom.
+   - At n = 10 the frozen −3 SE threshold is t₉ = −3, one-sided p ≈ 0.0075. The verdict line prints t, df and p.
+   - The interim value at n = 4 was t₃ = −3.8, one-sided p ≈ 0.016, not the "z −3.8" first written.
+   - The thresholds are unchanged; only the reporting is corrected.
+3. **Calibrator-fidelity test** (stage3_calib_fidelity.py, frozen by this commit, run at n = 10 next to the drift
+   test). The residual could be the calibrator matching trained densities imperfectly (smoothing them, so reproducing
+   less unfolding bias) rather than a signal.
+   - Per head (per-head Q, step 143k, each run): mismatch = KS distance between the head's real λ values and its
+     fitted mixture CDF (the calibrator's density).
+   - Heads are split into mismatch quartiles within each run. Per quartile, q_obs and q_density are computed on the
+     quartile's heads (density-matched COE, R = 10), giving residual(quartile).
+   - **CALIBRATOR_SHORTFALL** iff the lowest-mismatch quartile's residual, averaged over runs, is within 1 SE of 0 AND
+     the residual grows in magnitude with mismatch (Spearman over the four quartile means ≤ −0.8).
+   - **RESIDUAL_NOT_FIDELITY** iff the lowest-mismatch quartile's residual is ≤ −2 SE.
+   - Otherwise **INCONCLUSIVE**. SE = SD over runs / √n (a t with n − 1 df, reported as such).
+   - The drift test's verdict is reported only together with this one: FINDING_CANDIDATE AND CALIBRATOR_SHORTFALL
+     reads as "not established".
+4. **Step-0 excess variance** is being diagnosed (review point 3). Its outcome feeds the noise model reported with the
+   verdict, but does NOT change the frozen SE (the empirical between-run SD).

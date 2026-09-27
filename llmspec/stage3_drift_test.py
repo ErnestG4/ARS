@@ -38,9 +38,15 @@ def main():
     n = len(rows)
     rq = np.array([r["residual_q"] for r in rows]); dr = np.array([r["drt"] for r in rows])
     se_q, se_r = rq.std(ddof=1) / np.sqrt(n), dr.std(ddof=1) / np.sqrt(n)
+    from scipy.stats import t as tdist
+    tq, tr = float(rq.mean() / se_q), float(dr.mean() / se_r)
+    # ADDENDUM S2: mean/SE with SE from n runs is a t with n-1 df (thresholds unchanged; reporting corrected).
+    # The <r~> arm is underpowered for the residual (dq -0.023 -> d<r~> ~ -0.003): a quiet <r~> is NOT counter-evidence.
     out = {"doc": __doc__, "n_runs": n, "rows": rows, "mean_residual_q": float(rq.mean()), "se_residual_q": float(se_q),
-           "z_residual_q": float(rq.mean() / se_q), "mean_drt": float(dr.mean()), "se_drt": float(se_r),
-           "z_drt": float(dr.mean() / se_r)}
+           "z_residual_q": tq, "t_residual_q": tq, "df": n - 1, "p_one_sided_residual_q": float(tdist.cdf(tq, n - 1)),
+           "mean_drt": float(dr.mean()), "se_drt": float(se_r), "z_drt": tr, "t_drt": tr,
+           "p_one_sided_drt": float(tdist.cdf(tr, n - 1)),
+           "note": "z_* keys = t statistics (df = n-1); read the verdict together with stage3_calib_fidelity.py (Addendum S2)"}
     if n < 10:
         out["verdict"] = "INTERIM (n < 10; no verdict issued)"
     elif abs(out["z_residual_q"]) < 3 and abs(out["z_drt"]) < 3:

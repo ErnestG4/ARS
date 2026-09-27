@@ -34,3 +34,4 @@ s3s_analyze_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=py
 s3s_repl_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
 s3s_ladder_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
 s3s_drift_test|/home/combust/fmexplorer/bin/python3 -u stage3_drift_test.py
+s3s_calib_fidelity|OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_calib_fidelity.py
