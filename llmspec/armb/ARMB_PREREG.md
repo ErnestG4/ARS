@@ -148,3 +148,30 @@ tests) is sealed separately, before A0 starts.
   - FAIL → writes `llmspec/STOP` with content "B-G1 FAIL step t", and A0 stops at its next step;
   - PASS through 2000 → enqueues A1.
 - Every verdict line carries the scorer's git hash and the reference-band file's sha256.
+
+## Amendment B1a-A1 — 2026-09-27, PRE-DATA (no arm has trained a step; the reference band is still computing)
+**Source:** Will's 09-27 review of B1b, point 4: "M0-s1 pairs with A0: Pythia step 0, Pythia data order".
+
+1. **Init.** A0, A1, A2 and M0-s1 all START FROM `EleutherAI/pythia-70m` step0 weights (the released fp16-exact values,
+   loaded into fp32 masters). This replaces "RNG seed 1234, a new draw" in §1.
+   - Every AdamW arm and M0-s1 is then a PAIRED run with the released Pythia-70M trajectory: same init, same data order.
+   - A0 − Pythia-70M differs only by precision (bf16 autocast vs fp16 with loss scaling), skipped overflow steps and
+     GPU nondeterminism. That difference is reported DESCRIPTIVELY at the shared steps.
+   - Caveat: the released step0 is the fp16 rounding of Pythia's fp32 initial masters, so A0's initial masters differ
+     from Pythia's by that rounding (≤ 2⁻¹¹ relative).
+2. **B-G1 is unchanged.**
+   - A0 is now closer to pythia-70m (one member of the n = 10 band) than an independent seed would be. The gate stays
+     valid and becomes more conservative.
+   - Validation red-path (ii), "HF default init must fail", keeps its purpose: it shows the gate detects a wrong-init
+     start.
+3. **M0-s2** starts from `EleutherAI/pythia-70m-seed1` step0 with seed 1's data order.
+   - The order is rebuilt from the released GPT-NeoX index maps in `EleutherAI/pile-preshuffled-seeds/seed1`
+     (doc/sample/shuffle idx over the tokenized Pile).
+   - Its AdamW partner is the released `pythia-70m-seed1` trajectory, at the shared steps only.
+   - **Known-answer check of the data reconstruction:** the same code on `seed0` (base seed 1234) must reproduce the
+     standard preshuffled batches byte for byte, for steps 1–50. If it does not, M0-s2 is BLOCKED (BLOCKED.md) and
+     does not run.
+4. **Stops.** A1 and A0 run to 5000; A2 to 3000; M0-s1 and M0-s2 to 3000.
+   - A1 needs 5000 because the warmup-end model can put its turning point more than 1430 steps after A0's.
+   - A2 is REQUIRED, no longer optional: it is the arm that separates the LR-integral model from the other two
+     (B1b Q1).
