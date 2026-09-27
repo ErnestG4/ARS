@@ -45,9 +45,16 @@ first optimizer step. Part B1b (the Q1–Q4 tests) is sealed separately, also be
 - **Engineering, not method:** torch.compile, fused AdamW kernel, sdpa. Each is disclosed; none changes the maths
   beyond floating-point reassociation.
 
-### 1a. Data variant (to be FILLED before sealing, from the PolyPythias model card; quote + URL)
-A0 uses whichever Pile variant PolyPythias-70M trained on, so that the B-G1 seed band is commensurable. The
-standard-vs-deduped choice is recorded here with its source quotation.
+### 1a. Data variant (FILLED 2026-09-27 from the PolyPythias paper)
+- **Standard (non-deduplicated) Pile:** `EleutherAI/pile-standard-pythia-preshuffled`.
+- Source, arXiv 2503.09543 (https://arxiv.org/html/2503.09543v1): "We use the standard (i.e., non-deduplicated) version
+  of the Pile".
+- On seeds: "Each training run uses the same hyperparameters, codebase, and data as Biderman et al. (2023b) but varies
+  the seeds for parameter initialisation and batch composition". The model card for `EleutherAI/pythia-70m-seed1`
+  lists `pythia-{size}m` as the "Original Pythia model (seed 1234)".
+- **Consequence for B-G1.** The reference seeds vary init AND batch order together; the 70M suite has no init-only
+  variants (those exist only at 160M). A0 varies init only, since it uses Pythia's exact batch order. So the band is
+  WIDER than A0's own seed spread: the gate is conservative. Its power is what the §3.5 red-paths measure.
 
 ## 2. Checkpoint grid (final)
 - **Full fp32 state_dict (282 MB) at:**
@@ -65,7 +72,11 @@ standard-vs-deduped choice is recorded here with its source quotation.
 
 ## 3. Anchor gate B-G1
 ### 3.1 Reference set
-- Pythia-70M (the variant in §1a) and every PolyPythias-70M seed that trained on that variant with the standard recipe.
+- Pythia-70M (standard Pile, seed 1234) plus PolyPythias `pythia-70m-seed1` … `seed9`: n = 10. All 16 shared
+  revisions exist in all 10 repos (spot inventory, ~/llmspec_armb/inventory.json).
+- **Precision commensurability.** The references are effectively fp16: the seed repos are fp16 .bin, and pythia-70m's
+  fp32 safetensors is an exact fp16 upcast (all 76 tensors equal, checked on spot). So the gate scores A0's checkpoint
+  ROUNDED TO fp16. Q1–Q4 (B1b) use A0's fp32 masters, as the brief requires.
 - The seed band is computed on spot (the CPU scoring server) from HF-streamed checkpoints, BEFORE A0 exists.
 - The same code scores A0 and the references on the same machine (commensurability).
 
@@ -78,8 +89,13 @@ standard-vs-deduped choice is recorded here with its source quotation.
 - Steps 0 and 1 test init only (Pythia step1 = step0).
 
 ### 3.3 Metrics (per shared step)
-- **(a) Loss** on a fixed probe. The probe is 64 × 2048 tokens taken from preshuffled samples at indices ≥ 143,000 ×
-  1024, i.e. never trained on by any run through step 5000. Its indices and sha256 are fixed at seal.
+- **(a) Loss** on a fixed probe: 64 samples of 2049 tokens.
+  - Drawn uniformly (seed 20260927) from preshuffled indices [142,000 × 1024, 143,000 × 1024), i.e. from Pythia's LAST
+    1000 steps. The file holds exactly 143,000 × 1024 samples, so every sample is trained on by the end.
+  - Unseen by Pythia-70M and A0 through step 5000.
+  - PolyPythias seeds use other batch orders, so each probe sample has probability ≈ 5000/143000 = 3.5% of having been
+    seen once by a given seed by step 5000 (~2 of 64). Disclosed; expected effect negligible.
+  - The probe indices and sha256 are fixed at seal.
 - **(b) Layer-mean stable rank ‖W‖_F²/‖W‖₂²** for each of: Q, K, V (split from the fused QKV exactly as Stage 3 does),
   O, MLP_IN, MLP_OUT.
 - **(c) Layer-mean Frobenius norm** for the same 6 types.
@@ -90,7 +106,8 @@ standard-vs-deduped choice is recorded here with its source quotation.
 - **Per comparison:** z = (x_A0 − m) / (s·√(1 + 1/n)), with m and s the mean and SD over the n reference runs. Under
   "A0 is exchangeable with the reference seeds" (Gaussian), z ~ t_{n−1}.
 - **Family-wise:** PASS iff |z| ≤ T at every comparison. T is the t_{n−1} quantile with two-sided Bonferroni level
-  0.05/164: T = 5.67 (n = 10), 6.05 (n = 9), 6.60 (n = 8). The value for the realised n is fixed at seal.
+  0.05/164: **T = 5.67 for the realised n = 10** (it would be 6.05 at n = 9 if a reference ever fails to load, which
+  would be reported).
   - This bounds the false-fail rate at ≤ 5% under the model. The template fix "family-wise allowance" (memo §4)
     applies here: a bare per-step bar would false-fail a correct A0 almost surely.
 - **Fail-fast:** the first failing gating step writes FAIL and the GPU stops. PASS needs every gating step through
