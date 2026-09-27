@@ -219,6 +219,10 @@ and NOT pushed.
    disk). Recommended: 70M compiled, A0→5000 / others→3000, A0+A1+M0x2 (+A2), checkpoints on D:. Then B1 prereg
    (must include Pythia small_init/wang_init, NeoX optimizer groups + LR formulas from source, PolyPythias data variant,
    Muon on fused QKV).
+   **RULE (Will, 09-27): A1 does not start until A0 passes the anchor gate B-G1.** The server scores B-G1 at the shared
+   checkpoints (steps 1–512, 1000, 2000) while A0 keeps training to 5000. PASS through 2000 → A1 queues automatically;
+   FAIL → the GPU stops (nothing downstream runs on a bad anchor). To seal in B1: the PolyPythias seed band computed
+   BEFORE A0 exists; a family-wise gate calibrated leave-one-seed-out; fail-fast semantics; pull-based signalling.
 8. **OLMo stage-1 trajectory — DEFERRED behind arm B (Will, 09-27).** The cheapest real lead: the only place
    multimodality survived a licensed test (13.3% of Q heads excluding dead rows at stage-1 end). G7 did not license
    local statistics on peaked spectra, so it can only give peak timing (appear / fade), not internal structure.
