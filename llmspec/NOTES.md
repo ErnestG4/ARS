@@ -194,6 +194,12 @@ and NOT pushed.
      absorbs it.
    - Seed 4 DONE: HOLDS (drift −0.049); R1 ✗ (concentration 0.307), R3 ✗ (O 2.61).
    - Seed 5 DONE: HOLDS (drift −0.088); R1 ✗ (rows 0.301), R2–R6 ✓.
+   - Seed 7 DONE: HOLDS (drift −0.071); R1 ✗ (rows 0.288), R3 ✗ (MLP_OUT 2.98). G0 FAIL-as-sealed on V (threshold
+     noise; confirmed on the tail with a common threshold).
+   - **Seeds 3 and 4 had late loss spikes** (s3 64k–96k, s4 96k–128k; final loss 2.475 / 2.857). Their invariant
+     products shrink too, so it is not symmetry drift. Seed 5's Q offset IS QK-symmetry drift. Annotation only.
+   - **Addendum S3 (a5cd7bf):** original seeds 3–5 verdicts stay labelled "invalid reused witness"; the re-analysis
+     is primary; the frozen tests take re-analysed inputs; stage3_qkprod_drift.py is a labelled descriptive (running).
    - Seed 6 DONE: 259/1 VIOLATED (head_Q @ 96k, dq −0.106) → automatic ladder DENSITY_ARTIFACT; R1 ✗ (rows
      0.2706), R3 ✗ (O 2.09).
    - **HF outage ~21:53 (HTTP 504 on resolve):**
@@ -232,3 +238,10 @@ and NOT pushed.
   old configuration, not just shapes.
 - Retry scope must cover EVERY network step, including redirects and resolves, not just the data request. The HF
   504 outage (09-26 21:53) raised from _resolve outside the caught exception set and killed four queued jobs.
+- **Protocol-template notes collected** (apply forward only):
+  1. Rate bars (G0, G4) need allowance for sampling and threshold-estimation noise, set family-wise.
+  2. Witness scale matching is unnecessary at the current tolerances (stage3_witness_scale_test: ≤ 0.0024 in ⟨r̃⟩ at
+     0.17×).
+  3. The nearest-confusable test must precede sealing.
+  4. Default-path regression cannot catch default leakage.
+  5. Retries must cover every network step.

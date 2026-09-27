@@ -176,3 +176,16 @@
     exclude.
   - The witness-reuse failures for seeds 3 and 4 are downstream of these instabilities. For seeds 5 and 9 (Q 1.25 /
     1.37×), symmetry drift in Q is the likely cause; seed 9 is checked the same way once it is analysed.
+
+## Witness absolute-scale test (protocol-template note; stage3_witness_scale_test.py)
+- The same witness construction at the standard 410M scale vs 0.17× (seed 4's extreme). Full O at 1024² and per-head Q
+  at 64 × 1024, fp16, R = 12 pools each, all bands.
+  - Every difference is ≤ 0.0024 in ⟨r̃⟩ and ≤ 0.034 in q (upper band; bulk ≤ 0.0095), with mixed signs.
+  - The largest relative one is per-head-Q bulk ⟨r̃⟩: −0.0024 ± 0.0008. Across 12 comparisons that is plausible, and it
+    is ≤ ¼ of the sealed 0.010 tolerance in any case.
+  - fp16 subnormal fraction at 0.17×: 1.4% (O) and 0.6% (per-head Q) of entries.
+- **For the protocol template:** scale matching of the witness protects only against effects far below the null's
+  tolerance, since spacing statistics are scale-free and fp16 rounding is relative. Future arcs can drop the ±20%
+  reuse rule unless weights approach the subnormal range (or tolerances tighten by ~4×).
+  - In THIS study the rule still runs as written: dedicated witnesses for the failing seeds, re-analysis primary per
+    Addendum S3.
