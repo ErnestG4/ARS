@@ -42,3 +42,26 @@
 ## Seed 3 (completed 17:34)
 - **A. Sealed null: {'HOLDS': 260}.** Worst |Δ⟨r̃⟩| 0.0058, |Δq| 0.089. Per-head Q at 143k: Δq -0.065, Δ⟨r̃⟩ 0.0002. G0 passes: True. No VIOLATED cells.
 - **B. All six REPLICATE.** R1: rotary mass 0.391, rows 0.2261. R3 ratios: Q 7.5, K 9.6, V 7.2, O 3.1, MLP_IN 21.5, MLP_OUT 3.1. R4 at 512: OV 0.974, QK 0.029. R5 [512, 1000].
+
+## Per-head-Q drift diagnostics (after review, 17:45–18:20; Addendum S1 committed first, bb7e573)
+- **Descriptive flag, applying to every run:** per-head Q's bulk Brody q drifts steadily down over training. This is a
+  systematic, directional effect reproduced in 4/4 runs, not noise. The reading-A verdicts above stand as registered;
+  the drift is annotated, never relabelled.
+  - Δq trajectory (steps 0 / 512 / 2k / 8k / 32k / 96k / 143k): std +0.03 / −0.00 / −0.05 / −0.06 / −0.07 / −0.07 / −0.08;
+    s1 −0.02 … −0.10; s2 +0.03 … −0.09; s3 +0.01 … −0.07.
+  - Δ⟨r̃⟩ (no unfolding) at 143k: −0.0022 / −0.0059 / −0.0034 / +0.0002. Small and mixed in sign next to the q drift.
+- **G7-style calibrator on trained per-head-Q densities** (stage3_ladder.py; COE mapped through each head's own
+  end-of-training λ density, identical pipeline, R = 10):
+  - It reproduces Δq −0.067 / −0.065 / −0.065 / −0.052, about 73% of the observed −0.081 / −0.103 / −0.091 / −0.065.
+  - At step 2000 (std) it predicts −0.053 vs −0.047 observed.
+  - **Documented instrument bias (for the calibrator zoo):** kde(4)-unfolded Brody q on trained 410M per-head-Q
+    density shapes (64 levels) reads ~0.05–0.07 low for a true β=1 spectrum.
+- **Residual after the density correction:** −0.014 / −0.038 / −0.026 / −0.013 (4/4 negative). Interim mean −0.023,
+  z = −3.8 (n = 4); Δ⟨r̃⟩ interim z = −2.2.
+  - **INTERIM — no verdict.** The pre-registered test (stage3_drift_test.py, frozen before seeds 4–9) issues its verdict
+    only at n = 10 and is queued at the end of the seed leg.
+- **Noise model.** At step 0 (random weights), per-head-Q Δq already varies across runs by SD ≈ 0.024, about 2.3× the G1
+  witness replicate SD (0.0105). Between-run variability exceeds what the witness captures, so the test uses the
+  empirical between-run SD.
+- **Devices** (unchanged by the queue split): extraction is GPU fp64 (encoded in the extraction estimator_version);
+  analysis, ladder and drift test are CPU numpy, as in every earlier run.

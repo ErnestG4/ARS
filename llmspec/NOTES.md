@@ -180,7 +180,13 @@ and NOT pushed.
    - Seed 1 DONE (14:57): 259 HOLDS / 1 VIOLATED (head_Q @ 143k, dq −0.103). Ladder step 2 (stage3_ladder.py) →
      DENSITY_ARTIFACT (density-matched dq −0.065). A noise-scaled residual (q −0.038, r̃ −0.006, ~3σ) is a CANDIDATE
      only. R1 ✗ (norm clause), R2–R6 ✓. Running record: STAGE3_SEED_FINDINGS.md.
-   - For each later seed: run stage3_ladder.py on every VIOLATED cell before recording it.
+   - For each later seed: run stage3_ladder.py on every VIOLATED cell before recording it (automatic via
+     stage3_ladder_all.py).
+   - Seeds 2, 3 DONE: HOLDS 260/260 each; all six R replicate.
+   - **Addendum S1 (bb7e573):** crossings read mechanically, drift = annotation, a frozen 10-run drift test
+     (stage3_drift_test.py, queued last).
+   - Interim (n=4): the density calibrator explains ~73% of the per-head-Q q drift; residual z −3.8, ⟨r̃⟩ z −2.2.
+     INTERIM, no verdict. Summary lines must say "HOLDS (per-head-Q drift flagged)".
 3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
    Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
    - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is

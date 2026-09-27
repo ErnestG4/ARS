@@ -1,0 +1,41 @@
+{
+ "doc": "ADDENDUM S1 item 4 (STAGE3_SEED_PREREG.md, bb7e573): pre-registered noise-scaled test of the per-head-Q late-training\ndrift over all 10 410M runs (standard + seeds 1-9). FROZEN by commit before it is run on the full set.\nPer run r, at per-head Q, step 143000:\n  residual_q(r) = dq_obs(r) - dq_density(r), with dq_density from the density-matched COE witness (stage3_ladder.py,\n  R = 10; computed here on demand for runs without a ladder entry)\n  drt(r)        = observed d<r~> (no unfolding)\nSE = SD over runs / sqrt(n). Verdicts:\n  UNFOLDING-EXPLAINED  iff |mean residual_q| < 3 SE AND |mean drt| < 3 SE\n  FINDING_CANDIDATE    iff mean residual_q <= -3 SE OR mean drt <= -3 SE (a first crack in the bulk null at ~0.1 in q)\n  otherwise            MIXED (reported as such)\nRefuses to issue a verdict with fewer than 10 runs (prints an interim table instead, labelled INTERIM).\n",
+ "n_runs": 4,
+ "rows": [
+  {
+   "run": "pythia-410m",
+   "dq_obs": -0.08075867039997153,
+   "dq_density": -0.06723952862490878,
+   "residual_q": -0.013519141775062749,
+   "drt": -0.0021867337028129707
+  },
+  {
+   "run": "pythia-410m-seed1",
+   "dq_obs": -0.10328564012025154,
+   "dq_density": -0.06549272039184639,
+   "residual_q": -0.03779291972840515,
+   "drt": -0.005898588419592565
+  },
+  {
+   "run": "pythia-410m-seed2",
+   "dq_obs": -0.09067418120715554,
+   "dq_density": -0.06451005143105548,
+   "residual_q": -0.026164129776100054,
+   "drt": -0.00336002057624174
+  },
+  {
+   "run": "pythia-410m-seed3",
+   "dq_obs": -0.06484005674472981,
+   "dq_density": -0.05177684049614506,
+   "residual_q": -0.013063216248584752,
+   "drt": 0.00018048354334199157
+  }
+ ],
+ "mean_residual_q": -0.022634851882038176,
+ "se_residual_q": 0.005894455040845502,
+ "z_residual_q": -3.8400245188385433,
+ "mean_drt": -0.002816214788826321,
+ "se_drt": 0.0012640279290736444,
+ "z_drt": -2.2279688004126714,
+ "verdict": "INTERIM (n < 10; no verdict issued)"
+}
