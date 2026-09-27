@@ -69,3 +69,30 @@
 ## Seed 4 (completed 19:05)
 - **A. Sealed null: {'HOLDS': 260} → HOLDS (per-head-Q drift flagged: Δq at 143k = -0.049, Δ⟨r̃⟩ = -0.0016).** Worst |Δ⟨r̃⟩| 0.0057, |Δq| 0.093. G0 passes: True.
 - **B.** R1 ✗, R2 ✓, R3 ✗, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.307, rows 0.2467. R3 ratios: Q 7.56, K 10.03, V 5.53, O 2.61, MLP_IN 19.42, MLP_OUT 3.02. R4 at 512: OV 0.979, QK 0.026. R5 [512, 1000].
+
+## Step-0 excess variance — diagnosis (review round 4, point 3)
+- **Observation:** at step 0 (random init), per-head-Q bulk q varies across the 5 analysed runs with SD 0.021.
+- **Pipeline noise floor (synthetic i.i.d.):** 40 pools of 384 heads, 64×1024, N(0, 0.019764²) (small_init
+  √(2/(5·1024))), fp16-rounded, identical pipeline → q 1.0056, SD **0.0116**. This matches the G1 witness (0.0105), so
+  the witness did not under-sample the instrument's noise.
+- **Tensors:** consistent with i.i.d. N(0, σ²) at the config scale (layers 0 / 11 / 23 of standard 410M):
+  - entry SD 0.01976–0.01978; kurtosis within ±0.005; KS vs normal ≤ 0.0008;
+  - row-norm CV 0.0215–0.0221 (synthetic 0.0220–0.0226);
+  - within-head row-correlation SD 0.0310–0.0314 (i.i.d. 0.03125);
+  - Q, K and V blocks equally scaled.
+  - Fused-QKV slicing cannot matter at init, since every row is identically distributed.
+- **No cache or extraction artefact:** a fresh SVD of standard 410M step-0 per-head Q reproduces the banked q exactly
+  (1.0363).
+- **Where the excess sits:**
+  - Random 384-head subsets drawn ACROSS runs (breaking run grouping) give q SD 0.0095, matching the i.i.d. expectation
+    of 0.0104. Individual heads are i.i.d.-like; the excess is grouped.
+  - Per-layer (16-head) q varies across layers with variance 1.32× the synthetic value (χ² p ≈ 0.013; the earlier
+    4-layer sub-pool estimate of 2.2× rested on only 6 sub-pools per run).
+  - No layer index is offset consistently across runs (two-way ANOVA F(23, 92) = 0.61, p = 0.91), so there is no
+    structural init effect.
+- **Conclusion: UNRESOLVED but bounded.** The excess is modest (variance 1.3–3.2× by level, p ≈ 0.01 on few degrees of
+  freedom). It is invisible in the tensors' marginal and second-order statistics and not attributable to pipeline,
+  cache, slicing or init scale.
+- **Consequence for the frozen drift test:** none adverse. Its SE is the empirical between-run SD, which absorbs any
+  such excess, so the test is conservative with respect to it. The instrument's own noise floor (0.0116) is now
+  documented for the zoo.

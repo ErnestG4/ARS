@@ -187,6 +187,12 @@ and NOT pushed.
      (stage3_drift_test.py, queued last).
    - Interim (n=4): the density calibrator explains ~73% of the per-head-Q q drift; residual z −3.8, ⟨r̃⟩ z −2.2.
      INTERIM, no verdict. Summary lines must say "HOLDS (per-head-Q drift flagged)".
+   - **Addendum S2 (248d7b1):** the ⟨r̃⟩ arm is underpowered for the residual; the statistic is a t (df n−1; interim
+     t3 −3.8, p ≈ 0.016); calib_fidelity test frozen and queued.
+   - Step-0 excess variance: pipeline floor 0.0116 (synthetic, matches witness); tensors i.i.d.-consistent; excess is
+     run/layer-grouped, modest, no structural layer effect; UNRESOLVED but bounded; the drift test's empirical SE
+     absorbs it.
+   - Seed 4 DONE: HOLDS (drift −0.049); R1 ✗ (concentration 0.307), R3 ✗ (O 2.61).
 3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
    Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
    - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is
