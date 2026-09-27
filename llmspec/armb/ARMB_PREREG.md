@@ -1,7 +1,19 @@
 # Arm B pre-registration — Part B1a: replica spec, checkpoint grid, anchor gate B-G1
 
-**Status: DRAFT, not sealed.** It is sealed by the commit that replaces this line with "SEALED". That happens before A0's
-first optimizer step. Part B1b (the Q1–Q4 tests) is sealed separately, also before A0 starts.
+**Status: B1a SEALED 2026-09-27**, before any reference band, gate-validation or A0 result exists. Part B1b (the Q1–Q4
+tests) is sealed separately, before A0 starts.
+
+**Frozen with this seal:**
+- **Scorer:** `armb/bg1_score.py`, sha256 0eb2cdffa73135e9afbc9d7fc53866538de1ab295a24314f515349aa611bda14. It is copied unedited to spot.
+- **Loss probe:** (64, 2049) uint16, sha256 94605108134b8f11003c4412aeae39d9f5ee2d8d40eb632b266ff046cf92a1ea. Indices come from
+  seed 20260927 and lie in shards 19–20; no sample straddles a shard boundary.
+- **Pre-seal smoke** (spot; NOT a gate evaluation; no band or validation existed): one checkpoint of each file format was
+  scored to test the code paths.
+  - pythia-70m step1000 (safetensors) and seed1 step1000 / step0 (fp16 .bin).
+  - The step-0 values match random-matrix expectations: stable rank 129.7 vs N/4 = 128 for square layers, 229 vs 227.7
+    for MLP layers; Frobenius norms 14.31 = 512 × 0.02795 (small_init) and 7.545 = 512 × 0.014731 (wang_init).
+- **Not scientific parameters** (left open): the checkpoint disk location (Will's decision 4) and the Muon rule
+  (M0 only; Will's decision 3).
 
 - **Parent:** CC Brief "Arm B v0" (Will, 2026-09-27); FINDINGS_MEMO.md; B0 report (armb/B0_REPORT.md, c3ea63a).
 - **Will's rule (09-27):** A1 does not start until A0 passes B-G1 through step 2000; a FAIL stops the GPU.
