@@ -124,3 +124,7 @@
 - **Descriptive (reported, not a test):** final weight scales differ strongly across seeds. Seed 4's O and MLP_OUT end
   training at ~0.17× the entry rms of standard 410M; seed 3's Q at ~0.42×. Step-0 scales are identical, so this is
   training-trajectory dependence of final norms.
+
+## Seed 7 (completed 00:31, 27 Sep; scale check passed → reused witness is valid)
+- **A. Sealed null: {'HOLDS': 260} → HOLDS (per-head-Q drift flagged: Δq at 143k = -0.071, Δ⟨r̃⟩ = 0.0000).** Worst |Δ⟨r̃⟩| 0.0080, |Δq| 0.097. G0 passes: False. Witness used: stage3_witness_pythia-410m.json.
+- **B.** R1 ✗, R2 ✓, R3 ✗, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.497, rows 0.2877. R3 ratios: Q 7.41, K 9.39, V 6.38, O 3.20, MLP_IN 20.00, MLP_OUT 2.98. R4 at 512: OV 0.984, QK 0.042. R5 [512, 1000].
