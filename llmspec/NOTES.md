@@ -148,7 +148,7 @@ and NOT pushed.
 ## 4. Running now (check with `ps -eo pid,etime,args | grep -E "[c]heckrun|[s]tage3_|[m]emwatch"`)
 - All seed-leg queues DONE (09-27 ~07:30). No supervisor running.
 - Nothing running except memwatch. S4 and S4-sup DONE (5cdb4f1 + this commit). Queue empty apart from held items and zoo seating (branch-merge session).
-- **memwatch:** PID 12700. **Alarm cron:** job 0ab464f4, `7,37 * * * *` (session-only; recreate if the session restarts).
+- **memwatch:** PID 12700. **Alarm cron 0ab464f4 DELETED 09-27 ~09:20** (queue empty; recreate `7,37 * * * *` if new work is queued).
 
 ## 5. Next (in order; mark each done here with its commit)
 1. ~~Dense-V + wave~~ DONE → STAGE3_FINDINGS §13: V shows NO layer ordering at 1000-step resolution (ρ −0.00). Scorer
