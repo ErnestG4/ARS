@@ -145,19 +145,15 @@ and NOT pushed.
   - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
   - Sub-1000 "low-rank early" → arm B.
 
-## 4. Running now (check with `ps -eo pid,args | grep -E "[c]hain2|[s]upervise|[q]ueue.sh|[s]tage3_|[m]emwatch"`)
-- queue7 (dense V + wave): DONE. queue_r14 (1.4B scorer consistency): DONE, passes.
-- **PID 120469:** supervise(queue_r14 ✓ → queue_pythia-1b [running since 05:27] → queue_pythia-410m).
-  - queue_r14: stage3_repl.py on 1.4B. Consistency check: it must reproduce R1 0.484 vs 0.25 / rows 0.227; R2 Q
-    0.243 < 0.588, K 0.133 < 0.496; R3 ratios ≥ 4.2; R4 at step 512: OV 0.987, QK 0.034; R5 (512, 1000); R6 Q/K
-    ~1.0 by 1000.
-  - queue_pythia-{1b,410m}: extract 26 revisions → witness → motion_eq → analyze → report → repl. Rough ETA: 1B
-    ~5–6 h, 410M ~2–3 h.
-- **PID 128268:** chain2 → supervise(queue_seeds), starting when 120469 exits.
-  - queue_seeds: PolyPythias 410M seeds 1–9, each = extract (CkptBin, .bin path) → motion_eq → analyze
-    (LLMSPEC_WITNESS=pythia-410m) → repl; then stage3_seed_scalecheck. ~2 h per seed.
-- **memwatch:** PID 12700.
-- **Alarm cron:** job 0ab464f4, `7,37 * * * *`.
+## 4. Running now (check with `ps -eo pid,etime,args | grep -E "[c]heckrun|[s]tage3_|[m]emwatch"`)
+- All seed-leg queues DONE (09-27 ~07:30). No supervisor running.
+- **Addendum S4** (frozen 18804ca): `../checkrun.sh stage3_calib_v2.py 10` launched 09-27 ~08:10 (nohup; log
+  stage3_calib_v2.checkrun.log is written only at exit because checkrun buffers). Progress = line count of
+  results/stage3_calib_v2_pools.jsonl (200 pools, ~64 s each, 10 workers → ~25 min), then 70 real-run jobs
+  (7 calibrators x 10 runs, 50 draws). Resumable: re-launch the same command; the pilot, pools and real rows are kept.
+  After it ends: record known-answer table + licence + regression gate + re-score in STAGE3_SEED_FINDINGS.md, commit
+  with the CHECKRUN line pasted from the log.
+- **memwatch:** PID 12700. **Alarm cron:** job 0ab464f4, `7,37 * * * *` (session-only; recreate if the session restarts).
 
 ## 5. Next (in order; mark each done here with its commit)
 1. ~~Dense-V + wave~~ DONE → STAGE3_FINDINGS §13: V shows NO layer ordering at 1000-step resolution (ρ −0.00). Scorer
