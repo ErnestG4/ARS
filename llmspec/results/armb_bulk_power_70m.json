@@ -1,0 +1,35 @@
+{
+ "doc": "B1b item (review 09-27, point 5): power of the sealed bulk null at Pythia-70M shapes. SYNTHETIC ONLY (pre-data).\nPooled-null witness exactly as stage3_witness (fp16-rounded Gaussians, same s3stats bulk band), at 70M shapes:\nfull Q/K/V/O 512x512 x 6 layers, MLP_IN/OUT 2048x512 x 6, per-head Q/K/V 64x512 x 48, per-head O 512x64 x 48.\nR = 40 pools per cell type -> SD of bulk <r~>; minimum detectable departure (one-sided alpha 0.05, power 0.80, one pool\nvs a precise witness mean) MDD = (1.645 + 0.842) * SD. Output: results/armb_bulk_power_70m.json.",
+ "full_sq": {
+  "mean_rt": 0.5302249184780626,
+  "sd_rt": 0.0073426190512087776,
+  "n_ratios_per_pool": 2442,
+  "MDD": 0.01826109358035623,
+  "tolerance": 0.01,
+  "POWERED": false
+ },
+ "full_mlp": {
+  "mean_rt": 0.5294394494265541,
+  "sd_rt": 0.006294679179723624,
+  "n_ratios_per_pool": 2442,
+  "MDD": 0.015654867119972653,
+  "tolerance": 0.01,
+  "POWERED": false
+ },
+ "head_qkv": {
+  "mean_rt": 0.5304015902938426,
+  "sd_rt": 0.005501115733422987,
+  "n_ratios_per_pool": 2352,
+  "MDD": 0.01368127482902297,
+  "tolerance": 0.01,
+  "POWERED": false
+ },
+ "head_O": {
+  "mean_rt": 0.5336665819195768,
+  "sd_rt": 0.007355538371905469,
+  "n_ratios_per_pool": 2352,
+  "MDD": 0.0182932239309289,
+  "tolerance": 0.01,
+  "POWERED": false
+ }
+}
