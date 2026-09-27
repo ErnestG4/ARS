@@ -147,12 +147,7 @@ and NOT pushed.
 
 ## 4. Running now (check with `ps -eo pid,etime,args | grep -E "[c]heckrun|[s]tage3_|[m]emwatch"`)
 - All seed-leg queues DONE (09-27 ~07:30). No supervisor running.
-- **Addendum S4** (frozen 18804ca; S4 note 746d130 = planted effect overshoots at N=64, S4-sup arm fixed; amendment A1
-  7cfb66e = refused pools/draws fail closed, after v1 was refused on T_log truths and crashed the first launch at 7/200).
-  Running: `run_s4.sh` (PID 318134, setsid) = checkrun stage3_calib_v2.py 10 → checkrun stage3_calib_v2_sup.py 10.
-  Progress = line counts of results/stage3_calib_v2_pools.jsonl and ..._sup_pools.jsonl (200 each). Resumable: re-run
-  ./run_s4.sh. The checkrun logs are written only at exit. After it ends: record the known-answer table, licence,
-  regression gate, re-score and S4-sup in STAGE3_SEED_FINDINGS.md; commit with the pasted CHECKRUN lines.
+- Nothing running except memwatch. S4 and S4-sup DONE (5cdb4f1 + this commit). Queue empty apart from held items and zoo seating (branch-merge session).
 - **memwatch:** PID 12700. **Alarm cron:** job 0ab464f4, `7,37 * * * *` (session-only; recreate if the session restarts).
 
 ## 5. Next (in order; mark each done here with its commit)
@@ -217,7 +212,7 @@ and NOT pushed.
      read.
 4. ~~Change-point null calibration~~ DONE (§15): NOT LICENSED (false-CP rate 0.59–0.98 on smooth nulls).
 5. Zoo seating of the G7 classes (branch-merge session).
-6. **FINDINGS_MEMO.md** (brief §6 deliverable: every claim with its gate) written 09-27; update it when S4-sup lands.
+6. **FINDINGS_MEMO.md** (brief §6 deliverable: every claim with its gate) written 09-27 (1a4ddd1). S4-sup DONE: all calibrators recover 0.97–1.01 at 1× effect; biases replicate; the ⟨r̃⟩ arm had power (post-hoc t ≈ −3.7 for a departure of the claimed size).
 - HELD: arm B; OLMo stage-1 trajectory.
 
 ## 6. Lessons from this run (to carry into memory at handoff)

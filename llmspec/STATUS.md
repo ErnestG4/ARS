@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-27 08:45 PDT
+# llmspec STATUS (brief v1.1) — updated 2026-09-27 09:15 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
 lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). The alarm cron runs every
@@ -18,12 +18,13 @@ lessons). This file is the short version. There is no fixed end time (Will, 09-2
   - Frozen drift test (S1/S2): FINDING_CANDIDATE as sealed; calibrator fidelity (S2): INCONCLUSIVE as sealed.
   - **Addendum S4 (known-answer calibrator licence): the frozen calibrator manufactures q −0.0207 / −0.0164 under a
     true β = 1 (the observed residual was −0.0197). q arm NOT RESOLVABLE (no calibrator within ±0.005 at N = 64);
-    ⟨r̃⟩ arm quiet under the licensed v2_c16 (−0.00086, t₉ −1.6). The per-head-Q drift is NOT established.**
+    ⟨r̃⟩ arm quiet under the licensed v2_c16 (−0.00086, t₉ −1.6), with power against the claimed size (S4-sup).
+    The per-head-Q drift is NOT established.**
   - QK-product "function" reading WITHDRAWN (a realistic density alone moves q by ~0.12 under β = 1).
 
 ## Running (auto)
-- S4-sup (supplementary arm, 1× planted effect): `run_s4.sh` second stage; progress results/stage3_calib_v2_sup_pools.jsonl.
-- memwatch: host-commit guard (PID 12700).
+- Nothing but memwatch (PID 12700). S4 + S4-sup complete. Deliverable memo: FINDINGS_MEMO.md.
+- Open: zoo seating of the G7 classes (branch-merge session).
 
 ## Held
 - Arm B; OLMo stage-1 trajectory (Will's calls).

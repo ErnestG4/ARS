@@ -352,3 +352,19 @@ refused draws.
 - (ii) At N ≈ 64 levels per spectrum, short-range q is calibrator-limited at about ±0.02. Use ⟨r̃⟩ (licensable to
   ±0.0005) for per-head work.
 - (iii) Dry-run every refusal branch of a frozen rule at seal time (the A1 crash).
+
+### S4-sup — recovery at the observed effect size (stage3_calib_v2_sup.py; fixed in 746d130; LABELLED SUPPLEMENTARY)
+CHECKRUN stage3_calib_v2_sup.py EXIT=0 PASS.
+- **Setup:** one level planted in a random third of heads.
+  - Known effect Δq −0.0168 (T_lam) / −0.0178 (T_log).
+  - Known effect Δ⟨r̃⟩ −0.0020 / −0.0021, i.e. the observed drift's size.
+- **Recovery:** every calibrator recovers 0.97–1.01 in both arms and both families. The pre-registered qualifier
+  ("licensed at 3× effect, degraded at 1×") therefore does NOT apply to v2_c16.
+- **Independent replication of the known-answer biases** (fresh seeds):
+  - v1 q: −0.0207 (T_lam); −0.0152 (T_log, CONDITIONAL, refused 35/100).
+  - v2_c16 q: +0.0185 / +0.0180.
+  - v2_c16 ⟨r̃⟩: +0.00016 / −0.00033.
+- **POST-HOC reading (power, not a test).** A real per-head departure large enough to shift q by ~−0.017 shifts
+  ⟨r̃⟩ by ~−0.0020, which the licensed calibrator recovers in full. Against the real runs' SE (0.00054), that is
+  t ≈ −3.7. The observed −0.00086 (t₉ −1.6) is less than half of it. So the quiet ⟨r̃⟩ arm had power against a
+  departure of the originally claimed size.
