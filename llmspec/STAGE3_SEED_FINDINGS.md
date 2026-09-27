@@ -148,3 +148,31 @@
     p ≈ 0.12, a pass).
   - The fail is explained by V's Monte-Carlo cutoff landing low. Attribution confirmed on the tail. The label stays
     FAIL-as-sealed and seed 7's V stays uninterpreted.
+
+## Seed weight-scale divergence — symmetry vs instability (review 5; descriptive)
+- **Four checks** (step 143k, relative to standard 410M; per-head products from per-head Frobenius norms):
+
+  | run | text loss | EMB | UNEMB | Q | K | O | MLP_OUT | ‖Q_h‖·‖K_h‖ | ‖V_h‖·‖O_h‖ |
+  |---|---|---|---|---|---|---|---|---|---|
+  | std | 2.329 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+  | s1, s2, s6, s7 | 2.338–2.359 | 1.00 | 1.00–1.03 | 1.09–1.14 | 1.00–1.01 | 0.98–1.02 | 1.00–1.01 | 0.97–1.03 | 1.02–1.06 |
+  | s5 | 2.349 | 1.00 | 1.03 | **1.245** | 1.02 | 0.97 | 1.00 | **1.055** | 0.98 |
+  | **s3** | **2.475** | 0.78 | 1.27 | 0.42 | 0.83 | 0.58 | 0.51 | **0.62** | **0.47** |
+  | **s4** | **2.857** | 0.77 | 1.33 | 0.38 | 0.77 | 0.17 | 0.17 | **0.50** | **0.15** |
+
+  - Configs are identical to standard (hidden 1024, 24 L, 16 H, rotary 0.25, init range 0.02). Downloads are sha256-
+    verified, and the .bin path is bit-verified against safetensors. Not a loading mistake.
+- **Seed 5 fits QK-symmetry drift.** Q alone is 1.245×, but the invariant QK product is 1.055× and the loss is normal.
+- **Seeds 3 and 4 are NOT symmetry drift: they had late-training loss spikes.**
+  - Text loss tracks all other runs within ~0.01 nats up to 64k.
+  - Seed 3 jumps 2.415 → 2.603 between 64k and 96k, then partly recovers (2.475 at 143k).
+  - Seed 4 jumps 2.358 → 3.315 between 96k and 128k and ends at 2.857.
+  - Their invariant products shrink along with the individual norms, and their losses differ, so these are genuinely
+    different, post-instability models. Induction survives (max 0.94).
+- **Consequences:**
+  - Their final-step results (reading A, R1, R3, the per-head-Q drift inputs) describe post-spike states. For example,
+    seed 4's weak R1 concentration (0.307) and seed 3's (0.391) are both final-step measurements.
+  - Every frozen test still includes all 10 runs, as registered. The spikes are an annotation, never a reason to
+    exclude.
+  - The witness-reuse failures for seeds 3 and 4 are downstream of these instabilities. For seeds 5 and 9 (Q 1.25 /
+    1.37×), symmetry drift in Q is the likely cause; seed 9 is checked the same way once it is analysed.
