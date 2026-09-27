@@ -244,9 +244,9 @@ and NOT pushed.
 - **Seed-leg outcome (09-27):**
   - Null holds in all 10 runs (2 cells → DENSITY_ARTIFACT; seed 7 G0 V fail = threshold noise).
   - R2 / R4 / R5 / R6 SEED-ROBUST; R1 2/10 and R3 4/10 SEED-DEPENDENT.
-  - Frozen drift test FINDING_CANDIDATE (q t9 −5.9; ⟨r̃⟩ t9 −3.8).
+  - Frozen drift test FINDING_CANDIDATE (q t9 −5.9; ⟨r̃⟩ t9 −3.8). **S4: v1 bias −0.0207/−0.0164 under true β=1; q NOT RESOLVABLE; ⟨r̃⟩ quiet (t9 −1.6, v2_c16); drift NOT established.**
   - Calib-fidelity INCONCLUSIVE: the residual is perfectly monotone in mismatch, with a SIGN REVERSAL at the best
     fidelity (Q1 +0.029, Q4 −0.068), i.e. artefact-like. Next: Addendum S4, a higher-fidelity calibrator.
-  - QK-product drift is present in all 10 runs (function, not symmetry).
+  - QK-product drift is present in all 10 runs (function, not symmetry). **WITHDRAWN by S4** (density alone moves q ~0.12).
 - A login prompt paused the session ~01:15–07:15 on 09-27. The detached pipeline kept running and nothing was lost;
   only write-ups were delayed.

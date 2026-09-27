@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1) — updated 2026-09-27 08:10 PDT
+# llmspec STATUS (brief v1.1) — updated 2026-09-27 08:45 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
 lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). The alarm cron runs every
@@ -15,16 +15,14 @@ lessons). This file is the short version. There is no fixed end time (Will, 09-2
 - **Seed leg** (410M × 10 runs), COMPLETE (c2c635f):
   - Null holds everywhere (2 cells → DENSITY_ARTIFACT).
   - R2 / R4 / R5 / R6 SEED-ROBUST. R1 (2/10) and R3 (4/10) SEED-DEPENDENT, with spreads.
-  - **Frozen drift test (S1/S2): FINDING_CANDIDATE** (q residual −0.0197, t₉ −5.9; ⟨r̃⟩ −0.0021, t₉ −3.8).
-  - **Calibrator fidelity (S2): INCONCLUSIVE** as registered (8231e0a). The residual is monotone in mismatch with a
-    sign reversal, which looks like an artefact, but the rule can't call it.
-  - QK-product discriminator: the drift is present in the invariant product in all 10 runs (so it concerns the
-    function, not a symmetry).
+  - Frozen drift test (S1/S2): FINDING_CANDIDATE as sealed; calibrator fidelity (S2): INCONCLUSIVE as sealed.
+  - **Addendum S4 (known-answer calibrator licence): the frozen calibrator manufactures q −0.0207 / −0.0164 under a
+    true β = 1 (the observed residual was −0.0197). q arm NOT RESOLVABLE (no calibrator within ±0.005 at N = 64);
+    ⟨r̃⟩ arm quiet under the licensed v2_c16 (−0.00086, t₉ −1.6). The per-head-Q drift is NOT established.**
+  - QK-product "function" reading WITHDRAWN (a realistic density alone moves q by ~0.12 under β = 1).
 
 ## Running (auto)
-- **Addendum S4** (18804ca, frozen): known-answer licence of calibrators on realistic truth shapes, then a re-score of
-  the 10-run drift. `stage3_calib_v2.py` under checkrun (log: stage3_calib_v2.checkrun.log; progress:
-  results/stage3_calib_v2_pools.jsonl, 200 pools; resumable).
+- S4-sup (supplementary arm, 1× planted effect): `run_s4.sh` second stage; progress results/stage3_calib_v2_sup_pools.jsonl.
 - memwatch: host-commit guard (PID 12700).
 
 ## Held

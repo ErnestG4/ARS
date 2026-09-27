@@ -239,6 +239,8 @@
 - This is a direct confirmation that absolute scale does not matter here (see the witness scale test).
 
 ### Frozen drift test (stage3_drift_test.py; Addendum S1 item 4 / S2) — registered verdict: FINDING_CANDIDATE (pending the joint reading)
+> **See ADDENDUM S4 below:** the frozen calibrator's known-answer bias is −0.0207 / −0.0164, the observed residual's
+> size and sign; the ⟨r̃⟩ arm is quiet under a licensed calibrator (t₉ −1.6). The drift is NOT established.
 - n = 10.
 - **q arm:** mean residual (observed Δq − density-matched Δq) = **−0.0197**, SE 0.0033, **t₉ = −5.9, one-sided
   p = 1.1e-4**. It is negative in 10/10 runs (−0.003 … −0.038).
@@ -250,6 +252,8 @@
   CALIBRATOR_SHORTFALL, the joint reading is "not established".
 
 ### QK-product symmetry discriminator (Addendum S3 item 3; labelled descriptive; stage3_qkprod_drift.py)
+> **READING WITHDRAWN (S4):** a realistic density alone moves q by ~−0.12 under a true β = 1, more than this product
+> Δq; with no density calibrator for products, "concerns the function" is uninterpretable. Numbers kept as measured.
 - The per-head non-rotary product W_Q,nrᵀ·W_K,nr (invariant under the QK symmetry) vs a product witness (q 0.998 ±
   0.012, ⟨r̃⟩ 0.5309 ± 0.0024).
 - Δq at step 0: −0.031 … +0.021 across the 10 runs. At 143k: −0.070, −0.078, −0.069, −0.076, −0.074, −0.085, −0.072,
@@ -278,3 +282,73 @@
   per-head Q. The pre-registered rule did not anticipate a sign reversal (it expected Q1 ≈ 0), so it cannot call it.
 - **Resolution path:** a higher-fidelity calibrator, pre-registered before it runs (Addendum S4), with the frozen drift
   thresholds re-applied to its residual.
+
+### ADDENDUM S4 — known-answer calibrator licence + re-score (stage3_calib_v2.py; frozen 18804ca, note 746d130, A1 7cfb66e)
+Registered verdict: **QUIET ON THE LICENSED ARM ONLY (q arm NOT RESOLVABLE; not UNFOLDING-EXPLAINED).** The S1/S2
+verdicts (drift FINDING_CANDIDATE, fidelity INCONCLUSIVE) stand as sealed; S4 is a separately labelled re-score.
+CHECKRUN stage3_calib_v2.py EXIT=0 PASS.
+
+**1. Known answer** (R = 100 paired pools × 384 heads per truth family; truths = the real 410M per-head-Q shapes,
+smoothed at c = 2).
+- **Planted effect:** −0.050 (T_lam) and −0.052 (T_log) in q; −0.0061 / −0.0063 in ⟨r̃⟩ (larger than intended; see
+  the S4 note). EVERY calibrator recovers it at 0.99–1.01, so none absorbs a real effect. Their failures are bias.
+
+| calibrator | q bias, T_lam | q bias, T_log | ⟨r̃⟩ bias, T_lam | ⟨r̃⟩ bias, T_log | licensed |
+|---|---|---|---|---|---|
+| **v1 (frozen mixture)** | **−0.0207 ± 0.0004** | −0.0164 ± 0.0007 (CONDITIONAL: refused 43/100) | −0.00084 | −0.00066 | — |
+| v2_c4 (λ-KDE) | +0.0119 | +0.0104 | +0.00057 | +0.00009 | — |
+| v2_c8 | +0.0173 | +0.0166 | +0.00024 | −0.00009 | ⟨r̃⟩ |
+| v2_c16 | +0.0184 | +0.0180 | +0.00013 | −0.00022 | **⟨r̃⟩ (selected)** |
+| v3_c4 (log-λ KDE) | +0.0059 | +0.0056 | +0.00068 | +0.00027 | — |
+| v3_c8 | +0.0229 | +0.0224 | +0.00114 | +0.00074 | — |
+| v3_c16 | +0.0541 | +0.0546 | +0.00284 | +0.00228 | — |
+
+(bias = the residual the calibrator manufactures when the truth is exactly β = 1; SE ≈ 0.0002 in q, 0.00003 in ⟨r̃⟩.)
+
+- **The frozen calibrator v1 manufactures a q residual of −0.0207 (T_lam) / −0.0164 (T_log) on spectra whose true
+  residual is 0.** The observed 10-run residual was −0.0197. As a known-answer measurement, the q-arm
+  FINDING_CANDIDATE is v1's own bias.
+- **No q calibrator is licensed.** The best, v3_c4, is off by +0.006 (tolerance 0.005). Across the calibrators the bias
+  spans −0.02 to +0.05 depending on smoothing. At N = 64 per head, per-head q cannot resolve an effect of about 0.02
+  with any calibrator tested, so the q arm is **NOT RESOLVABLE**.
+
+**2. Regression gate:** PASS. v1 through the new code reproduces the frozen per-run residuals within 0.003 on every
+run (tolerance 0.012).
+
+**3. Re-score, ⟨r̃⟩ arm (licensed v2_c16):** residual **−0.00086, SE 0.00054, t₉ = −1.6, one-sided p = 0.072**; 0
+refused draws.
+- The sealed raw Δ⟨r̃⟩ (vs the Gaussian witness) was −0.0021, t₉ = −3.8. Against a licensed density-matched
+  calibrator it is quiet.
+
+**4. Descriptive only (no verdict read from these).**
+- **Real q residual by calibrator (mean over 10 runs, t₉):**
+  - v1: −0.0172 (−5.1).
+  - v2_c4 / c8 / c16: +0.0224 (+7.9) / +0.0287 (+9.3) / +0.0334 (+10.4).
+  - v3_c4 / c8 / c16: +0.0165 (+6.1) / +0.0346 (+12.4) / +0.0646 (+22.2).
+- **The sign of the "drift" is set by the calibrator.**
+- **POST-HOC: real residual minus each calibrator's known-answer bias.**
+  - v1: +0.0035 (T_lam) / −0.0008 (T_log).
+  - Every KDE calibrator: +0.010 to +0.015.
+  - No calibrator, bias-corrected, gives a negative residual.
+  - The spread of about 0.01 between v1 and the KDE family is a measure of how imperfectly the smoothed truth
+    families stand in for the real heads.
+- **Consequence for the QK-product discriminator (above):** the known-answer null pools show that a realistic trained
+  density alone moves kde(4) q from ~1.00 (the Gaussian witness) to ~0.88 under a TRUE β = 1. That is larger than the
+  product Δq (−0.045 … −0.085), which was measured against a Gaussian-product witness with no density calibrator.
+  **The product reading "concerns the function" is withdrawn as uninterpretable.** It never separated artefact from
+  signal (its own caveat), and S4 shows the artefact is large enough to explain all of it.
+
+**Joint reading (all registered verdicts, none relabelled).**
+- S1/S2 drift test: FINDING_CANDIDATE.
+- S2 fidelity: INCONCLUSIVE.
+- S4: q arm NOT RESOLVABLE, ⟨r̃⟩ arm quiet under a licensed calibrator.
+- **Plain statement: a late-training per-head-Q departure from β = 1 is NOT established.** The q-arm evidence was the
+  frozen calibrator's own bias, measured by known answer at the observed size and sign. The ⟨r̃⟩ arm is quiet once the
+  density is calibrated. The sealed bulk null (HOLDS in all 10 runs) is unaffected.
+
+**Protocol-template notes (forward).**
+- (i) Every density-matched calibrator must pass a known-answer licence on realistic shapes BEFORE its residual is read.
+  Good fit (KS) is not fidelity, and a Gaussian mixture on a positive variable leaks mass below 0.
+- (ii) At N ≈ 64 levels per spectrum, short-range q is calibrator-limited at about ±0.02. Use ⟨r̃⟩ (licensable to
+  ±0.0005) for per-head work.
+- (iii) Dry-run every refusal branch of a frozen rule at seal time (the A1 crash).
