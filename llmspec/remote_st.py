@@ -111,7 +111,10 @@ def _resolve(h, refresh=False):
         return _cdn[u]
 
 
-def _get_s(h, lo, hi, tries=6):
+def _get_s(h, lo, hi, tries=10):
+    """Retries cover BOTH the range request and the redirect resolve. FIXED 2026-09-26 22:40: an HF outage (HTTP 504 on
+    resolve, ~21:53) raised IOError from _resolve, which was not caught, so a transient error killed the job with no
+    retry. Backoff 2^i s, capped at 300 s (~17 min total over 10 tries)."""
     err = ""
     for i in range(tries):
         try:
@@ -119,9 +122,9 @@ def _get_s(h, lo, hi, tries=6):
             if r.status_code == 206 and len(r.content) == hi - lo + 1:
                 return r.content
             err = f"status {r.status_code} len {len(r.content)} want {hi-lo+1}"   # e.g. an expired signed URL
-        except requests.RequestException as e:
+        except (requests.RequestException, IOError) as e:
             err = repr(e)
-        time.sleep(2 ** i)
+        time.sleep(min(2 ** i, 300))
     raise IOError(f"range fetch failed {h['fn']}@{h['rev']} {lo}-{hi}: {err}")
 
 
