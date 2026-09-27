@@ -171,7 +171,7 @@ and NOT pushed.
    - **1B DONE (09:52):** null HOLDS 260/260. R1, R2, R4, R5, R6 REPLICATE. **R3 DOES NOT** (V 2.98, O 1.80 < 3).
    - **410M DONE (12:54):** null HOLDS 260/260. R2, R4, R5, R6 REPLICATE. **R1 DOES NOT** (norm clause: rows 0.2704 >
      0.27). **R3 DOES NOT** (V 1.89, O 1.43, MLP_OUT 2.11). Cross-size table in STAGE3_REPL_FINDINGS.md.
-3b. Seed leg RUNNING since 12:54, split at 13:40 into two supervisors:
+3b. **Seed leg COMPLETE (09-27 ~07:30).** Was split at 13:40 into two supervisors, split at 13:40 into two supervisors:
    - GPU: supervise PID 128268 → queue_seeds.txt = extract + motion_eq for seeds 1..9, then scalecheck. Rewritten in
      place; same inode; line 1 unchanged.
    - CPU: supervise PID 182787 → queue_seeds_cpu.txt = per seed, wait for its 10 motion_eq files → analyze
@@ -245,3 +245,12 @@ and NOT pushed.
   3. The nearest-confusable test must precede sealing.
   4. Default-path regression cannot catch default leakage.
   5. Retries must cover every network step.
+- **Seed-leg outcome (09-27):**
+  - Null holds in all 10 runs (2 cells → DENSITY_ARTIFACT; seed 7 G0 V fail = threshold noise).
+  - R2 / R4 / R5 / R6 SEED-ROBUST; R1 2/10 and R3 4/10 SEED-DEPENDENT.
+  - Frozen drift test FINDING_CANDIDATE (q t9 −5.9; ⟨r̃⟩ t9 −3.8).
+  - Calib-fidelity INCONCLUSIVE: the residual is perfectly monotone in mismatch, with a SIGN REVERSAL at the best
+    fidelity (Q1 +0.029, Q4 −0.068), i.e. artefact-like. Next: Addendum S4, a higher-fidelity calibrator.
+  - QK-product drift is present in all 10 runs (function, not symmetry).
+- A login prompt paused the session ~01:15–07:15 on 09-27. The detached pipeline kept running and nothing was lost;
+  only write-ups were delayed.

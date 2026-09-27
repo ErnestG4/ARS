@@ -1,0 +1,365 @@
+{
+ "doc": "ADDENDUM S2 item 3 (STAGE3_SEED_PREREG.md): calibrator-fidelity test for the per-head-Q drift residual. FROZEN by commit.\nPer run: for each of the 384 per-head-Q spectra at step 143000, fit the calibrator density (stage2_g7.fit_mixture on\nlambda = sigma^2) and measure mismatch = KS distance between the head's lambda values and that mixture CDF. Heads are\nsplit into mismatch quartiles within the run. For each quartile: q_obs = s3stats bulk q on the quartile's heads, and\nq_density = the same pipeline on COE levels mapped through those heads' fitted densities (R = 10); residual = q_obs -\nq_density. Verdict over runs (n = number of 410M runs available; issued only at n = 10; SE = SD / sqrt(n), a t with n-1\ndf):\n  CALIBRATOR_SHORTFALL  iff |mean residual(Q1 = lowest mismatch)| < 1 SE AND Spearman(quartile, mean residual) <= -0.8\n  RESIDUAL_NOT_FIDELITY iff mean residual(Q1) <= -2 SE\n  INCONCLUSIVE otherwise.\n",
+ "runs": {
+  "pythia-410m": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.040516030621364746,
+    "q_obs": 0.9472816960451532,
+    "q_density": 0.894761486169205,
+    "residual": 0.05252020987594819
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.05786281024307904,
+    "q_obs": 0.945195732853129,
+    "q_density": 0.9263301428642625,
+    "residual": 0.01886558998886645
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07430059075754258,
+    "q_obs": 0.9203217162538866,
+    "q_density": 0.9561011819537087,
+    "residual": -0.035779465699822155
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.09337311335863077,
+    "q_obs": 0.8850223083246543,
+    "q_density": 0.9753877459430145,
+    "residual": -0.09036543761836013
+   }
+  ],
+  "pythia-410m-seed1": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.043497664536943696,
+    "q_obs": 0.9082352775156258,
+    "q_density": 0.8915880347699477,
+    "residual": 0.01664724274567808
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.05871401365441951,
+    "q_obs": 0.9079341893834474,
+    "q_density": 0.9388736743611135,
+    "residual": -0.030939484977666076
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07350138216572175,
+    "q_obs": 0.8992418511820907,
+    "q_density": 0.9510519257788503,
+    "residual": -0.05181007459675968
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.09494551361791831,
+    "q_obs": 0.8896447203346133,
+    "q_density": 0.9783850902387735,
+    "residual": -0.08874036990416023
+   }
+  ],
+  "pythia-410m-seed2": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.042406732465391256,
+    "q_obs": 0.9324883944938044,
+    "q_density": 0.9024580942417675,
+    "residual": 0.0300303002520369
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.05915618327857424,
+    "q_obs": 0.9328415439886131,
+    "q_density": 0.9331984573042196,
+    "residual": -0.00035691331560649964
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07431746247702971,
+    "q_obs": 0.9148514255875825,
+    "q_density": 0.9556305338707862,
+    "residual": -0.04077910828320375
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.0926115357102835,
+    "q_obs": 0.8769238151508918,
+    "q_density": 0.9792994289005866,
+    "residual": -0.10237561374969484
+   }
+  ],
+  "pythia-410m-seed3": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.036090713944663455,
+    "q_obs": 0.9891129199871254,
+    "q_density": 0.9430984998357627,
+    "residual": 0.0460144201513627
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.04866546833774932,
+    "q_obs": 0.9319611885802317,
+    "q_density": 0.9417368258757074,
+    "residual": -0.009775637295475703
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.0626472460936463,
+    "q_obs": 0.9339059560093446,
+    "q_density": 0.9528778915293611,
+    "residual": -0.018971935520016525
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.08556228242034614,
+    "q_obs": 0.9064401427254695,
+    "q_density": 0.9723219552550892,
+    "residual": -0.06588181252961978
+   }
+  ],
+  "pythia-410m-seed4": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.04439088260849933,
+    "q_obs": 0.958544503358887,
+    "q_density": 0.9576686470784332,
+    "residual": 0.000875856280453724
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.06027559967472165,
+    "q_obs": 0.9398250709815621,
+    "q_density": 0.9448016334619114,
+    "residual": -0.004976562480349278
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07231205600469975,
+    "q_obs": 0.9706124779914899,
+    "q_density": 0.954452753727168,
+    "residual": 0.016159724264321884
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.0822161252227385,
+    "q_obs": 0.951759275575109,
+    "q_density": 0.9744522777532374,
+    "residual": -0.02269300217812842
+   }
+  ],
+  "pythia-410m-seed5": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.043078444254666115,
+    "q_obs": 0.9308590802629287,
+    "q_density": 0.9057881160743946,
+    "residual": 0.02507096418853416
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.057496932914699275,
+    "q_obs": 0.9501740973291001,
+    "q_density": 0.9240847335709791,
+    "residual": 0.026089363758120987
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.0736964458893797,
+    "q_obs": 0.9068474326801875,
+    "q_density": 0.9537074586650955,
+    "residual": -0.046860025984908016
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.0929120549185471,
+    "q_obs": 0.88215015432408,
+    "q_density": 0.9782077803959593,
+    "residual": -0.0960576260718794
+   }
+  ],
+  "pythia-410m-seed6": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.04252467585278827,
+    "q_obs": 0.9126629652800369,
+    "q_density": 0.8844984379725476,
+    "residual": 0.028164527307489307
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.05669575659836268,
+    "q_obs": 0.8847537519456509,
+    "q_density": 0.9269761663716464,
+    "residual": -0.0422224144259955
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07325010053595232,
+    "q_obs": 0.9374230023721752,
+    "q_density": 0.9559760073630471,
+    "residual": -0.01855300499087187
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.09107295964425766,
+    "q_obs": 0.9133422748614994,
+    "q_density": 0.9804435730308716,
+    "residual": -0.06710129816937216
+   }
+  ],
+  "pythia-410m-seed7": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.04236032485190124,
+    "q_obs": 0.9309862383641392,
+    "q_density": 0.8922624431629858,
+    "residual": 0.03872379520115343
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.058683114266752406,
+    "q_obs": 0.9429549397492242,
+    "q_density": 0.9319631114850452,
+    "residual": 0.010991828264178993
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07290781137747082,
+    "q_obs": 0.9358770885277838,
+    "q_density": 0.9568395569541192,
+    "residual": -0.020962468426335312
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.09073206327557565,
+    "q_obs": 0.9230820649504531,
+    "q_density": 0.9753272239411392,
+    "residual": -0.05224515899068616
+   }
+  ],
+  "pythia-410m-seed8": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.04429778451933517,
+    "q_obs": 0.9326700635345904,
+    "q_density": 0.9071897583788335,
+    "residual": 0.025480305155756833
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.058980727163921255,
+    "q_obs": 0.9065866554480783,
+    "q_density": 0.9319813370142791,
+    "residual": -0.02539468156620084
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.07226022277585181,
+    "q_obs": 0.8983747514133912,
+    "q_density": 0.9558126354067309,
+    "residual": -0.05743788399333971
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.09284917175224336,
+    "q_obs": 0.9286447087034291,
+    "q_density": 0.9763323500655978,
+    "residual": -0.04768764136216874
+   }
+  ],
+  "pythia-410m-seed9": [
+   {
+    "quartile": 0,
+    "n_heads": 96,
+    "ks_median": 0.04189354964516806,
+    "q_obs": 0.9332963884934867,
+    "q_density": 0.9031572165637339,
+    "residual": 0.030139171929752795
+   },
+   {
+    "quartile": 1,
+    "n_heads": 96,
+    "ks_median": 0.056582610559498564,
+    "q_obs": 0.902552544274225,
+    "q_density": 0.9292178023255702,
+    "residual": -0.02666525805134512
+   },
+   {
+    "quartile": 2,
+    "n_heads": 96,
+    "ks_median": 0.06894673269976528,
+    "q_obs": 0.901749924213134,
+    "q_density": 0.9551038276051884,
+    "residual": -0.05335390339205437
+   },
+   {
+    "quartile": 3,
+    "n_heads": 96,
+    "ks_median": 0.0898776590715378,
+    "q_obs": 0.9264456718026844,
+    "q_density": 0.9774169199898685,
+    "residual": -0.050971248187184015
+   }
+  ]
+ },
+ "summary": {
+  "n_runs": 10,
+  "mean_residual_by_quartile": [
+   0.02936667930881661,
+   -0.008438417010147258,
+   -0.03283481466229895,
+   -0.06841192087612538
+  ],
+  "se_by_quartile": [
+   0.004607167499928375,
+   0.007196977262368966,
+   0.0071433425037138705,
+   0.008101025935530316
+  ],
+  "spearman_quartile_vs_residual": -1.0,
+  "t_Q1": 6.374128856672382,
+  "df": 9,
+  "p_one_sided_Q1": 0.9999354271481146
+ },
+ "verdict": "INCONCLUSIVE"
+}

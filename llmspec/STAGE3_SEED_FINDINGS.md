@@ -260,3 +260,21 @@
 - Caveat: no density-matched calibrator was run for the product spectra. Like the Q drift, part of the product drift
   may be the same unfolding bias on non-MP densities. This check separates symmetry from function, not artefact from
   signal.
+
+### Calibrator-fidelity test (stage3_calib_fidelity.py, frozen in Addendum S2) — registered verdict: INCONCLUSIVE
+- Residual (observed − density-matched q) by within-run quartile of per-head calibrator mismatch (KS of each head's λ
+  against its fitted mixture), mean over 10 runs:
+  - **Q1 (best-matched) +0.0294 (SE 0.0046, t₉ = +6.4)**; Q2 −0.0084; Q3 −0.0328; **Q4 (worst) −0.0684**.
+  - Spearman(quartile, residual) = −1.0. Every run shows the same ordering (e.g. seed 9: +0.030 / −0.027 / −0.053 /
+    −0.051).
+- **Registered verdict: INCONCLUSIVE.**
+  - CALIBRATOR_SHORTFALL needs |t(Q1)| < 1, i.e. residual ≈ 0 where the calibrator fits best. Here the residual is
+    significantly POSITIVE: the calibrator over-predicts the drift for well-fit heads.
+  - RESIDUAL_NOT_FIDELITY needs t(Q1) ≤ −2; not met.
+- **Registered joint reading (Addendum S2):** drift test FINDING_CANDIDATE with fidelity INCONCLUSIVE. Not relabelled.
+- **Descriptive reading (not a test):** the residual depends perfectly monotonically on calibrator mismatch and
+  reverses sign at the best fidelity. The negative pooled residual is carried entirely by the heads the Gaussian-
+  mixture calibrator fits worst. That is the signature of a calibrator-fidelity artefact rather than a signal in
+  per-head Q. The pre-registered rule did not anticipate a sign reversal (it expected Q1 ≈ 0), so it cannot call it.
+- **Resolution path:** a higher-fidelity calibrator, pre-registered before it runs (Addendum S4), with the frozen drift
+  thresholds re-applied to its residual.
