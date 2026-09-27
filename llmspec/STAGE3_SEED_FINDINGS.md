@@ -189,3 +189,74 @@
   reuse rule unless weights approach the subnormal range (or tolerances tighten by ~4×).
   - In THIS study the rule still runs as written: dedicated witnesses for the failing seeds, re-analysis primary per
     Addendum S3.
+
+## SEED-LEG RESULT — all 10 runs (standard 410M + seeds 1–9; primary results per Addendum S3)
+
+### A. Sealed null per run
+
+| run | cells | VIOLATED (→ ladder) | per-head-Q drift at 143k: Δq / Δ⟨r̃⟩ | G0 |
+|---|---|---|---|---|
+| std | {'HOLDS': 260} | — | -0.081 / -0.0022 | pass |
+| seed1 | {'HOLDS': 259, 'VIOLATED': 1} | head_Q@143000 → DENSITY_ARTIFACT | -0.103 / -0.0059 | pass |
+| seed2 | {'HOLDS': 260} | — | -0.091 / -0.0034 | pass |
+| seed3 | {'HOLDS': 260} | — | -0.065 / +0.0002 | pass |
+| seed4 | {'HOLDS': 260} | — | -0.049 / -0.0016 | pass |
+| seed5 | {'HOLDS': 260} | — | -0.088 / -0.0020 | pass |
+| seed6 | {'HOLDS': 259, 'VIOLATED': 1} | head_Q@96000 → DENSITY_ARTIFACT | -0.093 / -0.0011 | pass |
+| seed7 | {'HOLDS': 260} | — | -0.071 / +0.0000 | FAIL-as-sealed: V (threshold noise; tail-checked) |
+| seed8 | {'HOLDS': 260} | — | -0.088 / -0.0023 | pass |
+| seed9 | {'HOLDS': 260} | — | -0.089 / -0.0030 | pass |
+
+### B. R1–R6 seed counts (registered rule: SEED-ROBUST ≥ 9/10, SEED-DEPENDENT 2–8, NOT SUPPORTED ≤ 1)
+
+| R | replicates | verdict |
+|---|---|---|
+| R1_K_rotary | 2/10 | **SEED-DEPENDENT** |
+| R2_cross_head_sharing | 10/10 | **SEED-ROBUST** |
+| R3_update_rank_rise | 4/10 | **SEED-DEPENDENT** |
+| R4_OV_before_QK | 10/10 | **SEED-ROBUST** |
+| R5_induction | 10/10 | **SEED-ROBUST** |
+| R6_MP_fit_collapse | 10/10 | **SEED-ROBUST** |
+
+### C. Ten-run spreads (median [min, max]) for the criteria that straddle their bars
+
+- R1 K rotary mass 0.478 [0.307, 0.519] vs null 0.250 [0.249, 0.252]; rotary-row norm share 0.278 [0.226, 0.303]. Concentration ≥ null + 0.10 in 9/10; rows ≤ 0.27 in 3/10. The concentration exceeds the rotary rows' norm share in every run (ratio 1.723 [1.243, 1.760]).
+- R3 Q ratio 7.481 [6.664, 7.710] (≥ 3 in 10/10)
+- R3 K ratio 9.779 [9.014, 10.716] (≥ 3 in 10/10)
+- R3 V ratio 5.734 [1.887, 7.528] (≥ 3 in 8/10)
+- R3 O ratio 2.847 [1.343, 3.348] (≥ 3 in 5/10)
+- R3 MLP_IN ratio 19.389 [14.477, 21.503] (≥ 3 in 10/10)
+- R3 MLP_OUT ratio 3.069 [2.114, 3.392] (≥ 3 in 7/10)
+- **Seeds 3 and 4** (late loss spikes) are included in all counts, as registered. Their final-step values (R1 mass
+  0.391 / 0.307; R3 O 3.3 / 2.6) are post-instability states.
+
+### Re-analysis of seeds 3, 4, 5, 8, 9 (dedicated witnesses; primary per Addendum S3)
+- Every one used its own witness (witness_used recorded in its null file).
+- The dedicated witnesses reproduce the reused witness's head_Q mean to 4 decimals (1.0045 vs 1.0045). stage3_witness
+  uses a fixed RNG seed, so each "own" witness is the same draws re-scaled, and only fp16 rounding changes. The
+  re-analysed primary results are therefore identical to the originals (which stay logged, labelled "computed against
+  invalid reused witness").
+- This is a direct confirmation that absolute scale does not matter here (see the witness scale test).
+
+### Frozen drift test (stage3_drift_test.py; Addendum S1 item 4 / S2) — registered verdict: FINDING_CANDIDATE (pending the joint reading)
+- n = 10.
+- **q arm:** mean residual (observed Δq − density-matched Δq) = **−0.0197**, SE 0.0033, **t₉ = −5.9, one-sided
+  p = 1.1e-4**. It is negative in 10/10 runs (−0.003 … −0.038).
+- **⟨r̃⟩ arm:** mean Δ⟨r̃⟩ = −0.0021, SE 0.00056, t₉ = −3.8, p = 0.002.
+  - Addendum S2 noted this arm is underpowered: a −0.02 q residual predicts only ≈ −0.003 in ⟨r̃⟩. It reached −3 SE
+    anyway.
+- By the registered rule (either arm ≤ −3 SE), the verdict is **FINDING_CANDIDATE**.
+- **Addendum S2 requires reading it together with the calibrator-fidelity test (running at 07:20).** If that reads
+  CALIBRATOR_SHORTFALL, the joint reading is "not established".
+
+### QK-product symmetry discriminator (Addendum S3 item 3; labelled descriptive; stage3_qkprod_drift.py)
+- The per-head non-rotary product W_Q,nrᵀ·W_K,nr (invariant under the QK symmetry) vs a product witness (q 0.998 ±
+  0.012, ⟨r̃⟩ 0.5309 ± 0.0024).
+- Δq at step 0: −0.031 … +0.021 across the 10 runs. At 143k: −0.070, −0.078, −0.069, −0.076, −0.074, −0.085, −0.072,
+  −0.045, −0.065, −0.078 (std, s1 … s9). Δ⟨r̃⟩ at 143k: −0.006 … +0.005.
+- **Descriptive reading (as registered):** the late q drift appears in the symmetry-INVARIANT product in all 10 runs,
+  at a similar magnitude to Q alone (−0.045 … −0.085 vs −0.049 … −0.103). So it concerns the function, not where
+  training left each seed along the QK symmetry.
+- Caveat: no density-matched calibrator was run for the product spectra. Like the Q drift, part of the product drift
+  may be the same unfolding bias on non-MP densities. This check separates symmetry from function, not artefact from
+  signal.
