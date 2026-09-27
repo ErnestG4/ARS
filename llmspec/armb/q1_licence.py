@@ -22,9 +22,10 @@ Estimators (interior window: t in [300, stop - 250]):
       the vertex v and m + aR (u-v)^2 right of it, fitted by profile least squares over v (60 candidates) on +-12 grid
       points around E1's argmin; TURNING POINT iff aL, aR both > 0 with t > 3 AND t* inside the interior window; CI =
       5-95% quantiles of v over a 100-replicate residual bootstrap about the fitted model.
-Licence per (grid, noise level, noise type), per estimator: false TP on (a) <= 5%; detection on (b) >= 80% at d >= 15%;
-on detected (b)/(c): |median location error| <= max(grid interval at t0, 5% of t0) [for (c): distance to the plateau
-<= one grid interval] and 90% CI coverage >= 85%. Output: results/armb_q1_licence.json.
+Licence per (grid, noise level, noise type), per estimator (rev 2, after Will's 09-27 review): false TP on (a) <= 5%;
+detection on (b) >= 80% at d >= 15%; e(sigma) = the WORST-SHAPE 98.75% quantile of |t_hat - t0| over detected (b)/(c)
+draws at d >= 15% (plateau: distance to the plateau). e(sigma) feeds the sealed decidability rule; the median error and the
+bootstrap-CI coverage are REPORTED only (no longer criteria). 1000 draws per cell. Output: results/armb_q1_licence.json.
 """
 import json, os, sys
 from pathlib import Path
@@ -33,7 +34,7 @@ from scipy.signal import savgol_filter
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "results" / "armb_q1_licence.json"
-DRAWS, BOOT, SEED = 400, 200, 20260928
+DRAWS, BOOT, SEED = 1000, 200, 20260928
 
 
 def grid(stop):
@@ -182,12 +183,14 @@ def main():
                             tol = max(interval_at(g, t0), 0.05 * t0)
                             if kind == "b":
                                 err = ts[tp] - t0; cov = ((ci[tp, 0] <= t0) & (t0 <= ci[tp, 1]))
-                                r.update({"med_err": float(np.median(err)), "tol": tol, "loc_ok": bool(abs(np.median(err)) <= tol)})
+                                r.update({"med_err": float(np.median(err)), "tol": tol, "loc_ok": bool(abs(np.median(err)) <= tol),
+                                          "err9875": float(np.quantile(np.abs(err), 0.9875))})
                             else:
                                 lo, hi = plat; gi = interval_at(g, t0)
                                 dist = np.maximum(0, np.maximum(lo - ts[tp], ts[tp] - hi))
                                 cov = (ci[tp, 0] <= hi) & (ci[tp, 1] >= lo)
-                                r.update({"med_dist_to_plateau": float(np.median(dist)), "tol": gi, "loc_ok": bool(np.median(dist) <= gi)})
+                                r.update({"med_dist_to_plateau": float(np.median(dist)), "tol": gi, "loc_ok": bool(np.median(dist) <= gi),
+                                          "err9875": float(np.quantile(dist, 0.9875))})
                             r["ci_coverage"] = float(cov.mean())
                         rec[E] = r
                     cell[f"{kind}:{name}"] = rec
@@ -195,14 +198,13 @@ def main():
                 for E in ("E1", "E2", "E3"):
                     fa = max(v[E]["tp_rate"] for k, v in cell.items() if k.startswith("a:"))
                     det = min(v[E]["tp_rate"] for k, v in cell.items() if k.startswith("b:") and "_d0.05_" not in k)
-                    locs = [v[E] for k, v in cell.items() if (k.startswith("b:") or k.startswith("c:")) and "loc_ok" in v[E]]
-                    loc_ok = all(v["loc_ok"] for v in locs) and bool(locs)
-                    cov_ok = all(v["ci_coverage"] >= 0.85 for v in locs) and bool(locs)
-                    lic[E] = {"max_false_tp": fa, "min_detection_d>=15%": det, "location_ok": loc_ok, "coverage_ok": cov_ok,
-                              "LICENSED": bool(fa <= 0.05 and det >= 0.80 and loc_ok and cov_ok)}
+                    errs = [v[E].get("err9875") for k, v in cell.items() if (k.startswith("b:") or k.startswith("c:")) and "_d0.05_" not in k]
+                    e_sig = (max(errs) if errs and all(x is not None for x in errs) else None)
+                    lic[E] = {"max_false_tp": fa, "min_detection_d>=15%": det, "e_sigma_9875_worst_shape": e_sig,
+                              "LICENSED": bool(fa <= 0.05 and det >= 0.80 and e_sig is not None)}
                 res["cells"][key] = {"shapes": cell, "licence": lic}
                 OUT.write_text(json.dumps(res, indent=1))
-                print(key, {E: (round(v["max_false_tp"], 3), round(v["min_detection_d>=15%"], 3), v["location_ok"], v["coverage_ok"], v["LICENSED"]) for E, v in lic.items()}, flush=True)
+                print(key, {E: (round(v["max_false_tp"], 3), round(v["min_detection_d>=15%"], 3), v["e_sigma_9875_worst_shape"], v["LICENSED"]) for E, v in lic.items()}, flush=True)
 
 
 if __name__ == "__main__":

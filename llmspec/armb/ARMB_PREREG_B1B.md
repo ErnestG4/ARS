@@ -1,8 +1,22 @@
 # Arm B pre-registration — Part B1b: Q1–Q4 tests (rev 2, after Will's 09-27 review)
 
-**Status: DRAFT, not sealed.** It is sealed together with `q1_models.py`, `q1_licence.py` (Q1 + Q2 localisation licences)
-and the analysis code, before A0's first optimizer step. Changes after any arm trajectory has been seen are dated
-amendments, labelled post-hoc.
+**Status: B1b SEALED 2026-09-27 ~16:45**, before any arm has trained a step and before the full licence runs.
+
+**Frozen with this seal** (sha256, first 16 hex characters):
+- `q1_models.py` cb4a5685aef90b85
+- `q1_licence.py` dbbb4440a2b4a7c6
+- `q1_warp.py` ca98707fa01b8deb
+- `q2_licence.py` 9b19cf60083a9b06
+- `bulk_power_70m.py` 8817483bc554b39c
+
+**Disclosed pre-seal smoke runs** (synthetic only, used to exercise the code, no rule tuned on them):
+- q1_licence at 5 draws per cell. This revealed E1's kink bias and led to (a) adding E3 and the smooth-U family, and
+  (b) replacing CI coverage with e(σ), per Will's review.
+- q1_warp at 40 draws per cell: licensed at low noise, not at ≥ 2%.
+- q2_licence at 5 draws per cell.
+
+**Analysis code** for Q1–Q4 on real arms (extraction and scoring) is written and committed before B4 reads any arm
+beyond the B-G1 gate. It must implement exactly these rules; any gap is a dated amendment.
 
 **Common rules.**
 - Parent: ARMB_PREREG.md (B1a sealed 01fc4b5; amendment A1 f04fe17).
@@ -64,20 +78,39 @@ Given A0's turning point t₀, arm X's predicted turning point under each anchor
   - If it isn't decidable, Q1 for that arm and metric is **DESCRIPTIVE**, and that is stated.
   - If no estimator is licensed at the measured σ, Q1 is DESCRIPTIVE for that metric.
 
-### Decision (per primary metric)
-- **If A0 has no licensed turning point:** Q1 is **NOT APPLICABLE AT 70M** for that metric. That is a size finding
-  against the 1.4B rebound.
-- **For each decidable arm X ∈ {A1, A2}:** model m is CONSISTENT iff |t̂_X − P_m| ≤ e_c, INCONSISTENT otherwise.
-- **Model m is SUPPORTED** iff it is CONSISTENT in every decidable arm AND every other model is INCONSISTENT in at least
-  one decidable arm.
-  - **NO SIMPLE ANCHOR** iff every model is INCONSISTENT in some arm.
-  - Otherwise **INCONCLUSIVE**.
-  - With only one decidable arm, a verdict can still separate models whose predictions differ in that arm, and this is
-    stated.
-- **A turning point present in A0 but absent in A1 or A2** (or vice versa): reported as such, with no model verdict for
-  that arm.
-- This replaces the earlier "slope ≈ 0 / ≈ 1" bands. The three models' predictions ARE the numeric, non-overlapping
-  bands, and the decidability rule enforces their separation.
+### Decision (per primary metric) — PRIMARY route: E4 warp-and-compare (Will 09-27: approved in this form only)
+- **E4** (`armb/q1_warp.py`). For each arm X ∈ {A1, A2} and each model m:
+  - map A0's curve through m's time map τ_m (STEP: t; WARMUP: t − ΔW; LR_INT: Λ₀⁻¹(Λ_X(t)));
+  - rescale heights by an affine least-squares fit;
+  - compute the SSE against X's actual curve over the window common to all three maps (A1: [1450, 3000];
+    A2: [300, 2275]).
+  - The pure-shift registration is NOT used.
+- **Per (arm, metric):**
+  - **NO SIMPLE ANCHOR** iff SSE_best/(n·s²) > c_fit;
+  - otherwise **SUPPORTED(best model)** iff SSE_second/SSE_best ≥ r*;
+  - otherwise **INCONCLUSIVE**.
+  - s is the pooled relative noise of A0 and X, measured about their own smooths. c_fit and r* are fixed per (arm,
+    noise level, noise type) by the licence.
+- **E4 licence (confusion matrix, synthetic, before data).**
+  - Arm curves are generated under each true model, plus a HALFWAY truth that matches no model, with amplitude
+    changes and noise on both curves. 500 draws per cell.
+  - r* = the smallest value in {1.0, 1.1, 1.25, 1.5, 2.0} with every wrong-model rate ≤ 5% and HALFWAY → any single
+    model ≤ 20%.
+  - LICENSED iff at r* every true-model rate ≥ 80%.
+  - The licence row for the measured noise level (next-higher) applies.
+- **Overall Q1 verdict per metric:**
+  - **Model m SUPPORTED** iff E4 SUPPORTS m in every licensed arm, and in at least one arm.
+  - **CONFLICT** if the arms support different models.
+  - **NO SIMPLE ANCHOR** if any licensed arm says so.
+  - **DESCRIPTIVE** if no arm is licensed at its measured noise.
+- **Secondary route (location-based, reported alongside, and used only if E4 is not licensed for an arm).** The t̂
+  intervals and decidability rule above, with model m CONSISTENT iff |t̂_X − P_m| ≤ e_c.
+  - SUPPORTED iff it is CONSISTENT in every decidable arm and every other model is INCONSISTENT in at least one.
+  - NO SIMPLE ANCHOR iff every model is inconsistent somewhere. Otherwise INCONCLUSIVE.
+- **If A0 has no turning point:** Q1 location-based is NOT APPLICABLE AT 70M. E4 still compares whole curves, since a
+  time map can anchor any trajectory; that is reported, and the verdict is labelled "anchor of the trajectory, not of
+  a turning point".
+- **A turning point present in A0 but absent in A1/A2** (or vice versa): reported as such.
 
 ### Estimator licence (`armb/q1_licence.py`, synthetic, run before any arm data)
 - **Families** on each arm's exact grid:
@@ -96,9 +129,7 @@ Given A0's turning point t₀, arm X's predicted turning point under each anchor
   - E1: Savitzky–Golay argmin;
   - E2: local quadratic in log-step;
   - E3: asymmetric parabola by profile least squares;
-  - E4: registration shift of arm X onto A0 around the rebound. E4 gives t̂_X − t₀ directly. It is used ONLY with
-    Will's sign-off (a method change from "measure turning-point steps") and is licensed the same way, on synthetic
-    shifted pairs.
+  - (E4, the warp-and-compare estimator, is the PRIMARY route above, with its own licence.)
 - Among the licensed candidates, the one with the smallest worst-case e(σ) at each σ is used, fixed by the licence run.
 
 ## Q2 — ordering the events in steps 256–2000
@@ -108,7 +139,7 @@ Given A0's turning point t₀, arm X's predicted turning point under each anchor
   - E_MP(Q) / E_MP(K): MP KS > witness KS95 in ≥ 90% of layers.
   - E_sr(M): layer-mean stable rank ≤ ½ its step-0 value.
   - E_loss: text-probe loss below the midpoint of the step-0 loss and the step-3000 loss.
-- **Uncertainty = localisation error of the crossing time, from a known-answer licence** (in q1_licence.py). Synthetic
+- **Uncertainty = localisation error of the crossing time, from a known-answer licence** (`armb/q2_licence.py`). Synthetic
   monotone and sigmoidal trajectories with planted crossing times on the A0 grid, at matched relative noise, give
   e_x(σ), the 95% quantile of |error|.
   - NOT a head/layer bootstrap: within one run that captures only within-run spread, and Stage 3 showed heads cluster by
@@ -173,4 +204,4 @@ Unchanged from rev 1:
 - **The Q1 licence yields no estimator, or no arm is decidable:** Q1 is descriptive, and says so.
 - **The M0-s2 data reconstruction fails its seed0 known-answer check:** M0-s2 is BLOCKED and Q4 falls back to P1 alone,
   DESCRIPTIVE only.
-- **E4 (registration) without Will's sign-off:** E4 is dropped from the candidates before the licence runs.
+- **E4** is approved (Will 09-27) ONLY as warp-and-compare. No pure-shift estimator is used anywhere.
