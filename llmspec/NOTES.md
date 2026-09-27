@@ -213,7 +213,10 @@ and NOT pushed.
 4. ~~Change-point null calibration~~ DONE (§15): NOT LICENSED (false-CP rate 0.59–0.98 on smooth nulls).
 5. Zoo seating of the G7 classes (branch-merge session).
 6. **FINDINGS_MEMO.md** (brief §6 deliverable: every claim with its gate) written 09-27 (1a4ddd1). S4-sup DONE: all calibrators recover 0.97–1.01 at 1× effect; biases replicate; the ⟨r̃⟩ arm had power (post-hoc t ≈ −3.7 for a departure of the claimed size).
-- HELD: arm B; OLMo stage-1 trajectory.
+7. **ARM B — NEXT (Will, 09-27): agreed; waiting for Will's spec.** Pre-register before any training run.
+8. **OLMo stage-1 trajectory — DEFERRED behind arm B (Will, 09-27).** The cheapest real lead: the only place
+   multimodality survived a licensed test (13.3% of Q heads excluding dead rows at stage-1 end). G7 did not license
+   local statistics on peaked spectra, so it can only give peak timing (appear / fade), not internal structure.
 
 ## 6. Lessons from this run (to carry into memory at handoff)
 - A sealed criterion must be tested against its NEAREST CONFUSABLE, not only its easy null. The KDE rule saw MP but
