@@ -96,3 +96,7 @@
 - **Consequence for the frozen drift test:** none adverse. Its SE is the empirical between-run SD, which absorbs any
   such excess, so the test is conservative with respect to it. The instrument's own noise floor (0.0116) is now
   documented for the zoo.
+
+## Seed 5 (completed 20:26)
+- **A. Sealed null: {'HOLDS': 260} → HOLDS (per-head-Q drift flagged: Δq at 143k = -0.088, Δ⟨r̃⟩ = -0.0020).** Worst |Δ⟨r̃⟩| 0.0074, |Δq| 0.094. G0 passes: True.
+- **B.** R1 ✗, R2 ✓, R3 ✓, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.501, rows 0.3011. R3 ratios: Q 6.66, K 9.18, V 5.94, O 3.29, MLP_IN 20.48, MLP_OUT 3.39. R4 at 512: OV 0.974, QK 0.026. R5 [512, 1000].
