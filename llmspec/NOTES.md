@@ -231,6 +231,14 @@ and NOT pushed.
      variant (§1a), realised n, probe indices. **B1b (Q1–Q4) still to write**; both are sealed before A0 starts.
    - Source facts: Pythia step1 == step0 bit-identical (update k uses lr(k−1)); step0 std matches small_init;
      NeoX v1.0 files cached in scratchpad/neox.
+   - **B1a SEALED 01fc4b5** (scorer bg1_score.py sha 0eb2cdff…, probe sha 94605108…). spot runs band → validate in
+     tmux `claude` (started 13:23, ~2h15; log ~/llmspec_armb/bg1_run.log; outputs ~/llmspec_armb/bg1/). Collect
+     through the box agent (SendMessage to it; it's idle between phases).
+   - **B1b DRAFT** armb/ARMB_PREREG_B1B.md + armb/q1_licence.py (WIP). The Q1 smoke shows minimum-location estimators
+     fail known-answer (kink bias, CI undercoverage). Raised with Will: registration-shift estimator for Δt* (A1 vs A0)
+     as an alternative. **Waiting on Will** for Q1 method + B0 decisions.
+   - Lesson repeated 09-27: `pkill -f <pattern>` killed my own shell AGAIN (pattern in the tool's command line). Use
+     explicit PIDs only.
 8. **OLMo stage-1 trajectory — DEFERRED behind arm B (Will, 09-27).** The cheapest real lead: the only place
    multimodality survived a licensed test (13.3% of Q heads excluding dead rows at stage-1 end). G7 did not license
    local statistics on peaked spectra, so it can only give peak timing (appear / fade), not internal structure.
