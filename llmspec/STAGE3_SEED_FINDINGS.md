@@ -38,3 +38,7 @@
   - R3's weakest ratios (O, MLP_OUT) sit near 3.
   - Both look set to be SEED-DEPENDENT on a threshold rather than on the phenomenon. This is noted before the count
     is in, and the verdict will be the registered count.
+
+## Seed 3 (completed 17:34)
+- **A. Sealed null: {'HOLDS': 260}.** Worst |Δ⟨r̃⟩| 0.0058, |Δq| 0.089. Per-head Q at 143k: Δq -0.065, Δ⟨r̃⟩ 0.0002. G0 passes: True. No VIOLATED cells.
+- **B. All six REPLICATE.** R1: rotary mass 0.391, rows 0.2261. R3 ratios: Q 7.5, K 9.6, V 7.2, O 3.1, MLP_IN 21.5, MLP_OUT 3.1. R4 at 512: OV 0.974, QK 0.029. R5 [512, 1000].
