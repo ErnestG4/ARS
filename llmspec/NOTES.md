@@ -193,6 +193,15 @@ and NOT pushed.
      run/layer-grouped, modest, no structural layer effect; UNRESOLVED but bounded; the drift test's empirical SE
      absorbs it.
    - Seed 4 DONE: HOLDS (drift −0.049); R1 ✗ (concentration 0.307), R3 ✗ (O 2.61).
+   - Seed 5 DONE: HOLDS (drift −0.088); R1 ✗ (rows 0.301), R2–R6 ✓.
+   - Seed 6 DONE: 259/1 VIOLATED (head_Q @ 96k, dq −0.106) → automatic ladder DENSITY_ARTIFACT; R1 ✗ (rows
+     0.2706), R3 ✗ (O 2.09).
+   - **HF outage ~21:53 (HTTP 504 on resolve):**
+     - It killed seed 7 extract (21/26 done), seed 7 motion, and seed 8 extract + motion. A retry-scope bug meant
+       resolve errors were never retried; fixed in f804fce.
+     - Stale partial .bin temp files removed. The failed jobs are re-queued at the END of queue_seeds.txt (after
+       seed 9), as are seed 9's lines and the scalecheck.
+     - The CPU queue waits on seed 7's motion files, so it resumes automatically.
 3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
    Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
    - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is
@@ -214,3 +223,5 @@ and NOT pushed.
   refactor passed bit-identical 1.4B regressions while stage3_motion_eq still hard-coded 1.4B's LR peak (caught at
   12:10 on 09-26, before any use; fixed in ba7839b). When generalising, grep for every numeric constant tied to the
   old configuration, not just shapes.
+- Retry scope must cover EVERY network step, including redirects and resolves, not just the data request. The HF
+  504 outage (09-26 21:53) raised from _resolve outside the caught exception set and killed four queued jobs.
