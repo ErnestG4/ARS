@@ -151,3 +151,17 @@ docstring of `stage3_calib_v2.py`, frozen by this commit. Summary:
    - No threshold or rule was changed after it.
    - The bulk q/⟨r̃⟩ fast path is asserted bit-identical to s3stats.local_stats at start (checked: 0.9237622101127684
      both ways).
+
+### S4 note — 2026-09-27 ~08:15, after the pilot, BEFORE any known-answer pool result
+1. **The planted effect overshoots.** The pilot shows the planted-effect grid is too coarse at N = 64. f = 0.02
+   replaces round(1.28) = 1 level per head, and gives a flat-coordinate Δq of **−0.058**, not −0.020; larger f is
+   worse (0.04 → −0.166).
+2. **The frozen rule runs as written.** f = 0.02 stands, so the licence's recovery criterion is tested on a planted
+   effect about 3× the observed residual. This is recorded as a deviation from the stated intent ("~−0.02"). It is not
+   repaired inside the licence.
+3. **Supplementary arm S4-sup (fixed now; LABELLED SUPPLEMENTARY, not part of the licence).**
+   - One level per head is replaced in a random third of heads, giving a flat Δq of about −0.019.
+   - The design is otherwise identical: paired, both truth families, R = 100, seed offset +2,000,000.
+   - It reports the recovery of every calibrator at the observed effect size.
+   - A licensed calibrator whose S4-sup recovery falls outside [0.7, 1.3] is reported as "licensed at 3× effect,
+     degraded at 1×". That qualifies the re-score's reading, but does not change its lattice verdict.
