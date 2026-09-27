@@ -115,3 +115,39 @@ was known. Nothing below changes a tolerance or a verdict. It fixes in advance h
      whole family of tests (e.g. per model), not per test. This is the second false G0 fail from a bare rate bar.
    - **Witness scale matching:** whether anything in the witness depends on absolute scale is tested and recorded
      (stage3_witness_scale_test). The pre-registered ±20% rule still runs as written here.
+
+## ADDENDUM S4 — committed 2026-09-27, BEFORE any S4 statistic on real runs and before the known-answer runs
+**Known-answer licence for the density-matched calibrator, then a re-score of the 10-run drift.** The full rule is the
+docstring of `stage3_calib_v2.py`, frozen by this commit. Summary:
+1. **Why.** S2's fidelity test is INCONCLUSIVE. Calibrators cannot be judged on the real spectra: a density flexible
+   enough to fit a head's own 64 levels can encode their spacings and reproduce the real q by construction. They are
+   judged on synthetic spectra with a known answer, built on realistic per-head shapes.
+2. **Truth shapes.** Two families built from the 384 per-head-Q spectra of standard 410M at 143k:
+   - T_lam: adaptive KDE of λ, c = 2, truncated to λ ≥ 0;
+   - T_log: the same on log λ.
+   A calibrator must pass BOTH. Scope: this certifies fidelity for truths smooth at ≥ 2 spacings. Finer density
+   structure is, from one 64-level spectrum, indistinguishable from spacing correlation, and nothing here resolves it.
+3. **Conditions.** (a) COE through T (true residual 0). (b) The same COE draws with a Poisson admixture f (pilot:
+   flat-coordinate q shift closest to −0.020), through T.
+4. **Calibrators.** v1 (the frozen mixture, used exactly as the ladder uses it); v2_c{4,8,16} (λ-KDE, truncated);
+   v3_c{4,8,16} (log-λ KDE). Each is fitted to the synthetic spectrum itself.
+5. **Paired evaluation.** A fresh draw u′, independent of the fitted draw, goes through both the truth and every
+   calibrator. Bias and absorption are paired means over R = 100 pools per family.
+6. **Licence, per arm (q and ⟨r̃⟩), under both families.**
+   - The 95% interval of the bias lies within ±0.005 (q) or ±0.0005 (⟨r̃⟩), a quarter of the observed means.
+   - Recovery of the planted effect is in [0.7, 1.3].
+   - Selection: the smallest worst-family |bias|, on synthetic data only.
+7. **Re-score.** The S1/S2 lattice is applied unchanged to the licensed residuals of the 10 runs (t₉, ±3).
+   - An arm with no licensed calibrator is NOT RESOLVABLE. One quiet licensed arm is not UNFOLDING-EXPLAINED.
+   - **Regression gate:** v1 residual_q through the new code must match the frozen drift test's per-run values within
+     0.012; otherwise the re-score is REFUSED.
+   - Every calibrator's real residuals are tabulated DESCRIPTIVELY.
+   - The S1/S2 verdicts stand as sealed; S4 is a separately labelled re-score.
+8. **Disclosure.**
+   - One synthetic smoke pool (T_lam, pool 0, f = 0.1, not the pilot f) was computed after the rule was written and
+     before this commit, to test the machinery (no ties; 64 s/pool).
+   - Its bias readings were: v1 −0.023; v2_c4/c8/c16 +0.011/+0.016/+0.017; v3_c4/c8/c16 +0.005/+0.021/+0.052
+     (q, single pool, SD ≈ 0.011).
+   - No threshold or rule was changed after it.
+   - The bulk q/⟨r̃⟩ fast path is asserted bit-identical to s3stats.local_stats at start (checked: 0.9237622101127684
+     both ways).
