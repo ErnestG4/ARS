@@ -107,9 +107,7 @@ def r5(df):
 
 
 def r6():
-    import os
-    wsrc = os.environ.get("LLMSPEC_WITNESS")
-    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix(wsrc) if wsrc else SUF}.json").read_text())
+    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.witness_suffix()}.json").read_text())
     def mp_cdf(c):
         a, b = (1 - np.sqrt(c)) ** 2, (1 + np.sqrt(c)) ** 2
         g = np.linspace(a, b, 40001); f = np.sqrt(np.clip((b - g) * (g - a), 0, None)) / (2 * np.pi * c * g + 1e-300)

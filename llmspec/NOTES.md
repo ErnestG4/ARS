@@ -202,6 +202,13 @@ and NOT pushed.
      - Stale partial .bin temp files removed. The failed jobs are re-queued at the END of queue_seeds.txt (after
        seed 9), as are seed 9's lines and the scalecheck.
      - The CPU queue waits on seed 7's motion files, so it resumes automatically.
+   - **Witness-reuse scale check FAILED** for seeds 3, 4, 5, 9 (final-step rms 0.17–1.37× std 410M; seed 8 pending).
+     Their reading A is PROVISIONAL.
+     - GPU queue: stage3_seed_witness_gate.py for 9, 8, 3, 4, 5 (own witness if the check fails).
+     - CPU queue (rewritten in place): seeds 8/9 wait for a complete witness decision (stage3_wait_witness.py); seeds
+       3/4/5 are re-analysed / re-scored / ladder purged and re-run against their own witnesses; then drift_test,
+       calib_fidelity.
+     - mcfg.witness_suffix(): own witness if present, else LLMSPEC_WITNESS.
 3. **Seed leg — PRE-REGISTERED** (STAGE3_SEED_PREREG.md, 2f38b8b). The .bin reader is verified (verify_bin_path, 6ca5be1).
    Queued after G3. When done: STAGE3_SEED_FINDINGS.md.
    - Check results/stage3_seed_scalecheck.json FIRST. Any seed outside ±20% needs its own witness before its null is

@@ -45,3 +45,16 @@ def full_shapes(model=None):
     c = get(model)
     D, FF = c["D"], c["FF"]
     return {"Q": (D, D), "K": (D, D), "V": (D, D), "O": (D, D), "MLP_IN": (FF, D), "MLP_OUT": (D, FF)}
+
+
+def witness_suffix(model=None):
+    """Seed-leg witness selection (STAGE3_SEED_PREREG.md, declared reuse + scale check): a model's OWN witness file if it
+    exists (seeds that fail the +-20% scale check get one), else the declared reuse LLMSPEC_WITNESS, else its own suffix."""
+    import os
+    from pathlib import Path
+    m = model or name()
+    own = Path(__file__).resolve().parent / "results" / f"stage3_witness{suffix(m)}.json"
+    if own.exists():
+        return suffix(m)
+    w = os.environ.get("LLMSPEC_WITNESS")
+    return suffix(w) if w else suffix(m)

@@ -17,8 +17,7 @@ ROOT = Path(__file__).resolve().parent
 
 def main(T, step, R=10, seed=0):
     model = mcfg.name(); C = mcfg.get()
-    wsrc = os.environ.get("LLMSPEC_WITNESS")
-    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix(wsrc) if wsrc else mcfg.suffix()}.json").read_text())
+    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.witness_suffix()}.json").read_text())
     ref = wit["types"][T]["runs"]["witness_fp16_final"]
     Z = [np.load(ROOT / "cache" / "s3" / model / f"step{step}" / f"L{l:02d}.npz") for l in range(C["n_layer"])]
     spectra = list(np.concatenate([z[f"sighead_{T[5:]}"] for z in Z])) if T.startswith("head_") else [z[f"sig_{T}"] for z in Z]

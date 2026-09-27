@@ -105,3 +105,22 @@
 - **A. Sealed null: {'HOLDS': 259, 'VIOLATED': 1}.** VIOLATED cells: [['head_Q', 96000, -0.1058, -0.0046]]. Per-head-Q drift flagged: Δq at 143k = -0.093, Δ⟨r̃⟩ = -0.0011. Worst |Δ⟨r̃⟩| 0.0063, |Δq| 0.106. G0 passes: True.
   - Ladder step 2 (automatic, Addendum S1) on head_Q @ 96000: observed Δq -0.106 / Δ⟨r̃⟩ -0.0046; density-matched Δq -0.064 ± 0.011, Δ⟨r̃⟩ 0.0000 → **DENSITY_ARTIFACT** (the known per-head-Q drift, annotated, not relabelled).
 - **B.** R1 ✗, R2 ✓, R3 ✗, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.470, rows 0.2706. R3 ratios: Q 7.68, K 9.97, V 3.17, O 2.09, MLP_IN 19.36, MLP_OUT 3.24. R4 at 512: OV 0.982, QK 0.044. R5 [512, 1000].
+
+## ⚠ Witness-reuse scale check FAILED for seeds 3, 4, 5, 9 (first pass 23:20; seed 8 pending)
+- The declared check (STAGE3_SEED_PREREG.md) compares each seed's mean entry rms per type at step 0 and 143k with the
+  pythia-410m witness scales (±20%). Step 0 matches everywhere. The FINAL scales differ:
+  - seed 3: Q 0.42, O 0.58, MLP_IN 0.77, MLP_OUT 0.51;
+  - seed 4: Q 0.38, K 0.77, O 0.17, MLP_IN 0.79, MLP_OUT 0.17;
+  - seed 5: Q 1.25;
+  - seed 9: Q 1.37.
+  - Seeds 1, 2, 6 and 7 are within ±20%.
+- **Consequence, as registered:** a failing seed gets its OWN witness before its null is read. The reading-A results
+  recorded above for **seeds 3, 4 and 5 are therefore PROVISIONAL** (computed against the reused witness) and are
+  superseded by re-analysis against their own witnesses:
+  - stage3_seed_witness_gate.py generates the witness;
+  - mcfg.witness_suffix() prefers it;
+  - analyze, repl and ladder are re-run, with stale ladder entries purged.
+  - R1–R5 (reading B) do not depend on the witness. R6 does (via KS95) and is re-scored.
+- **Descriptive (reported, not a test):** final weight scales differ strongly across seeds. Seed 4's O and MLP_OUT end
+  training at ~0.17× the entry rms of standard 410M; seed 3's Q at ~0.42×. Step-0 scales are identical, so this is
+  training-trajectory dependence of final norms.

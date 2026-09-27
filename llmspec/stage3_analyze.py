@@ -230,8 +230,8 @@ def changepoints(x, y, min_seg=3):
 
 
 def main():
-    wsrc = os.environ.get("LLMSPEC_WITNESS")          # seed leg: reuse another model's witness (declared, scale-checked)
-    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.suffix(wsrc) if wsrc else mcfg.suffix()}.json").read_text())
+    wit = json.loads((ROOT / "results" / f"stage3_witness{mcfg.witness_suffix()}.json").read_text())   # own if present, else declared reuse
+    WIT_USED = mcfg.witness_suffix()
     have = [r for r in SCHED if (ROOT / "cache" / "s3" / MODEL / r / "DONE").exists()]
     missing = [r for r in SCHED if r not in have]
     have.sort(key=step_of)
@@ -359,7 +359,7 @@ def main():
                                      "estimator_version"])
     df.to_parquet(ROOT / "results" / f"stage3_long{TAG}.parquet")
     verdicts = pd.DataFrame(null_cells)
-    summary = {"n_cells": len(verdicts), "counts": verdicts.verdict.value_counts().to_dict(), "missing_revisions": missing,
+    summary = {"witness_used": f"stage3_witness{mcfg.witness_suffix()}.json", "n_cells": len(verdicts), "counts": verdicts.verdict.value_counts().to_dict(), "missing_revisions": missing,
                "G0_mp_step0": g0,
                "G0_bulk_null_step0": verdicts[verdicts.step == 0][["type", "verdict", "d_rt", "d_q"]].to_dict("records"),
                "G4_lower_band_fp16_effect": {T: w["G4_lower_rt_fp16_minus_fp64"] for T, w in wit["types"].items()},
