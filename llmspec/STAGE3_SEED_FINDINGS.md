@@ -65,3 +65,7 @@
   empirical between-run SD.
 - **Devices** (unchanged by the queue split): extraction is GPU fp64 (encoded in the extraction estimator_version);
   analysis, ladder and drift test are CPU numpy, as in every earlier run.
+
+## Seed 4 (completed 19:05)
+- **A. Sealed null: {'HOLDS': 260} → HOLDS (per-head-Q drift flagged: Δq at 143k = -0.049, Δ⟨r̃⟩ = -0.0016).** Worst |Δ⟨r̃⟩| 0.0057, |Δq| 0.093. G0 passes: True.
+- **B.** R1 ✗, R2 ✓, R3 ✗, R4 ✓, R5 ✓, R6 ✓. R1: rotary mass 0.307, rows 0.2467. R3 ratios: Q 7.56, K 10.03, V 5.53, O 2.61, MLP_IN 19.42, MLP_OUT 3.02. R4 at 512: OV 0.979, QK 0.026. R5 [512, 1000].
