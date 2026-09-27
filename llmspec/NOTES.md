@@ -145,10 +145,25 @@ and NOT pushed.
   - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
   - Sub-1000 "low-rank early" → arm B.
 
-## 4. Running now (check with `ps -eo pid,etime,args | grep -E "[c]heckrun|[s]tage3_|[m]emwatch"`)
-- All seed-leg queues DONE (09-27 ~07:30). No supervisor running.
-- Nothing running except memwatch. S4 and S4-sup DONE (5cdb4f1 + this commit). Queue empty apart from held items and zoo seating (branch-merge session).
-- **memwatch:** PID 12700. **Alarm cron 0ab464f4 DELETED 09-27 ~09:20** (queue empty; recreate `7,37 * * * *` if new work is queued).
+## 4. Running now (09-27 16:25 PDT)
+- **ARM B A0 TRAINING** (started 16:25).
+  - GPU side: `armb/queue_runner.py` (PID 385843), then `armb/train.py A0` (log armb/train_A0.log; per-step
+    armb/staging/A0/trainlog.jsonl).
+  - Checkpoints: staged in armb/staging/A0/, then uploaded to spot:~/llmspec_armb/ckpt/A0/ with a sha256 `.ok` marker,
+    then deleted locally.
+  - Queue: A0 (to 3000, ~10 h) → B-G1 verdicts for all gating steps + 3000 PASS → A1 (to 5000) → A2 (to 3000).
+    M0-s1 and M0-s2 are NOT queued (Muon + seed-1 index maps still to build).
+  - Resume after any stop: `setsid nohup /home/combust/fmexplorer/bin/python3 armb/queue_runner.py &`. It resumes from
+    armb/staging/<arm>/resume.pt (every 50 steps); finished arms are skipped.
+  - Gate FAIL → the puller writes llmspec/STOP "B-G1 FAIL step t" → the trainer stops → the queue ends.
+- **spot:** `bg1_daemon.sh` in tmux `claude` scores A0's gating checkpoints in step order into
+  ~/llmspec_armb/bg1/bg1_verdicts.jsonl (log ~/llmspec_armb/bg1_daemon.log). It exits when all 14 steps are scored.
+- **Licences** (sealed B1b 766c92c): `armb/run_licences.sh` running q2 → q1_warp → q1_licence under checkrun (~1 h, CPU).
+  Results in results/armb_q*_licence.json and armb/*.checkrun.log.
+- **SSH AGENT EXPIRY:** /tmp/cc-agent.sock was started ~13:05 with `-t 24h`, so it expires ~13:05 on 09-28. After that,
+  uploads fail and the trainer stops (resumable). Will must re-run `ssh-agent -a /tmp/cc-agent.sock -t 24h;
+  SSH_AUTH_SOCK=/tmp/cc-agent.sock ssh-add` (delete the stale socket first if needed).
+- **memwatch:** PID 12700.
 
 ## 5. Next (in order; mark each done here with its commit)
 1. ~~Dense-V + wave~~ DONE → STAGE3_FINDINGS §13: V shows NO layer ordering at 1000-step resolution (ρ −0.00). Scorer
