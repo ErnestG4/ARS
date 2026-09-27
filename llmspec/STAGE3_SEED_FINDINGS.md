@@ -140,3 +140,11 @@
     - The fail is therefore attributed to threshold-estimation noise plus multiplicity, not to the V tensors or the
       pipeline. Same defect class as the Stage 1 G0 (a bare rate bar with no allowance for sampling or estimation
       noise).
+- **G0 attribution, checked on the TAIL (review 5):**
+  - One common KS95 from 1,440 pooled Q/K/V witness-style draws: 0.00759 (bootstrap SE 0.00003).
+  - Exceedances over all 8 × 24 step-0 matrices: Q 11, K 9, V 15 (expected ≈ 9.6 each). χ² across types p = 0.43;
+    Fisher V vs Q p = 0.54, so there is no V tail anomaly.
+  - Seed 7's V: 5/24 above V's own cutoff (0.00749), 2/24 above Q's (0.00767), 3/24 above the common threshold (binomial
+    p ≈ 0.12, a pass).
+  - The fail is explained by V's Monte-Carlo cutoff landing low. Attribution confirmed on the tail. The label stays
+    FAIL-as-sealed and seed 7's V stays uninterpreted.
