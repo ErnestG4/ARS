@@ -223,6 +223,14 @@ and NOT pushed.
    checkpoints (steps 1–512, 1000, 2000) while A0 keeps training to 5000. PASS through 2000 → A1 queues automatically;
    FAIL → the GPU stops (nothing downstream runs on a bad anchor). To seal in B1: the PolyPythias seed band computed
    BEFORE A0 exists; a family-wise gate calibrated leave-one-seed-out; fail-fast semantics; pull-based signalling.
+   - **Scoring server = spot** (Fedora VM, `ssh spot`; see memory cpu_box_128gb; ~/remote-claude-rules.md BINDING). A
+     box-operator subagent does all spot work (setup phase 1 launched 09-27 ~13:15: env `llmspec`, ~/llmspec_armb/,
+     code rsync, HF inventory of Pythia-70M / PolyPythias-70M revisions, data variant, CPU timing).
+   - **B1a DRAFT** armb/ARMB_PREREG.md (d9c5067): replica spec from GPT-NeoX v1.0 source; grid; B-G1 gate
+     (164 comparisons, Bonferroni-t T = 5.67 at n = 10; LOSO + 2 red-paths before A0). To fill before sealing: data
+     variant (§1a), realised n, probe indices. **B1b (Q1–Q4) still to write**; both are sealed before A0 starts.
+   - Source facts: Pythia step1 == step0 bit-identical (update k uses lr(k−1)); step0 std matches small_init;
+     NeoX v1.0 files cached in scratchpad/neox.
 8. **OLMo stage-1 trajectory — DEFERRED behind arm B (Will, 09-27).** The cheapest real lead: the only place
    multimodality survived a licensed test (13.3% of Q heads excluding dead rows at stage-1 end). G7 did not license
    local statistics on peaked spectra, so it can only give peak timing (appear / fade), not internal structure.
