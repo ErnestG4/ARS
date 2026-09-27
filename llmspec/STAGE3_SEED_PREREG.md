@@ -87,3 +87,31 @@ was known. Nothing below changes a tolerance or a verdict. It fixes in advance h
      reads as "not established".
 4. **Step-0 excess variance** is being diagnosed (review point 3). Its outcome feeds the noise model reported with the
    verdict, but does NOT change the frozen SE (the empirical between-run SD).
+
+## ADDENDUM S3 — committed 2026-09-27 ~01:00, BEFORE any dedicated-witness re-analysis exists (no own-witness file
+## for any seed yet; the GPU queue is still on seed 8 extraction)
+1. **Which version counts (fixed now).** For every seed that fails the witness-reuse scale check (3, 4, 5, 9; 8 if it
+   fails):
+   - The ORIGINAL reading-A and R6 results stay in the log, labelled **"computed against invalid reused witness"**.
+   - The **dedicated-witness re-analysis is the PRIMARY result.**
+   - Seeds that pass the check (1, 2, 6, 7 and standard) keep the reused-witness results as primary.
+2. **Inputs to the frozen tests (fixed now).** stage3_drift_test.py and stage3_calib_fidelity.py take every affected
+   seed's inputs from the re-analysed version:
+   - the ladder entries for those seeds are purged and recomputed against the dedicated witness (already queued:
+     stage3_ladder_purge.py → stage3_ladder_all.py);
+   - the drift test recomputes any missing head_Q@143k entry on demand;
+   - both frozen tests run after every re-analysis in the CPU queue.
+3. **Symmetry discriminator for the per-head-Q drift** (a LABELLED DESCRIPTIVE check next to the frozen test, not a
+   change to it).
+   - Pythia's QK path is invariant under W_Q → A·W_Q, W_K → A⁻ᵀ·W_K for any invertible A on the non-rotary dims. So
+     per-head Q spectra need not be invariant between function-identical models; the non-rotary product
+     W_Q,nrᵀ·W_K,nr is.
+   - The same drift measurement (bulk ⟨r̃⟩ and q through s3stats, vs a product-matched witness built from independent
+     Gaussian factors) is run on per-head non-rotary QK-product spectra at step 0 and 143k for all 10 runs.
+   - Reading (descriptive): drift present in the product ⇒ it concerns the function; drift only in Q alone ⇒ it
+     concerns where training left each seed along the QK symmetry.
+4. **Protocol-template notes (forward only; nothing here is applied retroactively to this study):**
+   - **G0:** estimate thresholds from enough draws that their own error is small, and set G0's error rate for the
+     whole family of tests (e.g. per model), not per test. This is the second false G0 fail from a bare rate bar.
+   - **Witness scale matching:** whether anything in the witness depends on absolute scale is tested and recorded
+     (stage3_witness_scale_test). The pre-registered ±20% rule still runs as written here.
