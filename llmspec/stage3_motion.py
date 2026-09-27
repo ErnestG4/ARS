@@ -31,7 +31,7 @@ def sigma_max(dW):
     return float(torch.linalg.eigvalsh(G)[-1].clamp_min(0).sqrt())
 
 
-def fetch_layer(idx, L):
+def fetch_layer(idx, L, model=None):
     """One layer's six matrices, streamed HF -> GPU as fp16 (exact: asserted on the fp16 grid)."""
     p = f"gpt_neox.layers.{L}."
     keys = ["attention.query_key_value.weight", "attention.dense.weight", "mlp.dense_h_to_4h.weight", "mlp.dense_4h_to_h.weight"]
@@ -40,7 +40,7 @@ def fetch_layer(idx, L):
         a16 = a.astype(np.float16)
         assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid"
         got[k[len(p):]] = torch.from_numpy(a16).to(X.DEV)
-    c = mcfg.get(); H, DH, D = c["H"], c["DH"], c["D"]
+    c = mcfg.get(model); H, DH, D = c["H"], c["DH"], c["D"]      # the SOURCE's model, not the env default (fixed 09-27)
     qkv = got["attention.query_key_value.weight"].reshape(H, 3, DH, D)
     return {"Q": qkv[:, 0].reshape(D, D), "K": qkv[:, 1].reshape(D, D), "V": qkv[:, 2].reshape(D, D),
             "O": got["attention.dense.weight"], "MLP_IN": got["mlp.dense_h_to_4h.weight"], "MLP_OUT": got["mlp.dense_4h_to_h.weight"]}
@@ -60,7 +60,7 @@ class LayerSource:
 
     def layer(self, L):
         if not self.bin:
-            return fetch_layer(self.idx, L)
+            return fetch_layer(self.idx, L, self.model)
         c = mcfg.get(self.model); H, DH, D = c["H"], c["DH"], c["D"]
         p = f"gpt_neox.layers.{L}."
         qkv = self.ck.get32(p + "attention.query_key_value.weight").reshape(H, 3, DH, D)
