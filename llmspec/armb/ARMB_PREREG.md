@@ -186,3 +186,18 @@ tests) is sealed separately, before A0 starts.
 - **Scorer:** now sha256 e24e570c7f709a3c735024f6b253512ceaaacc6fc5873862be1f8f179334fa4a; the previous sha is 0eb2cdff…
 - **Dry run:** every validate branch ran on a fabricated miniature band BEFORE the real validate (this time).
 - The band (160 rows, sha256 c51a4d6a…) is unchanged and is reused.
+
+## Amendment B1a-A3 — 2026-09-27 16:15, stop step and storage (applying Will's rules; pre-data)
+1. **A0 stop = 3000.**
+   - Will's rule: A0 goes to 5000 only if Pythia-70M's released checkpoints show the 4k→5k update burst.
+   - `armb/burst_check_70m.py` (criterion frozen at dc8c20a before running): **ABSENT in Pythia-70M and in all 9
+     PolyPythias seeds** (10/10). V/O/MLP_OUT 4k→5k ratios are 0.86–1.06, against ≤ 0.5 for a burst.
+   - A1 still runs to 5000 (Q1's warmup-end model); A2, M0-s1 and M0-s2 to 3000. The §2 grid is truncated
+     accordingly.
+2. **Storage** (Will's decision): raw fp32 checkpoints are banked on spot (~/llmspec_armb/ckpt/<arm>/), not on D:.
+   - spot has 553 GB free after Will's expansion.
+   - The plan needs ≈ 231 GB of weights (A0 45, A1 51, A2 45, M0 × 2 90) plus ≈ 28 GB of optimizer state.
+   - A 10 GB free-space guard applies on spot.
+   - Checkpoints transit C: only until their sha256-verified copy on spot exists; C:'s 10 GB guard stays.
+3. **Muon rule** (Will's decision): Q, K and V are orthogonalised as SEPARATE matrices (split from the fused QKV).
+   The LR rule is RMS-matched to AdamW (the brief's default), pending the text of Will's decision block.
