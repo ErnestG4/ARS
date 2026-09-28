@@ -18,9 +18,17 @@ MODELS = {
 for _k in range(1, 10):   # PolyPythias seed leg: same architecture/config as 410M; weights only as pytorch_model.bin
     MODELS[f"pythia-410m-seed{_k}"] = dict(repo=f"EleutherAI/pythia-410m-seed{_k}", n_layer=24, H=16, DH=64, D=1024,
                                            FF=4096, sched="pythia_1.4b_schedule.txt", fmt="bin")
+# Arm B (ARMB_PREREG.md): Pythia-70M, its 9 PolyPythias seeds (fp16 .bin only), and our own arms (local fp32 checkpoints
+# on spot, served by armb/b4_extract.CkptArmb; "repo"/"rev" only supply the config.json).
+MODELS["pythia-70m"] = dict(repo="EleutherAI/pythia-70m", n_layer=6, H=8, DH=64, D=512, FF=2048, sched=None)
+for _k in range(1, 10):
+    MODELS[f"pythia-70m-seed{_k}"] = dict(repo=f"EleutherAI/pythia-70m-seed{_k}", n_layer=6, H=8, DH=64, D=512, FF=2048,
+                                          sched=None, fmt="bin")
+for _a in ("A0", "A1", "A2", "M0s1", "M0s2"):
+    MODELS[f"armb-{_a}"] = dict(repo="EleutherAI/pythia-70m", n_layer=6, H=8, DH=64, D=512, FF=2048, sched=None, fmt="armb")
 LR_PEAK = {"pythia-1.4b": 2.0e-4, "pythia-1b": 2.5e-4, "pythia-410m": 3.0e-4}   # EleutherAI/pythia models/*.yml
 for _k, _m in MODELS.items():
-    _m["lr_peak"] = LR_PEAK.get(_k, 3.0e-4 if _k.startswith("pythia-410m") else None)
+    _m["lr_peak"] = LR_PEAK.get(_k, 3.0e-4 if _k.startswith("pythia-410m") else (1.0e-3 if ("70m" in _k or _k.startswith("armb-")) else None))
     _m["lr_min"] = _m["lr_peak"] / 10 if _m["lr_peak"] else None      # cosine decay to 10% of peak (all sizes)
     _m["warmup"] = 1430                                               # 0.01 x 143000 (all sizes)
 for _m in MODELS.values():

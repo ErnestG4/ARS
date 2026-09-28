@@ -205,3 +205,54 @@ Unchanged from rev 1:
 - **The M0-s2 data reconstruction fails its seed0 known-answer check:** M0-s2 is BLOCKED and Q4 falls back to P1 alone,
   DESCRIPTIVE only.
 - **E4** is approved (Will 09-27) ONLY as warp-and-compare. No pure-shift estimator is used anywhere.
+
+## B4 amendment — 2026-09-28 ~10:30: the analysis code is SEALED before it reads any arm statistic beyond the B-G1 gate metrics
+**Frozen** (sha256, first 16 hex characters):
+  - `armb/b4_extract.py` af6e4678145c9706
+  - `armb/b4_analyze.py` 2a47aa552dda36d8
+  - `mcfg.py` 40fc8f6bc0467a76
+  - `armb/test_b4_dryrun.py` ca3750a0dd109941
+
+**What the code is.**
+- **Extraction** (`b4_extract.py`, GPU only).
+  - Stage 3's `layer()` and `markers()` are imported unchanged: estimator versions stage3-extract-v1 and
+    stage3-markers-v1.
+  - They run on every arm checkpoint, pulled from spot and sha256-checked against its `.ok` marker. fp32 masters stay
+    fp32.
+  - They also run on the 10 reference runs at the shared steps, through Stage 3's own `run()`, plus pythia-70m
+    step143000, which is the rms source that `stage3_witness.py` needs for the 70M witness.
+  - ΔW stable ranks are computed for the sealed Q3 and Q4 intervals.
+- **Analysis** (`b4_analyze.py`): Q1–Q4 and the bulk null, as B1b rev 2 words them.
+
+**Operational choices, declared now** (all appear in the code docstring):
+- **Noise:** SD of the residual about a Savitzky–Golay smooth (window 9 for Q1, window 5 for Q2; order 2). Relative
+  for stable rank and loss; absolute for fractions.
+  - A lag-1 autocorrelation above 0.25 selects the AR(1) licence row. The next-higher tabulated level applies.
+  - Noise above the largest level means NOT LICENSED.
+- **Q2 intervals:** the licence's WORST-SHAPE 95% quantile (the conservative choice).
+- **Loss:** E_loss and Q4's loss use the Stage 3 text probe (`MARKERS.npz` loss_text).
+- **Wave:** a layer that never crosses is ranked last.
+- **Q3 (L) intervals:** built on A0's schedule for every arm. They are primary for A0 only; A1 and A2 are descriptive.
+- **Bulk ladder:** DENSITY_ARTIFACT iff |d_obs − d_density| ≤ MDD. The calibrator is the S4-licensed v2_c16.
+- **Q4 family:** (4 metric kinds × 6 types + loss) × 14 shared steps + 3 intervals × 6 types = 368, giving
+  T = t₉ Bonferroni = 6.33.
+
+**Scope the sealed licences already imply** (derived from the synthetic licence runs; arm data not involved):
+- **E4 (warp-and-compare)** is licensed ONLY for A2 at trajectory noise ≤ 0.5%, and never for A1.
+- **Location route:** E1 is licensed on the 3000-step grid, but its worst-case localisation error is 425–1075 steps,
+  against the ≤ 119 (A2) and ≤ 238 (A1) that decidability needs. Nothing is licensed on the 5000-step grid.
+- **Consequence:** Q1 can reach a model verdict only through E4 on A2, and only if A2's stable-rank trajectories are
+  smoother than 0.5% relative noise. Otherwise Q1 is DESCRIPTIVE.
+- **Q2 crossing intervals:** ±25 to ±375 steps, depending on noise.
+
+**Dry run** (`test_b4_dryrun.py`; fabricated cache; NO arm data): every branch was exercised.
+- **Q1 planted known answer:** a warmup-anchored truth gives SUPPORTED: WARMUP on both metrics, via E4 on A2.
+- **Q2–Q4:** ran; the planted precedences were recovered.
+- **Bulk:** the HOLDS branch, and a forced-violation branch that sent 30 cells through the ladder and produced both
+  labels. CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
+
+**Arm data seen before this seal (disclosed):**
+- the per-step training logs (loss, lr, grad norm, loss scale, update norms) in liveness checks;
+- the B-G1 gate metrics and verdicts (probe loss, stable rank and Frobenius norm at the shared steps) for A0 and the
+  aborted/failed runs.
+- No B4 extraction has run and no Q1–Q4 statistic exists.
