@@ -235,3 +235,44 @@ tests) is sealed separately, before A0 starts.
    - **AdamW params:** embeddings, unembedding, LayerNorms, all biases.
    - **Reference implementation:** Nesterov momentum 0.95, 5 Newton–Schulz steps. The exact implementation commit goes
      into each arm's version string.
+
+## Amendment B1a-A5 — 2026-09-27 ~18:40: B-G1 FAIL on the fp16 A0; the precision decision rule is committed BEFORE the gradient test
+1. **What happened.** The fp16 A0 FAILED B-G1 at step 128 on probe loss.
+   - A0 7.5394 vs band 7.3575 ± 0.0081 (Pythia-70M 7.3643); z = 21.37 against T = 5.67. Step 64 had z = 2.89 (a
+     pass). All weight metrics passed.
+   - The GPU stopped at step 138, as designed.
+   - The failed run is ARCHIVED with its verdicts (spot `ckpt/_failed_A0_fp16_v1`, `bg1/_failed_A0_fp16_v1_verdicts.jsonl`;
+     local `armb/staging/_failed_A0_fp16_v1/`).
+   - The aborted bf16 run had probe loss 7.3631 at step 128 on identical batches.
+2. **Hypothesis:** fp16 gradient underflow from my loss-scale arithmetic under gradient accumulation.
+   - Per-token gradient factor, Pythia: cur_scale / (32 seq × 2048) = 4096/65536 = 0.0625. (DeepSpeed per GPU:
+     mean-over-micro-batch loss × cur_scale; gas = 1; 32 GPUs × 32 sequences.)
+   - Current code: cur_scale × 8/1024 / (8 × 2048) = 32/16384 = 0.00195, i.e. 32× smaller.
+   - Proposed: micro-batch loss × cur_scale × MICRO/32, then divide the accumulated gradient by cur_scale × BATCH/32. The
+     per-token factor becomes 0.0625, and the update maths is unchanged.
+   - These are DERIVED values; the test below MEASURES them.
+3. **Gradient test** (`armb/grad_underflow_test.py`, frozen by this commit; no training).
+   - Weights: pythia-70m step128 (released). Data: 64 sequences of batch 129 (update 129's samples). Gradient of the mean
+     token CE:
+     - G_ref: fp32, no autocast;
+     - G_cur: fp16 autocast with the current per-micro scale;
+     - G_fix: fp16 autocast with the Pythia-matched per-micro scale;
+     - G_bf16: bf16 autocast, unscaled.
+   - Each variant accumulates over 8 micro-batches of 8, and the scaled variants go through the same unscale step.
+   - **Reported:**
+     - rel_err = ‖G − G_ref‖/‖G_ref‖;
+     - cosine(G, G_ref);
+     - the fraction of parameter entries with G = 0 where G_ref ≠ 0;
+     - the MEASURED per-token gradient scale in the fp16 graph: the mean |∂(scaled loss)/∂logits| per element, via a
+       hook, for G_cur and G_fix, and their ratio.
+   - **CONFIRMED** iff rel_err(G_cur) > 2 × rel_err(G_fix) AND rel_err(G_fix) ≤ 2 × rel_err(G_bf16). That is, the
+     current scaling loses accuracy that Pythia-matched scaling recovers, to bf16-comparable accuracy. Otherwise NOT
+     CONFIRMED.
+4. **Precision decision (committed now, before the test runs; no gate-shopping).**
+   - **CONFIRMED:** fix fp16 with the Pythia-matched per-micro scale. The full dynamic scaler is already a line-for-line
+     port (window 1000, hysteresis 2, min 1; no LR advance on a skip), so no further patching is needed. Restart A0
+     from step 0 in fp16.
+   - **NOT CONFIRMED:** switch to bf16 autocast (the brief's original text), recording "Pythia fp16 vs A0 bf16" as a
+     caveat, and restart A0 from step 0 in bf16.
+   - **Either way:** that choice is FINAL for all arms. The restarted A0 is judged by B-G1 from step 0. If it FAILS again,
+     CC does NOT switch precision or retry. It writes BLOCKED.md with the diagnosis, and Will decides.
