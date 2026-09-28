@@ -201,3 +201,37 @@ tests) is sealed separately, before A0 starts.
    - Checkpoints transit C: only until their sha256-verified copy on spot exists; C:'s 10 GB guard stays.
 3. **Muon rule** (Will's decision): Q, K and V are orthogonalised as SEPARATE matrices (split from the fused QKV).
    The LR rule is RMS-matched to AdamW (the brief's default), pending the text of Will's decision block.
+
+## Amendment B1a-A4 — 2026-09-27 ~17:10: precision fp16 + loss scaling (Will's decision); A0 restarted
+1. **What happened.** Will's decision block chose fp16 to match Pythia, but it never reached CC. B1a had sealed the
+   brief's text ("bf16 autocast, fp32 masters").
+   - A0 was launched in bf16 at 16:25 and stopped at step 164 when Will's review raised it.
+   - **Disclosed:** the B-G1 daemon had scored that bf16 run at steps 0–128, all PASS (e.g. step 128 worst sr_MLP_IN
+     z = −1.32).
+   - Those verdicts are ARCHIVED (spot `bg1/_aborted_A0_bf16_verdicts.jsonl`, `ckpt/_aborted_A0_bf16`; local
+     `armb/staging/_aborted_A0_bf16/`). They are NOT the anchor.
+2. **New precision (all arms)** — every item below is traced to source, not memory.
+   - fp32 master weights, fp16 autocast (torch.autocast float16).
+   - **Dynamic loss scaling:** a line-for-line port of DeeperSpeed@eb7f5cf (the commit GPT-NeoX v1.0 pins)
+     `deepspeed/runtime/fp16/loss_scaler.py` `DynamicLossScaler.update_scale`, with pythia-70m.yml's fp16 block:
+     initial_scale_power 12, loss_scale_window 1000, hysteresis 2, min_loss_scale 1.
+   - **Overflow** (any non-finite gradient): the update is SKIPPED and the LR scheduler is NOT advanced, but the step
+     counter and the data pointer advance. This follows DeeperSpeed `engine._take_model_step`: "if overflow:
+     self.skipped_steps += 1 else: lr_scheduler.step()", then "global_steps += 1".
+   - So the n-th APPLIED update uses lr(n−1), and a skipped step consumes its batch, as in Pythia.
+   - Unscale and clip (1.0) happen after the overflow check. The per-step log records loss_scale, overflow and the
+     applied/skipped counts.
+   - **Residual difference (disclosed):** DeepSpeed fp16 runs a pure-half model with an fp32 master copy; torch autocast
+     keeps LayerNorm/softmax/CE in fp32. A0's skip COUNT may therefore differ from Pythia's (unknown). The B-G1 gate
+     and the descriptive A0 − Pythia-70M comparison measure the net effect.
+3. **Engineering (no change to the maths).** Forward + CE now run inside ONE compiled graph, with one GPU sync per step.
+   The bf16 run had the CE outside the graph and a sync per micro-batch: 11.9 s/step vs the benchmark's ~8.5 s. Every
+   arm uses the same compiled setting.
+4. **Muon (M0-s1, M0-s2), confirmed by Will 09-27.**
+   - Moonlight update-RMS matching: each orthogonalised update is scaled by 0.2·√max(m, n) of its matrix's shape.
+   - Same LR, schedule and weight decay as the paired AdamW arm.
+   - **Muon params:** 2-D hidden matrices only: Q, K, V (split from the fused QKV, each 512 × 512, orthogonalised
+     separately, each scaled by its own shape), attention O, MLP in, MLP out.
+   - **AdamW params:** embeddings, unembedding, LayerNorms, all biases.
+   - **Reference implementation:** Nesterov momentum 0.95, 5 Newton–Schulz steps. The exact implementation commit goes
+     into each arm's version string.

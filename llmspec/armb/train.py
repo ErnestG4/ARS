@@ -7,10 +7,15 @@ optimizer and, for s2, the seed-1 index maps: not implemented here yet; the trai
 
 Replica (B1a §1, traced to GPT-NeoX v1.0):
   - GPTNeoXForCausalLM, unmodified pythia-70m config, sdpa, torch.compile (engineering only).
-  - fp32 masters, bf16 autocast; loss = mean token CE over 1024 x 2048 predictions (inputs tokens[:2048], labels
-    tokens[1:2049]) by 128 micro-batches of 8.
+  - fp32 masters, fp16 autocast with DYNAMIC LOSS SCALING (Will 09-27: fp16 to match Pythia; amendment B1a-A4),
+    ported from DeeperSpeed@eb7f5cf (the version GPT-NeoX v1.0 pins) deepspeed/runtime/fp16/loss_scaler.py
+    DynamicLossScaler with Pythia's config (initial_scale_power 12, loss_scale_window 1000, hysteresis 2,
+    min_loss_scale 1). On overflow the update is SKIPPED, the LR scheduler is NOT advanced, the step counter and the
+    data pointer ARE (DeeperSpeed engine._take_model_step). Loss = mean token CE over 1024 x 2048 predictions (inputs
+    tokens[:2048], labels tokens[1:2049]) by 128 micro-batches of 8; forward + CE inside one compiled graph.
   - AdamW(betas 0.9/0.95, eps 1e-8, wd 0.1 decoupled; NO decay on LayerNorm params or any bias); grad clip 1.0.
-  - LR: GPT-NeoX AnnealingLR incl. the /E cosine quirk (q1_models.lr), and update k uses lr(k-1).
+  - LR: GPT-NeoX AnnealingLR incl. the /E cosine quirk (q1_models.lr); the n-th APPLIED update uses lr(n-1)
+    (without overflow skips this is "update k uses lr(k-1)").
   - Update k reads preshuffled samples [(k-1)*1024, k*1024).
 Checkpoints (B1a §2 grid truncated at stop): full fp32 state_dict to a local staging dir, uploaded to
 spot:~/llmspec_armb/ckpt/<arm>/ by a background thread, sha256-verified remotely, marked .ok there, then deleted locally.
@@ -103,6 +108,40 @@ TYPES = {"Q_K_V": "attention.query_key_value.weight", "O": "attention.dense.weig
          "MLP_IN": "mlp.dense_h_to_4h.weight", "MLP_OUT": "mlp.dense_4h_to_h.weight"}
 
 
+class DynamicLossScaler:
+    """Line-for-line port of DeeperSpeed@eb7f5cf deepspeed/runtime/fp16/loss_scaler.py DynamicLossScaler.update_scale
+    (init_scale = 2**initial_scale_power; delayed_shift = hysteresis; consecutive_hysteresis False)."""
+    def __init__(self, init_scale=2 ** 12, scale_factor=2.0, scale_window=1000, min_scale=1, delayed_shift=2,
+                 consecutive_hysteresis=False):
+        self.cur_scale = float(init_scale); self.cur_iter = 0; self.last_overflow_iter = -1
+        self.scale_factor = scale_factor; self.scale_window = scale_window; self.min_scale = min_scale
+        self.delayed_shift = delayed_shift; self.cur_hysteresis = delayed_shift; self.consecutive_hysteresis = consecutive_hysteresis
+
+    def update_scale(self, overflow):
+        if overflow:
+            if self.delayed_shift == 1 or self.cur_hysteresis == 1:
+                if self.cur_scale == self.min_scale:
+                    raise RuntimeError("Current loss scale already at minimum - cannot decrease scale anymore.")
+                self.cur_scale = max(self.cur_scale / self.scale_factor, self.min_scale)
+            else:
+                self.cur_hysteresis -= 1
+            self.last_overflow_iter = self.cur_iter
+        else:
+            if self.consecutive_hysteresis:
+                self.cur_hysteresis = self.delayed_shift
+            if (self.cur_iter - self.last_overflow_iter) % self.scale_window == 0:
+                if not self.consecutive_hysteresis:
+                    self.cur_hysteresis = self.delayed_shift
+                self.cur_scale *= self.scale_factor
+        self.cur_iter += 1
+
+    def state(self):
+        return dict(self.__dict__)
+
+    def load(self, d):
+        self.__dict__.update(d)
+
+
 # ---------------------------------------------------------------- upload + gate threads
 def sh(cmd, tries=8):
     for i in range(tries):
@@ -167,12 +206,19 @@ def main():
     torch.backends.cuda.matmul.allow_tf32 = False; torch.backends.cudnn.allow_tf32 = False
     model = build("EleutherAI/pythia-70m")
     opt = torch.optim.AdamW(param_groups(model), lr=0.0, betas=(0.9, 0.95), eps=1e-8, fused=True)
-    step = 0
+    step, n_applied, n_skipped = 0, 0, 0
+    scaler = DynamicLossScaler()
     if resume.exists():
         st = torch.load(resume, map_location=DEV, weights_only=False)
         model.load_state_dict(st["model"]); opt.load_state_dict(st["opt"]); step = st["step"]
+        n_applied, n_skipped = st["n_applied"], st["n_skipped"]; scaler.load(st["scaler"])
         print("resumed at step", step, flush=True)
-    cmodel = torch.compile(model)
+
+    def micro_loss(xb):
+        with torch.autocast("cuda", dtype=torch.float16):
+            logits = model(input_ids=xb[:, :SEQ]).logits
+        return torch.nn.functional.cross_entropy(logits.float().reshape(-1, logits.size(-1)), xb[:, 1:].reshape(-1))
+    cmicro = torch.compile(micro_loss)
     grid = set(ckpt_grid(stop)); up = Uploader(arm); up.start()
     gate = GatePuller(ROOT / "STOP") if a.arm == "A0" and not a.test else None
     if gate:
@@ -193,26 +239,32 @@ def main():
         RS.check_stop()
         if up.err:
             raise RuntimeError("upload failed: " + up.err)
-        k = step + 1; lr = lr_at(k - 1, W)                   # update k uses lr(k-1)
+        k = step + 1; lr = lr_at(n_applied, W)               # the n-th applied update uses lr(n-1); skips do not advance it
         for gp in opt.param_groups:
             gp["lr"] = lr
         arr, bh = data.next(); x = torch.from_numpy(arr.astype(np.int64)).to(DEV)
-        before = {n: p.detach().clone() for n, p in model.named_parameters() if any(n.endswith(s) for s in TYPES.values())}
-        tot = 0.0
+        before = {n: p.detach().clone() for n, p in model.named_parameters() if any(n.endswith(s_) for s_ in TYPES.values())}
+        tot = torch.zeros((), device=DEV); scale = scaler.cur_scale
         for i in range(0, BATCH, MICRO):
-            xb = x[i:i + MICRO]
-            with torch.autocast("cuda", dtype=torch.bfloat16):
-                logits = cmodel(input_ids=xb[:, :SEQ]).logits
-            loss = torch.nn.functional.cross_entropy(logits.float().reshape(-1, logits.size(-1)), xb[:, 1:].reshape(-1)) * (MICRO / BATCH)
-            loss.backward(); tot += float(loss)
-        gn = float(torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0))
-        opt.step(); opt.zero_grad(set_to_none=True); step = k
+            loss = cmicro(x[i:i + MICRO])
+            (loss * (scale * MICRO / BATCH)).backward(); tot += loss.detach() * (MICRO / BATCH)
+        grads = [p.grad for p in model.parameters() if p.grad is not None]
+        overflow = bool(torch.stack([torch.logical_not(torch.isfinite(g).all()) for g in grads]).any())
+        if overflow:
+            gn = float("nan"); n_skipped += 1; opt.zero_grad(set_to_none=True)
+        else:
+            for g in grads:
+                g.div_(scale)
+            gn = float(torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0))
+            opt.step(); opt.zero_grad(set_to_none=True); n_applied += 1
+        scaler.update_scale(overflow); step = k; tot = float(tot)
         dW = {}
         for n, p in model.named_parameters():
             for T_, suf in TYPES.items():
                 if n.endswith(suf):
                     dW[T_] = dW.get(T_, 0.0) + float(((p.detach() - before[n]) ** 2).sum())
         rec = {"step": step, "loss": tot, "lr": lr, "grad_norm_preclip": gn, "dW_norm": {t: v ** 0.5 for t, v in dW.items()},
+               "loss_scale": scale, "overflow": overflow, "n_applied": n_applied, "n_skipped": n_skipped,
                "batch_sha256": bh, "time": time.time()}
         with open(logf, "a") as f:
             f.write(json.dumps(rec) + "\n")
@@ -225,9 +277,11 @@ def main():
                     raise SystemExit("REPLICA CHECK FAILED: step1 != step0 although lr(0) = 0")
                 sd0 = None
         if step % 50 == 0 or step == stop:
-            RS.durable_save(resume, lambda p: torch.save({"model": model.state_dict(), "opt": opt.state_dict(), "step": step}, p))
+            RS.durable_save(resume, lambda p: torch.save({"model": model.state_dict(), "opt": opt.state_dict(), "step": step,
+                                                           "n_applied": n_applied, "n_skipped": n_skipped,
+                                                           "scaler": scaler.state()}, p))
         if step % 10 == 0 or step <= 16:
-            print(f"step {step} loss {tot:.4f} lr {lr:.3e} gn {gn:.3f}", flush=True)
+            print(f"step {step} loss {tot:.4f} lr {lr:.3e} gn {gn:.3f} scale {scale:g} skipped {n_skipped}", flush=True)
     up.q.join(); up.q.put(None)
     if gate:
         gate.done.set()
