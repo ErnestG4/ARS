@@ -328,3 +328,18 @@ tests) is sealed separately, before A0 starts.
    - **Disclosed:** micro-batch 4 instead of 8, because of the VRAM cap while A0 trained. The per-token scale factor is
      identical, and it is a harder underflow condition.
    - **M0 uses MuonHybrid with bf16 NS** (MUON_VERSION "muon-hybrid-v1").
+
+## Amendment B1a-A7 — 2026-09-28 ~02:00: the M0-s2 data reconstruction passes its known-answer check
+1. **Code:** `armb/seed_order.py` (sha256 84c8a368…), which follows EleutherAI/pile-preshuffled-seeds `dataset.py`
+   (MMapIndexedDataset.Index L88–125, get L203–214, GPT2Dataset.__getitem__ L259–282, read_dataset L285–303).
+   - The index maps address the UNSHUFFLED tokenized Pile, 664,230,651,068 bytes, available on HF as
+     `EleutherAI/pythia_pile_idxmaps` (133 × 5 GB shards; same .idx sha256). It is read only by HTTP range.
+2. **Known-answer check (sealed in A1):** seed0 maps (base seed 1234), steps 1–50, compared with the preshuffled standard
+   batches. **51,200/51,200 samples byte-exact; no offsets tuned.** M0-s2 is therefore NOT blocked.
+3. **Seed-1 batches** for steps 1–3000 are being materialised on spot (`~/llmspec_armb/data/seed1_batches/`, per-step
+   sha256 in steps.jsonl; MANIFEST.json at the end), ETA ~12–14 h.
+4. **Unverified (disclosed):** that `seed1/` IS PolyPythias seed 1. That rests on the dataset README and the `_1s_`
+   filenames. The known-answer check validates the METHOD (the seed0 files).
+   - Queued (non-blocking, descriptive): train 16 steps of AdamW from pythia-70m-seed1 step0 on the reconstructed seed-1
+     batches, and compare the weight change with the released seed-1 step16. The control is the same run on the
+     standard-order batches. Criteria to be sealed before it runs.
