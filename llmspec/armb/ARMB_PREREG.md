@@ -320,3 +320,11 @@ tests) is sealed separately, before A0 starts.
      - (i) ∧ (ii) ∧ (iii) → PASS, NS in bf16 (reference practice).
      - (i) ∧ (iii) but not (ii) → PASS with NS in fp32 (Will's allowed alternative), recorded.
      - Otherwise → BLOCKED.md; M0 does not launch.
+3. **Result (`results/armb_muon_update_test.json`, CHECKRUN EXIT=0 PASS): PASS, NS in bf16.**
+   - (i) PATH_ns32 vs REF: rel_err ≤ 0.0069, cosine ≥ 0.99997.
+   - (ii) PATH vs REF: rel_err 0.038–0.079, cosine ≥ 0.9969. This is identical to REF_ns16 within 0.0003, so the bf16-NS
+     rounding is the whole error and the fp16 gradient path adds nothing.
+   - (iii) RED (fused QKV): rel_err 0.64–0.66 on Q/K/V; O and the MLPs are unaffected.
+   - **Disclosed:** micro-batch 4 instead of 8, because of the VRAM cap while A0 trained. The per-token scale factor is
+     identical, and it is a harder underflow condition.
+   - **M0 uses MuonHybrid with bf16 NS** (MUON_VERSION "muon-hybrid-v1").

@@ -42,7 +42,8 @@ from bg1_score import read_bytes, SAMPLE_BYTES, GATE_STEPS, EXTRA_STEPS  # noqa:
 assert torch.cuda.is_available(), "Arm B is GPU-only: CUDA not available"
 DEV = torch.device("cuda")
 torch.cuda.set_per_process_memory_fraction(0.85)          # leave room for the desktop; an overrun raises OOM
-ARMS = {"A0": (1430, 3000), "A1": (2860, 5000), "A2": (715, 3000)}
+ARMS = {"A0": (1430, 3000), "A1": (2860, 5000), "A2": (715, 3000), "M0s1": (1430, 3000)}
+MUON_ARMS = {"M0s1"}          # Muon (armb/muon.py, bf16 NS per the sealed update test, B1a-A6); M0s2 awaits the seed-1 data
 OPT_STEPS = {1, 10, 100, 256, 512, 1000, 1430, 2000, 3000, 5000}
 BATCH, MICRO, SEQ = 1024, 8, 2048
 PYTHIA_MICRO = 32   # Pythia's per-GPU micro-batch: DeepSpeed backpropagated cur_scale x (mean loss over 32 sequences), so the
@@ -207,7 +208,11 @@ def main():
     print("device:", torch.cuda.get_device_name(0), "| arm", arm, "W", W, "stop", stop, flush=True)
     torch.backends.cuda.matmul.allow_tf32 = False; torch.backends.cudnn.allow_tf32 = False
     model = build("EleutherAI/pythia-70m")
-    opt = torch.optim.AdamW(param_groups(model), lr=0.0, betas=(0.9, 0.95), eps=1e-8, fused=True)
+    if a.arm in MUON_ARMS:
+        from muon import MuonHybrid, MUON_VERSION
+        opt = MuonHybrid(model, 8, 64, ns_dtype=torch.bfloat16); print("optimizer:", MUON_VERSION, flush=True)
+    else:
+        opt = torch.optim.AdamW(param_groups(model), lr=0.0, betas=(0.9, 0.95), eps=1e-8, fused=True)
     step, n_applied, n_skipped = 0, 0, 0
     scaler = DynamicLossScaler()
     if resume.exists():
@@ -242,8 +247,9 @@ def main():
         if up.err:
             raise RuntimeError("upload failed: " + up.err)
         k = step + 1; lr = lr_at(n_applied, W)               # the n-th applied update uses lr(n-1); skips do not advance it
-        for gp in opt.param_groups:
-            gp["lr"] = lr
+        if a.arm not in MUON_ARMS:
+            for gp in opt.param_groups:
+                gp["lr"] = lr
         arr, bh = data.next(); x = torch.from_numpy(arr.astype(np.int64)).to(DEV)
         before = {n: p.detach().clone() for n, p in model.named_parameters() if any(n.endswith(s_) for s_ in TYPES.values())}
         tot = torch.zeros((), device=DEV); scale = scaler.cur_scale
@@ -258,7 +264,7 @@ def main():
             for g in grads:
                 g.div_(scale * BATCH / PYTHIA_MICRO)                 # -> the mean gradient over the 1024-sequence batch
             gn = float(torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0))
-            opt.step(); opt.zero_grad(set_to_none=True); n_applied += 1
+            (opt.step(lr) if a.arm in MUON_ARMS else opt.step()); opt.zero_grad(set_to_none=True); n_applied += 1
         scaler.update_scale(overflow); step = k; tot = float(tot)
         dW = {}
         for n, p in model.named_parameters():

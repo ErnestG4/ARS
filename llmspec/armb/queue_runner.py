@@ -1,5 +1,5 @@
 """Arm B GPU queue (ARMB_PREREG.md; Will's rule 09-27: A1 does not start until A0 passes B-G1). Runs detached.
-A0 -> [wait for B-G1 verdicts on every gating step AND step 3000; all PASS] -> A1 -> A2.
+A0 -> [wait for B-G1 verdicts on every gating step AND step 3000; all PASS] -> A1 -> A2 -> M0s1.
 A FAIL anywhere, a manual STOP, or a trainer error ends the queue. M0 arms are not queued here (need Muon + index maps).
 Each trainer run is resumable: re-running this script continues where it stopped (finished arms are skipped by their
 trainlog reaching the arm's stop step)."""
@@ -8,7 +8,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent; ROOT = HERE.parent
 PY = "/home/combust/fmexplorer/bin/python3"
 GATE = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1000, 2000, 3000]
-STOPS = {"A0": 3000, "A1": 5000, "A2": 3000}
+STOPS = {"A0": 3000, "A1": 5000, "A2": 3000, "M0s1": 3000}
 
 
 def done(arm):
@@ -54,10 +54,10 @@ def main():
         if time.time() - t0 > 3 * 3600:
             log("B-G1 verdicts incomplete after 3 h: queue ends (check the spot daemon)"); sys.exit(3)
         time.sleep(60)
-    for arm in ("A1", "A2"):
+    for arm in ("A1", "A2", "M0s1"):
         if not run(arm):
             sys.exit(3)
-    log("queue complete (A0, A1, A2)")
+    log("queue complete (A0, A1, A2, M0s1)")
 
 
 if __name__ == "__main__":
