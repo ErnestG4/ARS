@@ -290,3 +290,33 @@ tests) is sealed separately, before A0 starts.
    - `train.py` now backpropagates micro-loss × cur_scale × MICRO/32 and unscales the accumulated gradient by
      cur_scale × BATCH/32.
    - A0 restarts from step 0, judged by B-G1 from step 0. If it FAILS: BLOCKED.md, no retry.
+
+## Amendment B1a-A6 — 2026-09-28: Muon implementation and its SEALED pre-launch update test (criterion committed before the test exists)
+1. **Implementation:** `armb/muon.py`, MUON_VERSION "muon-hybrid-v1".
+   - NS5 is taken from KellerJordan/Muon@f98f1ca. Momentum, Nesterov, weight decay and the 0.2·√max(A, B) LR rule are
+     taken from MoonshotAI/Moonlight@c2ad5b2 examples/toy_train.py.
+   - Q, K and V are split from the fused QKV and orthogonalised separately. Momentum buffers are fp32.
+   - The trainer unscales, overflow-checks (skip logic) and clips (1.0) BEFORE the Muon step, exactly as for the AdamW
+     arms.
+2. **Update test** (`armb/muon_update_test.py`, written after this commit; no training).
+   - **Setup:** pythia-70m step128 weights. TWO consecutive optimizer steps (to exercise momentum) on the first 64
+     sequences of update 129's and update 130's batches, with lr 1e-3 and wd 0.1. The loss scale is 4096 at the first
+     step and 8192 at the second, to exercise unscale consistency.
+   - **Compared quantity:** the parameter change after step 2, per matrix type (Q, K, V, O, MLP_IN, MLP_OUT, aggregated
+     over layers), as rel_err and cosine against REF.
+   - **Variants:**
+     - REF: fp32 gradients, fp32 NS.
+     - PATH: the trainer's real path (fp16 autocast, Pythia-matched loss scale, overflow check, unscale, clip), fp32
+       momentum, bf16 NS.
+     - PATH_ns32: PATH with fp32 NS.
+     - REF_ns16: REF gradients with bf16 NS.
+     - RED: PATH with the fused QKV orthogonalised as ONE 1536 × 512 matrix (the spec error the test guards against).
+   - **Criteria:**
+     - (i) plumbing: PATH_ns32 vs REF has rel_err ≤ 0.01 and cosine ≥ 0.9999 for every type.
+     - (ii) bf16 NS: PATH vs REF has cosine ≥ 0.995 and rel_err ≤ 0.1 for every type, AND
+       |rel_err(PATH) − rel_err(REF_ns16)| ≤ 0.01 (the fp16 gradient path adds nothing beyond the bf16-NS error).
+     - (iii) the witness can fire: RED vs REF has rel_err > 0.1 for Q, K and V.
+   - **Decision:**
+     - (i) ∧ (ii) ∧ (iii) → PASS, NS in bf16 (reference practice).
+     - (i) ∧ (iii) but not (ii) → PASS with NS in fp32 (Will's allowed alternative), recorded.
+     - Otherwise → BLOCKED.md; M0 does not launch.
