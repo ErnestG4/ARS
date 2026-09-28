@@ -255,7 +255,8 @@ def main():
             logits = model(input_ids=xb[:, :SEQ]).logits
         return torch.nn.functional.cross_entropy(logits.float().reshape(-1, logits.size(-1)), xb[:, 1:].reshape(-1))
     cmicro = torch.compile(micro_loss)
-    grid = set(ckpt_grid(stop)); up = Uploader(arm); up.start()
+    from grids import arm_grid
+    grid = set(arm_grid(a.arm, stop)); up = Uploader(arm); up.start()      # B1a-A8: A2 dense 1000-2200
     gate = GatePuller(ROOT / "STOP") if a.arm == "A0" and not a.test else None
     if gate:
         gate.start()

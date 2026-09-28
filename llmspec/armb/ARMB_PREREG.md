@@ -343,3 +343,11 @@ tests) is sealed separately, before A0 starts.
    - Queued (non-blocking, descriptive): train 16 steps of AdamW from pythia-70m-seed1 step0 on the reconstructed seed-1
      batches, and compare the weight change with the released seed-1 step16. The control is the same run on the
      standard-order batches. Criteria to be sealed before it runs.
+
+## Amendment B1a-A8 — 2026-09-28 ~14:05, PRE-DATA for A2 (A2 has not started; A1 is at step ~4880)
+- **Change (Will):** A2's checkpoint grid adds every 10 steps over 1000–2200: 257 checkpoints instead of 161,
+  ≈ +27 GB on spot. "No-regret; disk only": the model, the data and the schedule are unchanged.
+- **One definition:** `armb/grids.py` `arm_grid(arm)`. The trainer uses it from A2 on (A0 and A1 are unaffected: same
+  grid as before). B4 extraction and analysis are switched to it by the B4 amendment that follows the licence re-run.
+- **Reason:** the sealed licences allow a Q1 model verdict only through E4 on A2 at ≤ 0.5% noise. Will asked for the A2
+  warp licence to be re-run on the denser grid (on spot, synthetic only) before B4 reads any arm.
