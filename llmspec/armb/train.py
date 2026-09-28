@@ -42,8 +42,10 @@ from bg1_score import read_bytes, SAMPLE_BYTES, GATE_STEPS, EXTRA_STEPS  # noqa:
 assert torch.cuda.is_available(), "Arm B is GPU-only: CUDA not available"
 DEV = torch.device("cuda")
 torch.cuda.set_per_process_memory_fraction(0.85)          # leave room for the desktop; an overrun raises OOM
-ARMS = {"A0": (1430, 3000), "A1": (2860, 5000), "A2": (715, 3000), "M0s1": (1430, 3000)}
-MUON_ARMS = {"M0s1"}          # Muon (armb/muon.py, bf16 NS per the sealed update test, B1a-A6); M0s2 awaits the seed-1 data
+ARMS = {"A0": (1430, 3000), "A1": (2860, 5000), "A2": (715, 3000), "M0s1": (1430, 3000), "M0s2": (1430, 3000)}
+MUON_ARMS = {"M0s1", "M0s2"}  # Muon (armb/muon.py, bf16 NS per the sealed update test, B1a-A6)
+INIT = {"M0s2": "EleutherAI/pythia-70m-seed1"}   # everything else starts from EleutherAI/pythia-70m step0 (B1a-A1)
+SEED1_DIR = "~/llmspec_armb/data/seed1_batches"  # on spot; built by armb/seed_order.py (B1a-A7)
 OPT_STEPS = {1, 10, 100, 256, 512, 1000, 1430, 2000, 3000, 5000}
 BATCH, MICRO, SEQ = 1024, 8, 2048
 PYTHIA_MICRO = 32   # Pythia's per-GPU micro-batch: DeepSpeed backpropagated cur_scale x (mean loss over 32 sequences), so the
@@ -77,20 +79,47 @@ class PileOrder:
         return arr, h
 
 
+class SeedBatches(PileOrder):
+    """PolyPythias seed-1 order (M0s2): update k = spot:SEED1_DIR/step{k:05d}.npy, sha256-verified against the
+    generator's steps.jsonl record before use (fails closed if the record or the file is missing / mismatched)."""
+    def _run(self, a, b):
+        for k in range(a, b + 1):
+            for i in range(30):
+                txt = subprocess.run(["ssh", "-o", "BatchMode=yes", SPOT, f"grep -h '\"step\": {k},' {SEED1_DIR}/steps.jsonl | tail -1"],
+                                     capture_output=True, text=True).stdout.strip()
+                if txt:
+                    break
+                time.sleep(60)                            # not materialised yet: wait (bounded, 30 min)
+            rec = json.loads(txt)
+            raw = subprocess.run(["ssh", "-o", "BatchMode=yes", SPOT, f"cat {SEED1_DIR}/{rec['file']}"], capture_output=True).stdout
+            assert hashlib.sha256(raw).hexdigest() == rec["sha256"], f"seed-1 batch {k}: sha256 mismatch"
+            arr = np.load(io.BytesIO(raw)); assert arr.shape == (BATCH, 2049) and arr.dtype == np.uint16
+            self.q.put((k, arr, hashlib.sha256(arr.tobytes()).hexdigest()))
+
+
 # ---------------------------------------------------------------- model / optimizer
 def build(init_repo):
     from transformers import AutoConfig, GPTNeoXForCausalLM
-    from safetensors.torch import load_file
     cfg = AutoConfig.from_pretrained("EleutherAI/pythia-70m"); cfg._attn_implementation = "sdpa"
     m = GPTNeoXForCausalLM(cfg)
-    url = f"https://huggingface.co/{init_repo}/resolve/step0/model.safetensors"
-    tmp = ROOT / "armb" / "_init_step0.safetensors"
-    with RS.requests.get(url, stream=True, timeout=300) as r, open(tmp, "wb") as f:
-        r.raise_for_status()
-        for c in r.iter_content(1 << 22):
-            f.write(c)
-    sd = load_file(str(tmp)); tmp.unlink()
-    missing, unexpected = m.load_state_dict({k: v.float() for k, v in sd.items()}, strict=False)
+    sd = None
+    for fn in ("model.safetensors", "pytorch_model.bin"):          # PolyPythias seed repos ship fp16 .bin only
+        url = f"https://huggingface.co/{init_repo}/resolve/step0/{fn}"
+        if RS.requests.head(url, allow_redirects=True, timeout=60).status_code != 200:
+            continue
+        tmp = ROOT / "armb" / f"_init_step0_{fn}"
+        with RS.requests.get(url, stream=True, timeout=300) as r, open(tmp, "wb") as f:
+            r.raise_for_status()
+            for c in r.iter_content(1 << 22):
+                f.write(c)
+        if fn.endswith(".safetensors"):
+            from safetensors.torch import load_file
+            sd = load_file(str(tmp))
+        else:
+            sd = torch.load(str(tmp), map_location="cpu", weights_only=True)
+        tmp.unlink(); break
+    assert sd is not None, f"no step0 weights for {init_repo}"
+    missing, unexpected = m.load_state_dict({k: v.float() for k, v in sd.items() if torch.is_floating_point(v)}, strict=False)
     params = {n for n, _ in m.named_parameters()}
     assert not (set(missing) & params), sorted(set(missing) & params)[:5]
     return m.to(DEV).train()
@@ -207,7 +236,7 @@ def main():
     logf = stage / "trainlog.jsonl"; resume = stage / "resume.pt"
     print("device:", torch.cuda.get_device_name(0), "| arm", arm, "W", W, "stop", stop, flush=True)
     torch.backends.cuda.matmul.allow_tf32 = False; torch.backends.cudnn.allow_tf32 = False
-    model = build("EleutherAI/pythia-70m")
+    model = build(INIT.get(a.arm, "EleutherAI/pythia-70m")); print("init:", INIT.get(a.arm, "EleutherAI/pythia-70m"), "step0", flush=True)
     if a.arm in MUON_ARMS:
         from muon import MuonHybrid, MUON_VERSION
         opt = MuonHybrid(model, 8, 64, ns_dtype=torch.bfloat16); print("optimizer:", MUON_VERSION, flush=True)
@@ -241,7 +270,7 @@ def main():
         return sd
 
     sd0 = save_ckpt(0) if step == 0 else None                  # kept in RAM for the step-1 replica check
-    data = PileOrder(step + 1, stop)
+    data = (SeedBatches if a.arm == "M0s2" else PileOrder)(step + 1, stop)
     while step < stop:
         RS.check_stop()
         if up.err:

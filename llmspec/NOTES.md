@@ -157,8 +157,10 @@ and NOT pushed.
   - The sealed update test PASSED with NS bf16 (8f51f25).
   - **M0s1** is wired in (replica check passed) and queued AFTER A2 by `armb/chain_after.sh 413010` (PID 447697): it
     starts a fresh queue_runner when the current one exits; done arms are skipped.
-  - **M0s2** waits for the seed-1 data rebuild. A spot sub-agent is working in tmux `claude:seeddata`; the seed0
-    byte-exact check must pass first.
+  - **M0s2:** the seed0 byte-exact check PASSED (51,200/51,200; A7, d9d3fdc). Seed-1 batches steps 1–3000 are
+    materialising on spot (tmux `claude:seeddata`, ETA ~14:00–16:00 on 09-28). The trainer supports M0s2 (seed-1
+    .bin init + sha-verified batches from spot; replica check passed). QUEUED after M0s1 in queue_runner.py, which
+    the chained fresh runner will read. SeedBatches waits up to 30 min per batch not yet built.
 - **Dedicated key** ~/.ssh/id_ed25519_spot_llmspec was generated 09-28 and is NOT installed. authorized_keys line:
   `from="10.0.0.156",restrict <pubkey>`. Will rotates the agent in the morning instead.
   - GPU side: `armb/queue_runner.py` (PID 413010), then `armb/train.py A0` (log armb/train_A0.log; per-step
