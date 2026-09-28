@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(HERE))
 import train as TR  # noqa: E402  (DynamicLossScaler, data reader, constants)
 from muon import MuonHybrid, MUON_VERSION  # noqa: E402
 torch.cuda.set_per_process_memory_fraction(0.40)
-DEV = "cuda"; H, DH, D = 8, 64, 512; N, MICRO, SEQ = 64, 8, 2048
+DEV = "cuda"; H, DH, D = 8, 64, 512; N, MICRO, SEQ = 64, 4, 2048   # MICRO 4 (not the trainer's 8): VRAM cap while A0 trains; per-token factor unchanged (loss x scale x MICRO/32); per-micro fp16 param-grad sums are half the trainer's = a HARDER underflow condition
 
 
 def weights():
@@ -98,7 +98,7 @@ def cmp(a, ref):
 def main():
     sd = weights(); xs = [batch(129), batch(130)]
     ref = run(sd, xs, False, torch.float32)
-    res = {"doc": __doc__, "muon_version": MUON_VERSION,
+    res = {"doc": __doc__, "muon_version": MUON_VERSION, "micro_batch": MICRO, "micro_batch_note": "4 instead of the trainer 8 (VRAM cap while A0 trains); per-token factor identical; harder underflow condition",
            "PATH": cmp(run(sd, xs, True, torch.bfloat16), ref),
            "PATH_ns32": cmp(run(sd, xs, True, torch.float32), ref),
            "REF_ns16": cmp(run(sd, xs, False, torch.bfloat16), ref),
