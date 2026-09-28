@@ -9,6 +9,9 @@ Common measurements (declared here, all fixed before data):
   as in q1_warp.noise_level; window 5, order 2 for Q2 as in q2_licence.x1), RELATIVE (residual / smooth) for stable
   rank / loss, ABSOLUTE for fractions; lag-1 autocorrelation of the residual > 0.25 -> the AR(1) licence row, else iid.
   Licence row = the next-higher tabulated noise level; above the largest level -> NOT LICENSED (descriptive).
+B4 AMENDMENT 2 (2026-09-28, pre-data): E4 cells from the v2 licence (armb_q1_warp_licence_v2.json; HALFWAY retired,
+    midpoint confusers); SUPPORTED worded "X-driven" only where NO_SIMPLE_ANCHOR is licensed, else "the closest of the
+    three models is X"; an unlicensed NO_SIMPLE_ANCHOR decision is reported INCONCLUSIVE; grids = grids.arm_grid.
 Q1  primary metrics TP_O (sr of attention.dense) and TP_MLPOUT (sr of mlp.dense_4h_to_h); arms A0 (W 1430), A1 (2860),
     A2 (715). PRIMARY route E4 (q1_warp.decide with the licensed r*, c_fit for (arm, noise row)); SECONDARY location
     route (licensed estimator with the smallest worst-shape e(sigma); decidability e_c <= min inter-model gap / 3;
@@ -43,6 +46,8 @@ import q1_models as QM  # noqa: E402
 import q1_licence as QL  # noqa: E402
 import q1_warp as QW  # noqa: E402
 import q2_licence as Q2L  # noqa: E402
+import q1_warp_v2 as QW2  # noqa: E402  (B4 amendment 2: E4 licence v2; importing it points QW.window at the arm grids)
+from grids import arm_grid  # noqa: E402  (B1a-A8: A2 dense grid)
 
 H, DH, D, NL, ROT = 8, 64, 512, 6, 16
 TYPES = ["Q", "K", "V", "O", "MLP_IN", "MLP_OUT"]
@@ -82,7 +87,7 @@ def layer_mean(src, t, M, f):
 
 
 def grid(arm):
-    return [int(x) for x in QL.grid(STOPS[arm])]
+    return arm_grid(arm)                                  # B1a-A8 / B4 amendment 2 (was QL.grid(STOPS[arm]))
 
 
 def traj(src, steps, M, f=sr):
@@ -103,7 +108,7 @@ def row(level, levels):
 
 # ---------------------------------------------------------------- Q1
 def q1():
-    warp = load_json("armb_q1_warp_licence.json")["cells"]; loc = load_json("armb_q1_licence.json")["cells"]
+    warp = load_json("armb_q1_warp_licence_v2.json")["cells"]; loc = load_json("armb_q1_licence.json")["cells"]   # E4 licence v2
     rng = np.random.default_rng(20261001); out = {}
     g0 = np.array(grid("A0"), float)
     for M, name in (("O", "TP_O"), ("MLP_OUT", "TP_MLPOUT")):
@@ -126,7 +131,10 @@ def q1():
             r = {"noise_pooled": s_pool, "noise_type": typ, "warp_cell": f"{X}_s{lvl}_{typ}" if lvl else None}
             if cell and cell["LICENSED"]:
                 dec, sse, fr = QW.decide(g0, y0, gX, yX, X, cell["r_star"], cell["c_fit"])
-                r.update({"route": "E4", "decision": dec, "sse": sse, "fit_ratio": fr, "r_star": cell["r_star"], "c_fit": cell["c_fit"]})
+                if dec == "NO_SIMPLE_ANCHOR" and not cell["NSA_LICENSED"]:
+                    dec = "INCONCLUSIVE (no-model outcome not licensed for this cell)"
+                r.update({"route": "E4", "decision": dec, "sse": sse, "fit_ratio": fr, "r_star": cell["r_star"], "c_fit": cell["c_fit"],
+                          "wording": cell["wording"], "NSA_LICENSED": cell["NSA_LICENSED"]})
             else:
                 r.update({"route": "LOCATION"})
                 if not tp0:
@@ -159,8 +167,12 @@ def q1():
                 verdict = "NO SIMPLE ANCHOR"
             else:
                 sup = [d for d in e4 if d in ("STEP", "WARMUP", "LR_INT")]
-                verdict = (f"SUPPORTED: {sup[0]}" if sup and len(set(sup)) == 1 and len(sup) == len(e4)
-                           else ("CONFLICT" if len(set(sup)) > 1 else "INCONCLUSIVE"))
+                if sup and len(set(sup)) == 1 and len(sup) == len(e4):
+                    words = [rec[X]["wording"] for X in ("A1", "A2") if rec[X].get("route") == "E4"]
+                    verdict = (f"SUPPORTED: {sup[0]}-driven" if all(w == "X-driven" for w in words)
+                               else f"SUPPORTED: the closest of the three models is {sup[0]}")
+                else:
+                    verdict = "CONFLICT" if len(set(sup)) > 1 else "INCONCLUSIVE"
         else:
             cons = [rec[X].get("consistent") for X in ("A1", "A2") if rec[X].get("consistent")]
             if not cons:

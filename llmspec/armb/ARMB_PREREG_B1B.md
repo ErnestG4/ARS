@@ -272,3 +272,26 @@ Full rule: the `armb/q1_warp_v2.py` docstring (sha256 6f25590574f06dbe).
    for A1 and A2.
 5. **B4 wiring:** `b4_analyze.py` switches to the v2 licence, the wording rule and `arm_grid`, via a dated B4
    amendment with a new dry run, before any extraction.
+
+## B4 amendment 2 — 2026-09-28 ~16:00: B4 is RE-SEALED against E4 licence v2 and the arm grids (pre-data: no B4 extraction has run)
+**Frozen** (sha256, first 16 hex characters):
+  - `armb/b4_extract.py` 9527554f4160d1ab
+  - `armb/b4_analyze.py` c6f3e47282b9c32a
+  - `armb/grids.py` 8354daa9d4569d65
+  - `armb/q1_warp_v2.py` 6f25590574f06dbe
+  - `armb/test_b4_dryrun.py` c2a74541006088a4
+
+**Changes:**
+- `b4_analyze.py` reads the v2 licence cells (`results/armb_q1_warp_licence_v2.json`, a64d71f).
+- The sealed wording rule applies:
+  - "X-driven" only where NO_SIMPLE_ANCHOR is licensed; otherwise "the closest of the three models is X";
+  - an unlicensed NO_SIMPLE_ANCHOR decision is reported INCONCLUSIVE.
+- Extraction and analysis both take grids from `grids.arm_grid` (A2 dense, B1a-A8). E4's window uses the arm grids
+  (via q1_warp_v2).
+
+**Dry run** (fabricated cache): every branch passes.
+- The planted warmup-anchored truth is reported as "SUPPORTED: WARMUP-driven" via E4 on A2.
+- The forced bulk-violation ladder produces both labels.
+- CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
+
+**Arm data seen:** unchanged from the first B4 seal (training logs and B-G1 gate metrics only).

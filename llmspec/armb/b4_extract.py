@@ -127,7 +127,8 @@ def lr_intervals():
 
 def run_arm(arm):
     X.set_model("pythia-70m")
-    for t in [int(x) for x in QL.grid(STOPS[arm])]:
+    from grids import arm_grid
+    for t in arm_grid(arm):                                  # B1a-A8 / B4 amendment 2 (A2 dense)
         R.check_stop()
         d = CACHE / arm / f"step{t:05d}"
         if (d / "DONE").exists():
