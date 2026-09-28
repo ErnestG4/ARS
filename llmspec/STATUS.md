@@ -26,7 +26,7 @@ empty). Interrupt: `touch llmspec/STOP`.
 - **A0 v2 COMPLETE; B-G1 PASS at all 14 steps 0–3000** (worst |z| 1.87 vs T 5.67). **A1 training** since 03:26
   (to 5000, ETA ~13:45).
 - **Queue:** A0 → [B-G1 3000] → A1 (to 5000) → A2 → M0s1 (via chain_after.sh 447697) → M0s2.
-- **spot:** B-G1 daemon (tmux claude:0). Seed-1 batch build (claude:seeddata) is at 103/3000, ETA ~14:00–16:00.
+- **spot:** B-G1 daemon (tmux claude:0). Seed-1 batches COMPLETE (3000/3000, MANIFEST consistent).
 - **Alarms:** cron d06bd494 at :13/:43 (Will asked). memwatch 12700.
 - **Will, morning:** rotate the ssh agent (/tmp/cc-agent.sock) before ~13:05; A1 uploads checkpoints then.
 - Earlier today: bf16 A0 aborted (A4); fp16 v1 FAILED B-G1 at 128 from loss-scale underflow, a diagnosis confirmed
