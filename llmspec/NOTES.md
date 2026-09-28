@@ -166,9 +166,9 @@ and NOT pushed.
   ~/llmspec_armb/bg1/bg1_verdicts.jsonl (log ~/llmspec_armb/bg1_daemon.log). It exits when all 14 steps are scored.
 - **Licences** (sealed B1b 766c92c): `armb/run_licences.sh` running q2 → q1_warp → q1_licence under checkrun (~1 h, CPU).
   Results in results/armb_q*_licence.json and armb/*.checkrun.log.
-- **SSH AGENT EXPIRY:** /tmp/cc-agent.sock was started ~13:05 with `-t 24h`, so it expires ~13:05 on 09-28. After that,
-  uploads fail and the trainer stops (resumable). Will must re-run `ssh-agent -a /tmp/cc-agent.sock -t 24h;
-  SSH_AUTH_SOCK=/tmp/cc-agent.sock ssh-add` (delete the stale socket first if needed).
+- **SSH agent:** Will rotated /tmp/cc-agent.sock to a 30-day lifetime (09-28 ~09:10); verified. At the next stopping
+  point Will revokes it, and a permanent narrow-scope key replaces it (the generated ~/.ssh/id_ed25519_spot_llmspec is
+  one candidate).
 - **memwatch:** PID 12700.
 
 ## 5. Next (in order; mark each done here with its commit)
