@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-28 01:55 PDT
+# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-28 03:30 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
 lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). The alarm cron was removed 09-27 ~09:20 (queue
@@ -23,8 +23,8 @@ empty). Interrupt: `touch llmspec/STOP`.
   - QK-product "function" reading WITHDRAWN (a realistic density alone moves q by ~0.12 under β = 1).
 
 ## Running (auto) — Arm B (09-28 01:55)
-- **A0 v2** (fp16, Pythia-matched loss scale): step 2352/3000, ETA ~03:05. **B-G1 PASS at every gating step 0–2000**
-  (worst |z| 1.87 vs T 5.67); step 3000 still to be scored.
+- **A0 v2 COMPLETE; B-G1 PASS at all 14 steps 0–3000** (worst |z| 1.87 vs T 5.67). **A1 training** since 03:26
+  (to 5000, ETA ~13:45).
 - **Queue:** A0 → [B-G1 3000] → A1 (to 5000) → A2 → M0s1 (via chain_after.sh 447697) → M0s2.
 - **spot:** B-G1 daemon (tmux claude:0). Seed-1 batch build (claude:seeddata) is at 103/3000, ETA ~14:00–16:00.
 - **Alarms:** cron d06bd494 at :13/:43 (Will asked). memwatch 12700.

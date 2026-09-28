@@ -22,7 +22,9 @@ def done(arm):
 def verdicts():
     r = subprocess.run(["ssh", "-o", "BatchMode=yes", "spot", "cat ~/llmspec_armb/bg1/bg1_verdicts.jsonl 2>/dev/null || true"],
                        capture_output=True, text=True, timeout=60)
-    return {v["step"]: v for v in map(json.loads, r.stdout.split("\n")) if v} if r.returncode == 0 else None
+    if r.returncode != 0:
+        return None
+    return {v["step"]: v for v in (json.loads(l) for l in r.stdout.splitlines() if l.strip())}   # skip blank lines (the 03:19 crash)
 
 
 def log(msg):

@@ -146,24 +146,14 @@ and NOT pushed.
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (09-27 16:25 PDT)
-- **ARM B A0 v2 TRAINING** (started ~20:30 on 09-27). fp16 + DeeperSpeed loss scaler, with the Pythia-matched per-token
-  scale (B1a-A5, f10a6b3). ~7.4 s/step, so step 3000 is ~02:45.
-  - History: the bf16 run was aborted at 164 (A4). **fp16 v1 FAILED B-G1 at step 128** (probe loss z 21.4) from gradient
-    underflow: my loss scale was 32× below Pythia's per token and flushed 81% of logit grads. Confirmed by a
-    pre-committed test; fixed. Both runs are archived.
-  - **Rule:** if v2 FAILS B-G1, write BLOCKED.md. NO retry and NO precision switch.
-- **Muon (09-28 ~01:40):**
-  - `armb/muon.py` MuonHybrid, with pinned sources (Keller f98f1ca NS5; Moonlight c2ad5b2 momentum/wd/0.2√max).
-  - The sealed update test PASSED with NS bf16 (8f51f25).
-  - **M0s1** is wired in (replica check passed) and queued AFTER A2 by `armb/chain_after.sh 413010` (PID 447697): it
-    starts a fresh queue_runner when the current one exits; done arms are skipped.
-  - **M0s2:** the seed0 byte-exact check PASSED (51,200/51,200; A7, d9d3fdc). Seed-1 batches steps 1–3000 are
-    materialising on spot (tmux `claude:seeddata`, ETA ~14:00–16:00 on 09-28). The trainer supports M0s2 (seed-1
-    .bin init + sha-verified batches from spot; replica check passed). QUEUED after M0s1 in queue_runner.py, which
-    the chained fresh runner will read. SeedBatches waits up to 30 min per batch not yet built.
-- **Dedicated key** ~/.ssh/id_ed25519_spot_llmspec was generated 09-28 and is NOT installed. authorized_keys line:
-  `from="10.0.0.156",restrict <pubkey>`. Will rotates the agent in the morning instead.
-  - GPU side: `armb/queue_runner.py` (PID 413010), then `armb/train.py A0` (log armb/train_A0.log; per-step
+- **A0 v2 COMPLETE (03:19 on 09-28). B-G1 PASS at all 14 steps (0–3000), worst |z| 1.87 vs T 5.67**
+  (results/armb_bg1_verdicts_A0.jsonl). The anchor holds.
+- **A1 TRAINING** since 03:25:57 (queue_runner PID 472628); step 5000 is ~13:45.
+  - The old runner and the chained runner both crashed at 03:19 on a blank-line JSON parse in verdicts(), silently
+    (stderr went to /dev/null). Fixed; stderr now goes to armb/queue_runner.stderr.log. The GPU was idle ~7 min.
+  - The chain is consumed. The new runner's list is A1 → A2 → M0s1 → M0s2.
+  - History: bf16 aborted (A4); fp16 v1 FAILED B-G1 at 128 from underflow (A5).
+  - GPU side: `armb/queue_runner.py` (PID 472628), then `armb/train.py A0` (log armb/train_A0.log; per-step
     armb/staging/A0/trainlog.jsonl).
   - Checkpoints: staged in armb/staging/A0/, then uploaded to spot:~/llmspec_armb/ckpt/A0/ with a sha256 `.ok` marker,
     then deleted locally.
