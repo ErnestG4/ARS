@@ -176,8 +176,11 @@ and NOT pushed.
   - (2) Queue gate made FAIL-CLOSED, 12-case test (99c4e1c). It applies from the next runner launch.
   - (3) **B4 analysis code SEALED (5823b3d)**: armb/b4_extract.py + armb/b4_analyze.py, dry run PASS on a fabricated
     cache. The licence results were banked late, with their checkrun logs (ca0d94b).
-  - **Licence-implied scope:** Q1 can reach a model verdict only via E4 on A2 at ≤ 0.5% noise; otherwise it is
-    descriptive.
+  - **Q1 licence v2 (Will's sign-off; sealed 242ae7d, result a64d71f):** HALFWAY retired (it equals the LR_INT map
+    post-warmup); midpoint + stretch + overshoot confusers.
+    - E4 is now licensed for A2 at ≤ 1% noise with the no-model outcome ("X-driven" wording), and for A1 at 0.5%.
+    - A2's grid is dense over 1000–2200 (B1a-A8, 855e007).
+  - **B4 RE-SEALED (bde3656)** against licence v2 + arm grids; dry run PASS.
   - **Next B4 steps (GPU; may share the card with training under Stage 3's 6 GB cap):**
     - `b4_extract.py refs`, then `LLMSPEC_MODEL=pythia-70m stage3_witness.py`;
     - `b4_extract.py arm <arm>` per finished arm;
