@@ -256,3 +256,19 @@ Unchanged from rev 1:
 - the B-G1 gate metrics and verdicts (probe loss, stable rank and Frobenius norm at the shared steps) for A0 and the
   aborted/failed runs.
 - No B4 extraction has run and no Q1–Q4 statistic exists.
+
+## Q1 E4 licence v2 — 2026-09-28 ~15:20 (Will's sign-off; pre-data; sealed BEFORE it runs and before B4 reads any arm)
+Full rule: the `armb/q1_warp_v2.py` docstring (sha256 6f25590574f06dbe).
+1. **HALFWAY is retired.** After both warmups it equals the LR_INT map (a shift of ΔW/2), so v1 tested E4 against a copy
+   of a hypothesis. The diagnosis is in b121908.
+2. **Confusers per arm:** the MIDPOINT maps between adjacent model maps (STEP↔LR_INT, LR_INT↔WARMUP), plus a 1.3t stretch
+   and an overshoot by 1.5·ΔW. The cap is unchanged: any confuser assigned to a single model ≤ 20%. Wrong-model rate
+   ≤ 5%; true-model rate ≥ 80% at r*.
+3. **"No model fits" outcome.** E4 has one (NO_SIMPLE_ANCHOR, via c_fit). It is LICENSED only if it fires on BOTH
+   midpoint confusers at ≥ 80% at r*.
+   - Verdict wording: a SUPPORTED(X) is reported as "X-driven" only where NO_SIMPLE_ANCHOR is also licensed. Otherwise
+     it is "the closest of the three models is X".
+4. **E4 itself is unchanged.** Grids and windows come from `grids.arm_grid` (A2 dense, B1a-A8). The re-run is on spot
+   for A1 and A2.
+5. **B4 wiring:** `b4_analyze.py` switches to the v2 licence, the wording rule and `arm_grid`, via a dated B4
+   amendment with a new dry run, before any extraction.
