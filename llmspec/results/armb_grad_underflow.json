@@ -1,0 +1,34 @@
+{
+ "doc": "Gradient underflow test (ARMB_PREREG.md amendment B1a-A5 \u00a73; criterion + decision rule committed at bec421b, BEFORE\nthis script ran). No training.\n\nWeights: EleutherAI/pythia-70m step128 (released). Data: the first 64 sequences of update 129's batch (preshuffled\nsamples [128*1024, 128*1024 + 64)). Target: the gradient of the mean token CE over those 64 x 2048 predictions,\naccumulated over 8 micro-batches of 8.\n  G_ref  : fp32, no autocast\n  G_cur  : fp16 autocast, per-micro loss x 4096 x 8/1024 (the failed A0's scaling), unscaled after accumulation\n  G_fix  : fp16 autocast, per-micro loss x 4096 x 8/32 (Pythia-matched per-token factor), unscaled after accumulation\n  G_bf16 : bf16 autocast, unscaled\nReported: rel_err = ||G - G_ref|| / ||G_ref||, cosine(G, G_ref), the fraction of entries with G == 0 where G_ref != 0;\nMEASURED per-token factor in the graph = mean|d(scaled loss)/d logits| (hook on the fp16 logits) / mean|softmax - onehot|\n(from the fp32 pass): Pythia's derived value is 4096 / (32 x 2048) = 0.0625.\nCONFIRMED iff rel_err(G_cur) > 2 rel_err(G_fix) AND rel_err(G_fix) <= 2 rel_err(G_bf16). Output: results/armb_grad_underflow.json.\n",
+ "pythia_per_token_factor_derived": 0.0625,
+ "mean_abs_softmax_minus_onehot": 3.839074952338706e-05,
+ "cur": {
+  "rel_err": 1.2098019951008951,
+  "cosine": 0.6324739575013435,
+  "zero_where_ref_nonzero": 0.007099909419056836,
+  "per_micro_scale": 32.0,
+  "per_token_factor_derived": 0.001953125,
+  "per_token_factor_measured": 0.0017253845822333407,
+  "logit_grad_zero_frac": 0.8138893693685532
+ },
+ "fix": {
+  "rel_err": 0.0006535870193276937,
+  "cosine": 0.99999978651071,
+  "zero_where_ref_nonzero": 7.212189234176329e-06,
+  "per_micro_scale": 1024.0,
+  "per_token_factor_derived": 0.0625,
+  "per_token_factor_measured": 0.06250066481366957,
+  "logit_grad_zero_frac": 9.071705721908074e-05
+ },
+ "bf16": {
+  "rel_err": 0.01196431625890642,
+  "cosine": 0.9999284507925865,
+  "zero_where_ref_nonzero": 5.6357028439833356e-05,
+  "per_micro_scale": 1.0,
+  "per_token_factor_derived": 6.103515625e-05,
+  "per_token_factor_measured": 6.103996331484138e-05,
+  "logit_grad_zero_frac": 0.0
+ },
+ "CONFIRMED": true,
+ "measured_ratio_fix_over_cur": 36.224193410125764
+}

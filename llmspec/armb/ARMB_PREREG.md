@@ -276,3 +276,17 @@ tests) is sealed separately, before A0 starts.
      caveat, and restart A0 from step 0 in bf16.
    - **Either way:** that choice is FINAL for all arms. The restarted A0 is judged by B-G1 from step 0. If it FAILS again,
      CC does NOT switch precision or retry. It writes BLOCKED.md with the diagnosis, and Will decides.
+5. **Result (A5 test, `results/armb_grad_underflow.json`, CHECKRUN EXIT=0 PASS): CONFIRMED.**
+
+   | scaling | rel_err vs fp32 | cosine | logit gradients flushed to 0 | per-token factor, measured |
+   |---|---|---|---|---|
+   | failed A0 | 1.21 | 0.63 | 81% | 0.00173 |
+   | Pythia-matched | 0.00065 | 1.0000 | 0.009% | **0.0625** (= Pythia's derived 0.0625) |
+   | bf16 | 0.012 | 0.9999 | — | — |
+
+   - The measured per-token factor ratio (fix / current) is 36.2. The derived value is 32; underflow also shrinks the
+     current path's measured value.
+   - **Decision per the rule committed above: fp16 with the Pythia-matched per-micro scale, FINAL for all arms.**
+   - `train.py` now backpropagates micro-loss × cur_scale × MICRO/32 and unscales the accumulated gradient by
+     cur_scale × BATCH/32.
+   - A0 restarts from step 0, judged by B-G1 from step 0. If it FAILS: BLOCKED.md, no retry.

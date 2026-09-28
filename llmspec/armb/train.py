@@ -45,6 +45,8 @@ torch.cuda.set_per_process_memory_fraction(0.85)          # leave room for the d
 ARMS = {"A0": (1430, 3000), "A1": (2860, 5000), "A2": (715, 3000)}
 OPT_STEPS = {1, 10, 100, 256, 512, 1000, 1430, 2000, 3000, 5000}
 BATCH, MICRO, SEQ = 1024, 8, 2048
+PYTHIA_MICRO = 32   # Pythia's per-GPU micro-batch: DeepSpeed backpropagated cur_scale x (mean loss over 32 sequences), so the
+                    # per-token gradient factor in the fp16 graph is cur_scale / (32 x 2048). We match it per token (B1a-A5).
 SPOT = "spot"
 REMOTE = "~/llmspec_armb/ckpt"
 
@@ -247,14 +249,14 @@ def main():
         tot = torch.zeros((), device=DEV); scale = scaler.cur_scale
         for i in range(0, BATCH, MICRO):
             loss = cmicro(x[i:i + MICRO])
-            (loss * (scale * MICRO / BATCH)).backward(); tot += loss.detach() * (MICRO / BATCH)
+            (loss * (scale * MICRO / PYTHIA_MICRO)).backward(); tot += loss.detach() * (MICRO / BATCH)
         grads = [p.grad for p in model.parameters() if p.grad is not None]
         overflow = bool(torch.stack([torch.logical_not(torch.isfinite(g).all()) for g in grads]).any())
         if overflow:
             gn = float("nan"); n_skipped += 1; opt.zero_grad(set_to_none=True)
         else:
             for g in grads:
-                g.div_(scale)
+                g.div_(scale * BATCH / PYTHIA_MICRO)                 # -> the mean gradient over the 1024-sequence batch
             gn = float(torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0))
             opt.step(); opt.zero_grad(set_to_none=True); n_applied += 1
         scaler.update_scale(overflow); step = k; tot = float(tot)
