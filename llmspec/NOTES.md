@@ -146,9 +146,13 @@ and NOT pushed.
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (09-27 16:25 PDT)
-- **ARM B A0 TRAINING in fp16 + DeeperSpeed loss scaling** (restarted 17:09 after the bf16 run was aborted at step 164
-  and archived; amendment B1a-A4, 037f9db). ~7.4 s/step, so step 3000 is ~23:20.
-  - GPU side: `armb/queue_runner.py` (PID 391487), then `armb/train.py A0` (log armb/train_A0.log; per-step
+- **ARM B A0 v2 TRAINING** (started ~20:30 on 09-27). fp16 + DeeperSpeed loss scaler, with the Pythia-matched per-token
+  scale (B1a-A5, f10a6b3). ~7.4 s/step, so step 3000 is ~02:45.
+  - History: the bf16 run was aborted at 164 (A4). **fp16 v1 FAILED B-G1 at step 128** (probe loss z 21.4) from gradient
+    underflow: my loss scale was 32× below Pythia's per token and flushed 81% of logit grads. Confirmed by a
+    pre-committed test; fixed. Both runs are archived.
+  - **Rule:** if v2 FAILS B-G1, write BLOCKED.md. NO retry and NO precision switch.
+  - GPU side: `armb/queue_runner.py` (PID 413010), then `armb/train.py A0` (log armb/train_A0.log; per-step
     armb/staging/A0/trainlog.jsonl).
   - Checkpoints: staged in armb/staging/A0/, then uploaded to spot:~/llmspec_armb/ckpt/A0/ with a sha256 `.ok` marker,
     then deleted locally.
