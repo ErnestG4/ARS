@@ -146,12 +146,13 @@ and NOT pushed.
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (09-27 16:25 PDT)
-- **ARM B A0 TRAINING** (started 16:25).
-  - GPU side: `armb/queue_runner.py` (PID 385843), then `armb/train.py A0` (log armb/train_A0.log; per-step
+- **ARM B A0 TRAINING in fp16 + DeeperSpeed loss scaling** (restarted 17:09 after the bf16 run was aborted at step 164
+  and archived; amendment B1a-A4, 037f9db). ~7.4 s/step, so step 3000 is ~23:20.
+  - GPU side: `armb/queue_runner.py` (PID 391487), then `armb/train.py A0` (log armb/train_A0.log; per-step
     armb/staging/A0/trainlog.jsonl).
   - Checkpoints: staged in armb/staging/A0/, then uploaded to spot:~/llmspec_armb/ckpt/A0/ with a sha256 `.ok` marker,
     then deleted locally.
-  - Queue: A0 (to 3000, ~10 h) → B-G1 verdicts for all gating steps + 3000 PASS → A1 (to 5000) → A2 (to 3000).
+  - Queue: A0 (to 3000, ~6.2 h) → B-G1 verdicts for all gating steps + 3000 PASS → A1 (to 5000) → A2 (to 3000).
     M0-s1 and M0-s2 are NOT queued (Muon + seed-1 index maps still to build).
   - Resume after any stop: `setsid nohup /home/combust/fmexplorer/bin/python3 armb/queue_runner.py &`. It resumes from
     armb/staging/<arm>/resume.pt (every 50 steps); finished arms are skipped.
