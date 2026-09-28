@@ -171,6 +171,18 @@ and NOT pushed.
   one candidate).
 - **memwatch:** PID 12700.
 
+- **09-28 morning (Will's three items):**
+  - (1) Muon pre-launch check: already sealed and PASSED (A6, 8f51f25).
+  - (2) Queue gate made FAIL-CLOSED, 12-case test (99c4e1c). It applies from the next runner launch.
+  - (3) **B4 analysis code SEALED (5823b3d)**: armb/b4_extract.py + armb/b4_analyze.py, dry run PASS on a fabricated
+    cache. The licence results were banked late, with their checkrun logs (ca0d94b).
+  - **Licence-implied scope:** Q1 can reach a model verdict only via E4 on A2 at ≤ 0.5% noise; otherwise it is
+    descriptive.
+  - **Next B4 steps (GPU; may share the card with training under Stage 3's 6 GB cap):**
+    - `b4_extract.py refs`, then `LLMSPEC_MODEL=pythia-70m stage3_witness.py`;
+    - `b4_extract.py arm <arm>` per finished arm;
+    - `b4_analyze.py all` after M0s2.
+
 ## 5. Next (in order; mark each done here with its commit)
 1. ~~Dense-V + wave~~ DONE → STAGE3_FINDINGS §13: V shows NO layer ordering at 1000-step resolution (ρ −0.00). Scorer
    consistency on 1.4B → §14 (all R1–R6 reproduce).

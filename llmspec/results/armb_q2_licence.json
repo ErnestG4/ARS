@@ -1,0 +1,89 @@
+{
+ "doc": "Q2 crossing-time localisation licence (ARMB_PREREG_B1B.md Q2; sealed with it). Synthetic only.\n\nEvent time = the first grid step at which a trajectory crosses its threshold. Estimator X1: Savitzky-Golay smooth\n(window 5, order 2, on the grid index) and take the first grid step whose smoothed value is past the threshold and\nstays past it for the next 3 grid points; if it never does, \"not crossed\".\nSynthetic trajectories on A0's grid (stop 3000): sigmoids in u = log(t + 16), rising (head fractions, induction score) or\nfalling (stable rank, loss), plus an asymmetric Gompertz variant; crossing time tc in {300, 512, 800, 1200, 1800};\nwidth w in {0.1, 0.3, 0.6} (log units); threshold = the level the clean curve has at tc.\nNoise: (i) additive on a 0-1 fraction scale, sd in {0.01, 0.03, 0.07} (0.07 ~ binomial sd at p = 0.5 over 48 heads);\n(ii) relative, sd in {0.5, 1, 2, 5}%. i.i.d. and AR(1) phi 0.5. 500 draws per cell.\nOutput per (noise kind, level, type): e_x = the 95% quantile of |t_hat - tc| over all shapes, and the worst-shape\nvalue; the miss rate (\"not crossed\" although the clean curve crosses). At analysis, the noise of each event trajectory\nis measured about its own smooth (a noise measurement, not the effect); the next-higher licence row gives e_x, and the\nQ2 ordering rule uses [t +- e_x]. Output: results/armb_q2_licence.json.\n",
+ "cells": {
+  "abs_0.01_iid": {
+   "e_x_95_all": 25.0,
+   "e_x_95_worst_shape": 75.0,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "abs_0.01_ar": {
+   "e_x_95_all": 50.0,
+   "e_x_95_worst_shape": 100.0,
+   "worst_shape": "sig_tc1800_w0.6_fall",
+   "max_miss_rate": 0.0
+  },
+  "abs_0.03_iid": {
+   "e_x_95_all": 75.0,
+   "e_x_95_worst_shape": 175.0,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "abs_0.03_ar": {
+   "e_x_95_all": 100.0,
+   "e_x_95_worst_shape": 200.0,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "abs_0.07_iid": {
+   "e_x_95_all": 150.0,
+   "e_x_95_worst_shape": 325.0,
+   "worst_shape": "sig_tc1800_w0.6_fall",
+   "max_miss_rate": 0.0
+  },
+  "abs_0.07_ar": {
+   "e_x_95_all": 175.0,
+   "e_x_95_worst_shape": 375.0,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.005_iid": {
+   "e_x_95_all": 25.0,
+   "e_x_95_worst_shape": 25.0,
+   "worst_shape": "sig_tc800_w0.1_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.005_ar": {
+   "e_x_95_all": 25.0,
+   "e_x_95_worst_shape": 25.0,
+   "worst_shape": "sig_tc800_w0.1_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.01_iid": {
+   "e_x_95_all": 25.0,
+   "e_x_95_worst_shape": 50.0,
+   "worst_shape": "sig_tc1200_w0.6_fall",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.01_ar": {
+   "e_x_95_all": 25.0,
+   "e_x_95_worst_shape": 50.0,
+   "worst_shape": "sig_tc1200_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.02_iid": {
+   "e_x_95_all": 38.0,
+   "e_x_95_worst_shape": 100.0,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.02_ar": {
+   "e_x_95_all": 50.0,
+   "e_x_95_worst_shape": 100.0,
+   "worst_shape": "sig_tc1200_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.05_iid": {
+   "e_x_95_all": 75.0,
+   "e_x_95_worst_shape": 176.24999999999886,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  },
+  "rel_0.05_ar": {
+   "e_x_95_all": 100.0,
+   "e_x_95_worst_shape": 200.0,
+   "worst_shape": "sig_tc1800_w0.6_rise",
+   "max_miss_rate": 0.0
+  }
+ }
+}
