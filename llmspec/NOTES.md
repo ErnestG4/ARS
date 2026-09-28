@@ -152,6 +152,15 @@ and NOT pushed.
     underflow: my loss scale was 32× below Pythia's per token and flushed 81% of logit grads. Confirmed by a
     pre-committed test; fixed. Both runs are archived.
   - **Rule:** if v2 FAILS B-G1, write BLOCKED.md. NO retry and NO precision switch.
+- **Muon (09-28 ~01:40):**
+  - `armb/muon.py` MuonHybrid, with pinned sources (Keller f98f1ca NS5; Moonlight c2ad5b2 momentum/wd/0.2√max).
+  - The sealed update test PASSED with NS bf16 (8f51f25).
+  - **M0s1** is wired in (replica check passed) and queued AFTER A2 by `armb/chain_after.sh 413010` (PID 447697): it
+    starts a fresh queue_runner when the current one exits; done arms are skipped.
+  - **M0s2** waits for the seed-1 data rebuild. A spot sub-agent is working in tmux `claude:seeddata`; the seed0
+    byte-exact check must pass first.
+- **Dedicated key** ~/.ssh/id_ed25519_spot_llmspec was generated 09-28 and is NOT installed. authorized_keys line:
+  `from="10.0.0.156",restrict <pubkey>`. Will rotates the agent in the morning instead.
   - GPU side: `armb/queue_runner.py` (PID 413010), then `armb/train.py A0` (log armb/train_A0.log; per-step
     armb/staging/A0/trainlog.jsonl).
   - Checkpoints: staged in armb/staging/A0/, then uploaded to spot:~/llmspec_armb/ckpt/A0/ with a sha256 `.ok` marker,
