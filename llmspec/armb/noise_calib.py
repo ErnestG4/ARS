@@ -10,9 +10,11 @@ Calibration (per measurement, per grid, per injected level, per noise type), 300
       A2 (dense, grids.arm_grid); levels 0.5/1/2/5 %.
   Q2  measurement: SG(window 5, order 2); curves: the q2_licence sigmoid / Gompertz trajectories on A0's grid (also used
       for the M0 arms: same grid); RELATIVE levels 0.5/1/2/5 % and ABSOLUTE 0.01/0.03/0.07.
-ROW RULE (sealed): the calibrated level for an observed measurement m is the smallest injected level L whose MEDIAN
-measured noise is >= m, taken as the MAXIMUM over the two noise types (iid, AR(1) phi 0.5); m above every median -> no
-row (NOT LICENSED). A licence cell is then used only if it is licensed for BOTH noise types at that level (so the
+ROW RULE (sealed; B4 amendment 4, 2026-09-29, pre-data -- was the MEDIAN, which is a point estimate that leaves ~50%
+chance of too low a row when m sits at a level's median): the calibrated level for an observed measurement m is the
+smallest injected level L whose 5th-PERCENTILE measured noise is >= m -- an upper confidence bound: had the true noise
+exceeded L, a measurement as small as m would occur < 5% of the time. Taken as the MAXIMUM over the two noise types
+(iid, AR(1) phi 0.5); m above every 5th percentile -> no row (NOT LICENSED). A licence cell is then used only if it is licensed for BOTH noise types at that level (so the
 lag-1 type classifier plays no part). Output: results/armb_noise_calibration.json.
 """
 import json, sys
@@ -46,7 +48,8 @@ def calib_q1(grid, stop, rng):
             for d in range(DRAWS):
                 f = shapes[d % len(shapes)]
                 ms.append(float(measure(f * (1 + QL.noise(rng, len(grid), 1, s, ar)[0]), 9, True)))
-            out[f"{s}_{'ar' if ar else 'iid'}"] = {"median": float(np.median(ms)), "q10": float(np.quantile(ms, .1)), "q90": float(np.quantile(ms, .9))}
+            out[f"{s}_{'ar' if ar else 'iid'}"] = {"median": float(np.median(ms)), "q05": float(np.quantile(ms, .05)),
+                                                   "q10": float(np.quantile(ms, .1)), "q90": float(np.quantile(ms, .9))}
     return out
 
 
@@ -62,15 +65,17 @@ def calib_q2(grid, rng):
                     e = QL.noise(rng, len(grid), 1, s, ar)[0]
                     y = base + e if kind == "abs" else base * (1 + e)
                     ms.append(float(measure(y, 5, kind == "rel")))
-                out[f"{kind}_{s}_{'ar' if ar else 'iid'}"] = {"median": float(np.median(ms)), "q10": float(np.quantile(ms, .1)), "q90": float(np.quantile(ms, .9))}
+                out[f"{kind}_{s}_{'ar' if ar else 'iid'}"] = {"median": float(np.median(ms)), "q05": float(np.quantile(ms, .05)),
+                                                              "q10": float(np.quantile(ms, .1)), "q90": float(np.quantile(ms, .9))}
     return out
 
 
 def level(m, table, levels, prefix=""):
-    """Sealed row rule: smallest injected level whose median measured noise >= m, max over iid/AR; None if above all."""
+    """Sealed row rule (B4 amendment 4): smallest injected level whose 5th-percentile measured noise >= m (an upper
+    confidence bound), max over iid/AR; None if m is above every level's 5th percentile."""
     per = []
     for typ in ("iid", "ar"):
-        ok = [L for L in levels if table[f"{prefix}{L}_{typ}"]["median"] >= m]
+        ok = [L for L in levels if table[f"{prefix}{L}_{typ}"]["q05"] >= m]
         if not ok:
             return None
         per.append(min(ok))
