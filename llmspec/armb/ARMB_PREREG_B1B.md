@@ -337,3 +337,15 @@ A2; the bulk-violation ladder was exercised. CHECKRUN armb/test_b4_dryrun.py EXI
      written. CHECKRUN armb/test_b4_seal.py EXIT=0 PASS.
 4. **Dry run:** PASS. CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
 - **Manifest:** `armb/B4_SEAL.json` sha256 d17d24ed9dc72cf8.
+
+## B4 amendment 5 — 2026-09-29 ~14:25: data provenance + the seal check's stated scope (pre-data; the chain is extracting A2)
+1. **Data provenance (Will):** every cache file `b4_analyze.py` reads is hashed at read time, once per analysis. Each
+   `results/armb_b4_*.json` then carries `provenance.cache_sha256` (every file it read), `n_cache_files`, and the
+   sha256 of the seal manifest. Each Q1–Q4 number is thereby tied to the exact extracted data.
+   - The dry run checks that Q3 hashes the 9 ΔW files it reads.
+   - The attach step in `__main__` is not run in advance: running it on the real cache would compute arm statistics.
+2. **Scope of the seal check, stated:** it guards against ACCIDENTAL drift (an edit, a stale copy, the wrong branch). A
+   file that verifies its own hash cannot stop deliberate tampering, because an edited file could skip the check. It
+   is described that way in the write-up.
+3. **Re-sealed:** `armb/B4_SEAL.json` regenerated, sha256 4639fbdcfe1652a3.
+   - CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS; CHECKRUN armb/test_b4_seal.py EXIT=0 PASS.

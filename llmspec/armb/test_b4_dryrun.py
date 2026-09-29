@@ -115,6 +115,10 @@ except Exception as e:
     ok = False; import traceback; traceback.print_exc(); print("bulk VIOLATED branch FAILED:", repr(e))
 finally:
     B.grid = _full_grid; B.STOPS.clear(); B.STOPS.update(_full_stops)
+# data provenance (Will 09-29): every cache file read must be hashed (64-hex sha256), keyed by path
+B.PROV.clear(); B.q3()
+prov_ok = len(B.PROV) > 0 and all(len(h) == 64 for h in B.PROV.values()) and all("DW_" in k for k in B.PROV)
+ok &= prov_ok; print("provenance:", len(B.PROV), "cache files hashed by q3 ->", "OK" if prov_ok else "BAD")
 # known answer for B4 amendments 3-4 (Will 09-29): 1.4% noise on A2's dense grid must map to the 2% row (not licensed
 # for A2) or be declined -- the exact case the uncalibrated / median rules got wrong. >= 95% of draws, both noise types.
 import noise_calib as NC  # noqa: E402

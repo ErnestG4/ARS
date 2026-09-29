@@ -70,12 +70,24 @@ def ldir(src, t):
     return (ROOT / "cache" / "armb" / src / f"step{t:05d}") if src in STOPS else (ROOT / "cache" / "s3" / src / f"step{t}")
 
 
+PROV = {}      # data provenance (Will 09-29): sha256 of every cache file read, keyed by path relative to ROOT
+
+
+def _load(fp):
+    """np.load with provenance: each file's sha256 is recorded once per analysis (memoised by path)."""
+    fp = Path(fp); key = str(fp.relative_to(ROOT)) if str(fp).startswith(str(ROOT)) else str(fp)
+    if key not in PROV:
+        import hashlib
+        PROV[key] = hashlib.sha256(fp.read_bytes()).hexdigest()
+    return np.load(fp)
+
+
 def layers(src, t):
-    return [np.load(ldir(src, t) / f"L{L:02d}.npz") for L in range(NL)]
+    return [_load(ldir(src, t) / f"L{L:02d}.npz") for L in range(NL)]
 
 
 def markers(src, t):
-    return np.load(ldir(src, t) / "MARKERS.npz")
+    return _load(ldir(src, t) / "MARKERS.npz")
 
 
 def sr(s):
@@ -289,7 +301,7 @@ def q3():
     import b4_extract as BX  # noqa: F401  (interval definitions only; importing asserts CUDA)
     bL = BX.lr_intervals()[0]; out = {}
     def dw(arm, a, b):
-        z = np.load(ROOT / "cache" / "armb" / arm / f"DW_{a:05d}_{b:05d}.npz")
+        z = _load(ROOT / "cache" / "armb" / arm / f"DW_{a:05d}_{b:05d}.npz")
         return {M: np.array([float(z[f"L{L:02d}_{M}_sr"]) for L in range(NL)]) for M in TYPES}
     for arm in ("A0", "A1", "A2"):
         late = dw(arm, 1000, 1025); rec = {}
@@ -328,7 +340,7 @@ def q4():
 
     def dwv(src, a, b, M):
         base = (ROOT / "cache" / "armb" / src) if src in STOPS else (ROOT / "cache" / "s3" / src)
-        z = np.load(base / f"DW_{a:05d}_{b:05d}.npz"); return float(np.mean([float(z[f"L{L:02d}_{M}_sr"]) for L in range(NL)]))
+        z = _load(base / f"DW_{a:05d}_{b:05d}.npz"); return float(np.mean([float(z[f"L{L:02d}_{M}_sr"]) for L in range(NL)]))
     for a, b in Q4_IVS:
         for M in TYPES:
             ref = np.array([dwv(m, a, b, M) for m in REFS]); s = float(ref.std(ddof=1))
@@ -381,7 +393,8 @@ SEAL_FILES = ["armb/b4_analyze.py", "armb/noise_calib.py", "armb/q1_warp_v2.py",
 
 
 def verify_seal():
-    """FAIL-CLOSED seal check (Will 09-29): every file in the sealed manifest (armb/B4_SEAL.json, or $B4_SEAL for tests)
+    """Seal check (Will 09-29). SCOPE: it guards against ACCIDENTAL drift (an edit, a stale copy, the wrong branch) --
+    a file that checks its own hash cannot stop deliberate tampering (an edited file could skip the check). FAIL-CLOSED: every file in the sealed manifest (armb/B4_SEAL.json, or $B4_SEAL for tests)
     must match its sha256, else exit 4 before anything is computed or written. A missing manifest also exits 4."""
     import hashlib, os
     fp = Path(os.environ.get("B4_SEAL", str(HERE / "B4_SEAL.json")))
@@ -397,7 +410,12 @@ def verify_seal():
 if __name__ == "__main__":
     verify_seal()
     which = sys.argv[1]
+    import hashlib
+    seal_sha = hashlib.sha256(Path(__import__("os").environ.get("B4_SEAL", str(HERE / "B4_SEAL.json"))).read_bytes()).hexdigest()
     for q, fn in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("bulk", bulk)):
         if which in (q, "all"):
-            (RES / f"armb_b4_{q}.json").write_text(json.dumps(fn(), indent=1, default=float))
-            print(q, "written", flush=True)
+            PROV.clear(); res = fn()
+            res["provenance"] = {"seal_manifest_sha256": seal_sha, "n_cache_files": len(PROV), "cache_sha256": dict(PROV),
+                                 "note": "every cache file this result read, hashed at read time (Will 09-29)"}
+            (RES / f"armb_b4_{q}.json").write_text(json.dumps(res, indent=1, default=float))
+            print(q, "written;", len(PROV), "cache files hashed", flush=True)
