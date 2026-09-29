@@ -154,13 +154,13 @@ and NOT pushed.
   (checkrun). ~8 h on the GPU.
   - Resume: re-run armb/b4_run.sh (every stage skips finished outputs).
   - Outputs: cache/armb/<arm>/..., cache/s3/pythia-70m*/..., results/armb_b4_{q1,q2,q3,q4,bulk}.json.
-- **CHAIN STOPPED 09-29 14:46:** spot hung (Will: memory maxed; cause unknown). The A2 extraction died on its first
-  failed ssh read, at step 1425; A2 is cached through step 1420.
-  - Fix: retries added (B4 amendment 6, 960f775).
-  - **When spot is back:**
-    1. Check the OOM logs (`journalctl -k -b -1 | grep -iE "oom|killed process"`) and memory.
-    2. Recreate tmux `claude`.
-    3. Re-run `armb/b4_run.sh` (resumable; the refs/witness/A0/A1 outputs are skipped).
+- **Chain stopped 09-29 14:46 and RESUMED 16:29.**
+  - spot hung (memory maxed per Will) and was rebooted twice (14:56, 15:54); sshd came back ~16:25.
+  - No OOM-killer entry in either earlier boot's kernel log: the cause is not determined (zram thrash or a hard reset
+    losing the journal both fit).
+  - Our extraction reads measured benign after the resume: spot "used" flat at ~3.1 GB, only reclaimable page cache
+    grows, no process pile-up.
+  - The retry fix (B4 amendment 6, 960f775) is in place. A2 resumed at step 1425.
 - **memwatch** PID 12700. **Alarm** cron replaced 09-29 with a B4-chain prompt.
 
 - **09-28 morning (Will's three items):**
