@@ -23,9 +23,9 @@ and NOT pushed.
   - Autonomous: don't stall on questions; pick and proceed.
   - No fixed end time (04:50, 2026-09-26).
   - Keep notes for compaction.
-- **HELD (Will's call):** arm B; the OLMo stage-1 trajectory for aim 1.
-- **Alarm:** cron job every 30 min at `7,37 * * * *` (session-only; recreate after a restart). Its prompt says: read
-  NOTES.md, check liveness, advance the queue.
+- **HELD (Will's call):** the OLMo stage-1 trajectory for aim 1. (Arm B is RUNNING, not held.)
+- **Alarm:** session-only cron, current job 6c2c8221 at `13,43 * * * *` (B4-chain prompt, set 09-29). Earlier alarms
+  (0ab464f4, d06bd494) are deleted. Recreate after a restart; see §4.
 
 ## 1. Machine rules (each learned from an incident on 09-25)
 - **Host commit.** WSL crashes = Windows commit exhaustion (vmmemWSL counts RAM + page cache + GPU allocations).
@@ -166,10 +166,7 @@ and NOT pushed.
     - E4 is now licensed for A2 at ≤ 1% noise with the no-model outcome ("X-driven" wording), and for A1 at 0.5%.
     - A2's grid is dense over 1000–2200 (B1a-A8, 855e007).
   - **B4 RE-SEALED (bde3656)** against licence v2 + arm grids; dry run PASS.
-  - **Next B4 steps (GPU; may share the card with training under Stage 3's 6 GB cap):**
-    - `b4_extract.py refs`, then `LLMSPEC_MODEL=pythia-70m stage3_witness.py`;
-    - `b4_extract.py arm <arm>` per finished arm;
-    - `b4_analyze.py all` after M0s2.
+  - B4 run order and status: see §4 (the B4 chain, armb/b4_run.sh).
 
 ## 5. Next (in order; mark each done here with its commit)
 1. ~~Dense-V + wave~~ DONE → STAGE3_FINDINGS §13: V shows NO layer ordering at 1000-step resolution (ρ −0.00). Scorer
@@ -184,9 +181,9 @@ and NOT pushed.
    - **410M DONE (12:54):** null HOLDS 260/260. R2, R4, R5, R6 REPLICATE. **R1 DOES NOT** (norm clause: rows 0.2704 >
      0.27). **R3 DOES NOT** (V 1.89, O 1.43, MLP_OUT 2.11). Cross-size table in STAGE3_REPL_FINDINGS.md.
 3b. **Seed leg COMPLETE (09-27 ~07:30).** Was split at 13:40 into two supervisors, split at 13:40 into two supervisors:
-   - GPU: supervise PID 128268 → queue_seeds.txt = extract + motion_eq for seeds 1..9, then scalecheck. Rewritten in
+   - GPU: supervise PID 128268 (DEAD, finished 09-27) → queue_seeds.txt = extract + motion_eq for seeds 1..9, then scalecheck. Rewritten in
      place; same inode; line 1 unchanged.
-   - CPU: supervise PID 182787 → queue_seeds_cpu.txt = per seed, wait for its 10 motion_eq files → analyze
+   - CPU: supervise PID 182787 (DEAD, finished 09-27) → queue_seeds_cpu.txt = per seed, wait for its 10 motion_eq files → analyze
      (LLMSPEC_WITNESS=pythia-410m) → repl.
    - ETA ~13 h total (~88 min GPU per seed). Seed 1 final loss 2.338 (standard 410M 2.33).
    - Seed 1 DONE (14:57): 259 HOLDS / 1 VIOLATED (head_Q @ 143k, dq −0.103). Ladder step 2 (stage3_ladder.py) →
@@ -236,10 +233,16 @@ and NOT pushed.
 6. **FINDINGS_MEMO.md** (brief §6 deliverable: every claim with its gate) written 09-27 (1a4ddd1). S4-sup DONE: all calibrators recover 0.97–1.01 at 1× effect; biases replicate; the ⟨r̃⟩ arm had power (post-hoc t ≈ −3.7 for a departure of the claimed size).
 7. **ARM B — spec received 09-27 (brief 'Arm B v0'; operating rules: GPU only, no method/device/precision/scope change
    without Will, BLOCKED.md + conservative default, detached + resumable, NO timers unless Will asks, seal before results).**
-   B0 benchmark DONE → armb/B0_REPORT.md. **STOPPED for Will's decisions** (size, stop step, arms, Muon rule + M0 seeds,
-   disk). Recommended: 70M compiled, A0→5000 / others→3000, A0+A1+M0x2 (+A2), checkpoints on D:. Then B1 prereg
-   (must include Pythia small_init/wang_init, NeoX optimizer groups + LR formulas from source, PolyPythias data variant,
-   Muon on fused QKV).
+   B0 benchmark DONE → armb/B0_REPORT.md. ~~Recommended: 70M compiled, A0→5000 / others→3000, checkpoints on D:~~
+   **SUPERSEDED. The decisions actually taken (Will, 09-27/28; recorded in ARMB_PREREG.md A1–A8):**
+   - 70M, compiled, all arms.
+   - Stops: A0 / A2 / M0s1 / M0s2 → 3000, A1 → 5000. A0 stops at 3000 because the burst check was ABSENT (A3).
+   - Storage: raw fp32 checkpoints on spot, not D:.
+   - Muon: update RMS matched to AdamW (Moonlight 0.2·√max(m,n)); Q, K, V split from the fused QKV and orthogonalised
+     SEPARATELY; NS5 in bf16 (A6 test).
+   - Paired design: every AdamW arm and M0s1 starts from Pythia-70M step0; M0s2 from seed1 step0 with seed-1 order (A1).
+   - Precision: fp16 + Pythia's DeeperSpeed dynamic loss scaling, with Pythia-matched per-token scale (A4, A5).
+   - A2 is required, with a dense grid over 1000–2200 (A8).
    **RULE (Will, 09-27): A1 does not start until A0 passes the anchor gate B-G1.** The server scores B-G1 at the shared
    checkpoints (steps 1–512, 1000, 2000) while A0 keeps training to 5000. PASS through 2000 → A1 queues automatically;
    FAIL → the GPU stops (nothing downstream runs on a bad anchor). To seal in B1: the PolyPythias seed band computed

@@ -1,8 +1,8 @@
 # llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-29 11:00 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
-lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). The alarm cron was removed 09-27 ~09:20 (queue
-empty). Interrupt: `touch llmspec/STOP`.
+lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). Alarm: session cron 6c2c8221 at :13/:43 (B4-chain
+prompt, set 09-29). Interrupt: `touch llmspec/STOP`.
 
 ## Where things stand
 - **Stage 1** (existence): the sealed KDE rule was non-evidence. The licensed dip test finds OLMo Q/K multimodality at
@@ -29,4 +29,4 @@ empty). Interrupt: `touch llmspec/STOP`.
 - Q1 E4 licence v2 is in force (A2 ≤ 1% noise, A1 0.5%). The verdict wording follows the sealed rule.
 
 ## Held
-- Arm B; OLMo stage-1 trajectory (Will's calls).
+- OLMo stage-1 trajectory (Will's call). Arm B is running, not held.
