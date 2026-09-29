@@ -373,7 +373,29 @@ def bulk():
     return out
 
 
+SEAL_FILES = ["armb/b4_analyze.py", "armb/noise_calib.py", "armb/q1_warp_v2.py", "armb/q1_warp.py", "armb/q1_licence.py",
+              "armb/q1_models.py", "armb/q2_licence.py", "armb/grids.py", "armb/b4_extract.py", "s3stats.py",
+              "stage3_calib_v2.py", "stage2_g7.py", "stage3_extract.py", "stage3_witness.py",
+              "results/armb_q1_licence.json", "results/armb_q1_warp_licence_v2.json", "results/armb_q2_licence.json",
+              "results/armb_noise_calibration.json", "results/armb_bulk_power_70m.json"]
+
+
+def verify_seal():
+    """FAIL-CLOSED seal check (Will 09-29): every file in the sealed manifest (armb/B4_SEAL.json, or $B4_SEAL for tests)
+    must match its sha256, else exit 4 before anything is computed or written. A missing manifest also exits 4."""
+    import hashlib, os
+    fp = Path(os.environ.get("B4_SEAL", str(HERE / "B4_SEAL.json")))
+    if not fp.exists():
+        print(f"SEAL CHECK FAILED: manifest {fp} missing", flush=True); sys.exit(4)
+    man = json.loads(fp.read_text())["files"]
+    bad = [f for f in SEAL_FILES if f not in man or hashlib.sha256((ROOT / f).read_bytes()).hexdigest() != man[f]]
+    if bad:
+        print(f"SEAL CHECK FAILED: {bad}", flush=True); sys.exit(4)
+    print(f"seal check OK ({len(SEAL_FILES)} files)", flush=True)
+
+
 if __name__ == "__main__":
+    verify_seal()
     which = sys.argv[1]
     for q, fn in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("bulk", bulk)):
         if which in (q, "all"):

@@ -318,3 +318,22 @@ Full rule: the `armb/q1_warp_v2.py` docstring (sha256 6f25590574f06dbe).
 
 **Dry run** (fabricated cache): PASS. The planted warmup-anchored truth still gives "SUPPORTED: WARMUP-driven" via E4 on
 A2; the bulk-violation ladder was exercised. CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
+
+## B4 amendment 4 — 2026-09-29 ~13:40: upper-confidence noise row + known-answer case + FAIL-CLOSED seal check (pre-data: no arm statistic exists; the chain is extracting A1)
+1. **Row rule** (sealed b3d8efa, before its calibration re-run): the smallest injected level whose **5th-percentile**
+   measured noise is ≥ the observed value, maximum over iid/AR. This is an upper confidence bound. The median it
+   replaces left about a 50% chance of too low a row. The calibration (`results/armb_noise_calibration.json`) now
+   stores q05. On A2, the licensed 1% row applies only if the measured noise is ≤ 0.0062.
+2. **Known-answer case in the dry run:** 1.4% noise on A2's dense grid, 400 draws per type. It maps to ≥ 2% (not
+   licensed for A2) or is declined in 1.000 of iid and 1.000 of AR draws.
+   - For the record, the ORIGINAL uncalibrated rule (bde3656) would have picked the licensed 1% row in 0.917 of AR
+     draws (0.000 of iid). The defect was real and large for correlated noise.
+3. **Seal check:** there was none. b4_run.sh would have run whatever b4_analyze.py was on disk.
+   - `b4_analyze.py` now verifies, before computing or writing anything, the sha256 of itself and 18 inputs against
+     `armb/B4_SEAL.json` (the code, the licences, the calibration, the grids and the Stage 3 modules it uses).
+   - A mismatch or a missing manifest exits 4, which halts the chain.
+   - The running `b4_run.sh` was NOT edited (bash reads a running script lazily).
+   - `armb/test_b4_seal.py`: the real manifest passes; tampered and missing manifests each exit 4 with nothing
+     written. CHECKRUN armb/test_b4_seal.py EXIT=0 PASS.
+4. **Dry run:** PASS. CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
+- **Manifest:** `armb/B4_SEAL.json` sha256 d17d24ed9dc72cf8.

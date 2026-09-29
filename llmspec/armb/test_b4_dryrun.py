@@ -115,5 +115,22 @@ except Exception as e:
     ok = False; import traceback; traceback.print_exc(); print("bulk VIOLATED branch FAILED:", repr(e))
 finally:
     B.grid = _full_grid; B.STOPS.clear(); B.STOPS.update(_full_stops)
+# known answer for B4 amendments 3-4 (Will 09-29): 1.4% noise on A2's dense grid must map to the 2% row (not licensed
+# for A2) or be declined -- the exact case the uncalibrated / median rules got wrong. >= 95% of draws, both noise types.
+import noise_calib as NC  # noqa: E402
+import q1_licence as QL  # noqa: E402
+from grids import arm_grid  # noqa: E402
+cal = json.loads((ROOT / "results" / "armb_noise_calibration.json").read_text())["q1"]["A2"]
+gA2 = np.array(arm_grid("A2"), float); shapesA2 = [f for _, _, f, _, _ in QL.shapes(gA2, 3000)]
+for ar in (False, True):
+    got, old_med = [], []
+    for d in range(400):
+        m = float(NC.measure(shapesA2[d % len(shapesA2)] * (1 + QL.noise(rng, len(gA2), 1, 0.014, ar)[0]), 9, True))
+        L = NC.level(m, cal, NC.REL); got.append(L is None or L >= 0.02)
+        old_med.append(min([x for x in NC.REL if cal[f"{x}_{'ar' if ar else 'iid'}"]["median"] >= m], default=None))
+    frac = float(np.mean(got)); bad_old = float(np.mean([x == 0.01 for x in old_med]))
+    good = frac >= 0.95; ok &= good
+    print(f"known answer 1.4% {'AR' if ar else 'iid'} on A2: mapped to >= 2% or declined in {frac:.3f} of draws "
+          f"({'OK' if good else 'BAD'}); the old median-with-own-type rule would have picked the licensed 1% row in {bad_old:.3f}")
 print("DRY RUN", "PASS" if ok else "FAIL"); shutil.rmtree(TMP)
 sys.exit(0 if ok else 1)
