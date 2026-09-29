@@ -149,7 +149,7 @@ and NOT pushed.
 - **TRAINING COMPLETE:** A0, A1, A2, M0s1, M0s2 (queue closed 10:41 on 09-29).
   - A0 passed B-G1 at all 14 steps (worst |z| 1.87).
   - Every checkpoint is on spot with its sha256 .ok marker: A0 161, A1 181, A2 257 (dense), M0s1 161, M0s2 161.
-- **B4 CHAIN RUNNING** (`armb/b4_run.sh`, detached; log armb/b4_run.log; sealed code bde3656 + amendments 3 (9a47dd5) and 4 (0cebc89: 5th-percentile noise row, FAIL-CLOSED seal check -- b4_analyze.py verifies armb/B4_SEAL.json (19 files) before running; any change to a sealed file halts the analysis stage)):
+- **B4 CHAIN RUNNING** (`armb/b4_run.sh`, detached; log armb/b4_run.log; sealed code bde3656 + amendments 3 (9a47dd5), 4 (0cebc89) and 5 (3c11ab0: data provenance in every result JSON) (5th-percentile noise row, FAIL-CLOSED seal check -- b4_analyze.py verifies armb/B4_SEAL.json (19 files) before running; any change to a sealed file halts the analysis stage)):
   refs (10 × 14 shared steps + pythia-70m step143000) → 70M witness → arms A0..M0s2 → `b4_analyze.py all`
   (checkrun). ~8 h on the GPU.
   - Resume: re-run armb/b4_run.sh (every stage skips finished outputs).
