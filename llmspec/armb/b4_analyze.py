@@ -9,6 +9,9 @@ Common measurements (declared here, all fixed before data):
   as in q1_warp.noise_level; window 5, order 2 for Q2 as in q2_licence.x1), RELATIVE (residual / smooth) for stable
   rank / loss, ABSOLUTE for fractions; lag-1 autocorrelation of the residual > 0.25 -> the AR(1) licence row, else iid.
   Licence row = the next-higher tabulated noise level; above the largest level -> NOT LICENSED (descriptive).
+B4 AMENDMENT 3 (2026-09-29, pre-data): noise rows are chosen in INJECTED units via noise_calib (the measured SG
+    residual SD understates sigma), and a licence cell is used only if licensed for BOTH iid and AR(1) at that level
+    (conservative combination: r* max, c_fit min, e / e_x max); the lag-1 type classifier is no longer used.
 B4 AMENDMENT 2 (2026-09-28, pre-data): E4 cells from the v2 licence (armb_q1_warp_licence_v2.json; HALFWAY retired,
     midpoint confusers); SUPPORTED worded "X-driven" only where NO_SIMPLE_ANCHOR is licensed, else "the closest of the
     three models is X"; an unlicensed NO_SIMPLE_ANCHOR decision is reported INCONCLUSIVE; grids = grids.arm_grid.
@@ -48,6 +51,7 @@ import q1_warp as QW  # noqa: E402
 import q2_licence as Q2L  # noqa: E402
 import q1_warp_v2 as QW2  # noqa: E402  (B4 amendment 2: E4 licence v2; importing it points QW.window at the arm grids)
 from grids import arm_grid  # noqa: E402  (B1a-A8: A2 dense grid)
+import noise_calib as NC  # noqa: E402  (B4 amendment 3: measured -> injected noise units; both noise types)
 
 H, DH, D, NL, ROT = 8, 64, 512, 6, 16
 TYPES = ["Q", "K", "V", "O", "MLP_IN", "MLP_OUT"]
@@ -108,45 +112,52 @@ def row(level, levels):
 
 # ---------------------------------------------------------------- Q1
 def q1():
-    warp = load_json("armb_q1_warp_licence_v2.json")["cells"]; loc = load_json("armb_q1_licence.json")["cells"]   # E4 licence v2
+    """B4 amendment 3: rows are chosen by NC.level (calibrated, max over iid/AR) and a cell is used only if licensed for
+    BOTH noise types at that level (conservative: r* = max, c_fit = min, NSA licensed only if in both)."""
+    warp = load_json("armb_q1_warp_licence_v2.json")["cells"]; loc = load_json("armb_q1_licence.json")["cells"]
+    cal = load_json("armb_noise_calibration.json")["q1"]
     rng = np.random.default_rng(20261001); out = {}
-    g0 = np.array(grid("A0"), float)
+    g0 = np.array(grid("A0"), float); REL = NC.REL
     for M, name in (("O", "TP_O"), ("MLP_OUT", "TP_MLPOUT")):
-        y0 = traj("A0", grid("A0"), M); s0, typ0, _ = noise(y0, 9, True)
-        # A0's own turning point (location route; also decides NOT APPLICABLE AT 70M)
-        lic0 = loc.get(f"stop3000_s{row(s0, [0.005, 0.01, 0.02, 0.05])}_{typ0}") if row(s0, [0.005, 0.01, 0.02, 0.05]) else None
+        y0 = traj("A0", grid("A0"), M); m0 = float(NC.measure(y0, 9, True)); L0 = NC.level(m0, cal["A0"], REL)
         best0 = None
-        if lic0:
-            cands = [(E, v["e_sigma_9875_worst_shape"]) for E, v in lic0["licence"].items() if v["LICENSED"]]
-            best0 = min(cands, key=lambda c: c[1]) if cands else None
+        if L0 is not None:
+            c = [loc[f"stop3000_s{L0}_{t}"]["licence"] for t in ("iid", "ar")]
+            cands = [(E, max(c[0][E]["e_sigma_9875_worst_shape"], c[1][E]["e_sigma_9875_worst_shape"]))
+                     for E in c[0] if c[0][E]["LICENSED"] and c[1][E]["LICENSED"]]
+            best0 = min(cands, key=lambda z: z[1]) if cands else None
         t0 = tp0 = None
         if best0:
             est = QL.estimate(y0[None, :], g0, 3000, rng)[0]; j = {"E1": 0, "E2": 3, "E3": 6}[best0[0]]
             tp0, t0 = est[j], est[j + 1]
-        rec = {"A0": {"noise": s0, "noise_type": typ0, "estimator": best0, "has_tp": tp0, "t0": t0}}
+        rec = {"A0": {"noise_measured": m0, "noise_level_calibrated": L0, "estimator": best0, "has_tp": tp0, "t0": t0}}
         for X in ("A1", "A2"):
-            gX = np.array(grid(X), float); yX = traj(X, grid(X), M); sX, typX, _ = noise(yX, 9, True)
-            s_pool = max(s0, sX); typ = "ar" if "ar" in (typ0, typX) else "iid"; lvl = row(s_pool, [0.005, 0.01, 0.02, 0.05])
-            cell = warp.get(f"{X}_s{lvl}_{typ}") if lvl else None
-            r = {"noise_pooled": s_pool, "noise_type": typ, "warp_cell": f"{X}_s{lvl}_{typ}" if lvl else None}
-            if cell and cell["LICENSED"]:
-                dec, sse, fr = QW.decide(g0, y0, gX, yX, X, cell["r_star"], cell["c_fit"])
-                if dec == "NO_SIMPLE_ANCHOR" and not cell["NSA_LICENSED"]:
+            gX = np.array(grid(X), float); yX = traj(X, grid(X), M); mX = float(NC.measure(yX, 9, True))
+            LX = NC.level(mX, cal[X], REL); lvl = None if (L0 is None or LX is None) else max(L0, LX)
+            cells = [warp.get(f"{X}_s{lvl}_{t}") for t in ("iid", "ar")] if lvl else [None, None]
+            r = {"noise_measured": mX, "noise_level_calibrated": LX, "row_level": lvl}
+            if all(cc and cc["LICENSED"] for cc in cells):
+                r_star = max(cc["r_star"] for cc in cells); c_fit = min(cc["c_fit"] for cc in cells)
+                nsa = all(cc["NSA_LICENSED"] for cc in cells)
+                dec, sse, fr = QW.decide(g0, y0, gX, yX, X, r_star, c_fit)
+                if dec == "NO_SIMPLE_ANCHOR" and not nsa:
                     dec = "INCONCLUSIVE (no-model outcome not licensed for this cell)"
-                r.update({"route": "E4", "decision": dec, "sse": sse, "fit_ratio": fr, "r_star": cell["r_star"], "c_fit": cell["c_fit"],
-                          "wording": cell["wording"], "NSA_LICENSED": cell["NSA_LICENSED"]})
+                r.update({"route": "E4", "decision": dec, "sse": sse, "fit_ratio": fr, "r_star": r_star, "c_fit": c_fit,
+                          "NSA_LICENSED": nsa, "wording": "X-driven" if nsa else "closest of the three models is X"})
             else:
                 r.update({"route": "LOCATION"})
                 if not tp0:
                     r["decision"] = "NOT APPLICABLE AT 70M (no licensed turning point in A0)"
                 else:
-                    lvlX = row(sX, [0.005, 0.01, 0.02, 0.05]); licX = loc.get(f"stop{STOPS[X]}_s{lvlX}_{typX}") if lvlX else None
-                    candX = [(E, v["e_sigma_9875_worst_shape"]) for E, v in (licX or {}).get("licence", {}).items() if v["LICENSED"]]
+                    stopX = 5000 if X == "A1" else 3000
+                    lic = [loc.get(f"stop{stopX}_s{LX}_{t}", {}).get("licence", {}) for t in ("iid", "ar")] if LX else [{}, {}]
+                    candX = [(E, max(lic[0][E]["e_sigma_9875_worst_shape"] or 1e9, lic[1][E]["e_sigma_9875_worst_shape"] or 1e9))
+                             for E in lic[0] if lic[0][E]["LICENSED"] and lic[1].get(E, {}).get("LICENSED")]
                     if not candX:
-                        r["decision"] = "DESCRIPTIVE (no licensed estimator at the arm's noise)"
+                        r["decision"] = "DESCRIPTIVE (no licensed estimator at the arm's calibrated noise, both types)"
                     else:
-                        E, eX = min(candX, key=lambda c: c[1]); e0 = best0[1]
-                        est = QL.estimate(yX[None, :], gX, STOPS[X], rng)[0]; j = {"E1": 0, "E2": 3, "E3": 6}[E]
+                        E, eX = min(candX, key=lambda z: z[1]); e0 = best0[1]
+                        est = QL.estimate(yX[None, :], gX, stopX, rng)[0]; j = {"E1": 0, "E2": 3, "E3": 6}[E]
                         tpX, tX = est[j], est[j + 1]
                         P = QM.predict(int(round(t0)), X); gap = QM.min_gap(int(round(t0)), X)
                         ec = {m: float(np.hypot(eX, (P["dLRINT_dt0"] if m == "LR_INT" else 1.0) * e0)) for m in ("STEP", "WARMUP", "LR_INT")}
@@ -160,7 +171,6 @@ def q1():
                             r["consistent"] = {m: bool(abs(tX - P[m]) <= ec[m]) for m in ("STEP", "WARMUP", "LR_INT")}
                             r["decision"] = "CONSISTENT: " + ",".join(m for m, v in r["consistent"].items() if v)
             rec[X] = r
-        # overall verdict (sealed lattice)
         e4 = [rec[X]["decision"] for X in ("A1", "A2") if rec[X].get("route") == "E4"]
         if e4:
             if "NO_SIMPLE_ANCHOR" in e4:
@@ -222,13 +232,13 @@ def events(src, steps, bands, wit):
         y = traj(src, steps, M); tr[f"E_sr({M})"] = (y, 0.5 * y[0], -1, "rel")
     lt = np.array([float(markers(src, t)["loss_text"]) for t in steps]); i3 = steps.index(3000)
     tr["E_loss"] = (lt, 0.5 * (lt[0] + lt[i3]), -1, "rel")
-    lic = load_json("armb_q2_licence.json")["cells"]; out = {}
+    lic = load_json("armb_q2_licence.json")["cells"]; cal = load_json("armb_noise_calibration.json")["q2"]["A0grid"]; out = {}
     for k, (y, thr, sgn, kind) in tr.items():
-        s, typ, _ = noise(y, 5, kind == "rel")
-        lvl = row(s, [0.01, 0.03, 0.07] if kind == "abs" else [0.005, 0.01, 0.02, 0.05])
-        ex = lic[f"{kind}_{lvl}_{typ}"]["e_x_95_worst_shape"] if lvl else None
+        m = float(NC.measure(y, 5, kind == "rel"))                                   # B4 amendment 3: calibrated row
+        lvl = NC.level(m, cal, NC.ABS if kind == "abs" else NC.REL, prefix=f"{kind}_")
+        ex = max(lic[f"{kind}_{lvl}_iid"]["e_x_95_worst_shape"], lic[f"{kind}_{lvl}_ar"]["e_x_95_worst_shape"]) if lvl else None
         tc = float(Q2L.x1(y[None, :], g, thr, sgn)[0])
-        out[k] = {"t": None if np.isnan(tc) else tc, "e_x": ex, "noise": s, "noise_type": typ}
+        out[k] = {"t": None if np.isnan(tc) else tc, "e_x": ex, "noise_measured": m, "noise_level_calibrated": lvl}
     return out
 
 

@@ -13,7 +13,7 @@ import q1_warp as QW
 
 rng = np.random.default_rng(7)
 TMP = Path(tempfile.mkdtemp()); (TMP / "results").mkdir()
-for f in ("armb_q1_licence.json", "armb_q1_warp_licence.json", "armb_q1_warp_licence_v2.json", "armb_q2_licence.json", "armb_bulk_power_70m.json"):
+for f in ("armb_q1_licence.json", "armb_q1_warp_licence.json", "armb_q1_warp_licence_v2.json", "armb_q2_licence.json", "armb_bulk_power_70m.json", "armb_noise_calibration.json"):
     shutil.copy(ROOT / "results" / f, TMP / "results" / f)
 shutil.copy(ROOT / "results" / "probes.npz", TMP / "results" / "probes.npz")
 B.ROOT, B.RES = TMP, TMP / "results"

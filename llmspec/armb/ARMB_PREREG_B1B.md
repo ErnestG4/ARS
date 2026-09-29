@@ -295,3 +295,26 @@ Full rule: the `armb/q1_warp_v2.py` docstring (sha256 6f25590574f06dbe).
 - CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
 
 **Arm data seen:** unchanged from the first B4 seal (training logs and B-G1 gate metrics only).
+
+## B4 amendment 3 — 2026-09-29 ~12:10: noise rows in the licences' INJECTED units (pre-data: only reference runs have been extracted; no arm statistic exists)
+**Frozen** (sha256, first 16 hex characters):
+  - `armb/b4_analyze.py` 72b81d621ce660e9
+  - `armb/noise_calib.py` 71cf854dde94db82
+  - `armb/test_b4_dryrun.py` 8b42bb9343df8010
+
+**Defect (raised by Will's question).**
+- The estimator, metric and window were sealed in bde3656: an SG(9,2) or SG(5,2) residual SD, relative or absolute, over
+  the whole trajectory on the arm's grid.
+- But the licence rows are indexed by INJECTED σ, and the measured SG residual SD understates σ (e.g. AR(1) 1% measures
+  0.68% for Q1 on A2's grid; Q2 AR ≈ 45% of σ; `results/armb_noise_calibration.json`, 495da26).
+- Comparing them directly picks too low a row, which is anti-conservative.
+
+**Fix** (calibration rule committed bf5c005 before it ran):
+- The observed measurement maps to the smallest injected level whose MEDIAN measured noise on the licence's own synthetic
+  curves, on that arm's exact grid, is ≥ the observed value. The maximum over the iid and AR(1) types is taken.
+- A licence cell is used only if licensed for BOTH types at that level, combined conservatively: r* the maximum, c_fit
+  the minimum, e and e_x the maximum, NO_SIMPLE_ANCHOR licensed only if licensed in both.
+- The lag-1 > 0.25 type classifier is no longer used.
+
+**Dry run** (fabricated cache): PASS. The planted warmup-anchored truth still gives "SUPPORTED: WARMUP-driven" via E4 on
+A2; the bulk-violation ladder was exercised. CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS.
