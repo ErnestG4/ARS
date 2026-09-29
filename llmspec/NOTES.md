@@ -145,31 +145,16 @@ and NOT pushed.
   - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
   - Sub-1000 "low-rank early" → arm B.
 
-## 4. Running now (09-27 16:25 PDT)
-- **A0 v2 COMPLETE (03:19 on 09-28). B-G1 PASS at all 14 steps (0–3000), worst |z| 1.87 vs T 5.67**
-  (results/armb_bg1_verdicts_A0.jsonl). The anchor holds.
-- **A1 TRAINING** since 03:25:57 (queue_runner PID 472628); step 5000 is ~13:45.
-  - The old runner and the chained runner both crashed at 03:19 on a blank-line JSON parse in verdicts(), silently
-    (stderr went to /dev/null). Fixed; stderr now goes to armb/queue_runner.stderr.log. The GPU was idle ~7 min.
-  - The chain is consumed. The new runner's list is A1 → A2 → M0s1 → M0s2.
-  - History: bf16 aborted (A4); fp16 v1 FAILED B-G1 at 128 from underflow (A5).
-  - GPU side: `armb/queue_runner.py` (PID 472628), then `armb/train.py A0` (log armb/train_A0.log; per-step
-    armb/staging/A0/trainlog.jsonl).
-  - Checkpoints: staged in armb/staging/A0/, then uploaded to spot:~/llmspec_armb/ckpt/A0/ with a sha256 `.ok` marker,
-    then deleted locally.
-  - Queue: A0 (to 3000, ~6.2 h) → B-G1 verdicts for all gating steps + 3000 PASS → A1 (to 5000) → A2 (to 3000).
-    M0-s1 and M0-s2 are NOT queued (Muon + seed-1 index maps still to build).
-  - Resume after any stop: `setsid nohup /home/combust/fmexplorer/bin/python3 armb/queue_runner.py &`. It resumes from
-    armb/staging/<arm>/resume.pt (every 50 steps); finished arms are skipped.
-  - Gate FAIL → the puller writes llmspec/STOP "B-G1 FAIL step t" → the trainer stops → the queue ends.
-- **spot:** `bg1_daemon.sh` in tmux `claude` scores A0's gating checkpoints in step order into
-  ~/llmspec_armb/bg1/bg1_verdicts.jsonl (log ~/llmspec_armb/bg1_daemon.log). It exits when all 14 steps are scored.
-- **Licences** (sealed B1b 766c92c): `armb/run_licences.sh` running q2 → q1_warp → q1_licence under checkrun (~1 h, CPU).
-  Results in results/armb_q*_licence.json and armb/*.checkrun.log.
-- **SSH agent:** Will rotated /tmp/cc-agent.sock to a 30-day lifetime (09-28 ~09:10); verified. At the next stopping
-  point Will revokes it, and a permanent narrow-scope key replaces it (the generated ~/.ssh/id_ed25519_spot_llmspec is
-  one candidate).
-- **memwatch:** PID 12700.
+## 4. Running now (09-29 11:00 PDT)
+- **TRAINING COMPLETE:** A0, A1, A2, M0s1, M0s2 (queue closed 10:41 on 09-29).
+  - A0 passed B-G1 at all 14 steps (worst |z| 1.87).
+  - Every checkpoint is on spot with its sha256 .ok marker: A0 161, A1 181, A2 257 (dense), M0s1 161, M0s2 161.
+- **B4 CHAIN RUNNING** (`armb/b4_run.sh`, detached; log armb/b4_run.log; sealed code bde3656):
+  refs (10 × 14 shared steps + pythia-70m step143000) → 70M witness → arms A0..M0s2 → `b4_analyze.py all`
+  (checkrun). ~8 h on the GPU.
+  - Resume: re-run armb/b4_run.sh (every stage skips finished outputs).
+  - Outputs: cache/armb/<arm>/..., cache/s3/pythia-70m*/..., results/armb_b4_{q1,q2,q3,q4,bulk}.json.
+- **memwatch** PID 12700. **Alarm** cron replaced 09-29 with a B4-chain prompt.
 
 - **09-28 morning (Will's three items):**
   - (1) Muon pre-launch check: already sealed and PASSED (A6, 8f51f25).

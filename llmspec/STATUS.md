@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-29 04:25 PDT
+# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-29 11:00 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
 lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). The alarm cron was removed 09-27 ~09:20 (queue
@@ -22,17 +22,11 @@ empty). Interrupt: `touch llmspec/STOP`.
     The per-head-Q drift is NOT established.**
   - QK-product "function" reading WITHDRAWN (a realistic density alone moves q by ~0.12 under β = 1).
 
-## Running (auto) — Arm B (09-28 01:55)
-- **A0 v2 COMPLETE; B-G1 PASS at all 14 steps 0–3000** (worst |z| 1.87 vs T 5.67).
-- **A1, A2, M0s1 COMPLETE** (M0s1 04:16 on 09-29). **M0s2 training** since 04:16 (seed-1 init + seed-1 batches pulled
-  from spot and sha-verified; replica check passed), ETA ~11:00. That is the last arm; B4 extraction follows.
-- Q1 E4 licence v2 is sealed and has run (HALFWAY retired). B4 was re-sealed against it (bde3656). No extraction yet.
-- **Queue:** A0 → [B-G1 3000] → A1 (to 5000) → A2 → M0s1 (via chain_after.sh 447697) → M0s2.
-- **spot:** B-G1 daemon (tmux claude:0). Seed-1 batches COMPLETE (3000/3000, MANIFEST consistent).
-- **Alarms:** cron d06bd494 at :13/:43 (Will asked). memwatch 12700.
-- **Will, morning:** rotate the ssh agent (/tmp/cc-agent.sock) before ~13:05; A1 uploads checkpoints then.
-- Earlier today: bf16 A0 aborted (A4); fp16 v1 FAILED B-G1 at 128 from loss-scale underflow, a diagnosis confirmed
-  by a pre-committed test (A5); Muon update test PASS (A6); seed0 data known-answer 51,200/51,200 (A7).
+## Running (auto) — Arm B (09-29 11:00)
+- **Training complete (all 5 arms).** A0 anchor PASSED B-G1 at all 14 steps.
+- **B4 extraction + analysis running** (armb/b4_run.sh, sealed code): refs → 70M witness → arms → Q1–Q4 + bulk null.
+  ~8 h.
+- Q1 E4 licence v2 is in force (A2 ≤ 1% noise, A1 0.5%). The verdict wording follows the sealed rule.
 
 ## Held
 - Arm B; OLMo stage-1 trajectory (Will's calls).
