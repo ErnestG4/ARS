@@ -349,3 +349,13 @@ A2; the bulk-violation ladder was exercised. CHECKRUN armb/test_b4_dryrun.py EXI
    is described that way in the write-up.
 3. **Re-sealed:** `armb/B4_SEAL.json` regenerated, sha256 4639fbdcfe1652a3.
    - CHECKRUN armb/test_b4_dryrun.py EXIT=0 PASS; CHECKRUN armb/test_b4_seal.py EXIT=0 PASS.
+
+## B4 amendment 6 — 2026-09-29 ~15:50: retries on the checkpoint reads (engineering; the extracted values are unchanged)
+- **What happened.** At 14:46 the A2 extraction stage died on its first failed ssh read (A2 step 1425): spot became
+  unreachable ("No route to host"; Will: spot hung, memory maxed; cause under investigation).
+- **Defect:** `CkptArmb` had NO retries, against the template rule "retries on every network step" (memo §4).
+- **Fix:** `ssh_read()` retries with a 20 s connect timeout and min(2^i, 300) s backoff, 12 tries (~30 min) before
+  failing. Outputs are identical: only the transport is retried.
+- A2 is cached through step 1420 and resumes from there.
+- **Manifest regenerated:** sha256 4d26b387afa65de4. CHECKRUN armb/test_b4_seal.py EXIT=0 PASS.
+- No arm statistic exists. This concerns extraction transport only.

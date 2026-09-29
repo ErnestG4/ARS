@@ -38,6 +38,21 @@ Q4_SHARED_INTERVALS = [(512, 1000), (1000, 2000), (2000, 3000)]
 CACHE = ROOT / "cache" / "armb"
 
 
+def ssh_read(cmd, tries=12):
+    """B4 amendment 6 (2026-09-29): every ssh read is RETRIED with backoff (memo §4: retries on every network step).
+    An ssh connection failure at A2 step 1425 (spot unreachable, 'No route to host') had killed the stage outright.
+    12 tries, sleeping min(2^i, 300) s between them (~30 min in total) before giving up."""
+    import time
+    err = None
+    for i in range(tries):
+        r = subprocess.run(["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=20", "spot", cmd], capture_output=True)
+        if r.returncode == 0:
+            return r.stdout
+        err = f"rc={r.returncode} {r.stderr.decode(errors='replace')[-200:]}"
+        time.sleep(min(2 ** i, 300))
+    raise RuntimeError(f"ssh {cmd!r} failed after {tries} tries: {err}")
+
+
 class CkptArmb:
     """Same interface as stage3_extract.Ckpt for an Arm B checkpoint; fp32 kept as fp32 (masters are not on the fp16 grid)."""
     SKIP = ("attention.bias", "attention.masked_bias", "inv_freq")
@@ -45,8 +60,8 @@ class CkptArmb:
     def __init__(self, arm, step):
         self.repo, self.rev = "EleutherAI/pythia-70m", "step0"          # config.json source only
         f = f"~/llmspec_armb/ckpt/{arm}/step{step:05d}.pt"
-        raw = subprocess.run(["ssh", "-o", "BatchMode=yes", "spot", f"cat {f}"], capture_output=True, check=True).stdout
-        ok = subprocess.run(["ssh", "-o", "BatchMode=yes", "spot", f"cat {f}.ok"], capture_output=True, text=True, check=True).stdout.strip()
+        raw = ssh_read(f"cat {f}")                               # B4 amendment 6: retried (network step)
+        ok = ssh_read(f"cat {f}.ok").decode().strip()
         assert hashlib.sha256(raw).hexdigest() == ok, f"{arm} step {step}: sha256 != .ok marker"
         sd = torch.load(io.BytesIO(raw), map_location="cpu", weights_only=True)
         self.gpu = {k: v.float().to(X.DEV) for k, v in sd.items() if v.is_floating_point() and not k.endswith(self.SKIP)}
