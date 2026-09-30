@@ -161,6 +161,9 @@ and NOT pushed.
   - Our extraction reads measured benign after the resume: spot "used" flat at ~3.1 GB, only reclaimable page cache
     grows, no process pile-up.
   - The retry fix (B4 amendment 6, 960f775) is in place. A2 resumed at step 1425.
+- **09-29 18:55 extraction COMPLETE; ANALYSIS RUNNING** (`b4_analyze.py all` under checkrun, PID 780406): `seal check OK (19 files)`;
+  q1–q4 written 18:55–18:56; bulk stage at 221/921 checkpoints at 19:49 (~4/min, ETA ~22:30). Stdout goes to checkrun's tmp file.
+  - `armb/ARMB_FINDINGS.md` DRAFTED from q1–q4 (bulk section PENDING; uncommitted until the bulk JSON + CHECKRUN line exist).
 - **memwatch** PID 12700. **Alarm** cron replaced 09-29 with a B4-chain prompt.
 
 - **09-28 morning (Will's three items):**
