@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-30 07:25 PDT
+# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-30 (merge into main)
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
 lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). No alarm set (B4 cron 6c2c8221 deleted 09-29 22:55,
@@ -34,6 +34,10 @@ chain complete). Interrupt: `touch llmspec/STOP`.
 ## 09-30
 - Arm B final form agreed with Will (ARMB_FINDINGS §0).
 - FINDINGS_MEMO critique fixes #1, #3 and #11 done, plus Open leads; G2c closed #11 as neither-supports-nor-contradicts.
+- Seed-1 identity check (A9): INCONCLUSIVE as sealed (C2 was a dead arm; T separated cleanly from the standard order).
+  Q4 stands with the pairing caveat. The alignment follow-up was declined; no A10 exists.
+- Zoo seating of the G7 classes: DEFERRED explicitly (FINDINGS_MEMO §5).
+- llm-spectra merged into main (--no-ff). Will pushes to the Forgejo + GitHub, with a Zenodo snapshot of the merge commit.
 - Nothing running.
 
 ## Held
