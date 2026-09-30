@@ -1,0 +1,1 @@
+s3_g2|/home/combust/fmexplorer/bin/python3 -u stage3_g2.py

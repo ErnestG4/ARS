@@ -1,0 +1,4 @@
+s3_motion|/home/combust/fmexplorer/bin/python3 -u stage3_motion.py
+s3_analyze|OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3_mp2_patch|/home/combust/fmexplorer/bin/python3 -u stage3_mp2_patch.py
+s3_report|/home/combust/fmexplorer/bin/python3 -u stage3_report.py

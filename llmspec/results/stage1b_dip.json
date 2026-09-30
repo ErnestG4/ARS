@@ -1,0 +1,344 @@
+{
+ "licensed": true,
+ "f0": 0.01,
+ "runs": {
+  "olmo2-1b:final:main": {
+   "Q": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 22,
+     "frac": 0.0859375,
+     "binom_p": 3.569839893845987e-14,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 14,
+     "frac": 0.0546875,
+     "binom_p": 4.342290600802892e-07,
+     "shows_peaks": false
+    }
+   },
+   "K": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 12,
+     "frac": 0.046875,
+     "binom_p": 1.3473250175915818e-05,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 8,
+     "frac": 0.03125,
+     "binom_p": 0.004633041567300309,
+     "shows_peaks": false
+    }
+   },
+   "V": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    }
+   },
+   "O": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    }
+   }
+  },
+  "olmo2-1b:stage1_end:stage1-step1907359-tokens4001B": {
+   "Q": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 63,
+     "frac": 0.24609375,
+     "binom_p": 9.362564601130691e-67,
+     "shows_peaks": true
+    },
+    "trim_nearzero": {
+     "k": 34,
+     "frac": 0.1328125,
+     "binom_p": 2.9752278611407566e-27,
+     "shows_peaks": true
+    }
+   },
+   "K": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 51,
+     "frac": 0.19921875,
+     "binom_p": 2.6994735288906102e-49,
+     "shows_peaks": true
+    },
+    "trim_nearzero": {
+     "k": 22,
+     "frac": 0.0859375,
+     "binom_p": 3.569839893845987e-14,
+     "shows_peaks": false
+    }
+   },
+   "V": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 1,
+     "frac": 0.00390625,
+     "binom_p": 0.923685016093406,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 1,
+     "frac": 0.00390625,
+     "binom_p": 0.923685016093406,
+     "shows_peaks": false
+    }
+   },
+   "O": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 1,
+     "frac": 0.00390625,
+     "binom_p": 0.923685016093406,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 1,
+     "frac": 0.00390625,
+     "binom_p": 0.923685016093406,
+     "shows_peaks": false
+    }
+   }
+  },
+  "olmo2-1b:step0:stage1-step0-tokens0B": {
+   "Q": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   },
+   "K": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   },
+   "V": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   },
+   "O": {
+    "n_heads": 256,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   }
+  },
+  "pythia-1.4b:final:step143000": {
+   "Q": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    }
+   },
+   "K": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    }
+   },
+   "V": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    }
+   },
+   "O": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    }
+   }
+  },
+  "pythia-1.4b:step0:step0": {
+   "Q": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   },
+   "K": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   },
+   "V": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   },
+   "O": {
+    "n_heads": 384,
+    "n_zero_median": 0,
+    "all_levels": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "trim_nearzero": {
+     "k": 0,
+     "frac": 0.0,
+     "binom_p": 1.0,
+     "shows_peaks": false
+    },
+    "G0_pass": true
+   }
+  }
+ }
+}

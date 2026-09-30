@@ -1,0 +1,15 @@
+abs_0.01_iid {'e_x_95_all': 25.0, 'e_x_95_worst_shape': 75.0, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+abs_0.01_ar {'e_x_95_all': 50.0, 'e_x_95_worst_shape': 100.0, 'worst_shape': 'sig_tc1800_w0.6_fall', 'max_miss_rate': 0.0}
+abs_0.03_iid {'e_x_95_all': 75.0, 'e_x_95_worst_shape': 175.0, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+abs_0.03_ar {'e_x_95_all': 100.0, 'e_x_95_worst_shape': 200.0, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+abs_0.07_iid {'e_x_95_all': 150.0, 'e_x_95_worst_shape': 325.0, 'worst_shape': 'sig_tc1800_w0.6_fall', 'max_miss_rate': 0.0}
+abs_0.07_ar {'e_x_95_all': 175.0, 'e_x_95_worst_shape': 375.0, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+rel_0.005_iid {'e_x_95_all': 25.0, 'e_x_95_worst_shape': 25.0, 'worst_shape': 'sig_tc800_w0.1_rise', 'max_miss_rate': 0.0}
+rel_0.005_ar {'e_x_95_all': 25.0, 'e_x_95_worst_shape': 25.0, 'worst_shape': 'sig_tc800_w0.1_rise', 'max_miss_rate': 0.0}
+rel_0.01_iid {'e_x_95_all': 25.0, 'e_x_95_worst_shape': 50.0, 'worst_shape': 'sig_tc1200_w0.6_fall', 'max_miss_rate': 0.0}
+rel_0.01_ar {'e_x_95_all': 25.0, 'e_x_95_worst_shape': 50.0, 'worst_shape': 'sig_tc1200_w0.6_rise', 'max_miss_rate': 0.0}
+rel_0.02_iid {'e_x_95_all': 38.0, 'e_x_95_worst_shape': 100.0, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+rel_0.02_ar {'e_x_95_all': 50.0, 'e_x_95_worst_shape': 100.0, 'worst_shape': 'sig_tc1200_w0.6_rise', 'max_miss_rate': 0.0}
+rel_0.05_iid {'e_x_95_all': 75.0, 'e_x_95_worst_shape': 176.25, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+rel_0.05_ar {'e_x_95_all': 100.0, 'e_x_95_worst_shape': 200.0, 'worst_shape': 'sig_tc1800_w0.6_rise', 'max_miss_rate': 0.0}
+CHECKRUN armb/q2_licence.py EXIT=0 PASS

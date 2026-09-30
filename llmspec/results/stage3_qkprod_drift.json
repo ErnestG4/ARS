@@ -1,0 +1,152 @@
+{
+ "doc": "ADDENDUM S3 item 3 (STAGE3_SEED_PREREG.md, a5cd7bf): symmetry discriminator for the per-head-Q drift. LABELLED\nDESCRIPTIVE -- not part of, and not a change to, the frozen drift test.\nPer head, the non-rotary QK product P = Q_nr^T K_nr (1024 x 1024, rank d_head - rot = 48 for 410M) is invariant under the\nQK symmetry (Q -> A Q, K -> A^-T K, A invertible on the non-rotary dims); per-head Q alone is not. Its nonzero singular\nvalues are those of S_q U_q^T K_nr (Q_nr = U_q S_q V_q^T). For each of the 10 410M runs at step 0 and step 143000, the\n384 per-head product spectra are pooled through s3stats (bulk band: <r~> and kde(4) Brody q), against a product witness:\nindependent N(0,1) Q_nr, K_nr factors of the same shapes, same pipeline, R = 20 pools. (Products are scale-free in these\nstatistics, so no scale matching is needed.)\nReading (descriptive): a late-training q drift in the PRODUCT concerns the function; drift only in Q alone concerns where\neach seed sits along the QK symmetry.\nOutput: results/stage3_qkprod_drift.json.\n",
+ "runs": {
+  "pythia-410m": {
+   "step0": {
+    "q": 0.9838598763606258,
+    "rt": 0.5275097798494787,
+    "dq": -0.014371963109113595,
+    "drt": -0.0034144434689847847
+   },
+   "step143000": {
+    "q": 0.9281894404513571,
+    "rt": 0.5295810802422435,
+    "dq": -0.07004239901838227,
+    "drt": -0.0013431430762199659
+   }
+  },
+  "pythia-410m-seed1": {
+   "step0": {
+    "q": 0.9849663978975511,
+    "rt": 0.5286001643377394,
+    "dq": -0.01326544157218823,
+    "drt": -0.0023240589807240752
+   },
+   "step143000": {
+    "q": 0.9206642746340793,
+    "rt": 0.5313093068231458,
+    "dq": -0.07756756483566007,
+    "drt": 0.00038508350468235975
+   }
+  },
+  "pythia-410m-seed2": {
+   "step0": {
+    "q": 0.9963182007546287,
+    "rt": 0.532785135626794,
+    "dq": -0.0019136387151106327,
+    "drt": 0.0018609123083305201
+   },
+   "step143000": {
+    "q": 0.9290669474123203,
+    "rt": 0.5286527361171618,
+    "dq": -0.06916489205741905,
+    "drt": -0.0022714872013016585
+   }
+  },
+  "pythia-410m-seed3": {
+   "step0": {
+    "q": 1.0011824481654505,
+    "rt": 0.5328913656382495,
+    "dq": 0.0029506086957111766,
+    "drt": 0.0019671423197860083
+   },
+   "step143000": {
+    "q": 0.9223114664851075,
+    "rt": 0.5250508719912774,
+    "dq": -0.07592037298463183,
+    "drt": -0.005873351327186027
+   }
+  },
+  "pythia-410m-seed4": {
+   "step0": {
+    "q": 0.9931835260929097,
+    "rt": 0.5282814360287147,
+    "dq": -0.0050483133768296495,
+    "drt": -0.0026427872897487603
+   },
+   "step143000": {
+    "q": 0.9242034900166208,
+    "rt": 0.5274727749702433,
+    "dq": -0.07402834945311854,
+    "drt": -0.0034514483482201985
+   }
+  },
+  "pythia-410m-seed5": {
+   "step0": {
+    "q": 1.0195441336007447,
+    "rt": 0.5355099916566659,
+    "dq": 0.021312294131005327,
+    "drt": 0.004585768338202456
+   },
+   "step143000": {
+    "q": 0.9134710200402395,
+    "rt": 0.532771705159501,
+    "dq": -0.08476081942949987,
+    "drt": 0.001847481841037557
+   }
+  },
+  "pythia-410m-seed6": {
+   "step0": {
+    "q": 1.0028335759003448,
+    "rt": 0.5328697171888288,
+    "dq": 0.004601736430605463,
+    "drt": 0.0019454938703653557
+   },
+   "step143000": {
+    "q": 0.926098877111935,
+    "rt": 0.5291425848577898,
+    "dq": -0.07213296235780442,
+    "drt": -0.0017816384606736957
+   }
+  },
+  "pythia-410m-seed7": {
+   "step0": {
+    "q": 0.9677600839306676,
+    "rt": 0.5277421055827111,
+    "dq": -0.030471755539071776,
+    "drt": -0.0031821177357523878
+   },
+   "step143000": {
+    "q": 0.9533088138777852,
+    "rt": 0.5354246417635345,
+    "dq": -0.04492302559195416,
+    "drt": 0.004500418445071097
+   }
+  },
+  "pythia-410m-seed8": {
+   "step0": {
+    "q": 0.9957471805372483,
+    "rt": 0.5299315697572158,
+    "dq": -0.0024846589324910573,
+    "drt": -0.0009926535612476695
+   },
+   "step143000": {
+    "q": 0.9336149789888781,
+    "rt": 0.5330200933118207,
+    "dq": -0.06461686048086124,
+    "drt": 0.0020958699933572023
+   }
+  },
+  "pythia-410m-seed9": {
+   "step0": {
+    "q": 0.9922000627950148,
+    "rt": 0.5298528852199033,
+    "dq": -0.006031776674724543,
+    "drt": -0.0010713380985601928
+   },
+   "step143000": {
+    "q": 0.9198884885396644,
+    "rt": 0.5273139526282552,
+    "dq": -0.07834335093007494,
+    "drt": -0.0036102706902082504
+   }
+  }
+ },
+ "witness": {
+  "q_mean": 0.9982318394697394,
+  "q_sd": 0.012060693736171387,
+  "rt_mean": 0.5309242233184635,
+  "rt_sd": 0.0023853330804538934,
+  "R": 20
+ }
+}

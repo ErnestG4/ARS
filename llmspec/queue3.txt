@@ -1,0 +1,3 @@
+s1_spectra_v2_pythia|/home/combust/fmexplorer/bin/python3 -u stage1_spectra.py pythia-1.4b step143000 step0
+s1_analyze_v2|/home/combust/fmexplorer/bin/python3 -u stage1_analyze.py
+s1_calibrate_v2check|SEAL_OUT=stage1_peak_criterion.v2check.json /home/combust/fmexplorer/bin/python3 -u stage1_calibrate.py

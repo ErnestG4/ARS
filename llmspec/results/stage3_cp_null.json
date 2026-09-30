@@ -1,0 +1,17 @@
+{
+ "doc": "Change-point null calibration (STAGE3_FINDINGS open item; rule declared here before running, 2026-09-26 06:10).\nThe BIC binary segmentation in stage3_analyze.changepoints flagged >= 1 change in 270/337 Pythia-1.4B series. Smooth\ncurvature in log-step may produce breaks by itself.\nNull family (no change point by construction), sampled at the 25 schedule steps >= 1, x = log10(step):\n  sigmoid(x; centre c, width w), c ~ U(1, 4.5), w ~ U(0.2, 1.5); saturating 1 - exp(-(x/a)^b), a ~ U(1, 4), b ~ U(1, 4);\n  and pure linear. Each is scaled to the observed series' range, with Gaussian noise at the observed series' noise level\n  (the residual SD after a 2nd-order local smoother; the median over series is used).\nRULE: change points are LICENSED only if the false-change-point rate (>= 1 change flagged on a null) is <= 5% for the\nmatched null. Otherwise every change point is descriptive only -- as currently labelled -- and the label is now\ncalibrated rather than asserted.\n",
+ "noise_rel_median": 0.08472878958720712,
+ "n_series": 341,
+ "rates": {
+  "sigmoid_noise0.5x": 0.975,
+  "sigmoid_noise1.0x": 0.8575,
+  "sigmoid_noise2.0x": 0.585,
+  "saturating_noise0.5x": 0.9825,
+  "saturating_noise1.0x": 0.885,
+  "saturating_noise2.0x": 0.7025,
+  "linear_noise0.5x": 0.1825,
+  "linear_noise1.0x": 0.215,
+  "linear_noise2.0x": 0.16
+ },
+ "LICENSED": false
+}

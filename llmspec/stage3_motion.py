@@ -1,0 +1,125 @@
+"""Stage 3 motion pass (STAGE3_PREREG.md, Motion): Delta W between consecutive schedule revisions.
+
+Streams each revision once (HF -> GPU, fp16, exact), layer by layer, keeping only the PREVIOUS revision's 24 x 6
+layer matrices resident (~2.7 GB fp16) plus one current layer. Per layer and matrix type, with Delta W = W_b - W_a in fp64:
+  dW_fro_rel       ||Delta W||_F / ||W_a||_F
+  dW_stable_rank   ||Delta W||_F^2 / sigma_max(Delta W)^2
+  dW_frac_top32    ||U32_a^T Delta W||_F^2 / ||Delta W||_F^2, where U32_a are W_a's top-32 left singular vectors
+                   banked by stage3_extract (fp32; the fraction is a ratio of squared norms, so fp32 vectors are
+                   ample); an isotropic Delta W would give 32 / n_rows.
+Output: cache/s3_motion/<a>__<b>.npz per pair (resumable; honours STOP and the host-disk reserve).
+"""
+import os, sys, time
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+from pathlib import Path
+import numpy as np
+import torch
+import remote_st as R
+import stage3_extract as X
+import mcfg
+
+ROOT = Path(__file__).resolve().parent
+EST = "stage3-motion-v1"
+MATS = ("Q", "K", "V", "O", "MLP_IN", "MLP_OUT")
+
+
+def sigma_max(dW):
+    """Largest singular value via the top eigenvalue of the smaller fp64 Gram matrix. Exact for the TOP eigenvalue
+    (absolute error ~1e-16 * sigma_max^2); 25x faster than the full SVD behind matrix_norm(ord=2), which made the
+    pass GPU-bound at ~640 s per pair. Agreement with matrix_norm is checked in verify_motion_sigma.py."""
+    G = dW @ dW.T if dW.shape[0] <= dW.shape[1] else dW.T @ dW
+    return float(torch.linalg.eigvalsh(G)[-1].clamp_min(0).sqrt())
+
+
+def fetch_layer(idx, L, model=None):
+    """One layer's six matrices, streamed HF -> GPU as fp16 (exact: asserted on the fp16 grid)."""
+    p = f"gpt_neox.layers.{L}."
+    keys = ["attention.query_key_value.weight", "attention.dense.weight", "mlp.dense_h_to_4h.weight", "mlp.dense_4h_to_h.weight"]
+    got = {}
+    for k, a, _ in R.fetch_many(idx, [p + k for k in keys]):          # 4 in flight, byte-identical to fetch
+        a16 = a.astype(np.float16)
+        assert np.array_equal(a16.astype(np.float32), a), f"{k}: not on the fp16 grid"
+        got[k[len(p):]] = torch.from_numpy(a16).to(X.DEV)
+    c = mcfg.get(model); H, DH, D = c["H"], c["DH"], c["D"]      # the SOURCE's model, not the env default (fixed 09-27)
+    qkv = got["attention.query_key_value.weight"].reshape(H, 3, DH, D)
+    return {"Q": qkv[:, 0].reshape(D, D), "K": qkv[:, 1].reshape(D, D), "V": qkv[:, 2].reshape(D, D),
+            "O": got["attention.dense.weight"], "MLP_IN": got["mlp.dense_h_to_4h.weight"], "MLP_OUT": got["mlp.dense_4h_to_h.weight"]}
+
+
+class LayerSource:
+    """One revision's per-layer matrices from either checkpoint format: safetensors -> fetch_layer (streamed, unchanged);
+    pytorch_model.bin -> stage3_extract.CkptBin (downloaded + verified, parameters fp16-exact on GPU). close() releases."""
+    def __init__(self, rev, model=None):
+        self.model = model or mcfg.name()
+        c = mcfg.get(self.model)
+        self.bin = c.get("fmt") == "bin"
+        if self.bin:
+            self.ck = X.CkptBin(self.model, rev)
+        else:
+            self.idx = R.index(c["repo"], rev)
+
+    def layer(self, L):
+        if not self.bin:
+            return fetch_layer(self.idx, L, self.model)
+        c = mcfg.get(self.model); H, DH, D = c["H"], c["DH"], c["D"]
+        p = f"gpt_neox.layers.{L}."
+        qkv = self.ck.get32(p + "attention.query_key_value.weight").reshape(H, 3, DH, D)
+        return {"Q": qkv[:, 0].reshape(D, D), "K": qkv[:, 1].reshape(D, D), "V": qkv[:, 2].reshape(D, D),
+                "O": self.ck.get32(p + "attention.dense.weight"), "MLP_IN": self.ck.get32(p + "mlp.dense_h_to_4h.weight"),
+                "MLP_OUT": self.ck.get32(p + "mlp.dense_4h_to_h.weight")}
+
+    def close(self):
+        if self.bin:
+            self.ck.gpu.clear(); self.ck.close()
+
+
+def main(revs):
+    """GPU holds the previous revision's layer matrices (fp16, ~2.7 GB) plus ONE layer of the current revision:
+    each current layer is streamed, compared with prev[L], then replaces it."""
+    out_dir = ROOT / "cache" / f"s3_motion{mcfg.suffix()}"; out_dir.mkdir(parents=True, exist_ok=True)
+    NL = mcfg.get()["n_layer"]
+    prev = {}
+    for i, rev in enumerate(revs):
+        a = revs[i - 1] if i else None
+        pair = out_dir / f"{a}__{rev}.npz" if a else None
+        need_pair = pair is not None and not pair.exists()
+        need_next = i + 1 < len(revs) and not (out_dir / f"{rev}__{revs[i+1]}.npz").exists()
+        if not need_pair and not need_next:
+            prev = {}
+            continue
+        R.check_stop()
+        t = time.time()
+        idx = R.index(mcfg.get()["repo"], rev)
+        do_pair = need_pair and len(prev) == NL
+        Ua = [np.load(ROOT / "cache" / "s3" / mcfg.name() / a / f"L{L:02d}.npz") for L in range(NL)] if do_pair else None
+        res = {}
+        for L in range(NL):
+            R.check_stop()
+            cur = fetch_layer(idx, L)
+            if do_pair:
+                for M in MATS:
+                    Wa, Wb = prev[L][M].double(), cur[M].double()
+                    dW = Wb - Wa
+                    f2 = float((dW ** 2).sum())
+                    smax = sigma_max(dW) if f2 > 0 else 0.0
+                    U = torch.from_numpy(Ua[L][f"U32_{M}"]).to(X.DEV, torch.float64)
+                    res[f"L{L:02d}_{M}_dW_fro_rel"] = np.sqrt(f2) / float(Wa.norm())
+                    res[f"L{L:02d}_{M}_dW_stable_rank"] = f2 / smax ** 2 if smax > 0 else np.nan
+                    res[f"L{L:02d}_{M}_dW_frac_top32"] = float(((U.T @ dW) ** 2).sum()) / f2 if f2 > 0 else np.nan
+                    del Wa, Wb, dW, U
+            prev[L] = cur
+            torch.cuda.empty_cache()
+        if do_pair:
+            res["estimator_version"] = np.array(EST)
+            R.durable_save(pair, lambda p: np.savez(p, **res))
+        print(f"{rev} {'pair ' + a + '__' + rev if do_pair else 'loaded as base'} {time.time()-t:.0f}s "
+              f"peak_gpu={torch.cuda.max_memory_allocated()/2**30:.2f}GiB", flush=True)
+
+
+if __name__ == "__main__":
+    revs = open(ROOT / mcfg.get()["sched"]).read().split()
+    revs.sort(key=lambda r: int(r.replace("step", "")))
+    try:
+        main(revs)
+    except R.Stopped as e:
+        print("STOPPED:", e); sys.exit(3)

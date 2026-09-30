@@ -1,0 +1,87 @@
+{
+ "device": "NVIDIA GeForce RTX 4090",
+ "torch": "2.11.0+cu130",
+ "pythia-31m": {
+  "lr_peak_from_yml": 0.001,
+  "mb4": {
+   "s_per_micro": 0.03898739814758301,
+   "tokens_per_s": 210119.17668857973,
+   "peak_GiB": 5.294898986816406
+  },
+  "mb8": {
+   "s_per_micro": 0.06766271591186523,
+   "tokens_per_s": 242142.21642153925,
+   "peak_GiB": 10.312843322753906
+  },
+  "mb16_ckpt": {
+   "s_per_micro": 0.4685330390930176,
+   "tokens_per_s": 69937.43720492374,
+   "peak_GiB": 18.92588996887207
+  },
+  "n_params": 30494720,
+  "best_micro_batch": 8,
+  "activation_ckpt": false,
+  "s_per_full_step_adamw": 8.071180820465088,
+  "peak_GiB_full_step": 10.541059494018555,
+  "s_muon_ns5_overhead_per_step": 0.019669532775878906,
+  "n_hidden_2d": 24,
+  "ckpt_fp32_MB": 122.004421,
+  "adam_state_MB": 244.008842,
+  "ckpt_save_s_ext4": 0.17159771919250488
+ },
+ "pythia-70m": {
+  "lr_peak_from_yml": 0.001,
+  "mb4": {
+   "s_per_micro": 0.04322115580240885,
+   "tokens_per_s": 189536.81010870685,
+   "peak_GiB": 6.054023742675781
+  },
+  "mb8": {
+   "s_per_micro": 0.0832229455312093,
+   "tokens_per_s": 196868.7829470763,
+   "peak_GiB": 11.482124328613281
+  },
+  "compiled_tokens_per_s_mb": [
+   267188.645235942,
+   8
+  ],
+  "n_params": 70426624,
+  "best_micro_batch": 8,
+  "activation_ckpt": false,
+  "s_per_full_step_adamw": 12.657380819320679,
+  "peak_GiB_full_step": 12.006879806518555,
+  "s_muon_ns5_overhead_per_step": 0.018374013900756835,
+  "n_hidden_2d": 24,
+  "ckpt_fp32_MB": 281.732037,
+  "adam_state_MB": 563.464074,
+  "ckpt_save_s_ext4": 0.44142699241638184
+ },
+ "pythia-160m": {
+  "lr_peak_from_yml": 0.0006,
+  "mb4": {
+   "s_per_micro": 0.09407305717468262,
+   "tokens_per_s": 87081.25627073455,
+   "peak_GiB": 8.494874954223633
+  },
+  "mb8": {
+   "s_per_micro": 0.2373349666595459,
+   "tokens_per_s": 69033.23277898047,
+   "peak_GiB": 15.532106399536133
+  },
+  "n_params": 162322944,
+  "best_micro_batch": 4,
+  "activation_ckpt": false,
+  "s_per_full_step_adamw": 25.0061514377594,
+  "peak_GiB_full_step": 9.704345703125,
+  "s_muon_ns5_overhead_per_step": 0.04182929992675781,
+  "n_hidden_2d": 48,
+  "ckpt_fp32_MB": 649.341263,
+  "adam_state_MB": 1298.682526,
+  "ckpt_save_s_ext4": 0.8640754222869873
+ },
+ "data_feed": {
+  "MB_per_s": 6.124946027687573,
+  "bytes_per_step": 4196352,
+  "steps_read": 5
+ }
+}

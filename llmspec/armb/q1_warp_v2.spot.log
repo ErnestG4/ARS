@@ -1,0 +1,16 @@
+A1_s0.005_iid LICENSED True NSA True r* 1.0 diag 0.97 offdiag 0.000 conf->model {'MID_SL': 0, 'MID_LW': 0.11, 'STRETCH': 0.15, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 1.0, 'MID_LW': 0.82}
+A1_s0.005_ar LICENSED True NSA False r* 1.0 diag 0.93 offdiag 0.040 conf->model {'MID_SL': 0, 'MID_LW': 0.15, 'STRETCH': 0.14, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 1.0, 'MID_LW': 0.73}
+A1_s0.01_iid LICENSED False NSA False r* None diag 0.80 offdiag 0.200 conf->model {'MID_SL': 0.01, 'MID_LW': 0.47, 'STRETCH': 0.16, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.99, 'MID_LW': 0.53}
+A1_s0.01_ar LICENSED False NSA False r* None diag 0.77 offdiag 0.210 conf->model {'MID_SL': 0.02, 'MID_LW': 0.47, 'STRETCH': 0.21, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.98, 'MID_LW': 0.52}
+A1_s0.02_iid LICENSED False NSA False r* None diag 0.70 offdiag 0.280 conf->model {'MID_SL': 0.05, 'MID_LW': 0.45, 'STRETCH': 0.23, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.95, 'MID_LW': 0.49}
+A1_s0.02_ar LICENSED False NSA False r* None diag 0.72 offdiag 0.230 conf->model {'MID_SL': 0.11, 'MID_LW': 0.42, 'STRETCH': 0.2, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.89, 'MID_LW': 0.51}
+A1_s0.05_iid LICENSED False NSA False r* 2.0 diag 0.53 offdiag 0.000 conf->model {'MID_SL': 0.08, 'MID_LW': 0.01, 'STRETCH': 0.07, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.54, 'MID_LW': 0.24}
+A1_s0.05_ar LICENSED False NSA False r* 2.0 diag 0.49 offdiag 0.000 conf->model {'MID_SL': 0.18, 'MID_LW': 0.02, 'STRETCH': 0.06, 'OVERSHOOT': 0.02} nsa@mid {'MID_SL': 0.5, 'MID_LW': 0.19}
+A2_s0.005_iid LICENSED True NSA True r* 1.0 diag 0.98 offdiag 0.000 conf->model {'MID_SL': 0.05, 'MID_LW': 0, 'STRETCH': 0.06, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.95, 'MID_LW': 1.0}
+A2_s0.005_ar LICENSED True NSA True r* 1.0 diag 0.98 offdiag 0.000 conf->model {'MID_SL': 0.11, 'MID_LW': 0, 'STRETCH': 0.02, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.89, 'MID_LW': 1.0}
+A2_s0.01_iid LICENSED True NSA True r* 1.0 diag 0.98 offdiag 0.000 conf->model {'MID_SL': 0.07, 'MID_LW': 0, 'STRETCH': 0.19, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.93, 'MID_LW': 1.0}
+A2_s0.01_ar LICENSED True NSA True r* 1.0 diag 0.98 offdiag 0.000 conf->model {'MID_SL': 0.11, 'MID_LW': 0.01, 'STRETCH': 0.2, 'OVERSHOOT': 0} nsa@mid {'MID_SL': 0.89, 'MID_LW': 0.99}
+A2_s0.02_iid LICENSED False NSA False r* None diag 0.98 offdiag 0.000 conf->model {'MID_SL': 0.21, 'MID_LW': 0.12, 'STRETCH': 0.37, 'OVERSHOOT': 0.01} nsa@mid {'MID_SL': 0.73, 'MID_LW': 0.88}
+A2_s0.02_ar LICENSED False NSA False r* None diag 0.97 offdiag 0.000 conf->model {'MID_SL': 0.26, 'MID_LW': 0.15, 'STRETCH': 0.4, 'OVERSHOOT': 0.03} nsa@mid {'MID_SL': 0.67, 'MID_LW': 0.85}
+A2_s0.05_iid LICENSED False NSA False r* None diag 0.97 offdiag 0.000 conf->model {'MID_SL': 0.49, 'MID_LW': 0.64, 'STRETCH': 0.58, 'OVERSHOOT': 0.47} nsa@mid {'MID_SL': 0.22, 'MID_LW': 0.28}
+A2_s0.05_ar LICENSED False NSA False r* None diag 0.98 offdiag 0.000 conf->model {'MID_SL': 0.38, 'MID_LW': 0.49, 'STRETCH': 0.38, 'OVERSHOOT': 0.23} nsa@mid {'MID_SL': 0.39, 'MID_LW': 0.43}

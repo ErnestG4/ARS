@@ -1,0 +1,88 @@
+{
+ "doc": "Stage 3 G2b -- controls for G2's bulk-permutation result. POST-HOC (requested in review 2026-09-25 ~23:55, after G2's\nbulk:1 gave dloss +2.66 nats); PRE-REGISTERED by this commit, before it runs. Same checkpoint (step 143000), probes,\nexact-fp32 model and fp16 re-storage as stage3_g2.py, whose identity control (dloss +0.0000) validates the rebuild.\n\nConditions (each applied to the stated scope; the SVD is always taken from the ORIGINAL matrix):\n  sizematched:s  (s = 1, 2, 3; all 144 matrices)  W + G, G i.i.d. Gaussian with ||G||_F equal to ||W'_bulk(s) - W||_F\n                 for that matrix (W'_bulk(s) = G2's bulk permutation, same seed). Same perturbation SIZE, no\n                 singular-value structure.\n  sizematched_bulksub:s  (s = 1, 2, 3; all 144 matrices)  AMENDMENT (review, before any G2b condition ran):\n                 W + U_b A V_b^T, where U_b and V_b are W's singular vectors of the BULK band (the pairs G2's bulk shuffle\n                 touches) and A is a k x k i.i.d. Gaussian, scaled so ||U_b A V_b^T||_F equals ||W'_bulk(s) - W||_F.\n                 Same size AND same subspace as the treatment; the isotropic sizematched hits the top singular\n                 directions the shuffle leaves untouched, so it is harsher than the treatment.\n  local{k}:s     (k = 2, 8, 32; s = 1, 2; all matrices)  sigma permuted only within consecutive blocks of k ranks\n                 inside the BULK band -- a graded, gentler shuffle.\n  mpbulk:s       (s = 1, 2, 3; all matrices)  sigma permuted only among values at or below the fitted MP upper edge\n                 (mp_fit_v2 scale x witness tau+), i.e. the MP-bulk definition, excluding detached outliers.\n  dose_*         (bulk shuffle, seed 1)  scope = one matrix (L12 Q; L12 MLP_IN), one layer (L0; L12, all six), for\n                 comparison with G2's all-144 bulk:1.\nReadings, fixed now:\n  SIZE (amended: the comparison is with the like-for-like control): if the mean sizematched_bulksub dloss >= 0.5 x\n    the mean G2 bulk dloss, perturbation size explains at least half of the effect, and \"the ordering of bulk\n    singular values carries function\" is NOT established. Otherwise ordering matters beyond size. The isotropic\n    sizematched is reported as a harsher bound. (Both match ||W' - W||_F, never ||W||_F: a permutation preserves\n    ||W||_F.)\n  GRADED: local{k} dloss is reported against k, and mpbulk against bulk; no pass/fail.\n  DOSE: dloss per scope is reported; no pass/fail.\nOutput: results/stage3_g2b.json (resumable per condition).\n",
+ "conds": {
+  "sizematched:1": {
+   "loss": 8.226751327514648,
+   "dloss": 6.128441572189331
+  },
+  "sizematched:2": {
+   "loss": 8.712268829345703,
+   "dloss": 6.613959074020386
+  },
+  "sizematched:3": {
+   "loss": 8.054020881652832,
+   "dloss": 5.955711126327515
+  },
+  "sizematched_bulksub:1": {
+   "loss": 3.892425775527954,
+   "dloss": 1.7941160202026367
+  },
+  "sizematched_bulksub:2": {
+   "loss": 3.8217809200286865,
+   "dloss": 1.7234711647033691
+  },
+  "sizematched_bulksub:3": {
+   "loss": 3.9702870845794678,
+   "dloss": 1.8719773292541504
+  },
+  "local2:1": {
+   "loss": 2.098309278488159,
+   "dloss": -4.76837158203125e-07
+  },
+  "local2:2": {
+   "loss": 2.098296880722046,
+   "dloss": -1.2874603271484375e-05
+  },
+  "local8:1": {
+   "loss": 2.0982775688171387,
+   "dloss": -3.218650817871094e-05
+  },
+  "local8:2": {
+   "loss": 2.0983188152313232,
+   "dloss": 9.059906005859375e-06
+  },
+  "local32:1": {
+   "loss": 2.098372459411621,
+   "dloss": 6.270408630371094e-05
+  },
+  "local32:2": {
+   "loss": 2.0983762741088867,
+   "dloss": 6.651878356933594e-05
+  },
+  "mpbulk:1": {
+   "loss": 10.503642082214355,
+   "dloss": 8.405332326889038
+  },
+  "mpbulk:2": {
+   "loss": 10.283574104309082,
+   "dloss": 8.185264348983765
+  },
+  "mpbulk:3": {
+   "loss": 10.045778274536133,
+   "dloss": 7.947468519210815
+  },
+  "dose_L12_Q:1": {
+   "loss": 2.1029365062713623,
+   "dloss": 0.004626750946044922
+  },
+  "dose_L12_MLP_IN:1": {
+   "loss": 2.1036550998687744,
+   "dloss": 0.005345344543457031
+  },
+  "dose_L0_all:1": {
+   "loss": 2.1781461238861084,
+   "dloss": 0.07983636856079102
+  },
+  "dose_L12_all:1": {
+   "loss": 2.1335959434509277,
+   "dloss": 0.03528618812561035
+  }
+ },
+ "baseline": 2.0983097553253174,
+ "reading": {
+  "g2_bulk_mean_dloss": 2.6667829354604087,
+  "sizematched_bulksub_mean_dloss": 1.796521504720052,
+  "sizematched_isotropic_mean_dloss_harsher": 6.232703924179077,
+  "size_explains_half_or_more": true
+ }
+}

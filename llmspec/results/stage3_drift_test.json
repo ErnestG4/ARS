@@ -1,0 +1,89 @@
+{
+ "doc": "ADDENDUM S1 item 4 (STAGE3_SEED_PREREG.md, bb7e573): pre-registered noise-scaled test of the per-head-Q late-training\ndrift over all 10 410M runs (standard + seeds 1-9). FROZEN by commit before it is run on the full set.\nPer run r, at per-head Q, step 143000:\n  residual_q(r) = dq_obs(r) - dq_density(r), with dq_density from the density-matched COE witness (stage3_ladder.py,\n  R = 10; computed here on demand for runs without a ladder entry)\n  drt(r)        = observed d<r~> (no unfolding)\nSE = SD over runs / sqrt(n). Verdicts:\n  UNFOLDING-EXPLAINED  iff |mean residual_q| < 3 SE AND |mean drt| < 3 SE\n  FINDING_CANDIDATE    iff mean residual_q <= -3 SE OR mean drt <= -3 SE (a first crack in the bulk null at ~0.1 in q)\n  otherwise            MIXED (reported as such)\nRefuses to issue a verdict with fewer than 10 runs (prints an interim table instead, labelled INTERIM).\n",
+ "n_runs": 10,
+ "rows": [
+  {
+   "run": "pythia-410m",
+   "dq_obs": -0.08075867039997153,
+   "dq_density": -0.06723952862490878,
+   "residual_q": -0.013519141775062749,
+   "drt": -0.0021867337028129707
+  },
+  {
+   "run": "pythia-410m-seed1",
+   "dq_obs": -0.10328564012025154,
+   "dq_density": -0.06549272039184639,
+   "residual_q": -0.03779291972840515,
+   "drt": -0.005898588419592565
+  },
+  {
+   "run": "pythia-410m-seed2",
+   "dq_obs": -0.09067418120715554,
+   "dq_density": -0.06451005143105548,
+   "residual_q": -0.026164129776100054,
+   "drt": -0.00336002057624174
+  },
+  {
+   "run": "pythia-410m-seed3",
+   "dq_obs": -0.06482622462375542,
+   "dq_density": -0.05176300837517067,
+   "residual_q": -0.013063216248584752,
+   "drt": 0.00018401375630461292
+  },
+  {
+   "run": "pythia-410m-seed4",
+   "dq_obs": -0.04946423058928373,
+   "dq_density": -0.0469237212831457,
+   "residual_q": -0.002540509306138028,
+   "drt": -0.0015548487972243397
+  },
+  {
+   "run": "pythia-410m-seed5",
+   "dq_obs": -0.08759825074341565,
+   "dq_density": -0.06496524985512675,
+   "residual_q": -0.0226330008882889,
+   "drt": -0.0020454184153380073
+  },
+  {
+   "run": "pythia-410m-seed6",
+   "dq_obs": -0.09271301899388551,
+   "dq_density": -0.06805503954425707,
+   "residual_q": -0.024657979449628442,
+   "drt": -0.0011483201535931187
+  },
+  {
+   "run": "pythia-410m-seed7",
+   "dq_obs": -0.07130242259706643,
+   "dq_density": -0.06460618860467404,
+   "residual_q": -0.006696233992392386,
+   "drt": 2.85192393489897e-05
+  },
+  {
+   "run": "pythia-410m-seed8",
+   "dq_obs": -0.08817270526175347,
+   "dq_density": -0.06328380040173043,
+   "residual_q": -0.024888904860023042,
+   "drt": -0.002255585474603916
+  },
+  {
+   "run": "pythia-410m-seed9",
+   "dq_obs": -0.08874058433852527,
+   "dq_density": -0.06367813047769233,
+   "residual_q": -0.025062453860832945,
+   "drt": -0.0029983602409255905
+  }
+ ],
+ "mean_residual_q": -0.019701848988545646,
+ "se_residual_q": 0.0033396595661100517,
+ "z_residual_q": -5.899358482066436,
+ "t_residual_q": -5.899358482066436,
+ "df": 9,
+ "p_one_sided_residual_q": 0.00011462681508202552,
+ "mean_drt": -0.0021235342784678645,
+ "se_drt": 0.0005558111631117675,
+ "z_drt": -3.820603865850829,
+ "t_drt": -3.820603865850829,
+ "p_one_sided_drt": 0.0020430659706404688,
+ "note": "z_* keys = t statistics (df = n-1); read the verdict together with stage3_calib_fidelity.py (Addendum S2)",
+ "verdict": "FINDING_CANDIDATE"
+}

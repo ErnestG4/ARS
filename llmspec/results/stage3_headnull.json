@@ -1,0 +1,377 @@
+{
+ "doc": "POST-HOC (2026-09-26 ~00:20): the within-head OUTPUT rotation null used in stage3_confounds2 (g) is DEGENERATE for the\nhead-concentration statistic: a head's share of a left singular vector is exactly invariant under rotations inside that\nhead's output space (observed == null to all digits). The test of \"head concentration = head-norm differences\" is an\nindependent random rotation of each head's INPUT side, W_h -> W_h O_h with O_h Haar 2048 x 2048. That keeps every\nhead's spectrum and norm and randomises the cross-head alignment of input directions. If the observed top-head mass of\nthe top-8 left vectors matches this null, the concentration is explained by per-head spectra/norms alone.\nStep 143000, Q/K/V, 24 layers, 2 draws.",
+ "layers": [
+  {
+   "layer": 0,
+   "Q": {
+    "observed": 0.11863993046546963,
+    "input_rotation_null": 0.5580862495416681
+   },
+   "K": {
+    "observed": 0.12771609049450117,
+    "input_rotation_null": 0.49041990374803435
+   },
+   "V": {
+    "observed": 0.27467894703448725,
+    "input_rotation_null": 0.4577568915062027
+   }
+  },
+  {
+   "layer": 1,
+   "Q": {
+    "observed": 0.12461390712118098,
+    "input_rotation_null": 0.3599074460414622
+   },
+   "K": {
+    "observed": 0.1449108292402762,
+    "input_rotation_null": 0.4329961576538097
+   },
+   "V": {
+    "observed": 0.17565523886164866,
+    "input_rotation_null": 0.30100621186167564
+   }
+  },
+  {
+   "layer": 2,
+   "Q": {
+    "observed": 0.11265944243832995,
+    "input_rotation_null": 0.42527630318351245
+   },
+   "K": {
+    "observed": 0.1199758238490495,
+    "input_rotation_null": 0.5090349219805181
+   },
+   "V": {
+    "observed": 0.2033873591482357,
+    "input_rotation_null": 0.462918332739746
+   }
+  },
+  {
+   "layer": 3,
+   "Q": {
+    "observed": 0.10948293309911596,
+    "input_rotation_null": 0.3957752542270481
+   },
+   "K": {
+    "observed": 0.1300411717340994,
+    "input_rotation_null": 0.30890811289050524
+   },
+   "V": {
+    "observed": 0.23401712257321153,
+    "input_rotation_null": 0.43966579547576823
+   }
+  },
+  {
+   "layer": 4,
+   "Q": {
+    "observed": 0.11161189099686392,
+    "input_rotation_null": 0.35750405677458863
+   },
+   "K": {
+    "observed": 0.12970915548810552,
+    "input_rotation_null": 0.5378449494698074
+   },
+   "V": {
+    "observed": 0.15740924968164455,
+    "input_rotation_null": 0.26097974845247457
+   }
+  },
+  {
+   "layer": 5,
+   "Q": {
+    "observed": 0.12353942975084171,
+    "input_rotation_null": 0.2802979909189107
+   },
+   "K": {
+    "observed": 0.121357011789849,
+    "input_rotation_null": 0.4366710984583367
+   },
+   "V": {
+    "observed": 0.21046816825603176,
+    "input_rotation_null": 0.2896115361484781
+   }
+  },
+  {
+   "layer": 6,
+   "Q": {
+    "observed": 0.09514748627698358,
+    "input_rotation_null": 0.3060673004537052
+   },
+   "K": {
+    "observed": 0.111661651618842,
+    "input_rotation_null": 0.32706723738126087
+   },
+   "V": {
+    "observed": 0.12922403164081936,
+    "input_rotation_null": 0.3207972832101356
+   }
+  },
+  {
+   "layer": 7,
+   "Q": {
+    "observed": 0.1297737119254857,
+    "input_rotation_null": 0.46161598577659957
+   },
+   "K": {
+    "observed": 0.11497282819134964,
+    "input_rotation_null": 0.585446007687187
+   },
+   "V": {
+    "observed": 0.18170274007871268,
+    "input_rotation_null": 0.3350402361293012
+   }
+  },
+  {
+   "layer": 8,
+   "Q": {
+    "observed": 0.09516564135505137,
+    "input_rotation_null": 0.32233136069338364
+   },
+   "K": {
+    "observed": 0.12570619469711772,
+    "input_rotation_null": 0.36480188408675773
+   },
+   "V": {
+    "observed": 0.20668029503157345,
+    "input_rotation_null": 0.3047397139136303
+   }
+  },
+  {
+   "layer": 9,
+   "Q": {
+    "observed": 0.0977853711646397,
+    "input_rotation_null": 0.3035982651103235
+   },
+   "K": {
+    "observed": 0.1203513561243038,
+    "input_rotation_null": 0.5531332298331115
+   },
+   "V": {
+    "observed": 0.22579535556078636,
+    "input_rotation_null": 0.5359414827161753
+   }
+  },
+  {
+   "layer": 10,
+   "Q": {
+    "observed": 0.1125921755943611,
+    "input_rotation_null": 0.32231983107925927
+   },
+   "K": {
+    "observed": 0.11926204560969374,
+    "input_rotation_null": 0.39809270169533784
+   },
+   "V": {
+    "observed": 0.14480908992625222,
+    "input_rotation_null": 0.2852723346908773
+   }
+  },
+  {
+   "layer": 11,
+   "Q": {
+    "observed": 0.28498524843566747,
+    "input_rotation_null": 0.4757934033104699
+   },
+   "K": {
+    "observed": 0.11472752319618194,
+    "input_rotation_null": 0.36902083410806297
+   },
+   "V": {
+    "observed": 0.2933639405837385,
+    "input_rotation_null": 0.5259515417205382
+   }
+  },
+  {
+   "layer": 12,
+   "Q": {
+    "observed": 0.27297772385389085,
+    "input_rotation_null": 0.8820711639925399
+   },
+   "K": {
+    "observed": 0.12197779120550409,
+    "input_rotation_null": 0.5085907757236501
+   },
+   "V": {
+    "observed": 0.31678444689798024,
+    "input_rotation_null": 0.3857889325719327
+   }
+  },
+  {
+   "layer": 13,
+   "Q": {
+    "observed": 0.4052463414282811,
+    "input_rotation_null": 0.7841329119403047
+   },
+   "K": {
+    "observed": 0.15715458407703442,
+    "input_rotation_null": 0.5189777501292033
+   },
+   "V": {
+    "observed": 0.16412807147502018,
+    "input_rotation_null": 0.23627916559944534
+   }
+  },
+  {
+   "layer": 14,
+   "Q": {
+    "observed": 0.359076760102793,
+    "input_rotation_null": 0.9027262512955172
+   },
+   "K": {
+    "observed": 0.12921578184578295,
+    "input_rotation_null": 0.38475031621296635
+   },
+   "V": {
+    "observed": 0.17099005212791302,
+    "input_rotation_null": 0.32166522961537136
+   }
+  },
+  {
+   "layer": 15,
+   "Q": {
+    "observed": 0.39306079546873807,
+    "input_rotation_null": 0.7622289167809669
+   },
+   "K": {
+    "observed": 0.11612152302036127,
+    "input_rotation_null": 0.5064234753398517
+   },
+   "V": {
+    "observed": 0.14340019753791103,
+    "input_rotation_null": 0.3042397218415771
+   }
+  },
+  {
+   "layer": 16,
+   "Q": {
+    "observed": 0.35367337775217295,
+    "input_rotation_null": 0.7959861527774562
+   },
+   "K": {
+    "observed": 0.14972866369021637,
+    "input_rotation_null": 0.5277574990057545
+   },
+   "V": {
+    "observed": 0.15892172263403023,
+    "input_rotation_null": 0.49512071492718934
+   }
+  },
+  {
+   "layer": 17,
+   "Q": {
+    "observed": 0.3383467065771466,
+    "input_rotation_null": 0.8299775154356931
+   },
+   "K": {
+    "observed": 0.14364750550105032,
+    "input_rotation_null": 0.516406937443342
+   },
+   "V": {
+    "observed": 0.25304336174425607,
+    "input_rotation_null": 0.4259337618193401
+   }
+  },
+  {
+   "layer": 18,
+   "Q": {
+    "observed": 0.3698165443329009,
+    "input_rotation_null": 0.8406715056100383
+   },
+   "K": {
+    "observed": 0.13107717515499695,
+    "input_rotation_null": 0.6649631063679315
+   },
+   "V": {
+    "observed": 0.31793642256918375,
+    "input_rotation_null": 0.40165383033356417
+   }
+  },
+  {
+   "layer": 19,
+   "Q": {
+    "observed": 0.3146447384108595,
+    "input_rotation_null": 0.7006047437650414
+   },
+   "K": {
+    "observed": 0.1414819283330616,
+    "input_rotation_null": 0.45486085304367874
+   },
+   "V": {
+    "observed": 0.2646491465593862,
+    "input_rotation_null": 0.34873623844007245
+   }
+  },
+  {
+   "layer": 20,
+   "Q": {
+    "observed": 0.40661840848774017,
+    "input_rotation_null": 0.7306155357212831
+   },
+   "K": {
+    "observed": 0.13304649793159562,
+    "input_rotation_null": 0.541675711011979
+   },
+   "V": {
+    "observed": 0.1807257336758612,
+    "input_rotation_null": 0.29740700580497514
+   }
+  },
+  {
+   "layer": 21,
+   "Q": {
+    "observed": 0.3775535355219518,
+    "input_rotation_null": 0.835478279277243
+   },
+   "K": {
+    "observed": 0.14981280871355918,
+    "input_rotation_null": 0.7432085497692327
+   },
+   "V": {
+    "observed": 0.3453272585819438,
+    "input_rotation_null": 0.4282814921038581
+   }
+  },
+  {
+   "layer": 22,
+   "Q": {
+    "observed": 0.45730146422303486,
+    "input_rotation_null": 0.7598279813727733
+   },
+   "K": {
+    "observed": 0.1549424574771167,
+    "input_rotation_null": 0.6419660588545053
+   },
+   "V": {
+    "observed": 0.27903200516212645,
+    "input_rotation_null": 0.33380715907213265
+   }
+  },
+  {
+   "layer": 23,
+   "Q": {
+    "observed": 0.2692570490958856,
+    "input_rotation_null": 0.709597027313387
+   },
+   "K": {
+    "observed": 0.19334085176492752,
+    "input_rotation_null": 0.5817644371770208
+   },
+   "V": {
+    "observed": 0.30266492017770497,
+    "input_rotation_null": 0.3236129172448321
+   }
+  }
+ ],
+ "Q": {
+  "observed_mean": 0.24306544224497442,
+  "null_mean": 0.587603809683049
+ },
+ "K": {
+  "observed_mean": 0.13341413544785738,
+  "null_mean": 0.4960326045446603
+ },
+ "V": {
+  "observed_mean": 0.2222831198966858,
+  "null_mean": 0.3675919699141373
+ }
+}

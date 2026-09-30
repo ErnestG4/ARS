@@ -1,0 +1,79 @@
+{
+ "doc": "Stage 3 G2 functional witness (brief v1.1 \u00a75 G2). PRE-REGISTERED by this commit, before it runs.\n\nQuestion (Diffract replication, first): for Pythia-1.4B at step 143000, does permuting singular values WITHIN a band\nof every layer weight matrix change the text-probe loss? For each of the 144 layer matrices (24 layers x\nQ, K, V, O, MLP_IN, MLP_OUT; Q/K/V permuted as full 2048 x 2048 blocks of the fused QKV), W = U diag(sigma) V^T\n(fp64 SVD) is rebuilt as U diag(pi(sigma)) V^T, where pi permutes sigma inside a rank band (bands as in\nSTAGE3_PREREG: LOWER [0.01, 0.10), BULK [0.10, 0.90), UPPER [0.90, 0.99), by ascending rank). The rebuilt W is\nstored back in fp16, the model's own storage precision. Embeddings, LayerNorms and biases are untouched.\nConditions (the same permutation seed family for every matrix):\n  identity  (pi = id)          -> CONTROL: measures SVD-rebuild + fp16 re-rounding error alone\n  bulk      x 3 seeds\n  full      x 3 seeds          (all sigma permuted)\n  upper     x 3 seeds\n  lower     x 3 seeds\nMetric: mean next-token loss on the fixed text probes (results/probes.npz, 64 x 512), exact fp32 compute (the\nverified fp16-storage + transient-fp32 model). The baseline is the unmodified checkpoint.\nReadings, fixed now:\n  identity |dloss| must be <= 0.01 nats, or the witness is broken (reported, and nothing else is read).\n  A band is FUNCTIONALLY INERT if its mean dloss <= 3x the identity |dloss| + 0.01 nats, and FUNCTIONAL\n  otherwise. Diffract's pattern replicates iff bulk is INERT and full is FUNCTIONAL with dloss >= 1 nat.\n  A band that Stage 3 finds spectrally anomalous but that is functionally inert is reported as exactly that.\nOutput: results/stage3_g2.json (resumable per condition). Honours STOP and the GPU cap.\n",
+ "rev": "step143000",
+ "conds": {
+  "identity:0": {
+   "loss": 2.0983097553253174,
+   "dloss": 0.0
+  },
+  "bulk:1": {
+   "loss": 4.755986213684082,
+   "dloss": 2.6576764583587646
+  },
+  "bulk:2": {
+   "loss": 4.739416599273682,
+   "dloss": 2.6411068439483643
+  },
+  "bulk:3": {
+   "loss": 4.799875259399414,
+   "dloss": 2.7015655040740967
+  },
+  "full:1": {
+   "loss": 11.402425765991211,
+   "dloss": 9.304116010665894
+  },
+  "full:2": {
+   "loss": 11.616292953491211,
+   "dloss": 9.517983198165894
+  },
+  "full:3": {
+   "loss": 11.558385848999023,
+   "dloss": 9.460076093673706
+  },
+  "upper:1": {
+   "loss": 2.195551872253418,
+   "dloss": 0.09724211692810059
+  },
+  "upper:2": {
+   "loss": 2.2020978927612305,
+   "dloss": 0.10378813743591309
+  },
+  "upper:3": {
+   "loss": 2.1971487998962402,
+   "dloss": 0.09883904457092285
+  },
+  "lower:1": {
+   "loss": 2.1061580181121826,
+   "dloss": 0.007848262786865234
+  },
+  "lower:2": {
+   "loss": 2.106292486190796,
+   "dloss": 0.007982730865478516
+  },
+  "lower:3": {
+   "loss": 2.1047022342681885,
+   "dloss": 0.006392478942871094
+  }
+ },
+ "baseline": 2.0983097553253174,
+ "identity_ok": true,
+ "readings": {
+  "bulk": {
+   "mean_dloss": 2.6667829354604087,
+   "FUNCTIONAL": true
+  },
+  "full": {
+   "mean_dloss": 9.427391767501831,
+   "FUNCTIONAL": true
+  },
+  "upper": {
+   "mean_dloss": 0.09995643297831218,
+   "FUNCTIONAL": true
+  },
+  "lower": {
+   "mean_dloss": 0.007407824198404948,
+   "FUNCTIONAL": false
+  }
+ },
+ "diffract_replicates": false
+}

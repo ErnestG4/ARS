@@ -1,0 +1,331 @@
+{
+ "band_sha256": "c51a4d6abb8e9efe8dd3009dc3b0ac5c391ef5fa4d72aba4075a6db1673875ca",
+ "T10": 5.672181675850993,
+ "T9": 6.053063434732793,
+ "i_loso": {
+  "runs": {
+   "EleutherAI/pythia-70m": {
+    "fails": 0,
+    "worst": {
+     "step": 2000,
+     "pass": true,
+     "worst": "sr_V",
+     "z": -3.63808435942787
+    }
+   },
+   "EleutherAI/pythia-70m-seed1": {
+    "fails": 0,
+    "worst": {
+     "step": 512,
+     "pass": true,
+     "worst": "sr_Q",
+     "z": 4.142381719688583
+    }
+   },
+   "EleutherAI/pythia-70m-seed2": {
+    "fails": 0,
+    "worst": {
+     "step": 32,
+     "pass": true,
+     "worst": "sr_K",
+     "z": -2.328335417641039
+    }
+   },
+   "EleutherAI/pythia-70m-seed3": {
+    "fails": 0,
+    "worst": {
+     "step": 2000,
+     "pass": true,
+     "worst": "fro_MLP_IN",
+     "z": 2.9984996385128517
+    }
+   },
+   "EleutherAI/pythia-70m-seed4": {
+    "fails": 0,
+    "worst": {
+     "step": 512,
+     "pass": true,
+     "worst": "fro_Q",
+     "z": 3.1684829970061723
+    }
+   },
+   "EleutherAI/pythia-70m-seed5": {
+    "fails": 0,
+    "worst": {
+     "step": 16,
+     "pass": true,
+     "worst": "loss",
+     "z": -4.1068016167404755
+    }
+   },
+   "EleutherAI/pythia-70m-seed6": {
+    "fails": 0,
+    "worst": {
+     "step": 128,
+     "pass": true,
+     "worst": "fro_O",
+     "z": -3.4192034634133095
+    }
+   },
+   "EleutherAI/pythia-70m-seed7": {
+    "fails": 0,
+    "worst": {
+     "step": 512,
+     "pass": true,
+     "worst": "sr_K",
+     "z": 4.779943057542169
+    }
+   },
+   "EleutherAI/pythia-70m-seed8": {
+    "fails": 0,
+    "worst": {
+     "step": 2000,
+     "pass": true,
+     "worst": "fro_Q",
+     "z": 4.670724310180288
+    }
+   },
+   "EleutherAI/pythia-70m-seed9": {
+    "fails": 0,
+    "worst": {
+     "step": 2000,
+     "pass": true,
+     "worst": "sr_MLP_IN",
+     "z": 2.498365081670914
+    }
+   }
+  },
+  "n_runs_failing": 0,
+  "PASS": true
+ },
+ "ii_hf_default_init": {
+  "gate_pass": false,
+  "worst": "fro_MLP_OUT",
+  "z": 1335.5691674020675,
+  "T": 5.672181675850993,
+  "RED_PATH_FIRES": true
+ },
+ "iii_step_misalignment": {
+  "cases": [
+   {
+    "repo": "EleutherAI/pythia-70m",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -130.33907635836036
+   },
+   {
+    "repo": "EleutherAI/pythia-70m",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -95.6857719020664
+   },
+   {
+    "repo": "EleutherAI/pythia-70m",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 178.67731735834076
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed1",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -97.96920692283568
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed1",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -91.89840236906872
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed1",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 183.24270120921307
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed2",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -103.6724711546347
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed2",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -111.41986822480104
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed2",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_O",
+    "z": 197.04458309773366
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed3",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -98.13739883623121
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed3",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -95.82779392633736
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed3",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 191.18615996296725
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed4",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -96.92171104196535
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed4",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -93.30742037308626
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed4",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 181.9941897474954
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed5",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -99.7935892144495
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed5",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -103.85693143455534
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed5",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 226.7624360801216
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed6",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -113.18932840953684
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed6",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -115.16388039753137
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed6",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 188.18994888394346
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed7",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -102.26692161103182
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed7",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -98.49228847930773
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed7",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 180.07065126379044
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed8",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -102.03767821899956
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed8",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -94.65309436110292
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed8",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_O",
+    "z": 215.85987282489842
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed9",
+    "t": 256,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -97.51155825399894
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed9",
+    "t": 512,
+    "gate_pass": false,
+    "worst": "loss",
+    "z": -92.60907627732085
+   },
+   {
+    "repo": "EleutherAI/pythia-70m-seed9",
+    "t": 1000,
+    "gate_pass": false,
+    "worst": "fro_MLP_OUT",
+    "z": 189.5893950990859
+   }
+  ],
+  "n_fail": 30,
+  "n": 30,
+  "by_t": {
+   "256": 10,
+   "512": 10,
+   "1000": 10
+  },
+  "RED_PATH_FIRES": true
+ },
+ "GATE_LICENSED": true
+}

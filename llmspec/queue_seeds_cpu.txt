@@ -1,0 +1,54 @@
+s3s_wait_pythia-410m-seed1|until [ $(ls cache/s3_motion_eq_pythia-410m-seed1/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed1|LLMSPEC_MODEL=pythia-410m-seed1 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed1|LLMSPEC_MODEL=pythia-410m-seed1 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_wait_pythia-410m-seed2|until [ $(ls cache/s3_motion_eq_pythia-410m-seed2/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed2|LLMSPEC_MODEL=pythia-410m-seed2 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed3|until [ $(ls cache/s3_motion_eq_pythia-410m-seed3/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed4|until [ $(ls cache/s3_motion_eq_pythia-410m-seed4/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed5|until [ $(ls cache/s3_motion_eq_pythia-410m-seed5/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed6|until [ $(ls cache/s3_motion_eq_pythia-410m-seed6/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed6|LLMSPEC_MODEL=pythia-410m-seed6 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed7|until [ $(ls cache/s3_motion_eq_pythia-410m-seed7/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_analyze_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed7|LLMSPEC_MODEL=pythia-410m-seed7 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed8|until [ $(ls cache/s3_motion_eq_pythia-410m-seed8/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_waitwit_pythia-410m-seed8|/home/combust/fmexplorer/bin/python3 -u stage3_wait_witness.py pythia-410m-seed8
+s3s_analyze_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed8|LLMSPEC_MODEL=pythia-410m-seed8 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_wait_pythia-410m-seed9|until [ $(ls cache/s3_motion_eq_pythia-410m-seed9/*.npz 2>/dev/null | wc -l) -ge 10 ]; do [ -e STOP ] && exit 3; sleep 60; done
+s3s_waitwit_pythia-410m-seed9|/home/combust/fmexplorer/bin/python3 -u stage3_wait_witness.py pythia-410m-seed9
+s3s_analyze_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_repl_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_ladder_pythia-410m-seed9|LLMSPEC_MODEL=pythia-410m-seed9 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_waitwit_pythia-410m-seed3|/home/combust/fmexplorer/bin/python3 -u stage3_wait_witness.py pythia-410m-seed3
+s3s_reanalyze_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_rerepl_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_purgeladder_pythia-410m-seed3|/home/combust/fmexplorer/bin/python3 -u stage3_ladder_purge.py pythia-410m-seed3
+s3s_reladder_pythia-410m-seed3|LLMSPEC_MODEL=pythia-410m-seed3 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_waitwit_pythia-410m-seed4|/home/combust/fmexplorer/bin/python3 -u stage3_wait_witness.py pythia-410m-seed4
+s3s_reanalyze_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_rerepl_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_purgeladder_pythia-410m-seed4|/home/combust/fmexplorer/bin/python3 -u stage3_ladder_purge.py pythia-410m-seed4
+s3s_reladder_pythia-410m-seed4|LLMSPEC_MODEL=pythia-410m-seed4 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_waitwit_pythia-410m-seed5|/home/combust/fmexplorer/bin/python3 -u stage3_wait_witness.py pythia-410m-seed5
+s3s_reanalyze_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=2 /home/combust/fmexplorer/bin/python3 -u stage3_analyze.py
+s3s_rerepl_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m /home/combust/fmexplorer/bin/python3 -u stage3_repl.py
+s3s_purgeladder_pythia-410m-seed5|/home/combust/fmexplorer/bin/python3 -u stage3_ladder_purge.py pythia-410m-seed5
+s3s_reladder_pythia-410m-seed5|LLMSPEC_MODEL=pythia-410m-seed5 LLMSPEC_WITNESS=pythia-410m OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_ladder_all.py
+s3s_drift_test|/home/combust/fmexplorer/bin/python3 -u stage3_drift_test.py
+s3s_calib_fidelity|OMP_NUM_THREADS=4 /home/combust/fmexplorer/bin/python3 -u stage3_calib_fidelity.py

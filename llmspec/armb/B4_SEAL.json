@@ -1,0 +1,23 @@
+{
+ "files": {
+  "armb/b4_analyze.py": "d0a7d1d388b1c081508f6201db7b3381ef46040e8d0356b92cdc2a43692556a8",
+  "armb/noise_calib.py": "ebc066a979c40f40693ec667e7ef7f597d362561a981fcf947d4d78256efa8bb",
+  "armb/q1_warp_v2.py": "6f25590574f06dbed5160f4942a4f857e371f7dca61dd73eb762cc33d3f1ff0c",
+  "armb/q1_warp.py": "ca98707fa01b8deba1a2c029aaeae66f893a02f334cd581e7bc0452f25869fef",
+  "armb/q1_licence.py": "dbbb4440a2b4a7c64136d18aeb60545bfafe161799a0b0347adc60d0094f01c3",
+  "armb/q1_models.py": "cb4a5685aef90b8512aea2101754433be30dac0f37bdb6d6629773d0295248da",
+  "armb/q2_licence.py": "9b19cf60083a9b06cd5323c4afd7ab76ceb26e7a37b54c94da81a746568c6f0c",
+  "armb/grids.py": "8354daa9d4569d657130696f5201ed39445b8b341d28095010b92677858ba42a",
+  "armb/b4_extract.py": "ae06d0721dff2796e3f1948f15a2829730a0eebad8c503cb5110f6389e176bba",
+  "s3stats.py": "80c1a6cd792875a4bc9e5454d919013752df9f2a2008eeffb353b1454365f78f",
+  "stage3_calib_v2.py": "be054dc75b1a469058d0a6b042eb057151a5c4af85d6ba743670417e35c3bee6",
+  "stage2_g7.py": "dfcac5cec622b776a8ffaff9348fcf055235651a73870e5dcb19115bbed912ee",
+  "stage3_extract.py": "527ccaa2385c3823f16c68eb7f02349183011fdf6f6e550bec98280e169297fb",
+  "stage3_witness.py": "18c4adec7e8afff93e63e732271dfab93dd6138b3c16be34b1cb1c6bb0e8161f",
+  "results/armb_q1_licence.json": "21788739f1575207102f7f67857e278ef5583480043fa82d5ca58e0eacad7898",
+  "results/armb_q1_warp_licence_v2.json": "ac2e03312349b0e5c40d651d65577ebba2db77dc3781db39c3671f359304cd3c",
+  "results/armb_q2_licence.json": "b302e1eeb6497c6dad98abbdb4c2d6257a39a8df019020e3b500a0e3f406a59e",
+  "results/armb_noise_calibration.json": "f2f2925d5967add08cd0e9068c1ff1ccd8b919520266965ba1e397d0a6800430",
+  "results/armb_bulk_power_70m.json": "25b4215a30974351ebf97e19256a0e3fb2002d23705826d2788a565467edfe19"
+ }
+}

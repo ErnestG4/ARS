@@ -1,0 +1,116 @@
+{
+ "doc": "SEALED pre-launch Muon update test (ARMB_PREREG.md amendment B1a-A6 \u00a72; criterion committed at 7d1f1e9 BEFORE this\nscript existed). No training. GPU (the real CUDA fp16 path), VRAM-capped so it can share the card with a running arm.\n\npythia-70m step128 weights; two consecutive optimizer steps on the first 64 sequences of update 129's and update 130's\nbatches; lr 1e-3, wd 0.1; loss scale 4096 then 8192 (exercises unscale consistency across a scale change).\nVariants (all clip the global grad norm to 1.0 before the optimizer, as the trainer does):\n  REF       fp32 grads (no autocast), MuonHybrid with fp32 NS\n  PATH      the trainer's path: fp16 autocast, micro-batches of 8 with loss x scale x 8/32 (Pythia-matched per-token\n            factor), non-finite check, unscale by scale x 64/32, clip; MuonHybrid with bf16 NS, fp32 momentum\n  PATH_ns32 PATH with fp32 NS\n  REF_ns16  REF grads with bf16 NS\n  RED       PATH with the fused QKV orthogonalised as ONE 1536 x 512 matrix (split_qkv=False)\nCompared: the parameter change after step 2 per type (Q, K, V, O, MLP_IN, MLP_OUT over all layers): rel_err, cosine vs REF.\nCriteria and decision: see the amendment (copied into the output). Output: results/armb_muon_update_test.json.\n",
+ "muon_version": "muon-hybrid-v1 (KellerJordan/Muon@f98f1ca NS5; Moonlight@c2ad5b2 momentum+wd+0.2*sqrt(max(A,B)))",
+ "micro_batch": 4,
+ "micro_batch_note": "4 instead of the trainer 8 (VRAM cap while A0 trains); per-token factor identical; harder underflow condition",
+ "PATH": {
+  "Q": {
+   "rel_err": 0.06677126965671457,
+   "cosine": 0.9977751890103149
+  },
+  "K": {
+   "rel_err": 0.0783620471472681,
+   "cosine": 0.9969391674371888
+  },
+  "V": {
+   "rel_err": 0.0788049354361104,
+   "cosine": 0.9969038593067234
+  },
+  "O": {
+   "rel_err": 0.07635718828106172,
+   "cosine": 0.9970948117881403
+  },
+  "MLP_IN": {
+   "rel_err": 0.03770672489906659,
+   "cosine": 0.9992891683734058
+  },
+  "MLP_OUT": {
+   "rel_err": 0.04189376886026262,
+   "cosine": 0.9991232871540414
+  }
+ },
+ "PATH_ns32": {
+  "Q": {
+   "rel_err": 0.00512935021078076,
+   "cosine": 0.9999868458990813
+  },
+  "K": {
+   "rel_err": 0.005648033278722821,
+   "cosine": 0.9999840511641025
+  },
+  "V": {
+   "rel_err": 0.006929592306768915,
+   "cosine": 0.9999759907640646
+  },
+  "O": {
+   "rel_err": 0.005116084260095905,
+   "cosine": 0.9999869129427079
+  },
+  "MLP_IN": {
+   "rel_err": 0.00233110615210176,
+   "cosine": 0.9999972830551744
+  },
+  "MLP_OUT": {
+   "rel_err": 0.0024427281622158626,
+   "cosine": 0.9999970165451857
+  }
+ },
+ "REF_ns16": {
+  "Q": {
+   "rel_err": 0.06652269500731339,
+   "cosine": 0.997791617706414
+  },
+  "K": {
+   "rel_err": 0.07821246405149633,
+   "cosine": 0.9969505564705551
+  },
+  "V": {
+   "rel_err": 0.0787377362084949,
+   "cosine": 0.9969101793717436
+  },
+  "O": {
+   "rel_err": 0.07615207733906999,
+   "cosine": 0.9971100910427007
+  },
+  "MLP_IN": {
+   "rel_err": 0.0376473745777312,
+   "cosine": 0.9992913622888591
+  },
+  "MLP_OUT": {
+   "rel_err": 0.041819350059388145,
+   "cosine": 0.9991264993881721
+  }
+ },
+ "RED_fused_qkv": {
+  "Q": {
+   "rel_err": 0.6636454190016137,
+   "cosine": 0.766841229601333
+  },
+  "K": {
+   "rel_err": 0.6375996280809626,
+   "cosine": 0.7750704962725093
+  },
+  "V": {
+   "rel_err": 0.6559094286741939,
+   "cosine": 0.9364981213110961
+  },
+  "O": {
+   "rel_err": 0.07663886739518723,
+   "cosine": 0.9970715862624232
+  },
+  "MLP_IN": {
+   "rel_err": 0.0384093054935808,
+   "cosine": 0.999263024320426
+  },
+  "MLP_OUT": {
+   "rel_err": 0.042575806608173346,
+   "cosine": 0.9990954271094619
+  }
+ },
+ "criteria": {
+  "i_plumbing": true,
+  "ii_bf16_ns": true,
+  "iii_red_fires": true
+ },
+ "DECISION": "PASS: NS bf16"
+}

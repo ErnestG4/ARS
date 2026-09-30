@@ -1,0 +1,17 @@
+A1_s0.005_iid r* None LICENSED False 
+A1_s0.005_ar r* None LICENSED False 
+A1_s0.01_iid r* None LICENSED False 
+A1_s0.01_ar r* None LICENSED False 
+A1_s0.02_iid r* None LICENSED False 
+A1_s0.02_ar r* None LICENSED False 
+A1_s0.05_iid r* None LICENSED False 
+A1_s0.05_ar r* None LICENSED False 
+A2_s0.005_iid r* 1.0 LICENSED True min_diag 0.98 offdiag 0.000 halfway 0.02
+A2_s0.005_ar r* 1.0 LICENSED True min_diag 0.98 offdiag 0.000 halfway 0.07
+A2_s0.01_iid r* None LICENSED False 
+A2_s0.01_ar r* None LICENSED False 
+A2_s0.02_iid r* None LICENSED False 
+A2_s0.02_ar r* None LICENSED False 
+A2_s0.05_iid r* None LICENSED False 
+A2_s0.05_ar r* None LICENSED False 
+CHECKRUN armb/q1_warp.py EXIT=0 PASS
