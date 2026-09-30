@@ -267,9 +267,17 @@ conflict with this section.
   - The isotropic size-matched control costs +6.23 (harsher: it also hits the top directions the shuffle leaves
     alone).
 - **GRADED.** Shuffles confined to windows of k = 2 / 8 / 32 neighbouring bulk ranks cost ≈ 0 (≤ +0.0001 nats).
-  - Local reordering of bulk σ is functionally inert. Only large-scale reordering, which moves a direction's gain by
-    a factor of several, costs loss.
-  - This agrees with SIZE: the loss tracks how far the gains move, not their fine ordering.
+  - **REVISED 2026-09-30 (G2c, stage3_g2c.py a145694; results/stage3_g2c.json; Will's critique #11).** The original
+    reading here ("local reordering of bulk σ is functionally inert") is WITHDRAWN as a reading.
+    - The local shuffles are tiny: ‖ΔW‖ is 0.14% / 0.56% / 2.2% of the bulk shuffle's (median 0.07% / 0.28% / 1.1%
+      of ‖W‖ per matrix). fp16 re-storage adds ≤ 4%.
+    - A same-subspace random perturbation of the same size also costs ≈ 0 (≤ 0.0004 nats).
+    - So near-zero cost is what size alone predicts. The k-sweep neither supports nor contradicts "fine ordering
+      is irrelevant".
+    - Descriptive: at k = 32 the control costs 4–6× the local shuffle in both seeds, all below 1e-3 nats.
+    - All six local conditions reproduced G2b's banked dloss exactly (regression check).
+  - The SIZE conclusion (at least two-thirds of the bulk shuffle's cost is explained by perturbation size) is
+    unaffected.
 - **mpbulk.** Permuting every σ below the fitted MP edge costs +7.9 / +8.2 / +8.4.
   - This is NOT a gentler, Diffract-style bulk. Trained spectra fail the MP fit (§9), so the fitted edge sits high:
     "below the edge" spans ranks ~162–2048 and includes large σ.
