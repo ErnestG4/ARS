@@ -162,7 +162,15 @@ and NOT pushed.
     - The local shuffles are tiny (0.14 / 0.56 / 2.2% of the bulk shuffle's ||dW||), and a same-size same-subspace
       control also costs ~0. So the k-sweep neither supports nor contradicts the smooth, distributed reading.
     - STAGE3 §11's "functionally inert" reading is withdrawn with a dated note.
-  - **Nothing running.**
+- **09-30 RUNNING: seed-1 identity check** (B1a-A9, sealed 6b1c4ec).
+  - Command: `../checkrun.sh armb/seed1_identity.py run`, detached. Log logs/seed1_identity.out; result
+    results/armb_seed1_identity.json (resumable per run).
+  - 5 runs × 128 steps (K, Km, T, C1, C2).
+  - On finish: record the verdict in ARMB_FINDINGS (Q4 pairing) + FINDINGS_MEMO #16. If REFUTED: M0-s2's pair is
+    INVALID and Q4 goes to P1-only, DESCRIPTIVE.
+  - Then delete armb/_seed1_cache (517 MB, gitignored).
+- Will's order after it: publish (Will pushes the Forgejo + GitHub; Zenodo snapshot at the same commit), then the
+  Arm B open leads.
 - **Next (Will's call):**
   - ARMB open leads 1–8.
   - Seed-1 identity check (queued; criteria to be sealed before it runs).
