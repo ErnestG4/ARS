@@ -92,7 +92,7 @@ and NOT pushed.
   false-fail rate.
 - **Stage 1b, Hartigan dip test** (post-hoc; licensed, 0/2000 false positives on every confusable; weak power):
   - Pythia: 0 multimodal heads in any type.
-  - OLMo Q/K at stage-1 end: Q 24.6% (13.3% excluding dead rows), K 19.9%.
+  - OLMo Q/K at stage-1 end: **Q 13.3% excluding dead rows** (24.6% all levels, inflated by the dead-row spike), K 8.6% trimmed (19.9% all levels).
   - OLMo `main`: Q 8.6%, below the 10% floor.
   - **Decision: aim 1 deferred.** OLMo stage-1 trajectory = Will's call.
 - **G4:** Pythia F32 = fp16 upcasts. OLMo-2 F32 = fp32 masters (the brief's "bf16" premise was wrong). OLMo Q/K

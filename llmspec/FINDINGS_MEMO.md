@@ -1,6 +1,6 @@
 # Findings memo — Shapes of LLM weights and transforms over training (CC Brief v1.1)
 
-Branch `llm-spectra` (local, unpushed), dir `llmspec/`. Compiled 2026-09-27 from the stage documents, which hold the
+Branch `llm-spectra` (local, unpushed), dir `llmspec/`. Compiled 2026-09-27, revised 2026-09-30 (Will's critique #1/#3/#11 + Open leads; Arm B folded in), from the stage documents, which hold the
 numbers, tables, commits and caveats: STAGE1_FINDINGS, STAGE2_FINDINGS, STAGE3_FINDINGS (§8–15 supersede §3–7 where they
 conflict), STAGE3_REPL_FINDINGS, STAGE3_SEED_FINDINGS. The brief's §6 rule applies: **every claim names its licensing
 gate, and nulls are reported as nulls.** Pre-registrations: STAGE3_PREREG.md (0cf53ba), STAGE3_REPL_PREREG.md (8147f53),
@@ -25,9 +25,9 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 
 | # | Claim | Gate(s) | Status |
 |---|---|---|---|
-| 1 | Bulk nearest-neighbour statistics (⟨r̃⟩, Brody q) stay at β=1 at every checkpoint: no departure > 0.010 in ⟨r̃⟩ or > 0.10 in q | Sealed null (aim 6); G1 witness; G0; G3 | **NULL** — 260/260 cells in each of 1.4B, 1B and 410M, and in all 10 seed runs (2 cells → DENSITY_ARTIFACT by the ladder; its 0.10 tolerance is 5× the v1 calibrator's measured 0.02 bias, so the labels stand) |
+| 1 | Bulk nearest-neighbour statistics (⟨r̃⟩, Brody q) stay at β=1 at every checkpoint: no departure > 0.010 in ⟨r̃⟩ or > 0.10 in q | Sealed null (aim 6); G1 witness; G0; G3 | **NULL** — 260/260 HOLDS in each of 1.4B, 1B and 410M. Across the 10 seed runs, **2 cells were VIOLATED** (per-head Q: seed 1 @143k Δq −0.103; seed 6 @96k Δq −0.106) and the ladder attributed both to DENSITY_ARTIFACT. Per S1, the attribution sits beside the verdict and does not replace it. **Per-head cells are licensed on ⟨r̃⟩ only:** a realistic trained density alone moves raw kde(4) q by ~0.12 under a true β=1 (§3), which is larger than the 0.10 q tolerance. So a per-head q pass or fail is uninformative either way. On ⟨r̃⟩ the per-head cells held, including both VIOLATED cells (Δ⟨r̃⟩ −0.0059 / −0.0046 vs 0.010). At 70M (Arm B) the 0.010 tolerance is not powered: see ARMB_FINDINGS §6, NOT ESTABLISHED |
 | 2 | A late-training per-head-Q departure from β=1 (q ≈ −0.02 after density matching) | Frozen drift test (S1/S2); fidelity test (S2); known-answer licence (S4) | **NOT ESTABLISHED.** Sealed verdicts stand (FINDING_CANDIDATE / INCONCLUSIVE). S4: the frozen calibrator's own bias under a TRUE β=1 is −0.0207 / −0.0164 (observed −0.0197). The q arm is NOT RESOLVABLE at N=64. ⟨r̃⟩ under the licensed calibrator: −0.00086, t₉ −1.6. S4-sup: the licensed calibrator recovers a planted departure of the claimed size in full, so a real one would have read t ≈ −3.7 (post-hoc power) |
-| 3 | Multi-peak (Diffract-style) attention spectra exist | Stage 1 sealed KDE rule; Stage 1b dip test (licensed on nearest confusables) | Sealed rule = non-evidence (tail specks). Dip test: **Pythia 0 heads multimodal** (NULL, and a weak one: the test misses minority or broad peaks, e.g. ~0% power for a 20% peak at sd 0.1); **OLMo Q/K multimodal at stage-1 end** (Q 24.6%, 13.3% excluding dead rows), sub-floor at `main` (8.6%). Aim 1 deferred |
+| 3 | Multi-peak (Diffract-style) attention spectra exist | Stage 1 sealed KDE rule; Stage 1b dip test (licensed on nearest confusables) | Sealed rule = non-evidence (tail specks). Dip test: **Pythia 0 heads multimodal** (NULL, and a weak one: the test misses minority or broad peaks, e.g. ~0% power for a 20% peak at sd 0.1). **OLMo Q multimodal at stage-1 end: 13.3% of Q heads (34/256) once the dead-row cluster is excluded.** The 24.6% all-levels figure is inflated by the dead-row spike at zero. Floors at stage-1 end: per-head null rate 1% (binomial p 3e-27 for 13.3%); in-checkpoint V/O 0.4% (1/256); 0/2000 on every nearest confusable; declared effect floor 10%, which trimmed Q clears. K at stage-1 end: 8.6% trimmed, below the 10% floor. At `main`: Q 5.5% trimmed (8.6% all levels), sub-floor. Aim 1 deferred |
 | 4 | Local statistics on peaked spectra | G7 (Stage 2) | **NOT LICENSED** as registered (kde(4–8) fail β=2). Raw ⟨r̃⟩ LICENSED |
 | 5 | Induction heads form between steps 512 and 1000 | Markers; G3 R5 | **REPLICATES** at all 3 sizes; **SEED-ROBUST** (10/10) |
 | 6 | The OV circuit leaves its product-Ginibre null before QK does | Circuit null (4000 draws); G3 R4 | **REPLICATES** at all sizes; **SEED-ROBUST** (10/10). At the resolution limit (step 512) |
@@ -36,8 +36,11 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 | 9 | Trained spectra leave Marchenko–Pastur by steps 1000–2000 | G1 KS95; G3 R6 | **REPLICATES**; **SEED-ROBUST**. Consequence: "outliers vs the MP edge" is undefined after ~1000 steps, so all outlier counts are WITHDRAWN |
 | 10 | Update (ΔW) stable rank rises ≥ 3× from 1k→2k to 15k→16k at constant step count and ~constant LR | Equal-interval ΔW; G3 R3 | Holds on 1.4B for all types. **Not size-general** (V/O fail at 1B/410M), **SEED-DEPENDENT (4/10)**. Q, K and MLP_IN ≥ 3× in 10/10 seeds; the output side (V 8, MLP_OUT 7, O 5 of 10) is what varies |
 | 11 | Bulk singular-value ORDERING carries function (Diffract's bulk-permutation witness) | G2 + G2b controls (pre-registered) | **NOT ESTABLISHED.** A same-subspace, size-matched perturbation costs 0.67× the shuffle; local shuffles cost ≈ 0. Registered "Diffract replicates = false" is attributed to scope + size |
-| 12 | V's compression proceeds as a layer-ordered wave (Liu) | Dense-V run, 1000-step grid | **NULL for V** (ρ −0.00). Q/K/O/MLP UNRESOLVED (they compress within 256–2000 steps; only 512/1000/2000 exist). Needs arm B |
+| 12 | Compression proceeds as a layer-ordered wave (Liu) | Dense-V run (1.4B); Arm B Q2 wave (70M, sealed exact test) | **NULL for V** at 1.4B (ρ −0.00, 1000-step grid). **Q/K at 70M (Arm B): OPPOSITE ORDER** as sealed (p_lower 0.0052; the wave family's two-tailed α is 0.10). It is carried by layer 0 (p 0.056 without it). Liu's direction does not replicate |
 | 13 | Change points align with events | CP null calibration | **NOT LICENSED** (false-CP rate 0.59–0.98 on smooth curves). No alignment claim is made |
+| 14 | The ~2k turning points are anchored by step, warmup end, or LR integral (Arm B Q1) | E4 warp-and-compare, licence v2 (70M) | **NO SIMPLE ANCHOR** (A2). Warmup length changes the trajectory, but no time map reproduces it: the schedule reshapes the curve, it does not just re-time it. A1 has no licensed verdict (ARMB_FINDINGS §2) |
+| 15 | Early updates are low-rank (Arm B Q3) | ΔW rank ratio type counts (70M) | **INCONCLUSIVE** as sealed. Descriptively Q/K early updates are 5–7× lower-rank; V/O/MLP not |
+| 16 | AdamW vs Muon (Arm B Q4) | Two independent pairs, T·s_ref (70M) | 123/368 cells pass (a count, not independent effects). The TIMING and DEPTH of the Q/K stable-rank collapse depend on the optimizer; the endpoint past 3000 is unknown |
 
 ## 2. Descriptive measurements (no test; Pythia-1.4B unless stated; see STAGE3_FINDINGS)
 - **Stable rank** collapses for Q/K/O/MLP_OUT between steps 128 and 2000; V collapses later (3k–12k); O and MLP_OUT
@@ -58,8 +61,12 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 ## 3. Confounds that bound the descriptives
 - **LR warmup ends at step 1430.** Every "turning point at ~2k" sits at the first checkpoint after it:
   LR-CONFOUNDED.
-- **Checkpoint spacing.** Pythia has no equally spaced checkpoints below step 1000. "Low-rank early" updates, event
-  ordering within 256–2000, and non-V compression waves all need arm B (own dense checkpoints). **HELD.**
+  - Arm B (#14) confirms that the schedule matters: changing the warmup changes the trajectory. None of step,
+    warmup end or LR integral anchors it as a re-timing.
+- **Checkpoint spacing.** Pythia has no equally spaced checkpoints below step 1000. Arm B (own dense checkpoints,
+  70M) addressed this: see #12, #14–#16 and armb/ARMB_FINDINGS.md.
+  - At 70M's resolution the A0 events (OV/QK null exit, induction, MP exit) are SIMULTANEOUS; the order is not
+    resolved.
 - **Density shape versus local statistics.** A realistic trained per-head density alone moves kde(4) q by ~0.12 under
   a true β=1 (S4 known-answer pools). A density-matched calibrator must pass a known-answer licence before its
   residual is read.
@@ -83,7 +90,28 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
   - dry-run every refusal branch at seal time.
 
 ## 5. Not done
-- **HELD (Will's call):** arm B (AdamW vs Muon; own dense checkpoints), and the OLMo stage-1 trajectory for aim 1.
+- **DONE:** Arm B (2026-09-29; armb/ARMB_FINDINGS.md).
+- **HELD (Will's call):** the OLMo stage-1 trajectory for aim 1.
 - **Stage 4** (peaked-spectrum local statistics): not reached, because G7 did not license it.
 - **Zoo seating:** the G7 classes still need seating in calibrator_panel.py (a shared-module edit, left for the
   branch-merge session).
+
+## 6. Open leads (for specialists; none of these is running)
+Each needs its own pre-registration before it is read as evidence.
+1. **OLMo multimodality that fades.** 13.3% of Q heads are multimodal at stage-1 end (dead rows excluded), and the
+   excess is sub-floor at `main`, after mid-training. When do the peaks appear and fade? G7 did not license local
+   statistics on peaked spectra, so a trajectory can time the peaks but not resolve their internal structure.
+2. **Dead rows in OLMo Q.** At stage-1 end: a near-zero mode in 170 Q heads, and 8 heads RANK_COLLAPSED (median σ
+   below the fp32 floor). At `main`: 92 heads. What makes them, and does the anneal revive them?
+3. **The low-rank update burst in V/O/MLP_OUT at 4k → 5k** (1.4B, no loss jump). Unexplained. In the released Pythia-70M
+   runs (standard + seeds 1–9) the frozen burst check reads ABSENT 10/10 (armb/burst_check_70m.py), so it may be
+   size-specific.
+4. **Q/K lower-decile departure from MP from ~8k**, 44–80× above the fp16 Weyl bound. It is not precision.
+5. **K's concentration on rotary dims** (#8): ≥ null + 0.10 in 9/10 seeds and at every size, but R1 with its norm
+   clause is SEED-DEPENDENT.
+6. **Seed 4's late loss spike (96k–128k) as a natural experiment:** what the spectra do through an instability.
+7. **Bulk singular VECTORS.** G2/G2b tested only the ordering of bulk singular values, and nothing tested puts
+   function there (#11). Whether function lives in the bulk's singular vectors was never tested.
+8. **Arm B leads** (70M): see armb/ARMB_FINDINGS.md §8 (Q1 misfit shape, the wave without layer 0, the Q3 reference
+   phase, the Muon ΔW rank, the bulk count test with a measured null rate, and more).
+
