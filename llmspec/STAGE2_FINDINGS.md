@@ -30,8 +30,9 @@ R = 20 replicate pools, plus the unimodal-control family.
 ## Zoo
 - The four synthetic classes (Poisson / COE β=1 (+ Wishart-MP) / Neyman–Scott ×2 / CUE β=2, mapped through
   real-head peak mixtures) are defined in stage2_g7.py.
-- Seating them in calibrator_panel.py (TIERS, `_schema_self_check`) is a shared-module edit left for the
-  branch-merge session and flagged here.
+- Seating them in calibrator_panel.py (TIERS, `_schema_self_check`) was left for the branch-merge session.
+  **2026-09-30: DEFERRED explicitly at that merge** (not seated in the published main). The reasons and
+  requirements are in FINDINGS_MEMO §5 and NOTES.
 
 ## Output
 - results/g7_olmo_stage1end_Q.json

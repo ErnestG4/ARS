@@ -93,8 +93,7 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 - **DONE:** Arm B (2026-09-29; armb/ARMB_FINDINGS.md).
 - **HELD (Will's call):** the OLMo stage-1 trajectory for aim 1.
 - **Stage 4** (peaked-spectrum local statistics): not reached, because G7 did not license it.
-- **Zoo seating:** the G7 classes still need seating in calibrator_panel.py (a shared-module edit, left for the
-  branch-merge session).
+- **Zoo seating: DEFERRED explicitly** (NOT in the published main). DEFERRED explicitly at the 2026-09-30 merge of llm-spectra into main (Will: seat it in the merge or defer it in NOTES; deferred). Not seated because the G7 classes are DATA-DEPENDENT: each class draw (stage2_g7.draw) is mapped through peak mixtures fitted to real OLMo stage-1-end Q heads (fit_mixture on results/g7_targets_olmo_stage1end_Q.npz). Seating them properly is a shared-module design, not a merge-time edit. It needs: (1) a SEPARATE list (e.g. PEAKED_SPECTRUM_CALIBRATORS), NOT EXTENDED_CALIBRATORS, so the 6 existing panel consumers (extractor_distinctness, run_phase20_5_distinctness_revalidation, cross_substrate/rf_decoy_battery, cross_substrate/aq_floor_sweep, comb/verify_comb, phase22a/verify_calibrators) do not change; (2) the targets npz pinned by sha256, failing closed; (3) CALIBRATOR_TIERS entries (construction-defined); (4) _schema_self_check extended to the new list; (5) a regression run of the existing consumers.
 
 ## 6. Open leads (for specialists; none of these is running)
 Each needs its own pre-registration before it is read as evidence.
