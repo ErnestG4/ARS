@@ -238,6 +238,47 @@ Ratio of layer-mean ΔW stable rank, early over late. Late = [1000, 1025]. Early
 - **Asymmetry in the design (sealed, restated):** d₁'s AdamW side is our replica; d₂'s is the released GPT-NeoX run.
   The B-G1 pass bounds that replica difference by the seed band at the 14 gate steps.
 
+## 5b. Seed-1 identity check (B1a-A9, sealed 6b1c4ec; results/armb_seed1_identity.json)
+
+Question: are the rebuilt seed-1 batches the data PolyPythias `pythia-70m-seed1` trained on? M0-s2's Q4 pairing
+depends on it.
+- **Runs:** 128 AdamW steps each, with A0's trainer.
+- **Statistic:** ρ = correlation between our cumulative weight change and the released one, fp16, over every entry.
+
+| run | init / data | ρ at 16 / 32 / 64 / 128 | rel. distance (descriptive) | reads |
+|---|---|---|---|---|
+| K (known right) | pythia-70m / standard | 0.9977 / 0.9996 / 0.9992 / 0.9983 | 0.066 / 0.017 / 0.023 / 0.055 | — |
+| Km (known wrong) | pythia-70m / seed-1 | 0.9942 / 0.9973 / 0.9960 / 0.9913 | 0.111 / 0.067 / 0.075 / 0.130 | — |
+| **T (test)** | seed1 / rebuilt seed-1 | 0.9980 / 0.9996 / 0.9993 / 0.9980 | 0.066 / 0.017 / 0.024 / 0.061 | **right-like ×4** |
+| C1 | seed1 / standard | 0.9944 / 0.9977 / 0.9963 / 0.9913 | 0.112 / 0.068 / 0.075 / 0.131 | wrong-like ×4 |
+| C2 | seed1 / seed-1 shifted +1 | 0.9977 / 0.9996 / 0.9992 / 0.9979 | 0.070 / 0.021 / 0.025 / 0.062 | right-like ×4 |
+
+The right/wrong midpoints (K and Km) are 0.9959 / 0.9984 / 0.9976 / 0.9948. The instrument holds (K > Km at every t).
+No run skipped a step.
+
+- **Sealed verdict: INCONCLUSIVE.** T is right-like at every step and C1 is wrong-like, but C2 is also right-like,
+  and the sealed rule requires both confusers to read wrong.
+- **(descriptive, post-result) Why C2 fired right: it was a dead arm.**
+  - Shifted by one step, C2 trains on batches 2–129 where T trains on 1–128. **127 of the 128 batches are
+    shared**, and a cumulative weight change over 128 slow early steps hardly depends on their order.
+  - So C2 could not read wrong for any data, correct or not. Its separability should have been checked on the
+    known-answer system (K shifted by one) before sealing. It was not. The defect is mine.
+- **(descriptive, post-result) What the run does show.**
+  - The substantive alternative, C1 (the standard Pythia order under the seed-1 init), separates cleanly:
+    - C1 reproduces Km's wrong-data profile to 3–4 decimals, in ρ and in relative distance;
+    - T reproduces K's right-data profile to the same precision.
+  - The rebuilt batches therefore behave like the data seed 1 trained on, and not like the standard order.
+  - Step ALIGNMENT (an off-by-one) is not resolved by this statistic. C2's relative distance is slightly worse than
+    T's at every t (by 0.001–0.004), but that gap is not decisive.
+  - A7's byte-exact seed0 check covers the method's step indexing (sample i → step i//1024 + 1). An offset specific
+    to seed 1 would have to come from the seed-1 index files themselves.
+- **Consequence (sealed in A9):** INCONCLUSIVE → disclosed, and **Q4 stands with the pairing caveat**. M0-s2's
+  pairing is supported against "wrong order" (C1) but not verified against a one-step misalignment. An off-by-one
+  shift would leave the batch content 127/128 identical over any window, so it would not bear on the Q4 contrasts.
+- **Follow-up (not run; a new sealed amendment if wanted):** an alignment check with a confuser shown separable on
+  the known-answer system BEFORE sealing. For example, a shift large enough that windows do not overlap, or a
+  different PolyPythias seed's order.
+
 ## 6. Bulk null at MDD (all arms)
 
 Rule (sealed): for every arm, grid checkpoint and cell (full Q/K/V/O/MLP_IN/MLP_OUT; per-head Q/K/V/O):
@@ -311,7 +352,8 @@ MDD = 2.487 × the witness SD of one checkpoint's pool (0.0137 per-head Q/K/V, 0
    construction" is separated from "higher rank accumulated".
 5. **Q1 gap:** emit A2's (and A1's) turning-point status on the E4 route, as the sealed text requires. This is a
    descriptive report and a code fix, not a verdict change.
-6. **Queued:** the seed-1 identity check (descriptive; criteria sealed before it runs).
+6. **Seed-1 identity check: RAN (§5b), INCONCLUSIVE as sealed.** C2 was a dead arm; C1 separated cleanly. The
+   alignment follow-up is open.
 7. **Disclosed limitation:** the optimizer-state snapshot at step 1430 exists only for A2.
 8. **Bulk multiplicity (a new pre-registration before any re-read):**
    - A count statistic for VIOLATED cells, or a family-wise MDD.

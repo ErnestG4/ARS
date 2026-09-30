@@ -40,7 +40,7 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 | 13 | Change points align with events | CP null calibration | **NOT LICENSED** (false-CP rate 0.59–0.98 on smooth curves). No alignment claim is made |
 | 14 | The ~2k turning points are anchored by step, warmup end, or LR integral (Arm B Q1) | E4 warp-and-compare, licence v2 (70M) | **NO SIMPLE ANCHOR** (A2). Warmup length changes the trajectory, but no time map reproduces it: the schedule reshapes the curve, it does not just re-time it. A1 has no licensed verdict (ARMB_FINDINGS §2) |
 | 15 | Early updates are low-rank (Arm B Q3) | ΔW rank ratio type counts (70M) | **INCONCLUSIVE** as sealed. Descriptively Q/K early updates are 5–7× lower-rank; V/O/MLP not |
-| 16 | AdamW vs Muon (Arm B Q4) | Two independent pairs, T·s_ref (70M) | 123/368 cells pass (a count, not independent effects). The TIMING and DEPTH of the Q/K stable-rank collapse depend on the optimizer; the endpoint past 3000 is unknown |
+| 16 | AdamW vs Muon (Arm B Q4) | Two independent pairs, T·s_ref (70M) | 123/368 cells pass (a count, not independent effects). The TIMING and DEPTH of the Q/K stable-rank collapse depend on the optimizer; the endpoint past 3000 is unknown. Pairing caveat: the seed-1 identity check (A9) is INCONCLUSIVE as sealed. The rebuilt data separates from the standard order but a one-step alignment is not resolved (ARMB_FINDINGS §5b) |
 
 ## 2. Descriptive measurements (no test; Pythia-1.4B unless stated; see STAGE3_FINDINGS)
 - **Stable rank** collapses for Q/K/O/MLP_OUT between steps 128 and 2000; V collapses later (3k–12k); O and MLP_OUT
