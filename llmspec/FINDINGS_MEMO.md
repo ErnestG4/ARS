@@ -112,6 +112,10 @@ Each needs its own pre-registration before it is read as evidence.
 6. **Seed 4's late loss spike (96k–128k) as a natural experiment:** what the spectra do through an instability.
 7. **Bulk singular VECTORS.** G2/G2b tested only the ordering of bulk singular values, and nothing tested puts
    function there (#11). Whether function lives in the bulk's singular vectors was never tested.
+   - A hint pointing there (G2c, descriptive, under 0.001 nats): at k = 32, a same-size random perturbation confined
+     to the bulk subspace costs 4–6× the local shuffle, in both seeds.
+   - The shuffle only reorders singular VALUES and leaves the vectors alone; the random perturbation also rotates the
+     DIRECTIONS. So at equal size, disturbing the directions hurt more than reordering the values.
 8. **Arm B leads** (70M): see armb/ARMB_FINDINGS.md §8 (Q1 misfit shape, the wave without layer 0, the Q3 reference
    phase, the Muon ΔW rank, the bulk count test with a measured null rate, and more).
 
