@@ -1,4 +1,4 @@
-# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-29 22:55 PDT
+# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-30 07:25 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
 lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). No alarm set (B4 cron 6c2c8221 deleted 09-29 22:55,
@@ -30,6 +30,11 @@ chain complete). Interrupt: `touch llmspec/STOP`.
 - **Q4:** 123/368 cells OPTIMIZER-DIFFERENT. Muon: higher Q/K/MLP stable rank, lower top σ.
 - **Bulk:** sealed FINDING_CANDIDATE PRESENT in all 5 arms, status NOT ESTABLISHED. 76/9210 VIOLATED (0.83%) against
   a 1.29% null exceedance rate; the sealed per-cell rule has no multiplicity correction.
+
+## 09-30
+- Arm B final form agreed with Will (ARMB_FINDINGS §0).
+- FINDINGS_MEMO critique fixes #1, #3 and #11 done, plus Open leads; G2c closed #11 as neither-supports-nor-contradicts.
+- Nothing running.
 
 ## Held
 - OLMo stage-1 trajectory (Will's call).

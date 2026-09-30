@@ -158,11 +158,12 @@ and NOT pushed.
   - #1: 2 VIOLATED seed cells shown; per-head cells licensed on ⟨r̃⟩ only.
   - #3: lead with 13.3%, floors stated.
   - Arm B folded in (#12, #14–#16); §6 Open leads added.
-  - **#11 RUNNING:** stage3_g2c.py (committed a145694 before running; detached under checkrun; output
-    logs/g2c.out, results/stage3_g2c.json). It measures the local-shuffle ||dW|| plus a same-subspace control at that
-    size, with a regression check against G2b's banked dloss (rc 5 on mismatch). When done, fill in row #11 of
-    FINDINGS_MEMO.
-- **Next (Will's call, after #11):**
+  - **#11 DONE (6f64e3d):** G2c ran 09-30 00:5x–01:53, checkrun PASS, all 6 local conditions reproduced G2b.
+    - The local shuffles are tiny (0.14 / 0.56 / 2.2% of the bulk shuffle's ||dW||), and a same-size same-subspace
+      control also costs ~0. So the k-sweep neither supports nor contradicts the smooth, distributed reading.
+    - STAGE3 §11's "functionally inert" reading is withdrawn with a dated note.
+  - **Nothing running.**
+- **Next (Will's call):**
   - ARMB open leads 1–8.
   - Seed-1 identity check (queued; criteria to be sealed before it runs).
   - Push / Zenodo on Will's go.
