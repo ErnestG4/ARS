@@ -34,6 +34,18 @@ carry, it is marked **(descriptive, post-result)**. The post-result numbers adde
 - **Sanity check (descriptive):** M0-s1 − A0 is exactly 0 at steps 0 and 1 in every Q4 metric. Same init, and
   step 1 == step 0 under the schedule quirk.
 
+## 0. Arm B in its final form (agreed with Will, 2026-09-30)
+- **Q1:** Warmup length changes the trajectory, and none of the three time maps reproduces the change. It reshapes
+  the curve rather than re-timing it. The licensed verdict (NO SIMPLE ANCHOR) comes from A2. A1 points the same way
+  but has no licensed verdict.
+- **Q2:** Every A0 event pair is SIMULTANEOUS AT THIS RESOLUTION. The wave runs opposite to Liu's order (OPPOSITE
+  ORDER; the wave family's two-tailed α is 0.10). It is fragile to removing layer 0 (p 0.056 without it).
+- **Q3:** INCONCLUSIVE as sealed. Descriptively, Q and K early updates are 5–7× lower-rank than late ones.
+- **Q4:** The TIMING and DEPTH of the Q/K stable-rank collapse depend on the optimizer. Muon delays it and leaves it
+  shallower by step 3000. The endpoint past 3000 is unknown.
+- **Bulk null:** NOT ESTABLISHED. The per-cell test looks conservative (flags ~3.9 binomial SD fewer cells than its
+  own null predicts).
+
 ## 1. Headline
 
 | # | Question | Gate(s) | Sealed verdict / status |
@@ -309,5 +321,8 @@ MDD = 2.487 × the witness SD of one checkpoint's pool (0.0137 per-head Q/K/V, 0
    - Bank d for EVERY cell. The sealed bulk JSON keeps only the VIOLATED ones, so the full |d| distribution cannot
      be read back.
    - Seal it and red-path it on a planted departure before applying it.
-9. **Q1 on A1 at the 0.5% row (descriptive, Will's call):** A0's TP_O missed the 0.5% row by 1.4%. An E4 read of A1
-   at 0.5% would be a labelled post-result look, not a verdict. Not run.
+9. **Q1 on A1 at the 0.5% row: stays OPEN, not run (Will, 09-30).** A0's TP_O missed the 0.5% row's cutoff by 1.4%.
+   A reading there would sit right next to the threshold that excluded it, and would be hard to interpret whichever
+   way it came out. It also adds little: A2 carries the licensed Q1 verdict, and A1's MLP-out fit ratio (42.8) points
+   the same way, descriptively. **If it is ever run:** label it post hoc and put it in its own section, never in the
+   verdict table.
