@@ -166,9 +166,8 @@ and NOT pushed.
   - T is right-like and C1 (standard order) wrong-like, cleanly.
   - C2 (+1 shift) was a DEAD ARM: 127/128 batches are shared with T, so it could not read wrong. Its separability was
     not checked on the known-answer system before sealing.
-  - Per A9, Q4 stands with the pairing caveat. An alignment follow-up (separable confuser) is an optional new
-    amendment, Will's call.
-  - armb/_seed1_cache (517 MB, gitignored) is still present: delete proposed to Will.
+  - Per A9, Q4 stands with the pairing caveat. The alignment follow-up was DECLINED by Will (09-30); no A10 exists.
+  - armb/_seed1_cache deleted 09-30 (Will approved; the hashes stay in spot's steps.jsonl).
 - **Nothing running.**
 - Will's order after it: publish (Will pushes the Forgejo + GitHub; Zenodo snapshot at the same commit), then the
   Arm B open leads.

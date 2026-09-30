@@ -256,6 +256,9 @@ depends on it.
 The right/wrong midpoints (K and Km) are 0.9959 / 0.9984 / 0.9976 / 0.9948. The instrument holds (K > Km at every t).
 No run skipped a step.
 
+- **The rule that ran:** B1a-A9 exactly as sealed at 6b1c4ec. `armb/seed1_identity.py` sha256 383ce687a7548725…,
+  unchanged since that commit. **No A10 was ever sealed or run.** The alignment follow-up below is a proposal only, and
+  Will declined it on 09-30: its only possible answers change no result.
 - **Sealed verdict: INCONCLUSIVE.** T is right-like at every step and C1 is wrong-like, but C2 is also right-like,
   and the sealed rule requires both confusers to read wrong.
 - **(descriptive, post-result) Why C2 fired right: it was a dead arm.**
@@ -275,7 +278,7 @@ No run skipped a step.
 - **Consequence (sealed in A9):** INCONCLUSIVE → disclosed, and **Q4 stands with the pairing caveat**. M0-s2's
   pairing is supported against "wrong order" (C1) but not verified against a one-step misalignment. An off-by-one
   shift would leave the batch content 127/128 identical over any window, so it would not bear on the Q4 contrasts.
-- **Follow-up (not run; a new sealed amendment if wanted):** an alignment check with a confuser shown separable on
+- **Follow-up (declined by Will 09-30; not sealed, not run):** an alignment check with a confuser shown separable on
   the known-answer system BEFORE sealing. For example, a shift large enough that windows do not overlap, or a
   different PolyPythias seed's order.
 
