@@ -145,16 +145,26 @@ and NOT pushed.
   - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
   - Sub-1000 "low-rank early" → arm B.
 
-## 4. Running now (09-29 22:55 PDT)
-- **Nothing running.** The B4 chain is COMPLETE (22:29). Results: results/armb_b4_{q1,q2,q3,q4,bulk}.json.
+## 4. Running now (09-30)
+- The B4 chain is COMPLETE (22:29). Results: results/armb_b4_{q1,q2,q3,q4,bulk}.json.
   Memo: armb/ARMB_FINDINGS.md (committed with the CHECKRUN line). B4 cron 6c2c8221 deleted.
   - Bulk: the sealed per-arm verdict is FINDING_CANDIDATE PRESENT, status NOT ESTABLISHED. The VIOLATED rate (0.83%)
     is below the null's 1.29% exceedance at |d| > MDD, and the sealed rule has no multiplicity correction.
     Any re-read needs a new pre-registration (memo open lead 8).
-- **Next (Will's call):**
-  - Open leads 1–8 in ARMB_FINDINGS.
-  - Seed-1 identity check (queued).
-  - Memo fixes from the earlier critique.
+- **09-30:** Will reviewed ARMB_FINDINGS. The final form is agreed (§0, d728603). Revisions 712d1c4 (descriptive,
+  armb/b4_post_descriptive.py). Open lead 9 (A1 at the 0.5% row) stays OPEN by Will's call: if it is ever run, it
+  goes post hoc in its own section, never the verdict table.
+- **09-30 FINDINGS_MEMO critique fixes (2f7dd6b):**
+  - #1: 2 VIOLATED seed cells shown; per-head cells licensed on ⟨r̃⟩ only.
+  - #3: lead with 13.3%, floors stated.
+  - Arm B folded in (#12, #14–#16); §6 Open leads added.
+  - **#11 RUNNING:** stage3_g2c.py (committed a145694 before running; detached under checkrun; output
+    logs/g2c.out, results/stage3_g2c.json). It measures the local-shuffle ||dW|| plus a same-subspace control at that
+    size, with a regression check against G2b's banked dloss (rc 5 on mismatch). When done, fill in row #11 of
+    FINDINGS_MEMO.
+- **Next (Will's call, after #11):**
+  - ARMB open leads 1–8.
+  - Seed-1 identity check (queued; criteria to be sealed before it runs).
   - Push / Zenodo on Will's go.
   - Narrow-scope spot key.
 - **TRAINING COMPLETE:** A0, A1, A2, M0s1, M0s2 (queue closed 10:41 on 09-29).
