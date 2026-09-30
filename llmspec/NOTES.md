@@ -168,9 +168,11 @@ and NOT pushed.
     not checked on the known-answer system before sealing.
   - Per A9, Q4 stands with the pairing caveat. The alignment follow-up was DECLINED by Will (09-30); no A10 exists.
   - armb/_seed1_cache deleted 09-30 (Will approved; the hashes stay in spot's steps.jsonl).
-- **09-30 MERGED into main** (--no-ff): merge commit **458a6974f161e7444a93670320441830ce82ff28**, 233 files, all
-  under llmspec/. This is the commit for the Zenodo snapshot; record it in the Zenodo metadata. Will pushes main to
-  the Forgejo and GitHub.
+- **09-30 MERGED into main** (--no-ff; the first merge 458a697 was superseded by a second merge after the README and
+  licensing, before anything was pushed). The Zenodo snapshot commit is the merge commit tagged
+  `llmspec-2026-09-30`. Record its hash in the Zenodo metadata. Will pushes main to the Forgejo and GitHub.
+- Licensing: code AGPL-3.0-or-later (repo LICENSE); llmspec results and write-ups CC-BY-4.0 (llmspec/LICENSE-RESULTS.md).
+  Internal details (paths, hostnames) are LEFT as-is by Will's decision (09-30).
 - Nothing running.
 - Will's order after it: publish (Will pushes the Forgejo + GitHub; Zenodo snapshot at the same commit), then the
   Arm B open leads.
