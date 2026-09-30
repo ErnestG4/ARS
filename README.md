@@ -4,6 +4,10 @@ Python implementation of a two-engine point-process classifier built on
 the Farey-rational phase-locked loop framework developed by M. Planat
 and collaborators (FEMTO-ST, 2002–2026).
 
+> **Also in this repository:** [`llmspec/`](llmspec/README.md), *Shapes of LLM weights over training*, a
+> pre-registered study of language-model weight spectra across training (separate from the ARS toolkit; code
+> AGPL-3.0, results CC-BY-4.0).
+
 ## What this is
 
 **In plain language.**  The toolkit studies the *timing texture* of

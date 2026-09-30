@@ -103,5 +103,8 @@ Each lead needs its own pre-registration before it is read as evidence. Details:
 
 ## License
 
-Code: AGPL-3.0 (the repository's [LICENSE](../LICENSE)). Pythia and PolyPythias are Apache-2.0; OLMo 2 is Apache-2.0.
-This project publishes derived statistics only, no model weights.
+- **Code:** AGPL-3.0-or-later (the repository's [LICENSE](../LICENSE)).
+- **Results and write-ups** (everything under `llmspec/` that is not `.py` / `.sh`): **CC-BY-4.0**. See
+  [LICENSE-RESULTS.md](LICENSE-RESULTS.md).
+- Derived from Pythia / PolyPythias and OLMo 2 checkpoints (all Apache-2.0). Derived statistics only; no model weights
+  are redistributed.
