@@ -166,7 +166,7 @@ and NOT pushed.
 - **Next (Will's call):**
   - ARMB open leads 1–8.
   - Seed-1 identity check (queued; criteria to be sealed before it runs).
-  - Push (now to GITHUB: Codeberg bans LLM work, Will 09-30; GitHub auth not set up yet) / Zenodo on Will's go.
+  - Hosting: Will's local Forgejo (Combust/ARS); all 13 branches pushed by Will 09-30. Will pushes manually; I never push. Zenodo on Will's go.
   - Narrow-scope spot key.
 - **TRAINING COMPLETE:** A0, A1, A2, M0s1, M0s2 (queue closed 10:41 on 09-29).
   - A0 passed B-G1 at all 14 steps (worst |z| 1.87).
