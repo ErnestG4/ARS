@@ -1,0 +1,252 @@
+# Arm B findings — Q1–Q4 and the bulk null at 70M (B4)
+
+Branch `llm-spectra` (local, unpushed), dir `llmspec/armb/`. Written 2026-09-29 (chain complete 22:29) from the B4 outputs
+`results/armb_b4_{q1,q2,q3,q4,bulk}.json`.
+
+**How the analysis was sealed.**
+- Pre-registrations: ARMB_PREREG.md (B1a; amendments A1–A8) and ARMB_PREREG_B1B.md (B1b rev 2, sealed 766c92c), with
+  B4 amendments 1–6.
+- Analysis code sealed before it read any arm statistic beyond the B-G1 gate: bde3656, then amendments 3 (9a47dd5),
+  4 (0cebc89), 5 (3c11ab0) and 6 (960f775).
+- Seal manifest `armb/B4_SEAL.json` (sha256 4d26b387…, 19 files). The run printed `seal check OK (19 files)` before
+  computing anything. Scope of that check: it guards against ACCIDENTAL drift (an edit, a stale copy, the wrong
+  branch). It does not guard against deliberate tampering.
+- Every result JSON carries the sha256 of each cache file it read, plus the manifest's sha256.
+
+**Rule of this memo.** The brief's §6 rule applies: every claim names its licensing gate, and nulls are reported as
+nulls. Status vocabulary is as in FINDINGS_MEMO.md; verdict labels are quoted exactly as the sealed code emits them.
+No threshold was changed after any arm statistic existed. Where this memo adds context the sealed verdict does not
+carry, it is marked **(descriptive, post-result)**.
+
+**Runs** (70M, compiled, fp16 with Pythia loss scaling; GPT-NeoX v1.0 replica):
+
+| arm | optimizer | warmup W | init | data order | stop | checkpoints |
+|---|---|---|---|---|---|---|
+| A0 | AdamW | 1430 | pythia-70m step0 | Pythia | 3000 | 161 |
+| A1 | AdamW | 2860 | pythia-70m step0 | Pythia | 5000 | 181 |
+| A2 | AdamW | 715 | pythia-70m step0 | Pythia | 3000 | 257 (dense 1000–2200) |
+| M0-s1 | Muon hybrid v1 | Pythia | pythia-70m step0 | Pythia | 3000 | 161 |
+| M0-s2 | Muon hybrid v1 | Pythia | pythia-70m-seed1 step0 | seed-1 index maps | 3000 | 161 |
+
+- **Gate:** A0 PASSED B-G1 at all 14 shared steps (10 reference runs; 164 comparisons; Bonferroni T = 5.67).
+  Nothing below would have been read otherwise.
+- **Sanity check (descriptive):** M0-s1 − A0 is exactly 0 at steps 0 and 1 in every Q4 metric. Same init, and
+  step 1 == step 0 under the schedule quirk.
+
+## 1. Headline
+
+| # | Question | Gate(s) | Sealed verdict / status |
+|---|---|---|---|
+| Q1a | What anchors the attention-output (TP_O) trajectory: step count, warmup end, or LR integral? | E4 warp-and-compare, licence v2 (midpoint confusers); calibrated noise row (5th-pct upper bound, both noise types) | **NO SIMPLE ANCHOR**. Rests on A2 only (NSA licensed). A1 not licensed for E4 → location route → DESCRIPTIVE |
+| Q1b | Same, for MLP-out (TP_MLPOUT) | same | **NO SIMPLE ANCHOR**, rests on A2 (NSA licensed). A1: INCONCLUSIVE (it also read NSA, but NSA is not licensed for that cell). A0 has no turning point, so per the sealed text this is **an anchor of the trajectory, not of a turning point** |
+| Q2a | Order of E_OV, E_QK, E_ind, E_MP(Q) on A0 | Crossing-time licence (worst-shape 95% e_x) | **SIMULTANEOUS AT THIS RESOLUTION** for all four resolvable pairs. E_sr(Q) vs E_sr(V): **UNRESOLVED** (V never crosses by 3000) |
+| Q2b | Layer-ordered compression wave (Liu) | Exact permutation test, 720², one statistic S = ρ_Q + ρ_K | **OPPOSITE ORDER** (S = −1.53, lower-tail p = 0.0052). Deeper layers reach ½ stable rank first |
+| Q3 | Are early updates low-rank? (A0 primary) | Type counts on the ΔW stable-rank ratio, (S) and (L) | **INCONCLUSIVE** (A0). Descriptive arms: A1 INCONCLUSIVE, A2 LOW-RANK EARLY |
+| Q4 | AdamW vs Muon | Two independent pairs, same sign and |d| > T·s_ref in both; T = 6.33 over a family of 368 | **OPTIMIZER-DIFFERENT in 123/368 cells** (every type, every metric family, loss included). LARGE-and-CONSISTENT only; the rest is descriptive |
+| B | Bulk ⟨r̃⟩ null at MDD, all 5 arms | 70M MDD (0.014–0.018); ladder with the S4-licensed calibrator | Sealed per-arm verdict **FINDING_CANDIDATE PRESENT** in all 5 arms. Status: **NOT ESTABLISHED**. 76 of 9,210 cells were VIOLATED (0.83%); a perfect β = 1 null exceeds the MDD in 1.29% of cells (≈ 119 expected), so the count sits at or below the null's own noise. The sealed rule has no multiplicity correction (§6) |
+
+## 2. Q1 — LR confound
+
+Primary route E4, per (arm, metric). SSE is summed over the common window (A1 [1450, 3000]; A2 [300, 2275]). The
+fit ratio is SSE_best/(n·s²), compared against c_fit.
+
+| metric | arm | noise meas. → calibrated row | route | SSE STEP / WARMUP / LR_INT | fit ratio vs c_fit | NSA licensed | decision |
+|---|---|---|---|---|---|---|---|
+| TP_O | A0 | 0.33% → 1% | (location reference) | — | — | — | turning point present, t̂ = 2000 (E1, worst-shape e = 675) |
+| TP_O | A1 | 0.32% → 0.5%; row max(A0, A1) = 1% | LOCATION (E4 not licensed at 1%) | — | — | — | DESCRIPTIVE (no licensed estimator at the arm's noise, both types) |
+| TP_O | A2 | 0.22% → 0.5%; row 1% | E4 | 3345 / 1765 / 408 | 73.4 > 3.94 | yes | **NO_SIMPLE_ANCHOR** |
+| TP_MLPOUT | A0 | 0.22% → 0.5% | (reference) | — | — | — | **no turning point** by 3000 |
+| TP_MLPOUT | A1 | 0.16% → 0.5% | E4 | 385 / 1494 / 113 | 42.8 > 2.65 | **no** | INCONCLUSIVE (no-model outcome not licensed for this cell) |
+| TP_MLPOUT | A2 | 0.17% → 0.5% | E4 | 16117 / 12074 / 956 | 134.2 > 3.21 | yes | **NO_SIMPLE_ANCHOR** |
+
+- **Verdict rule (sealed):** NO SIMPLE ANCHOR if any licensed arm says so. Both metrics therefore read NO SIMPLE
+  ANCHOR on the strength of A2 alone.
+- **(descriptive, post-result) Size of the misfit.** The fit ratio is in units of the curves' own (small) noise. In
+  curve-height units, the best time map leaves an RMS residual of about:
+  - **2.4%** of the curve height for TP_O on A2;
+  - **2.3%** for TP_MLPOUT on A2;
+  - 1.3% for TP_MLPOUT on A1.
+
+  These are √(fit ratio) × the pooled relative noise. The trajectories are very smooth (0.2–0.3% noise), so a
+  percent-level shape difference is far outside every time map. The licence certifies that call: NSA fires ≥ 80% on
+  both midpoint confusers at these rows.
+- **(descriptive, post-result) Closest model.** LR_INT has the lowest SSE in all three E4 cells (next-best / best =
+  4.3×, 12.6×, 3.4×). This is **not** a SUPPORTED verdict: the sealed outcome is NO SIMPLE ANCHOR. LR_INT is simply the
+  least-bad of the three maps.
+- **Prereg items the sealed code did not emit** (disclosed, not computed here):
+  - The sealed text says a turning point present in A0 but absent in A1/A2 is "reported as such". The code computes
+    turning points only on the location route, so A2's TP status is not in the results.
+  - The label "anchor of the trajectory, not of a turning point" for TP_MLPOUT is applied in this memo from the sealed
+    text; the code does not print it.
+
+## 3. Q2 — event order (A0 primary; M0 arms descriptive)
+
+Crossing times t ± e_x, in steps (e_x = the worst-shape 95% localisation error at the calibrated noise row):
+
+| event | A0 | M0-s1 | M0-s2 |
+|---|---|---|---|
+| E_loss | 150 ± 50 | 170 ± 25 | 170 ± 25 |
+| E_sr(Q) | 180 ± 50 | 1475 ± 25 | 1500 ± 25 |
+| E_sr(K) | 330 ± 25 | 1375 ± 25 | 1375 ± 25 |
+| E_MP(Q) | 420 ± 375 | 675 ± 375 | 700 ± 375 |
+| E_MP(K) | 490 ± 375 | 675 ± 375 | 675 ± 375 |
+| E_OV | 512 ± 200 | 240 ± 200 | 230 ± 200 |
+| E_QK | 675 ± 200 | 675 ± 200 | 725 ± 200 |
+| E_ind | 675 ± 100 | 750 ± 200 | 750 ± 200 |
+| E_sr(MLP_IN) | 975 ± 50 | not crossed | not crossed |
+| E_sr(MLP_OUT) | 1150 ± 25 | 2575 ± 25 | 2350 ± 25 |
+| E_sr(O) | 1275 ± 25 | not crossed | not crossed |
+| E_sr(V) | not crossed | not crossed | not crossed |
+
+- **Sealed pairs on A0:**
+  - E_OV vs E_QK, E_OV vs E_ind, E_QK vs E_ind and E_MP(Q) vs E_ind: **SIMULTANEOUS AT THIS RESOLUTION**.
+  - E_sr(Q) vs E_sr(V): **UNRESOLVED** (E_sr(V) not crossed).
+- **Relation to Stage 3 claim #6** ("OV leaves its null before QK", REPLICATES at the resolution limit, step 512).
+  The dense A0 grid puts the point estimates in the same order (512 vs 675). The conservative worst-shape intervals
+  (±200) overlap, so Arm B does not resolve the order at 70M. That is a resolution statement, not a contradiction.
+- **M0 arms (descriptive):** E_OV PRECEDES E_QK and E_ind in both Muon runs (230–240 vs 675–750).
+- **(descriptive) Muon delays Q/K compression.** Muon delays the stable-rank halving of Q and K about 5–8×
+  (≈ 1400–1500 vs 180/330). O and MLP_IN do not halve by 3000. This agrees with Q4.
+- **Wave (A0, primary):** ρ_Q = −0.70, ρ_K = −0.83 → S = −1.53. p_upper = 0.995, p_lower = 0.0052 → **OPPOSITE
+  ORDER**. V/O (reported, no test): ρ_V = +0.65 (only layer 0 crosses), ρ_O = +0.70.
+  - t_half on A0:
+    - Q: 380 / 180 / 160 / 160 / 170 / 160
+    - K: 1125 / 300 / 250 / 230 / 270 / 200
+  - **(descriptive, post-result)** The ordering is carried mostly by **layer 0 compressing last** (Q 380 vs 160–180;
+    K 1125 vs 200–300). Layers 1–5 of Q lie within 20 steps of each other, about the grid spacing there. The sealed
+    permutation test does not use localisation error, so the verdict stands as sealed. The reading "the wave runs
+    late-to-early" should be held as "layer 0 is last". A test of the layer 1–5 order would be a new
+    pre-registration.
+- **M0 wave:** NOT RESOLVED (bounded null at 6 layers) in both runs (S = −0.37, −0.12).
+
+## 4. Q3 — are early updates low-rank?
+
+Ratio of layer-mean ΔW stable rank, early over late. Late = [1000, 1025]. Early: (S) = [100, 130], (L) = [100, 250]
+(the LR-integral-matched interval).
+
+| arm | cmp | Q | K | V | O | MLP_IN | MLP_OUT | verdict |
+|---|---|---|---|---|---|---|---|---|
+| A0 (primary) | S | 0.14 | 0.18 | 0.78 | 0.94 | 0.96 | 1.06 | |
+| | L | 0.14 | 0.19 | 1.30 | 1.56 | 1.37 | 1.52 | **INCONCLUSIVE** |
+| A1 (descr.) | S | 0.11 | 0.17 | 0.31 | 0.34 | 0.40 | 0.38 | |
+| | L | 0.10 | 0.17 | 0.49 | 0.61 | 0.71 | 0.60 | INCONCLUSIVE |
+| A2 (descr.) | S | 0.05 | 0.09 | 0.39 | 0.43 | 0.31 | 0.29 | |
+| | L | 0.06 | 0.11 | 0.52 | 0.73 | 0.30 | 0.42 | LOW-RANK EARLY |
+
+- **(descriptive, post-result) A0 is a clean type split.**
+  - Q and K early updates are 5–7× lower-rank than late in both comparisons.
+  - V, O and the MLP are not.
+  - A0 missed NOT LOW-RANK EARLY only because V's (S) ratio is 0.783 against the 0.8 bar (3/6 types ≥ 0.8 in (S)).
+    The threshold stands.
+- **(descriptive, post-result) Commensurability caveat across arms.** The late reference [1000, 1025] sits at
+  different LR phases:
+  - inside warmup for A0 (W 1430) and A1 (W 2860);
+  - past the warmup peak for A2 (W 715).
+
+  So the three arms' ratios do not share a reference, and "A2 LOW-RANK EARLY" is not a warmup-length effect until
+  that is controlled.
+
+## 5. Q4 — AdamW vs Muon
+
+- **Pairs:**
+  - d₁ = M0-s1 − A0.
+  - d₂ = M0-s2 − released pythia-70m-seed1 (different init, different data order).
+- **Rule:** s_ref is the SD over the 10 AdamW reference runs. T = 6.33 (Bonferroni t₉ over the family of 368 =
+  (4 metrics × 6 types + loss) × 14 shared steps + 3 intervals × 6 types).
+- **Result: 123/368 cells OPTIMIZER-DIFFERENT.** None at steps 0–8. The first differences are at step 16 (loss).
+
+| family | cells | consistent direction under Muon |
+|---|---|---|
+| stable rank | 22/84 | **higher**: Q (128–3000), K (256–3000), MLP_IN (512–3000), MLP_OUT, O (512–2000). V: 0/14 |
+| spectral entropy | 24/84 | **higher**: Q, K, MLP_IN, MLP_OUT. **Lower**: V (512–3000). O: step 2000 only |
+| Frobenius norm | 30/84 | **lower** early (128–256; Q/K to 512) for Q/K/V/O/MLP_OUT, **higher** late (by 2000) in every type |
+| top σ | 27/84 | **lower**: Q (128–3000), K (256–3000), MLP_IN (512–3000). **Higher** late: V (1000–3000), O (2000–3000), MLP_OUT (1000–3000; lower at 128–512) |
+| probe loss | 7/14 | **higher** at 16–128, **lower** at 1000–3000 |
+| ΔW stable rank | 13/18 | **higher** in all 6 types over [512, 1000] and [1000, 2000]; MLP_IN also [2000, 3000] |
+
+- **(descriptive, post-result) Absolute sizes, M0-s1 vs A0.**
+  - Q stable rank: 92.1 vs 15.2 at step 1000 (+508%); 40.3 vs 11.1 at 3000 (+265%).
+  - MLP_IN stable rank: +310% at 3000.
+  - Q top σ: −62% at 1000, −39% at 3000.
+  - Probe loss: 3.328 vs 3.414 at 3000; 10.87 vs 9.80 at step 32.
+  - Some "different" cells are absolutely tiny because the AdamW seed spread is tiny. V entropy, for example, is
+    −0.7% to −1.5%. **OPTIMIZER-DIFFERENT means large relative to seed spread and consistent across pairs. It does
+    not mean large in absolute terms.**
+- **(descriptive) d₁ and d₂ agree** to within a few s_ref: e.g. Q stable rank at 2000 is 135.9 vs 138.8 s_ref. That
+  is the scale of seed noise, so the agreement is what two independent pairs should show.
+- **(descriptive, post-result) The ΔW-rank difference is expected by construction.** Muon orthogonalises each
+  update (NS5), so a flatter, higher-rank update is its design, not an emergent property of training under it. The
+  weight-level differences (stable rank, top σ, entropy of W) are the informative rows.
+- **Asymmetry in the design (sealed, restated):** d₁'s AdamW side is our replica; d₂'s is the released GPT-NeoX run.
+  The B-G1 pass bounds that replica difference by the seed band at the 14 gate steps.
+
+## 6. Bulk null at MDD (all arms)
+
+Rule (sealed): for every arm, grid checkpoint and cell (full Q/K/V/O/MLP_IN/MLP_OUT; per-head Q/K/V/O):
+- |bulk ⟨r̃⟩ − 70M witness mean| ≤ MDD → HOLDS AT MDD;
+- otherwise VIOLATED, and the cell goes to the ladder (density-matched witness with the S4-licensed calibrator, R = 10):
+  - DENSITY_ARTIFACT iff |d_obs − d_density| ≤ MDD;
+  - else FINDING_CANDIDATE.
+
+MDD = 2.487 × the witness SD of one checkpoint's pool (0.0137 per-head Q/K/V, 0.0157 MLP, 0.0183 full / per-head O).
+
+| arm | cells | HOLDS AT MDD | VIOLATED | → DENSITY_ARTIFACT | → FINDING_CANDIDATE | expected VIOLATED under a true null | sign of d (+/−) | sealed verdict |
+|---|---|---|---|---|---|---|---|---|
+| A0 | 1610 | 1593 | 17 (1.06%) | 5 | 12 | 20.7 | 12 / 5 | FINDING_CANDIDATE PRESENT |
+| A1 | 1810 | 1799 | 11 (0.61%) | 1 | 10 | 23.3 | 5 / 6 | FINDING_CANDIDATE PRESENT |
+| A2 | 2570 | 2546 | 24 (0.93%) | 11 | 13 | 33.1 | 5 / 19 | FINDING_CANDIDATE PRESENT |
+| M0-s1 | 1610 | 1599 | 11 (0.68%) | 5 | 6 | 20.7 | 4 / 7 | FINDING_CANDIDATE PRESENT |
+| M0-s2 | 1610 | 1597 | 13 (0.81%) | 5 | 8 | 20.7 | 8 / 5 | FINDING_CANDIDATE PRESENT |
+| all | 9210 | 9134 | 76 (0.83%) | 27 | 49 | 118.6 | 34 / 42 | — |
+
+- **The sealed verdict is reported as sealed.** The status is **NOT ESTABLISHED**: no bulk departure from β = 1 is
+  claimed at 70M.
+- **(descriptive, post-result) Why the verdict carries no evidence of departure.**
+  - The per-cell rule has no family-wise correction. At |d| > 2.487 SD, a perfect β = 1 null exceeds the MDD in
+    2·Φ(−2.487) = 1.29% of cells, so a true null arm of ~1,600 cells is expected to show ~21 VIOLATED cells.
+    "FINDING_CANDIDATE PRESENT" was therefore close to guaranteed at the null.
+  - The observed VIOLATED rate (0.61–1.06% per arm; 0.83% overall) is at or below that null rate in every arm. The
+    binomial upper-tail p for "at least this many" is 0.83–0.998 per arm. These are approximate: adjacent
+    checkpoints are correlated, so the cells are not independent.
+- **What FINDING_CANDIDATE means here.** The ladder separates density from not-density; it cannot separate a real
+  departure from sampling noise. |d_density| ≤ 0.0062 in all 49 FINDING_CANDIDATE cells. So FINDING_CANDIDATE
+  here means "not explained by density", not "departure".
+- **Scatter (descriptive).**
+  - Flagged cells are spread over cells and steps, with mixed signs.
+  - The largest |d| is 0.027 (A2 MLP_OUT, step 1910).
+  - One short run of adjacent checkpoints: A0 per-head V at steps 550/575/600 (d = +0.016, +0.020, +0.021; MDD 0.0137).
+    Adjacent checkpoints are nearly the same matrices (the sealed no-pooling rule), so this is one excursion, not
+    three.
+- **Consistency with the earlier record.** This agrees with the sealed Stage 3 bulk NULL at 410M–1.4B (FINDINGS_MEMO
+  #1). At 70M the 0.010 tolerance is not powered (pre-registered), so no 70M cell is reported as holding at 0.010.
+- **Defect in the sealed rule, disclosed.** A per-cell MDD rule over thousands of cells needs a family-wise or count
+  statistic. The B4 dry run (every 10th A0 checkpoint on a fabricated cache) did not exercise the rule at a true
+  null, so the defect was not seen at seal time. Open lead 8 below.
+
+## 7. What this memo does NOT claim
+- Nothing about scale: every result is at 70M. The Stage 3 findings (410M–1.4B) are not re-tested here.
+- Q1's NO SIMPLE ANCHOR does not say the LR schedule is irrelevant. It says none of the three sealed time maps
+  (STEP, WARMUP, LR_INT) reproduces A2's trajectory within its noise.
+- Q2's OPPOSITE ORDER does not refute Liu's wave in general. At 70M with 6 layers, the lower-tail p is carried by
+  layer 0.
+- The bulk FINDING_CANDIDATE labels do not claim any departure from β = 1 (§6). They are what the sealed per-cell
+  rule produces at the null.
+- Q4 compares one Muon configuration (hybrid v1, RMS-matched 0.2·√max(m,n), Nesterov 0.95, NS5 bf16, Q/K/V split)
+  with AdamW at Pythia's settings. It says nothing about other Muon variants or tuned LRs.
+
+## 8. Open leads (none of these ran; each would need its own pre-registration)
+1. **Shape of the Q1 misfit.** Plot A0 warped by LR_INT against A2 for both metrics (descriptive), and ask whether a
+   two-parameter map (e.g. LR integral plus a lag) is the natural next model. It would be sealed before fitting.
+2. **Q2 wave without layer 0:** a sealed test of the layer 1–5 order, with localisation error included in the null.
+3. **Q3 reference-phase control:** a late interval matched in LR phase (e.g. equal fraction of warmup, or
+   post-warmup for every arm) before reading any warmup effect into A2's LOW-RANK EARLY.
+4. **Q4 ΔW rank:** compare W-level rank changes against the rank of Muon's per-step update, so that "higher rank by
+   construction" is separated from "higher rank accumulated".
+5. **Q1 gap:** emit A2's (and A1's) turning-point status on the E4 route, as the sealed text requires. This is a
+   descriptive report and a code fix, not a verdict change.
+6. **Queued:** the seed-1 identity check (descriptive; criteria sealed before it runs).
+7. **Disclosed limitation:** the optimizer-state snapshot at step 1430 exists only for A2.
+8. **Bulk multiplicity (a new pre-registration before any re-read):** a count statistic for VIOLATED cells against the
+   null exceedance rate, measured on witness pools with the checkpoint correlation included (e.g. a block-count null
+   over adjacent checkpoints), or a family-wise MDD. Seal it and red-path it on a planted departure before applying it
+   to the banked bulk JSON.

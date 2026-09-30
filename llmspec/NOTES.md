@@ -145,7 +145,18 @@ and NOT pushed.
   - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
   - Sub-1000 "low-rank early" → arm B.
 
-## 4. Running now (09-29 11:00 PDT)
+## 4. Running now (09-29 22:55 PDT)
+- **Nothing running.** The B4 chain is COMPLETE (22:29). Results: results/armb_b4_{q1,q2,q3,q4,bulk}.json.
+  Memo: armb/ARMB_FINDINGS.md (committed with the CHECKRUN line). B4 cron 6c2c8221 deleted.
+  - Bulk: the sealed per-arm verdict is FINDING_CANDIDATE PRESENT, status NOT ESTABLISHED. The VIOLATED rate (0.83%)
+    is below the null's 1.29% exceedance at |d| > MDD, and the sealed rule has no multiplicity correction.
+    Any re-read needs a new pre-registration (memo open lead 8).
+- **Next (Will's call):**
+  - Open leads 1–8 in ARMB_FINDINGS.
+  - Seed-1 identity check (queued).
+  - Memo fixes from the earlier critique.
+  - Push / Zenodo on Will's go.
+  - Narrow-scope spot key.
 - **TRAINING COMPLETE:** A0, A1, A2, M0s1, M0s2 (queue closed 10:41 on 09-29).
   - A0 passed B-G1 at all 14 steps (worst |z| 1.87).
   - Every checkpoint is on spot with its sha256 .ok marker: A0 161, A1 181, A2 257 (dense), M0s1 161, M0s2 161.

@@ -1,8 +1,8 @@
-# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-29 11:00 PDT
+# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-29 22:55 PDT
 
 **Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
-lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). Alarm: session cron 6c2c8221 at :13/:43 (B4-chain
-prompt, set 09-29). Interrupt: `touch llmspec/STOP`.
+lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). No alarm set (B4 cron 6c2c8221 deleted 09-29 22:55,
+chain complete). Interrupt: `touch llmspec/STOP`.
 
 ## Where things stand
 - **Stage 1** (existence): the sealed KDE rule was non-evidence. The licensed dip test finds OLMo Q/K multimodality at
@@ -22,11 +22,14 @@ prompt, set 09-29). Interrupt: `touch llmspec/STOP`.
     The per-head-Q drift is NOT established.**
   - QK-product "function" reading WITHDRAWN (a realistic density alone moves q by ~0.12 under β = 1).
 
-## Running (auto) — Arm B (09-29 11:00)
-- **Training complete (all 5 arms).** A0 anchor PASSED B-G1 at all 14 steps.
-- **B4 extraction + analysis running** (armb/b4_run.sh, sealed code): refs → 70M witness → arms → Q1–Q4 + bulk null.
-  ~8 h.
-- Q1 E4 licence v2 is in force (A2 ≤ 1% noise, A1 0.5%). The verdict wording follows the sealed rule.
+## Arm B — B4 COMPLETE (09-29 22:29): see armb/ARMB_FINDINGS.md
+- All 5 arms trained; A0 PASSED B-G1 at all 14 steps. Seal check OK (19 files). CHECKRUN b4_analyze.py EXIT=0 PASS.
+- **Q1:** NO SIMPLE ANCHOR (TP_O and TP_MLPOUT; rests on A2, NSA licensed). The best map (LR_INT) misfits by ~2.3% RMS.
+- **Q2:** A0 event pairs SIMULTANEOUS AT THIS RESOLUTION. Wave: OPPOSITE ORDER (p_lower 0.0052), carried by layer 0.
+- **Q3:** A0 INCONCLUSIVE (Q/K low-rank early, V/O/MLP not).
+- **Q4:** 123/368 cells OPTIMIZER-DIFFERENT. Muon: higher Q/K/MLP stable rank, lower top σ.
+- **Bulk:** sealed FINDING_CANDIDATE PRESENT in all 5 arms, status NOT ESTABLISHED. 76/9210 VIOLATED (0.83%) against
+  a 1.29% null exceedance rate; the sealed per-cell rule has no multiplicity correction.
 
 ## Held
-- OLMo stage-1 trajectory (Will's call). Arm B is running, not held.
+- OLMo stage-1 trajectory (Will's call).

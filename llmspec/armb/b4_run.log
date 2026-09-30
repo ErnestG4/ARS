@@ -1,0 +1,2200 @@
+2026-09-29T10:55:53-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py refs
+pythia-70m step143000 streamed 0.28 GB in 12s
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+pythia-70m step143000 markers loss_text=3.121 loss_rep2=13.445 sink_frac=0.000 max_induction=0.466 peak_gpu=0.40GiB
+pythia-70m step143000 L00 4.0s peak_gpu=0.29GiB
+pythia-70m step143000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m step143000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step143000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step143000 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step143000 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step0 streamed 0.28 GB in 11s
+pythia-70m step0 markers loss_text=11.105 loss_rep2=11.034 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step0 L00 2.0s peak_gpu=0.29GiB
+pythia-70m step0 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step0 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step0 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step0 L04 3.9s peak_gpu=0.29GiB
+pythia-70m step0 L05 2.0s peak_gpu=0.29GiB
+pythia-70m step1 streamed 0.28 GB in 9s
+pythia-70m step1 markers loss_text=11.105 loss_rep2=11.034 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step1 L00 1.9s peak_gpu=0.29GiB
+pythia-70m step1 L01 1.9s peak_gpu=0.29GiB
+pythia-70m step1 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step1 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step1 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step1 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step2 streamed 0.28 GB in 12s
+pythia-70m step2 markers loss_text=11.104 loss_rep2=11.034 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step2 L00 1.8s peak_gpu=0.29GiB
+pythia-70m step2 L01 1.9s peak_gpu=0.29GiB
+pythia-70m step2 L02 1.8s peak_gpu=0.29GiB
+pythia-70m step2 L03 1.8s peak_gpu=0.29GiB
+pythia-70m step2 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step2 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step4 streamed 0.28 GB in 10s
+pythia-70m step4 markers loss_text=11.093 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step4 L00 3.9s peak_gpu=0.29GiB
+pythia-70m step4 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step4 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step4 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step4 L04 1.8s peak_gpu=0.29GiB
+pythia-70m step4 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step8 streamed 0.28 GB in 9s
+pythia-70m step8 markers loss_text=10.948 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step8 L00 2.0s peak_gpu=0.29GiB
+pythia-70m step8 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step8 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step8 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step8 L04 2.1s peak_gpu=0.29GiB
+pythia-70m step8 L05 3.8s peak_gpu=0.29GiB
+pythia-70m step16 streamed 0.28 GB in 9s
+pythia-70m step16 markers loss_text=10.493 loss_rep2=11.036 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step16 L00 1.9s peak_gpu=0.29GiB
+pythia-70m step16 L01 1.9s peak_gpu=0.29GiB
+pythia-70m step16 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step16 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m step16 L05 2.0s peak_gpu=0.29GiB
+pythia-70m step32 streamed 0.28 GB in 12s
+pythia-70m step32 markers loss_text=9.807 loss_rep2=11.051 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step32 L00 1.9s peak_gpu=0.29GiB
+pythia-70m step32 L01 1.9s peak_gpu=0.29GiB
+pythia-70m step32 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step32 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step32 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step32 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step64 streamed 0.28 GB in 10s
+pythia-70m step64 markers loss_text=9.023 loss_rep2=11.089 sink_frac=0.000 max_induction=0.004 peak_gpu=0.40GiB
+pythia-70m step64 L00 3.8s peak_gpu=0.29GiB
+pythia-70m step64 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step64 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step64 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step64 L04 1.8s peak_gpu=0.29GiB
+pythia-70m step64 L05 1.8s peak_gpu=0.29GiB
+pythia-70m step128 streamed 0.28 GB in 9s
+pythia-70m step128 markers loss_text=7.451 loss_rep2=11.665 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step128 L00 2.0s peak_gpu=0.29GiB
+pythia-70m step128 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step128 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step128 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step128 L04 2.0s peak_gpu=0.29GiB
+pythia-70m step128 L05 3.9s peak_gpu=0.29GiB
+pythia-70m step256 streamed 0.28 GB in 9s
+pythia-70m step256 markers loss_text=6.224 loss_rep2=12.214 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step256 L00 1.9s peak_gpu=0.29GiB
+pythia-70m step256 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step256 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step256 L03 1.9s peak_gpu=0.29GiB
+pythia-70m step256 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step256 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step512 streamed 0.28 GB in 14s
+pythia-70m step512 markers loss_text=5.156 loss_rep2=13.221 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m step512 L00 1.9s peak_gpu=0.29GiB
+pythia-70m step512 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step512 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step512 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step512 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step512 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step1000 streamed 0.28 GB in 13s
+pythia-70m step1000 markers loss_text=4.067 loss_rep2=4.633 sink_frac=0.000 max_induction=0.874 peak_gpu=0.40GiB
+pythia-70m step1000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m step1000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step1000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step1000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step1000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m step1000 L05 1.9s peak_gpu=0.29GiB
+pythia-70m step2000 streamed 0.28 GB in 10s
+pythia-70m step2000 markers loss_text=3.566 loss_rep2=2.106 sink_frac=0.000 max_induction=0.959 peak_gpu=0.40GiB
+pythia-70m step2000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m step2000 L01 3.5s peak_gpu=0.29GiB
+pythia-70m step2000 L02 1.9s peak_gpu=0.29GiB
+pythia-70m step2000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step2000 L04 1.9s peak_gpu=0.29GiB
+pythia-70m step2000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m step3000 streamed 0.28 GB in 9s
+pythia-70m step3000 markers loss_text=3.422 loss_rep2=2.545 sink_frac=0.000 max_induction=0.957 peak_gpu=0.40GiB
+pythia-70m step3000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m step3000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m step3000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m step3000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m step3000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m step3000 L05 3.5s peak_gpu=0.29GiB
+pythia-70m dW [512, 1000] done
+pythia-70m dW [1000, 2000] done
+pythia-70m dW [2000, 3000] done
+pythia-70m-seed1 step0 streamed 0.28 GB in 1s
+pythia-70m-seed1 step0 markers loss_text=11.058 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step0 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step0 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step0 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step0 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step0 L04 3.8s peak_gpu=0.29GiB
+pythia-70m-seed1 step0 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1 streamed 0.28 GB in 0s
+pythia-70m-seed1 step1 markers loss_text=11.058 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step1 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step1 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step1 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step1 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step1 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step2 streamed 0.28 GB in 0s
+pythia-70m-seed1 step2 markers loss_text=11.057 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step2 L00 2.3s peak_gpu=0.29GiB
+pythia-70m-seed1 step2 L01 3.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step2 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step2 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step2 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step2 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step4 streamed 0.28 GB in 0s
+pythia-70m-seed1 step4 markers loss_text=11.047 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step4 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step4 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step4 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step4 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step4 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step4 L05 2.6s peak_gpu=0.29GiB
+pythia-70m-seed1 step8 streamed 0.28 GB in 0s
+pythia-70m-seed1 step8 markers loss_text=10.910 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step8 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step8 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step8 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step8 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step8 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step8 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step16 streamed 0.28 GB in 0s
+pythia-70m-seed1 step16 markers loss_text=10.484 loss_rep2=11.017 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step16 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step16 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed1 step16 L02 4.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step16 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step16 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step16 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step32 streamed 0.28 GB in 0s
+pythia-70m-seed1 step32 markers loss_text=9.813 loss_rep2=11.032 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step32 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step32 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step32 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step32 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step32 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step32 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step64 streamed 0.28 GB in 0s
+pythia-70m-seed1 step64 markers loss_text=9.019 loss_rep2=11.079 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step64 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step64 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step64 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step64 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step64 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step64 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step128 streamed 0.28 GB in 0s
+pythia-70m-seed1 step128 markers loss_text=7.446 loss_rep2=11.648 sink_frac=0.000 max_induction=0.004 peak_gpu=0.40GiB
+pythia-70m-seed1 step128 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step128 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step128 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step128 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step128 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed1 step128 L05 3.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step256 streamed 0.28 GB in 0s
+pythia-70m-seed1 step256 markers loss_text=6.205 loss_rep2=12.417 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step256 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step256 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step256 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step256 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step256 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step256 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step512 streamed 0.28 GB in 0s
+pythia-70m-seed1 step512 markers loss_text=5.144 loss_rep2=13.322 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed1 step512 L00 4.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step512 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step512 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step512 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step512 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step512 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step1000 streamed 0.28 GB in 0s
+pythia-70m-seed1 step1000 markers loss_text=4.099 loss_rep2=5.484 sink_frac=0.000 max_induction=0.862 peak_gpu=0.40GiB
+pythia-70m-seed1 step1000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step1000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed1 step2000 streamed 0.28 GB in 0s
+pythia-70m-seed1 step2000 markers loss_text=3.576 loss_rep2=2.404 sink_frac=0.000 max_induction=0.942 peak_gpu=0.40GiB
+pythia-70m-seed1 step2000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step2000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step2000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step2000 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step2000 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step2000 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step3000 streamed 0.28 GB in 0s
+pythia-70m-seed1 step3000 markers loss_text=3.424 loss_rep2=2.125 sink_frac=0.000 max_induction=0.945 peak_gpu=0.40GiB
+pythia-70m-seed1 step3000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step3000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 step3000 L02 2.3s peak_gpu=0.29GiB
+pythia-70m-seed1 step3000 L03 2.3s peak_gpu=0.29GiB
+pythia-70m-seed1 step3000 L04 3.9s peak_gpu=0.29GiB
+pythia-70m-seed1 step3000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed1 dW [512, 1000] done
+pythia-70m-seed1 dW [1000, 2000] done
+pythia-70m-seed1 dW [2000, 3000] done
+pythia-70m-seed2 step0 streamed 0.28 GB in 0s
+pythia-70m-seed2 step0 markers loss_text=11.033 loss_rep2=11.029 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step0 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step0 L01 3.7s peak_gpu=0.29GiB
+pythia-70m-seed2 step0 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step0 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step0 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step0 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1 streamed 0.28 GB in 0s
+pythia-70m-seed2 step1 markers loss_text=11.033 loss_rep2=11.029 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step1 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step1 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step1 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step2 streamed 0.28 GB in 0s
+pythia-70m-seed2 step2 markers loss_text=11.033 loss_rep2=11.029 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step2 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step2 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step2 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step2 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step2 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step2 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step4 streamed 0.28 GB in 0s
+pythia-70m-seed2 step4 markers loss_text=11.022 loss_rep2=11.029 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step4 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step4 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step4 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step4 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step4 L04 3.7s peak_gpu=0.29GiB
+pythia-70m-seed2 step4 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step8 streamed 0.28 GB in 0s
+pythia-70m-seed2 step8 markers loss_text=10.882 loss_rep2=11.030 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step8 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step8 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step8 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step8 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step8 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step8 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step16 streamed 0.28 GB in 0s
+pythia-70m-seed2 step16 markers loss_text=10.456 loss_rep2=11.032 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step16 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step16 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step16 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step16 L03 3.7s peak_gpu=0.29GiB
+pythia-70m-seed2 step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step16 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step32 streamed 0.28 GB in 0s
+pythia-70m-seed2 step32 markers loss_text=9.802 loss_rep2=11.039 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step32 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step32 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step32 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step32 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step32 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step32 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step64 streamed 0.28 GB in 0s
+pythia-70m-seed2 step64 markers loss_text=9.018 loss_rep2=11.083 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step64 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step64 L01 2.4s peak_gpu=0.29GiB
+pythia-70m-seed2 step64 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step64 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step64 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step64 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step128 streamed 0.28 GB in 0s
+pythia-70m-seed2 step128 markers loss_text=7.465 loss_rep2=11.687 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step128 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step128 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step128 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step128 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step128 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step128 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step256 streamed 0.28 GB in 0s
+pythia-70m-seed2 step256 markers loss_text=6.233 loss_rep2=12.293 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step256 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step256 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step256 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step256 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step256 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step256 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step512 streamed 0.28 GB in 0s
+pythia-70m-seed2 step512 markers loss_text=5.183 loss_rep2=13.102 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed2 step512 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step512 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step512 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step512 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step512 L04 3.7s peak_gpu=0.29GiB
+pythia-70m-seed2 step512 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1000 streamed 0.28 GB in 0s
+pythia-70m-seed2 step1000 markers loss_text=4.090 loss_rep2=5.298 sink_frac=0.000 max_induction=0.896 peak_gpu=0.40GiB
+pythia-70m-seed2 step1000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step1000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step2000 streamed 0.28 GB in 0s
+pythia-70m-seed2 step2000 markers loss_text=3.587 loss_rep2=2.620 sink_frac=0.000 max_induction=0.967 peak_gpu=0.40GiB
+pythia-70m-seed2 step2000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step2000 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed2 step2000 L02 4.0s peak_gpu=0.29GiB
+pythia-70m-seed2 step2000 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed2 step2000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step2000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step3000 streamed 0.28 GB in 0s
+pythia-70m-seed2 step3000 markers loss_text=3.431 loss_rep2=2.461 sink_frac=0.000 max_induction=0.968 peak_gpu=0.40GiB
+pythia-70m-seed2 step3000 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed2 step3000 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed2 step3000 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed2 step3000 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed2 step3000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed2 step3000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed2 dW [512, 1000] done
+pythia-70m-seed2 dW [1000, 2000] done
+pythia-70m-seed2 dW [2000, 3000] done
+pythia-70m-seed3 step0 streamed 0.28 GB in 0s
+pythia-70m-seed3 step0 markers loss_text=11.068 loss_rep2=11.023 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step0 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step0 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step0 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step0 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step0 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step0 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1 streamed 0.28 GB in 0s
+pythia-70m-seed3 step1 markers loss_text=11.068 loss_rep2=11.023 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step1 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2 streamed 0.28 GB in 0s
+pythia-70m-seed3 step2 markers loss_text=11.068 loss_rep2=11.023 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step2 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2 L04 3.7s peak_gpu=0.29GiB
+pythia-70m-seed3 step2 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step4 streamed 0.28 GB in 0s
+pythia-70m-seed3 step4 markers loss_text=11.057 loss_rep2=11.023 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step4 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step4 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step4 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step4 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step4 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step4 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step8 streamed 0.28 GB in 0s
+pythia-70m-seed3 step8 markers loss_text=10.917 loss_rep2=11.024 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step8 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step8 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step8 L02 3.8s peak_gpu=0.29GiB
+pythia-70m-seed3 step8 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step8 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step8 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step16 streamed 0.28 GB in 0s
+pythia-70m-seed3 step16 markers loss_text=10.460 loss_rep2=11.026 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step16 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step16 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step16 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step16 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step16 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step16 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step32 streamed 0.28 GB in 0s
+pythia-70m-seed3 step32 markers loss_text=9.802 loss_rep2=11.041 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step32 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed3 step32 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed3 step32 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed3 step32 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step32 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step32 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step64 streamed 0.28 GB in 0s
+pythia-70m-seed3 step64 markers loss_text=9.032 loss_rep2=11.080 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step64 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step64 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step64 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step64 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step64 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step64 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step128 streamed 0.28 GB in 0s
+pythia-70m-seed3 step128 markers loss_text=7.458 loss_rep2=11.622 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step128 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed3 step128 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step128 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step128 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step128 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step128 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step256 streamed 0.28 GB in 0s
+pythia-70m-seed3 step256 markers loss_text=6.213 loss_rep2=12.143 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step256 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step256 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed3 step256 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step256 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed3 step256 L04 4.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step256 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed3 step512 streamed 0.28 GB in 0s
+pythia-70m-seed3 step512 markers loss_text=5.148 loss_rep2=13.327 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed3 step512 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step512 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step512 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step512 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step512 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step512 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step1000 streamed 0.28 GB in 0s
+pythia-70m-seed3 step1000 markers loss_text=4.105 loss_rep2=4.401 sink_frac=0.000 max_induction=0.893 peak_gpu=0.40GiB
+pythia-70m-seed3 step1000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step1000 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1000 L02 3.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1000 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1000 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step1000 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2000 streamed 0.28 GB in 0s
+pythia-70m-seed3 step2000 markers loss_text=3.577 loss_rep2=1.937 sink_frac=0.000 max_induction=0.949 peak_gpu=0.40GiB
+pythia-70m-seed3 step2000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed3 step2000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step2000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step2000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step2000 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed3 step2000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step3000 streamed 0.28 GB in 0s
+pythia-70m-seed3 step3000 markers loss_text=3.420 loss_rep2=2.498 sink_frac=0.000 max_induction=0.930 peak_gpu=0.40GiB
+pythia-70m-seed3 step3000 L00 3.7s peak_gpu=0.29GiB
+pythia-70m-seed3 step3000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step3000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step3000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step3000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 step3000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed3 dW [512, 1000] done
+pythia-70m-seed3 dW [1000, 2000] done
+pythia-70m-seed3 dW [2000, 3000] done
+pythia-70m-seed4 step0 streamed 0.28 GB in 0s
+pythia-70m-seed4 step0 markers loss_text=10.983 loss_rep2=11.025 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step0 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step0 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step0 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step0 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step0 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step0 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step1 streamed 0.28 GB in 0s
+pythia-70m-seed4 step1 markers loss_text=10.983 loss_rep2=11.025 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step1 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step1 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step1 L02 3.7s peak_gpu=0.29GiB
+pythia-70m-seed4 step1 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step1 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step1 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step2 streamed 0.28 GB in 1s
+pythia-70m-seed4 step2 markers loss_text=10.982 loss_rep2=11.025 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step2 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step2 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step2 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step2 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step2 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step2 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step4 streamed 0.28 GB in 0s
+pythia-70m-seed4 step4 markers loss_text=10.972 loss_rep2=11.025 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step4 L00 3.7s peak_gpu=0.29GiB
+pythia-70m-seed4 step4 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step4 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step4 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step4 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step4 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step8 streamed 0.28 GB in 0s
+pythia-70m-seed4 step8 markers loss_text=10.834 loss_rep2=11.024 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step8 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed4 step8 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step8 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step8 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step8 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step8 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step16 streamed 0.28 GB in 0s
+pythia-70m-seed4 step16 markers loss_text=10.419 loss_rep2=11.024 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step16 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step16 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step16 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step16 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step16 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step16 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step32 streamed 0.28 GB in 0s
+pythia-70m-seed4 step32 markers loss_text=9.762 loss_rep2=11.039 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step32 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step32 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step32 L02 3.8s peak_gpu=0.29GiB
+pythia-70m-seed4 step32 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step32 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step32 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step64 streamed 0.28 GB in 0s
+pythia-70m-seed4 step64 markers loss_text=8.969 loss_rep2=11.089 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step64 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step64 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step64 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step64 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step64 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step64 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step128 streamed 0.28 GB in 0s
+pythia-70m-seed4 step128 markers loss_text=7.444 loss_rep2=11.663 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step128 L00 3.6s peak_gpu=0.29GiB
+pythia-70m-seed4 step128 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step128 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step128 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step128 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step128 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step256 streamed 0.28 GB in 0s
+pythia-70m-seed4 step256 markers loss_text=6.201 loss_rep2=12.334 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step256 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step256 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step256 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step256 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step256 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step256 L05 3.7s peak_gpu=0.29GiB
+pythia-70m-seed4 step512 streamed 0.28 GB in 0s
+pythia-70m-seed4 step512 markers loss_text=5.155 loss_rep2=13.231 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed4 step512 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 step512 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step512 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step512 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step512 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step512 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step1000 streamed 0.28 GB in 0s
+pythia-70m-seed4 step1000 markers loss_text=4.058 loss_rep2=4.840 sink_frac=0.000 max_induction=0.871 peak_gpu=0.40GiB
+pythia-70m-seed4 step1000 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step1000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step1000 L02 3.7s peak_gpu=0.29GiB
+pythia-70m-seed4 step1000 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step1000 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step1000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step2000 streamed 0.28 GB in 0s
+pythia-70m-seed4 step2000 markers loss_text=3.594 loss_rep2=2.408 sink_frac=0.000 max_induction=0.942 peak_gpu=0.40GiB
+pythia-70m-seed4 step2000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step2000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step2000 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step2000 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed4 step2000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step2000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step3000 streamed 0.28 GB in 0s
+pythia-70m-seed4 step3000 markers loss_text=3.418 loss_rep2=1.639 sink_frac=0.000 max_induction=0.949 peak_gpu=0.40GiB
+pythia-70m-seed4 step3000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step3000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step3000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step3000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step3000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed4 step3000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed4 dW [512, 1000] done
+pythia-70m-seed4 dW [1000, 2000] done
+pythia-70m-seed4 dW [2000, 3000] done
+pythia-70m-seed5 step0 streamed 0.28 GB in 0s
+pythia-70m-seed5 step0 markers loss_text=11.034 loss_rep2=11.038 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step0 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step0 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step0 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step0 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step0 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step0 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1 streamed 0.28 GB in 0s
+pythia-70m-seed5 step1 markers loss_text=11.034 loss_rep2=11.038 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step1 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2 streamed 0.28 GB in 0s
+pythia-70m-seed5 step2 markers loss_text=11.033 loss_rep2=11.038 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step2 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step2 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step2 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step4 streamed 0.28 GB in 0s
+pythia-70m-seed5 step4 markers loss_text=11.021 loss_rep2=11.038 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step4 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step4 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step4 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step4 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step4 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step4 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step8 streamed 0.28 GB in 1s
+pythia-70m-seed5 step8 markers loss_text=10.861 loss_rep2=11.037 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step8 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step8 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step8 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step8 L03 3.8s peak_gpu=0.29GiB
+pythia-70m-seed5 step8 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step8 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step16 streamed 0.28 GB in 0s
+pythia-70m-seed5 step16 markers loss_text=10.372 loss_rep2=11.032 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step16 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step16 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step16 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed5 step16 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step16 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step32 streamed 0.28 GB in 0s
+pythia-70m-seed5 step32 markers loss_text=9.729 loss_rep2=11.043 sink_frac=0.000 max_induction=0.004 peak_gpu=0.40GiB
+pythia-70m-seed5 step32 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step32 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step32 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step32 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step32 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step32 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step64 streamed 0.28 GB in 0s
+pythia-70m-seed5 step64 markers loss_text=8.963 loss_rep2=11.093 sink_frac=0.000 max_induction=0.004 peak_gpu=0.40GiB
+pythia-70m-seed5 step64 L00 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step64 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step64 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step64 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step64 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step64 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step128 streamed 0.28 GB in 0s
+pythia-70m-seed5 step128 markers loss_text=7.445 loss_rep2=11.680 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step128 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step128 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step128 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step128 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step128 L04 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step128 L05 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step256 streamed 0.28 GB in 0s
+pythia-70m-seed5 step256 markers loss_text=6.204 loss_rep2=12.238 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step256 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step256 L01 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step256 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed5 step256 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step256 L04 3.7s peak_gpu=0.29GiB
+pythia-70m-seed5 step256 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step512 streamed 0.28 GB in 0s
+pythia-70m-seed5 step512 markers loss_text=5.185 loss_rep2=13.142 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed5 step512 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step512 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step512 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step512 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step512 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step512 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1000 streamed 0.28 GB in 0s
+pythia-70m-seed5 step1000 markers loss_text=4.084 loss_rep2=4.684 sink_frac=0.000 max_induction=0.882 peak_gpu=0.40GiB
+pythia-70m-seed5 step1000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step1000 L01 3.8s peak_gpu=0.29GiB
+pythia-70m-seed5 step1000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1000 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step1000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step1000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2000 streamed 0.28 GB in 0s
+pythia-70m-seed5 step2000 markers loss_text=3.587 loss_rep2=2.919 sink_frac=0.000 max_induction=0.869 peak_gpu=0.40GiB
+pythia-70m-seed5 step2000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step2000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed5 step2000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step2000 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed5 step3000 streamed 0.28 GB in 1s
+pythia-70m-seed5 step3000 markers loss_text=3.419 loss_rep2=1.403 sink_frac=0.000 max_induction=0.919 peak_gpu=0.40GiB
+pythia-70m-seed5 step3000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step3000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step3000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed5 step3000 L03 2.4s peak_gpu=0.29GiB
+pythia-70m-seed5 step3000 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed5 step3000 L05 2.3s peak_gpu=0.29GiB
+pythia-70m-seed5 dW [512, 1000] done
+pythia-70m-seed5 dW [1000, 2000] done
+pythia-70m-seed5 dW [2000, 3000] done
+pythia-70m-seed6 step0 streamed 0.28 GB in 1s
+pythia-70m-seed6 step0 markers loss_text=11.046 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step0 L00 2.3s peak_gpu=0.29GiB
+pythia-70m-seed6 step0 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step0 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step0 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step0 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step0 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step1 streamed 0.28 GB in 1s
+pythia-70m-seed6 step1 markers loss_text=11.046 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step1 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step1 L03 1.9s peak_gpu=0.29GiB
+pythia-70m-seed6 step1 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step1 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step2 streamed 0.28 GB in 1s
+pythia-70m-seed6 step2 markers loss_text=11.045 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step2 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step2 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step2 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step2 L03 4.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step2 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step2 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step4 streamed 0.28 GB in 1s
+pythia-70m-seed6 step4 markers loss_text=11.034 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step4 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step4 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step4 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step4 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step4 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step4 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step8 streamed 0.28 GB in 1s
+pythia-70m-seed6 step8 markers loss_text=10.885 loss_rep2=11.034 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step8 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step8 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step8 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step8 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step8 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step8 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step16 streamed 0.28 GB in 1s
+pythia-70m-seed6 step16 markers loss_text=10.425 loss_rep2=11.032 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step16 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step16 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step16 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step16 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step16 L05 3.9s peak_gpu=0.29GiB
+pythia-70m-seed6 step32 streamed 0.28 GB in 1s
+pythia-70m-seed6 step32 markers loss_text=9.790 loss_rep2=11.052 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step32 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step32 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step32 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step32 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step32 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step32 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step64 streamed 0.28 GB in 1s
+pythia-70m-seed6 step64 markers loss_text=9.021 loss_rep2=11.086 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step64 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step64 L01 3.8s peak_gpu=0.29GiB
+pythia-70m-seed6 step64 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step64 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step64 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step64 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step128 streamed 0.28 GB in 1s
+pythia-70m-seed6 step128 markers loss_text=7.452 loss_rep2=11.620 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step128 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step128 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step128 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step128 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step128 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step128 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step256 streamed 0.28 GB in 1s
+pythia-70m-seed6 step256 markers loss_text=6.196 loss_rep2=12.194 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed6 step256 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step256 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step256 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step256 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step256 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step256 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step512 streamed 0.28 GB in 1s
+pythia-70m-seed6 step512 markers loss_text=5.132 loss_rep2=13.214 sink_frac=0.000 max_induction=0.004 peak_gpu=0.40GiB
+pythia-70m-seed6 step512 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step512 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step512 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step512 L03 4.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step512 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step512 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1000 streamed 0.28 GB in 1s
+pythia-70m-seed6 step1000 markers loss_text=4.100 loss_rep2=4.881 sink_frac=0.000 max_induction=0.891 peak_gpu=0.40GiB
+pythia-70m-seed6 step1000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step1000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1000 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step1000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step2000 streamed 0.28 GB in 1s
+pythia-70m-seed6 step2000 markers loss_text=3.580 loss_rep2=2.102 sink_frac=0.000 max_induction=0.948 peak_gpu=0.40GiB
+pythia-70m-seed6 step2000 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step2000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step2000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step2000 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed6 step2000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step2000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step3000 streamed 0.28 GB in 1s
+pythia-70m-seed6 step3000 markers loss_text=3.421 loss_rep2=1.890 sink_frac=0.000 max_induction=0.937 peak_gpu=0.40GiB
+pythia-70m-seed6 step3000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step3000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step3000 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed6 step3000 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step3000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed6 step3000 L05 4.1s peak_gpu=0.29GiB
+pythia-70m-seed6 dW [512, 1000] done
+pythia-70m-seed6 dW [1000, 2000] done
+pythia-70m-seed6 dW [2000, 3000] done
+pythia-70m-seed7 step0 streamed 0.28 GB in 1s
+pythia-70m-seed7 step0 markers loss_text=11.067 loss_rep2=11.030 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step0 L00 4.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step0 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step0 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step0 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step0 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step0 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step1 streamed 0.28 GB in 1s
+pythia-70m-seed7 step1 markers loss_text=11.067 loss_rep2=11.030 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step1 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step1 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1 L04 4.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1 L05 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step2 streamed 0.28 GB in 1s
+pythia-70m-seed7 step2 markers loss_text=11.066 loss_rep2=11.030 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step2 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step2 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step2 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step2 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step2 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step2 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step4 streamed 0.28 GB in 1s
+pythia-70m-seed7 step4 markers loss_text=11.055 loss_rep2=11.030 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step4 L00 4.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step4 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step4 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step4 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step4 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step4 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step8 streamed 0.28 GB in 1s
+pythia-70m-seed7 step8 markers loss_text=10.913 loss_rep2=11.028 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step8 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step8 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step8 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step8 L03 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step8 L04 2.4s peak_gpu=0.29GiB
+pythia-70m-seed7 step8 L05 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step16 streamed 0.28 GB in 1s
+pythia-70m-seed7 step16 markers loss_text=10.466 loss_rep2=11.024 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step16 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step16 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step16 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step16 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step16 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step32 streamed 0.28 GB in 1s
+pythia-70m-seed7 step32 markers loss_text=9.765 loss_rep2=11.042 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step32 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step32 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step32 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step32 L03 4.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step32 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step32 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step64 streamed 0.28 GB in 1s
+pythia-70m-seed7 step64 markers loss_text=9.015 loss_rep2=11.087 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step64 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step64 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step64 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step64 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step64 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step64 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step128 streamed 0.28 GB in 1s
+pythia-70m-seed7 step128 markers loss_text=7.468 loss_rep2=11.659 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step128 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step128 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step128 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step128 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step128 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step128 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step256 streamed 0.28 GB in 1s
+pythia-70m-seed7 step256 markers loss_text=6.209 loss_rep2=12.263 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step256 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step256 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step256 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step256 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step256 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step256 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step512 streamed 0.28 GB in 1s
+pythia-70m-seed7 step512 markers loss_text=5.161 loss_rep2=13.066 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed7 step512 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step512 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed7 step512 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step512 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step512 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step512 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1000 streamed 0.28 GB in 1s
+pythia-70m-seed7 step1000 markers loss_text=4.036 loss_rep2=4.713 sink_frac=0.000 max_induction=0.892 peak_gpu=0.40GiB
+pythia-70m-seed7 step1000 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step1000 L02 3.8s peak_gpu=0.29GiB
+pythia-70m-seed7 step1000 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1000 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed7 step1000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step2000 streamed 0.28 GB in 1s
+pythia-70m-seed7 step2000 markers loss_text=3.587 loss_rep2=2.835 sink_frac=0.000 max_induction=0.962 peak_gpu=0.40GiB
+pythia-70m-seed7 step2000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step2000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step2000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step2000 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step2000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step2000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed7 step3000 streamed 0.28 GB in 3s
+pythia-70m-seed7 step3000 markers loss_text=3.422 loss_rep2=1.674 sink_frac=0.000 max_induction=0.967 peak_gpu=0.40GiB
+pythia-70m-seed7 step3000 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step3000 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step3000 L02 1.9s peak_gpu=0.29GiB
+pythia-70m-seed7 step3000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step3000 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 step3000 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed7 dW [512, 1000] done
+pythia-70m-seed7 dW [1000, 2000] done
+pythia-70m-seed7 dW [2000, 3000] done
+pythia-70m-seed8 step0 streamed 0.28 GB in 0s
+pythia-70m-seed8 step0 markers loss_text=11.031 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step0 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step0 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step0 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step0 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step0 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step0 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step1 streamed 0.28 GB in 0s
+pythia-70m-seed8 step1 markers loss_text=11.031 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step1 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step1 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step1 L02 3.8s peak_gpu=0.29GiB
+pythia-70m-seed8 step1 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step1 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step1 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step2 streamed 0.28 GB in 0s
+pythia-70m-seed8 step2 markers loss_text=11.030 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step2 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step2 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step2 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step4 streamed 0.28 GB in 1s
+pythia-70m-seed8 step4 markers loss_text=11.020 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step4 L00 2.3s peak_gpu=0.29GiB
+pythia-70m-seed8 step4 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step4 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step4 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step4 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step4 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step8 streamed 0.28 GB in 1s
+pythia-70m-seed8 step8 markers loss_text=10.882 loss_rep2=11.035 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step8 L00 2.3s peak_gpu=0.29GiB
+pythia-70m-seed8 step8 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step8 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step8 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step8 L04 4.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step8 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step16 streamed 0.28 GB in 1s
+pythia-70m-seed8 step16 markers loss_text=10.451 loss_rep2=11.033 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step16 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step16 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed8 step16 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step16 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step16 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step32 streamed 0.28 GB in 1s
+pythia-70m-seed8 step32 markers loss_text=9.752 loss_rep2=11.040 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step32 L00 3.9s peak_gpu=0.29GiB
+pythia-70m-seed8 step32 L01 2.3s peak_gpu=0.29GiB
+pythia-70m-seed8 step32 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step32 L03 2.7s peak_gpu=0.29GiB
+pythia-70m-seed8 step32 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step32 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step64 streamed 0.28 GB in 1s
+pythia-70m-seed8 step64 markers loss_text=9.012 loss_rep2=11.078 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step64 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step64 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step64 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step64 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step64 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step64 L05 3.9s peak_gpu=0.29GiB
+pythia-70m-seed8 step128 streamed 0.28 GB in 1s
+pythia-70m-seed8 step128 markers loss_text=7.461 loss_rep2=11.683 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step128 L00 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step128 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step128 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step128 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step128 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step128 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step256 streamed 0.28 GB in 1s
+pythia-70m-seed8 step256 markers loss_text=6.203 loss_rep2=12.173 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step256 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step256 L01 4.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step256 L02 2.3s peak_gpu=0.29GiB
+pythia-70m-seed8 step256 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step256 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step256 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step512 streamed 0.28 GB in 1s
+pythia-70m-seed8 step512 markers loss_text=5.152 loss_rep2=12.995 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed8 step512 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step512 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step512 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step512 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step512 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step512 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step1000 streamed 0.28 GB in 1s
+pythia-70m-seed8 step1000 markers loss_text=4.068 loss_rep2=4.696 sink_frac=0.000 max_induction=0.897 peak_gpu=0.40GiB
+pythia-70m-seed8 step1000 L00 2.4s peak_gpu=0.29GiB
+pythia-70m-seed8 step1000 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step1000 L02 2.4s peak_gpu=0.29GiB
+pythia-70m-seed8 step1000 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed8 step1000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step1000 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step2000 streamed 0.28 GB in 1s
+pythia-70m-seed8 step2000 markers loss_text=3.569 loss_rep2=2.495 sink_frac=0.000 max_induction=0.894 peak_gpu=0.40GiB
+pythia-70m-seed8 step2000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2000 L02 3.9s peak_gpu=0.29GiB
+pythia-70m-seed8 step2000 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step2000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step3000 streamed 0.28 GB in 1s
+pythia-70m-seed8 step3000 markers loss_text=3.402 loss_rep2=1.612 sink_frac=0.000 max_induction=0.933 peak_gpu=0.40GiB
+pythia-70m-seed8 step3000 L00 2.5s peak_gpu=0.29GiB
+pythia-70m-seed8 step3000 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step3000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 step3000 L03 2.3s peak_gpu=0.29GiB
+pythia-70m-seed8 step3000 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed8 step3000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed8 dW [512, 1000] done
+pythia-70m-seed8 dW [1000, 2000] done
+pythia-70m-seed8 dW [2000, 3000] done
+pythia-70m-seed9 step0 streamed 0.28 GB in 1s
+pythia-70m-seed9 step0 markers loss_text=11.054 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step0 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step0 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step0 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step0 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step0 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step0 L05 2.3s peak_gpu=0.29GiB
+pythia-70m-seed9 step1 streamed 0.28 GB in 1s
+pythia-70m-seed9 step1 markers loss_text=11.054 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step1 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step1 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step1 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step1 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step1 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step1 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step2 streamed 0.28 GB in 1s
+pythia-70m-seed9 step2 markers loss_text=11.053 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step2 L00 2.5s peak_gpu=0.29GiB
+pythia-70m-seed9 step2 L01 4.8s peak_gpu=0.29GiB
+pythia-70m-seed9 step2 L02 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step2 L03 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step2 L04 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step2 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step4 streamed 0.28 GB in 1s
+pythia-70m-seed9 step4 markers loss_text=11.043 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step4 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step4 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step4 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step4 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step4 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step4 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step8 streamed 0.28 GB in 1s
+pythia-70m-seed9 step8 markers loss_text=10.908 loss_rep2=11.016 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step8 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step8 L01 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step8 L02 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step8 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step8 L04 2.3s peak_gpu=0.29GiB
+pythia-70m-seed9 step8 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step16 streamed 0.28 GB in 1s
+pythia-70m-seed9 step16 markers loss_text=10.479 loss_rep2=11.013 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step16 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step16 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step16 L02 3.8s peak_gpu=0.29GiB
+pythia-70m-seed9 step16 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step16 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step16 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step32 streamed 0.28 GB in 1s
+pythia-70m-seed9 step32 markers loss_text=9.803 loss_rep2=11.018 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step32 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step32 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step32 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step32 L03 2.3s peak_gpu=0.29GiB
+pythia-70m-seed9 step32 L04 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step32 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step64 streamed 0.28 GB in 1s
+pythia-70m-seed9 step64 markers loss_text=9.016 loss_rep2=11.067 sink_frac=0.000 max_induction=0.004 peak_gpu=0.40GiB
+pythia-70m-seed9 step64 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step64 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step64 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step64 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step64 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step64 L05 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step128 streamed 0.28 GB in 1s
+pythia-70m-seed9 step128 markers loss_text=7.458 loss_rep2=11.672 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step128 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step128 L01 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step128 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step128 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step128 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step128 L05 3.9s peak_gpu=0.29GiB
+pythia-70m-seed9 step256 streamed 0.28 GB in 1s
+pythia-70m-seed9 step256 markers loss_text=6.205 loss_rep2=12.288 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step256 L00 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step256 L01 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step256 L02 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step256 L03 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step256 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step256 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step512 streamed 0.28 GB in 1s
+pythia-70m-seed9 step512 markers loss_text=5.160 loss_rep2=13.285 sink_frac=0.000 max_induction=0.003 peak_gpu=0.40GiB
+pythia-70m-seed9 step512 L00 4.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step512 L01 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step512 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step512 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step512 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step512 L05 2.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step1000 streamed 0.28 GB in 1s
+pythia-70m-seed9 step1000 markers loss_text=4.088 loss_rep2=4.953 sink_frac=0.000 max_induction=0.880 peak_gpu=0.40GiB
+pythia-70m-seed9 step1000 L00 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step1000 L01 2.5s peak_gpu=0.29GiB
+pythia-70m-seed9 step1000 L02 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step1000 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step1000 L04 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step1000 L05 4.0s peak_gpu=0.29GiB
+pythia-70m-seed9 step2000 streamed 0.28 GB in 1s
+pythia-70m-seed9 step2000 markers loss_text=3.590 loss_rep2=2.694 sink_frac=0.000 max_induction=0.942 peak_gpu=0.40GiB
+pythia-70m-seed9 step2000 L00 2.3s peak_gpu=0.29GiB
+pythia-70m-seed9 step2000 L01 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step2000 L02 2.4s peak_gpu=0.29GiB
+pythia-70m-seed9 step2000 L03 2.2s peak_gpu=0.29GiB
+pythia-70m-seed9 step2000 L04 2.3s peak_gpu=0.29GiB
+pythia-70m-seed9 step2000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step3000 streamed 0.28 GB in 1s
+pythia-70m-seed9 step3000 markers loss_text=3.424 loss_rep2=2.665 sink_frac=0.000 max_induction=0.937 peak_gpu=0.40GiB
+pythia-70m-seed9 step3000 L00 2.3s peak_gpu=0.29GiB
+pythia-70m-seed9 step3000 L01 3.8s peak_gpu=0.29GiB
+pythia-70m-seed9 step3000 L02 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step3000 L03 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step3000 L04 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 step3000 L05 2.1s peak_gpu=0.29GiB
+pythia-70m-seed9 dW [512, 1000] done
+pythia-70m-seed9 dW [1000, 2000] done
+pythia-70m-seed9 dW [2000, 3000] done
+2026-09-29T11:56:06-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py refs
+2026-09-29T11:56:06-07:00 start: env LLMSPEC_MODEL=pythia-70m /home/combust/fmexplorer/bin/python3 stage3_witness.py
+Q: bulk rt 0.5294+-0.0060 q 1.006 | G4 bulk +0.0037 lower +0.0024 | scale-inv True | tau+ 1.0053 ks95 0.0104 (15s)
+K: bulk rt 0.5307+-0.0080 q 1.008 | G4 bulk +0.0023 lower +0.0074 | scale-inv True | tau+ 1.0078 ks95 0.0104 (14s)
+V: bulk rt 0.5334+-0.0049 q 1.024 | G4 bulk -0.0014 lower -0.0009 | scale-inv False | tau+ 1.0047 ks95 0.0105 (16s)
+O: bulk rt 0.5326+-0.0072 q 1.013 | G4 bulk -0.0000 lower -0.0047 | scale-inv False | tau+ 1.0087 ks95 0.0102 (14s)
+MLP_IN: bulk rt 0.5312+-0.0065 q 1.016 | G4 bulk +0.0014 lower +0.0015 | scale-inv True | tau+ 1.0058 ks95 0.0071 (16s)
+MLP_OUT: bulk rt 0.5314+-0.0055 q 1.007 | G4 bulk +0.0007 lower +0.0093 | scale-inv True | tau+ 1.0046 ks95 0.0076 (14s)
+head_Q: bulk rt 0.5316+-0.0063 q 1.012 | G4 bulk -0.0002 lower +0.0143 | scale-inv True | tau+ 1.0164 ks95 0.0447 (98s)
+head_K: bulk rt 0.5316+-0.0066 q 1.019 | G4 bulk -0.0001 lower +0.0068 | scale-inv True | tau+ 1.0139 ks95 0.0445 (98s)
+head_V: bulk rt 0.5301+-0.0078 q 1.003 | G4 bulk -0.0053 lower +0.0155 | scale-inv False | tau+ 1.0205 ks95 0.0455 (97s)
+head_O: bulk rt 0.5319+-0.0073 q 1.008 | G4 bulk +0.0041 lower -0.0105 | scale-inv True | tau+ 1.0163 ks95 0.0455 (98s)
+2026-09-29T12:04:09-07:00 exit rc=0: env LLMSPEC_MODEL=pythia-70m /home/combust/fmexplorer/bin/python3 stage3_witness.py
+2026-09-29T12:04:09-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+A0 step 0 extracted
+A0 step 1 extracted
+A0 step 2 extracted
+A0 step 4 extracted
+A0 step 8 extracted
+A0 step 10 extracted
+A0 step 16 extracted
+A0 step 20 extracted
+A0 step 30 extracted
+A0 step 32 extracted
+A0 step 40 extracted
+A0 step 50 extracted
+A0 step 60 extracted
+A0 step 64 extracted
+A0 step 70 extracted
+A0 step 80 extracted
+A0 step 90 extracted
+A0 step 100 extracted
+A0 step 110 extracted
+A0 step 120 extracted
+A0 step 128 extracted
+A0 step 130 extracted
+A0 step 140 extracted
+A0 step 150 extracted
+A0 step 160 extracted
+A0 step 170 extracted
+A0 step 180 extracted
+A0 step 190 extracted
+A0 step 200 extracted
+A0 step 210 extracted
+A0 step 220 extracted
+A0 step 230 extracted
+A0 step 240 extracted
+A0 step 250 extracted
+A0 step 256 extracted
+A0 step 260 extracted
+A0 step 270 extracted
+A0 step 280 extracted
+A0 step 290 extracted
+A0 step 300 extracted
+A0 step 310 extracted
+A0 step 320 extracted
+A0 step 330 extracted
+A0 step 340 extracted
+A0 step 350 extracted
+A0 step 360 extracted
+A0 step 370 extracted
+A0 step 380 extracted
+A0 step 390 extracted
+A0 step 400 extracted
+A0 step 410 extracted
+A0 step 420 extracted
+A0 step 430 extracted
+A0 step 440 extracted
+A0 step 450 extracted
+A0 step 460 extracted
+A0 step 470 extracted
+A0 step 480 extracted
+A0 step 490 extracted
+A0 step 500 extracted
+A0 step 512 extracted
+A0 step 525 extracted
+A0 step 550 extracted
+A0 step 575 extracted
+A0 step 600 extracted
+A0 step 625 extracted
+A0 step 650 extracted
+A0 step 675 extracted
+A0 step 700 extracted
+A0 step 725 extracted
+A0 step 750 extracted
+A0 step 775 extracted
+A0 step 800 extracted
+A0 step 825 extracted
+A0 step 850 extracted
+A0 step 875 extracted
+A0 step 900 extracted
+A0 step 925 extracted
+A0 step 950 extracted
+A0 step 975 extracted
+A0 step 1000 extracted
+A0 step 1025 extracted
+A0 step 1050 extracted
+A0 step 1075 extracted
+A0 step 1100 extracted
+A0 step 1125 extracted
+A0 step 1150 extracted
+A0 step 1175 extracted
+A0 step 1200 extracted
+A0 step 1225 extracted
+A0 step 1250 extracted
+A0 step 1275 extracted
+A0 step 1300 extracted
+A0 step 1325 extracted
+A0 step 1350 extracted
+A0 step 1375 extracted
+A0 step 1400 extracted
+A0 step 1425 extracted
+A0 step 1450 extracted
+A0 step 1475 extracted
+A0 step 1500 extracted
+A0 step 1525 extracted
+A0 step 1550 extracted
+A0 step 1575 extracted
+A0 step 1600 extracted
+A0 step 1625 extracted
+A0 step 1650 extracted
+A0 step 1675 extracted
+A0 step 1700 extracted
+A0 step 1725 extracted
+A0 step 1750 extracted
+A0 step 1775 extracted
+A0 step 1800 extracted
+A0 step 1825 extracted
+A0 step 1850 extracted
+A0 step 1875 extracted
+A0 step 1900 extracted
+A0 step 1925 extracted
+A0 step 1950 extracted
+A0 step 1975 extracted
+A0 step 2000 extracted
+A0 step 2025 extracted
+A0 step 2050 extracted
+A0 step 2075 extracted
+A0 step 2100 extracted
+A0 step 2125 extracted
+A0 step 2150 extracted
+A0 step 2175 extracted
+A0 step 2200 extracted
+A0 step 2225 extracted
+A0 step 2250 extracted
+A0 step 2275 extracted
+A0 step 2300 extracted
+A0 step 2325 extracted
+A0 step 2350 extracted
+A0 step 2375 extracted
+A0 step 2400 extracted
+A0 step 2425 extracted
+A0 step 2450 extracted
+A0 step 2475 extracted
+A0 step 2500 extracted
+A0 step 2525 extracted
+A0 step 2550 extracted
+A0 step 2575 extracted
+A0 step 2600 extracted
+A0 step 2625 extracted
+A0 step 2650 extracted
+A0 step 2675 extracted
+A0 step 2700 extracted
+A0 step 2725 extracted
+A0 step 2750 extracted
+A0 step 2775 extracted
+A0 step 2800 extracted
+A0 step 2825 extracted
+A0 step 2850 extracted
+A0 step 2875 extracted
+A0 step 2900 extracted
+A0 step 2925 extracted
+A0 step 2950 extracted
+A0 step 2975 extracted
+A0 step 3000 extracted
+A0 dW [100, 130] done
+A0 dW [100, 250] done
+A0 dW [200, 230] done
+A0 dW [200, 310] done
+A0 dW [300, 330] done
+A0 dW [300, 380] done
+A0 dW [400, 430] done
+A0 dW [512, 1000] done
+A0 dW [1000, 1025] done
+A0 dW [1000, 2000] done
+A0 dW [2000, 2025] done
+A0 dW [2000, 3000] done
+2026-09-29T12:58:28-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A0
+2026-09-29T12:58:28-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+A1 step 0 extracted
+A1 step 1 extracted
+A1 step 2 extracted
+A1 step 4 extracted
+A1 step 8 extracted
+A1 step 10 extracted
+A1 step 16 extracted
+A1 step 20 extracted
+A1 step 30 extracted
+A1 step 32 extracted
+A1 step 40 extracted
+A1 step 50 extracted
+A1 step 60 extracted
+A1 step 64 extracted
+A1 step 70 extracted
+A1 step 80 extracted
+A1 step 90 extracted
+A1 step 100 extracted
+A1 step 110 extracted
+A1 step 120 extracted
+A1 step 128 extracted
+A1 step 130 extracted
+A1 step 140 extracted
+A1 step 150 extracted
+A1 step 160 extracted
+A1 step 170 extracted
+A1 step 180 extracted
+A1 step 190 extracted
+A1 step 200 extracted
+A1 step 210 extracted
+A1 step 220 extracted
+A1 step 230 extracted
+A1 step 240 extracted
+A1 step 250 extracted
+A1 step 256 extracted
+A1 step 260 extracted
+A1 step 270 extracted
+A1 step 280 extracted
+A1 step 290 extracted
+A1 step 300 extracted
+A1 step 310 extracted
+A1 step 320 extracted
+A1 step 330 extracted
+A1 step 340 extracted
+A1 step 350 extracted
+A1 step 360 extracted
+A1 step 370 extracted
+A1 step 380 extracted
+A1 step 390 extracted
+A1 step 400 extracted
+A1 step 410 extracted
+A1 step 420 extracted
+A1 step 430 extracted
+A1 step 440 extracted
+A1 step 450 extracted
+A1 step 460 extracted
+A1 step 470 extracted
+A1 step 480 extracted
+A1 step 490 extracted
+A1 step 500 extracted
+A1 step 512 extracted
+A1 step 525 extracted
+A1 step 550 extracted
+A1 step 575 extracted
+A1 step 600 extracted
+A1 step 625 extracted
+A1 step 650 extracted
+A1 step 675 extracted
+A1 step 700 extracted
+A1 step 725 extracted
+A1 step 750 extracted
+A1 step 775 extracted
+A1 step 800 extracted
+A1 step 825 extracted
+A1 step 850 extracted
+A1 step 875 extracted
+A1 step 900 extracted
+A1 step 925 extracted
+A1 step 950 extracted
+A1 step 975 extracted
+A1 step 1000 extracted
+A1 step 1025 extracted
+A1 step 1050 extracted
+A1 step 1075 extracted
+A1 step 1100 extracted
+A1 step 1125 extracted
+A1 step 1150 extracted
+A1 step 1175 extracted
+A1 step 1200 extracted
+A1 step 1225 extracted
+A1 step 1250 extracted
+A1 step 1275 extracted
+A1 step 1300 extracted
+A1 step 1325 extracted
+A1 step 1350 extracted
+A1 step 1375 extracted
+A1 step 1400 extracted
+A1 step 1425 extracted
+A1 step 1450 extracted
+A1 step 1475 extracted
+A1 step 1500 extracted
+A1 step 1525 extracted
+A1 step 1550 extracted
+A1 step 1575 extracted
+A1 step 1600 extracted
+A1 step 1625 extracted
+A1 step 1650 extracted
+A1 step 1675 extracted
+A1 step 1700 extracted
+A1 step 1725 extracted
+A1 step 1750 extracted
+A1 step 1775 extracted
+A1 step 1800 extracted
+A1 step 1825 extracted
+A1 step 1850 extracted
+A1 step 1875 extracted
+A1 step 1900 extracted
+A1 step 1925 extracted
+A1 step 1950 extracted
+A1 step 1975 extracted
+A1 step 2000 extracted
+A1 step 2025 extracted
+A1 step 2050 extracted
+A1 step 2075 extracted
+A1 step 2100 extracted
+A1 step 2125 extracted
+A1 step 2150 extracted
+A1 step 2175 extracted
+A1 step 2200 extracted
+A1 step 2225 extracted
+A1 step 2250 extracted
+A1 step 2275 extracted
+A1 step 2300 extracted
+A1 step 2325 extracted
+A1 step 2350 extracted
+A1 step 2375 extracted
+A1 step 2400 extracted
+A1 step 2425 extracted
+A1 step 2450 extracted
+A1 step 2475 extracted
+A1 step 2500 extracted
+A1 step 2525 extracted
+A1 step 2550 extracted
+A1 step 2575 extracted
+A1 step 2600 extracted
+A1 step 2625 extracted
+A1 step 2650 extracted
+A1 step 2675 extracted
+A1 step 2700 extracted
+A1 step 2725 extracted
+A1 step 2750 extracted
+A1 step 2775 extracted
+A1 step 2800 extracted
+A1 step 2825 extracted
+A1 step 2850 extracted
+A1 step 2875 extracted
+A1 step 2900 extracted
+A1 step 2925 extracted
+A1 step 2950 extracted
+A1 step 2975 extracted
+A1 step 3000 extracted
+A1 step 3100 extracted
+A1 step 3200 extracted
+A1 step 3300 extracted
+A1 step 3400 extracted
+A1 step 3500 extracted
+A1 step 3600 extracted
+A1 step 3700 extracted
+A1 step 3800 extracted
+A1 step 3900 extracted
+A1 step 4000 extracted
+A1 step 4100 extracted
+A1 step 4200 extracted
+A1 step 4300 extracted
+A1 step 4400 extracted
+A1 step 4500 extracted
+A1 step 4600 extracted
+A1 step 4700 extracted
+A1 step 4800 extracted
+A1 step 4900 extracted
+A1 step 5000 extracted
+A1 dW [100, 130] done
+A1 dW [100, 250] done
+A1 dW [200, 230] done
+A1 dW [200, 310] done
+A1 dW [300, 330] done
+A1 dW [300, 380] done
+A1 dW [400, 430] done
+A1 dW [512, 1000] done
+A1 dW [1000, 1025] done
+A1 dW [1000, 2000] done
+A1 dW [2000, 2025] done
+A1 dW [2000, 3000] done
+2026-09-29T14:02:05-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A1
+2026-09-29T14:02:05-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A2
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+A2 step 0 extracted
+A2 step 1 extracted
+A2 step 2 extracted
+A2 step 4 extracted
+A2 step 8 extracted
+A2 step 10 extracted
+A2 step 16 extracted
+A2 step 20 extracted
+A2 step 30 extracted
+A2 step 32 extracted
+A2 step 40 extracted
+A2 step 50 extracted
+A2 step 60 extracted
+A2 step 64 extracted
+A2 step 70 extracted
+A2 step 80 extracted
+A2 step 90 extracted
+A2 step 100 extracted
+A2 step 110 extracted
+A2 step 120 extracted
+A2 step 128 extracted
+A2 step 130 extracted
+A2 step 140 extracted
+A2 step 150 extracted
+A2 step 160 extracted
+A2 step 170 extracted
+A2 step 180 extracted
+A2 step 190 extracted
+A2 step 200 extracted
+A2 step 210 extracted
+A2 step 220 extracted
+A2 step 230 extracted
+A2 step 240 extracted
+A2 step 250 extracted
+A2 step 256 extracted
+A2 step 260 extracted
+A2 step 270 extracted
+A2 step 280 extracted
+A2 step 290 extracted
+A2 step 300 extracted
+A2 step 310 extracted
+A2 step 320 extracted
+A2 step 330 extracted
+A2 step 340 extracted
+A2 step 350 extracted
+A2 step 360 extracted
+A2 step 370 extracted
+A2 step 380 extracted
+A2 step 390 extracted
+A2 step 400 extracted
+A2 step 410 extracted
+A2 step 420 extracted
+A2 step 430 extracted
+A2 step 440 extracted
+A2 step 450 extracted
+A2 step 460 extracted
+A2 step 470 extracted
+A2 step 480 extracted
+A2 step 490 extracted
+A2 step 500 extracted
+A2 step 512 extracted
+A2 step 525 extracted
+A2 step 550 extracted
+A2 step 575 extracted
+A2 step 600 extracted
+A2 step 625 extracted
+A2 step 650 extracted
+A2 step 675 extracted
+A2 step 700 extracted
+A2 step 725 extracted
+A2 step 750 extracted
+A2 step 775 extracted
+A2 step 800 extracted
+A2 step 825 extracted
+A2 step 850 extracted
+A2 step 875 extracted
+A2 step 900 extracted
+A2 step 925 extracted
+A2 step 950 extracted
+A2 step 975 extracted
+A2 step 1000 extracted
+A2 step 1010 extracted
+A2 step 1020 extracted
+A2 step 1025 extracted
+A2 step 1030 extracted
+A2 step 1040 extracted
+A2 step 1050 extracted
+A2 step 1060 extracted
+A2 step 1070 extracted
+A2 step 1075 extracted
+A2 step 1080 extracted
+A2 step 1090 extracted
+A2 step 1100 extracted
+A2 step 1110 extracted
+A2 step 1120 extracted
+A2 step 1125 extracted
+A2 step 1130 extracted
+A2 step 1140 extracted
+A2 step 1150 extracted
+A2 step 1160 extracted
+A2 step 1170 extracted
+A2 step 1175 extracted
+A2 step 1180 extracted
+A2 step 1190 extracted
+A2 step 1200 extracted
+A2 step 1210 extracted
+A2 step 1220 extracted
+A2 step 1225 extracted
+A2 step 1230 extracted
+A2 step 1240 extracted
+A2 step 1250 extracted
+A2 step 1260 extracted
+A2 step 1270 extracted
+A2 step 1275 extracted
+A2 step 1280 extracted
+A2 step 1290 extracted
+A2 step 1300 extracted
+A2 step 1310 extracted
+A2 step 1320 extracted
+A2 step 1325 extracted
+A2 step 1330 extracted
+A2 step 1340 extracted
+A2 step 1350 extracted
+A2 step 1360 extracted
+A2 step 1370 extracted
+A2 step 1375 extracted
+A2 step 1380 extracted
+A2 step 1390 extracted
+A2 step 1400 extracted
+A2 step 1410 extracted
+A2 step 1420 extracted
+Traceback (most recent call last):
+  File "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/b4_extract.py", line 166, in <module>
+    run_arm(sys.argv[2])
+  File "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/b4_extract.py", line 136, in run_arm
+    ck = CkptArmb(arm, t); extract_ckpt(ck, d); ck.close()
+         ^^^^^^^^^^^^^^^^
+  File "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/b4_extract.py", line 48, in __init__
+    raw = subprocess.run(["ssh", "-o", "BatchMode=yes", "spot", f"cat {f}"], capture_output=True, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ssh', '-o', 'BatchMode=yes', 'spot', 'cat ~/llmspec_armb/ckpt/A2/step01425.pt']' returned non-zero exit status 255.
+2026-09-29T14:46:58-07:00 exit rc=1: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A2
+2026-09-29T16:29:20-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py refs
+2026-09-29T16:29:26-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py refs
+2026-09-29T16:29:26-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A0
+2026-09-29T16:29:28-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A0
+2026-09-29T16:29:28-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A1
+2026-09-29T16:29:30-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A1
+2026-09-29T16:29:30-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A2
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+A2 step 1425 extracted
+A2 step 1430 extracted
+A2 step 1440 extracted
+A2 step 1450 extracted
+A2 step 1460 extracted
+A2 step 1470 extracted
+A2 step 1475 extracted
+A2 step 1480 extracted
+A2 step 1490 extracted
+A2 step 1500 extracted
+A2 step 1510 extracted
+A2 step 1520 extracted
+A2 step 1525 extracted
+A2 step 1530 extracted
+A2 step 1540 extracted
+A2 step 1550 extracted
+A2 step 1560 extracted
+A2 step 1570 extracted
+A2 step 1575 extracted
+A2 step 1580 extracted
+A2 step 1590 extracted
+A2 step 1600 extracted
+A2 step 1610 extracted
+A2 step 1620 extracted
+A2 step 1625 extracted
+A2 step 1630 extracted
+A2 step 1640 extracted
+A2 step 1650 extracted
+A2 step 1660 extracted
+A2 step 1670 extracted
+A2 step 1675 extracted
+A2 step 1680 extracted
+A2 step 1690 extracted
+A2 step 1700 extracted
+A2 step 1710 extracted
+A2 step 1720 extracted
+A2 step 1725 extracted
+A2 step 1730 extracted
+A2 step 1740 extracted
+A2 step 1750 extracted
+A2 step 1760 extracted
+A2 step 1770 extracted
+A2 step 1775 extracted
+A2 step 1780 extracted
+A2 step 1790 extracted
+A2 step 1800 extracted
+A2 step 1810 extracted
+A2 step 1820 extracted
+A2 step 1825 extracted
+A2 step 1830 extracted
+A2 step 1840 extracted
+A2 step 1850 extracted
+A2 step 1860 extracted
+A2 step 1870 extracted
+A2 step 1875 extracted
+A2 step 1880 extracted
+A2 step 1890 extracted
+A2 step 1900 extracted
+A2 step 1910 extracted
+A2 step 1920 extracted
+A2 step 1925 extracted
+A2 step 1930 extracted
+A2 step 1940 extracted
+A2 step 1950 extracted
+A2 step 1960 extracted
+A2 step 1970 extracted
+A2 step 1975 extracted
+A2 step 1980 extracted
+A2 step 1990 extracted
+A2 step 2000 extracted
+A2 step 2010 extracted
+A2 step 2020 extracted
+A2 step 2025 extracted
+A2 step 2030 extracted
+A2 step 2040 extracted
+A2 step 2050 extracted
+A2 step 2060 extracted
+A2 step 2070 extracted
+A2 step 2075 extracted
+A2 step 2080 extracted
+A2 step 2090 extracted
+A2 step 2100 extracted
+A2 step 2110 extracted
+A2 step 2120 extracted
+A2 step 2125 extracted
+A2 step 2130 extracted
+A2 step 2140 extracted
+A2 step 2150 extracted
+A2 step 2160 extracted
+A2 step 2170 extracted
+A2 step 2175 extracted
+A2 step 2180 extracted
+A2 step 2190 extracted
+A2 step 2200 extracted
+A2 step 2225 extracted
+A2 step 2250 extracted
+A2 step 2275 extracted
+A2 step 2300 extracted
+A2 step 2325 extracted
+A2 step 2350 extracted
+A2 step 2375 extracted
+A2 step 2400 extracted
+A2 step 2425 extracted
+A2 step 2450 extracted
+A2 step 2475 extracted
+A2 step 2500 extracted
+A2 step 2525 extracted
+A2 step 2550 extracted
+A2 step 2575 extracted
+A2 step 2600 extracted
+A2 step 2625 extracted
+A2 step 2650 extracted
+A2 step 2675 extracted
+A2 step 2700 extracted
+A2 step 2725 extracted
+A2 step 2750 extracted
+A2 step 2775 extracted
+A2 step 2800 extracted
+A2 step 2825 extracted
+A2 step 2850 extracted
+A2 step 2875 extracted
+A2 step 2900 extracted
+A2 step 2925 extracted
+A2 step 2950 extracted
+A2 step 2975 extracted
+A2 step 3000 extracted
+A2 dW [100, 130] done
+A2 dW [100, 250] done
+A2 dW [200, 230] done
+A2 dW [200, 310] done
+A2 dW [300, 330] done
+A2 dW [300, 380] done
+A2 dW [400, 430] done
+A2 dW [512, 1000] done
+A2 dW [1000, 1025] done
+A2 dW [1000, 2000] done
+A2 dW [2000, 2025] done
+A2 dW [2000, 3000] done
+2026-09-29T17:10:35-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm A2
+2026-09-29T17:10:35-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm M0s1
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+M0s1 step 0 extracted
+M0s1 step 1 extracted
+M0s1 step 2 extracted
+M0s1 step 4 extracted
+M0s1 step 8 extracted
+M0s1 step 10 extracted
+M0s1 step 16 extracted
+M0s1 step 20 extracted
+M0s1 step 30 extracted
+M0s1 step 32 extracted
+M0s1 step 40 extracted
+M0s1 step 50 extracted
+M0s1 step 60 extracted
+M0s1 step 64 extracted
+M0s1 step 70 extracted
+M0s1 step 80 extracted
+M0s1 step 90 extracted
+M0s1 step 100 extracted
+M0s1 step 110 extracted
+M0s1 step 120 extracted
+M0s1 step 128 extracted
+M0s1 step 130 extracted
+M0s1 step 140 extracted
+M0s1 step 150 extracted
+M0s1 step 160 extracted
+M0s1 step 170 extracted
+M0s1 step 180 extracted
+M0s1 step 190 extracted
+M0s1 step 200 extracted
+M0s1 step 210 extracted
+M0s1 step 220 extracted
+M0s1 step 230 extracted
+M0s1 step 240 extracted
+M0s1 step 250 extracted
+M0s1 step 256 extracted
+M0s1 step 260 extracted
+M0s1 step 270 extracted
+M0s1 step 280 extracted
+M0s1 step 290 extracted
+M0s1 step 300 extracted
+M0s1 step 310 extracted
+M0s1 step 320 extracted
+M0s1 step 330 extracted
+M0s1 step 340 extracted
+M0s1 step 350 extracted
+M0s1 step 360 extracted
+M0s1 step 370 extracted
+M0s1 step 380 extracted
+M0s1 step 390 extracted
+M0s1 step 400 extracted
+M0s1 step 410 extracted
+M0s1 step 420 extracted
+M0s1 step 430 extracted
+M0s1 step 440 extracted
+M0s1 step 450 extracted
+M0s1 step 460 extracted
+M0s1 step 470 extracted
+M0s1 step 480 extracted
+M0s1 step 490 extracted
+M0s1 step 500 extracted
+M0s1 step 512 extracted
+M0s1 step 525 extracted
+M0s1 step 550 extracted
+M0s1 step 575 extracted
+M0s1 step 600 extracted
+M0s1 step 625 extracted
+M0s1 step 650 extracted
+M0s1 step 675 extracted
+M0s1 step 700 extracted
+M0s1 step 725 extracted
+M0s1 step 750 extracted
+M0s1 step 775 extracted
+M0s1 step 800 extracted
+M0s1 step 825 extracted
+M0s1 step 850 extracted
+M0s1 step 875 extracted
+M0s1 step 900 extracted
+M0s1 step 925 extracted
+M0s1 step 950 extracted
+M0s1 step 975 extracted
+M0s1 step 1000 extracted
+M0s1 step 1025 extracted
+M0s1 step 1050 extracted
+M0s1 step 1075 extracted
+M0s1 step 1100 extracted
+M0s1 step 1125 extracted
+M0s1 step 1150 extracted
+M0s1 step 1175 extracted
+M0s1 step 1200 extracted
+M0s1 step 1225 extracted
+M0s1 step 1250 extracted
+M0s1 step 1275 extracted
+M0s1 step 1300 extracted
+M0s1 step 1325 extracted
+M0s1 step 1350 extracted
+M0s1 step 1375 extracted
+M0s1 step 1400 extracted
+M0s1 step 1425 extracted
+M0s1 step 1450 extracted
+M0s1 step 1475 extracted
+M0s1 step 1500 extracted
+M0s1 step 1525 extracted
+M0s1 step 1550 extracted
+M0s1 step 1575 extracted
+M0s1 step 1600 extracted
+M0s1 step 1625 extracted
+M0s1 step 1650 extracted
+M0s1 step 1675 extracted
+M0s1 step 1700 extracted
+M0s1 step 1725 extracted
+M0s1 step 1750 extracted
+M0s1 step 1775 extracted
+M0s1 step 1800 extracted
+M0s1 step 1825 extracted
+M0s1 step 1850 extracted
+M0s1 step 1875 extracted
+M0s1 step 1900 extracted
+M0s1 step 1925 extracted
+M0s1 step 1950 extracted
+M0s1 step 1975 extracted
+M0s1 step 2000 extracted
+M0s1 step 2025 extracted
+M0s1 step 2050 extracted
+M0s1 step 2075 extracted
+M0s1 step 2100 extracted
+M0s1 step 2125 extracted
+M0s1 step 2150 extracted
+M0s1 step 2175 extracted
+M0s1 step 2200 extracted
+M0s1 step 2225 extracted
+M0s1 step 2250 extracted
+M0s1 step 2275 extracted
+M0s1 step 2300 extracted
+M0s1 step 2325 extracted
+M0s1 step 2350 extracted
+M0s1 step 2375 extracted
+M0s1 step 2400 extracted
+M0s1 step 2425 extracted
+M0s1 step 2450 extracted
+M0s1 step 2475 extracted
+M0s1 step 2500 extracted
+M0s1 step 2525 extracted
+M0s1 step 2550 extracted
+M0s1 step 2575 extracted
+M0s1 step 2600 extracted
+M0s1 step 2625 extracted
+M0s1 step 2650 extracted
+M0s1 step 2675 extracted
+M0s1 step 2700 extracted
+M0s1 step 2725 extracted
+M0s1 step 2750 extracted
+M0s1 step 2775 extracted
+M0s1 step 2800 extracted
+M0s1 step 2825 extracted
+M0s1 step 2850 extracted
+M0s1 step 2875 extracted
+M0s1 step 2900 extracted
+M0s1 step 2925 extracted
+M0s1 step 2950 extracted
+M0s1 step 2975 extracted
+M0s1 step 3000 extracted
+M0s1 dW [100, 130] done
+M0s1 dW [100, 250] done
+M0s1 dW [200, 230] done
+M0s1 dW [200, 310] done
+M0s1 dW [300, 330] done
+M0s1 dW [300, 380] done
+M0s1 dW [400, 430] done
+M0s1 dW [512, 1000] done
+M0s1 dW [1000, 1025] done
+M0s1 dW [1000, 2000] done
+M0s1 dW [2000, 2025] done
+M0s1 dW [2000, 3000] done
+2026-09-29T18:00:51-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm M0s1
+2026-09-29T18:00:51-07:00 start: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm M0s2
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+M0s2 step 0 extracted
+M0s2 step 1 extracted
+M0s2 step 2 extracted
+M0s2 step 4 extracted
+M0s2 step 8 extracted
+M0s2 step 10 extracted
+M0s2 step 16 extracted
+M0s2 step 20 extracted
+M0s2 step 30 extracted
+M0s2 step 32 extracted
+M0s2 step 40 extracted
+M0s2 step 50 extracted
+M0s2 step 60 extracted
+M0s2 step 64 extracted
+M0s2 step 70 extracted
+M0s2 step 80 extracted
+M0s2 step 90 extracted
+M0s2 step 100 extracted
+M0s2 step 110 extracted
+M0s2 step 120 extracted
+M0s2 step 128 extracted
+M0s2 step 130 extracted
+M0s2 step 140 extracted
+M0s2 step 150 extracted
+M0s2 step 160 extracted
+M0s2 step 170 extracted
+M0s2 step 180 extracted
+M0s2 step 190 extracted
+M0s2 step 200 extracted
+M0s2 step 210 extracted
+M0s2 step 220 extracted
+M0s2 step 230 extracted
+M0s2 step 240 extracted
+M0s2 step 250 extracted
+M0s2 step 256 extracted
+M0s2 step 260 extracted
+M0s2 step 270 extracted
+M0s2 step 280 extracted
+M0s2 step 290 extracted
+M0s2 step 300 extracted
+M0s2 step 310 extracted
+M0s2 step 320 extracted
+M0s2 step 330 extracted
+M0s2 step 340 extracted
+M0s2 step 350 extracted
+M0s2 step 360 extracted
+M0s2 step 370 extracted
+M0s2 step 380 extracted
+M0s2 step 390 extracted
+M0s2 step 400 extracted
+M0s2 step 410 extracted
+M0s2 step 420 extracted
+M0s2 step 430 extracted
+M0s2 step 440 extracted
+M0s2 step 450 extracted
+M0s2 step 460 extracted
+M0s2 step 470 extracted
+M0s2 step 480 extracted
+M0s2 step 490 extracted
+M0s2 step 500 extracted
+M0s2 step 512 extracted
+M0s2 step 525 extracted
+M0s2 step 550 extracted
+M0s2 step 575 extracted
+M0s2 step 600 extracted
+M0s2 step 625 extracted
+M0s2 step 650 extracted
+M0s2 step 675 extracted
+M0s2 step 700 extracted
+M0s2 step 725 extracted
+M0s2 step 750 extracted
+M0s2 step 775 extracted
+M0s2 step 800 extracted
+M0s2 step 825 extracted
+M0s2 step 850 extracted
+M0s2 step 875 extracted
+M0s2 step 900 extracted
+M0s2 step 925 extracted
+M0s2 step 950 extracted
+M0s2 step 975 extracted
+M0s2 step 1000 extracted
+M0s2 step 1025 extracted
+M0s2 step 1050 extracted
+M0s2 step 1075 extracted
+M0s2 step 1100 extracted
+M0s2 step 1125 extracted
+M0s2 step 1150 extracted
+M0s2 step 1175 extracted
+M0s2 step 1200 extracted
+M0s2 step 1225 extracted
+M0s2 step 1250 extracted
+M0s2 step 1275 extracted
+M0s2 step 1300 extracted
+M0s2 step 1325 extracted
+M0s2 step 1350 extracted
+M0s2 step 1375 extracted
+M0s2 step 1400 extracted
+M0s2 step 1425 extracted
+M0s2 step 1450 extracted
+M0s2 step 1475 extracted
+M0s2 step 1500 extracted
+M0s2 step 1525 extracted
+M0s2 step 1550 extracted
+M0s2 step 1575 extracted
+M0s2 step 1600 extracted
+M0s2 step 1625 extracted
+M0s2 step 1650 extracted
+M0s2 step 1675 extracted
+M0s2 step 1700 extracted
+M0s2 step 1725 extracted
+M0s2 step 1750 extracted
+M0s2 step 1775 extracted
+M0s2 step 1800 extracted
+M0s2 step 1825 extracted
+M0s2 step 1850 extracted
+M0s2 step 1875 extracted
+M0s2 step 1900 extracted
+M0s2 step 1925 extracted
+M0s2 step 1950 extracted
+M0s2 step 1975 extracted
+M0s2 step 2000 extracted
+M0s2 step 2025 extracted
+M0s2 step 2050 extracted
+M0s2 step 2075 extracted
+M0s2 step 2100 extracted
+M0s2 step 2125 extracted
+M0s2 step 2150 extracted
+M0s2 step 2175 extracted
+M0s2 step 2200 extracted
+M0s2 step 2225 extracted
+M0s2 step 2250 extracted
+M0s2 step 2275 extracted
+M0s2 step 2300 extracted
+M0s2 step 2325 extracted
+M0s2 step 2350 extracted
+M0s2 step 2375 extracted
+M0s2 step 2400 extracted
+M0s2 step 2425 extracted
+M0s2 step 2450 extracted
+M0s2 step 2475 extracted
+M0s2 step 2500 extracted
+M0s2 step 2525 extracted
+M0s2 step 2550 extracted
+M0s2 step 2575 extracted
+M0s2 step 2600 extracted
+M0s2 step 2625 extracted
+M0s2 step 2650 extracted
+M0s2 step 2675 extracted
+M0s2 step 2700 extracted
+M0s2 step 2725 extracted
+M0s2 step 2750 extracted
+M0s2 step 2775 extracted
+M0s2 step 2800 extracted
+M0s2 step 2825 extracted
+M0s2 step 2850 extracted
+M0s2 step 2875 extracted
+M0s2 step 2900 extracted
+M0s2 step 2925 extracted
+M0s2 step 2950 extracted
+M0s2 step 2975 extracted
+M0s2 step 3000 extracted
+M0s2 dW [100, 130] done
+M0s2 dW [100, 250] done
+M0s2 dW [200, 230] done
+M0s2 dW [200, 310] done
+M0s2 dW [300, 330] done
+M0s2 dW [300, 380] done
+M0s2 dW [400, 430] done
+M0s2 dW [512, 1000] done
+M0s2 dW [1000, 1025] done
+M0s2 dW [1000, 2000] done
+M0s2 dW [2000, 2025] done
+M0s2 dW [2000, 3000] done
+2026-09-29T18:55:34-07:00 exit rc=0: /home/combust/fmexplorer/bin/python3 armb/b4_extract.py arm M0s2
+2026-09-29T18:55:34-07:00 start: ../checkrun.sh armb/b4_analyze.py all
+seal check OK (19 files)
+q1 written; 3594 cache files hashed
+q2 written; 3381 cache files hashed
+q3 written; 9 cache files hashed
+q4 written; 1313 cache files hashed
+bulk written; 5526 cache files hashed
+CHECKRUN armb/b4_analyze.py EXIT=0 PASS
+2026-09-29T22:29:10-07:00 exit rc=0: ../checkrun.sh armb/b4_analyze.py all
+2026-09-29T22:29:10-07:00 B4 chain complete
