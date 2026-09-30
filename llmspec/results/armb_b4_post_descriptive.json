@@ -1,0 +1,156 @@
+{
+ "doc": "POST-RESULT, DESCRIPTIVE ONLY (2026-09-30, after Will's review of ARMB_FINDINGS.md). Not sealed; no verdict changes.\nGenerator for the descriptive numbers added to ARMB_FINDINGS.md in response to that review:\n  (a) Q2 wave leave-layer-0-out: the sealed statistic S = rho_Q + rho_K and its exact permutation null, over layers 1-5\n      (120^2), from the banked t_half in results/armb_b4_q2.json;\n  (b) Q/K layer-mean stable rank at steps 0/512/1000/3000 for A0, M0s1, M0s2 (cache, via b4_analyze);\n  (c) bulk VIOLATED count vs the per-cell null exceedance 2*Phi(-2.487), binomial (cells treated as independent,\n      which they are not -- adjacent checkpoints are correlated);\n  (d) the A1 licence cells and A0's TP_O calibration margin behind \"why A1 gives no verdict\".\nOutput: results/armb_b4_post_descriptive.json.\n",
+ "wave": {
+  "A0": {
+   "layers_1_5": {
+    "rho": {
+     "Q": -0.4472135954999579,
+     "K": -0.7
+    },
+    "S": -1.1472135954999578,
+    "p_lower": 0.05583333333333333,
+    "p_upper": 0.9491666666666667
+   },
+   "sealed_S_reproduced": -1.5268246803981826
+  },
+  "M0s1": {
+   "layers_1_5": {
+    "rho": {
+     "Q": -0.4472135954999579,
+     "K": 0.20519567041703085
+    },
+    "S": -0.24201792508292708,
+    "p_lower": 0.37583333333333335,
+    "p_upper": 0.6291666666666667
+   },
+   "sealed_S_reproduced": -0.3656763296846732
+  },
+  "M0s2": {
+   "layers_1_5": {
+    "rho": {
+     "Q": -0.46169025843831935,
+     "K": 0.8720815992723809
+    },
+    "S": 0.4103913408340616,
+    "p_lower": 0.7186111111111111,
+    "p_upper": 0.3036111111111111
+   },
+   "sealed_S_reproduced": -0.11595420713048965
+  }
+ },
+ "qk_sr": {
+  "A0": {
+   "Q": {
+    "0": 130.1674260770044,
+    "512": 24.666449226288183,
+    "1000": 15.149503776478303,
+    "3000": 11.06184406876419
+   },
+   "K": {
+    "0": 129.1438631116004,
+    "512": 50.60570065036858,
+    "1000": 29.139586187537564,
+    "3000": 10.91546954838127
+   }
+  },
+  "M0s1": {
+   "Q": {
+    "0": 130.1674260770044,
+    "512": 128.4838332806321,
+    "1000": 92.13664956643457,
+    "3000": 40.33986365795583
+   },
+   "K": {
+    "0": 129.1438631116004,
+    "512": 127.65086371949947,
+    "1000": 95.47965993222147,
+    "3000": 38.5160576332802
+   }
+  },
+  "M0s2": {
+   "Q": {
+    "0": 129.66719612247448,
+    "512": 127.91223741350133,
+    "1000": 95.82201777616852,
+    "3000": 41.032813895208676
+   },
+   "K": {
+    "0": 129.9103251505852,
+    "512": 128.36179950100197,
+    "1000": 96.23062836097576,
+    "3000": 37.18426277269988
+   }
+  }
+ },
+ "bulk": {
+  "A0": {
+   "cells": 1610,
+   "violated": 17,
+   "expected": 20.740889243398804,
+   "P_ge_k": 0.8249212073184209
+  },
+  "A1": {
+   "cells": 1810,
+   "violated": 11,
+   "expected": 23.317397223945243,
+   "P_ge_k": 0.9984453733111827
+  },
+  "A2": {
+   "cells": 2570,
+   "violated": 24,
+   "expected": 33.1081275500217,
+   "P_ge_k": 0.9592796526337215
+  },
+  "M0s1": {
+   "cells": 1610,
+   "violated": 11,
+   "expected": 20.740889243398804,
+   "P_ge_k": 0.9930555901936929
+  },
+  "M0s2": {
+   "cells": 1610,
+   "violated": 13,
+   "expected": 20.740889243398804,
+   "P_ge_k": 0.9729908159235283
+  },
+  "all": {
+   "cells": 9210,
+   "violated": 76,
+   "expected": 118.64819250416335,
+   "null_rate": 0.012882539902732177,
+   "z_binomial": 3.9408113896250665,
+   "P_le_k": 1.673307609325921e-05
+  }
+ },
+ "q1_a1": {
+  "licence": {
+   "A1_s0.005_iid": {
+    "LICENSED": true,
+    "NSA_LICENSED": true,
+    "r_star": 1.0,
+    "c_fit": 2.65097582716572
+   },
+   "A1_s0.005_ar": {
+    "LICENSED": true,
+    "NSA_LICENSED": false,
+    "r_star": 1.0,
+    "c_fit": 5.078957614604853
+   },
+   "A1_s0.01_iid": {
+    "LICENSED": false,
+    "NSA_LICENSED": false,
+    "r_star": null,
+    "c_fit": 3.912649709285299
+   },
+   "A1_s0.01_ar": {
+    "LICENSED": false,
+    "NSA_LICENSED": false,
+    "r_star": null,
+    "c_fit": 9.412499817080514
+   }
+  },
+  "A0_TP_O_measured": 0.003299733459522461,
+  "row_0.005_ar_q05": 0.00325492893541835,
+  "row_0.005_iid_q05": 0.004306563194390362
+ }
+}
