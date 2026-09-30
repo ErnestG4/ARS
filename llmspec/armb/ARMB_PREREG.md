@@ -351,3 +351,29 @@ tests) is sealed separately, before A0 starts.
   grid as before). B4 extraction and analysis are switched to it by the B4 amendment that follows the licence re-run.
 - **Reason:** the sealed licences allow a Q1 model verdict only through E4 on A2 at ≤ 0.5% noise. Will asked for the A2
   warp licence to be re-run on the denser grid (on spot, synthetic only) before B4 reads any arm.
+
+## Amendment B1a-A9 — 2026-09-30 ~10:10: the seed-1 identity check, SEALED before it runs (Will 09-30: "seal the criteria, run it, then publish")
+- **Why:** A7's known-answer check validated the rebuild METHOD on seed0. It did not show that the seed-1 OUTPUT is the
+  data PolyPythias seed 1 trained on. If it is not, Q4's second pair (M0-s2 vs released seed1) falls, and Q4 rests on
+  P1 alone.
+- **Code:** `armb/seed1_identity.py` (sha256 383ce687a7548725…). Its docstring is the full rule.
+- **Runs** (128 AdamW steps each, A0's exact trainer definitions):
+  - K = pythia-70m + standard order: the known answer.
+  - Km = pythia-70m + seed-1 order: known wrong data.
+  - **T = pythia-70m-seed1 + rebuilt seed-1 order: the test.**
+  - C1 = seed-1 init + standard order.
+  - C2 = seed-1 init + seed-1 order shifted by one step.
+- **Statistic:** ρ(t) = correlation over every weight entry (QKV/O/MLP, all layers) between our cumulative change and
+  the released one, both at fp16, at t = 16/32/64/128. Changes at t ≤ 16 are near fp16 resolution, hence 128 steps.
+- **Rule** (right/wrong midpoint m(t) = (ρ_K + ρ_Km)/2, from the known-answer system):
+  - **CONFIRMED** iff ρ_K > ρ_Km at every t, T ≥ m(t) at every t, AND C1 and C2 < m(t) at every t. The confusers are
+    the red path.
+  - **REFUTED** iff the instrument holds and T < m(t) at every t.
+  - **INCONCLUSIVE** otherwise, including when K does not beat Km.
+- **Dry runs, pre-seal:**
+  - Verdict rule: `armb/test_seed1_identity.py` fires all five branches (CHECKRUN PASS).
+  - Plumbing: 2 training steps on T with no comparison. Seed-1 batches 1..129 fetched and each sha256-verified
+    against spot's steps.jsonl. The 24 weight matrices map 1:1 to the release keys; our step0 == released step0
+    exactly. No ρ was computed.
+- **If REFUTED:** M0-s2's pair is labelled INVALID in ARMB_FINDINGS, and Q4 is re-stated on P1 alone, DESCRIPTIVE
+  (B1b "What would change these plans"). If INCONCLUSIVE: disclosed, and Q4 stands with the pairing caveat.
