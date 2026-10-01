@@ -157,6 +157,11 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
   → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
   A0R_PREREG §2 printed as "identity written; VERDICT: ...".
+- **PAUSE AFTER A0 (Will 10-01 14:40): WSL maintenance.** The queue shell was killed; only `train.py A0 --stop 10000`
+  runs (pid armb/trainer_A0_ext.pid; ETA ~05:20 10-02). M0s1/M0s3 NOT started. After maintenance (a WSL restart kills
+  this session and its cron alarm): check `armb/train_A0_ext.log` reached step 10000 (else re-run `train.py A0 --stop
+  10000`, it resumes), then `cd llmspec/armb && setsid nohup ./ext_queue.sh > ext_queue.log 2>&1 &`, re-arm waits, re-create
+  the hourly alarm. memwatch (pid 2700200) also dies with WSL: restart `bash memwatch.sh`.
 - **GPU_STATUS: FREE** (10-01 13:59 PDT, Will: "we've lost more time" while he sets up the lean box). Will reclaims the
   card by saying so: then `touch llmspec/STOP` (halts the queue within a minute, resumable) and set this line to
   `GPU_STATUS: HELD_FOR_WILL`. ext_queue LAUNCHED (A0 → 10000 first).
