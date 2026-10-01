@@ -132,41 +132,58 @@ references:
     volume: 43
     year: 2002
   # ─── Foundational Planat-and-collaborators series ────────────────────────
-  # ARS rests on the analytical scaffolding developed in this series across
-  # Farey-rational phase locking, Ramanujan-Fourier analysis of arithmetical
-  # signals, and the connection of arithmetic to oscillator phase noise.
-  # Reference metadata below is the best available without an authoritative
-  # CITATION-AUDIT.md; specific titles and journal identifiers should be
-  # confirmed against the source list when one is provided.
-  - type: article
+  # ARS rests on the analytical scaffolding developed in this series: Farey-rational
+  # phase locking, Ramanujan-Fourier analysis of arithmetical signals, and the
+  # connection of arithmetic to oscillator phase noise. Records verified 2026-09-30.
+  - type: conference-paper
     authors:
       - family-names: Planat
-        given-names: M.
+        given-names: Michel
       - family-names: Henry
-        given-names: E.
-    title: "Arithmetic of phase locking and 1/f noise in oscillators (Farey-Stern–Brocot organization of mode locking)"
+        given-names: Edouard
+    title: "The arithmetic of 1/f noise in a phase locked loop"
+    collection-title: "Proceedings of the 2002 IEEE International Frequency Control Symposium"
+    start: 739
+    end: 743
     year: 2002
-    notes: "FEMTO-ST.  Foundational treatment of PLL phase-noise via Farey arithmetic and continued-fraction expansions; ARS reuses this organization as the PLL-bank parameterization."
+    doi: "10.1109/FREQ.2002.1075978"
+    notes: "Farey / continued-fraction organization of mode locking and 1/f noise in a PLL; ARS reuses this organization as the PLL-bank parameterization."
   - type: article
     authors:
       - family-names: Planat
-        given-names: M.
+        given-names: Michel
       - family-names: Rosu
-        given-names: H.
-    title: "Ramanujan sums and the Ramanujan-Fourier expansion of arithmetical signals"
+        given-names: Haret C.
+      - family-names: Perrine
+        given-names: Serge
+    title: "Ramanujan sums for signal processing of low-frequency noise"
+    journal: "Physical Review E"
+    volume: 66
+    start: "056128"
     year: 2002
-    notes: "Foundational formulation of RF coefficient analysis on point processes / arithmetic functions; ARS Engine 1 (ramanujan_fourier) implements this directly."
+    doi: "10.1103/PhysRevE.66.056128"
+    notes: "Ramanujan-Fourier transform of arithmetical signals; ARS Engine 1 (ramanujan_fourier) implements this directly."
   - type: article
     authors:
       - family-names: Planat
-        given-names: M.
-    title: "Phase locking, Mangoldt function, and connections to the Riemann zeta function"
+        given-names: Michel
+    title: "Huyghens, Bohr, Riemann and Galois: Phase-locking"
+    journal: "International Journal of Modern Physics B"
+    volume: 20
+    start: 1833
+    end: 1850
     year: 2006
-    notes: "Develops the analytical relation between Farey-rational phase locking and the von Mangoldt arithmetic function / Riemann ζ; the analytical anchor for ARS's Riemann-side validation."
+    url: "https://arxiv.org/abs/math-ph/0510044"
+    notes: "Phase locking across all harmonic resonances, 1/f noise, the Mangoldt function and the Riemann zeta function; the analytical anchor for ARS's Riemann-side validation."
   - type: article
     authors:
       - family-names: Planat
-        given-names: M.
-    title: "Bost–Connes / KMS-state perspective on rational-frequency phase coherence and prime-theoretic invariants (recent work)"
+        given-names: Michel
+    title: "Painlevé Confluence and 1/f Phase-Locking Dynamics: A Topological Framework for Human–AI Collaboration"
+    journal: "Machine Learning and Knowledge Extraction"
+    volume: 8
+    issue: 3
+    start: 73
     year: 2026
-    notes: "Recent work on the quantum statistical mechanics of phase-locking on rational frequencies; the analytical hypothesis that ARS's empirical Phase 12 perturbation sweep was originally framed against (with the Phase 13 reinterpretation noting that the Phase 12 signal is a peak-detection artifact, not a test of this hypothesis)."
+    doi: "10.3390/make8030073"
+    notes: "Bost–Connes phase transition as a framework for the lock-in phase hypothesis; the hypothesis ARS's Phase 12 perturbation sweep was originally framed against (Phase 13 reinterprets the Phase 12 signal as a peak-detection artifact, not a test of it)."

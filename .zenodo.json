@@ -1,0 +1,51 @@
+{
+  "title": "ARS — Arithmetic Resonance Spectrograph",
+  "upload_type": "software",
+  "version": "2026.09.30",
+  "creators": [
+    {
+      "name": "combust"
+    }
+  ],
+  "description": "<p>A calibrated multi-scale random-matrix-theory readout for arbitrary time series. ARS embeds a sequence into a chirp signal, runs a GPU-parallel bank of Farey-rational phase-locked loops against it, and extracts passage-time spacings that are unfolded and compared against random matrix theory predictions (Wigner GOE / GUE / Poisson). Validated against the Riemann ζ zeros and the Katz–Sarnak family symmetry of elliptic curve L-functions.</p><p>The repository also contains <code>llmspec/</code>, <em>Shapes of LLM weights over training</em>: a pre-registered study of language-model weight spectra across training (Pythia 70M–1.4B with PolyPythias seeds, OLMo 2 1B), with five own 70M training runs comparing learning-rate warmups and AdamW vs Muon (Arm B). Start at <code>llmspec/README.md</code>.</p><p>Code: AGPL-3.0-or-later. Results and write-ups under <code>llmspec/</code>: CC-BY-4.0 (<code>llmspec/LICENSE-RESULTS.md</code>). <code>PROVENANCE.md</code> maps commit hashes cited in the documents to this history.</p>",
+  "license": "agpl-3.0-or-later",
+  "access_right": "open",
+  "keywords": [
+    "random matrix theory",
+    "Riemann zeta function",
+    "L-functions",
+    "Katz-Sarnak",
+    "phase-locked loop",
+    "Farey sequence",
+    "level statistics",
+    "GUE",
+    "quantum chaos",
+    "large language models",
+    "weight spectra",
+    "pre-registration"
+  ],
+  "notes": "Results and write-ups under llmspec/ are licensed CC-BY-4.0 (llmspec/LICENSE-RESULTS.md); the code is AGPL-3.0-or-later.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/ErnestG4/ARS",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "references": [
+    "Wigner, E. (1957). Statistical properties of real symmetric matrices with many dimensions. Canadian Mathematical Congress Proceedings",
+    "Montgomery, H. (1973). The pair correlation of zeros of the zeta function. Analytic Number Theory, Proc. Sympos. Pure Math.",
+    "Odlyzko, A. M. (1989). On the distribution of spacings between zeros of the zeta function. Math. Comp. 48",
+    "Katz, N. M., Sarnak, P. (1999). Random Matrices, Frobenius Eigenvalues, and Monodromy. American Mathematical Society",
+    "Clauset, A., Shalizi, C. R., Newman, M. E. J. (2009). Power-law distributions in empirical data. SIAM Review 51",
+    "Bohigas, O., Giannoni, M. J., Schmit, C. (1984). Characterization of chaotic quantum spectra and universality of level fluctuation laws. Phys. Rev. Lett. 52",
+    "Mehta, M. L. (2004). Random Matrices. Elsevier / Academic Press",
+    "Cramér, H. (1936). On the order of magnitude of the difference between consecutive prime numbers. Acta Arithmetica 2",
+    "Bost, J.-B., Connes, A. (1995). Hecke algebras, Type III factors and phase transitions with spontaneous symmetry breaking in number theory. Selecta Mathematica 1",
+    "Dumitriu, I., Edelman, A. (2002). Matrix models for beta ensembles. J. Math. Phys. 43",
+    "Planat, Michel, Henry, Edouard (2002). The arithmetic of 1/f noise in a phase locked loop. Proceedings of the 2002 IEEE International Frequency Control Symposium, 739–743. doi:10.1109/FREQ.2002.1075978",
+    "Planat, Michel, Rosu, Haret C., Perrine, Serge (2002). Ramanujan sums for signal processing of low-frequency noise. Physical Review E 66, 056128. doi:10.1103/PhysRevE.66.056128",
+    "Planat, Michel (2006). Huyghens, Bohr, Riemann and Galois: Phase-locking. International Journal of Modern Physics B 20, 1833–1850. https://arxiv.org/abs/math-ph/0510044",
+    "Planat, Michel (2026). Painlevé Confluence and 1/f Phase-Locking Dynamics: A Topological Framework for Human–AI Collaboration. Machine Learning and Knowledge Extraction 8(3), 73. doi:10.3390/make8030073"
+  ]
+}
