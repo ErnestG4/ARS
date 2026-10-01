@@ -154,7 +154,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
   → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
   A0R_PREREG §2 printed as "identity written; VERDICT: ...".
-- **ext_queue RUNNING** (`armb/ext_queue.sh`, pid armb/ext_queue.pid, log ext_queue.log; waits for the scoring pid):
+- **GPU: HELD FOR WILL from 10-01 ~13:30 (his own training). Do NOT launch GPU work until this line says GPU_FREE.**
+  The A0r scoring extraction finishes on its own (~14:30) and then the GPU is Will's.
+- **ext_queue HELD, NOT STARTED** (`armb/ext_queue.sh`; re-launch with `setsid nohup ./ext_queue.sh > ext_queue.log 2>&1 &` when GPU_FREE; it was:
   Q4EXT_PREREG.md (3e52ea3): A0 → 10000, M0s1 → 10000, M0s3 (Muon, seed-2 init, standard order) → 3000; logs
   armb/train_<arm>_ext.log; DESCRIPTIVE only. ~16 h + 16 h + 7 h. STOP halts; re-run the script to resume.
 - **spot arm-B re-extraction DONE 10:06** (40 GB in spot:~/llmspec_mf/cache/mf, 1.4B + seeds 1–5). Exploratory
