@@ -150,7 +150,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   at 11:53 (~7 GPU-h + ~2 spot-h idle). Cause: the completion wait expired at 2 h and was not re-armed. Rule now:
   every detached job has a wait RE-ARMED on each expiry, AND an hourly in-session cron alarm (a8edbc70, :23) checks
   jobs, acts on finished ones and launches the next sealed item. (memory: long_jobs_get_rearmed_event_waits)
-- **A0r DONE** (step 3000, final loss 3.1254 vs A0 3.1148; 169 ckpts on spot). **A0r scoring RUNNING** (`armb/a0r_score.py
+- **A0r SCORED 10-01 ~14:40: NOT RESOLVABLE as sealed (pipeline mis-reads a known null)** — TP_O identity fit ratio 13.3 >
+  c_fit 5.4; paired floor c_pair 2.36% (O) / 0.48% (MLP_OUT) vs A2 misfit 2.42% / 1.69%; MLP_OUT 3.5× the floor
+  (descriptive). Written up: ARMB_FINDINGS §2b, memo row 14, README. GPU released to Will.
+- **A0r DONE** (step 3000, final loss 3.1254 vs A0 3.1148; 169 ckpts on spot). **A0r scoring DONE** (`armb/a0r_score.py
   all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
   → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
   A0R_PREREG §2 printed as "identity written; VERDICT: ...".

@@ -110,6 +110,32 @@ fit ratio is SSE_best/(n·s²), compared against c_fit.
   - The label "anchor of the trajectory, not of a turning point" for TP_MLPOUT is applied in this memo from the sealed
     text; the code does not print it.
 
+## 2b. A0r — the paired-run divergence floor (A0R_PREREG.md, sealed 94d18ae; scored 2026-10-01 by armb/a0r_score.py, b3ebf37)
+
+A0r is an identical-config rerun of A0 (same init, data order, W = 1430, code; only GPU nondeterminism differs). It was
+bit-identical to A0 through step 100 and ended at loss 3.1254 vs 3.1148. Scored through the SEALED Q1 pipeline with the
+arm name as the only substitution (results/armb_a0r_{q1,identity,q1_warp_licence,noise_calibration}.json).
+
+| metric | identity fit ratio | c_fit (identity cell, same noise row) | reads | c_pair (rel RMS, A0r vs A0) | A2 misfit (best map, rel RMS) | A2 / floor |
+|---|---|---|---|---|---|---|
+| TP_O | **13.3** | 5.43 | NO_SIMPLE_ANCHOR on a known null | **2.36%** | 2.42% | 1.03 |
+| TP_MLPOUT | 2.85 | 3.43 | identity within noise | 0.48% | 1.69% | 3.5 (12.3 squared) |
+
+- **Verdict as sealed (A0R_PREREG §2, read mechanically): NOT RESOLVABLE (pipeline mis-reads a known null).** On TP_O the
+  sealed E4 statistic calls NO_SIMPLE_ANCHOR for two runs that differ only by GPU nondeterminism, so its noise model (curve
+  roughness, 0.2–0.4%) is too small by about an order of magnitude for paired runs over 3000 steps. The sealed `q1()`
+  itself, run verbatim on A0r, takes the LOCATION route for both metrics ("DESCRIPTIVE / NOT APPLICABLE"): it cannot
+  read an identity arm through either of its routes, which is a limitation of the pipeline recorded here.
+- **What survives, descriptively (per metric, not a verdict):** on TP_MLPOUT A2's misfit is 3.5× the paired floor (1.69%
+  vs 0.48%), so "no sealed time map re-times A2's MLP_OUT trajectory" stands above paired divergence; on TP_O A2's misfit
+  (2.42%) equals the paired floor (2.36%), so the O-side NO SIMPLE ANCHOR is not separable from run-to-run divergence.
+  Row 14 therefore reads NOT RESOLVABLE as sealed, with the MLP_OUT statement carried as descriptive.
+- A2's banked fit ratios (73 / 134) are far above A0r's (13.3 / 2.85): the misfit is real in the pipeline's units; the
+  question the floor answers is whether its *size* exceeds what two identical runs show. c_pair is ONE draw (n = 1).
+- The identity-cell c_fit values (5.4 / 3.4 at the 0.01 / 0.005 rows) are the licence generator's own 99th percentiles
+  under coincident maps; the cells are, as expected, not LICENSED to separate models (they cannot be), which is why the
+  identity statistic is reported beside `q1()` rather than through it.
+
 ## 3. Q2 — event order (A0 primary; M0 arms descriptive)
 
 Crossing times t ± e_x, in steps (e_x = the worst-shape 95% localisation error at the calibrated noise row):

@@ -33,8 +33,9 @@ shape gives, and call something structure only if it survives that comparison an
     every seed (consistent with Olsson et al. 2022 and Tigges et al. 2024, ~2B tokens; the dense 70M onset is
     675 ± 100 steps).
 - **Warmup length changes the early trajectory** (step count is the worst time map), and none of step count, warmup
-  end or learning-rate integral re-times it within the curves' own noise. The remaining misfit (~2%) is not yet
-  separated from the run-to-run divergence of paired runs, which is unmeasured (an identical-config rerun is queued).
+  end or learning-rate integral re-times it within the curves' own noise. An identical-config rerun of the reference
+  run then showed that noise model is too small: two runs differing only by GPU nondeterminism diverge by as much as the
+  O-side misfit (2.4%), so that part is not resolvable; the MLP_OUT misfit (1.7%) is 3.5× the paired floor.
 - **The Q/K stable-rank fall happens under both AdamW and Muon.** Muon delays it and leaves it shallower by step
   3000; the endpoint is unknown. Flatter spectra under Muon are known (Moonlight); the early delay is the new part.
 - **Several attractive readings did not survive their controls and are withdrawn:**
@@ -61,7 +62,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 | 11 | The ordering of bulk singular values carries function | **NOT ESTABLISHED** (a size-matched same-subspace perturbation costs 0.67× the bulk shuffle) |
 | 12 | Compression runs as a layer-ordered wave (Liu) | V at 1.4B: descriptive null, consistent with Liu's V/O-uniform claim. Q/K at 70M: OPPOSITE ORDER, significant only with layer 0 (p 0.056 without it) |
 | 13 | Change points align with training events | NOT LICENSED |
-| 14 | What anchors the early turning points (Arm B) | **NO SIMPLE ANCHOR** within curve noise; not yet separated from run-to-run divergence |
+| 14 | What anchors the early turning points (Arm B) | NOT RESOLVABLE as sealed: an identical-config rerun of A0 shows the sealed statistic's noise model is too small (the paired floor equals A2's O-side misfit); the MLP_OUT misfit is 3.5× the floor, descriptively |
 | 15 | Early updates are low-rank (Arm B) | INCONCLUSIVE (Q/K yes, V/O/MLP no, descriptively) |
 | 16 | AdamW vs Muon (Arm B) | Timing and depth of the Q/K collapse depend on the optimizer |
 

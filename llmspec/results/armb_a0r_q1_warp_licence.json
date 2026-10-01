@@ -1,0 +1,1782 @@
+{
+ "doc": "Q1 E4 warp-and-compare licence, VERSION 2 (Will's sign-off 2026-09-28, pre-data; supersedes the v1 licence cells for\nQ1). Sealed by the commit that adds it, BEFORE it runs and before B4 reads any arm. Synthetic only; runs on spot.\n\nWhy v2: the v1 HALFWAY confuser (shift dW/2) EQUALS the LR_INT map once both warmups have ended (cumulative LR differs by\nlr0*dW/2), so it tested E4 against a copy of one hypothesis (A2 median |HALFWAY - LR_INT| = 0 steps; A1 71 vs >= 644\nbetween real models). HALFWAY is RETIRED.\nEstimator E4 itself is UNCHANGED (q1_warp.decide: affine height scaling, SSE over the window common to the three model\nmaps, NO_SIMPLE_ANCHOR via c_fit, SUPPORTED via the margin r*). Grids and windows come from grids.arm_grid (A2 dense,\nB1a-A8): A1 [1450, 3000] on its standard grid, A2 [300, 2275] on its dense grid.\nCONFUSERS per arm (truths that are none of the three models):\n  MID_SL  tau = (tau_STEP + tau_LR_INT) / 2        midpoint between adjacent model maps\n  MID_LW  tau = (tau_LR_INT + tau_WARMUP) / 2      midpoint between adjacent model maps\n  STRETCH tau = 1.3 t                              easy extra\n  OVERSHOOT tau = t - 1.5 (W_X - W_0)              easy extra\nTruth classes cycle STEP, WARMUP, LR_INT, MID_SL, MID_LW, STRETCH, OVERSHOOT; 700 draws per cell (100 per class); shapes,\nnoise levels / types, amplitude changes and seeds' construction as q1_warp v1.\nLICENCE per (arm, noise level, noise type):\n  r* = the smallest value in {1.0, 1.1, 1.25, 1.5, 2.0} with every wrong-model rate <= 5% AND every confuser assigned to\n       any SINGLE model <= 20%;\n  E4 LICENSED (model verdicts) iff at r* every true-model rate >= 80%.\n  NO_SIMPLE_ANCHOR LICENSED iff, at r*, NO_SIMPLE_ANCHOR fires on BOTH midpoint confusers at >= 80% (reported with its\n  rate on the true models, which c_fit holds near 1%).\nVERDICT WORDING (sealed): a SUPPORTED(X) from a licensed cell is reported as \"X-driven\" ONLY if NO_SIMPLE_ANCHOR is also\nlicensed for that cell; otherwise as \"the closest of the three models is X\" (a midpoint truth could not be told apart).\nOutput: results/armb_q1_warp_licence_v2.json.\n",
+ "cells": {
+  "A0r_s0.005_iid": {
+   "c_fit": 3.427697245493009,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 1.0
+      },
+      "WARMUP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "STEP": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0.99,
+     "confuser_to_single_model": {
+      "MID_SL": 0.99,
+      "MID_LW": 0.99,
+      "STRETCH": 0,
+      "OVERSHOOT": 0.97
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.005_ar": {
+   "c_fit": 3.917568729293237,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "WARMUP": {
+       "STEP": 1.0
+      },
+      "LR_INT": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "STEP": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      }
+     },
+     "max_offdiag": 1.0,
+     "confuser_to_single_model": {
+      "MID_SL": 0.98,
+      "MID_LW": 0.97,
+      "STRETCH": 0,
+      "OVERSHOOT": 0.98
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.03
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.03
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.03
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.03
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.03
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.01_iid": {
+   "c_fit": 5.4291658964424,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "STEP": 1.0
+      },
+      "LR_INT": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "STEP": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "STEP": 1.0
+      }
+     },
+     "max_offdiag": 1.0,
+     "confuser_to_single_model": {
+      "MID_SL": 0.98,
+      "MID_LW": 1.0,
+      "STRETCH": 0,
+      "OVERSHOOT": 1.0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.01_ar": {
+   "c_fit": 8.195521509160988,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "STEP": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0.99,
+     "confuser_to_single_model": {
+      "MID_SL": 0.98,
+      "MID_LW": 1.0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0.99
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.01
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.01
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.01
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.01
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 1.0
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0
+     },
+     "nsa_on_true_models": 0.01
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.02_iid": {
+   "c_fit": 8.154740437102024,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "STEP": 1.0
+      },
+      "LR_INT": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "STEP": 1.0
+      }
+     },
+     "max_offdiag": 1.0,
+     "confuser_to_single_model": {
+      "MID_SL": 0.99,
+      "MID_LW": 0.99,
+      "STRETCH": 0,
+      "OVERSHOOT": 1.0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.02_ar": {
+   "c_fit": 9.453381171931682,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 1.0
+      },
+      "WARMUP": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "LR_INT": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "STEP": 0.96,
+       "NO_SIMPLE_ANCHOR": 0.04
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "STEP": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0.99,
+     "confuser_to_single_model": {
+      "MID_SL": 0.98,
+      "MID_LW": 0.96,
+      "STRETCH": 0,
+      "OVERSHOOT": 0.97
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.04
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.96,
+       "NO_SIMPLE_ANCHOR": 0.04
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.04
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.96,
+       "NO_SIMPLE_ANCHOR": 0.04
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.04
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.96,
+       "NO_SIMPLE_ANCHOR": 0.04
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.04
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.96,
+       "NO_SIMPLE_ANCHOR": 0.04
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 1.0
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.97,
+       "NO_SIMPLE_ANCHOR": 0.03
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.02,
+      "MID_LW": 0.04
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.05_iid": {
+   "c_fit": 7.646497445028395,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "STEP": 1.0
+      },
+      "LR_INT": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.9,
+       "STEP": 0.1
+      },
+      "OVERSHOOT": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 1.0,
+     "confuser_to_single_model": {
+      "MID_SL": 0.99,
+      "MID_LW": 0.99,
+      "STRETCH": 0.1,
+      "OVERSHOOT": 0.99
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.9,
+       "INCONCLUSIVE": 0.1
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.9,
+       "INCONCLUSIVE": 0.1
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.9,
+       "INCONCLUSIVE": 0.1
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.9,
+       "INCONCLUSIVE": 0.1
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0.01,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  },
+  "A0r_s0.05_ar": {
+   "c_fit": 14.155061182413249,
+   "table": {
+    "1.0": {
+     "confusion": {
+      "STEP": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "STEP": 1.0
+      },
+      "LR_INT": {
+       "STEP": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "STEP": 1.0
+      },
+      "MID_LW": {
+       "STEP": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.86,
+       "STEP": 0.14
+      },
+      "OVERSHOOT": {
+       "STEP": 1.0
+      }
+     },
+     "max_offdiag": 1.0,
+     "confuser_to_single_model": {
+      "MID_SL": 1.0,
+      "MID_LW": 0.99,
+      "STRETCH": 0.14,
+      "OVERSHOOT": 1.0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.1": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 1.0
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.86,
+       "INCONCLUSIVE": 0.14
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.25": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 1.0
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.86,
+       "INCONCLUSIVE": 0.14
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "1.5": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 1.0
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.86,
+       "INCONCLUSIVE": 0.14
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    },
+    "2.0": {
+     "confusion": {
+      "STEP": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "WARMUP": {
+       "INCONCLUSIVE": 1.0
+      },
+      "LR_INT": {
+       "INCONCLUSIVE": 0.98,
+       "NO_SIMPLE_ANCHOR": 0.02
+      },
+      "MID_SL": {
+       "INCONCLUSIVE": 1.0
+      },
+      "MID_LW": {
+       "INCONCLUSIVE": 0.99,
+       "NO_SIMPLE_ANCHOR": 0.01
+      },
+      "STRETCH": {
+       "NO_SIMPLE_ANCHOR": 0.86,
+       "INCONCLUSIVE": 0.14
+      },
+      "OVERSHOOT": {
+       "INCONCLUSIVE": 1.0
+      }
+     },
+     "max_offdiag": 0,
+     "confuser_to_single_model": {
+      "MID_SL": 0,
+      "MID_LW": 0,
+      "STRETCH": 0,
+      "OVERSHOOT": 0
+     },
+     "min_diag": 0,
+     "nsa_on_midpoints": {
+      "MID_SL": 0,
+      "MID_LW": 0.01
+     },
+     "nsa_on_true_models": 0.02
+    }
+   },
+   "r_star": 1.1,
+   "LICENSED": false,
+   "NSA_LICENSED": false,
+   "wording": null
+  }
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "doc": "A0r scoring wrapper (A0R_PREREG.md \u00a72, sealed 94d18ae). COMMITTED BEFORE ANY A0r OUTPUT IS READ (2026-10-01).\n\nRuns the SEALED Q1 pipeline on the identical-config rerun A0r with A0 as the reference, substituting ONLY the arm name.\nNo sealed file is edited: every sealed module is imported and its arm tables are extended at runtime, or (where an arm\ntuple is a literal inside a function) its source is read, sha256-pinned against armb/B4_SEAL.json, and re-executed with\nthat literal replaced -- the substitutions are listed in the result JSON. The B4 seal check (b4_analyze.verify_seal)\nruns first and fails closed.\n\n",
+ "metrics": {
+  "TP_O": {
+   "noise_measured": {
+    "A0": 0.003299733459522461,
+    "A0r": 0.004168035758337831
+   },
+   "level": {
+    "A0": 0.01,
+    "A0r": 0.01,
+    "row": 0.01
+   },
+   "c_fit_identity": 5.4291658964424,
+   "r_star_identity_cell": 1.1,
+   "fit_ratio_identity": 13.2664262736048,
+   "decide": "NO_SIMPLE_ANCHOR",
+   "sse": {
+    "STEP": 122.02447037832306,
+    "WARMUP": 122.02447037832306,
+    "LR_INT": 122.02447037832306
+   },
+   "c_pair_relRMS": 0.023570826661869722,
+   "A2_best_map": "LR_INT",
+   "A2_misfit_relRMS": 0.024196233077947462,
+   "A2_banked": {
+    "decision": "NO_SIMPLE_ANCHOR",
+    "fit_ratio": 73.3703778195848,
+    "c_fit": 3.9413379746015025,
+    "r_star": 1.0,
+    "route": "E4"
+   },
+   "margin_ratio_sq": 1.0537701457460418,
+   "r_star_A2": 1.0
+  },
+  "TP_MLPOUT": {
+   "noise_measured": {
+    "A0": 0.0022192396745048465,
+    "A0r": 0.002263298698148751
+   },
+   "level": {
+    "A0": 0.005,
+    "A0r": 0.005,
+    "row": 0.005
+   },
+   "c_fit_identity": 3.427697245493009,
+   "r_star_identity_cell": 1.1,
+   "fit_ratio_identity": 2.852741027032194,
+   "decide": "INCONCLUSIVE",
+   "sse": {
+    "STEP": 26.713747924743824,
+    "WARMUP": 26.713747924743824,
+    "LR_INT": 26.713747924743824
+   },
+   "c_pair_relRMS": 0.004822929234901842,
+   "A2_best_map": "LR_INT",
+   "A2_misfit_relRMS": 0.016883413905085336,
+   "A2_banked": {
+    "decision": "NO_SIMPLE_ANCHOR",
+    "fit_ratio": 134.24287188639107,
+    "c_fit": 3.207108692858275,
+    "r_star": 1.0,
+    "route": "E4"
+   },
+   "margin_ratio_sq": 12.254589151518093,
+   "r_star_A2": 1.0
+  }
+ },
+ "q1_sealed_verdicts": {
+  "TP_O": {
+   "VERDICT": "DESCRIPTIVE / NOT APPLICABLE (see arms)",
+   "A0r": {
+    "noise_measured": 0.004168035758337831,
+    "noise_level_calibrated": 0.01,
+    "row_level": 0.01,
+    "route": "LOCATION",
+    "estimator": "E1",
+    "t_X": 2200.0,
+    "has_tp": 1.0,
+    "P": {
+     "STEP": 2000,
+     "WARMUP": 2000,
+     "LR_INT": 2000,
+     "dLRINT_dt0": 1.0
+    },
+    "gap": 0,
+    "e_c": {
+     "STEP": 954.5941546018391,
+     "WARMUP": 954.5941546018391,
+     "LR_INT": 954.5941546018391
+    },
+    "decidable": false,
+    "decision": "DESCRIPTIVE (not decidable: e_c > gap/3)"
+   }
+  },
+  "TP_MLPOUT": {
+   "VERDICT": "DESCRIPTIVE / NOT APPLICABLE (see arms)",
+   "A0r": {
+    "noise_measured": 0.002263298698148751,
+    "noise_level_calibrated": 0.005,
+    "row_level": 0.005,
+    "route": "LOCATION",
+    "decision": "NOT APPLICABLE AT 70M (no licensed turning point in A0)"
+   }
+  }
+ },
+ "VERDICT": "NOT RESOLVABLE (pipeline mis-reads a known null)",
+ "substitutions": [
+  {
+   "runtime": "grids.STOPS/q1_models.ARMS,_CX/q1_warp.STOP += A0r: W 1430, stop 3000"
+  }
+ ]
+}
