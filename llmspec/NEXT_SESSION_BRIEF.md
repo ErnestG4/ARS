@@ -129,3 +129,40 @@ Nothing is running. No cron is set.
   amendment 3).
 - **A calibrator's bias can equal the "finding".** Run a known-answer licence on realistic shapes first (S4).
 - **Notice background completions promptly.** A finished run (G2c) sat unreported for 5.5 h.
+
+## 6. FIRST TASK for the next session: make the GitHub history the working repo (Will, 2026-09-30)
+
+**Goal:** a push from `/home/combust/fmexplorer/criticality_tool` goes to BOTH GitHub and the Forgejo, without
+conflicts. The old (trailer-bearing) history is retired.
+
+**State at handoff** (surveyed 2026-09-30; nothing changed yet):
+- Will has pushed the cleaned clone `~/ARS-github.git` to GitHub: 13 branches, `main` tip `80da3c9` with PROVENANCE,
+  tags `v2026.09.30` and `llmspec-2026-09-30`.
+- The Forgejo still holds the OLD history: Will pushed all 13 dev branches earlier on 09-30.
+- Dev-repo branch tips are unchanged since the clone, except `llm-spectra`, which has 3 newer commits (35a5851,
+  1768628, 4b05330: this brief). They carry no trailers, but they are not yet rewritten or published.
+- Worktrees (main checkout on `derivflow-modes`; `demod-ret1`, `llm-spectra`, `ring-stage0`): 0 tracked changes in
+  each; untracked files exist (logs etc.).
+- **Two other Claude sessions were running** (PIDs 833 and 252934, up 5 and 3.5 days). They started BEFORE the global
+  no-trailer rule (~/.claude/CLAUDE.md) and may still add trailers. Their contexts cite old hashes. Ask Will to
+  close or restart them before moving any branch.
+
+**Plan** (confirm with Will first; he pushes):
+1. Bare-clone the CURRENT dev repo to a new directory and re-run the exact filter-repo recipe of §4. It is
+   deterministic: verify that every already-published commit reproduces its GitHub hash. Newer commits (llm-spectra)
+   extend it.
+2. Re-apply the PROVENANCE commit on the new `main` (or move PROVENANCE.md into the dev repo; Will's call), so
+   `main` matches GitHub's `80da3c9` or fast-forwards from it.
+3. In the dev repo, move each local branch onto its rewritten counterpart with `git update-ref`. The trees are
+   identical apart from the 7 removed files, so working trees stay valid.
+   - In each worktree, `git rm --cached` only the 6 `phase34d/lit` paper files. They stay on disk and are gitignored.
+   - Never use `reset --mixed`/`--hard`: it would clobber other sessions' staged work.
+4. Remotes:
+   - `origin` fetch = https://github.com/ErnestG4/ARS.git;
+   - push URLs = `git@github.com:ErnestG4/ARS.git` AND `forgejo:Combust/ARS.git` (`git remote set-url --add --push`);
+   - set every branch's upstream to `origin/<branch>`;
+   - remove the retired `codeberg` remote.
+5. Will force-pushes the new history to the Forgejo ONCE, or deletes and recreates that repo. After that, plain
+   `git push` keeps both in step.
+6. Keep `refs/original/*` and `refs/archive/*` (old provenance) and `~/ARS_dev_history_2026-09-30.bundle`. **Never**
+   `git push --mirror`: it would publish those refs.
