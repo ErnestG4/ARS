@@ -133,7 +133,22 @@ Nothing is running. No cron is set.
 - **A calibrator's bias can equal the "finding".** Run a known-answer licence on realistic shapes first (S4).
 - **Notice background completions promptly.** A finished run (G2c) sat unreported for 5.5 h.
 
-## 6. FIRST TASK for the next session: make the GitHub history the working repo (Will, 2026-09-30)
+## 6. DONE 2026-10-01: the GitHub history is now the working repo
+
+**Done in place in the handoff session.**
+- The dev repo was rewritten with the §4 recipe; 11 branches reproduced their GitHub commits exactly.
+- `main` was set to GitHub's `f44c26c`. `llm-spectra` fast-forwards (7 newer commits).
+- The worktree indexes were fixed: the 6 paper files were unstaged; they remain on disk, gitignored.
+- `origin` fetches from GitHub and pushes to GitHub AND forgejo:Combust/ARS.git. Every branch tracks origin/<b>.
+  The `codeberg` remote was removed.
+- Old history is kept locally in `refs/pre-migration/*` (the old branch and tag tips), `refs/original/*` and
+  `refs/archive/*`, plus Will's NAS copy and `~/ARS_dev_history_2026-09-30.bundle`. Never `git push --mirror`.
+- Remaining (Will):
+  - one force-push of the new history to the Forgejo, which still has the old history;
+  - pushing llm-spectra.
+- The text below is the plan as written before the migration, kept for the record.
+
+### (historical) the plan
 
 **Goal:** a push from `/home/combust/fmexplorer/criticality_tool` goes to BOTH GitHub and the Forgejo, without
 conflicts. The old (trailer-bearing) history is retired.
