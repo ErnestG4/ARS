@@ -158,7 +158,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
   → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
   A0R_PREREG §2 printed as "identity written; VERDICT: ...".
-- **HALTED 10-01 14:52 at step 3400 for Will's WSL maintenance (STOP file; resume.pt = 3400 exactly). GPU quiet.**
+- **RESUMED 10-01 ~16:20 after the WSL maintenance: ext_queue relaunched (A0 continues 3400 → 10000, then M0s1, M0s3);
+  memwatch on F:; hourly alarm 5ca8cfb7 alive. spot access is now the narrow passphrase-less key
+  `~/.ssh/id_ed25519_spot_llmspec` (restrict,from=10.0.0.0/24 on spot; no agent socket needed any more).**
+- (superseded) **HALTED 10-01 14:52 at step 3400 for Will's WSL maintenance (STOP file; resume.pt = 3400 exactly). GPU quiet.**
   Resume (same session after maintenance, Will's call): `rm llmspec/STOP`; `cd llmspec/armb && setsid nohup ./ext_queue.sh >
   ext_queue.log 2>&1 &` (its A0 stage resumes train.py from 3400 to 10000, then M0s1, M0s3); restart `bash memwatch.sh`;
   re-arm the waits; the hourly alarm (5ca8cfb7) survives only if the session does.
