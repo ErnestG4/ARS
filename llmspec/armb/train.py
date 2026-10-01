@@ -43,9 +43,10 @@ assert torch.cuda.is_available(), "Arm B is GPU-only: CUDA not available"
 DEV = torch.device("cuda")
 torch.cuda.set_per_process_memory_fraction(0.85)          # leave room for the desktop; an overrun raises OOM
 ARMS = {"A0": (1430, 3000), "A1": (2860, 5000), "A2": (715, 3000), "M0s1": (1430, 3000), "M0s2": (1430, 3000),
-        "A0r": (1430, 3000)}  # identical-config rerun of A0 (A0R_PREREG.md, 2026-10-01): paired-run divergence floor
-MUON_ARMS = {"M0s1", "M0s2"}  # Muon (armb/muon.py, bf16 NS per the sealed update test, B1a-A6)
-INIT = {"M0s2": "EleutherAI/pythia-70m-seed1"}   # everything else starts from EleutherAI/pythia-70m step0 (B1a-A1)
+        "A0r": (1430, 3000),  # identical-config rerun of A0 (A0R_PREREG.md, 2026-10-01): paired-run divergence floor
+        "M0s3": (1430, 3000)}  # third Muon seed: seed-2 INIT, standard order (Q4EXT_PREREG.md, 2026-10-01)
+MUON_ARMS = {"M0s1", "M0s2", "M0s3"}  # Muon (armb/muon.py, bf16 NS per the sealed update test, B1a-A6)
+INIT = {"M0s2": "EleutherAI/pythia-70m-seed1", "M0s3": "EleutherAI/pythia-70m-seed2"}   # everything else starts from EleutherAI/pythia-70m step0 (B1a-A1)
 SEED1_DIR = "~/llmspec_armb/data/seed1_batches"  # on spot; built by armb/seed_order.py (B1a-A7)
 OPT_STEPS = {1, 10, 100, 256, 512, 1000, 1430, 2000, 3000, 5000}
 BATCH, MICRO, SEQ = 1024, 8, 2048
