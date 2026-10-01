@@ -67,6 +67,16 @@
     contrast (QK-norm + full RoPE in OLMo vs partial rotary and no QK-norm in Pythia) is the stated hypothesis
     if he does.
 
+**Note 2026-10-01 — `main` is not this lineage's endpoint.** OLMo-2-0425-1B `main` is a different training run from
+the released checkpoint lineage: every layout-invariant tensor correlates at ≤ 0.017 with the stage-2 ingredient-3
+final and with stage-1 end, while the lineage is self-consistent (0.97–0.999); both rotary row permutations leave
+Q/K/V at 0.000; HF history shows `main` still holds the 2025-04-17 upload that every checkpoint branch replaced on
+04-26..28 (olmo_main_provenance.py, results/olmo_main_provenance.json: DIFFERENT_RUN). Every statement above that
+reads `main` as "after the anneal" ("largely removed by the stage-2 anneal", "reduced by annealing", the decision
+table's evaluation "at the final checkpoint `main`") is withdrawn. The `main` readings describe a released model of
+unstated provenance. The step-0 and stage-1-end readings stand. The lineage endpoint
+`stage2-ingredient3-step23852-tokens51B` is unmeasured; the aim-1 deferral is re-opened.
+
 ## (superseded plan) Next (Stage 1b, POST-HOC, declared as such)
 - Replace "any KDE mode" with Hartigan's dip test (null = all unimodal densities, heavy tails included) at
   per-head α = 0.01.

@@ -21,17 +21,22 @@ shape gives, and call something structure only if it survives that comparison an
 
 **What we found, in brief:**
 - **The fine-scale spacing of the bulk of singular values is what a random matrix gives,** at every checkpoint of
-  Pythia 410M, 1B and 1.4B and in all ten 410M seeds. At 70M the test is not powered at the same tolerance, and
+  Pythia 410M, 1B and 1.4B and in all ten 410M seeds. That is what universality predicts for any dense matrix whose
+  bulk is not decoupled (Thamm, Staats & Rosenow 2022; Loftus 2026), so it is an instrument check, not evidence that
+  the bulk is unlearned. At 70M the test is not powered at the same tolerance, and
   nothing departs beyond the test's own noise.
 - **Structure forms in the largest few directions, early.**
-  - Query, key and output matrices lose effective rank between roughly steps 128 and 2000; value matrices do so
-    later.
+  - Query, key and output matrices lose effective (stable) rank between roughly steps 128 and 2000; value matrices
+    do so later. This window is LR-confounded: Pythia's warmup ends at step 1430, and Arm B shows that changing the
+    warmup reshapes exactly this window.
   - Induction heads, and the output-value circuit's departure from randomness, appear between steps 512 and 1000 in
-    every seed.
-- **The early turning points are tied to the learning-rate schedule** (changing the warmup changes the trajectory),
-  but none of step count, warmup end or learning-rate integral simply re-times them. The schedule reshapes the
-  curve.
-- **The Q/K rank collapse happens under both AdamW and Muon.** Muon delays it and leaves it shallower by step 3000.
+    every seed (consistent with Olsson et al. 2022 and Tigges et al. 2024, ~2B tokens; the dense 70M onset is
+    675 ± 100 steps).
+- **Warmup length changes the early trajectory** (step count is the worst time map), and none of step count, warmup
+  end or learning-rate integral re-times it within the curves' own noise. The remaining misfit (~2%) is not yet
+  separated from the run-to-run divergence of paired runs, which is unmeasured (an identical-config rerun is queued).
+- **The Q/K stable-rank fall happens under both AdamW and Muon.** Muon delays it and leaves it shallower by step
+  3000; the endpoint is unknown. Flatter spectra under Muon are known (Moonlight); the early delay is the new part.
 - **Several attractive readings did not survive their controls and are withdrawn:**
   - a late per-head drift, which equalled the calibrator's own bias;
   - "the ordering of the bulk singular values carries function";
@@ -43,20 +48,20 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 
 | # | Question | Status |
 |---|---|---|
-| 1 | Bulk spacing statistics stay random-matrix (β = 1) at every checkpoint | **NULL** at 410M–1.4B (260/260 cells per model; 10 seeds). NOT ESTABLISHED at 70M (unpowered at 0.010) |
+| 1 | Bulk spacing statistics stay random-matrix (β = 1) at every checkpoint | **NULL** at 410M–1.4B (260/260 cells per model; 10 seeds); an instrument check, expected from universality. NOT ESTABLISHED at 70M (unpowered at 0.010) |
 | 2 | A late per-head-Q departure from β = 1 | **NOT ESTABLISHED** (equals the calibrator's own bias) |
-| 3 | Multi-peak ("Diffract-style") attention spectra exist | Pythia: none. OLMo: 13.3% of Q heads at stage-1 end, largely gone by the final checkpoint |
+| 3 | Multi-peak ("Diffract-style") attention spectra exist | Pythia: none (a weak null: the dip test misses minority or broad peaks). OLMo: 13.3% of Q heads at stage-1 end (gain and row-norm confusables untested). No fade is claimed: `main` is a different training run from the checkpoint lineage, and the lineage's stage-2 endpoint is unmeasured |
 | 4 | Local statistics on peaked spectra | NOT LICENSED as registered |
 | 5 | Induction heads form between steps 512 and 1000 | **REPLICATES** at 3 sizes; **SEED-ROBUST** 10/10 |
-| 6 | The OV circuit leaves its random null before QK | **REPLICATES**; SEED-ROBUST (at the resolution limit) |
+| 6 | The OV circuit leaves its random null before QK | **REPLICATES** at Pythia checkpoint resolution; SEED-ROBUST. Not separable on Arm B's dense grid |
 | 7 | Heads share their top input directions | **REPLICATES**; SEED-ROBUST |
 | 8 | K's top directions concentrate on the rotary (position) dimensions | Holds in 9/10 seeds, but the registered test is SEED-DEPENDENT |
 | 9 | Trained spectra leave Marchenko–Pastur by steps 1000–2000 | **REPLICATES**; SEED-ROBUST |
 | 10 | Update rank rises ≥ 3× over training at constant learning rate | 1.4B only; not size-general; SEED-DEPENDENT |
-| 11 | The ordering of bulk singular values carries function | **NOT ESTABLISHED** (size explains ≥ 2/3 of the effect) |
-| 12 | Compression runs as a layer-ordered wave (Liu) | NULL for V at 1.4B; OPPOSITE ORDER for Q/K at 70M, carried by layer 0 |
+| 11 | The ordering of bulk singular values carries function | **NOT ESTABLISHED** (a size-matched same-subspace perturbation costs 0.67× the bulk shuffle) |
+| 12 | Compression runs as a layer-ordered wave (Liu) | V at 1.4B: descriptive null, consistent with Liu's V/O-uniform claim. Q/K at 70M: OPPOSITE ORDER, significant only with layer 0 (p 0.056 without it) |
 | 13 | Change points align with training events | NOT LICENSED |
-| 14 | What anchors the early turning points (Arm B) | **NO SIMPLE ANCHOR** |
+| 14 | What anchors the early turning points (Arm B) | **NO SIMPLE ANCHOR** within curve noise; not yet separated from run-to-run divergence |
 | 15 | Early updates are low-rank (Arm B) | INCONCLUSIVE (Q/K yes, V/O/MLP no, descriptively) |
 | 16 | AdamW vs Muon (Arm B) | Timing and depth of the Q/K collapse depend on the optimizer |
 

@@ -24,8 +24,9 @@
   - G0 at step 0: MP KS passes for all six types (≤ 4 of 24 matrices above the witness KS95; binomial p ≥ 0.03).
   - The instrument can fire: Poisson levels read ⟨r̃⟩ ≈ 0.39 (verify_s3stats.py), a violation of ~0.14.
 - **Reading.** This is the pre-registered instrument check, confirmed. The bulk nearest-neighbour statistics are
-  β=1 throughout training, matching Staats–Thamm–Rosenow and arXiv 2603.27885 on a 1.4B model. It is a null and is
-  reported as one: it says nothing about edges, long-range statistics or vectors.
+  β=1 throughout training, consistent with endpoint results on CNNs/MLPs (Thamm, Staats & Rosenow 2022) and an
+  MLP/CNN ⟨r⟩ trajectory (Loftus, arXiv 2603.27885); neither studied an LLM, so this is the first LLM-trajectory
+  version (wording corrected 2026-10-01). It is a null and is reported as one: it says nothing about edges, long-range statistics or vectors.
 
 ## 2. Precision (G4)
 - Pythia's stored values are fp16 (100% on the fp16 grid). fp16 rounding moves bulk ⟨r̃⟩ by ≤ 0.0017 in every
@@ -183,7 +184,7 @@ conflict with this section.
   - arXiv 2606.02378 defines a BOS-classified head as ≥ 30× first-token selectivity against a uniform-position
     baseline, on a synthetic "[filler] A B [filler] A" batch with class competition.
   - Their 10–20× is for DCLM/OLMo. For **Pythia-1B, their own numbers** are induction ≈ 6B tokens and BOS-50% at
-    300B tokens, a ≈ 50× gap.
+    300B tokens, a ≈ 13–50× gap (their BOS-class fraction is 46.1% at ~80B tokens and 57.8% at 300B; corrected 2026-10-01).
   - Our probes have no BOS token (Pythia does not prepend one). Approximating their threshold (the uniform baseline
     over our query positions ≈ 0.0070, so 30× ≈ mean attention > 0.21), our "BOS-classified" fraction crosses 10% at
     32k–48k and 50% at 64k–96k steps.
@@ -291,7 +292,8 @@ conflict with this section.
 - **Reading.**
   - Shuffling the middle-80% singular values of every matrix at once is costly, but mostly because of how much it
     perturbs the weights: a same-subspace random perturbation of equal size costs two-thirds as much. Locally
-    reordering the same values costs nothing.
+    reordering the same values costs ≈ 0, but those shuffles are tiny and a same-size same-subspace perturbation
+    also costs ≈ 0 (G2c, §11 note), so the local cost says nothing about ordering (corrected 2026-10-01).
   - Per-matrix and per-layer shuffles are nearly harmless (≤ 0.08 nats). That is closer to Diffract's "bulk
     permutation roughly harmless", which may have been per-matrix or per-layer; their scope is not confirmed here.
   - The registered "Diffract replicates = false" stands as sealed, attributed to scope (all 144 matrices at once) and
@@ -347,3 +349,30 @@ conflict with this section.
   - Change points carry no evidential weight, and no event alignment rests on them. The earlier "descriptive only"
     label is now calibrated, not just asserted.
   - A licensed change detector would need a null-calibrated penalty; this is not attempted.
+
+## 16. Lower/upper-band ⟨r̃⟩ — pre-registered descriptives, reported 2026-10-01
+
+STAGE3_PREREG.md promised: "The same tolerances are reported for LOWER and UPPER bands, labelled descriptive (not
+sealed)." The values were banked in every `stage3_long*.parquet` (metric `rt_minus_witness`, bands `lower`/`upper`) but
+never reported. This section is the reporting fix; the omission is a reporting error, not a post-hoc result. Generator:
+`stage3_band_report.py` → `results/stage3_band_rt.json`.
+
+Final checkpoint (143000), ⟨r̃⟩ − witness, upper band, per-head Q/K:
+
+| run | head_Q | head_K |
+|---|---|---|
+| pythia-410m (std) | −0.110 | −0.110 |
+| pythia-410m seeds 1–9 | −0.074 … −0.124 | −0.086 … −0.119 |
+| pythia-1.4b | −0.020 | −0.026 |
+| pythia-1b | −0.001 | −0.001 |
+
+- Whole-matrix types (Q, K, V, O, MLP_IN, MLP_OUT) stay within ±0.02 in every band and run. per-head O/V sit at
+  −0.02 … −0.06 (upper) at 410M.
+- Over the 12 runs × 10 types, 52/120 upper-band and 22/120 lower-band cells exceed the 0.010 bulk tolerance (bulk:
+  0/120 at the final step, as sealed).
+- At 410M the per-head Q/K upper-band departure grows monotonically from step 512 (−0.03 … −0.06) to the end.
+- **Interpretation (post hoc).** The departure orders with head width (d_head 64 → 128 → 256: −0.11 → −0.02 → 0),
+  which points at the rank-defined upper band reaching into the outlier directions at small d_head, i.e. an edge
+  effect of the band definition, not a change of β. It is the only place in this arc where the spacing instrument
+  fires on real data, so it is the natural positive control for any future bulk test; reading it as structure needs
+  its own pre-registration with a band definition that excludes the spike.
