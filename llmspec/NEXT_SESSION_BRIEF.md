@@ -143,9 +143,9 @@ conflicts. The old (trailer-bearing) history is retired.
   1768628, 4b05330: this brief). They carry no trailers, but they are not yet rewritten or published.
 - Worktrees (main checkout on `derivflow-modes`; `demod-ret1`, `llm-spectra`, `ring-stage0`): 0 tracked changes in
   each; untracked files exist (logs etc.).
-- **Two other Claude sessions were running** (PIDs 833 and 252934, up 5 and 3.5 days). They started BEFORE the global
-  no-trailer rule (~/.claude/CLAUDE.md) and may still add trailers. Their contexts cite old hashes. Ask Will to
-  close or restart them before moving any branch.
+- **Other sessions:** there was ONE other Claude session on the box (PID 252934). Will closed it on 2026-09-30 before
+  handoff. (PID 833 was the handoff session itself, wrongly counted as a second one.) Before moving any branch, check
+  that no other session is running; any session started before ~/.claude/CLAUDE.md existed may still add trailers.
 
 **Plan** (confirm with Will first; he pushes):
 1. Bare-clone the CURRENT dev repo to a new directory and re-run the exact filter-repo recipe of §4. It is
