@@ -147,7 +147,18 @@ conflicts. The old (trailer-bearing) history is retired.
   handoff. (PID 833 was the handoff session itself, wrongly counted as a second one.) Before moving any branch, check
   that no other session is running; any session started before ~/.claude/CLAUDE.md existed may still add trailers.
 
+**Approach: convert IN PLACE**, not by a fresh clone. The repo has ~257 gitignored paths (caches, data, logs;
+llmspec/cache alone is 41 GB), and scripts hard-code `/home/combust/fmexplorer/criticality_tool`. In place, all of
+that and the worktrees stay put. Only the branch refs move, to commits with identical trees.
+
 **Plan** (confirm with Will first; he pushes):
+0. **Preserve the old repo first, three ways:**
+   - (a) `~/ARS_dev_history_2026-09-30.bundle` already exists. Refresh it with `git bundle create … --all`, because
+     llm-spectra has moved since.
+   - (b) Copy the whole `.git` (1.8 GB; check that /mnt/c keeps > 10 GB free) to `~/criticality_tool_git_pre_migration`.
+   - (c) Will creates a PRIVATE Forgejo repo, e.g. `Combust/ARS-archive`, and pushes the old history there before the
+     Forgejo `ARS` repo is overwritten: all `refs/heads/*`, plus `refs/original/*` and `refs/archive/*` (the
+     pre-2026-09-21 hashes the docs cite).
 1. Bare-clone the CURRENT dev repo to a new directory and re-run the exact filter-repo recipe of §4. It is
    deterministic: verify that every already-published commit reproduces its GitHub hash. Newer commits (llm-spectra)
    extend it.
