@@ -145,7 +145,31 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   - Unexplained low-rank burst in V/O/MLP_OUT at 4k–5k.
   - Sub-1000 "low-rank early" → arm B.
 
-## 4. Running now (09-30)
+## 4. Running now (10-01)
+- **A0r RUNNING** (launched 2026-10-01; PID in armb/A0r.pid; log armb/train_A0r.log; memwatch PID 2700200, log
+  logs/memwatch_a0r.log): identical-config rerun of A0, SEALED in armb/A0R_PREREG.md (94d18ae) as the paired-run
+  divergence floor for Q1 (Will 10-01). ~6.8 h. Checkpoints → spot:~/llmspec_armb/ckpt/A0r/. Resume: re-run
+  `train.py A0r` (resume.pt in armb/staging/A0r). When done: wrapper that scores A0r through the SEALED Q1 pipeline
+  (substituting only the arm name), committed BEFORE any A0r data is read; verdict table in A0R_PREREG §2.
+- **10-01 review round** (two agents: critic + lit review; reports in the session scratchpad, not the repo):
+  - 9230df4 headers no longer "unpushed"; 2a4262c corrections commit; 94d18ae A0r seal.
+  - **OLMo `main` is a DIFFERENT RUN** from the checkpoint lineage (olmo_main_provenance.py, DIFFERENT_RUN): the
+    "fade by main" is withdrawn; stage-1-end stands; aim-1 deferral re-opened; the lineage endpoint is
+    stage2-ingredient3-step23852-tokens51B (ingredients 1–2 = seed replicates of the same anneal; stage 2 changes LR
+    and data mix together).
+  - Pre-registered LOWER/UPPER-band ⟨r̃⟩ reported late (STAGE3_FINDINGS §16; stage3_band_report.py): per-head Q/K
+    upper band −0.07…−0.12 in all 10 410M runs; orders with d_head; interpretation post hoc.
+  - Wording fixes per the critique (README, FINDINGS_MEMO rows 1/3/5/6/11/12/14/16, STAGE3 §3/§8/§11).
+  - **Bulk-band singular-vector statistics (pt_ks_*/ipr_* band=bulk, all runs; Arm B cache) remain UNREAD by anyone.**
+    Will's draft hypothesis (unconfirmed): "the noise-like bulk carries smooth, distributed function that spectral
+    statistics can't see" — vector statistics can only refute it (localisation); the first test must be FUNCTIONAL
+    (critique_v2 §(iii) plan 2: pure rotations vs value reorders at matched ‖δW·X‖, antithetic ± pairs, a
+    co-adapted-random-bulk calibrator, a planted red path).
+  - **Will's GPU order (10-01):** (1) A0r [running]; (2) Q4 extension past 3000 + a third Muon seed; (3) the
+    bulk-direction calibrator last. OLMo premise check (gain-folded dip on stage-1 end + the three ingredient finals,
+    row-norm confusable, dead-row depth) to be SEALED before any of it is read.
+
+## 4-old. Running now (09-30)
 - The B4 chain is COMPLETE (22:29). Results: results/armb_b4_{q1,q2,q3,q4,bulk}.json.
   Memo: armb/ARMB_FINDINGS.md (committed with the CHECKRUN line). B4 cron 6c2c8221 deleted.
   - Bulk: the sealed per-arm verdict is FINDING_CANDIDATE PRESENT, status NOT ESTABLISHED. The VIOLATED rate (0.83%)
