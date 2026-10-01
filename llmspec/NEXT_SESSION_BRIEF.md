@@ -100,9 +100,10 @@ Nothing is running. No cron is set.
     third-party files are dropped from history (`phase34d/lit/{chen_refined_2019,katz_2017,rudnick_waxman_2019}.{pdf,txt}`,
     `comb/lit/KRR_arxiv2001.09513.tex`).
   - Identity unchanged. Verified commit by commit against the dev repo: tree, names, emails, dates and message text.
-  - Published `main` = the rewritten merge `b0046d5`, with nothing on top. Tags `v2026.09.30` (the Zenodo release) and
-    `llmspec-2026-09-30` both point at it.
-  - Hashes cited in the docs are dev-repo hashes; resolve them via the private archive.
+  - Published `main` tip = `80da3c9`, which adds `PROVENANCE.md` and `provenance/cited_commits.tsv` on top of the
+    rewritten merge `b0046d5`. The map takes each of the 182 dev hashes cited in the docs to its published commit
+    (181 mapped; `458a697` was never pushed).
+  - Tags: `v2026.09.30` (the Zenodo release) → `80da3c9`; `llmspec-2026-09-30` → `b0046d5`.
 - **To sync GitHub later** (Will's call; the dev repo stays untouched): bare-clone the dev repo to a NEW directory and
   run, from the venv:
   ```
@@ -112,7 +113,10 @@ Nothing is running. No cron is set.
   - PATHS: the 7 files above, one per line.
   - The callback removes `Co-Authored-By:…(Claude|anthropic)…` (including inline), `^Claude-Session:` lines and
     `Generated with [Claude Code]` lines, collapses 3+ newlines, and rstrips.
-  - The rewrite is deterministic, so existing published commits keep their hashes and a sync is a fast-forward push.
+  - The rewrite is deterministic, so existing published commits keep their hashes.
+  - **Caveat:** the published `main` has the PROVENANCE commit on top, which the dev repo does not have. A sync must
+    re-apply it on the new `main` and regenerate the cited-hash map (from filter-repo's commit-map). Otherwise the
+    push is not a fast-forward. Moving PROVENANCE.md into the dev repo would remove this step; it is Will's call.
 - `~/ARS-public`: a superseded one-commit snapshot (deletion proposed to Will). Don't push it.
 
 ## 5. Lessons from this arc (all in project memory too)
