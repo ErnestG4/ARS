@@ -146,6 +146,14 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (10-01)
+- **spot: arm-B re-extraction RUNNING** (launched 10-01 03:53 PDT in tmux `claude` on spot; `~/llmspec_mf/run_mf.sh`;
+  log `~/llmspec_mf/mf_run.log`; output `~/llmspec_mf/cache/mf/<model>/<rev>/L*.npz`; code `~/llmspec_armb/code/llmspec`
+  = dbcf7f8 + cdad297). Order: pythia-1.4b (26 revs) → pythia-410m-seed1..5. 6 workers × 8 threads, nice 10. Resumable
+  (re-run the script); STOP = `touch ~/llmspec_armb/code/llmspec/STOP` on spot. Sealed extractor: stage3_extract_mf.py
+  (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
+  **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
+  cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Arm A:** prediction figure + prereg SKELETON committed (e224e29) BEFORE any arm-A code; Will to fill `[TBD]`s and seal.
 - **A0r RUNNING** (launched 2026-10-01; PID in armb/A0r.pid; log armb/train_A0r.log; memwatch PID 2700200, log
   logs/memwatch_a0r.log): identical-config rerun of A0, SEALED in armb/A0R_PREREG.md (94d18ae) as the paired-run
   divergence floor for Q1 (Will 10-01). ~6.8 h. Checkpoints → spot:~/llmspec_armb/ckpt/A0r/. Resume: re-run
