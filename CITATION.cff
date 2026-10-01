@@ -8,12 +8,21 @@ abstract: >
   spacings that are unfolded and compared against random matrix theory
   predictions (Wigner GOE / GUE / Poisson). Validated against the Riemann
   ζ zeros and the Katz–Sarnak family symmetry of elliptic curve L-functions.
+  The repository also contains llmspec/, "Shapes of LLM weights over
+  training": a pre-registered study of language-model weight spectra across
+  training (Pythia 70M–1.4B with PolyPythias seeds, OLMo 2 1B), with five
+  own 70M training runs comparing learning-rate warmups and AdamW vs Muon
+  (Arm B). Code is AGPL-3.0-or-later; llmspec results and write-ups are
+  CC-BY-4.0 (llmspec/LICENSE-RESULTS.md).
 authors:
   - name: combust
     email: combust@thespot.chat
-version: "0.1"
-date-released: 2026-05-07
-license: AGPL-3.0-or-later
+version: "2026.09.30"
+date-released: 2026-09-30
+license:
+  - AGPL-3.0-or-later
+  - CC-BY-4.0
+repository-code: "https://github.com/ErnestG4/ARS"
 keywords:
   - random matrix theory
   - Riemann zeta function
@@ -24,6 +33,9 @@ keywords:
   - level statistics
   - GUE
   - quantum chaos
+  - large language models
+  - weight spectra
+  - pre-registration
 
 references:
   - type: article
