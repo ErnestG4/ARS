@@ -165,6 +165,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
     statistics can't see" — vector statistics can only refute it (localisation); the first test must be FUNCTIONAL
     (critique_v2 §(iii) plan 2: pure rotations vs value reorders at matched ‖δW·X‖, antithetic ± pairs, a
     co-adapted-random-bulk calibrator, a planted red path).
+  - **Bulk-vector arm SCOPED by Will 10-01** (briefs/README.md, verbatim): A = SEALED spectral-scale self-similarity
+    of bulk function (k-sweep, ‖δW·X‖-matched, antithetic, LR power/broken/cutoff, red-path plants, min-decades rule);
+    B = EXPLORATORY multifractality of bulk singular vectors on 1.4B + seeds 1–5 ONLY (seeds 6–9 and other sizes
+    stay UNREAD); shared co-adapted random-bulk calibrator.
   - **Will's GPU order (10-01):** (1) A0r [running]; (2) Q4 extension past 3000 + a third Muon seed; (3) the
     bulk-direction calibrator last. OLMo premise check (gain-folded dip on stage-1 end + the three ingredient finals,
     row-norm confusable, dead-row depth) to be SEALED before any of it is read.
