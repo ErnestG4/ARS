@@ -74,7 +74,7 @@ Nothing is running. No cron is set.
 - **Compute:** the GPU (RTX 4090) is for training and extraction; method, precision or scope changes need Will.
   - Runs must be interruptible (`llmspec/STOP`) and resumable.
   - Never `pkill -f`; use explicit PIDs.
-  - Keep ≥ 10 GB free on C: (`/mnt/c`; `df /` lies).
+  - Keep ≥ 10 GB free on the host drive that holds the VHD: F: (`/mnt/f`) since 2026-10-01; `df /` lies.
   - Python: `/home/combust/fmexplorer/bin/python3`.
   - Checkers run under `../checkrun.sh`. The commit hook wants a fresh CHECKRUN line for outcome claims (window 3 h);
     if it's stale, cite the `.checkrun_log` entry instead.

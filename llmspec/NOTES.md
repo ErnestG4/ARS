@@ -31,8 +31,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Host commit.** WSL crashes = Windows commit exhaustion (vmmemWSL counts RAM + page cache + GPU allocations).
   Will added a 64 GB pagefile on a secondary NVMe, so host free commit is now ~60–70 GB. WSL RAM is still capped at
   12 GB (`.wslconfig`).
-- **Disk.** `df /` lies (1 TB VHD). C: (`/mnt/c`) is what fills. `remote_st.check_stop()` refuses to proceed below
-  10 GB free on C:. NEVER bank full checkpoints: stream HF → RAM → GPU.
+- **Disk.** `df /` lies (VHD). The host drive holding the VHD is what fills: **F: (`/mnt/f`) since 2026-10-01** (was C:).
+  `remote_st.HOST_DISK` and memwatch guard it. `remote_st.check_stop()` refuses to proceed below
+  10 GB free on F:. NEVER bank full checkpoints: stream HF → RAM → GPU.
 - **GPU.**
   - 6 GB per-process cap in stage3_extract (an overrun raises OOM instead of crashing the VM).
   - Weights are stored on the GPU as fp16. This is exact for Pythia (F32 checkpoints are fp16 upcasts; asserted per

@@ -7,8 +7,8 @@ Gaussian null -- for EVERY singular vector of the six per-layer matrices, both s
 Runs on the 128 GB CPU box ("spot"): tensors stream HF -> RAM by HTTP range (remote_st), SVD is scipy gesdd in fp64,
 nothing touches a GPU. Output cache/mf/<model>/<rev>/L<layer>.npz (durable_save; resumable per layer: existing files are
 skipped) + DONE per revision. Honours llmspec/STOP and a 10 GB free-disk reserve (see check_stop: remote_st's guard keys on
-/mnt/c, which exists on the WSL host but not on spot, so this module rebinds remote_st.check_stop to a guard that checks
-/mnt/c when present AND the output filesystem).
+remote_st.HOST_DISK, a WSL host mount that does not exist on spot, so this module rebinds remote_st.check_stop to a guard
+that checks HOST_DISK when present AND the output filesystem).
 
 Matrix set and orientation = stage3_extract.layer(): Q, K, V = rows (head, d_head) x D from the fused query_key_value
 (H, 3, DH, D) tensor; O = attention.dense.weight as stored (D x H*DH, columns head-nested); MLP_IN = dense_h_to_4h
@@ -74,7 +74,7 @@ MATS = ("Q", "K", "V", "O", "MLP_IN", "MLP_OUT")
 NESTED_SIDE = {"Q": "u", "K": "u", "V": "u", "O": "v"}     # the (head, d_head) index: rows of Q/K/V, columns of O
 
 
-# ---------------------------------------------------------------- STOP / disk guard (works where /mnt/c is absent)
+# ---------------------------------------------------------------- STOP / disk guard (works where HOST_DISK is absent)
 def check_stop(out_root=None):
     if R.STOP.exists():
         raise R.Stopped("llmspec/STOP present")

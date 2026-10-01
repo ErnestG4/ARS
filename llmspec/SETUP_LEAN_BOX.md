@@ -28,8 +28,8 @@ same user/paths (`combust`, `~/fmexplorer`, `~/fmexplorer/criticality_tool` as a
 `PY=`/`ROOT=` lines on the lean branch.
 
 ## 2. Disk guard
-`remote_st.check_stop()` refuses to proceed below 10 GB free on `/mnt/c` (the WSL host disk). On a native Linux box there
-is no `/mnt/c`: `stage3_extract_mf.py` already rebinds the guard to the output filesystem; for `stage3_extract.py` /
+`remote_st.check_stop()` refuses to proceed below 10 GB free on `remote_st.HOST_DISK` (the WSL host drive, `/mnt/f`). On a
+native Linux box there is no such mount: `stage3_extract_mf.py` already rebinds the guard to the output filesystem; for `stage3_extract.py` /
 `b4_extract.py` add the same rebinding (or set `LLMSPEC_DISK=/` if that env hook is added) before any run. Keep ≥ 10 GB
 free on the data disk; never bank full checkpoints locally (stream HF → RAM → GPU).
 

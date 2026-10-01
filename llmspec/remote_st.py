@@ -39,7 +39,7 @@ def durable_save(path, save_fn):
         os.close(fd)
 
 
-HOST_DISK = "/mnt/c"          # WSL `df /` reports the VHD; the VHD grows into C:, which is what fills
+HOST_DISK = "/mnt/f"          # WSL `df /` reports the VHD; the VHD grows into the host drive that holds it: F: since 2026-10-01 (was C:)
 HOST_RESERVE_GB = 10.0        # Will, 2026-09-25: keep 10 GB free on C: at all times
 
 
