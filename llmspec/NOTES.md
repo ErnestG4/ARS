@@ -162,6 +162,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **ext_queue HELD, NOT STARTED** (`armb/ext_queue.sh`; re-launch with `setsid nohup ./ext_queue.sh > ext_queue.log 2>&1 &` when GPU_FREE; it was:
   Q4EXT_PREREG.md (3e52ea3): A0 → 10000, M0s1 → 10000, M0s3 (Muon, seed-2 init, standard order) → 3000; logs
   armb/train_<arm>_ext.log; DESCRIPTIVE only. ~16 h + 16 h + 7 h. STOP halts; re-run the script to resume.
+- **arm-B EXPLORATORY look DONE 10-01 (MF_EXPLORE_IMPRESSIONS.md; results/mf_explore/):** bulk octaves Porter–Thomas-like
+  (supports neither hypothesis, as declared); the DEEPEST octave of MLP_IN/MLP_OUT on the NEURON side localises late in
+  training (log T/N +8.9 / +7.4 at 1.4B; +5.5 ± 3.2 / +4.2 ± 2.5 at 410M), q = 4 only (q = 2 +0.1), null at Haar; seeds 3/4
+  LOSE it after their loss spikes; no head-scale structure in bulk vectors beyond the norm profile. Design notes for arm A in §6.
 - **spot arm-B re-extraction DONE 10:06** (40 GB in spot:~/llmspec_mf/cache/mf, 1.4B + seeds 1–5). Exploratory
   analysis script (mf_explore.py) being written by an agent; it will RUN ON SPOT (C: has 38 GB free) and only summaries
   come back. Impressions only, no verdicts.
