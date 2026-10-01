@@ -146,6 +146,20 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   - Sub-1000 "low-rank early" → arm B.
 
 ## 4. Running now (10-01)
+- **LAPSE (10-01, Will):** A0r finished ~04:30 and the spot extraction at 10:06; neither was acted on until Will asked
+  at 11:53 (~7 GPU-h + ~2 spot-h idle). Cause: the completion wait expired at 2 h and was not re-armed. Rule now:
+  every detached job has a wait RE-ARMED on each expiry, AND an hourly in-session cron alarm (a8edbc70, :23) checks
+  jobs, acts on finished ones and launches the next sealed item. (memory: long_jobs_get_rearmed_event_waits)
+- **A0r DONE** (step 3000, final loss 3.1254 vs A0 3.1148; 169 ckpts on spot). **A0r scoring RUNNING** (`armb/a0r_score.py
+  all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
+  → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
+  A0R_PREREG §2 printed as "identity written; VERDICT: ...".
+- **ext_queue RUNNING** (`armb/ext_queue.sh`, pid armb/ext_queue.pid, log ext_queue.log; waits for the scoring pid):
+  Q4EXT_PREREG.md (3e52ea3): A0 → 10000, M0s1 → 10000, M0s3 (Muon, seed-2 init, standard order) → 3000; logs
+  armb/train_<arm>_ext.log; DESCRIPTIVE only. ~16 h + 16 h + 7 h. STOP halts; re-run the script to resume.
+- **spot arm-B re-extraction DONE 10:06** (40 GB in spot:~/llmspec_mf/cache/mf, 1.4B + seeds 1–5). Exploratory
+  analysis script (mf_explore.py) being written by an agent; it will RUN ON SPOT (C: has 38 GB free) and only summaries
+  come back. Impressions only, no verdicts.
 - **spot: arm-B re-extraction RUNNING** (launched 10-01 03:53 PDT in tmux `claude` on spot; `~/llmspec_mf/run_mf.sh`;
   log `~/llmspec_mf/mf_run.log`; output `~/llmspec_mf/cache/mf/<model>/<rev>/L*.npz`; code `~/llmspec_armb/code/llmspec`
   = dbcf7f8 + cdad297). Order: pythia-1.4b (26 revs) → pythia-410m-seed1..5. 6 workers × 8 threads, nice 10. Resumable
