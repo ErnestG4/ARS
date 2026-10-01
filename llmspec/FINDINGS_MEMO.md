@@ -1,6 +1,6 @@
 # Findings memo — Shapes of LLM weights and transforms over training (CC Brief v1.1)
 
-Branch `llm-spectra` (local, unpushed), dir `llmspec/`. Compiled 2026-09-27, revised 2026-09-30 (Will's critique #1/#3/#11 + Open leads; Arm B folded in), from the stage documents, which hold the
+Branch `llm-spectra` (published: github.com/ErnestG4/ARS), dir `llmspec/`. Compiled 2026-09-27, revised 2026-09-30 (Will's critique #1/#3/#11 + Open leads; Arm B folded in), from the stage documents, which hold the
 numbers, tables, commits and caveats: STAGE1_FINDINGS, STAGE2_FINDINGS, STAGE3_FINDINGS (§8–15 supersede §3–7 where they
 conflict), STAGE3_REPL_FINDINGS, STAGE3_SEED_FINDINGS. The brief's §6 rule applies: **every claim names its licensing
 gate, and nulls are reported as nulls.** Pre-registrations: STAGE3_PREREG.md (0cf53ba), STAGE3_REPL_PREREG.md (8147f53),

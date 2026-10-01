@@ -1,6 +1,6 @@
 # Arm B findings — Q1–Q4 and the bulk null at 70M (B4)
 
-Branch `llm-spectra` (local, unpushed), dir `llmspec/armb/`. Written 2026-09-29 (chain complete 22:29) from the B4 outputs
+Branch `llm-spectra` (published: github.com/ErnestG4/ARS), dir `llmspec/armb/`. Written 2026-09-29 (chain complete 22:29) from the B4 outputs
 `results/armb_b4_{q1,q2,q3,q4,bulk}.json`.
 
 **How the analysis was sealed.**

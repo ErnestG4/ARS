@@ -1,8 +1,8 @@
 # llmspec NOTES — compaction-proof state (read this first)
 
 Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
-`/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra`; all work is in `llmspec/`. Commits are local
-and NOT pushed.
+`/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra`; all work is in `llmspec/`. Published 2026-09-30
+(github.com/ErnestG4/ARS; Will pushes).
 
 ## 0. Mandate
 - **Brief:** CC Brief v1.1, "Shapes of LLM weights and transforms over training" (Will, 2026-09-25). Staged plan:

@@ -85,7 +85,9 @@ Nothing is running. No cron is set.
   - The Arm B checkpoints (all 5 arms, sha-verified) and the seed-1 batches are in `~/llmspec_armb/` there.
 - **Proposals:** propose deletes before doing them. Outreach stays out of the repo.
 
-## 4. Repositories and publishing (settled 2026-09-30)
+## 4. Repositories and publishing (settled 2026-09-30; SUPERSEDED by §6 on 2026-10-01)
+
+**Current state (2026-10-01):** the dev repo carries the clean published history; `origin` fetches from GitHub and pushes to GitHub AND the Forgejo; `~/ARS-github.git` and `~/ARS-public` are deleted; both remotes match the local tips (verified 10-01). The text below is the pre-migration description, kept for the record.
 
 - **Dev repo** (private, never rewritten): `/home/combust/fmexplorer/criticality_tool`, mirrored by Will to his LAN
   Forgejo (`origin` = forgejo:Combust/ARS.git). The old `codeberg` remote is push-disabled (Codeberg bans LLM work).
