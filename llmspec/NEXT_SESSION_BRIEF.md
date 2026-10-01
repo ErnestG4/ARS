@@ -100,10 +100,13 @@ Nothing is running. No cron is set.
     third-party files are dropped from history (`phase34d/lit/{chen_refined_2019,katz_2017,rudnick_waxman_2019}.{pdf,txt}`,
     `comb/lit/KRR_arxiv2001.09513.tex`).
   - Identity unchanged. Verified commit by commit against the dev repo: tree, names, emails, dates and message text.
-  - Published `main` tip = `80da3c9`, which adds `PROVENANCE.md` and `provenance/cited_commits.tsv` on top of the
-    rewritten merge `b0046d5`. The map takes each of the 182 dev hashes cited in the docs to its published commit
-    (181 mapped; `458a697` was never pushed).
-  - Tags: `v2026.09.30` (the Zenodo release) → `80da3c9`; `llmspec-2026-09-30` → `b0046d5`.
+  - Published `main` tip = `f44c26c` (2026-10-01: `CITATION.cff` release metadata: version 2026.09.30,
+    AGPL-3.0 + CC-BY-4.0, repository URL, llmspec in the abstract).
+    - Its parent `80da3c9` adds `PROVENANCE.md` and `provenance/cited_commits.tsv` on top of the rewritten merge
+      `b0046d5`.
+    - The map takes each of the 182 dev hashes cited in the docs to its published commit (181 mapped; `458a697` was
+      never pushed).
+  - Tags: `v2026.09.30` (the Zenodo release) → `f44c26c`; `llmspec-2026-09-30` → `b0046d5`.
 - **To sync GitHub later** (Will's call; the dev repo stays untouched): bare-clone the dev repo to a NEW directory and
   run, from the venv:
   ```
@@ -136,8 +139,9 @@ Nothing is running. No cron is set.
 conflicts. The old (trailer-bearing) history is retired.
 
 **State at handoff** (surveyed 2026-09-30; nothing changed yet):
-- Will has pushed the cleaned clone `~/ARS-github.git` to GitHub: 13 branches, `main` tip `80da3c9` with PROVENANCE,
-  tags `v2026.09.30` and `llmspec-2026-09-30`.
+- Will has pushed the cleaned clone `~/ARS-github.git` to GitHub: 13 branches, `main` tip `f44c26c` (CITATION fix on
+  top of `80da3c9` PROVENANCE), tags `v2026.09.30` → `f44c26c` and `llmspec-2026-09-30`. **GitHub `main` is the
+  authority**: the dev `main` must end up at `f44c26c`, or fast-forward from it.
 - The Forgejo still holds the OLD history: Will pushed all 13 dev branches earlier on 09-30.
 - Dev-repo branch tips are unchanged since the clone, except `llm-spectra`, which has 3 newer commits (35a5851,
   1768628, 4b05330: this brief). They carry no trailers, but they are not yet rewritten or published.
@@ -155,15 +159,16 @@ that and the worktrees stay put. Only the branch refs move, to commits with iden
 0. **Preserve the old repo first, three ways:**
    - (a) `~/ARS_dev_history_2026-09-30.bundle` already exists. Refresh it with `git bundle create … --all`, because
      llm-spectra has moved since.
-   - (b) Copy the whole `.git` (1.8 GB; check that /mnt/c keeps > 10 GB free) to `~/criticality_tool_git_pre_migration`.
+   - (b) **DONE 2026-10-01:** Will copied the whole `criticality_tool` folder (with `.git` and worktrees, ~90 GB) to
+     his NAS.
    - (c) Will creates a PRIVATE Forgejo repo, e.g. `Combust/ARS-archive`, and pushes the old history there before the
      Forgejo `ARS` repo is overwritten: all `refs/heads/*`, plus `refs/original/*` and `refs/archive/*` (the
      pre-2026-09-21 hashes the docs cite).
 1. Bare-clone the CURRENT dev repo to a new directory and re-run the exact filter-repo recipe of §4. It is
    deterministic: verify that every already-published commit reproduces its GitHub hash. Newer commits (llm-spectra)
    extend it.
-2. Re-apply the PROVENANCE commit on the new `main` (or move PROVENANCE.md into the dev repo; Will's call), so
-   `main` matches GitHub's `80da3c9` or fast-forwards from it.
+2. Set the new `main` to GitHub's `f44c26c` (PROVENANCE + CITATION commits on top of the rewritten merge). Any newer
+   dev commits on main go on top of it. Moving PROVENANCE.md into the dev repo going forward is Will's call.
 3. In the dev repo, move each local branch onto its rewritten counterpart with `git update-ref`. The trees are
    identical apart from the 7 removed files, so working trees stay valid.
    - In each worktree, `git rm --cached` only the 6 `phase34d/lit` paper files. They stay on disk and are gitignored.
