@@ -157,9 +157,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
   → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
   A0R_PREREG §2 printed as "identity written; VERDICT: ...".
-- **GPU: HELD FOR WILL from 10-01 ~13:30 (his own training). Do NOT launch GPU work until this line says GPU_FREE.**
+- **GPU_STATUS: HELD_FOR_WILL** (from 10-01 ~13:30, his own training). Do NOT launch GPU work until this line reads
+  exactly `GPU_STATUS: FREE` (Will or CC on Will's word sets it). The word alone elsewhere in this file is not the marker.
   The A0r scoring extraction finishes on its own (~14:30) and then the GPU is Will's.
-- **ext_queue HELD, NOT STARTED** (`armb/ext_queue.sh`; re-launch with `setsid nohup ./ext_queue.sh > ext_queue.log 2>&1 &` when GPU_FREE; it was:
+- **ext_queue HELD, NOT STARTED** (`armb/ext_queue.sh`; re-launch with `setsid nohup ./ext_queue.sh > ext_queue.log 2>&1 &` when GPU_STATUS: FREE; it was:
   Q4EXT_PREREG.md (3e52ea3): A0 → 10000, M0s1 → 10000, M0s3 (Muon, seed-2 init, standard order) → 3000; logs
   armb/train_<arm>_ext.log; DESCRIPTIVE only. ~16 h + 16 h + 7 h. STOP halts; re-run the script to resume.
 - **arm-B EXPLORATORY look DONE 10-01 (MF_EXPLORE_IMPRESSIONS.md; results/mf_explore/):** bulk octaves Porter–Thomas-like
