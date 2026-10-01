@@ -100,8 +100,9 @@ Nothing is running. No cron is set.
     third-party files are dropped from history (`phase34d/lit/{chen_refined_2019,katz_2017,rudnick_waxman_2019}.{pdf,txt}`,
     `comb/lit/KRR_arxiv2001.09513.tex`).
   - Identity unchanged. Verified commit by commit against the dev repo: tree, names, emails, dates and message text.
-  - `main` tip adds `PROVENANCE.md` and `provenance/cited_commits.tsv` (182 cited dev hashes → published hashes).
-  - Tags: `v2026.09.30` (the Zenodo release) and `llmspec-2026-09-30`.
+  - Published `main` = the rewritten merge `b0046d5`, with nothing on top. Tags `v2026.09.30` (the Zenodo release) and
+    `llmspec-2026-09-30` both point at it.
+  - Hashes cited in the docs are dev-repo hashes; resolve them via the private archive.
 - **To sync GitHub later** (Will's call; the dev repo stays untouched): bare-clone the dev repo to a NEW directory and
   run, from the venv:
   ```
@@ -111,10 +112,7 @@ Nothing is running. No cron is set.
   - PATHS: the 7 files above, one per line.
   - The callback removes `Co-Authored-By:…(Claude|anthropic)…` (including inline), `^Claude-Session:` lines and
     `Generated with [Claude Code]` lines, collapses 3+ newlines, and rstrips.
-  - The rewrite is deterministic, so existing published commits keep their hashes.
-  - **Caveat:** the published `main` has the PROVENANCE commit on top, which the dev repo does not have. A sync must
-    re-apply it on the new `main` and regenerate the cited-hash map. Otherwise the push is not a fast-forward. Decide
-    with Will whether PROVENANCE.md should live in the dev repo instead.
+  - The rewrite is deterministic, so existing published commits keep their hashes and a sync is a fast-forward push.
 - `~/ARS-public`: a superseded one-commit snapshot (deletion proposed to Will). Don't push it.
 
 ## 5. Lessons from this arc (all in project memory too)
