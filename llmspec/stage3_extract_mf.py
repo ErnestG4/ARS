@@ -347,6 +347,7 @@ def run(model, rev, workers=1, layers=None, out_root=None):
     check_stop(out_root)
     bin_path = None
     if c.get("fmt") == "bin":
+        (ROOT / "cache" / "bin_tmp").mkdir(parents=True, exist_ok=True)
         bin_path = R.download_file(c["repo"], "pytorch_model.bin", rev,
                                    ROOT / "cache" / "bin_tmp" / f"{c['repo'].replace('/', '__')}__{rev}.bin")
         ck, src = CkptBin(bin_path), str(bin_path)

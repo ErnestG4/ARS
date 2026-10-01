@@ -132,6 +132,7 @@ if __name__ == "__main__":   # multiprocessing spawn re-imports this file in eac
     if torch is not None:
         bin_path = tmp / "pytorch_model.bin"
         extra = {"x.f32": torch.randn(7, 5), "x.bf16": torch.randn(4, 6).bfloat16(), "x.nc": torch.randn(6, 8).half().t().contiguous().t()}
+        bin_path.parent.mkdir(parents=True, exist_ok=True)
         torch.save({**{k: torch.from_numpy(v) for k, v in sd.items()}, **extra}, bin_path)
         idx = X.bin_index(bin_path)
         bad = [k for k, t in extra.items() if not np.array_equal(X.bin_tensor(bin_path, idx[k]).astype(np.float32), t.float().numpy())]
