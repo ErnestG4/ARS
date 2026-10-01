@@ -39,3 +39,20 @@ Interrupt: `touch llmspec/STOP` (clean exit between tensors). Resume: rerun the 
   row/column norms for the profile-preserving null.
 - Arm A's calibrator and red-path plants need training: last in Will's GPU order (A0r → Q4 extension + third Muon
   seed → calibrator).
+
+### Arm A corrections (Will, 2026-10-01, later the same day)
+- **Scale axis flaw (Will's own):** "random bulk subspaces of size k" cannot discriminate — a uniform perturbation over a
+  random k-subspace at fixed size costs the bulk-average curvature for every k, under every hypothesis.
+  - **Self-similarity across spectral scale → perturb spectral BANDS:** octave bands of the bulk by singular-value index,
+    [2ʲ, 2ʲ⁺¹) counted from the spike edge; read per-direction cost vs spectral position. Power law across octaves =
+    self-similar; knee = characteristic scale.
+  - **Smoothness → the random-subspace sweep is kept, but reads the DISPERSION across random subspaces of the same k:**
+    smooth distributed function gives low dispersion falling as 1/k; concentrated function gives high, lumpy dispersion.
+- **Matching conflict:** matching on ‖δW·X‖ divides out the input-projection factor ‖vₖᵀX‖², which is where CC predicts
+  any data-imprinted self-similarity would live. **Report three things per band:** (1) the input-projection profile
+  ‖vₖᵀX‖ across octaves vs the calibrator; (2) the output-matched cost (output-side curvature); (3) the raw size-matched
+  cost (the product). Caution: LLM activation covariances already have power-law spectra, so a power law in (1) is not new
+  by itself — the question is whether the trained bulk directions align with that structure MORE than the calibrator's.
+- **Decisions:** arm-B re-extraction runs on spot's CPUs (not beside A0r); held-out set CONFIRMED (explore on 1.4B +
+  seeds 1–5; seeds 6–9 and other sizes unread); prediction figure + prereg skeleton with decision regions per panel
+  (including CC's head-scale knee) BEFORE any arm-A code.
