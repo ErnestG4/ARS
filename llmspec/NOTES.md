@@ -178,6 +178,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **OLMo plan (1) step 0: OLMO_PREMISE_PREREG.md DRAFTED (needs Will's seal = commit on his word):** gain-folded dip tests
+  (raw vs diag(g)·W_Q), a row-norm confusable licence class, per-head predictor table, the three ingredient finals as the
+  endpoint (seed replicates), dead-row depth vs the weight-decay bound; verdict vocabulary declared. CPU/lean-box work.
 - **Arm A:** prediction figure + prereg SKELETON committed (e224e29) BEFORE any arm-A code; Will to fill `[TBD]`s and seal.
 - **A0r RUNNING** (launched 2026-10-01; PID in armb/A0r.pid; log armb/train_A0r.log; memwatch PID 2700200, log
   logs/memwatch_a0r.log): identical-config rerun of A0, SEALED in armb/A0R_PREREG.md (94d18ae) as the paired-run
