@@ -157,7 +157,7 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   all`, committed b3ebf37 before any output was read; log armb/a0r_score.log; pid armb/a0r_score.pid): extract (GPU)
   → calib → licence → q1 → identity; results/armb_a0r_{noise_calibration,q1_warp_licence,q1,identity}.json; verdict per
   A0R_PREREG §2 printed as "identity written; VERDICT: ...".
-- **GPU_STATUS: FREE** (10-01 ~16:00, Will: "we've lost more time" while he sets up the lean box). Will reclaims the
+- **GPU_STATUS: FREE** (10-01 13:59 PDT, Will: "we've lost more time" while he sets up the lean box). Will reclaims the
   card by saying so: then `touch llmspec/STOP` (halts the queue within a minute, resumable) and set this line to
   `GPU_STATUS: HELD_FOR_WILL`. ext_queue LAUNCHED (A0 → 10000 first).
   The A0r scoring extraction finishes on its own (~14:30) and then the GPU is Will's.
