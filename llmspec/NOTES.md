@@ -191,6 +191,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **CRASH 10-02 ~00:03 (WSL/host; Will: another build job shares the box 03:15–~04:15, CPU only).** A0 extension died at
+  ~step 6800; RELAUNCHED 03:15 from resume.pt 6750 (ext_queue.sh, pid armb/ext_queue.pid); queue → M0s1 → M0s3 unchanged.
+  Hourly alarm 5ca8cfb7 survived; waits re-armed; memwatch up. pdyn verifier: normal PASS (CHECKRUN 10-01 23:5x);
+  red path re-running alone after two 30-min background kills under CPU contention.
 - **M4 hook A/B (10-01 22:20): NOT within the floor** (same resume.pt, 100 steps: weights median 3e-3 rel diff, loss
   diverging from the last bit); hook kept in train.py, OFF (no armb/M4_ENABLE); not enabled for M0s1/M0s3; off/off control
   queued for the pilot phase. results/armb_m4_ab.json; Q4EXT_PREREG Amendment 1.
