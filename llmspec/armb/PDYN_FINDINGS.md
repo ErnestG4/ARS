@@ -64,3 +64,29 @@ first.
   70M and is recorded here only.
 - The production cadence (PDYN_PREREG §5) is NOT set by this phase: x_step ≈ 0.5 per 25 steps says the pilot needs
   per-step sampling at least through the warmup, as the addendum asked.
+
+## 6. Attribution controls (2026-10-02, `pdyn_c9.py`, `PDYN_C9_NOTES.md`, `results/armb_pdyn_c9/`; 24 units: A0 and
+M0s1 × layers 0/2/5 × Q/K/O/MLP_OUT on W2; identical sealed pipeline; C1 draws regenerated bit-identically)
+- **C9 — β = 1 motion + the real arms' slow density drift: DOES NOT reproduce the C(x) departure.** The fitted drift is
+  large in absolute terms (‖W‖_F ×1.1–1.9 on A0, ×1.5–4.0 on M0s1; the 90 % band edge moves +18…+832 spacings over W2),
+  but after the sealed per-checkpoint unfolding only 0.03–0.7 spacings rms survive (velocity 0.4–7 % of the real vrms),
+  and the warped C1 stays at C1 on 43/48 draws (C_lag1 −0.07 vs C1 −0.07 vs real −0.25). A planted drift 50× larger
+  fills the dip on 24/24 (the control can fire; verifier (ii), red path flips it). Candidate 1 of §4 is EXCLUDED.
+- **Driver-matched β = 1 (OU-momentum velocity, τ_v swept): REPRODUCES.** With τ_v = 5–10 steps the control matches the
+  real C(x) on 44–45/48 draws (τ_v = 10: M0s1 24/24, A0 21/24 + 3 overshoot) and the curvature median too (A0 0.72 vs
+  real 0.68, C1 0.63; M0s1 0.62 vs 0.585, C1 0.58); the white-velocity DBM limit (τ_v → 0) reproduces 40/48; τ_v = 80
+  and the phase-0 smooth family (τ_C1 ≈ 580 steps) stay at C1 (48/48). Lag values at τ_v = 10: A0 −0.153/−0.151 vs
+  real −0.225/−0.094 (C1 +0.009/−0.221); M0s1 −0.243/−0.127 vs real −0.265/−0.120 (C1 −0.140/−0.193). Residuals: the
+  real velocity excess kurtosis (0.36 / 0.26) is above every control's (≤ 0.16); the driver's vrms match is low-sided
+  (0.87–0.99). Candidate 2 of §4 is SUPPORTED: the phase-0 C1 family's long velocity memory (chosen to reproduce the
+  Simons–Altshuler curve in the smooth limit) is the wrong reference for optimiser-driven motion, whose velocity memory
+  is of order the momentum time scale and below the 25-step cadence.
+- **Reading.** The sealed word for P2 stays **FAILS vs C1 as sealed**. What the controls establish is the attribution:
+  the departure is reproduced by a β = 1 process with short velocity memory and NOT by density drift; a pass against the
+  driver-matched family would be a post-hoc re-threshold and is NOT claimed. Candidate 3 (non-generic motion) is not
+  needed to explain C(x) and curvature at this cadence; the unexplained residual is the velocity kurtosis.
+- **Proposed amendment (for Will to seal, PDYN_PREREG A1):** redefine C1 as the OU-driven β = 1 family with τ_v fixed
+  BEFORE the re-read from the optimiser's momentum (Adam β₁ = 0.9 → τ_v = 10 steps; Muon momentum 0.95 → 20 steps —
+  note τ_v = 20 reproduced only 27/48 here, so the Muon value is a prediction that can fail), then re-read P2 on W2 with
+  the velocity-kurtosis residual as an added component with its own tolerance from the calibrator spread. The per-step
+  pilot then tests the same family at a cadence below τ_v.

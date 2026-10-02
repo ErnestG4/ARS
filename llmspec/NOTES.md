@@ -191,6 +191,11 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **pdyn attribution controls DONE 10-02 ~08:10 (PDYN_FINDINGS §6; results/armb_pdyn_c9):** density drift (C9) does NOT
+  reproduce the C(x) departure (43/48 stay at C1; a 50× planted drift does fill the dip); a β=1 process with SHORT velocity
+  memory (OU τ_v 5–10 steps) REPRODUCES C(x) and curvature (44–45/48). P2 word stays FAILS-as-sealed; attribution = wrong
+  C1 time structure, not drift, not (needed) non-generic motion. Amendment A1 (driver-matched C1 with τ_v fixed from the
+  optimiser's momentum before the re-read) proposed for Will's seal.
 - **pdyn PHASE 1 DONE 10-02 07:05 (armb/PDYN_FINDINGS.md):** P2 FAILS on W2 for A0 AND M0s1 (36/36; velocity Gaussian
   HOLDS, C(x) FAILS everywhere with a shallower-than-β=1 dip, curvature mixed/PROVISIONAL); reproducible on A0r to 3 digits.
   P3 HOLDS (Muon higher effective rank, weaker top-16 mass; replication). P5 FAILS PROVISIONAL (~2k events/window at
