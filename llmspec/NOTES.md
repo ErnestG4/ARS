@@ -191,7 +191,12 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
-- **pdyn PHASE 1 RUNNING (10-02 05:45, this box CPU, nice, 8 workers, ~1 h):** `armb/pdyn_phase1.py` on the banked arms
+- **pdyn PHASE 1 DONE 10-02 07:05 (armb/PDYN_FINDINGS.md):** P2 FAILS on W2 for A0 AND M0s1 (36/36; velocity Gaussian
+  HOLDS, C(x) FAILS everywhere with a shallower-than-β=1 dip, curvature mixed/PROVISIONAL); reproducible on A0r to 3 digits.
+  P3 HOLDS (Muon higher effective rank, weaker top-16 mass; replication). P5 FAILS PROVISIONAL (~2k events/window at
+  x_step≈0.5 — aliased). ATTRIBUTION OPEN: next CPU controls C9 (C1 + slow density drift) and a driver-matched C1 before any
+  interpretation. Results in results/armb_pdyn_phase1 (parts/ not committed).
+- (done) **pdyn PHASE 1 RAN (10-02 05:45, this box CPU, nice, 8 workers, ~1 h):** `armb/pdyn_phase1.py` on the banked arms
   A0 A1 A2 M0s1 M0s2 A0r → results/armb_pdyn_phase1/ (run.log; summary.json at the end). Prereg PDYN_PREREG.md (4405874);
   runner committed before the run. Resumable (re-run the same command).
 - **Parametric-dynamics phase 0 SEALED 10-02 ~05:00:** armb/pdyn_m2.py (unfold → velocities, C(x), ZD curvature; kde(32),

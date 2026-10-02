@@ -1,0 +1,3128 @@
+{
+ "est": "pdyn_phase1-v1",
+ "m2_est": "pdyn_m2-v1",
+ "m3_est": "pdyn_m3-v1",
+ "params": {
+  "m2": {
+   "top_k": 16,
+   "kde_c": 32.0,
+   "band": [
+    0.1,
+    0.9
+   ],
+   "v2_deg": 3
+  },
+  "m3": {
+   "K": 16,
+   "gap_mult": 2.0,
+   "overlap_min": 0.5
+  },
+  "discrimination_n": {
+   "beta2": 1000,
+   "poisson": 500
+  },
+  "tolerances": {
+   "skew": 0.25,
+   "ex_kurt": 0.5,
+   "ks_gauss": 0.03,
+   "C_lag": 0.1,
+   "Cx": 0.15,
+   "n_lag": 6,
+   "x_max": 2.0
+  },
+  "nseed": 2,
+  "windows": {
+   "W1": [
+    0.0,
+    500.0
+   ],
+   "W2": [
+    500.0,
+    3001.0
+   ],
+   "W3": [
+    3001.0,
+    1000000000.0
+   ]
+  },
+  "p5_min_events": 20,
+  "p6_min_events_class": 50,
+  "mp_witness": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/results/stage3_witness_pythia-70m.json"
+ },
+ "bank": "cache/armb",
+ "fake": false,
+ "flip_threshold": false,
+ "arms": {
+  "A0": {
+   "status": "OK",
+   "n_checkpoints": 161,
+   "first": 0,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": 161,
+   "grid_missing_from_bank": [],
+   "bank_steps_not_in_grid": [],
+   "checkpoints_per_window": {
+    "W1": 59,
+    "W2": 102,
+    "W3": 0
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/staging/A0/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W1": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.9444444444444444,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.4166666666666667,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W3": {
+     "n_matrices": 36,
+     "n_not_resolvable": 36,
+     "n_holds": 0,
+     "n_fails": 0,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "reason": "36/36 matrices NOT RESOLVABLE"
+    }
+   },
+   "P2_per_type": {
+    "W1": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W3": {
+     "Q": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "K": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "V": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "O": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_IN": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_OUT": "DESCRIPTIVE (NOT RESOLVABLE)"
+    }
+   },
+   "x_step_median_per_type": {
+    "W1": {
+     "Q": 0.09974779976802417,
+     "K": 0.09329324103923642,
+     "V": 0.06125562945792505,
+     "O": 0.13590498792561484,
+     "MLP_IN": 0.07640080474619905,
+     "MLP_OUT": 0.12404687875094418
+    },
+    "W2": {
+     "Q": 0.45614138535462895,
+     "K": 0.40769335037902477,
+     "V": 0.3378582925317739,
+     "O": 0.5480212071143193,
+     "MLP_IN": 0.39836536527065336,
+     "MLP_OUT": 0.5138101258924546
+    },
+    "W3": {
+     "Q": null,
+     "K": null,
+     "V": null,
+     "O": null,
+     "MLP_IN": null,
+     "MLP_OUT": null
+    }
+   },
+   "P5": {
+    "W1": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2164,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2164,
+      "spearman_rate_lr": {
+       "rho": -0.23564555517537178,
+       "p": 0.07238401513490751,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.13801887987281397,
+       "null_mean": 0.13645852743263834,
+       "null_sd": 0.005223343280851973,
+       "z": 0.29872676488555927,
+       "p": 0.379,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate / no clustering"
+     }
+    },
+    "W2": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2230,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": false,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2230,
+      "spearman_rate_lr": {
+       "rho": -0.5563763678914893,
+       "p": 1.532627714874064e-09,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.03743105699128633,
+       "null_mean": 0.026614215103200712,
+       "null_sd": 0.0005907438180000627,
+       "z": 18.310546058197545,
+       "p": 0.0,
+       "passes": true,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate"
+     }
+    },
+    "W3": {
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+      "tags": [
+       "PROVISIONAL (bank cadence)",
+       "DESCRIPTIVE (W3)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W1": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2164,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.0026422333929539,
+     "r_tilde": 0.3826632874513288,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3865579657014781,
+      "sd": 0.006704181135319579,
+      "z": -0.5809327301183698
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2230,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.232415767163607,
+     "r_tilde": 0.3793526520026103,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3862155122320214,
+      "sd": 0.006694873971908454,
+      "z": -1.0250917729306757
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W3": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 0.9861111111111112,
+    "C4_spectrum_ratio_median": 3.593307286224709e-05,
+    "C4_matrix_fp32_ratio_median": 7.899459378426743e-07,
+    "C8": {
+     "W1": {
+      "n_all": 2164,
+      "n_unambiguous": 558,
+      "ambiguous_step_level_frac_median": 0.5238347457627119
+     },
+     "W2": {
+      "n_all": 2230,
+      "n_unambiguous": 19,
+      "ambiguous_step_level_frac_median": 0.7818688118811881
+     },
+     "W3": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": NaN
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": "DESCRIPTIVE"
+  },
+  "A1": {
+   "status": "OK",
+   "n_checkpoints": 181,
+   "first": 0,
+   "last": 5000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": 181,
+   "grid_missing_from_bank": [],
+   "bank_steps_not_in_grid": [],
+   "checkpoints_per_window": {
+    "W1": 59,
+    "W2": 102,
+    "W3": 20
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/staging/A1/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W1": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.08333333333333333,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.4722222222222222,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W3": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 1,
+     "n_fails": 35,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.027777777777777776,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.9444444444444444,
+       "word": "HOLDS"
+      }
+     },
+     "word": "DESCRIPTIVE (FAILS)",
+     "frac_matrices_fails": 0.9722222222222222
+    }
+   },
+   "P2_per_type": {
+    "W1": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W3": {
+     "Q": "DESCRIPTIVE (FAILS)",
+     "K": "DESCRIPTIVE (FAILS)",
+     "V": "DESCRIPTIVE (FAILS)",
+     "O": "DESCRIPTIVE (FAILS)",
+     "MLP_IN": "DESCRIPTIVE (FAILS)",
+     "MLP_OUT": "DESCRIPTIVE (FAILS)"
+    }
+   },
+   "x_step_median_per_type": {
+    "W1": {
+     "Q": 0.06865201703063531,
+     "K": 0.0661933828187223,
+     "V": 0.04373981821113923,
+     "O": 0.09034369272061446,
+     "MLP_IN": 0.05373765617243012,
+     "MLP_OUT": 0.09026268783275221
+    },
+    "W2": {
+     "Q": 0.34931305522127215,
+     "K": 0.30300508523519964,
+     "V": 0.2669059240437641,
+     "O": 0.4794016623704821,
+     "MLP_IN": 0.30288530177544554,
+     "MLP_OUT": 0.422651381445751
+    },
+    "W3": {
+     "Q": 0.6746022830357372,
+     "K": 0.6419789244082503,
+     "V": 0.5534131689720923,
+     "O": 0.6553404059918835,
+     "MLP_IN": 0.603841812451803,
+     "MLP_OUT": 0.6435457038573625
+    }
+   },
+   "P5": {
+    "W1": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 1563,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 1563,
+      "spearman_rate_lr": {
+       "rho": -0.10209460377164829,
+       "p": 0.441633124779365,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.13260205168794226,
+       "null_mean": 0.13171950728885645,
+       "null_sd": 0.006110987177712286,
+       "z": 0.14441928503868914,
+       "p": 0.431,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate / no clustering"
+     }
+    },
+    "W2": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2384,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2384,
+      "spearman_rate_lr": {
+       "rho": -0.8733897105513448,
+       "p": 1.0661016666171511e-32,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.0356004886179162,
+       "null_mean": 0.03022958350069068,
+       "null_sd": 0.0004830445530741165,
+       "z": 11.11886074078435,
+       "p": 0.0,
+       "passes": true,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate"
+     }
+    },
+    "W3": {
+     "word": "DESCRIPTIVE (FAILS)",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "n_events": 254,
+     "unambiguous_only_word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "stable_when_ambiguous_excluded": false,
+     "detail": {
+      "word": "DESCRIPTIVE (FAILS)",
+      "tags": [
+       "PROVISIONAL (bank cadence)",
+       "DESCRIPTIVE (W3)"
+      ],
+      "n_events": 254,
+      "spearman_rate_lr": {
+       "rho": 0.3819749587665184,
+       "p": 0.10656171572804525,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.03487806561626967,
+       "null_mean": 0.07871014811967499,
+       "null_sd": 0.017276650701137066,
+       "z": -2.5370705967054428,
+       "p": 0.9985,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate / no clustering"
+     }
+    }
+   },
+   "P6": {
+    "W1": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 1563,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.0025809721043057,
+     "r_tilde": 0.38075394615790653,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3865060936844875,
+      "sd": 0.008315416161019802,
+      "z": -0.6917449969065099
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2384,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.1234485952739137,
+     "r_tilde": 0.3851982171683726,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3858552921925411,
+      "sd": 0.006358416934834553,
+      "z": -0.10333940521715798
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W3": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 254,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.0595980142305972,
+     "r_tilde": 0.33966161330703376,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.38737153409039765,
+      "sd": 0.020528029254252792,
+      "z": -2.324135463392319
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 0.9907407407407407,
+    "C4_spectrum_ratio_median": 1.9888063171300798e-05,
+    "C4_matrix_fp32_ratio_median": 1.0445563376558712e-06,
+    "C8": {
+     "W1": {
+      "n_all": 1563,
+      "n_unambiguous": 585,
+      "ambiguous_step_level_frac_median": 0.3908898305084746
+     },
+     "W2": {
+      "n_all": 2384,
+      "n_unambiguous": 100,
+      "ambiguous_step_level_frac_median": 0.7806311881188119
+     },
+     "W3": {
+      "n_all": 254,
+      "n_unambiguous": 1,
+      "ambiguous_step_level_frac_median": 0.8640625
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": "DESCRIPTIVE"
+  },
+  "A2": {
+   "status": "OK",
+   "n_checkpoints": 257,
+   "first": 0,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": 257,
+   "grid_missing_from_bank": [],
+   "bank_steps_not_in_grid": [],
+   "checkpoints_per_window": {
+    "W1": 59,
+    "W2": 198,
+    "W3": 0
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/staging/A2/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W1": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.1388888888888889,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.3611111111111111,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W3": {
+     "n_matrices": 36,
+     "n_not_resolvable": 36,
+     "n_holds": 0,
+     "n_fails": 0,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "reason": "36/36 matrices NOT RESOLVABLE"
+    }
+   },
+   "P2_per_type": {
+    "W1": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W3": {
+     "Q": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "K": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "V": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "O": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_IN": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_OUT": "DESCRIPTIVE (NOT RESOLVABLE)"
+    }
+   },
+   "x_step_median_per_type": {
+    "W1": {
+     "Q": 0.15312196042291834,
+     "K": 0.13646825901397658,
+     "V": 0.0989477986930798,
+     "O": 0.2268968134538617,
+     "MLP_IN": 0.12069824021984282,
+     "MLP_OUT": 0.1978792555584201
+    },
+    "W2": {
+     "Q": 0.38243743819667053,
+     "K": 0.3416145745512244,
+     "V": 0.29067576844084253,
+     "O": 0.49692431504630996,
+     "MLP_IN": 0.3478033994565129,
+     "MLP_OUT": 0.4941933320634191
+    },
+    "W3": {
+     "Q": null,
+     "K": null,
+     "V": null,
+     "O": null,
+     "MLP_IN": null,
+     "MLP_OUT": null
+    }
+   },
+   "P5": {
+    "W1": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 3257,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 3257,
+      "spearman_rate_lr": {
+       "rho": -0.2566621614521049,
+       "p": 0.04972921358059054,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.14698261571947988,
+       "null_mean": 0.1412731026295471,
+       "null_sd": 0.004287714639435971,
+       "z": 1.3315981985881045,
+       "p": 0.088,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate / no clustering"
+     }
+    },
+    "W2": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 3954,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 3954,
+      "spearman_rate_lr": {
+       "rho": 0.5515758930997533,
+       "p": 4.4657942297039095e-17,
+       "passes": true
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.02628764568342362,
+       "null_mean": 0.03127307895607398,
+       "null_sd": 0.001978172966449017,
+       "z": -2.520221111705727,
+       "p": 0.997,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": " / no clustering"
+     }
+    },
+    "W3": {
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+      "tags": [
+       "PROVISIONAL (bank cadence)",
+       "DESCRIPTIVE (W3)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W1": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 3257,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 0.9895669018793084,
+     "r_tilde": 0.38665021321951304,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3863986485432805,
+      "sd": 0.005378546656594951,
+      "z": 0.04677186836784128
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 3954,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.265822685690032,
+     "r_tilde": 0.38362047442836317,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.386276982857845,
+      "sd": 0.005040100885186702,
+      "z": -0.527074455451785
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W3": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 0.9722222222222222,
+    "C4_spectrum_ratio_median": 3.1413440668195773e-05,
+    "C4_matrix_fp32_ratio_median": 6.046236696590118e-07,
+    "C8": {
+     "W1": {
+      "n_all": 3257,
+      "n_unambiguous": 527,
+      "ambiguous_step_level_frac_median": 0.6848516949152542
+     },
+     "W2": {
+      "n_all": 3954,
+      "n_unambiguous": 155,
+      "ambiguous_step_level_frac_median": 0.49555837563451777
+     },
+     "W3": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": NaN
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": "DESCRIPTIVE"
+  },
+  "M0s1": {
+   "status": "OK",
+   "n_checkpoints": 161,
+   "first": 0,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": 161,
+   "grid_missing_from_bank": [],
+   "bank_steps_not_in_grid": [],
+   "checkpoints_per_window": {
+    "W1": 59,
+    "W2": 102,
+    "W3": 0
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/staging/M0s1/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W1": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.7777777777777778,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.9166666666666666,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W3": {
+     "n_matrices": 36,
+     "n_not_resolvable": 36,
+     "n_holds": 0,
+     "n_fails": 0,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "reason": "36/36 matrices NOT RESOLVABLE"
+    }
+   },
+   "P2_per_type": {
+    "W1": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W3": {
+     "Q": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "K": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "V": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "O": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_IN": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_OUT": "DESCRIPTIVE (NOT RESOLVABLE)"
+    }
+   },
+   "x_step_median_per_type": {
+    "W1": {
+     "Q": 0.08205780574733482,
+     "K": 0.08618247398447651,
+     "V": 0.08907425376603709,
+     "O": 0.16030631447260307,
+     "MLP_IN": 0.11374064986096746,
+     "MLP_OUT": 0.19855457732640286
+    },
+    "W2": {
+     "Q": 0.5404749988846611,
+     "K": 0.5210796186640745,
+     "V": 0.4773962092556886,
+     "O": 0.5936157950659307,
+     "MLP_IN": 0.5441501072550514,
+     "MLP_OUT": 0.5983507931655443
+    },
+    "W3": {
+     "Q": null,
+     "K": null,
+     "V": null,
+     "O": null,
+     "MLP_IN": null,
+     "MLP_OUT": null
+    }
+   },
+   "P5": {
+    "W1": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 1472,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 1472,
+      "spearman_rate_lr": {
+       "rho": 0.6191987225155577,
+       "p": 1.7142762833653296e-07,
+       "passes": true
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.11567089068500892,
+       "null_mean": 0.1426699070583543,
+       "null_sd": 0.00690215169360058,
+       "z": -3.911681106397281,
+       "p": 1.0,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": " / no clustering"
+     }
+    },
+    "W2": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2586,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": false,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2586,
+      "spearman_rate_lr": {
+       "rho": -0.5993724281727291,
+       "p": 3.5411340918066864e-11,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.04612564053170365,
+       "null_mean": 0.03496457582555902,
+       "null_sd": 0.002351533631943826,
+       "z": 4.746291762333274,
+       "p": 0.0,
+       "passes": true,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate"
+     }
+    },
+    "W3": {
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+      "tags": [
+       "PROVISIONAL (bank cadence)",
+       "DESCRIPTIVE (W3)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W1": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 1472,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.2172058571416084,
+     "r_tilde": 0.3963551161137922,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3861501513824648,
+      "sd": 0.008309479438660646,
+      "z": 1.228111195973102
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2586,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.5333290431782973,
+     "r_tilde": 0.3732987765777917,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.38666884307507093,
+      "sd": 0.006450252034146933,
+      "z": -2.0727975320188348
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W3": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 1.0,
+    "C4_spectrum_ratio_median": 2.7548814506824557e-05,
+    "C4_matrix_fp32_ratio_median": 6.596651122739763e-07,
+    "C8": {
+     "W1": {
+      "n_all": 1472,
+      "n_unambiguous": 612,
+      "ambiguous_step_level_frac_median": 0.2086864406779661
+     },
+     "W2": {
+      "n_all": 2586,
+      "n_unambiguous": 2,
+      "ambiguous_step_level_frac_median": 0.8740717821782178
+     },
+     "W3": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": NaN
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": "DESCRIPTIVE"
+  },
+  "M0s2": {
+   "status": "OK",
+   "n_checkpoints": 161,
+   "first": 0,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": 161,
+   "grid_missing_from_bank": [],
+   "bank_steps_not_in_grid": [],
+   "checkpoints_per_window": {
+    "W1": 59,
+    "W2": 102,
+    "W3": 0
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/staging/M0s2/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W1": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.7777777777777778,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.9444444444444444,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W3": {
+     "n_matrices": 36,
+     "n_not_resolvable": 36,
+     "n_holds": 0,
+     "n_fails": 0,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "reason": "36/36 matrices NOT RESOLVABLE"
+    }
+   },
+   "P2_per_type": {
+    "W1": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W3": {
+     "Q": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "K": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "V": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "O": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_IN": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_OUT": "DESCRIPTIVE (NOT RESOLVABLE)"
+    }
+   },
+   "x_step_median_per_type": {
+    "W1": {
+     "Q": 0.08346394954221378,
+     "K": 0.08591272137650044,
+     "V": 0.08927939753539132,
+     "O": 0.15981785431643225,
+     "MLP_IN": 0.11331893703089953,
+     "MLP_OUT": 0.19884612060279777
+    },
+    "W2": {
+     "Q": 0.5413825261899579,
+     "K": 0.5139392742177445,
+     "V": 0.48319995202188815,
+     "O": 0.6028379990194167,
+     "MLP_IN": 0.5445698870747243,
+     "MLP_OUT": 0.6022972283768693
+    },
+    "W3": {
+     "Q": null,
+     "K": null,
+     "V": null,
+     "O": null,
+     "MLP_IN": null,
+     "MLP_OUT": null
+    }
+   },
+   "P5": {
+    "W1": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 1486,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 1486,
+      "spearman_rate_lr": {
+       "rho": 0.6083436162013665,
+       "p": 3.2046895808167636e-07,
+       "passes": true
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.11764159250708649,
+       "null_mean": 0.14353104671318476,
+       "null_sd": 0.006589111435087653,
+       "z": -3.929126781531487,
+       "p": 1.0,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": " / no clustering"
+     }
+    },
+    "W2": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2596,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": false,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2596,
+      "spearman_rate_lr": {
+       "rho": -0.5993205332132306,
+       "p": 3.558483924930235e-11,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.04137308762878042,
+       "null_mean": 0.03359820142621159,
+       "null_sd": 0.0023525779265837314,
+       "z": 3.3048368407753625,
+       "p": 0.0025,
+       "passes": true,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate"
+     }
+    },
+    "W3": {
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+      "tags": [
+       "PROVISIONAL (bank cadence)",
+       "DESCRIPTIVE (W3)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W1": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 1486,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.2052077623725679,
+     "r_tilde": 0.39368572021466763,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.38606654675935254,
+      "sd": 0.008123067735100327,
+      "z": 0.937967490089013
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2596,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.4798899098839247,
+     "r_tilde": 0.3793727970530375,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.38659230176028536,
+      "sd": 0.006220068736463124,
+      "z": -1.1606792485950947
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W3": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 1.0,
+    "C4_spectrum_ratio_median": 2.7107096537982852e-05,
+    "C4_matrix_fp32_ratio_median": 6.634190756352116e-07,
+    "C8": {
+     "W1": {
+      "n_all": 1486,
+      "n_unambiguous": 580,
+      "ambiguous_step_level_frac_median": 0.20497881355932204
+     },
+     "W2": {
+      "n_all": 2596,
+      "n_unambiguous": 2,
+      "ambiguous_step_level_frac_median": 0.8635519801980198
+     },
+     "W3": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": NaN
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": "DESCRIPTIVE"
+  },
+  "A0r": {
+   "status": "OK",
+   "n_checkpoints": 161,
+   "first": 0,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": 161,
+   "grid_missing_from_bank": [],
+   "bank_steps_not_in_grid": [],
+   "checkpoints_per_window": {
+    "W1": 59,
+    "W2": 102,
+    "W3": 0
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/armb/staging/A0r/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W1": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 0,
+     "n_fails": 36,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 0.8888888888888888,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.0,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 0.4444444444444444,
+       "word": "FAILS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 1.0
+    },
+    "W3": {
+     "n_matrices": 36,
+     "n_not_resolvable": 36,
+     "n_holds": 0,
+     "n_fails": 0,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "reason": "36/36 matrices NOT RESOLVABLE"
+    }
+   },
+   "P2_per_type": {
+    "W1": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    },
+    "W3": {
+     "Q": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "K": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "V": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "O": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_IN": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "MLP_OUT": "DESCRIPTIVE (NOT RESOLVABLE)"
+    }
+   },
+   "x_step_median_per_type": {
+    "W1": {
+     "Q": 0.0996405752692574,
+     "K": 0.09295633265240608,
+     "V": 0.061017008300521466,
+     "O": 0.1350305961750588,
+     "MLP_IN": 0.0760848412409957,
+     "MLP_OUT": 0.12344570441248263
+    },
+    "W2": {
+     "Q": 0.4566608238269739,
+     "K": 0.4091652532470199,
+     "V": 0.3380893577141245,
+     "O": 0.545469756469068,
+     "MLP_IN": 0.39871786618413513,
+     "MLP_OUT": 0.5152596732523207
+    },
+    "W3": {
+     "Q": null,
+     "K": null,
+     "V": null,
+     "O": null,
+     "MLP_IN": null,
+     "MLP_OUT": null
+    }
+   },
+   "P5": {
+    "W1": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2174,
+     "unambiguous_only_word": "FAILS",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2174,
+      "spearman_rate_lr": {
+       "rho": -0.09335465161332557,
+       "p": 0.48188984307143,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.13529900105150883,
+       "null_mean": 0.13651508619825883,
+       "null_sd": 0.005275330471645258,
+       "z": -0.23052302662106716,
+       "p": 0.5675,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate / no clustering"
+     }
+    },
+    "W2": {
+     "word": "FAILS",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 2138,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": false,
+     "detail": {
+      "word": "FAILS",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "n_events": 2138,
+      "spearman_rate_lr": {
+       "rho": -0.6121840926874617,
+       "p": 1.0309354191378821e-11,
+       "passes": false
+      },
+      "clustering_vs_shuffled_time": {
+       "mean_abs_dloss_at_events": 0.04391820312549953,
+       "null_mean": 0.040590608041692317,
+       "null_sd": 0.0026638922370797197,
+       "z": 1.2491477836412315,
+       "p": 0.112,
+       "passes": false,
+       "n_null": 2000
+      },
+      "falsifier": "flat rate / no clustering"
+     }
+    },
+    "W3": {
+     "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (W3)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "DESCRIPTIVE (NOT RESOLVABLE)",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "DESCRIPTIVE (NOT RESOLVABLE)",
+      "tags": [
+       "PROVISIONAL (bank cadence)",
+       "DESCRIPTIVE (W3)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W1": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2174,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.0563331998552743,
+     "r_tilde": 0.3952480541394738,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.38634916014053944,
+      "sd": 0.006904958093529476,
+      "z": 1.2887687192878625
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 2138,
+     "class_word": "see statistics; ARS calibrated classification deferred",
+     "cv": 1.2141699568138793,
+     "r_tilde": 0.3939239885189295,
+     "r_tilde_poisson": 0.3862943611198906,
+     "r_tilde_goe": 0.5307,
+     "r_tilde_uniform_null": {
+      "mean": 0.3860845888169,
+      "sd": 0.006775470068877321,
+      "z": 1.1570266892682892
+     },
+     "note": "event times are refined vertices on a 10/25/100-step grid; interval statistics inherit the grid"
+    },
+    "W3": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 0.9861111111111112,
+    "C4_spectrum_ratio_median": 3.5922000545205346e-05,
+    "C4_matrix_fp32_ratio_median": 7.98045349587633e-07,
+    "C8": {
+     "W1": {
+      "n_all": 2174,
+      "n_unambiguous": 557,
+      "ambiguous_step_level_frac_median": 0.5254237288135593
+     },
+     "W2": {
+      "n_all": 2138,
+      "n_unambiguous": 12,
+      "ambiguous_step_level_frac_median": 0.786509900990099
+     },
+     "W3": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": NaN
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": "DESCRIPTIVE"
+  }
+ },
+ "primary_endpoints": {
+  "P2_W2": {
+   "A0": "FAILS",
+   "M0s1": "FAILS"
+  },
+  "P3_primary": "HOLDS",
+  "P3_descriptive": [
+   [
+    [
+     "A1",
+     "M0s2"
+    ],
+    "DESCRIPTIVE (FAILS)"
+   ],
+   [
+    [
+     "A2",
+     "M0s2"
+    ],
+    "DESCRIPTIVE (HOLDS)"
+   ]
+  ],
+  "note": "P2 primary = velocity Gaussianity + C(x) on W2 for A0 (AdamW) and M0s1 (Muon); curvature PROVISIONAL; P5/P6 PROVISIONAL; W3 / M5 DESCRIPTIVE"
+ },
+ "runtime_s": 4766.299907207489,
+ "skipped_parts": 0,
+ "computed_parts": 216,
+ "errors": [],
+ "unit_runtime_s": 4705.617339849472,
+ "P3": {
+  "primary": {
+   "pair": [
+    "A0",
+    "M0s1"
+   ],
+   "word": "HOLDS",
+   "components": {
+    "effective_rank": {
+     "word": "HOLDS",
+     "n_above_floor": 28,
+     "n_muon_le_adamw": 8,
+     "n": 36
+    },
+    "weaker_outliers_top16_mass": {
+     "word": "HOLDS",
+     "n_lower": 29,
+     "n": 36
+    },
+    "fewer_outliers_mp": {
+     "word": "FAILS",
+     "n_matrices_mp_valid": 5
+    }
+   },
+   "floor_source": "A0 vs A0r, same steps (one draw)",
+   "rows": [
+    {
+     "layer": 0,
+     "type": "K",
+     "n_steps": 102,
+     "d_eff_rank": 28.551003694630964,
+     "floor": 0.9355272602348208,
+     "d_top16_mass": -0.04718666603268676,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 0,
+     "type": "MLP_IN",
+     "n_steps": 102,
+     "d_eff_rank": 10.522800300415042,
+     "floor": 0.09361334702248314,
+     "d_top16_mass": -0.015972533064146272,
+     "d_n_outliers": 0.0,
+     "n_steps_mp_valid": 3
+    },
+    {
+     "layer": 0,
+     "type": "MLP_OUT",
+     "n_steps": 102,
+     "d_eff_rank": 2.0938539972826504,
+     "floor": 0.169487922302352,
+     "d_top16_mass": -0.005830993937599019,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 0,
+     "type": "O",
+     "n_steps": 102,
+     "d_eff_rank": 33.53961482059772,
+     "floor": 0.8413217080802298,
+     "d_top16_mass": -0.0775082238945563,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 0,
+     "type": "Q",
+     "n_steps": 102,
+     "d_eff_rank": 75.35750283002142,
+     "floor": 1.5535954105083363,
+     "d_top16_mass": -0.11687009463038144,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 0,
+     "type": "V",
+     "n_steps": 102,
+     "d_eff_rank": -25.089778731851453,
+     "floor": 0.10955826475540675,
+     "d_top16_mass": 0.016714052951530688,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 1,
+     "type": "K",
+     "n_steps": 102,
+     "d_eff_rank": 64.03390937627151,
+     "floor": 1.0038779221908953,
+     "d_top16_mass": -0.08068515092958534,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 1,
+     "type": "MLP_IN",
+     "n_steps": 102,
+     "d_eff_rank": 7.166510386420299,
+     "floor": 0.15630026501037264,
+     "d_top16_mass": -0.016035112923813148,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 1,
+     "type": "MLP_OUT",
+     "n_steps": 102,
+     "d_eff_rank": 4.256350783631234,
+     "floor": 0.2299734961818558,
+     "d_top16_mass": -0.00942071883637606,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 1,
+     "type": "O",
+     "n_steps": 102,
+     "d_eff_rank": -23.22530715656532,
+     "floor": 0.7695460660882816,
+     "d_top16_mass": 0.0015001200262809572,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 1,
+     "type": "Q",
+     "n_steps": 102,
+     "d_eff_rank": 75.04467494716225,
+     "floor": 0.5915665942778503,
+     "d_top16_mass": -0.10768703714868914,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 1,
+     "type": "V",
+     "n_steps": 102,
+     "d_eff_rank": -57.423331585858264,
+     "floor": 0.2602788576357682,
+     "d_top16_mass": 0.036482906078276686,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 2,
+     "type": "K",
+     "n_steps": 102,
+     "d_eff_rank": 67.21884372348173,
+     "floor": 0.6305655923719939,
+     "d_top16_mass": -0.09140905187430341,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 2,
+     "type": "MLP_IN",
+     "n_steps": 102,
+     "d_eff_rank": 1.416840763147519,
+     "floor": 0.2155840144649801,
+     "d_top16_mass": -0.02039569196281494,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 2,
+     "type": "MLP_OUT",
+     "n_steps": 102,
+     "d_eff_rank": -4.899072453151035,
+     "floor": 0.1483477420589452,
+     "d_top16_mass": 0.0017176422092001487,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 2,
+     "type": "O",
+     "n_steps": 102,
+     "d_eff_rank": 13.423363246324897,
+     "floor": 1.040592494845086,
+     "d_top16_mass": -0.027536488965757805,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 2,
+     "type": "Q",
+     "n_steps": 102,
+     "d_eff_rank": 71.84279679129747,
+     "floor": 0.3399696798445859,
+     "d_top16_mass": -0.1214530926820636,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 2,
+     "type": "V",
+     "n_steps": 102,
+     "d_eff_rank": -12.268745734259483,
+     "floor": 0.25555507168817826,
+     "d_top16_mass": -0.013140236501731031,
+     "d_n_outliers": -1.0,
+     "n_steps_mp_valid": 2
+    },
+    {
+     "layer": 3,
+     "type": "K",
+     "n_steps": 102,
+     "d_eff_rank": 49.83464764681999,
+     "floor": 0.5691186524650504,
+     "d_top16_mass": -0.0688839235710281,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 3,
+     "type": "MLP_IN",
+     "n_steps": 102,
+     "d_eff_rank": 9.303201625578254,
+     "floor": 0.12968000920804457,
+     "d_top16_mass": -0.034431159511843806,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 3,
+     "type": "MLP_OUT",
+     "n_steps": 102,
+     "d_eff_rank": 5.271693916465495,
+     "floor": 0.14579838402733003,
+     "d_top16_mass": -0.00999911536264076,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 3,
+     "type": "O",
+     "n_steps": 102,
+     "d_eff_rank": 5.275013109807077,
+     "floor": 0.9693329211999924,
+     "d_top16_mass": 0.0007630888510049838,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 3,
+     "type": "Q",
+     "n_steps": 102,
+     "d_eff_rank": 65.99045762128729,
+     "floor": 0.6301770816383794,
+     "d_top16_mass": -0.1059824708193433,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 3,
+     "type": "V",
+     "n_steps": 102,
+     "d_eff_rank": -25.63719641912867,
+     "floor": 0.5807304785094516,
+     "d_top16_mass": 0.01625366702198612,
+     "d_n_outliers": 0.0,
+     "n_steps_mp_valid": 2
+    },
+    {
+     "layer": 4,
+     "type": "K",
+     "n_steps": 102,
+     "d_eff_rank": 35.29509481499386,
+     "floor": 0.9150486705971446,
+     "d_top16_mass": -0.08151599404929688,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 4,
+     "type": "MLP_IN",
+     "n_steps": 102,
+     "d_eff_rank": 35.005430169401876,
+     "floor": 0.3665093959755552,
+     "d_top16_mass": -0.04924533505976452,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 4,
+     "type": "MLP_OUT",
+     "n_steps": 102,
+     "d_eff_rank": 21.37325534046701,
+     "floor": 0.11597668805757166,
+     "d_top16_mass": -0.024974363270133998,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 4,
+     "type": "O",
+     "n_steps": 102,
+     "d_eff_rank": 16.166305780889246,
+     "floor": 0.8077966623877728,
+     "d_top16_mass": -0.013834747709313151,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 4,
+     "type": "Q",
+     "n_steps": 102,
+     "d_eff_rank": 58.78958795445196,
+     "floor": 1.0308975284999207,
+     "d_top16_mass": -0.11950730429858591,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 4,
+     "type": "V",
+     "n_steps": 102,
+     "d_eff_rank": -9.645116307438315,
+     "floor": 0.22931659899239776,
+     "d_top16_mass": 0.00035385694679501006,
+     "d_n_outliers": 0.0,
+     "n_steps_mp_valid": 8
+    },
+    {
+     "layer": 5,
+     "type": "K",
+     "n_steps": 102,
+     "d_eff_rank": 72.63589006421458,
+     "floor": 0.2978896989539521,
+     "d_top16_mass": -0.11032482779578165,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 5,
+     "type": "MLP_IN",
+     "n_steps": 102,
+     "d_eff_rank": 37.37386650204019,
+     "floor": 0.19036231190494846,
+     "d_top16_mass": -0.04973733289208064,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 5,
+     "type": "MLP_OUT",
+     "n_steps": 102,
+     "d_eff_rank": 31.473032648482985,
+     "floor": 0.35642700579887787,
+     "d_top16_mass": -0.035363883369922876,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 5,
+     "type": "O",
+     "n_steps": 102,
+     "d_eff_rank": 33.27831089262935,
+     "floor": 0.24226328784476436,
+     "d_top16_mass": -0.048322370731699066,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 5,
+     "type": "Q",
+     "n_steps": 102,
+     "d_eff_rank": 74.25937064672387,
+     "floor": 0.4831936553750751,
+     "d_top16_mass": -0.12430292599467915,
+     "d_n_outliers": NaN,
+     "n_steps_mp_valid": 0
+    },
+    {
+     "layer": 5,
+     "type": "V",
+     "n_steps": 102,
+     "d_eff_rank": -17.79178880755657,
+     "floor": 0.19938974491049066,
+     "d_top16_mass": -0.0007995153654875575,
+     "d_n_outliers": -1.0,
+     "n_steps_mp_valid": 11
+    }
+   ],
+   "window": "W2"
+  },
+  "descriptive": [
+   {
+    "word": "DESCRIPTIVE (FAILS)",
+    "components": {
+     "effective_rank": {
+      "word": "FAILS",
+      "n_above_floor": 16,
+      "n_muon_le_adamw": 19,
+      "n": 36
+     },
+     "weaker_outliers_top16_mass": {
+      "word": "HOLDS",
+      "n_lower": 23,
+      "n": 36
+     },
+     "fewer_outliers_mp": {
+      "word": "HOLDS",
+      "n_matrices_mp_valid": 10
+     }
+    },
+    "floor_source": "A0 vs A0r, same steps (one draw)",
+    "rows": [
+     {
+      "layer": 0,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": -0.8413636157780218,
+      "floor": 0.9355272602348208,
+      "d_top16_mass": 0.00019102393615178653,
+      "d_n_outliers": -1.0,
+      "n_steps_mp_valid": 2
+     },
+     {
+      "layer": 0,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 17.29621946979671,
+      "floor": 0.09361334702248314,
+      "d_top16_mass": -0.014767893382949617,
+      "d_n_outliers": 0.0,
+      "n_steps_mp_valid": 8
+     },
+     {
+      "layer": 0,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 2.0532019255243483,
+      "floor": 0.169487922302352,
+      "d_top16_mass": -0.004864237242774565,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": -9.000802408139236,
+      "floor": 0.8413217080802298,
+      "d_top16_mass": -0.0008075662135561823,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 18.12523744716046,
+      "floor": 1.5535954105083363,
+      "d_top16_mass": -0.03964151101818188,
+      "d_n_outliers": -1.0,
+      "n_steps_mp_valid": 4
+     },
+     {
+      "layer": 0,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -35.38710166527008,
+      "floor": 0.10955826475540675,
+      "d_top16_mass": 0.03799920999702433,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 14.794946508408373,
+      "floor": 1.0038779221908953,
+      "d_top16_mass": -0.02850882522174239,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": -6.224962701853656,
+      "floor": 0.15630026501037264,
+      "d_top16_mass": -0.0002414439848225855,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": -9.989357216142963,
+      "floor": 0.2299734961818558,
+      "d_top16_mass": 0.002560827734287452,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": -15.816200818637668,
+      "floor": 0.7695460660882816,
+      "d_top16_mass": 0.002440808658320512,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 45.19776880209368,
+      "floor": 0.5915665942778503,
+      "d_top16_mass": -0.07741513556528444,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -48.89779782970773,
+      "floor": 0.2602788576357682,
+      "d_top16_mass": 0.03583669324532615,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 13.787179986932017,
+      "floor": 0.6305655923719939,
+      "d_top16_mass": -0.02225143671328076,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": -15.500421149893555,
+      "floor": 0.2155840144649801,
+      "d_top16_mass": 0.0025533688216254,
+      "d_n_outliers": 2.0,
+      "n_steps_mp_valid": 1
+     },
+     {
+      "layer": 2,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": -16.445983084893356,
+      "floor": 0.1483477420589452,
+      "d_top16_mass": 0.014493021632490187,
+      "d_n_outliers": -1.0,
+      "n_steps_mp_valid": 4
+     },
+     {
+      "layer": 2,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": -17.64662359140638,
+      "floor": 1.040592494845086,
+      "d_top16_mass": -0.0054832144157643675,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 38.14214558920331,
+      "floor": 0.3399696798445859,
+      "d_top16_mass": -0.05938824983210514,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -44.01093409347621,
+      "floor": 0.25555507168817826,
+      "d_top16_mass": 0.020752164485440316,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 39.679905055412604,
+      "floor": 0.5691186524650504,
+      "d_top16_mass": -0.06157953709226764,
+      "d_n_outliers": -3.0,
+      "n_steps_mp_valid": 2
+     },
+     {
+      "layer": 3,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": -9.465311027043015,
+      "floor": 0.12968000920804457,
+      "d_top16_mass": -0.0002738626715099654,
+      "d_n_outliers": -1.0,
+      "n_steps_mp_valid": 5
+     },
+     {
+      "layer": 3,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": -7.681804001343124,
+      "floor": 0.14579838402733003,
+      "d_top16_mass": 0.0003182790843163502,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 0.04540593935175252,
+      "floor": 0.9693329211999924,
+      "d_top16_mass": 0.004282341877299187,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 64.37564630881167,
+      "floor": 0.6301770816383794,
+      "d_top16_mass": -0.104445736127284,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -9.093799337052928,
+      "floor": 0.5807304785094516,
+      "d_top16_mass": 0.006475788502690892,
+      "d_n_outliers": -2.0,
+      "n_steps_mp_valid": 1
+     },
+     {
+      "layer": 4,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 17.305457194061177,
+      "floor": 0.9150486705971446,
+      "d_top16_mass": -0.06008553879893437,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": -13.998881221100845,
+      "floor": 0.3665093959755552,
+      "d_top16_mass": -0.0018041755172758384,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": -11.601290178247723,
+      "floor": 0.11597668805757166,
+      "d_top16_mass": -0.0006997375358288593,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": -2.7662040126785143,
+      "floor": 0.8077966623877728,
+      "d_top16_mass": -0.009538307374562939,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 42.52958849745458,
+      "floor": 1.0308975284999207,
+      "d_top16_mass": -0.10420524719809739,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -38.6303625372303,
+      "floor": 0.22931659899239776,
+      "d_top16_mass": 0.01896115366501118,
+      "d_n_outliers": 0.0,
+      "n_steps_mp_valid": 7
+     },
+     {
+      "layer": 5,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 24.931959532726694,
+      "floor": 0.2978896989539521,
+      "d_top16_mass": -0.04766463152388391,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 2.3570775478805217,
+      "floor": 0.19036231190494846,
+      "d_top16_mass": -0.012436449191923334,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 8.343518806657016,
+      "floor": 0.35642700579887787,
+      "d_top16_mass": -0.01290296618087898,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 18.40743309733753,
+      "floor": 0.24226328784476436,
+      "d_top16_mass": -0.042073686869574696,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 47.52751322036262,
+      "floor": 0.4831936553750751,
+      "d_top16_mass": -0.08899544853800954,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -30.400151641324896,
+      "floor": 0.19938974491049066,
+      "d_top16_mass": 0.012426963093044058,
+      "d_n_outliers": -1.0,
+      "n_steps_mp_valid": 12
+     }
+    ],
+    "window": "W2",
+    "pair": [
+     "A1",
+     "M0s2"
+    ]
+   },
+   {
+    "word": "DESCRIPTIVE (HOLDS)",
+    "components": {
+     "effective_rank": {
+      "word": "HOLDS",
+      "n_above_floor": 31,
+      "n_muon_le_adamw": 5,
+      "n": 36
+     },
+     "weaker_outliers_top16_mass": {
+      "word": "HOLDS",
+      "n_lower": 32,
+      "n": 36
+     },
+     "fewer_outliers_mp": {
+      "word": "HOLDS",
+      "n_matrices_mp_valid": 2
+     }
+    },
+    "floor_source": "A0 vs A0r, same steps (one draw)",
+    "rows": [
+     {
+      "layer": 0,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 43.74546561621813,
+      "floor": 0.9355272602348208,
+      "d_top16_mass": -0.06587426127438861,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 7.6404593382330575,
+      "floor": 0.09361334702248314,
+      "d_top16_mass": -0.015129092291500834,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 7.203339698855842,
+      "floor": 0.169487922302352,
+      "d_top16_mass": -0.00950832595611794,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 34.6429223837915,
+      "floor": 0.8413217080802298,
+      "d_top16_mass": -0.0741790207281779,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 97.83880570303107,
+      "floor": 1.5535954105083363,
+      "d_top16_mass": -0.14669488153409616,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 0,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -24.249890236356805,
+      "floor": 0.10955826475540675,
+      "d_top16_mass": 0.01644246972133523,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 67.15325385725527,
+      "floor": 1.0038779221908953,
+      "d_top16_mass": -0.09406253236042382,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 30.302603756616463,
+      "floor": 0.15630026501037264,
+      "d_top16_mass": -0.04007588128694426,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 10.92734740056784,
+      "floor": 0.2299734961818558,
+      "d_top16_mass": -0.015191651919935156,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 2.6361138006453757,
+      "floor": 0.7695460660882816,
+      "d_top16_mass": -0.020794114758762042,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 74.079433993535,
+      "floor": 0.5915665942778503,
+      "d_top16_mass": -0.11702916236840638,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 1,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -37.150196053789514,
+      "floor": 0.2602788576357682,
+      "d_top16_mass": 0.022916661947331878,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 69.65933574720555,
+      "floor": 0.6305655923719939,
+      "d_top16_mass": -0.08933169886379329,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 20.8799981190661,
+      "floor": 0.2155840144649801,
+      "d_top16_mass": -0.040253154945729834,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 1.6508437824497548,
+      "floor": 0.1483477420589452,
+      "d_top16_mass": -0.0026872022746770863,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 17.767332544335915,
+      "floor": 1.040592494845086,
+      "d_top16_mass": -0.04143321167629817,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 65.45128907706625,
+      "floor": 0.3399696798445859,
+      "d_top16_mass": -0.09455583044366311,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 2,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -17.87105128422202,
+      "floor": 0.25555507168817826,
+      "d_top16_mass": -0.014125942255024587,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 78.11000534259576,
+      "floor": 0.5691186524650504,
+      "d_top16_mass": -0.09289883769108216,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 34.280233814402436,
+      "floor": 0.12968000920804457,
+      "d_top16_mass": -0.052663401992860244,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 31.487457779770068,
+      "floor": 0.14579838402733003,
+      "d_top16_mass": -0.030753851523668725,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 6.897886304293053,
+      "floor": 0.9693329211999924,
+      "d_top16_mass": 0.018319116801670143,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 85.19311395502258,
+      "floor": 0.6301770816383794,
+      "d_top16_mass": -0.11799775444025436,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 3,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": 14.138149635115013,
+      "floor": 0.5807304785094516,
+      "d_top16_mass": -0.005191003114164844,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 57.58300309673322,
+      "floor": 0.9150486705971446,
+      "d_top16_mass": -0.1099042101317944,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 36.41785876917328,
+      "floor": 0.3665093959755552,
+      "d_top16_mass": -0.05779817886148212,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 5.958028788096101,
+      "floor": 0.11597668805757166,
+      "d_top16_mass": -0.016396771270435047,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 6.435378024845221,
+      "floor": 0.8077966623877728,
+      "d_top16_mass": -0.012570381547078235,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 59.48862227958024,
+      "floor": 1.0308975284999207,
+      "d_top16_mass": -0.12341396443705707,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 4,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -24.363092449370498,
+      "floor": 0.22931659899239776,
+      "d_top16_mass": 0.007252615996731847,
+      "d_n_outliers": -1.0,
+      "n_steps_mp_valid": 7
+     },
+     {
+      "layer": 5,
+      "type": "K",
+      "n_steps": 102,
+      "d_eff_rank": 77.52561941524057,
+      "floor": 0.2978896989539521,
+      "d_top16_mass": -0.1213334139622392,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "MLP_IN",
+      "n_steps": 102,
+      "d_eff_rank": 61.98923358826531,
+      "floor": 0.19036231190494846,
+      "d_top16_mass": -0.07284617033646898,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "MLP_OUT",
+      "n_steps": 102,
+      "d_eff_rank": 40.71432628650345,
+      "floor": 0.35642700579887787,
+      "d_top16_mass": -0.0457013754569467,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "O",
+      "n_steps": 102,
+      "d_eff_rank": 34.480855646144704,
+      "floor": 0.24226328784476436,
+      "d_top16_mass": -0.053661682842806056,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "Q",
+      "n_steps": 102,
+      "d_eff_rank": 83.42081576953467,
+      "floor": 0.4831936553750751,
+      "d_top16_mass": -0.14345650639852242,
+      "d_n_outliers": NaN,
+      "n_steps_mp_valid": 0
+     },
+     {
+      "layer": 5,
+      "type": "V",
+      "n_steps": 102,
+      "d_eff_rank": -20.180410979836495,
+      "floor": 0.19938974491049066,
+      "d_top16_mass": -0.00402416746110279,
+      "d_n_outliers": -2.0,
+      "n_steps_mp_valid": 3
+     }
+    ],
+    "window": "W2",
+    "pair": [
+     "A2",
+     "M0s2"
+    ]
+   }
+  ],
+  "across_seeds": "mixed / unresolved"
+ }
+}
