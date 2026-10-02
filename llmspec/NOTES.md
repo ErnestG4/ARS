@@ -191,6 +191,11 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Arm B ADDENDUM (Will 10-01 21:40): parametric spectral dynamics** — armb/PARAMETRIC_DYNAMICS_PLAN.md. Phase 0 (CPU,
+  spot): M2/M3 pipeline + calibrators C1–C5 with red paths; phase 1 (CPU): M1/M3/M5/M6 on the banked dense arms + A0r as
+  the floor pair; phase 2 (GPU, after the Q4 ext): AdamW + Muon pilots, 2000 steps, per-step σ side-worker + M4 Gram hook
+  (sealed amendment); phase 3 production = Will's budget call. Timely option: seal the M4 hook before M0s1's extension
+  starts (~05:00 10-02) — needs Will's word.
 - **OLMo plan (1) step 0: OLMO_PREMISE_PREREG.md DRAFTED (needs Will's seal = commit on his word):** gain-folded dip tests
   (raw vs diag(g)·W_Q), a row-norm confusable licence class, per-head predictor table, the three ingredient finals as the
   endpoint (seed replicates), dead-row depth vs the weight-decay bound; verdict vocabulary declared. CPU/lean-box work.

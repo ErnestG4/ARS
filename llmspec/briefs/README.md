@@ -56,3 +56,10 @@ Interrupt: `touch llmspec/STOP` (clean exit between tensors). Resume: rerun the 
 - **Decisions:** arm-B re-extraction runs on spot's CPUs (not beside A0r); held-out set CONFIRMED (explore on 1.4B +
   seeds 1–5; seeds 6–9 and other sizes unread); prediction figure + prereg skeleton with decision regions per panel
   (including CC's head-scale knee) BEFORE any arm-A code.
+
+## Arm B addendum — parametric spectral dynamics (Will, 2026-10-01)
+Will's addendum (https://claude.ai/code/artifact/33c76b0f-c2cc-4965-9bec-a5e7ebfb497a): measure how the spectrum MOVES
+during training in our own dense AdamW/Muon runs — M1 eigenvalue trajectories, M2 parametric bulk statistics (unfolded
+level velocities, Simons–Altshuler C(x), Zakrzewski–Delande curvature), M3 edge/outlier dynamics (avoided crossings),
+M4 trajectory-Gram replication of Xu's k*, M5 context metrics, M6 event rates; predictions P1–P6; calibrators C1–C8; a
+pilot sets the checkpoint cadence. Integrated as armb/PARAMETRIC_DYNAMICS_PLAN.md (phases 0–3; CC review notes).
