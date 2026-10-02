@@ -27,3 +27,17 @@ is written by CC under the no-stalling rule (Will can veto any item; nothing her
   is reported beside Q4's "123/368 cells" as the Muon-side analogue of the AdamW seed SD. No cell count is re-read.
 - Extraction and plotting through the sealed B4 extractor (b4_extract.run_arm with the arm's stop extended at runtime,
   as a0r_score.py does) and a descriptive script committed before it runs.
+
+## Amendment 1 (2026-10-01 22:30): M4 trajectory-Gram hook present but OFF
+- `train.py` gained `M4Gram`, a read-only per-step hook (W = 10 Gram of flattened updates per matrix type + their exact
+  sum; fp32 buffer ~2.8 GB; any exception disables it; enabled ONLY by `LLMSPEC_M4=1` or the marker `armb/M4_ENABLE`).
+  Default OFF; no marker exists; nothing in this queue runs with it.
+- Will's three preconditions for turning it on for M0s1's extension were tested (`armb/m4_ab.sh`, `m4_ab_compare.py`,
+  `results/armb_m4_ab.json`): (1) memory: peak 10172 MiB with the hook vs ~9300 without — fits; (2) the hook cannot kill
+  training: no exception in 100 steps, 100 rows written; (3) A/B from the same resume.pt (step 6000, 100 steps): NOT
+  identical — losses equal to printed precision through step 6004, then diverging to median |Δloss| 8.2e-4, max 1.2e-2
+  at step 6100; weights median 3.3e-3 relative Frobenius difference, max 2.6e-2 (layer 3 attention.dense). The only
+  measured floor (A0 vs A0r: bit-identical for 100 fresh steps) is not met, so the "read-only" claim is NOT confirmed:
+  the cause (allocation-dependent kernel selection vs resumed-run nondeterminism) is undetermined; an off/off control
+  from the same resume.pt is queued for the pilot phase. **M4 is not enabled for M0s1 or M0s3.** A0 resumed at 6000
+  after the A/B (no steps lost); the queue continues unchanged.

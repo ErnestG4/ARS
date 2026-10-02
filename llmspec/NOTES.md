@@ -191,6 +191,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **M4 hook A/B (10-01 22:20): NOT within the floor** (same resume.pt, 100 steps: weights median 3e-3 rel diff, loss
+  diverging from the last bit); hook kept in train.py, OFF (no armb/M4_ENABLE); not enabled for M0s1/M0s3; off/off control
+  queued for the pilot phase. results/armb_m4_ab.json; Q4EXT_PREREG Amendment 1.
 - **Arm B ADDENDUM (Will 10-01 21:40): parametric spectral dynamics** — armb/PARAMETRIC_DYNAMICS_PLAN.md. Phase 0 (CPU,
   spot): M2/M3 pipeline + calibrators C1–C5 with red paths; phase 1 (CPU): M1/M3/M5/M6 on the banked dense arms + A0r as
   the floor pair; phase 2 (GPU, after the Q4 ext): AdamW + Muon pilots, 2000 steps, per-step σ side-worker + M4 Gram hook

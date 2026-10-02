@@ -209,6 +209,43 @@ class Uploader(threading.Thread):
                 self.q.task_done()
 
 
+class M4Gram:
+    """M4 trajectory-Gram hook (armb/PARAMETRIC_DYNAMICS_PLAN.md phase 2; Q4EXT amendment, 2026-10-01). READ-ONLY
+    instrumentation: keeps the last W flattened per-step updates of each tracked matrix type (TYPES) as fp32 on the GPU
+    (~2.8 GB at 70M for W = 10) and writes, every step, the W x W Gram matrix of those updates per type (newest last) to
+    <stage>/m4_gram.jsonl; the whole-model Gram over the tracked types is the sum of the per-type Grams (exact: the
+    flattened vectors concatenate), so no second buffer is kept. k* and gap ratios are computed offline (Xu, Spectral
+    Edge Dynamics). Enabled only by env LLMSPEC_M4=1 or the marker file armb/M4_ENABLE. Any exception disables the hook
+    and training continues (self.err is logged, never raised): the hook cannot kill a run."""
+    def __init__(self, stage, W=10):
+        self.W = W; self.buf = {}; self.err = None; self.on = True; self.n = 0
+        self.f = open(stage / "m4_gram.jsonl", "a")
+
+    def step(self, step, model, before):
+        if not self.on:
+            return
+        try:
+            with torch.no_grad():
+                upd = {}
+                for n, p in model.named_parameters():
+                    for T_, suf in TYPES.items():
+                        if n.endswith(suf):
+                            upd.setdefault(T_, []).append((p.detach() - before[n]).reshape(-1).float())
+                rec = {"step": step, "W": self.W}; tot = None
+                for T_, parts in upd.items():
+                    v = torch.cat(parts); b = self.buf.setdefault(T_, []); b.append(v)
+                    if len(b) > self.W:
+                        b.pop(0)
+                    G = (torch.stack(b) @ torch.stack(b).T).double().cpu().numpy()
+                    rec[T_] = {"n": len(b), "gram": G.tolist()}
+                    tot = G if tot is None else (tot + G if tot.shape == G.shape else tot)
+                rec["ALL_tracked"] = {"n": int(tot.shape[0]), "gram": tot.tolist(), "note": "sum of per-type Grams"}
+            self.f.write(json.dumps(rec) + "\n"); self.f.flush(); self.n += 1
+        except Exception as e:                                   # never propagate: disable and keep training
+            self.on = False; self.err = repr(e)
+            print("M4 hook DISABLED after", self.n, "steps:", self.err, flush=True)
+
+
 class GatePuller(threading.Thread):
     def __init__(self, stopfile):
         super().__init__(daemon=True); self.stopfile = stopfile; self.last = []; self.done = threading.Event()
@@ -260,6 +297,8 @@ def main():
     from grids import arm_grid
     grid = set(arm_grid(a.arm, stop)); up = Uploader(arm); up.start()      # B1a-A8: A2 dense 1000-2200
     gate = GatePuller(ROOT / "STOP") if a.arm == "A0" and not a.test else None
+    m4 = M4Gram(stage) if (os.environ.get("LLMSPEC_M4") == "1" or (ROOT / "armb" / "M4_ENABLE").exists()) else None
+    print("M4 hook:", "ON" if m4 else "off", flush=True)
     if gate:
         gate.start()
 
@@ -303,6 +342,8 @@ def main():
             for T_, suf in TYPES.items():
                 if n.endswith(suf):
                     dW[T_] = dW.get(T_, 0.0) + float(((p.detach() - before[n]) ** 2).sum())
+        if m4:
+            m4.step(step, model, before)                         # read-only; disables itself on any exception
         rec = {"step": step, "loss": tot, "lr": lr, "grad_norm_preclip": gn, "dW_norm": {t: v ** 0.5 for t, v in dW.items()},
                "loss_scale": scale, "overflow": overflow, "n_applied": n_applied, "n_skipped": n_skipped,
                "batch_sha256": bh, "time": time.time()}
