@@ -191,6 +191,12 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Parametric-dynamics phase 0 SEALED 10-02 ~05:00:** armb/pdyn_m2.py (unfold → velocities, C(x), ZD curvature; kde(32),
+  local ⟨v²⟩, windows split at 500), pdyn_m3.py (Hungarian matching, Davis–Kahan gap rule, crossings), pdyn_calib.py
+  (C1 smooth β=1 + literal DBM, C2 β=2 + Poisson, C3, C4 fp32, C5, planted crossing), verify_pdyn.py (PASS; red path
+  fires), PDYN_PIPELINE_NOTES.md (ZD normalisation CONFIRMED via Fyodorov 1108.0950; discrimination sample sizes; cadence
+  tail loss). Phase 1 (re-analysis of the banked arms) may start on spot CPU: NEXT CPU ITEM once Will OKs the PDYN prereg
+  wording (P1–P6 as in the addendum; curvature/M3 PROVISIONAL at bank cadence).
 - **CRASH 10-02 ~00:03 (WSL/host; Will: another build job shares the box 03:15–~04:15, CPU only).** A0 extension died at
   ~step 6800; RELAUNCHED 03:15 from resume.pt 6750 (ext_queue.sh, pid armb/ext_queue.pid); queue → M0s1 → M0s3 unchanged.
   Hourly alarm 5ca8cfb7 survived; waits re-armed; memwatch up. pdyn verifier: normal PASS (CHECKRUN 10-01 23:5x);
