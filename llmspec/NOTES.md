@@ -191,6 +191,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **pdyn PHASE 1 RUNNING (10-02 05:45, this box CPU, nice, 8 workers, ~1 h):** `armb/pdyn_phase1.py` on the banked arms
+  A0 A1 A2 M0s1 M0s2 A0r → results/armb_pdyn_phase1/ (run.log; summary.json at the end). Prereg PDYN_PREREG.md (4405874);
+  runner committed before the run. Resumable (re-run the same command).
 - **Parametric-dynamics phase 0 SEALED 10-02 ~05:00:** armb/pdyn_m2.py (unfold → velocities, C(x), ZD curvature; kde(32),
   local ⟨v²⟩, windows split at 500), pdyn_m3.py (Hungarian matching, Davis–Kahan gap rule, crossings), pdyn_calib.py
   (C1 smooth β=1 + literal DBM, C2 β=2 + Poisson, C3, C4 fp32, C5, planted crossing), verify_pdyn.py (PASS; red path
