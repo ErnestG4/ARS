@@ -191,6 +191,11 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **A0 EXTENSION DONE 10-02 10:12 (step 10000; 70 checkpoints every 100 past 3000 on spot:ckpt/A0, sha-verified).
+  M0s1 extension RUNNING since 10:12 (resumed 3000 → 10000; M4 off as sealed); M0s3 follows. NEXT GPU ITEM after the
+  queue: Q4EXT descriptive extraction (b4_extract.run_arm with stops extended at runtime, as a0r_score.py does) for
+  A0/M0s1/M0s3 + a descriptive plotting script committed before it runs (Q4EXT_PREREG §2). Local staging/A0 bank for
+  the extension does not exist yet (cache/armb/A0 ends at 3000).**
 - **pdyn attribution controls DONE 10-02 ~08:10 (PDYN_FINDINGS §6; results/armb_pdyn_c9):** density drift (C9) does NOT
   reproduce the C(x) departure (43/48 stay at C1; a 50× planted drift does fill the dip); a β=1 process with SHORT velocity
   memory (OU τ_v 5–10 steps) REPRODUCES C(x) and curvature (44–45/48). P2 word stays FAILS-as-sealed; attribution = wrong
