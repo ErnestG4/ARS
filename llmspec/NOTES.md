@@ -191,7 +191,13 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
-- **BULK_INIT_OVERLAP real run RUNNING on spot (10-02 22:53, tmux claude, ~/llmspec_bio/run_bio.sh; log bio_run.log;
+- **BULK_INIT_OVERLAP DONE 10-03 02:13 → verdict MIXED for both rows (BULK_INIT_OVERLAP_FINDINGS.md):** normal runs leave
+  the init smoothly (ρ_bulk 0.24 / 0.19 at 143k; E_init 0.5 % / 0.3 %; α̂ > α_wd — red flag fired the other way); by type O
+  lowest (0.06; MP-shape ≠ init memory), MLP_IN highest (0.73); init memory falls with depth into the spectrum. **Seeds 3/4:
+  late checkpoints re-correlate with the init (seed 4 at 128k: ρ 0.99, α̂ 0.97) = early-training signature → PROVENANCE
+  ANOMALY; polypythias_restart_check.py RUNNING on spot (log ~/llmspec_bio/restart_check.log) to settle restart/mislabel.**
+  Lead 6 and the MF §3 'lose it after the spike' remark are suspended pending that check.
+- (done) **BULK_INIT_OVERLAP real run RAN on spot (10-02 22:53, tmux claude, ~/llmspec_bio/run_bio.sh; log bio_run.log;
   results ~/llmspec_bio/results; 1.4B then seeds 1–5, 26 revs + step1; ~1–1.5 h):** prereg 91e1308 + A1 b42d2c3; code sealed
   063b6d6. After: pull results → bulk_init_overlap_verdict.py → BULK_INIT_OVERLAP_FINDINGS.md (words INIT-DOMINATED /
   LEARNED / MIXED per row; continuity gate first).
