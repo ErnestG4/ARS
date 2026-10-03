@@ -109,3 +109,17 @@ Trajectory (DESCRIPTIVE): Arm B **A0** checkpoints (GPTNeoX, pythia-70m config, 
 `divisor/DIVISOR_FINDINGS.md`; `results/divisor/<tag>_last_primary.json` (+ `_all`, `_first`), figures under
 `plots/divisor/`; open-leads section. GPU: minutes per model, only when NOTES §4 reads `GPU_STATUS: FREE` and the ext_queue
 is idle. CPU nulls: spot (`~/llmspec_div/`, tmux `claude`, numpy only) or this box.
+
+## Amendment A1 (2026-10-03, BEFORE any real activation is read; from the synthetic end-to-end run of `divisor_spectrum.py`)
+- **§6 H1 HOLDS loses its third clause.** The clause "smallest detectable excess ≤ observed R_d" was self-defeating: a large
+  real excess contaminates the two-parameter fit (σ̂ drops, L̂ flattens), and the planted-power table computed under that
+  contaminated L̂ degrades (synthetic months with a planted f = 0.8 in d = 4: Holm rejection at z = 24 while the table read
+  "none detectable"). H1 HOLDS iff Holm rejects (c, d) in the primary model AND every control gate passes. The power table
+  governs ONLY the H0 HOLDS / NOT RESOLVABLE split and is reported beside every verdict.
+- **σ̂ degeneracy, declared:** for σ ≳ N/2 (domain units) every lattice Lorentzian collapses onto the 1/(1 − cos(2πn/N))
+  shape, so the grid maximum (316) is read as "at the 1/(1−cos) limit", not as a correlation length. The fitted SHAPE is
+  what the class statistics use; σ̂ is descriptive (as already declared).
+- **Power table under contamination:** the table is computed under the fitted L̂ of the real spectrum, so where a real excess
+  exists it understates power. Reported as such; no re-fit excluding classes (that would be a method change).
+- Figures script `divisor_plots.py` and the spot runner `run_spectrum_spot.sh` added (no analysis change).
+
