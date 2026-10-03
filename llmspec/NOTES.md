@@ -191,6 +191,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Divisor Harmonics v0 PRIMARY READ DONE 10-03 09:30 (divisor/DIVISOR_FINDINGS.md):** gates PASS ×3 models; numbers H1 HOLDS
+  d=2,4,5,10 (z 28/12/41/9 at 1.4B; replicates 410M, 70M); months NOT RESOLVABLE (power: ≥40 % excess needed); hours H0 HOLDS
+  d=3,4, bets NOT RESOLVABLE, parity d=2 positive 3/3 (not rejected). A0 trajectory: period 5 first (step 256), 10 & 2 by 1500,
+  4 by 6000; hour parity rejected from 3000. PENDING on spot: first-token + per-layer descriptive passes (A2 fix), wait armed.
 - **Q4EXT descriptive extraction LAUNCHED 10-03 ~08:50 (armb/q4ext_run.sh → q4ext_run.log):** q4ext_extract.py (sealed B4
   extractor with stops extended at runtime, as a0r_score.py; A0/M0s1 70 new ckpts each, M0s3 161; then DW0 pass: ‖W_t−W_0‖_F,
   ‖W_t‖_F, σ₁ per layer/type at the 100-step cadence) then q4ext_descriptive.py (results/armb_q4ext_descriptive.json,
