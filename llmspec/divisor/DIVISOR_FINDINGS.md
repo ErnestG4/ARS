@@ -142,6 +142,45 @@ not there at 128 and was at 256; a smaller one could be earlier.
   Lorentzian power is excluded descriptively; smaller ones are not.
 - Both shift classes (d = 6, 8) read negative in both columns in all models.
 
+## 7. A3 — token-frequency control for the numbers result (sealed 5914913; run 2026-10-03 11:20; results/divisor/numbers_freq_control.json)
+Counts: the exact item tokens ' 0' … ' 99' over the 6.29 × 10⁹-token Pile sample on spot (3000 seed-1 batches; results/
+divisor/number_token_counts.json). The comb is real in the counts: frequency falls steeply with magnitude (' 0' 8.0 M, ' 1'
+6.8 M, ' 9' 1.5 M, ' 99' ≈ 0.2 M) with local peaks at multiples of 10 (' 10' 2.39 M vs ' 9' 1.51 M / ' 11' 0.92 M), at
+multiples of 5 and at powers of 2 (' 32' 279 k, ' 64' 164 k vs neighbours ≈ 150 k).
+- **Can-fire prerequisite (sealed, > 10 % of the covariate's DFT power in d ∈ {2, 4, 5, 10}): reads 0.097 → NOT MET
+  by the letter.** The mean-centred log-frequency profile is dominated by the smooth magnitude decay (trivial class d = 100:
+  0.62 of its power; d = 50, the one-digit/two-digit step: 0.19); its comb part is d = 5 0.068, d = 10 0.016, d = 2 0.010, d = 4 0.003 — concentrated on exactly the
+  right harmonics (4 of 50 harmonics carrying 6.8 % is 3.4× flat) but 9.7 % in total against the declared 10 %. **As
+  sealed, the control is INAPPLICABLE; the residualisation below is reported as DESCRIPTIVE, and the threshold is not
+  moved.**
+- **Residualisation (run anyway, same script):** the linear log-frequency direction explains 16 % / 18 % / 16 % of the
+  centred numbers matrix (1.4B / 410M / 70M; quadratic 22 % / 25 % / 21 %) — a large magnitude component — and
+  removing it leaves every class excess unchanged or larger:
+| model | d | before z / R | linear-resid z / R | quadratic-resid z / R | Holm p_adj (linear) | smallest f (resid) | word (descriptive) |
+|---|---|---|---|---|---|---|---|
+| pythia-1.4b | 2 | +28.5 / +9.13 | +31.6 / +8.71 | +30.9 / +7.98 | 0.00425 | 0.02 | SURVIVES |
+| pythia-1.4b | 4 | +12.3 / +2.78 | +13.4 / +2.72 | +13.3 / +2.54 | 0.00425 | 0.02 | SURVIVES |
+| pythia-1.4b | 5 | +40.8 / +7.16 | +45.2 / +6.94 | +45.9 / +6.61 | 0.00425 | 0.02 | SURVIVES |
+| pythia-1.4b | 10 | +8.9 / +1.67 | +11.9 / +1.89 | +13.0 / +1.96 | 0.00425 | 0.05 | SURVIVES |
+| pythia-410m | 2 | +31.5 / +11.07 | +36.3 / +10.44 | +34.0 / +9.49 | 0.00425 | 0.02 | SURVIVES |
+| pythia-410m | 4 | +10.6 / +2.64 | +12.0 / +2.57 | +11.8 / +2.37 | 0.00425 | 0.02 | SURVIVES |
+| pythia-410m | 5 | +37.3 / +7.31 | +43.9 / +7.03 | +43.9 / +6.65 | 0.00425 | 0.02 | SURVIVES |
+| pythia-410m | 10 | +7.8 / +1.62 | +10.9 / +1.85 | +11.8 / +1.91 | 0.00425 | 0.05 | SURVIVES |
+| pythia-70m | 2 | +26.1 / +8.29 | +28.8 / +7.96 | +27.1 / +7.43 | 0.00425 | 0.02 | SURVIVES |
+| pythia-70m | 4 | +3.8 / +0.87 | +4.4 / +0.82 | +4.0 / +0.76 | 0.00425 | 0.02 | SURVIVES |
+| pythia-70m | 5 | +25.8 / +4.55 | +29.3 / +4.35 | +29.2 / +4.17 | 0.00425 | 0.02 | SURVIVES |
+| pythia-70m | 10 | +6.1 / +1.15 | +8.6 / +1.34 | +9.4 / +1.41 | 0.00425 | 0.05 | SURVIVES |
+- **Reading.** An activation component LINEAR (or quadratic) in log token frequency cannot be what carries the period-2/4/
+  5/10 excess: projecting that component out (comb part included, since the regression removes the whole direction along
+  c) changes none of the z-scores (they rise slightly as the smooth magnitude part leaves the Lorentzian baseline). What
+  this does NOT exclude: an activation feature that tracks the comb part of frequency separately from its magnitude part
+  (a non-linear frequency effect, e.g. a "round number" feature). That is the covariate the sealed rule says can fire,
+  and it is drafted as A4 for Will (prereg), not run.
+- The 1.4B deficits at d = 20, 25 (z ≈ −2) are unchanged (contamination signature, A1).
+- Status of §3's framing after A3: periods 2, 5, 10 (replication of Zhou et al. / Kantamneni–Tegmark) and period 4 (new)
+  are NOT a linear log-frequency comb; "new" still waits on A4 (detrended-comb covariate) because the sealed control did
+  not fire by its own letter.
+
 ## 6. Open leads (not claims)
 1. Hour parity (d = 2): same sign in 3/3 released models and a Holm rejection along the A0 trajectory — is it the
    even/odd token-frequency structure of "H:00" times (e.g. 12:00/18:00 vs 13:00/19:00 usage), or a representation of

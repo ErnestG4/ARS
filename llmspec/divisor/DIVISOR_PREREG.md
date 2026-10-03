@@ -160,3 +160,16 @@ of divisibility; the trajectory's early onset (step 256, when small models learn
   (verified, prereg §0). So periods 2, 5, 10 REPLICATE published findings in the divisor framing; period 4 is the part
   not in those papers and the one most exposed to the frequency comb (powers of 2 in computing text).
 
+## Amendment A4 (DRAFT for Will's seal, 2026-10-03; written AFTER A3's read, NOT in force)
+A3's sealed can-fire prerequisite read 0.097 against the declared 0.10: the log-frequency profile is mostly the smooth
+magnitude decay, so by its letter the control is INAPPLICABLE even though the regression (run descriptively) removed the
+whole log-frequency direction and changed no class z. A4 names the covariate that CAN fire:
+- **Detrended comb covariate:** c_comb,i = log(count_i + 1) − s_i, where s is the least-squares cubic in log(i + 1) over
+  i = 0 … 99 (the smooth magnitude trend); mean-centred. Can-fire check as in A3 (> 10 % of c_comb's DFT power in
+  d ∈ {2, 4, 5, 10}; expected to pass by construction, reported).
+- Residualisation and reading exactly as A3 (linear primary; quadratic secondary; SURVIVES / VANISHES / NOT RESOLVABLE per
+  class; 1.4B primary, 410M / 70M beside). The same verifier (`verify_divisor_freq.py`) covers it: its synthetic profile
+  is already a detrended comb.
+- Both covariates (A3's c and A4's c_comb) jointly as a third column (removes magnitude AND comb at once).
+- What A4 cannot exclude either: a frequency effect that is non-linear in the comb part itself (e.g. saturating). Declared.
+

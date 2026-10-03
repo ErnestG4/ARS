@@ -1,0 +1,15 @@
+comb profile: class power fractions {2: 0.01, 4: 0.003, 5: 0.068, 10: 0.016, 20: 0.031, 25: 0.067, 50: 0.188, 100: 0.616} can_fire: False
+  numbers|pythia-1.4b|resid N=100 d=2048 k_eff=24 sigma=0.033 rho1=0.413 cycle_p=0.0001 white_p=0.000 z={2: 31.57, 4: 13.4, 5: 45.17, 10: 11.9, 20: -2.18, 25: -2.41, 50: 0.6, 100: 2.08} smallest_f={2: 0.02, 4: 0.02, 5: 0.02, 10: 0.05, 20: 0.1, 25: 0.1, 50: 0.1, 100: 0.2}
+  pythia-1.4b linear: explained 0.161; words {'2': 'SURVIVES', '4': 'SURVIVES', '5': 'SURVIVES', '10': 'SURVIVES'}; z { 2: 31.6, 4: 13.4, 5: 45.2, 10: 11.9 }
+  numbers|pythia-1.4b|residQ N=100 d=2048 k_eff=26 sigma=0.029 rho1=0.359 cycle_p=0.0001 white_p=0.000 z={2: 30.88, 4: 13.26, 5: 45.94, 10: 12.97, 20: -1.95, 25: -2.25, 50: 0.87, 100: -1.19} smallest_f={2: 0.02, 4: 0.02, 5: 0.02, 10: 0.05, 20: 0.1, 25: 0.1, 50: 0.1, 100: 0.2}
+  pythia-1.4b quadratic: explained 0.223; words {'2': 'SURVIVES', '4': 'SURVIVES', '5': 'SURVIVES', '10': 'SURVIVES'}; z { 2: 30.9, 4: 13.3, 5: 45.9, 10: 13.0 }
+  numbers|pythia-410m|resid N=100 d=1024 k_eff=22 sigma=0.035 rho1=0.428 cycle_p=0.0001 white_p=0.000 z={2: 36.28, 4: 12.0, 5: 43.87, 10: 10.93, 20: -2.14, 25: -1.92, 50: 0.39, 100: 2.63} smallest_f={2: 0.02, 4: 0.02, 5: 0.02, 10: 0.05, 20: 0.1, 25: 0.1, 50: 0.1, 100: 0.2}
+  pythia-410m linear: explained 0.183; words {'2': 'SURVIVES', '4': 'SURVIVES', '5': 'SURVIVES', '10': 'SURVIVES'}; z { 2: 36.3, 4: 12.0, 5: 43.9, 10: 10.9 }
+  numbers|pythia-410m|residQ N=100 d=1024 k_eff=24 sigma=0.030 rho1=0.369 cycle_p=0.0001 white_p=0.000 z={2: 34.02, 4: 11.82, 5: 43.92, 10: 11.75, 20: -1.97, 25: -1.71, 50: 0.58, 100: -0.68} smallest_f={2: 0.02, 4: 0.02, 5: 0.02, 10: 0.05, 20: 0.1, 25: 0.1, 50: 0.1, 100: 0.2}
+  pythia-410m quadratic: explained 0.249; words {'2': 'SURVIVES', '4': 'SURVIVES', '5': 'SURVIVES', '10': 'SURVIVES'}; z { 2: 34.0, 4: 11.8, 5: 43.9, 10: 11.8 }
+  numbers|pythia-70m|resid N=100 d=512 k_eff=25 sigma=0.029 rho1=0.406 cycle_p=0.0001 white_p=0.000 z={2: 28.77, 4: 4.36, 5: 29.25, 10: 8.6, 20: -1.84, 25: -2.73, 50: 1.1, 100: 1.39} smallest_f={2: 0.02, 4: 0.02, 5: 0.02, 10: 0.05, 20: 0.05, 25: 0.1, 50: 0.1, 100: 0.2}
+  pythia-70m linear: explained 0.156; words {'2': 'SURVIVES', '4': 'SURVIVES', '5': 'SURVIVES', '10': 'SURVIVES'}; z { 2: 28.8, 4: 4.4, 5: 29.3, 10: 8.6 }
+  numbers|pythia-70m|residQ N=100 d=512 k_eff=26 sigma=0.025 rho1=0.358 cycle_p=0.0001 white_p=0.000 z={2: 27.12, 4: 3.97, 5: 29.25, 10: 9.41, 20: -1.67, 25: -2.6, 50: 1.45, 100: -1.42} smallest_f={2: 0.02, 4: 0.02, 5: 0.02, 10: 0.05, 20: 0.05, 25: 0.1, 50: 0.1, 100: 0.2}
+  pythia-70m quadratic: explained 0.211; words {'2': 'SURVIVES', '4': 'SURVIVES', '5': 'SURVIVES', '10': 'SURVIVES'}; z { 2: 27.1, 4: 4.0, 5: 29.2, 10: 9.4 }
+WROTE results/divisor/numbers_freq_control.json FREQ_CONTROL_DONE
+RUN EXIT 0
