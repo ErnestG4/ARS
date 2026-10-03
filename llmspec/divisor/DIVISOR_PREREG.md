@@ -129,3 +129,34 @@ is idle. CPU nulls: spot (`~/llmspec_div/`, tmux `claude`, numpy only) or this b
   `--layers primary`). `run_concept` and every statistic are untouched; the 26 primary results written before the fix
   stand as read.
 
+## Addendum A3 (2026-10-03, Will's review; SEALED at its commit, BEFORE any token count or residualised activation is read)
+**Numbers: rule out token frequency first.** Round numbers dominate text (multiples of 5 and 10, even numbers, powers of
+2), so an activation component that tracks an item's log-frequency produces peaks at periods 2, 4, 5, 10 with no concept
+of divisibility; the trajectory's early onset (step 256, when small models learn unigram/bigram statistics) sharpens this.
+- **Frequency source:** the Pile sample banked on spot (`~/llmspec_armb/data/seed1_batches`, 3002 batches × 1024 × 2049
+  uint16 tokens ≈ 6.3 × 10⁹ tokens; PolyPythias seed-1 order = a uniform shuffle of the Pile, so unigram frequencies equal
+  the Pile's in expectation). Counted: the exact item tokens ' 0' … ' 99' (space-prefixed, as in the frozen templates);
+  the bare tokens '0' … '99' are counted beside them (descriptive). numpy bincount; `divisor_freq_control.py count`.
+- **Covariate:** c_i = log(count_i + 1), mean-centred over the 100 items. **Can-fire prerequisite:** the class
+  decomposition of c's own DFT must put > 10 % of its power in d ∈ {2, 4, 5, 10}; otherwise the control is INAPPLICABLE
+  (a comb that is not there cannot be regressed out).
+- **Residualisation (primary, linear):** on the primary numbers matrix (blocks 8–15 averaged, template mean X̄, 100 × d),
+  β = OLS slope of X̄ on c; X′ = X − c βᵀ applied to every template (same β). **Secondary (quadratic):** c and c² − mean.
+  Then the SEALED class test (`run_concept`, unchanged) on X′, Holm over the same 17 tests with the other concepts' p-values
+  from the primary read.
+- **Reading per class d ∈ {2, 4, 5, 10} (primary 1.4B; 410M / 70M beside it):** SURVIVES iff Holm still rejects after the
+  linear residualisation; VANISHES iff not rejected and the smallest detectable f on the residual geometry ≤ 0.2;
+  NOT RESOLVABLE otherwise. The explained fraction ‖c βᵀ‖²/‖X̄‖² and R_d before/after are reported.
+- **Scope:** a linear log-frequency regression removes a rank-1 frequency component; a non-linear frequency effect is not
+  excluded by it (declared; the quadratic column is the one step beyond linear taken here).
+- **Verifier `verify_divisor_freq.py` (`--redpath`):** synthetic comb (profile with peaks at multiples of 10, 5, 2 and
+  powers of 2) is detected before and VANISHES after residualisation; a genuine class-5 plant built orthogonal to the
+  profile SURVIVES; a shuffled (wrong-instance) covariate leaves the comb; red path: oracle covariates (the class's own
+  harmonics, not the sealed covariate) erase a genuine plant.
+- **Citations (verified 10-03):** Zhou, Fu, Sharan, Jia, "Pre-trained Large Language Models Use Fourier Features to
+  Compute Addition", arXiv 2406.03445 (NeurIPS 2024 per Will; venue not shown on the fetched arXiv page → UNVERIFIED):
+  outlier Fourier components with periods 2, 2.5, 5 and 10 (§3.2, §4.1; GPT-2-XL and others; numbers ≤ 260). Period 2.5
+  on the integer lattice is frequency 2/5 → class d = 5 here. Kantamneni & Tegmark 2502.00873: T = [2, 5, 10, 100]
+  (verified, prereg §0). So periods 2, 5, 10 REPLICATE published findings in the divisor framing; period 4 is the part
+  not in those papers and the one most exposed to the frequency comb (powers of 2 in computing text).
+
