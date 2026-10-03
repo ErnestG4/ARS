@@ -41,3 +41,22 @@ At the final checkpoint (143000), over the 144 (1.4B) + 5 × 144 (seeds) matrice
 ## 4. Deliverables
 `bulk_init_overlap.py` (committed before the first real run; synthetic known-answers + nulls in `verify_bulk_init_overlap.py`
 with `--redpath`), `results/bulk_init_overlap/*.{json,csv}`, `BULK_INIT_OVERLAP_FINDINGS.md`.
+
+## Amendment A1 (2026-10-02, BEFORE any real read; from lit review v2 agent A2, lit/v2/A2.md)
+- **Step-0 continuity gate per run:** EleutherAI/pythia issue #203 reports PolyPythias seed runs whose step ≥ 1 checkpoints
+  do not descend from their own step-0 upload. Before reading a run, require ‖W₁ − W₀‖_F / ‖W₀‖_F ≈ lr₁ / σ_init (≈ 1e-5
+  at lr₁ = lr_max/1430) on every matrix of step 1 vs step 0; a run failing it is INAPPLICABLE for this test (its W₀ is
+  not its init), reported as such, never substituted.
+- **Separate reporting:** pythia-1.4b and the 410M seeds are reported as separate verdict rows (α_wd(143k) ≈ 0.21 vs
+  ≈ 0.095 from the fetched configs; λ = 0.1, decoupled, lr-multiplied — confirmed from gpt-neox/DeepSpeed source).
+- **Declared expectations (not thresholds):** α̂(t) ≤ α_wd(t) is expected (updates partly anti-aligned with the init,
+  Bordt et al. 2025); α̂ > α_wd is a red flag to report. The Kosson equilibrium puts the update part's rms at ≈ √(η/2λ)
+  per element, which would make E_init ≈ 1 % and ρ ≈ 0.1 at equilibrium: INIT-DOMINATED would be a genuine surprise,
+  MIXED/LEARNED the mechanistic prior. W_O is the per-type prediction for the HIGHEST ρ_bulk only if MP-closeness were init
+  memory (Staats 2024: O stays MP-like); a low ρ_bulk(O) with MP-shaped O separates "MP law" from "init instance".
+- **Geometric caveat:** the [32, 64) octave next to the spike is expected to read lower than the deep bulk for a geometric
+  reason (level repulsion rotates P_t near the spikes); it is reported as its own band, like the deepest octave.
+- **Reported-only cross-check:** per-element sign agreement p(W_t, W₀) per checkpoint, with the Gaussian map
+  p = ½ + arcsin(ρ)/π beside ρ_full.
+- **Scope statement:** any verdict is specific to Pythia's schedule (effective τ = B/(ηλD) ≈ 0.64 at 1.4B, far above the
+  tuned τ_opt ≈ 0.06 of Bergsma et al.): Pythia keeps far more initialisation than a modern tuned run would.
