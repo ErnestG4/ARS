@@ -106,11 +106,25 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
   primary read (blocks 8–15) is therefore not a lucky window: the excess is present from the embedding output onward.
 - **Hour parity (d = 2):** an EARLY-layer feature that fades as the hour circle forms: 1.4B z = 6.3 at layer 2, 2–3 through
   layer 12, 0.4 by layer 20, while ρ₁ (the smooth cycle) rises from 0.17 to 0.80 over the same depth; 410M peaks at layers
-  10–11 (z 4.5–4.9), 70M at layer 3 (4.2). Consistent with a token-level property of the hour number (' H') rather than a
-  property of the circular time representation; the first-token column (§5c) reads it directly. am/pm (d = 12) is
-  slightly negative at every layer of every model.
+  10–11 (z 4.5–4.9), 70M at layer 3 (4.2). It is NOT simply the number token's own parity: the first-token column (§5c)
+  reads a weaker parity excess at ' H' than at ':00'. am/pm (d = 12) is slightly negative at every layer of every model.
 - **Months:** no class at any layer (d = 3 z ≤ 0.7, d = 4 z ≥ −0.7, all three models); ρ₁ grows 0.18 → 0.30 with depth
   at 1.4B.
+
+## 5c. Hours, first item token ' H' (DESCRIPTIVE declared column; `--read first`; results/divisor/<tag>_first_primary.json)
+| model | ρ₁ (cycle p) | parity d=2: z, p, R | am/pm d=12: z, R | shifts d=6 / d=8: R | smallest f (d=2 / 12) |
+|---|---|---|---|---|---|
+| 1.4B | 0.36 (0.0001) | +0.9, 0.17, +0.35 | −0.5, −0.08 | −0.30 / −0.24 | 0.2 / 0.4 |
+| 410M | 0.38 (0.0001) | +1.4, 0.09, +0.59 | −0.7, −0.12 | −0.31 / −0.23 | 0.2 / 0.4 |
+| 70M | 0.34 (0.0001) | +2.1, 0.036, +0.71 | −0.5, −0.08 | −0.26 / −0.24 | 0.1 / 0.4 |
+- The hour cycle is already present at the hour-number token (ρ₁ 0.34–0.38 vs 0.63 at ':00'), with higher effective
+  dimension (k_eff 9–11 vs 3–4), so this column has MORE power (smallest detectable 0.1–0.2 for d = 2, 3, 4, 6).
+- Parity (d = 2) is positive in all three models here too but SMALLER than at ':00' (R +0.35/+0.59/+0.71 vs
+  +1.17/+1.66/+1.35): the parity excess grows between the number token and the item's end, so it is not the bare number
+  token's parity carried over from the numbers concept (where d = 2 reads R ≈ +9).
+- am/pm (d = 12) is negative in both reads at every model: at this power (smallest f 0.4) an am/pm excess ≥ 40 % of the
+  Lorentzian power is excluded descriptively; smaller ones are not.
+- Both shift classes (d = 6, 8) read negative in both columns in all models.
 
 ## 6. Open leads (not claims)
 1. Hour parity (d = 2): same sign in 3/3 released models and a Holm rejection along the A0 trajectory — is it the
