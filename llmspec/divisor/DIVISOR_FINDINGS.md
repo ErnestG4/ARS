@@ -99,6 +99,19 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
 - The Lorentzian baseline has no noise term (brief §5.4); σ̂ is descriptive. Fit contamination by large excesses is declared
   (A1) and visible as the d = 20/25 deficits.
 
+## 5b. Per-layer column (DESCRIPTIVE; `--layers all`, B = 400, 1000 shuffles; results/divisor/<tag>_last_all.json)
+- **Numbers:** every class d = 2, 4, 5, 10 is positive at EVERY layer of all three models (1.4B layer 1: z = 28.5 / 9.0 /
+  25.6 / 7.5). Depth profile: d = 5 and d = 10 grow with depth (1.4B d = 10: 7.5 at layer 1 → 17.6 at layer 24; d = 5: 26 →
+  42–49), d = 4 peaks in the middle (1.4B 14.7 at layer 11, 4.9 at 24; 410M 10.8 at 11), d = 2 is flat (22–31). The
+  primary read (blocks 8–15) is therefore not a lucky window: the excess is present from the embedding output onward.
+- **Hour parity (d = 2):** an EARLY-layer feature that fades as the hour circle forms: 1.4B z = 6.3 at layer 2, 2–3 through
+  layer 12, 0.4 by layer 20, while ρ₁ (the smooth cycle) rises from 0.17 to 0.80 over the same depth; 410M peaks at layers
+  10–11 (z 4.5–4.9), 70M at layer 3 (4.2). Consistent with a token-level property of the hour number (' H') rather than a
+  property of the circular time representation; the first-token column (§5c) reads it directly. am/pm (d = 12) is
+  slightly negative at every layer of every model.
+- **Months:** no class at any layer (d = 3 z ≤ 0.7, d = 4 z ≥ −0.7, all three models); ρ₁ grows 0.18 → 0.30 with depth
+  at 1.4B.
+
 ## 6. Open leads (not claims)
 1. Hour parity (d = 2): same sign in 3/3 released models and a Holm rejection along the A0 trajectory — is it the
    even/odd token-frequency structure of "H:00" times (e.g. 12:00/18:00 vs 13:00/19:00 usage), or a representation of
