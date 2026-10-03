@@ -397,3 +397,30 @@ MDD = 2.487 × the witness SD of one checkpoint's pool (0.0137 per-head Q/K/V, 0
    way it came out. It also adds little: A2 carries the licensed Q1 verdict, and A1's MLP-out fit ratio (42.8) points
    the same way, descriptively. **If it is ever run:** label it post hoc and put it in its own section, never in the
    verdict table.
+
+## 7. Q4EXT — descriptive extension past step 3000 (2026-10-03; Q4EXT_PREREG.md 3e52ea3; DESCRIPTIVE ONLY, no verdict changes)
+Runs: A0 and M0s1 resumed from their step-3000 resume.pt to 10000 (every 100 steps), M0s3 (third Muon seed, seed-2 init,
+standard order) to 3000 on the B4 grid; extraction through the sealed B4 extractor with stops extended at runtime
+(`q4ext_extract.py`, seal check OK, 301 checkpoints); `q4ext_descriptive.py` → results/armb_q4ext_descriptive.json,
+plots/armb_q4ext_{sr,sigma1,dw0}.png. Columns Q / K / V / O / MLP_IN / MLP_OUT, layer means.
+| arm | stable rank @3000 | stable rank @endpoint | σ₁ @3000 | σ₁ @endpoint |
+|---|---|---|---|---|
+| A0 (AdamW) → 10000 | 11.1 / 10.9 / 86.8 / 57.5 / 30.1 / 78.5 | 17.4 / 14.9 / 84.9 / 63.4 / 28.1 / 55.6 | 5.8 / 5.5 / 1.7 / 1.9 / 6.2 / 2.9 | 5.6 / 5.5 / 2.1 / 2.7 / 8.3 / 5.1 |
+| M0s1 (Muon) → 10000 | 40.3 / 38.5 / 91.1 / 70.4 / 123.5 / 109.3 | 38.5 / 35.3 / 81.8 / 67.2 / 89.9 / 72.7 | 3.5 / 3.6 / 2.6 / 2.7 / 4.0 / 4.6 | 4.9 / 4.7 / 3.9 / 4.1 / 6.3 / 8.7 |
+| M0s3 (Muon seed 3) → 3000 | 41.2 / 38.0 / 88.8 / 68.8 / 123.5 / 101.2 | — | 3.5 / 3.7 / 2.7 / 2.7 / 4.1 / 4.7 | — |
+| A1 (context) → 5000 | 10.1 / 11.5 / 98.6 / 55.0 / 37.5 / 88.2 | 11.8 / 10.7 / 88.5 / 63.2 / 29.6 / 72.3 | 5.7 / 5.0 / 1.4 / 1.5 / 5.1 / 2.3 | 5.9 / 5.7 / 1.7 / 2.0 / 6.5 / 3.4 |
+- **Q/K stable rank past 3000:** AdamW's Q/K stable rank, which Q4 read as still falling at 3000 (≈ 11), stops falling and
+  RISES to 17 / 15 by 10000 (A1 at 5000: 12 / 11); Muon's stays on its plateau (40 → 38 / 35). The 3000-step endpoint was
+  near AdamW's minimum, not on a continuing slide — "endpoint past 3000 unknown" (memo row 16) is now a described curve;
+  the verdict word does not change (no sealed statistic).
+- **MLP / V / O:** both optimisers keep shrinking MLP_OUT's stable rank past 3000 (A0 78 → 56; M0s1 109 → 73) and Muon's
+  MLP_IN too (124 → 90, while AdamW's sits at 28–30); V and O are flat-to-slightly-rising for both.
+- **σ₁ (Kimi K2 risk under Muon):** Muon's σ₁ grows steadily (Q 3.6 → 4.9, MLP_OUT 4.6 → 8.7 by 10000) while AdamW's Q/K σ₁
+  is flat (5.8 → 5.6); at 10000 Muon's Q/K σ₁ is still below AdamW's, its MLP_OUT σ₁ above. ‖W_t − W_0‖_F / ‖W_0‖_F is
+  larger under Muon at every step past ≈ 500 in every type (plots/armb_q4ext_dw0.png).
+- **Muon-side spread, ONE draw (M0s3 vs M0s1 on the shared grid ≤ 3000, per-layer stable rank per cell):** median relative
+  difference 2.4 %, IQR 0.9–6.8 %, 17 % of 5796 cells differ by > 10 %. Reported beside Q4's
+  AdamW-seed figure (123/368 cells optimizer-different, T = 6.33) as the Muon-side analogue; one pair = one draw of
+  spread, not a distribution, and no cell count is re-read.
+- LR integral at 3000: 2.28; at 10000: 9.26 (same schedule for A0 and M0s1).
+

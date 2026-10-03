@@ -62,15 +62,27 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
   excess itself, not a pipeline fault: weekdays' residuals are white in all three models).
 - The deficits at d = 20, 25 are the declared contamination signature (A1): the fit is pulled up by the peaks, so the
   classes without peaks sit below it. They are not evidence of suppression.
-- Agreement with Kantamneni & Tegmark (2502.00873, verified): their helix periods T = [2, 5, 10, 100] on GPT-J / Pythia-6.9B /
-  Llama-3.1-8B are exactly the classes d = 2, 5, 10 here, now measured against a symmetry baseline at 70M–1.4B. d = 4 is
-  new relative to their list (they chose T by magnitude and a base-10 prior; a period-4 component is not a base-10 habit
-  — candidates: quarter-structure of the decade, or an alias of the strong period-2 and period-5 components through the
-  open-lattice window; left as an open lead, not interpreted).
+- Prior work (both verified from arXiv, prereg §0 and A3): Zhou, Fu, Sharan & Jia, arXiv 2406.03445 (NeurIPS 2024 per
+  Will; venue UNVERIFIED on the arXiv page) find outlier Fourier components of periods 2, 2.5, 5 and 10 in pre-trained
+  LLMs' number representations used for addition (GPT-2-XL and others; period 2.5 is class d = 5 on this lattice);
+  Kantamneni & Tegmark, arXiv 2502.00873, report number helices with T = [2, 5, 10, 100] (GPT-J, Pythia-6.9B,
+  Llama-3.1-8B). **Periods 2, 5, 10 therefore REPLICATE published findings in a new framing** (the Ramanujan–Fourier
+  divisor decomposition against a translation-symmetry baseline, at 70M–1.4B). **Period 4 is the part not in those
+  papers** — and the one most exposed to the frequency confound (powers of 2 in computing text). Both the replication and
+  the new class are conditional on the A3 frequency control (§7): until it is read, nothing here is called new.
+- Before A3: the frequency-comb reading (round numbers, even numbers and powers of 2 are far commoner in text; any
+  activation component tracking log-frequency puts peaks at exactly these periods) is NOT excluded by anything above, and
+  the step-256 onset — the unigram/bigram stage — is what frequency-driven structure would look like.
 - Tokenisation is not the explanation in the simple sense: every number 0–99 is a single NeoX token (audit), so the
   periodicities are properties of the token representations, not of a digit-by-digit encoding.
 
 ## 4. Trajectory (DESCRIPTIVE; Arm B A0, AdamW 70M, 23 checkpoints; gates PASS at every step)
+Source of every checkpoint: the A0 run itself — steps ≤ 3000 from the B4 bank, steps 4000–10000 from the Q4EXT extension
+(`train.py A0 --stop 10000`, the SAME run resumed from its step-3000 resume.pt, Q4EXT_PREREG §1; not a different run and
+not Pythia-70M's released trajectory). **Onset steps are DETECTION steps, not presence steps** (the OLMo lesson): the
+instrument's smallest detectable excess at each checkpoint is in every JSON — numbers 0.02 (d = 2, 4, 5; 0.05 for d = 10
+from step 1000) and hours d = 2 0.2 at all 23 checkpoints — so "first detectable at step 256" means a ≥ 2 % excess was
+not there at 128 and was at 256; a smaller one could be earlier.
 | step | months cycle | hours cycle | numbers cycle | numbers z (d=2 / 4 / 5 / 10) | hours d=2 z | Holm rejections |
 |---|---|---|---|---|---|---|
 | 0–128 | no | no | no | −3 / −0.7 / −0.9 / +0.5 | −1.1 | none |
@@ -81,8 +93,9 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
 | 3000 | yes | yes | yes | +18.8 / +1.0 / +20.5 / +6.1 | +4.1 | numbers d=2, 5, 10; **hours d=2** |
 | 6000 | yes | yes | yes | +26.2 / +3.7 / +29.9 / +7.5 | +4.8 | numbers d=2, 4, 5, 10; hours d=2 |
 | 10000 | yes | yes | yes | +25.4 / +4.8 / +29.4 / +8.0 | +5.0 | numbers d=2, 4, 5, 10; hours d=2 |
-- Order of appearance: numbers period 5 first (step 256, before the month cycle exists), then period 10 and 2 (≤ 1500),
-  period 4 last (≈ 6000); the month circle forms between 512 and 1000; hour parity (d = 2) becomes a Holm rejection from
+- Order of first detection: numbers period 5 first (step 256, before the month cycle is detectable), then period 10
+  and 2 (≤ 1500), period 4 last (≈ 6000, in the extension segment); the month circle becomes detectable between 512 and
+  1000; hour parity (d = 2) becomes a Holm rejection from
   step 3000 in this run and keeps growing (z 4–5.7 to 10000), while in the three released Pythia models at 143k it is
   positive but below the Holm line. Descriptive: one run, one optimiser; the step-0 z = −3 for numbers d = 2 is the
   init's own spectrum through the same fit (no cycle present; INAPPLICABLE as a test).
@@ -106,8 +119,10 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
   primary read (blocks 8–15) is therefore not a lucky window: the excess is present from the embedding output onward.
 - **Hour parity (d = 2):** an EARLY-layer feature that fades as the hour circle forms: 1.4B z = 6.3 at layer 2, 2–3 through
   layer 12, 0.4 by layer 20, while ρ₁ (the smooth cycle) rises from 0.17 to 0.80 over the same depth; 410M peaks at layers
-  10–11 (z 4.5–4.9), 70M at layer 3 (4.2). It is NOT simply the number token's own parity: the first-token column (§5c)
-  reads a weaker parity excess at ' H' than at ':00'. am/pm (d = 12) is slightly negative at every layer of every model.
+  10–11 (z 4.5–4.9), 70M at layer 3 (4.2). Plain reading (Will's correction): **consistent with parity inherited from
+  number representations** — hours are numbers, the numbers concept carries a strong period-2 component, and the item's
+  end can compute parity by attending back to the number token; the weaker first-token reading (§5c) does not rule
+  inheritance out. With "never past Holm" it stays descriptive. am/pm (d = 12) is slightly negative at every layer.
 - **Months:** no class at any layer (d = 3 z ≤ 0.7, d = 4 z ≥ −0.7, all three models); ρ₁ grows 0.18 → 0.30 with depth
   at 1.4B.
 
@@ -120,8 +135,9 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
 - The hour cycle is already present at the hour-number token (ρ₁ 0.34–0.38 vs 0.63 at ':00'), with higher effective
   dimension (k_eff 9–11 vs 3–4), so this column has MORE power (smallest detectable 0.1–0.2 for d = 2, 3, 4, 6).
 - Parity (d = 2) is positive in all three models here too but SMALLER than at ':00' (R +0.35/+0.59/+0.71 vs
-  +1.17/+1.66/+1.35): the parity excess grows between the number token and the item's end, so it is not the bare number
-  token's parity carried over from the numbers concept (where d = 2 reads R ≈ +9).
+  +1.17/+1.66/+1.35): the parity excess grows between the number token and the item's end. That does NOT establish that
+  it is independent of the number token's parity (the end position can attend back to it); the reading stays "consistent
+  with parity inherited from number representations" (§5b), descriptive.
 - am/pm (d = 12) is negative in both reads at every model: at this power (smallest f 0.4) an am/pm excess ≥ 40 % of the
   Lorentzian power is excluded descriptively; smaller ones are not.
 - Both shift classes (d = 6, 8) read negative in both columns in all models.
@@ -134,4 +150,10 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
    component? Testable with a synthetic that has only periods 2, 5, 10 at the measured amplitudes (does d = 4 appear?).
 3. Months at higher power: per-template spectra (16 draws) as replicates of the class statistic.
 4. Trajectory for a Muon run (M0s1 bank) beside A0 — same order of appearance?
+5. **Pitch classes (Will):** the 12 pitch classes form the same 12-item circle (same divisor-class power limit), but the
+   circle of fifths is the n = 5 (≡ 7) harmonic — the star polygon {12/5} — and augmented / diminished chords are the
+   classes d = 3 and d = 4; music text is full of fifth-relatedness, so an n = 5 excess could be large enough for 12 items
+   to resolve. Tokenisation audited 10-03 (NeoX): naturals are single tokens; sharps split (' C', '#') with the shared
+   final '#' for all five; flats mixed (' Db', ' Eb', ' Ab' single; ' Gb', ' Bb' split as (' G', 'b')). No spelling gives
+   12 single tokens, so the read position needs a sealed choice (last token shared for sharps, as for hours). Not in v0.
 Figures: `plots/divisor/<tag>_spectra.png`, `<tag>_{months,hours}_polygons.png` (untracked; regenerated by `divisor_plots.py`).

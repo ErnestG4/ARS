@@ -191,6 +191,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Q4EXT descriptive DONE 10-03 10:59 (ARMB_FINDINGS §7; results/armb_q4ext_descriptive.json):** AdamW Q/K stable rank
+  bottoms near 3000 and rises to 17/15 by 10000; Muon plateau 38/35; Muon σ₁ grows but stays below AdamW's Q/K σ₁ at 10000;
+  M0s3-vs-M0s1 spread one draw: median 2.4 %, 17 % of cells > 10 %. No verdict change. GPU: no job of mine running.
+- **Divisor A3 (frequency control) SEALED 5914913, counts DONE on spot (6.29e9 tokens), control RUN launched 11:1x locally.**
 - **Divisor Harmonics v0 PRIMARY READ DONE 10-03 09:30 (divisor/DIVISOR_FINDINGS.md):** gates PASS ×3 models; numbers H1 HOLDS
   d=2,4,5,10 (z 28/12/41/9 at 1.4B; replicates 410M, 70M); months NOT RESOLVABLE (power: ≥40 % excess needed); hours H0 HOLDS
   d=3,4, bets NOT RESOLVABLE, parity d=2 positive 3/3 (not rejected). A0 trajectory: period 5 first (step 256), 10 & 2 by 1500,
