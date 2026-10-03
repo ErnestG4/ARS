@@ -191,6 +191,12 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Divisor Harmonics v0 (Will's side-project brief, briefs/DIVISOR_HARMONICS_V0.md) SEALED 10-03** — divisor/DIVISOR_PREREG.md +
+  templates.py (frozen) + divisor_extract.py / divisor_spectrum.py / verify_divisor.py (PASS, red paths fire); tokenisation audit
+  (hours: 3 tokens, shared final '00' — sealed primary = last token, first token = declared secondary; Will may amend before
+  extraction). Weights fetched (step143000 ×3), 23 A0 ckpts at ~/llmspec_div/A0. divisor/chain_extract.sh ARMED: runs after
+  ext_queue exits, only if GPU_STATUS: FREE and no train.py; minutes of GPU. Then: rsync acts → spot ~/llmspec_div, run
+  divisor_spectrum.py (numpy; nulls B=4000, shuffles 10k) in tmux claude; DIVISOR_FINDINGS.md.
 - **PolyPythias seeds 3/4 PROVENANCE SETTLED 10-03 03:40 (polypythias_restart_check.py): post-spike checkpoints are RESTARTS**
   (seed 4 @128k ≈ its own step 0–512, corr 0.97; seed 3 @96k ≈ a partially trained restart; seed 1 control continues). Lead 6
   WITHDRAWN; memo §2, MF §3, README corrected; seeds valid through 64k (3) / 96k (4) only.

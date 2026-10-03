@@ -2,3 +2,6 @@ cache/
 logs/
 STOP
 __pycache__/
+results/divisor/acts/
+*.npz
+divisor/*.log

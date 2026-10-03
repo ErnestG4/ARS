@@ -1,0 +1,1995 @@
+{
+ "tokenizer": "/home/combust/.cache/huggingface/hub/models--EleutherAI--pythia-70m/snapshots/de3e4e2d6cbb3b1a51f90fe153ea51fcd8c7c852",
+ "concepts": {
+  "months": {
+   "N": 12,
+   "boundary": "periodic",
+   "role": "composite",
+   "items": [
+    {
+     "item": "January",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " January"
+     ],
+     "last_token_id": [
+      4247
+     ]
+    },
+    {
+     "item": "February",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " February"
+     ],
+     "last_token_id": [
+      5080
+     ]
+    },
+    {
+     "item": "March",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " March"
+     ],
+     "last_token_id": [
+      3919
+     ]
+    },
+    {
+     "item": "April",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " April"
+     ],
+     "last_token_id": [
+      4162
+     ]
+    },
+    {
+     "item": "May",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " May"
+     ],
+     "last_token_id": [
+      2552
+     ]
+    },
+    {
+     "item": "June",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " June"
+     ],
+     "last_token_id": [
+      3978
+     ]
+    },
+    {
+     "item": "July",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " July"
+     ],
+     "last_token_id": [
+      4163
+     ]
+    },
+    {
+     "item": "August",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " August"
+     ],
+     "last_token_id": [
+      4223
+     ]
+    },
+    {
+     "item": "September",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " September"
+     ],
+     "last_token_id": [
+      4397
+     ]
+    },
+    {
+     "item": "October",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " October"
+     ],
+     "last_token_id": [
+      4437
+     ]
+    },
+    {
+     "item": "November",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " November"
+     ],
+     "last_token_id": [
+      4596
+     ]
+    },
+    {
+     "item": "December",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " December"
+     ],
+     "last_token_id": [
+      4565
+     ]
+    }
+   ],
+   "multi_token_items": [],
+   "n_multi": 0,
+   "shared_last_token": {},
+   "prefix_stable_across_templates": true
+  },
+  "hours": {
+   "N": 24,
+   "boundary": "periodic",
+   "role": "composite",
+   "items": [
+    {
+     "item": "0:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 0",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "1:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 1",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "2:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 2",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "3:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 3",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "4:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 4",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "5:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 5",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "6:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 6",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "7:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 7",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "8:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 8",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "9:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 9",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "10:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 10",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "11:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 11",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "12:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 12",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "13:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 13",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "14:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 14",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "15:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 15",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "16:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 16",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "17:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 17",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "18:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 18",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "19:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 19",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "20:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 20",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "21:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 21",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "22:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 22",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    },
+    {
+     "item": "23:00",
+     "n_tokens": [
+      3
+     ],
+     "pieces": [
+      " 23",
+      ":",
+      "00"
+     ],
+     "last_token_id": [
+      361
+     ]
+    }
+   ],
+   "multi_token_items": [
+    "0:00",
+    "1:00",
+    "2:00",
+    "3:00",
+    "4:00",
+    "5:00",
+    "6:00",
+    "7:00",
+    "8:00",
+    "9:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00"
+   ],
+   "n_multi": 24,
+   "shared_last_token": {
+    "00": 24
+   },
+   "prefix_stable_across_templates": true
+  },
+  "weekdays": {
+   "N": 7,
+   "boundary": "periodic",
+   "role": "prime_control",
+   "items": [
+    {
+     "item": "Monday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Monday"
+     ],
+     "last_token_id": [
+      7216
+     ]
+    },
+    {
+     "item": "Tuesday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Tuesday"
+     ],
+     "last_token_id": [
+      7948
+     ]
+    },
+    {
+     "item": "Wednesday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Wednesday"
+     ],
+     "last_token_id": [
+      8330
+     ]
+    },
+    {
+     "item": "Thursday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Thursday"
+     ],
+     "last_token_id": [
+      8216
+     ]
+    },
+    {
+     "item": "Friday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Friday"
+     ],
+     "last_token_id": [
+      6794
+     ]
+    },
+    {
+     "item": "Saturday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Saturday"
+     ],
+     "last_token_id": [
+      7814
+     ]
+    },
+    {
+     "item": "Sunday",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " Sunday"
+     ],
+     "last_token_id": [
+      6926
+     ]
+    }
+   ],
+   "multi_token_items": [],
+   "n_multi": 0,
+   "shared_last_token": {},
+   "prefix_stable_across_templates": true
+  },
+  "numbers": {
+   "N": 100,
+   "boundary": "open",
+   "role": "composite",
+   "items": [
+    {
+     "item": "0",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 0"
+     ],
+     "last_token_id": [
+      470
+     ]
+    },
+    {
+     "item": "1",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 1"
+     ],
+     "last_token_id": [
+      337
+     ]
+    },
+    {
+     "item": "2",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 2"
+     ],
+     "last_token_id": [
+      374
+     ]
+    },
+    {
+     "item": "3",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 3"
+     ],
+     "last_token_id": [
+      495
+     ]
+    },
+    {
+     "item": "4",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 4"
+     ],
+     "last_token_id": [
+      577
+     ]
+    },
+    {
+     "item": "5",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 5"
+     ],
+     "last_token_id": [
+      608
+     ]
+    },
+    {
+     "item": "6",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 6"
+     ],
+     "last_token_id": [
+      721
+     ]
+    },
+    {
+     "item": "7",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 7"
+     ],
+     "last_token_id": [
+      818
+     ]
+    },
+    {
+     "item": "8",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 8"
+     ],
+     "last_token_id": [
+      854
+     ]
+    },
+    {
+     "item": "9",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 9"
+     ],
+     "last_token_id": [
+      898
+     ]
+    },
+    {
+     "item": "10",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 10"
+     ],
+     "last_token_id": [
+      884
+     ]
+    },
+    {
+     "item": "11",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 11"
+     ],
+     "last_token_id": [
+      1903
+     ]
+    },
+    {
+     "item": "12",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 12"
+     ],
+     "last_token_id": [
+      1249
+     ]
+    },
+    {
+     "item": "13",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 13"
+     ],
+     "last_token_id": [
+      2145
+     ]
+    },
+    {
+     "item": "14",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 14"
+     ],
+     "last_token_id": [
+      1638
+     ]
+    },
+    {
+     "item": "15",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 15"
+     ],
+     "last_token_id": [
+      1458
+     ]
+    },
+    {
+     "item": "16",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 16"
+     ],
+     "last_token_id": [
+      1668
+     ]
+    },
+    {
+     "item": "17",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 17"
+     ],
+     "last_token_id": [
+      1722
+     ]
+    },
+    {
+     "item": "18",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 18"
+     ],
+     "last_token_id": [
+      1283
+     ]
+    },
+    {
+     "item": "19",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 19"
+     ],
+     "last_token_id": [
+      655
+     ]
+    },
+    {
+     "item": "20",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 20"
+     ],
+     "last_token_id": [
+      1384
+     ]
+    },
+    {
+     "item": "21",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 21"
+     ],
+     "last_token_id": [
+      3127
+     ]
+    },
+    {
+     "item": "22",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 22"
+     ],
+     "last_token_id": [
+      3307
+     ]
+    },
+    {
+     "item": "23",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 23"
+     ],
+     "last_token_id": [
+      3495
+     ]
+    },
+    {
+     "item": "24",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 24"
+     ],
+     "last_token_id": [
+      2164
+     ]
+    },
+    {
+     "item": "25",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 25"
+     ],
+     "last_token_id": [
+      2030
+     ]
+    },
+    {
+     "item": "26",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 26"
+     ],
+     "last_token_id": [
+      3436
+     ]
+    },
+    {
+     "item": "27",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 27"
+     ],
+     "last_token_id": [
+      3435
+     ]
+    },
+    {
+     "item": "28",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 28"
+     ],
+     "last_token_id": [
+      3349
+     ]
+    },
+    {
+     "item": "29",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 29"
+     ],
+     "last_token_id": [
+      3285
+     ]
+    },
+    {
+     "item": "30",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 30"
+     ],
+     "last_token_id": [
+      1884
+     ]
+    },
+    {
+     "item": "31",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 31"
+     ],
+     "last_token_id": [
+      4562
+     ]
+    },
+    {
+     "item": "32",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 32"
+     ],
+     "last_token_id": [
+      4567
+     ]
+    },
+    {
+     "item": "33",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 33"
+     ],
+     "last_token_id": [
+      5922
+     ]
+    },
+    {
+     "item": "34",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 34"
+     ],
+     "last_token_id": [
+      5910
+     ]
+    },
+    {
+     "item": "35",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 35"
+     ],
+     "last_token_id": [
+      4791
+     ]
+    },
+    {
+     "item": "36",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 36"
+     ],
+     "last_token_id": [
+      5540
+     ]
+    },
+    {
+     "item": "37",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 37"
+     ],
+     "last_token_id": [
+      5345
+     ]
+    },
+    {
+     "item": "38",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 38"
+     ],
+     "last_token_id": [
+      6480
+     ]
+    },
+    {
+     "item": "39",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 39"
+     ],
+     "last_token_id": [
+      6931
+     ]
+    },
+    {
+     "item": "40",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 40"
+     ],
+     "last_token_id": [
+      3387
+     ]
+    },
+    {
+     "item": "41",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 41"
+     ],
+     "last_token_id": [
+      7609
+     ]
+    },
+    {
+     "item": "42",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 42"
+     ],
+     "last_token_id": [
+      5976
+     ]
+    },
+    {
+     "item": "43",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 43"
+     ],
+     "last_token_id": [
+      7652
+     ]
+    },
+    {
+     "item": "44",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 44"
+     ],
+     "last_token_id": [
+      7127
+     ]
+    },
+    {
+     "item": "45",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 45"
+     ],
+     "last_token_id": [
+      5329
+     ]
+    },
+    {
+     "item": "46",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 46"
+     ],
+     "last_token_id": [
+      7904
+     ]
+    },
+    {
+     "item": "47",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 47"
+     ],
+     "last_token_id": [
+      7543
+     ]
+    },
+    {
+     "item": "48",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 48"
+     ],
+     "last_token_id": [
+      5693
+     ]
+    },
+    {
+     "item": "49",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 49"
+     ],
+     "last_token_id": [
+      7584
+     ]
+    },
+    {
+     "item": "50",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 50"
+     ],
+     "last_token_id": [
+      2456
+     ]
+    },
+    {
+     "item": "51",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 51"
+     ],
+     "last_token_id": [
+      8319
+     ]
+    },
+    {
+     "item": "52",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 52"
+     ],
+     "last_token_id": [
+      8073
+     ]
+    },
+    {
+     "item": "53",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 53"
+     ],
+     "last_token_id": [
+      8676
+     ]
+    },
+    {
+     "item": "54",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 54"
+     ],
+     "last_token_id": [
+      8255
+     ]
+    },
+    {
+     "item": "55",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 55"
+     ],
+     "last_token_id": [
+      7288
+     ]
+    },
+    {
+     "item": "56",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 56"
+     ],
+     "last_token_id": [
+      8026
+     ]
+    },
+    {
+     "item": "57",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 57"
+     ],
+     "last_token_id": [
+      8988
+     ]
+    },
+    {
+     "item": "58",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 58"
+     ],
+     "last_token_id": [
+      9135
+     ]
+    },
+    {
+     "item": "59",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 59"
+     ],
+     "last_token_id": [
+      8978
+     ]
+    },
+    {
+     "item": "60",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 60"
+     ],
+     "last_token_id": [
+      3925
+     ]
+    },
+    {
+     "item": "61",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 61"
+     ],
+     "last_token_id": [
+      9901
+     ]
+    },
+    {
+     "item": "62",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 62"
+     ],
+     "last_token_id": [
+      9743
+     ]
+    },
+    {
+     "item": "63",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 63"
+     ],
+     "last_token_id": [
+      9654
+     ]
+    },
+    {
+     "item": "64",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 64"
+     ],
+     "last_token_id": [
+      6705
+     ]
+    },
+    {
+     "item": "65",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 65"
+     ],
+     "last_token_id": [
+      7251
+     ]
+    },
+    {
+     "item": "66",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 66"
+     ],
+     "last_token_id": [
+      9523
+     ]
+    },
+    {
+     "item": "67",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 67"
+     ],
+     "last_token_id": [
+      9963
+     ]
+    },
+    {
+     "item": "68",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 68"
+     ],
+     "last_token_id": [
+      9934
+     ]
+    },
+    {
+     "item": "69",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 69"
+     ],
+     "last_token_id": [
+      10447
+     ]
+    },
+    {
+     "item": "70",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 70"
+     ],
+     "last_token_id": [
+      5571
+     ]
+    },
+    {
+     "item": "71",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 71"
+     ],
+     "last_token_id": [
+      11102
+     ]
+    },
+    {
+     "item": "72",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 72"
+     ],
+     "last_token_id": [
+      8187
+     ]
+    },
+    {
+     "item": "73",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 73"
+     ],
+     "last_token_id": [
+      11087
+     ]
+    },
+    {
+     "item": "74",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 74"
+     ],
+     "last_token_id": [
+      10677
+     ]
+    },
+    {
+     "item": "75",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 75"
+     ],
+     "last_token_id": [
+      6879
+     ]
+    },
+    {
+     "item": "76",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 76"
+     ],
+     "last_token_id": [
+      10909
+     ]
+    },
+    {
+     "item": "77",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 77"
+     ],
+     "last_token_id": [
+      10484
+     ]
+    },
+    {
+     "item": "78",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 78"
+     ],
+     "last_token_id": [
+      10523
+     ]
+    },
+    {
+     "item": "79",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 79"
+     ],
+     "last_token_id": [
+      11275
+     ]
+    },
+    {
+     "item": "80",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 80"
+     ],
+     "last_token_id": [
+      5096
+     ]
+    },
+    {
+     "item": "81",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 81"
+     ],
+     "last_token_id": [
+      11681
+     ]
+    },
+    {
+     "item": "82",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 82"
+     ],
+     "last_token_id": [
+      11487
+     ]
+    },
+    {
+     "item": "83",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 83"
+     ],
+     "last_token_id": [
+      11439
+     ]
+    },
+    {
+     "item": "84",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 84"
+     ],
+     "last_token_id": [
+      11130
+     ]
+    },
+    {
+     "item": "85",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 85"
+     ],
+     "last_token_id": [
+      9330
+     ]
+    },
+    {
+     "item": "86",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 86"
+     ],
+     "last_token_id": [
+      11614
+     ]
+    },
+    {
+     "item": "87",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 87"
+     ],
+     "last_token_id": [
+      11422
+     ]
+    },
+    {
+     "item": "88",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 88"
+     ],
+     "last_token_id": [
+      11003
+     ]
+    },
+    {
+     "item": "89",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 89"
+     ],
+     "last_token_id": [
+      11289
+     ]
+    },
+    {
+     "item": "90",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 90"
+     ],
+     "last_token_id": [
+      5091
+     ]
+    },
+    {
+     "item": "91",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 91"
+     ],
+     "last_token_id": [
+      11583
+     ]
+    },
+    {
+     "item": "92",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 92"
+     ],
+     "last_token_id": [
+      11266
+     ]
+    },
+    {
+     "item": "93",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 93"
+     ],
+     "last_token_id": [
+      11456
+     ]
+    },
+    {
+     "item": "94",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 94"
+     ],
+     "last_token_id": [
+      11107
+     ]
+    },
+    {
+     "item": "95",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 95"
+     ],
+     "last_token_id": [
+      5325
+     ]
+    },
+    {
+     "item": "96",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 96"
+     ],
+     "last_token_id": [
+      9161
+     ]
+    },
+    {
+     "item": "97",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 97"
+     ],
+     "last_token_id": [
+      10694
+     ]
+    },
+    {
+     "item": "98",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 98"
+     ],
+     "last_token_id": [
+      10508
+     ]
+    },
+    {
+     "item": "99",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " 99"
+     ],
+     "last_token_id": [
+      8688
+     ]
+    }
+   ],
+   "multi_token_items": [],
+   "n_multi": 0,
+   "shared_last_token": {},
+   "prefix_stable_across_templates": true
+  },
+  "nouns": {
+   "N": 12,
+   "boundary": "none",
+   "role": "shuffled_control",
+   "items": [
+    {
+     "item": "jacket",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " jacket"
+     ],
+     "last_token_id": [
+      18553
+     ]
+    },
+    {
+     "item": "river",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " river"
+     ],
+     "last_token_id": [
+      8281
+     ]
+    },
+    {
+     "item": "pencil",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " pencil"
+     ],
+     "last_token_id": [
+      29514
+     ]
+    },
+    {
+     "item": "ladder",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " ladder"
+     ],
+     "last_token_id": [
+      23465
+     ]
+    },
+    {
+     "item": "candle",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " candle"
+     ],
+     "last_token_id": [
+      28725
+     ]
+    },
+    {
+     "item": "garden",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " garden"
+     ],
+     "last_token_id": [
+      10329
+     ]
+    },
+    {
+     "item": "bottle",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " bottle"
+     ],
+     "last_token_id": [
+      11996
+     ]
+    },
+    {
+     "item": "window",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " window"
+     ],
+     "last_token_id": [
+      3497
+     ]
+    },
+    {
+     "item": "mountain",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " mountain"
+     ],
+     "last_token_id": [
+      11129
+     ]
+    },
+    {
+     "item": "basket",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " basket"
+     ],
+     "last_token_id": [
+      11281
+     ]
+    },
+    {
+     "item": "mirror",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " mirror"
+     ],
+     "last_token_id": [
+      11472
+     ]
+    },
+    {
+     "item": "table",
+     "n_tokens": [
+      1
+     ],
+     "pieces": [
+      " table"
+     ],
+     "last_token_id": [
+      2829
+     ]
+    }
+   ],
+   "multi_token_items": [],
+   "n_multi": 0,
+   "shared_last_token": {},
+   "prefix_stable_across_templates": true
+  }
+ }
+}
