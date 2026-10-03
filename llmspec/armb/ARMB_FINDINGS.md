@@ -398,7 +398,7 @@ MDD = 2.487 × the witness SD of one checkpoint's pool (0.0137 per-head Q/K/V, 0
    the same way, descriptively. **If it is ever run:** label it post hoc and put it in its own section, never in the
    verdict table.
 
-## 7. Q4EXT — descriptive extension past step 3000 (2026-10-03; Q4EXT_PREREG.md 3e52ea3; DESCRIPTIVE ONLY, no verdict changes)
+## 9. Q4EXT — descriptive extension past step 3000 (2026-10-03; Q4EXT_PREREG.md 3e52ea3; DESCRIPTIVE ONLY, no verdict changes)
 Runs: A0 and M0s1 resumed from their step-3000 resume.pt to 10000 (every 100 steps), M0s3 (third Muon seed, seed-2 init,
 standard order) to 3000 on the B4 grid; extraction through the sealed B4 extractor with stops extended at runtime
 (`q4ext_extract.py`, seal check OK, 301 checkpoints); `q4ext_descriptive.py` → results/armb_q4ext_descriptive.json,
