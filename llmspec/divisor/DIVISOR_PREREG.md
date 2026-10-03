@@ -123,3 +123,9 @@ is idle. CPU nulls: spot (`~/llmspec_div/`, tmux `claude`, numpy only) or this b
   exists it understates power. Reported as such; no re-fit excluding classes (that would be a method change).
 - Figures script `divisor_plots.py` and the spot runner `run_spectrum_spot.sh` added (no analysis change).
 
+## Amendment A2 (2026-10-03 09:30, AFTER the primary read; code fix only, no analysis change)
+- The descriptive first-token pass (`--read first`, hours only) crashed in the entry point because the Holm/gates block
+  assumed every concept present. Fix: Holm and gates are computed only for the sealed primary read (`--read last`,
+  `--layers primary`). `run_concept` and every statistic are untouched; the 26 primary results written before the fix
+  stand as read.
+

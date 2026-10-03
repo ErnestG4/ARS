@@ -196,8 +196,8 @@ def main():
                 out["concepts"][name]["per_layer"][li] = run_concept(f"{name}@{li}", X[li], bnd, max(200, a.B // 10),
                                                                      max(500, a.B_shuffle // 10), rng, [], 0, nt)
         out["concepts"][name]["role"] = role
-    if a.layers == "primary":
-        tests = {f"{n}:d{c}": out["concepts"][n]["p"][c] for n, c in primary_tests()}
+    if a.layers == "primary" and a.read == "last":          # Holm + gates only for the sealed primary read (A2: the
+        tests = {f"{n}:d{c}": out["concepts"][n]["p"][c] for n, c in primary_tests()}   # first-token column is hours-only)
         out["holm"] = {k: {"p": v[0], "p_adj": v[1], "reject": v[2]} for k, v in holm(tests).items()}
         wd, nn = out["concepts"]["weekdays"], out["concepts"]["nouns"]
         g = {"weekdays_white_p": wd["white_p"], "weekdays_pass": wd["white_p"] > 0.01,
