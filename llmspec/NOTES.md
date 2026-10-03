@@ -191,6 +191,15 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **Q4EXT descriptive extraction LAUNCHED 10-03 ~08:50 (armb/q4ext_run.sh → q4ext_run.log):** q4ext_extract.py (sealed B4
+  extractor with stops extended at runtime, as a0r_score.py; A0/M0s1 70 new ckpts each, M0s3 161; then DW0 pass: ‖W_t−W_0‖_F,
+  ‖W_t‖_F, σ₁ per layer/type at the 100-step cadence) then q4ext_descriptive.py (results/armb_q4ext_descriptive.json,
+  plots/armb_q4ext_*.png; M0s3-vs-M0s1 spread = ONE draw). Hours of GPU; STOP halts; re-run the script to resume.
+- **ext_queue DONE 10-03 08:23 (Q4EXT: A0 → 10000, M0s1 → 10000, M0s3 → 3000 all exited 0; M0s3 169 ckpts .ok on spot).** GPU is
+  FREE per the flag; next main-arc GPU item = the Q4EXT descriptive extraction (b4_extract on the extension checkpoints,
+  Q4EXT_PREREG.md) — not launched yet. Divisor extraction (minutes) runs first: chain_extract.sh relaunched 08:3x after its
+  first attempt self-matched `pgrep -f 'python3 train.py'` against the launching shell's command line (pattern now anchored
+  to the venv binary; the pgrep self-match lesson again).
 - **Divisor Harmonics v0 (Will's side-project brief, briefs/DIVISOR_HARMONICS_V0.md) SEALED 10-03** — divisor/DIVISOR_PREREG.md +
   templates.py (frozen) + divisor_extract.py / divisor_spectrum.py / verify_divisor.py (PASS, red paths fire); tokenisation audit
   (hours: 3 tokens, shared final '00' — sealed primary = last token, first token = declared secondary; Will may amend before
