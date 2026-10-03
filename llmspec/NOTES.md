@@ -191,6 +191,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **PolyPythias seeds 3/4 PROVENANCE SETTLED 10-03 03:40 (polypythias_restart_check.py): post-spike checkpoints are RESTARTS**
+  (seed 4 @128k ≈ its own step 0–512, corr 0.97; seed 3 @96k ≈ a partially trained restart; seed 1 control continues). Lead 6
+  WITHDRAWN; memo §2, MF §3, README corrected; seeds valid through 64k (3) / 96k (4) only.
 - **BULK_INIT_OVERLAP DONE 10-03 02:13 → verdict MIXED for both rows (BULK_INIT_OVERLAP_FINDINGS.md):** normal runs leave
   the init smoothly (ρ_bulk 0.24 / 0.19 at 143k; E_init 0.5 % / 0.3 %; α̂ > α_wd — red flag fired the other way); by type O
   lowest (0.06; MP-shape ≠ init memory), MLP_IN highest (0.73); init memory falls with depth into the spectrum. **Seeds 3/4:

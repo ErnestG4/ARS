@@ -33,7 +33,9 @@ The band of smallest singular values (1024–2048 at 1.4B; 512–1024 at 410M), 
 
 - Timeline (MLP_IN u, 410M, per seed): 0.0 through step 4000; +0.2…0.5 at 6000; +1.4…2.6 at 8000; +3…4 at 12000; +5…7 by
   32000–64000; seeds 1, 2, 5 end at +6.9 / +6.9 / +8.0. 1.4B: 0 → +1.1 (8000) → +3.1 (32000) → +8.9 (143000).
-- **Seeds 3 and 4, the two PolyPythias runs with late loss spikes (3: 64k–96k; 4: 96k–128k), lose it:** seed 3 drops
+- **Seeds 3 and 4 lose it — CORRECTED 2026-10-03: their post-spike checkpoints are RESTARTED runs (early-training
+  states; BULK_INIT_OVERLAP_FINDINGS §3), so the "loss" is the localisation not yet having formed, not a reversal.** As
+  originally written: seed 3 drops
   from 6.1 (64000) to 2.7 (96000), recovers to 5.5; seed 4 drops from 8.4 (96000) to **0.0 at 128000 and 143000** — the
   bottom of its MLP spectrum reads as random after the spike. (A natural experiment for open lead 6; impression only.)
 - q-dependence at 1.4B, MLP_IN u, deepest band, step 143000: q = 1.5: +0.01; q = 2: +0.11; q = 3: +3.2; q = 4: +8.9. The

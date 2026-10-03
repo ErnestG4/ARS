@@ -50,23 +50,29 @@ step-0 weights seen through the trained bulk subspace; thresholds ≥ 0.80 on �
 - **By layer:** layer 0 keeps the most init (0.51 / 0.40), layers ≥ 8 the least (≈ 0.2 / 0.15).
 - **Sign agreement** p(W_t, W₀) = 0.51–0.60 by type (Gaussian map ρ ≈ 0.03–0.3), consistent with ρ_full 0.03–0.29.
 
-## 3. The spike seeds (3 and 4) are a provenance anomaly, not a dynamics result (PROVENANCE CHECK RUNNING)
-- Seed 4 (loss spike 96k–128k): ρ_bulk 0.195 at 96000 → **0.993 at 128000 → 0.969 at 143000**; α̂ 0.265 → 0.972 → 0.893;
-  d 0.996 → 0.263 → 0.475; E_init 0.003 → 0.942 → 0.778. The 128k checkpoint is, to three digits, the signature of a
-  ~step-1000 checkpoint of a normal run (ρ_bulk 0.99, α̂ 0.97, d 0.3): the weights are the initialisation at nearly full
-  amplitude with a small learned part. Continued training cannot produce that from a 96k state (the init amplitude was
-  already decayed to 0.13 by then).
-- Seed 3 (spike 64k–96k): ρ_bulk 0.225 at 64000 → **0.794 at 96000** → 0.681 → 0.651; α̂ 0.336 → 0.705 → 0.579 → 0.545 —
-  the signature of a ~8k-step state, then continuing decay.
-- Reading (pending the direct check): the late checkpoints of seeds 3 and 4 are not continuations of their own earlier
-  checkpoints; they look like training RESTARTED from an early checkpoint (seed 4: ≈ step 1000; seed 3: ≈ step 8000)
-  after the divergence, with the restarted run's later steps uploaded under the original step names. If so, the
-  "late loss spikes" in FINDINGS_MEMO §2, open lead 6 ("seed 4's loss spike as a natural experiment"), the MF_EXPLORE §3
-  remark that seeds 3/4 "lose" the deep-band localisation after their spikes, and PolyPythias' own reading of these two
-  runs are all the same artefact: an early-training state compared against late ones. `polypythias_restart_check.py`
-  (reading rule in its docstring; seed 1 as control) is running on spot; this section is finalised from its output.
-- Until then the seed rows stand as sealed (MIXED), and the 25 % "≥ 0.80" fraction in the 410M row is noted as carried
-  almost entirely by seeds 3 and 4 plus MLP_IN.
+## 3. The spike seeds (3 and 4): their post-spike checkpoints are RESTARTS, not continuations (provenance check DONE)
+`polypythias_restart_check.py` (reading rule in its docstring; results/polypythias_restart_check.json): elementwise Pearson
+correlation of every late checkpoint with every other revision of the SAME seed, layers 0/12/23, Q and MLP_IN; seed 1 as
+control.
+- **Seed 4:** step 128000 correlates 0.95–0.995 with its own step 256 / 512 / 0 (L00 Q: 0.970 with step 0, 0.966 with
+  1000, 0.891 with 2000, 0.56 with 8000) and only 0.07–0.53 with its predecessor at 96000; 143000 continues from 128000
+  (0.92–0.99). → RESTART/MISLABEL CANDIDATE on 6/6 (128k) and 4/6 (143k) cells. The published seed-4 "late" checkpoints
+  are a run restarted from near the initialisation after the divergence, uploaded under the original step names.
+- **Seed 3:** step 96000 correlates 0.05–0.55 with its predecessor at 64000 and at most 0.66–0.91 with ANY earlier
+  revision (best: step 0/1000), then 128000 and 143000 continue from 96000 (0.93–0.998). → RESTART on 6/6 cells at 96k:
+  a restarted run (not a resume from a stored checkpoint of the same run), partially trained by 96k.
+- **Seed 1 (control):** CONTINUATION on 18/18 cells; predecessor correlations 0.91–0.99, decreasing with grid distance.
+- Readings: the "late loss spikes" of seeds 3 and 4 (FINDINGS_MEMO §2; final losses 2.475 / 2.857) are not instabilities
+  inside a trajectory but a comparison of early-training states (restarted runs) against late ones; open lead 6 ("seed 4's
+  spike as a natural experiment") is WITHDRAWN; MF_EXPLORE §3's "seeds 3 and 4 lose the deep-band localisation after their
+  spikes" is the same artefact (an early-training state has not yet formed it); PolyPythias' own account of these two
+  runs (deviate "long before", σ_λ drop) should be re-read in this light. The seed rows of the sealed verdict stand as
+  MIXED, with the ≥ 0.80 fraction (25 %) carried by seeds 3/4 and MLP_IN; on seeds 1/2/5 alone the 410M row would read
+  frac ≥ 0.80 ≈ 0.07 (MLP_IN only), frac ≤ 0.20 ≈ 0.55 — MIXED still, closer to LEARNED.
+- For every later use: PolyPythias 410M seeds 3 and 4 are VALID only through step 64000 (seed 3) and 96000 (seed 4);
+  their later revisions are a different training segment. Stage 3 seed results that used them at 143000 (STAGE3_SEED_FINDINGS,
+  FINDINGS_MEMO rows 1/5–10 "10 seeds") need a dated note: those two seeds' final-checkpoint cells are not end-of-training
+  states.
 
 ## 4. What this settles for arm A (ARMA_PREREG_SKELETON §0, H_RES)
 - "The trained bulk is the initialisation shrunk by weight decay" is **false for O, Q, K, MLP_OUT** at both sizes

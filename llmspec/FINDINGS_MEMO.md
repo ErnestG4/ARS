@@ -55,8 +55,12 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 - **Unexplained low-rank update burst in V/O/MLP_OUT at 4k → 5k** (no loss jump). Reported, not interpreted.
 - **First sink head:** 48k–64k steps under a strict definition. Not commensurable with the brief's 10–20× (definition,
   probe and BOS token all differ).
-- **Seed runs:** seeds 3 and 4 have late loss spikes (final loss 2.475 / 2.857 vs ~2.34). Their final states are
-  post-instability. (PolyPythias names exactly these two 410M seeds as the outliers with loss spikes.)
+- **Seed runs:** seeds 3 and 4 were recorded as having late loss spikes (final loss 2.475 / 2.857 vs ~2.34). **Corrected
+  2026-10-03 (BULK_INIT_OVERLAP_FINDINGS §3, polypythias_restart_check.py):** their post-spike checkpoints (seed 3 from
+  96000, seed 4 from 128000) are RESTARTED runs uploaded under the original step names (seed 4's 128k correlates 0.97 with
+  its own step 0 and 0.16 with 96k; seed 1 control continues normally). Their final-checkpoint cells are early-training
+  states, not end-of-training ones; both seeds are valid through 64000 (3) / 96000 (4) only. PolyPythias names exactly
+  these two seeds as outliers.
 - **Band descriptives (pre-registered; reported late, STAGE3_FINDINGS §16):** the UPPER-band ⟨r̃⟩ of per-head Q/K
   ends 0.07–0.12 below the witness in every 410M run (10/10), 0.02–0.03 below at 1.4B and ≈ 0 at 1B; whole-matrix
   types stay within ±0.02. Post-hoc reading: the departure orders with head width (64 → 128 → 256), which points at
@@ -116,7 +120,8 @@ Each needs its own pre-registration before it is read as evidence.
 4. **Q/K lower-decile departure from MP from ~8k**, 44–80× above the fp16 Weyl bound. It is not precision.
 5. **K's concentration on rotary dims** (#8): ≥ null + 0.10 in 9/10 seeds and at every size, but R1 with its norm
    clause is SEED-DEPENDENT.
-6. **Seed 4's late loss spike (96k–128k) as a natural experiment:** what the spectra do through an instability.
+6. ~~Seed 4's late loss spike as a natural experiment~~ **WITHDRAWN 2026-10-03:** the post-spike checkpoints are a restarted
+   run (BULK_INIT_OVERLAP_FINDINGS §3); there is no instability trajectory to read.
 7. **Bulk singular VECTORS.** G2/G2b tested only the ordering of bulk singular values, and nothing tested puts
    function there (#11). Whether function lives in the bulk's singular vectors was never tested.
    - A hint pointing there (G2c, descriptive, under 0.001 nats): at k = 32, a same-size random perturbation confined

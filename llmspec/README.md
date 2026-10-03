@@ -82,7 +82,8 @@ Each lead needs its own pre-registration before it is read as evidence. Details:
 3. **The low-rank update burst at steps 4k → 5k** in V/O/MLP-out (1.4B). Unexplained, and absent at 70M.
 4. **Q/K lower-decile departure from Marchenko–Pastur** from ~8k steps, 44–80× above the precision bound.
 5. **K's concentration on rotary dimensions:** robust as a concentration, seed-dependent as registered.
-6. **A late loss spike (seed 4, 96k–128k steps)** as a natural experiment.
+6. ~~A late loss spike (seed 4) as a natural experiment~~ — withdrawn: the post-spike checkpoints are a restarted run
+   (BULK_INIT_OVERLAP_FINDINGS §3).
 7. **The bulk singular VECTORS.** Only the bulk singular values were tested. A hint (G2c, under 0.001 nats) says that
    rotating the bulk directions costs more than reordering the values.
 8. **Arm B leads** (70M): the shape of the Q1 misfit, the wave without layer 0, a phase-matched Q3 reference, and a
