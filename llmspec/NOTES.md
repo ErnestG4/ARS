@@ -191,6 +191,13 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   (what it banks is in its docstring); verifier verify_mf_extract.py PASS locally and on spot (red path fires).
   **Held-out runs (seeds 6–9, 410M-std, 1B, 70M, Arm B) are NOT in the queue.** Pull results to
   cache/mf/ locally when done (≈ 14 GB per 1.4B, ≈ 6 GB per seed — check C: first).
+- **BULK_INIT_OVERLAP real run RUNNING on spot (10-02 22:53, tmux claude, ~/llmspec_bio/run_bio.sh; log bio_run.log;
+  results ~/llmspec_bio/results; 1.4B then seeds 1–5, 26 revs + step1; ~1–1.5 h):** prereg 91e1308 + A1 b42d2c3; code sealed
+  063b6d6. After: pull results → bulk_init_overlap_verdict.py → BULK_INIT_OVERLAP_FINDINGS.md (words INIT-DOMINATED /
+  LEARNED / MIXED per row; continuity gate first).
+- **LIT REVIEW v2 (Will 10-02):** A1–A9 + V in llmspec/lit/v2/ (committed; the v1 report and critique were LOST with the
+  reboot — scratchpad is volatile); C (critic) running; S (synthesis) next. Pre-read amendments already applied:
+  BULK_INIT_OVERLAP A1.
 - **A0 EXTENSION DONE 10-02 10:12 (step 10000; 70 checkpoints every 100 past 3000 on spot:ckpt/A0, sha-verified).
   M0s1 extension RUNNING since 10:12 (resumed 3000 → 10000; M4 off as sealed); M0s3 follows. NEXT GPU ITEM after the
   queue: Q4EXT descriptive extraction (b4_extract.run_arm with stops extended at runtime, as a0r_score.py does) for
