@@ -60,6 +60,8 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 | 7 | Heads share their top input directions | **REPLICATES**; SEED-ROBUST |
 | 8 | K's top directions concentrate on the rotary (position) dimensions | Holds in 9/10 seeds, but the registered test is SEED-DEPENDENT |
 | 9 | Trained spectra leave Marchenko–Pastur by steps 1000–2000 | **REPLICATES**; SEED-ROBUST |
+| 17 | The trained bulk is just the initialisation shrunk by weight decay | **Ruled out** (0.5 % of the bulk's energy is init at the end; MIXED as sealed); the co-adapted calibrator is the remaining test of the reservoir idea |
+| 18 | Base-10 divisor classes (periods 2, 4, 5, 10) carry more amplitude in number representations than translation symmetry predicts | **HOLDS** at 1.4B, replicates at 410M and 70M (periods 2, 5, 10 replicate published helices; period 4 new); months NOT RESOLVABLE; hours mostly NOT RESOLVABLE; frequency control running |
 | 10 | Update rank rises ≥ 3× over training at constant learning rate | 1.4B only; not size-general; SEED-DEPENDENT |
 | 11 | The ordering of bulk singular values carries function | **NOT ESTABLISHED** (a size-matched same-subspace perturbation costs 0.67× the bulk shuffle) |
 | 12 | Compression runs as a layer-ordered wave (Liu) | V at 1.4B: descriptive null, consistent with Liu's V/O-uniform claim. Q/K at 70M: OPPOSITE ORDER, significant only with layer 0 (p 0.056 without it) |
@@ -93,6 +95,9 @@ Each lead needs its own pre-registration before it is read as evidence. Details:
    [armb/ARMB_FINDINGS.md §8](armb/ARMB_FINDINGS.md#8-open-leads-none-of-these-ran-each-would-need-its-own-pre-registration).
 
 ## Where things are
+
+**One-page roll-up of every arc with its current word: [STATUS.md](STATUS.md) (updated 2026-10-03).**
+
 
 | file | what |
 |---|---|

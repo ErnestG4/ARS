@@ -1,44 +1,30 @@
-# llmspec STATUS (brief v1.1 + Arm B) — updated 2026-09-30 (merge into main)
+# llmspec STATUS — the one-page roll-up (updated 2026-10-03 18:40; previous roll-up 09-30)
 
-**Read NOTES.md first**: it is the full state file (mandate, machine rules, code map, results with commits, queue,
-lessons). This file is the short version. There is no fixed end time (Will, 09-26 04:50). No alarm set (B4 cron 6c2c8221 deleted 09-29 22:55,
-chain complete). Interrupt: `touch llmspec/STOP`.
+**Read order:** this file (where every arc stands, with its word) → NOTES.md §4 (running log, jobs, queue) → the arc's
+findings file. FINDINGS_MEMO.md holds the sealed headline rows with gates; README.md the plain-language version.
+Interrupt any job: `touch llmspec/STOP`. Jobs are launched/checked through `jobs.sh` (pid file + /proc/<pid>/exe).
 
-## Where things stand
-- **Stage 1** (existence): the sealed KDE rule was non-evidence. The licensed dip test finds OLMo Q/K multimodality at
-  stage-1 end and none in Pythia. Aim 1 deferred (the OLMo stage-1 trajectory is Will's call).
-- **Stage 2** (G7): NOT LICENSED as registered (fails β=2). Raw ⟨r̃⟩ licensed.
-- **Stage 3** (Pythia-1.4B): sealed bulk null HOLDS 260/260. G2/G2b: the bulk-shuffle cost is size-dominated.
-  Equal-interval ΔW rank rises at constant LR. Change points not licensed.
-- **G3 size replication:** 1B and 410M null HOLDS 260/260 each. R2 / R4 / R5 / R6 size-general. R1 fails at 410M;
-  R3 fails at 1B and 410M.
-- **Seed leg** (410M × 10 runs), COMPLETE (c2c635f):
-  - Null holds everywhere (2 cells → DENSITY_ARTIFACT).
-  - R2 / R4 / R5 / R6 SEED-ROBUST. R1 (2/10) and R3 (4/10) SEED-DEPENDENT, with spreads.
-  - Frozen drift test (S1/S2): FINDING_CANDIDATE as sealed; calibrator fidelity (S2): INCONCLUSIVE as sealed.
-  - **Addendum S4 (known-answer calibrator licence): the frozen calibrator manufactures q −0.0207 / −0.0164 under a
-    true β = 1 (the observed residual was −0.0197). q arm NOT RESOLVABLE (no calibrator within ±0.005 at N = 64);
-    ⟨r̃⟩ arm quiet under the licensed v2_c16 (−0.00086, t₉ −1.6), with power against the claimed size (S4-sup).
-    The per-head-Q drift is NOT established.**
-  - QK-product "function" reading WITHDRAWN (a realistic density alone moves q by ~0.12 under β = 1).
+## Where things stand (by arc; words are the sealed vocabulary)
+| Arc | State | Word(s) | Where |
+|---|---|---|---|
+| Stage 1 / 1b (existence of peaked spectra) | done 09 | Pythia: none (weak null, dip conservative); OLMo stage-1 end: Q/K multimodality on RAW W_Q | STAGE1_FINDINGS, FINDINGS_MEMO row 3 |
+| **OLMo premise** (is the OLMo multimodality a property of the effective map; does it survive the anneal) | **SEALED 10-03, RUNNING** | known answer: the folded (gain × W_Q) branch is NOT LICENSED (the q_norm gain alone makes 64 % of Gaussian heads read multimodal); raw branch primary; T4 on ingredient 3 | OLMO_PREMISE_PREREG (A1, A2), olmo_premise.py → results/olmo_premise.json |
+| OLMo `main` provenance | done 10-01 | DIFFERENT RUN from the stage-2 lineage (no fade claimed) | results/olmo_main_provenance.json, memo row 3 |
+| Stage 2 (G7) | done 09 | NOT LICENSED as registered | STAGE2_FINDINGS |
+| Stage 3 (Pythia-1.4B bulk null; 410M seeds) | done 09 | bulk null HOLDS 260/260 per model; late-Q departure NOT ESTABLISHED; rows 5–10 replicate; band descriptives reported | STAGE3_*, memo rows 1–10, §16 |
+| PolyPythias seeds 3/4 provenance | done 10-03 | the uploaded trajectory is DISCONTINUOUS at a restart (seed 3 from 96k, seed 4 from 128k); valid through 64k / 96k; lead 6 withdrawn | BULK_INIT_OVERLAP_FINDINGS §3, polypythias_restart_check.py |
+| **Bulk–init overlap** (how much of the trained bulk is the init) | done 10-03 (sealed) | MIXED (1.4B and 410M seeds); rules out "bulk = init shrunk by WD" (0.5 % energy); α̂ > α_wd red flag opposite sign; O lowest, MLP_IN highest; the co-adapted calibrator is now the ONLY deciding null for H_RES | BULK_INIT_OVERLAP_FINDINGS, verdict.json |
+| Arm B B4 (AdamW vs Muon, 70M) | done 09-29 | Q4: timing and depth of the Q/K fall depend on the optimizer (123/368 cells); Q3 INCONCLUSIVE; bulk null at MDD | armb/ARMB_FINDINGS, memo rows 15–16 |
+| Arm B Q4EXT (A0/M0s1 → 10000, M0s3 → 3000) | done 10-03 (descriptive) | AdamW Q/K stable rank DIPS to a minimum near 3000 and RECOVERS to 17/15 by 10000; Muon plateaus; Muon σ₁ grows but < AdamW's Q/K σ₁ at 10k; one-draw Muon spread median 2.4 % | ARMB_FINDINGS §9, results/armb_q4ext_descriptive.json |
+| Arm B A0r (identical rerun; Q1 floor) | done 10-01 | NOT RESOLVABLE (TP_O identity fit ratio 13.3 > c_fit) | ARMB_FINDINGS §2b, A0R_PREREG |
+| Arm B pdyn (parametric spectral dynamics) | phase 1 done 10-02 | P2 FAILS vs C1 as sealed (attributed to the calibrator's velocity memory; OU τ_v 5–10 reproduces); P3 HOLDS; P5 PROVISIONAL; A1 (C1′) DRAFT for Will | armb/PDYN_FINDINGS, PDYN_PREREG(_A1) |
+| Arm B MF exploratory look | done 10-01 | impressions only (prior art: Staats v3 Fig. 10, lit v2 item 5); seeds 3/4 remark corrected | MF_EXPLORE_IMPRESSIONS |
+| **Divisor Harmonics v0** (side project) | done 10-03 (sealed) | numbers: **H1 HOLDS d = 2, 4, 5, 10** (1.4B; REPLICATES 410M, 70M; every layer); months NOT RESOLVABLE (power); hours H0 HOLDS d = 3, 4, bets NOT RESOLVABLE, parity positive 3/3 never past Holm; A3 frequency control INAPPLICABLE by its letter (residualisation changes no z); **A4 v2 stratified null RUNNING** | divisor/DIVISOR_FINDINGS, DIVISOR_PREREG (A1–A4) |
+| Lit review v2 | done 10-02 | nine agents + verifier + critic + synthesis; five plan-changing items (S §1); design changes per document (S §5) | lit/v2/S.md |
+| Arm A (bulk-vector self-similarity) | **NOT STARTED**; skeleton + prediction figure | `[TBD]`s + lit-v2 design changes await Will; last in Will's order | ARMA_PREREG_SKELETON, seals/armA_predictions.png |
 
-## Arm B — B4 COMPLETE (09-29 22:29): see armb/ARMB_FINDINGS.md
-- All 5 arms trained; A0 PASSED B-G1 at all 14 steps. Seal check OK (19 files). CHECKRUN b4_analyze.py EXIT=0 PASS.
-- **Q1:** NO SIMPLE ANCHOR (TP_O and TP_MLPOUT; rests on A2, NSA licensed). The best map (LR_INT) misfits by ~2.3% RMS.
-- **Q2:** A0 event pairs SIMULTANEOUS AT THIS RESOLUTION. Wave: OPPOSITE ORDER (p_lower 0.0052), carried by layer 0.
-- **Q3:** A0 INCONCLUSIVE (Q/K low-rank early, V/O/MLP not).
-- **Q4:** 123/368 cells OPTIMIZER-DIFFERENT. Muon: higher Q/K/MLP stable rank, lower top σ.
-- **Bulk:** sealed FINDING_CANDIDATE PRESENT in all 5 arms, status NOT ESTABLISHED. 76/9210 VIOLATED (0.83%) against
-  a 1.29% null exceedance rate; the sealed per-cell rule has no multiplicity correction.
+## Will's order for what waits (10-03): lit v2 read ✓ → push ~80 commits (Will) → OLMO_PREMISE ✓ running → A4 ✓ running → arm A last.
+Seals still on Will's desk: PDYN_PREREG_A1 (C1′), Q4EXT amendment 2 (lit v2), arm A `[TBD]`s, hours read position (only if re-extracted).
 
-## 09-30
-- Arm B final form agreed with Will (ARMB_FINDINGS §0).
-- FINDINGS_MEMO critique fixes #1, #3 and #11 done, plus Open leads; G2c closed #11 as neither-supports-nor-contradicts.
-- Seed-1 identity check (A9): INCONCLUSIVE as sealed (C2 was a dead arm; T separated cleanly from the standard order).
-  Q4 stands with the pairing caveat. The alignment follow-up was declined; no A10 exists.
-- Zoo seating of the G7 classes: DEFERRED explicitly (FINDINGS_MEMO §5).
-- llm-spectra merged into main (--no-ff). Will pushes to the Forgejo + GitHub, with a Zenodo snapshot of the merge commit.
-- Nothing running.
-
-## Held
-- OLMo stage-1 trajectory (Will's call).
+## 09-30 and earlier
+See git history (tag llmspec-2026-09-30 = the Zenodo commit; merged to main 2f79434) and NOTES.md §3.
