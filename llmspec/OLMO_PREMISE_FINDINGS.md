@@ -13,6 +13,11 @@ Run 18:00–18:13 (CPU, streamed; 5 revisions × 16 layers × Q, K; 2000 confusa
 - **Observed rates against that floor (f0 = 0.207 all levels, 0.082 trimmed):** stage-1 end Q raw
   0.246 / 0.133 (binomial p 0.073 / 0.0038), K raw 0.199 / 0.086
   (p 0.64 / 0.44). SHOWS PEAKS (≥ 0.10 and p < 1e-3) fires nowhere. Step 0: 0 / 0 (G0 PASS).
+- **Descriptive remainder (Will, 10-04): "NOT LICENSED" is not "fully explained".** The trimmed Q rate,
+  13.3% (34/256), still sits above the own-row-norm floor f0 = 0.082: binomial p = 0.0038, short of the sealed
+  p < 1e-3 bar and of nothing else. All levels: 24.6% vs 0.207, p = 0.073. K trimmed: 8.6%, p = 0.44
+  (no remainder). So directional multimodality does not stand, but a small Q excess over the row-norm null remains
+  unexplained at this power; it is reported, not interpreted.
 - **T3 names the mechanism:** σ-multimodal heads are the row-norm-bimodal heads. Q raw 2×2 [[40, 23], [19, 174]],
   Fisher p = 1.4e-16; K raw [[45, 6], [40, 165]], p = 4.7e-20 (folded: 3.3e-20 / 1.4e-25). Dead-row presence
   alone does NOT predict it (Q p = 0.37, K p = 0.027). Reading: the "peaks" in the per-head singular
@@ -46,7 +51,18 @@ No weight-decay conclusion is drawn from T5 (config UNVERIFIED, depth distributi
   differently designed test (row-norm structure as the primary object, not singular spectra).
 - Lit v2 item 4 (dip conservativeness) is moot here: the problem was a missing confusable, not test power.
 
+## 4b. Mechanism hypothesis (Will, 10-04; NOT tested — the config check is pending)
+In OLMo-2 the query is q = g ⊙ RMSNorm(W_Q x). A gain entry g_i ≈ 0 multiplies the direct gradient reaching row i of W_Q
+by ≈ 0, so that row stops learning while decoupled weight decay keeps shrinking it; the head ends up with two row-norm
+populations (live rows and decaying rows), which is exactly what the dip test read as "peaks". Consistent with T3
+(σ-multimodal ⇔ row-norm-bimodal) and T5 (98 % of dead rows have g ≈ 0). Untested: whether W_Q rows are in the WD group
+and q_norm gains are not, the stage-1 LR/WD schedule, and the full depth distribution of the dead rows (only 400 banked).
+RMSNorm couples rows through the normaliser, so "≈ 0 gradient" is approximate; stated as a hypothesis.
+
 ## 5. Open leads
 1. A per-head gain-matched / row-norm-matched null for the dip (the head's own D_r·G as its null) — method change.
 2. Row-norm bimodality itself: when in stage 1 do rows split into two scales, and is it the same rows as the gain ≈ 0 set?
+4. **For whoever studies QK-norm (Diffract, arXiv 2608.10850):** Diffract's multi-peak attention spectra in OLMo 2 may
+   be this same QK-norm / row-scale effect rather than directional structure. Test: their per-head spectra against
+   Gaussian blocks with each head's own row norms and gains (this file's T2 classes).
 3. Verify the stage-1 WD groups (q_norm gains, dead rows) against the OLMo-core config, and bank the full dead-row depth distribution, before any weight-decay reading of T5.

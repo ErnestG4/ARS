@@ -58,7 +58,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 | 5 | Induction heads form between steps 512 and 1000 | **REPLICATES** at 3 sizes; **SEED-ROBUST** 10/10 |
 | 6 | The OV circuit leaves its random null before QK | **REPLICATES** at Pythia checkpoint resolution; SEED-ROBUST. Not separable on Arm B's dense grid |
 | 7 | Heads share their top input directions | **REPLICATES**; SEED-ROBUST |
-| 8 | K's top directions concentrate on the rotary (position) dimensions | Holds in 9/10 seeds, but the registered test is SEED-DEPENDENT |
+| 8 | K's top directions concentrate on the rotary (position) dimensions | The concentration holds in every valid end-of-training run (8/8; the one fail was a restarted checkpoint), but the registered test with its norm clause is SEED-DEPENDENT (2/10 as registered, 1/8 over valid runs) |
 | 9 | Trained spectra leave Marchenko–Pastur by steps 1000–2000 | **REPLICATES**; SEED-ROBUST |
 | 17 | The trained bulk is just the initialisation shrunk by weight decay | **Ruled out** (0.5 % of the bulk's energy is init at the end; MIXED as sealed); the co-adapted calibrator is the remaining test of the reservoir idea |
 | 18 | Base-10 divisor classes (periods 2, 4, 5, 10) carry more amplitude in number representations than translation symmetry predicts | **HOLDS** at 1.4B, replicates at 410M and 70M; **not explained by token frequency** (a null that preserves any function of frequency leaves periods 2, 5, 10 at z 11–18 in all three models; period 4 at 410M–1.4B); periods 2, 5, 10 replicate published helices, period 4 is new; months NOT RESOLVABLE |
@@ -82,6 +82,10 @@ Each lead needs its own pre-registration before it is read as evidence. Details:
 1. ~~OLMo multimodality over training~~ — **withdrawn 10-03:** the stage-1-end multimodality is NOT LICENSED (heads whose
    rows sit at two norm scales produce it; OLMO_PREMISE_FINDINGS). What remains is the row-norm bimodality itself, as a
    descriptive object for a differently designed test.
+1b. **QK-norm row scales:** OLMo's "multimodal" heads are heads whose rows sit at two norm scales, and the near-dead rows
+   have QK-norm gain ≈ 0. Diffract's multi-peak attention spectra in OLMo 2 may be the same effect.
+1c. **Top directions grew along the initialisation:** the top-32 singular content correlates 0.86 with the random init
+   (nulls ≈ 0.02) while σ₁ grows ~14×: training amplified particular random initial directions.
 2. **Dead rows in OLMo Q:** near-zero modes in 170 heads at stage-1 end (92 in the released `main`, a different run).
 3. **The low-rank update burst at steps 4k → 5k** in V/O/MLP-out (1.4B). Unexplained, and absent at 70M.
 4. **Q/K lower-decile departure from Marchenko–Pastur** from ~8k steps, 44–80× above the precision bound.

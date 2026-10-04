@@ -1,0 +1,178 @@
+{
+ "pythia-410m-seed3@64000": {
+  "model": "pythia-410m-seed3",
+  "step": 64000,
+  "R1": {
+   "K_rotary_mass": 0.43468845951780066,
+   "within_head_rotation_null": 0.2519469227031978,
+   "rotary_rows_frob_share": 0.24562048661454638,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.2027861029382955,
+    "input_rotation_null": 0.5482040641504776
+   },
+   "K": {
+    "observed": 0.13693266978795307,
+    "input_rotation_null": 0.44863342409618995
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m-seed4@96000": {
+  "model": "pythia-410m-seed4",
+  "step": 96000,
+  "R1": {
+   "K_rotary_mass": 0.45483755088080097,
+   "within_head_rotation_null": 0.25191351350617713,
+   "rotary_rows_frob_share": 0.2615161936841844,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.2033135279387721,
+    "input_rotation_null": 0.5158973578851045
+   },
+   "K": {
+    "observed": 0.1382450842924765,
+    "input_rotation_null": 0.4410119909306025
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m@64000": {
+  "model": "pythia-410m",
+  "step": 64000,
+  "R1": {
+   "K_rotary_mass": 0.40421624470979395,
+   "within_head_rotation_null": 0.2491543596678165,
+   "rotary_rows_frob_share": 0.22997309644705435,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.17988604903361163,
+    "input_rotation_null": 0.4857952532559499
+   },
+   "K": {
+    "observed": 0.13480398081565748,
+    "input_rotation_null": 0.4298815807294121
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m@96000": {
+  "model": "pythia-410m",
+  "step": 96000,
+  "R1": {
+   "K_rotary_mass": 0.4306844559545195,
+   "within_head_rotation_null": 0.24904442993857,
+   "rotary_rows_frob_share": 0.2504104337269393,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.22186877008076142,
+    "input_rotation_null": 0.545279669890088
+   },
+   "K": {
+    "observed": 0.1385266298357777,
+    "input_rotation_null": 0.4292582937846377
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m-seed1@64000": {
+  "model": "pythia-410m-seed1",
+  "step": 64000,
+  "R1": {
+   "K_rotary_mass": 0.41210155774070617,
+   "within_head_rotation_null": 0.2510923150661463,
+   "rotary_rows_frob_share": 0.2316684959471278,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.18791099038371994,
+    "input_rotation_null": 0.4805916109316222
+   },
+   "K": {
+    "observed": 0.13545117537810056,
+    "input_rotation_null": 0.43353139674677466
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m-seed1@96000": {
+  "model": "pythia-410m-seed1",
+  "step": 96000,
+  "R1": {
+   "K_rotary_mass": 0.45836731332039893,
+   "within_head_rotation_null": 0.25082298251456664,
+   "rotary_rows_frob_share": 0.2623138844162022,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.23203020932521815,
+    "input_rotation_null": 0.5262382453653783
+   },
+   "K": {
+    "observed": 0.1449543383622868,
+    "input_rotation_null": 0.45258594200738816
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m-seed2@64000": {
+  "model": "pythia-410m-seed2",
+  "step": 64000,
+  "R1": {
+   "K_rotary_mass": 0.4039289063947517,
+   "within_head_rotation_null": 0.2527572731621098,
+   "rotary_rows_frob_share": 0.22863899809123545,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.1852829116353987,
+    "input_rotation_null": 0.48423209220716235
+   },
+   "K": {
+    "observed": 0.13362769797421034,
+    "input_rotation_null": 0.40844606392384347
+   },
+   "REPLICATES": true
+  }
+ },
+ "pythia-410m-seed2@96000": {
+  "model": "pythia-410m-seed2",
+  "step": 96000,
+  "R1": {
+   "K_rotary_mass": 0.42555756769191194,
+   "within_head_rotation_null": 0.25220645749798204,
+   "rotary_rows_frob_share": 0.24621039535886277,
+   "isotropic": 0.25,
+   "REPLICATES": true
+  },
+  "R2": {
+   "Q": {
+    "observed": 0.224872785595613,
+    "input_rotation_null": 0.5379899152003373
+   },
+   "K": {
+    "observed": 0.13739418249599936,
+    "input_rotation_null": 0.4179970713420846
+   },
+   "REPLICATES": true
+  }
+ }
+}

@@ -163,7 +163,8 @@
   - Configs are identical to standard (hidden 1024, 24 L, 16 H, rotary 0.25, init range 0.02). Downloads are sha256-
     verified, and the .bin path is bit-verified against safetensors. Not a loading mistake.
 - **Seed 5 fits QK-symmetry drift.** Q alone is 1.245×, but the invariant QK product is 1.055× and the loss is normal.
-- **Seeds 3 and 4 are NOT symmetry drift: they had late-training loss spikes.**
+- **Seeds 3 and 4 are NOT symmetry drift: they had late-training loss spikes.** [Corrected 10-04: the uploaded
+  trajectories are discontinuous at restarts; the later checkpoints are restarted-run states — see the correction above.]
   - Text loss tracks all other runs within ~0.01 nats up to 64k.
   - Seed 3 jumps 2.415 → 2.603 between 64k and 96k, then partly recovers (2.475 at 143k).
   - Seed 4 jumps 2.358 → 3.315 between 96k and 128k and ends at 2.857.
@@ -189,6 +190,54 @@
   reuse rule unless weights approach the subnormal range (or tolerances tighten by ~4×).
   - In THIS study the rule still runs as written: dedicated witnesses for the failing seeds, re-analysis primary per
     Addendum S3.
+
+## ⚠ CORRECTION 2026-10-04 — seeds 3 and 4: the uploaded trajectories are DISCONTINUOUS (restarts), not "late loss spikes"
+Source: BULK_INIT_OVERLAP_FINDINGS §3 (polypythias_restart_check.py, 10-03). The uploaded checkpoints after a restart come
+from the restarted run: **seed 3 is valid through step 64000 and seed 4 through 96000**; seed 3's 96000/128000/143000 and
+seed 4's 128000/143000 are states of a restarted run near its initialisation, uploaded under the original step names.
+Restarting after a loss spike is standard practice and PolyPythias names these two seeds as spike runs, so whether the
+original runs spiked is untouched; what changes is that our "post-spike / post-instability" reading (below) measured the
+discontinuity. Wherever this file says "late loss spike(s)" or "post-instability state(s)" for seeds 3 and 4, read
+"restart discontinuity" and "restarted-run state(s)". The registered counts stand AS REGISTERED; the sensitivity rows
+below are POST HOC (Will, 10-04; `stage3_seed_restart_rescore.py`, committed before it ran; results/
+stage3_seed_restart_rescore.json).
+
+**Which results it touches, criterion by criterion (by the step each one reads):**
+| criterion | step(s) read | seeds 3/4 | effect |
+|---|---|---|---|
+| R1 K rotary (concentration + norm clause) | 143000 | INVALID (restarted states) | re-scored below |
+| R2 cross-head sharing | 143000 (`stage3_repl.r1_r2`) | INVALID | re-scored below: unchanged |
+| R3 update-rank rise | intervals 1k–2k and 15k–16k | VALID | none. The values below (seed 3 O 3.3, seed 4 O 2.6) are NOT "final-step, post-instability" as this file said: R3 reads 15–16k, inside both seeds' valid range |
+| R4 OV before QK | 512 | VALID | none |
+| R5 induction | 512–1000 | VALID | none |
+| R6 MP-fit collapse | ≤ 2000 | VALID | none |
+| Sealed bulk null (reading A) | every checkpoint | cells > 64k (seed 3) / > 96k (seed 4) INVALID | none in effect: every cell of both seeds HOLDS, valid or not; 260/260 per seed restricted to valid steps too |
+| Frozen drift test (S1/S2) and S4 re-score | 143000 inputs | INVALID | n = 8 sensitivity below: verdict unchanged |
+| QK-product discriminator | 143000 | INVALID | reading already WITHDRAWN (S4) |
+| Weight-scale table (seed-scale divergence) | 143000 | INVALID | the s3/s4 rows describe restarted-run states; the witness-reuse failures for seeds 3/4 are downstream of the restart |
+
+**R1 — registered 2/10 SEED-DEPENDENT stands as registered. Post-hoc rows:**
+| reading | concentration ≥ null + 0.10 | norm clause rows ≤ 0.27 | R1 replicates |
+|---|---|---|---|
+| registered, n = 10 at 143k | 9/10 (seed 4's 0.307 the only fail) | 3/10 | 2/10 (seed 2; seed 3 from its restarted state) |
+| **n = 8 at 143k (seeds 3, 4 removed)** | **8/8** | 1/8 | **1/8 (seed 2 only)** — at the rule's lower band (≤ 1 of 10 ↔ NOT SUPPORTED) if read proportionally |
+| seed 3 @64000, seed 4 @96000 (NON-FINAL, post hoc) | pass, pass (0.435 / 0.246; 0.455 / 0.262 mass / rows) | pass, pass | pass, pass |
+| controls at the same steps (std, s1, s2 @64000 / @96000) | 6/6 | 6/6 | 6/6 |
+- **The controls decide how to read the non-final rows:** every normal run also passes R1 at 64k and 96k (rows
+  0.230 / 0.232 / 0.229 at 64k → 0.250 / 0.262 / 0.246 at 96k → 0.267–0.303 at 143k): the rotary-row norm share rises
+  late in training in every run. So seeds 3 and 4 passing at their last valid checkpoints is a stage-of-training
+  effect, not evidence about those seeds; they cannot be scored against the 143k bar.
+- **Concentration:** the one run that failed it (seed 4, 0.307) was a restarted state; with it removed the concentration
+  holds 8/8, and seed 4 at 96k reads 0.455. Row 8's "9/10" is therefore 8/8 over valid end-of-training states.
+- **The registered R1 verdict is driven by the norm clause.** Over valid end-of-training states it passes in 1/8 runs.
+
+**R2 — registered 10/10 SEED-ROBUST stands; n = 8: 8/8; seeds 3/4 at valid checkpoints: pass, pass.** Unchanged.
+
+**Frozen drift test — n = 10 included two non-end-of-training states** (seeds 3 and 4 contribute the two smallest Δq,
+−0.065 and −0.049). n = 8 sensitivity (post hoc): q arm mean residual −0.0227, SE 0.0033, t₇ = −6.96 (v1 calibrator,
+whose known-answer bias −0.0207 explains it, S4); licensed ⟨r̃⟩ arm (v2_c16) −0.00110, SE 0.00062, t₇ = −1.77, p = 0.060.
+**NOT ESTABLISHED either way**: the calibrator bias explains the q residual whatever the seed set, and the licensed arm
+stays quiet.
 
 ## SEED-LEG RESULT — all 10 runs (standard 410M + seeds 1–9; primary results per Addendum S3)
 
@@ -227,8 +276,8 @@
 - R3 O ratio 2.847 [1.343, 3.348] (≥ 3 in 5/10)
 - R3 MLP_IN ratio 19.389 [14.477, 21.503] (≥ 3 in 10/10)
 - R3 MLP_OUT ratio 3.069 [2.114, 3.392] (≥ 3 in 7/10)
-- **Seeds 3 and 4** (late loss spikes) are included in all counts, as registered. Their final-step values (R1 mass
-  0.391 / 0.307; R3 O 3.3 / 2.6) are post-instability states.
+- **Seeds 3 and 4** are included in all counts, as registered. [Corrected 10-04: their R1 values (mass 0.391 / 0.307) are
+  restarted-run states at 143k; their R3 values (O 3.3 / 2.6) read steps 15–16k and are VALID. See the correction above.]
 
 ### Re-analysis of seeds 3, 4, 5, 8, 9 (dedicated witnesses; primary per Addendum S3)
 - Every one used its own witness (witness_used recorded in its null file).

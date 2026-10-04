@@ -12,6 +12,19 @@ number is seen. Scope and corrections: `briefs/README.md` (Will, 2026-10-01, bot
 - **H_KNEE (CC):** function in the bulk has a characteristic scale imposed by the architecture (d_head on the
   head-nested side); the residual (input) side is the only place a data-imprinted exponent could survive.
 - Predictions per panel are drawn in the figure; the verdict table (§6) is read off those regions and nothing else.
+- **Per-type priors (added 2026-10-04 from BULK_INIT_OVERLAP, Will; DRAFT, part of the seal):** the trained bulk is not the
+  initialisation shrunk by weight decay in any type (E_init ≤ 1 %), but how much init content the bulk keeps differs
+  sharply by type (ρ_bulk at 143k, 1.4B / 410M-s1): **MLP_IN 0.73 / 0.73**, V 0.41 / 0.34, K 0.27 / 0.16, Q 0.21 / 0.14,
+  MLP_OUT 0.17 / 0.19, **O 0.06 / 0.06**. Declared predictions, read per type and never pooled into one verdict:
+  - **MLP_IN = the reservoir candidate.** A mostly-random input layer with a learned readout is the classic
+    random-features picture: H_RES predicts RESERVOIR for MLP_IN with the smallest calibrator gap of any type.
+  - **O, Q, K = the learned-function candidates.** If the bulk carries learned function anywhere, H_SS (or H_KNEE) is
+    predicted to show here first; O, whose bulk has left its initialisation the most while staying MP-shaped (Staats),
+    is the single most informative type.
+  - V and MLP_OUT intermediate; reported, no directional prediction.
+  - The co-adapted calibrator (§4) is now the ONLY deciding null for H_RES: the initialisation cannot explain the bulk,
+    and SGD noise alone can build a random-looking one.
+  - The prediction figure gains one panel row per type group (MLP_IN / O·Q·K / V·MLP_OUT) before sealing.
 
 ## 1. Substrate and objects
 - Models: `[TBD]` — Pythia-70m (own infrastructure; needed for the calibrator fine-tunes) and one released size for
@@ -83,5 +96,6 @@ blocks the seal.
 - Bands that failed the regime checks; fewer octaves than the rule; G2c's 4–6× (two draws, < 1e-3 nats).
 
 ## 8. Order of work (Will's GPU order)
-A0r (running) → Q4 extension + third Muon seed → calibrator + red-path plants → arm A proper. Arm B's exploratory
+A0r (done 10-01) → Q4 extension + third Muon seed (done 10-03) → calibrator + red-path plants → arm A proper
+(next, after Will seals the `[TBD]`s, the per-type priors above, and the lit-v2 design changes, lit/v2/S.md §5). Arm B's exploratory
 extraction runs on spot's CPUs meanwhile (1.4B + seeds 1–5 only).

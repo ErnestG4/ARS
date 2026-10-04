@@ -194,6 +194,12 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Q4EXT descriptive DONE 10-03 10:59 (ARMB_FINDINGS §9; results/armb_q4ext_descriptive.json):** AdamW Q/K stable rank
   bottoms near 3000 and rises to 17/15 by 10000; Muon plateau 38/35; Muon σ₁ grows but stays below AdamW's Q/K σ₁ at 10000;
   M0s3-vs-M0s1 spread one draw: median 2.4 %, 17 % of cells > 10 %. No verdict change. GPU: no job of mine running.
+- **10-04 (Will's review of 10-03): seed-restart correction + OLMo remainder + leads + arm A per-type priors DONE.**
+  stage3_seed_restart_rescore.py (GPU, 6 min): seeds 3@64k / 4@96k pass R1 and R2, but so do std/s1/s2 at 64k/96k (rows share
+  rises late in every run) → non-final states not comparable to the 143k bar; R1 concentration 8/8 and R1 1/8 over valid
+  end-of-training runs; R2 8/8; drift n = 8 still NOT ESTABLISHED. STAGE3_SEED_FINDINGS dated correction; memo rows 1/7/8,
+  README 8, STATUS. OLMo trimmed-Q remainder (13.3 % vs 8.2 %, p 0.004) reported; mechanism hypothesis §4b; Diffract and
+  top-direction leads; ARMA skeleton per-type priors (MLP_IN reservoir candidate; O/Q/K learned candidates). Nothing running.
 - **DRAFTS for Will (hourly check, 10-03 ~19:30; nothing sealed or queued, spot idle):** armb/Q4EXT_PREREG.md Amendment 2
   (lit v2: σ₁ ceiling/e-fold, Muown factorisation, per-head QK σ₁, stable rank of W−W₀, seed-2 init gate, row 16 as a reference band;
   post-hoc descriptive, CPU on spot) and STAGE1B_LICENCE_AMENDMENT.md (draft) (own-row-norm + gain-folded classes → calibration v2;
