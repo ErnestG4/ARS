@@ -1,0 +1,41 @@
+{
+ "rule": "h_KA = fraction of KA matrices whose C(x) component HOLDS (full-bin, sealed). <= 0.5 -> STATISTIC; >= 0.8 -> DYNAMICS; else INCONCLUSIVE",
+ "arms": {
+  "M0s1": {
+   "h_KA": 0.16666666666666666,
+   "ka_cx_hold": 6,
+   "ka_n": 36,
+   "real_cx_hold": 6,
+   "real_n": 36,
+   "word": "STATISTIC (full-bin C(x) NOT LICENSED on realistic shapes)",
+   "ka_P2": "FAILS"
+  },
+  "M0s2": {
+   "h_KA": 0.19444444444444445,
+   "ka_cx_hold": 7,
+   "ka_n": 36,
+   "real_cx_hold": 6,
+   "real_n": 36,
+   "word": "STATISTIC (full-bin C(x) NOT LICENSED on realistic shapes)",
+   "ka_P2": "FAILS"
+  },
+  "M0s3": {
+   "h_KA": 0.3055555555555556,
+   "ka_cx_hold": 11,
+   "ka_n": 36,
+   "real_cx_hold": 5,
+   "real_n": 36,
+   "word": "STATISTIC (full-bin C(x) NOT LICENSED on realistic shapes)",
+   "ka_P2": "FAILS"
+  },
+  "A2": {
+   "h_KA": 0.9722222222222222,
+   "ka_cx_hold": 35,
+   "ka_n": 36,
+   "real_cx_hold": 0,
+   "real_n": 36,
+   "word": "DYNAMICS (statistic licensed)",
+   "ka_P2": "HOLDS"
+  }
+ }
+}

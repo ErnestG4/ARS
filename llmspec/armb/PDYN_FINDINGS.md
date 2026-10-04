@@ -133,3 +133,27 @@ the sealed runner and verdict_p2 unchanged. Scope declared before the read (A1.6
   C(x)'s sparse bins, AdamW's does not, consistent with Adam's per-coordinate normalisation making updates burstier.
   One post-hoc known-answer check of the full-bin C(x) statistic follows (A1.8, §8); after it P2 is not amended again.
 
+## 8. A1.8 — POST-HOC known answer for the full-bin C(x) statistic on realistic shapes (designed after the A1 read;
+## `pdyn_a1_ka.py`, committed before it ran; results/armb_pdyn_a1_ka/{ka_verdict.json, build_meta.json, read/summary.json})
+Truth per real matrix: a β = 1 OU draw at the arm's τ_v, warped onto that matrix's OWN time-mean W2 density (fixed map, no
+drift), vrms matched to the real window; read by the unchanged A1 runner and OU controls. Rule declared in A1.8.
+
+| arm | known β = 1 truth: C(x) holds | real arm: C(x) holds | word | KA P2 (≥ 30/36) | KA comp. 4 fails | real comp. 4 fails |
+|---|---|---|---|---|---|---|
+| M0s1 | 6/36 (0.17) | 6/36 | **STATISTIC** | FAILS (6) | 9/36 | 28/36 |
+| M0s2 | 7/36 (0.19) | 6/36 | **STATISTIC** | FAILS (7) | 12/36 | 24/36 |
+| M0s3 | 11/36 (0.31) | 5/36 | **STATISTIC** | FAILS (11) | 9/36 | 23/36 |
+| A2 (AdamW contrast) | 35/36 (0.97) | 0/36 | **DYNAMICS** | HOLDS (34) | 18/36 | 36/36 |
+
+- **Muon:** a known β = 1 OU process carrying the real Muon densities fails the sealed full-bin C(x) statistic as often as
+  the real Muon runs do. The full-bin statistic is NOT LICENSED on Muon's realistic shapes, so **Muon's one P2 failure is
+  the statistic, not the dynamics**: Muon's spectral motion is consistent with the optimiser-memory reference on every
+  component the instrument can read.
+- **AdamW (A2):** the same construction on A2's densities passes 35/36 while the real A2 passes 0/36, so the statistic is
+  licensed there and **A2's C(x) failure is the dynamics**, alongside its velocity-kurtosis and curvature departures
+  (§7). Consistent with Will's reading: Adam's per-coordinate normalisation moves the spectrum more burstily than a
+  shared-memory OU process.
+- Component 4 (kurtosis) is partly the statistic too: the known-answer truths fail it 9–18/36, the real arms 23–36/36.
+- **P2 is closed here (Will, 10-04).** It cannot discriminate β at bank cadence (A1.6); after this step it is not amended
+  further. What stands, descriptively: Muon's spectral motion ≈ optimiser-memory OU (instrument-limited on C(x)); AdamW's
+  departs from it in velocity statistics, curvature and C(x).

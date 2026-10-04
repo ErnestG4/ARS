@@ -1,0 +1,567 @@
+{
+ "est": "pdyn_phase1-v1",
+ "m2_est": "pdyn_m2-v1",
+ "m3_est": "pdyn_m3-v1",
+ "params": {
+  "m2": {
+   "top_k": 16,
+   "kde_c": 32.0,
+   "band": [
+    0.1,
+    0.9
+   ],
+   "v2_deg": 3
+  },
+  "m3": {
+   "K": 16,
+   "gap_mult": 2.0,
+   "overlap_min": 0.5
+  },
+  "discrimination_n": {
+   "beta2": 1000,
+   "poisson": 500
+  },
+  "tolerances": {
+   "skew": 0.25,
+   "ex_kurt": 0.5,
+   "ks_gauss": 0.03,
+   "C_lag": 0.1,
+   "Cx": 0.15,
+   "n_lag": 6,
+   "x_max": 2.0
+  },
+  "nseed": 2,
+  "windows": {
+   "W2": [
+    500.0,
+    3001.0
+   ]
+  },
+  "p5_min_events": 20,
+  "p6_min_events_class": 50,
+  "mp_witness": null
+ },
+ "bank": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/results/armb_pdyn_a1_ka/bank",
+ "fake": false,
+ "flip_threshold": false,
+ "arms": {
+  "KA_M0s1": {
+   "status": "OK",
+   "n_checkpoints": 102,
+   "first": 500,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": null,
+   "grid_missing_from_bank": null,
+   "bank_steps_not_in_grid": null,
+   "checkpoints_per_window": {
+    "W2": 102
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/results/armb_pdyn_a1_ka/bank/_staging/KA_M0s1/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 6,
+     "n_fails": 30,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.16666666666666666,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 0.8333333333333334
+    }
+   },
+   "P2_per_type": {
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    }
+   },
+   "x_step_median_per_type": {
+    "W2": {
+     "Q": 0.501326331817489,
+     "K": 0.48912518248121917,
+     "V": 0.45485907904599926,
+     "O": 0.539574549483698,
+     "MLP_IN": 0.5058916275966174,
+     "MLP_OUT": 0.5419450354127979
+    }
+   },
+   "P5": {
+    "W2": {
+     "word": "NOT RESOLVABLE",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "NOT RESOLVABLE",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 1.0,
+    "C4_spectrum_ratio_median": 1.0866587232524606e-05,
+    "C4_matrix_fp32_ratio_median": 3.960409747835858e-07,
+    "C8": {
+     "W2": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": 0.0
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": null
+  },
+  "KA_M0s2": {
+   "status": "OK",
+   "n_checkpoints": 102,
+   "first": 500,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": null,
+   "grid_missing_from_bank": null,
+   "bank_steps_not_in_grid": null,
+   "checkpoints_per_window": {
+    "W2": 102
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/results/armb_pdyn_a1_ka/bank/_staging/KA_M0s2/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 7,
+     "n_fails": 29,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.19444444444444445,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 0.8055555555555556
+    }
+   },
+   "P2_per_type": {
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    }
+   },
+   "x_step_median_per_type": {
+    "W2": {
+     "Q": 0.500041777454743,
+     "K": 0.4800348294365512,
+     "V": 0.4594140385434141,
+     "O": 0.5438746038201367,
+     "MLP_IN": 0.503609469038773,
+     "MLP_OUT": 0.5477430532630287
+    }
+   },
+   "P5": {
+    "W2": {
+     "word": "NOT RESOLVABLE",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "NOT RESOLVABLE",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 1.0,
+    "C4_spectrum_ratio_median": 1.1076724874351751e-05,
+    "C4_matrix_fp32_ratio_median": 3.9643550492245066e-07,
+    "C8": {
+     "W2": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": 0.0
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": null
+  },
+  "KA_M0s3": {
+   "status": "OK",
+   "n_checkpoints": 102,
+   "first": 500,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": null,
+   "grid_missing_from_bank": null,
+   "bank_steps_not_in_grid": null,
+   "checkpoints_per_window": {
+    "W2": 102
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/results/armb_pdyn_a1_ka/bank/_staging/KA_M0s3/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 0,
+     "n_holds": 11,
+     "n_fails": 25,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.3055555555555556,
+       "word": "FAILS"
+      },
+      "curvature": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      }
+     },
+     "word": "FAILS",
+     "frac_matrices_fails": 0.6944444444444444
+    }
+   },
+   "P2_per_type": {
+    "W2": {
+     "Q": "FAILS",
+     "K": "FAILS",
+     "V": "FAILS",
+     "O": "FAILS",
+     "MLP_IN": "FAILS",
+     "MLP_OUT": "FAILS"
+    }
+   },
+   "x_step_median_per_type": {
+    "W2": {
+     "Q": 0.5008989822590034,
+     "K": 0.48942998484914085,
+     "V": 0.4512150576184359,
+     "O": 0.5374138931810212,
+     "MLP_IN": 0.5094718720663594,
+     "MLP_OUT": 0.546727201646382
+    }
+   },
+   "P5": {
+    "W2": {
+     "word": "NOT RESOLVABLE",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "NOT RESOLVABLE",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 1.0,
+    "C4_spectrum_ratio_median": 1.1389694620090656e-05,
+    "C4_matrix_fp32_ratio_median": 3.9752626820766405e-07,
+    "C8": {
+     "W2": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": 0.0
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": null
+  },
+  "KA_A2": {
+   "status": "OK",
+   "n_checkpoints": 198,
+   "first": 500,
+   "last": 3000,
+   "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "grid_declared": null,
+   "grid_missing_from_bank": null,
+   "bank_steps_not_in_grid": null,
+   "checkpoints_per_window": {
+    "W2": 198
+   },
+   "trainlog": "/home/combust/fmexplorer/criticality_tool/.claude/worktrees/llm-spectra/llmspec/results/armb_pdyn_a1_ka/bank/_staging/KA_A2/trainlog.jsonl",
+   "trainlog_present": true,
+   "P1": {
+    "word": "NOT COMPUTED HERE",
+    "note": "read on the existing <r~>/q (ARMB_FINDINGS \u00a76)"
+   },
+   "P4": {
+    "word": "NOT READ",
+    "note": "phase 2 only (M4 trajectory Gram)"
+   },
+   "P2": {
+    "W2": {
+     "n_matrices": 36,
+     "n_not_resolvable": 1,
+     "n_holds": 34,
+     "n_fails": 1,
+     "tags": [
+      "PROVISIONAL (curvature at bank cadence)"
+     ],
+     "components": {
+      "velocity": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      },
+      "Cx": {
+       "frac_holds": 0.9714285714285714,
+       "word": "HOLDS"
+      },
+      "curvature": {
+       "frac_holds": 1.0,
+       "word": "HOLDS"
+      }
+     },
+     "word": "HOLDS",
+     "frac_matrices_fails": 0.027777777777777776
+    }
+   },
+   "P2_per_type": {
+    "W2": {
+     "Q": "HOLDS",
+     "K": "HOLDS",
+     "V": "HOLDS",
+     "O": "HOLDS",
+     "MLP_IN": "HOLDS",
+     "MLP_OUT": "HOLDS"
+    }
+   },
+   "x_step_median_per_type": {
+    "W2": {
+     "Q": 0.3701132436279676,
+     "K": 0.33391765223914527,
+     "V": 0.28573718090465855,
+     "O": 0.47271217812078425,
+     "MLP_IN": 0.337945659530346,
+     "MLP_OUT": 0.47220152644373276
+    }
+   },
+   "P5": {
+    "W2": {
+     "word": "NOT RESOLVABLE",
+     "tags": [
+      "PROVISIONAL (bank cadence)"
+     ],
+     "n_events": 0,
+     "unambiguous_only_word": "NOT RESOLVABLE",
+     "stable_when_ambiguous_excluded": true,
+     "detail": {
+      "word": "NOT RESOLVABLE",
+      "tags": [
+       "PROVISIONAL (bank cadence)"
+      ],
+      "reason": "n_events=0 < 20",
+      "n_events": 0
+     }
+    }
+   },
+   "P6": {
+    "W2": {
+     "word": "DESCRIPTIVE",
+     "tags": [
+      "PROVISIONAL (bank cadence)",
+      "DESCRIPTIVE (no prediction)"
+     ],
+     "n_events": 0,
+     "class_word": "none (n < 50)",
+     "reason": "n < 3"
+    }
+   },
+   "controls": {
+    "C5_all_bit_identical": true,
+    "C3_collapsed_frac": 1.0,
+    "C4_spectrum_ratio_median": 1.7641848104070102e-05,
+    "C4_matrix_fp32_ratio_median": 3.9706995302977594e-07,
+    "C8": {
+     "W2": {
+      "n_all": 0,
+      "n_unambiguous": 0,
+      "ambiguous_step_level_frac_median": 0.0
+     }
+    }
+   },
+   "M6": "OK",
+   "W3": null
+  }
+ },
+ "primary_endpoints": {
+  "P2_W2": {
+   "A0": "ABSENT",
+   "M0s1": "ABSENT"
+  },
+  "P3_primary": "NOT RESOLVABLE",
+  "P3_descriptive": [],
+  "note": "P2 primary = velocity Gaussianity + C(x) on W2 for A0 (AdamW) and M0s1 (Muon); curvature PROVISIONAL; P5/P6 PROVISIONAL; W3 / M5 DESCRIPTIVE"
+ },
+ "runtime_s": 3359.0281760692596,
+ "skipped_parts": 0,
+ "computed_parts": 144,
+ "errors": [],
+ "unit_runtime_s": 3356.3420779705048,
+ "P3": {
+  "primary": {
+   "pair": [
+    "A0",
+    "M0s1"
+   ],
+   "word": "NOT RESOLVABLE",
+   "reason": "arm(s) absent"
+  },
+  "descriptive": [],
+  "across_seeds": "mixed / unresolved"
+ }
+}

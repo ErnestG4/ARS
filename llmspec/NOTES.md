@@ -194,6 +194,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Q4EXT descriptive DONE 10-03 10:59 (ARMB_FINDINGS §9; results/armb_q4ext_descriptive.json):** AdamW Q/K stable rank
   bottoms near 3000 and rises to 17/15 by 10000; Muon plateau 38/35; Muon σ₁ grows but stays below AdamW's Q/K σ₁ at 10000;
   M0s3-vs-M0s1 spread one draw: median 2.4 %, 17 % of cells > 10 %. No verdict change. GPU: no job of mine running.
+- **PDYN A1.8 known answer DONE 10-04 14:23 (PDYN_FINDINGS §8): Muon's C(x) failure = STATISTIC (KA 6–11/36 ≈ real 5–6/36);
+  AdamW A2 = DYNAMICS (KA 35/36 vs real 0/36). P2 CLOSED per Will. Push FAILED here (no key in this session): Will pushes.
+  ARMA_REVIEW_PACKET.md sent for Will's review before the arm A seal.
 - **PDYN A1 DONE 10-04 06:13 (PDYN_FINDINGS §7): P2 FAILS vs C1′ in all 4 primary arms (and both secondary).** Muon: velocity 36/36,
   curvature 35–36/36, C(x) fails on sparse bins only (dense 100 %); AdamW: also velocity kurtosis + curvature (A2 dense C(x) 0 %).
   Comp 4 kurtosis fails 36/36 AdamW, 23–24/36 Muon. Open for Will: known-answer licence of full-bin dev_Cx on realistic shapes.
