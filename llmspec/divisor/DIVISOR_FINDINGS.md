@@ -181,6 +181,23 @@ multiples of 5 and at powers of 2 (' 32' 279 k, ' 64' 164 k vs neighbours ≈ 15
   are NOT a linear log-frequency comb; "new" still waits on A4 (detrended-comb covariate) because the sealed control did
   not fire by its own letter.
 
+## 7b. A4 v2 — stratified-permutation frequency null (CONFIRMATION RUN; sealed 6a4b1fc; results/divisor/numbers_strat_control.json)
+10 000 permutations of the item order within 10 strata of 10 items matched on exact item-token count (bin 0 spans
+2.0–8.0 M, bin 4 164–229 k, bin 9 70–75 k), scored against the observed Lorentzian fit held fixed; Holm over d = 2, 4, 5, 10.
+| d | 1.4B z, p, word | 410M | 70M | unstratified shuffle p (1.4B / 410M / 70M) |
+|---|---|---|---|---|
+| 2 | +15.4, 0.0001, SURVIVES | +16.8, 0.0001, SURVIVES | +17.7, 0.0001, SURVIVES | 0.0001 / 0.0002 / 0.0001 |
+| 4 | +4.6, 0.0002, SURVIVES | +3.5, 0.0027, SURVIVES | +0.0, 0.4660, NOT RESOLVABLE | 0.0814 / 0.1972 / 0.8583 |
+| 5 | +15.5, 0.0001, SURVIVES | +12.7, 0.0001, SURVIVES | +11.1, 0.0001, SURVIVES | 0.0001 / 0.0001 / 0.0001 |
+| 10 | +13.5, 0.0001, SURVIVES | +11.9, 0.0001, SURVIVES | +10.7, 0.0001, SURVIVES | 0.0001 / 0.0001 / 0.0001 |
+- **d = 2, 5, 10 SURVIVE in all three models** (z 11–18 against a null that carries any function of frequency):
+  frequency, linear or not, does not explain them. **d = 4 SURVIVES at 1.4B and 410M, NOT RESOLVABLE at 70M** (where
+  its excess is at the null's mean; at 70M even the ordinary shuffle does not reject d = 4).
+- Beside the sealed verifier finding that no monotone function of the real counts can create a comb at all, the
+  frequency reading is closed for periods 2, 5, 10 at all three sizes and for period 4 at 410M–1.4B. The 5-bin
+  sensitivity column reads the same words. This is a confirmation run (designed after A3's descriptive result).
+- Period 4 therefore stands as the new class at 410M–1.4B, with the caveat that at 70M it is not resolvable.
+
 ## 6. Open leads (not claims)
 1. Hour parity (d = 2): same sign in 3/3 released models and a Holm rejection along the A0 trajectory — is it the
    even/odd token-frequency structure of "H:00" times (e.g. 12:00/18:00 vs 13:00/19:00 usage), or a representation of

@@ -53,7 +53,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 |---|---|---|
 | 1 | Bulk spacing statistics stay random-matrix (β = 1) at every checkpoint | **NULL** at 410M–1.4B (260/260 cells per model; 10 seeds); an instrument check, expected from universality. NOT ESTABLISHED at 70M (unpowered at 0.010) |
 | 2 | A late per-head-Q departure from β = 1 | **NOT ESTABLISHED** (equals the calibrator's own bias) |
-| 3 | Multi-peak ("Diffract-style") attention spectra exist | Pythia: none (a weak null: the dip test misses minority or broad peaks). OLMo: 13.3% of Q heads at stage-1 end (gain and row-norm confusables untested). No fade is claimed: `main` is a different training run from the checkpoint lineage, and the lineage's stage-2 endpoint is unmeasured |
+| 3 | Multi-peak ("Diffract-style") attention spectra exist | Pythia: none (a weak null). OLMo stage-1 end: **not licensed** — Gaussian matrices with the heads' own row-norm pattern read "multimodal" almost as often as the real heads, and the multimodal heads are exactly the ones whose rows live at two norm scales (OLMO_PREMISE_FINDINGS) |
 | 4 | Local statistics on peaked spectra | NOT LICENSED as registered |
 | 5 | Induction heads form between steps 512 and 1000 | **REPLICATES** at 3 sizes; **SEED-ROBUST** 10/10 |
 | 6 | The OV circuit leaves its random null before QK | **REPLICATES** at Pythia checkpoint resolution; SEED-ROBUST. Not separable on Arm B's dense grid |
@@ -61,7 +61,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 | 8 | K's top directions concentrate on the rotary (position) dimensions | Holds in 9/10 seeds, but the registered test is SEED-DEPENDENT |
 | 9 | Trained spectra leave Marchenko–Pastur by steps 1000–2000 | **REPLICATES**; SEED-ROBUST |
 | 17 | The trained bulk is just the initialisation shrunk by weight decay | **Ruled out** (0.5 % of the bulk's energy is init at the end; MIXED as sealed); the co-adapted calibrator is the remaining test of the reservoir idea |
-| 18 | Base-10 divisor classes (periods 2, 4, 5, 10) carry more amplitude in number representations than translation symmetry predicts | **HOLDS** at 1.4B, replicates at 410M and 70M (periods 2, 5, 10 replicate published helices; period 4 new); months NOT RESOLVABLE; hours mostly NOT RESOLVABLE; frequency control running |
+| 18 | Base-10 divisor classes (periods 2, 4, 5, 10) carry more amplitude in number representations than translation symmetry predicts | **HOLDS** at 1.4B, replicates at 410M and 70M; **not explained by token frequency** (a null that preserves any function of frequency leaves periods 2, 5, 10 at z 11–18 in all three models; period 4 at 410M–1.4B); periods 2, 5, 10 replicate published helices, period 4 is new; months NOT RESOLVABLE |
 | 10 | Update rank rises ≥ 3× over training at constant learning rate | 1.4B only; not size-general; SEED-DEPENDENT |
 | 11 | The ordering of bulk singular values carries function | **NOT ESTABLISHED** (a size-matched same-subspace perturbation costs 0.67× the bulk shuffle) |
 | 12 | Compression runs as a layer-ordered wave (Liu) | V at 1.4B: descriptive null, consistent with Liu's V/O-uniform claim. Q/K at 70M: OPPOSITE ORDER, significant only with layer 0 (p 0.056 without it) |

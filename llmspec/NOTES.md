@@ -194,6 +194,10 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Q4EXT descriptive DONE 10-03 10:59 (ARMB_FINDINGS §9; results/armb_q4ext_descriptive.json):** AdamW Q/K stable rank
   bottoms near 3000 and rises to 17/15 by 10000; Muon plateau 38/35; Muon σ₁ grows but stays below AdamW's Q/K σ₁ at 10000;
   M0s3-vs-M0s1 spread one draw: median 2.4 %, 17 % of cells > 10 %. No verdict change. GPU: no job of mine running.
+- **OLMO_PREMISE DONE 18:13 → NOT LICENSED (row-norm confusable): memo row 3's OLMo multimodality does not stand** (own-row-norm
+  Gaussian FPR 21 % / 8 %; T3 Fisher 1e-16; folded not licensed; endpoint identical). OLMO_PREMISE_FINDINGS.md; memo/README/STATUS
+  re-worded. Stage 1b calibration needs the own-row-norm class (amendment for Will). **A4 DONE 17:40: d=2,5,10 SURVIVE ×3, d=4
+  SURVIVES 1.4B/410M, NOT RESOLVABLE 70M** (DIVISOR_FINDINGS §7b). No job running.
 - **OLMO_PREMISE SEALED + RUNNING 10-03 ~18:00 (jobs/olmo_premise.log; results/olmo_premise.json):** A1 (lit v2 + HF card:
   ingredients 1–2 exploratory, T4 on ingredient 3; dip conservative; ACR unavailable) + A2 (folded branch NOT LICENSED by its
   own known answer: gain-folded Gaussian reads multimodal 64 %; raw branch primary; gain column descriptive). CPU, ~10 min.
