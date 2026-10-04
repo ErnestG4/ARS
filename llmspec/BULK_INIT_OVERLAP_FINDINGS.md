@@ -13,7 +13,7 @@ step-0 weights seen through the trained bulk subspace; thresholds ≥ 0.80 on �
 | pythia-1.4b | **MIXED** | 144/144 | 0.014 | 0.368 | 100 % | PASS (step 1 ≡ step 0 on every matrix: Pythia applies lr(0) = 0 at the first update, so the gate's upper side cannot fire and the low side is flagged, as the verdict script declares) |
 | pythia-410m seeds 1–5 | **MIXED** | 720/720 | 0.254 | 0.346 | 100 % | PASS, same note, all five |
 | pooled (descriptive) | MIXED | 864 | 0.214 | 0.350 | 100 % | — |
-- Both nulls read ≈ 0 everywhere (Gaussian: median |ρ_bulk| 1e-4, max 0.008; wrong-instance: max 0.008). Step 0 reads
+- Both nulls read ≈ 0 everywhere (Gaussian: median |ρ_bulk| 6.6e-4 at 1.4B, 1.5e-3 for the 410M seeds, max 0.008; wrong-instance: max 0.010). Step 0 reads
   ρ = 1.000, α̂ = 1.000 on every matrix (sanity).
 - Neither sealed word fired. The MIXED word is honest but hides two very different populations (§2–§3).
 
@@ -33,16 +33,16 @@ step-0 weights seen through the trained bulk subspace; thresholds ≥ 0.80 on �
   (E_init ≈ 1 %, ρ ≈ 0.1) is met in order of magnitude. The bulk's correlation with the init decays with a half-life of
   ≈ 20k steps (1.4B) / 16k (410M) and flattens at 0.19–0.24 under the cosine LR tail.
 - **Red flag fired in the declared direction, the other way round:** A1 expected α̂ ≤ α_wd (updates anti-aligned with the
-  init). Observed α̂ > α_wd from ≈ 8k onward on every normal run (1.4B 0.358 vs 0.228 at the end; 410M 0.233 vs 0.109):
+  init). Observed α̂ > α_wd from ≈ 16k (1.4B) / ≈ 32k (410M) onward on every normal run [corrected 10-04 audit: was '≈ 8k'; at 8k α̂ is still below α_wd, 0.833 vs 0.865 and 0.748 vs 0.804] (1.4B 0.358 vs 0.228 at the end; 410M 0.233 vs 0.109):
   the trained matrices retain ~1.6–2.1× the init amplitude that decoupled weight decay alone leaves. Reported, not
   interpreted (candidates: updates partly aligned with W₀; an effective decay below the configured one; both).
 - **By matrix type (143000, medians; 1.4B / 410M-s1):** MLP_IN 0.73 / 0.73 (its near-spike octave 0.99), V 0.41 / 0.34,
   K 0.27 / 0.16, Q 0.21 / 0.14, MLP_OUT 0.17 / 0.19, **O 0.06 / 0.06** (96–100 % of O matrices ≤ 0.20). The per-type
   prediction declared in A1 is answered: W_O, the type Staats et al. find closest to the MP law, has the bulk that has
   LEFT its initialisation the most. MP-shape is not init memory.
-- **By spectral position (143000, 1.4B / 410M-s1):** top-32 0.86 / 0.79, near-spike octave [32, 64) 0.90 / 0.70,
-  bulk 0.24 / 0.19, deepest octave 0.11 / 0.09. The geometric expectation in A1 (near-spike octave LOWER than the bulk)
-  is reversed: init memory decreases monotonically with depth into the spectrum, and the smallest singular directions
+- **By spectral position (143000, 1.4B / 410M-s1):** top-32 0.86 / 0.79, near-spike octave [32, 64) 0.90 / 0.76,
+  bulk 0.24 / 0.19, deepest octave 0.11 / 0.08. The geometric expectation in A1 (near-spike octave LOWER than the bulk)
+  is reversed: init memory is high in the top-32 and near-spike octave (0.76–0.90) and falls through the bulk to the deepest octave, and the smallest singular directions
   are the least initialisation-like (consistent with MF_EXPLORE §3's late neuron-side structure living there, and with
   Staats et al.'s function at the small edge). The high ρ_top says the top directions grew along initial structure, not
   orthogonally to it (descriptive; the top subspace is 32-dimensional, so this is a correlation of content, not of
@@ -54,12 +54,12 @@ step-0 weights seen through the trained bulk subspace; thresholds ≥ 0.80 on �
 `polypythias_restart_check.py` (reading rule in its docstring; results/polypythias_restart_check.json): elementwise Pearson
 correlation of every late checkpoint with every other revision of the SAME seed, layers 0/12/23, Q and MLP_IN; seed 1 as
 control.
-- **Seed 4:** step 128000 correlates 0.95–0.995 with its own step 256 / 512 / 0 (L00 Q: 0.970 with step 0, 0.966 with
+- **Seed 4:** step 128000 correlates 0.94–0.995 with its own step 256 / 512 / 0 (L00 Q: 0.970 with step 0, 0.966 with
   1000, 0.891 with 2000, 0.56 with 8000) and only 0.07–0.53 with its predecessor at 96000; 143000 continues from 128000
   (0.92–0.99). → RESTART/MISLABEL CANDIDATE on 6/6 (128k) and 4/6 (143k) cells. The published seed-4 "late" checkpoints
   are a run restarted from near the initialisation after the divergence, uploaded under the original step names.
-- **Seed 3:** step 96000 correlates 0.05–0.55 with its predecessor at 64000 and at most 0.66–0.91 with ANY earlier
-  revision (best: step 0/1000), then 128000 and 143000 continue from 96000 (0.93–0.998). → RESTART on 6/6 cells at 96k:
+- **Seed 3:** step 96000 correlates 0.05–0.55 with its predecessor at 64000 and at most 0.52–0.91 with ANY earlier
+  revision (best: steps 128–1000), then 128000 and 143000 continue from 96000 (0.93–0.998). → RESTART on 6/6 cells at 96k:
   a restarted run (not a resume from a stored checkpoint of the same run), partially trained by 96k.
 - **Seed 1 (control):** CONTINUATION on 18/18 cells; predecessor correlations 0.91–0.99, decreasing with grid distance.
 - Readings (narrowed 10-03 per Will): restarting from an earlier checkpoint after a loss spike is standard practice, so a
@@ -71,7 +71,7 @@ control.
   spikes" is the same artefact (an early-training state has not yet formed it); PolyPythias' own account of these two
   runs (deviate "long before", σ_λ drop) should be re-read in this light. The seed rows of the sealed verdict stand as
   MIXED, with the ≥ 0.80 fraction (25 %) carried by seeds 3/4 and MLP_IN; on seeds 1/2/5 alone the 410M row would read
-  frac ≥ 0.80 ≈ 0.07 (MLP_IN only), frac ≤ 0.20 ≈ 0.55 — MIXED still, closer to LEARNED.
+  frac ≥ 0.80 = 0.028 (12/432, all MLP_IN), frac ≤ 0.20 = 0.53 — MIXED still, closer to LEARNED.
 - For every later use: PolyPythias 410M seeds 3 and 4 are VALID only through step 64000 (seed 3) and 96000 (seed 4);
   their later revisions are a different training segment. Stage 3 seed results that used them at 143000 (STAGE3_SEED_FINDINGS,
   FINDINGS_MEMO rows 1/5–10 "10 seeds") need a dated note: those two seeds' final-checkpoint cells are not end-of-training

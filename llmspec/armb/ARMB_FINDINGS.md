@@ -419,7 +419,7 @@ plots/armb_q4ext_{sr,sigma1,dw0}.png. Columns Q / K / V / O / MLP_IN / MLP_OUT, 
   the verdict word does not change (no sealed statistic).
 - **MLP / V / O:** both optimisers keep shrinking MLP_OUT's stable rank past 3000 (A0 78 → 56; M0s1 109 → 73) and Muon's
   MLP_IN too (124 → 90, while AdamW's sits at 28–30); V and O are flat-to-slightly-rising for both.
-- **σ₁ (Kimi K2 risk under Muon):** Muon's σ₁ grows steadily (Q 3.6 → 4.9, MLP_OUT 4.6 → 8.7 by 10000) while AdamW's Q/K σ₁
+- **σ₁ (Kimi K2 risk under Muon):** Muon's σ₁ grows steadily (Q 3.5 → 4.9, MLP_OUT 4.6 → 8.7 by 10000) while AdamW's Q/K σ₁
   is flat (5.8 → 5.6); at 10000 Muon's Q/K σ₁ is still below AdamW's, its MLP_OUT σ₁ above. ‖W_t − W_0‖_F / ‖W_0‖_F is
   larger under Muon at every step past ≈ 500 in every type (plots/armb_q4ext_dw0.png).
 - **Muon-side spread, ONE draw (M0s3 vs M0s1 on the shared grid ≤ 3000, per-layer stable rank per cell):** median relative

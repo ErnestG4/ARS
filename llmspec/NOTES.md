@@ -200,12 +200,12 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
   candidate per-head matched null). 4 commits from 10-03 evening not yet on origin.
 - **OLMO_PREMISE DONE 18:13 → NOT LICENSED (row-norm confusable): memo row 3's OLMo multimodality does not stand** (own-row-norm
   Gaussian FPR 21 % / 8 %; T3 Fisher 1e-16; folded not licensed; endpoint identical). OLMO_PREMISE_FINDINGS.md; memo/README/STATUS
-  re-worded. Stage 1b calibration needs the own-row-norm class (amendment for Will). **A4 DONE 17:40: d=2,5,10 SURVIVE ×3, d=4
+  re-worded. Stage 1b calibration needs the own-row-norm class (amendment for Will). **A4 DONE 17:29: d=2,5,10 SURVIVE ×3, d=4
   SURVIVES 1.4B/410M, NOT RESOLVABLE 70M** (DIVISOR_FINDINGS §7b). No job running.
-- **OLMO_PREMISE SEALED + RUNNING 10-03 ~18:00 (jobs/olmo_premise.log; results/olmo_premise.json):** A1 (lit v2 + HF card:
+- **(done, see entry above) OLMO_PREMISE SEALED + RUNNING 10-03 ~18:00 (jobs/olmo_premise.log; results/olmo_premise.json):** A1 (lit v2 + HF card:
   ingredients 1–2 exploratory, T4 on ingredient 3; dip conservative; ACR unavailable) + A2 (folded branch NOT LICENSED by its
   own known answer: gain-folded Gaussian reads multimodal 64 %; raw branch primary; gain column descriptive). CPU, ~10 min.
-- **Divisor A4 v2 (stratified permutation, CONFIRMATION RUN) SEALED + RUNNING (jobs/divisor_strat.log):** fixed observed
+- **(done, see entry above) Divisor A4 v2 (stratified permutation, CONFIRMATION RUN) SEALED + RUNNING (jobs/divisor_strat.log):** fixed observed
   baseline; real counts: no f(count) feature can create the comb (verifier). Will's order: lit v2 read ✓ → push (Will) →
   OLMO_PREMISE ✓ → A4 ✓ → arm A last.
 - **Divisor A3 DONE 11:20 (DIVISOR_FINDINGS §7):** can-fire read 0.097 vs the sealed 0.10 → INAPPLICABLE by the letter (the
@@ -214,7 +214,7 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Divisor Harmonics v0 PRIMARY READ DONE 10-03 09:30 (divisor/DIVISOR_FINDINGS.md):** gates PASS ×3 models; numbers H1 HOLDS
   d=2,4,5,10 (z 28/12/41/9 at 1.4B; replicates 410M, 70M); months NOT RESOLVABLE (power: ≥40 % excess needed); hours H0 HOLDS
   d=3,4, bets NOT RESOLVABLE, parity d=2 positive 3/3 (not rejected). A0 trajectory: period 5 first (step 256), 10 & 2 by 1500,
-  4 by 6000; hour parity rejected from 3000. PENDING on spot: first-token + per-layer descriptive passes (A2 fix), wait armed.
+  4 by 6000; hour parity rejected from 3000. First-token + per-layer descriptive passes DONE 10-03 ~09:40 (DIVISOR_FINDINGS §5b, §5c).
 - **Q4EXT descriptive extraction LAUNCHED 10-03 ~08:50 (armb/q4ext_run.sh → q4ext_run.log):** q4ext_extract.py (sealed B4
   extractor with stops extended at runtime, as a0r_score.py; A0/M0s1 70 new ckpts each, M0s3 161; then DW0 pass: ‖W_t−W_0‖_F,
   ‖W_t‖_F, σ₁ per layer/type at the 100-step cadence) then q4ext_descriptive.py (results/armb_q4ext_descriptive.json,

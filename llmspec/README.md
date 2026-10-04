@@ -53,7 +53,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 |---|---|---|
 | 1 | Bulk spacing statistics stay random-matrix (β = 1) at every checkpoint | **NULL** at 410M–1.4B (260/260 cells per model; 10 seeds); an instrument check, expected from universality. NOT ESTABLISHED at 70M (unpowered at 0.010) |
 | 2 | A late per-head-Q departure from β = 1 | **NOT ESTABLISHED** (equals the calibrator's own bias) |
-| 3 | Multi-peak ("Diffract-style") attention spectra exist | Pythia: none (a weak null). OLMo stage-1 end: **not licensed** — Gaussian matrices with the heads' own row-norm pattern read "multimodal" almost as often as the real heads, and the multimodal heads are exactly the ones whose rows live at two norm scales (OLMO_PREMISE_FINDINGS) |
+| 3 | Multi-peak ("Diffract-style") attention spectra exist | Pythia: none (a weak null). OLMo stage-1 end: **not licensed** — Gaussian matrices with the heads' own row-norm pattern read "multimodal" almost as often as the real heads, and the multimodal heads are mostly the ones whose rows live at two norm scales (40 of 63; Fisher p 1e-16) (OLMO_PREMISE_FINDINGS) |
 | 4 | Local statistics on peaked spectra | NOT LICENSED as registered |
 | 5 | Induction heads form between steps 512 and 1000 | **REPLICATES** at 3 sizes; **SEED-ROBUST** 10/10 |
 | 6 | The OV circuit leaves its random null before QK | **REPLICATES** at Pythia checkpoint resolution; SEED-ROBUST. Not separable on Arm B's dense grid |
@@ -68,7 +68,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 | 13 | Change points align with training events | NOT LICENSED |
 | 14 | What anchors the early turning points (Arm B) | NOT RESOLVABLE as sealed: an identical-config rerun of A0 shows the sealed statistic's noise model is too small (the paired floor equals A2's O-side misfit); the MLP_OUT misfit is 3.5× the floor, descriptively |
 | 15 | Early updates are low-rank (Arm B) | INCONCLUSIVE (Q/K yes, V/O/MLP no, descriptively) |
-| 16 | AdamW vs Muon (Arm B) | Timing and depth of the Q/K collapse depend on the optimizer |
+| 16 | AdamW vs Muon (Arm B) | Timing and depth of the Q/K stable-rank fall depend on the optimizer; past 3000 AdamW dips and recovers while Muon plateaus (descriptive) |
 
 Status words: NULL = a registered null that held; REPLICATES / SEED-ROBUST / SEED-DEPENDENT = replication verdicts
 across sizes and seeds; NOT ESTABLISHED = a reading that did not survive its test; NOT LICENSED = the instrument could

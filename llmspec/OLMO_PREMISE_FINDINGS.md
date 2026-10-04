@@ -23,7 +23,8 @@ Run 18:00–18:13 (CPU, streamed; 5 revisions × 16 layers × Q, K; 2000 confusa
 
 ## 2. Gain column (A2, descriptive)
 Q: 19.1% of heads have a multimodal gain histogram; a Gaussian folded with the head's own gains reads
-multimodal in 18.8%; of the folded-multimodal heads (23.4%), 14.5% are explained by their own gain alone. K similar.
+multimodal in 18.8%; 23.4% of heads are folded-multimodal, and 14.5% of all heads are folded-multimodal AND read multimodal
+with their own gain alone — about 62% of the folded-multimodal heads. K similar.
 
 ## 3. Dead rows (T5, descriptive; WD bound UNVERIFIED-config)
 Q: 1936 rows (of 32 768) below 0.1 × median, median norm 0.0032 × median; **98.1% of them have a
@@ -48,4 +49,4 @@ No weight-decay conclusion is drawn from T5 (config UNVERIFIED, depth distributi
 ## 5. Open leads
 1. A per-head gain-matched / row-norm-matched null for the dip (the head's own D_r·G as its null) — method change.
 2. Row-norm bimodality itself: when in stage 1 do rows split into two scales, and is it the same rows as the gain ≈ 0 set?
-3. Verify the stage-1 WD groups (q_norm gains, dead rows) against the OLMo-core config to settle T5's 14 orders.
+3. Verify the stage-1 WD groups (q_norm gains, dead rows) against the OLMo-core config, and bank the full dead-row depth distribution, before any weight-decay reading of T5.

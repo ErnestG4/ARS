@@ -25,7 +25,7 @@ Holm over the 17 (concept × nontrivial class) tests, α = 0.05.
 | numbers (open) | 0.50, p = 0.0001 PRESENT | **2** (n=50; bet) | **+28.5** | 0.0002 | **+9.1** | 0.02 | **H1 HOLDS** (Holm p_adj 0.004) |
 | | | **4** (n=25,75) | **+12.3** | 0.0002 | **+2.8** | 0.02 | **H1 HOLDS** |
 | | | **5** (n=20,40,60,80; bet) | **+40.8** | 0.0002 | **+7.2** | 0.02 | **H1 HOLDS** |
-| | | **10** (n=10,30,70,90; bet) | **+9.0** | 0.0002 | **+1.7** | 0.05 | **H1 HOLDS** |
+| | | **10** (n=10,30,70,90; bet) | **+8.9** | 0.0002 | **+1.7** | 0.05 | **H1 HOLDS** |
 | | | 20 | −2.1 | 0.99 | −0.30 | 0.1 | H0 HOLDS (deficit, see §3) |
 | | | 25 | −2.4 | 1.00 | −0.21 | 0.1 | H0 HOLDS (deficit, see §3) |
 | | | 50 | +0.7 | 0.24 | +0.11 | 0.1 | H0 HOLDS |
@@ -50,7 +50,7 @@ Holm over the 17 (concept × nontrivial class) tests, α = 0.05.
 | numbers d=2 | +28.5 | +31.5 | +26.1 | REPLICATES 2/2 |
 | numbers d=4 | +12.3 | +10.6 | +3.8 (p = 0.0007) | REPLICATES 2/2 |
 | numbers d=5 | +40.8 | +37.3 | +25.8 | REPLICATES 2/2 |
-| numbers d=10 | +9.0 | +7.8 | +6.1 | REPLICATES 2/2 |
+| numbers d=10 | +8.9 | +7.8 | +6.1 | REPLICATES 2/2 |
 | hours d=2 (parity) | +1.6 (p 0.076) | +2.6 (p 0.025) | +3.0 (p 0.011) | not rejected in any model after Holm; same sign 3/3 (descriptive) |
 | months, all classes | |z| ≤ 0.8 | |z| ≤ 0.7 | |z| ≤ 1.0 | NOT RESOLVABLE in all three |
 The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2.0; 70M −1.9/−2.7).
@@ -71,7 +71,7 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
   papers** — and the one most exposed to the frequency confound (powers of 2 in computing text).
 - **Frequency (Will's review, settled 10-03):** round numbers, even numbers and powers of 2 are far commoner in text, and
   the step-256 onset is the unigram/bigram stage, so a frequency comb was the first alternative to exclude. A3 (linear /
-  quadratic log-frequency residualisation, §7) changed no z but was INAPPLICABLE by its own can-fire letter; A4 v2 (a
+  quadratic log-frequency residualisation, §7) lowered no z but was INAPPLICABLE by its own can-fire letter; A4 v2 (a
   within-frequency-strata permutation null that carries ANY function of frequency, §7b; a confirmation run) leaves
   d = 2, 5, 10 SURVIVING in all three models and d = 4 SURVIVING at 1.4B and 410M (NOT RESOLVABLE at 70M). Frequency does
   not explain the result; period 4 stands as the new class at 410M–1.4B.
@@ -82,7 +82,7 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
 Source of every checkpoint: the A0 run itself — steps ≤ 3000 from the B4 bank, steps 4000–10000 from the Q4EXT extension
 (`train.py A0 --stop 10000`, the SAME run resumed from its step-3000 resume.pt, Q4EXT_PREREG §1; not a different run and
 not Pythia-70M's released trajectory). **Onset steps are DETECTION steps, not presence steps** (the OLMo lesson): the
-instrument's smallest detectable excess at each checkpoint is in every JSON — numbers 0.02 (d = 2, 4, 5; 0.05 for d = 10
+instrument's smallest detectable excess at each checkpoint is in every JSON — numbers 0.02–0.05 (d = 2, 4: 0.02; d = 5: 0.02, 0.05 at steps 1000 and 8000; d = 10: 0.05
 from step 1000) and hours d = 2 0.2 at all 23 checkpoints — so "first detectable at step 256" means a ≥ 2 % excess was
 not there at 128 and was at 256; a smaller one could be earlier.
 | step | months cycle | hours cycle | numbers cycle | numbers z (d=2 / 4 / 5 / 10) | hours d=2 z | Holm rejections |
@@ -134,8 +134,8 @@ not there at 128 and was at 256; a smaller one could be earlier.
 | 1.4B | 0.36 (0.0001) | +0.9, 0.17, +0.35 | −0.5, −0.08 | −0.30 / −0.24 | 0.2 / 0.4 |
 | 410M | 0.38 (0.0001) | +1.4, 0.09, +0.59 | −0.7, −0.12 | −0.31 / −0.23 | 0.2 / 0.4 |
 | 70M | 0.34 (0.0001) | +2.1, 0.036, +0.71 | −0.5, −0.08 | −0.26 / −0.24 | 0.1 / 0.4 |
-- The hour cycle is already present at the hour-number token (ρ₁ 0.34–0.38 vs 0.63 at ':00'), with higher effective
-  dimension (k_eff 9–11 vs 3–4), so this column has MORE power (smallest detectable 0.1–0.2 for d = 2, 3, 4, 6).
+- The hour cycle is already present at the hour-number token (ρ₁ 0.34–0.38 vs 0.39–0.63 at ':00'), with higher effective
+  dimension (k_eff 9–11 vs 3–7), so this column has MORE power (smallest detectable 0.1–0.2 for d = 2, 3, 4, 6).
 - Parity (d = 2) is positive in all three models here too but SMALLER than at ':00' (R +0.35/+0.59/+0.71 vs
   +1.17/+1.66/+1.35): the parity excess grows between the number token and the item's end. That does NOT establish that
   it is independent of the number token's parity (the end position can attend back to it); the reading stays "consistent
@@ -147,12 +147,14 @@ not there at 128 and was at 256; a smaller one could be earlier.
 ## 7. A3 — token-frequency control for the numbers result (sealed 5914913; run 2026-10-03 11:20; results/divisor/numbers_freq_control.json)
 Counts: the exact item tokens ' 0' … ' 99' over the 6.29 × 10⁹-token Pile sample on spot (3000 seed-1 batches; results/
 divisor/number_token_counts.json). The comb is real in the counts: frequency falls steeply with magnitude (' 0' 8.0 M, ' 1'
-6.8 M, ' 9' 1.5 M, ' 99' ≈ 0.2 M) with local peaks at multiples of 10 (' 10' 2.39 M vs ' 9' 1.51 M / ' 11' 0.92 M), at
-multiples of 5 and at powers of 2 (' 32' 279 k, ' 64' 164 k vs neighbours ≈ 150 k).
+6.8 M, ' 9' 1.5 M, ' 99' 0.11 M) with local peaks at multiples of 10 (' 10' 2.39 M vs ' 9' 1.51 M / ' 11' 0.92 M) and
+multiples of 5. Powers of 2 are mixed: ' 64' 164 k is a local peak (' 63' 95 k, ' 65' 146 k), ' 32' 279 k is not (' 31'
+282 k, ' 33' 192 k). [Corrected 10-04 audit: the first version said ' 99' ≈ 0.2 M and ' 32' / ' 64' vs neighbours ≈ 150 k.]
 - **Can-fire prerequisite (sealed, > 10 % of the covariate's DFT power in d ∈ {2, 4, 5, 10}): reads 0.097 → NOT MET
   by the letter.** The mean-centred log-frequency profile is dominated by the smooth magnitude decay (trivial class d = 100:
-  0.62 of its power; d = 50, the one-digit/two-digit step: 0.19); its comb part is d = 5 0.068, d = 10 0.016, d = 2 0.010, d = 4 0.003 — concentrated on exactly the
-  right harmonics (4 of 50 harmonics carrying 6.8 % is 3.4× flat) but 9.7 % in total against the declared 10 %. **As
+  0.62 of its power; d = 50, the one-digit/two-digit step: 0.19); its comb part is d = 5 0.068, d = 10 0.016, d = 2 0.010, d = 4 0.003 — 9.7 % in total against the declared 10 %.
+  These classes span 6 of the 50 harmonics, so the comb part is NOT concentrated there (0.8× flat overall; d = 5 alone,
+  2 harmonics, is 1.7× flat). [Corrected 10-04 audit: the first version said '4 of 50 harmonics … 3.4× flat'.] **As
   sealed, the control is INAPPLICABLE; the residualisation below is reported as DESCRIPTIVE, and the threshold is not
   moved.**
 - **Residualisation (run anyway, same script):** the linear log-frequency direction explains 16 % / 18 % / 16 % of the
@@ -174,14 +176,13 @@ multiples of 5 and at powers of 2 (' 32' 279 k, ' 64' 164 k vs neighbours ≈ 15
 | pythia-70m | 10 | +6.1 / +1.15 | +8.6 / +1.34 | +9.4 / +1.41 | 0.00425 | 0.05 | SURVIVES |
 - **Reading.** An activation component LINEAR (or quadratic) in log token frequency cannot be what carries the period-2/4/
   5/10 excess: projecting that component out (comb part included, since the regression removes the whole direction along
-  c) changes none of the z-scores (they rise slightly as the smooth magnitude part leaves the Lorentzian baseline). What
+  c) lowers none of the z-scores (they rise slightly as the smooth magnitude part leaves the Lorentzian baseline). What
   this does NOT exclude: an activation feature that tracks the comb part of frequency separately from its magnitude part
-  (a non-linear frequency effect, e.g. a "round number" feature). That is the covariate the sealed rule says can fire,
-  and it is drafted as A4 for Will (prereg), not run.
+  (a non-linear frequency effect, e.g. a "round number" feature). A4 v2 (§7b) addresses exactly this with a stratified
+  permutation null.
 - The 1.4B deficits at d = 20, 25 (z ≈ −2) are unchanged (contamination signature, A1).
-- Status of §3's framing after A3: periods 2, 5, 10 (replication of Zhou et al. / Kantamneni–Tegmark) and period 4 (new)
-  are NOT a linear log-frequency comb; "new" still waits on A4 (detrended-comb covariate) because the sealed control did
-  not fire by its own letter.
+- After A3 alone, periods 2, 5, 10 and 4 were shown NOT to be a linear log-frequency comb; A4 v2 (§7b) settled the
+  non-linear case.
 
 ## 7b. A4 v2 — stratified-permutation frequency null (CONFIRMATION RUN; sealed 6a4b1fc; results/divisor/numbers_strat_control.json)
 10 000 permutations of the item order within 10 strata of 10 items matched on exact item-token count (bin 0 spans
@@ -203,7 +204,7 @@ multiples of 5 and at powers of 2 (' 32' 279 k, ' 64' 164 k vs neighbours ≈ 15
 ## 8. Open leads (not claims)
 1. Hour parity (d = 2): same sign in 3/3 released models and a Holm rejection along the A0 trajectory — is it the
    even/odd token-frequency structure of "H:00" times (e.g. 12:00/18:00 vs 13:00/19:00 usage), or a representation of
-   parity itself? A sealed test would plant parity into the templates' statistics (or read the first-token column).
+   parity itself? A sealed test would plant parity into the templates' statistics (the first-token column, §5c, is done and descriptive).
 2. Numbers d = 4: alias of the period-2 × period-5 structure through the open window, or a genuine quarter-decade
    component? Testable with a synthetic that has only periods 2, 5, 10 at the measured amplitudes (does d = 4 appear?).
 3. Months at higher power: per-template spectra (16 draws) as replicates of the class statistic.
