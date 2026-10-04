@@ -46,3 +46,16 @@ complex Gaussian matrices, po → independent levels with the same OU velocity; 
 s_M matched to the real vrms in ≤ 3 passes (vrms ∝ s_M). W2 only; 2 draws per family. `armb/verify_pdyn_a1.py`
 (synthetic, `--redpath`) re-measures the witness separation for the OU family before the re-read.
 
+## A1.6 Known-answer finding, declared BEFORE the real re-read (verify_pdyn_a1.py, 10-04 04:50; CC)
+On an OU fake bank (n = 256, the W2 grid, τ_v = 10): a β = 1 OU truth reads HOLDS on 12/12 matrices; a Poisson OU truth
+on 0/12 (C(x) fails); the β = 1 truth read against the ORIGINAL smooth-GP controls reads 0/12 (the reference matters —
+the phase-1 failure mode reproduced on a known β = 1 truth). **But a β = 2 OU truth reads HOLDS on 9/12 matrices
+(runner-majority word HOLDS):** at the bank's 25-step cadence the curvature medians of the C1′ and β = 2′ witnesses
+differ by only ~5 % (≈ 1.38 vs 1.42, against draw-to-draw scatter ≈ 0.02), the β = 2 truth falls between them, and the
+C(x) and velocity components are β-blind. The per-matrix "witnesses separated" check (2 draws per family) passes on
+12/12 regardless — it certifies that the witness DRAWS differ, not that a β = 2 truth is classified as such.
+**Declared scope of every A1 P2 word (no threshold changed):** a HOLDS means "consistent with a β-ensemble driven by
+optimiser-like velocity memory; Poisson-like independent levels and the smooth-GP (long-memory) reference excluded"; it
+does NOT distinguish β = 1 from β = 2 at bank cadence. That discrimination is NOT RESOLVABLE here and waits for the
+per-step pilot (phase 2), as the sealed PROVISIONAL tag on curvature already anticipated.
+
