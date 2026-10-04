@@ -49,8 +49,8 @@ Source: lit/v2 S §5 / C §104 / A6 items 1, 2, 7 and C §37.
    ‖W‖₂* = 0.2·√max(A,B)/wd follows from Muon's update scale (0.2·√max(A,B) × an orthogonal update, Moonlight scaling)
    and applies to the Muon arms only; it is drawn on the Muon σ₁ panels and labelled Muon-specific. **wd from the sealed
    Arm B config: 0.1** (ARMB_PREREG.md:35 "weight decay 0.1, decoupled"; armb/muon.py weight_decay=0.1; the Pythia
-   gpt-neox config fetched by lit v2 A2 reads `weight-decay 0.1`) — Will's note said "not 0.1", but the sealed value IS
-   0.1, so it is used and this is flagged for him. Ceilings: 512 × 512 (Q, K, V, O): 0.2·√512/0.1 = 45.3; MLP 2048 × 512
+   gpt-neox config fetched by lit v2 A2 reads `weight-decay 0.1`) — Will's seal note said "not 0.1"; he corrected it on 10-04: the sealed value 0.1 is right, so the
+   ceiling and the relaxation time stand as drafted. Ceilings: 512 × 512 (Q, K, V, O): 0.2·√512/0.1 = 45.3; MLP 2048 × 512
    and 512 × 2048: 0.2·√2048/0.1 = 90.5. e-fold (lr·wd)⁻¹ = 1/(1e-3 · 0.1) = 1.0 × 10⁴ steps at the peak lr 1e-3 (the
    schedule is near peak through 10 000). Reading
    (descriptive): does σ₁ bend toward a ceiling of that order by 10 000, or grow linearly? The derivation is CC's, not

@@ -128,4 +128,8 @@ the sealed runner and verdict_p2 unchanged. Scope declared before the read (A1.6
   β = 1 OU truth with the real arms' densities would also fail the sparse bins is untested (lesson: calibrator bias =
   the finding); (ii) the AdamW velocity-kurtosis and curvature departures are not explained by the C(x) statistic and
   are the open residual A1 anticipated (component 4).
+- **Will's reading (10-04):** P2 cannot speak to the universality class here (A1.6); the result is a descriptive
+  difference in how the optimisers move the spectrum — Muon's motion matches the optimiser-memory reference except for
+  C(x)'s sparse bins, AdamW's does not, consistent with Adam's per-coordinate normalisation making updates burstier.
+  One post-hoc known-answer check of the full-bin C(x) statistic follows (A1.8, §8); after it P2 is not amended again.
 

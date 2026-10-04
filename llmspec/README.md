@@ -68,7 +68,7 @@ Full table, gates and caveats: [FINDINGS_MEMO.md §1](FINDINGS_MEMO.md#1-headlin
 | 13 | Change points align with training events | NOT LICENSED |
 | 14 | What anchors the early turning points (Arm B) | NOT RESOLVABLE as sealed: an identical-config rerun of A0 shows the sealed statistic's noise model is too small (the paired floor equals A2's O-side misfit); the MLP_OUT misfit is 3.5× the floor, descriptively |
 | 15 | Early updates are low-rank (Arm B) | INCONCLUSIVE (Q/K yes, V/O/MLP no, descriptively) |
-| 16 | AdamW vs Muon (Arm B) | Timing and depth of the Q/K stable-rank fall depend on the optimizer; past 3000 AdamW dips and recovers while Muon plateaus (descriptive) |
+| 16 | AdamW vs Muon (Arm B) | Both Muon runs' Q/K stable rank sits 3–5× above all ten AdamW runs at every shared step; past 3000 AdamW dips and recovers while Muon plateaus (descriptive) |
 
 Status words: NULL = a registered null that held; REPLICATES / SEED-ROBUST / SEED-DEPENDENT = replication verdicts
 across sizes and seeds; NOT ESTABLISHED = a reading that did not survive its test; NOT LICENSED = the instrument could

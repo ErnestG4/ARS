@@ -59,3 +59,28 @@ optimiser-like velocity memory; Poisson-like independent levels and the smooth-G
 does NOT distinguish β = 1 from β = 2 at bank cadence. That discrimination is NOT RESOLVABLE here and waits for the
 per-step pilot (phase 2), as the sealed PROVISIONAL tag on curvature already anticipated.
 
+## A1.7 Amendment history note (10-04, Will)
+- **Rule mismatch, recorded:** A1.2 states "HOLDS iff 1–3 hold on ≥ 30/36 matrices (the runner's majority rule)". The
+  runner's arm-level rule (`aggregate_p2`) is different: each component must hold on more than half of the resolvable
+  matrices. Both were computed on the re-read and **gave the same word in every arm** (FAILS ×6), so the mismatch did not
+  affect any result. Any future use states which rule it applies.
+- **Will's reading of the re-read (10-04):** P2 cannot speak to the universality class at bank cadence (A1.6), so neither
+  its failures nor a pass say anything about β. What it shows, descriptively, is a difference in how the optimisers move
+  the spectrum: Muon's motion matches the simple optimiser-memory reference everywhere except C(x)'s sparse bins; AdamW's
+  does not (velocity kurtosis and curvature too), consistent with Adam's per-coordinate normalisation making updates
+  burstier.
+- **Last PDYN step, then P2 amendments stop (Will):** one post-hoc known-answer check of the full-bin C(x) statistic on
+  realistic shapes (A1.8). After it, P2 is not amended further: it cannot discriminate β at this cadence, so more rounds
+  would chase a statistic rather than a question.
+
+## A1.8 Post-hoc known answer for the full-bin C(x) statistic (designed 10-04 AFTER the A1 read; labelled POST HOC)
+- **Truth:** per real matrix (arms M0s1, M0s2, M0s3; A2 as the AdamW contrast whose dense C(x) also failed), a β = 1 OU
+  draw at the arm's τ_v and real shape, warped onto that matrix's OWN time-mean density (log-quantile function of the
+  real W2 spectra, rank-smoothed at the unfolding's bandwidth h = 32: pdyn_c9's fixed-map 'zero' construction, no
+  drift), scale matched to the real window's vrms (≤ 3 passes). Written as a fake bank in the runner's format and read by
+  `pdyn_a1.py` unchanged (OU controls at the same τ_v). `armb/pdyn_a1_ka.py`, committed before it runs.
+- **Reading (declared now):** h_KA = fraction of the known-answer matrices whose C(x) component HOLDS (full-bin, as sealed).
+  h_KA ≤ 0.5 → the full-bin statistic is **NOT LICENSED on realistic shapes** (it fails a known β = 1 OU truth): Muon's
+  C(x) failure is attributable to the STATISTIC. h_KA ≥ 0.8 → the statistic is licensed on realistic shapes: Muon's
+  failure is the DYNAMICS. Otherwise INCONCLUSIVE. Per arm, with the real arm's C(x) hold fraction beside it.
+
