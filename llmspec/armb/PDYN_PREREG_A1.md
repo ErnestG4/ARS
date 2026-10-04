@@ -1,4 +1,4 @@
-# PDYN_PREREG — Amendment A1 (DRAFT for Will's seal; not in force until he says so)
+# PDYN_PREREG — Amendment A1 — SEALED by Will 2026-10-04 ("SEAL with change"; the change is A1.2's arm split below)
 
 **Trigger.** Phase 1 read P2 as FAILS vs the sealed C1 (PDYN_FINDINGS §2). The attribution controls (§6, 3a7cc46) showed
 the departure is reproduced by a β = 1 process with short velocity memory and not by density drift: the phase-0 C1
@@ -16,13 +16,20 @@ is the wrong reference for optimiser-driven motion. This amendment replaces the 
 - C2 witnesses (β = 2, Poisson) are rebuilt with the SAME OU driver (same τ_v) so that the discrimination is of β, not of
   memory; the phase-0 separation sizes are re-measured for the new family before the re-read (verify_pdyn amendment).
 
-## A1.2 P2 re-read on W2 (A0 and M0s1 primary; the other arms secondary), components
+## A1.2 P2 re-read on W2, components
+- **Arms (Will's change at the seal):** PRIMARY = the arms NOT used in the exploratory τ_v sweep: **A1, A2 (AdamW,
+  τ_v = 10) and M0s2, M0s3 (Muon, τ_v = 20)**. The sweep (`pdyn_c9.py`, PDYN_C9_NOTES.md; results/armb_pdyn_c9/) used
+  **A0 and M0s1 only** (layers 0/2/5, types Q/K/O/MLP_OUT) — confirmed from its defaults and outputs. **A0 and M0s1 are
+  SECONDARY, labelled post-sweep and non-blind.** M0s3 (banked by the Q4EXT extraction, ≤ 3000) is read through the same
+  runner; it had no phase-1 read.
+- Primary word per arm; the arm-level words are reported per optimizer (AdamW: A1, A2; Muon: M0s2, M0s3), never pooled
+  into one cross-optimizer verdict.
 1. velocity Gaussianity — unchanged test;
 2. C(x): dev vs C1′ (same tolerance rule as the runner: calibrator spread);
 3. curvature median |k| between C1′ and the β = 2′ witness: unchanged rule, PROVISIONAL at bank cadence;
 4. **NEW — velocity excess kurtosis** vs C1′: tolerance = 3 × the C1′ draw spread (declared; phase-1 real values 0.36 /
    0.26 vs controls ≤ 0.16, so this component is EXPECTED to fail and is the open residual).
-- P2 word = HOLDS iff 1–3 hold on ≥ 30/36 matrices (the runner's majority rule) AND the witnesses separate at the real n;
+- P2 word per arm = HOLDS iff 1–3 hold on ≥ 30/36 matrices (the runner's majority rule) AND the witnesses separate at the real n;
   component 4 is reported beside the word, never folds into it in this amendment.
 
 ## A1.3 What is not changed
@@ -31,3 +38,11 @@ result (which stands as "FAILS vs C1 as sealed" in PDYN_FINDINGS §2; the re-rea
 
 ## A1.4 Cost
 CPU only (this box or spot): 2 arms × 36 matrices × (C1′ + 2 witnesses) × 2 draws ≈ the phase-1 control time (~1 h).
+
+## A1.5 Implementation (committed before it runs)
+`armb/pdyn_a1.py`: the sealed phase-1 runner (`pdyn_phase1.analyse_unit`, `verdict_p2`, every statistic and tolerance)
+UNCHANGED, with only its control generator swapped: c1 → β = 1 OU driver (`pdyn_c9.gen_driver`), b2 → the same driver on
+complex Gaussian matrices, po → independent levels with the same OU velocity; τ_v fixed per optimizer; the driver scale
+s_M matched to the real vrms in ≤ 3 passes (vrms ∝ s_M). W2 only; 2 draws per family. `armb/verify_pdyn_a1.py`
+(synthetic, `--redpath`) re-measures the witness separation for the OU family before the re-read.
+

@@ -42,11 +42,17 @@ is written by CC under the no-stalling rule (Will can veto any item; nothing her
   from the same resume.pt is queued for the pilot phase. **M4 is not enabled for M0s1 or M0s3.** A0 resumed at 6000
   after the A/B (no steps lost); the queue continues unchanged.
 
-## Amendment 2 (DRAFT for Will's seal, 2026-10-03; NOT in force. Written AFTER the descriptive Q4EXT run was read
-## (ARMB_FINDINGS §9), so every column below is a post-hoc DESCRIPTIVE addition; nothing here is a test.)
+## Amendment 2 — SEALED by Will 2026-10-04 as DESCRIPTIVE, with his fixes (written AFTER the descriptive Q4EXT run was
+## read, ARMB_FINDINGS §9: every column below is a post-hoc DESCRIPTIVE addition; nothing here is a test)
 Source: lit/v2 S §5 / C §104 / A6 items 1, 2, 7 and C §37.
-1. **σ₁ ceiling and e-fold marker** (A6 item 1, derivation PARTIAL): draw ‖W‖₂* = 0.2·√max(A,B)/wd (≈ 45 for a 512-wide
-   matrix at wd 0.1) and the relaxation time (lr·wd)⁻¹ (≈ 10⁴ steps at lr 1e-3) on the Q4EXT σ₁ plot, both arms. Reading
+1. **σ₁ ceiling and e-fold marker — MUON ONLY (Will's fix)** (A6 item 1, derivation PARTIAL): the fixed point
+   ‖W‖₂* = 0.2·√max(A,B)/wd follows from Muon's update scale (0.2·√max(A,B) × an orthogonal update, Moonlight scaling)
+   and applies to the Muon arms only; it is drawn on the Muon σ₁ panels and labelled Muon-specific. **wd from the sealed
+   Arm B config: 0.1** (ARMB_PREREG.md:35 "weight decay 0.1, decoupled"; armb/muon.py weight_decay=0.1; the Pythia
+   gpt-neox config fetched by lit v2 A2 reads `weight-decay 0.1`) — Will's note said "not 0.1", but the sealed value IS
+   0.1, so it is used and this is flagged for him. Ceilings: 512 × 512 (Q, K, V, O): 0.2·√512/0.1 = 45.3; MLP 2048 × 512
+   and 512 × 2048: 0.2·√2048/0.1 = 90.5. e-fold (lr·wd)⁻¹ = 1/(1e-3 · 0.1) = 1.0 × 10⁴ steps at the peak lr 1e-3 (the
+   schedule is near peak through 10 000). Reading
    (descriptive): does σ₁ bend toward a ceiling of that order by 10 000, or grow linearly? The derivation is CC's, not
    the paper's, and is labelled PARTIAL on the plot.
 2. **σ₁ factorised (Muown, A6 item 2):** σ₁ = row-magnitude × row-coherence per matrix, every 100 steps, A0 vs M0s1.
@@ -56,7 +62,7 @@ Source: lit/v2 S §5 / C §104 / A6 items 1, 2, 7 and C §37.
    Kang's prediction: incremental rank growth under AdamW, none under Muon (uniform spectral growth). The DW0 pass
    banked ‖W−W₀‖_F only; this needs an SVD of W−W₀ per checkpoint, so a re-pass over the 111 + 111 + 41 checkpoints on
    spot (CPU, numpy, ~1 h; the weights are there).
-5. **Seed-2 init gate** (C §37, pythia issue #203): Q4EXT item 3 says M0s3 "varies the INIT only" relative to M0s1. That
+5. **Seed-2 init gate — RUNS FIRST, before any M0s3 spread is quoted (Will's fix)** (C §37, pythia issue #203): Q4EXT item 3 says M0s3 "varies the INIT only" relative to M0s1. That
    holds only if `pythia-70m-seed2` step 0 is a distinct initialisation from `pythia-70m` step 0. Gate: elementwise
    correlation of the two step-0 uploads per matrix (and seed1's, M0s2's init) — DISTINCT iff |corr| < 0.05 on every
    matrix; otherwise the one-draw Muon spread is relabelled "same-init rerun spread" (an order/nondeterminism floor, not an
@@ -64,5 +70,6 @@ Source: lit/v2 S §5 / C §104 / A6 items 1, 2, 7 and C §37.
 6. **Row 16 at n = 2:** the Q4 statement is re-expressed as a reference-band statement — where do the two Muon runs sit
    relative to the band of the ten AdamW seed runs (pythia-70m-seed1..9 + pythia-70m, banked in B4 refs) at the shared
    steps — beside the existing 123/368 count.
-Cost: items 2–4 one CPU pass over the banked checkpoints on spot; item 5 minutes; items 1 and 6 plotting only. No GPU.
+Order: item 5 (gate) → items 2–4 (one pass over the checkpoints, GPU while GPU_STATUS: FREE, as the DW0 pass; the
+weights are on spot, streamed sha-verified) → items 1 and 6 (plotting). `armb/q4ext_amend2.py` (committed before it runs).
 
