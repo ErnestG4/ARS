@@ -428,3 +428,31 @@ plots/armb_q4ext_{sr,sigma1,dw0}.png. Columns Q / K / V / O / MLP_IN / MLP_OUT, 
   spread, not a distribution, and no cell count is re-read.
 - LR integral at 3000: 2.28; at 10000: 9.26 (same schedule for A0 and M0s1).
 
+### 9b. Q4EXT Amendment 2 (sealed by Will 10-04 as DESCRIPTIVE; q4ext_amend2.py; results/armb_q4ext_amend2.json,
+### results/armb_q4ext_amend2_gate.json, plots/armb_q4ext_amend2_*.png)
+- **Item 5 gate (run first):** the step-0 checkpoints the runs started from — A0 vs M0s1 correlate 1.000 on every
+  matrix (same source: the known answer); M0s1 vs M0s2, M0s1 vs M0s3, M0s2 vs M0s3 all |corr| ≤ 0.004 → **DISTINCT**.
+  The one-draw M0s3-vs-M0s1 spread (§9) keeps its label: Muon-side init + order spread, one draw.
+- **Item 2, σ₁ = row magnitude × coherence (Muown; rm = rms row norm, coherence = σ₁/rm — CC's operationalisation):**
+  under Muon, 3000 → 10000, Q σ₁ 3.55 → 4.89 with row magnitude 0.96 → 1.24 (+29 %) and coherence
+  3.68 → 3.95 (+7 %): the growth is mostly row magnitude, as Muown reports; MLP_OUT grows in both
+  (rm +53 %, coherence +24 %). Under AdamW, Q σ₁ is flat (5.82 → 5.63) because row magnitude
+  rises (0.84 → 1.02) while coherence FALLS (6.95 → 5.53) — the same interval where its Q/K stable rank recovers (§9).
+- **Item 1, Muon-only ceiling (wd = sealed 0.1):** Muon σ₁ at 10000 is Q 4.9, MLP_OUT 8.7 against ceilings
+  45.3 / 90.5 — about a tenth of the fixed point after one e-fold time (1e4 steps); no bend toward the ceiling is visible or
+  expected yet. Derivation PARTIAL (CC's, from the update scale), drawn on the Muon panels only.
+- **Item 3, per-head σ₁(W_Q^h W_K^hᵀ):** median over heads AdamW 3.45 (3000) → 3.25 (10000); Muon 1.46 → 2.22
+  (max 5.15): Muon's QK logit scale grows (the Kimi K2 direction) but stays below AdamW's at 10000 at 70M.
+- **Item 4, stable rank of W − W₀ (Kang et al.: incremental growth under AdamW, none under Muon):** AdamW grows 3000 → 10000
+  (Q 11.4 → 21.2, K 9.7 → 18.3, MLP_IN 15.8 → 25.0); Muon is 2–5× higher and falls slightly (Q 48.3 → 44.8,
+  MLP_IN 117.1 → 91.7). The direction matches Kang's prediction; descriptive, one run per optimizer past 3000.
+- **Item 6, row 16 as a reference band** (layer-mean stable rank; ten AdamW runs = pythia-70m + seeds 1–9, released; two Muon runs):
+| step | Q: AdamW band (10 runs) | Q: M0s1 / M0s2 | K: AdamW band | K: M0s1 / M0s2 |
+|---|---|---|---|---|
+| 512 | 24.5–30.3 | 128.5 / 127.9 | 49.6–53.0 | 127.7 / 128.4 |
+| 1000 | 15.3–17.0 | 92.1 / 95.8 | 26.9–31.6 | 95.5 / 96.2 |
+| 2000 | 10.1–11.0 | 49.5 / 50.5 | 11.6–13.9 | 45.4 / 43.8 |
+| 3000 | 10.4–11.3 | 40.3 / 41.0 | 10.4–11.9 | 38.5 / 37.2 |
+  Both Muon runs lie far outside the full range of the ten AdamW runs at every shared step (3–5× above it), which
+  states row 16 at n = 2 without a cell count.
+

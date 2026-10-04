@@ -194,6 +194,9 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Q4EXT descriptive DONE 10-03 10:59 (ARMB_FINDINGS §9; results/armb_q4ext_descriptive.json):** AdamW Q/K stable rank
   bottoms near 3000 and rises to 17/15 by 10000; Muon plateau 38/35; Muon σ₁ grows but stays below AdamW's Q/K σ₁ at 10000;
   M0s3-vs-M0s1 spread one draw: median 2.4 %, 17 % of cells > 10 %. No verdict change. GPU: no job of mine running.
+- **Q4EXT Amendment 2 DONE 10-04 ~05:20 (ARMB_FINDINGS §9b):** gate DISTINCT (spread label kept); Muon σ₁ growth mostly row
+  magnitude; AdamW Q σ₁ flat as coherence falls; Muon σ₁ ≈ 1/10 of its ceiling; W−W₀ stable rank grows under AdamW, not under Muon
+  (Kang direction); Muon Q/K stable rank 3–5× above the full 10-run AdamW band at every shared step. PDYN A1 still running.
 - **OVERNIGHT 10-04 03:40 → 10:00 (Will: "set your overnight alarm until 10am"; one-shot cron c633990e at 09:58 ends the
   hourly cron 5ca8cfb7 and reports).** Will SEALED (8e343a6): PDYN A1 with change (PRIMARY A1, A2, M0s2, M0s3; A0, M0s1
   secondary post-sweep) and Q4EXT Amendment 2 as descriptive (ceiling Muon-only; wd = sealed 0.1, flagged — his note said

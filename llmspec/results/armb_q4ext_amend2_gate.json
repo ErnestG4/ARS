@@ -1,0 +1,42 @@
+{
+ "rule": "DISTINCT iff |corr| < 0.05 on every matrix; A0 vs M0s1 is the known answer (same init source -> 1.000)",
+ "sha256": {
+  "A0": "a6e7df7d47dab1ea0ca7b33eeda0aa0099bb8e3017b8963653db4f15a2a4d9ca",
+  "M0s1": "a6e7df7d47dab1ea0ca7b33eeda0aa0099bb8e3017b8963653db4f15a2a4d9ca",
+  "M0s2": "e8ed12b25730c88e4ce379a1305fd88ebabe68f6bf8bbdc2739c442ef016181f",
+  "M0s3": "1f1d1f85010e87249e5f2ce76c8d50451ba77adc25e987a56c227691ffbea1f6"
+ },
+ "pairs": {
+  "A0_vs_M0s1": {
+   "min": 0.9999999999999998,
+   "max": 1.0000000000000002,
+   "max_abs": 1.0000000000000002,
+   "n": 36,
+   "distinct": false
+  },
+  "M0s1_vs_M0s2": {
+   "min": -0.0023629349190864924,
+   "max": 0.0038940950830498385,
+   "max_abs": 0.0038940950830498385,
+   "n": 36,
+   "distinct": true
+  },
+  "M0s1_vs_M0s3": {
+   "min": -0.0036478866142567808,
+   "max": 0.00269873912283211,
+   "max_abs": 0.0036478866142567808,
+   "n": 36,
+   "distinct": true
+  },
+  "M0s2_vs_M0s3": {
+   "min": -0.0030680251609290126,
+   "max": 0.004101478861903795,
+   "max_abs": 0.004101478861903795,
+   "n": 36,
+   "distinct": true
+  }
+ },
+ "known_answer_pass": true,
+ "m0s3_init_distinct_from_m0s1": true,
+ "spread_label": "Muon-side init+order spread (one draw)"
+}
