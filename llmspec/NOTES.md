@@ -194,6 +194,12 @@ Last full rewrite: 2026-09-26 04:55 PDT. Branch `llm-spectra`, worktree
 - **Q4EXT descriptive DONE 10-03 10:59 (ARMB_FINDINGS §9; results/armb_q4ext_descriptive.json):** AdamW Q/K stable rank
   bottoms near 3000 and rises to 17/15 by 10000; Muon plateau 38/35; Muon σ₁ grows but stays below AdamW's Q/K σ₁ at 10000;
   M0s3-vs-M0s1 spread one draw: median 2.4 %, 17 % of cells > 10 %. No verdict change. GPU: no job of mine running.
+- **OLMO_PREMISE SEALED + RUNNING 10-03 ~18:00 (jobs/olmo_premise.log; results/olmo_premise.json):** A1 (lit v2 + HF card:
+  ingredients 1–2 exploratory, T4 on ingredient 3; dip conservative; ACR unavailable) + A2 (folded branch NOT LICENSED by its
+  own known answer: gain-folded Gaussian reads multimodal 64 %; raw branch primary; gain column descriptive). CPU, ~10 min.
+- **Divisor A4 v2 (stratified permutation, CONFIRMATION RUN) SEALED + RUNNING (jobs/divisor_strat.log):** fixed observed
+  baseline; real counts: no f(count) feature can create the comb (verifier). Will's order: lit v2 read ✓ → push (Will) →
+  OLMO_PREMISE ✓ → A4 ✓ → arm A last.
 - **Divisor A3 DONE 11:20 (DIVISOR_FINDINGS §7):** can-fire read 0.097 vs the sealed 0.10 → INAPPLICABLE by the letter (the
   log-frequency profile is mostly magnitude decay); residualisation reported descriptively: SURVIVES ×4 classes ×3 models, z
   unchanged/higher, linear log-frequency explains 16–18 % of the matrix. **A4 DRAFTED for Will** (detrended comb covariate).

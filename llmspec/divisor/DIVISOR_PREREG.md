@@ -160,16 +160,32 @@ of divisibility; the trajectory's early onset (step 256, when small models learn
   (verified, prereg §0). So periods 2, 5, 10 REPLICATE published findings in the divisor framing; period 4 is the part
   not in those papers and the one most exposed to the frequency comb (powers of 2 in computing text).
 
-## Amendment A4 (DRAFT for Will's seal, 2026-10-03; written AFTER A3's read, NOT in force)
-A3's sealed can-fire prerequisite read 0.097 against the declared 0.10: the log-frequency profile is mostly the smooth
-magnitude decay, so by its letter the control is INAPPLICABLE even though the regression (run descriptively) removed the
-whole log-frequency direction and changed no class z. A4 names the covariate that CAN fire:
-- **Detrended comb covariate:** c_comb,i = log(count_i + 1) − s_i, where s is the least-squares cubic in log(i + 1) over
-  i = 0 … 99 (the smooth magnitude trend); mean-centred. Can-fire check as in A3 (> 10 % of c_comb's DFT power in
-  d ∈ {2, 4, 5, 10}; expected to pass by construction, reported).
-- Residualisation and reading exactly as A3 (linear primary; quadratic secondary; SURVIVES / VANISHES / NOT RESOLVABLE per
-  class; 1.4B primary, 410M / 70M beside). The same verifier (`verify_divisor_freq.py`) covers it: its synthetic profile
-  is already a detrended comb.
-- Both covariates (A3's c and A4's c_comb) jointly as a third column (removes magnitude AND comb at once).
-- What A4 cannot exclude either: a frequency effect that is non-linear in the comb part itself (e.g. saturating). Declared.
-
+## Amendment A4 v2 (DRAFT for Will's seal; designed 2026-10-03 AFTER A3's descriptive result was seen → a CONFIRMATION RUN, not a blind test)
+Will's refinement of the A3 follow-up: regression removes one linear frequency direction per layer, so non-linear
+frequency effects survive it and a "no change" says little. A4 v2 uses a **stratified permutation null** instead.
+- **H0_freq:** an item's activation depends on its corpus frequency (any function of it) plus noise, and on nothing about
+  the number beyond that. Under H0_freq, items of matched corpus count are exchangeable.
+- **Null:** 10 000 permutations of the item order **within frequency strata** — 10 bins of 10 items by rank of the exact
+  item-token count (A3's counts, results/divisor/number_token_counts.json); the within-stratum count range is reported.
+  Every permuted matrix's spectrum is scored against the OBSERVED Lorentzian fit held fixed (a permutation destroys the
+  translation-symmetry structure the fit models; re-fitting per permutation biased E_d in the verifier); p_d one-sided for
+  d ∈ {2, 4, 5, 10}; Holm over the four. The ordinary (unstratified) shuffle p and a 5-bin sensitivity column are
+  reported beside it. Primary model 1.4B; 410M / 70M beside it. `divisor_strat_control.py`.
+- **Words per class:** SURVIVES iff Holm rejects against the stratified null (frequency, linear or not, does not explain
+  the excess); VANISHES iff p_strat > 0.05 while the unstratified shuffle rejects (the excess exists but is carried by
+  frequency); NOT RESOLVABLE otherwise.
+- **Verifier `verify_divisor_strat.py` (`--redpath`), run before the seal:** strata matched (median within-bin max/min
+  count ratio < 3); a synthetic NON-LINEAR frequency feature (tanh of the detrended comb of the real counts) is detected
+  by the ordinary shuffle but does not SURVIVE the stratified null; a genuine class-5 plant SURVIVES; A3's linear feature
+  does not SURVIVE; red path: a single stratum makes the comb SURVIVE (stratification does the work).
+- **Verifier findings before the seal (10-03):** (i) with the REAL counts, a feature that is any monotone function of
+  count alone creates NO detectable class excess at any amplitude (amp 6–100: the count profile is magnitude-dominated,
+  the Lorentzian fit absorbs it) — so a frequency-only feature cannot reproduce the observed comb in the first place;
+  the stratified machinery is exercised on a synthetic comb-dominated count profile (detected by the ordinary shuffle,
+  VANISHES under its strata, SURVIVES with one stratum). (ii) The permutation statistic must use the OBSERVED Lorentzian
+  baseline held fixed (re-fitting per permutation biased E_d because permutation destroys the smooth structure).
+  (iii) A feature that depends on count AND magnitude (the detrended comb, a "roundness" feature) is outside H0_freq and
+  SURVIVES the stratified null by construction — A4 does not claim to control it (it is representation content).
+- **Scope:** the strata are matched on the exact item token's count only; a frequency effect driven by other surface
+  forms of the same number (bare digits, words) is not stratified for (declared). Hours read position: left as sealed
+  (only matters on re-extraction).

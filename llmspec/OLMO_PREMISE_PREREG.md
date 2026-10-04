@@ -1,4 +1,4 @@
-# OLMo plan (1), step 0: premise-and-endpoint check — pre-registration DRAFT for Will's seal (2026-10-01)
+# OLMo plan (1), step 0: premise-and-endpoint check — pre-registration (DRAFT 2026-10-01; AMENDED 2026-10-03 from lit v2 §5 and the HF card; SEALED at the commit that also adds olmo_premise.py, per Will's 10-03 order)
 
 **Status: DRAFT, not sealed. No new OLMo tensor is read until Will seals this file (commit = seal).** The layout-vs-run
 checks Will asked for first are DONE (olmo_main_provenance.py: `main` is a different run; the lineage endpoint is
@@ -60,3 +60,45 @@ minutes. T2: 2000 draws × 128×2048 SVDs ≈ 20 min CPU (spot).
 
 ## 6. Not in scope
 The stage-1 trajectory; any `main` reading (different run); any claim about the data mix vs the schedule.
+
+## Amendment A1 (2026-10-03, BEFORE any new OLMo tensor is read; from lit/v2/S.md §5 "OLMO_PREMISE" and the HF model card)
+- **Ingredients 1–2 are NOT seed replicates.** The HF card (fetched 10-03): "1B Model: only 1 version is trained on a
+  50B mix (ingredient 3), we did not merge. Ingredients 1 and 2 are just exploratory runs." Their stage-2 configs
+  (`OLMo2-1B-stage2-seed*.yaml`) could not be located on the OLMo-core tree listing fetched 10-03 → UNVERIFIED. **T4 is
+  therefore read on ingredient 3 alone (the lineage endpoint); ingredients 1–2 are DESCRIPTIVE context**, and the
+  verdict words become: FADES iff ingredient 3 reads sub-floor (folded, both trims); SURVIVES iff ≥ floor; the
+  "seed-split" word is withdrawn. All 72 stage-2 revisions (24 per ingredient) exist; only the three finals are read.
+- **Dip-test calibration (lit v2 item 4):** uniform-calibrated dip tests are conservative (Ameijeiras-Alonso et al. 2019;
+  Cheng & Hall 1998), so (a) SHOWS PEAKS readings are conservative and stand, (b) a sub-floor reading is WEAK evidence of
+  absence, and FADES is worded "FADES (dip-conservative: a weaker multimodality could remain)". The calibrated ACR test
+  is NOT available here (no R on either box; `multimode` is R-only) — recorded as a limitation and an open lead, not
+  substituted by an unvalidated re-implementation.
+- **Power / FPR grid additions:** beside the sealed (d, sd, w) power grid, T2 adds a **right-skewed-unimodal** confusable
+  cell (row norms i.i.d. lognormal(0.5), Gaussian entries) and the **gain-folded Gaussian** cell; both must read
+  FPR ≤ 0.02 for the floor rule's f0 to stand. f0 = max(0.01, worst FPR over the sealed battery and these cells).
+- **T3 becomes two 2×2 tables:** σ-multimodal × row-norm-bimodal (as drafted) AND σ-multimodal × dead-row-present
+  (head has ≥ 1 row < 0.1 × median) — Li 2606.04405's gain ≈ 0 ⇔ dead-row correspondence is reported as the fraction
+  of dead rows whose gain entry is < 0.1 × the median gain.
+- **T5 weight-decay bound:** the stage-1 schedule and WD groups are read from the OLMo-2 paper/config if fetchable; until
+  verified the bound is parameterised (peak LR 4e-4, WD 0.1, decoupled, cosine) and labelled UNVERIFIED-config; the
+  ratio observed/bound is reported with that label. (lit v2: "read stage-1 WD groups" — embeddings/norms are typically
+  excluded from WD; q_norm gains may be too, which matters for T5's gain column.)
+- **§6 note (lit v2):** the trajectory pre-registration, when written, seals the early-training paired floor first.
+- Known answers (§4) run under checkrun in the sealing commit; the gain-folded Gaussian cell is part of T2's battery, so
+  the "gain alone must not manufacture peaks" check is the same computation.
+
+## Amendment A2 (2026-10-03, from the §4 known answer, BEFORE any real per-head reading)
+- **The folded branch is NOT LICENSED by its own known answer:** a Gaussian 128 × 2048 block folded with the REAL stage-1-end
+  q_norm gains (layer 0) reads MULTIMODAL under the dip rule in ≈ 64 % of draws (must be ≤ 0.02). The gain itself is
+  strongly non-uniform (layer 0 Q: entries from −0.44 to 2.6, mean 0.41) and its per-head histogram is multimodal, so
+  the singular spectrum of diag(g_h)·B inherits the gain histogram: a dip test on the folded spectrum measures the GAIN,
+  not the query map. The gain-folded Gaussian cell is kept in T2 as the folded reading's FPR; while it reads > 0.02 the
+  folded T1/T4 rates are DESCRIPTIVE only and the verdict is read on the RAW branch (T1/T2/T3/T4/T5 as sealed, with
+  the raw row-norm confusable classes deciding its licence).
+- **Descriptive gain column (new, cheap):** per head, (i) dip p of the 128 gain entries, (ii) whether a Gaussian block
+  folded with the head's OWN gains reads multimodal, (iii) the fraction of folded-multimodal heads whose own-gain
+  Gaussian also reads multimodal (the share of the folded rate the gain alone explains).
+- What this already says: "multimodality of the effective query map" cannot be decided by the dip rule on diag(g)·W_Q;
+  a gain-matched per-head null (is the head's folded spectrum MORE multimodal than its own gain-folded Gaussian?) is the
+  candidate replacement — a method change, for Will, not run here.
+
