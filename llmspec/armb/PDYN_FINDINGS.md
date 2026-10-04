@@ -90,3 +90,42 @@ M0s1 × layers 0/2/5 × Q/K/O/MLP_OUT on W2; identical sealed pipeline; C1 draws
   note τ_v = 20 reproduced only 27/48 here, so the Muon value is a prediction that can fail), then re-read P2 on W2 with
   the velocity-kurtosis residual as an added component with its own tolerance from the calibrator spread. The per-step
   pilot then tests the same family at a cadence below τ_v.
+
+## 7. Amendment A1 re-read (sealed by Will 10-04; `pdyn_a1.py`, verifier `verify_pdyn_a1.py` CHECKRUN PASS; run 04:57–06:13;
+## results/armb_pdyn_a1/{summary,words}.json, cx_dense_diagnostic.json)
+Reference: C1′ = β = 1 OU driver with τ_v FIXED (AdamW 10, Muon 20); β = 2′ and Poisson′ witnesses on the same driver;
+the sealed runner and verdict_p2 unchanged. Scope declared before the read (A1.6): a HOLDS could not have separated
+β = 1 from β = 2 at bank cadence.
+
+| arm | role | A1 word (≥ 30/36) | matrices HOLD | runner-majority word | velocity / C(x) / curvature hold (of 36) | comp. 4 ex-kurt fails (real vs C1′ medians) |
+|---|---|---|---|---|---|---|
+| A1 | PRIMARY (AdamW) | **FAILS** | 0 | FAILS | 3 / 7 / 1 | 36/36 (1.01 vs 0.12) |
+| A2 | PRIMARY (AdamW) | **FAILS** | 0 | FAILS | 21 / 0 / 12 | 36/36 (0.99 vs 0.45) |
+| M0s2 | PRIMARY (Muon) | **FAILS** | 6 | FAILS | 36 / 6 / 35 | 24/36 (0.25 vs 0.11) |
+| M0s3 | PRIMARY (Muon) | **FAILS** | 5 | FAILS | 36 / 5 / 36 | 23/36 (0.26 vs 0.11) |
+| A0 | secondary, post-sweep | FAILS | 0 | FAILS | 34 / 1 / 24 | 32/36 (0.37 vs 0.13) |
+| M0s1 | secondary, post-sweep | FAILS | 6 | FAILS | 36 / 6 / 36 | 28/36 (0.29 vs 0.11) |
+
+- **Sealed word: P2 FAILS vs C1′ in all four primary arms, both optimizers** (and in both secondary arms). The two word
+  rules agree everywhere (the ≥ 30/36 count and the runner's majority), so the rule mismatch flagged in A1 does not bite.
+- **What carries it (DESCRIPTIVE, post-read; results/armb_pdyn_a1/cx_dense_diagnostic.json):** the C(x) component. Its
+  sealed statistic (max over every bin with ≥ 10 pairs, x ≤ 2) reads a median 1.6–2.0 tolerance units in every arm, with
+  the maximum at small separations (x ≈ 0.15–0.65). Restricted to dense bins (≥ 1000 pairs on both curves, the
+  restriction PDYN_C9_NOTES declared before its own run because the runner's dev_Cx is set by sparse small-x bins): the
+  Muon arms match C1′ on 100 % of matrices (median 0.48–0.52), A0 on 92 %, A1 on 75 %, **A2 on 0 % (median 1.84)**.
+  C_lag (dev 0.75–0.94) is within tolerance in the median everywhere.
+- **Muon:** velocity Gaussianity HOLDS 36/36 and curvature HOLDS 35–36/36 in all three Muon runs; the FAILS rests on the
+  sparse-bin C(x) statistic. **AdamW:** A1 and A2 also fail velocity (excess kurtosis ≈ 1.0 against C1′ 0.1–0.5) and
+  curvature (A1: median |k| 0.77 vs C1′ 0.95, below even the Poisson witness 0.85), so AdamW's failure is not only the
+  C(x) statistic.
+- **Component 4 (velocity excess kurtosis vs 3 × the C1′ draw spread), beside the word:** fails 36/36 in both AdamW
+  primaries (real ≈ 1.0) and 23–24/36 in the Muon primaries (real ≈ 0.25 vs 0.11): the expected open residual, larger
+  under AdamW.
+- **Reading.** The optimiser-memory OU reference does what the sweep suggested on its own terms (dense C(x), C_lag,
+  Muon's velocity and curvature), but the SEALED P2 statistic does not license it: P2 FAILS vs C1′ as sealed. Two things
+  stand between this and an interpretation, both for Will: (i) the full-bin dev_Cx has no known-answer licence on
+  REALISTIC shapes — the OU fake bank (n = 256, smooth densities) read dev_Cx 0.14–0.58 for a β = 1 truth, so whether a
+  β = 1 OU truth with the real arms' densities would also fail the sparse bins is untested (lesson: calibrator bias =
+  the finding); (ii) the AdamW velocity-kurtosis and curvature departures are not explained by the C(x) statistic and
+  are the open residual A1 anticipated (component 4).
+
