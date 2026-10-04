@@ -53,6 +53,11 @@
 - **G0 (with a sampling allowance):** passes for every matrix type in both models.
 - **Reading.**
   - Pythia's sealed-Stage-1 "PEAKS" was entirely tail specks: no head is resolvably multimodal.
+  - **CORRECTED 2026-10-03 (OLMO_PREMISE_FINDINGS):** the OLMo multimodality below is NOT LICENSED. Gaussian blocks with
+    the heads' own row norms read multimodal in 20.7 % (all levels) / 7.8 % (trimmed) of draws — a confusable this
+    battery did not contain — and the multimodal heads are the row-norm-bimodal heads (Fisher p 1e-16). The "largely
+    removed by the stage-2 anneal" clause compared against `main`, a different run; the lineage's own endpoint
+    (ingredient 3) reads the same as stage-1 end. As originally written:
   - OLMo's resolvable multimodality is real and Q/K-specific. It is strongest at the end of pretraining stage 1
     and partly carried by the dead-row (near-zero) cluster: 13.3% of Q heads remain once that cluster is
     excluded. It is largely removed by the stage-2 anneal.

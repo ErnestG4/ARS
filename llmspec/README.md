@@ -79,9 +79,9 @@ not answer. Details: [FINDINGS_MEMO.md](FINDINGS_MEMO.md) (status vocabulary at 
 Each lead needs its own pre-registration before it is read as evidence. Details:
 [FINDINGS_MEMO.md §6](FINDINGS_MEMO.md#6-open-leads-for-specialists-none-of-these-is-running).
 
-1. **OLMo multimodality over training:** 13.3% of Q heads are multimodal at stage-1 end. No fade is claimed: the
-   released `main` is a different training run from the checkpoint lineage, so the lineage's own stage-2 endpoint is
-   unmeasured. When do the peaks appear, and do they survive the anneal (which changes LR and data mix together)?
+1. ~~OLMo multimodality over training~~ — **withdrawn 10-03:** the stage-1-end multimodality is NOT LICENSED (heads whose
+   rows sit at two norm scales produce it; OLMO_PREMISE_FINDINGS). What remains is the row-norm bimodality itself, as a
+   descriptive object for a differently designed test.
 2. **Dead rows in OLMo Q:** near-zero modes in 170 heads at stage-1 end (92 in the released `main`, a different run).
 3. **The low-rank update burst at steps 4k → 5k** in V/O/MLP-out (1.4B). Unexplained, and absent at 70M.
 4. **Q/K lower-decile departure from Marchenko–Pastur** from ~8k steps, 44–80× above the precision bound.

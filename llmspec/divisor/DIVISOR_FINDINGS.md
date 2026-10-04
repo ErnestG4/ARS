@@ -68,11 +68,13 @@ The numbers deficits at d = 20, 25 (z ≈ −2) also replicate (410M −2.0/−2
   Kantamneni & Tegmark, arXiv 2502.00873, report number helices with T = [2, 5, 10, 100] (GPT-J, Pythia-6.9B,
   Llama-3.1-8B). **Periods 2, 5, 10 therefore REPLICATE published findings in a new framing** (the Ramanujan–Fourier
   divisor decomposition against a translation-symmetry baseline, at 70M–1.4B). **Period 4 is the part not in those
-  papers** — and the one most exposed to the frequency confound (powers of 2 in computing text). Both the replication and
-  the new class are conditional on the A3 frequency control (§7): until it is read, nothing here is called new.
-- Before A3: the frequency-comb reading (round numbers, even numbers and powers of 2 are far commoner in text; any
-  activation component tracking log-frequency puts peaks at exactly these periods) is NOT excluded by anything above, and
-  the step-256 onset — the unigram/bigram stage — is what frequency-driven structure would look like.
+  papers** — and the one most exposed to the frequency confound (powers of 2 in computing text).
+- **Frequency (Will's review, settled 10-03):** round numbers, even numbers and powers of 2 are far commoner in text, and
+  the step-256 onset is the unigram/bigram stage, so a frequency comb was the first alternative to exclude. A3 (linear /
+  quadratic log-frequency residualisation, §7) changed no z but was INAPPLICABLE by its own can-fire letter; A4 v2 (a
+  within-frequency-strata permutation null that carries ANY function of frequency, §7b; a confirmation run) leaves
+  d = 2, 5, 10 SURVIVING in all three models and d = 4 SURVIVING at 1.4B and 410M (NOT RESOLVABLE at 70M). Frequency does
+  not explain the result; period 4 stands as the new class at 410M–1.4B.
 - Tokenisation is not the explanation in the simple sense: every number 0–99 is a single NeoX token (audit), so the
   periodicities are properties of the token representations, not of a digit-by-digit encoding.
 
@@ -108,7 +110,7 @@ not there at 128 and was at 256; a smaller one could be earlier.
   lattice but only ≥ 40 % on the 12-item circle. A months verdict needs either more items per class (not possible for
   months) or a lower-variance statistic than summed class power; that is a method change for Will.
 - The hours primary read is at the shared final token ':00' (brief rule; the hour lives in context). The first-token
-  (' H') column is DESCRIPTIVE and pending (A2 rerun on spot); the per-layer column likewise.
+  (' H') column (§5c) and the per-layer column (§5b) are done and DESCRIPTIVE.
 - The Lorentzian baseline has no noise term (brief §5.4); σ̂ is descriptive. Fit contamination by large excesses is declared
   (A1) and visible as the d = 20/25 deficits.
 
@@ -198,7 +200,7 @@ multiples of 5 and at powers of 2 (' 32' 279 k, ' 64' 164 k vs neighbours ≈ 15
   sensitivity column reads the same words. This is a confirmation run (designed after A3's descriptive result).
 - Period 4 therefore stands as the new class at 410M–1.4B, with the caveat that at 70M it is not resolvable.
 
-## 6. Open leads (not claims)
+## 8. Open leads (not claims)
 1. Hour parity (d = 2): same sign in 3/3 released models and a Holm rejection along the A0 trajectory — is it the
    even/odd token-frequency structure of "H:00" times (e.g. 12:00/18:00 vs 13:00/19:00 usage), or a representation of
    parity itself? A sealed test would plant parity into the templates' statistics (or read the first-token column).

@@ -23,8 +23,11 @@ Interrupt any job: `touch llmspec/STOP`. Jobs are launched/checked through `jobs
 | Lit review v2 | done 10-02 | nine agents + verifier + critic + synthesis; five plan-changing items (S §1); design changes per document (S §5) | lit/v2/S.md |
 | Arm A (bulk-vector self-similarity) | **NOT STARTED**; skeleton + prediction figure | `[TBD]`s + lit-v2 design changes await Will; last in Will's order | ARMA_PREREG_SKELETON, seals/armA_predictions.png |
 
-## Will's order for what waits (10-03): lit v2 read ✓ → push ~80 commits (Will) → OLMO_PREMISE ✓ running → A4 ✓ running → arm A last.
-Seals still on Will's desk: PDYN_PREREG_A1 (C1′), Q4EXT amendment 2 (lit v2), arm A `[TBD]`s, hours read position (only if re-extracted).
+## Will's order (10-03) and what is left
+lit v2 read ✓ → push ✓ (Will) → OLMO_PREMISE ✓ done → A4 ✓ done → arm A last. **Nothing is running or queued (10-04).**
+Drafts on Will's desk, none in force: PDYN_PREREG_A1 (C1′), Q4EXT Amendment 2 (lit v2 columns; armb/Q4EXT_PREREG.md),
+STAGE1B_LICENCE_AMENDMENT.md (own-row-norm confusable → calibration v2), arm A `[TBD]`s + lit-v2 design changes, and the
+hours read position (only if hours are re-extracted).
 
 ## 09-30 and earlier
 See git history (tag llmspec-2026-09-30 = the Zenodo commit; merged to main 2f79434) and NOTES.md §3.

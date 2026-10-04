@@ -102,16 +102,18 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 
 ## 5. Not done
 - **DONE:** Arm B (2026-09-29; armb/ARMB_FINDINGS.md).
-- **HELD (Will's call):** the OLMo stage-1 trajectory for aim 1.
+- **HELD → MOOT (10-03):** the OLMo stage-1 trajectory for aim 1 lost its premise (row 3 NOT LICENSED).
 - **Stage 4** (peaked-spectrum local statistics): not reached, because G7 did not license it.
 - **Zoo seating: DEFERRED explicitly** (NOT in the published main). DEFERRED explicitly at the 2026-09-30 merge of llm-spectra into main (Will: seat it in the merge or defer it in NOTES; deferred). Not seated because the G7 classes are DATA-DEPENDENT: each class draw (stage2_g7.draw) is mapped through peak mixtures fitted to real OLMo stage-1-end Q heads (fit_mixture on results/g7_targets_olmo_stage1end_Q.npz). Seating them properly is a shared-module design, not a merge-time edit. It needs: (1) a SEPARATE list (e.g. PEAKED_SPECTRUM_CALIBRATORS), NOT EXTENDED_CALIBRATORS, so the 6 existing panel consumers (extractor_distinctness, run_phase20_5_distinctness_revalidation, cross_substrate/rf_decoy_battery, cross_substrate/aq_floor_sweep, comb/verify_comb, phase22a/verify_calibrators) do not change; (2) the targets npz pinned by sha256, failing closed; (3) CALIBRATOR_TIERS entries (construction-defined); (4) _schema_self_check extended to the new list; (5) a regression run of the existing consumers.
 
 ## 6. Open leads (for specialists; none of these is running)
 Each needs its own pre-registration before it is read as evidence.
-1. **OLMo multimodality over training.** 13.3% of Q heads are multimodal at stage-1 end (dead rows excluded). The
+1. ~~**OLMo multimodality over training.**~~ **WITHDRAWN 2026-10-03: the premise is NOT LICENSED (row 3; OLMO_PREMISE_FINDINGS).**
+   Successor lead: within-head row-norm bimodality (when do rows split into two scales; are they the gain ≈ 0 rows?).
+   As originally written: 13.3% of Q heads are multimodal at stage-1 end (dead rows excluded). The
    earlier "sub-floor at `main`, after mid-training" is withdrawn: `main` is a different run (row 3). When do the
    peaks appear, and do they survive the lineage's own stage-2 anneal (ingredient 3; ingredients 1–2 are seed
-   replicates of the same anneal)? Stage 2 changes the LR (linear to 0) and the data mix together, so a change there
+   replicates of the same anneal — CORRECTED 10-03: the HF card calls ingredients 1–2 exploratory runs)? Stage 2 changes the LR (linear to 0) and the data mix together, so a change there
    cannot be attributed to the schedule alone. G7 did not license local
    statistics on peaked spectra, so a trajectory can time the peaks but not resolve their internal structure.
 2. **Dead rows in OLMo Q.** At stage-1 end: a near-zero mode in 170 Q heads, and 8 heads RANK_COLLAPSED (median σ

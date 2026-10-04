@@ -1,11 +1,15 @@
-# Next-session brief — llmspec ("Shapes of LLM weights over training"), written 2026-09-30
+# Next-session brief — llmspec ("Shapes of LLM weights over training"); state UPDATED 2026-10-04 (body written 2026-09-30)
 
-Read this first. Then read `llmspec/README.md` (the public front page), `llmspec/FINDINGS_MEMO.md` (every claim with
-its gate and status) and `llmspec/armb/ARMB_FINDINGS.md` (Arm B). `llmspec/NOTES.md` is the long operational log and
-has the full code map (§2) and machine rules (§1). Some of its header lines are stale: the 6c2c8221 alarm cron is
-deleted, and the work is now pushed. Where NOTES and this brief disagree, this brief wins.
+**Start with `llmspec/STATUS.md`** (one-page roll-up of every arc with its current sealed word, updated 10-03/10-04).
+Then `FINDINGS_MEMO.md` §1 (rows 1–18 with gates), `NOTES.md` §4 (running log), and the arc's findings file.
+§1 and §2 below are the 09-30 state and are SUPERSEDED by STATUS.md where they differ; §3 (standing rules) and §5
+(lessons) still bind. Notable changes since 09-30: memo row 3's OLMo multimodality is NOT LICENSED (so §2 item 1 is
+moot); rows 17 (bulk–init overlap) and 18 (divisor harmonics) were added; Q4 past 3000 is a dip-and-recovery under AdamW.
 
-Nothing is running. No cron is set.
+**Nothing is running or queued (10-04).** The only schedule is the in-session hourly job-check cron (5ca8cfb7,
+session-only; it dies with the session). Jobs are launched/checked with `jobs.sh` (pid file + /proc/<pid>/exe; never
+`pgrep -f`). Drafts awaiting Will's seal (none in force): PDYN_PREREG_A1, Q4EXT Amendment 2, STAGE1B_LICENCE_AMENDMENT.md,
+arm A `[TBD]`s.
 
 ## 1. Where the research stands
 
@@ -42,8 +46,8 @@ Nothing is running. No cron is set.
 
 ## 2. What to do next: Will's order, his call on each
 
-1. **The OLMo stage-1 trajectory** (FINDINGS_MEMO open lead 1). This is the cheapest real lead: the only place
-   multimodality survived a licensed test (13.3% of Q heads at stage-1 end; sub-floor at `main`).
+1. ~~**The OLMo stage-1 trajectory**~~ — **MOOT (10-03):** its premise is NOT LICENSED (OLMO_PREMISE_FINDINGS). As
+   written 09-30: the only place multimodality survived a licensed test (13.3% of Q heads at stage-1 end; sub-floor at `main`).
    - G7 did not license local statistics on peaked spectra, so the trajectory can time when peaks appear and fade,
      but cannot resolve their internal structure.
    - Needs a pre-registration first.

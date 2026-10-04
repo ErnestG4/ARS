@@ -29,13 +29,16 @@ multimodal in 18.8%; of the folded-multimodal heads (23.4%), 14.5% are explained
 Q: 1936 rows (of 32 768) below 0.1 × median, median norm 0.0032 × median; **98.1% of them have a
 gain entry below 0.1 × the median |gain|** (Li 2606.04405's gain ≈ 0 ⇔ dead row holds). K: 2002 rows, 99.9%. The
 decoupled-WD bound over stage 1 under the assumed config (peak 4e-4, WD 0.1, cosine) is e^{−38} ≈ 3e-17 of the init
-norm; the observed 3e-3 is ~14 orders above it, so these rows did NOT decay at the WD rate — either WD is not applied
-to them, the config differs, or they keep receiving updates; config UNVERIFIED, no cause attributed.
+norm. The median dead row sits at 3e-3 × its head's median row norm, but that is the median of everything below the
+0.1 × median cut, not the deepest rows: only the first 400 dead rows were banked (none below 7e-3 × median), and the full
+minimum was not. FINDINGS_MEMO lead 2's ~1e-28 refers to singular values of 8 RANK_COLLAPSED heads, a different quantity.
+No weight-decay conclusion is drawn from T5 (config UNVERIFIED, depth distribution incomplete).
 
 ## 4. What this changes
 - FINDINGS_MEMO row 3: "OLMo stage-1 end: Q/K multimodality (dip, 13.3 %)" → **NOT LICENSED (row-norm confusable)**; the
   licence battery of Stage 1b did not contain the real row-norm shape, and that class fires at 8–21 %.
-- STAGE1_FINDINGS row 3 / README row 3 re-worded the same way. The Stage 1b calibration (`seals/stage1b_dip_calibration.json`)
+- STAGE1_FINDINGS (dated correction in its Stage 1b reading), README row 3 and open lead 1, memo open lead 1 re-worded
+  the same way (10-03/10-04). The Stage 1b calibration (`seals/stage1b_dip_calibration.json`)
   needs the own-row-norm class added before any future dip reading (amendment for Will).
 - The OLMo trajectory plan (1) loses its premise: there is no licensed multimodality to track. What remains is a
   descriptive, possibly interesting object — within-head row-norm bimodality and the gain ≈ 0 dead rows — for a
