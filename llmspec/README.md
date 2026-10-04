@@ -36,8 +36,10 @@ shape gives, and call something structure only if it survives that comparison an
   end or learning-rate integral re-times it within the curves' own noise. An identical-config rerun of the reference
   run then showed that noise model is too small: two runs differing only by GPU nondeterminism diverge by as much as the
   O-side misfit (2.4%), so that part is not resolvable; the MLP_OUT misfit (1.7%) is 3.5× the paired floor.
-- **The Q/K stable-rank fall happens under both AdamW and Muon.** Muon delays it and leaves it shallower by step
-  3000; the endpoint is unknown. Flatter spectra under Muon are known (Moonlight); the early delay is the new part.
+- **The Q/K stable-rank fall happens under both AdamW and Muon.** Muon starts it later and leaves it shallower by
+  step 3000; past 3000 (70M) AdamW's Q/K stable rank dips to a minimum and recovers (11 → 17/15 by 10000) while Muon
+  stays on its plateau — a dip and recovery under AdamW, not a collapse Muon postpones. Flatter spectra under Muon are
+  known (Moonlight); the early delay is the new part.
 - **Several attractive readings did not survive their controls and are withdrawn:**
   - a late per-head drift, which equalled the calibrator's own bias;
   - "the ordering of the bulk singular values carries function";
@@ -82,8 +84,8 @@ Each lead needs its own pre-registration before it is read as evidence. Details:
 3. **The low-rank update burst at steps 4k → 5k** in V/O/MLP-out (1.4B). Unexplained, and absent at 70M.
 4. **Q/K lower-decile departure from Marchenko–Pastur** from ~8k steps, 44–80× above the precision bound.
 5. **K's concentration on rotary dimensions:** robust as a concentration, seed-dependent as registered.
-6. ~~A late loss spike (seed 4) as a natural experiment~~ — withdrawn: the post-spike checkpoints are a restarted run
-   (BULK_INIT_OVERLAP_FINDINGS §3).
+6. ~~A late loss spike (seed 4) as a natural experiment~~ — withdrawn: the uploaded trajectory is discontinuous at a
+   restart, so there is no continuous spike trajectory to read (BULK_INIT_OVERLAP_FINDINGS §3).
 7. **The bulk singular VECTORS.** Only the bulk singular values were tested. A hint (G2c, under 0.001 nats) says that
    rotating the bulk directions costs more than reordering the values.
 8. **Arm B leads** (70M): the shape of the Q1 misfit, the wave without layer 0, a phase-matched Q3 reference, and a

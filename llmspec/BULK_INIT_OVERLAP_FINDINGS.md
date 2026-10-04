@@ -50,7 +50,7 @@ step-0 weights seen through the trained bulk subspace; thresholds ≥ 0.80 on �
 - **By layer:** layer 0 keeps the most init (0.51 / 0.40), layers ≥ 8 the least (≈ 0.2 / 0.15).
 - **Sign agreement** p(W_t, W₀) = 0.51–0.60 by type (Gaussian map ρ ≈ 0.03–0.3), consistent with ρ_full 0.03–0.29.
 
-## 3. The spike seeds (3 and 4): their post-spike checkpoints are RESTARTS, not continuations (provenance check DONE)
+## 3. The spike seeds (3 and 4): the uploaded trajectory is DISCONTINUOUS at a restart (provenance check DONE)
 `polypythias_restart_check.py` (reading rule in its docstring; results/polypythias_restart_check.json): elementwise Pearson
 correlation of every late checkpoint with every other revision of the SAME seed, layers 0/12/23, Q and MLP_IN; seed 1 as
 control.
@@ -62,8 +62,11 @@ control.
   revision (best: step 0/1000), then 128000 and 143000 continue from 96000 (0.93–0.998). → RESTART on 6/6 cells at 96k:
   a restarted run (not a resume from a stored checkpoint of the same run), partially trained by 96k.
 - **Seed 1 (control):** CONTINUATION on 18/18 cells; predecessor correlations 0.91–0.99, decreasing with grid distance.
-- Readings: the "late loss spikes" of seeds 3 and 4 (FINDINGS_MEMO §2; final losses 2.475 / 2.857) are not instabilities
-  inside a trajectory but a comparison of early-training states (restarted runs) against late ones; open lead 6 ("seed 4's
+- Readings (narrowed 10-03 per Will): restarting from an earlier checkpoint after a loss spike is standard practice, so a
+  restart is exactly what a real spike would produce, and PolyPythias names these two seeds as spike runs. What our
+  evidence shows is narrower: **the uploaded checkpoints after the restart come from the restarted run, so our "spike"
+  measurement (FINDINGS_MEMO §2; final losses 2.475 / 2.857) compared states that were not continuous — it measured
+  the discontinuity. Whether the original runs spiked is untouched.** open lead 6 ("seed 4's
   spike as a natural experiment") is WITHDRAWN; MF_EXPLORE §3's "seeds 3 and 4 lose the deep-band localisation after their
   spikes" is the same artefact (an early-training state has not yet formed it); PolyPythias' own account of these two
   runs (deviate "long before", σ_λ drop) should be re-read in this light. The seed rows of the sealed verdict stand as
@@ -75,6 +78,10 @@ control.
   states.
 
 ## 4. What this settles for arm A (ARMA_PREREG_SKELETON §0, H_RES)
+- **What it rules out (Will, 10-03):** at 0.5 % retained energy the trained bulk is NOT the initialisation shrunk by
+  weight decay. That closes the cheapest version of the reservoir reading. It does not settle "learned versus
+  reservoir": SGD noise alone can build a random-looking bulk during training. The co-adapted calibrator is now the
+  ONLY deciding null for H_RES, since the initialisation cannot explain the bulk.
 - "The trained bulk is the initialisation shrunk by weight decay" is **false for O, Q, K, MLP_OUT** at both sizes
   (ρ_bulk ≤ 0.27, E_init ≤ 1 %) and **partly true for MLP_IN** (0.73) and V (0.3–0.4). The reservoir reading therefore
   cannot be settled by the init alone: a bulk that has left W₀ can still be a load-bearing random-feature reservoir

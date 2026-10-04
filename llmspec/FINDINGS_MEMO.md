@@ -40,7 +40,7 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 | 13 | Change points align with events | CP null calibration | **NOT LICENSED** (false-CP rate 0.59–0.98 on smooth curves). No alignment claim is made |
 | 14 | The ~2k turning points are anchored by step, warmup end, or LR integral (Arm B Q1) | E4 warp-and-compare, licence v2 (70M) | **NO SIMPLE ANCHOR** (A2), licensed against the curves' own roughness (0.2–0.3%). Warmup length changes the trajectory (STEP is the worst map), and no sealed time map reproduces it within that noise. **NOT RESOLVABLE as sealed (2026-10-01, A0R_PREREG / ARMB_FINDINGS §2b):** an identical-config rerun of A0 (A0r) reads NO_SIMPLE_ANCHOR against A0 on TP_O (fit ratio 13.3 > c_fit 5.4), so the sealed statistic's noise model is too small for paired runs; the paired-divergence floor is 2.36% (O) / 0.48% (MLP_OUT) rel RMS against A2 misfits of 2.42% / 1.69%. Descriptively, the MLP_OUT misfit is 3.5× the floor and stands; the O misfit equals the floor. A1 has no licensed verdict (ARMB_FINDINGS §2) |
 | 15 | Early updates are low-rank (Arm B Q3) | ΔW rank ratio type counts (70M) | **INCONCLUSIVE** as sealed. Descriptively Q/K early updates are 5–7× lower-rank; V/O/MLP not |
-| 16 | AdamW vs Muon (Arm B Q4) | Two independent pairs, T·s_ref (70M) | 123/368 cells pass (a count, not independent effects). The TIMING and DEPTH of the Q/K stable-rank fall depend on the optimizer (Muon delays it and leaves it shallower by step 3000); the endpoint past 3000 is unknown, and Kimi K2 reports σ₁ growth of W_Q/W_K under Muon at scale. Flatter Muon spectra are prior art (Moonlight §3.4); the early delay is the new claim, and it rests on two Muon runs. Pairing caveat: the seed-1 identity check (A9) is INCONCLUSIVE as sealed. The rebuilt data separates from the standard order but a one-step alignment is not resolved (ARMB_FINDINGS §5b) |
+| 16 | AdamW vs Muon (Arm B Q4) | Two independent pairs, T·s_ref (70M) | 123/368 cells pass (a count, not independent effects). The TIMING and DEPTH of the Q/K stable-rank fall depend on the optimizer (Muon starts it later and leaves it shallower by step 3000); past 3000 at 70M (Q4EXT, ARMB_FINDINGS §9, descriptive) AdamW's Q/K stable rank dips to a minimum near 3000 and recovers to 17/15 by 10000 while Muon stays on its plateau — a dip and recovery under AdamW, not a collapse Muon postpones (Stage 3's 1.4B kept Q/K compressed; possibly a size effect), and Kimi K2 reports σ₁ growth of W_Q/W_K under Muon at scale. Flatter Muon spectra are prior art (Moonlight §3.4); the early delay is the new claim, and it rests on two Muon runs. Pairing caveat: the seed-1 identity check (A9) is INCONCLUSIVE as sealed. The rebuilt data separates from the standard order but a one-step alignment is not resolved (ARMB_FINDINGS §5b) |
 
 ## 2. Descriptive measurements (no test; Pythia-1.4B unless stated; see STAGE3_FINDINGS)
 - **Stable rank** collapses for Q/K/O/MLP_OUT between steps 128 and 2000; V collapses later (3k–12k); O and MLP_OUT
@@ -56,8 +56,9 @@ STAGE3_SEED_PREREG.md (2f38b8b + S1–S4).
 - **First sink head:** 48k–64k steps under a strict definition. Not commensurable with the brief's 10–20× (definition,
   probe and BOS token all differ).
 - **Seed runs:** seeds 3 and 4 were recorded as having late loss spikes (final loss 2.475 / 2.857 vs ~2.34). **Corrected
-  2026-10-03 (BULK_INIT_OVERLAP_FINDINGS §3, polypythias_restart_check.py):** their post-spike checkpoints (seed 3 from
-  96000, seed 4 from 128000) are RESTARTED runs uploaded under the original step names (seed 4's 128k correlates 0.97 with
+  2026-10-03 (BULK_INIT_OVERLAP_FINDINGS §3, polypythias_restart_check.py):** the uploaded trajectory is discontinuous at a
+  restart (seed 3 from 96000, seed 4 from 128000: the later checkpoints come from the restarted run, under the original
+  step names) — our spike reading measured the discontinuity; whether the original runs spiked is untouched (seed 4's 128k correlates 0.97 with
   its own step 0 and 0.16 with 96k; seed 1 control continues normally). Their final-checkpoint cells are early-training
   states, not end-of-training ones; both seeds are valid through 64000 (3) / 96000 (4) only. PolyPythias names exactly
   these two seeds as outliers.
@@ -120,8 +121,8 @@ Each needs its own pre-registration before it is read as evidence.
 4. **Q/K lower-decile departure from MP from ~8k**, 44–80× above the fp16 Weyl bound. It is not precision.
 5. **K's concentration on rotary dims** (#8): ≥ null + 0.10 in 9/10 seeds and at every size, but R1 with its norm
    clause is SEED-DEPENDENT.
-6. ~~Seed 4's late loss spike as a natural experiment~~ **WITHDRAWN 2026-10-03:** the post-spike checkpoints are a restarted
-   run (BULK_INIT_OVERLAP_FINDINGS §3); there is no instability trajectory to read.
+6. ~~Seed 4's late loss spike as a natural experiment~~ **WITHDRAWN 2026-10-03:** the uploaded trajectory is discontinuous
+   at a restart (BULK_INIT_OVERLAP_FINDINGS §3); there is no continuous spike trajectory to read.
 7. **Bulk singular VECTORS.** G2/G2b tested only the ordering of bulk singular values, and nothing tested puts
    function there (#11). Whether function lives in the bulk's singular vectors was never tested.
    - A hint pointing there (G2c, descriptive, under 0.001 nats): at k = 32, a same-size random perturbation confined

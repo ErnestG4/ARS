@@ -30,8 +30,8 @@ Nothing is running. No cron is set.
   - Q1 **NO SIMPLE ANCHOR**: warmup length changes the trajectory, but no time map re-times it;
   - Q2: events simultaneous at 70M resolution, and the wave is OPPOSITE ORDER, carried by layer 0;
   - Q3 INCONCLUSIVE;
-  - Q4: the Q/K collapse's timing and depth depend on the optimizer (Muon delays it and leaves it shallower by
-    step 3000).
+  - Q4: the Q/K fall's timing and depth depend on the optimizer (Muon starts it later and leaves it shallower by
+    step 3000; past 3000 AdamW dips and recovers while Muon plateaus — Q4EXT 10-03, descriptive).
   - The seed-1 identity check is INCONCLUSIVE as sealed: its confuser C2 was a dead arm. Q4 stands with a pairing
     caveat.
 - **Withdrawn / not established:**

@@ -41,8 +41,11 @@ carry, it is marked **(descriptive, post-result)**. The post-result numbers adde
 - **Q2:** Every A0 event pair is SIMULTANEOUS AT THIS RESOLUTION. The wave runs opposite to Liu's order (OPPOSITE
   ORDER; the wave family's two-tailed α is 0.10). It is fragile to removing layer 0 (p 0.056 without it).
 - **Q3:** INCONCLUSIVE as sealed. Descriptively, Q and K early updates are 5–7× lower-rank than late ones.
-- **Q4:** The TIMING and DEPTH of the Q/K stable-rank collapse depend on the optimizer. Muon delays it and leaves it
-  shallower by step 3000. The endpoint past 3000 is unknown.
+- **Q4:** The TIMING and DEPTH of the Q/K stable-rank fall depend on the optimizer. **Re-worded 10-03 (Q4EXT, §9):** at
+  70M AdamW's Q/K stable rank DIPS to a minimum near 3000 (≈ 11) and RECOVERS to 17/15 by 10000, while Muon stays on
+  its plateau (≈ 38); it is a dip and recovery under AdamW, not a monotone collapse that Muon postpones. The one-draw
+  Muon spread (median 2.4 % per cell) is far below the 2.5–5× Q/K difference, which strengthens Q4 as a descriptive
+  result. Stage 3 (1.4B) kept Q/K compressed; the difference may be a size effect (not tested).
 - **Bulk null:** NOT ESTABLISHED. The per-cell test looks conservative (flags ~3.9 binomial SD fewer cells than its
   own null predicts).
 
@@ -252,10 +255,11 @@ Ratio of layer-mean ΔW stable rank, early over late. Late = [1000, 1025]. Early
   - A0: Q 130 / 25 / 15 / 11; K 129 / 51 / 29 / 11.
   - M0-s1: Q 130 / 128 / 92 / 40; K 129 / 128 / 96 / 39. M0-s2 is the same to within 1–4.
 
-  So Muon does NOT remove the Q/K rank collapse: rank falls to ~30% of init by 3000 and is still falling. Muon
-  starts it later and, by 3000, leaves it shallower (AdamW ~9%). The supported reading is that the collapse's TIMING
-  and DEPTH depend on the optimizer. "The collapse comes with AdamW" is not supported. Where Muon's curve ends is not
-  measured past 3000.
+  So Muon does NOT remove the Q/K rank fall: rank falls to ~30% of init by 3000. Muon starts it later and, by 3000,
+  leaves it shallower (AdamW ~9%). The supported reading is that the fall's TIMING and DEPTH depend on the optimizer.
+  "The collapse comes with AdamW" is not supported. **Past 3000 (Q4EXT, §9): AdamW's Q/K stable rank recovers from its
+  minimum near 3000 to 17/15 by 10000; Muon's stays on its plateau** — a dip and recovery under AdamW, not a collapse
+  Muon delays.
 - **(descriptive) d₁ and d₂ agree** to within a few s_ref: e.g. Q stable rank at 2000 is 135.9 vs 138.8 s_ref. That
   is the scale of seed noise, so the agreement is what two independent pairs should show.
 - **(descriptive, post-result) The ΔW-rank difference is expected by construction.** Muon orthogonalises each
