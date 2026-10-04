@@ -41,3 +41,28 @@ is written by CC under the no-stalling rule (Will can veto any item; nothing her
   the cause (allocation-dependent kernel selection vs resumed-run nondeterminism) is undetermined; an off/off control
   from the same resume.pt is queued for the pilot phase. **M4 is not enabled for M0s1 or M0s3.** A0 resumed at 6000
   after the A/B (no steps lost); the queue continues unchanged.
+
+## Amendment 2 (DRAFT for Will's seal, 2026-10-03; NOT in force. Written AFTER the descriptive Q4EXT run was read
+## (ARMB_FINDINGS §9), so every column below is a post-hoc DESCRIPTIVE addition; nothing here is a test.)
+Source: lit/v2 S §5 / C §104 / A6 items 1, 2, 7 and C §37.
+1. **σ₁ ceiling and e-fold marker** (A6 item 1, derivation PARTIAL): draw ‖W‖₂* = 0.2·√max(A,B)/wd (≈ 45 for a 512-wide
+   matrix at wd 0.1) and the relaxation time (lr·wd)⁻¹ (≈ 10⁴ steps at lr 1e-3) on the Q4EXT σ₁ plot, both arms. Reading
+   (descriptive): does σ₁ bend toward a ceiling of that order by 10 000, or grow linearly? The derivation is CC's, not
+   the paper's, and is labelled PARTIAL on the plot.
+2. **σ₁ factorised (Muown, A6 item 2):** σ₁ = row-magnitude × row-coherence per matrix, every 100 steps, A0 vs M0s1.
+   Muown predicts that under Muon the drift is row-magnitude-driven with coherence flat.
+3. **Per-head σ₁(W_Q^h W_K^hᵀ)** (Kimi K2's QK-clip quantity): per head, per layer, every 100 steps, both arms.
+4. **Stable rank of W − W₀** (Kang et al. 2602.06385): every 100 steps, per type, A0 vs M0s1 (and M0s3 ≤ 3000).
+   Kang's prediction: incremental rank growth under AdamW, none under Muon (uniform spectral growth). The DW0 pass
+   banked ‖W−W₀‖_F only; this needs an SVD of W−W₀ per checkpoint, so a re-pass over the 111 + 111 + 41 checkpoints on
+   spot (CPU, numpy, ~1 h; the weights are there).
+5. **Seed-2 init gate** (C §37, pythia issue #203): Q4EXT item 3 says M0s3 "varies the INIT only" relative to M0s1. That
+   holds only if `pythia-70m-seed2` step 0 is a distinct initialisation from `pythia-70m` step 0. Gate: elementwise
+   correlation of the two step-0 uploads per matrix (and seed1's, M0s2's init) — DISTINCT iff |corr| < 0.05 on every
+   matrix; otherwise the one-draw Muon spread is relabelled "same-init rerun spread" (an order/nondeterminism floor, not an
+   init spread). Cheap (three small downloads).
+6. **Row 16 at n = 2:** the Q4 statement is re-expressed as a reference-band statement — where do the two Muon runs sit
+   relative to the band of the ten AdamW seed runs (pythia-70m-seed1..9 + pythia-70m, banked in B4 refs) at the shared
+   steps — beside the existing 123/368 count.
+Cost: items 2–4 one CPU pass over the banked checkpoints on spot; item 5 minutes; items 1 and 6 plotting only. No GPU.
+
