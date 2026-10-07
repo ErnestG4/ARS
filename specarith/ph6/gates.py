@@ -228,7 +228,7 @@ def picket_gate(cfg, B, pre=None, reach=None):
             taus = np.concatenate([0.5 + 0.001 * np.arange(4001), loc])
             rhs, _ = L.rhs_picket(cfg, taus, lam)
             ws = L.w(cfg, lev)
-            eps = L.tolerance(2.0 ** -51 * (taus * (ws * np.abs(lev)).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum(),
+            eps = L.tolerance(2.0 ** -51 * (np.abs(taus) * (ws * np.abs(lev)).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum(),
                               1e-12 * np.maximum(1.0, np.abs(rhs)))
         ws = L.w(cfg, lev)
         keep = ws > 1e-300

@@ -206,7 +206,7 @@ def prime_sum_dirichlet(cfg, taus, chi=None):
         # sigma^2 v^2/2 inherit (T0 + sigma^2 |v|)(log n + tau) 2^-52; the dot product of len(sel) terms adds len 2^-53
         v = np.abs(ln[None, :] - tc[:, None])
         amp = np.abs(coef[sel])[None, :] * np.abs(g_zero_line(cfg, tc[:, None], ln[None, :]))
-        fbound[i:i + len(tc)] = np.sum(amp * ((cfg.T0 + sig ** 2 * v) * (ln[None, :] + tc[:, None]) * 2 * EPS64
+        fbound[i:i + len(tc)] = np.sum(amp * ((cfg.T0 + sig ** 2 * v) * (ln[None, :] + np.abs(tc[:, None])) * 2 * EPS64
                                               + (len(sel) + 8) * EPS64), axis=1)
     # tail: n in (n_max, n_tail] summed in absolute value; beyond n_tail a dyadic-block bound
     tsel = np.nonzero(coef[n_max + 1:])[0] + n_max + 1
@@ -520,7 +520,7 @@ def eps_data_zero(cfg, levels, taus, delta):
     for X in (E, -E):
         ws = w(cfg, X)
         wp = np.abs(X - cfg.T0) / cfg.sigma ** 2 * ws
-        out = out + d_eff * (np.asarray(taus) * ws.sum() + wp.sum())
+        out = out + d_eff * (np.abs(np.asarray(taus)) * ws.sum() + wp.sum())
     return out
 
 
@@ -531,7 +531,7 @@ def eps_float_zero(cfg, levels, taus):
     E = E[E > 0]
     ws = w(cfg, E) + w(cfg, -E)
     taus = np.asarray(taus)
-    return 2.0 ** -51 * (taus * (ws * E).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum()
+    return 2.0 ** -51 * (np.abs(taus) * (ws * E).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum()
 
 
 def eps_trunc(cfg, density_at_edge):
