@@ -66,3 +66,23 @@ CC notes (checked before drafting; carried into PH2_SEAL_DRAFT):
 - CUE(N) is defined by matrices only for integer N; BBLM/BFM evaluate it at real N_eff via the Fredholm determinant
   det(I − K^N) (K^N = sin πx/(N sin(πx/N)), real N) and the closed form p₁ = −(1/12)(s²p₀)″ (Forrester–Shen).
 - Release v2026.10.07 published by Will: "checkpoint for the specarith branch taken before the work begins".
+
+## Fourth round (Will, 2026-10-07) — answers to PH2_SEAL_DRAFT §9
+
+Filed verbatim:
+
+```
+Phase 2 decisions (Will):
+1. Primary = p(s); ⟨r̃⟩/Σ²/F(α)/Δ₃ descriptive, one witness.
+2. Seal bins with N_eff ≥ 2; justify the cutoff in the seal from the
+   pre-read's next-order-term estimate. Lower bins descriptive.
+3. Truncation allowance: adopt for the PRIMARY only (leading-order law).
+   Per bin, if the widened tolerance prevents rejecting N=∞ or makes the
+   resolution arm meaningless → primary NOT RESOLVABLE there. SECONDARY
+   (BFM higher-order) uses statistical tolerance only — the sharp test.
+4. Platt heights ≈13, 15, 17, 19, 21, 22.3 (one file each), md5-pinned in
+   the seal before download.
+5. Per-bin resolution target sealed from the pre-read (e.g. 3× predicted
+   SD of N̂); ±20% remains the floor target; achieved intervals always
+   reported.
+```
