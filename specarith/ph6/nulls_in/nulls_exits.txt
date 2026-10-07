@@ -1,2 +1,0 @@
-G0c exit=0
-G2 exit=0

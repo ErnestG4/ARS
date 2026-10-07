@@ -3,29 +3,27 @@
   "gate": "G0s_pilot",
   "layer_a": {
    "verdict": "PASS",
-   "max_ratio": 0.029025822020452906,
-   "tau_at_max": null
+   "max_ratio": 0.031386770654521785,
+   "tau_at_max": 4.644003481144874
   },
   "red_paths": [
    {
     "red_path": "RP13_drop_gamma",
     "result": "FIRED",
-    "max_ratio": 4521892.890690731
+    "max_ratio": 401145215.13136786
    },
    {
     "red_path": "RP14_drop_pole",
-    "result": "DID_NOT_FIRE",
-    "max_ratio": 0.029025822020452906
+    "result": "INAPPLICABLE"
    },
    {
     "red_path": "RP15_asymptotic_psi",
     "result": "FIRED",
-    "max_ratio": 14.254179814671962
+    "max_ratio": 1386.2337232691732
    },
    {
     "red_path": "RP16_drop_mirror",
-    "result": "DID_NOT_FIRE",
-    "max_ratio": 0.029025822020452906
+    "result": "INAPPLICABLE"
    }
   ]
  },
@@ -37,18 +35,25 @@
   "confusable": {
    "layer_a": {
     "verdict": "PASS",
-    "max_ratio": 0.13587423848413488,
-    "tau_at_max": null
+    "max_ratio": 0.04321784102856135,
+    "tau_at_max": 3.228
    },
    "RP12_brief_v1_bc": {
     "red_path": "RP12",
     "result": "FIRED",
-    "max_ratio": 1465397890999.8564
+    "max_ratio": 140294374717.849
    },
    "vs_zeta": [
     "NOT RESOLVABLE",
     {
-     "R": []
+     "R": [],
+     "M_w": [
+      2,
+      3,
+      4,
+      5,
+      7
+     ]
     }
    ],
    "vs_zero": [
@@ -104,38 +109,35 @@
      -4.3232084578903596e-13
     ]
    },
-   "position_fires_at": [
-    2,
-    4,
-    8,
-    32,
-    64
-   ],
-   "expected_fires": [
-    2,
-    4,
-    8,
-    16,
-    32,
-    64
-   ],
-   "silent_at_3_5_7": true
+   "layer_b": [
+    "FAIL",
+    [
+     "T3 vs zeta = NOT RESOLVABLE arms [] (required FAIL with WEIGHT or SIGN)"
+    ]
+   ]
   },
   "incommensurate": {
    "layer_a": {
     "verdict": "PASS",
-    "max_ratio": 0.0815012277493062,
-    "tau_at_max": null
+    "max_ratio": 0.041249664578100885,
+    "tau_at_max": 3.595
    },
    "RP12_brief_v1_bc": {
     "red_path": "RP12",
     "result": "FIRED",
-    "max_ratio": 1198196330667.7969
+    "max_ratio": 120843343460.86452
    },
    "vs_zeta": [
     "NOT RESOLVABLE",
     {
-     "R": []
+     "R": [],
+     "M_w": [
+      2,
+      3,
+      4,
+      5,
+      7
+     ]
     }
    ],
    "vs_zero": [
@@ -182,7 +184,13 @@
      2.5734011139203643e-15,
      -5.0064742778274886e-14
     ]
-   }
+   },
+   "layer_b": [
+    "FAIL",
+    [
+     "T3 vs zeta = NOT RESOLVABLE arms [] (required FAIL with POSITION)"
+    ]
+   ]
   }
  }
 }
