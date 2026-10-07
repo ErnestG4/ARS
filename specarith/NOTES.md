@@ -128,3 +128,4 @@ Overnight log:
 - 06:14 memory index compacted (166→119 lines, 22.3→15.9 KB; every link preserved, verified by diff of link sets). Nothing running; awaiting the 07:57 wrap-up.
 - 06:32 check-in: idle (nothing running on spot or locally; worktree clean). No unblocked items remain before Will's decisions.
 - 06:51 check-in: idle; nothing running; awaiting Will.
+- 07:11 check-in: idle; nothing running; awaiting Will.
