@@ -86,3 +86,12 @@ Overnight log:
   first run FAILED on glide length sums (exactly ½ at every t) because CC's check used the hyperbolic factor 2
   (Lemma 2.10) for glides too; for det −1, N(T0) = ((t+√(t²+4))/2)² (BS07 (2.50)), so the factor is 1 (t = 1: 2 log φ
   = log ε₁). The RHS uses C(t)·log ε₁ from (2.39)/(2.40) directly and was never affected.
+- 02:15 ph6lib.py committed. RHS verified WITHOUT data: reproduces the EF agent's 30-digit pilot identity values to
+  ≤ 6e-14 (ζ and χ₋₄); Selberg RHS at τ = 0 matches the parity Weyl integrals to ~1e-4 (dropped O(1/r²) terms).
+- 02:18 Review agent launched on ph6lib/preread/classes/chi4_zeros vs the seal (report → ph6/REVIEW_code_v1.md).
+- 02:22 preread tables + gates.py + dry run committed (1f9d3f4). **Reachability finding for Will: at the sealed G1
+  window (T₀ = 49.4, σ = 5.8) the elliptic terms are ~e⁻³⁶ (h is negligible near r = 0), so RP5 (elliptic ×2) is
+  INAPPLICABLE in both sectors (ratio 1e-10) — G1 cannot test the elliptic weights Will's ladder names first.** A
+  small-window G1 (like G0-s) would; that is an amendment for Will. Other reachability: every ζ smooth-term class
+  fires in at least one G0-s window (pole only at (10,4); mirror only at (10,4), marginal 2.2× by upper bound).
+- 02:24 null calibration draws launched on spot (G0-c, G2, G0; 100 GUE + 100 Poisson each, 16 procs).
