@@ -91,3 +91,12 @@ verifies them against the md5s pinned in §3 (verify-only now). Nothing else cha
   RP-misprint drives κ̂ to ∞ in the PRIMARY at every bin and moves the mean spacing by 2.1% (H3) to 9.9% (A) — reachable
   everywhere by both checks. RP-mix (α for ᾱ in the SECONDARY) shifts κ* by +4.3% (A), +3.0% (B), +1.9% (P1), +0.5% (P6),
   +0.08–0.09% (H2/H3); reachability per bin follows from G0d's SDs. RP-Λ: N_eff ratio 1.0000035 — UNREACHABLE as declared.
+- **Header disclosure:** to confirm the loader's format before sealing, the *text* (non-numeric) lines of zeros3/4/5 were
+  displayed (numeric lines filtered out; each file has exactly 10,000). Those headers state the first zero of each table
+  in words (e.g. "zero # 10^12 + 1 is actually 1/2 + i·267,653,395,648.8475…"); no spacing was formed or seen.
+- **Pre-read implementation choices (declared here, pinned by the seal JSON):** G0d surrogates at the two integers
+  bracketing each bin's median N_eff (22 configs), R = 200 reps, the first 100 with the A1 bootstrap (B = 200 per block
+  length); CUE-calibrated SD interpolated log-linearly in N to the bin's median N_eff; SD_pred = that × max(1, mean
+  bootstrap/CUE SD ratio); red path "reachable" ⇔ |κ* shift| > 1.96·SD_pred; mean-spacing band |mean − 1| ≤ 10/n
+  (|S(t)| ≤ 4 at both ends + 1). The moving-block bootstrap is solved exactly by a Taylor series of the score (equal to
+  weighted refits to 1e-12 with the same block starts; uncertified replicates refitted exactly).

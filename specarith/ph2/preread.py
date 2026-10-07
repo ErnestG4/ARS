@@ -448,6 +448,22 @@ def summary():
               f"  PRIM NR(sum/max) {r['prim']['NOT_RESOLVABLE_sum']}/{r['prim']['NOT_RESOLVABLE_max']}"
               f"  SEC ok {r['sec']['RESOLVABLE_at_floor']}  mix {mix:+.4f} reach {r['rp_mix']['reachable']}", flush=True)
     dump("summary.json", dict(rows=rows, floor=FLOOR, mean_spacing_band_numerator=MEAN_SPACING_BAND))
+    f = lambda x: f"{x:.4f}"
+    md = ["| bin | N_eff | n | SD κ̂ prim (CUE×boot) | SD κ̂ sec | h_bin prim/sec | allowance sum/max | widened ½-width sum/max |"
+          " PRIMARY NR sum/max | SECONDARY resolvable | RP-mix shift (reach, power) | G0d cover (wider) prim/sec |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for r in rows:
+        p, s = r["prim"], r["sec"]
+        md.append(f"| {r['bin']} | {r['N_eff']:.3f} | {r['n']:,} | {f(p['sd_cue'])}×{p['boot_ratio']:.2f} = {f(p['sd_pred'])} |"
+                  f" {f(s['sd_pred'])} | {p['h_bin']:.3f}/{s['h_bin']:.3f} |"
+                  f" {g0c[r['bin']]['allowance_sum']:.3f}/{g0c[r['bin']]['allowance_max']:.3f} |"
+                  f" {p['widened_halfwidth_sum']:.3f}/{p['widened_halfwidth_max']:.3f} |"
+                  f" {'NR' if p['NOT_RESOLVABLE_sum'] else 'ok'}/{'NR' if p['NOT_RESOLVABLE_max'] else 'ok'} |"
+                  f" {'yes' if s['RESOLVABLE_at_floor'] else 'NO'} |"
+                  f" {r['rp_mix']['shift']:+.4f} ({'yes' if r['rp_mix']['reachable'] else 'no'}, {r['rp_mix']['power']:.2f}) |"
+                  f" {'/'.join(f'{c:.2f}' for c in p['g0d_cover_wider'])} · {'/'.join(f'{c:.2f}' for c in s['g0d_cover_wider'])} |")
+    open(os.path.join(RES, "summary.md"), "w").write("\n".join(md) + "\n")
+    print("\n".join(md))
 
 
 def g0d_configs():
