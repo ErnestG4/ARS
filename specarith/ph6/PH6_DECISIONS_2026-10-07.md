@@ -64,5 +64,5 @@ The next steps CC listed are right: fetch and file the primary sources (includin
 ```
 
 Filing note (CC): the "Filing notes" question above (exact bar for G1/G2) is answered YES here. The programme brief
-Will later dropped as a file (`cc-brief-ars-spectral-arithmetic-v1.md`, Downloads 00:55) is byte-identical to the
+Will later copied into the ph6-xp worktree root (`cc-brief-ars-spectral-arithmetic-v1.md`, also in Downloads, 00:55) is byte-identical to the
 copy filed from the paste (sha256 aa460691…8188); the duplicate at the worktree root was removed.
