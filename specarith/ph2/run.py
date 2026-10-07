@@ -29,6 +29,7 @@ SOURCES = {
 PLATT_FILES = {"P1": "zeros_2546000.dat", "P2": "zeros_19346000.dat", "P3": "zeros_151646000.dat",
                "P4": "zeros_1119746000.dat", "P5": "zeros_8284946000.dat", "P6": "zeros_30404246000.dat"}
 DPS = 45
+SENSITIVITY_WINDOWS = (1.8, 2.2)   # A2: reported descriptively beside the sealed S_C = 2.0
 
 
 def _hash(path, algo):
@@ -144,11 +145,13 @@ def _ci_kappa(c_hat, sd_c):
 
 def gates(name, synth_N=None):
     synth = synth_N is not None
-    if synth:   # dry run: the pre-read summary stands in for the seal JSON, allowance = PA2 'sum' (the stricter)
+    if synth:   # dry run: the pre-read summary stands in for the seal JSON (allowance = max, A3; sum descriptive)
         srow = {r["bin"]: r for r in json.load(open(os.path.join(R.RES, "summary.json")))["rows"]}[name]
         g0c = {b["bin"]: b for b in json.load(open(os.path.join(R.RES, "g0c.json")))["bins"]}[name]
-        srow["prim"]["allowance"] = g0c["allowance_sum"]
-        srow["prim"]["NOT_RESOLVABLE"] = srow["prim"]["NOT_RESOLVABLE_sum"]
+        srow["prim"]["allowance"] = g0c["allowance_max"]
+        srow["prim"]["NOT_RESOLVABLE"] = srow["prim"]["NOT_RESOLVABLE_max"]
+        srow["prim"]["allowance_sum_descriptive"] = g0c["allowance_sum"]
+        srow["prim"]["NOT_RESOLVABLE_sum_descriptive"] = srow["prim"]["NOT_RESOLVABLE_sum"]
     else:
         srow = {r["bin"]: r for r in json.load(open(SEAL))["bins"]}[name]
     if not synth:
@@ -217,6 +220,26 @@ def gates(name, synth_N=None):
     lo, hi = out["prim"]["kappa_ci"]
     out["rp_shuffle"] = dict(kappa=ks, inside_ci=bool(lo <= ks <= hi))
     out["rp_lambda"] = "INAPPLICABLE (unreachable, declared)"
+    # ---- DESCRIPTIVE (never verdicts): A3's sum-based PRIMARY widening; A2's window sensitivity at 1.8 and 2.2
+    p = out["prim"]
+    al_sum = srow["prim"]["allowance_sum_descriptive"]
+    klo, khi = p["kappa_ci"]
+    wlo, whi = klo - al_sum, (khi + al_sum if math.isfinite(khi) else math.inf)
+    out["descriptive_prim_sum_allowance"] = dict(
+        allowance=al_sum, kappa_ci_widened=[wlo, whi],
+        G1="NOT RESOLVABLE" if srow["prim"]["NOT_RESOLVABLE_sum_descriptive"] else ("PASS" if wlo <= 1 <= whi else "FAIL"))
+    sens = {}
+    for sc in SENSITIVITY_WINDOWS:
+        Wp2, Ws2 = P.WindowFit(Mp, sc=sc), P.WindowFit(Ms, sc=sc)
+        sens[str(sc)] = {}
+        for arm, W, abar in (("prim", Wp2, None), ("sec", Ws2, ab)):
+            prep = W.prepare(s, Neff, abar)
+            c, flag = W.fit(prep)
+            bs, _ = P.block_bootstrap_c_series(W, prep, c, max(Lb), 200, rng)
+            sens[str(sc)][arm] = dict(c=c, flag=flag, kappa=P.kappa_from_c(c), boot_sd_c=float(np.std(bs, ddof=1)),
+                                      c_range=list(W.c_range(float(np.min(Neff)),
+                                                             abars=None if abar is None else (float(ab.min()), float(ab.max())))))
+    out["descriptive_window_sensitivity"] = sens
     json.dump(out, open(os.path.join(outdir(synth), f"{name}.json"), "w"), indent=1, default=float)
     print(json.dumps({k: out[k] for k in ("bin", "n", "mean_spacing")}, default=float),
           "prim", out["prim"]["G1"], round(out["prim"]["kappa"], 4), [round(x, 4) for x in out["prim"]["kappa_ci_widened"]],
