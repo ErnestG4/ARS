@@ -78,3 +78,11 @@ Morning: report to Will — reachability table, anything the review agent found,
 
 Overnight log:
 - 02:05 plan written; cron check-ins every 20 min to 07:47, morning report 07:57.
+- 02:06 χ₋₄ zeros: 22 PARI jobs launched on spot (20 equal-cost chunks at p38 + check windows [0,1000] and
+  [19900,20000] at p57; the top check window was narrowed from [19000,20000], which alone would cost hours at p57).
+  One call over [0,20000] would take ~13 h (128-bit cost per unit height ~T^1.7), hence the chunks.
+- 02:20 G1-pre (seal §9.2) PASS: `ph6/classes.py` → `ph6/results/g1pre_classes.json`. Hyperbolic t ≤ 30 and glide
+  t ≤ 30 (58 rows): Gauss cycles = CF necklaces = PARI Σ h⁺ exactly; Σ log N(P0) CF = PARI to ≤ 1e-15. DISCLOSED: the
+  first run FAILED on glide length sums (exactly ½ at every t) because CC's check used the hyperbolic factor 2
+  (Lemma 2.10) for glides too; for det −1, N(T0) = ((t+√(t²+4))/2)² (BS07 (2.50)), so the factor is 1 (t = 1: 2 log φ
+  = log ε₁). The RHS uses C(t)·log ε₁ from (2.39)/(2.40) directly and was never affected.
