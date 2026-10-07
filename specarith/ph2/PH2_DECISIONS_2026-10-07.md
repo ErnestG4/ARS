@@ -29,3 +29,14 @@ Mixing a scale factor from one paper with a kernel from another is exactly the w
 Actions (CC): Phase 2 to-dos added to `../NOTES.md`'s overnight plan — (a) verify the report's load-bearing claims
 against the primary sources (Λ digits, BBLM eqs. 16/19/24, BFM's ᾱ and its scale convention, the sine/CUE_N determinant
 method); (b) scope Platt's LMFDB zeros as additional public, hashable heights.
+
+## Second round (Will, 2026-10-07 morning) — 4a and data
+
+Filed verbatim:
+
+```
+Phase 2 4a: both arms declared; PRIMARY = "N_eff alone" (BBLM convention);
+SECONDARY = BBLM eq. 24 / BFM higher-order with ᾱ = 2α − 1 per BFM. No mixing.
+Data: Platt blocks by md5 at heights declared pre-data (log(E/2π) 9–22.3,
+not the full 1.29 TB) + Odlyzko top tables; 24.5–44.6 gap stated as a limit.
+```

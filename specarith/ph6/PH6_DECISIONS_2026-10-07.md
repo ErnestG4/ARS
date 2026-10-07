@@ -126,3 +126,19 @@ CC notes on the two additions (written into the seal, §8a/§8b):
   rule does not reject the truth at candidate size; R depends only on the band (the null draws), so "R ≈ 26/34" is a
   check of the band against the design theory. Power at candidate size is added as G3-c (GUE nulls at G0-c's
   configuration read against ζ weights must FAIL).
+
+## Fifth round (Will, 2026-10-07 morning) — decisions on PH6_PROPOSED_AMENDMENTS.md
+
+Filed verbatim:
+
+```
+Phase 6 decisions (Will):
+A1 adopt. A3 adopt. A4: (b) T = 4·10⁴. A5 adopt — Gamma-law band derived
+analytically from the LS coefficient null distribution, not fitted to the
+seen calibration draws; disclose the original bar's failure on those draws.
+A6 adopt. A7, A8, A9, A10, A12 adopt. A11: adopt only if pre-read shows RP3
+@100δ below the sealed firing margin; otherwise keep 100δ.
+Seal with --A1 --A6 --A4b and results/preread_proposed.
+
+Process: pre-commit hook rejecting `pgrep -f` in repo scripts.
+```
