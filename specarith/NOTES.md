@@ -103,3 +103,4 @@ Overnight log:
   reading. Data: BBLM compared at E = 2.5·10¹⁵ and 1.3·10²² — the 1.3·10²² set (index ~10²³) is NOT among Odlyzko's
   public tables (those stop at index 10²², height 1.37·10²¹): Phase 2's "10²³" needs a data source. Unfolding trap:
   Forrester–Mays eq. (1.1) density misprint (log(E/2πe) vs log(E/2π)) is ~2%, bigger than the whole 1/N² effect.
+- 02:42 Will's Phase 2 decisions filed (ph2/PH2_DECISIONS_2026-10-07.md). Added overnight side items: 8. Phase 2 primary-source verification of ph2/lit/bblm_bk.md (agent; no zero data); 9. Platt's LMFDB zeros — which heights, how fetched, hashable? (scoping only, no statistics).
