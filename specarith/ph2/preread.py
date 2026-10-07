@@ -247,12 +247,11 @@ def g0d(name, N, r0=0, r1=CHUNK, RB=100, B=200):
             c, flag = W.fit(prep)
             rec[arm] = dict(c=c, flag=flag)
             if r < RB:
-                comp = W.compress(prep)
-                rec[arm]["c_cells"] = W.fit_cells(comp, W.cell_counts(comp))[0]
-                rec[arm]["boot_sd"] = {}
+                rec[arm]["boot_sd"], rec[arm]["boot_refit"] = {}, 0
                 for Lblk in Lb:
-                    bs = P.block_bootstrap_c(W, prep, Lblk, B, rng, comp=comp)
+                    bs, nref = P.block_bootstrap_c_series(W, prep, c, Lblk, B, rng)
                     rec[arm]["boot_sd"][str(Lblk)] = float(np.std(bs, ddof=1))
+                    rec[arm]["boot_refit"] += nref
         reps.append(rec)
         print(f"{name} N={N} rep {r} c_prim={rec['prim']['c']:.5f} c_sec={rec['sec']['c']:.5f} "
               f"{time.time() - t0:.0f}s", flush=True)
@@ -291,7 +290,7 @@ def g0d_merge(name, N):
                  cover_cue_split=float(np.mean([_ci_cover(ci, sd_even, cst) for ci in c[1::2]])),
                  flags={f: int(sum(x[arm]["flag"] == f for x in reps)) for f in ("interior", "at_lo", "at_hi")})
         rb = [x for x in reps if "boot_sd" in x[arm]]
-        a["cells_minus_exact_max_in_sd"] = float(max(abs(x[arm]["c_cells"] - x[arm]["c"]) for x in rb)) / sd
+        a["boot_refit_total"] = int(sum(x[arm]["boot_refit"] for x in rb))
         a["boot"] = {}
         for Lblk in Lb:
             sds = np.array([x[arm]["boot_sd"][str(Lblk)] for x in rb])

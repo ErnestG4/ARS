@@ -171,9 +171,11 @@ def gates(name, synth_N=None):
         c, flag = W.fit(prep)
         res = dict(c=c, flag=flag)
         if boot:
-            comp = W.compress(prep)
-            res["boot_sd_c"] = {str(Lblk): float(np.std(P.block_bootstrap_c(W, prep, Lblk, 200, rng, comp=comp), ddof=1))
-                                for Lblk in Lb}
+            res["boot_sd_c"], res["boot_refit"] = {}, 0
+            for Lblk in Lb:
+                bs, nref = P.block_bootstrap_c_series(W, prep, c, Lblk, 200, rng)
+                res["boot_sd_c"][str(Lblk)] = float(np.std(bs, ddof=1))
+                res["boot_refit"] += nref
         return res
 
     for arm, W, abar in (("prim", Wp, None), ("sec", Ws, ab)):

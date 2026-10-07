@@ -360,6 +360,52 @@ def kappa_from_c(c):
 
 
 # ============================================================ 5. moving-block bootstrap (A1)
+def block_bootstrap_c_series(fitter, prep, c_hat, block_len, n_boot, rng, M=12, radius=0.3):
+    """The same moving-block bootstrap as block_bootstrap_c (starts uniform on [0, n − L], ⌈n/L⌉ blocks, the last one
+    cut to length n), solved without materialising the resample: each spacing's score term ρ/(1 + cρ) − φ/(1 + cφ) is
+    expanded in t = c − ĉ to order M around the full-data ĉ; block sums of every Taylor coefficient come from one
+    cumulative sum each, so a replicate's score polynomial is a sum over its ⌈n/L⌉ block starts. Root by vectorised
+    Newton from t = 0. Replicates whose root leaves |t|·max|ρ/(1+ĉρ)| ≤ radius (series not certified) are refitted
+    exactly with multiplicity weights. Returns (ĉ replicates, number refitted exactly)."""
+    inw = prep["inw"]
+    u = np.where(inw, prep["rho"] / (1 + c_hat * prep["rho"]), 0.0)
+    v = np.where(inw, prep["phi"] / (1 + c_hat * prep["phi"]), 0.0)
+    n = len(u)
+    umax = float(np.max(np.abs(np.concatenate([u, v]))))
+    C = np.empty((M + 1, n + 1))
+    C[:, 0] = 0.0
+    up, vp = u.copy(), v.copy()
+    for m in range(M + 1):                         # coefficient of t^m: (−1)^m (u^{m+1} − v^{m+1})
+        np.cumsum(((-1) ** m) * (up - vp), out=C[m, 1:])
+        up *= u
+        vp *= v
+    nb = int(math.ceil(n / block_len))
+    last = n - (nb - 1) * block_len
+    starts = rng.integers(0, n - block_len + 1, (n_boot, nb))
+    lens = np.full(nb, block_len)
+    lens[-1] = last
+    coef = np.empty((n_boot, M + 1))
+    for m in range(M + 1):
+        coef[:, m] = (C[m][starts + lens] - C[m][starts]).sum(axis=1)
+    t = np.zeros(n_boot)
+    powers = np.arange(M + 1)
+    for _ in range(60):
+        tp = t[:, None] ** powers
+        S = (coef * tp).sum(axis=1)
+        dS = (coef[:, 1:] * powers[1:] * (t[:, None] ** (powers[1:] - 1))).sum(axis=1)
+        step = np.where(dS != 0, -S / dS, 0.0)
+        t = t + step
+        if np.max(np.abs(step)) < 1e-14:
+            break
+    out = c_hat + t
+    bad = np.nonzero(np.abs(t) * umax > radius)[0]
+    for b in bad:                                   # exact refit of the uncertified replicates
+        idx = (starts[b][:, None] + np.arange(block_len)[None, :]).ravel()
+        idx = np.concatenate([idx[: (nb - 1) * block_len], starts[b][-1] + np.arange(last)])
+        out[b] = fitter.fit(prep, weights=np.bincount(idx, minlength=n).astype(float))[0]
+    return out, len(bad)
+
+
 def block_bootstrap_c(fitter, prep, block_len, n_boot, rng, comp=None):
     """Moving-block bootstrap of ĉ (A1): resample overlapping blocks of consecutive spacings (the full sequence, window
     mask carried along) to the original length; replicate fits on the cells of WindowFit.compress (comp, built here
