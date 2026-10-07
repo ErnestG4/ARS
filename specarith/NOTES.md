@@ -96,3 +96,10 @@ Overnight log:
   fires in at least one G0-s window (pole only at (10,4); mirror only at (10,4), marginal 2.2× by upper bound).
 - 02:24 null calibration draws launched on spot (G0-c, G2, G0; 100 GUE + 100 Poisson each, 16 procs).
 - 02:24 check-in: χ₋₄ 20/22 PARI jobs done (2 low chunks running); null draws G0-c in progress (16 workers); review + Phase 2 lit agents running. Nothing new to commit.
+- 02:35 Phase 2 lit (side item 7) DONE → `specarith/ph2/lit/bblm_bk.md` (agent report, unreviewed). N_eff =
+  log(E/2π)/√(12Λ) CONFIRMED (BBLM eq. 19); Λ printed 1.57314 in BBLM, correct 1.5731510713… (BFM 2017; cite BFM).
+  Lower-order terms come from BK PRL 77 (1996), NOT the Nonlinearity 1995/96 papers (brief attribution wrong).
+  BBLM's α should be ᾱ = 2α − 1 if the N⁻³ term goes in the kernel (BFM 2017 footnote) — Phase 2 must fix this before
+  reading. Data: BBLM compared at E = 2.5·10¹⁵ and 1.3·10²² — the 1.3·10²² set (index ~10²³) is NOT among Odlyzko's
+  public tables (those stop at index 10²², height 1.37·10²¹): Phase 2's "10²³" needs a data source. Unfolding trap:
+  Forrester–Mays eq. (1.1) density misprint (log(E/2πe) vs log(E/2π)) is ~2%, bigger than the whole 1/N² effect.
