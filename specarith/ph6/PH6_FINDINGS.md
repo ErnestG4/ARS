@@ -6,6 +6,10 @@ pinned environment), all inputs checked against the seal before any statistic. R
 
 ## Verdict: all gates PASS as sealed. The instrument is calibrated; 6.1 candidates may be read (after Phase 2's CUE(N_eff), per Will's order).
 
+**Framing (Will, 2026-10-07):** these results confirm known mathematics — the explicit formula, the Selberg trace
+formula, Poisson summation. They show the instrument works; the new science starts with the candidates, whose expected
+FAIL on prime spectroscopy will now come from an instrument shown to see primes when they are there.
+
 ### Layer A — exact identities (max |LHS − RHS| / ε over the identity grid; PASS ≤ 1)
 
 | gate | what | max ratio | verdict |
@@ -52,6 +56,40 @@ at (40,3); RP14–RP16 at (150,10)). No red path reported DID_NOT_FIRE.
 - G0 Layer B reads c_n = a_n to ~1e-10 (exact identity; e.g. c_2 = −0.4901, c_3 = −0.6343, c_5 = −0.7198,
   c_29 = −0.6253); that is a check of the readout, not evidence of power. Power is G3/G3-c (null spectra rejected
   100/100) and the G4 confusable (positions fire, weights refuse).
+
+## Sensitivity — the detection floor (descriptive, post-seal; Will 2026-10-07)
+The red paths show gross errors fire. `detection_floor.py` (output `results/detection_floor.json`) asks how small an
+error the exact bar catches: one term or weight family of the sealed RHS is perturbed by a relative ε (or one prime's
+line is moved by δ in τ), and bisection finds the smallest |ε| or |δ| at which max_τ |LHS − RHS′|/ε_tol(τ) exceeds 1. LHS,
+RHS and tolerance are the sealed ones.
+
+| gate | all prime-power weights | k ≥ 2 harmonics | one prime's weight (p = 2 / 3 / 89) | one prime's line shifted (δ in τ) | other terms |
+|---|---|---|---|---|---|
+| G0 (ζ, 10⁵ zeros) | 7.5·10⁻⁸ | 2.1·10⁻⁷ | 7.5·10⁻⁸ / 9.2·10⁻⁸ / 5.0·10⁻⁷ | 2.0·10⁻¹² (p = 2) … 1.3·10⁻¹¹ (p = 89) | — |
+| G0-c (ζ, 3·10⁴) | 6.5·10⁻⁸ | 1.8·10⁻⁷ | 6.5·10⁻⁸ / 8.0·10⁻⁸ / 4.3·10⁻⁷ | 5.0·10⁻¹² … 3.4·10⁻¹¹ | — |
+| G0-s (10,4) | 4.9·10⁻⁹ | 1.1·10⁻⁸ | 4.3·10⁻⁹ / 4.9·10⁻⁹ / 2.2·10⁻⁸ | 4.2·10⁻¹⁰ … 2.2·10⁻⁹ | Γ term 5.0·10⁻¹⁰; pole 1.4·10⁻⁸ |
+| G2 (χ₋₄, 4·10⁴) | 7.6·10⁻¹⁰ | 2.6·10⁻⁹ | — / 7.6·10⁻¹⁰ / 4.1·10⁻⁹ | 3.8·10⁻¹⁴ (p = 3) … 2.0·10⁻¹³ (p = 89) | — |
+| G2-s (10,4) | 2.6·10⁻¹¹ | 1.0·10⁻¹⁰ | — / 3.1·10⁻¹¹ / 1.6·10⁻¹⁰ | 3.1·10⁻¹² … 1.6·10⁻¹¹ | Γ term 2.5·10⁻¹² |
+
+| Maass gate (even / odd) | identity | elliptic | glide R | hyperbolic H | ζ-lines 2Λ(n)/n (even) |
+|---|---|---|---|---|---|
+| G1 | 2.6·10⁻⁷ / 3.3·10⁻⁷ | **not detectable** (terms ~e⁻³⁶) | 3.9·10⁻⁷ / 5.3·10⁻⁷ | 5.2·10⁻⁷ / 6.7·10⁻⁷ | 3.5·10⁻⁷ |
+| G1-s (12,4) | 7.1·10⁻⁹ / 1.9·10⁻⁸ | 2.8·10⁻⁶ / 7.5·10⁻⁶ | 2.6·10⁻⁸ / 6.9·10⁻⁸ | 3.0·10⁻⁸ / 9.2·10⁻⁸ | 2.2·10⁻⁸ |
+| G1-s (20,5) | 1.0·10⁻⁷ / 1.9·10⁻⁷ | 3.8·10⁻⁴ / 7.0·10⁻⁴ | 9.0·10⁻⁸ / 1.6·10⁻⁷ | 1.0·10⁻⁷ / 1.9·10⁻⁷ | 7.8·10⁻⁸ |
+
+Reading it:
+- **The identity bar catches relative weight errors of ~10⁻⁷ (ζ), ~10⁻⁹ (χ₋₄) and ~10⁻⁷–10⁻⁸ (Maass hyperbolic/glide).**
+  A factor-of-2 error (the trap the elliptic sources warned about) sits 5–6 orders above every floor in the table,
+  including the elliptic floor at G1-s (12, 4), 2.8·10⁻⁶; at G1 alone the elliptic weights are invisible, which is why A1
+  was needed.
+- **Line positions are pinned to ~10⁻¹²–10⁻¹¹ in τ** (10⁻⁸ of a line width): the line phase e^{i(τ − log n)T₀} rotates
+  at rate T₀, so a misplaced line breaks the identity long before its envelope moves.
+- **This is the floor for the instrument's mathematics (Layer A), not for candidates.** Candidates are judged by T3
+  (Layer B), whose sensitivity is the null band: a candidate's line amplitude c_n is distinguishable from the explicit-
+  formula value a_n only to within B_n. At the candidate configuration (G0-c's, 3·10⁴ levels) B_n runs from 0.10 at
+  log 2 to 0.26 at log 90 (max 0.30; resolvable set 24/34); at G0's size, 0.06 to 0.15 (max 0.17; 29/34). So "how close a candidate can come"
+  is answered in units of B_n, roughly 10⁶ times coarser than the identity floor — the identity floor guarantees the
+  reference a_n the candidate is compared with is right to far better than the comparison can resolve.
 
 ## Not yet done (brief "Outputs")
 - Plots of S(τ) / C(τ) for every spectrum on common axes (descriptive; next).

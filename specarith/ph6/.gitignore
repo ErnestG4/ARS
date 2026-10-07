@@ -5,3 +5,4 @@ preread_out/
 preread_out_v*/
 regress_out/
 seals/*.draft
+_lhs_cache_*.npy
