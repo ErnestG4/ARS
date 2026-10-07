@@ -8,7 +8,7 @@ mean, so a missed zero leaves a persistent -1 step in its block means.
 
 Run on spot, env `specarith` (PARI 2.17.2 via cypari2 2.2.4); all PARI evaluation through GP strings (cypari2 library
 calls are 64-bit whatever realprecision says):
-    python chi4_zeros_v2.py plan T_MAX N_CHUNKS            # cost-balanced chunk edges (cost/unit ~ 0.44 + 1.77e-5 T, v1 timings)
+    python chi4_zeros_v2.py plan T_MAX N_CHUNKS [T_LO]     # cost-balanced chunk edges (cost/unit ~ 0.44 + 1.77e-5 T, v1 timings)
     python chi4_zeros_v2.py chunk A B OUTDIR PREC DIVZ      # zeros in [A, B]
     python chi4_zeros_v2.py merge OUTDIR T_MAX              # merge the p38 chunks listed in OUTDIR/jobs.txt; checks; write list
     python chi4_zeros_v2.py accuracy OUTDIR T_MAX           # delta = 10 x max |p38 - p57| on the p57 check windows
@@ -24,14 +24,14 @@ BLOCK = 250                       # zeros per block for the S-profile check
 BLOCK_MEAN_LIMIT = 0.6            # |block mean of S| above this flags a missed (or spurious) zero
 
 
-def plan(t_max, n_chunks):
+def plan(t_max, n_chunks, t_lo=0):
     a0, a1 = 0.44, 1.77e-5        # per-unit cost model from the v1 chunk timings (s per unit height at divz 8)
     C = lambda T: a0 * T + a1 * T * T / 2
-    total = C(t_max)
-    edges = [0]
+    total = C(t_max) - C(t_lo)
+    edges = [t_lo]
     for k in range(1, n_chunks):
-        target = total * k / n_chunks
-        lo, hi = 0.0, float(t_max)
+        target = C(t_lo) + total * k / n_chunks
+        lo, hi = float(t_lo), float(t_max)
         for _ in range(60):
             mid = (lo + hi) / 2
             lo, hi = (mid, hi) if C(mid) < target else (lo, mid)
@@ -132,7 +132,7 @@ def accuracy(outdir, t_max):
 if __name__ == "__main__":
     m = sys.argv[1]
     if m == "plan":
-        for a, b in plan(int(sys.argv[2]), int(sys.argv[3])):
+        for a, b in plan(int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]) if len(sys.argv) > 4 else 0):
             print(a, b)
     elif m == "chunk":
         chunk(int(sys.argv[2]), int(sys.argv[3]), sys.argv[4], int(sys.argv[5]), int(sys.argv[6]))
