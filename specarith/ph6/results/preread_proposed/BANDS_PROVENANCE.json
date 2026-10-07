@@ -1,0 +1,92 @@
+{
+ "nulls_G0_gue.npz": {
+  "config": {
+   "T0": 37460.413749497,
+   "sigma": 4407.107499940823,
+   "E_lo": 0.0,
+   "E_hi": 74920.827498994
+  },
+  "seeds": [
+   1000,
+   1099
+  ],
+  "n_draws": 100,
+  "mean_levels": 99999.94,
+  "source": "copied from results/preread"
+ },
+ "nulls_G0_poisson.npz": {
+  "config": {
+   "T0": 37460.413749497,
+   "sigma": 4407.107499940823,
+   "E_lo": 0.0,
+   "E_hi": 74920.827498994
+  },
+  "seeds": [
+   2000,
+   2099
+  ],
+  "n_draws": 100,
+  "mean_levels": 100002.91,
+  "source": "copied from results/preread"
+ },
+ "nulls_G0c_gue.npz": {
+  "config": {
+   "T0": 12877.6741372805,
+   "sigma": 1515.0204867388825,
+   "E_lo": 0.0,
+   "E_hi": 25755.348274561
+  },
+  "seeds": [
+   1000,
+   1099
+  ],
+  "n_draws": 100,
+  "mean_levels": 30000.65,
+  "source": "copied from results/preread"
+ },
+ "nulls_G0c_poisson.npz": {
+  "config": {
+   "T0": 12877.6741372805,
+   "sigma": 1515.0204867388825,
+   "E_lo": 0.0,
+   "E_hi": 25755.348274561
+  },
+  "seeds": [
+   2000,
+   2099
+  ],
+  "n_draws": 100,
+  "mean_levels": 30003.79,
+  "source": "copied from results/preread"
+ },
+ "nulls_G2_gue.npz": {
+  "config": {
+   "T0": 20000.0,
+   "sigma": 2352.9411764705883,
+   "E_lo": 0.0,
+   "E_hi": 40000.0
+  },
+  "seeds": [
+   1000,
+   1099
+  ],
+  "n_draws": 100,
+  "mean_levels": 58219.21,
+  "source": "copied from results/preread_A4b (spot run 2026-10-07 ~05:00-05:11, T = 4e4)"
+ },
+ "nulls_G2_poisson.npz": {
+  "config": {
+   "T0": 20000.0,
+   "sigma": 2352.9411764705883,
+   "E_lo": 0.0,
+   "E_hi": 40000.0
+  },
+  "seeds": [
+   2000,
+   2099
+  ],
+  "n_draws": 100,
+  "mean_levels": 58222.98,
+  "source": "copied from results/preread_A4b (spot run 2026-10-07 ~05:00-05:11, T = 4e4)"
+ }
+}

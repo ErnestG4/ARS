@@ -45,6 +45,10 @@ PROPOSED_G2_T = 40000.0                                # A4(b)
 
 
 def configs(zeros1, proposed=False):
+    """proposed: False, True (A1 + A6 + A4b), or a set of amendment names among {"A1", "A6", "A4b"} (review v3 M3)."""
+    if proposed is True:
+        proposed = {"A1", "A6", "A4b"}
+    proposed = set(proposed or ())
     g30000 = float(zeros1[29999])
     C = {
         "G0": L.rule_config(0.0, float(zeros1[-1])),
@@ -53,10 +57,10 @@ def configs(zeros1, proposed=False):
         "G0s_c": L.fixed_config(150.0, 10.0),
         "G0c": L.rule_config(0.0, g30000),
         "G1": L.rule_config(0.0, 98.76496727),
-        "G2": L.rule_config(0.0, PROPOSED_G2_T if proposed else 20000.0),
+        "G2": L.rule_config(0.0, PROPOSED_G2_T if "A4b" in proposed else 20000.0),
     }
-    if proposed:
-        for k, (t0, s) in PROPOSED_EXTRA.items():
+    for k, (t0, s) in PROPOSED_EXTRA.items():
+        if (k.startswith("G1s") and "A1" in proposed) or (k.startswith("G2s") and "A6" in proposed):
             C[k] = L.fixed_config(t0, s)
     return C
 
@@ -113,7 +117,8 @@ def g2_block(name, cfg, chi_path, save, reach, out):
     if not chi_path:
         return
     zc = np.array([float(x) for x in open(chi_path).read().split()])
-    assert zc.max() >= cfg.E_hi - 1, (name, "chi zero list does not reach E_hi", zc.max(), cfg.E_hi)
+    merge = json.load(open(chi_path.replace(".txt", ".merge.json")))
+    assert max(c["b"] for c in merge["chunks"]) >= cfg.E_hi, (name, "chi zero list does not cover E_hi", cfg.E_hi)
     check = json.load(open(chi_path.replace(".txt", ".accuracy.json")))
     delta = float(check["delta"])
     parts = (L.eps_data_zero(cfg, zc, taus, delta), L.eps_float_zero(cfg, zc, taus),
@@ -374,8 +379,10 @@ def design(outdir):
 if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "tables":
-        args = [a for a in sys.argv[2:] if a != "--proposed"]
-        tables(*args[:3], args[3] if len(args) > 3 else None, proposed="--proposed" in sys.argv)
+        flags = {"--proposed": {"A1", "A6", "A4b"}, "--A1": {"A1"}, "--A6": {"A6"}, "--A4b": {"A4b"}}
+        args = [a for a in sys.argv[2:] if a not in flags]
+        chosen = set().union(*[v for f, v in flags.items() if f in sys.argv])
+        tables(*args[:3], args[3] if len(args) > 3 else None, proposed=chosen)
     elif mode == "nulls":
         nulls(sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
     elif mode == "design":

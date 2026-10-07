@@ -41,10 +41,21 @@ def check_seal():
     if not os.path.exists(SEAL_JSON):
         raise SystemExit("REFUSED: seals/PH6_SEAL_6.0.json does not exist (the seal commit has not been made)")
     seal = json.load(open(SEAL_JSON))
-    bad = [p for p, h in seal["files"].items() if sha256(p) != h]
+    # paths are relative to this directory (review v3 M2), so the run can execute on any machine holding the tree
+    bad = [p for p, h in seal["files"].items() if sha256(os.path.join(HERE, p)) != h]
     if bad:
         raise SystemExit(f"REFUSED: pinned files changed since the seal: {bad}")
     return seal
+
+
+def check_inputs(seal, pre_dir, roles):
+    """Review v3 M1: the run's inputs must be the sealed ones -- the pre-read directory the seal names, and each data file
+    (by role) with the sealed sha256."""
+    if os.path.normpath(os.path.relpath(os.path.abspath(pre_dir), HERE)) != os.path.normpath(seal["pre_dir"]):
+        raise SystemExit(f"REFUSED: pre-read dir {pre_dir} is not the sealed {seal['pre_dir']}")
+    for role, path in roles.items():
+        if sha256(path) != seal["data"][role]["sha256"]:
+            raise SystemExit(f"REFUSED: {role} file {path} is not the sealed one")
 
 
 class Reach:
@@ -261,6 +272,9 @@ def picket_gate(cfg, B, pre=None, reach=None):
 
 def main_run(pre_dir, outdir, zeros1_path, maass_path, chi_path):
     seal = check_seal()
+    check_inputs(seal, pre_dir, {"zeros1": zeros1_path, "maass": maass_path, "chi4": chi_path,
+                                 "chi4_accuracy": chi_path.replace(".txt", ".accuracy.json"),
+                                 "chi4_merge": chi_path.replace(".txt", ".merge.json")})
     import classes
     from preread import load_maass
     tab = json.load(open(os.path.join(pre_dir, "preread_tables.json")))
@@ -269,6 +283,8 @@ def main_run(pre_dir, outdir, zeros1_path, maass_path, chi_path):
     z = np.loadtxt(zeros1_path)
     rE, rO = load_maass(maass_path)
     zc = np.array([float(x) for x in open(chi_path).read().split()])
+    assert len(z) == seal["data"]["zeros1"]["n"] and len(zc) == seal["data"]["chi4"]["n"], "level counts differ"
+    assert (len(rE), len(rO)) == (seal["data"]["maass"]["n_even"], seal["data"]["maass"]["n_odd"]), "Maass counts differ"
     pre = lambda n: np.load(os.path.join(pre_dir, f"rhs_{n}.npz"))
     band = lambda n, k: np.load(os.path.join(pre_dir, f"nulls_{n}_{k}.npz"))["B"]
     _, ls = classes.pari_counts(30, 30)

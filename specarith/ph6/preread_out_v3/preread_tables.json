@@ -1,0 +1,314 @@
+{
+ "configs": {
+  "G0": {
+   "T0": 37460.413749497,
+   "sigma": 4407.107499940823,
+   "E_lo": 0.0,
+   "E_hi": 74920.827498994
+  },
+  "G0s_a": {
+   "T0": 10.0,
+   "sigma": 4.0,
+   "E_lo": 0.0,
+   "E_hi": 44.0
+  },
+  "G0s_b": {
+   "T0": 40.0,
+   "sigma": 3.0,
+   "E_lo": 0.0,
+   "E_hi": 65.5
+  },
+  "G0s_c": {
+   "T0": 150.0,
+   "sigma": 10.0,
+   "E_lo": 0.0,
+   "E_hi": 235.0
+  },
+  "G0c": {
+   "T0": 12877.6741372805,
+   "sigma": 1515.0204867388825,
+   "E_lo": 0.0,
+   "E_hi": 25755.348274561
+  },
+  "G1": {
+   "T0": 49.382483635,
+   "sigma": 5.809703957058823,
+   "E_lo": 0.0,
+   "E_hi": 98.76496727
+  },
+  "G2": {
+   "T0": 10000.0,
+   "sigma": 1176.4705882352941,
+   "E_lo": 0.0,
+   "E_hi": 20000.0
+  }
+ },
+ "gates": {
+  "G0": {
+   "n_tau": 5158,
+   "eps_min": 4.826039070325687e-05,
+   "eps_max": 0.00042018311780163224,
+   "config": {
+    "T0": 37460.413749497,
+    "sigma": 4407.107499940823,
+    "E_lo": 0.0,
+    "E_hi": 74920.827498994
+   },
+   "n_levels": 100000
+  },
+  "G0s_a": {
+   "n_tau": 5158,
+   "eps_min": 1.2200691870879624e-09,
+   "eps_max": 2.0271254322890384e-08,
+   "config": {
+    "T0": 10.0,
+    "sigma": 4.0,
+    "E_lo": 0.0,
+    "E_hi": 44.0
+   },
+   "n_levels": 100000
+  },
+  "G0s_b": {
+   "n_tau": 5158,
+   "eps_min": 3.847993292485366e-09,
+   "eps_max": 8.027842701416461e-08,
+   "config": {
+    "T0": 40.0,
+    "sigma": 3.0,
+    "E_lo": 0.0,
+    "E_hi": 65.5
+   },
+   "n_levels": 100000
+  },
+  "G0s_c": {
+   "n_tau": 5158,
+   "eps_min": 3.596972848231804e-08,
+   "eps_max": 3.7136205301898793e-07,
+   "config": {
+    "T0": 150.0,
+    "sigma": 10.0,
+    "E_lo": 0.0,
+    "E_hi": 235.0
+   },
+   "n_levels": 100000
+  },
+  "G0c": {
+   "n_tau": 5158,
+   "eps_min": 1.408339786087887e-05,
+   "eps_max": 0.00012520127459868252,
+   "config": {
+    "T0": 12877.6741372805,
+    "sigma": 1515.0204867388825,
+    "E_lo": 0.0,
+    "E_hi": 25755.348274561
+   },
+   "n_levels": 30000
+  },
+  "G1_even": {
+   "n_tau": 4001,
+   "eps_min": 2.386166564515623e-07,
+   "eps_max": 1.7332860358311094e-06,
+   "config": {
+    "T0": 49.382483635,
+    "sigma": 5.809703957058823,
+    "E_lo": 0.0,
+    "E_hi": 98.76496727
+   },
+   "n_levels": 266
+  },
+  "G1_odd": {
+   "n_tau": 4001,
+   "eps_min": 3.093189259533414e-07,
+   "eps_max": 2.2492276897022873e-06,
+   "config": {
+    "T0": 49.382483635,
+    "sigma": 5.809703957058823,
+    "E_lo": 0.0,
+    "E_hi": 98.76496727
+   },
+   "n_levels": 334
+  },
+  "G2_rhs_only": {
+   "config": {
+    "T0": 10000.0,
+    "sigma": 1176.4705882352941,
+    "E_lo": 0.0,
+    "E_hi": 20000.0
+   }
+  },
+  "G4_confusable": {
+   "n_tau": 5158,
+   "eps_min": 2.0275274414155134e-08,
+   "eps_max": 8.431936943738273e-07,
+   "config": {
+    "T0": 37460.413749497,
+    "sigma": 4407.107499940823,
+    "E_lo": 0.0,
+    "E_hi": 74920.827498994
+   },
+   "lam": 0.6931471805599453,
+   "n_levels": 38896
+  },
+  "G4_incommensurate": {
+   "n_tau": 5158,
+   "eps_min": 3.6110406225781166e-08,
+   "eps_max": 8.915591150506698e-07,
+   "config": {
+    "T0": 37460.413749497,
+    "sigma": 4407.107499940823,
+    "E_lo": 0.0,
+    "E_hi": 74920.827498994
+   },
+   "lam": 1.2345,
+   "n_levels": 69273
+  }
+ },
+ "reachability": {
+  "G0:RP1_drop_k>=2": {
+   "max_ratio": 2330791.748476316,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0:RP2_flip_prime_sign": {
+   "max_ratio": 13005884.882291606,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0:RP3_shift_100delta": {
+   "max_ratio": 2.0641801194135843,
+   "status": "REACHABLE",
+   "note": "first-order estimate tau*100*delta*|RHS|"
+  },
+  "G0s_a:RP13_drop_gamma": {
+   "max_ratio": 957642905.494429,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0s_a:RP14_drop_pole": {
+   "max_ratio": 34551886.60969195,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0s_a:RP15_asymptotic_psi": {
+   "max_ratio": 17373675.038685236,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0s_a:RP16_drop_mirror(upper bound)": {
+   "max_ratio": 5.096546486731982,
+   "status": "REACHABLE",
+   "note": "upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE"
+  },
+  "G0s_b:RP13_drop_gamma": {
+   "max_ratio": 463967780.9507253,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0s_b:RP14_drop_pole": {
+   "max_ratio": 3.977861873442074e-31,
+   "status": "INAPPLICABLE",
+   "note": ""
+  },
+  "G0s_b:RP15_asymptotic_psi": {
+   "max_ratio": 4107.497016707454,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0s_b:RP16_drop_mirror(upper bound)": {
+   "max_ratio": 2.549936589502677e-63,
+   "status": "INAPPLICABLE",
+   "note": "upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE"
+  },
+  "G0s_c:RP13_drop_gamma": {
+   "max_ratio": 106353.12989325884,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0s_c:RP14_drop_pole": {
+   "max_ratio": 2.924996253499779e-42,
+   "status": "INAPPLICABLE",
+   "note": ""
+  },
+  "G0s_c:RP15_asymptotic_psi": {
+   "max_ratio": 0.04276916808989299,
+   "status": "INAPPLICABLE",
+   "note": ""
+  },
+  "G0s_c:RP16_drop_mirror(upper bound)": {
+   "max_ratio": 4.3966176184179955e-52,
+   "status": "INAPPLICABLE",
+   "note": "upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE"
+  },
+  "G0c:RP1_drop_k>=2": {
+   "max_ratio": 2706348.3664314547,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0c:RP2_flip_prime_sign": {
+   "max_ratio": 15229594.720959682,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G0c:RP3_shift_100delta": {
+   "max_ratio": 2.3916624795655546,
+   "status": "REACHABLE",
+   "note": "first-order estimate tau*100*delta*|RHS|"
+  },
+  "G1_even:RP5_elliptic_x2": {
+   "max_ratio": 1.9077155372540582e-10,
+   "status": "INAPPLICABLE",
+   "note": ""
+  },
+  "G1_even:RP6_drop_R": {
+   "max_ratio": 1212575.1647380383,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G1_even:RP8_drop_scattering": {
+   "max_ratio": 1409849.0651516258,
+   "status": "REACHABLE",
+   "note": "even-only continuous-spectrum terms: prime lines 2 Lambda(n)/n g(2 log n) and -(2/4pi) int h psi(1+ir)"
+  },
+  "G1_even:RP9_wrong_discriminant": {
+   "max_ratio": 959048.755515962,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G1_odd:RP5_elliptic_x2": {
+   "max_ratio": 1.4716613332251287e-10,
+   "status": "INAPPLICABLE",
+   "note": ""
+  },
+  "G1_odd:RP6_drop_R": {
+   "max_ratio": 934932.3540253373,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G1_odd:RP9_wrong_discriminant": {
+   "max_ratio": 739211.2935624373,
+   "status": "REACHABLE",
+   "note": ""
+  },
+  "G1:RP7_swap_parity": {
+   "max_ratio": 2386015.1261796104,
+   "status": "REACHABLE",
+   "note": "RHS(even) - RHS(odd); swapping labels moves the LHS by this much"
+  },
+  "G4_confusable:RP12_brief_v1_bc": {
+   "max_ratio": 5058594473.618736,
+   "status": "REACHABLE",
+   "note": "brief-v1 BC: eigenvalues E_n - i/2 multiply the picket sum by e^{tau/2}"
+  },
+  "G4_incommensurate:RP12_brief_v1_bc": {
+   "max_ratio": 2965989133.216637,
+   "status": "REACHABLE",
+   "note": "brief-v1 BC: eigenvalues E_n - i/2 multiply the picket sum by e^{tau/2}"
+  },
+  "G0:RP4_plant_log6": {
+   "max_ratio": 2.0,
+   "status": "REACHABLE",
+   "note": "by construction: a planted line of 2 B_6 at log 6"
+  }
+ },
+ "wall_s": 159.0
+}

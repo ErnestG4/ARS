@@ -56,6 +56,18 @@ def main(pre_dir, out_path):
                      even=(r["even"]["layer_a"]["verdict"], [(x["red_path"], x["result"]) for x in r["even"]["red_paths"]]),
                      odd=(r["odd"]["layer_a"]["verdict"], [(x["red_path"], x["result"]) for x in r["odd"]["red_paths"]]))
     print("G1", out["G1"], flush=True)
+    for g1 in ("G1s_a", "G1s_b"):
+        if g1 in C:
+            r = G.maass_gate(C[g1], rsyn[::2], rsyn[1::2], pre(f"{g1}_even"), pre(f"{g1}_odd"), reach, (ch, cg), g1)
+            out[g1] = [(x["red_path"], x["result"]) for x in r["even"]["red_paths"]]
+            print(g1, out[g1], flush=True)
+    for g2 in ("G2s_a", "G2s_b"):
+        if g2 in C:
+            cc = L.null_levels("gue", L.nbar_chi, C[g2].E_hi, np.random.default_rng(7005))
+            cc = cc[cc <= C[g2].E_hi]
+            r = G.zeta_like_gate(g2, C[g2], cc, pre(g2), reach, q=4, chi=L.chi4, a=1, delta=1e-30)
+            out[g2] = [(x["red_path"], x["result"]) for x in r["red_paths"]]
+            print(g2, out[g2], flush=True)
     with open(out_path, "w") as f:
         json.dump(out, f, indent=1, default=str)
 

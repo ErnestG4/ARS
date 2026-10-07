@@ -1,0 +1,21 @@
+{
+ "gue": {
+  "n_draws": 100,
+  "s_over_pred_min": 0.9048489761100136,
+  "s_over_pred_max": 1.1126331374693885,
+  "known_answer_20pct": "PASS",
+  "rtilde_mean": 0.5996477047969614,
+  "B_at_log2": 0.11586774817462005,
+  "B_at_log90": 0.2735245935631869
+ },
+ "poisson": {
+  "n_draws": 100,
+  "s_over_pred_min": 0.862914943429937,
+  "s_over_pred_max": 1.0912067984630431,
+  "known_answer_20pct": "PASS",
+  "rtilde_mean": 0.3866343168361939,
+  "B_at_log2": 0.3994301813216913,
+  "B_at_log90": 0.398030231054534
+ },
+ "wall_s": 146.2
+}
