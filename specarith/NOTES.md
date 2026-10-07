@@ -129,3 +129,4 @@ Overnight log:
 - 06:32 check-in: idle (nothing running on spot or locally; worktree clean). No unblocked items remain before Will's decisions.
 - 06:51 check-in: idle; nothing running; awaiting Will.
 - 07:11 check-in: idle; nothing running; awaiting Will.
+- 07:31 check-in: idle; nothing running; awaiting Will.
