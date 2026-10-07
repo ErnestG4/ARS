@@ -28,6 +28,12 @@ Completeness (2026-10-07 04:12): count vs MV Thm 14.5 smooth part 26,903.37 (dev
 `.accuracy.json`. **The first recipe (`chi4_zeros.py`, PARI's default divz = 8) MISSED close pairs (26,893 zeros; four
 gaps of 3.0–3.5 mean spacings each hid a pair 0.016–0.07 apart); its list is superseded and not used.**
 
+**Contingency for proposed A4(b) (not sealed):** `specarith/ph6/data/chi4_zeros_T40000_p38.txt` — same recipe, [0, 40000]
+(the [0,20000] chunks above plus 50 chunks on [20000, 40000]); 58,220 zeros vs smooth 58,219.33 (dev +0.666); S-block
+means within ±0.004; min gap 0.0089 (a close pair near the edge of what divz = 32 would resolve); p57 agreement 6.3·10⁻³⁴
+on [0,1000] and [39900,40000] → δ = 10⁻³⁰; sha256 `8f134679e6fbf9511619ef2079c462b6e0cb5799f38297a113f3301c5ce301be`.
+Reports in `ph6/results/preread_A4b/`.
+
 ## Maass eigenvalues, PSL(2,ℤ) (Session K)
 
 `sessionK/maass_level1_partial.csv` (tracked; sha256 `c6134f0b16f2d96031204790075fe91f46b6d83fec39fee0c5f5c10d3c3a93a2`):
