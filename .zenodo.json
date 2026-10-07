@@ -1,13 +1,13 @@
 {
   "title": "ARS — Arithmetic Resonance Spectrograph",
   "upload_type": "software",
-  "version": "2026.09.30",
+  "version": "2026.10.07",
   "creators": [
     {
       "name": "combust"
     }
   ],
-  "description": "<p>A calibrated multi-scale random-matrix-theory readout for arbitrary time series. ARS embeds a sequence into a chirp signal, runs a GPU-parallel bank of Farey-rational phase-locked loops against it, and extracts passage-time spacings that are unfolded and compared against random matrix theory predictions (Wigner GOE / GUE / Poisson). Validated against the Riemann ζ zeros and the Katz–Sarnak family symmetry of elliptic curve L-functions.</p><p>The repository also contains <code>llmspec/</code>, <em>Shapes of LLM weights over training</em>: a pre-registered study of language-model weight spectra across training (Pythia 70M–1.4B with PolyPythias seeds, OLMo 2 1B), with five own 70M training runs comparing learning-rate warmups and AdamW vs Muon (Arm B). Start at <code>llmspec/README.md</code>.</p><p>Code: AGPL-3.0-or-later. Results and write-ups under <code>llmspec/</code>: CC-BY-4.0 (<code>llmspec/LICENSE-RESULTS.md</code>). <code>PROVENANCE.md</code> maps commit hashes cited in the documents to this history.</p>",
+  "description": "<p>A calibrated multi-scale random-matrix-theory readout for arbitrary time series. ARS embeds a sequence into a chirp signal, runs a GPU-parallel bank of Farey-rational phase-locked loops against it, and extracts passage-time spacings that are unfolded and compared against random matrix theory predictions (Wigner GOE / GUE / Poisson). Validated against the Riemann ζ zeros and the Katz–Sarnak family symmetry of elliptic curve L-functions.</p><p>The repository also contains <code>llmspec/</code>, <em>Shapes of LLM weights over training</em>: a pre-registered study of language-model weight spectra across training (Pythia 70M–1.4B with PolyPythias seeds, OLMo 2 1B), with five own 70M training runs comparing learning-rate warmups and AdamW vs Muon (Arm B). Start at <code>llmspec/README.md</code>.</p><p>It also contains <code>specarith/</code>, a spectral–arithmetic programme. Its Phase 6 is a pre-registered, sealed <em>prime-spectroscopy</em> instrument: exact explicit-formula and Selberg trace-formula identities on the Riemann zeros, the zeros of L(s, χ<sub>−4</sub>) and the Maass spectrum of PSL(2,ℤ), a least-squares readout of prime-power line amplitudes, random-matrix nulls and picket-fence confusables. All calibration gates pass (seal <code>PH6_SEAL_6.0</code>; results in <code>specarith/ph6/PH6_FINDINGS.md</code>, including the instrument's detection floor). Start at <code>specarith/ph6/PH6_FINDINGS.md</code>.</p><p>Code: AGPL-3.0-or-later. Results and write-ups under <code>llmspec/</code>: CC-BY-4.0 (<code>llmspec/LICENSE-RESULTS.md</code>). <code>PROVENANCE.md</code> maps commit hashes cited in the documents to this history.</p>",
   "license": "agpl-3.0-or-later",
   "access_right": "open",
   "keywords": [
@@ -22,7 +22,10 @@
     "quantum chaos",
     "large language models",
     "weight spectra",
-    "pre-registration"
+    "pre-registration",
+    "explicit formula",
+    "Selberg trace formula",
+    "prime spectroscopy"
   ],
   "notes": "Results and write-ups under llmspec/ are licensed CC-BY-4.0 (llmspec/LICENSE-RESULTS.md); the code is AGPL-3.0-or-later.",
   "related_identifiers": [
@@ -46,6 +49,10 @@
     "Planat, Michel, Henry, Edouard (2002). The arithmetic of 1/f noise in a phase locked loop. Proceedings of the 2002 IEEE International Frequency Control Symposium, 739–743. doi:10.1109/FREQ.2002.1075978",
     "Planat, Michel, Rosu, Haret C., Perrine, Serge (2002). Ramanujan sums for signal processing of low-frequency noise. Physical Review E 66, 056128. doi:10.1103/PhysRevE.66.056128",
     "Planat, Michel (2006). Huyghens, Bohr, Riemann and Galois: Phase-locking. International Journal of Modern Physics B 20, 1833–1850. https://arxiv.org/abs/math-ph/0510044",
-    "Planat, Michel (2026). Painlevé Confluence and 1/f Phase-Locking Dynamics: A Topological Framework for Human–AI Collaboration. Machine Learning and Knowledge Extraction 8(3), 73. doi:10.3390/make8030073"
+    "Planat, Michel (2026). Painlevé Confluence and 1/f Phase-Locking Dynamics: A Topological Framework for Human–AI Collaboration. Machine Learning and Knowledge Extraction 8(3), 73. doi:10.3390/make8030073",
+    "Landau, E. (1912). Über die Nullstellen der Zetafunktion. Mathematische Annalen 71, 548–564",
+    "Booker, Andrew R., Strömbergsson, Andreas (2007). Numerical computations with the trace formula and the Selberg eigenvalue conjecture. J. reine angew. Math. 607, 113–161. doi:10.1515/crelle.2007.047",
+    "Montgomery, Hugh L., Vaughan, Robert C. (2007). Multiplicative Number Theory I. Classical Theory. Cambridge University Press. doi:10.1017/CBO9780511618314",
+    "Odlyzko, Andrew M. Tables of zeros of the Riemann zeta function. https://www-users.cse.umn.edu/~odlyzko/zeta_tables/"
   ]
 }

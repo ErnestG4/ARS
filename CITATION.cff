@@ -12,13 +12,19 @@ abstract: >
   training": a pre-registered study of language-model weight spectra across
   training (Pythia 70M–1.4B with PolyPythias seeds, OLMo 2 1B), with five
   own 70M training runs comparing learning-rate warmups and AdamW vs Muon
-  (Arm B). Code is AGPL-3.0-or-later; llmspec results and write-ups are
-  CC-BY-4.0 (llmspec/LICENSE-RESULTS.md).
+  (Arm B). It also contains specarith/, a spectral–arithmetic programme;
+  its Phase 6 is a pre-registered, sealed prime-spectroscopy instrument
+  (exact explicit-formula and Selberg trace-formula identities on the
+  Riemann zeros, the zeros of L(s, χ₋₄) and the Maass spectrum of PSL(2,ℤ),
+  with random-matrix nulls and picket-fence confusables), whose calibration
+  gates all pass (specarith/ph6/PH6_FINDINGS.md). Code is
+  AGPL-3.0-or-later; llmspec results and write-ups are CC-BY-4.0
+  (llmspec/LICENSE-RESULTS.md).
 authors:
   - name: combust
     email: combust@thespot.chat
-version: "2026.09.30"
-date-released: 2026-09-30
+version: "2026.10.07"
+date-released: 2026-10-07
 license:
   - AGPL-3.0-or-later
   - CC-BY-4.0
@@ -36,6 +42,9 @@ keywords:
   - large language models
   - weight spectra
   - pre-registration
+  - explicit formula
+  - Selberg trace formula
+  - prime spectroscopy
 
 references:
   - type: article
@@ -131,6 +140,47 @@ references:
     journal: "J. Math. Phys."
     volume: 43
     year: 2002
+  # ─── specarith Phase 6 known answers (primary sources read 2026-10-07; specarith/ph6/lit/) ───
+  - type: article
+    authors:
+      - family-names: Landau
+        given-names: E.
+    title: "Über die Nullstellen der Zetafunktion"
+    journal: "Mathematische Annalen"
+    volume: 71
+    start: 548
+    end: 564
+    year: 1912
+  - type: article
+    authors:
+      - family-names: Booker
+        given-names: Andrew R.
+      - family-names: Strömbergsson
+        given-names: Andreas
+    title: "Numerical computations with the trace formula and the Selberg eigenvalue conjecture"
+    journal: "Journal für die reine und angewandte Mathematik"
+    volume: 607
+    start: 113
+    end: 161
+    year: 2007
+    doi: "10.1515/crelle.2007.047"
+  - type: book
+    authors:
+      - family-names: Montgomery
+        given-names: Hugh L.
+      - family-names: Vaughan
+        given-names: Robert C.
+    title: "Multiplicative Number Theory I. Classical Theory"
+    publisher:
+      name: "Cambridge University Press"
+    year: 2007
+    doi: "10.1017/CBO9780511618314"
+  - type: data
+    authors:
+      - family-names: Odlyzko
+        given-names: Andrew M.
+    title: "Tables of zeros of the Riemann zeta function"
+    url: "https://www-users.cse.umn.edu/~odlyzko/zeta_tables/"
   # ─── Foundational Planat-and-collaborators series ────────────────────────
   # ARS rests on the analytical scaffolding developed in this series: Farey-rational
   # phase locking, Ramanujan-Fourier analysis of arithmetical signals, and the
