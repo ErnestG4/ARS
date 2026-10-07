@@ -95,3 +95,4 @@ Overnight log:
   small-window G1 (like G0-s) would; that is an amendment for Will. Other reachability: every ζ smooth-term class
   fires in at least one G0-s window (pole only at (10,4); mirror only at (10,4), marginal 2.2× by upper bound).
 - 02:24 null calibration draws launched on spot (G0-c, G2, G0; 100 GUE + 100 Poisson each, 16 procs).
+- 02:24 check-in: χ₋₄ 20/22 PARI jobs done (2 low chunks running); null draws G0-c in progress (16 workers); review + Phase 2 lit agents running. Nothing new to commit.
