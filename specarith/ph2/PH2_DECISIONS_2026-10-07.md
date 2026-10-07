@@ -86,3 +86,19 @@ Phase 2 decisions (Will):
    SD of N̂); ±20% remains the floor target; achieved intervals always
    reported.
 ```
+
+## Fifth round (Will, 2026-10-07) — seal text approved with amendment A1
+
+Filed verbatim:
+
+```
+Phase 2 seal text: APPROVED with one amendment (A1):
+A1. CI robustness: add a moving-block bootstrap of each bin's own
+spacings (block lengths declared pre-data, e.g. sweep 10/30/100 × N_eff
+levels). G1 uses the WIDER of the CUE-calibrated CI and the bootstrap CI.
+G0d also validates bootstrap coverage on CUE surrogates. Reason: concatenated
+CUE_N blocks impose a within-block sum constraint and zero between-block
+correlation that the zero sequence does not share.
+κ = N/N_eff estimand: approved.
+Commit as PH2_SEAL text; proceed to code + pre-read.
+```
