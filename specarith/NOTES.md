@@ -127,3 +127,4 @@ Overnight log:
 - 06:12 check-in: all work items done; memories written (PARI close-pair/64-bit lesson; pgrep -f kill-loop variant; next-session pointer → MORNING report). Spot idle; nothing running.
 - 06:14 memory index compacted (166→119 lines, 22.3→15.9 KB; every link preserved, verified by diff of link sets). Nothing running; awaiting the 07:57 wrap-up.
 - 06:32 check-in: idle (nothing running on spot or locally; worktree clean). No unblocked items remain before Will's decisions.
+- 06:51 check-in: idle; nothing running; awaiting Will.
