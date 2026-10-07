@@ -175,8 +175,9 @@ def gamma_term(cfg, taus, a, step=None):
         # float64 rounding bound (review M4/m11): per term the phase tau*u carries |tau u| 2^-51 (+ evaluation), f a few
         # ulp; summation of N terms adds N 2^-53 of the absolute sum
         absf = np.abs(f) * h
+        # numpy reduces a contiguous axis pairwise: summation error <= (log2(N) + 8) u sum|terms| (review v2 N2)
         fb = np.array([np.sum(absf * (np.abs(t * u) * 2 * EPS64 + 8 * EPS64)) for t in taus]) \
-            + absf.sum() * len(u) * EPS64 / 2
+            + absf.sum() * (math.log2(len(u)) + 8) * EPS64
         return out / (2 * math.pi), fb / (2 * math.pi)
 
     v1, _ = run(step)
@@ -204,19 +205,21 @@ def prime_sum_dirichlet(cfg, taus, chi=None):
         val[i:i + len(tc)] = G @ coef[sel]
         # float64 rounding bound (review M4): log n and tau carry 1 ulp each; the phase (log n - tau) T0 and the Gaussian
         # sigma^2 v^2/2 inherit (T0 + sigma^2 |v|)(log n + tau) 2^-52; the dot product of len(sel) terms adds len 2^-53
-        v = np.abs(ln[None, :] - tc[:, None])
-        amp = np.abs(coef[sel])[None, :] * np.abs(g_zero_line(cfg, tc[:, None], ln[None, :]))
-        fbound[i:i + len(tc)] = np.sum(amp * ((cfg.T0 + sig ** 2 * v) * (ln[None, :] + np.abs(tc[:, None])) * 2 * EPS64
-                                              + (len(sel) + 8) * EPS64), axis=1)
+        for sgn in (1.0, -1.0):          # both lines, at +log n and -log n (review v2 N1/N10)
+            v = np.abs(sgn * ln[None, :] - tc[:, None])
+            amp = np.abs(coef[sel])[None, :] * np.abs(g_zero_line(cfg, tc[:, None], sgn * ln[None, :]))
+            fbound[i:i + len(tc)] += np.sum(amp * ((cfg.T0 + sig ** 2 * v) * (ln[None, :] + np.abs(tc[:, None]))
+                                                   * 2 * EPS64 + (len(sel) + 8) * EPS64), axis=1)
     # tail: n in (n_max, n_tail] summed in absolute value; beyond n_tail a dyadic-block bound
     tsel = np.nonzero(coef[n_max + 1:])[0] + n_max + 1
     lt = np.log(tsel.astype(float))
-    tail = np.array([np.sum(np.abs(coef[tsel]) * cfg.norm * np.exp(-(sig ** 2) * (lt - t) ** 2 / 2)) for t in taus])
+    tail = np.array([np.sum(np.abs(coef[tsel]) * cfg.norm * (np.exp(-(sig ** 2) * (lt - t) ** 2 / 2)
+                                                             + np.exp(-(sig ** 2) * (lt + t) ** 2 / 2))) for t in taus])
     beyond = 0.0
     for k in range(60):                     # block [n_tail 2^k, n_tail 2^(k+1)): <= n_tail 2^k terms, each bounded
         lo_n = n_tail * 2.0 ** k
-        dist = max(0.0, math.log(lo_n) - float(np.max(taus)))
-        beyond += lo_n * math.log(2 * lo_n) / math.sqrt(lo_n) * cfg.norm * math.exp(-(sig ** 2) * dist ** 2 / 2)
+        dist = max(0.0, math.log(lo_n) - float(np.max(np.abs(taus))))
+        beyond += 2 * lo_n * math.log(2 * lo_n) / math.sqrt(lo_n) * cfg.norm * math.exp(-(sig ** 2) * dist ** 2 / 2)
     return val, tail + beyond + fbound
 
 
@@ -262,7 +265,7 @@ def selberg_integrals(cfg, taus, step=None):
             # float64 rounding bound: |tau r| 2^-51 phase + 8 ulp evaluation per term, plus N 2^-53 summation
             absP = np.abs(P) * hstep
             fb = 2 * (np.sum(absP * (np.abs(np.multiply.outer(taus, r)) * 2 * EPS64 + 8 * EPS64), axis=1)
-                      + absP.sum(axis=1) * len(r) * EPS64 / 2)
+                      + absP.sum(axis=1) * (math.log2(len(r)) + 8) * EPS64)
             out[name] = (val, fb)
         return out
 
@@ -271,16 +274,32 @@ def selberg_integrals(cfg, taus, step=None):
 
 
 def selberg_tail_bound(cfg, taus):
-    """Seal §5.1 tails for G1 (review m6): classes with t > 30 and prime powers n > 10^4. Uses
-    C(t) log eps1 <= sqrt(D) (log D + 1) (class number formula, h log eps = sqrt(D) L(1,chi), L(1,chi) <= log D + 1),
-    so each class term is <= (log D + 1) |g(ell_t)|; and 2 Lambda(n)/n |g(2 log n)| for n > 10^4."""
+    """Seal §5.1 tails for G1: classes with t > 30 and prime powers n > 10^4 (review m6, v2 N3).
+    C(t) log eps1 = sum_{f | l} h+(d f^2) [r^1 : r_f^1] log eps1 = sqrt(d) sum_{f|l} f L(1, chi_{d f^2}) (class number
+    formula per order) <= sqrt(D) (sigma(L)/L) (log D + 2), L^2 the largest square dividing D, using L(1, chi) <= log D + 2
+    for every real character of conductor <= D. Each class term is C log eps1/sqrt(D) |g| <= (sigma(L)/L)(log D + 2)|g|.
+    Remainder beyond t = 5000 / n = 2e5: asserted to underflow (g there is exactly 0 in float64)."""
     taus = np.asarray(taus, dtype=np.float64)
     tail = np.zeros(len(taus))
+
+    def sig_over(D):
+        L_ = 1
+        for p in range(2, int(math.isqrt(D)) + 1):
+            while D % (p * p) == 0:
+                D //= p * p
+                L_ *= p
+        s = sum(d for d in range(1, L_ + 1) if L_ % d == 0)
+        return s / L_
+
     for kind in (-4, 4):
         for t in range(31, 5000):
             D = t * t + kind
             ell = 2 * math.log((t + math.sqrt(D)) / 2)
-            tail += 2 * (math.log(D) + 1) * np.abs(g_maass(cfg, taus, ell))   # x2: hyperbolic and glide both bounded
+            gv = np.abs(g_maass(cfg, taus, ell))
+            if not gv.any():
+                break                      # g has underflowed and decreases from here on
+            tail += sig_over(D) * (math.log(D) + 2) * gv
+    assert not np.abs(g_maass(cfg, taus, 2 * math.log(5000))).any(), "class tail remainder not negligible"
     lam = mangoldt_upto(200000)
     for n in np.nonzero(lam[10001:])[0] + 10001:
         tail += 2 * lam[n] / n * np.abs(g_maass(cfg, taus, 2 * math.log(n)))
@@ -328,6 +347,19 @@ def rhs_selberg(cfg, taus, sector, classdata_h, classdata_g, integrals=None):
     else:
         raise ValueError(sector)
     return dict(total=total, err=err, **terms)
+
+
+def picket_tolerance(cfg, taus, lam, levels, rhs):
+    """Seal §5.1 tolerance for the picket identity (G4), shared by preread and the dry run (review v2 N12): float only
+    (levels are exact), eps = 2 x (eps_float + eps_rhs)."""
+    taus = np.asarray(taus, dtype=np.float64)
+    ws = w(cfg, levels)
+    e_float = 2.0 ** -51 * (np.abs(taus) * (ws * np.abs(levels)).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum()
+    kk = np.arange(-60, 61)
+    e_rhs = 8 * EPS64 * (lam / (2 * math.pi)) * cfg.sigma * SQ2PI * \
+        np.array([np.sum(np.exp(-(cfg.sigma ** 2) * (t - kk * lam) ** 2 / 2) * (cfg.T0 * (abs(t) + np.abs(kk) * lam) + 8))
+                  for t in taus])
+    return (np.zeros(len(taus)), e_float, np.zeros(len(taus)), e_rhs)
 
 
 def picket_levels(cfg, lam, theta=0.0, span=40.0):

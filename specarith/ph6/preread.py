@@ -73,6 +73,7 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
 
     def save(name, taus, rhs_total, eps_parts, extra=None):
         eps = L.tolerance(*eps_parts)
+        assert np.all(eps > 0), (name, "non-positive tolerance")
         np.savez_compressed(os.path.join(outdir, f"rhs_{name}.npz"), taus=taus, rhs=rhs_total, eps=eps,
                             **{f"eps_{i}": p for i, p in enumerate(eps_parts)})
         out["gates"][name] = dict(n_tau=int(len(taus)), eps_min=float(np.min(eps)), eps_max=float(np.max(eps)),
@@ -132,7 +133,8 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
         e_float = 2.0 ** -51 * (np.abs(ID_GRID) * (wsum * rl).sum() + wsum.sum()) + 2 * 2.0 ** -53 * wsum.sum()
         e_trunc = np.full(len(ID_GRID), L.eps_trunc(cfg, cfg.E_hi / 6.0 + 1))
         terms = [Rs[k] for k in ("ident", "elliptic", "hyperbolic", "glide", "g0", "psi", "prime") if k in Rs]
-        e_rhs = Rs["err"] + 8 * L.EPS64 * sum(np.abs(t) for t in terms)
+        # per-term rounding: phases (u - tau) T0 with |u| <= ~7 and |tau| <= 4.7 carry T0 (|u| + |tau|) 2u (review v2 N10)
+        e_rhs = Rs["err"] + (cfg.T0 * (7 + np.abs(ID_GRID)) * 2 + 8) * L.EPS64 * sum(np.abs(t) for t in terms)
         parts = (e_data, e_float, e_trunc, e_rhs)
         save(f"G1_{sector}", ID_GRID, Rs["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(rl))))
         eps = L.tolerance(*parts)
@@ -173,12 +175,7 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
     for label, lam in (("confusable", math.log(2)), ("incommensurate", 1.2345)):
         lev = L.picket_levels(cfg, lam)
         rhs, smooth = L.rhs_picket(cfg, taus, lam)
-        ws = L.w(cfg, lev)
-        e_float = 2.0 ** -51 * (np.abs(taus) * (ws * np.abs(lev)).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum()
-        kk = np.arange(-60, 61)
-        e_rhs = 8 * L.EPS64 * (lam / (2 * math.pi)) * cfg.sigma * math.sqrt(2 * math.pi) * \
-            np.array([np.sum(np.exp(-(cfg.sigma ** 2) * (t - kk * lam) ** 2 / 2) * (cfg.T0 * abs(t) + 8)) for t in taus])
-        parts = (np.zeros(len(taus)), e_float, np.zeros(len(taus)), e_rhs)
+        parts = L.picket_tolerance(cfg, taus, lam, lev, rhs)
         save(f"G4_{label}", taus, rhs, parts, dict(config=cfg_json(cfg), lam=lam, n_levels=int(len(lev))))
         eps = L.tolerance(*parts)
         reach(f"G4_{label}", "RP12_brief_v1_bc", (np.exp(taus / 2) - 1) * np.abs(rhs), eps,
@@ -210,6 +207,7 @@ def _one_draw(args):
 
 def nulls(outdir, name, n_gue, n_poi, nproc):
     from multiprocessing import Pool
+    assert n_gue <= 100 and n_poi <= 100, "calibration uses at most 100 draws per family; seeds +100.. are held out"
     tab = json.load(open(os.path.join(outdir, "preread_tables.json")))
     cfgd = tab["configs"][name]
     cfg = L.Config(**cfgd)
@@ -236,7 +234,6 @@ def nulls(outdir, name, n_gue, n_poi, nproc):
                             seeds=np.array([r[1] for r in rows]), rtilde=np.array([r[3] for r in rows]),
                             nlev=np.array([r[4] for r in rows]))
         out[kind] = dict(n_draws=len(rows), s_over_pred_min=float(ratio.min()), s_over_pred_max=float(ratio.max()),
-                         known_answer_20pct="PASS" if np.all(np.abs(ratio - 1) <= 0.2) else "FAIL",
                          rtilde_mean=float(np.mean([r[3] for r in rows])),
                          B_at_log2=float(B[0]), B_at_log90=float(B[-1]))
         print(name, kind, out[kind], flush=True)
@@ -302,7 +299,8 @@ def known_answers(outdir):
                 ls_ratio_median=float(np.median(r_ls)), ls_ratio_min=float(np.min(r_ls)), ls_ratio_max=float(np.max(r_ls)),
                 ls_n_outside_20pct=int(np.sum(np.abs(r_ls - 1) > 0.2)),
                 rtilde_mean=float(np.mean(d["rtilde"])),
-                rtilde_in_arsrh_band=bool(ARSRH_RTILDE_BAND[0] <= np.mean(d["rtilde"]) <= ARSRH_RTILDE_BAND[1])
+                rtilde_frac_draws_in_arsrh_band=float(np.mean((d["rtilde"] >= ARSRH_RTILDE_BAND[0])
+                                                              & (d["rtilde"] <= ARSRH_RTILDE_BAND[1])))
                 if kind == "gue" else None)
             print(name, kind, res[f"{name}_{kind}"])
     with open(os.path.join(outdir, "null_known_answers.json"), "w") as f:
@@ -323,9 +321,23 @@ def design(outdir):
         M_w = {m for m in L.T3_MIN_SET if a[list(L.LINE_NS).index(m)] != 0}       # proposed A3
         rows[name] = dict(weights=wkind, R=R.tolist(), size=f"{len(R)}/{nz}",
                           contains_M_w=bool(M_w <= set(R.tolist())), M_w=sorted(M_w))
+        other = "chi4" if wkind == "zeta" else "zeta"
+        ao = L.weights(other)
+        Ro = L.LINE_NS[pp & (ao != 0) & (np.abs(ao) >= 2 * B)]
+        M_o = {m for m in L.T3_MIN_SET if ao[list(L.LINE_NS).index(m)] != 0}
+        rows[name]["cross_reading"] = dict(weights=other, R=Ro.tolist(), contains_M_w=bool(M_o <= set(Ro.tolist())),
+                                           M_w_margins={int(m): float(abs(ao[list(L.LINE_NS).index(m)]) /
+                                                                      (2 * B[list(L.LINE_NS).index(m)])) for m in M_o})
         if name == "G0c":
             d = np.abs(L.weights("zeta") - L.weights("chi4")) / B
             rows[name]["RP17_reach_ratio"] = float(np.max(d))
+            tab_p = os.path.join(outdir, "preread_tables.json")
+            if os.path.exists(tab_p):
+                tab = json.load(open(tab_p))
+                tab["reachability"]["G0c:RP17_read_vs_chi4"] = dict(
+                    max_ratio=float(np.max(d)), status="REACHABLE" if np.max(d) > 1 else "INAPPLICABLE",
+                    note="max |a_zeta - a_chi4| / B_n at G0-c's band")
+                json.dump(tab, open(tab_p, "w"), indent=1)
         print(name, rows[name])
     with open(os.path.join(outdir, "design_table.json"), "w") as f:
         json.dump(rows, f, indent=1)

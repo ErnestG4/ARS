@@ -30,8 +30,11 @@ def g0_layer_b(v_own, v_other):
 
 
 def g0c_layer_b(v_own, v_other, r_size_window=(22, 30)):
-    """G0-c: as G0, plus M subset of R and |R| inside the sealed window (seal §8b; window subject to proposed A4)."""
-    verdict, reasons = g0_layer_b(v_own, v_other)
+    """G0-c (seal §8 row, §8b): vs zeta weights T3 = PASS; M subset of R; |R| in the sealed window. The chi_-4 reading is
+    RP17 (a red path), reported there, not here (review v2 N5a)."""
+    reasons = []
+    if v_own[0] != "PASS":
+        reasons.append(f"vs zeta: {v_own[0]} {v_own[1].get('failed_arms', {})}")
     R = set(v_own[1].get("R", []))
     if not set(L.T3_MIN_SET) <= R:
         reasons.append(f"M not in R: R = {sorted(R)}")
@@ -54,6 +57,8 @@ def g2_layer_b(c, B, v_own, v_other):
     named = {}
     for n, sgn in ((3, +1), (5, -1), (7, +1), (9, -1)):
         if n not in R:
+            # PROPOSED A4(a) (pending Will): a named sign arm whose n is not in R is reported NOT RESOLVABLE and not
+            # scored. Under A4(b) (G2 at T = 4e4) 9 is expected in R and this branch does not arise.
             named[n] = "NOT RESOLVABLE"
         else:
             named[n] = "PASS" if np.sign(np.real(c[_idx(n)])) == sgn else "FAIL"

@@ -61,6 +61,7 @@ class Reach:
 
 # ------------------------------------------------------------------ Layer A
 def layer_a(lhs, rhs, eps, taus=None):
+    assert np.all(eps > 0), "non-positive tolerance"
     ratio = np.abs(lhs - rhs) / eps
     i = int(np.argmax(ratio))
     return dict(verdict="PASS" if ratio[i] <= 1 else "FAIL", max_ratio=float(ratio[i]),
@@ -71,6 +72,7 @@ def red_path(name, lhs, rhs_mod, eps, status):
     """A red path must FAIL. Returns FIRED (it failed, as required), DID_NOT_FIRE, or INAPPLICABLE."""
     if status == "INAPPLICABLE":
         return dict(red_path=name, result="INAPPLICABLE")
+    assert np.all(eps > 0), "non-positive tolerance"
     m = float(np.max(np.abs(lhs - rhs_mod) / eps))
     return dict(red_path=name, result="FIRED" if m > 1 else "DID_NOT_FIRE", max_ratio=m)
 
@@ -86,7 +88,7 @@ def zeta_like_gate(name, cfg, zeros, pre, reach, q=1, chi=None, a=0, delta=3e-9,
     S, M = L.zero_sums(cfg, zeros, taus, exact=True)
     lhs = S + M
     R = L.rhs_dirichlet(cfg, taus, q, chi, a)
-    assert np.allclose(R["total"], rhs, rtol=0, atol=1e-9 * np.max(np.abs(rhs))), "RHS differs from the pre-read"
+    assert np.max(np.abs(R["total"] - rhs) / eps) <= 1e-3, "RHS differs from the pre-read"   # review v2 N13
     res = dict(gate=name, layer_a=layer_a(lhs, rhs, eps, taus), red_paths=[])
     st = lambda rp: reach.status(f"{name}:{rp}")
     if q == 1 and name in ("G0", "G0c"):
@@ -133,12 +135,17 @@ def zeta_like_gate(name, cfg, zeros, pre, reach, q=1, chi=None, a=0, delta=3e-9,
             plant = 2 * band[i6] * np.exp(-(cfg.sigma ** 2) * d ** 2 / 2) * np.exp(1j * d * cfg.T0)
             c4 = L.readout(cfg, loc, (Sl + Ml - sm) / cfg.norm + plant)
             v4 = L.t3_verdict(c4, L.weights("zeta"), band)
-            reach.status("G0:RP4_plant_log6")
-            res["red_paths"].append(dict(red_path="RP4_plant_log6", result="FIRED" if 6 in
-                                         v4[1].get("failed_arms", {}).get("SILENCE", []) else "DID_NOT_FIRE"))
+            if reach.status("G0:RP4_plant_log6") == "INAPPLICABLE":
+                res["red_paths"].append(dict(red_path="RP4_plant_log6", result="INAPPLICABLE"))
+            else:
+                res["red_paths"].append(dict(red_path="RP4_plant_log6", result="FIRED" if 6 in
+                                             v4[1].get("failed_arms", {}).get("SILENCE", []) else "DID_NOT_FIRE"))
         if name == "G0c":
-            res["red_paths"].append(dict(red_path="RP17_read_vs_chi4",
-                                         result="FIRED" if v_other[0] == "FAIL" else "DID_NOT_FIRE"))
+            if reach.status("G0c:RP17_read_vs_chi4") == "INAPPLICABLE":
+                res["red_paths"].append(dict(red_path="RP17_read_vs_chi4", result="INAPPLICABLE"))
+            else:
+                res["red_paths"].append(dict(red_path="RP17_read_vs_chi4",
+                                             result="FIRED" if v_other[0] == "FAIL" else "DID_NOT_FIRE"))
     return res
 
 
@@ -154,10 +161,10 @@ def maass_gate(cfg, r_even, r_odd, pre_even, pre_odd, reach, classdata):
     pre = {"even": pre_even, "odd": pre_odd}
     for sector in ("even", "odd"):
         Rs = L.rhs_selberg(cfg, taus, sector, ch, cg, integrals=I)
-        assert np.allclose(Rs["total"], pre[sector]["rhs"], rtol=0, atol=1e-9 * np.max(np.abs(Rs["total"])))
         eps = pre[sector]["eps"]
+        assert np.max(np.abs(Rs["total"] - pre[sector]["rhs"]) / eps) <= 1e-3, "RHS differs from the pre-read"
         st = lambda rp: reach.status(f"G1_{sector}:{rp}")
-        res = dict(gate=f"G1_{sector}", layer_a=layer_a(lhs[sector], Rs["total"], eps, taus), red_paths=[])
+        res = dict(gate=f"G1_{sector}", layer_a=layer_a(lhs[sector], pre[sector]["rhs"], eps, taus), red_paths=[])
         res["red_paths"].append(red_path("RP5_elliptic_x2", lhs[sector], Rs["total"] + Rs["elliptic"], eps,
                                          st("RP5_elliptic_x2")))
         res["red_paths"].append(red_path("RP6_drop_R", lhs[sector], Rs["total"] - Rs["glide"], eps, st("RP6_drop_R")))
@@ -177,7 +184,7 @@ def maass_gate(cfg, r_even, r_odd, pre_even, pre_odd, reach, classdata):
     return out
 
 
-def null_gate(name, cfg, target, bands):
+def null_gate(name, cfg, target, bands, families=("gue", "poisson"), zeta_reject=("FAIL", "NOT RESOLVABLE")):
     """G3 / G3-c on held-out draws (seal §8): silence vs zero weights within alpha + binomial 99% allowance (each family
     against its own band); vs zeta weights T3 = FAIL or NOT RESOLVABLE in 100% of draws; positive control (GUE + planted
     zeta lines) T3 = PASS in >= 95% of draws."""
@@ -189,7 +196,7 @@ def null_gate(name, cfg, target, bands):
     d = loc[:, None] - np.log(L.LINE_NS.astype(float))[None, :]
     templ = np.exp(-(cfg.sigma ** 2) * d ** 2 / 2) * np.exp(1j * d * cfg.T0)
     res = dict(gate=name)
-    for kind in ("gue", "poisson"):
+    for kind in families:
         B = bands[kind]
         n_exceed, n_zeta_reject, n_pos_pass, n = 0, 0, 0, 100
         for i in range(n):
@@ -202,7 +209,7 @@ def null_gate(name, cfg, target, bands):
             v0 = L.t3_verdict(c, L.weights("zero"), B)
             n_exceed += v0[0] == "FAIL"
             vz = L.t3_verdict(c, aw, bands["gue"])
-            n_zeta_reject += vz[0] in ("FAIL", "NOT RESOLVABLE")
+            n_zeta_reject += vz[0] in zeta_reject
             if kind == "gue":
                 cp = L.readout(cfg, loc, r + templ @ aw)
                 n_pos_pass += L.t3_verdict(cp, aw, bands["gue"])[0] == "PASS"
@@ -213,7 +220,7 @@ def null_gate(name, cfg, target, bands):
             res[kind].update(positive_control_pass=n_pos_pass,
                              positive_control="PASS" if n_pos_pass >= 95 else "FAIL")
         res[kind]["ruling"] = rulings.g3_null(res[kind], kind)
-    res["verdict"] = "PASS" if all(res[k]["ruling"][0] == "PASS" for k in ("gue", "poisson")) else "FAIL"
+    res["verdict"] = "PASS" if all(res[k]["ruling"][0] == "PASS" for k in families) else "FAIL"
     return res
 
 
@@ -227,9 +234,7 @@ def picket_gate(cfg, B, pre=None, reach=None):
         else:                                                 # dry run: tolerance built inline
             taus = np.concatenate([0.5 + 0.001 * np.arange(4001), loc])
             rhs, _ = L.rhs_picket(cfg, taus, lam)
-            ws = L.w(cfg, lev)
-            eps = L.tolerance(2.0 ** -51 * (np.abs(taus) * (ws * np.abs(lev)).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum(),
-                              1e-12 * np.maximum(1.0, np.abs(rhs)))
+            eps = L.tolerance(*L.picket_tolerance(cfg, taus, lam, lev, rhs))
         ws = L.w(cfg, lev)
         keep = ws > 1e-300
         lhs = np.empty(len(taus), dtype=np.complex128)
@@ -277,7 +282,9 @@ def main_run(pre_dir, outdir, zeros1_path, maass_path, chi_path):
     results["gates"]["G2"] = zeta_like_gate("G2", C["G2"], zc, pre("G2"), reach, q=4, chi=L.chi4, a=1, delta=delta,
                                             band=band("G2", "gue"))
     results["gates"]["G3"] = null_gate("G3", C["G0"], "zeta", {k: band("G0", k) for k in ("gue", "poisson")})
-    results["gates"]["G3c"] = null_gate("G3c", C["G0c"], "zeta", {k: band("G0c", k) for k in ("gue", "poisson")})
+    # seal §8 G3-c row: held-out GUE only; vs zeta weights T3 = FAIL (not NOT RESOLVABLE) in 100% (review v2 N5b)
+    results["gates"]["G3c"] = null_gate("G3c", C["G0c"], "zeta", {k: band("G0c", k) for k in ("gue", "poisson")},
+                                        families=("gue",), zeta_reject=("FAIL",))
     results["gates"]["G4"] = picket_gate(C["G0"], band("G0", "gue"),
                                          pre={lab: pre(f"G4_{lab}") for lab in PICKETS}, reach=reach)
     os.makedirs(outdir, exist_ok=True)
