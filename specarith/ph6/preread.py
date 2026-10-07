@@ -89,9 +89,9 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
     for name, zsub, delta in (("G0", z, 3e-9), ("G0s_a", z, 3e-9), ("G0s_b", z, 3e-9), ("G0s_c", z, 3e-9),
                               ("G0c", z[:30000], 3e-9)):
         cfg = C[name]
-        taus = ID_GRID if name.startswith("G0s") else np.concatenate([ID_GRID, L.local_grid(cfg)])
+        taus = np.concatenate([ID_GRID, L.local_grid(cfg)])          # seal §4 (review m5: G0-s too)
         R = L.rhs_dirichlet(cfg, taus, 1, None, 0)
-        e_rhs = R["err"] + 1e-12 * np.maximum(1.0, np.abs(R["total"]))
+        e_rhs = R["err"]                                               # derived bounds (review M4)
         parts = (L.eps_data_zero(cfg, zsub, taus, delta), L.eps_float_zero(cfg, zsub, taus),
                  np.full(len(taus), L.eps_trunc(cfg, zeta_density(cfg.E_hi) + 1)), e_rhs)
         save(name, taus, R["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(zsub))))
@@ -109,9 +109,9 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
         if name.startswith("G0s"):
             reach(name, "RP13_drop_gamma", R["gamma"], eps)
             reach(name, "RP14_drop_pole", R["pole"], eps)
-            # RP15: Re psi(1/4 + iu/2) replaced by log(u/2) (leading asymptotic)
-            u = np.arange(cfg.T0 - 13 * cfg.sigma, cfg.T0 + 13 * cfg.sigma, 0.05)
-            f = L.w(cfg, u) * (np.real(L.digamma(0.25 + 0.5j * u)) - np.log(np.maximum(np.abs(u), 1e-300) / 2))
+            # RP15: Re psi(1/4 + iu/2) replaced by the pinned asymptotic ph6lib.psi_asymptotic (review m1)
+            u = np.arange(cfg.T0 - 13 * cfg.sigma, cfg.T0 + 13 * cfg.sigma, 0.025)
+            f = L.w(cfg, u) * (np.real(L.digamma(0.25 + 0.5j * u)) - L.psi_asymptotic(u))
             dg = np.array([L.trapezoid_integral(np.exp(1j * t * u) * f, u) for t in taus]) / (2 * math.pi)
             reach(name, "RP15_asymptotic_psi", dg, eps)
             mirror_upper = np.full(len(taus), float(np.sum(L.w(cfg, -z))))
@@ -127,10 +127,12 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
         RS[sector] = Rs
         wsum = L.w(cfg, rl) + L.w(cfg, -rl)
         wp = (np.abs(rl - cfg.T0) * L.w(cfg, rl) + np.abs(-rl - cfg.T0) * L.w(cfg, -rl)) / cfg.sigma ** 2
-        e_data = 5e-9 * (ID_GRID * wsum.sum() + wp.sum())
-        e_float = L.EPS64 * (ID_GRID * (wsum * rl).sum() + wsum.sum() * (math.log2(len(rl)) + 4))
+        d_eff = 5e-9 + 2.0 ** -53 * float(np.max(rl))
+        e_data = d_eff * (ID_GRID * wsum.sum() + wp.sum())
+        e_float = 2.0 ** -51 * (ID_GRID * (wsum * rl).sum() + wsum.sum()) + 2 * 2.0 ** -53 * wsum.sum()
         e_trunc = np.full(len(ID_GRID), L.eps_trunc(cfg, cfg.E_hi / 6.0 + 1))
-        e_rhs = Rs["err"] + 1e-12 * np.maximum(1.0, np.abs(Rs["total"]))
+        terms = [Rs[k] for k in ("ident", "elliptic", "hyperbolic", "glide", "g0", "psi", "prime") if k in Rs]
+        e_rhs = Rs["err"] + 8 * L.EPS64 * sum(np.abs(t) for t in terms)
         parts = (e_data, e_float, e_trunc, e_rhs)
         save(f"G1_{sector}", ID_GRID, Rs["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(rl))))
         eps = L.tolerance(*parts)
@@ -155,7 +157,7 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
         zc = np.array([float(x) for x in open(chi_path).read().split()])
         check = json.load(open(chi_path.replace(".txt", ".accuracy.json")))
         delta = float(check["delta"])
-        e_rhs = R["err"] + 1e-12 * np.maximum(1.0, np.abs(R["total"]))
+        e_rhs = R["err"]
         parts = (L.eps_data_zero(cfg, zc, taus, delta), L.eps_float_zero(cfg, zc, taus),
                  np.full(len(taus), L.eps_trunc(cfg, chi_density(cfg.E_hi) + 1)), e_rhs)
         save("G2", taus, R["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(zc)), delta=delta))
@@ -164,6 +166,25 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
         reach("G2", "RP10_chi_equiv_1", R1["prime"] - R["prime"], eps)
         R0 = L.rhs_dirichlet(cfg, taus, 4, L.chi4, 0)
         reach("G2", "RP11_wrong_parity_a0", R0["gamma"] - R["gamma"], eps)
+
+    # ---- G4 pickets at G0's configuration (synthetic; Layer A tolerance is float + RHS only)
+    cfg = C["G0"]
+    taus = np.concatenate([ID_GRID, L.local_grid(cfg)])
+    for label, lam in (("confusable", math.log(2)), ("incommensurate", 1.2345)):
+        lev = L.picket_levels(cfg, lam)
+        rhs, smooth = L.rhs_picket(cfg, taus, lam)
+        ws = L.w(cfg, lev)
+        e_float = 2.0 ** -51 * (taus * (ws * np.abs(lev)).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum()
+        kk = np.arange(-60, 61)
+        e_rhs = 8 * L.EPS64 * (lam / (2 * math.pi)) * cfg.sigma * math.sqrt(2 * math.pi) * \
+            np.array([np.sum(np.exp(-(cfg.sigma ** 2) * (t - kk * lam) ** 2 / 2) * (cfg.T0 * abs(t) + 8)) for t in taus])
+        parts = (np.zeros(len(taus)), e_float, np.zeros(len(taus)), e_rhs)
+        save(f"G4_{label}", taus, rhs, parts, dict(config=cfg_json(cfg), lam=lam, n_levels=int(len(lev))))
+        eps = L.tolerance(*parts)
+        reach(f"G4_{label}", "RP12_brief_v1_bc", (np.exp(taus / 2) - 1) * np.abs(rhs), eps,
+              "brief-v1 BC: eigenvalues E_n - i/2 multiply the picket sum by e^{tau/2}")
+    out["reachability"]["G0:RP4_plant_log6"] = dict(max_ratio=2.0, status="REACHABLE",
+                                                    note="by construction: a planted line of 2 B_6 at log 6")
 
     out["wall_s"] = round(time.time() - t_start, 1)
     with open(os.path.join(outdir, "preread_tables.json"), "w") as f:
@@ -247,6 +268,47 @@ def predicted_s(cfg, kind, target):
     return np.sqrt(np.real(np.einsum("ij,jk,ik->i", P, Cov, P.conj())))
 
 
+ARSRH_RTILDE_BAND = (0.5952, 0.6065)    # arsrh Phase 1 matched-window (W = 10,000) tridiagonal GUE 95% band (PHASE1_FINDINGS)
+
+
+def known_answers(outdir):
+    """Seal §7 null known answers from the saved calibration draws, evaluated two ways (review M1):
+    (literal) the sealed pointwise formula, mean |c_n|^2 within 20% for every n;
+    (LS) the least-squares-propagated prediction P Cov P^H (ph6 preread.predicted_s), with the pooled median ratio
+    and the per-n spread reported. Plus the <r~> check against the arsrh Phase-1 band (review M2)."""
+    tab = json.load(open(os.path.join(outdir, "preread_tables.json")))
+    res = {}
+    for name in ("G0", "G0c", "G2"):
+        cfg = L.Config(**tab["configs"][name])
+        target = "chi" if name == "G2" else "zeta"
+        q = 4 if target == "chi" else 1
+        for kind in ("gue", "poisson"):
+            p = os.path.join(outdir, f"nulls_{name}_{kind}.npz")
+            if not os.path.exists(p):
+                continue
+            d = np.load(p)
+            mc2 = np.mean(np.abs(d["c"]) ** 2, axis=0)
+            E = np.linspace(max(1.0, cfg.T0 - 12 * cfg.sigma), cfg.T0 + 12 * cfg.sigma, 20001)
+            dens = np.log(E * q / (2 * math.pi)) / (2 * math.pi)
+            sumw2 = np.trapezoid(dens * L.w(cfg, E) ** 2, E)
+            tauH = math.log(cfg.T0 / (2 * math.pi))                      # literal sealed tau_H (review m12)
+            ns = L.LINE_NS.astype(float)
+            lit = sumw2 * (np.minimum(np.log(ns) / tauH, 1.0) if kind == "gue" else 1.0) / cfg.norm ** 2
+            r_lit = mc2 / lit
+            r_ls = mc2 / d["pred"] ** 2
+            res[f"{name}_{kind}"] = dict(
+                literal_ratio_median=float(np.median(r_lit)), literal_n_outside_20pct=int(np.sum(np.abs(r_lit - 1) > 0.2)),
+                literal_verdict="PASS" if np.all(np.abs(r_lit - 1) <= 0.2) else "FAIL",
+                ls_ratio_median=float(np.median(r_ls)), ls_ratio_min=float(np.min(r_ls)), ls_ratio_max=float(np.max(r_ls)),
+                ls_n_outside_20pct=int(np.sum(np.abs(r_ls - 1) > 0.2)),
+                rtilde_mean=float(np.mean(d["rtilde"])),
+                rtilde_in_arsrh_band=bool(ARSRH_RTILDE_BAND[0] <= np.mean(d["rtilde"]) <= ARSRH_RTILDE_BAND[1])
+                if kind == "gue" else None)
+            print(name, kind, res[f"{name}_{kind}"])
+    with open(os.path.join(outdir, "null_known_answers.json"), "w") as f:
+        json.dump(res, f, indent=1)
+
+
 def design(outdir):
     rows = {}
     for name, wkind in (("G0", "zeta"), ("G0c", "zeta"), ("G2", "chi4")):
@@ -258,8 +320,12 @@ def design(outdir):
         pp = L.is_prime_power()
         R = L.LINE_NS[pp & (a != 0) & (np.abs(a) >= 2 * B)]
         nz = int(np.sum(pp & (a != 0)))
+        M_w = {m for m in L.T3_MIN_SET if a[list(L.LINE_NS).index(m)] != 0}       # proposed A3
         rows[name] = dict(weights=wkind, R=R.tolist(), size=f"{len(R)}/{nz}",
-                          contains_M=bool(set(L.T3_MIN_SET) <= set(R.tolist())))
+                          contains_M_w=bool(M_w <= set(R.tolist())), M_w=sorted(M_w))
+        if name == "G0c":
+            d = np.abs(L.weights("zeta") - L.weights("chi4")) / B
+            rows[name]["RP17_reach_ratio"] = float(np.max(d))
         print(name, rows[name])
     with open(os.path.join(outdir, "design_table.json"), "w") as f:
         json.dump(rows, f, indent=1)
@@ -273,5 +339,7 @@ if __name__ == "__main__":
         nulls(sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
     elif mode == "design":
         design(sys.argv[2])
+    elif mode == "known":
+        known_answers(sys.argv[2])
     else:
         raise SystemExit(mode)

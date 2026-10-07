@@ -79,6 +79,9 @@ def merge(outdir):
     print(json.dumps({k: v for k, v in out.items() if k != "chunks"}))
     worst = max(rows, key=lambda r: abs(r["dev"]))
     print("worst chunk count deviation vs smooth count:", worst["a"], worst["b"], worst["dev"])
+    # fail closed (review m8): seal §9.1 count check, and no surviving near-duplicate
+    assert abs(out["n_total"] - out["expect_total"]) < 2, ("count vs MV Thm 14.5", out["n_total"], out["expect_total"])
+    assert out["min_gap"] > 1e-8, ("near-duplicate zeros", out["min_gap"])
 
 
 def accuracy(outdir):

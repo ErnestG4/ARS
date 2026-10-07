@@ -76,9 +76,19 @@ def _chunks(taus, size=128):
         yield i, taus[i:i + size]
 
 
-def zero_sums(cfg, levels, taus):
+def _fsum_rows(phase, weights):
+    """Compensated (math.fsum) sum over each row of weights * e^{i phase} (seal §5.1: compensated summation)."""
+    out = np.empty(phase.shape[0], dtype=np.complex128)
+    for k in range(phase.shape[0]):
+        out[k] = complex(math.fsum(weights * np.cos(phase[k])), math.fsum(weights * np.sin(phase[k])))
+    return out
+
+
+def zero_sums(cfg, levels, taus, exact=False):
     """S(tau) = sum_{levels>0} w(E) e^{i tau E};  M(tau) = sum w(-E) e^{-i tau E}  (seal §2, §5).
-    Only levels where the window exceeds 1e-300 contribute (exactly zero below that in float64)."""
+    Only levels where the window exceeds 1e-300 contribute (exactly zero below that in float64).
+    exact=True: compensated summation (math.fsum), as the seal requires for gate statistics (§5.1). exact=False (BLAS)
+    is used only for null draws, whose bands are statistical."""
     E = np.asarray(levels, dtype=np.float64)
     E = E[E > 0]
     ws = w(cfg, E)
@@ -89,10 +99,15 @@ def zero_sums(cfg, levels, taus):
     Em, wmm = E[keepm], wm[keepm]
     S = np.empty(len(taus), dtype=np.complex128)
     M = np.zeros(len(taus), dtype=np.complex128)
-    for i, tc in _chunks(np.asarray(taus, dtype=np.float64)):
-        S[i:i + len(tc)] = np.exp(1j * np.multiply.outer(tc, Es)) @ wss
-        if len(Em):
-            M[i:i + len(tc)] = np.exp(-1j * np.multiply.outer(tc, Em)) @ wmm
+    for i, tc in _chunks(np.asarray(taus, dtype=np.float64), 16 if exact else 128):
+        if exact:
+            S[i:i + len(tc)] = _fsum_rows(np.multiply.outer(tc, Es), wss)
+            if len(Em):
+                M[i:i + len(tc)] = _fsum_rows(-np.multiply.outer(tc, Em), wmm)
+        else:
+            S[i:i + len(tc)] = np.exp(1j * np.multiply.outer(tc, Es)) @ wss
+            if len(Em):
+                M[i:i + len(tc)] = np.exp(-1j * np.multiply.outer(tc, Em)) @ wmm
     return S, M
 
 
@@ -102,7 +117,8 @@ def maass_sector_sum(cfg, r_levels, taus, even):
     ww = w(cfg, r) + w(cfg, -r)
     out = np.empty(len(taus), dtype=np.float64)
     for i, tc in _chunks(np.asarray(taus, dtype=np.float64)):
-        out[i:i + len(tc)] = np.cos(np.multiply.outer(tc, r)) @ ww
+        ph = np.multiply.outer(tc, r)
+        out[i:i + len(tc)] = [math.fsum(ww * np.cos(ph[k])) for k in range(len(tc))]
     if even:
         out = out + np.real((w(cfg, 0.5j) + w(cfg, -0.5j)) * np.cosh(np.asarray(taus) / 2))
     return out
@@ -130,6 +146,12 @@ def chi4(n):
     return np.where(n % 2 == 0, 0, np.where(n % 4 == 1, 1, -1)).astype(float)
 
 
+def psi_asymptotic(u):
+    """RP15's replacement for Re psi(1/4 + iu/2), pinned (review m1): log(max(|u|, 2)/2), i.e. the leading asymptotic
+    log(|u|/2) for |u| >= 2 and 0 inside, so the red path is not singular at u = 0."""
+    return np.log(np.maximum(np.abs(u), 2.0) / 2.0)
+
+
 def trapezoid_integral(f_vals, x):
     dx = x[1] - x[0]
     return dx * (f_vals.sum(axis=-1) - 0.5 * (f_vals[..., 0] + f_vals[..., -1]))
@@ -150,19 +172,24 @@ def gamma_term(cfg, taus, a, step=None):
         out = np.empty(len(taus), dtype=np.complex128)
         for i, tc in _chunks(np.asarray(taus, dtype=np.float64), 8):
             out[i:i + len(tc)] = trapezoid_integral(np.exp(1j * np.multiply.outer(tc, u)) * f, u)
-        return out / (2 * math.pi)
+        # float64 rounding bound (review M4/m11): per term the phase tau*u carries |tau u| 2^-51 (+ evaluation), f a few
+        # ulp; summation of N terms adds N 2^-53 of the absolute sum
+        absf = np.abs(f) * h
+        fb = np.array([np.sum(absf * (np.abs(t * u) * 2 * EPS64 + 8 * EPS64)) for t in taus]) \
+            + absf.sum() * len(u) * EPS64 / 2
+        return out / (2 * math.pi), fb / (2 * math.pi)
 
-    v1 = run(step)
-    v2 = run(step / 2)
-    return v2, np.abs(v2 - v1)
+    v1, _ = run(step)
+    v2, fb = run(step / 2)
+    return v2, np.abs(v2 - v1) + fb
 
 
 def prime_sum_dirichlet(cfg, taus, chi=None):
     """sum_{n>=2} Lambda(n)/sqrt(n) [chi(n) g_tau(log n) + conj chi(n) g_tau(-log n)] (EF §7; chi real here).
     n_max chosen so every line beyond is > 13 widths from tau <= 4.5; returns (value, tail bound)."""
     sig = cfg.sigma
-    n_max = max(100, int(math.ceil(math.exp(4.5 + 13.0 / sig))))
-    n_tail = max(2 * n_max, int(math.ceil(math.exp(4.5 + 25.0 / sig))))
+    n_max = 10000                                                     # seal §5: prime sum to n <= 10^4
+    n_tail = max(2 * n_max, min(4_000_000, int(math.ceil(math.exp(4.5 + 25.0 / sig)))))
     lam = mangoldt_upto(n_tail)
     n = np.arange(n_tail + 1)
     c = np.ones(n_tail + 1) if chi is None else chi(n)
@@ -171,15 +198,26 @@ def prime_sum_dirichlet(cfg, taus, chi=None):
     ln = np.log(sel.astype(float))
     taus = np.asarray(taus, dtype=np.float64)
     val = np.zeros(len(taus), dtype=np.complex128)
+    fbound = np.zeros(len(taus))
     for i, tc in _chunks(taus, 64):
         G = g_zero_line(cfg, tc[:, None], ln[None, :]) + g_zero_line(cfg, tc[:, None], -ln[None, :])
         val[i:i + len(tc)] = G @ coef[sel]
-    # tail: n in (n_max, n_tail] summed in absolute value, plus a crude bound beyond n_tail
+        # float64 rounding bound (review M4): log n and tau carry 1 ulp each; the phase (log n - tau) T0 and the Gaussian
+        # sigma^2 v^2/2 inherit (T0 + sigma^2 |v|)(log n + tau) 2^-52; the dot product of len(sel) terms adds len 2^-53
+        v = np.abs(ln[None, :] - tc[:, None])
+        amp = np.abs(coef[sel])[None, :] * np.abs(g_zero_line(cfg, tc[:, None], ln[None, :]))
+        fbound[i:i + len(tc)] = np.sum(amp * ((cfg.T0 + sig ** 2 * v) * (ln[None, :] + tc[:, None]) * 2 * EPS64
+                                              + (len(sel) + 8) * EPS64), axis=1)
+    # tail: n in (n_max, n_tail] summed in absolute value; beyond n_tail a dyadic-block bound
     tsel = np.nonzero(coef[n_max + 1:])[0] + n_max + 1
     lt = np.log(tsel.astype(float))
     tail = np.array([np.sum(np.abs(coef[tsel]) * cfg.norm * np.exp(-(sig ** 2) * (lt - t) ** 2 / 2)) for t in taus])
-    tail = tail + cfg.norm * math.exp(-(25.0 ** 2) / 2) * 10.0
-    return val, tail
+    beyond = 0.0
+    for k in range(60):                     # block [n_tail 2^k, n_tail 2^(k+1)): <= n_tail 2^k terms, each bounded
+        lo_n = n_tail * 2.0 ** k
+        dist = max(0.0, math.log(lo_n) - float(np.max(taus)))
+        beyond += lo_n * math.log(2 * lo_n) / math.sqrt(lo_n) * cfg.norm * math.exp(-(sig ** 2) * dist ** 2 / 2)
+    return val, tail + beyond + fbound
 
 
 def rhs_dirichlet(cfg, taus, q, chi, a):
@@ -194,8 +232,9 @@ def rhs_dirichlet(cfg, taus, q, chi, a):
     gam, gam_err = gamma_term(cfg, taus, a)
     pr, pr_tail = prime_sum_dirichlet(cfg, taus, chi)
     total = pole + cond + gam - pr
+    add_round = 4 * EPS64 * (np.abs(pole) + np.abs(cond) + np.abs(gam) + np.abs(pr))
     return dict(total=total, pole=pole, cond=cond, gamma=gam, prime=pr, smooth=pole + cond + gam,
-                err=gam_err + pr_tail)
+                err=gam_err + pr_tail + add_round)
 
 
 def selberg_integrals(cfg, taus, step=None):
@@ -216,10 +255,36 @@ def selberg_integrals(cfg, taus, step=None):
             "psi_half": np.real(digamma(0.5 + 1j * r)),
             "psi_one": np.real(digamma(1.0 + 1j * r)),
         }
-        return {name: 2 * trapezoid_integral(H * ker[None, :], r) for name, ker in k.items()}
+        out = {}
+        for name, ker in k.items():
+            P = H * ker[None, :]
+            val = 2 * trapezoid_integral(P, r)
+            # float64 rounding bound: |tau r| 2^-51 phase + 8 ulp evaluation per term, plus N 2^-53 summation
+            absP = np.abs(P) * hstep
+            fb = 2 * (np.sum(absP * (np.abs(np.multiply.outer(taus, r)) * 2 * EPS64 + 8 * EPS64), axis=1)
+                      + absP.sum(axis=1) * len(r) * EPS64 / 2)
+            out[name] = (val, fb)
+        return out
 
     v1, v2 = run(step), run(step / 2)
-    return {name: (v2[name], np.abs(v2[name] - v1[name])) for name in v1}
+    return {name: (v2[name][0], np.abs(v2[name][0] - v1[name][0]) + v2[name][1]) for name in v1}
+
+
+def selberg_tail_bound(cfg, taus):
+    """Seal §5.1 tails for G1 (review m6): classes with t > 30 and prime powers n > 10^4. Uses
+    C(t) log eps1 <= sqrt(D) (log D + 1) (class number formula, h log eps = sqrt(D) L(1,chi), L(1,chi) <= log D + 1),
+    so each class term is <= (log D + 1) |g(ell_t)|; and 2 Lambda(n)/n |g(2 log n)| for n > 10^4."""
+    taus = np.asarray(taus, dtype=np.float64)
+    tail = np.zeros(len(taus))
+    for kind in (-4, 4):
+        for t in range(31, 5000):
+            D = t * t + kind
+            ell = 2 * math.log((t + math.sqrt(D)) / 2)
+            tail += 2 * (math.log(D) + 1) * np.abs(g_maass(cfg, taus, ell))   # x2: hyperbolic and glide both bounded
+    lam = mangoldt_upto(200000)
+    for n in np.nonzero(lam[10001:])[0] + 10001:
+        tail += 2 * lam[n] / n * np.abs(g_maass(cfg, taus, 2 * math.log(n)))
+    return tail
 
 
 def selberg_class_terms(cfg, taus, classdata, kind):
@@ -244,7 +309,7 @@ def rhs_selberg(cfg, taus, sector, classdata_h, classdata_g, integrals=None):
     ell = 0.5 * (I["E2"][0] / 8.0 + I["E3"][0] / (3 * math.sqrt(3)))
     hyp = selberg_class_terms(cfg, taus, classdata_h, "h")
     gl = selberg_class_terms(cfg, taus, classdata_g, "g")
-    err = I["ident"][1] / 24 + 0.5 * (I["E2"][1] / 8 + I["E3"][1] / (3 * math.sqrt(3)))
+    err = I["ident"][1] / 24 + 0.5 * (I["E2"][1] / 8 + I["E3"][1] / (3 * math.sqrt(3))) + selberg_tail_bound(cfg, taus)
     if sector == "even":
         lam = mangoldt_upto(10000)
         n = np.nonzero(lam)[0]
@@ -355,8 +420,12 @@ def t3_verdict(c, a, B, applicable=True, ns=LINE_NS):
     expected_nonzero = a != 0
     R = pp & expected_nonzero & (np.abs(a) >= 2 * B)
     Rset = set(ns[R].tolist())
-    if not set(T3_MIN_SET) <= Rset and np.any(a != 0):
-        return "NOT RESOLVABLE", dict(R=sorted(Rset))
+    # PROPOSED AMENDMENT A3 (review B1; pending Will): the minimum set is taken over the weight vector's support,
+    # M_w = M ∩ {n : a_n != 0} ({3, 5, 7} under chi_-4). The sealed text applies M = {2,3,4,5,7} to every weight vector,
+    # which makes every chi_-4 reading NOT RESOLVABLE, the exact truth included.
+    M_w = {m for m in T3_MIN_SET if a[list(ns).index(m)] != 0}
+    if not M_w <= Rset and np.any(a != 0):
+        return "NOT RESOLVABLE", dict(R=sorted(Rset), M_w=sorted(M_w))
     pos = R & ~(np.abs(c) > B)
     wgt = R & ~(np.abs(c - a) <= B)
     sgn = R & ~(np.real(c) * a > 0)
@@ -446,23 +515,23 @@ def eps_data_zero(cfg, levels, taus, delta):
     """delta * sum_k (tau w(E_k) + |w'(E_k)|) over the levels and their mirrors (worst-case input inaccuracy)."""
     E = np.asarray(levels, dtype=np.float64)
     E = E[E > 0]
+    d_eff = delta + 2.0 ** -53 * float(np.max(E))       # float64 representation of the levels (review m7)
     out = np.zeros(len(taus))
     for X in (E, -E):
         ws = w(cfg, X)
         wp = np.abs(X - cfg.T0) / cfg.sigma ** 2 * ws
-        out = out + delta * (np.asarray(taus) * ws.sum() + wp.sum())
+        out = out + d_eff * (np.asarray(taus) * ws.sum() + wp.sum())
     return out
 
 
 def eps_float_zero(cfg, levels, taus):
-    """Per-term phase rounding |tau E| 2^-52 and argument rounding, plus pairwise-summation growth (log2 N + 2) 2^-52,
-    all times the window mass."""
+    """Seal §5.1: sum_k w(E_k)(|tau E_k| + 1) 2^-51 (per-term phase and evaluation rounding), plus the compensated-
+    summation term: math.fsum is correctly rounded, <= 2^-53 |sum| per real/imag part, bounded by 2 * 2^-53 sum w."""
     E = np.asarray(levels, dtype=np.float64)
     E = E[E > 0]
     ws = w(cfg, E) + w(cfg, -E)
-    n = max(len(E), 2)
     taus = np.asarray(taus)
-    return EPS64 * (taus * (ws * E).sum() + ws.sum() * (math.log2(n) + 4))
+    return 2.0 ** -51 * (taus * (ws * E).sum() + ws.sum()) + 2 * 2.0 ** -53 * ws.sum()
 
 
 def eps_trunc(cfg, density_at_edge):
