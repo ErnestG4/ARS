@@ -35,17 +35,30 @@ def load_maass(path):
     return r[s == 0], r[s == 1]              # sym0 = even, sym1 = odd (DATA_MANIFEST; SESSION_K continuation Run 1)
 
 
-def configs(zeros1):
+# PROPOSED amendments (pending Will), enabled only by `tables ... --proposed`:
+#   A1 G1-s Maass windows, A6 G2-s chi_-4 windows, A4(b) G2 at T = 4e4.
+PROPOSED_EXTRA = {
+    "G1s_a": (12.0, 4.0), "G1s_b": (20.0, 5.0),        # A1
+    "G2s_a": (10.0, 4.0), "G2s_b": (40.0, 3.0),        # A6
+}
+PROPOSED_G2_T = 40000.0                                # A4(b)
+
+
+def configs(zeros1, proposed=False):
     g30000 = float(zeros1[29999])
-    return {
+    C = {
         "G0": L.rule_config(0.0, float(zeros1[-1])),
         "G0s_a": L.fixed_config(10.0, 4.0),
         "G0s_b": L.fixed_config(40.0, 3.0),
         "G0s_c": L.fixed_config(150.0, 10.0),
         "G0c": L.rule_config(0.0, g30000),
         "G1": L.rule_config(0.0, 98.76496727),
-        "G2": L.rule_config(0.0, 20000.0),
+        "G2": L.rule_config(0.0, PROPOSED_G2_T if proposed else 20000.0),
     }
+    if proposed:
+        for k, (t0, s) in PROPOSED_EXTRA.items():
+            C[k] = L.fixed_config(t0, s)
+    return C
 
 
 def cfg_json(c):
@@ -60,11 +73,66 @@ def chi_density(t):
     return math.log(max(t, 2.0) * 4 / (2 * math.pi)) / (2 * math.pi)
 
 
-def tables(outdir, zeros1_path, maass_path, chi_path=None):
+def g1_block(name, cfg, r_even, r_odd, ch, cg, save, reach, outdir):
+    """Seal §5 Maass per-sector identity tables + reachability for one window (G1, or a proposed G1-s window)."""
+    I = L.selberg_integrals(cfg, ID_GRID)
+    RS = {}
+    for sector, rl in (("even", r_even), ("odd", r_odd)):
+        Rs = L.rhs_selberg(cfg, ID_GRID, sector, ch, cg, integrals=I)
+        RS[sector] = Rs
+        wsum = L.w(cfg, rl) + L.w(cfg, -rl)
+        wp = (np.abs(rl - cfg.T0) * L.w(cfg, rl) + np.abs(-rl - cfg.T0) * L.w(cfg, -rl)) / cfg.sigma ** 2
+        d_eff = 5e-9 + 2.0 ** -53 * float(np.max(rl))
+        e_data = d_eff * (np.abs(ID_GRID) * wsum.sum() + wp.sum())
+        e_float = 2.0 ** -51 * (np.abs(ID_GRID) * (wsum * rl).sum() + wsum.sum()) + 2 * 2.0 ** -53 * wsum.sum()
+        e_trunc = np.full(len(ID_GRID), L.eps_trunc(cfg, cfg.E_hi / 6.0 + 1))
+        terms = [Rs[k] for k in ("ident", "elliptic", "hyperbolic", "glide", "g0", "psi", "prime") if k in Rs]
+        # per-term rounding: phases (u - tau) T0 with |u| <= ~7 and |tau| <= 4.7 carry T0 (|u| + |tau|) 2u (review v2 N10)
+        e_rhs = Rs["err"] + (cfg.T0 * (7 + np.abs(ID_GRID)) * 2 + 8) * L.EPS64 * sum(np.abs(t) for t in terms)
+        parts = (e_data, e_float, e_trunc, e_rhs)
+        save(f"{name}_{sector}", ID_GRID, Rs["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(rl))))
+        eps = L.tolerance(*parts)
+        reach(f"{name}_{sector}", "RP5_elliptic_x2", Rs["elliptic"], eps)
+        reach(f"{name}_{sector}", "RP6_drop_R", Rs["glide"], eps)
+        if sector == "even":
+            reach(f"{name}_even", "RP8_drop_scattering", Rs["prime"] - 2 * I["psi_one"][0] / (4 * math.pi), eps,
+                  "even-only continuous-spectrum terms: prime lines 2 Lambda(n)/n g(2 log n) and -(2/4pi) int h psi(1+ir)")
+        # RP9: hyperbolic classes taken from the glide discriminants (t^2+4 <-> t^2-4)
+        wrong = L.selberg_class_terms(cfg, ID_GRID, {t: cg.get(t, 0.0) for t in ch}, "h")
+        reach(f"{name}_{sector}", "RP9_wrong_discriminant", wrong - Rs["hyperbolic"], eps)
+    eps_even = L.tolerance(*[np.load(os.path.join(outdir, f"rhs_{name}_even.npz"))[f"eps_{i}"] for i in range(4)])
+    reach(name, "RP7_swap_parity", RS["even"]["total"] - RS["odd"]["total"], eps_even,
+          "RHS(even) - RHS(odd); swapping labels moves the LHS by this much")
+
+
+def g2_block(name, cfg, chi_path, save, reach, out):
+    """chi_-4 identity tables + reachability for one window (G2, or a proposed G2-s window)."""
+    taus = np.concatenate([ID_GRID, L.local_grid(cfg)])
+    R = L.rhs_dirichlet(cfg, taus, 4, L.chi4, 1)
+    out["gates"][f"{name}_rhs_only"] = dict(config=cfg_json(cfg))
+    if not chi_path:
+        return
+    zc = np.array([float(x) for x in open(chi_path).read().split()])
+    assert zc.max() >= cfg.E_hi - 1, (name, "chi zero list does not reach E_hi", zc.max(), cfg.E_hi)
+    check = json.load(open(chi_path.replace(".txt", ".accuracy.json")))
+    delta = float(check["delta"])
+    parts = (L.eps_data_zero(cfg, zc, taus, delta), L.eps_float_zero(cfg, zc, taus),
+             np.full(len(taus), L.eps_trunc(cfg, chi_density(cfg.E_hi) + 1)), R["err"])
+    save(name, taus, R["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(zc)), delta=delta))
+    eps = L.tolerance(*parts)
+    R1 = L.rhs_dirichlet(cfg, taus, 4, None, 1)
+    reach(name, "RP10_chi_equiv_1", R1["prime"] - R["prime"], eps)
+    R0 = L.rhs_dirichlet(cfg, taus, 4, L.chi4, 0)
+    reach(name, "RP11_wrong_parity_a0", R0["gamma"] - R["gamma"], eps)
+    if name.startswith("G2s"):
+        reach(name, "RP13_drop_gamma", R["gamma"], eps)
+
+
+def tables(outdir, zeros1_path, maass_path, chi_path=None, proposed=False):
     t_start = time.time()
     z = load_zeros(zeros1_path)
     r_even, r_odd = load_maass(maass_path)
-    C = configs(z)
+    C = configs(z, proposed)
     out = {"configs": {k: cfg_json(v) for k, v in C.items()}, "gates": {}, "reachability": {}}
     import classes
     _, ls = classes.pari_counts(30, 30)
@@ -119,55 +187,13 @@ def tables(outdir, zeros1_path, maass_path, chi_path=None):
             reach(name, "RP16_drop_mirror(upper bound)", mirror_upper, eps,
                   "upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE")
 
-    # ---- G1 per sector
-    cfg = C["G1"]
-    I = L.selberg_integrals(cfg, ID_GRID)
-    RS = {}
-    for sector, rl in (("even", r_even), ("odd", r_odd)):
-        Rs = L.rhs_selberg(cfg, ID_GRID, sector, ch, cg, integrals=I)
-        RS[sector] = Rs
-        wsum = L.w(cfg, rl) + L.w(cfg, -rl)
-        wp = (np.abs(rl - cfg.T0) * L.w(cfg, rl) + np.abs(-rl - cfg.T0) * L.w(cfg, -rl)) / cfg.sigma ** 2
-        d_eff = 5e-9 + 2.0 ** -53 * float(np.max(rl))
-        e_data = d_eff * (np.abs(ID_GRID) * wsum.sum() + wp.sum())
-        e_float = 2.0 ** -51 * (np.abs(ID_GRID) * (wsum * rl).sum() + wsum.sum()) + 2 * 2.0 ** -53 * wsum.sum()
-        e_trunc = np.full(len(ID_GRID), L.eps_trunc(cfg, cfg.E_hi / 6.0 + 1))
-        terms = [Rs[k] for k in ("ident", "elliptic", "hyperbolic", "glide", "g0", "psi", "prime") if k in Rs]
-        # per-term rounding: phases (u - tau) T0 with |u| <= ~7 and |tau| <= 4.7 carry T0 (|u| + |tau|) 2u (review v2 N10)
-        e_rhs = Rs["err"] + (cfg.T0 * (7 + np.abs(ID_GRID)) * 2 + 8) * L.EPS64 * sum(np.abs(t) for t in terms)
-        parts = (e_data, e_float, e_trunc, e_rhs)
-        save(f"G1_{sector}", ID_GRID, Rs["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(rl))))
-        eps = L.tolerance(*parts)
-        reach(f"G1_{sector}", "RP5_elliptic_x2", Rs["elliptic"], eps)
-        reach(f"G1_{sector}", "RP6_drop_R", Rs["glide"], eps)
-        if sector == "even":
-            reach("G1_even", "RP8_drop_scattering", Rs["prime"] - 2 * I["psi_one"][0] / (4 * math.pi), eps,
-                  "even-only continuous-spectrum terms: prime lines 2 Lambda(n)/n g(2 log n) and -(2/4pi) int h psi(1+ir)")
-        # RP9: hyperbolic classes taken from the glide discriminants (t^2+4 <-> t^2-4)
-        wrong = L.selberg_class_terms(cfg, ID_GRID, {t: cg.get(t, 0.0) for t in ch}, "h")
-        reach(f"G1_{sector}", "RP9_wrong_discriminant", wrong - Rs["hyperbolic"], eps)
-    eps_even = L.tolerance(*[np.load(os.path.join(outdir, "rhs_G1_even.npz"))[f"eps_{i}"] for i in range(4)])
-    reach("G1", "RP7_swap_parity", RS["even"]["total"] - RS["odd"]["total"], eps_even,
-          "RHS(even) - RHS(odd); swapping labels moves the LHS by this much")
+    # ---- G1 per sector (and, with --proposed, the A1 G1-s windows)
+    for g1 in [k for k in ("G1", "G1s_a", "G1s_b") if k in C]:
+        g1_block(g1, C[g1], r_even, r_odd, ch, cg, save, reach, outdir)
 
     # ---- G2 (needs the chi zeros for eps_data / eps_float; RHS and reachability need only the config)
-    cfg = C["G2"]
-    taus = np.concatenate([ID_GRID, L.local_grid(cfg)])
-    R = L.rhs_dirichlet(cfg, taus, 4, L.chi4, 1)
-    out["gates"]["G2_rhs_only"] = dict(config=cfg_json(cfg))
-    if chi_path:
-        zc = np.array([float(x) for x in open(chi_path).read().split()])
-        check = json.load(open(chi_path.replace(".txt", ".accuracy.json")))
-        delta = float(check["delta"])
-        e_rhs = R["err"]
-        parts = (L.eps_data_zero(cfg, zc, taus, delta), L.eps_float_zero(cfg, zc, taus),
-                 np.full(len(taus), L.eps_trunc(cfg, chi_density(cfg.E_hi) + 1)), e_rhs)
-        save("G2", taus, R["total"], parts, dict(config=cfg_json(cfg), n_levels=int(len(zc)), delta=delta))
-        eps = L.tolerance(*parts)
-        R1 = L.rhs_dirichlet(cfg, taus, 4, None, 1)
-        reach("G2", "RP10_chi_equiv_1", R1["prime"] - R["prime"], eps)
-        R0 = L.rhs_dirichlet(cfg, taus, 4, L.chi4, 0)
-        reach("G2", "RP11_wrong_parity_a0", R0["gamma"] - R["gamma"], eps)
+    for g2 in [k for k in ("G2", "G2s_a", "G2s_b") if k in C]:
+        g2_block(g2, C[g2], chi_path, save, reach, out)
 
     # ---- G4 pickets at G0's configuration (synthetic; Layer A tolerance is float + RHS only)
     cfg = C["G0"]
@@ -348,7 +374,8 @@ def design(outdir):
 if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "tables":
-        tables(*sys.argv[2:5], sys.argv[5] if len(sys.argv) > 5 else None)
+        args = [a for a in sys.argv[2:] if a != "--proposed"]
+        tables(*args[:3], args[3] if len(args) > 3 else None, proposed="--proposed" in sys.argv)
     elif mode == "nulls":
         nulls(sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]))
     elif mode == "design":

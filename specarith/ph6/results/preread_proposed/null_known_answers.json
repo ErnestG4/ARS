@@ -1,0 +1,68 @@
+{
+ "G0_gue": {
+  "literal_ratio_median": 1.362110336851349,
+  "literal_n_outside_20pct": 79,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.9630378875256598,
+  "ls_ratio_min": 0.7716886012356775,
+  "ls_ratio_max": 1.3064922681493467,
+  "ls_n_outside_20pct": 2,
+  "rtilde_mean": 0.5998995510495996,
+  "rtilde_frac_draws_in_arsrh_band": 1.0
+ },
+ "G0_poisson": {
+  "literal_ratio_median": 1.4022434331516171,
+  "literal_n_outside_20pct": 82,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.991811723203078,
+  "ls_ratio_min": 0.7957002929949524,
+  "ls_ratio_max": 1.298957110741324,
+  "ls_n_outside_20pct": 2,
+  "rtilde_mean": 0.38627656805757077,
+  "rtilde_frac_draws_in_arsrh_band": null
+ },
+ "G0c_gue": {
+  "literal_ratio_median": 1.4137947011378809,
+  "literal_n_outside_20pct": 86,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.9995233923107386,
+  "ls_ratio_min": 0.8090737731717619,
+  "ls_ratio_max": 1.3300659730307682,
+  "ls_n_outside_20pct": 2,
+  "rtilde_mean": 0.5998432637103174,
+  "rtilde_frac_draws_in_arsrh_band": 1.0
+ },
+ "G0c_poisson": {
+  "literal_ratio_median": 1.4103157907286208,
+  "literal_n_outside_20pct": 83,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.9975213301725041,
+  "ls_ratio_min": 0.7984834476771886,
+  "ls_ratio_max": 1.2146755909464295,
+  "ls_n_outside_20pct": 3,
+  "rtilde_mean": 0.386610008018731,
+  "rtilde_frac_draws_in_arsrh_band": null
+ },
+ "G2_gue": {
+  "literal_ratio_median": 1.2239769167440875,
+  "literal_n_outside_20pct": 51,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 1.0141458970617505,
+  "ls_ratio_min": 0.7677337491055153,
+  "ls_ratio_max": 1.20085766662349,
+  "ls_n_outside_20pct": 3,
+  "rtilde_mean": 0.59954167565817,
+  "rtilde_frac_draws_in_arsrh_band": 1.0
+ },
+ "G2_poisson": {
+  "literal_ratio_median": 1.409448741788854,
+  "literal_n_outside_20pct": 83,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.9969080634010921,
+  "ls_ratio_min": 0.7871165360070864,
+  "ls_ratio_max": 1.318700841698155,
+  "ls_n_outside_20pct": 4,
+  "rtilde_mean": 0.38636121301826326,
+  "rtilde_frac_draws_in_arsrh_band": null
+ }
+}

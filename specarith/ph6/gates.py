@@ -106,6 +106,8 @@ def zeta_like_gate(name, cfg, zeros, pre, reach, q=1, chi=None, a=0, delta=3e-9,
         dg = np.array([L.trapezoid_integral(np.exp(1j * t * u) * f, u) for t in taus]) / (2 * math.pi)
         res["red_paths"].append(red_path("RP15_asymptotic_psi", lhs, rhs - dg, eps, st("RP15_asymptotic_psi")))
         res["red_paths"].append(red_path("RP16_drop_mirror", S, rhs, eps, st("RP16_drop_mirror(upper bound)")))
+    if q == 4 and name.startswith("G2s"):                  # PROPOSED A6
+        res["red_paths"].append(red_path("RP13_drop_gamma", lhs, rhs - R["gamma"], eps, st("RP13_drop_gamma")))
     if q == 4:
         R1 = L.rhs_dirichlet(cfg, taus, 4, None, 1)
         res["red_paths"].append(red_path("RP10_chi_equiv_1", lhs, R1["total"], eps, st("RP10_chi_equiv_1")))
@@ -149,7 +151,7 @@ def zeta_like_gate(name, cfg, zeros, pre, reach, q=1, chi=None, a=0, delta=3e-9,
     return res
 
 
-def maass_gate(cfg, r_even, r_odd, pre_even, pre_odd, reach, classdata):
+def maass_gate(cfg, r_even, r_odd, pre_even, pre_odd, reach, classdata, name="G1"):
     ch, cg = classdata
     out = {}
     taus = pre_even["taus"]
@@ -163,13 +165,13 @@ def maass_gate(cfg, r_even, r_odd, pre_even, pre_odd, reach, classdata):
         Rs = L.rhs_selberg(cfg, taus, sector, ch, cg, integrals=I)
         eps = pre[sector]["eps"]
         assert np.max(np.abs(Rs["total"] - pre[sector]["rhs"]) / eps) <= 1e-3, "RHS differs from the pre-read"
-        st = lambda rp: reach.status(f"G1_{sector}:{rp}")
-        res = dict(gate=f"G1_{sector}", layer_a=layer_a(lhs[sector], pre[sector]["rhs"], eps, taus), red_paths=[])
+        st = lambda rp: reach.status(f"{name}_{sector}:{rp}")
+        res = dict(gate=f"{name}_{sector}", layer_a=layer_a(lhs[sector], pre[sector]["rhs"], eps, taus), red_paths=[])
         res["red_paths"].append(red_path("RP5_elliptic_x2", lhs[sector], Rs["total"] + Rs["elliptic"], eps,
                                          st("RP5_elliptic_x2")))
         res["red_paths"].append(red_path("RP6_drop_R", lhs[sector], Rs["total"] - Rs["glide"], eps, st("RP6_drop_R")))
         res["red_paths"].append(red_path("RP7_swap_parity", swapped[sector], Rs["total"], eps,
-                                         reach.status("G1:RP7_swap_parity")))
+                                         reach.status(f"{name}:RP7_swap_parity")))
         if sector == "even":
             res["red_paths"].append(red_path("RP8_drop_scattering", lhs[sector],
                                              Rs["total"] - Rs["prime"] + 2 * I["psi_one"][0] / (4 * math.pi), eps,
@@ -278,9 +280,15 @@ def main_run(pre_dir, outdir, zeros1_path, maass_path, chi_path):
         results["gates"][s] = zeta_like_gate(s, C[s], z, pre(s), reach)
     results["gates"]["G0c"] = zeta_like_gate("G0c", C["G0c"], z[:30000], pre("G0c"), reach, band=band("G0c", "gue"))
     results["gates"]["G1"] = maass_gate(C["G1"], rE, rO, pre("G1_even"), pre("G1_odd"), reach, (ch, cg))
+    for g1 in ("G1s_a", "G1s_b"):                                    # PROPOSED A1 (present only if sealed)
+        if g1 in C:
+            results["gates"][g1] = maass_gate(C[g1], rE, rO, pre(f"{g1}_even"), pre(f"{g1}_odd"), reach, (ch, cg), g1)
     delta = json.load(open(chi_path.replace(".txt", ".accuracy.json")))["delta"]
     results["gates"]["G2"] = zeta_like_gate("G2", C["G2"], zc, pre("G2"), reach, q=4, chi=L.chi4, a=1, delta=delta,
                                             band=band("G2", "gue"))
+    for g2 in ("G2s_a", "G2s_b"):                                    # PROPOSED A6 (present only if sealed)
+        if g2 in C:
+            results["gates"][g2] = zeta_like_gate(g2, C[g2], zc, pre(g2), reach, q=4, chi=L.chi4, a=1, delta=delta)
     results["gates"]["G3"] = null_gate("G3", C["G0"], "zeta", {k: band("G0", k) for k in ("gue", "poisson")})
     # seal §8 G3-c row: held-out GUE only; vs zeta weights T3 = FAIL (not NOT RESOLVABLE) in 100% (review v2 N5b)
     results["gates"]["G3c"] = null_gate("G3c", C["G0c"], "zeta", {k: band("G0c", k) for k in ("gue", "poisson")},

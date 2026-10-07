@@ -1,7 +1,8 @@
 """Write seals/PH6_SEAL_6.0.json (seal §0 procedure). Run ONLY after Will has decided the proposed amendments and the
 seal text carries them in its Amendments section; the seal commit is a separate, deliberate step.
 
-Usage:  python make_seal_json.py ZEROS1 MAASS_CSV CHI4_ZEROS [--decisions "A1=yes,A3=yes,..."]
+Usage:  python make_seal_json.py ZEROS1 MAASS_CSV CHI4_ZEROS --decisions "A1=yes,A3=yes,..." [--pre results/preread_proposed]
+        (default pre-read dir: results/preread = as sealed; results/preread_proposed = A1 + A6 + A4(b) applied)
 
 Pins (sha256): the seal text, the decisions file, every code file the gate run imports, the three data inputs, and every
 pre-read output the gate run reads (tables, rhs_*.npz, nulls_*.npz, design and known-answer JSON) — review v2 N9.
@@ -45,6 +46,9 @@ def sha(p):
 def main():
     zeros1, maass, chi4 = sys.argv[1:4]
     decisions = sys.argv[sys.argv.index("--decisions") + 1] if "--decisions" in sys.argv else None
+    global PRE
+    if "--pre" in sys.argv:
+        PRE = os.path.join(HERE, sys.argv[sys.argv.index("--pre") + 1])
     if decisions is None:
         raise SystemExit("refusing: pass --decisions with Will's answers to the proposed amendments")
     files = {}
