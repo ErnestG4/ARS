@@ -60,6 +60,7 @@ def main():
         other = "sum" if a.pa2 == "max" else "max"
         r["prim"] = dict(r["prim"], allowance=g0c[r["bin"]][f"allowance_{a.pa2}"],
                          NOT_RESOLVABLE=r["prim"][f"NOT_RESOLVABLE_{a.pa2}"],
+                         widened_halfwidth=r["prim"][f"widened_halfwidth_{a.pa2}"],
                          **{f"allowance_{other}_descriptive": g0c[r["bin"]][f"allowance_{other}"],
                             f"NOT_RESOLVABLE_{other}_descriptive": r["prim"][f"NOT_RESOLVABLE_{other}"]})
         r["sec"] = dict(r["sec"], NOT_RESOLVABLE=not r["sec"]["RESOLVABLE_at_floor"])

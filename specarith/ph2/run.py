@@ -153,6 +153,7 @@ def gates(name, synth_N=None):
         srow["prim"]["allowance_sum_descriptive"] = g0c["allowance_sum"]
         srow["prim"]["NOT_RESOLVABLE_sum_descriptive"] = srow["prim"]["NOT_RESOLVABLE_sum"]
         srow["sec"]["NOT_RESOLVABLE"] = not srow["sec"]["RESOLVABLE_at_floor"]
+        srow["prim"]["widened_halfwidth"] = srow["prim"]["widened_halfwidth_max"]
     else:
         srow = {r["bin"]: r for r in json.load(open(SEAL))["bins"]}[name]
     if not synth:
@@ -199,7 +200,15 @@ def gates(name, synth_N=None):
         # NOT RESOLVABLE is decided pre-data (seal JSON): PRIMARY by §4 (widened tolerance cannot exclude N = ∞ or
         # exceeds ±20%); SECONDARY by the same rule on its statistical CI (an interval reaching N = ∞ is no evidence)
         nr = srow[arm]["NOT_RESOLVABLE"]
-        a["G1"] = "NOT RESOLVABLE" if nr else ("PASS" if wlo <= 1 <= whi else "FAIL")
+        # A6(iii): achieved width — an interval that cannot exclude N = ∞ or is wider than ±20% is never PASS/FAIL
+        half = (whi - wlo) / 2 if math.isfinite(whi) else math.inf
+        pred = srow[arm]["widened_halfwidth"] if arm == "prim" else srow[arm]["ci_halfwidth"]
+        a["halfwidth"] = dict(predicted=pred, achieved=half)
+        nr_ach = bool(not a["power_excludes_inf"] or half > R.FLOOR)
+        a["not_resolvable_achieved"] = nr_ach
+        a["G1"] = ("NOT RESOLVABLE" if nr else "NOT RESOLVABLE (achieved)" if nr_ach
+                   else ("PASS" if wlo <= 1 <= whi else "FAIL"))
+        a["unresolved"] = bool(nr or nr_ach)
         out[arm] = a
     # §7 red paths
     sm = dg * np.log(mid / (R.TWO_PI * math.e)) / R.TWO_PI          # RP-misprint: local density log(E/2πe)/2π
@@ -211,9 +220,9 @@ def gates(name, synth_N=None):
         mis[arm] = dict(c=f["c"], kappa=k, inside_ci=bool(lo <= k <= hi))
     # each arm is scored only where it can fire (pre-data reachability); an unreachable arm is INAPPLICABLE
     mis["arm_mean"] = "FIRED" if not mis["mean_ok"] else "SILENT"
-    mis["arm_N_prim"] = ("INAPPLICABLE" if srow["prim"]["NOT_RESOLVABLE"]
+    mis["arm_N_prim"] = ("INAPPLICABLE" if out["prim"]["unresolved"]
                          else ("FIRED" if not mis["prim"]["inside_ci"] else "SILENT"))
-    mis["arm_N_sec"] = ("INAPPLICABLE" if srow["sec"]["NOT_RESOLVABLE"]
+    mis["arm_N_sec"] = ("INAPPLICABLE" if out["sec"]["unresolved"]
                         else ("FIRED" if not mis["sec"]["inside_ci"] else "SILENT"))
     live = [mis[k] for k in ("arm_mean", "arm_N_prim", "arm_N_sec") if mis[k] != "INAPPLICABLE"]
     mis["FAILS_as_required"] = bool(live and all(x == "FIRED" for x in live))
@@ -221,7 +230,7 @@ def gates(name, synth_N=None):
     fm = arm_fit(Ws, (1 + ab) / 2, s, Neff, boot=False)
     km = P.kappa_from_c(fm["c"])
     lo, hi = out["sec"]["kappa_ci_widened"]
-    reach_mix = bool(srow["rp_mix"]["reachable"] and not srow["sec"]["NOT_RESOLVABLE"])
+    reach_mix = bool(srow["rp_mix"]["reachable"] and not out["sec"]["unresolved"])
     out["rp_mix"] = dict(c=fm["c"], kappa=km, shift=km - out["sec"]["kappa"], outside_ci=bool(not (lo <= km <= hi)),
                          reachable=reach_mix,
                          status=("INAPPLICABLE" if not reach_mix
@@ -232,7 +241,7 @@ def gates(name, synth_N=None):
     ks = P.kappa_from_c(fs["c"])
     lo, hi = out["prim"]["kappa_ci"]
     out["rp_shuffle"] = dict(kappa=ks, inside_ci=bool(lo <= ks <= hi),
-                             status=("INAPPLICABLE" if srow["prim"]["NOT_RESOLVABLE"]
+                             status=("INAPPLICABLE" if out["prim"]["unresolved"]
                                      else ("UNCHANGED" if lo <= ks <= hi else "CHANGED")))
     out["rp_lambda"] = "INAPPLICABLE (unreachable, declared)"
     # ---- DESCRIPTIVE (never verdicts): A3's sum-based PRIMARY widening; A2's window sensitivity at 1.8 and 2.2

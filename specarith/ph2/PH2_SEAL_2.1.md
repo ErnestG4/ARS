@@ -145,3 +145,9 @@ for the residual) is a separate later item.
   analytic continuation; CUE_N itself is defined at integer N), cross-checked against the integer-N values (G0c).
 - **A5 = PA4 (Will):** beta.lmfdb.org serves a JavaScript human gate to scripted clients; the six Platt files were
   downloaded by hand by Will and verified against the md5s pinned in §3 (all six OK, 2026-10-07).
+- **A6 = PA5 + refinement (Will, 2026-10-07, seventh round):** (i) the SECONDARY uses §4's NOT RESOLVABLE rule on its
+  statistical CI (no allowance): NOT RESOLVABLE where it cannot exclude N = ∞ or is wider than ±20%, decided pre-data
+  from the predicted spread. (ii) Red-path checks that cannot fire in a bin read INAPPLICABLE. (iii) Post-data, any arm
+  whose ACHIEVED CI (PRIMARY: widened) cannot exclude N = ∞ or has half-width > 0.20 reads "NOT RESOLVABLE (achieved)"
+  — flagged, never PASS/FAIL — and its dependent red-path checks read INAPPLICABLE (achieved). Predicted and achieved
+  half-widths are reported per bin and arm.

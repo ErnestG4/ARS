@@ -122,3 +122,17 @@ specarith/ph2/data/platt/; verify with fetch_data.sh against pinned md5s.
 ```
 
 Status at filing: PA4 done (all six md5 OK, results/logs/fetch_data.log, commit "all six Platt files … verified").
+
+## Seventh round (Will, 2026-10-07 evening) — PA5 and the achieved-width refinement
+
+Filed verbatim:
+
+```
+PA5: ACCEPT as implemented — SECONDARY uses the same NOT RESOLVABLE rule
+(cannot exclude N=∞ or wider than ±20%), statistical CI only; red-path
+checks that cannot fire in a bin read INAPPLICABLE.
+Refinement: pre-data classification from predicted spread stands; post-data,
+any arm whose ACHIEVED CI cannot exclude N=∞ or exceeds ±20% reads
+"NOT RESOLVABLE (achieved)" — flagged, never PASS/FAIL. Report predicted
+and achieved widths per bin.
+```
