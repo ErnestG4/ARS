@@ -152,6 +152,7 @@ def gates(name, synth_N=None):
         srow["prim"]["NOT_RESOLVABLE"] = srow["prim"]["NOT_RESOLVABLE_max"]
         srow["prim"]["allowance_sum_descriptive"] = g0c["allowance_sum"]
         srow["prim"]["NOT_RESOLVABLE_sum_descriptive"] = srow["prim"]["NOT_RESOLVABLE_sum"]
+        srow["sec"]["NOT_RESOLVABLE"] = not srow["sec"]["RESOLVABLE_at_floor"]
     else:
         srow = {r["bin"]: r for r in json.load(open(SEAL))["bins"]}[name]
     if not synth:
@@ -195,7 +196,9 @@ def gates(name, synth_N=None):
         h = srow[arm]["h_bin"]
         a["pinned_h_bin"] = bool(math.isfinite(whi) and wlo >= 1 - h and whi <= 1 + h)
         a["pinned_floor"] = bool(math.isfinite(whi) and wlo >= 1 - R.FLOOR and whi <= 1 + R.FLOOR)
-        nr = arm == "prim" and srow["prim"].get("NOT_RESOLVABLE", False)
+        # NOT RESOLVABLE is decided pre-data (seal JSON): PRIMARY by §4 (widened tolerance cannot exclude N = ∞ or
+        # exceeds ±20%); SECONDARY by the same rule on its statistical CI (an interval reaching N = ∞ is no evidence)
+        nr = srow[arm]["NOT_RESOLVABLE"]
         a["G1"] = "NOT RESOLVABLE" if nr else ("PASS" if wlo <= 1 <= whi else "FAIL")
         out[arm] = a
     # §7 red paths
@@ -206,19 +209,31 @@ def gates(name, synth_N=None):
         lo, hi = out[arm]["kappa_ci_widened"]
         k = P.kappa_from_c(f["c"])
         mis[arm] = dict(c=f["c"], kappa=k, inside_ci=bool(lo <= k <= hi))
-    mis["FAILS_as_required"] = bool(not mis["mean_ok"] and not mis["prim"]["inside_ci"])
+    # each arm is scored only where it can fire (pre-data reachability); an unreachable arm is INAPPLICABLE
+    mis["arm_mean"] = "FIRED" if not mis["mean_ok"] else "SILENT"
+    mis["arm_N_prim"] = ("INAPPLICABLE" if srow["prim"]["NOT_RESOLVABLE"]
+                         else ("FIRED" if not mis["prim"]["inside_ci"] else "SILENT"))
+    mis["arm_N_sec"] = ("INAPPLICABLE" if srow["sec"]["NOT_RESOLVABLE"]
+                        else ("FIRED" if not mis["sec"]["inside_ci"] else "SILENT"))
+    live = [mis[k] for k in ("arm_mean", "arm_N_prim", "arm_N_sec") if mis[k] != "INAPPLICABLE"]
+    mis["FAILS_as_required"] = bool(live and all(x == "FIRED" for x in live))
     out["rp_misprint"] = mis
     fm = arm_fit(Ws, (1 + ab) / 2, s, Neff, boot=False)
     km = P.kappa_from_c(fm["c"])
     lo, hi = out["sec"]["kappa_ci_widened"]
+    reach_mix = bool(srow["rp_mix"]["reachable"] and not srow["sec"]["NOT_RESOLVABLE"])
     out["rp_mix"] = dict(c=fm["c"], kappa=km, shift=km - out["sec"]["kappa"], outside_ci=bool(not (lo <= km <= hi)),
-                         reachable=srow["rp_mix"]["reachable"])
+                         reachable=reach_mix,
+                         status=("INAPPLICABLE" if not reach_mix
+                                 else ("DISTINGUISHED" if not (lo <= km <= hi) else "NOT DISTINGUISHED")))
     out["rp_ninf"] = dict(prim=out["prim"]["power_excludes_inf"], sec=out["sec"]["power_excludes_inf"])
     idx = rng.integers(0, n, n)                                       # RP-shuffle: i.i.d. (s, N_eff) pairs
     fs = arm_fit(Wp, None, s[idx], Neff[idx], boot=False)
     ks = P.kappa_from_c(fs["c"])
     lo, hi = out["prim"]["kappa_ci"]
-    out["rp_shuffle"] = dict(kappa=ks, inside_ci=bool(lo <= ks <= hi))
+    out["rp_shuffle"] = dict(kappa=ks, inside_ci=bool(lo <= ks <= hi),
+                             status=("INAPPLICABLE" if srow["prim"]["NOT_RESOLVABLE"]
+                                     else ("UNCHANGED" if lo <= ks <= hi else "CHANGED")))
     out["rp_lambda"] = "INAPPLICABLE (unreachable, declared)"
     # ---- DESCRIPTIVE (never verdicts): A3's sum-based PRIMARY widening; A2's window sensitivity at 1.8 and 2.2
     p = out["prim"]
@@ -244,7 +259,8 @@ def gates(name, synth_N=None):
     print(json.dumps({k: out[k] for k in ("bin", "n", "mean_spacing")}, default=float),
           "prim", out["prim"]["G1"], round(out["prim"]["kappa"], 4), [round(x, 4) for x in out["prim"]["kappa_ci_widened"]],
           "sec", out["sec"]["G1"], round(out["sec"]["kappa"], 4), [round(x, 4) for x in out["sec"]["kappa_ci_widened"]],
-          "misprint FAILS", mis["FAILS_as_required"], "mix outside", out["rp_mix"]["outside_ci"], flush=True)
+          "misprint FAILS", mis["FAILS_as_required"], (mis["arm_mean"], mis["arm_N_prim"], mis["arm_N_sec"]),
+          "mix", out["rp_mix"]["status"], "shuffle", out["rp_shuffle"]["status"], flush=True)
 
 
 if __name__ == "__main__":

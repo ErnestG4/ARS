@@ -389,7 +389,7 @@ FLOOR = 0.20                 # §4 resolution floor (±20%)
 MEAN_SPACING_BAND = 10.0     # §2 check: |mean spacing − 1| ≤ MEAN_SPACING_BAND / n (|S(t)| ≤ 4 at both ends, +1)
 
 
-def summary():
+def summary(only=None):
     """Per-bin pre-data decisions (§3–§7) from g0c.json, g0d/*.json, reach.json, geometry.json:
     SD_pred(κ̂) per arm = the G0d CUE-calibrated SD interpolated (log-linear in N) to the bin's median N_eff, times
     max(1, widest-bootstrap/CUE ratio) — the 'wider of' rule of §6 as it will apply; h_bin = min(3·SD_pred, 0.20);
@@ -400,7 +400,7 @@ def summary():
     reach_ = {r["bin"]: r for r in json.load(open(os.path.join(RES, "reach.json")))["rows"]}
     geo = {r["bin"]: r for r in json.load(open(os.path.join(RES, "geometry.json")))["bins"]}
     rows = []
-    for name, *_ in BINS:
+    for name in (only or [b[0] for b in BINS]):
         Nm = geo[name]["Neff"][1]
         cfg = [json.load(open(os.path.join(RES, "g0d", f"{name}_N{N}.json"))) for b, N in g0d_configs() if b == name]
         r = dict(bin=name, N_eff=Nm, n=geo[name]["n_spacings"], mean_spacing_band=MEAN_SPACING_BAND / geo[name]["n_spacings"])
@@ -501,4 +501,4 @@ if __name__ == "__main__":
             for r0 in range(0, 200, CHUNK):
                 print(b, nn, r0, r0 + CHUNK)
     else:
-        {"g0a": g0a, "g0b": g0b, "g0c": g0c, "geometry": geometry, "g0d_chain": g0d_chain, "reach": reach, "summary": summary}[cmd]()
+        {"g0a": g0a, "g0b": g0b, "g0c": g0c, "geometry": geometry, "g0d_chain": g0d_chain, "reach": reach, "summary": lambda: summary(sys.argv[2].split(",") if len(sys.argv) > 2 else None)}[cmd]()

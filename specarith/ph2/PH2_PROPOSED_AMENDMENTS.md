@@ -100,3 +100,12 @@ verifies them against the md5s pinned in §3 (verify-only now). Nothing else cha
   bootstrap/CUE SD ratio); red path "reachable" ⇔ |κ* shift| > 1.96·SD_pred; mean-spacing band |mean − 1| ≤ 10/n
   (|S(t)| ≤ 4 at both ends + 1). The moving-block bootstrap is solved exactly by a Taylor series of the score (equal to
   weighted refits to 1e-12 with the same block starts; uncertified replicates refitted exactly).
+
+## PA5 — found in the dry run (clarification; for Will)
+§4 defines NOT RESOLVABLE only for the PRIMARY (widened tolerance cannot exclude N = ∞ or exceeds ±20%). The SECONDARY
+is "statistical CI only — the sharp test", but in a bin where its CI cannot exclude N = ∞ (the H bins: κ̂ SD ≈ 30% at
+10⁴ zeros) G1 would read PASS on an interval [0.62, ∞] — no evidence scored as a verdict. **Proposal:** the same rule,
+decided pre-data from the pre-read, on the SECONDARY's statistical CI (no allowance): NOT RESOLVABLE where it cannot
+exclude N = ∞ or is wider than ±20%. And the red paths score only arms that can fire (pre-data): RP-misprint's κ̂ arms
+are INAPPLICABLE in NOT RESOLVABLE bins (its mean-spacing arm fires everywhere); RP-mix and RP-shuffle are INAPPLICABLE
+there too. Implemented in run.py (dry run on H1: misprint FAILS via the mean arm; κ̂ arms, mix, shuffle INAPPLICABLE).
