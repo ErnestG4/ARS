@@ -132,3 +132,16 @@ for the residual) is a separate later item.
 - **A1 (Will, 2026-10-07, at approval):** CI robustness by a moving-block bootstrap of each bin's spacings (L_b ∈ {10, 30,
   100} × ⌈N_eff⌉); G1 uses the wider of the CUE-calibrated and bootstrap CIs; G0d validates bootstrap coverage on CUE
   surrogates. Written into §5 (G0d) and §6.
+- **A2 = PA1 (Will, 2026-10-07, sixth round):** κ̂ (§4, both arms, every bin) is the conditional maximum-likelihood
+  estimate on the window s ≤ S_C = 2.0, the model normalised over the window; the c-range is where the model is a
+  density on the whole window. Reason: the first-order family turns negative at s ≈ 2.2–3 at the sealed heights, and the
+  full-range MLE is pinned by the largest spacing (CUE known answer: κ̂ = 1.40 at true κ = 1). Windows 1.8 and 2.2 are
+  reported descriptively (sensitivity), never as verdicts.
+- **A3 = PA2 (Will):** §6 PRIMARY allowance = the **larger** of |δ_i| (exact CUE_N) and |δ_ii| (SECONDARY) at the bin's
+  lowest-N_eff edge. Rationale (Will): the two shifts measure the distance to two ALTERNATIVE references for the truth
+  (ζ = CUE(N_eff) vs ζ = BFM higher-order); only one can hold, so the allowance covers the larger, not their sum.
+  Sum-based PRIMARY verdicts for bins A and B are reported descriptively.
+- **A4 = PA3 (Will):** the allowance at a bin's real N_eff uses the BFM kernel sin(πd)/(N sin(πd/N)) at real N (its
+  analytic continuation; CUE_N itself is defined at integer N), cross-checked against the integer-N values (G0c).
+- **A5 = PA4 (Will):** beta.lmfdb.org serves a JavaScript human gate to scripted clients; the six Platt files were
+  downloaded by hand by Will and verified against the md5s pinned in §3 (all six OK, 2026-10-07).

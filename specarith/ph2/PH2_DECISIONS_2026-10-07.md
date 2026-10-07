@@ -102,3 +102,23 @@ correlation that the zero sequence does not share.
 κ = N/N_eff estimand: approved.
 Commit as PH2_SEAL text; proceed to code + pre-read.
 ```
+
+## Sixth round (Will, 2026-10-07 afternoon) — the pre-read's proposed amendments PA1–PA4
+
+Filed verbatim:
+
+```
+Phase 2 amendment decisions (Will):
+PA1 adopt: fit window s ≤ 2.0, model normalised over the window, every bin,
+both arms. Report windows 1.8 and 2.2 descriptively (sensitivity).
+PA2: allowance = MAX of the two shifts. Rationale for the seal: the
+exact-CUE_N shift and the secondary shift measure distance to two
+ALTERNATIVE references for the truth (ζ = CUE(N_eff) vs ζ = BFM higher-
+order); only one can hold, so the allowance must cover the larger, not
+their sum. Sum-based verdicts for bins A and B reported descriptively.
+PA3 adopt.
+PA4: Will downloads the six Platt files manually into
+specarith/ph2/data/platt/; verify with fetch_data.sh against pinned md5s.
+```
+
+Status at filing: PA4 done (all six md5 OK, results/logs/fetch_data.log, commit "all six Platt files … verified").
