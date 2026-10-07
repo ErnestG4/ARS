@@ -64,8 +64,17 @@ used the pointwise variance.
 1. G0-c: the sealed window holds empirically (24). Keep [22, 30] as sealed (proposed), or re-centre it on the corrected
    design (~21) — not needed now.
 2. G2 height: (a) keep T = 2·10⁴ and report SIGN at 9 as NOT RESOLVABLE (the other three named sign arms 3, 5, 7 are in R);
-   or (b) raise G2 to T = 4·10⁴ (review: 2B₉/|a₉| = 0.80 there, 9 ∈ R with ~20% margin). **χ₋₄ zeros on [20000, 40000]
-   are being computed overnight as a contingency**, so (b) costs no waiting.
+   or (b) raise G2 to T = 4·10⁴. **Both are ready (computed overnight, nothing sealed):**
+
+   | | T = 2·10⁴ (sealed) | T = 4·10⁴ (contingency, measured) |
+   |---|---|---|
+   | χ₋₄ zeros (divz 64, verified) | 26,903 | 58,220 |
+   | R (χ weights) | 15/28, **9 ∉ R** | **24/28, 9 ∈ R** (2B₉/\|a₉\| = 0.78, 22% headroom) |
+   | vs-ζ cross-reading, weakest M margin (n = 4) | 1.014 | 1.385 |
+   | null known answers (LS form) | pass | pass (median 1.01 / 1.00; ⟨r̃⟩ in band 100%) |
+
+   Recommendation: (b). It restores the log-9 arm Will chose T for, and it makes the G2 vs-ζ cross-reading robust (N6).
+   Cost: G2's gate run ~2× (minutes). Files: `results/preread_A4b/`, `data/chi4_zeros_T40000_p38.txt`.
 3. §6.2's design values are replaced by the empirical ones in the seal JSON (they come from the sealed band rule).
 
 ## A5. Null known answer (review M1) — FAILS as sealed, for reasons that are not about the nulls

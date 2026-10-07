@@ -276,6 +276,8 @@ def known_answers(outdir):
     tab = json.load(open(os.path.join(outdir, "preread_tables.json")))
     res = {}
     for name in ("G0", "G0c", "G2"):
+        if name not in tab["configs"]:
+            continue
         cfg = L.Config(**tab["configs"][name])
         target = "chi" if name == "G2" else "zeta"
         q = 4 if target == "chi" else 1
