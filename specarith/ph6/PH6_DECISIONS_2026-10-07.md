@@ -66,3 +66,19 @@ The next steps CC listed are right: fetch and file the primary sources (includin
 Filing note (CC): the "Filing notes" question above (exact bar for G1/G2) is answered YES here. The programme brief
 Will later copied into the ph6-xp worktree root (`cc-brief-ars-spectral-arithmetic-v1.md`, also in Downloads, 00:55) is byte-identical to the
 copy filed from the paste (sha256 aa460691…8188); the duplicate at the worktree root was removed.
+
+## Third round (Will, 2026-10-07) — G1 window and seal notes
+
+Filed verbatim:
+
+```
+Go with (a). Keep G1's window inside r ≤ 98.76 and declare the truncation bound there. Resolution barely changes, and fetching 17 forms through LMFDB's captcha, with a column-corrupting summariser in the path, isn't worth the risk. Correcting "complete below 100" to "nothing missing below 98.765" was the right fix: that's what the evidence actually supports.
+
+Three notes for the seal:
+
+The exact bar will check the elliptic weights itself. Both sources for the 1/8 and 1/(3√3) weights come from Booker's group, so they're two derivations but not fully independent. That's fine, because G1 is an exact identity: a wrong weight can't hide, it makes G1 fail. Write the failure ladder so that if G1 fails, the first thing checked is each term's weight against Booker–Strömbergsson eq. (2.39), before anything else. Add Iwaniec or Hejhal as a third source later, if one becomes reachable.
+G1b is the cleanest gate in the battery. With the whole continuous-spectrum term in the even sector, the even-minus-odd difference has no scattering term at all: just reflection orbits with lengths 2·arcsinh(t/2) and a sign. Together with the Mayer cross-check and Booker–Lee's agreement to 2×10⁻³², it's well anchored.
+The pilots are fine as disclosed. They checked an identity that can't be tuned, on small subsets, without the gate statistic, so they can't have biased the gates. Disclosing them in the seal is the right level of caution.
+
+The even-pair Gaussian times cos(τr) is the right form for G1, and it's worth the seal saying explicitly why G0 and G1 use different-looking statistics, so nobody later reads that as an inconsistency.
+```
