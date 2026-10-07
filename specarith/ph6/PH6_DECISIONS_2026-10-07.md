@@ -82,3 +82,47 @@ The pilots are fine as disclosed. They checked an identity that can't be tuned, 
 
 The even-pair Gaussian times cos(τr) is the right form for G1, and it's worth the seal saying explicitly why G0 and G1 use different-looking statistics, so nobody later reads that as an inconsistency.
 ```
+
+## Fourth round (Will, 2026-10-07) — review of PH6_SEAL_6.0_DRAFT v0
+
+Filed verbatim:
+
+```
+This draft is very good, and the §0 correction is right. I repeated the "G1b is scattering-free" claim without checking it. The continuous-spectrum term lives entirely in the even sector, so it survives into even − odd, and the clean object is the odd sector alone. Gating each sector separately is the right response.
+
+Answers to §12:
+
+G2 height: 2×10⁴. Two hours of PARI is cheap, and it keeps all four sign arms, including log 9.
+Candidates: ≥ 3×10⁴ levels, NOT RESOLVABLE otherwise. Validate those numbers per addition 2 below.
+G1: gate per sector; G1a and G1b reported as implied.
+α = 0.01, K_edge = 8.5, safety factor 2: accept.
+CUE left out of G3: accept. Keep it separate from Phase 2's finite-size CUE(N_eff), which is a different question and stays with T2.
+The GUE band for T3: accept.
+Two additions before sealing, both about covering the configurations candidates will actually be in:
+
+A small-window ζ identity gate (G0-s). At G0's and G2's window widths, the smooth Γ/θ term is below 10⁻³⁰⁰ for τ ≥ 0.5, so neither gate ever exercises it. Candidates with around 3×10⁴ levels, rescaled through T1, may land in the small-σ regime where Sm actually matters. Add a sub-gate running the ζ identity with a small window, for example on the low zeros at a σ comparable to the pilot's, so the smooth-term machinery is tested exactly before any candidate's readout depends on it.
+A real-zero positive control at candidate size. The G3 positive control plants lines directly in r(τ), which tests the readout's linearity but not a real spectrum. Promote one slice of 3×10⁴ consecutive real zeros (from zeros6, or a block of zeros1), run at the candidate configuration rule, to a gate:
+T3 must read PASS;
+R must contain M;
+R must match the design table's ~26/34.
+That checks the Q2 numbers empirically on actual arithmetic data, at exactly the size candidates will be judged at.
+Everything else reads right:
+
+the raw-γ statistic, with S ≠ F stated;
+the corrected boundary condition;
+the λ = log 2 confusable with its WEIGHT/SIGN attribution;
+the triple class enumeration as G1-pre;
+the red paths;
+the failure ladder;
+the disclosed pilots.
+With those two additions, it's ready to commit as PH6_SEAL_6.0.md.
+```
+
+CC notes on the two additions (written into the seal, §8a/§8b):
+- G0-s: under the §3 configuration rule a ≥ 3·10⁴-level candidate has σ ≈ 1515 (ζ scale), where Sm ≈ 2πρ̄·e^{−σ²τ²/2}
+  is negligible; Sm is visible only for σ ≲ 15 (~100-level spectra). G0-s is kept as the only exact test of the
+  smooth/pole/θ machinery (the code path), not as a candidate-configuration test.
+- G0-c: on real zeros the readout is exact (c_n = a_n by the explicit formula at any size), so G0-c tests that the T3
+  rule does not reject the truth at candidate size; R depends only on the band (the null draws), so "R ≈ 26/34" is a
+  check of the band against the design theory. Power at candidate size is added as G3-c (GUE nulls at G0-c's
+  configuration read against ζ weights must FAIL).
