@@ -130,3 +130,4 @@ Overnight log:
 - 06:51 check-in: idle; nothing running; awaiting Will.
 - 07:11 check-in: idle; nothing running; awaiting Will.
 - 07:31 check-in: idle; nothing running; awaiting Will.
+- 07:38 WILL'S DECISIONS applied (A1, A3, A4(b), A5 analytic Gamma band [0.6592, 1.4334] with disclosure, A6, A7–A10, A12; A11 not adopted: RP3 reach 2.06/2.39 > 1); pgrep/pkill -f pre-commit hook added (tested); G3 parallelised (verified identical on non-sealed seeds). SEALED: 9c75507, tag ph6-seal-6.0 (local), parent 3436128; 35 files + 5 data inputs pinned; env = local WSL venv (numpy 2.4.4) so the gate run executes locally. Gate run started 07:38 (PID 209502, PH6_NPROC=10). Overnight crons cancelled (Will is back).
