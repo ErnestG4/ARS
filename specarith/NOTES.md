@@ -52,3 +52,29 @@ Tables are labelled by zero NUMBER, not height (upstream headers, read 2026-10-0
 - `zeros5`: # 10²²+1 … 10²²+10⁴, γ ≈ 1.371·10²¹; same accuracy statement.
 The brief's "around 10¹², 10²¹, 10²², 10²³" mixes index labels; in height the tables sit at ≈10^11.4, 10^20.2,
 10^21.1. N_eff = log(E/2π)/√(12Λ) needs heights E. Files are stored as offsets from a base value given in the header.
+
+## Overnight 2026-10-07 (Will 02:00: "run this as an overnight with a timer for yourself every 20 minutes until 8am. Use your best judgment and a review agent to navigate the work.")
+
+**Scope = the seal's remaining pre-seal steps (PH6_SEAL_6.0.md status line, §9, §11), and nothing past the seal commit.**
+The approved seal text says the red-path reachability result "is reported to Will before the seal commit", so the
+seal commit and every gate run wait for Will in the morning. No gate statistic (S(τ) / C(τ) / c_n on G0, G0-s, G0-c,
+G1, G2 data) is computed overnight; null draws, bands, tolerances and RHS-only quantities are pre-read and allowed.
+
+Work list (mark each with time + commit):
+1. χ₋₄ zeros, T ≤ 2·10⁴, realprecision 38, 128-bit via GP strings (cypari2 library calls are 64-bit — found 02:00);
+   plus the realprecision-57 check on [0,1000] and [19000,20000]. On spot, tmux `claude`, out ~/tmp/claude/specarith/.
+2. G1-pre: three class enumerations (reduced cycles; Mayer/Efrat CF cycles; PARI narrow class numbers) to t = 30.
+3. Code: specarith/ph6/ primespec.py (statistics, readout), known_answers.py (RHS: ζ/χ, Selberg per sector, picket),
+   nulls.py (GUE tridiagonal + Poisson, N̄⁻¹ map), bounds.py (ε(τ)), gates.py (verdicts, red paths; refuses to run
+   without the seal JSON), verify_ph6.py (synthetic known answers + red paths on synthetic data only).
+4. Independent REVIEW AGENT on the code vs the seal text (formulas, conventions, verdict rules) before any pre-read
+   output is used; fix what it finds; second pass if needed.
+5. Pre-read on spot: ε(τ) tables, null draws + bands at G0 / G0-c / G2 configurations, null known answers, red-path
+   reachability table, design table → seals/PH6_SEAL_6.0.json (draft, uncommitted until Will).
+6. Dry run on the disclosed pilot scale (T₀ = 60, σ = 6) through the full gates.py path.
+7. Side (no data reading): programme Phase 2 literature fetch (BBLM 2006 N_eff and Λ; Bogomolny–Keating 1995–96)
+   into specarith/ph2/lit/.
+Morning: report to Will — reachability table, anything the review agent found, what is ready to seal.
+
+Overnight log:
+- 02:05 plan written; cron check-ins every 20 min to 07:47, morning report 07:57.
