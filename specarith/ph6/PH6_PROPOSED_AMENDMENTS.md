@@ -119,6 +119,22 @@ place of t²−4; RP7 reads each sector's identity on the other sector's levels 
 it); RP12 multiplies the picket sum by e^{τ/2} (eigenvalues E_n − i/2); null construction constants (t_min = 7, upper
 margin 1.02·E_hi + 50, central 80%, n_mat = ⌈n/0.8⌉ + 10, seeds 1000–1199 / 2000–2199, held-out 1100–1199 / 2100–2199).
 
+## A12. From the second review (REVIEW_code_v2.md) — wording and interpretations
+
+1. **|τ| in §5.1.** §4's local grids reach τ < 0.5 (even τ < 0 at G0-s σ = 3, 4); the identity holds there, so those
+   points stay on G0-s's grid, and every bound uses |τ| (the sealed ε_data wrote "τ·w"). Code: fixed; ε > 0 asserted.
+2. **A3 addendum.** A cross-reading that comes out NOT RESOLVABLE does **not** satisfy a "required FAIL". Margins are
+   reported by `design()`: G2's vs-ζ cross-reading rests on 4 ∈ R_ζ with |a₄|/2B₄ = 1.014 — safe with the sealed seeds,
+   fragile under any band change (e.g. A4(b)); recomputed if A4(b) is chosen.
+3. **A9 additions (code follows the sealed rows):** G0-c's Layer B is "vs ζ PASS; M ⊆ R; |R| ∈ [22, 30]" — the χ₋₄ reading
+   is RP17 (a red path), not part of Layer B. G3-c uses held-out GUE only and counts only FAIL (not NOT RESOLVABLE) as a
+   rejection, per its row. g2_layer_b's handling of a named sign arm outside R is A4 option (a), marked PROPOSED.
+4. **Pre-read outputs are sealed inputs.** The seal JSON pins the pre-read tables, every `rhs_*.npz` and every
+   `nulls_*.npz`, not only code (gates.check_seal checks exactly what the JSON lists).
+5. **χ₋₄ completeness.** The v1 run missed close zero pairs (see A8 / NOTES 03:15); the |N − N̄| < 2 count check alone
+   cannot see a single missed zero, so v2 adds the Turing-style S-block check (block means of (k − ½) − N̄(γ_k) within
+   ±0.6). Recipe text: chi4_zeros_v2.py (divz 64).
+
 ## A11. Optional: RP3 at 1000δ (review m13)
 
 RP3 (data shifted by 100δ) is reachable but only ~2× (structurally, independent of σ). 1000δ would make it a clear test
