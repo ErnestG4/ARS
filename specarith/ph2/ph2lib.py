@@ -140,6 +140,10 @@ def cue_spacings(N, n_mat, rng):
     return d * N / (2 * math.pi)
 
 
+SECONDARY_ABAR_GRID = np.round(np.arange(1.0, 1.3401, 0.0025), 6)   # covers ᾱ of every sealed bin (1.063–1.313);
+# linear interpolation in ᾱ reproduces direct tables to 2e-6 absolute (|r2| ≤ 0.46) — checked in the pre-read
+
+
 # ============================================================ 4. model tables and the κ estimator
 class Model:
     """p(s; u, ᾱ) = p0(s) + u_k · r2(s; ᾱ_k) with u_k = 1/(κ² N_eff,k²). PRIMARY: ᾱ = 1 (r2 = BFM 1.13);
@@ -160,12 +164,16 @@ class Model:
         ab = np.clip(np.asarray(abar, dtype=float), g[0], g[-1])
         j = np.clip(np.searchsorted(g, ab) - 1, 0, len(g) - 2)
         f = (ab - g[j]) / (g[j + 1] - g[j])
-        R = np.stack([r(s) for r in self.r2s])
-        idx = np.arange(len(s))
-        return p0, (1 - f) * R[j, idx] + f * R[j + 1, idx]
+        out = np.empty_like(s)
+        for jj in np.unique(j):                         # only the grid nodes in use (a bin spans a narrow ᾱ range)
+            m = j == jj
+            out[m] = (1 - f[m]) * self.r2s[jj](s[m]) + f[m] * self.r2s[jj + 1](s[m])
+        return p0, out
 
 
 S_C = 2.0          # fit window s ≤ S_C (proposed amendment PA1): the first-order family p0 + c·r2/N² is a density there
+S_TINY = 0.005     # below it p0 and r2 are evaluated at S_TINY (ratio r2/p0 is −1.000 ± 3e-4 there and flat; the tables'
+                   # absolute noise would otherwise dominate p0 ~ s² below ~1e-4; P(s < S_TINY) ≈ 4e-8 per spacing)
 S_BRACKET = 0.05   # positivity is checked on [S_BRACKET, S_C]; below it r2/p0 → −1/N²-type finite limits (no constraint
                    # tighter than c < N²) and the Chebyshev tables' absolute noise (~1e-12) would dominate the ratio
 
@@ -200,7 +208,14 @@ class WindowFit:
 
     def c_range(self, Neff_min, abars=None):
         """(lo, hi): c-range where p0 + c r2(ᾱ)/N² > 0 on [S_BRACKET, sc] for N ≥ Neff_min and every ᾱ node in use."""
-        rows = range(len(self.model.abar_grid)) if abars is not None and len(self.model.abar_grid) > 1 else [0]
+        g = self.model.abar_grid
+        if abars is None or len(g) == 1:
+            rows = [0]
+        else:                                           # the grid nodes bracketing the ᾱ values in use
+            a0, a1 = float(np.min(abars)), float(np.max(abars))
+            j0 = max(int(np.searchsorted(g, a0, side="right")) - 1, 0)
+            j1 = min(int(np.searchsorted(g, a1, side="left")), len(g) - 1)
+            rows = range(j0, j1 + 1)
         hi, lo = math.inf, -math.inf
         for j in rows:
             rho = self._r2b[j] / self._p0b              # a/p0 = rho/N²; positivity: 1 + c·rho/N² > 0
@@ -217,25 +232,27 @@ class WindowFit:
         s = np.asarray(s, dtype=float)
         Neff = np.broadcast_to(np.asarray(Neff, dtype=float), s.shape)
         inw = s <= self.sc
-        p0, r2 = self.model.eval(s[inw], None if abar is None else np.broadcast_to(abar, s.shape)[inw])
+        p0, r2 = self.model.eval(np.maximum(s[inw], S_TINY), None if abar is None else np.broadcast_to(abar, s.shape)[inw])
         n2 = Neff[inw] ** 2
         Fr = self._Fr_at(None if abar is None else np.broadcast_to(abar, s.shape)[inw])
         rho = r2 / n2 / p0                        # a_k/p0_k
         phi = Fr / n2 / self.F0                   # Fa_k/F0
-        out = dict(inw=inw, rho=np.zeros(s.shape), phi=np.zeros(s.shape), Nmin=float(np.min(Neff)))
+        out = dict(inw=inw, s=s, Neff=np.asarray(Neff), rho=np.zeros(s.shape), phi=np.zeros(s.shape), Nmin=float(np.min(Neff)),
+                   abars=None if abar is None else (float(np.min(abar)), float(np.max(abar))))
         out["rho"][inw] = rho
         out["phi"][inw] = phi
         return out
 
-    def fit(self, prep, idx=None, lo=None, hi=None):
-        """ĉ by bisection on the score Σ_k [ρ_k/(1 + cρ_k) − φ_k/(1 + cφ_k)] (ρ = a/p0, φ = Fa/F0) inside the
-        positivity range. Returns (ĉ, flag) with flag ∈ {'interior', 'at_lo', 'at_hi'}."""
+    def fit(self, prep, weights=None, lo=None, hi=None, tol=1e-12):
+        """ĉ maximising ℓ: root of the score S(c) = Σ_k w_k [ρ_k/(1 + cρ_k) − φ_k/(1 + cφ_k)] (ρ = a/p0, φ = Fa/F0) inside
+        the positivity range, by Newton safeguarded with bisection (the bracket is kept by the sign of S). weights =
+        per-spacing multiplicities (moving-block bootstrap); None = 1. Returns (ĉ, flag), flag ∈ {interior, at_lo, at_hi}."""
         inw, rho, phi = prep["inw"], prep["rho"], prep["phi"]
-        if idx is not None:
-            inw, rho, phi = inw[idx], rho[idx], phi[idx]
-        rho, phi = rho[inw], phi[inw]
+        w = inw.astype(float) if weights is None else np.where(inw, weights, 0.0)
+        keep = w > 0
+        w, rho, phi = w[keep], rho[keep], phi[keep]
         if lo is None or hi is None:
-            l0, h0 = self.c_range(prep["Nmin"], abars=None)
+            l0, h0 = self.c_range(prep["Nmin"], abars=prep.get("abars"))
             lo = l0 if lo is None else lo
             hi = h0 if hi is None else hi
         # the model range is computed on a grid; a spacing between grid nodes can sit a hair outside it
@@ -243,36 +260,87 @@ class WindowFit:
             lo = max(lo, float(np.max(-1 / rho[rho > 0])) * (1 - 1e-9))
         if (rho < 0).any():
             hi = min(hi, float(np.min(-1 / rho[rho < 0])) * (1 - 1e-9))
-        score = lambda c: float(np.sum(rho / (1 + c * rho)) - np.sum(phi / (1 + c * phi)))
-        if score(lo) <= 0:
+
+        def sd(c):
+            q, f = rho / (1 + c * rho), phi / (1 + c * phi)
+            return float(np.sum(w * (q - f))), float(np.sum(w * (f * f - q * q)))
+
+        if sd(lo)[0] <= 0:
             return lo, "at_lo"
-        if score(hi) >= 0:
+        if sd(hi)[0] >= 0:
             return hi, "at_hi"
-        for _ in range(80):
-            mid = 0.5 * (lo + hi)
-            if score(mid) > 0:
-                lo = mid
+        c = min(max(1.0, lo + 1e-3 * (hi - lo)), hi - 1e-3 * (hi - lo))
+        for _ in range(200):
+            S, dS = sd(c)
+            if S > 0:
+                lo = c
             else:
-                hi = mid
-        return 0.5 * (lo + hi), "interior"
+                hi = c
+            step = -S / dS if dS < 0 else None
+            cn = c + step if step is not None else None
+            if cn is None or not (lo < cn < hi):
+                cn = 0.5 * (lo + hi)
+            if abs(cn - c) < tol * max(1.0, abs(c)) or hi - lo < tol:
+                return cn, "interior"
+            c = cn
+        return c, "interior"
+
+    def compress(self, prep, ns=4096, nn=32):
+        """Cells for fast replicate fits (bootstrap, G0d): spacing k → cell (s-cell of width sc/ns, N_eff-cell of nn
+        quantiles); each cell carries the mean ρ and φ of its members. Returns dict(cell, rho, phi, n_cells). The
+        cell fit approximates the exact fit to second order in the within-cell spread of ρ (checked in G0d)."""
+        inw = prep["inw"]
+        sidx = np.minimum((prep["s"] / self.sc * ns).astype(np.int64), ns - 1)
+        N = prep["Neff"]
+        if np.ptp(N) > 0:
+            edges = np.quantile(N, np.linspace(0, 1, nn + 1)[1:-1])
+            nidx = np.searchsorted(edges, N)
+        else:
+            nidx = np.zeros(len(N), dtype=np.int64)
+        cell = np.where(inw, nidx * ns + sidx, -1)
+        nc = nn * ns
+        ok = cell >= 0
+        cnt = np.bincount(cell[ok], minlength=nc).astype(float)
+        with np.errstate(invalid="ignore", divide="ignore"):
+            rho = np.bincount(cell[ok], weights=prep["rho"][ok], minlength=nc) / cnt
+            phi = np.bincount(cell[ok], weights=prep["phi"][ok], minlength=nc) / cnt
+        used = cnt > 0
+        remap = -np.ones(nc, dtype=np.int64)
+        remap[used] = np.arange(int(used.sum()))
+        return dict(cell=np.where(ok, remap[np.maximum(cell, 0)], -1), rho=rho[used], phi=phi[used],
+                    n_cells=int(used.sum()), Nmin=prep["Nmin"], abars=prep.get("abars"))
+
+    def fit_cells(self, comp, counts):
+        """Same estimator as fit() on cell counts (counts[j] = multiplicity of cell j)."""
+        pseudo = dict(inw=counts > 0, rho=comp["rho"], phi=comp["phi"], Nmin=comp["Nmin"], abars=comp["abars"])
+        return self.fit(pseudo, weights=counts)
+
+    def cell_counts(self, comp, weights=None, idx=None):
+        cell = comp["cell"] if idx is None else comp["cell"][idx]
+        ok = cell >= 0
+        w = None if weights is None else weights[ok]
+        return np.bincount(cell[ok], weights=w, minlength=comp["n_cells"]).astype(float)
 
     def loglik(self, prep, c):
         inw, rho, phi = prep["inw"], prep["rho"], prep["phi"]
         return float(np.sum(np.log1p(c * rho[inw])) - np.sum(np.log1p(c * phi[inw])))
 
     def expected_c(self, p_true, Neff, abar=None, n=40001):
-        """Deterministic 'infinite-sample' ĉ against a known spacing law p_true (§6 truncation allowance, G0c): the
-        maximiser of ∫₀^sc p_true(s) [log(p0 + c a) − log(F0 + c Fa)] ds, one N_eff (and ᾱ)."""
+        """Deterministic 'infinite-sample' ĉ against a known spacing law p_true (§6 truncation allowance, G0c, G0d): the
+        maximiser of mean_j ∫₀^sc p_true(s) [log(p0 + c a_j) − log(F0 + c Fa_j)] ds over the (N_eff,j, ᾱ_j) values given
+        (a scalar, or a bin's quantile grid with equal weights)."""
         g, w = _window_grid(self.sc, n)
         g, w = g[1:], w[1:]
         wt = np.maximum(p_true(g), 0) * w
-        p0, r2 = self.model.eval(g, None if abar is None else np.full(g.shape, abar))
-        rho = r2 / Neff ** 2 / p0
-        phi = float(self._Fr_at(abar)) / Neff ** 2 / self.F0
-        lo, hi = self.c_range(Neff, abars=None if abar is None else [abar])
-        ok = g >= S_BRACKET
-        score = lambda c: float(np.sum(wt[ok] * rho[ok] / (1 + c * rho[ok])) + np.sum(wt[~ok] * rho[~ok] / (1 + c * rho[~ok]))
-                                - np.sum(wt) * phi / (1 + c * phi))
+        Ns = np.atleast_1d(np.asarray(Neff, dtype=float))
+        abs_ = [None] * len(Ns) if abar is None else list(np.broadcast_to(np.asarray(abar, dtype=float), Ns.shape))
+        terms = []
+        for N, ab in zip(Ns, abs_):
+            p0, r2 = self.model.eval(np.maximum(g, S_TINY), None if ab is None else np.full(g.shape, ab))
+            terms.append((r2 / N ** 2 / p0, float(self._Fr_at(ab)) / N ** 2 / self.F0))
+        lo, hi = self.c_range(float(np.min(Ns)), abars=None if abar is None else abs_)
+        W = float(np.sum(wt))
+        score = lambda c: sum(float(np.sum(wt * r / (1 + c * r))) - W * f / (1 + c * f) for r, f in terms)
         if score(lo) <= 0:
             return lo
         if score(hi) >= 0:
@@ -292,16 +360,18 @@ def kappa_from_c(c):
 
 
 # ============================================================ 5. moving-block bootstrap (A1)
-def block_bootstrap_c(fitter, prep, block_len, n_boot, rng):
+def block_bootstrap_c(fitter, prep, block_len, n_boot, rng, comp=None):
     """Moving-block bootstrap of ĉ (A1): resample overlapping blocks of consecutive spacings (the full sequence, window
-    mask carried along) to the original length; returns the ĉ replicates."""
+    mask carried along) to the original length; replicate fits on the cells of WindowFit.compress (comp, built here
+    if not given). Returns the ĉ replicates."""
+    comp = fitter.compress(prep) if comp is None else comp
     n = len(prep["inw"])
     nb = int(math.ceil(n / block_len))
     out = np.empty(n_boot)
     for b in range(n_boot):
         st = rng.integers(0, n - block_len + 1, nb)
         idx = (st[:, None] + np.arange(block_len)[None, :]).ravel()[:n]
-        out[b] = fitter.fit(prep, idx)[0]
+        out[b] = fitter.fit_cells(comp, fitter.cell_counts(comp, idx=idx))[0]
     return out
 
 

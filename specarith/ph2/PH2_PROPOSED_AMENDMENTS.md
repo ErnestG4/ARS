@@ -71,3 +71,23 @@ G0c also gives the cutoff justification §3 asks for: the O(N⁻⁴) remainder m
 CUE_N is defined at integer N only. The allowance at a bin's real N_eff uses the BFM kernel formula
 sin(πd)/(N sin(πd/N)) at real N (its analytic continuation), cross-checked for smoothness against the integer-N values
 (G0c table). Proposal: adopt, disclosed.
+
+## PA4 — Platt data access (blocker for P1–P6; needs Will's hands)
+beta.lmfdb.org now answers scripted requests for `/data/riemann-zeta-zeros/zeros_*.dat` with `302 → gate.html`, a
+JavaScript "human" gate (sets a cookie, then redirects). The fetch fails closed (the 350-byte redirect pages failed the
+pinned md5s and were deleted). CC does not script around a human gate. **Ask:** download the six files in a browser from
+`https://beta.lmfdb.org/data/riemann-zeta-zeros/<file>` into `specarith/ph2/data/platt/`; `bash fetch_data.sh` then
+verifies them against the md5s pinned in §3 (verify-only now). Nothing else changes.
+
+## Notes from the pre-read (informational; no amendment needed)
+- **Bin sizes** (results/geometry.json, from N̄ at the declared edges): A 243,454 spacings (§3 said ~3·10⁵), **B 1,397,835
+  (§3 said ~5·10⁵)**, P1–P6 4.43–7.45·10⁶, H 9,999. B's upper edge (2π·e^12.1 = 1,132,436) sits 54 below zeros6's last
+  zero (1,132,490.66), so B is complete.
+- **Odlyzko high tables** downloaded 2026-10-07 (no published checksum; sha256 recorded for the seal JSON):
+  zeros3 `75a1f1a9…0764807` (180,287 B), zeros4 `10d9f7da…52da8f` (160,319 B), zeros5 `250ac4ba…2b7e0d` (170,318 B).
+- **Unfolding chain** (results/g0d_chain.json): CUE levels → N̄⁻¹ (mpmath) → source representation → exact-θ unfolding
+  returns the spacings to ≤ 7·10⁻⁹ in every bin (Platt representation: exactly); θ costs ~50 µs per zero.
+- **Red paths, deterministic part** (results/reach.json; SECONDARY law at κ = 1 standing in for the zeros):
+  RP-misprint drives κ̂ to ∞ in the PRIMARY at every bin and moves the mean spacing by 2.1% (H3) to 9.9% (A) — reachable
+  everywhere by both checks. RP-mix (α for ᾱ in the SECONDARY) shifts κ* by +4.3% (A), +3.0% (B), +1.9% (P1), +0.5% (P6),
+  +0.08–0.09% (H2/H3); reachability per bin follows from G0d's SDs. RP-Λ: N_eff ratio 1.0000035 — UNREACHABLE as declared.

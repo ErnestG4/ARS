@@ -153,8 +153,7 @@ def g0c():
         print(integer[-1], flush=True)
     # (2) per bin: shifts of the PRIMARY fit against (i) the exact CUE_N law continued to real N (the kernel formula
     # BFM 1.8 at real N; checked against the integer values above) and (ii) the SECONDARY family at that height
-    abars = np.round(np.arange(1.0, 1.4001, 0.01), 4)
-    Ms = P.Model(abar_grid=abars)
+    Ms = P.Model(abar_grid=P.SECONDARY_ABAR_GRID)
     bins = []
     for name, kind, L0, L1 in BINS:
         rows = []
@@ -177,5 +176,249 @@ def g0c():
     dump("g0c.json", out)
 
 
+# ---------------------------------------------------------------- bin geometry before data (sizes, N_eff profile)
+def nbar_float(T):
+    """Riemann–von Mangoldt smooth count θ(T)/π + 1 (asymptotic θ to O(T⁻³)); float, for design arithmetic only."""
+    T = np.asarray(T, dtype=float)
+    th = T / 2 * np.log(T / TWO_PI) - T / 2 - math.pi / 8 + 1 / (48 * T) + 7 / (5760 * T ** 3)
+    return th / math.pi + 1
+
+
+def nbar_inv(x, T0):
+    T = np.full(np.shape(x), float(T0))
+    for _ in range(60):
+        T = T - (nbar_float(T) - x) / (np.log(T / TWO_PI) / TWO_PI)
+    return T
+
+
+H_COUNT = 10_000   # zeros3/4/5 hold 10⁴ zeros each
+
+
+def bin_geometry(name, n_profile=None):
+    """(n_spacings, N_eff per spacing [length n or n_profile], ᾱ per spacing) for a sealed bin, from heights only."""
+    _, kind, L0, L1 = next(b for b in BINS if b[0] == name)
+    if kind in ("zeros3", "zeros4", "zeros5"):
+        n = H_COUNT - 1
+        m = n if n_profile is None else n_profile
+        L = np.full(m, L0)
+    else:
+        T0, T1 = TWO_PI * math.exp(L0), TWO_PI * math.exp(L1)
+        x0, x1 = float(nbar_float(T0)), float(nbar_float(T1))
+        n = int(round(x1 - x0)) - 1
+        m = n if n_profile is None else n_profile
+        x = x0 + (np.arange(m) + 0.5) * (x1 - x0) / m
+        L = np.log(nbar_inv(x, T0) / TWO_PI)
+    return n, neff_of_L(L), abar_of_L(L)
+
+
+# ---------------------------------------------------------------- G0d: the estimator on CUE_N surrogates (§5, A1)
+BLOCK_FACTORS = (10, 30, 100)       # A1: L_b = factor × ⌈N_eff⌉ levels
+Z95 = 1.959963984540054
+
+
+def _ci_cover(c_hat, sd, target):
+    return bool(c_hat - Z95 * sd <= target <= c_hat + Z95 * sd)
+
+
+CHUNK = 25   # reps per job; a chunk's RNG seed is (bin, N, first rep) so the run is reproducible chunk by chunk
+
+
+def _g0d_setup(name, N):
+    n, Neff, ab = bin_geometry(name)
+    Mp, Ms = P.Model(), P.Model(abar_grid=P.SECONDARY_ABAR_GRID)
+    return n, Neff, ab, P.WindowFit(Mp), P.WindowFit(Ms)
+
+
+def g0d(name, N, r0=0, r1=CHUNK, RB=100, B=200):
+    """Reps r0 … r1−1 of the G0d surrogate run for (bin, N). Surrogates: concatenated CUE_N blocks (integer N), length =
+    the bin's spacing count, each spacing carrying the bin's N_eff (and ᾱ) profile; both arms fitted; reps r < RB also
+    get the A1 moving-block bootstrap SD (B replicates) at each declared block length. Writes a chunk file."""
+    N, t0 = int(N), time.time()
+    n, Neff, ab, Wp, Ws = _g0d_setup(name, N)
+    seed = (1000003 * N + sum(map(ord, name))) * 1000 + r0
+    rng = np.random.default_rng(seed)
+    Lb = [f * int(math.ceil(float(np.median(Neff)))) for f in BLOCK_FACTORS]
+    reps = []
+    for r in range(r0, r1):
+        sp = P.cue_spacings(N, int(math.ceil(n / N)), rng).ravel()[:n]
+        rec = dict(rep=r, mean_s=float(sp.mean()))
+        for arm, W, abar in (("prim", Wp, None), ("sec", Ws, ab)):
+            prep = W.prepare(sp, Neff, abar)
+            c, flag = W.fit(prep)
+            rec[arm] = dict(c=c, flag=flag)
+            if r < RB:
+                comp = W.compress(prep)
+                rec[arm]["c_cells"] = W.fit_cells(comp, W.cell_counts(comp))[0]
+                rec[arm]["boot_sd"] = {}
+                for Lblk in Lb:
+                    bs = P.block_bootstrap_c(W, prep, Lblk, B, rng, comp=comp)
+                    rec[arm]["boot_sd"][str(Lblk)] = float(np.std(bs, ddof=1))
+        reps.append(rec)
+        print(f"{name} N={N} rep {r} c_prim={rec['prim']['c']:.5f} c_sec={rec['sec']['c']:.5f} "
+              f"{time.time() - t0:.0f}s", flush=True)
+    os.makedirs(os.path.join(RES, "g0d", "chunks"), exist_ok=True)
+    with open(os.path.join(RES, "g0d", "chunks", f"{name}_N{N}_r{r0:03d}.json"), "w") as f:
+        json.dump(dict(bin=name, N=N, n=n, r0=r0, r1=r1, RB=RB, B=B, seed=seed, block_lengths=Lb, reps=reps,
+                       seconds=time.time() - t0), f, default=float)
+
+
+def g0d_merge(name, N):
+    """Summary of all chunks of (bin, N): bias vs the known answer, CUE-calibrated split-half coverage, bootstrap SD
+    ratio and coverage per block length, widest, and the wider of CUE and bootstrap (§6)."""
+    import glob
+    N = int(N)
+    ch = [json.load(open(f)) for f in sorted(glob.glob(os.path.join(RES, "g0d", "chunks", f"{name}_N{N}_r*.json")))]
+    reps = sorted([r for c in ch for r in c["reps"]], key=lambda r: r["rep"])
+    n, Neff, ab, Wp, Ws = _g0d_setup(name, N)
+    q = np.linspace(0.025, 0.975, 20)
+    Nq, Aq = np.quantile(Neff, q), np.quantile(ab, q)
+    pN, _, _ = P.spacing_tables(S=P.S_C + 0.05 if N > 2 else 2.0, N=N, abars=())   # CUE_2 lives on [0, 2]
+    cstar = dict(prim=Wp.expected_c(pN, Nq), sec=Ws.expected_c(pN, Nq, abar=Aq))
+    Lb = ch[0]["block_lengths"]
+    out = dict(bin=name, N=N, n=n, R=len(reps), reps_complete=[r["rep"] for r in reps] == list(range(len(reps))),
+               RB=sum("boot_sd" in r["prim"] for r in reps), B=ch[0]["B"], seeds=[c["seed"] for c in ch],
+               block_lengths=Lb, Neff_median=float(np.median(Neff)), Neff_range=[float(Neff.min()), float(Neff.max())],
+               kappa_true_median=N / float(np.median(Neff)), cpu_seconds=sum(c["seconds"] for c in ch))
+    for arm in ("prim", "sec"):
+        cst = cstar[arm]
+        c = np.array([x[arm]["c"] for x in reps])
+        sd = float(np.std(c, ddof=1))
+        sd_even = float(np.std(c[0::2], ddof=1))
+        a = dict(c_star=cst, kappa_star=P.kappa_from_c(cst), c_mean=float(c.mean()), c_sd=sd,
+                 bias_in_sd=(float(c.mean()) - cst) / sd if sd > 0 else None,
+                 bias_se_in_sd=1 / math.sqrt(len(c)),
+                 kappa_sd_rel=sd / (2 * cst) if cst > 0 else None,
+                 cover_cue_split=float(np.mean([_ci_cover(ci, sd_even, cst) for ci in c[1::2]])),
+                 flags={f: int(sum(x[arm]["flag"] == f for x in reps)) for f in ("interior", "at_lo", "at_hi")})
+        rb = [x for x in reps if "boot_sd" in x[arm]]
+        a["cells_minus_exact_max_in_sd"] = float(max(abs(x[arm]["c_cells"] - x[arm]["c"]) for x in rb)) / sd
+        a["boot"] = {}
+        for Lblk in Lb:
+            sds = np.array([x[arm]["boot_sd"][str(Lblk)] for x in rb])
+            a["boot"][str(Lblk)] = dict(sd_mean=float(sds.mean()), sd_ratio_to_cue=float(sds.mean()) / sd,
+                                        cover=float(np.mean([_ci_cover(x[arm]["c"], x[arm]["boot_sd"][str(Lblk)], cst)
+                                                             for x in rb])))
+        widest = [max(x[arm]["boot_sd"].values()) for x in rb]
+        a["boot"]["widest"] = dict(cover=float(np.mean([_ci_cover(x[arm]["c"], w, cst) for x, w in zip(rb, widest)])))
+        a["wider_of_cue_and_boot"] = dict(cover=float(np.mean([_ci_cover(x[arm]["c"], max(w, sd), cst)
+                                                               for x, w in zip(rb, widest)])))
+        out[arm] = a
+    out["mean_spacing"] = float(np.mean([x["mean_s"] for x in reps]))
+    dump(os.path.join("g0d", f"{name}_N{N}.json"), out)
+
+
+REPRESENTATION = {   # how each source stores γ (decimal digits after the point of the stored value)
+    "zeros6": 9, "platt": None, "zeros3": 9, "zeros4": 9, "zeros5": 9}
+
+
+def g0d_chain(n_levels=3000, seed=7):
+    """The unfolding chain end to end (§5 G0d 'mapped onto ζ's density by N̄⁻¹ and unfolded back with the exact θ'):
+    CUE_N levels x (unit mean spacing) are placed at N̄(T_bin) + x, mapped to heights γ = N̄⁻¹(·) in mpmath, stored in the
+    source's representation (decimal rounding; Platt: the nearest t0 + Z·2⁻¹⁰¹), and unfolded back with
+    ph2lib.unfolded_spacings. Reports max |Δs| per bin and the θ cost per zero."""
+    import mpmath as mp
+    rng = np.random.default_rng(seed)
+    rows = []
+    for name, kind, L0, L1 in BINS:
+        N = max(2, round(neff_of_L(L0)))
+        x = np.cumsum(P.cue_spacings(N, n_levels // N + 1, rng).ravel()[:n_levels])
+        s_true = np.diff(x)
+        with mp.workdps(50):
+            T0 = TWO_PI * mp.exp(mp.mpf(L0))
+            base = mp.siegeltheta(T0) / mp.pi + 1
+            g = T0
+            gam = []
+            for xi in x:
+                target = base + mp.mpf(float(xi))
+                for _ in range(50):
+                    step = (mp.siegeltheta(g) / mp.pi + 1 - target) / (mp.log(g / (2 * mp.pi)) / (2 * mp.pi))
+                    g -= step
+                    if abs(step) < mp.mpf(10) ** -40:
+                        break
+                gam.append(+g)
+            digits = REPRESENTATION[kind]
+            if digits is None:
+                eps = mp.mpf(2) ** -101
+                t0 = mp.floor(gam[0])
+                stored = [t0 + mp.nint((v - t0) / eps) * eps for v in gam]
+            else:
+                q = mp.mpf(10) ** -digits
+                stored = [mp.nint(v / q) * q for v in gam]
+        t = time.time()
+        s_back = P.unfolded_spacings(stored, dps=45)
+        dt = (time.time() - t) / len(stored)
+        err = float(np.max(np.abs(s_back - s_true)))
+        rows.append(dict(bin=name, kind=kind, N=N, n=n_levels, max_abs_ds=err, theta_seconds_per_zero=dt,
+                         mean_s_back=float(s_back.mean()), mean_s_true=float(s_true.mean())))
+        print(rows[-1], flush=True)
+    dump("g0d_chain.json", dict(rows=rows, PASS=bool(all(r["max_abs_ds"] < 1e-6 for r in rows))))
+
+
+def reach():
+    """§7 red paths, deterministic part (pre-data): κ* each arm would read under the wrong construction, per bin, with
+    the SECONDARY law (ᾱ, κ = 1) standing in for the zeros' p(s). Reachability = shift vs the bin's half-width (summary).
+      RP-misprint: unfolding with log(E/2πe): s' = s(L−1)/L, mean spacing (L−1)/L.
+      RP-mix: SECONDARY family fitted with BBLM's α = (1 + ᾱ)/2 in place of ᾱ.
+      RP-Λ: BBLM's printed 1.57314 → N_eff ratio √(Λ/Λ_BBLM) (declared UNREACHABLE; the ratio is reported)."""
+    Mp, Ms = P.Model(), P.Model(abar_grid=P.SECONDARY_ABAR_GRID)
+    Wp, Ws = P.WindowFit(Mp), P.WindowFit(Ms)
+    rows = []
+    for name, kind, L0, L1 in BINS:
+        n, Neff, ab = bin_geometry(name, n_profile=2001)
+        q = np.linspace(0.025, 0.975, 20)
+        Nq, Aq = np.quantile(Neff, q), np.quantile(ab, q)
+        L = float(np.median(Neff) * NEFF_DEN)
+        Nm, am = float(np.median(Neff)), float(np.median(ab))
+        truth = lambda s: Ms.eval(s, np.full(np.shape(s), am))[0] + Ms.eval(s, np.full(np.shape(s), am))[1] / Nm ** 2
+        lam = L / (L - 1)
+        mis = lambda s: lam * truth(np.minimum(lam * np.asarray(s), Ms.S))
+        r = dict(bin=name, L=L, N_eff=Nm, abar=am)
+        for arm, W, A in (("prim", Wp, None), ("sec", Ws, Aq)):
+            c0 = W.expected_c(truth, Nq, abar=A)
+            c1 = W.expected_c(mis, Nq, abar=A)
+            r[arm] = dict(kappa_truth=P.kappa_from_c(c0), kappa_misprint=P.kappa_from_c(c1))
+        c_mix = Ws.expected_c(truth, Nq, abar=(1 + Aq) / 2)
+        r["sec"]["kappa_mix_alpha"] = P.kappa_from_c(c_mix)
+        r["misprint_mean_spacing"] = (L - 1) / L
+        r["rp_lambda_neff_ratio"] = math.sqrt(P.LAMBDA / 1.57314)
+        rows.append(r)
+        print(name, json.dumps(r, default=float), flush=True)
+    dump("reach.json", dict(rows=rows))
+
+
+def g0d_configs():
+    """The (bin, N) pairs: integer N on both sides of the bin's median N_eff (N ≥ 2)."""
+    out = []
+    for name, *_ in BINS:
+        _, Neff, _ = bin_geometry(name, n_profile=2001)
+        m = float(np.median(Neff))
+        for N in sorted({max(2, math.floor(m)), math.ceil(m)}):
+            out.append((name, N))
+    return out
+
+
+def geometry():
+    rows = []
+    for name, kind, L0, L1 in BINS:
+        n, Neff, ab = bin_geometry(name, n_profile=20001)
+        rows.append(dict(bin=name, kind=kind, L=[L0, L1], n_spacings=n,
+                         Neff=[float(Neff.min()), float(np.median(Neff)), float(Neff.max())],
+                         abar=[float(ab.min()), float(ab.max())]))
+        print(rows[-1])
+    print("G0d configs:", g0d_configs())
+    dump("geometry.json", dict(bins=rows, g0d_configs=g0d_configs()))
+
+
 if __name__ == "__main__":
-    {"g0a": g0a, "g0b": g0b, "g0c": g0c}[sys.argv[1]]()
+    cmd = sys.argv[1]
+    if cmd == "g0d":
+        g0d(sys.argv[2], int(sys.argv[3]), *[int(a) for a in sys.argv[4:]])
+    elif cmd == "g0d_merge":
+        for b, nn in (g0d_configs() if len(sys.argv) == 2 else [(sys.argv[2], int(sys.argv[3]))]):
+            g0d_merge(b, nn)
+    elif cmd == "g0d_jobs":            # one line per chunk job: bin N r0 r1
+        for b, nn in g0d_configs():
+            for r0 in range(0, 200, CHUNK):
+                print(b, nn, r0, r0 + CHUNK)
+    else:
+        {"g0a": g0a, "g0b": g0b, "g0c": g0c, "geometry": geometry, "g0d_chain": g0d_chain, "reach": reach}[cmd]()
