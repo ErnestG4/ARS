@@ -81,8 +81,31 @@ def merge(outdir):
     print("worst chunk count deviation vs smooth count:", worst["a"], worst["b"], worst["dev"])
 
 
+def accuracy(outdir):
+    """Seal §9.1: delta_chi = 10 x max |p38 - p57| over the check windows; the counts must match exactly."""
+    from decimal import Decimal
+    merged = [Decimal(s) for s in open(f"{outdir}/chi4_zeros_T{T_MAX}_p38.txt").read().split()]
+    rows, worst = [], Decimal(0)
+    for a, b in CHECK_WINDOWS:
+        hi = [Decimal(s) for s in open(f"{outdir}/chi4_p57_{a:05d}_{b:05d}.txt").read().split()]
+        lo = [x for x in merged if a <= x <= b]
+        assert len(lo) == len(hi), (a, b, len(lo), len(hi))
+        d = max(abs(x - y) for x, y in zip(sorted(lo), sorted(hi)))
+        worst = max(worst, d)
+        rows.append(dict(window=[a, b], n=len(hi), max_abs_diff=float(d)))
+    delta = max(float(worst) * 10, 1e-30)
+    out = dict(windows=rows, max_abs_diff=float(worst), delta=delta,
+               rule="delta = 10 x max |p38 - p57| over the check windows (seal §9.1)")
+    with open(f"{outdir}/chi4_zeros_T{T_MAX}_p38.accuracy.json", "w") as f:
+        json.dump(out, f, indent=1)
+    print(json.dumps(out))
+
+
 if __name__ == "__main__":
     mode = sys.argv[1]
+    if mode == "accuracy":
+        accuracy(sys.argv[2])
+        sys.exit(0)
     if mode == "plan":
         for a, b in plan():
             print(a, b)

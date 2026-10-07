@@ -23,7 +23,7 @@ import json
 import math
 import sys
 
-T_MAX = int(sys.argv[1]) if len(sys.argv) > 1 else 30
+T_MAX = 30
 
 
 # ---------- (i) Gauss-reduced cycles ----------
@@ -198,6 +198,8 @@ def _log_proper_unit(pari, D):
 
 
 def main():
+    global T_MAX
+    T_MAX = int(sys.argv[1]) if len(sys.argv) > 1 else 30
     out_path = sys.argv[2] if len(sys.argv) > 2 else None
     prim = cf_classes(T_MAX, T_MAX)
     cf_count, cf_lsum = all_classes_from_primitive(prim, T_MAX, T_MAX)
