@@ -58,7 +58,7 @@ used the pointwise variance.
 |---|---|---|---|---|
 | G0-c (3·10⁴ zeros) | 26/34 | ~21/34 | **24/34**, M ⊆ R | \|R\| ∈ [22, 30] → **met** |
 | G2 (T = 2·10⁴) | 22/28, 9 ∈ R | 14/28, 9 ∉ R | **15/28, 9 ∉ R** | SIGN at 9 (−) → **cannot be scored** |
-| G0 | 29/34 | 28/34 | (G0 draws pending) | none |
+| G0 | 29/34 | 28/34 | **29/34** (not 16, 27, 32, 64, 81), M ⊆ R | none |
 
 **Decisions for Will.**
 1. G0-c: the sealed window holds empirically (24). Keep [22, 30] as sealed (proposed), or re-centre it on the corrected

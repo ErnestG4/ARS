@@ -1,4 +1,26 @@
 {
+ "G0_gue": {
+  "literal_ratio_median": 1.362110336851349,
+  "literal_n_outside_20pct": 79,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.9630378875256598,
+  "ls_ratio_min": 0.7716886012356775,
+  "ls_ratio_max": 1.3064922681493467,
+  "ls_n_outside_20pct": 2,
+  "rtilde_mean": 0.5998995510495996,
+  "rtilde_in_arsrh_band": true
+ },
+ "G0_poisson": {
+  "literal_ratio_median": 1.4022434331516171,
+  "literal_n_outside_20pct": 82,
+  "literal_verdict": "FAIL",
+  "ls_ratio_median": 0.991811723203078,
+  "ls_ratio_min": 0.7957002929949524,
+  "ls_ratio_max": 1.298957110741324,
+  "ls_n_outside_20pct": 2,
+  "rtilde_mean": 0.38627656805757077,
+  "rtilde_in_arsrh_band": null
+ },
  "G0c_gue": {
   "literal_ratio_median": 1.4137947011378809,
   "literal_n_outside_20pct": 86,
