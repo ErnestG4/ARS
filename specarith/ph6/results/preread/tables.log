@@ -1,0 +1,40 @@
+G0 {'n_tau': 5158, 'eps_min': 4.650153299006177e-05, 'eps_max': 0.00041842426008843715, 'config': {'T0': 37460.413749497, 'sigma': 4407.107499940823, 'E_lo': 0.0, 'E_hi': 74920.827498994}, 'n_levels': 100000}
+  reach G0 RP1_drop_k>=2 {'max_ratio': 2362581.8461641213, 'status': 'REACHABLE', 'note': ''}
+  reach G0 RP2_flip_prime_sign {'max_ratio': 13360551.929752449, 'status': 'REACHABLE', 'note': ''}
+  reach G0 RP3_shift_100delta {'max_ratio': 2.084228165114719, 'status': 'REACHABLE', 'note': 'first-order estimate tau*100*delta*|RHS|'}
+G0s_a {'n_tau': 5158, 'eps_min': 1.2178351563595915e-09, 'eps_max': 2.026900223792345e-08, 'config': {'T0': 10.0, 'sigma': 4.0, 'E_lo': 0.0, 'E_hi': 44.0}, 'n_levels': 100000}
+  reach G0s_a RP13_drop_gamma {'max_ratio': 959399632.31128, 'status': 'REACHABLE', 'note': ''}
+  reach G0s_a RP14_drop_pole {'max_ratio': 34615269.55278252, 'status': 'REACHABLE', 'note': ''}
+  reach G0s_a RP15_asymptotic_psi {'max_ratio': 17405545.79204497, 'status': 'REACHABLE', 'note': ''}
+  reach G0s_a RP16_drop_mirror(upper bound) {'max_ratio': 5.10589573354956, 'status': 'REACHABLE', 'note': 'upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE'}
+G0s_b {'n_tau': 5158, 'eps_min': 3.845578139799234e-09, 'eps_max': 8.027597591139279e-08, 'config': {'T0': 40.0, 'sigma': 3.0, 'E_lo': 0.0, 'E_hi': 65.5}, 'n_levels': 100000}
+  reach G0s_b RP13_drop_gamma {'max_ratio': 464259168.3550911, 'status': 'REACHABLE', 'note': ''}
+  reach G0s_b RP14_drop_pole {'max_ratio': 3.980360104771528e-31, 'status': 'INAPPLICABLE', 'note': ''}
+  reach G0s_b RP15_asymptotic_psi {'max_ratio': 4110.0766632762015, 'status': 'REACHABLE', 'note': ''}
+  reach G0s_b RP16_drop_mirror(upper bound) {'max_ratio': 2.5515380356259184e-63, 'status': 'INAPPLICABLE', 'note': 'upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE'}
+G0s_c {'n_tau': 5158, 'eps_min': 3.5930133048914364e-08, 'eps_max': 3.7132245758558425e-07, 'config': {'T0': 150.0, 'sigma': 10.0, 'E_lo': 0.0, 'E_hi': 235.0}, 'n_levels': 100000}
+  reach G0s_c RP13_drop_gamma {'max_ratio': 106470.33230568042, 'status': 'REACHABLE', 'note': ''}
+  reach G0s_c RP14_drop_pole {'max_ratio': 2.9282196341147015e-42, 'status': 'INAPPLICABLE', 'note': ''}
+  reach G0s_c RP15_asymptotic_psi {'max_ratio': 0.04281630022114696, 'status': 'INAPPLICABLE', 'note': ''}
+  reach G0s_c RP16_drop_mirror(upper bound) {'max_ratio': 4.401462743257208e-52, 'status': 'INAPPLICABLE', 'note': 'upper bound sum w(-gamma); if INAPPLICABLE here it is INAPPLICABLE'}
+G0c {'n_tau': 5158, 'eps_min': 1.3898156428071042e-05, 'eps_max': 0.00012501603316587468, 'config': {'T0': 12877.6741372805, 'sigma': 1515.0204867388825, 'E_lo': 0.0, 'E_hi': 25755.348274561}, 'n_levels': 30000}
+  reach G0c RP1_drop_k>=2 {'max_ratio': 2719364.898024141, 'status': 'REACHABLE', 'note': ''}
+  reach G0c RP2_flip_prime_sign {'max_ratio': 15376025.214365233, 'status': 'REACHABLE', 'note': ''}
+  reach G0c RP3_shift_100delta {'max_ratio': 2.3998566869781817, 'status': 'REACHABLE', 'note': 'first-order estimate tau*100*delta*|RHS|'}
+G1_even {'n_tau': 4001, 'eps_min': 2.3829615468816586e-07, 'eps_max': 1.7329654195985537e-06, 'config': {'T0': 49.382483635, 'sigma': 5.809703957058823, 'E_lo': 0.0, 'E_hi': 98.76496727}, 'n_levels': 266}
+  reach G1_even RP5_elliptic_x2 {'max_ratio': 1.9102813620973037e-10, 'status': 'INAPPLICABLE', 'note': ''}
+  reach G1_even RP6_drop_R {'max_ratio': 1213521.1779892002, 'status': 'REACHABLE', 'note': ''}
+  reach G1_even RP8_drop_scattering {'max_ratio': 1410642.2514610428, 'status': 'REACHABLE', 'note': 'even-only continuous-spectrum terms: prime lines 2 Lambda(n)/n g(2 log n) and -(2/4pi) int h psi(1+ir)'}
+  reach G1_even RP9_wrong_discriminant {'max_ratio': 959447.3921117178, 'status': 'REACHABLE', 'note': ''}
+G1_odd {'n_tau': 4001, 'eps_min': 3.090649026299838e-07, 'eps_max': 2.2489735948662976e-06, 'config': {'T0': 49.382483635, 'sigma': 5.809703957058823, 'E_lo': 0.0, 'E_hi': 98.76496727}, 'n_levels': 334}
+  reach G1_odd RP5_elliptic_x2 {'max_ratio': 1.4728709053879384e-10, 'status': 'INAPPLICABLE', 'note': ''}
+  reach G1_odd RP6_drop_R {'max_ratio': 935377.8563167398, 'status': 'REACHABLE', 'note': ''}
+  reach G1_odd RP9_wrong_discriminant {'max_ratio': 739398.9713175528, 'status': 'REACHABLE', 'note': ''}
+  reach G1 RP7_swap_parity {'max_ratio': 2387988.048130418, 'status': 'REACHABLE', 'note': 'RHS(even) - RHS(odd); swapping labels moves the LHS by this much'}
+G2 {'n_tau': 5158, 'eps_min': 4.5234262064130907e-08, 'eps_max': 4.2340870317253586e-07, 'config': {'T0': 10000.0, 'sigma': 1176.4705882352941, 'E_lo': 0.0, 'E_hi': 20000.0}, 'n_levels': 26903, 'delta': 1e-30}
+  reach G2 RP10_chi_equiv_1 {'max_ratio': 2827257731.644258, 'status': 'REACHABLE', 'note': ''}
+  reach G2 RP11_wrong_parity_a0 {'max_ratio': 1.8197574561783887e-07, 'status': 'INAPPLICABLE', 'note': ''}
+G4_confusable {'n_tau': 5158, 'eps_min': 2.0275274414155134e-08, 'eps_max': 1.5177196414457376e-06, 'config': {'T0': 37460.413749497, 'sigma': 4407.107499940823, 'E_lo': 0.0, 'E_hi': 74920.827498994}, 'lam': 0.6931471805599453, 'n_levels': 38896}
+  reach G4_confusable RP12_brief_v1_bc {'max_ratio': 2810383977.4298043, 'status': 'REACHABLE', 'note': 'brief-v1 BC: eigenvalues E_n - i/2 multiply the picket sum by e^{tau/2}'}
+G4_incommensurate {'n_tau': 5158, 'eps_min': 3.6110406225781166e-08, 'eps_max': 1.6047547428785784e-06, 'config': {'T0': 37460.413749497, 'sigma': 4407.107499940823, 'E_lo': 0.0, 'E_hi': 74920.827498994}, 'lam': 1.2345, 'n_levels': 69273}
+  reach G4_incommensurate RP12_brief_v1_bc {'max_ratio': 1647824789.7975583, 'status': 'REACHABLE', 'note': 'brief-v1 BC: eigenvalues E_n - i/2 multiply the picket sum by e^{tau/2}'}

@@ -1,0 +1,23 @@
+{
+ "windows": [
+  {
+   "window": [
+    0,
+    1000
+   ],
+   "n": 868,
+   "max_abs_diff": 6.164924059391273e-36
+  },
+  {
+   "window": [
+    19900,
+    20000
+   ],
+   "n": 150,
+   "max_abs_diff": 5.474153758776293e-34
+  }
+ ],
+ "max_abs_diff": 5.474153758776293e-34,
+ "delta": 1e-30,
+ "rule": "delta = 10 x max |p38 - p57| over the check windows (seal \u00a79.1)"
+}

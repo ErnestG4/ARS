@@ -1,0 +1,120 @@
+{
+ "seal": "PH6_SEAL_6.0",
+ "commit": "34361283a6012ef73edc1098c3839b98ee345a90",
+ "commit_note": "parent of the seal commit (the commit that adds this file)",
+ "pre_dir": "results/preread_proposed",
+ "decisions": {
+  "A1": true,
+  "A3": true,
+  "A4b": true,
+  "A5": true,
+  "A6": true,
+  "A7": true,
+  "A8": true,
+  "A9": true,
+  "A10": true,
+  "A11": false,
+  "A12": true
+ },
+ "pinned_definitions": {
+  "RP15_replacement": "ph6lib.psi_asymptotic(u) = log(max(|u|, 2)/2)",
+  "RP8_terms_dropped": "even sector: 2 sum Lambda(n)/n g(2 log n) and -(2/4pi) int h psi(1+ir)",
+  "RP9_construction": "hyperbolic term rebuilt with the whole class weight of the t^2+4 discriminants in place of t^2-4",
+  "RP7_construction": "each sector's identity read on the other sector's levels; h(i/2) added where the even identity has it",
+  "RP12_construction": "picket sum multiplied by e^{tau/2} (eigenvalues E_n - i/2)",
+  "null_construction": {
+   "t_min": 7.0,
+   "upper_margin": "1.02 E_hi + 50",
+   "central_fraction": 0.8,
+   "n_mat": "ceil(n/0.8) + 10",
+   "calibration_seeds": {
+    "gue": [
+     1000,
+     1099
+    ],
+    "poisson": [
+     2000,
+     2099
+    ]
+   },
+   "heldout_seeds": {
+    "gue": [
+     1100,
+     1199
+    ],
+    "poisson": [
+     2100,
+     2199
+    ]
+   }
+  },
+  "chi4_zeros_recipe": "chi4_zeros_v2.py: cost-balanced interval calls lfunzeros(lfuncreate(-4), [a,b], 64) at realprecision 38 via GP strings (one run directory per height range, combined by a jobs.txt listing every p38 chunk); merge with dedupe, |N - Nbar| < 2, min gap > 1e-8, S-block means within 0.6 (blocks of 250; the last partial block is not checked); accuracy: realprecision 57 on [0,1000] and [T-100, T], delta = 10 x max |diff|, floored at 1e-30"
+ },
+ "environment": {
+  "python": "3.12.3",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "mpmath": "1.3.0",
+  "cypari2": "?",
+  "pari": "(2, 17, 2)"
+ },
+ "files": {
+  "PH6_SEAL_6.0.md": "c454aba9b420029a1675b99a3ace1f01d6a2087fcc6660fa3e0295ac424514d5",
+  "PH6_DECISIONS_2026-10-07.md": "6a143807330cfaec820831fe076660632b9a79919a70b1f815a61ae21f0d61fc",
+  "PH6_PROPOSED_AMENDMENTS.md": "4c32202de3e5cdd9ebe882f36b2281caa0acf220320d828006ee39353fd1c369",
+  "ph6lib.py": "29cea83f11db7da886d74ac944bccb4ebe01618e1d7d4eab001ebc06353736fd",
+  "preread.py": "1339c1e82a407132c9a93e505862abbd8dc45a174bd3a756f56df8bb903dadbc",
+  "gates.py": "37b4cabc315e6c206ea6bcf486fc19a6b8f4bda4ce6013ae43c5a92b5ae00546",
+  "rulings.py": "ca92c5b14b6aa81a24005a9eb4dbc43f0e625b2b0857a1605c676693ba982a77",
+  "classes.py": "5d370e6ebcd86a6fba505c954f67bcad5ae34190a7f6ab1baf18f3c32cb31cd8",
+  "chi4_zeros_v2.py": "14d50a445b6f6740358b07b0e2b575a7df7e276fb7e8a0abf4bcded951f0e07b",
+  "results/preread_proposed/BANDS_PROVENANCE.json": "00d949044e72d0fd976b5cec60d4a1f72a28cf00ba6aebee19b3507faa05937d",
+  "results/preread_proposed/design_table.json": "3c25ee6784131d6a980d4e5c0331135dc68fa7e7e5a81c77e525498300862073",
+  "results/preread_proposed/null_known_answers.json": "8e8f21dfd1a51fcb7dbde03c94eaafc23b95584feefaeb93167e23e6cb615894",
+  "results/preread_proposed/nulls_G0_gue.npz": "6bf230c5993c41187f1b85ca39457d69ce405043b9310e800ee56d3fbca38d66",
+  "results/preread_proposed/nulls_G0_poisson.npz": "e0c0661d4bbe5c0b0bf0502e7fe93af0caa9d7c790a158ae3dea5957dfd57fe6",
+  "results/preread_proposed/nulls_G0c_gue.npz": "56ed7feb98593be5f27f24d9b9069e7416e3bc96a94c1b744ee817a24edf54e0",
+  "results/preread_proposed/nulls_G0c_poisson.npz": "137eaab57101d654391dfade6fb7a8bb59c4c102450fc022be1087411c0abbfe",
+  "results/preread_proposed/nulls_G2_gue.npz": "c003aa53b16fda7a9479cdcda56c3bc307b8abf27796e2258826617afea71291",
+  "results/preread_proposed/nulls_G2_poisson.npz": "880dbd2214f9b5930bb1318c84555cb74405a848b7f75ad5cfc961b4170e0c83",
+  "results/preread_proposed/preread_tables.json": "8a7e3e05238a98cdf6644ce69a53ce35993fa2c53dca335c36a171c330df7880",
+  "results/preread_proposed/rhs_G0.npz": "c715e894a8745afabfb3c7beb5ed134446505145ca9d18da10344d6893f6526a",
+  "results/preread_proposed/rhs_G0c.npz": "8f4845604c79f903af54d3665f23cfc05afff91cd91f4c25c5f47ec9299451ac",
+  "results/preread_proposed/rhs_G0s_a.npz": "ededd652a81bfc9a25ccd8f5c5fff1927ac9de0260f409c92cfacaee3a8dad6a",
+  "results/preread_proposed/rhs_G0s_b.npz": "1ae484d7efbbc509c0b88a0d2217f6475244b0176e48a6383ceae4786a72bdec",
+  "results/preread_proposed/rhs_G0s_c.npz": "38a6f7f06a3865995c9a18625a007bfb9b87ad33eef0bb68da527001524c74e1",
+  "results/preread_proposed/rhs_G1_even.npz": "b6e1d541e01d757f3e8fde7ccc151b39b2dba490b8af6112da5f71293411a478",
+  "results/preread_proposed/rhs_G1_odd.npz": "c02f110bef0d8c40b7d85240e4fc40ed59c45bdc8fb600ad64711fd6066ea01a",
+  "results/preread_proposed/rhs_G1s_a_even.npz": "68c7f828096ac458c365b6ff0cd6a77bb6ee8b1b53e789568fa39bcf9f1c1596",
+  "results/preread_proposed/rhs_G1s_a_odd.npz": "6e3f418c1f08ac9eacf25ce97caf9a303508180b4bcfea8e6a5933d69cabc4e8",
+  "results/preread_proposed/rhs_G1s_b_even.npz": "841e56c961b0229a638917c09f0808a5c844b541c26b8c175934dd9be07f03ba",
+  "results/preread_proposed/rhs_G1s_b_odd.npz": "e114bd16d21731702bde0e8f69b26b41ba8bb4dbdb75c35292bfad06e6ed1af6",
+  "results/preread_proposed/rhs_G2.npz": "379c5032f48209436b10ff8d7d083eafe466a70320713dd8bb03b703cfa192ed",
+  "results/preread_proposed/rhs_G2s_a.npz": "099f1765692df4b7bc00f3aad1f1432b1fb20a8ef8443aac9a970e0ad17296c8",
+  "results/preread_proposed/rhs_G2s_b.npz": "fd111577475899fe87fff90004c0d9af471afc69da8c67b1d136c2f605bd5505",
+  "results/preread_proposed/rhs_G4_confusable.npz": "e263a72249ee9c778c8e42af0f80b00382be7ab86fa928b5edc4c984aa085e50",
+  "results/preread_proposed/rhs_G4_incommensurate.npz": "cef164ed7048a38ddab89c5362a6353e45cede883f3a7cd3c24e4fddb9daa7e3"
+ },
+ "data": {
+  "zeros1": {
+   "sha256": "3436c916a7878261ac183fd7b9448c9a4736b8bbccf1356874a6ce1788541632",
+   "n": 100000
+  },
+  "maass": {
+   "sha256": "c6134f0b16f2d96031204790075fe91f46b6d83fec39fee0c5f5c10d3c3a93a2",
+   "n_even": 266,
+   "n_odd": 334
+  },
+  "chi4": {
+   "sha256": "8f134679e6fbf9511619ef2079c462b6e0cb5799f38297a113f3301c5ce301be",
+   "n": 58220,
+   "upper": 40000
+  },
+  "chi4_accuracy": {
+   "sha256": "b5556dd59071251e8e742fecd9024efa93d4beb2bd209b7f2efe8598ee4fe365"
+  },
+  "chi4_merge": {
+   "sha256": "f0ccfbf5611b0463032b03846936d9dd403842b72803b1c71ab6ebc29fd7c4c0"
+  }
+ }
+}

@@ -33,4 +33,25 @@ if [ -n "$violations" ]; then
   echo "  If this is intentional, re-run with: git commit --no-verify" >&2
   exit 1
 fi
+
+# No pattern-matched process lookup in scripts (Will, 2026-10-07). `pgrep -f PAT` / `pkill -f PAT` match their own
+# command line whenever PAT appears in it (bash -c '...', ssh 'cmd'): wait loops never exit, kill loops kill the shell
+# running them (memory: pgrep_waitloop_self_match; 09-30 and twice on 10-07). Wait on / kill an explicit PID instead.
+# Checks ADDED, non-comment lines of staged .py/.sh files only; existing lines are not re-litigated.
+pg_viol=""
+while IFS= read -r f; do
+  case "$f" in *.py|*.sh) ;; *) continue ;; esac
+  hits="$(git diff --cached -U0 -- "$f" | grep -E '^\+[^+]' | sed 's/^+//' \
+          | grep -Ev '^[[:space:]]*#' \
+          | grep -E "p(grep|kill)[[:space:]]+(-[a-zA-Z0-9]*[[:space:]]+)*-[a-zA-Z0-9]*f|p(grep|kill)[\"'][[:space:]]*,([[:space:]]*[\"']-[a-zA-Z0-9]*[\"'][[:space:]]*,)*[[:space:]]*[\"']-[a-zA-Z0-9]*f" || true)"
+  if [ -n "$hits" ]; then
+    pg_viol="${pg_viol}  $f:"$'\n'"$(printf '%s\n' "$hits" | sed 's/^/      /')"$'\n'
+  fi
+done <<< "$staged"
+if [ -n "$pg_viol" ]; then
+  echo "✗ pre-commit: 'pgrep -f' / 'pkill -f' in a script (matches its own command line; use an explicit PID):" >&2
+  printf '%s' "$pg_viol" >&2
+  echo "  If this is intentional, re-run with: git commit --no-verify" >&2
+  exit 1
+fi
 exit 0

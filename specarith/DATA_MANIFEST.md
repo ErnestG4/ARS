@@ -1,0 +1,50 @@
+# specarith — input data manifest
+
+Inputs are gitignored (`odlyzko_zeros*.txt`, `/data/*`); they live in the main checkout's `data/`
+(`/home/combust/fmexplorer/criticality_tool/data/`). Every runner pins these hashes and fails closed on a mismatch.
+
+## ζ zeros (A. M. Odlyzko, https://www-users.cse.umn.edu/~odlyzko/zeta_tables/)
+
+| file | upstream | lines | range of γ | stated accuracy | sha256 |
+|---|---|---|---|---|---|
+| `data/odlyzko_zeros1.txt` | `zeros1` | 100,000 | 14.134725142 … 74920.827498994 | within 3·10⁻⁹ | `3436c916a7878261ac183fd7b9448c9a4736b8bbccf1356874a6ce1788541632` |
+| `data/odlyzko_zeros6.txt` | `zeros6` (Last-Modified 2006-12-09) | 2,001,052 | 14.134725142 … 1132490.658714411 | within 4·10⁻⁹ | `2ef7b752c2f17405222e670a61098250c8e4e09047f823f41e2b41a7b378e7c6` |
+
+Verified 2026-10-07: both local files (dated 2026-05-07) were re-downloaded from upstream and are byte-identical
+(same sha256, same length 1,800,000 / 36,018,936 bytes). The first 100,000 lines of `zeros6` are byte-identical to
+`zeros1`. The `zeros1` hash also matches `data/README.md`. Accuracy figures are quoted from the upstream index page.
+
+Note for programme Phase 2: the upstream page lists high-height tables at 10¹², 10²¹ and 10²² (10⁴ zeros each).
+There is no 10²³ table on it, although the programme brief lists one.
+
+## L(s, χ₋₄) zeros (computed; Phase 6 G2)
+
+| file | recipe | count | range | accuracy | sha256 |
+|---|---|---|---|---|---|
+| `specarith/ph6/data/chi4_zeros_T20000_p38.txt` (gitignored; regenerable) | `ph6/chi4_zeros_v2.py` on spot: PARI 2.17.2, `lfunzeros(lfuncreate(-4), [a,b], 64)` at realprecision 38 (128-bit), 40 cost-balanced chunks, merged | 26,903 | 6.0209… … ≤ 20000 | δ = 10⁻³⁰ (10× max \|p38 − p57\| = 5.5·10⁻³⁴ on [0,1000], [19900,20000], floored at 10⁻³⁰) | `285222a059ac8cddaf5aeb17871fe7c61b4c5f295d4dd78701837e3601fb3550` |
+
+Completeness (2026-10-07 04:12): count vs MV Thm 14.5 smooth part 26,903.37 (deviation −0.374); Turing-style S-block means
+(blocks of 250) within ±0.003; min gap 0.0161 (a genuine close pair). Reports: `ph6/results/chi4_zeros_T20000_p38.merge.json`,
+`.accuracy.json`. **The first recipe (`chi4_zeros.py`, PARI's default divz = 8) MISSED close pairs (26,893 zeros; four
+gaps of 3.0–3.5 mean spacings each hid a pair 0.016–0.07 apart); its list is superseded and not used.**
+
+**Contingency for proposed A4(b) (not sealed):** `specarith/ph6/data/chi4_zeros_T40000_p38.txt` — same recipe, [0, 40000]
+(the [0,20000] chunks above plus 50 chunks on [20000, 40000]); 58,220 zeros vs smooth 58,219.33 (dev +0.666); S-block
+means within ±0.004; min gap 0.0089 (a close pair near the edge of what divz = 32 would resolve); p57 agreement 6.3·10⁻³⁴
+on [0,1000] and [39900,40000] → δ = 10⁻³⁰; sha256 `8f134679e6fbf9511619ef2079c462b6e0cb5799f38297a113f3301c5ce301be`.
+Reports in `ph6/results/preread_A4b/`.
+
+## Maass eigenvalues, PSL(2,ℤ) (Session K)
+
+`sessionK/maass_level1_partial.csv` (tracked; sha256 `c6134f0b16f2d96031204790075fe91f46b6d83fec39fee0c5f5c10d3c3a93a2`):
+600 forms, idx 0–599, r ∈ [9.53369526, 98.76496727]; sym0 = even (266, last r 98.75949735), sym1 = odd (334, last
+r 98.76496727) per `sessionK/SESSION_K_CONTINUATION_FINDINGS.md` Run 1. Source: LMFDB `maass_rigor` level 1
+(Booker–Strömbergsson certified).
+
+**Completeness (corrected 2026-10-07): complete up to r_max = 98.765, NOT to r = 100.** Parity Weyl laws (Booker–
+Strömbergsson 2007 via `ph6/lit/selberg.md` item 5) against the list: T = 60: even 79 vs 78.8, odd 111 vs 110.7;
+T = 90: 214 vs 213.9, 272 vs 272.6; T = 98.765: 266 vs 266.5, 334 vs 333.8; T = 100: 266 vs 274.4, 334 vs 342.9
+(≈ 17 forms in (98.765, 100] are not in the list — Session K kept the clean block idx 0–599). Session K's
+"Weyl 599.8 vs 599" was evaluated at r_max, which shows nothing is missing BELOW r_max. So Phase 6 G1's window
+must be supported in r ≤ 98.76 (truncation bound declared at r_max), unless idx 600–616 are fetched.
+The even sector is additionally incomplete above r ≈ 100 (`sessionK/SESSION_K_FINDINGS.md` §3).

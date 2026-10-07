@@ -1,0 +1,13 @@
+{
+ "configs": {
+  "G2": {
+   "T0": 20000.0,
+   "sigma": 2352.9411764705883,
+   "E_lo": 0.0,
+   "E_hi": 40000.0
+  }
+ },
+ "gates": {},
+ "reachability": {},
+ "note": "CONTINGENCY for proposed A4(b): G2 at T = 4e4 (not sealed)"
+}

@@ -1,0 +1,92 @@
+{
+ "nulls_G0_gue.npz": {
+  "config": {
+   "T0": 37460.413749497,
+   "sigma": 4407.107499940823,
+   "E_lo": 0.0,
+   "E_hi": 74920.827498994
+  },
+  "seeds": [
+   1000,
+   1099
+  ],
+  "n_draws": 100,
+  "mean_levels": 99999.94,
+  "source": "spot run 2026-10-07 02:24-02:55 (preread.py nulls)"
+ },
+ "nulls_G0_poisson.npz": {
+  "config": {
+   "T0": 37460.413749497,
+   "sigma": 4407.107499940823,
+   "E_lo": 0.0,
+   "E_hi": 74920.827498994
+  },
+  "seeds": [
+   2000,
+   2099
+  ],
+  "n_draws": 100,
+  "mean_levels": 100002.91,
+  "source": "spot run 2026-10-07 02:24-02:55 (preread.py nulls)"
+ },
+ "nulls_G0c_gue.npz": {
+  "config": {
+   "T0": 12877.6741372805,
+   "sigma": 1515.0204867388825,
+   "E_lo": 0.0,
+   "E_hi": 25755.348274561
+  },
+  "seeds": [
+   1000,
+   1099
+  ],
+  "n_draws": 100,
+  "mean_levels": 30000.65,
+  "source": "same run"
+ },
+ "nulls_G0c_poisson.npz": {
+  "config": {
+   "T0": 12877.6741372805,
+   "sigma": 1515.0204867388825,
+   "E_lo": 0.0,
+   "E_hi": 25755.348274561
+  },
+  "seeds": [
+   2000,
+   2099
+  ],
+  "n_draws": 100,
+  "mean_levels": 30003.79,
+  "source": "same run"
+ },
+ "nulls_G2_gue.npz": {
+  "config": {
+   "T0": 10000.0,
+   "sigma": 1176.4705882352941,
+   "E_lo": 0.0,
+   "E_hi": 20000.0
+  },
+  "seeds": [
+   1000,
+   1099
+  ],
+  "n_draws": 100,
+  "mean_levels": 26903.1,
+  "source": "same run"
+ },
+ "nulls_G2_poisson.npz": {
+  "config": {
+   "T0": 10000.0,
+   "sigma": 1176.4705882352941,
+   "E_lo": 0.0,
+   "E_hi": 20000.0
+  },
+  "seeds": [
+   2000,
+   2099
+  ],
+  "n_draws": 100,
+  "mean_levels": 26906.28,
+  "source": "same run"
+ }
+}

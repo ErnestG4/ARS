@@ -1,0 +1,8 @@
+# scratch working directories (superseded runs; the canonical outputs live in results/)
+dry_out/
+nulls_in/
+preread_out/
+preread_out_v*/
+regress_out/
+seals/*.draft
+_lhs_cache_*.npy
