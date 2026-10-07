@@ -267,4 +267,49 @@ Will (round 3): fine as disclosed — identities that cannot be tuned, small sub
 7. Added: **G0-s** (§8a) and **G0-c** with **G3-c** (§8b).
 
 ## Amendments
-(none yet; any change after 2026-10-07 is appended here with date, reason and Will's approval)
+Any change after the text approval is appended here with date, reason and Will's approval.
+
+### 2026-10-07 (morning) — Will's decisions on `PH6_PROPOSED_AMENDMENTS.md` (verbatim in `PH6_DECISIONS_2026-10-07.md`, fifth round)
+Reasons, numbers and the reviews behind each item: `PH6_PROPOSED_AMENDMENTS.md`, `REVIEW_code_v1–v3.md`.
+
+- **A1 adopted — G1-s.** The per-sector Maass identity (§5, unchanged formulas/tolerances/reachability rule) also at
+  fixed windows (T₀, σ) = (12, 4) and (20, 5), Layer A only, with RP5–RP9. Reason: at G1's window the elliptic terms are
+  ~e⁻³⁶, so RP5 could not fire (ratio 1e-10); at G1-s it fires (1.7·10⁵ / 1.3·10³ even; 6.2·10⁴ / 7.1·10² odd).
+- **A3 adopted — minimum set over the weight vector's support:** M_w = M ∩ {n : a_n ≠ 0} ({3, 5, 7} under χ₋₄;
+  unchanged under ζ). A cross-reading's "required FAIL" is T3 = FAIL under M_w; NOT RESOLVABLE does not satisfy it.
+- **A4 (b) adopted — G2 at T = 4·10⁴** (configuration rule §3: T₀ = 20000, σ = 2352.94). χ₋₄ zeros: 58,220 (recipe A8),
+  sha256 8f134679…01be. Measured R (χ weights) = 24/28 including 9 (2B₉/|a₉| = 0.78); vs-ζ weakest margin 1.385.
+  G2's band comes from 100 GUE + 100 Poisson calibration draws at this configuration (seeds as §7).
+- **A5 adopted — null known answer, analytic band (Will: derived from the LS coefficient null distribution, not fitted
+  to the seen draws).** Prediction pred_n = the least-squares-propagated Gaussian-process prediction (preread.predicted_s:
+  P·Cov·Pᴴ, pointwise variance (τ/2π)σ√π for GUE and ∫ρ̄w² for Poisson, covariance e^{−σ²Δτ²/4}e^{iΔτT₀}). Under the null
+  c_n is a circular complex Gaussian with E|c_n|² = pred_n², so the mean of N = 100 draws of |c_n|²/pred_n² ~
+  Gamma(100, 1/100). Criterion: every n = 2…90 inside the two-sided α/89 Bonferroni interval of that law, α = 0.01 (the
+  readout's α): **[0.6592, 1.4334]**. Code: preread.a5_band / a5_verdict; gates.main_run refuses any band whose null
+  fails it, or whose GUE ⟨r̃⟩ mean is outside the arsrh Phase-1 band.
+  **Disclosure (as Will required):** the original §7 bar was evaluated on these same calibration draws before this
+  amendment and FAILED at every configuration — literal pointwise formula: 79 (G0 GUE), 82 (G0 Poisson), 86 (G0-c GUE),
+  83 (G0-c Poisson), 51 (G2 GUE), 83 (G2 Poisson) of 89 n outside ±20% (median ratio 1.20–1.41, the omitted LS factor
+  √2); with the LS prediction but the per-n ±20% bar, 2–4 of 89 n outside (sampling noise of 100 draws). Under A5 all six
+  pass (ratios 0.77–1.33; 0 of 89 outside). The A5 rule was written after those values were seen; it is derived, not
+  tuned, but it is not blind.
+- **A6 adopted — G2-s.** The χ₋₄ identity at fixed windows (10, 4) and (40, 3), Layer A only, with RP10, RP11, RP13.
+  Reason: RP11 (Γ parity) cannot fire at G2's window; at (10, 4) it fires (1.9·10⁹); at (40, 3) it is INAPPLICABLE and
+  RP13 carries the Γ term.
+- **A7 adopted (wording):** ε_rhs is the float64 trapezoid step-halving estimate plus derived float64 rounding bounds
+  (prime-line phase/Gaussian rounding of both ±log n lines, trapezoid and addition rounding) plus the prime-sum, class-sum
+  and dyadic tails — not mpmath quadrature. Checked against the 30-digit pilot (≤ 6·10⁻¹⁴) and 40-digit spot checks.
+- **A8 adopted (wording):** χ₋₄ zeros by `chi4_zeros_v2.py` (divz 64; cost-balanced interval calls through GP strings;
+  dedupe; |N − N̄| < 2; min gap > 10⁻⁸; Turing-style S-block means within ±0.6; accuracy from realprecision 57 on [0,1000]
+  and [T−100, T], δ = 10 × max |diff| floored at 10⁻³⁰). The v1 recipe (default divz) missed close pairs and is superseded.
+- **A9 adopted:** Layer B rulings are the functions of `rulings.py` (G0, G0-c, G2, G3/G3-c, G4), with the interpretations
+  listed in the proposals (cross-reading FAIL = A3; G4 attribution CONTAINS WEIGHT/SIGN; c = +log 2 within B_n; G0-c's
+  χ₋₄ reading is RP17, not Layer B; G3-c is GUE only and counts FAIL only).
+- **A10 adopted:** the pinned definitions recorded in `seals/PH6_SEAL_6.0.json` (RP7, RP8, RP9, RP12, RP15, the null
+  construction constants and seeds).
+- **A11 not adopted.** Will's condition: adopt only if the pre-read shows RP3 @100δ below the firing margin. It does not:
+  reach ratio 2.06 (G0) and 2.39 (G0-c) > 1. RP3 stays at 100δ.
+- **A12 adopted:** every bound uses |τ| (local grids reach τ < 0 at small σ; ε > 0 asserted); pre-read outputs are sealed
+  inputs (pinned in the JSON; the run refuses any other pre-read dir or data file); the χ₋₄ completeness check is A8's.
+- **Operational (no change to any rule):** G3/G3-c held-out draws are generated in a worker pool (fixed seeds; verified
+  identical to the sequential computation on non-sealed seeds); the gate run checks every input against the seal.

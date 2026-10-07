@@ -7,7 +7,14 @@
   "ls_ratio_min": 0.7716886012356775,
   "ls_ratio_max": 1.3064922681493467,
   "ls_n_outside_20pct": 2,
+  "A5_band": [
+   0.6592187359792739,
+   1.4333728453239853
+  ],
+  "A5_n_outside": 0,
+  "A5_verdict": "PASS",
   "rtilde_mean": 0.5998995510495996,
+  "rtilde_in_arsrh_band": true,
   "rtilde_frac_draws_in_arsrh_band": 1.0
  },
  "G0_poisson": {
@@ -18,7 +25,14 @@
   "ls_ratio_min": 0.7957002929949524,
   "ls_ratio_max": 1.298957110741324,
   "ls_n_outside_20pct": 2,
+  "A5_band": [
+   0.6592187359792739,
+   1.4333728453239853
+  ],
+  "A5_n_outside": 0,
+  "A5_verdict": "PASS",
   "rtilde_mean": 0.38627656805757077,
+  "rtilde_in_arsrh_band": null,
   "rtilde_frac_draws_in_arsrh_band": null
  },
  "G0c_gue": {
@@ -29,7 +43,14 @@
   "ls_ratio_min": 0.8090737731717619,
   "ls_ratio_max": 1.3300659730307682,
   "ls_n_outside_20pct": 2,
+  "A5_band": [
+   0.6592187359792739,
+   1.4333728453239853
+  ],
+  "A5_n_outside": 0,
+  "A5_verdict": "PASS",
   "rtilde_mean": 0.5998432637103174,
+  "rtilde_in_arsrh_band": true,
   "rtilde_frac_draws_in_arsrh_band": 1.0
  },
  "G0c_poisson": {
@@ -40,7 +61,14 @@
   "ls_ratio_min": 0.7984834476771886,
   "ls_ratio_max": 1.2146755909464295,
   "ls_n_outside_20pct": 3,
+  "A5_band": [
+   0.6592187359792739,
+   1.4333728453239853
+  ],
+  "A5_n_outside": 0,
+  "A5_verdict": "PASS",
   "rtilde_mean": 0.386610008018731,
+  "rtilde_in_arsrh_band": null,
   "rtilde_frac_draws_in_arsrh_band": null
  },
  "G2_gue": {
@@ -51,7 +79,14 @@
   "ls_ratio_min": 0.7677337491055153,
   "ls_ratio_max": 1.20085766662349,
   "ls_n_outside_20pct": 3,
+  "A5_band": [
+   0.6592187359792739,
+   1.4333728453239853
+  ],
+  "A5_n_outside": 0,
+  "A5_verdict": "PASS",
   "rtilde_mean": 0.59954167565817,
+  "rtilde_in_arsrh_band": true,
   "rtilde_frac_draws_in_arsrh_band": 1.0
  },
  "G2_poisson": {
@@ -62,7 +97,14 @@
   "ls_ratio_min": 0.7871165360070864,
   "ls_ratio_max": 1.318700841698155,
   "ls_n_outside_20pct": 4,
+  "A5_band": [
+   0.6592187359792739,
+   1.4333728453239853
+  ],
+  "A5_n_outside": 0,
+  "A5_verdict": "PASS",
   "rtilde_mean": 0.38636121301826326,
+  "rtilde_in_arsrh_band": null,
   "rtilde_frac_draws_in_arsrh_band": null
  }
 }

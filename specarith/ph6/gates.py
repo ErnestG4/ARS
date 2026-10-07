@@ -16,6 +16,9 @@ import math
 import os
 import sys
 
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):   # pin BLAS before numpy loads (worker pools)
+    os.environ.setdefault(_v, "1")
+
 import numpy as np
 from scipy.stats import binom
 
@@ -197,15 +200,32 @@ def maass_gate(cfg, r_even, r_odd, pre_even, pre_odd, reach, classdata, name="G1
     return out
 
 
-def null_gate(name, cfg, target, bands, families=("gue", "poisson"), zeta_reject=("FAIL", "NOT RESOLVABLE")):
+def _held_out_sums(args):
+    """One held-out null draw: its S + M on the local grid (worker; seeds fixed, so results do not depend on the pool)."""
+    kind, seed, cfgd, target = args
+    cfg = L.Config(**cfgd)
+    nbar = L.nbar_chi if target == "chi" else L.nbar_zeta
+    lev = L.null_levels(kind, nbar, cfg.E_hi, np.random.default_rng(seed))
+    lev = lev[lev <= cfg.E_hi]
+    S, M = L.zero_sums(cfg, lev, L.local_grid(cfg))
+    return S + M
+
+
+def null_gate(name, cfg, target, bands, families=("gue", "poisson"), zeta_reject=("FAIL", "NOT RESOLVABLE"), nproc=None):
     """G3 / G3-c on held-out draws (seal §8): silence vs zero weights within alpha + binomial 99% allowance (each family
     against its own band); vs zeta weights T3 = FAIL or NOT RESOLVABLE in 100% of draws; positive control (GUE + planted
-    zeta lines) T3 = PASS in >= 95% of draws."""
+    zeta lines) T3 = PASS in >= 95% of draws. Draws are generated in a worker pool (seeds fixed; verdicts computed in
+    seed order in the main process)."""
+    from multiprocessing import Pool
     loc = L.local_grid(cfg)
     q, chi, a = (4, L.chi4, 1) if target == "chi" else (1, None, 0)
     sm = L.rhs_dirichlet(cfg, loc, q, chi, a)["smooth"]
-    nbar = L.nbar_chi if target == "chi" else L.nbar_zeta
     aw = L.weights("zeta")
+    cfgd = dict(T0=cfg.T0, sigma=cfg.sigma, E_lo=cfg.E_lo, E_hi=cfg.E_hi)
+    nproc = nproc or max(1, int(os.environ.get("PH6_NPROC", (os.cpu_count() or 2) // 2)))
+    jobs = [(kind, HELDOUT_SEEDS[kind] + i, cfgd, target) for kind in families for i in range(100)]
+    with Pool(nproc) as pool:
+        sums = dict(zip([(j[0], j[1]) for j in jobs], pool.map(_held_out_sums, jobs, chunksize=1)))
     d = loc[:, None] - np.log(L.LINE_NS.astype(float))[None, :]
     templ = np.exp(-(cfg.sigma ** 2) * d ** 2 / 2) * np.exp(1j * d * cfg.T0)
     res = dict(gate=name)
@@ -213,11 +233,7 @@ def null_gate(name, cfg, target, bands, families=("gue", "poisson"), zeta_reject
         B = bands[kind]
         n_exceed, n_zeta_reject, n_pos_pass, n = 0, 0, 0, 100
         for i in range(n):
-            rng = np.random.default_rng(HELDOUT_SEEDS[kind] + i)
-            lev = L.null_levels(kind, nbar, cfg.E_hi, rng)
-            lev = lev[lev <= cfg.E_hi]
-            S, M = L.zero_sums(cfg, lev, loc)
-            r = (S + M - sm) / cfg.norm
+            r = (sums[(kind, HELDOUT_SEEDS[kind] + i)] - sm) / cfg.norm
             c = L.readout(cfg, loc, r)
             v0 = L.t3_verdict(c, L.weights("zero"), B)
             n_exceed += v0[0] == "FAIL"
@@ -287,6 +303,14 @@ def main_run(pre_dir, outdir, zeros1_path, maass_path, chi_path):
     assert (len(rE), len(rO)) == (seal["data"]["maass"]["n_even"], seal["data"]["maass"]["n_odd"]), "Maass counts differ"
     pre = lambda n: np.load(os.path.join(pre_dir, f"rhs_{n}.npz"))
     band = lambda n, k: np.load(os.path.join(pre_dir, f"nulls_{n}_{k}.npz"))["B"]
+    # seal §7 + amendment A5: every null must pass its own known answer before its band calibrates anything
+    ka = json.load(open(os.path.join(pre_dir, "null_known_answers.json")))
+    for n in ("G0", "G0c", "G2"):
+        for k in ("gue", "poisson"):
+            if ka[f"{n}_{k}"]["A5_verdict"] != "PASS":
+                raise SystemExit(f"REFUSED: null {n}/{k} fails its known answer (A5)")
+        if not ka[f"{n}_gue"]["rtilde_in_arsrh_band"]:
+            raise SystemExit(f"REFUSED: GUE null {n} <r~> outside the arsrh Phase-1 band (seal §7)")
     _, ls = classes.pari_counts(30, 30)
     ch = {t: ls[("h", t)] / 2 for (k, t) in ls if k == "h"}
     cg = {t: ls[("g", t)] for (k, t) in ls if k == "g"}

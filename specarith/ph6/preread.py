@@ -299,6 +299,26 @@ def predicted_s(cfg, kind, target):
 ARSRH_RTILDE_BAND = (0.5952, 0.6065)    # arsrh Phase 1 matched-window (W = 10,000) tridiagonal GUE 95% band (PHASE1_FINDINGS)
 
 
+A5_ALPHA = 0.01        # the readout's alpha (seal §6.2), reused; nothing here is fitted to the calibration draws
+
+
+def a5_band(n_draws, n_positions=89, alpha=A5_ALPHA):
+    """Amendment A5 (Will, 2026-10-07): the null known answer's band, DERIVED ANALYTICALLY.
+    Under the null, each least-squares coefficient c_n is a linear functional of a sum of many rapidly rotating phases,
+    hence a circular complex Gaussian with E|c_n|^2 = pred_n^2 (the LS-propagated prediction, predicted_s). Then
+    |c_n|^2/pred_n^2 ~ Exp(1), and the mean over N independent draws ~ Gamma(shape N, scale 1/N). The band is the
+    two-sided (alpha / n_positions) Bonferroni interval of that law."""
+    from scipy.stats import gamma
+    p = alpha / (2 * n_positions)
+    return float(gamma.ppf(p, a=n_draws, scale=1.0 / n_draws)), float(gamma.ppf(1 - p, a=n_draws, scale=1.0 / n_draws))
+
+
+def a5_verdict(r_ls, n_draws):
+    lo, hi = a5_band(n_draws, len(r_ls))
+    out_n = int(np.sum((r_ls < lo) | (r_ls > hi)))
+    return dict(A5_band=[lo, hi], A5_n_outside=out_n, A5_verdict="PASS" if out_n == 0 else "FAIL")
+
+
 def known_answers(outdir):
     """Seal §7 null known answers from the saved calibration draws, evaluated two ways (review M1):
     (literal) the sealed pointwise formula, mean |c_n|^2 within 20% for every n;
@@ -331,7 +351,10 @@ def known_answers(outdir):
                 literal_verdict="PASS" if np.all(np.abs(r_lit - 1) <= 0.2) else "FAIL",
                 ls_ratio_median=float(np.median(r_ls)), ls_ratio_min=float(np.min(r_ls)), ls_ratio_max=float(np.max(r_ls)),
                 ls_n_outside_20pct=int(np.sum(np.abs(r_ls - 1) > 0.2)),
+                **a5_verdict(r_ls, len(d["c"])),
                 rtilde_mean=float(np.mean(d["rtilde"])),
+                rtilde_in_arsrh_band=bool(ARSRH_RTILDE_BAND[0] <= np.mean(d["rtilde"]) <= ARSRH_RTILDE_BAND[1])
+                if kind == "gue" else None,
                 rtilde_frac_draws_in_arsrh_band=float(np.mean((d["rtilde"] >= ARSRH_RTILDE_BAND[0])
                                                               & (d["rtilde"] <= ARSRH_RTILDE_BAND[1])))
                 if kind == "gue" else None)
