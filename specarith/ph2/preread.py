@@ -386,6 +386,71 @@ def reach():
     dump("reach.json", dict(rows=rows))
 
 
+FLOOR = 0.20                 # §4 resolution floor (±20%)
+MEAN_SPACING_BAND = 10.0     # §2 check: |mean spacing − 1| ≤ MEAN_SPACING_BAND / n (|S(t)| ≤ 4 at both ends, +1)
+
+
+def summary():
+    """Per-bin pre-data decisions (§3–§7) from g0c.json, g0d/*.json, reach.json, geometry.json:
+    SD_pred(κ̂) per arm = the G0d CUE-calibrated SD interpolated (log-linear in N) to the bin's median N_eff, times
+    max(1, widest-bootstrap/CUE ratio) — the 'wider of' rule of §6 as it will apply; h_bin = min(3·SD_pred, 0.20);
+    PRIMARY allowance under both PA2 options; NOT RESOLVABLE per §4; red-path reachability (shift > 1.96·SD_pred)."""
+    from statistics import NormalDist
+    Phi = NormalDist().cdf
+    g0c = {b["bin"]: b for b in json.load(open(os.path.join(RES, "g0c.json")))["bins"]}
+    reach_ = {r["bin"]: r for r in json.load(open(os.path.join(RES, "reach.json")))["rows"]}
+    geo = {r["bin"]: r for r in json.load(open(os.path.join(RES, "geometry.json")))["bins"]}
+    rows = []
+    for name, *_ in BINS:
+        Nm = geo[name]["Neff"][1]
+        cfg = [json.load(open(os.path.join(RES, "g0d", f"{name}_N{N}.json"))) for b, N in g0d_configs() if b == name]
+        r = dict(bin=name, N_eff=Nm, n=geo[name]["n_spacings"], mean_spacing_band=MEAN_SPACING_BAND / geo[name]["n_spacings"])
+        for arm in ("prim", "sec"):
+            pts = []
+            for d in cfg:
+                a = d[arm]
+                ratio = max([1.0] + [v["sd_ratio_to_cue"] for k, v in a["boot"].items() if k != "widest"])
+                pts.append((d["N"], a["kappa_sd_rel"], ratio, a["wider_of_cue_and_boot"]["cover"], a["cover_cue_split"],
+                            a["bias_in_sd"], a["c_sd"]))
+
+            def interp(j):          # log-linear in N between the two integer-N surrogates, to the bin's median N_eff
+                if len(pts) == 2 and pts[0][0] != pts[1][0]:
+                    (N0, v0), (N1, v1) = (pts[0][0], pts[0][j]), (pts[1][0], pts[1][j])
+                    return math.exp(math.log(v0) + (math.log(v1) - math.log(v0)) * (Nm - N0) / (N1 - N0))
+                return pts[0][j]
+
+            sd_cue, sd_c_cue = interp(1), interp(6)
+            ratio = max(p[2] for p in pts)
+            sd = sd_cue * ratio
+            r[arm] = dict(sd_cue=sd_cue, sd_c_cue=sd_c_cue, boot_ratio=ratio, sd_pred=sd, h_bin=min(3 * sd, FLOOR),
+                          g0d_cover_wider=[p[3] for p in pts], g0d_cover_cue_split=[p[4] for p in pts],
+                          g0d_bias_in_sd=[p[5] for p in pts],
+                          power_excludes_inf=bool(Z95 * 2 * sd < 1),        # c = 1 ± 1.96·SD_c, SD_c ≈ 2·SD_κ
+                          ci_halfwidth=Z95 * sd)
+        al_sum, al_max = g0c[name]["allowance_sum"], g0c[name]["allowance_max"]
+        for tag, al in (("sum", al_sum), ("max", al_max)):
+            w = r["prim"]["ci_halfwidth"] + al
+            r["prim"][f"widened_halfwidth_{tag}"] = w
+            r["prim"][f"NOT_RESOLVABLE_{tag}"] = bool(w > FLOOR or not r["prim"]["power_excludes_inf"])
+        r["sec"]["RESOLVABLE_at_floor"] = bool(r["sec"]["ci_halfwidth"] <= FLOOR and r["sec"]["power_excludes_inf"])
+        rc = reach_[name]
+        mix = rc["sec"]["kappa_mix_alpha"] - rc["sec"]["kappa_truth"]
+        r["rp_mix"] = dict(shift=mix, reachable=bool(abs(mix) > Z95 * r["sec"]["sd_pred"]),
+                           power=Phi(abs(mix) / r["sec"]["sd_pred"] - Z95))
+        r["rp_misprint"] = dict(kappa_prim=rc["prim"]["kappa_misprint"], kappa_sec=rc["sec"]["kappa_misprint"],
+                                mean_spacing=rc["misprint_mean_spacing"],
+                                reachable_mean=bool(1 - rc["misprint_mean_spacing"] > r["mean_spacing_band"]))
+        r["rp_ninf"] = dict(reachable_prim=r["prim"]["power_excludes_inf"], reachable_sec=r["sec"]["power_excludes_inf"])
+        r["rp_lambda"] = dict(neff_ratio=rc["rp_lambda_neff_ratio"], status="INAPPLICABLE (unreachable, declared)")
+        rows.append(r)
+        print(f"{name:3} N_eff {Nm:6.3f} n {r['n']:>9,}  SDκ prim {r['prim']['sd_pred']:.4f} sec {r['sec']['sd_pred']:.4f}"
+              f"  h_bin {r['prim']['h_bin']:.3f}/{r['sec']['h_bin']:.3f}  widened(sum/max) "
+              f"{r['prim']['widened_halfwidth_sum']:.3f}/{r['prim']['widened_halfwidth_max']:.3f}"
+              f"  PRIM NR(sum/max) {r['prim']['NOT_RESOLVABLE_sum']}/{r['prim']['NOT_RESOLVABLE_max']}"
+              f"  SEC ok {r['sec']['RESOLVABLE_at_floor']}  mix {mix:+.4f} reach {r['rp_mix']['reachable']}", flush=True)
+    dump("summary.json", dict(rows=rows, floor=FLOOR, mean_spacing_band_numerator=MEAN_SPACING_BAND))
+
+
 def g0d_configs():
     """The (bin, N) pairs: integer N on both sides of the bin's median N_eff (N ≥ 2)."""
     out = []
@@ -421,4 +486,4 @@ if __name__ == "__main__":
             for r0 in range(0, 200, CHUNK):
                 print(b, nn, r0, r0 + CHUNK)
     else:
-        {"g0a": g0a, "g0b": g0b, "g0c": g0c, "geometry": geometry, "g0d_chain": g0d_chain, "reach": reach}[cmd]()
+        {"g0a": g0a, "g0b": g0b, "g0c": g0c, "geometry": geometry, "g0d_chain": g0d_chain, "reach": reach, "summary": summary}[cmd]()
