@@ -17,6 +17,17 @@ Verified 2026-10-07: both local files (dated 2026-05-07) were re-downloaded from
 Note for programme Phase 2: the upstream page lists high-height tables at 10¹², 10²¹ and 10²² (10⁴ zeros each).
 There is no 10²³ table on it, although the programme brief lists one.
 
+## L(s, χ₋₄) zeros (computed; Phase 6 G2)
+
+| file | recipe | count | range | accuracy | sha256 |
+|---|---|---|---|---|---|
+| `specarith/ph6/data/chi4_zeros_T20000_p38.txt` (gitignored; regenerable) | `ph6/chi4_zeros_v2.py` on spot: PARI 2.17.2, `lfunzeros(lfuncreate(-4), [a,b], 64)` at realprecision 38 (128-bit), 40 cost-balanced chunks, merged | 26,903 | 6.0209… … ≤ 20000 | δ = 10⁻³⁰ (10× max \|p38 − p57\| = 5.5·10⁻³⁴ on [0,1000], [19900,20000], floored at 10⁻³⁰) | `285222a059ac8cddaf5aeb17871fe7c61b4c5f295d4dd78701837e3601fb3550` |
+
+Completeness (2026-10-07 04:12): count vs MV Thm 14.5 smooth part 26,903.37 (deviation −0.374); Turing-style S-block means
+(blocks of 250) within ±0.003; min gap 0.0161 (a genuine close pair). Reports: `ph6/results/chi4_zeros_T20000_p38.merge.json`,
+`.accuracy.json`. **The first recipe (`chi4_zeros.py`, PARI's default divz = 8) MISSED close pairs (26,893 zeros; four
+gaps of 3.0–3.5 mean spacings each hid a pair 0.016–0.07 apart); its list is superseded and not used.**
+
 ## Maass eigenvalues, PSL(2,ℤ) (Session K)
 
 `sessionK/maass_level1_partial.csv` (tracked; sha256 `c6134f0b16f2d96031204790075fe91f46b6d83fec39fee0c5f5c10d3c3a93a2`):
