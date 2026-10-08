@@ -109,3 +109,27 @@ decided pre-data from the pre-read, on the SECONDARY's statistical CI (no allowa
 exclude N = ∞ or is wider than ±20%. And the red paths score only arms that can fire (pre-data): RP-misprint's κ̂ arms
 are INAPPLICABLE in NOT RESOLVABLE bins (its mean-spacing arm fires everywhere); RP-mix and RP-shuffle are INAPPLICABLE
 there too. Implemented in run.py (dry run on H1: misprint FAILS via the mean arm; κ̂ arms, mix, shuffle INAPPLICABLE).
+**Accepted by Will (seventh round) with the achieved-width refinement → seal amendment A6.**
+
+## PA6 — found in the per-bin table (results/summary.md): the PRIMARY's h_bin arm cannot fire
+§4: h_bin = min(3 × predicted SD, 0.20); "pinned at h_bin" ⇔ CI ⊂ (1 ± h_bin)·N_eff. For the PRIMARY that CI is the
+WIDENED one (allowance = max, A3), and in every resolvable bin the predicted widened half-width exceeds h_bin:
+
+| bin | A | B | P1 | P2 | P3 | P4 | P5 | P6 |
+|---|---|---|---|---|---|---|---|---|
+| widened ½-width (pred.) | 0.174 | 0.112 | 0.077 | 0.060 | 0.049 | 0.044 | 0.040 | 0.038 |
+| h_bin (PRIMARY) | 0.021 | 0.014 | 0.011 | 0.014 | 0.017 | 0.022 | 0.023 | 0.026 |
+
+An interval of half-width w cannot sit inside (1 ± h) when w > h, so "PRIMARY pinned at h_bin" is unreachable in every
+bin — a dead arm. Options: (a) declare the PRIMARY's h_bin arm INAPPLICABLE pre-data (report the ±20% floor arm and the
+achieved interval); (b) put the PRIMARY's target on the widened scale, h_bin,prim = min(3·SD + allowance, 0.20).
+**Recommendation: (a)** — h_bin tests statistical resolution, which the SECONDARY carries (its arm can fire:
+1.96·SD < 3·SD). The SECONDARY's h_bin arm is unchanged.
+
+## G0d results (for the seal record)
+22 configs × 200 reps (100 with the A1 bootstrap), all complete; every fit interior (no positivity-bound hits); no
+series-bootstrap replicate needed an exact refit. |bias| vs the known answer κ* ≤ 0.29 SD (B N=2 SECONDARY; all others
+≤ 0.13 SD). Coverage of the §6 "wider of CUE and bootstrap" CI about κ*: pooled 4,225/4,400 = 96.0%; lowest A N=3
+PRIMARY 91/100 (one-sided binomial p = 0.063 vs 95%, uncorrected over 44 tests) — none significantly below nominal.
+Bootstrap/CUE SD ratio 1.00–1.10. Coverage is about κ* (the estimator's own expectation); the gap κ* − κ_true is
+truncation, which the §6 allowance (G0c) covers, not the CI.
