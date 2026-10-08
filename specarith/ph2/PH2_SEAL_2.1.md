@@ -1,6 +1,6 @@
 # Phase 2, item 1 — ζ spacings against CUE(N_eff) per height (PH2_SEAL 2.1)
 
-**Status: TEXT APPROVED by Will (2026-10-07, fifth round) with amendment A1 (CI robustness), written into §5–§6 below.
+**Status: SEALED 2026-10-07 (Will's GO, ninth round): seals/PH2_SEAL_2.1.json, amendments A1–A8 below. Text approved (fifth round) with amendment A1 (CI robustness), written into §5–§6 below.
 The seal is not complete:** code → pre-read (configs, CUE known answers, estimator calibration incl. bootstrap coverage,
 tolerances, resolution targets, red-path reachability, data acquisition verified by md5/sha256) → dry run → seal JSON +
 seal commit → run. No Phase-2 zero data read. Any later change is appended under Amendments, never edited in.

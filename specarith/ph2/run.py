@@ -20,8 +20,8 @@ import preread as R
 HERE = os.path.dirname(os.path.abspath(__file__))
 SEAL = os.path.join(HERE, "seals", "PH2_SEAL_2.1.json")
 MAIN_DATA = "/home/combust/fmexplorer/criticality_tool/data"
-SOURCES = {
-    "zeros6": os.path.join(MAIN_DATA, "odlyzko_zeros6.txt"),
+SOURCES = {   # PH2_ZEROS6 may relocate zeros6 (e.g. on spot); integrity is the sealed sha256, not the path
+    "zeros6": os.environ.get("PH2_ZEROS6", os.path.join(MAIN_DATA, "odlyzko_zeros6.txt")),
     "zeros3": os.path.join(HERE, "data", "odlyzko", "zeros3"),
     "zeros4": os.path.join(HERE, "data", "odlyzko", "zeros4"),
     "zeros5": os.path.join(HERE, "data", "odlyzko", "zeros5"),

@@ -151,3 +151,16 @@ below that they are reported descriptively, not scored. → RP-mix required
 in A, B (and P1 if power ≥ 0.80); descriptive at P2 (power 0.59).
 Proceed: dry run + achieved witness results to Will, then seal on go.
 ```
+
+## Ninth round (Will, 2026-10-07 night) — GO for the seal
+
+Filed verbatim:
+
+```
+GO: build the Phase 2 seal.
+make_seal_json.py --pa2 max --adopted PA1,PA2,PA3,PA4,PA5,PA6,PA7
+→ seal commit. Will pushes.
+Then the real run reads zeros only under the matching seal; report every bin
+(sealed and descriptive), with bin A's primary flagged as least informative
+(bias ≈ allowance by construction) and the secondary as the sharp test.
+```
