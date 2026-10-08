@@ -159,3 +159,22 @@ integrable crystals.
 ```
 Accompanying note (Will): at 3·10⁴ levels finite-size offsets in ⟨r̃⟩ are comparable to the 0.003 surmise/large-N gap,
 hence bands from matched-size draws with the large-N constants as labels; choosing one ϑ now would be a needless fork.
+
+## 6.1 decisions, second round (Will, 2026-10-08 morning) — on MORNING_2026-10-08.md
+
+Filed verbatim:
+
+```
+6.1 decisions (Will):
+1. C3b INAPPLICABLE (paper defines no single spectrum; stitching = new construction).
+2. C3a: N = 6·10⁴; convergence check = agreement of low-|E| levels between
+   N = 3·10⁴ and 6·10⁴ runs where both valid. (b) rejected (mirror half adds no
+   independent info). (c) fallback if 6·10⁴ fails convergence.
+3. PA-6.1-1 ADOPT with change:
+   T4 as proposed (nearest class, ≥3 SD separation else ambiguous/NR;
+   integrable crystals INAPPLICABLE).
+   T2: PASS iff |r̃_cand − r̃_zeros| ≤ 3·√(SD_cand² + SD_zeros²), both SDs by
+   block bootstrap over T1-matched ranges; GUE band descriptive.
+Open lead (descriptive): low-height ⟨r̃⟩ excess (0.6129, falling with height) and
+Phase 2 κ̂ > 1 — list together; do not merge post hoc.
+```

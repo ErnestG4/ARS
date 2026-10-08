@@ -61,4 +61,23 @@ Per candidate (and declared variant): the 4-tuple (T1, T2, T3, T4) ∈ {PASS, FA
 4. Seal JSON: code hashes, candidate level files' hashes, τ₁, bands, variants.
 
 ## Amendments
-(none)
+- **A1 (Will, 2026-10-08, second round): C3b INAPPLICABLE.** BEK §5 (eqs. 5.2–5.3) reads each matrix size N only near
+  one energy E(N) = π√(2N) − 2π; the paper defines no single spectrum, and stitching levels from different N would be a
+  new construction.
+- **A2 (Will): C3a at N = 6·10⁴** (3·10⁴ positive levels; BEK Lemma 1 makes the spectrum symmetric). Option (b), counting
+  both signs, rejected: the mirror half adds no independent information. **Convergence (§2 for C3a):** agreement of the
+  low-|E| levels of the N = 3·10⁴ and N = 6·10⁴ runs where both are valid. *Operationalised by CC before the comparison
+  was computed (flagged to Will):* the lowest 10% of the N = 3·10⁴ run's positive levels (1,500 levels) are compared
+  level by level with the N = 6·10⁴ run; converged iff max |ΔE| ≤ 10⁻³ local mean spacings (as §2). **Fallback (c):** if
+  this fails, C3a reads NOT RESOLVABLE (not converged).
+- **A3 (Will): PA-6.1-1 adopted with a change to T2.**
+  - **T4** (replaces §5's band rule): nearest class by |⟨r̃⟩ − band mean| / band SD over the matched-size Poisson, GOE,
+    GUE, GSE bands; assigned iff the nearest is separated from the second-nearest by ≥ 3 SD units, else "ambiguous"
+    (NOT RESOLVABLE); integrable crystals INAPPLICABLE (unchanged). Known answers (pre-read): zeros → GUE (8.5 vs 40.0 SD
+    units); 800/800 band draws → their own class.
+  - **T2** (replaces §4's PASS rule): PASS iff |⟨r̃⟩_cand − ⟨r̃⟩_zeros| ≤ 3·√(SD_cand² + SD_zeros²), both SDs by
+    moving-block bootstrap over the T1-matched height ranges; the matched-size GUE band is reported descriptively.
+    Reason: at these heights the zeros' own ⟨r̃⟩ (0.6129) is 8.5 SD above the GUE band, so the rule as written failed the
+    zeros' known answer (`results/preread61/redpaths61.json`).
+- **Open lead (Will; descriptive, listed together, not merged):** the low-height ⟨r̃⟩ excess (0.6129 over the first
+  3·10⁴ zeros, falling with height) and Phase 2's κ̂ > 1 — `specarith/OPEN_LEADS.md`.
