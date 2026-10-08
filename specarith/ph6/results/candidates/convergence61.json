@@ -28,5 +28,15 @@
   "median_dev": 1.8741401535158817e-07,
   "counts_equal": true,
   "converged": true
+ },
+ "C2": {
+  "id": "C2",
+  "n_res1": 31128,
+  "n_res2": 31128,
+  "max_dev_in_spacings": 4.198919721882636e-09,
+  "at_level": 29930,
+  "median_dev": 1.1597316923929102e-09,
+  "counts_equal": true,
+  "converged": true
  }
 }
