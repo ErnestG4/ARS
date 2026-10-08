@@ -207,3 +207,26 @@ Verify (or log) the possible missing 1/15 in BBLM v1 eq. (8).
 Accompanying note (Will): the new R₂ phase is the programme's Phase 2 "new part" (the comb leg), run as a new phase so
 Task B's one-witness rule is not violated; (c)'s opposite-sign fact suggests the ζ-specific (arithmetic) corrections may
 dominate and act against the matrix-size ones — an open lead, no verdict.
+
+## Twelfth round (Will, 2026-10-08) — R₂ phase decisions R1–R5; route (a)
+
+Filed verbatim:
+
+```
+R₂ phase (Will):
+R1 accept CS 2007 Thm 4.1; seal states it rests on the ratios conjecture
+   (test of a conjecture's lower-order prediction).
+R2 frame as probable replication: find/file the BK/Odlyzko comparison
+   (cf. Berry–Keating 1999 SIAM Review). Novelty = calibrated μ with CI
+   across fresh heights + sealed nulls → "independent quantitative replication".
+R3 ONE primary test function, chosen pre-data where the predicted
+   arithmetic term/noise is largest; 2–3 others descriptive; no sweeps.
+R4 pairs fully inside each file, separation ≤ declared max; report
+   excluded fraction.
+R5 resolvable iff pre-read power to reject μ=0 ≥ 0.80; target ½-width
+   min(3·predicted SD, 0.5); declared bootstrap sweep, wider CI; (achieved) rule.
+Route (a): GO after R₂ sealed; milestone 1 = U(N) construction reproduces
+   exact CUE_N tables before any ζ number (gate; stop if it fails).
+Phase 6.1: approved IF the text implements D1–D6 as summarized; upload for
+   a full review if preferred.
+```

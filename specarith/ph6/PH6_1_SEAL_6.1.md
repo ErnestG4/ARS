@@ -1,7 +1,8 @@
 # Phase 6.1 — candidates: seal text (PH6_SEAL 6.1)
 
-**Status: TEXT with Will's decisions D1–D6 applied (2026-10-08, `PH6_DECISIONS_2026-10-07.md` § 6.1 decisions);
-awaiting Will's approval of the text.** Then: code → pre-read (known answers on zeros and nulls; candidate construction
+**Status: TEXT APPROVED (Will, 2026-10-08: "approved IF the text implements D1–D6 as summarized"; CC checked each of
+D1–D6 against §§1–5 — implemented as summarized; one addition flagged to Will: §5's "ambiguous ⇒ NOT RESOLVABLE" when
+⟨r̃⟩ lies in more than one class band).** Decisions: `PH6_DECISIONS_2026-10-07.md` § 6.1 decisions. Then: code → pre-read (known answers on zeros and nulls; candidate construction
 and convergence — levels computed, not read by T1–T4) → seal JSON + seal commit → read candidates. Any later change is
 appended under Amendments.
 
