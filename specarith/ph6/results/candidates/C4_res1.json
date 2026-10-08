@@ -1,0 +1,14 @@
+{
+ "id": "C4",
+ "res": 1,
+ "n": 60000,
+ "E_min": 0.3991539093182179,
+ "E_max": 376221.8504280073,
+ "sha256": "b0b8157deed0ccfc90cdbf79bbf4ff388d4c5c2f5cc6b6653ee5fdf1cec8d949",
+ "params": {
+  "seconds": 143.76580095291138,
+  "lambda_": 60000,
+  "bound": 376991.1184307752,
+  "n_below_bound": 60000
+ }
+}

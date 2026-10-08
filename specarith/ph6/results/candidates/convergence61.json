@@ -8,5 +8,25 @@
   "median_dev": 1.4230619327275424e-11,
   "counts_equal": true,
   "converged": true
+ },
+ "C1b": {
+  "id": "C1b",
+  "n_res1": 31120,
+  "n_res2": 31120,
+  "max_dev_in_spacings": 6.74385595018313e-11,
+  "at_level": 30034,
+  "median_dev": 1.9154149208006547e-11,
+  "counts_equal": true,
+  "converged": true
+ },
+ "C4": {
+  "id": "C4",
+  "n_res1": 60000,
+  "n_res2": 60000,
+  "max_dev_in_spacings": 7.247243082275458e-07,
+  "at_level": 56975,
+  "median_dev": 1.8741401535158817e-07,
+  "counts_equal": true,
+  "converged": true
  }
 }
