@@ -137,23 +137,53 @@ def run_all(t, band, top, rng):
 
 
 # ---------------------------------------------------------------- known-answer dry run
+def cue_block_positions(n_total, block, rng):
+    """Unfolded GUE-statistics positions with exactly uniform density: concatenated CUE_block eigenphases (Haar,
+    Mezzadri), x = b·block + block·θ/2π, so the expected count of x below X is X (no unfolding error)."""
+    xs = []
+    for b in range(int(math.ceil(n_total / block))):
+        Z = (rng.standard_normal((block, block)) + 1j * rng.standard_normal((block, block))) / math.sqrt(2)
+        Q, R = np.linalg.qr(Z)
+        Q = Q * (np.diagonal(R) / np.abs(np.diagonal(R)))[None, :]
+        th = np.sort(np.mod(np.angle(np.linalg.eigvals(Q)), 2 * math.pi))
+        xs.append(b * block + block * th / (2 * math.pi))
+    return np.concatenate(xs)[:n_total]
+
+
 def known(out, nproc):
+    """Known answers and red paths for T1–T4 (no candidate read). Spectra, all mapped onto ζ's smooth count N̄ (exact θ):
+      zeros            the first 3·10⁴ zeros                                     expected (PASS, PASS, PASS, GUE)
+      cue_null         GUE statistics, exact density: N̄(t_n) = x_n (CUE blocks)  T1 PASS, T2 FAIL, T3 FAIL, T4 GUE
+      picket           N̄(t_n) = n − ½ exactly (smooth, crystal)                  T1 PASS, T2 FAIL, T3 FAIL, T4 INAPPLICABLE
+      rp_t1_constant   picket with N̄(t_n) = n − ½ − ⅛ (the 1-vs-7/8 constant)    T1 FAIL (constant)
+      rp_t1_density    picket with N̄(t_n) = (n − ½)/1.02 (2% density error)      T1 FAIL
+    The T3 band (GUE nulls at G0-c's configuration, 6.0 machinery) is cached in OUT/band61_known.npy."""
     rng = np.random.default_rng(SEED)
     z = zeros_in(0, 1e9)[:30_000]
     top = float(z[-1])
-    band, binfo = null_band(top, nproc)
-    res = dict(band=binfo)
-    res["zeros"] = run_all(z, band, top, rng)
+    bp = os.path.join(out, "band61_known.npy")
+    if os.path.exists(bp):
+        band, binfo = np.load(bp), json.load(open(bp.replace(".npy", ".json")))
+    else:
+        band, binfo = null_band(top, nproc)
+        os.makedirs(out, exist_ok=True)
+        np.save(bp, band)
+        json.dump(binfo, open(bp.replace(".npy", ".json"), "w"), indent=1)
     nb = lambda x: L.nbar_zeta(x)
-    gue = L.null_levels("gue", nb, top, np.random.default_rng(SEED + 1))
-    gue = gue[gue <= top]
-    res["gue_null"] = run_all(gue, band, top, rng)
-    x0 = float(nb(np.array([7.0]))[0])
-    pk = L.invert_nbar(nb, x0 + 0.5 + np.arange(len(z)), 7.0, top * 1.05 + 100)
-    pk = pk[pk <= top]
-    res["picket"] = run_all(pk, band, top, rng)
-    for k in ("zeros", "gue_null", "picket"):
-        print(k, res[k]["tuple"], flush=True)
+    inv = lambda x: L.invert_nbar(nb, x, 7.0, top * 1.05 + 100)
+    n = np.arange(1, 30_001)
+    spectra = {
+        "zeros": z,
+        "cue_null": inv(cue_block_positions(30_000, 1000, np.random.default_rng(SEED + 1))),
+        "picket": inv(n - 0.5),
+        "rp_t1_constant": inv(n - 0.5 - 0.125),
+        "rp_t1_density": inv((n - 0.5) / 1.02),
+    }
+    res = dict(band=binfo)
+    for k, t in spectra.items():
+        t = np.sort(t[(t > 0) & (t <= top)])
+        res[k] = run_all(t, band, top, rng)
+        print(k, res[k]["tuple"], "T1 attribution", res[k]["T1"]["attribution"], flush=True)
     os.makedirs(out, exist_ok=True)
     json.dump(res, open(os.path.join(out, "tests61_known.json"), "w"), indent=1, default=float)
 
