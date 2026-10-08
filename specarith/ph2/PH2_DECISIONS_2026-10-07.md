@@ -187,3 +187,23 @@ Will pushes 4839b52.. incl. tag ph2-seal-2.1.
 Accompanying note (Will): the clean design commits to one theoretical source for p₂ before computing its prediction,
 because choosing the theory after seeing the residual is a forking path; if an N⁻⁴ coefficient already exists in the
 literature, matching it is a replication and the claim changes accordingly.
+
+## Eleventh round (Will, 2026-10-08) — after the next-order literature check
+
+Filed verbatim:
+
+```
+Phase 2 decision 1 (Will):
+(i) NEW confirmatory phase: pair correlation R₂ at small separations vs the
+    BK 1996 PRL / Conrey–Snaith two-point formula with arithmetic lower-order
+    terms — ONE source committed before computing; parameter-free; FRESH
+    Platt heights L = 14,16,18,20,22 (md5 pinned pre-download).
+(ii) Scope (a) — ζ-specific O(N⁻⁴) spacing term from Conrey–Snaith — as a
+    research project; report scope before committing. Skip (b).
+(iii) (c) descriptive only on seen bins: comparison vs exact CUE(N_eff),
+    noting the opposite-sign deviation as an open lead. No seal.
+Verify (or log) the possible missing 1/15 in BBLM v1 eq. (8).
+```
+Accompanying note (Will): the new R₂ phase is the programme's Phase 2 "new part" (the comb leg), run as a new phase so
+Task B's one-witness rule is not violated; (c)'s opposite-sign fact suggests the ζ-specific (arithmetic) corrections may
+dominate and act against the matrix-size ones — an open lead, no verdict.

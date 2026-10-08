@@ -71,6 +71,13 @@ zeros move it the other way and further, and the SECONDARY (which carries the ar
   N, κ̂ would not depend on the window; it does, most at the 2.2 edge, which suggests the difference is partly in the
   **shape** of p(s) near s ≈ 2. These are fits to the same data, and the significance of the differences has not been
   assessed (it needs a bootstrap of the difference), so this is a lead, not a finding.
+- **Against the exact CUE(N_eff) law (Will, eleventh round (iii); results/run/CUE_EXACT_COMPARE.md) — open lead, no
+  verdict.** If the zeros followed the exact CUE law at N = N_eff (all orders in 1/N), the PRIMARY estimator would read
+  κ* = 0.87 (A) … 0.98 (P6), i.e. **below** 1 by 2–13%; the zeros read 1.08–1.40, **above** 1 — the opposite side of the
+  N_eff-alone model in all 8 bins. Against the SECONDARY model, exact CUE(N_eff) sits almost on it (κ* 0.956–1.003; on
+  the zeros' side only in P3–P6, by ≤ 0.3%), while the zeros sit 5–21% above. So the zeros move away from both models
+  toward the sine kernel, much further than CUE's own higher-order terms do: suggestive that ζ-specific (arithmetic)
+  corrections dominate and act against the matrix-size ones at these heights.
 - **A with the sum allowance (A3, descriptive):** NOT RESOLVABLE (as for B); P1–P6 still FAIL under the sum.
 - **H bins** (10⁴ zeros each): point estimates are uninformative (κ̂ 0.6–∞); the 24.5–44.6 gap in log(E/2π) has no
   public data. The heights where BBLM/BFM report visual agreement (10¹⁵, 10²²–10²³) are outside every resolvable bin.

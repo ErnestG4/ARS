@@ -328,6 +328,13 @@ specific, parameter-free model. It is not *the* ζ prediction.
    data (BFM §1.2, p. 6).
 3. BBLM arXiv v1 eq. (8): the CUE R₂ term at N⁻⁴ is printed as −(πs)²sin²(πs)/N⁴. FS25 (2.20), and the
    x/sin x series, give −(πs)²sin²(πs)/(15N⁴) [agent check]. Journal version UNVERIFIED.
+   **CC verification (2026-10-08):** the LaTeX source (`bblm.tex` line 153, label `r2cue`) prints
+   `- \frac{(\pi s)^2}{ N^4 } \sin^2(\pi s)` — no 1/15. Series: 1/(N sin(x/N)) = (1/x)[1 + x²/6N² + 7x⁴/360N⁴ + …], whose
+   square gives the N⁻⁴ coefficient 1/36 + 7/180 = 1/15. Numerically (mpmath, 40 digits), N⁴·(exact R₂^CUE_N − R₂ to
+   O(N⁻²)) → −x²sin²x/15 at s = 0.3, 0.7, 1.3 as N = 20, 40, 80 (e.g. s = 0.7: −0.21142, −0.21112, −0.21104 →
+   −0.21102). **Bears on nothing used:** BBLM take N_eff from eq. (8) at O(N⁻²) only; Phase 2's models use BFM's operator
+   forms and Forrester–Shen's p₁. **Open note for the R₂ phase:** any CUE N⁻⁴ pair-correlation term used there must
+   carry the 1/15.
 4. Bogomolny 2007 §8 repeats the α-for-ᾱ slip that BFM footnote 5 flags in BBLM (28) [agent algebra].
 5. CS07 volume: Crossref gives **94**(3) 594–646. The arXiv journal-ref says 93.
 6. Journal versions newer than the brief: FS25 is in Forum Math. Sigma 14 (2026) e105, and Nishigaki 2025 is

@@ -142,3 +142,20 @@ Seal with --A1 --A6 --A4b and results/preread_proposed.
 
 Process: pre-commit hook rejecting `pgrep -f` in repo scripts.
 ```
+
+## 6.1 decisions (Will, 2026-10-08) on PH6_1_SEAL_DRAFT D1–D6
+
+Filed verbatim:
+
+```
+Phase 6.1:
+D1 both ϑ variants declared, verdict per variant. D2 N = 3·10⁴; E-linked
+torus as declared secondary variant. D3 accept max(5·block SD, 0.02).
+D4 large-N ⟨r̃⟩ refs (Atas 2013: GUE 0.5996, GOE 0.5307, Poisson 0.386) as
+labels; verdict bands from matched-size GUE/Poisson draws; fix repo tables.
+D5 accept: zeros at matched height. D6 accept: nearest class by ⟨r̃⟩ with
+matched-size bands; NNS-KS and Σ²+Δ₃ descriptive; INAPPLICABLE for
+integrable crystals.
+```
+Accompanying note (Will): at 3·10⁴ levels finite-size offsets in ⟨r̃⟩ are comparable to the 0.003 surmise/large-N gap,
+hence bands from matched-size draws with the large-N constants as labels; choosing one ϑ now would be a needless fork.
