@@ -1,5 +1,10 @@
 # Phase 2, item 1 — findings: ζ consecutive spacings against CUE(N_eff), per height
 
+**Headline (Will's framing, tenth round):** at heights 10⁵–3·10¹⁰ (N_eff 2.3–5.1), the O(N⁻²)-truncated finite-size
+law (BFM, with ᾱ) **under-describes** the ζ nearest-neighbour spacing law at 0.5–1% precision: the fitted correction is
+68–92% of the predicted one, the gap shrinking with height; the residual is consistent with a missing O(N⁻⁴) term.
+This rejects the truncation at these heights, not BFM's framework — next-order terms are large at N_eff ≈ 2–5.
+
 Run under **PH2_SEAL_2.1** (commit a54bb182, tag `ph2-seal-2.1`; amendments A1–A8). Real run on spot 2026-10-07
 22:39–23:00 (PDT), code sha256 = sealed (results/run/code_sha256_run.txt), every data file hash-checked by run.py before
 it was opened. Tables: results/run/FINDINGS_TABLES.md; figure results/run/kappa_vs_height.png; per-bin JSON
@@ -70,9 +75,12 @@ zeros move it the other way and further, and the SECONDARY (which carries the ar
 - **H bins** (10⁴ zeros each): point estimates are uninformative (κ̂ 0.6–∞); the 24.5–44.6 gap in log(E/2π) has no
   public data. The heights where BBLM/BFM report visual agreement (10¹⁵, 10²²–10²³) are outside every resolvable bin.
 
-## 5. Open (Will's call)
-1. A pre-registered next-order model for the descriptive scaling — e.g. p₀ + p₁N⁻² + p₂N⁻⁴ with p₂ from the
-   Bogomolny–Keating arithmetic terms (the programme's "new part": singular-series terms for the residual) — tested on
-   these same sealed bins as a new phase, not as an amendment to this one.
-2. Whether to report the low-height (N_eff < 2) region descriptively (seal §3 allows it; not run).
-3. Platt files at higher heights (up to log(E/2π) ≈ 24.5) would extend the resolvable range toward N_eff ≈ 5.6.
+## 5. Next (Will, tenth round)
+1. **Literature check first** for a known next-order (O(N⁻⁴)) spacing correction: Forrester–Mays 2015 and its sequel
+   BFM 2017; the ratios conjecture (Conrey–Farmer–Zirnbauer) and Conrey–Snaith lower-order terms. If a coefficient
+   exists, matching it is a replication and the claim is framed accordingly.
+2. Then seal **one** theory-fixed p₂ (no fitted parameters, source chosen before its prediction is computed) and test it
+   **confirmatorily on fresh Platt heights** (e.g. L = 14, 16, 18, 20, 22, md5-pinned before download). These eight bins
+   have been seen: under the new model they are descriptive only. The (κ̂ − 1)·N_eff² pattern was found on them.
+3. Low heights (N_eff < 2): descriptive report, labelled outside the expansion's validity, no verdicts.
+4. Order: literature check → Phase 6.1 candidates → Phase 1; the fresh-height test when its model is sealed.

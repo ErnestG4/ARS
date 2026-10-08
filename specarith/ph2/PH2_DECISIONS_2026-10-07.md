@@ -164,3 +164,26 @@ Then the real run reads zeros only under the matching seal; report every bin
 (sealed and descriptive), with bin A's primary flagged as least informative
 (bias ≈ allowance by construction) and the secondary as the sharp test.
 ```
+
+## Tenth round (Will, 2026-10-07 night) — framing of the result; next steps
+
+Filed verbatim:
+
+```
+Phase 2 item 1 — framing: headline as "the O(N⁻²)-truncated finite-size law
+(BFM, ᾱ) under-describes ζ spacings at N_eff 2.3–5.1 at 0.5–1% precision;
+residual consistent with a missing O(N⁻⁴) term" — not "zeros do not follow BFM".
+Decisions:
+1. Before any new model: lit check for a known next-order spacing correction
+   (Forrester–Mays 2015; CFZ ratios conjecture / Conrey–Snaith lower-order
+   terms). Then seal ONE theory-fixed p₂ (no fitted params); confirmatory
+   test on FRESH Platt heights (e.g. L = 14, 16, 18, 20, 22; md5 pinned pre-
+   download). Original 8 bins under the new model: descriptive only.
+2. Low heights (N_eff < 2): descriptive, labelled outside expansion validity.
+3. Order: lit check → Phase 6.1 candidates → Phase 1; fresh-height test when
+   its model is sealed.
+Will pushes 4839b52.. incl. tag ph2-seal-2.1.
+```
+Accompanying note (Will): the clean design commits to one theoretical source for p₂ before computing its prediction,
+because choosing the theory after seeing the residual is a forking path; if an N⁻⁴ coefficient already exists in the
+literature, matching it is a replication and the claim changes accordingly.
