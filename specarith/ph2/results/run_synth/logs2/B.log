@@ -1,0 +1,1 @@
+{"bin": "B", "n": 1397835, "mean_spacing": {"value": 0.9999996256203528, "band": 7.153920169404829e-06, "ok": true}} prim PASS 1.0382 [0.9224, 1.1545] sec FAIL 1.1129 [1.0937, 1.1331] misprint FAILS True ('FIRED', 'FIRED', 'FIRED') mix DISTINGUISHED shuffle UNCHANGED
