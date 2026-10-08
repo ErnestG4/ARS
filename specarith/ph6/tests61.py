@@ -188,6 +188,41 @@ def known(out, nproc):
     json.dump(res, open(os.path.join(out, "tests61_known.json"), "w"), indent=1, default=float)
 
 
+SEAL61 = os.path.join(HERE, "seals", "PH6_SEAL_6.1.json")
+
+
+def _sha(path):
+    return hashlib.sha256(open(path, "rb").read()).hexdigest()
+
+
+def read(ident):
+    """Read one candidate under the 6.1 seal: every pinned hash (code, inputs, levels, band) is checked before the level
+    file is opened; candidates the seal marks INAPPLICABLE / NOT RESOLVABLE pre-read are not opened at all."""
+    if not os.path.exists(SEAL61):
+        raise SystemExit("REFUSED: no PH6_SEAL_6.1.json — candidates are not read before the 6.1 seal")
+    seal = json.load(open(SEAL61))
+    for f, h in list(seal["code_sha256"].items()) + list(seal["inputs_sha256"].items()):
+        if _sha(os.path.join(HERE, f)) != h:
+            raise SystemExit(f"REFUSED: {f} differs from the sealed file")
+    c = seal["candidates"][ident]
+    out = dict(id=ident)
+    if c.get("pre_verdict"):
+        out.update(tuple=[c["pre_verdict"]] * 4, reason=c["reason"])
+    else:
+        lev_path = os.path.join(HERE, c["levels"])
+        if _sha(lev_path) != c["levels_sha256"]:
+            raise SystemExit(f"REFUSED: {c['levels']} differs from the sealed level file")
+        band_path = os.path.join(HERE, c["band"])
+        if _sha(band_path) != c["band_sha256"]:
+            raise SystemExit(f"REFUSED: {c['band']} differs from the sealed band")
+        t = np.sort(np.load(lev_path))
+        t = t[t > 0]
+        out.update(run_all(t, np.load(band_path), c["config_top"], np.random.default_rng(SEED)))
+    os.makedirs(os.path.join(HERE, "results", "read61"), exist_ok=True)
+    json.dump(out, open(os.path.join(HERE, "results", "read61", f"{ident}.json"), "w"), indent=1, default=float)
+    print(ident, out["tuple"], flush=True)
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "known":
@@ -200,6 +235,4 @@ if __name__ == "__main__":
         json.dump(info, open(os.path.join(out, f"band61_{ident}.json"), "w"), indent=1)
         print(ident, info, flush=True)
     elif cmd == "read":
-        if not os.path.exists(os.path.join(HERE, "seals", "PH6_SEAL_6.1.json")):
-            raise SystemExit("REFUSED: no PH6_SEAL_6.1.json — candidates are not read before the 6.1 seal")
-        raise SystemExit("read mode is implemented at the seal (pins this file's sha256)")
+        read(sys.argv[2])
