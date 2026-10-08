@@ -29,6 +29,8 @@ def main():
         "cue_null_T2_FAIL": known["cue_null"]["T2"]["verdict"] == "FAIL",
         "cue_null_T3_FAIL": known["cue_null"]["T3"]["verdict"] == "FAIL",
         "picket_T4_INAPPLICABLE": known["picket"]["T4"]["verdict"] == "INAPPLICABLE",
+        "rp_t4_intermediate_fires": (known["rp_t4_intermediate"]["T4"]["verdict"] == "NOT RESOLVABLE"
+                                     and known["rp_t4_intermediate"]["T4"].get("reason") == "intermediate, no standard class"),
         "srednicki_PASS": all(r["PASS"] for r in sred),
         **{f"{c}_converged": bool(conv[c]["converged"]) for c in READ},
         "C3a_not_converged": not conv["C3a"]["converged"],
@@ -53,12 +55,14 @@ def main():
     pre = [os.path.join("results", "preread61", f) for f in
            ("tests61_known.json", "redpaths61.json", "srednicki61.json", "bands61.json", "preread61_zeros_bands.json")
            if os.path.exists(P("results", "preread61", f))] + [os.path.join("results", "candidates", "convergence61.json")]
-    seal = dict(seal="PH6_SEAL_6.1", text="PH6_1_SEAL_6.1.md", amendments=["A1", "A2", "A3"],
+    seal = dict(seal="PH6_SEAL_6.1", text="PH6_1_SEAL_6.1.md", amendments=["A1", "A2", "A3", "A4"],
                 code_sha256={f: sha(P(f)) for f in ("ph6lib.py", "preread.py", "tests61.py")},
                 inputs_sha256={os.path.join("results", "preread61", "bands61.json"):
                                sha(P("results", "preread61", "bands61.json"))},
-                constants=dict(TAU1=T.TAU1, CRYSTAL_RTILDE=T.CRYSTAL_RTILDE, BOOT_BLOCK=T.BOOT_BLOCK, BOOT_B=T.BOOT_B,
-                               SEP_T4=T.SEP_T4, SEED=T.SEED),
+                constants=dict(TAU1=T.TAU1, CRYSTAL_RTILDE=T.CRYSTAL_RTILDE, BOOT_BLOCKS=list(T.BOOT_BLOCKS),
+                               BOOT_B=T.BOOT_B, SEP_T4=T.SEP_T4, INTERMEDIATE_SD=T.INTERMEDIATE_SD, SEED=T.SEED),
+                amendments_note="A1-A4 (PH6_1_SEAL_6.1.md); T3 bands computed with tests61.py md5 b0e61fb9 (nulls path "
+                                "unchanged since)",
                 candidates=cands, preread_checks=checks, preread_sha256={p: sha(P(p)) for p in pre})
     os.makedirs(P("seals"), exist_ok=True)
     json.dump(seal, open(T.SEAL61, "w"), indent=1, default=float)

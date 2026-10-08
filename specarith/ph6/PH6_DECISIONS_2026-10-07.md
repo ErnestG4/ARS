@@ -178,3 +178,20 @@ Filed verbatim:
 Open lead (descriptive): low-height ⟨r̃⟩ excess (0.6129, falling with height) and
 Phase 2 κ̂ > 1 — list together; do not merge post hoc.
 ```
+
+## 6.1 pre-seal confirmations (Will, 2026-10-08 midday)
+
+Filed verbatim:
+
+```
+6.1 pre-seal confirmations (Will):
+- T1: seal text states T1 tests mean density + zeros-level count rigidity
+  (global offset); report T1's density/slope component separately,
+  descriptive, for attribution.
+- Crystal criterion ⟨r̃⟩ ≥ 0.9: accept. Add T4 rule: outside all bands by
+  > 15 SD and < 0.9 → "intermediate, no standard class" (T4 NOT RESOLVABLE).
+  Margin chosen so zeros (8.5 SD from GUE) still classify.
+- T2 bootstrap: block sweep {30, 100, 300} ratios, widest CI; 2000 replicates.
+- Read candidates at res2: accept.
+Then: per-candidate T3 bands → make_seal_json61.py → seal on go.
+```

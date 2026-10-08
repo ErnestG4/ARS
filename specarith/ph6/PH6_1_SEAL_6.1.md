@@ -79,5 +79,17 @@ Per candidate (and declared variant): the 4-tuple (T1, T2, T3, T4) ∈ {PASS, FA
     moving-block bootstrap over the T1-matched height ranges; the matched-size GUE band is reported descriptively.
     Reason: at these heights the zeros' own ⟨r̃⟩ (0.6129) is 8.5 SD above the GUE band, so the rule as written failed the
     zeros' known answer (`results/preread61/redpaths61.json`).
+- **A4 (Will, 2026-10-08, pre-seal confirmations):**
+  - **T1 states what it tests:** the mean density **and** zeros-level rigidity of the counting function, including its
+    global offset (the 7/8 constant to ±τ₁ = 0.02, τ₁ calibrated on the zeros' block SD 4.6·10⁻⁴). A spectrum with the
+    right mean density but generic random-matrix fluctuations of N(t) (e.g. a random global offset) can FAIL T1 — by
+    design. T1's density/slope component (|slope of δ_n on log t_n| ≤ τ₁) is reported separately, descriptively, for
+    attribution.
+  - **Crystal criterion** ⟨r̃⟩ ≥ 0.9 (integrable crystal ⇒ T2 FAIL, T4 INAPPLICABLE): accepted.
+  - **T4 addition:** if ⟨r̃⟩ < 0.9 and it lies more than **15 SD** from every band mean → "intermediate, no standard
+    class" (T4 NOT RESOLVABLE). The margin keeps the zeros (8.5 SD from GUE) classified.
+  - **T2 bootstrap:** moving blocks of {30, 100, 300} ratios, the widest SD used (for the candidate and for the zeros
+    separately), 2,000 replicates.
+  - **Candidates are read at their res2 level lists.**
 - **Open lead (Will; descriptive, listed together, not merged):** the low-height ⟨r̃⟩ excess (0.6129 over the first
   3·10⁴ zeros, falling with height) and Phase 2's κ̂ > 1 — `specarith/OPEN_LEADS.md`.

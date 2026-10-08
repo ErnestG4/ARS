@@ -6,10 +6,14 @@
                                             mapped onto ζ's smooth count — the only spectra this mode ever reads
   python tests61.py read ID                  a candidate — REFUSED unless seals/PH6_SEAL_6.1.json exists and pins this code
 
-Declared here (not fixed by the seal text; flagged to Will before the seal):
+Constants (seal 6.1 A3, A4 — Will, 2026-10-08):
   CRYSTAL_RTILDE = 0.9   integrable crystal ⇔ ⟨r̃⟩ ≥ 0.9 (GSE band tops at 0.677, picket = 1); decides T4 INAPPLICABLE and T2
                          FAIL ("crystal") before either is read
-  BOOT_BLOCK, BOOT_B     moving-block bootstrap of the ratio sequence for T2's SDs: blocks of 100 ratios, 2,000 replicates
+  BOOT_BLOCKS, BOOT_B    moving-block bootstrap of the ratio sequence for T2's SDs: blocks of {30, 100, 300} ratios, the
+                         widest SD used, 2,000 replicates each
+  INTERMEDIATE_SD = 15   T4: ⟨r̃⟩ < 0.9 and > 15 SD from every band mean ⇒ "intermediate, no standard class" (NOT RESOLVABLE)
+T1 tests the mean density AND zeros-level rigidity of the counting function including its global offset (A4); its
+density/slope component is reported separately, descriptively.
 """
 import hashlib
 import json
@@ -29,8 +33,9 @@ ZEROS6_SHA256 = "2ef7b752c2f17405222e670a61098250c8e4e09047f823f41e2b41a7b378e7c
 BANDS61 = os.path.join(HERE, "results", "preread61", "bands61.json")
 TAU1 = 0.02                       # D3: max(5·SD_blocks, 0.02), SD_blocks = 4.6e-4 on the zeros (preread61)
 CRYSTAL_RTILDE = 0.9
-BOOT_BLOCK, BOOT_B = 100, 2000
+BOOT_BLOCKS, BOOT_B = (30, 100, 300), 2000          # A4: block sweep, widest SD
 SEP_T4 = 3.0                      # A3: nearest class separated from the second-nearest by ≥ 3 SD units
+INTERMEDIATE_SD = 15.0            # A4: farther than this from every band (and not a crystal) ⇒ intermediate, NOT RESOLVABLE
 SEED = 20261008
 
 
@@ -40,7 +45,13 @@ def ratios(t):
     return np.minimum(s[:-1], s[1:]) / np.maximum(s[:-1], s[1:])
 
 
-def boot_sd_mean(x, rng, block=BOOT_BLOCK, B=BOOT_B):
+def boot_sd_widest(x, rng):
+    """A4: the widest moving-block bootstrap SD of the mean over the declared block lengths."""
+    sds = {blk: boot_sd_mean(x, rng, blk) for blk in BOOT_BLOCKS}
+    return max(sds.values()), sds
+
+
+def boot_sd_mean(x, rng, block, B=BOOT_B):
     n = len(x)
     nb = int(math.ceil(n / block))
     cs = np.concatenate([[0.0], np.cumsum(x)])
@@ -67,7 +78,9 @@ def t1(t):
     dbar = float(delta.mean())
     fails = [k for k, v in (("constant", abs(dbar) > TAU1), ("slope", abs(slope) > TAU1)) if v]
     return dict(verdict="PASS" if not fails else "FAIL", attribution=fails, delta_bar=dbar, slope=slope, tau1=TAU1,
-                n=int(len(t)), t_range=[float(t[0]), float(t[-1])])
+                n=int(len(t)), t_range=[float(t[0]), float(t[-1])],
+                descriptive_density_slope=dict(slope=slope, within_tau1=bool(abs(slope) <= TAU1),
+                                               note="A4: the density/slope component alone, for attribution"))
 
 
 # ---------------------------------------------------------------- T2 (A3) and the crystal criterion
@@ -83,9 +96,10 @@ def t2(t, rng):
         return out
     z = zeros_in(t[0], t[-1])
     rz = ratios(z)
-    sd_c, sd_z = boot_sd_mean(r, rng), boot_sd_mean(rz, rng)
+    (sd_c, sweep_c), (sd_z, sweep_z) = boot_sd_widest(r, rng), boot_sd_widest(rz, rng)
     tol = 3 * math.sqrt(sd_c ** 2 + sd_z ** 2)
     out.update(rtilde_zeros=float(rz.mean()), n_zeros=int(len(z)), sd_cand=sd_c, sd_zeros=sd_z, tol=tol,
+               sd_sweep_cand={str(k): v for k, v in sweep_c.items()}, sd_sweep_zeros={str(k): v for k, v in sweep_z.items()},
                diff=rc - float(rz.mean()), verdict="PASS" if abs(rc - float(rz.mean())) <= tol else "FAIL")
     return out
 
@@ -98,9 +112,12 @@ def t4(t2res):
     v = t2res["rtilde"]
     d = sorted((abs(v - b["mean"]) / b["sd"], k) for k, b in bands.items())
     sep = d[1][0] - d[0][0]
-    cls = d[0][1] if sep >= SEP_T4 else "ambiguous"
-    return dict(verdict=cls if cls != "ambiguous" else "NOT RESOLVABLE", nearest=d[0][1], distances={k: x for x, k in d},
-                separation=sep)
+    base = dict(nearest=d[0][1], distances={k: x for x, k in d}, separation=sep)
+    if d[0][0] > INTERMEDIATE_SD:                               # A4: far from every standard class
+        return dict(verdict="NOT RESOLVABLE", reason="intermediate, no standard class", **base)
+    if sep < SEP_T4:
+        return dict(verdict="NOT RESOLVABLE", reason="ambiguous", **base)
+    return dict(verdict=d[0][1], **base)
 
 
 # ---------------------------------------------------------------- T3 (6.0 instrument)
@@ -178,6 +195,9 @@ def known(out, nproc):
         "picket": inv(n - 0.5),
         "rp_t1_constant": inv(n - 0.5 - 0.125),
         "rp_t1_density": inv((n - 0.5) / 1.02),
+        # A4 witness: a jittered lattice (Gaussian jitter 0.1 mean spacing) — ⟨r̃⟩ between GSE and the crystal threshold,
+        # > 15 SD from every band: T4 must read NOT RESOLVABLE ("intermediate, no standard class")
+        "rp_t4_intermediate": inv(np.sort(n - 0.5 + 0.1 * np.random.default_rng(SEED + 2).standard_normal(len(n)))),
     }
     res = dict(band=binfo)
     for k, t in spectra.items():
