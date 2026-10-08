@@ -55,13 +55,24 @@
    "rp_mix": {
     "shift": 0.034181185044139584,
     "reachable": true,
-    "power": 0.843801968064521
+    "power": 0.843801968064521,
+    "required": true
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": 1.1278372278789524,
     "mean_spacing": 0.9010594925427418,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -127,13 +138,24 @@
    "rp_mix": {
     "shift": 0.023588305333898107,
     "reachable": true,
-    "power": 0.9445500291814124
+    "power": 0.9445500291814124,
+    "required": true
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": 1.1839283381947512,
     "mean_spacing": 0.9145688405208184,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -199,13 +221,24 @@
    "rp_mix": {
     "shift": 0.017321164164494585,
     "reachable": true,
-    "power": 0.9339436850893981
+    "power": 0.9339436850893981,
+    "required": true
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": 1.2702829612241018,
     "mean_spacing": 0.9245892720358512,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -271,13 +304,24 @@
    "rp_mix": {
     "shift": 0.01284023164274517,
     "reachable": true,
-    "power": 0.5885132308948047
+    "power": 0.5885132308948047,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": 1.4228880139897186,
     "mean_spacing": 0.9333024777838128,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -343,13 +387,24 @@
    "rp_mix": {
     "shift": 0.009474629793404299,
     "reachable": false,
-    "power": 0.2781935033568259
+    "power": 0.2781935033568259,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": 1.732182571377229,
     "mean_spacing": 0.941197514609084,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -415,13 +470,24 @@
    "rp_mix": {
     "shift": 0.0072647432706285375,
     "reachable": false,
-    "power": 0.1288626547400567
+    "power": 0.1288626547400567,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": 2.4535722726084965,
     "mean_spacing": 0.9473668363533647,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -487,13 +553,24 @@
    "rp_mix": {
     "shift": 0.005718733229000739,
     "reachable": false,
-    "power": 0.0911041076713402
+    "power": 0.0911041076713402,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": Infinity,
     "mean_spacing": 0.9523808517726503,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -559,13 +636,24 @@
    "rp_mix": {
     "shift": 0.004952582004264849,
     "reachable": false,
-    "power": 0.07135318145299202
+    "power": 0.07135318145299202,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": Infinity,
     "mean_spacing": 0.9551569618820568,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": 1.0,
+     "N_sec": 1.0
+    },
+    "required": {
+     "mean": true,
+     "N_prim": true,
+     "N_sec": true
+    }
    },
    "rp_ninf": {
     "reachable_prim": true,
@@ -631,13 +719,24 @@
    "rp_mix": {
     "shift": 0.003961693044336245,
     "reachable": false,
-    "power": 0.025727664024519148
+    "power": 0.025727664024519148,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": Infinity,
     "mean_spacing": 0.9591503267973857,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": null,
+     "N_sec": null
+    },
+    "required": {
+     "mean": true,
+     "N_prim": false,
+     "N_sec": false
+    }
    },
    "rp_ninf": {
     "reachable_prim": false,
@@ -703,13 +802,24 @@
    "rp_mix": {
     "shift": 0.0008892671197198165,
     "reachable": false,
-    "power": 0.025050371968455165
+    "power": 0.025050371968455165,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": Infinity,
     "mean_spacing": 0.9775684163301929,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": null,
+     "N_sec": null
+    },
+    "required": {
+     "mean": true,
+     "N_prim": false,
+     "N_sec": false
+    }
    },
    "rp_ninf": {
     "reachable_prim": false,
@@ -775,13 +885,24 @@
    "rp_mix": {
     "shift": 0.0007777688083292489,
     "reachable": false,
-    "power": 0.025040259928615527
+    "power": 0.025040259928615527,
+    "required": false
    },
    "rp_misprint": {
     "kappa_prim": Infinity,
     "kappa_sec": Infinity,
     "mean_spacing": 0.9786461669869742,
-    "reachable_mean": true
+    "reachable_mean": true,
+    "power": {
+     "mean": 1.0,
+     "N_prim": null,
+     "N_sec": null
+    },
+    "required": {
+     "mean": true,
+     "N_prim": false,
+     "N_sec": false
+    }
    },
    "rp_ninf": {
     "reachable_prim": false,

@@ -136,3 +136,18 @@ any arm whose ACHIEVED CI cannot exclude N=∞ or exceeds ±20% reads
 "NOT RESOLVABLE (achieved)" — flagged, never PASS/FAIL. Report predicted
 and achieved widths per bin.
 ```
+
+## Eighth round (Will, 2026-10-07 night) — PA6, new PA7, proceed
+
+Filed verbatim:
+
+```
+PA6: option (a) — PRIMARY h_bin arm INAPPLICABLE pre-data (primary
+resolution is bounded by its own theoretical truncation; statistical
+resolution is carried by the SECONDARY's h_bin arm). Report primary ±20%
+floor arm and achieved interval.
+PA7 (new): red paths are REQUIRED to fail only where pre-read power ≥ 0.80;
+below that they are reported descriptively, not scored. → RP-mix required
+in A, B (and P1 if power ≥ 0.80); descriptive at P2 (power 0.59).
+Proceed: dry run + achieved witness results to Will, then seal on go.
+```

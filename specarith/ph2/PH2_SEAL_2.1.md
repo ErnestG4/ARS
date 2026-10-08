@@ -151,3 +151,10 @@ for the residual) is a separate later item.
   whose ACHIEVED CI (PRIMARY: widened) cannot exclude N = ∞ or has half-width > 0.20 reads "NOT RESOLVABLE (achieved)"
   — flagged, never PASS/FAIL — and its dependent red-path checks read INAPPLICABLE (achieved). Predicted and achieved
   half-widths are reported per bin and arm.
+- **A7 = PA6 (Will, 2026-10-07, eighth round):** the PRIMARY's h_bin resolution arm is INAPPLICABLE pre-data in every
+  bin (the predicted widened half-width exceeds h_bin everywhere: primary resolution is bounded by its own theoretical
+  truncation). Reported for the PRIMARY: the ±20% floor arm and the achieved interval. Statistical resolution is carried
+  by the SECONDARY's h_bin arm (unchanged).
+- **A8 = PA7 (Will):** a red-path check is REQUIRED to fail only where its pre-read power is ≥ 0.80; below that its
+  outcome is reported descriptively, not scored. RP-mix: required in A (0.84), B (0.94), P1 (0.93); descriptive in P2
+  (0.59) and wherever lower. Checks whose arm is NOT RESOLVABLE remain INAPPLICABLE (A6).

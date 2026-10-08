@@ -386,6 +386,7 @@ def reach():
 
 
 FLOOR = 0.20                 # §4 resolution floor (±20%)
+POWER_REQUIRED = 0.80        # A8 (PA7): a red-path check is scored only where its pre-read power reaches this
 MEAN_SPACING_BAND = 10.0     # §2 check: |mean spacing − 1| ≤ MEAN_SPACING_BAND / n (|S(t)| ≤ 4 at both ends, +1)
 
 
@@ -434,11 +435,32 @@ def summary(only=None):
         r["sec"]["RESOLVABLE_at_floor"] = bool(r["sec"]["ci_halfwidth"] <= FLOOR and r["sec"]["power_excludes_inf"])
         rc = reach_[name]
         mix = rc["sec"]["kappa_mix_alpha"] - rc["sec"]["kappa_truth"]
-        r["rp_mix"] = dict(shift=mix, reachable=bool(abs(mix) > Z95 * r["sec"]["sd_pred"]),
-                           power=Phi(abs(mix) / r["sec"]["sd_pred"] - Z95))
+        # A8 (PA7): a red-path check is REQUIRED only where its pre-read power ≥ POWER_REQUIRED
+        pw_mix = Phi(abs(mix) / r["sec"]["sd_pred"] - Z95)
+        r["rp_mix"] = dict(shift=mix, reachable=bool(abs(mix) > Z95 * r["sec"]["sd_pred"]), power=pw_mix,
+                           required=bool(pw_mix >= POWER_REQUIRED and r["sec"]["RESOLVABLE_at_floor"]))
+
+        def pw_kappa(k_mis, k_truth, sd, allow):     # misprint κ̂ arm: shift beyond the (widened) CI half-width
+            if not math.isfinite(k_mis):
+                return 1.0
+            return Phi((abs(k_mis - k_truth) - allow) / sd - Z95)
+
+        d_mean = 1 - rc["misprint_mean_spacing"]
+        n_b = geo[name]["n_spacings"]
+        pw_mean = Phi((d_mean - r["mean_spacing_band"]) * n_b / 2)    # mean of zeros: σ ≈ 2/n (S at both ends)
+        # an arm that is NOT RESOLVABLE (its CI reaches N = ∞) cannot see any κ̂ shift: power undefined (None)
+        pw_np = (None if r["prim"]["NOT_RESOLVABLE_max"] else
+                 pw_kappa(rc["prim"]["kappa_misprint"], rc["prim"]["kappa_truth"], r["prim"]["sd_pred"],
+                          g0c[name]["allowance_max"]))
+        pw_ns = (None if not r["sec"]["RESOLVABLE_at_floor"] else
+                 pw_kappa(rc["sec"]["kappa_misprint"], rc["sec"]["kappa_truth"], r["sec"]["sd_pred"], 0.0))
         r["rp_misprint"] = dict(kappa_prim=rc["prim"]["kappa_misprint"], kappa_sec=rc["sec"]["kappa_misprint"],
                                 mean_spacing=rc["misprint_mean_spacing"],
-                                reachable_mean=bool(1 - rc["misprint_mean_spacing"] > r["mean_spacing_band"]))
+                                reachable_mean=bool(d_mean > r["mean_spacing_band"]),
+                                power=dict(mean=pw_mean, N_prim=pw_np, N_sec=pw_ns),
+                                required=dict(mean=bool(pw_mean >= POWER_REQUIRED),
+                                              N_prim=bool(pw_np is not None and pw_np >= POWER_REQUIRED),
+                                              N_sec=bool(pw_ns is not None and pw_ns >= POWER_REQUIRED)))
         r["rp_ninf"] = dict(reachable_prim=r["prim"]["power_excludes_inf"], reachable_sec=r["sec"]["power_excludes_inf"])
         r["rp_lambda"] = dict(neff_ratio=rc["rp_lambda_neff_ratio"], status="INAPPLICABLE (unreachable, declared)")
         rows.append(r)

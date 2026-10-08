@@ -63,6 +63,7 @@ def main():
                          widened_halfwidth=r["prim"][f"widened_halfwidth_{a.pa2}"],
                          **{f"allowance_{other}_descriptive": g0c[r["bin"]][f"allowance_{other}"],
                             f"NOT_RESOLVABLE_{other}_descriptive": r["prim"][f"NOT_RESOLVABLE_{other}"]})
+        r["prim"]["h_bin_arm"] = "INAPPLICABLE (A7: widened half-width > h_bin in every bin)"
         r["sec"] = dict(r["sec"], NOT_RESOLVABLE=not r["sec"]["RESOLVABLE_at_floor"])
         bins.append(r)
     preread_hashes = {os.path.relpath(f, HERE): run._hash(f, "sha256")

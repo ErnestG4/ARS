@@ -206,7 +206,9 @@ def gates(name, synth_N=None, keep=None):
         a["kappa_ci_widened"] = [wlo, whi]
         a["power_excludes_inf"] = bool(ci["c_ci"][0] > 0)
         h = srow[arm]["h_bin"]
-        a["pinned_h_bin"] = bool(math.isfinite(whi) and wlo >= 1 - h and whi <= 1 + h)
+        # A7 (PA6): the PRIMARY's h_bin arm is INAPPLICABLE pre-data (its widened half-width exceeds h_bin everywhere)
+        a["pinned_h_bin"] = ("INAPPLICABLE" if arm == "prim"
+                             else bool(math.isfinite(whi) and wlo >= 1 - h and whi <= 1 + h))
         a["pinned_floor"] = bool(math.isfinite(whi) and wlo >= 1 - R.FLOOR and whi <= 1 + R.FLOOR)
         # NOT RESOLVABLE is decided pre-data (seal JSON): PRIMARY by §4 (widened tolerance cannot exclude N = ∞ or
         # exceeds ±20%); SECONDARY by the same rule on its statistical CI (an interval reaching N = ∞ is no evidence)
@@ -229,23 +231,29 @@ def gates(name, synth_N=None, keep=None):
         lo, hi = out[arm]["kappa_ci_widened"]
         k = P.kappa_from_c(f["c"])
         mis[arm] = dict(c=f["c"], kappa=k, inside_ci=bool(lo <= k <= hi))
-    # each arm is scored only where it can fire (pre-data reachability); an unreachable arm is INAPPLICABLE
-    mis["arm_mean"] = "FIRED" if not mis["mean_ok"] else "SILENT"
-    mis["arm_N_prim"] = (_inapp(out["prim"]) if out["prim"]["unresolved"]
-                         else ("FIRED" if not mis["prim"]["inside_ci"] else "SILENT"))
-    mis["arm_N_sec"] = (_inapp(out["sec"]) if out["sec"]["unresolved"]
-                        else ("FIRED" if not mis["sec"]["inside_ci"] else "SILENT"))
-    live = [mis[k] for k in ("arm_mean", "arm_N_prim", "arm_N_sec") if not mis[k].startswith("INAPPLICABLE")]
-    mis["FAILS_as_required"] = bool(live and all(x == "FIRED" for x in live))
+    # each check is scored only where it can fire: INAPPLICABLE where its arm is NOT RESOLVABLE (A6), DESCRIPTIVE
+    # (outcome reported, not scored) where its pre-read power < 0.80 (A8); otherwise REQUIRED to fire
+    req = srow["rp_misprint"]["required"]
+    fired = dict(mean=not mis["mean_ok"], N_prim=not mis["prim"]["inside_ci"], N_sec=not mis["sec"]["inside_ci"])
+    for key, arm in (("mean", None), ("N_prim", "prim"), ("N_sec", "sec")):
+        obs = "FIRED" if fired[key] else "SILENT"
+        if arm is not None and out[arm]["unresolved"]:
+            mis["arm_" + key] = _inapp(out[arm])
+        elif not req[key]:
+            mis["arm_" + key] = f"DESCRIPTIVE ({obs})"
+        else:
+            mis["arm_" + key] = obs
+    scored = [mis["arm_" + k] for k in ("mean", "N_prim", "N_sec") if mis["arm_" + k] in ("FIRED", "SILENT")]
+    mis["FAILS_as_required"] = bool(scored and all(x == "FIRED" for x in scored))
     out["rp_misprint"] = mis
     fm = arm_fit(Ws, (1 + ab) / 2, s, Neff, boot=False)
     km = P.kappa_from_c(fm["c"])
     lo, hi = out["sec"]["kappa_ci_widened"]
-    reach_mix = bool(srow["rp_mix"]["reachable"] and not out["sec"]["unresolved"])
+    obs_mix = "DISTINGUISHED" if not (lo <= km <= hi) else "NOT DISTINGUISHED"
     out["rp_mix"] = dict(c=fm["c"], kappa=km, shift=km - out["sec"]["kappa"], outside_ci=bool(not (lo <= km <= hi)),
-                         reachable=reach_mix,
-                         status=((_inapp(out["sec"]) if out["sec"]["unresolved"] else "INAPPLICABLE") if not reach_mix
-                                 else ("DISTINGUISHED" if not (lo <= km <= hi) else "NOT DISTINGUISHED")))
+                         power=srow["rp_mix"]["power"], required=bool(srow["rp_mix"]["required"]),
+                         status=(_inapp(out["sec"]) if out["sec"]["unresolved"]
+                                 else obs_mix if srow["rp_mix"]["required"] else f"DESCRIPTIVE ({obs_mix})"))
     out["rp_ninf"] = dict(prim=out["prim"]["power_excludes_inf"], sec=out["sec"]["power_excludes_inf"])
     idx = rng.integers(0, n, n)                                       # RP-shuffle: i.i.d. (s, N_eff) pairs
     fs = arm_fit(Wp, None, s[idx], Neff[idx], boot=False)
