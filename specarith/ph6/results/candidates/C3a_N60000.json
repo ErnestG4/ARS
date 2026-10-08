@@ -1,0 +1,16 @@
+{
+ "id": "C3a",
+ "N": 60000,
+ "n": 60000,
+ "n_positive": 29999,
+ "E_min": -47087.11862340659,
+ "E_max": 47087.118623350194,
+ "lemma1_max_asymmetry": 2.8620193381900805e-07,
+ "sha256": "39ebd90c83e23c7b1c10642ad28f4e73afa838453a7c8ab424ebf605aae43a62",
+ "params": {
+  "hbar": 1,
+  "ell_x": "sqrt(2 pi N)",
+  "ell_xi": "sqrt(2 pi N)",
+  "seconds": 5612.183501243591
+ }
+}

@@ -38,5 +38,26 @@
   "median_dev": 1.1597316923929102e-09,
   "counts_equal": true,
   "converged": true
+ },
+ "C3a": {
+  "rule": "lowest 10% of N=3e4 positive levels (zero mode excluded) vs N=6e4, |dE|/local mean spacing <= 1e-3 (A2)",
+  "n_compared": 1499,
+  "max_dev_in_spacings": 156.89066308203462,
+  "median_dev": 69.9798384080828,
+  "first_levels_N3e4": [
+   0.4406779848422433,
+   0.5332239881073957,
+   0.9498016391287532,
+   1.0797354072153356,
+   1.5023952382610424
+  ],
+  "first_levels_N6e4": [
+   0.4188043181644811,
+   0.5033063593852808,
+   0.8970167408817525,
+   1.0173954817216122,
+   1.414401440337115
+  ],
+  "converged": false
  }
 }
