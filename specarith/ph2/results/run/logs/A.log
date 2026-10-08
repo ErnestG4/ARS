@@ -1,0 +1,2 @@
+A: 243454 spacings, mean 0.99999720, 27s
+{"bin": "A", "n": 243454, "mean_spacing": {"value": 0.9999972024059719, "band": 4.107552145374486e-05, "ok": true}} prim NOT RESOLVABLE (achieved) 1.4049 [1.1927, 1.6236] sec FAIL 1.2106 [1.1646, 1.2624] misprint FAILS True ('FIRED', 'INAPPLICABLE (achieved)', 'FIRED') mix DISTINGUISHED shuffle INAPPLICABLE (achieved)

@@ -1,0 +1,2 @@
+H3: 9999 spacings, mean 1.00010637, 1s
+{"bin": "H3", "n": 9999, "mean_spacing": {"value": 1.0001063693162502, "band": 0.001000100010001, "ok": true}} prim NOT RESOLVABLE 0.621 [0.3848, inf] sec NOT RESOLVABLE 0.6014 [0.3707, inf] misprint FAILS True ('FIRED', 'INAPPLICABLE', 'INAPPLICABLE') mix INAPPLICABLE shuffle INAPPLICABLE

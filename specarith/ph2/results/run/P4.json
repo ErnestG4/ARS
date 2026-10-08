@@ -1,0 +1,184 @@
+{
+ "bin": "P4",
+ "synthetic": null,
+ "n": 6350091,
+ "N_eff_median": 4.372851071924581,
+ "block_lengths": [
+  50,
+  150,
+  500
+ ],
+ "mean_spacing": {
+  "value": 0.9999998135681034,
+  "band": 1.5747805818845746e-06,
+  "ok": true
+ },
+ "prim": {
+  "fit": {
+   "c": 0.7959405082602384,
+   "flag": "interior",
+   "boot_sd_c": {
+    "50": 0.013289452593484645,
+    "150": 0.012502468450287192,
+    "500": 0.012573296380313705
+   },
+   "boot_refit": 0
+  },
+  "sd_c_cue": 0.01516089047009208,
+  "sd_c_used": 0.01516089047009208,
+  "c": 0.7959405082602384,
+  "c_ci": [
+   0.7662257089653014,
+   0.8256553075551755
+  ],
+  "kappa": 1.1208814863638956,
+  "kappa_ci": [
+   1.1005267709728286,
+   1.142409063960395
+  ],
+  "kappa_ci_widened": [
+   1.0705258576932237,
+   1.1724099772399998
+  ],
+  "power_excludes_inf": true,
+  "pinned_h_bin": "INAPPLICABLE",
+  "pinned_floor": true,
+  "halfwidth": {
+   "predicted": 0.04434109680483084,
+   "achieved": 0.05094205977338806
+  },
+  "not_resolvable_achieved": false,
+  "G1": "FAIL",
+  "unresolved": false
+ },
+ "sec": {
+  "fit": {
+   "c": 0.8758738461798368,
+   "flag": "interior",
+   "boot_sd_c": {
+    "50": 0.015648769425019547,
+    "150": 0.014232575799157652,
+    "500": 0.014477570044338826
+   },
+   "boot_refit": 0
+  },
+  "sd_c_cue": 0.016794047283911335,
+  "sd_c_used": 0.016794047283911335,
+  "c": 0.8758738461798368,
+  "c_ci": [
+   0.8429581183487078,
+   0.9087895740109657
+  ],
+  "kappa": 1.0685115495176296,
+  "kappa_ci": [
+   1.048982714988847,
+   1.089173336848496
+  ],
+  "kappa_ci_widened": [
+   1.048982714988847,
+   1.089173336848496
+  ],
+  "power_excludes_inf": true,
+  "pinned_h_bin": false,
+  "pinned_floor": true,
+  "halfwidth": {
+   "predicted": 0.017192679427076595,
+   "achieved": 0.020095310929824417
+  },
+  "not_resolvable_achieved": false,
+  "G1": "FAIL",
+  "unresolved": false
+ },
+ "rp_misprint": {
+  "mean_spacing": 0.9473666592648022,
+  "mean_ok": false,
+  "prim": {
+   "c": -1.3761446463020834,
+   "kappa": Infinity,
+   "inside_ci": false
+  },
+  "sec": {
+   "c": 0.010463531097769395,
+   "kappa": 9.775992625994546,
+   "inside_ci": false
+  },
+  "arm_mean": "FIRED",
+  "arm_N_prim": "FIRED",
+  "arm_N_sec": "FIRED",
+  "FAILS_as_required": true
+ },
+ "rp_mix": {
+  "c": 0.8474629579533828,
+  "kappa": 1.0862746325825716,
+  "shift": 0.01776308306494201,
+  "outside_ci": false,
+  "power": 0.1288626547400567,
+  "required": false,
+  "status": "DESCRIPTIVE (NOT DISTINGUISHED)"
+ },
+ "rp_ninf": {
+  "prim": true,
+  "sec": true
+ },
+ "rp_shuffle": {
+  "kappa": 1.120620945107864,
+  "inside_ci": true,
+  "status": "UNCHANGED"
+ },
+ "rp_lambda": "INAPPLICABLE (unreachable, declared)",
+ "descriptive_prim_sum_allowance": {
+  "allowance": 0.0593650663208547,
+  "kappa_ci_widened": [
+   1.0411617046519739,
+   1.2017741302812497
+  ],
+  "G1": "FAIL"
+ },
+ "descriptive_window_sensitivity": {
+  "1.8": {
+   "prim": {
+    "c": 0.7734284258682766,
+    "flag": "interior",
+    "kappa": 1.1370771574638907,
+    "boot_sd_c": 0.01061102683851258,
+    "c_range": [
+     -28.249148047771648,
+     19.2148176991793
+    ]
+   },
+   "sec": {
+    "c": 0.8917666910037465,
+    "flag": "interior",
+    "kappa": 1.0589473714150472,
+    "boot_sd_c": 0.014109819736811824,
+    "c_range": [
+     -33.22870687768892,
+     16.659155137940775
+    ]
+   }
+  },
+  "2.2": {
+   "prim": {
+    "c": 0.7463966175052392,
+    "flag": "interior",
+    "kappa": 1.1574844590742017,
+    "boot_sd_c": 0.01088548112852136,
+    "c_range": [
+     -28.249147883880045,
+     4.5710230946115775
+    ]
+   },
+   "sec": {
+    "c": 0.8584396897727828,
+    "flag": "interior",
+    "kappa": 1.079307277806741,
+    "boot_sd_c": 0.012483417109605351,
+    "c_range": [
+     -33.228706829414975,
+     6.512243161122478
+    ]
+   }
+  }
+ },
+ "keep": null
+}
