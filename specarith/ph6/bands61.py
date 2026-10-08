@@ -34,8 +34,25 @@ def draw(args):
     n = 5 * W
     d = math.sqrt(2.0) * rng.standard_normal(n)
     b = np.sqrt(rng.chisquare(beta * np.arange(n - 1, 0, -1)))
-    ev = eigh_tridiagonal(d, b, eigvals_only=True, select="i", select_range=(2 * W, 3 * W - 1))
-    return name, i, rtilde(ev)
+    return name, i, rtilde(central_window(d, b, W))
+
+
+def central_window(d, b, Wn):
+    """The central Wn eigenvalues (indices 2Wn … 3Wn − 1) of the size-5Wn tridiagonal. All eigenvalues by LAPACK sterf
+    (O(n²), eigenvalues only) and then the slice — identical to select='i' on that index range (checked in
+    check_driver), which uses bisection and is ~100× slower at Wn = 3·10⁴."""
+    ev = eigh_tridiagonal(d, b, eigvals_only=True, lapack_driver="sterf")
+    return np.sort(ev)[2 * Wn:3 * Wn]
+
+
+def check_driver(Wn=2000, seed=1):
+    rng = np.random.default_rng(seed)
+    n = 5 * Wn
+    d = math.sqrt(2.0) * rng.standard_normal(n)
+    b = np.sqrt(rng.chisquare(2 * np.arange(n - 1, 0, -1)))
+    a = central_window(d, b, Wn)
+    c = np.sort(eigh_tridiagonal(d, b, eigvals_only=True, select="i", select_range=(2 * Wn, 3 * Wn - 1)))
+    return float(np.max(np.abs(a - c))), abs(rtilde(a) - rtilde(c))
 
 
 if __name__ == "__main__":
