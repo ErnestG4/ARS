@@ -19,7 +19,9 @@ def beta_central(N,beta):                # DE tridiagonal beta-ensemble, central
     b=np.sqrt(RNG.chisquare(beta*np.arange(n-1,0,-1)))
     return np.sort(eigh_tridiagonal(d,b,eigvals_only=True,select="i",
                                     select_range=(int(1.5*N),int(1.5*N)+N-1)))
-REF={"Poisson":0.38629,"GOE":0.53070,"GUE":0.60266,"GSE":0.67617}
+import sys
+sys.path.insert(0, ROOT)
+from rtilde_refs import LARGE_N as REF   # was a mix (GOE large-N 0.53070; GUE/GSE surmise) until 2026-10-08; see 6.1 D4
 
 # ---- load arithmetic Maass level-1 spectrum ----
 r=[]; sym=[]

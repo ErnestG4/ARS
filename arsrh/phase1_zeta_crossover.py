@@ -33,8 +33,9 @@ sys.path.insert(0, _ROOT)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RNG = np.random.default_rng(20260724)
-GUE_RTILDE = 0.60266      # Atas-Bohigas-Roux-Vivo (beta=2)
-POISSON_RTILDE = 0.38629
+from rtilde_refs import LARGE_N as _RT   # Atas et al. 2013 Table I, large N (2026-10-08, 6.1 D4)
+GUE_RTILDE = _RT["GUE"]      # 0.5996; was the surmise 0.60266 (mislabelled "Atas") when PHASE1 was banked — see erratum
+POISSON_RTILDE = _RT["Poisson"]
 
 
 def mean_rtilde(points_sorted):

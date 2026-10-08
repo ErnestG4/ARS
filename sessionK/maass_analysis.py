@@ -18,6 +18,8 @@ Only then is a verdict on the real spectrum licensed.
 """
 import json, math, os, sys
 import numpy as np
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from rtilde_refs import LARGE_N as _RT_LARGE_N   # ⟨r̃⟩ references (Atas et al. 2013 Table I, large N; 2026-10-08)
 import nns_stats as st
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -100,9 +102,11 @@ def weyl_completeness(R_all, sym_all, idx_all):
     res["COMPLETE"] = bool(res["idx_consecutive"] and res["run_gate_pass"])
     return res
 
-# Unfolding-FREE spacing ratio r~ = min(s_n,s_{n-1})/max(...). Atas et al 2013:
-#   Poisson <r~>=0.3863, GOE=0.5359, GUE=0.6027, GSE=0.6762.
-R_REF = {"Poisson": 0.38629, "GOE": 0.53590, "GUE": 0.60266, "GSE": 0.67617}
+# Unfolding-FREE spacing ratio r~ = min(s_n,s_{n-1})/max(...). References: Atas et al. 2013 Table I LARGE-N values
+# (shared table rtilde_refs.py). Until 2026-10-08 this table held the surmise values (GOE 0.53590, GUE 0.60266,
+# GSE 0.67617), mislabelled here as Atas' values; re-scored on the level-1 Maass sectors the nearest class (Poisson)
+# is unchanged and |Δz| ≤ 0.33 (specarith/ph6/PH6_DECISIONS_2026-10-07.md, 6.1 D4).
+R_REF = dict(_RT_LARGE_N)
 # std of r~ per sample (for SE): Poisson ~0.241, GOE ~0.210 (empirical)
 R_STD = {"Poisson": 0.241, "GOE": 0.210, "GUE": 0.196, "GSE": 0.185}
 
