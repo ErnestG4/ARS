@@ -143,8 +143,18 @@ def _ci_kappa(c_hat, sd_c):
     return dict(c=c_hat, c_ci=[lo, hi], kappa=k(c_hat), kappa_ci=[k(hi), k(lo)])   # κ decreasing in c
 
 
-def gates(name, synth_N=None):
+def _inapp(arm_out):
+    """Label of a dependent red-path check when its arm is unresolved: pre-data vs achieved (A6)."""
+    return "INAPPLICABLE (achieved)" if arm_out["not_resolvable_achieved"] and arm_out["G1"] != "NOT RESOLVABLE" \
+        else "INAPPLICABLE"
+
+
+def gates(name, synth_N=None, keep=None):
+    """§4 verdicts and §7 red paths. keep (synthetic only): use only the first `keep` spacings — the A6(iii) witness,
+    which must turn a pre-data-resolvable bin into NOT RESOLVABLE (achieved)."""
     synth = synth_N is not None
+    if keep is not None and not synth:
+        raise SystemExit("REFUSED: --keep is a dry-run witness; never on zeros")
     if synth:   # dry run: the pre-read summary stands in for the seal JSON (allowance = max, A3; sum descriptive)
         srow = {r["bin"]: r for r in json.load(open(os.path.join(R.RES, "summary.json")))["rows"]}[name]
         g0c = {b["bin"]: b for b in json.load(open(os.path.join(R.RES, "g0c.json")))["bins"]}[name]
@@ -155,11 +165,12 @@ def gates(name, synth_N=None):
         srow["sec"]["NOT_RESOLVABLE"] = not srow["sec"]["RESOLVABLE_at_floor"]
         srow["prim"]["widened_halfwidth"] = srow["prim"]["widened_halfwidth_max"]
     else:
-        srow = {r["bin"]: r for r in json.load(open(SEAL))["bins"]}[name]
-    if not synth:
-        check_seal(name)
+        seal, _ = check_seal(name)          # refuses (fail closed) before anything else is read
+        srow = {r["bin"]: r for r in seal["bins"]}[name]
     d = np.load(os.path.join(outdir(synth), f"{name}_spacings.npz"))
     s, mid, dg = d["s"], d["mid"], d["dg"]
+    if keep is not None:
+        s, mid, dg = s[:keep], mid[:keep], dg[:keep]
     n = len(s)
     L = np.log(mid / R.TWO_PI)
     Neff, ab = R.neff_of_L(L), R.abar_of_L(L)
@@ -220,11 +231,11 @@ def gates(name, synth_N=None):
         mis[arm] = dict(c=f["c"], kappa=k, inside_ci=bool(lo <= k <= hi))
     # each arm is scored only where it can fire (pre-data reachability); an unreachable arm is INAPPLICABLE
     mis["arm_mean"] = "FIRED" if not mis["mean_ok"] else "SILENT"
-    mis["arm_N_prim"] = ("INAPPLICABLE" if out["prim"]["unresolved"]
+    mis["arm_N_prim"] = (_inapp(out["prim"]) if out["prim"]["unresolved"]
                          else ("FIRED" if not mis["prim"]["inside_ci"] else "SILENT"))
-    mis["arm_N_sec"] = ("INAPPLICABLE" if out["sec"]["unresolved"]
+    mis["arm_N_sec"] = (_inapp(out["sec"]) if out["sec"]["unresolved"]
                         else ("FIRED" if not mis["sec"]["inside_ci"] else "SILENT"))
-    live = [mis[k] for k in ("arm_mean", "arm_N_prim", "arm_N_sec") if mis[k] != "INAPPLICABLE"]
+    live = [mis[k] for k in ("arm_mean", "arm_N_prim", "arm_N_sec") if not mis[k].startswith("INAPPLICABLE")]
     mis["FAILS_as_required"] = bool(live and all(x == "FIRED" for x in live))
     out["rp_misprint"] = mis
     fm = arm_fit(Ws, (1 + ab) / 2, s, Neff, boot=False)
@@ -233,7 +244,7 @@ def gates(name, synth_N=None):
     reach_mix = bool(srow["rp_mix"]["reachable"] and not out["sec"]["unresolved"])
     out["rp_mix"] = dict(c=fm["c"], kappa=km, shift=km - out["sec"]["kappa"], outside_ci=bool(not (lo <= km <= hi)),
                          reachable=reach_mix,
-                         status=("INAPPLICABLE" if not reach_mix
+                         status=((_inapp(out["sec"]) if out["sec"]["unresolved"] else "INAPPLICABLE") if not reach_mix
                                  else ("DISTINGUISHED" if not (lo <= km <= hi) else "NOT DISTINGUISHED")))
     out["rp_ninf"] = dict(prim=out["prim"]["power_excludes_inf"], sec=out["sec"]["power_excludes_inf"])
     idx = rng.integers(0, n, n)                                       # RP-shuffle: i.i.d. (s, N_eff) pairs
@@ -241,7 +252,7 @@ def gates(name, synth_N=None):
     ks = P.kappa_from_c(fs["c"])
     lo, hi = out["prim"]["kappa_ci"]
     out["rp_shuffle"] = dict(kappa=ks, inside_ci=bool(lo <= ks <= hi),
-                             status=("INAPPLICABLE" if out["prim"]["unresolved"]
+                             status=(_inapp(out["prim"]) if out["prim"]["unresolved"]
                                      else ("UNCHANGED" if lo <= ks <= hi else "CHANGED")))
     out["rp_lambda"] = "INAPPLICABLE (unreachable, declared)"
     # ---- DESCRIPTIVE (never verdicts): A3's sum-based PRIMARY widening; A2's window sensitivity at 1.8 and 2.2
@@ -264,12 +275,38 @@ def gates(name, synth_N=None):
                                       c_range=list(W.c_range(float(np.min(Neff)),
                                                              abars=None if abar is None else (float(ab.min()), float(ab.max())))))
     out["descriptive_window_sensitivity"] = sens
-    json.dump(out, open(os.path.join(outdir(synth), f"{name}.json"), "w"), indent=1, default=float)
+    out["keep"] = keep
+    tag = name if keep is None else f"{name}_keep{keep}"
+    json.dump(out, open(os.path.join(outdir(synth), f"{tag}.json"), "w"), indent=1, default=float)
     print(json.dumps({k: out[k] for k in ("bin", "n", "mean_spacing")}, default=float),
           "prim", out["prim"]["G1"], round(out["prim"]["kappa"], 4), [round(x, 4) for x in out["prim"]["kappa_ci_widened"]],
           "sec", out["sec"]["G1"], round(out["sec"]["kappa"], 4), [round(x, 4) for x in out["sec"]["kappa_ci_widened"]],
           "misprint FAILS", mis["FAILS_as_required"], (mis["arm_mean"], mis["arm_N_prim"], mis["arm_N_sec"]),
           "mix", out["rp_mix"]["status"], "shuffle", out["rp_shuffle"]["status"], flush=True)
+    return out
+
+
+def witness_achieved(name, synth_N, keep):
+    """A6(iii) red path, must fire: a bin that is resolvable pre-data, cut to its first `keep` spacings, must read
+    NOT RESOLVABLE (achieved) in both arms, with every dependent red-path check INAPPLICABLE (achieved)."""
+    out = gates(name, synth_N, keep)
+    want = "INAPPLICABLE (achieved)"
+    checks = {
+        "prim_predata_resolvable": out["prim"]["G1"] != "NOT RESOLVABLE",
+        "prim_G1": out["prim"]["G1"] == "NOT RESOLVABLE (achieved)",
+        "sec_G1": out["sec"]["G1"] == "NOT RESOLVABLE (achieved)",
+        "prim_achieved_wider_than_predicted": out["prim"]["halfwidth"]["achieved"] > out["prim"]["halfwidth"]["predicted"],
+        "misprint_N_prim": out["rp_misprint"]["arm_N_prim"] == want,
+        "misprint_N_sec": out["rp_misprint"]["arm_N_sec"] == want,
+        "mix": out["rp_mix"]["status"] == want,
+        "shuffle": out["rp_shuffle"]["status"] == want,
+    }
+    res = dict(bin=name, synthetic=synth_N, keep=keep, checks=checks, FIRED=all(checks.values()),
+               halfwidth=dict(prim=out["prim"]["halfwidth"], sec=out["sec"]["halfwidth"]))
+    json.dump(res, open(os.path.join(outdir(True), f"witness_achieved_{name}.json"), "w"), indent=1, default=float)
+    print("A6(iii) witness", "FIRED" if res["FIRED"] else "DID NOT FIRE", json.dumps(checks))
+    if not res["FIRED"]:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
@@ -280,3 +317,5 @@ if __name__ == "__main__":
         unfold(name, synN, synn)
     elif cmd == "gates":
         gates(name, synN)
+    elif cmd == "witness_achieved":
+        witness_achieved(name, synN, int(sys.argv[sys.argv.index("--keep") + 1]))
