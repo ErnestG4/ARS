@@ -31,8 +31,9 @@ def matrix(N):
         g *= np.cos(np.pi * m / N)
     g00 = ell2 / (24.0 * N * N) * ((N * N + 2) if N % 2 == 0 else (N * N - 1))
     col = np.concatenate([[g00], g])                        # first row of the circulant: A[0, l] = g_{l}
-    idx = (np.arange(N)[None, :] - np.arange(N)[:, None]) % N
-    A = col[idx]
+    A = np.empty((N, N))
+    for r in range(N):                                      # A[r, l] = g_{(l − r) mod N}; row-wise (no N×N index array)
+        A[r] = np.roll(col, r)
     k = np.arange(N)
     ks = np.where(k <= N // 2, k, k - N)
     A[np.arange(N), np.arange(N)] -= 0.5 * (ks * math.sqrt(ell2) / N) ** 2

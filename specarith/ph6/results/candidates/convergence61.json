@@ -1,0 +1,12 @@
+{
+ "C1a": {
+  "id": "C1a",
+  "n_res1": 31120,
+  "n_res2": 31120,
+  "max_dev_in_spacings": 6.745969133853018e-11,
+  "at_level": 30123,
+  "median_dev": 1.4230619327275424e-11,
+  "counts_equal": true,
+  "converged": true
+ }
+}
