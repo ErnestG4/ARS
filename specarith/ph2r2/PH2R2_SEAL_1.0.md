@@ -57,4 +57,10 @@ Five fresh Platt files R1–R5 (`FRESH_PLATT_PINS.md`), downloaded by hand (huma
 the seal. The seen Phase 2 bins (A, B, P1–P6) under this statistic: descriptive only.
 
 ## Amendments
-(none)
+- **A1 (Will, 2026-10-09, before any fresh zero is read) — a declared descriptive output.** The CUE surrogates have no
+  correlation beyond a block, but the zeros carry long-range arithmetic structure (the log p oscillations Phase 6
+  measured) that slowly modulates local pair counts and can inflate the true variance of μ̂ beyond the surrogates'. The
+  §3 bootstrap sweep (moving blocks of 100, 1,000 and 10,000 levels, the widest CI used) is the safeguard; unchanged. In
+  the read, report per bin how the bootstrap SD of μ̂ grows with block length (100 → 1,000 → 10,000), beside the
+  surrogates' ratio at the same block lengths. Still growing at 10,000 = the zeros' long-range arithmetic structure in
+  the error bars: descriptive, linking R₂ to Phase 6; it changes no verdict.
