@@ -25,13 +25,18 @@ abstract: >
   crystal. specarith Phase 2 tests the Bogomolny et al. finite-size law on
   Odlyzko and Platt zeros: at heights 1e5–3e10 the O(N^-2)-truncated law
   under-describes the spacing distribution at 0.5–1% precision
-  (specarith/ph2/PH2_FINDINGS.md). Code is
+  (specarith/ph2/PH2_FINDINGS.md). Its second part (seal PH2R2_SEAL_1.0)
+  measures the amplitude of the Conrey–Snaith (Bogomolny–Keating)
+  arithmetic lower-order term in the zeros' pair correlation at five fresh
+  heights 7e6–2e10: full strength in every bin, pooled 1.003 ± 0.006 — an
+  independent quantitative replication, conditional on the ratios
+  conjecture (specarith/ph2r2/PH2R2_FINDINGS.md). Code is
   AGPL-3.0-or-later; llmspec results and write-ups are CC-BY-4.0
   (llmspec/LICENSE-RESULTS.md).
 authors:
   - name: combust
     email: combust@thespot.chat
-version: "2026.10.09"
+version: "2026.10.09.1"
 date-released: 2026-10-09
 license:
   - AGPL-3.0-or-later
