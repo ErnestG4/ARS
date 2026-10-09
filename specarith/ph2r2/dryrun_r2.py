@@ -5,8 +5,13 @@
          arm correctly unable to exclude μ = 0 — or NOT RESOLVABLE pre-data);
      (ii) with the arithmetic term planted at μ = 1 (S_f + LOT_f, as Phase 6 planted lines): must read PASS where the
           bin is resolvable (1 ∈ CI, 0 ∉ CI).
-  3. (achieved) witness: R1's planted surrogate cut to the first 1% of its blocks — resolvable pre-data, so only the
-     achieved width can stop it: the verdict must read NOT RESOLVABLE (achieved).
+  3. (achieved) witness, two points on R1's planted surrogate (resolvable pre-data, so only the achieved width can stop
+     it), SD for the cut = SD(μ̂)/√frac:
+     - FIRE: the first 0.22% of its blocks (41 blocks, 10,250 levels — the smallest cut on which every declared bootstrap
+       block length, up to 10,000 levels, is defined); half-width ≥ 1.96·SD/√0.0022 > 0.5 by construction, so the
+       verdict must read NOT RESOLVABLE (achieved);
+     - CONTROL: the first 1% (half-width ≈ 0.26 < 0.5): must read PASS, so the width arm does not fire on an adequate CI.
+     (The first version used 1% alone and read PASS on 2026-10-09 07:1x — the witness could not fire; this is the fix.)
   python dryrun_r2.py G0B_DIR OUT {R1..R5 | witness | merge}   (bins run in parallel on spot, then merge)
 """
 import json
@@ -59,12 +64,15 @@ def witness(g0b_dir, out):
     key = S["primary_choice"]["primary"]
     u, w = (float(x) for x in key.split("_"))
     name = "R1"
-    lev, edges = surrogate(name, frac=0.01, seed=5)
-    sd_small = S[name][key]["sd_mu"] * 10.0          # SD scales as 1/√n: 1% of the bin ⇒ ×10
-    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5), plant=1.0)
-    m["verdict"] = RR.verdict(m, True)
-    w_ = dict(bin=name, fraction=0.01, mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"], verdict=m["verdict"],
-              FIRED=m["verdict"] == "NOT RESOLVABLE (achieved)")
+    pts = {}
+    for tag, frac, exp in (("fire", 0.0022, "NOT RESOLVABLE (achieved)"), ("control", 0.01, "PASS")):
+        lev, edges = surrogate(name, frac=frac, seed=5)
+        sd_small = S[name][key]["sd_mu"] / np.sqrt(frac)          # SD scales as 1/√n
+        m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5), plant=1.0)
+        m["verdict"] = RR.verdict(m, True)
+        pts[tag] = dict(fraction=frac, n=m["n"], mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"], verdict=m["verdict"],
+                        expected=exp, as_expected=m["verdict"] == exp)
+    w_ = dict(bin=name, points=pts, FIRED=pts["fire"]["as_expected"], CONTROL_OK=pts["control"]["as_expected"])
     os.makedirs(out, exist_ok=True)
     json.dump(w_, open(os.path.join(out, "dryrun_witness.json"), "w"), indent=1, default=float)
     print("achieved witness", w_, flush=True)

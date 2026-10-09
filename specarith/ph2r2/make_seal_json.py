@@ -27,7 +27,8 @@ def main(g0b_dir, rp_path, dry_path):
     rp = json.load(open(rp_path))
     dry = json.load(open(dry_path))
     checks = dict(g0a_PASS=bool(g0a["PASS"]), roundtrip_PASS=bool(dry["roundtrip"]["PASS"]),
-                  achieved_witness_FIRED=bool(dry["achieved_witness"]["FIRED"]))
+                  achieved_witness_FIRED=bool(dry["achieved_witness"]["FIRED"]),
+                  achieved_witness_CONTROL_OK=bool(dry["achieved_witness"]["CONTROL_OK"]))
     for n, b in dry["bins"].items():
         checks[f"dryrun_{n}_planted_mu1_as_expected"] = bool(b["planted_mu1"]["as_expected"])
         checks[f"dryrun_{n}_mu0_as_expected"] = bool(b["mu0"]["as_expected"])

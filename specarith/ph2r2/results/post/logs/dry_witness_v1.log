@@ -1,0 +1,1 @@
+achieved witness {'bin': 'R1', 'fraction': 0.01, 'mu': np.float64(1.1060349391826945), 'ci': [np.float64(0.8413511407041532), np.float64(1.3707187376612358)], 'halfwidth': 0.26468379847854134, 'verdict': 'PASS', 'FIRED': False}
