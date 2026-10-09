@@ -1,0 +1,10 @@
+{
+ "id": "C3a",
+ "tuple": [
+  "NOT RESOLVABLE",
+  "NOT RESOLVABLE",
+  "NOT RESOLVABLE",
+  "NOT RESOLVABLE"
+ ],
+ "reason": "not converged (A2): N = 3e4 vs 6e4 low-|E| levels differ by up to 157 mean spacings"
+}
