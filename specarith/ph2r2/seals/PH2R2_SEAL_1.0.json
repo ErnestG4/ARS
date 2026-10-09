@@ -1,0 +1,281 @@
+{
+ "seal": "PH2R2_SEAL_1.0",
+ "text": "PH2R2_SEAL_1.0.md",
+ "text_sha256": "e405ee7edcd5525a20cf5897bb875e2a09520d4e01502154d10d3cf90f558f46",
+ "amendments": [
+  "A1",
+  "A2",
+  "A3"
+ ],
+ "achieved_rule": "NOT RESOLVABLE (achieved) iff CI contains both 0 and 1 or half-width > 0.5; else PASS iff 1 in CI, else FAIL (A2)",
+ "drift_removal": "c_i * e(t_c)/e(t_i), e = sine-kernel expectation at the exact smooth density N-bar'(t), f at the bin's delta, LOT omitted (A3; r2run.drift_removed)",
+ "primary": [
+  0.5,
+  0.3
+ ],
+ "u_max_spacings": 3.0,
+ "family": [
+  [
+   0.5,
+   0.15
+  ],
+  [
+   0.5,
+   0.3
+  ],
+  [
+   1.0,
+   0.15
+  ],
+  [
+   1.0,
+   0.3
+  ],
+  [
+   1.5,
+   0.15
+  ],
+  [
+   1.5,
+   0.3
+  ],
+  [
+   2.0,
+   0.15
+  ],
+  [
+   2.0,
+   0.3
+  ]
+ ],
+ "boot_levels": [
+  100,
+  1000,
+  10000
+ ],
+ "seed": 20261009,
+ "kernel_dir": "results/g0b",
+ "code_sha256": {
+  "r2lib.py": "a4b7e9a9c7776b939a5bad3a2a14f55e102f2ed65447db02abb1097ee7cceadb",
+  "r2prep.py": "f23701765ba4aae51de71f9c2a8a18d2c7d79127e036ab3d68fd4ff240a44a06",
+  "g0b.py": "e3543684b24809d4d86ceb361738ae9f54ee1f432f37e0deabb444238adbb9f5",
+  "r2run.py": "27a0d5728d5799e9efdc7dc7a62d137aa85c6e9e0db4354024656af8364facb6"
+ },
+ "platt_md5": {
+  "zeros_6746000.dat": "7da68bfe58799d9ad96d6e47f3c3fb3a",
+  "zeros_55046000.dat": "a702b364cf5f262b9f36963c58e12599",
+  "zeros_412046000.dat": "b38965a1e947a9d5ebb69b4fd70bcde5",
+  "zeros_3047546000.dat": "75781990d6be699da0e7a80d5e184be3",
+  "zeros_22522946000.dat": "7b9726648af12152eda3ec9cde888210"
+ },
+ "bins": {
+  "R1": {
+   "sd_surrogate": 0.013504523474846545,
+   "power_reject_mu0": 1.0,
+   "resolvable": true,
+   "target_halfwidth": 0.08242230436929157,
+   "red_paths": {
+    "rp_density": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_sign": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_shuffle": {
+     "power": 1.0,
+     "required": true
+    }
+   },
+   "kernel_sha256": "4e4ab63ae1fdaf188dcf9f21e4d47648268ef9f7172e2cdb25d31ffdc3851659",
+   "A1_surrogate_growth": [
+    1.0,
+    1.1300234169855528,
+    2.2495526946440987
+   ],
+   "A1_dryrun_surrogate_growth_raw": [
+    1.0,
+    1.2099090172026874,
+    2.209616377190911
+   ],
+   "A1_dryrun_surrogate_growth_drift_removed": [
+    1.0,
+    0.849611747382482,
+    0.8945258137482855
+   ]
+  },
+  "R2": {
+   "sd_surrogate": 0.011200847386933808,
+   "power_reject_mu0": 1.0,
+   "resolvable": true,
+   "target_halfwidth": 0.03915733254811846,
+   "red_paths": {
+    "rp_density": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_sign": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_shuffle": {
+     "power": 1.0,
+     "required": true
+    }
+   },
+   "kernel_sha256": "01f5c2b9272fe631abd3e8ca6565d70e2ae4c6ff564d0c10f0d9356024e5e765",
+   "A1_surrogate_growth": [
+    1.0,
+    0.9630700710694282,
+    0.974993446507575
+   ],
+   "A1_dryrun_surrogate_growth_raw": [
+    1.0,
+    0.9525999850846263,
+    1.0160801267353972
+   ],
+   "A1_dryrun_surrogate_growth_drift_removed": [
+    1.0,
+    0.9643114371357331,
+    0.8721549082587384
+   ]
+  },
+  "R3": {
+   "sd_surrogate": 0.013460326797606639,
+   "power_reject_mu0": 1.0,
+   "resolvable": true,
+   "target_halfwidth": 0.04300726669457994,
+   "red_paths": {
+    "rp_density": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_sign": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_shuffle": {
+     "power": 1.0,
+     "required": true
+    }
+   },
+   "kernel_sha256": "0fe0614b1f396ad6cc43ccadad11e5fa5de3e933c873efd0524d6b4c24e9e8a8",
+   "A1_surrogate_growth": [
+    1.0,
+    0.9668941497800773,
+    0.964275908722495
+   ],
+   "A1_dryrun_surrogate_growth_raw": [
+    1.0,
+    0.9516313212650773,
+    0.9362526991512898
+   ],
+   "A1_dryrun_surrogate_growth_drift_removed": [
+    1.0,
+    0.9195675262489397,
+    1.0167610273616905
+   ]
+  },
+  "R4": {
+   "sd_surrogate": 0.017754942934386998,
+   "power_reject_mu0": 1.0,
+   "resolvable": true,
+   "target_halfwidth": 0.053264828803160996,
+   "red_paths": {
+    "rp_density": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_sign": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_shuffle": {
+     "power": 1.0,
+     "required": true
+    }
+   },
+   "kernel_sha256": "4b5df618fe7dce4af586fcae06de41707811a4aac49cfd5d06b09bc8555056ad",
+   "A1_surrogate_growth": [
+    1.0,
+    0.9552327418212891,
+    0.943681987087493
+   ],
+   "A1_dryrun_surrogate_growth_raw": [
+    1.0,
+    0.9534055613929259,
+    0.8853857047288992
+   ],
+   "A1_dryrun_surrogate_growth_drift_removed": [
+    1.0,
+    0.999915823944271,
+    0.9507814618484466
+   ]
+  },
+  "R5": {
+   "sd_surrogate": 0.014614990114713566,
+   "power_reject_mu0": 1.0,
+   "resolvable": true,
+   "target_halfwidth": 0.05224572121508967,
+   "red_paths": {
+    "rp_density": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_sign": {
+     "power": 1.0,
+     "required": true
+    },
+    "rp_shuffle": {
+     "power": 1.0,
+     "required": true
+    }
+   },
+   "kernel_sha256": "07a83ca55e58e79d777b20f23c371b5447cb4d570bd395b1358ec09e67638d2e",
+   "A1_surrogate_growth": [
+    1.0,
+    0.963051521658486,
+    0.9672926623383634
+   ],
+   "A1_dryrun_surrogate_growth_raw": [
+    1.0,
+    0.952847303581944,
+    1.0508883065380779
+   ],
+   "A1_dryrun_surrogate_growth_drift_removed": [
+    1.0,
+    1.0188930507904719,
+    1.0220604758134677
+   ]
+  }
+ },
+ "preread_checks": {
+  "g0a_PASS": true,
+  "roundtrip_PASS": true,
+  "achieved_witness_FIRED": true,
+  "achieved_witness_CONTROL_OK": true,
+  "dryrun_R1_planted_mu1_as_expected": true,
+  "dryrun_R1_mu0_as_expected": true,
+  "dryrun_R2_planted_mu1_as_expected": true,
+  "dryrun_R2_mu0_as_expected": true,
+  "dryrun_R3_planted_mu1_as_expected": true,
+  "dryrun_R3_mu0_as_expected": true,
+  "dryrun_R4_planted_mu1_as_expected": true,
+  "dryrun_R4_mu0_as_expected": true,
+  "dryrun_R5_planted_mu1_as_expected": true,
+  "dryrun_R5_mu0_as_expected": true,
+  "A3_R1_drift_removed_growth_10000_le_1.3": true,
+  "md5_zeros_6746000.dat": true,
+  "md5_zeros_55046000.dat": true,
+  "md5_zeros_412046000.dat": true,
+  "md5_zeros_3047546000.dat": true,
+  "md5_zeros_22522946000.dat": true
+ },
+ "preread_sha256": {
+  "results/g0a.json": "d2303cc40c16d168b2037f766309c9b867617d3406c7a59cf3e5bb89893a57dd",
+  "results/g0b/g0b_summary.json": "bb643555d5714b4f2b18ed5cd1afc92623d37fcee9f792f40e7dc692ad9d25c5",
+  "results/post/redpaths.json": "819c08ff1954ad41b3107f379adebd5721a4255d25a2f08ae059e81b78bc4007",
+  "results/dry_a2/dryrun.json": "0983bf9992f00052b82a577c02099e3c5692c59bba646a97c0c0e09690a5aad9"
+ }
+}
