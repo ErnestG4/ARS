@@ -1,6 +1,7 @@
 """Build seals/PH2R2_SEAL_1.0.json (run only on Will's go; the seal commit is his call). Refuses unless: G0a passed; the
 five fresh Platt files match the md5s pinned pre-download (697ddbb3); the Platt round trip is exact; the (achieved)
-witness fired. Pins: code (r2lib, r2prep, g0b, r2run), the cached kernels, the primary test function (G0b, R3 rule),
+witness fired at both truths and its 1% control did not (A2); every bin's
+μ = 0 arm read FAIL and planted μ = 1 arm PASS; R1's drift-removed growth on the dry-run surrogate is flat (A3). Pins: code (r2lib, r2prep, g0b, r2run), the cached kernels, the primary test function (G0b, R3 rule),
 per-bin SD(μ̂) from the surrogates and resolvability (power ≥ 0.80), the red paths' required flags, the seed.
 
   python make_seal_json.py G0B_DIR REDPATHS_JSON DRYRUN_JSON
@@ -32,6 +33,8 @@ def main(g0b_dir, rp_path, dry_path):
     for n, b in dry["bins"].items():
         checks[f"dryrun_{n}_planted_mu1_as_expected"] = bool(b["planted_mu1"]["as_expected"])
         checks[f"dryrun_{n}_mu0_as_expected"] = bool(b["mu0"]["as_expected"])
+    # A3: drift removal must flatten R1's growth on the μ = 0 surrogate (raw surrogate growth there ≈ 2.0 at 10,000)
+    checks["A3_R1_drift_removed_growth_10000_le_1.3"] = bool(dry["bins"]["R1"]["mu0"]["A1_growth_drift_removed"][-1] <= 1.3)
     for f, m in PINS.items():
         checks[f"md5_{f}"] = hashlib.md5(open(os.path.join(HERE, "data", "platt", f), "rb").read()).hexdigest() == m
     if not all(checks.values()):
@@ -45,8 +48,18 @@ def main(g0b_dir, rp_path, dry_path):
                           target_halfwidth=min(3 * max(s["sd_mu"], max(s["boot_sd_over_sd"].values()) * s["sd_mu"]), 0.5),
                           red_paths={k: dict(power=rp[name][k]["power"], required=rp[name][k]["required"])
                                      for k in ("rp_density", "rp_sign", "rp_shuffle")},
-                          kernel_sha256=sha(os.path.join(g0b_dir, f"kernel_{name}.npz")))
-    seal = dict(seal="PH2R2_SEAL_1.0", text="PH2R2_SEAL_1.0.md", amendments=["A1"],
+                          kernel_sha256=sha(os.path.join(g0b_dir, f"kernel_{name}.npz")),
+                          # A3 (descriptive): the G0b surrogates' mean bootstrap growth (SD ratio to the 100-level block)
+                          A1_surrogate_growth=[s["boot_sd_over_sd"][str(bl)] / s["boot_sd_over_sd"]["100"]
+                                               for bl in __import__("g0b").BOOT_LEVELS],
+                          A1_dryrun_surrogate_growth_raw=dry["bins"][name]["mu0"]["A1_growth"],
+                          A1_dryrun_surrogate_growth_drift_removed=dry["bins"][name]["mu0"]["A1_growth_drift_removed"])
+    seal = dict(seal="PH2R2_SEAL_1.0", text="PH2R2_SEAL_1.0.md", text_sha256=sha(os.path.join(HERE, "PH2R2_SEAL_1.0.md")),
+                amendments=["A1", "A2", "A3"],
+                achieved_rule="NOT RESOLVABLE (achieved) iff CI contains both 0 and 1 or half-width > 0.5; else PASS iff "
+                              "1 in CI, else FAIL (A2)",
+                drift_removal="c_i * e(t_c)/e(t_i), e = sine-kernel expectation at the exact smooth density N-bar'(t), "
+                              "f at the bin's delta, LOT omitted (A3; r2run.drift_removed)",
                 primary=[float(x) for x in key.split("_")], u_max_spacings=P.U_MAX, family=P.FAMILY,
                 boot_levels=list(__import__("g0b").BOOT_LEVELS), seed=20261009,
                 kernel_dir=os.path.relpath(g0b_dir, HERE),

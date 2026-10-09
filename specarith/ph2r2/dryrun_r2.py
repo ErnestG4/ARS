@@ -1,17 +1,18 @@
 """R₂ dry run (PH2R2_SEAL 1.0 §4): the read path end to end on surrogates, no fresh zero touched.
   1. Platt encode→decode round trip (r2run.roundtrip).
-  2. A full-size windowed CUE_250 surrogate of each bin through r2run.mu_hat + verdict, twice:
-     (i) as is (known answer μ* = 0: the CI includes 0, so the sealed rule reads NOT RESOLVABLE (achieved) — the power
-         arm correctly unable to exclude μ = 0 — or NOT RESOLVABLE pre-data);
-     (ii) with the arithmetic term planted at μ = 1 (S_f + LOT_f, as Phase 6 planted lines): must read PASS where the
-          bin is resolvable (1 ∈ CI, 0 ∉ CI).
-  3. (achieved) witness, two points on R1's planted surrogate (resolvable pre-data, so only the achieved width can stop
-     it), SD for the cut = SD(μ̂)/√frac:
-     - FIRE: the first 0.22% of its blocks (41 blocks, 10,250 levels — the smallest cut on which every declared bootstrap
-       block length, up to 10,000 levels, is defined); half-width ≥ 1.96·SD/√0.0022 > 0.5 by construction, so the
-       verdict must read NOT RESOLVABLE (achieved);
-     - CONTROL: the first 1% (half-width ≈ 0.26 < 0.5): must read PASS, so the width arm does not fire on an adequate CI.
-     (The first version used 1% alone and read PASS on 2026-10-09 07:1x — the witness could not fire; this is the fix.)
+  2. A full-size windowed CUE_250 surrogate of each bin through r2run.mu_hat + verdict (rule A2), twice:
+     (i) as is (known answer μ* = 0, no arithmetic term): must read FAIL where resolvable — a tight CI that excludes 1
+         rejects the theory (the A2 fix: the v1 rule read NOT RESOLVABLE (achieved) here, so it could never FAIL);
+     (ii) with the arithmetic term planted at μ = 1 (S_f + LOT_f, as Phase 6 planted lines): must read PASS.
+  3. (achieved) witness on R1 (resolvable pre-data, so only the achieved precision can stop it), SD for a cut =
+     SD(μ̂)/√frac, both truths:
+     - FIRE at the first 0.22% of its blocks (41 blocks, 10,250 levels — the smallest cut on which every declared
+       bootstrap block length, up to 10,000 levels, is defined; half-width ≥ 1.96·SD/√0.0022 > 0.5 by construction):
+       μ = 1 planted and μ = 0 must both read NOT RESOLVABLE (achieved);
+     - CONTROL at the first 1% (half-width ≈ 0.26 < 0.5): μ = 1 planted must read PASS and μ = 0 must read FAIL, so the
+       guard does not fire on an adequate CI whichever way it lands.
+     (v1 used 1% alone and read PASS on 2026-10-09 — the witness could not fire; v2 added the 0.22% point; v3 adds the
+     μ = 0 arm under rule A2.)
   python dryrun_r2.py G0B_DIR OUT {R1..R5 | witness | merge}   (bins run in parallel on spot, then merge)
 """
 import json
@@ -47,7 +48,7 @@ def one_bin(g0b_dir, out, name):
     resolvable = S[name][key]["power_reject_mu0"] >= 0.80
     lev, edges = surrogate(name)
     res = dict(resolvable=bool(resolvable))
-    for tag, plant, exp in (("mu0", 0.0, "NOT RESOLVABLE (achieved)" if resolvable else "NOT RESOLVABLE"),
+    for tag, plant, exp in (("mu0", 0.0, "FAIL" if resolvable else "NOT RESOLVABLE"),
                             ("planted_mu1", 1.0, "PASS" if resolvable else "NOT RESOLVABLE")):
         m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd, rng, plant=plant)
         m["verdict"] = RR.verdict(m, resolvable)
@@ -65,14 +66,17 @@ def witness(g0b_dir, out):
     u, w = (float(x) for x in key.split("_"))
     name = "R1"
     pts = {}
-    for tag, frac, exp in (("fire", 0.0022, "NOT RESOLVABLE (achieved)"), ("control", 0.01, "PASS")):
+    for tag, frac, plant, exp in (("fire_mu1", 0.0022, 1.0, "NOT RESOLVABLE (achieved)"),
+                                  ("fire_mu0", 0.0022, 0.0, "NOT RESOLVABLE (achieved)"),
+                                  ("control_mu1", 0.01, 1.0, "PASS"), ("control_mu0", 0.01, 0.0, "FAIL")):
         lev, edges = surrogate(name, frac=frac, seed=5)
         sd_small = S[name][key]["sd_mu"] / np.sqrt(frac)          # SD scales as 1/√n
-        m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5), plant=1.0)
+        m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5), plant=plant)
         m["verdict"] = RR.verdict(m, True)
-        pts[tag] = dict(fraction=frac, n=m["n"], mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"], verdict=m["verdict"],
-                        expected=exp, as_expected=m["verdict"] == exp)
-    w_ = dict(bin=name, points=pts, FIRED=pts["fire"]["as_expected"], CONTROL_OK=pts["control"]["as_expected"])
+        pts[tag] = dict(fraction=frac, plant=plant, n=m["n"], mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"],
+                        verdict=m["verdict"], expected=exp, as_expected=m["verdict"] == exp)
+    w_ = dict(bin=name, points=pts, FIRED=pts["fire_mu1"]["as_expected"] and pts["fire_mu0"]["as_expected"],
+              CONTROL_OK=pts["control_mu1"]["as_expected"] and pts["control_mu0"]["as_expected"])
     os.makedirs(out, exist_ok=True)
     json.dump(w_, open(os.path.join(out, "dryrun_witness.json"), "w"), indent=1, default=float)
     print("achieved witness", w_, flush=True)

@@ -6,8 +6,10 @@
 The statistic on a level list with window edges (a real bin is one window — its file; a surrogate is a tiling):
   S_f = Σ over ordered pairs within a window, |γ − γ′| ≤ U_MAX δ; prediction (RMT_f, LOT_f) for the same windows;
   μ̂ = (S_f − RMT_f)/LOT_f; CI = μ̂ ± 1.96·max(SD_surrogate, SD_bootstrap,widest over BOOT_LEVELS) (§3, R5);
-  verdicts: NOT RESOLVABLE pre-data if power(μ = 0 rejected) < 0.80; NOT RESOLVABLE (achieved) if the achieved CI cannot
-  exclude 0 or its half-width exceeds 0.5; else PASS iff 1 ∈ CI. A1 (descriptive): bootstrap SD per block length.
+  verdicts (A2): NOT RESOLVABLE pre-data if power(μ = 0 rejected) < 0.80; NOT RESOLVABLE (achieved) iff the achieved CI
+  contains BOTH 0 and 1 or its half-width exceeds 0.5 (precision only); otherwise PASS iff 1 ∈ CI, else FAIL.
+  A1/A3 (descriptive): bootstrap SD per block length, raw and drift-removed (each level's contribution normalised by the
+  exact smooth-density expectation at its height, e(t_c)/e(t_i)); the surrogate-relative form is formed from the seal.
 """
 import hashlib
 import json
@@ -83,16 +85,47 @@ def roundtrip():
     return out
 
 
+# ---------------------------------------------------------------- A3: drift removal by the exact smooth density
+def density(t):
+    """N̄′(t), the exact smooth zero density (derivative of r2prep.nbar)."""
+    t = np.asarray(t, dtype=float)
+    return (0.5 * np.log(t / P.TWO_PI) - 1 / (48 * t ** 2) - 21 / (5760 * t ** 4)) / math.pi
+
+
+def expected_contribution(t, u, w, delta):
+    """e(t): a level's expected ordered-pair contribution Σ_j f(t_j − t) at height t under the sine kernel at the exact
+    smooth density ρ = N̄′(t), test function at the bin's fixed δ: 2∫₀^{U_MAX δ} f(r) ρ (1 − sinc²(ρ r)) dr. The LOT
+    term is left out so the normalisation does not depend on μ (it is a ~1e-2 part of RMT_f whose drift across a bin is
+    second order)."""
+    x, wx = np.polynomial.legendre.leggauss(801)
+    rmax = P.U_MAX * delta
+    r = 0.5 * rmax * (x + 1)
+    wr = 0.5 * rmax * wx
+    fw = P.f_raw(r, u, w, delta) * wr
+    rho = density(np.atleast_1d(t))[:, None]
+    return 2 * np.sum(fw[None, :] * rho * (1 - np.sinc(rho * r[None, :]) ** 2), axis=1)
+
+
+def drift_removed(c, levels, name, u, w):
+    """A3: c̃_i = c_i · e(t_c)/e(t_i), e on a 257-point grid across the bin (smooth; interpolation error ≪ 1e-9)."""
+    g = P.geometry(name)
+    grid = np.linspace(g["t0"], g["t1"], 257)
+    e = expected_contribution(grid, u, w, g["delta"])
+    ec = float(expected_contribution(g["tc"], u, w, g["delta"])[0])
+    return c * (ec / np.interp(levels, grid, e))
+
+
 # ---------------------------------------------------------------- the statistic for a level list with window edges
 def mu_hat(levels, edges, name, u, w, kernel_dir, sd_surrogate, rng, plant=0.0):
     """plant (dry run only): add plant·LOT_f to S_f — a surrogate carrying the arithmetic term at amplitude μ = plant."""
     g = P.geometry(name)
     K = G.CachedKernel(G.kernel_path(kernel_dir, name))
     wr = np.load(G.kernel_path(kernel_dir, name))["wr"]
-    cs = []
+    cs, ts = [], []
     for a, b in zip(edges[:-1], edges[1:]):
         t = levels[(levels >= a) & (levels < b)]
         cs.append(G.contributions(t, u, w, g["delta"]))
+        ts.append(t)
     c = np.concatenate(cs)
     S = float(c.sum())
     rmt, lot = G.predict_tiling(K, wr, list(edges), u, w, g["delta"])
@@ -101,16 +134,20 @@ def mu_hat(levels, edges, name, u, w, kernel_dir, sd_surrogate, rng, plant=0.0):
     bsd = {str(bl): G.boot_sd_sum(c, bl, rng) / abs(lot) for bl in G.BOOT_LEVELS}
     sd = max([sd_surrogate] + list(bsd.values()))
     half = 1.959964 * sd
+    cd = drift_removed(c, np.concatenate(ts), name, u, w)       # A3 (descriptive; never enters the CI)
+    bsd_d = {str(bl): G.boot_sd_sum(cd, bl, rng) / abs(lot) for bl in G.BOOT_LEVELS}
     return dict(n=int(len(levels)), S=S, RMT=rmt, LOT=lot, mu=mu, sd_surrogate=sd_surrogate, boot_sd=bsd,
                 sd_used=sd, ci=[mu - half, mu + half], halfwidth=half,
-                A1_growth=[bsd[str(b)] / bsd[str(G.BOOT_LEVELS[0])] for b in G.BOOT_LEVELS])
+                A1_growth=[bsd[str(b)] / bsd[str(G.BOOT_LEVELS[0])] for b in G.BOOT_LEVELS],
+                boot_sd_drift_removed=bsd_d,
+                A1_growth_drift_removed=[bsd_d[str(b)] / bsd_d[str(G.BOOT_LEVELS[0])] for b in G.BOOT_LEVELS])
 
 
 def verdict(m, resolvable):
     if not resolvable:
         return "NOT RESOLVABLE"
     lo, hi = m["ci"]
-    if lo <= 0 <= hi or m["halfwidth"] > 0.5:
+    if (lo <= 0 <= hi and lo <= 1 <= hi) or m["halfwidth"] > 0.5:      # A2: precision only, never where μ̂ landed
         return "NOT RESOLVABLE (achieved)"
     return "PASS" if lo <= 1 <= hi else "FAIL"
 
@@ -134,6 +171,8 @@ def read(name):
     m = mu_hat(levels, edges, name, u, w, os.path.join(HERE, seal["kernel_dir"]), b["sd_surrogate"], rng)
     m["verdict"] = verdict(m, b["resolvable"])
     m["power_arm_mu0_excluded"] = bool(not (m["ci"][0] <= 0 <= m["ci"][1]))
+    base = seal["bins"][name]["A1_surrogate_growth"]                      # A3: surrogate-relative growth
+    m["A1_growth_surrogate_relative"] = [g_ / b_ for g_, b_ in zip(m["A1_growth"], base)]
     os.makedirs(os.path.join(HERE, "results", "read"), exist_ok=True)
     json.dump(m, open(os.path.join(HERE, "results", "read", f"{name}.json"), "w"), indent=1, default=float)
     print(name, m["verdict"], round(m["mu"], 4), [round(x, 4) for x in m["ci"]], flush=True)
