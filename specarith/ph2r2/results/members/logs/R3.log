@@ -1,0 +1,9 @@
+R3 0.5_0.15 PASS 0.9833 [np.float64(0.9417), np.float64(1.025)]
+R3 0.5_0.3 PASS 0.9979 [np.float64(0.9715), np.float64(1.0243)]
+R3 1.0_0.15 PASS 0.9516 [np.float64(0.6211), np.float64(1.2822)]
+R3 1.0_0.3 PASS 1.0112 [np.float64(0.8342), np.float64(1.1883)]
+R3 1.5_0.15 PASS 0.9652 [np.float64(0.78), np.float64(1.1503)]
+R3 1.5_0.3 PASS 0.9961 [np.float64(0.6939), np.float64(1.2982)]
+R3 2.0_0.15 PASS 1.0391 [np.float64(0.8762), np.float64(1.2021)]
+R3 2.0_0.3 PASS 1.0171 [np.float64(0.8694), np.float64(1.1647)]
+exit=0

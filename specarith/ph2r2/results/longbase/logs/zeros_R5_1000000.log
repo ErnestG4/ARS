@@ -1,0 +1,2 @@
+zeros R5 1000000 7 windows; drift-removed growth at 10,000: [0.771, 0.766, 0.684, 0.713, 0.829, 0.749, 0.729]
+exit=0
