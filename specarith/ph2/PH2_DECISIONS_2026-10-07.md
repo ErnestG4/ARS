@@ -239,3 +239,26 @@ implemented; u_max (R4) and the bootstrap block lengths (R5) are named but not v
 the pre-read before any fresh zero is read. Status set to TEXT APPROVED. Also (Will): push 70be2bc7 (tag ph6.1-seal) and
 0405f475 (Will pushes); a Zenodo snapshot of Phase 6 as a complete unit; then the R₂ read, route (a)'s U(N) milestone and
 Phase 1 on spot.
+
+## Fourteenth round (Will, 2026-10-09 morning) — R₂ seal held for the achieved-rule fix
+
+```
+R₂: HOLD seal. Achieved-rule fix (pre-data):
+NOT RESOLVABLE (achieved) iff achieved CI contains BOTH 0 and 1, or
+half-width > 0.5. Otherwise G1 PASS iff 1 ∈ CI, else FAIL.
+Re-run dry run: expect μ=0 → FAIL; μ=1 → PASS; small-sample witness →
+NOT RESOLVABLE (achieved). Then rebuild seal JSON; then my go.
+Phase 2 erratum (no verdict change): its "cannot exclude N=∞" achieved
+clause conflated outcome with precision; only achieved firing (A primary)
+was width-based; H bins were pre-data NR.
+Decision 1: approve raw / surrogate-relative / drift-removed reporting;
+declare the drift-removal method (e.g. per-block exact-density
+normalisation) in the seal before the read.
+```
+Will's diagnosis: the dry run showed every μ = 0 surrogate reading NOT RESOLVABLE (achieved) with tight CIs that exclude
+μ = 1, so the instrument could never reject Conrey–Snaith in favour of μ = 0. The guard mixed precision with outcome.
+Will noted that the same conflation entered Phase 2 through the PA5 refinement (A6(iii)).
+
+Filed as PH2R2_SEAL_1.0 **A2** (rule) and **A3** (A1 three ways; drift removal c_i·e(t_c)/e(t_i), with e the
+sine-kernel expectation at the exact smooth density N̄′(t)). The Phase 2 erratum is PH2_FINDINGS §6; CC checked the
+facts against §1 (A's PRIMARY 0.215 > 0.20 is the only achieved firing; no A–P6 CI contains κ = ∞; H1–H3 pre-data NR).
