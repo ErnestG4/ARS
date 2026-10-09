@@ -1,0 +1,115 @@
+{
+ "rows": [
+  {
+   "bin": "A",
+   "kind": "zeros6",
+   "N": 2,
+   "n": 3000,
+   "max_abs_ds": 1.4778744894528018e-09,
+   "theta_seconds_per_zero": 5.383769671122233e-05,
+   "mean_s_back": 1.0001028729781312,
+   "mean_s_true": 1.000102872978266
+  },
+  {
+   "bin": "B",
+   "kind": "zeros6",
+   "N": 3,
+   "n": 3000,
+   "max_abs_ds": 1.7278485309191183e-09,
+   "theta_seconds_per_zero": 5.238660176595052e-05,
+   "mean_s_back": 0.9999764334641447,
+   "mean_s_true": 0.999976433464178
+  },
+  {
+   "bin": "P1",
+   "kind": "platt",
+   "N": 3,
+   "n": 3000,
+   "max_abs_ds": 0.0,
+   "theta_seconds_per_zero": 5.107561747233073e-05,
+   "mean_s_back": 0.999894872980398,
+   "mean_s_true": 0.999894872980398
+  },
+  {
+   "bin": "P2",
+   "kind": "platt",
+   "N": 3,
+   "n": 3000,
+   "max_abs_ds": 0.0,
+   "theta_seconds_per_zero": 4.97434933980306e-05,
+   "mean_s_back": 1.0000867870955055,
+   "mean_s_true": 1.0000867870955055
+  },
+  {
+   "bin": "P3",
+   "kind": "platt",
+   "N": 4,
+   "n": 3000,
+   "max_abs_ds": 0.0,
+   "theta_seconds_per_zero": 5.016756057739258e-05,
+   "mean_s_back": 1.0000810160484475,
+   "mean_s_true": 1.0000810160484475
+  },
+  {
+   "bin": "P4",
+   "kind": "platt",
+   "N": 4,
+   "n": 3000,
+   "max_abs_ds": 0.0,
+   "theta_seconds_per_zero": 5.0700743993123374e-05,
+   "mean_s_back": 1.000150632871241,
+   "mean_s_true": 1.000150632871241
+  },
+  {
+   "bin": "P5",
+   "kind": "platt",
+   "N": 5,
+   "n": 3000,
+   "max_abs_ds": 0.0,
+   "theta_seconds_per_zero": 5.015381177266439e-05,
+   "mean_s_back": 1.0000883289446465,
+   "mean_s_true": 1.0000883289446465
+  },
+  {
+   "bin": "P6",
+   "kind": "platt",
+   "N": 5,
+   "n": 3000,
+   "max_abs_ds": 0.0,
+   "theta_seconds_per_zero": 4.9388964970906575e-05,
+   "mean_s_back": 0.999791243891309,
+   "mean_s_true": 0.999791243891309
+  },
+  {
+   "bin": "H1",
+   "kind": "zeros3",
+   "N": 6,
+   "n": 3000,
+   "max_abs_ds": 3.7991733092823665e-09,
+   "theta_seconds_per_zero": 5.103619893391927e-05,
+   "mean_s_back": 0.9999379507669758,
+   "mean_s_true": 0.9999379507670066
+  },
+  {
+   "bin": "H2",
+   "kind": "zeros4",
+   "N": 10,
+   "n": 3000,
+   "max_abs_ds": 6.966618837367378e-09,
+   "theta_seconds_per_zero": 5.1264127095540366e-05,
+   "mean_s_back": 0.9998058794427654,
+   "mean_s_true": 0.9998058794439262
+  },
+  {
+   "bin": "H3",
+   "kind": "zeros5",
+   "N": 11,
+   "n": 3000,
+   "max_abs_ds": 7.34434801863415e-09,
+   "theta_seconds_per_zero": 5.061658223470052e-05,
+   "mean_s_back": 0.999714527506592,
+   "mean_s_true": 0.9997145275072505
+  }
+ ],
+ "PASS": true
+}

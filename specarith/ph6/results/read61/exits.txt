@@ -1,0 +1,8 @@
+C1a exit=0
+C1b exit=0
+C2 exit=0
+C4 exit=0
+C3a exit=0
+C3b exit=0
+BBM exit=0
+Sierra_mirror exit=0

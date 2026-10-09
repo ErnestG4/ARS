@@ -1,0 +1,6 @@
+zeros ['PASS', 'PASS', 'PASS', 'GUE'] T1 attribution []
+cue_null ['FAIL', 'FAIL', 'FAIL', 'GUE'] T1 attribution ['constant', 'slope']
+picket ['PASS', 'FAIL', 'FAIL', 'INAPPLICABLE'] T1 attribution []
+rp_t1_constant ['FAIL', 'FAIL', 'FAIL', 'INAPPLICABLE'] T1 attribution ['constant']
+rp_t1_density ['FAIL', 'FAIL', 'FAIL', 'INAPPLICABLE'] T1 attribution ['constant', 'slope']
+rp_t4_intermediate ['PASS', 'FAIL', 'FAIL', 'NOT RESOLVABLE'] T1 attribution []

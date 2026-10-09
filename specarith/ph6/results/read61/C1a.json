@@ -1,0 +1,139 @@
+{
+ "id": "C1a",
+ "T1": {
+  "verdict": "FAIL",
+  "attribution": [
+   "constant"
+  ],
+  "delta_bar": -0.999136960329842,
+  "slope": -0.002262668747603066,
+  "tau1": 0.02,
+  "n": 31120,
+  "t_range": [
+   19.150416211381284,
+   26599.924631560483
+  ],
+  "descriptive_density_slope": {
+   "slope": -0.002262668747603066,
+   "within_tau1": true,
+   "note": "A4: the density/slope component alone, for attribution"
+  }
+ },
+ "T2": {
+  "rtilde": 0.999937803265581,
+  "crystal": true,
+  "GUE_band_descriptive": {
+   "band": [
+    0.5973526716339913,
+    0.6031061233898883
+   ],
+   "z": 261.58761991535476,
+   "W": 30000
+  },
+  "verdict": "FAIL",
+  "attribution": "integrable crystal (\u27e8r\u0303\u27e9 \u2265 0.9)"
+ },
+ "T3": {
+  "verdict": "FAIL",
+  "details": {
+   "R": [
+    2,
+    3,
+    4,
+    5,
+    7,
+    9,
+    11,
+    13,
+    17,
+    19,
+    23,
+    29,
+    31,
+    37,
+    41,
+    43,
+    47,
+    53,
+    59,
+    61,
+    67,
+    71
+   ],
+   "failed_arms": {
+    "POSITION": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     11,
+     13,
+     17,
+     19,
+     23,
+     29,
+     31,
+     37,
+     41,
+     43,
+     47,
+     53,
+     59,
+     61,
+     67,
+     71
+    ],
+    "WEIGHT": [
+     2,
+     3,
+     4,
+     5,
+     7,
+     9,
+     11,
+     13,
+     17,
+     19,
+     23,
+     29,
+     31,
+     37,
+     41,
+     43,
+     47,
+     53,
+     59,
+     61,
+     67,
+     71
+    ],
+    "SIGN": [
+     2,
+     3,
+     13,
+     29,
+     31,
+     37,
+     43
+    ]
+   }
+  },
+  "config": {
+   "T0": 13299.9623,
+   "sigma": 1564.7014470588235,
+   "E_hi": 26599.9246
+  }
+ },
+ "T4": {
+  "verdict": "INAPPLICABLE",
+  "reason": "integrable crystal"
+ },
+ "tuple": [
+  "FAIL",
+  "FAIL",
+  "FAIL",
+  "INAPPLICABLE"
+ ]
+}

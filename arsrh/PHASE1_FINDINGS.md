@@ -146,3 +146,13 @@ pcf estimators), landed on this phase's low-height crossover without looking for
 the window (low half 0.6119 → high half 0.6100), outside the matched-window GUE null band as
 banked here. Same object, second chart system, transition functions holding. No new claim; filed
 as corroborating sighting pointing back to this record.
+
+## Erratum (2026-10-08) — the GUE ⟨r̃⟩ reference value
+The "dev vs GUE" column above is measured against **0.60266**, which this record calls "the true Atas" value. It is
+the 3×3 **surmise** value (Atas et al., PRL 110 (2013) 084101, Table I row ⟨r̃⟩_W = 2√3/π − ½). Atas et al.'s
+**large-N** value is **0.5996(1)** (Table I row ⟨r̃⟩_fit; checked against the arXiv 1212.5611 LaTeX source). Against
+large N every deviation in the table is **+0.0031 larger** (e.g. 0.6147 → +0.0151 at γ ≈ 5.45·10³). The verdicts are
+unaffected: they were read against the matched-window GUE null band (mean ≈ 0.600, i.e. the large-N value, as the
+"~0.002 below" note above records), not against the constant. `phase1_zeta_crossover.py` now takes its reference
+from the shared `rtilde_refs.py` (large N), so a re-run reproduces the banked ⟨r̃⟩ values and bands but reports
+deviations against 0.5996. Source of the change: specarith Phase 6.1 decision D4 (Will).

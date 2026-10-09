@@ -1,0 +1,2 @@
+P1: 4426101 spacings, mean 0.99999983, 464s
+{"bin": "P1", "n": 4426101, "mean_spacing": {"value": 0.9999998331394091, "band": 2.2593248549908823e-06, "ok": true}} prim FAIL 1.2429 [1.1573, 1.3291] sec FAIL 1.1326 [1.1185, 1.1472] misprint FAILS True ('FIRED', 'FIRED', 'FIRED') mix DISTINGUISHED shuffle UNCHANGED

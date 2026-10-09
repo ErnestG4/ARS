@@ -1,0 +1,2 @@
+{"bin": "P1", "n": 3000, "mean_spacing": {"value": 1.0004605162248603, "band": 0.0033333333333333335, "ok": true}} prim NOT RESOLVABLE (achieved) 0.9628 [0.6552, 2.0454] sec NOT RESOLVABLE (achieved) 1.0679 [0.7704, 3.8075] misprint FAILS True ('FIRED', 'INAPPLICABLE (achieved)', 'INAPPLICABLE (achieved)') mix INAPPLICABLE (achieved) shuffle INAPPLICABLE (achieved)
+A6(iii) witness FIRED {"prim_predata_resolvable": true, "prim_G1": true, "sec_G1": true, "prim_achieved_wider_than_predicted": true, "misprint_N_prim": true, "misprint_N_sec": true, "mix": true, "shuffle": true}

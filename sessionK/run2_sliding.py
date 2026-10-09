@@ -13,7 +13,10 @@ import json, os
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-POISSON, GOE = 0.38629, 0.53590
+import sys
+sys.path.insert(0, os.path.dirname(HERE))
+from rtilde_refs import LARGE_N as _RT   # Atas et al. 2013 large N (2026-10-08, 6.1 D4); GOE was the surmise 0.53590
+POISSON, GOE = _RT["Poisson"], _RT["GOE"]
 
 def rstat(x):
     x = np.sort(x); s = np.diff(x)

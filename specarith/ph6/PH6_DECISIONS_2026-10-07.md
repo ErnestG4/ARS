@@ -142,3 +142,69 @@ Seal with --A1 --A6 --A4b and results/preread_proposed.
 
 Process: pre-commit hook rejecting `pgrep -f` in repo scripts.
 ```
+
+## 6.1 decisions (Will, 2026-10-08) on PH6_1_SEAL_DRAFT D1–D6
+
+Filed verbatim:
+
+```
+Phase 6.1:
+D1 both ϑ variants declared, verdict per variant. D2 N = 3·10⁴; E-linked
+torus as declared secondary variant. D3 accept max(5·block SD, 0.02).
+D4 large-N ⟨r̃⟩ refs (Atas 2013: GUE 0.5996, GOE 0.5307, Poisson 0.386) as
+labels; verdict bands from matched-size GUE/Poisson draws; fix repo tables.
+D5 accept: zeros at matched height. D6 accept: nearest class by ⟨r̃⟩ with
+matched-size bands; NNS-KS and Σ²+Δ₃ descriptive; INAPPLICABLE for
+integrable crystals.
+```
+Accompanying note (Will): at 3·10⁴ levels finite-size offsets in ⟨r̃⟩ are comparable to the 0.003 surmise/large-N gap,
+hence bands from matched-size draws with the large-N constants as labels; choosing one ϑ now would be a needless fork.
+
+## 6.1 decisions, second round (Will, 2026-10-08 morning) — on MORNING_2026-10-08.md
+
+Filed verbatim:
+
+```
+6.1 decisions (Will):
+1. C3b INAPPLICABLE (paper defines no single spectrum; stitching = new construction).
+2. C3a: N = 6·10⁴; convergence check = agreement of low-|E| levels between
+   N = 3·10⁴ and 6·10⁴ runs where both valid. (b) rejected (mirror half adds no
+   independent info). (c) fallback if 6·10⁴ fails convergence.
+3. PA-6.1-1 ADOPT with change:
+   T4 as proposed (nearest class, ≥3 SD separation else ambiguous/NR;
+   integrable crystals INAPPLICABLE).
+   T2: PASS iff |r̃_cand − r̃_zeros| ≤ 3·√(SD_cand² + SD_zeros²), both SDs by
+   block bootstrap over T1-matched ranges; GUE band descriptive.
+Open lead (descriptive): low-height ⟨r̃⟩ excess (0.6129, falling with height) and
+Phase 2 κ̂ > 1 — list together; do not merge post hoc.
+```
+
+## 6.1 pre-seal confirmations (Will, 2026-10-08 midday)
+
+Filed verbatim:
+
+```
+6.1 pre-seal confirmations (Will):
+- T1: seal text states T1 tests mean density + zeros-level count rigidity
+  (global offset); report T1's density/slope component separately,
+  descriptive, for attribution.
+- Crystal criterion ⟨r̃⟩ ≥ 0.9: accept. Add T4 rule: outside all bands by
+  > 15 SD and < 0.9 → "intermediate, no standard class" (T4 NOT RESOLVABLE).
+  Margin chosen so zeros (8.5 SD from GUE) still classify.
+- T2 bootstrap: block sweep {30, 100, 300} ratios, widest CI; 2000 replicates.
+- Read candidates at res2: accept.
+Then: per-candidate T3 bands → make_seal_json61.py → seal on go.
+```
+
+## 6.1 GO (Will, 2026-10-08 evening)
+
+Filed verbatim:
+
+```
+GO: commit PH6_SEAL_6.1.json as the seal commit, tag ph6.1-seal (Will pushes).
+Then read C1a, C1b, C2, C4 via tests61.py read; report every test and variant,
+T3 per-prime-power failed arms per model, and the decided-in-advance statuses
+for C3a, C3b, BBM and the Sierra mirror.
+```
+Will's sanity checks before the go: C1a/C1b bands identical (the band depends on configuration only, which the two
+variants share to within 0.09 in E_hi); C4's band ≈ 4× tighter over a 14× wider range, as √14 ≈ 3.7 sampling predicts.

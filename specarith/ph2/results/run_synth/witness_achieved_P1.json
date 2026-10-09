@@ -1,0 +1,26 @@
+{
+ "bin": "P1",
+ "synthetic": 3,
+ "keep": 3000,
+ "checks": {
+  "prim_predata_resolvable": true,
+  "prim_G1": true,
+  "sec_G1": true,
+  "prim_achieved_wider_than_predicted": true,
+  "misprint_N_prim": true,
+  "misprint_N_sec": true,
+  "mix": true,
+  "shuffle": true
+ },
+ "FIRED": true,
+ "halfwidth": {
+  "prim": {
+   "predicted": 0.07738411353219282,
+   "achieved": 0.6950981092991563
+  },
+  "sec": {
+   "predicted": 0.009795425558511239,
+   "achieved": 1.518572425437827
+  }
+ }
+}
