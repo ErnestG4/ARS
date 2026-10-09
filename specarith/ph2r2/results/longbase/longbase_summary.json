@@ -231,10 +231,178 @@
   "CANDIDATE_FINDING": false
  },
  "1000000": {
-  "n_gue_seeds": 0,
-  "gue_sanity": [],
-  "bins": {},
-  "n_distinguished": 0,
-  "CANDIDATE_FINDING": false
+  "n_gue_seeds": 8,
+  "gue_sanity": [
+   {
+    "count_resid_mean": -0.0009578020269905683,
+    "count_resid_sd": 0.8629184975854456,
+    "count_resid_drift": -0.9506894475903609,
+    "mean_spacing": 0.9999996026565834,
+    "rtilde": 0.5999378492759658
+   },
+   {
+    "count_resid_mean": -0.5970130082573338,
+    "count_resid_sd": 0.8776078907787491,
+    "count_resid_drift": 0.7681654592587438,
+    "mean_spacing": 1.0000013303595199,
+    "rtilde": 0.5994615652533107
+   },
+   {
+    "count_resid_mean": -0.056669251429277735,
+    "count_resid_sd": 0.8022335027625869,
+    "count_resid_drift": 0.4088896356896694,
+    "mean_spacing": 1.0000009077748107,
+    "rtilde": 0.5994841042943787
+   },
+   {
+    "count_resid_mean": 0.23205447873459262,
+    "count_resid_sd": 0.815393100619621,
+    "count_resid_drift": 0.9760421012207225,
+    "mean_spacing": 1.0000023074692583,
+    "rtilde": 0.5999167879766724
+   },
+   {
+    "count_resid_mean": -0.25604710221522137,
+    "count_resid_sd": 0.8332087932579665,
+    "count_resid_drift": -1.820792629613552,
+    "mean_spacing": 0.9999978143967161,
+    "rtilde": 0.5998263436102921
+   },
+   {
+    "count_resid_mean": -0.19206981368940976,
+    "count_resid_sd": 0.7804236171324449,
+    "count_resid_drift": 0.4946906481624319,
+    "mean_spacing": 1.0000004309283488,
+    "rtilde": 0.6001338390683252
+   },
+   {
+    "count_resid_mean": 0.06951570556464706,
+    "count_resid_sd": 0.926795451348332,
+    "count_resid_drift": -0.2957840887471975,
+    "mean_spacing": 0.999997064990582,
+    "rtilde": 0.5996836549688196
+   },
+   {
+    "count_resid_mean": 0.21317383504711776,
+    "count_resid_sd": 0.8311880927626243,
+    "count_resid_drift": -0.29742288627854935,
+    "mean_spacing": 0.9999999253504551,
+    "rtilde": 0.5999805263095092
+   }
+  ],
+  "bins": {
+   "R1": {
+    "gue_drift_removed": [
+     0.9841040029304674,
+     0.019178134611763938
+    ],
+    "zeros_drift_removed": [
+     0.6634494491717209,
+     0.00935086020834914
+    ],
+    "gue_raw": [
+     1.1080343414486848,
+     0.0317731155115019
+    ],
+    "zeros_raw": [
+     0.9671241099356933,
+     0.048193023537510066
+    ],
+    "n_zero_windows": 4,
+    "threshold": 0.9200949808757037,
+    "DISTINGUISHED": true,
+    "separation_in_combined_se": 15.02856363675139
+   },
+   "R2": {
+    "gue_drift_removed": [
+     0.9252842585057417,
+     0.010608629087412409
+    ],
+    "zeros_drift_removed": [
+     0.651153402688131,
+     0.03585151966999148
+    ],
+    "gue_raw": [
+     0.9292895352462924,
+     0.01921000011174409
+    ],
+    "zeros_raw": [
+     0.6562301701305733,
+     0.01433709104325872
+    ],
+    "n_zero_windows": 5,
+    "threshold": 0.8131197798868015,
+    "DISTINGUISHED": true,
+    "separation_in_combined_se": 7.33202327134931
+   },
+   "R3": {
+    "gue_drift_removed": [
+     0.891608613833717,
+     0.008804789669975221
+    ],
+    "zeros_drift_removed": [
+     0.6832830678084166,
+     0.03083495794831553
+    ],
+    "gue_raw": [
+     0.9415469446471715,
+     0.011966715777852958
+    ],
+    "zeros_raw": [
+     0.6661953424621164,
+     0.022839875447499915
+    ],
+    "n_zero_windows": 6,
+    "threshold": 0.7954063759425848,
+    "DISTINGUISHED": true,
+    "separation_in_combined_se": 6.496487522287778
+   },
+   "R4": {
+    "gue_drift_removed": [
+     0.957787126059002,
+     0.02281622953226379
+    ],
+    "zeros_drift_removed": [
+     0.7372290877696962,
+     0.026945975539377956
+    ],
+    "gue_raw": [
+     0.9662729999783659,
+     0.017770971193665778
+    ],
+    "zeros_raw": [
+     0.7606581914807703,
+     0.023215502296632967
+    ],
+    "n_zero_windows": 6,
+    "threshold": 0.8518626560318203,
+    "DISTINGUISHED": true,
+    "separation_in_combined_se": 6.246659668895417
+   },
+   "R5": {
+    "gue_drift_removed": [
+     0.9427383068135504,
+     0.016064826273348435
+    ],
+    "zeros_drift_removed": [
+     0.7486820970999146,
+     0.01766901696099693
+    ],
+    "gue_raw": [
+     0.9551591105564128,
+     0.02502648205369312
+    ],
+    "zeros_raw": [
+     0.7350570385547022,
+     0.01137408990069334
+    ],
+    "n_zero_windows": 7,
+    "threshold": 0.8710971508203103,
+    "DISTINGUISHED": true,
+    "separation_in_combined_se": 8.126175814302034
+   }
+  },
+  "n_distinguished": 5,
+  "CANDIDATE_FINDING": true
  }
 }
