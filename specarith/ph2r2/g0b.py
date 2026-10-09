@@ -166,7 +166,10 @@ def merge(out):
             s[k] = dict(mean_mu=float(mu.mean()), sd_mu=sd, bias_in_sd=float(mu.mean() / sd),
                         boot_sd_over_sd={str(bl): float(bsd[bl].mean() / sd) for bl in BOOT_LEVELS},
                         cover_boot_widest=cover_boot, cover_wider=cover_wider,
-                        power_reject_mu0=float(0.5 * math.erfc((1 / max(sd, float(widest.mean())) - 1.959964) / math.sqrt(2))))
+                        # power to reject μ = 0 when μ = 1: Φ(1/SD − 1.96) = ½·erfc(−(1/SD − 1.96)/√2)
+                        # (fixed 2026-10-09 05:55: the sign inside erfc was wrong — it returned 1 − power)
+                        power_reject_mu0=float(0.5 * math.erfc(-(1 / max(sd, float(widest.mean())) - 1.959964)
+                                                               / math.sqrt(2))))
         summary[name] = s
     # primary f (R3): maximise the median over bins of 1/SD(μ̂) (= |LOT_f| / SD(S_f)), theory + surrogates only
     score = {}
