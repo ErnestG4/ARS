@@ -20,6 +20,11 @@ drift-removed. Baseline g_B = mean over GUE seeds ± SE; zeros g_Z = mean over t
     the moving-block estimator's own finite-n behaviour is shared by both arms.
 Sanity per GUE sequence: unfolded count residual, mean spacing, ⟨r̃⟩ (large-N GUE 0.5996).
 
+v2 (2026-10-09, after the v1 1e6 tier): v1 seeded the bootstrap by bin only, so every sequence/window in a bin reused
+the same block-start draws and the across-seed/window SEs excluded the resampling noise. v2 seeds each bootstrap by
+(arm, sequence seed or window index, bin), so the SEs include it. The rule above is unchanged. v2 also saves each GUE
+sequence's unfolded levels (spot only) for reanalysis without re-running sterf.
+
   python longbase.py gue SEED L OUT         (spot; one sequence, mapped into all five bins)
   python longbase.py zeros NAME L OUT       (local; the bin's Platt file — read is done, so decoding is allowed)
   python longbase.py merge OUT
@@ -41,12 +46,12 @@ PRIMARY = (0.5, 0.3)
 SEED0 = 20261010
 
 
-def growth_record(levels, name):
+def growth_record(levels, name, arm, idx):
     g = P.geometry(name)
     u, w = PRIMARY
     c = G.contributions(levels, u, w, g["delta"])
     cd = RR.drift_removed(c, levels, name, u, w)
-    rng = np.random.default_rng(SEED0 + int(name[1:]))
+    rng = np.random.default_rng([SEED0, arm, idx, int(name[1:])])          # v2: independent per sequence/window
     raw = {str(b): G.boot_sd_sum(c, b, rng) for b in G.BOOT_LEVELS}
     dr = {str(b): G.boot_sd_sum(cd, b, rng) for b in G.BOOT_LEVELS}
     return dict(n=int(len(levels)), boot_sd_raw=raw, boot_sd_drift_removed=dr,
@@ -76,11 +81,12 @@ def gue(seed, L, out):
                                                     count_resid_drift=float(resid[-1000:].mean() - resid[:1000].mean()),
                                                     mean_spacing=float(s.mean()), rtilde=rt), bins={})
     u = u - u[0]
+    os.makedirs(out, exist_ok=True)
+    np.save(os.path.join(out, f"gue_L{L}_s{seed:03d}_unfolded.npy"), u)
     for name in P.BINS:
         g = P.geometry(name)
         t = G.nbar_inv(float(P.nbar(g["t0"])) + 0.5 + u, g["tc"])
-        rec["bins"][name] = growth_record(t, name)
-    os.makedirs(out, exist_ok=True)
+        rec["bins"][name] = growth_record(t, name, 1, seed)
     json.dump(rec, open(os.path.join(out, f"gue_L{L}_s{seed:03d}.json"), "w"), indent=1)
     print("gue", seed, L, rec["sanity"], {k: [round(x, 3) for x in v["growth_drift_removed"]] for k, v in rec["bins"].items()},
           flush=True)
@@ -90,7 +96,7 @@ def zeros(name, L, out):
     lev = RR.read_platt_heights(os.path.join(RR.HERE, "data", "platt", RR.PLATT[name]))
     recs = []
     for k in range(len(lev) // L):
-        recs.append(dict(window=k, **growth_record(lev[k * L:(k + 1) * L], name)))
+        recs.append(dict(window=k, **growth_record(lev[k * L:(k + 1) * L], name, 2, 1000 * (L // 100000) + k)))
     os.makedirs(out, exist_ok=True)
     json.dump(recs, open(os.path.join(out, f"zeros_{name}_L{L}.json"), "w"), indent=1)
     print("zeros", name, L, len(recs), "windows; drift-removed growth at 10,000:",

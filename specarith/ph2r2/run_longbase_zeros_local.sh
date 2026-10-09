@@ -5,7 +5,7 @@ set -u
 D=$(cd "$(dirname "$0")" && pwd)
 PY=/home/combust/fmexplorer/bin/python3
 cd "$D"
-OUT=results/longbase
+OUT=results/longbase_v2
 mkdir -p "$OUT/logs"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 for L in 200000 1000000; do for n in R1 R2 R3 R4 R5; do echo "$n $L"; done; done |

@@ -5,7 +5,7 @@ set -u
 D=~/tmp/claude/specarith/ph2r2
 PY=~/miniforge3/envs/ph6c/bin/python
 cd "$D"
-OUT=results/longbase
+OUT=results/longbase_v2
 mkdir -p "$OUT/logs" "$OUT/exits"
 rm -f "$OUT/ALL_DONE"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
