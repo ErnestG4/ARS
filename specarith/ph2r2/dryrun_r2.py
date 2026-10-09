@@ -1,9 +1,12 @@
 """R₂ dry run (PH2R2_SEAL 1.0 §4): the read path end to end on surrogates, no fresh zero touched.
   1. Platt encode→decode round trip (r2run.roundtrip).
-  2. A full-size windowed CUE_250 surrogate of each bin through r2run.mu_hat + verdict (known answer μ* = 0; with the
-     sealed rule this must read FAIL where resolvable — the surrogate has no arithmetic term — or NOT RESOLVABLE).
-  3. (achieved) witness: one bin's surrogate cut to the first 1% of its blocks — the achieved CI must be too wide or
-     include 0, so the verdict must read NOT RESOLVABLE (achieved).
+  2. A full-size windowed CUE_250 surrogate of each bin through r2run.mu_hat + verdict, twice:
+     (i) as is (known answer μ* = 0: the CI includes 0, so the sealed rule reads NOT RESOLVABLE (achieved) — the power
+         arm correctly unable to exclude μ = 0 — or NOT RESOLVABLE pre-data);
+     (ii) with the arithmetic term planted at μ = 1 (S_f + LOT_f, as Phase 6 planted lines): must read PASS where the
+          bin is resolvable (1 ∈ CI, 0 ∉ CI).
+  3. (achieved) witness: R1's planted surrogate cut to the first 1% of its blocks — resolvable pre-data, so only the
+     achieved width can stop it: the verdict must read NOT RESOLVABLE (achieved).
   python dryrun_r2.py G0B_DIR OUT {R1..R5 | witness | merge}   (bins run in parallel on spot, then merge)
 """
 import json
@@ -38,12 +41,17 @@ def one_bin(g0b_dir, out, name):
     sd = S[name][key]["sd_mu"]
     resolvable = S[name][key]["power_reject_mu0"] >= 0.80
     lev, edges = surrogate(name)
-    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd, rng)
-    m["verdict"] = RR.verdict(m, resolvable)
-    m["expected"] = "FAIL (no arithmetic term; mu* = 0)" if resolvable else "NOT RESOLVABLE"
+    res = dict(resolvable=bool(resolvable))
+    for tag, plant, exp in (("mu0", 0.0, "NOT RESOLVABLE (achieved)" if resolvable else "NOT RESOLVABLE"),
+                            ("planted_mu1", 1.0, "PASS" if resolvable else "NOT RESOLVABLE")):
+        m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd, rng, plant=plant)
+        m["verdict"] = RR.verdict(m, resolvable)
+        m["expected"] = exp
+        m["as_expected"] = m["verdict"] == exp
+        res[tag] = m
+        print(name, tag, m["verdict"], round(m["mu"], 4), [round(x, 4) for x in m["ci"]], "expected", exp, flush=True)
     os.makedirs(out, exist_ok=True)
-    json.dump(m, open(os.path.join(out, f"dryrun_{name}.json"), "w"), indent=1, default=float)
-    print(name, m["verdict"], round(m["mu"], 4), [round(x, 4) for x in m["ci"]], flush=True)
+    json.dump(res, open(os.path.join(out, f"dryrun_{name}.json"), "w"), indent=1, default=float)
 
 
 def witness(g0b_dir, out):
@@ -53,7 +61,7 @@ def witness(g0b_dir, out):
     name = "R1"
     lev, edges = surrogate(name, frac=0.01, seed=5)
     sd_small = S[name][key]["sd_mu"] * 10.0          # SD scales as 1/√n: 1% of the bin ⇒ ×10
-    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5))
+    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5), plant=1.0)
     m["verdict"] = RR.verdict(m, True)
     w_ = dict(bin=name, fraction=0.01, mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"], verdict=m["verdict"],
               FIRED=m["verdict"] == "NOT RESOLVABLE (achieved)")
@@ -68,7 +76,8 @@ def merge(g0b_dir, out):
                bins={n: json.load(open(os.path.join(out, f"dryrun_{n}.json"))) for n in P.BINS},
                achieved_witness=json.load(open(os.path.join(out, "dryrun_witness.json"))))
     json.dump(res, open(os.path.join(out, "dryrun.json"), "w"), indent=1, default=float)
-    print(json.dumps({n: (b["verdict"], round(b["mu"], 4)) for n, b in res["bins"].items()}),
+    print(json.dumps({n: {k: (b[k]["verdict"], round(b[k]["mu"], 4)) for k in ("mu0", "planted_mu1")}
+                      for n, b in res["bins"].items()}),
           "witness FIRED:", res["achieved_witness"]["FIRED"], "roundtrip:", res["roundtrip"]["PASS"])
 
 

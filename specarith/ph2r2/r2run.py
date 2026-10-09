@@ -84,7 +84,8 @@ def roundtrip():
 
 
 # ---------------------------------------------------------------- the statistic for a level list with window edges
-def mu_hat(levels, edges, name, u, w, kernel_dir, sd_surrogate, rng):
+def mu_hat(levels, edges, name, u, w, kernel_dir, sd_surrogate, rng, plant=0.0):
+    """plant (dry run only): add plant·LOT_f to S_f — a surrogate carrying the arithmetic term at amplitude μ = plant."""
     g = P.geometry(name)
     K = G.CachedKernel(G.kernel_path(kernel_dir, name))
     wr = np.load(G.kernel_path(kernel_dir, name))["wr"]
@@ -95,6 +96,7 @@ def mu_hat(levels, edges, name, u, w, kernel_dir, sd_surrogate, rng):
     c = np.concatenate(cs)
     S = float(c.sum())
     rmt, lot = G.predict_tiling(K, wr, list(edges), u, w, g["delta"])
+    S += plant * lot
     mu = (S - rmt) / lot
     bsd = {str(bl): G.boot_sd_sum(c, bl, rng) / abs(lot) for bl in G.BOOT_LEVELS}
     sd = max([sd_surrogate] + list(bsd.values()))
