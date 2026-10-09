@@ -1,0 +1,2 @@
+R1 mu0 NOT RESOLVABLE (achieved) -0.0049 [np.float64(-0.0562), np.float64(0.0463)] expected NOT RESOLVABLE (achieved)
+R1 planted_mu1 PASS 0.9951 [np.float64(0.942), np.float64(1.0481)] expected PASS
