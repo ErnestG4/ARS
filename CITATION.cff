@@ -17,14 +17,22 @@ abstract: >
   (exact explicit-formula and Selberg trace-formula identities on the
   Riemann zeros, the zeros of L(s, χ₋₄) and the Maass spectrum of PSL(2,ℤ),
   with random-matrix nulls and picket-fence confusables), whose calibration
-  gates all pass (specarith/ph6/PH6_FINDINGS.md). Code is
+  gates all pass (specarith/ph6/PH6_FINDINGS.md). The calibrated instrument
+  then read every testable published xp-type model (Sierra–Rodríguez-Laguna,
+  Berry–Keating 2011, Sierra–Townsend; specarith/ph6/PH6_1_FINDINGS.md):
+  each reproduces its own paper's counting constant and each fails the primes
+  (no line at any log p^k, no spurious line), being locally an integrable
+  crystal. specarith Phase 2 tests the Bogomolny et al. finite-size law on
+  Odlyzko and Platt zeros: at heights 1e5–3e10 the O(N^-2)-truncated law
+  under-describes the spacing distribution at 0.5–1% precision
+  (specarith/ph2/PH2_FINDINGS.md). Code is
   AGPL-3.0-or-later; llmspec results and write-ups are CC-BY-4.0
   (llmspec/LICENSE-RESULTS.md).
 authors:
   - name: combust
     email: combust@thespot.chat
-version: "2026.10.07"
-date-released: 2026-10-07
+version: "2026.10.09"
+date-released: 2026-10-09
 license:
   - AGPL-3.0-or-later
   - CC-BY-4.0

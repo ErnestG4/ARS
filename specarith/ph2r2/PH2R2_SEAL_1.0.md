@@ -1,7 +1,7 @@
 # Phase 2, new part — ζ pair correlation with arithmetic lower-order terms (PH2R2_SEAL 1.0)
 
-**Status: TEXT with Will's decisions R1–R5 applied (2026-10-08, twelfth round, `ph2/PH2_DECISIONS_2026-10-07.md`);
-awaiting Will's approval of the text.** Then code → pre-read (G0, primary test-function choice, power, reachability) →
+**Status: TEXT APPROVED (Will, 2026-10-09: "if it implements R1–R5 as decided, approve it"; CC checked R1–R5 against §§1–3 — implemented; two values the text names but does not fix — u_max (R4) and the bootstrap block lengths (R5) — are declared in the pre-read before any fresh zero is read). Decisions: twelfth round, `ph2/PH2_DECISIONS_2026-10-07.md`;
+** Then code → pre-read (G0, primary test-function choice, power, reachability) →
 dry run → seal JSON + seal commit → download/verify/decode fresh files → run. No fresh-height zero has been read
 (files pinned before download: `FRESH_PLATT_PINS.md`, commit 697ddbb3; not yet downloaded).
 

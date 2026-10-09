@@ -54,6 +54,26 @@ line at a non-prime-power — none occurs. C4's larger R reflects its tighter ba
 
 **T4:** INAPPLICABLE for all four (integrable crystals, decided by the A4 criterion before T4 is read).
 
+## What the result shows (Will, 2026-10-09)
+1. **T1 is an additional known answer, not only a failure.** The instrument recovered each paper's own counting
+   constant from the levels alone: C1a one level short (7/8 − 1, the 2011 ϑ = π/4 choice), C1b missing the 7/8 (Sierra
+   2019's own statement), C2 missing the 7/8 with the slope of BK11's own −(8π/t) log(t/2π) correction (eq. 5.7), C4 the
+   absorption count of ST eq. 23. An instrument that reproduces the authors' published formulas from their spectra is
+   reading these models correctly — a validation of the read alongside the verdict.
+2. **The T3 pattern is the clean "no line" signature.** POSITION and WEIGHT fail at every resolvable prime power, SIGN
+   failures form a random subset (the sign of noise), and **SILENCE holds everywhere**: no model has a prime line, and
+   none has a spurious line at a non-prime-power. The second half matters — a model with lines at log 6 or log 10 would
+   have been a different, more interesting failure.
+3. **T2/T4 is why T3 fails, not a separate failure.** ⟨r̃⟩ ≈ 0.9999 for all four: every one-dimensional xp
+   regularisation is locally a crystal, as the reachability argument behind 6.3's design predicted — a single
+   primitive orbit family per energy (BK11 §6) cannot generate the proliferating periodic orbits whose lengths are the
+   log p^k. The crystal (T2) and the absent lines (T3) are one fact seen by two tests.
+
+## What it means for 6.3
+The open question is now well posed: the one-dimensional xp family is exhausted. Any candidate worth testing must be
+chaotic — a two-or-more-dimensional system or a quantum graph. The SILENCE arm is ready for the quantum-graph
+confusable (spurious spikes at log 6, log 10: lengths that are sums of prime-length bonds).
+
 ## Context
 - Calibration (pre-read, all before the seal): zeros (first 3·10⁴) read (PASS, PASS, PASS, GUE); red paths fire
   (T1 +⅛ constant and 2% density; T2 on an exact-density CUE null; T3 on nulls and pickets; the A4 intermediate-class

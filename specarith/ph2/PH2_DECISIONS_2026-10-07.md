@@ -230,3 +230,12 @@ Route (a): GO after R₂ sealed; milestone 1 = U(N) construction reproduces
 Phase 6.1: approved IF the text implements D1–D6 as summarized; upload for
    a full review if preferred.
 ```
+
+## Thirteenth round (Will, 2026-10-09) — after the 6.1 read
+
+R₂ seal text: "If it implements R1–R5 as decided, approve it; if you'd like a full review, upload it. Either way, the
+five fresh Platt files need downloading by hand before the read." CC checked R1–R5 against PH2R2_SEAL_1.0.md §§1–3:
+implemented; u_max (R4) and the bootstrap block lengths (R5) are named but not valued in the text and are declared in
+the pre-read before any fresh zero is read. Status set to TEXT APPROVED. Also (Will): push 70be2bc7 (tag ph6.1-seal) and
+0405f475 (Will pushes); a Zenodo snapshot of Phase 6 as a complete unit; then the R₂ read, route (a)'s U(N) milestone and
+Phase 1 on spot.
