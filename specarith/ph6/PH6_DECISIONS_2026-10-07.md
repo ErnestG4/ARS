@@ -195,3 +195,16 @@ Filed verbatim:
 - Read candidates at res2: accept.
 Then: per-candidate T3 bands → make_seal_json61.py → seal on go.
 ```
+
+## 6.1 GO (Will, 2026-10-08 evening)
+
+Filed verbatim:
+
+```
+GO: commit PH6_SEAL_6.1.json as the seal commit, tag ph6.1-seal (Will pushes).
+Then read C1a, C1b, C2, C4 via tests61.py read; report every test and variant,
+T3 per-prime-power failed arms per model, and the decided-in-advance statuses
+for C3a, C3b, BBM and the Sierra mirror.
+```
+Will's sanity checks before the go: C1a/C1b bands identical (the band depends on configuration only, which the two
+variants share to within 0.09 in E_hi); C4's band ≈ 4× tighter over a 14× wider range, as √14 ≈ 3.7 sampling predicts.

@@ -1,0 +1,149 @@
+{
+ "seal": "PH6_SEAL_6.1",
+ "text": "PH6_1_SEAL_6.1.md",
+ "amendments": [
+  "A1",
+  "A2",
+  "A3",
+  "A4"
+ ],
+ "code_sha256": {
+  "ph6lib.py": "29cea83f11db7da886d74ac944bccb4ebe01618e1d7d4eab001ebc06353736fd",
+  "preread.py": "1339c1e82a407132c9a93e505862abbd8dc45a174bd3a756f56df8bb903dadbc",
+  "tests61.py": "30b235887d61ad8cd3745163e0bfd56aa2c24a977fe0a794e0ebeec0f352a33e"
+ },
+ "inputs_sha256": {
+  "results/preread61/bands61.json": "db8f29cba7357ce7e5b74cbd6f8a9701d23457cbeee25842c2141951cb74e484"
+ },
+ "constants": {
+  "TAU1": 0.02,
+  "CRYSTAL_RTILDE": 0.9,
+  "BOOT_BLOCKS": [
+   30,
+   100,
+   300
+  ],
+  "BOOT_B": 2000,
+  "SEP_T4": 3.0,
+  "INTERMEDIATE_SD": 15.0,
+  "SEED": 20261008
+ },
+ "amendments_note": "A1-A4 (PH6_1_SEAL_6.1.md); T3 bands computed with tests61.py md5 b0e61fb9 (nulls path unchanged since)",
+ "candidates": {
+  "C1a": {
+   "levels": "results/candidates/C1a_res2.npy",
+   "levels_sha256": "365feb2dbed9e279e24d95d6f3c6dfff1d12b3f235e0fe5b84de416ada700316",
+   "n_levels": 31120,
+   "band": "results/bands61/band61_C1a.npy",
+   "band_sha256": "781126b0bc72ed07bd2e9dc11a80df7d79061294d6907880f8bb2734efd46323",
+   "config_top": 26599.9246,
+   "band_info": {
+    "config": {
+     "T0": 13299.9623,
+     "sigma": 1564.7014470588235,
+     "E_lo": 0.0,
+     "E_hi": 26599.9246
+    },
+    "n_draws": 100,
+    "B_log2": 0.1034977393145521,
+    "B_log90": 0.26023304982644807
+   }
+  },
+  "C1b": {
+   "levels": "results/candidates/C1b_res2.npy",
+   "levels_sha256": "26dcd18452af26e323358106558776b9c4ce57544669c7ac756c39c75b826c95",
+   "n_levels": 31120,
+   "band": "results/bands61/band61_C1b.npy",
+   "band_sha256": "ef08554ceed20fe20970c386cfe571db399cc2fbb7505856e116607813d43537",
+   "config_top": 26599.8306,
+   "band_info": {
+    "config": {
+     "T0": 13299.9153,
+     "sigma": 1564.6959176470589,
+     "E_lo": 0.0,
+     "E_hi": 26599.8306
+    },
+    "n_draws": 100,
+    "B_log2": 0.10349791319607424,
+    "B_log90": 0.26023334712646334
+   }
+  },
+  "C2": {
+   "levels": "results/candidates/C2_res2.npy",
+   "levels_sha256": "72f39fc6cbb6a2387c34cc8ef898a8b7a6ed06ec48c34a3d84c7ac58dac4a55c",
+   "n_levels": 31128,
+   "band": "results/bands61/band61_C2.npy",
+   "band_sha256": "7621cd90f6a7b48213147644c9e96c67fd0801df89d2378a3e4653814f503e81",
+   "config_top": 26605.8626,
+   "band_info": {
+    "config": {
+     "T0": 13302.9313,
+     "sigma": 1565.0507411764706,
+     "E_lo": 0.0,
+     "E_hi": 26605.8626
+    },
+    "n_draws": 100,
+    "B_log2": 0.09596893077816583,
+    "B_log90": 0.2605675242333331
+   }
+  },
+  "C4": {
+   "levels": "results/candidates/C4_res2.npy",
+   "levels_sha256": "2b420d5b04d8fbfa50fc9f834b746d305ab6aa0cc3ffbc0226612ef530cfc485",
+   "n_levels": 60000,
+   "band": "results/bands61/band61_C4.npy",
+   "band_sha256": "531ce02a1fe371b6a2e92fe1bc851bbb5244f945245db8ccf7f7546dfd4d546c",
+   "config_top": 376221.8504,
+   "band_info": {
+    "config": {
+     "T0": 188110.9252,
+     "sigma": 22130.69708235294,
+     "E_lo": 0.0,
+     "E_hi": 376221.8504
+    },
+    "n_draws": 100,
+    "B_log2": 0.025960334693237497,
+    "B_log90": 0.06848024876433202
+   }
+  },
+  "C3a": {
+   "pre_verdict": "NOT RESOLVABLE",
+   "reason": "not converged (A2): N = 3e4 vs 6e4 low-|E| levels differ by up to 157 mean spacings"
+  },
+  "C3b": {
+   "pre_verdict": "INAPPLICABLE",
+   "reason": "A1: BEK define no single spectrum for the E-linked torus"
+  },
+  "BBM": {
+   "pre_verdict": "INAPPLICABLE",
+   "reason": "levels defined by the zeros (6.0 \u00a76.3)"
+  },
+  "Sierra_mirror": {
+   "pre_verdict": "INAPPLICABLE",
+   "reason": "levels defined by the zeros (6.0 \u00a76.3)"
+  }
+ },
+ "preread_checks": {
+  "zeros_known_answer": true,
+  "picket_T1_PASS": true,
+  "rp_t1_constant_FAIL": true,
+  "rp_t1_density_FAIL": true,
+  "cue_null_T2_FAIL": true,
+  "cue_null_T3_FAIL": true,
+  "picket_T4_INAPPLICABLE": true,
+  "rp_t4_intermediate_fires": true,
+  "srednicki_PASS": true,
+  "C1a_converged": true,
+  "C1b_converged": true,
+  "C2_converged": true,
+  "C4_converged": true,
+  "C3a_not_converged": true
+ },
+ "preread_sha256": {
+  "results/preread61/tests61_known.json": "0403366a1b654c4178bc2ae8e0d49802d2e5a9beec5622946e6e3b548af2cf80",
+  "results/preread61/redpaths61.json": "7716f14fc44a74d2a5111361d926419c7741dc61b90504c582165f18f7927e29",
+  "results/preread61/srednicki61.json": "8cacef39ad39c4fb17007b086b2b92a11fd7b1b3ea72dc4bd8c46618538f7206",
+  "results/preread61/bands61.json": "db8f29cba7357ce7e5b74cbd6f8a9701d23457cbeee25842c2141951cb74e484",
+  "results/candidates/convergence61.json": "7ccf363eb8a39dc19472876c31774c6fe75dffb092383bcfa6ffb73bfc7dbf2e"
+ }
+}
