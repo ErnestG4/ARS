@@ -4,7 +4,7 @@
      sealed rule this must read FAIL where resolvable — the surrogate has no arithmetic term — or NOT RESOLVABLE).
   3. (achieved) witness: one bin's surrogate cut to the first 1% of its blocks — the achieved CI must be too wide or
      include 0, so the verdict must read NOT RESOLVABLE (achieved).
-  python dryrun_r2.py G0B_DIR OUT
+  python dryrun_r2.py G0B_DIR OUT {R1..R5 | witness | merge}   (bins run in parallel on spot, then merge)
 """
 import json
 import os
@@ -30,32 +30,53 @@ def surrogate(name, frac=1.0, seed=99):
     return np.concatenate(lev), np.array(edges)
 
 
-def main(g0b_dir, out):
+def one_bin(g0b_dir, out, name):
     S = json.load(open(os.path.join(g0b_dir, "g0b_summary.json")))
     key = S["primary_choice"]["primary"]
     u, w = (float(x) for x in key.split("_"))
-    res = dict(primary=key, roundtrip=RR.roundtrip(), bins={})
-    rng = np.random.default_rng(2026)
-    for name in P.BINS:
-        sd = S[name][key]["sd_mu"]
-        resolvable = S[name][key]["power_reject_mu0"] >= 0.80
-        lev, edges = surrogate(name)
-        m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd, rng)
-        m["verdict"] = RR.verdict(m, resolvable)
-        m["expected"] = "FAIL (no arithmetic term; mu* = 0)" if resolvable else "NOT RESOLVABLE"
-        res["bins"][name] = {k: v for k, v in m.items() if k != "boot_sd"} | dict(boot_sd=m["boot_sd"])
-        print(name, m["verdict"], round(m["mu"], 4), [round(x, 4) for x in m["ci"]], flush=True)
+    rng = np.random.default_rng(2026 + int(name[1:]))
+    sd = S[name][key]["sd_mu"]
+    resolvable = S[name][key]["power_reject_mu0"] >= 0.80
+    lev, edges = surrogate(name)
+    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd, rng)
+    m["verdict"] = RR.verdict(m, resolvable)
+    m["expected"] = "FAIL (no arithmetic term; mu* = 0)" if resolvable else "NOT RESOLVABLE"
+    os.makedirs(out, exist_ok=True)
+    json.dump(m, open(os.path.join(out, f"dryrun_{name}.json"), "w"), indent=1, default=float)
+    print(name, m["verdict"], round(m["mu"], 4), [round(x, 4) for x in m["ci"]], flush=True)
+
+
+def witness(g0b_dir, out):
+    S = json.load(open(os.path.join(g0b_dir, "g0b_summary.json")))
+    key = S["primary_choice"]["primary"]
+    u, w = (float(x) for x in key.split("_"))
     name = "R1"
     lev, edges = surrogate(name, frac=0.01, seed=5)
     sd_small = S[name][key]["sd_mu"] * 10.0          # SD scales as 1/√n: 1% of the bin ⇒ ×10
-    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, rng)
+    m = RR.mu_hat(lev, edges, name, u, w, g0b_dir, sd_small, np.random.default_rng(5))
     m["verdict"] = RR.verdict(m, True)
-    res["achieved_witness"] = dict(bin=name, fraction=0.01, mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"],
-                                   verdict=m["verdict"], FIRED=m["verdict"] == "NOT RESOLVABLE (achieved)")
-    print("achieved witness", res["achieved_witness"], flush=True)
+    w_ = dict(bin=name, fraction=0.01, mu=m["mu"], ci=m["ci"], halfwidth=m["halfwidth"], verdict=m["verdict"],
+              FIRED=m["verdict"] == "NOT RESOLVABLE (achieved)")
     os.makedirs(out, exist_ok=True)
+    json.dump(w_, open(os.path.join(out, "dryrun_witness.json"), "w"), indent=1, default=float)
+    print("achieved witness", w_, flush=True)
+
+
+def merge(g0b_dir, out):
+    S = json.load(open(os.path.join(g0b_dir, "g0b_summary.json")))
+    res = dict(primary=S["primary_choice"]["primary"], roundtrip=RR.roundtrip(),
+               bins={n: json.load(open(os.path.join(out, f"dryrun_{n}.json"))) for n in P.BINS},
+               achieved_witness=json.load(open(os.path.join(out, "dryrun_witness.json"))))
     json.dump(res, open(os.path.join(out, "dryrun.json"), "w"), indent=1, default=float)
+    print(json.dumps({n: (b["verdict"], round(b["mu"], 4)) for n, b in res["bins"].items()}),
+          "witness FIRED:", res["achieved_witness"]["FIRED"], "roundtrip:", res["roundtrip"]["PASS"])
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    g0b_dir, out, what = sys.argv[1], sys.argv[2], sys.argv[3]          # what ∈ {R1..R5, witness, merge}
+    if what == "witness":
+        witness(g0b_dir, out)
+    elif what == "merge":
+        merge(g0b_dir, out)
+    else:
+        one_bin(g0b_dir, out, what)
