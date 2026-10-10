@@ -31,6 +31,23 @@ height L = 16.5. The error grew steadily with r: median 3e-13 at r < 100, 1e-10 
 | ζ′/ζ(1+x) | 2e-10 | 8.5e-14 |
 | (ζ′/ζ)′(1+x) | 4e-10 | 8.0e-14 |
 
-## 4. Re-validation (pending)
-1. Fixed fast evaluator and slow evaluator against the 50-digit reference at the 4 failing + 4 passing points.
-2. Then the full 300-point sparse check, re-run at the same 1e-9 threshold.
+## 4. Re-validation
+**4.1 Against the 50-digit reference at the 4 failing + 4 passing points** (2026-10-10 08:41; `results/ref50/`):
+
+| d | r (spacings) | \|ρ₄c non-osc\| | slow evaluator error | fixed fast evaluator error |
+|---|---|---|---|---|
+| (0.3, 0.8) | 1,000 | 1.3e-2 | 9.3e-11 | 9.8e-12 |
+| (0.3, 0.8) | 12,558 | 4.3e-3 | **1.60e-9** | 2.5e-10 |
+| (0.3, 0.8) | 14,665 | 4.7e-4 | **1.26e-9** | 5.6e-11 |
+| (0.3, 0.8) | 17,126 | 4.9e-3 | 8.7e-10 | 2.9e-10 |
+| (0.3, 0.8) | 20,000 | 2.4e-3 | **1.44e-9** | 1.5e-10 |
+| (0.5, 0.5) | 10 | 7.1e-3 | 3.0e-13 | 4.9e-13 |
+| (0.5, 0.5) | 300 | 7.8e-2 | 3.3e-12 | 8.6e-13 |
+| (1.0, 0.4) | 5,000 | 2.3e-2 | 2.2e-11 | 1.8e-11 |
+
+- **Most of the original 1.3e-9 was on the comparison side.** The slow evaluator's double-precision prime sums are off
+  by up to 1.6e-9 at r > 10⁴.
+- **The fixed fast evaluator is within 2.9e-10 at every point**, including the four that failed.
+- The full rerun must therefore compare against the 50-digit reference, not the slow evaluator.
+
+**4.2 The full 300-point check against the 50-digit reference, threshold 1e-9:** running (pending).
