@@ -338,3 +338,22 @@ reproduces the exact CUE_N spacing tables; for Stage 2: it reproduces the flat s
 measured." The shared code means the F2 and F3 results are not independent in method, but they test different
 hypotheses on disjoint data. The few-prime model stays the fallback until the transcription passes both gates. Next:
 the literature findings and the combined plan, together.
+
+## Nineteenth round (Will, 2026-10-10) — Stage 2 statistic; gates; proceed
+
+```
+Stage 2 / CS4 combined plan decisions (Will):
+1. Option (a): Stage 2 statistic = variance across smooth tapered windows
+   satisfying CS08's analyticity (holomorphic |Im x| < 2), for both
+   prediction and measurement. New pre-read (GUE baselines reusing the F2
+   sequences, power, false-positive splits) before the F2 seal.
+   Bridge: tapered statistic on F1 (seen) reported descriptively beside
+   Stage 1's sharp-block results.
+2. Third known answer: U(N) assembly reproduces Aguirre–Soshnikov–Sumpter
+   exact CUE pair-statistic variance before block/taper geometry enters (gate).
+3. BLS autocovariance-sum estimate: unsealed sanity check of sign/scale.
+Novelty wording waits for Coram–Diaconis 2003 (Will can fetch the PDF by hand).
+Proceed: CS08 n=2,3,4 transcription + U(N) gates.
+```
+Will's reason for (a): the prediction should be exact for the statistic measured. Under (b), the edge-effect bound
+could be as large as the effect. On the Berry correction: "the dated correction note is the right way to handle it."
