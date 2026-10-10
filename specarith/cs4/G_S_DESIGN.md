@@ -74,3 +74,13 @@ r_c = 10 spacings):
    residual; r > 2·10⁴ spacings is unchecked.
 6. **Route (a) window s ≤ 1.8** (`../ph2/SCOPE_CS_SPACING.md` amendment). The U(N) gate, read on s ≤ 1.8: max
    |p₄ − p_N| = 5.0e-5 (N = 10) and 6.9e-5 (N = 50), below the ~1e-4 bin resolution, so no n = 5 term is needed.
+7. **(Proposed, 2026-10-10; for Will.) The prediction is the file-averaged one; the oscillating-part check is done on
+   a fine grid and averaged over ℓ.** Evidence in `GS_ZETA_RESULTS.md` §3:
+   - The ℓ-oscillating long-range part is not negligible at a fixed ℓ: up to 9e-3 of v at b = 10⁴ for one pair at
+     ℓ ≈ 15.75. The §3 claim "≈ 0" holds only after averaging over a file's ℓ range, where it is (1.3 ± 5.3)e-4 of v.
+   - The kept part's mean-ℓ value equals its file average to ≤ 5e-6 of v.
+   - Proposed wording: "The prediction for each F2 file is CS08's correlation averaged over the file's heights
+     (zero-weighted). It is evaluated as the kept part at the zero-weighted mean ℓ, with the ℓ-oscillating long-range
+     part dropped. That drop is justified by the file-averaged check, done on a Δr ≤ 0.1 grid; the Δr = 0.5 production
+     grid aliases the e^{∓4πir} pieces."
+
