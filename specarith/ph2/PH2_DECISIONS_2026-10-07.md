@@ -282,3 +282,24 @@ Call the long-baseline result on v2 only.
 Also in this round, Will on the R₂ read: keep the headline as written. Next steps in order: the long sine-kernel baseline,
 then the confirmatory seal, the other members (descriptive), route (a) milestone 1, then Phase 1; a Zenodo snapshot of
 Phase 2 + R₂. F1–F3 declared in `ph2r2/FRESH_SETS_F1_F3.md` (generator `declare_fresh_sets.py`).
+
+## Sixteenth round (Will, 2026-10-09 evening) — Stage 1 decisions; fresh-set gap rule
+
+```
+Stage 1 decisions (Will):
+1. Arm A: ≥4/5 F1 bins at >3 combined SE (as declared); pooled one-sided
+   test descriptive.
+2. Reference effect = ½ smallest seen shrink at 10⁶: accept.
+3. Arm C: accept (paired per-u difference, ≥3/4 u, mean > 2 SE).
+4. Arm D: add two F1 bins at the height extremes (L ≈ 13.25, ≈ 22.1),
+   md5-pinned pre-download, used for D (descriptive for A). If D power
+   still < 0.80 → D descriptive.
+Low-L adjacency: require ≥1-file gap from every touched file; re-pin
+F1's 14.25 accordingly before download.
+Long-baseline call on v2 10⁶ tier only, at ~20:00.
+```
+Applied in `declare_fresh_sets.py` v2 (gap from every touched height range and between picks). **L ≈ 13.25 is
+infeasible:** it lies inside the seen P1 file (zeros_2546000, L 12.91–13.51). The only file between P1 and R1
+(zeros_4646000) is adjacent to both. Everything lower overlaps Phase 2's Odlyzko bins A/B. The lowest gap-feasible file
+is zeros_10946000 (L 14.37–14.55), which becomes F1's re-pinned low bin; F2's low bin moves 14.5 → 16.5. F1 = 6 bins (5
+for A, + 22.1 for D).
