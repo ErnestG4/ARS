@@ -16,7 +16,8 @@ import numpy as np
 import cs4lib as C
 import zeta_em as ZE
 
-CHUNK = 1024
+CHUNK = int(__import__("os").environ.get("CS4_CHUNK", "1024"))   # rows per prime-matrix chunk; peak memory per
+#   temporary = CHUNK × #primes × 16 B and A* holds ~40 at once (1024 × 9592: ~6 GB) — size it to the machine
 TWO_PI_LD = np.longdouble("6.283185307179586476925286766559005768")   # long-double 2π (v2: double π cast up)
 
 

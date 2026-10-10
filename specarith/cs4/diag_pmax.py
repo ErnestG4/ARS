@@ -33,17 +33,20 @@ def integral(model, b, dr):
     return float(2 * np.sum(f) * dr / b)
 
 
-def main():
+def main(pm, out):
+    """One prime cutoff per process (v2, 2026-10-10: v1 looped all cutoffs in one process locally and was running at
+    pmax 1e5 when the local machine froze). Run on spot with CS4_CHUNK sized to the prime count."""
     res = []
-    for pm in (10_000, 30_000, 100_000):
-        Z = FC.FastZetaCached(4.12e8, pmax=pm)
-        for b in (100, 300):
-            for dr in (0.5, 0.25):
-                v = integral(Z, b, dr)
-                res.append(dict(pmax=pm, b=b, dr=dr, I=v))
-                print(pm, b, dr, "%.8e" % v, flush=True)
-    json.dump(res, open(os.path.join(HERE, "results", "diag_pmax.json"), "w"), indent=1)
+    Z = FC.FastZetaCached(4.12e8, pmax=pm)
+    for b in (100, 300):
+        for dr in (0.5, 0.25):
+            v = integral(Z, b, dr)
+            res.append(dict(pmax=pm, b=b, dr=dr, I=v))
+            print(pm, b, dr, "%.10e" % v, flush=True)
+    os.makedirs(out, exist_ok=True)
+    json.dump(res, open(os.path.join(out, f"diag_pmax_{pm}.json"), "w"), indent=1)
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(int(sys.argv[1]), sys.argv[2])
