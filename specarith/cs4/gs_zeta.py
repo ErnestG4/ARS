@@ -11,7 +11,10 @@ Split (G_S_DESIGN §3): short range, the full connected function × χ on r = (k
 the even, band-limited, smoothly cut integrand); long range, the non-oscillating part × (1 − χ) on r = 5 + 0.5k up to
 4.8·10⁴ (trapezoid; the integrand vanishes identically for r ≤ 10). Evaluator: cs4lr.LongRangeZeta (validated against
 cs4fastc, itself against the 50-digit reference). Prime cutoff 3·10⁵ (twenty-first round: ≥ 3·10⁵).
-In-pair quadrature: Gauss–Legendre, 20 nodes on [0, 2.4] (sine kernel: 1.6e-8 relative to 40 nodes on [0, 2.8]).
+In-pair quadrature: Gauss–Jacobi with weight d² (ρ₄c ∝ d² as d → 0), 16 nodes on [0, 2.4]; smallest node 0.051
+(sine kernel: 6e-6 relative to the 40-node reference; gs_dquad_test2.py). v1 used Gauss–Legendre, whose node at
+d = 0.008 lost the signal to cancellation between pieces (5% imaginary residue in the test pair).
+Noise bound: each pair also stores ∫ weight·|Im ρ₄c| (the result must be real), summed into an error bound on v(b).
 The ℓ-oscillating long-range part dropped by the split is evaluated for two node pairs per height (osc check).
 I₃: ρ₃(0, a, e) from cs4lib.Zeta (mp ζ; numpy prime sums), product Gauss–Legendre 40 × 42 nodes on [−2.4, 2.4]
 (different orders so that a ≠ e and neither is 0 at any node: no coincident points).
@@ -28,18 +31,24 @@ import sys
 import time
 
 import numpy as np
+from scipy.special import roots_jacobi
 
 import gs_unitary as G
 
-DMAX, ND = 2.4, 20
+DMAX, ND = 2.4, 16
 LADDER = (100, 300, 1000, 3000, 10_000)
 PMAX = 300_000
 DR_S, NS = 0.1, 200
 DR_L, R_LO = 0.5, 5.0
-DN, DW = G.gl(0.0, DMAX, ND)
+def gj(dmax, n):
+    x, w = roots_jacobi(n, 0.0, 2.0)                 # weight (1 + x)² on [−1, 1]
+    return 0.5 * dmax * (1 + x), 0.5 * dmax * w / (1 + x) ** 2
+
+
+DN, DW = gj(DMAX, ND)
 FD = G.F(DN)
 PAIRS = [(i, j) for i in range(ND) for j in range(i, ND)]
-OSC_PAIRS = ((6, 6), (3, 9))
+OSC_PAIRS = ((5, 5), (2, 8))
 NA, NE = 40, 42
 
 
@@ -84,6 +93,8 @@ def pairs(ell, chunk, nchunks, out):
         res = dict(short=np.array([2 * DR_S * np.sum(cs_ * gb(rs, b) * full.real) for b in LADDER]),
                    long=np.array([2 * DR_L * np.sum(cl_ * gb(rl, b) * nl.real) for b in LADDER]),
                    imag_max=np.array([np.abs(full.imag).max(), np.abs(nl.imag).max()]),
+                   short_absim=np.array([2 * DR_S * np.sum(cs_ * gb(rs, b) * np.abs(full.imag)) for b in LADDER]),
+                   long_absim=np.array([2 * DR_L * np.sum(cl_ * gb(rl, b) * np.abs(nl.imag)) for b in LADDER]),
                    tail=np.array([tail_s, tail_l]), c_short=full.real, c_non=nl.real)
         if (i, j) in OSC_PAIRS:
             ol, _ = lr.connected(d1, d2, rl)
@@ -133,12 +144,14 @@ def merge(ell, out):
     A_, E_ = a[:, None], e[None, :]
     I3 = {b: float(np.sum(WW * R3 * np.exp(-math.pi * (E_ - A_) ** 2 / (8 * b * b)))) for b in LADDER}
     short, long_, osc, tails, imag = np.zeros(len(LADDER)), np.zeros(len(LADDER)), {}, [], []
+    noise = np.zeros(len(LADDER))
     n_found = 0
     for (i, j) in PAIRS:
         z = np.load(os.path.join(d, "pairs", f"p{i:02d}_{j:02d}.npz"))
         wgt = 4 * DW[i] * FD[i] * DW[j] * FD[j] * (1 if i == j else 2)
         short += wgt * z["short"]
         long_ += wgt * z["long"]
+        noise += abs(wgt) * (z["short_absim"] + z["long_absim"])
         tails.append(z["tail"].max())
         imag.append(z["imag_max"].max())
         if "osc_long" in z:
@@ -148,7 +161,8 @@ def merge(ell, out):
     v = {b: math.sqrt(2) * I2 + 2 * math.sqrt(2) * I3[b] + I4[k] / math.sqrt(2) for k, b in enumerate(LADDER)}
     res = dict(ell=ell, pmax=PMAX, I2=I2, I3=I3, I4_short=dict(zip(LADDER, short.tolist())),
                I4_long=dict(zip(LADDER, long_.tolist())), v=v, g=math.sqrt(v[10_000] / v[100]),
-               positivity=all(x > 0 for x in v.values()), osc_check=osc, max_fourier_tail=float(max(tails)),
+               positivity=all(x > 0 for x in v.values()), osc_check=osc,
+               v_noise_bound=dict(zip(LADDER, (noise / math.sqrt(2)).tolist())), max_fourier_tail=float(max(tails)),
                max_imag=float(max(imag)), rho3_max_imag=float(np.abs(rows3[:, 3]).max()), n_pairs=n_found)
     json.dump(res, open(os.path.join(out, f"gs_zeta_L{ell}.json"), "w"), indent=1)
     print(f"ℓ = {ell}: " + "  ".join(f"v({b}) {v[b]:.6f}" for b in LADDER) + f"   g {res['g']:.4f}  positivity "
