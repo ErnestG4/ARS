@@ -303,3 +303,22 @@ infeasible:** it lies inside the seen P1 file (zeros_2546000, L 12.91–13.51). 
 (zeros_4646000) is adjacent to both. Everything lower overlaps Phase 2's Odlyzko bins A/B. The lowest gap-feasible file
 is zeros_10946000 (L 14.37–14.55), which becomes F1's re-pinned low bin; F2's low bin moves 14.5 → 16.5. F1 = 6 bins (5
 for A, + 22.1 for D).
+
+## Seventeenth round (Will, 2026-10-09 night) — Stage 1 arm rules after the pre-read
+
+```
+Stage 1 decisions (Will):
+1. Arm C: recompute SE by resampling the 16 GUE sequences as units, paired
+   across members; re-run the 500 splits. If empirical rate ≈ nominal
+   (0.023) → keep 2 SE. Otherwise (or if unvalidated pre-seal) → 3 SE.
+   Report the empirical rate under the sealed rule either way.
+2. Arm B: descriptive (unresolvable pre-data in all bins).
+3. Seal records Arm A's joint power (≈0.51 at the half-size reference;
+   ≈1 at the seen effect) so a FAIL is interpreted accordingly.
+F1a NOT RESOLVABLE stays; Arm A needs all four of F1b–F1e.
+```
+Also from Will this evening, before the pre-read: add data rather than change rules (double short bins, gap kept); a
+pre-data change of primary L is acceptable; never the full seen effect as reference or a 2-SE A threshold. If F1a alone
+is short: leave it NOT RESOLVABLE with the 4-of-5 rule unchanged.
+Result (`s1_fpr_c.py`): with unit-resampled SE, arm C's empirical false-positive rate is 0.042 at 2 SE (nominal 0.023;
+consistent with the 8-vs-8 split's t₇ tail) and 0.014 at 3 SE, so **C is sealed at 3 SE**. Power at the seen Δ: 1.00.

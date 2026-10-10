@@ -168,6 +168,55 @@ def analyse(out):
                           witness=wit["NOT_RESOLVABLE_achieved"]), indent=1))
 
 
+# ---------------------------------------------------------------- arm C with unit-resampled SE (Will, 2026-10-09)
+MEMBERS_C = [f"{u}_{w}" for u in (0.5, 1.0, 1.5, 2.0) for w in (0.3, 0.15)]
+
+
+def side_array(recs_by_bin, core, joint):
+    """joint (GUE sequences, shared across bins): one array V[unit, bin, member] with units = seeds present in every bin.
+    per-bin (zeros windows): a list over bins of W[unit, member]."""
+    if joint:
+        seeds = sorted(set.intersection(*[set(r["seed"] for r in recs_by_bin[n]) for n in core]))
+        by = {n: {r["seed"]: r for r in recs_by_bin[n]} for n in core}
+        return np.array([[[by[n][s][str(S.L_PRIMARY)][k] for k in MEMBERS_C] for n in core] for s in seeds])
+    return [np.array([[r[str(S.L_PRIMARY)][k] for k in MEMBERS_C] for r in recs_by_bin[n]
+                      if all(k in r[str(S.L_PRIMARY)] for k in MEMBERS_C)]) for n in core]   # windows with all members
+
+
+def side_means_boot(arr, joint, rng, nboot):
+    """(nboot, bin, member) bootstrap means; joint resamples units across all bins together."""
+    if joint:
+        idx = rng.integers(0, arr.shape[0], (nboot, arr.shape[0]))
+        return arr[idx].mean(axis=1)
+    return np.stack([a[rng.integers(0, a.shape[0], (nboot, a.shape[0]))].mean(axis=1) for a in arr], axis=1)
+
+
+def side_means(arr, joint):
+    return arr.mean(axis=0) if joint else np.stack([a.mean(axis=0) for a in arr], axis=0)
+
+
+def delta_from_means(Bm, Zm):
+    """Δ_u from baseline/zeros means [..., bin, member] (members ordered (u, 0.3), (u, 0.15)): mean over bins."""
+    d = Bm - Zm
+    return (d[..., 0::2] - d[..., 1::2]).mean(axis=-2)
+
+
+def arm_width_units(zeros_recs, base_recs, core, zeros_joint, nboot=1000, seed=0, k_se=2.0):
+    """Arm C: Δ_u = mean over core bins of d(u, 0.3) − d(u, 0.15); SE of mean_u Δ_u from resampling each side's units
+    (GUE sequences jointly across bins; zeros windows within bins), paired across members; Var = Var_B + Var_Z.
+    PASS iff Δ_u > 0 for ≥ 3 of 4 u and mean_u Δ_u > k_se·SE."""
+    rng = np.random.default_rng(seed)
+    B = side_array(base_recs, core, True)
+    Z = side_array(zeros_recs, core, zeros_joint)
+    Bm, Zm = side_means(B, True), side_means(Z, zeros_joint)
+    Du = delta_from_means(Bm, Zm)
+    vB = delta_from_means(side_means_boot(B, True, rng, nboot), Zm[None]).mean(axis=-1).var(ddof=1)
+    vZ = delta_from_means(Bm[None], side_means_boot(Z, zeros_joint, rng, nboot)).mean(axis=-1).var(ddof=1)
+    m, se = float(Du.mean()), float(math.sqrt(vB + vZ))
+    return dict(delta_u=[float(x) for x in Du], mean=m, se=se, k_se=k_se,
+                verdict="PASS" if (int((Du > 0).sum()) >= 3 and m > k_se * se) else "FAIL")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "baseline":
