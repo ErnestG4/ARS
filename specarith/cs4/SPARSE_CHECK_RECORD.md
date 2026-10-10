@@ -50,4 +50,27 @@ height L = 16.5. The error grew steadily with r: median 3e-13 at r < 100, 1e-10 
 - **The fixed fast evaluator is within 2.9e-10 at every point**, including the four that failed.
 - The full rerun must therefore compare against the 50-digit reference, not the slow evaluator.
 
-**4.2 The full 300-point check against the 50-digit reference, threshold 1e-9:** running (pending).
+**4.2 The full 300-point check against the 50-digit reference, threshold 1e-9** (2026-10-10 11:05, spot;
+`sparse_check_ref.py`, `results/sparse_ref/sparse_check_ref.json`): **PASS — worst 5.36e-10, 0 of 300 over 1e-9.**
+Both sides use the same prime cutoff (pmax = 10⁵), so the error measured here is the evaluator's precision alone, not
+the cutoff truncation (that is the separate cutoff diagnostic).
+
+| r (spacings) | n | median error | max error |
+|---|---|---|---|
+| 10–100 | 90 | 4.1e-13 | 6.0e-12 |
+| 100–1,000 | 90 | 6.0e-13 | 5.2e-11 |
+| 1,000–5,000 | 66 | 1.6e-11 | 2.9e-10 |
+| 5,000–10⁴ | 24 | 4.6e-11 | 5.4e-10 |
+| 10⁴–2·10⁴ | 30 | 6.9e-11 | 5.0e-10 |
+
+- **The margin is about 1.9×, not orders of magnitude.** 24 points are above 1e-10, 7 are above 3e-10, and 3 are above 5e-10.
+- **The large errors all come from one place:** the non-oscillating part, at node d = (0.3, 0.8), for r > 7,000. They are slightly worse at L = 21.75 (5.4e-10) than at L = 16.5 (4.1e-10).
+- **The oscillating part is within 6e-12 everywhere.**
+- **The source of the remaining ~5e-10 at large r has not been diagnosed.** The error grows with r, as phase error would, but the long-double phase path is verified at 5e-15. The next suspect is cancellation in the non-oscillating sum at this node.
+- **Any use of the evaluator beyond r ≈ 2·10⁴ spacings needs its own check;** this one does not cover it.
+
+| | v1 (vs slow evaluator, before fixes) | v2 (vs 50-digit reference, after fixes) |
+|---|---|---|
+| worst | 1.27e-9 | 5.36e-10 |
+| points over 1e-9 | 4 / 300 | 0 / 300 |
+| verdict | FAIL | PASS |
