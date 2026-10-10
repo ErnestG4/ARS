@@ -1,0 +1,10 @@
+{
+ "nsplits": 500,
+ "fpr_A": 0.0,
+ "fpr_C": 0.05,
+ "fpr_D": 0.018,
+ "fpr_bin_shrink": 0.0072,
+ "D_slope_over_se_sd": 0.9189468547461341,
+ "D_slope_over_se_mean": 0.030391428170948767,
+ "D_nominal_one_sided": 0.0228
+}
