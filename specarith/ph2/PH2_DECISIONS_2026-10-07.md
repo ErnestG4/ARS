@@ -357,3 +357,20 @@ Proceed: CS08 n=2,3,4 transcription + U(N) gates.
 ```
 Will's reason for (a): the prediction should be exact for the statistic measured. Under (b), the edge-effect bound
 could be as large as the effect. On the Berry correction: "the dated correction note is the right way to handle it."
+
+## Twentieth round (Will, 2026-10-10) — CS4: erratum handling; the split plan
+
+```
+CS4 decisions (Will):
+- Erratum: check CNTP published version first; record as "arXiv v1 typo,
+  corrected in journal" if fixed there; otherwise as erratum.
+- Split plan: GO, plus:
+  (1) direct sparse evaluation of connected R4 at a few hundred large-r points
+      (log grid, parallel on spot) to verify the analytic r-averaged constant
+      before using it;
+  (2) positivity/validity guard: declare the constant-part approximation's
+      range; predicted variance must stay positive for all block lengths
+      ≤ 10⁴, else gate FAIL;
+  (3) U(N) validation (flat baseline + small-N MC) before any ζ number;
+      seen-data comparison descriptive only; sealed test on F2.
+```
