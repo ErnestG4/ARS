@@ -15,21 +15,38 @@ B2K = [mp.bernoulli(2 * k) for k in range(1, 11)]
 FACT = [math.factorial(2 * k) for k in range(1, 11)]
 
 
+TWO_PI_LD = np.longdouble("6.283185307179586476925286766559005768")   # parsed at long-double precision; v2 used
+#                                         2·np.pi (a double π cast up): mod-2π at ~1e5 rad then lost ~4e-12
+
+
+def cpow_neg(s, logs):
+    """exp(−s·log) for complex s (column) and real logs (row), with the phase y·log reduced mod 2π in 80-bit long
+    double before the exponential: at y·log ~ 1e5 rad, double precision would lose ~5 digits of phase (v1 did; it failed
+    the sparse direct check at r > 1e4 spacings by up to 1.3e-9)."""
+    s = np.asarray(s, complex)
+    logs_ld = np.asarray(logs, np.longdouble)        # must ARRIVE in long double (np.log of long-double n): a double
+    #                                                  log cast up keeps its 1e-16 rounding, which times Im s ~ 1e4
+    #                                                  is the 1e-11 phase error (v2 did this; check_longdouble.py caught it)
+    ph = np.mod(np.multiply.outer(s.imag.astype(np.longdouble), logs_ld), TWO_PI_LD).astype(float)
+    return np.exp(-np.multiply.outer(s.real, logs_ld.astype(float))) * np.exp(-1j * ph)
+
+
 def _zeta_derivs(s, M):
     """ζ, ζ′, ζ″ at complex array s (same M for the whole array)."""
     n = np.arange(1, M, dtype=float)
-    ln = np.log(n)
+    ln_ld = np.log(n.astype(np.longdouble))
+    ln = ln_ld.astype(float)
     z0 = np.zeros(s.shape, complex)
     z1 = np.zeros(s.shape, complex)
     z2 = np.zeros(s.shape, complex)
     for i in range(0, len(n), 512):
         nn, ll = n[i:i + 512], ln[i:i + 512]
-        t = np.exp(-np.outer(s, ll))                         # n^{−s}
+        t = cpow_neg(s, ln_ld[i:i + 512])                    # n^{−s}, long-double log and phase
         z0 += t.sum(1)
         z1 += (-t * ll).sum(1)
         z2 += (t * ll * ll).sum(1)
     lM = math.log(M)
-    Ms = np.exp(-s * lM)                                     # M^{−s}
+    Ms = cpow_neg(s, np.log(np.array([M], dtype=np.longdouble)))[:, 0]    # M^{−s}
     # M^{1−s}/(s−1) and its derivatives: g(s) = M·M^{−s}/(s−1)
     g0 = M * Ms / (s - 1)
     g1 = g0 * (-lM - 1 / (s - 1))

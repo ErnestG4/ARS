@@ -17,6 +17,15 @@ import cs4lib as C
 import zeta_em as ZE
 
 CHUNK = 1024
+TWO_PI_LD = np.longdouble("6.283185307179586476925286766559005768")   # long-double 2π (v2: double π cast up)
+
+
+def pexp(e, lp, lp_ld):
+    """p^{e} = exp(e·log p) with the phase Im(e)·log p reduced mod 2π in 80-bit long double (v1 used complex double:
+    at Im(e)·log p ~ 1e5 rad it lost ~5 digits of phase; sparse direct check FAIL at r > 1e4 spacings, 1.3e-9)."""
+    e = np.asarray(e, complex)
+    ph = np.mod(e.imag.astype(np.longdouble) * lp_ld, TWO_PI_LD).astype(float)
+    return np.exp(e.real * lp) * np.exp(1j * ph)
 
 
 class Arg:
@@ -36,7 +45,8 @@ class FastZeta:
         self.t = t
         self.ell = math.log(t / (2 * math.pi))
         self.p = C.primes_np(pmax)
-        self.lp = np.log(self.p)
+        self.lp_ld = np.log(self.p.astype(np.longdouble))   # long-double log p (a double log cast up keeps 1e-16)
+        self.lp = self.lp_ld.astype(float)
 
     # ---- ζ pieces (arrays)
     def ztrip(self, x):
@@ -57,9 +67,10 @@ class FastZeta:
         n = args[0].shape[0]
         out = np.empty(n, complex)
         p, lp = self.p[None, :], self.lp[None, :]
+        lp_ld = self.lp_ld[None, :]
         for i in range(0, n, CHUNK):
             sub = [a[i:i + CHUNK, None] for a in args]
-            P = lambda e: np.exp(e * lp)                     # p^{e}
+            P = lambda e: pexp(e, lp, lp_ld)                 # p^{e}, long-double phase
             m = f(P, p, lp, *sub)
             out[i:i + CHUNK] = np.exp(np.log(m).sum(1)) if prod else m.sum(1)
         return out
@@ -132,7 +143,9 @@ class FastZeta:
                 Bb1, Bb2 = np.broadcast_to(b1, bad.shape)[rows, cols], np.broadcast_to(b2, bad.shape)[rows, cols]
                 th = np.arange(64) / 64
                 e = np.exp(2j * np.pi * th)[None, :]
-                pw = lambda ex: np.exp(ex[:, None] * np.log(pp)[:, None])
+                lpp_ld = np.log(pp.astype(np.longdouble))[:, None]
+                lpp = lpp_ld.astype(float)
+                pw = lambda ex: pexp(ex[:, None], lpp, lpp_ld)
                 g = 1.0
                 for b in (Bb1, Bb2):
                     g = g / (1 - np.conj(e) * pw(-0.5 + b))
