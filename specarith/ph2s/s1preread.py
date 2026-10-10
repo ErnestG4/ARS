@@ -97,7 +97,8 @@ def arm_count(core, bins, resolvable):
     ok = [b for b in core if resolvable.get(b, True) and not bins[b]["NOT_RESOLVABLE_achieved"]]
     if len(ok) < 4:
         return "NOT RESOLVABLE"
-    return "PASS" if sum(bins[b]["SHRINK"] for b in core) >= 4 else "FAIL"
+    # Will (2026-10-09): a bin NOT RESOLVABLE (pre-data or achieved) counts as not shrinking; the bar stays 4 of 5
+    return "PASS" if sum(bins[b]["SHRINK"] for b in ok) >= 4 else "FAIL"
 
 
 def arm_width(core, dm, sm):
