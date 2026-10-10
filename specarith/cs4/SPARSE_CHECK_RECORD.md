@@ -74,3 +74,8 @@ the cutoff truncation (that is the separate cutoff diagnostic).
 | worst | 1.27e-9 | 5.36e-10 |
 | points over 1e-9 | 4 / 300 | 0 / 300 |
 | verdict | FAIL | PASS |
+
+## 5. Closed (twenty-first round, Will, 2026-10-10)
+PASS stands, with the 1.9× margin. The suspected cause of the residual is cancellation in the non-oscillating sum.
+r > 2·10⁴ spacings is unchecked. No further work: Stage 2 needs about 1e-3 relative, so the evaluator error is
+irrelevant at that scale.

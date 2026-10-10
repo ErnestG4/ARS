@@ -374,3 +374,25 @@ CS4 decisions (Will):
   (3) U(N) validation (flat baseline + small-N MC) before any ζ number;
       seen-data comparison descriptive only; sealed test on F2.
 ```
+
+## Twenty-first round (Will, 2026-10-10) — sparse check; cutoff; Stage 2 prediction form; route (a) window
+
+```
+Decisions (Will):
+- Sparse check: PASS recorded with 1.9× margin; suspected cancellation in the
+  non-oscillating sum noted; r > 2·10⁴ unchecked. No further work (Stage 2
+  needs ~1e-3 relative; evaluator error irrelevant at that scale).
+- Cutoff: converges (not logarithmic; record that the log hypothesis was
+  wrong). Use cutoff ≥ 3·10⁵; analytic rewrite dropped.
+- Stage 2 prediction: NO functional form (drop K + c∞·b). Compute predicted g
+  directly at the sealed block lengths and taper from the evaluated
+  integrals; check positivity on computed values; report the log b
+  behaviour descriptively.
+- Route (a): window s ≤ 1.8 (comparable to Phase 2's 1.8 sensitivity fits);
+  add n = 5 only if the gate still fails at 1.8.
+- CNTP PDF: Will fetches by hand. Phase 1 D1–D6: Will uploads draft for review.
+```
+Route (a) at s ≤ 1.8, read from the gate's existing interpolants (`results/route_a_pgate.json`; no rerun):
+max |p₄ − p_N| = 5.6e-8 (N = 4), 5.0e-5 (N = 10), 6.9e-5 (N = 50), all below the ~1e-4 bin resolution and within
+the n = 5 truncation bound, so **no n = 5 term**. Recorded in `SCOPE_CS_SPACING.md` (window amendment) and
+`cs4/G_S_DESIGN.md` §6.

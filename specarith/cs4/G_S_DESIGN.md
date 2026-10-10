@@ -36,13 +36,14 @@ r_c = 10 spacings):
   - **c∞** is the Bohr mean over r. For ζ it is computed analytically: Euler-product pieces as Π_p E_θ[local factor
     with p^{ir} = e^{iθ}] (the p^{ir} are linearly independent); Dirichlet-series products as diagonal sums.
   - The decaying and almost-periodic parts are integrated numerically against (W⋆W)(r)(1 − χ(r)) for each b.
-  - Large-b behaviour: v(b) ≈ K + c∞·b. **c∞ < 0 is a shrink.**
+  - ~~Large-b behaviour: v(b) ≈ K + c∞·b. **c∞ < 0 is a shrink.**~~ **Superseded (twenty-first round, §6):** no
+    functional form; v(b) and g are computed directly from the evaluated integrals.
 
 ## 4. The constant-part approximation: declared range and guards (twentieth round (2))
 - **Validity.** "c∞ constant" is the large-r mean of CS08's formula, which holds for r ≪ t (CS08's error
   O(T^{1/2+ε}); the windows here span ≤ 3·10⁴ spacings ≈ 10⁴ t-units, against t ≥ 10⁷). It is used only for
   1 ≤ b ≤ 10⁴.
-- **Positivity guard (gate).** The predicted v(b) must be > 0 for every b ≤ 10⁴ on a log ladder. Otherwise G-s FAILS.
+- **Positivity guard (gate).** The predicted v(b) must be > 0 for every b ≤ 10⁴ on a log ladder. Otherwise G-s FAILS. (Twenty-first round: checked on the computed values, not on a fitted form.)
 - **Sparse direct check (twentieth round (1)).** At a few hundred r on a log grid (r = 10–10⁴ spacings), the full
   connected C(r) is evaluated directly (parallel on spot), locally averaged over one spacing to remove the
   ℓ-oscillation. It must match the evaluated non-oscillating part, and its long-run mean must match the analytic c∞,
@@ -55,3 +56,21 @@ r_c = 10 spacings):
 2. ζ: the sparse direct check, then c∞(t) and v(b) per F2 height.
 3. Seen data (R1–R5, F1): descriptive comparison only.
 4. Seal on F2.
+
+## 6. Amendments (twenty-first round, Will, 2026-10-10)
+1. **No functional form for v(b).** K + c∞·b is dropped. The predicted v(b), and g = √(v(10⁴)/v(100)), are computed
+   directly at the sealed block lengths and the sealed taper W_b, from the evaluated integrals of §2 (short range: the
+   full connected function; long range: the non-oscillating part, numerically against (W⋆W)(r)(1 − χ(r))). c∞ is
+   still computed and reported, but no prediction is extrapolated from it.
+2. **Positivity guard** on the computed v(b) at every rung of the b ladder ≤ 10⁴ (§4).
+3. **log b behaviour** of v(b) (seen on F1, `ph2s2/results/tapered/TAPERED_SUMMARY.md`) is reported descriptively,
+   for both prediction and data; it does not enter any criterion.
+4. **Prime cutoff ≥ 3·10⁵.** The cutoff diagnostic (`diag_pmax.py`, t = 4.12e8, d = 0.5/0.5) converges: the change per
+   ~3× cutoff step falls 5–80× (I(100): 8.8e-5, 1.9e-5, 1.7e-6, 2.2e-8 over 1e4 → 1e6). **The hypothesis that the
+   cutoff drift was logarithmic was wrong**, and the analytic rewrite of the Re s = 1 factors in ζ, ζ′/ζ and log ζ is
+   dropped.
+5. **Evaluator precision is sufficient.** The sparse check v2 passed (worst 5.36e-10; `SPARSE_CHECK_RECORD.md` §4.2).
+   Stage 2 needs about 1e-3 relative, so the evaluator error is irrelevant at that scale. No further work on the
+   residual; r > 2·10⁴ spacings is unchecked.
+6. **Route (a) window s ≤ 1.8** (`../ph2/SCOPE_CS_SPACING.md` amendment). The U(N) gate, read on s ≤ 1.8: max
+   |p₄ − p_N| = 5.0e-5 (N = 10) and 6.9e-5 (N = 50), below the ~1e-4 bin resolution, so no n = 5 term is needed.

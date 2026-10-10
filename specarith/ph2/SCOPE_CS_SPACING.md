@@ -56,3 +56,17 @@ integrals on a grid of s and E; spot not essential).
 Commit to it after the R₂ phase is sealed (the R₂ phase exercises CS07/CS08's two-point machinery first — step 1's n = 2
 part — so its G0 de-risks this one). Decision points for Will: (i) go/no-go; (ii) whether the estimand is κ-type or the
 lower-order amplitude; (iii) fresh heights for this phase distinct from R1–R5.
+
+## Amendment (twenty-first round, Will, 2026-10-10): route (a) window s ≤ 1.8
+The sealed window for route (a) is **s ≤ 1.8**, comparable to Phase 2's 1.8 sensitivity fits. §1's truncation table
+bounds E. For the spacing density p = E″, the n ≤ 4 truncation grows faster toward the window edge. Measured in the
+U(N) gate (`cs4/route_a_pgate.py`, read from `cs4/results/route_a_pgate.json`):
+
+| N | max \|p₄ − p_N\|, s ≤ 1.5 | s ≤ 1.8 | s ≤ 2.0 |
+|---|---|---|---|
+| 4 | 5.6e-8 | 5.6e-8 | 5.6e-8 |
+| 10 | 1.4e-6 | 5.0e-5 | 3.4e-4 |
+| 50 | 2.1e-6 | 6.9e-5 | 4.6e-4 |
+
+On s ≤ 1.8 the error is below the ~1e-4 bin resolution, so the n = 5 term is not added. The gate's pass criterion,
+the n = 5 truncation bound, also holds on [0, 2].
