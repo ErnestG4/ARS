@@ -322,3 +322,19 @@ pre-data change of primary L is acceptable; never the full seen effect as refere
 is short: leave it NOT RESOLVABLE with the 4-of-5 rule unchanged.
 Result (`s1_fpr_c.py`): with unit-resampled SE, arm C's empirical false-positive rate is 0.042 at 2 SE (nominal 0.023;
 consistent with the 8-vs-8 split's t₇ tail) and 0.014 at 3 SE, so **C is sealed at 3 SE**. Power at the seen Δ: 1.00.
+
+## Eighteenth round (Will, 2026-10-10) — after the Stage 1 read; Stage 2 and route (a) combined
+
+Will on the Stage 1 read: "A strong result, correctly reported." Headline adopted (`ph2s/PH2S_STAGE1_FINDINGS.md`); bring
+forward that the conservative reference did not bind (observed shrinks at the seen size). A blinded literature check
+must come before any novelty claim: four-point/higher correlations (Conrey–Snaith 2008, Bogomolny–Keating), mesoscopic
+fluctuations (Bourgade–Kuan, Rodgers), form-factor self-averaging. Zenodo snapshot: add Stage 1 with the headline,
+arm D's FAIL stated plainly and the joint-power note.
+
+Stage 2 refinement (Will): try Conrey–Snaith's four-point lower-order terms for a theory-fixed, parameter-free prediction
+of the shrink on F2, the move that worked for R₂. **Combined with route (a) (Will):** "One careful transcription of
+Conrey–Snaith's n = 2, 3, 4 correlations, then two different known-answer gates on the U(N) analogue: for route (a): it
+reproduces the exact CUE_N spacing tables; for Stage 2: it reproduces the flat sine-kernel baseline you actually
+measured." The shared code means the F2 and F3 results are not independent in method, but they test different
+hypotheses on disjoint data. The few-prime model stays the fallback until the transcription passes both gates. Next:
+the literature findings and the combined plan, together.
