@@ -27,6 +27,25 @@ Date: 2026-10-10. Scope: the published literature only (arXiv, journal pages, au
 - **Most direct theory-fixed route:** the Conrey–Snaith (2008) ratios-conjecture formulas for the zeta 2-, 3- and 4-point correlations. They are written out explicitly for n = 2, 3, 4 in their §5.2, §5.4 and §5.6. Inserted into the standard identity Var(S_f) = (4-point + 3-point + 2-point terms) − (mean)², they give a fixed prediction for a given f, block geometry and height. The Bogomolny–Keating (2013) recipe is an alternative way to reach the same higher correlations.
 - **No paper found does this computation.**
 
+**Amendment (2026-10-10, after reading Coram–Diaconis; §1.8).** The first bullet above is too broad as written.
+- **What exists:** Coram & Diaconis tested the across-block distribution of a zeta pair statistic against CUE. Their
+  W = |Σ_j X_j|² = n + Σ_{j≠k} cos(2π(Δ_j − Δ_k)/Δ_n) was computed on 1190 blocks of n = 42 wrapped zeros at
+  T ≈ 10²⁰ and agreed with CUE_42.
+- **The bullet stands for:**
+  - local test functions (a few mean spacings wide);
+  - dependence on block length;
+  - comparison with the unwrapped sine kernel;
+  - any theory-fixed (arithmetic) prediction of the variance.
+- **Mean-level pair statistic:** CD's §5.1 also reports a block-level departure in the *mean* of a pair statistic, the
+  log interaction: β̂ = 2.04, β = 2 rejected at 1% after a dependence correction. A U₈₄/2 control rejects too, and the
+  authors offer no interpretation.
+- **Proposed novelty wording, for Will's decision:** "To our knowledge, no published work measures how the
+  across-block variance of a local pair statistic of the zeta zeros (test function a few mean spacings wide) depends on
+  block length, or compares it with the sine-kernel and a theory-fixed arithmetic prediction. The closest precedent is
+  Coram & Diaconis (2003). They tested the across-block distribution of |Σ_j e^{iθ_j}|², a pair sum in a single
+  block-scale Fourier mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the circle, and found agreement with
+  CUE_42."
+
 ---
 
 ## 1. Fluctuations / self-averaging of pair statistics and the empirical form factor
@@ -126,12 +145,51 @@ Date: 2026-10-10. Scope: the published literature only (arXiv, journal pages, au
 - Both treat mean statistics only; no fluctuation or block-length study.
   - My note: N_eff is only about 10 at 10²³, so the CUE(N_eff) device is a microscopic-correction model. It cannot represent correlations across blocks of 10²–10⁴ zeros.
 
-### 1.8 Coram & Diaconis (2003)
-- Citation: M. Coram, P. Diaconis, "New tests of the correspondence between unitary eigenvalues and the zeros of Riemann's zeta function", J. Phys. A 36, 2883–2906 (2003). [NOT ACCESSED: the PDF was unreachable.]
-- Secondary descriptions:
-  - Forrester–Mays: they "used the random unitary matrix model to predict the functional form of the covariance between the number of eigenvalues in overlapping intervals of equal size".
-  - Bourgade (2010): their Odlyzko-data tests "suggested that the correlation structure … should appear when counting the zeros".
-- On those descriptions: linear (counting) statistics; matched against CUE blocks; data comparison yes. I cannot confirm whether any pair statistic was tested.
+### 1.8 Coram & Diaconis (2003; read as the 2000 technical report)
+- Citation: M. Coram, P. Diaconis, "New tests of the correspondence between unitary eigenvalues and the zeros of Riemann's zeta function", J. Phys. A 36, 2883–2906 (2003).
+- **Read:** Stanford Dept. of Statistics Technical Report No. 2000-05 (February 12, 2000), the same title, fetched by Will
+  on 2026-10-10 from stacks.stanford.edu (scanned; sha256 c8a871ad…, cached as
+  `~/specarith_lit_cache/ph2_next_order/cd2000_techreport.pdf`). [FULL, preprint; read page by page from the scan.]
+  The published 2003 version was not seen and may differ. Page numbers below are the report's.
+- **Setup (§1.1–1.2):** 50,000 consecutive Odlyzko zeros starting near zero number 10²⁰ + 271959460, where
+  log(T/2π) ≈ 42.3. The zeros are cut into N = 1190 blocks of n = 42 spacings. Each block is wrapped onto the unit
+  circle by its own cumulative spacings, X_j = exp(2πi(Δ_j/Δ_n + U)), with U uniform per block. Hypothesis 1.1: the
+  wrapped blocks behave like Haar CUE_n eigenvalues, with n = ⌊log(T/2π)⌋.
+- **§2, trace test: a pair statistic, tested across blocks.**
+  - W = |Σ_j X_j|² = n + Σ_{j≠k} cos(2π(Δ_j − Δ_k)/Δ_n). This is a pair sum whose f is a single Fourier mode with
+    period equal to the whole block.
+  - Its distribution across the 1190 blocks is compared with Exp(1), the CUE limit (Johansson):
+    - Anderson–Darling A² = 1.105, P(A² ≤ 1.1) ≈ .69;
+    - Neyman smooth test N* = 2.2848, P = .3165.
+    - Neither rejects.
+  - **§3, block-to-block dependence:** the lag-1 serial correlation of W is ρ̂₁ = −0.2, "weak but significant negative
+    dependence". Their reading appeals to stationarity (Berry), not arithmetic. Recalibrating the test by Politis–Romano–Wolf
+    subsampling (block size b* = 106, critical value 2.28) still accepts.
+  - §5.2, eq. (11): tests on |tr M^b|² (higher Fourier modes) are proposed, and shown to reject the picket-fence
+    model. They are not reported on zeta data.
+- **§4, counts in arcs: linear statistics.**
+  - corr(A(0), A(θ)) for quarter-circle arcs (Figs 8–9), and for quarter vs half arcs (Fig 10). Zeta matches CUE_42
+    (Bump–Diaconis formula), including Wieand's −½ correlations at abutting arcs.
+  - Count distribution (Table 1): χ²₃ = 7.042, p ≈ .071.
+  - This is what Bourgade 2010 and Forrester–Mays cite.
+- **§5.1, β-family test: the block mean of a pair statistic, with a departure.**
+  - The sufficient statistic is T = Σ_blocks Σ_{j<k} log|X_j − X_k|.
+  - Result: β̂ = 2.0375, 99% CI [1.996, 2.077], p = 0.0157.
+  - After subsampling for dependence (b = 106): S = 5.902 > g(.99) = 5.778, so β = 2 "is rejected at even the 1%-level".
+  - Table 5, fresh data:
+    - zeta-42 (10,000 zeros near the 10¹²-th): β̂ = 2.09, p = .0096;
+    - zeta-24: β̂ = 2.06, p = .07;
+    - the U₈₄/2 self-similarity control: β̂ = 1.96, p = .011.
+  - The authors "leave their interpretation to the reader". The U₈₄/2 control also rejects, so the departure is not
+    shown to be arithmetic.
+- **§5.2, omnibus test:** W_N = 2.31 against median 2.35, no rejection.
+- **§6.2:** "striking non-local structure"; a conjecture that wrapped sub-blocks of CUE_n look like CUE_m.
+- **Bearing on this check:** see the §0 amendment.
+  - **Precedent:** an across-block test of a pair statistic of zeta zeros against CUE does exist (W in §2). It is a
+    distribution test of a single block-scale Fourier mode, at one block length tied to height (n = 42), with each
+    block rescaled by its own length.
+  - **Not done:** a local f a few spacings wide, block-length dependence, the sine-kernel (unwrapped) comparison, and
+    any arithmetic or theory-fixed prediction of a variance.
 
 ---
 
@@ -342,6 +400,7 @@ Date: 2026-10-10. Scope: the published literature only (arXiv, journal pages, au
 - Aguirre & Soshnikov 2020 — https://arxiv.org/abs/2004.01345
 - Bogomolny & Keating 2013 — https://arxiv.org/abs/1307.6012
 - Conrey & Snaith 2008 (CNTP) — https://arxiv.org/abs/0803.2795 ; journal: https://www.doi.org/10.4310/CNTP.2008.V2.N3.A1
+- Coram & Diaconis 2000 tech. report 2000-05 (preprint of J. Phys. A 36 (2003) 2883) — https://stacks.stanford.edu/file/qv340rs2674/qv340rs2674_2000-05.pdf (fetched by Will)
 - Bogomolny & Keating 1995 (I) — https://iopscience.iop.org/article/10.1088/0951-7715/8/6/013 (abstract only)
 - Bogomolny & Keating 1996 (II) — https://iopscience.iop.org/article/10.1088/0951-7715/9/4/006 (abstract only)
 - Rodgers 2014 CLT — https://arxiv.org/abs/1205.0303

@@ -372,6 +372,7 @@ with `python -I` from a separate scripts directory.
 | src_0803.2795 | CS08 e-print | 4f6277574c51b24ef510611a55669af2ee09544f7330c3cc4d9ba47764fdacb3 |
 | cs08_ncorr.tex | CS08 LaTeX | 2a883ed0dc102028eda3c52961b73140eb637ddb92b9f554eded96cd26ab3009 |
 | cs08_cntp_journal.pdf | CS08 published (CNTP 2 (2008) 477–536; fetched by Will 2026-10-10) | decd4a26b4c5d689a6ea8897a66068a09879c3b8ae8e2a994412056fe1567745 |
+| cd2000_techreport.pdf | Coram–Diaconis Stanford tech. report 2000-05 (scan; fetched by Will 2026-10-10) | c8a871ad1726a176efc985b4cfb7ff8fa70c4df6fc4319a5d41c7ad48d5086ab |
 | src_1212.5537 | CS14 v2 e-print | f2909d4ad3db52db46b1641bab8afa25ec15d90c569bd2715e89ba159bf7625e |
 | cs14_support.tex | CS14 LaTeX (intro only) | da3f01da00898a803ed9cf4ed8654d3f8664779ceaa2d268f587cf8e565d4340 |
 | 1307.6012.pdf | BK 2013a v1 (3-pt) | 6017dafbeb190f21a0a03bb1f04b05afe2909d9a84d5eca24de8c60e5c84960e |
