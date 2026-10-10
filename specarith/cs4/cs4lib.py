@@ -13,7 +13,8 @@ S(x) = sin(Nx/2)/sin(x/2) and S(0) = N; and Σ_{γ's ≤ T} f = (2π)^{−n} ∫
 
 Transcription notes:
 - B_4's printed denominator has a misplaced parenthesis, "(p^{1+a_2+b_1})−1)"; read as (p^{1+a_2+b_1} − 1), the
-  pattern of the other three factors.
+  pattern of the other three factors. arXiv v1 has it in both copies (§5.6 and §5.7). The published CNTP version keeps
+  it in §5.6 and fixes it in the §5.7 copy, eq. (5.49), which agrees with this reading.
 - Z_ζ(A,B) = Π ζ(1+α+β); Z†_ζ omits the factors with α + β = 0 (CS08 eq. near line 1519 of the source); in A*,
   Z_p(X,Y) = Π z_p(1+x+y)^{-1}, including z_p(1) factors.
 """
@@ -139,6 +140,9 @@ def cue_det(xs, N):
 # its definition, Π_p Z_p(B⁻,A⁻;A,B) ∫₀¹ 𝒜_{p,θ}(B⁻,A⁻;A,B) dθ (ratios conjecture, eq. Aptheta), by residues at
 # w = 0, u₁, u₂ gives p^{−Σ}(1 − T₁ − T₂): Res₀ = p^{−Σ} and p^{Σ}·Res_{u_k} = −T_k exactly. The printed form does not
 # tend to 1 as p → ∞ (it is not an Euler factor); the corrected one does. Checked numerically in check_zeta.py.
+# Journal check (2026-10-10, published CNTP PDF, sha256 decd4a26…; ph2/lit/NEXT_ORDER_LIT.md): the published version
+# prints the same "1 +" form in both places, eq. (5.40) in §5.6 and eq. (5.45) in §5.7, with T₁ and T₂ the same fractions
+# as here. Under the twentieth-round rule this is recorded as an erratum, not as an arXiv v1 typo corrected in the journal.
 import numpy as np  # noqa: E402
 
 _PR = None
