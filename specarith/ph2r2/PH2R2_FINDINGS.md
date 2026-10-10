@@ -59,8 +59,11 @@ conservative for the zeros.
   short-range, so its growth curve should be near-flat beyond about 100 levels. That expectation is not verified here.
   The surrogates are independent CUE_250 blocks and carry no correlation beyond 250 levels, so they cannot separate
   "generic long-sequence rigidity" from "arithmetic". The arithmetic candidate is long-range suppression of the zeros'
-  fluctuations: Berry's saturation of the number variance beyond L_max ~ log(t/2π)/log 2 spacings, driven by the
-  shortest primes, which is the long-range structure Phase 6 measured. Separating the two needs a single long CUE_N (or
+  fluctuations: Berry's saturation of the number variance beyond L_max = ln(E/2π)/(2π ln 2) ≈ 3.2–5.1 spacings at these
+  heights (Berry 1988), driven by the shortest primes, which is the long-range structure Phase 6 measured.
+  **Correction 2026-10-10:** this line first gave L_max ~ log(t/2π)/log 2, i.e. 20–32 spacings. That is the period of
+  the slowest (p = 2) oscillation, ΔL = ln(E/2π)/ln 2, not the saturation length. Found by the blinded literature check
+  (`ph2s/lit/PAIRSUM_VARIANCE_LIT.md`, item 4); every block length used here (10²–10⁴) is far beyond both. Separating the two needs a single long CUE_N (or
   sine-kernel) sequence of ≥ 10⁵ levels as the baseline. That baseline has not been run. **Open lead, not a finding.**
 
 ## 4. What the verdicts say, and what they do not
