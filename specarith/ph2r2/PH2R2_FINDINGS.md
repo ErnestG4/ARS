@@ -80,3 +80,30 @@ conservative for the zeros.
 2. Optional, descriptive: the long-sequence CUE baseline for §3's shrinking error bars, to tell generic rigidity from
    the arithmetic.
 3. Phase 1 decisions D1–D6, then its seal.
+
+## 6. §3 follow-up: the long sine-kernel baseline (Will, 2026-10-09) — CANDIDATE FINDING (exploratory, seen bins)
+Comparison rule declared before any baseline number (`longbase.py`). **The call is on v2 only.** v1 seeded the bootstrap
+by bin only, so its SEs omitted the resampling noise; it is kept as run in `results/longbase/`. A single long GUE
+sequence (Dumitriu–Edelman, sterf, exact semicircle unfolding) is mapped onto each bin's heights. Both arms go through
+identical code: contributions, A3 drift removal, and the moving-block bootstrap with independent seeds. The table gives
+drift-removed growth SD(10⁴)/SD(100), as mean ± SE.
+
+| L (levels per window) | bin | GUE (8 or 16 seqs) | zeros (windows) | separation | |
+|---|---|---|---|---|---|
+| 10⁶ | R1 | 0.963 ± 0.020 | 0.710 ± 0.026 (4) | 7.7 SE | distinguished |
+| 10⁶ | R2 | 0.946 ± 0.016 | 0.663 ± 0.023 (5) | 10.2 SE | distinguished |
+| 10⁶ | R3 | 0.957 ± 0.021 | 0.683 ± 0.013 (6) | 11.2 SE | distinguished |
+| 10⁶ | R4 | 0.923 ± 0.012 | 0.725 ± 0.015 (6) | 10.0 SE | distinguished |
+| 10⁶ | R5 | 0.986 ± 0.021 | 0.745 ± 0.020 (7) | 8.3 SE | distinguished |
+| 2·10⁵ | R1–R5 | 0.965–0.984 | 0.650–0.734 (23–36) | 8.7–9.7 SE | all distinguished |
+
+- **Rule outcome: distinguished in 5 of 5 bins at L = 10⁶, so CANDIDATE FINDING.**
+- The sine-kernel baseline is near-flat (0.92–0.99). The zeros shrink to 0.66–0.75. Fresh-height confirmation is
+  PH2S Stage 1 on F1 (`ph2s/`).
+- **Post-hoc, descriptive** (`results/members/MECHANISM_CHECK.md`):
+  - the wider bump shrinks more, in 4 of 4 same-u pairs;
+  - the shrink weakens with height.
+  Both are sealed as Stage 1 arms C and D.
+- Berry's saturation of the mean two-point function looks too weak on its own: it moves a 10⁴-level block's variance
+  only at order log b. The candidate mechanism is the few-prime form-factor fluctuation at τ < 1. That is Stage 2's
+  model, to be tested on F2.
