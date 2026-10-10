@@ -30,7 +30,16 @@ abstract: >
   arithmetic lower-order term in the zeros' pair correlation at five fresh
   heights 7e6–2e10: full strength in every bin, pooled 1.003 ± 0.006 — an
   independent quantitative replication, conditional on the ratios
-  conjecture (specarith/ph2r2/PH2R2_FINDINGS.md). Code is
+  conjecture (specarith/ph2r2/PH2R2_FINDINGS.md). A sealed follow-up
+  (PH2S_SEAL_1.0, Stage 1) finds that on five fresh heights the zeros'
+  pair-statistic fluctuations are suppressed relative to the sine kernel
+  at 1e2–1e4-level scales, confirmed in all four resolvable bins; the
+  width dependence predicted by a few-prime form-factor mechanism holds,
+  and its predicted height dependence is not established (sealed arm D:
+  FAIL). The primary arm's joint power was about 0.51 at its
+  conservative half-size reference and about 1 at the previously seen
+  size; the observed effect sits at the seen size
+  (specarith/ph2s/PH2S_STAGE1_FINDINGS.md). Code is
   AGPL-3.0-or-later; llmspec results and write-ups are CC-BY-4.0
   (llmspec/LICENSE-RESULTS.md).
 authors:

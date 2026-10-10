@@ -1,12 +1,22 @@
 # PH2S Stage 1 — findings: the zeros' pair-sum error bars shrink beyond the sine kernel, confirmed on fresh heights
 
-**Headline (draft; framing is Will's call):** on five fresh Platt heights (F1, L = log(t/2π) ≈ 14.5–21.5), the drift-removed
-moving-block bootstrap SD of the pair sum falls from 100- to 10,000-level blocks to 0.66–0.70 of its short-block value
-for the zeros. For a long sine-kernel (GUE) baseline through identical code it stays at 0.97–0.99. **Arm A PASS:**
-every resolvable core bin shrinks by 7.9–11.9 combined SE. The exploratory candidate finding (`ph2r2/PH2R2_FINDINGS.md`
-§6) is confirmed as a **direction** on heights that were pinned before download and not seen. The mechanism's
-width prediction holds (**arm C PASS**). Its height prediction is not established (**arm D FAIL**, narrowly; the point
-estimate is in the predicted direction).
+**Headline (Will):** *On five fresh heights, the zeta zeros' pair-statistic fluctuations are suppressed relative to the
+sine kernel at 10²–10⁴-level scales: confirmed in all four resolvable bins. The width dependence predicted by a few-prime
+form-factor mechanism holds; its predicted height dependence is not established (narrow FAIL).*
+
+The statistic is the drift-removed moving-block bootstrap SD of the pair sum, as a ratio from 100- to 10,000-level blocks.
+- **Zeros:** it falls to 0.66–0.70 of its short-block value (F1, L = log(t/2π) ≈ 14.5–21.5).
+- **Long GUE baseline, through identical code:** it stays at 0.97–0.99.
+- **Arm A PASS:** every resolvable core bin shrinks, by 7.9–11.9 combined SE (22.6 SE pooled, descriptive).
+- **The conservative reference did not bind.** The observed shrinks (0.28–0.30) sit at the seen size (0.235–0.333),
+  not at half of it, so arm A's PASS did not depend on its ≈ 0.51 joint power at the half-size reference.
+- **Arms C and D:** the mechanism's width prediction holds (arm C PASS, 13.5 SE). Its height prediction is not
+  established (arm D FAIL, narrowly; the point estimate is in the predicted direction), recorded as sealed with no
+  re-analysis.
+
+This confirms, as a direction, the exploratory candidate finding (`ph2r2/PH2R2_FINDINGS.md` §6), on heights pinned
+before download and not seen. **Novelty is not yet claimed:** a blinded literature check (four-point/higher
+correlations, mesoscopic fluctuations, form-factor self-averaging) is pending, to be filed as `lit/PAIRSUM_VARIANCE_LIT.md`.
 
 Run under **PH2S_SEAL_1.0** (commit 663062ee, tag `ph2s-stage1-seal`; 11/11 pre-read checks). The F1 files were
 downloaded by hand by Will. `s1read.py` verified each md5 against the pins before decoding; all six matched. Per-bin
