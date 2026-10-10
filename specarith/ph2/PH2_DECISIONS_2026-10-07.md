@@ -262,3 +262,23 @@ Will noted that the same conflation entered Phase 2 through the PA5 refinement (
 Filed as PH2R2_SEAL_1.0 **A2** (rule) and **A3** (A1 three ways; drift removal c_i·e(t_c)/e(t_i), with e the
 sine-kernel expectation at the exact smooth density N̄′(t)). The Phase 2 erratum is PH2_FINDINGS §6; CC checked the
 facts against §1 (A's PRIMARY 0.215 > 0.20 is the only achieved firing; no A–P6 CI contains κ = ∞; H1–H3 pre-data NR).
+
+## Fifteenth round (Will, 2026-10-09 afternoon) — confirming the shrinking error bars
+
+```
+Shrink-confirm decisions (Will):
+(a) Two-stage: Stage 1 = direction-only seal on fresh set F1 (now).
+    Stage 2 = quantitative few-prime model, own known-answer gate,
+    prediction sealed on a separate fresh set F2. Stage 1 does not wait.
+(b) Primary window 10⁶ levels; 2·10⁵ secondary.
+(c) Disjoint fresh sets declared + md5-pinned now: F1 (shrink direction),
+    F2 (quantitative model), F3 (route (a)); interleaved quarter/half-integer
+    L between all seen heights.
+(d) Other members: secondary arms with matched GUE baselines. Seal the
+    mechanism's directional predictions as arms: wider bump → larger shrink;
+    shrink weakens with height.
+Call the long-baseline result on v2 only.
+```
+Also in this round, Will on the R₂ read: keep the headline as written. Next steps in order: the long sine-kernel baseline,
+then the confirmatory seal, the other members (descriptive), route (a) milestone 1, then Phase 1; a Zenodo snapshot of
+Phase 2 + R₂. F1–F3 declared in `ph2r2/FRESH_SETS_F1_F3.md` (generator `declare_fresh_sets.py`).
