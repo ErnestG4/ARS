@@ -15,8 +15,16 @@ The statistic is the drift-removed moving-block bootstrap SD of the pair sum, as
   re-analysis.
 
 This confirms, as a direction, the exploratory candidate finding (`ph2r2/PH2R2_FINDINGS.md` §6), on heights pinned
-before download and not seen. **Novelty is not yet claimed:** a blinded literature check (four-point/higher
-correlations, mesoscopic fluctuations, form-factor self-averaging) is pending, to be filed as `lit/PAIRSUM_VARIANCE_LIT.md`.
+before download and not seen.
+
+**Novelty** (blinded literature check `lit/PAIRSUM_VARIANCE_LIT.md`, §0 and §1.8; wording adopted by Will,
+2026-10-10): To our knowledge, no published work measures how the across-block variance of a local pair statistic of
+the zeta zeros (test function a few mean spacings wide) depends on block length, or compares it with the sine kernel
+and a theory-fixed arithmetic prediction. The closest precedent is Coram & Diaconis (2003; read in its 2000
+technical-report version). They tested the across-block distribution of |Σ_j e^{iθ_j}|², a pair sum in a single
+block-scale Fourier mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the circle, found agreement with CUE₄₂,
+and noted a lag-1 anti-correlation (−0.2) between consecutive blocks' values, without a sine-kernel or arithmetic
+comparison.
 
 Run under **PH2S_SEAL_1.0** (commit 663062ee, tag `ph2s-stage1-seal`; 11/11 pre-read checks). The F1 files were
 downloaded by hand by Will. `s1read.py` verified each md5 against the pins before decoding; all six matched. Per-bin

@@ -396,3 +396,24 @@ Route (a) at s ≤ 1.8, read from the gate's existing interpolants (`results/rou
 max |p₄ − p_N| = 5.6e-8 (N = 4), 5.0e-5 (N = 10), 6.9e-5 (N = 50), all below the ~1e-4 bin resolution and within
 the n = 5 truncation bound, so **no n = 5 term**. Recorded in `SCOPE_CS_SPACING.md` (window amendment) and
 `cs4/G_S_DESIGN.md` §6.
+
+## Twenty-second round (Will, 2026-10-10) — novelty wording after the Coram–Diaconis read
+
+The amended wording is right, plus one addition: CD's lag-1 anti-correlation (−0.2 between consecutive blocks' W) is
+in spirit an earlier glimpse of the kind of effect Stage 1 measured, and a reader who knows the paper would expect it
+mentioned; leaving it out would overstate the novelty. Two cautions keep it from undercutting the claim: (1) CD's
+blocks are each rescaled to their own length, and consecutive block lengths are anti-correlated in any rigid sequence,
+the sine kernel included, so the −0.2 may be generic rigidity, not arithmetic; CD made no sine-kernel comparison and
+their numbers do not allow one; (2) we read the 2000 technical report, and the 2003 journal version may differ; the
+wording says so. PH2S_STAGE1_FINDINGS.md drops "novelty not yet claimed" for this paragraph:
+
+> To our knowledge, no published work measures how the across-block variance of a local pair statistic of the zeta
+> zeros (test function a few mean spacings wide) depends on block length, or compares it with the sine kernel and a
+> theory-fixed arithmetic prediction. The closest precedent is Coram & Diaconis (2003; read in its 2000 technical-report
+> version). They tested the across-block distribution of |Σ_j e^{iθ_j}|², a pair sum in a single block-scale Fourier
+> mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the circle, found agreement with CUE₄₂, and noted a lag-1
+> anti-correlation (−0.2) between consecutive blocks' values, without a sine-kernel or arithmetic comparison.
+
+On the numerics (Will): the precision probe passing down to 10⁻³ separation against a grid minimum of 1.3·10⁻³ is the
+right kind of margin; the cluster check at the grid corner closes the last untested configuration, and the
+prediction's precision story is complete once it lands.

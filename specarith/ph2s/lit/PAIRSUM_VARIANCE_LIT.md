@@ -39,12 +39,21 @@ Date: 2026-10-10. Scope: the published literature only (arXiv, journal pages, au
 - **Mean-level pair statistic:** CD's §5.1 also reports a block-level departure in the *mean* of a pair statistic, the
   log interaction: β̂ = 2.04, β = 2 rejected at 1% after a dependence correction. A U₈₄/2 control rejects too, and the
   authors offer no interpretation.
-- **Proposed novelty wording, for Will's decision:** "To our knowledge, no published work measures how the
+- **Novelty wording, adopted (Will, twenty-second round):** "To our knowledge, no published work measures how the
   across-block variance of a local pair statistic of the zeta zeros (test function a few mean spacings wide) depends on
-  block length, or compares it with the sine-kernel and a theory-fixed arithmetic prediction. The closest precedent is
-  Coram & Diaconis (2003). They tested the across-block distribution of |Σ_j e^{iθ_j}|², a pair sum in a single
-  block-scale Fourier mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the circle, and found agreement with
-  CUE_42."
+  block length, or compares it with the sine kernel and a theory-fixed arithmetic prediction. The closest precedent is
+  Coram & Diaconis (2003; read in its 2000 technical-report version). They tested the across-block distribution of |Σ_j
+  e^{iθ_j}|², a pair sum in a single block-scale Fourier mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the
+  circle, found agreement with CUE₄₂, and noted a lag-1 anti-correlation (−0.2) between consecutive blocks' values,
+  without a sine-kernel or arithmetic comparison."
+- **Why the lag-1 anti-correlation is mentioned (Will):** consecutive blocks compensating each other is
+  anti-correlation of a pair statistic along the sequence, in spirit an earlier glimpse of the kind of effect Stage 1
+  measured; leaving it out would overstate the novelty.
+- **Why it does not undercut the claim:** each CD block is rescaled to its own length, and consecutive block lengths
+  are anti-correlated in any rigid sequence, the sine kernel included. The −0.2 may be a generic rigidity effect rather
+  than an arithmetic one. CD did not compare it with a sine-kernel sequence, and their published numbers do not allow us
+  to.
+- **Version:** read in the 2000 technical report; the 2003 journal version may differ.
 
 ---
 
