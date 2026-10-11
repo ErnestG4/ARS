@@ -1,5 +1,8 @@
 # PH2S Stage 1 — findings: the zeros' pair-sum error bars shrink beyond the sine kernel, confirmed on fresh heights
 
+> **Follow-up (2026-10-11):** Stage 2 tested the *size* of this suppression against a parameter-free CS08 prediction
+> on F2 and PASSED, with measured/predicted shrink 1.01 [0.89, 1.14]. See `../ph2s2/PH2S_STAGE2_FINDINGS.md`.
+
 **Headline (Will):** *On five fresh heights, the zeta zeros' pair-statistic fluctuations are suppressed relative to the
 sine kernel at 10²–10⁴-level scales: confirmed in all four resolvable bins. The width dependence predicted by a few-prime
 form-factor mechanism holds; its predicted height dependence is not established (narrow FAIL).*

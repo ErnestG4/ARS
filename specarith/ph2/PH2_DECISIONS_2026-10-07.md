@@ -539,3 +539,44 @@ then download the five F2 files for the read on spot.
 ```
 - **Weights as implemented:** W_f ∝ n_f(10⁴) − 1, the number of successive differences at b = 10⁴. The counts come
   from the pinned height ranges (`s2read.windows_from_range`), not from the data. They are pinned in the seal JSON.
+- **Outcome:** after the switch to C, the dry run and `--check` all held as before, so the seal was committed
+  (91f74031) with tag `ph2s-stage2-seal`. Will pushed both; both remotes were verified.
+- **Read (2026-10-11, 23f4c947):** all five F2 md5s matched their pins. The verdict is **PASS**: pooled ĝ_B = 0.6792
+  [0.6441, 0.7143] against 0.6830, z_pool = −0.22, 5 of 5 files within 3 SE, 2·SE_pool = 0.035
+  (`ph2s2/PH2S_STAGE2_FINDINGS.md`).
+
+## Twenty-ninth round (Will, 2026-10-11) — Stage 2 headline, limits, Zenodo release
+
+```
+That's a strong result. A parameter-free prediction built from Conrey–Snaith's four-point correlations was computed,
+publicly tagged before the test data was downloaded, and then matched on five fresh heights: measured shrink equal to
+1.01 times the predicted one, 95% interval [0.89, 1.14], with the zeros 16 SE away from the sine kernel. Stage 1 found
+that the suppression exists; Stage 2 shows its size is what the arithmetic structure of the zeros predicts.
+
+Suggested headline: "On five fresh heights, the suppression of the zeta zeros' pair-statistic block variance matches a
+parameter-free prediction from Conrey–Snaith's four-point correlations (conditional on the ratios conjecture):
+measured/predicted shrink = 1.01 [0.89, 1.14]; the zeros sit 16 SE below the sine-kernel value. The prediction was
+publicly tagged before the test data was read."
+
+Keep these limits in the write-up, as you already have:
+
+It's conditional on the ratios conjecture, like R₂. A PASS is evidence for that conjecture's higher-order structure,
+not a theorem about ζ.
+The agreement is to about ±13%; nothing finer is supported.
+There's one statistic and one taper. No height trend is claimed, and the two top files landing on opposite sides is
+just what five files look like.
+
+This is the right moment for the Zenodo release, as planned: Stage 1 (direction, fresh heights), the Stage 2
+prediction tag, seal and PASS, the CS08 erratum, and the novelty paragraph with the revised Coram–Diaconis wording.
+It's a complete, self-contained finding with a full audit trail.
+
+From here, the open threads are route (a)'s spacing law on F3 (s ≤ 1.8), Phase 1, and the open leads: Coram–Diaconis's
+lag-1 correlation and the non-decaying C(r).
+```
+- **Correction (mine):** the first findings draft (23f4c947) did *not* state the ratios-conjecture condition or the
+  one-statistic, one-taper scope. Both were added with the headline in `ph2s2/PH2S_STAGE2_FINDINGS.md`.
+- **Release metadata 2026.10.11** (CITATION.cff, .zenodo.json): adds Stage 2, the CS08 erratum and the novelty
+  paragraph with the revised Coram–Diaconis wording. New references, each checked against its Crossref record:
+  - Conrey & Snaith (2008), doi:10.4310/CNTP.2008.v2.n3.a1;
+  - Coram & Diaconis (2003), doi:10.1088/0305-4470/36/12/302;
+  - Platt (2017), doi:10.1090/mcom/3198, the F1 and F2 zero data.

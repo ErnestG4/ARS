@@ -1,7 +1,20 @@
 # PH2S Stage 2 — findings (read on F2 under PH2S_SEAL_2.0)
 
+**Headline (Will, twenty-ninth round):** *On five fresh heights, the suppression of the zeta zeros' pair-statistic
+block variance matches a parameter-free prediction from Conrey–Snaith's four-point correlations (conditional on the
+ratios conjecture): measured/predicted shrink = 1.01 [0.89, 1.14]; the zeros sit 16 SE below the sine-kernel value.
+The prediction was publicly tagged before the test data was read.*
+
 **Verdict: PASS.** The zeros' tapered window-variance growth on F2 agrees with CS08's parameter-free prediction (tag
-`ph2s-stage2-prediction`) under the sealed rule (tag `ph2s-stage2-seal`, commit 91f74031).
+`ph2s-stage2-prediction`) under the sealed rule (tag `ph2s-stage2-seal`, commit 91f74031). Stage 1 established that
+the suppression exists; Stage 2 tests its size.
+
+**Limits (Will, twenty-ninth round):**
+- **Conditional on the ratios conjecture,** like R₂. The prediction uses CS08's ratios-conjecture n ≤ 4 correlations.
+  A PASS is evidence for that conjecture's higher-order structure, not a theorem about ζ.
+- **The agreement is to about ±13%;** nothing finer is supported.
+- **One statistic and one taper:** the R₂ bump (u, w) = (0.5, 0.3) and the Gaussian window taper, at b = 100 and 10⁴.
+  No height trend is claimed. The two top files landing on opposite sides is what five files look like.
 
 - **Read:** 2026-10-11 on spot (`s2read.py read`, the sealed code; hashes checked against the seal JSON before the run).
   - All five F2 md5s matched their pins, locally and on spot, before any decode.
