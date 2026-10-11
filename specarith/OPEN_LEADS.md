@@ -37,6 +37,23 @@ statistic, and any connection between them is a hypothesis for a future sealed t
 - To do: the theory's ρ₁ in their configuration, with the per-block-rescaling effect measured separately on GUE
   (Will's caution: rescaling alone anti-correlates neighbours in any rigid sequence). If the GUE part accounts for
   −0.2, CS08's arithmetic part is what is left to compare.
+- **First step done (2026-10-10, descriptive; F1 is seen data): `ph2s2/cd_lag1.py`, `ph2s2/results/cd_lag1/`.**
+  - **GUE does not do it.** On the Stage 1 GUE sequences (16 × 10⁶ unfolded levels, a long rigid sine-kernel
+    sequence), CD's construction with own-length wrapping gives ρ₁ = +0.00 to +0.04 for every n = 4…64 (SE ≈ 0.002).
+    Unit-length wrapping gives +0.01. So per-block rescaling plus rigidity does **not** produce −0.2.
+  - **The zeros do.** On F1 with CD's rule n = ⌊ℓ⌋, ρ₁ = −0.23 to −0.27 in all six bins (SE 0.0017), against CD's
+    −0.2 ± 0.03 at ℓ ≈ 42.
+  - **ρ₁ is a function of u = ℓ/n alone.** u is the frequency, in t, that the block-scale mode e^{2πiΔ/n} probes; the
+    block is one period, 2π/u in t. F1b (ℓ = 15.47) and F1x (ℓ = 22.10) fall on one curve:
+
+    | u | ≈ 1.0 | ≈ 0.7 | ≈ 0.55 | ≈ 0.45 | ≈ 0.38 | ≈ 0.35 |
+    |---|---|---|---|---|---|---|
+    | ρ₁ | −0.24 to −0.26 | −0.32 to −0.37 (minimum) | ≈ 0 | +0.55 (peak) | ≈ 0 | +0.2 (second peak) |
+
+    At n = 42 on F1 (u ≈ 0.35–0.53) it therefore swings from +0.10 to +0.54.
+  - **Bearing on the twenty-second-round novelty wording:** it says CD's −0.2 "may be a generic rigidity effect". On
+    this evidence it is not; it is arithmetic in origin. Wording change: Will's call.
+  - **Still to do:** the theory curve ρ₁(u) from CS08 (or the explicit formula) in CD's configuration.
 
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
