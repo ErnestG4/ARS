@@ -105,22 +105,44 @@ def pooled(recs, b):
     return V / b, V / b * math.sqrt(2 / dof), len(d)
 
 
+def pooled_diff(recs, b):
+    """Estimator B (twenty-fourth round): successive differences, v = Σ(S_{i+1} − S_i)²/(2(n − 1)b), pooled over records
+    (Σ over records of the squared differences / 2Σ(n_r − 1)b). E = v(b)(1 − ρ₁) exactly; no centring, and a smooth
+    drift of the window mean cancels. SE from the pooled autocovariances of D_i = (S_{i+1} − S_i)²/2 at lags 0–2
+    (D_i and D_{i+1} share S_{i+1})."""
+    Ds = [np.diff(np.array(r["ladder"][str(b)]["sums"])) ** 2 / 2 for r in recs if str(b) in r["ladder"]]
+    N = sum(len(D) for D in Ds)
+    m = sum(D.sum() for D in Ds) / N
+    gam = [sum(float(np.dot(D[: len(D) - k] - m, D[k:] - m)) for D in Ds) / N for k in (0, 1, 2)]
+    var_m = max(gam[0] + 2 * gam[1] + 2 * gam[2], gam[0]) / N
+    return m / b, math.sqrt(var_m) / b, N
+
+
 def summary(out):
     Z = {json.load(open(f))["bin"]: json.load(open(f)) for f in sorted(glob.glob(os.path.join(out, "zeros_*.json")))}
     G = [json.load(open(f)) for f in sorted(glob.glob(os.path.join(out, "gue_*L1000000*.json")))]
-    rows = {}
-    gv = {b: pooled(G, b) for b in LADDER}
-    rows["GUE (Stage 1, 16 x 1e6)"] = {str(b): gv[b] for b in LADDER}
+    rows, rows_b = {}, {}
+    rows["GUE (Stage 1, 16 x 1e6)"] = {str(b): pooled(G, b) for b in LADDER}
+    rows_b["GUE (Stage 1, 16 x 1e6)"] = {str(b): pooled_diff(G, b) for b in LADDER}
     for n, r in Z.items():
         rows[n] = {str(b): pooled([r], b) for b in LADDER}
+        rows_b[n] = {str(b): pooled_diff([r], b) for b in LADDER}
+    head = "| series | " + " | ".join(f"v({b})" for b in LADDER) + " | g |"
     lines = ["# Tapered statistic on F1 (descriptive bridge; seen data) and the Stage 1 GUE baseline", "",
-             "v(b) = Var_c S(c; b)/b ± SE (windows); g = √(v(10⁴)/v(100)).", "",
-             "| series | " + " | ".join(f"v({b})" for b in LADDER) + " | g |", "|---|" + "---|" * (len(LADDER) + 1)]
+             "g = √(v(10⁴)/v(100)). Generator: `tapered.py summary`.", "",
+             "## Estimator B (Stage 2 estimator, twenty-fourth round): successive differences",
+             "v(b) = Σ(S_{i+1} − S_i)²/(2(n − 1)b) ± SE (lag-0–2 autocovariances of the squared differences).", "",
+             head, "|---|" + "---|" * (len(LADDER) + 1)]
+    for name, row in rows_b.items():
+        g = math.sqrt(row["10000"][0] / row["100"][0])
+        lines.append(f"| {name} | " + " | ".join(f"{row[str(b)][0]:.4f} ± {row[str(b)][1]:.4f}" for b in LADDER) + f" | {g:.3f} |")
+    lines += ["", "## Centred sample variance (superseded for Stage 2 by B; kept for the record)",
+              "v(b) = Var_c S(c; b)/b ± SE (windows).", "", head, "|---|" + "---|" * (len(LADDER) + 1)]
     for name, row in rows.items():
         g = math.sqrt(row["10000"][0] / row["100"][0])
         lines.append(f"| {name} | " + " | ".join(f"{row[str(b)][0]:.4f} ± {row[str(b)][1]:.4f}" for b in LADDER) + f" | {g:.3f} |")
     open(os.path.join(out, "TAPERED_SUMMARY.md"), "w").write("\n".join(lines) + "\n")
-    json.dump(rows, open(os.path.join(out, "tapered_summary.json"), "w"), indent=1)
+    json.dump(dict(B=rows_b, centred=rows), open(os.path.join(out, "tapered_summary.json"), "w"), indent=1)
     print("\n".join(lines))
 
 

@@ -436,3 +436,19 @@ Stage 1 vs Stage 2 near-match stays descriptive (different statistic).
 ```
 Work on the condition: `cs4/diag_mu2.py` (the two-point mean μ(ℓ) across each F2 file); record in
 `cs4/GS_ZETA_RESULTS.md` §5.
+
+## Twenty-fourth round (Will, 2026-10-10) — Stage 2 estimator: successive differences (option B)
+
+```
+Stage 2 decision (Will, round 24): (iii) → option B.
+Estimator: successive differences, Σ(S_{i+1} − S_i)²/(2(n−1)b);
+expectation v(b)(1 − ρ₁), exact. Extend the long-range grid to 6·10⁴ on spot
+(~3 h) to compute the predicted ρ₁. Re-measure GUE baselines and the F1
+comparison with the new estimator.
+(i) and (ii): settled as reported; c∞ cancels under B (closes amendment 1's
+c∞ item).
+Descriptive / open leads: non-decaying C(r) (RMS 0.053 to 4.8·10⁴); F1
+neighbour-window ρ ≈ −0.03 to −0.04 vs GUE ≈ 0 (seen data); check whether
+the theory's ρ₁ for Coram–Diaconis's configuration explains their lag-1 −0.2.
+```
+Recorded in `cs4/G_S_DESIGN.md` §6 amendment 8; open leads in `OPEN_LEADS.md`.

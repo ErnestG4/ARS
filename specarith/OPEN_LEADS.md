@@ -19,7 +19,26 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   `ph2/results/run/CUE_EXACT_COMPARE.md`. Below N_eff = 2 (descriptive): κ̂ keeps rising as N_eff falls
   (`ph2/results/lowheight/LOWHEIGHT.md`).
 
+## L3 — CS08's long-range four-point connected function does not decay (descriptive; twenty-fourth round)
+- The assembled non-oscillating long-range C(r) of the Stage 2 statistic (pair bump (0.5, 0.3)) is almost periodic,
+  with RMS 0.053 constant from r ≈ 20 to 4.8·10⁴ spacings at ℓ = 16.50. Its 2000-spacing block means are ±5·10⁻⁵. Only
+  the sine-kernel part decays. Source: `cs4/diag_wincov_edge.py`, `cs4/GS_ZETA_RESULTS.md` §5.
+
+## L4 — neighbouring windows of the zeros are anti-correlated; GUE's are not (seen data; descriptive)
+- Lag-1 correlation of the tapered window sums (b = 100, centres 3b apart):
+  - F1, all six bins: −0.03 to −0.04 (n ≈ 2·10⁴ each; about 5σ per bin);
+  - Stage 1 GUE: ≈ 0;
+  - CS08's prediction: −0.031 to −0.034.
+- Source: `cs4/diag_f1_wincorr.py`, `cs4/results/diag_wincov/`. Not a test: F1 is seen data.
+
+## L5 — does CS08 explain Coram–Diaconis's lag-1 anti-correlation (−0.2)?
+- CD (2000 report; `ph2s/lit/PAIRSUM_VARIANCE_LIT.md` §1.8) found −0.2 between consecutive blocks' values of
+  |Σ_j e^{iθ_j}|². Their blocks are n = 42 zeros, sharp and adjacent, each rescaled to its own length.
+- To do: the theory's ρ₁ in their configuration, with the per-block-rescaling effect measured separately on GUE
+  (Will's caution: rescaling alone anti-correlates neighbours in any rigid sequence). If the GUE part accounts for
+  −0.2, CS08's arithmetic part is what is left to compare.
+
 ## Status
-Neither lead has a theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
+L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project
 (`ph2/SCOPE_CS_SPACING.md`, GO after the R₂ seal).

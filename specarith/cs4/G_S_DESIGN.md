@@ -9,7 +9,9 @@ In unit-mean-spacing coordinates x (zeros: unfolded by N̄; GUE: by the semicirc
 with F the R₂ family bump (primary (0.5, 0.3)). F and W_b are entire, so the test function F(x₁ − x₂)W_b(·)F(x₃ − x₄)W_b(·)
 satisfies CS08's condition (holomorphic for |Im x| < 2, in raw t-units after scaling).
 - **Variance across window centres:** V(b) = Var_c S(c; b) for a stationary process.
-- **Measured:** sample variance over centres spaced ≥ 3b apart, so windows are effectively independent.
+- ~~**Measured:** sample variance over centres spaced ≥ 3b apart, so windows are effectively independent.~~
+  **Superseded (twenty-fourth round, §6 amendment 8):** windows 3b apart are *not* independent for ζ (C(r) does not
+  decay). Measured is the successive-difference estimator.
 - **Reported:** v(b) = V(b)/b at b = 100 and 10⁴ (and a ladder in between), and g = √(v(10⁴)/v(100)).
 
 ## 2. V(b) from the correlations
@@ -87,3 +89,17 @@ r_c = 10 spacings):
      quantity. (i) Either the estimator removes the smooth height-dependence of the window mean, or the prediction
      includes the between-window mean-variance term. (ii) Any oscillating height-dependence of the two-point mean is
      shown to be ≤ 1e-3 of v, quantified like the four-point check. Work: `diag_mu2.py`, `GS_ZETA_RESULTS.md` §5.
+8. **Estimator B (twenty-fourth round, Will, 2026-10-10).** The measured statistic is the successive-difference
+   variance over window centres 3b apart (as `ph2s2/tapered.py` lays them out):
+     v̂_B(b) = Σ_i (S_{i+1} − S_i)² / (2(n − 1)b).
+   - **Prediction = estimator, exactly:** E[v̂_B] = v(b)(1 − ρ₁(b)) = v(b) − Cov(3b)/b, with Cov(R)/b =
+     (1/√2)∫ exp(−π(r − R)²/2b²) C(r) dr from the same C as v(b) (amendment 7's file-averaged definition).
+   - The smooth drift of the window mean enters only as (b·Δμ)² between neighbours, < 1e-8 of v. Condition (i) is
+     met by the estimator.
+   - Condition (ii) (no oscillating ℓ-dependence of the two-point mean) is met: `GS_ZETA_RESULTS.md` §5.
+   - **c∞ cancels:** a constant part of C enters V and Cov(3b) equally. This closes amendment 1's "c∞ is still
+     computed and reported" item.
+   - **ρ₁ needs C to 5.82·10⁴ at b = 10⁴:** `gs_zeta_ext.py` extends the stored long-range grid to 6·10⁴.
+     The amendment-7 oscillating-part check is repeated for the lag-1 term (`diag_osc_lag1.py`).
+   - **GUE side:** ρ₁ from the sine kernel (`gs_unitary_lag1.py`). The GUE baselines and the F1 bridge are
+     re-measured with v̂_B (`ph2s2/tapered.py summary`).
