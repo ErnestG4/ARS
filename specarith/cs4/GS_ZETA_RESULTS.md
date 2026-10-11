@@ -198,8 +198,24 @@ g_GUE,B = 0.9591 is the sine kernel through the same assembly (`gs_unitary_lag1.
 | overlap, assembled C (absolute; C's RMS there 0.034–0.057) | ≤ 1.4e-11 |
 | extension \|Im\| / Fourier-series tail | ≤ 1.4e-8 / ≤ 5.5e-6 |
 | lag 0 on the combined grid vs stored I₄ (short + long) | ≤ 3e-15 |
-| dropped ℓ-oscillating part in the B term (lag 0 − lag 1), file-averaged (`diag_osc_lag1.py`) | PENDING |
+| dropped ℓ-oscillating part in the B term (lag 0 − lag 1), file-averaged (`diag_osc_lag1.py`) | (2.0 ± 8.9)e-4 of v at b = 10⁴; consistent with 0 at every rung (below) |
 
+- **The amendment-7 check for the lag term** (`diag_osc_lag1.py`, `results/diag_osc_lag1/`). Pair (5,5), 64 stratified ℓ
+  across the F2 15.75 file (weights ∝ ℓe^ℓ), Δr = 0.1 to 6·10⁴. The dropped ℓ-oscillating part, file-averaged, as a
+  fraction of v:
+
+  | b | 100 | 300 | 1000 | 3000 | 10⁴ |
+  |---|---|---|---|---|---|
+  | lag 0 (enters v) | (−4.2 ± 0.3)e-6 | (−3.0 ± 0.6)e-5 | (−0.9 ± 0.6)e-4 | (−0.9 ± 2.3)e-4 | (−1.3 ± 5.3)e-4 |
+  | lag 1 (enters Cov) | (0.6 ± 0.5)e-5 | (−1.8 ± 4.0)e-5 | (−0.06 ± 0.8)e-4 | (−0.4 ± 2.5)e-4 | (−3.3 ± 7.0)e-4 |
+  | **B term (lag 0 − lag 1)** | (−1.0 ± 0.5)e-5 | (−1.3 ± 4.1)e-5 | (−0.8 ± 1.0)e-4 | (−0.5 ± 3.4)e-4 | **(2.0 ± 8.9)e-4** |
+  | largest at a single ℓ, lag 1 | 6.6e-5 | 5.1e-4 | 1.2e-3 | 5.1e-3 | 1.3e-2 |
+
+  - Lag 0 reproduces §3's 64-ℓ run (same magnitudes and SEs; §3 quotes |avg|), on a grid now extended to 6·10⁴.
+  - As at lag 0, the single-ℓ values are large (up to 1.3e-2 at b = 10⁴) and the file average is consistent with zero.
+  - **Resolution, not detection:** 2σ ≈ 1.8e-3 of v at b = 10⁴ for the heaviest pair at the lowest height. That is
+    ≤ 9e-4 relative in g_B (≈ 6e-4 absolute), against a per-file SE on g of about 0.04. Other pairs carry smaller
+    weights.
 - **Validity range.** Lag 1 at b = 10⁴ reaches r = 5.8·10⁴ spacings ≈ 2.3·10⁴ in t, still ≪ t ≥ 10⁷ (§4 of the design).
 - **Not re-checked for the lag:** the prime-cutoff diagnostic (amendment 4) was run on lag 0 at b ≤ 300. The lag term
   at b = 10⁴ uses the same cutoff (3·10⁵) without its own convergence check, as v(10⁴) does.
