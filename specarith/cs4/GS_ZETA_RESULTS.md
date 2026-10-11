@@ -221,10 +221,33 @@ g_GUE,B = 0.9591 is the sine kernel through the same assembly (`gs_unitary_lag1.
     for the test: the shift it allows in g_B, about 6×10⁻⁴, is about 1.5% of the per-file SE on g (≈ 0.04), so it cannot
     move a verdict. The standard is not relaxed elsewhere.
 - **Validity range.** Lag 1 at b = 10⁴ reaches r = 5.8·10⁴ spacings ≈ 2.3·10⁴ in t, still ≪ t ≥ 10⁷ (§4 of the design).
-- **Prime-cutoff convergence of the lag term: required before the seal (Will, twenty-fifth round); RUNNING.** The
-  amendment-4 diagnostic covered lag 0 at b ≤ 300 only. `gs_zeta_cutB.py` evaluates every node pair at pmax 10⁶ for
-  ℓ = 15.7502 (short grid and the full estimator-B long grid). It compares Cov(3b)/b, v(b), v_B(b) and g_B against the
-  stored 3·10⁵ values; I₃ is held.
+- **Prime-cutoff convergence of the lag term: required before the seal (Will, twenty-fifth round); DONE —
+  converged.** The amendment-4 diagnostic covered lag 0 at b ≤ 300 only.
+  - **Setup.** `gs_zeta_cutB.py`, run by `run_gs_zeta_cutB_spot.sh` (48 procs, ~2.3 h). It evaluates every node pair
+    at pmax 10⁶ for ℓ = 15.7502, on the short grid and the full estimator-B long grid. It compares against the stored
+    3·10⁵ values, assembled as in `gs_zeta_B.py`. I₃ is held at 3·10⁵.
+  - **Output.** `results/gs_zeta_cutB/cutB_summary.json`. The per-pair npz files stay on spot.
+  - **Results, 3·10⁵ → 10⁶:**
+
+  | b | Δ[Cov(3b)/b] / v_B | Δv / v | **Δv_B / v_B** |
+  |---|---|---|---|
+  | 100 | −2.2e-5 | −2.3e-5 | +3.9e-7 |
+  | 300 | −8.4e-5 | −8.6e-5 | +6.6e-7 |
+  | 1000 | −3.7e-4 | −3.8e-4 | +1.3e-6 |
+  | 3000 | −1.3e-3 | −1.4e-3 | +2.0e-6 |
+  | 10⁴ | −5.0e-3 | −5.1e-3 | **+3.1e-6** |
+
+  - **g_B: 0.670275 → 0.670276** (Δ = +9.2e-7).
+  - I₂ changes by 1e-8. The 3·10⁵ recheck against the stored v is ≤ 2e-15. At 10⁶, |Im| ≤ 6.8e-7 and the Fourier tail
+    is ≤ 4.7e-6.
+  - **What moves is a constant in C.** The lag term and v(b) shift by the same amount, growing ∝ b: Δv/b = −1.7e-8 at
+    every rung. That is the signature of a constant shift δC of C(r) over the whole grid. Primes beyond 3·10⁵ beat
+    against each other with periods far longer than 6·10⁴ spacings, so on this grid they look constant (a c∞-type
+    term). Estimator B cancels a constant exactly (amendment 8), so v_B moves by ≤ 3e-6 while v and Cov move by up to
+    5e-3.
+  - **Side finding (§1, superseded estimator).** The plain v(10⁴) of §1 is cutoff-sensitive at 5e-3, i.e. about 2.5e-3
+    relative in g. Amendment 4's check at b ≤ 300 did not reach this. It does not affect the estimator-B prediction,
+    which is the one to be sealed.
 
 ### 6.3 GUE baseline and F1 under B (descriptive; `ph2s2/results/tapered/TAPERED_SUMMARY.md`)
 - **GUE (Stage 1, 16 × 10⁶):** g_B = 0.997, with v_B(10⁴) = 0.1199 ± 0.0092 (SE ≈ 0.04 in g). The prediction 0.959 is
