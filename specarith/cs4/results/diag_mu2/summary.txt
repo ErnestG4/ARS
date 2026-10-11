@@ -1,0 +1,5 @@
+ℓ=15.7502  μ=0.824884082 dμ/dℓ=+1.148e-03 d²μ=-1.08e-04 | resid rms 2.3e-12 max 5.8e-12 | pockets 1.7e-08 1.7e-06 | b=1e4: T_s 7.7e-05  T_o 1.6e-18 T_pocket 8.9e-07
+ℓ=16.4972  μ=0.825711454 dμ/dℓ=+1.068e-03 d²μ=-1.03e-04 | resid rms 5.4e-13 max 1.4e-12 | pockets 1.6e-08 1.6e-06 | b=1e4: T_s 1.4e-05  T_o 8.5e-20 T_pocket 7.4e-07
+ℓ=17.2491  μ=0.826486165 dμ/dℓ=+9.929e-04 d²μ=-9.74e-05 | resid rms 4.2e-13 max 1.1e-12 | pockets 1.5e-08 1.5e-06 | b=1e4: T_s 2.7e-06  T_o 5.0e-20 T_pocket 6.2e-07
+ℓ=19.5003  μ=0.828490665 dμ/dℓ=+7.950e-04 d²μ=-7.79e-05 | resid rms 2.5e-13 max 8.2e-13 | pockets 1.2e-08 - | b=1e4: T_s 1.8e-08  T_o 1.5e-20 T_pocket 3.5e-11
+ℓ=21.75    μ=0.830095462 dμ/dℓ=+6.380e-04 d²μ=-3.30e-04 | resid rms 1.6e-13 max 3.5e-13 | pockets 9.6e-09 - | b=1e4: T_s 7.1e-11  T_o 5.3e-21 T_pocket 1.9e-11

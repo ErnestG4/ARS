@@ -102,3 +102,51 @@ The split (G_S_DESIGN §3) keeps only the non-oscillating pieces beyond r ≈ 10
   blocks on F1 (g_zeros 0.66–0.70, d = g_GUE − g_zeros = 0.28–0.30). This statistic is the tapered window variance.
   The numbers look close (predicted d = 0.961 − g = 0.28–0.29 at ℓ ≤ 17.25), but the statistics differ, so the
   closeness is not evidence. The F2 measurement of this statistic is the test.
+
+## 5. Prediction vs estimator: the seal condition (twenty-third round)
+The estimator (`ph2s2/tapered.py`) is the sample variance of S(c; b) over n window centres spaced 3b apart, centred on
+the file mean, divided by b. Its expectation is
+  E[v̂(b)] = v(b)·[1 − (2/(n − 1)) Σ_{k=1}^{n−1} (1 − k/n) ρ_k] + b·s²_c(μ(ℓ_c)),
+where v(b) is §1, ρ_k = Cov(S(c), S(c + 3bk))/V(b) is the predicted correlation between windows k apart, and μ(ℓ) is the
+two-point mean per unit length (E S(c; b) = b·μ(ℓ_c)). The three terms, as fractions of v(b):
+
+**(ii) Oscillating height-dependence of the two-point mean: none.** `diag_mu2.py`, `results/diag_mu2/`.
+- μ(ℓ) = ∫F ρ₂ (CS08, cutoff 3·10⁵) was evaluated at 64 stratified ℓ across each F2 file, plus two dense pockets at
+  the file midpoint (16 ℓ spaced 1e-6 and, where the file is wide enough, 16 spaced 1e-4), so faster oscillations
+  could not alias.
+- The residual from a quadratic in ℓ is ≤ 6e-12, i.e. b·Var/v ≤ 2e-18. The pocket spreads equal slope × span
+  (1.7e-8, 1.7e-6), and the bound from them is ≤ 9e-7 of v.
+- Structural reason: in unfolded units the two-point carrier is exactly e^{∓2πid} (`cs4fast.R2`: Φ = i·c₀·x with
+  x = 2πd/ℓ). ℓ enters only through the arithmetic factors at τ = 2πd/ℓ, with d ≤ 3, which is smooth.
+
+**(i) Smooth height-dependence of the window mean: negligible, so the prediction carries it.**
+- dμ/dℓ = 1.15e-3 (ℓ = 15.75) falling to 6.4e-4 (21.75); μ ≈ 0.825–0.830.
+- The between-window term b·Var_c μ / v at b = 10⁴ is 7.7e-5, 1.4e-5, 2.7e-6, 2e-8 and 7e-11 (files 15.75 to 21.75),
+  and 100× smaller at b = 100.
+- **F1 descriptive:** a linear detrend changes the window variance by ≤ 0.1% at b ≤ 3000, consistent with this.
+
+**(iii) Centring: the predicted windows are correlated, and the lag sum does not converge on the stored grid.**
+`diag_wincov.py`, `diag_wincov_edge.py`, `results/diag_wincov/`.
+- **C(r) does not decay.** The assembled non-oscillating long-range C(r) is almost periodic, with RMS 0.053
+  constant out to r = 4.8·10⁴ (CS08's arithmetic terms at r ≪ t; only the sine-kernel part decays).
+- **So the windows are correlated at every lag the grid reaches.** Lags were used only when their Gaussian lies inside
+  the grid to 5σ; a cut at 1.75σ gave a spurious ρ = −0.22.
+  - Lag 1: ρ₁ = −0.031 to −0.034 (b = 100) and −0.010 to −0.031 (b = 3000).
+  - Partial sums Σ_{k≤K}(1 − k/n)ρ_k wander between +0.06 and −0.35 out to K = 159 (b = 100), 52 (300), 15 (1000)
+    and 4 (3000), without converging. They are negative almost throughout, and their end values are −0.01 to −0.30.
+  - **b = 10⁴ has no usable lag:** lag 1 needs C to 5.8·10⁴.
+- **F1 descriptive (seen data):** the measured lag-1 correlation of window sums at b = 100 is −0.03 to −0.04 in all
+  six bins (n ≈ 2·10⁴), against about 0 for GUE. This agrees with the predicted −0.033. (`diag_f1_wincorr.py`)
+- **Size of the centring term.**
+  - Var(Σ_i S_i) ≥ 0 gives the rigorous bound E[s²]/V ≤ 1 + 1/(n − 1).
+  - n at b = 10⁴ is 175, 183, 192, 217 and 242 (F2 files), so the bound is ≤ 5.7e-3 of v.
+  - If the full lag sums are like the partial ones (−0.1 to −0.3), the term is +0.8 to 3.4e-3 of v at b = 10⁴,
+    +2.5e-4 to 1e-3 at b = 3000, and ≤ 3.4e-4 at b ≤ 1000. This is an illustration, not a computation.
+  - The sign is one-sided while the lag sums stay negative. The ζ estimate is then biased up, towards GUE, so a shrink
+    claim is not inflated. For GUE (C decays as r⁻²) the term is ≈ 0.
+- **Not computable to the end.** The full lag sum at b = 10⁴ needs C out to the file length (~5·10⁶ spacings, 100× the
+  stored grid). It also depends on the slow modes from nearly equal primes, whose cutoff convergence was checked
+  only at b ≤ 300.
+- **c∞** (amendment 1: "still computed and reported") has **not been computed**. Any constant part of C is common to
+  every window of a file, so centring removes it exactly. It is inside this same term and covered by the same bound.
+- **Open, for Will:** how to close (iii). Options in `MORNING_2026-10-10.md` (20:00).

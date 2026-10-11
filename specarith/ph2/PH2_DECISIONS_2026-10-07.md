@@ -417,3 +417,22 @@ wording says so. PH2S_STAGE1_FINDINGS.md drops "novelty not yet claimed" for thi
 On the numerics (Will): the precision probe passing down to 10⁻³ separation against a grid minimum of 1.3·10⁻³ is the
 right kind of margin; the cluster check at the grid corner closes the last untested configuration, and the
 prediction's precision story is complete once it lands.
+
+## Twenty-third round (Will, 2026-10-10) — Stage 2: amendment 7 approved, with a condition before the seal
+
+```
+Stage 2 decision (Will): Amendment 7 APPROVED — prediction = CS08 correlation
+averaged over each F2 file's heights; oscillating-part check uses grid step
+≤ 0.1, height-averaged.
+Condition before seal: state explicitly that prediction and estimator are the
+same quantity —
+(i) the Stage 2 estimator removes the smooth height-dependence of the window
+    mean (as Stage 1's drift removal), OR the prediction includes the
+    between-window mean-variance term (the F2 pre-read's within-file height-
+    drift item feeds this); and
+(ii) any oscillating height-dependence of the two-point mean is shown
+    negligible at ≤ 1e-3 of v, quantified like the four-point check.
+Stage 1 vs Stage 2 near-match stays descriptive (different statistic).
+```
+Work on the condition: `cs4/diag_mu2.py` (the two-point mean μ(ℓ) across each F2 file); record in
+`cs4/GS_ZETA_RESULTS.md` §5.
