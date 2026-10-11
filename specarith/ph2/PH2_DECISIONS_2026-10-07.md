@@ -480,3 +480,21 @@ My earlier wording was too quick; the correction should be recorded as such.
   `cs4/GS_ZETA_RESULTS.md` §6.2.
 - Coram–Diaconis: the twenty-second-round caution is corrected in `ph2s/lit/PAIRSUM_VARIANCE_LIT.md`, with an addendum
   to `ph2s/PH2S_STAGE1_FINDINGS.md` and `OPEN_LEADS.md` L5.
+
+## Twenty-sixth round (Will, 2026-10-11) — the lag-term cutoff result; a lesson; on to the F2 pre-read
+
+```
+That's a clean result, and the side finding is the best part. Under the old estimator the cutoff error was 5×10⁻³
+in v at b = 10⁴, which the b ≤ 300 check couldn't see, while estimator B removes it exactly because it's a constant
+shift. So the switch to B, made for a different reason (turning a bound into an identity), turns out to also protect
+the prediction from a cutoff error nobody had measured. Worth recording as a lesson too: a convergence check run at
+small b doesn't certify large b when the error grows with b.
+
+g_B converged to six decimal places (0.670275 → 0.670276) is as settled as a sealed prediction gets. Push 85aeff84
+when convenient, then on to the F2 pre-read with estimator B.
+```
+- **Lesson (recorded):** a convergence check certifies only the scale it was run at. If the error grows with the
+  scale parameter, run the check at the sealed scale, or show how the error scales. Here amendment 4 (b ≤ 300) passed,
+  while at b = 10⁴ the same cutoff move shifted v by 5×10⁻³. Estimator B was adopted to turn a bound into an identity,
+  and it also cancels this error exactly, because the error is a constant in C. (`cs4/GS_ZETA_RESULTS.md` §6.2.)
+- Will pushed 85aeff84; both remotes were verified.

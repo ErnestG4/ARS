@@ -71,6 +71,9 @@ r_c = 10 spacings):
    ~3× cutoff step falls 5–80× (I(100): 8.8e-5, 1.9e-5, 1.7e-6, 2.2e-8 over 1e4 → 1e6). **The hypothesis that the
    cutoff drift was logarithmic was wrong**, and the analytic rewrite of the Re s = 1 factors in ζ, ζ′/ζ and log ζ is
    dropped.
+   - **Scope note (twenty-fifth and twenty-sixth rounds).** This check ran at b ≤ 300 and does not certify b = 10⁴.
+     There, 3·10⁵ → 10⁶ shifts v(10⁴) by 5×10⁻³: a constant shift in C, whose effect grows ∝ b. The sealed v_B, under
+     amendment 8, moves by ≤ 3×10⁻⁶ (g_B 0.670275 → 0.670276). Record: `GS_ZETA_RESULTS.md` §6.2.
 5. **Evaluator precision is sufficient.** The sparse check v2 passed (worst 5.36e-10; `SPARSE_CHECK_RECORD.md` §4.2).
    Stage 2 needs about 1e-3 relative, so the evaluator error is irrelevant at that scale. No further work on the
    residual; r > 2·10⁴ spacings is unchecked.
