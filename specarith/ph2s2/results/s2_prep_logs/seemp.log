@@ -1,0 +1,41 @@
+F1a b=  100 n=16109  rel SE: se_lag2 0.0139  se_lag10 0.0138  se_lag30 0.0141  se_lag100 0.0137  se_batch5 0.0113  se_batch10 0.0121  se_batch20 0.0138
+F1a b=  300 n= 5369  rel SE: se_lag2 0.0250  se_lag10 0.0244  se_lag30 0.0240  se_lag100 0.0253  se_batch5 0.0091  se_batch10 0.0234  se_batch20 0.0238
+F1a b= 1000 n= 1610  rel SE: se_lag2 0.0427  se_lag10 0.0426  se_lag30 0.0431  se_lag100 0.0459  se_batch5 0.0254  se_batch10 0.0487  se_batch20 0.0409
+F1a b= 3000 n=  535  rel SE: se_lag2 0.0676  se_lag10 0.0676  se_lag30 0.0621  se_lag100 0.0622  se_batch5 0.0690  se_batch10 0.0683  se_batch20 0.0664
+F1a b=10000 n=  160  rel SE: se_lag2 0.1883  se_lag10 0.2117  se_lag30 0.1828  se_batch5 0.2553  se_batch10 0.2444  se_batch20 0.2168
+F1b b=  100 n=17238  rel SE: se_lag2 0.0131  se_lag10 0.0132  se_lag30 0.0135  se_lag100 0.0132  se_batch5 0.0102  se_batch10 0.0135  se_batch20 0.0132
+F1b b=  300 n= 5745  rel SE: se_lag2 0.0216  se_lag10 0.0217  se_lag30 0.0216  se_lag100 0.0211  se_batch5 0.0149  se_batch10 0.0238  se_batch20 0.0215
+F1b b= 1000 n= 1722  rel SE: se_lag2 0.0413  se_lag10 0.0371  se_lag30 0.0385  se_lag100 0.0347  se_batch5 0.0426  se_batch10 0.0396  se_batch20 0.0390
+F1b b= 3000 n=  573  rel SE: se_lag2 0.0691  se_lag10 0.0622  se_lag30 0.0608  se_lag100 0.0680  se_batch5 0.0771  se_batch10 0.0567  se_batch20 0.0782
+F1b b=10000 n=  171  rel SE: se_lag2 0.1135  se_lag10 0.0965  se_lag30 0.0965  se_batch5 0.1010  se_batch10 0.0868  se_batch20 0.1032
+F1c b=  100 n=19771  rel SE: se_lag2 0.0127  se_lag10 0.0131  se_lag30 0.0128  se_lag100 0.0122  se_batch5 0.0049  se_batch10 0.0164  se_batch20 0.0136
+F1c b=  300 n= 6589  rel SE: se_lag2 0.0216  se_lag10 0.0216  se_lag30 0.0194  se_lag100 0.0199  se_batch5 0.0093  se_batch10 0.0235  se_batch20 0.0225
+F1c b= 1000 n= 1976  rel SE: se_lag2 0.0417  se_lag10 0.0400  se_lag30 0.0448  se_lag100 0.0383  se_batch5 0.0400  se_batch10 0.0382  se_batch20 0.0429
+F1c b= 3000 n=  658  rel SE: se_lag2 0.0689  se_lag10 0.0700  se_lag30 0.0568  se_lag100 0.0568  se_batch5 0.0565  se_batch10 0.0466  se_batch20 0.0575
+F1c b=10000 n=  196  rel SE: se_lag2 0.1445  se_lag10 0.1126  se_lag30 0.1126  se_batch5 0.1441  se_batch10 0.1338  se_batch20 0.1186
+F1d b=  100 n=21445  rel SE: se_lag2 0.0119  se_lag10 0.0119  se_lag30 0.0120  se_lag100 0.0117  se_batch5 0.0166  se_batch10 0.0165  se_batch20 0.0136
+F1d b=  300 n= 7147  rel SE: se_lag2 0.0210  se_lag10 0.0212  se_lag30 0.0222  se_lag100 0.0207  se_batch5 0.0207  se_batch10 0.0233  se_batch20 0.0222
+F1d b= 1000 n= 2143  rel SE: se_lag2 0.0396  se_lag10 0.0425  se_lag30 0.0396  se_lag100 0.0392  se_batch5 0.0433  se_batch10 0.0391  se_batch20 0.0433
+F1d b= 3000 n=  713  rel SE: se_lag2 0.0576  se_lag10 0.0612  se_lag30 0.0601  se_lag100 0.0827  se_batch5 0.0785  se_batch10 0.0807  se_batch20 0.0622
+F1d b=10000 n=  213  rel SE: se_lag2 0.1077  se_lag10 0.0871  se_lag30 0.0871  se_batch5 0.0764  se_batch10 0.0728  se_batch20 0.0975
+F1e b=  100 n=23951  rel SE: se_lag2 0.0112  se_lag10 0.0110  se_lag30 0.0103  se_lag100 0.0102  se_batch5 0.0124  se_batch10 0.0091  se_batch20 0.0113
+F1e b=  300 n= 7983  rel SE: se_lag2 0.0197  se_lag10 0.0188  se_lag30 0.0196  se_lag100 0.0175  se_batch5 0.0069  se_batch10 0.0156  se_batch20 0.0175
+F1e b= 1000 n= 2394  rel SE: se_lag2 0.0352  se_lag10 0.0341  se_lag30 0.0362  se_lag100 0.0326  se_batch5 0.0213  se_batch10 0.0323  se_batch20 0.0321
+F1e b= 3000 n=  797  rel SE: se_lag2 0.0569  se_lag10 0.0474  se_lag30 0.0470  se_lag100 0.0470  se_batch5 0.0452  se_batch10 0.0397  se_batch20 0.0536
+F1e b=10000 n=  238  rel SE: se_lag2 0.0972  se_lag10 0.0835  se_lag30 0.0835  se_batch5 0.0672  se_batch10 0.0438  se_batch20 0.0814
+F1x b=  100 n=24620  rel SE: se_lag2 0.0109  se_lag10 0.0105  se_lag30 0.0102  se_lag100 0.0096  se_batch5 0.0105  se_batch10 0.0118  se_batch20 0.0094
+F1x b=  300 n= 8206  rel SE: se_lag2 0.0193  se_lag10 0.0190  se_lag30 0.0192  se_lag100 0.0200  se_batch5 0.0131  se_batch10 0.0128  se_batch20 0.0173
+F1x b= 1000 n= 2461  rel SE: se_lag2 0.0356  se_lag10 0.0337  se_lag30 0.0355  se_lag100 0.0363  se_batch5 0.0282  se_batch10 0.0284  se_batch20 0.0307
+F1x b= 3000 n=  819  rel SE: se_lag2 0.0609  se_lag10 0.0648  se_lag30 0.0734  se_lag100 0.0667  se_batch5 0.0713  se_batch10 0.0718  se_batch20 0.0637
+F1x b=10000 n=  245  rel SE: se_lag2 0.1003  se_lag10 0.0936  se_lag30 0.1061  se_batch5 0.0916  se_batch10 0.1117  se_batch20 0.0987
+GUE F2 (24 seqs) b=  100 n/seq 3332  between-sequence rel SD 0.0316  vs lag-0–2 formula 0.0305  ratio 1.04
+GUE F2 (24 seqs) b=  300 n/seq 1110  between-sequence rel SD 0.0675  vs lag-0–2 formula 0.0530  ratio 1.27
+GUE F2 (24 seqs) b= 1000 n/seq 332  between-sequence rel SD 0.1174  vs lag-0–2 formula 0.0973  ratio 1.21
+GUE F2 (24 seqs) b= 3000 n/seq 110  between-sequence rel SD 0.1796  vs lag-0–2 formula 0.1544  ratio 1.16
+GUE F2 (24 seqs) b=10000 n/seq 32  between-sequence rel SD 0.2837  vs lag-0–2 formula 0.2682  ratio 1.06
+GUE S1 (16 seqs) b=  100 n/seq 3332  between-sequence rel SD 0.0372  vs lag-0–2 formula 0.0300  ratio 1.24
+GUE S1 (16 seqs) b=  300 n/seq 1110  between-sequence rel SD 0.0449  vs lag-0–2 formula 0.0516  ratio 0.87
+GUE S1 (16 seqs) b= 1000 n/seq 332  between-sequence rel SD 0.0851  vs lag-0–2 formula 0.0931  ratio 0.91
+GUE S1 (16 seqs) b= 3000 n/seq 110  between-sequence rel SD 0.1733  vs lag-0–2 formula 0.1511  ratio 1.15
+GUE S1 (16 seqs) b=10000 n/seq 32  between-sequence rel SD 0.3567  vs lag-0–2 formula 0.2634  ratio 1.35
+exit=0

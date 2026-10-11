@@ -498,3 +498,26 @@ when convenient, then on to the F2 pre-read with estimator B.
   while at b = 10⁴ the same cutoff move shifted v by 5×10⁻³. Estimator B was adopted to turn a bound into an identity,
   and it also cancels this error exactly, because the error is a constant in C. (`cs4/GS_ZETA_RESULTS.md` §6.2.)
 - Will pushed 85aeff84; both remotes were verified.
+
+## Twenty-seventh round (Will, 2026-10-11) — the Stage 2 rule
+
+```
+Stage 2 rule (Will, round 27): option (a).
+PASS iff pooled deviation within 2 SE (R2, k=2) AND ≥ 4 of 5 files within
+3 SE (R1, k=3). Precision guard: RESOLVABLE iff 2·SE_pool ≤ 0.07.
+Seal records: GUE calibration (z SD 1.04–1.08); actual false-fail rate
+~6–7%; power vs a 20% shrink error 0.92 (low side) / 0.68 (high side,
+towards GUE). Read report gives pooled ĝ_B ± CI beside the prediction,
+regardless of verdict.
+Then: build seal JSON + read script with md5 verification before decode.
+```
+- Will pushed e7fbf200; both remotes were verified.
+- **Correction found while building the seal (mine):** the pre-read (e7fbf200) calibrated against the Stage 1 GUE
+  sequences (16 × 10⁶). The dedicated Stage 2 baseline exists and is complete: 24 × 10⁶ fresh sequences from the 10-10
+  overnight queue (item 4; `ph2s2/f2_gue_levels.py`, seed base 20261012). The nineteenth round's "GUE baselines reusing
+  the F2 sequences" refers to those.
+  - The calibration, the false-FAIL rate of the adopted rule, and the dry run's GUE stand-in are re-run on the Stage 2
+    sequences. The Stage 1 sequences are kept as a replication.
+  - The numbers the seal records come from that re-run (`ph2s2/PH2S_STAGE2_PREREAD.md` §3, revised).
+- Built: `ph2s2/s2read.py` (read and dry run; every F2 md5 is checked before any decode) and `ph2s2/make_seal_json.py`.
+  The text is `ph2s2/PH2S_SEAL_2.0.md`, for Will's go; the seal commit and tag are Will's call.

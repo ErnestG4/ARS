@@ -65,6 +65,14 @@ def secorr(out):
 
 TAP = os.path.join(HERE, "results", "tapered")
 LADDER = (100, 300, 1000, 3000, 10_000)
+# GUE sets: F2 = the Stage 2 baseline (24 × 10⁶, seed base 20261012, `f2_gue_levels.py`; window sums by `tapered.py gue`
+# into results/tapered_f2gue); S1 = the Stage 1 sequences (16 × 10⁶, seed base 20261011), kept as a replication.
+GUE_SETS = {"F2": os.path.join(HERE, "results", "tapered_f2gue"), "S1": TAP}
+
+
+def load_gue(name):
+    d = GUE_SETS[name]
+    return [json.load(open(os.path.join(d, f))) for f in sorted(os.listdir(d)) if f.startswith("gue_gue_L1000000")]
 KS = (2, 10, 30, 100)
 MS = (5, 10, 20)
 
@@ -104,20 +112,21 @@ def seemp(out):
             res[name][b] = row
             print("%s b=%5d n=%5d  rel SE: " % (name, b, len(D))
                   + "  ".join("%s %.4f" % (k.replace("_rel", ""), v) for k, v in row.items() if k.endswith("_rel")))
-    G = [json.load(open(os.path.join(TAP, f))) for f in sorted(os.listdir(TAP)) if f.startswith("gue_gue_L1000000")]
-    res["GUE"] = {}
-    for b in LADDER:
-        Ds = [d_series(g["ladder"][str(b)]["sums"]) for g in G]
-        per = np.array([D.mean() for D in Ds])
-        allD = np.concatenate(Ds)
-        n = np.array([len(D) for D in Ds])
-        # spread across the 16 independent sequences, scaled to one sequence's length, against the per-sequence formulas
-        emp = float(per.std(ddof=1) / per.mean())
-        f02 = float(np.mean([se_lagK(D, 2) / D.mean() for D in Ds]))
-        res["GUE"][b] = dict(n_per_seq=float(n.mean()), between_seq_rel_sd=emp, lag02_rel_se_per_seq=f02,
-                             ratio=emp / f02, vB=float(allD.mean() / b))
-        print("GUE b=%5d n/seq %.0f  between-sequence rel SD %.4f  vs lag-0–2 formula %.4f  ratio %.2f"
-              % (b, n.mean(), emp, f02, emp / f02))
+    for gs in GUE_SETS:
+        G = load_gue(gs)
+        res[f"GUE_{gs}"] = {}
+        for b in LADDER:
+            Ds = [d_series(g["ladder"][str(b)]["sums"]) for g in G]
+            per = np.array([D.mean() for D in Ds])
+            allD = np.concatenate(Ds)
+            n = np.array([len(D) for D in Ds])
+            # spread across the independent sequences against the per-sequence lag-0–2 formula
+            emp = float(per.std(ddof=1) / per.mean())
+            f02 = float(np.mean([se_lagK(D, 2) / D.mean() for D in Ds]))
+            res[f"GUE_{gs}"][b] = dict(n_seq=len(G), n_per_seq=float(n.mean()), between_seq_rel_sd=emp,
+                                       lag02_rel_se_per_seq=f02, ratio=emp / f02, vB=float(allD.mean() / b))
+            print("GUE %s (%d seqs) b=%5d n/seq %.0f  between-sequence rel SD %.4f  vs lag-0–2 formula %.4f  ratio %.2f"
+                  % (gs, len(G), b, n.mean(), emp, f02, emp / f02))
     os.makedirs(out, exist_ok=True)
     json.dump(res, open(os.path.join(out, "seemp.json"), "w"), indent=1)
 
@@ -147,34 +156,100 @@ def se_v_rel(D):
 
 
 def guecal(out, reps=4000, seed=20261011):
-    rng = np.random.default_rng(seed)
-    G = [json.load(open(os.path.join(TAP, f))) for f in sorted(os.listdir(TAP)) if f.startswith("gue_gue_L1000000")]
-    pool = {b: np.concatenate([np.asarray(g["ladder"][str(b)]["sums"]) for g in G]) for b in (100, 10_000)}
-    # the pool's own v_B (successive differences within each sequence) is the truth for the resampled pseudo-files
-    vtrue = {b: float(np.mean(np.concatenate([d_series(g["ladder"][str(b)]["sums"]) for g in G])) / b) for b in (100, 10_000)}
-    gtrue = math.sqrt(vtrue[10_000] / vtrue[100])
+    """Per GUE set: 4000 replicate F2 reads, each five pseudo-files at F2's window counts drawn i.i.d. from the set's
+    pooled window sums, scored against the pool's own g. Per-file z tails, the pooled z, and the false-FAIL rate of the
+    adopted rule (twenty-seventh round: PASS iff |z_pool| ≤ 2 and ≥ 4 of 5 files with |z| ≤ 3)."""
     geo = f2_geometry()
-    res = dict(pool_windows={b: len(p) for b, p in pool.items()}, g_pool=gtrue, files={})
-    for ell, gg in geo.items():
-        z = np.empty(reps)
-        for k in range(reps):
-            v, se = {}, {}
-            for b in (100, 10_000):
-                S = rng.choice(pool[b], size=gg["n"][b], replace=True)
-                D = d_series(S)
-                v[b], se[b] = D.mean() / b, se_v_rel(D)
-            g = math.sqrt(v[10_000] / v[100])
-            z[k] = (g - gtrue) / (0.5 * g * math.sqrt(se[100] ** 2 + se[10_000] ** 2))
-        res["files"][ell] = dict(n=gg["n"], z_mean=float(z.mean()), z_sd=float(z.std()),
-                                 rate_abs_gt2=float(np.mean(np.abs(z) > 2)), rate_abs_gt3=float(np.mean(np.abs(z) > 3)),
-                                 rate_lo_gt2=float(np.mean(z < -2)), rate_hi_gt2=float(np.mean(z > 2)))
-        r = res["files"][ell]
-        print("ℓ=%-8s n(100) %5d n(1e4) %3d | z mean %+.3f sd %.3f | P(|z|>2) %.4f (nominal 0.0455)  P(|z|>3) %.4f "
-              "(0.0027) | P(z<−2) %.4f P(z>2) %.4f"
-              % (ell, gg["n"][100], gg["n"][10_000], r["z_mean"], r["z_sd"], r["rate_abs_gt2"], r["rate_abs_gt3"],
-                 r["rate_lo_gt2"], r["rate_hi_gt2"]))
+    ells = list(geo)
+    res = {}
+    for gs in GUE_SETS:
+        rng = np.random.default_rng([seed, len(gs), ord(gs[0])])
+        G = load_gue(gs)
+        pool = {b: np.concatenate([np.asarray(g["ladder"][str(b)]["sums"]) for g in G]) for b in (100, 10_000)}
+        # pseudo-files draw windows i.i.d. from the pool, so E[(S_{i+1} − S_i)²/2] is the pool's variance (ddof 0):
+        # that is their truth. (v1, e7fbf200, used the within-sequence successive-difference mean, which differs from it
+        # by the pool's sampling noise — a fixed offset of about ±0.3 SE_pool per GUE set.)
+        vtrue = {b: float(pool[b].var()) / b for b in (100, 10_000)}
+        gtrue = math.sqrt(vtrue[10_000] / vtrue[100])
+        Z, SE = np.empty((len(ells), reps)), np.empty((len(ells), reps))
+        for i, ell in enumerate(ells):
+            for k in range(reps):
+                v, se = {}, {}
+                for b in (100, 10_000):
+                    D = d_series(rng.choice(pool[b], size=geo[ell]["n"][b], replace=True))
+                    v[b], se[b] = D.mean() / b, se_v_rel(D)
+                g = math.sqrt(v[10_000] / v[100])
+                SE[i, k] = 0.5 * g * math.sqrt(se[100] ** 2 + se[10_000] ** 2)
+                Z[i, k] = (g - gtrue) / SE[i, k]
+        w = 1 / SE ** 2
+        zpool = (w * Z * SE).sum(0) / w.sum(0) * np.sqrt(w.sum(0))
+        r1 = (np.abs(Z) <= 3).sum(0) >= 4
+        r2 = np.abs(zpool) <= 2
+        row = dict(n_seq=len(G), pool_windows={b: len(p) for b, p in pool.items()}, g_pool=gtrue,
+                   z_sd_per_file={e: float(Z[i].std()) for i, e in enumerate(ells)},
+                   z_mean_per_file={e: float(Z[i].mean()) for i, e in enumerate(ells)},
+                   rate_abs_gt2_per_file={e: float(np.mean(np.abs(Z[i]) > 2)) for i, e in enumerate(ells)},
+                   rate_abs_gt3_per_file={e: float(np.mean(np.abs(Z[i]) > 3)) for i, e in enumerate(ells)},
+                   rate_lo_gt2_per_file={e: float(np.mean(Z[i] < -2)) for i, e in enumerate(ells)},
+                   zpool_sd=float(zpool.std()), rate_zpool_abs_gt2=float(np.mean(~r2)),
+                   rate_R1_fail=float(np.mean(~r1)), false_fail_rule=float(np.mean(~(r1 & r2))),
+                   twoSEpool_max=float(2 / np.sqrt(w.sum(0)).min()))
+        res[gs] = row
+        print("GUE %s (%d seqs): z SD per file %s | P(|z|>3) per file %s | z_pool SD %.3f, P(|z_pool|>2) %.4f | "
+              "R1 fail %.4f | false-FAIL of the rule %.4f | max 2·SE_pool %.4f"
+              % (gs, len(G), " ".join("%.3f" % x for x in row["z_sd_per_file"].values()),
+                 " ".join("%.4f" % x for x in row["rate_abs_gt3_per_file"].values()), row["zpool_sd"],
+                 row["rate_zpool_abs_gt2"], row["rate_R1_fail"], row["false_fail_rule"], row["twoSEpool_max"]))
     os.makedirs(out, exist_ok=True)
     json.dump(res, open(os.path.join(out, "guecal.json"), "w"), indent=1)
+
+
+def poolcal(out, reps=4000, seed=20261015):
+    """Why the pooled z is wider than the per-file z on GUE, and three SE/weight constructions for the pooled test.
+    A (adopted): SE_f = ½·ĝ_f·√(rSE²+rSE²), weights 1/SE_f². B: SE_f with the prediction g_pred,f in place of ĝ_f
+    (the relative SEs are still measured), weights 1/SE_f². C: the adopted SE_f, but weights fixed pre-data
+    ∝ (n(10⁴) − 1) (the rSE model), SE_pool from the measured SE_f. False-FAIL = P(|z_pool| > 2 or < 4 files |z| ≤ 3)."""
+    geo = f2_geometry()
+    ells = list(geo)
+    res = {}
+    for gs in GUE_SETS:
+        rng = np.random.default_rng([seed, ord(gs[0]), len(gs)])
+        G = load_gue(gs)
+        pool = {b: np.concatenate([np.asarray(g["ladder"][str(b)]["sums"]) for g in G]) for b in (100, 10_000)}
+        vtrue = {b: float(pool[b].var()) / b for b in (100, 10_000)}          # i.i.d. draws: the pool's variance
+        gt = math.sqrt(vtrue[10_000] / vtrue[100])
+        g = np.empty((len(ells), reps))
+        rel = np.empty((len(ells), reps))
+        for i, ell in enumerate(ells):
+            for k in range(reps):
+                v, rs = {}, {}
+                for b in (100, 10_000):
+                    D = d_series(rng.choice(pool[b], size=geo[ell]["n"][b], replace=True))
+                    v[b], rs[b] = D.mean() / b, se_v_rel(D)
+                g[i, k] = math.sqrt(v[10_000] / v[100])
+                rel[i, k] = 0.5 * math.sqrt(rs[100] ** 2 + rs[10_000] ** 2)
+        nfix = np.array([geo[e]["n"][10_000] - 1 for e in ells], float)[:, None]
+        out_v = {}
+        for name, se, w in (("A_adopted", g * rel, 1 / (g * rel) ** 2),
+                            ("B_se_at_prediction", gt * rel, 1 / (gt * rel) ** 2),
+                            ("C_fixed_weights", g * rel, np.broadcast_to(nfix, g.shape))):
+            z = (g - gt) / se
+            W = w / w.sum(0)
+            d_pool = (W * (g - gt)).sum(0)
+            se_pool = np.sqrt((W ** 2 * se ** 2).sum(0))
+            zp = d_pool / se_pool
+            r1 = (np.abs(z) <= 3).sum(0) >= 4
+            out_v[name] = dict(zpool_mean=float(zp.mean()), zpool_sd=float(zp.std()),
+                               p_lo=float(np.mean(zp < -2)), p_hi=float(np.mean(zp > 2)),
+                               false_fail=float(np.mean(~(r1 & (np.abs(zp) <= 2)))),
+                               d_pool_mean=float(d_pool.mean()))
+            print("GUE %s %-20s z_pool mean %+.3f SD %.3f | P(z<−2) %.4f P(z>2) %.4f | false-FAIL %.4f | mean d_pool %+.4f"
+                  % (gs, name, *[out_v[name][x] for x in ("zpool_mean", "zpool_sd", "p_lo", "p_hi", "false_fail",
+                                                           "d_pool_mean")]))
+        res[gs] = dict(g_true=gt, mean_g_hat=float(g.mean()), variants=out_v)
+        print("GUE %s: g_true %.4f, mean ĝ over pseudo-files %.4f (Jensen/ratio bias %+.4f)" % (gs, gt, g.mean(), g.mean() - gt))
+    os.makedirs(out, exist_ok=True)
+    json.dump(res, open(os.path.join(out, "poolcal.json"), "w"), indent=1)
 
 
 def simulate_g(g_true, n, kappa, rng, reps):
@@ -209,7 +284,13 @@ def opchar(out, reps=200_000, seed=20261012):
             w = 1 / SEs ** 2
             d = np.array([g_ for g_ in Z]) * SEs                             # ĝ − g_pred per file
             zpool = (w * d).sum(0) / w.sum(0) / np.sqrt(1 / w.sum(0))
-            row = {}
+            # variant C (poolcal): weights fixed pre-data ∝ n(10⁴) − 1, SE_pool from the measured per-file SEs
+            Wc = np.array([geo[e]["n"][10_000] - 1 for e in ells], float)[:, None]
+            Wc = Wc / Wc.sum()
+            zpool_c = (Wc * d).sum(0) / np.sqrt((Wc ** 2 * SEs ** 2).sum(0))
+            r1 = (np.abs(Z) <= 3).sum(0) >= 4
+            row = dict(adopted_pass=float(np.mean(r1 & (np.abs(zpool) <= 2))),
+                       adopted_fixedw_pass=float(np.mean(r1 & (np.abs(zpool_c) <= 2))))
             for k in (2.0, 3.0):
                 agree = (np.abs(Z) <= k).sum(0)
                 row[f"k{k:g}"] = dict(R1_pass=float(np.mean(agree >= 4)), R2_pass=float(np.mean(np.abs(zpool) <= k)),
@@ -217,10 +298,11 @@ def opchar(out, reps=200_000, seed=20261012):
             rows[eps] = row
         res["kappa"][kappa] = dict(per_file_se_g=per_file_se, rules=rows)
         print("κ = %.2f  per-file SE(ĝ_B): %s" % (kappa, "  ".join("%s %.4f" % (e, s) for e, s in per_file_se.items())))
-        print("   ε (0 = prediction true, 1 = GUE) | k=2: R1 R2 R1∧R2 | k=3: R1 R2 R1∧R2   (P(PASS))")
+        print("   ε (0 = prediction true, 1 = GUE) | k=2: R1 R2 R1∧R2 | k=3: R1 R2 R1∧R2 | adopted (R2 k=2 ∧ R1 k=3): IVW, fixed weights")
         for eps, row in rows.items():
-            print("   %+5.2f | %.4f %.4f %.4f | %.4f %.4f %.4f" % (eps, *[row["k2"][x] for x in ("R1_pass", "R2_pass", "R1R2_pass")],
-                                                                 *[row["k3"][x] for x in ("R1_pass", "R2_pass", "R1R2_pass")]))
+            print("   %+5.2f | %.4f %.4f %.4f | %.4f %.4f %.4f | %.4f %.4f" % (eps, *[row["k2"][x] for x in ("R1_pass", "R2_pass", "R1R2_pass")],
+                                                                        *[row["k3"][x] for x in ("R1_pass", "R2_pass", "R1R2_pass")],
+                                                                        row["adopted_pass"], row["adopted_fixedw_pass"]))
     os.makedirs(out, exist_ok=True)
     json.dump(res, open(os.path.join(out, "opchar.json"), "w"), indent=1)
 
@@ -269,7 +351,7 @@ def dryrun(out, seed=20261013):
         res["F1"][f"rules_k{k:g}"] = rules(rows, k)
         print("  core five, k = %g: %s" % (k, res["F1"][f"rules_k{k:g}"]))
     rng = np.random.default_rng(seed)
-    G = [json.load(open(os.path.join(TAP, f))) for f in sorted(os.listdir(TAP)) if f.startswith("gue_gue_L1000000")]
+    G = load_gue("F2")
     pool = {b: np.concatenate([np.asarray(g["ladder"][str(b)]["sums"]) for g in G]) for b in (100, 10_000)}
     geo = f2_geometry()
     for target in ("zeta", "gue"):
@@ -287,4 +369,4 @@ def dryrun(out, seed=20261013):
 
 
 if __name__ == "__main__":
-    {"secorr": secorr, "seemp": seemp, "guecal": guecal, "opchar": opchar, "dryrun": dryrun}[sys.argv[1]](sys.argv[2])
+    {"secorr": secorr, "seemp": seemp, "guecal": guecal, "opchar": opchar, "dryrun": dryrun, "poolcal": poolcal}[sys.argv[1]](sys.argv[2])

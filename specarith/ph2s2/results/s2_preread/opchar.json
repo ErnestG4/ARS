@@ -70,6 +70,8 @@
    },
    "rules": {
     "-0.5": {
+     "adopted_pass": 0.0,
+     "adopted_fixedw_pass": 0.0,
      "k2": {
       "R1_pass": 1e-05,
       "R2_pass": 0.0,
@@ -82,6 +84,8 @@
      }
     },
     "-0.3": {
+     "adopted_pass": 0.0008,
+     "adopted_fixedw_pass": 0.001865,
      "k2": {
       "R1_pass": 0.078685,
       "R2_pass": 0.0008,
@@ -94,6 +98,8 @@
      }
     },
     "-0.2": {
+     "adopted_pass": 0.076245,
+     "adopted_fixedw_pass": 0.115465,
      "k2": {
       "R1_pass": 0.478775,
       "R2_pass": 0.076245,
@@ -106,6 +112,8 @@
      }
     },
     "-0.1": {
+     "adopted_pass": 0.555355,
+     "adopted_fixedw_pass": 0.64548,
      "k2": {
       "R1_pass": 0.871635,
       "R2_pass": 0.555355,
@@ -118,6 +126,8 @@
      }
     },
     "0.0": {
+     "adopted_pass": 0.93696,
+     "adopted_fixedw_pass": 0.95254,
      "k2": {
       "R1_pass": 0.9783,
       "R2_pass": 0.936985,
@@ -130,6 +140,8 @@
      }
     },
     "0.1": {
+     "adopted_pass": 0.81261,
+     "adopted_fixedw_pass": 0.754545,
      "k2": {
       "R1_pass": 0.96079,
       "R2_pass": 0.81264,
@@ -142,6 +154,8 @@
      }
     },
     "0.2": {
+     "adopted_pass": 0.3156,
+     "adopted_fixedw_pass": 0.24428,
      "k2": {
       "R1_pass": 0.77284,
       "R2_pass": 0.31568,
@@ -154,6 +168,8 @@
      }
     },
     "0.3": {
+     "adopted_pass": 0.039205,
+     "adopted_fixedw_pass": 0.02299,
      "k2": {
       "R1_pass": 0.3671,
       "R2_pass": 0.03926,
@@ -166,6 +182,8 @@
      }
     },
     "0.5": {
+     "adopted_pass": 2.5e-05,
+     "adopted_fixedw_pass": 1e-05,
      "k2": {
       "R1_pass": 0.0072,
       "R2_pass": 2.5e-05,
@@ -178,6 +196,8 @@
      }
     },
     "1.0": {
+     "adopted_pass": 0.0,
+     "adopted_fixedw_pass": 0.0,
      "k2": {
       "R1_pass": 0.0,
       "R2_pass": 0.0,
@@ -201,6 +221,8 @@
    },
    "rules": {
     "-0.5": {
+     "adopted_pass": 0.0,
+     "adopted_fixedw_pass": 1e-05,
      "k2": {
       "R1_pass": 0.003905,
       "R2_pass": 0.0,
@@ -213,6 +235,8 @@
      }
     },
     "-0.3": {
+     "adopted_pass": 0.027255,
+     "adopted_fixedw_pass": 0.05248,
      "k2": {
       "R1_pass": 0.326105,
       "R2_pass": 0.027255,
@@ -225,6 +249,8 @@
      }
     },
     "-0.2": {
+     "adopted_pass": 0.239895,
+     "adopted_fixedw_pass": 0.345615,
      "k2": {
       "R1_pass": 0.688175,
       "R2_pass": 0.239895,
@@ -237,6 +263,8 @@
      }
     },
     "-0.1": {
+     "adopted_pass": 0.659225,
+     "adopted_fixedw_pass": 0.76744,
      "k2": {
       "R1_pass": 0.90719,
       "R2_pass": 0.659225,
@@ -249,6 +277,8 @@
      }
     },
     "0.0": {
+     "adopted_pass": 0.92072,
+     "adopted_fixedw_pass": 0.951185,
      "k2": {
       "R1_pass": 0.975345,
       "R2_pass": 0.920735,
@@ -261,6 +291,8 @@
      }
     },
     "0.1": {
+     "adopted_pass": 0.91218,
+     "adopted_fixedw_pass": 0.870545,
      "k2": {
       "R1_pass": 0.97889,
       "R2_pass": 0.91219,
@@ -273,6 +305,8 @@
      }
     },
     "0.2": {
+     "adopted_pass": 0.653225,
+     "adopted_fixedw_pass": 0.545995,
      "k2": {
       "R1_pass": 0.92846,
       "R2_pass": 0.653265,
@@ -285,6 +319,8 @@
      }
     },
     "0.3": {
+     "adopted_pass": 0.29447,
+     "adopted_fixedw_pass": 0.199635,
      "k2": {
       "R1_pass": 0.76341,
       "R2_pass": 0.294505,
@@ -297,6 +333,8 @@
      }
     },
     "0.5": {
+     "adopted_pass": 0.01208,
+     "adopted_fixedw_pass": 0.004445,
      "k2": {
       "R1_pass": 0.2101,
       "R2_pass": 0.01213,
@@ -309,6 +347,8 @@
      }
     },
     "1.0": {
+     "adopted_pass": 0.0,
+     "adopted_fixedw_pass": 0.0,
      "k2": {
       "R1_pass": 1.5e-05,
       "R2_pass": 0.0,
