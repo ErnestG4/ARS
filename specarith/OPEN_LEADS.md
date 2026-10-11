@@ -54,6 +54,19 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   - **Bearing on the twenty-second-round novelty wording:** it says CD's −0.2 "may be a generic rigidity effect". On
     this evidence it is not; it is arithmetic in origin. Wording change: Will's call.
   - **Still to do:** the theory curve ρ₁(u) from CS08 (or the explicit formula) in CD's configuration.
+  - **Scoping the theory curve (not started; for Will to prioritise).** Three obstacles:
+    - **CS08's theorem does not cover CD's statistic as it stands.** It needs test functions holomorphic in a strip.
+      CD's blocks are sharp, indexed by zero count (each starts at a zero, a Palm-type conditioning), and own-length
+      wrapping makes W nonlinear in the zeros.
+    - **The tractable neighbour:** blocks at fixed positions, unit wrapping, and a smooth taper w,
+      Z_k = Σ_γ w(x_γ − kn) e^{2πi x_γ/n}. Its lag-1 Cov(|Z_k|², |Z_{k+1}|²) is a four-point integral of the same
+      kind as Stage 2's (`cs4lr`), with the pair bump F replaced by e^{2πi(x₁ − x₂)/n}.
+    - **Comparing the two needs the bridge.** That variant would first be measured on F1 next to CD's own
+      construction, to check that it keeps the u-curve.
+  - **Reading of the mechanism (a conjecture, not a check).** The mode e^{2πiΔ/n} probes frequency u in t. By the
+    explicit formula, the prime powers m with log m near u contribute terms that are deterministic in the block position
+    and rotate by 2π·log m/u from one block to the next. Their beats then set the sign of ρ₁. The minimum near
+    u ≈ 0.7 sits at log 2 = 0.693. GUE has no such terms, which fits its ρ₁ ≈ 0.
 
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
