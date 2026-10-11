@@ -580,3 +580,48 @@ lag-1 correlation and the non-decaying C(r).
   - Conrey & Snaith (2008), doi:10.4310/CNTP.2008.v2.n3.a1;
   - Coram & Diaconis (2003), doi:10.1088/0305-4470/36/12/302;
   - Platt (2017), doi:10.1090/mcom/3198, the F1 and F2 zero data.
+
+## Thirtieth round (Will, 2026-10-11) — release done
+- Will tagged and released v2026.10.11. The GitHub release fed Zenodo automatically.
+- Verified: the tag is annotated on main merge 137590d5 and is on both remotes.
+- Will asked what's next. My proposal: route (a) on F3, with the estimand (μ amplitude vs κ-type) as Will's call. It is
+  not yet answered.
+- *Numbering:* this round is not in Will's own numbering. It is filed here so that Will's next message, which Will
+  labelled round 31, follows without a gap. Will may renumber.
+
+## Thirty-first round (Will, 2026-10-11) — Phase 1 decisions D1–D6
+
+```
+Phase 1 decisions (Will, round 31):
+Corrections: (1) §7 — USp/EC zeros already generated 10-10 (generation only);
+seal pins those hashes; only the U family remains to generate. (2) §4 — with
+φ̂ ⊂ (−1,1), SO(even)/SO(odd)/O have identical one-level densities: D(φ)
+separates U / USp / orthogonal-family; even vs odd comes from first-zero laws.
+D1: USp, EC = generated ranges (pinned). U = primitive COMPLEX χ mod prime
+q ≤ 1000, conjugate pairs counted once; real χ belong to USp only. Add the
+E₁₁ quadratic-twist family (DHKMS published value, route (b)).
+D2: fit/test split = seeded random split stratified by conductor band (not
+contiguous ranges). Fit statistic = central-vanishing count. Fallback (c) if
+the fit set has < 30 central vanishings.
+D3: Fejér-type φ, φ̂ = triangle on (−3/4, 3/4) for all families (inside all
+proved ranges incl. Young's (−7/9, 7/9)); per-family maximal supports
+descriptive.
+D4: seal the NULL — peak_q shows no family dependence beyond the calibrated
+RMT band; PASS iff differences stay within it. Wiring committed first.
+D5: per-statistic z-distance from calibrated bands; combine D(φ) and first-
+zero law by sum of squares; nearest type with separation margin ≥ 3, else
+ambiguous. Verdict on pooled conductor range per family; bands descriptive.
+D6: plain conductor scaling for main arms; DHKMS N_eff only in the excised arm.
+```
+- **Correction (2) checked:** on the Fourier side,
+  - SO(even): Ŵ = δ + ½η;
+  - SO(odd): Ŵ = δ − ½η + 1;
+  - O: Ŵ = δ + ½;
+  - here η = 1 on |u| < 1. On supp φ̂ ⊂ (−1, 1) all three are δ + ½, so they coincide. The draft's §4 classifier
+    would have tried to separate them through D(φ); it is now corrected in `ph1/PH1_SEAL_DRAFT.md`.
+- **The 10-10 generation was checked before the seal pins it:**
+  - The χ_d set is exactly the 121,588 fundamental discriminants with 3 ≤ |d| ≤ 2·10⁵. This was counted
+    independently from the definition; no zero was read.
+  - Six of the 16 `chi_*.jsonl` chunks are empty, with sha256 e3b0c442…, the hash of an empty file. This is expected:
+    chunks go by list index mod 16, and fundamental discriminants never fall in index classes {2, 6, 10, 11, 14, 15}.
+  - Close-pair recheck: 0 mismatches for χ_d (2,323 rechecked) and for EC (3,983 rechecked).
