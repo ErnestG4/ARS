@@ -521,3 +521,21 @@ Then: build seal JSON + read script with md5 verification before decode.
   - The numbers the seal records come from that re-run (`ph2s2/PH2S_STAGE2_PREREAD.md` §3, revised).
 - Built: `ph2s2/s2read.py` (read and dry run; every F2 md5 is checked before any decode) and `ph2s2/make_seal_json.py`.
   The text is `ph2s2/PH2S_SEAL_2.0.md`, for Will's go; the seal commit and tag are Will's call.
+
+## Twenty-eighth round (Will, 2026-10-11) — pooling construction C; conditional GO for the Stage 2 seal
+
+```
+Stage 2 (Will, round 28): pooling = option C — weights fixed pre-data,
+∝ number of b = 10⁴ windows per file. Seal records C's GUE calibration:
+false-fail 5.5–5.7%, power vs a 20% shrink error 0.88 (low) / 0.76 (high);
+note the round-27 "6–7%" figure was superseded (simplified model;
+inverse-variance pooling gave 9.0% on the proper Stage 2 GUE baseline).
+Conditional GO: after switching s2read.py to C, re-run both dry runs (F1
+pipeline check, GUE stand-in) and make_seal_json.py --check. If all pass
+as before: commit the seal, tag ph2s-stage2-seal. If anything changes: hold
+and report.
+Will: push 66380cba, 35bd8dd1 (and the seal commit + tag once made);
+then download the five F2 files for the read on spot.
+```
+- **Weights as implemented:** W_f ∝ n_f(10⁴) − 1, the number of successive differences at b = 10⁴. The counts come
+  from the pinned height ranges (`s2read.windows_from_range`), not from the data. They are pinned in the seal JSON.

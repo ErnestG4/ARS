@@ -1,7 +1,8 @@
 # PH2S Stage 2 — CS08's theory-fixed prediction of the zeros' tapered window-variance growth, tested on F2 (PH2S_SEAL 2.0)
 
-**Status: TEXT FOR WILL'S GO, with one item open: the pooling construction (§4; `PH2S_STAGE2_PREREAD.md` §6).**
-- **Design decisions:** nineteenth to twenty-seventh rounds (`../ph2/PH2_DECISIONS_2026-10-07.md`); the prediction is
+**Status: SEALED on Will's conditional GO (twenty-eighth round).** Pooling is construction C. The GO was conditional on
+both dry runs and the seal-builder checks passing as before after the switch to C (§4).
+- **Design decisions:** nineteenth to twenty-eighth rounds (`../ph2/PH2_DECISIONS_2026-10-07.md`); the prediction is
   `../cs4/G_S_DESIGN.md` §6, amendments 1–8.
 - **The prediction is already public:** tag `ph2s-stage2-prediction` (commit 8bc570d1), pushed before any F2 zero was
   downloaded.
@@ -43,10 +44,15 @@ file-averaged expectation of estimator B (amendments 7 and 8). Nothing in it is 
   ~6e-4 in g against a per-file SE of ~0.04.
 - Prime-cutoff convergence at b = 10⁴: g_B moves by 9e-7 for 3·10⁵ → 10⁶.
 
-## 3. Rule (Will, twenty-seventh round; option (a))
-Per file: z_f = (ĝ_f − g_pred,f)/SE_f. Pooled, with weights w_f = 1/SE_f²:
-d_pool = Σw(ĝ − g_pred)/Σw, SE_pool = (Σw)^{−1/2}, z_pool = d_pool/SE_pool.
-- **Precision guard (reads only the SEs):** RESOLVABLE iff 2·SE_pool ≤ 0.07. Otherwise **NOT RESOLVABLE**.
+## 3. Rule (Will: twenty-seventh round option (a); twenty-eighth round pooling C)
+Per file: z_f = (ĝ_f − g_pred,f)/SE_f.
+- **Pooling (C).** The weights are fixed before the data: W_f ∝ n_f(10⁴) − 1, the successive differences at b = 10⁴
+  from each file's pinned height range, with ΣW = 1. They are 0.1733, 0.1813, 0.1902, 0.2151 and 0.2400, in the file
+  order of §2.
+  - d_pool = ΣW_f(ĝ_f − g_pred,f), SE_pool = √(ΣW_f²·SE_f²), z_pool = d_pool/SE_pool.
+  - The read refuses if its weights differ from the sealed ones.
+- **Precision guard (reads only the SEs and the fixed weights):** RESOLVABLE iff 2·SE_pool ≤ 0.07. Otherwise
+  **NOT RESOLVABLE**.
 - **PASS iff RESOLVABLE, |z_pool| ≤ 2 (R2) and ≥ 4 of 5 files have |z_f| ≤ 3 (R1).** Otherwise **FAIL**.
 - **Reported regardless of verdict:**
   - pooled ĝ_B ± 95% CI (± 2·SE_pool), beside the pooled prediction with the same weights;
@@ -54,7 +60,7 @@ d_pool = Σw(ĝ − g_pred)/Σw, SE_pool = (Σw)^{−1/2}, z_pool = d_pool/SE_po
   - the v̂_B ladder at all five rungs (descriptive).
 - **Reading.**
   - PASS means the zeros' growth agrees with CS08 to within about ±13% of the predicted shrink (pooled 2·SE ≈ 0.037),
-    less tightly on the high side, towards GUE (§4).
+    somewhat less tightly on the high side, towards GUE (§4).
   - FAIL means a pooled deviation beyond 2 SE, or two or more files beyond 3 SE.
   - The direction against GUE is not a separate arm: Stage 1 established it, and the band excludes GUE.
 
@@ -65,28 +71,35 @@ d_pool = Σw(ĝ − g_pred)/Σw, SE_pool = (Σw)^{−1/2}, z_pool = d_pool/SE_po
 - **GUE calibration, on the Stage 2 baseline** (24 × 10⁶ sequences, `f2_gue_levels.py`; Stage 1's 16 as replication):
   - **Per file:** z SD 1.05–1.09; P(|z| > 3) = 0.006–0.009 (nominal 0.0027). The plug-in SE is 5–9% small, with a
     heavier lower tail.
-  - **Pooled, as adopted (inverse-variance weights):** z_pool mean −0.35, SD 1.12.
-  - **The actual false-FAIL rate of the adopted rule is 9.0%** (Stage 1 replication: 8.5–9.0%). Round 27 recorded
-    "~6–7%", taken from the χ² model, which understates the skew. Weights ∝ 1/ĝ² favour low draws.
-  - **PENDING WILL (`PH2S_STAGE2_PREREAD.md` §6):** keep this construction and record 9%, or switch to weights fixed
-    pre-data ∝ n_f(10⁴) − 1 (false-FAIL 5.5–5.7%; power 0.88 / 0.76 against a 20% shrink error).
-- **Operating characteristics of the adopted rule** (`opchar`; SE model κ·√(3/(n − 1)), κ = 1 typical of F1 and
-  κ = 1.37 the worst F1 file). Alternatives are g = g_pred + ε(g_GUE,B − g_pred).
+  - **Pooled, under the sealed construction C:** z_pool mean −0.10, SD 1.04 (replication: −0.06, 1.03).
+  - **The sealed rule's false-FAIL rate is 5.5% on the Stage 2 baseline** and 5.7% on the replication (nominal 4.6%).
+  - **Superseded figure.** Round 27 recorded "~6–7%". That came from a simplified χ² model, which understates the skew
+    of v̂_B(10⁴). On the proper Stage 2 baseline, inverse-variance pooling gave 9.0%: weights ∝ 1/ĝ² favour low draws
+    (z_pool mean −0.35). Round 28 chose C.
+- **Operating characteristics of the sealed rule** (`opchar`; SE model κ·√(3/(n − 1)); κ = 1 is typical of F1, and
+  κ = 1.37 is the worst F1 file). Alternatives are g = g_pred + ε(g_GUE,B − g_pred).
 
   | ε | −0.3 | −0.2 | −0.1 | 0 | +0.1 | +0.2 | +0.3 | GUE |
   |---|---|---|---|---|---|---|---|---|
-  | P(PASS), κ = 1 | 0.001 | 0.076 | 0.56 | 0.937 | 0.81 | 0.32 | 0.039 | 0.000 |
-  | P(PASS), κ = 1.37 | 0.027 | 0.24 | 0.66 | 0.921 | 0.91 | 0.65 | 0.29 | 0.000 |
+  | P(PASS), κ = 1 | 0.002 | 0.12 | 0.65 | 0.953 | 0.75 | 0.24 | 0.023 | 0.000 |
+  | P(PASS), κ = 1.37 | 0.053 | 0.35 | 0.77 | 0.951 | 0.87 | 0.55 | 0.20 | 0.000 |
 
-  - **Power against a 20% error in the shrink:** 0.92 on the low side and 0.68 on the high side (towards GUE) at κ = 1;
-    0.76 / 0.35 at κ = 1.37.
-  - **False-FAIL rate with the prediction exact:** 6.3% (κ = 1) to 7.9% (κ = 1.37). On GUE see above.
-- **Dry run (`s2read.py dryrun`, the read code):**
+  - **Power against a 20% error in the shrink:** 0.88 on the low side and 0.76 on the high side (towards GUE) at κ = 1;
+    0.65 / 0.45 at κ = 1.37.
+  - **Pooled 2·SE_pool** is about 0.037 at κ = 1, which is 13% of the mean predicted shrink.
+  - **False-FAIL rate with the prediction exact:** 4.7–4.9% in the model, and 5.5–5.7% on GUE (above). GUE is the
+    record.
+- **Dry run (`s2read.py dryrun`: the sealed code, run on spot after the switch to C; `results/dryrun/S2_DRYRUN.json`):**
   - **F1 (seen; decoded through the read path; prediction interpolated in ℓ and held at the end values):** PASS, with
-    z_pool = −0.24 and per-file |z| ≤ 0.92. The read path reproduces the stored window sums exactly. This is a pipeline
-    check, not evidence.
-  - **GUE stand-in at F2 geometry:** FAIL against the ζ prediction; PASS against the GUE prediction.
-  - **Guard witness:** a would-be PASS (ĝ = prediction) with per-file SE 0.10 reads NOT RESOLVABLE.
+    z_pool = +0.01 (−0.24 under the superseded weights), per-file |z| ≤ 0.92 and 2·SE_pool = 0.039.
+    - The read path reproduces the stored window sums exactly (max |Δ| = 0).
+    - This is a pipeline check, not evidence.
+  - **GUE stand-in at F2 geometry** (windows from the Stage 2 GUE baseline):
+    - against the ζ prediction: FAIL, z_pool = +11.3;
+    - against the GUE prediction: PASS, z_pool = −0.07.
+  - **Guard witness:** a would-be PASS (ĝ = prediction) with per-file SE 0.10 gives 2·SE_pool = 0.090 and reads
+    NOT RESOLVABLE.
+  - **`make_seal_json.py --check`:** all six refusal checks pass.
 
 ## 5. Data
 F2 (`../ph2r2/FRESH_SETS_F1_F3.md`, pinned 2026-10-09; a ≥ 1-file gap from every touched height range):

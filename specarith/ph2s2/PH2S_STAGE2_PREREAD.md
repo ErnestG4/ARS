@@ -8,7 +8,7 @@ window sums, so it is light and was run locally.
 **Status:**
 - v1: e7fbf200.
 - Revised in the twenty-seventh round: §3 (Stage 2 GUE baseline; corrected reference value; pooling bias) and §4–§6.
-- Rule adopted: option (a). **Open for Will: the pooling construction (§6).**
+- Rule adopted: option (a), with pooling construction C (twenty-eighth round; §6). Sealed text: `PH2S_SEAL_2.0.md`.
 
 ## 1. The prediction under test (tag `ph2s-stage2-prediction`)
 | F2 file (ℓ) | 15.7502 | 16.4972 | 17.2491 | 19.5003 | 21.75 |
@@ -158,7 +158,9 @@ P(PASS), κ = 1 (κ = 1.37 in brackets):
   - B (SE at the prediction) lies between them: 6.6–6.8%.
   - The guard is unaffected either way. For C it uses SE_pool = √(Σ W_f² SE_f²), which is ≥ the inverse-variance
     SE_pool, so the guard becomes slightly stricter.
-- `s2read.py` implements A, as adopted. Switching to C changes `evaluate()` only.
+- `s2read.py` implemented A as adopted; switching to C changed `evaluate()` only.
+- **Chosen (Will, twenty-eighth round): C.** `s2read.py` now pools with the fixed weights. They are pinned in the seal
+  JSON, and the read refuses if they differ.
 
 ## 6a. (v1, superseded) the options offered before the twenty-seventh round
 Options (both are precision-only guards; neither reads ĝ):

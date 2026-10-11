@@ -11,10 +11,11 @@ the dry run through the same code.
                              FAIL) and (iii) against the GUE prediction (expect PASS), plus the precision-guard witness
                              (expect NOT RESOLVABLE on a would-be PASS) -> results/dryrun/S2_DRYRUN.json
 
-Rules (sealed; Will, twenty-seventh round, option (a)). Per F2 file f: ĝ_f = √(v̂_B(10⁴)/v̂_B(100)), with v̂_B the
-successive-difference estimator (tapered.pooled_diff), SE_f = ½·ĝ_f·√(rSE₁₀₀² + rSE₁₀⁴²) (lag-0–2 SEs),
-z_f = (ĝ_f − g_pred,f)/SE_f. Pooled, inverse-variance weights w_f = 1/SE_f²: d_pool = Σw(ĝ − g_pred)/Σw,
-SE_pool = (Σw)^{−1/2}, z_pool = d_pool/SE_pool.
+Rules (sealed; Will, twenty-seventh round option (a), twenty-eighth round pooling C). Per F2 file f:
+ĝ_f = √(v̂_B(10⁴)/v̂_B(100)), with v̂_B the successive-difference estimator (tapered.pooled_diff),
+SE_f = ½·ĝ_f·√(rSE₁₀₀² + rSE₁₀⁴²) (lag-0–2 SEs), z_f = (ĝ_f − g_pred,f)/SE_f. Pooled with weights fixed pre-data,
+W_f ∝ n_f(10⁴) − 1 (successive differences at b = 10⁴, from the pinned height range; ΣW = 1):
+d_pool = ΣW(ĝ − g_pred), SE_pool = √(ΣW²·SE_f²), z_pool = d_pool/SE_pool.
   - Precision guard (reads only SEs): RESOLVABLE iff 2·SE_pool ≤ 0.07; otherwise NOT RESOLVABLE.
   - PASS iff RESOLVABLE and |z_pool| ≤ 2 (R2) and ≥ 4 of 5 files have |z_f| ≤ 3 (R1); otherwise FAIL.
   - Reported regardless of verdict: pooled ĝ_B ± 95% CI (± 2·SE_pool) beside the pooled prediction (same weights),
@@ -51,12 +52,22 @@ F2 = {"15.7502": ("zeros_42446000.dat", 42_446_000, 44_546_000, "b9e8b34c5bab736
 F1_ELL = dict(F1a=14.4625, F1b=15.4741, F1c=17.7481, F1d=19.2500, F1e=21.5000, F1x=22.1000)
 
 
-def f2_windows():
-    """n_windows(b) per F2 file from the pinned ends, as tapered.window_sums lays them out (no zero read)."""
+def windows_from_range(t0, t1):
+    """n_windows(b) for a file's pinned height range, as tapered.window_sums lays them out (no zero read)."""
     nbar = lambda t: t / (2 * math.pi) * math.log(t / (2 * math.pi * math.e)) + 7 / 8
     sig = lambda b: b / math.sqrt(2 * math.pi)
-    return {ell: {b: len(np.arange(nbar(t0) + 4 * sig(b), nbar(t1) - 4 * sig(b), 3 * b)) for b in T.LADDER}
-            for ell, (_, t0, t1, _) in F2.items()}
+    return {b: len(np.arange(nbar(t0) + 4 * sig(b), nbar(t1) - 4 * sig(b), 3 * b)) for b in T.LADDER}
+
+
+def f2_windows():
+    return {ell: windows_from_range(t0, t1) for ell, (_, t0, t1, _) in F2.items()}
+
+
+def pool_weights(nwin):
+    """Twenty-eighth round, C: W_f ∝ n_f(10⁴) − 1, normalised; nwin = {name: windows_from_range(...)}."""
+    raw = {n: float(v[10_000] - 1) for n, v in nwin.items()}
+    s = sum(raw.values())
+    return {n: x / s for n, x in raw.items()}
 
 
 def predictions():
@@ -91,25 +102,27 @@ def stats_from_sums(sums100, sums1e4):
     return g, 0.5 * g * math.hypot(v[100][1] / v[100][0], v[10_000][1] / v[10_000][0])
 
 
-def evaluate(files):
-    """files: {name: dict(g, se_g, g_pred)} for the five test files. The guard reads only the SEs."""
+def evaluate(files, weights):
+    """files: {name: dict(g, se_g, g_pred)} for the five test files; weights: {name: W_f} fixed pre-data (pool_weights).
+    The guard reads only the SEs and the fixed weights."""
     names = list(files)
     g = np.array([files[n]["g"] for n in names])
     se = np.array([files[n]["se_g"] for n in names])
     gp = np.array([files[n]["g_pred"] for n in names])
+    W = np.array([weights[n] for n in names])
+    assert abs(W.sum() - 1) < 1e-12 and (W > 0).all()
     z = (g - gp) / se
-    w = 1 / se ** 2
-    se_pool = float(1 / math.sqrt(w.sum()))
-    d_pool = float(np.sum(w * (g - gp)) / w.sum())
+    se_pool = float(math.sqrt(np.sum(W ** 2 * se ** 2)))
+    d_pool = float(np.sum(W * (g - gp)))
     z_pool = d_pool / se_pool
     agree = int(np.sum(np.abs(z) <= K_FILE))
     resolvable = 2 * se_pool <= GUARD
     R2 = abs(z_pool) <= K_POOL
     R1 = agree >= MIN_AGREE
     verdict = "NOT RESOLVABLE" if not resolvable else ("PASS" if (R1 and R2) else "FAIL")
-    g_pool = float(np.sum(w * g) / w.sum())
-    gp_pool = float(np.sum(w * gp) / w.sum())
-    return dict(per_file={n: dict(g=float(g[i]), se_g=float(se[i]), g_pred=float(gp[i]), z=float(z[i]),
+    g_pool = float(np.sum(W * g))
+    gp_pool = float(np.sum(W * gp))
+    return dict(per_file={n: dict(g=float(g[i]), se_g=float(se[i]), g_pred=float(gp[i]), z=float(z[i]), weight=float(W[i]),
                                   within_3se=bool(abs(z[i]) <= K_FILE)) for i, n in enumerate(names)},
                 se_pool=se_pool, guard_2se_pool=2 * se_pool, resolvable=bool(resolvable),
                 d_pool=d_pool, z_pool=float(z_pool), files_within_3se=agree, R1=bool(R1), R2=bool(R2),
@@ -161,7 +174,13 @@ def read():
         recs[ell] = rec
         files[ell] = dict(g=rec["g"], se_g=rec["se_g"], g_pred=pred[ell])
         print(ell, "ĝ_B %.4f ± %.4f  (pred %.4f)" % (rec["g"], rec["se_g"], pred[ell]), flush=True)
-    res = evaluate(files)
+    nwin = f2_windows()
+    W = pool_weights(nwin)
+    if any(abs(W[e] - seal["pool_weights"][e]) > 1e-15 for e in F2):
+        raise SystemExit("REFUSED: pooling weights differ from the sealed ones")
+    for ell, rec in recs.items():                            # descriptive: the data's window counts vs the pinned ones
+        rec["n_windows_pinned"] = nwin[ell]
+    res = evaluate(files, W)
     out = os.path.join(HERE, "results", "read")
     os.makedirs(out, exist_ok=True)
     json.dump(dict(records=recs, result=res), open(os.path.join(out, "S2_READ.json"), "w"), indent=1, default=float)
@@ -187,9 +206,10 @@ def dryrun(seed=20261014):
             f1[name] = dict(g=rec["g"], se_g=rec["se_g"], g_pred=interp(F1_ELL[name]))
         print(name, "ĝ_B %.4f ± %.4f  pred(interp) %.4f  max |Δ sums| vs stored %.1e"
               % (rec["g"], rec["se_g"], interp(F1_ELL[name]), repro[name]), flush=True)
-    out["F1_seen"] = evaluate(f1)
+    w_f1 = pool_weights({n: windows_from_range(S1.F1[n][1], S1.F1[n][2]) for n in f1})
+    out["F1_seen"] = evaluate(f1, w_f1)
     out["F1_seen"].update(expected="PASS", sums_reproduce_stored_max_abs=repro)
-    # (ii)/(iii) GUE stand-in at F2 geometry: windows drawn i.i.d. from the pooled Stage 1 GUE window sums
+    # (ii)/(iii) GUE stand-in at F2 geometry: windows drawn i.i.d. from the pooled Stage 2 GUE window sums
     rng = np.random.default_rng(seed)
     G = [json.load(open(os.path.join(TAP_F2GUE, f))) for f in sorted(os.listdir(TAP_F2GUE)) if f.startswith("gue_gue_L1000000")]
     pool = {b: np.concatenate([np.asarray(g["ladder"][str(b)]["sums"]) for g in G]) for b in (100, 10_000)}
@@ -197,12 +217,13 @@ def dryrun(seed=20261014):
     stand = {}
     for ell in F2:
         stand[ell] = stats_from_sums(rng.choice(pool[100], nw[ell][100]), rng.choice(pool[10_000], nw[ell][10_000]))
-    out["GUE_vs_zeta"] = evaluate({e: dict(g=g, se_g=s, g_pred=pred[e]) for e, (g, s) in stand.items()})
+    W = pool_weights(nw)
+    out["GUE_vs_zeta"] = evaluate({e: dict(g=g, se_g=s, g_pred=pred[e]) for e, (g, s) in stand.items()}, W)
     out["GUE_vs_zeta"]["expected"] = "FAIL"
-    out["GUE_vs_GUE"] = evaluate({e: dict(g=g, se_g=s, g_pred=G_GUE_B) for e, (g, s) in stand.items()})
+    out["GUE_vs_GUE"] = evaluate({e: dict(g=g, se_g=s, g_pred=G_GUE_B) for e, (g, s) in stand.items()}, W)
     out["GUE_vs_GUE"]["expected"] = "PASS"
-    # (iv) guard witness: a would-be PASS (ĝ = prediction) with per-file SE 0.10 -> 2·SE_pool = 0.089 > 0.07
-    out["guard_witness"] = evaluate({e: dict(g=pred[e], se_g=0.10, g_pred=pred[e]) for e in F2})
+    # (iv) guard witness: a would-be PASS (ĝ = prediction) with per-file SE 0.10 -> 2·SE_pool ≥ 0.089 > 0.07
+    out["guard_witness"] = evaluate({e: dict(g=pred[e], se_g=0.10, g_pred=pred[e]) for e in F2}, W)
     out["guard_witness"]["expected"] = "NOT RESOLVABLE"
     out["as_expected"] = {k: out[k]["verdict"] == out[k]["expected"] for k in ("F1_seen", "GUE_vs_zeta", "GUE_vs_GUE",
                                                                              "guard_witness")}
