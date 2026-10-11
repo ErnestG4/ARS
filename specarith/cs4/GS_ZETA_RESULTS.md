@@ -216,9 +216,15 @@ g_GUE,B = 0.9591 is the sine kernel through the same assembly (`gs_unitary_lag1.
   - **Resolution, not detection:** 2σ ≈ 1.8e-3 of v at b = 10⁴ for the heaviest pair at the lowest height. That is
     ≤ 9e-4 relative in g_B (≈ 6e-4 absolute), against a per-file SE on g of about 0.04. Other pairs carry smaller
     weights.
+  - **It misses the 10⁻³ standard; accepted as recorded (Will, twenty-fifth round).** The 10⁻³-of-v standard (seal
+    condition (ii), and §3's lag-0 resolution) is not met by this check's resolution at b = 10⁴. It does not matter
+    for the test: the shift it allows in g_B, about 6×10⁻⁴, is about 1.5% of the per-file SE on g (≈ 0.04), so it cannot
+    move a verdict. The standard is not relaxed elsewhere.
 - **Validity range.** Lag 1 at b = 10⁴ reaches r = 5.8·10⁴ spacings ≈ 2.3·10⁴ in t, still ≪ t ≥ 10⁷ (§4 of the design).
-- **Not re-checked for the lag:** the prime-cutoff diagnostic (amendment 4) was run on lag 0 at b ≤ 300. The lag term
-  at b = 10⁴ uses the same cutoff (3·10⁵) without its own convergence check, as v(10⁴) does.
+- **Prime-cutoff convergence of the lag term: required before the seal (Will, twenty-fifth round); RUNNING.** The
+  amendment-4 diagnostic covered lag 0 at b ≤ 300 only. `gs_zeta_cutB.py` evaluates every node pair at pmax 10⁶ for
+  ℓ = 15.7502 (short grid and the full estimator-B long grid). It compares Cov(3b)/b, v(b), v_B(b) and g_B against the
+  stored 3·10⁵ values; I₃ is held.
 
 ### 6.3 GUE baseline and F1 under B (descriptive; `ph2s2/results/tapered/TAPERED_SUMMARY.md`)
 - **GUE (Stage 1, 16 × 10⁶):** g_B = 0.997, with v_B(10⁴) = 0.1199 ± 0.0092 (SE ≈ 0.04 in g). The prediction 0.959 is

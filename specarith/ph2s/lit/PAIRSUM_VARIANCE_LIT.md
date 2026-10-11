@@ -49,10 +49,18 @@ Date: 2026-10-10. Scope: the published literature only (arXiv, journal pages, au
 - **Why the lag-1 anti-correlation is mentioned (Will):** consecutive blocks compensating each other is
   anti-correlation of a pair statistic along the sequence, in spirit an earlier glimpse of the kind of effect Stage 1
   measured; leaving it out would overstate the novelty.
-- **Why it does not undercut the claim:** each CD block is rescaled to its own length, and consecutive block lengths
+- ~~**Why it does not undercut the claim:** each CD block is rescaled to its own length, and consecutive block lengths
   are anti-correlated in any rigid sequence, the sine kernel included. The −0.2 may be a generic rigidity effect rather
   than an arithmetic one. CD did not compare it with a sine-kernel sequence, and their published numbers do not allow us
-  to.
+  to.~~
+- **Corrected (Will, twenty-fifth round; the earlier reading was too quick):** CD's lag-1 anti-correlation is "not
+  explained by GUE-level rigidity (GUE gives ≈ 0 under the same construction); an arithmetic origin is conjectured
+  (possibly prime 2) and not yet tested."
+  - Evidence (`../../ph2s2/cd_lag1.py`, `../../OPEN_LEADS.md` L5; F1 is seen data): with CD's construction, 16 × 10⁶
+    GUE levels give ρ₁ = +0.00 to +0.04 for every n = 4…64. F1 at n = ⌊ℓ⌋ gives −0.23 to −0.27, and ρ₁ is a function
+    of u = ℓ/n alone.
+  - The struck caution was untested when written. Under CD's construction, per-block rescaling plus sine-kernel
+    rigidity does not produce the anti-correlation.
 - **Version:** read in the 2000 technical report; the 2003 journal version may differ.
 
 ---

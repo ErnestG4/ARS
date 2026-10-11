@@ -25,6 +25,10 @@ technical-report version). They tested the across-block distribution of |Σ_j e^
 block-scale Fourier mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the circle, found agreement with CUE₄₂,
 and noted a lag-1 anti-correlation (−0.2) between consecutive blocks' values, without a sine-kernel or arithmetic
 comparison.
+- *Addendum (Will, twenty-fifth round; descriptive, F1 is seen data):* that anti-correlation is not explained by
+  GUE-level rigidity (GUE gives ≈ 0 under the same construction); an arithmetic origin is conjectured (possibly prime
+  2) and not yet tested. This corrects the twenty-second-round caution ("may be generic rigidity") recorded with the
+  adopted wording, which was too quick. Sources: `lit/PAIRSUM_VARIANCE_LIT.md` §0 and `../OPEN_LEADS.md` L5.
 
 Run under **PH2S_SEAL_1.0** (commit 663062ee, tag `ph2s-stage1-seal`; 11/11 pre-read checks). The F1 files were
 downloaded by hand by Will. `s1read.py` verified each md5 against the pins before decoding; all six matched. Per-bin

@@ -51,8 +51,9 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     | ρ₁ | −0.24 to −0.26 | −0.32 to −0.37 (minimum) | ≈ 0 | +0.55 (peak) | ≈ 0 | +0.2 (second peak) |
 
     At n = 42 on F1 (u ≈ 0.35–0.53) it therefore swings from +0.10 to +0.54.
-  - **Bearing on the twenty-second-round novelty wording:** it says CD's −0.2 "may be a generic rigidity effect". On
-    this evidence it is not; it is arithmetic in origin. Wording change: Will's call.
+  - **Bearing on the twenty-second-round novelty wording:** it said CD's −0.2 "may be a generic rigidity effect".
+    **Revised (Will, twenty-fifth round; recorded as a correction):** "not explained by GUE-level rigidity (GUE gives
+    ≈ 0 under the same construction); an arithmetic origin is conjectured (possibly prime 2) and not yet tested."
   - **Still to do:** the theory curve ρ₁(u) from CS08 (or the explicit formula) in CD's configuration.
   - **Scoping the theory curve (not started; for Will to prioritise).** Three obstacles:
     - **CS08's theorem does not cover CD's statistic as it stands.** It needs test functions holomorphic in a strip.

@@ -452,3 +452,31 @@ neighbour-window ρ ≈ −0.03 to −0.04 vs GUE ≈ 0 (seen data); check wheth
 the theory's ρ₁ for Coram–Diaconis's configuration explains their lag-1 −0.2.
 ```
 Recorded in `cs4/G_S_DESIGN.md` §6 amendment 8; open leads in `OPEN_LEADS.md`.
+
+## Twenty-fifth round (Will, 2026-10-10) — publication timing, two round-24 calls, and the Coram–Diaconis wording
+
+```
+push the branch and all existing seal tags;
+add a tag on the prediction commit, something like ph2s-stage2-prediction, so the prediction's public timestamp is
+unambiguous;
+leave the Zenodo snapshot until after the Stage 2 read, and bundle prediction, seal and result into one release.
+
+On the round-24 results, three quick calls:
+
+The lag-term oscillating part (2σ ≈ 1.8×10⁻³, missing the 10⁻³ standard): accept as recorded. In g it's about
+6×10⁻⁴, against a per-file SE around 0.04, so it can't affect the test. Record that it misses the standard and why
+that doesn't matter.
+The lag term's cutoff convergence at b = 10⁴: check it before the seal. It's the sealed quantity, and the earlier
+diagnostic showed cutoff sensitivity growing with b (0.64% at b = 100, 0.75% at b = 300 at low cutoffs). One height
+at b = 10⁴, cutoffs 3×10⁵ against 10⁶, is enough. That's cheap, and it's the one unchecked piece of the core number.
+The Coram–Diaconis wording: revise it. GUE giving about 0 against the zeros' −0.25 under their construction argues
+against the "may be generic rigidity" reading I suggested. New wording: "not explained by GUE-level rigidity (GUE
+gives ≈ 0 under the same construction); an arithmetic origin is conjectured (possibly prime 2) and not yet tested."
+My earlier wording was too quick; the correction should be recorded as such.
+```
+- Tag `ph2s-stage2-prediction` (annotated) on 8bc570d1, the commit that records the estimator-B prediction.
+- Lag-term oscillating part: recorded in `cs4/GS_ZETA_RESULTS.md` §6.2.
+- Cutoff check: `cs4/gs_zeta_cutB.py` (ℓ = 15.7502, every node pair, pmax 10⁶ vs the stored 3·10⁵); result in
+  `cs4/GS_ZETA_RESULTS.md` §6.2.
+- Coram–Diaconis: the twenty-second-round caution is corrected in `ph2s/lit/PAIRSUM_VARIANCE_LIT.md`, with an addendum
+  to `ph2s/PH2S_STAGE1_FINDINGS.md` and `OPEN_LEADS.md` L5.
