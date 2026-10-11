@@ -7,7 +7,7 @@
 Pins: code (s2read.py, tapered.py and the ph2r2 decode modules), the seal text, the prediction file and its values,
 F2 md5s, the rule, the GUE calibration, the operating characteristics, and hashes of the pre-read records.
 
-  python make_seal_json.py
+  python make_seal_json.py [--check]     (--check: run the refusal checks only; writes nothing)
 """
 import hashlib
 import json
@@ -28,7 +28,7 @@ def pred_blob_at_tag():
     return hashlib.sha256(blob).hexdigest()
 
 
-def main():
+def main(check_only=False):
     P = os.path.join(HERE, "results", "s2_preread")
     dry = json.load(open(os.path.join(HERE, "results", "dryrun", "S2_DRYRUN.json")))
     cal = json.load(open(os.path.join(P, "guecal.json")))
@@ -44,6 +44,9 @@ def main():
                   gue_calibration_stage2=cal["F2"]["n_seq"] == 24)
     if not all(checks.values()):
         raise SystemExit(f"REFUSED: {[k for k, v in checks.items() if not v]}")
+    if check_only:
+        print("checks (nothing written):", checks)
+        return
     adopted = {k: {e: r["adopted_pass"] for e, r in v["rules"].items()} for k, v in op["kappa"].items()}
     seal = dict(
         seal="PH2S_SEAL_2.0", stage=2, text="PH2S_SEAL_2.0.md", text_sha256=sha(os.path.join(HERE, "PH2S_SEAL_2.0.md")),
@@ -73,4 +76,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(check_only="--check" in sys.argv)
