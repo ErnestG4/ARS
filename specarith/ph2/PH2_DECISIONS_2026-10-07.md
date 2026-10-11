@@ -581,13 +581,18 @@ lag-1 correlation and the non-decaying C(r).
   - Coram & Diaconis (2003), doi:10.1088/0305-4470/36/12/302;
   - Platt (2017), doi:10.1090/mcom/3198, the F1 and F2 zero data.
 
-## Thirtieth round (Will, 2026-10-11) — release done
+## Note (not a decision round, 2026-10-11) — release done
 - Will tagged and released v2026.10.11. The GitHub release fed Zenodo automatically.
 - Verified: the tag is annotated on main merge 137590d5 and is on both remotes.
-- Will asked what's next. My proposal: route (a) on F3, with the estimand (μ amplitude vs κ-type) as Will's call. It is
-  not yet answered.
-- *Numbering:* this round is not in Will's own numbering. It is filed here so that Will's next message, which Will
-  labelled round 31, follows without a gap. Will may renumber.
+- Will asked what's next. My proposal: route (a) on F3, with the estimand (μ amplitude vs κ-type) as Will's call.
+- *Renumbered at Will's instruction (thirty-second round).* This entry was first filed as the thirtieth round.
+
+## Thirtieth round (Will, 2026-10-11) — route (a) GO, estimand μ
+- **Will's own text is MISSING.** Will states (thirty-second round) that round 30 was "route (a) GO + μ estimand" and
+  asked for the block to be pasted here. No such message reached this session, so the text is not recorded.
+- **Recorded from the thirty-second round's description only:** route (a) GO; the estimand is the amplitude μ of the
+  arithmetic lower-order part, as in R₂.
+- **To do:** Will re-sends the round-30 block, and it replaces this entry verbatim.
 
 ## Thirty-first round (Will, 2026-10-11) — Phase 1 decisions D1–D6
 
@@ -625,3 +630,29 @@ D6: plain conductor scaling for main arms; DHKMS N_eff only in the excised arm.
   - Six of the 16 `chi_*.jsonl` chunks are empty, with sha256 e3b0c442…, the hash of an empty file. This is expected:
     chunks go by list index mod 16, and fundamental discriminants never fall in index classes {2, 6, 10, 11, 14, 15}.
   - Close-pair recheck: 0 mismatches for χ_d (2,323 rechecked) and for EC (3,983 rechecked).
+
+## Thirty-second round (Will, 2026-10-11) — Phase 1 P1–P7; numbering
+
+```
+Round 32 (Will) — Phase 1 P1–P7:
+P1 log-spaced conductor bands per family: accept.
+P2 accept (mean lowest non-central scaled zero sealed; KS descriptive; extra-
+   central-vanishing curves excluded from first-zero law, kept in D(φ); U: one
+   sample per conjugate pair). Report excluded fraction per family/band.
+P3 accept: margin ≥ 3 on difference of combined distances; G0 ≥ 99%.
+P4 accept: size matched per member; ≥ 200 repeats per band.
+P5 E₁₁ twists: (i) known answer — reproduce DHKMS on d ≤ 4·10⁵ (calibration,
+   not evidence); (ii) test on fresh d > 4·10⁵ up to a limit declared from the
+   probe's cost (~1 day on spot); cut-off = the one DHKMS §5.4 states explicitly.
+P6 accept: N_eff for E₁₁ only; N_std per band for all EC.
+P7 accept, plus: RMT draws through the identical pipeline, truncated to the same
+   number of low zeros per member; per-pair bands set so the FAMILY-WISE
+   false-fail rate is 5% (6 pairs), calibrated empirically on the draws.
+Numbering: route (a) GO + μ estimand = round 30 (paste that block); the
+release note is a non-decision entry.
+```
+- **Spot is down** after an ESXi crash, then a power issue. It stays down until Will is back. The probe, the U
+  generation and the E₁₁ cost measurement wait for it.
+- **P7's six pairs read as the four families of the RF null:** U, USp, EC ε = +1 and EC ε = −1. The E₁₁ twists are not
+  in the RF null. This is flagged in the draft for Will to confirm.
+- **Round 30:** Will's text did not reach this session. A placeholder is recorded above.
