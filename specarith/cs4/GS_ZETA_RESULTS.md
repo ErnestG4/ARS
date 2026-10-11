@@ -149,4 +149,64 @@ two-point mean per unit length (E S(c; b) = b·μ(ℓ_c)). The three terms, as f
   only at b ≤ 300.
 - **c∞** (amendment 1: "still computed and reported") has **not been computed**. Any constant part of C is common to
   every window of a file, so centring removes it exactly. It is inside this same term and covered by the same bound.
-- **Open, for Will:** how to close (iii). Options in `MORNING_2026-10-10.md` (20:00).
+- ~~**Open, for Will:** how to close (iii). Options in `MORNING_2026-10-10.md` (20:00).~~ **Closed (twenty-fourth
+  round):** Will chose option B, the successive-difference estimator; its prediction is §6.
+
+## 6. Estimator B: the prediction (twenty-fourth round; G_S_DESIGN §6 amendment 8)
+Will chose B. The measured statistic is the successive-difference variance v̂_B(b) = Σ(S_{i+1} − S_i)²/(2(n − 1)b)
+over window centres 3b apart. Its expectation is exactly
+  E[v̂_B(b)] = v_B(b) := v(b)(1 − ρ₁(b)) = v(b) − Cov(3b)/b,   Cov(R)/b = (1/√2)∫_ℝ exp(−π(r − R)²/2b²) C(r) dr,
+with C assembled as for v(b) (amendment 7's file-averaged definition, ℓ-oscillating long-range part dropped). Seal
+condition (i) is met by the estimator, (ii) by §5, and c∞ cancels.
+- **Code:** `gs_zeta_ext.py` extends the long grid from 4.8·10⁴ to 6.0005·10⁴ on the production lattice, run by
+  `run_gs_zeta_ext_spot.sh` (5 heights × 8 chunks, all exit 0). `gs_zeta_B.py` → `results/gs_zeta/gs_zeta_B_summary.json`.
+  The per-pair npz files (pairs, ext) stay on spot, as for §1.
+- Every lag lies inside the grid to 5σ of its Gaussian: b = 10⁴ needs 5.82·10⁴.
+
+### 6.1 Prediction
+| ℓ (F2 file) | v_B(100) | v_B(300) | v_B(1000) | v_B(3000) | v_B(10⁴) | g_B = √(v_B(10⁴)/v_B(100)) | g_B / g_GUE,B | g (§1) |
+|---|---|---|---|---|---|---|---|---|
+| 15.7502 | 0.075036 | 0.060089 | 0.045339 | 0.037655 | 0.033711 | **0.6703** | 0.699 | 0.6765 |
+| 16.4972 | 0.078394 | 0.064145 | 0.048769 | 0.039868 | 0.034727 | **0.6656** | 0.694 | 0.6739 |
+| 17.2491 | 0.081532 | 0.068046 | 0.052375 | 0.042417 | 0.036016 | **0.6646** | 0.693 | 0.6738 |
+| 19.5003 | 0.089413 | 0.078041 | 0.062954 | 0.051091 | 0.041697 | **0.6829** | 0.712 | 0.6896 |
+| 21.7500 | 0.094936 | 0.085466 | 0.072090 | 0.060003 | 0.049230 | **0.7201** | 0.751 | 0.7217 |
+
+g_GUE,B = 0.9591 is the sine kernel through the same assembly (`gs_unitary_lag1.py`; g_GUE = 0.9606 under §1).
+
+- **Positivity guard (on v_B): PASS** at every rung and height.
+- **ρ₁(b), the predicted lag-1 correlation of windows 3b apart:**
+
+  | ℓ | b = 100 | 300 | 1000 | 3000 | 10⁴ |
+  |---|---|---|---|---|---|
+  | 15.75 | −0.0332 | −0.0332 | −0.0167 | −0.0103 | −0.0142 |
+  | 16.50 | −0.0325 | −0.0380 | −0.0216 | −0.0128 | −0.0071 |
+  | 17.25 | −0.0325 | −0.0419 | −0.0269 | −0.0170 | −0.0045 |
+  | 19.50 | −0.0335 | −0.0450 | −0.0363 | −0.0278 | −0.0135 |
+  | 21.75 | −0.0306 | −0.0394 | −0.0357 | −0.0312 | −0.0261 |
+  | sine kernel | −3.1e-3 | −1.1e-3 | −3.5e-4 | −1.2e-4 | −4.5e-5 |
+
+  - Negative at every rung and height, so v_B > v. ρ₁ is largest at b = 100–300, which lowers g_B by 0.002–0.009
+    against g. At ℓ = 21.75 ρ₁ stays near −0.03 up to b = 10⁴, and g_B ≈ g.
+  - The b = 100 and 3000 values reproduce `diag_wincov.py` on the stored grid (−0.031 to −0.034; −0.010 to −0.031).
+- **The shrink is unchanged.** g_B / g_GUE,B = 0.69–0.75, against 0.70–0.75 under §1.
+
+### 6.2 Checks
+| check | result |
+|---|---|
+| overlap [47000, 48000.5]: extension vs stored c_non, per pair (relative) | ≤ 3.1e-8 |
+| overlap, assembled C (absolute; C's RMS there 0.034–0.057) | ≤ 1.4e-11 |
+| extension \|Im\| / Fourier-series tail | ≤ 1.4e-8 / ≤ 5.5e-6 |
+| lag 0 on the combined grid vs stored I₄ (short + long) | ≤ 3e-15 |
+| dropped ℓ-oscillating part in the B term (lag 0 − lag 1), file-averaged (`diag_osc_lag1.py`) | PENDING |
+
+- **Validity range.** Lag 1 at b = 10⁴ reaches r = 5.8·10⁴ spacings ≈ 2.3·10⁴ in t, still ≪ t ≥ 10⁷ (§4 of the design).
+- **Not re-checked for the lag:** the prime-cutoff diagnostic (amendment 4) was run on lag 0 at b ≤ 300. The lag term
+  at b = 10⁴ uses the same cutoff (3·10⁵) without its own convergence check, as v(10⁴) does.
+
+### 6.3 GUE baseline and F1 under B (descriptive; `ph2s2/results/tapered/TAPERED_SUMMARY.md`)
+- **GUE (Stage 1, 16 × 10⁶):** g_B = 0.997, with v_B(10⁴) = 0.1199 ± 0.0092 (SE ≈ 0.04 in g). The prediction 0.959 is
+  within 1 SE.
+- **F1 (seen data; not the F2 heights):** g_B = 0.663, 0.669, 0.714, 0.682, 0.685, 0.752 at ℓ = 14.46, 15.47,
+  17.75, 19.25, 21.50, 22.10 (F1a–e, F1x; SE ≈ 0.03–0.06 in g, from v(10⁴)), against the predicted 0.665–0.720 at the F2 heights
+  15.75–21.75. F2 is the test.

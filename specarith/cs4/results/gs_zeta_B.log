@@ -1,0 +1,6 @@
+ℓ=15.7502  overlap: pair rel 8.5e-09, assembled 1.4e-11 (rms 5.66e-02) | ρ₁: -0.0332 -0.0332 -0.0167 -0.0103 -0.0142 | g 0.6765 → g_B 0.6703 (g_B/g_GUE,B 0.699) positivity PASS | recheck ≤ 2e-15
+ℓ=16.4972  overlap: pair rel 9.2e-09, assembled 1.3e-11 (rms 5.26e-02) | ρ₁: -0.0325 -0.0380 -0.0216 -0.0128 -0.0071 | g 0.6739 → g_B 0.6656 (g_B/g_GUE,B 0.694) positivity PASS | recheck ≤ 2e-15
+ℓ=17.2491  overlap: pair rel 1.2e-08, assembled 1.3e-11 (rms 4.92e-02) | ρ₁: -0.0325 -0.0419 -0.0269 -0.0170 -0.0045 | g 0.6738 → g_B 0.6646 (g_B/g_GUE,B 0.693) positivity PASS | recheck ≤ 3e-15
+ℓ=19.5003  overlap: pair rel 1.4e-08, assembled 1.2e-11 (rms 4.04e-02) | ρ₁: -0.0335 -0.0450 -0.0363 -0.0278 -0.0135 | g 0.6896 → g_B 0.6829 (g_B/g_GUE,B 0.712) positivity PASS | recheck ≤ 9e-16
+ℓ=21.75    overlap: pair rel 3.1e-08, assembled 1.0e-11 (rms 3.41e-02) | ρ₁: -0.0306 -0.0394 -0.0357 -0.0312 -0.0261 | g 0.7217 → g_B 0.7201 (g_B/g_GUE,B 0.751) positivity PASS | recheck ≤ 2e-15
+exit=0
