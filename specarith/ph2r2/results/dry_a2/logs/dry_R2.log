@@ -1,0 +1,2 @@
+R2 mu0 FAIL 0.0052 [np.float64(-0.0204), np.float64(0.0307)] expected FAIL
+R2 planted_mu1 PASS 1.0052 [np.float64(0.979), np.float64(1.0314)] expected PASS

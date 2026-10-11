@@ -1,0 +1,9 @@
+R2 0.5_0.15 PASS 1.0078 [np.float64(0.9705), np.float64(1.0451)]
+R2 0.5_0.3 PASS 1.0064 [np.float64(0.9844), np.float64(1.0283)]
+R2 1.0_0.15 PASS 1.0916 [np.float64(0.8844), np.float64(1.2988)]
+R2 1.0_0.3 PASS 0.9565 [np.float64(0.668), np.float64(1.2449)]
+R2 1.5_0.15 PASS 1.0455 [np.float64(0.8313), np.float64(1.2596)]
+R2 1.5_0.3 NOT RESOLVABLE 1.0775 [np.float64(-0.0438), np.float64(2.1987)]
+R2 2.0_0.15 PASS 0.9458 [np.float64(0.8035), np.float64(1.0881)]
+R2 2.0_0.3 PASS 0.9909 [np.float64(0.8759), np.float64(1.1059)]
+exit=0

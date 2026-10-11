@@ -1,0 +1,2 @@
+{"n": 20000, "max_abs_err": 0.0, "PASS": true}
+{"R1": {"mu0": ["NOT RESOLVABLE (achieved)", -0.0049], "planted_mu1": ["PASS", 0.9951]}, "R2": {"mu0": ["NOT RESOLVABLE (achieved)", 0.0052], "planted_mu1": ["PASS", 1.0052]}, "R3": {"mu0": ["NOT RESOLVABLE (achieved)", 0.0036], "planted_mu1": ["PASS", 1.0036]}, "R4": {"mu0": ["NOT RESOLVABLE (achieved)", -0.0049], "planted_mu1": ["PASS", 0.9951]}, "R5": {"mu0": ["NOT RESOLVABLE (achieved)", -0.0041], "planted_mu1": ["PASS", 0.9959]}} witness FIRED: True roundtrip: True

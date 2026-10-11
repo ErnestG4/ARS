@@ -1,0 +1,277 @@
+{
+ "seal": "PH2S_SEAL_2.0",
+ "stage": 2,
+ "text": "PH2S_SEAL_2.0.md",
+ "text_sha256": "773764a29a00630f14f480833bd86ccb6fcc543cad3d9fc0462aa3699a7282e6",
+ "code_sha256": {
+  "s2read.py": "5ae74464d5acc3952b7a5c14ae77d790bc115283c31f4070673b397f40bd23b0",
+  "tapered.py": "36fa394a01ae9a249a8254520ee14e3923f610b0fe726706bb19d49ee9d3c698",
+  "../ph2r2/r2prep.py": "f23701765ba4aae51de71f9c2a8a18d2c7d79127e036ab3d68fd4ff240a44a06",
+  "../ph2r2/r2run.py": "27a0d5728d5799e9efdc7dc7a62d137aa85c6e9e0db4354024656af8364facb6"
+ },
+ "prediction": {
+  "tag": "ph2s-stage2-prediction",
+  "file": "../cs4/results/gs_zeta/gs_zeta_B_summary.json",
+  "sha256": "c1064ef92ea85063719804da500fc6f461ace5a6a73a10cf0fbdaaced1d69cff",
+  "g_B": {
+   "15.7502": 0.6702747424187182,
+   "16.4972": 0.6655713885771013,
+   "17.2491": 0.6646331420023159,
+   "19.5003": 0.6828895971047739,
+   "21.75": 0.7201112867925125
+  },
+  "g_GUE_B": 0.959137
+ },
+ "prediction_sha256": "c1064ef92ea85063719804da500fc6f461ace5a6a73a10cf0fbdaaced1d69cff",
+ "f2_md5": {
+  "zeros_42446000.dat": "b9e8b34c5bab7367b68848c9e61940b0",
+  "zeros_90746000.dat": "8b05f3b38121178a7e563517ea08d0fe",
+  "zeros_193646000.dat": "69b955f15e063c3646f4c92092f12290",
+  "zeros_1848446000.dat": "2169ed28b1dba1b889ccb25778eba4fc",
+  "zeros_17541746000.dat": "c706184af0a09d8f0df825ee9a81718a"
+ },
+ "f2_files": {
+  "15.7502": {
+   "file": "zeros_42446000.dat",
+   "t0": 42446000,
+   "t1": 44546000
+  },
+  "16.4972": {
+   "file": "zeros_90746000.dat",
+   "t0": 90746000,
+   "t1": 92846000
+  },
+  "17.2491": {
+   "file": "zeros_193646000.dat",
+   "t0": 193646000,
+   "t1": 195746000
+  },
+  "19.5003": {
+   "file": "zeros_1848446000.dat",
+   "t0": 1848446000,
+   "t1": 1850546000
+  },
+  "21.75": {
+   "file": "zeros_17541746000.dat",
+   "t0": 17541746000,
+   "t1": 17543846000
+  }
+ },
+ "f2_windows": {
+  "15.7502": {
+   "100": 17546,
+   "300": 5848,
+   "1000": 1754,
+   "3000": 584,
+   "10000": 175
+  },
+  "16.4972": {
+   "100": 18379,
+   "300": 6126,
+   "1000": 1837,
+   "3000": 612,
+   "10000": 183
+  },
+  "17.2491": {
+   "100": 19216,
+   "300": 6405,
+   "1000": 1921,
+   "3000": 640,
+   "10000": 192
+  },
+  "19.5003": {
+   "100": 21724,
+   "300": 7241,
+   "1000": 2172,
+   "3000": 724,
+   "10000": 217
+  },
+  "21.75": {
+   "100": 24231,
+   "300": 8077,
+   "1000": 2423,
+   "3000": 807,
+   "10000": 242
+  }
+ },
+ "pool_weights": {
+  "15.7502": 0.17330677290836655,
+  "16.4972": 0.18127490039840638,
+  "17.2491": 0.1902390438247012,
+  "19.5003": 0.2151394422310757,
+  "21.75": 0.2400398406374502
+ },
+ "rule": {
+  "statistic": "g_B = sqrt(vB(1e4)/vB(100)), vB successive differences (tapered.pooled_diff)",
+  "se": "SE_f = 0.5 g sqrt(rSE_100^2 + rSE_1e4^2), lag-0-2 SEs",
+  "pooling": "C (round 28): W_f proportional to n_f(1e4) - 1 from the pinned ranges, sum 1; d_pool = sum W (g - g_pred); SE_pool = sqrt(sum W^2 SE_f^2); z_pool = d_pool / SE_pool",
+  "guard": "RESOLVABLE iff 2 SE_pool <= 0.07 (reads SEs and the fixed weights only)",
+  "verdict": "PASS iff RESOLVABLE and |z_pool| <= 2 (R2) and >= 4 of 5 files |z_f| <= 3 (R1); else FAIL",
+  "report": "pooled g_B +- 95% CI beside the pooled prediction, regardless of verdict",
+  "k_pool": 2.0,
+  "k_file": 3.0,
+  "min_agree": 4,
+  "guard_2se_pool": 0.07
+ },
+ "gue_calibration": {
+  "rule_C": {
+   "stage2_baseline": {
+    "zpool_mean": -0.10447061404786001,
+    "zpool_sd": 1.0423395756121192,
+    "p_lo": 0.03725,
+    "p_hi": 0.0175,
+    "false_fail": 0.05475,
+    "d_pool_mean": -0.0018693941113343553
+   },
+   "stage1_replication": {
+    "zpool_mean": -0.06347024024974536,
+    "zpool_sd": 1.028803836121809,
+    "p_lo": 0.03575,
+    "p_hi": 0.01975,
+    "false_fail": 0.0565,
+    "d_pool_mean": -0.0008314750819610075
+   }
+  },
+  "per_file": {
+   "stage2_baseline": {
+    "z_sd_per_file": {
+     "15.7502": 1.0783783661566262,
+     "16.4972": 1.0690451859125047,
+     "17.2491": 1.0939768378613355,
+     "19.5003": 1.0590226234508606,
+     "21.75": 1.0524816862206523
+    },
+    "rate_abs_gt3_per_file": {
+     "15.7502": 0.00925,
+     "16.4972": 0.008,
+     "17.2491": 0.009,
+     "19.5003": 0.00775,
+     "21.75": 0.0055
+    }
+   },
+   "stage1_replication": {
+    "z_sd_per_file": {
+     "15.7502": 1.0696102542019579,
+     "16.4972": 1.0733209076880597,
+     "17.2491": 1.0786485003529875,
+     "19.5003": 1.0724025374615191,
+     "21.75": 1.090826720434902
+    },
+    "rate_abs_gt3_per_file": {
+     "15.7502": 0.00825,
+     "16.4972": 0.009,
+     "17.2491": 0.00975,
+     "19.5003": 0.0075,
+     "21.75": 0.01125
+    }
+   }
+  },
+  "superseded": {
+   "note": "round-27 '~6-7%' came from the chi-square model; inverse-variance pooling (A) gave a false-FAIL of 0.090 on the Stage 2 GUE baseline (round 28 chose C)",
+   "A_stage2": {
+    "zpool_mean": -0.35413778025663406,
+    "zpool_sd": 1.1230468663739857,
+    "p_lo": 0.0765,
+    "p_hi": 0.01375,
+    "false_fail": 0.09025,
+    "d_pool_mean": -0.00785808776325168
+   },
+   "A_stage1": {
+    "zpool_mean": -0.3236265646950743,
+    "zpool_sd": 1.1091668846732488,
+    "p_lo": 0.07025,
+    "p_hi": 0.014,
+    "false_fail": 0.08475,
+    "d_pool_mean": -0.007397866229871218
+   }
+  }
+ },
+ "operating_characteristics": {
+  "alternatives": "g = g_pred + eps (g_GUE_B - g_pred); eps = 1 is GUE",
+  "rule_C_pass_by_kappa": {
+   "1.0": {
+    "-0.5": 0.0,
+    "-0.3": 0.001865,
+    "-0.2": 0.115465,
+    "-0.1": 0.64548,
+    "0.0": 0.95254,
+    "0.1": 0.754545,
+    "0.2": 0.24428,
+    "0.3": 0.02299,
+    "0.5": 1e-05,
+    "1.0": 0.0
+   },
+   "1.37": {
+    "-0.5": 1e-05,
+    "-0.3": 0.05248,
+    "-0.2": 0.345615,
+    "-0.1": 0.76744,
+    "0.0": 0.951185,
+    "0.1": 0.870545,
+    "0.2": 0.545995,
+    "0.3": 0.199635,
+    "0.5": 0.004445,
+    "1.0": 0.0
+   }
+  },
+  "superseded_A_pass_by_kappa": {
+   "1.0": {
+    "-0.5": 0.0,
+    "-0.3": 0.0008,
+    "-0.2": 0.076245,
+    "-0.1": 0.555355,
+    "0.0": 0.93696,
+    "0.1": 0.81261,
+    "0.2": 0.3156,
+    "0.3": 0.039205,
+    "0.5": 2.5e-05,
+    "1.0": 0.0
+   },
+   "1.37": {
+    "-0.5": 0.0,
+    "-0.3": 0.027255,
+    "-0.2": 0.239895,
+    "-0.1": 0.659225,
+    "0.0": 0.92072,
+    "0.1": 0.91218,
+    "0.2": 0.653225,
+    "0.3": 0.29447,
+    "0.5": 0.01208,
+    "1.0": 0.0
+   }
+  },
+  "per_file_se_g": {
+   "1.0": {
+    "15.7502": 0.04413303952071312,
+    "16.4972": 0.042874503861469244,
+    "17.2491": 0.041739585214890226,
+    "19.5003": 0.04036266166370788,
+    "21.75": 0.040316082682518385
+   },
+   "1.37": {
+    "15.7502": 0.06039060531220152,
+    "16.4972": 0.05863564072512561,
+    "17.2491": 0.05711332098078108,
+    "19.5003": 0.0552087276268112,
+    "21.75": 0.0551328851900003
+   }
+  }
+ },
+ "preread_sha256": {
+  "results/dryrun/S2_DRYRUN.json": "8222b2bfa4dc2ff44b48bedc13eb8e23cae0b439cace3f8e79328341bb27438f",
+  "results/s2_preread/dryrun.json": "f0e48a753f5e39df5c38ee6c71011667bdf57f512dcca77351b328713d67da87",
+  "results/s2_preread/guecal.json": "7aed4d4996baccdcff7e50b1b86f37c6feab35967c868de0dc5220558ae1c67d",
+  "results/s2_preread/opchar.json": "cf3b330dcd358f23f9b8ff02a63cabcc929bb16c9ab8357cfa3d3dd5c69b21cf",
+  "results/s2_preread/poolcal.json": "3ddf0371bfb1a0641b33656fc84fc85fac1c60d221acd6e450aa7e9f94243c12",
+  "results/s2_preread/secorr.json": "adf8f2af19f476a89a0b30106086a8571cf092072c53f4250749d46163802c25",
+  "results/s2_preread/seemp.json": "57f5b8c0e779884f6126cb5455a7378a636f1a6400ee5b8f86f5e128a11f0be8"
+ },
+ "checks": {
+  "dryrun_as_expected": true,
+  "F1_sums_reproduce": true,
+  "f2_md5_match_pins": true,
+  "prediction_is_tagged": true,
+  "prediction_covers_F2": true,
+  "gue_calibration_stage2": true
+ }
+}

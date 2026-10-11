@@ -239,3 +239,344 @@ implemented; u_max (R4) and the bootstrap block lengths (R5) are named but not v
 the pre-read before any fresh zero is read. Status set to TEXT APPROVED. Also (Will): push 70be2bc7 (tag ph6.1-seal) and
 0405f475 (Will pushes); a Zenodo snapshot of Phase 6 as a complete unit; then the R₂ read, route (a)'s U(N) milestone and
 Phase 1 on spot.
+
+## Fourteenth round (Will, 2026-10-09 morning) — R₂ seal held for the achieved-rule fix
+
+```
+R₂: HOLD seal. Achieved-rule fix (pre-data):
+NOT RESOLVABLE (achieved) iff achieved CI contains BOTH 0 and 1, or
+half-width > 0.5. Otherwise G1 PASS iff 1 ∈ CI, else FAIL.
+Re-run dry run: expect μ=0 → FAIL; μ=1 → PASS; small-sample witness →
+NOT RESOLVABLE (achieved). Then rebuild seal JSON; then my go.
+Phase 2 erratum (no verdict change): its "cannot exclude N=∞" achieved
+clause conflated outcome with precision; only achieved firing (A primary)
+was width-based; H bins were pre-data NR.
+Decision 1: approve raw / surrogate-relative / drift-removed reporting;
+declare the drift-removal method (e.g. per-block exact-density
+normalisation) in the seal before the read.
+```
+Will's diagnosis: the dry run showed every μ = 0 surrogate reading NOT RESOLVABLE (achieved) with tight CIs that exclude
+μ = 1, so the instrument could never reject Conrey–Snaith in favour of μ = 0. The guard mixed precision with outcome.
+Will noted that the same conflation entered Phase 2 through the PA5 refinement (A6(iii)).
+
+Filed as PH2R2_SEAL_1.0 **A2** (rule) and **A3** (A1 three ways; drift removal c_i·e(t_c)/e(t_i), with e the
+sine-kernel expectation at the exact smooth density N̄′(t)). The Phase 2 erratum is PH2_FINDINGS §6; CC checked the
+facts against §1 (A's PRIMARY 0.215 > 0.20 is the only achieved firing; no A–P6 CI contains κ = ∞; H1–H3 pre-data NR).
+
+## Fifteenth round (Will, 2026-10-09 afternoon) — confirming the shrinking error bars
+
+```
+Shrink-confirm decisions (Will):
+(a) Two-stage: Stage 1 = direction-only seal on fresh set F1 (now).
+    Stage 2 = quantitative few-prime model, own known-answer gate,
+    prediction sealed on a separate fresh set F2. Stage 1 does not wait.
+(b) Primary window 10⁶ levels; 2·10⁵ secondary.
+(c) Disjoint fresh sets declared + md5-pinned now: F1 (shrink direction),
+    F2 (quantitative model), F3 (route (a)); interleaved quarter/half-integer
+    L between all seen heights.
+(d) Other members: secondary arms with matched GUE baselines. Seal the
+    mechanism's directional predictions as arms: wider bump → larger shrink;
+    shrink weakens with height.
+Call the long-baseline result on v2 only.
+```
+Also in this round, Will on the R₂ read: keep the headline as written. Next steps in order: the long sine-kernel baseline,
+then the confirmatory seal, the other members (descriptive), route (a) milestone 1, then Phase 1; a Zenodo snapshot of
+Phase 2 + R₂. F1–F3 declared in `ph2r2/FRESH_SETS_F1_F3.md` (generator `declare_fresh_sets.py`).
+
+## Sixteenth round (Will, 2026-10-09 evening) — Stage 1 decisions; fresh-set gap rule
+
+```
+Stage 1 decisions (Will):
+1. Arm A: ≥4/5 F1 bins at >3 combined SE (as declared); pooled one-sided
+   test descriptive.
+2. Reference effect = ½ smallest seen shrink at 10⁶: accept.
+3. Arm C: accept (paired per-u difference, ≥3/4 u, mean > 2 SE).
+4. Arm D: add two F1 bins at the height extremes (L ≈ 13.25, ≈ 22.1),
+   md5-pinned pre-download, used for D (descriptive for A). If D power
+   still < 0.80 → D descriptive.
+Low-L adjacency: require ≥1-file gap from every touched file; re-pin
+F1's 14.25 accordingly before download.
+Long-baseline call on v2 10⁶ tier only, at ~20:00.
+```
+Applied in `declare_fresh_sets.py` v2 (gap from every touched height range and between picks). **L ≈ 13.25 is
+infeasible:** it lies inside the seen P1 file (zeros_2546000, L 12.91–13.51). The only file between P1 and R1
+(zeros_4646000) is adjacent to both. Everything lower overlaps Phase 2's Odlyzko bins A/B. The lowest gap-feasible file
+is zeros_10946000 (L 14.37–14.55), which becomes F1's re-pinned low bin; F2's low bin moves 14.5 → 16.5. F1 = 6 bins (5
+for A, + 22.1 for D).
+
+## Seventeenth round (Will, 2026-10-09 night) — Stage 1 arm rules after the pre-read
+
+```
+Stage 1 decisions (Will):
+1. Arm C: recompute SE by resampling the 16 GUE sequences as units, paired
+   across members; re-run the 500 splits. If empirical rate ≈ nominal
+   (0.023) → keep 2 SE. Otherwise (or if unvalidated pre-seal) → 3 SE.
+   Report the empirical rate under the sealed rule either way.
+2. Arm B: descriptive (unresolvable pre-data in all bins).
+3. Seal records Arm A's joint power (≈0.51 at the half-size reference;
+   ≈1 at the seen effect) so a FAIL is interpreted accordingly.
+F1a NOT RESOLVABLE stays; Arm A needs all four of F1b–F1e.
+```
+Also from Will this evening, before the pre-read: add data rather than change rules (double short bins, gap kept); a
+pre-data change of primary L is acceptable; never the full seen effect as reference or a 2-SE A threshold. If F1a alone
+is short: leave it NOT RESOLVABLE with the 4-of-5 rule unchanged.
+Result (`s1_fpr_c.py`): with unit-resampled SE, arm C's empirical false-positive rate is 0.042 at 2 SE (nominal 0.023;
+consistent with the 8-vs-8 split's t₇ tail) and 0.014 at 3 SE, so **C is sealed at 3 SE**. Power at the seen Δ: 1.00.
+
+## Eighteenth round (Will, 2026-10-10) — after the Stage 1 read; Stage 2 and route (a) combined
+
+Will on the Stage 1 read: "A strong result, correctly reported." Headline adopted (`ph2s/PH2S_STAGE1_FINDINGS.md`); bring
+forward that the conservative reference did not bind (observed shrinks at the seen size). A blinded literature check
+must come before any novelty claim: four-point/higher correlations (Conrey–Snaith 2008, Bogomolny–Keating), mesoscopic
+fluctuations (Bourgade–Kuan, Rodgers), form-factor self-averaging. Zenodo snapshot: add Stage 1 with the headline,
+arm D's FAIL stated plainly and the joint-power note.
+
+Stage 2 refinement (Will): try Conrey–Snaith's four-point lower-order terms for a theory-fixed, parameter-free prediction
+of the shrink on F2, the move that worked for R₂. **Combined with route (a) (Will):** "One careful transcription of
+Conrey–Snaith's n = 2, 3, 4 correlations, then two different known-answer gates on the U(N) analogue: for route (a): it
+reproduces the exact CUE_N spacing tables; for Stage 2: it reproduces the flat sine-kernel baseline you actually
+measured." The shared code means the F2 and F3 results are not independent in method, but they test different
+hypotheses on disjoint data. The few-prime model stays the fallback until the transcription passes both gates. Next:
+the literature findings and the combined plan, together.
+
+## Nineteenth round (Will, 2026-10-10) — Stage 2 statistic; gates; proceed
+
+```
+Stage 2 / CS4 combined plan decisions (Will):
+1. Option (a): Stage 2 statistic = variance across smooth tapered windows
+   satisfying CS08's analyticity (holomorphic |Im x| < 2), for both
+   prediction and measurement. New pre-read (GUE baselines reusing the F2
+   sequences, power, false-positive splits) before the F2 seal.
+   Bridge: tapered statistic on F1 (seen) reported descriptively beside
+   Stage 1's sharp-block results.
+2. Third known answer: U(N) assembly reproduces Aguirre–Soshnikov–Sumpter
+   exact CUE pair-statistic variance before block/taper geometry enters (gate).
+3. BLS autocovariance-sum estimate: unsealed sanity check of sign/scale.
+Novelty wording waits for Coram–Diaconis 2003 (Will can fetch the PDF by hand).
+Proceed: CS08 n=2,3,4 transcription + U(N) gates.
+```
+Will's reason for (a): the prediction should be exact for the statistic measured. Under (b), the edge-effect bound
+could be as large as the effect. On the Berry correction: "the dated correction note is the right way to handle it."
+
+## Twentieth round (Will, 2026-10-10) — CS4: erratum handling; the split plan
+
+```
+CS4 decisions (Will):
+- Erratum: check CNTP published version first; record as "arXiv v1 typo,
+  corrected in journal" if fixed there; otherwise as erratum.
+- Split plan: GO, plus:
+  (1) direct sparse evaluation of connected R4 at a few hundred large-r points
+      (log grid, parallel on spot) to verify the analytic r-averaged constant
+      before using it;
+  (2) positivity/validity guard: declare the constant-part approximation's
+      range; predicted variance must stay positive for all block lengths
+      ≤ 10⁴, else gate FAIL;
+  (3) U(N) validation (flat baseline + small-N MC) before any ζ number;
+      seen-data comparison descriptive only; sealed test on F2.
+```
+
+## Twenty-first round (Will, 2026-10-10) — sparse check; cutoff; Stage 2 prediction form; route (a) window
+
+```
+Decisions (Will):
+- Sparse check: PASS recorded with 1.9× margin; suspected cancellation in the
+  non-oscillating sum noted; r > 2·10⁴ unchecked. No further work (Stage 2
+  needs ~1e-3 relative; evaluator error irrelevant at that scale).
+- Cutoff: converges (not logarithmic; record that the log hypothesis was
+  wrong). Use cutoff ≥ 3·10⁵; analytic rewrite dropped.
+- Stage 2 prediction: NO functional form (drop K + c∞·b). Compute predicted g
+  directly at the sealed block lengths and taper from the evaluated
+  integrals; check positivity on computed values; report the log b
+  behaviour descriptively.
+- Route (a): window s ≤ 1.8 (comparable to Phase 2's 1.8 sensitivity fits);
+  add n = 5 only if the gate still fails at 1.8.
+- CNTP PDF: Will fetches by hand. Phase 1 D1–D6: Will uploads draft for review.
+```
+Route (a) at s ≤ 1.8, read from the gate's existing interpolants (`results/route_a_pgate.json`; no rerun):
+max |p₄ − p_N| = 5.6e-8 (N = 4), 5.0e-5 (N = 10), 6.9e-5 (N = 50), all below the ~1e-4 bin resolution and within
+the n = 5 truncation bound, so **no n = 5 term**. Recorded in `SCOPE_CS_SPACING.md` (window amendment) and
+`cs4/G_S_DESIGN.md` §6.
+
+## Twenty-second round (Will, 2026-10-10) — novelty wording after the Coram–Diaconis read
+
+The amended wording is right, plus one addition: CD's lag-1 anti-correlation (−0.2 between consecutive blocks' W) is
+in spirit an earlier glimpse of the kind of effect Stage 1 measured, and a reader who knows the paper would expect it
+mentioned; leaving it out would overstate the novelty. Two cautions keep it from undercutting the claim: (1) CD's
+blocks are each rescaled to their own length, and consecutive block lengths are anti-correlated in any rigid sequence,
+the sine kernel included, so the −0.2 may be generic rigidity, not arithmetic; CD made no sine-kernel comparison and
+their numbers do not allow one; (2) we read the 2000 technical report, and the 2003 journal version may differ; the
+wording says so. PH2S_STAGE1_FINDINGS.md drops "novelty not yet claimed" for this paragraph:
+
+> To our knowledge, no published work measures how the across-block variance of a local pair statistic of the zeta
+> zeros (test function a few mean spacings wide) depends on block length, or compares it with the sine kernel and a
+> theory-fixed arithmetic prediction. The closest precedent is Coram & Diaconis (2003; read in its 2000 technical-report
+> version). They tested the across-block distribution of |Σ_j e^{iθ_j}|², a pair sum in a single block-scale Fourier
+> mode, for blocks of n ≈ log(T/2π) = 42 zeros wrapped onto the circle, found agreement with CUE₄₂, and noted a lag-1
+> anti-correlation (−0.2) between consecutive blocks' values, without a sine-kernel or arithmetic comparison.
+
+On the numerics (Will): the precision probe passing down to 10⁻³ separation against a grid minimum of 1.3·10⁻³ is the
+right kind of margin; the cluster check at the grid corner closes the last untested configuration, and the
+prediction's precision story is complete once it lands.
+
+## Twenty-third round (Will, 2026-10-10) — Stage 2: amendment 7 approved, with a condition before the seal
+
+```
+Stage 2 decision (Will): Amendment 7 APPROVED — prediction = CS08 correlation
+averaged over each F2 file's heights; oscillating-part check uses grid step
+≤ 0.1, height-averaged.
+Condition before seal: state explicitly that prediction and estimator are the
+same quantity —
+(i) the Stage 2 estimator removes the smooth height-dependence of the window
+    mean (as Stage 1's drift removal), OR the prediction includes the
+    between-window mean-variance term (the F2 pre-read's within-file height-
+    drift item feeds this); and
+(ii) any oscillating height-dependence of the two-point mean is shown
+    negligible at ≤ 1e-3 of v, quantified like the four-point check.
+Stage 1 vs Stage 2 near-match stays descriptive (different statistic).
+```
+Work on the condition: `cs4/diag_mu2.py` (the two-point mean μ(ℓ) across each F2 file); record in
+`cs4/GS_ZETA_RESULTS.md` §5.
+
+## Twenty-fourth round (Will, 2026-10-10) — Stage 2 estimator: successive differences (option B)
+
+```
+Stage 2 decision (Will, round 24): (iii) → option B.
+Estimator: successive differences, Σ(S_{i+1} − S_i)²/(2(n−1)b);
+expectation v(b)(1 − ρ₁), exact. Extend the long-range grid to 6·10⁴ on spot
+(~3 h) to compute the predicted ρ₁. Re-measure GUE baselines and the F1
+comparison with the new estimator.
+(i) and (ii): settled as reported; c∞ cancels under B (closes amendment 1's
+c∞ item).
+Descriptive / open leads: non-decaying C(r) (RMS 0.053 to 4.8·10⁴); F1
+neighbour-window ρ ≈ −0.03 to −0.04 vs GUE ≈ 0 (seen data); check whether
+the theory's ρ₁ for Coram–Diaconis's configuration explains their lag-1 −0.2.
+```
+Recorded in `cs4/G_S_DESIGN.md` §6 amendment 8; open leads in `OPEN_LEADS.md`.
+
+## Twenty-fifth round (Will, 2026-10-10) — publication timing, two round-24 calls, and the Coram–Diaconis wording
+
+```
+push the branch and all existing seal tags;
+add a tag on the prediction commit, something like ph2s-stage2-prediction, so the prediction's public timestamp is
+unambiguous;
+leave the Zenodo snapshot until after the Stage 2 read, and bundle prediction, seal and result into one release.
+
+On the round-24 results, three quick calls:
+
+The lag-term oscillating part (2σ ≈ 1.8×10⁻³, missing the 10⁻³ standard): accept as recorded. In g it's about
+6×10⁻⁴, against a per-file SE around 0.04, so it can't affect the test. Record that it misses the standard and why
+that doesn't matter.
+The lag term's cutoff convergence at b = 10⁴: check it before the seal. It's the sealed quantity, and the earlier
+diagnostic showed cutoff sensitivity growing with b (0.64% at b = 100, 0.75% at b = 300 at low cutoffs). One height
+at b = 10⁴, cutoffs 3×10⁵ against 10⁶, is enough. That's cheap, and it's the one unchecked piece of the core number.
+The Coram–Diaconis wording: revise it. GUE giving about 0 against the zeros' −0.25 under their construction argues
+against the "may be generic rigidity" reading I suggested. New wording: "not explained by GUE-level rigidity (GUE
+gives ≈ 0 under the same construction); an arithmetic origin is conjectured (possibly prime 2) and not yet tested."
+My earlier wording was too quick; the correction should be recorded as such.
+```
+- Tag `ph2s-stage2-prediction` (annotated) on 8bc570d1, the commit that records the estimator-B prediction.
+- Lag-term oscillating part: recorded in `cs4/GS_ZETA_RESULTS.md` §6.2.
+- Cutoff check: `cs4/gs_zeta_cutB.py` (ℓ = 15.7502, every node pair, pmax 10⁶ vs the stored 3·10⁵); result in
+  `cs4/GS_ZETA_RESULTS.md` §6.2.
+- Coram–Diaconis: the twenty-second-round caution is corrected in `ph2s/lit/PAIRSUM_VARIANCE_LIT.md`, with an addendum
+  to `ph2s/PH2S_STAGE1_FINDINGS.md` and `OPEN_LEADS.md` L5.
+
+## Twenty-sixth round (Will, 2026-10-11) — the lag-term cutoff result; a lesson; on to the F2 pre-read
+
+```
+That's a clean result, and the side finding is the best part. Under the old estimator the cutoff error was 5×10⁻³
+in v at b = 10⁴, which the b ≤ 300 check couldn't see, while estimator B removes it exactly because it's a constant
+shift. So the switch to B, made for a different reason (turning a bound into an identity), turns out to also protect
+the prediction from a cutoff error nobody had measured. Worth recording as a lesson too: a convergence check run at
+small b doesn't certify large b when the error grows with b.
+
+g_B converged to six decimal places (0.670275 → 0.670276) is as settled as a sealed prediction gets. Push 85aeff84
+when convenient, then on to the F2 pre-read with estimator B.
+```
+- **Lesson (recorded):** a convergence check certifies only the scale it was run at. If the error grows with the
+  scale parameter, run the check at the sealed scale, or show how the error scales. Here amendment 4 (b ≤ 300) passed,
+  while at b = 10⁴ the same cutoff move shifted v by 5×10⁻³. Estimator B was adopted to turn a bound into an identity,
+  and it also cancels this error exactly, because the error is a constant in C. (`cs4/GS_ZETA_RESULTS.md` §6.2.)
+- Will pushed 85aeff84; both remotes were verified.
+
+## Twenty-seventh round (Will, 2026-10-11) — the Stage 2 rule
+
+```
+Stage 2 rule (Will, round 27): option (a).
+PASS iff pooled deviation within 2 SE (R2, k=2) AND ≥ 4 of 5 files within
+3 SE (R1, k=3). Precision guard: RESOLVABLE iff 2·SE_pool ≤ 0.07.
+Seal records: GUE calibration (z SD 1.04–1.08); actual false-fail rate
+~6–7%; power vs a 20% shrink error 0.92 (low side) / 0.68 (high side,
+towards GUE). Read report gives pooled ĝ_B ± CI beside the prediction,
+regardless of verdict.
+Then: build seal JSON + read script with md5 verification before decode.
+```
+- Will pushed e7fbf200; both remotes were verified.
+- **Correction found while building the seal (mine):** the pre-read (e7fbf200) calibrated against the Stage 1 GUE
+  sequences (16 × 10⁶). The dedicated Stage 2 baseline exists and is complete: 24 × 10⁶ fresh sequences from the 10-10
+  overnight queue (item 4; `ph2s2/f2_gue_levels.py`, seed base 20261012). The nineteenth round's "GUE baselines reusing
+  the F2 sequences" refers to those.
+  - The calibration, the false-FAIL rate of the adopted rule, and the dry run's GUE stand-in are re-run on the Stage 2
+    sequences. The Stage 1 sequences are kept as a replication.
+  - The numbers the seal records come from that re-run (`ph2s2/PH2S_STAGE2_PREREAD.md` §3, revised).
+- Built: `ph2s2/s2read.py` (read and dry run; every F2 md5 is checked before any decode) and `ph2s2/make_seal_json.py`.
+  The text is `ph2s2/PH2S_SEAL_2.0.md`, for Will's go; the seal commit and tag are Will's call.
+
+## Twenty-eighth round (Will, 2026-10-11) — pooling construction C; conditional GO for the Stage 2 seal
+
+```
+Stage 2 (Will, round 28): pooling = option C — weights fixed pre-data,
+∝ number of b = 10⁴ windows per file. Seal records C's GUE calibration:
+false-fail 5.5–5.7%, power vs a 20% shrink error 0.88 (low) / 0.76 (high);
+note the round-27 "6–7%" figure was superseded (simplified model;
+inverse-variance pooling gave 9.0% on the proper Stage 2 GUE baseline).
+Conditional GO: after switching s2read.py to C, re-run both dry runs (F1
+pipeline check, GUE stand-in) and make_seal_json.py --check. If all pass
+as before: commit the seal, tag ph2s-stage2-seal. If anything changes: hold
+and report.
+Will: push 66380cba, 35bd8dd1 (and the seal commit + tag once made);
+then download the five F2 files for the read on spot.
+```
+- **Weights as implemented:** W_f ∝ n_f(10⁴) − 1, the number of successive differences at b = 10⁴. The counts come
+  from the pinned height ranges (`s2read.windows_from_range`), not from the data. They are pinned in the seal JSON.
+- **Outcome:** after the switch to C, the dry run and `--check` all held as before, so the seal was committed
+  (91f74031) with tag `ph2s-stage2-seal`. Will pushed both; both remotes were verified.
+- **Read (2026-10-11, 23f4c947):** all five F2 md5s matched their pins. The verdict is **PASS**: pooled ĝ_B = 0.6792
+  [0.6441, 0.7143] against 0.6830, z_pool = −0.22, 5 of 5 files within 3 SE, 2·SE_pool = 0.035
+  (`ph2s2/PH2S_STAGE2_FINDINGS.md`).
+
+## Twenty-ninth round (Will, 2026-10-11) — Stage 2 headline, limits, Zenodo release
+
+```
+That's a strong result. A parameter-free prediction built from Conrey–Snaith's four-point correlations was computed,
+publicly tagged before the test data was downloaded, and then matched on five fresh heights: measured shrink equal to
+1.01 times the predicted one, 95% interval [0.89, 1.14], with the zeros 16 SE away from the sine kernel. Stage 1 found
+that the suppression exists; Stage 2 shows its size is what the arithmetic structure of the zeros predicts.
+
+Suggested headline: "On five fresh heights, the suppression of the zeta zeros' pair-statistic block variance matches a
+parameter-free prediction from Conrey–Snaith's four-point correlations (conditional on the ratios conjecture):
+measured/predicted shrink = 1.01 [0.89, 1.14]; the zeros sit 16 SE below the sine-kernel value. The prediction was
+publicly tagged before the test data was read."
+
+Keep these limits in the write-up, as you already have:
+
+It's conditional on the ratios conjecture, like R₂. A PASS is evidence for that conjecture's higher-order structure,
+not a theorem about ζ.
+The agreement is to about ±13%; nothing finer is supported.
+There's one statistic and one taper. No height trend is claimed, and the two top files landing on opposite sides is
+just what five files look like.
+
+This is the right moment for the Zenodo release, as planned: Stage 1 (direction, fresh heights), the Stage 2
+prediction tag, seal and PASS, the CS08 erratum, and the novelty paragraph with the revised Coram–Diaconis wording.
+It's a complete, self-contained finding with a full audit trail.
+
+From here, the open threads are route (a)'s spacing law on F3 (s ≤ 1.8), Phase 1, and the open leads: Coram–Diaconis's
+lag-1 correlation and the non-decaying C(r).
+```
+- **Correction (mine):** the first findings draft (23f4c947) did *not* state the ratios-conjecture condition or the
+  one-statistic, one-taper scope. Both were added with the headline in `ph2s2/PH2S_STAGE2_FINDINGS.md`.
+- **Release metadata 2026.10.11** (CITATION.cff, .zenodo.json): adds Stage 2, the CS08 erratum and the novelty
+  paragraph with the revised Coram–Diaconis wording. New references, each checked against its Crossref record:
+  - Conrey & Snaith (2008), doi:10.4310/CNTP.2008.v2.n3.a1;
+  - Coram & Diaconis (2003), doi:10.1088/0305-4470/36/12/302;
+  - Platt (2017), doi:10.1090/mcom/3198, the F1 and F2 zero data.

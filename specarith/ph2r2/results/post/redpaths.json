@@ -1,0 +1,118 @@
+{
+ "primary": "0.5_0.3",
+ "R1": {
+  "sd_mu": 0.013504523474846545,
+  "sd_used": 0.027474101456430523,
+  "rp_density": {
+   "mu_read": -8.5483745460593,
+   "shift": -9.5483745460593,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_sign": {
+   "mu_read": -1.0,
+   "shift": -2.0,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_shuffle": {
+   "dS_per_level": 0.024806496834487542,
+   "dS_bin": 116307.2930471622,
+   "dmu_bin": -1.521553405748435,
+   "power": 1.0,
+   "required": true
+  }
+ },
+ "R2": {
+  "sd_mu": 0.011200847386933808,
+  "sd_used": 0.013052444182706154,
+  "rp_density": {
+   "mu_read": -9.001392578951783,
+   "shift": -10.001392578951783,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_sign": {
+   "mu_read": -1.0,
+   "shift": -2.0,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_shuffle": {
+   "dS_per_level": 0.025709510782331618,
+   "dS_bin": 137524.20340337593,
+   "dmu_bin": -1.8533427465816417,
+   "power": 1.0,
+   "required": true
+  }
+ },
+ "R3": {
+  "sd_mu": 0.013460326797606639,
+  "sd_used": 0.01433575556485998,
+  "rp_density": {
+   "mu_read": -9.544375833801904,
+   "shift": -10.544375833801904,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_sign": {
+   "mu_read": -1.0,
+   "shift": -2.0,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_shuffle": {
+   "dS_per_level": 0.02581370122201085,
+   "dS_bin": 155308.01711241834,
+   "dmu_bin": -2.180513367191554,
+   "power": 1.0,
+   "required": true
+  }
+ },
+ "R4": {
+  "sd_mu": 0.017754942934386998,
+  "sd_used": 0.017754942934386998,
+  "rp_density": {
+   "mu_read": -10.151499740170413,
+   "shift": -11.151499740170413,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_sign": {
+   "mu_read": -1.0,
+   "shift": -2.0,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_shuffle": {
+   "dS_per_level": 0.02582618984442913,
+   "dS_bin": 172635.9659743812,
+   "dmu_bin": -2.5404218677394765,
+   "power": 1.0,
+   "required": true
+  }
+ },
+ "R5": {
+  "sd_mu": 0.014614990114713566,
+  "sd_used": 0.01741524040502989,
+  "rp_density": {
+   "mu_read": -10.805657841700222,
+   "shift": -11.805657841700222,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_sign": {
+   "mu_read": -1.0,
+   "shift": -2.0,
+   "power": 1.0,
+   "required": true
+  },
+  "rp_shuffle": {
+   "dS_per_level": 0.025827716089214137,
+   "dS_bin": 189909.8622497025,
+   "dmu_bin": -2.9378240449824737,
+   "power": 1.0,
+   "required": true
+  }
+ }
+}

@@ -19,7 +19,57 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   `ph2/results/run/CUE_EXACT_COMPARE.md`. Below N_eff = 2 (descriptive): κ̂ keeps rising as N_eff falls
   (`ph2/results/lowheight/LOWHEIGHT.md`).
 
+## L3 — CS08's long-range four-point connected function does not decay (descriptive; twenty-fourth round)
+- The assembled non-oscillating long-range C(r) of the Stage 2 statistic (pair bump (0.5, 0.3)) is almost periodic,
+  with RMS 0.053 constant from r ≈ 20 to 4.8·10⁴ spacings at ℓ = 16.50. Its 2000-spacing block means are ±5·10⁻⁵. Only
+  the sine-kernel part decays. Source: `cs4/diag_wincov_edge.py`, `cs4/GS_ZETA_RESULTS.md` §5.
+
+## L4 — neighbouring windows of the zeros are anti-correlated; GUE's are not (seen data; descriptive)
+- Lag-1 correlation of the tapered window sums (b = 100, centres 3b apart):
+  - F1, all six bins: −0.03 to −0.04 (n ≈ 2·10⁴ each; about 5σ per bin);
+  - Stage 1 GUE: ≈ 0;
+  - CS08's prediction: −0.031 to −0.034.
+- Source: `cs4/diag_f1_wincorr.py`, `cs4/results/diag_wincov/`. Not a test: F1 is seen data.
+
+## L5 — does CS08 explain Coram–Diaconis's lag-1 anti-correlation (−0.2)?
+- CD (2000 report; `ph2s/lit/PAIRSUM_VARIANCE_LIT.md` §1.8) found −0.2 between consecutive blocks' values of
+  |Σ_j e^{iθ_j}|². Their blocks are n = 42 zeros, sharp and adjacent, each rescaled to its own length.
+- To do: the theory's ρ₁ in their configuration, with the per-block-rescaling effect measured separately on GUE
+  (Will's caution: rescaling alone anti-correlates neighbours in any rigid sequence). If the GUE part accounts for
+  −0.2, CS08's arithmetic part is what is left to compare.
+- **First step done (2026-10-10, descriptive; F1 is seen data): `ph2s2/cd_lag1.py`, `ph2s2/results/cd_lag1/`.**
+  - **GUE does not do it.** On the Stage 1 GUE sequences (16 × 10⁶ unfolded levels, a long rigid sine-kernel
+    sequence), CD's construction with own-length wrapping gives ρ₁ = +0.00 to +0.04 for every n = 4…64 (SE ≈ 0.002).
+    Unit-length wrapping gives +0.01. So per-block rescaling plus rigidity does **not** produce −0.2.
+  - **The zeros do.** On F1 with CD's rule n = ⌊ℓ⌋, ρ₁ = −0.23 to −0.27 in all six bins (SE 0.0017), against CD's
+    −0.2 ± 0.03 at ℓ ≈ 42.
+  - **ρ₁ is a function of u = ℓ/n alone.** u is the frequency, in t, that the block-scale mode e^{2πiΔ/n} probes; the
+    block is one period, 2π/u in t. F1b (ℓ = 15.47) and F1x (ℓ = 22.10) fall on one curve:
+
+    | u | ≈ 1.0 | ≈ 0.7 | ≈ 0.55 | ≈ 0.45 | ≈ 0.38 | ≈ 0.35 |
+    |---|---|---|---|---|---|---|
+    | ρ₁ | −0.24 to −0.26 | −0.32 to −0.37 (minimum) | ≈ 0 | +0.55 (peak) | ≈ 0 | +0.2 (second peak) |
+
+    At n = 42 on F1 (u ≈ 0.35–0.53) it therefore swings from +0.10 to +0.54.
+  - **Bearing on the twenty-second-round novelty wording:** it said CD's −0.2 "may be a generic rigidity effect".
+    **Revised (Will, twenty-fifth round; recorded as a correction):** "not explained by GUE-level rigidity (GUE gives
+    ≈ 0 under the same construction); an arithmetic origin is conjectured (possibly prime 2) and not yet tested."
+  - **Still to do:** the theory curve ρ₁(u) from CS08 (or the explicit formula) in CD's configuration.
+  - **Scoping the theory curve (not started; for Will to prioritise).** Three obstacles:
+    - **CS08's theorem does not cover CD's statistic as it stands.** It needs test functions holomorphic in a strip.
+      CD's blocks are sharp, indexed by zero count (each starts at a zero, a Palm-type conditioning), and own-length
+      wrapping makes W nonlinear in the zeros.
+    - **The tractable neighbour:** blocks at fixed positions, unit wrapping, and a smooth taper w,
+      Z_k = Σ_γ w(x_γ − kn) e^{2πi x_γ/n}. Its lag-1 Cov(|Z_k|², |Z_{k+1}|²) is a four-point integral of the same
+      kind as Stage 2's (`cs4lr`), with the pair bump F replaced by e^{2πi(x₁ − x₂)/n}.
+    - **Comparing the two needs the bridge.** That variant would first be measured on F1 next to CD's own
+      construction, to check that it keeps the u-curve.
+  - **Reading of the mechanism (a conjecture, not a check).** The mode e^{2πiΔ/n} probes frequency u in t. By the
+    explicit formula, the prime powers m with log m near u contribute terms that are deterministic in the block position
+    and rotate by 2π·log m/u from one block to the next. Their beats then set the sign of ρ₁. The minimum near
+    u ≈ 0.7 sits at log 2 = 0.693. GUE has no such terms, which fits its ρ₁ ≈ 0.
+
 ## Status
-Neither lead has a theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
+L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project
 (`ph2/SCOPE_CS_SPACING.md`, GO after the R₂ seal).

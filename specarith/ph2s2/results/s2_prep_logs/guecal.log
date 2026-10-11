@@ -1,0 +1,3 @@
+GUE F2 (24 seqs): z SD per file 1.083 1.073 1.099 1.064 1.057 | P(|z|>3) per file 0.0112 0.0088 0.0110 0.0085 0.0060 | z_pool SD 1.115, P(|z_pool|>2) 0.0983 | R1 fail 0.0005 | false-FAIL of the rule 0.0983 | max 2·SE_pool 0.0613
+GUE S1 (16 seqs): z SD per file 1.061 1.064 1.070 1.064 1.082 | P(|z|>3) per file 0.0065 0.0063 0.0080 0.0063 0.0085 | z_pool SD 1.112, P(|z_pool|>2) 0.0747 | R1 fail 0.0000 | false-FAIL of the rule 0.0747 | max 2·SE_pool 0.0664
+exit=0

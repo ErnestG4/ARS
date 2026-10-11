@@ -30,7 +30,7 @@ results/run/<bin>.json. Estimand κ = N/N_eff (κ = 1: the zeros' spacing law is
 A3 = max) is as large as the effect the primary is meant to measure; its achieved widened half-width (0.215) exceeds
 the ±20% limit, so A6(iii) flags it NOT RESOLVABLE (achieved) — the first time that guard fired on data (it had been
 made to fire on a synthetic witness in the dry run). **The SECONDARY is the sharp test** (statistical CI only, no
-allowance).
+allowance). See §6 (erratum, 2026-10-09): the A6(iii) rule was conceptually wrong; no verdict changes.
 
 - **Power arm (N = ∞ excluded):** yes in A–P6 for both arms; no in H1–H3 (as sealed).
 - **Resolution:** PRIMARY h_bin arm INAPPLICABLE (A7); PRIMARY ±20% floor arm (widened interval inside 1 ± 0.20): met
@@ -91,3 +91,18 @@ zeros move it the other way and further, and the SECONDARY (which carries the ar
    have been seen: under the new model they are descriptive only. The (κ̂ − 1)·N_eff² pattern was found on them.
 3. Low heights (N_eff < 2): descriptive report, labelled outside the expansion's validity, no verdicts.
 4. Order: literature check → Phase 6.1 candidates → Phase 1; the fresh-height test when its model is sealed.
+
+## 6. Erratum (2026-10-09, Will) — A6(iii)'s achieved rule conflated outcome with precision; no verdict changes
+A6(iii) made an arm read NOT RESOLVABLE (achieved) if its **achieved** CI "cannot exclude N = ∞" **or** has half-width >
+0.20. The first clause is about where the estimate landed, not about precision. A tight CI around κ = ∞ that excludes
+κ = 1 is the theory-is-wrong outcome and should read FAIL, but the clause would have read it as "unresolvable", so the
+rule could not fail the theory in favour of the sine kernel. The same defect surfaced in the R₂ dry run, where every
+μ = 0 surrogate read NOT RESOLVABLE (achieved) with tight CIs. It was fixed there before data (PH2R2_SEAL_1.0 A2:
+NOT RESOLVABLE (achieved) iff the CI contains both the theory's value and the null's, or exceeds the width ceiling).
+**The verdicts above stand:**
+- **The rule fired on data once, on width alone.** That was bin A's PRIMARY, with achieved widened half-width 0.215 > 0.20.
+- **The N = ∞ clause never fired on data.** Every achieved CI in A–P6 excludes κ = ∞, for both arms (§1 power arm).
+- **H1–H3 were NOT RESOLVABLE pre-data.** The pre-data rules (decision 3, A6(i)) judge the *predicted* spread, which is
+  precision. They are not affected.
+Under the corrected rule, Phase 2's table is unchanged entry for entry. This erratum records only that the clause was
+conceptually wrong, and that a future seal must state the guard in terms of precision only.

@@ -1,0 +1,25 @@
+F1a ĝ_B 0.6630 ± 0.0626  pred(interp) 0.6703  max |Δ sums| vs stored 0.0e+00
+F1b ĝ_B 0.6688 ± 0.0382  pred(interp) 0.6703  max |Δ sums| vs stored 0.0e+00
+F1c ĝ_B 0.7137 ± 0.0517  pred(interp) 0.6687  max |Δ sums| vs stored 0.0e+00
+F1d ĝ_B 0.6817 ± 0.0369  pred(interp) 0.6809  max |Δ sums| vs stored 0.0e+00
+F1e ĝ_B 0.6850 ± 0.0335  pred(interp) 0.7160  max |Δ sums| vs stored 0.0e+00
+F1x ĝ_B 0.7516 ± 0.0379  pred(interp) 0.7201  max |Δ sums| vs stored 0.0e+00
+{'F1_seen': 'PASS', 'GUE_vs_zeta': 'FAIL', 'GUE_vs_GUE': 'PASS', 'guard_witness': 'NOT RESOLVABLE'} as expected: {'F1_seen': True, 'GUE_vs_zeta': True, 'GUE_vs_GUE': True, 'guard_witness': True} F1 sums reproduce: True
+# Dry run: F1 (seen; interpolated prediction)
+
+**Verdict: PASS**
+
+- Pooled ĝ_B = 0.6836, 95% CI [0.6442, 0.7230]; pooled prediction 0.6834 (same weights).
+- d_pool = +0.0002 ± 0.0197, z_pool = +0.01 (R2: |z_pool| ≤ 2 → yes).
+- Files within 3 SE: 5 of 5 (R1: ≥ 4 → yes).
+- Precision guard: 2·SE_pool = 0.0394 ≤ 0.07 → RESOLVABLE.
+
+| file | ĝ_B ± SE | g_pred | z |
+|---|---|---|---|
+| F1a | 0.6630 ± 0.0626 | 0.6703 | -0.12 |
+| F1b | 0.6688 ± 0.0382 | 0.6703 | -0.04 |
+| F1c | 0.7137 ± 0.0517 | 0.6687 | +0.87 |
+| F1d | 0.6817 ± 0.0369 | 0.6809 | +0.02 |
+| F1e | 0.6850 ± 0.0335 | 0.7160 | -0.92 |
+
+exit=0
