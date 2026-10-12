@@ -13,7 +13,10 @@ Pipeline (P7, thirty-second round):
   band        the same pipeline on random-matrix draws of each family's type, each member's draw truncated to the
               same number of low zeros as the member; per-pair thresholds at a common per-pair quantile chosen so that
               the FAMILY-WISE false-fail rate over the pairs is 5%, calibrated empirically on the draws.
-The draw size per member is an input (`n_draw`): see PH1_SEAL_DRAFT P8 (matched size does not cover the scaled window).
+The draw size per member is an input (`n_draw`). P8 (thirty-third round, hybrid): the peak_q bands use a size covering
+the full data window (scaled height 8), not the member-matched size, which does not reach it.
+P9 (thirty-third round): bands from >= BAND_REPS_MIN repeats; a hold-out of >= HOLDOUT_REPS_MIN fresh repeats must give a
+family-wise rate inside HOLDOUT_RANGE (`holdout_check`).
 
 Random-matrix types (Haar, by Gram–Schmidt of Gaussian columns, so left-invariant):
   U(N)       eigenangles θ ∈ (−π, π]; scaled x = θ N / 2π; positive side x > 0.
@@ -37,6 +40,9 @@ Q_MAX = 200
 MIN_ZEROS = 6
 X_MAX = 8.0
 FWER = 0.05
+BAND_REPS_MIN = 1000
+HOLDOUT_REPS_MIN = 2000
+HOLDOUT_RANGE = (0.035, 0.065)
 
 
 # ---------------------------------------------------------------- member and family statistics
@@ -180,6 +186,17 @@ def fwer_on(table, thresholds):
     return float(np.mean((table > thresholds).any(axis=1)))
 
 
+def holdout_check(rng, families, bands, reps=HOLDOUT_REPS_MIN):
+    """P9: the family-wise false-fail rate of `bands` on fresh replicates. Raises (fails closed) if the bands came from
+    fewer than BAND_REPS_MIN repeats or the hold-out is smaller than HOLDOUT_REPS_MIN; returns (rate, ok)."""
+    if bands["table"].shape[0] < BAND_REPS_MIN:
+        raise ValueError(f"bands from {bands['table'].shape[0]} repeats < BAND_REPS_MIN = {BAND_REPS_MIN}")
+    if reps < HOLDOUT_REPS_MIN:
+        raise ValueError(f"hold-out of {reps} repeats < HOLDOUT_REPS_MIN = {HOLDOUT_REPS_MIN}")
+    rate = fwer_on(calibrate_bands(rng, families, reps)["table"], bands["thresholds"])
+    return rate, HOLDOUT_RANGE[0] <= rate <= HOLDOUT_RANGE[1]
+
+
 def verdict(observed, bands):
     """observed: {(a, b): TV}. PASS iff every pair is within its band."""
     out = {p: (observed[p], float(t), observed[p] <= t) for p, t in zip(bands["pairs"], bands["thresholds"])}
@@ -224,6 +241,12 @@ def selftest():
     obs_red = pairwise_tv({**{k: family_distribution(rmt_family(rng, *fam[k]))[0] for k in "ABC"},
                            "D": family_distribution(picket)[0]})
     print("red path (picket-fence family D):", verdict(obs_red, bands)[0])
+    # P9 guard fails closed on under-sized bands (the 200-rep toy bands above must be refused)
+    try:
+        holdout_check(rng, fam, bands)
+        raise AssertionError("holdout_check accepted 200-repeat bands")
+    except ValueError as e:
+        print("holdout_check refuses toy bands:", e)
     print("selftest done")
 
 

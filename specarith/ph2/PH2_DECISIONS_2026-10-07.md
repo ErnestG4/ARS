@@ -588,11 +588,26 @@ lag-1 correlation and the non-decaying C(r).
 - *Renumbered at Will's instruction (thirty-second round).* This entry was first filed as the thirtieth round.
 
 ## Thirtieth round (Will, 2026-10-11) — route (a) GO, estimand μ
-- **Will's own text is MISSING.** Will states (thirty-second round) that round 30 was "route (a) GO + μ estimand" and
-  asked for the block to be pasted here. No such message reached this session, so the text is not recorded.
-- **Recorded from the thirty-second round's description only:** route (a) GO; the estimand is the amplitude μ of the
-  arithmetic lower-order part, as in R₂.
-- **To do:** Will re-sends the round-30 block, and it replaces this entry verbatim.
+
+```
+Route (a) (Will, round 30): GO step 1 — ζ p(s; E) at the F3 heights on spot,
+with checks: n=2 part reproduces R₂ machinery; positivity / valid density on
+s ≤ 1.8 at every height; ζ-side n≤4 truncation bound (not inherited from U(N));
+prime-cutoff convergence at the sealed quantity itself. Tag the prediction
+before any F3 decode.
+Estimand (decision ii): μ, the amplitude of CS08's arithmetic lower-order
+part (μ=1 full strength; μ=0 sine kernel). Fit window s ≤ 1.8, model
+normalised over the window. Findings will also translate Phase 2's
+CUE(N_eff) curve into an equivalent μ (descriptive, answers L2).
+Order: L5 after route (a); L3 descriptive only. Phase 1 waits on the
+D1–D6 draft upload.
+```
+- **Filed late.** This block first reached the session after the thirty-third round was written, which is why
+  rounds 31–32 precede it in time of filing. Until then a placeholder stood here (0905c118), recorded only from the
+  thirty-second round's description.
+- **"Phase 1 waits on the D1–D6 draft upload"** was already met: rounds 31–33 are Will's decisions on that draft.
+- **The window s ≤ 1.8** is the twenty-first round's; that round's U(N) gate also found no n = 5 term at 1.8. The
+  ζ-side truncation bound asked for here is a separate check and is not taken from that gate.
 
 ## Thirty-first round (Will, 2026-10-11) — Phase 1 decisions D1–D6
 
@@ -656,3 +671,27 @@ release note is a non-decision entry.
 - **P7's six pairs read as the four families of the RF null:** U, USp, EC ε = +1 and EC ε = −1. The E₁₁ twists are not
   in the RF null. This is flagged in the draft for Will to confirm.
 - **Round 30:** Will's text did not reach this session. A placeholder is recorded above.
+
+## Thirty-third round (Will, 2026-10-11) — Phase 1 P5, P7 family set, P8, P9
+
+```
+Round 33 (Will) — Phase 1:
+P8 accept hybrid: first-zero law at conductor-matched size; D(φ) and peak_q
+   calibration at a size covering the full data window (scaled height 8).
+   Seal records why D(φ)'s calibration size exceeds matched N.
+P9 accept: bands from ≥ 1,000 repeats; hold-out family-wise rate must land
+   in 3.5–6.5% (correction 8.7% → 4.2–6.1% recorded).
+P7 family set: U, USp, EC ε=+1, EC ε=−1 (6 pairs). E₁₁ even twists excluded
+   (same type as EC ε=+1); they stay in their own P5 arm.
+P5 cut-off: X′ = largest d with projected generation ≤ 24 h at the rate
+   measured on spot, rounded down; declared in the seal before generation.
+```
+- **Round 30's block arrived with this round** and is now filed verbatim above, in place of the placeholder.
+- **P5 has two cut-offs, and this round settles one.** It fixes the range limit X′. The draft's open P5 item was the
+  other one: DHKMS §5.4's low-lying cut-off, 0.5916·e^{−N_std/2}, stated at N_std = 12 (X = 4·10⁵). Whether the fresh
+  range recomputes N_std from X′ (proposed) or holds 0.001466 fixed is still open. It has to be settled before the seal.
+- **Readings to confirm, both in the draft:**
+  - "Projected generation ≤ 24 h" counts the fresh range (4·10⁵, X′] only. The reproduction range d ≤ 4·10⁵ is
+    generated separately.
+  - "Rounded down" means to a multiple of 10⁵.
+- **Spot** still refused ssh at the time of filing (connection refused on port 22).
