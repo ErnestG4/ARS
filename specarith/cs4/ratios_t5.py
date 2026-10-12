@@ -80,6 +80,20 @@ class Jets:
             out = out + P * (derivs[k] / math.factorial(k))
         return out
 
+    def apply2(self, x, derivs):
+        """f(x) when x = x₀ + Σ c_i ε_i over at most two variables (no products of ε in x): components f, c_i f′, c_j f′ and
+        c_i c_j f″ directly (exact; equals `apply` without the convolutions). Falls back to `apply` otherwise."""
+        lin = [S for S in range(1, self.K) if np.any(x[S] != 0)]
+        if len(lin) > 2 or any(bin(S).count("1") != 1 for S in lin):
+            return self.apply(x, derivs)
+        out = np.zeros(x.shape, complex)
+        out[0] = derivs[0]
+        for S in lin:
+            out[S] = x[S] * derivs[1]
+        if len(lin) == 2:
+            out[lin[0] | lin[1]] = x[lin[0]] * x[lin[1]] * derivs[2]
+        return out
+
     def exp(self, x):
         e = np.exp(x[0])
         return self.apply(x, [e] * (self.n + 1))
@@ -157,7 +171,7 @@ class Model:
         d = invzeta_derivs2(x[0]) if inverse else zeta_derivs2(x[0])
         if not inverse and np.any(np.abs(x[0]) < 1e-13):
             raise ValueError("ζ(1 + 0) in a numerator")
-        return J.apply(x, d + [0 * d[0]] * (J.n + 1 - len(d)))
+        return J.apply2(x, d + [0 * d[0]] * (J.n + 1 - len(d)))
 
     @staticmethod
     def zero_safe_1mexp(J, x):
@@ -174,12 +188,11 @@ class Model:
         for pp, lp, e in self.groups:
             # Z_p factors: log(1 − p^{−1−x−y}) summed with signs
             def zp_log(xjet):
-                y = xjet.copy()
-                y[0] = y[0] + 1
-                u = J.exp(-y[..., None] * lp)                                           # p^{−1−x}, (K, *batch, P)
-                v = -u
-                v[0] = v[0] + 1
-                return J.log(v)
+                """log(1 − p^{−1−x}) for x depending on ≤ 2 variables: f = log(1 − u), u = p^{−1−x₀};
+                f′ = log p · u/(1 − u), f″ = −log²p · u/(1 − u)² (exact; checked against the convolution path)."""
+                u = np.exp(-np.multiply.outer(1 + xjet[0], lp))                      # (*batch, P)
+                xj = xjet[..., None] * np.ones(len(lp))
+                return J.apply2(xj, [np.log(1 - u), lp * u / (1 - u), -lp * lp * u / (1 - u) ** 2])
 
             def jet_of(el):
                 v, i, sg = el
