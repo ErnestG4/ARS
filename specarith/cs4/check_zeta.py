@@ -8,6 +8,10 @@
       ≤ 1e-8) at random points — individual J* terms are neither, so this checks the assembly and the transcription.
 
   python check_zeta.py  ->  results/check_zeta.json
+
+Z1–Z4 did not catch CS08's sign error in J13's prime-sum term (CS08_ERRATUM.md §4): a sign flip of a real, symmetric,
+decaying term passes all four. check_ratios_j.py (every J* against its ratios-conjecture definition; ρ₄ → 0 at
+coincidence) does.
 """
 import itertools
 import json

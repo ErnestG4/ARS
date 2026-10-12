@@ -9,6 +9,11 @@ The prediction was publicly tagged before the test data was read.*
 `ph2s-stage2-prediction`) under the sealed rule (tag `ph2s-stage2-seal`, commit 91f74031). Stage 1 established that
 the suppression exists; Stage 2 tests its size.
 
+**Post-release note (2026-10-11).** A second erratum in CS08 was found after this read: the sign of the
+prime-sum term in J*({a},{b₁,b₂,b₃}) (`../cs4/CS08_ERRATUM.md` §4). The prediction code carried the printed sign. It
+cannot move the sealed prediction: the correction has no constant part and its oscillation is suppressed by the b ≥ 100
+windows to ~1e-18 (checked, `../cs4/check_s13_stage2.py`). The verdict and every number below stand.
+
 **Limits (Will, twenty-ninth round):**
 - **Conditional on the ratios conjecture,** like R₂. The prediction uses CS08's ratios-conjecture n ≤ 4 correlations.
   A PASS is evidence for that conjecture's higher-order structure, not a theorem about ζ.

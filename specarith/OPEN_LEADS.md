@@ -23,6 +23,8 @@ statistic, and any connection between them is a hypothesis for a future sealed t
 - The assembled non-oscillating long-range C(r) of the Stage 2 statistic (pair bump (0.5, 0.3)) is almost periodic,
   with RMS 0.053 constant from r ≈ 20 to 4.8·10⁴ spacings at ℓ = 16.50. Its 2000-spacing block means are ±5·10⁻⁵. Only
   the sine-kernel part decays. Source: `cs4/diag_wincov_edge.py`, `cs4/GS_ZETA_RESULTS.md` §5.
+- Unchanged by CS08's J₁₃ sign erratum (`cs4/CS08_ERRATUM.md` §4.1): the correction has Bohr mean 0 and moves C(r)
+  pointwise by ≤ 2.8e-4 (about 0.5% of the RMS).
 
 ## L4 — neighbouring windows of the zeros are anti-correlated; GUE's are not (seen data; descriptive)
 - Lag-1 correlation of the tapered window sums (b = 100, centres 3b apart):

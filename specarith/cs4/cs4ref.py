@@ -102,7 +102,7 @@ class ZetaRef(S.Zetap):
         for i in range(len(self.mpp)):
             zp = lambda x: 1 / (1 - self._P(i, -x))
             out.append(zp(1 + a + b1) * zp(1 + a + b2) * zp(1 + a + b3) * self.mlp[i] ** 4 * self._P(i, -(3 + 3 * a + b1 + b2 + b3)))
-        return -mp.fsum(out)
+        return mp.fsum(out)                     # + (CS08 prints −: erratum, CS08_ERRATUM.md §4)
 
     @functools.lru_cache(maxsize=None)
     def Astar(self, a1, a2, b1, b2):

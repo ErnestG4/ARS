@@ -695,3 +695,23 @@ P5 cut-off: X′ = largest d with projected generation ≤ 24 h at the rate
     generated separately.
   - "Rounded down" means to a multiple of 10⁵.
 - **Spot** still refused ssh at the time of filing (connection refused on port 22).
+
+## Note (not a decision round, 2026-10-11) — route (a) step 1 found a second CS08 erratum
+- **What happened.** Route (a)'s spacing-law integrator (`cs4/route_a_zeta.py`) found the error before anything was
+  tagged.
+  - It evaluates ρ₄ with all four points inside a gap s ≤ 1.8. As two points merged, ρ₄^ζ tended to a negative
+    constant.
+  - CS08 counts distinct zeros, so ρ₄ is a density and must vanish there; ρ₂ and ρ₃ do.
+- **Localised by an independent check** (`cs4/check_ratios_j.py`). Every J* was rebuilt from CS08's own
+  ratios-conjecture definition by numerical mixed derivatives.
+  - J₁₁, J₁₂ and J₂₂ match to ≤ 3.5e-16. This also confirms the earlier A* erratum and the B₄ reading.
+  - J₁₃ is off by exactly −2 × its prime-sum term. CS08 prints that term with the wrong sign, in arXiv v1 and in the
+    journal's eq. (5.36).
+  - Under the twentieth-round rule it is recorded as an erratum: `cs4/CS08_ERRATUM.md` §4.
+- **Fixed** in `cs4lib`, `cs4fast` (and so `cs4fastc`, `cs4lr`) and `cs4ref`.
+- **Stage 2 (sealed, read, released) is unaffected.**
+  - The correction has no constant part and oscillates in r at ≥ 0.39 per spacing, so the b ≥ 100 windows remove it.
+  - Checked: the window integral is ≤ 2.7e-19, against v_B(100) ≈ 0.075 (`cs4/check_s13_stage2.py`).
+  - Pointers were added the same day in `PH2S_STAGE2_FINDINGS.md`, `GS_ZETA_RESULTS.md` and `OPEN_LEADS.md` L3.
+- **For Will:** the released v2026.10.11 carries `CS08_ERRATUM.md` without §4. Whether a new release should carry it
+  is Will's call.
