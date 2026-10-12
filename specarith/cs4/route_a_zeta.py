@@ -419,10 +419,27 @@ def merge(out_dir):
             dk = series(f, "mean", PMAX_MAIN, M_QUAD, k)
             rat[k] = np.where(np.abs(ts) > 100 * SKIP, np.abs(dk) / np.maximum(np.abs(ts), 1e-300), 0.0)
         r5 = np.maximum(1.0, 1.5 * np.maximum(rat["T3"], rat["T4"]))
-        d5 = r5 * np.abs(T5s)                          # bound on |Δ₅|, the arithmetic part of the omitted term
-        full5 = np.abs(T5s) + d5                         # bound on |T₅^ζ|
+        d5_est = r5 * np.abs(T5s)                      # ratio estimate (superseded by the computed Δ₅ where it exists)
+        # Thirty-fourth round, item 2: Δ₅ COMPUTED from the ratios-conjecture definition (ratios_t5.py, behind its U(N)
+        # gate) at the edge nodes (|T₅^sine| ≥ 1e-8); below them the declared bound |Δ₅| ≤ 100·|T₅^sine| ≤ 1e-6.
+        t5f = os.path.join(HERE, "results", "ratios_t5.json")
+        computed = json.load(open(t5f))["files"][f]["delta5"] if os.path.exists(t5f) else {}
+        d5_signed = np.zeros(len(NODES))
+        d5 = np.zeros(len(NODES))
+        src = []
+        for i, sn in enumerate(NODES):
+            key = str(float(sn))
+            if key in computed:
+                d5_signed[i] = computed[key]
+                d5[i] = abs(computed[key])
+                src.append("computed")
+            else:
+                d5[i] = 100 * abs(T5s[i])
+                src.append("bound")
+        full5 = np.abs(T5s) + d5                         # |T₅^ζ| ≤ |T₅^sine| + |Δ₅|
         D5 = np.abs(cheb_interp(d5, grid))
-        dmu5 = float(np.sum(D5 * np.abs(DP)) / np.sum(DP * DP))
+        dmu5 = float(np.sum(D5 * np.abs(DP)) / np.sum(DP * DP))     # worst sign
+        dmu5_signed = proj(d5_signed) if computed else None         # the computed part's actual effect on μ
         # (d) prime cutoff at the sealed quantity Δp: 3·10⁵ → 10⁶
         d_change = dp_hi - dp
         # interpolation: the 13-node subset interpolant against the 25-node values at the odd nodes (conservative)
@@ -438,7 +455,9 @@ def merge(out_dir):
             check_b=dict(min_p_mu1=float(P1[1:].min()), min_p_zeta_nodes=float(pz[1:].min()), window_mass_mu1=mass,
                          window_mass_sine=float(np.trapezoid(p_sine(grid), grid)),
                          PASS=bool(P1[1:].min() > 0 and pz[1:].min() > 0 and 0 < mass < 1)),
-            check_c=dict(max_full_T5_bound=float(full5.max()), max_dT5_bound=float(d5.max()), dmu_bound=dmu5,
+            check_c=dict(source=src, computed_available=bool(computed), max_dT5=float(d5.max()),
+                         max_full_T5_bound=float(full5.max()), dmu_worst_sign=dmu5, dmu_computed=dmu5_signed,
+                         d5_ratio_estimate=d5_est.tolist(), d5=d5.tolist(),
                          max_ratio_T3=float(rat["T3"].max()), max_ratio_T4=float(rat["T4"].max()),
                          r_T3=rat["T3"].tolist(), r_T4=rat["T4"].tolist(), T5_sine=T5s.tolist()),
             check_d=dict(max_abs_change=float(np.max(np.abs(d_change))), rel_change=float(np.max(np.abs(d_change)) / mx),
@@ -450,7 +469,7 @@ def merge(out_dir):
             prediction=dict(grid_step=S_MAX / 1800, dp=DP.tolist(), p_sine=p_sine(grid).tolist()))
         v = res["files"][f]
         print(f"{f}: ℓ̄ {v['ell_mean']:.4f}  max|Δp| {mx:.3e}  (a) {a_err:.1e}  (b) min p {v['check_b']['min_p_mu1']:.2e} "
-              f"mass {mass:.4f}  (c) |Δ₅| ≤ {d5.max():.1e} (δμ {v['check_c']['dmu_bound']:.1e}), |T₅^ζ| ≤ {full5.max():.1e}  "
+              f"mass {mass:.4f}  (c) |Δ₅| ≤ {d5.max():.1e} (δμ ≤ {v['check_c']['dmu_worst_sign']:.1e}), |T₅^ζ| ≤ {full5.max():.1e}  "
               f"(d) {v['check_d']['max_abs_change']:.1e} (δμ {v['check_d']['dmu']:+.1e})  quad {v['quad']['max_abs']:.1e}  "
               f"interp tail {v['interp']['cheb_tail']:.1e}" + (f"  file-avg δμ {fav['dmu']:+.1e}" if fav else ""), flush=True)
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
