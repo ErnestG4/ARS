@@ -38,6 +38,7 @@ import route_a_zeta as RA
 
 PMAX_T5, PMAX_T5_CHECK = 1000, 3000
 M_T5 = 6                                   # GJ axes 6, 8, 10 (480 points)
+CUTOFF_TOL = 1e-6                          # thirty-sixth round (1), declared: 100× below the ~1e-4 bin resolution
 EDGE_MIN = 1e-8                            # edge nodes: |T₅^sine| ≥ this; below, the round-34 ratio-100 bound (≤ 1e-6)
 
 
@@ -421,6 +422,16 @@ def merge(out_dir):
                                ratio=max(abs(d5[r["s"]]) / abs(r["T5_sine"]) for r in main),
                                cutoff_change=conv, quad_sine=quad)
         print(f, {k: v for k, v in res["files"][f].items() if k != "delta5"}, flush=True)
+    # thirty-sixth round (1): the prime-cutoff check must pass before Δ₅ enters the prediction. Declared criterion:
+    # |Δ₅(p ≤ 3000) − Δ₅(p ≤ 1000)| ≤ CUTOFF_TOL at every checked node (lowest and highest heights); it applies to all
+    # five heights (the Euler factors' tail beyond p = 1000 is height-independent in size).
+    changes = [c for v in res["files"].values() for c in v["cutoff_change"].values()]
+    ok = bool(changes) and max(changes) <= CUTOFF_TOL
+    res["cutoff_tol"] = CUTOFF_TOL
+    res["cutoff_max_change"] = max(changes) if changes else None
+    for v in res["files"].values():
+        v["cutoff_pass"] = ok
+    print("T₅ prime-cutoff check (p ≤ 1000 vs 3000): max |change| %.2e, %s" % (res["cutoff_max_change"], "PASS" if ok else "FAIL"))
     json.dump(res, open(os.path.join(RA.HERE, "results", "ratios_t5.json"), "w"), indent=1)
     return res
 

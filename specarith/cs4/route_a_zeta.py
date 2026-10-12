@@ -215,6 +215,33 @@ def T5_det(s, m, N=None):
     return float(-np.sum(W * sine_rho(ds, N)) / 6)
 
 
+def T6_det(s, m=6, N=None):
+    """Second omitted term +(1/4!)∫_{[0,s]⁴} det₆ (axes m, m + 2, m + 4, m + 6): the n = 6 term of the n ≤ 5 model
+    (thirty-sixth round). Sine kernel at s = 1.8: 1.427e-9 (m = 6 and 8 agree to 4 digits)."""
+    axes = [gl(m + 2 * k, s) for k in range(4)]
+    Y = np.meshgrid(*[a[0] for a in axes], indexing="ij")
+    W = np.einsum("i,j,k,l->ijkl", *[a[1] for a in axes]).ravel()
+    ds = [np.zeros(W.size)] + [y.ravel() for y in Y] + [np.full(W.size, s)]
+    return float(np.sum(W * sine_rho(ds, N)) / 24)
+
+
+T5_RANGE_LEVEL = 1e-7      # thirty-sixth round (2): the computed Δ₅ nodes must span the s-range where |T₅^sine| > this
+T6_CAP = 100               # thirty-sixth round (3): n = 6 bound = 100·|T₆^sine|
+TRUNC_MAX = 1e-5           # declared: the truncation bound must stay ≤ 1e-5 on the window (≥ 10× below ~1e-4 bins)
+
+
+def t5_range_start():
+    """Smallest s with |T₅^sine(s)| > T5_RANGE_LEVEL (bisection on [0.9, 1.8])."""
+    lo, hi = 0.9, 1.8
+    for _ in range(50):
+        mid = 0.5 * (lo + hi)
+        if abs(T5_det(mid, 10)) > T5_RANGE_LEVEL:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
 def p4(T):
     return T["T2"] - T["T3"] + T["T4"]
 
@@ -407,39 +434,48 @@ def merge(out_dir):
         a_err = float(np.max(np.abs(T2z - r2_ref)))
         # (b) positivity and a valid density on the window, μ = 1 (μ ∈ [0, 1] follows: p_μ is linear in μ, p_sine > 0)
         mass = float(np.trapezoid(P1, grid))
-        # (c) ζ-side n ≤ 4 truncation (Will, thirtieth round: not inherited from U(N)). Only Δp is truncated (p_sine is
-        # exact), so the omitted part is Δ₅ = T₅^ζ − T₅^sine. Its size is estimated from ζ's own term ratios
-        # r_n(s) = |Δ_n|/|T_n^sine| at n = 3, 4 (each ρ_n^ζ/ρ_n^sine observed in (0, 1], so |Δ_n| ≤ |T_n^sine|):
-        #   |Δ₅(s)| ≤ max(1, 1.5·max(r₃, r₄))·|T₅^sine(s)|,
-        # and its effect on μ by the worst-sign projection Σ|Δ₅||Δp| / ΣΔp² over the window.
-        T5s = np.array([0.0] + [r["T5_sine"] for r in main])
-        rat = {}
-        for k in ("T3", "T4"):
-            ts = np.array([0.0] + [r["sine"][k] for r in main])
-            dk = series(f, "mean", PMAX_MAIN, M_QUAD, k)
-            rat[k] = np.where(np.abs(ts) > 100 * SKIP, np.abs(dk) / np.maximum(np.abs(ts), 1e-300), 0.0)
-        r5 = np.maximum(1.0, 1.5 * np.maximum(rat["T3"], rat["T4"]))
-        d5_est = r5 * np.abs(T5s)                      # ratio estimate (superseded by the computed Δ₅ where it exists)
-        # Thirty-fourth round, item 2: Δ₅ COMPUTED from the ratios-conjecture definition (ratios_t5.py, behind its U(N)
-        # gate) at the edge nodes (|T₅^sine| ≥ 1e-8); below them the declared bound |Δ₅| ≤ 100·|T₅^sine| ≤ 1e-6.
+        # (c) THIRTY-SIXTH ROUND: the n ≤ 5 model. Δ₅ = T₅^ζ − T₅^sine, COMPUTED from the ratios-conjecture definition
+        # (ratios_t5.py, behind its U(N) gate), is ADDED to Δp at the edge nodes (|T₅^sine| ≥ 1e-8). Conditions:
+        #  (1) the T₅ prime-cutoff check (p ≤ 1000 vs 3000) passes (ratios_t5.merge: |change| ≤ 1e-6 at every checked node);
+        #  (2) the computed nodes span the s-range where |T₅^sine| > 1e-7 (declared from the determinant, t5_range_start);
+        #  (3) truncation: the n = 6 term, bounded by 100·|T₆^sine| (exact, determinant), plus the round-34 bound
+        #      100·|T₅^sine| ≤ 1e-6 at the nodes below the edge where Δ₅ is not computed; ≤ TRUNC_MAX on the window.
         t5f = os.path.join(HERE, "results", "ratios_t5.json")
-        computed = json.load(open(t5f))["files"][f]["delta5"] if os.path.exists(t5f) else {}
+        if not os.path.exists(t5f):
+            raise RuntimeError("thirty-sixth round: the n ≤ 5 model needs results/ratios_t5.json (computed Δ₅); none found")
+        t5res = json.load(open(t5f))
+        computed = t5res["files"][f]["delta5"]
+        cutoff_ok = bool(t5res["files"][f]["cutoff_pass"]) if "cutoff_pass" in t5res["files"][f] else None
+        T5s = np.array([0.0] + [r["T5_sine"] for r in main])
         d5_signed = np.zeros(len(NODES))
-        d5 = np.zeros(len(NODES))
-        src = []
+        trunc5 = np.zeros(len(NODES))
         for i, sn in enumerate(NODES):
             key = str(float(sn))
             if key in computed:
                 d5_signed[i] = computed[key]
-                d5[i] = abs(computed[key])
-                src.append("computed")
             else:
-                d5[i] = 100 * abs(T5s[i])
-                src.append("bound")
-        full5 = np.abs(T5s) + d5                         # |T₅^ζ| ≤ |T₅^sine| + |Δ₅|
-        D5 = np.abs(cheb_interp(d5, grid))
-        dmu5 = float(np.sum(D5 * np.abs(DP)) / np.sum(DP * DP))     # worst sign
-        dmu5_signed = proj(d5_signed) if computed else None         # the computed part's actual effect on μ
+                trunc5[i] = 100 * abs(T5s[i])
+        s0 = t5_range_start()
+        edge = sorted(float(k) for k in computed)
+        spans = bool(edge and edge[0] <= s0 and abs(edge[-1] - S_MAX) < 1e-12)
+        T6 = np.array([0.0] + [abs(T6_det(float(sn))) for sn in NODES[1:]])
+        trunc6 = T6_CAP * T6
+        trunc = trunc5 + trunc6
+        TR = np.abs(cheb_interp(trunc, grid))
+        dmu_trunc = float(np.sum(TR * np.abs(DP + cheb_interp(d5_signed, grid))) / np.sum((DP + cheb_interp(d5_signed, grid)) ** 2))
+        # the prediction from here on is the n ≤ 5 model
+        dp = dp + d5_signed
+        dp_hi = dp_hi + d5_signed
+        dp_q = dp_q + d5_signed
+        DP = cheb_interp(dp, grid)
+        P1 = p_sine(grid) + DP
+        mx = float(np.max(np.abs(DP)))
+        mass = float(np.trapezoid(P1, grid))
+        full5 = np.abs(T5s) + np.abs(d5_signed)
+        d5 = np.abs(d5_signed)
+        src = ["computed" if str(float(sn)) in computed else "bound" for sn in NODES]
+        dmu5 = dmu_trunc
+        dmu5_signed = proj(d5_signed)
         # (d) prime cutoff at the sealed quantity Δp: 3·10⁵ → 10⁶
         d_change = dp_hi - dp
         # interpolation: the 13-node subset interpolant against the 25-node values at the odd nodes (conservative)
@@ -455,11 +491,13 @@ def merge(out_dir):
             check_b=dict(min_p_mu1=float(P1[1:].min()), min_p_zeta_nodes=float(pz[1:].min()), window_mass_mu1=mass,
                          window_mass_sine=float(np.trapezoid(p_sine(grid), grid)),
                          PASS=bool(P1[1:].min() > 0 and pz[1:].min() > 0 and 0 < mass < 1)),
-            check_c=dict(source=src, computed_available=bool(computed), max_dT5=float(d5.max()),
-                         max_full_T5_bound=float(full5.max()), dmu_worst_sign=dmu5, dmu_computed=dmu5_signed,
-                         d5_ratio_estimate=d5_est.tolist(), d5=d5.tolist(),
-                         max_ratio_T3=float(rat["T3"].max()), max_ratio_T4=float(rat["T4"].max()),
-                         r_T3=rat["T3"].tolist(), r_T4=rat["T4"].tolist(), T5_sine=T5s.tolist()),
+            check_c=dict(model="n <= 5 (thirty-sixth round)", source=src, delta5_included=d5_signed.tolist(),
+                         dmu_of_included_delta5=dmu5_signed, t5_cutoff_pass=cutoff_ok,
+                         t5_range_level=T5_RANGE_LEVEL, t5_range_start=s0, computed_nodes=edge, nodes_span_range=spans,
+                         T6_sine=T6.tolist(), trunc6_bound=trunc6.tolist(), trunc5_below_edge=trunc5.tolist(),
+                         max_trunc=float(trunc.max()), trunc_at_window_edge=float(trunc[-1]), dmu_trunc_worst_sign=dmu5,
+                         PASS=bool(cutoff_ok and spans and trunc.max() <= TRUNC_MAX),
+                         T5_sine=T5s.tolist()),
             check_d=dict(max_abs_change=float(np.max(np.abs(d_change))), rel_change=float(np.max(np.abs(d_change)) / mx),
                          dmu=proj(d_change)),
             quad=dict(max_abs=float(np.max(np.abs(dp_q - dp))), dmu=proj(dp_q - dp)),
@@ -469,7 +507,7 @@ def merge(out_dir):
             prediction=dict(grid_step=S_MAX / 1800, dp=DP.tolist(), p_sine=p_sine(grid).tolist()))
         v = res["files"][f]
         print(f"{f}: ℓ̄ {v['ell_mean']:.4f}  max|Δp| {mx:.3e}  (a) {a_err:.1e}  (b) min p {v['check_b']['min_p_mu1']:.2e} "
-              f"mass {mass:.4f}  (c) |Δ₅| ≤ {d5.max():.1e} (δμ ≤ {v['check_c']['dmu_worst_sign']:.1e}), |T₅^ζ| ≤ {full5.max():.1e}  "
+              f"mass {mass:.4f}  (c) n≤5: Δ₅ incl. (δμ {v['check_c']['dmu_of_included_delta5']:+.1e}), trunc ≤ {v['check_c']['max_trunc']:.1e} (δμ ≤ {v['check_c']['dmu_trunc_worst_sign']:.1e}), span {v['check_c']['nodes_span_range']}, T5 cutoff {v['check_c']['t5_cutoff_pass']}  "
               f"(d) {v['check_d']['max_abs_change']:.1e} (δμ {v['check_d']['dmu']:+.1e})  quad {v['quad']['max_abs']:.1e}  "
               f"interp tail {v['interp']['cheb_tail']:.1e}" + (f"  file-avg δμ {fav['dmu']:+.1e}" if fav else ""), flush=True)
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)

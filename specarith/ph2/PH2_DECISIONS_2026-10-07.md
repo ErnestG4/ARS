@@ -774,3 +774,45 @@ prepare the Zenodo metadata. Will publishes.
     recompute.
 - **The ~1e-9 is attributed, not tested:** it is put down to the pipeline's grid and NUFFT floor, which is consistent
   with its own diagnostics (pair overlaps 1e-8, Fourier tails ~5e-6). This was not tested separately, and §4.1 says so.
+
+## Thirty-sixth round (Will, 2026-10-12) — route (a): the n ≤ 5 model
+
+```
+Round 36 (Will): route (a) truncation → INCLUDE computed Δ₅ (n ≤ 5 model),
+conditions before tagging:
+(1) T₅ prime-cutoff check (p ≤ 1000 vs 3000) passes;
+(2) declare the s-range where |T₅^sine| > 1e-7; confirm computed nodes span it;
+    state the interpolation rule + its error bound;
+(3) n = 6 truncation bound = |T₆^sine| (exact, from the determinant) × 100
+    ratio cap; must be well below bin resolution at s = 1.8.
+Record descriptively: low-height ζ correlations behave like CUE with N ≈ 4
+(ρ₅^ζ/ρ₅^sine ≈ 1e-4 at ℓ = 14.8, rising to 0.83 at ℓ = 67); small negative
+∫ρ₅^ζ ≈ −3e-9 noted as asymptotic slack with its size. Do not pre-judge the
+relation to Phase 2's L2 result; route (a)'s prediction decides it.
+```
+- **(1) The criterion, declared by me** (Will said "passes" without setting a number):
+  |Δ₅(p ≤ 3000) − Δ₅(p ≤ 1000)| ≤ 1e-6 at every checked node, i.e. 100× below the ~1e-4 bin resolution.
+  - The checked nodes are the outermost and one inner edge node, at the lowest and highest F3 heights. The result is
+    applied to all five heights.
+  - Code: `cs4/ratios_t5.py` merge (`CUTOFF_TOL`). This is open to Will's change.
+- **(2) The range:** |T₅^sine| > 1e-7 for s > 1.2895 (bisection on the determinant). The computed Δ₅ nodes are the ten
+  Chebyshev–Lobatto nodes 1.2444, 1.35, 1.448, 1.536, 1.614, 1.679, 1.731, 1.769, 1.792 and 1.8, so they span it with
+  one node below.
+  - Below the edge nodes, |T₅^sine| < 1e-8 and the round-34 bound applies: 100·|T₅^sine| ≤ 1e-6.
+- **(2) The interpolation rule:** the n ≤ 5 Δp is fixed at the 25 Chebyshev–Lobatto nodes on [0, 1.8] and carried to
+  the fit grid (Δs = 0.001) by barycentric Chebyshev interpolation.
+  - The error estimate is the largest of the last three Chebyshev coefficients (`cheb_tail`).
+  - The conservative check is the 13-node subset interpolant against the 25-node values at the odd nodes.
+  - Both are reported per height in `results/route_a_zeta.json`.
+- **(3) The n = 6 term,** exact from the determinant: |T₆^sine| = 1.427e-9 at s = 1.8 (4.1e-11 at 1.6). With the ×100
+  cap the bound is 1.4e-7 at s = 1.8, about 700× below the bin resolution.
+  - The declared limit is TRUNC_MAX = 1e-5 on the window.
+- **Code:** `route_a_zeta.py` merge (check (c) is now the n ≤ 5 model). It refuses to run without `results/ratios_t5.json`.
+  - Its PASS requires all three conditions.
+  - On a toy input whose computed nodes do not span the range, it FAILs: this is the red path.
+- **Descriptive record:** low-height ζ correlations behave like CUE with N ≈ 4.
+  - At the point (0, 0.45, 0.9, 1.35, 1.8), ρ₅^ζ/ρ₅^sine = 1e-4, 0.19 and 0.83 at ℓ = 14.8, 25.8 and 67.
+  - CUE_N matched on ρ₄ at the same points (N ≈ 4, 6, 15) gives ρ₅ ratios of about 0.03, 0.33 and 0.86.
+  - At s ≤ 1.35 (ℓ = 14.76), ∫ρ₅^ζ comes out slightly negative, about −3e-9 (T₅^ζ = +5.7e-10 and +4.2e-10). This is
+    noted as the conjecture formula's asymptotic slack. It is far below any resolution here.
+  - The relation to Phase 2's L2 result is not pre-judged; route (a)'s prediction decides it.
