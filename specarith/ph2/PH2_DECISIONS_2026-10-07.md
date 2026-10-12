@@ -715,3 +715,32 @@ P5 cut-off: X′ = largest d with projected generation ≤ 24 h at the rate
   - Pointers were added the same day in `PH2S_STAGE2_FINDINGS.md`, `GS_ZETA_RESULTS.md` and `OPEN_LEADS.md` L3.
 - **For Will:** the released v2026.10.11 carries `CS08_ERRATUM.md` without §4. Whether a new release should carry it
   is Will's call.
+
+## Thirty-fourth round (Will, 2026-10-12) — route (a) rules, P5, erratum §4
+
+```
+Round 34 (Will):
+1. Small-s skip: SKIP = 1e-8. Declared bound assumes ζ/sine ratio ≤ 100 (not
+   the unproven ≤ 1) → ≤ 1e-6, ≪ bin resolution.
+2. n=5 truncation: option (i) — construct ζ T₅ from the ratios-conjecture
+   definition (extend check_ratios_j.py) at the edge nodes. GATE first: the
+   same construction's U(N) analogue must reproduce exact CUE T₅ from the
+   determinant. If the gate fails or cost runs away → fallback (ii) s ≤ 1.6,
+   recorded as a forced change to round 30's window.
+3. P5: recompute N_std from X′ (DHKMS formula carries over, not the value
+   0.001466); state this in the seal.
+4. Erratum §4: re-release after the Stage 2 recompute regardless of outcome.
+   Rewrite §4.1 around the recompute; update L3's C(r) note; publish new
+   Zenodo version. If the recompute moves any sealed value beyond 1e-3, the
+   findings say so plainly per round 33's rule.
+```
+- **Context:** the J₁₃ sign error was in our code (transcribed as printed), and that code computed the sealed Stage 2
+  prediction. The full recompute (`cs4/run_gs_zeta_fix4_spot.sh`, output `results/gs_zeta_fix4`, the sealed outputs
+  untouched) started 2026-10-12 00:12 on spot. Route (a)'s term run is paused for it: 10 of 408 jobs are kept, and it is
+  restartable.
+- **"Round 33's rule" in item 4:** this reads as Will's rule of 2026-10-12, given just before this round ("if it's larger,
+  the sealed prediction was wrong, and the findings have to say so plainly, whatever it does to the verdict"). The
+  thirty-third round was Phase 1 only.
+- **Item 1 also covers T₃ at s = 0.03**, which SKIP = 1e-12 still evaluated inside the cancellation-prone region.
+- **Applied** in `cs4/route_a_zeta.py` (SKIP = 1e-8, SKIP_RATIO = 100; also enforced at merge, so the 10 jobs done under
+  1e-12 stay valid). On the sealed nodes it skips T₃ for s ≤ 0.07 and T₄ for s ≤ 0.45.

@@ -181,15 +181,18 @@ def term_points(s, m):
                 T4=([np.zeros(Y1.size), Y1.ravel(), Y2.ravel(), np.full(Y1.size, s)], W4, 0.5))
 
 
-SKIP = 1e-12        # T₃, T₄ of Z are not evaluated where the determinant's value at the same nodes is below this
+SKIP = 1e-8         # thirty-fourth round (Will): T₃, T₄ of Z are not used where the determinant's value is below this
+SKIP_RATIO = 100    # declared: |ρ_n^ζ/ρ_n^sine| ≤ 100 in the skipped region (observed ≤ 1; not proven), so |Δ_n| ≤ 1e-6
 
 
 def terms(Z, s, m, N_det=None):
     """(T₂, T₃, T₄) from Z (None: from the determinant with kernel N_det; sine kernel if N_det is None).
-    Small-s rule: where |T_n| of the determinant (same nodes) is < SKIP, Z's T_n is set to that value (so Δ_n = 0) and
-    listed in out["skipped"]. There all n points lie within s, ρ_n is ~ s^{n(n−1)} small, and the J* pieces cancel to
-    below double precision (route (a) pointcheck: garbage at s = 0.008). ζ/sine ratios of ρ_n stay within (0, 1] at
-    every tested configuration, so the error is < 2·SKIP."""
+    Small-s rule (thirty-fourth round): where |T_n| of the determinant (same nodes) is < SKIP = 1e-8, Z's T_n is set to
+    that value (so Δ_n = 0) and listed in out["skipped"]. There all n points lie within s and ρ_n ~ s^{n(n−1)} (sine
+    kernel: T₃ ~ s⁷, T₄ ~ s¹⁴; skipped: T₃ for s ≤ 0.07, T₄ for s ≤ 0.45 on the sealed nodes), and the J* pieces cancel to
+    below double precision (route (a) pointcheck: garbage at s = 0.008). Declared bound: assuming |ρ_n^ζ/ρ_n^sine| ≤ 100
+    there (observed ≤ 1, not proven), |Δ_n| ≤ (1 + 100)·SKIP ≈ 1e-6, far below the ~1e-4 bin resolution. The rule is
+    applied again at merge (`apply_skip`), so job files written under the earlier SKIP = 1e-12 stay valid."""
     out = {"skipped": []}
     for k, (ds, w, c) in term_points(s, m).items():
         ref = float(c * np.sum(w * sine_rho(ds, N_det)))
@@ -345,6 +348,17 @@ def cheb_interp(vals, s):
     return out
 
 
+def apply_skip(r):
+    """The small-s rule at merge time: ζ's T₃/T₄ replaced by the sine value where |sine| < SKIP (idempotent)."""
+    for k in ("T3", "T4"):
+        if abs(r["sine"][k]) < SKIP:
+            r["zeta"][k] = r["sine"][k]
+            r["zeta"].setdefault("skipped", [])
+            if k not in r["zeta"]["skipped"]:
+                r["zeta"]["skipped"].append(k)
+    return r
+
+
 def merge(out_dir):
     sys.path.insert(0, os.path.join(HERE, "..", "ph2"))
     import ph2lib
@@ -353,6 +367,7 @@ def merge(out_dir):
     for fn in sorted(os.listdir(out_dir)):
         if fn.startswith("terms_c") and fn.endswith(".jsonl"):
             rows += [json.loads(x) for x in open(os.path.join(out_dir, fn))]
+    rows = [apply_skip(r) for r in rows]
     need = len(jobs())
     assert len({(r["file"], r["which"], r["pmax"], r["m"], r["s"]) for r in rows}) == need, (len(rows), need)
 
