@@ -174,7 +174,9 @@ class Model:
         for pp, lp, e in self.groups:
             # Z_p factors: log(1 − p^{−1−x−y}) summed with signs
             def zp_log(xjet):
-                u = J.exp(-(J.const(1.0)[..., None] + xjet[..., None]) * lp)          # p^{−1−x}, shape (K, P)
+                y = xjet.copy()
+                y[0] = y[0] + 1
+                u = J.exp(-y[..., None] * lp)                                           # p^{−1−x}, (K, *batch, P)
                 v = -u
                 v[0] = v[0] + 1
                 return J.log(v)
