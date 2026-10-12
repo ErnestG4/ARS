@@ -744,3 +744,33 @@ Round 34 (Will):
 - **Item 1 also covers T₃ at s = 0.03**, which SKIP = 1e-12 still evaluated inside the cancellation-prone region.
 - **Applied** in `cs4/route_a_zeta.py` (SKIP = 1e-8, SKIP_RATIO = 100; also enforced at merge, so the 10 jobs done under
   1e-12 stay valid). On the sealed nodes it skips T₃ for s ≤ 0.07 and T₄ for s ≤ 0.45.
+
+## Note (not a decision round, 2026-10-12) — overnight results
+- **Stage 2 recompute with the J₁₃ fix:** all 256 tasks exited 0. Compared with the sealed values against Will's 1e-3
+  budget (`cs4/compare_fix4.py`), the largest change is 1.2e-9: per-file ĝ_B ≤ 3.4e-10, pooled 0.6830255987 →
+  0.6830255986, ρ₁ ≤ 7.6e-10, z_pool unchanged. The PASS stands.
+- **Item 2 gate (U(N) T₅ by the ratios construction against the determinant):** PASS at all 20 node/N pairs, max
+  |diff| 4.8e-15.
+- **ζ T₅ run:**
+  - Run 1 was stopped after 7.5 h with no job finished. Will's two checks: spot is not oversubscribed (56
+    single-thread workers on 56 vCPUs), and the run was under half done.
+  - Run 2 uses the 1.8× faster code, as 54 single-job tasks, heaviest first.
+- **Route (a):** resumed on all 40 chunks.
+
+## Thirty-fifth round (Will, 2026-10-12) — item 1, re-release
+
+```
+Round 35 (Will), item 1 — Re-release: GO. Draft the findings note; rewrite
+erratum §4.1 around the recompute (max change 1.2e-9; exact-integral
+suppression ~e⁻²⁴⁰ vs pipeline ~1e-9 grid/NUFFT noise); update the L3 note;
+prepare the Zenodo metadata. Will publishes.
+```
+- **Done:**
+  - the post-release note in `ph2s2/PH2S_STAGE2_FINDINGS.md`;
+  - `cs4/CS08_ERRATUM.md` §4.1 rewritten around the recompute, plus the header line on which release carries §4;
+  - the `cs4/GS_ZETA_RESULTS.md` note;
+  - the `OPEN_LEADS.md` L3 note, with the recomputed C(r) RMS (+1.5e-6 to +5.4e-6, about 1e-4 relative);
+  - `CITATION.cff` and `.zenodo.json` set to 2026.10.12, with the erratum sentence naming both errata and the
+    recompute.
+- **The ~1e-9 is attributed, not tested:** it is put down to the pipeline's grid and NUFFT floor, which is consistent
+  with its own diagnostics (pair overlaps 1e-8, Fourier tails ~5e-6). This was not tested separately, and §4.1 says so.

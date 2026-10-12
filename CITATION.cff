@@ -48,8 +48,11 @@ abstract: >
   the zeros 16 SE below the sine-kernel value. The result is conditional
   on the ratios conjecture, agrees to about ±13%, and covers one statistic
   and one taper (specarith/ph2s2/PH2S_STAGE2_FINDINGS.md). Transcribing
-  the prediction found an erratum in Conrey–Snaith's 4-point local factor
-  A* (specarith/cs4/CS08_ERRATUM.md). To our knowledge no published work
+  the prediction found two errata in Conrey–Snaith's 4-point correlation:
+  the local factor A*, and the sign of the prime-sum term in
+  J*({a},{b1,b2,b3}). The second was in the code that computed the sealed
+  prediction; recomputing with it corrected moves no sealed value by more
+  than 1.2e-9, so the result stands (specarith/cs4/CS08_ERRATUM.md). To our knowledge no published work
   measures how the across-block variance of a local pair statistic of the
   zeta zeros depends on block length, or compares it with the sine kernel
   and a theory-fixed arithmetic prediction. The closest precedent is
@@ -62,8 +65,8 @@ abstract: >
 authors:
   - name: combust
     email: combust@thespot.chat
-version: "2026.10.11"
-date-released: 2026-10-11
+version: "2026.10.12"
+date-released: 2026-10-12
 license:
   - AGPL-3.0-or-later
   - CC-BY-4.0
