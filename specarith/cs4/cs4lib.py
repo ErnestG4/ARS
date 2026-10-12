@@ -233,10 +233,13 @@ class Zeta(Correlations):
         den = (P(1 + a1 + b1) - 1) * (P(1 + a2 + b1) - 1) * (P(1 + a1 + b2) - 1) * (P(1 + a2 + b2) - 1)   # erratum-free reading
         return mp.mpc(np.sum(num / den))
 
-    def S13(self, a, b1, b2, b3):               # −Σ_p z_p(1+a+b1)z_p(1+a+b2)z_p(1+a+b3) log⁴p / p^{3+3a+b1+b2+b3}
+    def S13(self, a, b1, b2, b3):               # +Σ_p z_p(1+a+b1)z_p(1+a+b2)z_p(1+a+b3) log⁴p / p^{3+3a+b1+b2+b3}
+        # Erratum (2026-10-11; CS08_ERRATUM.md §4): CS08 prints this term of J*({a},{b1,b2,b3}) with a minus sign (arXiv v1
+        # and CNTP eq. 5.36). The ratios-conjecture definition gives +; check_ratios_j.py (J13 = −2·S13 off with "−",
+        # ≤ 1e-14 with "+") and the coincidence limit (ρ₄ → 0 only with "+").
         lp = self.lp
         zp = lambda x: 1 / (1 - self.pw(x))
-        return mp.mpc(-np.sum(zp(1 + a + b1) * zp(1 + a + b2) * zp(1 + a + b3) * lp ** 4 * self.pw(3 + 3 * a + b1 + b2 + b3)))
+        return mp.mpc(np.sum(zp(1 + a + b1) * zp(1 + a + b2) * zp(1 + a + b3) * lp ** 4 * self.pw(3 + 3 * a + b1 + b2 + b3)))
 
     def Astar(self, a1, a2, b1, b2):
         """Corrected local factor (see erratum above): Z_p-prefactor × p^{−Σ}(1 − T₁ − T₂)."""

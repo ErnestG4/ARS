@@ -9,6 +9,20 @@ The prediction was publicly tagged before the test data was read.*
 `ph2s-stage2-prediction`) under the sealed rule (tag `ph2s-stage2-seal`, commit 91f74031). Stage 1 established that
 the suppression exists; Stage 2 tests its size.
 
+**Post-release note (2026-10-12): a second CS08 erratum; the prediction recomputed.**
+- **The erratum.** After this read, a second erratum in Conrey–Snaith (2008) was found: the sign of the prime-sum
+  term in J*({a},{b₁,b₂,b₃}) (`../cs4/CS08_ERRATUM.md` §4).
+- **It was in the prediction code.** This differs from the A* erratum, which the code had right from the start.
+- **Recompute.** The full prediction pipeline was rerun with the sign corrected (`../cs4/run_gs_zeta_fix4_spot.sh`).
+  It was compared with the sealed values (`../cs4/compare_fix4.py`, `../cs4/results/compare_fix4.json`) against a
+  10⁻³ budget that Will set before the run.
+- **Result:** the largest change in any sealed quantity is 1.2e-9 (v_B, relative).
+  - Per-file ĝ_B moves by ≤ 3.4e-10.
+  - The pooled prediction goes from 0.6830255987 to 0.6830255986.
+  - ρ₁ moves by ≤ 7.6e-10.
+  - z_pool stays −0.22, and the per-file z are unchanged.
+- **The verdict and every number below stand.**
+
 **Limits (Will, twenty-ninth round):**
 - **Conditional on the ratios conjecture,** like R₂. The prediction uses CS08's ratios-conjecture n ≤ 4 correlations.
   A PASS is evidence for that conjecture's higher-order structure, not a theorem about ζ.

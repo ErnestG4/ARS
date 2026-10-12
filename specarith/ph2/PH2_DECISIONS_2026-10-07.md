@@ -580,3 +580,197 @@ lag-1 correlation and the non-decaying C(r).
   - Conrey & Snaith (2008), doi:10.4310/CNTP.2008.v2.n3.a1;
   - Coram & Diaconis (2003), doi:10.1088/0305-4470/36/12/302;
   - Platt (2017), doi:10.1090/mcom/3198, the F1 and F2 zero data.
+
+## Note (not a decision round, 2026-10-11) — release done
+- Will tagged and released v2026.10.11. The GitHub release fed Zenodo automatically.
+- Verified: the tag is annotated on main merge 137590d5 and is on both remotes.
+- Will asked what's next. My proposal: route (a) on F3, with the estimand (μ amplitude vs κ-type) as Will's call.
+- *Renumbered at Will's instruction (thirty-second round).* This entry was first filed as the thirtieth round.
+
+## Thirtieth round (Will, 2026-10-11) — route (a) GO, estimand μ
+
+```
+Route (a) (Will, round 30): GO step 1 — ζ p(s; E) at the F3 heights on spot,
+with checks: n=2 part reproduces R₂ machinery; positivity / valid density on
+s ≤ 1.8 at every height; ζ-side n≤4 truncation bound (not inherited from U(N));
+prime-cutoff convergence at the sealed quantity itself. Tag the prediction
+before any F3 decode.
+Estimand (decision ii): μ, the amplitude of CS08's arithmetic lower-order
+part (μ=1 full strength; μ=0 sine kernel). Fit window s ≤ 1.8, model
+normalised over the window. Findings will also translate Phase 2's
+CUE(N_eff) curve into an equivalent μ (descriptive, answers L2).
+Order: L5 after route (a); L3 descriptive only. Phase 1 waits on the
+D1–D6 draft upload.
+```
+- **Filed late.** This block first reached the session after the thirty-third round was written, which is why
+  rounds 31–32 precede it in time of filing. Until then a placeholder stood here (0905c118), recorded only from the
+  thirty-second round's description.
+- **"Phase 1 waits on the D1–D6 draft upload"** was already met: rounds 31–33 are Will's decisions on that draft.
+- **The window s ≤ 1.8** is the twenty-first round's; that round's U(N) gate also found no n = 5 term at 1.8. The
+  ζ-side truncation bound asked for here is a separate check and is not taken from that gate.
+
+## Thirty-first round (Will, 2026-10-11) — Phase 1 decisions D1–D6
+
+```
+Phase 1 decisions (Will, round 31):
+Corrections: (1) §7 — USp/EC zeros already generated 10-10 (generation only);
+seal pins those hashes; only the U family remains to generate. (2) §4 — with
+φ̂ ⊂ (−1,1), SO(even)/SO(odd)/O have identical one-level densities: D(φ)
+separates U / USp / orthogonal-family; even vs odd comes from first-zero laws.
+D1: USp, EC = generated ranges (pinned). U = primitive COMPLEX χ mod prime
+q ≤ 1000, conjugate pairs counted once; real χ belong to USp only. Add the
+E₁₁ quadratic-twist family (DHKMS published value, route (b)).
+D2: fit/test split = seeded random split stratified by conductor band (not
+contiguous ranges). Fit statistic = central-vanishing count. Fallback (c) if
+the fit set has < 30 central vanishings.
+D3: Fejér-type φ, φ̂ = triangle on (−3/4, 3/4) for all families (inside all
+proved ranges incl. Young's (−7/9, 7/9)); per-family maximal supports
+descriptive.
+D4: seal the NULL — peak_q shows no family dependence beyond the calibrated
+RMT band; PASS iff differences stay within it. Wiring committed first.
+D5: per-statistic z-distance from calibrated bands; combine D(φ) and first-
+zero law by sum of squares; nearest type with separation margin ≥ 3, else
+ambiguous. Verdict on pooled conductor range per family; bands descriptive.
+D6: plain conductor scaling for main arms; DHKMS N_eff only in the excised arm.
+```
+- **Correction (2) checked:** on the Fourier side,
+  - SO(even): Ŵ = δ + ½η;
+  - SO(odd): Ŵ = δ − ½η + 1;
+  - O: Ŵ = δ + ½;
+  - here η = 1 on |u| < 1. On supp φ̂ ⊂ (−1, 1) all three are δ + ½, so they coincide. The draft's §4 classifier
+    would have tried to separate them through D(φ); it is now corrected in `ph1/PH1_SEAL_DRAFT.md`.
+- **The 10-10 generation was checked before the seal pins it:**
+  - The χ_d set is exactly the 121,588 fundamental discriminants with 3 ≤ |d| ≤ 2·10⁵. This was counted
+    independently from the definition; no zero was read.
+  - Six of the 16 `chi_*.jsonl` chunks are empty, with sha256 e3b0c442…, the hash of an empty file. This is expected:
+    chunks go by list index mod 16, and fundamental discriminants never fall in index classes {2, 6, 10, 11, 14, 15}.
+  - Close-pair recheck: 0 mismatches for χ_d (2,323 rechecked) and for EC (3,983 rechecked).
+
+## Thirty-second round (Will, 2026-10-11) — Phase 1 P1–P7; numbering
+
+```
+Round 32 (Will) — Phase 1 P1–P7:
+P1 log-spaced conductor bands per family: accept.
+P2 accept (mean lowest non-central scaled zero sealed; KS descriptive; extra-
+   central-vanishing curves excluded from first-zero law, kept in D(φ); U: one
+   sample per conjugate pair). Report excluded fraction per family/band.
+P3 accept: margin ≥ 3 on difference of combined distances; G0 ≥ 99%.
+P4 accept: size matched per member; ≥ 200 repeats per band.
+P5 E₁₁ twists: (i) known answer — reproduce DHKMS on d ≤ 4·10⁵ (calibration,
+   not evidence); (ii) test on fresh d > 4·10⁵ up to a limit declared from the
+   probe's cost (~1 day on spot); cut-off = the one DHKMS §5.4 states explicitly.
+P6 accept: N_eff for E₁₁ only; N_std per band for all EC.
+P7 accept, plus: RMT draws through the identical pipeline, truncated to the same
+   number of low zeros per member; per-pair bands set so the FAMILY-WISE
+   false-fail rate is 5% (6 pairs), calibrated empirically on the draws.
+Numbering: route (a) GO + μ estimand = round 30 (paste that block); the
+release note is a non-decision entry.
+```
+- **Spot is down** after an ESXi crash, then a power issue. It stays down until Will is back. The probe, the U
+  generation and the E₁₁ cost measurement wait for it.
+- **P7's six pairs read as the four families of the RF null:** U, USp, EC ε = +1 and EC ε = −1. The E₁₁ twists are not
+  in the RF null. This is flagged in the draft for Will to confirm.
+- **Round 30:** Will's text did not reach this session. A placeholder is recorded above.
+
+## Thirty-third round (Will, 2026-10-11) — Phase 1 P5, P7 family set, P8, P9
+
+```
+Round 33 (Will) — Phase 1:
+P8 accept hybrid: first-zero law at conductor-matched size; D(φ) and peak_q
+   calibration at a size covering the full data window (scaled height 8).
+   Seal records why D(φ)'s calibration size exceeds matched N.
+P9 accept: bands from ≥ 1,000 repeats; hold-out family-wise rate must land
+   in 3.5–6.5% (correction 8.7% → 4.2–6.1% recorded).
+P7 family set: U, USp, EC ε=+1, EC ε=−1 (6 pairs). E₁₁ even twists excluded
+   (same type as EC ε=+1); they stay in their own P5 arm.
+P5 cut-off: X′ = largest d with projected generation ≤ 24 h at the rate
+   measured on spot, rounded down; declared in the seal before generation.
+```
+- **Round 30's block arrived with this round** and is now filed verbatim above, in place of the placeholder.
+- **P5 has two cut-offs, and this round settles one.** It fixes the range limit X′. The draft's open P5 item was the
+  other one: DHKMS §5.4's low-lying cut-off, 0.5916·e^{−N_std/2}, stated at N_std = 12 (X = 4·10⁵). Whether the fresh
+  range recomputes N_std from X′ (proposed) or holds 0.001466 fixed is still open. It has to be settled before the seal.
+- **Readings to confirm, both in the draft:**
+  - "Projected generation ≤ 24 h" counts the fresh range (4·10⁵, X′] only. The reproduction range d ≤ 4·10⁵ is
+    generated separately.
+  - "Rounded down" means to a multiple of 10⁵.
+- **Spot** still refused ssh at the time of filing (connection refused on port 22).
+
+## Note (not a decision round, 2026-10-11) — route (a) step 1 found a second CS08 erratum
+- **What happened.** Route (a)'s spacing-law integrator (`cs4/route_a_zeta.py`) found the error before anything was
+  tagged.
+  - It evaluates ρ₄ with all four points inside a gap s ≤ 1.8. As two points merged, ρ₄^ζ tended to a negative
+    constant.
+  - CS08 counts distinct zeros, so ρ₄ is a density and must vanish there; ρ₂ and ρ₃ do.
+- **Localised by an independent check** (`cs4/check_ratios_j.py`). Every J* was rebuilt from CS08's own
+  ratios-conjecture definition by numerical mixed derivatives.
+  - J₁₁, J₁₂ and J₂₂ match to ≤ 3.5e-16. This also confirms the earlier A* erratum and the B₄ reading.
+  - J₁₃ is off by exactly −2 × its prime-sum term. CS08 prints that term with the wrong sign, in arXiv v1 and in the
+    journal's eq. (5.36).
+  - Under the twentieth-round rule it is recorded as an erratum: `cs4/CS08_ERRATUM.md` §4.
+- **Fixed** in `cs4lib`, `cs4fast` (and so `cs4fastc`, `cs4lr`) and `cs4ref`.
+- **Stage 2 (sealed, read, released) is unaffected.**
+  - The correction has no constant part and oscillates in r at ≥ 0.39 per spacing, so the b ≥ 100 windows remove it.
+  - Checked: the window integral is ≤ 2.7e-19, against v_B(100) ≈ 0.075 (`cs4/check_s13_stage2.py`).
+  - Pointers were added the same day in `PH2S_STAGE2_FINDINGS.md`, `GS_ZETA_RESULTS.md` and `OPEN_LEADS.md` L3.
+- **For Will:** the released v2026.10.11 carries `CS08_ERRATUM.md` without §4. Whether a new release should carry it
+  is Will's call.
+
+## Thirty-fourth round (Will, 2026-10-12) — route (a) rules, P5, erratum §4
+
+```
+Round 34 (Will):
+1. Small-s skip: SKIP = 1e-8. Declared bound assumes ζ/sine ratio ≤ 100 (not
+   the unproven ≤ 1) → ≤ 1e-6, ≪ bin resolution.
+2. n=5 truncation: option (i) — construct ζ T₅ from the ratios-conjecture
+   definition (extend check_ratios_j.py) at the edge nodes. GATE first: the
+   same construction's U(N) analogue must reproduce exact CUE T₅ from the
+   determinant. If the gate fails or cost runs away → fallback (ii) s ≤ 1.6,
+   recorded as a forced change to round 30's window.
+3. P5: recompute N_std from X′ (DHKMS formula carries over, not the value
+   0.001466); state this in the seal.
+4. Erratum §4: re-release after the Stage 2 recompute regardless of outcome.
+   Rewrite §4.1 around the recompute; update L3's C(r) note; publish new
+   Zenodo version. If the recompute moves any sealed value beyond 1e-3, the
+   findings say so plainly per round 33's rule.
+```
+- **Context:** the J₁₃ sign error was in our code (transcribed as printed), and that code computed the sealed Stage 2
+  prediction. The full recompute (`cs4/run_gs_zeta_fix4_spot.sh`, output `results/gs_zeta_fix4`, the sealed outputs
+  untouched) started 2026-10-12 00:12 on spot. Route (a)'s term run is paused for it: 10 of 408 jobs are kept, and it is
+  restartable.
+- **"Round 33's rule" in item 4:** this reads as Will's rule of 2026-10-12, given just before this round ("if it's larger,
+  the sealed prediction was wrong, and the findings have to say so plainly, whatever it does to the verdict"). The
+  thirty-third round was Phase 1 only.
+- **Item 1 also covers T₃ at s = 0.03**, which SKIP = 1e-12 still evaluated inside the cancellation-prone region.
+- **Applied** in `cs4/route_a_zeta.py` (SKIP = 1e-8, SKIP_RATIO = 100; also enforced at merge, so the 10 jobs done under
+  1e-12 stay valid). On the sealed nodes it skips T₃ for s ≤ 0.07 and T₄ for s ≤ 0.45.
+
+## Note (not a decision round, 2026-10-12) — overnight results
+- **Stage 2 recompute with the J₁₃ fix:** all 256 tasks exited 0. Compared with the sealed values against Will's 1e-3
+  budget (`cs4/compare_fix4.py`), the largest change is 1.2e-9: per-file ĝ_B ≤ 3.4e-10, pooled 0.6830255987 →
+  0.6830255986, ρ₁ ≤ 7.6e-10, z_pool unchanged. The PASS stands.
+- **Item 2 gate (U(N) T₅ by the ratios construction against the determinant):** PASS at all 20 node/N pairs, max
+  |diff| 4.8e-15.
+- **ζ T₅ run:**
+  - Run 1 was stopped after 7.5 h with no job finished. Will's two checks: spot is not oversubscribed (56
+    single-thread workers on 56 vCPUs), and the run was under half done.
+  - Run 2 uses the 1.8× faster code, as 54 single-job tasks, heaviest first.
+- **Route (a):** resumed on all 40 chunks.
+
+## Thirty-fifth round (Will, 2026-10-12) — item 1, re-release
+
+```
+Round 35 (Will), item 1 — Re-release: GO. Draft the findings note; rewrite
+erratum §4.1 around the recompute (max change 1.2e-9; exact-integral
+suppression ~e⁻²⁴⁰ vs pipeline ~1e-9 grid/NUFFT noise); update the L3 note;
+prepare the Zenodo metadata. Will publishes.
+```
+- **Done:**
+  - the post-release note in `ph2s2/PH2S_STAGE2_FINDINGS.md`;
+  - `cs4/CS08_ERRATUM.md` §4.1 rewritten around the recompute, plus the header line on which release carries §4;
+  - the `cs4/GS_ZETA_RESULTS.md` note;
+  - the `OPEN_LEADS.md` L3 note, with the recomputed C(r) RMS (+1.5e-6 to +5.4e-6, about 1e-4 relative);
+  - `CITATION.cff` and `.zenodo.json` set to 2026.10.12, with the erratum sentence naming both errata and the
+    recompute.
+- **The ~1e-9 is attributed, not tested:** it is put down to the pipeline's grid and NUFFT floor, which is consistent
+  with its own diagnostics (pair overlaps 1e-8, Fourier tails ~5e-6). This was not tested separately, and §4.1 says so.

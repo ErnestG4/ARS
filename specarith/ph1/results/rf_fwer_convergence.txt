@@ -1,0 +1,4 @@
+200 reps: out-of-sample family-wise [0.059, 0.053, 0.042]
+500 reps: out-of-sample family-wise [0.061, 0.047, 0.052]
+1000 reps: out-of-sample family-wise [0.055, 0.061, 0.049]
+2000 reps: out-of-sample family-wise [0.047, 0.045, 0.061]

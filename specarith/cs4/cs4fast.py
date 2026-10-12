@@ -120,9 +120,10 @@ class FastZeta:
         return self.psum(f, a1, a2, b1, b2)
 
     def S13(self, a, b1, b2, b3):
+        """+Σ_p … (CS08 prints −: erratum, CS08_ERRATUM.md §4; see cs4lib.Zeta.S13). Inherited by cs4fastc and cs4lr."""
         def f(P, p, lp, a, b1, b2, b3):
             zp = lambda x: 1 / (1 - P(-x))
-            return -(zp(1 + a + b1) * zp(1 + a + b2) * zp(1 + a + b3) * lp ** 4 * P(-(3 + 3 * a + b1 + b2 + b3)))
+            return zp(1 + a + b1) * zp(1 + a + b2) * zp(1 + a + b3) * lp ** 4 * P(-(3 + 3 * a + b1 + b2 + b3))
         return self.psum(f, a, b1, b2, b3)
 
     def Astar(self, a1, a2, b1, b2):

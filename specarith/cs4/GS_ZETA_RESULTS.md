@@ -4,6 +4,14 @@ The prediction is fixed by theory, with no parameters. It uses CS08's n ≤ 4 ra
 the same assembly that reproduces the sine kernel (`GS_UNITARY_RESULTS.md`). v(b) and g are computed directly at the
 sealed ladder and taper, with no functional form (twenty-first round). No F2 data was read.
 
+**Note (2026-10-12, after the read and the release): a second CS08 erratum.**
+- **The error:** this prediction was computed with CS08's printed sign of J₁₃'s prime-sum term, which is wrong
+  (`CS08_ERRATUM.md` §4).
+- **Recompute:** the whole pipeline was rerun with the corrected sign (`run_gs_zeta_fix4_spot.sh`,
+  `results/gs_zeta_fix4/`).
+- **Result:** v, v_B, g, g_B and ρ₁ move by at most 1.2e-9 relative (`compare_fix4.py`, `results/compare_fix4.json`;
+  §4.1). The numbers below stand as computed.
+
 Code and outputs:
 - **Code:** `gs_zeta.py`, `cs4lr.py`, run by `run_gs_zeta_spot.sh` (255 tasks, all exit 0).
 - **Raw output:** `results/gs_zeta/gs_zeta_L*.json`.
