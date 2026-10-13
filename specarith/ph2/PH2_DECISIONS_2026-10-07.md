@@ -856,3 +856,8 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
   - Route (a): this machine finished its 51 jobs (23:10). Char's 23 had not started (char is still on T₅, 12/27), so
     its queued pool was cancelled by PID and the list moved to this machine (6 workers, same caps and watchdog).
   - Spot's remaining 29 jobs stay where they are (running, and not checkpointed).
+- **Idle spot cores used for Phase 1 P5(i) (2026-10-13 00:22):**
+  - Zeros of the E₁₁ even twists over the DHKMS reproduction range d ≤ 4·10⁵ (8,431 twists).
+  - Generation only, with no statistic computed; independent of X′.
+  - `ph1/run_gen_e11_repro_spot.sh`: 64 chunks on 48 workers, while route (a) has 4 jobs left on spot.
+  - The X′ cost probe still waits for an idle spot.
