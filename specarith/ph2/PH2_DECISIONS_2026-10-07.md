@@ -836,3 +836,15 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
   - The cause is a different CPU and Python build: double rounding.
   - The same holds for char's T₅ share against spot's. The GPU differences (≤ 1.7e-12) are the same kind, about 10³
     larger.
+
+## Will, 2026-10-12 evening — compute choices (filed as stated)
+- "go with CPU, 6 workers here" (after the GPU validation narrowly failed its declared 1e-12).
+- Asked whether everything should run on spot, since a change might need a full rerun for the seal. The answer given:
+  nothing sealed requires one machine, and spot alone would not be bitwise-reproducible elsewhere either. Will's
+  decision: **"keep the split, add the cross-machine check".**
+- **The check (`cs4/xcheck.py`, declared before it runs):**
+  - Spot-computed jobs are recomputed on this machine and on char: route (a) terms on both, T₅ on char (p ≤ 1000).
+  - Every quantity must agree with spot's to ≤ 1e-12 absolute.
+  - The route (a) merge will require its PASS before tagging. That gate is added to `route_a_zeta.py` only after T₅
+    finishes, because the file is in T₅'s checkpoint code hash.
+- **Measured so far:** one spot route (a) job recomputed here: T₂ and T₃ exact, T₄ 7.2e-16.
