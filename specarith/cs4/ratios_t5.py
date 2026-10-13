@@ -306,15 +306,69 @@ def t5_points(s, m=M_T5):
     return pts
 
 
-def T5_model(model, s, m=M_T5, batch=24):
+def code_hash():
+    """sha256 over the files whose code computes T₅ (this file, route_a_zeta, cs4lib, zeta_em). A checkpoint written by
+    any other code version is ignored, never resumed."""
+    import hashlib
+    h = hashlib.sha256()
+    for fn in ("ratios_t5.py", "route_a_zeta.py", "cs4lib.py", "zeta_em.py"):
+        h.update(open(os.path.join(RA.HERE, fn), "rb").read())
+    return h.hexdigest()
+
+
+def T5_model(model, s, m=M_T5, batch=24, ckpt=None, key=None, _stop_after=None):
+    """−(1/3!)Σ_batches Σ w·ρ₅. Checkpointing (2026-10-12, after a brownout cost ~90 core-hours of atomic multi-hour jobs):
+    with `ckpt` (a path) and `key` (a dict identifying the job and code version), the running total is saved after every
+    batch as an exact float (hex), by atomic write-then-rename; a resumed job reloads it only if key, batch size and
+    batch count all match, and continues with the next batch. Same batches in the same order, so a resumed job's result
+    is bit-identical to an uninterrupted one (ckpt_selftest). `_stop_after` simulates an interruption (test only)."""
     pts = t5_points(s, m)
-    tot = 0.0
-    for i in range(0, len(pts), batch):
-        chunk = pts[i:i + batch]
+    nb = (len(pts) + batch - 1) // batch
+    start, tot = 0, 0.0
+    if ckpt and os.path.exists(ckpt):
+        try:
+            d = json.load(open(ckpt))
+            if d.get("key") == key and d.get("batch_size") == batch and d.get("nbatch") == nb:
+                start, tot = int(d["done"]), float.fromhex(d["tot_hex"])
+        except (ValueError, KeyError):
+            start, tot = 0, 0.0
+    for b in range(start, nb):
+        chunk = pts[b * batch:(b + 1) * batch]
         ds = [np.array([p[0][k] for p in chunk]) for k in range(5)]
         w = np.array([p[1] for p in chunk])
         tot += float(np.sum(w * model.rho(ds).real))
+        if ckpt:
+            tmp = ckpt + ".tmp"
+            with open(tmp, "w") as fh:
+                json.dump(dict(key=key, batch_size=batch, nbatch=nb, done=b + 1, tot_hex=tot.hex()), fh)
+                fh.flush()
+                os.fsync(fh.fileno())
+            os.replace(tmp, ckpt)
+        if _stop_after is not None and b + 1 >= _stop_after:
+            raise KeyboardInterrupt("simulated interruption")
     return -tot / 6
+
+
+def ckpt_selftest():
+    """A small ζ T₅ (p ≤ 50, m = 4, batch 24: 192 points, 8 batches), straight vs interrupted after 3 batches and
+    resumed; plus a stale checkpoint (wrong key) that must be ignored. All must agree to the bit."""
+    import tempfile
+    M = Model("zeta", RA.ell_of(1.619e7), pmax=50)
+    ref = T5_model(M, 1.8, m=4)
+    d = tempfile.mkdtemp()
+    ck = os.path.join(d, "ck.json")
+    key = dict(job="selftest", code=code_hash())
+    try:
+        T5_model(M, 1.8, m=4, ckpt=ck, key=key, _stop_after=3)
+    except KeyboardInterrupt:
+        pass
+    done_at_stop = json.load(open(ck))["done"]
+    resumed = T5_model(M, 1.8, m=4, ckpt=ck, key=key)
+    stale = T5_model(M, 1.8, m=4, ckpt=ck, key=dict(job="other", code=code_hash()))
+    ok = resumed == ref and stale == ref and done_at_stop == 3
+    print(f"ckpt selftest: straight {ref!r}, resumed after {done_at_stop} of 8 batches {resumed!r}, stale-key run {stale!r}: "
+          f"{'bit-identical, PASS' if ok else 'MISMATCH, FAIL'}", flush=True)
+    return ok
 
 
 def edge_nodes():
@@ -401,10 +455,17 @@ def zeta_run(chunk, nchunks, out_dir):
             continue
         t = RA.height(f, "mean")
         M = Model("zeta", RA.ell_of(t), pmax=pm)
-        row = dict(file=f, s=s, pmax=pm, t=t, ell=RA.ell_of(t), T5_zeta=T5_model(M, s), T5_sine=RA.T5_det(s, M_T5),
-                   T5_sine_ref=RA.T5_det(s, 10))
+        ckdir = os.path.join(out_dir, "ckpt")
+        os.makedirs(ckdir, exist_ok=True)
+        ck = os.path.join(ckdir, f"job{i:02d}.json")
+        key = dict(file=f, s=repr(s), pmax=pm, m=M_T5, code=code_hash())
+        row = dict(file=f, s=s, pmax=pm, t=t, ell=RA.ell_of(t), T5_zeta=T5_model(M, s, ckpt=ck, key=key),
+                   T5_sine=RA.T5_det(s, M_T5), T5_sine_ref=RA.T5_det(s, 10), code=key["code"])
         with open(path, "a") as fh:
             fh.write(json.dumps(row) + "\n")
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.remove(ck)
         print(row, flush=True)
 
 
@@ -442,6 +503,8 @@ if __name__ == "__main__":
         print(selftest())
     elif a[0] == "ugate":
         ugate(int(a[1]) if len(a) > 1 else 8)
+    elif a[0] == "ckpttest":
+        sys.exit(0 if ckpt_selftest() else 1)
     elif a[0] == "zeta":
         zeta_run(int(a[1]), int(a[2]), a[3])
     elif a[0] == "merge":
