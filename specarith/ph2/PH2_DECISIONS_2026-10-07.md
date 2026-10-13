@@ -917,3 +917,15 @@ cross-machine recompute passing (bit-identical or within declared float bound).
   - a worker-count probe at d ≈ 10⁶ (P = 16, 28, 40, 56);
   - then a cost curve at the best P (d ≈ 0.5, 1, 1.5, 2·10⁶);
   - X′ = the largest d with projected generation ≤ 24 h, rounded down to 10⁵ (`ph1/e11_probe.py project`).
+
+## Thirty-eighth round (Will, 2026-10-13) — the prediction's definition; systematic allowance
+
+```
+Round 38 (Will): prediction definition = Δp at each file's zero-weighted mean
+height. Declare systematic allowance δμ_sys = 2e-4 for the mean-height vs
+file-average gap (from the widest file's measured 1.0e-4 + second-order scaling
+for the others); no exact file-average computation needed. Then cross-check →
+merge → annotated tag `route-a-prediction` (Will pushes) as planned.
+```
+- **Applied:** `cs4/route_a_zeta.py` merge records `DMU_SYS = 2e-4` and its basis in `results/route_a_zeta.json`
+  (`definition`, `delta_mu_sys`).

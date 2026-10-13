@@ -227,6 +227,7 @@ def T6_det(s, m=6, N=None):
 
 T5_RANGE_LEVEL = 1e-7      # thirty-sixth round (2): the computed Δ₅ nodes must span the s-range where |T₅^sine| > this
 T6_CAP = 100               # thirty-sixth round (3): n = 6 bound = 100·|T₆^sine|
+DMU_SYS = 2e-4              # thirty-eighth round: systematic allowance for mean-height vs file-average Δp
 TRUNC_MAX = 1e-5           # declared: the truncation bound must stay ≤ 1e-5 on the window (≥ 10× below ~1e-4 bins)
 
 
@@ -523,6 +524,11 @@ def merge(out_dir):
     res["xcheck"] = None if xc is None else {k: xc[k] for k in ("tol", "n", "worst", "by_host", "PASS") if k in xc}
     per_ok = all(v["check_a"]["PASS"] and v["check_b"]["PASS"] and v["check_c"]["PASS"] for v in res["files"].values())
     res["TAGGABLE"] = bool(per_ok and xc is not None and xc.get("PASS"))
+    res["definition"] = ("Delta p at each F3 file's zero-weighted mean height (zero_weighted_t); the read's estimator "
+                         "has expectation equal to the zero-weighted file average (thirty-eighth round)")
+    res["delta_mu_sys"] = dict(value=DMU_SYS, basis="mean-height vs file-average gap: measured +1.0e-4 at the widest "
+                               "file (zeros_15146000, Var l = 1.40e-3), second-order (Var l) scaling for the others "
+                               "(<= 4e-5); thirty-eighth round")
     print("per-height checks (a)–(c):", "PASS" if per_ok else "FAIL", "| cross-machine check:",
           "missing" if xc is None else ("PASS" if xc.get("PASS") else "FAIL"), "| TAGGABLE:", res["TAGGABLE"], flush=True)
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
