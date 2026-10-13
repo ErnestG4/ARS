@@ -967,3 +967,18 @@ merge → annotated tag `route-a-prediction` (Will pushes) as planned.
     zeros_10639046000 6203cd45….
   - No file has been decoded. The pre-read (GUE calibration, power, rule, Phase 2 CUE(N_eff) as an equivalent μ) and
     the seal come first.
+
+## Will, 2026-10-13 evening — X′ and the fresh-range generation
+- **UPS swap:** Will swapped the UPS. Spot came back; its VM was started by hand. All 128 pinned files re-verified on spot:
+  the Phase 1 χ_d, EC, U and E₁₁-reproduction chunks, and the F1/F2/F3 Platt files.
+- **Spot is now off the battery-backed side** (Will). The generation is checkpointed per twist, so a power loss costs
+  only the twists in progress.
+- **X′ declared before generation.** Will said to start the compute after the proposal above; this is recorded as
+  accepting it:
+  - **X′ = 1.1·10⁶**: 12,917 fresh twists in (4·10⁵, 1.1·10⁶], projected ≈ 20.3 h at P = 30, including the 2% recheck.
+  - The two readings stand: rounded down to a multiple of 10⁵, and the 24 h counts the fresh range only.
+- **P5 low-lying cut-off on the fresh range** (thirty-fourth round: the DHKMS formula carries over):
+  - N_std = log(√11·X′/2π) = 13.272;
+  - cut-off 0.5916·e^{−N_std/2} = 7.76·10⁻⁴.
+  - The value 0.001466 applies only to the reproduction range (N_std = 12).
+- **If Will meant a different X′:** the twists already computed carry over (same code path per twist).
