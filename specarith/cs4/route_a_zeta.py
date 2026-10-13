@@ -394,7 +394,12 @@ def merge(out_dir):
     for fn in sorted(os.listdir(out_dir)):
         if fn.startswith("terms_c") and fn.endswith(".jsonl"):
             rows += [json.loads(x) for x in open(os.path.join(out_dir, fn))]
-    rows = [apply_skip(r) for r in rows]
+    # one row per job: jobs computed twice in the 2026-10-12 hand-over race are bit-identical (xcheck.duplicate_pairs);
+    # keep the first copy so every per-height list has exactly one row per node
+    uniq = {}
+    for r in rows:
+        uniq.setdefault((r["file"], r["which"], r["pmax"], r["m"], r["s"]), r)
+    rows = [apply_skip(r) for r in uniq.values()]
     need = len(jobs())
     assert len({(r["file"], r["which"], r["pmax"], r["m"], r["s"]) for r in rows}) == need, (len(rows), need)
 
@@ -510,6 +515,16 @@ def merge(out_dir):
               f"mass {mass:.4f}  (c) n≤5: Δ₅ incl. (δμ {v['check_c']['dmu_of_included_delta5']:+.1e}), trunc ≤ {v['check_c']['max_trunc']:.1e} (δμ ≤ {v['check_c']['dmu_trunc_worst_sign']:.1e}), span {v['check_c']['nodes_span_range']}, T5 cutoff {v['check_c']['t5_cutoff_pass']}  "
               f"(d) {v['check_d']['max_abs_change']:.1e} (δμ {v['check_d']['dmu']:+.1e})  quad {v['quad']['max_abs']:.1e}  "
               f"interp tail {v['interp']['cheb_tail']:.1e}" + (f"  file-avg δμ {fav['dmu']:+.1e}" if fav else ""), flush=True)
+    # Cross-machine check (Will, 2026-10-12: "keep the split, add the cross-machine check"): the terms come from three
+    # CPUs (spot, this machine, char); xcheck.py recomputes spot jobs elsewhere and requires agreement ≤ 1e-12. The
+    # prediction is taggable only with that PASS and every per-height check PASS (fail closed if the file is missing).
+    xf = os.path.join(HERE, "results", "xcheck.json")
+    xc = json.load(open(xf)) if os.path.exists(xf) else None
+    res["xcheck"] = None if xc is None else {k: xc[k] for k in ("tol", "n", "worst", "by_host", "PASS") if k in xc}
+    per_ok = all(v["check_a"]["PASS"] and v["check_b"]["PASS"] and v["check_c"]["PASS"] for v in res["files"].values())
+    res["TAGGABLE"] = bool(per_ok and xc is not None and xc.get("PASS"))
+    print("per-height checks (a)–(c):", "PASS" if per_ok else "FAIL", "| cross-machine check:",
+          "missing" if xc is None else ("PASS" if xc.get("PASS") else "FAIL"), "| TAGGABLE:", res["TAGGABLE"], flush=True)
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
     json.dump(res, open(os.path.join(HERE, "results", "route_a_zeta.json"), "w"), indent=1)
     return res
