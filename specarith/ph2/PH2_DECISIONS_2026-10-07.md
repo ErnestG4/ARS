@@ -961,3 +961,9 @@ merge → annotated tag `route-a-prediction` (Will pushes) as planned.
       at P = 30).**
   - **Proposed:** X′ = 1.1·10⁶, since the round-33 rule's "projected generation" should include the production
     recheck. Will declares X′ in the seal before generation.
+- **F3 downloaded by Will (2026-10-13, ~13:55), after `route-a-prediction` was pushed.**
+  - All five files match their pinned md5s, both here and on spot after the copy:
+    zeros_15146000 12759c6b…, zeros_25646000 17769568…, zeros_248246000 763374d8…, zeros_2373446000 10af7827…,
+    zeros_10639046000 6203cd45….
+  - No file has been decoded. The pre-read (GUE calibration, power, rule, Phase 2 CUE(N_eff) as an equivalent μ) and
+    the seal come first.
