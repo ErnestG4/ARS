@@ -82,25 +82,83 @@ def cost(nper):
     json.dump(out, open("results/twist_cost.json", "w"), indent=1)
 
 
-def run(d0, d1, chunk, nchunks, out):
+def run(d0, d1, chunk, nchunks, out, stop_after=None):
+    """One chunk (items i ≡ chunk mod nchunks). CHECKPOINTED per twist (2026-10-13, before the ~20 h fresh-range run):
+    each record is appended and fsynced as soon as it is computed, and a restart skips twists already on disk, so a
+    power cut costs only the twists in progress. A torn last line (cut mid-write) is dropped and recomputed. The 2%
+    divz-128 recheck draws one random number per chunk item in item order, done or not, so a resumed chunk rechecks
+    exactly the twists an uninterrupted one would, and its file is byte-identical (checked by `resume_selftest`).
+    `stop_after` (test only) simulates an interruption after that many new records."""
     pari = setup()
     rnd = random.Random(20261011 + d0)
-    recs = []
+    os.makedirs(out, exist_ok=True)
+    path = os.path.join(out, f"e11_{d0}_{d1}_{chunk:03d}.jsonl")
+    done = set()
+    if os.path.exists(path):
+        lines = open(path).read().split("\n")
+        good = []
+        for line in lines:
+            if not line:
+                continue
+            try:
+                done.add(json.loads(line)["d"])
+                good.append(line)
+            except (ValueError, KeyError):
+                break                                    # torn line: keep what precedes it
+        if len(good) != len([x for x in lines if x]):
+            tmp = path + ".tmp"
+            with open(tmp, "w") as f:
+                f.write("".join(g + "\n" for g in good))
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmp, path)
     t0 = time.time()
+    new = 0
     for i, d in enumerate(items(d0, d1)):
         if i % nchunks != chunk:
             continue
         chk = rnd.random() < 0.02
+        if d in done:
+            continue
         N, z = one(pari, d, 64)
         rec = dict(d=d, conductor=N, T=T_of(d), zeros=z, root_number=1, n_central=sum(1 for x in z if float(x) == 0.0))
         if chk:
             rec["divz128_count"] = len(one(pari, d, 128)[1])
-        recs.append(rec)
-    os.makedirs(out, exist_ok=True)
-    with open(os.path.join(out, f"e11_{d0}_{d1}_{chunk:03d}.jsonl"), "w") as f:
-        for r in recs:
-            f.write(json.dumps(r) + "\n")
-    print("e11", d0, d1, chunk, len(recs), "L-functions, %.0f s" % (time.time() - t0), flush=True)
+        with open(path, "a") as f:
+            f.write(json.dumps(rec) + "\n")
+            f.flush()
+            os.fsync(f.fileno())
+        new += 1
+        if stop_after is not None and new >= stop_after:
+            raise KeyboardInterrupt("simulated interruption")
+    print("e11", d0, d1, chunk, len(done) + new, "L-functions (%d new), %.0f s" % (new, time.time() - t0), flush=True)
+
+
+def resume_selftest(d1=6000, nchunks=3):
+    """Straight run vs interrupted (after 2 records) + torn line + resumed, on a small range: byte-identical."""
+    import filecmp
+    import shutil
+    import tempfile
+    a, b = tempfile.mkdtemp(), tempfile.mkdtemp()
+    try:
+        run(0, d1, 1, nchunks, a)
+        try:
+            run(0, d1, 1, nchunks, b, stop_after=2)
+        except KeyboardInterrupt:
+            pass
+        fb = os.path.join(b, f"e11_0_{d1}_001.jsonl")
+        with open(fb, "a") as f:
+            f.write('{"d": 99, "zer')                     # a torn write, as a power cut would leave
+        run(0, d1, 1, nchunks, b)
+        fa = os.path.join(a, f"e11_0_{d1}_001.jsonl")
+        n = sum(1 for _ in open(fa))
+        ok = filecmp.cmp(fa, fb, shallow=False)
+        print(f"resume selftest: {n} records; straight vs interrupted+torn+resumed: "
+              f"{'byte-identical, PASS' if ok else 'DIFFER, FAIL'}", flush=True)
+        return ok
+    finally:
+        shutil.rmtree(a)
+        shutil.rmtree(b)
 
 
 def merge(out, tag):
@@ -120,5 +178,7 @@ if __name__ == "__main__":
         cost(int(a[2]) if len(a) > 2 else 5)
     elif a[1] == "merge":
         merge(a[2], a[3])
+    elif a[1] == "resumetest":
+        sys.exit(0 if resume_selftest() else 1)
     else:
         run(int(a[2]), int(a[3]), int(a[4]), int(a[5]), a[6])
