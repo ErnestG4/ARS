@@ -816,3 +816,23 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
   - At s ≤ 1.35 (ℓ = 14.76), ∫ρ₅^ζ comes out slightly negative, about −3e-9 (T₅^ζ = +5.7e-10 and +4.2e-10). This is
     noted as the conjecture formula's asymptotic slack. It is far below any resolution here.
   - The relation to Phase 2's L2 result is not pre-judged; route (a)'s prediction decides it.
+
+## Note (not a decision round, 2026-10-12 evening) — compute after the brownout
+- **The 17:40 brownout reboot.**
+  - Lost: the in-progress T₅ jobs (~90 core-hours) and route (a)'s in-progress jobs.
+  - Kept intact: 12/54 T₅ and 227/408 route (a) results; all 61 pinned data files re-verified.
+  - T₅ is now checkpointed per batch, bit-identical on resume (ckpt_selftest).
+- **Second box (char@10.0.0.31; Will: same rules as spot):** i5-6600K, 4 cores, about 5.6× a loaded spot worker; RTX 3080
+  working after Will's reboot.
+- **T₅ split:** spot runs jobs 12–26, char runs 50–53 and 27–49.
+- **Route (a) on GPU** (`cs4/route_a_gpu.py`): 15–31 s per job. On eight finished s = 1.8 jobs it agrees to ≤ 1.7e-12
+  absolute (≤ 5e-11 relative). That fails the 1e-12 tolerance declared beforehand. **Will chose CPU instead.**
+- **Route (a) on CPU across machines** (`cs4/route_a_jobs.py`; same long-double code path):
+  - 168 jobs remained. A static, disjoint, cost-weighted split gives spot 54 jobs plus its 40 in progress (its pool
+    retires each legacy chunk worker by PID after it writes), this machine 51 (6 workers, CS4_CHUNK = 16, 3 GB
+    per-process cap, MemAvailable watchdog at 2 GB), and char 23 (queued after its T₅ share).
+- **Cross-machine reproducibility is not bitwise, even on CPU.**
+  - A finished spot job (s = 0.9) recomputed here agrees exactly in T₂ and T₃; T₄ differs by 7.2e-16 absolute.
+  - The cause is a different CPU and Python build: double rounding.
+  - The same holds for char's T₅ share against spot's. The GPU differences (≤ 1.7e-12) are the same kind, about 10³
+    larger.
