@@ -1,0 +1,209 @@
+{
+ "tol": 1e-12,
+ "reference": "spot",
+ "n": 16,
+ "worst": 0.0,
+ "by_host": {
+  "char-To-be-filled-by-O-E-M": {
+   "n": 6,
+   "worst": 0.0
+  },
+  "spot+local": {
+   "n": 9,
+   "worst": 0.0
+  },
+  "spot+fedora": {
+   "n": 1,
+   "worst": 0.0
+  }
+ },
+ "rows": [
+  {
+   "kind": "ra",
+   "host": "char-To-be-filled-by-O-E-M",
+   "job": [
+    "zeros_248246000.dat",
+    "mean",
+    300000,
+    16,
+    1.8
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra",
+   "host": "char-To-be-filled-by-O-E-M",
+   "job": [
+    "zeros_25646000.dat",
+    "mean",
+    300000,
+    16,
+    1.8
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra",
+   "host": "char-To-be-filled-by-O-E-M",
+   "job": [
+    "zeros_15146000.dat",
+    "mean",
+    300000,
+    16,
+    1.8
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "t5",
+   "host": "char-To-be-filled-by-O-E-M",
+   "job": [
+    "zeros_15146000.dat",
+    1.2444150891285808,
+    1000
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "t5",
+   "host": "char-To-be-filled-by-O-E-M",
+   "job": [
+    "zeros_15146000.dat",
+    1.3499999999999999,
+    1000
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "t5",
+   "host": "char-To-be-filled-by-O-E-M",
+   "job": [
+    "zeros_15146000.dat",
+    1.4478852861078486,
+    1000
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_15146000.dat",
+    "t0",
+    300000,
+    16,
+    0.007699624763570656
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_15146000.dat",
+    "t0",
+    300000,
+    16,
+    0.06850842073984194
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_15146000.dat",
+    "t0",
+    300000,
+    16,
+    0.18598199373788835
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+fedora",
+   "job": [
+    "zeros_15146000.dat",
+    "t0",
+    300000,
+    16,
+    0.2636038969321072
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_10639046000.dat",
+    "mean",
+    300000,
+    16,
+    0.007699624763570656
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_10639046000.dat",
+    "mean",
+    300000,
+    16,
+    0.03066675633983852
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_10639046000.dat",
+    "mean",
+    300000,
+    16,
+    0.18598199373788835
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_10639046000.dat",
+    "mean",
+    1000000,
+    16,
+    0.007699624763570656
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_10639046000.dat",
+    "mean",
+    1000000,
+    16,
+    0.03066675633983852
+   ],
+   "max_abs_diff": 0.0
+  },
+  {
+   "kind": "ra-duplicate",
+   "host": "spot+local",
+   "job": [
+    "zeros_10639046000.dat",
+    "mean",
+    1000000,
+    16,
+    0.06850842073984194
+   ],
+   "max_abs_diff": 0.0
+  }
+ ],
+ "PASS": true
+}

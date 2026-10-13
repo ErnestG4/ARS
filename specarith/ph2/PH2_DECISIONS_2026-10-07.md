@@ -929,3 +929,14 @@ merge → annotated tag `route-a-prediction` (Will pushes) as planned.
 ```
 - **Applied:** `cs4/route_a_zeta.py` merge records `DMU_SYS = 2e-4` and its basis in `results/route_a_zeta.json`
   (`definition`, `delta_mu_sys`).
+- **Cross-machine check: PASS (2026-10-13 ~09:10).** 16 comparisons, all identical to spot to the bit (difference
+  exactly 0); declared tolerance 1e-12 (`cs4/results/xcheck.json`):
+  - 6 recomputed on char (i5-6600K, Python 3.14): 3 route (a) jobs and 3 T₅ jobs;
+  - 9 jobs duplicated between spot and this machine;
+  - 1 job duplicated within spot ("fedora" is spot's hostname).
+  - The deliberate local recompute of 2026-10-12, in a different environment, differed by 7.2e-16 and is noted above.
+- **Merge rerun: TAGGABLE = True.** Per-height checks (a)–(c) pass, the cross-check passes, and δμ_sys = 2e-4 is
+  recorded.
+- **Raw inputs committed** (`cs4/results/route_a_raw/`, 224 files) with `cs4/results/route_a_prediction_MANIFEST.json`.
+  The manifest holds sha256 for the raw files, the 9 code files and the 6 merged outputs. Rebuilding the merge from
+  the committed raw files gives a byte-identical `route_a_zeta.json`.

@@ -19432,6 +19432,30 @@
    }
   }
  },
- "xcheck": null,
- "TAGGABLE": false
+ "xcheck": {
+  "tol": 1e-12,
+  "n": 16,
+  "worst": 0.0,
+  "by_host": {
+   "char-To-be-filled-by-O-E-M": {
+    "n": 6,
+    "worst": 0.0
+   },
+   "spot+local": {
+    "n": 9,
+    "worst": 0.0
+   },
+   "spot+fedora": {
+    "n": 1,
+    "worst": 0.0
+   }
+  },
+  "PASS": true
+ },
+ "TAGGABLE": true,
+ "definition": "Delta p at each F3 file's zero-weighted mean height (zero_weighted_t); the read's estimator has expectation equal to the zero-weighted file average (thirty-eighth round)",
+ "delta_mu_sys": {
+  "value": 0.0002,
+  "basis": "mean-height vs file-average gap: measured +1.0e-4 at the widest file (zeros_15146000, Var l = 1.40e-3), second-order (Var l) scaling for the others (<= 4e-5); thirty-eighth round"
+ }
 }
