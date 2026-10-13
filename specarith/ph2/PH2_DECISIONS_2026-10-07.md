@@ -851,3 +851,8 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
 - **Checkpointed T₅ code reproduces a finished run-2 value bit for bit on spot** (job 0: 5.669071673075182e-10, both
   times; recheck finished 2026-10-12 ~22:40). The 12 run-2 results and the checkpointed results are therefore from an
   identical code path on spot.
+- **Rebalance (2026-10-12 23:55).**
+  - T₅: spot's share (jobs 12–26) finished, all 15 exits 0; 27/54 T₅ rows are on spot.
+  - Route (a): this machine finished its 51 jobs (23:10). Char's 23 had not started (char is still on T₅, 12/27), so
+    its queued pool was cancelled by PID and the list moved to this machine (6 workers, same caps and watchdog).
+  - Spot's remaining 29 jobs stay where they are (running, and not checkpointed).
