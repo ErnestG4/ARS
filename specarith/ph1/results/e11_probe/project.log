@@ -1,0 +1,6 @@
+cost model at P = 30: t(d) = 4.124e-05·d^1.123 s  (120 twists, d 500009–2001541)
+  d ≈ 5.0e+05: mean 102 s per twist (n = 30)
+  d ≈ 1.0e+06: mean 233 s per twist (n = 30)
+  d ≈ 1.5e+06: mean 355 s per twist (n = 30)
+  d ≈ 2.0e+06: mean 485 s per twist (n = 30)
+largest d within 24.0 h: 1204097; X′ (rounded down to 10⁵) = 1200000: 14730 twists, projected 23.8 h at P = 30

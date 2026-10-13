@@ -940,3 +940,24 @@ merge → annotated tag `route-a-prediction` (Will pushes) as planned.
 - **Raw inputs committed** (`cs4/results/route_a_raw/`, 224 files) with `cs4/results/route_a_prediction_MANIFEST.json`.
   The manifest holds sha256 for the raw files, the 9 code files and the 6 merged outputs. Rebuilding the merge from
   the committed raw files gives a byte-identical `route_a_zeta.json`.
+- **`route-a-prediction` pushed by Will (2026-10-13)** to both remotes. Verified: the annotated tag 0d2ac239 points to
+  0f0c5f77 on GitHub and on Forgejo, and both branches are at 0f0c5f77. No F3 file had been downloaded before this.
+- **E₁₁ X′ measurement (2026-10-13, spot otherwise idle; `ph1/results/e11_probe/`).**
+  - **Worker-count probe at d ≈ 10⁶:**
+    - P = 16: 188 s per twist, about 306 twists/h.
+    - P = 28: 197 s, about 512/h.
+    - P = 40: 252 s, about 571/h.
+    - P = 56: **exhausted spot's 117 GB** (about 09:25). The memory killer took down the whole user session, including
+      tmux and the desktop greeter. Spot recovered by itself; no data was lost. This was my error: worker count was
+      raised without measuring memory per worker.
+  - **Peak RSS of one worker:** 2,993 MB at d ≈ 10⁶ and 3,045 MB at 1.5·10⁶. Memory, not CPU, bounds the run:
+    **P = 30** (≈ 90 GB, 77% of RAM) is the memory-safe count. A memory guard ran alongside and never fired.
+  - **Cost curve at P = 30** (30 twists each): 102, 233, 355 and 485 s per twist at d ≈ 0.5, 1, 1.5 and 2·10⁶. Fit:
+    t(d) = 4.12e-5·d^1.123 s.
+  - **Projection:**
+    - Timed main computation only: largest d within 24 h is 1,204,097, so X′ = 1.2·10⁶ (14,730 twists, 23.8 h).
+    - The production run also recomputes a random 2% at divz 128, which the probe did not time. Counting it as a 4–5%
+      overhead, the largest d within 24 h is about 1.18·10⁶, so **X′ = 1.1·10⁶ (12,917 twists, projected about 20.3 h
+      at P = 30).**
+  - **Proposed:** X′ = 1.1·10⁶, since the round-33 rule's "projected generation" should include the production
+    recheck. Will declares X′ in the seal before generation.
