@@ -861,3 +861,16 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
   - Generation only, with no statistic computed; independent of X′.
   - `ph1/run_gen_e11_repro_spot.sh`: 64 chunks on 48 workers, while route (a) has 4 jobs left on spot.
   - The X′ cost probe still waits for an idle spot.
+- **Cross-machine evidence from duplicated jobs (2026-10-13 00:38; Will: record it as evidence, not just waste).**
+  - **How the duplicates arose:** the job lists were split a few minutes before spot's pool started. In that gap
+    several legacy chunk workers finished their current job and began the next, which the split had assigned to this
+    machine. Those ran to completion on both machines.
+  - **Spot vs this machine:** 5 route (a) jobs (289, 313, 314, 360, 364) were computed independently on spot (Intel
+    Xeon E5-2690 v4, Python 3.12.15) and on this machine (AMD Ryzen 9 5900X under WSL, Python 3.12.3), both on numpy
+    2.5.3 / scipy 1.18.1 / mpmath 1.4.1. T₂, T₃ and T₄ (ζ) agree **bit for bit, difference exactly 0**, on all five.
+  - **Spot vs spot:** job 365 ran twice on spot (legacy worker and pool), identical.
+  - **Not always bitwise:** the deliberate recompute of a spot job here (s = 0.9) differed in T₄ by 7.2e-16. Cross-CPU
+    results are mostly bitwise, sometimes 1 ulp-scale.
+  - **Char not yet covered:** these overlaps are spot vs this machine only. Char (i5-6600K, Python 3.14) has no overlap
+    yet; the declared check (`xcheck.py`, ≤ 1e-12) will cover it.
+  - **Merge:** keys on the job, so the duplicates are harmless. These six pairs are added to the cross-machine evidence.
