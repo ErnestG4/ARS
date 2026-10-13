@@ -874,3 +874,46 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
   - **Char not yet covered:** these overlaps are spot vs this machine only. Char (i5-6600K, Python 3.14) has no overlap
     yet; the declared check (`xcheck.py`, ≤ 1e-12) will cover it.
   - **Merge:** keys on the job, so the duplicates are harmless. These six pairs are added to the cross-machine evidence.
+
+## Thirty-seventh round (Will, 2026-10-13) — route (a) prediction approved, conditional
+
+```
+Round 37 (Will): route (a) prediction APPROVED, conditional on the new-box
+cross-machine recompute passing (bit-identical or within declared float bound).
+- Truncation: governing bound = node-set 6.7e-7 (> n=6 bound 1.4e-7); record.
+- Record descriptively: ρ₅^ζ ≈ 0 at all F3 heights (|Δ₅|/|T₅^sine| = 0.99–1.01);
+  n≤5 model mainly removes the sine kernel's own 5-point term.
+- State the prediction's definition (file-averaged Δp vs Δp at zero-weighted
+  mean height) matching the read's estimator; δμ ≈ 1e-4 noted.
+- After cross-check: tag `route-a-prediction`, push before any F3 download;
+  then pre-read (GUE calibration, power, rule; Phase 2 CUE(N_eff) → equivalent
+  μ, descriptive) → seal → F3 read.
+- Spot idle now: run the E₁₁ X′ cost measurement and worker-count probe.
+```
+- **The truncation bound that governs: 6.7e-7.** This is the node-set bound: 100·|T₅^sine| at the nodes below the
+  computed edge (s ≤ 1.13), where Δ₅ is not computed. It is larger than the n = 6 bound at s = 1.8 (100·|T₆^sine| =
+  1.4e-7). Its worst-sign effect on μ is ≤ 1.2e-5.
+- **Descriptive: ρ₅^ζ ≈ 0 at all five F3 heights.** |Δ₅|/|T₅^sine| = 0.99–1.01 at every height
+  (`results/ratios_t5.json`), so ζ's own 5-point term is about zero on the window. Including Δ₅ (the n ≤ 5 model)
+  therefore mainly removes the sine kernel's own 5-point term from p_μ's arithmetic part. Its effect on μ is
+  δμ = −1.0e-4 to −1.5e-4.
+- **The prediction's definition.**
+  - **What is computed:** for each F3 file, Δp(s) is evaluated at the file's zero-weighted mean height ℓ̄
+    (`zero_weighted_t`: ∫ℓ² dt/∫ℓ dt over the file's declared range).
+  - **What the read estimates:** the read pools a file's spacings into one histogram. Each spacing sits at its own
+    height, and their number grows with the zero density ∝ ℓ, so the histogram's expectation is the zero-weighted file
+    average of p(s; ℓ).
+  - **The gap is second order in the file's ℓ spread:**
+    - Measured at the widest file (zeros_15146000, ℓ 14.695–14.825, zero-weighted Var ℓ = 1.40e-3) by the
+      three-height average (t₀, ℓ̄, t₁): δμ ≈ +1.0e-4.
+    - Scaled by Var ℓ to the others: ≈ +3.7e-5 (zeros_25646000, Var 5.2e-4), ≈ 4e-7 (zeros_248246000), ≈ 5e-9
+      (zeros_2373446000) and ≈ 2e-10 (zeros_10639046000). These are estimates; only the first is computed.
+  - **Sealed form:** the mean-height Δp, with this file-average gap stated as a known bias of at most ~1e-4 in μ.
+    The seal can require the file average instead; that would mean computing the end heights for the second file.
+- **E₁₁ reproduction range, generated (2026-10-13 03:26):** d ≤ 4·10⁵, 8,431 twists, 68,950 zeros; close-pair recheck
+  0 mismatches in 192; 64 chunks, all exits 0 (`ph1/results/zeros_e11_repro_MANIFEST.json`). Wall time 3.07 h at
+  48 workers, about 48 s per twist on average.
+- **X′ measurement started on an idle spot (09:00; round 37)** with `ph1/run_e11_probe_spot.sh`:
+  - a worker-count probe at d ≈ 10⁶ (P = 16, 28, 40, 56);
+  - then a cost curve at the best P (d ≈ 0.5, 1, 1.5, 2·10⁶);
+  - X′ = the largest d with projected generation ≤ 24 h, rounded down to 10⁵ (`ph1/e11_probe.py project`).
