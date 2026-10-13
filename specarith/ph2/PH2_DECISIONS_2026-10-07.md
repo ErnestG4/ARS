@@ -848,3 +848,6 @@ relation to Phase 2's L2 result; route (a)'s prediction decides it.
   - The route (a) merge will require its PASS before tagging. That gate is added to `route_a_zeta.py` only after T₅
     finishes, because the file is in T₅'s checkpoint code hash.
 - **Measured so far:** one spot route (a) job recomputed here: T₂ and T₃ exact, T₄ 7.2e-16.
+- **Checkpointed T₅ code reproduces a finished run-2 value bit for bit on spot** (job 0: 5.669071673075182e-10, both
+  times; recheck finished 2026-10-12 ~22:40). The 12 run-2 results and the checkpointed results are therefore from an
+  identical code path on spot.
