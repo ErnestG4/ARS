@@ -1,0 +1,39 @@
+{
+ "block": 300,
+ "block_fallback": false,
+ "se_over_sd_geomean": {
+  "300": 0.9975923208920844,
+  "1000": 0.9959937973975257,
+  "3000": 0.9958371490231666,
+  "10000": 0.9978574537758474
+ },
+ "alpha_per_file": 0.002008048338574153,
+ "familywise": 0.01,
+ "R": 200,
+ "empirical_familywise_misfit": 0.015,
+ "empirical_model_misfit_verdict": 0.0,
+ "operating_characteristics": {
+  "false_fail": 0.055,
+  "verdicts_mu1": {
+   "FAIL": 11,
+   "PASS": 189
+  },
+  "power_mu0": 1.0,
+  "verdicts_mu0": {
+   "FAIL": 200
+  },
+  "descriptive_not_pass_at_fit_sec_mustar": 0.975,
+  "fit_sec_mustar": {
+   "zeros_15146000.dat": 0.9580880975101498,
+   "zeros_25646000.dat": 0.9600062481695342,
+   "zeros_248246000.dat": 0.9621075045041776,
+   "zeros_2373446000.dat": 0.9698939855608166,
+   "zeros_10639046000.dat": 0.9756398763000846
+  }
+ }
+}
+zeros_15146000.dat: b +0.00244 (z +2.36)  SD 0.01459  T 60.9  q90 emp/fit 43.0/43.6  q99 52.8/54.5
+zeros_25646000.dat: b +0.00218 (z +2.26)  SD 0.01367  T 62.5  q90 emp/fit 44.1/44.6  q99 54.7/55.9
+zeros_248246000.dat: b +0.00156 (z +1.27)  SD 0.01733  T 58.9  q90 emp/fit 42.2/42.8  q99 54.1/53.0
+zeros_2373446000.dat: b +0.00136 (z +1.08)  SD 0.01773  T 62.1  q90 emp/fit 44.5/44.3  q99 56.3/55.5
+zeros_10639046000.dat: b -0.00107 (z -0.75)  SD 0.02015  T 64.2  q90 emp/fit 44.8/45.3  q99 61.6/57.2

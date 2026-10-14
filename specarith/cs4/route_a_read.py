@@ -64,7 +64,7 @@ BLOCK_LENS = (300, 1000, 3000, 10000)
 BLOCK_SE_RATIO = 0.95          # forty-first round: BLOCK = shortest L with SE_boot(L) ≥ 0.95·SD (geometric mean of files)
 B_BOOT = 200
 CALIB_JSON = os.path.join(HERE, "results", "calib", "route_a_calib_declared.json")
-CALIB_SHA256 = None            # pinned when the calibration is declared, before any real-zero check
+CALIB_SHA256 = "722e19def9abce985de29036199579745754def5abf858e722a4b7b55ee8b825"  # declared 2026-10-14, before any real-zero check
 F3 = {"zeros_15146000.dat": (15_146_000, 17_246_000),
       "zeros_25646000.dat": (25_646_000, 27_746_000),
       "zeros_248246000.dat": (248_246_000, 250_346_000),
