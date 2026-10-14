@@ -1063,3 +1063,29 @@ has |f| < 1 and the step rounds back onto θ; such a stalled step now bisects, a
 sign-kept bracket (which always holds root m alone) has collapsed to 4 ulp (θ to machine precision). New V4: no spacing < 1e-3 on 10⁴ N = 1000 matrices (CUE expectation ~0.01), red path = the old
 step on the same α must double roots. The 12 replicates and 3 pipeline checks run before the fix are set aside on char
 (results/calib/defective_dup_roots/), not used.
+
+## Forty-second round (Will, 2026-10-13 night) — block criterion and bias accepted; sampler-defect log (verbatim)
+Round 42 (Will): block-length criterion = geometric mean of the bootstrap/
+replicate SE ratio over the five files ≥ 0.95 (fallback 10⁴); per-file SE
+floored at its replicate spread. Bias subtraction (unconditional) accepted.
+Log: confirm no sealed result used cbe.py (Stages 1–2 and Phase 2 used
+separate generators); record that the Platt writer's negative-gap refusal
+caught the sampler defect, and that the false-pass self-tests were fixed.
+
+**Log record (2026-10-13 night):**
+- **No sealed result used cbe.py.** cbe.py was first committed in a2203384 (2026-10-13); `git tag --contains` lists no
+  tag (ph2-seal-2.1, ph6-seal-6.0, ph6.1-seal, ph2r2-seal, ph2s-stage1-seal, ph2s-stage2-prediction, ph2s-stage2-seal,
+  route-a-prediction all predate it). Its only importers are cs4/route_a_calib.py and cs4/route_a_read.py (route (a)
+  pre-read, unsealed); no other file mentions Verblunsky/Killip/Prüfer. The sealed stages' CUE draws came from separate
+  dense generators (Haar by QR + eigvals, Mezzadri): Phase 2 ph2lib.haar_unitary_phases / cue_spacings, R₂
+  ph2r2/g0b.cue_block, Stage 2 cs4/gs_cue_mc.haar_phases; Phase 2's CUE_N laws are Fredholm tables (ph2lib), not samples.
+  route_a_zeta.py and route_a_equiv.py (the tagged prediction and the L2 table) do not import cbe.
+- **What caught the defect:** the Platt writer (route_a_read.write_platt) refused a negative gap while the full-size
+  pipeline-identity check wrote CUE levels for zeros_15146000 (struct.error at zero 424,122: a doubled root, spacing
+  −1.4e-13). The writer now raises an explicit ValueError for any step outside (0, 2^104). The sampler's own V1 (38
+  matrices against dense eigvals) was too small to see a ~1%-per-matrix event; V4 (10⁴ matrices, red path) now covers it.
+- **False-pass self-tests fixed:** `cbe.py selftest` and `route_a_read.py selftest / ruletest` exited 0 whatever their
+  verdict (the earlier `exit=0` recorded on char for the cbe self-test therefore certified nothing beyond "no crash");
+  each now exits on its verdict, and `cbe.py check OUT.json` verifies a recorded run in full (a tampered record is
+  refused). Commits fd143231, ef7119f4.
+- Implementation already matches round 42 (route_a_calib.declare; route_a_read.file_se); no code change.
