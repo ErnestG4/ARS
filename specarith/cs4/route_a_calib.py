@@ -6,6 +6,13 @@ append + fsync; a restart skips the done keys; a torn last line is dropped. Seed
 
   python route_a_calib.py run R0 R1 OUT.jsonl [BETA]     replicates R0..R1−1 (BETA = 2 is CUE; other β = red paths)
   python route_a_calib.py summary OUT.jsonl [...]        bias, spread, SE coverage per block length, χ² null quantiles
+  python route_a_calib.py declare DECL.json OUT.jsonl [...]   the forty-first-round declaration (route_a_read docstring):
+        BLOCK, per-file bias b_f, spread SD_f, R_f, GoF threshold T_f (scaled χ², 1% family-wise), the empirical
+        family-wise misfit rate, and the rule's operating characteristics on the joint replicates:
+        false-fail  = P(verdict ≠ PASS) with every μ̂_f shifted by +1 (round 40's assumption: μ = 1 correlations ≈ μ = 0),
+        power       = P(verdict = FAIL) unshifted (truth μ = 0),
+        and, descriptive only, P(verdict ≠ PASS) under per-file shifts to Phase 2's fitted-SECONDARY equivalent μ*
+        (route_a_equiv.json; μ-condition only, its χ² misfit is not simulated).
 """
 import json
 import math
@@ -21,7 +28,7 @@ import cbe  # noqa: E402
 import route_a_read as RR  # noqa: E402
 
 N_MAT = 1000                       # fortieth round: N ≥ 10³ per block
-BLOCK_LENS = (300, 1000, 3000, 10000)
+BLOCK_LENS = RR.BLOCK_LENS
 CHUNK = 2000                       # matrices per GPU call
 
 
@@ -111,8 +118,77 @@ def summary(paths):
     return out
 
 
+def scaled_chi2_quantile(x, q):
+    """q-quantile of a·χ²_ν with a, ν matched to the sample mean and variance of x."""
+    from scipy.stats import chi2
+    m, v = float(np.mean(x)), float(np.var(x, ddof=1))
+    a, nu = v / (2 * m), 2 * m * m / v
+    return float(a * chi2.ppf(q, nu)), a, nu
+
+
+def declare(out, paths, equiv=os.path.join(HERE, "results", "route_a_equiv.json")):
+    rows = load(paths)
+    files = list(RR.F3)
+    reps = sorted({rep for rep, _ in rows})
+    joint = [r for r in reps if all((r, f) in rows for f in files)]
+    if len(joint) != len(reps):
+        raise RuntimeError(f"declare: {len(reps) - len(joint)} replicates incomplete")
+    sd = {f: float(np.std([rows[(r, f)]["mu"] for r in joint], ddof=1)) for f in files}
+    se_mean = {f: {L: float(np.mean([rows[(r, f)]["se"][str(L)] for r in joint])) for L in BLOCK_LENS} for f in files}
+    ratio = {L: float(np.exp(np.mean([np.log(se_mean[f][L] / sd[f]) for f in files]))) for L in BLOCK_LENS}
+    ok = [L for L in BLOCK_LENS if ratio[L] >= RR.BLOCK_SE_RATIO]
+    block = min(ok) if ok else max(BLOCK_LENS)            # declared fallback; SE_f ≥ SD_f holds regardless
+    a1 = 1 - (1 - RR.GOF_FAMILYWISE) ** (1 / len(files))
+    cal = dict(block=block, block_fallback=not ok, se_over_sd_geomean=ratio, alpha_per_file=a1,
+               familywise=RR.GOF_FAMILYWISE, R=len(joint), files={})
+    for f in files:
+        mu = np.array([rows[(r, f)]["mu"] for r in joint])
+        chi = np.array([rows[(r, f)]["chi2"] for r in joint])
+        T, a, nu = scaled_chi2_quantile(chi, 1 - a1)
+        cal["files"][f] = dict(bias=float(mu.mean()), bias_z=float(mu.mean() / (sd[f] / math.sqrt(len(mu)))),
+                               sd=sd[f], R=len(mu), se_boot_mean=se_mean[f], T=T, chi2_scale=a, chi2_dof=nu,
+                               chi2_mean=float(chi.mean()), chi2_emp_q90=float(np.percentile(chi, 90)),
+                               chi2_fit_q90=scaled_chi2_quantile(chi, 0.90)[0],
+                               chi2_emp_q99=float(np.percentile(chi, 99)),
+                               chi2_fit_q99=scaled_chi2_quantile(chi, 0.99)[0])
+    w, _ = RR.weights()
+    nflag = np.array([sum(rows[(r, f)]["chi2"] > cal["files"][f]["T"] for f in files) for r in joint])
+    cal["empirical_familywise_misfit"] = float(np.mean(nflag >= 1))
+    cal["empirical_model_misfit_verdict"] = float(np.mean(nflag >= RR.MISFIT_FILES))
+    mustar = {}
+    if os.path.exists(equiv):
+        E = json.load(open(equiv))["files"]
+        mustar = {f: E[f]["mu"]["fit_sec: Phase 2 SECONDARY fitted (interp.)"] for f in files}
+
+    def verdicts(shift):
+        out = []
+        for r in joint:
+            pf = {f: dict(rows[(r, f)], mu=rows[(r, f)]["mu"] + shift[f]) for f in files}
+            out.append(RR.rule(pf, w, cal)["verdict"])
+        return out
+
+    v1 = verdicts({f: 1.0 for f in files})
+    v0 = verdicts({f: 0.0 for f in files})
+    oc = dict(false_fail=float(np.mean([v != "PASS" for v in v1])), verdicts_mu1={v: v1.count(v) for v in set(v1)},
+              power_mu0=float(np.mean([v == "FAIL" for v in v0])), verdicts_mu0={v: v0.count(v) for v in set(v0)})
+    if mustar:
+        vs = verdicts(mustar)
+        oc["descriptive_not_pass_at_fit_sec_mustar"] = float(np.mean([v != "PASS" for v in vs]))
+        oc["fit_sec_mustar"] = mustar
+    cal["operating_characteristics"] = oc
+    json.dump(cal, open(out, "w"), indent=1, sort_keys=True)
+    print(json.dumps({k: v for k, v in cal.items() if k != "files"}, indent=1))
+    for f in files:
+        c = cal["files"][f]
+        print(f"{f}: b {c['bias']:+.5f} (z {c['bias_z']:+.2f})  SD {c['sd']:.5f}  T {c['T']:.1f}  "
+              f"q90 emp/fit {c['chi2_emp_q90']:.1f}/{c['chi2_fit_q90']:.1f}  q99 {c['chi2_emp_q99']:.1f}/{c['chi2_fit_q99']:.1f}")
+    return cal
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "run":
         run(int(sys.argv[2]), int(sys.argv[3]), sys.argv[4], float(sys.argv[5]) if len(sys.argv) > 5 else 2.0)
     elif sys.argv[1] == "summary":
         summary(sys.argv[2:])
+    elif sys.argv[1] == "declare":
+        declare(sys.argv[2], sys.argv[3:])

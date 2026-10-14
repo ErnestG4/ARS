@@ -10,14 +10,16 @@ On the circle b_{k+1} = z · b_k · conj(w_k)/w_k with w_k = 1 − α_k b_k (Re 
 is continuous and strictly increasing, ψ_{N−1}(θ + 2π) = ψ_{N−1}(θ) + 2πN, with
     dψ_{k+1}/dθ = 1 + (dψ_k/dθ) · (1 − |u_k|²)/|1 − u_k|² > 0,   u_k = α_k e^{iψ_k}.
 The N eigenphases in [0, 2π) are the roots of ψ_{N−1}(θ) = c_m, c_m = c_0 + 2πm (m = 0..N−1), c_0 the first value
-> ψ_{N−1}(0) congruent to −arg α_{N−1}; each is bracketed in [0, 2π) and found by safeguarded Newton, so the roots come out
-sorted and none is missed or doubled (monotone ψ, one root per c_m).
+> ψ_{N−1}(0) congruent to −arg α_{N−1}; each is bracketed in [0, 2π) and found by safeguarded Newton, accepted only when
+|ψ_{N−1}(θ) − c_m| < F_ACCEPT (the unwrapped residual: ψ is strictly monotone, so that root is unique), and every matrix is
+certified (roots strictly increasing within one period; certify()), so none is missed or doubled.
 
 Cost O(N²·iterations) per matrix and one GPU thread per root (CuPy RawKernel), against O(N³) dense: about 1.7 s per
 N = 1000 matrix for numpy eigvals on this machine's single core.
 
   python cbe.py selftest [gpu [OUT]] V1 deterministic (Prüfer roots = dense CMV eigvals), V2 β = 2 against Haar (Mezzadri),
-                                   V3 β = 1, 2, 4 nearest-neighbour spacing variance against the sine-process limits
+                                   V3 β = 1, 2, 4 nearest-neighbour spacing variance against the sine-process limits,
+                                   V4 no doubled roots on 10⁴ N = 1000 matrices (red path: the pre-fix step doubles some)
 """
 import math
 import sys
@@ -73,9 +75,23 @@ def dense_phases(a):
 #   δθ = −1 / [ (log|Φ*_{N−1}|)′ + (ψ′/2)·cot(f/2) ],   (log|Φ*_{N−1}|)′ = Σ_k ψ_k′·Im(u_k/w_k)   (|Φ*_{k+1}| = |Φ*_k|·|w_k|),
 # with δθ = −f/ψ′ once |f| < 1e-8. Plain Newton on ψ needed 12.4 iterations on average (max 31) at N = 1000, mostly
 # bisecting across steps where ψ rises by ~2π over a tiny θ range; this form needs 5.4 (max 10), same roots.
+# DEFECT FIXED 2026-10-13 (found by the Platt writer in the pipeline check: 47 negative spacings, ~−1e-13, in 4.9M): R has
+# a zero at EVERY root, so when two roots share a grid bracket the real-form step can land on the neighbour (f = ±2π),
+# where its step is ~0 and the step test accepted it; slot m then doubled root m ± 1 and root m was missed (~1% of N = 1000
+# matrices). Now the real-form step is used only while |f| < π (plain bracketed Newton −f/ψ′ otherwise), a root is
+# accepted only when |f| < F_ACCEPT as well as the step < STEP_TOL, and every matrix is certified (certify()). V4 in the
+# self-test counts near-coincident roots on 10⁴ matrices and shows the old step (gate = 0) failing it.
+# Where ψ′ ≳ 1/ulp (seen up to 1e16 at β = 1) no double θ has |f| < 1 and the Newton step rounds back onto θ: such a
+# stalled step (< STEP_TOL with |f| ≥ F_ACCEPT) bisects instead, and a root is also accepted once its bracket — kept by
+# the sign of f, so it always holds root m and only root m — has collapsed to BRACKET_ULPS ulp (θ located to machine
+# precision, ~3e-13 unfolded at N = 1000).
 GRID = 4
 STEP_TOL = 1e-12
-ITMAX = 40
+F_ACCEPT = 1.0      # |ψ_{N−1}(θ) − c_m| at acceptance: a BRANCH test, not a precision test. A neighbour root sits at
+                    # |f| = 2π, and with f monotone only root m has |f| < π nearby; precision comes from STEP_TOL. (1e-6
+                    # failed: where ψ′ ~ 1e10, θ at machine precision still leaves |f| ~ 3e-6.)
+BRACKET_ULPS = 4
+ITMAX = 120         # observed max 24 at β = 2, 65 at β = 1 (bisections where ψ′ ~ 1e16); a converged thread stops early
 
 
 def phi_np(a, theta, amp=False):
@@ -98,11 +114,13 @@ def phi_np(a, theta, amp=False):
     return (phi, dp, La) if amp else (phi, dp)
 
 
-def newton_step(f, dp, La):
-    """The step δθ of the real-form Newton (see above); −f/ψ′ near the root."""
+def newton_step(f, dp, La, gate=True):
+    """The step δθ of the real-form Newton (see above) while 1e-8 ≤ |f| < π; −f/ψ′ otherwise (gate=False: the defective
+    pre-fix step, real-form for every |f| ≥ 1e-8; kept for the self-test's red path)."""
     with np.errstate(divide="ignore", invalid="ignore"):
         far = 1.0 / (La + 0.5 * dp / np.tan(0.5 * f))
-    return np.where(np.abs(f) < 1e-8, f / dp, far)
+    plain = (np.abs(f) < 1e-8) | ((np.abs(f) >= math.pi) & gate)
+    return np.where(plain, f / dp, far)
 
 
 def targets(a):
@@ -131,7 +149,15 @@ def brackets(N, c0, psi_grid):
     return lo, hi, np.clip(start, lo, hi)
 
 
-def roots_np(a):
+def certify(th):
+    """Every matrix's roots strictly increasing and within one period (with ψ monotone and each root's residual checked,
+    this certifies that all N distinct roots were found). Raises otherwise."""
+    bad = ~(np.all(np.diff(th, axis=1) > 0, axis=1) & (th[:, -1] < th[:, 0] + TWO_PI))
+    if bad.any():
+        raise RuntimeError(f"cbe.certify: {int(bad.sum())} of {len(th)} matrices have doubled/missed/unsorted roots")
+
+
+def roots_np(a, gate=True):
     """All N eigenphases per matrix (n_mat, N), sorted. Returns (θ, max iterations)."""
     n_mat, N = a.shape
     c0, _ = targets(a)
@@ -147,13 +173,18 @@ def roots_np(a):
         f = (N * th - c) + phi
         lo = np.where(f < 0, th, lo)
         hi = np.where(f > 0, th, hi)
-        new = th - newton_step(f, dp, La)
-        new = np.where((new >= lo) & (new <= hi), new, 0.5 * (lo + hi))   # inclusive: a converged step may round onto lo/hi
-        small = np.abs(new - th) < STEP_TOL
+        new = th - newton_step(f, dp, La, gate)
+        stall = (np.abs(new - th) < STEP_TOL) & (np.abs(f) >= F_ACCEPT) & gate
+        new = np.where((new >= lo) & (new <= hi) & ~stall, new, 0.5 * (lo + hi))   # inclusive: a converged step may round onto lo/hi
+        small = (np.abs(new - th) < STEP_TOL) & ((np.abs(f) < F_ACCEPT) | (not gate))
+        if gate:
+            small |= (hi - lo) <= BRACKET_ULPS * np.spacing(np.maximum(np.abs(th), 1.0))
         th = np.where(done, th, new)
         done |= polish
         polish |= small
         if done.all():
+            if gate:
+                certify(th)
             return th, it + 1
     raise RuntimeError(f"cbe.roots_np: {int((~done).sum())} roots not converged in {ITMAX} iterations")
 
@@ -201,7 +232,8 @@ void grid_psi(const double2* __restrict__ alpha, const int N, const int n_mat, c
 
 extern "C" __global__
 void newton(const double2* __restrict__ alpha, const double* __restrict__ c0, const int N, const int n_mat,
-            const double step_tol, const int itmax, const double* __restrict__ lo0, const double* __restrict__ hi0,
+            const double step_tol, const double f_accept, const int gate, const int bracket_ulps, const int itmax,
+            const double* __restrict__ lo0, const double* __restrict__ hi0,
             double* __restrict__ theta, int* __restrict__ iters)
 {
     extern __shared__ double2 sa[];
@@ -220,10 +252,13 @@ void newton(const double2* __restrict__ alpha, const double* __restrict__ c0, co
         phi_at(sa, N, th, &phi, &dp, &la);
         const double f = (N * th - c) + phi;
         if (f < 0) lo = th; else if (f > 0) hi = th;
-        const double step = fabs(f) < 1e-8 ? f / dp : 1.0 / (la + 0.5 * dp / tan(0.5 * f));
+        const int plain = fabs(f) < 1e-8 || (gate && fabs(f) >= 3.141592653589793);   // real form only for |f| < π
+        const double step = plain ? f / dp : 1.0 / (la + 0.5 * dp / tan(0.5 * f));
         double nw = th - step;
-        if (!(nw >= lo && nw <= hi)) nw = 0.5 * (lo + hi);   // inclusive: a converged step may round onto lo/hi
-        const int small = fabs(nw - th) < step_tol;
+        const int stall = gate && fabs(nw - th) < step_tol && fabs(f) >= f_accept;      // ψ′ ≳ 1/ulp: bisect
+        if (stall || !(nw >= lo && nw <= hi)) nw = 0.5 * (lo + hi);   // inclusive: a converged step may round onto lo/hi
+        const int collapsed = gate && (hi - lo) <= bracket_ulps * 2.220446049250313e-16 * fmax(fabs(th), 1.0);
+        const int small = (fabs(nw - th) < step_tol && (!gate || fabs(f) < f_accept)) || collapsed;
         th = nw;
         if (polish) break;
         if (small) polish = 1;
@@ -235,7 +270,7 @@ void newton(const double2* __restrict__ alpha, const double* __restrict__ c0, co
 _mod = None
 
 
-def roots_gpu(a, threads=256):
+def roots_gpu(a, threads=256, gate=True):
     """roots_np on the GPU: grid kernel (one thread per grid point), brackets on the host, Newton kernel (one thread per
     root); the matrix's α sit in shared memory. Returns (θ, max iterations)."""
     import cupy as cp
@@ -254,12 +289,16 @@ def roots_gpu(a, threads=256):
     thg = cp.asarray(th)
     its = cp.empty((n_mat, N), dtype=cp.int32)
     _mod.get_function("newton")(((N + threads - 1) // threads, n_mat), (threads,),
-                                (ag, cp.asarray(c0), np.int32(N), np.int32(n_mat), np.float64(STEP_TOL), np.int32(ITMAX),
+                                (ag, cp.asarray(c0), np.int32(N), np.int32(n_mat), np.float64(STEP_TOL), np.float64(F_ACCEPT),
+                                 np.int32(1 if gate else 0), np.int32(BRACKET_ULPS), np.int32(ITMAX),
                                  cp.asarray(lo), cp.asarray(hi), thg, its), shared_mem=sh)
     itmax = int(cp.asnumpy(its).max())
     if itmax > ITMAX:                                  # the kernel writes itmax + 1 for a root that never converged
         raise RuntimeError(f"cbe.roots_gpu: {int(cp.asnumpy((its > ITMAX).sum()))} roots not converged in {ITMAX} iterations")
-    return cp.asnumpy(thg), itmax
+    th = cp.asnumpy(thg)
+    if gate:
+        certify(th)
+    return th, itmax
 
 
 def spacings(theta):
@@ -342,7 +381,7 @@ def exact_cue_functionals(N):
     return np.array(out), float(np.trapezoid(pg, g))
 
 
-def selftest(gpu=False, n_cmv=2000, n_haar=100, n_small=400):
+def selftest(gpu=False, n_cmv=2000, n_haar=100, n_small=400, n_v4=10000):
     out = {}
     rng = np.random.default_rng(20261013)
     roots = roots_gpu if gpu else roots_np
@@ -383,7 +422,18 @@ def selftest(gpu=False, n_cmv=2000, n_haar=100, n_small=400):
                                  var_cmv=float(Fc[:, -1].mean() - 1), var_sine_beta=SINE_NN_VAR[beta])
     out["V3"] = dict(v3, PASS=bool(all(np.abs(v["z"]).max() < Z_MAX for v in v3.values())))
     print("V3", out["V3"], flush=True)
-    out["PASS"] = bool(out["V1_PASS"] and out["V2"]["PASS"] and out["V3"]["PASS"])
+    # V4: no doubled/missed roots at scale. For CUE p(s) ≈ (π²/3)s² near 0, so P(s < 1e-3) ≈ 1.1e-9 per spacing: among
+    # n_v4·1000 spacings the expected count below 1e-3 is ~1e-2, and a doubled root gives s ~ 1e-13. Pass: count = 0 and
+    # every matrix certified. Red path: the pre-fix step (gate = 0, no certificate) on the SAME α must produce doublings.
+    a = verblunsky(rng, n_v4, N, 2.0)
+    sp_fix = spacings(roots(a)[0])
+    th_old = (roots_gpu(a, gate=False) if gpu else roots_np(a, gate=False))[0]
+    sp_old = spacings(th_old)
+    out["V4"] = dict(n_mat=n_v4, N=N, n_below_1e3=int((sp_fix < 1e-3).sum()), min_spacing=float(sp_fix.min()),
+                     red_old_step_n_below_1e3=int((sp_old < 1e-3).sum()), red_old_step_min=float(sp_old.min()))
+    out["V4"]["PASS"] = bool(out["V4"]["n_below_1e3"] == 0 and out["V4"]["red_old_step_n_below_1e3"] > 0)
+    print("V4", out["V4"], flush=True)
+    out["PASS"] = bool(out["V1_PASS"] and out["V2"]["PASS"] and out["V3"]["PASS"] and out["V4"]["PASS"])
     print("SELFTEST", "PASS" if out["PASS"] else "FAIL", flush=True)
     return out
 
@@ -394,3 +444,10 @@ if __name__ == "__main__":
         res = selftest(gpu=len(sys.argv) > 2 and sys.argv[2] == "gpu")
         if len(sys.argv) > 3:
             json.dump(res, open(sys.argv[3], "w"), indent=1)
+        sys.exit(0 if res["PASS"] else 1)
+    elif sys.argv[1] == "check":          # check OUT.json: a recorded self-test (e.g. the GPU run on char) passed in full
+        import json
+        r = json.load(open(sys.argv[2]))
+        parts = [r["PASS"], r["V1_PASS"]] + [r[k]["PASS"] for k in ("V2", "V3", "V4")]
+        print("cbe selftest record", sys.argv[2], "parts", parts)
+        sys.exit(0 if all(parts) else 1)

@@ -1017,3 +1017,48 @@ Route (a) pre-read guidance (Will, round 40):
   RESOLVABLE iff 2·SE_pool ≤ 0.25; PASS iff |μ̂_pool − 1| ≤ 2·SE_pool + δμ_sys
   AND ≥ 4/5 files within 3 SE of 1; seal records the empirical false-fail rate
   and power (assumption: μ=1 correlations ≈ μ=0); report μ̂_pool ± CI always.
+
+## Forty-first round (Will, 2026-10-13 evening) — route (a) rule additions before commit (verbatim)
+Round 41 (Will) — route (a) rule additions before commit:
+- Defaults accepted: binned χ² (36 bins) GOF; per-file thresholds from CUE
+  replicates for 1% family-wise false misfit; block length = shortest of
+  {300, 1000, 3000, 10000} with bootstrap SE ≥ 0.95 × replicate spread.
+- Bias: from the 200 replicates; declare pre-data either subtraction (with its
+  uncertainty propagated) or inclusion in the allowance.
+- SE = max(CUE replicate spread, zeros' own block-bootstrap SE at the selected
+  and longer block lengths) — as Phase 2's A1.
+- Verdict precedence: PASS requires the μ condition AND GOF pass in ≥ 4/5
+  files. Misfit flagged in ≥ 2 files → verdict MODEL MISFIT; μ̂ reported
+  descriptively with misfit location from the χ² bins.
+- L2 translation table stays descriptive.
+Commit the rule before any real-zero check; then Phase 2 bins descriptive.
+
+**Implementation (route_a_read.py docstring + rule(); route_a_calib.py declare()), committed before the calibration
+finished and before any real-zero check:**
+- Bias: **subtracted**, declared now, whatever the replicates show: μ̃_f = μ̂_f − b_f, SE_f² += SD_f²/R_f (R = 200 →
+  SE × 1.0025). Unconditional (no significance branch), so nothing about the handling depends on the calibration data.
+- SE_f = max(SD_f, SE_boot,f(L) for every L ≥ BLOCK), then the bias term above.
+- Block criterion, one refinement for Will to confirm: "SE_boot ≥ 0.95·SD" is applied to the **geometric mean over the
+  five files** of SE_boot(L)/SD_f, not file by file. Reason: SD_f's own sampling error at R = 200 is ±5%, so a perfectly
+  calibrated bootstrap fails "≥ 0.95 in every file" with probability ≈ 1 − 0.84⁵ ≈ 58%; the five-file mean (±2.2%)
+  fails it ≈ 1%. No L qualifying → BLOCK = 10⁴ (declared fallback); SE_f ≥ SD_f per file holds either way.
+- GoF threshold T_f: (1 − α₁) quantile of a·χ²_ν matched to the replicates' χ² mean and variance, α₁ = 1 − 0.99^{1/5};
+  the empirical family-wise rate and the empirical vs fitted q90/q99 recorded beside it.
+- Precedence: MODEL MISFIT (≥ 2 files over T_f) > UNRESOLVED (2·SE_pool > 0.25) > PASS / FAIL; PASS also needs ≥ 4/5
+  files under T_f (implied once MODEL MISFIT is excluded). Misfit location: per-bin (O − E)/√E (MuFit.gof_detail).
+- rule_selftest (`route_a_read.py ruletest`): every verdict fires on a constructed input, the precedence holds, bias
+  subtracted, SE floored at SD and widened by SD/√R. PASS.
+- Operating characteristics from the joint replicates (declare): false-fail = P(≠ PASS) with μ̂ + 1; power = P(FAIL) at
+  μ = 0; descriptive only, P(≠ PASS) at Phase 2's fitted-SECONDARY μ* (μ condition only).
+
+**Sampler defect found and fixed the same evening (calibration restarted).** The pipeline check's Platt writer refused a
+negative step: cbe's GPU roots had 47 spacings ≈ −1e-13 in 4.9M (≈ 1% of N = 1000 matrices). The real-form Newton step
+(cbe.py, introduced for speed) solves sin(f/2)·|Φ*| = 0, which vanishes at every root; when two roots share a grid
+bracket a slot could converge to its neighbour (f = ±2π), doubling it and missing its own. The self-test's V1 (dense
+comparison on 38 matrices) was too small to see a 1%-per-matrix event. Fix: real-form step only while |f| < π, root
+accepted only on its own branch (|f| < 1), and every matrix certified (roots strictly increasing within one period;
+certify() raises). The re-run self-test then stalled at β = 1 (8 roots not converged): where ψ′ reaches ~1e16 no double θ
+has |f| < 1 and the step rounds back onto θ; such a stalled step now bisects, and a root is also accepted once its
+sign-kept bracket (which always holds root m alone) has collapsed to 4 ulp (θ to machine precision). New V4: no spacing < 1e-3 on 10⁴ N = 1000 matrices (CUE expectation ~0.01), red path = the old
+step on the same α must double roots. The 12 replicates and 3 pipeline checks run before the fix are set aside on char
+(results/calib/defective_dup_roots/), not used.

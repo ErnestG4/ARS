@@ -9,19 +9,36 @@ Chebyshev–Lobatto values (route_a_zeta.cheb_interp, the declared interpolant),
 Estimator (per file): conditional maximum likelihood on the window (Phase 2's WindowFit, PA1):
     ℓ(μ) = Σ_{s_k ≤ S_MAX} [log(1 + μ ρ_k) − log(1 + μ φ)],   ρ_k = Δp(s_k)/p_sine(s_k),   φ = ∫Δp / ∫p_sine (window),
 with p_sine and Δp evaluated at max(s, S_TINY) (Δp/p_sine is flat below 0.01 to 1e-4 relative; P(s < S_TINY) ≈ 1.4e-7).
-Error bar: moving-block bootstrap of μ̂ (Phase 2's series form), block length BLOCK spacings, B_BOOT replicates.
+Error bar: moving-block bootstrap of μ̂ (Phase 2's series form), B_BOOT replicates, at each of BLOCK_LENS.
 
 Goodness of fit (fortieth round red path): binned χ² of the in-window spacings against p_μ̂ (conditional on the
-window), GOF_BINS equal bins on [0, S_MAX]; per-file threshold from the CUE calibration (GOF_THRESHOLD). A file over
-its threshold reads MODEL MISFIT.
+window), GOF_BINS equal bins on [0, S_MAX]; per-file threshold from the CUE calibration. A file over its threshold is
+MISFIT; its location in s is reported from the per-bin standardised residuals (O − E)/√E (gof_detail).
 
-Rule (fortieth round draft; Stage 2 analogue):
+Calibration (route_a_calib.py; forty-first round), declared in CALIB_JSON and pinned by CALIB_SHA256 before any
+real-zero check (calib() fails closed without it). Per file f, from R CUE_1000 replicates at f's full pre-data size:
+    b_f      the replicate mean of μ̂ (the estimator's bias at μ = 0), SD_f the replicate spread;
+    BLOCK    the shortest L in BLOCK_LENS whose bootstrap-SE/SD ratio, geometric mean over the five files, is ≥ 0.95
+             (per file, SD's own ±5% sampling error at R = 200 would fail an exactly calibrated bootstrap ~58% of the
+             time; the five-file mean has ~2.2%); none qualifying → the longest, 10⁴ (declared fallback; SE_f ≥ SD_f
+             holds either way);
+    T_f      the GoF threshold: the (1 − α₁) quantile of a·χ²_ν with a, ν matched to the replicates' χ² mean and variance,
+             α₁ = 1 − 0.99^{1/5} (1% family-wise over the five files); the empirical family-wise rate is recorded beside it.
+
+Rule (fortieth round draft as amended by the forty-first):
     weights w_f ∝ n_f, the pre-data spacing count N̄(t1) − N̄(t0) of the declared height range (exact θ);
-    μ̂_pool = Σ w_f μ̂_f,  SE_pool = (Σ w_f² SE_f²)^{1/2}  (files are disjoint height ranges: independent);
-    RESOLVABLE  iff 2·SE_pool ≤ 0.25;
-    PASS        iff RESOLVABLE and |μ̂_pool − 1| ≤ 2·SE_pool + δμ_sys and at least 4 of 5 files have |μ̂_f − 1| ≤ 3·SE_f;
-    FAIL        iff RESOLVABLE and not PASS;   MODEL MISFIT reported beside the verdict for any file over its GoF threshold;
-    always reported: μ̂_pool ± 2·SE_pool (and per file).
+    bias SUBTRACTED (declared pre-data): μ̃_f = μ̂_f − b_f;
+    SE_f = max(SD_f, max_{L ∈ BLOCK_LENS, L ≥ BLOCK} SE_boot,f(L)) — the wider of the CUE replicate spread and the read
+           data's own block bootstrap at the selected and longer block lengths (Phase 2's A1) — then
+           SE_f ← (SE_f² + SD_f²/R_f)^{1/2} (the bias's own uncertainty);
+    μ̃_pool = Σ w_f μ̃_f,  SE_pool = (Σ w_f² SE_f²)^{1/2}  (files are disjoint height ranges: independent);
+    precedence:
+    MODEL MISFIT  iff χ²_f > T_f in at least 2 files (μ̃ reported descriptively, misfit located from the χ² bins);
+    UNRESOLVED    iff not MODEL MISFIT and 2·SE_pool > 0.25;
+    PASS          iff neither, |μ̃_pool − 1| ≤ 2·SE_pool + δμ_sys, at least 4 of 5 files have |μ̃_f − 1| ≤ 3·SE_f, and
+                  at least 4 of 5 files pass the GoF (implied: at most 1 misfit, else MODEL MISFIT);
+    FAIL          otherwise;
+    always reported: μ̃_pool ± 2·SE_pool (and per file), the misfit files and their χ² bins.
 """
 import json
 import math
@@ -40,10 +57,14 @@ S_TINY = 0.005
 DMU_SYS = 2e-4                 # thirty-eighth round
 RESOLVE_2SE = 0.25             # fortieth round
 K_POOL, K_FILE, MIN_FILES = 2.0, 3.0, 4
+MISFIT_FILES = 2               # forty-first round: MODEL MISFIT iff ≥ 2 files over T_f
 GOF_BINS = 36                  # width 0.05
-BLOCK = None                   # declared from the CUE calibration (route_a_calib.py), before any real-zero check
+GOF_FAMILYWISE = 0.01          # forty-first round
+BLOCK_LENS = (300, 1000, 3000, 10000)
+BLOCK_SE_RATIO = 0.95          # forty-first round: BLOCK = shortest L with SE_boot(L) ≥ 0.95·SD (geometric mean of files)
 B_BOOT = 200
-GOF_THRESHOLD = None           # per file, declared from the CUE calibration
+CALIB_JSON = os.path.join(HERE, "results", "calib", "route_a_calib_declared.json")
+CALIB_SHA256 = None            # pinned when the calibration is declared, before any real-zero check
 F3 = {"zeros_15146000.dat": (15_146_000, 17_246_000),
       "zeros_25646000.dat": (25_646_000, 27_746_000),
       "zeros_248246000.dat": (248_246_000, 250_346_000),
@@ -128,13 +149,18 @@ class MuFit(ph2lib.WindowFit):
         P = np.array(P)
         return P / P.sum(), edges
 
-    def gof(self, s, mu, nb=GOF_BINS):
+    def gof_detail(self, s, mu, nb=GOF_BINS):
+        """Per-bin standardised residuals (O − E)/√E against the window-conditional p_μ, and the bin edges."""
         s = np.asarray(s, float)
         sw = s[s <= self.sc]
         P, edges = self.bin_probs(mu, nb)
         O = np.histogram(sw, bins=edges)[0].astype(float)
         E = len(sw) * P
-        return float(np.sum((O - E) ** 2 / E))
+        return (O - E) / np.sqrt(E), edges
+
+    def gof(self, s, mu, nb=GOF_BINS):
+        r, _ = self.gof_detail(s, mu, nb)
+        return float(np.sum(r ** 2))
 
 
 def fit_file(fitter, s, rng, block_lens, n_boot=B_BOOT, gof=True):
@@ -151,24 +177,54 @@ def fit_file(fitter, s, rng, block_lens, n_boot=B_BOOT, gof=True):
     return out
 
 
-def rule(per_file, w, block=None, gof_threshold=None):
-    """The fortieth-round decision rule on per-file results {f: {mu, se[block]}} with weights w (pre-data)."""
-    block = BLOCK if block is None else block
+def calib(path=CALIB_JSON, sha=CALIB_SHA256):
+    """The declared calibration {block, files: {f: {bias, sd, R, T}}}; fails closed unless pinned and matching."""
+    import hashlib
+    if sha is None:
+        raise RuntimeError("route_a_read.calib: no declared calibration (CALIB_SHA256 is None)")
+    raw = open(path, "rb").read()
+    if hashlib.sha256(raw).hexdigest() != sha:
+        raise RuntimeError(f"route_a_read.calib: {path} does not match the pinned sha256")
+    return json.loads(raw)
+
+
+def file_se(r, c, block):
+    """SE_f (forty-first round): max(CUE replicate spread, own bootstrap SE at every L ≥ BLOCK), then the bias's
+    uncertainty added in quadrature."""
+    se = r["se"]
+    boot = [se[k] for k in se if int(k) >= block]
+    if not boot:
+        raise RuntimeError("route_a_read.file_se: no bootstrap SE at L ≥ BLOCK")
+    s = max([c["sd"]] + boot)
+    return math.sqrt(s ** 2 + c["sd"] ** 2 / c["R"])
+
+
+def rule(per_file, w, cal):
+    """The decision rule (fortieth round draft, forty-first round amendments) on per-file results
+    {f: {mu, se{L}, chi2}}, weights w (pre-data) and the declared calibration cal (calib())."""
     files = list(w)
-    mu = np.array([per_file[f]["mu"] for f in files])
-    se = np.array([per_file[f]["se"][block] if isinstance(per_file[f]["se"], dict) else per_file[f]["se"]
-                   for f in files])
+    block = int(cal["block"])
+    C = cal["files"]
+    mu = np.array([per_file[f]["mu"] - C[f]["bias"] for f in files])          # bias subtracted (declared pre-data)
+    se = np.array([file_se(per_file[f], C[f], block) for f in files])
     W = np.array([w[f] for f in files])
     mp_, sp = float(np.sum(W * mu)), float(math.sqrt(np.sum(W ** 2 * se ** 2)))
     resolvable = 2 * sp <= RESOLVE_2SE
     within = int(np.sum(np.abs(mu - 1) <= K_FILE * se))
     pool_ok = abs(mp_ - 1) <= K_POOL * sp + DMU_SYS
-    verdict = "UNRESOLVED" if not resolvable else ("PASS" if pool_ok and within >= MIN_FILES else "FAIL")
-    misfit = []
-    if gof_threshold is not None:
-        misfit = [f for f in files if per_file[f].get("chi2", 0.0) > gof_threshold[f]]
+    misfit = [f for f in files if per_file[f]["chi2"] > C[f]["T"]]
+    gof_pass = len(files) - len(misfit)
+    if len(misfit) >= MISFIT_FILES:
+        verdict = "MODEL MISFIT"
+    elif not resolvable:
+        verdict = "UNRESOLVED"
+    elif pool_ok and within >= MIN_FILES and gof_pass >= MIN_FILES:
+        verdict = "PASS"
+    else:
+        verdict = "FAIL"
     return dict(verdict=verdict, mu_pool=mp_, se_pool=sp, ci95=[mp_ - 2 * sp, mp_ + 2 * sp], resolvable=resolvable,
-                pool_within=pool_ok, files_within_3se=within, model_misfit=misfit)
+                pool_within=pool_ok, files_within_3se=within, misfit_files=misfit, gof_pass_files=gof_pass,
+                mu_file=dict(zip(files, mu.tolist())), se_file=dict(zip(files, se.tolist())))
 
 
 # ---------------------------------------------------------------- the F3 decoding path (identical for synthetic files)
@@ -201,6 +257,8 @@ def write_platt(path, zeros_mp, block=10_000, first_index=1):
                 Z = int(mp.nint((z - t0) * mp.mpf(2) ** 101))
                 d = Z - prev
                 prev = Z
+                if not 0 < d < 2 ** 104:              # 13 bytes; a non-increasing input is a sampler defect, not data
+                    raise ValueError(f"write_platt: zero {b * block + len(zs)}: step {d} outside (0, 2^104)")
                 fh.write(struct.pack("<QIB", d & (2 ** 64 - 1), (d >> 64) & (2 ** 32 - 1), d >> 96))
 
 
@@ -288,11 +346,40 @@ def selftest(n=2_000_000, seed=40):
     return out
 
 
+def rule_selftest():
+    """Every verdict of rule() fires on a constructed input (and the precedence holds): a synthetic calibration
+    (bias 0.01, SD 0.02, R 200, T 60, block 1000) and per-file results built to land in each branch."""
+    files = list(F3)
+    w = {f: 1 / len(files) for f in files}
+    cal = dict(block=1000, files={f: dict(bias=0.01, sd=0.02, R=200, T=60.0) for f in files})
+
+    def pf(mu, se=0.02, chi2=40.0, mis=0):
+        return {f: dict(mu=mu + 0.01, se={"300": 0.5 * se, "1000": se, "3000": se, "10000": se},
+                        chi2=(99.0 if i < mis else chi2)) for i, f in enumerate(files)}
+    cases = [("PASS", pf(1.0)), ("PASS", pf(1.0, mis=1)),                       # one misfit file still passes
+             ("FAIL", pf(0.97)), ("FAIL", pf(0.0)),
+             ("UNRESOLVED", pf(1.0, se=0.4)),
+             ("MODEL MISFIT", pf(1.0, mis=2)), ("MODEL MISFIT", pf(0.0, se=0.4, mis=5))]   # precedence over both
+    out = []
+    for want, x in cases:
+        got = rule(x, w, cal)
+        out.append(dict(want=want, got=got["verdict"], mu_pool=got["mu_pool"], se_pool=got["se_pool"]))
+    # bias subtracted, SE floored at SD and widened by SD/√R, short block ignored (300 < BLOCK)
+    r = rule(pf(1.0, se=0.001), w, cal)
+    se_ok = abs(r["se_file"][files[0]] - math.sqrt(0.02 ** 2 + 0.02 ** 2 / 200)) < 1e-12
+    ok = all(c["want"] == c["got"] for c in out) and abs(r["mu_pool"] - 1.0) < 1e-12 and se_ok
+    print("RULE", out, "se floor", se_ok, "RULETEST", "PASS" if ok else "FAIL")
+    return dict(cases=out, se_floor=se_ok, PASS=ok)
+
+
 if __name__ == "__main__":
-    if sys.argv[1] == "selftest":
+    if sys.argv[1] == "ruletest":
+        sys.exit(0 if rule_selftest()["PASS"] else 1)
+    elif sys.argv[1] == "selftest":
         res = selftest()
         if len(sys.argv) > 2:
             json.dump(res, open(sys.argv[2], "w"), indent=1)
+        sys.exit(0 if res["PASS"] else 1)
     elif sys.argv[1] == "pipeline":          # pipeline FILE N_SPACINGS OUT.json PLATT_PATH   (GPU sampler on char)
         import cbe
         f, n = sys.argv[2], int(sys.argv[3])
