@@ -1120,3 +1120,29 @@ Truncation is listed only if item 2 fails to exclude it.
 The gate-tolerance change is accepted as documented: it is pre-data, and the integrator offset was already on record.
 
 Order is unchanged: bins check → seal draft to me → OpenTimestamps stamp → F3 decode. E₁₁ close-out when the exits land.
+
+## Forty-fifth round (Will, 2026-10-14 midday) — cut validity; R₂-anchored attribution bound; read environment (verbatim)
+Round 45:
+
+Cumulant cut. Let it finish. Add a validity check: for each cut model, check positivity of ρ₃–ρ₅ and of p(s) on the quadrature grid. If a model is non-positive anywhere, or the increments alternate rather than decay, report it as “not a valid decomposition at N_eff ≈ 3.4” and don’t use it for weights.
+Primary attribution route: an R₂-anchored bound.
+Compute ∂μ*/∂μ₂, where μ₂ scales only the T₂ arithmetic correction wherever T₂ appears, including inside ρ₃–ρ₅, with T₃–T₅ held at their CS values. Use a symmetric finite difference at ±0.01 and confirm it is linear.
+Bound the pair-level effect: B₂ = |∂μ*/∂μ₂| · (|1.003 − 1| + 2 × 0.006), using R₂ at its own heights. State that μ is assumed to be a height-independent amplitude.
+Seal outcome (b): a deviation |μ̂ − 1| > B₂ (and outside the band) is attributed to connected n ≥ 3 structure or to the estimator. Within B₂, it is consistent with pair-level uncertainty.
+Truncation: excluded, with the bound ≤ 1.2e-5 cited.
+Environment for the real read.
+Pin the Python, numpy and scipy versions in the seal.
+Run the dry run and the real read under that interpreter.
+Run the real read twice and require bit-identical outputs; any mismatch voids the run before interpretation.
+Log the P6 segfault as an environment incident.
+MODEL MISFIT reading confirmed as you have it: the row is always reported beside the verdict, and precedence stays as sealed.
+Order unchanged: cumulant cut + dry run → seal draft to me (blanks filled) → OTS stamp → F3 read (twice). Do the E₁₁ close-out when the remaining exits land.
+
+**Environment incident (logged per round 45), 2026-10-14 09:47 PDT, char.** The Phase 2 bins check for P6
+(`cs4/route_a_ph2bins.py`, zeros_30404246000.dat, 7.45·10⁶ spacings) died with a segmentation fault inside the
+interpreter: kernel "python[31880]: segfault … error 4 in python3.14", exit 139, no core kept, no OOM event in the kernel log
+(20 GB available when checked 12 minutes later). It ran 3 bins at a time beside an unrelated timing test. Interpreter: char venv, Python 3.14.4, numpy 2.5.3,
+scipy 1.18.1, mpmath 1.4.1. Rerun alone with the same code and input: exit 0, output bit-exact against Phase 2's
+arrays. Cause not determined. The first run's log is kept (`cs4/results/ph2bins/crash1/`). The dry run and the real read
+run on spot (`ph6c`: Python 3.12.15, numpy 2.5.3, scipy 1.18.1, mpmath 1.4.1), which the seal pins; the read refuses any
+other interpreter and must reproduce itself bit for bit.

@@ -2,12 +2,18 @@
 the calibration and the decision rule are route_a_read.py's (rule committed fd143231/ef7119f4; calibration declared and
 pinned 397fe1f3); this file adds only the read's safeguards and the outcome table of the forty-third round.
 
-  python route_a_sealread.py read [DATA_DIR]       REFUSED unless seals/ROUTE_A_SEAL.json exists and pins this code, the
-                                                   prediction and the calibration, and all five F3 md5s match the pins
-                                                   BEFORE any file is decoded; each file's heights must lie in its range
+  python route_a_sealread.py read LABEL [DATA_DIR] REFUSED unless seals/ROUTE_A_SEAL.json exists and pins this code, the
+                                                   interpreter (Python, numpy, scipy, mpmath versions), the prediction,
+                                                   the calibration and the weights, and all five F3 md5s match the pins
+                                                   BEFORE any file is decoded; each file's heights must lie in its range.
+                                                   Writes results/read/LABEL/ and prints NO estimate.
+  python route_a_sealread.py compare               round 45: run1 and run2 must be bit-identical (sha256 of the result
+                                                   file); only then is the report printed; any mismatch VOIDS the read
   python route_a_sealread.py sample OUT_DIR       (char, GPU) CUE_1000 spacings for the five stand-ins (.npy)
   python route_a_sealread.py synth OUT_DIR F       a stand-in for F3 file F: those spacings placed at its geometry
-  python route_a_sealread.py dryrun SYNTH_DIR      the read() code on the stand-ins, under a dry-run seal pinning their md5s
+  python route_a_sealread.py dryrun_prepare SYNTH_DIR      dry-run seal pinning the stand-ins' md5s (and this interpreter)
+  python route_a_sealread.py dryrun_read LABEL SYNTH_DIR   read() on the stand-ins (run twice, separate processes)
+  python route_a_sealread.py dryrun_record SYNTH_DIR      compare the two runs, then the dry-run expectations
   python route_a_sealread.py refusals              red paths: every refusal fires on a constructed defect
   python route_a_sealread.py seal [--check]        build seals/ROUTE_A_SEAL.json (on Will's go; commit + tag are his)
 
@@ -50,7 +56,10 @@ F3_MD5 = {"zeros_15146000.dat": "12759c6bf4892f90244d240a7893c96a",
 ROW_B = (0.955, 0.985)
 SEED = 20261014
 DPS = 45
+READ_OUT = os.path.join(HERE, "results", "read")
+DRY_OUT = os.path.join(HERE, "results", "dryrun")
 DERIVED = {"split": "results/route_a_split.json", "cumul": "results/route_a_cumul.json",
+           "anchor": "results/route_a_anchor.json",
            "equiv": "results/route_a_equiv.json", "calib": "results/calib/route_a_calib_declared.json"}
 
 
@@ -95,10 +104,19 @@ def evaluate(per_file):
     return v
 
 
+def env():
+    """The interpreter the read runs under (forty-fifth round: pinned in the seal; the read refuses any other)."""
+    import mpmath
+    import scipy
+    return dict(python=sys.version.split()[0], numpy=np.__version__, scipy=scipy.__version__, mpmath=mpmath.__version__)
+
+
 def check_seal(seal_path):
     if not os.path.exists(seal_path):
         raise SystemExit("REFUSED: no ROUTE_A_SEAL.json — F3 zeros are not decoded before the seal")
     seal = json.load(open(seal_path))
+    if seal.get("env") != env():
+        raise SystemExit(f"REFUSED: interpreter {env()} differs from the sealed {seal.get('env')}")
     for f in CODE:
         if sha(os.path.join(HERE, f)) != seal["code_sha256"][f]:
             raise SystemExit(f"REFUSED: {f} differs from the sealed code")
@@ -112,7 +130,8 @@ def check_seal(seal_path):
     return seal
 
 
-def read(data_dir=FRESH, seal_path=SEAL, out_dir=None, seed=SEED):
+def read(label, data_dir=FRESH, seal_path=SEAL, out_base=READ_OUT, seed=SEED):
+    """One read into out_base/label. Prints no estimate: interpretation waits for compare()."""
     seal = check_seal(seal_path)
     paths = {}
     for f in RR.F3:                                            # every md5 before any decode
@@ -126,12 +145,26 @@ def read(data_dir=FRESH, seal_path=SEAL, out_dir=None, seed=SEED):
     recs = dict(got)
     per_file = {f: {k: recs[f][k] for k in ("mu", "flag", "se", "n", "n_window", "chi2")} for f in recs}
     v = evaluate(per_file)
-    res = dict(seal=seal.get("seal"), records=recs, result=v)
-    out_dir = out_dir or os.path.join(HERE, "results", "read")
+    res = dict(seal=seal.get("seal"), env=env(), records=recs, result=v)
+    out_dir = os.path.join(out_base, label)
     os.makedirs(out_dir, exist_ok=True)
     json.dump(res, open(os.path.join(out_dir, "ROUTE_A_READ.json"), "w"), indent=1, default=float)
-    open(os.path.join(out_dir, "ROUTE_A_READ.md"), "w").write(report_md(v))
-    print(report_md(v))
+    print(f"read {label}: written to {out_dir} (no estimate printed; run compare after the second run)", flush=True)
+    return res
+
+
+def compare(out_base=READ_OUT):
+    """Round 45: the two runs must be bit-identical; a mismatch voids the read before any interpretation."""
+    a, b = (os.path.join(out_base, r, "ROUTE_A_READ.json") for r in ("run1", "run2"))
+    ha, hb = sha(a), sha(b)
+    ok = ha == hb
+    rec = dict(run1_sha256=ha, run2_sha256=hb, bit_identical=ok)
+    json.dump(rec, open(os.path.join(out_base, "COMPARE.json"), "w"), indent=1)
+    if not ok:
+        raise SystemExit(f"VOID: run1 and run2 differ ({ha[:16]} vs {hb[:16]}); the read is void, nothing is interpreted")
+    res = json.load(open(a))
+    open(os.path.join(out_base, "ROUTE_A_READ.md"), "w").write(report_md(res["result"]))
+    print(f"run1 = run2 bit for bit (sha256 {ha[:16]}…)\n" + report_md(res["result"]))
     return res
 
 
@@ -142,8 +175,7 @@ def _one_file(job):
     fit = RR.MuFit.for_file(f)
     r = RR.fit_file(fit, s, np.random.default_rng([seed, i]), RR.BLOCK_LENS)
     z, edges = fit.gof_detail(s, r["mu"])
-    print(f"{f}: n {len(s)}  μ̂ {r['mu']:+.4f}  SE " + " ".join(f"{k}:{x:.4f}" for k, x in r["se"].items())
-          + f"  χ² {r['chi2']:.1f}", flush=True)
+    print(f"{f}: decoded {len(s)} spacings, fitted", flush=True)
     return f, dict(r, first=g0, last=g1, mean_spacing=float(s.mean()), gof_residuals=z.tolist(), gof_edges=edges.tolist(),
                    sha256_spacings=hashlib.sha256(np.ascontiguousarray(s).tobytes()).hexdigest())
 
@@ -185,7 +217,7 @@ def synth(out_dir, f):
 
 def dry_seal(path, md5s):
     w, _ = RR.weights()
-    seal = dict(seal="DRYRUN (not a seal)", code_sha256={f: sha(os.path.join(HERE, f)) for f in CODE},
+    seal = dict(seal="DRYRUN (not a seal)", env=env(), code_sha256={f: sha(os.path.join(HERE, f)) for f in CODE},
                 prediction_sha256=sha(RR.PRED), calibration_sha256=RR.CALIB_SHA256, weights=w, f3_md5=md5s)
     json.dump(seal, open(path, "w"), indent=1)
 
@@ -215,18 +247,24 @@ def row_rates():
     return out
 
 
-def dryrun(synth_dir):
-    """read() on the CUE stand-ins (expected: FAIL, row (c): μ = 0 gives row (c) in every calibration replicate). The
+def dryrun_prepare(synth_dir):
+    os.makedirs(DRY_OUT, exist_ok=True)
+    dry_seal(os.path.join(DRY_OUT, "DRYRUN_SEAL.json"), {f: md5(os.path.join(synth_dir, f)) for f in RR.F3})
+
+
+def dryrun_read(label, synth_dir):
+    read(label, synth_dir, os.path.join(DRY_OUT, "DRYRUN_SEAL.json"), DRY_OUT)
+
+
+def dryrun_record(synth_dir):
+    """The two dry-run reads (separate processes) must be bit-identical (compare), then: read() on the CUE stand-ins (expected: FAIL, row (c): μ = 0 gives row (c) in every calibration replicate). The
     shifted single-draw results (μ = 1; Phase 2's fitted μ*) are descriptive: one draw cannot certify a ~90% event (the
     first dry run's fit_sec shift landed at 0.9538, 0.0012 below row (b)). Each row's firing is certified instead by the
     calibration replicates: row (a) under μ = 1, row (b) under Phase 2's fitted law and row (c) under μ = 0 in the
     majority of replicates (row_rates)."""
-    out = os.path.join(HERE, "results", "dryrun")
-    os.makedirs(out, exist_ok=True)
+    out = DRY_OUT
     md5s = {f: md5(os.path.join(synth_dir, f)) for f in RR.F3}
-    sp = os.path.join(out, "DRYRUN_SEAL.json")
-    dry_seal(sp, md5s)
-    res = read(synth_dir, sp, out)
+    res = compare(out)
     per = {f: {k: res["records"][f][k] for k in ("mu", "se", "chi2")} for f in RR.F3}
     eqv = json.load(open(os.path.join(HERE, DERIVED["equiv"])))["files"]
     mus = {f: eqv[f]["mu"]["fit_sec: Phase 2 SECONDARY fitted (interp.)"] for f in RR.F3}
@@ -235,11 +273,13 @@ def dryrun(synth_dir):
         v = evaluate({f: dict(per[f], mu=per[f]["mu"] + sh[f]) for f in RR.F3})
         shifted[name] = dict(verdict=v["verdict"], row=v["row"], mu_pool=v["mu_pool"], se_pool=v["se_pool"])
     rates = row_rates()
-    expect = dict(standin_row_c=res["result"]["row"] == "c" and res["result"]["verdict"] == "FAIL",
+    expect = dict(bit_identical_runs=json.load(open(os.path.join(out, "COMPARE.json")))["bit_identical"],
+                  standin_row_c=res["result"]["row"] == "c" and res["result"]["verdict"] == "FAIL",
                   row_a_majority_at_mu1=rates["mu1"].get("PASS/a", 0) > 0.5,
                   row_b_majority_at_fit_sec=rates["fit_sec"].get("FAIL/b", 0) > 0.5,
                   row_c_majority_at_mu0=rates["mu0"].get("FAIL/c", 0) > 0.5)
-    rec = dict(standin=res["result"], shifted_single_draw=shifted, row_rates=rates, as_expected=expect, md5=md5s)
+    rec = dict(env=res["env"], standin=res["result"], shifted_single_draw=shifted, row_rates=rates, as_expected=expect,
+               md5=md5s)
     json.dump(rec, open(os.path.join(out, "ROUTE_A_DRYRUN.json"), "w"), indent=1, default=float)
     print("dry run:", {k: v for k, v in shifted.items()}, "as expected:", expect, flush=True)
     return 0 if all(expect.values()) else 1
@@ -263,7 +303,7 @@ def refusals():
                 mutate(s)
                 json.dump(s, open(sp, "w"))
             try:
-                read(data, sp, os.path.join(tmp, "out"))
+                read("x", data, sp, os.path.join(tmp, "out"))
                 cases[name] = "NOT REFUSED"
             except SystemExit as e:
                 cases[name] = str(e)
@@ -277,10 +317,11 @@ def refusals():
         except SystemExit:
             control = False
         try:
-            read(tmp, os.path.join(tmp, "absent.json"), os.path.join(tmp, "out"))
+            read("x", tmp, os.path.join(tmp, "absent.json"), os.path.join(tmp, "out"))
             cases["no_seal"] = "NOT REFUSED"
         except SystemExit as e:
             cases["no_seal"] = str(e)
+        attempt("interpreter_mismatch", lambda s: s["env"].update(numpy="0.0"))
         attempt("code_mismatch", lambda s: s["code_sha256"].update({CODE[0]: "0" * 64}))
         attempt("prediction_mismatch", lambda s: s.update(prediction_sha256="0" * 64))
         attempt("calibration_mismatch", lambda s: s.update(calibration_sha256="0" * 64))
@@ -297,6 +338,16 @@ def refusals():
             cases["heights_outside_range"] = "NOT REFUSED"
         except SystemExit as e:
             cases["heights_outside_range"] = str(e)
+        # round 45: two runs that differ in one byte void the read before anything is printed
+        vb = os.path.join(tmp, "void")
+        for r, txt in (("run1", '{"result": 1}'), ("run2", '{"result": 2}')):
+            os.makedirs(os.path.join(vb, r))
+            open(os.path.join(vb, r, "ROUTE_A_READ.json"), "w").write(txt)
+        try:
+            compare(vb)
+            cases["runs_differ"] = "NOT VOIDED"
+        except SystemExit as e:
+            cases["runs_differ"] = "REFUSED (" + str(e) + ")" if str(e).startswith("VOID") else str(e)
     finally:
         shutil.rmtree(tmp)
     ok = control and all(v.startswith("REFUSED") for v in cases.values())
@@ -319,10 +370,12 @@ def seal(check_only=False):
     pins = dict(re.findall(r"\| (zeros_\d+\.dat) \| \[[^|]*\) \| [^|]* \| ([0-9a-f]{32}) \|", open(FRESH_PINS).read()))
     dry = json.load(open(os.path.join(HERE, "results", "dryrun", "ROUTE_A_DRYRUN.json")))
     cum = json.load(open(os.path.join(HERE, DERIVED["cumul"])))
+    anc = json.load(open(os.path.join(HERE, DERIVED["anchor"])))
     spl = json.load(open(os.path.join(HERE, DERIVED["split"])))
     bins = {b: json.load(open(os.path.join(HERE, "results", "ph2bins", f"{b}.json"))) for b in
             ("P1", "P2", "P3", "P4", "P5", "P6")}
     checks = dict(text_exists=os.path.exists(TEXT), dryrun_as_expected=all(dry["as_expected"].values()),
+                  dryrun_under_this_interpreter=dry["env"] == env(), anchor_linear=anc["linearity_max_rel"] < 0.01,
                   refusals=refusals(), f3_md5_match_pins=all(pins.get(f) == m for f, m in F3_MD5.items()),
                   prediction_is_tagged=sha(RR.PRED) == tagged_prediction_sha(),
                   calibration_pinned=sha(RR.CALIB_JSON) == RR.CALIB_SHA256, split_gate=bool(spl["gate"]["PASS"]),
@@ -335,7 +388,7 @@ def seal(check_only=False):
         return 0
     w, nf = RR.weights()
     cal = RR.calib()
-    out = dict(seal="ROUTE_A_SEAL", text=os.path.basename(TEXT), text_sha256=sha(TEXT),
+    out = dict(seal="ROUTE_A_SEAL", env=env(), text=os.path.basename(TEXT), text_sha256=sha(TEXT),
                code_sha256={f: sha(os.path.join(HERE, f)) for f in CODE},
                prediction=dict(tag="route-a-prediction", file=os.path.relpath(RR.PRED, HERE)),
                prediction_sha256=sha(RR.PRED), calibration_sha256=RR.CALIB_SHA256,
@@ -345,7 +398,11 @@ def seal(check_only=False):
                          block=cal["block"], block_lens=list(RR.BLOCK_LENS), dmu_sys=RR.DMU_SYS, s_max=RR.S_MAX,
                          T={f: cal["files"][f]["T"] for f in RR.F3}, bias={f: cal["files"][f]["bias"] for f in RR.F3}),
                outcome_rows=dict(a="PASS", b=dict(mu_pool=list(ROW_B), reading="deviates from CS n<=5 at mu = 1, in the "
-                                 "direction of Phase 2's fitted law", attribution=cum["increments"]), c="FAIL, unattributed"),
+                                 "direction of Phase 2's fitted law", B2=anc["B2"], dmu_dmu2=anc["dmu_dmu2_pool"],
+                                 attribution="|mu - 1| > B2 (and outside the band): connected n >= 3 structure or the "
+                                 "estimator; within B2: consistent with pair-level uncertainty (round 45); truncation "
+                                 "excluded (bound <= 1.2e-5)", assumption=anc["assumption"]), c="FAIL, unattributed"),
+               cumulant_cut=dict(increments=cum["increments"], note="descriptive; weights only if valid (round 45)"),
                operating_characteristics=cal["operating_characteristics"], dryrun=dry["as_expected"], checks=checks)
     os.makedirs(os.path.dirname(SEAL), exist_ok=True)
     json.dump(out, open(SEAL, "w"), indent=1, sort_keys=True)
@@ -356,13 +413,19 @@ def seal(check_only=False):
 if __name__ == "__main__":
     cmd = sys.argv[1]
     if cmd == "read":
-        read(sys.argv[2] if len(sys.argv) > 2 else FRESH)
+        read(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else FRESH)
+    elif cmd == "compare":
+        compare()
+    elif cmd == "dryrun_prepare":
+        dryrun_prepare(sys.argv[2])
+    elif cmd == "dryrun_read":
+        dryrun_read(sys.argv[2], sys.argv[3])
+    elif cmd == "dryrun_record":
+        sys.exit(dryrun_record(sys.argv[2]))
     elif cmd == "sample":
         sample(sys.argv[2])
     elif cmd == "synth":
         synth(sys.argv[2], sys.argv[3])
-    elif cmd == "dryrun":
-        sys.exit(dryrun(sys.argv[2]))
     elif cmd == "refusals":
         sys.exit(0 if refusals() else 1)
     elif cmd == "seal":
