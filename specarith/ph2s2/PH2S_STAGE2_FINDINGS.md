@@ -23,6 +23,8 @@ the suppression exists; Stage 2 tests its size.
   - z_pool stays −0.22, and the per-file z are unchanged.
 - **The verdict and every number below stand.**
 
+> **Review response (2026-10-14):** Stage 2 is worded "consistent with the CS08 prediction (conditional on the ratios conjecture; one statistic; ±13%)"; "evidence for higher-order structure" is withdrawn pending the term ablation — see `../../REVIEW_RESPONSE_2026-10.md` §4.
+
 **Limits (Will, twenty-ninth round):**
 - **Conditional on the ratios conjecture,** like R₂. The prediction uses CS08's ratios-conjecture n ≤ 4 correlations.
   A PASS is evidence for that conjecture's higher-order structure, not a theorem about ζ.

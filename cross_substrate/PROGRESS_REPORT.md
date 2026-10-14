@@ -206,6 +206,8 @@ period-3 window r=3.83→−0.370, correctly λ<0 inside chaos). Tangent-space i
 for *simulated* substrates (known equations); time-series Rosenstein is retained for future
 data-only substrates. The three sit as chaos-ordered trajectories in the D₂×W1δ plane (P4).
 
+> **Review response (2026-10-14):** AM ≡ Fibonacci is exploratory: a one-parameter crossing is not an identity (cf. Kraus & Zilberberg, PRL 109, 116404 (2012)) — see `../REVIEW_RESPONSE_2026-10.md` §2.
+
 **(g) AM-vs-Fibonacci confluence (am_confluence.py) — partial confluence, FLAGGED.** The
 operator-IS-substrate framing's strongest concrete prediction: does AM's fingerprint trajectory
 (λ-sweep at golden θ through criticality) pass through the Fibonacci Hamiltonian's? Instrument-matched

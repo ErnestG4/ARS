@@ -132,6 +132,8 @@ form removes the "small primes have more powers ≤ q_max" bias).  A peak
 at p means RF power is concentrated on powers of p — p-adic resonance in
 the event grid.  This is the per-prime, arithmetic-class signal.
 
+> **Review response (2026-10-14):** the reference laws are the 2×2 Wigner surmises; the Farey bands carry no independent frequency information; `n_events_q` is not a sample size — see `REVIEW_RESPONSE_2026-10.md` §1.
+
 ### The NNS engine — nearest-neighbour level spacing
 
 "NNS" is the level-spacing statistic of random-matrix theory.
@@ -341,6 +343,8 @@ calibration and distinctness matrices.  Proof-of-concept runs on BGP
 route-timing cascades and gamma-ray-burst timing exercised the
 pipeline on real non-stationary data.
 
+> **Review response (2026-10-14):** H1 is no longer load-bearing (confound unaddressed); p = 7 is withdrawn — see `REVIEW_RESPONSE_2026-10.md` §2.
+
 **The cortical-V1 turn (Phases 22a–32) — the bulk of the work.**  The
 tool pivoted to neural data: pvc-11 anesthetised macaque V1 (Smith &
 Kohn) and Allen Brain Observatory awake mouse V1.  This produced the
@@ -512,6 +516,8 @@ two V1 substrates (CRCNS pvc-11 anesthetised macaque V1, Smith &
 Kohn; Allen Brain Observatory Visual Coding Neuropixels awake mouse
 V1).  Each has cleared the disciplines listed in parentheses; the
 detailed per-finding map is in `EPISTEMIC_STATE.md`.
+
+> **Review response (2026-10-14):** H1 status: confound unaddressed (no PSTH-unfolded ks_gue) — see `REVIEW_RESPONSE_2026-10.md` §2.
 
 - **H1: OSI ↔ ks_gue_med.**  Cellular orientation selectivity
   correlates with the global marginal-spacing statistic.  Read as

@@ -20,6 +20,8 @@ The statistic is the drift-removed moving-block bootstrap SD of the pair sum, as
 This confirms, as a direction, the exploratory candidate finding (`ph2r2/PH2R2_FINDINGS.md` §6), on heights pinned
 before download and not seen.
 
+> **Review response (2026-10-14):** the novelty paragraph must also name Odlyzko (1987), Bohigas–Leboeuf–Sánchez (2001) and Berry (1988) — see `../../REVIEW_RESPONSE_2026-10.md` §4.
+
 **Novelty** (blinded literature check `lit/PAIRSUM_VARIANCE_LIT.md`, §0 and §1.8; wording adopted by Will,
 2026-10-10): To our knowledge, no published work measures how the across-block variance of a local pair statistic of
 the zeta zeros (test function a few mean spacings wide) depends on block length, or compares it with the sine kernel

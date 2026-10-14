@@ -4,6 +4,8 @@ Three tiers, by how much of your time they cost. Start at the top; each tier is
 useful on its own, and you never have to run the expensive one to check the
 cheap one.
 
+> **Review response (2026-10-14):** specarith/ does need data downloads (`specarith/DATA_MANIFEST.md`) — see `REVIEW_RESPONSE_2026-10.md` §3.
+
 Requirements: Python 3 with `numpy`, `scipy`, `mpmath`. Nothing else. No data
 downloads are needed for any arithmetic or synthetic arc (the neuroscience ports
 need external recordings; see the per-arc notes).

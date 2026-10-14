@@ -57,6 +57,8 @@ examples.
 
 ---
 
+> **Review response (2026-10-14):** the chirp/PLL path is legacy and not used by the deployed engine; its `scanner.py` is not in the repo — see `REVIEW_RESPONSE_2026-10.md` §1.
+
 ## 2. Architecture
 
 ```
@@ -4927,6 +4929,8 @@ expected result given canonical V1 spike-train statistics.  BUT the
 *continuous* ARS metrics carry a strong, firing-rate-controlled
 signal:
 
+> **Review response (2026-10-14):** the p-values for ρ = +0.720 are ≈ 1e-34, not < 1e-300 / < 1e-37; H1's status is "confound unaddressed" — see `REVIEW_RESPONSE_2026-10.md` §2–3.
+
 | descriptor | ARS metric  | n   | partial ρ | p (partial)       |
 |------------|-------------|-----|-----------|-------------------|
 | OSI        | ks_gue_med  | 210 | +0.720    | < 1e-300          |
@@ -6924,6 +6928,8 @@ for the others), not absence of signal.
 monkey3's p=2 dominance (z=+3.67) was **recording-specific** — monkey1
 shows marginal p=2 (z=+2.04), monkey2 shows p=2 below surrogate
 (z=−1.23).  The class signal across pvc-11 gratings is p=7, not p=2.
+
+> **Review response (2026-10-14):** p = 7 is withdrawn (q = 7 is a 7 s period; "35 ms" confuses the 5 ms event bin with the RF's 1 s bins) — see `REVIEW_RESPONSE_2026-10.md` §2.
 
 This is the **first cross-recording p-adic-class signal identified
 from ARS on biological data**.  Whether the p=7 signal generalizes to
