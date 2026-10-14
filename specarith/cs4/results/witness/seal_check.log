@@ -6,9 +6,12 @@ code_mismatch            REFUSED: route_a_read.py differs from the sealed code
 prediction_mismatch      REFUSED: the prediction file differs from the sealed one
 calibration_mismatch     REFUSED: the calibration differs from the sealed one
 weights_mismatch         REFUSED: pooling weights differ from the sealed ones
-md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpse5vkjz2/zeros_10639046000.dat missing or md5 diffe
-file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpse5vkjz2/zeros_248246000.dat missing or md5 differs
-heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpse5vkjz2/lo.dat heights [1000.5, 1001.25] outside t
+prediction_vs_stamp      REFUSED: the prediction JSON's sha256 differs from the OpenTimestamps-stamped manifest's
+stamp_manifest_tampered  REFUSED: the pre-decode manifest differs from the OpenTimestamps-stamped one
+stamp_receipt_tampered   REFUSED: the OpenTimestamps receipt does not commit to the pinned pre-decode manifest
+md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpv_wnrfxj/zeros_10639046000.dat missing or md5 diffe
+file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpv_wnrfxj/zeros_248246000.dat missing or md5 differs
+heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpv_wnrfxj/lo.dat heights [1000.5, 1001.25] outside t
 runs_differ              REFUSED (VOID: run1 and run2 differ (470aaecfa4740b69 vs 249fd51bc4b88093); the read is void, nothing is inter
 REFUSALS PASS
 μ̃_pool 0.952: ['FAIL', 'c', ['0.955'], 'beyond']  ok
