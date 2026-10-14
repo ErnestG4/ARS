@@ -1,0 +1,16 @@
+Route (a) pre-decode timestamp manifest (OpenTimestamps; review response item 1, 2026-10-14).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is ROUTE_A_PRESTAMP_2026-10-14.txt.ots.
+Statement: at the time of stamping, no F3 file (zeros_{15146000,25646000,248246000,2373446000,10639046000}.dat) had been
+decoded; the route (a) seal is not yet drafted (it gets its own stamp before the decode).
+
+repo                         criticality_tool, branch specarith
+tag route-a-prediction       object 0d2ac239ba753175482a294f343f2f4c73af50c2
+                             commit 0f0c5f778168b2ae01a4ae811e738c8a9fcac955
+prediction file at the tag   specarith/cs4/results/route_a_zeta.json
+                             sha256 98fc235615cc406782ce069a1855f9de58560956c4b8f6e7699c0cf5161f2317
+rule commit                  fd1432316ca6050bf855cbaea1354183f60dd270
+rule file at fd143231        specarith/cs4/route_a_read.py
+                             sha256 86af96c32c1f37cdb43181f8bf48616dfed074735575969a9f51a3b99d08de93
+calibration declaration code specarith/cs4/route_a_calib.py (fd143231)
+                             sha256 87ec1111659b8f5a3c8a6634e3236cf2cc4dd111ce1ddf37458533eb0855da42
+(sha256 of `git show <commit>:<path>`, i.e. the committed blob's bytes)
