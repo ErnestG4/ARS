@@ -1055,9 +1055,10 @@ finished and before any real-zero check:**
 negative step: cbe's GPU roots had 47 spacings ≈ −1e-13 in 4.9M (≈ 1% of N = 1000 matrices). The real-form Newton step
 (cbe.py, introduced for speed) solves sin(f/2)·|Φ*| = 0, which vanishes at every root; when two roots share a grid
 bracket a slot could converge to its neighbour (f = ±2π), doubling it and missing its own. The self-test's V1 (dense
-comparison on 38 matrices) was too small to see a 1%-per-matrix event. Fix: real-form step only while |f| < π, root
-accepted only on its own branch (|f| < 1), and every matrix certified (roots strictly increasing within one period;
-certify() raises). The re-run self-test then stalled at β = 1 (8 roots not converged): where ψ′ reaches ~1e16 no double θ
+comparison on 38 matrices) was too small to see a 1%-per-matrix event. Fix: a root is accepted only on its own branch
+(|f| < 1; a visit to a neighbour just shrinks the sign-kept bracket), and every matrix is certified (roots strictly
+increasing within one period; certify() raises). (A first fix, real-form step only while |f| < π, was also correct but
+~1.75× slower per GPU warp; replaced the same evening, same roots to 1e-13, before any calibration row was kept.) The re-run self-test then stalled at β = 1 (8 roots not converged): where ψ′ reaches ~1e16 no double θ
 has |f| < 1 and the step rounds back onto θ; such a stalled step now bisects, and a root is also accepted once its
 sign-kept bracket (which always holds root m alone) has collapsed to 4 ulp (θ to machine precision). New V4: no spacing < 1e-3 on 10⁴ N = 1000 matrices (CUE expectation ~0.01), red path = the old
 step on the same α must double roots. The 12 replicates and 3 pipeline checks run before the fix are set aside on char

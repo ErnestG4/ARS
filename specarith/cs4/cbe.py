@@ -78,9 +78,11 @@ def dense_phases(a):
 # DEFECT FIXED 2026-10-13 (found by the Platt writer in the pipeline check: 47 negative spacings, ~−1e-13, in 4.9M): R has
 # a zero at EVERY root, so when two roots share a grid bracket the real-form step can land on the neighbour (f = ±2π),
 # where its step is ~0 and the step test accepted it; slot m then doubled root m ± 1 and root m was missed (~1% of N = 1000
-# matrices). Now the real-form step is used only while |f| < π (plain bracketed Newton −f/ψ′ otherwise), a root is
-# accepted only when |f| < F_ACCEPT as well as the step < STEP_TOL, and every matrix is certified (certify()). V4 in the
-# self-test counts near-coincident roots on 10⁴ matrices and shows the old step (gate = 0) failing it.
+# matrices). Now a root is accepted only on its own branch, |f| < F_ACCEPT, as well as the step < STEP_TOL, and every
+# matrix is certified (certify()). A visit to a neighbour just shrinks the sign-kept bracket (f > 0 there sets hi).
+# (Restricting the real-form step to |f| < π, the first fix, was also correct but cost 12.6 against 7.2 iterations per
+# 32-root warp at β = 2, N = 1000; same roots to 1e-13.) V4 in the self-test counts near-coincident roots on 10⁴
+# matrices and shows the old acceptance (gate = 0) failing it.
 # Where ψ′ ≳ 1/ulp (seen up to 1e16 at β = 1) no double θ has |f| < 1 and the Newton step rounds back onto θ: such a
 # stalled step (< STEP_TOL with |f| ≥ F_ACCEPT) bisects instead, and a root is also accepted once its bracket — kept by
 # the sign of f, so it always holds root m and only root m — has collapsed to BRACKET_ULPS ulp (θ located to machine
@@ -91,7 +93,7 @@ F_ACCEPT = 1.0      # |ψ_{N−1}(θ) − c_m| at acceptance: a BRANCH test, not
                     # |f| = 2π, and with f monotone only root m has |f| < π nearby; precision comes from STEP_TOL. (1e-6
                     # failed: where ψ′ ~ 1e10, θ at machine precision still leaves |f| ~ 3e-6.)
 BRACKET_ULPS = 4
-ITMAX = 120         # observed max 24 at β = 2, 65 at β = 1 (bisections where ψ′ ~ 1e16); a converged thread stops early
+ITMAX = 120         # observed max 13 at β = 2, 62 at β = 1 (bisections where ψ′ ~ 1e16); a converged thread stops early
 
 
 def phi_np(a, theta, amp=False):
@@ -115,12 +117,11 @@ def phi_np(a, theta, amp=False):
 
 
 def newton_step(f, dp, La, gate=True):
-    """The step δθ of the real-form Newton (see above) while 1e-8 ≤ |f| < π; −f/ψ′ otherwise (gate=False: the defective
-    pre-fix step, real-form for every |f| ≥ 1e-8; kept for the self-test's red path)."""
+    """The step δθ of the real-form Newton (see above); −f/ψ′ once |f| < 1e-8. (gate is unused here: the fix is in the
+    acceptance, roots_np; the argument is kept so both red paths share one signature.)"""
     with np.errstate(divide="ignore", invalid="ignore"):
         far = 1.0 / (La + 0.5 * dp / np.tan(0.5 * f))
-    plain = (np.abs(f) < 1e-8) | ((np.abs(f) >= math.pi) & gate)
-    return np.where(plain, f / dp, far)
+    return np.where(np.abs(f) < 1e-8, f / dp, far)
 
 
 def targets(a):
@@ -252,8 +253,7 @@ void newton(const double2* __restrict__ alpha, const double* __restrict__ c0, co
         phi_at(sa, N, th, &phi, &dp, &la);
         const double f = (N * th - c) + phi;
         if (f < 0) lo = th; else if (f > 0) hi = th;
-        const int plain = fabs(f) < 1e-8 || (gate && fabs(f) >= 3.141592653589793);   // real form only for |f| < π
-        const double step = plain ? f / dp : 1.0 / (la + 0.5 * dp / tan(0.5 * f));
+        const double step = fabs(f) < 1e-8 ? f / dp : 1.0 / (la + 0.5 * dp / tan(0.5 * f));
         double nw = th - step;
         const int stall = gate && fabs(nw - th) < step_tol && fabs(f) >= f_accept;      // ψ′ ≳ 1/ulp: bisect
         if (stall || !(nw >= lo && nw <= hi)) nw = 0.5 * (lo + hi);   // inclusive: a converged step may round onto lo/hi
@@ -424,7 +424,7 @@ def selftest(gpu=False, n_cmv=2000, n_haar=100, n_small=400, n_v4=10000):
     print("V3", out["V3"], flush=True)
     # V4: no doubled/missed roots at scale. For CUE p(s) ≈ (π²/3)s² near 0, so P(s < 1e-3) ≈ 1.1e-9 per spacing: among
     # n_v4·1000 spacings the expected count below 1e-3 is ~1e-2, and a doubled root gives s ~ 1e-13. Pass: count = 0 and
-    # every matrix certified. Red path: the pre-fix step (gate = 0, no certificate) on the SAME α must produce doublings.
+    # every matrix certified. Red path: the pre-fix acceptance (gate = 0, no certificate) on the SAME α must produce doublings.
     a = verblunsky(rng, n_v4, N, 2.0)
     sp_fix = spacings(roots(a)[0])
     th_old = (roots_gpu(a, gate=False) if gpu else roots_np(a, gate=False))[0]
