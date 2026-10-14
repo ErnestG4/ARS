@@ -1,0 +1,8 @@
+{
+ "fresh": {
+  "n_L": 12917,
+  "n_zeros": 103099,
+  "n_closepair_checked": 150,
+  "n_closepair_mismatch": 0
+ }
+}
