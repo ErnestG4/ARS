@@ -1,0 +1,13 @@
+zeros_15146000.dat: recompute 2.4e-16  μ* C2 0.228724  C3 0.505898  C4 0.589054  C5 0.999974
+zeros_25646000.dat: recompute 1.5e-16  μ* C2 0.225699  C3 0.501374  C4 0.584787  C5 0.999973
+zeros_248246000.dat: recompute 1.9e-16  μ* C2 0.214268  C3 0.482634  C4 0.570432  C5 0.999967
+zeros_2373446000.dat: recompute 1.5e-15  μ* C2 0.205220  C3 0.465634  C4 0.562013  C5 0.999959
+zeros_10639046000.dat: recompute 1.5e-15  μ* C2 0.200151  C3 0.455243  C4 0.558797  C5 0.999954
+  n = 6 probe (zeros_15146000.dat, s = 1.8): T₆^sine 1.427e-09;  cut models ΔT₅ / ΔT₆: C2 +1.467e-02 / -4.733e-04  C3 -1.360e-02 / +1.311e-02  C4 +1.720e-02 / -1.989e-02
+gate (n ≤ 4 recomputed = stored ≤ 1e-10; C5 = committed equiv check ≤ 1e-9; |C5_pool − 1| ≤ 1e-4): PASS (1.5e-15, 3.0e-11, 0.99996435)
+  C2 (pair, from sine)           +0.213242   = 13.328 × band (0.016)
+  C3 - C2 (connected 3-point)    +0.266134   = 16.633 × band (0.016)
+  C4 - C3 (connected 4-point)    +0.091965   = 5.748 × band (0.016)
+  C5 - C4 (connected 5-point)    +0.428624   = 26.789 × band (0.016)
+  n = 5 block increment (pooled, full precision): -4.12996308724855523e-04;  κ₅ increment +4.28623541364669736e-01
+  truncation bound (pooled δμ, n ≥ 6 and n = 5 below the edge): 8.851e-06

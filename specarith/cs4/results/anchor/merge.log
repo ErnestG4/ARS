@@ -1,0 +1,7 @@
+zeros_15146000.dat: ∂μ*/∂μ₂ +0.23474 (±0.02: +0.23474; one-sided +0.23477 / +0.23471)  min ρ cut: rho3_C2 -4.80e-02  rho4_C2 -5.59e-02  rho4_C3 -7.70e-02  rho5_C2 -4.76e-02  rho5_C3 -1.29e-01  rho5_C4 -6.27e-01
+zeros_25646000.dat: ∂μ*/∂μ₂ +0.23137 (±0.02: +0.23137; one-sided +0.23140 / +0.23135)  min ρ cut: rho3_C2 -4.54e-02  rho4_C2 -5.31e-02  rho4_C3 -7.18e-02  rho5_C2 -4.54e-02  rho5_C3 -1.18e-01  rho5_C4 -5.90e-01
+zeros_248246000.dat: ∂μ*/∂μ₂ +0.21876 (±0.02: +0.21876; one-sided +0.21878 / +0.21874)  min ρ cut: rho3_C2 -3.58e-02  rho4_C2 -4.30e-02  rho4_C3 -5.23e-02  rho5_C2 -3.70e-02  rho5_C3 -7.96e-02  rho5_C4 -4.57e-01
+zeros_2373446000.dat: ∂μ*/∂μ₂ +0.20889 (±0.02: +0.20889; one-sided +0.20891 / +0.20887)  min ρ cut: rho3_C2 -2.88e-02  rho4_C2 -3.54e-02  rho4_C3 -3.80e-02  rho5_C2 -3.05e-02  rho5_C3 -5.48e-02  rho5_C4 -3.64e-01
+zeros_10639046000.dat: ∂μ*/∂μ₂ +0.20340 (±0.02: +0.20340; one-sided +0.20342 / +0.20339)  min ρ cut: rho3_C2 -2.52e-02  rho4_C2 -3.14e-02  rho4_C3 -3.08e-02  rho5_C2 -2.71e-02  rho5_C3 -4.33e-02  rho5_C4 -3.16e-01
+cut validity: positive False (min ρ: rho3_C2 -4.80e-02, rho4_C2 -5.59e-02, rho4_C3 -7.70e-02, rho5_C2 -4.76e-02, rho5_C3 -1.29e-01, rho5_C4 -6.27e-01; min p: C2 +7.436e-05, C3 +7.430e-05, C4 +7.430e-05, C5 +7.430e-05); increments ++++, decay False → not a valid decomposition at N_eff ≈ 3.4; not used for weights
+pooled ∂μ*/∂μ₂ = +0.21771 (±0.02: +0.21771); linearity: max |up − down|/slope = 2.39e-04;  B₂ = 0.21771 × (0.003 + 2 × 0.006) = 0.00327
