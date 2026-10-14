@@ -1,0 +1,9 @@
+zeros_15146000.dat: recon 1.2e-16  μ* n=2 0.47196  n≤3 0.83636  n≤4 1.00029  n≤5 0.999974  GoF nc(n=2) 1867.42
+zeros_25646000.dat: recon 9.4e-17  μ* n=2 0.46718  n≤3 0.83510  n≤4 1.00030  n≤5 0.999973  GoF nc(n=2) 1683.64
+zeros_248246000.dat: recon 1.2e-16  μ* n=2 0.44999  n≤3 0.83300  n≤4 1.00037  n≤5 0.999967  GoF nc(n=2) 1078.82
+zeros_2373446000.dat: recon 6.9e-17  μ* n=2 0.43690  n≤3 0.83520  n≤4 1.00043  n≤5 0.999959  GoF nc(n=2) 713.03
+zeros_10639046000.dat: recon 5.0e-17  μ* n=2 0.42949  n≤3 0.83826  n≤4 1.00046  n≤5 0.999954  GoF nc(n=2) 553.12
+gate (Δp reconstruction ≤ 1e-12; full μ* = committed equiv check ≤ 1e-9; |μ*_pool − 1| ≤ 1e-4): PASS (recon 1.2e-16, vs equiv 6.2e-12, μ*_pool 0.99996435)
+pooled μ*: n2_sine_higher 0.44878  n_le_3 0.83568  n_le_4 1.00038  n_le_5_full 0.99996
+band half-width 2·SE_pool + δμ_sys = 0.01602 (SE_pool floor 0.00791); quoted ±0.015
+n ≥ 3 shift +0.55119 = 34.406 band (36.746 of ±0.015); threshold 0.25 → two-point only: False

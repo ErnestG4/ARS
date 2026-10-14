@@ -1,0 +1,143 @@
+{
+ "round": "forty-third",
+ "files": {
+  "zeros_15146000.dat": {
+   "reconstruction_max_abs": 1.1796119636642288e-16,
+   "mu_star": {
+    "n2_sine_higher": 0.4719567489549962,
+    "n_le_3": 0.8363572752973916,
+    "n_le_4": 1.0002860221594005,
+    "n_le_5_full": 0.9999741798105766
+   },
+   "gof_noncentrality": {
+    "n2_sine_higher": 1867.4242509023413,
+    "n_le_3": 1190.482972141873,
+    "n_le_4": 0.005197110948671484,
+    "n_le_5_full": 3.4827491436352474e-06
+   },
+   "max_abs_node": {
+    "n2_sine_higher": 0.023908896438181504,
+    "n_le_3": 0.033075263947564715,
+    "n_le_4": 0.03298231144645003,
+    "n_le_5_full": 0.03298231144645014
+   },
+   "se_floor": 0.014625234115643917
+  },
+  "zeros_25646000.dat": {
+   "reconstruction_max_abs": 9.367506770274758e-17,
+   "mu_star": {
+    "n2_sine_higher": 0.46718197167931674,
+    "n_le_3": 0.8351043975735777,
+    "n_le_4": 1.0003019309438277,
+    "n_le_5_full": 0.9999728731823072
+   },
+   "gof_noncentrality": {
+    "n2_sine_higher": 1683.6415514126643,
+    "n_le_3": 1142.2224962226358,
+    "n_le_4": 0.005344898431328513,
+    "n_le_5_full": 3.541728687158036e-06
+   },
+   "max_abs_node": {
+    "n2_sine_higher": 0.02261269320213477,
+    "n_le_3": 0.031230744319780762,
+    "n_le_4": 0.031139564992894747,
+    "n_le_5_full": 0.03113956499289483
+   },
+   "se_floor": 0.013700804589563761
+  },
+  "zeros_248246000.dat": {
+   "reconstruction_max_abs": 1.249000902703301e-16,
+   "mu_star": {
+    "n2_sine_higher": 0.4499917677370102,
+    "n_le_3": 0.833002353151006,
+    "n_le_4": 1.0003694006598272,
+    "n_le_5_full": 0.9999665578060535
+   },
+   "gof_noncentrality": {
+    "n2_sine_higher": 1078.822335111783,
+    "n_le_3": 949.4044462131881,
+    "n_le_4": 0.005879817081370073,
+    "n_le_5_full": 3.815748795473681e-06
+   },
+   "max_abs_node": {
+    "n2_sine_higher": 0.017879872226257976,
+    "n_le_3": 0.024451196307087225,
+    "n_le_4": 0.02436912114748678,
+    "n_le_5_full": 0.024369121147486905
+   },
+   "se_floor": 0.017376021951277874
+  },
+  "zeros_2373446000.dat": {
+   "reconstruction_max_abs": 6.938893903907228e-17,
+   "mu_star": {
+    "n2_sine_higher": 0.4369030557697109,
+    "n_le_3": 0.8351959160720108,
+    "n_le_4": 1.000426282930572,
+    "n_le_5_full": 0.9999593897137793
+   },
+   "gof_noncentrality": {
+    "n2_sine_higher": 713.0347127978055,
+    "n_le_3": 788.1717614263564,
+    "n_le_4": 0.006131537374607653,
+    "n_le_5_full": 4.106358496761771e-06
+   },
+   "max_abs_node": {
+    "n2_sine_higher": 0.014412588606338372,
+    "n_le_3": 0.019699338107849046,
+    "n_le_4": 0.019448026824553474,
+    "n_le_5_full": 0.019448026824553488
+   },
+   "se_floor": 0.017773253046986685
+  },
+  "zeros_10639046000.dat": {
+   "reconstruction_max_abs": 5.0306980803327406e-17,
+   "mu_star": {
+    "n2_sine_higher": 0.4294915571208182,
+    "n_le_3": 0.8382583083505384,
+    "n_le_4": 1.000455992279809,
+    "n_le_5_full": 0.9999541753813754
+   },
+   "gof_noncentrality": {
+    "n2_sine_higher": 553.1242439866629,
+    "n_le_3": 696.8454918316769,
+    "n_le_4": 0.0061332301577602675,
+    "n_le_5_full": 4.305606468551686e-06
+   },
+   "max_abs_node": {
+    "n2_sine_higher": 0.012617727623525754,
+    "n_le_3": 0.017421574031979636,
+    "n_le_4": 0.017192831601317578,
+    "n_le_5_full": 0.01719283160131757
+   },
+   "se_floor": 0.02020173842849962
+  }
+ },
+ "definition": "The tagged prediction (route_a_zeta.json, n \u2264 5) is \u0394p = \u0394\u2082 \u2212 \u0394\u2083 + \u0394\u2084 + \u0394\u2085 at the Chebyshev nodes, \u0394_n = T_n^\u03b6 \u2212 T_n^sine\n(route_a_zeta's terms, stored per node in results/route_a_raw/route_a_zeta/; \u0394\u2085 as included, check_c.delta5_included).\nModels, as truths for the read's own estimator (route_a_read.MuFit on the tagged \u0394p, i.e. \u03bc = 1 is the n \u2264 5 law):\n    (i)   n = 2 only, higher orders from the sine kernel:  p = p_sine + \u0394\u2082\n    (ii)  full n \u2264 5:                                       p = p_sine + \u0394p        (gate: \u03bc* = the committed\n          route_a_equiv.json \"prediction (\u03bc = 1 check)\" value to 1e-9 \u2014 the same code path \u2014 and |\u03bc* \u2212 1| \u2264 1e-4; that\n          integrator's own offset is 3\u20135e-5, from its trapezoid score against the window grid's \u03c6)\n    (and for information the cumulative n \u2264 3, n \u2264 4 truncations)\n\u03bc-equivalent \u03bc* = the estimator's infinite-sample limit (route_a_equiv.expected_mu), per file and pooled with the read's\nweights w_f. Reported against the PASS band half-width 2\u00b7SE_pool + \u03b4\u03bc_sys with SE_f at its floor SD_f\u00b7(1 + 1/R)^{1/2}\nfrom the declared calibration (the read's bootstrap can only widen it), and against the \u00b10.015 quoted in the round.\nRound 43's reading: if |\u03bc*_pool(i) \u2212 1| < 0.25 \u00d7 band, the seal records that route (a) tests two-point structure only.",
+ "weights": {
+  "zeros_15146000.dat": 0.166761050205853,
+  "zeros_25646000.dat": 0.17241166706737987,
+  "zeros_248246000.dat": 0.19765320515615223,
+  "zeros_2373446000.dat": 0.2231152612418373,
+  "zeros_10639046000.dat": 0.2400588163287776
+ },
+ "gate": {
+  "reconstruction_max_abs": 1.249000902703301e-16,
+  "full_vs_committed_equiv": 6.2299054803816034e-12,
+  "full_mu_star_pool": 0.9999643458830887,
+  "PASS": true
+ },
+ "mu_star_pool": {
+  "n2_sine_higher": 0.44877691510667783,
+  "n_le_3": 0.8356753962226886,
+  "n_le_4": 1.0003773421918134,
+  "n_le_5_full": 0.9999643458830887
+ },
+ "se_pool_floor": 0.007909945405101346,
+ "band_half_width": 0.01601989081020269,
+ "band_quoted": 0.015,
+ "shift_n_ge_3": 0.5511874307764109,
+ "shift_over_band": 34.4064411740792,
+ "shift_over_band_quoted": 36.74582871842739,
+ "fraction": 0.25,
+ "two_point_only": false
+}

@@ -1089,3 +1089,16 @@ caught the sampler defect, and that the false-pass self-tests were fixed.
   each now exits on its verdict, and `cbe.py check OUT.json` verifies a recorded run in full (a tampered record is
   refused). Commits fd143231, ef7119f4.
 - Implementation already matches round 42 (route_a_calib.declare; route_a_read.file_se); no code change.
+
+## Forty-third round (Will, 2026-10-14 morning) — calibration accepted; sensitivity split and outcome table before the seal (verbatim)
+Route (a): keep the rule and the PASS band unchanged. Before the seal:
+
+Data-free sensitivity split. Recompute the route (a) prediction on the declared statistic with (i) n = 2 terms only, with higher orders from the sine kernel, and (ii) the full n ≤ 5 terms. Report the difference in μ-equivalent units against the ±0.015 band. If the n ≥ 3 terms move the statistic by less than about 0.25 of the band, record in the seal that route (a) tests two-point structure only. Estimate the cost first. Run it on char now if it takes ≤ a few hours; otherwise flag it to me and we seal with the reading marked conditional.
+Pre-declared outcome table in the seal:
+(a) μ̂ in the band → PASS.
+(b) μ̂ in about [0.955, 0.985] → FAIL, read as “spacing law deviates from CS n≤5 at μ = 1, in the direction of Phase 2’s fitted law”. Since R₂ μ̂ = 1.003 ± 0.006, attribute to n ≥ 3 / truncation / estimator, weighted by the item 1 split. A follow-up to separate these is pre-declared.
+(c) any other μ̂ → FAIL, unattributed.
+MODEL MISFIT is reported independently of all three.
+Calibration notes for the record, no change needed. The false-misfit rate of 3/200 against an expected 2 is binomially unremarkable. The lowest-file bias (z up to 2.4) is subtracted per file, as declared.
+
+Then continue in order: Phase 2 bins check on char → seal draft to me → OpenTimestamps-stamp the seal → F3 decode. E₁₁ close-out when it finishes (~10:00–10:30) as planned.
