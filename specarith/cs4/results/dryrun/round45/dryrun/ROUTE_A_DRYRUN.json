@@ -1,0 +1,91 @@
+{
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
+ "standin": {
+  "verdict": "FAIL",
+  "mu_pool": -0.012279322173186719,
+  "se_pool": 0.008192226163210007,
+  "ci95": [
+   -0.028663774499606734,
+   0.004105130153233294
+  ],
+  "resolvable": true,
+  "pool_within": false,
+  "files_within_3se": 0,
+  "misfit_files": [],
+  "gof_pass_files": 5,
+  "mu_file": {
+   "zeros_15146000.dat": -0.015113270464608182,
+   "zeros_25646000.dat": -0.013811435654645555,
+   "zeros_248246000.dat": -0.01444324160075485,
+   "zeros_2373446000.dat": -0.011367982035631965,
+   "zeros_10639046000.dat": -0.008275644386353267
+  },
+  "se_file": {
+   "zeros_15146000.dat": 0.014736384859097689,
+   "zeros_25646000.dat": 0.014462978830730932,
+   "zeros_248246000.dat": 0.017376021951277874,
+   "zeros_2373446000.dat": 0.019166229636959086,
+   "zeros_10639046000.dat": 0.020733733780153262
+  },
+  "row": "c",
+  "model_misfit_flag": false
+ },
+ "shifted_single_draw": {
+  "mu1": {
+   "verdict": "PASS",
+   "row": "a",
+   "mu_pool": 0.9877206778268133,
+   "se_pool": 0.008192226163210007
+  },
+  "fit_sec": {
+   "verdict": "FAIL",
+   "row": "c",
+   "mu_pool": 0.9537814686024233,
+   "se_pool": 0.008192226163210007
+  }
+ },
+ "row_rates": {
+  "mu1": {
+   "FAIL/b": 0.025,
+   "FAIL/c": 0.03,
+   "PASS/a": 0.945
+  },
+  "fit_sec": {
+   "FAIL/b": 0.905,
+   "FAIL/c": 0.07,
+   "PASS/a": 0.025
+  },
+  "mu0.97": {
+   "FAIL/b": 0.915,
+   "FAIL/c": 0.035,
+   "PASS/a": 0.05
+  },
+  "mu0.94": {
+   "FAIL/b": 0.035,
+   "FAIL/c": 0.965
+  },
+  "mu0": {
+   "FAIL/c": 1.0
+  },
+  "R": 200
+ },
+ "as_expected": {
+  "bit_identical_runs": true,
+  "standin_row_c": true,
+  "row_a_majority_at_mu1": true,
+  "row_b_majority_at_fit_sec": true,
+  "row_c_majority_at_mu0": true
+ },
+ "md5": {
+  "zeros_15146000.dat": "bbec7951a0a0909a377332c2bd422249",
+  "zeros_25646000.dat": "678ff938c4ad0a1acc157acbbd6e89f0",
+  "zeros_248246000.dat": "c6c5c2bba4e51d8db6d80db8bf18c0bb",
+  "zeros_2373446000.dat": "171a89c8cb82a1e441c9c9f62d08de2f",
+  "zeros_10639046000.dat": "3efa79abc742eaa5911d29f1dfc83408"
+ }
+}
