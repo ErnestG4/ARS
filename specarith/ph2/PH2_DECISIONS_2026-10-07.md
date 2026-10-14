@@ -1218,3 +1218,8 @@ Then: rename to ROUTE_A_SEAL.md → build on spot → Will commits, tags and pus
   - the seal draft's "No F3 zero has been downloaded or decoded";
   - my message to Will, "nothing about the F3 zeros has been downloaded or read".
   The true history: downloaded and md5-verified on 2026-10-13, never decoded. The seal text now says so.
+- **Timestamp order.** The F3 download (2026-10-13 20:55 UTC) came before the pre-decode receipt's first Bitcoin
+  attestation (block 971369, 2026-10-14 07:09:08 UTC). So that stamp shows the prediction existed by then, not that it
+  predates the download. That it predates the download rests on GitHub's PushEvent for 0f0c5f77 at 2026-10-13
+  16:31:01 UTC (`cs4/timestamps/ROUTE_A_PREDICTION_GITHUB_PUSH.json`; route_a_zeta.json at 0f0c5f77 has sha256
+  98fc2356…, the stamped value).
