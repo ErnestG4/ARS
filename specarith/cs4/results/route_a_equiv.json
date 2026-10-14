@@ -1,0 +1,189 @@
+{
+ "bins": [
+  {
+   "bin": "P1",
+   "ell": 13.212898558796645,
+   "c_prim": 0.647328829302299,
+   "c_sec": 0.7795917683625011,
+   "kappa_prim": 1.242903827583533,
+   "kappa_sec": 1.1325734526232953
+  },
+  {
+   "bin": "P2",
+   "ell": 14.991645405334083,
+   "c_prim": 0.7089175942933625,
+   "c_sec": 0.8225479101548168,
+   "kappa_prim": 1.1876873271221202,
+   "kappa_sec": 1.1026035802934464
+  },
+  {
+   "bin": "P3",
+   "ell": 17.00605886522986,
+   "c_prim": 0.754086200210407,
+   "c_sec": 0.8491928544453311,
+   "kappa_prim": 1.1515677752916471,
+   "kappa_sec": 1.0851676398388663
+  },
+  {
+   "bin": "P4",
+   "ell": 18.999427478862657,
+   "c_prim": 0.7959405082602384,
+   "c_sec": 0.8758738461798368,
+   "kappa_prim": 1.1208814863638956,
+   "kappa_sec": 1.0685115495176296
+  },
+  {
+   "bin": "P5",
+   "ell": 20.999955623421226,
+   "c_prim": 0.8242206326595265,
+   "c_sec": 0.8948552301655064,
+   "kappa_prim": 1.1014841673240672,
+   "kappa_sec": 1.0571183451840698
+  },
+  {
+   "bin": "P6",
+   "ell": 22.300005573706386,
+   "c_prim": 0.8541565457705085,
+   "c_sec": 0.9150075903721446,
+   "kappa_prim": 1.0820099719090204,
+   "kappa_sec": 1.0454124108842142
+  }
+ ],
+ "files": {
+  "zeros_15146000.dat": {
+   "t_mean": 16186183.40886963,
+   "ell": 14.761791493891907,
+   "N_eff": 3.397529439239941,
+   "abar": 1.1994482577140724,
+   "kappa_prim_interp": 1.194822535053429,
+   "kappa_sec_interp": 1.1064763587013733,
+   "n_f": 4933733.595595598,
+   "mu": {
+    "sine (\u03bc = 0 check)": 8.143640954835263e-11,
+    "prediction (\u03bc = 1 check)": 0.9999741798079711,
+    "BBLM: CUE(N_eff) first order": 0.9995245740723671,
+    "BFM_abar: SECONDARY form, kappa = 1": 1.1724646123459848,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 0.7010745105620224,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 0.9580880975101498,
+    "cue_exact: CUE_N at N = N_eff": -20.031981645812955
+   },
+   "gof_noncentrality": {
+    "sine (\u03bc = 0 check)": 0.0027048232633664496,
+    "prediction (\u03bc = 1 check)": 3.4827498463508007e-06,
+    "BBLM: CUE(N_eff) first order": 2494.0159504748926,
+    "BFM_abar: SECONDARY form, kappa = 1": 152.19874528581457,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 1225.0839581854116,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 101.69537653257737,
+    "cue_exact: CUE_N at N = N_eff": 4.24922176382217e+19
+   }
+  },
+  "zeros_25646000.dat": {
+   "t_mean": 26690017.06350154,
+   "ell": 15.261923094293058,
+   "N_eff": 3.5126382210270424,
+   "abar": 1.1929123594716642,
+   "kappa_prim_interp": 1.1828410980885438,
+   "kappa_sec_interp": 1.1002641669680737,
+   "n_f": 5100910.752438519,
+   "mu": {
+    "sine (\u03bc = 0 check)": 6.120708958846888e-10,
+    "prediction (\u03bc = 1 check)": 0.9999728731794786,
+    "BBLM: CUE(N_eff) first order": 1.0006735311786823,
+    "BFM_abar: SECONDARY form, kappa = 1": 1.1617305442638148,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 0.7160897582896737,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 0.9600062481695342,
+    "cue_exact: CUE_N at N = N_eff": -20.94831690174466
+   },
+   "gof_noncentrality": {
+    "sine (\u03bc = 0 check)": 0.0027964747421032024,
+    "prediction (\u03bc = 1 check)": 3.541729425752256e-06,
+    "BBLM: CUE(N_eff) first order": 2154.2726935084797,
+    "BFM_abar: SECONDARY form, kappa = 1": 131.57785251248222,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 1101.583057042301,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 89.91254965581153,
+    "cue_exact: CUE_N at N = N_eff": 9.681630018226987e+24
+   }
+  },
+  "zeros_248246000.dat": {
+   "t_mean": 249295347.17710707,
+   "ell": 17.496271818360764,
+   "N_eff": 4.026889189189634,
+   "abar": 1.1682766262870623,
+   "kappa_prim_interp": 1.1440213454878354,
+   "kappa_sec_interp": 1.081071542825927,
+   "n_f": 5847697.992740458,
+   "mu": {
+    "sine (\u03bc = 0 check)": 3.7325574012224114e-09,
+    "prediction (\u03bc = 1 check)": 0.9999665578021224,
+    "BBLM: CUE(N_eff) first order": 1.005731509733411,
+    "BFM_abar: SECONDARY form, kappa = 1": 1.1241997520545137,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 0.7690668069877247,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 0.9621075045041776,
+    "cue_exact: CUE_N at N = N_eff": -25.850646775275216
+   },
+   "gof_noncentrality": {
+    "sine (\u03bc = 0 check)": 0.003205885593261527,
+    "prediction (\u03bc = 1 check)": 3.8157496924269105e-06,
+    "BBLM: CUE(N_eff) first order": 1165.6788520198888,
+    "BFM_abar: SECONDARY form, kappa = 1": 71.43180997386523,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 680.9247965563017,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 52.34968392955503,
+    "cue_exact: CUE_N at N = N_eff": 51178236733.57733
+   }
+  },
+  "zeros_2373446000.dat": {
+   "t_mean": 2374495930.451518,
+   "ell": 19.750173945687727,
+   "N_eff": 4.545640509713804,
+   "abar": 1.1490727930949691,
+   "kappa_prim_interp": 1.1136021742609192,
+   "kappa_sec_interp": 1.0642359746288177,
+   "n_f": 6601009.400697007,
+   "mu": {
+    "sine (\u03bc = 0 check)": 8.026778162143165e-09,
+    "prediction (\u03bc = 1 check)": 0.9999593897085255,
+    "BBLM: CUE(N_eff) first order": 1.010145583950632,
+    "BFM_abar: SECONDARY form, kappa = 1": 1.0983742040290498,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 0.8149817640787387,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 0.9698939855608166,
+    "cue_exact: CUE_N at N = N_eff": -31.339257503798336
+   },
+   "gof_noncentrality": {
+    "sine (\u03bc = 0 check)": 0.0036188731123671714,
+    "prediction (\u03bc = 1 check)": 4.106359558811201e-06,
+    "BBLM: CUE(N_eff) first order": 664.1164989717024,
+    "BFM_abar: SECONDARY form, kappa = 1": 40.536022810908825,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 432.00692672879495,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 31.62019257154728,
+    "cue_exact: CUE_N at N = N_eff": 4066485453326960.0
+   }
+  },
+  "zeros_10639046000.dat": {
+   "t_mean": 10640095984.355774,
+   "ell": 21.250018275495943,
+   "N_eff": 4.890840160237864,
+   "abar": 1.1385511088049378,
+   "kappa_prim_interp": 1.0977383351339733,
+   "kappa_sec_interp": 1.0548667263325078,
+   "n_f": 7102295.443559359,
+   "mu": {
+    "sine (\u03bc = 0 check)": 1.1485634039117934e-08,
+    "prediction (\u03bc = 1 check)": 0.9999541753751455,
+    "BBLM: CUE(N_eff) first order": 1.012558476990879,
+    "BFM_abar: SECONDARY form, kappa = 1": 1.085551618239946,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 0.8405987214364781,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 0.9756398763000846,
+    "cue_exact: CUE_N at N = N_eff": 21.7901904917759
+   },
+   "gof_noncentrality": {
+    "sine (\u03bc = 0 check)": 0.0038936928757867667,
+    "prediction (\u03bc = 1 check)": 4.305607639314427e-06,
+    "BBLM: CUE(N_eff) first order": 469.12063362141475,
+    "BFM_abar: SECONDARY form, kappa = 1": 28.403296608040236,
+    "fit_prim: Phase 2 PRIMARY fitted (interp.)": 323.1611925765444,
+    "fit_sec: Phase 2 SECONDARY fitted (interp.)": 22.949786857753434,
+    "cue_exact: CUE_N at N = N_eff": 3045742.957426281
+   }
+  }
+ }
+}

@@ -982,3 +982,38 @@ merge → annotated tag `route-a-prediction` (Will pushes) as planned.
   - cut-off 0.5916·e^{−N_std/2} = 7.76·10⁻⁴.
   - The value 0.001466 applies only to the reproduction range (N_std = 12).
 - **If Will meant a different X′:** the twists already computed carry over (same code path per twist).
+
+## Thirty-ninth round (Will, 2026-10-13) — X′ declared (verbatim; filed late, 2026-10-13 evening)
+Round 39 (Will):
+- X′ = 1.1·10⁶ DECLARED (fresh range (4·10⁵, 1.1·10⁶], ~12,917 twists,
+  ~20.3 h at 30 workers incl. the 2% recheck). "Rounded down" = multiple of
+  10⁵; the 24 h budget covers only the fresh range.
+- Commit this declaration (decisions log + Phase 1 seal draft) BEFORE
+  launching generation; the Phase 1 seal pins it when sealed. Generation
+  only — no statistics before the seal.
+- Launch after Will's UPS swap (spot idle now = ideal window); if the swap
+  must happen mid-run, stop workers cleanly first.
+- Route (a): proceed with the GUE-only pre-read → seal → F3 read.
+
+- **Filing note:** this round was lost from my context when the session was compacted. The section "Will, 2026-10-13
+  evening — X′ and the fresh-range generation" above recorded the same X′ as accepted from "start the compute". Will
+  re-sent the text, and it is filed here verbatim.
+- **Compliance check:**
+  - The declaration was committed (0911b876, 16:23:02) before the launch (16:23:03, spot log).
+  - The Phase 1 seal draft (v6) carries X′. It is a DRAFT, so it is not in git.
+  - Generation only: no statistic has been computed on the fresh twists.
+  - The launch came after the UPS swap. Spot is now off the battery side, so if power is cut mid-run, the twists in
+    progress are lost and every finished twist is kept (checkpointed per twist).
+
+## Fortieth round (Will, 2026-10-13 evening) — route (a) pre-read guidance (verbatim)
+Route (a) pre-read guidance (Will, round 40):
+- GUE calibration through the identical pipeline: CUE (N ≥ 10³ per block) mapped
+  onto each F3 file's density, unfolded back with exact θ; expect μ̂ ≈ 0.
+- Red path = declared goodness-of-fit test (KS or binned χ² vs p_μ̂ in-window),
+  threshold calibrated on CUE; non-p_μ families read "model misfit".
+- Order: draft + commit the rule from GUE power BEFORE any real-zero check;
+  then seen Phase 2 bins as a descriptive pipeline/SE check only.
+- Draft rule (by analogy with Stage 2): fixed pre-data weights ∝ spacing count;
+  RESOLVABLE iff 2·SE_pool ≤ 0.25; PASS iff |μ̂_pool − 1| ≤ 2·SE_pool + δμ_sys
+  AND ≥ 4/5 files within 3 SE of 1; seal records the empirical false-fail rate
+  and power (assumption: μ=1 correlations ≈ μ=0); report μ̂_pool ± CI always.
