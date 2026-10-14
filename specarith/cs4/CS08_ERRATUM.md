@@ -24,7 +24,45 @@ sha256 (decd4a26…) is recorded in `../ph2/lit/NEXT_ORDER_LIT.md`.
   (`../ph2/PH2_DECISIONS_2026-10-07.md`), it is therefore recorded as an erratum, not as an arXiv typo corrected in the
   journal.
 
+### 1.1 Printed lines, by version (added 2026-10-14; review response item 3, before any outreach)
+**Versions.** arXiv 0803.2795 has **one** version: v1, 19 Mar 2008 (no comment, no journal-ref; /abs/0803.2795v2 and
+v3 return 404, and the arXiv API lists v1 only). The journal version is CNTP 2(3) 477–536 (2008). No later version
+exists to fix either erratum, and no corrigendum was found (CNTP issue page not reachable; Snaith's publication list,
+the Bristol research portal and the authors' later "In support of n-correlation" (arXiv:1212.5537, CMP 2014) show
+none; MathSciNet not checked — a negative search, not proof). The v1 source fetched on 2026-10-14 is byte-identical
+to the copy the transcription used (`~/specarith_lit_cache/ph2_next_order/src_0803.2795`, gzip sha256 4f627757…cb3;
+`n_correlation_10.tex` sha256 2a883ed0…009).
+
+**A* (this section), arXiv v1, §5.6, source lines 2729–2734** (the §5.7 copy, lines 2781–2786, is identical):
+```
+A^*(a_1,a_2,b_1,b_2)=\prod_p\frac{Z_p(\{a_1,a_2\},\{b_1,b_2\})Z_p(\{-a_1,-a_2\},\{-b_1,-b_2\})}
+{Z_p(\{a_1,a_2\},\{-a_1,-a_2\})Z_p(\{b_1,b_2\},\{-b_1,-b_2\})}\\
+&&  \nonumber \qquad \times p^{-a_1-a_2-b_1-b_2} \bigg( 1+\frac
+{z_p(1-a_1-b_1)z_p(1-a_2-b_1)z_p(b_2-b_1)}{z_p(1)z_p(-a_1-b_1)z_p(-a_2-b_1)z_p(1+b_2-b_1)}   \\
+&& \qquad \qquad  \nonumber +\frac {z_p(1-a_1-b_2)z_p(1-a_2-b_2)z_p(b_1-b_2)}
+{ z_p(1)z_p(-a_1-b_2)z_p(-a_2-b_2)z_p(1+b_1-b_2)} \bigg).
+```
+**A*, journal** (PDF sha256 decd4a26…; text extracted with pypdf, superscripts flattened inline):
+- eq. (5.40), §5.6, printed p. 532: "× p−a1−a2−b1−b2 ( 1+ zp(1 − a1 − b1)zp(1 − a2 − b1)zp(b2 − b1) / zp(1)zp(−a1 − b1)
+  zp(−a2 − b1)zp(1 +b2 − b1) + zp(1 − a1 − b2)zp(1 − a2 − b2)zp(b1 − b2) / zp(1)zp(−a1 − b2)zp(−a2 − b2)zp(1 +b1 − b2) )";
+- eq. (5.45), §5.7, printed p. 533: the same "( 1+ … + … )".
+Both versions print 1 + T₁ + T₂ in both copies.
+
+**J₁₃'s prime-sum sign (§4)**, arXiv v1 source line 2701:
+```
+J^*_{\zeta,t}(\{a\},\{b_1,b_2,b_3\})=-\sum_p\frac{z_p(1+a+b_1)z_p(1+a+b_2)z_p(1+a+b_3)\log^4p }{p^{3+3a+b_1+b_2+b_3}}\\
+```
+journal eq. (5.36), printed p. 531: "J∗ ζ,t({a},{b1,b2,b3}) = − ∑ p zp(1 +a + b1)zp(1 +a + b2)zp(1 +a + b3) log4 p /
+p3+3a+b1+b2+b3 + W1(a, b1;b2,b3)+ W1(a, b2;b1,b3)+ W1(a, b3;b1,b2)" (the minus is U+2212). Both versions print −Σ_p.
+
+**B₄ (§2)**: v1 source lines 2767 (§5.6) and 2818 (§5.7) both have `p^{1 + a_2 + b_1})-1)(`; the journal's §5.6
+copy (p. 533) has "(p1+a2+b1 ) − 1)", its §5.7 copy (p. 534) "(p1+a2+b1 − 1)".
+
 ## 2. B₄'s parenthesis (typo, partly corrected in the journal)
+> **Correction (2026-10-14):** "eq. (5.49)" below is probably B₃'s number, not B₄'s. In the extracted journal text the
+> tag (5.49) closes B₃ and B₄ follows untagged before C's (5.50), on printed p. 534. To be confirmed on the printed
+> page before this file is quoted to the authors; the substance (journal §5.7 copy correct) is unaffected.
+
 - **The error:** B₄'s parenthesis is misplaced in the §5.6 copy, in both arXiv v1 and the journal.
 - **The fix:** the journal's §5.7 copy, eq. (5.49), has it right. arXiv v1 has the error in both copies.
 - **Our reading:** the one in the journal's §5.7 (`cs4lib.py`, `B4`).
