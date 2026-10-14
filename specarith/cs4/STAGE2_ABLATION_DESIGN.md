@@ -56,10 +56,16 @@ file-averaged definition (amendment 7), estimator B (amendment 8), weights C for
 `results/ablation/ABLATION.json` — this file's §4 rule is written into it (verbatim, with this file's sha256) **before**
 any model is computed; then per model: v_B(b) on the ladder and ĝ_B per F2 file, the pooled ĝ_B (weights C), the
 integral split (I₂, I₃, I₄ short, I₄ long), positivity, and the differences M1−M3, M2−M3 (and M2′−M3, M0−M3) in units of
-Stage 2's CI half-width h = 0.125 (`PH2S_STAGE2_FINDINGS.md`).
+Stage 2's CI half-width (`../ph2s2/PH2S_STAGE2_FINDINGS.md`).
+
+**Units (fixed before computing).** The "±13%" / half-width ≈ 0.125 is in *shrink-ratio* units: measured/predicted
+shrink = (g_GUE,B − ĝ_B)/(g_GUE,B − g_pred) = 1.01 [0.89, 1.14] with g_GUE,B = 0.9591. In ĝ units the pooled 95% CI is
+[0.6441, 0.7143], half-width **h = 0.0351**; the two agree (0.0351 / (0.9591 − 0.6830) = 0.127). The rule uses h in ĝ
+units; dividing ĝ differences by 0.125 would make it ~3.6× too lenient.
 
 ## 4. Reading rule (declared now, before computing)
-Let Δ₁ = |ĝ_pool(M1) − ĝ_pool(M3)| / h and Δ₂ = |ĝ_pool(M2) − ĝ_pool(M3)| / h (h = 0.125, pooled with weights C).
+Let Δ₁ = |ĝ_pool(M1) − ĝ_pool(M3)| / h and Δ₂ = |ĝ_pool(M2) − ĝ_pool(M3)| / h (h = 0.0351 in ĝ units, i.e. 0.127 in
+shrink-ratio units; pools with weights C). "< 0.25 half-widths" ⇔ |Δĝ_pool| < 0.0088.
 - **Both < 0.25:** Stage 2 is worded "confirms two-point arithmetic correlations at fresh heights; does not
   discriminate CS08's higher-order terms".
 - **Otherwise:** report which class carries the separation: Δ₁ ≥ 0.25 ⇒ the arithmetic inside T₃/T₄ matters (cumulant
