@@ -5,6 +5,8 @@ pinned 397fe1f3); this file adds only the read's safeguards and the outcome tabl
   python route_a_sealread.py read LABEL [DATA_DIR] REFUSED unless seals/ROUTE_A_SEAL.json exists and pins this code, the
                                                    interpreter (Python, numpy, scipy, mpmath versions), the prediction,
                                                    the calibration and the weights, and all five F3 md5s match the pins
+                                                   (round 47: and the prediction JSON matches the OpenTimestamps-stamped
+                                                   manifest of f75e5816, checked without git or the seal)
                                                    BEFORE any file is decoded; each file's heights must lie in its range.
                                                    Writes results/read/LABEL/ and prints NO estimate.
   python route_a_sealread.py compare               round 45: run1 and run2 must be bit-identical (sha256 of the result
@@ -64,6 +66,13 @@ SEED = 20261014
 DPS = 45
 READ_OUT = os.path.join(HERE, "results", "read")
 DRY_OUT = os.path.join(HERE, "results", "dryrun")
+# round 47: the prediction is checked against the OpenTimestamps-stamped manifest (f75e5816), independently of git and of
+# the seal; the receipt's committed digest and the manifest's sha256 are pinned here
+PRESTAMP = os.path.join(HERE, "timestamps", "ROUTE_A_PRESTAMP_2026-10-14.txt")
+PRESTAMP_OTS = PRESTAMP + ".ots"
+PRESTAMP_SHA256 = "444fa47f7d6c2c9c0afdf97a65a8deb60c67038e5d5a45dfe3e867b0fdd3abb5"
+PRESTAMP_VERIFY = os.path.join(HERE, "timestamps", "ROUTE_A_PRESTAMP_VERIFY.json")
+OTS_MAGIC = b"\x00OpenTimestamps\x00\x00Proof\x00\xbf\x89\xe2\xe8\x84\xe8\x92\x94"
 DERIVED = {"split": "results/route_a_split.json", "cumul": "results/route_a_cumul.json",
            "anchor": "results/route_a_anchor.json",
            "equiv": "results/route_a_equiv.json", "calib": "results/calib/route_a_calib_declared.json"}
@@ -134,9 +143,28 @@ def env():
     return dict(python=sys.version.split()[0], numpy=np.__version__, scipy=scipy.__version__, mpmath=mpmath.__version__)
 
 
+def stamp_check(pred_path=None, manifest=PRESTAMP, receipt=PRESTAMP_OTS):
+    """Round 47: the prediction JSON's sha256 must equal the one in the OpenTimestamps-stamped manifest, whose sha256 must
+    be the digest the receipt commits to (receipt header: magic, version 1, sha256 op 0x08, 32-byte digest) and the
+    pinned PRESTAMP_SHA256. No git, no seal: the Bitcoin attestation covers the manifest (verify_prestamp.py)."""
+    import re
+    pred_path = RR.PRED if pred_path is None else pred_path
+    head = open(receipt, "rb").read(len(OTS_MAGIC) + 2 + 32)
+    if not (head.startswith(OTS_MAGIC) and head[len(OTS_MAGIC):len(OTS_MAGIC) + 2] == b"\x01\x08"
+            and head[len(OTS_MAGIC) + 2:].hex() == PRESTAMP_SHA256):
+        raise SystemExit("REFUSED: the OpenTimestamps receipt does not commit to the pinned pre-decode manifest")
+    if sha(manifest) != PRESTAMP_SHA256:
+        raise SystemExit("REFUSED: the pre-decode manifest differs from the OpenTimestamps-stamped one")
+    m = re.search(r"prediction file at the tag\s+\S+\s*\n\s*sha256 ([0-9a-f]{64})", open(manifest).read())
+    if not m or sha(pred_path) != m.group(1):
+        raise SystemExit("REFUSED: the prediction JSON's sha256 differs from the OpenTimestamps-stamped manifest's")
+    return m.group(1)
+
+
 def check_seal(seal_path):
     if not os.path.exists(seal_path):
         raise SystemExit("REFUSED: no ROUTE_A_SEAL.json — F3 zeros are not decoded before the seal")
+    stamp_check()                                              # round 47: before any seal pin, independent of git
     seal = json.load(open(seal_path))
     if seal.get("env") != env():
         raise SystemExit(f"REFUSED: interpreter {env()} differs from the sealed {seal.get('env')}")
@@ -359,6 +387,36 @@ def refusals():
         attempt("prediction_mismatch", lambda s: s.update(prediction_sha256="0" * 64))
         attempt("calibration_mismatch", lambda s: s.update(calibration_sha256="0" * 64))
         attempt("weights_mismatch", lambda s: s["weights"].update({list(RR.F3)[0]: 0.5}))
+        # round 47: a prediction that differs from the stamped one by one byte, with the seal REBUILT to agree with it
+        # (dry_seal hashes RR.PRED): only the OpenTimestamps check can refuse it
+        bad = os.path.join(tmp, "pred_tampered.json")
+        b = bytearray(open(RR.PRED, "rb").read())
+        b[-2] = ord("0") if b[-2] != ord("0") else ord("1")
+        open(bad, "wb").write(bytes(b))
+        saved_pred = RR.PRED
+        try:
+            RR.PRED = bad
+            attempt("prediction_vs_stamp")
+        finally:
+            RR.PRED = saved_pred
+        if "OpenTimestamps" not in cases["prediction_vs_stamp"]:
+            cases["prediction_vs_stamp"] = "WRONG REFUSAL: " + cases["prediction_vs_stamp"]
+        man = os.path.join(tmp, "manifest_tampered.txt")
+        open(man, "w").write(open(PRESTAMP).read().replace("98fc2356", "98fc2357"))
+        try:
+            stamp_check(manifest=man)
+            cases["stamp_manifest_tampered"] = "NOT REFUSED"
+        except SystemExit as e:
+            cases["stamp_manifest_tampered"] = str(e)
+        rc = os.path.join(tmp, "receipt_tampered.ots")
+        b = bytearray(open(PRESTAMP_OTS, "rb").read())
+        b[len(OTS_MAGIC) + 2] ^= 1
+        open(rc, "wb").write(bytes(b))
+        try:
+            stamp_check(receipt=rc)
+            cases["stamp_receipt_tampered"] = "NOT REFUSED"
+        except SystemExit as e:
+            cases["stamp_receipt_tampered"] = str(e)
         attempt("md5_mismatch", files=dict(good, **{list(RR.F3)[-1]: "0" * 32}))
         os.remove(os.path.join(tmp, list(RR.F3)[2]))
         attempt("file_missing")
@@ -464,7 +522,10 @@ def seal(check_only=False):
     spl = json.load(open(os.path.join(HERE, DERIVED["split"])))
     bins = {b: json.load(open(os.path.join(HERE, "results", "ph2bins", f"{b}.json"))) for b in
             ("P1", "P2", "P3", "P4", "P5", "P6")}
-    checks = dict(text_exists=os.path.exists(TEXT), dryrun_as_expected=all(dry["as_expected"].values()),
+    pv = json.load(open(PRESTAMP_VERIFY))
+    prestamp_ok = (all(pv["checks"].values()) and pv["manifest_sha256"] == PRESTAMP_SHA256
+                   and pv["receipt_sha256"] == sha(PRESTAMP_OTS) and stamp_check() == sha(RR.PRED))
+    checks = dict(text_exists=os.path.exists(TEXT), prestamp_bitcoin_verified=prestamp_ok, dryrun_as_expected=all(dry["as_expected"].values()),
                   dryrun_under_this_interpreter=dry["env"] == env(), anchor_linear=anc["linearity_max_rel"] < 0.01,
                   refusals=refusals(), witness=witness()[0], f3_md5_match_pins=all(pins.get(f) == m for f, m in F3_MD5.items()),
                   prediction_is_tagged=sha(RR.PRED) == tagged_prediction_sha(),
@@ -492,6 +553,10 @@ def seal(check_only=False):
                                  attribution="|mu - 1| > B2 (and outside the band): connected n >= 3 structure or the "
                                  "estimator; within B2: consistent with pair-level uncertainty (round 45); truncation "
                                  "excluded (bound <= 1.2e-5)", assumption=anc["assumption"]), c="FAIL, unattributed"),
+               prestamp=dict(manifest=os.path.relpath(PRESTAMP, HERE), manifest_sha256=PRESTAMP_SHA256,
+                             receipt_sha256=sha(PRESTAMP_OTS), commit="f75e5816",
+                             earliest_bitcoin_block=pv["earliest"],
+                             bitcoin_blocks=[a["height"] for a in pv["attestations"]], method=pv["method"]),
                cumulant_cut=dict(increments=cum["increments"], validity=anc["cut_validity"]["reading"],
                                  note="descriptive; weights only if valid (round 45)"),
                witness=witness()[1],

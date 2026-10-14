@@ -1163,3 +1163,58 @@ Record in the seal the 90.5% capture rate under Phase 2’s fitted law, and that
 B₂ attribution applies to every FAIL below the band.
 Cut validity criteria accepted as you fixed them.
 Fill the blanks once the dry run, the anchor run and the cumulant cut have landed. Then the draft comes to me → OpenTimestamps stamp → double read.
+
+## Forty-seventh round (Will, 2026-10-14 evening) — go after two text fixes; F3 provenance; external-timestamp gate (verbatim)
+Round 47: go, after two text fixes.
+
+F3 provenance. Reconcile in writing:
+your statement today that nothing from F3 has been downloaded or read;
+the earlier record that F3 was downloaded and md5-verified, not decoded;
+your 10/14 morning line “Pipeline identity: all five F3 files now round-trip exactly”.
+State where every F3 file is now, on any machine, with timestamps, and what “round-trip” operated on. The seal’s provenance section records the true history: download date and md5 checks if they happened, and whether any F3 content was ever decoded. If anything was decoded, stop and report to me before sealing.
+External-timestamp gate.
+Add a refusal: the read verifies the prediction JSON’s sha256 against the OpenTimestamps-stamped manifest from f75e5816, independently of git.
+Run ots upgrade and ots verify on that receipt. It must be complete before the seal is stamped. Record the Bitcoin block in the seal.
+Add a red path for a prediction-hash mismatch.
+Accepted as-is: B₂ and the §4 statement; the invalid cumulant cut reported descriptively; the bare-clone tag check; the launcher incident note (no recompute: all 360 jobs present, and the attribution margin is 4.9×).
+Then: rename to ROUTE_A_SEAL.md → build on spot → Will commits, tags and pushes → OpenTimestamps-stamp the seal → F3 to spot (if it isn’t already there) → read twice → compare → report.
+
+**F3 provenance audit (round 47; 2026-10-14 evening).**
+- **Download (did happen).** Will downloaded the five F3 files on 2026-10-13, after `route-a-prediction` was pushed. They
+  went into `specarith/ph2r2/data/platt_fresh/` on the desktop; file mtimes are 13:55:01–13:56:06 PDT, with matching
+  Windows Zone.Identifier files and Recent-folder shortcuts at 13:55:11–13:56:05.
+- **md5 checks (did happen), all matching the pins:**
+  - desktop, 2026-10-13 ~13:56 PDT;
+  - spot, after the scp the same minute (spot mtimes 13:56:32–13:56:35);
+  - spot again after the UPS swap that evening, as part of the 128-file re-verification;
+  - both machines again on 2026-10-14 at 16:25, in this audit.
+- **Where the files are now:**
+  - Desktop: `…/worktrees/ph6-xp/specarith/ph2r2/data/platt_fresh/`, the five files plus their Zone.Identifier files.
+    No other copy exists under /home or C:\Users (the Recent .lnk files are shortcuts only).
+  - Spot: `~/tmp/claude/specarith/ph2r2/data/platt_fresh/`, the five files.
+  - char: none.
+  - Every copy matches its pin: 12759c6b…, 17769568…, 763374d8…, 10af7827…, 6203cd45….
+  - The files' access times now read 16:25 on 2026-10-14, set by this audit's own md5 reads, so access times cannot
+    show earlier non-access. The evidence for that is the next item.
+- **Decoded: never.**
+  - The only code that reads `platt_fresh` with an F3 file name is `route_a_sealread.read()`. It refuses unless
+    `seals/ROUTE_A_SEAL.json` exists, and that file has never existed.
+  - The other code that uses `platt_fresh` (ph2s/s1read.py, ph2s2/s2read.py, tapered.py, cd_lag1.py) names F1 or F2
+    files only.
+  - A search of every session transcript under ~/.claude/projects for tool calls naming an F3 file or `platt_fresh`
+    found only `ls`, `md5sum` and `scp` on the real files.
+  - The n_f counts and pooling weights come from θ (N̄(t₁) − N̄(t₀)), not from file headers.
+- **What "round-trip" operated on: synthetic files only.**
+  - `route_a_read.py pipeline` on char, 2026-10-13 21:10–23:47 PDT: CUE_1000 spacings (GPU sampler, seeds
+    [20261013, 99, i]) were placed at each F3 file's height range with exact θ and written in the Platt format to
+    `~/tmp/claude/synthetic_<F3 name>`. They were decoded by the read's path, compared (max spacing error 0, dμ 0) and
+    deleted.
+  - Records, now committed: `cs4/results/calib/pipeline_*`.
+  - The dry-run stand-ins on spot (`cs4/results/dryrun_synth/<F3 name>`, 2026-10-14 11:00–11:15) are likewise
+    synthetic CUE files. Their md5s are not the pins (3efa79ab…, bbec7951…, 171a89c8…, c6c5c2bb…, 678ff938…).
+  - "All five F3 files now round-trip exactly" meant five synthetic files at F3 geometry, each carrying an F3 file's
+    name. It did not mean the F3 files.
+- **Correction.** Two statements of 2026-10-14 were wrong about the download:
+  - the seal draft's "No F3 zero has been downloaded or decoded";
+  - my message to Will, "nothing about the F3 zeros has been downloaded or read".
+  The true history: downloaded and md5-verified on 2026-10-13, never decoded. The seal text now says so.
