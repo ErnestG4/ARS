@@ -23,8 +23,13 @@ Outcome table (forty-third round; MODEL MISFIT reported independently of the row
       direction of Phase 2's fitted law"; attributed (forty-fourth round) by the cumulant increments of
       results/route_a_cumul.json — pair arithmetic (C2), connected higher order (C3−C2, C4−C3, C5−C4) — and the
       estimator; truncation only if the n = 5 check fails to exclude it; a follow-up to separate them is pre-declared
-  (c) any other μ̃_pool                      → FAIL, unattributed
-  The rule's verdict (MODEL MISFIT > UNRESOLVED > PASS/FAIL) is reported as is beside the row.
+  (c) any other μ̃_pool                      → FAIL, unattributed; a (c) result within 0.005 of a (b) edge is reported
+      with its distance and NOT reclassified (round 46)
+  The rule's verdict (MODEL MISFIT > UNRESOLVED > PASS/FAIL) is reported as is beside the row (confirmed round 45).
+  Attribution (rounds 45–46), for EVERY verdict FAIL below the band (μ̃_pool < 1 − (2·SE_pool + δμ_sys)): with the
+  R₂-anchored bound B₂ (results/route_a_anchor.json, pinned), 1 − μ̃_pool > B₂ → connected n ≥ 3 structure or the
+  estimator; ≤ B₂ → consistent with pair-level uncertainty. Truncation excluded (≤ 1.2e-5). The follow-up that separates
+  connected structure from the estimator is the independent observable of round 46.
 """
 import hashlib
 import json
@@ -96,11 +101,28 @@ def outcome(v):
     return "b" if ROW_B[0] <= v["mu_pool"] <= ROW_B[1] else "c"
 
 
+NEAR_EDGE = 0.005
+
+
 def evaluate(per_file):
     w, _ = RR.weights()
     v = RR.rule(per_file, w, RR.calib())
     v["row"] = outcome(v)
     v["model_misfit_flag"] = len(v["misfit_files"]) >= RR.MISFIT_FILES
+    if v["row"] == "c":                                          # round 46: distance reported, never reclassified
+        d = {f"{e:.3f}": abs(v["mu_pool"] - e) for e in ROW_B}
+        near = {k: x for k, x in d.items() if x <= NEAR_EDGE}
+        v["near_b_edge"] = near or None
+    band_lo = 1 - (2 * v["se_pool"] + RR.DMU_SYS)
+    v["below_band"] = v["mu_pool"] < band_lo
+    if v["verdict"] == "FAIL" and v["below_band"]:                # rounds 45–46: every FAIL below the band
+        B2 = json.load(open(os.path.join(HERE, DERIVED["anchor"])))["B2"]
+        dev = 1 - v["mu_pool"]
+        v["attribution"] = dict(B2=B2, deviation=dev, reading=(
+            "beyond B2: connected n >= 3 structure or the estimator (separated by the round-46 follow-up)" if dev > B2
+            else "within B2: consistent with pair-level (R2) uncertainty"), truncation="excluded (bound <= 1.2e-5)")
+    else:
+        v["attribution"] = None
     return v
 
 
@@ -127,6 +149,9 @@ def check_seal(seal_path):
     w, _ = RR.weights()
     if any(abs(w[f] - seal["weights"][f]) > 1e-15 for f in RR.F3):
         raise SystemExit("REFUSED: pooling weights differ from the sealed ones")
+    for k, h in seal["derived_sha256"].items():
+        if sha(os.path.join(HERE, DERIVED[k])) != h:
+            raise SystemExit(f"REFUSED: derived file {DERIVED[k]} differs from the sealed one")
     return seal
 
 
@@ -182,11 +207,16 @@ def _one_file(job):
 
 def report_md(v):
     L = [f"verdict (sealed rule): **{v['verdict']}**;  outcome row: **({v['row']})**"
-         + ("  — MODEL MISFIT flagged" if v["model_misfit_flag"] else ""),
+         + ("  — MODEL MISFIT flagged" if v["model_misfit_flag"] else "")
+         + (f"  — (c) within 0.005 of a (b) edge, not reclassified: {v['near_b_edge']}" if v.get("near_b_edge") else ""),
          f"μ̃_pool = {v['mu_pool']:.4f} ± {2 * v['se_pool']:.4f} (95% CI [{v['ci95'][0]:.4f}, {v['ci95'][1]:.4f}]); "
          f"files within 3 SE: {v['files_within_3se']}/5; GoF pass: {v['gof_pass_files']}/5; misfit: {v['misfit_files']}",
          "", "| file | μ̃_f | SE_f |", "|---|---|---|"]
     L += [f"| {f} | {v['mu_file'][f]:+.4f} | {v['se_file'][f]:.4f} |" for f in v["mu_file"]]
+    if v.get("attribution"):
+        a = v["attribution"]
+        L += ["", f"Attribution (FAIL below the band): 1 − μ̃_pool = {a['deviation']:.4f} vs B₂ = {a['B2']:.4f} → "
+              f"{a['reading']}; truncation {a['truncation']}."]
     return "\n".join(L) + "\n"
 
 
@@ -218,6 +248,7 @@ def synth(out_dir, f):
 def dry_seal(path, md5s):
     w, _ = RR.weights()
     seal = dict(seal="DRYRUN (not a seal)", env=env(), code_sha256={f: sha(os.path.join(HERE, f)) for f in CODE},
+                derived_sha256={k: sha(os.path.join(HERE, p)) for k, p in DERIVED.items()},
                 prediction_sha256=sha(RR.PRED), calibration_sha256=RR.CALIB_SHA256, weights=w, f3_md5=md5s)
     json.dump(seal, open(path, "w"), indent=1)
 
@@ -322,6 +353,7 @@ def refusals():
         except SystemExit as e:
             cases["no_seal"] = str(e)
         attempt("interpreter_mismatch", lambda s: s["env"].update(numpy="0.0"))
+        attempt("derived_mismatch", lambda s: s["derived_sha256"].update(anchor="0" * 64))
         attempt("code_mismatch", lambda s: s["code_sha256"].update({CODE[0]: "0" * 64}))
         attempt("prediction_mismatch", lambda s: s.update(prediction_sha256="0" * 64))
         attempt("calibration_mismatch", lambda s: s.update(calibration_sha256="0" * 64))

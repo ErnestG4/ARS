@@ -1146,3 +1146,20 @@ scipy 1.18.1, mpmath 1.4.1. Rerun alone with the same code and input: exit 0, ou
 arrays. Cause not determined. The first run's log is kept (`cs4/results/ph2bins/crash1/`). The dry run and the real read
 run on spot (`ph6c`: Python 3.12.15, numpy 2.5.3, scipy 1.18.1, mpmath 1.4.1), which the seal pins; the read refuses any
 other interpreter and must reproduce itself bit for bit.
+
+## Forty-sixth round (Will, 2026-10-14 afternoon) — row (b) follow-up named; bounds; near-edge reporting (verbatim)
+Round 46:
+
+Row (b) follow-up, named in the seal:
+Use an independent observable with its own estimator and the same CS n ≤ 5 model: the next-nearest-neighbour spacing law, or the third cumulant of the counting function. Choose by power, before seeing any route (a) result.
+Before its seal, it needs its own data-free sensitivity split showing a majority of its arithmetic part from connected n ≥ 3 terms. Use the same R₂-anchored derivative method as B₂.
+It runs on fresh zeros not yet downloaded, with a tagged prediction, an OpenTimestamps stamp and a separate seal.
+Reading: both observables deviate in the predicted direction → connected structure. Only route (a) deviates → its estimator.
+Detailed parameters may be sealed later, but before that data is downloaded. The seal commits to this logic now.
+If route (a) PASSes, the same design runs as an independent replication.
+Row (b) bounds stay at [0.955, 0.985].
+Record in the seal the 90.5% capture rate under Phase 2’s fitted law, and that the bounds approximate μ_P2 ± 2 SE_pool.
+(c) results within 0.005 of a (b) edge are reported with their distance and not reclassified.
+B₂ attribution applies to every FAIL below the band.
+Cut validity criteria accepted as you fixed them.
+Fill the blanks once the dry run, the anchor run and the cumulant cut have landed. Then the draft comes to me → OpenTimestamps stamp → double read.
