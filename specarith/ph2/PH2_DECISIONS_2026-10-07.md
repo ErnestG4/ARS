@@ -1102,3 +1102,21 @@ MODEL MISFIT is reported independently of all three.
 Calibration notes for the record, no change needed. The false-misfit rate of 3/200 against an expected 2 is binomially unremarkable. The lowest-file bias (z up to 2.4) is subtracted per file, as declared.
 
 Then continue in order: Phase 2 bins check on char → seal draft to me → OpenTimestamps-stamp the seal → F3 decode. E₁₁ close-out when it finishes (~10:00–10:30) as planned.
+
+## Forty-fourth round (Will, 2026-10-14 morning) — cumulant cut before the seal; n = 5 presence check; outcome (b) attribution (verbatim)
+Round 44:
+
+Cumulant cut, before the seal. Data-free. Compute pooled μ* for:
+C2: T₂ from ζ; T₃, T₄, T₅ from the sine kernel.
+C3: T₂ and T₃ from ζ; T₄ and T₅ from the sine kernel.
+C4: T₂–T₄ from ζ; T₅ from the sine kernel.
+C5: everything from ζ. It must reproduce 1.000, as the gate.
+Report each increment and how it compares with the ±0.016 band.
+The n = 5 term really is in the sum (this guards against a silently dropped term). Report the n = 5 block increment in μ* to full precision, and the size of ρ₅^ζ − ρ₅^sine at a few quadrature points, so we can see the correction is non-zero and that the term actually enters the sum. If the n = 5 increment is ≪ the band and the decay is consistent, state in the seal that truncation is excluded from attribution, and give the bound used.
+Seal outcome (b) attribution:
+Weight the attribution by the cumulant increments from item 1, not the block cut.
+Attribution candidates: pair arithmetic (C2 share), connected higher-order (C3–C5 shares), estimator.
+Truncation is listed only if item 2 fails to exclude it.
+The gate-tolerance change is accepted as documented: it is pre-data, and the integrator offset was already on record.
+
+Order is unchanged: bins check → seal draft to me → OpenTimestamps stamp → F3 decode. E₁₁ close-out when the exits land.
