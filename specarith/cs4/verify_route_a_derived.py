@@ -1,4 +1,5 @@
-"""Verify the merged cumulant-cut and R2-anchor results (rounds 44-45) as committed, without recomputing them.
+"""Verify the merged cumulant-cut and R2-anchor results (rounds 44-45) and the final dry run, as committed,
+without recomputing them.
 
 Checks: every chunk and merge exit is 0; the jsonl rows cover every declared job exactly; the cumulant gate fields
 hold their declared tolerances; B2 equals |dmu*/dmu2| x (|1.003 - 1| + 2 x 0.006); linearity < 0.01; and the
@@ -49,6 +50,23 @@ pos = all(v >= -1e-12 for v in cv["min_rho"].values()) and all(cv["min_p"][k] > 
 dec = abs(inc[1]) > abs(inc[2]) > abs(inc[3])
 ok["cut_validity_consistent"] = (cv["increments"] == cu["increments"] and cv["positive"] == pos and cv["decays"] == dec
                                  and cv["valid"] == (pos and dec))
+# the final dry run (round-46 code): two bit-identical reads, every expectation, and its seal pins = the files now here
+import hashlib  # noqa: E402
+D = os.path.join(R, "dryrun")
+h = [hashlib.sha256(open(os.path.join(D, r, "ROUTE_A_READ.json"), "rb").read()).hexdigest() for r in ("run1", "run2")]
+dry = json.load(open(os.path.join(D, "ROUTE_A_DRYRUN.json")))
+ds = json.load(open(os.path.join(D, "DRYRUN_SEAL.json")))
+cmp_ = json.load(open(os.path.join(D, "COMPARE.json")))
+sha = lambda p: hashlib.sha256(open(os.path.join(HERE, p), "rb").read()).hexdigest()  # noqa: E731
+ok["dryrun_bit_identical"] = h[0] == h[1] == cmp_["run1_sha256"] == cmp_["run2_sha256"] and cmp_["bit_identical"] is True
+ok["dryrun_as_expected"] = all(dry["as_expected"].values()) and len(dry["as_expected"]) == 5
+ok["dryrun_exits"] = all(open(os.path.join(D, f)).read().strip() == "exit=0"
+                         for f in ("dryrun_run1.exit", "dryrun_run2.exit", "dryrun.exit"))
+ok["dryrun_pins_current_code"] = all(sha(f) == v for f, v in ds["code_sha256"].items())
+ok["dryrun_pins_current_derived"] = ds["derived_sha256"] == {
+    "split": sha("results/route_a_split.json"), "cumul": sha("results/route_a_cumul.json"),
+    "anchor": sha("results/route_a_anchor.json"), "equiv": sha("results/route_a_equiv.json"),
+    "calib": sha("results/calib/route_a_calib_declared.json")}
 print(json.dumps(ok, indent=1))
 print(f"cut decomposition valid: {cv['valid']} ({cv['reading']});  B2 = {an['B2']:.5f};  dmu*/dmu2 = {an['dmu_dmu2_pool']:+.5f}")
 sys.exit(0 if all(ok.values()) else 1)

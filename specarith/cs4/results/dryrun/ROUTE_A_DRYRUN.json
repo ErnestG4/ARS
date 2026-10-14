@@ -1,4 +1,10 @@
 {
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
  "standin": {
   "verdict": "FAIL",
   "mu_pool": -0.012279322173186719,
@@ -27,7 +33,15 @@
    "zeros_10639046000.dat": 0.020733733780153262
   },
   "row": "c",
-  "model_misfit_flag": false
+  "model_misfit_flag": false,
+  "near_b_edge": null,
+  "below_band": true,
+  "attribution": {
+   "B2": 0.003265671473152738,
+   "deviation": 1.0122793221731867,
+   "reading": "beyond B2: connected n >= 3 structure or the estimator (separated by the round-46 follow-up)",
+   "truncation": "excluded (bound <= 1.2e-5)"
+  }
  },
  "shifted_single_draw": {
   "mu1": {
@@ -69,6 +83,7 @@
   "R": 200
  },
  "as_expected": {
+  "bit_identical_runs": true,
   "standin_row_c": true,
   "row_a_majority_at_mu1": true,
   "row_b_majority_at_fit_sec": true,

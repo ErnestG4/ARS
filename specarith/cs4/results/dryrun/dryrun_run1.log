@@ -1,0 +1,6 @@
+zeros_15146000.dat: decoded 4933633 spacings, fitted
+zeros_25646000.dat: decoded 5100810 spacings, fitted
+zeros_248246000.dat: decoded 5847597 spacings, fitted
+zeros_2373446000.dat: decoded 6600909 spacings, fitted
+zeros_10639046000.dat: decoded 7102195 spacings, fitted
+read run1: written to /home/combust/tmp/claude/specarith/cs4/results/dryrun/run1 (no estimate printed; run compare after the second run)
