@@ -190,9 +190,37 @@ def dry_seal(path, md5s):
     json.dump(seal, open(path, "w"), indent=1)
 
 
+def row_rates():
+    """Verdict and outcome-row frequencies over the 200 CUE calibration replicates, each file's μ̂ shifted to a truth:
+    μ = 1, Phase 2's fitted SECONDARY μ* (route_a_equiv), μ = 0.97, 0.94 and 0."""
+    import collections
+    rows = [json.loads(line) for p in ("calib_A.jsonl", "calib_B.jsonl") for line in
+            open(os.path.join(HERE, "results", "calib", p))]
+    by = {}
+    for r in rows:
+        by.setdefault(r["rep"], {})[r["file"]] = r
+    reps = sorted(k for k, v in by.items() if len(v) == len(RR.F3))
+    eqv = json.load(open(os.path.join(HERE, DERIVED["equiv"])))["files"]
+    truths = {"mu1": {f: 1.0 for f in RR.F3},
+              "fit_sec": {f: eqv[f]["mu"]["fit_sec: Phase 2 SECONDARY fitted (interp.)"] for f in RR.F3},
+              "mu0.97": {f: 0.97 for f in RR.F3}, "mu0.94": {f: 0.94 for f in RR.F3}, "mu0": {f: 0.0 for f in RR.F3}}
+    out = {}
+    for name, sh in truths.items():
+        c = collections.Counter()
+        for r in reps:
+            v = evaluate({f: dict(by[r][f], mu=by[r][f]["mu"] + sh[f]) for f in RR.F3})
+            c[f"{v['verdict']}/{v['row']}"] += 1
+        out[name] = {k: n / len(reps) for k, n in sorted(c.items())}
+    out["R"] = len(reps)
+    return out
+
+
 def dryrun(synth_dir):
-    """read() on the CUE stand-ins (expected: not PASS, row (c), μ̃_pool ≈ 0), then the rule's rows on the same per-file
-    results shifted to μ = 1 (expected PASS, row (a)) and to Phase 2's fitted SECONDARY μ* (expected row (b))."""
+    """read() on the CUE stand-ins (expected: FAIL, row (c): μ = 0 gives row (c) in every calibration replicate). The
+    shifted single-draw results (μ = 1; Phase 2's fitted μ*) are descriptive: one draw cannot certify a ~90% event (the
+    first dry run's fit_sec shift landed at 0.9538, 0.0012 below row (b)). Each row's firing is certified instead by the
+    calibration replicates: row (a) under μ = 1, row (b) under Phase 2's fitted law and row (c) under μ = 0 in the
+    majority of replicates (row_rates)."""
     out = os.path.join(HERE, "results", "dryrun")
     os.makedirs(out, exist_ok=True)
     md5s = {f: md5(os.path.join(synth_dir, f)) for f in RR.F3}
@@ -206,10 +234,12 @@ def dryrun(synth_dir):
     for name, sh in (("mu1", {f: 1.0 for f in RR.F3}), ("fit_sec", mus)):
         v = evaluate({f: dict(per[f], mu=per[f]["mu"] + sh[f]) for f in RR.F3})
         shifted[name] = dict(verdict=v["verdict"], row=v["row"], mu_pool=v["mu_pool"], se_pool=v["se_pool"])
-    expect = dict(standin_row_c=res["result"]["row"] == "c" and res["result"]["verdict"] != "PASS",
-                  mu1_PASS=shifted["mu1"]["verdict"] == "PASS" and shifted["mu1"]["row"] == "a",
-                  fit_sec_row_b=shifted["fit_sec"]["row"] == "b")
-    rec = dict(standin=res["result"], shifted=shifted, as_expected=expect, md5=md5s)
+    rates = row_rates()
+    expect = dict(standin_row_c=res["result"]["row"] == "c" and res["result"]["verdict"] == "FAIL",
+                  row_a_majority_at_mu1=rates["mu1"].get("PASS/a", 0) > 0.5,
+                  row_b_majority_at_fit_sec=rates["fit_sec"].get("FAIL/b", 0) > 0.5,
+                  row_c_majority_at_mu0=rates["mu0"].get("FAIL/c", 0) > 0.5)
+    rec = dict(standin=res["result"], shifted_single_draw=shifted, row_rates=rates, as_expected=expect, md5=md5s)
     json.dump(rec, open(os.path.join(out, "ROUTE_A_DRYRUN.json"), "w"), indent=1, default=float)
     print("dry run:", {k: v for k, v in shifted.items()}, "as expected:", expect, flush=True)
     return 0 if all(expect.values()) else 1
