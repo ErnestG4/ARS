@@ -1,0 +1,13 @@
+positive control         passes the pin checks
+no_seal                  REFUSED: no ROUTE_A_SEAL.json — F3 zeros are not decoded before the seal
+interpreter_mismatch     REFUSED: interpreter {'python': '3.12.15', 'numpy': '2.5.3', 'scipy': '1.18.1', 'mpmath': '1.4.1'} differs fro
+derived_mismatch         REFUSED: derived file results/route_a_anchor.json differs from the sealed one
+code_mismatch            REFUSED: route_a_read.py differs from the sealed code
+prediction_mismatch      REFUSED: the prediction file differs from the sealed one
+calibration_mismatch     REFUSED: the calibration differs from the sealed one
+weights_mismatch         REFUSED: pooling weights differ from the sealed ones
+md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpfoahh301/zeros_10639046000.dat missing or md5 diffe
+file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpfoahh301/zeros_248246000.dat missing or md5 differs
+heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpfoahh301/lo.dat heights [1000.5, 1001.25] outside t
+runs_differ              REFUSED (VOID: run1 and run2 differ (470aaecfa4740b69 vs 249fd51bc4b88093); the read is void, nothing is inter
+REFUSALS PASS

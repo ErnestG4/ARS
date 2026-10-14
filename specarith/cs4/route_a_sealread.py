@@ -15,14 +15,15 @@ pinned 397fe1f3); this file adds only the read's safeguards and the outcome tabl
   python route_a_sealread.py dryrun_read LABEL SYNTH_DIR   read() on the stand-ins (run twice, separate processes)
   python route_a_sealread.py dryrun_record SYNTH_DIR      compare the two runs, then the dry-run expectations
   python route_a_sealread.py refusals              red paths: every refusal fires on a constructed defect
+  python route_a_sealread.py witness               round 46: the near-edge report and the B₂ attribution on constructed results
   python route_a_sealread.py seal [--check]        build seals/ROUTE_A_SEAL.json (on Will's go; commit + tag are his)
 
 Outcome table (forty-third round; MODEL MISFIT reported independently of the row):
   (a) verdict PASS (μ̃_pool in the band, with the rule's per-file and GoF conditions)            → PASS
   (b) not PASS and μ̃_pool ∈ [0.955, 0.985]  → FAIL, read "the spacing law deviates from CS n ≤ 5 at μ = 1, in the
-      direction of Phase 2's fitted law"; attributed (forty-fourth round) by the cumulant increments of
-      results/route_a_cumul.json — pair arithmetic (C2), connected higher order (C3−C2, C4−C3, C5−C4) — and the
-      estimator; truncation only if the n = 5 check fails to exclude it; a follow-up to separate them is pre-declared
+      direction of Phase 2's fitted law"; the cumulant increments (results/route_a_cumul.json) were to weight the
+      attribution (forty-fourth round) only if the cut is a valid decomposition (forty-fifth round); it is not
+      (route_a_anchor.json cut_validity), so they are descriptive and the attribution is the R₂-anchored bound below
   (c) any other μ̃_pool                      → FAIL, unattributed; a (c) result within 0.005 of a (b) edge is reported
       with its distance and NOT reclassified (round 46)
   The rule's verdict (MODEL MISFIT > UNRESOLVED > PASS/FAIL) is reported as is beside the row (confirmed round 45).
@@ -390,6 +391,63 @@ def refusals():
     return ok
 
 
+# ---------------------------------------------------------------- round-46 reporting witnesses
+def witness():
+    """The near-edge report and the B₂ attribution on constructed results: one calibration replicate whose μ = 1 reading
+    is PASS without misfit, every file shifted by one constant so μ̃_pool lands on a target (Σw = 1). The 'within B₂' arm
+    is checked twice: for reachability at the sealed B₂ (a FAIL below the band needs 1 − μ̃_pool > 2·SE_pool + δμ_sys,
+    and SE_pool ≥ its calibration floor), and for its code path with a constructed anchor file whose B₂ is large."""
+    rows = [json.loads(line) for p in ("calib_A.jsonl", "calib_B.jsonl") for line in
+            open(os.path.join(HERE, "results", "calib", p))]
+    by = {}
+    for r in rows:
+        by.setdefault(r["rep"], {})[r["file"]] = r
+    reps = sorted(k for k, v in by.items() if len(v) == len(RR.F3))
+
+    def at(rep, target):
+        base = {f: dict(by[rep][f], mu=by[rep][f]["mu"] + 1.0) for f in RR.F3}
+        c = target - evaluate(base)["mu_pool"]
+        return evaluate({f: dict(base[f], mu=base[f]["mu"] + c) for f in RR.F3})
+
+    rep = next(r for r in reps if at(r, 1.0)["verdict"] == "PASS" and not at(r, 1.0)["misfit_files"])
+    B2 = json.load(open(os.path.join(HERE, DERIVED["anchor"])))["B2"]
+    want = {0.952: ("FAIL", "c", {"0.955"}, "beyond"), 0.945: ("FAIL", "c", None, "beyond"),
+            0.970: ("FAIL", "b", None, "beyond"), 0.980: ("FAIL", "b", None, "beyond"),
+            1.000: ("PASS", "a", None, None), 1.040: ("FAIL", "c", None, None)}
+    cases = {}
+    for target, (verdict, row, near, attr) in want.items():
+        v = at(rep, target)
+        got = (v["verdict"], v["row"], set(v["near_b_edge"]) if v.get("near_b_edge") else None,
+               v["attribution"]["reading"].split(" B2")[0].split()[0] if v["attribution"] else None)
+        cases[f"{target:.3f}"] = dict(mu_pool=v["mu_pool"], got=[got[0], got[1], sorted(got[2]) if got[2] else None,
+                                                                got[3]], ok=got == (verdict, row, near, attr))
+    cal = RR.calib()
+    w, _ = RR.weights()
+    sd_floor = math.sqrt(sum(w[f] ** 2 * cal["files"][f]["sd"] ** 2 for f in RR.F3))
+    dev_floor = 2 * sd_floor + RR.DMU_SYS
+    tmp = tempfile.mkdtemp(dir=os.path.join(HERE, "results"))
+    saved = DERIVED["anchor"]
+    try:
+        p = os.path.join(tmp, "anchor_bigB2.json")
+        json.dump(dict(B2=0.5), open(p, "w"))
+        DERIVED["anchor"] = p                                      # absolute: os.path.join(HERE, p) == p
+        v = at(rep, 0.952)
+        within_code = bool(v["attribution"] and v["attribution"]["reading"].startswith("within B2"))
+    finally:
+        DERIVED["anchor"] = saved
+        shutil.rmtree(tmp)
+    within_arm = dict(B2=B2, se_pool_floor=sd_floor, deviation_floor=dev_floor, reachable=dev_floor <= B2,
+                      code_path_fires_with_B2_0_5=within_code)
+    ok = all(c["ok"] for c in cases.values()) and within_code
+    for k, c in cases.items():
+        print(f"μ̃_pool {k}: {c['got']}  {'ok' if c['ok'] else 'WRONG'}")
+    print(f"'within B2' arm: B2 = {B2:.5f}; a FAIL below the band needs 1 − μ̃_pool > {dev_floor:.5f} (2 x SE_pool floor "
+          f"{sd_floor:.5f} + δμ_sys) → {'reachable' if within_arm['reachable'] else 'UNREACHABLE at the sealed B2'}; "
+          f"code path with B2 = 0.5: {'fires' if within_code else 'DOES NOT FIRE'}")
+    print("WITNESS", "PASS" if ok else "FAIL")
+    return ok, dict(replicate=rep, cases=cases, within_B2_arm=within_arm)
+
+
 # ---------------------------------------------------------------- seal builder
 def tagged_prediction_sha():
     rel = os.path.relpath(RR.PRED, os.path.join(HERE, "..", ".."))
@@ -408,7 +466,7 @@ def seal(check_only=False):
             ("P1", "P2", "P3", "P4", "P5", "P6")}
     checks = dict(text_exists=os.path.exists(TEXT), dryrun_as_expected=all(dry["as_expected"].values()),
                   dryrun_under_this_interpreter=dry["env"] == env(), anchor_linear=anc["linearity_max_rel"] < 0.01,
-                  refusals=refusals(), f3_md5_match_pins=all(pins.get(f) == m for f, m in F3_MD5.items()),
+                  refusals=refusals(), witness=witness()[0], f3_md5_match_pins=all(pins.get(f) == m for f, m in F3_MD5.items()),
                   prediction_is_tagged=sha(RR.PRED) == tagged_prediction_sha(),
                   calibration_pinned=sha(RR.CALIB_JSON) == RR.CALIB_SHA256, split_gate=bool(spl["gate"]["PASS"]),
                   cumul_gate=bool(cum["gate"]["PASS"]), ph2bins_bit_exact=all(b["pipeline_bit_exact"] for b in bins.values()),
@@ -434,7 +492,9 @@ def seal(check_only=False):
                                  attribution="|mu - 1| > B2 (and outside the band): connected n >= 3 structure or the "
                                  "estimator; within B2: consistent with pair-level uncertainty (round 45); truncation "
                                  "excluded (bound <= 1.2e-5)", assumption=anc["assumption"]), c="FAIL, unattributed"),
-               cumulant_cut=dict(increments=cum["increments"], note="descriptive; weights only if valid (round 45)"),
+               cumulant_cut=dict(increments=cum["increments"], validity=anc["cut_validity"]["reading"],
+                                 note="descriptive; weights only if valid (round 45)"),
+               witness=witness()[1],
                operating_characteristics=cal["operating_characteristics"], dryrun=dry["as_expected"], checks=checks)
     os.makedirs(os.path.dirname(SEAL), exist_ok=True)
     json.dump(out, open(SEAL, "w"), indent=1, sort_keys=True)
@@ -460,5 +520,7 @@ if __name__ == "__main__":
         synth(sys.argv[2], sys.argv[3])
     elif cmd == "refusals":
         sys.exit(0 if refusals() else 1)
+    elif cmd == "witness":
+        sys.exit(0 if witness()[0] else 1)
     elif cmd == "seal":
         sys.exit(seal("--check" in sys.argv))

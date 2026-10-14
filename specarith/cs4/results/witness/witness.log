@@ -1,0 +1,8 @@
+μ̃_pool 0.952: ['FAIL', 'c', ['0.955'], 'beyond']  ok
+μ̃_pool 0.945: ['FAIL', 'c', None, 'beyond']  ok
+μ̃_pool 0.970: ['FAIL', 'b', None, 'beyond']  ok
+μ̃_pool 0.980: ['FAIL', 'b', None, 'beyond']  ok
+μ̃_pool 1.000: ['PASS', 'a', None, None]  ok
+μ̃_pool 1.040: ['FAIL', 'c', None, None]  ok
+'within B2' arm: B2 = 0.00327; a FAIL below the band needs 1 − μ̃_pool > 0.01598 (2 x SE_pool floor 0.00789 + δμ_sys) → UNREACHABLE at the sealed B2; code path with B2 = 0.5: fires
+WITNESS PASS
