@@ -1241,3 +1241,19 @@ the reconciled F3 history (download date, md5 checks, and confirmation that noth
 the Bitcoin block of the f75e5816 prediction-manifest receipt.
 Seal stamp: ots upgrade and the two-explorer check once it’s attested.
 Findings wording: “consistent with the CS n ≤ 5 prediction (conditional on the ratios conjecture; one statistic; ±1.6%); the statistic depends substantially on n ≥ 3 correlation functions; connected-term sensitivity per item 1.”
+
+## Forty-ninth round (Will, 2026-10-15) — stamp timing; protocol change; connected terms not identifiable; selection-rule amendment (verbatim)
+Round 49:
+
+Stamp timing (findings + protocol).
+Record: the prediction and the rule files were anchored at block 971369 (2026-10-14 00:09 PDT), before any F3 decode. The seal is anchored by 08:21, after the read began at 08:03.
+Record that the verdict is insensitive to the rule’s tunable parameters: |μ̃ − 1| = 0.05 of the band.
+Add the GitHub push-event time for the route-a-seal tag once it appears, as a third-party timestamp.
+Protocol change, effective now: no decode until the seal’s OpenTimestamps receipt is Bitcoin-attested and verified.
+Connected-term constraints. Report them as model-dependent and not identifiable at N_eff ≈ 3.4. Give the reasons: node-rule sensitivity, the sign flip, and negative ρ₄ at ±0.02. Keep 0.063 and 0.19 out of the headline. Finish the μ₂ positivity check and state B₂’s status the same way.
+Selection-rule amendment. Commit it before computing either candidate’s power; it replaces 6122a236’s metric and S_A definition.
+Metric: |∂stat/∂μ|/SE_stat in the sealed global μ family. Eligible candidates need a block-cut n ≥ 3 share of at least 0.55. Highest metric wins; if neither is eligible, report that and stop.
+S_A: the largest s on {1.0, 1.1, …, 3.0} where the n = 6 truncation bound in μ units is ≤ 0.01 × the candidate’s band. This is computed data-free from CUE replicate SEs.
+Record that the amendment was made after the PASS and after the earlier rule turned out to be defective.
+Findings headline: “Route (a) PASS: consistent with the joint CS n ≤ 5 prediction (conditional on the ratios conjecture; one statistic; ±1.6%). The statistic depends substantially on the n ≥ 3 correlation functions; per-order connected constraints are not identifiable at this N_eff.”
+Open lead: per-order constraints may become identifiable at larger N_eff, where the cancellation is less severe. Weigh that against the smaller arithmetic corrections there.

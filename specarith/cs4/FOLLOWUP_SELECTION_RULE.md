@@ -58,3 +58,46 @@ If the chosen observable fails it, that goes to Will before any seal. The select
 - **Results file:** `results/followup_selection.json`. It records both ratios, both tie-break ratios, S_A, L, R and
   the seeds, then the choice.
 - **Commit order:** this file first, then the computations, then the choice, each as its own commit.
+
+---
+
+## Amendment 1 (round 49, Will, 2026-10-15) — replaces the metric and the S_A definition above
+**When and why.** This amendment was made after the route (a) PASS, and after the rule above (6122a236) turned out to
+be defective:
+- Its S_A criterion, 4·T₆^sine(s) ≤ 1.43e-9, holds nowhere on its grid {1.8, …, 3.0}; it first holds at s = 1.7.
+- It is committed before either candidate's power is computed.
+- The κ₃ terms for (B) and the CUE replicates were running when it was committed. Their outputs had not been read or
+  combined: only row counts had been seen.
+
+**Global μ.** μ is the sealed route (a) family's global amplitude: every arithmetic part (CS08's n ≤ 5 correction)
+is scaled jointly, with μ = 1 the prediction and μ = 0 the sine kernel.
+
+**Metric (replaces the primary and tie-break ratios).**
+- metric = |∂stat/∂μ| / SE_stat in the global μ family. stat is the candidate's pooled per-file amplitude μ̂ (as
+  defined above).
+- SE_stat comes from the CUE replicates (R = 100 per file, the same replicates for both candidates).
+- The pooled metric is |Σ w_f ∂μ*_f/∂μ| / (Σ w_f² SE_f²)^½.
+
+**Eligibility.** A candidate is eligible only if its block-cut n ≥ 3 share is at least 0.55. The block-cut share is the
+share of its arithmetic part that comes from the n ≥ 3 correlation functions: the model with ρ₃… at the sine kernel's
+values and ρ₂ at ζ's, against the full model, as route (a)'s block split.
+- (A): Δp⁽²⁾ = ΔT₃ − 2ΔT₄ + 3ΔT₅ involves no ρ₂, so its block-cut share is 1 by construction.
+- (B): the share is (ΔF₃ + 3L·ΔF₂)/(3ΔF₂ + ΔF₃), since ∫∫∫_{[0,L]³}Δρ₃ = ΔF₃ + 3L·ΔF₂.
+
+**Choice.**
+- The highest metric among eligible candidates wins.
+- (B)'s L is chosen from {0.5, 1.0, 1.5, 2.0, 3.0} by the same metric among its eligible L. If no L is eligible, (B) is
+  not eligible.
+- If neither candidate is eligible: report that and stop.
+- Exact ties: (A). This has no other role.
+
+**S_A (replaces the definition above).** S_A is the largest s on {1.0, 1.1, …, 3.0} at which the n = 6 truncation bound
+in μ units is ≤ 0.01 × (A)'s band at that window. It is computed data-free from the CUE replicate SEs:
+- The bound is route (a)'s construction (route_a_zeta check (c)) applied to p⁽²⁾'s n = 6 term, 4·T₆:
+  trunc(s) = 4·T6_CAP·|T₆^sine(s)| (T6_CAP = 100) at the nodes.
+  δμ_trunc = Σ|trunc|·|Δp⁽²⁾| / Σ(Δp⁽²⁾)² on the window grid.
+- (A)'s band at window s is 2·SE_pool,A(s), with SE_pool,A(s) from the CUE replicates' μ̂_A on the window s⁽²⁾ ≤ s.
+- If no s on the grid qualifies, (A) is not eligible.
+
+**Protocol (round 49, effective now).** No decode until the seal's OpenTimestamps receipt is Bitcoin-attested and
+verified. This binds the follow-up's read.
