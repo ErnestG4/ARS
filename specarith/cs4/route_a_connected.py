@@ -13,7 +13,8 @@ sensitivity: the skip rule assumes |ρ_n/ρ_n^sine| ≤ 100 there, which holds f
 symmetric ±0.01 difference, linearity by the one-sided slopes and ±0.02 (the B₂ method). Positivity at μ_k = 1 ± 0.02: ρ_n at
 every quadrature point (this file's run: n = 3 at primes ≤ 3·10⁵, n = 4, 5 at ≤ 1000, as the round-45 validity check;
 ρ₅^ζ from ratios_t5.Model, as the n = 5 presence check) and
-p(s) on the 1801-point window grid; the μ₂ family of B₂ is checked at the same points (descriptive). Implied constraint: |μ_k − 1| ≤ (|μ̃ − 1| + 2·SE_pool)/|∂μ*/∂μ_k| with the read's
+p(s) on the 1801-point window grid; the μ₂ family of B₂ is checked at the same points (descriptive). The n = 5 jobs also
+record ζ's full T₅ change at every node (primes ≤ 1000), which the follow-up's NNN candidate needs (FOLLOWUP_SELECTION_RULE). Implied constraint: |μ_k − 1| ≤ (|μ̃ − 1| + 2·SE_pool)/|∂μ*/∂μ_k| with the read's
 μ̃_pool and SE_pool (results/read/, 798065dc).
 
   python route_a_connected.py selftest
@@ -83,6 +84,7 @@ def run_one(job):
     else:
         pts = __import__("ratios_t5").t5_points(s)
         ds = [np.array([p[0][i] for p in pts]) for i in range(5)]
+        w5 = np.array([p[1] for p in pts])
     rhos, rz = RC.model_rhos(ds, lambda xs: RZ.rho(Z, xs), n - 1)
     if n == 5:                                   # FastZeta's R_n stops at n = 4; ρ₅^ζ from ratios_t5.Model (as presence)
         import math
@@ -92,6 +94,9 @@ def run_one(job):
         rz_full = np.real(RZ.rho(Z, ds))
     rhos[n] = rz_full
     out = dict(file=f, part=part, s=s, points=int(len(ds[0])), min_rho_zeta=float(np.min(rz_full)), min_rho={})
+    if n == 5:   # ζ's full T₅ change at this node (route_a_cumul's T₅ convention), for the follow-up's NNN candidate
+        out["T5_sine"] = float(-np.sum(w5 * rhos["sine"]) / 6)
+        out["dT5_zeta"] = float(-np.sum(w5 * (rz_full - rhos["sine"])) / 6)
     for k in KS:
         if k > n:
             continue
