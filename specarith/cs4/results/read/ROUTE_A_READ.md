@@ -1,0 +1,10 @@
+verdict (sealed rule): **PASS**;  outcome row: **(a)**
+μ̃_pool = 0.9992 ± 0.0159 (95% CI [0.9833, 1.0151]); files within 3 SE: 5/5; GoF pass: 5/5; misfit: []
+
+| file | μ̃_f | SE_f |
+|---|---|---|
+| zeros_15146000.dat | +0.9930 | 0.0146 |
+| zeros_25646000.dat | +1.0026 | 0.0137 |
+| zeros_248246000.dat | +0.9995 | 0.0174 |
+| zeros_2373446000.dat | +1.0023 | 0.0181 |
+| zeros_10639046000.dat | +0.9981 | 0.0202 |
