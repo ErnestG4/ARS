@@ -1,0 +1,258 @@
+{
+ "calibration_sha256": "722e19def9abce985de29036199579745754def5abf858e722a4b7b55ee8b825",
+ "checks": {
+  "anchor_linear": true,
+  "calibration_pinned": true,
+  "cumul_gate": true,
+  "dryrun_as_expected": true,
+  "dryrun_under_this_interpreter": true,
+  "f3_md5_match_pins": true,
+  "ph2bins_bit_exact": true,
+  "prediction_is_tagged": true,
+  "prestamp_bitcoin_verified": true,
+  "refusals": true,
+  "rule_selftest": true,
+  "split_gate": true,
+  "text_exists": true,
+  "witness": true
+ },
+ "code_sha256": {
+  "../ph2/ph2lib.py": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d",
+  "route_a_read.py": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+  "route_a_sealread.py": "858e1f9eb90e9bca9b3ab6de5df5167983c7bd7d7bb00a9a6ca780d0a6b8c336"
+ },
+ "cumulant_cut": {
+  "increments": {
+   "C2 (pair, from sine)": 0.2132419788132926,
+   "C3 - C2 (connected 3-point)": 0.26613394222490905,
+   "C4 - C3 (connected 4-point)": 0.09196488345452741,
+   "C5 - C4 (connected 5-point)": 0.42862354136466974
+  },
+  "note": "descriptive; weights only if valid (round 45)",
+  "validity": "not a valid decomposition at N_eff \u2248 3.4; not used for weights"
+ },
+ "derived_sha256": {
+  "anchor": "fe98ee88674f524536610bd8d4d187b1e596b15bfc3235ad37534c47ee12bd94",
+  "calib": "722e19def9abce985de29036199579745754def5abf858e722a4b7b55ee8b825",
+  "cumul": "011f01327a6a397cfb0a9e1a36c76e66e508f8a896c62a27204b14f9a5d5b0ea",
+  "equiv": "56b136813004f41ca5c480a59a427ec427ca6013493b9899aa15524164d40c7f",
+  "split": "6c2129896873e5bc7a89b0dcbf1e7cf5fbb0c8eeb7e38ad920a7c4115db9b5f3"
+ },
+ "dryrun": {
+  "bit_identical_runs": true,
+  "row_a_majority_at_mu1": true,
+  "row_b_majority_at_fit_sec": true,
+  "row_c_majority_at_mu0": true,
+  "standin_row_c": true
+ },
+ "env": {
+  "mpmath": "1.4.1",
+  "numpy": "2.5.3",
+  "python": "3.12.15",
+  "scipy": "1.18.1"
+ },
+ "f3_files": {
+  "zeros_10639046000.dat": {
+   "t0": 10639046000,
+   "t1": 10641146000
+  },
+  "zeros_15146000.dat": {
+   "t0": 15146000,
+   "t1": 17246000
+  },
+  "zeros_2373446000.dat": {
+   "t0": 2373446000,
+   "t1": 2375546000
+  },
+  "zeros_248246000.dat": {
+   "t0": 248246000,
+   "t1": 250346000
+  },
+  "zeros_25646000.dat": {
+   "t0": 25646000,
+   "t1": 27746000
+  }
+ },
+ "f3_md5": {
+  "zeros_10639046000.dat": "6203cd45f34fb389b3be1108bdf9c913",
+  "zeros_15146000.dat": "12759c6bf4892f90244d240a7893c96a",
+  "zeros_2373446000.dat": "10af7827aba9e214d135847c686e6d69",
+  "zeros_248246000.dat": "763374d804b79351fa5890bc56cae1b4",
+  "zeros_25646000.dat": "17769568c69cbabc1c47138f7159812e"
+ },
+ "n_f": {
+  "zeros_10639046000.dat": 7102295.443559359,
+  "zeros_15146000.dat": 4933733.595595598,
+  "zeros_2373446000.dat": 6601009.400697007,
+  "zeros_248246000.dat": 5847697.992740458,
+  "zeros_25646000.dat": 5100910.752438519
+ },
+ "operating_characteristics": {
+  "descriptive_not_pass_at_fit_sec_mustar": 0.975,
+  "false_fail": 0.055,
+  "fit_sec_mustar": {
+   "zeros_10639046000.dat": 0.9756398763000846,
+   "zeros_15146000.dat": 0.9580880975101498,
+   "zeros_2373446000.dat": 0.9698939855608166,
+   "zeros_248246000.dat": 0.9621075045041776,
+   "zeros_25646000.dat": 0.9600062481695342
+  },
+  "power_mu0": 1.0,
+  "verdicts_mu0": {
+   "FAIL": 200
+  },
+  "verdicts_mu1": {
+   "FAIL": 11,
+   "PASS": 189
+  }
+ },
+ "outcome_rows": {
+  "a": "PASS",
+  "b": {
+   "B2": 0.003265671473152738,
+   "assumption": "mu is a height-independent amplitude (R2 measured at its own heights)",
+   "attribution": "|mu - 1| > B2 (and outside the band): connected n >= 3 structure or the estimator; within B2: consistent with pair-level uncertainty (round 45); truncation excluded (bound <= 1.2e-5)",
+   "dmu_dmu2": 0.21771143154351744,
+   "mu_pool": [
+    0.955,
+    0.985
+   ],
+   "reading": "deviates from CS n<=5 at mu = 1, in the direction of Phase 2's fitted law"
+  },
+  "c": "FAIL, unattributed"
+ },
+ "prediction": {
+  "file": "results/route_a_zeta.json",
+  "tag": "route-a-prediction"
+ },
+ "prediction_sha256": "98fc235615cc406782ce069a1855f9de58560956c4b8f6e7699c0cf5161f2317",
+ "prestamp": {
+  "bitcoin_blocks": [
+   971369,
+   971402,
+   971415
+  ],
+  "commit": "f75e5816",
+  "earliest_bitcoin_block": {
+   "block_hash": "000000000000000000012340e4b23b48d910fceea62ac9cd95421c0d2f4a2cfc",
+   "height": 971369,
+   "time_utc": "2026-10-14T07:09:08+00:00"
+  },
+  "manifest": "timestamps/ROUTE_A_PRESTAMP_2026-10-14.txt",
+  "manifest_sha256": "444fa47f7d6c2c9c0afdf97a65a8deb60c67038e5d5a45dfe3e867b0fdd3abb5",
+  "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+  "receipt_sha256": "a6797fbda4e5308f069bf8aa0313ee6d5e1c44d98be72fe80daaa5e9fd846e1f"
+ },
+ "rule": {
+  "T": {
+   "zeros_10639046000.dat": 64.17130253525474,
+   "zeros_15146000.dat": 60.92127626959532,
+   "zeros_2373446000.dat": 62.09428637045446,
+   "zeros_248246000.dat": 58.93145681132388,
+   "zeros_25646000.dat": 62.484988177761245
+  },
+  "bias": {
+   "zeros_10639046000.dat": -0.0010675333770430423,
+   "zeros_15146000.dat": 0.002436597889772029,
+   "zeros_2373446000.dat": 0.0013591870137678965,
+   "zeros_248246000.dat": 0.0015593655771947263,
+   "zeros_25646000.dat": 0.002181381774195299
+  },
+  "block": 300,
+  "block_lens": [
+   300,
+   1000,
+   3000,
+   10000
+  ],
+  "dmu_sys": 0.0002,
+  "gof_bins": 36,
+  "gof_familywise": 0.01,
+  "misfit_files": 2,
+  "s_max": 1.8
+ },
+ "seal": "ROUTE_A_SEAL",
+ "text": "ROUTE_A_SEAL.md",
+ "text_sha256": "a1edffce963d688d3b5b178119c90eb5316354df622407af68d6f6ddb34c9d4c",
+ "weights": {
+  "zeros_10639046000.dat": 0.2400588163287776,
+  "zeros_15146000.dat": 0.166761050205853,
+  "zeros_2373446000.dat": 0.2231152612418373,
+  "zeros_248246000.dat": 0.19765320515615223,
+  "zeros_25646000.dat": 0.17241166706737987
+ },
+ "witness": {
+  "cases": {
+   "0.945": {
+    "got": [
+     "FAIL",
+     "c",
+     null,
+     "beyond"
+    ],
+    "mu_pool": 0.945,
+    "ok": true
+   },
+   "0.952": {
+    "got": [
+     "FAIL",
+     "c",
+     [
+      "0.955"
+     ],
+     "beyond"
+    ],
+    "mu_pool": 0.9520000000000001,
+    "ok": true
+   },
+   "0.970": {
+    "got": [
+     "FAIL",
+     "b",
+     null,
+     "beyond"
+    ],
+    "mu_pool": 0.97,
+    "ok": true
+   },
+   "0.980": {
+    "got": [
+     "FAIL",
+     "b",
+     null,
+     "beyond"
+    ],
+    "mu_pool": 0.98,
+    "ok": true
+   },
+   "1.000": {
+    "got": [
+     "PASS",
+     "a",
+     null,
+     null
+    ],
+    "mu_pool": 1.0,
+    "ok": true
+   },
+   "1.040": {
+    "got": [
+     "FAIL",
+     "c",
+     null,
+     null
+    ],
+    "mu_pool": 1.04,
+    "ok": true
+   }
+  },
+  "replicate": 0,
+  "within_B2_arm": {
+   "B2": 0.003265671473152738,
+   "code_path_fires_with_B2_0_5": true,
+   "deviation_floor": 0.01598048877938053,
+   "reachable": false,
+   "se_pool_floor": 0.007890244389690266
+  }
+ }
+}
