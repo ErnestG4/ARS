@@ -1,0 +1,71 @@
+{
+ "manifest": "timestamps/ROUTE_A_SEAL_STAMP_2026-10-15.txt",
+ "manifest_sha256": "1ce90d87651f2d10c60ef8e021b394e28bed98fc61fbf49b5f5b9ce5300a9742",
+ "receipt": "timestamps/ROUTE_A_SEAL_STAMP_2026-10-15.txt.ots",
+ "receipt_sha256": "67dc36ad611c3ccfd7daf56c2edcda83e5dc2b6a0d115f385a4d80da9f58515f",
+ "prediction_sha256_in_manifest": "98fc235615cc406782ce069a1855f9de58560956c4b8f6e7699c0cf5161f2317",
+ "attestations": [
+  {
+   "height": 971591,
+   "merkle_root": "07ad4ea813a1f10dd3346b87b37efe4c632192fa6f749c2b7c2486cf55281401",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "000000000000000000004162f3a4afbe081ec5be769327a68407eabd5893c87f",
+     "merkle_root": "07ad4ea813a1f10dd3346b87b37efe4c632192fa6f749c2b7c2486cf55281401",
+     "height": 971591,
+     "time_utc": "2026-10-15T15:21:06+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "000000000000000000004162f3a4afbe081ec5be769327a68407eabd5893c87f",
+     "merkle_root": "07ad4ea813a1f10dd3346b87b37efe4c632192fa6f749c2b7c2486cf55281401",
+     "height": 971591,
+     "time_utc": "2026-10-15T15:21:06+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "000000000000000000004162f3a4afbe081ec5be769327a68407eabd5893c87f",
+   "time_utc": "2026-10-15T15:21:06+00:00"
+  },
+  {
+   "height": 971594,
+   "merkle_root": "a567de869066847606caa77760f2ebb1e8ab465276533a18f6562a5dcb7c6ccc",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "000000000000000000013073e407a1dcc0441a31207f90c240381d5f00df3fc9",
+     "merkle_root": "a567de869066847606caa77760f2ebb1e8ab465276533a18f6562a5dcb7c6ccc",
+     "height": 971594,
+     "time_utc": "2026-10-15T15:41:14+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "000000000000000000013073e407a1dcc0441a31207f90c240381d5f00df3fc9",
+     "merkle_root": "a567de869066847606caa77760f2ebb1e8ab465276533a18f6562a5dcb7c6ccc",
+     "height": 971594,
+     "time_utc": "2026-10-15T15:41:14+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "000000000000000000013073e407a1dcc0441a31207f90c240381d5f00df3fc9",
+   "time_utc": "2026-10-15T15:41:14+00:00"
+  }
+ ],
+ "calendars": [
+  "https://finney.calendar.eternitywall.com",
+  "https://alice.btc.calendar.opentimestamps.org",
+  "https://bob.btc.calendar.opentimestamps.org",
+  "https://btc.calendar.catallaxy.com"
+ ],
+ "earliest": {
+  "height": 971591,
+  "block_hash": "000000000000000000004162f3a4afbe081ec5be769327a68407eabd5893c87f",
+  "time_utc": "2026-10-15T15:21:06+00:00"
+ },
+ "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+ "checks": {
+  "receipt_commits_to_manifest": true,
+  "manifest_hashes_match_tag": true,
+  "tag_object_matches": true,
+  "prediction_matches_manifest": true,
+  "bitcoin_attested": true,
+  "all_attestations_verify": true
+ }
+}

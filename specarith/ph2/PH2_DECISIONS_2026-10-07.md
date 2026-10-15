@@ -1223,3 +1223,21 @@ Then: rename to ROUTE_A_SEAL.md → build on spot → Will commits, tags and pus
   predates the download. That it predates the download rests on GitHub's PushEvent for 0f0c5f77 at 2026-10-13
   16:31:01 UTC (`cs4/timestamps/ROUTE_A_PREDICTION_GITHUB_PUSH.json`; route_a_zeta.json at 0f0c5f77 has sha256
   98fc2356…, the stamped value).
+
+## Forty-eighth round (Will, 2026-10-15) — PASS accepted; connected-term constraints; follow-up selection rule; findings (verbatim)
+Round 48: PASS row (a) accepted as sealed.
+
+Connected-term constraints (post hoc, data-free, labelled as derived).
+Compute ∂μ*/∂μ₃ and ∂μ*/∂μ₄, each scaling only the connected T₃ or T₄ arithmetic part wherever it appears, with the others at CS values.
+Use symmetric ±0.01 differences with a linearity check (the same method as B₂), and check that ρₙ and p(s) stay positive at ±0.02.
+Report the implied constraint |μ_k − 1| ≤ (|μ̃ − 1| + 2·SE_pool)/|∂μ*/∂μ_k|.
+GoF note (descriptive only): compare the five χ² values with the calibration’s mean χ² under CUE, and state whether this fits the rigidity-conservative covariance seen in the bins check.
+Follow-up observable.
+Commit the selection rule first: choose the observable with the larger |∂stat/∂μ₃|/SE_stat at the follow-up’s data geometry, with ties broken by |∂stat/∂μ₄|/SE.
+Then compute both and choose mechanically. Record that the choice was made after the route (a) PASS.
+It runs as an independent replication: tagged prediction → OpenTimestamps stamp → fresh zeros → seal → read.
+Still open from round 47; put both in the findings file:
+the reconciled F3 history (download date, md5 checks, and confirmation that nothing was decoded before 10/15 08:03);
+the Bitcoin block of the f75e5816 prediction-manifest receipt.
+Seal stamp: ots upgrade and the two-explorer check once it’s attested.
+Findings wording: “consistent with the CS n ≤ 5 prediction (conditional on the ratios conjecture; one statistic; ±1.6%); the statistic depends substantially on n ≥ 3 correlation functions; connected-term sensitivity per item 1.”
