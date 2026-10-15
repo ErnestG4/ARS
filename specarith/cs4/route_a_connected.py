@@ -117,7 +117,7 @@ def run(chunk, nchunks, out_dir):
     done = set()
     if os.path.exists(path):
         done = {(r["file"], r["part"], r["s"]) for r in map(json.loads, open(path))}
-    J = sorted(jobs(), key=lambda j: {"n5": 0, "n4": 1, "n3": 2}[j[1]])
+    J = sorted(jobs(), key=lambda j: {"n3": 0, "n4": 1, "n5": 2}[j[1]])   # cheap orders first; n = 5 (hours/node) last
     for i, j in enumerate(J):
         if i % nchunks != chunk or j in done:
             continue
