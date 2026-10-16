@@ -39,8 +39,8 @@ per-order connected constraints are not identifiable at this N_eff.
 ## 3. Connected-term sensitivity (rounds 48–49; POST HOC, data-free, derived)
 **Per-order connected constraints are model-dependent and not identifiable at N_eff ≈ 3.4.**
 - **Construction:** μ_k scales only κ_k's arithmetic part, k = 3, 4, wherever it appears, with every other cumulant at
-  CS values (`route_a_connected.py`; `results/route_a_connected.json` once the n = 5 tail lands; the n = 3 and n = 4 rows
-  are in `results/connected/` on spot).
+  CS values (`route_a_connected.py`; `results/route_a_connected.json`; the 360 positivity rows, n = 3, 4 and 5, are in
+  `results/connected/`).
   - For n ≤ 5 the change is exactly (μ_k − 1)(C_k − C_{k−1}) of the cumulant cut. A CUE known-answer test confirms
     this to 5.4e-16.
   - Derivatives use B₂'s method: the symmetric ±0.01 difference of the read's estimator limit, with changes at every
@@ -69,8 +69,10 @@ per-order connected constraints are not identifiable at this N_eff.
   - The μ₂ and μ₃ families mirror each other near coincidence (μ₂ = 1.02 ≈ μ₃ = 0.98): the κ₂ and κ₃ arithmetic
     corrections cancel there.
   - B₂ was never used: the read passed, and the attribution applies only to a FAIL.
-- The n = 5 points (ρ₅ through the ratios model, hours per node) are still being computed. They cannot make these
-  families positive.
+- **n = 5 (ρ₅ through the ratios model, primes ≤ 1000):** every family also gives negative ρ₅ at ±0.02. At s > 0.3 the
+  minima are −4.2e-3 (μ₃ = 0.98), −2.6e-3 (μ₃ = 1.02), −5.2e-3 (μ₄ = 0.98), −1.5e-2 (μ₄ = 1.02), −7.1e-4 (μ₂ = 0.98)
+  and −9.5e-4 (μ₂ = 1.02), against ζ's own minimum there of −2.3e-8. At s > 1.0, every family's minimum is below ζ's at
+  every node (60 of 60 rows each).
 
 ## 4. GoF note (descriptive only)
 - **χ² against CUE, per file:** the five χ² values (37.3, 31.2, 24.2, 24.1, 32.4) set against the calibration's CUE
