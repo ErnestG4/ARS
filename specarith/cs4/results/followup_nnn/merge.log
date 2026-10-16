@@ -1,0 +1,5 @@
+zeros_15146000.dat: max|Δp⁽²⁾| 3.6049e-01 at s = 3.000; max quad err 1.3e-06
+zeros_25646000.dat: max|Δp⁽²⁾| 3.6304e-01 at s = 3.000; max quad err 1.4e-06
+zeros_248246000.dat: max|Δp⁽²⁾| 3.7299e-01 at s = 3.000; max quad err 1.2e-06
+zeros_2373446000.dat: max|Δp⁽²⁾| 3.8130e-01 at s = 3.000; max quad err 9.8e-07
+zeros_10639046000.dat: max|Δp⁽²⁾| 3.8616e-01 at s = 3.000; max quad err 8.2e-07
