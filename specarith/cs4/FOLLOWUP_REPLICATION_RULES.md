@@ -99,3 +99,21 @@ cancellation that makes the per-order constraints in `ROUTE_A_FINDINGS.md` §3 n
 - **Exactly one FAIL:** reported as a FAIL for that observable, with attribution limited to "observable-specific model
   terms or estimator". It is not a refutation of route (a).
 - **Both FAIL:** route (a)'s PASS is called into question, and that is reported plainly.
+
+## Round 51 addendum (Will, 2026-10-16)
+**Geometry.** The gap rule stays. F4, for (A): the three declared files (L = 17.5, 19.75, 21.25). F5, for (B): those
+three plus the L ≈ 15.59 file. The asymmetry is deliberate: the weaker observable, (B), gets the extra low-height file.
+This was decided before any F4/F5 prediction, calibration or download (`../ph2r2/FRESH_SETS_F4_F5.md`).
+
+**(A).** S_A = 1.6 from the window_A rerun (b3fa4824), with the refusal fix: an invalid window is recorded as invalid,
+never a hang. `followup_fit.py selftest` gains a red path for it (an injected negative-density window, run through the
+pool with a timeout).
+
+**(B)'s L = 3 known-answer flag (committed before the rerun).** L stays at 3.
+- **Rerun:** `followup_cuen.py` with fresh seeds [20261016, 51, N, batch] and 2× the replicates (4000 batches of
+  20,000 matrices per N, N = 8, 12, 16, 24, 32), merged to `results/followup_cuen_r51.json`. The first run's batches are
+  not pooled with it.
+- **Reading:** the χ² of the L = 3 known-answer fit on its 3 degrees of freedom, p = P(χ²₃ ≥ χ²).
+  - p ≥ 0.01: the first run's χ² of 11.0 is recorded as chance.
+  - p < 0.01: the known-answer check is recorded as marginal at L = 3, and that is carried as a caveat on (B)'s result.
+- The rerun's L = 3 slope is reported with the first run's. Neither changes L.
