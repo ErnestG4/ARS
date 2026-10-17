@@ -152,6 +152,12 @@ def load_reps(d):
 _G = {}
 
 
+def _invalid(s, why):
+    """A window where the model itself is invalid (e.g. the μ = 1 density ≤ 0) cannot satisfy the S_A condition."""
+    print(f"(A) s ≤ {s:.1f}: INVALID WINDOW — {why}", flush=True)
+    return f"{s:.1f}", dict(valid=False, reason=why, t5_ok=False, trunc_ok=False, failures=0)
+
+
 def _window(s):
     reps, nnn, sr, p0_all, trunc_all, wts = (_G[k] for k in ("reps", "nnn", "sr", "p0", "trunc", "w"))
     sel = np.nonzero((CENTRES >= sr) & (CENTRES < s - 1e-12))[0]
@@ -165,12 +171,12 @@ def _window(s):
         for m in (0.98, 0.99, 1.01, 1.02):
             lim[m], why = fit_A(expected(p0, dp, m), p0, dp, wbin)
             if why:
-                raise SystemExit(f"{f} s ≤ {s}: estimator-limit fit failed at μ′ = {m}: {why}")
+                return _invalid(s, f"{f}: estimator-limit fit failed at μ′ = {m}: {why}")
         slope = (lim[1.01] - lim[0.99]) / 0.02
         lin = abs((lim[1.02] - lim[0.98]) / 0.04 - slope)
         mo, why = fit_A(expected(p0, dpo, 1.0), p0, dp, wbin)
         if why:
-            raise SystemExit(f"{f} s ≤ {s}: T₅-bracket fit failed: {why}")
+            return _invalid(s, f"{f}: T₅-bracket fit failed: {why}")
         mus, fails = [], []
         for k in sorted(reps[f]):
             h = _G["hist"][(f, k)][sel]
@@ -184,7 +190,7 @@ def _window(s):
     se_pool = float(np.sqrt(sum(wts[f] ** 2 * per[f]["se_mu"] ** 2 for f in RR.F3)))
     t5 = float(sum(wts[f] * per[f]["dmu_T5"] for f in RR.F3))
     tr = float(sum(wts[f] * per[f]["dmu_trunc"] for f in RR.F3))
-    out = dict(files=per, se_pool_mu=se_pool, band=2 * se_pool, dmu_T5_pool=t5, dmu_trunc_pool=tr,
+    out = dict(valid=True, files=per, se_pool_mu=se_pool, band=2 * se_pool, dmu_T5_pool=t5, dmu_trunc_pool=tr,
                dmustar_dmu_pool=float(sum(wts[f] * per[f]["dmustar_dmu"] for f in RR.F3)),
                t5_ok=t5 <= TRUNC_FRAC * 2 * se_pool, trunc_ok=tr <= TRUNC_FRAC * 2 * se_pool,
                failures=sum(len(per[f]["failures"]) for f in RR.F3))
@@ -218,6 +224,7 @@ def window_A(reps_dir, procs=21):
     checks = {}
     if SA:
         checks = dict(contiguous=all(win[s]["t5_ok"] for s in win if float(s) <= float(SA)),
+                      all_valid_below=all(win[s]["valid"] for s in win if float(s) <= float(SA)),
                       trunc6_at_SA=win[SA]["trunc_ok"], SA_le_2=float(SA) <= S_A_MAX,
                       no_failures=all(win[s]["failures"] == 0 for s in win if float(s) <= float(SA)))
     res = dict(round="fiftieth", rules="FOLLOWUP_REPLICATION_RULES.md (4cd011d8)", model=MODEL, other_end=OTHER,

@@ -1,0 +1,23 @@
+S_RES 0.1714 (p⁽²⁾_sine ≥ 1e-06 from there on); sine mass below it 2.16e-08 per spacing
+(A) s ≤ 2.9: INVALID WINDOW — zeros_15146000.dat: estimator-limit fit failed at μ′ = 0.98: prediction (μ = 1) density <= 0 in the window
+(A) s ≤ 3.0: INVALID WINDOW — zeros_15146000.dat: estimator-limit fit failed at μ′ = 0.98: prediction (μ = 1) density <= 0 in the window
+(A) s ≤ 1.4: SE_pool 0.01004 (μ units), δμ_T5 1.00e-05 (≤ 2.01e-04? True), δμ_trunc 9.56e-10 (True), ∂μ*/∂μ 0.99999–1.00000, linearity ≤ 1.3e-05, failures 0
+(A) s ≤ 1.3: SE_pool 0.01290 (μ units), δμ_T5 3.23e-06 (≤ 2.58e-04? True), δμ_trunc 1.31e-10 (True), ∂μ*/∂μ 1.00000–1.00000, linearity ≤ 3.9e-06, failures 0
+(A) s ≤ 1.0: SE_pool 0.03859 (μ units), δμ_T5 5.05e-08 (≤ 7.72e-04? True), δμ_trunc 1.59e-13 (True), ∂μ*/∂μ 0.99999–1.00001, linearity ≤ 1.4e-05, failures 0
+(A) s ≤ 1.1: SE_pool 0.02375 (μ units), δμ_T5 2.31e-07 (≤ 4.75e-04? True), δμ_trunc 1.19e-12 (True), ∂μ*/∂μ 0.99999–1.00002, linearity ≤ 1.3e-05, failures 0
+(A) s ≤ 1.6: SE_pool 0.00616 (μ units), δμ_T5 8.13e-05 (≤ 1.23e-04? True), δμ_trunc 2.64e-08 (True), ∂μ*/∂μ 0.99998–1.00001, linearity ≤ 2.3e-05, failures 0
+(A) s ≤ 1.2: SE_pool 0.01737 (μ units), δμ_T5 9.87e-07 (≤ 3.47e-04? True), δμ_trunc 1.36e-11 (True), ∂μ*/∂μ 1.00000–1.00002, linearity ≤ 2.0e-05, failures 0
+(A) s ≤ 2.0: SE_pool 0.00409 (μ units), δμ_T5 2.69e-03 (≤ 8.18e-05? False), δμ_trunc 5.14e-05 (True), ∂μ*/∂μ 0.99999–1.00001, linearity ≤ 1.2e-05, failures 0
+(A) s ≤ 2.1: SE_pool 0.00393 (μ units), δμ_T5 5.41e-03 (≤ 7.85e-05? False), δμ_trunc 1.70e-04 (False), ∂μ*/∂μ 0.99999–1.00000, linearity ≤ 7.5e-06, failures 0
+(A) s ≤ 1.7: SE_pool 0.00535 (μ units), δμ_T5 2.13e-04 (≤ 1.07e-04? False), δμ_trunc 4.06e-07 (True), ∂μ*/∂μ 0.99999–1.00000, linearity ≤ 5.2e-06, failures 0
+(A) s ≤ 1.5: SE_pool 0.00756 (μ units), δμ_T5 2.94e-05 (≤ 1.51e-04? True), δμ_trunc 3.86e-09 (True), ∂μ*/∂μ 0.99998–1.00001, linearity ≤ 1.4e-05, failures 0
+(A) s ≤ 2.4: SE_pool 0.00386 (μ units), δμ_T5 8.41e-03 (≤ 7.73e-05? False), δμ_trunc 1.60e-03 (False), ∂μ*/∂μ 1.00000–1.00000, linearity ≤ 5.1e-06, failures 0
+(A) s ≤ 1.8: SE_pool 0.00465 (μ units), δμ_T5 5.27e-04 (≤ 9.29e-05? False), δμ_trunc 2.88e-06 (True), ∂μ*/∂μ 0.99999–1.00001, linearity ≤ 1.3e-05, failures 0
+(A) s ≤ 2.6: SE_pool 0.00369 (μ units), δμ_T5 2.51e-01 (≤ 7.39e-05? False), δμ_trunc 4.07e-02 (False), ∂μ*/∂μ 1.00000–1.00001, linearity ≤ 1.1e-05, failures 0
+(A) s ≤ 1.9: SE_pool 0.00430 (μ units), δμ_T5 1.23e-03 (≤ 8.61e-05? False), δμ_trunc 1.35e-05 (True), ∂μ*/∂μ 1.00000–1.00000, linearity ≤ 4.2e-06, failures 0
+(A) s ≤ 2.5: SE_pool 0.00382 (μ units), δμ_T5 4.51e-02 (≤ 7.63e-05? False), δμ_trunc 7.50e-03 (False), ∂μ*/∂μ 0.99999–1.00001, linearity ≤ 1.3e-05, failures 0
+(A) s ≤ 2.2: SE_pool 0.00390 (μ units), δμ_T5 9.70e-03 (≤ 7.79e-05? False), δμ_trunc 4.86e-04 (False), ∂μ*/∂μ 1.00000–1.00001, linearity ≤ 1.0e-05, failures 0
+(A) s ≤ 2.7: SE_pool 0.00298 (μ units), δμ_T5 6.68e-01 (≤ 5.96e-05? False), δμ_trunc 1.37e-01 (False), ∂μ*/∂μ 1.00000–1.00001, linearity ≤ 6.0e-06, failures 0
+(A) s ≤ 2.3: SE_pool 0.00386 (μ units), δμ_T5 1.39e-02 (≤ 7.72e-05? False), δμ_trunc 1.11e-03 (False), ∂μ*/∂μ 1.00000–1.00001, linearity ≤ 1.3e-05, failures 0
+(A) s ≤ 2.8: SE_pool 0.00198 (μ units), δμ_T5 1.05e+00 (≤ 3.97e-05? False), δμ_trunc 3.05e-01 (False), ∂μ*/∂μ 0.99999–1.00000, linearity ≤ 3.2e-06, failures 0
+S_A = 1.6; checks {'contiguous': True, 'all_valid_below': True, 'trunc6_at_SA': True, 'SA_le_2': True, 'no_failures': True}
