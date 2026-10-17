@@ -1,0 +1,29 @@
+Route (a) replications (A) and (B): prediction timestamp manifest (OpenTimestamps; round 52, 2026-10-17).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is FOLLOWUP_PRESTAMP_2026-10-17.txt.ots.
+Statement: at the time of stamping, no F4 or F5 file has been downloaded (FRESH_SETS_F4_F5.md lists them); neither
+replication's calibration has been fitted; neither seal is drafted (each gets its own stamp, Bitcoin-attested and
+verified, before any F4/F5 download or decode: round 52 standing rule).
+
+repo                          criticality_tool, branch specarith
+tag followup-a-prediction     object cfbd50f09341d2d60dab6aa0f3adbdd2a1da64b9
+tag followup-b-prediction     object 98610c854b679dff9c7661ab2b79a04233538a21
+                              both on commit 19101965a5021f1f193198f6472d029b888f69ae
+(A) prediction                specarith/cs4/results/followup_pred_A.json
+                              sha256 5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa
+(B) prediction                specarith/cs4/results/followup_pred_B.json
+                              sha256 c0687b9a870d1874fb1ddfbf6e5f38a34352985d0da6bd6d608db3b19d7d149e
+gates                         specarith/cs4/results/followup_gates.json
+                              sha256 228b8d285496736592c75b72681fd7aef29b04191b506e9ed185adbfe637c3ea
+prediction code               specarith/cs4/followup_pred.py
+                              sha256 4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912
+gate code                     specarith/cs4/followup_gates.py
+                              sha256 31d31842d0d727235cb8215480d0e7db2cbd181bca1d83650027e67c540e6fdb
+fit code (A)                  specarith/cs4/followup_fit.py
+                              sha256 7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5
+read rule (draft, round 52)   specarith/cs4/followup_read.py
+                              sha256 07984cf6603d06aa08b99f70fcfc36cde6c56b1c0e25c5e6fd63c3955454788a
+replication rules             specarith/cs4/FOLLOWUP_REPLICATION_RULES.md
+                              sha256 2e7b9a4d88e7a8866e400e3f93573c09ca4f5acbc9fa9435fbfe0f5fee7931d8
+fresh sets (md5-pinned)       specarith/ph2r2/FRESH_SETS_F4_F5.md
+                              sha256 6398466c66894fab5c41f434da25e5235fbfc957a8a5abc20e5ec315a0170151
+(sha256 of `git show 19101965:<path>`, i.e. the committed blob's bytes)
