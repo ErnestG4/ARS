@@ -1,0 +1,11 @@
+(A) green μ = 0.0: μ̂ +0.0008 ± 0.0116 (block 300: 0.0123) z +0.07 χ² 22.5 refits {'1': 0, '300': 0} → PASS
+(A) green μ = 0.5: μ̂ +0.5088 ± 0.0108 (block 300: 0.0116) z +0.82 χ² 19.4 refits {'1': 0, '300': 0} → PASS
+(A) green μ = 1.0: μ̂ +0.9920 ± 0.0095 (block 300: 0.0113) z -0.84 χ² 18.2 refits {'1': 0, '300': 0} → PASS
+(A) series bootstrap vs exact refits (20 replicates, block 1000): max |diff| 1.4e-07 → PASS
+(A) red: Poisson spacings → μ̂ None (at the bound (-20, 1.712)) χ² None → PASS (flagged)
+(B) green: Poisson(3) counts → k₃ 3.0055 (κ₃ = 3), z +0.41 → PASS
+(B) block-sum bootstrap vs materialised resamples: max |diff| 1.8e-15 → PASS
+(B) seq_B on a unit grid: 9999 windows, counts {3} → PASS
+(A) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('MODEL MISFIT', 'MODEL MISFIT'), ('MODEL MISFIT', 'MODEL MISFIT'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+(B) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+SELFTEST PASS
