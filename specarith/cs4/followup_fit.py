@@ -15,7 +15,8 @@ construction on 4·T6_CAP·|T₆^sine|, in μ units; SE_f = SD of the replicate 
 (B), §2 and §4: SE_f of μ̂_B from the k-statistic on the replicates; ∂μ*_B/∂μ = (the linear limit, evaluated) × (the
 CUE_N slope, results/followup_cuen.json); metric |Σ w ∂μ*/∂μ| / (Σ w² SE²)^½; L = argmax (exact tie → smaller L).
 
-  python followup_fit.py selftest                 (green and red paths; must pass before any calibration)
+  python followup_fit.py selftest                 (green and red paths, incl. red 3 through the pool; must pass before
+                                                   any calibration)
   python followup_fit.py window_A REPS_DIR        → results/followup_window_A.json
   python followup_fit.py window_B REPS_DIR        → results/followup_window_B.json
 """
@@ -134,8 +135,54 @@ def selftest():
     ok &= r2
     print(f"red 2: Δp⁽²⁾ := −2p_sine at bin {j} (density < 0 there for μ > 0.5) → {mu} ({why}) "
           f"{'PASS' if r2 else 'FAIL (returned a value)'}")
+    ok &= _red_pool(nnn, p2)
     print("selftest:", "PASS" if ok else "FAIL")
     return ok
+
+
+def _stall_witness(s):
+    raise SystemExit(f"the first window_A run's refusal (d0563bd9), at s = {s}")
+
+
+def _red_pool(nnn, p2, timeout=600):
+    """Red 3 (round 51): an injected negative-density window goes through the pool, must come back recorded as invalid
+    within the timeout, and must not stall it. Witness: a worker that raises SystemExit (the first window_A run's
+    refusal) does stall map, so this red path can fire."""
+    import copy
+    from multiprocessing import TimeoutError as PoolTimeout
+    bad = copy.deepcopy(nnn)
+    for f in RR.F3:
+        bad["files"][f][MODEL]["dp_nodes"] = [100 * v for v in nnn["files"][f][MODEL]["dp_nodes"]]
+    p0_all = p2(CENTRES)
+    sr = max(s_res(p0_all), RR.S_TINY)
+    hist = {}
+    for f in RR.F3:
+        dp = N.nn_interp(nnn["files"][f][MODEL]["dp_nodes"], CENTRES)
+        q = np.where(CENTRES >= sr, np.maximum(p0_all + dp, 0), 0) * HB
+        hist[(f, 0)] = np.round(q / q.sum() * 5e6)
+        hist[(f, 1)] = hist[(f, 0)].copy()
+    w, _ = RR.weights()
+    _G.update(reps={f: {0: {}, 1: {}} for f in RR.F3}, nnn=bad, sr=sr, p0=p0_all, w=w,
+              trunc=np.abs(N.nn_interp(nnn["trunc6_bound"], CENTRES)), hist=hist)
+    with Pool(2) as P:
+        try:
+            res = dict(P.map_async(_window, [1.6, 1.0]).get(timeout=timeout))
+            r3 = all(res[k]["valid"] is False for k in ("1.6", "1.0"))
+            why = "; ".join(res[k].get("reason", "VALID") for k in ("1.6", "1.0"))
+        except PoolTimeout:
+            r3, why = False, f"pool stalled ({timeout} s)"
+    with Pool(1) as P:
+        try:
+            P.map_async(_stall_witness, [1.6]).get(timeout=20)
+            stalls = False
+        except PoolTimeout:
+            stalls = True
+        P.terminate()
+    print(f"red 3: Δp⁽²⁾ × 100 (μ = 1 density < 0) through the pool at s ≤ 1.6 and 1.0 → {why} "
+          f"{'PASS (recorded invalid, no stall)' if r3 else 'FAIL'}; witness: a SystemExit worker "
+          f"{'stalls map (the red path can fire)' if stalls else 'does NOT stall map'}")
+    _G.clear()
+    return r3 and stalls
 
 
 # ------------------------------------------------------------------ (A)'s window
