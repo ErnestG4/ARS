@@ -1257,3 +1257,34 @@ S_A: the largest s on {1.0, 1.1, …, 3.0} where the n = 6 truncation bound in �
 Record that the amendment was made after the PASS and after the earlier rule turned out to be defective.
 Findings headline: “Route (a) PASS: consistent with the joint CS n ≤ 5 prediction (conditional on the ratios conjecture; one statistic; ±1.6%). The statistic depends substantially on the n ≥ 3 correlation functions; per-order connected constraints are not identifiable at this N_eff.”
 Open lead: per-order constraints may become identifiable at larger N_eff, where the cancellation is less severe. Weigh that against the smaller arithmetic corrections there.
+
+## Fiftieth round (Will, 2026-10-16) — selection abandoned; both observables as independent replications (verbatim)
+Round 50: option 3. Both observables run as independent replications, with no selection.
+
+Record that the selection was abandoned after the defective run (d3c50fa8), and that both candidates’ SEs were seen before this decision. The n ≥ 3 share criterion is withdrawn as ill-conditioned for (B), for the same reason as §3’s non-identifiability.
+Mechanical fixes (from amendment 2, needed for calibration only):
+Fit (A) only on bins where p⁽²⁾_sine is resolved and positive.
+A fit at its bound is a failure, not a value.
+Define the every-node variants’ small-s handling, or drop those variants.
+Add a red path: an injected negative-interpolation bin must trigger failure, not a bound value.
+(A)’s window, data-free. S_A is the largest s where the T₅ bracket disagreement, in μ units, is ≤ 0.01 × (A)’s band. Commit the rule before computing it. On current numbers that’s around 1.65–2.0, so the window can’t go past 2.0 without the exact T₅.
+(B)’s L, data-free. Choose L by |∂stat/∂μ|/SE in the global μ family, computed with the fixed code. Commit the rule first.
+For each observable:
+measure ∂μ*/∂μ properly, with no assuming it equals 1;
+tagged prediction → calibration (false-FAIL rate and power) → seal → OpenTimestamps stamp, Bitcoin-attested before decode → fresh zeros not yet downloaded → double read.
+Joint reading, declared in both seals:
+Each test keeps its own calibrated false-FAIL rate. Report the family-wise rate, about 1 − (1 − α₁)(1 − α₂).
+Both PASS: replication of route (a) by two further observables.
+Exactly one FAIL: reported as a FAIL for that observable, with attribution limited to “observable-specific model terms or estimator”. It is not a refutation of route (a).
+Both FAIL: route (a)’s PASS is called into question, and that gets reported plainly.
+§3 stands with the n = 5 minima as committed in 878f9837.
+
+**Record (filed with round 50).**
+- The follow-up selection (FOLLOWUP_SELECTION_RULE.md, 6122a236 + amendment 1, 968a8066) is abandoned after its one
+  run, which was defective (d3c50fa8). No choice was made from it.
+- Both candidates' replicate SEs were printed by that run and seen before this decision: (A) SE_pool 0.0386 → 0.0039
+  over s ≤ 1.0 … 2.1 (skip-rule variants); (B) SE_pool 0.0235, 0.0162, 0.0187, 0.0154, 0.0145 at L = 0.5, 1, 1.5, 2, 3.
+  So both data-free window rules below are fixed after those SEs were seen.
+- The block-cut n ≥ 3 share criterion is withdrawn for (B): Δκ₃ = 3ΔF₂ + ΔF₃ nearly cancels, so the share is
+  ill-conditioned (3.9, 9.0, 15.8 at L = 1.5, 2, 3; identically 1 at L = 1), the same cancellation that makes the
+  per-order constraints in findings §3 non-identifiable.
