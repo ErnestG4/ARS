@@ -126,7 +126,7 @@ per-order connected constraints are not identifiable at this N_eff.
     the tag's push to GitHub before the stamp (observed by ls-remote at about 08:00 PDT), the calendars' receipt at
     08:02, and the read's own refusal without the seal JSON.
 
-## 7. Follow-up (rounds 46, 48, 49)
+## 7. Follow-up (rounds 46, 48–51)
 - **Selection rule:** committed before any computation for it (`FOLLOWUP_SELECTION_RULE.md`, 6122a236). Its S_A
   criterion turned out to be empty on its grid.
 - **Amendment 1** (968a8066): made after the PASS and after that defect, and before either candidate's power was
@@ -134,6 +134,23 @@ per-order connected constraints are not identifiable at this N_eff.
   the new S_A. The choice is made after this PASS.
 - **Form:** it runs as an independent replication: tagged prediction → OpenTimestamps stamp → fresh zeros → seal →
   read.
+- **Selection abandoned (round 50).** The selection's one run (d3c50fa8) was defective: (A)'s ∂μ*/∂μ check returned 0
+  and the every-node fits failed. No choice was made from it. Both candidates' replicate SEs were seen before round 50.
+  (B)'s n ≥ 3 share criterion is withdrawn as ill-conditioned (the same cancellation as §3).
+- **Both observables run as independent replications (rounds 50–51; `FOLLOWUP_REPLICATION_RULES.md`):**
+  - (A), the next-nearest-neighbour law: window s ≤ S_A = 1.6, where the T₅ bracket disagreement first exceeds
+    0.01 × the band at 1.7. ∂μ*/∂μ measured 1.0000. Fresh set F4: three files, L = 17.5, 19.75, 21.25.
+  - (B), the third cumulant of the count: L = 3.0. ∂μ*/∂μ is the exact linear limit times a CUE_N known-answer slope
+    (1.012 ± 0.026 at L = 3). Fresh set F5: the same three heights plus L ≈ 15.59. The weaker observable gets the extra
+    low-height file, by Will's decision before any F4/F5 prediction, calibration or download
+    (`../ph2r2/FRESH_SETS_F4_F5.md`).
+  - Joint reading, declared in both seals: each test keeps its own calibrated false-FAIL rate, and the family-wise
+    rate 1 − (1 − α₁)(1 − α₂) is reported. Both PASS: replication of route (a) by two further observables. Exactly
+    one FAIL: a FAIL for that observable, with attribution limited to observable-specific model terms or estimator;
+    not a refutation of route (a). Both FAIL: route (a)'s PASS is called into question, reported plainly.
+- **Validity edge (descriptive).** The μ = 1 CS n ≤ 5 next-nearest-neighbour prediction goes non-positive near
+  s ≈ 2.9 at F-set heights, which is a validity edge of the truncated expansion (`results/followup_window_A.json`:
+  the windows s ≤ 2.9 and 3.0 are invalid).
 
 ## 8. Open lead (round 49)
 Per-order connected constraints may become identifiable at larger N_eff, where the cancellation near coincidence is less
