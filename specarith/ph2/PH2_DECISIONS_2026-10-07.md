@@ -1288,3 +1288,20 @@ Both FAIL: route (a)’s PASS is called into question, and that gets reported pl
 - The block-cut n ≥ 3 share criterion is withdrawn for (B): Δκ₃ = 3ΔF₂ + ΔF₃ nearly cancels, so the share is
   ill-conditioned (3.9, 9.0, 15.8 at L = 1.5, 2, 3; identically 1 at L = 1), the same cancellation that makes the
   per-order constraints in findings §3 non-identifiable.
+
+## Fifty-first round (Will, 2026-10-16) — F4/F5 geometry; S_A committed with a red path; (B)'s L = 3 known-answer flag; findings line (verbatim)
+Round 51:
+
+Geometry.
+Keep the gap rule.
+F4, for (A): the three declared files (L = 17.5, 19.75, 21.25).
+F5, for (B): those three plus the L ≈ 15.59 file.
+Record the asymmetry and the reason: the weaker observable gets the extra low-height file, decided before any F4/F5 prediction, calibration or download.
+Then commit FRESH_SETS_F4_F5.md.
+(A). Commit S_A = 1.6 from the rerun, together with the refusal fix (invalid window = invalid, never a hang). Add a red path: an injected negative-density window must be recorded as invalid and must not stall the pool.
+(B)’s L = 3 known-answer flag. L stays at 3. Before running anything, commit this reading:
+Then rerun the L = 3 known-answer fit with fresh seeds and at least 2× the replicates.
+If χ² has p ≥ 0.01: record it as chance.
+If p < 0.01: record the known-answer check as marginal at L = 3, and carry that as a caveat on (B)’s result.
+Findings line, descriptive: the μ = 1 CS n ≤ 5 NNN prediction goes non-positive near s ≈ 2.9 at F-set heights, which is a validity edge of the truncated expansion.
+Then, per observable: prediction → tag → calibration (false-FAIL rate and power at the final geometry) → seal → OpenTimestamps stamp, attested before decode → download → double read. The joint reading rule is as in round 50.
