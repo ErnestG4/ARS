@@ -1,0 +1,10 @@
+green: expected counts at μ = 0.99 → 0.990000002936205 (None) PASS
+green: expected counts at μ = 1.01 → 1.009999898403073 (None) PASS
+green: Poisson draw (5e6) → 0.9990845013563024 (None) PASS
+red 1: injected p_sine = −1e-9 at bin 16122 (count 1245) → 'p_sine <= 0 in the window' PASS; the d3c50fa8 fit returns 20.000000 (a bound value: the red path can fire)
+red 2: Δp⁽²⁾ := −2p_sine at bin 16122 (density < 0 there for μ > 0.5) → None (prediction (μ = 1) density <= 0 in the window) PASS
+(A) s ≤ 1.6: INVALID WINDOW — zeros_15146000.dat: estimator-limit fit failed at μ′ = 0.98: prediction (μ = 1) density <= 0 in the window
+(A) s ≤ 1.0: INVALID WINDOW — zeros_15146000.dat: estimator-limit fit failed at μ′ = 0.98: prediction (μ = 1) density <= 0 in the window
+the first window_A run's refusal (d0563bd9), at s = 1.6
+red 3: Δp⁽²⁾ × 100 (μ = 1 density < 0) through the pool at s ≤ 1.6 and 1.0 → zeros_15146000.dat: estimator-limit fit failed at μ′ = 0.98: prediction (μ = 1) density <= 0 in the window; zeros_15146000.dat: estimator-limit fit failed at μ′ = 0.98: prediction (μ = 1) density <= 0 in the window PASS (recorded invalid, no stall); witness: a SystemExit worker stalls map (the red path can fire)
+selftest: PASS
