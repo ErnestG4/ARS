@@ -1,0 +1,9 @@
+(A) zeros_252446000.dat: ℓ̄ 17.5130  max|Δp⁽²⁾| 2.389e-02  min p(μ=1) 5.64e-07  ∂μ*/∂μ 1.00000  δμ cutoff 2.5e-07, quad 1.2e-07, T5_bracket 7.4e-05, trunc6 2.6e-08, file_average 2.5e-07  half-grid 1.1e-06
+(A) zeros_2369246000.dat: ℓ̄ 19.7484  max|Δp⁽²⁾| 2.022e-02  min p(μ=1) 6.51e-07  ∂μ*/∂μ 1.00001  δμ cutoff 7.2e-07, quad 7.3e-08, T5_bracket 9.7e-05, trunc6 2.5e-08, file_average 2.8e-09  half-grid 8.0e-07
+(A) zeros_10634846000.dat: ℓ̄ 21.2496  max|Δp⁽²⁾| 1.817e-02  min p(μ=1) 6.97e-07  ∂μ*/∂μ 1.00001  δμ cutoff 2.7e-07, quad 1.5e-08, T5_bracket 1.2e-04, trunc6 2.5e-08, file_average 1.4e-10  half-grid 6.6e-07
+(A) δμ_sys 9.75e-05; TAGGABLE True
+(B) zeros_36146000.dat: ℓ̄ 15.5937  Δκ₃ -1.5407e-02 (3ΔF₂ -1.132e-01, ΔF₃ +9.779e-02)  κ₃^sine 0.004823  δμ cutoff 4.1e-07, quad 4.9e-11, file_average 4.6e-06
+(B) zeros_244046000.dat: ℓ̄ 17.4793  Δκ₃ -1.3977e-02 (3ΔF₂ -1.028e-01, ΔF₃ +8.885e-02)  κ₃^sine 0.004823  δμ cutoff 4.2e-07, quad 6.1e-11, file_average 1.1e-07
+(B) zeros_2377646000.dat: ℓ̄ 19.7519  Δκ₃ -1.2343e-02 (3ΔF₂ -9.196e-02, ΔF₃ +7.961e-02)  κ₃^sine 0.004823  δμ cutoff 2.3e-07, quad 2.6e-11, file_average 1.1e-09
+(B) zeros_10643246000.dat: ℓ̄ 21.2504  Δκ₃ -1.1350e-02 (3ΔF₂ -8.559e-02, ΔF₃ +7.424e-02)  κ₃^sine 0.004823  δμ cutoff 3.5e-08, quad 4.4e-11, file_average 5.6e-11
+(B) δμ_sys 1.25e-06; TAGGABLE True

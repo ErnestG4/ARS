@@ -1,0 +1,90 @@
+{
+ "round": 52,
+ "tol": 1e-12,
+ "cutoff_frac": 0.01,
+ "band_F3": {
+  "A": 0.012328107692347004,
+  "B": 0.02863180525574441
+ },
+ "A": {
+  "G1_taggable": true,
+  "dmu_cutoff_pool": 4.1520344611443846e-07,
+  "G2_limit": 0.00012328107692347005,
+  "G2_cutoff": true,
+  "delta_mu_sys": 9.745599949953566e-05,
+  "dmu_by_file": {
+   "zeros_252446000.dat": {
+    "cutoff": 2.46301633704211e-07,
+    "quad": 1.1848903148813179e-07,
+    "T5_bracket": 7.365078898262458e-05,
+    "trunc6": 2.6492803618080717e-08,
+    "file_average": 2.489121481539892e-07
+   },
+   "zeros_2369246000.dat": {
+    "cutoff": 7.232348445815459e-07,
+    "quad": 7.27168809381351e-08,
+    "T5_bracket": 9.744245572894245e-05,
+    "trunc6": 2.548596671511334e-08,
+    "file_average": 2.8469502941766684e-09
+   },
+   "zeros_10634846000.dat": {
+    "cutoff": 2.6813474448017176e-07,
+    "quad": 1.4947382601978643e-08,
+    "T5_bracket": 0.0001154857492204448,
+    "trunc6": 2.5119884643791443e-08,
+    "file_average": 1.4139591145161295e-10
+   }
+  }
+ },
+ "B": {
+  "G1_taggable": true,
+  "dmu_cutoff_pool": 2.5541166580120093e-07,
+  "G2_limit": 0.0002863180525574441,
+  "G2_cutoff": true,
+  "delta_mu_sys": 1.2510975942050634e-06,
+  "dmu_by_file": {
+   "zeros_36146000.dat": {
+    "cutoff": 4.0907300387608224e-07,
+    "quad": 4.917437114288136e-11,
+    "file_average": 4.609178109544815e-06
+   },
+   "zeros_244046000.dat": {
+    "cutoff": 4.1893290477740256e-07,
+    "quad": 6.062319060717496e-11,
+    "file_average": 1.061193994927954e-07
+   },
+   "zeros_2377646000.dat": {
+    "cutoff": 2.2690445010021516e-07,
+    "quad": 2.5904934344177255e-11,
+    "file_average": 1.1266417834649171e-09
+   },
+   "zeros_10643246000.dat": {
+    "cutoff": 3.4648433971491114e-08,
+    "quad": 4.436985314476791e-11,
+    "file_average": 5.62638979072066e-11
+   }
+  }
+ },
+ "G4_xcheck": {
+  "n": 9,
+  "worst": 2.195393175443999e-15,
+  "by_host": {
+   "DESKTOP-VTRRUTO": {
+    "n": 9,
+    "worst": 2.195393175443999e-15
+   }
+  },
+  "PASS": true
+ },
+ "G5_selftests": {
+  "exits": {
+   "results/followup_gates_logs/fit_selftest.exit": "exit=0",
+   "results/followup_gates_logs/read_selftest.exit": "exit=0"
+  },
+  "PASS": true
+ },
+ "TAGGABLE": {
+  "A": true,
+  "B": true
+ }
+}
