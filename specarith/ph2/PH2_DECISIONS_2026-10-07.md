@@ -1315,3 +1315,15 @@ Run calibration on the final geometry: false-FAIL rate and power for each observ
 Send me the seal drafts.
 
 Standing rule: no F4/F5 download or decode until each seal’s OpenTimestamps receipt is Bitcoin-attested and verified.
+
+## Fifty-third round (Will, 2026-10-17) — (B)'s slope to SE ≤ 0.005; (A)'s GoF bins accepted with a count floor; per-file condition accepted; seal drafts (verbatim)
+Round 53:
+
+(B) slope.
+Commit this rule first: run CUE_N replicates at L = 3 until SE(slope) ≤ 0.005.
+If |slope − 1| > 2·SE, divide the slope out and carry its SE in δμ_sys. Otherwise take slope = 1 and carry its SE in δμ_sys.
+Then run, and report (B)’s band and rates under the final δμ_sys.
+(A) GoF. Equal-sine-probability bins (30) are accepted. Record them as a pre-data deviation from route (a), with the reason. Require an expected count ≥ 5 per bin per file. If any bin falls short, merge adjacent groups by a rule committed first. The thresholds come from calibration only.
+Per-file condition. “All files but one within 3 SE” is accepted. Each seal states the calibrated combined false-FAIL rate, including this condition.
+Seal drafts to me, with the false-FAIL rates, power, the family-wise rate, both receipts, and the md5 pins for F4 and F5.
+Before any download: Will pushes followup-a-prediction and followup-b-prediction, the seals are stamped, and both receipts are Bitcoin-attested and verified.
