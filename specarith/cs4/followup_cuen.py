@@ -8,7 +8,8 @@ For N ∈ NS and L ∈ LS:
   U(N) matrices (cbe.haar_phases; unfolded x = Nθ/2π; Haar is rotation invariant, so fixed window positions suffice),
   one k₃ per batch of B_MAT matrices.
 The slope per L is the weighted least-squares fit of the batch-mean k₃ on exact κ₃ across N, with weights from the
-batches' SEs. Seeds [20261016, 50, N, chunk], disjoint from every earlier use.
+batches' SEs. Seeds [20261016, ROUND, N, batch] (ROUND = 50, or 51 for the round-51 L = 3 rerun), disjoint from every
+earlier use.
 
   python followup_cuen.py exact                       (table of exact κ₃^{CUE_N} − κ₃^sine)
   python followup_cuen.py run CHUNK NCHUNKS OUT_DIR   (spot)
@@ -30,6 +31,8 @@ LS = (0.5, 1.0, 1.5, 2.0, 3.0)
 M_TRI, M_F2 = 48, 96
 B_MAT = 20_000
 N_BATCH = int(os.environ.get("CUEN_BATCHES", "2000"))
+ROUND = int(os.environ.get("CUEN_ROUND", "50"))           # seed tag; round 51 rerun: 51, 4000 batches
+OUT_JSON = "followup_cuen.json" if ROUND == 50 else f"followup_cuen_r{ROUND}.json"
 
 
 def gl(m, a, b):
@@ -95,9 +98,9 @@ def run(chunk, nchunks, out_dir):
     for i, (N, c) in enumerate(jobs()):
         if i % nchunks != chunk or (N, c) in done:
             continue
-        rng = np.random.default_rng([20261016, 50, N, c])
+        rng = np.random.default_rng([20261016, ROUND, N, c])
         th = cbe.haar_phases(rng, B_MAT, N)
-        r = dict(N=N, batch=c, n_mat=B_MAT, k3=k3_batch(th, N))
+        r = dict(N=N, batch=c, n_mat=B_MAT, seed_round=ROUND, k3=k3_batch(th, N))
         with open(path, "a") as fh:
             fh.write(json.dumps(r) + "\n")
 
@@ -112,7 +115,7 @@ def merge(out_dir):
     if missing:
         raise SystemExit(f"merge: {len(missing)} jobs missing")
     ex = exact_table()
-    res = dict(round="fiftieth", NS=NS, B_MAT=B_MAT, N_BATCH=N_BATCH, exact=ex, L={})
+    res = dict(round="fiftieth" if ROUND == 50 else f"round {ROUND} rerun", seed_round=ROUND, NS=NS, B_MAT=B_MAT, N_BATCH=N_BATCH, exact=ex, L={})
     for L in LS:
         x, y, se = [], [], []
         for N in NS:
@@ -126,12 +129,14 @@ def merge(out_dir):
         cov = np.linalg.inv(X.T @ (w[:, None] * X))
         beta = cov @ (X.T @ (w * y))
         chi2 = float(np.sum(w * (y - X @ beta) ** 2))
+        from scipy.stats import chi2 as C2
+        pval = float(C2.sf(chi2, len(NS) - 2))
         res["L"][str(L)] = dict(kappa3_exact=x.tolist(), k3_mean=y.tolist(), k3_se=se.tolist(),
                                 z_exact=((y - x) / se).tolist(), slope=float(beta[1]), slope_se=float(np.sqrt(cov[1, 1])),
-                                intercept=float(beta[0]), chi2=chi2, dof=len(NS) - 2)
-        print(f"L = {L}: slope {beta[1]:.4f} ± {np.sqrt(cov[1, 1]):.4f} (χ² {chi2:.2f} on {len(NS) - 2}); "
+                                intercept=float(beta[0]), chi2=chi2, dof=len(NS) - 2, p=pval)
+        print(f"L = {L}: slope {beta[1]:.4f} ± {np.sqrt(cov[1, 1]):.4f} (χ² {chi2:.2f} on {len(NS) - 2}, p {pval:.3f}); "
               f"z(mean k₃ − exact) " + ", ".join(f"{z:+.2f}" for z in (y - x) / se), flush=True)
-    json.dump(res, open(os.path.join(HERE, "results", "followup_cuen.json"), "w"), indent=1)
+    json.dump(res, open(os.path.join(HERE, "results", OUT_JSON), "w"), indent=1)
     return 0
 
 
