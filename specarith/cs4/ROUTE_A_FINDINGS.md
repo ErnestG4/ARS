@@ -141,7 +141,9 @@ per-order connected constraints are not identifiable at this N_eff.
   - (A), the next-nearest-neighbour law: window s ≤ S_A = 1.6, where the T₅ bracket disagreement first exceeds
     0.01 × the band at 1.7. ∂μ*/∂μ measured 1.0000. Fresh set F4: three files, L = 17.5, 19.75, 21.25.
   - (B), the third cumulant of the count: L = 3.0. ∂μ*/∂μ is the exact linear limit times a CUE_N known-answer slope
-    (1.012 ± 0.026 at L = 3). Fresh set F5: the same three heights plus L ≈ 15.59. The weaker observable gets the extra
+    (1.012 ± 0.026 at L = 3). The first run's L = 3 known-answer fit had χ² 11.0 on 3; the round-51 rerun (fresh seeds,
+    2× the replicates; reading committed first, 7a6ef0db) gives χ² 0.54 (p = 0.91), slope 0.982 ± 0.018, so the first
+    value is recorded as chance and no caveat is carried. Fresh set F5: the same three heights plus L ≈ 15.59. The weaker observable gets the extra
     low-height file, by Will's decision before any F4/F5 prediction, calibration or download
     (`../ph2r2/FRESH_SETS_F4_F5.md`).
   - Joint reading, declared in both seals: each test keeps its own calibrated false-FAIL rate, and the family-wise
