@@ -1305,3 +1305,13 @@ If χ² has p ≥ 0.01: record it as chance.
 If p < 0.01: record the known-answer check as marginal at L = 3, and carry that as a caveat on (B)’s result.
 Findings line, descriptive: the μ = 1 CS n ≤ 5 NNN prediction goes non-positive near s ≈ 2.9 at F-set heights, which is a validity edge of the truncated expansion.
 Then, per observable: prediction → tag → calibration (false-FAIL rate and power at the final geometry) → seal → OpenTimestamps stamp, attested before decode → download → double read. The joint reading rule is as in round 50.
+
+## Fifty-second round (Will, 2026-10-17) — launch the full prediction run; then merge, gates, tags, calibration, seal drafts (verbatim)
+Round 52: launch the full prediction run, with the 10⁶ cutoff check at every node, mirroring route (a). When it finishes:
+
+Merge the results and run the cutoff convergence check.
+Run the gates, then tag the predictions for (A) and (B).
+Run calibration on the final geometry: false-FAIL rate and power for each observable, plus the family-wise rate.
+Send me the seal drafts.
+
+Standing rule: no F4/F5 download or decode until each seal’s OpenTimestamps receipt is Bitcoin-attested and verified.
