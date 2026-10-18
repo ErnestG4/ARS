@@ -204,3 +204,17 @@ route (a).
   test this; until then it is a hypothesis only.
 
 Nothing about route (a)'s or (A)'s verdicts changes.
+
+**Attribution of (B)'s FAIL (round 56; Diagnostic D, `DIAG_D_RESULTS.md`, 4905e226).**
+- (B)'s FAIL is attributed to its **estimator**: the window grid is phase-locked, against a phase-averaged prediction.
+  In unfolded coordinates the zeros sit near a lattice (S(t) has a standard deviation of about 0.4), and (B)'s
+  integer-length windows start at N̄(t₀), so each file is read at one lattice phase φ = frac(N(t₀) − N̄(t₀)). The
+  prediction, built from translation-invariant correlation functions, is the average over phase. The CUE calibration
+  rotated every matrix at random and so averaged over phase; it could not detect this.
+- **Evidence:** across 12 zero files (F3, F4, F5), r = −0.99 for k₂ and r = −0.88 for k₃ against cos 2πφ.
+- **The slow-arithmetic hypothesis was tested and not supported:** D1/D2 read "none" in every F5 file (no excess
+  between sub-blocks at any scale against each file's CUE null), each file's halves agree, and D3 estimates the
+  near-resonant prime contribution at 2–7·10⁻⁵ in k₃, about 100× too small.
+- **Route (a) and (A) are unaffected**, because spacings do not depend on the window origin.
+- **Corrected (B): queued, not run** (round 56): its own pre-registration, an offset-averaged k₃ estimator, a CUE
+  calibration through the same estimator, and fresh files; after the engine-repair work.
