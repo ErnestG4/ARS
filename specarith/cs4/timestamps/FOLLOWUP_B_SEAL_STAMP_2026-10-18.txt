@@ -1,0 +1,40 @@
+Route (a) replication (B) seal timestamp manifest (OpenTimestamps; round 54 order: seal → stamp → attest → F5 download).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is FOLLOWUP_B_SEAL_STAMP_2026-10-18.txt.ots.
+Statement: at the time of stamping, no F5 file has been downloaded, and none will be until this receipt is
+Bitcoin-attested and verified on two explorers (round 53/54).
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag followup-b-seal           object 8cfae8ecc929a8a199c34020aa45855779edecc9
+                              on commit e9b385d1868c7880a4f84d501276d54ea8436e54
+seal text                     specarith/cs4/FOLLOWUP_B_SEAL.md
+                              sha256 0a0482ee7ba223de253685017a2c89a2a221128c3dcd4ebccaca899b2c887dd5
+seal JSON                     specarith/cs4/seals/FOLLOWUP_B_SEAL.json
+                              sha256 051901b77edf6814530720e85f2949efc726cc4ff16bfec6ca43d24aa3eafc17
+prediction                    specarith/cs4/results/followup_pred_B.json
+                              sha256 c0687b9a870d1874fb1ddfbf6e5f38a34352985d0da6bd6d608db3b19d7d149e
+calibration                   specarith/cs4/results/calib/followup_calib_B_declared.json
+                              sha256 4d5ad7eb17f03cb9ee8e767158338c3aa0b44bc495d8e2d85961ad36cc3a9428
+slope (round 53)              specarith/cs4/results/followup_cuen_r53.json
+                              sha256 72fe9f7f833fcf58ce2f01e652c4a0fbbfa2c89fed6773b544d37a753ccc1dd1
+read code                     specarith/cs4/followup_sealread.py
+                              sha256 2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4
+                              specarith/cs4/followup_read.py
+                              sha256 d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42
+                              specarith/cs4/followup_fit.py
+                              sha256 7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5
+                              specarith/cs4/followup_nnn.py
+                              sha256 a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b
+                              specarith/cs4/followup_pred.py
+                              sha256 4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912
+                              specarith/cs4/route_a_read.py
+                              sha256 c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341
+                              specarith/cs4/route_a_zeta.py
+                              sha256 e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533
+                              specarith/ph2/ph2lib.py
+                              sha256 1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d
+F5 md5 (pinned)
+                              zeros_36146000.dat 8fb15afc113768103c1b3891a83f9d54
+                              zeros_244046000.dat 4f19fac76037c7f361b1a0c12a706b9b
+                              zeros_2377646000.dat abbec916f56f69bc96df594e735c5401
+                              zeros_10643246000.dat 916639a260da1c6b84b291260b5627e6
+(sha256 of `git show e9b385d1:<path>`, i.e. the committed blob's bytes; the tag followup-b-seal resolves to that commit)

@@ -1342,3 +1342,10 @@ geomean 0.983-0.987, none >= 0.95 needed... shortest qualifying)" is garbled. Co
 with ratio ≥ 0.95 (the geometric-mean SE_boot/SD ratios are 0.987, 0.984, 0.983 and 0.987 at 100, 333, 1000 and 3333
 windows, all ≥ 0.95). The declared calibration file itself (`results/calib/followup_calib_B_declared.json`) is correct.
 Check of the new §4 wording: the smallest gap between any F4 and any F5 height range is 6,300,000.
+
+**Round 54 record: seal tags re-pointed before stamping (2026-10-18).** Will's seal commit e9b385d1 holds both seal
+texts, both seal JSONs and the build logs (each blob's sha256 equal to what was built on spot). The first tags
+`followup-a-seal` (object e8b4b840…) and `followup-b-seal` (object 168d1e3e…) were created on the parent 81928d3a, which
+has none of the seal files, and pushed. Before anything was stamped against them and before any F4/F5 download, Will
+re-pointed both to e9b385d1 and force-pushed the two tags only (new objects a0de8a70…, 8cfae8ec…; GitHub ls-remote
+2026-10-18 14:21 UTC). The seal manifests name the re-pointed tags. Both stamped 2026-10-18 14:21 UTC.
