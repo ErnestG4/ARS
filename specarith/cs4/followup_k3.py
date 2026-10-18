@@ -26,7 +26,8 @@ sys.path.insert(0, HERE)
 import cs4fast as F  # noqa: E402
 import route_a_zeta as RZ  # noqa: E402
 
-LS = (0.5, 1.0, 1.5, 2.0, 3.0)
+LS = tuple(float(v) for v in os.environ.get("K3_LS", "0.5,1.0,1.5,2.0,3.0").split(","))   # round 57: K3_LS=4.0,5.0,6.0
+OUT_JSON = "followup_k3.json" if "K3_LS" not in os.environ else "followup_k3_r57.json"
 MS = (32, 48)
 
 
@@ -101,7 +102,7 @@ def merge(out_dir):
             print(f"{f} L {L}: Δκ₃ {dk:+.4e} (3ΔF₂ {3 * r['dF2']:+.4e}, ΔF₃ {r['dF3']:+.4e}); ∂μ*_B/∂μ₃ = connected share "
                   f"{r['dF3'] / dk:+.4f}; κ₃^sine {L + 3 * r['F2_sine'] + r['F3_sine']:.5f}; quad err ΔF₃ "
                   f"{abs(r['dF3'] - q['dF3']):.1e}", flush=True)
-    json.dump(res, open(os.path.join(HERE, "results", "followup_k3.json"), "w"), indent=1)
+    json.dump(res, open(os.path.join(HERE, "results", OUT_JSON), "w"), indent=1)
     return 0
 
 
