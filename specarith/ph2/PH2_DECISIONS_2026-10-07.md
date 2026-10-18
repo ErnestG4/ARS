@@ -1363,3 +1363,24 @@ D3, theory. Find, from primary sources, the size and period of the off-diagonal 
 Declare in advance: D1 showing scale-growing excess in the zeros but not in CUE supports the hypothesis; a flat D1 excess, or none, points toward the model terms or a pipeline defect.
 Pipeline check alongside D1 (cheap). Split each F5 file into halves and report k₃ per half with its SE. Recheck each file’s zero-count completeness against θ, as for route (a) (|count − θ count| ≤ 2).
 Nothing about route (a)’s or (A)’s verdicts changes.
+
+## Fifty-sixth round (Will, 2026-10-18) — phase-averaged k₃ (post hoc); grid-anchoring sibling sweep; G1b; corrected (B) queued; findings §9 attribution (verbatim)
+Round 56:
+
+Phase-averaged k₃ on F5 (descriptive, post hoc).
+Average k₃ over grid offsets u ∈ [0, L), using 32 evenly spaced offsets.
+Get the SE from a joint block bootstrap over all offsets.
+Report μ̃ per file and pooled, and the heterogeneity χ².
+No verdict; label it “post-hoc, data seen”.
+Grid-anchoring sibling sweep.
+Add an “anchoring/origin” defect family to Task 0b.
+Grep for windowed or gridded statistics whose window origin is tied to the data: specarith Stage 1/2 block pair sums, legacy Σ²/Fano/count statistics, and any floor((x − x0)/L) patterns.
+Test each with an origin-shift red path: the same data at grid offsets u ∈ [0, 1) must give the same statistic within SE. Failures are flagged in the ledger.
+Stage 2 specifically: recompute the measured shrink on F2 at 8 grid offsets (descriptive) and report the spread against Stage 2’s CI.
+Engine v2 spec. Add G1b, an origin/translation-invariance gate: outputs must not depend on the grid origin or the window phase unless declared, in the same way G1 tests units. The calibrator for any windowed statistic must reproduce the real data’s anchoring, or the estimator must average over it.
+Corrected (B), queued, not now. Its own pre-registration, an offset-averaged k₃ estimator, a CUE calibration through the same estimator, and fresh files. Run it after the engine-repair work.
+Findings §9. Add the grid-lock attribution:
+(B)’s FAIL is attributed to its estimator: the phase-locked window grid against a phase-averaged prediction.
+Evidence: r = −0.99 for k₂ and −0.88 for k₃ against cos 2πφ across 12 files.
+Record that the slow-arithmetic hypothesis was tested and not supported.
+Route (a) and (A) are unaffected, because spacings don’t depend on the window origin.
