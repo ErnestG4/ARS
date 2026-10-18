@@ -1,0 +1,234 @@
+{
+ "calibration_sha256": "3f039fce96aa6094cfc8fd94ec255ed4fce85fcf25c64d59d4f83ab008300336",
+ "checks": {
+  "calibration_pinned": true,
+  "dryrun_as_expected": true,
+  "dryrun_under_this_interpreter": true,
+  "gates_taggable": true,
+  "md5_match_pins": true,
+  "no_calibration_failures": true,
+  "other_calibration_pinned": true,
+  "prediction_is_tagged": true,
+  "prestamp_bitcoin_verified": true,
+  "refusals": true,
+  "rule_selftest": true,
+  "text_exists": true,
+  "witness": true
+ },
+ "code_sha256": {
+  "../ph2/ph2lib.py": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d",
+  "followup_fit.py": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+  "followup_nnn.py": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
+  "followup_pred.py": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+  "followup_read.py": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42",
+  "followup_sealread.py": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4",
+  "route_a_read.py": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+  "route_a_zeta.py": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533"
+ },
+ "derived_sha256": {},
+ "dryrun": {
+  "bit_identical_runs": true,
+  "pipeline_identity": true,
+  "standin_reads_fail": true
+ },
+ "env": {
+  "mpmath": "1.4.1",
+  "numpy": "2.5.3",
+  "python": "3.12.15",
+  "scipy": "1.18.1"
+ },
+ "files": {
+  "zeros_10634846000.dat": {
+   "t0": 10634846000,
+   "t1": 10636946000
+  },
+  "zeros_2369246000.dat": {
+   "t0": 2369246000,
+   "t1": 2371346000
+  },
+  "zeros_252446000.dat": {
+   "t0": 252446000,
+   "t1": 254546000
+  }
+ },
+ "joint_reading": {
+  "alpha_A": 0.050000000000000044,
+  "alpha_B": 0.030000000000000027,
+  "arms": {
+   "FAIL/FAIL": {
+    "got": "both FAIL: route (a)'s PASS is called into question",
+    "ok": true
+   },
+   "FAIL/MODEL MISFIT": {
+    "got": "one test only: (A) FAIL reported on its own (a FAIL for that observable); (B) MODEL MISFIT; no statement is made about the pair",
+    "ok": true
+   },
+   "FAIL/PASS": {
+    "got": "exactly one FAIL (A): a FAIL for that observable, attributed only to observable-specific model terms or estimator; not a refutation of route (a)",
+    "ok": true
+   },
+   "FIT FAILURE/FAIL": {
+    "got": "one test only: (B) FAIL reported on its own (a FAIL for that observable); (A) FIT FAILURE; no statement is made about the pair",
+    "ok": true
+   },
+   "MODEL MISFIT/PASS": {
+    "got": "one test only: (B) PASS reported on its own (a one-observable replication of route (a)); (A) MODEL MISFIT; no statement is made about the pair",
+    "ok": true
+   },
+   "PASS/FAIL": {
+    "got": "exactly one FAIL (B): a FAIL for that observable, attributed only to observable-specific model terms or estimator; not a refutation of route (a)",
+    "ok": true
+   },
+   "PASS/PASS": {
+    "got": "both PASS: replication of route (a) by two further observables",
+    "ok": true
+   },
+   "PASS/UNRESOLVED": {
+    "got": "one test only: (A) PASS reported on its own (a one-observable replication of route (a)); (B) UNRESOLVED; no statement is made about the pair",
+    "ok": true
+   },
+   "UNRESOLVED/FIT FAILURE": {
+    "got": "no reading: (A) UNRESOLVED, (B) FIT FAILURE \u2014 each reported as such; no statement is made about the pair",
+    "ok": true
+   }
+  },
+  "familywise": 0.07850000000000001
+ },
+ "md5": {
+  "zeros_10634846000.dat": "873b302f888a8c58642ca9a6f4952a79",
+  "zeros_2369246000.dat": "d2d328ee9dc75e908f4194d6aa45e0db",
+  "zeros_252446000.dat": "4d9c80df1f369a48e985cf5f2da870e6"
+ },
+ "n_f": {
+  "zeros_10634846000.dat": 7102163.487632616,
+  "zeros_2369246000.dat": 6600417.700552359,
+  "zeros_252446000.dat": 5853281.961513785
+ },
+ "observable": "A",
+ "operating_characteristics": {
+  "dmu_sys": 9.745599949953566e-05,
+  "false_fail": 0.050000000000000044,
+  "g": {
+   "zeros_10634846000.dat": 1.0000063918979452,
+   "zeros_2369246000.dat": 1.000009487694653,
+   "zeros_252446000.dat": 0.9999988174188068
+  },
+  "power_mu0": 1.0,
+  "verdicts": {
+   "0.00": {
+    "FAIL": 200
+   },
+   "0.90": {
+    "FAIL": 200
+   },
+   "0.94": {
+    "FAIL": 200
+   },
+   "0.96": {
+    "FAIL": 198,
+    "PASS": 2
+   },
+   "0.97": {
+    "FAIL": 180,
+    "PASS": 20
+   },
+   "0.98": {
+    "FAIL": 111,
+    "PASS": 89
+   },
+   "0.99": {
+    "FAIL": 31,
+    "PASS": 169
+   },
+   "1.00": {
+    "FAIL": 10,
+    "PASS": 190
+   },
+   "1.01": {
+    "FAIL": 33,
+    "PASS": 167
+   },
+   "1.02": {
+    "FAIL": 117,
+    "PASS": 83
+   },
+   "1.03": {
+    "FAIL": 182,
+    "PASS": 18
+   },
+   "1.04": {
+    "FAIL": 199,
+    "PASS": 1
+   },
+   "1.06": {
+    "FAIL": 200
+   },
+   "1.10": {
+    "FAIL": 200
+   }
+  }
+ },
+ "prediction": {
+  "file": "results/followup_pred_A.json",
+  "tag": "followup-a-prediction"
+ },
+ "prediction_sha256": "5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa",
+ "prestamp": {
+  "bitcoin_blocks": [
+   971918,
+   971922
+  ],
+  "earliest_bitcoin_block": {
+   "block_hash": "00000000000000000000850687823e6bd88fcabfe620d85bffc6b8eef71d83a2",
+   "height": 971918,
+   "time_utc": "2026-10-17T23:43:33+00:00"
+  },
+  "manifest": "timestamps/FOLLOWUP_PRESTAMP_2026-10-17.txt",
+  "manifest_sha256": "995dc21c86f47e60013997b0dcc50c0a5074fec3ce087ea5571ed48304cf82fc",
+  "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+  "receipt_sha256": "bdba2fdfb9dff6871624bbb51b335bab4168349d7a02a4d5ee28fea72ea0ff24"
+ },
+ "rule": {
+  "T": {
+   "zeros_10634846000.dat": 52.544919644501704,
+   "zeros_2369246000.dat": 52.92385405617121,
+   "zeros_252446000.dat": 50.57732500793766
+  },
+  "bias": {
+   "zeros_10634846000.dat": 0.0006836099609317308,
+   "zeros_2369246000.dat": 8.641305706319324e-05,
+   "zeros_252446000.dat": -0.0005175970985093061
+  },
+  "block": 300,
+  "block_lens": [
+   300,
+   1000,
+   3000,
+   10000
+  ],
+  "dmu_sys": 9.745599949953566e-05,
+  "files_needed": 2,
+  "g": {
+   "zeros_10634846000.dat": 1.0000063918979452,
+   "zeros_2369246000.dat": 1.000009487694653,
+   "zeros_252446000.dat": 0.9999988174188068
+  },
+  "k_file": 3.0,
+  "k_pool": 2.0,
+  "misfit_files": 2,
+  "resolve_2se": 0.25,
+  "sd": {
+   "zeros_10634846000.dat": 0.015805076528252093,
+   "zeros_2369246000.dat": 0.015192599812456915,
+   "zeros_252446000.dat": 0.01232394856967239
+  }
+ },
+ "seal": "FOLLOWUP_A_SEAL",
+ "text": "FOLLOWUP_A_SEAL.md",
+ "text_sha256": "8cdf2f3d4392b3ee11ff51e60341df5da8ed294fdbc006f6987083948fc95e37",
+ "weights": {
+  "zeros_10634846000.dat": 0.36317310226943467,
+  "zeros_2369246000.dat": 0.3375160508143581,
+  "zeros_252446000.dat": 0.2993108469162073
+ }
+}

@@ -1,0 +1,43 @@
+(B) positive control         passes the pin checks
+(B) no_seal                  REFUSED: no FOLLOWUP_B_SEAL.json — F5 zeros are not decoded before the seal
+(B) interpreter_mismatch     REFUSED: interpreter {'python': '3.12.15', 'numpy': '2.5.3', 'scipy': '1.18.1', 'mpmath': '1.4.1'} differs fro
+(B) code_mismatch            REFUSED: followup_sealread.py differs from the sealed code
+(B) prediction_mismatch      REFUSED: the prediction file differs from the sealed one
+(B) calibration_mismatch     REFUSED: the calibration differs from the sealed one (or is not declared)
+(B) weights_mismatch         REFUSED: pooling weights differ from the sealed ones
+(B) derived_mismatch         REFUSED: derived file results/followup_cuen_r53.json differs from the sealed one
+(B) calibration_undeclared   REFUSED: the calibration differs from the sealed one (or is not declared)
+(B) prediction_vs_stamp      REFUSED: the prediction JSON's sha256 differs from the OpenTimestamps-stamped manifest's
+(B) stamp_manifest_tampered  REFUSED: the prediction manifest differs from the OpenTimestamps-stamped one
+(B) stamp_receipt_tampered   REFUSED: the OpenTimestamps receipt does not commit to the pinned prediction manifest
+(B) md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpo_27vv0z/zeros_10643246000.dat missing or md5 diffe
+(B) file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpo_27vv0z/zeros_244046000.dat missing or md5 differs
+(B) heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpo_27vv0z/lo.dat heights [1000.5, 1001.25] outside t
+(B) runs_differ              REFUSED (VOID: run1 and run2 differ (470aaecfa4740b69 vs 249fd51bc4b88093); the read is void, nothing is inter
+(B) REFUSALS PASS
+PASS/PASS                both PASS: replication of route (a) by two further observables  ok
+FAIL/PASS                exactly one FAIL (A): a FAIL for that observable, attributed only to observable-specific m  ok
+PASS/FAIL                exactly one FAIL (B): a FAIL for that observable, attributed only to observable-specific m  ok
+FAIL/FAIL                both FAIL: route (a)'s PASS is called into question  ok
+MODEL MISFIT/PASS        one test only: (B) PASS reported on its own (a one-observable replication of route (a)); (  ok
+PASS/UNRESOLVED          one test only: (A) PASS reported on its own (a one-observable replication of route (a)); (  ok
+FIT FAILURE/FAIL         one test only: (B) FAIL reported on its own (a FAIL for that observable); (A) FIT FAILURE;  ok
+FAIL/MODEL MISFIT        one test only: (A) FAIL reported on its own (a FAIL for that observable); (B) MODEL MISFIT  ok
+UNRESOLVED/FIT FAILURE   no reading: (A) UNRESOLVED, (B) FIT FAILURE — each reported as such; no statement is made   ok
+family-wise(0.05, 0.05) = 0.0975: True
+WITNESS PASS
+(A) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('MODEL MISFIT', 'MODEL MISFIT'), ('MODEL MISFIT', 'MODEL MISFIT'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+(B) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+PASS/PASS                both PASS: replication of route (a) by two further observables  ok
+FAIL/PASS                exactly one FAIL (A): a FAIL for that observable, attributed only to observable-specific m  ok
+PASS/FAIL                exactly one FAIL (B): a FAIL for that observable, attributed only to observable-specific m  ok
+FAIL/FAIL                both FAIL: route (a)'s PASS is called into question  ok
+MODEL MISFIT/PASS        one test only: (B) PASS reported on its own (a one-observable replication of route (a)); (  ok
+PASS/UNRESOLVED          one test only: (A) PASS reported on its own (a one-observable replication of route (a)); (  ok
+FIT FAILURE/FAIL         one test only: (B) FAIL reported on its own (a FAIL for that observable); (A) FIT FAILURE;  ok
+FAIL/MODEL MISFIT        one test only: (A) FAIL reported on its own (a FAIL for that observable); (B) MODEL MISFIT  ok
+UNRESOLVED/FIT FAILURE   no reading: (A) UNRESOLVED, (B) FIT FAILURE — each reported as such; no statement is made   ok
+family-wise(0.05, 0.05) = 0.0975: True
+WITNESS PASS
+wrote /home/combust/tmp/claude/specarith/cs4/seals/FOLLOWUP_B_SEAL.json
+exit=0
