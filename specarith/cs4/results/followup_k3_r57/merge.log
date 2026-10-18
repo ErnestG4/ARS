@@ -1,0 +1,15 @@
+zeros_15146000.dat L 4.0: Δκ₃ -1.8906e-02 (3ΔF₂ -1.4827e-01, ΔF₃ +1.2936e-01); ∂μ*_B/∂μ₃ = connected share -6.8424; κ₃^sine 0.00370; quad err ΔF₃ 8.4e-13
+zeros_15146000.dat L 5.0: Δκ₃ -1.9068e-02 (3ΔF₂ -1.7754e-01, ΔF₃ +1.5847e-01); ∂μ*_B/∂μ₃ = connected share -8.3106; κ₃^sine 0.00300; quad err ΔF₃ 1.6e-12
+zeros_15146000.dat L 6.0: Δκ₃ -1.7031e-02 (3ΔF₂ -2.1050e-01, ΔF₃ +1.9347e-01); ∂μ*_B/∂μ₃ = connected share -11.3597; κ₃^sine 0.00252; quad err ΔF₃ 1.2e-10
+zeros_25646000.dat L 4.0: Δκ₃ -1.8742e-02 (3ΔF₂ -1.4459e-01, ΔF₃ +1.2585e-01); ∂μ*_B/∂μ₃ = connected share -6.7149; κ₃^sine 0.00370; quad err ΔF₃ 7.5e-13
+zeros_25646000.dat L 5.0: Δκ₃ -1.9256e-02 (3ΔF₂ -1.7273e-01, ΔF₃ +1.5347e-01); ∂μ*_B/∂μ₃ = connected share -7.9699; κ₃^sine 0.00300; quad err ΔF₃ 8.8e-13
+zeros_25646000.dat L 6.0: Δκ₃ -1.7578e-02 (3ΔF₂ -2.0374e-01, ΔF₃ +1.8616e-01); ∂μ*_B/∂μ₃ = connected share -10.5904; κ₃^sine 0.00252; quad err ΔF₃ 3.7e-11
+zeros_248246000.dat L 4.0: Δκ₃ -1.7692e-02 (3ΔF₂ -1.3040e-01, ΔF₃ +1.1270e-01); ∂μ*_B/∂μ₃ = connected share -6.3704; κ₃^sine 0.00370; quad err ΔF₃ 6.4e-13
+zeros_248246000.dat L 5.0: Δκ₃ -1.9390e-02 (3ΔF₂ -1.5513e-01, ΔF₃ +1.3574e-01); ∂μ*_B/∂μ₃ = connected share -7.0006; κ₃^sine 0.00300; quad err ΔF₃ 1.5e-13
+zeros_248246000.dat L 6.0: Δκ₃ -1.9152e-02 (3ΔF₂ -1.8004e-01, ΔF₃ +1.6089e-01); ∂μ*_B/∂μ₃ = connected share -8.4005; κ₃^sine 0.00252; quad err ΔF₃ 1.0e-12
+zeros_2373446000.dat L 4.0: Δκ₃ -1.6370e-02 (3ΔF₂ -1.1863e-01, ΔF₃ +1.0226e-01); ∂μ*_B/∂μ₃ = connected share -6.2468; κ₃^sine 0.00370; quad err ΔF₃ 1.2e-13
+zeros_2373446000.dat L 5.0: Δκ₃ -1.8797e-02 (3ΔF₂ -1.4145e-01, ΔF₃ +1.2265e-01); ∂μ*_B/∂μ₃ = connected share -6.5249; κ₃^sine 0.00300; quad err ΔF₃ 4.3e-14
+zeros_2373446000.dat L 6.0: Δκ₃ -1.9618e-02 (3ΔF₂ -1.6315e-01, ΔF₃ +1.4353e-01); ∂μ*_B/∂μ₃ = connected share -7.3161; κ₃^sine 0.00252; quad err ΔF₃ 2.8e-13
+zeros_10639046000.dat L 4.0: Δκ₃ -1.5449e-02 (3ΔF₂ -1.1176e-01, ΔF₃ +9.6313e-02); ∂μ*_B/∂μ₃ = connected share -6.2343; κ₃^sine 0.00370; quad err ΔF₃ 1.3e-12
+zeros_10639046000.dat L 5.0: Δκ₃ -1.8194e-02 (3ΔF₂ -1.3377e-01, ΔF₃ +1.1558e-01); ∂μ*_B/∂μ₃ = connected share -6.3528; κ₃^sine 0.00300; quad err ΔF₃ 4.0e-13
+zeros_10639046000.dat L 6.0: Δκ₃ -1.9517e-02 (3ΔF₂ -1.5412e-01, ΔF₃ +1.3461e-01); ∂μ*_B/∂μ₃ = connected share -6.8968; κ₃^sine 0.00252; quad err ΔF₃ 1.3e-12
