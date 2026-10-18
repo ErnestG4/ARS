@@ -1,0 +1,34 @@
+primes <= 21000000: 1329943  (0.1s)
+
+=== per height: h, X=T/2pi, diag Var(DeltaS), exact-resonance E3 ===
+ell=15.60 h=1.2083 X=5.957e+06  Var_diag=0.3178  E3_exact=-0.01577  (p,p,p^2)=-0.01019  (p,p^2,p^3)=-0.00366
+ell=17.50 h=1.0771 X=3.982e+07  Var_diag=0.3214  E3_exact=-0.01405  (p,p,p^2)=-0.00899  (p,p^2,p^3)=-0.00318
+ell=19.75 h=0.9544 X=3.778e+08  Var_diag=0.3250  E3_exact=-0.01217  (p,p,p^2)=-0.00777  (p,p^2,p^3)=-0.00268
+ell=21.25 h=0.8870 X=1.693e+09  Var_diag=0.3272  E3_exact=-0.01103  (p,p,p^2)=-0.00706  (p,p^2,p^3)=-0.00238
+
+=== near-resonant triple RMS (random phase), H = 2.10e+06 ===
+ell=15.60: enum m<=5.96e+06: var=4.509e-10  bands|w|H<1,<pi,<10,<100,>100: 4.74e-12 1.87e-10 1.59e-10 8.45e-11 1.59e-11
+           density m in (6.0e+06,6.0e+06]: 0.000e+00;  density check on (1e6,6.0e+06]: 4.922e-10
+           RMS(cut X=T/2pi) = 2.12e-05;  +extra to X^2: 2.20e-09 -> RMS 5.15e-05;  no cutoff: RMS 6.72e-05   (9s)
+ell=17.50: enum m<=2.00e+07: var=9.724e-10  bands|w|H<1,<pi,<10,<100,>100: 1.40e-10 5.03e-10 2.22e-10 9.16e-11 1.68e-11
+           density m in (2.0e+07,4.0e+07]: 2.524e-11;  density check on (1e6,2.0e+07]: 1.135e-09
+           RMS(cut X=T/2pi) = 3.16e-05;  +extra to X^2: 2.00e-09 -> RMS 5.47e-05;  no cutoff: RMS 6.75e-05   (20s)
+ell=19.75: enum m<=2.00e+07: var=6.589e-10  bands|w|H<1,<pi,<10,<100,>100: 1.11e-10 3.28e-10 1.35e-10 6.84e-11 1.68e-11
+           density m in (2.0e+07,3.8e+08]: 6.571e-10;  density check on (1e6,2.0e+07]: 8.020e-10
+           RMS(cut X=T/2pi) = 3.63e-05;  +extra to X^2: 1.80e-09 -> RMS 5.58e-05;  no cutoff: RMS 6.63e-05   (18s)
+ell=21.25: enum m<=2.00e+07: var=4.289e-10  bands|w|H<1,<pi,<10,<100,>100: 6.91e-11 1.86e-10 8.34e-11 7.40e-11 1.65e-11
+           density m in (2.0e+07,1.7e+09]: 9.739e-10;  density check on (1e6,2.0e+07]: 4.212e-10
+           RMS(cut X=T/2pi) = 3.75e-05;  +extra to X^2: 1.69e-09 -> RMS 5.56e-05;  no cutoff: RMS 6.49e-05   (20s)
+
+=== scaling with window width (ell=19.75, cutoff X=T/2pi) ===
+H=2.1e+04: RMS=5.501e-04  RMS*sqrt(H)=0.080
+H=2.1e+05: RMS=1.364e-04  RMS*sqrt(H)=0.063
+H=2.1e+06: RMS=3.628e-05  RMS*sqrt(H)=0.053
+H=2.1e+07: RMS=9.200e-06  RMS*sqrt(H)=0.042
+
+=== kappa2 analogue (pairs p1 != p2), H=2.1e6 ===
+ell=15.60: RMS(kappa2 offsets, cut X)=1.24e-05; cut X^2: 4.01e-05
+ell=17.50: RMS(kappa2 offsets, cut X)=2.41e-05; cut X^2: 4.34e-05
+ell=19.75: RMS(kappa2 offsets, cut X)=3.12e-05; cut X^2: 4.61e-05
+ell=21.25: RMS(kappa2 offsets, cut X)=3.23e-05; cut X^2: 4.60e-05
+total 151s
