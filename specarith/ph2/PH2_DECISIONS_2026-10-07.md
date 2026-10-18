@@ -1327,3 +1327,18 @@ Then run, and report (B)’s band and rates under the final δμ_sys.
 Per-file condition. “All files but one within 3 SE” is accepted. Each seal states the calibrated combined false-FAIL rate, including this condition.
 Seal drafts to me, with the false-FAIL rates, power, the family-wise rate, both receipts, and the md5 pins for F4 and F5.
 Before any download: Will pushes followup-a-prediction and followup-b-prediction, the seals are stamped, and both receipts are Bitcoin-attested and verified.
+
+## Fifty-fourth round (Will, 2026-10-18) — both seals approved after two §4 edits; correction note; sealing and reading order (verbatim)
+Round 54: both seals approved, after these edits.
+
+§4 in both seals. Add: “If one test reads MODEL MISFIT, UNRESOLVED or FIT FAILURE, the other test’s verdict is reported on its own (a one-observable replication or FAIL), and no statement is made about the pair.”
+§4 in both seals. Replace “so their false-FAIL events are independent under μ = 1” with “treated as independent under μ = 1: disjoint ranges, ≥ 6·10⁶ apart in height; residual long-range arithmetic correlation between them is not modelled.”
+Decisions log. Note the 891a238f correction: “BLOCK = 100 is the shortest length with ratio ≥ 0.95”. No history rewrite.
+Then: rename the drafts, build both seal JSONs → Will commits, tags followup-a-seal and followup-b-seal, and pushes → stamp both seals → upgrade until Bitcoin-attested and verified on two explorers → Will downloads F4 and F5 by hand → each read runs twice, compare, report.
+Order of reading. Read (A) and (B) independently. Don’t open one test’s output to interpret the other until both comparisons are done.
+
+**Correction to commit 891a238f's message (round 54; no history rewrite).** Its phrase "BLOCK 100 windows (SE_boot/SD
+geomean 0.983-0.987, none >= 0.95 needed... shortest qualifying)" is garbled. Correct: BLOCK = 100 is the shortest length
+with ratio ≥ 0.95 (the geometric-mean SE_boot/SD ratios are 0.987, 0.984, 0.983 and 0.987 at 100, 333, 1000 and 3333
+windows, all ≥ 0.95). The declared calibration file itself (`results/calib/followup_calib_B_declared.json`) is correct.
+Check of the new §4 wording: the smallest gap between any F4 and any F5 height range is 6,300,000.
