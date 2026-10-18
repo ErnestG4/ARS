@@ -1,0 +1,33 @@
+{
+ "seal": "DRYRUN (not a seal)",
+ "observable": "A",
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
+ "code_sha256": {
+  "followup_sealread.py": "32a08bf19af1284d847929c82e60027a342119eb68c3d9c3b2076f540c6dca48",
+  "followup_read.py": "de7e075423e2d66d7e2aec60d59f11ab57572e830c0c4643be2070a96457cdd5",
+  "followup_fit.py": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+  "followup_nnn.py": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
+  "followup_pred.py": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+  "route_a_read.py": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+  "route_a_zeta.py": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533",
+  "../ph2/ph2lib.py": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d"
+ },
+ "derived_sha256": {},
+ "prediction_sha256": "5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa",
+ "calibration_sha256": "3f039fce96aa6094cfc8fd94ec255ed4fce85fcf25c64d59d4f83ab008300336",
+ "weights": {
+  "zeros_252446000.dat": 0.2993108469162073,
+  "zeros_2369246000.dat": 0.3375160508143581,
+  "zeros_10634846000.dat": 0.36317310226943467
+ },
+ "md5": {
+  "zeros_252446000.dat": "5af6fb0cb3a819017faa6467eeb0fffc",
+  "zeros_2369246000.dat": "a556ff88cff956cddccbc2b44a059228",
+  "zeros_10634846000.dat": "b9310ecc418ca009540e2c701c438533"
+ }
+}

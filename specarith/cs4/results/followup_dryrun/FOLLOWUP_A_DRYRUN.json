@@ -1,0 +1,74 @@
+{
+ "observable": "A",
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
+ "standin": {
+  "verdict": "FAIL",
+  "mu_pool": 0.009864996124518001,
+  "se_pool": 0.009124997396238807,
+  "band": 0.01834745079197715,
+  "ci95": [
+   -0.008384998667959612,
+   0.028114990916995614
+  ],
+  "resolvable": true,
+  "pool_within": false,
+  "files_within_3se": 0,
+  "files_needed": 2,
+  "misfit_files": [],
+  "mu_file": {
+   "zeros_252446000.dat": 0.03233685058839762,
+   "zeros_2369246000.dat": -0.006980874358353417,
+   "zeros_10634846000.dat": 0.007000471998276852
+  },
+  "se_file": {
+   "zeros_252446000.dat": 0.012816888572302142,
+   "zeros_2369246000.dat": 0.01600061141977676,
+   "zeros_10634846000.dat": 0.017280074225593092
+  }
+ },
+ "shifted_to_mu1_single_draw": {
+  "verdict": "PASS",
+  "mu_pool": 1.009864996124518
+ },
+ "pipeline": {
+  "zeros_252446000.dat": {
+   "file": "zeros_252446000.dat",
+   "observable": "A",
+   "n": 5853181,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 5853180
+  },
+  "zeros_2369246000.dat": {
+   "file": "zeros_2369246000.dat",
+   "observable": "A",
+   "n": 6600317,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 6600316
+  },
+  "zeros_10634846000.dat": {
+   "file": "zeros_10634846000.dat",
+   "observable": "A",
+   "n": 7102063,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 7102062
+  }
+ },
+ "as_expected": {
+  "bit_identical_runs": true,
+  "standin_reads_fail": true,
+  "pipeline_identity": true
+ },
+ "md5": {
+  "zeros_252446000.dat": "5af6fb0cb3a819017faa6467eeb0fffc",
+  "zeros_2369246000.dat": "a556ff88cff956cddccbc2b44a059228",
+  "zeros_10634846000.dat": "b9310ecc418ca009540e2c701c438533"
+ }
+}
