@@ -1,0 +1,119 @@
+{
+ "manifest": "timestamps/FOLLOWUP_PRESTAMP_2026-10-17.txt",
+ "manifest_sha256": "995dc21c86f47e60013997b0dcc50c0a5074fec3ce087ea5571ed48304cf82fc",
+ "receipt": "timestamps/FOLLOWUP_PRESTAMP_2026-10-17.txt.ots",
+ "receipt_sha256": "bdba2fdfb9dff6871624bbb51b335bab4168349d7a02a4d5ee28fea72ea0ff24",
+ "commit": "19101965a5021f1f193198f6472d029b888f69ae",
+ "manifest_hashes": {
+  "specarith/cs4/results/followup_pred_A.json": {
+   "listed": "5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa",
+   "at_commit": "5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa"
+  },
+  "specarith/cs4/results/followup_pred_B.json": {
+   "listed": "c0687b9a870d1874fb1ddfbf6e5f38a34352985d0da6bd6d608db3b19d7d149e",
+   "at_commit": "c0687b9a870d1874fb1ddfbf6e5f38a34352985d0da6bd6d608db3b19d7d149e"
+  },
+  "specarith/cs4/results/followup_gates.json": {
+   "listed": "228b8d285496736592c75b72681fd7aef29b04191b506e9ed185adbfe637c3ea",
+   "at_commit": "228b8d285496736592c75b72681fd7aef29b04191b506e9ed185adbfe637c3ea"
+  },
+  "specarith/cs4/followup_pred.py": {
+   "listed": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+   "at_commit": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912"
+  },
+  "specarith/cs4/followup_gates.py": {
+   "listed": "31d31842d0d727235cb8215480d0e7db2cbd181bca1d83650027e67c540e6fdb",
+   "at_commit": "31d31842d0d727235cb8215480d0e7db2cbd181bca1d83650027e67c540e6fdb"
+  },
+  "specarith/cs4/followup_fit.py": {
+   "listed": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+   "at_commit": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5"
+  },
+  "specarith/cs4/followup_read.py": {
+   "listed": "07984cf6603d06aa08b99f70fcfc36cde6c56b1c0e25c5e6fd63c3955454788a",
+   "at_commit": "07984cf6603d06aa08b99f70fcfc36cde6c56b1c0e25c5e6fd63c3955454788a"
+  },
+  "specarith/cs4/FOLLOWUP_REPLICATION_RULES.md": {
+   "listed": "2e7b9a4d88e7a8866e400e3f93573c09ca4f5acbc9fa9435fbfe0f5fee7931d8",
+   "at_commit": "2e7b9a4d88e7a8866e400e3f93573c09ca4f5acbc9fa9435fbfe0f5fee7931d8"
+  },
+  "specarith/ph2r2/FRESH_SETS_F4_F5.md": {
+   "listed": "6398466c66894fab5c41f434da25e5235fbfc957a8a5abc20e5ec315a0170151",
+   "at_commit": "6398466c66894fab5c41f434da25e5235fbfc957a8a5abc20e5ec315a0170151"
+  }
+ },
+ "tags": {
+  "followup-a-prediction": {
+   "listed": "cfbd50f09341d2d60dab6aa0f3adbdd2a1da64b9",
+   "local": "cfbd50f09341d2d60dab6aa0f3adbdd2a1da64b9"
+  },
+  "followup-b-prediction": {
+   "listed": "98610c854b679dff9c7661ab2b79a04233538a21",
+   "local": "98610c854b679dff9c7661ab2b79a04233538a21"
+  }
+ },
+ "attestations": [
+  {
+   "height": 971918,
+   "merkle_root": "2c2338a34b5b22b8b42af5242139e92a190ac129cc321a09099e2e9d6f958764",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "00000000000000000000850687823e6bd88fcabfe620d85bffc6b8eef71d83a2",
+     "merkle_root": "2c2338a34b5b22b8b42af5242139e92a190ac129cc321a09099e2e9d6f958764",
+     "height": 971918,
+     "time_utc": "2026-10-17T23:43:33+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "00000000000000000000850687823e6bd88fcabfe620d85bffc6b8eef71d83a2",
+     "merkle_root": "2c2338a34b5b22b8b42af5242139e92a190ac129cc321a09099e2e9d6f958764",
+     "height": 971918,
+     "time_utc": "2026-10-17T23:43:33+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "00000000000000000000850687823e6bd88fcabfe620d85bffc6b8eef71d83a2",
+   "time_utc": "2026-10-17T23:43:33+00:00"
+  },
+  {
+   "height": 971922,
+   "merkle_root": "29313bc965a28220b259439679834668efb09faef5068c555fdfd49578ced0c8",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "000000000000000000011aca7482be3e8776a4f98b631e65fea4eccdcd8e8719",
+     "merkle_root": "29313bc965a28220b259439679834668efb09faef5068c555fdfd49578ced0c8",
+     "height": 971922,
+     "time_utc": "2026-10-18T00:27:47+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "000000000000000000011aca7482be3e8776a4f98b631e65fea4eccdcd8e8719",
+     "merkle_root": "29313bc965a28220b259439679834668efb09faef5068c555fdfd49578ced0c8",
+     "height": 971922,
+     "time_utc": "2026-10-18T00:27:47+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "000000000000000000011aca7482be3e8776a4f98b631e65fea4eccdcd8e8719",
+   "time_utc": "2026-10-18T00:27:47+00:00"
+  }
+ ],
+ "calendars_pending": [
+  "https://finney.calendar.eternitywall.com",
+  "https://bob.btc.calendar.opentimestamps.org",
+  "https://btc.calendar.catallaxy.com",
+  "https://alice.btc.calendar.opentimestamps.org"
+ ],
+ "earliest": {
+  "height": 971918,
+  "block_hash": "00000000000000000000850687823e6bd88fcabfe620d85bffc6b8eef71d83a2",
+  "time_utc": "2026-10-17T23:43:33+00:00"
+ },
+ "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+ "checks": {
+  "receipt_commits_to_manifest": true,
+  "manifest_hashes_match_commit": true,
+  "tag_objects_match": true,
+  "tags_point_at_commit": true,
+  "bitcoin_attested": true,
+  "all_attestations_verify": true
+ }
+}
