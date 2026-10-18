@@ -9,8 +9,8 @@
 (A) prediction_vs_stamp      REFUSED: the prediction JSON's sha256 differs from the OpenTimestamps-stamped manifest's
 (A) stamp_manifest_tampered  REFUSED: the prediction manifest differs from the OpenTimestamps-stamped one
 (A) stamp_receipt_tampered   REFUSED: the OpenTimestamps receipt does not commit to the pinned prediction manifest
-(A) md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpkwfm1402/zeros_10634846000.dat missing or md5 diffe
-(A) file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpkwfm1402/zeros_2369246000.dat missing or md5 differ
-(A) heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpkwfm1402/lo.dat heights [1000.5, 1001.25] outside t
+(A) md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpt_20c0l6/zeros_10634846000.dat missing or md5 diffe
+(A) file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpt_20c0l6/zeros_2369246000.dat missing or md5 differ
+(A) heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpt_20c0l6/lo.dat heights [1000.5, 1001.25] outside t
 (A) runs_differ              REFUSED (VOID: run1 and run2 differ (470aaecfa4740b69 vs 249fd51bc4b88093); the read is void, nothing is inter
 (A) REFUSALS PASS
