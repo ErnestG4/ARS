@@ -1,0 +1,10 @@
+{
+ "set": "F5",
+ "file": "zeros_244046000.dat",
+ "n_zeros": 5842019,
+ "theta_count": 5842019.143517265,
+ "diff": -0.1435172650963068,
+ "complete": true,
+ "W": 1947339,
+ "sha256_seq": "87e40219a01b210d8b3ac7611ee3c6e2cf3437fef0ca45e3b7598905f64de22b"
+}

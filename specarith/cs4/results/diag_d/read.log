@@ -1,0 +1,28 @@
+zeros_36146000.dat k3: zeros none (τ -0.107; null 1–99% [-0.303, +0.107]); stand-in none (τ -0.116)
+zeros_36146000.dat k2: zeros none (τ -0.002; null 1–99% [-0.255, +0.084]); stand-in none (τ +0.013)
+   halves μ̂: 0.538 ± 0.019, 0.553 ± 0.018
+zeros_244046000.dat k3: zeros none (τ -0.132; null 1–99% [-0.245, +0.091]); stand-in none (τ +0.020)
+zeros_244046000.dat k2: zeros none (τ -0.105; null 1–99% [-0.315, +0.084]); stand-in none (τ -0.054)
+   halves μ̂: 0.603 ± 0.023, 0.589 ± 0.022
+zeros_2377646000.dat k3: zeros none (τ -0.031; null 1–99% [-0.347, +0.070]); stand-in none (τ -0.036)
+zeros_2377646000.dat k2: zeros none (τ +0.014; null 1–99% [-0.372, +0.064]); stand-in none (τ -0.009)
+   halves μ̂: 1.287 ± 0.044, 1.223 ± 0.047
+zeros_10643246000.dat k3: zeros none (τ -0.025; null 1–99% [-0.329, +0.078]); stand-in none (τ -0.068)
+zeros_10643246000.dat k2: zeros none (τ -0.121; null 1–99% [-0.294, +0.083]); stand-in none (τ -0.015)
+   halves μ̂: 0.865 ± 0.040, 0.917 ± 0.039
+completeness F3_zeros_10639046000.dat: zeros 7102295 vs θ 7102295.44 (diff -0.44) ok
+completeness F3_zeros_15146000.dat: zeros 4933733 vs θ 4933733.60 (diff -0.60) ok
+completeness F3_zeros_2373446000.dat: zeros 6601009 vs θ 6601009.40 (diff -0.40) ok
+completeness F3_zeros_248246000.dat: zeros 5847697 vs θ 5847697.99 (diff -0.99) ok
+completeness F3_zeros_25646000.dat: zeros 5100912 vs θ 5100910.75 (diff +1.25) ok
+completeness F4_zeros_10634846000.dat: zeros 7102162 vs θ 7102163.49 (diff -1.49) ok
+completeness F4_zeros_2369246000.dat: zeros 6600418 vs θ 6600417.70 (diff +0.30) ok
+completeness F4_zeros_252446000.dat: zeros 5853282 vs θ 5853281.96 (diff +0.04) ok
+completeness F5_zeros_10643246000.dat: zeros 7102427 vs θ 7102427.35 (diff -0.35) ok
+completeness F5_zeros_2377646000.dat: zeros 6601600 vs θ 6601600.06 (diff -0.06) ok
+completeness F5_zeros_244046000.dat: zeros 5842019 vs θ 5842019.14 (diff -0.14) ok
+completeness F5_zeros_36146000.dat: zeros 5211812 vs θ 5211810.94 (diff +1.06) ok
+completeness SI_zeros_10643246000.dat: zeros 7102328 vs θ 7102427.35 (diff -99.35) OUT OF TOLERANCE
+completeness SI_zeros_2377646000.dat: zeros 6601501 vs θ 6601600.06 (diff -99.06) OUT OF TOLERANCE
+completeness SI_zeros_244046000.dat: zeros 5841920 vs θ 5842019.14 (diff -99.14) OUT OF TOLERANCE
+completeness SI_zeros_36146000.dat: zeros 5211711 vs θ 5211810.94 (diff -99.94) OUT OF TOLERANCE
