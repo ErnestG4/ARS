@@ -157,3 +157,50 @@ per-order connected constraints are not identifiable at this N_eff.
 ## 8. Open lead (round 49)
 Per-order connected constraints may become identifiable at larger N_eff, where the cancellation near coincidence is less
 severe. That has to be weighed against the smaller arithmetic corrections there.
+
+## 9. Replications, rounds 50–54
+**Headline:** (A) replicates route (a): PASS. (B) reads FAIL. By the sealed joint reading that is exactly one FAIL: a FAIL
+for observable (B), with attribution limited to observable-specific model terms or estimator. It is not a refutation of
+route (a).
+
+**Record:**
+- Predictions tagged `followup-a-prediction` / `followup-b-prediction` (19101965), OpenTimestamps-attested at block
+  971918 (dae368bb). Seals `FOLLOWUP_A_SEAL.md` / `FOLLOWUP_B_SEAL.md` (commit e9b385d1, tags `followup-a-seal` /
+  `followup-b-seal`, re-pointed there before any stamp; decisions log round 54), seal receipts attested at block 972010
+  and verified on two explorers (2009f818).
+- F4/F5 downloaded by hand by Will on 2026-10-18 (09:42–09:44 PDT), after both seal receipts were verified; all seven
+  md5s equal the pins on the desktop and on spot.
+- Each observable read twice in separate processes on spot under the pinned interpreter; both pairs bit-identical
+  ((A) sha256 74140319…, (B) 13006e00…). Neither result was opened until both compares were done (round 54). Results
+  in `results/followup_read/` (c5cf6279).
+
+**(A) Next-nearest-neighbour spacing law on F4: PASS.**
+- μ̃_pool = 0.9981 ± 0.0171 against a band of ±0.0172.
+- Per file 1.0025, 1.0043 and 0.9888, all within 3 SE.
+- GoF χ² 19.0, 19.8 and 26.4 against thresholds 50.6, 52.9 and 52.5: no misfit.
+
+**(B) Third cumulant of the count at L = 3 on F5: FAIL.**
+- μ̃_pool = 0.8457 ± 0.0339 against a band of ±0.0384.
+- Per file 0.546, 0.596, 1.255 and 0.891 (ℓ̄ 15.59, 17.48, 19.75, 21.25); none within 3 SE.
+
+**Joint reading (sealed):** exactly one FAIL, (B). Family-wise false-FAIL rate 7.85% (α_A 5.0%, α_B 3.0%).
+
+**Between-file heterogeneity in (B) (POST HOC, descriptive; `followup_posthoc.py`,
+`results/followup_read/POSTHOC_between_file.json`).**
+- The four files disagree with each other: χ²_between = Σ_f ((μ̃_f − μ̃_pool)/SE_f)² = **282.7 on 3**. The same statistic
+  on the 200 CUE calibration replicates has **mean 3.0 and maximum 15.1** (none of 200 reaches the read). (A)'s files
+  give 0.6 on 2.
+- A calibrated false FAIL would not show between-file heterogeneity of this size: the calibration replicates are the
+  false-FAIL distribution, and their largest between-file χ² is 15.1.
+- Reasoning only, not tested: a model error that is smooth in height would move the four files' values monotonically
+  with ℓ̄. The observed pattern (0.55, 0.60, 1.26, 0.89 with rising height) is non-monotone, so a smooth-in-height model
+  error is unlikely to produce it on its own.
+- At the two lower files the zeros' own bootstrap SEs (0.014–0.017 in μ) are about half the CUE spread (0.032), so the
+  sealed SE floor binds there.
+- **Untested hypothesis:** slow arithmetic fluctuations. Off-diagonal (nearly resonant prime) contributions to the third
+  moment of the count would vary on height scales comparable to or longer than a file and not average out within one
+  file, so each file's k₃ would carry its own offset. Δκ₃ is the small difference of two terms each about 7× larger, so
+  a modest offset in k₃ (about 0.007 at the lower files) moves μ̂ a long way. Diagnostic D (round 55) is designed to
+  test this; until then it is a hypothesis only.
+
+Nothing about route (a)'s or (A)'s verdicts changes.
