@@ -1349,3 +1349,17 @@ texts, both seal JSONs and the build logs (each blob's sha256 equal to what was 
 has none of the seal files, and pushed. Before anything was stamped against them and before any F4/F5 download, Will
 re-pointed both to e9b385d1 and force-pushed the two tags only (new objects a0de8a70…, 8cfae8ec…; GitHub ls-remote
 2026-10-18 14:21 UTC). The seal manifests name the re-pointed tags. Both stamped 2026-10-18 14:21 UTC.
+
+## Fifty-fifth round (Will, 2026-10-18) — findings for the replications; Diagnostic D (exploratory, no verdict) (verbatim)
+Round 55:
+
+Findings section (“Replications, round 50–54”). Use the wording above. Record the heterogeneity numbers (χ² 282.7 on 3; calibration mean 3.0, max 15.1). State that a calibrated false FAIL would not show between-file heterogeneity of this size. State, as reasoning only, that a smooth-in-height model error is unlikely to produce a non-monotone pattern. List the slow-arithmetic-fluctuation hypothesis as untested.
+Diagnostic D (exploratory, no verdict). Commit the design before running anything.
+D1, scale dependence. For each F5 file, compute k₃ in contiguous sub-blocks over a fixed list of sizes (e.g. 1/2, 1/4, 1/8 … of the file, down to the 300-unit bootstrap block). Compare the between-sub-block variance with the variance expected from within-block SEs.
+Signature of slow variation: excess variance that grows with sub-block size.
+Controls: CUE stand-ins at F5 geometry (expect no excess); F4 and F3 files (already read, descriptive only).
+D2, the second-order analogue. Run the same scale analysis for κ₂(3), the count variance, on the same files, to see whether pair-level count statistics carry the same slow component at a smaller relative size.
+D3, theory. Find, from primary sources, the size and period of the off-diagonal (nearly resonant prime) contributions to the third moment of S(t+h) − S(t) over a finite t-window: Selberg, Tsang, and any later work on moments of S(t). Estimate whether they reach about 0.007 in k₃ at L = 3 over a window of 2·10⁶ in height.
+Declare in advance: D1 showing scale-growing excess in the zeros but not in CUE supports the hypothesis; a flat D1 excess, or none, points toward the model terms or a pipeline defect.
+Pipeline check alongside D1 (cheap). Split each F5 file into halves and report k₃ per half with its SE. Recheck each file’s zero-count completeness against θ, as for route (a) (|count − θ count| ≤ 2).
+Nothing about route (a)’s or (A)’s verdicts changes.
