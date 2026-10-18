@@ -58,7 +58,8 @@ MD5 = {"A": {"zeros_252446000.dat": "4d9c80df1f369a48e985cf5f2da870e6",
              "zeros_10643246000.dat": "916639a260da1c6b84b291260b5627e6"}}
 TAG = {"A": "followup-a-prediction", "B": "followup-b-prediction"}
 # pinned after each declaration (route (a)'s CALIB_SHA256 practice); None = not declared yet → every read refuses
-CALIB_SHA256 = {"A": "3f039fce96aa6094cfc8fd94ec255ed4fce85fcf25c64d59d4f83ab008300336", "B": None}
+CALIB_SHA256 = {"A": "3f039fce96aa6094cfc8fd94ec255ed4fce85fcf25c64d59d4f83ab008300336",
+                "B": "4d5ad7eb17f03cb9ee8e767158338c3aa0b44bc495d8e2d85961ad36cc3a9428"}
 DERIVED = {"A": {}, "B": {"cuen_r53": "results/followup_cuen_r53.json"}}
 SEED = 20261018
 DPS = 45

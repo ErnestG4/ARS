@@ -101,7 +101,7 @@ def G_B(L="3.0"):
     runs = [json.load(open(p))["L"][L] for p in CUEN]
     w = [1 / r["slope_se"] ** 2 for r in runs]
     pool = sum(wi * r["slope"] for wi, r in zip(w, runs)) / sum(w)
-    return dict(runs=[dict(slope=r["slope"], se=r["slope_se"], chi2=r["chi2"], p=r["p"]) for r in runs],
+    return dict(runs=[dict(slope=r["slope"], se=r["slope_se"], chi2=r["chi2"], p=r.get("p")) for r in runs],   # r50 has no p
                 pool=pool, pool_se=sum(w) ** -0.5)
 
 
