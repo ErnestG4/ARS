@@ -1402,3 +1402,19 @@ Choose L by a data-free power rule, committed first. The F5 post-hoc result at L
 Calibrate the averaged estimator from scratch on CUE (bias, SD floor, false-FAIL rate, power). Don’t reuse the phase-locked floor.
 Check that fresh files are feasible under the gap rule (call the set F6) before building predictions.
 Sealing waits for my review, and the read waits for Bitcoin attestation as usual.
+
+## Fifty-eighth round (Will, 2026-10-18) — F6 geometry; the L rule's SE in μ units; continue the corrected (B) (verbatim)
+Round 58:
+
+F6 is four files: the three gap-feasible files at L ≈ 17.5, 19.75 and 21.25, plus zeros_46646000.dat at L ≈ 15.84.
+Reason (record it): the low heights carry the largest corrections, the test stands alone, and the set is comparable to F5. Decided before any prediction.
+Confirm that all four are distinct from F3, F4 and F5 and satisfy the gap rule against every touched range.
+Pin the md5s and commit FRESH_SET_F6.md.
+The L rule’s SE must be in μ units, SE(k₃_avg)/|Δκ₃(L)|. If the committed rule says otherwise, amend it before the CUE outputs are read, and record that the amendment came before any rule output.
+Then continue: L* → predictions at F6 → tag → calibration of the averaged estimator from scratch → seal draft to me.
+
+**Record (filed with round 58, before any L-rule output).** The committed rule (CORRECTED_B_DESIGN.md §2, f014f447;
+code b2_rule.py, 04a2a14a) already computes SD_f(L) as the replicate standard deviation of μ̂_f(L) =
+(k̄₃ − κ₃^sine(L))/Δκ₃,f(L), i.e. SD(k̄₃)/|Δκ₃,f(L)| in μ units, and SE_pool(L) = (Σ w_f² SD_f(L)²)^½ from those. No
+amendment is needed. At the time of this record the CUE replicates were still running on char, `b2_rule.py rule` had
+not been run, and no rule output existed.
