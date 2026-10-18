@@ -22,8 +22,9 @@ only the read's safeguards and the joint reading. OBS is A (F4, the NNN spacing 
 Joint reading (round 50; declared in both seals): each test keeps its calibrated false-FAIL rate; family-wise
 1 − (1 − α_A)(1 − α_B). Both PASS: replication of route (a) by two further observables. Exactly one FAIL: a FAIL for that
 observable, attribution limited to "observable-specific model terms or estimator", not a refutation of route (a). Both
-FAIL: route (a)'s PASS is called into question, reported plainly. Any other verdict (MODEL MISFIT, UNRESOLVED, FIT
-FAILURE) is reported as such and is not a PASS.
+FAIL: route (a)'s PASS is called into question, reported plainly. Round 54: if one test reads MODEL MISFIT, UNRESOLVED or
+FIT FAILURE, the other test's verdict is reported on its own (a one-observable replication or FAIL), and no statement is
+made about the pair; if both do, neither gives a reading.
 """
 import hashlib
 import json
@@ -239,7 +240,16 @@ def joint(va, vb):
                 "or estimator; not a refutation of route (a)")
     if a == "FAIL" and b == "FAIL":
         return "both FAIL: route (a)'s PASS is called into question"
-    return f"no joint reading: (A) {a}, (B) {b} — reported as such; not a PASS"
+    other = {"A": a, "B": b}
+    ok = [o for o, v in other.items() if v in ("PASS", "FAIL")]
+    if len(ok) == 1:                                                       # round 54
+        o = ok[0]
+        alone = ("a one-observable replication of route (a)" if other[o] == "PASS"
+                 else "a FAIL for that observable")
+        x = "B" if o == "A" else "A"
+        return (f"one test only: ({o}) {other[o]} reported on its own ({alone}); ({x}) {other[x]}; no statement is made "
+                "about the pair")
+    return f"no reading: (A) {a}, (B) {b} — each reported as such; no statement is made about the pair"
 
 
 def familywise(alpha_a, alpha_b):
@@ -469,8 +479,11 @@ def witness():
     V = lambda v: dict(verdict=v)                                         # noqa: E731
     want = {("PASS", "PASS"): "both PASS", ("FAIL", "PASS"): "exactly one FAIL (A)",
             ("PASS", "FAIL"): "exactly one FAIL (B)", ("FAIL", "FAIL"): "both FAIL",
-            ("MODEL MISFIT", "PASS"): "no joint reading", ("PASS", "UNRESOLVED"): "no joint reading",
-            ("FIT FAILURE", "FAIL"): "no joint reading"}
+            ("MODEL MISFIT", "PASS"): "one test only: (B) PASS reported on its own (a one-observable replication",
+            ("PASS", "UNRESOLVED"): "one test only: (A) PASS reported on its own (a one-observable replication",
+            ("FIT FAILURE", "FAIL"): "one test only: (B) FAIL reported on its own (a FAIL for that observable",
+            ("FAIL", "MODEL MISFIT"): "one test only: (A) FAIL reported on its own (a FAIL for that observable",
+            ("UNRESOLVED", "FIT FAILURE"): "no reading"}
     cases = {f"{a}/{b}": dict(got=joint(V(a), V(b)), ok=joint(V(a), V(b)).startswith(w)) for (a, b), w in want.items()}
     fw = abs(familywise(0.05, 0.05) - 0.0975) < 1e-12
     ok = all(c["ok"] for c in cases.values()) and fw
