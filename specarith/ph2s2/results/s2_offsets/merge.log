@@ -1,0 +1,6 @@
+pooled ĝ_B over 8 offsets: 0.67923–0.67924 (spread 0.00001, SD 0.00000) against Stage 2's 95% CI half-width 0.0351
+  15.7502: spread 0.00009, max |ĝ(u) − ĝ(0)|/SE 0.003, u=0 = sealed: True
+  16.4972: spread 0.00001, max |ĝ(u) − ĝ(0)|/SE 0.000, u=0 = sealed: True
+  17.2491: spread 0.00015, max |ĝ(u) − ĝ(0)|/SE 0.004, u=0 = sealed: True
+  19.5003: spread 0.00010, max |ĝ(u) − ĝ(0)|/SE 0.003, u=0 = sealed: True
+  21.75: spread 0.00009, max |ĝ(u) − ĝ(0)|/SE 0.002, u=0 = sealed: True

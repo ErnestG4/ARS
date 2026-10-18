@@ -62,11 +62,11 @@ def merge(out_dir):
         se0 = per[e][0]["se_g"]
         files[e] = dict(g_u=g.tolist(), spread=float(g.max() - g.min()), sd=float(g.std(ddof=1)), se_g=se0,
                         max_dev_over_se=float(np.max(np.abs(g - g[0])) / se0),
-                        u0_reproduces_sealed=abs(g[0] - sealed["records"][e]["g"]) < 1e-12)
+                        u0_reproduces_sealed=bool(abs(g[0] - sealed["records"][e]["g"]) < 1e-12))
     out = dict(label="descriptive (round 56 sibling sweep); F2 is seen data; no verdict changes", offsets=OFFSETS,
                pooled=pooled, pooled_spread=float(gp.max() - gp.min()), pooled_sd=float(gp.std(ddof=1)),
                stage2_ci_half_width=ci_half, spread_over_ci_half=float((gp.max() - gp.min()) / ci_half),
-               files=files, red_path_pass=all(f["max_dev_over_se"] <= 1 for f in files.values()))
+               files=files, red_path_pass=bool(all(f["max_dev_over_se"] <= 1 for f in files.values())))
     json.dump(out, open(os.path.join(out_dir, "S2_OFFSETS.json"), "w"), indent=1)
     print(f"pooled ĝ_B over 8 offsets: {gp.min():.5f}–{gp.max():.5f} (spread {gp.max() - gp.min():.5f}, SD "
           f"{gp.std(ddof=1):.5f}) against Stage 2's 95% CI half-width {ci_half:.4f}")
