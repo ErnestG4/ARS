@@ -8,8 +8,8 @@
   "mpmath": "1.4.1"
  },
  "code_sha256": {
-  "followup_sealread.py": "32a08bf19af1284d847929c82e60027a342119eb68c3d9c3b2076f540c6dca48",
-  "followup_read.py": "de7e075423e2d66d7e2aec60d59f11ab57572e830c0c4643be2070a96457cdd5",
+  "followup_sealread.py": "c6e95d2e87921f2394622f3b1faf51f4c6d4338f1c43ed745ee552a566de9c51",
+  "followup_read.py": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42",
   "followup_fit.py": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
   "followup_nnn.py": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
   "followup_pred.py": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",

@@ -1,0 +1,22 @@
+zeros_36146000.dat: decoded 5211711 zeros, fitted
+zeros_244046000.dat: decoded 5841920 zeros, fitted
+zeros_2377646000.dat: decoded 6601501 zeros, fitted
+zeros_10643246000.dat: decoded 7102328 zeros, fitted
+read B/run1: written to /home/combust/tmp/claude/specarith/cs4/results/followup_dryrun/B/run1 (no estimate printed; run compare after the second run)
+zeros_36146000.dat: decoded 5211711 zeros, fitted
+zeros_244046000.dat: decoded 5841920 zeros, fitted
+zeros_2377646000.dat: decoded 6601501 zeros, fitted
+zeros_10643246000.dat: decoded 7102328 zeros, fitted
+read B/run2: written to /home/combust/tmp/claude/specarith/cs4/results/followup_dryrun/B/run2 (no estimate printed; run compare after the second run)
+run1 = run2 bit for bit (sha256 03f245b7593469e2…)
+(B) verdict (sealed rule): **FAIL**
+μ̃_pool = -0.0001 ± 0.0368 (band ±0.0413); files within 3 SE: 0/4 (need 3)
+
+| file | μ̃_f | SE_f |
+|---|---|---|
+| zeros_36146000.dat | -0.0121 | 0.0325 |
+| zeros_244046000.dat | +0.0273 | 0.0337 |
+| zeros_2377646000.dat | -0.0101 | 0.0366 |
+| zeros_10643246000.dat | -0.0047 | 0.0401 |
+
+dry run: {'verdict': 'PASS', 'mu_pool': 0.9998714160547555} as expected: {'bit_identical_runs': True, 'standin_reads_fail': True, 'pipeline_identity': True}

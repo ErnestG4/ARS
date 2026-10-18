@@ -1,0 +1,85 @@
+{
+ "observable": "B",
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
+ "standin": {
+  "verdict": "FAIL",
+  "mu_pool": -0.0001285839452443969,
+  "se_pool": 0.018384024326643607,
+  "band": 0.04125947422458222,
+  "ci95": [
+   -0.03689663259853161,
+   0.036639464708042815
+  ],
+  "resolvable": true,
+  "pool_within": false,
+  "files_within_3se": 0,
+  "files_needed": 3,
+  "misfit_files": [],
+  "mu_file": {
+   "zeros_36146000.dat": -0.01206521961340697,
+   "zeros_244046000.dat": 0.02731711160239849,
+   "zeros_2377646000.dat": -0.010101514814776839,
+   "zeros_10643246000.dat": -0.00467484508082521
+  },
+  "se_file": {
+   "zeros_36146000.dat": 0.03249851978719137,
+   "zeros_244046000.dat": 0.033669392733239496,
+   "zeros_2377646000.dat": 0.036646016399836376,
+   "zeros_10643246000.dat": 0.04013482283130621
+  }
+ },
+ "shifted_to_mu1_single_draw": {
+  "verdict": "PASS",
+  "mu_pool": 0.9998714160547555
+ },
+ "pipeline": {
+  "zeros_36146000.dat": {
+   "file": "zeros_36146000.dat",
+   "observable": "B",
+   "n": 5211710,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 1737236
+  },
+  "zeros_244046000.dat": {
+   "file": "zeros_244046000.dat",
+   "observable": "B",
+   "n": 5841919,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 1947306
+  },
+  "zeros_2377646000.dat": {
+   "file": "zeros_2377646000.dat",
+   "observable": "B",
+   "n": 6601500,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 2200499
+  },
+  "zeros_10643246000.dat": {
+   "file": "zeros_10643246000.dat",
+   "observable": "B",
+   "n": 7102327,
+   "max_abs_spacing_err": 0.0,
+   "sequence_identical": true,
+   "n_sequence": 2367442
+  }
+ },
+ "as_expected": {
+  "bit_identical_runs": true,
+  "standin_reads_fail": true,
+  "pipeline_identity": true
+ },
+ "md5": {
+  "zeros_36146000.dat": "8b28de6fec0f985e03740aa1426cf3ae",
+  "zeros_244046000.dat": "c678821b1c8e017912e5985e64a29867",
+  "zeros_2377646000.dat": "42a76dfc2c0010ba9b94f1e269a18c8a",
+  "zeros_10643246000.dat": "198a36199f1f0d1725aaff4272bf877c"
+ }
+}
