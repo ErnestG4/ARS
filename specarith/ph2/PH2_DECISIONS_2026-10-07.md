@@ -1384,3 +1384,21 @@ Findings §9. Add the grid-lock attribution:
 Evidence: r = −0.99 for k₂ and −0.88 for k₃ against cos 2πφ across 12 files.
 Record that the slow-arithmetic hypothesis was tested and not supported.
 Route (a) and (A) are unaffected, because spacings don’t depend on the window origin.
+
+## Fifty-seventh round (Will, 2026-10-18) — untestable Σ² sites; offset-test recalibration; corrected (B) data-free prep (verbatim)
+Round 57:
+
+The five untestable Σ² sites.
+Ledger: flag every claim traced through rigidgate and lcap as “F22-suspected (untestable at the frozen commit)”. The flag stays until a test clears it.
+Make them testable: load the imported live-tree modules at their frozen-commit versions inside the test harness, without editing the live tree, then rerun the origin-shift test.
+Recalibrate the offset test.
+RED means the maximum shift across offsets exceeds the 99th percentile of that maximum under translation-invariant nulls (Poisson, and CUE with random rotation). Match each site’s window length and sample size.
+Re-grade all 36 testable sites under this rule, including the 7 marginal ones.
+Record that the witness move to L = 10 was post-hoc, made on synthetic controls only.
+The G1b requirement to average over phase for L ≤ 3 stays.
+Corrected (B), data-free prep on spot, in parallel with the engine repair.
+Estimator: k₃ averaged over grid offsets u ∈ [0, L).
+Choose L by a data-free power rule, committed first. The F5 post-hoc result at L = 3 must not influence the rule.
+Calibrate the averaged estimator from scratch on CUE (bias, SD floor, false-FAIL rate, power). Don’t reuse the phase-locked floor.
+Check that fresh files are feasible under the gap rule (call the set F6) before building predictions.
+Sealing waits for my review, and the read waits for Bitcoin attestation as usual.
