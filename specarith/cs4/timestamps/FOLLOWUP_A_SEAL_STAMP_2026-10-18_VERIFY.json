@@ -1,0 +1,106 @@
+{
+ "manifest": "timestamps/FOLLOWUP_A_SEAL_STAMP_2026-10-18.txt",
+ "manifest_sha256": "1aaf0598441b1beb43b77484c868ee32709d3491953c1872e539c18ab8956563",
+ "receipt": "timestamps/FOLLOWUP_A_SEAL_STAMP_2026-10-18.txt.ots",
+ "receipt_sha256": "4c5eb5a97a3a9036192f3d772184847d7abf7cdcef14758b26f41a3acb2db85d",
+ "commit": "e9b385d1868c7880a4f84d501276d54ea8436e54",
+ "manifest_hashes": {
+  "specarith/cs4/FOLLOWUP_A_SEAL.md": {
+   "listed": "8cdf2f3d4392b3ee11ff51e60341df5da8ed294fdbc006f6987083948fc95e37",
+   "at_commit": "8cdf2f3d4392b3ee11ff51e60341df5da8ed294fdbc006f6987083948fc95e37"
+  },
+  "specarith/cs4/seals/FOLLOWUP_A_SEAL.json": {
+   "listed": "e7edaa9941e5748626c7a94783e40b7e2b8076c318a06609152c78623b2ea881",
+   "at_commit": "e7edaa9941e5748626c7a94783e40b7e2b8076c318a06609152c78623b2ea881"
+  },
+  "specarith/cs4/results/followup_pred_A.json": {
+   "listed": "5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa",
+   "at_commit": "5b32efbb370efb921ac5516b261961083ae490fcc20a821ef45924991b4dc2fa"
+  },
+  "specarith/cs4/results/calib/followup_calib_A_declared.json": {
+   "listed": "3f039fce96aa6094cfc8fd94ec255ed4fce85fcf25c64d59d4f83ab008300336",
+   "at_commit": "3f039fce96aa6094cfc8fd94ec255ed4fce85fcf25c64d59d4f83ab008300336"
+  },
+  "specarith/cs4/followup_sealread.py": {
+   "listed": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4",
+   "at_commit": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4"
+  },
+  "specarith/cs4/followup_read.py": {
+   "listed": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42",
+   "at_commit": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42"
+  },
+  "specarith/cs4/followup_fit.py": {
+   "listed": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+   "at_commit": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5"
+  },
+  "specarith/cs4/followup_nnn.py": {
+   "listed": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
+   "at_commit": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b"
+  },
+  "specarith/cs4/followup_pred.py": {
+   "listed": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+   "at_commit": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912"
+  },
+  "specarith/cs4/route_a_read.py": {
+   "listed": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+   "at_commit": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341"
+  },
+  "specarith/cs4/route_a_zeta.py": {
+   "listed": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533",
+   "at_commit": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533"
+  },
+  "specarith/ph2/ph2lib.py": {
+   "listed": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d",
+   "at_commit": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d"
+  }
+ },
+ "tags": {
+  "followup-a-seal": {
+   "listed": "a0de8a70b7c7cee932c36833f046784f82bdf96f",
+   "local": "a0de8a70b7c7cee932c36833f046784f82bdf96f"
+  }
+ },
+ "attestations": [
+  {
+   "height": 972010,
+   "merkle_root": "d2aec1727e977acc56886cf316b1477aec4a176608194356a7aa387dc81760a5",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "00000000000000000000072df5299c3d6f429a8fe8d07ab4e21294c9bf777733",
+     "merkle_root": "d2aec1727e977acc56886cf316b1477aec4a176608194356a7aa387dc81760a5",
+     "height": 972010,
+     "time_utc": "2026-10-18T14:55:03+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "00000000000000000000072df5299c3d6f429a8fe8d07ab4e21294c9bf777733",
+     "merkle_root": "d2aec1727e977acc56886cf316b1477aec4a176608194356a7aa387dc81760a5",
+     "height": 972010,
+     "time_utc": "2026-10-18T14:55:03+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "00000000000000000000072df5299c3d6f429a8fe8d07ab4e21294c9bf777733",
+   "time_utc": "2026-10-18T14:55:03+00:00"
+  }
+ ],
+ "calendars_pending": [
+  "https://btc.calendar.catallaxy.com",
+  "https://finney.calendar.eternitywall.com",
+  "https://alice.btc.calendar.opentimestamps.org",
+  "https://bob.btc.calendar.opentimestamps.org"
+ ],
+ "earliest": {
+  "height": 972010,
+  "block_hash": "00000000000000000000072df5299c3d6f429a8fe8d07ab4e21294c9bf777733",
+  "time_utc": "2026-10-18T14:55:03+00:00"
+ },
+ "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+ "checks": {
+  "receipt_commits_to_manifest": true,
+  "manifest_hashes_match_commit": true,
+  "tag_objects_match": true,
+  "tags_point_at_commit": true,
+  "bitcoin_attested": true,
+  "all_attestations_verify": true
+ }
+}
