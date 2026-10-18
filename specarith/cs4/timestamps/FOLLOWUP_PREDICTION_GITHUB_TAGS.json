@@ -1,0 +1,17 @@
+{
+ "note": "Observation, not a third-party timestamp: `git ls-remote --tags origin` (GitHub, ErnestG4/ARS) run after Will pushed the tags on 2026-10-17 (round 53 precondition). Branch specarith was pushed at 9e191edc a few minutes earlier. GitHub's events feed showed no event after 2026-10-16 06:36:58Z at observation time, as with route (a); the OpenTimestamps receipt FOLLOWUP_PRESTAMP_2026-10-17.txt.ots is the external timestamp.",
+ "observed_utc": "2026-10-18T00:08:21+00:00",
+ "remote": "https://github.com/ErnestG4/ARS.git",
+ "refs": {
+  "refs/tags/followup-a-prediction": "cfbd50f09341d2d60dab6aa0f3adbdd2a1da64b9",
+  "refs/tags/followup-a-prediction^{}": "19101965a5021f1f193198f6472d029b888f69ae",
+  "refs/tags/followup-b-prediction": "98610c854b679dff9c7661ab2b79a04233538a21",
+  "refs/tags/followup-b-prediction^{}": "19101965a5021f1f193198f6472d029b888f69ae"
+ },
+ "expected": {
+  "tag_a": "cfbd50f09341d2d60dab6aa0f3adbdd2a1da64b9",
+  "tag_b": "98610c854b679dff9c7661ab2b79a04233538a21",
+  "commit": "19101965a5021f1f193198f6472d029b888f69ae"
+ },
+ "tags_match_local": true
+}
