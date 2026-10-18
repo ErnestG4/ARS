@@ -117,3 +117,37 @@ pool with a timeout).
   - p ≥ 0.01: the first run's χ² of 11.0 is recorded as chance.
   - p < 0.01: the known-answer check is recorded as marginal at L = 3, and that is carried as a caveat on (B)'s result.
 - The rerun's L = 3 slope is reported with the first run's. Neither changes L.
+
+## Round 53 addendum (Will, 2026-10-17; committed before the CUE_N run and before any calibration fit)
+**(B)'s slope.**
+- **Run:** `followup_cuen.py` with ROUND = 53: fresh seeds [20261016, 53, N, batch], 20,000 Haar U(N) matrices per
+  batch, N ∈ {8, 12, 16, 24, 32}. The k₃ known-answer slope at L = 3 is the weighted least-squares slope of mean k₃
+  on exact κ₃^{CUE_N} across N, as before. No earlier run's batches are pooled with it.
+- **Batches per N (ALLOC_53):** 188,000 at N = 8, 27,000 at N = 24, 4,000 at N = 12, 16 and 32. Chosen to minimise CPU
+  time for a planned SE(slope) of 0.0045, from round 51's per-batch spreads and the measured per-batch times on spot
+  (0.87, 1.85, 3.17, 7.21, 11.71 s at N = 8 … 32). The slope's information sits at the ends of the κ₃ spread
+  (N = 8 and the large N). The 4,000-batch floor keeps the linearity χ² on 3 degrees of freedom. About 118 CPU-hours,
+  against about 370 for equal batches.
+- **Stopping:** if SE(slope) > 0.005 after the run, batches at N = 8 and N = 24 are extended by 25% of ALLOC_53 per
+  step (CUEN_EXTEND = 1, 2, …; consecutive batch indices, fresh seeds) until SE(slope) ≤ 0.005. Stopping depends on the
+  SE only, never on the slope's value.
+- **Rule:** if |slope − 1| > 2·SE, g = slope (divided out); otherwise g = 1. Either way SE(slope) is added to (B)'s
+  δμ_sys. Computed by the merge (`round53` in `results/followup_cuen_r53.json`); `followup_read.G_B_53` fails closed
+  without it. (B)'s band and rates are reported under this final δμ_sys.
+
+**(A)'s GoF bins.** The 30 groups of equal sine-kernel probability on [S_RES, 1.6) are a pre-data deviation from route
+(a)'s 36 equal-width bins. Reason: (A)'s window starts at S_RES = 0.1714, where p⁽²⁾_sine ~ s⁷ is about 1e-6, so
+equal-width bins near the window's start would hold almost no counts and make χ² unstable. Equal-probability groups
+give every group about 1/30 of the window's count.
+- **Count floor:** each group's pre-data expected count per file, E_g = n_f·Σ_{k∈g} p_{μ=1}(k)·1e-4 (n_f the file's
+  pre-data count, p_{μ=1} the tagged prediction), must be ≥ 5.
+- **Merge rule:** while any group falls short, the group with the smallest E_g merges with whichever adjacent group has
+  the smaller E_g (a tie goes to the lower-s neighbour), and E is recomputed. Groups are fixed per file before any data
+  (`followup_read.ModelA`, selftest red path at n_f = 1000).
+- The thresholds T_f come from the calibration only.
+
+**Per-file condition.** "All files but one within 3·SE_f" is accepted. Each seal states the calibrated combined
+false-FAIL rate, P(verdict ≠ PASS | μ = 1) under the whole rule including this condition.
+
+**Before any download:** Will pushes `followup-a-prediction` and `followup-b-prediction`, both seals are stamped, and
+both seal receipts are Bitcoin-attested and verified.

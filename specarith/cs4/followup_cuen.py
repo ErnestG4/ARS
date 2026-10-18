@@ -8,8 +8,8 @@ For N ∈ NS and L ∈ LS:
   U(N) matrices (cbe.haar_phases; unfolded x = Nθ/2π; Haar is rotation invariant, so fixed window positions suffice),
   one k₃ per batch of B_MAT matrices.
 The slope per L is the weighted least-squares fit of the batch-mean k₃ on exact κ₃ across N, with weights from the
-batches' SEs. Seeds [20261016, ROUND, N, batch] (ROUND = 50, or 51 for the round-51 L = 3 rerun), disjoint from every
-earlier use.
+batches' SEs. Seeds [20261016, ROUND, N, batch] (ROUND = 50, 51 for the round-51 L = 3 rerun, 53 for round 53's run to
+SE(slope) ≤ 0.005 with ALLOC_53 batches per N), disjoint from every earlier use.
 
   python followup_cuen.py exact                       (table of exact κ₃^{CUE_N} − κ₃^sine)
   python followup_cuen.py run CHUNK NCHUNKS OUT_DIR   (spot)
@@ -33,6 +33,19 @@ B_MAT = 20_000
 N_BATCH = int(os.environ.get("CUEN_BATCHES", "2000"))
 ROUND = int(os.environ.get("CUEN_ROUND", "50"))           # seed tag; round 51 rerun: 51, 4000 batches
 OUT_JSON = "followup_cuen.json" if ROUND == 50 else f"followup_cuen_r{ROUND}.json"
+# Round 53 (FOLLOWUP_REPLICATION_RULES.md, round-53 addendum): batches per N chosen to minimise CPU cost for a planned
+# SE(slope at L = 3) of 0.0045 from round 51's per-batch spreads and per-N batch times, with a 4000-batch floor at
+# every N (keeps the linearity χ²); extension k ≥ 1 (CUEN_EXTEND) adds 25% per step at N = 8 and 24, until SE ≤ 0.005.
+ALLOC_53 = {8: 188_000, 12: 4000, 16: 4000, 24: 27_000, 32: 4000}
+EXTEND = int(os.environ.get("CUEN_EXTEND", "0"))
+SE_TARGET_53 = 0.005
+
+
+def n_batch(N):
+    if ROUND != 53:
+        return N_BATCH
+    b = ALLOC_53[N]
+    return b + (EXTEND * b) // 4 if N in (8, 24) else b
 
 
 def gl(m, a, b):
@@ -86,7 +99,7 @@ def k3_batch(th, N):
 
 
 def jobs():
-    return [(N, c) for N in NS for c in range(N_BATCH)]
+    return [(N, c) for N in NS for c in range(n_batch(N))]
 
 
 def run(chunk, nchunks, out_dir):
@@ -115,11 +128,12 @@ def merge(out_dir):
     if missing:
         raise SystemExit(f"merge: {len(missing)} jobs missing")
     ex = exact_table()
-    res = dict(round="fiftieth" if ROUND == 50 else f"round {ROUND} rerun", seed_round=ROUND, NS=NS, B_MAT=B_MAT, N_BATCH=N_BATCH, exact=ex, L={})
+    res = dict(round="fiftieth" if ROUND == 50 else f"round {ROUND} rerun", seed_round=ROUND, NS=NS, B_MAT=B_MAT,
+               N_BATCH=N_BATCH if ROUND != 53 else {str(N): n_batch(N) for N in NS}, extend=EXTEND, exact=ex, L={})
     for L in LS:
         x, y, se = [], [], []
         for N in NS:
-            v = np.array([rows[(N, c)]["k3"][str(L)] for c in range(N_BATCH)])
+            v = np.array([rows[(N, c)]["k3"][str(L)] for c in range(n_batch(N))])
             x.append(ex[str(L)]["cue"][str(N)])
             y.append(float(v.mean()))
             se.append(float(v.std(ddof=1) / np.sqrt(len(v))))
@@ -136,6 +150,19 @@ def merge(out_dir):
                                 intercept=float(beta[0]), chi2=chi2, dof=len(NS) - 2, p=pval)
         print(f"L = {L}: slope {beta[1]:.4f} ± {np.sqrt(cov[1, 1]):.4f} (χ² {chi2:.2f} on {len(NS) - 2}, p {pval:.3f}); "
               f"z(mean k₃ − exact) " + ", ".join(f"{z:+.2f}" for z in (y - x) / se), flush=True)
+    if ROUND == 53:
+        r = res["L"]["3.0"]
+        done = r["slope_se"] <= SE_TARGET_53
+        divide = done and abs(r["slope"] - 1) > 2 * r["slope_se"]
+        res["round53"] = dict(se_target=SE_TARGET_53, se_reached=done,
+                              decision=None if not done else ("divide the slope out" if divide else "slope = 1"),
+                              g=None if not done else (r["slope"] if divide else 1.0),
+                              dmu_sys_add=None if not done else r["slope_se"],
+                              next=None if done else f"extend: CUEN_EXTEND={EXTEND + 1}")
+        print(f"round 53: SE(slope) {r['slope_se']:.5f} (target ≤ {SE_TARGET_53}): "
+              + (f"reached; |slope − 1| = {abs(r['slope'] - 1):.5f} vs 2·SE {2 * r['slope_se']:.5f} → "
+                 f"{res['round53']['decision']}, g = {res['round53']['g']}, δμ_sys += {r['slope_se']:.5f}" if done
+                 else f"NOT reached → {res['round53']['next']}"), flush=True)
     json.dump(res, open(os.path.join(HERE, "results", OUT_JSON), "w"), indent=1)
     return 0
 

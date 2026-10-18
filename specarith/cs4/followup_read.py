@@ -17,7 +17,12 @@ Error bars: moving-block bootstrap, B_BOOT replicates, at each block length (A: 
 Phase 2's series form, ph2lib.block_bootstrap_c_series, whose score is exactly the binned one; B: BLOCK_LENS_B windows,
 the same unfolded lengths, exact from block sums of N, N², N³).
 Goodness of fit, (A) only: binned χ² against p_μ̂ conditional on the window, GOF_BINS_A groups of the 1e-4 bins with
-equal sine-kernel probability (the window starts where p⁽²⁾ ~ s⁷ is tiny, so equal widths would leave near-empty bins).
+equal sine-kernel probability (the window starts where p⁽²⁾ ~ s⁷ is tiny, so equal widths would leave near-empty bins;
+accepted in round 53 as a pre-data deviation from route (a)). Count floor (round 53): each group's pre-data expected
+count per file, E_g = n_f·Σ_{k∈g} p_{μ=1}(k)·1e-4 (n_f the file's pre-data count, p_{μ=1} the tagged prediction), must
+be ≥ GOF_MIN_E = 5; while any group falls short, the group with the smallest E_g is merged with whichever adjacent group
+has the smaller E_g (a tie goes to the lower-s neighbour), and E is recomputed. The groups are fixed per file before
+any data; the thresholds T_f come from the calibration only.
 
 Calibration (declared before the seal; FOLLOWUP_REPLICATION_RULES.md §5 step 2): per file, R = 200 CUE_1000 replicates
 at the file's pre-data size through the identical estimator: bias b_f (replicate mean of μ̂), SD_f, BLOCK (the shortest
@@ -35,11 +40,12 @@ Rule, per observable (route (a)'s, with the measured ∂μ*/∂μ = g_f in place
                 but one pass the GoF;
   FAIL          otherwise.
 g_f: (A) the prediction's estimator-limit slope per file (followup_pred_A.json); (B) the exact linear limit (1) times
-the CUE_N known-answer slope at L = 3 (G_B below; which runs enter, and whether its SE enters δμ_sys, is for Will).
+the CUE_N known-answer slope at L = 3 by round 53's rule (G_B_53: the run to SE(slope) ≤ 0.005; the slope is divided out
+only if |slope − 1| > 2·SE, else 1; its SE is added to (B)'s δμ_sys either way).
 
   python followup_read.py selftest                          known answers and red paths (small; spot)
   python followup_read.py calib_fit SAMP_DIR OUT_DIR CHUNK NCHUNKS   fits on followup_calsamp's sequences (spot)
-  python followup_read.py declare OUT_DIR                   → results/calib/followup_calib_{A,B}_declared.json
+  python followup_read.py declare OUT_DIR [A|B|AB]          → results/calib/followup_calib_{A,B}_declared.json
 """
 import json
 import math
@@ -66,6 +72,7 @@ BLOCK_LENS = {"A": (300, 1000, 3000, 10000), "B": (100, 333, 1000, 3333)}   # B:
 B_BOOT = 200
 BLOCK_SE_RATIO = 0.95
 GOF_BINS_A = 30
+GOF_MIN_E = 5.0                                                              # round 53
 GOF_FAMILYWISE = 0.01
 RESOLVE_2SE = 0.25
 K_POOL, K_FILE = 2.0, 3.0
@@ -73,7 +80,20 @@ MISFIT_FILES = 2
 R_CAL = 200
 CALIB = {o: os.path.join(HERE, "results", "calib", f"followup_calib_{o}_declared.json") for o in "AB"}
 CUEN = (os.path.join(HERE, "results", "followup_cuen.json"), os.path.join(HERE, "results", "followup_cuen_r51.json"))
+CUEN_53 = os.path.join(HERE, "results", "followup_cuen_r53.json")
 SHIFTS = (0.90, 0.94, 0.96, 0.97, 0.98, 0.99, 1.0, 1.01, 1.02, 1.03, 1.04, 1.06, 1.10)
+
+
+def G_B_53():
+    """Round 53's slope rule: g and the δμ_sys addition from the run to SE(slope) ≤ 0.005 (followup_cuen.py, ROUND 53).
+    Fails closed if the run has not reached the target."""
+    r = json.load(open(CUEN_53))
+    d = r["round53"]
+    if not d["se_reached"]:
+        raise RuntimeError(f"G_B_53: SE(slope) target not reached ({d['next']})")
+    return dict(g=d["g"], dmu_sys_add=d["dmu_sys_add"], decision=d["decision"], slope=r["L"]["3.0"]["slope"],
+                slope_se=r["L"]["3.0"]["slope_se"], chi2=r["L"]["3.0"]["chi2"], p=r["L"]["3.0"]["p"],
+                batches=r["N_BATCH"], extend=r["extend"])
 
 
 def G_B(L="3.0"):
@@ -115,7 +135,7 @@ def unfold(gammas_mp, t0, dps=40):
 class ModelA:
     """The binned model on the window for one file's tagged Δp⁽²⁾ nodes; the series-bootstrap fitter interface."""
 
-    def __init__(self, dp_nodes):
+    def __init__(self, dp_nodes, n_f=None):
         p2, _ = N.p2_sine()
         c = FF.CENTRES
         sr = max(FF.s_res(p2(c)), RR.S_TINY)
@@ -130,6 +150,27 @@ class ModelA:
         self.phi = float(np.sum(self.dp) / np.sum(self.p0))
         cum = np.concatenate([[0.0], np.cumsum(self.p0)[:-1]]) / np.sum(self.p0)
         self.group = np.minimum((cum * GOF_BINS_A).astype(np.int64), GOF_BINS_A - 1)
+        self.merges, self.E_pre = [], None
+        if n_f is not None:
+            self._count_floor(float(n_f))
+        self.n_groups = int(self.group.max()) + 1
+
+    def _count_floor(self, n_f):
+        """Round 53: merge adjacent groups until every pre-data expected count n_f·P_{μ=1}(group) is ≥ GOF_MIN_E."""
+        q = (self.p0 + self.dp) * FF.HB
+        g = self.group.copy()
+        while True:
+            E = n_f * np.bincount(g, weights=q)
+            j = int(np.argmin(E))
+            if E[j] >= GOF_MIN_E:
+                break
+            nb = [k for k in (j - 1, j + 1) if 0 <= k < len(E)]
+            k = min(nb, key=lambda k: (E[k], k))
+            lo, hi = min(j, k), max(j, k)
+            g[g == hi] = lo
+            g[g > hi] -= 1
+            self.merges.append([lo, hi, float(E[j])])
+        self.group, self.E_pre = g, E.tolist()
 
     def hist(self, pos, weights=None):
         ok = (pos >= 0) & (pos < self.K)
@@ -148,8 +189,9 @@ class ModelA:
 
     def gof(self, h, mu):
         q = self.p0 + mu * self.dp
-        O = np.bincount(self.group, weights=h, minlength=GOF_BINS_A)
-        E = h.sum() * np.bincount(self.group, weights=q, minlength=GOF_BINS_A) / q.sum()
+        ng = int(self.group.max()) + 1
+        O = np.bincount(self.group, weights=h, minlength=ng)
+        E = h.sum() * np.bincount(self.group, weights=q, minlength=ng) / q.sum()
         return float(np.sum((O - E) ** 2 / E))
 
 
@@ -211,8 +253,13 @@ def weights(obs):
 def g_files(obs, pred, gb=None):
     if obs == "A":
         return {f: pred["files"][f]["dmustar_dmu"] for f in FILES["A"]}
-    gb = G_B()["pool"] if gb is None else gb
+    gb = G_B_53()["g"] if gb is None else gb                  # round 53's rule
     return {f: 1.0 * gb for f in FILES["B"]}                 # the exact linear limit is 1 (rules §2)
+
+
+def dmu_sys(obs, pred):
+    """The declared δμ_sys: the prediction's own; for (B) plus round 53's slope SE."""
+    return pred["delta_mu_sys"] + (G_B_53()["dmu_sys_add"] if obs == "B" else 0.0)
 
 
 def file_se(r, c, block):
@@ -262,7 +309,7 @@ def calib_fit(samp_dir, out_dir, chunk, nchunks):
     if os.path.exists(path):
         done = {(r["rep"], r["file"]) for r in map(json.loads, open(path))}
     pred = {o: json.load(open(PRED[o])) for o in "AB"}
-    models = {f: ModelA(pred["A"]["files"][f]["dp_nodes"]) for f in FILES["A"]}
+    models = {f: ModelA(pred["A"]["files"][f]["dp_nodes"], pred["A"]["n_f"][f]) for f in FILES["A"]}
     rows = sorted((r for fn in sorted(os.listdir(samp_dir)) if fn.startswith("samp_")
                    for r in map(json.loads, open(os.path.join(samp_dir, fn)))), key=lambda r: (r["rep"], r["set"], r["i"]))
     for j, r in enumerate(rows):
@@ -343,23 +390,25 @@ def declare_one(obs, rows, pred, dmu_sys_options):
     return cal
 
 
-def declare(out_dir):
+def declare(out_dir, which="AB"):
     rows = {"A": {}, "B": {}}
     for fn in sorted(os.listdir(out_dir)):
         if fn.startswith("fit_c"):
             for r in map(json.loads, open(os.path.join(out_dir, fn))):
                 rows[r["obs"]][(r["rep"], r["file"])] = r
     pred = {o: json.load(open(PRED[o])) for o in "AB"}
-    gb = G_B()
-    opts = {"A": {"declared": (pred["A"]["delta_mu_sys"], None)},
-            "B": {"pool, g SE in dmu_sys": (pred["B"]["delta_mu_sys"] + gb["pool_se"], gb["pool"]),
-                  "pool, g SE not in dmu_sys": (pred["B"]["delta_mu_sys"], gb["pool"]),
-                  "exact limit only (g = 1)": (pred["B"]["delta_mu_sys"], 1.0)}}
     out = {}
-    for o in "AB":
-        cal = declare_one(o, rows[o], pred[o], opts[o])
-        if o == "B":
-            cal["G_B"] = gb
+    for o in which:
+        opts = {"declared": (dmu_sys(o, pred[o]), None)}
+        cal = declare_one(o, rows[o], pred[o], opts)
+        if o == "A":
+            cal["gof_groups"] = {f: dict(n_groups=m.n_groups, merges=m.merges, E_pre_min=min(m.E_pre))
+                                 for f, m in ((f, ModelA(pred["A"]["files"][f]["dp_nodes"], pred["A"]["n_f"][f]))
+                                              for f in FILES["A"])}
+            print(f"(A) GoF groups: {cal['gof_groups']}", flush=True)
+        else:
+            cal["G_B_round53"] = G_B_53()
+            cal["G_B_rounds50_51"] = G_B()
         os.makedirs(os.path.dirname(CALIB[o]), exist_ok=True)
         json.dump(cal, open(CALIB[o], "w"), indent=1, sort_keys=True)
         out[o] = cal
@@ -405,6 +454,15 @@ def selftest():
         ok &= g
         print(f"(A) green μ = {mu}: μ̂ {r['mu']:+.4f} ± {r['se']['1']:.4f} (block 300: {r['se']['300']:.4f}) z {z:+.2f} "
               f"χ² {r['chi2']:.1f} refits {r['boot_refit']} → {'PASS' if g else 'FAIL'}", flush=True)
+    # round 53 count floor: at a real file size nothing merges; at a tiny n_f the rule must merge until E ≥ 5 everywhere
+    big, tiny = ModelA(dpn, n_f=5_853_282), ModelA(dpn, n_f=1_000)
+    g = (not big.merges and big.n_groups == GOF_BINS_A and min(big.E_pre) >= GOF_MIN_E
+         and len(tiny.merges) > 0 and min(tiny.E_pre) >= GOF_MIN_E and tiny.n_groups < GOF_BINS_A
+         and np.all(np.diff(tiny.group) >= 0) and np.all(np.diff(tiny.group) <= 1))
+    ok &= g
+    print(f"(A) count floor: n_f 5.85e6 → {big.n_groups} groups, min E {min(big.E_pre):.0f}, merges {len(big.merges)}; "
+          f"red n_f 1000 → {tiny.n_groups} groups, min E {min(tiny.E_pre):.2f}, merges {len(tiny.merges)} "
+          f"(contiguous) → {'PASS' if g else 'FAIL'}")
     # series bootstrap = exact multiplicity refits (same starts)
     seq = draw_iid_A(m, 1.0, 400_000, rng)
     prep = m.prepare(seq)
@@ -514,4 +572,4 @@ if __name__ == "__main__":
     elif cmd == "calib_fit":
         calib_fit(sys.argv[2], sys.argv[3], int(sys.argv[4]), int(sys.argv[5]))
     elif cmd == "declare":
-        declare(sys.argv[2])
+        declare(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else "AB")
