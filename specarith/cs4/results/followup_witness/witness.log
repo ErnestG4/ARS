@@ -1,0 +1,9 @@
+PASS/PASS                both PASS: replication of route (a) by two further observables  ok
+FAIL/PASS                exactly one FAIL (A): a FAIL for that observable, attributed only to observable-specific m  ok
+PASS/FAIL                exactly one FAIL (B): a FAIL for that observable, attributed only to observable-specific m  ok
+FAIL/FAIL                both FAIL: route (a)'s PASS is called into question  ok
+MODEL MISFIT/PASS        no joint reading: (A) MODEL MISFIT, (B) PASS — reported as such; not a PASS  ok
+PASS/UNRESOLVED          no joint reading: (A) PASS, (B) UNRESOLVED — reported as such; not a PASS  ok
+FIT FAILURE/FAIL         no joint reading: (A) FIT FAILURE, (B) FAIL — reported as such; not a PASS  ok
+family-wise(0.05, 0.05) = 0.0975: True
+WITNESS PASS

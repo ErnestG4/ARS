@@ -1,0 +1,16 @@
+(A) positive control         passes the pin checks
+(A) no_seal                  REFUSED: no FOLLOWUP_A_SEAL.json — F4 zeros are not decoded before the seal
+(A) interpreter_mismatch     REFUSED: interpreter {'python': '3.12.15', 'numpy': '2.5.3', 'scipy': '1.18.1', 'mpmath': '1.4.1'} differs fro
+(A) code_mismatch            REFUSED: followup_sealread.py differs from the sealed code
+(A) prediction_mismatch      REFUSED: the prediction file differs from the sealed one
+(A) calibration_mismatch     REFUSED: the calibration differs from the sealed one (or is not declared)
+(A) weights_mismatch         REFUSED: pooling weights differ from the sealed ones
+(A) calibration_undeclared   REFUSED: the calibration differs from the sealed one (or is not declared)
+(A) prediction_vs_stamp      REFUSED: the prediction JSON's sha256 differs from the OpenTimestamps-stamped manifest's
+(A) stamp_manifest_tampered  REFUSED: the prediction manifest differs from the OpenTimestamps-stamped one
+(A) stamp_receipt_tampered   REFUSED: the OpenTimestamps receipt does not commit to the pinned prediction manifest
+(A) md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpj0rmmv3b/zeros_10634846000.dat missing or md5 diffe
+(A) file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpj0rmmv3b/zeros_2369246000.dat missing or md5 differ
+(A) heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpj0rmmv3b/lo.dat heights [1000.5, 1001.25] outside t
+(A) runs_differ              REFUSED (VOID: run1 and run2 differ (470aaecfa4740b69 vs 249fd51bc4b88093); the read is void, nothing is inter
+(A) REFUSALS PASS
