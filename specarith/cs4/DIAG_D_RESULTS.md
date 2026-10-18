@@ -48,3 +48,28 @@ Not in the design; found while reading D's tables, and reported as such.
 - **Not done (Will's call).** A phase-averaged k₃ (windows averaged over origins) on the F5 data would be post-hoc on
   seen data and is not computed here. A corrected (B) would need its own pre-registration, a calibration that
   reproduces the lattice locking (or an estimator that averages over the grid phase), and fresh data.
+
+## Phase-averaged k₃ on F5 (round 56; **post-hoc, data seen**; descriptive, no verdict)
+`diag_d_phaseavg.py` (2d98893c), `results/diag_d/phaseavg/PHASEAVG.json`. k₃ at L = 3 averaged over 32 evenly spaced
+grid offsets u ∈ [0, 3); SE from a joint block bootstrap over all offsets (300-unit segments, B = 500); μ̃ with the
+sealed prediction and calibration bias; offset 0 reproduces the sealed read's k₃ exactly in all four files.
+
+| F5 file | μ̃ (offset-averaged) | k₃(u) range over the 32 offsets | sealed μ̃ (offset 0) |
+|---|---|---|---|
+| zeros_36146000.dat | 0.9985 ± 0.0057 | −0.0183 to −0.0035 | 0.546 |
+| zeros_244046000.dat | 1.0078 ± 0.0067 | −0.0149 to −0.0035 | 0.596 |
+| zeros_2377646000.dat | 1.0028 ± 0.0080 | −0.0120 to −0.0031 | 1.255 |
+| zeros_10643246000.dat | 1.0041 ± 0.0091 | −0.0098 to −0.0034 | 0.891 |
+
+- **Pooled μ̃ = 1.0034 ± 0.0039; heterogeneity χ² = 1.2 on 3** (sealed read: 282.7 on 3).
+- Within one file, k₃ moves by up to a factor of 5 with the grid offset; averaging over the offset removes the
+  between-file heterogeneity entirely and puts every file on the CS n ≤ 3 prediction.
+- **Caveats.** Post hoc on seen data, so it cannot change the sealed FAIL. The SE is the bootstrap of the zeros
+  themselves, with no CUE floor; with the sealed floor (CUE SD 0.032–0.036 per file) the pooled SE would be about 0.017,
+  and the result would still sit at 1.00. It is consistent with, not a test of, the grid-lock attribution; the test is
+  the corrected (B), queued.
+
+## Sibling: Stage 2 at 8 grid offsets (round 56; descriptive; `../ph2s2/s2_offsets.py`, d942657d)
+Stage 2's tapered window centres shifted by u = k/8: pooled ĝ_B 0.67923–0.67924 (spread 1·10⁻⁵) against Stage 2's 95% CI
+half-width 0.0351; per file at most 0.004 SE; offset 0 reproduces the sealed read. Smooth Gaussian tapers of width ≥ 100
+do not see the lattice phase; Stage 2's PASS is unaffected.
