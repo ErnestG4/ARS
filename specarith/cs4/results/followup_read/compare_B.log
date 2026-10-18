@@ -1,0 +1,11 @@
+run1 = run2 bit for bit (sha256 13006e00ed16d060…)
+(B) verdict (sealed rule): **FAIL**
+μ̃_pool = 0.8457 ± 0.0339 (band ±0.0384); files within 3 SE: 0/4 (need 3)
+
+| file | μ̃_f | SE_f |
+|---|---|---|
+| zeros_36146000.dat | +0.5455 | 0.0321 |
+| zeros_244046000.dat | +0.5956 | 0.0317 |
+| zeros_2377646000.dat | +1.2552 | 0.0357 |
+| zeros_10643246000.dat | +0.8912 | 0.0340 |
+

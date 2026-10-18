@@ -1,0 +1,10 @@
+zeros_36146000.dat: decoded 5211812 zeros, fitted
+zeros_244046000.dat: decoded 5842019 zeros, fitted
+zeros_2377646000.dat: decoded 6601600 zeros, fitted
+zeros_10643246000.dat: decoded 7102427 zeros, fitted
+read B/run1: written to /home/combust/tmp/claude/specarith/cs4/results/followup_read/B/run1 (no estimate printed; run compare after the second run)
+zeros_36146000.dat: decoded 5211812 zeros, fitted
+zeros_244046000.dat: decoded 5842019 zeros, fitted
+zeros_2377646000.dat: decoded 6601600 zeros, fitted
+zeros_10643246000.dat: decoded 7102427 zeros, fitted
+read B/run2: written to /home/combust/tmp/claude/specarith/cs4/results/followup_read/B/run2 (no estimate printed; run compare after the second run)
