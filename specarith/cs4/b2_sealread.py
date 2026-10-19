@@ -53,7 +53,7 @@ MD5 = {"zeros_46646000.dat": "aa9f1f18b0e724dc54f3d184cc596bd2",
        "zeros_10630646000.dat": "ec13d8753e5e6e0a1161539df1d14a0a"}
 TAG = "corrected-b-prediction"
 # pinned after the declaration; None = not declared yet → every read refuses
-CALIB_SHA256 = None
+CALIB_SHA256 = "3cebd02dd989c50d42eadda4ce45339c0928b3d7c1a99d641686d2bf98dafd65"
 DERIVED = {"L_rule": "results/b2_rule.json", "cuen": "results/b2_cuen.json"}
 SEED = 20261019
 SET = 6
