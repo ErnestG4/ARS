@@ -1,0 +1,7 @@
+Poisson: k̄₃ 3.9904 (κ₃ = 4.0), z -0.34 → PASS
+per-offset k₃ vs direct: max |diff| 3.1e-15 → PASS
+μ units (k̄₃ 0.08 → μ̂ 1, SE 0.004 → 0.2) and a non-finite estimate → FIT FAILURE record → PASS
+G1b red path (jittered lattice, L = 4.0): offset average moves ≤ 0.86 SE, single offset 6.38 SE → PASS
+(A) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('MODEL MISFIT', 'MODEL MISFIT'), ('MODEL MISFIT', 'MODEL MISFIT'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+(B) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+SELFTEST PASS
