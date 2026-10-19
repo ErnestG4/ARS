@@ -1,0 +1,130 @@
+{
+ "manifest": "timestamps/CORRECTED_B_SEAL_STAMP_2026-10-19.txt",
+ "manifest_sha256": "4c156c35dd5c194c2c6eba568b8a5dd610d68b06679210ca3d18440590b5be7d",
+ "receipt": "timestamps/CORRECTED_B_SEAL_STAMP_2026-10-19.txt.ots",
+ "receipt_sha256": "88a8e3f632692ddb3cf0a73868bdf13c76d899bfd79a2d7afd29a10fed3c5d3e",
+ "commit": "d775b8a8d98bcc6bbac8c484ec204d45811a9951",
+ "manifest_hashes": {
+  "specarith/cs4/CORRECTED_B_SEAL.md": {
+   "listed": "683bd65543517231c46110f85809178dee866bf7c876e315267e9a64dc0d8dbb",
+   "at_commit": "683bd65543517231c46110f85809178dee866bf7c876e315267e9a64dc0d8dbb"
+  },
+  "specarith/cs4/seals/CORRECTED_B_SEAL.json": {
+   "listed": "dedf748c3f709a21663beb0fa68a611fea0a42bada34a4f65ccec7c8b38bf878",
+   "at_commit": "dedf748c3f709a21663beb0fa68a611fea0a42bada34a4f65ccec7c8b38bf878"
+  },
+  "specarith/cs4/results/b2_pred.json": {
+   "listed": "df408d435fea9a3f9be92362a0afc8eba6f118b25628439571a6ad363ac5b836",
+   "at_commit": "df408d435fea9a3f9be92362a0afc8eba6f118b25628439571a6ad363ac5b836"
+  },
+  "specarith/cs4/results/calib/b2_calib_declared.json": {
+   "listed": "3cebd02dd989c50d42eadda4ce45339c0928b3d7c1a99d641686d2bf98dafd65",
+   "at_commit": "3cebd02dd989c50d42eadda4ce45339c0928b3d7c1a99d641686d2bf98dafd65"
+  },
+  "specarith/cs4/results/b2_rule.json": {
+   "listed": "4add4356002506ae04414d4442e708287a76db880d4d74f7517e1b776a7324ec",
+   "at_commit": "4add4356002506ae04414d4442e708287a76db880d4d74f7517e1b776a7324ec"
+  },
+  "specarith/cs4/results/b2_cuen.json": {
+   "listed": "f55bf032e00f54fa630723693b8fd13fa0d9d89db74fc688820b8b4b7004d9c0",
+   "at_commit": "f55bf032e00f54fa630723693b8fd13fa0d9d89db74fc688820b8b4b7004d9c0"
+  },
+  "specarith/cs4/b2_sealread.py": {
+   "listed": "f3a97335f26691a0571298934199e711e89c4708e25b2702dd202217df6760c3",
+   "at_commit": "f3a97335f26691a0571298934199e711e89c4708e25b2702dd202217df6760c3"
+  },
+  "specarith/cs4/b2_read.py": {
+   "listed": "ce424048de9889bf28ca1d138d0949ea033c4a4ce2e070563a0b6f7c36d7cabb",
+   "at_commit": "ce424048de9889bf28ca1d138d0949ea033c4a4ce2e070563a0b6f7c36d7cabb"
+  },
+  "specarith/cs4/b2_est.py": {
+   "listed": "9688e5a0efa706966d554113f767e0aa908b5d85df75cf0dbda63ceeb5113b84",
+   "at_commit": "9688e5a0efa706966d554113f767e0aa908b5d85df75cf0dbda63ceeb5113b84"
+  },
+  "specarith/cs4/b2_pred.py": {
+   "listed": "15a66447926abf351a9cb26afb61b8866a090561152b3d64f55ffa427a230e67",
+   "at_commit": "15a66447926abf351a9cb26afb61b8866a090561152b3d64f55ffa427a230e67"
+  },
+  "specarith/cs4/followup_sealread.py": {
+   "listed": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4",
+   "at_commit": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4"
+  },
+  "specarith/cs4/followup_read.py": {
+   "listed": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42",
+   "at_commit": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42"
+  },
+  "specarith/cs4/followup_fit.py": {
+   "listed": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+   "at_commit": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5"
+  },
+  "specarith/cs4/followup_nnn.py": {
+   "listed": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
+   "at_commit": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b"
+  },
+  "specarith/cs4/followup_pred.py": {
+   "listed": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+   "at_commit": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912"
+  },
+  "specarith/cs4/route_a_read.py": {
+   "listed": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+   "at_commit": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341"
+  },
+  "specarith/cs4/route_a_zeta.py": {
+   "listed": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533",
+   "at_commit": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533"
+  },
+  "specarith/ph2/ph2lib.py": {
+   "listed": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d",
+   "at_commit": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d"
+  }
+ },
+ "tags": {
+  "corrected-b-seal": {
+   "listed": "a31c806f8810dc1b762a428abf245ec5998f41c9",
+   "local": "a31c806f8810dc1b762a428abf245ec5998f41c9"
+  }
+ },
+ "attestations": [
+  {
+   "height": 972187,
+   "merkle_root": "cd6d5dc5e5660747f2a0bef2d7aecf1bb348f5503dd76d968f699c0acf10a91d",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "00000000000000000000e5eee7f2bce90258afe24cf61efdc0df66693bca58b2",
+     "merkle_root": "cd6d5dc5e5660747f2a0bef2d7aecf1bb348f5503dd76d968f699c0acf10a91d",
+     "height": 972187,
+     "time_utc": "2026-10-19T17:49:13+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "00000000000000000000e5eee7f2bce90258afe24cf61efdc0df66693bca58b2",
+     "merkle_root": "cd6d5dc5e5660747f2a0bef2d7aecf1bb348f5503dd76d968f699c0acf10a91d",
+     "height": 972187,
+     "time_utc": "2026-10-19T17:49:13+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "00000000000000000000e5eee7f2bce90258afe24cf61efdc0df66693bca58b2",
+   "time_utc": "2026-10-19T17:49:13+00:00"
+  }
+ ],
+ "calendars_pending": [
+  "https://alice.btc.calendar.opentimestamps.org",
+  "https://btc.calendar.catallaxy.com",
+  "https://finney.calendar.eternitywall.com",
+  "https://bob.btc.calendar.opentimestamps.org"
+ ],
+ "earliest": {
+  "height": 972187,
+  "block_hash": "00000000000000000000e5eee7f2bce90258afe24cf61efdc0df66693bca58b2",
+  "time_utc": "2026-10-19T17:49:13+00:00"
+ },
+ "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+ "checks": {
+  "receipt_commits_to_manifest": true,
+  "manifest_hashes_match_commit": true,
+  "tag_objects_match": true,
+  "tags_point_at_commit": true,
+  "bitcoin_attested": true,
+  "all_attestations_verify": true
+ }
+}
