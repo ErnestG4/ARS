@@ -1,0 +1,50 @@
+{
+ "round": 58,
+ "L_star": 4.0,
+ "tol": 1e-12,
+ "cutoff_frac": 0.01,
+ "band_F3": 0.009776868119221788,
+ "G1_taggable": true,
+ "dmu_cutoff_pool": 3.9322044060268875e-07,
+ "G2_limit": 9.776868119221788e-05,
+ "G2_cutoff": true,
+ "delta_mu_sys": 5.891977218399572e-07,
+ "dmu_by_file": {
+  "zeros_46646000.dat": {
+   "cutoff": 4.88008904501069e-07,
+   "quad": 1.0795552147783156e-11,
+   "file_average": 8.858411984109786e-07
+  },
+  "zeros_256646000.dat": {
+   "cutoff": 4.2502822087634446e-07,
+   "quad": 1.0452969571555392e-11,
+   "file_average": 3.033995564633643e-08
+  },
+  "zeros_2365046000.dat": {
+   "cutoff": 2.69539543498117e-07,
+   "quad": 8.733873550687321e-12,
+   "file_average": 3.5988389964875513e-10
+  },
+  "zeros_10630646000.dat": {
+   "cutoff": 4.112461527167722e-07,
+   "quad": 3.1504394767367116e-11,
+   "file_average": 1.782469076870895e-11
+  }
+ },
+ "G4_xcheck": {
+  "n": 6,
+  "worst": 0.0,
+  "by_host": {
+   "char-To-be-filled-by-O-E-M": {
+    "n": 6,
+    "worst": 0.0
+   }
+  },
+  "PASS": true
+ },
+ "G5_selftest": {
+  "exit": "exit=0",
+  "PASS": true
+ },
+ "all_pass": true
+}
