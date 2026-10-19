@@ -1,0 +1,26 @@
+positive control         passes the pin checks
+no_seal                  REFUSED: no CORRECTED_B_SEAL.json — F6 zeros are not decoded before the seal
+interpreter_mismatch     REFUSED: interpreter {'python': '3.12.15', 'numpy': '2.5.3', 'scipy': '1.18.1', 'mpmath': '1.4.1'} differs fro
+code_mismatch            REFUSED: b2_sealread.py differs from the sealed code
+prediction_mismatch      REFUSED: the prediction file differs from the sealed one
+calibration_mismatch     REFUSED: the calibration differs from the sealed one (or is not declared)
+weights_mismatch         REFUSED: pooling weights differ from the sealed ones
+derived_mismatch         REFUSED: derived file results/b2_rule.json differs from the sealed one
+L_star_mismatch          REFUSED: L* differs from the sealed one
+calibration_undeclared   REFUSED: the calibration differs from the sealed one (or is not declared)
+prediction_vs_stamp      REFUSED: the prediction JSON's sha256 differs from the OpenTimestamps-stamped manifest's
+stamp_manifest_tampered  REFUSED: the prediction manifest differs from the OpenTimestamps-stamped one
+stamp_receipt_tampered   REFUSED: the OpenTimestamps receipt does not commit to the pinned prediction manifest
+md5_mismatch             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpm0cx5591/zeros_10630646000.dat missing or md5 diffe
+file_missing             REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpm0cx5591/zeros_256646000.dat missing or md5 differs
+heights_outside_range    REFUSED: /home/combust/tmp/claude/specarith/cs4/results/tmpm0cx5591/lo.dat heights [1000.5, 1001.25] outside t
+runs_differ              REFUSED (VOID: run1 and run2 differ (470aaecfa4740b69 vs 249fd51bc4b88093); the read is void, nothing is inter
+REFUSALS PASS
+Poisson: k̄₃ 3.9904 (κ₃ = 4.0), z -0.34 → PASS
+per-offset k₃ vs direct: max |diff| 3.1e-15 → PASS
+μ units (k̄₃ 0.08 → μ̂ 1, SE 0.004 → 0.2) and a non-finite estimate → FIT FAILURE record → PASS
+G1b red path (jittered lattice, L = 4.0): offset average moves ≤ 0.86 SE, single offset 6.38 SE → PASS
+(A) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('MODEL MISFIT', 'MODEL MISFIT'), ('MODEL MISFIT', 'MODEL MISFIT'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+(B) RULE [('PASS', 'PASS'), ('FAIL', 'FAIL'), ('FAIL', 'FAIL'), ('UNRESOLVED', 'UNRESOLVED'), ('FIT FAILURE', 'FIT FAILURE'), ('PASS', 'PASS'), ('FAIL', 'FAIL'), ('PASS', 'PASS'), ('PASS', 'PASS'), ('FAIL', 'FAIL')] se floor True → PASS
+SELFTEST PASS
+wrote /home/combust/tmp/claude/specarith/cs4/seals/CORRECTED_B_SEAL.json

@@ -1,0 +1,201 @@
+{
+ "L_star": 4.0,
+ "NU": 32,
+ "calibration_sha256": "3cebd02dd989c50d42eadda4ce45339c0928b3d7c1a99d641686d2bf98dafd65",
+ "checks": {
+  "calibration_at_Lstar": true,
+  "calibration_pinned": true,
+  "dryrun_as_expected": true,
+  "dryrun_under_this_interpreter": true,
+  "gates_pass": true,
+  "md5_match_pins": true,
+  "no_calibration_failures": true,
+  "prediction_is_tagged": true,
+  "prestamp_bitcoin_verified": true,
+  "read_selftest": true,
+  "refusals": true,
+  "text_exists": true
+ },
+ "code_sha256": {
+  "../ph2/ph2lib.py": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d",
+  "b2_est.py": "9688e5a0efa706966d554113f767e0aa908b5d85df75cf0dbda63ceeb5113b84",
+  "b2_pred.py": "15a66447926abf351a9cb26afb61b8866a090561152b3d64f55ffa427a230e67",
+  "b2_read.py": "ce424048de9889bf28ca1d138d0949ea033c4a4ce2e070563a0b6f7c36d7cabb",
+  "b2_sealread.py": "f3a97335f26691a0571298934199e711e89c4708e25b2702dd202217df6760c3",
+  "followup_fit.py": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+  "followup_nnn.py": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
+  "followup_pred.py": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+  "followup_read.py": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42",
+  "followup_sealread.py": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4",
+  "route_a_read.py": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+  "route_a_zeta.py": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533"
+ },
+ "derived_sha256": {
+  "L_rule": "4add4356002506ae04414d4442e708287a76db880d4d74f7517e1b776a7324ec",
+  "cuen": "f55bf032e00f54fa630723693b8fd13fa0d9d89db74fc688820b8b4b7004d9c0"
+ },
+ "dryrun": {
+  "bit_identical_runs": true,
+  "pipeline_identity": true,
+  "standin_reads_fail": true
+ },
+ "env": {
+  "mpmath": "1.4.1",
+  "numpy": "2.5.3",
+  "python": "3.12.15",
+  "scipy": "1.18.1"
+ },
+ "files": {
+  "zeros_10630646000.dat": {
+   "t0": 10630646000,
+   "t1": 10632746000
+  },
+  "zeros_2365046000.dat": {
+   "t0": 2365046000,
+   "t1": 2367146000
+  },
+  "zeros_256646000.dat": {
+   "t0": 256646000,
+   "t1": 258746000
+  },
+  "zeros_46646000.dat": {
+   "t0": 46646000,
+   "t1": 48746000
+  }
+ },
+ "md5": {
+  "zeros_10630646000.dat": "ec13d8753e5e6e0a1161539df1d14a0a",
+  "zeros_2365046000.dat": "93c286212f9405741d6454370e0e108d",
+  "zeros_256646000.dat": "020344a4229d8fc85f73fa1180aef729",
+  "zeros_46646000.dat": "aa9f1f18b0e724dc54f3d184cc596bd2"
+ },
+ "n_f": {
+  "zeros_10630646000.dat": 7102031.479587617,
+  "zeros_2365046000.dat": 6599824.95102572,
+  "zeros_256646000.dat": 5858774.168290485,
+  "zeros_46646000.dat": 5294932.249560543
+ },
+ "observable": "corrected (B): offset-averaged k3 of the count",
+ "operating_characteristics": {
+  "dmu_sys": 0.004383320319225077,
+  "false_fail": 0.010000000000000009,
+  "g": {
+   "zeros_10630646000.dat": 1.0,
+   "zeros_2365046000.dat": 1.0,
+   "zeros_256646000.dat": 1.0,
+   "zeros_46646000.dat": 1.0
+  },
+  "power_mu0": 1.0,
+  "verdicts": {
+   "0.00": {
+    "FAIL": 200
+   },
+   "0.90": {
+    "FAIL": 200
+   },
+   "0.94": {
+    "FAIL": 200
+   },
+   "0.96": {
+    "FAIL": 200
+   },
+   "0.97": {
+    "FAIL": 199,
+    "PASS": 1
+   },
+   "0.98": {
+    "FAIL": 158,
+    "PASS": 42
+   },
+   "0.99": {
+    "FAIL": 26,
+    "PASS": 174
+   },
+   "1.00": {
+    "FAIL": 2,
+    "PASS": 198
+   },
+   "1.01": {
+    "FAIL": 21,
+    "PASS": 179
+   },
+   "1.02": {
+    "FAIL": 161,
+    "PASS": 39
+   },
+   "1.03": {
+    "FAIL": 199,
+    "PASS": 1
+   },
+   "1.04": {
+    "FAIL": 200
+   },
+   "1.06": {
+    "FAIL": 200
+   },
+   "1.10": {
+    "FAIL": 200
+   }
+  }
+ },
+ "prediction": {
+  "file": "results/b2_pred.json",
+  "tag": "corrected-b-prediction"
+ },
+ "prediction_sha256": "df408d435fea9a3f9be92362a0afc8eba6f118b25628439571a6ad363ac5b836",
+ "prestamp": {
+  "bitcoin_blocks": [
+   972110
+  ],
+  "earliest_bitcoin_block": {
+   "block_hash": "0000000000000000000140e6eacc6f3484a2515d8a346c8ce826d0c6e9287463",
+   "height": 972110,
+   "time_utc": "2026-10-19T05:54:01+00:00"
+  },
+  "manifest": "timestamps/CORRECTED_B_PRESTAMP_2026-10-18.txt",
+  "manifest_sha256": "1b110981c0853fa78f60289537a5f3d1243b343f9feabfba5ffbccdd4ea0eb52",
+  "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+  "receipt_sha256": "7f2a750ec1f7881dca7eee6a868b2a1f36d62c66a85882ed11c781f2d86098d7"
+ },
+ "rule": {
+  "bias": {
+   "zeros_10630646000.dat": -0.0002854315551157765,
+   "zeros_2365046000.dat": 0.0014241439734131904,
+   "zeros_256646000.dat": -0.00028838950924473796,
+   "zeros_46646000.dat": 0.0009160928303880727
+  },
+  "block": 300,
+  "dmu_sys": 0.004383320319225077,
+  "files_needed": 3,
+  "g": {
+   "zeros_10630646000.dat": 1.0,
+   "zeros_2365046000.dat": 1.0,
+   "zeros_256646000.dat": 1.0,
+   "zeros_46646000.dat": 1.0
+  },
+  "k_file": 3.0,
+  "k_pool": 2.0,
+  "resolve_2se": 0.25,
+  "sd": {
+   "zeros_10630646000.dat": 0.010979581471783321,
+   "zeros_2365046000.dat": 0.010694167669273355,
+   "zeros_256646000.dat": 0.011301780121494541,
+   "zeros_46646000.dat": 0.010642703862267244
+  },
+  "segs": [
+   300,
+   1000,
+   3000,
+   10000
+  ]
+ },
+ "seal": "CORRECTED_B_SEAL",
+ "text": "CORRECTED_B_SEAL.md",
+ "text_sha256": "683bd65543517231c46110f85809178dee866bf7c876e315267e9a64dc0d8dbb",
+ "weights": {
+  "zeros_10630646000.dat": 0.28573207224822095,
+  "zeros_2365046000.dat": 0.2655270770274861,
+  "zeros_256646000.dat": 0.2357127941141133,
+  "zeros_46646000.dat": 0.21302805661017957
+ }
+}
