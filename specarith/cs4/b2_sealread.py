@@ -60,10 +60,11 @@ SET = 6
 DPS = FS.DPS
 READ_OUT = os.path.join(HERE, "results", "b2_read")
 DRY_OUT = os.path.join(HERE, "results", "b2_dryrun")
-# the prediction manifest stamped with OpenTimestamps; set when it is stamped. None → every read refuses
-PRESTAMP = None
-PRESTAMP_SHA256 = None
-PRESTAMP_VERIFY = None
+# the prediction manifest stamped with OpenTimestamps (2026-10-18 22:02 PDT); the verify record is written once the receipt
+# is Bitcoin-attested and checked on two explorers (seal() fails closed until then)
+PRESTAMP = os.path.join(HERE, "timestamps", "CORRECTED_B_PRESTAMP_2026-10-18.txt")
+PRESTAMP_SHA256 = "1b110981c0853fa78f60289537a5f3d1243b343f9feabfba5ffbccdd4ea0eb52"
+PRESTAMP_VERIFY = os.path.join(HERE, "timestamps", "CORRECTED_B_PRESTAMP_2026-10-18_VERIFY.json")
 sha, md5, env, OTS_MAGIC = FS.sha, FS.md5, FS.env, FS.OTS_MAGIC
 
 

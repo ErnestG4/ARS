@@ -1,0 +1,34 @@
+Corrected (B): prediction timestamp manifest (OpenTimestamps; round 58, 2026-10-18).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is CORRECTED_B_PRESTAMP_2026-10-18.txt.ots.
+Statement: at the time of stamping, no F6 file has been downloaded (FRESH_SET_F6.md lists them); the averaged
+estimator's calibration is still being sampled and has not been declared; the seal is not drafted (it gets its own
+stamp, Bitcoin-attested and verified, before any F6 download or decode).
+
+repo                          criticality_tool, branch specarith
+tag corrected-b-prediction    object 367966013f1faba3c9468a2d22c30eebb63926cc
+                              on commit 2ace4d7c1ed999c908a8d91fef92deaa487edbaf
+corrected (B) prediction      specarith/cs4/results/b2_pred.json
+                              sha256 df408d435fea9a3f9be92362a0afc8eba6f118b25628439571a6ad363ac5b836
+L rule (L* = 4)               specarith/cs4/results/b2_rule.json
+                              sha256 4add4356002506ae04414d4442e708287a76db880d4d74f7517e1b776a7324ec
+CUE_N slope                   specarith/cs4/results/b2_cuen.json
+                              sha256 f55bf032e00f54fa630723693b8fd13fa0d9d89db74fc688820b8b4b7004d9c0
+gates                         specarith/cs4/results/b2_gates.json
+                              sha256 587296dbac5f6d62a21cbe0363d2684dd05700ad1cb3a68829db0583c9bc8566
+prediction code               specarith/cs4/b2_pred.py
+                              sha256 15a66447926abf351a9cb26afb61b8866a090561152b3d64f55ffa427a230e67
+estimator code                specarith/cs4/b2_est.py
+                              sha256 9688e5a0efa706966d554113f767e0aa908b5d85df75cf0dbda63ceeb5113b84
+slope code                    specarith/cs4/b2_cuen.py
+                              sha256 5409dfc80a4a47649ebaead64096621ab1a4ce1134c5aa6c709900d04be02bb1
+gate code                     specarith/cs4/b2_gates.py
+                              sha256 311eb0a75775405308d6cbbf230c3ecedad2eb1495b290d710fda7b367c69854
+read rule (pre-calibration)   specarith/cs4/b2_read.py
+                              sha256 ce424048de9889bf28ca1d138d0949ea033c4a4ce2e070563a0b6f7c36d7cabb
+sealed read (pre-calibration) specarith/cs4/b2_sealread.py
+                              sha256 47ff70085255e39ce05bb6a5918eb08b10ab249c17f4480b4bccb5d3033965e4
+design                        specarith/cs4/CORRECTED_B_DESIGN.md
+                              sha256 b01fcd8cd73318bd00ee45e9189995fc52d07108113ec92aa86ed4de57247d90
+fresh set (md5-pinned)        specarith/ph2r2/FRESH_SET_F6.md
+                              sha256 0ef0bfd768d6144df239d08bda4d99925ec334505629805f22465c80c7fb810d
+(sha256 of `git show 2ace4d7c:<path>`, i.e. the committed blob's bytes)
