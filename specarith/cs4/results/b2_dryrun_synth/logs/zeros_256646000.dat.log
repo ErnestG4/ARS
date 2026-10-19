@@ -1,0 +1,3 @@
+zeros_256646000.dat 5858674 0.006833876121019242
+zeros_256646000.dat 5858674 a5f0a7f3581e7d659b15a48de2ea601c
+{'file': 'zeros_256646000.dat', 'n': 5858674, 'max_abs_position_err': 9.313225746154785e-10, 'k3_u_identical': True, 'se_identical': True, 'k3bar': 0.0040758320378368835, 'n_windows': 1464667.46875}

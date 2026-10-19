@@ -1,0 +1,9 @@
+{
+ "file": "zeros_256646000.dat",
+ "n": 5858674,
+ "max_abs_position_err": 9.313225746154785e-10,
+ "k3_u_identical": true,
+ "se_identical": true,
+ "k3bar": 0.0040758320378368835,
+ "n_windows": 1464667.46875
+}
