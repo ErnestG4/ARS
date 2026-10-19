@@ -1,0 +1,15 @@
+{
+ "note": "Observation, not a third-party timestamp: `git ls-remote origin` (GitHub, ErnestG4/ARS) run after Will pushed tag corrected-b-prediction on 2026-10-18 (PDT). Branch specarith seen at 36b736ff (the stamp commit). Forgejo was not observable from this session (key not authorised there). The OpenTimestamps receipt CORRECTED_B_PRESTAMP_2026-10-18.txt.ots is the external timestamp.",
+ "observed_utc": "2026-10-19T06:07:55+00:00",
+ "remote": "https://github.com/ErnestG4/ARS.git",
+ "refs": {
+  "refs/tags/corrected-b-prediction": "367966013f1faba3c9468a2d22c30eebb63926cc",
+  "refs/tags/corrected-b-prediction^{}": "2ace4d7c1ed999c908a8d91fef92deaa487edbaf",
+  "refs/heads/specarith": "36b736ff24d210136d5b6c9a778140e93dc63eba"
+ },
+ "expected": {
+  "tag": "367966013f1faba3c9468a2d22c30eebb63926cc",
+  "commit": "2ace4d7c1ed999c908a8d91fef92deaa487edbaf"
+ },
+ "tags_match_local": true
+}
