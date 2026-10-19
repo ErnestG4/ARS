@@ -1459,3 +1459,19 @@ the review is not filed in this log or in ARSv2 `DECISIONS.md` (this session has
 as written. The corrected (B) seal commit, like round 54's, is Will's: the text, JSON and build log are left
 uncommitted for it, and `corrected-b-seal` should be created on that commit (round 54's tags were first made on its
 parent and had to be re-pointed).
+
+## Sixty-second round (Will, 2026-10-19) — audit-incomplete sibling sweep; D12 narrowed; corrected (B) stamp order (verbatim)
+Round 62:
+
+RIGIDGATE_RATE_ANNOTATIONS gets audit-incomplete, because the flag is about provenance, not windowing. Sibling search: scan the producing scripts of every ledger claim for live-tree path manipulation before import, and mark each hit audit-incomplete. Report the count.
+Narrow D12’s scope:
+Phase averaging by construction is required for position-anchored windows.
+Index-anchored blocks are exempt, because no lattice mismatch is possible when every block holds exactly k events. They must pass an origin-shift check on the starting index wherever the positive control has power.
+Record the reason in ENGINE_V2_SPEC.md.
+Corrected (B): after Will pushes the branch and tag, verify that GitHub matches → stamp → attested and verified on two explorers → tell Will to download F6.
+
+**Record (round 62, corrected (B)).** Already done when round 62 arrived: Will pushed `corrected-b-seal`; GitHub
+(`git ls-remote`, 2026-10-19 17:31:17 UTC) showed tag object a31c806f… on d775b8a8, equal to the local tag, branch
+specarith at d775b8a8. The seal manifest `cs4/timestamps/CORRECTED_B_SEAL_STAMP_2026-10-19.txt` (sha256 4c156c35…) was
+stamped 10:31 PDT (018f6750); the receipt is being upgraded. No F6 file has been downloaded. The ARSv2 items are filed
+and applied in ARSv2 `DECISIONS.md`.
