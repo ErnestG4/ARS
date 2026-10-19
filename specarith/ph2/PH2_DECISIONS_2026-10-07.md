@@ -1418,3 +1418,44 @@ code b2_rule.py, 04a2a14a) already computes SD_f(L) as the replicate standard de
 (k̄₃ − κ₃^sine(L))/Δκ₃,f(L), i.e. SD(k̄₃)/|Δκ₃,f(L)| in μ units, and SE_pool(L) = (Σ w_f² SD_f(L)²)^½ from those. No
 amendment is needed. At the time of this record the CUE replicates were still running on char, `b2_rule.py rule` had
 not been run, and no rule output existed.
+
+## Sixty-first round (Will, 2026-10-19) — corrected (B) seal approved with a §4 addition; ARSv2 round-59 dispositions; G1b amendment (verbatim)
+Round 61:
+
+Corrected (B) seal approved. Add to §4: “The F5 phase-averaged value (μ̃ = 1.0034, L = 3) was post-hoc on data already seen. It informed the choice of estimator and is descriptive context only. This read, at L* = 4 on fresh F6 data under a data-free L rule, is the confirmatory test; the two are not pooled.” Then rename to CORRECTED_B_SEAL.md and build the seal JSON → Will commits, tags corrected-b-seal and pushes → stamp → Bitcoin-attested and verified on two explorers → Will downloads F6 → read twice → compare → report.
+ARSv2 round 59 dispositions.
+No further compute.
+All 101 claims stay F22-suspected, marked “superseded by Task 3 (engine v2, G1b)”. The 11 claims with no rerun row get the same disposition and are listed by name.
+Cited-only claims are in scope.
+Phase22a’s index anchor stays untagged: anchoring to the event index doesn’t depend on a position origin.
+The rigidgate generators’ live-tree imports are marked “audit-incomplete”.
+Engine v2 spec, an amendment to G1b. Every windowed statistic is phase-averaged by construction. The origin-shift test is a check only where the positive control shows power at the statistic’s (n, L). Record round 59’s power map as the reason.
+
+**Will's review of the corrected (B) seal draft, filed with round 61 (verbatim):**
+
+> Corrected (B) seal: approved, with one line added. I checked it line by line.
+>
+> The band holds up. I recomputed SE_pool from the weights and SDs: 0.00550, which gives a band of 0.0154, matching the draft. The weights are proportional to the pre-data zero counts.
+> The calibration is consistent. The acceptance curve gives 198 PASS out of 200 at μ = 1, the same as the stated 1% false-FAIL rate. Bias z-values up to 1.9 across four files are ordinary.
+> L = 4 is right by the rule.* It has the lowest SE in the committed table (0.00489, against 0.00509 at L = 3). The CUE mean is about 0 at every L.
+> Offset averaging removes the grid lock properly. With 32 offsets over L = 4 there are 8 samples per lattice period, so whatever phase dependence is left sits at the 8th harmonic. Jitter of about 0.3–0.4 suppresses that by a factor of roughly e^(−2π²σ²·64), which is effectively zero. The red path shows this: the averaged estimator moves at most 0.86 SE across grid origins, while the single-offset estimator moves 6.4 SE.
+> F6 meets the gap rule exactly. Three files sit exactly one file-width away from F4, which is legal, and this test is read alone, so closeness to F4 doesn’t matter.
+>
+> The addition, in §4: “The F5 phase-averaged value (μ̃ = 1.0034, L = 3) was post-hoc on data already seen. It informed the choice of estimator and is descriptive context only. This read, at L* = 4 on fresh F6 data under a data-free L rule, is the confirmatory test; the two are not pooled.” The design history needs to be visible next to the verdict.
+>
+> ARSv2 round 59 dispositions (the same as round 60, now applied to the final tally):
+>
+> Unrun cells: narrow the scope, no more compute. All 101 claims stay F22-suspected, marked “superseded by Task 3 (engine v2, G1b)”. No claim’s status depends on clearing the flag.
+> The 11 claims with no rerun row: the same disposition, listed by name.
+> Readings:
+> Cited-only claims count as in scope; that’s the conservative reading.
+> Leave phase22a’s index anchor untagged. Blocks anchored to the event index don’t depend on any position origin, so F22 doesn’t apply.
+> Mark the rigidgate generators’ live-tree imports “audit-incomplete” on top of the F22 flag.
+>
+> A lesson for engine v2, from the positive control. The offset test has no power at n = 1,600 at several window lengths, and none at all at non-integer L. So at small n, origin invariance can’t be tested in; it has to be built in. G1b should require phase averaging by construction for every windowed statistic, and use the test only as a check where it has power.
+
+**Filing notes (round 61).** The ARSv2 dispositions are filed in ARSv2 `DECISIONS.md` and applied there. "Round 60" in
+the review is not filed in this log or in ARSv2 `DECISIONS.md` (this session has no record of it); round 61 is applied
+as written. The corrected (B) seal commit, like round 54's, is Will's: the text, JSON and build log are left
+uncommitted for it, and `corrected-b-seal` should be created on that commit (round 54's tags were first made on its
+parent and had to be re-pointed).
