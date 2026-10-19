@@ -1,0 +1,43 @@
+{
+ "seal": "DRYRUN (not a seal)",
+ "observable": "corrected (B)",
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
+ "L_star": 4.0,
+ "code_sha256": {
+  "b2_sealread.py": "f3a97335f26691a0571298934199e711e89c4708e25b2702dd202217df6760c3",
+  "b2_read.py": "ce424048de9889bf28ca1d138d0949ea033c4a4ce2e070563a0b6f7c36d7cabb",
+  "b2_est.py": "9688e5a0efa706966d554113f767e0aa908b5d85df75cf0dbda63ceeb5113b84",
+  "b2_pred.py": "15a66447926abf351a9cb26afb61b8866a090561152b3d64f55ffa427a230e67",
+  "followup_sealread.py": "2bdcbb5a49300d66d26df802bced71ced593b5ee0eed96c97c17d0334b3edbf4",
+  "followup_read.py": "d5708c3730c8ef60ec93a3a0f6bf7b9b436931625526547d9dfcb8f88016fd42",
+  "followup_fit.py": "7d2d7030a3ffa2e57c062f80a689ec01b5e3837c70531700802e73e8581693d5",
+  "followup_nnn.py": "a72045f8eb3944a4dbd9f491e913495d4eacd26cad3b3c46eceb2a9310884e9b",
+  "followup_pred.py": "4d50b94ca47380b5d37feb9e8a63a5526d841c06f4322b6c1f0154c9beded912",
+  "route_a_read.py": "c28550500105003509a7cc69f1a8352e4122fdae1eaae6137f2119804a842341",
+  "route_a_zeta.py": "e8218f76fafdd39be0cd52772dcfd761beaad6504a0fc9c6b0778e18f9afc533",
+  "../ph2/ph2lib.py": "1a10a67ff935dae65696cd770f6b55cb29611c7475411337193be8374bf5586d"
+ },
+ "derived_sha256": {
+  "L_rule": "4add4356002506ae04414d4442e708287a76db880d4d74f7517e1b776a7324ec",
+  "cuen": "f55bf032e00f54fa630723693b8fd13fa0d9d89db74fc688820b8b4b7004d9c0"
+ },
+ "prediction_sha256": "df408d435fea9a3f9be92362a0afc8eba6f118b25628439571a6ad363ac5b836",
+ "calibration_sha256": "3cebd02dd989c50d42eadda4ce45339c0928b3d7c1a99d641686d2bf98dafd65",
+ "weights": {
+  "zeros_46646000.dat": 0.21302805661017957,
+  "zeros_256646000.dat": 0.2357127941141133,
+  "zeros_2365046000.dat": 0.2655270770274861,
+  "zeros_10630646000.dat": 0.28573207224822095
+ },
+ "md5": {
+  "zeros_46646000.dat": "db211971b9a5bc77cdd974059a24fa6e",
+  "zeros_256646000.dat": "a5f0a7f3581e7d659b15a48de2ea601c",
+  "zeros_2365046000.dat": "e563c5b38bf4eeacd21e038ce5a5bc7a",
+  "zeros_10630646000.dat": "a1924f2537844697d93e50a912daee5a"
+ }
+}

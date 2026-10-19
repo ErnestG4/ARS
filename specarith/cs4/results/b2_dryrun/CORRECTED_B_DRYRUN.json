@@ -1,0 +1,88 @@
+{
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "mpmath": "1.4.1"
+ },
+ "standin": {
+  "verdict": "FAIL",
+  "mu_pool": -0.008615806814050548,
+  "se_pool": 0.005924852921351619,
+  "band": 0.016233026161928316,
+  "ci95": [
+   -0.020465512656753785,
+   0.0032338990286526897
+  ],
+  "resolvable": true,
+  "pool_within": false,
+  "files_within_3se": 0,
+  "files_needed": 3,
+  "misfit_files": [],
+  "mu_file": {
+   "zeros_46646000.dat": -0.0008238241692334543,
+   "zeros_256646000.dat": -0.020813676185773157,
+   "zeros_2365046000.dat": -0.004195599642842795,
+   "zeros_10630646000.dat": -0.008470221960631632
+  },
+  "se_file": {
+   "zeros_46646000.dat": 0.011111436479261366,
+   "zeros_256646000.dat": 0.011329999341755596,
+   "zeros_2365046000.dat": 0.012040409921030908,
+   "zeros_10630646000.dat": 0.012197915789101602
+  }
+ },
+ "shifted_to_mu1_single_draw": {
+  "verdict": "PASS",
+  "mu_pool": 0.9913841931859494
+ },
+ "pipeline": {
+  "zeros_46646000.dat": {
+   "file": "zeros_46646000.dat",
+   "n": 5294832,
+   "max_abs_position_err": 9.313225746154785e-10,
+   "k3_u_identical": true,
+   "se_identical": true,
+   "k3bar": 0.0037011755456123857,
+   "n_windows": 1323706.96875
+  },
+  "zeros_256646000.dat": {
+   "file": "zeros_256646000.dat",
+   "n": 5858674,
+   "max_abs_position_err": 9.313225746154785e-10,
+   "k3_u_identical": true,
+   "se_identical": true,
+   "k3bar": 0.0040758320378368835,
+   "n_windows": 1464667.46875
+  },
+  "zeros_2365046000.dat": {
+   "file": "zeros_2365046000.dat",
+   "n": 6599724,
+   "max_abs_position_err": 9.313225746154785e-10,
+   "k3_u_identical": true,
+   "se_identical": true,
+   "k3bar": 0.003748259658366747,
+   "n_windows": 1649930.3125
+  },
+  "zeros_10630646000.dat": {
+   "file": "zeros_10630646000.dat",
+   "n": 7101931,
+   "max_abs_position_err": 9.313225746154785e-10,
+   "k3_u_identical": true,
+   "se_identical": true,
+   "k3bar": 0.0038381525379858035,
+   "n_windows": 1775481.78125
+  }
+ },
+ "as_expected": {
+  "bit_identical_runs": true,
+  "standin_reads_fail": true,
+  "pipeline_identity": true
+ },
+ "md5": {
+  "zeros_46646000.dat": "db211971b9a5bc77cdd974059a24fa6e",
+  "zeros_256646000.dat": "a5f0a7f3581e7d659b15a48de2ea601c",
+  "zeros_2365046000.dat": "e563c5b38bf4eeacd21e038ce5a5bc7a",
+  "zeros_10630646000.dat": "a1924f2537844697d93e50a912daee5a"
+ }
+}
