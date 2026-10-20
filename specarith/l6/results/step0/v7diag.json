@@ -1,0 +1,34 @@
+{
+ "N": 10000,
+ "iters": 9,
+ "n_roots": 10000,
+ "n_verified": 10000,
+ "n_unverified": 0,
+ "max_dist_unfolded": 4.0216346972283135e-10,
+ "F_ACCEPT": 1.0,
+ "n_verified_over_F_ACCEPT": 0,
+ "max_residual_verified": 0.002336439452998329,
+ "residual_quantiles": {
+  "0.5": 9.074425655342111e-10,
+  "0.9": 1.6686337951377085e-07,
+  "0.99": 9.442614761563421e-06,
+  "0.999": 0.000136692695535056,
+  "1.0": 0.002336439452998329
+ },
+ "psi_prime_quantiles": {
+  "0.5": 11152856.381160267,
+  "0.9": 1867637850.4955223,
+  "0.99": 97419758674.5423,
+  "0.999": 955234263413.0912,
+  "1.0": 16513826035606.64
+ },
+ "floor_of_over": [],
+ "residual_of_over": [],
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+ },
+ "reading": "every verified root passes V7: the N = 1e5 failure is real; DE fallback (design \u00a79)",
+ "K": null
+}

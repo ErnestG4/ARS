@@ -1,0 +1,240 @@
+{
+ "rows": [
+  {
+   "id": "C1a",
+   "source": {
+    "source": "/home/combust/tmp/claude/specarith/ph6nm/results/candidates/C1a_res2.npy",
+    "sha256": "365feb2dbed9e279e24d95d6f3c6dfff1d12b3f235e0fe5b84de416ada700316"
+   },
+   "config": {
+    "T0": 13299.962315780242,
+    "sigma": 1564.7014489153225,
+    "E_hi": 26599.924631560483
+   },
+   "n_levels": 31120,
+   "resolution_width": 0.0006390995551855703,
+   "band_points_used": {
+    "min": 90,
+    "max": 90
+   },
+   "true_rate": 0.058823529411764705,
+   "n_hits_true": 2,
+   "n_true": 34,
+   "fake_rate": {
+    "mean": 0.019411764705882354,
+    "q05": 0.0,
+    "q95": 0.029411764705882353,
+    "n_below": 200,
+    "n_at_or_below": 200
+   },
+   "percentile": 100.0,
+   "flag_followup": true,
+   "corr_all": {
+    "pearson": -0.11360954947520088,
+    "spearman": -0.060351413292589765,
+    "n": 34
+   },
+   "corr_hits": {
+    "n": 2
+   },
+   "label": "POST HOC, DESCRIPTIVE (NEARMISS_RULE.md); a percentile > 95 is flagged for a pre-registered follow-up, not reported as a finding"
+  },
+  {
+   "id": "C1b",
+   "source": {
+    "source": "/home/combust/tmp/claude/specarith/ph6nm/results/candidates/C1b_res2.npy",
+    "sha256": "26dcd18452af26e323358106558776b9c4ce57544669c7ac756c39c75b826c95"
+   },
+   "config": {
+    "T0": 13299.91529865724,
+    "sigma": 1564.6959174890872,
+    "E_hi": 26599.83059731448
+   },
+   "n_levels": 31120,
+   "resolution_width": 0.0006391018144948757,
+   "band_points_used": {
+    "min": 90,
+    "max": 90
+   },
+   "true_rate": 0.029411764705882353,
+   "n_hits_true": 1,
+   "n_true": 34,
+   "fake_rate": {
+    "mean": 0.0,
+    "q05": 0.0,
+    "q95": 0.0,
+    "n_below": 200,
+    "n_at_or_below": 200
+   },
+   "percentile": 100.0,
+   "flag_followup": true,
+   "corr_all": {
+    "pearson": -0.04784566627318865,
+    "spearman": 0.038044308632543926,
+    "n": 34
+   },
+   "corr_hits": {
+    "n": 1
+   },
+   "label": "POST HOC, DESCRIPTIVE (NEARMISS_RULE.md); a percentile > 95 is flagged for a pre-registered follow-up, not reported as a finding"
+  },
+  {
+   "id": "C2",
+   "source": {
+    "source": "/home/combust/tmp/claude/specarith/ph6nm/results/candidates/C2_res2.npy",
+    "sha256": "72f39fc6cbb6a2387c34cc8ef898a8b7a6ed06ec48c34a3d84c7ac58dac4a55c"
+   },
+   "config": {
+    "T0": 13302.931305788066,
+    "sigma": 1565.0507418574196,
+    "E_hi": 26605.862611576133
+   },
+   "n_levels": 31128,
+   "resolution_width": 0.0006389569189387361,
+   "band_points_used": {
+    "min": 90,
+    "max": 90
+   },
+   "true_rate": 0.029411764705882353,
+   "n_hits_true": 1,
+   "n_true": 34,
+   "fake_rate": {
+    "mean": 0.07294117647058825,
+    "q05": 0.029411764705882353,
+    "q95": 0.11764705882352941,
+    "n_below": 1,
+    "n_at_or_below": 28
+   },
+   "percentile": 7.25,
+   "flag_followup": false,
+   "corr_all": {
+    "pearson": -0.2893548093649098,
+    "spearman": -0.26294881588999236,
+    "n": 34
+   },
+   "corr_hits": {
+    "n": 1
+   },
+   "label": "POST HOC, DESCRIPTIVE (NEARMISS_RULE.md); a percentile > 95 is flagged for a pre-registered follow-up, not reported as a finding"
+  },
+  {
+   "id": "C4",
+   "source": {
+    "source": "/home/combust/tmp/claude/specarith/ph6nm/results/candidates/C4_res2.npy",
+    "sha256": "2b420d5b04d8fbfa50fc9f834b746d305ab6aa0cc3ffbc0226612ef530cfc485"
+   },
+   "config": {
+    "T0": 188110.92521541094,
+    "sigma": 22130.697084165993,
+    "E_hi": 376221.8504308219
+   },
+   "n_levels": 60000,
+   "resolution_width": 4.518610490202214e-05,
+   "band_points_used": {
+    "min": 90,
+    "max": 90
+   },
+   "true_rate": 0.058823529411764705,
+   "n_hits_true": 2,
+   "n_true": 34,
+   "fake_rate": {
+    "mean": 0.03676470588235294,
+    "q05": 0.0,
+    "q95": 0.058823529411764705,
+    "n_below": 122,
+    "n_at_or_below": 200
+   },
+   "percentile": 80.5,
+   "flag_followup": false,
+   "corr_all": {
+    "pearson": 0.2042521095110255,
+    "spearman": 0.1419404125286478,
+    "n": 34
+   },
+   "corr_hits": {
+    "n": 2
+   },
+   "label": "POST HOC, DESCRIPTIVE (NEARMISS_RULE.md); a percentile > 95 is flagged for a pre-registered follow-up, not reported as a finding"
+  },
+  {
+   "id": "zeros",
+   "source": {
+    "source": "/home/combust/tmp/claude/specarith/ph6nm/data/odlyzko_zeros6.txt",
+    "first": 30000
+   },
+   "config": {
+    "T0": 12877.6741372805,
+    "sigma": 1515.0204867388825,
+    "E_hi": 25755.348274561
+   },
+   "n_levels": 30000,
+   "resolution_width": 0.0006600570809128289,
+   "band_points_used": {
+    "min": 90,
+    "max": 90
+   },
+   "true_rate": 1.0,
+   "n_hits_true": 34,
+   "n_true": 34,
+   "fake_rate": {
+    "mean": 0.07323529411764707,
+    "q05": 0.029411764705882353,
+    "q95": 0.11764705882352941,
+    "n_below": 200,
+    "n_at_or_below": 200
+   },
+   "percentile": 100.0,
+   "flag_followup": true,
+   "corr_all": {
+    "pearson": -0.9999999999999998,
+    "spearman": -1.0,
+    "n": 34
+   },
+   "corr_hits": {
+    "pearson": -0.9999999999999998,
+    "spearman": -1.0,
+    "n": 34
+   },
+   "label": "POST HOC, DESCRIPTIVE (NEARMISS_RULE.md); a percentile > 95 is flagged for a pre-registered follow-up, not reported as a finding"
+  },
+  {
+   "id": "gue",
+   "source": {
+    "source": "ph6lib.null_levels gue",
+    "seed": 1150
+   },
+   "config": {
+    "T0": 12877.6741372805,
+    "sigma": 1515.0204867388825,
+    "E_hi": 25755.348274561
+   },
+   "n_levels": 29999,
+   "resolution_width": 0.0006600570809128289,
+   "band_points_used": {
+    "min": 90,
+    "max": 90
+   },
+   "true_rate": 0.058823529411764705,
+   "n_hits_true": 2,
+   "n_true": 34,
+   "fake_rate": {
+    "mean": 0.0926470588235294,
+    "q05": 0.058823529411764705,
+    "q95": 0.14705882352941177,
+    "n_below": 8,
+    "n_at_or_below": 54
+   },
+   "percentile": 15.5,
+   "flag_followup": false,
+   "corr_all": {
+    "pearson": 0.01993407898234652,
+    "spearman": -0.007181054239877769,
+    "n": 34
+   },
+   "corr_hits": {
+    "n": 2
+   },
+   "label": "POST HOC, DESCRIPTIVE (NEARMISS_RULE.md); a percentile > 95 is flagged for a pre-registered follow-up, not reported as a finding"
+  }
+ ]
+}
