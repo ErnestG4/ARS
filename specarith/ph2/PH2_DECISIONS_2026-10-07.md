@@ -1504,3 +1504,17 @@ Then send the push list once the ARSv2 commits land.
 **Filing note (round 64).** Added as `../cs4/ROUTE_A_FINDINGS.md` §11 and `../OPEN_LEADS.md` L6. §11 adds one caveat
 already recorded in the R₂ findings: the CUE calibration blocks carry no correlation beyond a block, so a long CUE_N
 baseline is needed to separate generic rigidity from an arithmetic cause.
+
+## Sixty-fifth round (Will, 2026-10-19) — L6 descriptive pass; long-baseline design draft; release-notes draft (verbatim)
+Round 65:
+
+L6 descriptive pass: go. Build the table of Var_zeros/Var_CUE against block length across F6 (corrected B), F3 and F4 (route a and A), and the R₂ bins drift-removed series.
+Mark every block ≥ about 1,000 levels “baseline invalid: stitched CUE_1000” and don’t interpret it. The calibration’s CUE is independent rotated 1,000-level matrices, so long blocks see no long-range rigidity in the baseline.
+Interpret only shorter blocks, labelled descriptive. Add the note to OPEN_LEADS L6, stating that the long baseline is what unblocks the long-block comparison.
+Long-baseline design and pre-registration: draft only, for my review, run nothing.
+One sequence of at least 10⁵ levels. Prefer CUE via a banded CMV representation (no unfolding). The fallback is Dumitriu–Edelman β = 2, bulk only, with semicircle unfolding and its high-pass caveat stated.
+If cbe.py is reused, re-run its red paths first.
+Gates: Σ²(L) against the exact CUE/sine-kernel formula up to about 10³ spacings; and the block-variance ratio of baseline against an independent baseline replicate ≈ 1 at every block length.
+Then the identical block statistics as for the zeros.
+Release notes: draft them from §9–§11 for Will’s re-release (route a, A, corrected B, the sealed (B) FAIL with its grid-lock attribution, and the calibration-conservatism note). Draft only.
+§8’s per-order lead and L3–L5 stay queued behind L6.
