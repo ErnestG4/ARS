@@ -1578,3 +1578,18 @@ Post-hoc and descriptive throughout.
 > Apply the identical definition to the fake log m sets.
 >
 > Peak-picking adds choices (thresholds, prominence, how close is close) that can drift toward the answer. A fixed-point amplitude has no free knob beyond the band width and the percentile, and both are committed before computing.
+
+## Sixty-eighth round (Will, 2026-10-20) — L6 V7 targeted check at N = 10⁵; Phase 6 near-miss closed as a null (verbatim)
+Round 68:
+
+L6, option 2: go. Re-run the N = 10⁵ step-0 draw (seed 967), saving θ and ψ′ per root. For every root with V7 residual > 1, apply three independent checks:
+(a) the ψ′·ulp(θ) floor accounts for the residual;
+(b) f changes sign across a bracket a few ulps wide;
+(c) refining the root in extended precision moves it by ≤ 10⁻⁶ of the mean spacing.
+If (a), (b) and (c) all hold for every flagged root, apply the pre-committed K amendment and generate the CMV baselines on spot. If any root fails (b) or (c), fall back to Dumitriu–Edelman via a committed design addendum.
+Phase 6 near-miss check: close it as a null.
+Record that C1a and C1b’s flags are a defect in the flag rule. The percentile is ill-posed when the fake hit counts are near zero.
+Under an exact Poisson tail with the theoretical 1% chance rate (expected 0.34 hits per 34 points), C1a’s 2 hits give p ≈ 0.05 and C1b’s 1 hit gives p ≈ 0.29, before correcting across 4 candidates.
+No amplitude correlation (|r| ≤ 0.29, against −1.000 for the zeros).
+Conclusion, descriptive: no prime-line structure in the xp candidates, consistent with the 1D-integrability expectation. No follow-up.
+Amend the rule note: future near-miss checks use exact count tails, with the chance-rate floor, not percentiles among sparse fake sets.

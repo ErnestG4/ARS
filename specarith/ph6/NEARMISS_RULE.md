@@ -71,3 +71,29 @@ near-miss check and round 67 (`../ph2/PH2_DECISIONS_2026-10-07.md`). The invento
 - **Machine:** spot (CPU), under `nice`.
 - **Outputs:** `results/nearmiss/` (JSON per spectrum and a summary). The code is `nearmiss.py`, committed before it
   runs.
+
+## 6. Result and closure (round 68): a null
+**Result (aa494a9b, `results/nearmiss/`).**
+- C1a: 2/34 true-prime hits (n = 16, 25), percentile 100.
+- C1b: 1/34 (n = 8), percentile 100.
+- C2: 1/34, percentile 7.2.
+- C4: 2/34, percentile 80.5.
+- Controls: the ζ zeros hit 34/34 (percentile 100, Pearson −1.000); the GUE draw hit 2/34 (percentile 15.5).
+
+**The C1a and C1b flags are a defect in the flag rule (Will, round 68), not near-misses.**
+- The percentile is ill-posed when the fake sets' hit counts are near zero. C1b has no non-prime-power hit, so every fake
+  rate is 0 and one true hit reaches the 100th percentile; C1a has one.
+- **Exact count tails at the theoretical 1% chance rate** (0.34 expected hits per 34 points), before correcting across
+  the 4 candidates:
+  - C1a's 2 hits: Poisson p = 0.046 (exact binomial(34, 0.01): 0.045);
+  - C1b's 1 hit: p = 0.288 (0.289).
+
+  Corrected ×4 they are 0.18 and 1.
+- **No amplitude correlation:** |r| ≤ 0.29 for every candidate, against −1.000 for the zeros.
+
+**Conclusion (descriptive):** no prime-line structure in the xp candidates, consistent with the expectation for 1D
+integrable systems. No follow-up.
+
+**Rule amendment (round 68):** future near-miss checks use exact count tails at the chance-rate floor (the binomial or
+Poisson tail at the rule's nominal per-point rate), not percentiles among sparse fake sets. Fake sets may still be
+reported, as a description of the rule's empirical rate.
