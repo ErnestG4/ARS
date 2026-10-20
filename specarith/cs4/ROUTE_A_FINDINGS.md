@@ -289,3 +289,25 @@ tagged prediction before its data was read.
 - The four fresh sets are disjoint by the gap rule (`../ph2r2/FRESH_SET_F6.md` asserts F6 against F1–F5).
 - The rows are not pooled, and no combined significance is claimed. Each test keeps its own calibrated false-FAIL
   rate.
+
+## 11. Calibration conservatism (round 64; across tests, descriptive)
+In four places, measured at different heights with different statistics, the zeros fluctuate less than the CUE null
+predicts:
+- route (a)'s pooled GoF χ² sits at the 18.5th percentile of its CUE calibration (§4);
+- (A)'s between-file χ² is 0.6 on 2 (§9);
+- in the R₂ bins check, the zeros' drift-removed bootstrap SD falls to 0.59–0.75 of its 100-level value by 10⁴ levels,
+  while the CUE surrogates stay at 0.87–1.02 (`../ph2r2/PH2R2_FINDINGS.md` §3);
+- the corrected (B)'s between-file χ² of 0.16 on 3 is at the 4th percentile of its CUE replicates (§10).
+
+A likely cause is Berry-type saturation of the number variance Σ² beyond L_max ≈ ln(E/2π)/(2π ln 2), a few spacings
+at these heights, driven by the shortest primes. This is **untested**. The calibration replicates are independent CUE
+blocks (CUE_1000, or CUE_250 in the bins check) with no correlation beyond a block, so they cannot separate generic
+long-sequence rigidity from an arithmetic cause.
+
+**Consequence:** the CUE-floor SEs are conservative for the zeros. The PASSes stand, and every sealed rule's power
+against modest deviations from μ = 1 was understated. No verdict changes; the sealed bands are the ones read.
+
+**Open lead (round 64; `../OPEN_LEADS.md` L6):** the ratio Var_zeros/Var_CUE of block statistics as a function of block
+length, taken from the existing bootstrap outputs, as a direct measure of number-variance saturation at fresh heights.
+It is descriptive first; any confirmatory version gets its own pre-registration. It is a candidate for the engine v2
+gallery.

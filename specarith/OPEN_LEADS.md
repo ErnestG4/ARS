@@ -75,6 +75,26 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     and rotate by 2π·log m/u from one block to the next. Their beats then set the sign of ρ₁. The minimum near
     u ≈ 0.7 sits at log 2 = 0.693. GUE has no such terms, which fits its ρ₁ ≈ 0.
 
+## L6 — number-variance saturation from the existing bootstrap outputs (round 64; descriptive first)
+- **Observation (`cs4/ROUTE_A_FINDINGS.md` §11).** In four places the zeros fluctuate less than the CUE null predicts:
+  - route (a)'s GoF χ² is at the 18.5th percentile of its CUE calibration;
+  - (A)'s between-file χ² is 0.6 on 2;
+  - in the R₂ bins check the drift-removed bootstrap SD shrinks with block length;
+  - the corrected (B)'s between-file χ² is at the 4th percentile of its CUE replicates.
+
+  The CUE-floor SEs are therefore conservative for the zeros.
+- **Lead:** compute Var_zeros/Var_CUE of block statistics as a function of block length, from bootstrap outputs that
+  already exist. Examples are the per-segment SE_boot at 300/1000/3000/10000 in `cs4/results/b2_read/` against the
+  calibration's mean SE_boot and SD, route (a)'s and (A)'s block-length SEs, and the R₂ bins series. This would be a
+  direct measure of number-variance saturation at fresh heights.
+- **Candidate cause (untested):** Berry-type saturation of Σ² beyond L_max ≈ ln(E/2π)/(2π ln 2), driven by the shortest
+  primes.
+- **What it needs to mean anything:** a single long CUE_N (or sine-kernel) baseline of ≥ 10⁵ levels, because the
+  calibration blocks (CUE_1000, CUE_250) have no correlation beyond one block and cannot separate generic long-sequence
+  rigidity from arithmetic. This is the same missing baseline as the R₂ open item.
+- **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
+  engine v2 gallery.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project

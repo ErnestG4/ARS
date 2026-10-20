@@ -1493,3 +1493,14 @@ Pushes: list for Will every unpushed commit and tag on both repos, in order.
 
 **Filing note (round 63).** Findings §10 is in `../cs4/ROUTE_A_FINDINGS.md`. The ARSv2 items are filed and applied in
 ARSv2 `DECISIONS.md`; the start-index control computes on the workstation only (the engine-repair arc's rule).
+
+## Sixty-fourth round (Will, 2026-10-19) — calibration conservatism; Var_zeros/Var_CUE open lead; push list (verbatim)
+Round 64:
+
+Findings §10 (or §11, “Calibration conservatism”). Add one paragraph: across route (a) GoF (18th percentile), the (A) heterogeneity check (χ² 0.6 on 2), the bins-check SE trend and corrected (B) homogeneity (4th percentile), the zeros fluctuate less than the CUE null predicts. A likely cause is Berry-type saturation of Σ² (untested). Consequence: the CUE-floor SEs are conservative for the zeros, so the PASSes stand and power against modest deviations was understated.
+Open lead: the ratio Var_zeros/Var_CUE of block statistics as a function of block length, from the existing bootstrap outputs, as a direct measure of number-variance saturation at fresh heights. Descriptive first; any confirmatory version gets its own pre-registration. Candidate for the engine v2 gallery.
+Then send the push list once the ARSv2 commits land.
+
+**Filing note (round 64).** Added as `../cs4/ROUTE_A_FINDINGS.md` §11 and `../OPEN_LEADS.md` L6. §11 adds one caveat
+already recorded in the R₂ findings: the CUE calibration blocks carry no correlation beyond a block, so a long CUE_N
+baseline is needed to separate generic rigidity from an arithmetic cause.
