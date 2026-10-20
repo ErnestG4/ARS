@@ -1530,3 +1530,17 @@ Release notes:
 ARSv2 out of scope, with one line saying the engine repair continues separately.
 Confirm the J₁₃ erratum and the 10/14 review-response banners are included.
 Still draft, for Will.
+
+## Phase 6 near-miss check (Will, 2026-10-19; unnumbered, after round 66) — descriptive only (verbatim)
+Phase 6 near-miss check (descriptive only, no verdicts):
+
+Inventory first. For every 6.1 candidate and any 6.2 deformation scan, list what was saved: spectra, S(τ) arrays, τ grid, taper, regularisation parameters, basis size and convergence status. Report what exists before computing anything.
+If the arrays exist, commit this rule first, then run it:
+For each converged spectrum, compute the prime-hit rate: the fraction of log pᵏ (pᵏ ≤ the bound declared in Phase 6.0) with a peak inside the sealed resolution window.
+Compute the same rate for 200 fake sets of log m, with m random non-prime-powers matched in count and range.
+Report the true rate’s percentile among the fake sets, plus the correlation of matched peak amplitudes with log p/√p, and its sign.
+Deformation paths (if 6.2 ran): the same two numbers at each parameter value. Report any monotone trend with its rank correlation.
+Label everything post-hoc and descriptive. A true-prime percentile above 95 on any spectrum or path gets flagged for a pre-registered follow-up; it is not reported as a finding.
+
+**Filing note.** Filed here, where the session's rounds are logged; Phase 6's own log is `../ph6/PH6_DECISIONS_2026-10-07.md`
+(a pointer is added there). Step 1 is the inventory only; nothing is computed before Will has seen it.

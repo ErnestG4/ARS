@@ -208,3 +208,6 @@ for C3a, C3b, BBM and the Sierra mirror.
 ```
 Will's sanity checks before the go: C1a/C1b bands identical (the band depends on configuration only, which the two
 variants share to within 0.09 in E_hi); C4's band ≈ 4× tighter over a 14× wider range, as √14 ≈ 3.7 sampling predicts.
+
+**2026-10-19 (Will): Phase 6 near-miss check, descriptive only.** Filed verbatim in `../ph2/PH2_DECISIONS_2026-10-07.md`
+(after round 66). Inventory first; no computation before Will has seen it.
