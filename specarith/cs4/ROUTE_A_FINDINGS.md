@@ -296,13 +296,27 @@ predicts:
 - route (a)'s pooled GoF χ² sits at the 18.5th percentile of its CUE calibration (§4);
 - (A)'s between-file χ² is 0.6 on 2 (§9);
 - in the R₂ bins check, the zeros' drift-removed bootstrap SD falls to 0.59–0.75 of its 100-level value by 10⁴ levels,
-  while the CUE surrogates stay at 0.87–1.02 (`../ph2r2/PH2R2_FINDINGS.md` §3);
+  while a single 10⁶-level GUE sequence run through identical code stays at 0.92–0.99 (`../ph2r2/PH2R2_FINDINGS.md`
+  §3, §6);
 - the corrected (B)'s between-file χ² of 0.16 on 3 is at the 4th percentile of its CUE replicates (§10).
 
 A likely cause is Berry-type saturation of the number variance Σ² beyond L_max ≈ ln(E/2π)/(2π ln 2), a few spacings
-at these heights, driven by the shortest primes. This is **untested**. The calibration replicates are independent CUE
-blocks (CUE_1000, or CUE_250 in the bins check) with no correlation beyond a block, so they cannot separate generic
-long-sequence rigidity from an arithmetic cause.
+at these heights, driven by the shortest primes. This is **untested**. For route (a), (A) and the corrected (B), the
+calibration replicates are independent CUE_1000 blocks with no correlation beyond a block, so they cannot separate
+generic long-sequence rigidity from an arithmetic cause.
+
+**Correction (round 65): the pair statistic already has this separation on record.**
+- **Long baseline:** R₂ §6 ran a 10⁶-level GUE baseline (Dumitriu–Edelman) through identical code. The zeros' shrink was
+  distinguished in 5 of 5 bins.
+- **Fresh heights:** PH2S Stage 1 confirmed it on F1.
+- **Size:** Stage 2 matched it to CS08's n ≤ 4 prediction (shrink 1.01 [0.89, 1.14]).
+- **Mechanism:** R₂ §6 judged Berry saturation of the mean two-point function too weak on its own (it moves a 10⁴-level
+  block's variance only at order log b), and named few-prime form-factor fluctuations at τ < 1 as the candidate. That is
+  Stage 2's model.
+- **How this text went wrong:** the first version of this section (249f0470) copied R₂ §3's pre-§6 wording, which said
+  the long baseline had not been run.
+- **What is still open:** the separation for the three statistics above. L6's descriptive pass (`../l6/`) shows the same
+  direction at 300-level blocks.
 
 **Consequence:** the CUE-floor SEs are conservative for the zeros. The PASSes stand, and every sealed rule's power
 against modest deviations from μ = 1 was understated. No verdict changes; the sealed bands are the ones read.

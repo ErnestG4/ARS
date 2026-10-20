@@ -89,9 +89,40 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   direct measure of number-variance saturation at fresh heights.
 - **Candidate cause (untested):** Berry-type saturation of Σ² beyond L_max ≈ ln(E/2π)/(2π ln 2), driven by the shortest
   primes.
-- **What it needs to mean anything:** a single long CUE_N (or sine-kernel) baseline of ≥ 10⁵ levels, because the
-  calibration blocks (CUE_1000, CUE_250) have no correlation beyond one block and cannot separate generic long-sequence
-  rigidity from arithmetic. This is the same missing baseline as the R₂ open item.
+- **What it needs to mean anything:** a single long CUE_N (or sine-kernel) baseline of ≥ 10⁵ levels, run through the
+  same block statistics. The CUE_1000 calibration blocks have no correlation beyond one block, so they cannot separate
+  generic long-sequence rigidity from arithmetic.
+  - **Correction (round 65):** for the pair statistic this already exists. A 10⁶-level DE GUE baseline was run
+    (`ph2r2/PH2R2_FINDINGS.md` §6; levels saved on spot), then confirmed on fresh heights (Stage 1) and matched to
+    CS08's n ≤ 4 prediction in size (Stage 2).
+  - The first version of this lead wrongly called it "the same missing baseline". What is missing is the long baseline
+    for the spacing and κ₃ statistics.
+- **Descriptive pass (round 65; `l6/l6_table.py`, `l6/results/L6_TABLE.md`, 3fa5a4d0).** Var_zeros/Var_baseline of the
+  block statistics against block length G, from outputs that already exist.
+
+  | test (set) | baseline | G ≈ 100 | G = 300 | G ≥ 1,000 |
+  |---|---|---|---|---|
+  | route (a) (F3) | CUE_1000 calibration | — | 0.78 (0.63–0.91) | baseline invalid: stitched CUE_1000 |
+  | (A) (F4) | CUE_1000 calibration | — | 0.69 (0.57–0.85) | baseline invalid: stitched CUE_1000 |
+  | corrected (B) (F6) | CUE_1000 calibration | — | 0.31 (0.24–0.43) | baseline invalid: stitched CUE_1000 |
+  | R₂ bins (seen) | 10⁶-level GUE, unstitched | 0.56–0.82 | — | 0.37–0.67 at 10³; 0.30–0.47 at 10⁴ |
+
+  - **Descriptive reading of the short blocks only.** At 300 levels, all three statistics fluctuate less than CUE_1000
+    on every file.
+  - Within each test the ratio rises with height:
+    - route (a): 0.63 → 0.91;
+    - (A): 0.57 → 0.85;
+    - corrected (B): 0.25 → 0.43.
+
+    That matches Stage 1's finding that the shrink weakens with height.
+  - The κ₃ statistic shows the largest deficit.
+  - **Caveat at 300 levels:** a block can straddle a seam between two independent CUE_1000 matrices, where the baseline
+    has no rigidity. That could inflate the baseline's variance and push the ratio down, so the long baseline is needed
+    even here to be sure.
+  - **The R₂ row is valid at every G**, because its baseline is one long sequence. Those bins are seen data
+    (exploratory), and its ratios are absolute SDs at matched heights, not the growth ratio of §6.
+  - **The long CUE_N baseline is what unblocks the long-block comparison** for the three cs4 statistics. Its design
+    and pre-registration are drafted for Will (round 65) and not run.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 
