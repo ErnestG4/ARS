@@ -184,6 +184,11 @@ with both readings.
 - **(c) extended precision:**
   - ψ_{N−1} and c_m are recomputed in mpmath at 40 digits (the float64 α_k are taken as exact inputs; c₀ from the mp
     ψ_{N−1}(0) and arg α_{N−1}).
+  - **Same matrix (Will, round 68 note).** The Verblunsky coefficients are those of the float64 draw. They are saved
+    as complex128 (`v7check_alpha.npy`) and carried into mpmath unchanged, as `mp.mpc(complex(x))`, which is an exact
+    conversion of each binary double. They are never regenerated or re-rounded at higher precision. (c) therefore
+    compares roots of the identical matrix. On a 500-level draw the refinement reproduced the float roots to
+    10⁻¹³–10⁻¹⁶ spacings.
   - The root of f_mp is bracketed starting from [θ − 64 ulp, θ + 64 ulp], doubling the half-width up to 2²⁰ ulp until f
     changes sign, then bisected to a width of 10⁻³⁰.
   - The check holds iff |θ_mp − θ|·N/2π ≤ 10⁻⁶ mean spacings. No sign change within 2²⁰ ulp counts as a failure of (c).
