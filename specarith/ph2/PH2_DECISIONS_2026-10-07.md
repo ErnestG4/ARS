@@ -1518,3 +1518,15 @@ Gates: Σ²(L) against the exact CUE/sine-kernel formula up to about 10³ spacin
 Then the identical block statistics as for the zeros.
 Release notes: draft them from §9–§11 for Will’s re-release (route a, A, corrected B, the sealed (B) FAIL with its grid-lock attribution, and the calibration-conservatism note). Draft only.
 §8’s per-order lead and L3–L5 stay queued behind L6.
+
+## Sixty-sixth round (Will, 2026-10-19) — §11 revised; L6 long baseline approved; calibration-method note; release notes (verbatim)
+Round 66:
+
+Revise §11. Replace “Berry-type saturation (untested)” with: “consistent with the arithmetic suppression of block variance already established for the pair statistic: R₂ §6 against a single 10⁶-level GUE sequence (5 of 5 bins), confirmed on fresh heights in Stage 1, size matched to CS08 in Stage 2. R₂ §6 judged Berry saturation alone too weak and named few-prime form-factor fluctuations as the candidate. Part of the conservatism in the CUE_1000-calibrated tests may also come from stitching (see L6).” Mark it as a round-66 correction.
+L6 long baseline: design approved. Run step 0 first, then the generation on spot, then Gates 1 and 2 with their witnesses, then the comparisons. Report three ratios per block length: stitched/long (the artifact), zeros/long (the arithmetic part), and the cross-check against the 10⁶ GUE pair baseline. Descriptive only.
+Calibration-method note, for future tests: if Gates 1 and 2 pass, propose single-sequence CUE baselines as the calibration standard in place of stitched CUE_1000. Proposal only; no sealed result is re-read.
+Release notes:
+±1 SE throughout, with a separate “sealed band” column and a footnote.
+ARSv2 out of scope, with one line saying the engine repair continues separately.
+Confirm the J₁₃ erratum and the 10/14 review-response banners are included.
+Still draft, for Will.

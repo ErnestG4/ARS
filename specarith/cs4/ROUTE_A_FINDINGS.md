@@ -300,10 +300,17 @@ predicts:
   §3, §6);
 - the corrected (B)'s between-file χ² of 0.16 on 3 is at the 4th percentile of its CUE replicates (§10).
 
-A likely cause is Berry-type saturation of the number variance Σ² beyond L_max ≈ ln(E/2π)/(2π ln 2), a few spacings
-at these heights, driven by the shortest primes. This is **untested**. For route (a), (A) and the corrected (B), the
-calibration replicates are independent CUE_1000 blocks with no correlation beyond a block, so they cannot separate
-generic long-sequence rigidity from an arithmetic cause.
+**Cause (round-66 correction; Will's wording, replacing round 64's "Berry-type saturation (untested)"):** consistent
+with the arithmetic suppression of block variance already established for the pair statistic:
+- R₂ §6, against a single 10⁶-level GUE sequence (5 of 5 bins);
+- confirmed on fresh heights in Stage 1;
+- size matched to CS08 in Stage 2.
+
+R₂ §6 judged Berry saturation alone too weak and named few-prime form-factor fluctuations as the candidate. Part of the
+conservatism in the CUE_1000-calibrated tests may also come from stitching (see L6).
+
+For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
+beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause.
 
 **Correction (round 65): the pair statistic already has this separation on record.**
 - **Long baseline:** R₂ §6 ran a 10⁶-level GUE baseline (Dumitriu–Edelman) through identical code. The zeros' shrink was
