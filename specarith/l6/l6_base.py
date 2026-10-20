@@ -203,6 +203,127 @@ def step0_v7amended(diag_json, out, N=100_000):
     return 0 if res["V7_amended_PASS"] else 1
 
 
+# ---------------------------------------------------------------- V7 targeted check at N = 10⁵ (design §10, round 68)
+MP_DPS = 40
+
+
+def step0_v7check(out, N=100_000):
+    rng = np.random.default_rng([20261020, 65, 967])                       # the step-0 V6/V7 draw
+    a = cbe.verblunsky(rng, 1, N, 2.0)
+    t = time.time()
+    th, it = cbe.roots_np(a)
+    wall = time.time() - t
+    f, dp, ulp = _root_table(a, th)
+    base = os.path.splitext(out)[0]
+    np.save(base + "_alpha.npy", a[0])
+    np.save(base + "_theta.npy", th[0])
+    np.save(base + "_psi_prime.npy", dp)
+    np.save(base + "_residual.npy", f)
+    json.dump(dict(N=N, iters=int(it), wall_s=round(wall, 1)), open(base + "_solve.json", "w"), indent=1)
+    return v7check_refine(out)
+
+
+def _phi_mp(a, theta):
+    import mpmath as mp
+    z = mp.expj(theta)
+    b = z
+    phi = mp.mpf(0)
+    for k in range(len(a) - 1):
+        w = 1 - a[k] * b
+        aw = abs(w) ** 2
+        phi -= 2 * mp.arg(w)
+        b = z * b * mp.conj(w) ** 2 / aw
+    return phi
+
+
+def _refine_one(args):
+    import mpmath as mp
+    alpha_path, c0s, m, th = args
+    mp.mp.dps = MP_DPS
+    a = [mp.mpc(complex(x)) for x in np.load(alpha_path)]
+    N = len(a)
+    cm = mp.mpf(c0s) + 2 * mp.pi * m
+    fm = lambda x: N * x - cm + _phi_mp(a, x)                               # noqa: E731
+    u = float(np.spacing(abs(th)))
+    h, lo, hi = 64 * u, None, None
+    while h <= 2 ** 20 * u:
+        l_, r_ = mp.mpf(th) - h, mp.mpf(th) + h
+        if fm(l_) < 0 < fm(r_):
+            lo, hi = l_, r_
+            break
+        h *= 2
+    if lo is None:
+        return dict(m=int(m), c_ok=False, reason="no sign change within 2^20 ulp")
+    while hi - lo > mp.mpf("1e-30"):
+        mid = (lo + hi) / 2
+        if fm(mid) < 0:
+            lo = mid
+        else:
+            hi = mid
+    tm = (lo + hi) / 2
+    d = float(abs(tm - mp.mpf(th)) * N / (2 * mp.pi))
+    return dict(m=int(m), theta_mp=mp.nstr(tm, 35), dist_spacings=d, c_ok=bool(d <= 1e-6))
+
+
+def v7check_refine(out, nproc=48):
+    import mpmath as mp
+    from multiprocessing import Pool
+    base = os.path.splitext(out)[0]
+    a = np.load(base + "_alpha.npy")[None, :]
+    th = np.load(base + "_theta.npy")
+    dp = np.load(base + "_psi_prime.npy")
+    f = np.load(base + "_residual.npy")
+    N = a.shape[1]
+    flag = np.where(f > cbe.F_ACCEPT)[0]
+    ulp = np.spacing(np.abs(th))
+    ca = f[flag] <= cbe.BRACKET_ULPS * dp[flag] * ulp[flag] + 1e-6                      # (a)
+    lo_, hi_ = th[flag].copy(), th[flag].copy()
+    for _ in range(cbe.BRACKET_ULPS):
+        lo_, hi_ = np.nextafter(lo_, -np.inf), np.nextafter(hi_, np.inf)
+    c0, _ = cbe.targets(a)
+    c = c0[0] + cbe.TWO_PI * flag
+    fl = (N * lo_ - c) + cbe.phi_np(a, lo_[None, :])[0][0]
+    fh = (N * hi_ - c) + cbe.phi_np(a, hi_[None, :])[0][0]
+    cb = (fl < 0) & (fh > 0)                                                               # (b)
+    mp.mp.dps = MP_DPS
+    am = [mp.mpc(complex(x)) for x in a[0]]
+    p0 = _phi_mp(am, mp.mpf(0))
+    tt = -mp.arg(am[-1])
+    d0 = tt - p0
+    c0m = p0 + (d0 - 2 * mp.pi * mp.floor(d0 / (2 * mp.pi)))
+    if c0m <= p0:
+        c0m += 2 * mp.pi
+    jobs = [(base + "_alpha.npy", mp.nstr(c0m, 45), int(m), float(th[m])) for m in flag]
+    with Pool(min(nproc, max(1, len(jobs)))) as pool:
+        cc = pool.map(_refine_one, jobs, chunksize=1) if jobs else []                       # (c)
+    rows = [dict(m=int(m), residual=float(f[m]), psi_prime=float(dp[m]), floor=float(dp[m] * ulp[m]),
+                 a_ok=bool(x), b_ok=bool(y), **{k: v for k, v in z.items() if k != "m"})
+            for m, x, y, z in zip(flag, ca, cb, cc)]
+    all_b_c = all(r["b_ok"] and r["c_ok"] for r in rows)
+    all_a = all(r["a_ok"] for r in rows)
+    K = 1.0
+    need = [(r["residual"] - cbe.F_ACCEPT) / r["floor"] for r in rows if r["c_ok"]]
+    if need and max(need) > K:
+        K = float(2.0 ** math.ceil(math.log2(max(need))))
+    amended = f <= cbe.F_ACCEPT + K * dp * ulp
+    if not all_b_c:
+        reading = "a flagged root fails (b) or (c): Dumitriu-Edelman fallback via a design addendum (design §10)"
+    elif not all_a:
+        reading = "(a) fails while (b) and (c) hold: not covered by round 68; to Will (design §10)"
+    else:
+        reading = "(a), (b), (c) hold for every flagged root: V7 miscalibrated; §9 amendment applies; generate CMV"
+    res = dict(N=N, n_flagged=int(len(flag)), c0_float=float(c0[0]), c0_mp=mp.nstr(c0m, 20),
+               n_a=int(sum(r["a_ok"] for r in rows)), n_b=int(sum(r["b_ok"] for r in rows)),
+               n_c=int(sum(r["c_ok"] for r in rows)),
+               max_dist_spacings=max([r.get("dist_spacings", float("inf")) for r in rows], default=0.0),
+               K=K, K_raised_beyond_committed=bool(K > 1.0), amended_V7_pass=bool(amended.all()),
+               n_fail_amended=int((~amended).sum()), reading=reading, PASS=bool(all_b_c and all_a and amended.all()),
+               flagged=rows, env=env())
+    json.dump(res, open(out, "w"), indent=1)
+    print(json.dumps({k: v for k, v in res.items() if k not in ("flagged", "env")}), flush=True)
+    return 0 if res["PASS"] else 1
+
+
 # ---------------------------------------------------------------- generation
 N_SEQ = 100_000
 SEED_BASE = {"cue": 0, "cse": 600, "stitched": 700, "poisson": 800}
@@ -500,6 +621,10 @@ if __name__ == "__main__":
     if sys.argv[1] == "step0":
         if sys.argv[2] == "v7amended":
             sys.exit(step0_v7amended(sys.argv[3], sys.argv[4]))
+        if sys.argv[2] == "v7check":
+            sys.exit(step0_v7check(sys.argv[3]))
+        if sys.argv[2] == "v7check_refine":
+            sys.exit(v7check_refine(sys.argv[3]))
         sys.exit({"selftest": step0_selftest, "v5": step0_v5, "v67": step0_v67, "v7diag": step0_v7diag}[sys.argv[2]](
             sys.argv[3]))
     elif sys.argv[1] == "gen":

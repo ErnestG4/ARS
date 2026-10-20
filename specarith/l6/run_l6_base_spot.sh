@@ -12,7 +12,8 @@ GEN=$R/gen; ST=$R/stats; PR=$R/pair; LG=$R/logs
 mkdir -p $GEN $ST $PR $LG
 rm -f $R/ALL_DONE $R/STOPPED
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PY GEN ST PR LG
-for s in selftest v5 v67; do grep -q "exit=0" results/step0/$s.exit 2>/dev/null || { echo "step 0 $s not passed" > $R/STOPPED; exit 1; }; done
+# step 0 (design §2, §10): V1-V5 and the round-68 targeted V7 check replace the original V6/V7 verdict
+for s in selftest v5 v7check; do grep -q "exit=0" results/step0/$s.exit 2>/dev/null || { echo "step 0 $s not passed" > $R/STOPPED; exit 1; }; done
 echo "$(date -Is) [CC specarith] L6 baseline: generation ($NPROC procs)" >> ~/claude-work.log
 { for r in $(seq 0 49); do echo "cue $r"; done; for r in $(seq 0 9); do echo "cse $r"; echo "poisson $r"; done
   for r in $(seq 0 24); do echo "stitched $r"; done; } |
