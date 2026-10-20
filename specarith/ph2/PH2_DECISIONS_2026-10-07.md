@@ -1544,3 +1544,37 @@ Label everything post-hoc and descriptive. A true-prime percentile above 95 on a
 
 **Filing note.** Filed here, where the session's rounds are logged; Phase 6's own log is `../ph6/PH6_DECISIONS_2026-10-07.md`
 (a pointer is added there). Step 1 is the inventory only; nothing is computed before Will has seen it.
+
+## Sixty-seventh round (Will, 2026-10-20) — L6 V7 diagnostic and its reading; Phase 6 near-miss hit definition (verbatim)
+Round 67:
+
+L6 Step 0, V7 diagnostic.
+Commit this reading first: run V7’s residual on the N = 10⁴ roots already verified against the dense solver.
+If any verified root exceeds F_ACCEPT: V7 is miscalibrated. Recalibrate its threshold against the verified roots so it scales with N, record a post-hoc gate amendment, re-run V7 at N = 10⁵ under the amended threshold, and if it passes, generate 50 CMV sequences on spot in parallel.
+If the verified roots pass V7: the N = 10⁵ failure is real. Fall back to Dumitriu–Edelman as pre-declared, unfolding with the finite-N density, not the asymptotic semicircle, with the high-pass caveat stated.
+Skip the GPU port.
+Phase 6 near-miss check, hit definition. Commit this before computing anything:
+A hit at τ₀ (log pᵏ, or log m for fake sets) means S(τ₀), interpolated, exceeds the 99th percentile of S over the band [τ₀ − B, τ₀ + B].
+The band excludes ±1 resolution width around every true and fake test point.
+B = 10 resolution widths.
+Use the identical rule for the true and fake sets, and the same 200 fake sets. Report the percentile of the true rate, plus the amplitude correlation with log p/√p.
+Post-hoc and descriptive throughout.
+
+**Will's notes with round 67 (verbatim):**
+
+> L6 baseline: run option 2 first. It takes 11 minutes and decides everything else.
+>
+> This week has a clear pattern: nearly every first-run gate failure turned out to be a fault in the gate’s design, not in what it was checking. V5 already shows the Prüfer roots matching dense eigenvalues to 4·10⁻¹⁰ at N = 10⁴, and V6 certifies the N = 10⁵ draw. So V7’s residual criterion may be flagging roots that are correct. The N = 10⁴ check answers that directly, because the true roots are known there. Declare the reading before running it:
+>
+> V7 flags the dense-verified roots at N = 10⁴: V7’s threshold is miscalibrated. Recalibrate it against those verified roots so it scales with N, and record that as a post-hoc gate amendment. Then generate with CMV on spot, running the 50 sequences in parallel. At 6.9 hours each, that’s well under a day of wall time on spot’s cores, and spot is otherwise idle.
+> V7 doesn’t flag them: the N = 10⁵ failure is real. Fall back to Dumitriu–Edelman as pre-declared.
+>
+> I’d avoid the fallback if possible. Unfolding with the semicircle introduces slow drifts in density, and slow, long-range variance is exactly what this baseline is meant to measure. If D–E becomes necessary, unfold with the finite-N density, not the asymptotic semicircle. Skip option 3: porting to the GPU adds engineering risk for no scientific gain.
+>
+> Phase 6 near-miss hit definition: use amplitude at a fixed point, not peak-picking.
+>
+> A hit at τ = log pᵏ means S(τ), interpolated at exactly that point, exceeds the 99th percentile of S over a local reference band around it.
+> The reference band excludes ±1 resolution width around every test point, true or fake.
+> Apply the identical definition to the fake log m sets.
+>
+> Peak-picking adds choices (thresholds, prominence, how close is close) that can drift toward the answer. A fixed-point amplitude has no free knob beyond the band width and the percentile, and both are committed before computing.
