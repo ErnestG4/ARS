@@ -402,7 +402,7 @@ def compare(stats_dir, pair_dir, out):
         Vc = _var_table([cc], test)
         res["tests"][test] = {}
         for f in V:
-            nz = rd[f].get("n_zeros", rd[f]["n"]) if test == "B2" else rd[f]["n"]
+            nz = rd[f]["n_zeros"] if test == "B2" else rd[f]["n"]       # levels for (B); spacings / seq for the others
             row = {}
             for G in sorted(V[f], key=int):
                 vl = V[f][G].mean() / nz
