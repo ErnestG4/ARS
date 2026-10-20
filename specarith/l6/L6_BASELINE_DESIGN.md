@@ -140,3 +140,31 @@ The zeros/stitched ratio of the existing L6 table is then the product of (1) and
 
 **Calibration-method note (round 66):** if gates 1 and 2 pass, propose single-sequence CUE baselines as the calibration
 standard for future tests, in place of stitched CUE_1000. This is a proposal only; no sealed result is re-read.
+
+## 9. V7 diagnostic (round 67; committed before it runs)
+**Run.** The N = 10⁴ draw of V5 (seed [20261020, 65, 905]; deterministic, so the same Verblunsky coefficients and the
+same roots) is re-solved by `roots_np` and by the dense CMV eigensolver. For every root the record holds:
+- its residual |f| = |N·θ − c_m + φ(θ)| (V7's quantity);
+- ψ′(θ) = dψ_{N−1}/dθ;
+- ulp(θ);
+- the float64 floor ψ′·ulp(θ);
+- its distance to the dense root in unfolded units.
+
+A root is **verified** if it matches the dense root to ≤ 10⁻⁸ unfolded (V5's tolerance).
+
+**Reading (Will's, round 67).**
+- **If any verified root has |f| > F_ACCEPT (1.0):** V7 is miscalibrated. Its threshold is recalibrated as a post-hoc gate
+  amendment, in a form declared now, before any N = 10⁴ residual is seen:
+  - a root passes the amended V7 iff |f| ≤ F_ACCEPT + K·ψ′(θ)·ulp(θ), the float64 floor of f at the root's own
+    location;
+  - K is the smallest power of two ≥ 1 such that every verified N = 10⁴ root passes;
+  - ψ′ grows with N, so the threshold scales with N without any N-specific constant.
+
+  Then V7 is re-run at N = 10⁵ on the step-0 draw (seed [20261020, 65, 967], identical roots), saving θ and ψ′. If it
+  passes, the 50 CMV sequences are generated on spot in parallel (the committed pipeline, unchanged).
+- **If every verified root passes the original V7:** the N = 10⁵ failure is real. The work falls back to
+  Dumitriu–Edelman (§6), with one amendment from Will: unfold with the **finite-N** GUE density (the exact one-point
+  density of GUE_n), not the asymptotic semicircle, with the high-pass caveat stated.
+- **The GPU port is skipped** (round 67).
+- **A root that is not verified** (more than 10⁻⁸ from its dense root) is reported on its own: a sampler-accuracy
+  finding. Neither branch is taken, and the case goes back to Will.
