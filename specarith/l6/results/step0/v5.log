@@ -1,0 +1,1 @@
+{'N': 10000, 'max_abs_unfolded_diff': 4.0216346972283135e-10, 'tol': 1e-08, 'iters': 9, 't_prufer_s': 77.0, 't_dense_s': 572.7, 'PASS': True, 'env': {'python': '3.12.15', 'numpy': '2.5.3', 'scipy': '1.18.1'}}

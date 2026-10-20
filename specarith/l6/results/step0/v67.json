@@ -1,0 +1,24 @@
+{
+ "N": 100000,
+ "iters": 46,
+ "wall_s": 24708.6,
+ "certify_real": true,
+ "red_paths": {
+  "duplicated": true,
+  "swapped": true,
+  "deleted_count_check": true
+ },
+ "V6_PASS": true,
+ "max_residual": 4.337265165519751,
+ "F_ACCEPT": 1.0,
+ "V7_PASS": false,
+ "psi_headroom_ulp": 1.1641532182693481e-10,
+ "min_spacing": 0.018426079624285146,
+ "mean_spacing": 1.0,
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+ },
+ "PASS": false
+}
