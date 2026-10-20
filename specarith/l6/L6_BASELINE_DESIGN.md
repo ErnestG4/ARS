@@ -168,3 +168,37 @@ A root is **verified** if it matches the dense root to ≤ 10⁻⁸ unfolded (V5
 - **The GPU port is skipped** (round 67).
 - **A root that is not verified** (more than 10⁻⁸ from its dense root) is reported on its own: a sampler-accuracy
   finding. Neither branch is taken, and the case goes back to Will.
+
+## 10. V7 targeted check at N = 10⁵ (round 68; committed before it runs)
+**Why §9 did not decide.** At N = 10⁴ the largest ψ′ is 1.7·10¹³, so the float64 floor ψ′·ulp(θ) is at most about
+0.015, and no N = 10⁴ root can reach V7's threshold of 1. §9's "every verified root passes" is therefore consistent
+with both readings.
+
+**Run.** The step-0 N = 10⁵ draw (seed [20261020, 65, 967]; identical Verblunsky coefficients and roots) is re-solved by
+`roots_np`. Saved per root: θ, ψ′(θ), and the V7 residual |f| = |N·θ − c_m + φ(θ)|. A root is **flagged** if
+|f| > F_ACCEPT = 1. Every flagged root gets three independent checks:
+- **(a) float floor:** |f| ≤ BRACKET_ULPS·ψ′(θ)·ulp(θ) + 10⁻⁶, with BRACKET_ULPS = 4 (cbe.py's own acceptance width).
+  The 10⁻⁶ allows for rounding in f's evaluation (|N·θ| ≈ 6·10⁵ gives ulp ≈ 10⁻¹⁰).
+- **(b) sign change:** in float64, f(θ − 4 ulp) < 0 < f(θ + 4 ulp), stepping exactly 4 representable doubles by
+  `np.nextafter`.
+- **(c) extended precision:**
+  - ψ_{N−1} and c_m are recomputed in mpmath at 40 digits (the float64 α_k are taken as exact inputs; c₀ from the mp
+    ψ_{N−1}(0) and arg α_{N−1}).
+  - The root of f_mp is bracketed starting from [θ − 64 ulp, θ + 64 ulp], doubling the half-width up to 2²⁰ ulp until f
+    changes sign, then bisected to a width of 10⁻³⁰.
+  - The check holds iff |θ_mp − θ|·N/2π ≤ 10⁻⁶ mean spacings. No sign change within 2²⁰ ulp counts as a failure of (c).
+
+**Reading (round 68).**
+- **(a), (b) and (c) hold for every flagged root:** V7 was miscalibrated, and the §9 amendment applies.
+  - **K as committed:** calibrated on the verified N = 10⁴ roots, where none exceeded F_ACCEPT, so the minimum rule
+    gives K = 1.
+  - **If a (c)-verified N = 10⁵ root still exceeds F_ACCEPT + 1·ψ′·ulp:** K becomes the smallest power of two covering
+    all (c)-verified N = 10⁵ roots. This is declared here, before the run, because the N = 10⁴ calibration cannot reach
+    this regime. It is recorded as part of the post-hoc amendment.
+  - The amended V7 is then reported at N = 10⁵, and the CMV generation starts (the committed pipeline; its step-0 check
+    now requires this run's pass in place of V6/V7's original verdict).
+- **Any flagged root fails (b) or (c):** the work falls back to Dumitriu–Edelman via a committed design addendum (finite-N
+  density unfolding, with the high-pass caveat).
+- **(a) fails while (b) and (c) hold, for some root:** the case is not covered by round 68 and goes back to Will.
+- **Outputs:** `results/step0/v7check.json` (the counts, the per-flagged-root table, the reading and K), and θ and ψ′ as
+  `.npy`, kept on spot (they are not committed).
