@@ -135,6 +135,74 @@ def step0_v67(out, N=100_000):
     return 0 if res["PASS"] else 1
 
 
+# ---------------------------------------------------------------- V7 diagnostic and amendment (design §9, round 67)
+def _root_table(a, th):
+    N = a.shape[1]
+    c0, _ = cbe.targets(a)
+    c = c0[:, None] + cbe.TWO_PI * np.arange(N)[None, :]
+    phi, dp = cbe.phi_np(a, th)
+    f = np.abs(N * th - c + phi)[0]
+    ulp = np.spacing(np.abs(th[0]))
+    return f, dp[0], ulp
+
+
+def step0_v7diag(out, N=10_000):
+    rng = np.random.default_rng([20261020, 65, 905])                       # V5's draw
+    a = cbe.verblunsky(rng, 1, N, 2.0)
+    th, it = cbe.roots_np(a)
+    ref = cbe.dense_phases(a[0])
+    dist = np.abs(np.angle(np.exp(1j * (th[0] - ref)))) * N / cbe.TWO_PI
+    f, dp, ulp = _root_table(a, th)
+    floor = dp * ulp
+    ver = dist <= V5_TOL
+    over = ver & (f > cbe.F_ACCEPT)
+    res = dict(N=N, iters=int(it), n_roots=N, n_verified=int(ver.sum()), n_unverified=int((~ver).sum()),
+               max_dist_unfolded=float(dist.max()), F_ACCEPT=cbe.F_ACCEPT,
+               n_verified_over_F_ACCEPT=int(over.sum()), max_residual_verified=float(f[ver].max()),
+               residual_quantiles={q: float(np.quantile(f, q)) for q in (0.5, 0.9, 0.99, 0.999, 1.0)},
+               psi_prime_quantiles={q: float(np.quantile(dp, q)) for q in (0.5, 0.9, 0.99, 0.999, 1.0)},
+               floor_of_over=[float(x) for x in floor[over][:50]], residual_of_over=[float(x) for x in f[over][:50]],
+               env=env())
+    if res["n_unverified"]:
+        res["reading"] = "unverified roots: a sampler-accuracy finding; neither branch (design §9)"
+        K = None
+    elif over.any():
+        need = (f[over] - cbe.F_ACCEPT) / floor[over]
+        K = float(2.0 ** max(0, math.ceil(math.log2(max(need.max(), 1.0)))))
+        res["reading"] = "V7 miscalibrated: verified roots exceed F_ACCEPT; amended threshold F_ACCEPT + K psi' ulp"
+    else:
+        K = None
+        res["reading"] = "every verified root passes V7: the N = 1e5 failure is real; DE fallback (design §9)"
+    res["K"] = K
+    json.dump(res, open(out, "w"), indent=1)
+    print(json.dumps({k: res[k] for k in ("n_verified", "n_unverified", "n_verified_over_F_ACCEPT",
+                                          "max_residual_verified", "K", "reading")}), flush=True)
+    return 0
+
+
+def step0_v7amended(diag_json, out, N=100_000):
+    K = json.load(open(diag_json))["K"]
+    if K is None:
+        raise SystemExit("v7amended: the diagnostic did not call for an amendment (design §9)")
+    rng = np.random.default_rng([20261020, 65, 967])                       # the step-0 V6/V7 draw
+    a = cbe.verblunsky(rng, 1, N, 2.0)
+    t = time.time()
+    th, it = cbe.roots_np(a)
+    wall = time.time() - t
+    f, dp, ulp = _root_table(a, th)
+    thr = cbe.F_ACCEPT + K * dp * ulp
+    bad = f > thr
+    base = os.path.splitext(out)[0]
+    np.save(base + "_theta.npy", th[0])
+    np.save(base + "_psi_prime.npy", dp)
+    res = dict(N=N, K=K, iters=int(it), wall_s=round(wall, 1), max_residual=float(f.max()),
+               n_over_F_ACCEPT=int((f > cbe.F_ACCEPT).sum()), n_fail_amended=int(bad.sum()),
+               max_residual_over_threshold=float((f / thr).max()), V7_amended_PASS=bool(not bad.any()), env=env())
+    json.dump(res, open(out, "w"), indent=1)
+    print(res, flush=True)
+    return 0 if res["V7_amended_PASS"] else 1
+
+
 # ---------------------------------------------------------------- generation
 N_SEQ = 100_000
 SEED_BASE = {"cue": 0, "cse": 600, "stitched": 700, "poisson": 800}
@@ -430,7 +498,10 @@ def compare(stats_dir, pair_dir, out):
 
 if __name__ == "__main__":
     if sys.argv[1] == "step0":
-        sys.exit({"selftest": step0_selftest, "v5": step0_v5, "v67": step0_v67}[sys.argv[2]](sys.argv[3]))
+        if sys.argv[2] == "v7amended":
+            sys.exit(step0_v7amended(sys.argv[3], sys.argv[4]))
+        sys.exit({"selftest": step0_selftest, "v5": step0_v5, "v67": step0_v67, "v7diag": step0_v7diag}[sys.argv[2]](
+            sys.argv[3]))
     elif sys.argv[1] == "gen":
         sys.exit(gen(sys.argv[2], int(sys.argv[3]), sys.argv[4]))
     elif sys.argv[1] == "gate1":
