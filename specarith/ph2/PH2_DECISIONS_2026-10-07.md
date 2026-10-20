@@ -1475,3 +1475,21 @@ Corrected (B): after Will pushes the branch and tag, verify that GitHub matches 
 specarith at d775b8a8. The seal manifest `cs4/timestamps/CORRECTED_B_SEAL_STAMP_2026-10-19.txt` (sha256 4c156c35…) was
 stamped 10:31 PDT (018f6750); the receipt is being upgraded. No F6 file has been downloaded. The ARSv2 items are filed
 and applied in ARSv2 `DECISIONS.md`.
+
+## Sixty-third round (Will, 2026-10-19) — findings §10 (corrected (B)); ARSv2 open-question defaults; push list (verbatim)
+Round 63:
+
+Findings §10: corrected (B), with this wording:
+PASS, sealed: μ̃_pool = 1.0017 ± 0.0055, against a band of ±0.0154, with a calibrated false-FAIL rate of 1.0%.
+All four files within 3 SE, with no heterogeneity.
+Stands alone. Consistent with the phase-locking attribution of the sealed (B)’s FAIL; it does not reverse that FAIL. The F5 post-hoc value is context only and not pooled.
+Summary table: route (a), (A) and corrected (B) as three independent observables on disjoint fresh heights, all consistent with the CS n ≤ 5 prediction in the global μ family (conditional on the ratios conjecture), plus Stage 2.
+Descriptive, labelled as such: Δκ₃ = 3ΔF₂ + ΔF₃ (≈ −0.14 + 0.12) is pinned to about 2·10⁻⁴ absolute, so each piece agrees to roughly 0.2% unless their errors cancel. This is not a per-order constraint (see §3).
+ARSv2 open questions. Unless the details change things, apply these defaults and report back:
+Start-index control (index-anchored blocks): use the same nulls as round 59 (Poisson and rotated CUE, matched in n and k), and check only where the positive control has power. Otherwise report it as unpowered.
+Scan depth for live-tree imports: follow transitive imports to the first module outside the repo. Report direct and transitive hits separately.
+Producing scripts that can’t be found: flag the claim “provenance-missing”. Like audit-incomplete, it can’t be cleared until the script is found, and it is listed by name.
+Pushes: list for Will every unpushed commit and tag on both repos, in order.
+
+**Filing note (round 63).** Findings §10 is in `../cs4/ROUTE_A_FINDINGS.md`. The ARSv2 items are filed and applied in
+ARSv2 `DECISIONS.md`; the start-index control computes on the workstation only (the engine-repair arc's rule).

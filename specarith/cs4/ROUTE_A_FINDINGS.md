@@ -217,4 +217,75 @@ Nothing about route (a)'s or (A)'s verdicts changes.
   near-resonant prime contribution at 2–7·10⁻⁵ in k₃, about 100× too small.
 - **Route (a) and (A) are unaffected**, because spacings do not depend on the window origin.
 - **Corrected (B): queued, not run** (round 56): its own pre-registration, an offset-averaged k₃ estimator, a CUE
-  calibration through the same estimator, and fresh files; after the engine-repair work.
+  calibration through the same estimator, and fresh files; after the engine-repair work. (Since run and read: §10.)
+
+## 10. Corrected (B), rounds 57–63
+**Headline (Will's wording, round 63):** PASS, sealed: μ̃_pool = 1.0017 ± 0.0055, against a band of ±0.0154, with a
+calibrated false-FAIL rate of 1.0%. All four files within 3 SE, with no heterogeneity. Stands alone. Consistent with the
+phase-locking attribution of the sealed (B)'s FAIL; it does not reverse that FAIL. The F5 post-hoc value is context only
+and not pooled.
+
+**Record:**
+- **Design:** `CORRECTED_B_DESIGN.md` (f014f447, round 57), committed before any computation for it. The estimator is
+  k₃ of the counts averaged over 32 grid offsets u_k = kL/32. L\* = 4 was chosen by a data-free power rule on CUE
+  replicates at F3 geometry (3071af35).
+- **Prediction:** tag `corrected-b-prediction` (2ace4d7c), Bitcoin block 972110 (b4eadfbf).
+  - ∂μ\*/∂μ: the CUE_N slope is 0.9976 ± 0.0044, so g = 1 and δμ_sys = 0.00438 (183912e1).
+- **Calibration:** from scratch, 200 CUE_1000 replicates per file (d7dd6282). The sealed (B)'s calibration was not reused.
+- **Seal:** `CORRECTED_B_SEAL.md` (approved in round 61 with the §4 line on the F5 value). Tag `corrected-b-seal`
+  (d775b8a8), Bitcoin block 972187, verified on two explorers (be790e5d).
+- **Data:** fresh set F6 (four files; `../ph2r2/FRESH_SET_F6.md`, f6469b62), downloaded by Will after that attestation.
+  All md5s matched the pins locally and on spot before any decode.
+- **Read:** on spot under the pinned interpreter, twice in separate processes, bit-identical (sha256 74deb6e7…).
+  Results in `results/b2_read/` (8466747d).
+
+**Sealed result.**
+- μ̃_pool = 1.0017; SE_pool = 0.0055, at the calibration floor (the read's bootstrap did not widen it); 95% CI
+  [0.9907, 1.0127].
+- The band is 2·SE_pool + δμ_sys = 0.0154. |μ̃_pool − 1| = 0.0017 is 0.11 of the band.
+- Files within 3 SE: 4/4 (3 needed).
+
+| file | ℓ̄ | zeros decoded | μ̃_f (bias-corrected) ± SE_f |
+|---|---|---|---|
+| zeros_46646000.dat | 15.842 | 5,294,933 | 0.9991 ± 0.0107 |
+| zeros_256646000.dat | 17.529 | 5,858,775 | 0.9996 ± 0.0113 |
+| zeros_2365046000.dat | 19.747 | 6,599,825 | 1.0032 ± 0.0107 |
+| zeros_10630646000.dat | 21.249 | 7,102,033 | 1.0041 ± 0.0110 |
+
+- Each file's decoded count is within 2 of its pre-data θ count, and every height lies in its pinned range.
+- **No heterogeneity (descriptive):** χ²_between = Σ_f ((μ̃_f − μ̃_pool)/SE_f)² = 0.16 on 3. The same statistic on the
+  200 CUE calibration replicates has mean 3.1 and maximum 16.6, and 4% of them are at or below 0.16. The sealed (B) on
+  F5 gave 282.7.
+- **Reading (sealed §4):**
+  - The arithmetic part of κ₃ at L = 4 is seen at the predicted amplitude once the grid phase is averaged out.
+  - This is consistent with §9's attribution of the sealed (B)'s FAIL to phase-locking. It does not reverse that FAIL,
+    which stands as read.
+  - The F5 phase-averaged value (μ̃ = 1.0034 at L = 3, `DIAG_D_RESULTS.md`) was post-hoc on data already seen. It
+    informed the choice of estimator and is context only; it is not pooled.
+
+**Δκ₃'s two pieces (DESCRIPTIVE).** Δκ₃ = 3ΔF₂ + ΔF₃ is a near-cancellation: −0.141 + 0.122 at the lowest file, and
+−0.112 + 0.096 at the highest.
+- The read pins Δκ₃ to about 2·10⁻⁴ absolute: (|μ̃_pool − 1| + 2·SE_pool) × the weighted |Δκ₃| of 0.0169 is 2.2·10⁻⁴.
+- So each piece agrees with the prediction to roughly 0.2%, unless their errors cancel.
+- This is not a per-order constraint. As in §3, a test that varies one order alone is model-dependent at this N_eff,
+  and the read constrains only the sum.
+
+**Summary: three independent observables on disjoint fresh heights, plus Stage 2.** Each was sealed with a publicly
+tagged prediction before its data was read.
+
+| test | observable | fresh set (files) | CS orders entering | sealed result | SE_pool | band | calibrated false-FAIL |
+|---|---|---|---|---|---|---|---|
+| route (a) | nearest-neighbour spacing law | F3 (5) | n ≤ 5 | PASS, μ̃_pool = 0.9992 | 0.0080 | ±0.0161 | 5.5% |
+| (A) | next-nearest-neighbour spacing law, s ≤ 1.6 | F4 (3) | n ≤ 5 | PASS, μ̃_pool = 0.9981 | 0.0086 | ±0.0172 | 5.0% |
+| corrected (B) | offset-averaged κ₃ of the count, L = 4 | F6 (4) | n ≤ 3 | PASS, μ̃_pool = 1.0017 | 0.0055 | ±0.0154 | 1.0% |
+| Stage 2 | tapered pair-statistic block variance (shrink vs CS) | F2 (5) | n ≤ 4 | PASS, shrink 1.01 [0.89, 1.14] | — | — | — |
+
+- **The first three rows** are in the global μ family: μ = 1 is the CS n ≤ 5 prediction and μ = 0 the sine kernel. All
+  three are consistent with μ = 1, conditional on the ratios conjecture.
+- **Stage 2** is a different parameterisation: the measured/predicted shrink of a pair statistic's block variance under
+  CS08's n ≤ 4 correlations (`../ph2s2/PH2S_STAGE2_FINDINGS.md`). It is consistent to about ±13%, also conditional on
+  the ratios conjecture.
+- **The sealed (B) on F5 (§9) is not in the table.** Its FAIL stands as read and is attributed to its estimator.
+- The four fresh sets are disjoint by the gap rule (`../ph2r2/FRESH_SET_F6.md` asserts F6 against F1–F5).
+- The rows are not pooled, and no combined significance is claimed. Each test keeps its own calibrated false-FAIL
+  rate.
