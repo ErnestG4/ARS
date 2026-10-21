@@ -1,0 +1,1 @@
+{"N": 100000, "n_flagged": 9, "c0_float": 5.188760697451222, "c0_mp": "5.1887606974512228383", "n_a": 8, "n_b": 9, "n_c": 9, "max_dist_spacings": 7.406310773529923e-12, "K": 4.0, "K_raised_beyond_committed": true, "amended_V7_pass": true, "n_fail_amended": 0, "reading": "(a) fails while (b) and (c) hold: not covered by round 68; to Will (design \u00a710)", "PASS": false}
