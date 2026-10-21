@@ -249,3 +249,25 @@ with both readings.
 - **Then:** the generation and the rest of the pipeline run as committed. That covers 50 CUE sequences; the witnesses
   (10 CSE, 10 Poisson, 25 stitched); gate 1; the block statistics, concatenation and pair windows; gate 2; and compare
   (stitched/long, zeros/long, and the pair cross-check against the 10⁶ DE GUE). All of it is descriptive.
+
+**Result of the amended (a) (`results/step0/v7a_bracket.json`; spot, from the saved arrays).**
+- **(a′) holds for 9 of 9 flagged roots.** For comparison, the original (a) holds for 8 of 9 (m = 37,025 fails) and the
+  symmetric secant for 7 of 9 (m = 37,025 at 3.04 against 3.10, and m = 86,531 at 3.11 against 4.34).
+- f, recomputed in float64, is strictly increasing across θ ± 4 ulp at all 9 roots, and |f(θ)| equals the saved residual
+  exactly.
+- s_br/ψ′(θ) ranges from 0.11 to 2.49. ψ′ at θ overstates the bracket slope at 8 roots and understates it only at
+  m = 37,025 (2.49).
+
+| m | f(θ) | s_br/ψ′(θ) | (a′) bound | (a) bound | symmetric bound |
+|---|---|---|---|---|---|
+| 11,483 | −1.908 | 0.13 | 2.672 | 21.235 | 2.950 |
+| 35,385 | −1.727 | 0.38 | 3.986 | 10.391 | 2.860 |
+| 37,025 | −3.098 | 2.49 | 5.688 | 2.286 ✗ | 3.042 ✗ |
+| 59,797 | +1.228 | 0.47 | 4.182 | 8.916 | 2.866 |
+| 62,243 | −1.146 | 0.81 | 4.681 | 5.805 | 2.882 |
+| 62,248 | +1.399 | 0.38 | 3.427 | 9.038 | 2.747 |
+| 74,854 | +1.860 | 0.43 | 4.159 | 9.569 | 2.876 |
+| 85,689 | +1.229 | 0.11 | 2.375 | 21.642 | 2.973 |
+| 86,531 | +4.337 | 0.29 | 5.468 | 18.606 | 3.110 ✗ |
+
+Generation started on spot after this run, at 2026-10-21T00:44 (60 parallel jobs).
