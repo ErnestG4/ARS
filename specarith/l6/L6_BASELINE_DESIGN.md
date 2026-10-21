@@ -207,3 +207,45 @@ with both readings.
 - **(a) fails while (b) and (c) hold, for some root:** the case is not covered by round 68 and goes back to Will.
 - **Outputs:** `results/step0/v7check.json` (the counts, the per-flagged-root table, the reading and K), and θ and ψ′ as
   `.npy`, kept on spot (they are not committed).
+
+## 11. Round 69 ruling: the CMV route accepted (ruling record; amended (a) committed before it runs)
+**Ruling (Will, round 69), on the §10 record committed in 1ae0db16** (`results/step0/v7check.json`, sha256
+`8cb466f5e48235ebdef4eabd2080ab7bdc07e017aea5c560b7800cdfc4363a03`):
+- All 9 flagged roots pass (b) and (c); (c) agrees with the float roots to at most 7.4·10⁻¹² mean spacings.
+- Root m = 37,025's failure of (a) is a flaw in the check's definition: (a) uses the derivative at θ, not the slope
+  across the bracket. There ψ′ is 1.3·10¹⁵ at θ and 8.1·10¹⁵ one ulp up, and f jumps from −3.10 to +1.44 across that
+  ulp, so the point derivative understates the local slope.
+- K = 4 is applied as pre-declared in §10 (the smallest power of two covering every (c)-verified N = 10⁵ root). The
+  amended V7, |f| ≤ F_ACCEPT + 4·ψ′(θ)·ulp(θ), passes all 10⁵ roots.
+
+**What changes and what does not.**
+- The v7check code and its record are not modified. `v7check.exit` stays `exit=1`.
+- The pipeline (`run_l6_base_spot.sh`) accepts step 0's v7check either on its own exit 0 or under this ruling. The ruling
+  is bound to the exact output it rules on by `results/step0/v7check_ruling.sha256` (`sha256sum -c` against
+  `v7check.json`); any other v7check output is refused. Both paths and both refusals were exercised on a scratch copy.
+- Generation writes each sequence's `.npy` last and atomically (`os.replace`), so the per-sequence restart (an existing
+  `.npy` is kept) never keeps a partial sequence. The pipeline is otherwise unchanged.
+
+**Post-hoc amendment to (a), for future runs (round 69): the slope across the bracket.**
+- f(θ) = N·θ − c_m + φ(θ) is strictly increasing, since f′ = ψ′ > 0. For a flagged root θ, the bracket edge θ_e is
+  BRACKET_ULPS = 4 representable doubles from θ on the root's side: up if f(θ) < 0, down if f(θ) > 0.
+- s_br = |f(θ_e) − f(θ)| / |θ_e − θ|, the secant slope across that bracket, replaces ψ′(θ).
+- **(a′) holds iff |f(θ)| ≤ BRACKET_ULPS·s_br·ulp(θ) + 10⁻⁶.** Within one binade |θ_e − θ| = 4 ulp, so the bound is
+  |f(θ_e) − f(θ)| + 10⁻⁶: the residual is no larger than f's change across the bracket that holds the root.
+- **Stated plainly:** for a strictly increasing f, (a′) follows from the sign change on the root's side, which is (b).
+  So (a′) is no longer independent of (b). It measures the floor from the same bracket. The independent check on
+  correctness stays (c).
+- **Not chosen, reported descriptively:** the symmetric secant over [θ − 4 ulp, θ + 4 ulp] at the half-width,
+  4·ulp·(f(θ + 4 ulp) − f(θ − 4 ulp))/(8 ulp). It assumes f is linear across the bracket, which is false where ψ′ spikes.
+  From the §10 diagnostic, already seen, it gives 3.04 against |f| = 3.10 at m = 37,025 and would fail there.
+- **Disclosure:** this definition is written after the m = 37,025 values were seen (1ae0db16's descriptive diagnostic). It
+  is post-hoc, as round 69 says.
+- **Run:** `python l6_base.py step0 v7a_bracket results/step0/v7a_bracket.json`, on spot, from the saved N = 10⁵ arrays
+  (no re-solve).
+  - Per flagged root it records f at θ + k ulp for k = −4…4, recomputed in float64 as in (b), with a monotonicity flag.
+  - It also records s_br/ψ′(θ) and the three bounds: (a′), the original (a), and the symmetric secant.
+  - Its domain is the 9 flagged roots. Unflagged roots were accepted by |f| < F_ACCEPT, not by bracket collapse, and may
+    sit more than 4 ulps from their root, so (a′) does not apply to them.
+- **Then:** the generation and the rest of the pipeline run as committed. That covers 50 CUE sequences; the witnesses
+  (10 CSE, 10 Poisson, 25 stitched); gate 1; the block statistics, concatenation and pair windows; gate 2; and compare
+  (stitched/long, zeros/long, and the pair cross-check against the 10⁶ DE GUE). All of it is descriptive.

@@ -1593,3 +1593,11 @@ Under an exact Poisson tail with the theoretical 1% chance rate (expected 0.34 h
 No amplitude correlation (|r| ≤ 0.29, against −1.000 for the zeros).
 Conclusion, descriptive: no prime-line structure in the xp candidates, consistent with the 1D-integrability expectation. No follow-up.
 Amend the rule note: future near-miss checks use exact count tails, with the chance-rate floor, not percentiles among sparse fake sets.
+
+## Sixty-ninth round (Will, 2026-10-21) — L6 CMV route accepted; ruling on the V7 targeted check; amended (a) (verbatim)
+Round 69: CMV route accepted.
+
+Commit a ruling record citing 1ae0db16: all 9 flagged roots pass (b) and (c); the m = 37,025 failure of (a) is a check-definition flaw (derivative at θ, not across the bracket); K = 4 applied as pre-declared.
+The pipeline accepts v7check’s exit 0 or this ruling, matched by the sha256 of the v7check output. Don’t modify the check itself.
+Post-hoc amendment to (a) for future runs: use the slope across the bracket, not ψ′ at θ. Re-run the amended (a) on the saved N = 10⁵ arrays and confirm all roots pass. Record it.
+Generate the 50 CMV sequences and the Gate 1/2 witnesses on spot, checkpointed per sequence. Then Gates 1 and 2, then the L6 comparisons (stitched/long, zeros/long, the 10⁶-GUE pair cross-check). Descriptive only.

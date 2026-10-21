@@ -324,6 +324,56 @@ def v7check_refine(out, nproc=48):
     return 0 if res["PASS"] else 1
 
 
+def step0_v7a_bracket(out):
+    """Round 69's post-hoc amendment to (a), on the saved v7check arrays (design §11): the slope across the bracket.
+    f = N·θ − c_m + φ(θ) is strictly increasing (f′ = ψ′ > 0). For a flagged root θ, the edge θ_e is BRACKET_ULPS
+    representable doubles from θ on the root's side (up if f(θ) < 0, down if f(θ) > 0), s_br = |f(θ_e) − f(θ)|/|θ_e − θ|,
+    and (a′) holds iff |f(θ)| ≤ BRACKET_ULPS·s_br·ulp(θ) + 1e-6. The v7check record itself is not modified."""
+    base = os.path.join(os.path.dirname(out), "v7check")
+    a = np.load(base + "_alpha.npy")[None, :]
+    th = np.load(base + "_theta.npy")
+    f_saved = np.load(base + "_residual.npy")
+    dp = np.load(base + "_psi_prime.npy")
+    N = a.shape[1]
+    flag = np.where(f_saved > cbe.F_ACCEPT)[0]
+    c0, _ = cbe.targets(a)
+    c = c0[0] + cbe.TWO_PI * flag
+    ks = np.arange(-cbe.BRACKET_ULPS, cbe.BRACKET_ULPS + 1)
+    grid = np.empty((len(flag), len(ks)))
+    grid[:, cbe.BRACKET_ULPS] = th[flag]
+    for j in range(1, cbe.BRACKET_ULPS + 1):
+        grid[:, cbe.BRACKET_ULPS + j] = np.nextafter(grid[:, cbe.BRACKET_ULPS + j - 1], np.inf)
+        grid[:, cbe.BRACKET_ULPS - j] = np.nextafter(grid[:, cbe.BRACKET_ULPS - j + 1], -np.inf)
+    fg = (N * grid - c[:, None]) + cbe.phi_np(a, grid.reshape(1, -1))[0][0].reshape(grid.shape)
+    ulp = np.spacing(np.abs(th[flag]))
+    rows = []
+    for i, m in enumerate(flag):
+        f0 = fg[i, cbe.BRACKET_ULPS]
+        e = -1 if f0 < 0 else 0                                                   # root side: up if f(θ) < 0
+        te, fe = grid[i, e], fg[i, e]
+        s_br = abs(fe - f0) / abs(te - grid[i, cbe.BRACKET_ULPS])
+        bound = cbe.BRACKET_ULPS * s_br * ulp[i] + 1e-6
+        s_sym = (fg[i, -1] - fg[i, 0]) / (grid[i, -1] - grid[i, 0])               # descriptive: symmetric secant
+        rows.append(dict(m=int(m), f_theta=float(f0), f_saved=float(f_saved[m]),
+                         f_steps=[float(x) for x in fg[i]], monotone=bool(np.all(np.diff(fg[i]) > 0)),
+                         slope_bracket=float(s_br), psi_prime=float(dp[m]), slope_over_psi_prime=float(s_br / dp[m]),
+                         bound_a_amended=float(bound), a_amended_ok=bool(abs(f0) <= bound),
+                         bound_a_original=float(cbe.BRACKET_ULPS * dp[m] * ulp[i] + 1e-6),
+                         a_original_ok=bool(abs(f0) <= cbe.BRACKET_ULPS * dp[m] * ulp[i] + 1e-6),
+                         bound_symmetric_secant=float(cbe.BRACKET_ULPS * s_sym * ulp[i] + 1e-6),
+                         symmetric_secant_ok=bool(abs(f0) <= cbe.BRACKET_ULPS * s_sym * ulp[i] + 1e-6)))
+    res = dict(N=N, n_flagged=len(rows), n_a_amended=sum(r["a_amended_ok"] for r in rows),
+               n_a_original=sum(r["a_original_ok"] for r in rows),
+               n_symmetric_secant=sum(r["symmetric_secant_ok"] for r in rows),
+               n_monotone=sum(r["monotone"] for r in rows),
+               max_abs_f_minus_saved=float(max(abs(abs(r["f_theta"]) - r["f_saved"]) for r in rows)),
+               PASS=bool(rows and all(r["a_amended_ok"] for r in rows)), rows=rows,
+               label="post-hoc amendment to (a), round 69 (design §11); descriptive record", env=env())
+    json.dump(res, open(out, "w"), indent=1)
+    print(json.dumps({k: v for k, v in res.items() if k not in ("rows", "env")}), flush=True)
+    return 0 if res["PASS"] else 1
+
+
 # ---------------------------------------------------------------- generation
 N_SEQ = 100_000
 SEED_BASE = {"cue": 0, "cse": 600, "stitched": 700, "poisson": 800}
@@ -351,8 +401,10 @@ def gen(kind, r, out_dir):
         raise SystemExit(f"gen: unknown kind {kind}")
     assert len(x) == N_SEQ and np.all(np.diff(x) > 0) and 0 <= x[0] and x[-1] < N_SEQ
     meta.update(wall_s=round(time.time() - t, 1), env=env())
-    np.save(os.path.join(out_dir, f"{kind}_{r:03d}.npy"), x)
+    p = os.path.join(out_dir, f"{kind}_{r:03d}.npy")                          # per-sequence checkpoint: the .npy
     json.dump(meta, open(os.path.join(out_dir, f"{kind}_{r:03d}.json"), "w"), indent=1)
+    np.save(p[:-4] + ".part.npy", x)                                          # appears last and whole (os.replace)
+    os.replace(p[:-4] + ".part.npy", p)
     print(meta, flush=True)
     return 0
 
@@ -625,6 +677,8 @@ if __name__ == "__main__":
             sys.exit(step0_v7check(sys.argv[3]))
         if sys.argv[2] == "v7check_refine":
             sys.exit(v7check_refine(sys.argv[3]))
+        if sys.argv[2] == "v7a_bracket":
+            sys.exit(step0_v7a_bracket(sys.argv[3]))
         sys.exit({"selftest": step0_selftest, "v5": step0_v5, "v67": step0_v67, "v7diag": step0_v7diag}[sys.argv[2]](
             sys.argv[3]))
     elif sys.argv[1] == "gen":
