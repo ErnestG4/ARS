@@ -1,0 +1,15 @@
+route_a uninformative (predicted fall below 2 SE of the measured fall in every file)
+   zeros_15146000.dat k -13.43±0.24 (lin 0.991) fall meas 103±43 pred 0.532±0.019 z +2.40 resid z [1.59, -0.34, -1.46, -1.73] pair share 0.001
+   zeros_25646000.dat k -14.91±0.26 (lin 0.992) fall meas 103±55 pred 0.656±0.023 z +1.86 resid z [1.73, -0.68, -1.4, -1.29] pair share 0.001
+   zeros_248246000.da k -22.57±0.33 (lin 0.993) fall meas 120±81 pred 1.5±0.044 z +1.46 resid z [1.78, -0.89, -1.32, -0.74] pair share 0.001
+   zeros_2373446000.d k -32.02±0.41 (lin 0.994) fall meas 157±1.3e+02 pred 3.03±0.078 z +1.21 resid z [0.57, 0.4, -0.85, -1.06] pair share 0.001
+   zeros_10639046000. k -39.25±0.47 (lin 0.994) fall meas 221±1.6e+02 pred 4.55±0.11 z +1.35 resid z [0.6, 0.74, -1.64, -1.21] pair share 0.002
+A does not validate
+   zeros_252446000.da k -13.27±0.47 (lin 0.978) fall meas 150±43 pred 0.52±0.037 z +3.46 resid z [0.97, 0.42, -0.39, -2.92] pair share 0.001
+   zeros_2369246000.d k -16.51±0.6 (lin 0.977) fall meas 245±69 pred 0.805±0.058 z +3.55 resid z [1.44, 0.12, -0.97, -2.81] pair share 0.001
+   zeros_10634846000. k -18.95±0.69 (lin 0.977) fall meas 233±94 pred 1.06±0.078 z +2.47 resid z [1.14, -0.01, -1.01, -1.98] pair share 0.001
+B2 does not validate
+   zeros_46646000.dat k -1.178±0.67 (lin -0.091) fall meas 69.7±34 pred 0.0041±0.0047 z +2.07 resid z [-0.41, 1.72, -0.46, -2.25] pair share 0.000
+   zeros_256646000.da k -1.234±0.71 (lin -0.091) fall meas 106±37 pred 0.0045±0.0051 z +2.89 resid z [0.51, 0.48, -0.09, -2.75] pair share 0.000
+   zeros_2365046000.d k -1.332±0.76 (lin -0.091) fall meas 109±43 pred 0.00524±0.006 z +2.55 resid z [0.38, 0.76, -0.48, -2.41] pair share 0.000
+   zeros_10630646000. k -1.412±0.81 (lin -0.091) fall meas 152±45 pred 0.00588±0.0067 z +3.37 resid z [1.26, 0.09, -0.37, -2.79] pair share 0.000

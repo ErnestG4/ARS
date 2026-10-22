@@ -47,3 +47,40 @@ For ζ that is the pair statistic's Σ², which is not used here.
   carries at G = 300. It is a CUE quantity only.
 
 Code: `round72.py resp` / `pair_summary` → `results/r72/resp_*.json`, `results/r72/PAIR_SUMMARY.json`.
+
+## Result (`results/r72/PAIR_SUMMARY.json`; CUE only)
+**Response k** (dμ̂/dδ, mean over 50 sequences, δ = 2·10⁻³):
+
+| statistic | k | linearity (k at δ = 10⁻³ / k at 2·10⁻³) |
+|---|---|---|
+| route (a) | −13 to −39, rising in magnitude with height | 0.99 |
+| (A) | −13 to −19 | 0.98 |
+| corrected (B) | −1.2 to −1.4 ± 0.7–0.8 | −0.09 |
+
+For corrected (B), the two step sizes disagree, so its k is noise-dominated and consistent with about 0: this κ₃
+estimator barely responds to a uniform density change.
+
+**The pair-connected term is negligible.** k²Σ²(300)/300 is 0.1–0.2% of CUE's W(300) for route (a) and (A), and about
+0.001% for (B). Over 300 → 10⁴ the predicted fall is 0.05–0.15% of W(300), against measured falls of 7–17% ± 5%.
+
+**Declared reading:**
+- route (a): **uninformative**. The measured fall's SE swamps nothing the model predicts, and z_fall ≤ 2.4.
+- (A) and corrected (B): **do not validate** (z_fall up to 3.6 and 3.4).
+
+**Not applied to ζ.**
+
+**Diagnosis (descriptive):**
+1. **The validation target is contaminated.** CUE's measured fall at n = 10⁵ is mostly the moving-block bootstrap's
+   G/n bias. The concatenation variant (n = 5·10⁶) sits 4–24% above the per-sequence W at G = 10⁴ (§13), about the
+   size of the "fall". So the long CUE baseline's real G-dependence for these statistics is small, and the
+   approximation's near-zero prediction is not contradicted by it. Equally, the approximation was never able to fail
+   in the direction that matters.
+2. **What is robust needs no ζ input.** The pair-connected channel carries ≤ 0.2% of CUE's block variance. Within this
+   approximation, any Σ²(G) ≥ 0, ζ's included, can change W by at most that much.
+   - So the zeros' deficits (zeros/long 0.18–0.77) cannot come through the density, or pair-connected, channel.
+   - They must sit in the short-range part A, or in the cross-connections the approximation drops: correlation between
+     the *shapes* of distant local configurations, not their densities.
+   - This is a statement about the approximation's reach, computed on CUE. It is not a ζ prediction.
+3. **Consequence for the n = 6 extension** (which waits on this result): the pair channel is ruled out as the carrier.
+   An exact corrected-(B) block variance at n = 6 would include the higher cross-connections that this approximation
+   drops. Whether to pursue it is Will's call.

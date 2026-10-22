@@ -141,6 +141,15 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   - **The zeros' lower variance is therefore not a calibration artifact.** Its cause for these local statistics is
     untested. The arithmetic suppression established for the pair statistic is a candidate.
   - **Pair cross-check:** the CMV and 10⁶-level DE GUE baselines agree to 0.97–1.08 across the five R₂ bins.
+- **Rounds 71–72 (descriptive / exploratory; `l6/OWNBOOT_SE_CHECK.md`, `l6/CUE_SCATTER_CONTROL.md`,
+  `l6/PAIR_APPROX.md`):**
+  - **The zeros scatter less than their own bootstrap SEs predict:** pooled χ² 1.65 on 9 dof at G = 300.
+  - **The identical pipeline on CUE gives χ²/dof ≈ 1** (1.14, 0.97, 1.06). So the zeros' low scatter is a property of
+    the zeros (long-range rigidity).
+  - **No bootstrap calibration rule (round 72):** the zeros' SE falls with block length and never levels off below
+    file scale.
+  - **The pair-connected approximation** carries ≤ 0.2% of CUE's block variance. It cannot carry the zeros' deficit,
+    and it was not applied to ζ. The cause stays open.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 

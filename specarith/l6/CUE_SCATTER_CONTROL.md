@@ -45,3 +45,26 @@ Based on the 10⁵-segment median χ²/dof at G = 300 for each statistic:
 - **For comparison, the zeros:** 0.11 (route (a)), 0.37 (A) and 0.16 (corrected (B)), each on 2–4 dof.
 
 Code: `round72.py ctrl` / `ctrl_cat` / `ctrl_summary` → `results/r72/ctrl_*.json`, `results/r72/CTRL_SUMMARY.json`.
+
+## Result (`results/r72/CTRL_SUMMARY.json`)
+| statistic | 10⁵ segments, G = 300: median χ²/dof (per-file range; 49 dof) | 10⁶ segments, G = 300 (4 dof) | file-size calibration proxy | zeros (for comparison) |
+|---|---|---|---|---|
+| route (a) | **1.14** (1.09–1.21) | 0.47–0.64 | 0.88–1.15 | 0.11 |
+| (A) | **0.97** (0.93–0.99) | 0.71–0.82 | 0.93–1.04 | 0.37 |
+| corrected (B) | **1.06** (1.05–1.07) | 0.84–0.96 | 0.95–1.11 | 0.16 |
+
+- **The pipeline reproduces itself:** all 50 × 12 re-run SEs equal the stored L6 statistics bitwise.
+- **The 10⁶-segment values** all sit inside their 4-dof band of [0.12, 2.79], at percentiles 25–57.
+- **On CUE, χ²/dof rises with the block length of the SE.** For route (a) at 10⁵ it goes 1.14 → 1.32–1.49 from
+  G = 300 to 10⁴. That is the moving-block bootstrap's G/n bias: at n = 10⁵ and G = 10⁴ the block SE runs a few to
+  20% low, as the concatenation variant shows (§13: concat/primary 0.87–1.24 at 10⁴). The zeros' files have
+  n ≈ 5·10⁶, so their G/n ≤ 0.002.
+
+**Reading as declared: ≈ 1 for all three statistics.** The identical pipeline, run on CUE, gives a scatter consistent
+with its own bootstrap SEs at G = 300, at every scale available.
+
+**Recorded (round 72): the zeros' low file-to-file scatter is a property of the zeros (long-range rigidity),** not of
+the estimator pipeline.
+
+**Not run:** the file-sized matched control. It needs about 600 more sequences, roughly 120 h on spot; that is Will's
+call.
