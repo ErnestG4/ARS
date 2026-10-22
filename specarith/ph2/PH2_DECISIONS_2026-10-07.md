@@ -1631,3 +1631,12 @@ Control first (descriptive). Using the L6 long CUE sequences, form file-sized se
 No bootstrap calibration rule. Record that block bootstrapping can’t calibrate the zeros: negative long-range covariance means the SE falls with block length and never levels off below file scale. Sealed tests keep the CUE floor. A between-file-scatter SE may be proposed for a future test only with ≥ 10 files, pre-registered.
 Theory, exploratory. Implement the pair-connected approximation for the block variance of the three statistics. Validate it first against the long CUE baseline (known answer), and report agreement per statistic and G. Don’t apply it to ζ until that validates. The n = 6 extension waits on this result.
 Pushes. Run git fetch origin, confirm the unpushed list, and give Will the final count. Stray tags: Will deletes them locally.
+
+## Seventy-third round (Will, 2026-10-22) — CUE control accepted; pair-connected wording; L6 bias correction; n = 6 scoping; pushes (verbatim)
+Round 73:
+
+The CUE control is accepted as recorded. The file-sized long-CUE run (about 120 hours) isn’t needed: stitching was shown irrelevant for these statistics, and file-sized stitched replicates give about 1.
+Pair-connected wording. Record it as “not validated (known answer contaminated by short-segment block bias)”. The ≤0.2% pair-channel bound holds within the approximation only, with an unvalidated implementation. Note the consistency with Stage 2, where the shrink came through the long-range 4-point term, as a hypothesis, not a finding.
+L6 correction (descriptive). Re-estimate the long-baseline block variance at G = 3,000 and 10,000 with an estimator free of the within-sequence mean-subtraction bias: global mean, or the concatenated variant, plus an explicit bias correction. Report the revised zeros/long ratios next to the old ones, and update the L6 table and findings §11 if they change.
+n = 6 scoping only. Draft a design for the exact CS08 n = 6 block-variance prediction for corrected (B): the long-range term’s structure, a cost estimate scaled from Stage 2’s I₄,long, a U(N) known-answer check at n = 6, and fresh-height test geometry. Nothing runs until I’ve reviewed it.
+Pushes: 34 commits on specarith for Will. The published lowercase seal tags stay.

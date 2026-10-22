@@ -85,3 +85,12 @@ estimator barely responds to a uniform density change.
 3. **Consequence for the n = 6 extension** (which waits on this result): the pair channel is ruled out as the carrier.
    An exact corrected-(B) block variance at n = 6 would include the higher cross-connections that this approximation
    drops. Whether to pursue it is Will's call.
+
+## Status (Will, round 73)
+- **Not validated** (the known answer was contaminated by short-segment block bias).
+- **The ≤ 0.2% pair-channel bound** holds within the approximation only, and the implementation is unvalidated. It is
+  not a bound on ζ, and not a finding.
+- **Hypothesis, not a finding: consistency with Stage 2.** There the shrink came through the long-range four-point
+  term: I₄,long carries almost all of the pair statistic's b-dependence (`cs4/GS_ZETA_RESULTS.md` §1). That fits the
+  reading that the deficit travels through connected correlations of order > 2 between distant configurations, rather
+  than through the pair channel. This is untested for these three statistics.

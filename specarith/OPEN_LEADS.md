@@ -148,8 +148,11 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     the zeros (long-range rigidity).
   - **No bootstrap calibration rule (round 72):** the zeros' SE falls with block length and never levels off below
     file scale.
-  - **The pair-connected approximation** carries ≤ 0.2% of CUE's block variance. It cannot carry the zeros' deficit,
-    and it was not applied to ζ. The cause stays open.
+  - **The pair-connected approximation is not validated:** its known answer was contaminated by short-segment block
+    bias (round 73). Within the approximation only, and with an unvalidated implementation, the pair channel carries
+    ≤ 0.2% of CUE's block variance. It was not applied to ζ.
+  - **Hypothesis (not a finding):** the deficit travels through connected terms of order > 2. That would match
+    Stage 2, where the shrink came through the long-range four-point term. The cause stays open.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 

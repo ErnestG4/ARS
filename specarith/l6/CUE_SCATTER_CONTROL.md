@@ -68,3 +68,6 @@ the estimator pipeline.
 
 **Not run:** the file-sized matched control. It needs about 600 more sequences, roughly 120 h on spot; that is Will's
 call.
+
+**Accepted (Will, round 73).** The file-sized long-CUE run (about 120 h) is not needed. Stitching was shown not to
+matter for these statistics, and the file-sized stitched replicates give about 1.
