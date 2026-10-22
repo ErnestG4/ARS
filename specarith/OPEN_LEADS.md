@@ -134,9 +134,12 @@ statistic, and any connection between them is a hypothesis for a future sealed t
 
     | test | G = 300 | 1,000 | 3,000 | 10,000 |
     |---|---|---|---|---|
-    | route (a) | 0.77 | 0.68 | 0.58 | 0.43 |
-    | (A) | 0.69 | 0.56 | 0.56 | 0.51 |
-    | corrected (B) | 0.31 | 0.21 | 0.19 | 0.18 |
+    | route (a) | 0.77 | 0.68 | 0.54 | 0.40 |
+    | (A) | 0.69 | 0.56 | 0.53 | 0.44 |
+    | corrected (B) | 0.31 | 0.21 | 0.18 | 0.16 |
+
+    The G ≥ 3,000 values are revised in round 73: a long-baseline estimator free of the short-segment bootstrap's
+    mean-subtraction bias (`l6/L6_BIAS_CORRECTION.md`). They were 0.58 / 0.43, 0.56 / 0.51 and 0.19 / 0.18.
 
   - **The zeros' lower variance is therefore not a calibration artifact.** Its cause for these local statistics is
     untested. The arithmetic suppression established for the pair statistic is a candidate.

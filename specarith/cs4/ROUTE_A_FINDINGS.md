@@ -315,11 +315,14 @@ pair statistic is a candidate.
 - The evidence is the L6 long CUE baseline: 50 CMV sequences of 10⁵ levels each (`../l6/L6_BASELINE_DESIGN.md` §13).
 - The sensitivity is ±30% at G = 10,000.
 - Against that baseline (descriptive; gate-2 stitched witness did not fire), Var_zeros/Var_long is:
-  - route (a): 0.77, 0.68, 0.58, 0.43;
-  - (A): 0.69, 0.56, 0.56, 0.51;
-  - corrected (B): 0.31, 0.21, 0.19, 0.18;
+  - route (a): 0.77, 0.68, 0.54, 0.40;
+  - (A): 0.69, 0.56, 0.53, 0.44;
+  - corrected (B): 0.31, 0.21, 0.18, 0.16;
 
   at G = 300, 1,000, 3,000 and 10,000.
+- **Round 73 revision:** the G = 3,000 and 10,000 values use a long-baseline estimator free of the per-sequence
+  bootstrap's mean-subtraction bias (`../l6/L6_BIAS_CORRECTION.md`). They were 0.58 / 0.43, 0.56 / 0.51 and 0.19 /
+  0.18. The revised values match the file-sized stitched calibration's ratios.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
 beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long

@@ -450,3 +450,8 @@ brackets. "Long" is the 50-sequence CUE baseline, and its SE is at most 6.4% of 
 
 The L6 table's G ≥ 1,000 cells for the three statistics are re-marked "valid within stated sensitivity"
 (`l6_table.py`; no numeric cell changed).
+
+**Round 73 revision of the comparison table above.** At G = 3,000 and 10,000, "long" was the per-sequence moving-block
+bootstrap, biased low by within-sequence mean subtraction (about 1 − 1/k, with k = 10⁵/G blocks). The revised
+zeros/long are 0.54 / 0.40 (route (a)), 0.53 / 0.44 (A) and 0.18 / 0.16 (corrected (B)) (`L6_BIAS_CORRECTION.md`).
+The table above is kept as computed.

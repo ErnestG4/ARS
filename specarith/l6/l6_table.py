@@ -30,6 +30,7 @@ import os
 
 import numpy as np
 
+LONG_FLAG = "disjoint-block global-mean estimator (round 73; L6_BIAS_CORRECTION.md)"
 VALID_FLAG = "valid within stated sensitivity (stitched/long within ±14% at G = 1,000, ±30% at G = 10,000; §13)"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -69,6 +70,30 @@ def cs4_row(fs, test, obs, read_p, cal_p, unit):
                 per_file=per, cells=cells)
 
 
+def long_rows():
+    """Round 73: zeros/long against the 50-sequence long CUE baseline (L6_BASELINE_DESIGN.md §13): G = 300 and 1,000 from
+    the per-sequence moving-block bootstrap (compare.json; G/n <= 0.01), G = 3,000 and 10,000 from the disjoint-block
+    global-mean estimator (L6_BIAS_CORRECTION.md, results/r73/R73_SUMMARY.json)."""
+    cp = os.path.join(HERE, "results", "base", "compare.json")
+    rp = os.path.join(HERE, "results", "r73", "R73_SUMMARY.json")
+    cmp_, r73 = json.load(open(cp)), json.load(open(rp))
+    out = []
+    for (fs, test, obs, _, _, unit), key in zip(CS4_ROWS, ("route_a", "A", "B2")):
+        files = list(cmp_["tests"][key])
+        cells = {}
+        for G in ("300", "1000", "3000", "10000"):
+            if G in ("300", "1000"):
+                v = np.array([cmp_["tests"][key][f][G]["zeros_over_long"] for f in files])
+            else:
+                v = np.array([r73["tests"][key][f][G]["zeros_over_long_revised"] for f in files])
+            cells[G] = dict(geomean=float(np.exp(np.log(v).mean())), min=float(v.min()), max=float(v.max()),
+                            n_files=len(v), valid=True, flag=None if G in ("300", "1000") else LONG_FLAG)
+        out.append(dict(set=fs, test=test, observable=obs, unit=unit,
+                        baseline="long CUE (50 x 10^5 CMV), zeros/long",
+                        inputs={os.path.relpath(cp, HERE): sha(cp), os.path.relpath(rp, HERE): sha(rp)}, cells=cells))
+    return out
+
+
 def r2_rows():
     d = os.path.join(R2, "results", "longbase_v2")
     gue = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(d, "gue_L1000000_s*.json")))]
@@ -94,9 +119,9 @@ def r2_rows():
 
 
 def main():
-    rows = [cs4_row(*r) for r in CS4_ROWS] + r2_rows()
+    rows = [cs4_row(*r) for r in CS4_ROWS] + long_rows() + r2_rows()
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    json.dump(dict(round=65, revised_round=70, stitch_levels=STITCH, rows=rows), open(os.path.join(HERE, "results", "l6_table.json"), "w"),
+    json.dump(dict(round=65, revised_round=73, stitch_levels=STITCH, rows=rows), open(os.path.join(HERE, "results", "l6_table.json"), "w"),
               indent=1)
     L = ["| set / test | observable | baseline | " + " | ".join(f"G = {g}" for g in ("100", "300", "1000", "3000", "10000"))
          + " |", "|---|---|---|---|---|---|---|---|"]
@@ -108,13 +133,16 @@ def main():
                 c.append("—")
             elif "geomean" in x:
                 s = f"{x['geomean']:.2f} ({x['min']:.2f}–{x['max']:.2f})"
-                c.append(s if not x.get("flag") else f"{s} †")
+                c.append(s if not x.get("flag") else f"{s} {'‡' if x['flag'] == LONG_FLAG else '†'}")
             else:
                 c.append(f"{x['ratio']:.2f} ± {x['se']:.2f}")
         L.append(f"| {r['set']} {r['test']} | {r['observable']} | {r['baseline'].split(',')[0]} | " + " | ".join(c) + " |")
     L += ["", "† valid within stated sensitivity: stitched CUE_1000 and the long CUE baseline agree within ±14% at "
           "G = 1,000 and ±30% at G = 10,000 for these three statistics (round 70; L6_BASELINE_DESIGN.md §13). "
-          "Round 65 had marked these cells invalid."]
+          "Round 65 had marked these cells invalid.",
+          "", "‡ revised (round 73): long-baseline variance from disjoint blocks about the global mean, free of the "
+          "per-sequence bootstrap's mean-subtraction bias (L6_BIAS_CORRECTION.md). G = 300 and 1,000 in these rows are "
+          "the per-sequence bootstrap (G/n ≤ 0.01)."]
     open(os.path.join(HERE, "results", "L6_TABLE.md"), "w").write("\n".join(L) + "\n")
     print("\n".join(L))
 
