@@ -41,3 +41,37 @@ estimates? If they do, a future pre-registration could use them in place of the 
 - **If it validates:** a draft calibration rule goes to Will (`CALIB_RULE_DRAFT.md`, not committed).
 
 Code: `ownboot_chi2.py` → `results/ownboot_chi2.json`.
+
+## Result (`results/ownboot_chi2.json`)
+| statistic | files | χ² / dof at BLOCK = 300 | χ²/dof | percentile | own SE / sealed SE | χ² with sealed SEs (percentile) |
+|---|---|---|---|---|---|---|
+| route (a) | 5 | 0.43 / 4 | 0.11 | 2.0 | 0.74–1.00 | 0.27 / 4 (0.8) |
+| (A) | 3 | 0.74 / 2 | 0.37 | 30.8 | 0.78–0.96 | 0.62 / 2 (26.5) |
+| corrected (B) | 4 | 0.48 / 3 | 0.16 | 7.8 | 0.50–0.67 | 0.16 / 3 (1.6) |
+| **pooled** | 12 | **1.65 / 9** | **0.18** | **0.4** | | 1.05 / 9 (0.1) |
+
+The sealed gains are all 1, so SE_own = SE_boot(300).
+
+**Reading as declared: does not validate, too small.**
+- The pooled percentile is 0.4, below 2.5: even the own bootstrap SEs at the declared block length overstate the
+  file-to-file scatter. Each statistic alone is inside [0.5, 99.5].
+- Own SEs bring the pooled χ² up from 1.05 (sealed SEs, 0.1st percentile) to 1.65. That is the right direction, but not
+  enough.
+
+**Descriptive, beyond the declared reading.** The own SE keeps falling with block length (the zeros' rigidity), and the
+χ² rises with it:
+
+| G | 300 | 1,000 | 3,000 | 10,000 |
+|---|---|---|---|---|
+| pooled χ² / 9 | 1.65 | 2.23 | 2.51 | 3.04 |
+| percentile | 0.4 | 1.3 | 1.9 | 3.7 |
+
+- The SE that matches the observed scatter is the long-block one. At G = 10⁴ the pooled χ² would sit inside the
+  declared range, but that block length is chosen after seeing this table. It is not a validation.
+- **Caveats:**
+  - only 12 files (9 dof), at heights from 1.5·10⁷ to 1.1·10¹⁰;
+  - a low χ² is partly chance at this size; the 0.4th percentile is about a 1-in-250 event;
+  - per-file bias corrections can only add scatter, not remove it.
+- Against μ = 1 (n dof, at BLOCK = 300): route (a) 0.50/5, (A) 0.74/3, corrected (B) 0.60/4.
+- **No calibration-rule draft:** round 71 asked for one only if the check validates. What a future rule would have to
+  settle (which block length, and how to declare it before data) goes to Will.
