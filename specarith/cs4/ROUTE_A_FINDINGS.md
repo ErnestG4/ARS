@@ -306,11 +306,25 @@ with the arithmetic suppression of block variance already established for the pa
 - confirmed on fresh heights in Stage 1;
 - size matched to CS08 in Stage 2.
 
-R₂ §6 judged Berry saturation alone too weak and named few-prime form-factor fluctuations as the candidate. Part of the
-conservatism in the CUE_1000-calibrated tests may also come from stitching (see L6).
+R₂ §6 judged Berry saturation alone too weak and named few-prime form-factor fluctuations as the candidate.
+
+**Stitching (round 70; replaces round 66's "part of the conservatism may come from stitching"):** stitching shown not to
+affect these statistics' block variance within ±14% at G = 1,000; the zeros' lower variance is therefore not a
+calibration artifact. Its cause for these local statistics is untested; the arithmetic suppression established for the
+pair statistic is a candidate.
+- The evidence is the L6 long CUE baseline: 50 CMV sequences of 10⁵ levels each (`../l6/L6_BASELINE_DESIGN.md` §13).
+- The sensitivity is ±30% at G = 10,000.
+- Against that baseline (descriptive; gate-2 stitched witness did not fire), Var_zeros/Var_long is:
+  - route (a): 0.77, 0.68, 0.58, 0.43;
+  - (A): 0.69, 0.56, 0.56, 0.51;
+  - corrected (B): 0.31, 0.21, 0.19, 0.18;
+
+  at G = 300, 1,000, 3,000 and 10,000.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
-beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause.
+beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long
+baseline now makes this separation for the three statistics. The deficit persists against a true long CUE sequence;
+see above.)
 
 **Correction (round 65): the pair statistic already has this separation on record.**
 - **Long baseline:** R₂ §6 ran a 10⁶-level GUE baseline (Dumitriu–Edelman) through identical code. The zeros' shrink was
@@ -322,8 +336,9 @@ beyond a block, so they cannot separate generic long-sequence rigidity from an a
   Stage 2's model.
 - **How this text went wrong:** the first version of this section (249f0470) copied R₂ §3's pre-§6 wording, which said
   the long baseline had not been run.
-- **What is still open:** the separation for the three statistics above. L6's descriptive pass (`../l6/`) shows the same
-  direction at 300-level blocks.
+- **What was open, and is now done:** the separation for the three statistics above. Round 70's L6 long CUE baseline
+  shows the deficit at every block size from 300 to 10,000 levels (descriptive). **What stays open** is its cause for
+  these local statistics.
 
 **Consequence:** the CUE-floor SEs are conservative for the zeros. The PASSes stand, and every sealed rule's power
 against modest deviations from μ = 1 was understated. No verdict changes; the sealed bands are the ones read.

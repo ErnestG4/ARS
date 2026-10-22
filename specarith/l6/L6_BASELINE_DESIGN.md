@@ -406,3 +406,47 @@ The exact formula agrees with the sine kernel to a relative 1.6·10⁻⁵ over t
 - **For future runs, gate 2's witness is a planted block-variance excess of known size** that must fire, for example a
   sequence with slow segment-wise rate modulation. The gate then tests power, not a guess about the physics. This is
   recorded in TOOLKIT §9.D.
+
+**Comparisons (round 70; `results/base/compare.json`; labelled "descriptive; gate-2 stitched witness did not fire
+(see §13)").** All figures are Var at the file's geometry: the geometric mean over files, with the range over files in
+brackets. "Long" is the 50-sequence CUE baseline, and its SE is at most 6.4% of its value in any cell.
+
+| test | G | zeros/long | stitched calibration/long | zeros/long (concatenation variant) |
+|---|---|---|---|---|
+| route (a) | 300 | 0.77 (0.61–0.91) | 0.98 | 0.78 |
+| | 1000 | 0.68 (0.50–0.86) | 1.01 | 0.65 |
+| | 3000 | 0.58 (0.41–0.81) | 1.05 | 0.56 |
+| | 10000 | 0.43 (0.31–0.63) | 1.07 | 0.42 |
+| (A) | 300 | 0.69 (0.56–0.86) | 0.99 | 0.71 |
+| | 1000 | 0.56 (0.50–0.68) | 1.01 | 0.60 |
+| | 3000 | 0.56 (0.46–0.69) | 1.04 | 0.55 |
+| | 10000 | 0.51 (0.39–0.65) | 1.16 | 0.47 |
+| corrected (B) | 300 | 0.31 (0.25–0.42) | 1.00 | 0.31 |
+| | 1000 | 0.21 (0.18–0.24) | 0.99 | 0.20 |
+| | 3000 | 0.19 (0.14–0.23) | 1.01 | 0.18 |
+| | 10000 | 0.18 (0.15–0.26) | 1.16 | 0.16 |
+
+- **The zeros fluctuate less than a true long CUE sequence at every block size,** and the ratio falls as G grows for
+  all three statistics. The values are within a few percent of the stitched-calibration ratios in the L6 table.
+- **The declared CUE_1000 calibration against the long baseline** (second ratio column) is 0.98–1.05 up to G = 3000. At
+  G = 10⁴ it is 1.07–1.16, against a long-baseline SE of about 6%. So at the largest block, stitching may inflate (A)'s
+  and the corrected (B)'s calibration variance by up to about 16%. That is inside the stated ±30% sensitivity, and it is
+  the 10⁴ cell only. At G = 1,000 the two agree within 1%.
+- **The concatenation variant** agrees with the primary to 0.94–1.14 (geometric means).
+- **Pair cross-check:** the CMV baseline against the 10⁶-level DE GUE, with the R₂ drift-removed growth at the largest
+  block. Five CMV windows of 10⁶ levels each; SEs from 5 windows are rough.
+
+  | bin | CMV | DE GUE | CMV/DE | difference in combined SE |
+  |---|---|---|---|---|
+  | R1 | 1.001 ± 0.043 | 0.963 ± 0.020 | 1.04 | +0.8 |
+  | R2 | 1.026 ± 0.017 | 0.946 ± 0.016 | 1.08 | +3.4 |
+  | R3 | 0.971 ± 0.038 | 0.957 ± 0.021 | 1.01 | +0.3 |
+  | R4 | 0.954 ± 0.012 | 0.923 ± 0.012 | 1.03 | +1.8 |
+  | R5 | 0.961 ± 0.032 | 0.986 ± 0.021 | 0.97 | −0.7 |
+
+  The two generators agree to 0.97–1.08. The DE GUE is lower in 4 of 5 bins, by about 3% on average, and R2 differs
+  at 3.4 combined SE. Against the zeros' pair-statistic ratios of 0.30–0.82 (L6 table), a baseline shift of this size
+  does not change the R₂ §6 reading.
+
+The L6 table's G ≥ 1,000 cells for the three statistics are re-marked "valid within stated sensitivity"
+(`l6_table.py`; no numeric cell changed).

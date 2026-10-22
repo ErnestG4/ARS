@@ -1,5 +1,6 @@
 {
  "round": 65,
+ "revised_round": 70,
  "stitch_levels": 1000,
  "rows": [
   {
@@ -58,24 +59,24 @@
      "min": 0.49045499387007635,
      "max": 0.8773517265347834,
      "n_files": 5,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     },
     "3000": {
      "geomean": 0.5534577038481753,
      "min": 0.39317309496939123,
      "max": 0.7606085943450972,
      "n_files": 5,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     },
     "10000": {
      "geomean": 0.40004585598540654,
      "min": 0.28295263538183235,
      "max": 0.5921650957184152,
      "n_files": 5,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     }
    }
   },
@@ -123,24 +124,24 @@
      "min": 0.4938034974390626,
      "max": 0.6610020628163608,
      "n_files": 3,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     },
     "3000": {
      "geomean": 0.5331792862469178,
      "min": 0.4523258336079426,
      "max": 0.6379448631837348,
      "n_files": 3,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     },
     "10000": {
      "geomean": 0.4362015285412295,
      "min": 0.33103728426260776,
      "max": 0.5607777087324664,
      "n_files": 3,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     }
    }
   },
@@ -194,24 +195,24 @@
      "min": 0.18466473786349574,
      "max": 0.23728902746263972,
      "n_files": 4,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     },
     "3000": {
      "geomean": 0.1832496985252933,
      "min": 0.14219737166388793,
      "max": 0.22071972348128902,
      "n_files": 4,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     },
     "10000": {
      "geomean": 0.15755657436152878,
      "min": 0.12892786535971076,
      "max": 0.2218209646620501,
      "n_files": 4,
-     "valid": false,
-     "flag": "baseline invalid: stitched CUE_1000"
+     "valid": true,
+     "flag": "valid within stated sensitivity (stitched/long within \u00b114% at G = 1,000, \u00b130% at G = 10,000; \u00a713)"
     }
    }
   },

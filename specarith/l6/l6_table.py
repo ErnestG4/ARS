@@ -7,8 +7,10 @@ Rows:
   F6 corrected (B)  offset-averaged k3 at L* = 4       zeros: results/b2_read/run1 records[f].se[G]          (unfolded units)
      baseline for these three: the declared calibration's mean bootstrap SE at G over its 200 CUE_1000 replicates
      (se_boot_mean). The calibration's sequences are independent, randomly rotated 1,000-level matrices laid end to end,
-     so a block of G ≥ ~1,000 levels sees no correlation beyond one matrix: those cells are marked
-     "baseline invalid: stitched CUE_1000" and are not interpreted (round 65).
+     so a block of G ≥ ~1,000 levels sees no correlation beyond one matrix. Round 65 marked those cells
+     "baseline invalid: stitched CUE_1000". Round 70 (L6_BASELINE_DESIGN.md §13): against the 50-sequence long CUE
+     baseline, stitching does not change these statistics' block variance within ±14% at G = 1,000 and ±30% at
+     G = 10,000, so they are marked "valid within stated sensitivity".
   R2 bins R1–R5     drift-removed pair-sum bootstrap SD   zeros: ph2r2/results/longbase_v2/zeros_R*_L1000000.json
      baseline: the 10⁶-level Dumitriu–Edelman GUE sequences of ph2r2/longbase.py v2 (PH2R2_FINDINGS §6), mapped onto
      each bin's heights and run through identical code. One long sequence per seed, so no block is stitched: every G is
@@ -27,6 +29,8 @@ import math
 import os
 
 import numpy as np
+
+VALID_FLAG = "valid within stated sensitivity (stitched/long within ±14% at G = 1,000, ±30% at G = 10,000; §13)"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CS4 = os.path.join(HERE, "..", "cs4")
@@ -58,8 +62,8 @@ def cs4_row(fs, test, obs, read_p, cal_p, unit):
     for G in Gs:
         v = np.array([per[f][str(G)] for f in rd])
         cells[str(G)] = dict(geomean=float(np.exp(np.log(v).mean())), min=float(v.min()), max=float(v.max()),
-                             n_files=len(v), valid=G < STITCH,
-                             flag=None if G < STITCH else "baseline invalid: stitched CUE_1000")
+                             n_files=len(v), valid=True,
+                             flag=None if G < STITCH else VALID_FLAG)
     return dict(set=fs, test=test, observable=obs, unit=unit, baseline="CUE_1000 calibration (200 replicates), "
                 "mean bootstrap SE", inputs={read_p: sha(os.path.join(CS4, read_p)), cal_p: sha(os.path.join(CS4, cal_p))},
                 per_file=per, cells=cells)
@@ -92,7 +96,7 @@ def r2_rows():
 def main():
     rows = [cs4_row(*r) for r in CS4_ROWS] + r2_rows()
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    json.dump(dict(round=65, stitch_levels=STITCH, rows=rows), open(os.path.join(HERE, "results", "l6_table.json"), "w"),
+    json.dump(dict(round=65, revised_round=70, stitch_levels=STITCH, rows=rows), open(os.path.join(HERE, "results", "l6_table.json"), "w"),
               indent=1)
     L = ["| set / test | observable | baseline | " + " | ".join(f"G = {g}" for g in ("100", "300", "1000", "3000", "10000"))
          + " |", "|---|---|---|---|---|---|---|---|"]
@@ -104,10 +108,13 @@ def main():
                 c.append("—")
             elif "geomean" in x:
                 s = f"{x['geomean']:.2f} ({x['min']:.2f}–{x['max']:.2f})"
-                c.append(s if x["valid"] else f"~~{s}~~ invalid")
+                c.append(s if not x.get("flag") else f"{s} †")
             else:
                 c.append(f"{x['ratio']:.2f} ± {x['se']:.2f}")
         L.append(f"| {r['set']} {r['test']} | {r['observable']} | {r['baseline'].split(',')[0]} | " + " | ".join(c) + " |")
+    L += ["", "† valid within stated sensitivity: stitched CUE_1000 and the long CUE baseline agree within ±14% at "
+          "G = 1,000 and ±30% at G = 10,000 for these three statistics (round 70; L6_BASELINE_DESIGN.md §13). "
+          "Round 65 had marked these cells invalid."]
     open(os.path.join(HERE, "results", "L6_TABLE.md"), "w").write("\n".join(L) + "\n")
     print("\n".join(L))
 

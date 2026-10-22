@@ -119,10 +119,28 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   - **Caveat at 300 levels:** a block can straddle a seam between two independent CUE_1000 matrices, where the baseline
     has no rigidity. That could inflate the baseline's variance and push the ratio down, so the long baseline is needed
     even here to be sure.
+    (Round 70: it does not. Against the long baseline the ratio at 300 levels is 0.98–1.00.)
   - **The R₂ row is valid at every G**, because its baseline is one long sequence. Those bins are seen data
     (exploratory), and its ratios are absolute SDs at matched heights, not the growth ratio of §6.
   - **The long CUE_N baseline is what unblocks the long-block comparison** for the three cs4 statistics. Its design
-    and pre-registration are drafted for Will (round 65) and not run.
+    and pre-registration were drafted for Will in round 65. It has since been run (next item).
+- **Long CUE baseline (rounds 66–70; `l6/L6_BASELINE_DESIGN.md` §11–§13).** 50 CMV CUE sequences of 10⁵ levels each.
+  - **Gate 1 passed:** the exact CUE number variance matches, and three witnesses fail as required. The two halves
+    agree.
+  - **Gate 2's stitched witness did not fire.** Will ruled it mis-specified (round 70).
+  - **Stitching does not affect these statistics' block variance** within ±14% at G = 1,000 and ±30% at G = 10,000. So
+    the "baseline invalid" marks above are revised to "valid within stated sensitivity" (L6 table, †).
+  - **Zeros/long** (descriptive; gate-2 stitched witness did not fire):
+
+    | test | G = 300 | 1,000 | 3,000 | 10,000 |
+    |---|---|---|---|---|
+    | route (a) | 0.77 | 0.68 | 0.58 | 0.43 |
+    | (A) | 0.69 | 0.56 | 0.56 | 0.51 |
+    | corrected (B) | 0.31 | 0.21 | 0.19 | 0.18 |
+
+  - **The zeros' lower variance is therefore not a calibration artifact.** Its cause for these local statistics is
+    untested. The arithmetic suppression established for the pair statistic is a candidate.
+  - **Pair cross-check:** the CMV and 10⁶-level DE GUE baselines agree to 0.97–1.08 across the five R₂ bins.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 
