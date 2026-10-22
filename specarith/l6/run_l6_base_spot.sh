@@ -38,7 +38,12 @@ echo "$(date -Is) [CC specarith] L6 baseline: gate 1 passed; statistics" >> ~/cl
 grep -L "exit=0" $LG/stats_*.exit $LG/concat.exit $LG/pair_*.exit > $R/stats_failures.txt
 [ -s $R/stats_failures.txt ] && { echo "statistics failures" > $R/STOPPED; exit 1; }
 nice -n 10 $PY l6_base.py gate2 $ST $R/gate2.json > $LG/gate2.log 2>&1; echo "exit=$?" > $R/gate2.exit
-grep -q "exit=0" $R/gate2.exit || { echo "gate 2 not passed" > $R/STOPPED; exit 1; }
-nice -n 10 $PY l6_base.py compare $ST $PR $R/compare.json > $LG/compare.log 2>&1; echo "exit=$?" > $R/compare.exit
+# gate 2 (design §3, §13): its own exit 0, or Will's round-70 ruling, bound to this exact gate-2 record by sha256
+LABEL="descriptive"
+if ! grep -q "exit=0" $R/gate2.exit; then
+  sha256sum --status -c $R/gate2_ruling.sha256 2>/dev/null || { echo "gate 2 not passed and no matching round-70 ruling" > $R/STOPPED; exit 1; }
+  LABEL="descriptive; gate-2 stitched witness did not fire (see §13)"
+fi
+nice -n 10 $PY l6_base.py compare $ST $PR $R/compare.json "$LABEL" > $LG/compare.log 2>&1; echo "exit=$?" > $R/compare.exit
 date -Is > $R/ALL_DONE
 echo "$(date -Is) [CC specarith] L6 baseline: done" >> ~/claude-work.log

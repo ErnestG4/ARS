@@ -1511,3 +1511,26 @@ the writer first does, and that check happens at construction time.
 - **Small structural finding about the bank itself:** instruments and reported results share a
   namespace, so a name-shape-plus-range scan **cannot tell a measurement from a measurer**. A namespace
   distinction between estimator outputs and reported scalars would let this class of scan be sharp.
+
+### §9.D — A GATE'S WITNESS TESTS POWER: PLANT THE EFFECT, DON'T PREDICT THE PHYSICS (L6, round 70, 2026-10-22)
+
+**A witness must be a construction whose effect on the gated statistic is known by construction, not a hypothesis
+about how some other construction behaves.** The L6 long-baseline gate 2 compared the long CUE baseline with stitched
+CUE_1000 sequences, and required the two to differ at block lengths G ≥ 1000 (`specarith/l6/L6_BASELINE_DESIGN.md`
+§3, §13).
+- **What happened:** they did not differ, within ±14% at G = 1,000 and ±30% at G = 10,000. The instrument was sound:
+  gate 1, with three failing witnesses, and the two halves agreeing.
+- **Why:** stitching breaks correlations only at the seams. The three gated statistics average local quantities, so
+  their block variance comes from short-range covariance and does not register the seams. The "witness" was the
+  designer's prediction about the physics. When it did not fire, the gate stopped a valid baseline. Separately, the
+  same prediction had been carried into a published caveat ("part of the conservatism may come from stitching").
+- **Rule (design template, applies to every gate with a witness):**
+  - The witness is a **planted effect of known size on the gated statistic itself**. For a block-variance gate that
+    means a planted block-variance excess. One example is a sequence with slow segment-wise rate modulation, whose
+    excess at each G follows from the modulation's amplitude and segment length. Declare the expected excess, and
+    require the gate to fire on it.
+  - A construction whose effect on the statistic is only expected (stitching, a different ensemble, a different
+    generator) is a **hypothesis**. Test it as a hypothesis, and report it whichever way it comes out. It is never what
+    a gate's validity rests on.
+  - Size the planted effect at the gate's stated sensitivity, so a pass also states what the gate can resolve. Related
+    rules: §9 "witness must be able to fail" and "a guard must CONSTRUCT the confound".

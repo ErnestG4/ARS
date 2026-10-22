@@ -695,7 +695,7 @@ def gate2(stats_dir, out):
     return 0 if res["GATE2"] else 1
 
 
-def compare(stats_dir, pair_dir, out):
+def compare(stats_dir, pair_dir, out, label=None):
     import glob
     RA, FR, BR, E, BP = _cs4()
     reads = {"route_a": os.path.join(CS4, "results/read/run1/ROUTE_A_READ.json"),
@@ -706,7 +706,7 @@ def compare(stats_dir, pair_dir, out):
             "B2": os.path.join(CS4, "results/calib/b2_calib_declared.json")}
     cue = _load(stats_dir, "cue")
     cc = json.load(open(os.path.join(stats_dir, "concat.json")))
-    res = dict(tests={}, pair={})
+    res = dict(label=label or "descriptive", tests={}, pair={})
     for test in TESTS:
         rd = json.load(open(reads[test]))["records"]
         cal = json.load(open(cals[test]))["files"]
@@ -769,4 +769,4 @@ if __name__ == "__main__":
     elif sys.argv[1] == "gate2":
         sys.exit(gate2(sys.argv[2], sys.argv[3]))
     elif sys.argv[1] == "compare":
-        sys.exit(compare(sys.argv[2], sys.argv[3], sys.argv[4]))
+        sys.exit(compare(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5] if len(sys.argv) > 5 else None))

@@ -389,3 +389,20 @@ The exact formula agrees with the sine kernel to a relative 1.6·10⁻⁵ over t
 - **Not run:** compare (stitched/long, zeros/long, and the pair cross-check). §3 says both gates must hold before any
   comparison, and the launcher stopped at gate 2. The 5 pair windows (`results/base/pair/`) and the block statistics
   (`results/base/stats/`) are computed and saved. Whether compare runs is Will's decision.
+
+**Ruling (Will, round 70).**
+- **Gate 2's stitched witness was mis-specified.** It encoded an expected stitching effect that does not exist for
+  these local block statistics. Stitching breaks correlations only at the seams. Route (a), (A) and the corrected (B)
+  average local quantities: spacings, next-nearest spacings, and counts in windows of 4. Their block variance comes from
+  short-range covariance. Gate 1 confirms that stitching does change long-window count variance; these statistics just
+  do not register it.
+- **Baseline validity** rests on gate 1, with its three failing witnesses, plus the agreement of the two halves.
+- **Stated sensitivity:** stitched and long agree within ±14% at G = 1,000 and ±30% at G = 10,000.
+- **The gate is not modified.** `gate2.exit` stays `exit=1`.
+  - The pipeline accepts this ruling bound to the exact gate-2 record by sha256
+    (`results/base/gate2_ruling.sha256`, `cb0d0518…`).
+  - The accept path, and the refusals with an altered record or no ruling, were exercised on a scratch copy.
+- **Compare runs labelled** "descriptive; gate-2 stitched witness did not fire (see §13)".
+- **For future runs, gate 2's witness is a planted block-variance excess of known size** that must fire, for example a
+  sequence with slow segment-wise rate modulation. The gate then tests power, not a guess about the physics. This is
+  recorded in TOOLKIT §9.D.
