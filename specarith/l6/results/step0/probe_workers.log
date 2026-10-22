@@ -1,0 +1,6 @@
+{"K": 1, "median_wall_s": 85.97, "max_wall_s": 85.97, "throughput_tasks_per_s": 0.0116}
+{"K": 8, "median_wall_s": 99.79, "max_wall_s": 100.05, "throughput_tasks_per_s": 0.0802}
+{"K": 14, "median_wall_s": 119.36, "max_wall_s": 119.91, "throughput_tasks_per_s": 0.1173}
+{"K": 28, "median_wall_s": 195.67, "max_wall_s": 217.5, "throughput_tasks_per_s": 0.1431}
+{"K": 42, "median_wall_s": 312.33, "max_wall_s": 324.25, "throughput_tasks_per_s": 0.1345}
+{"K": 56, "median_wall_s": 428.91, "max_wall_s": 436.42, "throughput_tasks_per_s": 0.1306}

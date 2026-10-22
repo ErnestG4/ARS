@@ -317,3 +317,28 @@ exactly what it computed before, so every cs4 caller and the sealed calibrations
 - **Worker-count probe (`probe_workers.py`; engineering only).** K concurrent phi_np passes with the N = 10⁵ working set,
   for K = 1, 8, 14, 28, 42 and 56. NPROC is chosen from the throughput. Unlike the previous run, the active set leaves
   fewer than 60 jobs fully active for most of the run.
+
+**Results of the small checks and the probe (spot; `results/step0/activeset.json`, `probe_workers.log`).**
+- **`step0 activeset`** passed. All three draws are bitwise equal, with the same iteration counts:
+  - β = 2, N = 10⁴: 9 iterations;
+  - β = 4, N = 10⁴: 9;
+  - 100 × CUE_1000: 13.
+
+  On the β = 2 draw the solve stopped after iteration 3 and resumed bitwise equal, and the foreign checkpoint was
+  refused.
+- **Worker probe.** Throughput, in tenth-passes per second:
+
+  | K (concurrent) | 1 | 8 | 14 | 28 | 42 | 56 |
+  |---|---|---|---|---|---|---|
+  | throughput | 0.0116 | 0.080 | 0.117 | **0.143** | 0.135 | 0.131 |
+
+  - Throughput peaks near 28 concurrent jobs.
+  - The 5 CSE jobs from the first run were still running during the probe, so its absolute numbers are slightly
+    pessimistic.
+- **Restart (`run_l6_gen_cue_spot.sh`).** The 50 CUE sequences start now with 25 processes, alongside the 5 old CSE jobs
+  and `activeset_full`, about 31 in all.
+  - They start before `activeset_full` finishes, to save its 1–3 h.
+  - When the CUE pass ends, the script waits for `activeset_full` and then runs `run_l6_base_spot.sh 28`. That keeps
+    every existing `.npy`, regenerates any missing CSE witness with the new solver, and stops at step 0 unless
+    `activeset_full` exited 0.
+  - **If `activeset_full` fails, the restarted CUE sequences are discarded.**

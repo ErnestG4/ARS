@@ -1,0 +1,44 @@
+{
+ "rows": [
+  {
+   "case": "beta2_N1e4",
+   "seed": 905,
+   "iters_plain": 9,
+   "iters_active": 9,
+   "wall_plain": 79.8,
+   "wall_active": 60.1,
+   "bitwise_equal": true,
+   "iters_equal": true,
+   "halted": true,
+   "resume_bitwise_equal": true,
+   "resume_iters_equal": true,
+   "foreign_ckpt_refused": true
+  },
+  {
+   "case": "beta4_N1e4",
+   "seed": 906,
+   "iters_plain": 9,
+   "iters_active": 9,
+   "wall_plain": 82.9,
+   "wall_active": 61.2,
+   "bitwise_equal": true,
+   "iters_equal": true
+  },
+  {
+   "case": "stitched_100x1000",
+   "seed": 907,
+   "iters_plain": 13,
+   "iters_active": 13,
+   "wall_plain": 116.2,
+   "wall_active": 85.3,
+   "bitwise_equal": true,
+   "iters_equal": true
+  }
+ ],
+ "PASS": true,
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+ }
+}
