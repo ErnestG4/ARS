@@ -75,3 +75,10 @@ The sealed gains are all 1, so SE_own = SE_boot(300).
 - Against μ = 1 (n dof, at BLOCK = 300): route (a) 0.50/5, (A) 0.74/3, corrected (B) 0.60/4.
 - **No calibration-rule draft:** round 71 asked for one only if the check validates. What a future rule would have to
   settle (which block length, and how to declare it before data) goes to Will.
+
+## Ruling (Will, round 72): no bootstrap calibration rule
+- **Block bootstrapping cannot calibrate the zeros.** Their long-range covariance is negative, so the bootstrap SE
+  falls with block length and never levels off below file scale. There is no block length at which it is "the" SE.
+- **Sealed tests keep the CUE floor.**
+- **A between-file-scatter SE** may be proposed for a future test only with ≥ 10 files, and only pre-registered.
+- The control for this check (does the same pipeline give χ²/dof ≈ 1 on CUE?) is in `CUE_SCATTER_CONTROL.md`.

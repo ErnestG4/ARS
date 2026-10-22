@@ -1623,3 +1623,11 @@ Round 71 (all descriptive):
 Validate the own-bootstrap SE. For route (a), (A) and corrected (B), take the per-file estimates and per-file own-bootstrap SEs across every fresh file each statistic was read on, and compute the scatter χ² against those SEs. Report χ²/dof and the percentile under the χ² law. Data already seen, so descriptive only. If it validates, draft a proposed calibration rule for future pre-registrations: own-bootstrap SE at a declared block length, with a fallback to the CUE floor when the bootstrap is unstable. Draft only.
 Feasibility note. For each of the three statistics, list the highest correlation order its block variance requires, and say whether a CS08 prediction is reachable with the existing n ≤ 5 machinery. No computation; just the note, for my review.
 Push list. Update it to include c5871335 and e03abe52.
+
+## Seventy-second round (Will, 2026-10-22) — CUE scatter control; no bootstrap calibration rule; pair-connected approximation; pushes (verbatim)
+Round 72:
+
+Control first (descriptive). Using the L6 long CUE sequences, form file-sized segments matched to the F3/F4/F6 zero counts. Run the identical per-file estimators (route a, A, corrected B) with their own-bootstrap SEs at G = 300, and compute the same scatter χ² and percentile. Commit the method first. If CUE χ²/dof ≈ 1, record the zeros’ low scatter as a property of the zeros (long-range rigidity). If CUE is also low, stop and diagnose the estimator pipeline.
+No bootstrap calibration rule. Record that block bootstrapping can’t calibrate the zeros: negative long-range covariance means the SE falls with block length and never levels off below file scale. Sealed tests keep the CUE floor. A between-file-scatter SE may be proposed for a future test only with ≥ 10 files, pre-registered.
+Theory, exploratory. Implement the pair-connected approximation for the block variance of the three statistics. Validate it first against the long CUE baseline (known answer), and report agreement per statistic and G. Don’t apply it to ζ until that validates. The n = 6 extension waits on this result.
+Pushes. Run git fetch origin, confirm the unpushed list, and give Will the final count. Stray tags: Will deletes them locally.
