@@ -1616,3 +1616,10 @@ Revise §11 and the release notes.
 Remove "part of the conservatism may come from stitching". Replace it with: "stitching shown not to affect these statistics' block variance within ±14% at G = 1,000; the zeros' lower variance is therefore not a calibration artifact. Its cause for these local statistics is untested; the arithmetic suppression established for the pair statistic is a candidate."
 Revise the L6 table's "invalid at ≥ 1,000" marks to "valid within stated sensitivity" for these three statistics.
 Future witness design. Gate 2's witness becomes a planted block-variance excess of known size, for example a sequence with slow segment-wise rate modulation, which must fire. Record it in the design template.
+
+## Seventy-first round (Will, 2026-10-22) — own-bootstrap SE validation; CS08 feasibility note; push list (verbatim)
+Round 71 (all descriptive):
+
+Validate the own-bootstrap SE. For route (a), (A) and corrected (B), take the per-file estimates and per-file own-bootstrap SEs across every fresh file each statistic was read on, and compute the scatter χ² against those SEs. Report χ²/dof and the percentile under the χ² law. Data already seen, so descriptive only. If it validates, draft a proposed calibration rule for future pre-registrations: own-bootstrap SE at a declared block length, with a fallback to the CUE floor when the bootstrap is unstable. Draft only.
+Feasibility note. For each of the three statistics, list the highest correlation order its block variance requires, and say whether a CS08 prediction is reachable with the existing n ≤ 5 machinery. No computation; just the note, for my review.
+Push list. Update it to include c5871335 and e03abe52.
