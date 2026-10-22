@@ -158,31 +158,69 @@ def certify(th):
         raise RuntimeError(f"cbe.certify: {int(bad.sum())} of {len(th)} matrices have doubled/missed/unsorted roots")
 
 
-def roots_np(a, gate=True):
-    """All N eigenphases per matrix (n_mat, N), sorted. Returns (θ, max iterations)."""
+def _ckpt_save(path, a_sha, it, th, lo, hi, done, polish):
+    import os
+    tmp = path + ".part.npz"
+    np.savez(tmp, a_sha=a_sha, it=it, th=th, lo=lo, hi=hi, done=done, polish=polish)
+    os.replace(tmp, path)
+
+
+def roots_np(a, gate=True, active=False, ckpt=None, halt_at=None):
+    """All N eigenphases per matrix (n_mat, N), sorted. Returns (θ, max iterations).
+    active=True (L6, round 69) evaluates each iteration only on the root columns not yet done in every matrix. A done
+    root's θ is frozen and its lo/hi are never read again, so the returned θ and iteration count are those of
+    active=False, element for element; l6_base.py step0 activeset checks this bitwise before use.
+    ckpt=PATH saves the solver state (θ, lo, hi, done, polish, the next iteration and the sha256 of a's bytes) after the
+    grid and after every iteration, atomically, and resumes from it when it exists; a state for a different a is
+    refused. The state is exact float64, so a resumed solve continues bit for bit. halt_at=k raises after iteration k
+    has been saved (resume test only)."""
+    import os
     n_mat, N = a.shape
     c0, _ = targets(a)
-    G = GRID * N
-    tg = np.broadcast_to(TWO_PI * np.arange(G + 1) / G, (n_mat, G + 1))
-    phg, _ = phi_np(a, tg)
-    lo, hi, th = brackets(N, c0, N * tg + phg)
     c = c0[:, None] + TWO_PI * np.arange(N)[None, :]
-    done = np.zeros((n_mat, N), bool)
-    polish = np.zeros((n_mat, N), bool)
-    for it in range(ITMAX):
-        phi, dp, La = phi_np(a, th, amp=True)
-        f = (N * th - c) + phi
-        lo = np.where(f < 0, th, lo)
-        hi = np.where(f > 0, th, hi)
-        new = th - newton_step(f, dp, La, gate)
-        stall = (np.abs(new - th) < STEP_TOL) & (np.abs(f) >= F_ACCEPT) & gate
-        new = np.where((new >= lo) & (new <= hi) & ~stall, new, 0.5 * (lo + hi))   # inclusive: a converged step may round onto lo/hi
-        small = (np.abs(new - th) < STEP_TOL) & ((np.abs(f) < F_ACCEPT) | (not gate))
+    a_sha = None
+    if ckpt is not None:
+        import hashlib
+        a_sha = hashlib.sha256(np.ascontiguousarray(a).tobytes()).hexdigest()
+    if ckpt is not None and os.path.exists(ckpt):
+        z = np.load(ckpt)
+        if str(z["a_sha"]) != a_sha:
+            raise RuntimeError(f"cbe.roots_np: checkpoint {ckpt} belongs to a different matrix")
+        it0 = int(z["it"])
+        th, lo, hi, done, polish = (z[k].copy() for k in ("th", "lo", "hi", "done", "polish"))
+    else:
+        G = GRID * N
+        tg = np.broadcast_to(TWO_PI * np.arange(G + 1) / G, (n_mat, G + 1))
+        phg, _ = phi_np(a, tg)
+        lo, hi, th = brackets(N, c0, N * tg + phg)
+        done = np.zeros((n_mat, N), bool)
+        polish = np.zeros((n_mat, N), bool)
+        it0 = 0
+        if ckpt is not None:
+            _ckpt_save(ckpt, a_sha, 0, th, lo, hi, done, polish)
+    cols = slice(None)
+    for it in range(it0, ITMAX):
+        if active:
+            cols = np.flatnonzero(~done.all(axis=0))
+        t, l_, h_, cc = th[:, cols], lo[:, cols], hi[:, cols], c[:, cols]
+        phi, dp, La = phi_np(a, t, amp=True)
+        f = (N * t - cc) + phi
+        l_ = np.where(f < 0, t, l_)
+        h_ = np.where(f > 0, t, h_)
+        new = t - newton_step(f, dp, La, gate)
+        stall = (np.abs(new - t) < STEP_TOL) & (np.abs(f) >= F_ACCEPT) & gate
+        new = np.where((new >= l_) & (new <= h_) & ~stall, new, 0.5 * (l_ + h_))   # inclusive: a converged step may round onto lo/hi
+        small = (np.abs(new - t) < STEP_TOL) & ((np.abs(f) < F_ACCEPT) | (not gate))
         if gate:
-            small |= (hi - lo) <= BRACKET_ULPS * np.spacing(np.maximum(np.abs(th), 1.0))
-        th = np.where(done, th, new)
-        done |= polish
-        polish |= small
+            small |= (h_ - l_) <= BRACKET_ULPS * np.spacing(np.maximum(np.abs(t), 1.0))
+        lo[:, cols], hi[:, cols] = l_, h_
+        th[:, cols] = np.where(done[:, cols], t, new)
+        done[:, cols] |= polish[:, cols]
+        polish[:, cols] |= small
+        if ckpt is not None:
+            _ckpt_save(ckpt, a_sha, it + 1, th, lo, hi, done, polish)
+            if halt_at is not None and it + 1 >= halt_at:
+                raise KeyboardInterrupt(f"halt_at {halt_at}")
         if done.all():
             if gate:
                 certify(th)
@@ -308,9 +346,9 @@ def spacings(theta):
     return d * N / TWO_PI
 
 
-def sample(rng, n_mat, N, beta, gpu=False):
+def sample(rng, n_mat, N, beta, gpu=False, active=False, ckpt=None):
     a = verblunsky(rng, n_mat, N, beta)
-    th, it = (roots_gpu if gpu else roots_np)(a)
+    th, it = roots_gpu(a) if gpu else roots_np(a, active=active, ckpt=ckpt)
     return th, it
 
 

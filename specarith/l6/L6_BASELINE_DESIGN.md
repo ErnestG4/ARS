@@ -271,3 +271,49 @@ with both readings.
 | 86,531 | +4.337 | 0.29 | 5.468 | 18.606 | 3.110 ✗ |
 
 Generation started on spot after this run, at 2026-10-21T00:44 (60 parallel jobs).
+
+## 12. Generation restart: the active-set, checkpointed solver (round 69 follow-up; committed before it runs)
+**Why.** The first generation run started at 2026-10-21T00:44 with 60 jobs on spot. After 19.5 h no CUE sequence had
+finished, and Will called for a fix. Spot's 56 vCPUs share cache and memory bandwidth, so 60 simultaneous N = 10⁵ solves
+each ran about 9.6× slower than one alone. That figure comes from the finished CSE witnesses: 59,000 s for 9 iterations
+plus the grid, against 23,816 s for the standalone CUE solve's 46. `roots_np` evaluates all 10⁵ roots on every
+iteration, even after almost all have converged. A CUE draw needs about 46 iterations because of a few hard roots, so
+most of each run is spent recomputing roots that are already done. I skipped a worker-count probe before launching;
+that was my error.
+
+**What was stopped and what was kept.**
+- At 2026-10-21T20:15 the launcher, its xargs and the 50 CUE jobs were stopped by PID. No CUE output existed.
+- The finished witnesses are kept: Poisson 10/10, stitched 25/25 and CSE 5/10. These came from the validated solver, and
+  the new solver is checked to be bit-identical to it.
+- The 5 running CSE jobs were left to finish. If any is stopped instead, the restart regenerates it.
+
+**The change (`cbe.roots_np`, new keyword arguments, defaults unchanged).** With the defaults the function computes
+exactly what it computed before, so every cs4 caller and the sealed calibrations are unaffected.
+- **`active=True`:** each iteration evaluates φ only on the root columns that are not yet done in every matrix.
+  - A done root's θ is frozen (`np.where(done, θ, new)`), and its lo/hi are never read again.
+  - So the returned θ and the iteration count are those of the validated solver, element for element, provided numpy's
+    elementwise arithmetic does not depend on the array's length. That proviso is what the checks below test.
+- **`ckpt=PATH`:** the state is saved atomically after the initial grid and after every iteration: θ, lo, hi, done,
+  polish, the next iteration index, and the sha256 of the Verblunsky coefficients' bytes.
+  - An existing checkpoint is resumed. A checkpoint belonging to a different matrix is refused.
+  - The state is exact float64, so a resumed solve continues bit for bit.
+  - `gen` uses `active=True` and a checkpoint for the CUE and CSE sequences, `results/base/gen/KIND_RRR.ckpt.npz`. The
+    checkpoint is removed once the sequence's `.npy` is in place. A stopped job, or a restarted launcher, resumes from
+    its last finished iteration instead of from zero.
+
+**Checks, committed before they run (the launcher's step 0 now also requires both exits to be 0).**
+- **`step0 activeset`** compares the new solver with the validated `roots_np`, bitwise on θ (compared as uint64) and on
+  the iteration count, for three draws:
+  - β = 2, N = 10⁴, seed 905;
+  - β = 4, N = 10⁴, seed 906;
+  - 100 × CUE_1000, seed 907 (the stitched shape).
+
+  On the β = 2 draw it also stops a checkpointed solve after iteration 3, resumes it, and requires the bitwise-equal
+  result; and it requires a foreign matrix's checkpoint to be refused.
+- **`step0 activeset_full`** re-solves the saved v7check N = 10⁵ draw with `active=True` and a checkpoint, stops after
+  iteration 5, and resumes. It requires θ bitwise equal to the saved validated θ (1ae0db16) and 46 iterations.
+- A local smoke run passed both properties on three tiny draws (N = 800 at β = 2 and β = 4; 20 × 200), including a
+  resume after iteration 2.
+- **Worker-count probe (`probe_workers.py`; engineering only).** K concurrent phi_np passes with the N = 10⁵ working set,
+  for K = 1, 8, 14, 28, 42 and 56. NPROC is chosen from the throughput. Unlike the previous run, the active set leaves
+  fewer than 60 jobs fully active for most of the run.

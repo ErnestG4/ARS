@@ -374,6 +374,74 @@ def step0_v7a_bracket(out):
     return 0 if res["PASS"] else 1
 
 
+# ---------------------------------------------------------------- active-set solver and checkpoints (round 69, design §12)
+def step0_activeset(out):
+    """roots_np(active=True) and the checkpoint/resume path against roots_np as validated, bitwise (θ and iterations)."""
+    rows = []
+    for name, seed, n_mat, N, beta in (("beta2_N1e4", 905, 1, 10_000, 2.0), ("beta4_N1e4", 906, 1, 10_000, 4.0),
+                                       ("stitched_100x1000", 907, 100, 1000, 2.0)):
+        a = cbe.verblunsky(np.random.default_rng([20261020, 65, seed]), n_mat, N, beta)
+        t0 = time.time(); th0, it0 = cbe.roots_np(a); w0 = time.time() - t0
+        t1 = time.time(); th1, it1 = cbe.roots_np(a, active=True); w1 = time.time() - t1
+        row = dict(case=name, seed=seed, iters_plain=int(it0), iters_active=int(it1), wall_plain=round(w0, 1),
+                   wall_active=round(w1, 1), bitwise_equal=bool(np.array_equal(th0.view(np.uint64), th1.view(np.uint64))),
+                   iters_equal=bool(it0 == it1))
+        if name == "beta2_N1e4":
+            ck = os.path.splitext(out)[0] + "_test.ckpt.npz"
+            if os.path.exists(ck):
+                os.remove(ck)
+            try:
+                cbe.roots_np(a, active=True, ckpt=ck, halt_at=3)
+                row["halted"] = False
+            except KeyboardInterrupt:
+                row["halted"] = True
+            th2, it2 = cbe.roots_np(a, active=True, ckpt=ck)
+            row["resume_bitwise_equal"] = bool(np.array_equal(th0.view(np.uint64), th2.view(np.uint64)))
+            row["resume_iters_equal"] = bool(it0 == it2)
+            try:
+                cbe.roots_np(cbe.verblunsky(np.random.default_rng([20261020, 65, 908]), 1, N, beta), ckpt=ck)
+                row["foreign_ckpt_refused"] = False
+            except RuntimeError:
+                row["foreign_ckpt_refused"] = True
+            os.remove(ck)
+        rows.append(row)
+        print(row, flush=True)
+    ok = all(r["bitwise_equal"] and r["iters_equal"] for r in rows) and all(
+        r.get(k, True) for r in rows for k in ("halted", "resume_bitwise_equal", "resume_iters_equal", "foreign_ckpt_refused"))
+    json.dump(dict(rows=rows, PASS=bool(ok), env=env()), open(out, "w"), indent=1)
+    return 0 if ok else 1
+
+
+def step0_activeset_full(out):
+    """The full-size check: the saved v7check N = 10⁵ draw, solved with active=True and a checkpoint, halted after
+    iteration 5 and resumed, against the θ and iteration count of the validated solver (v7check, 1ae0db16), bitwise."""
+    base = os.path.join(os.path.dirname(out), "v7check")
+    a = np.load(base + "_alpha.npy")[None, :]
+    ref = np.load(base + "_theta.npy")
+    ref_it = json.load(open(base + "_solve.json"))["iters"]
+    ck = os.path.splitext(out)[0] + ".ckpt.npz"
+    if os.path.exists(ck):
+        os.remove(ck)
+    t = time.time()
+    try:
+        cbe.roots_np(a, active=True, ckpt=ck, halt_at=5)
+        halted = False
+    except KeyboardInterrupt:
+        halted = True
+    w_halt = time.time() - t
+    th, it = cbe.roots_np(a, active=True, ckpt=ck)
+    wall = time.time() - t
+    os.remove(ck)
+    res = dict(N=int(a.shape[1]), halted_after_5=halted, wall_to_halt_s=round(w_halt, 1), wall_total_s=round(wall, 1),
+               iters=int(it), iters_ref=int(ref_it), iters_equal=bool(it == ref_it),
+               bitwise_equal=bool(np.array_equal(th[0].view(np.uint64), ref.view(np.uint64))),
+               max_abs_diff=float(np.max(np.abs(th[0] - ref))), env=env())
+    res["PASS"] = bool(halted and res["iters_equal"] and res["bitwise_equal"])
+    json.dump(res, open(out, "w"), indent=1)
+    print(res, flush=True)
+    return 0 if res["PASS"] else 1
+
+
 # ---------------------------------------------------------------- generation
 N_SEQ = 100_000
 SEED_BASE = {"cue": 0, "cse": 600, "stitched": 700, "poisson": 800}
@@ -387,9 +455,10 @@ def gen(kind, r, out_dir):
     t = time.time()
     meta = dict(kind=kind, r=r, seed=[20261020, 65, SEED_BASE[kind] + r], N=N_SEQ)
     if kind in ("cue", "cse"):
-        th, it = cbe.sample(rng, 1, N_SEQ, 2.0 if kind == "cue" else 4.0)          # roots_np certifies
+        ck = os.path.join(out_dir, f"{kind}_{r:03d}.ckpt.npz")                 # per-iteration state; resumes bit for bit
+        th, it = cbe.sample(rng, 1, N_SEQ, 2.0 if kind == "cue" else 4.0, active=True, ckpt=ck)   # roots_np certifies
         x = np.sort(th[0]) * N_SEQ / cbe.TWO_PI
-        meta["iters"] = int(it)
+        meta.update(iters=int(it), solver="roots_np active=True, checkpointed (design §12)")
     elif kind == "stitched":
         th, it = cbe.sample(rng, N_SEQ // 1000, 1000, 2.0)
         x = (np.sort(th, axis=1) * 1000 / cbe.TWO_PI + 1000.0 * np.arange(N_SEQ // 1000)[:, None]).ravel()
@@ -405,6 +474,8 @@ def gen(kind, r, out_dir):
     json.dump(meta, open(os.path.join(out_dir, f"{kind}_{r:03d}.json"), "w"), indent=1)
     np.save(p[:-4] + ".part.npy", x)                                          # appears last and whole (os.replace)
     os.replace(p[:-4] + ".part.npy", p)
+    if kind in ("cue", "cse") and os.path.exists(ck):
+        os.remove(ck)
     print(meta, flush=True)
     return 0
 
@@ -679,6 +750,10 @@ if __name__ == "__main__":
             sys.exit(v7check_refine(sys.argv[3]))
         if sys.argv[2] == "v7a_bracket":
             sys.exit(step0_v7a_bracket(sys.argv[3]))
+        if sys.argv[2] == "activeset":
+            sys.exit(step0_activeset(sys.argv[3]))
+        if sys.argv[2] == "activeset_full":
+            sys.exit(step0_activeset_full(sys.argv[3]))
         sys.exit({"selftest": step0_selftest, "v5": step0_v5, "v67": step0_v67, "v7diag": step0_v7diag}[sys.argv[2]](
             sys.argv[3]))
     elif sys.argv[1] == "gen":
