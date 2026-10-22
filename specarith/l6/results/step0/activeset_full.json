@@ -1,0 +1,17 @@
+{
+ "N": 100000,
+ "halted_after_5": true,
+ "wall_to_halt_s": 17816.4,
+ "wall_total_s": 18345.6,
+ "iters": 46,
+ "iters_ref": 46,
+ "iters_equal": true,
+ "bitwise_equal": true,
+ "max_abs_diff": 0.0,
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+ },
+ "PASS": true
+}

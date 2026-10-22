@@ -342,3 +342,11 @@ exactly what it computed before, so every cs4 caller and the sealed calibrations
     every existing `.npy`, regenerates any missing CSE witness with the new solver, and stops at step 0 unless
     `activeset_full` exited 0.
   - **If `activeset_full` fails, the restarted CUE sequences are discarded.**
+
+**Result of `step0 activeset_full` (`results/step0/activeset_full.json`).** The check passed.
+- The saved N = 10⁵ draw, re-solved with the active-set, checkpointed solver and stopped after iteration 5 then resumed,
+  gives θ **bitwise equal** to the validated θ from 1ae0db16 (max |Δ| = 0), in 46 iterations, as before.
+- Timing under about 31 concurrent jobs: the grid and the first 5 iterations took 17,816 s, and the other 41 iterations
+  took 529 s. The late iterations are nearly free.
+- The first 15 restarted CUE sequences took 16,077–18,109 s each (28–51 iterations), against about 19.5 h and still
+  unfinished in the first run.
