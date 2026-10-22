@@ -64,7 +64,8 @@ estimator barely responds to a uniform density change.
 0.001% for (B). Over 300 → 10⁴ the predicted fall is 0.05–0.15% of W(300), against measured falls of 7–17% ± 5%.
 
 **Declared reading:**
-- route (a): **uninformative**. The measured fall's SE swamps nothing the model predicts, and z_fall ≤ 2.4.
+- route (a): **uninformative**. The predicted fall is far below 2 SE of the measured fall, so the test could not fail
+  (z_fall ≤ 2.4).
 - (A) and corrected (B): **do not validate** (z_fall up to 3.6 and 3.4).
 
 **Not applied to ζ.**
