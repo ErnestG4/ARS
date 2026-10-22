@@ -1,0 +1,18 @@
+{
+ "kind": "cue",
+ "r": 16,
+ "seed": [
+  20261020,
+  65,
+  16
+ ],
+ "N": 100000,
+ "iters": 47,
+ "solver": "roots_np active=True, checkpointed (design \u00a712)",
+ "wall_s": 18879.5,
+ "env": {
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1"
+ }
+}

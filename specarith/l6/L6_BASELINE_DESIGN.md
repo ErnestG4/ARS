@@ -350,3 +350,42 @@ exactly what it computed before, so every cs4 caller and the sealed calibrations
   took 529 s. The late iterations are nearly free.
 - The first 15 restarted CUE sequences took 16,077–18,109 s each (28–51 iterations), against about 19.5 h and still
   unfinished in the first run.
+
+## 13. Gates 1 and 2 (records; descriptive; the pipeline stopped at gate 2 as coded)
+**Generation.** All 50 CUE sequences come from the active-set solver. The witnesses are 10 CSE, 10 Poisson and
+25 stitched. The CUE pass ended at 2026-10-22T06:05; the per-sequence metadata are in `results/base/gen/*.json`.
+
+**Gate 1 passed** (`results/base/gate1.json`). The CUE baseline's Σ²(L) against the exact CUE_N number variance gives
+|z| ≤ 1.87 at every L from 1 to 1000. Every witness fails, as required:
+
+| | z at L = 1 | 10 | 100 | 500 | 1000 |
+|---|---|---|---|---|---|
+| stitched | +2.1 | +7.9 | +17.4 | +19.1 | +20.3 |
+| CSE | −661 | −320 | −192 | −105 | −54 |
+| Poisson | +616 | +245 | +85 | +48 | +58 |
+
+The exact formula agrees with the sine kernel to a relative 1.6·10⁻⁵ over the grid.
+
+**Gate 2 did not pass as coded, because its witness did not fire** (`results/base/gate2.json`).
+- **Halves agree:** for half A (even R) against half B (odd R), |z| ≤ 1.32 at every test and G.
+- **Witness:** CUE half A against the 25 stitched sequences gives |z| ≤ 0.92 at every test and G, so there is no
+  |z| > 3 at G ≥ 1000. The ratios Var_long/Var_stitched are:
+
+  | G | route (a) | (A) | corrected (B) |
+  |---|---|---|---|
+  | 300 | 1.015 ± 0.032 | 1.008 ± 0.034 | 0.973 ± 0.042 |
+  | 1000 | 1.005 ± 0.043 | 0.985 ± 0.046 | 0.957 ± 0.047 |
+  | 3000 | 1.017 ± 0.062 | 0.978 ± 0.061 | 0.963 ± 0.084 |
+  | 10000 | 1.006 ± 0.085 | 0.926 ± 0.098 | 1.002 ± 0.122 |
+
+  The ± values are the SEs of the log ratio.
+- **The pre-declared reading (§3):** "If it cannot fail anywhere, the long baseline adds nothing over the calibration,
+  and that is reported."
+  - For these three block statistics, the stitched CUE_1000 construction and a true 10⁵-level CUE sequence give the same
+    block variance.
+  - The resolution is about ±14% at 3 SE for G = 1000, and ±25–37% at G = 10⁴.
+  - Stitching does change the number variance: the stitched witness fails gate 1 with z = +19 at L = 500. The block
+    statistics do not register that change.
+- **Not run:** compare (stitched/long, zeros/long, and the pair cross-check). §3 says both gates must hold before any
+  comparison, and the launcher stopped at gate 2. The 5 pair windows (`results/base/pair/`) and the block statistics
+  (`results/base/stats/`) are computed and saved. Whether compare runs is Will's decision.
