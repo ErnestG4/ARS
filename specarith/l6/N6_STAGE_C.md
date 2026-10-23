@@ -120,3 +120,61 @@ That is 1,242 tasks of 16 configurations each, about 115 core-h, checkpointed pe
 - If negligible, the term is carried as a bounded systematic, ±B₆. Otherwise it goes to Will.
 
 Code: `cs4/n6c_bound.py`. Launcher: `cs4/run_n6c_bound_spot.sh`.
+
+## Round 77 bound: result (spot, 2026-10-23; all 1,242 tasks, summary under its own status 0)
+Files: `cs4/results/n6c/bound/N6C_BOUND.json`, `summary.log`, `CLASSES.txt` (per-class sums), `tasks.tgz` (per-task
+records), `jobs.txt`.
+
+**Verdict by the declared rule: NOT ESTABLISHED.** Not negligible, so per the method it goes to Will.
+
+| criterion (declared) | value | required | |
+|---|---|---|---|
+| 8-node vs 6-node envelope at r = 6, E₈/E₆ | 2.58 / 21.0 = **0.123** | 0.5–2 | **fails** |
+| cutoff change 3·10² → 10³, r = 2.07 | 0.27% | ≤ 30% | passes |
+| cutoff change 3·10² → 10³, r = 10 | 0.005% | ≤ 30% | passes |
+| B₆ = 2·max(1, E₈/E₆)·40·max E | 4.4·10³ (κ₃ units) | ≤ 3.3·10⁻⁴ (G = 10⁴) | (not read: not established) |
+
+Envelope E(r) = Σ_k |Δg_k(r)|, 6 nodes:
+
+| ζ case | 0.27 | 1.17 | 2.07 | 3.46 | 4 | 6 | 10 | 20 |
+|---|---|---|---|---|---|---|---|---|
+| ℓ = 15.75, PMAX 10² | 17.2 | 14.7 | 31.0 | 32.4 | 19.2 | 21.0 | 46.8 | 54.8 |
+| ℓ = 15.75, PMAX 3·10² | 17.5 | 15.0 | 31.0 | 32.4 | 19.2 | 21.1 | 46.8 | 54.7 |
+| ℓ = 21.75, PMAX 10² | 24.5 | 12.7 | 23.5 | 19.0 | 10.1 | 9.6 | 8.3 | 19.3 |
+
+Total (all classes) ζ − U difference of the (3, 3) piece, ΔI₃₃ (descriptive): at ℓ = 15.75, PMAX 10², it is −10.4,
+−13.2, −13.3, −6.7, −4.5, −16.3, −10.2 and +10.9 over the r grid. At r = 6 with 8 nodes it is **−0.25** (6 nodes:
+−16.3). The individual pieces are large: the U(N) (3, 3) piece is −767 at r = 0.27 and −1.18 at r = 20.
+
+**Diagnosis (post-hoc; descriptive).** Two separate defects. Either one alone makes the bound unusable.
+1. **Quadrature.** Six nodes do not resolve the ζ − U difference.
+   - At r = 6, going from 6 to 8 nodes moves the U(N) piece from −18.5 to −22.8 (−19%, in line with the cost update's
+     −26%) and the ζ piece from −34.8 to −23.0. Their difference falls 65-fold, from −16.3 to −0.25.
+   - The arithmetic difference is a small residue of two large, under-resolved integrals. Most of the 6-node error sits
+     in classes ±1.
+   - Whether 8 nodes resolve it is unknown: there was no 10-node check.
+2. **The quantity (my error in the round-77 amendment).** The committed method (`N6_STAGE_C_BOUND.md`) defines ΔC₆ as
+   the part coming **only from the arithmetic part of ρ₆**: the 3 + 3 cross-connected term. "Everything through ρ₅ ...
+   is not part of this bound."
+   - The amendment bounded the full (3, 3) piece, ρ₆ − ρ₃ρ₃, instead.
+   - That difference also contains products of lower cross-connected functions: for example a cross pair's connected
+     ρ₂ times in-cluster densities, or the 2 + 2 cross-connected ρ₄ times ρ₁ρ₁. Their arithmetic parts are of order
+     ρ₅ and below.
+   - In C(r) those products are weighted by ψ's coefficients and cancel against the (2, 3), (3, 2), (2, 2), … pieces.
+   - So ΔI₃₃ is not ΔC₆. It overstates ΔC₆ by an amount that is O(1) per r.
+   - **Plausibility (not a verification):** even the 8-node ΔI₃₃ at r = 6 (−0.25) would give a ΔW of order 10 if it
+     were a correction to W, against W_CUE = 0.21 and a total arithmetic change in W of about −0.15. So most of it must
+     cancel against the lower pieces.
+
+**What a usable bound needs (for Will; nothing runs):**
+- **(i) The declared quantity.** Either ρ₆ᶜ, the fully cross-connected part (the cluster expansion with every lower
+  cross-connected product removed), or equivalently the full ΔC(r) over all (a, b) ≤ 3 pieces minus its through-ρ₅
+  part. Both are evaluated at identical nodes for ζ and U(N). The lower ρ's are cheap next to ρ₆.
+- **(ii) Nodes: 8 per coordinate, with a 10-node check.**
+  - The measured cost here is about 21 core-s per 6-point configuration.
+  - 8 nodes give 56² = 3,136 configurations per (case, r), so the same case list costs about 600 core-h.
+  - A 10-node check at one r for ζ and U(N) costs about 170 core-h.
+  - Total about 800 core-h. This is a rough estimate, scaled from this run.
+- **Not affected:** the cutoff trend is flat (≤ 0.3% from 3·10² to 10³; ≤ 3% from 10² to 3·10²), so the low-cutoff
+  premise of (c) holds.
+- **Height dependence:** at r ≥ 6, ℓ = 21.75 gives envelopes 3–6 times smaller than ℓ = 15.75.

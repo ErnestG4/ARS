@@ -169,6 +169,12 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     3 + 3.
   - The fix is the full function on the estimator's 1/8 grid, through the session-2 expansion.
   - Stage 2, the only banked result using the filter, computed (one pair) and carried its dropped part.
+- **Round 77, stage (c) bound: NOT ESTABLISHED** (`l6/N6_STAGE_C.md`). E₈/E₆ = 0.12 at r = 6, outside [0.5, 2]. The
+  cutoff trend is flat (≤ 0.3%).
+  - Six nodes do not resolve the ζ − U difference.
+  - The amendment also bounded the full (3, 3) piece rather than the declared ρ₆ᶜ-only part. That overstates it with
+    lower-order products that cancel through ψ's coefficients.
+  - With Will.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 
