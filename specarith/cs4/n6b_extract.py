@@ -14,6 +14,7 @@ The derivative jets preserve each term's phase, so the selection is exact at eve
 import itertools
 import json
 import math
+import os
 import sys
 import time
 
@@ -143,6 +144,74 @@ def gb2(out, pmax=1000):
     return 0 if res["PASS"] and res["wrong_variants_fail"] else 1
 
 
+# ---------------------------------------------------------------- G-b1 (i): algebra check, not G-b1 (round 76)
+def _det_rho(P, N):
+    X = P[..., :, None] - P[..., None, :]
+    K = np.ones_like(X)
+    nz = np.abs(X) > 1e-15
+    K[nz] = np.sin(np.pi * X[nz]) / (N * np.sin(np.pi * X[nz] / N))
+    return np.linalg.det(K)
+
+
+def _tuples(nq, a):
+    x, w = np.polynomial.legendre.leggauss(nq)
+    x, w = 2 * (x + 1), 2 * w                                              # [0, 4]
+    T = list(itertools.combinations(range(nq), a))
+    return np.array([[x[i] for i in t] for t in T]), np.array([math.factorial(a) * np.prod([w[i] for i in t]) for t in T])
+
+
+TRI = [(j / 8, (8 - abs(j)) / 64) for j in range(-7, 8)]                     # triangular weights over two periods
+
+
+def algebra_check(out, rs=(20.0, 50.0, 100.0, 300.0), nq=4, N=100_000):
+    """ALGEBRA CHECK, NOT G-b1 (round 76 (i)). At identical in-window Gauss–Legendre nodes (nq per coordinate, distinct
+    sorted tuples × a!), for every (a, b) in {1, 2, 3}²:
+      extraction  I_ab^ext(r) = Σ W·[ρ_{a+b}^{non-osc} − ρ_a ρ_b]   (FilteredModel, U(N), double; nodes ≥ 1 apart)
+      determinant I_ab^det(r) = Σ_j t_j Σ W·[ρ_{a+b}(r + j/8) − ρ_a ρ_b]   (exact det, triangular two-period average)
+    The triangular average removes the e^{2πikr} carriers (k ≠ 0 mod 8) together with their linear drift in r. The
+    quadrature is common to both sides, so its error cancels. Declared criterion: every piece agrees to
+    1e-13 + 1e-4·max(|ext|, |det|), at every r. The total C(r) = Σ c_a c_b I_ab is reported beside stage (a)'s exact
+    value. This tests the phase filter at 3 + 3; it is not the comparison with the exact Fredholm answer (G-b1)."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "l6"))
+    import n6a_trace as A
+    cp = A.psi_coeffs(A.single_moments())
+    M = FilteredModel("U", N)
+    rows = []
+    for r in rs:
+        pieces, Cx, Cd = {}, 0.0, 0.0
+        for a in (1, 2, 3):
+            XA, WA = _tuples(nq, a)
+            for b in (1, 2, 3):
+                XB, WB = _tuples(nq, b)
+                PA = np.repeat(XA, len(XB), 0)
+                PB = np.tile(XB, (len(XA), 1))
+                W = np.repeat(WA, len(XB)) * np.tile(WB, len(XA))
+                t = time.time()
+                prod = _det_rho(PA, N) * _det_rho(PB, N)
+                ds = [PA[:, k] for k in range(a)] + [PB[:, k] + r for k in range(b)]
+                from ratios_t6 import guard
+                guard(ds)
+                nonosc = np.real(M.rho_f(ds, set(range(a, a + b)), NONOSC))
+                ext = float(np.sum(W * (nonosc - np.real(M.rho([PA[:, k] for k in range(a)]))
+                                        * np.real(M.rho([PB[:, k] for k in range(b)])))))
+                det = sum(tj * float(np.sum(W * (_det_rho(np.concatenate([PA, PB + r + sj], 1), N) - prod)))
+                          for sj, tj in TRI)
+                ok = abs(ext - det) <= 1e-13 + 1e-4 * max(abs(ext), abs(det))
+                pieces[f"{a}{b}"] = dict(ext=ext, det=det, abs_diff=abs(ext - det), ok=bool(ok), wall_s=round(time.time() - t, 1))
+                Cx += cp[a] * cp[b] * ext
+                Cd += cp[a] * cp[b] * det
+        exact = A.cov_r(r, A.single_moments(), cp)[0]
+        rows.append(dict(r=r, pieces=pieces, C_ext=Cx, C_det_avg=Cd, C_exact_stage_a=exact, ok=all(v["ok"] for v in pieces.values())))
+        print(r, {k: (f"{v['ext']:.4e}", f"{v['det']:.4e}", v["ok"]) for k, v in pieces.items()},
+              f"C ext {Cx:.4e} det-avg {Cd:.4e} exact(a) {exact:.4e}", flush=True)
+    res = dict(label="ALGEBRA CHECK, NOT G-b1 (round 76 (i))", nq=nq, N=N, rows=rows, PASS=all(x["ok"] for x in rows))
+    json.dump(res, open(out, "w"), indent=1)
+    print("algebra check (not G-b1):", "PASS" if res["PASS"] else "FAIL", flush=True)
+    return 0 if res["PASS"] else 1
+
+
 if __name__ == "__main__":
+    if sys.argv[1] == "algebra":
+        sys.exit(algebra_check(sys.argv[2]))
     if sys.argv[1] == "gb2":
         sys.exit(gb2(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 1000))
