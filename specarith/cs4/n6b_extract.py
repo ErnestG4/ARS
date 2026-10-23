@@ -26,7 +26,7 @@ import ratios_t5 as T5
 class FilteredModel(T5.Model):
     """ratios_t5.Model with the (S, T) terms filtered by their phase over a set of point indices (cluster B)."""
 
-    def ratio_jet_f(self, J, A, B, Aidx, Bidx, clusterB, keep):
+    def ratio_jet_f(self, J, A, B, Aidx, Bidx, clusterB, keep, only=None):
         nA = len(A)
         Cc, D = list(A), list(B)
         zero = np.zeros(np.shape(np.asarray(A[0])), complex)
@@ -34,9 +34,13 @@ class FilteredModel(T5.Model):
         for k in range(0, min(len(A), len(B)) + 1):
             for S in itertools.combinations(range(nA), k):
                 for T in itertools.combinations(range(len(B)), k):
-                    cB = sum(1 for i in S if Aidx[i] in clusterB) - sum(1 for j in T if Bidx[j] in clusterB)
-                    if not keep(cB):
-                        continue
+                    if only is not None:
+                        if (S, T) != only:
+                            continue
+                    else:
+                        cB = sum(1 for i in S if Aidx[i] in clusterB) - sum(1 for j in T if Bidx[j] in clusterB)
+                        if not keep(cB):
+                            continue
                     Sbar = [(A[i], i, 1) for i in range(nA) if i not in S]
                     Tm = [(-B[j], nA + j, -1) for j in T]
                     Tbar = [(B[j], nA + j, 1) for j in range(len(B)) if j not in T]
@@ -66,6 +70,18 @@ class FilteredModel(T5.Model):
                     out = out + term
         return out
 
+    def ratio_jet_cls(self, J, A, B, Aidx, Bidx, clusterB):
+        """As ratio_jet_f, but every (S, T) term kept and accumulated by its phase class cB (one pass)."""
+        out = {}
+        nA = len(A)
+        for k in range(0, min(len(A), len(B)) + 1):
+            for S in itertools.combinations(range(nA), k):
+                for T in itertools.combinations(range(len(B)), k):
+                    cB = sum(1 for i in S if Aidx[i] in clusterB) - sum(1 for j in T if Bidx[j] in clusterB)
+                    term = self.ratio_jet_f(J, A, B, Aidx, Bidx, clusterB, None, only=(S, T))
+                    out[cB] = out[cB] + term if cB in out else term
+        return out
+
     def R_f(self, xs, clusterB, keep):
         n = len(xs)
         tot = self.L ** n                                                  # the constant piece: phase 0
@@ -80,6 +96,27 @@ class FilteredModel(T5.Model):
                                              clusterB, keep)[Jt.K - 1]
                         tot = tot + self.L ** (n - kp - km) * v
         return tot
+
+    def R_cls(self, xs, clusterB):
+        """{cB: R_n's class-cB part}; the constant L^n sits in class 0."""
+        n = len(xs)
+        out = {0: self.L ** n + 0j}
+        idx = range(n)
+        for kp in range(1, n + 1):
+            for P in itertools.combinations(idx, kp):
+                rest = [i for i in idx if i not in P]
+                for km in range(1, len(rest) + 1):
+                    for M in itertools.combinations(rest, km):
+                        Jt = T5.Jets(kp + km)
+                        cls = self.ratio_jet_cls(Jt, [1j * xs[p] for p in P], [-1j * xs[m] for m in M], list(P), list(M),
+                                                 clusterB)
+                        for cB, jet in cls.items():
+                            out[cB] = out.get(cB, 0) + self.L ** (n - kp - km) * jet[Jt.K - 1]
+        return out
+
+    def rho_cls(self, ds, clusterB):
+        n = len(ds)
+        return {k: v / self.L ** n for k, v in self.R_cls([2 * math.pi * d / self.L for d in ds], clusterB).items()}
 
     def rho_f(self, ds, clusterB, keep):
         return self.R_f([2 * math.pi * d / self.L for d in ds], clusterB, keep) / self.L ** len(ds)

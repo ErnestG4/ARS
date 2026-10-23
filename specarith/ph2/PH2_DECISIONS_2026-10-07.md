@@ -1682,3 +1682,12 @@ G-b1.
 (iii) G-b1 against the exact Fredholm answer, which must pass before any ζ computation.
 Update the n = 6 scoping cost estimates with the corrected node counts before session 2, and send them to Will and me.
 Time box: 1 of 3 sessions used. If G-b1 and G-b3 aren't passing by the end of session 3, stop and report.
+
+## Seventy-seventh round (2026-10-23) — G-b3 attribution; the ζ fix; (c) at 6 + 8 nodes; sibling check; time box (verbatim)
+Round 77:
+
+G-b3 FAIL recorded, attributed to beat terms (slow components from products of primes near e^ℓ mixing with the carrier), with the gap table.
+The fix for ζ: evaluate the full function on the estimator’s 1/8-unit r grid, made affordable by the session-2 cross-factor expansion. In the expansion, only smooth envelopes are expanded in window/r; carrier and prime phases are carried exactly, never treated as slow. The expansion must pass G-b3 (brute force at cutoff 10³) and G-b1 before any ζ prediction.
+Stage (c) bound: 6 nodes plus an 8-node convergence check (about 130 core-hours) on spot. Commit before running.
+Sibling check: confirm that Stage 2’s dropped ℓ-oscillating part (≤ 0.9% at 2+2) was computed, not assumed, and carried as a systematic. List any other banked result that used the phase filter as exact.
+Time box unchanged: 1 of 3 sessions used. If G-b1 and G-b3 aren’t passing by the end of session 3, stop and report. Record the beat-term finding (it carries 1–30% of the 3+3 long-range piece at r ≤ 500) either way.

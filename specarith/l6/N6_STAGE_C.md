@@ -77,3 +77,46 @@ its threshold agreement can be run on request.
 
 - **Per round 76, (c)'s bound and G-b3 may now proceed.** G-b3 is launched. (c) waits on Will's choice of node count,
   because the committed 4-node bound is expected to come back "not established" (cost update, round 76).
+
+## Round 77: the bound, amended to 6 nodes plus an 8-node check (committed before running)
+**Why it was amended.** The per-piece quadrature check (round 76) showed the committed 4-node bound underestimates the
+(3, 3) piece by ~70%. Will approved 6 nodes plus an 8-node convergence check, about 130 core-h. The design below fixes
+that budget, using the per-configuration costs measured in G-b3 (≈ 90 s at PMAX 10³ under load).
+
+**The quantity.**
+- The (3, 3) piece I₃₃(r) = ∫_{A³×B³}[ρ₆ − ρ₃ρ₃] is the only place ρ₆ enters C(r).
+- It is computed **by phase class** k = −3…3, for ζ and for U(N) (N = 10⁵) at identical nodes:
+  `n6b_extract.FilteredModel.rho_cls`. The classes sum to the full function within 8·10⁻¹⁶, and class 0 equals the
+  filtered part exactly (local check).
+- Arithmetic correction per class: Δg_k = g_k^ζ − g_k^U.
+- **The envelope E(r) = Σ_k |Δg_k(r)|** bounds |ΔI₃₃| at every carrier phase, so the bound does not depend on where
+  the sparse r grid falls relative to the carrier. That is the beat lesson applied: no class is assumed slow or
+  dropped.
+
+**Grid.**
+- r ∈ {0.27, 1.17, 2.07, 3.46, 4, 6, 10, 20}. The small r are chosen so that the two windows' 6-node grids stay
+  ≥ 0.22 apart, keeping the double path valid under the guard.
+- r = 0 itself needs the mpmath path (the grids coincide) and is not evaluated. Its weight is one 1/8-grid point of
+  160, covered by the max-envelope bound.
+
+**Runs.**
+- ζ at ℓ = 15.75: PMAX 10² and 3·10², all 8 r.
+- ζ at ℓ = 21.75: PMAX 10², all 8 r.
+- ζ at ℓ = 15.75: PMAX 10³ at r = 2.07 and 10 (the cutoff trend).
+- U(N): all 8 r.
+- **8-node check:** ζ (ℓ = 15.75, PMAX 10²) and U(N), at r = 6.
+
+That is 1,242 tasks of 16 configurations each, about 115 core-h, checkpointed per task.
+
+**The bound and its reading.**
+- **B₆ = 2·max(1, E₈/E₆)·40·max_r E(r)** in κ₃ units:
+  - 40 ≈ Δ·(1 + 2·159), the Bartlett sum over r < 20 at weight ≤ 1;
+  - 2 is the safety factor;
+  - E₈/E₆ is the 8-node over the 6-node envelope at r = 6.
+- **Established** iff 0.5 ≤ E₈/E₆ ≤ 2 and the cutoff change |E(10³) − E(3·10²)| ≤ 30%·E(3·10²) at both trend r.
+  Otherwise the bound is "not established".
+- **Negligible** iff established and B₆ ≤ 0.01·R(G)·W_CUE at every G. That is a third of the ~3% test resolution on R,
+  with R = 0.315, 0.209, 0.183, 0.157 and W_CUE = 0.2111. The strictest threshold is 3.3·10⁻⁴ at G = 10⁴.
+- If negligible, the term is carried as a bounded systematic, ±B₆. Otherwise it goes to Will.
+
+Code: `cs4/n6c_bound.py`. Launcher: `cs4/run_n6c_bound_spot.sh`.

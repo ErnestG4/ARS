@@ -162,3 +162,51 @@ is the low-frequency content of C(r), beats included. A correct extraction has t
 the oscillating classes. In practice that means a per-prime frequency decomposition, as `cs4lr` does with its NUFFT for
 prime sums, or the full function evaluated on the estimator's 1/8 grid. Either is a session-2 design question,
 alongside the separation. **Decision to Will.**
+
+## Round 77
+- **G-b3 FAIL is recorded, attributed to beat terms:** slow components from products of primes near e^ℓ, mixing with
+  the carrier. The gap table is above.
+- **Beat-term finding, recorded either way:** at ζ PMAX 10³, beat terms carry 1–30% of the 3 + 3 long-range (3, 3)
+  piece at r ≤ 500. They are larger at the lower height (ℓ = 15.75: 2.5–31%; ℓ = 21.75: 1.0–1.6%).
+- **The fix (Will):** evaluate the full function, all phase classes, on the estimator's 1/8-unit r grid. That is made
+  affordable by the session-2 cross-factor expansion.
+  - In the expansion, only smooth envelopes are expanded in window/r.
+  - The carrier and the prime phases are carried exactly and are never treated as slow.
+  - The expansion must pass G-b3 (brute force at cutoff 10³) and G-b1 before any ζ prediction.
+- **Time box:** unchanged, 1 of 3 sessions used.
+- **For session 2, noted:**
+  - Stage 2's prediction is the file-averaged one (G_S_DESIGN amendment 7). Its beat terms moved with ℓ and averaged
+    out across a file: from up to 9·10⁻³ of v at one ℓ to (1.3 ± 5.3)·10⁻⁴ file-averaged.
+  - G-b3 compares at fixed ℓ. Whether the 3 + 3 beat terms also average out over an F-file's ℓ range is a separate
+    question. The full-function evaluation answers it, if run at stratified ℓ across a file, as `diag_osc_lavg.py`
+    did.
+
+## Sibling check (round 77)
+**Stage 2's dropped ℓ-oscillating part was computed, not assumed, and carried as an accepted precision item:**
+- **Computed.**
+  - In production it was evaluated for two node pairs per height. That check turned out to be aliased on the
+    Δr = 0.5 grid.
+  - It was redone on a Δr = 0.1 grid for pair (5, 5).
+  - It was then file-averaged at 64 stratified ℓ across the lowest-height F2 file: (0.9 ± 0.6)·10⁻⁴,
+    (0.9 ± 2.3)·10⁻⁴ and (1.3 ± 5.3)·10⁻⁴ of v at b = 10³, 3·10³ and 10⁴ (`cs4/GS_ZETA_RESULTS.md` §3,
+    `diag_osc_lavg.py`).
+  - The lag-1 term was checked the same way (`diag_osc_lag1.py`).
+- **Carried.** In `ph2s2/PH2S_SEAL_2.0.md` §2 (precision): "the dropped oscillating lag term is (2.0 ± 8.9)·10⁻⁴ of v;
+  it misses the 10⁻³ standard, accepted in the twenty-fifth round as ~6·10⁻⁴ in g against a per-file SE of ~0.04".
+  The prediction is defined as file-averaged (G_S_DESIGN amendment 7, approved in round 23).
+- **Caveats:**
+  - The file-averaged evaluation covered the heaviest pair at the lowest-height file only. Other pairs and heights
+    were argued smaller ("smaller weights"; "higher heights are smaller at fixed ℓ"), not computed.
+  - The "≤ 0.9%" figure is the single-ℓ, single-pair maximum (9·10⁻³ of v). The file-averaged value is ~100× smaller.
+
+**Every use of the phase filter as exact** (`nonosc_only=True`; repository-wide search):
+- `cs4/gs_zeta.py`: the Stage 2 prediction.
+- `cs4/gs_zeta_ext.py`: the ρ₁ extension, Stage 2 estimator B.
+- `cs4/gs_zeta_cutB.py`: Stage 2's prime-cutoff check.
+- `cs4/diag_pmax.py`: Stage 2's cutoff diagnostic.
+- `cs4/cs4lr_check.py`: evaluator validation.
+- `cs4/n6b_extract.py`: this work.
+- `cs4fastc.py` and `cs4lr.py` define it.
+
+**No other banked result uses it.** Route (a), (A), (B), corrected (B), R₂, Stage 1 and Phase 6 do not. The only banked
+result resting on the filter is Stage 2's prediction, and there the dropped part was computed (one pair) and carried.

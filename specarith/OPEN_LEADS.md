@@ -162,6 +162,13 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     origin.
   - The rounds 72–73 CUE "fall" was estimator bias: +10% at G = 300 and +5% at G = 1,000.
   - Next: stage (b), the 3+3 long-range extraction under three gates; stage (c), the n = 6 short-range bound.
+- **Round 77, the beat-term finding (n = 6 stage (b), G-b3).** At ζ PMAX 10³, beat terms carry 1–30% of the 3 + 3
+  long-range piece at r ≤ 500, and more at lower height. These are slow components from products of primes near e^ℓ
+  mixing with the carrier.
+  - The phase filter ("non-oscillating class") misses them. It is exact for U(N), but not the right object for ζ at
+    3 + 3.
+  - The fix is the full function on the estimator's 1/8 grid, through the session-2 expansion.
+  - Stage 2, the only banked result using the filter, computed (one pair) and carried its dropped part.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 
