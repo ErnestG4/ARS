@@ -5,6 +5,8 @@ whose construction is general in n, at n = 6, and its U(N) pointwise gate agains
   python ratios_t6.py ugate OUT.json [NPTS]    U(N), N = 10 and 50: ρ₆ by the construction vs the determinant, NPTS
                                                configurations each: spread over [0, 6), near-coincident, and 3 + 3 at
                                                r = 5 and 9 (N = 50 only for r = 9)
+  python ratios_t6.py threshold OUT.json        round 76: double vs high-precision path at min separation = DELTA_TH
+  python ratios_t6.py ugate OUT.json 8 PROCS    round 76 re-run: the gate unchanged, evaluated through rho_auto
   python ratios_t6.py timing                   wall time of one batched ρ₆ evaluation (U and ζ at PMAX 100)
 """
 import json
@@ -14,12 +16,84 @@ import time
 
 import numpy as np
 
+import ratios_hp as HP
 import ratios_t5 as T5
 import route_a_zeta as RA
 
 GATE_ABS, GATE_REL = 1e-12, 1e-6          # pointwise; the configurations keep |ρ₆| ≳ 1e-3, so the relative part
                                            # decides (round 75: the first version's [0, 2.4] points had ρ₆ ~ 1e-11 under
                                            # an absolute 1e-9 and could not fail; stopped before any result)
+
+
+# ---------------------------------------------------------------- round 76: the high-precision path and the guard
+def min_sep(ds):
+    D = np.stack([np.atleast_1d(np.asarray(d, float)) for d in ds], -1)
+    X = np.abs(D[..., :, None] - D[..., None, :]) + np.eye(D.shape[-1]) * 1e300
+    return X.min(axis=(-1, -2))
+
+
+def guard(ds):
+    """Refuse double-precision evaluation of any configuration below the declared threshold (round 76)."""
+    m = min_sep(ds)
+    if np.any(m < HP.DELTA_TH):
+        raise RuntimeError(f"ratios_t6.guard: {int(np.sum(m < HP.DELTA_TH))} configuration(s) below DELTA_TH = "
+                           f"{HP.DELTA_TH} (min separation {float(m.min()):.3g}); double evaluation refused")
+
+
+def _hp_one(job):
+    kind, L, pmax, d = job
+    return complex(HP.ModelMP(kind, L, pmax).rho(list(d)))
+
+
+def rho_auto(model, ds, procs=1):
+    """ρ_n by the construction: double (ratios_t5.Model, guarded) at or above DELTA_TH, mpmath below."""
+    D = np.stack([np.atleast_1d(np.asarray(d, float)) for d in ds], -1)
+    low = min_sep(ds) < HP.DELTA_TH
+    out = np.empty(D.shape[0], complex)
+    if np.any(~low):
+        hi = [D[~low, j] for j in range(D.shape[1])]
+        guard(hi)
+        out[~low] = model.rho(hi)
+    if np.any(low):
+        jobs = [(model.kind, float(model.L), getattr(model, "pmax", None), D[i]) for i in np.where(low)[0]]
+        if procs > 1:
+            from multiprocessing import Pool
+            with Pool(min(procs, len(jobs))) as pool:
+                vals = pool.map(_hp_one, jobs, chunksize=1)
+        else:
+            vals = [_hp_one(j) for j in jobs]
+        out[low] = vals
+    return out, low
+
+
+def threshold_check(out, procs=8):
+    """Path agreement at the threshold (declared before running): configurations whose smallest separation is exactly
+    DELTA_TH, evaluated by both paths, must agree to 1e-12 + 1e-7·|hp| (10× tighter than the gate). U(N) at N = 10 and
+    50, 4 configurations each."""
+    rng = np.random.default_rng([20261023, 76, 1])
+    rows = []
+    for N in (10, 50):
+        M = T5.Model("U", N)
+        d = np.sort(rng.uniform(0, 6.0, (4, 6)), axis=1)
+        for i in range(4):                                           # widen every gap to ≥ 0.3, then set one to DELTA_TH
+            g = np.maximum(np.diff(d[i]), 0.3)
+            k = rng.integers(0, 5)
+            g[k] = HP.DELTA_TH
+            d[i] = np.concatenate([[d[i, 0]], d[i, 0] + np.cumsum(g)])
+        ds = [d[:, j] for j in range(6)]
+        dbl = np.real(M.rho(ds))
+        from multiprocessing import Pool
+        with Pool(min(procs, 4)) as pool:
+            hp = np.real(np.array(pool.map(_hp_one, [("U", N, None, d[i]) for i in range(4)], chunksize=1)))
+        diff = np.abs(dbl - hp)
+        ok = bool(np.all(diff <= 1e-12 + 1e-7 * np.abs(hp)))
+        rows.append(dict(N=N, min_sep=min_sep(ds).tolist(), double=dbl.tolist(), hp=hp.tolist(),
+                         max_abs_diff=float(diff.max()), max_rel_diff=float((diff / np.abs(hp)).max()), PASS=ok))
+        print(rows[-1], flush=True)
+    res = dict(DELTA_TH=HP.DELTA_TH, DPS=HP.DPS, rows=rows, PASS=all(r["PASS"] for r in rows))
+    json.dump(res, open(out, "w"), indent=1)
+    print("threshold path agreement:", "PASS" if res["PASS"] else "FAIL", flush=True)
+    return 0 if res["PASS"] else 1
 
 
 def configs(rng, n_pts, near=False, r=None):
@@ -37,7 +111,7 @@ def configs(rng, n_pts, near=False, r=None):
     return [d[:, j] for j in range(6)]
 
 
-def ugate(out, npts=8):
+def ugate(out, npts=8, procs=1):
     rng = np.random.default_rng([20261022, 75, 6])
     rows = []
     for N in (10, 50):
@@ -47,12 +121,13 @@ def ugate(out, npts=8):
                 continue
             ds = configs(rng, npts, near, r)
             t = time.time()
-            mine = np.real(M.rho(ds))
+            mine, low = rho_auto(M, ds, procs)
+            mine = np.real(mine)
             wall = time.time() - t
             det = RA.sine_rho(ds, N)
             diff = np.abs(mine - det)
             ok = bool(np.all(diff <= GATE_ABS + GATE_REL * np.abs(det)))
-            rows.append(dict(N=N, near=near, r=r, n=npts, max_rel_diff=float((diff / np.abs(det)).max()), max_abs_diff=float(diff.max()), max_abs_det=float(np.abs(det).max()),
+            rows.append(dict(N=N, near=near, r=r, n=npts, n_high_precision=int(low.sum()), max_rel_diff=float((diff / np.abs(det)).max()), max_abs_diff=float(diff.max()), max_abs_det=float(np.abs(det).max()),
                              min_abs_det=float(np.abs(det).min()),
                               wall_s=round(wall, 1), PASS=ok))
             print(rows[-1], flush=True)
@@ -96,7 +171,9 @@ def timing():
 
 if __name__ == "__main__":
     if sys.argv[1] == "ugate":
-        sys.exit(ugate(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 8))
+        sys.exit(ugate(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 8, int(sys.argv[4]) if len(sys.argv) > 4 else 1))
+    if sys.argv[1] == "threshold":
+        sys.exit(threshold_check(sys.argv[2]))
     if sys.argv[1] == "largen":
         sys.exit(largen(sys.argv[2]))
     if sys.argv[1] == "timing":

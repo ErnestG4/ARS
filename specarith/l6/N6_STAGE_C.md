@@ -32,3 +32,30 @@ The construction against the determinant in the 3 + 3 geometry (4 configurations
 | 10⁵ | 1.8·10⁻¹¹ | 2.3·10⁻¹² | 7.1·10⁻¹² |
 
 **At N = 10⁵ the construction is accurate to about 10⁻¹¹ out to r = 1000,** so G-b1 can use stage (a)'s N directly.
+
+## Round 76: post-hoc construction change (committed before the re-run)
+**What changed.** This is a construction fix, not a gate amendment (round 76).
+- **Threshold, declared now:** DELTA_TH = 0.1 unit spacings. A configuration whose smallest pairwise separation is
+  below it is evaluated in mpmath (`cs4/ratios_hp.py`, mp.dps = 40). That is the same construction term for term:
+  the same (S, T) enumeration, phase-filter option, θ grids and prime groups.
+- At or above the threshold it is evaluated in double by `ratios_t5.Model`, unchanged. `ratios_t6.rho_auto`
+  dispatches between the two.
+- **Guard:** `ratios_t6.guard` raises if any configuration below DELTA_TH reaches a double evaluation.
+- **This is a post-hoc construction change,** made after the committed gate failed on near-coincident pairs
+  (f73f3895). The gate itself is unchanged.
+
+**Checks, declared before running.**
+1. **Path agreement at the threshold** (`ratios_t6.py threshold`): U(N) at N = 10 and 50, 4 configurations each, with
+   smallest separation exactly 0.1. The two paths must agree to 10⁻¹² + 10⁻⁷·|hp|, ten times tighter than the gate.
+2. **The committed U(N) pointwise gate, re-run unchanged:** the same seed, the same 48 configurations including the
+   16 with a pair 10⁻³ apart, and the same tolerance 10⁻¹² + 10⁻⁶·|det|. It is evaluated through rho_auto, which
+   sends 29 of the configurations below 0.1 to the mpmath path. **It must pass.**
+
+**Local smoke tests (not gates).**
+- **U(N) N = 10, n = 6:** the mpmath path gives 0.65762858171708360, against det 0.6576285817170834 and double
+  0.6576285817170845. It takes 50 s per configuration.
+- **ζ at PMAX 30:** mpmath and double agree to 1–3·10⁻¹⁶ at n = 2, 3 and 4, at separations ≥ 0.5.
+
+**Why the ζ path does not block (c) or G-b3.** No ζ evaluation in (c) or G-b3 falls below the threshold. Their
+in-window Gauss–Legendre nodes are ≥ 0.54 apart, and the guard would raise if one did. The ζ mpmath path exists, and
+its threshold agreement can be run on request.

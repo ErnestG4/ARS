@@ -1665,3 +1665,20 @@ G-b3, brute-force spot check: at a prime cutoff of 10³, full n = 6 quadrature a
 The U(N) gate stays. The deliberately wrong variants must fail all three gates.
 Session clock: the 3-session box starts with the derivation, not the gate commit.
 (c) and (d): as committed. (c) may run its n = 6 construction and U(N) check, then the low-cutoff bound on spot (10–100 core-hours), alongside (b). (d) stays unrun.
+
+## Seventy-sixth round (2026-10-23) — G-b2 accepted; stage (c) construction fix; G-b1 staged; cost update; time box (verbatim)
+Round 76:
+G-b2 PASS accepted. The relative/absolute tolerance coding error is recorded, corrected to the declared absolute criterion.
+Stage (c): a construction fix, not a gate amendment.
+Below a separation threshold (declared before running), the n = 6 construction evaluates in high precision (double-double or mpmath).
+A runtime guard refuses below-threshold evaluation in double.
+Add a path-agreement check at the threshold.
+Re-run the committed U(N) pointwise gate unchanged (10⁻³ configurations included). It must pass via the high-precision path.
+Record the change as a post-hoc construction change.
+Then (c)'s bound and G-b3 may proceed.
+G-b1.
+(i) Now: the identical-node determinant comparison, averaged over one period in r, labelled "algebra check, not G-b1".
+(ii) Session 2: the cross-factor expansion, with a truncation-error estimate validated against the exact determinant at moderate r for a few points.
+(iii) G-b1 against the exact Fredholm answer, which must pass before any ζ computation.
+Update the n = 6 scoping cost estimates with the corrected node counts before session 2, and send them to Will and me.
+Time box: 1 of 3 sessions used. If G-b1 and G-b3 aren't passing by the end of session 3, stop and report.

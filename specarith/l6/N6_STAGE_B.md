@@ -84,3 +84,6 @@ the exact Fredholm answer.
 - PMAX 10³: max |extraction − cs4fastc| = 3.9·10⁻¹³.
 - PMAX 3·10⁵: max |extraction − cs4lr| = 7.3·10⁻¹³, and against cs4fastc 2.0·10⁻¹⁰.
 - Both are against the declared 1.1·10⁻⁹ absolute, on values of 6·10⁻⁵ to 0.05.
+
+**Round 76:** G-b2 PASS accepted. The relative/absolute tolerance coding error in the first official run is recorded
+here and in 3c16cc59, corrected to the declared absolute criterion. **Session 1 of 3 is used.**
