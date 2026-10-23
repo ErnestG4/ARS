@@ -1,0 +1,68 @@
+"""n = 6 stage (c), round 74/75 (l6/N6_STAGE_C_BOUND.md): the ratios-definition 6-point function, i.e. ratios_t5.Model,
+whose construction is general in n, at n = 6, and its U(N) pointwise gate against det[S(x_i − x_j)] (the n = 6 form of
+`ratios_t5 ugate`). No ζ value is read before this gate passes.
+
+  python ratios_t6.py ugate OUT.json [NPTS]    U(N), N = 10 and 50: ρ₆ by the construction vs the determinant, at NPTS
+                                               random configurations in [0, 2.4] and NPTS near-coincident ones
+  python ratios_t6.py timing                   wall time of one batched ρ₆ evaluation (U and ζ at PMAX 100)
+"""
+import json
+import math
+import sys
+import time
+
+import numpy as np
+
+import ratios_t5 as T5
+import route_a_zeta as RA
+
+GATE_ABS, GATE_REL = 1e-9, 1e-6           # ratios_t5 ugate's tolerance, applied pointwise
+
+
+def configs(rng, n_pts, near=False):
+    d = np.sort(rng.uniform(0, 2.4, (n_pts, 6)), axis=1)
+    if near:
+        k = rng.integers(0, 5, n_pts)
+        d[np.arange(n_pts), k + 1] = d[np.arange(n_pts), k] + 1e-3      # one near-coincident pair per configuration
+        d = np.sort(d, axis=1)
+    return [d[:, j] for j in range(6)]
+
+
+def ugate(out, npts=8):
+    rng = np.random.default_rng([20261022, 75, 6])
+    rows = []
+    for N in (10, 50):
+        M = T5.Model("U", N)
+        for near in (False, True):
+            ds = configs(rng, npts, near)
+            t = time.time()
+            mine = np.real(M.rho(ds))
+            wall = time.time() - t
+            det = RA.sine_rho(ds, N)
+            diff = np.abs(mine - det)
+            ok = bool(np.all(diff <= GATE_ABS + GATE_REL * np.abs(det)))
+            rows.append(dict(N=N, near=near, n=npts, max_abs_diff=float(diff.max()), max_abs_det=float(np.abs(det).max()),
+                             min_abs_det=float(np.abs(det).min()), wall_s=round(wall, 1), PASS=ok))
+            print(rows[-1], flush=True)
+    res = dict(rows=rows, tol=dict(abs=GATE_ABS, rel=GATE_REL), PASS=all(r["PASS"] for r in rows))
+    json.dump(res, open(out, "w"), indent=1)
+    print("n = 6 U(N) pointwise gate:", "PASS" if res["PASS"] else "FAIL", flush=True)
+    return 0 if res["PASS"] else 1
+
+
+def timing():
+    rng = np.random.default_rng(1)
+    ds = configs(rng, 4)
+    for kind, kw in (("U", dict(L=50)), ("zeta", dict(L=RA.ell_of(4.77e7), pmax=100))):
+        M = T5.Model(kind, kw["L"], pmax=kw.get("pmax"))
+        t = time.time()
+        v = M.rho(ds)
+        print(kind, "4 configurations:", round(time.time() - t, 1), "s", np.real(v)[:2], flush=True)
+    return 0
+
+
+if __name__ == "__main__":
+    if sys.argv[1] == "ugate":
+        sys.exit(ugate(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 8))
+    if sys.argv[1] == "timing":
+        sys.exit(timing())

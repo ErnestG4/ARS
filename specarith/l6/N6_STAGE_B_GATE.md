@@ -43,9 +43,11 @@ before the gate passes and Will has seen it (round 74).
 
 ## Amendment (round 75; before any derivation): two gates with ζ-regime resolution
 The U(N) gate above stays, as **G-b1**. Two more are added. **All three must pass.**
-- **G-b2, reduction.** The extracted 3 + 3 long-range term has the extra points reduced by the cumulant relations: one
-  point integrated out of each cluster against the window, so that what remains is a 2 + 2 cross-connected function of
-  the remaining points.
+- **G-b2, reduction.** The extraction is written for general cluster sizes (a, b). The cumulant relations take it from
+  3 + 3 down to a = b = 2, which removes the extra point in each cluster: the same construction, evaluated with
+  clusters of two. That reduced 2 + 2 term is the gated object.
+  - **Wording clarified before any derivation** (2026-10-22): the earlier phrase "one point integrated out of each
+    cluster against the window" was not well defined. The gated object is the extraction's own 2 + 2 instance.
   - It must reproduce the validated `cs4/cs4lr.py` 2 + 2 long-range term (`LongRangeZeta`, the non-oscillating part
     used in Stage 2) at the same heights and r, within that term's precision.
   - "Its precision": the larger of the evaluator's validated agreement with `cs4fastc` (worst 1.1·10⁻⁹,
