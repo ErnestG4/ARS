@@ -79,3 +79,8 @@ Fredholm value:
 period-averaged over 8 shifts, at identical quadrature nodes. The quadrature error then cancels in the comparison, so
 4–6 nodes suffice, at a reduced r grid. That tests the phase filter at 3 + 3 without the separation, but not against
 the exact Fredholm answer.
+
+**G-b2 official result: PASS at both cutoffs; both wrong variants fail** (`cs4/results/n6b/GB2_P*.json`).
+- PMAX 10³: max |extraction − cs4fastc| = 3.9·10⁻¹³.
+- PMAX 3·10⁵: max |extraction − cs4lr| = 7.3·10⁻¹³, and against cs4fastc 2.0·10⁻¹⁰.
+- Both are against the declared 1.1·10⁻⁹ absolute, on values of 6·10⁻⁵ to 0.05.
