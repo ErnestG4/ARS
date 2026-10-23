@@ -39,3 +39,43 @@ labelled by subsets S of A and T of B with |S| = |T|. Its x-dependence carries a
 - G-b3 needs stage (c)'s n = 6 U(N) pointwise gate to pass first.
 - The bond-order definitions of the wrong variants for C(r): (i) the (1, 1) term only; (ii) the (2, 2) contribution
   with its sign reversed.
+
+## Session 1, continued: G-b2, and what G-b1 costs as declared
+**G-b2 at PMAX 10³ (official, spot): PASS; both wrong variants fail.**
+- The first official run applied cs4lr's 1.1·10⁻⁹ as relative. `cs4lr_check` defines it as the largest absolute
+  difference, and the gate declares the larger of that and the cutoff change.
+- The code was corrected to 1.1·10⁻⁹ absolute, the stricter choice (3c16cc59). In that first run, at PMAX 3·10⁵ the
+  extraction matched cs4lr to ≤ 7·10⁻¹³ and cs4fastc to ≤ 2·10⁻¹⁰.
+- cs4lr cannot run at PMAX ≤ 1000 (its Fourier group above 1000 is empty), so the PMAX 10³ run compares cs4fastc
+  only.
+
+**G-b1 as declared is infeasible by direct quadrature** (`n6b_quadcheck.py`). Assembling the full CUE_N C(r) from
+in-window Gauss–Legendre quadrature of the determinant ρ's gives these relative errors against stage (a)'s exact
+Fredholm value:
+
+| r | exact C(r) | 6 nodes | 8 | 10 | 12 |
+|---|---|---|---|---|---|
+| 4.125 | −1.95·10⁻² | 0.83 | 0.081 | 1.6·10⁻³ | 1.1·10⁻⁵ |
+| 7.3 | 9.20·10⁻⁶ | −42 | 0.13 | 0.051 | 6.9·10⁻⁴ |
+| 20 | −3.46·10⁻⁶ | 7.5 | −0.052 | −4.4·10⁻³ | −5.9·10⁻⁵ |
+| 100 | −6.86·10⁻⁹ | 138 | 0.22 | −1.5·10⁻⁴ | −2.2·10⁻⁵ |
+
+- **Why so many nodes:** the (a, b) pieces cancel heavily. C(100) is 7·10⁻⁹, while each piece is far larger. So 1%
+  needs 10–12 nodes per coordinate.
+- **The cost:** that is about 9·10⁴ jet evaluations per r (48,400 for the (3, 3) piece alone), roughly 1,600 core-h
+  for the 60-point grid. **The scoping draft's "8 nodes per dimension" estimate was wrong for the same reason, and
+  that applies to the ζ production run too.**
+
+**What the derivation has to supply next (session 2), the separation.**
+- For r ≫ 4, each kept term factorises into in-cluster phase factors, which are unit-scale and oscillatory, times
+  cross factors, which are smooth in r and vary over the window only at relative order 4/r.
+- Expanding the cross factors about the window centres in powers of (in-window offset)/r turns the 6-dimensional
+  integral into in-cluster integrals (3-dimensional, computable once) times cross factors and their derivatives at
+  the centres.
+- Truncation is checked order by order against the exact answer.
+- That makes C_long(r) cheap at every r. It is the critical path for both G-b1 and the ζ evaluation.
+
+**A cheaper G-b1 variant, for Will to decide (not adopted):** compare the extraction with the determinant's full C,
+period-averaged over 8 shifts, at identical quadrature nodes. The quadrature error then cancels in the comparison, so
+4–6 nodes suffice, at a reduced r grid. That tests the phase filter at 3 + 3 without the separation, but not against
+the exact Fredholm answer.
