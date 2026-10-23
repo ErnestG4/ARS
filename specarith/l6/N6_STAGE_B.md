@@ -123,3 +123,42 @@ here and in 3c16cc59, corrected to the declared absolute criterion. **Session 1 
 - **Wrong variants:** the sign-reversed extraction, and the (1, 1) piece in place of (3, 3), must fail.
 - **Guard:** every ζ configuration goes through `ratios_t6.guard`. The nodes are ≥ 1 apart, so the double path is used
   throughout.
+
+## Results (spot; both finished before the local reboot of 2026-10-23)
+**G-b1 (i), algebra check (not G-b1), post-hoc rerun with both sides averaged: PASS** (`cs4/results/n6b/ALGEBRA_CHECK2.json`).
+- Every (a, b) piece agrees with the exact determinant to ≤ 2.4·10⁻⁵ at r = 20, ≤ 6.7·10⁻⁶ at 50, ≤ 1.8·10⁻⁶ at 100 and
+  ≤ 2·10⁻⁷ at 300, against a criterion of 10⁻⁴.
+- **The phase filter is exact for U(N) at 3 + 3.**
+
+**G-b3: FAIL as declared; both wrong variants fail (the gate has power)** (`cs4/results/n6b/GB3.json`; 9,332 s on 28
+processes). The (3, 3) piece at ζ PMAX 10³, at identical nodes, with both sides averaged identically:
+
+| ℓ | r | brute | extraction | brute − extraction | relative |
+|---|---|---|---|---|---|
+| 15.75 | 100 | 1.229 | 1.616 | −0.387 | 0.31 |
+| 15.75 | 173 | −1.655 | −1.516 | −0.140 | 0.08 |
+| 15.75 | 300 | 10.06 | 9.416 | +0.643 | 0.06 |
+| 15.75 | 500 | 19.61 | 19.13 | +0.487 | 0.025 |
+| 21.75 | 173 | −8.075 | −8.157 | +0.082 | 0.010 |
+| 21.75 | 500 | 14.02 | 13.80 | +0.221 | 0.016 |
+
+**Diagnosis (descriptive; consistent with a known mechanism, not yet proven).**
+- The missing part does not decay with r: its absolute size is 0.08–0.64. It is larger at the lower height.
+- That is the signature of **beat terms.**
+  - A piece in an r-oscillating phase class (e^{2πikr}, k ≠ 0) also carries arithmetic factors p^{±i r_t}, with
+    frequencies log p / ℓ per unit spacing.
+  - Where the summed prime frequencies come within ~½ of k, which needs products of primes p·q·… ≈ e^{kℓ}, the piece has
+    near-DC content in r. That content survives the period average, and the block-variance estimator's Bartlett sum
+    sees it as well.
+  - This is the mechanism Stage 2 recorded for its dropped "ℓ-oscillating long-range part" (`cs4/GS_ZETA_RESULTS.md`
+    §3): up to 0.9% of v at 2 + 2, larger at low heights.
+  - At 3 + 3 there are more Euler factors in each term, so more prime products can reach e^ℓ. At ℓ = 15.75,
+    e^ℓ = 6.9·10⁶ < 10⁹ (three primes ≤ 10³); at ℓ = 21.75, e^ℓ = 2.8·10⁹.
+- **G-b2 passed because it tested agreement with Stage 2's own definition,** which drops the same beat terms. G-b3
+  compares against the brute-force value, which keeps them.
+
+**Consequence.** The phase filter ("non-oscillating class") is the wrong object for ζ at 3 + 3. What the estimator sees
+is the low-frequency content of C(r), beats included. A correct extraction has to keep the near-DC beat components of
+the oscillating classes. In practice that means a per-prime frequency decomposition, as `cs4lr` does with its NUFFT for
+prime sums, or the full function evaluated on the estimator's 1/8 grid. Either is a session-2 design question,
+alongside the separation. **Decision to Will.**
