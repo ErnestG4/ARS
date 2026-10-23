@@ -210,8 +210,109 @@ def algebra_check(out, rs=(20.0, 50.0, 100.0, 300.0), nq=4, N=100_000):
     return 0 if res["PASS"] else 1
 
 
+# ---------------------------------------------------------------- shared: one (a, b) piece at one shift, both sides
+def _piece_task(job):
+    """job = (kind, L, pmax, side, a, b, r, nq): Σ W·[ρ_{a+b}^{side} − ρ_a ρ_b] at separation r with identical in-window
+    nodes; side 'ext' (phase-filtered, non-oscillating), 'full' (the unfiltered construction) or 'det' (U(N) only)."""
+    kind, L, pmax, side, a, b, r, nq = job
+    XA, WA = _tuples(nq, a)
+    XB, WB = _tuples(nq, b)
+    PA = np.repeat(XA, len(XB), 0)
+    PB = np.tile(XB, (len(XA), 1))
+    W = np.repeat(WA, len(XB)) * np.tile(WB, len(XA))
+    if side == "det":
+        N = int(L)
+        return float(np.sum(W * (_det_rho(np.concatenate([PA, PB + r], 1), N) - _det_rho(PA, N) * _det_rho(PB, N))))
+    from ratios_t6 import guard
+    M = FilteredModel(kind, L, pmax=pmax)
+    ds = [PA[:, k] for k in range(a)] + [PB[:, k] + r for k in range(b)]
+    guard(ds)
+    rho_full = M.rho_f(ds, set(range(a, a + b)), NONOSC if side == "ext" else ALL)
+    prod = M.rho([PA[:, k] for k in range(a)]) * M.rho([PB[:, k] for k in range(b)])
+    return float(np.sum(W * np.real(rho_full - prod)))
+
+
+def _tri_avg(fn_of_shift):
+    return sum(tj * fn_of_shift(sj) for sj, tj in TRI)
+
+
+def algebra_check2(out, rs=(20.0, 50.0, 100.0, 300.0), nq=4, N=100_000, procs=28):
+    """ALGEBRA CHECK, NOT G-b1: post-hoc rerun of round 76 (i) with IDENTICAL averaging on both sides. The first run
+    (2c22dd0b) compared the triangular-averaged determinant with the UNAVERAGED extraction; the average multiplies a
+    non-oscillating 1/r² term by 1 + 3σ²/r² (σ² = 0.164), which predicted its failures at r = 20 and 50 to 6% and 0.1%
+    of the effect. Here both sides are averaged over the same 15 shifts; same nodes, same criterion
+    (1e-13 + 1e-4·max per piece)."""
+    from multiprocessing import Pool
+    jobs = [("U", N, None, side, a, b, r + sj, nq) for r in rs for sj, _ in TRI for a in (1, 2, 3) for b in (1, 2, 3)
+            for side in ("ext", "det")]
+    with Pool(procs) as pool:
+        vals = dict(zip(jobs, pool.map(_piece_task, jobs, chunksize=1)))
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "l6"))
+    import n6a_trace as A
+    cp = A.psi_coeffs(A.single_moments())
+    rows = []
+    for r in rs:
+        pieces, Cx, Cd = {}, 0.0, 0.0
+        for a in (1, 2, 3):
+            for b in (1, 2, 3):
+                ext = sum(tj * vals[("U", N, None, "ext", a, b, r + sj, nq)] for sj, tj in TRI)
+                det = sum(tj * vals[("U", N, None, "det", a, b, r + sj, nq)] for sj, tj in TRI)
+                ok = abs(ext - det) <= 1e-13 + 1e-4 * max(abs(ext), abs(det))
+                pieces[f"{a}{b}"] = dict(ext=ext, det=det, rel_diff=abs(ext - det) / max(abs(ext), abs(det)), ok=bool(ok))
+                Cx += cp[a] * cp[b] * ext
+                Cd += cp[a] * cp[b] * det
+        rows.append(dict(r=r, pieces=pieces, C_ext=Cx, C_det=Cd, ok=all(v["ok"] for v in pieces.values())))
+        print(r, {k: f"{v['rel_diff']:.1e}" for k, v in pieces.items()}, f"C ext {Cx:.6e} det {Cd:.6e}", flush=True)
+    res = dict(label="ALGEBRA CHECK, NOT G-b1 (round 76 (i)); post-hoc rerun with identical averaging on both sides",
+               nq=nq, N=N, rows=rows, PASS=all(x["ok"] for x in rows))
+    json.dump(res, open(out, "w"), indent=1)
+    print("algebra check, both sides averaged (not G-b1):", "PASS" if res["PASS"] else "FAIL", flush=True)
+    return 0 if res["PASS"] else 1
+
+
+# ---------------------------------------------------------------- G-b3 (N6_STAGE_B_GATE.md, round 75; declared 2026-10-23)
+GB3_CASES = [(15.75, 100.0), (15.75, 173.0), (15.75, 300.0), (15.75, 500.0), (21.75, 173.0), (21.75, 500.0)]
+
+
+def gb3(out, pmax=1000, nq=4, procs=28):
+    """G-b3: brute force against the extraction for the (3, 3) cross-connected term, ζ at PMAX 10³, at the six declared
+    (ℓ, r). Both sides at identical in-window nodes (nq = 4; distinct sorted tuples × 3!) and both averaged over the
+    same 15 shifts with the triangular two-period weights (the lesson of the first algebra check: average both sides
+    identically). brute = the unfiltered construction's ρ₆ − ρ₃ρ₃; extraction = its phase-filtered non-oscillating
+    part − ρ₃ρ₃. Tolerance: 1% of |brute| (the declared tolerance is the larger of the 4-vs-6-node quadrature error and
+    1%; 1% alone is the stricter choice, and the quadrature cancels at identical nodes). Wrong variants: the
+    sign-reversed extraction, and the (1, 1) piece in place of (3, 3), must fail."""
+    from multiprocessing import Pool
+    jobs = []
+    for ell, r in GB3_CASES:
+        for sj, _ in TRI:
+            for side, a, b in (("full", 3, 3), ("ext", 3, 3), ("ext", 1, 1)):
+                jobs.append(("zeta", ell, pmax, side, a, b, r + sj, nq))
+    t = time.time()
+    with Pool(procs) as pool:
+        vals = dict(zip(jobs, pool.map(_piece_task, jobs, chunksize=1)))
+    rows = []
+    for ell, r in GB3_CASES:
+        brute = sum(tj * vals[("zeta", ell, pmax, "full", 3, 3, r + sj, nq)] for sj, tj in TRI)
+        ext = sum(tj * vals[("zeta", ell, pmax, "ext", 3, 3, r + sj, nq)] for sj, tj in TRI)
+        k11 = sum(tj * vals[("zeta", ell, pmax, "ext", 1, 1, r + sj, nq)] for sj, tj in TRI)
+        tol = 0.01 * abs(brute)
+        rows.append(dict(ell=ell, r=r, brute=brute, ext=ext, rel_diff=abs(ext - brute) / abs(brute), ok=bool(abs(ext - brute) <= tol),
+                         wrong_sign_fails=bool(abs(-ext - brute) > tol), wrong_k11_fails=bool(abs(k11 - brute) > tol)))
+        print(rows[-1], flush=True)
+    res = dict(pmax=pmax, nq=nq, rows=rows, wall_s=round(time.time() - t, 1), PASS=all(x["ok"] for x in rows),
+               wrong_variants_fail=all(x["wrong_sign_fails"] and x["wrong_k11_fails"] for x in rows))
+    json.dump(res, open(out, "w"), indent=1)
+    print("G-b3:", "PASS" if res["PASS"] else "FAIL", "| wrong variants fail:", res["wrong_variants_fail"], flush=True)
+    return 0 if res["PASS"] and res["wrong_variants_fail"] else 1
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "algebra":
         sys.exit(algebra_check(sys.argv[2]))
+    if sys.argv[1] == "algebra2":
+        sys.exit(algebra_check2(sys.argv[2], procs=int(sys.argv[3]) if len(sys.argv) > 3 else 28))
+    if sys.argv[1] == "gb3":
+        sys.exit(gb3(sys.argv[2], procs=int(sys.argv[3]) if len(sys.argv) > 3 else 28))
     if sys.argv[1] == "gb2":
         sys.exit(gb2(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 1000))

@@ -59,3 +59,21 @@ The construction against the determinant in the 3 + 3 geometry (4 configurations
 **Why the ζ path does not block (c) or G-b3.** No ζ evaluation in (c) or G-b3 falls below the threshold. Their
 in-window Gauss–Legendre nodes are ≥ 0.54 apart, and the guard would raise if one did. The ζ mpmath path exists, and
 its threshold agreement can be run on request.
+
+**Results after the construction change (spot):**
+- **Path agreement at the threshold: PASS** (`cs4/results/n6c/THRESHOLD.json`). Double against mpmath at a smallest
+  separation of exactly 0.1: max absolute difference 7.3·10⁻¹⁵ (N = 10) and 5.0·10⁻¹⁵ (N = 50); relative ≤ 3.6·10⁻⁹.
+- **The committed U(N) gate, re-run unchanged: PASS** (`cs4/results/n6c/UGATE6.json`; the failed first run is in
+  `run1/`). 29 of the 48 configurations went through the mpmath path.
+
+  | configurations | high-precision | max relative difference |
+  |---|---|---|
+  | N = 10, spread | 6 of 8 | 5.1·10⁻¹¹ |
+  | N = 10, near-coincident | 8 of 8 | 1.5·10⁻⁸ |
+  | N = 50, spread | 2 of 8 | 7.2·10⁻⁹ |
+  | N = 50, near-coincident | 8 of 8 | 1.1·10⁻⁵ (absolute 5.7·10⁻¹⁷, at det down to 4·10⁻¹⁸) |
+  | N = 50, 3 + 3 at r = 5 | 2 of 8 | 1.0·10⁻¹² |
+  | N = 50, 3 + 3 at r = 9 | 3 of 8 | 2.8·10⁻¹² |
+
+- **Per round 76, (c)'s bound and G-b3 may now proceed.** G-b3 is launched. (c) waits on Will's choice of node count,
+  because the committed 4-node bound is expected to come back "not established" (cost update, round 76).

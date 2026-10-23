@@ -1,7 +1,7 @@
-{'N': 10, 'near': False, 'r': None, 'n': 8, 'max_rel_diff': 1.0319605059466572e-07, 'max_abs_diff': 1.4233045436820102e-12, 'max_abs_det': 0.05520171905952717, 'min_abs_det': 1.785909279537755e-06, 'wall_s': 214.6, 'PASS': True}
-{'N': 10, 'near': True, 'r': None, 'n': 8, 'max_rel_diff': 9.62588521614502, 'max_abs_diff': 6.50408760459693e-10, 'max_abs_det': 7.56961282710654e-07, 'min_abs_det': 6.756872182194679e-11, 'wall_s': 225.8, 'PASS': False}
-{'N': 50, 'near': False, 'r': None, 'n': 8, 'max_rel_diff': 3.260506989559088e-07, 'max_abs_diff': 2.52864830447121e-12, 'max_abs_det': 0.4177344980373171, 'min_abs_det': 2.630947017152509e-07, 'wall_s': 229.5, 'PASS': True}
-{'N': 50, 'near': True, 'r': None, 'n': 8, 'max_rel_diff': 1651236013.1262727, 'max_abs_diff': 3.405438812208909e-08, 'max_abs_det': 2.3809102130343345e-06, 'min_abs_det': 4.206827597149401e-18, 'wall_s': 233.0, 'PASS': False}
-{'N': 50, 'near': False, 'r': 5.0, 'n': 8, 'max_rel_diff': 1.8836776362454812e-07, 'max_abs_diff': 3.1429831034589153e-12, 'max_abs_det': 0.8488735236942371, 'min_abs_det': 1.668535551403298e-05, 'wall_s': 226.1, 'PASS': True}
-{'N': 50, 'near': False, 'r': 9.0, 'n': 8, 'max_rel_diff': 2.085077095154838e-08, 'max_abs_diff': 1.984711814298788e-14, 'max_abs_det': 0.5916415110681028, 'min_abs_det': 9.518649544953171e-07, 'wall_s': 227.9, 'PASS': True}
-n = 6 U(N) pointwise gate: FAIL
+{'N': 10, 'near': False, 'r': None, 'n': 8, 'n_high_precision': 6, 'max_rel_diff': 5.112512708555241e-11, 'max_abs_diff': 1.6771143935417898e-14, 'max_abs_det': 0.05520171905952717, 'min_abs_det': 1.785909279537755e-06, 'wall_s': 299.3, 'PASS': True}
+{'N': 10, 'near': True, 'r': None, 'n': 8, 'n_high_precision': 8, 'max_rel_diff': 1.5120873847603887e-08, 'max_abs_diff': 1.6921388945535971e-16, 'max_abs_det': 7.56961282710654e-07, 'min_abs_det': 6.756872182194679e-11, 'wall_s': 85.2, 'PASS': True}
+{'N': 50, 'near': False, 'r': None, 'n': 8, 'n_high_precision': 2, 'max_rel_diff': 7.238753802475824e-09, 'max_abs_diff': 2.1078923112191617e-15, 'max_abs_det': 0.4177344980373171, 'min_abs_det': 2.630947017152509e-07, 'wall_s': 311.4, 'PASS': True}
+{'N': 50, 'near': True, 'r': None, 'n': 8, 'n_high_precision': 8, 'max_rel_diff': 1.0545721835228366e-05, 'max_abs_diff': 5.719335866450487e-17, 'max_abs_det': 2.3809102130343345e-06, 'min_abs_det': 4.206827597149401e-18, 'wall_s': 84.8, 'PASS': True}
+{'N': 50, 'near': False, 'r': 5.0, 'n': 8, 'n_high_precision': 2, 'max_rel_diff': 1.0056741942881087e-12, 'max_abs_diff': 2.727852665973529e-15, 'max_abs_det': 0.8488735236942371, 'min_abs_det': 1.668535551403298e-05, 'wall_s': 308.0, 'PASS': True}
+{'N': 50, 'near': False, 'r': 9.0, 'n': 8, 'n_high_precision': 3, 'max_rel_diff': 2.7591430062396374e-12, 'max_abs_diff': 1.2212453270876722e-15, 'max_abs_det': 0.5916415110681028, 'min_abs_det': 9.518649544953171e-07, 'wall_s': 293.6, 'PASS': True}
+n = 6 U(N) pointwise gate: PASS

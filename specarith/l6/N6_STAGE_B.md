@@ -97,3 +97,29 @@ here and in 3c16cc59, corrected to the declared absolute criterion. **Session 1 
 - G-b3 stays feasible (~15–25 core-h), because it compares at identical nodes.
 - The committed 4-node (c) bound will likely come back "not established". A 6-node variant with an 8-node spot check
   would cost ~130 core-h; that is for Will to choose.
+
+## G-b1 (i): the algebra check (not G-b1)
+**First run (2c22dd0b, `cs4/results/n6b/ALGEBRA_CHECK.json`): FAIL as declared.**
+- It passes at r = 100 and 300 (every piece within 10⁻⁴). It fails at r = 20 and 50.
+- **Diagnosis:** every (a, b) piece is off by the same factor, determinant over extraction = 1.00130 at r = 20,
+  1.00020 at 50 and 1.00005 at 100.
+  - The check averaged the determinant over the triangular two-period kernel, but compared it with the unaveraged
+    extraction.
+  - That average multiplies a non-oscillating 1/r² term by 1 + 3σ²/r², with σ² = 0.164. This predicts 1.00123,
+    1.00020 and 1.000049, which is the observed factor to 6% of the effect at r = 20 and better beyond.
+  - **The defect is in the comparison, not the extraction.**
+- **Post-hoc rerun (`algebra2`):** the same nodes and criterion, with both sides averaged over the same 15 shifts.
+  Labelled as a post-hoc correction of the comparison.
+
+## G-b3 (round 75 gate; implementation declared 2026-10-23, before running)
+- **Cases:** the (3, 3) cross-connected term at ζ PMAX 10³, at the six declared (ℓ, r): (15.75; 100, 173, 300, 500)
+  and (21.75; 173, 500).
+- **Sides:** brute = the unfiltered construction's ρ₆ − ρ₃ρ₃; extraction = the phase-filtered non-oscillating part
+  − ρ₃ρ₃.
+- **Treatment:** identical in-window nodes (4 per coordinate), and both sides averaged over the same 15 triangular
+  shifts.
+- **Tolerance:** 1% of |brute|. The declared tolerance is the larger of the quadrature error and 1%; 1% alone is
+  stricter, and the quadrature cancels at identical nodes.
+- **Wrong variants:** the sign-reversed extraction, and the (1, 1) piece in place of (3, 3), must fail.
+- **Guard:** every ζ configuration goes through `ratios_t6.guard`. The nodes are ≥ 1 apart, so the double path is used
+  throughout.
