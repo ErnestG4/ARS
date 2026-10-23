@@ -2,8 +2,9 @@
 whose construction is general in n, at n = 6, and its U(N) pointwise gate against det[S(x_i − x_j)] (the n = 6 form of
 `ratios_t5 ugate`). No ζ value is read before this gate passes.
 
-  python ratios_t6.py ugate OUT.json [NPTS]    U(N), N = 10 and 50: ρ₆ by the construction vs the determinant, at NPTS
-                                               random configurations in [0, 2.4] and NPTS near-coincident ones
+  python ratios_t6.py ugate OUT.json [NPTS]    U(N), N = 10 and 50: ρ₆ by the construction vs the determinant, NPTS
+                                               configurations each: spread over [0, 6), near-coincident, and 3 + 3 at
+                                               r = 5 and 9 (N = 50 only for r = 9)
   python ratios_t6.py timing                   wall time of one batched ρ₆ evaluation (U and ζ at PMAX 100)
 """
 import json
@@ -16,14 +17,22 @@ import numpy as np
 import ratios_t5 as T5
 import route_a_zeta as RA
 
-GATE_ABS, GATE_REL = 1e-9, 1e-6           # ratios_t5 ugate's tolerance, applied pointwise
+GATE_ABS, GATE_REL = 1e-12, 1e-6          # pointwise; the configurations keep |ρ₆| ≳ 1e-3, so the relative part
+                                           # decides (round 75: the first version's [0, 2.4] points had ρ₆ ~ 1e-11 under
+                                           # an absolute 1e-9 and could not fail; stopped before any result)
 
 
-def configs(rng, n_pts, near=False):
-    d = np.sort(rng.uniform(0, 2.4, (n_pts, 6)), axis=1)
+def configs(rng, n_pts, near=False, r=None):
+    """6 points with ρ₆ of order 0.01–1: spread over [0, 6) (spacings ~1), or, with r, the stage's 3 + 3 geometry (three
+    in [0, 4), three in [r, r + 4)). near: one near-coincident pair (1e-3 apart) per configuration."""
+    if r is None:
+        d = np.sort(rng.uniform(0, 6.0, (n_pts, 6)), axis=1)
+    else:
+        d = np.concatenate([np.sort(rng.uniform(0, 4, (n_pts, 3)), axis=1),
+                            r + np.sort(rng.uniform(0, 4, (n_pts, 3)), axis=1)], axis=1)
     if near:
-        k = rng.integers(0, 5, n_pts)
-        d[np.arange(n_pts), k + 1] = d[np.arange(n_pts), k] + 1e-3      # one near-coincident pair per configuration
+        k = rng.integers(0, 2, n_pts)
+        d[np.arange(n_pts), k + 1] = d[np.arange(n_pts), k] + 1e-3
         d = np.sort(d, axis=1)
     return [d[:, j] for j in range(6)]
 
@@ -33,16 +42,19 @@ def ugate(out, npts=8):
     rows = []
     for N in (10, 50):
         M = T5.Model("U", N)
-        for near in (False, True):
-            ds = configs(rng, npts, near)
+        for near, r in ((False, None), (True, None), (False, 5.0), (False, 9.0)):
+            if r is not None and r + 4 > N / 2:
+                continue
+            ds = configs(rng, npts, near, r)
             t = time.time()
             mine = np.real(M.rho(ds))
             wall = time.time() - t
             det = RA.sine_rho(ds, N)
             diff = np.abs(mine - det)
             ok = bool(np.all(diff <= GATE_ABS + GATE_REL * np.abs(det)))
-            rows.append(dict(N=N, near=near, n=npts, max_abs_diff=float(diff.max()), max_abs_det=float(np.abs(det).max()),
-                             min_abs_det=float(np.abs(det).min()), wall_s=round(wall, 1), PASS=ok))
+            rows.append(dict(N=N, near=near, r=r, n=npts, max_rel_diff=float((diff / np.abs(det)).max()), max_abs_diff=float(diff.max()), max_abs_det=float(np.abs(det).max()),
+                             min_abs_det=float(np.abs(det).min()),
+                              wall_s=round(wall, 1), PASS=ok))
             print(rows[-1], flush=True)
     res = dict(rows=rows, tol=dict(abs=GATE_ABS, rel=GATE_REL), PASS=all(r["PASS"] for r in rows))
     json.dump(res, open(out, "w"), indent=1)
