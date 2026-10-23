@@ -62,6 +62,27 @@ def ugate(out, npts=8):
     return 0 if res["PASS"] else 1
 
 
+def largen(out):
+    """Diagnostic for stage (b) G-b1 (not a gate): the construction's ρ₆ in the 3 + 3 geometry against the determinant at
+    large N and separated clusters (r = 20, 100, 1000), N = 10³, 10⁴, 10⁵. Reports the relative difference; decides
+    which N the U(N) gate can use without the jets' large-L cancellations dominating."""
+    rng = np.random.default_rng([20261022, 75, 7])
+    rows = []
+    for N in (1000, 10_000, 100_000):
+        M = T5.Model("U", N)
+        for r in (20.0, 100.0, 1000.0):
+            if r + 4 > N / 2:
+                continue
+            ds = configs(rng, 4, False, r)
+            mine = np.real(M.rho(ds))
+            det = RA.sine_rho(ds, N)
+            rows.append(dict(N=N, r=r, max_rel_diff=float((np.abs(mine - det) / np.abs(det)).max()),
+                             min_abs_det=float(np.abs(det).min())))
+            print(rows[-1], flush=True)
+    json.dump(dict(rows=rows), open(out, "w"), indent=1)
+    return 0
+
+
 def timing():
     rng = np.random.default_rng(1)
     ds = configs(rng, 4)
@@ -76,5 +97,7 @@ def timing():
 if __name__ == "__main__":
     if sys.argv[1] == "ugate":
         sys.exit(ugate(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 8))
+    if sys.argv[1] == "largen":
+        sys.exit(largen(sys.argv[2]))
     if sys.argv[1] == "timing":
         sys.exit(timing())
