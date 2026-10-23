@@ -1640,3 +1640,17 @@ Pair-connected wording. Record it as “not validated (known answer contaminated
 L6 correction (descriptive). Re-estimate the long-baseline block variance at G = 3,000 and 10,000 with an estimator free of the within-sequence mean-subtraction bias: global mean, or the concatenated variant, plus an explicit bias correction. Report the revised zeros/long ratios next to the old ones, and update the L6 table and findings §11 if they change.
 n = 6 scoping only. Draft a design for the exact CS08 n = 6 block-variance prediction for corrected (B): the long-range term’s structure, a cost estimate scaled from Stage 2’s I₄,long, a U(N) known-answer check at n = 6, and fresh-height test geometry. Nothing runs until I’ve reviewed it.
 Pushes: 34 commits on specarith for Will. The published lowercase seal tags stay.
+
+## Seventy-fourth round (Will, 2026-10-22) — L6 correction accepted; n = 6 staged (a)–(d); shrink clarification (verbatim)
+Round 74:
+
+L6 correction accepted as applied (revised at G ≥ 3,000 only).
+n = 6, staged:
+(a) Run the U(N) exact-trace prediction for corrected (B)’s block variance now. Compare it with the L6 long baseline at every G and report agreement. Data-free.
+(b) Extraction step, time-boxed to 3 sessions: derive the long-range non-oscillating part for 3+3 clusters. Commit the gate first: it must reproduce the sine-kernel long-range result within SE. If it doesn’t pass within the budget, stop and report.
+(c) Short range: bound the arithmetic n = 6 short-range correction at a low prime cutoff before computing it fully. If it’s below the test’s resolution, carry it as a bounded systematic.
+(d) Fresh set: 5–8 files across ℓ ≈ 15.5–22 under the gap rule, chosen by a rule committed first.
+Clarify “shrink about 0.8” in the scoping draft: which quantity and which G. Reconcile it with the 0.16–0.31 zeros/long ratios before setting the test geometry.
+Nothing beyond (a) runs until (b)’s gate result and (c)’s bound come back to me.
+
+(Will, same message: "I pushed as well." The 36 commits through 3a054880 are on origin.)
