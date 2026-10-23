@@ -87,3 +87,13 @@ the exact Fredholm answer.
 
 **Round 76:** G-b2 PASS accepted. The relative/absolute tolerance coding error in the first official run is recorded
 here and in 3c16cc59, corrected to the declared absolute criterion. **Session 1 of 3 is used.**
+
+**Cost update (round 76; detail in the scoping draft §7).**
+- 1% on the total C(r) needs 10–12 nodes per coordinate, because the pieces cancel. A single (3, 3) piece needs ≥ 8
+  nodes for 0.2%: 4 and 6 nodes underestimate it by 71% and 26%.
+- At 12 nodes that is ~8.9·10⁴ configurations per r. Brute force is ruled out at any useful cutoff: ~6·10⁴ core-h
+  per height at PMAX 10³.
+- The session-2 separation is the only route to the ζ prediction.
+- G-b3 stays feasible (~15–25 core-h), because it compares at identical nodes.
+- The committed 4-node (c) bound will likely come back "not established". A 6-node variant with an 8-node spot check
+  would cost ~130 core-h; that is for Will to choose.
