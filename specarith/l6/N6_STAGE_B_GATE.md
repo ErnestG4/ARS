@@ -2,7 +2,7 @@
 
 **Task (round 74 (b)):** derive the long-range non-oscillating part of the connected correlation for 3 + 3 clusters,
 the n = 6 counterpart of `cs4/cs4lr.py`'s 2 + 2 extraction, in the form the ratios construction gives it.
-- **Time box:** 3 sessions. Session 1 is 2026-10-22, the one that commits this gate.
+- **Time box:** 3 sessions, counted from the start of the derivation, not from the gate commit (round 75).
 - If the gate below has not passed by the end of session 3, the work stops and is reported to Will.
 
 ## What is extracted
@@ -40,3 +40,24 @@ C̄(r) = mean of C over the 8 grid points in [r − ½, r + ½). The average rem
 ## Outputs
 `N6_STAGE_B.md` (the derivation, as it goes), `n6b_extract.py`, `results/n6b/GATE.json`. Nothing for ζ is evaluated
 before the gate passes and Will has seen it (round 74).
+
+## Amendment (round 75; before any derivation): two gates with ζ-regime resolution
+The U(N) gate above stays, as **G-b1**. Two more are added. **All three must pass.**
+- **G-b2, reduction.** The extracted 3 + 3 long-range term has the extra points reduced by the cumulant relations: one
+  point integrated out of each cluster against the window, so that what remains is a 2 + 2 cross-connected function of
+  the remaining points.
+  - It must reproduce the validated `cs4/cs4lr.py` 2 + 2 long-range term (`LongRangeZeta`, the non-oscillating part
+    used in Stage 2) at the same heights and r, within that term's precision.
+  - "Its precision": the larger of the evaluator's validated agreement with `cs4fastc` (worst 1.1·10⁻⁹,
+    `GS_ZETA_RESULTS.md` §2) and the prime-cutoff change from 3·10⁵ to 10⁶ in `results/gs_zeta_cutB`, at each r.
+  - Heights ℓ = 15.75 and 21.75 (F2's extremes), at r ∈ {20, 50, 100, 300, 1000}.
+- **G-b3, brute-force spot check.** At a prime cutoff of 10³, the full n = 6 quadrature of the 3 + 3 cross-connected
+  term is computed, using the n = 6 ratios construction of stage (c) after its U(N) pointwise gate passes.
+  - It covers 4–6 configurations with r ∈ [100, 500], declared now: r = 100, 173, 300 and 500 at ℓ = 15.75, plus r = 173
+    and 500 at ℓ = 21.75.
+  - It is compared with the extraction evaluated at the same cutoff.
+  - Agreement: within the brute-force quadrature's own error, estimated by 4 against 6 Gauss–Legendre nodes per
+    coordinate, or 1% of the brute-force value if that is larger.
+- **Power:** the two deliberately wrong variants (one-bond only; two-bond with reversed sign) must fail all three
+  gates, G-b1, G-b2 and G-b3. A variant that passes any gate makes that gate uninformative, and that is reported as
+  such.

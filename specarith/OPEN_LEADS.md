@@ -156,6 +156,12 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     ≤ 0.2% of CUE's block variance. It was not applied to ζ.
   - **Hypothesis (not a finding):** the deficit travels through connected terms of order > 2. That would match
     Stage 2, where the shrink came through the long-range four-point term. The cause stays open.
+- **Round 75 (n = 6 stage (a); `l6/N6_STAGE_A.md`):**
+  - For corrected (B), the exact U(N) block variance is flat in G, to 0.05%. The CUE covariance is gone by r ≈ 10.
+  - The zeros' halving of block variance between G = 300 and 10,000 is therefore entirely arithmetic long-range in
+    origin.
+  - The rounds 72–73 CUE "fall" was estimator bias: +10% at G = 300 and +5% at G = 1,000.
+  - Next: stage (b), the 3+3 long-range extraction under three gates; stage (c), the n = 6 short-range bound.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 

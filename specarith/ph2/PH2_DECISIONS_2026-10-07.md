@@ -1654,3 +1654,14 @@ Clarify “shrink about 0.8” in the scoping draft: which quantity and which G.
 Nothing beyond (a) runs until (b)’s gate result and (c)’s bound come back to me.
 
 (Will, same message: "I pushed as well." The 36 commits through 3a054880 are on origin.)
+
+## Seventy-fifth round (Will, 2026-10-22) — stage (a) accepted; stage (b) gates amended; session clock; (c) may run (verbatim)
+Round 75:
+
+Stage (a) accepted. Record in findings §11 and OPEN_LEADS L6: exact U(N) block variance for corrected (B) is flat in G (to 0.05%), and the CUE covariance is gone by r ≈ 10. The zeros’ halving of block variance between G = 300 and 10,000 is therefore entirely arithmetic long-range in origin. The rounds 72–73 CUE “fall” was estimator bias, measured as +10% at G = 300 and +5% at G = 1,000.
+Stage (b) gates, amended before any derivation. Add two gates with ζ-regime resolution:
+G-b2, reduction: the 3+3 long-range term, with the extra points reduced by the cumulant relations, must reproduce the validated cs4lr 2+2 long-range term at the same heights and r, within its precision.
+G-b3, brute-force spot check: at a prime cutoff of 10³, full n = 6 quadrature at 4–6 configurations with r ∈ [100, 500], compared with the extraction at the same cutoff.
+The U(N) gate stays. The deliberately wrong variants must fail all three gates.
+Session clock: the 3-session box starts with the derivation, not the gate commit.
+(c) and (d): as committed. (c) may run its n = 6 construction and U(N) check, then the low-cutoff bound on spot (10–100 core-hours), alongside (b). (d) stays unrun.

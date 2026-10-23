@@ -323,6 +323,13 @@ pair statistic is a candidate.
 - **Round 73 revision:** the G = 3,000 and 10,000 values use a long-baseline estimator free of the per-sequence
   bootstrap's mean-subtraction bias (`../l6/L6_BIAS_CORRECTION.md`). They were 0.58 / 0.43, 0.56 / 0.51 and 0.19 /
   0.18. The revised values match the file-sized stitched calibration's ratios.
+- **Exact U(N) block variance (round 75; `../l6/N6_STAGE_A.md`):**
+  - For corrected (B), the exact U(N) block variance is flat in G, to 0.05%. The CUE covariance is gone by r ≈ 10.
+  - The zeros' halving of block variance between G = 300 and 10,000 is therefore entirely arithmetic long-range in
+    origin.
+  - The rounds 72–73 CUE "fall" was estimator bias, measured as +10% at G = 300 and +5% at G = 1,000.
+  - Against the exact denominator, the zeros' ratio is 0.315, 0.209, 0.183 and 0.157 at G = 300, 1,000, 3,000 and
+    10,000.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
 beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long
