@@ -178,3 +178,58 @@ Total (all classes) ζ − U difference of the (3, 3) piece, ΔI₃₃ (descript
 - **Not affected:** the cutoff trend is flat (≤ 0.3% from 3·10² to 10³; ≤ 3% from 10² to 3·10²), so the low-cutoff
   premise of (c) holds.
 - **Height dependence:** at r ≥ 6, ℓ = 21.75 gives envelopes 3–6 times smaller than ℓ = 15.75.
+
+## Round 78: the bound redefined to the connected 6-point term; witnesses; pilot (committed before running)
+**Record of the error.** The round-77 amendment bounded the whole (3, 3) piece, ρ₆ − ρ₃ρ₃, by mistake. The committed
+method (`N6_STAGE_C_BOUND.md`) declared the arithmetic part of ρ₆ only, with everything through ρ₅ out of scope. The
+round-77 numbers above therefore bound the wrong quantity, as well as being unconverged.
+
+**The bounded quantity (round 78).**
+- **T₆** is the fully connected (Ursell) 6-point function. It is obtained from ρ_m on all 63 nonempty subsets of the
+  3 + 3 points by Möbius inversion over the 203 set partitions:
+  T₆ = Σ_π (−1)^{|π|−1}(|π| − 1)!·Π_{b∈π} ρ_{|b|}(x_b).
+- **Every other term of ρ₆ is a product of T_m with m ≤ 5,** i.e. through ρ₅. Those stay out of scope, as declared
+  originally.
+- **T₆ enters C(r) only through the (3, 3) piece,** with coefficient c₃c₃ = 1. So ΔC₆(r) = ∫_{A³×B³}(T₆^ζ − T₆^U),
+  ordered over the in-window Gauss–Legendre nodes (distinct sorted tuples × 3!²).
+- **Phase classes and the envelope:**
+  - Each subset's ρ_m is split by class with `FilteredModel.rho_cls`. Phases multiply, so the classes of a product add.
+  - The envelope E(r) = Σ_k |ΔT₆,k(r)| keeps round 77's phase-robust bound.
+- **Code:** `cs4/n6c_conn.py`.
+- **Local self-test (not a gate):**
+  - The Möbius sum on determinant ρ's matches the determinantal cycle formula T₆ = −Σ_{6-cycles} Π K to 1.7·10⁻¹⁴.
+  - The class-resolved Möbius sum matches the plain one to 1.1·10⁻¹⁴.
+  - On one U(N) chunk, the class sum of the construction's T₆ matches the determinant's to about 10⁻¹².
+
+**Witnesses (declared before running).**
+1. **U(N)-for-ζ null, at 8 and 10 nodes.** U(N) (N = 10⁵) takes ζ's place through an independent route: the exact
+   determinant det[K(x_i, x_j)] for every subset. The U slot is the ratios construction, exactly as in the real
+   comparison.
+   - **PASS** iff |∫(T₆^det − T₆^constr)| ≤ 4·10⁻⁷ at each node count. That is 10% of the per-r allowance:
+     4.1·10⁻⁶ = 3.3·10⁻⁴/(2·40).
+   - **Why not the same code twice:** that would be zero bit for bit and could not fire.
+   - **The null compares class sums,** because the determinant has no class split.
+   - **It must be able to fire.** A planted arithmetic part, ρ₆ of the determinant slot × (1 + 10⁻⁸), goes through the
+     same Möbius sum. It gives about 7·10⁻⁶, near the per-r allowance.
+   - The null passes only if the planted case exceeds the tolerance AND its measured size (planted minus unplanted)
+     matches 10⁻⁸·∫ρ₆^det within 10%.
+2. **Convergence, 8 against 10 nodes** (ζ ℓ = 15.75, PMAX 10², r = 6). Both the envelope E and the class-summed ΔI must
+   satisfy |X₈ − X₁₀| ≤ 0.2·|X₁₀| + 4·10⁻⁷. The 0.2 sits inside the bound's safety factor of 2. The absolute term is the
+   null tolerance.
+
+**Pilot (round 78: "one or two r values (r = 6 included) at 8 and 10 nodes on ζ, plus the null").**
+- **Runs:** r = 6 only, ζ (ℓ = 15.75, PMAX 10²) and U(N) (construction plus determinant), at 8 and 10 nodes.
+- **Size:** 3,136 + 14,400 configurations per model, 2,192 tasks of 16.
+- **Cost:** measured locally at 440 s per ζ chunk and 190 s per U chunk, so about 190 core-h. That is about 11 h on
+  spot at 28 processes.
+- **Why one r:** a second r would double the cost. The 10-node grid is the expensive part, and r = 6 is the declared
+  check point.
+- **Reading:** FULL_RUN_ALLOWED iff the pilot CONVERGES and the null PASSES (with its witness). It is reported to Will
+  either way.
+- **The full computation does not start without Will.** Its size, scaled from the measured costs: 8 nodes on round
+  77's case list, ζ at 26 (case, r) and U(N) at 8 r, about 700 core-h. The 10-node check is already in the pilot.
+  - Before then, the 8-node grids at r < 4 must be checked for separation ≥ 0.1. The round-77 grid was chosen for 6
+    nodes.
+- **Descriptive only:** `B6_from_r6_only` = 2·40·E₁₀(6) is reported, and it is not a bound.
+
+Code: `cs4/n6c_conn.py`. Launcher: `cs4/run_n6c_pilot_spot.sh`. Outputs: `cs4/results/n6c/pilot/`.

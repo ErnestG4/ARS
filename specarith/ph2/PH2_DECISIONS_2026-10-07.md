@@ -1691,3 +1691,12 @@ The fix for ζ: evaluate the full function on the estimator’s 1/8-unit r grid,
 Stage (c) bound: 6 nodes plus an 8-node convergence check (about 130 core-hours) on spot. Commit before running.
 Sibling check: confirm that Stage 2’s dropped ℓ-oscillating part (≤ 0.9% at 2+2) was computed, not assumed, and carried as a systematic. List any other banked result that used the phase filter as exact.
 Time box unchanged: 1 of 3 sessions used. If G-b1 and G-b3 aren’t passing by the end of session 3, stop and report. Record the beat-term finding (it carries 1–30% of the 3+3 long-range piece at r ≤ 500) either way.
+
+## Seventy-eighth round (2026-10-23) — (c) redefined to the connected 6-point term; witnesses; pilot first; (b) session 2 starts (verbatim)
+Round 78:
+(c) redefinition. Commit before running: the bounded quantity is the arithmetic part (ζ − U) of the fully connected 6-point term only. Everything through ρ₅ stays out of scope, as originally declared. Record that the round-77 amendment bounded the whole (3,3) piece by mistake.
+(c) witnesses, committed before running.
+U(N)-for-ζ null: the arithmetic part must be zero to within precision, at 8 and 10 nodes.
+Convergence: 8 against 10 nodes, with the agreement criterion declared in advance.
+(c) pilot first. One or two r values (r = 6 included) at 8 and 10 nodes on ζ, plus the null. Report to me. Run the full computation (about 800 core-hours on spot) only if the pilot converges and the null passes.
+Stage (b) session 2: start now, in parallel. Use the full-function expansion with exact phases, evaluate at several heights per file (to answer the averaging question), and use G-b1 and G-b3 as the gates. Time box: this is session 2 of 3.
