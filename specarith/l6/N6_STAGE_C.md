@@ -264,3 +264,9 @@ Code: `cs4/n6c_conn.py`. Launcher: `cs4/run_n6c_pilot_spot.sh`. Outputs: `cs4/re
   ζ − U difference.
 - **New size and cost:** 14,400 (8 nodes) and 48,400 (10 nodes) configurations per model, 7,850 tasks of 16. The
   configurations with a repeated node cost ρ₅ or less, so the estimate is ~220 core-h, ~12–13 h on spot.
+- **Relaunch 2 (performance only).** The chunk-16 relaunch was stopped after ~45 min (161 of 7,850 tasks; set aside
+  as `pilot_run2_chunk16`).
+  - **Why:** at 16 configurations per task, numpy overhead dominates. Measured locally per point: ζ (PMAX 10²) 15.8 s at
+    batch 16 against 7.0 s at batch 128; U(N) 8.3 s at batch 16 against 0.39 s at batch 2048.
+  - **Change:** chunks of 128 (ζ) and 512 (U), 616 tasks. Nothing else changes: quantity, rule, witnesses, criteria
+    and sums.

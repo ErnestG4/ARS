@@ -31,7 +31,7 @@ import numpy as np
 
 import n6b_extract as E
 
-CHUNK = 16
+CHUNK = {"zeta": 128, "U": 512}   # per-task batch (performance only: numpy overhead dominates at 16; ζ ~2×, U ~20× faster)
 N_U = 100_000
 KMAX = 3
 PILOT = [("zeta", 15.75, 100, 6.0, 8), ("zeta", 15.75, 100, 6.0, 10), ("U", 0.0, 0, 6.0, 8), ("U", 0.0, 0, 6.0, 10)]
@@ -131,7 +131,7 @@ def task(kind, ell, pmax, r, nq, c, out_dir):
     if os.path.exists(path):
         return 0
     PA, PB, W, IA, IB = configs(nq)
-    sl = slice(c * CHUNK, (c + 1) * CHUNK)
+    sl = slice(c * CHUNK[kind], (c + 1) * CHUNK[kind])
     PA, PB, W, IA, IB = PA[sl], PB[sl], W[sl], IA[sl], IB[sl]
     n = len(W)
     pts = [PA[:, k] for k in range(3)] + [PB[:, k] + r for k in range(3)]
@@ -169,7 +169,7 @@ def task(kind, ell, pmax, r, nq, c, out_dir):
 def jobs():
     out = []
     for kind, ell, pmax, r, nq in PILOT:
-        nc = (len(configs(nq)[2]) + CHUNK - 1) // CHUNK
+        nc = (len(configs(nq)[2]) + CHUNK[kind] - 1) // CHUNK[kind]
         out += [(kind, ell, pmax, r, nq, c) for c in range(nc)]
     return sorted(out, key=lambda j: (j[0] != "zeta", -j[4]))       # the slow ζ 10-node chunks first
 

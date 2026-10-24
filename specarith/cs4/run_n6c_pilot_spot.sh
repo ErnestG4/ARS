@@ -10,7 +10,7 @@ O=results/n6c/pilot; LG=$O/logs
 mkdir -p $O $LG
 rm -f $O/ALL_DONE $O/STOPPED
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 PY O LG
-echo "$(date -Is) [CC specarith] n6 stage (c) pilot: 7850 tasks ($NPROC procs)" >> ~/claude-work.log
+echo "$(date -Is) [CC specarith] n6 stage (c) pilot: 616 tasks ($NPROC procs)" >> ~/claude-work.log
 $PY n6c_conn.py jobs > $O/jobs.txt
 xargs -P "$NPROC" -L 1 sh -c 'nice -n 10 $PY n6c_conn.py task $0 $1 $2 $3 $4 $5 $O >> $LG/tasks.log 2>&1 || echo "$0 $1 $2 $3 $4 $5" >> $LG/failed.txt' < $O/jobs.txt
 [ -s $LG/failed.txt ] && { echo "task failures" > $O/STOPPED; exit 1; }
