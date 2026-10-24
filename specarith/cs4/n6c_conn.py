@@ -55,12 +55,34 @@ PARTS = [(sorted(tuple(b) for b in p), (-1) ** (len(p) - 1) * math.factorial(len
 SUBSETS = [s for m in range(1, 7) for s in itertools.combinations(range(6), m)]
 
 
+def _multisets(nq):
+    """The product Gauss–Legendre rule on [0, 4]³ folded by symmetry: sorted node multisets i ≤ j ≤ k, weight
+    (3!/Π mult!)·Π w. Unlike E._tuples (distinct nodes only), it keeps the in-cluster diagonal, where T₆ ≠ 0."""
+    x, w = np.polynomial.legendre.leggauss(nq)
+    x, w = 2 * (x + 1), 2 * w
+    T = list(itertools.combinations_with_replacement(range(nq), 3))
+    I = np.array(T)
+    W = np.array([math.factorial(3) / np.prod([math.factorial(t.count(v)) for v in set(t)]) * np.prod(w[list(t)]) for t in T])
+    return x[I], I, W
+
+
 def configs(nq):
-    XA, WA = E._tuples(nq, 3)
-    PA = np.repeat(XA, len(XA), 0)
-    PB = np.tile(XA, (len(XA), 1))
-    W = np.repeat(WA, len(XA)) * np.tile(WA, len(XA))
-    return PA, PB, W
+    XA, IA, WA = _multisets(nq)
+    m = len(WA)
+    PA, PB = np.repeat(XA, m, 0), np.tile(XA, (m, 1))
+    IAx, IBx = np.repeat(IA, m, 0), np.tile(IA, (m, 1))
+    W = np.repeat(WA, m) * np.tile(WA, m)
+    return PA, PB, W, IAx, IBx
+
+
+def valid(s, IA, IB):
+    """Rows where the subset s has no repeated node within a cluster (else its ρ is exactly 0: ρ_m ∝ d² at coincidence)."""
+    ok = np.ones(len(IA), bool)
+    for a, b in itertools.combinations(s, 2):
+        if (a < 3) == (b < 3):
+            Ia, Ib = (IA[:, a], IA[:, b]) if a < 3 else (IB[:, a - 3], IB[:, b - 3])
+            ok &= Ia != Ib
+    return ok
 
 
 def mobius_cls(rho):
@@ -108,20 +130,24 @@ def task(kind, ell, pmax, r, nq, c, out_dir):
     path = os.path.join(out_dir, tname(kind, ell, pmax, r, nq, c))
     if os.path.exists(path):
         return 0
-    PA, PB, W = configs(nq)
+    PA, PB, W, IA, IB = configs(nq)
     sl = slice(c * CHUNK, (c + 1) * CHUNK)
-    PA, PB, W = PA[sl], PB[sl], W[sl]
+    PA, PB, W, IA, IB = PA[sl], PB[sl], W[sl], IA[sl], IB[sl]
     n = len(W)
     pts = [PA[:, k] for k in range(3)] + [PB[:, k] + r for k in range(3)]
     from ratios_t6 import guard
-    guard(pts)
     M = E.FilteredModel(kind, N_U if kind == "U" else ell, pmax=pmax if kind == "zeta" else None)
     t = time.time()
     rho = {}
     for s in SUBSETS:
-        ds = [pts[i] for i in s]
-        cl = {j for j, i in enumerate(s) if i >= 3}
-        rho[s] = _cls_array(M.rho_cls(ds, cl), n)
+        ok = valid(s, IA, IB)
+        rho[s] = np.zeros((n, 2 * KMAX + 1), complex)
+        if ok.any():
+            ds = [pts[i][ok] for i in s]
+            if len(s) > 1:
+                guard(ds)
+            cl = {j for j, i in enumerate(s) if i >= 3}
+            rho[s][ok] = _cls_array(M.rho_cls(ds, cl), int(ok.sum()))
     T6 = mobius_cls(rho)
     g = {str(k - KMAX): [float(np.sum(W * T6[:, k].real)), float(np.sum(W * T6[:, k].imag))] for k in range(2 * KMAX + 1)}
     rec = dict(kind=kind, ell=ell, pmax=pmax, r=r, nq=nq, chunk=c, n=n, g=g,
@@ -228,6 +254,44 @@ def selftest():
     return 0
 
 
+def _K(x, y):
+    X = x[:, None] - y[None, :]
+    out = np.ones_like(X)
+    nz = np.abs(X) > 1e-15
+    out[nz] = np.sin(np.pi * X[nz]) / (N_U * np.sin(np.pi * X[nz] / N_U))
+    return out
+
+
+def T_trace(i, j, r, nq):
+    """∫_{A^i×B^j} T_{i+j} for U(N) by the full product GL rule and the determinantal cycle formula (cyclic traces)."""
+    x, w = np.polynomial.legendre.leggauss(nq)
+    xa, wa = 2 * (x + 1), 2 * w
+    xb, wb = xa + r, wa
+    sq = {"A": np.sqrt(wa), "B": np.sqrt(wb)}
+    pt = {"A": xa, "B": xb}
+    blk = {(u, v): sq[u][:, None] * _K(pt[u], pt[v]) * sq[v][None, :] for u in "AB" for v in "AB"}
+    m, tot = i + j, 0.0
+    for pos in itertools.combinations(range(m), i):
+        wd = ["A" if t in pos else "B" for t in range(m)]
+        P = np.eye(nq)
+        for t in range(m):
+            P = P @ blk[(wd[t], wd[(t + 1) % m])]
+        tot += np.trace(P)
+    return (-1) ** (m - 1) * math.factorial(i) * math.factorial(j) / m * tot
+
+
+def quadtest(r=6.0):
+    """The folded multiset rule (Möbius on determinant ρ's) against the product-rule trace formula; and the converged
+    reference (24 nodes). Local, not a gate."""
+    for nq in (6, 8, 10):
+        PA, PB, W = configs(nq)[:3]
+        pts = [PA[:, k] for k in range(3)] + [PB[:, k] + r for k in range(3)]
+        rd = {s: E._det_rho(np.stack([pts[i] for i in s], -1), N_U) for s in SUBSETS}
+        print(nq, "multiset", float(np.sum(W * mobius(rd))), "trace", T_trace(3, 3, r, nq), flush=True)
+    print("reference (24 nodes, trace)", T_trace(3, 3, r, 24))
+    return 0
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "task":
         sys.exit(task(sys.argv[2], float(sys.argv[3]), int(sys.argv[4]), float(sys.argv[5]), int(sys.argv[6]),
@@ -238,5 +302,7 @@ if __name__ == "__main__":
         sys.exit(0)
     if sys.argv[1] == "summary_pilot":
         sys.exit(summary_pilot(sys.argv[2]))
+    if sys.argv[1] == "quadtest":
+        sys.exit(quadtest())
     if sys.argv[1] == "selftest":
         sys.exit(selftest())

@@ -233,3 +233,34 @@ round-77 numbers above therefore bound the wrong quantity, as well as being unco
 - **Descriptive only:** `B6_from_r6_only` = 2·40·E₁₀(6) is reported, and it is not a bound.
 
 Code: `cs4/n6c_conn.py`. Launcher: `cs4/run_n6c_pilot_spot.sh`. Outputs: `cs4/results/n6c/pilot/`.
+
+### Round 78 pilot: quadrature-rule defect, found ~8 min after launch; stopped; corrected before any result
+- **The defect.** The pilot as committed (56ef7961) integrated T₆ with the distinct-node rule inherited from round 77
+  (`E._tuples`: distinct sorted node tuples × 3!). That rule equals the product Gauss–Legendre rule only for integrands
+  that vanish at in-cluster coincidence.
+  - ρ_m and ρ₆ − ρ₃ρ₃ vanish there. That is why rounds 76–77, G-b3 and the algebra check are unaffected.
+  - T₆ does not vanish there: for the sine process, T₂(x, x) = −1.
+- **Measured** (U(N), determinants, r = 6; `cs4/n6c_conn.py quadtest` and a local check):
+  - The distinct-node rule gives +1.5·10⁻³, −2.4·10⁻³, −7.5·10⁻³ and −5.4·10⁻³ at 6, 8, 10 and 12 nodes. It does not
+    converge.
+  - The product rule gives −0.04607, −0.09343, −0.095200 and −0.0952267 at 6, 8, 10 and 12 nodes; the 24-node reference
+    is −0.0952268871.
+  - At r = 20 the pattern is the same: the product rule gives −6.98046·10⁻³; the distinct rule gives −5·10⁻⁴.
+- **Action.** The pilot was stopped by explicit PIDs after ~8 min (spot; no task file had been written). This
+  correction was made before any result was read.
+- **The correction (post-hoc quadrature change; the quantity, witnesses and criteria are unchanged).**
+  - The product Gauss–Legendre rule, folded by symmetry onto sorted node multisets i ≤ j ≤ k with weight
+    (3!/Π mult!)·Π w: 120 per cluster at 8 nodes and 220 at 10.
+  - At a repeated node, every subset ρ containing both copies is set to exactly 0. Every other subset is evaluated at
+    distinct points, through the guard.
+  - **Basis:** ρ_m ∝ d² at coincidence for the ζ model too. On the mpmath path at ℓ = 15.75, PMAX 10², ρ₂ = 3.0230·10⁻⁴,
+    3.0230·10⁻⁶ and 3.0230·10⁻⁸ at d = 10⁻², 10⁻³ and 10⁻⁴. ρ₃ behaves the same way.
+- **Local checks (not gates):**
+  - The folded rule with determinant ρ's equals the product-rule trace formula to ~10⁻¹¹ at 6, 8 and 10 nodes.
+  - Construction against determinant on two 8-node U(N) chunks, one all-diagonal and one all-distinct: 2·10⁻¹⁶ and
+    7.7·10⁻¹⁵.
+  - The planted witness came back at 1.39487·10⁻⁹ against the expected 1.39487·10⁻⁹.
+- **For the convergence reading:** for U(N), 8 against 10 nodes differ by 1.9% on ∫T₆ itself. The criterion is on the
+  ζ − U difference.
+- **New size and cost:** 14,400 (8 nodes) and 48,400 (10 nodes) configurations per model, 7,850 tasks of 16. The
+  configurations with a repeated node cost ρ₅ or less, so the estimate is ~220 core-h, ~12–13 h on spot.
