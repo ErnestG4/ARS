@@ -1700,3 +1700,34 @@ U(N)-for-ζ null: the arithmetic part must be zero to within precision, at 8 and
 Convergence: 8 against 10 nodes, with the agreement criterion declared in advance.
 (c) pilot first. One or two r values (r = 6 included) at 8 and 10 nodes on ζ, plus the null. Report to me. Run the full computation (about 800 core-hours on spot) only if the pilot converges and the null passes.
 Stage (b) session 2: start now, in parallel. Use the full-function expansion with exact phases, evaluate at several heights per file (to answer the averaging question), and use G-b1 and G-b3 as the gates. Time box: this is session 2 of 3.
+
+## Seventy-ninth round (2026-10-24) — time box honored; session 3 is close-out (verbatim, with Will's reasoning)
+Will's reasoning, sent with the round:
+
+My call: honor the time box. This is the situation it was set up for. Session 2 has established that the ζ extraction G-b3 needs doesn’t exist yet, and designing, building and validating one in a single session isn’t realistic. Pushing past the box would be exactly the “one more fix” spiral we agreed to avoid.
+
+Use session 3 to close out, not to chase G-b1. G-b1 is reachable, but it would only validate the U(N) side, and stage (a)’s exact trace formula already gives us CUE’s block variance. Spending around 10³ core-hours there buys almost nothing without a ζ prediction to go with it. Session 3 should bank what this arc has actually produced:
+
+The exact four-term covariance form for disjoint windows: C(r) = κ₃₃ + 9κ₂₁κ₁₂ + 9κ₁₁κ₂₂ + 6κ₁₁³. It’s verified against Fredholm to between 10⁻¹¹ and 10⁻⁶.
+The beat-term finding: at 3+3, slow components from prime products near e^ℓ carry 1–30% of the long-range piece at fixed height. That’s why no phase-filter extraction can work for ζ at this order.
+The averaging result, once the run lands: how much the height spread within a file suppresses the beats, compared with the prediction CC stated before running.
+The (c) pilot result, as a convergence and size record. The full run of about 700 core-hours isn’t funded, because without a ζ prediction the bound has nothing to bound.
+The spectral route as an open lead. A one-page sketch: compute the near-zero-frequency content the Bartlett sum sees, prime product by prime product. Why it might work, what it would need, and an honest note that it’s new analysis. No design or costing now.
+
+What we actually learned stands on its own. The zeros’ five-fold block-variance deficit is real, entirely arithmetic and long-range, and predicting it from the ratios conjecture at 6-point order needs a new analytic tool. Knowing exactly why it’s hard is a legitimate result.
+
+Catching the in-window repeated-node defect before any result was read was handled well, and confirming the d² scaling first made the fix exact rather than just plausible.
+
+Round 79: time box honored.
+
+Let running jobs finish: the (c) pilot (about 85 core-hours) and the beat-averaging test (about 145 core-hours). Report both against their pre-stated readings.
+Don’t fund the full (c) run (about 700 core-hours) or G-b1 brute force (about 10³ core-hours). Without a ζ extraction, neither feeds a prediction.
+Session 3 is close-out. Write N6_CLOSEOUT.md containing:
+the exact four-term covariance form with its Fredholm verification;
+the beat-term finding (1–30% of the 3+3 long-range piece at fixed height, cutoff 10³);
+the averaging result;
+the (c) pilot as a convergence and size record;
+the in-window repeated-node defect, caught before any result;
+the stop: “an exact CS n = 6 prediction of corrected (B)’s block variance requires a ζ extraction that retains beat terms; not available; arc stopped at the time box.”
+Open lead L7: the spectral route, a one-page sketch only. Near-zero-frequency content of the Bartlett-weighted C(r), prime product by prime product: rationale, requirements, why it’s new analysis. No design or costing.
+Update findings §11 and OPEN_LEADS L6 to point to the close-out. Pushes to Will.

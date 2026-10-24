@@ -175,8 +175,58 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   - The amendment also bounded the full (3, 3) piece rather than the declared ρ₆ᶜ-only part. That overstates it with
     lower-order products that cancel through ψ's coefficients.
   - With Will.
+- **Round 79: the n = 6 arc is closed at the time box (`l6/N6_CLOSEOUT.md`).**
+  - **Banked:** the exact four-term covariance form (Fredholm-verified), the stage (c) quadrature-defect record, the
+    averaging result and the (c) pilot as a convergence and size record.
+  - **The beat-term finding carries a post-hoc qualification (close-out §3.2):** at r = 100 in the lowest file, ~93%
+    of the period-averaged class-1 gap is a component at 1.13 cycles per unit leaking through the two-period average.
+    It is not a near-DC beat from prime products near e^ℓ.
+  - **The cause of the deficit at 6-point order stays open.** Successor route: L7.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
+
+## L7 — the spectral route to the n = 6 long-range term (round 79; sketch only, no design or costing)
+**Rationale.**
+- Corrected (B)'s block-variance estimator is a Bartlett sum of C(r) on the window-start grid of step 1/8:
+  W(G) = Δ[C(0) + 2Σ_k (1 − kΔ/G)C(kΔ)]. In frequency this is ∫ Ĉ(f)·F_G(f) df, with F_G the Fejér kernel (width
+  ~1/G, period 8 cycles per unit).
+- The ratios construction's phase classes carry integer carriers (k ≤ 3 cycles per unit, below the grid's Nyquist of
+  4), and the arithmetic factors add prime frequencies log n/ℓ.
+- So for G ≥ 300 the estimator sees only the part of Ĉ within ~1/G of zero (plus aliases at multiples of 8). What
+  matters is the spectral content near f = 0, not C(r) pointwise.
+
+**The idea.**
+- For a fixed in-window configuration, the r-dependence of each ratios term is a carrier times a function of the prime
+  angles θ_p = 2πr·log p/ℓ.
+- Where that function is an Euler product, its Fourier modes factor over primes. A mode is indexed by a
+  multiplicative combination n = Π p^{a_p} and sits at frequency k − log n/ℓ (signs per class).
+- **The near-zero modes are an enumerable set:** carrier and prime frequencies cancelling to within ~1/G. Each comes
+  with an amplitude from the local factors. Their in-window integrals are integrals of exact plane waves, in closed
+  form.
+- Summing the kept modes with F_G gives the estimator's long-range content prime product by prime product, with no
+  r grid at all. The pointwise route needed 10⁵–10⁶ core-h per configuration (`l6/N6_STAGE_B.md` S2.3).
+
+**Why it might work.**
+- The estimator's kernel is narrow, so the kept set should be sparse at large G.
+- The amplitudes come from local factors already in the construction.
+- U(N) has no primes and reduces to the non-oscillating class, which G-b1 (i) already shows is exact for U(N).
+
+**What it would need.**
+- **ζ(1 + it) on Re s = 1,** where the Euler product does not converge absolutely. That needs a smoothed or truncated
+  Dirichlet form with a controlled error.
+- **The jets' derivatives** of the ratios construction, carried mode by mode.
+- **𝒜's θ-coupling** across up to 9 cross factors.
+- **A truncation rule in the size of n,** with an error bound.
+- **Validation:**
+  - against brute force at low prime cutoff, under the estimator's own kernel (not a period average; see
+    `l6/N6_CLOSEOUT.md` §3.2);
+  - and against cs4lr at 2 + 2, where the same decomposition must reproduce the validated term.
+
+**Why it is new analysis.**
+- No existing code computes the Fejér-weighted near-zero content of an n = 6 ratios term mode by mode.
+- cs4lr's NUFFT handles single prime sums at 2 + 2, not products of up to 9 cross factors with jets.
+- The non-absolutely-convergent factors need an analytic treatment before any code.
+- Its cost cannot be estimated until it is designed.
 
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with

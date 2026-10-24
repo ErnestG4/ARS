@@ -330,6 +330,13 @@ pair statistic is a candidate.
   - The rounds 72–73 CUE "fall" was estimator bias, measured as +10% at G = 300 and +5% at G = 1,000.
   - Against the exact denominator, the zeros' ratio is 0.315, 0.209, 0.183 and 0.157 at G = 300, 1,000, 3,000 and
     10,000.
+- **The n = 6 arc, closed at its time box (round 79; `../l6/N6_CLOSEOUT.md`):**
+  - The deficit is real, and entirely arithmetic and long-range. Predicting it from the ratios conjecture at 6-point
+    order needs a new analytic tool.
+  - Banked: the exact four-term covariance form C(r) = κ₃₃ + 9κ₂₁κ₁₂ + 9κ₁₁κ₂₂ + 6κ₁₁³, verified against Fredholm
+    to 10⁻¹¹–10⁻⁶.
+  - The arc's remaining records (beat-term finding with its post-hoc qualification, averaging, the stage (c) pilot,
+    the quadrature defect) are in the close-out. The successor route is `../OPEN_LEADS.md` L7.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
 beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long
