@@ -276,8 +276,13 @@ period-averaged gap, and it does not average out across the lowest file either.
   - Each chunk is written to `<chunk>.part`, then renamed with os.replace, so a single process's write is atomic.
   - The temporary name is shared by the two runners, so two runners finishing one chunk at the same instant are not
     protected. The later write replaces the earlier copy.
-  - 24 ζ 8-node chunks (47 and 48 still in flight at the time of writing) were computed by both runners.
-  - Bit-identity: BITCHECK_PENDING.
+  - 26 ζ 8-node chunks were computed by both runners: 47–56, 58, 59, 65–76, 78 and 86. **All 26 are bit-identical**,
+    every field except wall_s.
+  - 24 of them were overwritten before they could be diffed. Each was recomputed in the same environment and compared
+    with the stored file (`../cs4/run_n6c_dupcheck_spot.sh`): 24/24 identical.
+  - Chunks 47 and 48 were still running in the second runner after the pilot finished. The first runner's copies were
+    saved, then diffed directly against the second runner's: both identical.
+  - So the pilot summary does not depend on which runner wrote a chunk (`../cs4/results/n6c/pilot/dupcheck.tgz`).
 - **No full run follows** (rounds 79–80).
 
 ## 6. The in-window repeated-node defect, caught before any result (round 78)
