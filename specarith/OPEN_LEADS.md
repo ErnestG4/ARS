@@ -178,9 +178,11 @@ statistic, and any connection between them is a hypothesis for a future sealed t
 - **Round 79: the n = 6 arc is closed at the time box (`l6/N6_CLOSEOUT.md`).**
   - **Banked:** the exact four-term covariance form (Fredholm-verified), the stage (c) quadrature-defect record, the
     averaging result and the (c) pilot as a convergence and size record.
-  - **The beat-term finding carries a post-hoc qualification (close-out §3.2):** at r = 100 in the lowest file, ~93%
-    of the period-averaged class-1 gap is a component at 1.13 cycles per unit leaking through the two-period average.
-    It is not a near-DC beat from prime products near e^ℓ.
+  - **Round 80: the beat-term attribution is struck (close-out §3).** The G-b3 gap is carried mainly by a
+    near-carrier leak (~1.04–1.13 cycles per unit) through G-b3's two-period average: ~93% at r = 100 and ~80% at
+    r = 300 in the lowest file. The slow remainder is not e^ℓ-like either.
+  - The averaging test FAILS its pre-stated prediction (close-out §4).
+  - A post-hoc settling test under corrected (B)'s own kernel decides the stop's wording (close-out §3.3).
   - **The cause of the deficit at 6-point order stays open.** Successor route: L7.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.

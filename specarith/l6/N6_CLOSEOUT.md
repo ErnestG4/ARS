@@ -1,14 +1,23 @@
-# n = 6 arc: close-out (round 79; session 3 of 3)
+# n = 6 arc: close-out (rounds 79–80; session 3 of 3)
 
-**The stop (Will, round 79, verbatim):** "an exact CS n = 6 prediction of corrected (B)'s block variance requires a ζ
-extraction that retains beat terms; not available; arc stopped at the time box."
-- Not funded (round 79): the full stage (c) run (~700 core-h) and G-b1 by brute force (~10³ core-h). Without a ζ
-  extraction, neither feeds a prediction.
-- A post-hoc qualification of what "beat terms" refers to came in during close-out (§3.2). It bears on the wording of
-  the stop, not on the decision to stop. The wording is Will's call.
+**The stop: pending the round-80 settling test (§3.3).** Round 80 fixed both readings in advance:
+- **PASS at both points** → "paused at the time box; extraction viable under the estimator's kernel; resumption is a
+  new arc, Will's call".
+- **FAIL at either** → "extraction inadequate under the estimator's own kernel", with the slow-content share at each
+  point.
+
+Not funded either way (rounds 79–80): the full stage (c) run (~700 core-h) and G-b1 by brute force (~10³ core-h).
+
+**Struck in round 80.** Two statements are withdrawn:
+- round 79's stop wording, "an exact CS n = 6 prediction of corrected (B)'s block variance requires a ζ extraction that
+  retains beat terms; not available; arc stopped at the time box";
+- round 77's inference, "no phase-filter extraction can work for ζ at this order".
+
+Both were asserted before the averaging test (§4) and the shift-resolved reading (§3.2). That reading shows the G-b3
+gap is carried mainly by a near-carrier leak through G-b3's two-period average, not by beat terms.
 
 Records: `N6_STAGE_A.md`, `N6_STAGE_B.md`, `N6_STAGE_B_GATE.md`, `N6_STAGE_C.md`, `N6_STAGE_C_BOUND.md`; the decision
-log is `../ph2/PH2_DECISIONS_2026-10-07.md`, rounds 74–79.
+log is `../ph2/PH2_DECISIONS_2026-10-07.md`, rounds 74–80.
 
 ## 1. What stands
 - **The deficit.** The zeros' block variance for corrected (B), against the exact U(N) value, is R(G) = 0.315, 0.209,
@@ -16,7 +25,8 @@ log is `../ph2/PH2_DECISIONS_2026-10-07.md`, rounds 74–79.
 - **Its origin is arithmetic and long-range.** The exact U(N) block variance is flat in G to 0.05%, and CUE's
   covariance is gone by r ≈ 10. So the zeros' fall with G is entirely the zeros' own long-range arithmetic structure.
   The rounds 72–73 CUE "fall" was estimator bias.
-- **Predicting it from the ratios conjecture at 6-point order needs a new analytic tool.** §2–§5 record why.
+- **Predicting it from the ratios conjecture at 6-point order is not done.** §2–§6 record how far the arc got and why
+  it stopped.
 
 ## 2. The exact four-term covariance form (stage (b), S2.1)
 For disjoint windows (r ≥ 4), with ψ(X) = X³ − 3σ²X the influence function of the κ₃ estimator:
@@ -43,60 +53,133 @@ For disjoint windows (r ≥ 4), with ψ(X) = X³ − 3σ²X the influence functi
   κ^{[3,3]} = −2.75·10⁻⁴ and κ^{[1,1]} = −8.1·10⁻⁵, four to five orders. That is the determinantal rigidity, and why
   G-b1 needs ~12 nodes per coordinate.
 
-## 3. The beat-term finding (stage (b), G-b3; round 77) and its close-out qualification
-### 3.1 As recorded in round 77
-G-b3 compared the (3, 3) piece at ζ PMAX 10³, at identical in-window nodes, on two sides. The brute side was the
-unfiltered construction. The extraction side was the phase filter's non-oscillating class. Both were averaged over 15
-triangular shifts, a two-period average that removes pure integer-frequency carriers exactly. The gap, brute minus
-extraction, was 1–30% of the piece at r ≤ 500:
-- ℓ = 15.75: 31%, 8%, 6% and 2.5% at r = 100, 173, 300 and 500;
+## 3. The G-b3 gap: a near-carrier leak through the two-period average (round 80 rewrite)
+### 3.1 The sealed gate (round 77; stays as sealed)
+**What G-b3 compared.** The (3, 3) piece at ζ PMAX 10³, at identical in-window nodes, on two sides:
+- **brute:** the unfiltered construction;
+- **extraction:** the phase filter's non-oscillating class.
+
+Both sides were averaged over 15 triangular shifts. That is a two-period average, which removes pure integer-frequency
+carriers exactly.
+
+**The gap,** brute minus extraction:
+- ℓ = 15.75: 31%, 8%, 6% and 2.5% of the piece at r = 100, 173, 300 and 500;
 - ℓ = 21.75: 1.0% and 1.6% at r = 173 and 500.
 
-G-b3 FAILED as declared, and both wrong variants failed, so the gate had power. Round 77 attributed the gap to beat
-terms: slow components from products of primes near e^ℓ mixing with the carrier. Hence "no phase-filter extraction
-can work for ζ at this order."
+**G-b3 FAILED as declared.** Both wrong variants failed, so the gate had power. That FAIL stands.
 
-### 3.2 Close-out qualification (post-hoc, descriptive; r = 100 and 300, lowest corrected (B) file only)
-The averaging run (§4) stores every shift separately, so the content behind the gap can be resolved at r = 100. It
-does not look like near-DC beats.
-- **What the class-1 content is.**
-  - Across the 15 shifts it advances by −0.885 rad per 1/8 step, at all 8 heights. That is a frequency of
-    −1.127 cycles per unit: the carrier (−1) plus an offset of −0.127 cycles per unit, i.e. log n/ℓ with log n ≈ 2.0
-    (n ≈ 7, small primes).
-  - A beat from n ≈ e^ℓ would sit near 0 cycles per unit.
-- **The across-file rotation agrees independently.** Across the file the class-1 value rotates by 0.27 rad. A beat
-  with log n ≈ ℓ would rotate 1.75 rad; 0.27 rad matches log n ≈ 2–3.
-- **So most of the gap is leakage, not beats.** The two-period triangular average passes about 1% of a component at
-  1.13 cycles per unit, and this component has amplitude ~10–16. That leakage makes up most of the class-1 gap.
-  - A descriptive fit separates the two: a polynomial envelope times e^{2πifs} with f free, plus a constant and a linear
-    term. It attributes ~93% of the class-1 gap to the 1.13-cycle component (−0.26 of −0.28). It leaves a near-DC part
-    of −0.015 to −0.021, which also does not rotate like an e^ℓ beat.
-  - The class-1 fit leaves 0.3–0.4% of the rms.
-  - Class 2 behaves the same way: −2.09 cycles per unit, with 3–9% of the rms left.
-  - Class 3 is not resolved: the fit hits the scan edge with 47–49% left. It carries ~1% of the gap.
-  - Caveat: a 1.75-unit window cannot separate true DC from frequencies |f| ≲ 0.3, so "near-DC" here is that whole band.
-  - Generator: `../cs4/n6b_lavg_shiftfit.py` → `../cs4/results/n6b/lavg_r100/SHIFTFIT_100.0.json`.
-- **Consequence.**
-  - What G-b3 measured is the content that a two-period average passes. The block estimator's Bartlett sum at
-    G ≥ 300 on the 1/8 grid suppresses a 1.13-cycle component far more strongly.
-  - **At this point, therefore, the 31% gap overstates what the estimator sees of classes k ≠ 0 by roughly an order of
-    magnitude.** By the fit, the near-DC part is ~0.5% of the piece, against the 8% TRI residual summed over classes in
-    this file.
-  - The round-77 attribution to prime products near e^ℓ is not supported here.
-- **At r = 300 (16 heights; `../cs4/results/n6b/lavg/SHIFTFIT_300.0.json`) the picture is the same, less extreme.**
-  - The class-1 content sits at −1.03 to −1.05 cycles per unit, with 0.4–0.9% of the rms left by the fit. Across the
-    file it rotates by about −0.2 rad, against the ~4.6 rad of an e^ℓ beat.
-  - The oscillating component carries ~80% of the class-1 gap: −0.29 to −0.37 of −0.35 to −0.46.
-  - The near-DC part is −0.06 to −0.085 per class, so about 20% of the gap, and it does not rotate like an e^ℓ beat
-    either.
-  - Class 2 behaves the same way (−2.2 cycles per unit); class 3 is ≤ 0.002 and only partly resolved.
-  - **So at r = 300 the G-b3-style gap overstates the near-DC content by ~5×,** against ~10× at r = 100.
-- **What is not established:**
-  - the higher height (ℓ = 21.75), r ≥ 500 and the other G-b3 points;
-  - whether the phase filter would pass a gate built on the estimator's own kernel;
-  - the fit is model-dependent.
-- **What would settle it:** re-evaluating the G-b3 points with the estimator's own kernel (Fejér at G on the 1/8 grid)
-  in place of the two-period average. That is not run; it is offered to Will (§8).
+**Superseded:**
+- round 77 attributed the gap to beat terms (slow components from products of primes near e^ℓ mixing with the
+  carrier);
+- round 77 inferred that no phase-filter extraction can work for ζ at this order.
+
+Both are struck (header; round 80).
+
+### 3.2 What carries the class-1 gap (post-hoc, descriptive; lowest corrected (B) file, r = 100 and 300)
+**Main carrier: a near-carrier leak.**
+- **The component.** The class-1 content that passes G-b3's two-period average is dominated by a component at about
+  1.04–1.13 cycles per unit: the carrier plus a small-prime offset of log n/ℓ, with log n ≈ 0.6–2.
+  - −1.127 at r = 100;
+  - −1.03 to −1.05 at r = 300.
+- **How it was read.** The averaging run (§4) stores all 15 shifts at each height, so the phase advance per 1/8 step
+  gives the frequency directly. A fit of a polynomial envelope × e^{2πifs}, plus a constant and linear part, leaves
+  0.3–0.9% of the rms.
+- **The leak.** The two-period triangular average passes ~10⁻² (r = 100) to ~10⁻³ (r = 300) of this component. Its
+  amplitude is ~10–16, so the leak makes up most of the gap:
+
+  | | r = 100 | r = 300 |
+  |---|---|---|
+  | leak, share of the class-1 gap | ~93% | ~80% |
+  | leak, value | −0.26 of −0.28 | −0.29 to −0.37 of −0.35 to −0.46 |
+
+**The slow remainder is not e^ℓ-like either.**
+- **Size:** the near-DC part (|f| ≲ 0.3; a 1.75-unit window cannot resolve finer) is −0.015 to −0.021 per class at
+  r = 100 and −0.06 to −0.085 at r = 300. That is ~7% and ~20% of the class-1 gap.
+- **Rotation:** across the file it rotates no faster than the leak component, which turns 0.27 rad (r = 100) and
+  ~0.2 rad (r = 300). An e^ℓ beat would rotate 1.75 and ~4.6 rad.
+
+**Classes 2 and 3.**
+- Class 2 behaves like class 1: −2.09 cycles per unit at r = 100 and −2.2 at r = 300, with 3–20% of the rms left by the
+  fit.
+- Class 3 is small (≤ 1% of the gap) and only partly resolved.
+
+**Generators:** `../cs4/n6b_lavg_shiftfit.py` → `../cs4/results/n6b/lavg_r100/SHIFTFIT_100.0.json` and
+`../cs4/results/n6b/lavg/SHIFTFIT_300.0.json`.
+
+**What this does and does not establish.** The block estimator's own kernel suppresses a ~1.1-cycle component far
+more strongly than G-b3's average does. So G-b3's gap overstates the slow content: ~10× at r = 100 and ~5× at r = 300
+in this file. Whether the phase filter passes under the estimator's own kernel is the settling test (§3.3). The fit is
+model-dependent, and ℓ = 21.75 and r ≥ 500 are not resolved.
+
+### 3.3 The settling test (round 80; POST-HOC; declared and committed before computing; `../cs4/n6b_settle.py`)
+**The kernel, derived from the estimator code (`../cs4/b2_est.py`).**
+- **The window starts.** They are u_q + jL, with u_q = qL/NU, q < NU = 32 and L* = 4. Every start lies on the grid
+  kΔ, Δ = 1/8.
+- **Segments.** A window belongs to the segment holding its start. Each offset puts exactly G/L windows in a segment.
+- **Linearisation.** Linearising the offset-averaged k-statistic gives k̄₃ − κ₃ = (1/NU) Σ_q (1/n_q) Σ_j ψ(d_qj). So
+  W(G) = G·Var(segment mean) = Δ Σ_k c_k C(kΔ), where c_k are the lag counts of the enumerated starts divided by
+  M = G/Δ.
+- **Check.** Enumerated from the code's start rule, c_k equals the Bartlett weights 1 (k = 0) and 2(1 − k/M) to
+  2·10⁻¹⁶, at all four G.
+- **Not modelled:** the k-statistic's nonlinear O(1/n) terms and the bootstrap's centring (stage (a)'s n_s/(n_s − 1)).
+  These are the same as in stage (a).
+
+**Known answer: PASS (run locally before any ζ point;** `../cs4/results/n6b/settle/KERNEL.json`**).** The kernel
+applied to stage (a)'s exact U(N) C(kΔ) (all 80,001 points) reproduces stage (a)'s W_B at relative 0–2.2·10⁻¹⁶. The
+criterion was 10⁻⁹:
+
+| G | W_B |
+|---|---|
+| 300 | 0.211190771786 |
+| 1,000 | 0.211117034265 |
+| 3,000 | 0.211095915943 |
+| 10,000 | 0.211088507392 |
+
+Stage (a) was itself checked against the L6 long CUE baseline: AGREES, max |z| 2.14.
+
+**Point evaluation.**
+- **The partition.** The kernel is global (r ∈ [0, G)). A point value is one member of an exact partition of it:
+  τ(x) = cos²(π/2·β(|x|/h)), with β the smootherstep 6t⁵ − 15t⁴ + 10t³ and h = 5. It satisfies Σ_j τ(r − jh) = 1, so
+  W = Σ_j Δ Σ_k c_k τ(kΔ − jh) C(kΔ) exactly.
+- **The local kernel.** At r₀ it is w(r) = c(r)·τ(r − r₀) on r = r₀ + kΔ, |k| ≤ 39 (79 points), normalised to Σw = 1,
+  with c at G = 10,000.
+- **Transfer (predicted, from the weights):**
+  - |T| ≤ 5.4·10⁻⁵ anywhere in [0.9, 1.2] cycles per unit: −3.6·10⁻⁶ at 1.04 and 7.8·10⁻⁶ at 1.13;
+  - ≤ 1.5·10⁻⁷ in [1.9, 2.4];
+  - 0.980 at 0.02 and 0.882 at 0.05.
+  - For comparison, G-b3's two-period average passes ~10⁻²–10⁻³ near 1.1.
+
+**Quantity, points and tolerance (G-b3's, unchanged).**
+- **Quantity:** the (3, 3) piece at ζ PMAX 10³, ℓ = 15.75, 4 in-window nodes.
+  - brute = Σ classes (ρ₆ − ρ₃ρ₃);
+  - extraction = class 0 − ρ₃ρ₃;
+  - both under w.
+- **Points:** r₀ = 100 and 300.
+- **Tolerance:** |brute − extraction| ≤ 0.01·|brute|.
+
+**Witnesses (on the real per-point values, in `summary`).**
+- **Tone.** Plant 16·e^{±2πi·1.04(r − r₀)} in classes ±1, where 16 is the largest measured class-1 amplitude. The
+  change in brute − extraction must:
+  - match the predicted 2·16·T(1.04) within 1%;
+  - stay ≤ 10% of the tolerance (a near-carrier leak cannot decide the reading).
+- **Slow.** Plant A_s·cos(2π·0.02(r − r₀)) in classes ±1, with |A_s| = 3 × tolerance and the sign of the measured gap.
+  The change must match A_s·T(0.02) within 1%, and the planted reading must FAIL (the test can see slow content).
+- **WITNESS_OK** iff all four hold at both points.
+
+**Synthetic check of the code path (local, not a gate).**
+- A class-1 tone of amplitude 16 at 1.13 cycles per unit, plus a slow part of −0.002 per class, reads PASS: share
+  −0.3%, leak 1.1·10⁻⁴.
+- The same with −0.05 per class reads FAIL: share −9.1%.
+- The witnesses matched their predictions in both cases.
+
+**Reading.**
+- **PASS** iff the known answer holds, WITNESS_OK, and both points are within tolerance.
+- **FAIL** iff the known answer holds, WITNESS_OK, and either point is outside tolerance. The slow-content share
+  (brute − extraction)/brute is reported at each point.
+- **VOID** otherwise.
+
+**Cost and run.** 158 point tasks, measured at ~0.7 core-h each on spot (the averaging run's tasks are the same
+computation): ~110 core-h. Launcher `../cs4/run_n6b_settle_spot.sh`; outputs `../cs4/results/n6b/settle/`.
 
 ## 4. The averaging result (stage (b), S2.2; `../cs4/n6b_lavg.py`)
 **Declared before running:** the file average multiplies class k's beat by S(r, k), the dephasing of a beat with
@@ -115,7 +198,7 @@ beside S.
 | ±2 | 0.826 | 0.567 |
 | ±3 | 0.940 | 0.192 |
 
-- **The summed beat** (classes k ≠ 0) is −0.547 to −0.571 across the file. Its file average is −0.562, with
+- **The summed class content k ≠ 0** ("beat" in LAVG.json) is −0.547 to −0.571 across the file. Its file average is −0.562, with
   rms over ℓ 0.562.
 - **Reading against the prediction: the prediction FAILS.** The class contents dephase far less than S predicts, at
   every k. File-averaging within the lowest file removes essentially none of the period-averaged class content at
@@ -137,7 +220,7 @@ beside S.
 | ±2 | 0.605 | 0.167 |
 | ±3 | 0.888 | 0.132 |
 
-- **The summed beat** is −0.69 to −0.91 across the file, with file average −0.846 and rms over ℓ 0.849. The full
+- **The summed class content k ≠ 0** is −0.69 to −0.91 across the file, with file average −0.846 and rms over ℓ 0.849. The full
   (3, 3) piece runs from −0.84 to −6.54 across the same file.
 - **Reading against the prediction: FAILS again, more widely.** S predicted a five-fold suppression of class 1; there
   is none.
@@ -199,6 +282,7 @@ period-averaged gap, and it does not average out across the lowest file either.
 
 ## 8. Open
 - **L7, the spectral route** (`../OPEN_LEADS.md` L7): a sketch only.
+- **Superseded by round 80:** the offer below is now the settling test (§3.3).
 - **Offered to Will, not run:** the estimator-kernel version of G-b3 (§3.2), which would settle whether the phase
   filter is what the estimator needs at 3 + 3.
   - **Rough size:** two G-b3 points (ℓ = 15.75, r = 100; ℓ = 21.75, r = 173) with a ±4-unit shift window at 1/8 in place

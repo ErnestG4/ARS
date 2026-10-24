@@ -1,0 +1,38 @@
+{
+ "label": "round 80 settling test: kernel derived from b2_est and the stage (a) known answer",
+ "G": {
+  "300": {
+   "M": 2400,
+   "max_dev_from_bartlett": 2.220446049250313e-16,
+   "W_kernel": 0.21119077178567097,
+   "W_stage_a": 0.21119077178567092,
+   "rel": 2.220446049250313e-16,
+   "ok": true
+  },
+  "1000": {
+   "M": 8000,
+   "max_dev_from_bartlett": 2.220446049250313e-16,
+   "W_kernel": 0.21111703426513254,
+   "W_stage_a": 0.2111170342651325,
+   "rel": 2.220446049250313e-16,
+   "ok": true
+  },
+  "3000": {
+   "M": 24000,
+   "max_dev_from_bartlett": 2.220446049250313e-16,
+   "W_kernel": 0.2110959159432208,
+   "W_stage_a": 0.2110959159432208,
+   "rel": 0.0,
+   "ok": true
+  },
+  "10000": {
+   "M": 80000,
+   "max_dev_from_bartlett": 2.220446049250313e-16,
+   "W_kernel": 0.21108850739246943,
+   "W_stage_a": 0.21108850739246948,
+   "rel": 2.220446049250313e-16,
+   "ok": true
+  }
+ },
+ "KNOWN_ANSWER_OK": true
+}

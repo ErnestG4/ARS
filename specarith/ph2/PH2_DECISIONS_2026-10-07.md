@@ -1731,3 +1731,19 @@ the in-window repeated-node defect, caught before any result;
 the stop: “an exact CS n = 6 prediction of corrected (B)’s block variance requires a ζ extraction that retains beat terms; not available; arc stopped at the time box.”
 Open lead L7: the spectral route, a one-page sketch only. Near-zero-frequency content of the Bartlett-weighted C(r), prime product by prime product: rationale, requirements, why it’s new analysis. No design or costing.
 Update findings §11 and OPEN_LEADS L6 to point to the close-out. Pushes to Will.
+
+## Eightieth round (2026-10-24) — averaging FAIL recorded; §3 rewritten; settling test (post-hoc) under the estimator's kernel; waiter; pilot runners (verbatim)
+Round 80.
+
+Averaging test: recorded as FAIL against its pre-stated prediction at r = 100 and r = 300 (close-out §4). Rewrite close-out §3 so the main carrier of the class-1 gap is the ~1.04 cycles/unit near-carrier leak through G-b3’s two-period average, with a slow remainder that is also not e^ℓ-like. Strike “no phase-filter extraction can work for ζ at this order” and the beat-terms stop wording from round 79, with a note that round 79 asserted them before this test.
+Run the settling test (~100 core-hours), labelled post-hoc. Original G-b3 FAIL stays as sealed. Before computing, commit:
+The kernel: corrected (B)’s exact effective weighting of C(r) (offset-averaged k₃, L* = 4, 32 offsets), derived from the estimator code.
+Known answer: the kernel applied to the exact U(N) C(r) reproduces stage (a)’s exact CUE block variance. If it doesn’t, the test is void.
+Witness: a planted 1.04 cycles/unit component and a planted slow component of known amplitudes. Their transfer factors are predicted, then checked.
+Points: r = 100 and 300. Tolerance: G-b3’s original, unchanged.
+Reading:
+PASS at both points → stop reads “paused at the time box; extraction viable under the estimator’s kernel; resumption is a new arc, Will’s call”.
+FAIL at either → stop reads “extraction inadequate under the estimator’s own kernel”, with the slow-content share at each point.
+The full (c) run and G-b1 stay unfunded either way.
+Waiter: exit 0 when the failure list is empty; nonzero only on failure.
+Pilot second runner: confirm atomic chunk writes. Diff any chunk both runners computed and report bit-identity. Then record the pilot in §5 as planned.
