@@ -320,3 +320,11 @@ Gauss–Legendre rule):
   so it could not fail.
 - **By the end of session 3,** G-b1 can plausibly pass. G-b3 passing requires the spectral method to be designed,
   implemented and validated within one session. **I do not expect that.** This is flagged now, not at the deadline.
+
+### S2.2 result (round 79; recorded in `N6_CLOSEOUT.md` §3.2 and §4)
+- **The dephasing prediction FAILS at both r.** |file avg|/rms for classes 1, 2 and 3:
+  - r = 100: 0.996, 0.826 and 0.940, against S = 0.879, 0.567 and 0.192;
+  - r = 300: 0.996, 0.605 and 0.888, against S = 0.190, 0.167 and 0.132.
+- **Post-hoc diagnosis:** the class content that survives the 15-shift period average is mostly carriers offset by
+  small-prime frequencies, leaking through the average (~93% at r = 100, ~80% at r = 300). It is not beats from prime
+  products near e^ℓ.

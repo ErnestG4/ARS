@@ -56,7 +56,7 @@ G-b3 FAILED as declared, and both wrong variants failed, so the gate had power. 
 terms: slow components from products of primes near e^ℓ mixing with the carrier. Hence "no phase-filter extraction
 can work for ζ at this order."
 
-### 3.2 Close-out qualification (post-hoc, descriptive; r = 100, lowest corrected (B) file only)
+### 3.2 Close-out qualification (post-hoc, descriptive; r = 100 and 300, lowest corrected (B) file only)
 The averaging run (§4) stores every shift separately, so the content behind the gap can be resolved at r = 100. It
 does not look like near-DC beats.
 - **What the class-1 content is.**
@@ -83,13 +83,20 @@ does not look like near-DC beats.
     magnitude.** By the fit, the near-DC part is ~0.5% of the piece, against the 8% TRI residual summed over classes in
     this file.
   - The round-77 attribution to prime products near e^ℓ is not supported here.
+- **At r = 300 (16 heights; `../cs4/results/n6b/lavg/SHIFTFIT_300.0.json`) the picture is the same, less extreme.**
+  - The class-1 content sits at −1.03 to −1.05 cycles per unit, with 0.4–0.9% of the rms left by the fit. Across the
+    file it rotates by about −0.2 rad, against the ~4.6 rad of an e^ℓ beat.
+  - The oscillating component carries ~80% of the class-1 gap: −0.29 to −0.37 of −0.35 to −0.46.
+  - The near-DC part is −0.06 to −0.085 per class, so about 20% of the gap, and it does not rotate like an e^ℓ beat
+    either.
+  - Class 2 behaves the same way (−2.2 cycles per unit); class 3 is ≤ 0.002 and only partly resolved.
+  - **So at r = 300 the G-b3-style gap overstates the near-DC content by ~5×,** against ~10× at r = 100.
 - **What is not established:**
-  - other r, the higher height (ℓ = 21.75) and the other G-b3 points;
+  - the higher height (ℓ = 21.75), r ≥ 500 and the other G-b3 points;
   - whether the phase filter would pass a gate built on the estimator's own kernel;
   - the fit is model-dependent.
 - **What would settle it:** re-evaluating the G-b3 points with the estimator's own kernel (Fejér at G on the 1/8 grid)
-  in place of the two-period average. That is not run; it is offered to Will (§8). The r = 300 per-shift data from §4
-  will allow the same reading at a second r at no cost.
+  in place of the two-period average. That is not run; it is offered to Will (§8).
 
 ## 4. The averaging result (stage (b), S2.2; `../cs4/n6b_lavg.py`)
 **Declared before running:** the file average multiplies class k's beat by S(r, k), the dephasing of a beat with
@@ -121,7 +128,26 @@ beside S.
   - Whether the estimator-visible near-DC part averages out is not answered here. It is ~7% of the class-1 content by
     the fit, and it too does not rotate like an e^ℓ beat.
 
-**r = 300** (16 heights): running on spot; recorded here when it lands.
+**r = 300** (16 stratified heights × 15 shifts, all 240 tasks; spot summary under its own status 0 →
+`../cs4/results/n6b/lavg/LAVG.json`):
+
+| class | |file avg| / rms | S_pred |
+|---|---|---|
+| ±1 | 0.996 | 0.190 |
+| ±2 | 0.605 | 0.167 |
+| ±3 | 0.888 | 0.132 |
+
+- **The summed beat** is −0.69 to −0.91 across the file, with file average −0.846 and rms over ℓ 0.849. The full
+  (3, 3) piece runs from −0.84 to −6.54 across the same file.
+- **Reading against the prediction: FAILS again, more widely.** S predicted a five-fold suppression of class 1; there
+  is none.
+- **Diagnosis:** as at r = 100 (§3.2). The period-averaged class content is dominated by carriers offset by
+  small-prime frequencies (−1.04 cycles per unit for class 1), which barely rotate across the file.
+
+**Answer to the averaging question, for the content G-b3 measured:** within the lowest corrected (B) file it does not
+average out, at r = 100 or 300. The two highest files are narrower in ℓ, so the same holds there a fortiori. That leaves
+the near-DC part of the class content, the part the estimator sees. Here it is 7% (r = 100) to 20% (r = 300) of the
+period-averaged gap, and it does not average out across the lowest file either.
 
 ## 5. The stage (c) pilot: convergence and size record (round 78; `N6_STAGE_C.md`)
 - **Quantity:** the arithmetic part (ζ − U) of the fully connected T₆, at r = 6, ζ ℓ = 15.75, PMAX 10².
