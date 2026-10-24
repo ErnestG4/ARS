@@ -210,3 +210,61 @@ alongside the separation. **Decision to Will.**
 
 **No other banked result uses it.** Route (a), (A), (B), corrected (B), R₂, Stage 1 and Phase 6 do not. The only banked
 result resting on the filter is Stage 2's prediction, and there the dropped part was computed (one pair) and carried.
+
+## Session 2 (started 2026-10-23, round 78; session 2 of 3)
+Round 78: "Use the full-function expansion with exact phases, evaluate at several heights per file (to answer the
+averaging question), and use G-b1 and G-b3 as the gates."
+
+### S2.1: C(r) in joint count cumulants (derivation; checked for U(N), not a gate)
+For disjoint windows, with X = n_A − m, Y = n_B − m, ψ(X) = X³ − 3σ²X and E[ψ] = κ₃, expanding E[X³Y³],
+E[X³Y] and E[XY³] in joint cumulants (set partitions with no singletons) gives
+
+  **C(r) = κ₃₃ + 9κ₂₁κ₁₂ + 9κ₁₁κ₂₂ + 6κ₁₁³.**
+
+- **The σ² terms cancel exactly.** That is ψ's influence-function property.
+- **The joint count cumulants** are κ_{a,b} = Σ_{i ≤ a, j ≤ b} S(a, i)S(b, j)·κ^{[i,j]}, with S the Stirling numbers of
+  the second kind.
+- **The factorial cumulants are connected:** κ^{[i,j]} = ∫_{A^i×B^j} T_{i+j}, where T is the Ursell function.
+- **T₆ enters only through κ^{[3,3]},** with coefficient 1. That is the stage (c) quantity.
+
+**Check against stage (a)'s Fredholm C(r)** (U(N), N = 10⁵; κ^{[i,j]} from the cyclic-trace formula with the product
+Gauss–Legendre rule):
+- **Exact:** the agreement is 6·10⁻¹¹ (r = 4.125), 3·10⁻⁸ (7.3), 4·10⁻⁸ (20) and 3·10⁻⁶ (100) relative at 16 nodes. At
+  r = 1000 the gap is 8·10⁻¹⁴ absolute, inside stage (a)'s 10⁻¹¹ floor.
+- **The cancellation is not removed.** It sits inside κ₃₃: at r = 100, κ₃₃ = −4.7·10⁻⁹, while κ^{[3,3]} = −2.75·10⁻⁴
+  and κ^{[1,1]} = −8.1·10⁻⁵. That is four to five orders, the determinantal rigidity of U(N).
+- **Node counts:** the relative error of C is 0.5% at 10 nodes and ≤ 6·10⁻⁵ at 12 for r ≤ 100. So **G-b1 still needs
+  about 12 nodes per coordinate.**
+- **For ζ, the quantity to predict is far larger.** The zeros halve W, which implies an arithmetic ΔC of order 10⁻⁴ at
+  r ~ 10²–10³. It is not a 10⁻⁹ residue, so the ζ evaluation does not inherit U(N)'s cancellation requirement. That
+  will be quantified, not assumed.
+- **Quadrature lesson** (from stage (c), round 78): integrals of T's need the product rule with the in-cluster
+  diagonal. The distinct-node rule is valid only for integrands that vanish at coincidence.
+
+### S2.2: the averaging question (declared before running; descriptive)
+- **Kinematics.** A beat whose product of primes has log n ≈ kℓ carries the phase 2πr(k − log n/ℓ). Across a file it
+  moves at 2πrk/ℓ per unit ℓ.
+- **The four corrected (B) files** have Δℓ = 0.044, 8.2·10⁻³, 8.9·10⁻⁴ and 2.0·10⁻⁴ (ℓ̄ = 15.84, 17.53, 19.75,
+  21.25).
+- **Prediction stated now:** the file-average dephasing factor for k = 1 is
+
+  | file | S at r = 100 | 300 | 1000 | 10000 |
+  |---|---|---|---|---|
+  | zeros_46646000 | 0.878 | 0.190 | 0.073 | 0.007 |
+  | zeros_256646000 | 0.996 | 0.968 | 0.680 | 0.061 |
+  | zeros_2365046000 | 1.000 | 1.000 | 0.997 | 0.699 |
+  | zeros_10630646000 | 1.000 | 1.000 | 1.000 | 0.986 |
+
+  **So file-averaging cannot remove 3 + 3 beats in the two highest files at any r that matters.** Unlike Stage 2's
+  F2 15.75 file, those files are too narrow in ℓ. Beats have to be predicted at fixed ℓ there.
+- **Numerical test** (`cs4/n6b_lavg.py`):
+  - The (3, 3) piece by phase class at ζ PMAX 10³, with G-b3's treatment: 4 nodes (distinct-node rule, valid here) and
+    the 15 triangular shifts.
+  - It runs at stratified ℓ across the lowest file: 8 heights at r = 100 and 16 at r = 300, with weights ∝ ℓe^ℓ.
+  - Reported per class k ≠ 0: |file average| / (weighted rms over ℓ), beside S(r, |k|).
+  - 360 tasks, ~145 core-h. It runs on spot at 20 processes, beside the stage (c) pilot.
+
+### S2.3 onwards (to be declared before computing)
+- The separated evaluation, with exact phases, of the factorial cumulants on the estimator's 1/8 grid.
+- G-b1 against Fredholm at ~12 nodes.
+- G-b3 on the separated evaluator.
