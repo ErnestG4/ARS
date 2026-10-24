@@ -1,0 +1,21 @@
+{
+ "label": "round 78 stage (c) pilot: arithmetic part of the connected T6 (N6_STAGE_C.md, round 78)",
+ "convergence": {
+  "E": {
+   "v8": 0.2204223162373577,
+   "v10": 0.16483903147708917,
+   "ok": false
+  },
+  "dI": {
+   "v8": -0.19943160689318948,
+   "v10": -0.14916534835701495,
+   "ok": false
+  }
+ },
+ "CONVERGES": false,
+ "NULL_PASSES": true,
+ "FULL_RUN_ALLOWED": false,
+ "B6_from_r6_only": 13.187122518167133
+}
+8 E 2.2042e-01 dI -1.9943e-01 null {'T6_det': -0.09343419713373152, 'residual': 1.8803750223561622e-11, 'tol': 4e-07, 'PASS': True} witness {'planted_expected': 7.822381963381335e-06, 'planted_measured': 7.822381916891552e-06, 'fires': True, 'size_ok': True}
+10 E 1.6484e-01 dI -1.4917e-01 null {'T6_det': -0.09519969030751249, 'residual': 2.256056452765165e-12, 'tol': 4e-07, 'PASS': True} witness {'planted_expected': 7.826563864903753e-06, 'planted_measured': 7.826563818175147e-06, 'fires': True, 'size_ok': True}

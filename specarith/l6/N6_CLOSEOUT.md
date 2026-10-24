@@ -238,10 +238,47 @@ period-averaged gap, and it does not average out across the lowest file either.
   - **Null:** U(N) through the exact determinant against the construction, |residual| ≤ 4·10⁻⁷ at 8 and 10 nodes.
   - **Witness:** a planted ρ₆ × (1 + 10⁻⁸) must fire and be recovered within 10%.
   - **Convergence:** |X₈ − X₁₀| ≤ 0.2|X₁₀| + 4·10⁻⁷ for the envelope E and the class-summed ΔI.
-- **Status:** running on spot (616 tasks; 102 of the 379 ζ 10-node chunks done after 4.4 h).
-- **Cost against the estimate:** it runs ~5× slower per process than the local timing behind the "~85 core-h" estimate,
-  sharing the box with §4. Projected finish ~2026-10-24 evening.
-- Recorded here as a convergence and size record when it lands. No full run follows (round 79).
+- **Run:** spot, 616 tasks plus a reverse helper on freed cores (performance only); finished 2026-10-24 15:00. The
+  summary ran under its own status 0, with no failed tasks (`../cs4/results/n6c/pilot/`).
+- **Cost:** 517 core-h of task wall time on spot's vCPUs, against the "~85 core-h" estimate. The estimate came from
+  local per-core timing; spot ran ~5× slower per process, sharing the box with §4.
+
+**Result against the declared criteria:**
+
+| | 8 nodes | 10 nodes | criterion | |
+|---|---|---|---|---|
+| null residual (det − construction) | 1.9·10⁻¹¹ | 2.3·10⁻¹² | ≤ 4·10⁻⁷ | **PASS** |
+| witness: planted 10⁻⁸·∫ρ₆, expected / measured | 7.82238·10⁻⁶ / 7.82238·10⁻⁶ | 7.82656·10⁻⁶ / 7.82656·10⁻⁶ | fires, within 10% | **fires, size OK** |
+| envelope E = Σ_k \|ΔT₆,k\| | 0.2204 | 0.1648 | \|E₈ − E₁₀\| ≤ 0.2·E₁₀ + 4·10⁻⁷ = 0.033 | **not met** (0.056) |
+| ΔI = Σ_k ΔT₆,k | −0.1994 | −0.1492 | ≤ 0.2·\|ΔI₁₀\| + 4·10⁻⁷ = 0.030 | **not met** (0.050) |
+
+- **NULL_PASSES = true. CONVERGES = false. FULL_RUN_ALLOWED = false**, which would have stopped the full run
+  regardless of round 79.
+- **Where the non-convergence sits (descriptive, post-hoc):**
+  - Class 0 converges: ΔT₆,₀ = −0.1491 (8 nodes) against −0.1517 (10 nodes), 1.7%.
+  - The oscillating classes do not. Classes ±1 and ±2 are each ~0.018 in modulus at 8 nodes, against ≤ 0.0065 (±1) and
+    ≤ 10⁻⁴ (±2) at 10.
+  - Their in-window carriers e^{2πikx} over a 4-unit window are under-resolved at 8 nodes per coordinate.
+- **Size (descriptive; the 10-node values, r = 6, ℓ = 15.75, PMAX 10²):**
+
+  | quantity | value |
+  |---|---|
+  | ∫T₆ for ζ | −0.2444 |
+  | ∫T₆ for U(N) | −0.0952 |
+  | arithmetic part ΔI | −0.149 |
+  | ∫ρ₆ for ζ / U(N) | 757.99 / 782.66 |
+
+  - The arithmetic part of the connected 6-point term is larger in magnitude than U(N)'s connected term itself.
+  - It is about 4·10⁴ times round 78's per-r allowance of 4.1·10⁻⁶. B6_from_r6_only = 2·40·E₁₀ = 13.2 against the
+    budget of 3.3·10⁻⁴. That is not a bound (one r, unconverged), but it shows the connected n = 6 term cannot be
+    bounded away at short range by the round-78 budget.
+- **Second runner (round 80):**
+  - Each chunk is written to `<chunk>.part`, then renamed with os.replace, so a single process's write is atomic.
+  - The temporary name is shared by the two runners, so two runners finishing one chunk at the same instant are not
+    protected. The later write replaces the earlier copy.
+  - 24 ζ 8-node chunks (47 and 48 still in flight at the time of writing) were computed by both runners.
+  - Bit-identity: BITCHECK_PENDING.
+- **No full run follows** (rounds 79–80).
 
 ## 6. The in-window repeated-node defect, caught before any result (round 78)
 - **The defect.** The pilot as first committed integrated T₆ with the distinct-node rule inherited from round 77: sorted

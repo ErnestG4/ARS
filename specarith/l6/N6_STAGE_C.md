@@ -270,3 +270,10 @@ Code: `cs4/n6c_conn.py`. Launcher: `cs4/run_n6c_pilot_spot.sh`. Outputs: `cs4/re
     batch 16 against 7.0 s at batch 128; U(N) 8.3 s at batch 16 against 0.39 s at batch 2048.
   - **Change:** chunks of 128 (ζ) and 512 (U), 616 tasks. Nothing else changes: quantity, rule, witnesses, criteria
     and sums.
+
+### Round 78 pilot: result (2026-10-24; recorded in `N6_CLOSEOUT.md` §5)
+- **NULL_PASSES:** residual 1.9·10⁻¹¹ (8 nodes) and 2.3·10⁻¹² (10 nodes); the planted witness fires and is recovered.
+- **CONVERGES = false:** E 0.2204 / 0.1648 and ΔI −0.1994 / −0.1492 at 8 / 10 nodes. Class 0 agrees to 1.7%; the
+  oscillating classes are under-resolved at 8 nodes.
+- **FULL_RUN_ALLOWED = false.**
+- **Size at r = 6:** ΔI ≈ −0.15, against U(N)'s own ∫T₆ of −0.095 (descriptive).
