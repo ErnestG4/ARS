@@ -268,3 +268,55 @@ Gauss–Legendre rule):
 - The separated evaluation, with exact phases, of the factorial cumulants on the estimator's 1/8 grid.
 - G-b1 against Fredholm at ~12 nodes.
 - G-b3 on the separated evaluator.
+
+### S2.3: the cross-factor expansion with exact phases. What separates, what does not (derivation notes)
+**U(N) separates.**
+- A cross factor depends on the in-window offsets only through r + δ, with δ = v − u ∈ [−4, 4].
+- For U(N), z(i2π(r + δ)/N) is smooth on the scale r. Its Taylor series in δ about the window centres converges like
+  (4/r)^m.
+- δ^m splits into powers of u and v. So each (S, T) term becomes in-cluster integrals (3-dimensional, with the exact
+  in-window carriers e^{2πi c·u}) times derivatives of the cross factors at r.
+- The order is set by U(N)'s cancellation inside κ₃₃ (S2.1): about 10⁻⁷ relative at r = 100 needs m ≈ 5; about 10⁻⁶ at
+  r = 20 needs m ≈ 9.
+
+**ζ does not separate by that expansion.**
+- A cross factor such as ζ(1 ± i(2π/ℓ)(r + δ)), or 𝒜's local factors, carries in-window phases n^{∓iδ·2π/ℓ}. Across the
+  window δ·(2π/ℓ)·log n reaches ~1.6·log n rad: more than 1 rad from n ≈ 2, and ~25 rad for n ≈ e^ℓ.
+- Those are exactly the prime phases round 77 says must be carried exactly, never treated as slow.
+- Carried exactly, each cross factor is a Dirichlet or prime sum of separable plane waves. A term holds up to 9 cross
+  factors and 𝒜's θ-coupling, so the separated form is a multi-index sum over products of primes. **Those products are
+  the beat terms.**
+- So the round-77 plan, "expand only the smooth envelopes, carry the phases", does not reduce the in-window work for ζ.
+  It moves it into sums over prime products.
+
+**The direct alternative is unaffordable.**
+- The direct alternative is the full function on the 1/8 grid, configuration by configuration (cs4lr-style, r on the
+  grid).
+- **Measured at good batching** (local): U(N) ρ₆ costs ~0.3–0.4 s per (configuration, r); ζ ρ₆ ~6–7 s at PMAX 10² and
+  ~60–90 s at 10³.
+- A single configuration on the 1/8 grid to r = 10⁴ (8·10⁴ points) is ~7 core-h for U(N) and 10⁵–10⁶ core-h for ζ.
+  Times ≥ 3·10³ configurations, that is far beyond reach. cs4lr's NUFFT only helps the prime sums, not the n = 6 jets
+  algebra over the grid.
+
+**The candidate that remains (not designed in detail; a theory step):** a spectral formulation.
+- **Why it fits:** on the 1/8 grid the Bartlett sum is W(G) = ∫dΩ K(Ω) F_G(Ω), with F_G the Fejér kernel (period
+  2π/Δ). Carriers at k ≤ 3 cycles per unit are below the grid's Nyquist frequency of 4. So the estimator sees only
+  C's near-DC spectral content, K(Ω) for |Ω| ≲ 2π/G: the non-oscillating part plus exactly the beats.
+- **Where it could come from:** for a fixed in-window configuration, the r-dependence is a function on the torus of
+  prime angles θ_p = r_t·log p (times the carriers), sampled along a line.
+- **Why it could be tractable:** where that function is an Euler product, its Fourier modes factorise over primes.
+  The near-DC modes are the prime products with log n ≈ kℓ, which can be enumerated with their amplitudes.
+- **What it needs:** handling ζ(1 + it) on Re s = 1, where its Euler product does not converge absolutely; the jets'
+  derivatives; and the in-window integral of each kept mode (exact plane waves).
+- **It is new analysis,** not bookkeeping. Its cost cannot be estimated until it is designed.
+
+**Consequence for the gates and the time box (session 2 of 3).**
+- **G-b1 (U(N)) is reachable.** Either by the U(N) separation above (new code), or by brute force at about 12 nodes
+  with the S2.1 cumulant form on a sparse r grid. The brute-force cost: the product-rule multisets at 12 nodes are 364
+  per cluster, so ~1.3·10⁵ configurations per r and ~15–20 core-h per r on spot. A 60-point grid is ~10³ core-h, less
+  with a GPU port of the jets (CuPy is available on the local 4090).
+- **G-b3 needs a ζ extraction to test.** The only candidate is the spectral formulation, which does not exist yet.
+  Evaluating the full function directly at G-b3's identical nodes would make G-b3 compare a computation with itself,
+  so it could not fail.
+- **By the end of session 3,** G-b1 can plausibly pass. G-b3 passing requires the spectral method to be designed,
+  implemented and validated within one session. **I do not expect that.** This is flagged now, not at the deadline.
