@@ -109,7 +109,7 @@ not a sealed test: no pre-registered tolerance, no seal, no double read.
 **Analytic conductor.** At s = ½ it is q(λ^k) ≍ d_K·(|ν_k| + 3)² = 8·(πk/log ε)²(1 + o(1)). So
 log q(λ^k) = 2 log k + log(8π²/log²ε) + o(1).
 - The growth rate is k², exactly as for the Gaussian characters (𝔭/𝔭̄)^{2k}, whose conductor is ≍ 4·(2k)².
-- Only the constant differs: log(8π²/log²ε) ≈ 4.32 here, against log 16 ≈ 2.77 for ℤ[i].
+- Only the constant differs: log(8π²/log²ε) ≈ 4.62 here (corrected after 599683f2, which had 4.32: an arithmetic slip), against log 16 ≈ 2.77 for ℤ[i].
 
 **The leading-order sector variance (reviewer's heuristic: derived, not refuted, at the level of RW's heuristic).**
 - **Setting it up:**
@@ -127,7 +127,7 @@ log q(λ^k) = 2 log k + log(8π²/log²ε) + o(1).
   the same functional form, with the crossover at K ≈ √N. Will's reviewer's heuristic is therefore derivable in the
   same sense as RW's Conjecture 1.2: conditional on RW's RMT model, not proved.
 - **Differences from ℤ[i], all below leading order:**
-  - the conductor constant (4.32 against 2.77) shifts the crossover in log K by O(1), i.e. an O(1/log N) relative
+  - the conductor constant (4.62 against 2.77) shifts the crossover in log K by O(1), i.e. an O(1/log N) relative
     change near β = ½;
   - unit group ±ε^ℤ is infinite and torsion is order 2, against order 4 for ℤ[i] (that enters only through the angle
     normalisation);
