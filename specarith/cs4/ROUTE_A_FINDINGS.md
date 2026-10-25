@@ -330,18 +330,17 @@ pair statistic is a candidate.
   - The rounds 72–73 CUE "fall" was estimator bias, measured as +10% at G = 300 and +5% at G = 1,000.
   - Against the exact denominator, the zeros' ratio is 0.315, 0.209, 0.183 and 0.157 at G = 300, 1,000, 3,000 and
     10,000.
-- **The n = 6 arc, closed at its time box (round 79; `../l6/N6_CLOSEOUT.md`):**
+- **The n = 6 work, paused (rounds 79–84; `../l6/N6_CLOSEOUT.md`):**
   - The deficit is real, and entirely arithmetic and long-range. Predicting it from the ratios conjecture at 6-point
-    order needs a new analytic tool.
+    order is not done: no ζ measurement at resolved quadrature exists.
   - Banked: the exact four-term covariance form C(r) = κ₃₃ + 9κ₂₁κ₁₂ + 9κ₁₁κ₂₂ + 6κ₁₁³, verified against Fredholm
     to 10⁻¹¹–10⁻⁶.
-  - The arc's remaining records are in the close-out: the G-b3 gap (round 80: mainly a near-carrier leak through
-    G-b3's period average; the beat-term attribution is struck), the averaging FAIL, the stage (c) pilot, and the
-    quadrature defect.
-  - **The post-hoc settling test under corrected (B)'s own kernel PASSED** at ℓ = 15.75, r = 100 and 300.
-  - **Stop (round 83 wording):** “Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
-    Round 80's "extraction viable under the estimator's kernel" claimed more than this.
-  - Resumed as arc N6-2 (`../l6/N6-2_PLAN.md`). `../OPEN_LEADS.md` L7 remains a lead.
+  - **Stop (round 84):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
+  - The node audit (close-out §0) marks every stage (b) ζ result unresolved: all ran at 4 in-window nodes, and U(N)'s
+    known answer needs 8–10. The settling pass is a 4-node artifact. The sealed G-b3 FAIL stays, with its attribution
+    not established.
+  - Earlier stop wordings (rounds 79, 80, 83) are superseded; see the close-out header. Successor routes:
+    `../OPEN_LEADS.md` L7, or a faster evaluator.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
 beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long

@@ -1823,3 +1823,14 @@ If the partial gap changes by more than 1% of the partial brute-force value at e
 Otherwise, record “no 4→6 movement at the dominant points”. That makes no claim of convergence.
 Cost model in the plan: write the formula (configurations C(n,3)² per point × points × seconds per configuration × spot factor 4.08) into N6-2_PLAN.md. Price every proposed step with it before it’s issued.
 4090 port: not now. If item 3 doesn’t trigger a pause, Will decides on sharing the 4090 with the ARSv2 session before a one-piece benchmark is measured.
+
+## Eighty-fourth round (2026-10-25) — node diagnostic: artifact; N6-2 paused; node audit; stop wording; TOOLKIT §9 rule; cost model; L7 (verbatim)
+Round 84.
+
+Let r = 300 finish. Report both r against the committed reading. Record the cap breach: ~595 core-hours against 300, caused by the slowdown at 48 processes.
+Record the reading: the settling pass is a 4-node artifact. N6-2 is paused. Add the U(N) node-convergence table (4–16 nodes) to the record as a known answer.
+Node audit. For each stage (b) ζ result, state the node count it ran at: G-b3, the averaging test (8/16 heights), the settling test, and the class-content attributions in close-out §3–§4. Mark every result below 8 nodes “unresolved; reading not established”. The sealed G-b3 FAIL stays as sealed, and its attribution (beat or leak) is marked not established. Strike the round 81 sentence “the G-b3 FAIL was the proxy average’s leak”.
+Stop wording: “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
+New standing rule, in TOOLKIT §9: a gate comparing two estimates is valid only after each estimate is shown converged at the settings used, against a known answer where one exists. Note that this caught N6-2.
+Cost model: add the per-process slowdown as a function of process count. New run rule: if the first wave’s mean task time exceeds the model by more than 25%, stop and report before the second wave.
+L7 (the spectral route): update its note. It is now also the candidate if a faster brute-force evaluator proves infeasible.

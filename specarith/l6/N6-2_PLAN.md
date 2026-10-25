@@ -1,5 +1,10 @@
 # N6-2: the n = 6 extraction across corrected (B)'s full estimator sum (round 81; plan, committed before computing)
 
+**N6-2 is PAUSED (round 84).** The round-83 node diagnostic (§11) found the settling pass to be a 4-node artifact.
+- The stop is "Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10
+  (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will's call."
+- Node audit and known answer: `N6_CLOSEOUT.md` §0.
+
 **Arc.** N6-2 resumes n = 6 as a new arc (round 81). Time box: two sessions. Session 1 starts with this plan
 (2026-10-25). Predecessor: `N6_CLOSEOUT.md`, paused at the time box with "extraction viable under the estimator's
 kernel" at two points (§3.3, 739ccde4).
@@ -193,6 +198,28 @@ kernel weight × |c_a c_b|.
   batch 2,048.
 - **4.08:** spot's per-process slowdown against local. Measured as 2,163 s per (3, 3) point on spot against 530 s
   locally (the settling run).
+
+**Spot factor as a function of process count and working set (round 84; measured, replaces the single 4.08).** The
+factor is spot s per configuration ÷ local s per configuration for the same object and batch.
+
+| run | concurrent processes on spot | object, batch | spot / local |
+|---|---|---|---|
+| settling test (round 80) | 8, then 28 with the helper | (3, 3) ζ PMAX 10³, 16 | 4.1 |
+| (c) pilot (round 78) | 28, then 48 with the averaging run | T₆ ζ PMAX 10², 128 | 4.1 |
+| averaging test (round 78) | 48 (20 + the pilot's 28) | (3, 3) ζ PMAX 10³, 16 | 5.1 |
+| node diagnostic (round 83) | 48 | (3, 3) ζ PMAX 10³, 50 (6 nodes) | 9.1 |
+
+- **The factor grows with process count and with the per-process working set.** Spot's 56 vCPUs are hyperthreads on a
+  shared memory bus: at 48 processes with large PMAX-10³ batches each runs ~2.2× slower than at 28.
+- **For pricing:** use 4.1 at ≤ 28 processes, 5.1 at 48 processes with batch ≤ 16, and 9.1 at 48 processes with
+  batch ≥ 50 at PMAX 10³. Price a short probe (8, 28 and 48 processes) before any run whose estimate is within 2× of
+  its cap.
+- **The round-83 breach:** the node diagnostic was priced at 4.08 (≈ 265 core-h) and ran at 9.1, ≈ 595 core-h against
+  the 300 cap.
+
+**Run rule (round 84).** If the first wave's mean task time exceeds the model by more than 25%, stop and report before
+the second wave starts. The node diagnostic's first wave averaged ~11,100 s per task against ~5,000 s modelled (+122%).
+Under this rule it would have stopped after one wave (~150 core-h).
 
 **Checks against measured runs.**
 - The settling test: 158 × 16 × 33 s × 4.08 ≈ 95 core-h predicted, against 95 measured.

@@ -1,28 +1,66 @@
-# n = 6 arc: close-out (rounds 79–80; session 3 of 3)
+# n = 6 arc: close-out (rounds 79–84; arc N6-2 paused in round 84)
 
-**The stop (round 83 wording):** “Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
-- **Round 80's wording claimed more than this:** "paused at the time box; extraction viable under the estimator's
-  kernel; resumption is a new arc, Will's call".
-  - The settling test used 4 in-window nodes per coordinate, so each cluster sees only 4 node triples.
-  - The (c) pilot shows the oscillating classes are under-resolved even at 8 nodes.
-  - So the pass is established at 4 nodes only.
-- The resumption is arc N6-2 (`N6-2_PLAN.md`). Its round-83 node diagnostic tests the pass at 6 nodes.
-- The settling test is post-hoc.
-- Its scope: ℓ = 15.75, r = 100 and 300, PMAX 10³ and 4 nodes.
-- The sealed G-b3 FAIL stands.
+**The stop (round 84 wording):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
 
-Not funded either way (rounds 79–80): the full stage (c) run (~700 core-h) and G-b1 by brute force (~10³ core-h).
+**Superseded stop wordings, kept as the record:**
+- Round 79: "… requires a ζ extraction that retains beat terms; not available; arc stopped at the time box". Struck
+  in round 80.
+- Round 80: "paused at the time box; extraction viable under the estimator's kernel; resumption is a new arc, Will's
+  call". Narrowed in round 83; it claimed more than the 4-node settling test showed.
+- Round 83: "Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only);
+  resolution not established. Extraction viable at 4 nodes; at production resolution, untested."
+  - Superseded in round 84. The node diagnostic (`N6-2_PLAN.md` §11) showed the 4-node settling pass is a 4-node
+    artifact.
 
-**Struck in round 80.** Two statements are withdrawn:
-- round 79's stop wording, "an exact CS n = 6 prediction of corrected (B)'s block variance requires a ζ extraction that
-  retains beat terms; not available; arc stopped at the time box";
-- round 77's inference, "no phase-filter extraction can work for ζ at this order".
+**Struck:**
+- Round 77's inference, "no phase-filter extraction can work for ζ at this order" (struck in round 80).
+- **Round 84 strikes two more:**
+  - the round-80/81 claim that the G-b3 FAIL was the proxy average's leak (close-out §3.2–§3.3; `../OPEN_LEADS.md`
+    L6; the gate-kernel memory note);
+  - the beat-term attribution before it.
+- **The attribution of the sealed G-b3 FAIL, beat or leak, is not established:** both readings rest on 4-node values
+  (§0).
 
-Both were asserted before the averaging test (§4) and the shift-resolved reading (§3.2). That reading shows the G-b3
-gap is carried mainly by a near-carrier leak through G-b3's two-period average, not by beat terms.
+Not funded (rounds 79–84): the full stage (c) run and G-b1 by brute force.
 
-Records: `N6_STAGE_A.md`, `N6_STAGE_B.md`, `N6_STAGE_B_GATE.md`, `N6_STAGE_C.md`, `N6_STAGE_C_BOUND.md`; the decision
-log is `../ph2/PH2_DECISIONS_2026-10-07.md`, rounds 74–80.
+Records: `N6_STAGE_A.md`, `N6_STAGE_B.md`, `N6_STAGE_B_GATE.md`, `N6_STAGE_C.md`, `N6_STAGE_C_BOUND.md`,
+`N6-2_PLAN.md`; the decision log is `../ph2/PH2_DECISIONS_2026-10-07.md`, rounds 74–84.
+
+## 0. Node audit (round 84): the in-window node count behind every stage (b) ζ result
+Every result below 8 nodes per coordinate is marked **unresolved; reading not established**.
+
+**Known answer** (`../cs4/n6b_unode.py` → `../cs4/results/n6b/unode/UNODE.json`). U(N) (N = 10⁵), the (3, 3) piece
+∫(ρ₆ − ρ₃ρ₃) at r = 100, exact determinants, the same distinct-node rule:
+
+| nodes per coordinate | configurations per point | value | relative error vs 16 nodes |
+|---|---|---|---|
+| 4 | 16 | −0.017454 | 72% |
+| 6 | 400 | −0.045808 | 26% |
+| 8 | 3,136 | −0.062085 | 0.19% |
+| 10 | 14,400 | −0.0619747 | 1.0·10⁻⁴ |
+| 12 | 48,400 | −0.06196832 | 9.7·10⁻⁷ |
+| 16 | 313,600 | −0.06196826 | (reference) |
+
+- **U(N) needs 8–10 nodes.** ζ has additional in-window prime phases, so it needs ≥ 10 (≥ 14,400 configurations per
+  point).
+- **The ζ node diagnostic (round 83, `N6-2_PLAN.md` §11)** moved the settling test's dominant-point partial sums
+  by factors of 3–15 between 4 and 6 nodes.
+
+**The node count behind each stage (b) ζ result:**
+
+| result | node count | status |
+|---|---|---|
+| G-b3 (round 77; `../cs4/results/n6b/GB3.json`) | 4 | FAIL stays as sealed. Its attribution, beat (round 77) or leak (round 80), is unresolved; reading not established |
+| averaging test (round 78/80; 8 heights at r = 100, 16 at r = 300; `../cs4/n6b_lavg.py`, NQ = 4) | 4 | unresolved; reading not established. The FAIL against the stated prediction is recorded, but what it says about the zeros is not established |
+| class-content attributions (§3.2: 1.13 / 1.04 cycles per unit, leak shares 93% / 80%, slow remainder; §4 diagnosis) | 4 (from the averaging tasks) | unresolved; reading not established |
+| settling test (round 80; `../cs4/n6b_settle.py`, NQ = 4) | 4 | unresolved: a 4-node artifact (round 83 node diagnostic; `N6-2_PLAN.md` §11) |
+| node diagnostic (round 83) | 6 (with 4 reused) | 6 is itself unresolved (U(N) 26% off). It is a valid kill-only diagnostic: it showed movement and claims no value |
+
+- **Not stage (b) ζ, listed for completeness:**
+  - stage (c) pilot (T₆, 8 and 10 nodes): convergence FAIL as sealed (§5);
+  - S2.1 cumulant form: U(N), 16 nodes, verified against Fredholm;
+  - G-b1 (i) algebra check: U(N), identical 4 nodes on both sides, so an algebra identity, not a quadrature reading;
+  - G-b2: pointwise (2, 2), no in-window quadrature.
 
 ## 1. What stands
 - **The deficit.** The zeros' block variance for corrected (B), against the exact U(N) value, is R(G) = 0.315, 0.209,
@@ -58,7 +96,7 @@ For disjoint windows (r ≥ 4), with ψ(X) = X³ − 3σ²X the influence functi
   κ^{[3,3]} = −2.75·10⁻⁴ and κ^{[1,1]} = −8.1·10⁻⁵, four to five orders. That is the determinantal rigidity, and why
   G-b1 needs ~12 nodes per coordinate.
 
-## 3. The G-b3 gap: a near-carrier leak through the two-period average (round 80 rewrite)
+## 3. The G-b3 gap (round 80 rewrite; ALL OF §3.2–§3.3 RAN AT 4 NODES: unresolved; reading not established, §0)
 ### 3.1 The sealed gate (round 77; stays as sealed)
 **What G-b3 compared.** The (3, 3) piece at ζ PMAX 10³, at identical in-window nodes, on two sides:
 - **brute:** the unfiltered construction;
@@ -80,7 +118,7 @@ carriers exactly.
 
 Both are struck (header; round 80).
 
-### 3.2 What carries the class-1 gap (post-hoc, descriptive; lowest corrected (B) file, r = 100 and 300)
+### 3.2 What carries the class-1 gap (post-hoc, descriptive; lowest corrected (B) file, r = 100 and 300; 4 nodes: unresolved; reading not established)
 **Main carrier: a near-carrier leak.**
 - **The component.** The class-1 content that passes G-b3's two-period average is dominated by a component at about
   1.04–1.13 cycles per unit: the carrier plus a small-prime offset of log n/ℓ, with log n ≈ 0.6–2.
@@ -116,7 +154,7 @@ more strongly than G-b3's average does. So G-b3's gap overstates the slow conten
 in this file. Whether the phase filter passes under the estimator's own kernel is the settling test (§3.3). The fit is
 model-dependent, and ℓ = 21.75 and r ≥ 500 are not resolved.
 
-### 3.3 The settling test (round 80; POST-HOC; declared and committed before computing; `../cs4/n6b_settle.py`)
+### 3.3 The settling test (round 80; POST-HOC; declared and committed before computing; `../cs4/n6b_settle.py`; 4 nodes: a 4-node artifact, round 83)
 **The kernel, derived from the estimator code (`../cs4/b2_est.py`).**
 - **The window starts.** They are u_q + jL, with u_q = qL/NU, q < NU = 32 and L* = 4. Every start lies on the grid
   kΔ, Δ = 1/8.
@@ -202,6 +240,8 @@ computation): ~110 core-h. Launcher `../cs4/run_n6b_settle_spot.sh`; outputs `..
   - ±2 and ±3: < 10⁻⁵.
   - G-b3's two-period average gave a class-1 gap of −0.39 at (15.75, 100). Under the estimator's kernel it is −0.0034,
     about 110× smaller.
+  - **Struck in round 84:** the conclusion drawn from this, that the G-b3 FAIL was the proxy average's leak. Both
+    numbers are 4-node values; see §0.
 - **Runners.** 14 points were computed by both runners, which use per-process temporary names (no shared file). Their
   bit-identity was not checked here. The pilot showed same-environment recomputes are bit-identical (§5).
 
@@ -214,7 +254,7 @@ computation): ~110 core-h. Launcher `../cs4/run_n6b_settle_spot.sh`; outputs `..
   rest of the n = 6 machinery, other heights and r, and production cutoffs. Those make up the new arc in the stop's
   wording.
 
-## 4. The averaging result (stage (b), S2.2; `../cs4/n6b_lavg.py`)
+## 4. The averaging result (stage (b), S2.2; `../cs4/n6b_lavg.py`; 4 nodes: unresolved; reading not established, §0)
 **Declared before running:** the file average multiplies class k's beat by S(r, k), the dephasing of a beat with
 log n ≈ kℓ across the file. For the lowest file (zeros_46646000, ℓ 15.8202–15.8643):
 - S(100, k = 1) = 0.878;

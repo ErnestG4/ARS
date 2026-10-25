@@ -328,3 +328,10 @@ Gauss–Legendre rule):
 - **Post-hoc diagnosis:** the class content that survives the 15-shift period average is mostly carriers offset by
   small-prime frequencies, leaking through the average (~93% at r = 100, ~80% at r = 300). It is not beats from prime
   products near e^ℓ.
+
+### Node audit (round 84; `N6_CLOSEOUT.md` §0)
+- Every ζ result in this file ran at 4 in-window nodes per coordinate: G-b3, the averaging test (S2.2) and its shift
+  fits. So did the settling test.
+- U(N)'s known answer with the same rule is 72% off at 4 nodes and converged only at 8–10.
+- All of these are **unresolved; reading not established**. The sealed G-b3 FAIL stays; its attribution (beat terms,
+  round 77; leak, round 80) is not established.

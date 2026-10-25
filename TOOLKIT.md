@@ -1534,3 +1534,30 @@ CUE_1000 sequences, and required the two to differ at block lengths G ≥ 1000 (
     a gate's validity rests on.
   - Size the planted effect at the gate's stated sensitivity, so a pass also states what the gate can resolve. Related
     rules: §9 "witness must be able to fail" and "a guard must CONSTRUCT the confound".
+
+### §9.E — A GATE COMPARING TWO ESTIMATES IS VALID ONLY AFTER EACH IS SHOWN CONVERGED (n = 6 arc N6-2, round 84, 2026-10-25)
+
+**Rule (standing).** A gate that compares two estimates is valid only after each estimate has been shown converged at
+the settings used: quadrature nodes, cutoffs and kernel. Use a known answer where one exists. Agreement or
+disagreement between two unconverged estimates is not a reading.
+
+**What it caught.** The n = 6 stage (b) work (`specarith/l6/N6_CLOSEOUT.md`, `N6-2_PLAN.md` §11) ran every ζ
+comparison at 4 in-window nodes per coordinate, i.e. 16 configurations per point:
+- G-b3 FAIL;
+- the averaging test;
+- the settling-test PASS.
+Each one was read, and a mechanism story was built on two of them (the beat-term account, then the leak account).
+
+The round-83 node diagnostic recomputed the settling test's dominant points at 6 nodes. The partial brute-force sum
+moved from +0.83 to +6.95, and the gap from +0.11 to +2.94. That is about 40× the 1% limit.
+
+The known answer showed why. U(N)'s exact (3, 3) piece at r = 100 with the same rule is off by 72% at 4 nodes and 26%
+at 6, and is converged only at 8–10 (`specarith/cs4/results/n6b/unode/UNODE.json`). A PASS and a FAIL had both been
+read off an unresolved quadrature.
+
+**How to apply.**
+- Before any gate run, record the convergence evidence for each side at the gate's settings: a node sweep, or a cutoff
+  sweep, against a known answer where one exists.
+- A cost model that makes the converged settings unaffordable is a finding, not a licence to gate at cheaper
+  settings.
+- Related: §9 "convergence check at the sealed scale", §9.D, and "a gate certifies half, say so".

@@ -175,27 +175,31 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   - The amendment also bounded the full (3, 3) piece rather than the declared ρ₆ᶜ-only part. That overstates it with
     lower-order products that cancel through ψ's coefficients.
   - With Will.
-- **Round 79: the n = 6 arc is closed at the time box (`l6/N6_CLOSEOUT.md`).**
-  - **Banked:** the exact four-term covariance form (Fredholm-verified), the stage (c) quadrature-defect record, the
-    averaging result and the (c) pilot as a convergence and size record.
-  - **Round 80: the beat-term attribution is struck (close-out §3).** The G-b3 gap is carried mainly by a
-    near-carrier leak (~1.04–1.13 cycles per unit) through G-b3's two-period average: ~93% at r = 100 and ~80% at
-    r = 300 in the lowest file. The slow remainder is not e^ℓ-like either.
-  - The averaging test FAILS its pre-stated prediction (close-out §4).
-  - **The post-hoc settling test under corrected (B)'s own kernel PASSED** at ℓ = 15.75, r = 100 and 300 (close-out
-    §3.3): extraction gaps of −0.16% and +0.013% against a 1% tolerance, with known answer and witnesses OK.
-  - **Stop (round 83 wording):** “Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
-    Round 80's "extraction viable under the estimator's kernel" claimed more than this.
-  - Resumed as arc N6-2 (`l6/N6-2_PLAN.md`).
-  - The stage (c) pilot: null passes, convergence not met, ΔI ≈ −0.15 at r = 6 (close-out §5).
-  - **The cause of the deficit at 6-point order stays open.** Successor route: L7.
+- **Rounds 79–84: the n = 6 work is paused (`l6/N6_CLOSEOUT.md`).**
+  - **Stop (round 84):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
+  - **Banked:**
+    - the exact four-term covariance form, verified against Fredholm;
+    - the stage (c) pilot record (null passes; 8-vs-10 convergence FAIL as sealed);
+    - the in-window repeated-node defect;
+    - the U(N) node-convergence known answer (4 nodes 72% off, 6 nodes 26%, 8 nodes 0.19%, 10 nodes 10⁻⁴).
+  - **Node audit (close-out §0):** every stage (b) ζ result ran at 4 nodes and is unresolved; its reading is not
+    established. That covers the G-b3 FAIL's attribution (beat or leak), the averaging test, the class-content
+    attributions and the settling test.
+    - The sealed G-b3 FAIL stays.
+    - The settling pass is a 4-node artifact (round 83 node diagnostic).
+    - The round-80/81 "the G-b3 FAIL was the proxy average's leak" is struck.
+  - **The cause of the deficit at 6-point order stays open.** Successor route: L7, or a faster evaluator.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 
 ## L7 — the spectral route to the n = 6 long-range term (round 79; sketch only, no design or costing)
-**Round 80 note:** the settling test PASSED (close-out §3.3). Under the estimator's own kernel the phase filter matched
-brute force at the two points tested. L7 is therefore needed only if a resumed arc finds the extraction failing
-elsewhere (other heights, other r, production cutoffs). It is kept as a lead.
+**Round 84 note (supersedes round 80's).**
+- The settling pass round 80 cited was a 4-node artifact.
+- No stage (b) ζ measurement at resolved quadrature exists. ζ needs ≥ 10 in-window nodes, i.e. ≥ 14,400
+  configurations per point at ~25 s each locally.
+- **L7 is the candidate if a faster brute-force evaluator** (e.g. a GPU port of the class-resolved jets) **proves
+  infeasible.** It is also a candidate in its own right, since it avoids the in-window quadrature over prime phases
+  altogether.
 
 **Rationale.**
 - Corrected (B)'s block-variance estimator is a Bartlett sum of C(r) on the window-start grid of step 1/8:
