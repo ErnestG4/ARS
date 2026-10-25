@@ -336,9 +336,11 @@ pair statistic is a candidate.
   - Banked: the exact four-term covariance form C(r) = κ₃₃ + 9κ₂₁κ₁₂ + 9κ₁₁κ₂₂ + 6κ₁₁³, verified against Fredholm
     to 10⁻¹¹–10⁻⁶.
   - The arc's remaining records are in the close-out: the G-b3 gap (round 80: mainly a near-carrier leak through
-    G-b3's period average; the beat-term attribution is struck), the averaging FAIL, the post-hoc settling test under
-    the estimator's own kernel (which sets the stop's wording), the stage (c) pilot, and the quadrature defect. The
-    successor route is `../OPEN_LEADS.md` L7.
+    G-b3's period average; the beat-term attribution is struck), the averaging FAIL, the stage (c) pilot, and the
+    quadrature defect.
+  - **The post-hoc settling test under corrected (B)'s own kernel PASSED** at ℓ = 15.75, r = 100 and 300.
+  - **Stop:** "paused at the time box; extraction viable under the estimator's kernel; resumption is a new arc,
+    Will's call". The successor routes are a new arc or `../OPEN_LEADS.md` L7.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
 beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long

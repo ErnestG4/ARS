@@ -182,12 +182,20 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     near-carrier leak (~1.04–1.13 cycles per unit) through G-b3's two-period average: ~93% at r = 100 and ~80% at
     r = 300 in the lowest file. The slow remainder is not e^ℓ-like either.
   - The averaging test FAILS its pre-stated prediction (close-out §4).
-  - A post-hoc settling test under corrected (B)'s own kernel decides the stop's wording (close-out §3.3).
+  - **The post-hoc settling test under corrected (B)'s own kernel PASSED** at ℓ = 15.75, r = 100 and 300 (close-out
+    §3.3): extraction gaps of −0.16% and +0.013% against a 1% tolerance, with known answer and witnesses OK.
+  - **Stop:** "paused at the time box; extraction viable under the estimator's kernel; resumption is a new arc,
+    Will's call".
+  - The stage (c) pilot: null passes, convergence not met, ΔI ≈ −0.15 at r = 6 (close-out §5).
   - **The cause of the deficit at 6-point order stays open.** Successor route: L7.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the
   engine v2 gallery.
 
 ## L7 — the spectral route to the n = 6 long-range term (round 79; sketch only, no design or costing)
+**Round 80 note:** the settling test PASSED (close-out §3.3). Under the estimator's own kernel the phase filter matched
+brute force at the two points tested. L7 is therefore needed only if a resumed arc finds the extraction failing
+elsewhere (other heights, other r, production cutoffs). It is kept as a lead.
+
 **Rationale.**
 - Corrected (B)'s block-variance estimator is a Bartlett sum of C(r) on the window-start grid of step 1/8:
   W(G) = Δ[C(0) + 2Σ_k (1 − kΔ/G)C(kΔ)]. In frequency this is ∫ Ĉ(f)·F_G(f) df, with F_G the Fejér kernel (width

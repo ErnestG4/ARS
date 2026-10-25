@@ -1,10 +1,10 @@
 # n = 6 arc: close-out (rounds 79–80; session 3 of 3)
 
-**The stop: pending the round-80 settling test (§3.3).** Round 80 fixed both readings in advance:
-- **PASS at both points** → "paused at the time box; extraction viable under the estimator's kernel; resumption is a
-  new arc, Will's call".
-- **FAIL at either** → "extraction inadequate under the estimator's own kernel", with the slow-content share at each
-  point.
+**The stop (round 80's pre-set wording for a settling-test PASS; the test PASSED at both points, §3.3):** "paused at
+the time box; extraction viable under the estimator's kernel; resumption is a new arc, Will's call".
+- The settling test is post-hoc.
+- Its scope: ℓ = 15.75, r = 100 and 300, PMAX 10³ and 4 nodes.
+- The sealed G-b3 FAIL stands.
 
 Not funded either way (rounds 79–80): the full stage (c) run (~700 core-h) and G-b1 by brute force (~10³ core-h).
 
@@ -181,6 +181,34 @@ Stage (a) was itself checked against the L6 long CUE baseline: AGREES, max |z| 2
 **Cost and run.** 158 point tasks, measured at ~0.7 core-h each on spot (the averaging run's tasks are the same
 computation): ~110 core-h. Launcher `../cs4/run_n6b_settle_spot.sh`; outputs `../cs4/results/n6b/settle/`.
 
+**Result (spot, 2026-10-24 18:02; 158 tasks, no failures, summary under its own status 0; `SETTLE.json`): PASS.**
+- KNOWN_ANSWER_OK = true and WITNESS_OK = true, so the reading is valid.
+
+| r₀ | brute | extraction | brute − extraction | tolerance (1%) | slow-content share |
+|---|---|---|---|---|---|
+| 100 | 2.06968 | 2.07307 | −3.39·10⁻³ | 2.07·10⁻² | −0.16% |
+| 300 | 5.33131 | 5.33061 | +7.0·10⁻⁴ | 5.33·10⁻² | +0.013% |
+
+- **Witnesses, identical at both points.**
+  - The tone moves the gap by −1.1461·10⁻⁴, as predicted (T(1.04) = −3.58·10⁻⁶). That is ≤ 0.6% of the tolerance.
+  - The slow plant moves it by exactly its prediction (T(0.02) = 0.9803), and the planted reading FAILS at both points.
+- **Classes under the kernel.**
+  - ±1: −0.0017 ∓ 0.0003i at r₀ = 100, and 0.0004 ∓ 0.0025i at 300.
+  - ±2 and ±3: < 10⁻⁵.
+  - G-b3's two-period average gave a class-1 gap of −0.39 at (15.75, 100). Under the estimator's kernel it is −0.0034,
+    about 110× smaller.
+- **Runners.** 14 points were computed by both runners, which use per-process temporary names (no shared file). Their
+  bit-identity was not checked here. The pilot showed same-environment recomputes are bit-identical (§5).
+
+**Scope (what the PASS covers and what it does not).**
+- **Covered:** one height (ℓ = 15.75), two points (r = 100 and 300), PMAX 10³, 4 in-window nodes, and the n = 6 (3, 3)
+  piece only.
+- **What a point value is.** It is one member of an exact partition of the estimator's kernel. Each member passing
+  bounds the whole sum only if every member passes. Two members were tested.
+- **Not shown:** that the phase filter alone gives corrected (B)'s n = 6 prediction. That would still need G-b1, the
+  rest of the n = 6 machinery, other heights and r, and production cutoffs. Those make up the new arc in the stop's
+  wording.
+
 ## 4. The averaging result (stage (b), S2.2; `../cs4/n6b_lavg.py`)
 **Declared before running:** the file average multiplies class k's beat by S(r, k), the dephasing of a beat with
 log n ≈ kℓ across the file. For the lowest file (zeros_46646000, ℓ 15.8202–15.8643):
@@ -324,7 +352,7 @@ period-averaged gap, and it does not average out across the lowest file either.
 
 ## 8. Open
 - **L7, the spectral route** (`../OPEN_LEADS.md` L7): a sketch only.
-- **Superseded by round 80:** the offer below is now the settling test (§3.3).
+- **Superseded by round 80:** the offer below became the settling test (§3.3): PASS.
 - **Offered to Will, not run:** the estimator-kernel version of G-b3 (§3.2), which would settle whether the phase
   filter is what the estimator needs at 3 + 3.
   - **Rough size:** two G-b3 points (ℓ = 15.75, r = 100; ℓ = 21.75, r = 173) with a ±4-unit shift window at 1/8 in place
