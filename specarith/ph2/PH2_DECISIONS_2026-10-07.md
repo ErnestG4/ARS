@@ -1764,3 +1764,25 @@ the reading: the extraction holds at this height only if every piece passes. Any
 Step 1: run the frozen gate across all pieces at ℓ = 15.75. If the total cost is ≤ 300 core-hours, start straight away. Otherwise report the cost first.
 Step 2, only if step 1 passes: G-b1 convergence at 8, 10 and 12 nodes for U(N), with the convergence criterion committed first. Then confirm the extraction at one fresh height and fresh values of r, chosen by a rule committed before anything is computed.
 Decision point after step 2. Report before anything else is funded: the full (c) run, the production cutoffs, and the sealed prediction of corrected (B).
+
+## Eighty-second round (2026-10-25) — every-piece gate withdrawn; pilot FAIL as sealed; node check; sampled gate; decision point (verbatim)
+Round 82.
+
+Every-piece gate withdrawn. It is a full-grid brute force and defeats the extraction’s purpose. Record the cost table and the structural point in N6-2_PLAN.md as the reason.
+(c) pilot: record the convergence FAIL as sealed (E 0.056 vs 0.033, ΔI 0.050 vs 0.030; class 0 agrees to 1.7%). FULL_RUN_ALLOWED stays false.
+Node check on the settling pass (first, cap 300 core-hours). Report a cost estimate before running if it would exceed that.
+Recompute the brute − extraction gap at r = 100 and 300 at 6 and 8 nodes, same kernel.
+Report the 4-vs-6 quadrature-error branch of the sealed G-b3 rule.
+Reading, committed now: the settling pass stands only if the gap stays within tolerance at 6 and 8 nodes. Otherwise it’s recorded as a 4-node artifact, and N6-2 pauses.
+Sampled gate, replacing step 1. Commit before computing:
+Sample: a seeded draw of members, stratified by piece group and log-spaced in r out to 10,000, including far members. Run at ℓ = 15.75 and at the fresh height zeros_2365046000 (ℓ = 19.7466). The four fresh r values already drawn go in the (3,3) stratum.
+Tolerance, in units of the final answer:
+Cap the projected total gap at 0.5% of the extraction’s full-grid total.
+Projection per stratum: the largest |gap| in that stratum’s sample × that stratum’s summed kernel weight.
+The total is the sum over strata.
+This replaces the per-piece 1% rule and removes both declared hazards.
+Witness: each stratum’s planted tone and planted slow component are sized as a fixed share of the budget, not of the (3,3) piece’s brute-force value. A witness that isn’t recovered at its predicted size makes that stratum void.
+Cost: confirm the extraction’s full-grid cost, then size the sample to ≤ 300 core-hours at the node count item 3 supports.
+Runs only if item 3 passes.
+Step 2 (G-b1 at 12 nodes, ~1,750 core-hours): stays queued behind item 4. It isn’t funded yet.
+Decision point after item 4. Report the honest production bill: G-b1, (c) at the node count it actually needs (cost the 10-vs-12 pilot), production cutoffs, and a measured speed-up for a 4090 port on one piece. Will then decides whether to resume, port or pause.

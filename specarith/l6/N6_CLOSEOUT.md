@@ -282,6 +282,8 @@ period-averaged gap, and it does not average out across the lowest file either.
 
 - **NULL_PASSES = true. CONVERGES = false. FULL_RUN_ALLOWED = false**, which would have stopped the full run
   regardless of round 79.
+- **Round 82: the convergence FAIL is recorded as sealed.** |E₈ − E₁₀| = 0.056 against an allowed 0.033;
+  |ΔI₈ − ΔI₁₀| = 0.050 against an allowed 0.030. Class 0 alone agrees to 1.7%. FULL_RUN_ALLOWED stays false.
 - **Where the non-convergence sits (descriptive, post-hoc):**
   - Class 0 converges: ΔT₆,₀ = −0.1491 (8 nodes) against −0.1517 (10 nodes), 1.7%.
   - The oscillating classes do not. Classes ±1 and ±2 are each ~0.018 in modulus at 8 nodes, against ≤ 0.0065 (±1) and

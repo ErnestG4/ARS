@@ -4,8 +4,13 @@
 (2026-10-25). Predecessor: `N6_CLOSEOUT.md`, paused at the time box with "extraction viable under the estimator's
 kernel" at two points (§3.3, 739ccde4).
 
-**Status of step 1: NOT STARTED.** Its cost (§2) exceeds the 300 core-h cap, so per round 81 the cost is reported
-first.
+**Round 82: the every-piece gate (step 1, §§1–5) is WITHDRAWN.** It would be a full-grid brute force, which defeats the
+extraction's purpose. The reasons on record are the cost table (§2) and the structural point at the end of §2.
+- **Replaced by:**
+  - the node check on the settling pass (§8, first);
+  - then a sampled gate (§9), which runs only if the node check passes.
+- **Step 2** (G-b1 at 12 nodes) stays queued behind the sampled gate. It is not funded.
+- §§1–5 are kept below as the record of the withdrawn design.
 
 ## 1. Corrected (B)'s full estimator sum, and its pieces
 - **The sum (derived from `../cs4/b2_est.py`; `N6_CLOSEOUT.md` §3.3):**
@@ -88,7 +93,7 @@ first.
 - **Any failing (or VOID) piece is recorded,** with its r₀, (a, b), gap, tolerance and slow-content share, **and step 2
   does not start.**
 
-## 5. Step 1
+## 5. Step 1 (WITHDRAWN, round 82)
 Run the frozen gate across all pieces at ℓ = 15.75. **Cost ≈ 65,500 spot core-h, above the 300 core-h cap, so it is
 reported first (round 81). Not started.**
 
@@ -122,3 +127,51 @@ reported first (round 81). Not started.**
 ## 7. Decision point after step 2
 Report to Will before anything else is funded: the full stage (c) run, the production cutoffs, and the sealed
 prediction of corrected (B).
+
+## 8. Item 3 (round 82): node check on the settling pass. Cost reported first; NOT RUN
+**What (round 82).**
+- Recompute the brute − extraction gap at r₀ = 100 and 300 with the frozen kernel (79 points each, ℓ = 15.75,
+  PMAX 10³) at 6 and 8 in-window nodes.
+- Report the sealed G-b3 rule's 4-vs-6 quadrature-error branch: q = |brute₆ − brute₄| under the kernel, giving the
+  sealed tolerance max(q, 0.01·|brute|).
+
+**Reading (Will, round 82, committed now).** The settling pass stands only if the gap stays within tolerance at 6 and 8
+nodes. Otherwise it is recorded as a 4-node artifact and N6-2 pauses.
+
+**Cost (measured locally on 2026-10-25, (3, 3) `rho_cls` at r = 100; spot = local × 4.08 as in §2).**
+
+| nodes | configurations per point | local s per configuration (batch) | local core-h per point | spot core-h, 158 points |
+|---|---|---|---|---|
+| 4 (settling) | 16 | 33 (16) | 0.15 | 95 (measured: 2,163 s per point) |
+| 6 | 400 | 24.4 (64); 34.5 (16) | 2.7 | ≈ 1,750 |
+| 8 | 3,136 | 26.4 (64) | 23 | ≈ 14,900 |
+
+- **Total for the node check ≈ 16,600 spot core-h.** 6 nodes alone is ≈ 1,750, which is also the cost of the 4-vs-6
+  branch. Both exceed the 300 core-h cap.
+- **Per round 82, the estimate is reported before running.** Nothing has run.
+- **Why it is this expensive.** Per-configuration cost is flat in batch size beyond ~64, and the configuration count
+  grows as C(nq, 3)². No cheaper exact route is available at the same kernel: the kernel fixes 79 points per r₀, and
+  the 4-vs-6 branch needs the full 6-node brute.
+
+## 9. Item 4 (round 82): sampled gate. Blocked behind item 3; design to be committed before computing
+**The extraction's full-grid cost (confirmed as round 82 asks).**
+- The extraction is the phase-filtered class-0 part, evaluated by the same jets (`FilteredModel.rho_f`, NONOSC).
+- Measured in the same local run on 16 (3, 3) configurations: 329 s, against 719 s for all classes. **That is 0.46 of
+  the brute-force cost per point, not orders of magnitude less.**
+- Full grid at 4 nodes (79,840 points, all nine (a, b) pieces): ≈ 0.46 × 65,500 ≈ 30,000 spot core-h. At 6 or 8 nodes
+  it is ×25 or ×196.
+- **So for ζ, the phase filter does not by itself make the evaluation affordable.** As S2.3 found, it separates for
+  U(N) but not for ζ. Affordability needs a faster evaluator, such as the 4090 port asked for at the decision point.
+- This also bears on the sampled gate's denominator, the "extraction's full-grid total". It cannot be computed within
+  the cap. It would have to be estimated from the stratified sample itself, and that is a design point for Will.
+
+**Weights the projection must carry.** The (a, b) pieces enter C(r) with ψ's falling-factorial coefficients c_a c_b
+(`n6a_trace.psi_coeffs`): c₁ = 37 − 3σ² ≈ 35.7, c₂ = −9 and c₃ = 1. So |c_a c_b| ≈ 1,270 for (1, 1), 321 for (1, 2),
+81 for (2, 2), 36 for (1, 3), 9 for (2, 3) and 1 for (3, 3). A stratum's projected gap is max|gap| × its summed
+kernel weight × |c_a c_b|.
+
+**Sizing at the node count item 3 supports.**
+- Not determined: item 3 has not run.
+- For scale: at 4 nodes (0.82 spot core-h per point, 79 points per member), 300 core-h buys ~4.6 members' worth of
+  all-piece evaluations. At 6 nodes it buys less than one member's worth. A stratified sample across 6 piece groups ×
+  several r bins × 2 heights does not fit in 300 core-h at any node count above 4.
