@@ -184,8 +184,9 @@ statistic, and any connection between them is a hypothesis for a future sealed t
   - The averaging test FAILS its pre-stated prediction (close-out §4).
   - **The post-hoc settling test under corrected (B)'s own kernel PASSED** at ℓ = 15.75, r = 100 and 300 (close-out
     §3.3): extraction gaps of −0.16% and +0.013% against a 1% tolerance, with known answer and witnesses OK.
-  - **Stop:** "paused at the time box; extraction viable under the estimator's kernel; resumption is a new arc,
-    Will's call".
+  - **Stop (round 83 wording):** “Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
+    Round 80's "extraction viable under the estimator's kernel" claimed more than this.
+  - Resumed as arc N6-2 (`l6/N6-2_PLAN.md`).
   - The stage (c) pilot: null passes, convergence not met, ΔI ≈ −0.15 at r = 6 (close-out §5).
   - **The cause of the deficit at 6-point order stays open.** Successor route: L7.
 - **Status:** descriptive first. Any confirmatory version gets its own pre-registration. It is a candidate for the

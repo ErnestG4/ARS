@@ -1,7 +1,12 @@
 # n = 6 arc: close-out (rounds 79–80; session 3 of 3)
 
-**The stop (round 80's pre-set wording for a settling-test PASS; the test PASSED at both points, §3.3):** "paused at
-the time box; extraction viable under the estimator's kernel; resumption is a new arc, Will's call".
+**The stop (round 83 wording):** “Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
+- **Round 80's wording claimed more than this:** "paused at the time box; extraction viable under the estimator's
+  kernel; resumption is a new arc, Will's call".
+  - The settling test used 4 in-window nodes per coordinate, so each cluster sees only 4 node triples.
+  - The (c) pilot shows the oscillating classes are under-resolved even at 8 nodes.
+  - So the pass is established at 4 nodes only.
+- The resumption is arc N6-2 (`N6-2_PLAN.md`). Its round-83 node diagnostic tests the pass at 6 nodes.
 - The settling test is post-hoc.
 - Its scope: ℓ = 15.75, r = 100 and 300, PMAX 10³ and 4 nodes.
 - The sealed G-b3 FAIL stands.

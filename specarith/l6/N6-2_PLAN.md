@@ -153,7 +153,12 @@ nodes. Otherwise it is recorded as a 4-node artifact and N6-2 pauses.
   grows as C(nq, 3)². No cheaper exact route is available at the same kernel: the kernel fixes 79 points per r₀, and
   the 4-vs-6 branch needs the full 6-node brute.
 
-## 9. Item 4 (round 82): sampled gate. Blocked behind item 3; design to be committed before computing
+## 9. Item 4 (round 82): sampled gate. WITHDRAWN AS DESIGNED (round 83)
+**Why withdrawn:**
+- The 0.5% denominator, the extraction's full-grid total, is uncomputable within any cap.
+- The projection as issued lacked ψ's weights.
+
+The |c_a c_b| weights below are kept for any successor design. The rest of this section is the record.
 **The extraction's full-grid cost (confirmed as round 82 asks).**
 - The extraction is the phase-filtered class-0 part, evaluated by the same jets (`FilteredModel.rho_f`, NONOSC).
 - Measured in the same local run on 16 (3, 3) configurations: 329 s, against 719 s for all classes. **That is 0.46 of
@@ -175,3 +180,56 @@ kernel weight × |c_a c_b|.
 - For scale: at 4 nodes (0.82 spot core-h per point, 79 points per member), 300 core-h buys ~4.6 members' worth of
   all-piece evaluations. At 6 nodes it buys less than one member's worth. A stratified sample across 6 piece groups ×
   several r bins × 2 heights does not fit in 300 core-h at any node count above 4.
+
+## 10. Cost model (round 83; every proposed step is priced with it before it is issued)
+
+  **spot core-h = C(n, 3)² configurations per point × points × s per configuration × 4.08 / 3600**
+
+**Terms.**
+- **C(n, 3)²:** the (3, 3) piece's distinct-node configurations at n in-window nodes per coordinate: 16, 400, 3,136,
+  14,400 and 48,400 at n = 4, 6, 8, 10 and 12. Lower (a, b) pieces use C(n, a)·C(n, b).
+- **s per configuration:** measured locally at ζ PMAX 10³ (`N6-2_PLAN.md` §8): ~33 s at batch 16 and ~25 s at
+  batch ≥ 64 for (3, 3). For other pieces, scale by §2's per-point ratios. U(N) ρ₆ costs ~0.39 s per configuration at
+  batch 2,048.
+- **4.08:** spot's per-process slowdown against local. Measured as 2,163 s per (3, 3) point on spot against 530 s
+  locally (the settling run).
+
+**Checks against measured runs.**
+- The settling test: 158 × 16 × 33 s × 4.08 ≈ 95 core-h predicted, against 95 measured.
+- The (c) pilot is T₆ at PMAX 10², ζ part. It uses the product rule over node multisets, so its configuration count is
+  (C(n + 2, 3))²: 14,400 at 8 nodes and 48,400 at 10, 62,800 in all.
+  - Predicted: 62,800 × ~7 s (local, batch 128) × 4.08 / 3600 ≈ 500 core-h.
+  - Measured: 487 core-h, i.e. 27.9 s per configuration on spot, or 6.8 s locally after the spot factor.
+  - **So the configuration count must match the quadrature rule:** C(n, 3)² for the distinct-node rule, C(n + 2, 3)²
+    for multisets.
+
+## 11. Node diagnostic (round 83; a diagnostic, not a gate; asymmetric; committed before computing; `../cs4/n6b_nodediag.py`)
+**Points (selected by the rule alone).**
+- The rule: at each r₀ ∈ {100, 300}, the 12 kernel points with the largest |kernel weight × ψ weight|.
+  - The kernel is the frozen settling kernel.
+  - The (3, 3) piece's ψ weight is |c₃c₃| = 1, so the rule reduces to the 12 largest kernel weights.
+  - The kernel's (1 − r/G) slope breaks the ±6 tie toward k = −6.
+- The result is k = −6…+5 at both r₀, 24 points in all.
+- **They carry 30.0% of each member's kernel weight.** The other 67 points (70%) are not checked.
+
+**Compute.**
+- The (3, 3) piece by class at 6 nodes: 400 configurations per point in 8 chunks of 50, as in `n6b_settle.task`
+  (ℓ = 15.75, PMAX 10³, distinct-node rule). Brute = Σ classes; extraction = class 0; gap = brute − extraction.
+- The 4-node values are reused from the settling run (`results/n6b/settle/tasks.tgz`).
+- **Validation before launch (local, done):** the task code at 4 nodes reproduces the stored settling value at
+  (r₀ = 100, k = 0) to 1.1·10⁻¹³ absolute (local against spot arithmetic; the value is −12.194).
+
+**Report, per r₀.**
+- The kernel-weighted partial sums over the 12 points, P_brute and P_gap, at 4 and 6 nodes, and their 4→6 changes.
+- |ΔP_brute| as the sealed G-b3 rule's 4-vs-6 quadrature-error estimate, restricted to these points.
+
+**Reading (Will, round 83).**
+- **ARTIFACT:** |ΔP_gap| > 0.01·|P_brute(6)| at either r₀. The settling pass is then recorded as a 4-node artifact, and
+  N6-2 pauses.
+- **Otherwise:** "no 4→6 movement at the dominant points". That makes no claim of convergence.
+
+**Cost (§10):** 24 × 400 × 24.4 s × 4.08 / 3600 ≈ 265 spot core-h, under the 300 cap. That is 192 tasks of ~1.4
+spot core-h each (~4–5 h on spot at 48 processes).
+
+**After it:** if it does not trigger a pause, Will decides on sharing the 4090 with the ARSv2 session before a one-piece
+port benchmark is measured. No port before that.

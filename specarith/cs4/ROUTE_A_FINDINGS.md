@@ -339,8 +339,9 @@ pair statistic is a candidate.
     G-b3's period average; the beat-term attribution is struck), the averaging FAIL, the stage (c) pilot, and the
     quadrature defect.
   - **The post-hoc settling test under corrected (B)'s own kernel PASSED** at ℓ = 15.75, r = 100 and 300.
-  - **Stop:** "paused at the time box; extraction viable under the estimator's kernel; resumption is a new arc,
-    Will's call". The successor routes are a new arc or `../OPEN_LEADS.md` L7.
+  - **Stop (round 83 wording):** “Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
+    Round 80's "extraction viable under the estimator's kernel" claimed more than this.
+  - Resumed as arc N6-2 (`../l6/N6-2_PLAN.md`). `../OPEN_LEADS.md` L7 remains a lead.
 
 For route (a), (A) and the corrected (B), the calibration replicates are independent CUE_1000 blocks with no correlation
 beyond a block, so they cannot separate generic long-sequence rigidity from an arithmetic cause. (Round 70: the L6 long

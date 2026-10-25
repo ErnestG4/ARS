@@ -1786,3 +1786,40 @@ Cost: confirm the extraction’s full-grid cost, then size the sample to ≤ 300
 Runs only if item 3 passes.
 Step 2 (G-b1 at 12 nodes, ~1,750 core-hours): stays queued behind item 4. It isn’t funded yet.
 Decision point after item 4. Report the honest production bill: G-b1, (c) at the node count it actually needs (cost the 10-vs-12 pilot), production cutoffs, and a measured speed-up for a 4090 port on one piece. Will then decides whether to resume, port or pause.
+
+## Eighty-third round (2026-10-25) — stop narrowed to 4 nodes; item 4 withdrawn; node diagnostic first; cost model (verbatim, with Will's reasoning)
+Will's reasoning, sent with the round:
+
+Round 83: don’t raise the cap, and don’t start the port. First run one cheap diagnostic, about 265 core-hours, which can kill the settling pass but can’t confirm it.
+
+My error, now three rounds running: I set caps without a cost model, and CC has had to bounce two designs (rounds 81 and 82) at 50–200× over. Round 82 also left out ψ's weights from the projection and used a denominator nobody can compute. CC caught both. From here, any step I propose gets priced with CC’s cost formula before I issue it.
+
+I checked CC’s cost figures and they hold up. Configurations per point = C(n,3)²: 4² = 16, 20² = 400, 56² = 3,136. Multiplying through by 158 points, the per-configuration times and spot’s ~4× slowdown gives 95, 1,750 and about 14,900 core-hours.
+
+What that means for the settling pass. At 4 nodes, each cluster sees only 4 triples of nodes. The (c) pilot is already under-resolved for the oscillating classes at 8 nodes. So the settling pass shows the extraction holds at 4 nodes, and we don’t yet know it holds at real resolution. The round 80 stop wording, “extraction viable under the estimator’s kernel”, claims more than that. It gets narrowed now, whatever happens next.
+
+Why the diagnostic comes first:
+
+What it does: a 6-node check at the kernel points carrying the most weight.
+If the gap moves: the pass was an artifact of the coarse grid, N6-2 pauses with an honest record, and no port is needed.
+If it holds: the port measurement becomes worth its cost. At that point you decide whether to share the 4090 with the ARSv2 session.
+
+That uses spot now, under the cap, on the question that decides everything else.
+
+Round 83.
+
+Reword the stop now (close-out, findings §11, L6):
+“Settling test PASS at 4 nodes per coordinate (one height, r = 100 and 300, the (3,3) piece only); resolution not established. Extraction viable at 4 nodes; at production resolution, untested.”
+Note that round 80’s wording claimed more than this.
+Round 82 item 4 is withdrawn as designed. The 0.5% denominator is uncomputable and ψ's weights were missing. Keep the |c_a c_b| weights in the plan.
+Node diagnostic. Cap 300 spot core-hours, estimate ~265. Commit before computing:
+Points: the 12 kernel points with the largest |kernel weight × ψ weight| at each of r = 100 and r = 300 (24 points), selected by that rule alone.
+Compute: brute force and extraction at 6 nodes. Reuse the 4-node values.
+Report:
+the change from 4 to 6 nodes in the kernel-weighted partial sums of brute force and of the gap;
+the change in brute force, as the 4-vs-6 quadrature-error estimate from the sealed rule, restricted to these points.
+Reading: a diagnostic, not a gate, and asymmetric.
+If the partial gap changes by more than 1% of the partial brute-force value at either r, record the settling pass as a 4-node artifact. N6-2 then pauses.
+Otherwise, record “no 4→6 movement at the dominant points”. That makes no claim of convergence.
+Cost model in the plan: write the formula (configurations C(n,3)² per point × points × seconds per configuration × spot factor 4.08) into N6-2_PLAN.md. Price every proposed step with it before it’s issued.
+4090 port: not now. If item 3 doesn’t trigger a pause, Will decides on sharing the 4090 with the ARSv2 session before a one-piece benchmark is measured.
