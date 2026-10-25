@@ -1747,3 +1747,20 @@ FAIL at either → stop reads “extraction inadequate under the estimator’s o
 The full (c) run and G-b1 stay unfunded either way.
 Waiter: exit 0 when the failure list is empty; nonzero only on failure.
 Pilot second runner: confirm atomic chunk writes. Diff any chunk both runners computed and report bit-identity. Then record the pilot in §5 as planned.
+
+## Eighty-first round (2026-10-25) — housekeeping; n = 6 resumes as arc N6-2 (two sessions); plan before computing (verbatim)
+Round 81.
+
+Housekeeping from round 80:
+Cite the G-b3 seal line showing the 1% tolerance.
+Report the (c) pilot against its null, witness and 8-vs-10 convergence criteria.
+Report the bit-identity diff on chunks both runners computed.
+Confirm the waiter fix.
+Push status: 4 unpushed commits on specarith; pushes stay with Will.
+Will resumes n = 6 as a new arc, N6-2, time box two sessions. Write N6-2_PLAN.md before computing. It must contain:
+every piece of corrected (B)’s full estimator sum, with the cost of each;
+the gate, frozen as in 739ccde4: same kernel, the same known-answer check, both planted witnesses and the 1% tolerance;
+the reading: the extraction holds at this height only if every piece passes. Any failing piece is recorded and stops step 2.
+Step 1: run the frozen gate across all pieces at ℓ = 15.75. If the total cost is ≤ 300 core-hours, start straight away. Otherwise report the cost first.
+Step 2, only if step 1 passes: G-b1 convergence at 8, 10 and 12 nodes for U(N), with the convergence criterion committed first. Then confirm the extraction at one fresh height and fresh values of r, chosen by a rule committed before anything is computed.
+Decision point after step 2. Report before anything else is funded: the full (c) run, the production cutoffs, and the sealed prediction of corrected (B).
