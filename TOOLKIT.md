@@ -1561,3 +1561,12 @@ read off an unresolved quadrature.
 - A cost model that makes the converged settings unaffordable is a finding, not a licence to gate at cheaper
   settings.
 - Related: §9 "convergence check at the sealed scale", §9.D, and "a gate certifies half, say so".
+
+**Asymmetry of shortcut tolerances (round 85).**
+- **When a sealed tolerance is a maximum,** max(estimated numerical error, fixed floor), applying the floor alone is
+  valid only for a PASS claim: it can only make a PASS harder. It is never valid for a FAIL.
+  - A FAIL read against the floor alone may sit inside the unevaluated numerical-error branch.
+- **What it did to n = 6:** G-b3's sealed rule was max(4-vs-6 quadrature error, 1%). The FAIL was read against 1%
+  alone, and round 82 accepted that as "at least as strict". When the quadrature branch was finally measured, it
+  exceeded the 4-node values themselves, so G-b3 was reclassified VOID (round 85).
+- **Rule:** a FAIL needs every branch of its tolerance computed.

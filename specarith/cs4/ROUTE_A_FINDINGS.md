@@ -335,7 +335,9 @@ pair statistic is a candidate.
     order is not done: no ζ measurement at resolved quadrature exists.
   - Banked: the exact four-term covariance form C(r) = κ₃₃ + 9κ₂₁κ₁₂ + 9κ₁₁κ₂₂ + 6κ₁₁³, verified against Fredholm
     to 10⁻¹¹–10⁻⁶.
-  - **Stop (round 84):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
+  - **Status (round 85):** n = 6 stopped at the time box: “stopped; resumption needs a ≥10-node evaluator or L7, as a new arc.” G-b3 is reclassified VOID: the
+    sealed quadrature branch was never computed, and measured now it exceeds the 4-node values.
+  - **Stop wording (round 84, kept):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
   - The node audit (close-out §0) marks every stage (b) ζ result unresolved: all ran at 4 in-window nodes, and U(N)'s
     known answer needs 8–10. The settling pass is a 4-node artifact. The sealed G-b3 FAIL stays, with its attribution
     not established.

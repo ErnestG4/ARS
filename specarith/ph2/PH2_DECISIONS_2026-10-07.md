@@ -1834,3 +1834,30 @@ Stop wording: “Paused. No stage (b) ζ measurement at resolved quadrature exis
 New standing rule, in TOOLKIT §9: a gate comparing two estimates is valid only after each estimate is shown converged at the settings used, against a known answer where one exists. Note that this caught N6-2.
 Cost model: add the per-process slowdown as a function of process count. New run rule: if the first wave’s mean task time exceeds the model by more than 25%, stop and report before the second wave.
 L7 (the spectral route): update its note. It is now also the candidate if a faster brute-force evaluator proves infeasible.
+
+## Eighty-fifth round (2026-10-25) — n = 6 stopped; G-b3 VOID; TOOLKIT §9.E asymmetry; new arc RQ1 (ℤ[√2] prime angles) (verbatim)
+Round 85.
+
+n = 6 stopped at the time box. Status: “stopped; resumption needs a ≥10-node evaluator or L7, as a new arc.”
+G-b3 reclassified VOID. The sealed rule’s quadrature branch was never computed. Measured now, it exceeds the 4-node values. The 1%-alone shortcut is valid for PASS claims only, never for FAIL. Note that round 82 accepted the shortcut. Add the asymmetry to TOOLKIT §9.E.
+New arc RQ1: real-quadratic prime angles in ℤ[√2]. Time box: two sessions. The cost model and first-wave rule apply.
+Step 0 (no compute). Report:
+Phase 34d: what it computed on Gaussian prime angles, its readouts and results, and whether it tested Rudnick–Waxman.
+Literature: Rudnick–Waxman, arXiv:1705.07498, Conjecture 1.2; the refined lower-order conjecture for Gaussian sectors; Hecke’s equidistribution of real-quadratic prime angles; any real-quadratic analogue. Primary sources or UNVERIFIED.
+Derivation for ℤ[√2]:
+The angle θ(𝔭) = log|π/π′| / (2 log ε) mod 1, with ε = 1+√2. Show it is well defined under units.
+The characters λᵏ, and how their analytic conductors grow with k.
+The leading-order sector-variance prediction. Will’s reviewer’s heuristic is N/K · min(1, 2 log K / log N); derive it or refute it.
+Lower-order terms, if they can be derived.
+If no definite formula comes out, RQ1 is exploratory: a gallery, no verdict.
+Step 1 (build and gates; may run now).
+Generator: split primes p ≡ ±1 mod 8. Solve a² − 2b² = ±p in exact integer arithmetic, and reduce to a fundamental domain. Each split prime gives two ideals, at θ and −θ. Exclude 2 and the inert primes. Assert N(π) = ±p for every prime.
+Gates:
+The sector-variance estimator on uniform i.i.d. points gives exactly N/K (binomial).
+CUE eigenphases give the exact arc number variance.
+The same pipeline on ℤ[i] reproduces Rudnick–Waxman’s published numerics, within a tolerance stated before running.
+Witnesses that must be flagged: inert primes included (a spike at θ = 0), and double-counted conjugate pairs.
+§9.E applies: show the statistic is stable across two values of X before comparing anything.
+Step 2 (data; may run now). Generate the angle archive to X = 10¹⁰ (10¹¹ if the cost model says it fits). Hash it, and compute no statistic from it. Then draft the reading seal: the prediction, the K grid, the tolerance, and both X values.
+Step 3. Read only after Will approves the seal and its OpenTimestamps receipt is Bitcoin-attested. Pinned environment, double read.
+Report Step 0, the Step 1 gates and the costs before the seal.

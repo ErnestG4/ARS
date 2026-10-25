@@ -1,6 +1,10 @@
 # n = 6 arc: close-out (rounds 79–84; arc N6-2 paused in round 84)
 
-**The stop (round 84 wording):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
+**Status (round 85):** n = 6 stopped at the time box: “stopped; resumption needs a ≥10-node evaluator or L7, as a new arc.”
+
+**G-b3: reclassified VOID (round 85).** See §3.1.
+
+**The stop (round 84 wording, kept):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
 
 **Superseded stop wordings, kept as the record:**
 - Round 79: "… requires a ζ extraction that retains beat terms; not available; arc stopped at the time box". Struck
@@ -109,7 +113,18 @@ carriers exactly.
 - ℓ = 15.75: 31%, 8%, 6% and 2.5% of the piece at r = 100, 173, 300 and 500;
 - ℓ = 21.75: 1.0% and 1.6% at r = 173 and 500.
 
-**G-b3 FAILED as declared.** Both wrong variants failed, so the gate had power. That FAIL stands.
+**G-b3 FAILED as declared.** Both wrong variants failed, so the gate had power.
+
+**Round 85: G-b3 is reclassified VOID.**
+- **The sealed rule:** the tolerance is max(the 4-vs-6 quadrature error, 1% of brute).
+- **What was done:** G-b3 applied the 1% branch alone and never computed the quadrature branch.
+- **Measured now** (the round-83 node diagnostic, at the settling points): the quadrature branch is 6.13 and 2.93,
+  larger than the 4-node partial sums themselves.
+- **Why that voids the FAIL:** the 1%-alone shortcut is valid for PASS claims only, because it can only make a PASS
+  harder. A FAIL read with it can be an artifact of a tolerance smaller than the sealed one.
+- **Accepted earlier:** round 82 accepted the shortcut ("Tolerance: G-b3's original, unchanged"), and `N6-2_PLAN.md`
+  §3 called it "at least as strict".
+- **Rule:** the asymmetry is now in TOOLKIT §9.E.
 
 **Superseded:**
 - round 77 attributed the gap to beat terms (slow components from products of primes near e^ℓ mixing with the

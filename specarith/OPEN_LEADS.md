@@ -176,7 +176,9 @@ statistic, and any connection between them is a hypothesis for a future sealed t
     lower-order products that cancel through ψ's coefficients.
   - With Will.
 - **Rounds 79–84: the n = 6 work is paused (`l6/N6_CLOSEOUT.md`).**
-  - **Stop (round 84):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
+  - **Status (round 85):** n = 6 stopped at the time box: “stopped; resumption needs a ≥10-node evaluator or L7, as a new arc.” G-b3 is reclassified VOID: the
+    sealed quadrature branch was never computed, and measured now it exceeds the 4-node values.
+  - **Stop wording (round 84, kept):** “Paused. No stage (b) ζ measurement at resolved quadrature exists. U(N) needs 8–10 nodes; ζ needs ≥ 10 (≥ 14,400 configurations per point). Resumption requires a faster evaluator and is a new arc, Will’s call.”
   - **Banked:**
     - the exact four-term covariance form, verified against Fredholm;
     - the stage (c) pilot record (null passes; 8-vs-10 convergence FAIL as sealed);
