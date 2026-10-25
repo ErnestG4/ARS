@@ -260,3 +260,24 @@ spot core-h each (~4–5 h on spot at 48 processes).
 
 **After it:** if it does not trigger a pause, Will decides on sharing the 4090 with the ARSv2 session before a one-piece
 port benchmark is measured. No port before that.
+
+**Result (spot, 2026-10-25 16:0x; 192 tasks, no failures, summary under its own status 0;
+`../cs4/results/n6b/nodediag/NODEDIAG.json`): READING = 4-NODE ARTIFACT at both r₀.**
+
+| r₀ | P_brute 4 → 6 | P_gap 4 → 6 | ΔP_gap | limit 1%·\|P_brute(6)\| | |
+|---|---|---|---|---|---|
+| 100 | +0.825 → +6.953 | +0.110 → +2.941 | +2.83 | 0.070 | triggers (40×) |
+| 300 | +1.562 → +4.492 | −1.191 → −5.657 | −4.47 | 0.045 | triggers (99×) |
+
+- **The sealed G-b3 rule's 4-vs-6 quadrature-error branch, restricted to these points:** |ΔP_brute| = 6.13 (r₀ = 100)
+  and 2.93 (r₀ = 300). That is 88× and 65× the 1% branch.
+  - Under the sealed max(quadrature error, 1%) the tolerance at these points would be the quadrature error itself:
+    larger than the partial brute-force value at 4 nodes.
+  - So the 4-node settling comparison could not have been read under the sealed rule either.
+- **Per point** (descriptive): brute moves by factors of ~2–250 between 4 and 6 nodes, often changing sign. At 6 nodes
+  the gap is comparable to or larger than brute (r₀ = 300: P_gap −5.66 against P_brute +4.49).
+  - 6 nodes is itself unresolved (U(N) is 26% off), so neither the 6-node values nor the gap/brute split at 6 nodes is
+    a reading.
+- **Cost:** 591 core-h of task wall time against the 300 cap: the breach recorded in §10, at a spot factor of 9.1 at
+  48 processes.
+- **Consequence (round 84):** the settling pass is recorded as a 4-node artifact. **N6-2 is paused.**
