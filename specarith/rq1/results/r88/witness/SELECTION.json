@@ -1,0 +1,184 @@
+{
+ "B2": "rule selected; confirmation pending",
+ "OK": true,
+ "T_null": {
+  "max": 5.069705137288883,
+  "mean": 0.07224278078397911,
+  "min": -7.113357496931539,
+  "sd_centred": 2.6313081863155197,
+  "sd_uncentred": 2.6191151106877224
+ },
+ "T_planted": {
+  "max": 16.23550005874482,
+  "mean": 10.256732361009556,
+  "min": 4.214586172687838,
+  "sd_centred": 2.582121945892366,
+  "sd_uncentred": 10.57361049648629
+ },
+ "criteria": {
+  "guard_se": 2.0,
+  "null_max_pass": 5,
+  "offset_over_se_min": 2.0,
+  "planted_min_pass": 90,
+  "replicates": 100,
+  "se_ratio_max": 1.2,
+  "t": "2 * uncentred SD of T over the null replicates",
+  "t_sd_mult": 2.0
+ },
+ "guard_failures": {
+  "null": 7,
+  "planted": 0
+ },
+ "label": "RQ1 B2 rule selection (round 90; round-88 replicates, no new compute)",
+ "null_T_above_t": 0,
+ "null_false_pass": 0,
+ "planted_T_above_t": 98,
+ "planted_pass": 98,
+ "remaining_cells": [
+  [
+   10000000000,
+   0.4
+  ],
+  [
+   10000000000,
+   0.45
+  ],
+  [
+   100000000000,
+   0.4
+  ],
+  [
+   100000000000,
+   0.45
+  ]
+ ],
+ "rule": {
+  "cells": [
+   [
+    10000000000,
+    0.4
+   ],
+   [
+    10000000000,
+    0.45
+   ],
+   [
+    100000000000,
+    0.4
+   ],
+   [
+    100000000000,
+    0.45
+   ]
+  ],
+  "scale": [
+   [
+    10000000000,
+    0.4,
+    1.0
+   ],
+   [
+    10000000000,
+    0.45,
+    1.0
+   ],
+   [
+    100000000000,
+    0.4,
+    1.0
+   ],
+   [
+    100000000000,
+    0.45,
+    1.0
+   ]
+  ],
+  "t": 5.238230221375445
+ },
+ "se_check": {
+  "cells": {
+   "1e10 b=0.4": {
+    "null": {
+     "D_mean": 0.00015652248366569533,
+     "SE_diff_emp": 0.04204817063745938,
+     "SE_diff_model": 0.04682427854844455,
+     "frac_D_positive": 0.52,
+     "ratio": 0.8979993272924901
+    },
+    "offset_over_SE_sealed": 2.303045741966274,
+    "offset_over_SE_used": 2.303045741966274,
+    "planted": {
+     "D_mean": 0.06365719300392,
+     "SE_diff_emp": 0.03528467085134845,
+     "SE_diff_model": 0.0430049720054426,
+     "frac_D_positive": 0.97,
+     "ratio": 0.8204788703706843
+    },
+    "powered": true,
+    "ratio": 0.8979993272924901
+   },
+   "1e10 b=0.45": {
+    "null": {
+     "D_mean": 0.000576480572792053,
+     "SE_diff_emp": 0.026479051383935682,
+     "SE_diff_model": 0.028462422458874915,
+     "frac_D_positive": 0.55,
+     "ratio": 0.9303161535949729
+    },
+    "offset_over_SE_sealed": 2.8001713578982583,
+    "offset_over_SE_used": 2.8001713578982583,
+    "planted": {
+     "D_mean": 0.062398308477923645,
+     "SE_diff_emp": 0.023015629265703094,
+     "SE_diff_model": 0.02614664102593286,
+     "frac_D_positive": 1.0,
+     "ratio": 0.8802518550231997
+    },
+    "powered": true,
+    "ratio": 0.9303161535949729
+   },
+   "1e11 b=0.4": {
+    "null": {
+     "D_mean": 0.0007164020616154121,
+     "SE_diff_emp": 0.028419715188186312,
+     "SE_diff_model": 0.030203707210123887,
+     "frac_D_positive": 0.56,
+     "ratio": 0.940934667074921
+    },
+    "offset_over_SE_sealed": 3.2525111550793206,
+    "offset_over_SE_used": 3.2525111550793206,
+    "planted": {
+     "D_mean": 0.06564386206562424,
+     "SE_diff_emp": 0.028471670114023174,
+     "SE_diff_model": 0.02763909745997624,
+     "frac_D_positive": 0.99,
+     "ratio": 1.030123004387266
+    },
+    "powered": true,
+    "ratio": 1.030123004387266
+   },
+   "1e11 b=0.45": {
+    "null": {
+     "D_mean": 0.00041766936857312587,
+     "SE_diff_emp": 0.016881423404756967,
+     "SE_diff_model": 0.017350736376494313,
+     "frac_D_positive": 0.51,
+     "ratio": 0.972951409003416
+    },
+    "offset_over_SE_sealed": 4.3671322974510005,
+    "offset_over_SE_used": 4.3671322974510005,
+    "planted": {
+     "D_mean": 0.06389442169929621,
+     "SE_diff_emp": 0.016020971543181658,
+     "SE_diff_model": 0.015893161084389772,
+     "frac_D_positive": 1.0,
+     "ratio": 1.0080418526001993
+    },
+    "powered": true,
+    "ratio": 1.0080418526001993
+   }
+  },
+  "triggered": false
+ },
+ "t": 5.238230221375445
+}

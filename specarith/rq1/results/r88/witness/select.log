@@ -1,0 +1,3 @@
+{'t': 5.238230221375445, 'null_false_pass': 0, 'planted_pass': 98, 'OK': True, 'B2': 'rule selected; confirmation pending'}
+T_null {'mean': 0.07224278078397911, 'sd_centred': 2.6313081863155197, 'sd_uncentred': 2.6191151106877224, 'min': -7.113357496931539, 'max': 5.069705137288883} SE check triggered False remaining [(10000000000, 0.4), (10000000000, 0.45), (100000000000, 0.4), (100000000000, 0.45)]
+exit=0

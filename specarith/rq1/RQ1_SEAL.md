@@ -1,4 +1,4 @@
-# RQ1 reading seal — STATUS: RESUBMISSION DRAFT (round 88 fixes; round 90 B2 statistic committed before any witness result was read; witness running). Not sealed; no OpenTimestamps receipt; nothing read
+# RQ1 reading seal — STATUS: RESUBMISSION DRAFT (round 88 fixes; round 90 B2 statistic committed before any witness result was read; witness done, selection passed, confirmation running). Not sealed; no OpenTimestamps receipt; nothing read
 
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
@@ -265,8 +265,35 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
 - `rq1_read.py` 60dc1d9a7b3e27c6ebb97c6074667626bce40a3e19988dc4106fdba09b734916 (@ fdf9f26f);
 - `rq1_witness.py` b00cb0e747241252fb0ef6c3e55849a62532396e61bce924b7c8889f75d132f0 (@ 5640055e; the fdf9f26f version
   failed on its first null tasks, numpy's hypergeometric limit, and was fixed before any replicate completed).
-- **Round-88 summary (sign rule):** WITNESS_PENDING
-- **Round-90 selection** (`witness/SELECTION.json`): SELECTION_PENDING
+- **Round-88 summary (sign rule; superseded, reported):** `results/r88/witness/WITNESS.json`, sha256
+  3d74acb3e23b9e3efa4ba3366c09e37b1fac9a98ae9300e85e96486ff250e0b0 (identical on spot). 200 replicate files,
+  no failed task.
+  - **The sign rule fails its null arm:** 21 false PASS of 100 against the bar of ≤ 10. Planted: 96 of 100 (bar ≥ 90).
+    Under round 88 this would have made the read VOID; rounds 89–90 replaced the rule before this file was opened.
+  - The a priori 0.09–0.12 was wrong because it assumed sign agreement of 0.3–0.6 within an X and nearly independent
+    X. Measured sign agreement: 0.81 between β 0.40 and 0.45 at each X, and 0.52–0.60 across X.
+  - Empirical against model SD of R per field and cell (null; planted): 10¹⁰ β 0.40: 0.028–0.032 against 0.033;
+    0.025–0.027 against 0.029–0.031. 10¹⁰ β 0.45: 0.018–0.019 against 0.020; 0.016–0.017 against 0.018–0.019.
+    10¹¹ β 0.40: 0.018–0.021 against 0.021; 0.019–0.020 against 0.019–0.020. 10¹¹ β 0.45: 0.010–0.013 against
+    0.012; 0.011–0.012 against 0.011–0.012. The model is accurate at 10¹¹ and conservative at 10¹⁰.
+  - Planted mean R: ℤ[i] 0.883–0.887 (design 0.886), ℤ[√2] 0.948–0.949. Mean planted D: 0.064 and 0.062 at 10¹⁰
+    (ΔR 0.0648), 0.066 and 0.064 at 10¹¹ (ΔR 0.0619).
+  - Cost: 24.1 spot core-h (null 12.9, planted 11.2) against 46.3 modelled (0.52×); first wave 0.597×, mid-run
+    0.525×. 4 h 49 min wall at 3 processes.
+- **Round-90 selection** (`witness/SELECTION.json`; `results/r88/witness/SELECTION.json`, sha256
+  e598e51708e1021a6b497d9fb4089f125a4c296542959bb19e5f2d2b3904ac45, identical on spot; run on spot in ph6c with the
+  round-90 code above): **PASS.**
+  - **SE check: not triggered.** Empirical / model SE_diff (null; planted): 10¹⁰ β 0.40: 0.90, 0.82; β 0.45: 0.93,
+    0.88. 10¹¹ β 0.40: 0.94, 1.03; β 0.45: 0.97, 1.01. The largest ratio, 1.03, is under 1.2. All four cells stay,
+    with s_c = 1.
+  - **T over the null:** mean +0.072, SD 2.631 centred and 2.619 uncentred, range −7.11 to +5.07. Under independent
+    cells the SD would be 2; the excess is the measured correlation.
+  - **t = 2 × 2.6191 = 5.2382** (frozen: 5.238230221375445).
+  - **Null false PASS: 0 of 100** (bar ≤ 5). No null T exceeds t; the guard trips in 7 null replicates.
+  - **Planted PASS: 98 of 100** (bar ≥ 90). Planted T: mean 10.26, SD 2.58, minimum 4.21. The guard never trips.
+  - Per-cell D > 0 fractions: null 0.52, 0.55, 0.56, 0.51; planted 0.97, 1.00, 0.99, 1.00 (order 10¹⁰ β 0.40,
+    0.45; 10¹¹ β 0.40, 0.45).
+  - The null count is in-sample (t fitted on these replicates); the confirmation scores t out of sample.
 - **Round-90 confirmation** (`witness_confirm/CONFIRM.json`): CONFIRM_PENDING
 - **Estimator check** (`rq1_read_check.py`, rerun on spot in ph6c, numba 0.68.0; `results/r88/READ_ESTIMATOR_CHECK.json`):
   - exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and 2.4·10⁻¹² on
