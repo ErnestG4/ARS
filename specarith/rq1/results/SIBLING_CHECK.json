@@ -1,0 +1,45 @@
+{
+ "T0_positive_control_34d": {
+  "full": 0.03286669173901774,
+  "half": 0.4708293538005546,
+  "predicted_half_large_K": 0.5164333458695088,
+  "predicted_half_exact": 0.46869465240217223,
+  "reproduces_exact": true,
+  "note": "first run declared (r + 1)/2, the large-K form; at K = 10 the exact form p\u00b7r + (1 \u2212 p)(1 \u2212 1/K)\u00b7N/(N \u2212 1) applies (34d's K \u2265 30: factor \u2265 0.97)",
+  "shift": 0.43796266206153683
+ },
+ "T1_pool_resampling_ph2s2": {
+  "pool_ratio": 1.1794277108433733,
+  "resampled_ratio": 1.1803615096999711,
+  "thinning_would_give": null,
+  "shift": 0.0009337988565978339,
+  "no_thinning_bias": true
+ },
+ "T2_seed_split_ph2s": {
+  "full_mean": 0.03242904355640146,
+  "split_mean": 0.032438596891529156,
+  "no_shift": true
+ },
+ "T3_nearmiss_ph6": {
+  "sizes": [
+   50,
+   50,
+   50,
+   50,
+   50
+  ],
+  "same_size_as_real": true,
+  "is_ratio_average": false
+ },
+ "T4_redpath_ph2r2": {
+  "orig": 0.010791638441842223,
+  "shuffled": 0.37946058270568755,
+  "moves_toward_1_by_design": true
+ },
+ "T5_generator_followup": {
+  "total": 1000,
+  "equals_n": true,
+  "is_subsample_of_data": false
+ },
+ "VERDICT": "no specarith site averages a ratio over random subsamples of the data; the positive control reproduces the 34d mapping"
+}

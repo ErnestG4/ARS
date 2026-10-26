@@ -27,13 +27,20 @@
 | G0 estimator exactness | vs the brute pair formula to 10⁻⁹ | max relative 8.7·10⁻¹³: **PASS** |
 | G1 uniform i.i.d. | mean = (N/K)(1 − 1/K) within 3 SE, K = 4, 16, 64, 256 | z = +1.54, −2.19, −0.56, +0.65: **PASS** |
 | G2 CUE_100 | mean = exact arc variance Σ_m sin²(πmw)/(πm)²·min(\|m\|, N) within 3 SE, K = 2, 5, 10, 25, 50 | z = −0.98, −0.40, −0.84, −1.81, −1.88: **PASS** |
-| G3 ℤ[i] vs RW Figure 1 | \|Δ\| ≤ 0.03 at all β ≥ 0.5; median \|Δ\| ≤ 0.05 for β < 0.5 | max 0.264; median 0.173: **FAIL** |
+| G3 ℤ[i] vs RW Figure 1 | \|Δ\| ≤ 0.03 at all β ≥ 0.5; median \|Δ\| ≤ 0.05 for β < 0.5 | max 0.264; median 0.173: **FAIL as sealed** (round 86) |
 | W witnesses | the inert spike and the conjugate double count must be flagged; the clean archive must pass | inert: "spike at θ = 0: 226 rows"; conjugates: "repeated p: 332,213"; clean: no issues: **PASS** |
 
 **G2 note.** All five z are negative. They come from the same 4,000 matrices, so they are correlated. All are within
 the declared 3 SE.
 
 ## G3 FAIL: what it is
+
+**Round 86 record: G3 FAIL as sealed.**
+- **Cause:** the convention of Rudnick–Waxman's Figure 1 is unidentified.
+- **The pipeline is verified** against Phase 34d's angle set (identical) and against both estimators (34d's grid,
+  our exact).
+- **No further convention trials.** The two tried post-hoc (below) stay on record and are not extended.
+- **Post-hoc cross-check ordered instead:** Chen et al.'s published code (§ "Chen cross-check").
 **Ours against RW Figure 1.**
 - **Where the values come from.** RW's Figure 1 has no table, so its 46 plotted points were recovered exactly from
   the PDF's vector drawing commands (`tools/rw_fig1_parse.py` → `results/RW_FIG1_POINTS.json`), calibrated on the
@@ -45,8 +52,8 @@ the declared 3 SE.
   | ours | 0.243 | 0.607 | 0.878 | 0.922 | 0.937 |
   | RW Figure 1 | 0.431 | 0.844 | 0.999 | 0.979 | 0.979 |
 
-- **§9.E stability.** Ours at x = 10⁷ is lower still, by up to 0.14. The statistic is moving with x, upward toward
-  the conjecture, but it is not stable between these two x values.
+- **x-dependence (wording fixed in round 86).** Ours at x = 10⁷ is lower still, by up to 0.14. That is finite-size
+  behaviour of the quantity itself, not a §9.E convergence issue: the statistic is exact at fixed x.
 
 **Our pipeline is not the source of the gap.**
 - On the same x it reproduces Phase 34d's ℤ[i] angle set exactly: identical arrays once the inert points are dropped.
@@ -62,7 +69,7 @@ the declared 3 SE.
   computation behind the figure.
 
 **Options for gate 3 (Will):**
-- **(a) Replace the target with Chen et al.'s Figure 1** (arXiv:1901.07386).
+- **(a) Replace the target with Chen et al.'s Figure 1** (round 86: ordered as a post-hoc cross-check, not a gate replacement) (arXiv:1901.07386).
   - Their computation is fully specified by the Mathematica code in their Appendix A (X = 10⁹, smoothed ψ-weighted
     statistic).
   - Its points can be recovered from the vector PDF the same way.

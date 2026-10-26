@@ -1,6 +1,15 @@
 # Phase 34d Findings — number-field prime angles (Z[i], Z[ω])
 
 **Status:** complete with post-commit robustness amendment (2026-05-14).
+
+> **⚠ DEFECT BANNER (2026-10-25; specarith RQ1 round 86; `specarith/rq1/RQ1_STEP0.md` §1, `specarith/rq1/RQ1_STEP1.md`).**
+> **Affected:** ℤ[i] and ℤ[ω]. The σ²/(N/K) values in SQ-1, SQ-1-orig, SQ-2, the cross-phase deep layer and the verdict map are means over 50 random half-samples, not full-sample statistics.
+> **Why it matters:** random halving is a p = ½ thinning, which maps the ratio r to (r + 1)/2. That pulls every reading toward 1, the comparison value (RW's saturation value and the Poisson value).
+> **The ± is half-sample spread,** not the sampling error of the full-sample statistic.
+> **Reproduced:** at X = 10⁷, β = 0.65 the full-sample ratio is 0.79–0.84, and (r + 1)/2 = 0.90–0.92 matches the 0.923 reported here.
+> **Consequence:** the "within 1σ" verdicts are **not established.** The qualitative X-trend survives.
+
+
 Pre-pilot Steps 3 + 4 ran; the amendment pass added bootstrap σ²(K, X)
 error bars, multi-K Eisenstein scan (parity with Gaussian), and
 seed-replicate NNS classification. The amendment overturned the
@@ -101,6 +110,14 @@ metric-saturation discipline.
 
 ### SQ-1 — Step 3 RW variance shape (X-rate amendment supersedes the bootstrap-only result)
 
+> **⚠ DEFECT BANNER (2026-10-25; specarith RQ1 round 86; `specarith/rq1/RQ1_STEP0.md` §1, `specarith/rq1/RQ1_STEP1.md`).**
+> **Affected:** ℤ[i] and ℤ[ω]. The σ²/(N/K) values in this section are means over 50 random half-samples, not full-sample statistics.
+> **Why it matters:** random halving is a p = ½ thinning, which maps the ratio r to (r + 1)/2. That pulls every reading toward 1, the comparison value (RW's saturation value and the Poisson value).
+> **The ± is half-sample spread,** not the sampling error of the full-sample statistic.
+> **Reproduced:** at X = 10⁷, β = 0.65 the full-sample ratio is 0.79–0.84, and (r + 1)/2 = 0.90–0.92 matches the 0.923 reported here.
+> **Consequence:** the "within 1σ" verdicts are **not established.** The qualitative X-trend survives.
+
+
 **Result (X-rate amendment, 2026-05-14):** Saturation-regime deficit
 **closes monotonically as X grows from 10⁶ to 10⁸**, consistent with
 finite-X correction shape predicted by Chen-Kim-Lichtman-Miller-
@@ -169,6 +186,14 @@ separate predictive object.
 
 ### SQ-1-orig — Step 3 RW variance shape (bootstrap-only result, superseded)
 
+> **⚠ DEFECT BANNER (2026-10-25; specarith RQ1 round 86; `specarith/rq1/RQ1_STEP0.md` §1, `specarith/rq1/RQ1_STEP1.md`).**
+> **Affected:** ℤ[i] and ℤ[ω]. The σ²/(N/K) values in this section are means over 50 random half-samples, not full-sample statistics.
+> **Why it matters:** random halving is a p = ½ thinning, which maps the ratio r to (r + 1)/2. That pulls every reading toward 1, the comparison value (RW's saturation value and the Poisson value).
+> **The ± is half-sample spread,** not the sampling error of the full-sample statistic.
+> **Reproduced:** at X = 10⁷, β = 0.65 the full-sample ratio is 0.79–0.84, and (r + 1)/2 = 0.90–0.92 matches the 0.923 reported here.
+> **Consequence:** the "within 1σ" verdicts are **not established.** The qualitative X-trend survives.
+
+
 (Original X-limited result, retained for context.)  Two distinct regimes
 show distinct agreement with RW at X ∈ {10⁶, 10⁷}:
 
@@ -216,6 +241,14 @@ error bars) and `plots/phase34d_rw_variance.png` (single-shot single-X
 overlay).
 
 ### SQ-2 — Gaussian × Eisenstein constant-level test (post-amendment)
+
+> **⚠ DEFECT BANNER (2026-10-25; specarith RQ1 round 86; `specarith/rq1/RQ1_STEP0.md` §1, `specarith/rq1/RQ1_STEP1.md`).**
+> **Affected:** ℤ[i] and ℤ[ω]. The σ²/(N/K) values in this section are means over 50 random half-samples, not full-sample statistics.
+> **Why it matters:** random halving is a p = ½ thinning, which maps the ratio r to (r + 1)/2. That pulls every reading toward 1, the comparison value (RW's saturation value and the Poisson value).
+> **The ± is half-sample spread,** not the sampling error of the full-sample statistic.
+> **Reproduced:** at X = 10⁷, β = 0.65 the full-sample ratio is 0.79–0.84, and (r + 1)/2 = 0.90–0.92 matches the 0.923 reported here.
+> **Consequence:** the "within 1σ" verdicts are **not established.** The qualitative X-trend survives.
+
 
 **Result: CONSTANT_LEVEL_AGREEMENT.** Gaussian and Eisenstein curves
 overlap at every (X, β) within their bootstrap error bars. Both show
@@ -394,6 +427,14 @@ SQ-1).
 
 ## Cross-phase enumeration (two-layer per §7.ter.48)
 
+> **⚠ DEFECT BANNER (2026-10-25; specarith RQ1 round 86; `specarith/rq1/RQ1_STEP0.md` §1, `specarith/rq1/RQ1_STEP1.md`).**
+> **Affected:** ℤ[i] and ℤ[ω]. The σ²/(N/K) values in this section are means over 50 random half-samples, not full-sample statistics.
+> **Why it matters:** random halving is a p = ½ thinning, which maps the ratio r to (r + 1)/2. That pulls every reading toward 1, the comparison value (RW's saturation value and the Poisson value).
+> **The ± is half-sample spread,** not the sampling error of the full-sample statistic.
+> **Reproduced:** at X = 10⁷, β = 0.65 the full-sample ratio is 0.79–0.84, and (r + 1)/2 = 0.90–0.92 matches the 0.923 reported here.
+> **Consequence:** the "within 1σ" verdicts are **not established.** The qualitative X-trend survives.
+
+
 ### Surface layer (vs Poisson zeroth-order null)
 - **34d-G × 34d-E:** PARALLEL_SIGNAL by structural analogy at the σ²(K, X)
   shape level; both substrates BL on subsample-replicate NNS.
@@ -466,6 +507,14 @@ correct prediction for our X-rate scan.
 ---
 
 ## Verdict map (final, asymmetric per substrate)
+
+> **⚠ DEFECT BANNER (2026-10-25; specarith RQ1 round 86; `specarith/rq1/RQ1_STEP0.md` §1, `specarith/rq1/RQ1_STEP1.md`).**
+> **Affected:** ℤ[i] and ℤ[ω]. The σ²/(N/K) values in this section are means over 50 random half-samples, not full-sample statistics.
+> **Why it matters:** random halving is a p = ½ thinning, which maps the ratio r to (r + 1)/2. That pulls every reading toward 1, the comparison value (RW's saturation value and the Poisson value).
+> **The ± is half-sample spread,** not the sampling error of the full-sample statistic.
+> **Reproduced:** at X = 10⁷, β = 0.65 the full-sample ratio is 0.79–0.84, and (r + 1)/2 = 0.90–0.92 matches the 0.923 reported here.
+> **Consequence:** the "within 1σ" verdicts are **not established.** The qualitative X-trend survives.
+
 
 - **PRE_PILOT_STEP_3 (Gaussian) — X-rate amendment:** **RW_SHAPE_CONFIRMED + FINITE_X_CORRECTION_RATE_CONSISTENT_WITH_CHEN_2019_NLO.**
   Deficit closes monotonically from ~0.19 at X=10⁶ to ~0.03–0.05 at

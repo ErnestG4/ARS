@@ -1861,3 +1861,23 @@ Witnesses that must be flagged: inert primes included (a spike at θ = 0), and d
 Step 2 (data; may run now). Generate the angle archive to X = 10¹⁰ (10¹¹ if the cost model says it fits). Hash it, and compute no statistic from it. Then draft the reading seal: the prediction, the K grid, the tolerance, and both X values.
 Step 3. Read only after Will approves the seal and its OpenTimestamps receipt is Bitcoin-attested. Pinned environment, double read.
 Report Step 0, the Step 1 gates and the costs before the seal.
+
+## Eighty-sixth round (2026-10-25) — 34d defect banners + sibling search; G3 FAIL as sealed; Chen cross-check; seal (B) amended; ℤ[i] archive; X = 10¹² reserved (verbatim)
+Round 86.
+
+Phase 34d defect.
+Banner the affected 34d sections in place (ℤ[i] and ℤ[ω]). The defect: half-sample averaging maps the ratio r to (r+1)/2, toward the comparison value 1, so the “within 1σ” verdicts are not established.
+Sibling search across specarith for variance or count ratios averaged over random subsamples. Run a reproducing test at each site.
+Write a ledger note for Will to hand to ARSv2.
+G3: FAIL as sealed. Cause: the convention of Rudnick–Waxman’s Figure 1 is unidentified; the pipeline is verified against 34d’s angle set and against both estimators. No further convention trials.
+Post-hoc cross-check: Chen et al.’s published code, version-pinned, run on our ℤ[i] angle set at the same X. Commit the agreement tolerance first.
+Secondary: their Figure 1.
+Wording fix: the X-dependence is finite-size behaviour, not a §9.E convergence issue. The statistic is exact at fixed X.
+Seal reading (B), with these amendments:
+B2: derive the heuristic offset (expected to be about Δlog c / log N, roughly +0.08 at 10¹¹), and the SE at each β, before sealing. The pass criterion is the sign. Report the magnitude against the heuristic. If unpowered at any β, mark it so.
+B1: state the basis for the 0.05 tolerance from the lower-order estimate.
+B3 replaced: both B1 and B2 must hold at both 10¹⁰ and 10¹¹. Report the X-dependence; don’t gate on it.
+Matching variable: N = the number of prime ideals.
+Data: generate the ℤ[i] archive to 10¹¹ (~30 core-hours). Hash it and read nothing.
+X = 10¹² is reserved unseen for a possible option (C) prediction, adapting Chen et al.’s refined conjecture to ℤ[√2]. No statistics at 10¹².
+Order: final seal → Will approves → OpenTimestamps receipt Bitcoin-attested → read, in a pinned environment with a double read.
