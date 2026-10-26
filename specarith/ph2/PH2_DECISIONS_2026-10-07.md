@@ -1946,3 +1946,14 @@ Report T’s null mean and SD, t, and both counts.
 Confirmation. 100 fresh null and 100 fresh planted replicates on new seeds, scored at the frozen t and the guard, with the same bars. If selection or confirmation fails, B2 is UNPOWERED and the read is descriptive only, as round 89 committed.
 The k-grid is withdrawn, not kept beside T. One rule only.
 Your choices 1–3 from round 89 are accepted as written.
+
+### Round 90 note (2026-10-26; Will, verbatim) — t's SD reading confirmed
+Yes, that’s what I meant. RMS about zero, divided by 100, is the right reading. Centring would subtract any bias in the null mean and hide it. The uncentred form keeps a bias as part of the threshold, which is the safer direction.
+
+Everything else is as specified:
+
+There’s one rule, committed before any witness result was opened.
+Selection stops with “D not stored” if a value is missing, so a missing D can’t be scored as zero.
+The read refuses to run without the confirmation file.
+
+CC’s note that fitting t and scoring on the same replicates flatters the null count is correct. That’s what the fresh-seed confirmation run is for. Its forecast has one weak case: if the cells are as correlated as they can be, the planted arm reaches 90 of 100 only 78% of the time. The witness will show which case we’re in. If it fails, the read becomes descriptive, which is an outcome the seal already allows for.
