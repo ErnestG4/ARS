@@ -1,4 +1,4 @@
-# RQ1 reading seal — STATUS: RESUBMISSION DRAFT (round 88 fixes; round 90 B2 statistic committed before any witness result was read; witness done, selection passed, confirmation running). Not sealed; no OpenTimestamps receipt; nothing read
+# RQ1 reading seal — STATUS: RESUBMISSION for Will's approval (rounds 88–90 complete; B2 rule selected and confirmed on synthetic data). Not sealed; no OpenTimestamps receipt; nothing read from either archive
 
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
@@ -294,7 +294,22 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
   - Per-cell D > 0 fractions: null 0.52, 0.55, 0.56, 0.51; planted 0.97, 1.00, 0.99, 1.00 (order 10¹⁰ β 0.40,
     0.45; 10¹¹ β 0.40, 0.45).
   - The null count is in-sample (t fitted on these replicates); the confirmation scores t out of sample.
-- **Round-90 confirmation** (`witness_confirm/CONFIRM.json`): CONFIRM_PENDING
+- **Round-90 confirmation** (`witness_confirm/CONFIRM.json`; `results/r90/confirm/CONFIRM.json`, sha256
+  96dfe9e1f3b9166f44d23fc59c8aa412cb979a18fe1942ff85d290fb34d27d9f, identical on spot; 200 fresh replicates on seed
+  base 8889, no failed task; its selection_sha256 is the selection pin above): **PASS.**
+  - Rule as frozen: t = 5.238230221375445, all four cells, s_c = 1, with the guard.
+  - **Null false PASS: 2 of 100** (bar ≤ 5). T over the null: mean +0.216, SD 2.373 centred and 2.370 uncentred,
+    range −5.14 to +5.71. The guard trips in 3 null replicates.
+  - **Planted PASS: 96 of 100** (bar ≥ 90). Planted T: mean 9.76, SD 2.46, minimum 4.46. The guard never trips.
+  - Empirical / model SE_diff (null; planted): 10¹⁰ β 0.40: 0.92, 1.04; β 0.45: 0.86, 1.00. 10¹¹ β 0.40: 0.86,
+    0.93; β 0.45: 0.83, 0.93. All under 1.2, as in the selection.
+  - Per-cell D > 0 fractions: null 0.49, 0.46, 0.58, 0.59; planted 0.92, 0.99, 0.97, 1.00. Mean planted D 0.060,
+    0.063 (10¹⁰; ΔR 0.0648), 0.059, 0.061 (10¹¹; ΔR 0.0619).
+  - Cost: 24.0 spot core-h against 46.3 modelled (0.52×); first wave 0.532×, mid-run 0.522×. About 5 h wall at 3
+    processes.
+- **`read_pins.sha256`** (committed with this seal; paths as on spot under `~/tmp/claude/specarith/rq1/`): `rq1_read.py`
+  0e328302…c856, `rq1_angles.py` 7764c23e…1a0c, `witness/SELECTION.json` e598e517…ac45,
+  `witness_confirm/CONFIRM.json` 96dfe9e1…7d9f.
 - **Estimator check** (`rq1_read_check.py`, rerun on spot in ph6c, numba 0.68.0; `results/r88/READ_ESTIMATOR_CHECK.json`):
   - exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and 2.4·10⁻¹² on
     mirror-symmetrised sets;
