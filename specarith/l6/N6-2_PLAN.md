@@ -217,6 +217,13 @@ factor is spot s per configuration ÷ local s per configuration for the same obj
 - **The round-83 breach:** the node diagnostic was priced at 4.08 (≈ 265 core-h) and ran at 9.1, ≈ 595 core-h against
   the 300 cap.
 
+**Task-class recalibration (round 87).** The spot factor depends on the task class, not only on process count.
+- **Archive generation** (pure-Python integer arithmetic, small working set; `rq1/rq1_archive.py`): the ℤ[√2] run to
+  10¹¹ measured 28.0 core-h against 49.7 modelled at factor 4.1. That is 0.56× overall (0.43× in the first wave,
+  ≈ 0.58× after).
+- The archive class is recalibrated to **spot factor 2.3 at 28 processes.**
+- The 4.1–9.1 table above stays for numpy-heavy jet and determinant tasks (ratios construction, n6 pieces).
+
 **Run rule (round 84).** If the first wave's mean task time exceeds the model by more than 25%, stop and report before
 the second wave starts. The node diagnostic's first wave averaged ~11,100 s per task against ~5,000 s modelled (+122%).
 Under this rule it would have stopped after one wave (~150 core-h).

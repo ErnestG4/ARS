@@ -7,7 +7,7 @@ Generation, integrity and hashing only; no statistic of the angles is computed h
 FIELD = zs2 (ℤ[√2], default) or zi (ℤ[i], round 86; Cornacchia pairs (u, v), 0 < u < v, u² + v² = p).
 
 Cost model (N6-2_PLAN.md §10 form): local µs per split prime t(p) ≈ 9 (p ~ 1e7), 20 (1e10), 22 (1e11) — log-linear
-interpolation; spot factor 4.1 at ≤ 28 processes; split primes in [lo, hi) ≈ (hi − lo)/(2 ln mid).
+interpolation; spot factor 2.3 for this task class at 28 processes (round 87 recalibration; 4.1 overpredicted by 1/0.56); split primes in [lo, hi) ≈ (hi − lo)/(2 ln mid).
 """
 import hashlib
 import json
@@ -21,7 +21,7 @@ import numpy as np
 import rq1_angles as R
 
 SEG = 10 ** 8
-SPOT = 4.1
+SPOT = 2.3                                        # archive task class, recalibrated in round 87 (was 4.1: measured 0.56× on the ℤ[√2] run)
 
 
 ZI_FACTOR = 0.82                                 # ℤ[i] µs per prime ÷ ℤ[√2] (measured locally: 16.5 vs 20.2 µs at 1e10, 17.2 vs 22.3 at 1e11)

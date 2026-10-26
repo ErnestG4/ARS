@@ -1881,3 +1881,15 @@ Matching variable: N = the number of prime ideals.
 Data: generate the ℤ[i] archive to 10¹¹ (~30 core-hours). Hash it and read nothing.
 X = 10¹² is reserved unseen for a possible option (C) prediction, adapting Chen et al.’s refined conjecture to ℤ[√2]. No statistics at 10¹².
 Order: final seal → Will approves → OpenTimestamps receipt Bitcoin-attested → read, in a pinned environment with a double read.
+
+## Eighty-seventh round (2026-10-25) — B1 dropped (descriptive D(β)); B2 as amended; Chen primary not needed; archives; seal to Will; cost recalibration (verbatim)
+Round 87.
+
+B1 → option (iii). Drop B1 as a gate. Report D(β) = ℤ[√2] − ℤ[i] at matched N, at every β on the grid, at both X, with SEs. It is descriptive, with the heuristic’s Δlog c / log N curve overlaid. Record the reason in the seal: the heuristic’s saturation timing is contradicted by our own ℤ[i] data at 10⁸, so a B1 FAIL couldn’t be attributed.
+B2 as amended:
+Gated on sign at β = 0.40 and 0.45 at both X, and at β = 0.30 at 10¹¹. β = 0.20, and β = 0.30 at 10¹⁰, are UNPOWERED.
+Magnitude reported against the derived offset (~1.85/log X).
+Chen et al.: the secondary check passes (25 points within 0.0014, tolerance 0.01), which validates the angle set and the statistic. Primary (Mathematica): “blocked; not needed”. No Wolfram activation.
+Data: launch the ℤ[i] archive to 1.01·10¹¹ once the ℤ[√2] archive is done. Hash both and fill seal §6. Read nothing.
+Finalize the seal and send it to Will. Order after his approval: stamp → wait for the Bitcoin attestation of the OpenTimestamps receipt → read, in the pinned environment, as a double read in separate processes.
+Cost model: note that archive-type tasks ran at 0.43× the model. Recalibrate that task class.

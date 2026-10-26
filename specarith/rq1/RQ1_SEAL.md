@@ -1,4 +1,4 @@
-# RQ1 reading seal — STATUS: DRAFT for Will (rounds 85–86; B1's range is still to be chosen). Not sealed; no OpenTimestamps receipt; nothing read
+# RQ1 reading seal — STATUS: FINAL DRAFT for Will's approval (rounds 85–87). Not sealed; no OpenTimestamps receipt; nothing read
 
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
@@ -79,34 +79,40 @@ R(β, X) = Var(N_{K,X}) / (N/K):
 - **β = 0.20 (both X) and β = 0.30 at 10¹⁰ are marked UNPOWERED:** reported, not gated.
 - The magnitude is reported against 1.85/log X and 1.85/log N at every β.
 
-**B1 (leading-order universality; tolerance and its basis).**
-- **Basis from the lower-order estimate:** the heuristic offset at β ≥ 0.6 is ≤ 0.016 (L = log X) or ≤ 0.004
-  (L = log N), and 2·SE_diff ≤ 0.008. So 0.05 is ≥ 2× the heuristic's maximum plus 2 SE at β ≥ 0.6.
-- **But the heuristic saturates too early** (caveat above). On ℤ[i] at 10⁸ the data are still unsaturated at
-  β = 0.66–0.80 (0.88–0.92).
-  - Where unsaturated, the heuristic's own offset is the full ΔC/L ≈ 0.07–0.09, which exceeds 0.05.
-  - **The 0.05 tolerance therefore has a basis only where both fields are saturated, and the data at 10¹⁰–10¹¹ may not
-    yet be.**
-- **Will's choice before sealing:**
-  - (i) B1 at β ≥ 0.8 only, with tolerance 0.05;
-  - (ii) B1 at β ≥ 0.6 with tolerance ΔC/log X + 2·SE_diff (0.088 at 10¹⁰, 0.077 at 10¹¹);
-  - (iii) drop B1 and keep B2.
-- Recommended: (i). It is the regime where the heuristic and the ℤ[i] trend both point to saturation.
+**B1: dropped as a gate (round 87, option (iii)). Reported descriptively as D(β).**
+- **Why:** the heuristic's saturation timing is contradicted by our own ℤ[i] data at 10⁸, which is still unsaturated
+  (0.88–0.92) at β = 0.66–0.80 where the heuristic has saturated. A B1 FAIL therefore could not be attributed: it might
+  be a ℤ[√2]–ℤ[i] difference, or only the heuristic's crossover.
+- **What is reported:** D(β) = R_ℤ[√2] − R_ℤ[i] at matched N, at every β on the grid and at both X, with SE_diff. It
+  is plotted with the heuristic's ΔC/L curves (L = log X and L = log N) overlaid, from `results/HEURISTIC_B.json`.
+  No verdict.
 
-**Reading.** PASS iff B1 (as chosen) and B2 both hold at X = 10¹⁰ and at X = 10¹¹. The X-dependence of R and of the
-offset is reported, not gated (round 86, replacing B3).
+**Reading.** PASS iff B2 holds at every gated (β, X): R_ℤ[√2] − R_ℤ[i] > 0 at β = 0.40 and 0.45 at X = 10¹⁰ and
+10¹¹, and at β = 0.30 at 10¹¹. FAIL iff any gated difference is ≤ 0. The X-dependence of R and of D is reported, not
+gated.
 
-**Power and witnesses (run on the archives' sizes, not their angles):**
-- **B2's witness:** uniform i.i.d. angles at each matched N. Its "offset" against a second independent uniform set
-  must be positive at ≤ 50% of the B2 β (no sign pattern).
-- **B1's witness:** ℤ[√2] with every θ replaced by an independent uniform draw must fail B1 (R = 1 − 1/K against
-  ℤ[i]'s saturated value) wherever ℤ[i] is below 0.95.
+**Witness for B2 (run on the archives' sizes, not their angles).**
+- Two independent uniform i.i.d. angle sets at each matched N go through the identical pipeline and B2 rule, 20
+  seeded replicates.
+- Under no true offset, each gated sign is a fair coin, so the full B2 rule (all 5 gated cells positive) reads PASS
+  with probability 1/32 per replicate. The witness passes iff the rule reads PASS in ≤ 5 of the 20 replicates.
+- Its purpose is to show the B2 rule cannot pass on noise alone with high probability. B2's own power is the
+  ≥ 2·SE_diff criterion above.
 
 **Reserved:** X = 10¹² is unseen. It is held for a possible option (C) prediction (Chen et al.'s refined conjecture
 adapted to ℤ[√2]). No statistic at 10¹².
 
-**Order:** final seal → Will approves → OTS receipt Bitcoin-attested → read, in a pinned environment with a double
-read.
+**Order (round 87):**
+1. Will approves this seal.
+2. The seal file is stamped with OpenTimestamps.
+3. Wait for the receipt's Bitcoin attestation, verified on two explorers.
+4. Read in the pinned environment (§6), as a double read in two separate processes from a clean start. Both must
+   produce byte-identical result JSONs.
+
+**Chen et al. cross-check (`CHEN_XCHECK.md`).**
+- **Secondary: PASS.** Our transcription of their Appendix A on our ℤ[i] angle set reproduces their Figure 1's 25
+  points within 0.0014 (tolerance 0.01). This validates the angle set and the statistic machinery.
+- **Primary (their Mathematica code): blocked; not needed** (round 87). No Wolfram activation.
 
 ## 6. To be filled when Step 2 finishes
 The archive manifest hash, the row counts at X = 10¹⁰ and 10¹¹, and the pinned environment (python, numpy and the
