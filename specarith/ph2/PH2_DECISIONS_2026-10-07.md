@@ -1915,3 +1915,16 @@ PASS supports the heuristic’s field dependence through the conductor constant,
 FAIL means that field dependence does not show as predicted at these X, for example because lower-order terms dominate.
 VOID: a cmp mismatch, a witness failure, or a hash mismatch.
 Items 1, 2, 4 and 6 use synthetic data or primes outside the archives only. Run them on spot now; nothing is read from the archives.
+
+## Eighty-ninth round (2026-10-25) — B2 margin rule (k selected on the witness replicates, confirmed on fresh seeds); SE model checked against the witness; planted symmetrisation confirmed (verbatim)
+Round 89. Commit this to the seal before any witness result is read.
+
+B2 margin rule. Rule: D > k·SE_diff at every gated cell.
+Selecting k: after the witness lands, re-score the existing replicates at k ∈ {0, 0.5, 1.0, 1.5}. Choose the smallest k that gives null false PASS ≤ 5/100 and planted PASS ≥ 90/100. No new compute is needed for this step.
+Confirmation: run 100 fresh null and 100 fresh planted replicates at the chosen k, on new seeds and with the same criteria. Selection and confirmation are reported separately.
+If no k qualifies, or confirmation fails: B2 is UNPOWERED at these X. The read becomes descriptive only: D(β) at every β, plus the magnitudes. No verdict.
+Reading: the rule replaces the sign-only one. PASS iff the confirmed rule holds at every gated cell. FAIL iff any gated cell fails it.
+Check the SE model against the witness. If the empirical SE_diff exceeds the model by more than 20% at any gated cell, recompute offset/SE from the empirical SE. Any cell below 2 becomes UNPOWERED. Then select k on the remaining gated cells.
+Confirm symmetrisation: the i.i.d. part of the planted mixtures is symmetrised (N/2 points plus their mirrors), as in the null arm.
+Report the selection table (null and planted counts at each k), the confirmation counts, and empirical against model SEs, together with the seal for Will.
+Order otherwise unchanged. Pushes stay with Will (5 unpushed).

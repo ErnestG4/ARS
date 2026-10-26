@@ -25,15 +25,35 @@ CRITERIA (declared before running; committed with this file):
   0.3–0.6 within an X and the two X are nearly independent, the rate is ≈ 0.09–0.12, so the null arm may land near
   its threshold.
 - PLANTED: 100 replicates. The rule must read PASS in ≥ 90.
-- Witness OK iff both hold. Witness failure → the read is VOID (round 88).
+- Witness OK iff both hold. Witness failure → the read is VOID (round 88). Superseded by round 89 (below): the
+  round-88 summary is still written and reported, but the read's rule and its witness are the round-89 ones.
 - Reported, not gated: the empirical SD of R per field and cell, and of D per cell, against the sealed model
   R·sqrt(2/(c K)) and SE_diff; the mean planted D against ΔR_X; the null's per-cell positive fractions and the
   pairwise sign agreement between gated cells.
 
-  python rq1_witness.py jobs                       task list (ARM REP), null and planted interleaved
-  python rq1_witness.py task ARM REP OUT_DIR       one replicate → OUT_DIR/{null,planted}_REP.json
-  python rq1_witness.py summary OUT_DIR OUT_JSON
+ROUND 89 (declared before any witness result is read; committed with this file). The rule becomes a margin rule,
+D > k·s·SE_diff at every remaining gated cell (rq1_read.b2_rule; SE_diff the sealed model on each replicate's own R).
+- SE check (select): per gated cell and arm, empirical SE_diff = the SD of D over the 100 replicates; model = the mean
+  of the replicates' model SE_diff. ratio = empirical / model, the larger over the two arms. If ratio > 1.2 at any
+  gated cell, every gated cell's offset/SE (HEURISTIC_B_MIRROR.json) is recomputed from the empirical SE (divided by
+  its ratio); cells below 2 become UNPOWERED, and the remaining cells' rule uses s = ratio (the empirical SE). Else
+  s = 1 at every cell.
+- Selection (select, no new compute): the round-88 replicates re-scored at k ∈ {0, 0.5, 1.0, 1.5} on the remaining
+  cells; chosen k = the smallest with null false PASS ≤ 5 and planted PASS ≥ 90 (of 100). None → B2 UNPOWERED.
+- Confirmation (confirm): 100 fresh null and 100 fresh planted replicates (seed base 8889 instead of 8888; the same
+  sets, N and planted parameters as round 88), scored at the selected rule; OK iff null false PASS ≤ 5 and planted
+  PASS ≥ 90. Fail → B2 UNPOWERED (descriptive read, no verdict).
+- Symmetrisation: in both arms every set is n points φ plus their n mirrors 1 − φ; in planted_set the n − m i.i.d.
+  points and the m lattice points are merged into the first half and the whole half is mirrored, so the i.i.d. part
+  is n − m points plus their mirrors, as in the null arm.
+
+  python rq1_witness.py jobs                                  task list (ARM REP), null and planted interleaved
+  python rq1_witness.py task ARM REP OUT_DIR [SEED_BASE]      one replicate → OUT_DIR/{null,planted}_REP.json
+  python rq1_witness.py summary OUT_DIR OUT_JSON              round-88 summary (sign rule)
+  python rq1_witness.py select OUT_DIR OUT_JSON               round 89: SE check, re-gating, selection table, k
+  python rq1_witness.py confirm CONF_DIR SELECTION_JSON OUT_JSON
 """
+import hashlib
 import json
 import math
 import os
@@ -50,6 +70,12 @@ N_SPLIT = {10 ** 10: 227524967, 10 ** 11: 2059026114}
 N_REP = 100
 NULL_MAX_PASS = 10
 PLANTED_MIN_PASS = 90
+K_GRID = [0.0, 0.5, 1.0, 1.5]          # round 89
+SEL_NULL_MAX_PASS = 5
+SEL_PLANTED_MIN_PASS = 90
+SE_RATIO_MAX = 1.2
+OFFSET_SE_MIN = 2.0
+CONFIRM_SEED_BASE = 8889
 HEUR = "results/HEURISTIC_B_MIRROR.json"
 XL = {10 ** 10: "1e10", 10 ** 11: "1e11"}
 
@@ -165,14 +191,14 @@ def planted_set(rng, pool, rho, tm):
     return out
 
 
-def task(arm, rep, out_dir):
+def task(arm, rep, out_dir, seed_base=8888):
     path = os.path.join(out_dir, f"{arm}_{rep:03d}.json")
     if os.path.exists(path):
         return 0
-    rng = np.random.default_rng([8888, 0 if arm == "null" else 1, rep])
+    rng = np.random.default_rng([seed_base, 0 if arm == "null" else 1, rep])
     tm = dict(gen=0.0, select=0.0, var10=0.0, mirror=0.0, var11=0.0)
     t0 = time.time()
-    res = dict(arm=arm, rep=rep, sets={})
+    res = dict(arm=arm, rep=rep, seed_base=seed_base, sets={})
     pp = planted_params()
     with ThreadPoolExecutor(max(len(v) for v in Q.GATED.values())) as pool:
         for f in ("zs2", "zi"):
@@ -235,12 +261,121 @@ def summary(out_dir, out):
     return 0
 
 
+CELLS = [(X, b) for X in Q.XS for b in Q.GATED[X]]
+
+
+def load_reps(out_dir, seed_base):
+    reps = {arm: [json.load(open(os.path.join(out_dir, f"{arm}_{r:03d}.json"))) for r in range(N_REP)]
+            for arm in ("null", "planted")}
+    for arm, rs in reps.items():
+        assert all(r.get("seed_base", 8888) == seed_base for r in rs), (out_dir, arm)
+    return reps
+
+
+def rep_D_SE(r):
+    """{(X, β): D}, {(X, β): model SE_diff} for one replicate (rq1_read.se_diff on its own R values)."""
+    D, SE = {}, {}
+    for X, b in CELLS:
+        a, c = r["sets"]["zs2"][XL[X]][str(b)], r["sets"]["zi"][XL[X]][str(b)]
+        D[(X, b)] = a["R"] - c["R"]
+        SE[(X, b)] = Q.se_diff(a["R"], c["R"], a["K"])
+    return D, SE
+
+
+def count_pass(rs, rule):
+    return int(sum(Q.b2_rule(*rep_D_SE(r), rule) == "PASS" for r in rs))
+
+
+def rule_json(rule):
+    return dict(k=rule["k"], cells=[[X, b] for X, b in rule["cells"]],
+                scale=[[X, b, rule["scale"][(X, b)]] for X, b in rule["cells"]])
+
+
+def select(out_dir, out):
+    """Round 89: SE check, re-gating, selection table and chosen k on the round-88 replicates (no new compute)."""
+    reps = load_reps(out_dir, 8888)
+    h = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), HEUR)))
+    sealed = {(X, r["beta"]): r["offset_over_SE"] for X in Q.XS for r in h["rows"][XL[X]]["rows"]}
+    se = {}
+    for X, b in CELLS:
+        e = {}
+        for arm, rs in reps.items():
+            ds = [rep_D_SE(r) for r in rs]
+            Dv = np.array([d[0][(X, b)] for d in ds])
+            mod = float(np.mean([d[1][(X, b)] for d in ds]))
+            emp = float(Dv.std(ddof=1))
+            e[arm] = dict(SE_diff_emp=emp, SE_diff_model=mod, ratio=emp / mod, D_mean=float(Dv.mean()))
+        e["ratio"] = max(e["null"]["ratio"], e["planted"]["ratio"])
+        e["offset_over_SE_sealed"] = sealed[(X, b)]
+        se[(X, b)] = e
+    triggered = any(e["ratio"] > SE_RATIO_MAX for e in se.values())
+    for e in se.values():
+        e["offset_over_SE_used"] = e["offset_over_SE_sealed"] / e["ratio"] if triggered else e["offset_over_SE_sealed"]
+        e["powered"] = bool(e["offset_over_SE_used"] >= OFFSET_SE_MIN)
+    cells = [c for c in CELLS if se[c]["powered"]]
+    scale = {c: (se[c]["ratio"] if triggered else 1.0) for c in cells}
+    table, chosen = [], None
+    for k in K_GRID:
+        rule = dict(k=k, cells=cells, scale=scale)
+        nf = count_pass(reps["null"], rule) if cells else None
+        pp = count_pass(reps["planted"], rule) if cells else None
+        ok = bool(cells) and nf <= SEL_NULL_MAX_PASS and pp >= SEL_PLANTED_MIN_PASS
+        table.append(dict(k=k, null_false_pass=nf, planted_pass=pp, qualifies=ok))
+        if ok and chosen is None:
+            chosen = k
+    res = dict(label="RQ1 B2 rule selection (round 89; round-88 replicates re-scored, no new compute)",
+               criteria=dict(k_grid=K_GRID, null_max_pass=SEL_NULL_MAX_PASS, planted_min_pass=SEL_PLANTED_MIN_PASS,
+                             se_ratio_max=SE_RATIO_MAX, offset_over_se_min=OFFSET_SE_MIN, replicates=N_REP),
+               se_check=dict(triggered=triggered, cells={f"{XL[X]} b={b}": e for (X, b), e in se.items()}),
+               remaining_cells=[[X, b] for X, b in cells], table=table, chosen_k=chosen,
+               rule=None if chosen is None else rule_json(dict(k=chosen, cells=cells, scale=scale)),
+               B2="UNPOWERED" if chosen is None else "rule selected; confirmation pending")
+    json.dump(res, open(out, "w"), indent=1, sort_keys=True)
+    for t in table:
+        print(t)
+    print("SE check triggered", triggered, "remaining", cells, "chosen k", chosen)
+    return 0
+
+
+def confirm(conf_dir, sel_path, out):
+    """Round 89: the selected rule on 100 fresh null and 100 fresh planted replicates (seed base 8889)."""
+    sel = json.load(open(sel_path))
+    assert sel["chosen_k"] is not None, "no k selected: B2 UNPOWERED, nothing to confirm"
+    r = sel["rule"]
+    rule = dict(k=r["k"], cells=[(X, b) for X, b in r["cells"]], scale={(X, b): s for X, b, s in r["scale"]})
+    reps = load_reps(conf_dir, CONFIRM_SEED_BASE)
+    nf, pp = count_pass(reps["null"], rule), count_pass(reps["planted"], rule)
+    cells = {}
+    for X, b in rule["cells"]:
+        e = {}
+        for arm, rs in reps.items():
+            ds = [rep_D_SE(x) for x in rs]
+            Dv = np.array([d[0][(X, b)] for d in ds])
+            mod = float(np.mean([d[1][(X, b)] for d in ds]))
+            e[arm] = dict(SE_diff_emp=float(Dv.std(ddof=1)), SE_diff_model=mod, ratio=float(Dv.std(ddof=1)) / mod,
+                          D_mean=float(Dv.mean()))
+        cells[f"{XL[X]} b={b}"] = e
+    res = dict(label="RQ1 B2 rule confirmation (round 89; fresh seeds)", seed_base=CONFIRM_SEED_BASE,
+               selection_sha256=hashlib.sha256(open(sel_path, "rb").read()).hexdigest(),
+               rule=r, null_false_pass=nf, planted_pass=pp, cells=cells,
+               criteria=dict(null_max_pass=SEL_NULL_MAX_PASS, planted_min_pass=SEL_PLANTED_MIN_PASS, replicates=N_REP),
+               cpu_core_h=float(sum(x["cpu_s"] for rs in reps.values() for x in rs) / 3600),
+               OK=bool(nf <= SEL_NULL_MAX_PASS and pp >= SEL_PLANTED_MIN_PASS))
+    json.dump(res, open(out, "w"), indent=1, sort_keys=True)
+    print("confirmation: null false PASS", nf, "planted PASS", pp, "OK", res["OK"])
+    return 0
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "jobs":
         for r in range(N_REP):
             print("null", r)
             print("planted", r)
     elif sys.argv[1] == "task":
-        sys.exit(task(sys.argv[2], int(sys.argv[3]), sys.argv[4]))
-    else:
+        sys.exit(task(sys.argv[2], int(sys.argv[3]), sys.argv[4], *(int(a) for a in sys.argv[5:6])))
+    elif sys.argv[1] == "summary":
         sys.exit(summary(sys.argv[2], sys.argv[3]))
+    elif sys.argv[1] == "select":
+        sys.exit(select(sys.argv[2], sys.argv[3]))
+    else:
+        sys.exit(confirm(sys.argv[2], sys.argv[3], sys.argv[4]))
