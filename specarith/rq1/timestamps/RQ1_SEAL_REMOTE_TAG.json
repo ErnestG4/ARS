@@ -1,0 +1,13 @@
+{
+ "tag": "rq1-seal",
+ "remote": "https://github.com/ErnestG4/ARS.git",
+ "observed_utc": "2026-10-26T17:49:27+00:00",
+ "ls_remote": {
+  "refs/tags/rq1-seal": "3f717aa27e5e3f6f35af1a7443144966fbe55141",
+  "refs/tags/rq1-seal^{}": "d9777e5cb36e0b6815df768cba97665a5aa4af87"
+ },
+ "stamp_manifest_tag_object": "3f717aa27e5e3f6f35af1a7443144966fbe55141",
+ "stamp_manifest_commit": "d9777e5cb36e0b6815df768cba97665a5aa4af87",
+ "note": "seen on the remote after the stamp (16:50:05 UTC); Will pushed. Bitcoin attestation still pending.",
+ "matches": true
+}
