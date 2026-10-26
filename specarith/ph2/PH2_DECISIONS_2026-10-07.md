@@ -1893,3 +1893,25 @@ Chen et al.: the secondary check passes (25 points within 0.0014, tolerance 0.01
 Data: launch the ℤ[i] archive to 1.01·10¹¹ once the ℤ[√2] archive is done. Hash both and fill seal §6. Read nothing.
 Finalize the seal and send it to Will. Order after his approval: stamp → wait for the Bitcoin attestation of the OpenTimestamps receipt → read, in the pinned environment, as a double read in separate processes.
 Cost model: note that archive-type tasks ran at 0.43× the model. Recalibrate that task class.
+
+## Eighty-eighth round (2026-10-25) — seal not approved; SE recalibration on mirrored sets; witness rebuilt under §9.D; version drift; angle precision; ℤ[i] map; estimator check on spot; order, memory cap, attribution (verbatim)
+Round 88. Seal not approved yet; fix these, then resubmit.
+
+SE model and mirror pairing. Recalibrate c on symmetrised sets: draw N/2 points and add their mirrors at 1 − θ, for both Poisson and CUE-like data. Recompute SE_diff and the gating. Any cell below 2·SE_diff becomes UNPOWERED. Expect β = 0.30 at 10¹¹ to drop out.
+Witness, rebuilt under §9.D, on symmetrised synthetic sets at the archives’ matched N:
+Null: remove the 1/32 reasoning, since the gated cells are correlated (same data across β, and 10¹⁰ is nested in 10¹¹). Measure the B2 rule’s false PASS rate with ≥ 100 replicates. Commit a maximum rate before running, e.g. ≤ 0.10.
+Planted: mixtures of a rigid lattice fraction ρ and i.i.d. points (R ≈ 1 − ρ). The two sets differ by a known ΔR of about the heuristic size at each gated β. The rule must read PASS in ≥ 90% of replicates.
+Report the empirical SEs against the model.
+Witness failure → the read is VOID.
+Version drift.
+State what differs between rq1_angles.py a30f02ea and 7764c23e, and confirm the ℤ[√2] generation and angle path is unchanged.
+Regenerate a seeded random sample of 10 ℤ[√2] segments bit-identically, in addition to segments 0 and 999.
+Angle precision. Use primes in a window just above 1.01·10¹¹, outside both archives. Compare float θ against mpmath (50 digits), and check that multiplying by a unit shifts θ by exactly 1, for both fields. Report the maximum |Δθ| against the smallest window, 1/K_max.
+ℤ[i] map: state θ for ℤ[i] explicitly in §1.
+Estimator check: rerun READ_ESTIMATOR_CHECK on spot in the pinned ph6c environment (numba 0.68).
+Order: add “re-check the sha256 of rq1_read.py and rq1_angles.py on spot against §6” before the read. Add a memory cap per read process.
+Attribution:
+PASS supports the heuristic’s field dependence through the conductor constant, and its direction.
+FAIL means that field dependence does not show as predicted at these X, for example because lower-order terms dominate.
+VOID: a cmp mismatch, a witness failure, or a hash mismatch.
+Items 1, 2, 4 and 6 use synthetic data or primes outside the archives only. Run them on spot now; nothing is read from the archives.

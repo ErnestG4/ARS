@@ -8,7 +8,12 @@ SE model: the sliding-window estimator's relative SD is sqrt(2/(c·K)); c is cal
 i.i.d. (Poisson-like) and CUE (rigid) points, and the smaller c (larger SE) is used. SE_diff = sqrt(SE_√2² + SE_i²)
 (independent fields). β is "powered" for B2 iff heuristic offset ≥ 2·SE_diff.
 
-  python rq1_heuristic.py OUT_JSON
+Round 88: both archives are mirror-symmetric (each split prime gives θ and 1 − θ), so c is recalibrated on
+symmetrised sets (n/2 points plus their mirrors at 1 − θ, Poisson and CUE_{n/2}), and c_used is the smallest
+symmetrised c. The unsymmetrised calibration is kept in the output for comparison. N is the archives' matched N
+(2 × the ℤ[√2] manifest row count at each X; row counts only, no angle), so K matches the read exactly.
+
+  python rq1_heuristic.py OUT_JSON [--mirror]
 """
 import json
 import math
@@ -40,21 +45,28 @@ def R_heur(K, L, Cf):
     return (1 - 1 / K) + 2 * K * float(np.sum(w * (f - 1)))
 
 
-def calib_c(rng):
+N_MATCHED = {"1e10": 2 * 227524967, "1e11": 2 * 2059026114}     # 2 × ℤ[√2] manifest rows ≤ X (round 88)
+
+
+def cue_phases(rng, n):
+    z = (rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))) / math.sqrt(2)
+    q, r = np.linalg.qr(z)
+    q = q * (np.diag(r) / np.abs(np.diag(r)))
+    return np.mod(np.angle(np.linalg.eigvals(q)) / (2 * math.pi), 1.0)
+
+
+def calib_c(rng, mirror=False):
+    """mirror: draw n/2 points and add their mirrors 1 − θ (the archives' structure)."""
     out = {}
-    for name, gen, n, Ks, M in (("poisson", lambda n: rng.random(n), 20000, (20, 50, 200), 400),
-                                ("cue", None, 400, (8, 20, 50), 300)):
+    for name, n, Ks, M in (("poisson", 20000, (20, 50, 200), 400), ("cue", 400, (8, 20, 50), 300)):
         res = {}
         for K in Ks:
             vals = []
             for _ in range(M):
-                if name == "poisson":
-                    th = gen(n)
-                else:
-                    z = (rng.standard_normal((n, n)) + 1j * rng.standard_normal((n, n))) / math.sqrt(2)
-                    q, r = np.linalg.qr(z)
-                    q = q * (np.diag(r) / np.abs(np.diag(r)))
-                    th = np.mod(np.angle(np.linalg.eigvals(q)) / (2 * math.pi), 1.0)
+                m = n // 2 if mirror else n
+                th = rng.random(m) if name == "poisson" else cue_phases(rng, m)
+                if mirror:
+                    th = np.concatenate([th, np.mod(1.0 - th, 1.0)])
                 vals.append(R.var_exact(th, K) / (n / K))
             vals = np.array(vals)
             rel = vals.std(ddof=1) / vals.mean()
@@ -63,13 +75,19 @@ def calib_c(rng):
     return out
 
 
-def main(out):
+def main(out, mirror=False):
     rng = np.random.default_rng(8686)
     cal = calib_c(rng)
-    c_use = min(v["c"] for d in cal.values() for v in d.values())
-    res = dict(C=C, c_calibration=cal, c_used=c_use, rows={})
+    res = dict(C=C, c_calibration=cal, rows={})
+    if mirror:
+        cal_m = calib_c(np.random.default_rng(8888), mirror=True)
+        res["c_calibration_mirror"] = cal_m
+        c_use = min(v["c"] for d in cal_m.values() for v in d.values())
+    else:
+        c_use = min(v["c"] for d in cal.values() for v in d.values())
+    res["c_used"] = c_use
     for xl, X in XS.items():
-        N = n_ideals(X)
+        N = N_MATCHED[xl] if mirror else n_ideals(X)
         rows = []
         for b in BETAS:
             K = int(round(N ** b))
@@ -91,9 +109,12 @@ def main(out):
             print("  β %.2f K %10d  R√2 %.3f Ri %.3f off(logX) %+.3f off(logN) %+.3f SEdiff %.3f off/SE %.1f %s" % (
                 r["beta"], r["K"], h["logX"]["R_zs2"], h["logX"]["R_zi"], h["logX"]["offset"], h["logN"]["offset"],
                 r["SE_diff"], r["offset_over_SE"], "powered" if r["B2_powered"] else ""))
-    print("c calibration", {k: {K: round(v["c"], 2) for K, v in d.items()} for k, d in cal.items()}, "used", round(c_use, 2))
+    for key in ("c_calibration", "c_calibration_mirror"):
+        if key in res:
+            print(key, {k: {K: (round(v["mean"], 3), round(v["c"], 2)) for K, v in d.items()} for k, d in res[key].items()})
+    print("used", round(c_use, 3))
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1]))
+    sys.exit(main(sys.argv[1], "--mirror" in sys.argv[2:]))
