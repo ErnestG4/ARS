@@ -1957,3 +1957,16 @@ Selection stops with “D not stored” if a value is missing, so a missing D ca
 The read refuses to run without the confirmation file.
 
 CC’s note that fitting t and scoring on the same replicates flatters the null count is correct. That’s what the fresh-seed confirmation run is for. Its forecast has one weak case: if the cells are as correlated as they can be, the planted arm reaches 90 of 100 only 78% of the time. The witness will show which case we’re in. If it fails, the read becomes descriptive, which is an outcome the seal already allows for.
+
+## Ninety-first round (2026-10-26) — seal approved once these edits are in; archive integrity pins before the read; one heuristic file; SE-model attribution (verbatim)
+Round 91. Seal approved once these edits are in, with no change to the rule.
+
+Archive integrity before the read:
+Add both MANIFEST.json files to read_pins.sha256, with the §6 hashes aa6d15fc… and 8fd61856….
+Add a pre-read step that checks every segment file of both archives against its manifest hash. Any mismatch: VOID (hash), no read.
+If rq1_read.py already does this, say where; otherwise don’t change the read code.
+Text: replace “the conjunction’s power” in §5 with “the T rule’s power”.
+Heuristic overlay: one file (HEURISTIC_B_MIRROR.json) for both the offsets and the D(β) overlay. Pin its sha256 in §6.
+Attribution, add: “The SE model is calibrated on synthetic mirror-symmetric sets (c = 0.627, the Poisson minimum; CUE-like sets give 2.6–5.0). Its validity for the arithmetic data is assumed, not tested. A PASS is conditional on it.”
+Recommit, report the diff, and then: stamp → wait for the Bitcoin attestation and verify it on two explorers → sha256sum -c on spot (code, JSONs, manifests, segments) → double read under the caps → cmp.
+Pushes stay with Will.

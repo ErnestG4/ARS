@@ -1,4 +1,4 @@
-# RQ1 reading seal — STATUS: RESUBMISSION for Will's approval (rounds 88–90 complete; B2 rule selected and confirmed on synthetic data). Not sealed; no OpenTimestamps receipt; nothing read from either archive
+# RQ1 reading seal — STATUS: APPROVED (round 91, with its edits; rule unchanged). Stamp pending; nothing read from either archive
 
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
@@ -109,7 +109,7 @@ R(β, X) = Var(N_{K,X}) / (N/K):
 - Round 88's sign rule and round 89's k-grid rule are withdrawn. The sign rule is still recorded in each witness
   replicate (`b2_sign_r88`), but it is not a gate.
 - The candidate cells are β ∈ {0.40, 0.45} at both X: the β ≤ 0.45 cells where the heuristic offset is ≥ 2·SE_diff
-  under the mirror-calibrated SE. The SE check against the witness may remove some (below). The conjunction's power
+  under the mirror-calibrated SE. The SE check against the witness may remove some (below). The T rule's power
   is measured by the planted witness.
 - **UNPOWERED, reported and not gated:** β = 0.20 and 0.30 at both X. β = 0.30 at 10¹¹ was gated in the round-87
   draft (offset/SE 2.1) and drops to 1.4 under the mirror calibration (round 88).
@@ -122,7 +122,8 @@ R(β, X) = Var(N_{K,X}) / (N/K):
   (0.88–0.92) at β = 0.66–0.80 where the heuristic has saturated. A B1 FAIL therefore could not be attributed: it might
   be a ℤ[√2]–ℤ[i] difference, or only the heuristic's crossover.
 - **What is reported:** D(β) = R_ℤ[√2] − R_ℤ[i] at matched N, at every β on the grid and at both X, with SE_diff. It
-  is plotted with the heuristic's ΔC/L curves (L = log X and L = log N) overlaid, from `results/HEURISTIC_B.json`.
+  is plotted with the heuristic's ΔC/L curves (L = log X and L = log N) overlaid, from `results/HEURISTIC_B_MIRROR.json`
+  (round 91: the one heuristic file, for both the offsets and this overlay; sha256 pinned in §6).
   No verdict.
 
 **Reading (round 90).** PASS iff T > t and the guard holds, at the frozen t. FAIL otherwise.
@@ -138,7 +139,10 @@ R(β, X) = Var(N_{K,X}) / (N/K):
 - **UNPOWERED (rounds 89–90):** the selection or the confirmation fails. Descriptive read, no verdict. This replaces
   round 88's "a witness failure makes the read VOID".
 - **VOID:** a `cmp` mismatch between the two reads, or a hash mismatch (on the read code, the selection or
-  confirmation JSON, or any archive segment).
+  confirmation JSON, either archive manifest, or any archive segment).
+- **The SE model (round 91):** The SE model is calibrated on synthetic mirror-symmetric sets (c = 0.627, the Poisson
+  minimum; CUE-like sets give 2.6–5.0). Its validity for the arithmetic data is assumed, not tested. A PASS is
+  conditional on it.
 
 **Witness for B2 (round 88, TOOLKIT §9.D; `rq1_witness.py`, criteria committed in fdf9f26f before running; subset-draw fix 5640055e, criteria unchanged).**
 Synthetic only, at the archives' matched N. Every set is n points φ ∈ [0, ½) plus their mirrors 1 − φ, as the data
@@ -156,8 +160,11 @@ are. The estimator, K, the gated cells and the rule are the read's own (imported
     planted level is the heuristic's highest (SE ∝ R: conservative).
   - ρ_ℤ[√2] = ρ_ℤ[i] − ΔR_X, with ΔR_X the smallest heuristic offset over the gated β at that X: 0.065 at 10¹⁰,
     0.062 at 10¹¹.
-  - The 10¹⁰ and 10¹¹ planted sets are independent (a random subset of a lattice is not rigid), which lowers the
-    conjunction's PASS probability against positive correlation: conservative.
+  - The 10¹⁰ and 10¹¹ planted sets are independent (a random subset of a lattice is not rigid). For the round-88
+    conjunction this was conservative. For the round-90 T rule (a sum) it is not: positive correlation across X
+    would raise T's variance (round 91 correction of this sentence; the rule is unchanged). Its size, from the null's
+    measured cross-X covariance: planted Var(T) 6.67 → 7.25 (selection) and 6.03 → 6.26 (confirmation), so the
+    Gaussian planted P(PASS) at t moves from 0.974 to 0.969 and from 0.967 to 0.965.
   - Criterion: the rule reads PASS in ≥ 90 of 100.
 - Round-88 summary (`rq1_witness.py summary`, `witness/WITNESS.json`): the sign rule against the criteria above.
   It is still written and reported, but rounds 89–90 supersede it as the read's gate: the read takes the round-90
@@ -201,12 +208,17 @@ are. The estimator, K, the gated cells and the rule are the read's own (imported
 **Reserved:** X = 10¹² is unseen. It is held for a possible option (C) prediction (Chen et al.'s refined conjecture
 adapted to ℤ[√2]). No statistic at 10¹².
 
-**Order (rounds 87–90):**
-1. Will approves this seal.
+**Order (rounds 87–91):**
+1. Will approves this seal (round 91, with its edits).
 2. The seal file is stamped with OpenTimestamps.
 3. Wait for the receipt's Bitcoin attestation, verified on two explorers.
-4. On spot, re-check the sha256 of `rq1_read.py`, `rq1_angles.py`, the selection JSON and (if run) the confirmation
-   JSON against §6 (`sha256sum -c`). Any mismatch: VOID (hash), no read.
+4. On spot, `sha256sum -c read_pins.sha256`: the read code, the selection and confirmation JSONs, both archive
+   manifests, the heuristic file and the segment list. Then `sha256sum -c archive_segments.sha256`: every segment
+   file of both archives (1,000 + 1,010) against its manifest hash. Any mismatch: VOID (hash), no read.
+   - `rq1_read.py` already checks each segment it loads against the manifest (`load_field`, `rq1_read.py:166`) and
+     raises before writing any output. It stops at the matched n, so it never checks the ℤ[i] segments above the
+     10¹¹ cut, and it does not check the manifests' own hashes. The pre-read step covers both; the read code is
+     unchanged.
 5. Read in the pinned environment (§6), as a double read in two separate processes from a clean start, each under a
    40 GB memory cap. Both must produce byte-identical result JSONs.
 
@@ -309,7 +321,14 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
     processes.
 - **`read_pins.sha256`** (committed with this seal; paths as on spot under `~/tmp/claude/specarith/rq1/`): `rq1_read.py`
   0e328302…c856, `rq1_angles.py` 7764c23e…1a0c, `witness/SELECTION.json` e598e517…ac45,
-  `witness_confirm/CONFIRM.json` 96dfe9e1…7d9f.
+  `witness_confirm/CONFIRM.json` 96dfe9e1…7d9f, `archive/MANIFEST.json` aa6d15fc…22f1, `archive_zi/MANIFEST.json`
+  8fd61856…d0cb, `results/HEURISTIC_B_MIRROR.json` a9c0bbef…e9b8, `archive_segments.sha256` 882ddf69…8d9d.
+- **`archive_segments.sha256`** (round 91; generated by `rq1_segment_list.py` from the pinned manifest copies, which
+  it checks against aa6d15fc… and 8fd61856… first): 2,010 lines, one per segment file, the manifest's sha256 for
+  each.
+- **Heuristic file** (round 91; the one file for the offsets, the gating table and the D(β) overlay):
+  `results/HEURISTIC_B_MIRROR.json`, sha256 a9c0bbef90994d902ada86bf7a130cd2bb23b9e7f9e9a29d1e4b792ef9cfe9b8
+  (identical on spot).
 - **Estimator check** (`rq1_read_check.py`, rerun on spot in ph6c, numba 0.68.0; `results/r88/READ_ESTIMATOR_CHECK.json`):
   - exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and 2.4·10⁻¹² on
     mirror-symmetrised sets;
@@ -325,7 +344,8 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
 matched N is 30.8 GiB, `results/r88/memprobe.log`):
 
     cd ~/tmp/claude/specarith/rq1
-    sha256sum -c read_pins.sha256                  # rq1_read.py, rq1_angles.py, SELECTION.json, CONFIRM.json (§6)
+    sha256sum -c read_pins.sha256                  # code, JSONs, manifests, heuristic file, segment list (§6)
+    sha256sum -c archive_segments.sha256           # every segment of both archives against its manifest hash
     for i in 1 2; do
       systemd-run --user --scope -p MemoryMax=40G -p MemorySwapMax=0 env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 \
         ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi witness/SELECTION.json \
@@ -333,7 +353,8 @@ matched N is 30.8 GiB, `results/r88/memprobe.log`):
     done
     cmp read1.json read2.json                      # must be byte-identical; otherwise the read is VOID
 
-- `read_pins.sha256` is committed with this seal, holding the §6 hashes of the read code and the round-90 JSONs.
+- `read_pins.sha256` and `archive_segments.sha256` are committed with this seal and copied to spot before step 4.
+  Pre-read cost: hashing 32 GB, a few minutes on one core.
 - **Cost:** 2 fields × 2 X × 10 estimator passes, single core. Locally a pass takes 1.6·10⁻⁸ s per point, so
   ≈ 65 s per pass and ≈ 11 min per field at 10¹¹ (1/9 of that at 10¹⁰), plus hashing, loading and sorting (the sort
   and one pass: 3.4 min measured on spot). About 0.6 local core-hours per read, ≈ 1.4 spot core-hours at 2.3.
