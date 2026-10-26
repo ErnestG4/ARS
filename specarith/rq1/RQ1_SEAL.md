@@ -3,10 +3,10 @@
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
 
-**Archive.** The ℤ[√2] reduced generators, one per split prime, from `rq1_archive.py`.
-- Its hash goes in §6 when Step 2 finishes: the sha256 over the 1,000 segment hashes, plus per-segment hashes in
-  `MANIFEST.json`.
-- No statistic of the angles has been computed from it.
+**Archives.** The reduced generators, one per split prime, from `rq1_archive.py`: ℤ[√2] to 10¹¹ and ℤ[i] to
+1.01·10¹¹.
+- Their hashes are in §6: for each, the sha256 over the segment hashes, plus per-segment hashes in `MANIFEST.json`.
+- No statistic of the angles has been computed from either.
 
 ## 1. Statistic
 R(β, X) = Var(N_{K,X}) / (N/K):
@@ -41,9 +41,14 @@ R(β, X) = Var(N_{K,X}) / (N/K):
 **Matching variable.** N is the number of prime ideals above split primes.
 - ℤ[i]: both ideals above each p ≡ 1 mod 4; inert primes and (1 + i) excluded.
 - ℤ[√2]: both ideals above each p ≡ ±1 mod 8; inert primes and 2 excluded.
-- At each ℤ[√2] X (10¹⁰, 10¹¹), the ℤ[i] cut X_i is the smallest X_i with N_ℤ[i](X_i) ≥ N_ℤ[√2](X), taken from the
-  manifests' row counts (no angle is read to choose it).
-- K = round(N^β) is then identical for both fields.
+- At each ℤ[√2] X (10¹⁰, 10¹¹), with n = the number of ℤ[√2] split primes ≤ X (manifest row count), the ℤ[i] set is
+  its first n split primes in increasing order, both ideals each. N = 2n is then exactly equal for both fields, and
+  K = round(N^β) is identical. This is what `rq1_read.py` does.
+  - The cut is taken from the manifests' row counts; no angle is read to choose it.
+  - It falls just above X: the n-th ℤ[i] split prime lies in (10¹⁰, 1.01·10¹⁰] (n = 227,524,967; 227,523,275 ℤ[i]
+    split primes are ≤ 10¹⁰) and in (10¹¹, 1.001·10¹¹] (n = 2,059,026,114; 2,059,020,280 are ≤ 10¹¹).
+  - (Corrected before sealing: the earlier wording "smallest X_i with N_ℤ[i](X_i) ≥ N_ℤ[√2](X)" did not match the
+    code, which matches N exactly.)
 
 **Heuristic, derived (`rq1_heuristic.py` → `results/HEURISTIC_B.json`; no archive data used).**
 - **The formula:** R_F(K, X) = K·Σ_{k≠0} sin²(πk/K)/(πk)²·min(1, (2 log|k| + C_F)/L). That is RW's §5 form, with the
@@ -124,7 +129,17 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
   - The current `rq1_angles.py` regenerates segments 0 and 999 bit-identically.
 - **No statistic computed.**
 
-**ℤ[i] archive** (spot `~/tmp/claude/specarith/rq1/archive_zi/`, to 1.01·10¹¹): ZI_PENDING
+**ℤ[i] archive** (spot `~/tmp/claude/specarith/rq1/archive_zi/`, to 1.01·10¹¹; manifest copy
+`results/archive_zi/MANIFEST.json`, sha256 8fd61856ea8a76c9b6fdc9f0f2e5cd6affc60d98a6ddae3e35b29d57b982d0cb).
+- **Contents:** 1,010 segments of 10⁸, 2,078,758,475 split primes p ≡ 1 mod 4 below 1.01·10¹¹ (227,523,275 below
+  10¹⁰). Each row is the Cornacchia pair (u, v), 0 < u < v, u² + v² = p; inert primes and (1 + i) are excluded.
+- **Integrity:** passes on every segment (u² + v² is exactly the split primes, in order, with 0 < u < v).
+- **Hash:** sha256 over the segment hashes a268e132e08030cb7f5fe5f223d0e7bee42959a9bbf8cc006fe1d2dfb5b72bc8
+  (recomputed locally from the manifest).
+- **Generator:** `rq1_angles.py` sha256 7764c23e…1a0c (the read-code pin below) with `rq1_archive.py` sha256
+  eed304ce3512719eadec173cfae74aa3ece96540b150e6e8a6a17feee2cf037f (@ dde7502f), both checked identical on spot.
+- **No statistic computed.**
+- **Cost:** 27.9 spot core-h against 23.1 modelled (1.21×), 1 h 33 min wall at 28 processes, 16 GB.
 
 **Read code.**
 - `rq1_read.py`, sha256 ba570de90fddc813200e116bb98c50e56efa29b9e4663299258626c45a1f5e49.
@@ -134,7 +149,7 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
   Synthetic data only.
 
 **Pinned environment (spot):**
-- conda env `ph6c`: Python 3.12.15, numpy 2.5.3, scipy 1.18.1, numba 0.66.0 (local check), mpmath 1.4.1;
+- conda env `ph6c`: Python 3.12.15, numpy 2.5.3, scipy 1.18.1, numba 0.68.0 (spot; local is 0.66.0), mpmath 1.4.1;
 - kernel 6.19.14-200.fc43;
 - single-threaded (OMP / OPENBLAS / MKL / NUMBA_NUM_THREADS = 1).
 

@@ -222,6 +222,11 @@ factor is spot s per configuration ÷ local s per configuration for the same obj
   10¹¹ measured 28.0 core-h against 49.7 modelled at factor 4.1. That is 0.56× overall (0.43× in the first wave,
   ≈ 0.58× after).
 - The archive class is recalibrated to **spot factor 2.3 at 28 processes.**
+- **First use of 2.3 (the ℤ[i] archive to 1.01·10¹¹, 1,010 tasks, 28 processes):** 27.9 core-h against 23.1 modelled,
+  1.21× overall, although the first wave read 0.75×. The ℤ[i] class runs at an effective factor of ≈ 2.8.
+- **The first wave understates the run in both archive runs:** first wave against overall 0.43 → 0.56 (ℤ[√2]) and
+  0.75 → 1.21 (ℤ[i]). So a first wave passing at ≤ 1.25 does not bound the whole run at 1.25. For a run whose
+  estimate is within 2× of its cap, check the running ratio again at mid-run, as well as after the first wave.
 - The 4.1–9.1 table above stays for numpy-heavy jet and determinant tasks (ratios construction, n6 pieces).
 
 **Run rule (round 84).** If the first wave's mean task time exceeds the model by more than 25%, stop and report before
