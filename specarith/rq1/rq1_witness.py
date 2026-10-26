@@ -73,20 +73,28 @@ def mirror_into(buf, n):
     np.subtract(1.0, buf[:n][::-1], out=buf[n:2 * n])
 
 
-def select_sorted(src, k, rng, chunk=1 << 26):
-    """A uniformly random size-k subset of the sorted array src, in order."""
-    n = len(src)
-    starts = list(range(0, n, chunk))
-    sizes = [min(chunk, n - s) for s in starts]
-    counts = rng.multivariate_hypergeometric(sizes, k)
+@njit(cache=False)
+def _select_s(src, k, seed, out):
+    """Knuth's selection sampling (Algorithm S): item t is kept with probability (k − kept)/(n − t); exactly k kept,
+    every size-k subset equally likely, order preserved. numba's own generator, seeded from the task's rng."""
+    np.random.seed(seed)
+    n = src.shape[0]
+    kept = 0
+    for t in range(n):
+        if (n - t) * np.random.random() < k - kept:
+            out[kept] = src[t]
+            kept += 1
+            if kept == k:
+                break
+    return kept
+
+
+def select_sorted(src, k, rng):
+    """A uniformly random size-k subset of the sorted array src, in order. (Round 88 fix: the first version split k
+    over chunks with rng.multivariate_hypergeometric, which refuses populations ≥ 10⁹; it failed on spot before any
+    replicate completed.)"""
     out = np.empty(k, np.float64)
-    j = 0
-    for s, m, c in zip(starts, sizes, counts):
-        idx = rng.choice(m, int(c), replace=False)
-        idx.sort()
-        out[j:j + c] = src[s + idx]
-        j += c
-    assert j == k
+    assert _select_s(src, k, int(rng.integers(2 ** 32)), out) == k
     return out
 
 
