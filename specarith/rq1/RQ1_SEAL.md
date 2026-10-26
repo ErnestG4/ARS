@@ -1,4 +1,4 @@
-# RQ1 reading seal — STATUS: FINAL DRAFT for Will's approval (rounds 85–87). Not sealed; no OpenTimestamps receipt; nothing read
+# RQ1 reading seal — STATUS: RESUBMISSION DRAFT (round 88 fixes; witness running). Not sealed; no OpenTimestamps receipt; nothing read
 
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
@@ -14,6 +14,13 @@ R(β, X) = Var(N_{K,X}) / (N/K):
 - **N:** the number of prime ideals above split p with N𝔭 ≤ X (both ideals: θ and 1 − θ). Inert primes and 2 are
   excluded; RW's N would include them, which differs by ≤ √X points at θ = 0.
 - **K = round(N^β).**
+- **The θ maps (round 88), as `rq1_read.field_thetas` computes them:**
+  - ℤ[√2]: for the stored reduced generator π = a + b√2 (a > 0, b ≥ 0, 0 ≤ θ ≤ ½),
+    θ = log|π/π′| / (2 log ε) = (2 log(a + b√2) − log p) / (2 log ε), with ε = 1 + √2 and p = |a² − 2b²|.
+  - ℤ[i]: for the stored Cornacchia pair 0 < u < v (u² + v² = p), θ = atan(u/v) / (π/2) ∈ (0, ½). That is
+    arg(v + iu)/(π/2), RW's θ_𝔭 = arg(π_𝔭)/(π/2) mod 1 (the angle modulo the units ±1, ±i) for the ideal (v + iu).
+  - Both fields: the other ideal above p is added at 1 − θ (np.mod(1 − θ, 1)). So both sets are exactly
+    mirror-symmetric, which is why the SE model is calibrated on mirror-symmetrised sets (§5).
 
 ## 2. X values and K grid
 - **X:** 10¹⁰ (N ≈ 4.6·10⁸) and 10¹¹ (N ≈ 4.1·10⁹), both from the one archive.
@@ -50,23 +57,33 @@ R(β, X) = Var(N_{K,X}) / (N/K):
   - (Corrected before sealing: the earlier wording "smallest X_i with N_ℤ[i](X_i) ≥ N_ℤ[√2](X)" did not match the
     code, which matches N exactly.)
 
-**Heuristic, derived (`rq1_heuristic.py` → `results/HEURISTIC_B.json`; no archive data used).**
+**Heuristic, derived (`rq1_heuristic.py --mirror` → `results/HEURISTIC_B_MIRROR.json`; no archive data used).**
 - **The formula:** R_F(K, X) = K·Σ_{k≠0} sin²(πk/K)/(πk)²·min(1, (2 log|k| + C_F)/L). That is RW's §5 form, with the
   field entering only through the conductor constant, C_ℤ[√2] = 4.6214 and C_ℤ[i] = 2.7726.
-- **The offset** is R_ℤ[√2] − R_ℤ[i], with L = log X, or log N as a variant:
+- **The offset** is R_ℤ[√2] − R_ℤ[i], with L = log X, or log N as a variant. K is at the matched N (manifest row
+  counts):
 
-| β | 10¹⁰: offset (L = log X / log N) | SE_diff | offset/SE | 10¹¹: offset | SE_diff | offset/SE |
-|---|---|---|---|---|---|---|
-| 0.20 | +0.079 / +0.091 | 0.089 | 0.9 (unpowered) | +0.072 / +0.082 | 0.071 | 1.0 (unpowered) |
-| 0.30 | +0.080 / +0.091 | 0.047 | 1.7 (unpowered) | +0.073 / +0.083 | 0.034 | 2.1 |
-| 0.40 | +0.079 / +0.085 | 0.023 | 3.4 | +0.072 / +0.077 | 0.015 | 4.9 |
-| 0.45 | +0.076 / +0.065 | 0.015 | 4.2 | +0.070 / +0.062 | 0.009 | 6.5 |
-| 0.60 | +0.016 / +0.004 | 0.004 | 1.0 | +0.013 / +0.003 | 0.002 | 1.4 |
-| 0.70 | +0.002 / +0.001 | 0.002 | 0.4 | +0.001 / +0.000 | 0.001 | 0.4 |
-| ≥ 0.80 | 0.000 | ≤ 0.001 | — | 0.000 | ≤ 0.001 | — |
+| β | K (10¹⁰ / 10¹¹) | 10¹⁰: offset (L = log X / log N) | SE_diff | offset/SE | 10¹¹: offset | SE_diff | offset/SE |
+|---|---|---|---|---|---|---|---|
+| 0.20 | 54 / 84 | +0.079 / +0.091 | 0.133 | 0.6 | +0.072 / +0.082 | 0.106 | 0.7 |
+| 0.30 | 396 / 766 | +0.080 / +0.091 | 0.071 | 1.1 | +0.073 / +0.083 | 0.051 | 1.4 |
+| **0.40** | 2,906 / 7,013 | +0.079 / +0.085 | 0.034 | **2.3** | +0.072 / +0.077 | 0.022 | **3.3** |
+| **0.45** | 7,873 / 21,213 | +0.076 / +0.065 | 0.023 | **2.8** | +0.070 / +0.062 | 0.014 | **4.4** |
+| 0.50 | 21,332 / 64,172 | +0.069 / +0.029 | 0.015 | 1.9 | +0.064 / +0.026 | 0.009 | 2.9 |
+| 0.55 | 57,801 / 194,125 | +0.041 / +0.011 | 0.010 | 1.1 | +0.035 / +0.009 | 0.005 | 1.6 |
+| 0.60 | 156,616 / 587,239 | +0.016 / +0.004 | 0.006 | 0.7 | +0.013 / +0.003 | 0.003 | 0.9 |
+| 0.70 | 1,149,850 / 5,373,835 | +0.002 / +0.001 | 0.002 | 0.2 | +0.001 / +0.000 | 0.001 | 0.3 |
+| ≥ 0.80 | — | 0.000 | ≤ 0.001 | — | 0.000 | ≤ 0.001 | — |
 
-- **SE model:** relative SD of the estimator = sqrt(2/(cK)), with c = 1.4. That is the smallest c in a Monte Carlo
-  calibration (Poisson 1.4–1.8, CUE 6–10), so the SE is conservative for rigid data.
+  offset/SE uses the smaller of the two offset variants.
+- **SE model (round 88: mirror pairing):** relative SD of the estimator = sqrt(2/(cK)), with c = 0.627.
+  - Both archives are exactly mirror-symmetric (θ and 1 − θ), and the window at c and its mirror window at 1 − c
+    then hold equal counts, so only half the window positions are independent.
+  - c is therefore calibrated by Monte Carlo on symmetrised sets (n/2 points plus their mirrors): Poisson
+    0.63–0.78, CUE 2.6–5.0. The unsymmetrised calibration was Poisson 1.4–1.8, CUE 6–10, so the mirror pairing
+    halves c and multiplies SE_diff by about √2.
+  - c_used = 0.627 is the smallest symmetrised c, so the SE is conservative for rigid data.
+  - The empirical SEs at the matched N are measured by the witness and reported against this model (below).
 - **The offset sits at ≈ ΔC/L = 1.85/log X** in the rigidity regime (+0.08 at 10¹⁰, +0.07–0.08 at 10¹¹), as round 86
   expected.
 
@@ -79,9 +96,13 @@ R(β, X) = Var(N_{K,X}) / (N/K):
   not gated.**
 
 **B2 (sign; the pass criterion).**
-- R_ℤ[√2] − R_ℤ[i] > 0 at β ∈ {0.40, 0.45} at both X, and at β = 0.30 at X = 10¹¹. These are the β where the heuristic
-  offset is ≥ 2·SE_diff (power ≥ 0.977 if the true offset equals the heuristic).
-- **β = 0.20 (both X) and β = 0.30 at 10¹⁰ are marked UNPOWERED:** reported, not gated.
+- R_ℤ[√2] − R_ℤ[i] > 0 at β ∈ {0.40, 0.45} at both X. These are the β ≤ 0.45 cells where the heuristic offset is
+  ≥ 2·SE_diff under the mirror-calibrated SE (per-cell power ≥ 0.977 if the true offset equals the heuristic; the
+  conjunction's power is measured by the planted witness).
+- **UNPOWERED, reported and not gated:** β = 0.20 and 0.30 at both X. β = 0.30 at 10¹¹ was gated in the round-87
+  draft (offset/SE 2.1) and drops to 1.4 under the mirror calibration (round 88).
+- β ≥ 0.50 is outside B2 (the rigidity regime is β ≤ 0.45; round 86). β = 0.50 at 10¹¹ reaches offset/SE 2.9 on
+  the smaller (log N) variant but is not gated; it is reported with D(β).
 - The magnitude is reported against 1.85/log X and 1.85/log N at every β.
 
 **B1: dropped as a gate (round 87, option (iii)). Reported descriptively as D(β).**
@@ -93,26 +114,52 @@ R(β, X) = Var(N_{K,X}) / (N/K):
   No verdict.
 
 **Reading.** PASS iff B2 holds at every gated (β, X): R_ℤ[√2] − R_ℤ[i] > 0 at β = 0.40 and 0.45 at X = 10¹⁰ and
-10¹¹, and at β = 0.30 at 10¹¹. FAIL iff any gated difference is ≤ 0. The X-dependence of R and of D is reported, not
+10¹¹ (`rq1_read.b2_rule`). FAIL iff any gated difference is ≤ 0. The X-dependence of R and of D is reported, not
 gated.
 
-**Witness for B2 (run on the archives' sizes, not their angles).**
-- Two independent uniform i.i.d. angle sets at each matched N go through the identical pipeline and B2 rule, 20
-  seeded replicates.
-- Under no true offset, each gated sign is a fair coin, so the full B2 rule (all 5 gated cells positive) reads PASS
-  with probability 1/32 per replicate. The witness passes iff the rule reads PASS in ≤ 5 of the 20 replicates.
-- Its purpose is to show the B2 rule cannot pass on noise alone with high probability. B2's own power is the
-  ≥ 2·SE_diff criterion above.
+**Attribution (round 88).**
+- **PASS** supports the heuristic's field dependence through the conductor constant, and its direction (ℤ[√2]
+  above ℤ[i] at matched N in the rigidity regime).
+- **FAIL** means that field dependence does not show as predicted at these X, for example because lower-order
+  terms dominate. It is not a statement about the leading order (§4).
+- **VOID:** a `cmp` mismatch between the two reads, a witness failure, or a hash mismatch (on the read code, the
+  witness result or any archive segment).
+
+**Witness for B2 (round 88, TOOLKIT §9.D; `rq1_witness.py`, criteria committed in fdf9f26f before running; subset-draw fix 5640055e, criteria unchanged).**
+Synthetic only, at the archives' matched N. Every set is n points φ ∈ [0, ½) plus their mirrors 1 − φ, as the data
+are. The estimator, K, the gated cells and the rule are the read's own (imported from `rq1_read.py`).
+- **Null (false PASS rate).** 100 replicates of two independent symmetrised i.i.d. sets.
+  - The 10¹⁰ set is a uniformly random subset of the 10¹¹ set's points, so the cells are correlated as in the read:
+    across β (same data) and across X (nesting). The round-87 "1/32" reasoning assumed independent cells and is
+    withdrawn.
+  - Criterion: the B2 rule's false PASS count ≤ 10 of 100 (rate ≤ 0.10).
+  - A priori (not a criterion): with the β = 0.40 / 0.45 signs correlated at 0.3–0.6 within an X and the two X
+    nearly independent, the rate is ≈ 0.09–0.12, so this arm may land near its threshold.
+- **Planted (power).** 100 replicates of two mixtures, each a mirror-symmetric rigid lattice of fraction ρ plus
+  i.i.d. points (R ≈ 1 − ρ at every K, checked: 0.895 ± 0.008 at 1 − ρ = 0.886, 0.502 ± 0.005 at 0.5).
+  - ρ_ℤ[i] = 1 − (the largest heuristic R_ℤ[i] over the gated cells and both L variants, 0.886) = 0.114, so the
+    planted level is the heuristic's highest (SE ∝ R: conservative).
+  - ρ_ℤ[√2] = ρ_ℤ[i] − ΔR_X, with ΔR_X the smallest heuristic offset over the gated β at that X: 0.065 at 10¹⁰,
+    0.062 at 10¹¹.
+  - The 10¹⁰ and 10¹¹ planted sets are independent (a random subset of a lattice is not rigid), which lowers the
+    conjunction's PASS probability against positive correlation: conservative.
+  - Criterion: the rule reads PASS in ≥ 90 of 100.
+- **Witness OK iff both arms hold. A witness failure makes the read VOID.** The witness summary JSON is a read input,
+  pinned by sha256 in §6.
+- Reported, not gated: the empirical SD of R per field and cell and of D per cell, against R·sqrt(2/(cK)) and
+  SE_diff; the mean planted D against ΔR_X; the null's per-cell positive fractions and pairwise sign agreement.
 
 **Reserved:** X = 10¹² is unseen. It is held for a possible option (C) prediction (Chen et al.'s refined conjecture
 adapted to ℤ[√2]). No statistic at 10¹².
 
-**Order (round 87):**
+**Order (rounds 87–88):**
 1. Will approves this seal.
 2. The seal file is stamped with OpenTimestamps.
 3. Wait for the receipt's Bitcoin attestation, verified on two explorers.
-4. Read in the pinned environment (§6), as a double read in two separate processes from a clean start. Both must
-   produce byte-identical result JSONs.
+4. On spot, re-check the sha256 of `rq1_read.py`, `rq1_angles.py` and the witness summary JSON against §6
+   (`sha256sum -c`). Any mismatch: VOID (hash), no read.
+5. Read in the pinned environment (§6), as a double read in two separate processes from a clean start, each under a
+   40 GB memory cap. Both must produce byte-identical result JSONs.
 
 **Chen et al. cross-check (`CHEN_XCHECK.md`).**
 - **Secondary: PASS.** Our transcription of their Appendix A on our ℤ[i] angle set reproduces their Figure 1's 25
@@ -141,26 +188,53 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
 - **No statistic computed.**
 - **Cost:** 27.9 spot core-h against 23.1 modelled (1.21×), 1 h 33 min wall at 28 processes, 16 GB.
 
+**Version drift (round 88).**
+- `rq1_angles.py` a30f02ea (the ℤ[√2] archive's generator, @ e179155a) → 7764c23e (current): the only difference is
+  the added function `gen_segment_zi` (the ℤ[i] generator). `primes_in`, `sqrt_mod`, `gcd_zs2`, `reduce_zs2`,
+  `gen_segment` and `thetas_from_ab` (the ℤ[√2] generation and angle path) are unchanged.
+- Regeneration with the current code (`rq1_regen_check.py`, `results/r88/REGEN_CHECK.json`): segments 0, 999 and 10
+  drawn with seed 8803 (58, 83, 259, 406, 482, 525, 677, 823, 848, 978) are all bit-identical to the manifest
+  hashes.
+
+**Angle precision (round 88; `rq1_precision.py`, `results/r88/PRECISION.json`).** Primes in
+[1.01·10¹¹, 1.01·10¹¹ + 2·10⁶), outside both archives: 39,354 ℤ[√2] and 39,475 ℤ[i] split primes.
+- Float θ (the read's map) against mpmath at 50 digits: max |Δθ| 2.1·10⁻¹⁵ (ℤ[√2]) and 1.1·10⁻¹⁶ (ℤ[i]); the mirror
+  1 − θ: 2.2·10⁻¹⁵ and 1.5·10⁻¹⁶.
+- Unit shifts (× ε, ε², ε³ for ℤ[√2]; × i, i², i³ for ℤ[i]) shift θ by exactly 1, 2, 3: deviations 1.8·10⁻¹⁵ and
+  4.4·10⁻¹⁶ in float, ≤ 2.3·10⁻⁴⁹ in mpmath.
+- The worst float deviation is 9.7·10⁻⁷ of the smallest window, 1/K_max = 1/450,010,519 = 2.2·10⁻⁹ (β = 0.90 at
+  10¹¹).
+
 **Read code.**
-- `rq1_read.py`, sha256 ba570de90fddc813200e116bb98c50e56efa29b9e4663299258626c45a1f5e49.
+- `rq1_read.py`, sha256 60dc1d9a7b3e27c6ebb97c6074667626bce40a3e19988dc4106fdba09b734916 (@ fdf9f26f).
 - `rq1_angles.py`, sha256 7764c23ef64c1f53efb1fb12bd1152d93f8956745cf623d40af93e108e7d1a0c.
-- **Estimator check:** exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and the
-  sorted-uniform generator's mean ratio 0.998 ± 0.010 against 1 − 1/64 = 0.984 (`results/READ_ESTIMATOR_CHECK.json`).
-  Synthetic data only.
+- `rq1_witness.py`, sha256 b00cb0e747241252fb0ef6c3e55849a62532396e61bce924b7c8889f75d132f0 (@ 5640055e; the fdf9f26f version failed on its first null tasks, numpy's hypergeometric limit, and was fixed before any replicate completed).
+- **Witness result:** WITNESS_PENDING
+- **Estimator check** (`rq1_read_check.py`, rerun on spot in ph6c, numba 0.68.0; `results/r88/READ_ESTIMATOR_CHECK.json`):
+  - exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and 2.4·10⁻¹² on
+    mirror-symmetrised sets;
+  - the sorted-uniform generator's mean ratio 0.998 ± 0.010 against 1 − 1/64 = 0.984;
+  - bit-identical to the round-87 local values. Synthetic data only.
 
 **Pinned environment (spot):**
 - conda env `ph6c`: Python 3.12.15, numpy 2.5.3, scipy 1.18.1, numba 0.68.0 (spot; local is 0.66.0), mpmath 1.4.1;
 - kernel 6.19.14-200.fc43;
 - single-threaded (OMP / OPENBLAS / MKL / NUMBA_NUM_THREADS = 1).
 
-**Double read** (two separate processes, run one after the other because each needs about 70 GB at 10¹¹):
+**Double read** (two separate processes, one after the other, each capped at 40 GB; the measured peak at the 10¹¹
+matched N is 30.8 GiB, `results/r88/memprobe.log`):
 
     cd ~/tmp/claude/specarith/rq1
-    env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi read1.json
-    env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi read2.json
+    sha256sum -c read_pins.sha256                  # rq1_read.py, rq1_angles.py, witness/WITNESS.json (§6 values)
+    for i in 1 2; do
+      systemd-run --user --scope -p MemoryMax=40G -p MemorySwapMax=0 env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+        ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi witness/WITNESS.json read$i.json
+    done
     cmp read1.json read2.json                      # must be byte-identical; otherwise the read is VOID
 
-- **Cost by the model:** 40 estimator passes over up to 8.2·10⁹ breakpoints plus the witness (200 passes), single
-  core. That is a few core-hours per read, priced at the archive class's factor once the first pass is timed.
+- `read_pins.sha256` is committed with this seal, holding the three §6 hashes.
+- **Cost:** 2 fields × 2 X × 10 estimator passes, single core. Locally a pass takes 1.6·10⁻⁸ s per point, so
+  ≈ 65 s per pass and ≈ 11 min per field at 10¹¹ (1/9 of that at 10¹⁰), plus hashing, loading and sorting (the sort
+  and one pass: 3.4 min measured on spot). About 0.6 local core-hours per read, ≈ 1.4 spot core-hours at 2.3.
 - **The first-wave rule applies to the read:** if the first X's timing exceeds the model by more than 25%, stop and
   report.

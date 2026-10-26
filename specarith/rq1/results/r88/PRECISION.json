@@ -1,0 +1,25 @@
+{
+ "window": [
+  101000000000,
+  101002000000
+ ],
+ "mpmath_dps": 50,
+ "K_max": 450010519,
+ "min_window": 2.2221702777574406e-09,
+ "zs2": {
+  "primes": 39354,
+  "max_abs_dtheta": 2.1297814118417553e-15,
+  "max_abs_dmirror": 2.150598093553477e-15,
+  "unit_shift_float_max_dev": 1.7763568394002505e-15,
+  "unit_shift_mpmath_max_dev": 2.2985776506792883e-49
+ },
+ "zi": {
+  "primes": 39475,
+  "max_abs_dtheta": 1.1102230246251565e-16,
+  "max_abs_dmirror": 1.5070715068277537e-16,
+  "unit_shift_float_max_dev": 4.440892098500626e-16,
+  "unit_shift_mpmath_max_dev": 4.0091470651382935e-51
+ },
+ "worst_float_dev": 2.150598093553477e-15,
+ "worst_over_min_window": 9.677917642404107e-07
+}
