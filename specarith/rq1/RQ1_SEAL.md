@@ -114,6 +114,38 @@ adapted to ℤ[√2]). No statistic at 10¹².
   points within 0.0014 (tolerance 0.01). This validates the angle set and the statistic machinery.
 - **Primary (their Mathematica code): blocked; not needed** (round 87). No Wolfram activation.
 
-## 6. To be filled when Step 2 finishes
-The archive manifest hash, the row counts at X = 10¹⁰ and 10¹¹, and the pinned environment (python, numpy and the
-`rq1_angles.py` sha256).
+## 6. Pins (Step 2 data and the read)
+**ℤ[√2] archive** (spot `~/tmp/claude/specarith/rq1/archive/`; manifest copy `results/archive_zs2/MANIFEST.json`,
+sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
+- **Contents:** 1,000 segments of 10⁸, 2,059,026,114 split primes below 10¹¹ (227,524,967 below 10¹⁰).
+- **Integrity:** passes on every segment (the norms are exactly the split primes, in order).
+- **Hash:** sha256 over the segment hashes c8433b089ebfc618a2bb725dc6a7565926167eb685c355951616db6cb030c0f0.
+- **Generator:** `rq1_angles.py` @ e179155a (sha256 a30f02ea…442b) with `rq1_archive.py` @ b015d653.
+  - The current `rq1_angles.py` regenerates segments 0 and 999 bit-identically.
+- **No statistic computed.**
+
+**ℤ[i] archive** (spot `~/tmp/claude/specarith/rq1/archive_zi/`, to 1.01·10¹¹): ZI_PENDING
+
+**Read code.**
+- `rq1_read.py`, sha256 ba570de90fddc813200e116bb98c50e56efa29b9e4663299258626c45a1f5e49.
+- `rq1_angles.py`, sha256 7764c23ef64c1f53efb1fb12bd1152d93f8956745cf623d40af93e108e7d1a0c.
+- **Estimator check:** exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and the
+  sorted-uniform generator's mean ratio 0.998 ± 0.010 against 1 − 1/64 = 0.984 (`results/READ_ESTIMATOR_CHECK.json`).
+  Synthetic data only.
+
+**Pinned environment (spot):**
+- conda env `ph6c`: Python 3.12.15, numpy 2.5.3, scipy 1.18.1, numba 0.66.0 (local check), mpmath 1.4.1;
+- kernel 6.19.14-200.fc43;
+- single-threaded (OMP / OPENBLAS / MKL / NUMBA_NUM_THREADS = 1).
+
+**Double read** (two separate processes, run one after the other because each needs about 70 GB at 10¹¹):
+
+    cd ~/tmp/claude/specarith/rq1
+    env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi read1.json
+    env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi read2.json
+    cmp read1.json read2.json                      # must be byte-identical; otherwise the read is VOID
+
+- **Cost by the model:** 40 estimator passes over up to 8.2·10⁹ breakpoints plus the witness (200 passes), single
+  core. That is a few core-hours per read, priced at the archive class's factor once the first pass is timed.
+- **The first-wave rule applies to the read:** if the first X's timing exceeds the model by more than 25%, stop and
+  report.
