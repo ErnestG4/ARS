@@ -157,6 +157,26 @@ def both_ideals(th):
     return np.concatenate([th, np.mod(1.0 - th, 1.0)])
 
 
+def gen_segment_zi(lo, hi):
+    """ℤ[i] archive rows: for each p ≡ 1 mod 4 in [lo, hi), the Cornacchia pair (u, v), 0 < u < v, u² + v² = p
+    (asserted); the two ideals sit at θ = atan(u/v)/(π/2) and 1 − θ. Inert primes and (1 + i) are excluded (the
+    ℤ[√2] archive's convention: N = prime ideals above split primes)."""
+    ps = primes_in(lo, hi)
+    ps = ps[ps % 4 == 1]
+    out = np.empty((len(ps), 2), np.int32)
+    for i, p in enumerate(ps.tolist()):
+        s = sqrt_mod(p - 1, p)
+        a, b = p, s
+        r = math.isqrt(p)
+        while b > r:
+            a, b = b, a % b
+        c = math.isqrt(p - b * b)
+        if b * b + c * c != p:
+            raise ArithmeticError(("cornacchia", p))
+        out[i] = min(b, c), max(b, c)
+    return out
+
+
 # ---------- ℤ[i] (gate 3), RW's convention: all prime ideals of norm ≤ x, θ = arg/(π/2) ∈ [0, 1) ----------
 def gaussian_thetas(x):
     ps = primes_in(2, x + 1)
