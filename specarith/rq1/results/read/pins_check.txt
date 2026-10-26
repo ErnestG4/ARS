@@ -1,0 +1,9 @@
+rq1_read.py: OK
+rq1_angles.py: OK
+witness/SELECTION.json: OK
+witness_confirm/CONFIRM.json: OK
+archive/MANIFEST.json: OK
+archive_zi/MANIFEST.json: OK
+results/HEURISTIC_B_MIRROR.json: OK
+archive_segments.sha256: OK
+exit=0
