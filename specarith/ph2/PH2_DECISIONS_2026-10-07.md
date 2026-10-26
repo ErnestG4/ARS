@@ -1928,3 +1928,21 @@ Check the SE model against the witness. If the empirical SE_diff exceeds the mod
 Confirm symmetrisation: the i.i.d. part of the planted mixtures is symmetrised (N/2 points plus their mirrors), as in the null arm.
 Report the selection table (null and planted counts at each k), the confirmation counts, and empirical against model SEs, together with the seal for Will.
 Order otherwise unchanged. Pushes stay with Will (5 unpushed).
+
+## Ninetieth round (2026-10-26) — B2 statistic T with a null-calibrated threshold and a per-cell guard; replaces round 89's k-grid rule (verbatim)
+Round 90. Commit before any witness result is read; this replaces round 89’s k-grid rule.
+
+B2 statistic. T = Σ over the gated cells of D_c / (s_c·SE_diff,c). The SE check and the rescaling s_c (your choices 1 and 2) stay as committed. Cells that the SE check drops to UNPOWERED leave the sum.
+Threshold.
+On the existing null replicates, compute T for each one and set t = 2·SD(T_null), with no centring.
+t is then frozen for the confirmation run and for the read.
+The null replicates must store D per cell per replicate. If they don’t, report that before scoring.
+Guard. No gated cell may have D_c < −2·s_c·SE_diff,c.
+Rule. PASS iff T > t and the guard holds. FAIL otherwise. The per-cell D_c and their signs are always reported.
+Selection criteria (same bars):
+null false PASS ≤ 5/100;
+planted PASS ≥ 90/100, on the existing planted replicates (round-88 design, kept as committed).
+Report T’s null mean and SD, t, and both counts.
+Confirmation. 100 fresh null and 100 fresh planted replicates on new seeds, scored at the frozen t and the guard, with the same bars. If selection or confirmation fails, B2 is UNPOWERED and the read is descriptive only, as round 89 committed.
+The k-grid is withdrawn, not kept beside T. One rule only.
+Your choices 1–3 from round 89 are accepted as written.

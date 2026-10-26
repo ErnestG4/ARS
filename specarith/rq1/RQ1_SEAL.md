@@ -1,4 +1,4 @@
-# RQ1 reading seal — STATUS: RESUBMISSION DRAFT (round 88 fixes; round 89 margin rule committed before any witness result was read; witness running). Not sealed; no OpenTimestamps receipt; nothing read
+# RQ1 reading seal — STATUS: RESUBMISSION DRAFT (round 88 fixes; round 90 B2 statistic committed before any witness result was read; witness running). Not sealed; no OpenTimestamps receipt; nothing read
 
 **Step 3 runs only after:** Will approves this seal, its OTS receipt is Bitcoin-attested and verified on two explorers,
 the environment is pinned, and the double read is in place.
@@ -95,12 +95,19 @@ R(β, X) = Var(N_{K,X}) / (N/K):
 - **The offset is a difference, so a common level error cancels to first order. The size of the offset is reported,
   not gated.**
 
-**B2 (margin rule, round 89; the pass criterion).**
-- D = R_ℤ[√2] − R_ℤ[i] > k·s·SE_diff at every remaining gated cell (`rq1_read.b2_rule`). The round-88 sign rule
-  (k = 0) is replaced.
-  - SE_diff is the sealed model on the read's own R values (`rq1_read.se_diff`, c = 0.627).
-  - k ∈ {0, 0.5, 1.0, 1.5} and the per-cell scale s (1 unless the SE check triggers) are fixed by the witness
-    selection and confirmed on fresh seeds (below), before the seal is stamped.
+**B2 (round 90; the pass criterion; one rule only).**
+- **Statistic:** T = Σ_c D_c / (s_c·SE_diff,c) over the remaining gated cells (`rq1_read.b2_T`), with
+  D_c = R_ℤ[√2] − R_ℤ[i].
+  - SE_diff,c is the sealed model on the read's own R values (`rq1_read.se_diff`, c = 0.627).
+  - s_c is 1 unless the SE check against the witness triggers (below). Cells the SE check drops to UNPOWERED leave
+    the sum.
+- **Guard:** no remaining gated cell may have D_c < −2·s_c·SE_diff,c (`rq1_read.b2_guard`).
+- **Rule:** PASS iff T > t and the guard holds; FAIL otherwise (`rq1_read.b2_rule`). The per-cell D_c and their signs
+  are always reported.
+- **Threshold:** t = 2·SD(T) over the 100 round-88 null replicates, uncentred (2·sqrt(Σ T_i²/100)). It is frozen for
+  the confirmation and the read, before the seal is stamped.
+- Round 88's sign rule and round 89's k-grid rule are withdrawn. The sign rule is still recorded in each witness
+  replicate (`b2_sign_r88`), but it is not a gate.
 - The candidate cells are β ∈ {0.40, 0.45} at both X: the β ≤ 0.45 cells where the heuristic offset is ≥ 2·SE_diff
   under the mirror-calibrated SE. The SE check against the witness may remove some (below). The conjunction's power
   is measured by the planted witness.
@@ -118,9 +125,8 @@ R(β, X) = Var(N_{K,X}) / (N/K):
   is plotted with the heuristic's ΔC/L curves (L = log X and L = log N) overlaid, from `results/HEURISTIC_B.json`.
   No verdict.
 
-**Reading (round 89).** PASS iff the confirmed rule holds at every remaining gated cell: D > k·s·SE_diff. FAIL iff
-any remaining gated cell fails it.
-- If no k qualifies in the selection, or the confirmation fails, B2 is UNPOWERED at these X. The read is then
+**Reading (round 90).** PASS iff T > t and the guard holds, at the frozen t. FAIL otherwise.
+- If the selection or the confirmation fails, B2 is UNPOWERED at these X. The read is then
   descriptive only: D(β) at every β, with SE_diff and the magnitudes against 1.85/log X and 1.85/log N. No verdict.
 - The X-dependence of R and of D is reported, not gated.
 
@@ -129,7 +135,7 @@ any remaining gated cell fails it.
   above ℤ[i] at matched N in the rigidity regime).
 - **FAIL** means that field dependence does not show as predicted at these X, for example because lower-order
   terms dominate. It is not a statement about the leading order (§4).
-- **UNPOWERED (round 89):** no k qualifies, or the confirmation fails. Descriptive read, no verdict. This replaces
+- **UNPOWERED (rounds 89–90):** the selection or the confirmation fails. Descriptive read, no verdict. This replaces
   round 88's "a witness failure makes the read VOID".
 - **VOID:** a `cmp` mismatch between the two reads, or a hash mismatch (on the read code, the selection or
   confirmation JSON, or any archive segment).
@@ -154,47 +160,48 @@ are. The estimator, K, the gated cells and the rule are the read's own (imported
     conjunction's PASS probability against positive correlation: conservative.
   - Criterion: the rule reads PASS in ≥ 90 of 100.
 - Round-88 summary (`rq1_witness.py summary`, `witness/WITNESS.json`): the sign rule against the criteria above.
-  It is still written and reported, but round 89 supersedes it as the read's gate: the read takes the round-89
+  It is still written and reported, but rounds 89–90 supersede it as the read's gate: the read takes the round-90
   selection and confirmation, not this summary.
 - Reported, not gated: the empirical SD of R per field and cell and of D per cell, against R·sqrt(2/(cK)) and
   SE_diff; the mean planted D against ΔR_X; the null's per-cell positive fractions and pairwise sign agreement.
 
-**B2 rule selection and confirmation (round 89; committed before any witness result was read).**
-- **SE check** (`rq1_witness.py select`, on the round-88 replicates).
+**B2 rule selection and confirmation (round 90; committed before any witness result was read).**
+- **D per cell per replicate.** Each replicate file stores R per field per gated cell, with K. D_c = R_ℤ[√2] − R_ℤ[i]
+  is the same float64 difference the task computes. `load_reps` asserts this for every replicate before scoring.
+- **SE check** (`rq1_witness.py select`, on the round-88 replicates; round-89 choices 1 and 2, accepted in round 90).
   - Per gated cell and arm: empirical SE_diff = the SD of D over the 100 replicates; model = the mean of the
     replicates' model SE_diff (`rq1_read.se_diff` on each replicate's own R). ratio = empirical / model, the larger
     over the two arms.
   - If ratio > 1.2 at any gated cell, every gated cell's offset/SE (the §5 table) is divided by its ratio; cells
-    below 2 become UNPOWERED. The remaining cells' rule then uses s = ratio, i.e. the empirical SE. Otherwise s = 1.
-- **Selection** (no new compute). The round-88 replicates are re-scored at k ∈ {0, 0.5, 1.0, 1.5} on the remaining
-  cells. The chosen k is the smallest with null false PASS ≤ 5/100 and planted PASS ≥ 90/100. If none qualifies, B2
-  is UNPOWERED. Output: `witness/SELECTION.json` (the SE check, the table at every k, the rule).
-- **Confirmation** (`run_rq1_witness_confirm_spot.sh`, only if a k was selected). 100 fresh null and 100 fresh planted
-  replicates, on seed base 8889 instead of 8888, with the same sets, N and planted parameters as round 88. They are
-  scored at the selected rule, with the same criteria (≤ 5 and ≥ 90). Fail → B2 UNPOWERED. Output:
-  `witness_confirm/CONFIRM.json`. Cost as the round-88 witness: about 46 spot core-h modelled; that run's first wave
-  measured 0.597×.
+    below 2 become UNPOWERED and leave the sum. The remaining cells use s_c = ratio, i.e. the empirical SE.
+    Otherwise s_c = 1.
+- **Selection** (no new compute; `witness/SELECTION.json`). T is computed for every round-88 null replicate, and
+  t = 2·SD(T_null) uncentred. Both arms are then scored at t and the guard. Bars: null false PASS ≤ 5/100, and
+  planted PASS ≥ 90/100 on the round-88 planted replicates (that design, kept as committed). Fail → B2 UNPOWERED.
+  Reported: T's null mean and SD (centred and uncentred), t, both counts, the guard's failures per arm, and the
+  per-cell D sign fractions.
+- **Confirmation** (`run_rq1_witness_confirm_spot.sh`, only if the selection passed; `witness_confirm/CONFIRM.json`).
+  - 100 fresh null and 100 fresh planted replicates, on seed base 8889 instead of 8888, with the same sets, N and
+    planted parameters as round 88 (round-89 choice 3).
+  - They are scored at the frozen t and the guard, with the same bars. Fail → B2 UNPOWERED.
+  - Cost as the round-88 witness: about 46 spot core-h modelled; that run's first wave measured 0.597×.
 - Selection and confirmation are reported separately, with the empirical against the model SEs.
 - **Symmetrisation (confirmed in the code).** In both arms every set is n points φ plus their n mirrors 1 − φ. In
   `planted_set` the n − m i.i.d. points and the m lattice points are merged into the first half, and the whole half
   is mirrored. So the i.i.d. part is n − m points plus their mirrors, as in the null arm.
-- **A priori forecast (the sealed SE model, cells treated as independent; not a criterion and not a witness
-  result).**
-  - The planted design puts the cells at z = ΔR_X / SE_diff = 1.51 (10¹⁰, β 0.40), 2.48 (10¹⁰, 0.45), 2.24 (10¹¹,
-    0.40) and 3.89 (10¹¹, 0.45). The 10¹⁰ β = 0.40 cell is below 2 because ΔR_X is the smallest offset at that X
-    (from β = 0.45) and the planted level is the heuristic's highest R (round-88 conservative choices).
-  - Planted PASS probability: 0.92 at k = 0, 0.79 at k = 0.5, 0.58 at k = 1.0, 0.32 at k = 1.5 (fully correlated
-    cells within an X: 0.93, 0.84, 0.69, 0.50).
-  - Null false PASS probability: 0.0625 at k = 0 (independent cells), more with the positive correlation the nesting
-    and shared data give; 0.009 at k = 0.5.
-  - So the likeliest outcome on this grid is that no k qualifies (k = 0 fails the null at ≤ 5, k ≥ 0.5 fails the
-    planted at ≥ 90), and B2 is UNPOWERED. This forecast is stated before the witness lands and changes nothing in
-    the rule.
+- **A priori forecast (the sealed SE model; not a criterion and not a witness result).**
+  - The planted cells sit at z = ΔR_X / SE_diff = 1.51, 2.48, 2.24 and 3.89, so the planted T has mean 10.1.
+  - Null: if T is Gaussian with mean 0, P(T > t) ≈ 0.023, and P(count ≤ 5 of 100) ≈ 0.97. t is estimated on the
+    same replicates it is scored on; the confirmation scores it out of sample.
+  - Planted P(PASS), across correlations within an X of 0–0.9 and null correlations across X of 0–0.3: 0.92–0.999
+    (t 4.0–6.3). P(count ≥ 90) is ≥ 0.99, except 0.78 in the most correlated case.
+  - Guard: the planted 10¹⁰ β = 0.40 cell breaches it with probability 2·10⁻⁴.
+  - Round 89's k-grid forecast (likely no qualifying k) is in 623ed8a7. That rule is withdrawn.
 
 **Reserved:** X = 10¹² is unseen. It is held for a possible option (C) prediction (Chen et al.'s refined conjecture
 adapted to ℤ[√2]). No statistic at 10¹².
 
-**Order (rounds 87–89):**
+**Order (rounds 87–90):**
 1. Will approves this seal.
 2. The seal file is stamped with OpenTimestamps.
 3. Wait for the receipt's Bitcoin attestation, verified on two explorers.
@@ -247,11 +254,11 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
 - The worst float deviation is 9.7·10⁻⁷ of the smallest window, 1/K_max = 1/450,010,519 = 2.2·10⁻⁹ (β = 0.90 at
   10¹¹).
 
-**Read code (round 89).**
-- `rq1_read.py`, sha256 f63ebc47cec7f553d4b191623570fc9c8f5dd3cd83fd1ba9a60061c1fb0c4be0 (round 89: `se_diff`, the margin `b2_rule`, `load_rule`; `var_stream`,
-  `field_thetas`, `load_field` and `sorted_uniform` unchanged).
+**Read code (round 90).**
+- `rq1_read.py`, sha256 0e328302e974660ed3abd1316cac04aae1483cd1def13546952677bd845bc856 (round 90: `se_diff`, `b2_T`, `b2_guard`, `b2_rule`, `b2_sign_r88`,
+  `load_rule`; `var_stream`, `field_thetas`, `load_field` and `sorted_uniform` unchanged).
 - `rq1_angles.py`, sha256 7764c23ef64c1f53efb1fb12bd1152d93f8956745cf623d40af93e108e7d1a0c.
-- `rq1_witness.py`, sha256 d7a84441e962222f31ca3542d02c093a8f70c0f0bc2c522adb371f972341dc14 (round 89: `select`, `confirm`, the seed base; the task path at
+- `rq1_witness.py`, sha256 a055184e0ea09df4089a29a8324828ee0da75fb664b9760bfdc0dc298eadb9d1 (round 90: `select`, `confirm`, the seed base; the task path at
   seed base 8888 is the round-88 one).
 
 **Round-88 witness run** (spot, 200 tasks, seed base 8888), produced by the round-88 code:
@@ -259,8 +266,8 @@ sha256 aa6d15fc67b262021f4ccda3dc9ebf6edf064bb84762fcf4ed46626ebc5722f1).
 - `rq1_witness.py` b00cb0e747241252fb0ef6c3e55849a62532396e61bce924b7c8889f75d132f0 (@ 5640055e; the fdf9f26f version
   failed on its first null tasks, numpy's hypergeometric limit, and was fixed before any replicate completed).
 - **Round-88 summary (sign rule):** WITNESS_PENDING
-- **Round-89 selection** (`witness/SELECTION.json`): SELECTION_PENDING
-- **Round-89 confirmation** (`witness_confirm/CONFIRM.json`): CONFIRM_PENDING
+- **Round-90 selection** (`witness/SELECTION.json`): SELECTION_PENDING
+- **Round-90 confirmation** (`witness_confirm/CONFIRM.json`): CONFIRM_PENDING
 - **Estimator check** (`rq1_read_check.py`, rerun on spot in ph6c, numba 0.68.0; `results/r88/READ_ESTIMATOR_CHECK.json`):
   - exact streaming variance against `var_exact` to 8.0·10⁻¹³ relative (K = 2…5000), and 2.4·10⁻¹² on
     mirror-symmetrised sets;
@@ -280,11 +287,11 @@ matched N is 30.8 GiB, `results/r88/memprobe.log`):
     for i in 1 2; do
       systemd-run --user --scope -p MemoryMax=40G -p MemorySwapMax=0 env NUMBA_NUM_THREADS=1 OMP_NUM_THREADS=1 \
         ~/miniforge3/envs/ph6c/bin/python rq1_read.py archive archive_zi witness/SELECTION.json \
-        witness_confirm/CONFIRM.json read$i.json   # "-" in place of CONFIRM.json if no k was selected
+        witness_confirm/CONFIRM.json read$i.json   # "-" in place of CONFIRM.json if the selection failed
     done
     cmp read1.json read2.json                      # must be byte-identical; otherwise the read is VOID
 
-- `read_pins.sha256` is committed with this seal, holding the §6 hashes of the read code and the round-89 JSONs.
+- `read_pins.sha256` is committed with this seal, holding the §6 hashes of the read code and the round-90 JSONs.
 - **Cost:** 2 fields × 2 X × 10 estimator passes, single core. Locally a pass takes 1.6·10⁻⁸ s per point, so
   ≈ 65 s per pass and ≈ 11 min per field at 10¹¹ (1/9 of that at 10¹⁰), plus hashing, loading and sorting (the sort
   and one pass: 3.4 min measured on spot). About 0.6 local core-hours per read, ≈ 1.4 spot core-hours at 2.3.

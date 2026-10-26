@@ -6,10 +6,11 @@ For each X ∈ {1e10, 1e11}:
   θ maps (§1): ℤ[√2] θ = log|π/π′|/(2 log ε) ∈ [0, ½] for the stored reduced generator (rq1_angles.thetas_from_ab);
   ℤ[i] θ = atan(u/v)/(π/2) ∈ (0, ½) for the stored pair 0 < u < v; each with its mirror 1 − θ (the other ideal).
   D(β) = R_ℤ[√2] − R_ℤ[i]; SE_diff from the sealed model (se_diff, c = C_SE, round-88 mirror calibration).
-B2 (round 89, margin rule; b2_rule, shared with rq1_witness.py): PASS iff D > k·s·SE_diff at every remaining gated
-  cell, FAIL iff any fails. k, the remaining cells and the per-cell SE scale s (1 unless the SE check against the
+B2 (round 90; b2_rule, shared with rq1_witness.py): T = Σ_c D_c / (s_c·SE_diff,c) over the remaining gated cells;
+  PASS iff T > t and no remaining cell has D_c < −2·s_c·SE_diff,c (the guard), FAIL otherwise. t (2·SD of the null
+  replicates' T, uncentred), the remaining cells and the per-cell SE scale s (1 unless the SE check against the
   witness triggered) come from SELECTION_JSON (rq1_witness.py select, on the round-88 replicates); CONFIRM_JSON
-  (rq1_witness.py confirm, fresh seeds; "-" if no k was selected) must confirm that rule. If no k qualified or
+  (rq1_witness.py confirm, fresh seeds; "-" if selection failed) must confirm that rule. If selection or
   confirmation failed, B2 is UNPOWERED and the reading is descriptive only (D and magnitudes at every β, no
   verdict). Both files are inputs and their sha256 are pinned in the seal. A hash mismatch on any archive segment raises, so no output is written:
   VOID (hash).
@@ -114,28 +115,42 @@ def se_diff(r_s2, r_zi, K, c=C_SE):
     return math.hypot(r_s2 * s, r_zi * s)
 
 
-def b2_rule(D, SE=None, rule=None):
-    """D, SE: {(X, β): R_ℤ[√2] − R_ℤ[i]}, {(X, β): SE_diff}. rule (round 89): dict(k, cells [(X, β)], scale
-    {(X, β): s}); PASS iff D > k·s·SE_diff at every cell of the rule, else FAIL. rule None: the round-88 sign rule
-    (k = 0 at every GATED cell)."""
-    if rule is None:
-        rule = dict(k=0.0, cells=[(X, b) for X in XS for b in GATED[X]], scale={})
-    return "PASS" if all(D[c] > rule["k"] * rule["scale"].get(c, 1.0) * (SE[c] if rule["k"] else 0.0)
-                         for c in rule["cells"]) else "FAIL"
+def b2_sign_r88(D):
+    """The round-88 sign rule (D > 0 at every GATED cell). Recorded in the witness replicates only; not the read's
+    rule (withdrawn in round 89, replaced by b2_rule in round 90)."""
+    return "PASS" if all(D[(X, b)] > 0 for X in XS for b in GATED[X]) else "FAIL"
+
+
+def b2_T(D, SE, cells, scale):
+    """Round 90: T = Σ_c D_c / (s_c·SE_diff,c) over cells."""
+    return float(sum(D[c] / (scale[c] * SE[c]) for c in cells))
+
+
+def b2_guard(D, SE, cells, scale):
+    """Round 90: True iff no cell has D_c < −2·s_c·SE_diff,c."""
+    return all(not (D[c] < -2.0 * scale[c] * SE[c]) for c in cells)
+
+
+def b2_rule(D, SE, rule):
+    """D, SE: {(X, β): R_ℤ[√2] − R_ℤ[i]}, {(X, β): SE_diff}. rule (round 90): dict(t, cells [(X, β)], scale
+    {(X, β): s}). PASS iff T > t and the guard holds, else FAIL."""
+    ok = b2_T(D, SE, rule["cells"], rule["scale"]) > rule["t"] and b2_guard(D, SE, rule["cells"], rule["scale"])
+    return "PASS" if ok else "FAIL"
 
 
 def load_rule(sel_path, conf_path):
-    """The confirmed B2 rule from the round-89 selection and confirmation summaries, or None (B2 UNPOWERED).
-    conf_path "-": no confirmation was run (no k selected)."""
+    """The confirmed B2 rule from the round-90 selection and confirmation summaries, or None (B2 UNPOWERED).
+    conf_path "-": no confirmation was run (selection failed)."""
     sel = json.load(open(sel_path))
-    if sel["chosen_k"] is None:
+    if not sel["OK"]:
         return None
+    assert conf_path != "-", "selection passed: the confirmation JSON is required"
     conf = json.load(open(conf_path))
     if not conf["OK"] or conf["rule"] != sel["rule"]:
         return None
     r = sel["rule"]
     cells = [(int(float(X)), float(b)) for X, b in r["cells"]]
-    return dict(k=float(r["k"]), cells=cells, scale={(int(float(X)), float(b)): s for X, b, s in r["scale"]})
+    return dict(t=float(r["t"]), cells=cells, scale={(int(float(X)), float(b)): s for X, b, s in r["scale"]})
 
 
 def load_field(d, field, n):
@@ -196,7 +211,7 @@ def main(zs2, zi, sel, conf, out):
     res["rule"] = dict(selection_sha256=hashlib.sha256(open(sel, "rb").read()).hexdigest(),
                        confirm_sha256=None if conf == "-" else hashlib.sha256(open(conf, "rb").read()).hexdigest(),
                        confirmed=rule is not None,
-                       k=None if rule is None else rule["k"],
+                       t=None if rule is None else rule["t"],
                        cells=[] if rule is None else [[X, b] for X, b in rule["cells"]],
                        scale=[] if rule is None else [[X, b, s] for (X, b), s in rule["scale"].items()])
     D, SE = {}, {}
@@ -213,10 +228,14 @@ def main(zs2, zi, sel, conf, out):
             D[(X, b)], SE[(X, b)] = a - c, se
             rows.append(dict(beta=b, K=K, R_zs2=a, R_zi=c, D=a - c, SE_diff=se, D_over_SE=(a - c) / se,
                              heuristic_logX=1.8489 / math.log(X), heuristic_logN=1.8489 / math.log(N),
-                             B2_gated=gated, B2_cell_holds=bool(gated and (a - c) > rule["k"] * rule["scale"].get(
-                                 (X, b), 1.0) * se)))
+                             D_sign=int(np.sign(a - c)), B2_gated=gated,
+                             B2_term=(a - c) / (rule["scale"][(X, b)] * se) if gated else None,
+                             B2_guard_cell=bool(not ((a - c) < -2.0 * rule["scale"][(X, b)] * se)) if gated else None))
             print(X, b, K, f"{a:.6f} {c:.6f} D {a - c:+.6f} SE {se:.4f}", "gated" if gated else "", flush=True)
         res["rows"][str(X)] = dict(n_split=n, N=N, rows=rows)
+    if rule is not None:
+        res["B2_T"] = b2_T(D, SE, rule["cells"], rule["scale"])
+        res["B2_guard"] = b2_guard(D, SE, rule["cells"], rule["scale"])
     res["B2"] = "UNPOWERED" if rule is None else b2_rule(D, SE, rule)
     res["READING"] = "DESCRIPTIVE (B2 UNPOWERED; no verdict)" if rule is None else res["B2"]
     json.dump(res, open(out, "w"), indent=1, sort_keys=True)
