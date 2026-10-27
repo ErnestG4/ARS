@@ -2122,3 +2122,16 @@ Extrapolated f(∞) = 1.5 ± 0.05.
 Report bronze |δ_3| and f(3) as new values (no published value found), with uncertainties.
 Witness that must fail. The same pipeline on a quintic critical map (inflection order z = 5) must give f(1) different from 1.0822 by more than 5σ. If it doesn’t, the exponent is λ-bookkeeping and not a property of the universality class.
 Output. A table of a, λ_a, |δ_a|, f(a) and the level count, plus the f_n convergence plots per path. One extra figure: f(a) against the per-digit geodesic length 2 ln λ_a. Price the run before launching.
+
+### GEO-CM1 note (2026-10-27; Will, verbatim) — five corrections before go
+Nearly a go. The price arithmetic checks out: 16q points × q iterations × 2 edges at q = 2·10⁴ is about 1.3·10¹⁰ evaluations, and at 1.18 ns that’s about 15 s. I don’t have the derivation behind f(a) and the 1.5 limit in this conversation, so I’ve only reviewed the method, not the predicted values. Make sure those trace to a committed derivation. Five corrections before go:
+
+Check every seeded bracket in high precision before bisecting. Double precision is not safe at the deepest levels. After q = 2·10⁴ iterations its rounding error can reach about q·10⁻¹⁶ ≈ 10⁻¹², which is the same size as the narrowest widths. So “only has to find the basin” may fail exactly where it matters, for large a at q ≈ 10⁴. Before bisection, check each bracket end at 30 digits: the right rotation number or sign on each side. If it’s wrong, widen the bracket and re-seed. Report how many brackets needed fixing.
+f(a) needs an uncertainty, and large a has few levels. With q ≤ 2·10⁴, a = 3 gets about 8 convergent levels, but a = 10 gets only 4–5 (q = 1, 10, 101, 1020, 10301). An exponent fitted to 4 points is soft. Commit, before reading:
+which levels enter each fit, and the correction model;
+an SE per a, taken from level-to-level stability (for example, the fit on the last 3 levels against the last 4).
+Judge the inequalities with margins. f(a) < 1.5 is hardest to show for large a, where f is supposed to approach 1.5. Commit how “monotonic” and “< 1.5” are judged, for example f(a+1) − f(a) > −2·SE and f(a) + 2·SE < 1.5. Any a whose SE can’t support the judgement is UNPOWERED for that clause, not a PASS.
+f(∞) = 1.5 ± 0.05 needs a stated basis. Say where the ±0.05 comes from, given the extrapolation model and the per-a SEs. Using the cusp path as a known-limit test of the extrapolation form is the right idea: commit how far off it may be before the form counts as validated.
+Say exactly what the quintic witness must fail. Which clause, and by how much, committed in advance. Also say whether a FAIL on the quintic is guaranteed by known theory, or whether that’s only expected. If it’s only expected, the witness isn’t a clean must-fail.
+
+Standing rules. Since a ≥ 3 is unseen, the usual rules apply even though the computation is deterministic: OpenTimestamps attestation before the read, a pinned environment, and a double read that cmps bit-identical. mpmath is deterministic, so that’s cheap.
