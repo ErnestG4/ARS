@@ -1,0 +1,29 @@
+GEO-CM1 seal timestamp manifest (OpenTimestamps). Order: gates (sections 9-10) -> seal (section 11) -> stamp -> Bitcoin
+attestation verified on two explorers -> double read of a = 3 ... 10 -> cmp -> analysis.
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is GEOCM1_SEAL_STAMP_2026-10-27.txt.ots.
+Statement: at the time of stamping, no tongue width on any path a = 3 ... 10 has been computed.
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag geocm1-seal               object 1b1b07014ac7383eb56024279258c76bdef95816
+                              on commit 9ace9d54adb7a7958b31223e14b80939dc5ed433
+                              specarith/geocm1/GEOCM1_SEAL.md
+                              sha256 cea9b3b1e019922465e3b2aa281d86cfadebb8df4dacb5ba821b45d61b8504d1
+                              specarith/geocm1/geocm1.py
+                              sha256 c42634a21113259dd0aefdb0a57d2bbbdd10d262f000458806297bb47d26cbc5
+                              specarith/geocm1/geocm1_analyze.py
+                              sha256 424f8686d76c643967255b6119d51a2c3011f399253c9eae6c54aa1498528246
+                              specarith/geocm1/geocm1_cuspfresh.py
+                              sha256 78f2918659cd188e17d14e879a9db72e5c967d4fea8caaa8861b6304bc6d942a
+                              specarith/geocm1/results/GATES.json
+                              sha256 9019471c2e0126a09dd73697b158d8248062ab8b822adccbb7112cddf8e2ea81
+                              specarith/geocm1/results/GATE_a1.json
+                              sha256 9030ba33bd7b95cec2512ca0af4377b325f510db2e5391a50952feb88bff5494
+                              specarith/geocm1/results/GATE_a2.json
+                              sha256 d707d65ff8daf77cd00ba9ad8837283d1c32353df7f274a2e69ced7d7fe390ba
+                              specarith/geocm1/results/CUSP_PREDICTIONS.json
+                              sha256 6565006b9d8cbecb4f914f8b6eb2a738e8f41fec4790892742e803c263f52538
+                              specarith/geocm1/results/CUSP_FRESH.json
+                              sha256 1cf6384604c4e798e3088da8b77d473a880e630ba02ace749df1aea11e5b81b2
+                              specarith/geocm1/results/CUSP_VALIDATION.json
+                              sha256 3cf86505a7bff942a4d6cc4188cf30f731160b649970bf11dfef76c113527c2e
+(sha256 of `git show 9ace9d54adb7a7958b31223e14b80939dc5ed433:<path>`; the tag geocm1-seal resolves to that commit)
