@@ -2143,3 +2143,25 @@ K = 0.5 must-fail: use per-level mpmath precision of about q·log₁₀(1/K) + 2
 f(∞) fit: say how an a with no SE enters. Either it’s excluded, or it gets a conservative SE committed now (for example the largest SE among the powered a). The a = 10 UNPOWERED expectation is accepted, and it may extend to a = 8 or 9; report which.
 
 Everything else as committed. Then gates → stamp → attestation → double read → read a ≥ 3. Pushes stay with Will.
+
+### GEO-CM1 re-gate (2026-10-27; Will, verbatim) — post hoc, labelled; the original FAILs stay filed
+GEO-CM1 re-gate. Post hoc, labelled as such; the original FAILs stay filed.
+
+Golden and silver.
+Verify δ against ORSS 1983 (and the silver source) in the primary text.
+New tolerance: half a unit in the last quoted digit, plus 3 SE.
+Re-gate on the existing numbers.
+Replace the f(∞) clause with a local-exponent clause.
+h_a = ln(δ_{a+1}/δ_a) / (2 ln(λ_{a+1}/λ_a)).
+Prediction: h_a → 1.5.
+Form: h∞ + c₁/λ + c₂/λ², with λ taken at the pair’s geometric mean.
+Judgement rules as before: SUPPORT / CONTRADICT / UNPOWERED at ±2 SE, plus the 2·SE(h∞) ≤ 0.03 power clause.
+Keep the monotonic and f(a) < 1.5 clauses unchanged.
+Cusp validation on fresh data.
+Declare f∞ + b/N + c/N², fitted on N ≤ 199 only.
+Commit predictions with SEs for fresh N in 200–1000 (a declared subset), then compute them.
+Validated iff every fresh point lands within its 2·SE prediction band and the fit recovers 1.5 ± 0.002.
+Only then does the form family count for h_a.
+Power. Price raising the q cap to about 1.1·10⁵, so a ≥ 6 gains one more level. Raise it only if it costs ≤ 1 core-hour per path.
+Then: re-seal, stamp, attest, double read, read a ≥ 3.
+Report the quintic’s f(1; z = 5) = 1.1564 descriptively, with a literature check on whether a quintic golden δ has been published.
