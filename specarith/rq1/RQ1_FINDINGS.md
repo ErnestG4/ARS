@@ -126,6 +126,9 @@ not independent.
     β 0.40–0.45) than at 10¹⁰ (−0.020 to −0.040, about −1.6 to −2.1 SE).
   - At and past the crossover (β ≈ 0.53–0.62), the shift accounts for D within 0–30%. ℤ[√2] sits slightly above the
     shifted curve, up to +2.1 SE (10¹⁰) and +3.2 SE (10¹¹) at β ≈ 0.57.
+- **Round 93 addition.** The crossover residual is up to +3.2 SE at 10¹¹ (D / shift 1.01–1.30). So the pure
+  rescaling is approximate in both regimes, and the residual changes sign at β ≈ 0.52–0.53 at both X. No
+  crossover-only collapse seal (round 93: it would test a model already known to be approximate).
 - **First order against the full shift.** R′_ℤ[i]·log a / log N and R_ℤ[i](aK) − R_ℤ[i](K) agree closely for
   β ≥ 0.30, so the linearisation is not the issue.
 - **Reading, descriptive only.** Near the crossover, the field difference behaves like a rescaling of K by the
