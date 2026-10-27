@@ -2062,3 +2062,24 @@ Use the block estimate. About 500 independent arcs on the mirror half; the block
 Validation first (N = 10⁹, 100 replicates, both synthetic families). Pass iff the block SE agrees with the replicate-to-replicate SD within ±15% at β = 0.40, 0.45 and 0.55. Commit before running. On failure: report and stop, with no automatic fallback.
 Then compare: block SEs at full N against reduced N at the same three β, with the existing 20% bar. If that passes, use reduced-N witnesses; if not, report.
 Then price and run the P1, P3 and P4 witnesses, write the manifests, and send the final seal to Will. Pushes stay with Will.
+
+## GEO1 opened (2026-10-27; Will, verbatim) — length spectrum of the modular surface, then the Picard group
+For later: GEO1: the length spectrum of the modular surface, then the Picard group. New arc, two-session time box. Step 0 starts now with no compute; spot work queues after RQ1-c's archives and witnesses.
+Step 0 (no compute). Primary sources or UNVERIFIED.
+Modular surface. Closed geodesics ↔ primitive hyperbolic classes ↔ classes of indefinite binary quadratic forms. Lengths 2·arccosh(t/2) for integer traces t ≥ 3. Multiplicity at trace t = Σ h(d) over the discriminants d with t² − 4 = d·u².
+Known answers to state exactly:
+Sarnak (1982): Σ_{ε_d ≤ x} h(d) ~ Li(x²).
+Mean multiplicity of lengths, ~ c·e^{ℓ/2}/ℓ: derive c, or cite Bogomolny et al.
+Cutting sequences of closed geodesics (Series 1985): the partial quotients over all closed geodesics up to length L tend to the Gauss–Kuzmin law P(a = k) = −log₂(1 − 1/(k+1)²).
+Picard group PSL(2, ℤ[i]), stage 2. Complex lengths from traces in ℤ[i]. Multiplicities via binary Hermitian forms. The prime geodesic theorem for Bianchi groups (Sarnak 1983). Rotation (holonomy) angle equidistribution (Sarnak–Wakayama, Duke 1999). Check every one of these against the source.
+Look for a non-trivial quantitative prediction we could seal. Candidates: finite-L corrections to the multiplicity law, multiplicity fluctuations, or correlations among rotation angles. If none exists, the arc is known-answer verification plus a descriptive gallery, with no verdicts.
+Step 1 (build and gates, once spot is free).
+Enumerate the reduced forms and their cycles. Compute h(d) up to a discriminant bound priced with the cost model.
+Gates:
+brute-force enumeration of SL(2,ℤ) conjugacy classes at small t agrees with the class-number sums;
+the R²L² check: t = 6, d = 8, cycle word RRLL;
+Sarnak's sum and Gauss–Kuzmin, each within a tolerance stated before running.
+Witness that must fail: random L/R words of matched length must not match Gauss–Kuzmin; their run lengths are geometric.
+Step 2 (descriptive). The length spectrum with multiplicities; multiplicity growth against the law; the partial-quotient histogram; for the Picard stage, the joint distribution of length and rotation.
+Note for later, not now: the cutting-sequence readout (run lengths of any up/down zigzag against Gauss–Kuzmin) is a candidate ARSv2 readout. It waits until after H1.
+Pushes stay with Will.
