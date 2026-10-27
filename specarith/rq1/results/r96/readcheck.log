@@ -1,0 +1,2 @@
+{'stream_vs_exact_max_rel': np.float64(8.0031219874708e-13), 'K_range': '2..5000 (K=1 excluded: degenerate whole-circle window)', 'uniform_mean_ratio_K64': 0.9984474017057303, 'uniform_expected': 0.984375, 'uniform_se': 0.010410031450647254, 'mirror_stream_vs_exact_max_rel': np.float64(2.395712730526181e-12), 'numpy': '2.5.3', 'numba': '0.68.0', 'python': '3.12.15'}
+exit=0
