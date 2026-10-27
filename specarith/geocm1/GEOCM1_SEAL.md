@@ -115,3 +115,33 @@ used passed both precisions (≤ 10⁻⁶) and the Newton cross-check (≤ 10⁻
   1.50007. The data are consistent with the q⁻³ law; the committed form is not validated, so the f(∞) clause (P3),
   which uses the same form family in 1/ln λ_a, is invalid as committed.
 - Re-gating with corrected criteria is Will's call; nothing is redefined here.
+
+## 10. Re-gate (Will, 2026-10-27; post hoc, labelled; the §9 FAILs stay filed)
+**Golden / silver against the primary texts** (verified by a delegated read of ORSS 1983 and the de la Llave–Olvera–Petrov
+(dLOP) preprint, mp_arc 07-104; the published J. Phys. A version not read). Tolerance: half a unit in the last quoted
+digit + 3·SE.
+
+| | estimate | ORSS 1983 | dLOP preprint | quoted f |
+|---|---|---|---|---|
+| golden \|δ\| | 2.8336106599 ± 6.5·10⁻⁹ | 2.83361 ± 0.00001 (Table I): PASS | 2.8336106559: PASS (4.0·10⁻⁹) | f 1.0822: PASS |
+| silver \|δ\| | 6.7992251981 ± 2.0·10⁻⁷ | 6.79924 ± 2·10⁻⁵ (RG, p. 319), 6.79925 ± 5·10⁻⁵ (Table I): FAIL under the half-unit rule (1.5·10⁻⁵, 2.5·10⁻⁵), within ORSS's own stated errors | 6.79922516: PASS (3.8·10⁻⁸) | f 1.0874: PASS |
+
+- The quoted golden 2.833612 is not in ORSS; it appears only via a 2003 preprint citing Shenker 1982 (not read); FAIL
+  against it (1.3·10⁻⁶). **Which source governs the silver gate is Will's call.**
+- **Quintic (descriptive):** golden |δ| = 3.0433806 ± 1.8·10⁻⁶, against dLOP's 3.04337774 for their standard quintic
+  family (a different map): 2.8·10⁻⁶ ≈ 1.6 SE, a universality check; f(1; z = 5) = 1.1564 is a property of the z = 5
+  class.
+
+**Cusp form validation on fresh N: NOT VALIDATED** (`geocm1_cuspfresh.py`; predictions 687ec95e committed before the
+computation). The first fresh run was void (my bug, absolute tolerance; de4adbe1). The corrected run is clean (edges
+≤ 10⁻¹² of the width; Newton within 5·10⁻¹³; no bracket fixes). The fit on N ≤ 199 recovers 1.500067 (inside
+1.5 ± 0.002), but the fresh f_N fall below their predictions by z = −1.3, −1.7, −2.1, −2.8, −3.2, −3.6, −3.8, −4.1 at
+N = 220 … 1000: only N = 220 and 250 are inside the 2·SE band. The deficit grows smoothly (2·10⁻⁵ → 5·10⁻⁵): the
+1/N + 1/N² form misses a slower correction, and its residual-based band is too narrow to absorb it. **As specified,
+the form family does not count for h_a: the h_a clause cannot be judged** (UNPOWERED as an untested-form clause).
+
+**Power:** of the a ≥ 6 paths, only a = 8 can gain a level within ≤ 1 core-hour (q = 34,840, 0.78 core-h; a = 6 1.19,
+a = 9 1.38, a = 10 2.32; a = 7 none below 1.1·10⁵); a = 8 then has an estimate but still no SE: UNPOWERED either way.
+
+**Remaining judgeable clauses:** monotonic and f(a) < 1.5, powered at a = 1–5 only. Whether to seal and read with those
+alone is Will's call.
