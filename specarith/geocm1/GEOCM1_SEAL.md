@@ -90,3 +90,28 @@ Per a: SE_d(a) = √(SE(a)² + SE(a+1)²).
 
 ## 7. Cost (priced): ≈ 4–5 core-h, ≈ 30–45 min wall on the desktop's 12 cores (round "price" message). The bracket
 checks add ≈ 2 high-precision extremum polishes per edge and level (minor). Pins: PENDING.
+
+## 9. Gate results (2026-10-27): **FAILED as committed**; nothing stamped, no a ≥ 3 path run
+`geocm1_analyze.py gates` → `results/GATES.json` (desktop; Python and mpmath versions in each GATE_*.json). Every level
+used passed both precisions (≤ 10⁻⁶) and the Newton cross-check (≤ 10⁻³ of the width); no bracket needed a fix.
+
+| Gate | Result | Committed criterion | Outcome |
+|---|---|---|---|
+| golden | f̂ = 1.0822175 ± 1.2·10⁻⁹; \|δ̂\| = 2.8336107 ± 6.5·10⁻⁹ (q ≤ 17711) | within 3·SE and 6·10⁻⁴ of 1.0822 / 2.833612 | 6·10⁻⁴ met; 3·SE not → FAIL |
+| silver | f̂ = 1.0873985 ± 2.3·10⁻⁹; \|δ̂\| = 6.7992252 ± 2.0·10⁻⁷ (q ≤ 13860) | same, against 1.0874 / 6.79924 | 6·10⁻⁴ met; 3·SE not → FAIL |
+| cusp | f∞ = 1.4595 ± 0.0001 (1/ln N quadratic, N 24–199) | 1.5 ± 0.02 | FAIL |
+| K = 0.5 must-fail | f_n = 1.88, 2.43, 3.32, 4.78, 7.10 | increasing, last > 3 | fails as required ✓ |
+| quintic (descriptive) | f̂(1; z=5) = 1.1564231 ± 6·10⁻⁷ | \|f̂ − 1.0822\| > 5·SE | yes |
+
+**Diagnosis (post hoc, no verdict changed):**
+- **Golden / silver: the 3·SE clause was ill-posed.** The SEs (~10⁻⁹) are far below the precision of the quoted
+  literature values (f to 10⁻⁴; |δ| to 10⁻⁶ and 10⁻⁵), so the clause can fail on rounding alone. f matches 1.0822 and
+  1.0874 to every quoted digit. Golden |δ̂| = 2.8336107 is 1.3·10⁻⁶ from the quoted 2.833612; the published value is
+  recalled as 2.8336106559 (UNVERIFIED, from memory), 4·10⁻⁹ ≈ 1 SE from the estimate, so the quoted value may be a
+  rounding slip; it must be checked against ORSS 1983 before any re-gate. The golden δ_n alternate (period-2 corrections:
+  2.8336125, 2.8336097, 2.8336112, 2.8336104), which the Aitken step handles, but the SE may still be optimistic.
+- **Cusp: the declared extrapolation form was wrong.** f_N rises monotonically (1.4466 at N = 24, 1.4885 at 100, 1.4943
+  at 199), and the 1/ln N quadratic extrapolates below its own last value. A 1/N quadratic (post hoc, not a gate) gives
+  1.50007. The data are consistent with the q⁻³ law; the committed form is not validated, so the f(∞) clause (P3),
+  which uses the same form family in 1/ln λ_a, is invalid as committed.
+- Re-gating with corrected criteria is Will's call; nothing is redefined here.
