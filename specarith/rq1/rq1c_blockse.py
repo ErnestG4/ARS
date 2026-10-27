@@ -247,8 +247,81 @@ def validate(out, nproc=6):
     return 0
 
 
+B_FULL = 36
+
+
+def _add_sorted(h, x, nb):
+    """Add the sorted positions x ∈ [0, ½] to the half-histogram h (nb bins) by run lengths."""
+    idx = np.minimum((x * (2 * nb)).astype(np.int64), nb - 1)
+    cut = np.flatnonzero(np.diff(idx)) + 1
+    starts = np.concatenate([[0], cut])
+    cnt = np.diff(np.concatenate([starts, [len(idx)]]))
+    u = idx[starts]
+    new = h[u].astype(np.int64) + cnt
+    assert new.max() <= 255
+    h[u] = new
+
+
+def hist_full(fam, rng, chunk=1 << 27):
+    """Half-histogram (2^(B−1) bins, uint8) of one full-N set of the family, generated in chunks; nothing is stored
+    at point level."""
+    nb = 2 ** (B_FULL - 1)
+    n = int(N12 // 2)
+    h = np.zeros(nb, np.uint8)
+    if fam == "mix":
+        m = int(round(RHO * n))
+        lam = (n - m) / nb
+        for i in range(0, nb, chunk):
+            k = min(chunk, nb - i)
+            h[i:i + k] += rng.poisson(lam, k).astype(np.uint8)
+        for j in range(0, m, chunk):
+            k = min(chunk, m - j)
+            _add_sorted(h, (np.arange(j, j + k) + 0.5) / (2 * m), nb)
+    else:
+        for j in range(0, n, chunk):
+            k = min(chunk, n - j)
+            x = (np.arange(j, j + k) + 0.5) / (2 * n) + SIGMA * rng.standard_normal(k)
+            np.abs(x, out=x)
+            np.minimum(x, 1.0 - x, out=x)
+            x.sort()
+            _add_sorted(h, x, nb)
+    return h
+
+
+def full(out, val_path):
+    val = json.load(open(val_path))
+    assert val["VALIDATION_PASS"], "validation failed: stop (round 97)"
+    t0 = time.time()
+    res = dict(label="RQ1-c block-SE comparison, full N against reduced N (round 97); synthetic", N=N12, B=B_FULL,
+               betas=BETAS, K=KS, families={})
+    ok = True
+    for fi, fam in enumerate(("mix", "jit")):
+        h = hist_full(fam, np.random.default_rng([9701, fi]))
+        with ThreadPoolExecutor(len(KS)) as pool:
+            out_b = list(pool.map(lambda K: var_binned_blocks(h, float(K)), KS))
+        cells = []
+        for i, (b, K) in enumerate(zip(BETAS, KS)):
+            bl, tot = out_b[i]
+            R, se = r_se(bl, tot, K)
+            red = val["families"][fam][i]["SE_block_mean"]
+            ratio = se / red
+            cells.append(dict(beta=b, K=K, R_full=R, SE_block_full=se, SE_block_reduced_mean=red, ratio=ratio,
+                              pass_=bool(abs(ratio - 1) <= 0.20)))
+            ok &= abs(ratio - 1) <= 0.20
+            print(fam, b, f"R {R:.4f} SE_full {se:.3e} SE_reduced {red:.3e} ratio {ratio:.3f}", flush=True)
+        res["families"][fam] = cells
+        del h
+    res["COMPARISON_PASS"] = bool(ok)
+    res["wall_s"] = time.time() - t0
+    json.dump(res, open(out, "w"), indent=1)
+    print("COMPARISON_PASS", ok)
+    return 0
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "selftest":
         sys.exit(selftest())
     if sys.argv[1] == "validate":
         sys.exit(validate(sys.argv[2], *(int(x) for x in sys.argv[3:4])))
+    if sys.argv[1] == "full":
+        sys.exit(full(sys.argv[2], sys.argv[3]))

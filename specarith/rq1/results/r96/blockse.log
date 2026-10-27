@@ -1,0 +1,8 @@
+mix 0.4 R 0.8849 SD 1.144e-02 blockSE 1.101e-02 ratio 0.963
+mix 0.45 R 0.8856 SD 5.986e-03 blockSE 6.013e-03 ratio 1.004
+mix 0.55 R 0.8857 SD 2.033e-03 blockSE 1.777e-03 ratio 0.874
+jit 0.4 R 0.1781 SD 1.365e-03 blockSE 1.301e-03 ratio 0.953
+jit 0.45 R 0.5366 SD 3.397e-03 blockSE 3.321e-03 ratio 0.977
+jit 0.55 R 0.9534 SD 2.047e-03 blockSE 1.920e-03 ratio 0.938
+VALIDATION_PASS True
+exit=0
