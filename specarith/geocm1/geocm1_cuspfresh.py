@@ -46,9 +46,13 @@ def compute(out):
         lv199 = [l for l in gc["runs"][str(dps)] if l["q"] == 199][0]
         hi = mp.mpf(lv199["lo"])
         w = {}
+        w199 = mp.mpf(lv199["w"])
         for N in sorted(set(FRESH + [n + 1 for n in FRESH])):
-            t = G.tongue(1, N, z_hi, hi, A1, A2, None)
-            w[str(N)] = dict(w=mp.nstr(t["w"], dps), fixes=t["fixes"], newton_agree_rel=t["newton_agree_rel"])
+            # tolerance relative to the expected width (the first run used 1e-12 absolute, ~1e-4 of the width at
+            # N >= 400, and is void): w_est = w(1/199)·(199/N)³, bisection to 1e-12·w_est
+            t = G.tongue(1, N, z_hi, hi, A1, A2, w199 * (mp.mpf(199) / N) ** 3)
+            w[str(N)] = dict(w=mp.nstr(t["w"], dps), fixes=t["fixes"], newton_agree_rel=t["newton_agree_rel"],
+                             edge_tol_rel=t["edge_tol_rel"])
             print(dps, N, mp.nstr(t["w"], 12), t["fixes"], t["newton_agree_rel"], flush=True)
         res["runs"][str(dps)] = w
     json.dump(res, open(out, "w"), indent=1)
