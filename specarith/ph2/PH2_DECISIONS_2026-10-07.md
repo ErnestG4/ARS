@@ -2055,3 +2055,10 @@ The rigidity cells and the 0.28 ratio stay descriptive.
 Seal prerequisites: re-pin the environment (kernel 7.2.11), rerun the estimator check, validate the binned estimator at the gated β, and run the full-N SE check for the reduced-N witnesses.
 Round 94: if its fair check comes out coherent, propose any addition as a separate P5 for my review. Don’t fold it in.
 Send the final seal for Will’s approval. Pushes stay with Will.
+
+## Ninety-seventh round (2026-10-27) — RQ1-c SE-check design: block estimate, validated first (verbatim)
+Round 97: SE-check design.
+Use the block estimate. About 500 independent arcs on the mirror half; the block width must be ≥ 10× the window at every gated cell. Report the block width and the window at each cell.
+Validation first (N = 10⁹, 100 replicates, both synthetic families). Pass iff the block SE agrees with the replicate-to-replicate SD within ±15% at β = 0.40, 0.45 and 0.55. Commit before running. On failure: report and stop, with no automatic fallback.
+Then compare: block SEs at full N against reduced N at the same three β, with the existing 20% bar. If that passes, use reduced-N witnesses; if not, report.
+Then price and run the P1, P3 and P4 witnesses, write the manifests, and send the final seal to Will. Pushes stay with Will.
