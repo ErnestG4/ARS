@@ -245,6 +245,19 @@ statistic, and any connection between them is a hypothesis for a future sealed t
 - The non-absolutely-convergent factors need an analytic treatment before any code.
 - Its cost cannot be estimated until it is designed.
 
+## L8 — the field dependence of the sector variance peaks at the rigidity–randomness crossover (RQ1, round 94)
+
+**What is seen.** In RQ1 (`rq1/RQ1_FINDINGS.md`), D(β) = R_ℤ[√2] − R_ℤ[i] at matched N peaks near β ≈ 0.55 at 10¹⁰ and
+10¹¹ (D/SE 8.7 and 13.1), on both our unweighted statistic and Chen et al.'s weighted one (λ ≈ 0.50–0.525).
+
+**Why it is open.** No available formula applies there. The RW-type heuristic and Chen et al.'s Conjecture 1.2 put all
+field dependence in a flat offset below λ = ½ and none above, and Chen's two-regime form is not uniform at λ = ½. The
+conductor rescaling a = e^{ΔC/2} tracks the crossover only to 0–30%.
+
+**What would address it.** A uniform evaluation through λ = ½: Chen et al.'s Conjecture 5.1 integrals at finite X,
+including the residues at the zeros of ζ_F, with the general-field substitutions verified; or the derivation for the
+unweighted split-only count. RQ1-c's P3 (crossover location at 10¹²) is a theory-light measurement of the same region.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project

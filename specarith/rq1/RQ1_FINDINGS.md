@@ -8,6 +8,29 @@ The verdict is §2 alone. §3 (size, shape and scaling against the flat-offset h
 post-hoc conductor-scaling check, round 92) are descriptive and carry no verdict. Anything computed after the read is
 labelled post-hoc.
 
+## 0. Close-out summary (round 94; RQ1 closes here)
+
+- **Sealed verdict: B2 PASS** (tag `rq1-seal`, OTS-stamped and Bitcoin-attested before the read; double read
+  byte-identical). T = 7.443 > t = 5.238 with the guard holding: ℤ[√2] above ℤ[i] at matched N in the rigidity regime
+  at 10¹⁰ and 10¹¹. **Direction only, and conditional on the SE model** (calibrated on synthetic mirror-symmetric
+  sets; its validity for arithmetic data is assumed, not tested).
+- **Descriptive results (no verdict):**
+  - D(β) peaks at the rigidity–randomness crossover (β ≈ 0.55, D/SE 8.7 and 13.1), not in the rigidity range.
+  - The conductor rescaling R_ℤ[√2](K) = R_ℤ[i](aK), a = 2.5204, is approximate in both regimes: D is 0.26–0.74 of
+    the shift in the rigidity range and 1.01–1.30 of it at the crossover (residual up to +3.2 SE at 10¹¹); the
+    residual changes sign at β ≈ 0.52–0.53 at both X (§5).
+  - The flat-offset forms, RW-type heuristic (1.849/log X) and Chen et al.'s Conjecture 1.2 generalised (1.695/log X),
+    both miss: their D is too large in the rigidity range, and above λ = ½ they have no field dependence, while the
+    data show D ≈ +0.03 there. On Chen's own statistic (round 94) ℤ[i] fits the formula and ℤ[√2] does not
+    (`RQ1B_STEP0.md` §6).
+- **Phase 34d's half-sample defect.** Its σ²/(N/K) values were means over 50 random half-samples, which maps a ratio r
+  to ≈ (r + 1)/2. The affected verdicts (RW replicated at X = 10⁸, β = 0.65; "within 1σ of the RW asymptote";
+  "rigidity regime matches RW within 1σ") are bannered in place in `PHASE34D_FINDINGS.md` (2026-10-25) as not
+  established; the ARSv2 ledger note is `ARSV2_LEDGER_NOTE_34D.md` (with Will).
+- **Open lead L8** (`specarith/OPEN_LEADS.md`): the field dependence of the sector variance peaks at the
+  rigidity–randomness crossover, where no available formula applies.
+- **Reserved:** the 10¹² archives for ℤ[√2] and ℤ[i] (and ℤ[ω], round 95), hashed and unread; they are RQ1-c's data.
+
 ## 1. Provenance and order (all UTC, 2026-10-26)
 
 | Step | Time | Record |

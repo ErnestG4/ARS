@@ -109,3 +109,30 @@ that peaks at the bifurcation, where the formula does not apply. A real comparis
 computed on our archives (Λ-weights, inert primes at θ = 0), or a derivation for the unweighted split-only count, and
 (ii) the four double contour integrals of their Conjecture 5.1 evaluated at finite X without the λ ≶ ½ split. Neither
 is done here. **Per round 93: report and stop. No 10¹² full-curve seal is drafted.**
+
+## 6. Fair check on Chen et al.'s own statistic (round 94; post hoc, zero parameters)
+
+- **Statistic, exactly as their Appendix A:** log N𝔭 weights, inert primes q ≤ √X at θ = 0 (weight 2 log q, generated
+  fresh), K = round(X^λ) equal bins, ddof-1 variance over X^{1−λ} log X, λ = 0.100–0.700 (`rq1b_chenstat.py`), both
+  fields at the same X from the read archives (`results/CHENSTAT.json`; 1,822 s per field at 10¹¹ on spot).
+- **Validated first:** ℤ[i] at 10⁹ reproduces the round-86 transcription to 3.6·10⁻¹⁰ relative and Chen's Figure 1
+  within 0.0014 (tolerance 0.01).
+- **Formula:** Conjecture 1.2 at finite X with all four constants (§4). The uniform evaluation of the four double
+  contour integrals through λ = ½ (Conjecture 5.1 with the zero-sum residues) is **not done**. **The two analogy
+  substitutions (L(s, χ_F) and F's inert primes in A′_Φ) remain UNVERIFIED.**
+- **Criterion** (committed ded00c98 before the 10¹⁰ / 10¹¹ values were seen): coherent iff |residual| ≤ 2 SE for each
+  field and for D at every λ ∈ [0.200, 0.400] at both X (SE model value·2/√K).
+
+| | λ 0.200–0.400 at 10¹⁰ | λ 0.200–0.400 at 10¹¹ | λ 0.425–0.575 | λ ≥ 0.65 |
+|---|---|---|---|---|
+| ℤ[i] residual | −2.0 to +0.2 SE | −1.9 to +0.7 SE | to −44 SE | −3.6 to −2.4 SE (0.002 below) |
+| ℤ[√2] residual | −3.3 to −1.0 SE | −8.2 to −0.4 SE | to −22 SE | −4.4 to −2.5 SE (0.002 below) |
+| D residual | −2.4 to 0.0 SE | −4.6 to −0.4 SE | −11 to +19 SE | within ±1.4 SE |
+
+- **Verdict: NOT COHERENT in the rigidity range** (`results/RQ1B_COMPARE2.json`). ℤ[i] fits; ℤ[√2] sits below the
+  formula, increasingly with X, so the predicted field difference (1.695/log X) is too large. The misfit is in the
+  field where the UNVERIFIED substitutions enter. **Per round 94: no 10¹² seal of this formula, and no P5.**
+- **Descriptive:** around λ = ½ the data show D = +0.04 to +0.08 at λ 0.50–0.525, where the two-regime formula has
+  no field dependence. Above λ = 0.65 both fields' Chen statistic levels at 1 − 2/log X to within 0.002 (0.911 and
+  0.920), the field-independent Δ_Φ term: on Chen's weighted statistic the plateau is accounted for by their lower-order
+  term. Our unweighted statistic's plateau (0.896, 0.908) is lower; no formula is derived for it.
