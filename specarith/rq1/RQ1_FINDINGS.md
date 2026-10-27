@@ -97,7 +97,44 @@ Figure: `results/read/D_beta.png` (`rq1_plot_read.py`), D(β) with ±2 SE_diff a
 
 ## 5. Post-hoc conductor-scaling collapse (round 92; descriptive, no verdict)
 
-COLLAPSE_PENDING
+**Everything in this section is post hoc** (round 92; computed after the sealed read, on the same archives; no
+verdict). `rq1_collapse.py` → `results/collapse/COLLAPSE.json`; figure `results/collapse/collapse.png`
+(`rq1_plot_collapse.py`).
+
+**The identity.** The heuristic's field dependence enters only through 2 log k + C_F, so in the continuum
+R_ℤ[√2](K) = R_ℤ[i](a·K) with a = e^{ΔC/2} = π/(√2·log(1 + √2)) = 2.5204. Checked on the heuristic formula itself:
+|R_ℤ[√2](K) − R_ℤ[i](aK)| ≤ 1.2·10⁻³ (at β = 0.20, from the discrete sum) and ≤ 2.3·10⁻⁵ for β ≥ 0.40, at both X and
+both L, against heuristic offsets of 0.003–0.09. The collapse therefore tests the conductor-scaling structure without
+the heuristic's flat-offset shape.
+
+**The data** (β = 0.20 to 0.70 in steps of 0.01, at the read's matched N; spot, kernel 7.2.11, 3.6 core-h against 7.4
+modelled). The 8 read cells at each X were reproduced bit-exactly. Residual = R_ℤ[√2](K) − R_ℤ[i](aK), in units of
+its model SE. Values at neighbouring β share data and are strongly correlated, so counts of points beyond 2 SE are
+not independent.
+
+| β range | 10¹⁰: residual / SE | 10¹⁰: D / shift prediction | 10¹¹: residual / SE | 10¹¹: D / shift prediction |
+|---|---|---|---|---|
+| 0.20–0.34 | −1.6 to +0.3 | — (SE ≥ 0.03) | −3.5 to +0.6 | — (SE ≥ 0.02) |
+| 0.35–0.50 (rigidity range; B2 cells 0.40, 0.45) | −2.1 to −1.5 | 0.40–0.74 | −4.5 to −2.0 | 0.26–0.62 |
+| 0.53–0.62 (crossover) | +0.6 to +2.1 | 1.08–1.28 | +0.2 to +3.2 | 1.01–1.30 |
+| 0.63–0.70 | +0.1 to +1.4 | — (D → 0) | +0.3 to +1.9 | — (D → 0) |
+
+- **The single-parameter collapse does not hold across the range.** The residual changes sign between β = 0.52 and
+  0.53 at both X.
+  - In the rigidity range, ℤ[√2] sits below the shifted ℤ[i] curve. D there is a quarter to three quarters of what a
+    shift of log K by log a would give. The shortfall is larger at 10¹¹ (residual −0.044 to −0.059, about −4 SE at
+    β 0.40–0.45) than at 10¹⁰ (−0.020 to −0.040, about −1.6 to −2.1 SE).
+  - At and past the crossover (β ≈ 0.53–0.62), the shift accounts for D within 0–30%. ℤ[√2] sits slightly above the
+    shifted curve, up to +2.1 SE (10¹⁰) and +3.2 SE (10¹¹) at β ≈ 0.57.
+- **First order against the full shift.** R′_ℤ[i]·log a / log N and R_ℤ[i](aK) − R_ℤ[i](K) agree closely for
+  β ≥ 0.30, so the linearisation is not the issue.
+- **Reading, descriptive only.** Near the crossover, the field difference behaves like a rescaling of K by the
+  conductor ratio. In the rigidity range it is smaller than that, and the gap grows from 10¹⁰ to 10¹¹. Lower-order
+  terms that do not enter through 2 log k + C_F are one candidate (cf. the 0.90 plateau lead, §4); two X cannot
+  separate the possibilities. The B2 verdict (direction) is untouched: D > 0 throughout the rigidity range at both X.
+- **Caveats.** The SE is the sealed model (assumed for arithmetic data, round 91); the witness found it accurate to
+  conservative at 10¹¹ (empirical/model 0.83–1.04) on synthetic sets. Fine-grid β points beyond the sealed cells were
+  never used for any decision.
 
 ## 6. What this does not show
 
@@ -110,5 +147,6 @@ COLLAPSE_PENDING
 
 - `results/read/`: read1.json and read2.json (identical), logs, pins_check.txt, segments_check.txt, first_wave.txt,
   timing.txt, cmp.txt, D_beta.png.
+- `results/collapse/` (post hoc, round 92): COLLAPSE.json, collapse.log, collapse.png.
 - Seal and pins: `RQ1_SEAL.md` at tag `rq1-seal`, `read_pins.sha256`, `archive_segments.sha256`; stamp, receipt,
   verification and remote-tag record in `timestamps/`.
