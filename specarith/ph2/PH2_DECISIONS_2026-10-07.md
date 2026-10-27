@@ -2165,3 +2165,13 @@ Only then does the form family count for h_a.
 Power. Price raising the q cap to about 1.1·10⁵, so a ≥ 6 gains one more level. Raise it only if it costs ≤ 1 core-hour per path.
 Then: re-seal, stamp, attest, double read, read a ≥ 3.
 Report the quintic’s f(1; z = 5) = 1.1564 descriptively, with a literature check on whether a quintic golden δ has been published.
+
+### GEO-CM1 silver decision and rule refinement (2026-10-27; Will, verbatim; post hoc, labelled)
+GEO-CM1: the silver decision and a rule refinement (post hoc, labelled).
+
+Tolerance rule: the source’s stated uncertainty where it gives one, otherwise half a unit in the last quoted digit, plus 3 SE.
+Primary gate values: dLOP (preprint, as read; the published 2007 version is unread, so note that). ORSS is a cross-check under the same rule. Golden and silver pass on both; record all four comparisons.
+Drop the 2.833612 reference; it comes only through a citing preprint.
+Quintic: record the agreement with dLOP (3.0433806 against 3.04337774, 1.6 SE, on a different map family) as a universality cross-check of the method. Still not a gate.
+Cap: raise it for a = 8 only (0.78 core-h). a = 8 stays UNPOWERED for the SE clauses.
+Then: the cusp verdict on the fresh N → re-seal with the h_a clause → stamp → attestation → double read → read a ≥ 3.

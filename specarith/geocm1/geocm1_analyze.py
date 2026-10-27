@@ -10,8 +10,8 @@ three) − Aitken(the three before)| (≥ 4 values). Gates: golden / silver with
 relative). Cusp: f_N for N = 24 … 199, least-squares f_N = f∞ + c₁x + c₂x², x = 1/ln N, gate |f∞ − 1.5| ≤ 0.02.
 K = 0.5 must-fail: f_n increasing at each of the last three steps and the last f_n > 3. Quintic: |f̂ − 1.0822| > 5·SE,
 descriptive. Read: SUPPORT / CONTRADICT / UNPOWERED at ±2·SE (pairs: SE_d = √(SE_a² + SE_{a+1}²)); f(∞): weighted
-least squares f(a) = f∞ + c₁x + c₂x², x = 1/ln λ_a, over the a with an SE (weights 1/SE²), valid only if the cusp gate
-passed; PASS iff |f∞ − 1.5| ≤ 0.02 + 2·SE(f∞); UNPOWERED if 2·SE(f∞) > 0.03.
+the f(∞) clause is replaced by the h_a clause (re-gate), UNPOWERED because the cusp form was not validated on fresh N;
+h_a reported descriptively.
 """
 import json
 import math
@@ -137,19 +137,18 @@ def read(dirn, out):
         mono[f"{a}-{a+1}"] = "SUPPORT" if d > 2 * sd else ("CONTRADICT" if d < -2 * sd else "UNPOWERED")
     below = {a: judge(per[a]["f_hat"], per[a]["f_SE"], 1.5) if per[a]["f_hat"] is not None else "UNPOWERED" for a in per}
     agg = lambda v: "FAIL" if "CONTRADICT" in v.values() else ("PASS" if all(x == "SUPPORT" for x in v.values()) else "PASS on SUPPORT, UNPOWERED on the rest")
-    use = [a for a in per if per[a]["f_SE"] is not None and per[a]["f_SE"] > 0]
-    P3 = dict(status="UNPOWERED", reason="cusp form not validated" if not g["cusp"]["GATE"] else None)
-    if g["cusp"]["GATE"] and len(use) >= 4:
-        X = np.array([[1, 1 / math.log(per[a]["lambda"]), 1 / math.log(per[a]["lambda"]) ** 2] for a in use])
-        y = np.array([per[a]["f_hat"] for a in use])
-        W = np.diag([1 / per[a]["f_SE"] ** 2 for a in use])
-        cov = np.linalg.inv(X.T @ W @ X)
-        coef = cov @ X.T @ W @ y
-        se = float(math.sqrt(cov[0, 0]))
-        st = "UNPOWERED" if 2 * se > 0.03 else ("PASS" if abs(coef[0] - 1.5) <= 0.02 + 2 * se else "FAIL")
-        P3 = dict(status=st, f_inf=float(coef[0]), SE=se, a_used=use)
+    # h_a clause (re-gate): h_a = ln(δ_{a+1}/δ_a) / (2 ln(λ_{a+1}/λ_a)), prediction h_a → 1.5 via h∞ + c₁/λ + c₂/λ²
+    # (λ the pair's geometric mean). The cusp-form validation on fresh N failed (§10), so as specified the form family
+    # does not count: the clause is UNPOWERED; h_a are reported descriptively.
+    h = {}
+    for a in range(1, 10):
+        x, y = per[a], per[a + 1]
+        if x["delta_hat"] and y["delta_hat"]:
+            h[f"{a}-{a+1}"] = dict(h=math.log(y["delta_hat"] / x["delta_hat"]) / (2 * math.log(y["lambda"] / x["lambda"])),
+                                   lambda_gm=math.sqrt(x["lambda"] * y["lambda"]))
+    P3 = dict(status="UNPOWERED", reason="cusp form not validated on fresh N (seal section 10)", h_a=h)
     res = dict(per_a={a: per[a] for a in per}, P1_monotonic=dict(pairs=mono, verdict=agg(mono)),
-               P2_below_1p5=dict(per_a=below, verdict=agg(below)), P3_f_inf=P3,
+               P2_below_1p5=dict(per_a=below, verdict=agg(below)), P3_h_a=P3,
                bronze=dict(delta=per[3]["delta_hat"], delta_SE=per[3]["delta_SE"], f=per[3]["f_hat"], f_SE=per[3]["f_SE"]))
     json.dump(res, open(out, "w"), indent=1, sort_keys=True)
     return 0

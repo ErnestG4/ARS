@@ -50,7 +50,7 @@ def convergents(name):
     if name == "cusp":
         return [(1, N) for N in range(2, 201)]              # 1/N lies between 0/1 and 1/(N − 1)
     a = 1 if name in ("quintic", "sub05") else int(name[1:])
-    cap = 34 if name == "sub05" else QMAX
+    cap = 34 if name == "sub05" else (34840 if name == "a8" else QMAX)      # a = 8 cap raised (Will, ≤ 1 core-h)
     out = [(0, 1), (1, a)]
     while True:
         p = a * out[-1][0] + out[-2][0]

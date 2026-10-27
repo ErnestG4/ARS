@@ -1,4 +1,4 @@
-# GEO-CM1 seal: Ford exponent of critical circle-map tongues along metallic paths — STATUS: DRAFT (five corrections and the go-message additions applied). Not sealed; nothing computed
+# GEO-CM1 seal: Ford exponent of critical circle-map tongues along metallic paths — STATUS: SEALED as of the tag geocm1-seal (final: section 11). a ≥ 3 not computed
 
 Map F(θ) = θ + Ω − (1/2π) sin 2πθ (K = 1, cubic critical point), lifted to ℝ. Paths: convergents p_n/q_n of
 ω_a = [0; ā], a = 1…10; cusp path 1/N, N = 2…200. Desktop CPU only (spot is on RQ1-c).
@@ -145,3 +145,37 @@ a = 9 1.38, a = 10 2.32; a = 7 none below 1.1·10⁵); a = 8 then has an estimat
 
 **Remaining judgeable clauses:** monotonic and f(a) < 1.5, powered at a = 1–5 only. Whether to seal and read with those
 alone is Will's call.
+
+## 11. FINAL (Will, 2026-10-27; post hoc refinement, labelled) — the seal as stamped
+**Tolerance rule:** the source's stated uncertainty where it gives one, otherwise half a unit in the last quoted digit,
+plus 3·SE. **Primary gate values: dLOP** (preprint mp_arc 07-104 as read; the published J. Phys. A 40 (2007) F427
+version is unread). ORSS 1983 is a cross-check under the same rule. The 2.833612 reference is dropped (it reaches us only
+through a citing preprint).
+
+| Comparison | estimate | reference (uncertainty used) | \|diff\| | tolerance | |
+|---|---|---|---|---|---|
+| golden vs dLOP | 2.8336106599 | 2.8336106559 (½ unit: 5·10⁻¹¹) | 4.0·10⁻⁹ | 2.0·10⁻⁸ | PASS |
+| golden vs ORSS Table I | 2.8336106599 | 2.83361 (stated ±1·10⁻⁵) | 6.6·10⁻⁷ | 1.0·10⁻⁵ | PASS |
+| silver vs dLOP | 6.7992251981 | 6.79922516 (stated ≤ 2 in the last digit: 2·10⁻⁸) | 3.8·10⁻⁸ | 6.1·10⁻⁷ | PASS |
+| silver vs ORSS (RG, p. 319) | 6.7992251981 | 6.79924 (stated ±2·10⁻⁵) | 1.5·10⁻⁵ | 2.1·10⁻⁵ | PASS |
+
+(ORSS Table I silver 6.79925 ± 5·10⁻⁵: 2.5·10⁻⁵, also PASS.) f(1) = 1.0822175 and f(2) = 1.0873985 agree with 1.0822 and
+1.0874. **Quintic universality cross-check (not a gate):** golden |δ| = 3.0433806 ± 1.8·10⁻⁶ against dLOP's 3.04337774
+for their standard quintic family, a different map: 1.6 SE.
+
+**Cusp form:** NOT VALIDATED on fresh N (§10). **Cap:** a = 8 raised to q = 34,840 (0.78 core-h); a = 8 stays without an
+SE.
+
+**Sealed clauses for the read of a = 3 … 10** ():
+- **P1 monotonic** and **P2 f(a) < 1.5:** as §4 (SUPPORT / CONTRADICT / UNPOWERED at ±2·SE). Powered at a = 1–5 only
+  (a = 6, 7, 8, 10 have an estimate without SE; a = 9 none): pairs (1,2) … (4,5) and a = 1 … 5.
+- **P3 → h_a clause** (re-gate): h_a = ln(δ_{a+1}/δ_a) / (2 ln(λ_{a+1}/λ_a)), prediction h_a → 1.5 via
+  h∞ + c₁/λ + c₂/λ². **UNPOWERED as sealed** (the form family failed its fresh-N validation); h_a reported descriptively.
+- **New values:** bronze |δ₃| and f(3) with SE(3).
+
+**Pins.** `geocm1.py` sha256 c42634a21113259dd0aefdb0a57d2bbbdd10d262f000458806297bb47d26cbc5; `geocm1_analyze.py` sha256 424f8686d76c643967255b6119d51a2c3011f399253c9eae6c54aa1498528246; `results/GATES.json` sha256 9019471c2e0126a09dd73697b158d8248062ab8b822adccbb7112cddf8e2ea81.
+Environment (desktop WSL): {'python': '3.12.3', 'numpy': '2.4.4', 'numba': '0.66.0', 'mpmath': '1.3.0', 'kernel': '6.18.54.1-microsoft-standard-WSL2'}.
+**Read procedure (after the OpenTimestamps receipt is Bitcoin-attested and verified on two explorers):** compute a3 … a10
+twice, in two separate process sets from a clean start (`geocm1.py path aN READ{1,2}/READ_aN.json`); every pair of
+JSONs must `cmp` byte-identical, else VOID; then `geocm1_analyze.py read` on READ1 (with GATES.json and GATE_a1/a2
+copied in for a = 1, 2). Cost: ≈ 0.5–1 core-h per path per read, ≈ 6–12 core-h for the double read, on the desktop.
