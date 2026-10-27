@@ -2009,3 +2009,23 @@ Then, labelled post hoc: compute the formula’s zero-parameter D(β) and the fu
 If coherent, draft a 10¹² full-curve seal for three fields, using the jittered-lattice witness at reduced N. If not, report and stop.
 Archives now. Generate the 10¹² archives for ℤ[√2] and ℤ[i] on /mnt/data, with the mount guard; hash them; read nothing. ℤ[ω] waits for C_ω. Cost model and first-wave rule apply.
 Environment. Spot’s kernel changed (7.2.11 now). The collapse check reproduced the sealed cells bit-for-bit, which is good. Any new seal re-pins the environment and reruns the estimator check.
+
+## Ninety-fourth round (2026-10-27) — final step of RQ1-b (fair check on Chen et al.'s own statistic, formula at finite X); RQ1 close-out; 10¹² archives reserved (verbatim)
+Round 94: final step of RQ1-b; RQ1 closes after it, whatever the result.
+
+Fair check (post hoc, zero parameters).
+Compute Chen et al.’s statistic exactly as defined: log N𝔭 weights, inert primes included at θ = 0, Φ = 1_(0,1]. Run it on the 10¹⁰ and 10¹¹ data for ℤ[√2] and ℤ[i]. The inert primes are generated fresh; nothing at 10¹² is touched.
+Validate first: reproduce your ℤ[i] check against Chen’s figure at 10⁹.
+Evaluate the general-field formula at finite X, including the contour integrals.
+Report the residuals for each field and for D, with SEs, in the rigidity range and around λ = ½.
+The two analogy substitutions stay marked UNVERIFIED in the report.
+Branch:
+Coherent in the rigidity range: draft a 10¹² seal of the general-field formula on Chen’s statistic for ℤ[√2], ℤ[i] and ℤ[ω]. Then ℤ[ω]’s archive can start. The bifurcation region is excluded from any gate.
+Not coherent: no seal.
+RQ1 close-out, written in either branch. RQ1_FINDINGS gets a summary section:
+the sealed B2 PASS (direction, conditional on the SE model);
+the descriptive results: D peaks at the bifurcation; the conductor rescaling is approximate in both regimes; the flat-offset forms (heuristic and Chen) miss in the rigidity range and have no field dependence above λ = ½, while the data show D ≈ +0.03 there;
+the 34d half-sample defect and its banners;
+open lead L8: field dependence of the sector variance peaks at the rigidity–randomness crossover, where no available formula applies.
+Reserved: the 10¹² archives for ℤ[√2] and ℤ[i], hashed and unread.
+Archives: let the 10¹² generation finish, then commit manifests and pins.
