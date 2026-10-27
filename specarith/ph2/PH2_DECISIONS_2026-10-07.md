@@ -1996,3 +1996,16 @@ Null arm: equal σ.
 Shape: choose σ so the synthetic R(K) matches the data’s shape and slope over the gated range.
 Witness N. Price witnesses at reduced N (~10⁹, ≥ 40 points per window at K_max) with the same K grid. Include a check of SE at reduced versus full N at 2–3 values of K. Re-cost with this design.
 ℤ[ω]: include it in the draft if Step 0 derives C_ℤ[ω]. Report the derivation.
+
+## Ninety-third round (2026-10-26) — collapse recorded (approximate in both regimes); no crossover-only seal; RQ1-b Step 0 (Chen et al. refined formula for a general quadratic field); 10¹² archives now; environment re-pin rule (verbatim)
+Round 93.
+
+Collapse findings. Record as written, with one addition: the crossover residual is up to +3.2 SE at 10¹¹ (D/shift 1.01–1.30). So the pure rescaling is approximate in both regimes, and the residual changes sign at β ≈ 0.52–0.53 at both X.
+No crossover-only collapse seal (option 1 declined: it tests a model already known to be approximate).
+RQ1-b, Step 0 (no compute; time box one session).
+Derive Chen et al.’s refined sector-variance formula for a general quadratic field. State every field-dependent constant (conductor, and any L′/L(1, χ), Euler–Kronecker or residue terms). Primary sources or UNVERIFIED.
+Verify C_ω (d·(wk/2)² → 27k²) against a source or the explicit formula.
+Then, labelled post hoc: compute the formula’s zero-parameter D(β) and the full R curves for ℤ[√2] and ℤ[i] at 10¹⁰ and 10¹¹ against the read data. Report residuals with SEs in both regimes.
+If coherent, draft a 10¹² full-curve seal for three fields, using the jittered-lattice witness at reduced N. If not, report and stop.
+Archives now. Generate the 10¹² archives for ℤ[√2] and ℤ[i] on /mnt/data, with the mount guard; hash them; read nothing. ℤ[ω] waits for C_ω. Cost model and first-wave rule apply.
+Environment. Spot’s kernel changed (7.2.11 now). The collapse check reproduced the sealed cells bit-for-bit, which is good. Any new seal re-pins the environment and reruns the estimator check.
