@@ -22,7 +22,11 @@ labelled post-hoc.
   - The flat-offset forms, RW-type heuristic (1.849/log X) and Chen et al.'s Conjecture 1.2 generalised (1.695/log X),
     both miss: their D is too large in the rigidity range, and above λ = ½ they have no field dependence, while the
     data show D ≈ +0.03 there. On Chen's own statistic (round 94) ℤ[i] fits the formula and ℤ[√2] does not
-    (`RQ1B_STEP0.md` §6).
+    (`RQ1B_STEP0.md` §6). **That is a failure of the formula as generalised here**, with two substitutions
+    UNVERIFIED (L(s, χ_F) in C_Φ,L and F's inert primes in A′_Φ). It does not show that Chen et al.'s conjecture fails
+    to extend to other fields.
+  - The plateau at β ≥ 0.70 (§4): on Chen's statistic it matches 1 − 2/log X within 0.002; on our unweighted
+    statistic it sits 0.013–0.017 lower, probably from the weighting, not checked against a formula.
 - **Phase 34d's half-sample defect.** Its σ²/(N/K) values were means over 50 random half-samples, which maps a ratio r
   to ≈ (r + 1)/2. The affected verdicts (RW replicated at X = 10⁸, β = 0.65; "within 1σ of the RW asymptote";
   "rigidity regime matches RW within 1σ") are bannered in place in `PHASE34D_FINDINGS.md` (2026-10-25) as not
@@ -110,10 +114,11 @@ Figure: `results/read/D_beta.png` (`rq1_plot_read.py`), D(β) with ±2 SE_diff a
 
 ## 4. Open leads and calibration limits (descriptive)
 
-- **Open lead: the 0.90 plateau.** Both fields level off near R ≈ 0.896 (10¹⁰) and 0.908 (10¹¹) at β ≥ 0.70, not at
-  the heuristic's 1. The ℤ[i] data at 10⁸ (Step 1) were 0.88–0.92 there. It is the same in both fields, so it is not
-  a field effect. A candidate is Chen et al.'s lower-order terms (the −K_Φ term below the crossover), which the
-  flat-offset heuristic omits. Not tested here.
+- **The plateau at β ≥ 0.70 (narrowed in the close-out).** Both fields level off near R ≈ 0.896 (10¹⁰) and 0.908
+  (10¹¹) on our unweighted statistic, the same in both fields, so not a field effect. On Chen et al.'s weighted
+  statistic (round 94) both fields level at 0.911 and 0.920, within 0.002 of their field-independent 1 − 2/log X
+  (Δ_Φ term). Ours sits 0.013–0.017 lower, probably from the weighting; that is not checked against a formula. It is
+  not an open lead of its own; L8 is the field difference peaking at the crossover.
 - **Outside calibration: β = 0.90.** D is −0.0010 and −0.0003, at −3.4 and −3.0 SE. There, N/K is only 7.3 and 9.2
   points per window, far from where the SE model was calibrated (K = 20–200), so these SE are not trusted and
   the values are not interpreted. β = 0.80 (N/K 54–84) is near that edge too.
@@ -156,7 +161,7 @@ not independent.
   β ≥ 0.30, so the linearisation is not the issue.
 - **Reading, descriptive only.** Near the crossover, the field difference behaves like a rescaling of K by the
   conductor ratio. In the rigidity range it is smaller than that, and the gap grows from 10¹⁰ to 10¹¹. Lower-order
-  terms that do not enter through 2 log k + C_F are one candidate (cf. the 0.90 plateau lead, §4); two X cannot
+  terms that do not enter through 2 log k + C_F are one candidate (cf. the plateau note, §4); two X cannot
   separate the possibilities. The B2 verdict (direction) is untouched: D > 0 throughout the rigidity range at both X.
 - **Caveats.** The SE is the sealed model (assumed for arithmetic data, round 91); the witness found it accurate to
   conservative at 10¹¹ (empirical/model 0.83–1.04) on synthetic sets. Fine-grid β points beyond the sealed cells were

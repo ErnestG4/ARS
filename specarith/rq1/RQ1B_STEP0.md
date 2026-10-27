@@ -131,7 +131,8 @@ is done here. **Per round 93: report and stop. No 10¹² full-curve seal is draf
 
 - **Verdict: NOT COHERENT in the rigidity range** (`results/RQ1B_COMPARE2.json`). ℤ[i] fits; ℤ[√2] sits below the
   formula, increasingly with X, so the predicted field difference (1.695/log X) is too large. The misfit is in the
-  field where the UNVERIFIED substitutions enter. **Per round 94: no 10¹² seal of this formula, and no P5.**
+  field where the UNVERIFIED substitutions enter. This is a failure of the formula as generalised here, not a
+  showing that Chen et al.'s conjecture fails to extend. **Per round 94: no 10¹² seal of this formula, and no P5.**
 - **Descriptive:** around λ = ½ the data show D = +0.04 to +0.08 at λ 0.50–0.525, where the two-regime formula has
   no field dependence. Above λ = 0.65 both fields' Chen statistic levels at 1 − 2/log X to within 0.002 (0.911 and
   0.920), the field-independent Δ_Φ term: on Chen's weighted statistic the plateau is accounted for by their lower-order
