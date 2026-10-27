@@ -166,7 +166,7 @@ for their standard quintic family, a different map: 1.6 SE.
 **Cusp form:** NOT VALIDATED on fresh N (§10). **Cap:** a = 8 raised to q = 34,840 (0.78 core-h); a = 8 stays without an
 SE.
 
-**Sealed clauses for the read of a = 3 … 10** ():
+**Sealed clauses for the read of a = 3 … 10** (`geocm1_analyze.py read`):
 - **P1 monotonic** and **P2 f(a) < 1.5:** as §4 (SUPPORT / CONTRADICT / UNPOWERED at ±2·SE). Powered at a = 1–5 only
   (a = 6, 7, 8, 10 have an estimate without SE; a = 9 none): pairs (1,2) … (4,5) and a = 1 … 5.
 - **P3 → h_a clause** (re-gate): h_a = ln(δ_{a+1}/δ_a) / (2 ln(λ_{a+1}/λ_a)), prediction h_a → 1.5 via
