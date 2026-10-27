@@ -84,11 +84,14 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
 | **Total** | **≈ 430** | of which ℤ[ω] 234 |
 
 ## 4. Prerequisites before the seal is final (round 96)
-1. **Environment re-pin:** spot now runs kernel 7.2.11; record it with the conda env versions, and rerun
-   `rq1_read_check.py` (the estimator check) in it.
-2. **Binned estimator:** validate the 2⁻³⁶ binned estimator against the exact one on the read archives at 10¹⁰ and
-   10¹¹, at every gated β (0.40, 0.45, 0.55 and the P3 grid 0.45–0.65), with |binned − exact| reported against the
-   bias bound N·δ²·K scaled to give the 10¹² value.
+1. **Environment re-pin — DONE.** Spot kernel 7.2.11-100.fc43; ph6c env unchanged (Python 3.12.15, numpy 2.5.3,
+   scipy 1.18.1, numba 0.68.0, mpmath 1.4.1). `rq1_read_check.py` rerun there: all 9 values bit-identical to round 88
+   (`results/r96/READ_ESTIMATOR_CHECK.json`).
+2. **Binned estimator — DONE** (`rq1c_binned.py`; `results/r96/BINNED_VALIDATION.json`). On the rounded point set it
+   equals `var_stream` exactly (relative difference 0 at 12 settings). On the read archives, with B set so that
+   N·δ²·K is at least the 10¹² value at 2⁻³⁶, binned − exact is positive in all 50 comparisons, 0.007–0.25 of
+   N·δ²·K, and at most 0.0008 SE at the P1/P4 cells and 0.081 SE on the P3 grid (largest at β 0.65). About 14 ns per
+   bin step: ≈ 1,900 spot core-s per 10¹² pass (2,540 modelled).
 3. **Full-N SE check:** empirical/model SE_diff at full N (3.76·10¹⁰, binned synthetic sets) and at N = 10⁹ agree within
    20% at K for β = 0.40, 0.45 and 0.55 (10 replicates each). Pass → reduced-N witnesses; fail → full-N witnesses.
 4. **Witnesses** for P1 (t), P3 and P4, with their results and the frozen t in §6 pins.
