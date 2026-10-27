@@ -2100,3 +2100,25 @@ The decision rule: silver δ is reported as matching 2.44159 or 2.4569 (de la Ll
 The silver K_c comparison with 0.957447(6) (Fox–Meiss) uses the same 3σ rule.
 Witness that must fail. Run the same pipeline on the e tail [0; 1,2,1,1,4,1,1,6,…]. It must fail the geometric-convergence check, because no single δ fits.
 Output. A table of m, K_c(m), δ_m and δ_m/λ_m − 1 with uncertainties, plus residue-versus-K plots per level. Price the run before launching.
+
+## GEO-CM1 opened (2026-10-27; Will, verbatim, "OK we can use this box, but with some updates") — Ford exponent of critical circle-map tongues along metallic paths; read here as replacing GEO-KAM1 (parked)
+GEO-CM1: the Ford exponent of critical circle-map tongues along metallic paths. New arc, time-boxed to two sessions. CPU-bound in double-double or MPFR. Spot is still on RQ1-c, so use the desktop CPU or char.
+
+Model. θ ↦ θ + Ω − (K/2π) sin 2πθ at K = 1, a cubic critical point. Paths are the convergents p_n/q_n of ω_a = [0; ā] for a = 1…10, plus the cusp sequence 1/N for N = 2…200.
+Method. p/q is locked iff min_x(F^q(x) − x) ≤ p ≤ max_x(F^q(x) − x). Both extremes increase in Ω, so each tongue edge is a 1-D bisection in Ω.
+Seed each extremum from a grid with M ≥ 16q points.
+Then polish with Newton on the saddle-node system F^q(x) − x − p = 0, (F^q)′(x) = 1, using the chain-rule derivative.
+Gate the method by requiring bisection edges and Newton edges to agree to ≤ 10⁻³ of the width.
+Width w_n = Ω₊ − Ω₋. Per-step Ford exponent f_n = ln(w_n/w_{n+1}) / (2 ln(q_{n+1}/q_n)). Path exponent f(a) = lim f_n, which equals ln|δ_a| / (2 ln λ_a).
+Precision. Widths shrink by roughly |δ_a| per level, and that grows fast with a. Keep going until the edge precision reaches 10⁻⁶ of the width or q hits 2×10⁴, whichever comes first. Run two precisions and require them to agree. For large a only 4–5 levels fit, so extrapolate the ratios with a declared convergence model: geometric correction, fitted (δ, c, ρ).
+Gates, before any a ≥ 3 output is read:
+golden |δ| = 2.833612, f(1) = 1.0822;
+silver |δ| = 6.79924, f(2) = 1.0874 (ORSS 1983);
+cusp path f_N → 1.5, the q⁻³ law (Ecke–Farmer–Umberger 1989; CSS 1985). Its slow approach (≈1.44 at N = 24 in the browser preview) is expected. Declare the extrapolation form before reading it, and require the limit to be 1.5 ± 0.02.
+Sealed prediction, committed and hashed before reading a ≥ 3:
+f(a) is strictly increasing on a = 1…10.
+f(a) < 1.5 for every a.
+Extrapolated f(∞) = 1.5 ± 0.05.
+Report bronze |δ_3| and f(3) as new values (no published value found), with uncertainties.
+Witness that must fail. The same pipeline on a quintic critical map (inflection order z = 5) must give f(1) different from 1.0822 by more than 5σ. If it doesn’t, the exponent is λ-bookkeeping and not a property of the universality class.
+Output. A table of a, λ_a, |δ_a|, f(a) and the level count, plus the f_n convergence plots per path. One extra figure: f(a) against the per-digit geodesic length 2 ln λ_a. Price the run before launching.
