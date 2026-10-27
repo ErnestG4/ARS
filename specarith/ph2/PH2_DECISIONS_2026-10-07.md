@@ -2083,3 +2083,20 @@ Witness that must fail: random L/R words of matched length must not match Gauss�
 Step 2 (descriptive). The length spectrum with multiplicities; multiplicity growth against the law; the partial-quotient histogram; for the Picard stage, the joint distribution of length and rotation.
 Note for later, not now: the cutting-sequence readout (run lengths of any up/down zigzag against Gauss–Kuzmin) is a candidate ARSv2 readout. It waits until after H1.
 Pushes stay with Will.
+
+## GEO-KAM1 opened (2026-10-27; Will, verbatim) — Greene residue sweep, metallic tails m = 1…10, standard map
+GEO-KAM1: Greene residue sweep, metallic tails m = 1…10, Chirikov–Taylor standard map. New arc, time-boxed to two sessions. No spot until RQ1-c releases it; run on the 4090 desktop’s CPU or on char.
+
+Model and convention. y′ = y − (K/2π) sin 2πx, x′ = x + y′ (mod 1), which is Greene’s normalization. Rotation numbers ω_m = [0; m̄] = (√(m²+4) − m)/2, with convergents p_n/q_n.
+Method. Find symmetric periodic orbits of type p_n/q_n by 1-D shooting on the dominant symmetry line (Greene 1979; Kook–Meiss 1989). Compute the residue R = (2 − tr M)/4. K_n is the K at which R crosses a fixed threshold R*. Run R* ∈ {0.25, 0.5, 1.0} and report how sensitive K_c is to the choice. Do not assume the golden threshold carries over.
+Precision. MPFR or mpmath at two precisions, which must agree. Fibonacci q up to about 10⁶ and Pell up to about 2×10⁵. Report δ per Gauss step, one continued-fraction digit, so 1.628 and 2.650 never get mixed.
+Gates, which must pass before any new number counts:
+golden K_c = 0.9716354063(2) (Greene; Fox–Meiss);
+golden δ = 1.62795006… (Arioli–Koch).
+Sealed before any m ≥ 2 output is read; commit and hash.
+The fit window: the last 6 levels at or below q_max.
+The joint fit K_n − K_c ≈ A·δ^{−n}, solving for (K_c, δ, A) together.
+The decision rule: silver δ is reported as matching 2.44159 or 2.4569 (de la Llave–Olvera–Petrov) only if exactly one of them lies within 3σ. Otherwise report “neither” or “both”.
+The silver K_c comparison with 0.957447(6) (Fox–Meiss) uses the same 3σ rule.
+Witness that must fail. Run the same pipeline on the e tail [0; 1,2,1,1,4,1,1,6,…]. It must fail the geometric-convergence check, because no single δ fits.
+Output. A table of m, K_c(m), δ_m and δ_m/λ_m − 1 with uncertainties, plus residue-versus-K plots per level. Price the run before launching.
