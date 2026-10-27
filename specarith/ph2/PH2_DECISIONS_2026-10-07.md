@@ -1984,3 +1984,15 @@ Then, at 10¹⁰ and 10¹¹ on the already-read archives, compute R_ℤi against
 Label everything post hoc.
 Price the 10¹² test with the cost model: archive generation for both fields, the read, and disk space (raw versus binned storage, and the binning error against 1/K_max for β ≤ 0.70). Report it before generating anything.
 Draft only, no seal yet: if item 2 looks coherent, draft a 10¹² collapse seal. Statistic, tolerance basis, and witnesses: a planted known shift and an unshifted null. ℤ[ω] can be added as a third field with its own C, if Step 0 can derive it.
+
+### Round 92 note (2026-10-26; Will, verbatim) — for the 10¹² draft, no action until the collapse check reports
+Note for the 10¹² draft (no action until the collapse check reports):
+
+Mount guard. The generator and read must refuse to start unless mountpoint -q /mnt/data succeeds. Will is fixing the fstab UUID.
+Collapse witnesses need a K-dependent synthetic family. i.i.d. sets have flat R and can’t detect a shift.
+Family: mirror-symmetrised jittered lattices, where R depends on K·σ.
+Planted arm: σ-ratio a gives R_A(K) = R_B(aK) exactly.
+Null arm: equal σ.
+Shape: choose σ so the synthetic R(K) matches the data’s shape and slope over the gated range.
+Witness N. Price witnesses at reduced N (~10⁹, ≥ 40 points per window at K_max) with the same K grid. Include a check of SE at reduced versus full N at 2–3 values of K. Re-cost with this design.
+ℤ[ω]: include it in the draft if Step 0 derives C_ℤ[ω]. Report the derivation.
