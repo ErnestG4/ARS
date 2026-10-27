@@ -48,17 +48,32 @@ def run_field(d, field, Xs):
     bins = {X: [np.zeros(K) for K in Ks[X]] for X in Xs}
     Xmax = max(Xs)
     t0 = time.time()
-    for s, ab in segments(d, Xmax):
-        th, p = theta_p(ab, field)
-        w = np.log(p.astype(np.float64))
-        th2 = np.concatenate([th, np.mod(1.0 - th, 1.0)])
-        w2 = np.concatenate([w, w])
-        for X in Xs:
-            if s["hi"] > X:
-                continue
+    buf, nbuf, cur = [], 0, None                     # segments are buffered (≈ 2e8 points) so bincount runs per block
+
+    def flush():
+        if not buf:
+            return
+        th2 = np.concatenate([x[0] for x in buf])
+        w2 = np.concatenate([x[1] for x in buf])
+        for X in cur:
             for i, K in enumerate(Ks[X]):
                 idx = np.minimum((th2 * K).astype(np.int64), K - 1)
                 bins[X][i] += np.bincount(idx, weights=w2, minlength=K)
+        buf.clear()
+
+    for s, ab in segments(d, Xmax):
+        th, p = theta_p(ab, field)
+        w = np.log(p.astype(np.float64))
+        act = tuple(X for X in Xs if s["hi"] <= X)   # the X values this segment counts towards
+        if act != cur:
+            flush()
+            nbuf, cur = 0, act
+        buf.append((np.concatenate([th, np.mod(1.0 - th, 1.0)]), np.concatenate([w, w])))
+        nbuf += 2 * len(th)
+        if nbuf >= 2 * 10 ** 8:
+            flush()
+            nbuf = 0
+    flush()
     out = {}
     for X in Xs:
         r = math.isqrt(int(X))
