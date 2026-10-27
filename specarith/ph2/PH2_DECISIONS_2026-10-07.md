@@ -2042,3 +2042,16 @@ P4 (ℤ[ω]):
 Ordering R_ℤ√2 > R_ℤω > R_ℤi at matched N, in the rigidity cells and at all three X, which are all unseen for ℤ[ω]. It needs its own witnesses.
 The crossover ratio D_ωi / D_√2i against 0.28: descriptive, or gated with a tolerance justified by the 0–30% collapse error.
 Cost each item with the model. Witnesses at reduced N use the jittered-lattice and i.i.d./lattice designs. Send me the draft, the costs and the separability table before sealing.
+
+## Ninety-sixth round (2026-10-27) — RQ1-c choices: P1 exact replication; P2 descriptive; P3 gated; P4 gated at β = 0.55; seal prerequisites (verbatim)
+Round 96: RQ1-c choices.
+
+P1: exact replication, the same B2 cells and rule at 10¹², with t recalibrated by witnesses. No added cells. Record the power under each law (0.89 / 0.82 / 0.34) in the seal. Attribution for a FAIL: consistent with the steepest decay law, not a refutation of the 10¹⁰/10¹¹ PASS.
+P2: descriptive only. Commit each law’s predicted D(10¹²) at the four cells, with propagated SEs, in the seal now, and report where the data land. No gate, no redesign.
+P3: gated as drafted. The sign change of the collapse residual lies in β ∈ [0.51, 0.54], with the witness confirming that resolution.
+P4:
+Gate the ordering R_ℤ√2 > R_ℤω > R_ℤi at β = 0.55, only at the X where the predicted ℤ[ω]–ℤ[i] separation is ≥ 2·SE (report which), with three-set witnesses.
+The rigidity cells and the 0.28 ratio stay descriptive.
+Seal prerequisites: re-pin the environment (kernel 7.2.11), rerun the estimator check, validate the binned estimator at the gated β, and run the full-N SE check for the reduced-N witnesses.
+Round 94: if its fair check comes out coherent, propose any addition as a separate P5 for my review. Don’t fold it in.
+Send the final seal for Will’s approval. Pushes stay with Will.
