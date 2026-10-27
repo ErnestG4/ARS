@@ -1,0 +1,77 @@
+{
+ "label": "RQ1-c block-SE comparison, full N against reduced N (round 97); synthetic",
+ "N": 37600000000.0,
+ "B": 36,
+ "betas": [
+  0.4,
+  0.45,
+  0.55
+ ],
+ "K": [
+  16985,
+  57390,
+  655169
+ ],
+ "families": {
+  "mix": [
+   {
+    "beta": 0.4,
+    "K": 16985,
+    "R_full": 0.8840163881796302,
+    "SE_block_full": 0.010546209598466211,
+    "SE_block_reduced_mean": 0.011013523650633066,
+    "ratio": 0.9575690699007131,
+    "pass_": true
+   },
+   {
+    "beta": 0.45,
+    "K": 57390,
+    "R_full": 0.8802808430435135,
+    "SE_block_full": 0.006014002039178609,
+    "SE_block_reduced_mean": 0.006012654424698846,
+    "ratio": 1.0002241297078753,
+    "pass_": true
+   },
+   {
+    "beta": 0.55,
+    "K": 655169,
+    "R_full": 0.8872503159166554,
+    "SE_block_full": 0.0016778192421959314,
+    "SE_block_reduced_mean": 0.0017772202959068985,
+    "ratio": 0.9440693683614255,
+    "pass_": true
+   }
+  ],
+  "jit": [
+   {
+    "beta": 0.4,
+    "K": 16985,
+    "R_full": 0.17614678647921164,
+    "SE_block_full": 0.0013240891967349257,
+    "SE_block_reduced_mean": 0.001300582705906913,
+    "ratio": 1.0180738146995592,
+    "pass_": true
+   },
+   {
+    "beta": 0.45,
+    "K": 57390,
+    "R_full": 0.5340041580306443,
+    "SE_block_full": 0.0033971688190479158,
+    "SE_block_reduced_mean": 0.0033208287062867895,
+    "ratio": 1.0229882717577705,
+    "pass_": true
+   },
+   {
+    "beta": 0.55,
+    "K": 655169,
+    "R_full": 0.9506820400599224,
+    "SE_block_full": 0.0019898342436367542,
+    "SE_block_reduced_mean": 0.0019197485174685064,
+    "ratio": 1.0365077641839604,
+    "pass_": true
+   }
+  ]
+ },
+ "COMPARISON_PASS": true,
+ "wall_s": 6014.839914798737
+}

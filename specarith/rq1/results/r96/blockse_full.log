@@ -1,0 +1,8 @@
+mix 0.4 R 0.8840 SE_full 1.055e-02 SE_reduced 1.101e-02 ratio 0.958
+mix 0.45 R 0.8803 SE_full 6.014e-03 SE_reduced 6.013e-03 ratio 1.000
+mix 0.55 R 0.8873 SE_full 1.678e-03 SE_reduced 1.777e-03 ratio 0.944
+jit 0.4 R 0.1761 SE_full 1.324e-03 SE_reduced 1.301e-03 ratio 1.018
+jit 0.45 R 0.5340 SE_full 3.397e-03 SE_reduced 3.321e-03 ratio 1.023
+jit 0.55 R 0.9507 SE_full 1.990e-03 SE_reduced 1.920e-03 ratio 1.037
+COMPARISON_PASS True
+exit=0
