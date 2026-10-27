@@ -2029,3 +2029,16 @@ the 34d half-sample defect and its banners;
 open lead L8: field dependence of the sector variance peaks at the rigidity–randomness crossover, where no available formula applies.
 Reserved: the 10¹² archives for ℤ[√2] and ℤ[i], hashed and unread.
 Archives: let the 10¹² generation finish, then commit manifests and pins.
+
+## Ninety-fifth round (2026-10-27) — RQ1-c: a 10¹² seal of theory-light predictions (P1 replication, P2 scaling, P3 crossover location, P4 ℤ[ω]); ℤ[ω] archive queued (verbatim)
+Round 95: RQ1-c, a 10¹² seal of theory-light predictions. Applies in either round-94 branch. RQ1 itself closes as written; this is a new arc with a two-session time box.
+
+Queue the ℤ[ω] archive (10¹², with the mount guard) to start automatically after ℤ[i]. Before generating, state its θ map (arg/(π/3), with a mirror) and split rule (p ≡ 1 mod 3). Only 34d’s ≤ 10⁸ data has ever been seen.
+Draft one seal with four predictions. All are committed from the 10¹⁰ and 10¹¹ results before anything at 10¹² is read.
+P1 (replication): the B2 T rule plus guard at 10¹², with t recalibrated by witnesses at that N. Reduced-N witnesses are allowed if the SE check at 2–3 values of K passes.
+P2 (scaling): at the B2 cells and the crossover cells, a pre-committed prediction for D(10¹²) under each law: ∝ 1/log X, ∝ 1/log² X, and X^{−δ} with δ from the two points. Propagate the SEs, including the nesting correlation. A law is consistent iff |D − pred| ≤ 2·SE. Compute separability first; any cell where the laws differ by < 3·SE is UNPOWERED for P2.
+P3 (crossover location): the sign change of the collapse residual lies in β ∈ [0.51, 0.54] at 10¹². Report the location with its resolution.
+P4 (ℤ[ω]):
+Ordering R_ℤ√2 > R_ℤω > R_ℤi at matched N, in the rigidity cells and at all three X, which are all unseen for ℤ[ω]. It needs its own witnesses.
+The crossover ratio D_ωi / D_√2i against 0.28: descriptive, or gated with a tolerance justified by the 0–30% collapse error.
+Cost each item with the model. Witnesses at reduced N use the jittered-lattice and i.i.d./lattice designs. Send me the draft, the costs and the separability table before sealing.
