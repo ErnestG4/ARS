@@ -1970,3 +1970,17 @@ Heuristic overlay: one file (HEURISTIC_B_MIRROR.json) for both the offsets and t
 Attribution, add: “The SE model is calibrated on synthetic mirror-symmetric sets (c = 0.627, the Poisson minimum; CUE-like sets give 2.6–5.0). Its validity for the arithmetic data is assumed, not tested. A PASS is conditional on it.”
 Recommit, report the diff, and then: stamp → wait for the Bitcoin attestation and verify it on two explorers → sha256sum -c on spot (code, JSONs, manifests, segments) → double read under the caps → cmp.
 Pushes stay with Will.
+
+## Ninety-second round (2026-10-26) — RQ1 session 2: findings separation, open leads, post-hoc conductor-scaling collapse, 10¹² pricing, draft collapse seal (verbatim)
+Round 92: RQ1 session 2.
+
+Findings. B2 PASS as sealed (direction; conditional on the SE model). Keep the descriptive size, shape and scaling disagreement with the flat-offset heuristic clearly separate from the verdict.
+Record the 0.90 plateau as an open lead (possibly Chen et al.’s lower-order terms).
+Record β = 0.90 as outside calibration.
+Post-hoc descriptive check, no verdict: the conductor-scaling collapse.
+The heuristic’s field dependence enters only via 2 log k + C_F. In the continuum limit that gives R_ℤ√2 = R_ℤi, a = e^{ΔC/2} = π/(√2·log(1+√2)) ≈ 2.520.
+Verify this identity on the heuristic formula numerically first.
+Then, at 10¹⁰ and 10¹¹ on the already-read archives, compute R_ℤi against R_ℤ√2 on a fine K grid (e.g. β in steps of 0.01, 0.20–0.70). Report residuals with SEs, and D(β) against R′_ℤi·log a / log N.
+Label everything post hoc.
+Price the 10¹² test with the cost model: archive generation for both fields, the read, and disk space (raw versus binned storage, and the binning error against 1/K_max for β ≤ 0.70). Report it before generating anything.
+Draft only, no seal yet: if item 2 looks coherent, draft a 10¹² collapse seal. Statistic, tolerance basis, and witnesses: a planted known shift and an unshifted null. ℤ[ω] can be added as a third field with its own C, if Step 0 can derive it.

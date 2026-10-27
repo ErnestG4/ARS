@@ -1,8 +1,12 @@
 # RQ1 findings: the sealed read (reading B, ℤ[√2] against ℤ[i] prime angles at matched N)
 
-**Result: B2 PASS.** T = 7.443 > t = 5.238 and the guard holds. The rule, the cells and t are as sealed (`RQ1_SEAL.md`, tag
-`rq1-seal`). The double read is byte-identical. Everything below the B2 line is descriptive; anything computed after the
-read is labelled post-hoc.
+**Verdict: B2 PASS, as sealed.** T = 7.443 > t = 5.238 and the guard holds. The rule, the cells and t are as sealed
+(`RQ1_SEAL.md`, tag `rq1-seal`), and the double read is byte-identical. The verdict is about **direction**: ℤ[√2] above
+ℤ[i] at matched N in the rigidity regime. It is **conditional on the SE model** (round 91).
+
+The verdict is §2 alone. §3 (size, shape and scaling against the flat-offset heuristic), §4 (open leads) and §5 (the
+post-hoc conductor-scaling check, round 92) are descriptive and carry no verdict. Anything computed after the read is
+labelled post-hoc.
 
 ## 1. Provenance and order (all UTC, 2026-10-26)
 
@@ -27,6 +31,9 @@ read is labelled post-hoc.
   sha256 ed5cd333be7445fad48439799f138c520bf44372b29d4a4f2ad63d58c3949317; `cmp` exit 0.
 - **Cost:** read1 2,064 s and read2 2,104 s wall, against the 83 min (≈ 1.4 spot core-h) modelled per read (0.41–0.42×).
   The first-X rule held: the 10¹⁰ rows came after 210 s, against a 622 s limit.
+- **Kernel:** spot's boot of 2026-10-13 16:22 to 2026-10-26 14:47 PDT ran 6.19.14-200.fc43, the pinned kernel; the
+  witness, the confirmation and the read (11:38–12:48 PDT) all ran in it. Spot rebooted afterwards into 7.2.11
+  (`journalctl --list-boots`); later spot runs record their kernel.
 
 ## 2. B2 (the sealed criterion)
 
@@ -48,7 +55,7 @@ read is labelled post-hoc.
 - **Post-hoc, descriptive:** no T among the 200 synthetic null replicates (selection and confirmation) reaches 7.443;
   their maximum is 5.706.
 
-## 3. Descriptive: D(β) at every β, and the magnitudes (no verdict)
+## 3. Descriptive, not the verdict: size, shape and scaling against the flat-offset heuristic
 
 Figure: `results/read/D_beta.png` (`rq1_plot_read.py`), D(β) with ±2 SE_diff and the heuristic offsets from
 `results/HEURISTIC_B_MIRROR.json` overlaid.
@@ -73,22 +80,33 @@ Figure: `results/read/D_beta.png` (`rq1_plot_read.py`), D(β) with ±2 SE_diff a
 - **The difference persists past the heuristic's crossover.** D peaks at β = 0.55 (+0.076 and +0.064, D/SE 8.7 and
   13.1), where the heuristic offset has mostly saturated away (0.009–0.041). The data's crossover sits later than the
   heuristic's, as the Step 1 ℤ[i] data at 10⁸ already showed. This is why B1 was dropped as a gate (round 87).
-- **Levels.** Both fields saturate near R ≈ 0.896 (10¹⁰) and 0.908 (10¹¹) at β ≥ 0.70, not at the heuristic's 1. The
-  ℤ[i] data at 10⁸ (Step 1) were 0.88–0.92 there. The absolute levels in the rigidity regime are well below the
-  heuristic's (e.g. 0.54–0.58 against 0.69–0.88 at β = 0.40), as the §5 caveat expected; the offset is a difference,
-  and a common level error cancels to first order.
-- **β = 0.90 (not gated).** D is −0.0010 and −0.0003, at −3.4 and −3.0 SE. There, N/K is only 7.3 and 9.2 points per
-  window, far from where the SE model was calibrated, so these SE are not trusted and the values are not interpreted.
+- **Levels.** The absolute levels in the rigidity regime are well below the heuristic's (e.g. 0.54–0.58 against
+  0.69–0.88 at β = 0.40), as the seal's §5 caveat expected; the offset is a difference, and a common level error
+  cancels to first order. The plateau at β ≥ 0.70 is an open lead (§4).
 - **β ≤ 0.30 (UNPOWERED, reported).** D is positive at both X but within 2.1 SE.
 
-## 4. What this does not show
+## 4. Open leads and calibration limits (descriptive)
+
+- **Open lead: the 0.90 plateau.** Both fields level off near R ≈ 0.896 (10¹⁰) and 0.908 (10¹¹) at β ≥ 0.70, not at
+  the heuristic's 1. The ℤ[i] data at 10⁸ (Step 1) were 0.88–0.92 there. It is the same in both fields, so it is not
+  a field effect. A candidate is Chen et al.'s lower-order terms (the −K_Φ term below the crossover), which the
+  flat-offset heuristic omits. Not tested here.
+- **Outside calibration: β = 0.90.** D is −0.0010 and −0.0003, at −3.4 and −3.0 SE. There, N/K is only 7.3 and 9.2
+  points per window, far from where the SE model was calibrated (K = 20–200), so these SE are not trusted and
+  the values are not interpreted. β = 0.80 (N/K 54–84) is near that edge too.
+
+## 5. Post-hoc conductor-scaling collapse (round 92; descriptive, no verdict)
+
+COLLAPSE_PENDING
+
+## 6. What this does not show
 
 - Nothing about the leading order (§4 of the seal); the reading is about the conductor-constant offset at these X.
 - Not the heuristic's size: at the gated cells the measured D is 0.3–0.7 of it.
 - The PASS rests on the SE model holding for arithmetic data (round 91 attribution), which was assumed, not tested.
 - X = 10¹² stays unseen (reserved for a possible option (C) prediction).
 
-## 5. Files
+## 7. Files
 
 - `results/read/`: read1.json and read2.json (identical), logs, pins_check.txt, segments_check.txt, first_wave.txt,
   timing.txt, cmp.txt, D_beta.png.
