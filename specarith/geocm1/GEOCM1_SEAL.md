@@ -1,4 +1,4 @@
-# GEO-CM1 seal: Ford exponent of critical circle-map tongues along metallic paths — STATUS: DRAFT (Will's five corrections applied). Not sealed; nothing computed
+# GEO-CM1 seal: Ford exponent of critical circle-map tongues along metallic paths — STATUS: DRAFT (five corrections and the go-message additions applied). Not sealed; nothing computed
 
 Map F(θ) = θ + Ω − (1/2π) sin 2πθ (K = 1, cubic critical point), lifted to ℝ. Paths: convergents p_n/q_n of
 ω_a = [0; ā], a = 1…10; cusp path 1/N, N = 2…200. Desktop CPU only (spot is on RQ1-c).
@@ -63,6 +63,30 @@ Per a: SE_d(a) = √(SE(a)² + SE(a+1)²).
 - **Double read:** two separate processes from a clean start; result JSONs must `cmp` bit-identical (mpmath and the
   numba grid are deterministic; the grid's parallel reduction is per-point, no reordering).
 - Gates (golden, silver, cusp) run and pass before the seal is stamped; their values may be read.
+
+## 8. Additions at go (Will, 2026-10-27)
+- **K = 0.5 must-fail:** the path is capped at q ≤ 34 (golden convergents 13, 21, 34 within the q ≥ 10 rule, plus the
+  smaller ones for the f_n trend) and run at a fixed 50 digits, which exceeds q·log₁₀(1/K) + 20 = 30.2 at the cap.
+  The fail condition is as in §5, evaluated on all its f_n (the q ≥ 10 rule does not apply to this witness).
+- **f(∞) fit:** an a with no SE is **excluded** (no borrowed SE).
+- **Power, counted from the denominators alone (no width computed), under §3's rule 10 ≤ q ≤ 2·10⁴:**
+
+| a | denominators in the fit | f_n | status |
+|---|---|---|---|
+| 1 | 13 … 17711 (16) | 15 | estimate + SE |
+| 2 | 12 … 13860 (9) | 8 | estimate + SE |
+| 3 | 10, 33, 109, 360, 1189, 3927, 12970 | 6 | estimate + SE |
+| 4 | 17, 72, 305, 1292, 5473 | 4 | estimate + SE |
+| 5 | 26, 135, 701, 3640, 18901 | 4 | estimate + SE |
+| 6 | 37, 228, 1405, 8658 | 3 | estimate, no SE → UNPOWERED |
+| 7 | 50, 357, 2549, 18200 | 3 | estimate, no SE → UNPOWERED |
+| 8 | 65, 528, 4289 | 2 | no estimate → UNPOWERED |
+| 9 | 82, 747, 6805 | 2 | no estimate → UNPOWERED |
+| 10 | 10, 101, 1020, 10301 | 3 | estimate, no SE → UNPOWERED |
+
+  So the UNPOWERED range is a = 6–10, wider than the a = 8–10 expected, and the f(∞) fit would rest on a = 1–5
+  (x = 1/ln λ_a from 2.08 to 0.61), so P3 is likely UNPOWERED as committed. **Open for Will before the read:** keep
+  as committed, or raise the q cap for a ≥ 6 (e.g. to 2·10⁵, two more levels each: about 10× the cost of those paths).
 
 ## 7. Cost (priced): ≈ 4–5 core-h, ≈ 30–45 min wall on the desktop's 12 cores (round "price" message). The bracket
 checks add ≈ 2 high-precision extremum polishes per edge and level (minor). Pins: PENDING.

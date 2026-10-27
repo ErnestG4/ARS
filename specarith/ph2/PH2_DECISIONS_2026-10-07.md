@@ -2135,3 +2135,11 @@ f(∞) = 1.5 ± 0.05 needs a stated basis. Say where the ±0.05 comes from, give
 Say exactly what the quintic witness must fail. Which clause, and by how much, committed in advance. Also say whether a FAIL on the quintic is guaranteed by known theory, or whether that’s only expected. If it’s only expected, the witness isn’t a clean must-fail.
 
 Standing rules. Since a ≥ 3 is unseen, the usual rules apply even though the computation is deterministic: OpenTimestamps attestation before the read, a pinned environment, and a double read that cmps bit-identical. mpmath is deterministic, so that’s cheap.
+
+### GEO-CM1 go (2026-10-27; Will, verbatim)
+GEO-CM1: go, with two additions to the seal before the gates run:
+
+K = 0.5 must-fail: use per-level mpmath precision of about q·log₁₀(1/K) + 20 digits, or cap that path at q ≤ 34. State which.
+f(∞) fit: say how an a with no SE enters. Either it’s excluded, or it gets a conservative SE committed now (for example the largest SE among the powered a). The a = 10 UNPOWERED expectation is accepted, and it may extend to a = 8 or 9; report which.
+
+Everything else as committed. Then gates → stamp → attestation → double read → read a ≥ 3. Pushes stay with Will.
