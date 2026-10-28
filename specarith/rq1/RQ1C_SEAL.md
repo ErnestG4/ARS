@@ -1,4 +1,4 @@
-# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites 1–5 done; read code written and checked (§6). For Will: ready to seal; nothing at 10¹² read
+# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: FINAL for Will's approval (edits of 2026-10-28 applied: P3/P4 attribution, VOID list, t note); on approval the header becomes SEALED with the date, in the stamped commit. Nothing at 10¹² read
 
 New arc (round 95), two-session time box. RQ1 closes as written (round 94). Every number below comes from the 10¹⁰ and
 10¹¹ results (`RQ1_FINDINGS.md`, `results/read/`, `results/collapse/`) and from synthetic witnesses; nothing at 10¹² is
@@ -56,6 +56,8 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
   jittered-lattice sets at N = 10⁹ with the 10¹² K grid), and a no-crossing null. The rule must place a planted
   crossing at 0.525 inside the window in ≥ 90/100, one at 0.50 or 0.555 outside in ≥ 90/100, and report no crossing on
   the null in ≥ 90/100.
+- **Attribution (Will, 2026-10-28).** PASS: the crossover stays pinned near β ≈ ½ at 10¹². FAIL: it drifts or vanishes,
+  so it is not tied to the K = N^½ bifurcation.
 
 ### P4 — ℤ[ω] ordering at β = 0.55 (gated); rigidity cells and the 0.28 ratio descriptive
 - **Rule:** R_ℤ[√2] > R_ℤ[ω] > R_ℤ[i] at matched N at β = 0.55, at every X where the predicted ℤ[ω]–ℤ[i] separation is
@@ -67,6 +69,9 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
 - **Descriptive:** the ordering at β 0.40 and 0.45 (predicted ℤ[ω]–ℤ[i] separations 0.4–1.1 SE), and the ratio
   D_ωi / D_√2i against 0.283 at β 0.55.
 - C_ω = log 27 is derived (round 93), not checked against a published ℤ[ω] source.
+- **Attribution (Will, 2026-10-28).** PASS: ℤ[ω] falls between the other two fields, as its conductor constant predicts.
+  FAIL: may reflect a ℤ[ω] effect smaller than ΔC scaling predicts (that scaling held only to within 0–30% for ℤ[√2]),
+  or an error in the unverified C_ω = log 27, as well as a wrong ordering.
 
 ## 3. Costs (cost model; spot core-h)
 
@@ -111,7 +116,11 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
    | P3 | null: no crossing reported | ≥ 90 | 100 |
    | P4 (seed 9820) | null false PASS / planted PASS | ≤ 5 / ≥ 90 | 0 / 99 |
 
-   - **Frozen t = 3.927888490280975** (2 × the centred SD of T on the selection null, 1.974; mean −0.003). SE scale
+   - **Frozen t = 3.927888490280975** = 2·RMS(T_null), the uncentred RMS over the 100 selection-null replicates, as
+     round 90 specified (RMS 1.963944; null mean −0.00269). *Corrected 2026-10-28:* this line previously called it
+     "2 × the centred SD, 1.974"; 1.9738 is the ddof = 1 centred SD recorded in `P1_SELECTION.json`, which t does not
+     use. **t note (Will):** a centred SD on the same footing (ddof = 0) differs from the uncentred RMS by 1.8·10⁻⁶ at
+     a null mean of −0.003, moving t by 3.7·10⁻⁶ (3.927885): immaterial. SE scale
      factors 1.0 at both cells (block-SE / replicate-SD ratios 1.091 and 0.996; the SE check was not triggered).
    - **P1 power at the frozen t** (recomputed with the witness null SD; the recorded values used t ≈ 3.78): 0.87
      (1/log X), 0.79 (1/log² X), 0.32 (X^{−δ}). The attribution in §2 stands.
@@ -120,9 +129,15 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
      the rise came with the ℤ[i] archive sharing spot). §3's ≈ 70 was the model before the P3 design was built.
 5. **Archives complete and hashed; manifests pinned (§6)** — DONE: ℤ[√2], ℤ[i] and ℤ[ω] complete and pinned (§6).
 
-## 5. Order (to be fixed at sealing)
+## 5. Order and VOID conditions
 Archives complete and hashed → witnesses → seal approved → OTS stamp → Bitcoin attestation verified on two explorers →
 `sha256sum -c` on spot (code, JSONs, manifests, segments, mount guard) → double read under caps → `cmp`.
+
+**VOID conditions (Will, 2026-10-28)** — any one voids the read:
+1. a `cmp` mismatch between the two reads;
+2. a hash mismatch in the `sha256sum -c` step: code, JSONs, manifests or segments;
+3. the mount guard failing (`/mnt/data` not mounted; `rq1c_read.py` asserts `os.path.ismount("/mnt/data")` before
+   reading).
 
 ## 6. Pins (filled as each item completes)
 
