@@ -1,0 +1,21 @@
+GEO-TOT1 seal timestamp manifest (OpenTimestamps). Order: seal -> stamp -> enumeration on spot (outputs hashed, no
+statistic of q > 2000 displayed) -> Bitcoin attestation verified on two explorers -> gates -> witness -> sealed read (double, cmp).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is GEOTOT1_SEAL_STAMP_2026-10-27.txt.ots.
+Statement: at the time of stamping, nothing above q = 2000 has been enumerated.
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag geotot1-seal              object a4f1d4744a52c3da08e6dc57287eae4e4855dda1
+                              on commit 0d8626784800117fd903760ba5dc75d8f5728c45
+                              specarith/geotot1/GEOTOT1_SEAL.md
+                              sha256 facc469356a5a9dcd666116df8259c27404d99436406efb0081f0f050f35250e
+                              specarith/geotot1/GEOTOT1_STEP0.md
+                              sha256 400327e4b14979fe9085f9f20de4b2e986fce20ee89db7e162318e1a6edae4ed
+                              specarith/geotot1/geotot1.py
+                              sha256 bb1d0bad0e1b180aba152fc709226f6ccf7bfa1b9169e82ed37353c8ca7c5474
+                              specarith/geotot1/geotot1_analyze.py
+                              sha256 58a12452f8d52df6ed0a75c81dbe45ea3884eced3217d299ad213ef5b1b1ea9f
+                              specarith/geotot1/run_geotot1_spot.sh
+                              sha256 db7077f812f802c33dbcdb529d05c23da8251a2277c66910d5cd4291f7544145
+                              specarith/geotot1/results/SEEN_RANGE.json
+                              sha256 ec00c1a145ef220363e57f10f3a64f1865d1cd0429a36de519bbb3c2dcda8927
+(sha256 of `git show 0d8626784800117fd903760ba5dc75d8f5728c45:<path>`; the tag geotot1-seal resolves to that commit)
