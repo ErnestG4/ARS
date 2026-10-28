@@ -1,0 +1,2 @@
+600 tasks, measured cpu/model = 1.156
+OK

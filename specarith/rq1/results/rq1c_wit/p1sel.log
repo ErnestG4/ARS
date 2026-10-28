@@ -1,0 +1,1 @@
+{"P": "p1sel", "reps": 100, "se_ratio": {"0.4": 1.0908749308174117, "0.45": 0.9956175485371572}, "se_check_triggered": false, "scale": {"0.4": 1.0, "0.45": 1.0}, "t": 3.927888490280975, "T_null_mean": -0.002685622401662113, "T_null_sd_centred": 1.973836387929839, "null_false_pass": 4, "planted_pass": 100, "OK": true, "cpu_core_h": 6.218169328673611}

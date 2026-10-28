@@ -1,0 +1,14 @@
+{
+ "P": "p1conf",
+ "reps": 100,
+ "t": 3.927888490280975,
+ "scale": {
+  "0.4": 1.0,
+  "0.45": 1.0
+ },
+ "selection_file": "rq1c_wit/P1_SELECTION.json",
+ "null_false_pass": 1,
+ "planted_pass": 100,
+ "OK": true,
+ "cpu_core_h": 5.623821412733055
+}

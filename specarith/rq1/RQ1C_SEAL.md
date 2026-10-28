@@ -1,4 +1,4 @@
-# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites (§4) pending. Not sealed; nothing at 10¹² read
+# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites 1–4 done, 5 pending (ℤ[ω] archive), read code to write (§6). Not sealed; nothing at 10¹² read
 
 New arc (round 95), two-session time box. RQ1 closes as written (round 94). Every number below comes from the 10¹⁰ and
 10¹¹ results (`RQ1_FINDINGS.md`, `results/read/`, `results/collapse/`) and from synthetic witnesses; nothing at 10¹² is
@@ -8,9 +8,9 @@ read before this seal is approved, stamped and Bitcoin-attested.
 
 | Field | Archive (spot `/mnt/data/rq1/`) | Status | Seen before |
 |---|---|---|---|
-| ℤ[√2] | `archive_1e12_zs2`, to 10¹² | generating (round 93) | 10¹⁰, 10¹¹ (sealed read) |
-| ℤ[i] | `archive_1e12_zi`, to 1.01·10¹² | queued after ℤ[√2] | 10¹⁰, 10¹¹ (sealed read) |
-| ℤ[ω] | `archive_1e12_zw`, to 1.01·10¹² | queued after ℤ[i] (round 95) | only Phase 34d's X ≤ 10⁸ |
+| ℤ[√2] | `archive_1e12_zs2`, to 10¹² | done, pinned (§6) | 10¹⁰, 10¹¹ (sealed read) |
+| ℤ[i] | `archive_1e12_zi`, to 1.01·10¹² | done, pinned (§6) | 10¹⁰, 10¹¹ (sealed read) |
+| ℤ[ω] | `archive_1e12_zw`, to 1.01·10¹² | generating (started 2026-10-27 16:51) | only Phase 34d's X ≤ 10⁸ |
 
 - **ℤ[ω] (stated before generating; `rq1_zw.py`, f60fb59f, committed before launch).** Split rule p ≡ 1 (mod 3),
   p = u² + 3v² with u, v > 0 (unique); π = u + v√−3. θ = (arg π mod π/3)/(π/3) ∈ [0, 1); the conjugate ideal sits at
@@ -92,10 +92,57 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
    N·δ²·K is at least the 10¹² value at 2⁻³⁶, binned − exact is positive in all 50 comparisons, 0.007–0.25 of
    N·δ²·K, and at most 0.0008 SE at the P1/P4 cells and 0.081 SE on the P3 grid (largest at β 0.65). About 14 ns per
    bin step: ≈ 1,900 spot core-s per 10¹² pass (2,540 modelled).
-3. **Full-N SE check:** empirical/model SE_diff at full N (3.76·10¹⁰, binned synthetic sets) and at N = 10⁹ agree within
-   20% at K for β = 0.40, 0.45 and 0.55 (10 replicates each). Pass → reduced-N witnesses; fail → full-N witnesses.
-4. **Witnesses** for P1 (t), P3 and P4, with their results and the frozen t in §6 pins.
-5. **Archives complete and hashed;** manifests pinned (§6).
+3. **Full-N SE check — DONE, PASS** (`rq1c_blockse.py`; `results/r96/BLOCKSE_VALIDATION.json`,
+   `results/r96/BLOCKSE_FULL.json`). The block SE (1,000 arcs in 500 mirror pairs) against the replicate SD at
+   N = 10⁹ (100 replicates, both families): ratios 0.874–1.004, inside ±15%. Full N (3.76·10¹⁰, binned) against
+   reduced N at K = 16,985, 57,390 and 655,169 (β 0.40, 0.45, 0.55): ratios 0.944–1.037 (mixture) and 1.018–1.037
+   (jittered lattice), inside 20%. So the witnesses run at reduced N.
+4. **Witnesses — DONE, all bars met** (`rq1c_witness.py` @ 89dfe2b3, sha256 33a8a308…bce78, identical on spot;
+   `results/rq1c_wit/`). N = 10⁹ with the 10¹² K grid (N₁₂ = 3.760·10¹⁰; the actual matched N is 37,607,890,106, so
+   K shifts by < 0.01%). 100 replicates per arm.
+
+   | Prediction | Arm | Bar | Result |
+   |---|---|---|---|
+   | P1 selection (seeds 9800) | null false PASS / planted PASS | ≤ 5 / ≥ 90 | 4 / 100 |
+   | P1 confirmation (fresh seeds 9801) | null false PASS / planted PASS | ≤ 5 / ≥ 90 | 1 / 100 |
+   | P3 (seed 9810) | planted crossing 0.525 placed inside [0.51, 0.54] | ≥ 90 | 100 (mean 0.5258, SD 0.0024) |
+   | P3 | planted 0.500 placed outside | ≥ 90 | 100 (mean 0.5006, SD 0.0025) |
+   | P3 | planted 0.555 placed outside | ≥ 90 | 100 (mean 0.5555, SD 0.0025) |
+   | P3 | null: no crossing reported | ≥ 90 | 100 |
+   | P4 (seed 9820) | null false PASS / planted PASS | ≤ 5 / ≥ 90 | 0 / 99 |
+
+   - **Frozen t = 3.927888490280975** (2 × the centred SD of T on the selection null, 1.974; mean −0.003). SE scale
+     factors 1.0 at both cells (block-SE / replicate-SD ratios 1.091 and 0.996; the SE check was not triggered).
+   - **P1 power at the frozen t** (recomputed with the witness null SD; the recorded values used t ≈ 3.78): 0.87
+     (1/log X), 0.79 (1/log² X), 0.32 (X^{−δ}). The attribution in §2 stands.
+   - **Cost:** 128.4 spot core-h (P1 selection 6.2, confirmation 5.6, P3 102.9, P4 13.7) against the measured-CPU model
+     of 112 (1.15×; checks 1.03× at the first wave, 1.21× / 1.17× / 1.16× at 25 / 50 / 75%, all under the 1.25× stop;
+     the rise came with the ℤ[i] archive sharing spot). §3's ≈ 70 was the model before the P3 design was built.
+5. **Archives complete and hashed; manifests pinned (§6)** — ℤ[√2] and ℤ[i] done; ℤ[ω] generating.
+
+## 6. Pins (filled as each item completes)
+
+**Matched N at 10¹²:** n = 18,803,945,053 ℤ[√2] split primes below 10¹², so N = 2n = 37,607,890,106 points with the
+mirror; K = round(N^β) at this N.
+
+**ℤ[√2] archive** (spot `/mnt/data/rq1/archive_1e12_zs2/`; manifest copy `results/archive_1e12_zs2/MANIFEST.json`, sha256
+4895bdfae09e2618602e89c7a4a9d9fcd62b0ef613b5c77ec2abd4fdc04afb1e; @ ccabbdfc).
+- 10,000 segments of 10⁸, 18,803,945,053 rows, integrity on every segment.
+- Segment-hash digest 025354a7e13dd8d8448f863c3b17586571d1bea4c96c6091762056cde13f81b5 (recomputed locally).
+- Row counts below 10¹⁰ and 10¹¹ equal the sealed read's archive (227,524,967; 2,059,026,114).
+- Generator `rq1_archive.py` sha256 eca8eb95…75cc0, `rq1_angles.py` 7764c23e…1a0c. Cost 1.039× the model.
+
+**ℤ[i] archive** (spot `/mnt/data/rq1/archive_1e12_zi/`; manifest copy `results/archive_1e12_zi/MANIFEST.json`, sha256
+19a3a85e17a5606d8d8ac9d0f86a9207aa07690f9f7f0d5781350519cb883508; @ 52f45d89).
+- 10,100 segments of 10⁸ to 1.01·10¹², 18,984,851,446 rows (≥ n), integrity on every segment.
+- Segment-hash digest f38b04768ab2429e9fc6c4b2c7fd989e854aae665bb1fbfc15d701b5413cbb34 (recomputed locally).
+- The 1,010 segments below 1.01·10¹¹ are hash-identical to the sealed read's ℤ[i] archive. Cost 0.976× the model.
+
+**ℤ[ω] archive** — pending (`rq1_zw.py` sha256 98dd1582…66d1, `archive_1e12_zw`).
+
+**Code:** `rq1c_binned.py` 96b925be…cf1b, `rq1c_blockse.py` 1a2eebe1…b35e, `rq1c_witness.py` 33a8a308…bce78,
+`rq1c_p2.py` 047a8387…9a51, `rq1c_power.py` 8a5d5a1d…3f2a. **The 10¹² read code is not yet written;** it is pinned
+here, with a check that it reproduces the sealed 10¹⁰ / 10¹¹ values, before the seal goes to Will.
 
 ## 5. Order (to be fixed at sealing)
 Archives complete and hashed → witnesses → seal approved → OTS stamp → Bitcoin attestation verified on two explorers →
