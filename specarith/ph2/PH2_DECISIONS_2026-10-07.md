@@ -2311,3 +2311,15 @@ R against q: bin the fresh squares into about 4 bins in log q, report R per bin 
 Decomposition: for each square, classify its bounded keys as Niederreiter-fold or not, and compute the non-fold excess over matched primes per N, on both the seen and fresh ranges. Report whether the N = 3 surplus and the N = 4 deficit sit in the non-fold keys.
 The 2^k squares: count their fold representations (m·r², m ≤ N+1) against their excess, descriptively.
 Send the RQ1-c seal file to Will for my review before stamping. Include confirmation of the exact/binned reproduction and of the ℤ[ω] reproduction of 34d’s angles at ≤ 10⁸.
+
+### RQ1-c seal edits; GEO-TOT2 L9 (2026-10-28; Will, verbatim)
+RQ1-c seal: four edits, then Will approves and you stamp.
+
+Attribution:
+P3. PASS: the crossover stays pinned near β ≈ ½ at 10¹². FAIL: it drifts or vanishes, so it isn’t tied to the K = N^½ bifurcation.
+P4. PASS: ℤ[ω] falls between the other two fields, as its conductor constant predicts. FAIL: may reflect a ℤ[ω] effect smaller than ΔC scaling predicts (that scaling held only to within 0–30% for ℤ[√2]) or an error in the unverified C_ω = log 27, as well as a wrong ordering.
+VOID conditions, listed: a cmp mismatch; a hash mismatch (code, JSONs, manifests, segments); the mount guard failing.
+t: note that the centred SD (round 90 specified uncentred RMS) differs by about 4·10⁻⁶ at a null mean of −0.003, so it’s immaterial.
+Header: SEALED, with the date, in the stamped commit.
+
+GEO-TOT2: record L9: an N-dependent anomaly in the non-fold keys of prime squares (N = 3 surplus whose ratio to the fold count grows ≈ +0.67 per decade, constant rejected; N = 4 deficit; nothing at N = 5), with the 2^k squares’ unattributed excess alongside it. No further compute. Add it to the README’s “who would know” line (Kontorovich, Magee).
