@@ -1,4 +1,4 @@
-# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites 1–4 done, 5 pending (ℤ[ω] archive), read code written and checked (§6). Not sealed; nothing at 10¹² read
+# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites 1–5 done; read code written and checked (§6). For Will: ready to seal; nothing at 10¹² read
 
 New arc (round 95), two-session time box. RQ1 closes as written (round 94). Every number below comes from the 10¹⁰ and
 10¹¹ results (`RQ1_FINDINGS.md`, `results/read/`, `results/collapse/`) and from synthetic witnesses; nothing at 10¹² is
@@ -10,7 +10,7 @@ read before this seal is approved, stamped and Bitcoin-attested.
 |---|---|---|---|
 | ℤ[√2] | `archive_1e12_zs2`, to 10¹² | done, pinned (§6) | 10¹⁰, 10¹¹ (sealed read) |
 | ℤ[i] | `archive_1e12_zi`, to 1.01·10¹² | done, pinned (§6) | 10¹⁰, 10¹¹ (sealed read) |
-| ℤ[ω] | `archive_1e12_zw`, to 1.01·10¹² | generating (started 2026-10-27 16:51) | only Phase 34d's X ≤ 10⁸ |
+| ℤ[ω] | `archive_1e12_zw`, to 1.01·10¹² | done, pinned (§6) | only Phase 34d's X ≤ 10⁸ |
 
 - **ℤ[ω] (stated before generating; `rq1_zw.py`, f60fb59f, committed before launch).** Split rule p ≡ 1 (mod 3),
   p = u² + 3v² with u, v > 0 (unique); π = u + v√−3. θ = (arg π mod π/3)/(π/3) ∈ [0, 1); the conjugate ideal sits at
@@ -118,7 +118,7 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
    - **Cost:** 128.4 spot core-h (P1 selection 6.2, confirmation 5.6, P3 102.9, P4 13.7) against the measured-CPU model
      of 112 (1.15×; checks 1.03× at the first wave, 1.21× / 1.17× / 1.16× at 25 / 50 / 75%, all under the 1.25× stop;
      the rise came with the ℤ[i] archive sharing spot). §3's ≈ 70 was the model before the P3 design was built.
-5. **Archives complete and hashed; manifests pinned (§6)** — ℤ[√2] and ℤ[i] done; ℤ[ω] generating.
+5. **Archives complete and hashed; manifests pinned (§6)** — DONE: ℤ[√2], ℤ[i] and ℤ[ω] complete and pinned (§6).
 
 ## 5. Order (to be fixed at sealing)
 Archives complete and hashed → witnesses → seal approved → OTS stamp → Bitcoin attestation verified on two explorers →
@@ -142,7 +142,15 @@ mirror; K = round(N^β) at this N.
 - Segment-hash digest f38b04768ab2429e9fc6c4b2c7fd989e854aae665bb1fbfc15d701b5413cbb34 (recomputed locally).
 - The 1,010 segments below 1.01·10¹¹ are hash-identical to the sealed read's ℤ[i] archive. Cost 0.976× the model.
 
-**ℤ[ω] archive** — pending (`rq1_zw.py` sha256 98dd1582…66d1, `archive_1e12_zw`).
+**ℤ[ω] archive** (spot `/mnt/data/rq1/archive_1e12_zw/`; manifest copy `results/archive_1e12_zw/MANIFEST.json`, sha256
+f3de0c0761a838059269272d59327c1f31f54004cdece9d0fdeab388bbc456f8, identical on spot; generator `rq1_zw.py` sha256
+98dd1582…66d1).
+- 10,100 segments of 10⁸ to 1.01·10¹², contiguous, 18,984,849,138 rows (≥ n), integrity on every segment.
+- Segment-hash digest a6d8f0fb6bbec7a4e60615c52557b943c8fe823c8b906202b837fafae510b26d (recomputed locally).
+- Rows below 10¹⁰ / 10¹¹ / 10¹²: 227,523,123 / 2,059,018,668 / 18,803,933,520 (generation counts only; nothing read).
+- Segment 0 (X < 10⁸): 2,880,517 rows, hash 1fce82b2…7df8 = the regenerated segment and the Phase 34d split-prime count
+  in `results/rq1c_read/ZW34D_CHECK.json`. Cost 0.929× the model overall (first wave 0.685, half 0.905, three
+  quarters 0.951).
 
 **Code:** `rq1c_binned.py` 96b925be…cf1b, `rq1c_blockse.py` 1a2eebe1…b35e, `rq1c_witness.py` 33a8a308…bce78,
 `rq1c_p2.py` 047a8387…9a51, `rq1c_power.py` 8a5d5a1d…3f2a.
