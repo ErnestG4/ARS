@@ -1,0 +1,50 @@
+{
+ "manifest": "timestamps/GEOTOT2_SEAL_STAMP_2026-10-28.txt",
+ "manifest_sha256": "e8d4696945d96cc3fa928bc0eb32c9d09e6b73f7f79a50ac7dbedb57f7269cbf",
+ "receipt": "timestamps/GEOTOT2_SEAL_STAMP_2026-10-28.txt.ots",
+ "receipt_sha256": "03200149e8248f7db38d776b76e65b9219e09af4949c4eaf59f311ca4fe8c12a",
+ "paths_checked": 8,
+ "attestations": [
+  {
+   "height": 973525,
+   "merkle_root": "47015713db8a6e23af4f14350ac72838969583a8cae2b02ea50d7801ebb3cff4",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "00000000000000000001f77fe0b85c4d96c0ed1f3652a71a3ab5e9cfa65e5be1",
+     "merkle_root": "47015713db8a6e23af4f14350ac72838969583a8cae2b02ea50d7801ebb3cff4",
+     "height": 973525,
+     "time_utc": "2026-10-28T08:20:13+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "00000000000000000001f77fe0b85c4d96c0ed1f3652a71a3ab5e9cfa65e5be1",
+     "merkle_root": "47015713db8a6e23af4f14350ac72838969583a8cae2b02ea50d7801ebb3cff4",
+     "height": 973525,
+     "time_utc": "2026-10-28T08:20:13+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "00000000000000000001f77fe0b85c4d96c0ed1f3652a71a3ab5e9cfa65e5be1",
+   "time_utc": "2026-10-28T08:20:13+00:00"
+  }
+ ],
+ "calendars": [
+  "https://finney.calendar.eternitywall.com",
+  "https://btc.calendar.catallaxy.com",
+  "https://bob.btc.calendar.opentimestamps.org",
+  "https://alice.btc.calendar.opentimestamps.org"
+ ],
+ "earliest": {
+  "height": 973525,
+  "block_hash": "00000000000000000001f77fe0b85c4d96c0ed1f3652a71a3ab5e9cfa65e5be1",
+  "time_utc": "2026-10-28T08:20:13+00:00"
+ },
+ "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+ "checks": {
+  "receipt_commits_to_manifest": true,
+  "manifest_hashes_match_tag": true,
+  "tag_object_matches": true,
+  "tag_commit_matches": true,
+  "bitcoin_attested": true,
+  "all_attestations_verify": true
+ }
+}
