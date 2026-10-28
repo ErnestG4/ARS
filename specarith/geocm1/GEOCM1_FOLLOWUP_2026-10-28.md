@@ -12,10 +12,10 @@ per-level values (READ1) plus one new double-precision check (item 3).
    For comparison, a = 5 has the same level count but its ratios are already steady (−0.009, −0.012): SE 1.3·10⁻⁷.
    a = 3 has 6 ratios, so its SE uses later triples (ratios −0.15, −0.17).
 2. **Brackets and precision are clean at every a = 4 level:** 0 bracket fixes at both precisions; bisection–Newton
-   agreement ≤ 1.0·10⁻¹¹ of the width; 30 vs 50 digits agree to ≤ 2.7·10⁻²³ relative; edge tolerance 2.5·10⁻¹¹ of the
+   agreement ≤ 1.5·10⁻¹¹ of the width (≤ 1.0·10⁻¹¹ at q ≥ 10); 30 vs 50 digits agree to ≤ 2.7·10⁻²³ relative; edge tolerance 2.5·10⁻¹¹ of the
    width.
 3. **Global extremum (new check, double precision):** at Ω = edge ∓ 0.05·w, the maximum (minimum) of G = Fᵠ(x) − x − p
-   over a 256q grid with refinement has the required sign at both edges of every level of a = 3, 4, 5 (19 levels, all
+   over a 256q grid with refinement has the required sign at both edges of every level of a = 3, 4, 5 (20 levels, all
    pass). So no edge was found on a local extremum that is not global.
 4. **Golden-path tongues:** none near. The a = 4 tongues are at Ω ≈ 0.2715; the golden path converges to Ω₁ = 0.60666,
    ≥ 524 widths away even at q = 4 (≥ 1.9·10⁸ widths at q = 5473). What the a = 4 brackets do contain are Fibonacci-
