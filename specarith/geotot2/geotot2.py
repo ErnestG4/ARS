@@ -10,7 +10,7 @@ denominator p²), on the same scale: f_N(q) = F_N(q)·(q/φ(q)) / q^(2δ_N − 1
 (B) Prime squares p², 10⁶ < q ≤ 10⁷: R_N = mean excess / mean f_N over the squares; pooled R = inverse-variance-weighted
     mean of R_3, R_4, R_5 (weights from their bootstrap SEs). SEs by a bootstrap over targets (10,000 resamples).
 
-  python geotot2.py plan PERQ_PARQUET OUT_JSON      seen range + deterministic arithmetic only (no q > 10⁶ counted)
+  python geotot2.py plan PERQ_PARQUET OUT_JSON [HI] seen range (HI = 1e7 default) + deterministic arithmetic only (no q > 10⁶ counted)
   python geotot2.py enum PLAN_JSON OUT_NPZ          the fresh q (targets and matched primes), counts for N = 2 … 6
   python geotot2.py read PLAN_JSON NPZ OUT_JSON     sealed read
 """
@@ -119,7 +119,7 @@ def reading(R, se, R_seen, se_seen):
     return dict(R=R, SE=se, consistent_H_fold=bool(cf_), consistent_H_seen=bool(cs), reading=v)
 
 
-def targets(primes):
+def targets(primes, HI):
     sq = [int(p) * int(p) for p in primes if LO < int(p) * int(p) <= HI]
     odd, even = [], []
     for p in primes:
@@ -136,14 +136,15 @@ def targets(primes):
     return sq, sorted(odd), sorted(even)
 
 
-def plan(perq, out):
+def plan(perq, out, HI=HI):
     import pyarrow.parquet as pq_
     t = pq_.read_table(perq, columns=["q", "phi", "type", "E3_canon", "E4_canon", "E5_canon"]).to_pandas()
     q1, phi1, typ = t.q.values, t.phi.values, t.type.astype(str).values
     vseen = {N: t[f"E{N}_canon"].values * scale(q1.astype(float), phi1, N) for N in NS}
     P = sieve(HI + 2000)
-    sq, odd, even = targets(P)
-    res = dict(label="GEO-TOT2 plan: seen range (q ≤ 10⁶) and deterministic arithmetic only", seed=SEED, nboot=NBOOT)
+    sq, odd, even = targets(P, HI)
+    res = dict(label="GEO-TOT2 plan: seen range (q ≤ 10⁶) and deterministic arithmetic only", seed=SEED, nboot=NBOOT,
+               range=[LO, HI])
     # fresh targets and their matched primes
     fresh = []
     for q in sq:
@@ -292,14 +293,35 @@ def enum_list(qs):
 
 
 def enum(plan_json, out):
+    """20 chunks of the seeded permutation of the q list (balances the threads); cost checks against the GEO-TOT1 model
+    (6.06 ns per Euclid step × 2.3 on spot) after the first chunk and at 25 / 50 / 75%: above 1.25× → STOPPED, exit 3."""
     pl = json.load(open(plan_json))
     qs = np.array(pl["fresh_q_list"], np.int64)
-    order = np.random.default_rng(SEED).permutation(len(qs))     # balance the threads
+    order = np.random.default_rng(SEED).permutation(len(qs))
+    model = lambda v: float(sum((int(q) - 1) * (MU * math.log(int(q)) + 1.0) for q in v)) * 6.06e-9 * 2.3
+    enum_list(np.array([5, 7], np.int64))                        # compile outside the cost measurement
     t0 = time.process_time()
-    phi, cc, ca = enum_list(qs[order])
-    inv = np.argsort(order)
-    np.savez(out, q=qs, phi=phi[inv], cnt_canon=cc[inv], cnt_alt=ca[inv])
-    open(out + ".cpu", "w").write(f"{time.process_time() - t0:.3f}\n")
+    phi = np.zeros(len(qs), np.int64)
+    cc = np.zeros((len(qs), 5), np.int64)
+    ca = np.zeros((len(qs), 5), np.int64)
+    chunks = np.array_split(order, 20)
+    checks = {0: "first", 5: "25%", 10: "50%", 15: "75%"}
+    done = []
+    for c, idx in enumerate(chunks):
+        if c in checks and c > 0 or c == 1:
+            r = (time.process_time() - t0) / model(qs[np.concatenate(done)])
+            lab = checks.get(c, "first")
+            print(f"{lab}: {c} chunks, cpu/model = {r:.3f}", flush=True)
+            if r > 1.25:
+                open(out + ".STOPPED", "w").write(f"cost above 1.25x at {lab}: {r:.3f}\n")
+                return 3
+        p_, c_, a_ = enum_list(qs[idx])
+        phi[idx], cc[idx], ca[idx] = p_, c_, a_
+        done.append(idx)
+    cpu = time.process_time() - t0
+    np.savez(out, q=qs, phi=phi, cnt_canon=cc, cnt_alt=ca)
+    open(out + ".cpu", "w").write(f"{cpu:.3f} {cpu / model(qs):.4f}\n")
+    print(f"done: cpu {cpu / 3600:.2f} core-h = {cpu / model(qs):.3f}x model", flush=True)
     return 0
 
 
@@ -345,7 +367,7 @@ def read(plan_json, npz, out):
 if __name__ == "__main__":
     c = sys.argv[1]
     if c == "plan":
-        sys.exit(plan(sys.argv[2], sys.argv[3]))
+        sys.exit(plan(sys.argv[2], sys.argv[3], *([int(float(sys.argv[4]))] if len(sys.argv) > 4 else [])))
     if c == "enum":
         sys.exit(enum(sys.argv[2], sys.argv[3]))
     sys.exit(read(sys.argv[2], sys.argv[3], sys.argv[4]))
