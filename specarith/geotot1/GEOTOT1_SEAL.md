@@ -1,4 +1,6 @@
-# GEO-TOT1 seal — STATUS: DRAFT for Will (Step 0 filed; pins at stamping). Nothing above q = 2000 computed
+# GEO-TOT1 seal — STATUS: SEALED as of the tag geotot1-seal (stamped 2026-10-28 04:28 UTC; Bitcoin block 973499). Read 7658da82: PASS (README.md)
+
+This header line was updated after the read; the tagged text's header still read "DRAFT for Will" (a stale header: the body was final at the tag). Nothing else changed.
 
 Brief: Will, 2026-10-27 (filed verbatim in `specarith/ph2/PH2_DECISIONS_2026-10-07.md`). Hardware per Will's note: spot's
 free cores (or char); the 4090 is not used.

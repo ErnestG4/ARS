@@ -207,7 +207,7 @@ def main(npz, read_json):
             ax.plot(xx, np.exp(a0) * xx ** s, ls, color=INK, lw=1.2, label=lab)
         ax.axvspan(1e5, 1e6, color=GRID, alpha=0.5, lw=0)
         r = rd["per_q"][str(N)]
-        ax.set_title(f"N = {N}: fitted slope {r['slope']:.4f} ± {r['SE']:.4f}", color=INK)
+        ax.set_title(f"N = {N}: fitted slope {r['slope']:.4f} (SE {r['SE']:.1e})", color=INK)
         ax.set_xscale("log")
         ax.set_yscale("log")
         ax.set_xlim(2, 1.2e6)
@@ -238,8 +238,9 @@ def main(npz, read_json):
                 ax.set_ylabel(lab)
             if row == 1:
                 ax.set_xlabel("q")
-    axs[0, 0].legend(fontsize=7.5, frameon=False, labelcolor=INK2, title="type of q (bin means, ≥ 5 q per bin)",
-                     title_fontsize=7.5)
+    h, l = axs[0, 0].get_legend_handles_labels()
+    fig.legend(h, l, loc="outside lower center", ncol=4, fontsize=8, frameon=False, labelcolor=INK2,
+               title="type of q (bin means, bins with ≥ 5 q)", title_fontsize=8)
     fig.suptitle("GEO-TOT1: the per-q constant by arithmetic type; the local factor φ(q)/q (Bourgain–Kontorovich "
                  "singular series) carries most of the type dependence (descriptive)", color=INK, fontsize=10)
     figs["cN_by_type"] = fig
@@ -261,7 +262,7 @@ def main(npz, read_json):
     ax.plot(xx, lead(xx), ":", color=INK, lw=1.2, label="(6/π²) ln²q  (Panov–Liehl leading term)")
     ax.plot(xx, corr(xx), "--", color=INK, lw=1.2, label=f"+ {B_YK} ln q  (second order, inferred; O(1) not fitted)")
     ax.set_xscale("log")
-    ax.set_ylim(0, float(np.nanpercentile(md[q > 100], 99.5)))
+    ax.set_ylim(0, 1.08 * float(by.max()))
     ax.set_xlabel("q")
     ax.set_ylabel("mean depth over the φ(q) keys")
     ax.legend(fontsize=7.5, frameon=False, labelcolor=INK2, loc="upper left")

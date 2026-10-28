@@ -1,0 +1,76 @@
+{
+ "source": {
+  "file": "GEOTOT1_Q1e6.npz",
+  "sha256": "5a89ab74ce67b7788fe6945712e977549452fb2e50e9af9dc879463ad1e45c9f"
+ },
+ "read": "results/READ1.json",
+ "files": {
+  "data/GEOTOT1_perq.parquet": {
+   "sha256": "3f4f397823f6c434203a2626aaa21ba042c8f19d19d40e2eb9b94d3f8881b480",
+   "bytes": 90608666
+  },
+  "data/GEOTOT1_perq_hist.parquet": {
+   "sha256": "ec2af94546e11bdcb8e18f54da38040315ebd8ccb39e0e0bf1a11fe7cdb5a2a1",
+   "bytes": 76769725
+  },
+  "results/GEOTOT1_q_le_1e5.json": {
+   "sha256": "c14920970998c1d13ecd606b3ffdd0ab00053a8c71bb0c165188bdfa570cfbd2",
+   "bytes": 4069728
+  },
+  "results/figures/geotot1_count_vs_q.png": {
+   "sha256": "ca5e266108366c1c0583968d0845a197aec55f9c9946c315e2a9c22d538df55b",
+   "bytes": 261327
+  },
+  "results/figures/geotot1_cN_by_type.png": {
+   "sha256": "60b434f9800c206dd23d0be439443fd89971fdc86a8406063d8afdfc3f417ff8",
+   "bytes": 274743
+  },
+  "results/figures/geotot1_mean_depth.png": {
+   "sha256": "936e482dd952ba5ccac6127c1bc242b1828597960c9995b42a681c49aa9a7498",
+   "bytes": 166777
+  },
+  "results/figures/geotot1_depth_distribution.png": {
+   "sha256": "363a2e6b03726fd99f128ba5bb3226f2f32a2a399635e0ae9a23127d4f21f9d8",
+   "bytes": 121114
+  }
+ },
+ "checks": {
+  "types_sieve_equals_arith_type_on_5000": true,
+  "types_window_counts_equal_read": true,
+  "parquet_roundtrip": true,
+  "depth_lists": {
+   "360": {
+    "n": 96,
+    "sum_equals": true,
+    "log2_hist_equals": true,
+    "mean_depth": 31.541666666666664,
+    "median_depth": 19.5
+   },
+   "99991": {
+    "n": 99990,
+    "sum_equals": true,
+    "log2_hist_equals": true,
+    "mean_depth": 97.17391739173918,
+    "median_depth": 46.0
+   },
+   "720720": {
+    "n": 138240,
+    "sum_equals": true,
+    "log2_hist_equals": true,
+    "mean_depth": 135.3002314814815,
+    "median_depth": 57.0
+   },
+   "999983": {
+    "n": 999982,
+    "sum_equals": true,
+    "log2_hist_equals": true,
+    "mean_depth": 136.25132452384142,
+    "median_depth": 58.0
+   }
+  },
+  "depth_lists_ok": true
+ },
+ "PASS": true,
+ "B_YK": 1.574,
+ "reference_slopes": "2 delta_N - 1 and the surrogate's own exponent 1 + mu ln P_N + kappa/2 (ln P_N)^2, both through the window's mean point"
+}
