@@ -1,0 +1,25 @@
+GEO-TOT2 seal timestamp manifest (OpenTimestamps). Order: seal -> stamp -> enumeration on spot (outputs hashed, no
+statistic of q > 10^6 displayed) -> Bitcoin attestation verified on two explorers -> sealed read (double, cmp).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is GEOTOT2_SEAL_STAMP_2026-10-28.txt.ots.
+Statement: at the time of stamping, nothing above q = 10^6 has been counted for GEO-TOT2.
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag geotot2-seal              object ddd08b4dec68d25e30e3b056f9c2d3c89c312d66
+                              on commit a2332f4618fdc756bf2b0f7a16038935f03f8ee6
+                              specarith/geotot2/GEOTOT2_SEAL.md
+                              sha256 54c83fb53f112373d85c7dd09ec4b57914294bc6cac356467038e93e2dc47763
+                              specarith/geotot2/geotot2.py
+                              sha256 59d747548e94eb91491fb6b16a369380fe2c003b979565fb02b36f623f1c1eae
+                              specarith/geotot2/results/PLAN_1e8.json
+                              sha256 d79a4e7380e230963da684d7c20e6adb4ec029f4acebfd425b5b81cc436e26fc
+                              specarith/geotot2/results/PLAN.json
+                              sha256 440712cb71d300fab393c74fca2a39ffb80206e39c0d65a222e890ca62b4a6c7
+                              specarith/geotot2/run_geotot2_spot.sh
+                              sha256 0b3f71ed41d277a5444009fdd4c88b1b306d5d9836e8972c56a4ad00b874f362
+                              specarith/geotot1/geotot1.py
+                              sha256 bb1d0bad0e1b180aba152fc709226f6ccf7bfa1b9169e82ed37353c8ca7c5474
+                              specarith/geotot1/geotot1_analyze.py
+                              sha256 58a12452f8d52df6ed0a75c81dbe45ea3884eced3217d299ad213ef5b1b1ea9f
+                              specarith/geotot1/GEOTOT1_PP_STEP0.md
+                              sha256 053df948d2d498dade59cedf7f830b1197bea47c675aec87322cad16c5e0acdd
+(sha256 of `git show a2332f4618fdc756bf2b0f7a16038935f03f8ee6:<path>`; the tag geotot2-seal resolves to that commit)
