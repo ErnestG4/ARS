@@ -120,6 +120,10 @@ predictions for D(10¹²), as prediction ± propagated SE [consistency window ±
      the rise came with the ℤ[i] archive sharing spot). §3's ≈ 70 was the model before the P3 design was built.
 5. **Archives complete and hashed; manifests pinned (§6)** — ℤ[√2] and ℤ[i] done; ℤ[ω] generating.
 
+## 5. Order (to be fixed at sealing)
+Archives complete and hashed → witnesses → seal approved → OTS stamp → Bitcoin attestation verified on two explorers →
+`sha256sum -c` on spot (code, JSONs, manifests, segments, mount guard) → double read under caps → `cmp`.
+
 ## 6. Pins (filled as each item completes)
 
 **Matched N at 10¹²:** n = 18,803,945,053 ℤ[√2] split primes below 10¹², so N = 2n = 37,607,890,106 points with the
@@ -143,7 +147,3 @@ mirror; K = round(N^β) at this N.
 **Code:** `rq1c_binned.py` 96b925be…cf1b, `rq1c_blockse.py` 1a2eebe1…b35e, `rq1c_witness.py` 33a8a308…bce78,
 `rq1c_p2.py` 047a8387…9a51, `rq1c_power.py` 8a5d5a1d…3f2a. **The 10¹² read code is not yet written;** it is pinned
 here, with a check that it reproduces the sealed 10¹⁰ / 10¹¹ values, before the seal goes to Will.
-
-## 5. Order (to be fixed at sealing)
-Archives complete and hashed → witnesses → seal approved → OTS stamp → Bitcoin attestation verified on two explorers →
-`sha256sum -c` on spot (code, JSONs, manifests, segments, mount guard) → double read under caps → `cmp`.
