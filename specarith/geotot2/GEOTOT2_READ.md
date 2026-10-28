@@ -27,6 +27,12 @@ prime power that cannot fold — holds at the resolution of half a fold.
 Mean excess 0.0362 / 0.0050 / 0.0045 against mean fold 0.0243 / 0.0086 / 0.0043 (N = 3 / 4 / 5); pooled weights
 0.20 / 0.35 / 0.45.
 
+**R per N, as sealed:** R₃ = 1.485 ± 0.105 (displacement), R₄ = 0.589 ± 0.079 (displacement), R₅ = 1.036 ± 0.070
+(unpowered/unexplained); pooled 0.970 ± 0.062 (pure folding), **never to be quoted without the per-N rows** (Will).
+
+**The N = 3 excess is a new result in its own right, not a confirmation of displacement** (Will): R₃ = 1.49 ± 0.10
+lies above both hypotheses. Follow-up (descriptive): `GEOTOT2_FOLLOWUP.md`.
+
 **What the sealed labels mean here (interpretation, not a change of verdict):**
 - **N = 4: the seen deficit replicates on fresh squares.** The excess is 0.59 of the fold count, 5.2 SE below pure
   folding, in the direction seen at q ≤ 10⁶ (0.27), though smaller. Something offsets part of the fold keys at N = 4.
