@@ -1,0 +1,47 @@
+RQ1-c sealing timestamp manifest (OpenTimestamps; order: approve -> stamp -> Bitcoin attestation verified on two
+explorers -> sha256sum -c on spot (pins, all 30,200 segments, mount guard) -> double read under caps -> cmp).
+Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is RQ1C_SEAL_STAMP_2026-10-28.txt.ots.
+Statement: at the time of stamping, no statistic at X = 10^12 has been computed from any of the three 10^12 archives,
+and no Z[omega] statistic at any X beyond Phase 34d's X <= 10^8; none will be until this receipt is Bitcoin-attested
+and verified on two explorers.
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag rq1c-seal                 object 1c04f437d6bfb3b52c302233c42cdf4a16481497
+                              on commit b936b358df7b6eef9f467c5ecb34700c5115da1b
+                              specarith/rq1/RQ1C_SEAL.md
+                              sha256 116d6d1645c6b4823ea3d8d3e64789bbc783984c46ddb3d82fa0a57ba3136d78
+                              specarith/rq1/rq1c_read_pins.sha256
+                              sha256 913467bef76759ce1ca072ad467f27843000027c8b1360741337736681216c0b
+                              specarith/rq1/rq1c_archive_segments.sha256
+                              sha256 729c0f90fea6d15776d0aa15ca2e02a490438105fc6b35832a439bd63d2c0793
+                              specarith/rq1/run_rq1c_read_spot.sh
+                              sha256 310bea5a7fa2b5ce13adf498106627f44bd2a019e747dac3afd6bcd5a6326062
+                              specarith/rq1/rq1c_segment_list.py
+                              sha256 4473e4b21d22661414e8fd8a650f631cd60701c4e0d8ca089d065df829384fb6
+                              specarith/rq1/rq1c_read.py
+                              sha256 ca121b0f3f33e6e7fdf071245cbd4a3ebdce749a80a19cfb2b646e59b56cec10
+                              specarith/rq1/rq1_read.py
+                              sha256 0e328302e974660ed3abd1316cac04aae1483cd1def13546952677bd845bc856
+                              specarith/rq1/rq1c_binned.py
+                              sha256 96b925be64d92455d30abd893d052c545adc2f74aa9c1670a4c87accc01bcf1b
+                              specarith/rq1/rq1c_witness.py
+                              sha256 33a8a3088de6ccb2e036c4909b53e2ec10e5cbb4f05a74ff46c029f5ec1bce78
+                              specarith/rq1/rq1_zw.py
+                              sha256 98dd15825933b137bfea99b5f622c725634987d2a8a977efaece2957748366d1
+                              specarith/rq1/results/rq1c_wit/P1_SELECTION.json
+                              sha256 9e3ba26167ceee4e5961361e231054c92738b99c0dcb1e1f6c35810f1ea6a6f5
+                              specarith/rq1/results/rq1c_wit/P1_CONFIRM.json
+                              sha256 23db46bab1cabc687ee9277c89ea36fdf33a97cfb2d20b099dc6627ce5ba752b
+                              specarith/rq1/results/RQ1C_P2.json
+                              sha256 9752bb5541c40f67521096e464241e99ce604eec7cce6c74ab81319d00ecd9d3
+                              specarith/rq1/results/archive_1e12_zs2/MANIFEST.json
+                              sha256 4895bdfae09e2618602e89c7a4a9d9fcd62b0ef613b5c77ec2abd4fdc04afb1e
+                              specarith/rq1/results/archive_1e12_zi/MANIFEST.json
+                              sha256 19a3a85e17a5606d8d8ac9d0f86a9207aa07690f9f7f0d5781350519cb883508
+                              specarith/rq1/results/archive_1e12_zw/MANIFEST.json
+                              sha256 f3de0c0761a838059269272d59327c1f31f54004cdece9d0fdeab388bbc456f8
+                              specarith/rq1/results/rq1c_read/REPRO.json
+                              sha256 1a4c468ac354c1a3f2d1f4599a1cd86277036693b566d0d8027318b8d8b9b25d
+                              specarith/rq1/results/rq1c_read/ZW34D_CHECK.json
+                              sha256 04158d09ab88b9a09a6e6ae7cca90f2aa92fb2c65dd01d93755a1d9db48642a0
+(sha256 of `git show b936b358df7b6eef9f467c5ecb34700c5115da1b:<path>`; the tag rq1c-seal resolves to that commit)
