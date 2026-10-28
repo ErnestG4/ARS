@@ -7,7 +7,9 @@ inside are not repo paths). Spot-checked by the main session:
 - §3 table for the 103 prime squares: reproduced independently from data/GEOTOT1_perq.parquet by geotot1_pp_seen.py
   (excess 0.0519 ± 0.0174 / 0.0068 ± 0.0060 / 0.0110 ± 0.0029; fold 0.0590 / 0.0264 / 0.0157; difference
   −0.0071 ± 0.0172 / −0.0197 ± 0.0060 / −0.0047 ± 0.0029 at N = 3 / 4 / 5). CONFIRMED.
-All of §3's numbers are POST HOC on the sealed read's data (q ≤ 10⁶). -->
+All of §3's numbers are POST HOC on the sealed read's data (q ≤ 10⁶).
+SUPERSEDED (2026-10-28): §5's "no source states a fixed-q coefficient" — the coefficient is published: Panov 1982,
+eq. (10), c₁ = 1.57374 exactly this closed form; see GEOTOT1_DEPTH_TERM.md. -->
 
 # GEO-TOT1 prime-power Step 0: local factors, strong approximation, mean depth
 

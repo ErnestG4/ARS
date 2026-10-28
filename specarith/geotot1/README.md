@@ -28,7 +28,9 @@ slopes within 4·10⁻⁶ of 2δ_N. Both reads byte-identical; 4 re-enumerated c
   1.403 / 1.395 / 1.365 (N = 3 / 4 / 5) for primes, smooth and other q (agreeing to ≤ 0.005).
 - Prime powers stay slightly above after that correction: 1.460 / 1.407 / 1.377, n = 128 in the window (mostly p²), 3.5 / 2.3 / 4.9 SE
   above the primes. Post hoc, unpowered: an observation, not a claim.
-- Mean depth Σa_i − 1 follows (6/π²) ln²q + 1.574 ln q (second order inferred in Step 0 §1c; O(1) not fitted); the
+- Mean depth Σa_i − 1 follows (6/π²) ln²q + 1.574 ln q (the second-order coefficient is Panov's c₁ = (12/π²)(2γ − 1 −
+  2ζ′(2)/ζ(2)) = 1.57374, Math. Notes 32 (1982), eq. (10): `GEOTOT1_DEPTH_TERM.md`; a fit on primes to 3·10⁶ gives
+  1.5734 ± 0.001 and constant −0.528 against Panov's c₂ + 1 = −0.524 for Σa_i); the
   residual splits by type through the a = 1, q − 1 keys (2q/φ(q)). Depth at a fixed q is heavy-tailed, with a
   tail close to index 1 in the figure (median 58 against mean 136 at q = 999,983).
 
