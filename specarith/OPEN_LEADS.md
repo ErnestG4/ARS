@@ -258,6 +258,30 @@ conductor rescaling a = e^{ΔC/2} tracks the crossover only to 0–30%.
 including the residues at the zeros of ζ_F, with the general-field substitutions verified; or the derivation for the
 unweighted split-only count. RQ1-c's P3 (crossover location at 10¹²) is a theory-light measurement of the same region.
 
+## L9 — an N-dependent anomaly in the non-fold bounded keys of prime squares (GEO-TOT2, 2026-10-28)
+
+**What is seen.** For q = p² against the 4 nearest primes, the count of keys a/q with all partial quotients ≤ N, scaled
+by (q/φ(q))/q^(2δ_N − 1), exceeds the primes' by an amount R_N times the Niederreiter fold count (`geotot2/GEOTOT2_READ.md`,
+sealed read; `geotot2/GEOTOT2_FOLLOWUP.md`, descriptive, post hoc). Every fold key is a counted key, so the deviations
+from R = 1 sit in the non-fold keys:
+- **N = 3: surplus.** R₃ = 1.49 ± 0.10 on 1,061 fresh prime squares in (10⁶, 10⁸] (non-fold excess +0.0118 ± 0.0025);
+  R₃ grows with q, ≈ +0.67 ± 0.20 per decade over 4 bins (a constant rejected, χ² 13/3); not seen at q ≤ 10⁶
+  (R₃ 0.87 ± 0.29).
+- **N = 4: deficit.** R₄ = 0.59 ± 0.08 fresh (non-fold −0.0035 ± 0.0007), 0.27 ± 0.23 seen (−0.019 ± 0.006).
+- **N = 5: nothing.** R₅ = 1.04 ± 0.07; non-fold +0.0002 ± 0.0003.
+- Alongside, unattributed: the squares of 2^k (2²⁰ … 2²⁶) carry 5–25 times their m = 1 fold count, with only two fold
+  representations (q = m·r², m = 1, 4).
+- Non-foldable odd prime powers show no excess at any N (sealed (A), PASS), as the exponent-independent
+  Bourgain–Kontorovich local factor predicts.
+
+**Why it is open.** The local factor predicts zero excess at every p^k; Niederreiter's folding explains part of the
+excess at squares but not the N-dependent remainder or its growth with q. No source found states per-q counts at prime
+powers (`geotot1/GEOTOT1_PP_STEP0.md`).
+
+**What would address it.** A census of the non-fold keys of prime squares (other near-palindromic families, the
+generalized folds q = m·r²) against primes, by N; or a statement from those who know the semigroup counting (A.
+Kontorovich, M. Magee). No further compute at Will's instruction (2026-10-28).
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project

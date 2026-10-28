@@ -8,6 +8,9 @@ N = 3, 4, 5 (δ_N the Hausdorff dimension of the bounded-type Cantor set; brief:
 **Who would know if this is already known:** the Zaremba / Bourgain–Kontorovich line: A. Kontorovich and M. Magee
 (the singular series and uniform congruence counting), then S. Huang, H. Oh, D. Hensley, and the Khabarovsk school
 (I. D. Kan, D. A. Frolenkov, V. A. Bykovskii, A. V. Ustinov). Fuller list in `GEOTOT1_STEP0.md` (end).
+**Also for Kontorovich and Magee: L9** (`../OPEN_LEADS.md`): an N-dependent anomaly in the non-fold bounded keys of
+prime squares (GEO-TOT2): an N = 3 surplus whose ratio to the fold count grows ≈ +0.67 per decade, an N = 4 deficit,
+nothing at N = 5; and the unattributed excess at squares of 2^k.
 
 ## Result (sealed read, 7658da82): PASS for N = 3, 4, 5
 | N | per-q slope on [10⁵, 10⁶) | SE | 2δ_N − 1 | miss | alt. convention |
