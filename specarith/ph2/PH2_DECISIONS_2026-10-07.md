@@ -2175,3 +2175,107 @@ Drop the 2.833612 reference; it comes only through a citing preprint.
 Quintic: record the agreement with dLOP (3.0433806 against 3.04337774, 1.6 SE, on a different map family) as a universality cross-check of the method. Still not a gate.
 Cap: raise it for a = 8 only (0.78 core-h). a = 8 stays UNPOWERED for the SE clauses.
 Then: the cusp verdict on the fresh N → re-seal with the h_a clause → stamp → attestation → double read → read a ≥ 3.
+
+### RQ1-c read-code additions; GEO-CM1 overnight; GEO-TOT1 brief (2026-10-27; Will, verbatim)
+RQ1-c read code, two additions before pinning:
+
+Reproduction:
+The exact path reproduces the sealed RQ1 10¹⁰ and 10¹¹ B2 cells bit-for-bit.
+The binned path reproduces them within the validated bias bound.
+The P3 crossings at 10¹⁰ and 10¹¹ come back as 0.525 and 0.529.
+ℤ[ω] pipeline: reproduce Phase 34d’s ℤ[ω] angle set at ≤ 10⁸, the seen range, before anything from the new ℤ[ω] archive is read. Report the maximum |Δθ|.
+
+Then pins → seal to Will.
+
+  Let GEO finish but we'll run it as an overnight with GEO-TOT running on Spot's free cores or on Char:
+
+GEO-TOT1 brief
+Oct 27, 2026 · @Avatar
+Scope and schedule
+GEO-TOT1 measures how many of the φ(q) coprime keys a/q have bounded dwell (all partial quotients ≤ N), and how that count scales with q. It runs after GEO-CM1 and before tonight's ARSv2, inside a 2-hour compute box.
+• Question: does the per-q count of keys in E_N grow like q^(2δ_N − 1), with δ_N = dim E_N, and how does the prefactor c_N(q) depend on the arithmetic of q?
+• Hardware: the 4090 for enumeration; CPU for totient sieves and the post-attestation read. All arithmetic is exact integer.
+• Browser preview already seen (q ≤ 2000): bound-4 exceptions {6, 54, 150}; none at bound 5; mean depth 31.5 at q = 360 against a Yao–Knuth leading term of 21.06; Ford sum → ζ(3)/ζ(4).
+• Pushes stay with Will.
+Step 0: literature (no compute)
+Every item is cited from a primary source or marked UNVERIFIED.
+1. Yao–Knuth (1975). Exact statement of the average sum of partial quotients: averaged over all m ≤ n or coprime m only, and the size and form of the lower-order term. Explain the 31.5 vs 21.06 gap at q = 360.
+2. δ_N = dim E_N for N = 2…6 at high precision (Hensley; Jenkinson–Pollicott). The browser uses 0.5312805, 0.7056609, 0.7889455, 0.8368294.
+3. Cumulative counting theorem. Exact statement that #{(a, q) : q ≤ Q, a/q ∈ E_N} ~ C·Q^(2δ_N) (Hensley; Bourgain–Kontorovich).
+4. Per-q law. Hensley's heuristic #{a coprime to q : a/q ∈ E_N} ~ c_N(q)·q^(2δ_N − 1), and any local or congruence factors in c_N(q). Record its status as heuristic.
+5. Zaremba results. Density-one theorems (Bourgain–Kontorovich; Huang for bound 5); whether {6, 54, 150} is the complete known bound-4 exception list and how far searches went; the bound-3 list; how far bound 5 has been verified computationally.
+6. Depth distribution limit law (Baladi–Vallée; Hensley). The sum of partial quotients is heavy-tailed, so state what the limit law is.
+7. CF length variance. The constant κ in Var(L) ~ κ ln q, needed for the witness exponent.
+Step 1: enumeration and conventions
+For every q ≤ Q and every a coprime to q, compute the tree depth (sum of partial quotients) and the maximum partial quotient, then aggregate per q.
+• Convention for E_N. [...; a_k] and [...; a_k − 1, 1] are the same rational, and the two forms can differ in their maximum when the final quotient is the unique largest. Compute membership under both conventions. Fix the primary one to match the literature's Zaremba convention, and report which convention reproduces {6, 54, 150}. The browser used "last ≥ 2" and reproduced that list.
+• Stored per q: φ(q); counts in E_N for N = 2…6 under both conventions; depth and max-quotient histograms on committed log bins, or with a cap plus an overflow bin. Depth reaches q − 1 at a = 1, so full per-q histograms are O(Q²) and are not stored.
+• Q: run Q = 10⁵ first (about 3×10⁹ Euclid runs). Price Q = 10⁶, decide, and fix Q in the seal before anything above q = 2000 is read.
+• Environment: pinned, so the double read can compare bit-identical.
+Gates
+Every gate must pass before any new number counts.
+Gate
+Pass condition
+Basis
+Farey length
+1 + Σφ(q) equals the Farey length from an independent totient sieve
+Theorem
+Ford sum
+Σφ(q)/q⁴ converges to ζ(3)/ζ(4) ≈ 1.1106
+Theorem: Σφ(q)q⁻ˢ = ζ(s−1)/ζ(s)
+Bound-4 exceptions
+Exactly {6, 54, 150} for q ≤ 2000
+Browser preview; Step 0 literature
+Bound 5
+No exception for q ≤ Q. An exception is a suspected bug until independently reproduced
+Zaremba; prior verification ranges from Step 0
+Cumulative count
+Exponent of #{(a, q) : q ≤ Q, a/q ∈ E_N} matches 2δ_N within the committed tolerance for N = 3, 4, 5
+Theorem (Hensley; Bourgain–Kontorovich)
+Sealed prediction and estimator
+The sealed claim is that the per-q count of keys in E_N scales as q^(2δ_N − 1) for N = 3, 4, 5. This is Hensley's heuristic, so a FAIL is a finding about local factors, not a pipeline failure, provided the cumulative gate passes.
+• Estimator. Committed log-q bins; OLS on log(bin total). No per-q logs, which blow up at exceptions.
+• Fit window. q ∈ [Q/10, Q], with Q fixed in the seal.
+• Tolerance basis. Before sealing, report each N's slope on the seen range [200, 2000]. If any misses 2δ_N − 1 by more than 0.03, stop and report before sealing. Then the sealed test becomes the ordering across N, or a corrected form.
+• Tolerance. ±0.03, if the seen-range check supports it.
+• Targets: 2δ₃ − 1 = 0.411, 2δ₄ − 1 = 0.578, 2δ₅ − 1 = 0.674.
+• Reported, never filtered: any further bound-4 exception up to Q.
+• Descriptive only: c_N(q) = count / q^(2δ_N − 1), split by whether q is prime, a prime power, or smooth. No verdict on its dependence on q.
+Witness that must fail
+The witness tests the pipeline, not the hypothesis. The identical slope estimator runs on surrogate keysets. It must recover the surrogate's own exponent and must fail the 2δ_N − 1 test.
+• Surrogate. Each key keeps its real digit count L from the enumeration. Its digits are redrawn i.i.d. from the Gauss–Kuzmin law.
+• Surrogate exponent, computed before running. Count ~ φ(q)·q^(0.8428·ln P_N), with P_N = 1 − log₂(1 + 1/(N+1)) and 12 ln 2/π² = 0.8428. Add the Var(L) correction of about ½κ(ln P_N)², roughly 0.01–0.02, or obtain the exponent by simulation.
+• Pass condition. The surrogate data recover their own exponent within ±0.03 and fail the 2δ_N − 1 test.
+N
+Surrogate exponent (before Var(L) correction)
+2δ_N − 1
+Gap
+3
+0.673
+0.411
+0.26
+4
+0.743
+0.578
+0.17
+5
+0.788
+0.674
+0.11
+Order of operations and outputs
+Enumeration happens inside the 2-hour box. The read of q > 2000 waits until the OpenTimestamps attestation verifies, which takes 1–6 hours. It is cheap CPU work, so it can run tomorrow or alongside ARSv2.
+1. Step 0 literature, plus the seen-range slopes on [200, 2000] for N = 3, 4, 5.
+2. Price Q = 10⁶, decide, and fix Q.
+3. Compute the surrogate exponents exactly.
+4. Commit the bins, fit window, tolerance, convention and Q. Seal and stamp.
+5. Enumerate within the box. Write and hash the per-q outputs for q > 2000 without displaying any statistic.
+6. After attestation verifies on two explorers: run the gates, then the witness, then the sealed read. The double read must compare bit-identical.
+Outputs
+• Per-q tables as Parquet.
+• Figures:
+    ◦ count vs q per N, with both reference slopes;
+    ◦ c_N(q) split by the arithmetic type of q;
+    ◦ mean depth against the corrected Yao–Knuth law;
+    ◦ the depth distribution at a few q.
+• A small JSON for q ≤ 10⁵, so the bench page's Totient keys tab can load the full range.
+• A README line naming who would know if this is already known (the Zaremba and Bourgain–Kontorovich line), for outreach in a month.
