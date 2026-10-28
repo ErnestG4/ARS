@@ -2302,3 +2302,12 @@ Report the power to separate the two hypotheses at each N before sealing.
 Witness for (B), on the seen squares only (p ≤ 997). Remove a known fraction x ∈ {0.25, 0.5} of fold keys; the statistic must read R ≈ 1 − x within 2 SE.
 Depth term. Before calling it unpublished, run a targeted search: TAOCP vol. 2 §4.5.3 and its exercises, and later refinements of Yao–Knuth. Record the closed form 1.57374 with its fit on primes to 3·10⁶.
 Order: seal → stamp → attest → double read. About 0.35 spot core-h. Pushes stay with Will.
+
+### GEO-TOT2 follow-up and RQ1-c review (2026-10-28; Will, verbatim)
+GEO-TOT2 follow-up (descriptive, post hoc, no seal):
+
+Record R per N as sealed. Put the N = 3 excess (1.49 ± 0.10) on its own as a new result, not as confirmation of displacement. The pooled value is never quoted without the per-N results.
+R against q: bin the fresh squares into about 4 bins in log q, report R per bin per N, and fit any trend.
+Decomposition: for each square, classify its bounded keys as Niederreiter-fold or not, and compute the non-fold excess over matched primes per N, on both the seen and fresh ranges. Report whether the N = 3 surplus and the N = 4 deficit sit in the non-fold keys.
+The 2^k squares: count their fold representations (m·r², m ≤ N+1) against their excess, descriptively.
+Send the RQ1-c seal file to Will for my review before stamping. Include confirmation of the exact/binned reproduction and of the ℤ[ω] reproduction of 34d’s angles at ≤ 10⁸.
