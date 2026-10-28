@@ -2290,3 +2290,15 @@ Also trace the 1.574·ln q depth term to a source.
 GEO-CM1, the a = 4 SE. Post-hoc diagnostic on the existing per-level values: find the level driving the 2.3·10⁻⁵ SE. Check its brackets, its precision agreement, and whether any bracket sits near a golden-path tongue (2 + √5 = φ³; a = 4 denominators are F_{3n}/2). Report whether the (3,4) and (4,5) P1 pairs stand.
 GEO-CM1, the limit. Step 0 only: is the large-a asymptotic of δ_a for critical circle maps known? Record h_a descriptively, noting that the simple extrapolation forms disagree (≈1.5 against ≈1.7).
 Commits and the tags geocm1-seal and geotot1-seal are for Will to push.
+
+### GEO-TOT2: seal both (2026-10-28; Will, verbatim)
+GEO-TOT2: seal both.
+
+(A) Zero excess of c_N·q/φ(q) at the 25 non-foldable odd prime powers against 4 size-matched primes each. Mark N where SE > fold-size/2 as UNPOWERED.
+(B) On 290 fresh p², 10⁶ < q ≤ 10⁷, the statistic R_N = excess / fold count, per N and pooled.
+Commit before reading: H_fold, R = 1; H_seen, R equal to the seen values (with their SEs).
+Reading: “pure folding” if consistent with H_fold at 2 SE and inconsistent with H_seen; “displacement” for the reverse; otherwise “unpowered/unexplained”.
+Report the power to separate the two hypotheses at each N before sealing.
+Witness for (B), on the seen squares only (p ≤ 997). Remove a known fraction x ∈ {0.25, 0.5} of fold keys; the statistic must read R ≈ 1 − x within 2 SE.
+Depth term. Before calling it unpublished, run a targeted search: TAOCP vol. 2 §4.5.3 and its exercises, and later refinements of Yao–Knuth. Record the closed form 1.57374 with its fit on primes to 3·10⁶.
+Order: seal → stamp → attest → double read. About 0.35 spot core-h. Pushes stay with Will.
