@@ -1,0 +1,54 @@
+{
+ "ALL_GATES": true,
+ "bound4_le_2000": {
+  "GATE": true,
+  "all_exceptions_to_Q": [
+   6,
+   54,
+   150
+  ],
+  "exceptions": [
+   6,
+   54,
+   150
+  ]
+ },
+ "bound5": {
+  "GATE": true,
+  "brute_reproduced": [],
+  "exceptions": []
+ },
+ "cumulative": {
+  "3": {
+   "GATE": true,
+   "miss": -3.536296843353881e-06,
+   "slope": 1.4113182797606332,
+   "target": 1.4113218160574765
+  },
+  "4": {
+   "GATE": true,
+   "miss": -1.5935772748054688e-06,
+   "slope": 1.5778895213890332,
+   "target": 1.577891114966308
+  },
+  "5": {
+   "GATE": true,
+   "miss": -3.108654003325384e-06,
+   "slope": 1.6736557787084143,
+   "target": 1.6736588873624176
+  }
+ },
+ "farey": {
+  "GATE": true,
+  "length_enum": 303963552393,
+  "length_sieve": 303963552393,
+  "per_q_equal": true
+ },
+ "ford": {
+  "GATE": true,
+  "diff": -3.042011087472929e-13,
+  "sum": 1.1106265353258442,
+  "tail_bound": 5e-13,
+  "target": 1.1106265353261484
+ }
+}

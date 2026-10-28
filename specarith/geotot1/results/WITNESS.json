@@ -1,0 +1,33 @@
+{
+ "3": {
+  "OK": true,
+  "SE": 3.5358931876923076e-05,
+  "fails_2delta": true,
+  "own_expectation": 0.7107440366268528,
+  "own_theory": 0.7115294257002776,
+  "recovers_own": true,
+  "slope": 0.7107277461043982,
+  "target_2delta_minus_1": 0.41132181605747653
+ },
+ "4": {
+  "OK": true,
+  "SE": 2.1839122871113853e-05,
+  "fails_2delta": true,
+  "own_expectation": 0.7664583832598024,
+  "own_theory": 0.7668130435477267,
+  "recovers_own": true,
+  "slope": 0.7664549658709026,
+  "target_2delta_minus_1": 0.577891114966308
+ },
+ "5": {
+  "OK": true,
+  "SE": 9.880877259883607e-06,
+  "fails_2delta": true,
+  "own_expectation": 0.8041531877537862,
+  "own_theory": 0.804341699743605,
+  "recovers_own": true,
+  "slope": 0.8041420849896935,
+  "target_2delta_minus_1": 0.6736588873624176
+ },
+ "WITNESS_OK": true
+}

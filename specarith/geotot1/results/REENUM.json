@@ -1,0 +1,90 @@
+{
+ "seed": 20261027,
+ "chunks": [
+  43,
+  143,
+  192,
+  195
+ ],
+ "exit": [
+  0,
+  0,
+  0,
+  0
+ ],
+ "results": {
+  "043": {
+   "q": [
+    476025,
+    481334
+   ],
+   "equal": {
+    "q": true,
+    "phi": true,
+    "S_sum": true,
+    "L_sum": true,
+    "L_sq": true,
+    "cnt_canon": true,
+    "cnt_alt": true,
+    "L_hist": true,
+    "S_hist": true,
+    "M_hist": true
+   }
+  },
+  "143": {
+   "q": [
+    850345,
+    853211
+   ],
+   "equal": {
+    "q": true,
+    "phi": true,
+    "S_sum": true,
+    "L_sum": true,
+    "L_sq": true,
+    "cnt_canon": true,
+    "cnt_alt": true,
+    "L_hist": true,
+    "S_hist": true,
+    "M_hist": true
+   }
+  },
+  "192": {
+   "q": [
+    980465,
+    982928
+   ],
+   "equal": {
+    "q": true,
+    "phi": true,
+    "S_sum": true,
+    "L_sum": true,
+    "L_sq": true,
+    "cnt_canon": true,
+    "cnt_alt": true,
+    "L_hist": true,
+    "S_hist": true,
+    "M_hist": true
+   }
+  },
+  "195": {
+   "q": [
+    987839,
+    990283
+   ],
+   "equal": {
+    "q": true,
+    "phi": true,
+    "S_sum": true,
+    "L_sum": true,
+    "L_sq": true,
+    "cnt_canon": true,
+    "cnt_alt": true,
+    "L_hist": true,
+    "S_hist": true,
+    "M_hist": true
+   }
+  }
+ },
+ "PASS": true
+}
