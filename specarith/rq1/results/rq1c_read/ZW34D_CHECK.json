@@ -1,0 +1,16 @@
+{
+ "PASS": true,
+ "archive_hash_equal": true,
+ "archive_seg0_sha256": "1fce82b2d5fc940142170fd5cc8c4d548aa8cfbfc62d888dfb2bfac745ad7df8",
+ "argmax": 217082,
+ "counts_equal": true,
+ "label": "RQ1-c Z[omega] pipeline against Phase 34d at X <= 1e8 (seen range)",
+ "max_abs_dtheta_rad": 4.510281037539698e-16,
+ "max_abs_dtheta_sector_units": 4.3070011311485126e-16,
+ "n_34d": 5761034,
+ "n_new": 5761034,
+ "n_split_primes": 2880517,
+ "ok_dtheta": true,
+ "regen_sha256": "1fce82b2d5fc940142170fd5cc8c4d548aa8cfbfc62d888dfb2bfac745ad7df8",
+ "wall_s": 75.57648730278015
+}

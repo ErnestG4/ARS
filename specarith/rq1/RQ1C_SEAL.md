@@ -1,4 +1,4 @@
-# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites 1–4 done, 5 pending (ℤ[ω] archive), read code to write (§6). Not sealed; nothing at 10¹² read
+# RQ1-c seal: theory-light predictions at X = 10¹² — STATUS: DRAFT, round-96 choices applied; prerequisites 1–4 done, 5 pending (ℤ[ω] archive), read code written and checked (§6). Not sealed; nothing at 10¹² read
 
 New arc (round 95), two-session time box. RQ1 closes as written (round 94). Every number below comes from the 10¹⁰ and
 10¹¹ results (`RQ1_FINDINGS.md`, `results/read/`, `results/collapse/`) and from synthetic witnesses; nothing at 10¹² is
@@ -145,5 +145,20 @@ mirror; K = round(N^β) at this N.
 **ℤ[ω] archive** — pending (`rq1_zw.py` sha256 98dd1582…66d1, `archive_1e12_zw`).
 
 **Code:** `rq1c_binned.py` 96b925be…cf1b, `rq1c_blockse.py` 1a2eebe1…b35e, `rq1c_witness.py` 33a8a308…bce78,
-`rq1c_p2.py` 047a8387…9a51, `rq1c_power.py` 8a5d5a1d…3f2a. **The 10¹² read code is not yet written;** it is pinned
-here, with a check that it reproduces the sealed 10¹⁰ / 10¹¹ values, before the seal goes to Will.
+`rq1c_p2.py` 047a8387…9a51, `rq1c_power.py` 8a5d5a1d…3f2a.
+
+**Read code:** `rq1c_read.py` sha256 ca121b0f3f33e6e7fdf071245cbd4a3ebdce749a80a19cfb2b646e59b56cec10 (@ 9fb9262c,
+identical on spot; criteria committed before any mode ran). Checks run on spot, results in `results/rq1c_read/`:
+- **ℤ[ω] pipeline against Phase 34d at X ≤ 10⁸ (seen range) — PASS** (`ZW34D_CHECK.json`, sha256 04158d09…42a0).
+  5,761,034 angles on both sides (2,880,517 split primes); max |Δθ| = 4.51·10⁻¹⁶ rad (4.31·10⁻¹⁶ in sector units);
+  regenerated segment 0 hash-identical to the archive's (1fce82b2…7df8). Run before anything else from the ℤ[ω]
+  archive was read.
+- **Reproduction of the sealed RQ1 read — PASS** (`REPRO.json`, sha256 1a4c468a…b25d; labelled post hoc: it reads
+  the already-read 10¹⁰ / 10¹¹ data, sliced from the 10¹² ℤ[√2] and ℤ[i] archives).
+  - (a) Exact path: all B2 cells at β 0.2–0.9 bit-identical to `results/read/read1.json`, both fields, both X.
+  - (b) Exact path: COLLAPSE bit-identical; P3 crossings 0.524930 (10¹⁰) and 0.529068 (10¹¹), rounding to 0.525 /
+    0.529.
+  - (c) Binned path at matched-stress B (30–31 at 10¹⁰, 33 at 10¹¹): binned − exact positive at all 92 comparisons,
+    at most 0.27 of N·δ²·K and 0.081 SE; binned P3 crossings 0.524931 and 0.529071.
+  - (d) Streamed per-segment histogram equals `hist_half` of the half-set at 10¹⁰ (both fields).
+  - Cost 5.8 spot core-h, 0.88× the model (stop line 1.25×).
