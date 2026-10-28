@@ -20,10 +20,11 @@ from fractions import Fraction
 
 import numpy as np
 
-DELTA = {2: 0.5312805, 3: 0.7056609, 4: 0.7889455, 5: 0.8368294}     # replaced by the Step 0 values at sealing
+DELTA = {2: 0.53128050627720514162, 3: 0.70566090802873823061, 4: 0.78894555748315397254,   # GEOTOT1_STEP0.md §2
+         5: 0.83682944368120882244, 6: 0.86761917324015}                                     # (Pollicott–Vytnova)
 TOL = 0.03
 MU = 12 * math.log(2) / math.pi ** 2
-KAPPA = 0.516                                                         # replaced by the Step 0 value at sealing
+KAPPA = 0.51606240889999                                              # Hensley's constant (Lhote 2004; OEIS A375066)
 SEED = 20261027
 ZETA3_OVER_ZETA4 = 1.2020569031595942853997 / (math.pi ** 4 / 90)
 N_SEALED = (3, 4, 5)
@@ -211,6 +212,11 @@ def read(npz, Q, out):
         c = d["cnt_canon"][m, N - 2] / q[m].astype(float) ** (2 * DELTA[N] - 1)
         res["c_N_by_type"][N] = {t: dict(n=int((types == t).sum()), mean=float(c[types == t].mean()),
                                          sd=float(c[types == t].std(ddof=1))) for t in sorted(set(types))}
+        # the Bourgain–Kontorovich local factor (singular series = ζ(2)·φ(q)/q; GEOTOT1_STEP0.md §4c): c_N(q)·q/φ(q)
+        cl = c * q[m] / d["phi"][m]
+        res.setdefault("c_N_over_phi_ratio_by_type", {})[N] = {
+            t: dict(n=int((types == t).sum()), mean=float(cl[types == t].mean()), sd=float(cl[types == t].std(ddof=1)))
+            for t in sorted(set(types))}
     res["bound4_exceptions_to_Q"] = [int(x) for x in q[d["cnt_canon"][:, 2] == 0]]
     json.dump(res, open(out, "w"), indent=1, sort_keys=True)
     print("verdict", res["verdict"])
