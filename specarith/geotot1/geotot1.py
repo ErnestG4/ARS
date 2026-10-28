@@ -105,8 +105,10 @@ KEYS = ("phi", "S_sum", "L_sum", "L_sq", "cnt_canon", "cnt_alt", "L_hist", "S_hi
 
 
 def run(q0, q1, out):
+    import time
     arrs = enum(q0, q1)
     np.savez(out, q=np.arange(q0, q1 + 1, dtype=np.int64), **dict(zip(KEYS, arrs)))
+    open(out + ".cpu", "w").write(f"{time.process_time():.3f}\n")     # sidecar, so the .npz bytes stay deterministic
     return 0
 
 
