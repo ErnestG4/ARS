@@ -1,0 +1,5 @@
+first: 1 chunks, cpu/model = 0.874
+25%: 5 chunks, cpu/model = 0.872
+50%: 10 chunks, cpu/model = 0.870
+75%: 15 chunks, cpu/model = 0.869
+done: cpu 10.86 core-h = 0.871x model
