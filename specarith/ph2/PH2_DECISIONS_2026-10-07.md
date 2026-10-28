@@ -2279,3 +2279,14 @@ Outputs
     ◦ the depth distribution at a few q.
 • A small JSON for q ≤ 10⁵, so the bench page's Totient keys tab can load the full range.
 • A README line naming who would know if this is already known (the Zaremba and Bourgain–Kontorovich line), for outreach in a month.
+
+### Follow-ups after GEO-TOT1 / GEO-CM1 (2026-10-28; Will, verbatim)
+After GEO-TOT1 / GEO-CM1:
+
+GEO-TOT1, prime-power lead.
+Step 0: the exact local factor at p^k from the congruence structure, or the Bourgain–Kontorovich statement, and the predicted excess over q/φ(q) for p².
+If a definite prediction comes out, seal it and test on fresh prime powers in (10⁶, 10⁷] (price it first).
+Also trace the 1.574·ln q depth term to a source.
+GEO-CM1, the a = 4 SE. Post-hoc diagnostic on the existing per-level values: find the level driving the 2.3·10⁻⁵ SE. Check its brackets, its precision agreement, and whether any bracket sits near a golden-path tongue (2 + √5 = φ³; a = 4 denominators are F_{3n}/2). Report whether the (3,4) and (4,5) P1 pairs stand.
+GEO-CM1, the limit. Step 0 only: is the large-a asymptotic of δ_a for critical circle maps known? Record h_a descriptively, noting that the simple extrapolation forms disagree (≈1.5 against ≈1.7).
+Commits and the tags geocm1-seal and geotot1-seal are for Will to push.
