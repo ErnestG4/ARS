@@ -2323,3 +2323,6 @@ t: note that the centred SD (round 90 specified uncentred RMS) differs by about 
 Header: SEALED, with the date, in the stamped commit.
 
 GEO-TOT2: record L9: an N-dependent anomaly in the non-fold keys of prime squares (N = 3 surplus whose ratio to the fold count grows ≈ +0.67 per decade, constant rejected; N = 4 deficit; nothing at N = 5), with the 2^k squares’ unattributed excess alongside it. No further compute. Add it to the README’s “who would know” line (Kontorovich, Magee).
+
+### RQ1-c seal approved (2026-10-28; Will, verbatim)
+RQ1-c seal approved by Will (2026-10-28). Header → SEALED with the date, commit, tag rq1c-seal, stamp. After the Bitcoin attestation is verified on two explorers: sha256sum -c, then the double read under caps, then cmp. Run the load check before launch. Pushes stay with Will.
