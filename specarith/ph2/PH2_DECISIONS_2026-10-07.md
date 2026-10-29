@@ -2358,3 +2358,15 @@ Next steps:
 Write it up. Do RQ1-c’s findings with the ruling and the caveats, then a Zenodo bundle. It’s a natural point: the sealed engine, the H1 result (not supported), RQ1, RQ1-c, GEO-CM1, GEO-TOT1/2, the n = 6 close-out and the errata.
 Verify C_ω against a published ℤ[ω] Hecke L-function source. It’s cheap, and it’s the one unverified input behind P4.
 Two leads to record: the drift in the crossover location, and the power-law decay of the field difference. Testing either properly needs another decade of X, about 5,000+ core-hours of archives, so leave them recorded unless you want to commit spot for a week.
+
+### Zenodo bundle scope (2026-10-29; Will, verbatim)
+ARSv2: a separate Zenodo record, drafted by the ARSv2 session after A2. The specarith notes reference it, with a placeholder for the cross-link.
+Errata section:
+CS08 J₁₃: include, after confirming CS08_ERRATUM.md quotes the exact printed lines for each version (arXiv v1, later versions, journal) and says whether any version fixes it.
+34d half-sample: include if 34d’s verdicts were in an earlier upload.
+arsrh Phase 1: Will decides.
+The process slips go in a separate “process notes” section, not errata.
+Include route (a), (A), (B) with the grid-lock attribution, corrected (B), the L6 characterisation and the n = 6 close-out.
+Build the tarball by directory name once Will settles the arsrh question. The upload is Will’s.
+
+I'll update the ARSv2 record as the results come in.
