@@ -2326,3 +2326,15 @@ GEO-TOT2: record L9: an N-dependent anomaly in the non-fold keys of prime square
 
 ### RQ1-c seal approved (2026-10-28; Will, verbatim)
 RQ1-c seal approved by Will (2026-10-28). Header → SEALED with the date, commit, tag rq1c-seal, stamp. After the Bitcoin attestation is verified on two explorers: sha256sum -c, then the double read under caps, then cmp. Run the load check before launch. Pushes stay with Will.
+
+### RQ1-c: post-hoc ruling (2026-10-29; Will, verbatim)
+RQ1-c: post-hoc ruling (option 1).
+
+Commit rq1c_strip_compare.py: remove a fixed key list (the per-stage cpu_s and ratio fields, cpu_core_h, and any other timing field, listed explicitly), canonicalise the JSON (sorted keys, fixed float repr), and write both stripped files and their sha256s. They must be identical.
+Record the ruling in RQ1C_READ_VOID.md:
+“Literal VOID (cmp, condition 1) stands. Post-hoc ruling: double-read equivalence on all non-timing fields, verified by the stripped-file sha256. Results are reported as PASS-under-ruling.”
+Include the disclosure that only the P1/P3/P4 verdict lines were seen before the ruling.
+Commit the ruling and the hashes before opening any other 10¹² value. Then write the full read report: P1 (T and the per-cell D), P2 (where D lands against each law’s window), P3 (the location with its resolution), P4 (both inequalities at all three X, the rigidity-cell ordering, the 0.283 ratio).
+Fix for the future: timings go to a sidecar file, never to cmp’d outputs.
+TOOLKIT lesson: before sealing, dry-run the full double read and its cmp on a cheap input. A seal is not final until that dry run passes.
+Pushes stay with Will.
