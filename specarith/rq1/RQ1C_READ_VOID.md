@@ -25,3 +25,20 @@ sealing; it is mine.
 ## Status
 VOID as sealed. No redesign, rerun or ruling taken: the choice is Will's. Files: `results/rq1c_read_void/` (both JSONs,
 logs, cmp, pins and segment checks, timing).
+
+## Ruling (Will, 2026-10-29; post hoc, labelled)
+“Literal VOID (cmp, condition 1) stands. Post-hoc ruling: double-read equivalence on all non-timing fields, verified by
+the stripped-file sha256. Results are reported as PASS-under-ruling.”
+
+- `rq1c_strip_compare.py` (committed before it ran) removes exactly the timing fields of `read` mode, by path:
+  `cost[*].cpu_s`, `cost[*].ratio`, `cpu_core_h` (and checks that `wall_s`, a zw34d-mode field, is absent); it keeps
+  `cost[*].stage` and `cost[*].model_s`. It canonicalises (sorted keys, separators (",", ":"), shortest round-trip
+  floats) and writes `results/rq1c_read_ruling/read{1,2}.stripped.json`.
+- **Stripped-file sha256: read1 b0200f8cc29fe881ca3e5b4ff97225266eee1ddc0276600eb11ef996d98601fa, read2 the same.**
+  Identical (`results/rq1c_read_ruling/STRIPPED_SHA256.txt`).
+- **Disclosure:** before this ruling, only the P1 / P3 / P4 verdict lines (the last log line of each read) had been
+  seen; no other 10¹² value had been opened. The ruling and these hashes are committed before any other 10¹² value is
+  opened.
+
+**Fix for the future (Will):** timings go to a sidecar file, never into a cmp'd output. (The sealed `rq1c_read.py` is
+left unchanged; the rule applies to new code.)
