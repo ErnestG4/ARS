@@ -1,0 +1,19 @@
+rq1c_read.py: OK
+rq1_read.py: OK
+rq1c_binned.py: OK
+rq1c_witness.py: OK
+rq1_zw.py: OK
+rq1_angles.py: OK
+rq1_heuristic.py: OK
+rq1_witness.py: OK
+rq1_archive.py: OK
+rq1c_segment_list.py: OK
+rq1c_archive_segments.sha256: OK
+results/read/read1.json: OK
+results/RQ1C_P2.json: OK
+rq1c_wit/P1_SELECTION.json: OK
+rq1c_wit/P1_CONFIRM.json: OK
+/mnt/data/rq1/archive_1e12_zs2/MANIFEST.json: OK
+/mnt/data/rq1/archive_1e12_zi/MANIFEST.json: OK
+/mnt/data/rq1/archive_1e12_zw/MANIFEST.json: OK
+exit=0
