@@ -2338,3 +2338,23 @@ Commit the ruling and the hashes before opening any other 10¹² value. Then wri
 Fix for the future: timings go to a sidecar file, never to cmp’d outputs.
 TOOLKIT lesson: before sealing, dry-run the full double read and its cmp on a cheap input. A seal is not final until that dry run passes.
 Pushes stay with Will.
+
+### RQ1-c reading and next steps (2026-10-29; Will, verbatim)
+P4 is the headline. ℤ[ω] had never been looked at above 10⁸, and it lands between the other two fields at all three X, as its conductor constant predicts. It also gets close to the predicted size:
+
+the ω–i gap is 79–93% of the predicted separation;
+the ratio comes out at 0.254, 0.226 and 0.261 against the predicted 0.283, each within 1σ.
+
+All three ratios sit a little low, consistent with the ~10% shortfall we already knew the conductor-shift picture has near the crossover. Taken together, the field’s arithmetic sets both which field sits higher and roughly by how much, and it held for a field nobody had seen. That’s the fields-and-couplings result in its cleanest form so far. Two caveats remain: C_ω = log 27 is still unverified against a source, and the SE model is assumed for arithmetic data.
+
+P1 replicates the direction at 10¹², by a narrow margin. T = 4.41 against t = 3.93, and almost all of it comes from the β = 0.45 cell. That matches the power analysis.
+
+P3 passed, but the trend matters more than the PASS. The crossing has risen at every step, 0.525 → 0.529 → 0.538, and now sits near the window’s upper edge. No single step is significant, but “pinned near ½” is less secure than the PASS suggests. If the drift continues, the next decade could leave the window. That should be stated next to the PASS.
+
+P2 is the most interesting descriptive result. At β = 0.60, D fell below both logarithmic laws’ windows. The power law X^−δ is the only one consistent with all four cells. If that holds, the difference between fields shrinks like a power of X and vanishes in the limit, so all the fields eventually look alike at this scale. It’s descriptive and rests on one cell, so it’s a lead, not a finding.
+
+Next steps:
+
+Write it up. Do RQ1-c’s findings with the ruling and the caveats, then a Zenodo bundle. It’s a natural point: the sealed engine, the H1 result (not supported), RQ1, RQ1-c, GEO-CM1, GEO-TOT1/2, the n = 6 close-out and the errata.
+Verify C_ω against a published ℤ[ω] Hecke L-function source. It’s cheap, and it’s the one unverified input behind P4.
+Two leads to record: the drift in the crossover location, and the power-law decay of the field difference. Testing either properly needs another decade of X, about 5,000+ core-hours of archives, so leave them recorded unless you want to commit spot for a week.
