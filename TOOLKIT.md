@@ -1570,3 +1570,28 @@ read off an unresolved quadrature.
   alone, and round 82 accepted that as "at least as strict". When the quadrature branch was finally measured, it
   exceeded the 4-node values themselves, so G-b3 was reclassified VOID (round 85).
 - **Rule:** a FAIL needs every branch of its tolerance computed.
+
+### §9.F — A SEAL IS NOT FINAL UNTIL ITS DOUBLE READ AND cmp HAVE BEEN DRY-RUN (RQ1-c, 2026-10-29)
+
+**Rule (standing, Will).** Before sealing, dry-run the full double read and its `cmp` on a cheap input. A seal is not
+final until that dry run passes. Timings (CPU, wall, cost ratios) go to a sidecar file, never into a cmp'd output.
+
+**What it caught.** The RQ1-c sealed read (`specarith/rq1/RQ1C_READ_VOID.md`) passed every pre-read check:
+- mount guard;
+- 18 pins;
+- 30,200 segment hashes.
+It then came out literally VOID on `cmp`. `rq1c_read.py read` wrote per-stage `cpu_s`, `ratio` and `cpu_core_h` into
+the output JSON, so two correct runs could never compare byte-identical. Every science field was identical. The
+docstring claimed byte-identity, but `read` mode had never been run twice: the reproduction and pipeline checks were
+single runs of other modes.
+
+The outcome was a post-hoc ruling (stripped-file sha256, PASS-under-ruling), not a clean PASS. The verdict lines had
+already been printed to the logs.
+
+**How to apply.**
+- At seal time, run the exact launcher on a small input, e.g. the 10¹⁰ slice or a few segments. Run both reads and
+  the `cmp`, and commit the dry run's `cmp` line with the seal.
+- Grep the read code for clock calls (`time.`, `process_time`, `perf_counter`, `datetime`). Any value they produce
+  goes to a sidecar.
+- Do not print verdicts to a log the operator will see before the `cmp` has passed. Write them to the cmp'd file only.
+- Related: §9 "green board must be informative" (red-path every checker) and "sealed-contingency dry run".
