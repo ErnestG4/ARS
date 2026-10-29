@@ -27,8 +27,9 @@ difference exceeded the conductor shift by 1–30%, an excess in the ratio's den
 result in its cleanest form so far.
 
 **Caveats.**
-- **C_ω = log 27** is derived (`RQ1B_STEP0.md` §3), from the d·(wk/2)² rule with w = 6. It has not been checked against
-  a published ℤ[ω] Hecke L-function source; that check is in progress.
+- **C_ω = log 27: verified after the read (2026-10-29)** against Holm, JTNB 37 (2025) §2 and the LMFDB L-functions of
+  the CM forms 3.7.b.a and 3.13.b.a (= L(s, λ₁), L(s, λ₂)): gamma factor Γ_ℂ(s + 3|k|), conductor 3, so log 27 in our
+  k-indexing (`C_OMEGA_VERIFY.md`). Finite-k corrections are negligible at the read's K. This caveat is closed.
 - **The SE model** is assumed for arithmetic data.
 - **The rigidity cells** (β 0.40, 0.45) were unpowered as sealed (predicted separations 0.4–1.1 SE). Four of the six
   are ordered; both exceptions are within 0.4 SE of a tie.

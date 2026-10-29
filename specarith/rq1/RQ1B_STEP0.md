@@ -56,6 +56,9 @@ type 6k, so the completed L-function is (√3)^s Γ_ℂ(s + 3|k|) L(s, λ_k) and
 - **Check against the primary source:** the same rule for ℤ[i] (w = 4) gives Γ_ℂ(s + 2|k|) and 16k², which is
   Chen's ξ_k(s) = π^{−(s+|2k|)}Γ(s+|2k|)L_k(s) (eq. 3.12) and RW's log 16.
 - **Not checked against a published ℤ[ω] source** (none read). Status: derived; UNVERIFIED externally.
+- **Verified 2026-10-29** (`C_OMEGA_VERIFY.md`): Holm, JTNB 37 (2025) §2 (Hecke L-functions of class-number-1 imaginary
+  quadratic fields, Λ = (|D|N𝔪)^{s/2}(2π)^{−s}Γ(s + |ℓ|/2)L) and LMFDB 3.7.b.a / 3.13.b.a (Λ = 3^{s/2}Γ_ℂ(s + 3k)L, conductor 3,
+  identified with λ₁, λ₂): Γ_ℂ(s + 3|k|), conductor 3, so C_ω = log 27 in our k-indexing. CONFIRMED.
 
 ## 4. Numerical constants (Φ = 1_(0,1]; `rq1b_constants.py` → `results/RQ1B_CONSTANTS.json`)
 

@@ -69,7 +69,7 @@ constant predicts. The observed ω–i separations are 79–93% of the predicted
 Four of six ordered; both exceptions are within 0.4 SE of a tie, as the sealed power implied.
 
 **Ratio D_ωi / D_√2i at β 0.55 against 0.283** (delta-method SE): 0.254 ± 0.100 (10¹⁰), 0.226 ± 0.067 (10¹¹), 0.261 ±
-0.047 (10¹²); each within 1σ of 0.283 (10¹²: −0.5σ). C_ω = log 27 remains unchecked against a published source.
+0.047 (10¹²); each within 1σ of 0.283 (10¹²: −0.5σ). C_ω = log 27 was verified after the read against published sources (`C_OMEGA_VERIFY.md`, 2026-10-29).
 
 ## Cost
 CPU 70,304 s per read (19.5 spot core-h), 0.69× the coded model (28.2); 39 core-h for the double read against the seal's
