@@ -282,6 +282,32 @@ powers (`geotot1/GEOTOT1_PP_STEP0.md`).
 generalized folds q = m·r²) against primes, by N; or a statement from those who know the semigroup counting (A.
 Kontorovich, M. Magee). No further compute at Will's instruction (2026-10-28).
 
+## L10 — the crossover location drifts upward with X (RQ1-c, 2026-10-29)
+
+**What is seen.** The first β where R_ℤ[√2](K) − R_ℤ[i](aK) turns positive (a = 2.5204) was 0.525 ± 0.009 (10¹⁰),
+0.529 ± 0.005 (10¹¹) and 0.538 ± 0.006 (10¹²) (`rq1/RQ1C_READ_REPORT.md`, P3, PASS-under-ruling). It rose at every
+step; the 10¹¹ → 10¹² step is 0.009 ± 0.008 (1.2σ), so no single step is significant. At 10¹² it sits 0.3 resolution
+units inside the upper edge of the sealed window [0.51, 0.54].
+
+**Why it is open.** The PASS reads "pinned near β ≈ ½", but the trend makes that less secure than the PASS suggests. If
+the drift continues, the next decade could leave the window. No formula fixes the location (L8).
+
+**What would address it.** Another decade of X (10¹³) with the same estimator: about 5,000+ spot core-hours of archives
+(Will). Recorded only, unless spot is committed for about a week.
+
+## L11 — the field difference may decay as a power of X (RQ1-c P2, 2026-10-29; one cell)
+
+**What is seen.** At β = 0.60, D(10¹²) = 0.0181 ± 0.0015 falls below the consistency windows of both logarithmic laws
+(1/log X: [0.0228, 0.0337]; 1/log² X: [0.0203, 0.0304]) and inside only the X^{−δ} window ([0.0124, 0.0353]); at β 0.40,
+0.45 and 0.55 all three laws are consistent (`rq1/RQ1C_READ_REPORT.md`, P2, descriptive).
+
+**Why it is open.** If the power law holds, the field difference shrinks like a power of X and vanishes in the limit:
+all fields look alike at this scale eventually. It rests on one cell of a descriptive comparison, fitted on two X; it is
+a lead, not a finding.
+
+**What would address it.** D at a further decade (10¹³), at β 0.55–0.60 especially: the same ≈ 5,000+ core-hours as
+L10. Recorded only.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project
