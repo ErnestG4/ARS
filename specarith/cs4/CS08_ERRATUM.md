@@ -75,6 +75,19 @@ them.
 *(Release v2026.10.11 carried §1–§3 above. §4 was added on 2026-10-11, after the release; release v2026.10.12 carries it, with §4.1 based on the full recompute.)*
 
 ## 4. The sign of J*({a},{b₁,b₂,b₃})'s prime-sum term (erratum; found 2026-10-11, after the release)
+
+### 4.0 The printed text, by version (checked 2026-10-29)
+- **Versions.** arXiv:0803.2795 has a single version, **v1** (19 Mar 2008, 31 KB; arXiv abstract page, checked
+  2026-10-29). The only other version is the journal: Commun. Number Theory Phys. 2(3) (2008) 477–536.
+- **arXiv v1**, e-print `n_correlation_10.tex` (sha256 of the e-print 4f627757…dacb3, cached in
+  `~/specarith_lit_cache/ph2_next_order/src_0803.2795`), **line 2701**, verbatim:
+  `J^*_{\zeta,t}(\{a\},\{b_1,b_2,b_3\})=-\sum_p\frac{z_p(1+a+b_1)z_p(1+a+b_2)z_p(1+a+b_3)\log^4p }{p^{3+3a+b_1+b_2+b_3}}\\`
+  followed by `+ W_1(a,b_1;b_2,b_3)+W_1(a,b_2;b_1,b_3)+W_1(a,b_3;b_1,b_2)`.
+- **Journal**, eq. **(5.36)**, printed **p. 531** (PDF sha256 decd4a26…7745, page 55 of 60). The text layer extracts as:
+  `J∗ζ,t({a},{b1,b2,b3}) = − ∑p zp(1 +a + b1)zp(1 +a + b2)zp(1 +a + b3) log4 p / p3+3a+b1+b2+b3
+  + W1(a, b1;b2,b3)+ W1(a, b2;b1,b3)+ W1(a, b3;b1,b2),(5.36)`.
+- **Does any version fix it? No.** Both versions print the minus sign, and no later arXiv version exists. Not checked:
+  whether the journal issued a separate correction notice.
 - **Printed:** CS08 writes the quadruple-correlation piece as
   J*_{ζ,t}({a},{b₁,b₂,b₃}) = **−**Σ_p z_p(1+a+b₁)z_p(1+a+b₂)z_p(1+a+b₃) log⁴p / p^{3+3a+b₁+b₂+b₃} + W₁(…) + W₁(…) + W₁(…).
   This is arXiv v1 (source line 2701) and the journal's eq. (5.36), checked in the published PDF (sha256 decd4a26…).
