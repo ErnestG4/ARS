@@ -1593,5 +1593,6 @@ already been printed to the logs.
   the `cmp`, and commit the dry run's `cmp` line with the seal.
 - Grep the read code for clock calls (`time.`, `process_time`, `perf_counter`, `datetime`). Any value they produce
   goes to a sidecar.
-- Do not print verdicts to a log the operator will see before the `cmp` has passed. Write them to the cmp'd file only.
+- (Suggested, not part of the ruling.) Do not print verdicts to a log the operator will see before the `cmp` has
+  passed. Write them to the cmp'd file only.
 - Related: §9 "green board must be informative" (red-path every checker) and "sealed-contingency dry run".
