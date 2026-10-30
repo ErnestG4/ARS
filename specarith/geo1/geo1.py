@@ -27,7 +27,13 @@ import sys
 import time
 
 import numpy as np
-from numba import njit, prange
+
+try:
+    from numba import njit, prange
+except ImportError:                 # the pari route runs in spot's `specarith` env (cypari2, no numba)
+    def njit(*a, **k):
+        return (lambda f: f) if not (len(a) == 1 and callable(a[0])) else a[0]
+    prange = range
 
 K = 64                      # digit histogram bins 1 … K; bin K + 1 collects digits > K
 MAXR = 256                  # run-vector buffer (runs per word); asserted
