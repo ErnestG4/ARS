@@ -1,4 +1,8 @@
-# GEO1 Step 1 — price (2026-10-30; desktop timings, single thread; ON HOLD: spot reserved for ARSv2 A2)
+# GEO1 Step 1 — price (2026-10-30; desktop timings, single thread)
+
+> **Correction (2026-10-30, before any run):** the explicit-enumeration figures below used T³/24; the benchmark loop is
+> 0.39·t² steps per trace (0.13·T³ in all: 3·10⁴ ≈ 70 min desktop), and the production loop ≈ 0.071·t² (≈ T³/42:
+> 3·10⁴ ≈ 13 min desktop, ≈ 0.5 spot core-h). See `GEO1_STEP1_PLAN.md` §2.
 
 Benchmarks (scratch code, not committed; desktop WSL, one thread; spot ≈ 2.3× slower per core):
 - **Explicit enumeration** of positive matrices (a b; c d), a, b, c, d ≥ 1, a + d = t, ad − bc = 1 (one per rotation of
