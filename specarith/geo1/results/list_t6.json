@@ -1,0 +1,44 @@
+{
+ "t": 6,
+ "classes": [
+  {
+   "matrix": [
+    5,
+    1,
+    4,
+    1
+   ],
+   "runs": [
+    1,
+    4
+   ],
+   "primitive": true
+  },
+  {
+   "matrix": [
+    5,
+    2,
+    2,
+    1
+   ],
+   "runs": [
+    2,
+    2
+   ],
+   "primitive": true
+  },
+  {
+   "matrix": [
+    5,
+    4,
+    1,
+    1
+   ],
+   "runs": [
+    4,
+    1
+   ],
+   "primitive": true
+  }
+ ]
+}

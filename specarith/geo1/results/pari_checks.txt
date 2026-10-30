@@ -1,0 +1,4 @@
+first: 1 chunks, cpu/model = 0.349
+25: 36 chunks, cpu/model = 0.829
+50: 50 chunks, cpu/model = 0.929
+75: 77 chunks, cpu/model = 1.048
