@@ -2376,3 +2376,6 @@ Option (a): list it, then build the tarball
 
 ### GEO1 on hold (2026-10-30; Will, verbatim)
 Let's hold off for now once we get the timing. We need A2 to have Spot overnight.
+
+### A2 first (2026-10-30; Will, verbatim)
+OK we're going to let A2 grind for half a day first and then we'll get spot back.
