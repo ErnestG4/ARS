@@ -2373,3 +2373,6 @@ I'll update the ARSv2 record as the results come in.
 
 ### arsrh erratum decision (2026-10-29; Will, verbatim)
 Option (a): list it, then build the tarball
+
+### GEO1 on hold (2026-10-30; Will, verbatim)
+Let's hold off for now once we get the timing. We need A2 to have Spot overnight.
