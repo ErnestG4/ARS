@@ -149,7 +149,7 @@ def words(T, out):
     out_all = np.zeros((len(ts_all), 5), np.int64)
     hist_all = np.zeros((len(ts_all), K + 2), np.int64)
     scan_list(np.array([3, 4], np.int64), np.zeros((2, 5), np.int64), np.zeros((2, K + 2), np.int64))   # compile
-    model = lambda ts: float(np.sum(ts.astype(float) ** 2)) * 0.071 * 1.2e-9 * 2.3   # core-s on spot (plan §5)
+    model = lambda ts: float(np.sum(ts.astype(float) ** 2)) * 0.12 * 1.2e-9 * 2.3    # core-s on spot; 0.071 → 0.12 after launch 2 measured 1.667× (plan §5)
     t0 = time.process_time()
     done = []
     for gi, g in enumerate(groups):

@@ -2382,3 +2382,6 @@ OK we're going to let A2 grind for half a day first and then we'll get spot back
 
 ### GEO1 Step 1 go (2026-10-30; Will, verbatim)
 Spot should be free, go ahead with GEO1 Step 1
+
+### GEO1 relaunch at the corrected price (2026-10-30; Will, verbatim)
+Yes please go ahead.

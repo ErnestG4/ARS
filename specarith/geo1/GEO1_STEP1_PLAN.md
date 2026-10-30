@@ -61,3 +61,5 @@ gates, on Will's word.
   The model (0.071·t² steps per trace × 1.2 ns × 2.3) under-prices the production loop on spot with 20 threads. At the
   measured rate the words route is ≈ 0.85 spot core-h instead of 0.5; the pari route is unaffected. Relaunch waits on
   Will.
+- 2026-10-30, launch 3 (Will: "Yes please go ahead"): words model coefficient 0.071 → 0.12 per t² (the measured
+  1.667×), stop line 1.25× of the new figure; pari unchanged. Total ≈ 2.4 spot core-h.
