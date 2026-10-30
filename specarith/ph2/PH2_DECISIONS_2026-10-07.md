@@ -2370,3 +2370,6 @@ Include route (a), (A), (B) with the grid-lock attribution, corrected (B), the L
 Build the tarball by directory name once Will settles the arsrh question. The upload is Will’s.
 
 I'll update the ARSv2 record as the results come in.
+
+### arsrh erratum decision (2026-10-29; Will, verbatim)
+Option (a): list it, then build the tarball
