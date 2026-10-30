@@ -2379,3 +2379,6 @@ Let's hold off for now once we get the timing. We need A2 to have Spot overnight
 
 ### A2 first (2026-10-30; Will, verbatim)
 OK we're going to let A2 grind for half a day first and then we'll get spot back.
+
+### GEO1 Step 1 go (2026-10-30; Will, verbatim)
+Spot should be free, go ahead with GEO1 Step 1
