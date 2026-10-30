@@ -147,7 +147,7 @@ def words(T, out):
     t0 = time.process_time()
     done = []
     for gi, g in enumerate(groups):
-        if gi in (1, 3, 5, 8):
+        if gi in (1, 3, 5, 8) and model(ts_all[np.concatenate(done)]) >= 60:      # not meaningful below a minute
             r = (time.process_time() - t0) / model(ts_all[np.concatenate(done)])
             print(f"after {gi} of 10 groups: cpu/model = {r:.3f}", flush=True)
             if r > 1.25:
