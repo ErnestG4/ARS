@@ -54,7 +54,7 @@ gates, on Will's word.
 
 ## 5. Run log
 - 2026-10-30 12:12 PDT, launch 1: stopped at import (spot's `specarith` env has cypari2 but no numba). Fixed by an
-  optional numba import and a two-env launcher (1a2b… commit "numba import optional"). An import test wrote two scratch
+  optional numba import and a two-env launcher (4ab4b551). An import test wrote two scratch
   files to spot's /tmp; removed at once and logged (spot rule: ~/tmp/claude only).
 - 2026-10-30 12:15 PDT, launch 2: the words route **stopped by its cost check, 1.667× the model after group 1 of 10**
   (the check is armed once the finished work models ≥ 60 s). Nothing else ran (no pari chunk started; no output read).
