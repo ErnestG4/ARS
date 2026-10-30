@@ -51,3 +51,13 @@ t ≤ 40 / list t = 6 checks the code before the production run; it is a code ch
 `results/list_t6.json`, `results/GATES.json`, hashes. Step 2 (descriptive: length spectrum with multiplicities,
 multiplicity growth against t/log t, the partial-quotient histogram, mean period against (6 log 2/π²)·ℓ) follows the
 gates, on Will's word.
+
+## 5. Run log
+- 2026-10-30 12:12 PDT, launch 1: stopped at import (spot's `specarith` env has cypari2 but no numba). Fixed by an
+  optional numba import and a two-env launcher (1a2b… commit "numba import optional"). An import test wrote two scratch
+  files to spot's /tmp; removed at once and logged (spot rule: ~/tmp/claude only).
+- 2026-10-30 12:15 PDT, launch 2: the words route **stopped by its cost check, 1.667× the model after group 1 of 10**
+  (the check is armed once the finished work models ≥ 60 s). Nothing else ran (no pari chunk started; no output read).
+  The model (0.071·t² steps per trace × 1.2 ns × 2.3) under-prices the production loop on spot with 20 threads. At the
+  measured rate the words route is ≈ 0.85 spot core-h instead of 0.5; the pari route is unaffected. Relaunch waits on
+  Will.
