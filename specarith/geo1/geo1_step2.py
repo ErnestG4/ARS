@@ -53,6 +53,8 @@ def bands(t, lo=3, per_decade=10):
     out = []
     for j in range(j0, j1):
         a, b = 10 ** (j / per_decade), 10 ** ((j + 1) / per_decade)
+        if b > t[-1] + 1:                               # complete bands only (the last partial band is dropped)
+            break
         m = (t >= a) & (t < b)
         if m.sum() >= 1:
             out.append(m)
@@ -83,7 +85,7 @@ def main(wnpz, pnpz, odir):
     style(ax)
     rng = np.random.default_rng(20261030)
     sub = np.sort(np.concatenate([np.arange(min(3000, len(t))), rng.choice(np.arange(3000, len(t)), 60000, replace=False)]))
-    ax.scatter(L[sub], gp[sub], s=0.5, color=SERIES[0], alpha=0.12, lw=0, rasterized=True, label="g_prim(t), each trace (subsample)")
+    ax.scatter(L[sub], gp[sub], s=0.5, color=SERIES[0], alpha=0.12, lw=0, rasterized=True, label="g_prim(t): every t < 3,000, 60,000 sampled above")
     bx = [float(L[m].mean()) for m in bands(t)]
     by = [float(gp[m].mean()) for m in bands(t)]
     ax.plot(bx, by, "-o", color=SERIES[0], lw=2, ms=3, label="band mean (10 bands per decade of t)")
