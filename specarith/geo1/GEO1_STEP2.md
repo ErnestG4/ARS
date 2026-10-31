@@ -30,3 +30,21 @@ correlation). A seal on Peter's correlations or on α's distribution should use 
 
 Next in the arc (Will's call): a seal on Peter's multiplicity correlations, on fresh traces beyond 10⁶; and/or the
 Picard stage (PSL(2, ℤ[i]): complex lengths, multiplicities, holonomy angles).
+
+## Additions (Will, 2026-10-30; descriptive) — `geo1_step2b.py`, `results/step2/STEP2B.json`, `results/step2/geo1_rates.png`
+5. **Prime geodesic theorem, remainder rate.** OLS slope of log|Π(T)/Li(x) − 1| on log x, x = ε(T)² (the norm), over
+   T ∈ [10³, 10⁶] (80 log-spaced T; x from 10⁶ to 10¹²): **-0.556 ± 0.022**; the running maximum of |·|
+   (an envelope, less sensitive to sign changes) gives -0.494 ± 0.011.
+   - Compare: −1/2, the conjectured square-root remainder (E(x) ≪ x^{1/2+ε}, as "believed" in Soundararajan–Young
+     2013; original source not traced), against the best proven unconditional bound, Soundararajan–Young, *J. reine
+     angew. Math.* 676 (2013), Thm 1.1 (arXiv:1011.5486): π_Γ(x) = li(x) + O(x^{25/36+ε}) for PSL(2,ℤ), i.e. relative
+     x^{−11/36} = slope −0.306 (VERIFIED from the arXiv source; pages 105–120 SECONDARY). A preprint claim of 2/3
+     (Kaneko, arXiv:2402.12133 v3) is unrefereed (`GEO1_STEP0B_PETER.md`, Task 2).
+   - The data fall at the square-root rate over six decades of x, far below the proven bound's rate. Descriptive.
+6. **Gauss–Kuzmin rate.** TV from Gauss–Kuzmin by band of t (4 bands per decade, t ≈ 10²–3·10⁴): slope of log TV on
+   log t **-1.10 ± 0.02**, i.e. TV ∝ t^{−1.1} (Pollicott gives no rate). In every band the TV is
+   2–3.5× **below** the multinomial sampling floor for the same digit count (median TV of 200 seeded multinomial
+   draws from the Gauss–Kuzmin law): the digits of closed geodesics are more regular than independent sampling.
+   Descriptive.
+7. **Length-spectrum figure** redrawn at uniform density in ℓ (19,310 traces from 40,000 uniform ℓ), so the first
+   version's t = 3,000 switch from every trace to a sample is no longer an edge.
