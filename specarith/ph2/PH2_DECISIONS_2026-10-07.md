@@ -2413,3 +2413,7 @@ yes
 
 ### Overnight check-ins until 8am; best-practices review (2026-10-31 ~01:35 PDT; Will, verbatim)
 It's plugged in. Please set up a reminder every hour until 8am to continue work if there's any roadmap item, optimization, or polish left, but I think we're getting close. Remember we need to look at the core and make sure we haven't missed any best practices (though I think we're good).
+
+### Overnight instruction withdrawn (2026-10-31; Will, verbatim)
+sorry Disregard that overnight and continue our standard work. that was a mistext.
+(The six hourly check-ins scheduled for it were deleted.)
