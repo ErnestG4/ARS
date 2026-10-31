@@ -1636,3 +1636,32 @@ sign. Resolve it before sealing, or carry it into the seal as a stated limitatio
 - An SE that is too small is the dangerous direction: it produces false FAILs, and D23 controls them only if the witness
   is realistic. An SE that is too large wastes power, and a PASS then certifies less than the data show.
 - Related: §9.D (plant the effect), §9.E (converged estimates), and the "green board must be informative" rule.
+
+### §9.H — WHEN JOB COSTS VARY, THE FIRST WAVE TIMES THE CHEAPEST, MEDIAN AND MOST EXPENSIVE CASES (ARSv2 H1 mechanistic report, 2026-10-31)
+
+**Rule (standing, Will).** A first-wave cost measurement whose jobs differ in cost must time, for each kind of job, its
+cheapest, median and most expensive instance. Pick them by a declared cost covariate that can be read without
+outcomes (an event count, a size, a length). Each job's model is then interpolated in that covariate, and the cost
+rule checks every chunk against its own job's model. One sampled job per block, or per cell, is not a measurement.
+
+**What it caught.**
+- **First miss (Correction M3).** The F4 first wave timed one chunk per block. That chunk was the cheap constant-rate
+  family (0.36 s per replicate), so the block projected at 208 CPU-h. Its λ̂_LOO family costs about 2.5 s.
+- **Second miss, after M3 had fixed the first.** M3 timed one chunk per cell, but always of the first job sorted by id,
+  which was the sparsest group medoid (1.8 Hz, about 7k events). Read cost scales with the medoid's event count. In
+  production, Poisson and gamma(4) cost 2.0 s (0.4 s measured) and λ̂_LOO 4.8 s (2.5 s measured).
+- **The run would have stopped itself.** Against the M3 model the 1.25× rule would have halted F4null at its 25%
+  checkpoint, with about 640 CPU-h of real cost hidden behind a 311 CPU-h projection.
+- **Not contention, not memory.** One replicate alone took 1.71 s; twelve concurrent took 2.3 s each; RSS ≤ 1 GB.
+
+**How to apply.**
+- At first-wave design, name the cost covariate for every job kind, and check from the code that the cost scales with
+  it (here the kernel sums and S(f) loop over events).
+- Time the cheapest, the median and the most expensive job of each kind by that covariate. The three may coincide for
+  a kind with fewer than three jobs; say so.
+- Model each job by interpolation, flat beyond the measured ends. Never extrapolate a fit past the most expensive
+  measured case.
+- Run the cost rule per chunk against its job's model, so that a checkpoint's ratio does not depend on which jobs the
+  scheduler happened to run first.
+- A projection that rests on one sampled instance is labelled as such and is not used by a stop rule.
+- Related: §9.F (dry-run the double read), the round-84 first-wave rule.
