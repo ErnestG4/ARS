@@ -1,0 +1,44 @@
+GEO1 Peter-correlation sealing timestamp manifest (OpenTimestamps; order: seal -> stamp -> fresh run on spot ->
+Bitcoin attestation verified on two explorers -> double read -> cmp). Only this file's sha256 is submitted to the
+OpenTimestamps calendars; the receipt is GEO1P_SEAL_STAMP_2026-10-31.txt.ots.
+Statement: at the time of stamping, no class number for any trace 10^6 < t <= 3*10^6 and no statistic on that range has
+been computed; the fresh range's outputs will not be read until this receipt is Bitcoin-attested and verified on two
+explorers. Development data pin (not in git): specarith/geo1/data/pari_1e6.npz
+sha256 c72380f922ab16bb84c6f905ee2b1246b78d3b46b8e847540c88fb2f589b3258.
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag geo1p-seal                 object d3a2e9e394abcb0dd02937887395966b96abcf9c
+                              on commit 2430bc32229b9c7d6eeeeceb81469d7fc7512827
+                              specarith/geo1/GEO1_PETER_SEAL.md
+                              sha256 45e28a058225b2c20b8a310443776cbe94efcec9b31f1246a6b09f4d09bc6e79
+                              specarith/geo1/geo1_peter_seal.py
+                              sha256 30b9e5939feafb6fbecf4ddbaf90e8c72248fac0c3d0b58e13722cf3ee5f4774
+                              specarith/geo1/geo1_peter_d23.py
+                              sha256 e104cd152319841a8d41845bfebfb32c60d3acf7dcfa6a4b7d07734bba30b01f
+                              specarith/geo1/geo1_peter.py
+                              sha256 83f17ff448dfa782bdd55021beecb67083091c0fb640998efb62ba63b64b10b7
+                              specarith/geo1/geo1.py
+                              sha256 7a6e6eeafc13f0bed0de33815f01b32a60e1ed91ed0a0e23ed45f37dc24c8b23
+                              specarith/geo1/geo1_peter_dev.py
+                              sha256 bff6bfc6e482722edc969f26ea6eb8afdda048f7108482ed636d4aac4275e5e7
+                              specarith/geo1/run_peter_fresh_spot.sh
+                              sha256 ad3bcef402b402aacc55870e049f27cb7f1677ced3481a83302d43b32c4c9226
+                              specarith/geo1/results/peter/seal/SEAL_PARAMS.json
+                              sha256 1b05dd28f49e429a757926fd74bc14460235cea3a692a6c2a0cc66a7ea66b2f3
+                              specarith/geo1/results/peter/seal/TOL.json
+                              sha256 63047aa8e1970f527bbe505e88a8f7a578e2c5fd5226a48cbd6eb9618bac58df
+                              specarith/geo1/results/peter/seal/GEN_SD.json
+                              sha256 648546f97bbd5de3bf6db98c9e66806fc2618ddc58d1095b2853062b7c6e5ab0
+                              specarith/geo1/results/peter/seal/D23.json
+                              sha256 aff0f72e3b93ca622fab1c48ccc4e1dfec3efeffa7360687760f9f8dffefecf5
+                              specarith/geo1/results/peter/seal/D23N.json
+                              sha256 f49a1cbdda22eedd456114dd92f89289dd643e1bd6c3b0a7f1bd0e0cbfc70885
+                              specarith/geo1/results/peter/seal/HSAMPLE.json
+                              sha256 534ed75b1e381bcc4be4714fd49160aaa0d79a6f297eaee0a14782ad6fba4989
+                              specarith/geo1/results/peter/seal/CFCHECK.json
+                              sha256 f4ea5173bc6c16fe0c7fca6c74f4a38468a1187f84c6f2a6f606a3b47a578449
+                              specarith/geo1/results/peter/PRED.json
+                              sha256 7af381317088b2033ea56949a484b2f93077d5428fe6ed3d79297d5187e134aa
+                              specarith/geo1/results/peter/DEV.json
+                              sha256 82669f224582b3bb302a3e67426330db0a67d68e267d2fa3b22cd7910013654c
+(sha256 of `git show 2430bc32229b9c7d6eeeeceb81469d7fc7512827:<path>`; the tag geo1p-seal resolves to that commit)
