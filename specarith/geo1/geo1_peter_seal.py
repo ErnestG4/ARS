@@ -450,6 +450,12 @@ def read(dev_npz, fresh_npz, params_json, hs_json, hind_glob, out):
     inputs_ok = res["dev_sha256"] == P["dev_sha256"] and cov and hc["all_match"]
     res.update(inputs=dict(dev_hash_ok=res["dev_sha256"] == P["dev_sha256"], coverage_ok=cov, class_number_check=hc,
                            ok=inputs_ok))
+    if not cov:                                   # no statistics without the full contiguous fresh range
+        res["verdict"] = dict(primary="VOID (inputs)", secondary="VOID (inputs)", overall="VOID (inputs)")
+        dump(res, out)
+        open(out + ".timing", "w").write(f"wall_s {time.time() - t0:.1f}\n")
+        print("verdict:", res["verdict"])
+        return 0
     a = alpha_tilde(dev_npz, fresh_npz)
     lo, hi = t1 + 1, t2 - RMAX
     st = window_stats(a, lo, hi, lags)

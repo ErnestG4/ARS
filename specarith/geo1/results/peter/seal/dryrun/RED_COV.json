@@ -1,0 +1,23 @@
+{
+ "dev_sha256": "e0e937870b54496c3b5d0e761392f2c512ba94d11d7d43e7e4777e58383c2799",
+ "fresh_sha256": "8e2c8fc7bde8ba8917d2f17651f573f6ff9e3794a8f9229e5bec312012aec76e",
+ "hsample_sha256": "60e8c33e873836db1cb4f93c0f0467f2af487a3bacb953cfbb316e58c1799b00",
+ "inputs": {
+  "class_number_check": {
+   "all_match": true,
+   "match_h": 10,
+   "match_nu": 10,
+   "missing": 0,
+   "n": 10
+  },
+  "coverage_ok": false,
+  "dev_hash_ok": true,
+  "ok": false
+ },
+ "params_sha256": "b262eebf7ea1f16c663647a84b3da8c6f809a85dcdb1ab7f7771bf8d93e5f7b8",
+ "verdict": {
+  "overall": "VOID (inputs)",
+  "primary": "VOID (inputs)",
+  "secondary": "VOID (inputs)"
+ }
+}
