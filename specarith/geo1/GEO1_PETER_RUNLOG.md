@@ -20,3 +20,13 @@
 - **No relaunch without Will.** A relaunch needs the launcher's cost model changed from 6.0 to 12.0 ms per t. The launcher
   is a sealed file (it is in the stamp manifest), so that change would be a logged post-seal deviation affecting only the
   cost guard. Any fix for the orphaned children also needs Will's decision.
+
+## Launch 2: post-seal deviation (Will, 2026-10-31: "yes")
+
+`run_peter_fresh_spot.sh` changes from the sealed version in two places only. Neither touches a statistic, a tolerance
+or an input:
+- the cost model goes from 6.0 to 12.0 ms per t, keeping the 1.25× stop;
+- xargs is started with `setsid` in its own process group, and a stop sends `kill -TERM -- -PGID` to the whole group.
+
+The run starts from scratch in a new directory, `peter_fresh2`, with 16 processes at nice 10. Launch 1's partial
+outputs are not used.

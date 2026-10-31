@@ -2407,3 +2407,6 @@ Length-spectrum figure: mark the t = 3,000 switch from every trace to a sample (
 
 ### GEO1 Peter seal: build at T₂ = 3·10⁶, D23 on the 4090 (2026-10-31; Will, verbatim)
 yes, build it with T₂ = 3·10⁶, D23 on the 4090
+
+### GEO1 Peter fresh run: relaunch at the corrected price (2026-10-31; Will, verbatim)
+yes
