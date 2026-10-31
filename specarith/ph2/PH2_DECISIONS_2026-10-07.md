@@ -2417,3 +2417,8 @@ It's plugged in. Please set up a reminder every hour until 8am to continue work 
 ### Overnight instruction withdrawn (2026-10-31; Will, verbatim)
 sorry Disregard that overnight and continue our standard work. that was a mistext.
 (The six hourly check-ins scheduled for it were deleted.)
+
+### GEO1 close-out; TOOLKIT §9.G; RQ1 SE lead (2026-10-31; Will, verbatim)
+GEO1 close-out: a short summary with Steps 1–2, the Peter seal (PASS; certified about 10⁻³, observed about 10⁻⁵), the descriptive rates (PGT about the square-root rate, with the slope caveat; Gauss–Kuzmin about t^−1.1), and the GRH caveat. The Picard stage is recorded as an open lead.
+TOOLKIT §9.G: for seals on arithmetic sequences, calibrate the SE method on the planted witness (replicate spread against the method’s SE) before setting tolerances. A development-range z RMS far from 1 is a warning sign.
+Lead, recorded only: test whether RQ1’s sector-variance SE model overstates noise for the arithmetic angle sets, in the way GEO1’s jackknife did. If it does, RQ1’s passes are conservative.

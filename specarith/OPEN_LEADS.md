@@ -308,6 +308,36 @@ a lead, not a finding.
 **What would address it.** D at a further decade (10¹³), at β 0.55–0.60 especially: the same ≈ 5,000+ core-hours as
 L10. Recorded only.
 
+## L12 — the Picard stage of GEO1 (2026-10-31; recorded only)
+
+**What it is.** PSL(2, ℤ[i]): complex lengths, multiplicities and holonomy angles of the closed geodesics of the Picard
+orbifold. It is the next stage of the GEO1 arc after the modular surface (`geo1/GEO1_CLOSEOUT.md`).
+
+**What is in hand.** Literature only (`geo1/GEO1_STEP0.md` §7). Sarnak 1983 (Acta 151) for the complex-length counting,
+VERIFIED. Marklof 1996 for mean multiplicities. Margulis–Mohammadi–Oh (GAFA 2014) for holonomy equidistribution,
+VERIFIED at leading order, through a torsion-free finite-index subgroup.
+
+**What would address it.** Will's call: a Step 0 refresh, a pricing note (class numbers over ℤ[i] in place of ℤ), then
+gates on the GEO1 Step 1 pattern.
+
+## L13 — does RQ1's sector-variance SE model overstate noise on the arithmetic angle sets? (2026-10-31; recorded only)
+
+**What is seen elsewhere.** On GEO1's Peter seal, the block-jackknife SE overstated the error on the arithmetic sequence
+about 10×: fresh-window z RMS 0.07 for γ and 0.13 for the ratios; development range 0.59 (`geo1/GEO1_PETER_READ.md`,
+TOOLKIT §9.G).
+
+**Why RQ1 may share it.** RQ1-c's block SE (1,000 arcs in 500 mirror pairs) was validated against the replicate SD on
+the witness families. Those were the mixture and the jittered lattice: ratios 0.874–1.004 at N = 10⁹, and 0.944–1.037
+at full N (`rq1/RQ1C_SEAL.md`, pre-seal item 3). It was not validated on the arithmetic angle sets themselves, whose
+long-period structure could inflate arc-to-arc variation in the same way.
+
+**If it does.** RQ1's passes are conservative: the tolerances certify less than the data show. A FAIL would not be
+affected in that direction.
+
+**What would address it.** The z RMS of RQ1-c's read deviations against their block SEs, on the archives already read.
+Also a replicate-type comparison, if a resampling of the arithmetic angle sets that keeps their structure exists.
+Recorded only.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project

@@ -1596,3 +1596,43 @@ already been printed to the logs.
 - (Suggested, not part of the ruling.) Do not print verdicts to a log the operator will see before the `cmp` has
   passed. Write them to the cmp'd file only.
 - Related: §9 "green board must be informative" (red-path every checker) and "sealed-contingency dry run".
+
+### §9.G — ON ARITHMETIC SEQUENCES, CALIBRATE THE SE METHOD ON THE PLANTED WITNESS BEFORE SETTING TOLERANCES (GEO1 Peter seal, 2026-10-31)
+
+**Rule (standing, Will).** For a seal on an arithmetic sequence, calibrate the SE method on the planted witness before
+setting tolerances. Compute the method's SE on each planted replicate and compare it with the spread of the replicates'
+estimates. A development-range z RMS (deviation from the prediction divided by the method's SE) far from 1 is a warning
+sign. Resolve it before sealing, or carry it into the seal as a stated limitation.
+
+**What it caught.**
+- **The tolerances.** The GEO1 Peter seal (`specarith/geo1/GEO1_PETER_SEAL.md`, `GEO1_PETER_READ.md`) set its
+  tolerances from a block-jackknife SE (blocks of 10⁴), projected from the development range.
+- **The warning sign, noted but not acted on.** The development range's z RMS against that SE was 0.59. It was recorded
+  as "block SE looks conservative" and left in the design.
+- **The read.** The read passed. On the fresh window, though, the z RMS against the fresh block-jackknife SE was 0.07 for
+  γ and 0.13 for the ratios: the method overstated the error about 10×.
+- **The cost.** The tolerances were 20–100× wider than the observed deviations. The seal certified about 10⁻³ where the
+  data agree to about 10⁻⁵.
+- **Probable cause (not tested).** An arithmetic sequence is built from periodic local structure. Each periodic component
+  averages out over a window at about (period)/N, not 1/√N. Primes with periods longer than a block still move the block
+  means, so block resampling counts them as independent noise.
+
+**Why the planted witness must carry the structure.**
+- **The generator compared.** GEO1's planted generator (local densities for p ≤ 997, then i.i.d. residual noise) was
+  checked against the real data. That comparison was the generator's spread against the real block SE, not the method's
+  SE against the planted replicates' spread.
+- **What it missed.** The generator's large-prime part is i.i.d., so block jackknife would have looked calibrated on it.
+- **The rule's consequence.** The calibration is only as good as the witness. If the witness lacks the sequence's
+  long-period arithmetic, the development-range z RMS is the remaining check, so read it as a gate input, not a footnote.
+
+**How to apply.**
+- At design time, for each statistic, report ⟨SE_method⟩ / SD_replicates on the planted witness. Values outside about
+  0.8–1.25 mean the method is miscalibrated for that statistic.
+- Report the development-range z RMS next to it. If it is far from 1 (GEO1: 0.59), either:
+  - change the SE method (for example, a replicate-calibrated SE, or blocks at least as long as the longest period that
+    matters); or
+  - state in the seal that the tolerance is conservative by about 1/z_RMS, and that the PASS then certifies only the
+    tolerance, not the observed precision.
+- An SE that is too small is the dangerous direction: it produces false FAILs, and D23 controls them only if the witness
+  is realistic. An SE that is too large wastes power, and a PASS then certifies less than the data show.
+- Related: §9.D (plant the effect), §9.E (converged estimates), and the "green board must be informative" rule.
