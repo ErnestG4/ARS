@@ -2410,3 +2410,6 @@ yes, build it with T₂ = 3·10⁶, D23 on the 4090
 
 ### GEO1 Peter fresh run: relaunch at the corrected price (2026-10-31; Will, verbatim)
 yes
+
+### Overnight check-ins until 8am; best-practices review (2026-10-31 ~01:35 PDT; Will, verbatim)
+It's plugged in. Please set up a reminder every hour until 8am to continue work if there's any roadmap item, optimization, or polish left, but I think we're getting close. Remember we need to look at the core and make sure we haven't missed any best practices (though I think we're good).
