@@ -2388,3 +2388,19 @@ Yes please go ahead.
 
 ### GEO1 Step 2 go (2026-10-30; Will, verbatim)
 OK we can use spot for a bit alongside our PLL work. Please be mindful but let's roll :)
+
+### GEO1: seal on Peter's multiplicity correlations; Step 2 additions (2026-10-30; Will, verbatim)
+GEO1: option (a), a seal on Peter’s multiplicity correlations.
+
+Price fresh traces 10⁶ < t ≤ T₂ (choose T₂ by cost; report the PARI class-number cost at d ~ 10¹³–10¹⁴).
+Statistics: primary γ(r)/γ(0) for a committed set of lags r (including small primes and composites, to show the arithmetic structure); γ(0) and the raw γ(r) as well. Peter’s Euler product gives the predictions, zero parameters; verify its exact statement in the source.
+Tolerance: the convergence trend on t ≤ 10⁶ (the development range) plus the statistical SE, justified in writing. Compute power per lag before sealing; underpowered lags are UNPOWERED.
+Witnesses: planted Euler-product correlations of known size, a matched-marginal independent-lag null, and a shuffled-t must-fail. D23 check ≥ 0.95.
+Inputs: a seeded sample of held-out class numbers recomputed by an independent algorithm, compared programmatically with no values shown. Note GRH in the attribution.
+§9.F: dry-run the double read and its cmp; timings in a sidecar. Then seal → stamp → attest → read. Pushes stay with Will.
+
+descriptive additions to GEO1_STEP2.md):
+
+Fit the log-log slope of |Π(T)/Li(ε²) − 1| against x = ε² over T ∈ [10³, 10⁶]. Compare it with −½ (the conjectured square-root error) and with the best proven bound (Soundararajan–Young, x^(25/36), so relative x^(−11/36); verify the citation). Descriptive.
+Fit the slope of TV(Gauss–Kuzmin) against t by band. Pollicott gives no rate; report it descriptively.
+Length-spectrum figure: mark the t = 3,000 switch from every trace to a sample (ℓ ≈ 16), or resample to uniform density, so the edge isn’t read as structure.
