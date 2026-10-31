@@ -2404,3 +2404,6 @@ descriptive additions to GEO1_STEP2.md):
 Fit the log-log slope of |Π(T)/Li(ε²) − 1| against x = ε² over T ∈ [10³, 10⁶]. Compare it with −½ (the conjectured square-root error) and with the best proven bound (Soundararajan–Young, x^(25/36), so relative x^(−11/36); verify the citation). Descriptive.
 Fit the slope of TV(Gauss–Kuzmin) against t by band. Pollicott gives no rate; report it descriptively.
 Length-spectrum figure: mark the t = 3,000 switch from every trace to a sample (ℓ ≈ 16), or resample to uniform density, so the edge isn’t read as structure.
+
+### GEO1 Peter seal: build at T₂ = 3·10⁶, D23 on the 4090 (2026-10-31; Will, verbatim)
+yes, build it with T₂ = 3·10⁶, D23 on the 4090
