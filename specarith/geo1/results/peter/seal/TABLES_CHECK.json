@@ -1,0 +1,64 @@
+{
+ "closed_form_vs_counts": [
+  {
+   "max_abs_diff": 0.0,
+   "p": 3
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 5
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 7
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 11
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 13
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 17
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 19
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 23
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 29
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 31
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 37
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 41
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 43
+  },
+  {
+   "max_abs_diff": 0.0,
+   "p": 47
+  }
+ ],
+ "max_abs_diff": 0.0,
+ "max_abs_mean_minus_1": 4.440892098500626e-16,
+ "min_density": 0.6666666666666666,
+ "n_tables": 168
+}

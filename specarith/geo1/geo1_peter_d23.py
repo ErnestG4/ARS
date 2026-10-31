@@ -8,6 +8,14 @@ series; the statistics are the seal's 45 (ratio r ≠ 0; γ(0); raw γ(r ≠ 0))
   python geo1_peter_d23.py d23 DEV_NPZ PRED_JSON TOL_JSON OUT_JSON    R = 2000 each: planted (pass rates against the
                                                                        exact planted values; SE-only and full tolerance),
                                                                        null and planted-without-3 (fail rates)
+  python geo1_peter_d23.py d23n DEV_NPZ PRED_JSON TOL_JSON OUT_JSON   the same with noise-matched planted noise
+                                                                       ξ' = 1 + c(ξ − 1), c = 1/median(generator SD /
+                                                                       real block-jackknife SE at the dev k = 23 window)
+
+Addition before the seal (2026-10-31, after the sd and d23 runs): the as-built generator is smoother than the real data
+(generator SD / real block-jackknife SE 0.30–0.84 at the dev k = 23 window), so its D23 is optimistic. d23n is the stress
+variant; seal gate fixed before it runs: d23 SE-only rates ≥ 0.95 AND d23n full-tolerance rates ≥ 0.95 (all families);
+d23n SE-only rates reported.
 """
 import json
 import sys
@@ -93,10 +101,17 @@ def sd(dev_npz, pred_json, out):
     return 0
 
 
-def d23(dev_npz, pred_json, tol_json, out):
+def d23(dev_npz, pred_json, tol_json, out, noise_matched=False):
     t0 = time.time()
     pred, lags, resp, alp = setup(dev_npz, pred_json)
     T = json.load(open(tol_json))
+    c = 1.0
+    if noise_matched:
+        c = 1.0 / float(np.median(T["generator_vs_real_at_dev23"]["ratio_gen_over_real"]))
+        resp = 1.0 + c * (resp - 1.0)
+        seed_off = 10
+    else:
+        seed_off = 0
     tol, tse, pv = np.array(T["tol"]), np.array(T["tol_se_only"]), np.array(T["pred"])
     NF = T["N_fresh"]
     tabs = S.tables()
@@ -107,9 +122,11 @@ def d23(dev_npz, pred_json, tol_json, out):
     exv3 = S.stat_vector(dict(gamma=ex3, ratio={r: ex3[r] / ex3[0] for r in lags if r}), lags)
     P = slice(0, 22)
     Q = slice(22, 45)
-    pl = replicate_stats(Gen(tabs, resp), R_D23, NF, lags, SEED_D23)
-    nu = replicate_stats(Gen([], alp), R_D23, NF, lags, SEED_D23 + 1)
-    d3 = replicate_stats(Gen(tabs3, resp), R_D23, NF, lags, SEED_D23 + 2)
+    pl = replicate_stats(Gen(tabs, resp), R_D23, NF, lags, SEED_D23 + seed_off)
+    nu = replicate_stats(Gen([], alp), R_D23, NF, lags, SEED_D23 + seed_off + 1)
+    d3 = replicate_stats(Gen(tabs3, resp), R_D23, NF, lags, SEED_D23 + seed_off + 2)
+    sd_dev = replicate_stats(Gen(tabs, resp), R_SD, N_DEV23, lags, SEED_D23 + seed_off + 3).std(0, ddof=1) \
+        if noise_matched else None
 
     def rates(x, ref, t):
         ok = np.abs(x - ref) <= t
@@ -119,8 +136,10 @@ def d23(dev_npz, pred_json, tol_json, out):
     ok_f, r_f = rates(pl, exv, tol)
     nok, _ = rates(nu, pv, tol)
     dok, _ = rates(d3, exv, tol)
-    res = dict(R=R_D23, seeds=[SEED_D23, SEED_D23 + 1, SEED_D23 + 2], names=T["names"], N_fresh=NF,
-               tol_sha256=S.sha(tol_json),
+    res = dict(R=R_D23, seeds=[SEED_D23 + seed_off + k for k in range(4 if noise_matched else 3)], names=T["names"],
+               N_fresh=NF, tol_sha256=S.sha(tol_json), noise_c=c,
+               sd_dev23_over_real=None if sd_dev is None else
+               (sd_dev / np.array(T["generator_vs_real_at_dev23"]["real_block_jk_se"])).tolist(),
                planted=dict(exact=exv.tolist(),
                             pass_rate={**{k + "_se_only": v for k, v in r_se.items()},
                                        **{k + "_full": v for k, v in r_f.items()}},
@@ -146,4 +165,4 @@ def d23(dev_npz, pred_json, tol_json, out):
 if __name__ == "__main__":
     if sys.argv[1] == "sd":
         sys.exit(sd(*sys.argv[2:5]))
-    sys.exit(d23(*sys.argv[2:6]))
+    sys.exit(d23(*sys.argv[2:6], noise_matched=sys.argv[1] == "d23n"))

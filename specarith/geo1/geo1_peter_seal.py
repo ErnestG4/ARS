@@ -16,7 +16,7 @@ Planted generator (witness, D23): α(n) = δ_P(n + s) ξ(n), δ_P = Π_{p ≤ 99
   python geo1_peter_seal.py cfcheck OUT_JSON                      (cypari2: CF unit-norm parity against quadunitnorm)
   python geo1_peter_seal.py hind HSAMPLE_JSON I0 I1 OUT_JSON      (cypari2: qfbclassno + CF parity, independent)
   python geo1_peter_seal.py calibrate DEV_NPZ PRED_JSON DEV_JSON GEN_SD_JSON OUT_JSON
-  python geo1_peter_seal.py finalize TOL_JSON D23_JSON PRED_JSON OUT_JSON
+  python geo1_peter_seal.py finalize TOL_JSON D23_JSON D23N_JSON PRED_JSON OUT_JSON
   python geo1_peter_seal.py read DEV_NPZ FRESH_NPZ PARAMS_JSON HSAMPLE_JSON HIND_JSON OUT_JSON
   python geo1_peter_seal.py dryparams PARAMS_JSON DEV_NPZ T1 T2 OUT_DIR   (§9.F: split the dev range into dev/"fresh")
 """
@@ -362,9 +362,10 @@ def calibrate(dev_npz, pred_json, dev_json, gensd_json, out, t1=T1, t2=T2):
 
 
 # ---------------- finalize: powers, UNPOWERED flags, D23 gate ----------------
-def finalize(tol_json, d23_json, pred_json, out):
+def finalize(tol_json, d23_json, d23n_json, pred_json, out):
     tol = json.load(open(tol_json))
     d23 = json.load(open(d23_json))
+    d23n = json.load(open(d23n_json))
     pred = json.load(open(pred_json))
     lags = tol["lags"]
     nz = [r for r in lags if r]
@@ -392,8 +393,16 @@ def finalize(tol_json, d23_json, pred_json, out):
     gate = dict(d23_primary_se_only=d23["planted"]["pass_rate"]["primary_se_only"],
                 d23_secondary_se_only=d23["planted"]["pass_rate"]["secondary_se_only"],
                 d23_joint_se_only=d23["planted"]["pass_rate"]["joint_se_only"],
-                null_primary_fail_rate=d23["null"]["family_fail_rate"]["primary"])
-    gate["ok"] = (min(gate["d23_primary_se_only"], gate["d23_secondary_se_only"], gate["d23_joint_se_only"]) >= 0.95
+                null_primary_fail_rate=d23["null"]["family_fail_rate"]["primary"],
+                noise_matched_c=d23n["noise_c"],
+                d23n_primary_full=d23n["planted"]["pass_rate"]["primary_full"],
+                d23n_secondary_full=d23n["planted"]["pass_rate"]["secondary_full"],
+                d23n_joint_full=d23n["planted"]["pass_rate"]["joint_full"],
+                d23n_se_only_reported=dict(primary=d23n["planted"]["pass_rate"]["primary_se_only"],
+                                           secondary=d23n["planted"]["pass_rate"]["secondary_se_only"],
+                                           joint=d23n["planted"]["pass_rate"]["joint_se_only"]))
+    gate["ok"] = (min(gate["d23_primary_se_only"], gate["d23_secondary_se_only"], gate["d23_joint_se_only"],
+                      gate["d23n_primary_full"], gate["d23n_secondary_full"], gate["d23n_joint_full"]) >= 0.95
                   and gate["null_primary_fail_rate"] >= 0.95)
     res = dict(tol)
     res.update(gate_power=gate_power, powered=powered, power_min=POWER_MIN, structure_resolution=resol,
@@ -526,7 +535,7 @@ if __name__ == "__main__":
     if m == "calibrate":
         sys.exit(calibrate(*A[:5]))
     if m == "finalize":
-        sys.exit(finalize(*A[:4]))
+        sys.exit(finalize(*A[:5]))
     if m == "read":
         sys.exit(read(*A[:6]))
     if m == "dryparams":
