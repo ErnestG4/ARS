@@ -2385,3 +2385,6 @@ Spot should be free, go ahead with GEO1 Step 1
 
 ### GEO1 relaunch at the corrected price (2026-10-30; Will, verbatim)
 Yes please go ahead.
+
+### GEO1 Step 2 go (2026-10-30; Will, verbatim)
+OK we can use spot for a bit alongside our PLL work. Please be mindful but let's roll :)
