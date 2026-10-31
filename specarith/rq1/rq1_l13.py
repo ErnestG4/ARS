@@ -43,6 +43,9 @@ for bit, else stop (the data or the code differ).
 Cost model (spot core-s; the rq1c_read constants): per field and X, load 1.0·m_load(N); full set 12 passes (4 exact,
 8 block); subsets 3 × (0.5·m_load(N) sorts + 4 passes). Total ≈ 2.6 core-h; stop above 1.25× after any stage. Timings go
 to a sidecar; L13.json has none.
+Launch 1 (2026-10-31) stopped at its first check (2.07× at the 10¹⁰ ℤ[√2] load, 47 CPU-s): about 7 s of imports and
+numba compilation, and the ℤ[√2] angles computed twice (θ, then p). Fixed: one thetas_from_ab call; the check arms once
+the modelled work is ≥ 60 s (as GEO1 words). Method unchanged.
 
 Calibration (§9.G; synthetic, before the run): mirror-symmetrised i.i.d. (Poisson) sets of n = 10⁶ half-points, 60
 replicates (seeds [9900, rep]), K = 2,000 and 20,000. Per K: the replicate relSD of R (the truth), the model's relSD,
@@ -175,10 +178,10 @@ def load_half(d, field, n):
         path = os.path.join(d, f"seg_{s['k']:04d}.npy")
         assert hashlib.sha256(open(path, "rb").read()).hexdigest() == s["sha256"], path
         ab = np.load(path)[: n - got]
-        th[got:got + len(ab)] = Q.field_thetas(ab, field)
         if field == "zs2":
-            p = RA.thetas_from_ab(ab)[1]
+            th[got:got + len(ab)], p = RA.thetas_from_ab(ab)          # = rq1_read.field_thetas (its [0]) and p, once
         else:
+            th[got:got + len(ab)] = Q.field_thetas(ab, field)
             u, v = ab[:, 0].astype(np.int64), ab[:, 1].astype(np.int64)
             p = u * u + v * v
         md[got:got + len(ab)] = (p % MODS).astype(np.int16)
@@ -203,7 +206,7 @@ class Cost:
         self.rows.append(dict(stage=stage, cpu_s=cpu, model_s=self.model, ratio=cpu / self.model))
         json.dump(self.rows, open(side, "w"), indent=1)
         print(self.rows[-1], flush=True)
-        if cpu > LIMIT * self.model:
+        if self.model >= 60.0 and cpu > LIMIT * self.model:          # armed once the modelled work is ≥ 60 s
             open(side + ".STOPPED", "w").write(f"cost {cpu / self.model:.2f}x the model at {stage}\n")
             sys.exit(3)
 
