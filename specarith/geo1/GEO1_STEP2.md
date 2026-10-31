@@ -5,11 +5,13 @@ numbers in `results/step2/STEP2.json`, figures in `results/step2/`. The full tab
 is `data/length_spectrum.csv.gz` (gitignored; sha256 in the commit message). Desktop, seconds; no spot time.
 
 **Not computed on purpose:** multiplicity fluctuations and correlations (Peter 2002's γ(r)), the candidate sealable
-prediction in `GEO1_STEP0.md`. No fluctuation statistic of t ≤ 10⁶ has been looked at; a seal on them stays possible.
+prediction in `GEO1_STEP0.md`. **Disclosure:** while checking a sentence of this file, one fluctuation statistic was looked at: on t ∈ [10⁵, 10⁶],
+the 1st–99th percentiles of g_prim(t)/(t/log t) are 0.32 and 3.0 (min 0.20, max 6.1). Nothing else (no variance, no
+correlation). A seal on Peter's correlations or on α's distribution should use fresh traces beyond 10⁶.
 
 1. **Length spectrum** (`geo1_length_spectrum.png`). Each trace t ≥ 3 is one length ℓ = 2 arccosh(t/2); multiplicities
-   (primitive oriented classes) to t = 10⁶ (ℓ ≈ 27.6), up to ≈ 3·10⁵ at a single length. Band means follow the mean law
-   2e^{ℓ/2}/ℓ (Bolte 1993; Bogomolny 2003) from ℓ ≈ 7 on; individual traces scatter about a decade around it.
+   (primitive oriented classes) to t = 10⁶ (ℓ ≈ 27.6), up to 386,208 at a single length (t = 903,890). Band means
+   follow the mean law 2e^{ℓ/2}/ℓ (Bolte 1993; Bogomolny 2003) from ℓ ≈ 7 on; individual traces scatter around it.
 2. **Mean multiplicity** (`geo1_multiplicity_growth.png`). Band means of g_prim(t)/(t/log t): 0.963 (t 10–10²), 0.9958
    (10²–10³), 0.99965 (10³–10⁴), 0.999975 (10⁴–10⁵), 0.9999958 (10⁵–10⁶). The prime geodesic theorem's ratio
    Π(T)/Li(ε(T)²) − 1 falls from ≈ −0.2 at T = 10 to 4.6·10⁻⁷ at 10⁶, mostly negative below 10⁵.
