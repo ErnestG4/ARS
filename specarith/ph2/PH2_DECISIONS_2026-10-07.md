@@ -2426,3 +2426,16 @@ Lead, recorded only: test whether RQ1’s sector-variance SE model overstates no
 ### GEO1 pushed (2026-10-31; Will, verbatim)
 ok pushed
 (Checked: origin has specarith at 93ba10c6 and tag geo1p-seal at object d3a2e9e3, as stamped.)
+
+### L13: RQ1 SE-model check (2026-10-31; Will, verbatim)
+L13: RQ1 SE-model check. Descriptive, already-read 10¹⁰/10¹¹ archives only, no seal.
+
+For ℤ[√2] and ℤ[i] at the B2 cells (β 0.40, 0.45) and the crossover cells (0.55, 0.60), compare the sealed SE model (R·√(2/(cK)), c = 0.627) against:
+the block-arc SE on the real angles (the validated round-97 estimator);
+the spread of R across disjoint residue-class subsets of the split primes (p mod m for 2–3 values of m, ≥ 4 subsets each), at matched N and K, scaled to the full N.
+Report model/empirical ratios per cell and per method, and whether the two empirical methods agree with each other.
+Reading:
+If both empirical methods put the noise below the model, RQ1’s passes are conservative; quantify by how much.
+If above, recompute P1’s T with the empirical SE, descriptively.
+If the methods disagree, report that, and draw no conclusion.
+Cost model as usual. Push 1d05ac8a with the next batch.
