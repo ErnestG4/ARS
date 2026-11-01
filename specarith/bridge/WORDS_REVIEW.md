@@ -236,3 +236,10 @@ must-fail witnesses.
 - **Bug 1 confirmed.** In 37 of 300 random windows of the silver mechanical word (200–2000 letters, random start), a
   term other than the last is wrong. Example: start 511136, length 685 gives [0, 2, 2, 2, 2, 2, 1, 1].
 - Not re-checked here: findings 3–5, the agreement-length analysis and the smaller items.
+
+**The handoff copy (2026-10-31).** The pll-fabric session handed over `~/fpgafun/handoff/ars-bridge-c2/` (pll-fabric
+main 886e6ac) as the seed. Its `ars_bridge/words.py` differs from the reviewed `fabric/words.py` @ 4d1026d only in the
+module docstring and an optional numba import, so this review applies to it in full. Bugs 1 and 2 were re-run on the
+handoff copy and reproduce: `000101` is reported balanced, and 37/300 silver windows have a wrong non-last term. The
+review was sent to the fabric session, with a request that it keep its local copy until a fixed version exists. The
+fixes wait on Will: ars-bridge does not exist as a repo yet.
