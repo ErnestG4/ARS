@@ -117,3 +117,39 @@ check on the already-read ranges.
   - the planted product must pass;
   - a "CLT rate" alternative, the prediction scaled by L^(+½), must fail.
 - Tolerances from the planted witness's scatter and the §3 check's measured flat-approximation error, with D23 ≥ 0.95.
+
+## 5. Rebuild (Will, 2026-10-31: approved once), fixed before any rebuild code is written
+
+**What failed.** Check 1 failed (`results/peter/rate/SPEC_PLANTED.json`): α and lag 1 passed, lags 0, 2 and 4 failed.
+The flat weights within each prime-power denominator are the suspect.
+
+**Cutoff: Q_ex = 10⁴.**
+- **Frequencies a/q with q ≤ 10⁴ are summed one by one,** with exact weights. Each weight is the product of the exact
+  DFT weights of its CRT components: tables mod p^B for p ≤ 13, and the DFT of g_p (or δ_p) mod p for 13 < p ≤ 10⁴.
+  The kernel is K_L(a/q) = sin²(πLa/q)/(L² sin²(πa/q)), exactly.
+- **Frequencies with q > 10⁴ keep the flat weights** of §3, and the q > Q tail is as before.
+
+**Justification.**
+1. *Where the error came from.* The per-q contribution to E²(L) for q ≤ L is about (1/(6L²)) Π_{p|q} c_p/p. So the
+   small denominators carry the most weight per q, and the failed lags are those where the small primes' weights are
+   most uneven near θ = 0.
+2. *What the cutoff covers.* With exact weights to 10⁴, the flat part of the near sum is the q range (10⁴, L]. As a
+   fraction of the near sum, that is about ln(L/10⁴)/ln L: 0 at L = 10⁴, and 0.2 at L = 10⁵, the top of the checked
+   range.
+3. *Why flat is reasonable beyond the cutoff.*
+   - For q > 10⁴ the frequency near 0 is a CRT mixture of many components.
+   - For b = 1 primes the per-frequency weights scatter about their mean, with Weil-bounded size.
+   - So replacing them by the mean is unbiased in expectation, and the error averages down over the many q involved.
+4. *Cost.* About 3·10⁷ frequencies per curve, cheap.
+
+**The cutoff is not tuned.** It was chosen before any rebuilt code ran on a witness. The only tests before the rerun are
+unit tests on small exactly periodic products: δ₅·δ₇ and δ₃·δ₁₁·δ₁₃, where E_rms over all window positions is exact.
+The spectral sum must reproduce them to 10⁻¹⁰.
+
+**Second planted witness** (new construction and new seed, not run during the rebuild): the local-density product
+truncated at p ≤ 499 (same BPOW for p ≤ 13), with shifts from seed 20261110. Same statistics (α̃ and lags 0, 1, 2, 4),
+same fresh-range tiling. Its prediction uses its own spectrum (p ≤ 499).
+
+**The rerun criterion is unchanged** (within 25% at every L in [10³, 10⁵], slope within 0.05, mass within 1%) and must
+hold on both witnesses at every statistic. If either fails, A2 remains a derivation with no reported prediction, and
+there is no further rebuild.

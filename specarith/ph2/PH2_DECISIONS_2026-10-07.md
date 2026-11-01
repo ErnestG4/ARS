@@ -2448,3 +2448,15 @@ There's a new file in the root ars and arsv2 folders but also in the ~/fpgafun d
 A1 (descriptive): fit how the Peter residual shrinks with N, pointwise and with a running maximum. The E8 reading predicts about N^(−1), which would explain the jackknife’s 10–15× overstatement.
 A2, the sharper version: derive the decay rate in advance from how fast α(n)’s periodic coefficients fall off, using Peter’s Euler product with no free parameters. That’s E8a’s smoothness-to-rate logic carried over to arithmetic. If it’s cheap, seal it on fresh traces.
 (The brief: "ARS bridge kit brief.md", identical copies in criticality_tool/, ARSv2/ and ~/fpgafun/; sha256 d46747a5b596313899209e0bf78becda8d4ba1e7c3134dfb1b09340e6ab65010. Not committed here.)
+
+### A2: rebuild approved, once (2026-10-31; Will, verbatim)
+A2: rebuild approved, once.
+
+Rebuild the evaluator with exact per-frequency weights for small prime-power denominators (flat only beyond a cutoff, committed now, along with its justification).
+Re-run check 1 under the unchanged criterion (within 25%, slope within 0.05) on the original planted witness and on a second independent planted witness (new seed or construction, committed before the rerun and not used during the rebuild).
+If both pass, seal on fresh traces 3·10⁶ < t ≤ 6·10⁶:
+the prediction is the exact evaluated sum at the fresh window lengths (√(ln L)/L for α; ln L/L for the γ products as leading forms);
+tolerances from the evaluator’s witness error plus statistical noise, with the SE method calibrated on the witness per §9.G;
+the four-point local-density assumption named in the attribution;
+§9.F dry run; stamp → attest → double read.
+If either fails, A2 stays a derivation without a reported prediction. No further rebuilds.
