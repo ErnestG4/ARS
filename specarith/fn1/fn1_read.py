@@ -4,7 +4,8 @@ fields and ℤ[√2]; rank tests against the conductor constants.
   python fn1_read.py read PINS_JSON OUT_JSON           the sealed read (mount guard, pins, seen-value guards)
   python fn1_read.py dry  PINS_JSON OUT_JSON X_DRY     §9.F rehearsal: same code; fn1 archive dirs from the pins file's
                                                        "dry" block (synthetic rows), X_DRY in place of 10¹⁰, seen-value
-                                                       guards skipped (they hold only at 10¹⁰)
+                                                       guards active iff X_DRY = 10¹⁰
+                                                       (the seen values exist only there)
 
 Per field: the first n rows (n = the ℤ[√2] split-prime count below X, as RQ1), θ and the mirror 1 − θ, sorted,
 R(β) = var_stream(θ, K)/(N/K) with K = round(N^β), β ∈ {0.55, 0.40, 0.45}: rq1_read.var_stream, exact, Kahan, single
@@ -120,7 +121,7 @@ def run(pins_json, out, X, dry):
         th = load(arch[field]["dir"], field, n, arch[field]["manifest_sha256"])
         res["R"][field] = {str(b): float(Q.var_stream(th, Ks[b]) / (N / Ks[b])) for b in BETAS}
         del th
-    if not dry:                                               # seen values: bit-identical, else VOID
+    if X == X10:                                              # seen values: bit-identical, else VOID (also in a dry run at 10¹⁰)
         r1 = json.load(open(pins["guards"]["rq1_read1"]))["rows"][str(X)]["rows"]
         rc = json.load(open(pins["guards"]["rq1c_read1_stripped"]))["R"]
         g = {}
