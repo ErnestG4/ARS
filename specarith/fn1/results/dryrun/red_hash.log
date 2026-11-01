@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read.py", line 163, in <module>
+    sys.exit(run(sys.argv[2], sys.argv[3], int(float(sys.argv[4])), True))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read.py", line 121, in run
+    th = load(arch[field]["dir"], field, n, arch[field]["manifest_sha256"])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read.py", line 77, in load
+    assert hashlib.sha256(open(path, "rb").read()).hexdigest() == s["sha256"], path
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: /home/combust/tmp/claude/specarith/fn1/dry/red_D7/seg_0000.npy
