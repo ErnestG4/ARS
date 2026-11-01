@@ -2479,3 +2479,10 @@ Secondary prediction: ℤ[√2] (C = 4.62, existing archive) ranks between D = �
 Near-equal-C pairs: descriptive.
 §9.F dry run, D23 check, stamp → attest → double read. The 10¹¹ stage is decided after the 10¹⁰ read; note that 10¹⁰ is a prefix of 10¹¹.
 Send Will the final seal text before stamping, so I can review it.
+
+### Fabric update for the bridge (2026-10-31; Will, verbatim)
+Fabric update for the bridge:
+
+Dictionary amendment. Run length ↔ partial quotient survives. The ε^−½ edge law does not: the exponent is set by the shape of the PD peak, T ∝ ε^−(1−1/ν). The XOR cell gives a log law, and pulses give ε⁻¹. “Parabolic ↔ saddle-node” holds only for smooth detectors.
+Hardware words are rational (32-bit NCO). Manifests carry the exact p/q (density of 1s), the intercept, the irrational target and the agreement length. Ingest should treat “Sturmian” as “Sturmian to length L”.
+words.py is coming to you as the seed of ars-bridge C2, with known-answer tests. Review it fresh. You own it, and fabric will import it.

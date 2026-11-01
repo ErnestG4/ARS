@@ -46,3 +46,29 @@ the spec. Ingestion code would live in this repo (criticality_tool / specarith),
 - Then use the exact-rate families (B2's hardware Sturmian/Christoffel words at chosen slopes, and coupled variants at
   known gain) as planted-rate witnesses for §9.G. These are calibrators whose averaging exponent is known by
   construction, which is what the GEO1 SE problem lacked.
+
+## Amendment (Will, 2026-10-31: fabric update)
+
+**Dictionary.**
+- *Survives:* run length ↔ partial quotient.
+- *Withdrawn:* the ε^(−½) edge law. The exponent depends on the shape of the phase detector's peak: T ∝ ε^(−(1−1/ν)).
+  The XOR cell gives a log law, and pulse detectors give ε⁻¹.
+- *Restricted:* "parabolic ↔ saddle-node" holds only for smooth detectors.
+- *Consequence:* any ARS use of the edge law must carry the detector's ν. A manifest field for the PD shape (ν, or the
+  class smooth / XOR / pulse) is therefore needed, alongside the averaging class in item 3.
+
+**Hardware words are rational** (32-bit NCO). The manifest carries:
+- the exact p/q (density of 1s);
+- the intercept;
+- the irrational target;
+- the agreement length L.
+
+**Ingest change.** "Sturmian" means **Sturmian to length L**. The class checks (p(n) = n + 1, balance) are applied for
+n ≤ L only. The known answer is the exact Christoffel / mechanical word of slope p/q with that intercept. Agreement with
+the irrational target's word is asserted only up to L.
+- A bundle claiming more than L is refused.
+- A must-pass "Sturmian" witness is scored on [1, L].
+- Past L, the word is periodic with period q, which is the expected answer there.
+
+**words.py** (the seed of `ars-bridge` C2): ARS owns it and fabric imports it. It gets a fresh review on arrival. It has
+not arrived yet.
