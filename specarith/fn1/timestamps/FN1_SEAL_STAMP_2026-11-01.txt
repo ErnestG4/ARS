@@ -1,0 +1,63 @@
+FN1 stage-1 sealing timestamp manifest (OpenTimestamps; order: seal -> stamp -> Bitcoin attestation verified on two
+explorers -> double read -> cmp). Only this file's sha256 is submitted to the OpenTimestamps calendars; the receipt is
+FN1_SEAL_STAMP_2026-11-01.txt.ots.
+Statement: at the time of stamping, no statistic of the seven w = 2 archives (D = -7, -8, -11, -19, -43, -67, -163)
+has been computed; their archives were only generated and hashed, and the 9.F rehearsal used seeded random stand-in
+rows in their place. Nothing from them will be read until this receipt is Bitcoin-attested and verified on two
+explorers. The archives themselves (/mnt/data/fn1/archive_1e10_D*) are pinned through the manifest copies listed below
+and through fn1/fn1_pins.json.
+
+repo                          criticality_tool (github.com/ErnestG4/ARS), branch specarith
+tag fn1-seal                  object e1f1e1fb86b4d2e78c8d11bd5ae550fe4313376e
+                              on commit f05e5ca6bccbc9a0264bbc123472556a1de50d2c
+                              specarith/fn1/FN1_SEAL.md
+                              sha256 066cec31798c5fd552bc73db9c66f427fc983e1ec57a4a7046762fb9b2f6c222
+                              specarith/fn1/fn1_read.py
+                              sha256 e26002a7b3898d1432a63287b3bfc50183af487950bc81ba354fa7b7feb218ca
+                              specarith/fn1/fn1_pins.json
+                              sha256 693452cc9a7ef6af32dade798983d2910293aa82f072c1e4c76f46e4d2e1d3e4
+                              specarith/fn1/fn1_archive.py
+                              sha256 585a673c9dd0d3e23f0cc69ebb43006f046c91110810688a98223baae85d75e1
+                              specarith/fn1/fn1_power.py
+                              sha256 73db91d47e894b7ffeac04a5b96864a2ab8521c40d129d4a8b0034ee4035351a
+                              specarith/fn1/fn1_witness.py
+                              sha256 0551003df348e06e322c92b321dcb2b49149b2d3d8485d80bc536447f1b8a1d7
+                              specarith/fn1/FN1_STEP0.md
+                              sha256 b8a329cb634325c38a33b1dccf7b98038806b05266b6a41e84a3db8b011a7029
+                              specarith/fn1/LMFDB_WEIGHT3_CM.md
+                              sha256 723d659c47834741994b3286d4b5df0e7ccb8fff3287ee5824af16ceeef029b0
+                              specarith/fn1/results/FN1_POWER.json
+                              sha256 9bda5d6b0ca8cebc7287336c46f28d06a3f55bb095c752d7b696457b0c73f9c6
+                              specarith/fn1/results/FN1_WITNESS.json
+                              sha256 e24207b6cbe0ec217adc3899f3dc2170b73c859883209b6b2ea56770d4491f1f
+                              specarith/fn1/results/FN1_WITNESS_EXTRA.json
+                              sha256 17ae568882fda99a89dff740a5c504dd2aaa1dbcb901b55278ec5ceed4b91f0f
+                              specarith/fn1/results/FN1_WITNESS_CURVE.json
+                              sha256 f62a24b3604768ce7c982e55c898ae0719042e13cc0197cd5a372d6ca27f52a8
+                              specarith/fn1/results/manifests/MANIFEST_D7.json
+                              sha256 ae6df4c10b295b52cb1dded9951bf83235a14a1d4dbc1c5f91f72b74a2953c4d
+                              specarith/fn1/results/manifests/MANIFEST_D8.json
+                              sha256 c7e66325b65adba7e7ec8f0bf42d9cf329f1071e623dcf80d40ffd8bfcbc7fb0
+                              specarith/fn1/results/manifests/MANIFEST_D11.json
+                              sha256 caa5bce0ddcae7b573fdcdb59666fb60916b75066e04307c6ed843366178c3d5
+                              specarith/fn1/results/manifests/MANIFEST_D19.json
+                              sha256 bd5a7cc02ae9e2936c19a072eb6fc6fcc7f9ef84c7e17461e6fd91b755986595
+                              specarith/fn1/results/manifests/MANIFEST_D43.json
+                              sha256 28aee3afeba2afa155ec31c481ac78f64fde4545e6acb5b6650053c71fa0c29c
+                              specarith/fn1/results/manifests/MANIFEST_D67.json
+                              sha256 3c6b9157fa2ba0778a68a03b74e17c8c764f08f7b3584e967169ebe46c0b98b9
+                              specarith/fn1/results/manifests/MANIFEST_D163.json
+                              sha256 aa58f0f427be4bc364630b6a07c36b2a4bb74111d7071476e6d3480025cea668
+                              specarith/rq1/rq1_read.py
+                              sha256 0e328302e974660ed3abd1316cac04aae1483cd1def13546952677bd845bc856
+                              specarith/rq1/rq1_zw.py
+                              sha256 98dd15825933b137bfea99b5f622c725634987d2a8a977efaece2957748366d1
+                              specarith/rq1/rq1_angles.py
+                              sha256 7764c23ef64c1f53efb1fb12bd1152d93f8956745cf623d40af93e108e7d1a0c
+                              specarith/rq1/rq1_archive.py
+                              sha256 eca8eb958945500cee44faedf1229d8aebd9f88b35c23ab92ccf624eed175cc0
+                              specarith/rq1/results/read/read1.json
+                              sha256 ed5cd333be7445fad48439799f138c520bf44372b29d4a4f2ad63d58c3949317
+                              specarith/rq1/results/rq1c_read_ruling/read1.stripped.json
+                              sha256 b0200f8cc29fe881ca3e5b4ff97225266eee1ddc0276600eb11ef996d98601fa
+(sha256 of `git show f05e5ca6bccbc9a0264bbc123472556a1de50d2c:<path>`; the tag fn1-seal resolves to that commit)
