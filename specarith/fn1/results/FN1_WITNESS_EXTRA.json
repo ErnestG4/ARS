@@ -1,0 +1,10 @@
+{
+ "checks": {
+  "calib": true,
+  "pass_ge_090": true
+ },
+ "label": "supplementary arm planted_x (slope 0.080), added after planted_h missed its 0.90 bar",
+ "parametric": 0.99839,
+ "rate": 1.0,
+ "tol": 0.028504901851285527
+}
