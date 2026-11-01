@@ -5,13 +5,16 @@ equivalence on all non-timing fields, verified by the stripped-file sha256 (b020
 3b353d47, committed before any value below was opened). Before the ruling only the P1 / P3 / P4 verdict lines had been
 seen. Every verdict below is **PASS-under-ruling**, not a clean PASS.
 
+**Relabelled 2026-10-31 (Will), after L13 (`L13_REPORT.md`):** P1 and P4's ordering are relabelled
+"PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved". P3's location criterion does not use the SE and is unchanged.
+
 Seal `RQ1C_SEAL.md` (tag `rq1c-seal`, b936b358; Bitcoin blocks 973605 / 973607). Matched N at 10¹²: n = 18,803,945,053,
 N = 37,607,890,106; binned estimator B = 36; ℤ[ω] and the 10¹⁰ / 10¹¹ cells exact. Source: `results/rq1c_read_void/
 read1.json` (= read2.json on every non-timing field). Pre-read checks all passed: mount guard, 18 pins, 30,200
 segment hashes. The 10¹⁰ / 10¹¹ ℤ[√2] and ℤ[i] cells recomputed inside the read equal the sealed `read1.json` (asserted
 in the code).
 
-## P1 — B2 replication at 10¹²: PASS-under-ruling
+## P1 — B2 replication at 10¹²: PASS-under-ruling; PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved
 | β | K | D = R_ℤ[√2] − R_ℤ[i] | SE_diff | D/SE |
 |---|---|---|---|---|
 | 0.40 | 16,987 | +0.01586 | 0.01129 | 1.40 |
@@ -48,7 +51,7 @@ Recorded alongside (descriptive):
 - Beyond the crossing the residual peaks at β 0.56 (+0.0072) and decays towards zero by 0.65; there is no second
   crossing on the grid.
 
-## P4 — ℤ[ω] ordering at β = 0.55: PASS-under-ruling
+## P4 — ℤ[ω] ordering at β = 0.55: PASS-under-ruling; PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved
 Both inequalities at all three X (SEs from the sealed model, each R independent):
 
 | X | K | R_ℤ[√2] − R_ℤ[ω] | R_ℤ[ω] − R_ℤ[i] | sealed predicted ω–i separation |

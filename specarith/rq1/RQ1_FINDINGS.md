@@ -1,6 +1,8 @@
 # RQ1 findings: the sealed read (reading B, ℤ[√2] against ℤ[i] prime angles at matched N)
 
-**Verdict: B2 PASS, as sealed.** T = 7.443 > t = 5.238 and the guard holds. The rule, the cells and t are as sealed
+**Verdict: B2 — PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved.** (Relabelled 2026-10-31 (Will), after L13 (`L13_REPORT.md`); the sealed label was "B2 PASS".)
+
+T = 7.443 > t = 5.238 and the guard holds. The rule, the cells and t are as sealed
 (`RQ1_SEAL.md`, tag `rq1-seal`), and the double read is byte-identical. The verdict is about **direction**: ℤ[√2] above
 ℤ[i] at matched N in the rigidity regime. It is **conditional on the SE model** (round 91).
 
@@ -10,7 +12,7 @@ labelled post-hoc.
 
 ## 0. Close-out summary (round 94; RQ1 closes here)
 
-- **Sealed verdict: B2 PASS** (tag `rq1-seal`, OTS-stamped and Bitcoin-attested before the read; double read
+- **Sealed verdict: B2 — PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved** (Relabelled 2026-10-31 (Will), after L13 (`L13_REPORT.md`); tag `rq1-seal`, OTS-stamped and Bitcoin-attested before the read; double read
   byte-identical). T = 7.443 > t = 5.238 with the guard holding: ℤ[√2] above ℤ[i] at matched N in the rigidity regime
   at 10¹⁰ and 10¹¹. **Direction only, and conditional on the SE model** (calibrated on synthetic mirror-symmetric
   sets; its validity for arithmetic data is assumed, not tested).
@@ -72,7 +74,7 @@ labelled post-hoc.
 | 10¹¹, β 0.45 | 21,213 | 0.68126 | 0.65664 | +0.02462 | 0.01160 | +2.12 | holds |
 
 - **T = 7.443 > t = 5.238** (t = 2 × the uncentred SD of T over the 100 round-88 null replicates, frozen in
-  `witness/SELECTION.json`). The guard holds at every cell. **B2: PASS.** All four D are positive.
+  `witness/SELECTION.json`). The guard holds at every cell. **B2: PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved** (Relabelled 2026-10-31 (Will), after L13 (`L13_REPORT.md`)). All four D are positive.
 - The rule was confirmed beforehand on fresh synthetic replicates: null false PASS 2/100, planted PASS 96/100
   (`results/r90/confirm/CONFIRM.json`).
 - **Attribution (sealed, rounds 88 and 91).** PASS supports the heuristic's field dependence through the conductor
@@ -166,6 +168,11 @@ not independent.
 - **Caveats.** The SE is the sealed model (assumed for arithmetic data, round 91); the witness found it accurate to
   conservative at 10¹¹ (empirical/model 0.83–1.04) on synthetic sets. Fine-grid β points beyond the sealed cells were
   never used for any decision.
+
+## 5b. SE-free pattern evidence
+
+The patterns that need no SE to state (the sign of D across X, the crossover location, and the ℤ[ω] ratio) are
+collected in `RQ1C_FINDINGS.md` §0. They are labelled consistency, not significance.
 
 ## 6. What this does not show
 

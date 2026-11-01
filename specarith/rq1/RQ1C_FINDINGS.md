@@ -1,6 +1,7 @@
 # RQ1-c findings: theory-light predictions at X = 10¹² (ℤ[√2], ℤ[i], ℤ[ω] prime angles at matched N)
 
-**Status: PASS-under-ruling on P1, P3 and P4; the literal VOID stands.** The sealed double read failed its byte-for-byte
+**Status: the literal VOID stands. P1 and P4's ordering: PASS-under-ruling, PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved.
+P3 (crossover location; its criterion uses no SE): PASS-under-ruling.** (Relabelled 2026-10-31 (Will), after L13 (`L13_REPORT.md`).) The sealed double read failed its byte-for-byte
 `cmp` (VOID condition 1) because the read code wrote CPU timings into its output JSON. Will's post-hoc ruling (2026-10-29)
 accepts double-read equivalence on all non-timing fields, verified by identical stripped-file sha256s. Before the ruling,
 only the P1 / P3 / P4 verdict lines had been seen. Details: `RQ1C_READ_VOID.md`. Numbers: `RQ1C_READ_REPORT.md`. Seal:
@@ -8,6 +9,24 @@ only the P1 / P3 / P4 verdict lines had been seen. Details: `RQ1C_READ_VOID.md`.
 
 Every verdict is conditional on the sealed SE model (calibrated on synthetic mirror-symmetric sets; its validity for
 arithmetic data is assumed, not tested), as in RQ1.
+
+## 0. SE-free pattern evidence (consistency, not significance)
+
+These patterns can be stated without any SE. They are **consistency** with the conductor picture, **not
+significance**. How surprising each would be under a null depends on the noise model for deterministic arithmetic sets,
+and L13 left that unresolved (`L13_REPORT.md`).
+
+- **The ℤ[ω] ratio.** At β = 0.55, D_ωi / D_√2i = 0.254 (10¹⁰), 0.226 (10¹¹) and 0.261 (10¹²), against 0.283 predicted
+  from the conductor constants with no fitted parameter: (C_ω − C_i)/(C_√2 − C_i), with C_ω = log 27 and C_i = log 16
+  verified (`C_OMEGA_VERIFY.md`).
+  - All three sit 8–20% low, which matches the shortfall near the crossover in RQ1 §5.
+  - ℤ[ω] lies between ℤ[√2] and ℤ[i] at all three X.
+- **The crossover location.** This is the first β where R_ℤ[√2](K) − R_ℤ[i](aK) turns positive, with a = 2.5204 from the
+  conductors. It sits at 0.525 (10¹⁰), 0.529 (10¹¹) and 0.538 (10¹²), near ½ at every X. It drifts upward (L10).
+- **The sign of D across X.** D = R_ℤ[√2] − R_ℤ[i] > 0 at all 12 cells: β ∈ {0.40, 0.45, 0.55, 0.60} at 10¹⁰, 10¹¹ and
+  10¹². The sign never changes.
+- **What does not belong here.** The rigidity-cell ordering of the three fields (4 of 6 ordered) is not stable, and it is
+  not counted as evidence.
 
 ## 1. The headline: P4, ℤ[ω] between the other two fields, by about the predicted amount
 
