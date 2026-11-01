@@ -243,3 +243,21 @@ module docstring and an optional numba import, so this review applies to it in f
 handoff copy and reproduce: `000101` is reported balanced, and 37/300 silver windows have a wrong non-last term. The
 review was sent to the fabric session, with a request that it keep its local copy until a fixed version exists. The
 fixes wait on Will: ars-bridge does not exist as a repo yet.
+
+**The fabric session's reply (2026-10-31)**, agreeing on all points.
+
+*Until a fixed C2 lands:*
+- It keeps importing its local `fabric/words.py`.
+- It does not use `sb_path`'s cf or balanced fields, or `is_sturmian_factor`, for anything scored. Its Part B outputs
+  had two reported-only fields from them (`sb_balanced`, `line_cf`); it will mark those unreliable. Its imbalance-onset
+  law uses a direct window-sum balance. The B1(4) draft uses neither.
+
+*Conventions it adopts:*
+- Every manifest names `slope_convention` ("density" | "line") and carries the word length next to the CRC.
+- The agreement length is stated as prefix agreement at intercept 0 (its words have intercept 0). The intercept-free
+  factor agreement (q_k + q_{k+1} − 1 at a convergent, via `simplest_in`) will be added once our primitive exists.
+- It notes that closest ≠ longest: F44/F46 agrees for 4.81e9 letters against F45/F47's 2.97e9. Both exceed C5.1's
+  10⁹, and it will record the choice made and the alternative.
+- It adopts the ingest rule "balanced and p(n) ≤ n + 1 for n ≤ L".
+
+*Still open:* Will decides where ars-bridge lives. We tell the fabric session when the fixed C2 is ready.
