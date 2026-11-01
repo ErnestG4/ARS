@@ -153,3 +153,29 @@ same fresh-range tiling. Its prediction uses its own spectrum (p ≤ 499).
 **The rerun criterion is unchanged** (within 25% at every L in [10³, 10⁵], slope within 0.05, mass within 1%) and must
 hold on both witnesses at every statistic. If either fails, A2 remains a derivation with no reported prediction, and
 there is no further rebuild.
+
+## 6. Rerun of check 1 after the one rebuild: FAIL. A2 stays a derivation without a reported prediction
+
+`geo1_peter_spec2.py check` → `results/peter/rate/SPEC2_CHECK1.json`. The criterion was unchanged and both witnesses
+were scored. "Ratio" below is measured/predicted.
+
+| Witness | α̃ | lag 0 | lag 1 | lag 2 | lag 4 |
+|---|---|---|---|---|---|
+| p ≤ 997, seed 20261109 (original) | pass (ratio 0.82–1.04; slope −0.997 measured vs −0.979 predicted) | fail (0.74–0.94) | pass (0.90–1.11) | fail (0.59–0.87; slope −0.929 vs −0.970) | fail (0.64–0.98; slope −0.861 vs −0.950) |
+| p ≤ 499, seed 20261110 (new) | pass (0.93–1.13; slope −0.957 vs −0.983) | fail (0.72–0.90) | fail (0.81–1.33) | fail (0.60–0.95) | fail (0.60–0.87) |
+
+Mass bookkeeping holds everywhere: M_total equals the exact second moment, and the exact and flat masses agree for
+q ≤ 10⁴.
+
+**As ruled (Will, 2026-10-31):** A2 remains a derivation, with no reported prediction and no further rebuild. No fresh
+traces were computed and no seal was made.
+
+**Observed, not diagnosed and not acted on.**
+- Exact small-denominator weights changed the ratios very little compared with the flat version (lag 2: 0.67–0.96
+  before, 0.59–0.87 after). So flat weighting was not the main cause.
+- The α̃ curve, the part that follows from Peter's theorem alone, matches both witnesses.
+- The product statistics y_r are over-predicted by 10–40%, systematically, on both witnesses.
+- That points at the y-specific steps: the treatment of g_p = δ_p(n) δ_p(n + r) as one periodic factor per prime, or
+  the use of a tiled sample of window positions in place of the all-position average. It does not point at the
+  coefficient-decay picture itself.
+- These are possibilities, not findings.
