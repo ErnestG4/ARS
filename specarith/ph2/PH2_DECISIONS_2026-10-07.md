@@ -2486,3 +2486,20 @@ Fabric update for the bridge:
 Dictionary amendment. Run length ↔ partial quotient survives. The ε^−½ edge law does not: the exponent is set by the shape of the PD peak, T ∝ ε^−(1−1/ν). The XOR cell gives a log law, and pulses give ε⁻¹. “Parabolic ↔ saddle-node” holds only for smooth detectors.
 Hardware words are rational (32-bit NCO). Manifests carry the exact p/q (density of 1s), the intercept, the irrational target and the agreement length. Ingest should treat “Sturmian” as “Sturmian to length L”.
 words.py is coming to you as the seed of ars-bridge C2, with known-answer tests. Review it fresh. You own it, and fabric will import it.
+
+### Before stamping FN1 (2026-11-01; Will, verbatim)
+Before stamping FN1:
+
+Witness. planted_x can replace planted_h as must-pass only if:
+(a) its slope was set from FN1’s target effect size, not chosen after it passed;
+(b) the sealed SE model’s predicted power at planted_h’s slope is about 0.76. If the model predicts 0.90 or more, stop: the model overstates power and the 1.00 primary figure needs recalibrating.
+Then:
+Keep planted_h in the seal with its 0.76 result, relabelled as a power-curve point, and record the bar error.
+Add a power curve over at least 4 planted slopes.
+Add a null (slope 0) witness, which must pass at about α.
+Labels. The B2 cell labels are accepted. State that an unpowered cell is read one way only: a pass is informative, a fail is not.
+Noise rule. Seal a read-time noise estimate that doesn’t touch the primary statistic (e.g. within-field segment variance of R_F), and seal its interpretation: near the sealed model → a primary fail is informative; near L13 → the fail is UNPOWERED.
+Prior exposure. List exactly which statistics and β values from ℤ[i], ℤ[ω] and ℤ[√2] were seen in RQ1/RQ1-c. Add a descriptive fresh-only ρ_s on the 6 unseen fields, labelled unpowered (n = 6 needs ρ_s ≥ 0.943 for p < 0.01).
+Ties. State how tied ranks are handled in the exact permutation test.
+words.py. No staging copy. Write the needed fixes as review findings now. Commit the fixed file as the first commit of ars-bridge once Will creates the repo, and send the findings to the fabric session too.
+Send the revised FN1_SEAL.md text back for review before stamping.
