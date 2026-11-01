@@ -63,8 +63,12 @@ the spec. Ingestion code would live in this repo (criticality_tool / specarith),
 - the irrational target;
 - the agreement length L.
 
-**Ingest change.** "Sturmian" means **Sturmian to length L**. The class checks (p(n) = n + 1, balance) are applied for
-n ≤ L only. The known answer is the exact Christoffel / mechanical word of slope p/q with that intercept. Agreement with
+**Ingest change.** "Sturmian" means **Sturmian to length L**. The class check is "balanced, with p(n) ≤ n + 1", applied
+to factors of length n ≤ L. *(Corrected after the fresh `words.py` review: equality p(n) = n + 1 cannot hold for a
+period-q rational word once n ≥ q, where p(n) = q.)* The agreement length L in the manifest should be the
+intercept-free one: every length-n factor of the rational word is a factor of the target's word. The review finds it is
+(the smallest denominator strictly between p/q and the target) − 1, i.e. q_k + q_{k+1} − 1 for a convergent
+(`WORDS_REVIEW.md`). The reviewer verified this by brute force on 25 cases; I have not re-checked it. The known answer is the exact Christoffel / mechanical word of slope p/q with that intercept. Agreement with
 the irrational target's word is asserted only up to L.
 - A bundle claiming more than L is refused.
 - A must-pass "Sturmian" witness is scored on [1, L].
