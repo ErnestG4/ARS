@@ -1665,3 +1665,27 @@ rule checks every chunk against its own job's model. One sampled job per block, 
   scheduler happened to run first.
 - A projection that rests on one sampled instance is labelled as such and is not used by a stop rule.
 - Related: §9.F (dry-run the double read), the round-84 first-wave rule.
+
+**§9.G extension: limit-periodic and quasi-periodic statistics (bridge kit A3, Will, 2026-10-31).** Don't assume √N
+noise for a statistic built from a limit-periodic or quasi-periodic sequence. Calibrate the SE on the planted witness,
+and where possible derive the rate from the coefficient decay.
+
+**What GEO1's bridge-kit A1 measured** (`specarith/geo1/results/peter/rate/`, descriptive):
+- **Fresh range:** the disjoint-window RMS of the Peter residual falls as L^(−0.94) (raw γ; lags −0.89 to −1.00) and
+  L^(−0.89) (ratios). The max over windows falls as L^(−1.07).
+- **Witnesses:** the planted local-density product gives −0.93; i.i.d. noise gives −0.50.
+- **The jackknife:** at these rates the block jackknife overstates the error 10× (median; 7.9–13.8 over lags), which is
+  the seal's observed 10–15×.
+
+**The mechanism** (`specarith/geo1/GEO1_BRIDGE_A2_DERIVATION.md`). Fourier coefficients of size about q^(−3/2) per
+frequency put the window error at the 1/L boundary, with log corrections. That is the arithmetic analogue of the fabric
+repo's E8a threshold (s > d/2).
+
+**What the GEO1 case shows about rate predictions.** A rate derived from the coefficient decay is only as good as its
+evaluation:
+- the flat-weight evaluation failed its planted-witness check at 3 of 5 statistics;
+- small primes carry most of the low-frequency weight there, and they are far from flat.
+
+So check the evaluator on the planted witness before trusting a derived rate, as with the SE itself.
+
+**Related:** L13 (RQ1's SE model on the arithmetic angle sets), recorded unchanged and now running.
