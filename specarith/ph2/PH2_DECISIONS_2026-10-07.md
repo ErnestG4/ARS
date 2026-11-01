@@ -2460,3 +2460,12 @@ tolerances from the evaluator’s witness error plus statistical noise, with the
 the four-point local-density assumption named in the attribution;
 §9.F dry run; stamp → attest → double read.
 If either fails, A2 stays a derivation without a reported prediction. No further rebuilds.
+
+### A2 closed; RQ1 relabel; FN1 Step 0 (2026-10-31; Will, verbatim)
+A2: closed as a derivation with no reported prediction. Lead: α (Peter-only) passes on both witnesses, while the four-point-density products are over-predicted by 10–40%, so the four-point factorisation assumption is the suspect.
+Relabel RQ1 B2, RQ1-c P1 and P4’s ordering as “PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved”. Put the SE-free pattern evidence in its own section (the P4 ratio ≈ 0.283 at three X, the crossover location, the sign stable across X), labelled as consistency, not significance.
+New arc FN1 (field ladder), Step 0 only:
+For imaginary quadratic fields with class number 1 (D = −7, −8, −11, −19, −43, −67, −163, plus ℤ[i] and ℤ[ω]), derive and verify the conductor constant C_F (expected log|D| for w = 2, by analogy, which must be verified as C_ω was via LMFDB) and the angle map (w = 2: units ±1).
+Design a sealed rank test: the Spearman correlation between C_F and R_F at matched N, at β = 0.55 (primary) and the B2 cells (secondary), with an exact permutation null. Include near-equal-C pairs as a descriptive same-conductor check.
+Price the archives (10¹⁰ and 10¹¹) and the read. No compute until reviewed.
+Pushes: 1d05ac8a onward, Will’s.
