@@ -207,7 +207,11 @@ The stand-ins are seeded random rows for the seven new fields. The seen archives
    - Two reads byte-identical.
    - An altered guard file under the true pin raised `AssertionError ('guard pin')` with no output.
 4. **The read-time noise rule, the fresh-only ρ_s and the tie statement were added** (Will, 2026-11-01). The 10¹⁰ dry
-   double read is rerun again: *(rerun pending)*.
+   double read was run again with the final code (`fn1_read.py` sha256 e26002a7…).
+   - Two reads byte-identical (`cmp` status 0); 18 min and 0.30 core-hours each.
+   - The seen values were recomputed bit-identical at all three β.
+   - The segment-noise estimate and the fresh-only test ran end to end. Their values on stand-in rows mean nothing and
+     are not interpreted.
 
 ## 6. Attribution, fixed before the read
 
@@ -233,4 +237,4 @@ The stand-ins are seeded random rows for the seven new fields. The seen archives
 | Archives | 14.24 |
 | Witnesses | about 0.3 (local) |
 | Dry runs | about 2 |
-| Double read | about 0.6 (now with the segment noise estimate) |
+| Double read | about 0.6 (0.30 per read, measured in the final dry run) |
