@@ -2442,3 +2442,9 @@ Cost model as usual. Push 1d05ac8a with the next batch.
 
 ### L13 relaunch with the loader / cost-guard fix (2026-10-31; Will, verbatim)
 yes please
+
+### ARS ↔ PLL-fabric bridge kit: Part A for specarith (2026-10-31; Will, verbatim)
+There's a new file in the root ars and arsv2 folders but also in the ~/fpgafun dir. It details linking a parallel project to this one. Your part is part A: Part A, for the specarith session now:
+A1 (descriptive): fit how the Peter residual shrinks with N, pointwise and with a running maximum. The E8 reading predicts about N^(−1), which would explain the jackknife’s 10–15× overstatement.
+A2, the sharper version: derive the decay rate in advance from how fast α(n)’s periodic coefficients fall off, using Peter’s Euler product with no free parameters. That’s E8a’s smoothness-to-rate logic carried over to arithmetic. If it’s cheap, seal it on fresh traces.
+(The brief: "ARS bridge kit brief.md", identical copies in criticality_tool/, ARSv2/ and ~/fpgafun/; sha256 d46747a5b596313899209e0bf78becda8d4ba1e7c3134dfb1b09340e6ab65010. Not committed here.)
