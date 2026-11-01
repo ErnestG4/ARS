@@ -122,6 +122,8 @@ def run(pins_json, out, X, dry):
         res["R"][field] = {str(b): float(Q.var_stream(th, Ks[b]) / (N / Ks[b])) for b in BETAS}
         del th
     if X == X10:                                              # seen values: bit-identical, else VOID (also in a dry run at 10¹⁰)
+        for key in ("rq1_read1", "rq1c_read1_stripped"):                     # the guard files themselves are pinned
+            assert sha_file(pins["guards"][key]) == pins["guard_sha256"][key], ("guard pin", key)
         r1 = json.load(open(pins["guards"]["rq1_read1"]))["rows"][str(X)]["rows"]
         rc = json.load(open(pins["guards"]["rq1c_read1_stripped"]))["R"]
         g = {}
