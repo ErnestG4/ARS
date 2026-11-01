@@ -1,10 +1,11 @@
-# FN1 stage-1 seal: the field ladder at X = 10¹⁰. REVISED TEXT for Will's review (not yet stamped)
+# FN1 stage-1 seal: the field ladder at X = 10¹⁰. SEALED (approved by Will 2026-11-01; tag fn1-seal)
 
 Brief: Will, 2026-10-31 (Step 0; "staged, 10¹⁰ first") and 2026-11-01 ("Before stamping FN1"), filed verbatim in
 `ph2/PH2_DECISIONS_2026-10-07.md`. Step 0, with the derivation of C_F and its LMFDB verification: `FN1_STEP0.md`.
 
-**Order:** archives generated and hashed → witnesses → §9.F dry run → **this text reviewed by Will** → seal → stamp →
-Bitcoin attestation verified on two explorers → double read → `cmp`.
+**Order:** archives generated and hashed → witnesses → §9.F dry run → reviewed and approved by Will → seal → stamp →
+Bitcoin attestation verified on two explorers → double read → `cmp`. The verdict lines go to files and are not viewed
+before the `cmp`.
 
 **Stage.** This is stage 1 (10¹⁰). Whether to run a 10¹¹ stage is decided after this read. The 10¹⁰ archives are a
 prefix of any 10¹¹ archive: the same contiguous segments, extended. So a 10¹¹ stage would re-include these data, its
@@ -87,8 +88,7 @@ The read recomputes the three seen fields and requires them bit-identical to the
 - The ℤ[√2] placement at β 0.40 and 0.45.
 - **Fresh-only ρ_s on the seven never-read w = 2 fields**, with an exact p over 7! = 5,040 orderings. It is labelled
   UNPOWERED (n = 7: p < 0.01 needs ρ_s ≥ 0.893, Σd² ≤ 6, p = 0.0062).
-  - *Note for Will:* the brief said "6 unseen fields". All seven w = 2 fields are unseen, so seven are used. For n = 6
-    the threshold is the brief's ρ_s ≥ 0.943.
+  - Seven fields, confirmed by Will (2026-11-01: the "6" in the brief was a slip).
 
 **Ties.** The test needs strict ranks. If any two of the compared R values are exactly equal (float equality), that
 test is **VOID (ties)**. There is no mid-rank or random tie-breaking. The C_F have no ties. An exact tie between two
@@ -229,6 +229,13 @@ The stand-ins are seeded random rows for the seven new fields. The seen archives
   - C_F for w = 2 is verified (LMFDB);
   - the conductor-rescaling picture is the hypothesis being tested;
   - the noise model for deterministic arithmetic sets is unresolved (L13), hence the rank test and the §3a rule.
+- **What a PASS does and does not distinguish (Will, 2026-11-01, added at approval):**
+  - "For class-number-1 imaginary quadratic fields, the class number formula gives log L(1,χ) = log 2π − ½·log(w²|D|),
+    so the C_F ordering is exactly the reverse of the L(1,χ) ordering. A primary PASS supports the field invariant
+    log(w²|D|) as the determinant. It does not distinguish an effect through the conductor from one through L(1,χ)."
+  - "It does distinguish C_F from plain log|D|. ℤ[i] (log|D| = 1.39) and ℤ[ω] (1.10) would rank lowest under log|D|
+    but sit mid-ladder under C_F."
+  - Check: with h = 1, h = w√|D|·L(1,χ)/(2π) gives L(1,χ) = 2π/(w√|D|). C_F = log(w²|D|) − log 4.
 
 ## 7. Cost
 

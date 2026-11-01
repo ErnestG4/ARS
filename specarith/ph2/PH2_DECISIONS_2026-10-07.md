@@ -2503,3 +2503,12 @@ Prior exposure. List exactly which statistics and β values from ℤ[i], ℤ[ω]
 Ties. State how tied ranks are handled in the exact permutation test.
 words.py. No staging copy. Write the needed fixes as review findings now. Commit the fixed file as the first commit of ars-bridge once Will creates the repo, and send the findings to the fabric session too.
 Send the revised FN1_SEAL.md text back for review before stamping.
+
+### FN1 seal approved with one edit (2026-11-01; Will, verbatim)
+FN1 seal: approved with one edit.
+
+Fresh-only test: 7 fields, as written (ρ_s ≥ 0.893). The “6” was a slip.
+§6 attribution, add:
+“For class-number-1 imaginary quadratic fields, the class number formula gives log L(1,χ) = log 2π − ½·log(w²|D|), so the C_F ordering is exactly the reverse of the L(1,χ) ordering. A primary PASS supports the field invariant log(w²|D|) as the determinant. It does not distinguish an effect through the conductor from one through L(1,χ).”
+“It does distinguish C_F from plain log|D|. ℤ[i] (log|D| = 1.39) and ℤ[ω] (1.10) would rank lowest under log|D| but sit mid-ladder under C_F.”
+Then seal → stamp → Bitcoin attestation verified on two explorers → double read → cmp. Verdict lines go to files and are not viewed before the cmp.
