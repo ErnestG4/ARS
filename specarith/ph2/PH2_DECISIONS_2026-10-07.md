@@ -2439,3 +2439,6 @@ If both empirical methods put the noise below the model, RQ1’s passes are cons
 If above, recompute P1’s T with the empirical SE, descriptively.
 If the methods disagree, report that, and draw no conclusion.
 Cost model as usual. Push 1d05ac8a with the next batch.
+
+### L13 relaunch with the loader / cost-guard fix (2026-10-31; Will, verbatim)
+yes please
