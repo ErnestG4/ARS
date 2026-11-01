@@ -338,6 +338,12 @@ affected in that direction.
 Also a replicate-type comparison, if a resampling of the arithmetic angle sets that keeps their structure exists.
 Recorded only.
 
+**Run 2026-10-31 (descriptive; `rq1/L13_REPORT.md`).** The result is the opposite of the hypothesis. Both empirical
+methods put the noise above the sealed model (31 of 32 method-cell readings; the other is consistent), and neither
+puts it below anywhere. The two methods disagree at all 16 cells (block arcs 1.6–5× the residue subsets), so, by
+Will's rule, no conclusion. If either empirical SE were right, B2's T would be 1.6–3.6 against t = 5.24. **Still open,
+and more pressing:** what the correct noise model is for a deterministic arithmetic set.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project
