@@ -1,0 +1,40 @@
+{
+ "N": 2000000,
+ "WITNESS_PASS": false,
+ "arms": {},
+ "beta": 0.55,
+ "calib_tolerance": {
+  "planted_h": 0.1115674811163876,
+  "planted_l": 0.09486896886895131
+ },
+ "checks": {
+  "calib_h": true,
+  "calib_l": true,
+  "null": true,
+  "planted_h": false,
+  "shuffled": true
+ },
+ "derangement": [
+  4,
+  7,
+  0,
+  8,
+  1,
+  6,
+  2,
+  3,
+  5
+ ],
+ "parametric_power": {
+  "planted_h": 0.75234,
+  "planted_l": 0.14583
+ },
+ "pass_rates": {
+  "null": 0.005,
+  "planted_h": 0.76,
+  "planted_l": 0.145,
+  "shuffled": 0.0
+ },
+ "reps": 200,
+ "sigma_null_replicates": 0.024223577735544254
+}

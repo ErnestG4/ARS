@@ -17,6 +17,14 @@ Criteria (declared before running):
 WITNESS_PASS iff all four hold.
 
   python fn1_witness.py OUT_JSON [NPROC]
+  python fn1_witness.py extra OUT_JSON [NPROC]
+
+Supplementary arm, added after the first run (2026-10-31; labelled, it does not replace a failed criterion).
+- What failed: planted_h passed 0.76 < 0.90. The parametric power at its slope (0.040) is 0.75, and the measurement
+  matched it (calib_h holds). So the criterion was set above what that slope can deliver: a witness-design error.
+- planted_x: slope 0.080, 200 replicates (seed arm index 3). Declared before it runs: PASS ≥ 180/200, and
+  |measured − parametric| within the same tolerance.
+- Will decides whether it stands in for planted_h.
 """
 import json
 import math
@@ -52,8 +60,8 @@ def gen_mix(n, rho, rng):
 
 def one(args):
     arm, rep = args
-    rng = np.random.default_rng([20261112, ["null", "planted_h", "planted_l"].index(arm), rep])
-    slope = {"null": 0.0, "planted_h": 0.040, "planted_l": 0.015}[arm]
+    rng = np.random.default_rng([20261112, ["null", "planted_h", "planted_l", "planted_x"].index(arm), rep])
+    slope = {"null": 0.0, "planted_h": 0.040, "planted_l": 0.015, "planted_x": 0.080}[arm]
     N = 2 * N_HALF
     K = int(round(N ** BETA))
     R = {}
@@ -96,5 +104,26 @@ def main(out, nproc=8):
     return 0
 
 
+def extra(out, nproc=8):
+    counts = FR.exact_null_counts()
+    with ProcessPoolExecutor(nproc) as ex:
+        rows = [R for _, _, R in ex.map(one, [("planted_x", r) for r in range(REPS)])]
+    base = json.load(open(out.replace("_EXTRA", "")))
+    sig = base["sigma_null_replicates"]
+    rate = sum(FR.rank_test(R, FR.C, counts)["verdict"] == "PASS" for R in rows) / REPS
+    d2_crit = max(d for d in range(len(counts)) if counts[: d + 1].sum() / counts.sum() < 0.01)
+    mu = np.array([np.mean([R[f] for R in rows]) for f in FR.FIELDS])
+    sim = mu[None, :] + sig * np.random.default_rng(20261114).standard_normal((100000, 9))
+    para = float((((sim.argsort(1).argsort(1) - np.arange(9)) ** 2).sum(1) <= d2_crit).mean())
+    tol = 3 * math.sqrt(para * (1 - para) / REPS) + 0.02
+    res = dict(label="supplementary arm planted_x (slope 0.080), added after planted_h missed its 0.90 bar", rate=rate,
+               parametric=para, tol=tol, checks=dict(pass_ge_090=rate >= 0.9, calib=abs(rate - para) <= tol))
+    json.dump(res, open(out, "w"), indent=1, sort_keys=True)
+    print(json.dumps(res, indent=1))
+    return 0
+
+
 if __name__ == "__main__":
+    if sys.argv[1] == "extra":
+        sys.exit(extra(sys.argv[2], *(int(x) for x in sys.argv[3:4])))
     sys.exit(main(sys.argv[1], *(int(x) for x in sys.argv[2:3])))
