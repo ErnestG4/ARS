@@ -2469,3 +2469,13 @@ For imaginary quadratic fields with class number 1 (D = −7, −8, −11, −19
 Design a sealed rank test: the Spearman correlation between C_F and R_F at matched N, at β = 0.55 (primary) and the B2 cells (secondary), with an exact permutation null. Include near-equal-C pairs as a descriptive same-conductor check.
 Price the archives (10¹⁰ and 10¹¹) and the read. No compute until reviewed.
 Pushes: 1d05ac8a onward, Will’s.
+
+### FN1: staged, 10¹⁰ first; seal requirements (2026-10-31; Will, verbatim)
+FN1: staged, 10¹⁰ first. Approve after these are in the seal:
+
+Primary: Spearman ρ_s between C_F and R_F at matched N, at β = 0.55, across the 9 imaginary quadratic fields; PASS iff the exact permutation p < 0.01 with positive sign. Secondary: the same at the B2 cells.
+Power: computed with L13’s empirical fluctuation scales (both methods) as plausible noise. State the power under each before sealing.
+Secondary prediction: ℤ[√2] (C = 4.62, existing archive) ranks between D = −67 and D = −163. Report PASS or FAIL separately.
+Near-equal-C pairs: descriptive.
+§9.F dry run, D23 check, stamp → attest → double read. The 10¹¹ stage is decided after the 10¹⁰ read; note that 10¹⁰ is a prefix of 10¹¹.
+Send Will the final seal text before stamping, so I can review it.
