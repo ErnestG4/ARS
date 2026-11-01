@@ -344,6 +344,19 @@ puts it below anywhere. The two methods disagree at all 16 cells (block arcs 1.6
 Will's rule, no conclusion. If either empirical SE were right, B2's T would be 1.6–3.6 against t = 5.24. **Still open,
 and more pressing:** what the correct noise model is for a deterministic arithmetic set.
 
+## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
+
+**What is seen.** The derived window-average error passes the planted-witness check for α itself, on both witnesses.
+α rests on Peter's theorem alone. The same evaluator over-predicts the products α̃(n) α̃(n + r) by 10–40%: at lags 0,
+2 and 4 on both witnesses, and at lag 1 on the new one (`geo1/GEO1_BRIDGE_A2_DERIVATION.md` §6). Exact
+small-denominator weights barely changed this, so flat weighting is not the cause.
+
+**The suspect (Will).** The four-point factorisation: treating the product's spectrum as a product of local
+four-point densities.
+
+**What would address it.** Check the product's spectrum directly on a small exactly periodic planted series against
+the factorised one, before any new evaluator. A2 itself is closed: no further rebuild.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project

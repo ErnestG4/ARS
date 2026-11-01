@@ -179,3 +179,10 @@ traces were computed and no seal was made.
   the use of a tiled sample of window positions in place of the all-position average. It does not point at the
   coefficient-decay picture itself.
 - These are possibilities, not findings.
+
+## 7. Closed (Will, 2026-10-31)
+
+A2 is closed as a derivation with no reported prediction. The lead is recorded as L14 in `OPEN_LEADS.md`:
+- α (Peter-only) passes on both witnesses;
+- the four-point-density products are over-predicted by 10–40%;
+- so the four-point factorisation assumption is the suspect.
