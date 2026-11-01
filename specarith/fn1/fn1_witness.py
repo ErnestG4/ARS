@@ -32,6 +32,12 @@ Curve run, declared before it runs:
   and target (8), 200 replicates each. The earlier arms (0.015, 0.040, 0.080) are reused as curve points.
 - *Must-pass slope (target).* Set from FN1's target effect size: FN1's seen b/σ at (10¹⁰, β 0.55) is
   0.04119/0.006120 = 6.731 per unit C. That times the witness's sealed-model σ (0.0264) gives slope = 0.1777.
+- *Correction before any result* (the first curve run crashed while generating sets; no rate was computed):
+  - the ratio is 0.041155/0.0061477 = 6.694, from FN1_POWER.json, not 6.731;
+  - at base ρ = 0.20 the target slope is infeasible (ρ_F < 0 at D = −163). The new curve therefore uses one base,
+    ρ₀ = 0.40, for all its arms. Feasible needs ρ₀ ≥ 0.30.
+  - target slope = 6.694 × mean R(null arm) × √(2/(c·K)), computed from the null arm before the target arm runs.
+  - The earlier base-0.20 arms (0.015, 0.040, 0.080, null 200) are reported as a separate curve.
 - *Criteria:*
   - null PASS count in [1, 19] of 1000 (exact p < 0.01 has size 0.0086);
   - target PASS ≥ 180/200;
@@ -67,7 +73,10 @@ REPS = 200
 CMEAN = float(np.mean(list(FR.C.values())))
 DERANGE = [4, 7, 0, 8, 1, 6, 2, 3, 5]
 ARMS = ["null", "planted_h", "planted_l", "planted_x", "null_big", "s010", "s025", "s060", "target"]
-TARGET = 6.731 * 0.0264                                  # FN1 b/σ at the primary cell × the witness's sealed-model σ
+RATIO = 0.041154855674179695 / 0.006147699090282484    # FN1 b/σ at the primary cell (FN1_POWER.json) = 6.694
+RHO0 = {"null": 0.20, "planted_h": 0.20, "planted_l": 0.20, "planted_x": 0.20,
+        "null_big": 0.40, "s010": 0.40, "s025": 0.40, "s060": 0.40, "target": 0.40}
+TARGET = None                                           # set in curve() from the null_big arm's mean R
 
 
 def gen_mix(n, rho, rng):
@@ -80,15 +89,15 @@ def gen_mix(n, rho, rng):
 
 
 def one(args):
-    arm, rep = args
+    arm, rep = args[0], args[1]
     rng = np.random.default_rng([20261112, ARMS.index(arm), rep])
     slope = {"null": 0.0, "planted_h": 0.040, "planted_l": 0.015, "planted_x": 0.080, "null_big": 0.0, "s010": 0.010,
-             "s025": 0.025, "s060": 0.060, "target": TARGET}[arm]
+             "s025": 0.025, "s060": 0.060, "target": TARGET}[arm] if arm != "target" else args[2]
     N = 2 * N_HALF
     K = int(round(N ** BETA))
     R = {}
     for f in FR.FIELDS:
-        th = gen_mix(N_HALF, 0.20 - slope * (FR.C[f] - CMEAN), rng)
+        th = gen_mix(N_HALF, RHO0[arm] - slope * (FR.C[f] - CMEAN), rng)
         R[f] = float(Q.var_stream(th, K) / (N / K))
     return arm, rep, R
 
@@ -155,21 +164,18 @@ def model_power(slope, sig, counts, rng):
 def curve(out, nproc=8):
     counts = FR.exact_null_counts()
     K = int(round((2 * N_HALF) ** BETA))
-    sig_model = 0.80 * math.sqrt(2 / (0.6271633049515984 * K))
-    base = json.load(open(out.replace("_CURVE", "")))
-    sig_meas = base["sigma_null_replicates"]
-    runs = {"null_big": 1000, "s010": REPS, "s025": REPS, "s060": REPS, "target": REPS}
-    rates = {}
+    rates, sig_arm = {}, {}
     with ProcessPoolExecutor(nproc) as ex:
-        for arm, R in runs.items():
-            rows = [x for _, _, x in ex.map(one, [(arm, r) for r in range(R)])]
-            rates[arm] = (sum(FR.rank_test(x, FR.C, counts)["verdict"] == "PASS" for x in rows), R)
-    rates["planted_l(0.015)"] = (round(base["pass_rates"]["planted_l"] * REPS), REPS)
-    rates["planted_h(0.040)"] = (round(base["pass_rates"]["planted_h"] * REPS), REPS)
-    ex2 = json.load(open(out.replace("_CURVE", "_EXTRA")))
-    rates["planted_x(0.080)"] = (round(ex2["rate"] * REPS), REPS)
-    slopes = {"null_big": 0.0, "s010": 0.010, "planted_l(0.015)": 0.015, "s025": 0.025, "planted_h(0.040)": 0.040,
-              "s060": 0.060, "planted_x(0.080)": 0.080, "target": TARGET}
+        rows_null = [x for _, _, x in ex.map(one, [("null_big", r) for r in range(1000)])]
+        rates["null_big"] = (sum(FR.rank_test(x, FR.C, counts)["verdict"] == "PASS" for x in rows_null), 1000)
+        Rbar = float(np.mean([x[f] for x in rows_null for f in FR.FIELDS]))
+        sig_model = Rbar * math.sqrt(2 / (0.6271633049515984 * K))
+        sig_meas = float(np.mean([np.std([x[f] for x in rows_null], ddof=1) for f in FR.FIELDS]))
+        target = RATIO * sig_model
+        for arm, sl in (("s010", 0.010), ("s025", 0.025), ("s060", 0.060), ("target", target)):
+            rows = [x for _, _, x in ex.map(one, [(arm, r, sl) for r in range(REPS)])]
+            rates[arm] = (sum(FR.rank_test(x, FR.C, counts)["verdict"] == "PASS" for x in rows), REPS)
+    slopes = {"null_big": 0.0, "s010": 0.010, "s025": 0.025, "s060": 0.060, "target": target}
     rng = np.random.default_rng(20261116)
     pts = []
     for k in sorted(slopes, key=slopes.get):
@@ -183,7 +189,13 @@ def curve(out, nproc=8):
     nb = rates["null_big"][0]
     ok = dict(null_about_alpha=1 <= nb <= 19, target_must_pass=rates["target"][0] >= 180,
               curve_within=all(p["within"] for p in pts if p["slope"] > 0))
-    json.dump(dict(witness_K=K, sigma_model=sig_model, sigma_measured=sig_meas, target_slope=TARGET, points=pts,
+    base = json.load(open(out.replace("_CURVE", "")))
+    ex2 = json.load(open(out.replace("_CURVE", "_EXTRA")))
+    base_curve = dict(rho0=0.20, null=base["pass_rates"]["null"], s015=base["pass_rates"]["planted_l"],
+                      s040_planted_h=base["pass_rates"]["planted_h"], s080=ex2["rate"],
+                      note="earlier arms at rho0 = 0.20 (planted_h's declared >= 0.90 bar was an error: its power is ~0.72-0.76)")
+    json.dump(dict(rho0=0.40, witness_K=K, mean_R_null=Rbar, sigma_model=sig_model, sigma_measured=sig_meas,
+                   target_slope=target, points=pts, base_020_curve=base_curve,
                    checks=ok, CURVE_PASS=all(ok.values())), open(out, "w"), indent=1, sort_keys=True)
     print(ok)
     return 0
