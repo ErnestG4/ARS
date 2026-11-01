@@ -1,0 +1,79 @@
+{
+ "CURVE_PASS": true,
+ "base_020_curve": {
+  "note": "earlier arms at rho0 = 0.20 (planted_h's declared >= 0.90 bar was an error: its power is ~0.72-0.76)",
+  "null": 0.005,
+  "rho0": 0.2,
+  "s015": 0.145,
+  "s040_planted_h": 0.76,
+  "s080": 1.0
+ },
+ "checks": {
+  "curve_within": true,
+  "null_about_alpha": true,
+  "target_must_pass": true
+ },
+ "mean_R_null": 0.5999222165909842,
+ "points": [
+  {
+   "arm": "null_big",
+   "measured_sigma_power": 0.008415,
+   "model_power": 0.00864,
+   "passes": 10,
+   "rate": 0.01,
+   "reps": 1000,
+   "slope": 0.0,
+   "tol": 0.028779985968098127,
+   "within": true
+  },
+  {
+   "arm": "s010",
+   "measured_sigma_power": 0.11566,
+   "model_power": 0.100475,
+   "passes": 18,
+   "rate": 0.09,
+   "reps": 200,
+   "slope": 0.01,
+   "tol": 0.0837737394769587,
+   "within": true
+  },
+  {
+   "arm": "s025",
+   "measured_sigma_power": 0.630305,
+   "model_power": 0.560745,
+   "passes": 125,
+   "rate": 0.625,
+   "reps": 200,
+   "slope": 0.025,
+   "tol": 0.12528034965688042,
+   "within": true
+  },
+  {
+   "arm": "s060",
+   "measured_sigma_power": 0.998015,
+   "model_power": 0.995245,
+   "passes": 200,
+   "rate": 1.0,
+   "reps": 200,
+   "slope": 0.06,
+   "tol": 0.03459306509527721,
+   "within": true
+  },
+  {
+   "arm": "target",
+   "measured_sigma_power": 1.0,
+   "model_power": 1.0,
+   "passes": 200,
+   "rate": 1.0,
+   "reps": 200,
+   "slope": 0.1326973730734154,
+   "tol": 0.022121320343559642,
+   "within": true
+  }
+ ],
+ "rho0": 0.4,
+ "sigma_measured": 0.018287045545245115,
+ "sigma_model": 0.019822290866108632,
+ "target_slope": 0.1326973730734154,
+ "witness_K": 2921
+}
