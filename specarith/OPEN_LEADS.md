@@ -359,6 +359,14 @@ the factorised one, before any new evaluator. A2 itself is closed: no further re
 
 ## L15 — FN1 stage-1 residuals beyond C_F: −7's displacement and L′/L (2026-11-02; post hoc, descriptive)
 
+**STATUS: TESTED, NOT SUPPORTED (Will, 2026-11-02).**
+- L′/L(1) is collinear with C_F (r 0.86).
+- The residuals are U-shaped, consistent with curvature.
+- Chen's L-term enters at s = 2.
+- The printed-versus-code sign discrepancy is recorded and unresolved.
+- −7's displacement goes on as a stated stage-2 prediction (`fn1/FN1_STAGE2_SEAL.md`). Curvature alone (monotone in
+  C_F) predicts a FAIL there.
+
 **What is seen.** At the sealed FN1 stage-1 read (10¹⁰, β 0.55; primary PASS) the linear residuals of R on C_F are
 U-shaped: −7 +0.035, −163 +0.029, the middle fields negative. −7 alone carries 16 of Σd² = 22. Within every field, R
 falls 6–15% along prime order.

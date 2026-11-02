@@ -1689,3 +1689,40 @@ evaluation:
 So check the evaluator on the planted witness before trusting a derived rate, as with the SE itself.
 
 **Related:** L13 (RQ1's SE model on the arithmetic angle sets), recorded unchanged and now running.
+
+### §9.I — LEAD AND DIAGNOSTIC SCRIPTS OPEN COMMITTED RESULTS READ-ONLY AND WRITE ONLY TO SCRATCH, ENFORCED IN CODE (FN1, 2026-11-02)
+
+**Rule (standing, Will).** Lead and diagnostic scripts open committed results read-only and write only to scratch,
+enforced in code. A result that belongs in the repo is copied there by a separate, explicit step (cp + git add). The
+script itself never writes it.
+
+**What it caught.** `fn1/lead/fn1_chen_lterm.py` imported `fn1_lprime.py`, whose module-level code wrote its JSON to
+`sys.argv[1]`. In the importing script `sys.argv[1]` was the committed input `rq1/results/RQ1B_CONSTANTS.json`, which
+was overwritten. It was caught at once (KeyError on the next read), restored from git and checked identical to HEAD.
+- **Two defects combined:** an import with side effects (no `__main__` guard), and a script allowed to write wherever
+  its arguments pointed.
+- **The fix here is structural:** the second defect cannot happen under §9.I whatever the first.
+
+**How to apply.**
+- First lines of every lead or diagnostic script: `import safeio; safeio.enforce()` (`specarith/safeio.py`).
+  - From then on, any `open` in a write, append, create or update mode, and any `os.replace` / `rename` / `remove` /
+    `unlink`, raises PermissionError unless the resolved path (realpath, so a symlink cannot escape) is under a
+    scratch root and not inside a git work tree.
+  - Scratch roots: `$SPECARITH_SCRATCH`, else `~/tmp/claude`.
+- Read inputs with `safeio.read_json(path, expect_sha256=…)` when a pin exists.
+- Write with `safeio.write_json(safeio.scratch("…"), obj)`. It refuses to overwrite unless asked.
+- Red-path test: `specarith/test_safeio.py`, which must print `SAFEIO_TEST_PASS True`. Its cases:
+  - a write to a committed file;
+  - the FN1 import side effect;
+  - `os.replace` into the repo;
+  - a symlink escape;
+  - `numpy.save` into the repo;
+  - overwrite without the flag.
+- **Limits (documented, not covered):** `os.open` with raw flags, subprocess writes, and C extensions writing by path.
+  Scripts must not use those for outputs.
+- **Scope.** The rule covers lead, diagnostic and design scripts, i.e. anything that reads committed results to
+  compute something new. Sealed read scripts and archive generators write to their own declared output directories
+  under scratch or `/mnt/data` and are pinned by hash. They are outside it.
+- **The FN1 lead scripts committed before the rule** (`fn1/lead/fn1_*.py` in ef532722) predate it and are listed as
+  such. New scripts from 2026-11-02 use `safeio`.
+- Related: §9.F (dry-run the double read), "a path is not a pin" (pin inputs by hash).
