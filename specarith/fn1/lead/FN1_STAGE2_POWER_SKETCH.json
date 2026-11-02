@@ -1,0 +1,56 @@
+{
+ "K": 182016,
+ "Rbar": 0.8176254127927812,
+ "cells": {
+  "chen_1_over_log1e11|1.71x_detrended|H0_no_displacement": {
+   "minus7_pred_rate": 0.011425,
+   "primary_power": 1.0
+  },
+  "chen_1_over_log1e11|1.71x_detrended|H1_displacement_persists": {
+   "minus7_pred_rate": 0.98219,
+   "primary_power": 0.98818
+  },
+  "chen_1_over_log1e11|1x|H0_no_displacement": {
+   "minus7_pred_rate": 9e-05,
+   "primary_power": 1.0
+  },
+  "chen_1_over_log1e11|1x|H1_displacement_persists": {
+   "minus7_pred_rate": 0.999765,
+   "primary_power": 0.99992
+  },
+  "chen_1_over_log1e11|3.37x_raw|H0_no_displacement": {
+   "minus7_pred_rate": 0.096155,
+   "primary_power": 0.998655
+  },
+  "chen_1_over_log1e11|3.37x_raw|H1_displacement_persists": {
+   "minus7_pred_rate": 0.841945,
+   "primary_power": 0.855175
+  },
+  "ols_stage1|1.71x_detrended|H0_no_displacement": {
+   "minus7_pred_rate": 0.005135,
+   "primary_power": 1.0
+  },
+  "ols_stage1|1.71x_detrended|H1_displacement_persists": {
+   "minus7_pred_rate": 0.96122,
+   "primary_power": 0.9993
+  },
+  "ols_stage1|1x|H0_no_displacement": {
+   "minus7_pred_rate": 0.0,
+   "primary_power": 1.0
+  },
+  "ols_stage1|1x|H1_displacement_persists": {
+   "minus7_pred_rate": 0.998845,
+   "primary_power": 1.0
+  },
+  "ols_stage1|3.37x_raw|H0_no_displacement": {
+   "minus7_pred_rate": 0.07418,
+   "primary_power": 0.999775
+  },
+  "ols_stage1|3.37x_raw|H1_displacement_persists": {
+   "minus7_pred_rate": 0.798405,
+   "primary_power": 0.94603
+  }
+ },
+ "delta_-7": 0.03518989655270044,
+ "model_SE_stage2": 0.00342234884863943
+}

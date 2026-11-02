@@ -357,6 +357,22 @@ four-point densities.
 **What would address it.** Check the product's spectrum directly on a small exactly periodic planted series against
 the factorised one, before any new evaluator. A2 itself is closed: no further rebuild.
 
+## L15 — FN1 stage-1 residuals beyond C_F: −7's displacement and L′/L (2026-11-02; post hoc, descriptive)
+
+**What is seen.** At the sealed FN1 stage-1 read (10¹⁰, β 0.55; primary PASS) the linear residuals of R on C_F are
+U-shaped: −7 +0.035, −163 +0.029, the middle fields negative. −7 alone carries 16 of Σd² = 22. Within every field, R
+falls 6–15% along prime order.
+
+**Checked (Will's brief).** Neither candidate explains the residuals (`fn1/lead/FN1_LEAD_LPRIME.md`):
+- L′/L(1,χ_D): |r| ≤ 0.44, p > 0.25 on the linear residual;
+- Chen et al.'s C_Φ,L piece. For Φ = 1_(0,1] it is −8π²·L′/L(2,χ_D) by a Poisson-kernel identity, verified against
+  RQ1-b's contours. That gives a field offset of −2·L′/L(2)/log X below λ = ½: |r| ≤ 0.16. It moves −7 the right way
+  (2 split) but by about 0.005 against +0.035.
+- The C_Φ,L sign in Chen et al.'s Appendix-A code is the opposite of (9.26).
+
+**What would address it.** The stage-2 fresh slice (10¹⁰, 10¹¹]: −7's displacement is a stated prediction there
+(`fn1/FN1_STAGE2_SEAL.md`, proposed). If it persists, the cause is open. −7 is the only field with 2 split.
+
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with
 the arithmetic lower-order terms, fresh heights) and the Conrey–Snaith next-order spacing project

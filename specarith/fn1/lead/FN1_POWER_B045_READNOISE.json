@@ -1,0 +1,17 @@
+{
+ "detrended_ratio": {
+  "power": 0.86359,
+  "scale": 1.0557911897410721
+ },
+ "model_1x_recheck": {
+  "power": 0.89174,
+  "scale": 1.0
+ },
+ "model_SE": 0.0131124743593456,
+ "raw_segment_ratio": {
+  "power": 0.606635,
+  "scale": 1.4685488047090154
+ },
+ "sealed_power_at_model": 0.89136,
+ "slope_b": 0.025599431955991712
+}

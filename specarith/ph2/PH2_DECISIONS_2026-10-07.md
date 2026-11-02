@@ -2512,3 +2512,17 @@ Fresh-only test: 7 fields, as written (ρ_s ≥ 0.893). The “6” was a slip.
 “For class-number-1 imaginary quadratic fields, the class number formula gives log L(1,χ) = log 2π − ½·log(w²|D|), so the C_F ordering is exactly the reverse of the L(1,χ) ordering. A primary PASS supports the field invariant log(w²|D|) as the determinant. It does not distinguish an effect through the conductor from one through L(1,χ).”
 “It does distinguish C_F from plain log|D|. ℤ[i] (log|D| = 1.39) and ℤ[ω] (1.10) would rank lowest under log|D| but sit mid-ladder under C_F.”
 Then seal → stamp → Bitcoin attestation verified on two explorers → double read → cmp. Verdict lines go to files and are not viewed before the cmp.
+
+### FN1 stage-1 read: labels, L′/L lead, stage 2 (2026-11-02; Will, verbatim)
+Labels:
+ℤ[√2] placement: “PASS; margin (0.009) below the read-time per-field noise (~0.02); a middle placement by chance is ≈ 1 in 3”.
+β 0.45: plain FAIL, annotated “sealed as powered only under the sealed SE model; read-time noise at β 0.55 is 3.37× that model (cross-β inference)”. Optionally, a descriptive segment-noise estimate at β 0.45.
+Post-hoc lead, descriptive:
+Compute L′/L(1,χ_D) for the nine fields (and note χ_D(2): only D = −7 has 2 split).
+Report the correlation of the 10¹⁰ residuals (R against the C_F rank fit) with L′/L(1,χ_D) at β 0.55, 0.45 and 0.40.
+Check against Chen et al.’s lower-order term (the C_Φ,L piece) what sign and form it predicts for imaginary quadratic fields.
+Stage 2 (10¹¹): draft a seal only after item 2. Primary replication on the fresh part (10¹⁰, 10¹¹]; a residual-by-L′/L prediction if item 2 supports one; −7’s displacement as a stated prediction. Price the archives; no compute before review.
+
+I'll push momentarily
+
+(then: "pushed")

@@ -24,8 +24,8 @@ Outputs: `results/read/` (both reads, timing sidecars, logs, status, cmp).
 | Test | Statistic | Verdict | Reading (§3 / §3a) |
 |---|---|---|---|
 | **Primary**, β 0.55, nine fields | ρ_s = **0.817**, Σd² = 22 (≤ 26), exact p = **0.0054** | **PASS** | informative (exact null) |
-| ℤ[√2] placement, β 0.55 | R_−67 = 0.8568 < **R_ℤ[√2] = 0.8657** < R_−163 = 0.9346 | **PASS** | informative |
-| Secondary β 0.45 | ρ_s = 0.400, Σd² = 72, p = 0.146 | FAIL | sealed as powered only under the sealed model (0.89); see §3 below |
+| ℤ[√2] placement, β 0.55 | R_−67 = 0.8568 < **R_ℤ[√2] = 0.8657** < R_−163 = 0.9346 | **PASS** | Will's label (2026-11-02): "PASS; margin (0.009) below the read-time per-field noise (~0.02); a middle placement by chance is ≈ 1 in 3" |
+| Secondary β 0.45 | ρ_s = 0.400, Σd² = 72, p = 0.146 | FAIL | Will's label (2026-11-02): plain FAIL, "sealed as powered only under the sealed SE model; read-time noise at β 0.55 is 3.37× that model (cross-β inference)". Post-hoc direct estimate at β 0.45: 1.47× (power 0.61); see §3 |
 | Secondary β 0.40 | ρ_s = 0.600, Σd² = 48, p = 0.048 | FAIL | **UNPOWERED** cell (0.47 at the model): one-way, so this FAIL is not informative |
 
 **Read-time noise (§3a).**
@@ -75,10 +75,14 @@ The rank of R matches the rank of C_F at five of nine places (ℤ[i], ℤ[ω], �
 - **Primary PASS.** Across the nine class-number-1 imaginary quadratic fields, R at matched N is ordered by C_F = log(|D|(w/2)²) beyond chance, under an exact, SE-free null. This supports C_F as the field-level determinant found in RQ1 / RQ1-c, across nine fields and three unit groups.
 - **Will's note (sealed).** The C_F ordering is exactly the reverse of the L(1,χ) ordering. So this PASS supports the field invariant log(w²|D|) as the determinant, and it does not distinguish an effect through the conductor from one through L(1,χ). It does distinguish C_F from plain log|D|: ℤ[i] and ℤ[ω] sit mid-ladder, as C_F predicts.
   - The log|D| ρ_s of 0.50 against 0.82 is descriptive, not a sealed test of the difference.
-- **ℤ[√2] PASS.** A real quadratic field sits on the imaginary-field ladder where its C puts it.
+- **ℤ[√2] PASS.** A real quadratic field sits on the imaginary-field ladder where its C puts it. Per Will's label: the margin (0.009, to R_−67) is below the read-time per-field noise (about 0.02), and a middle placement among three by chance is about 1 in 3. It is a weak confirmation.
 - **Secondaries.**
   - β 0.40 is UNPOWERED, so its FAIL carries nothing.
-  - β 0.45 was sealed as "powered only under the sealed model". The read-time noise, measured at β 0.55, is 3.4× that model. If the same excess holds at β 0.45, its power would be well below 0.80 (§3 table: 0.68 → 0.07 under L13's scales). That is an inference from another β, not a sealed rule. This report records the β 0.45 FAIL as sealed and does not relabel it. Whether to read it one-way is Will's call.
+  - β 0.45: plain FAIL, annotated per Will (2026-11-02): "sealed as powered only under the sealed SE model; read-time noise at β 0.55 is 3.37× that model (cross-β inference)".
+  - **Post-hoc, descriptive (Will's optional item; `lead/SEGNOISE_B045.json`).** The sealed §3a estimator was applied unchanged at β 0.45 (K_seg = round((2·⌊n/8⌋)^0.45)). The same script reproduces the sealed β 0.55 values exactly (pooled 0.02505, ratio 3.373). Results:
+    - β 0.45: pooled relSD 0.0296, i.e. **1.47×** the sealed model. Detrended (descriptive): 1.06×.
+    - At 1.47× the sealed power model gives power **0.61** for the β 0.45 test; at 1.06×, 0.86. The 1× recheck gives 0.89, matching the seal (`lead/FN1_POWER_B045_READNOISE.json`).
+    - So the cross-β inference overstated the β 0.45 noise. Measured directly, the cell sits between the sealed model and L13's scales. This is descriptive: the sealed label stands as plain FAIL, with no one-way reading.
 - **The SE question stays open.** The noise rule measured 3.37× the sealed model at β 0.55. That lies inside L13's range (method B ℤ[i] 4.1×). It is drift-inflated by construction; see §4.
 
 ## 4. Post-hoc observations (labelled; no claim; candidates for leads only if Will wants them)
@@ -97,4 +101,5 @@ Double read: 0.39 core-h (sealed estimate 0.6). Stage 1 total: about 17 core-h (
 
 ## 6. Next
 
-The 10¹¹ stage is Will's decision after this read (seal §1: 10¹⁰ is a prefix of 10¹¹). No further FN1 compute has been started.
+- Post-hoc L′/L lead (Will 2026-11-02): `lead/FN1_LEAD_LPRIME.md`.
+- Stage 2 (10¹¹): proposed seal `FN1_STAGE2_SEAL.md` (not sealed; for Will's review). No stage-2 compute has been started.
