@@ -1,0 +1,43 @@
+{
+ "drift_term_active": true,
+ "minus7_labels": {
+  "expected": {
+   "hit_high_noise": "PASS (not separated from the C-ordered null at the read-time noise)",
+   "hit_low_noise": "PASS",
+   "miss_high_noise": "FAIL (UNPOWERED at the read-time noise)",
+   "miss_low_noise": "FAIL",
+   "tie": "VOID (ties)"
+  },
+  "got": {
+   "hit_high_noise": "PASS (not separated from the C-ordered null at the read-time noise)",
+   "hit_low_noise": "PASS (not separated from the C-ordered null at the read-time noise)",
+   "miss_high_noise": "FAIL (UNPOWERED at the read-time noise)",
+   "miss_low_noise": "FAIL (UNPOWERED at the read-time noise)",
+   "tie": "VOID (ties)"
+  },
+  "ok": false
+ },
+ "minus7_stat": {
+  "mustfail_hit": 0.0865,
+  "mustpass_hit": 0.794,
+  "ok": true,
+  "sigma_rel": 0.01436356811823262,
+  "tabled_false_pass": 0.07605,
+  "tabled_power": 0.79384
+ },
+ "ok": false,
+ "rank_1x": {
+  "null_pass": 0.009,
+  "ok": true,
+  "shuffled_pass": 0.0085,
+  "target_pass": 1.0,
+  "target_power_model": 1.0
+ },
+ "rank_stage1_raw": {
+  "null_pass": 0.009,
+  "ok": true,
+  "shuffled_pass": 0.011,
+  "target_pass": 0.9995,
+  "target_power_model": 0.99976
+ }
+}
