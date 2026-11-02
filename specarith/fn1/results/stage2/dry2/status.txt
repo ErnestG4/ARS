@@ -1,0 +1,9 @@
+pins 0
+redpin made 0
+d1 0
+d2 0
+cmp 0
+red_prefix 1
+red_pin 1
+synth 0
+DONE
