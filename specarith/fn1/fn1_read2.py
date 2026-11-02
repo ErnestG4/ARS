@@ -23,21 +23,20 @@ fields; also per-field linear-detrended relSD (ddof 2) pooled the same way.
 - Primary rule (Will 2026-11-02: raw, as stage 1): power at the raw β 0.55 ratio from R = b C + σ ε with
   b = B055, σ = ratio × SE055 (stage-1-derived constants below), 200,000 seeded simulations. Power < 0.80 → a primary
   FAIL reads "FAIL (UNPOWERED at the read-time noise)".
-- Secondaries (Will: own slopes, one-way reading if unpowered): the same at β 0.45 / 0.40 with B045 / B040, SE045 /
-  SE040 and that β's raw ratio. Power < 0.80 → a FAIL reads "FAIL (UNPOWERED at the read-time noise)".
-−7 prediction (β 0.55), option B with a local-slope null (Will, 2026-11-02, §2.4):
+- Secondaries β 0.45 / 0.40: DECLARED ONE-WAY in advance (Will 2026-11-02 rulings, TOOLKIT §9.J as clarified): the
+  same rank test with B045 / B040, SE045 / SE040; a PASS is informative, a FAIL is not and always reads
+  "FAIL (one-way arm: FAIL not informative)". Their power at the read-time raw ratio is reported (descriptive).
+−7 prediction (β 0.55), DECLARED ONE-WAY, flat null (Will 2026-11-02 rulings, superseding option B's local slope):
 T = min(R_−7 − R_−8, R_−7 − R_−11). PASS iff T > m. An exact equality R_−7 = R_−8 or R_−7 = R_−11 → VOID (ties).
+A FAIL is not informative and always reads "FAIL (one-way arm: FAIL not informative)".
 - Rule noise: σ_rel = √(det² + DRIFT_SD²), det = the read-time pooled detrended relSD at β 0.55, DRIFT_SD = 0.012458
   (the slope-noise-corrected stage-1 drift spread, committed). σ = σ_rel × mean_F R_F(0.55).
-- Null slope: b_null = min(b_global, b_local). b_global = the read-time nine-field OLS slope of R on C_F; b_local = the
-  read-time OLS slope over −8, −11, ℤ[i], −19 (−7 excluded), floored at 0.
-- m = the 95th percentile (numpy linear quantile) of T under R_F = a + b_null C_F + σ ε (the intercept cancels),
-  200,000 draws, seed SEED_M7. The false-PASS rate is 0.05 by construction; reported as a check on an independent
-  seed (SEED_M7 + 2).
-- FAIL is informative iff the power under persistence, P(T + DELTA7 > m) under the same null (seed SEED_M7 + 1), is
-  ≥ 0.80; otherwise "FAIL (UNPOWERED at the read-time noise)".
-- Reported too (descriptive, no verdict): the plain two-neighbour hit, and m and the power under the raw read-time noise
-  alone, under the detrended noise alone, and under the global slope.
+- m = the 95th percentile (numpy linear quantile) of T under a FLAT null (b_null = 0): R_F = a + σ ε, 200,000 draws,
+  seed SEED_M7. The false-PASS rate is 0.05 under the flat null and ≤ 0.05 under any C-dependence that is monotone
+  non-decreasing at −7, −8, −11 (it lowers T pointwise); checked on an independent seed (SEED_M7 + 2) and reported.
+- Reported too (descriptive, no verdict): the power under persistence P(T + DELTA7 > m) (seed SEED_M7 + 1); the
+  read-time b_global and b_local (−8, −11, ℤ[i], −19); the plain two-neighbour hit; and the margin and power under
+  the raw noise alone, the detrended noise alone, the local slope (option B as first ruled) and the global slope.
 Descriptive: ρ against log|D|; fresh-only 7 (exact over 7!); ℤ[√2] placement at 0.40 / 0.45; pairs; OLS residuals on
 C_F per β, and their Pearson r with the stage-1 residuals (pinned stage-1 read); Chen-form P_F fit (constants below).
 Output: JSON, sorted keys, no timings (sidecar OUT.timing); stdout prints only "done".
@@ -310,33 +309,41 @@ def slopes(R55):
     return b_global, b_local_raw, b_local, min(b_global, b_local)
 
 
+ONE_WAY_FAIL = "FAIL (one-way arm: FAIL not informative)"
+UNPOWERED = "FAIL (UNPOWERED at the read-time noise)"
+
+
 def minus7(R55, det_rel, raw_rel):
     if R55["-7"] == R55["-8"] or R55["-7"] == R55["-11"]:
         return dict(verdict="VOID (ties)")
-    b_global, b_local_raw, b_local, b_null = slopes(R55)
+    b_global, b_local_raw, b_local, b_optB = slopes(R55)
     Rbar = float(np.mean([R55[f] for f in FIELDS]))
     s_rule = math.sqrt(det_rel ** 2 + CONST["DRIFT_SD"] ** 2) * Rbar
     T = min(R55["-7"] - R55["-8"], R55["-7"] - R55["-11"])
-    m = m7_margin(b_null, s_rule)
-    pw = m7_power(b_null, s_rule, m, CONST["DELTA7"])
+    m = m7_margin(0.0, s_rule)
     desc = {}
-    for nm, bb, ss in (("raw_noise_only", b_null, raw_rel * Rbar), ("detrended_noise_only", b_null, det_rel * Rbar),
-                       ("global_slope_rule_noise", b_global, s_rule)):
+    for nm, bb, ss in (("raw_noise_only", 0.0, raw_rel * Rbar), ("detrended_noise_only", 0.0, det_rel * Rbar),
+                       ("local_slope_optionB", b_optB, s_rule), ("global_slope", b_global, s_rule)):
         mm = m7_margin(bb, ss)
         desc[nm] = dict(slope=bb, sigma=ss, margin=mm, power_persist=m7_power(bb, ss, mm, CONST["DELTA7"]),
                         T_above_margin=bool(T > mm))
-    out = dict(R_m7=R55["-7"], R_m8=R55["-8"], R_m11=R55["-11"], T=T, b_global=b_global, b_local_raw=b_local_raw,
-               b_local=b_local, b_null=b_null, Rbar=Rbar, det_rel=det_rel, drift_sd=CONST["DRIFT_SD"], raw_rel=raw_rel,
-               sigma_rel_rule=s_rule / Rbar, sigma_rule=s_rule, margin=m, power_persist_rule=pw,
-               false_pass_check=float((m7_T(b_null, s_rule, 0.0, SEED_M7 + 2) > m).mean()),
-               two_neighbour_hit_descriptive=bool(T > 0),
-               two_neighbour_false_pass_descriptive=m7_rates(b_null, s_rule, 0.0, SEED_M7 + 2),
-               descriptive=desc)
-    if T > m:
-        out["verdict"] = "PASS"
-    else:
-        out["verdict"] = "FAIL" if pw >= 0.80 else "FAIL (UNPOWERED at the read-time noise)"
+    out = dict(R_m7=R55["-7"], R_m8=R55["-8"], R_m11=R55["-11"], T=T, b_null=0.0, b_global=b_global,
+               b_local_raw=b_local_raw, b_local=b_local, Rbar=Rbar, det_rel=det_rel, drift_sd=CONST["DRIFT_SD"],
+               raw_rel=raw_rel, sigma_rel_rule=s_rule / Rbar, sigma_rule=s_rule, margin=m,
+               power_persist_descriptive=m7_power(0.0, s_rule, m, CONST["DELTA7"]),
+               false_pass_check=float((m7_T(0.0, s_rule, 0.0, SEED_M7 + 2) > m).mean()),
+               two_neighbour_hit_descriptive=bool(T > 0), one_way=True, descriptive=desc)
+    out["verdict"] = "PASS" if T > m else ONE_WAY_FAIL
     return out
+
+
+def verdict_labels(v055, v045, v040, primary_fail_informative, zs2_between, v_m7):
+    """The sealed verdict lattice: primary two-way (FAIL informative iff the read-time power ≥ 0.80); β 0.45, β 0.40
+    and −7 one-way (a FAIL is never informative); ℤ[√2] placement plain."""
+    one = lambda v: ONE_WAY_FAIL if v == "FAIL" else v
+    return dict(primary_beta055=UNPOWERED if (v055 == "FAIL" and not primary_fail_informative) else v055,
+                secondary_beta045=one(v045), secondary_beta040=one(v040),
+                zs2_placement_beta055="PASS" if zs2_between else "FAIL", minus7_beta055=v_m7)
 
 
 def run(pins_json, out, X_LO, X_HI, dry):
@@ -403,13 +410,9 @@ def run(pins_json, out, X_LO, X_HI, dry):
     tests["minus7_beta055"] = minus7(R55, rtn["0.55"]["pooled_relSD_full_detrended"], rtn["0.55"]["pooled_relSD_full"])
     res["tests"] = tests
 
-    def label(v, sb):
-        return "FAIL (UNPOWERED at the read-time noise)" if v == "FAIL" and not rtn[sb]["fail_informative"] else v
-    res["verdict"] = dict(primary_beta055=label(tests["0.55"]["rank_test_C"]["verdict"], "0.55"),
-                          secondary_beta045=label(tests["0.45"]["rank_test_C"]["verdict"], "0.45"),
-                          secondary_beta040=label(tests["0.4"]["rank_test_C"]["verdict"], "0.4"),
-                          zs2_placement_beta055="PASS" if tests["0.55"]["zs2_between_m67_m163"] else "FAIL",
-                          minus7_beta055=tests["minus7_beta055"]["verdict"])
+    res["verdict"] = verdict_labels(tests["0.55"]["rank_test_C"]["verdict"], tests["0.45"]["rank_test_C"]["verdict"],
+                                    tests["0.4"]["rank_test_C"]["verdict"], rtn["0.55"]["fail_informative"],
+                                    tests["0.55"]["zs2_between_m67_m163"], tests["minus7_beta055"]["verdict"])
     json.dump(res, open(out, "w"), indent=1, sort_keys=True)
     ru = resource.getrusage(resource.RUSAGE_SELF)
     open(out + ".timing", "w").write(f"wall_s {time.time() - t0:.1f}\ncpu_s {time.process_time():.1f}\n"

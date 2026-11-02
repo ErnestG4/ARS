@@ -2549,3 +2549,10 @@ Attribution: the margin is computed under the flatter of the global and local sl
 Witness run 2 (new run; run 1 stays failed): reachability cases for every branch (informative PASS, informative FAIL, unpowered FAIL), plus a convex-curvature null with no displacement that must give a false-PASS rate ≤ 0.05.
 TOOLKIT: before sealing, every arm’s informative PASS and FAIL branches must be shown reachable under the design noise.
 Repeat the dry double read on the final code. Send Will the §2.4 diff and the witness run 2 results, then stamp.
+
+### FN1 stage 2 rulings after witness run 2 and §9.J (2026-11-02; Will, verbatim)
+FN1 stage 2 rulings:
+−7 null: b_null = 0. The margin m is the 95th percentile of min(R_−7 − R_−8, R_−7 − R_−11) under a flat null at the rule noise, so the false-PASS rate is ≤ 0.05 under any monotone C-dependence. Report pre-seal power under persistence. Witness run 2 adds the convex null (must be ≤ 0.05) and a flat null (must be ≈ 0.05).
+§9.J clarified: every branch a seal claims must be reachable. An arm may be declared one-way in advance (PASS informative, FAIL not), as long as its PASS branch is shown reachable and its null false-PASS rate is checked. This closes dead branches without forcing a two-way reading where the power can't support one.
+Declared one-way in the seal: β 0.45, β 0.40 and −7. The primary stays two-way.
+Update the §2.4 and §2.2 text and witness run 2, repeat the dry double read on the final code, then send me the diff and the witness results before stamping.

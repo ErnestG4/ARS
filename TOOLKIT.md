@@ -1732,6 +1732,10 @@ was overwritten. It was caught at once (KeyError on the next read), restored fro
 **Rule (standing, Will).** Before sealing, every arm's informative PASS and FAIL branches must be shown reachable
 under the design noise.
 
+**Clarified (Will, 2026-11-02):** "every branch a seal claims must be reachable. An arm may be declared one-way in
+advance (PASS informative, FAIL not), as long as its PASS branch is shown reachable and its null false-PASS rate is
+checked. This closes dead branches without forcing a two-way reading where the power can't support one."
+
 **What caught it.** In FN1 stage-2 witness run 1, the −7 arm as drafted labelled a PASS informative only if its
 false-PASS rate under the rule noise was ≤ 0.05. The noise floor committed into that rule (the stage-1 drift spread)
 gave a false-PASS rate of 0.054 at zero read-time noise, so the informative PASS branch could not be reached at any
@@ -1748,6 +1752,13 @@ separated". The code was correct; the rule was dead.
     holds, so a FAIL would not be labelled UNPOWERED by construction.
 - Constructed label cases (one per branch) show the code paths exist. They do not by themselves meet this rule;
   reachability under the design noise does.
-- An arm that fails either branch is not sealed as a verdict arm without a ruling: it is redesigned, re-powered, or
-  declared one-way or descriptive in advance, by decision.
+- **One-way arms (as clarified):**
+  - declared one-way in the seal, before the read;
+  - the PASS branch is shown reachable under the design noise;
+  - the null false-PASS rate is checked;
+  - every FAIL reads as not informative (FN1: "FAIL (one-way arm: FAIL not informative)").
+- **Two-way arms** need both branches reachable, including the power condition behind an informative FAIL.
+- **FN1 stage 2** (first use): the primary is two-way; β 0.45, β 0.40 and −7 are one-way.
+  - The first §9.J check (all arms two-way) failed for those three; it is recorded in
+    `fn1/results/stage2/FN1_STAGE2_REACH_FAILED.json`.
 - Related: "every arm must be able to fire", "witness must be able to fail", §9.D (plant the effect).
