@@ -2556,3 +2556,11 @@ FN1 stage 2 rulings:
 §9.J clarified: every branch a seal claims must be reachable. An arm may be declared one-way in advance (PASS informative, FAIL not), as long as its PASS branch is shown reachable and its null false-PASS rate is checked. This closes dead branches without forcing a two-way reading where the power can't support one.
 Declared one-way in the seal: β 0.45, β 0.40 and −7. The primary stays two-way.
 Update the §2.4 and §2.2 text and witness run 2, repeat the dry double read on the final code, then send me the diff and the witness results before stamping.
+
+### FN1 stage 2 approval (2026-11-02; Will, verbatim)
+FN1 stage 2: approved after one edit.
+
+ℤ[√2] placement → descriptive (no verdict). Its PASS has a chance rate of about ⅓ and its FAIL has 0.70 power, so it meets neither the two-way nor the one-way standard of §9.J. Update §2.3, the verdict lattice (verdict_labels: placement reported, not labelled PASS/FAIL), §6, and the witness lattice cases. Re-run the label witness as run 4 for that change only; runs 1–3 stay recorded.
+Header → SEALED with the date, in the stamped commit.
+Then stamp → Bitcoin attestation verified on two explorers → sequential double read through the queue → cmp → verdicts (not viewed before the cmp).
+Pushes are Will’s.

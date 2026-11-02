@@ -37,7 +37,8 @@ A FAIL is not informative and always reads "FAIL (one-way arm: FAIL not informat
 - Reported too (descriptive, no verdict): the power under persistence P(T + DELTA7 > m) (seed SEED_M7 + 1); the
   read-time b_global and b_local (−8, −11, ℤ[i], −19); the plain two-neighbour hit; and the margin and power under
   the raw noise alone, the detrended noise alone, the local slope (option B as first ruled) and the global slope.
-Descriptive: ρ against log|D|; fresh-only 7 (exact over 7!); ℤ[√2] placement at 0.40 / 0.45; pairs; OLS residuals on
+Descriptive: ρ against log|D|; fresh-only 7 (exact over 7!); ℤ[√2] placement R_−67 < R_ℤ[√2] < R_−163 at all three β
+(DESCRIPTIVE, no verdict, Will 2026-11-02: chance rate ≈ ⅓, FAIL power 0.70, so neither §9.J standard); pairs; OLS residuals on
 C_F per β, and their Pearson r with the stage-1 residuals (pinned stage-1 read); Chen-form P_F fit (constants below).
 Output: JSON, sorted keys, no timings (sidecar OUT.timing); stdout prints only "done".
 """
@@ -337,13 +338,14 @@ def minus7(R55, det_rel, raw_rel):
     return out
 
 
-def verdict_labels(v055, v045, v040, primary_fail_informative, zs2_between, v_m7):
+def verdict_labels(v055, v045, v040, primary_fail_informative, v_m7):
     """The sealed verdict lattice: primary two-way (FAIL informative iff the read-time power ≥ 0.80); β 0.45, β 0.40
-    and −7 one-way (a FAIL is never informative); ℤ[√2] placement plain."""
+    and −7 one-way (a FAIL is never informative). The ℤ[√2] placement is descriptive and is not in the lattice
+    (reported as tests[β]["zs2_between_m67_m163"])."""
     one = lambda v: ONE_WAY_FAIL if v == "FAIL" else v
     return dict(primary_beta055=UNPOWERED if (v055 == "FAIL" and not primary_fail_informative) else v055,
                 secondary_beta045=one(v045), secondary_beta040=one(v040),
-                zs2_placement_beta055="PASS" if zs2_between else "FAIL", minus7_beta055=v_m7)
+                minus7_beta055=v_m7)
 
 
 def run(pins_json, out, X_LO, X_HI, dry):
@@ -412,7 +414,7 @@ def run(pins_json, out, X_LO, X_HI, dry):
 
     res["verdict"] = verdict_labels(tests["0.55"]["rank_test_C"]["verdict"], tests["0.45"]["rank_test_C"]["verdict"],
                                     tests["0.4"]["rank_test_C"]["verdict"], rtn["0.55"]["fail_informative"],
-                                    tests["0.55"]["zs2_between_m67_m163"], tests["minus7_beta055"]["verdict"])
+                                    tests["minus7_beta055"]["verdict"])
     json.dump(res, open(out, "w"), indent=1, sort_keys=True)
     ru = resource.getrusage(resource.RUSAGE_SELF)
     open(out + ".timing", "w").write(f"wall_s {time.time() - t0:.1f}\ncpu_s {time.process_time():.1f}\n"
