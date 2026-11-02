@@ -2,23 +2,49 @@
  "manifest": "timestamps/FN1_STAGE2_SEAL_STAMP_2026-11-02.txt",
  "manifest_sha256": "374259abe777b4794b7c1d18e7a1bbe4b9698ec4c5d373fa40c45f367256a91e",
  "receipt": "timestamps/FN1_STAGE2_SEAL_STAMP_2026-11-02.txt.ots",
- "receipt_sha256": "f5073b61fce7016f03b0d3d047594c799465507829b546542954dc824afb1e82",
+ "receipt_sha256": "0898d2681fcb7c60fc03863e7a7334f182eaae8aff0a21dad387d70a6d2370b3",
  "paths_checked": 40,
- "attestations": [],
+ "attestations": [
+  {
+   "height": 974305,
+   "merkle_root": "61b7676948919553047bb8d71b4cd70b98ee092446c91e04dd2477d16ab10ca2",
+   "explorers": {
+    "blockstream.info": {
+     "block_hash": "000000000000000000004f8107100798b9442fc008a47a53b5982dc77ee8ae01",
+     "merkle_root": "61b7676948919553047bb8d71b4cd70b98ee092446c91e04dd2477d16ab10ca2",
+     "height": 974305,
+     "time_utc": "2026-11-02T21:32:23+00:00"
+    },
+    "mempool.space": {
+     "block_hash": "000000000000000000004f8107100798b9442fc008a47a53b5982dc77ee8ae01",
+     "merkle_root": "61b7676948919553047bb8d71b4cd70b98ee092446c91e04dd2477d16ab10ca2",
+     "height": 974305,
+     "time_utc": "2026-11-02T21:32:23+00:00"
+    }
+   },
+   "verified": true,
+   "block_hash": "000000000000000000004f8107100798b9442fc008a47a53b5982dc77ee8ae01",
+   "time_utc": "2026-11-02T21:32:23+00:00"
+  }
+ ],
  "calendars": [
   "https://finney.calendar.eternitywall.com",
   "https://alice.btc.calendar.opentimestamps.org",
   "https://btc.calendar.catallaxy.com",
   "https://bob.btc.calendar.opentimestamps.org"
  ],
- "earliest": null,
+ "earliest": {
+  "height": 974305,
+  "block_hash": "000000000000000000004f8107100798b9442fc008a47a53b5982dc77ee8ae01",
+  "time_utc": "2026-11-02T21:32:23+00:00"
+ },
  "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
  "checks": {
   "receipt_commits_to_manifest": true,
   "manifest_hashes_match_tag": true,
   "tag_object_matches": true,
   "tag_commit_matches": true,
-  "bitcoin_attested": false,
-  "all_attestations_verify": false
+  "bitcoin_attested": true,
+  "all_attestations_verify": true
  }
 }
