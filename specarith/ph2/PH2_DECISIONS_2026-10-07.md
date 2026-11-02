@@ -2526,3 +2526,15 @@ Stage 2 (10¹¹): draft a seal only after item 2. Primary replication on the fre
 I'll push momentarily
 
 (then: "pushed")
+
+### FN1 stage 2 decisions (2026-11-02; Will, verbatim)
+FN1 stage 2 decisions:
+
+−7 prediction: R_−7 > R_−8 and R_−7 > R_−11, as drafted. Curvature alone (monotone in C_F) predicts a FAIL; a PASS indicates a field-specific displacement.
+Reading rule for −7: cross-field noise = detrended segment noise ⊕ the across-field spread of the drift measured on stage 1 (seen data), committed before the read. A PASS is informative iff its false-PASS rate under that noise is ≤ 0.05. Report the raw and detrended rates too.
+Primary noise rule: raw, as at stage 1.
+Secondaries at β 0.45 and 0.40: kept, with power from their own slopes, and a one-way reading if unpowered.
+Spot: approved for the archive extension; reads run sequentially.
+TOOLKIT: lead and diagnostic scripts open committed results read-only and write only to scratch, enforced in code.
+Record L15 as tested and not supported: L′/L(1) is collinear with C_F (r 0.86); the residuals are U-shaped, consistent with curvature; Chen’s L-term enters at s = 2; the printed-versus-code sign discrepancy is recorded, unresolved.
+Send the final stage-2 seal text for review before stamping.
