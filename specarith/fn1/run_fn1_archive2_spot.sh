@@ -6,7 +6,8 @@
 #  1. byte-copy stage-1 segments 0…100 into the new directory and check each against the stage-1 MANIFEST.json sha256
 #     (and that stage-1 manifest against its sealed pin in fn1_pins.json); any mismatch stops the run;
 #  2. generate segments 101…1009 with the unchanged fn1_archive.py (task skips existing files);
-#  3. cost checks over the generated tasks at the first wave, half and end (stop above 1.25× the model);
+#  3. TOOLKIT §9.H first wave (cheapest / median / most expensive segment per field), per-job interpolated cost
+#     model, cost rule at half and end against each job's own model (stop above 1.25×);
 #  4. fn1_archive.py manifest over all 1010 segments → archive_1e11_D*/MANIFEST.json (integrity re-checked on every row,
 #     prefix included).
 # Generation, integrity and hashes only; no statistic. Run inside tmux `claude`, after a load check:
@@ -50,36 +51,64 @@ done
 NJ=$(wc -l < $ROOT/jobs2.txt)
 [ "$NJ" -eq $((7 * 909)) ] || { echo "job count $NJ != 6363" > $ROOT/STOPPED2; exit 1; }
 RUN='mountpoint -q /mnt/data && nice -n 10 $PY fn1_archive.py task $0 $1 $ROOT/archive_1e11_D${0#-} >> $LG/tasks_D${0#-}.log 2>&1 && echo "$0 $1" >> $LG/done.txt || echo "$0 $1" >> $LG/failed.txt'
-ratio() {
+# TOOLKIT §9.H (revision 2026-11-02, after a first launch whose first wave timed only k = 101..104, the cheapest
+# segments; that launch was stopped by PID before wave 2, its 24 segments kept). Job kind = field D (7 kinds); cost
+# covariate = segment index k (segment midpoint p; split-prime count x Cornacchia cost per prime), read without outcomes.
+# First wave: k = 101 (cheapest), 555 (median), 1009 (most expensive) for every field. Each job's model is the measured
+# cost interpolated linearly in k between those three, flat beyond them (no extrapolation). The cost rule then checks
+# completed non-calibration tasks against their own job's model (sum measured / sum own model ≤ 1.25); single tasks
+# above 2x their own model are listed (reported, not a stop rule).
+costs() {
 $PY - "$ROOT" "$1" <<'PY'
-import sys, glob, os
-root, n = sys.argv[1], int(sys.argv[2])
-pred = {(int(l.split()[0]), int(l.split()[1])): float(l.split()[2]) for l in open(root + "/jobs2.txt")}
-meas = []
+import sys, glob, os, json
+import numpy as np
+root, mode = sys.argv[1], sys.argv[2]
+jobs = [(int(l.split()[0]), int(l.split()[1])) for l in open(root + "/jobs2.txt")]
+meas = {}
 for f in glob.glob(root + "/logs2/tasks_D*.log"):
     D = -int(os.path.basename(f)[7:-4])
-    meas += [((D, int(l.split()[0])), float(l.split()[2])) for l in open(f) if len(l.split()) == 3]
-meas = meas[:n] if n else meas
-if not meas:
-    print("no measured tasks"); print("EXCEEDS"); sys.exit(0)
-r = sum(s for _, s in meas) / sum(pred[k] for k, _ in meas)
-print(f"{len(meas)} tasks, measured/model = {r:.3f}")
-print("OK" if r <= 1.25 else "EXCEEDS")
+    for l in open(f):
+        w = l.split()
+        if len(w) == 3:
+            meas[(D, int(w[0]))] = float(w[2])
+CAL = (101, 555, 1009)
+miss = [(D, k) for D in sorted({d for d, _ in jobs}) for k in CAL if (D, k) not in meas]
+if miss:
+    print("calibration points missing:", miss); print("EXCEEDS"); sys.exit(0)
+model = {}
+for D in sorted({d for d, _ in jobs}):
+    ys = [meas[(D, k)] for k in CAL]
+    for d, k in jobs:
+        if d == D:
+            model[(d, k)] = float(np.interp(k, CAL, ys))
+proj_h = sum(model.values()) / 3600
+done = [j for j in jobs if j in meas and j[1] not in CAL]
+out = {"projection_core_h_new_segments": proj_h, "n_jobs": len(jobs), "n_done_noncal": len(done),
+       "calibration_s": {str(D): [meas[(D, k)] for k in CAL] for D in sorted({d for d, _ in jobs})}}
+if mode == "first":
+    print(json.dumps(out)); print("OK" if proj_h <= 1.25 * 175 else "EXCEEDS"); sys.exit(0)
+if not done:
+    print("no measured non-calibration tasks"); print("EXCEEDS"); sys.exit(0)
+r = sum(meas[j] for j in done) / sum(model[j] for j in done)
+out["ratio_measured_over_own_model"] = r
+out["over_2x"] = [[d, k, meas[(d, k)], model[(d, k)]] for d, k in done if meas[(d, k)] > 2 * model[(d, k)]]
+print(json.dumps(out)); print("OK" if r <= 1.25 else "EXCEEDS")
 PY
 }
-echo "$(date -Is) [CC specarith] fn1 stage-2 archives to 1.01e11: start ($NPROC procs, $ROOT/archive_1e11_D*)" >> ~/claude-work.log
-# interleave fields so each wave mixes them
-sort -k2,2n -k1,1n $ROOT/jobs2.txt > $ROOT/jobs2_order.txt
-HALF=$((NJ / 2))
-head -n "$NPROC" $ROOT/jobs2_order.txt | cut -d' ' -f1,2 | xargs -P "$NPROC" -n 2 sh -c "$RUN"
-ratio $NPROC > $ROOT/first_wave2.txt
-if grep -q EXCEEDS $ROOT/first_wave2.txt || [ -s $LG/failed.txt ]; then echo "first wave over the cost model or a task failed" > $ROOT/STOPPED2; exit 1; fi
-sed -n "$((NPROC + 1)),${HALF}p" $ROOT/jobs2_order.txt | cut -d' ' -f1,2 | xargs -P "$NPROC" -n 2 sh -c "$RUN"
-ratio $HALF > $ROOT/mid_run2.txt
-if grep -q EXCEEDS $ROOT/mid_run2.txt || [ -s $LG/failed.txt ]; then echo "mid-run over the cost model or a task failed" > $ROOT/STOPPED2; exit 1; fi
-tail -n +"$((HALF + 1))" $ROOT/jobs2_order.txt | cut -d' ' -f1,2 | xargs -P "$NPROC" -n 2 sh -c "$RUN"
+echo "$(date -Is) [CC specarith] fn1 stage-2 archives to 1.01e11: start, 9.H first wave ($NPROC procs, $ROOT/archive_1e11_D*)" >> ~/claude-work.log
+for D in -7 -8 -11 -19 -43 -67 -163; do for k in 101 555 1009; do echo "$D $k"; done; done > $ROOT/firstwave2_jobs.txt
+cat $ROOT/firstwave2_jobs.txt | xargs -P 21 -n 2 sh -c "$RUN"
+costs first > $ROOT/first_wave2.txt
+if grep -q EXCEEDS $ROOT/first_wave2.txt || [ -s $LG/failed.txt ]; then echo "first wave over the approved price or a task failed" > $ROOT/STOPPED2; exit 1; fi
+# remaining jobs (task skips existing segments), interleaved by k, in two chunks with the per-job cost rule after each
+sort -k2,2n -k1,1n $ROOT/jobs2.txt | cut -d' ' -f1,2 > $ROOT/jobs2_order.txt
+NJ=$(wc -l < $ROOT/jobs2_order.txt); HALF=$((NJ / 2))
+head -n "$HALF" $ROOT/jobs2_order.txt | xargs -P "$NPROC" -n 2 sh -c "$RUN"
+costs check > $ROOT/mid_run2.txt
+if grep -q EXCEEDS $ROOT/mid_run2.txt || [ -s $LG/failed.txt ]; then echo "mid-run over the per-job cost model or a task failed" > $ROOT/STOPPED2; exit 1; fi
+tail -n +"$((HALF + 1))" $ROOT/jobs2_order.txt | xargs -P "$NPROC" -n 2 sh -c "$RUN"
 [ -s $LG/failed.txt ] && { echo "task failures" > $ROOT/STOPPED2; exit 1; }
-ratio 0 > $ROOT/final_ratio2.txt
+costs check > $ROOT/final_ratio2.txt
 mountpoint -q /mnt/data || { echo "REFUSED at manifest: /mnt/data is not a mount point" > $ROOT/STOPPED2; exit 2; }
 for D in -7 -8 -11 -19 -43 -67 -163; do
   MANIFEST_PROCS=$NPROC nice -n 10 $PY fn1_archive.py manifest $D $ROOT/archive_1e11_D${D#-} 1.01e11 > $LG/manifest_D${D#-}.log 2>&1
