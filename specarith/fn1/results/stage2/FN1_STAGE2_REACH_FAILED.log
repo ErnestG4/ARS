@@ -1,0 +1,20 @@
+written /home/combust/tmp/claude/specarith/fn1/stage2/FN1_STAGE2_REACH.json
+primary_beta055 {'design_ratio': 3.3727, 'pass_reachable': True, 'informative_fail_reachable': True, 'both_reachable': True}
+    power {'design_raw': 0.9998, '1x': 1.0, 'stage1_detrended': 1.0}
+secondary_beta045 {'design_ratio': 1.4685, 'pass_reachable': True, 'informative_fail_reachable': False, 'both_reachable': False}
+    power {'design_raw': 0.507, '1x': 0.8222, 'stage1_detrended': 0.7806}
+secondary_beta040 {'design_ratio': 1.0272, 'pass_reachable': True, 'informative_fail_reachable': False, 'both_reachable': False}
+    power {'design_raw': 0.4275, '1x': 0.4496, 'stage1_detrended': 0.6006}
+zs2_placement_beta055 {'p_pass_at_stage1_means': 0.6979, 'both_reachable': True, 'note': "no power gate; PASS carries Will's stage-1 caveat"}
+minus7_beta055 {'b_global': 0.0455, 'b_local_raw': 0.0101, 'b_local': 0.0101, 'b_null': 0.0101, 'Rbar': 0.8176, 'det_rel_design': 0.0071, 'pass_reachable': True, 'informative_fail_reachable': False, 'both_reachable': False}
+    design {'sigma_rel': 0.0144, 'slope': 0.0101, 'margin': 0.0153, 'power_persist': 0.7501, 'false_pass_check': 0.0503}
+    det_to_0 {'sigma_rel': 0.0125, 'slope': 0.0101, 'margin': 0.0128, 'power_persist': 0.8467, 'false_pass_check': 0.0505}
+    raw_drift_design {'sigma_rel': 0.0282, 'slope': 0.0101, 'margin': 0.0329, 'power_persist': 0.3241, 'false_pass_check': 0.0505}
+    raw_drift_det_to_0 {'sigma_rel': 0.0273, 'slope': 0.0101, 'margin': 0.0317, 'power_persist': 0.3389, 'false_pass_check': 0.0505}
+    global_slope_design {'sigma_rel': 0.0144, 'slope': 0.0455, 'margin': 0.0033, 'power_persist': 0.7292, 'false_pass_check': 0.0515}
+REACH_OK False
+
+real	0m1.552s
+user	0m2.487s
+sys	0m0.105s
+reach rc 0

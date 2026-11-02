@@ -1,0 +1,132 @@
+{
+ "convex_fit": {
+  "curve": {
+   "-11": 0.7787243285969832,
+   "-163": 0.9350633685077313,
+   "-19": 0.7920639048976559,
+   "-43": 0.8293982287335185,
+   "-67": 0.8584039626429221,
+   "-7": 0.7747450056752591,
+   "-8": 0.7752561545699114,
+   "zi": 0.786863350264091,
+   "zw": 0.8055710864963863
+  },
+  "curve_m7_minus_m11": -0.003979322921724093,
+  "curve_m7_minus_m8": -0.0005111488946523135,
+  "quad_coef": [
+   0.01562604082748314,
+   -0.05907237933357102,
+   0.8305255084214501
+  ],
+  "stage1_m7_minus_curve": 0.022539324750571632
+ },
+ "design_noise": {
+  "Rbar_stage1": 0.8176254127927812,
+  "det_rel": 0.00714738802867967,
+  "drift_sd": 0.012457967508111512,
+  "model_rel": 0.004185717316380416,
+  "sigma": 0.01174327887939329,
+  "sigma_rel": 0.014362663752440757
+ },
+ "minus7_labels": {
+  "informative_FAIL": {
+   "T": -0.05056829401562879,
+   "b_null": 0.04550657297146192,
+   "expected": "FAIL",
+   "got": "FAIL (UNPOWERED at the read-time noise)",
+   "margin": 0.0014214665439243265,
+   "ok": false,
+   "power_persist_rule": 0.79746
+  },
+  "informative_PASS": {
+   "T": 0.07943170598437121,
+   "b_null": 0.03136539156702818,
+   "expected": "PASS",
+   "got": "PASS",
+   "margin": 0.009431905474353559,
+   "ok": true,
+   "power_persist_rule": 0.698665
+  },
+  "small_hit_high_noise": {
+   "T": 0.010000000000000009,
+   "b_null": 0.041183855062471374,
+   "expected": "FAIL (UNPOWERED at the read-time noise)",
+   "got": "FAIL (UNPOWERED at the read-time noise)",
+   "margin": 0.25560348926220167,
+   "ok": true,
+   "power_persist_rule": 0.06924
+  },
+  "tie": {
+   "T": null,
+   "b_null": null,
+   "expected": "VOID (ties)",
+   "got": "VOID (ties)",
+   "margin": null,
+   "ok": true,
+   "power_persist_rule": null
+  },
+  "unpowered_FAIL": {
+   "T": -0.05056829401562879,
+   "b_null": 0.04550657297146192,
+   "expected": "FAIL (UNPOWERED at the read-time noise)",
+   "got": "FAIL (UNPOWERED at the read-time noise)",
+   "margin": 0.25212691717866526,
+   "ok": true,
+   "power_persist_rule": 0.06954
+  }
+ },
+ "minus7_stat": {
+  "W_convex": {
+   "n": 4000,
+   "ok": false,
+   "pass_rate": 0.11175,
+   "wilson95": [
+    0.10235632759725692,
+    0.12188870747106344
+   ]
+  },
+  "W_convex2_descriptive": {
+   "n": 4000,
+   "pass_rate": 0.16475,
+   "wilson95": [
+    0.15357667284910886,
+    0.17656665749642725
+   ]
+  },
+  "W_lin": {
+   "n": 4000,
+   "ok": true,
+   "pass_rate": 0.04,
+   "wilson95": [
+    0.03435541123528428,
+    0.04652730900020155
+   ]
+  },
+  "W_persist_descriptive": {
+   "n": 4000,
+   "pass_rate": 0.62425,
+   "tabled_power_at_bnull_B": 0.72925,
+   "wilson95": [
+    0.6091284065773769,
+    0.6391331630111902
+   ]
+  }
+ },
+ "ok": false,
+ "rank_1x": {
+  "null_pass": 0.009,
+  "ok": true,
+  "shuffled_pass": 0.0085,
+  "target_pass": 1.0,
+  "target_power_model": 1.0
+ },
+ "rank_stage1_raw": {
+  "null_pass": 0.009,
+  "ok": true,
+  "shuffled_pass": 0.011,
+  "target_pass": 0.9995,
+  "target_power_model": 0.99976
+ },
+ "rule": "option B, local-slope null (Will 2026-11-02)",
+ "run": 2
+}

@@ -1,19 +1,25 @@
-# FN1 stage-2 seal: the field ladder on the fresh slice (10¹⁰, 10¹¹]. FINAL TEXT FOR REVIEW (not stamped)
+# FN1 stage-2 seal: the field ladder on the fresh slice (10¹⁰, 10¹¹]. HELD: NOT STAMPED (witness run 2 and TOOLKIT §9.J fail)
 
 **Briefs:** Will, 2026-11-02, ×2 (labels and L′/L lead; stage-2 decisions), filed verbatim in
 `ph2/PH2_DECISIONS_2026-10-07.md`.
 
-**Open decision before stamping: the −7 arm (§2.4).** As decided, its informative PASS cannot be reached at any
-read-time noise level. The witness caught this (§4). Two options are priced below. Everything else is final.
+**Held before stamping (2026-11-02).** §2.4 is now option B with a local-slope null (Will). Two checks fail:
+- **Witness run 2 FAILED (§4).** Under Will's convex-curvature null with no displacement, the −7 false-PASS rate is
+  0.112 against a bar of ≤ 0.05. The constructed informative-FAIL case reads UNPOWERED (power 0.797).
+- **TOOLKIT §9.J FAILED (§3a).** At the design noise the informative FAIL branch cannot be reached for three arms:
+  β 0.45 (power 0.507), β 0.40 (0.428) and −7 (0.750).
+
+These need Will's ruling; nothing has been redesigned.
 
 **Order:** archives (running) → manifests → `fn1_pins2.json` → witnesses → §9.F rehearsal → Will's review → seal →
 stamp → Bitcoin attestation verified on two explorers → double read, run sequentially → `cmp` → verdicts. The verdict
 lines go to files and are not viewed before the `cmp`.
 
 **Decisions applied (Will, 2026-11-02):**
-- **−7 criterion:** as drafted.
-- **−7 reading rule:** detrended noise ⊕ the stage-1 drift spread, committed before the read; the raw and detrended
-  rates are reported too.
+- **−7 (second decision, §2.4):** option B with a local-slope null; DRIFT_SD the corrected 0.012458; FAIL
+  informative iff the power under persistence is ≥ 0.80. This supersedes the first decision (the two-neighbour
+  criterion, informative iff its false-PASS rate is ≤ 0.05).
+- **Witness run 2** and **TOOLKIT §9.J** (reachability under the design noise).
 - **Primary noise rule:** raw.
 - **Secondaries:** kept, with their own slopes and a one-way reading if unpowered.
 - **Spot:** approved, reads sequential.
@@ -66,14 +72,14 @@ Unchanged from the draft:
 Spearman ρ_s(C_F, R_F) at β 0.55 on the fresh slice, nine fields.
 - PASS iff the exact one-sided p < 0.01 and ρ > 0, i.e. Σd² ≤ 26.
 - **Read-time noise (raw, stage-1 §3a estimator):** 8 prime-order segments per field, relSD × √(K_seg/K), pooled RMS.
-- **Power** comes from R = b·C + σε with b = 0.045507 (B, §3) and σ = ratio × 0.003419 (SE, §3), 200,000 seeded
+- **Power** comes from R = b·C + σε with b = 0.045507 (B, §3) and σ = ratio × 0.003422 (SE, §3), 200,000 seeded
   simulations. Below 0.80 a FAIL reads "FAIL (UNPOWERED at the read-time noise)".
 - A PASS is informative either way.
 
 ### 2.2 Secondaries, β 0.45 and β 0.40
 
 The same rule, reported separately, each with its own slope and its own read-time raw ratio:
-- β 0.45: b 0.013886, SE 0.008002;
+- β 0.45: b 0.013886, SE 0.008001;
 - β 0.40: b 0.013170, SE 0.011991.
 
 Power below 0.80 means FAIL reads "FAIL (UNPOWERED at the read-time noise)": one-way, a PASS is informative and a FAIL
@@ -88,59 +94,38 @@ is not.
 PASS iff R_−67 < R_ℤ[√2] < R_−163 at β 0.55. It is reported with Will's stage-1 caveat: the margin was below the
 per-field noise, and a middle placement by chance is about 1 in 3.
 
-### 2.4 −7 displacement (β 0.55): OPEN DECISION
+### 2.4 −7 displacement (β 0.55): option B, local-slope null (Will, 2026-11-02)
 
-**Criterion (Will, as drafted).** PASS iff R_−7 > R_−8 and R_−7 > R_−11.
-- Curvature alone (monotone in C_F) predicts a FAIL; a PASS indicates a field-specific displacement.
-- An exact equality is VOID (ties).
+**Statistic.** T = min(R_−7 − R_−8, R_−7 − R_−11). An exact equality R_−7 = R_−8 or R_−7 = R_−11 is VOID (ties).
 
-**Reading rule (Will).**
-- Cross-field relative noise σ_rel = √(det² + DRIFT_SD²):
-  - det = the read-time pooled detrended segment relSD at β 0.55;
-  - DRIFT_SD = the across-field spread of the stage-1 drift, committed now (§3).
-- σ = σ_rel × the mean R over the nine fields at β 0.55.
-- **False-PASS rate:** P(R_−7 > R_−8 ∧ R_−7 > R_−11) under R = a + b·C_F + σε, with b = the read-time nine-field OLS
-  slope, 200,000 seeded simulations.
-- **PASS is informative iff that rate ≤ 0.05.** Otherwise it reads "PASS (not separated from the C-ordered null at the
-  read-time noise)".
-- Raw-only and detrended-only rates are reported too.
-- **FAIL is informative iff the power under persistence ≥ 0.80**, i.e. with −7 shifted by DELTA7 = +0.0352, at the
-  same σ. Otherwise it reads "FAIL (UNPOWERED …)".
+**PASS iff T > m.**
+- **Rule noise:** σ_rel = √(det² + DRIFT_SD²).
+  - det = the read-time pooled detrended segment relSD at β 0.55.
+  - DRIFT_SD = **0.012458**, the slope-noise-corrected stage-1 drift spread (§3).
+  - σ = σ_rel × the nine-field mean R at β 0.55.
+- **Null slope:** b_null = min(b_global, b_local).
+  - b_global = the read-time nine-field OLS slope of R on C_F.
+  - b_local = the read-time OLS slope over −8, −11, ℤ[i] and −19 (−7 excluded), floored at 0.
+- **Margin:** m = the 95th percentile of T under R_F = a + b_null·C_F + σε, from 200,000 seeded draws at read time. The
+  false-PASS rate is 0.05 by construction. It is checked on an independent seed and reported.
 
-**DRIFT_SD: measured, and corrected (proposed).**
-- **Measured:** each field's drift is the fitted slope of its 8 stage-1 segments × 7 / mean, from −0.075 (−43) to
-  −0.150 (−163), mean −0.109. The raw across-field SD is 0.0273.
-- **Mostly slope noise:** each field's 8-point slope has its own estimation variance (from its detrended residuals),
-  mean 0.000589, i.e. SD 0.024.
-- **Proposed:** commit the corrected spread √(0.0273² − 0.000589) = **0.0125**. The raw 0.0273 is the alternative.
+**FAIL reading.** A FAIL is informative iff the power under persistence, P(T + DELTA7 > m) under the same null, is
+≥ 0.80. Otherwise it reads "FAIL (UNPOWERED at the read-time noise)".
 
-**The problem: no informative PASS can be reached.**
+**Reported too (descriptive, no verdict):**
+- the plain two-neighbour hit (T > 0) and its rate under the null;
+- the margin and the power under the raw read-time noise alone, the detrended noise alone, and the global slope.
 
-| DRIFT_SD | Read-time det | False-PASS, as drafted | Power under persistence |
-|---|---|---|---|
-| 0.0125 (corrected) | 0 (best case) | 0.054 | 0.84 |
-| 0.0125 | 0.0071 (projected: stage-1 1.71× × stage-2 model) | 0.076 | 0.80 |
-| 0.0273 (raw) | 0 | 0.176 | 0.61 |
-| 0.0273 | 0.0071 | 0.180 | 0.60 |
+**Why the flatter slope.** Under convexity the local slope at the low-C end is flatter than the global one. A flatter
+slope puts the neighbours less far above −7 under the null, so the margin is larger. Taking the flatter of the two
+keeps the margin robust to the stage-1 convexity.
 
-- Even at zero read-time noise the rule's false-PASS rate exceeds 0.05 with either DRIFT_SD.
-- An informative PASS needs DRIFT_SD ≤ 0.0121.
-- **As decided, the arm can produce only "PASS (not separated)" or a FAIL.** Under "every arm must be able to fire",
-  that is a dead PASS branch. The witness run caught it, in the read's own label logic (§4).
+**Raw DRIFT_SD, for the record (Will).** Under the raw 0.027302 the arm would be weak: power under persistence 0.32 at
+the design noise and 0.34 at det → 0 (§3a).
 
-**Options (Will's call; nothing has been changed in the decided criterion).**
-- **A. Keep it as decided.** The −7 result is then sealed as descriptive in effect: a hit reads "not separated". State
-  that in advance.
-- **B. Same criterion, plus a read-time margin.** PASS iff min(R_−7 − R_−8, R_−7 − R_−11) > m. Here m is the 95th
-  percentile of that statistic under the C-ordered null at the rule noise, computed at read time with a seeded
-  simulation, so the false-PASS rate is 0.05 by construction.
-  - It stays curvature-robust: monotone curvature keeps both neighbours above −7.
-  - Projected power under persistence: 0.73 at DRIFT_SD 0.0125 with the projected det (0.82 at det → 0); 0.33 at the
-    raw 0.0273.
-  - The FAIL reading is unchanged: informative iff that power ≥ 0.80. So a FAIL would probably read UNPOWERED.
-- **Rejected, recorded:** a residual-from-an-eight-field-line test. Under the stage-1 U-shape −7 sits above any line
-  even with no displacement, so curvature alone would PASS it. That contradicts Will's curvature reading.
-- **With either option, DRIFT_SD:** corrected 0.0125 (proposed) or raw 0.0273.
+**Superseded drafts, recorded.** The drafted rule (a PASS informative iff the plain hit's false-PASS rate is ≤ 0.05)
+could not reach an informative PASS: witness run 1 (§4). The residual-from-an-eight-field-line test was rejected
+because curvature alone would PASS it.
 
 ### 2.5 Descriptive (no verdict)
 
@@ -168,7 +153,7 @@ Source files:
 | Constant | Value | Source |
 |---|---|---|
 | B (β 0.55 / 0.45 / 0.40) | 0.045507 / 0.013886 / 0.013170 | stage-1 nine-field OLS slope of R on C_F |
-| SE (β 0.55 / 0.45 / 0.40) | 0.003419 / 0.008002 / 0.011991 | stage-1 mean R × √(2/(c K₂)) |
+| SE (β 0.55 / 0.45 / 0.40) | 0.003422 / 0.008001 / 0.011991 | stage-1 mean R × √(2/(c K₂)) |
 | DRIFT_SD | 0.012458 (corrected; raw 0.027302) | §2.4 |
 | DELTA7 | +0.035190 | stage-1 −7 OLS residual, β 0.55 |
 | Stage-1 noise ratios, raw / detrended | 0.55: 3.373 / 1.708; 0.45: 1.469 / 1.056; 0.40: 1.027 / 0.834 | `SEGNOISE_BETAS.json` |
@@ -181,24 +166,82 @@ Source files:
 | β 0.45 | 0.822 | 0.508 (1.47×) | 0.783 (1.06×) |
 | β 0.40 | 0.449 | 0.428 (1.03×) | 0.600 (0.83×) |
 
+**−7 under option B (`lead/fn1_stage2_reach.py` → `results/stage2/FN1_STAGE2_REACH_FAILED.json`).** The stage-1
+slopes are b_global 0.0455 and b_local 0.0101, so b_null = 0.0101. Mean R is 0.8176; det at design is 0.00715.
+
+| Noise | σ_rel | Margin m | Power under persistence | False-PASS check |
+|---|---|---|---|---|
+| Design (det 0.00715 ⊕ 0.012458) | 0.0144 | 0.0153 | **0.750** | 0.050 |
+| det → 0 | 0.0125 | 0.0128 | 0.847 | 0.051 |
+| Raw DRIFT_SD 0.027302, design | 0.0282 | 0.0329 | 0.324 | 0.051 |
+| Raw DRIFT_SD, det → 0 | 0.0273 | 0.0317 | 0.339 | 0.051 |
+| Global slope instead (descriptive) | 0.0144 | 0.0033 | 0.729 | 0.052 |
+
+**TOOLKIT §9.J reachability under the design noise.** The rank arms' design noise is the stage-1 raw ratio, because
+their rule is raw.
+
+| Arm | Informative PASS reachable | Informative FAIL reachable | Figure |
+|---|---|---|---|
+| Primary β 0.55 | yes | yes | power 0.9998 at 3.37× |
+| Secondary β 0.45 | yes | **no** | power 0.507 at 1.47× (0.822 at 1×) |
+| Secondary β 0.40 | yes | **no** | power 0.428 at 1.03× (0.450 at 1×) |
+| ℤ[√2] placement (no power gate) | yes | yes | P(PASS) 0.698 at the stage-1 means |
+| −7, option B | yes | **no** | power 0.750 (needs ≥ 0.80) |
+
+**REACH_OK False.** The β 0.45 and β 0.40 failures follow from Will's earlier "one-way reading if unpowered", and §9.J
+now applies to them. The −7 arm reaches 0.80 only as det → 0.
+
 The −7 arm's figures are in §2.4.
 
-## 4. Witnesses (`fn1_witness2.py`; parametric through the read's own functions; run 1 → `results/stage2/FN1_WITNESS2_run1_FAILED.json`)
+## 4. Witnesses (`fn1_witness2.py`)
+
+Both runs go through the read's own functions, parametric.
+
+**Run 1** (drafted −7 rule) FAILED → `results/stage2/FN1_WITNESS2_run1_FAILED.json`. It is kept on record:
 
 | Witness | Result | Bar | Holds |
 |---|---|---|---|
 | Rank null (b = 0), 1× / 3.37× | PASS rate 0.009 / 0.009 | ≤ 0.02 | yes |
 | Rank planted target (b = B) | 1.000 / 0.9995, against model 1.000 / 0.9998 | ±0.03 | yes |
 | Rank, shuffled C | 0.0085 / 0.011 | ≤ 0.02 | yes |
-| −7 must-fail (δ = 0) at the rule noise | hit 0.0865, against tabled 0.0761 | ±0.02 | yes |
-| −7 must-pass (δ = DELTA7) | hit 0.794, against tabled 0.794 | ±0.03 | yes |
-| −7 label logic (5 constructed cases) | hit at near-zero read-time noise → "not separated" (expected PASS); clear miss → "UNPOWERED" (expected FAIL) | exact | **NO** |
+| −7 must-fail / must-pass | 0.0865 against 0.0761; 0.794 against 0.794 | ±0.02 / ±0.03 | yes |
+| −7 label logic | a hit at near-zero noise → "not separated" | exact | **NO** (PASS unreachable) |
 
-**The failure is the §2.4 finding.** The label logic implements the rule correctly, but the rule's drift floor makes
-the PASS branch unreachable. In the miss case, it also pushes the persistence power below 0.80.
+**Run 2** (option B, local-slope null; code 93f5aad8) FAILED → `results/stage2/FN1_WITNESS2_run2_FAILED.json`.
+- **Design noise:** σ_rel 0.01436 (det 0.00715 ⊕ DRIFT_SD 0.012458), σ 0.01174.
+- **−7 statistical witnesses:** 4000 replicates of all nine R, each through `minus7` with the read-time slopes
+  recomputed.
+- **Convex curve:** the stage-1 eight-field quadratic, coefficient q₂ = 0.0156, with −7 on the curve. On it,
+  R_−7 − R_−8 = −0.0005 and R_−7 − R_−11 = −0.0040. The stage-1 −7 sits +0.0225 above the curve.
 
-Once Will decides §2.4, the label witness will be re-run as a new run. Its expectations will be set from the decided
-rule, with a reachability case for each branch. Run 1 stays recorded as failed.
+| Witness | Result | Bar | Holds |
+|---|---|---|---|
+| Rank null, 1× / 3.37× | 0.009 / 0.009 | ≤ 0.02 | yes |
+| Rank target | 1.000 / 0.9995, against 1.000 / 0.9998 | ±0.03 | yes |
+| Rank shuffled | 0.0085 / 0.011 | ≤ 0.02 | yes |
+| −7 W-lin (linear null, no displacement) | PASS rate 0.040 [0.034, 0.047] | ≤ 0.05 | yes |
+| **−7 W-convex (Will's bar)** | **PASS rate 0.112 [0.102, 0.122]** | ≤ 0.05 | **NO** |
+| −7 W-convex2, curvature ×2 (descriptive) | 0.165 | none | — |
+| −7 W-persist (descriptive) | PASS rate 0.624; tabled power at b_null = B 0.729 | none | — |
+| Label: informative PASS | "PASS" | exact | yes |
+| **Label: informative FAIL** (det 1e−4, b_null = B) | **"FAIL (UNPOWERED …)"**, power 0.797 | exact | **NO** |
+| Label: unpowered FAIL | "FAIL (UNPOWERED …)" | exact | yes |
+| Label: small hit at high noise | "FAIL (UNPOWERED …)" | exact | yes |
+| Label: tie | "VOID (ties)" | exact | yes |
+
+**Diagnosis (post-hoc, labelled; read-only on the run-2 output).** Why the convex null leaks:
+- On the convex curve the noise-free b_local over −8, −11, ℤ[i], −19 is 0.0194. The curve's own secants from −7 are
+  0.0038 (to −8) and 0.0088 (to −11).
+- So min(b_global, b_local) is still steeper than the curve at −7.
+- Per replicate, b_local has SE 0.0175 at the design σ, and the floor at 0 adds upward bias.
+- The margin is therefore set for a steeper null than the curve has at −7.
+- For reference only, not a proposal: a flat null (b_null = 0) has margin 0.0183 and power 0.752 at the design noise.
+  On this curve both secants are positive, so its false-PASS rate is ≤ 0.05 by monotonicity. It still does not reach
+  0.80.
+
+**The informative-FAIL label case.** With b_null = B the power at det → 0 is 0.797. At the stage-1 b_null (0.0101) it
+is 0.847. So the informative FAIL is reachable at zero read-time noise only for flatter null slopes, and never at the
+design noise (0.750, §3a).
 
 ## 5. §9.F rehearsal (`run_fn1_dry2_spot.sh`)
 
@@ -229,7 +272,8 @@ These parts do not depend on the §2.4 decision:
 - The red-pin construction alters the ℤ[i] pin, not a −7 pin. The −7 sha256 alteration is in the red-prefix case. Both
   guards fire.
 
-After §2.4 is decided, the dry double read is repeated on the final code.
+**Repeat on the final code (`run_fn1_dry3_spot.sh`, `fn1_read2.py` sha256 a4444503…): RUNNING.** It does not change
+the §4 failures.
 
 ## 6. Attribution, fixed before the read
 
@@ -241,6 +285,8 @@ As stage-1 §6, including Will's class-number note. Plus:
   persists. Its cause is open. It is not L′/L(1) and not Chen's L′/L(2) term at the size computed (L15, tested, not
   supported). −7 is the only field here with 2 split.
 - **−7 FAIL (informative):** the stage-1 displacement is not stable.
+- **−7, the margin (Will):** the margin is computed under the flatter of the global and local slopes, to stay robust
+  to the stage-1 convexity.
 - **Any "not separated" or "UNPOWERED" label** carries no conclusion.
 
 ## 7. Cost
