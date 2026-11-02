@@ -1,19 +1,26 @@
-# FN1 stage-2 seal: the field ladder on the fresh slice (10¹⁰, 10¹¹]. FINAL TEXT FOR REVIEW (not stamped)
+# FN1 stage-2 seal: the field ladder on the fresh slice (10¹⁰, 10¹¹]. SEALED 2026-11-02 (approved by Will 2026-11-02 with one edit; tag fn1-seal2)
 
-**Briefs:** Will, 2026-11-02, ×4 (labels and L′/L lead; stage-2 decisions; §2.4 option B; rulings after witness run 2), filed verbatim in
+**Briefs:** Will, 2026-11-02, ×5 (labels and L′/L lead; stage-2 decisions; §2.4 option B; rulings after witness run 2;
+approval with one edit), filed verbatim in
 `ph2/PH2_DECISIONS_2026-10-07.md`.
 
-**Status before stamping (2026-11-02).**
-- **Witness run 3: PASS (§4).** It follows Will's rulings. Runs 1 and 2 stay recorded as failed.
-- **TOOLKIT §9.J as clarified: PASS (§3a).** The primary is two-way. β 0.45, β 0.40 and −7 are declared one-way.
-- **Dry double read on the final code: identical under `cmp`; both red paths fail closed (§5, dry4).**
-- **Will reviews** the diff and the witness results before stamping.
+**Status at sealing (2026-11-02).**
+- **Approved by Will with one edit:** the ℤ[√2] placement is descriptive (§2.3).
+- **Witnesses:** run 3 PASS (statistical, labels, lattice); run 4 PASS (the label witness re-run for the placement
+  change only). Runs 1 and 2 stay recorded as failed.
+- **TOOLKIT §9.J as clarified: PASS (§3a).** The primary is two-way. β 0.45, β 0.40 and −7 are declared one-way. The
+  placement is descriptive.
+- **Dry double read on the sealed code (dry5): identical under `cmp`.** Both red paths fail closed, and the sealed-read
+  launcher refuses without an attestation record (§5).
 
-**Order:** archives (done) → manifests (done) → `fn1_pins2.json` (done) → witnesses → §9.F rehearsal → Will's review → seal →
-stamp → Bitcoin attestation verified on two explorers → double read, run sequentially → `cmp` → verdicts. The verdict
+**Order:** archives, manifests and `fn1_pins2.json` (done) → witnesses → §9.F rehearsal → Will's review (done) →
+seal → stamp → Bitcoin attestation verified on two explorers → double read, sequential through the queue
+(`queue_fn1_read2_pueue.sh`: read 1, read 2 after it, then `cmp`; group `specarith-scored`) → verdicts. The verdict
 lines go to files and are not viewed before the `cmp`.
 
 **Decisions applied (Will, 2026-11-02):**
+- **ℤ[√2] placement (approval edit):** descriptive, no verdict. Its PASS has a chance rate of about ⅓ and its FAIL
+  has 0.70 power, so it meets neither the two-way nor the one-way standard of §9.J.
 - **−7 (rulings after witness run 2):** flat null (b_null = 0); the arm is declared one-way. This supersedes option B
   (local slope), which superseded the drafted two-neighbour rule.
 - **Declared one-way:** β 0.45, β 0.40 and −7. The primary stays two-way.
@@ -97,10 +104,13 @@ whatever the read-time power. That power (at each β's own read-time raw ratio) 
 - the PASS branch is reachable for both;
 - the null false-PASS rate at the design noise is 0.0087 and 0.0088.
 
-### 2.3 ℤ[√2] placement
+### 2.3 ℤ[√2] placement: descriptive, no verdict (Will, 2026-11-02)
 
-PASS iff R_−67 < R_ℤ[√2] < R_−163 at β 0.55. It is reported with Will's stage-1 caveat: the margin was below the
-per-field noise, and a middle placement by chance is about 1 in 3.
+Whether R_−67 < R_ℤ[√2] < R_−163 is reported at every β (`tests[β]["zs2_between_m67_m163"]`, beside the R values).
+It is not labelled PASS or FAIL and is not in the verdict lattice.
+- **Why (Will):** its PASS has a chance rate of about ⅓, and its FAIL has 0.70 power. It meets neither the two-way nor
+  the one-way standard of §9.J.
+- **Stage-1 caveat (Will) still applies:** the stage-1 margin was below the per-field noise.
 
 ### 2.4 −7 displacement (β 0.55): declared one-way, flat null (Will, 2026-11-02)
 
@@ -141,7 +151,7 @@ persistence is 0.32 at the design noise (§3a).
 
 ### 2.5 Descriptive (no verdict)
 
-- ρ_s against log|D|, the near-equal-C pairs, the fresh-only seven-field ρ_s, and the ℤ[√2] placement at 0.40 / 0.45.
+- ρ_s against log|D|, the near-equal-C pairs, the fresh-only seven-field ρ_s, and the ℤ[√2] placement at all three β (§2.3).
 - OLS residuals on C_F per β, and their Pearson r with the stage-1 residuals: does the U-shape persist?
 - The Chen-form P_F fit (P_noA, P_full).
 - Raw and detrended segment noise at all three β.
@@ -211,7 +221,7 @@ ratio.
 | Primary β 0.55 | two-way | yes (power 0.9998 at 3.37×) | 0.0087 | yes |
 | Secondary β 0.45 | one-way | yes (0.507 at 1.47×) | 0.0087 | not claimed |
 | Secondary β 0.40 | one-way | yes (0.428 at 1.03×) | 0.0088 | not claimed |
-| ℤ[√2] placement | plain | P(PASS) 0.698 at the stage-1 means | — | yes (P(FAIL) 0.302) |
+| ℤ[√2] placement | **descriptive (approval edit)** | P(PASS) 0.698 at the stage-1 means; chance rate ≈ ⅓ | — | no verdict claimed |
 | −7 | one-way | yes (0.752 tabled; 0.367 as observed) | 0.051 flat; 0.034 convex (§4) | not claimed |
 
 **Run 1** (the first §9.J wording, all arms two-way, −7 under option B) FAILED for β 0.45, β 0.40 and −7. It stays on
@@ -287,6 +297,13 @@ design noise (0.750, §3a).
 | −7 labels: large hit / miss at low noise / miss at high noise / small hit at high noise / tie | PASS / one-way FAIL / one-way FAIL / one-way FAIL / VOID | exact | yes (5/5) |
 | Verdict lattice: primary FAIL powered / unpowered / PASS; β 0.45 and β 0.40 FAIL / PASS / VOID; placement; −7 passthrough | as expected | exact | yes (11/11) |
 
+**Run 4** (labels only, for the approval edit; code 4cf0a552) **PASS** → `results/stage2/FN1_WITNESS2_run4.json`.
+- The ℤ[√2] placement leaves `verdict_labels`. Run 4 re-runs only the label witness: the −7 label cases and the
+  lattice.
+- `minus7` is unchanged, so run 3's statistical results stand.
+- **Results:** −7 labels 5/5. Lattice 10/10, including "placement not in the lattice": the verdict keys are exactly
+  primary, β 0.45, β 0.40 and −7.
+
 ## 5. §9.F rehearsal (`run_fn1_dry2_spot.sh`)
 
 These parts do not depend on the §2.4 decision:
@@ -351,6 +368,21 @@ flat −7 null, one-way arms; pueue task 377 in `specarith-filler` through `pq-f
 - As in dry2 and dry3, the values come from the random-row fixture and mean nothing. Its margin of 251 reflects
   R in the thousands.
 
+**Repeat on the SEALED code (2026-11-02, `run_fn1_dry5_spot.sh`, `fn1_read2.py` sha256 92f9db78…, commit 4cf0a552:
+placement descriptive; pueue task 534; outputs in `results/stage2/dry5/`).** It is repeated under TOOLKIT §9.F
+because `verdict_labels` changed after dry4.
+
+| Step | Result |
+|---|---|
+| Dry read D1 / D2 | rc 0 / 0; wall 1062 / 1007 s, maxrss 5.0 GB |
+| `cmp D1 D2` | identical (sha256 d6e23b4c…) |
+| Red prefix | rc 1, `AssertionError ('prefix guard', …)`, no output |
+| Red pin | rc 1, `AssertionError ('manifest pin', …archive_1e12_zi)`, no output |
+| Red: sealed-read launcher with no attestation record | rc 1, "read1 REFUSED attestation not verified", no output; the read directory is empty |
+
+- The verdict keys are exactly primary, β 0.45, β 0.40 and −7. The placement appears only in `tests`.
+- The values are fixture values, as before.
+
 ## 6. Attribution, fixed before the read
 
 As stage-1 §6, including Will's class-number note. Plus:
@@ -363,6 +395,7 @@ As stage-1 §6, including Will's class-number note. Plus:
   L′/L(1) and not Chen's L′/L(2) term at the size computed (L15, tested, not supported). −7 is the only field here
   with 2 split.
   - A strongly non-monotone curvature at the low-C end could also produce it (§2.4, "Not covered").
+- **ℤ[√2] placement:** descriptive. It is reported and carries no verdict and no conclusion either way.
 - **One-way FAIL labels** (β 0.45, β 0.40, −7) and **"UNPOWERED"** carry no conclusion.
 
 ## 7. Cost

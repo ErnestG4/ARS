@@ -1,0 +1,140 @@
+{
+ "convex_fit": {
+  "curve": {
+   "-11": 0.7787243285969832,
+   "-163": 0.9350633685077313,
+   "-19": 0.7920639048976559,
+   "-43": 0.8293982287335185,
+   "-67": 0.8584039626429221,
+   "-7": 0.7747450056752591,
+   "-8": 0.7752561545699114,
+   "zi": 0.786863350264091,
+   "zw": 0.8055710864963863
+  },
+  "curve_m7_minus_m11": -0.003979322921724093,
+  "curve_m7_minus_m8": -0.0005111488946523135,
+  "quad_coef": [
+   0.01562604082748314,
+   -0.05907237933357102,
+   0.8305255084214501
+  ],
+  "stage1_m7_minus_curve": 0.022539324750571632
+ },
+ "design_noise": {
+  "Rbar_stage1": 0.8176254127927812,
+  "det_rel": 0.00714738802867967,
+  "drift_sd": 0.012457967508111512,
+  "model_rel": 0.004185717316380416,
+  "sigma": 0.01174327887939329,
+  "sigma_rel": 0.014362663752440757
+ },
+ "lattice_labels": {
+  "b040_FAIL": {
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "ok": true
+  },
+  "b040_PASS": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  },
+  "b045_FAIL": {
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "ok": true
+  },
+  "b045_PASS": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  },
+  "b045_VOID": {
+   "expected": "VOID (ties)",
+   "got": "VOID (ties)",
+   "ok": true
+  },
+  "m7_passthrough": {
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "ok": true
+  },
+  "placement_not_in_lattice": {
+   "expected": [
+    "minus7_beta055",
+    "primary_beta055",
+    "secondary_beta040",
+    "secondary_beta045"
+   ],
+   "got": [
+    "minus7_beta055",
+    "primary_beta055",
+    "secondary_beta040",
+    "secondary_beta045"
+   ],
+   "ok": true
+  },
+  "primary_FAIL_powered": {
+   "expected": "FAIL",
+   "got": "FAIL",
+   "ok": true
+  },
+  "primary_FAIL_unpowered": {
+   "expected": "FAIL (UNPOWERED at the read-time noise)",
+   "got": "FAIL (UNPOWERED at the read-time noise)",
+   "ok": true
+  },
+  "primary_PASS": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  }
+ },
+ "minus7_labels": {
+  "PASS_large_hit": {
+   "T": 0.07943170598437121,
+   "expected": "PASS",
+   "got": "PASS",
+   "margin": 0.019356197775174673,
+   "ok": true,
+   "power_persist_descriptive": 0.70907
+  },
+  "miss_high_noise": {
+   "T": -0.05056829401562879,
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "margin": 0.26555624072512424,
+   "ok": true,
+   "power_persist_descriptive": 0.06949
+  },
+  "miss_low_noise": {
+   "T": -0.05056829401562879,
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "margin": 0.01650998942079551,
+   "ok": true,
+   "power_persist_descriptive": 0.822175
+  },
+  "small_hit_high_noise": {
+   "T": 0.010000000000000009,
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "margin": 0.26765334011531433,
+   "ok": true,
+   "power_persist_descriptive": 0.069335
+  },
+  "tie": {
+   "T": null,
+   "expected": "VOID (ties)",
+   "got": "VOID (ties)",
+   "margin": null,
+   "ok": true,
+   "power_persist_descriptive": null
+  }
+ },
+ "minus7_stat": "not re-run (run 3 stands; minus7 unchanged)",
+ "mode": "labels",
+ "ok": true,
+ "rule": "\u2124[\u221a2] placement descriptive, out of verdict_labels (Will 2026-11-02 approval)",
+ "run": 4
+}

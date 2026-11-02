@@ -1,0 +1,3 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/home/combust/tmp/claude/specarith/fn1/stage2_read/FN1_STAGE2_SEAL_STAMP_2026-11-02_VERIFY.json'
