@@ -1,0 +1,32 @@
+{
+ "label": "\u22127 power under persistence, alternative trend models (post-hoc, descriptive)",
+ "margin": 0.01826142461585744,
+ "models": {
+  "convex curve + stage-1 excess over it": {
+   "gap_m11": 0.01856000182884754,
+   "gap_m8": 0.02202817585591932,
+   "power": 0.380535
+  },
+  "flat trend + DELTA7 (tabled)": {
+   "gap_m11": 0.03518989655270044,
+   "gap_m8": 0.03518989655270044,
+   "power": 0.7521
+  },
+  "stage-1 configuration as observed": {
+   "gap_m11": 0.019353597834837477,
+   "gap_m8": 0.019945675224022352,
+   "power": 0.36721
+  },
+  "stage-1 global slope + DELTA7": {
+   "gap_m11": 0.014621602537071638,
+   "gap_m8": 0.02911334049025164,
+   "power": 0.368625
+  },
+  "stage-1 local slope + DELTA7": {
+   "gap_m11": 0.030606315412822094,
+   "gap_m8": 0.03383575470009516,
+   "power": 0.683415
+  }
+ },
+ "sigma": 0.01174327887939329
+}

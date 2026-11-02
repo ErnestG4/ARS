@@ -1,0 +1,16 @@
+written /home/combust/tmp/claude/specarith/fn1/stage2/FN1_STAGE2_REACH_run2.json
+primary_beta055 {'mode': 'two-way', 'design_ratio': 3.3727, 'null_false_pass': 0.0087, 'null_ok': True, 'pass_reachable': True, 'informative_fail_reachable': True, 'ok': True}
+    power {'design_raw': 0.9998, '1x': 1.0, 'stage1_detrended': 1.0}
+secondary_beta045 {'mode': 'one-way', 'design_ratio': 1.4685, 'null_false_pass': 0.0087, 'null_ok': True, 'pass_reachable': True, 'informative_fail_reachable': False, 'ok': True}
+    power {'design_raw': 0.507, '1x': 0.8222, 'stage1_detrended': 0.7806}
+secondary_beta040 {'mode': 'one-way', 'design_ratio': 1.0272, 'null_false_pass': 0.0088, 'null_ok': True, 'pass_reachable': True, 'informative_fail_reachable': False, 'ok': True}
+    power {'design_raw': 0.4275, '1x': 0.4496, 'stage1_detrended': 0.6006}
+zs2_placement_beta055 {'mode': 'plain', 'p_pass_at_stage1_means': 0.6979, 'ok': True, 'note': "no power gate; PASS carries Will's stage-1 caveat"}
+minus7_beta055 {'mode': 'one-way', 'b_null': 0.0, 'b_global': 0.0455, 'b_local_raw': 0.0101, 'b_local_optionB': 0.0101, 'Rbar': 0.8176, 'det_rel_design': 0.0071, 'pass_reachable': True, 'null_ok': True, 'ok': True}
+    design {'sigma_rel': 0.0144, 'slope': 0.0, 'margin': 0.0183, 'power_persist': 0.7521, 'false_pass_check': 0.0507}
+    det_to_0 {'sigma_rel': 0.0125, 'slope': 0.0, 'margin': 0.0158, 'power_persist': 0.8488, 'false_pass_check': 0.0507}
+    raw_drift_design {'sigma_rel': 0.0282, 'slope': 0.0, 'margin': 0.0359, 'power_persist': 0.3246, 'false_pass_check': 0.0507}
+    local_slope_design_descriptive {'sigma_rel': 0.0144, 'slope': 0.0101, 'margin': 0.0153, 'power_persist': 0.7501, 'false_pass_check': 0.0503}
+    global_slope_design_descriptive {'sigma_rel': 0.0144, 'slope': 0.0455, 'margin': 0.0033, 'power_persist': 0.7292, 'false_pass_check': 0.0515}
+REACH_OK True
+reach rc 0

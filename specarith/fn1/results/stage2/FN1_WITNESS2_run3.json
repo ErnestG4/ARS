@@ -1,0 +1,193 @@
+{
+ "convex_fit": {
+  "curve": {
+   "-11": 0.7787243285969832,
+   "-163": 0.9350633685077313,
+   "-19": 0.7920639048976559,
+   "-43": 0.8293982287335185,
+   "-67": 0.8584039626429221,
+   "-7": 0.7747450056752591,
+   "-8": 0.7752561545699114,
+   "zi": 0.786863350264091,
+   "zw": 0.8055710864963863
+  },
+  "curve_m7_minus_m11": -0.003979322921724093,
+  "curve_m7_minus_m8": -0.0005111488946523135,
+  "quad_coef": [
+   0.01562604082748314,
+   -0.05907237933357102,
+   0.8305255084214501
+  ],
+  "stage1_m7_minus_curve": 0.022539324750571632
+ },
+ "design_noise": {
+  "Rbar_stage1": 0.8176254127927812,
+  "det_rel": 0.00714738802867967,
+  "drift_sd": 0.012457967508111512,
+  "model_rel": 0.004185717316380416,
+  "sigma": 0.01174327887939329,
+  "sigma_rel": 0.014362663752440757
+ },
+ "lattice_labels": {
+  "b040_FAIL": {
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "ok": true
+  },
+  "b040_PASS": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  },
+  "b045_FAIL": {
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "ok": true
+  },
+  "b045_PASS": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  },
+  "b045_VOID": {
+   "expected": "VOID (ties)",
+   "got": "VOID (ties)",
+   "ok": true
+  },
+  "m7_passthrough": {
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "ok": true
+  },
+  "primary_FAIL_powered": {
+   "expected": "FAIL",
+   "got": "FAIL",
+   "ok": true
+  },
+  "primary_FAIL_unpowered": {
+   "expected": "FAIL (UNPOWERED at the read-time noise)",
+   "got": "FAIL (UNPOWERED at the read-time noise)",
+   "ok": true
+  },
+  "primary_PASS": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  },
+  "zs2_False": {
+   "expected": "FAIL",
+   "got": "FAIL",
+   "ok": true
+  },
+  "zs2_True": {
+   "expected": "PASS",
+   "got": "PASS",
+   "ok": true
+  }
+ },
+ "minus7_labels": {
+  "PASS_large_hit": {
+   "T": 0.07943170598437121,
+   "expected": "PASS",
+   "got": "PASS",
+   "margin": 0.019356197775174673,
+   "ok": true,
+   "power_persist_descriptive": 0.70907
+  },
+  "miss_high_noise": {
+   "T": -0.05056829401562879,
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "margin": 0.26555624072512424,
+   "ok": true,
+   "power_persist_descriptive": 0.06949
+  },
+  "miss_low_noise": {
+   "T": -0.05056829401562879,
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "margin": 0.01650998942079551,
+   "ok": true,
+   "power_persist_descriptive": 0.822175
+  },
+  "small_hit_high_noise": {
+   "T": 0.010000000000000009,
+   "expected": "FAIL (one-way arm: FAIL not informative)",
+   "got": "FAIL (one-way arm: FAIL not informative)",
+   "margin": 0.26765334011531433,
+   "ok": true,
+   "power_persist_descriptive": 0.069335
+  },
+  "tie": {
+   "T": null,
+   "expected": "VOID (ties)",
+   "got": "VOID (ties)",
+   "margin": null,
+   "ok": true,
+   "power_persist_descriptive": null
+  }
+ },
+ "minus7_stat": {
+  "W_convex": {
+   "n": 4000,
+   "ok": true,
+   "pass_rate": 0.0335,
+   "wilson95": [
+    0.028355987086918565,
+    0.039539206369286095
+   ]
+  },
+  "W_convex2_descriptive": {
+   "n": 4000,
+   "pass_rate": 0.133,
+   "wilson95": [
+    0.12282775586399088,
+    0.1438765013673641
+   ]
+  },
+  "W_flat": {
+   "n": 4000,
+   "ok": true,
+   "pass_rate": 0.04825,
+   "wilson95": [
+    0.04203145324832355,
+    0.05533543559163455
+   ]
+  },
+  "W_lin": {
+   "n": 4000,
+   "ok": true,
+   "pass_rate": 0.00375,
+   "wilson95": [
+    0.0022738957818852945,
+    0.006178386646070896
+   ]
+  },
+  "W_persist_descriptive": {
+   "n": 4000,
+   "pass_rate": 0.3375,
+   "tabled_power_at_bnull_0": 0.7521,
+   "wilson95": [
+    0.323008126716308,
+    0.3523037038016625
+   ]
+  }
+ },
+ "ok": true,
+ "rank_1x": {
+  "null_pass": 0.009,
+  "ok": true,
+  "shuffled_pass": 0.0085,
+  "target_pass": 1.0,
+  "target_power_model": 1.0
+ },
+ "rank_stage1_raw": {
+  "null_pass": 0.009,
+  "ok": true,
+  "shuffled_pass": 0.011,
+  "target_pass": 0.9995,
+  "target_power_model": 0.99976
+ },
+ "rule": "flat \u22127 null; \u03b2 0.45, \u03b2 0.40, \u22127 one-way (Will 2026-11-02 rulings)",
+ "run": 3
+}

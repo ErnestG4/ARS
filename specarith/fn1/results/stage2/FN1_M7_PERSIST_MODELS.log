@@ -1,0 +1,6 @@
+written /home/combust/tmp/claude/specarith/fn1/stage2/FN1_M7_PERSIST_MODELS.json
+flat trend + DELTA7 (tabled)             gaps +0.0352 +0.0352 power 0.752
+stage-1 local slope + DELTA7             gaps +0.0338 +0.0306 power 0.683
+stage-1 global slope + DELTA7            gaps +0.0291 +0.0146 power 0.369
+stage-1 configuration as observed        gaps +0.0199 +0.0194 power 0.367
+convex curve + stage-1 excess over it    gaps +0.0220 +0.0186 power 0.381

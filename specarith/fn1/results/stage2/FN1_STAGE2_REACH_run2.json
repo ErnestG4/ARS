@@ -1,0 +1,101 @@
+{
+ "REACH_OK": true,
+ "arms": {
+  "minus7_beta055": {
+   "Rbar": 0.8176254127927812,
+   "b_global": 0.04550657297146217,
+   "b_local_optionB": 0.010141317670963065,
+   "b_local_raw": 0.010141317670963065,
+   "b_null": 0.0,
+   "design": {
+    "false_pass_check": 0.050655,
+    "margin": 0.01826142461585744,
+    "power_persist": 0.7521,
+    "sigma_rel": 0.014362663752440757,
+    "slope": 0.0
+   },
+   "det_rel_design": 0.00714738802867967,
+   "det_to_0": {
+    "false_pass_check": 0.050655,
+    "margin": 0.015839696482312957,
+    "power_persist": 0.84878,
+    "sigma_rel": 0.012457967508111512,
+    "slope": 0.0
+   },
+   "global_slope_design_descriptive": {
+    "false_pass_check": 0.05149,
+    "margin": 0.0033199896817069376,
+    "power_persist": 0.72925,
+    "sigma_rel": 0.014362663752440757,
+    "slope": 0.04550657297146217
+   },
+   "local_slope_design_descriptive": {
+    "false_pass_check": 0.050345,
+    "margin": 0.015250762393135251,
+    "power_persist": 0.75014,
+    "sigma_rel": 0.014362663752440757,
+    "slope": 0.010141317670963065
+   },
+   "mode": "one-way",
+   "null_ok": true,
+   "ok": true,
+   "pass_reachable": true,
+   "raw_drift_design": {
+    "false_pass_check": 0.050655,
+    "margin": 0.03588296220364242,
+    "power_persist": 0.32455,
+    "sigma_rel": 0.028222054489928854,
+    "slope": 0.0
+   }
+  },
+  "primary_beta055": {
+   "design_ratio": 3.3726854039071306,
+   "informative_fail_reachable": true,
+   "mode": "two-way",
+   "null_false_pass": 0.00872,
+   "null_ok": true,
+   "ok": true,
+   "pass_reachable": true,
+   "power": {
+    "1x": 1.0,
+    "design_raw": 0.99983,
+    "stage1_detrended": 1.0
+   }
+  },
+  "secondary_beta040": {
+   "design_ratio": 1.0272109880563989,
+   "informative_fail_reachable": false,
+   "mode": "one-way",
+   "null_false_pass": 0.008785,
+   "null_ok": true,
+   "ok": true,
+   "pass_reachable": true,
+   "power": {
+    "1x": 0.449555,
+    "design_raw": 0.427455,
+    "stage1_detrended": 0.60063
+   }
+  },
+  "secondary_beta045": {
+   "design_ratio": 1.4685488047090154,
+   "informative_fail_reachable": false,
+   "mode": "one-way",
+   "null_false_pass": 0.008705,
+   "null_ok": true,
+   "ok": true,
+   "pass_reachable": true,
+   "power": {
+    "1x": 0.822185,
+    "design_raw": 0.506965,
+    "stage1_detrended": 0.780575
+   }
+  },
+  "zs2_placement_beta055": {
+   "mode": "plain",
+   "note": "no power gate; PASS carries Will's stage-1 caveat",
+   "ok": true,
+   "p_pass_at_stage1_means": 0.697905
+  }
+ },
+ "label": "FN1 stage-2 pre-seal power and reachability under the design noise (seen stage-1 data)"
+}
