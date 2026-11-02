@@ -272,8 +272,24 @@ These parts do not depend on the §2.4 decision:
 - The red-pin construction alters the ℤ[i] pin, not a −7 pin. The −7 sha256 alteration is in the red-prefix case. Both
   guards fire.
 
-**Repeat on the final code (`run_fn1_dry3_spot.sh`, `fn1_read2.py` sha256 a4444503…): RUNNING.** It does not change
-the §4 failures.
+**Repeat on the final code (2026-11-02, `run_fn1_dry3_spot.sh`, `fn1_read2.py` sha256 a4444503…; outputs in
+`results/stage2/dry3/`):**
+
+| Step | Result |
+|---|---|
+| Dry read D1 / D2 | rc 0 / 0; wall 1108 / 1098 s, maxrss 5.0 GB |
+| `cmp D1 D2` | identical (sha256 2707bcaa…) |
+| Red prefix | rc 1, `AssertionError ('prefix guard', …)`, no output |
+| Red pin | rc 1, `AssertionError ('manifest pin', …archive_1e12_zi)`, no output |
+
+- **No drysynth:** the array path is unchanged since dry2.
+- **Values not meaningful:** the stage-1 dry fixture's w = 2 rows are seeded random (x, y), not split primes, so their
+  θ is not equidistributed and their R is 828 to 42,729. The dry verdicts, including a −7 "PASS" (T −2323 against a
+  margin of −2386, b_null 6113), are plumbing outcomes on those values and mean nothing. The realistic-value checks
+  of the −7 rule are the witnesses (§4).
+- **The repeat does not change the §4 failures.**
+- This repeat ran directly on spot. It was launched before the move to the shared pueue queue; later dry and sealed
+  reads go through pueue (`specarith-scored`).
 
 ## 6. Attribution, fixed before the read
 

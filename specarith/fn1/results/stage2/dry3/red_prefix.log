@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 454, in <module>
+    sys.exit(run(sys.argv[2], sys.argv[3], int(float(sys.argv[4])), int(float(sys.argv[5])), True))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 363, in run
+    th, half = load_window(arch[field]["dir"], field, lo, hi, arch[field]["manifest_sha256"], pre)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 185, in load_window
+    check_prefix(prefix[0], prefix[1], man)
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 175, in check_prefix
+    assert [key(s) for s in s1] == [key(s) for s in s2], ("prefix guard", stage1_manifest)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('prefix guard', '/home/combust/tmp/claude/specarith/fn1/dry2/RED_stage1_trunc_D7.json')
