@@ -2538,3 +2538,14 @@ Spot: approved for the archive extension; reads run sequentially.
 TOOLKIT: lead and diagnostic scripts open committed results read-only and write only to scratch, enforced in code.
 Record L15 as tested and not supported: L′/L(1) is collinear with C_F (r 0.86); the residuals are U-shaped, consistent with curvature; Chen’s L-term enters at s = 2; the printed-versus-code sign discrepancy is recorded, unresolved.
 Send the final stage-2 seal text for review before stamping.
+
+### FN1 stage 2, §2.4 decision (2026-11-02; Will, verbatim)
+FN1 stage 2, §2.4: option B, with a local-slope null.
+
+PASS iff min(R_−7 − R_−8, R_−7 − R_−11) > m. m is the 95th percentile of that statistic under the C-ordered null at the rule noise, with slope b_null = min(b_global, b_local); b_local is the read-time OLS slope over −8, −11, ℤ[i] and −19 (excluding −7), floored at 0. Seeded simulation at read time.
+DRIFT_SD: the corrected 0.012458. Record that under the raw 0.027302 the arm would be weak.
+FAIL is informative iff the power under persistence (DELTA7) is ≥ 0.80 under the same null; otherwise “FAIL (UNPOWERED)”. Report the pre-seal power under this rule.
+Attribution: the margin is computed under the flatter of the global and local slopes, to stay robust to the stage-1 convexity.
+Witness run 2 (new run; run 1 stays failed): reachability cases for every branch (informative PASS, informative FAIL, unpowered FAIL), plus a convex-curvature null with no displacement that must give a false-PASS rate ≤ 0.05.
+TOOLKIT: before sealing, every arm’s informative PASS and FAIL branches must be shown reachable under the design noise.
+Repeat the dry double read on the final code. Send Will the §2.4 diff and the witness run 2 results, then stamp.

@@ -1726,3 +1726,28 @@ was overwritten. It was caught at once (KeyError on the next read), restored fro
 - **The FN1 lead scripts committed before the rule** (`fn1/lead/fn1_*.py` in ef532722) predate it and are listed as
   such. New scripts from 2026-11-02 use `safeio`.
 - Related: §9.F (dry-run the double read), "a path is not a pin" (pin inputs by hash).
+
+### §9.J — BEFORE SEALING, EVERY ARM'S INFORMATIVE PASS AND FAIL BRANCHES MUST BE SHOWN REACHABLE UNDER THE DESIGN NOISE (FN1 stage 2, 2026-11-02)
+
+**Rule (standing, Will).** Before sealing, every arm's informative PASS and FAIL branches must be shown reachable
+under the design noise.
+
+**What caught it.** In FN1 stage-2 witness run 1, the −7 arm as drafted labelled a PASS informative only if its
+false-PASS rate under the rule noise was ≤ 0.05. The noise floor committed into that rule (the stage-1 drift spread)
+gave a false-PASS rate of 0.054 at zero read-time noise, so the informative PASS branch could not be reached at any
+read-time noise. The label witness found it, because its constructed "hit at low noise" case came back "not
+separated". The code was correct; the rule was dead.
+
+**How to apply.**
+- For each arm, state its design noise: the noise its reading rule will use, projected from seen data (for example
+  the stage-1 ratio × the next stage's model).
+- Show, before the seal, by a committed script through the read's own functions:
+  - **informative PASS reachable:** under the stated effect at the design noise, the probability of a PASS that the
+    rule labels informative is not negligible;
+  - **informative FAIL reachable:** at the design noise, the rule's informative-FAIL condition (e.g. power ≥ 0.80)
+    holds, so a FAIL would not be labelled UNPOWERED by construction.
+- Constructed label cases (one per branch) show the code paths exist. They do not by themselves meet this rule;
+  reachability under the design noise does.
+- An arm that fails either branch is not sealed as a verdict arm without a ruling: it is redesigned, re-powered, or
+  declared one-way or descriptive in advance, by decision.
+- Related: "every arm must be able to fire", "witness must be able to fail", §9.D (plant the effect).

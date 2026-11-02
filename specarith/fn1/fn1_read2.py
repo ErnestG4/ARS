@@ -25,15 +25,19 @@ fields; also per-field linear-detrended relSD (ddof 2) pooled the same way.
   FAIL reads "FAIL (UNPOWERED at the read-time noise)".
 - Secondaries (Will: own slopes, one-way reading if unpowered): the same at β 0.45 / 0.40 with B045 / B040, SE045 /
   SE040 and that β's raw ratio. Power < 0.80 → a FAIL reads "FAIL (UNPOWERED at the read-time noise)".
-−7 prediction (β 0.55): PASS iff R_−7 > R_−8 and R_−7 > R_−11 (exact equality → VOID (ties)).
-- Reading rule (Will 2026-11-02): cross-field relative noise σ_rel = √(det² + DRIFT_SD²), det = the read-time pooled
-  detrended relSD at β 0.55, DRIFT_SD = the across-field SD of the stage-1 drift (committed constant below).
-  σ = σ_rel × mean_F R_F(0.55). False-PASS rate = P(R_−7 > R_−8 ∧ R_−7 > R_−11) under R_F = a + b C_F + σ ε with b the
-  read-time OLS slope of R on C_F over the nine fields, 200,000 seeded simulations. PASS informative iff ≤ 0.05;
-  otherwise "PASS (not separated from the C-ordered null at the read-time noise)". Also reported: the rate under the
-  raw read-time noise and under the detrended noise alone.
-- FAIL reading: informative iff the power under persistence (−7 shifted by DELTA7 relative to the line, same σ) is
+−7 prediction (β 0.55), option B with a local-slope null (Will, 2026-11-02, §2.4):
+T = min(R_−7 − R_−8, R_−7 − R_−11). PASS iff T > m. An exact equality R_−7 = R_−8 or R_−7 = R_−11 → VOID (ties).
+- Rule noise: σ_rel = √(det² + DRIFT_SD²), det = the read-time pooled detrended relSD at β 0.55, DRIFT_SD = 0.012458
+  (the slope-noise-corrected stage-1 drift spread, committed). σ = σ_rel × mean_F R_F(0.55).
+- Null slope: b_null = min(b_global, b_local). b_global = the read-time nine-field OLS slope of R on C_F; b_local = the
+  read-time OLS slope over −8, −11, ℤ[i], −19 (−7 excluded), floored at 0.
+- m = the 95th percentile (numpy linear quantile) of T under R_F = a + b_null C_F + σ ε (the intercept cancels),
+  200,000 draws, seed SEED_M7. The false-PASS rate is 0.05 by construction; reported as a check on an independent
+  seed (SEED_M7 + 2).
+- FAIL is informative iff the power under persistence, P(T + DELTA7 > m) under the same null (seed SEED_M7 + 1), is
   ≥ 0.80; otherwise "FAIL (UNPOWERED at the read-time noise)".
+- Reported too (descriptive, no verdict): the plain two-neighbour hit, and m and the power under the raw read-time noise
+  alone, under the detrended noise alone, and under the global slope.
 Descriptive: ρ against log|D|; fresh-only 7 (exact over 7!); ℤ[√2] placement at 0.40 / 0.45; pairs; OLS residuals on
 C_F per β, and their Pearson r with the stage-1 residuals (pinned stage-1 read); Chen-form P_F fit (constants below).
 Output: JSON, sorted keys, no timings (sidecar OUT.timing); stdout prints only "done".
@@ -264,35 +268,74 @@ def ols(R, key):
     return coef, dict(zip(FIELDS, (y - A @ coef).tolist()))
 
 
+_DRAWS = {}
+
+
+def m7_draws(seed):
+    """Seeded standard-normal draws (NSIM, 3) for (−7, −8, −11); cached, so every call with a seed sees the same draws."""
+    if seed not in _DRAWS:
+        _DRAWS[seed] = np.random.default_rng(seed).standard_normal((NSIM, 3))
+    return _DRAWS[seed]
+
+
+def m7_T(b, sigma, delta, seed):
+    """T = min(R_−7 − R_−8, R_−7 − R_−11) under R = b C + σ ε (+ delta on −7)."""
+    e = m7_draws(seed) * sigma
+    r7 = b * C["-7"] + delta + e[:, 0]
+    return np.minimum(r7 - (b * C["-8"] + e[:, 1]), r7 - (b * C["-11"] + e[:, 2]))
+
+
+def m7_margin(b, sigma, seed=None):
+    return float(np.quantile(m7_T(b, sigma, 0.0, SEED_M7 if seed is None else seed), 0.95))
+
+
+def m7_power(b, sigma, m, delta, seed=None):
+    return float((m7_T(b, sigma, delta, SEED_M7 + 1 if seed is None else seed) > m).mean())
+
+
 def m7_rates(b, sigma, delta, seed):
-    """P(R_-7 > R_-8 and R_-7 > R_-11) under R = b C + sigma eps (+ delta on -7)."""
-    rng = np.random.default_rng(seed)
-    e = rng.standard_normal((NSIM, 3)) * sigma
-    r7, r8, r11 = b * C["-7"] + delta + e[:, 0], b * C["-8"] + e[:, 1], b * C["-11"] + e[:, 2]
-    return float(((r7 > r8) & (r7 > r11)).mean())
+    """P(R_−7 > R_−8 and R_−7 > R_−11): the plain two-neighbour hit rate (descriptive)."""
+    return float((m7_T(b, sigma, delta, seed) > 0).mean())
+
+
+LOCAL4 = ["-8", "-11", "zi", "-19"]
+
+
+def slopes(R55):
+    coef, _ = ols(R55, C)
+    b_global = float(coef[1])
+    x = np.array([C[f] for f in LOCAL4]); y = np.array([R55[f] for f in LOCAL4])
+    b_local_raw = float(np.polyfit(x, y, 1)[0])
+    b_local = max(0.0, b_local_raw)
+    return b_global, b_local_raw, b_local, min(b_global, b_local)
 
 
 def minus7(R55, det_rel, raw_rel):
-    vals = [R55["-7"], R55["-8"], R55["-11"]]
-    if len(set(vals)) < 3:
+    if R55["-7"] == R55["-8"] or R55["-7"] == R55["-11"]:
         return dict(verdict="VOID (ties)")
-    coef, _ = ols(R55, C)
-    b = float(coef[1])
+    b_global, b_local_raw, b_local, b_null = slopes(R55)
     Rbar = float(np.mean([R55[f] for f in FIELDS]))
     s_rule = math.sqrt(det_rel ** 2 + CONST["DRIFT_SD"] ** 2) * Rbar
-    out = dict(R_m7=R55["-7"], R_m8=R55["-8"], R_m11=R55["-11"], ols_b=b, Rbar=Rbar,
-               sigma_rel_rule=s_rule / Rbar, sigma_rule=s_rule, det_rel=det_rel, drift_sd=CONST["DRIFT_SD"],
-               raw_rel=raw_rel,
-               false_pass_rule=m7_rates(b, s_rule, 0.0, SEED_M7),
-               false_pass_raw=m7_rates(b, raw_rel * Rbar, 0.0, SEED_M7),
-               false_pass_detrended=m7_rates(b, det_rel * Rbar, 0.0, SEED_M7),
-               power_persist_rule=m7_rates(b, s_rule, CONST["DELTA7"], SEED_M7 + 1))
-    hit = R55["-7"] > R55["-8"] and R55["-7"] > R55["-11"]
-    if hit:
-        out["verdict"] = "PASS" if out["false_pass_rule"] <= 0.05 else \
-            "PASS (not separated from the C-ordered null at the read-time noise)"
+    T = min(R55["-7"] - R55["-8"], R55["-7"] - R55["-11"])
+    m = m7_margin(b_null, s_rule)
+    pw = m7_power(b_null, s_rule, m, CONST["DELTA7"])
+    desc = {}
+    for nm, bb, ss in (("raw_noise_only", b_null, raw_rel * Rbar), ("detrended_noise_only", b_null, det_rel * Rbar),
+                       ("global_slope_rule_noise", b_global, s_rule)):
+        mm = m7_margin(bb, ss)
+        desc[nm] = dict(slope=bb, sigma=ss, margin=mm, power_persist=m7_power(bb, ss, mm, CONST["DELTA7"]),
+                        T_above_margin=bool(T > mm))
+    out = dict(R_m7=R55["-7"], R_m8=R55["-8"], R_m11=R55["-11"], T=T, b_global=b_global, b_local_raw=b_local_raw,
+               b_local=b_local, b_null=b_null, Rbar=Rbar, det_rel=det_rel, drift_sd=CONST["DRIFT_SD"], raw_rel=raw_rel,
+               sigma_rel_rule=s_rule / Rbar, sigma_rule=s_rule, margin=m, power_persist_rule=pw,
+               false_pass_check=float((m7_T(b_null, s_rule, 0.0, SEED_M7 + 2) > m).mean()),
+               two_neighbour_hit_descriptive=bool(T > 0),
+               two_neighbour_false_pass_descriptive=m7_rates(b_null, s_rule, 0.0, SEED_M7 + 2),
+               descriptive=desc)
+    if T > m:
+        out["verdict"] = "PASS"
     else:
-        out["verdict"] = "FAIL" if out["power_persist_rule"] >= 0.80 else "FAIL (UNPOWERED at the read-time noise)"
+        out["verdict"] = "FAIL" if pw >= 0.80 else "FAIL (UNPOWERED at the read-time noise)"
     return out
 
 

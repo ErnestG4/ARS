@@ -1,19 +1,35 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""FN1 stage-2 witnesses (FN1_STAGE2_SEAL.md §4): the read's own decision functions (fn1_read2.py, frozen CONST) on
-parametric R sets at the stage-2 K. No data. TOOLKIT §9.I: output to scratch only.
+"""FN1 stage-2 witnesses, RUN 2 (FN1_STAGE2_SEAL.md §4; Will 2026-11-02 §2.4 decision: option B, local-slope null).
+Run 1 (the drafted −7 rule) stays recorded as failed in results/stage2/FN1_WITNESS2_run1_FAILED.json.
+The read's own decision functions (fn1_read2.py, frozen CONST) on parametric R sets at the stage-2 K. No data.
+TOOLKIT §9.I: inputs read-only, output to scratch only.
 
-  python fn1_witness2.py OUT_REL
+  python fn1_witness2.py OUT_REL READ1.json
 
-Rank test (β 0.55, nine fields, stage-2 model SE × s, s ∈ {1, stage-1 raw ratio}):
-- null (b = 0): PASS rate must be ≤ 0.02 (exact level 0.0086; 2000 replicates, binomial 99.9% upper bound ≈ 0.019);
-- planted target (b = CONST B[0.55]): PASS rate within ±0.03 of the parametric power (independent seed);
-- shuffled C (b = B, C permuted per replicate): PASS rate ≤ 0.02.
-−7 test:
-- must-fail null (δ = 0, C-ordered, σ_rel = the projected rule noise): hit rate within ±0.02 of the tabled false-PASS
-  rate; must-pass (δ = DELTA7): hit rate within ±0.03 of the tabled power;
-- label logic on constructed sets: hit + low noise → PASS; hit + high noise → PASS (not separated …); miss + low noise
-  → FAIL; miss + high noise → FAIL (UNPOWERED …); R_−7 == R_−8 → VOID (ties).
-Prints WITNESS2_PASS True/False.
+Design noise (stated before running): det_d = stage-1 detrended β 0.55 ratio 1.70757 × the stage-2 model relSD
+√(2/(c K₂)); σ_rel,d = √(det_d² + DRIFT_SD²); σ_d = σ_rel,d × the stage-1 nine-field mean R (β 0.55, READ1 sha256 pinned).
+
+Rank test (β 0.55, nine fields, σ = SE × s, s ∈ {1, stage-1 raw ratio 3.37269}; bars unchanged from run 1):
+- null (b = 0): PASS rate ≤ 0.02; planted target (b = B): within ±0.03 of power_at (independent seed);
+  shuffled C (b = B, C permuted per replicate): PASS rate ≤ 0.02.
+−7, statistical (REPS_M7 = 4000 replicates; each replicate simulates all nine R and goes through fn1_read2.minus7 with
+det = det_d and raw = det_d, so the read-time slopes b_global, b_local and the margin are recomputed per replicate):
+- W-lin, linear C-ordered null, no displacement: R = 0.80 + B (C − C_−7) + σ_d ε. Bar: PASS rate ≤ 0.05.
+- W-convex (Will's bar), convex-curvature null, no displacement: R = the quadratic in C_F fitted by OLS to the stage-1
+  β 0.55 R over the eight fields other than −7, with −7 placed on that curve, + σ_d ε. Bar: PASS rate ≤ 0.05 (point
+  estimate; the Wilson 95% interval is reported).
+- W-convex2 (descriptive, no bar): the same curve + q₂ (C − C̄₈)², i.e. the quadratic coefficient doubled.
+- W-persist (descriptive, no bar): W-lin plus DELTA7 on −7: PASS rate, beside the tabled power at b_null = B.
+−7, label reachability (constructed sets through fn1_read2.minus7; base R = 0.80 + B (C − C_−7), so b_global = b_local =
+B), one case per branch:
+- informative PASS: R_−7 = base + 0.10, det = det_d → "PASS";
+- informative FAIL: R_−7 = base − 0.03 (below both neighbours), det = 1e−4 → "FAIL";
+- unpowered FAIL: R_−7 = base − 0.03, det = 0.2 → "FAIL (UNPOWERED at the read-time noise)";
+- small hit at high noise: R_−7 = R_−11 + 0.01, det = 0.2 → "FAIL (UNPOWERED at the read-time noise)" (the margin
+  absorbs a hit that the drafted rule would have counted);
+- tie: R_−7 = R_−8 → "VOID (ties)".
+- Each case records power_persist_rule and margin.
+Prints WITNESS2_PASS True/False; every bar above must hold.
 """
 import math, os, sys
 _H = os.path.dirname(os.path.abspath(__file__))
@@ -23,10 +39,14 @@ safeio.enforce()
 import numpy as np
 import fn1_read2 as R2
 
-REPS = 2000
-C = np.array([R2.C[f] for f in R2.FIELDS])
+READ1_SHA = "47c19dd26aaf3e892c01928f708c6b7032b61a5a8012dbdce7e3198dcfac4c76"
+REPS, REPS_M7 = 2000, 4000
+S1_RAW, S1_DET = 3.3726854039071306, 1.7075658694649614
+F = R2.FIELDS
+C = np.array([R2.C[f] for f in F])
 counts = R2.exact_null_counts()
 B, SE = R2.CONST["B"]["0.55"], R2.CONST["SE"]["0.55"]
+K2 = int(round(3663002294 ** 0.55))
 
 
 def pass_rate(b, s, seed, shuffle=False):
@@ -35,55 +55,78 @@ def pass_rate(b, s, seed, shuffle=False):
     for _ in range(REPS):
         Cv = rng.permutation(C) if shuffle else C
         r = b * Cv + s * SE * rng.standard_normal(9)
-        hits += R2.rank_test(dict(zip(R2.FIELDS, r.tolist())), R2.C, counts)["verdict"] == "PASS"
+        hits += R2.rank_test(dict(zip(F, r.tolist())), R2.C, counts)["verdict"] == "PASS"
     return hits / REPS
 
 
-def main(out_rel):
-    res, ok = {}, True
-    s_raw = float(sys.argv[2]) if len(sys.argv) > 2 else 3.373
-    for nm, s in (("1x", 1.0), ("stage1_raw", s_raw)):
-        nul = pass_rate(0.0, s, 7001)
-        tgt = pass_rate(B, s, 7002)
+def wilson(k, n, z=1.96):
+    p = k / n; d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d; h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return [c - h, c + h]
+
+
+def m7_rate(mean9, sig, det, seed):
+    rng = np.random.default_rng(seed)
+    k = 0
+    for _ in range(REPS_M7):
+        r = mean9 + sig * rng.standard_normal(9)
+        k += R2.minus7(dict(zip(F, r.tolist())), det, det)["verdict"] == "PASS"
+    return dict(pass_rate=k / REPS_M7, wilson95=wilson(k, REPS_M7), n=REPS_M7)
+
+
+def main(out_rel, read1):
+    rd = safeio.read_json(read1, expect_sha256=READ1_SHA)
+    res, ok = {"run": 2, "rule": "option B, local-slope null (Will 2026-11-02)"}, True
+    for nm, s in (("1x", 1.0), ("stage1_raw", S1_RAW)):
+        nul, tgt = pass_rate(0.0, s, 7001), pass_rate(B, s, 7002)
         pw = R2.power_at(s, B, SE, counts, 7003)
         shf = pass_rate(B, s, 7004, shuffle=True)
         c = dict(null_pass=nul, target_pass=tgt, target_power_model=pw, shuffled_pass=shf,
                  ok=bool(nul <= 0.02 and abs(tgt - pw) <= 0.03 and shf <= 0.02))
         res["rank_" + nm] = c; ok &= c["ok"]
-    # -7 statistical witnesses at the projected rule noise
-    model_rel = math.sqrt(2 / (R2.C_SE * int(round(3663002294 ** 0.55))))
-    Rbar = SE / model_rel                                   # stage-1 mean R (CONST SE = mean R × model_rel)
-    det_rel = float(sys.argv[3]) * model_rel if len(sys.argv) > 3 else 1.708 * model_rel   # stage-1 detrended ratio
-    s_rel = math.hypot(det_rel, R2.CONST["DRIFT_SD"])
-    sig = s_rel * Rbar
-    tab_fp = R2.m7_rates(B, sig, 0.0, 7011)
-    tab_pw = R2.m7_rates(B, sig, R2.CONST["DELTA7"], 7012)
-    rng = np.random.default_rng(7013)
-    e = rng.standard_normal((REPS, 3)) * sig
-    hit0 = float((((B * C[0] + e[:, 0]) > (B * C[1] + e[:, 1])) & ((B * C[0] + e[:, 0]) > (B * C[2] + e[:, 2]))).mean())
-    d = R2.CONST["DELTA7"]
-    hit1 = float((((B * C[0] + d + e[:, 0]) > (B * C[1] + e[:, 1])) & ((B * C[0] + d + e[:, 0]) > (B * C[2] + e[:, 2]))).mean())
-    c = dict(sigma_rel=s_rel, tabled_false_pass=tab_fp, mustfail_hit=hit0, tabled_power=tab_pw, mustpass_hit=hit1,
-             ok=bool(abs(hit0 - tab_fp) <= 0.02 and abs(hit1 - tab_pw) <= 0.03))
-    res["minus7_stat"] = c; ok &= c["ok"]
-    # -7 label logic
-    base = {f: 0.80 + 0.045 * (R2.C[f] - R2.C["-7"]) for f in R2.FIELDS}
+    # design noise
+    model_rel = math.sqrt(2 / (R2.C_SE * K2))
+    det_d = S1_DET * model_rel
+    s_rel = math.hypot(det_d, R2.CONST["DRIFT_SD"])
+    R1 = np.array([rd["R"][f]["0.55"] for f in F])
+    Rbar = float(R1.mean()); sig = s_rel * Rbar
+    res["design_noise"] = dict(model_rel=model_rel, det_rel=det_d, drift_sd=R2.CONST["DRIFT_SD"], sigma_rel=s_rel,
+                               Rbar_stage1=Rbar, sigma=sig)
+    lin = 0.80 + B * (C - C[0])
+    msk = np.array([f != "-7" for f in F])
+    q = np.polyfit(C[msk], R1[msk], 2)
+    convex = np.polyval(q, C)
+    convex2 = convex + q[0] * (C - C[msk].mean()) ** 2          # quadratic coefficient doubled, about the 8-field mean C
+    res["convex_fit"] = dict(quad_coef=q.tolist(), curve=dict(zip(F, convex.tolist())),
+                             stage1_m7_minus_curve=float(R1[0] - convex[0]),
+                             curve_m7_minus_m8=float(convex[0] - convex[1]), curve_m7_minus_m11=float(convex[0] - convex[2]))
+    w = {}
+    w["W_lin"] = m7_rate(lin, sig, det_d, 7101); w["W_lin"]["ok"] = bool(w["W_lin"]["pass_rate"] <= 0.05)
+    w["W_convex"] = m7_rate(convex, sig, det_d, 7102); w["W_convex"]["ok"] = bool(w["W_convex"]["pass_rate"] <= 0.05)
+    w["W_convex2_descriptive"] = m7_rate(convex2, sig, det_d, 7103)
+    lin_p = lin.copy(); lin_p[0] += R2.CONST["DELTA7"]
+    w["W_persist_descriptive"] = m7_rate(lin_p, sig, det_d, 7104)
+    mB = R2.m7_margin(B, sig)
+    w["W_persist_descriptive"]["tabled_power_at_bnull_B"] = R2.m7_power(B, sig, mB, R2.CONST["DELTA7"])
+    res["minus7_stat"] = w
+    ok &= w["W_lin"]["ok"] and w["W_convex"]["ok"]
+    # label reachability
+    base = dict(zip(F, lin.tolist()))
 
     def setR(r7):
         r = dict(base); r["-7"] = r7; return r
+    cases = {"informative_PASS": (setR(base["-7"] + 0.10), det_d, "PASS"),
+             "informative_FAIL": (setR(base["-7"] - 0.03), 1e-4, "FAIL"),
+             "unpowered_FAIL": (setR(base["-7"] - 0.03), 0.2, "FAIL (UNPOWERED at the read-time noise)"),
+             "small_hit_high_noise": (setR(base["-11"] + 0.01), 0.2, "FAIL (UNPOWERED at the read-time noise)"),
+             "tie": (setR(base["-8"]), 1e-4, "VOID (ties)")}
     lab = {}
-    lab["hit_low_noise"] = R2.minus7(setR(0.90), 1e-4, 1e-4)["verdict"]
-    lab["hit_high_noise"] = R2.minus7(setR(0.90), 0.2, 0.2)["verdict"]
-    lab["miss_low_noise"] = R2.minus7(setR(0.70), 1e-4, 1e-4)["verdict"]
-    lab["miss_high_noise"] = R2.minus7(setR(0.70), 0.2, 0.2)["verdict"]
-    lab["tie"] = R2.minus7(setR(base["-8"]), 1e-4, 1e-4)["verdict"]
-    exp = {"hit_low_noise": "PASS",
-           "hit_high_noise": "PASS (not separated from the C-ordered null at the read-time noise)",
-           "miss_low_noise": "FAIL", "miss_high_noise": "FAIL (UNPOWERED at the read-time noise)", "tie": "VOID (ties)"}
-    res["minus7_labels"] = dict(got=lab, expected=exp, ok=lab == exp)
-    ok &= lab == exp
-    # the drift term must matter: with DRIFT_SD the rule noise exceeds the detrended noise alone
-    res["drift_term_active"] = bool(R2.CONST["DRIFT_SD"] >= 0 and s_rel >= det_rel)
+    for nm, (r, det, exp) in cases.items():
+        o = R2.minus7(r, det, det)
+        lab[nm] = dict(expected=exp, got=o["verdict"], margin=o.get("margin"), power_persist_rule=o.get("power_persist_rule"),
+                       T=o.get("T"), b_null=o.get("b_null"), ok=o["verdict"] == exp)
+        ok &= lab[nm]["ok"]
+    res["minus7_labels"] = lab
     res["ok"] = bool(ok)
     p = safeio.write_json(safeio.scratch(out_rel), res, overwrite=True)
     print("written", p)
@@ -94,4 +137,4 @@ def main(out_rel):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1]))
+    sys.exit(main(sys.argv[1], sys.argv[2]))
