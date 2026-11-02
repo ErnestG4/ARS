@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 457, in <module>
+    sys.exit(run(sys.argv[2], sys.argv[3], int(float(sys.argv[4])), int(float(sys.argv[5])), True))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 370, in run
+    th, half = load_window(arch[field]["dir"], field, lo, hi, arch[field]["manifest_sha256"], pre)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1_read2.py", line 181, in load_window
+    assert sha_file(mp) == pinned_sha, ("manifest pin", d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('manifest pin', '/mnt/data/rq1/archive_1e12_zi')

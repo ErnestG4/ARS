@@ -6,7 +6,7 @@
 **Status before stamping (2026-11-02).**
 - **Witness run 3: PASS (§4).** It follows Will's rulings. Runs 1 and 2 stay recorded as failed.
 - **TOOLKIT §9.J as clarified: PASS (§3a).** The primary is two-way. β 0.45, β 0.40 and −7 are declared one-way.
-- **Dry double read on the final code:** §5.
+- **Dry double read on the final code: identical under `cmp`; both red paths fail closed (§5, dry4).**
 - **Will reviews** the diff and the witness results before stamping.
 
 **Order:** archives (running) → manifests → `fn1_pins2.json` → witnesses → §9.F rehearsal → Will's review → seal →
@@ -326,6 +326,22 @@ These parts do not depend on the §2.4 decision:
 - **The repeat does not change the §4 failures.**
 - This repeat ran directly on spot. It was launched before the move to the shared pueue queue; later dry and sealed
   reads go through pueue (`specarith-scored`).
+
+**Repeat on the FINAL code (2026-11-02, `run_fn1_dry4_spot.sh`, `fn1_read2.py` sha256 d24a0657…, commit 63d902d2:
+flat −7 null, one-way arms; pueue task 377 in `specarith-filler` through `pq-fill`; outputs in
+`results/stage2/dry4/`):**
+
+| Step | Result |
+|---|---|
+| Dry read D1 / D2 | rc 0 / 0; wall 1142 / 1391 s, maxrss 5.0 GB |
+| `cmp D1 D2` | identical (sha256 2e00422b…) |
+| Red prefix | rc 1, `AssertionError ('prefix guard', …)`, no output |
+| Red pin | rc 1, `AssertionError ('manifest pin', …archive_1e12_zi)`, no output |
+
+- The verdict lattice ran end to end with the one-way labels. β 0.45, β 0.40 and −7 read "FAIL (one-way arm: FAIL
+  not informative)". The −7 block has b_null 0 and false-PASS check 0.051.
+- As in dry2 and dry3, the values come from the random-row fixture and mean nothing. Its margin of 251 reflects
+  R in the thousands.
 
 ## 6. Attribution, fixed before the read
 
