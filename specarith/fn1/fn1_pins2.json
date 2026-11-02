@@ -1,0 +1,74 @@
+{
+ "archives": {
+  "-11": {
+   "dir": "/mnt/data/fn1/archive_1e11_D11",
+   "manifest_sha256": "2c57f37bd44a11c897ea387a89b029f6a23fcd98142de3dd8ff8ec86ac8f30e7"
+  },
+  "-163": {
+   "dir": "/mnt/data/fn1/archive_1e11_D163",
+   "manifest_sha256": "650d06517aff78cfc72f59e840de1421084791b0a9161b7de9d26f38a5b8c742"
+  },
+  "-19": {
+   "dir": "/mnt/data/fn1/archive_1e11_D19",
+   "manifest_sha256": "229d0e55d8553d32342dd7f9b38d54f26750c88e51ad6801342bb1787788d36c"
+  },
+  "-43": {
+   "dir": "/mnt/data/fn1/archive_1e11_D43",
+   "manifest_sha256": "35a918dcb341b5349cd8c67e34996dac287e36e0f7a7765c1ceac9261b9e898f"
+  },
+  "-67": {
+   "dir": "/mnt/data/fn1/archive_1e11_D67",
+   "manifest_sha256": "490a2a97469be4dc47c756cf820416c2384ae0bd1a093649ec1229c73a53440b"
+  },
+  "-7": {
+   "dir": "/mnt/data/fn1/archive_1e11_D7",
+   "manifest_sha256": "523dffdf0ac29258df13af49f77716b3282d5e9b8744574fb9dc4604f8bab32b"
+  },
+  "-8": {
+   "dir": "/mnt/data/fn1/archive_1e11_D8",
+   "manifest_sha256": "d3a98760efdf842bd7707299f772a777e76c5396fdf2c85962610f6f3ac6bdd9"
+  },
+  "zi": {
+   "dir": "/mnt/data/rq1/archive_1e12_zi",
+   "manifest_sha256": "19a3a85e17a5606d8d8ac9d0f86a9207aa07690f9f7f0d5781350519cb883508"
+  },
+  "zs2": {
+   "dir": "/mnt/data/rq1/archive_1e12_zs2",
+   "manifest_sha256": "4895bdfae09e2618602e89c7a4a9d9fcd62b0ef613b5c77ec2abd4fdc04afb1e"
+  },
+  "zw": {
+   "dir": "/mnt/data/rq1/archive_1e12_zw",
+   "manifest_sha256": "f3de0c0761a838059269272d59327c1f31f54004cdece9d0fdeab388bbc456f8"
+  }
+ },
+ "stage1_manifests": {
+  "-11": {
+   "path": "/mnt/data/fn1/archive_1e10_D11/MANIFEST.json",
+   "sha256": "caa5bce0ddcae7b573fdcdb59666fb60916b75066e04307c6ed843366178c3d5"
+  },
+  "-163": {
+   "path": "/mnt/data/fn1/archive_1e10_D163/MANIFEST.json",
+   "sha256": "aa58f0f427be4bc364630b6a07c36b2a4bb74111d7071476e6d3480025cea668"
+  },
+  "-19": {
+   "path": "/mnt/data/fn1/archive_1e10_D19/MANIFEST.json",
+   "sha256": "bd5a7cc02ae9e2936c19a072eb6fc6fcc7f9ef84c7e17461e6fd91b755986595"
+  },
+  "-43": {
+   "path": "/mnt/data/fn1/archive_1e10_D43/MANIFEST.json",
+   "sha256": "28aee3afeba2afa155ec31c481ac78f64fde4545e6acb5b6650053c71fa0c29c"
+  },
+  "-67": {
+   "path": "/mnt/data/fn1/archive_1e10_D67/MANIFEST.json",
+   "sha256": "3c6b9157fa2ba0778a68a03b74e17c8c764f08f7b3584e967169ebe46c0b98b9"
+  },
+  "-7": {
+   "path": "/mnt/data/fn1/archive_1e10_D7/MANIFEST.json",
+   "sha256": "ae6df4c10b295b52cb1dded9951bf83235a14a1d4dbc1c5f91f72b74a2953c4d"
+  },
+  "-8": {
+   "path": "/mnt/data/fn1/archive_1e10_D8/MANIFEST.json",
+   "sha256": "c7e66325b65adba7e7ec8f0bf42d9cf329f1071e623dcf80d40ffd8bfcbc7fb0"
+  }
+ }
+}

@@ -9,7 +9,7 @@
 - **Dry double read on the final code: identical under `cmp`; both red paths fail closed (§5, dry4).**
 - **Will reviews** the diff and the witness results before stamping.
 
-**Order:** archives (running) → manifests → `fn1_pins2.json` → witnesses → §9.F rehearsal → Will's review → seal →
+**Order:** archives (done) → manifests (done) → `fn1_pins2.json` (done) → witnesses → §9.F rehearsal → Will's review → seal →
 stamp → Bitcoin attestation verified on two explorers → double read, run sequentially → `cmp` → verdicts. The verdict
 lines go to files and are not viewed before the `cmp`.
 
@@ -53,7 +53,15 @@ maps are as stage-1 §1.
 - Mount guard.
 - The constants block must be frozen, or the read refuses to run.
 
-**Pins.** `fn1_pins2.json` (built by `fn1_make_pins2.py real` once the manifests exist) is sealed with this text.
+**Pins.** `fn1_pins2.json`, sha256 c511e4a4…, is sealed with this text.
+- Built 2026-11-02 by `fn1_make_pins2.py real` from the finished manifests.
+- Copies of the seven manifests are in `results/manifests2/`. Every manifest has 1010 segments, integrity True on
+  every row, and X = 1.01·10¹¹.
+- Manifest sha256: −7 523dffdf…, −8 d3a98760…, −11 2c57f37b…, −19 229d0e55…, −43 35a918dc…, −67 490a2a97…,
+  −163 650d0651….
+- ℤ[i], ℤ[ω] and ℤ[√2] carry the stage-1 pins.
+- Pre-check of the prefix guard (read-only, before sealing): for all seven fields, the first 101 segments of the
+  stage-2 manifest list exactly the (k, rows, sha256) of the pinned stage-1 manifest.
 
 ## 1b. Prior exposure
 
@@ -361,13 +369,13 @@ As stage-1 §6, including Will's class-number note. Plus:
 
 | Item | Core-h |
 |---|---|
-| Archive increment | **projected 99.8** (§9.H first wave: k = 101 / 555 / 1009 per field, cost flat in k at about 51 s per segment); 24 processes, about 4.6 h wall |
+| Archive increment | **about 120 measured.** Projection 99.8 (§9.H first wave: k = 101 / 555 / 1009, flat in k at about 51 s per segment). Cost rule: 1.119 at the mid check, **1.206 at the end** (limit 1.25). 1,738 tasks ran under xargs (wall-costed) and 4,604 in the pueue queue (CPU-costed, 1.22). 529 single tasks exceeded 2× their model (reported, not a stop rule): CPU time inflates under contention on this 56-vCPU VM. |
 | Stage-1 segment noise at three β (design input) | 0.27 |
 | Witnesses | under 0.1 (local) |
 | Rehearsal | 1.28 measured (CPU 1290 + 1957 + 1356 s) |
 | Double read, sequential | about 7.6 projected: 10 arrays per read × the drysynth 1356 CPU-s per full-size array, ×2 reads; single process, about 4 h wall per read |
 | Repeat dry double read on the final code (after §2.4) | about 0.9 |
-| **Total** | **about 110** |
+| **Total** | **about 130** |
 
 **Process note.** The first archive launch timed only the cheapest segments in its first wave, against TOOLKIT §9.H.
 It was stopped by PID before wave 2, with its 24 segments complete and no partial files. The launcher was revised and
