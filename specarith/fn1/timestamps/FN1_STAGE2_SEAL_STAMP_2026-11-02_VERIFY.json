@@ -1,0 +1,24 @@
+{
+ "manifest": "timestamps/FN1_STAGE2_SEAL_STAMP_2026-11-02.txt",
+ "manifest_sha256": "374259abe777b4794b7c1d18e7a1bbe4b9698ec4c5d373fa40c45f367256a91e",
+ "receipt": "timestamps/FN1_STAGE2_SEAL_STAMP_2026-11-02.txt.ots",
+ "receipt_sha256": "f5073b61fce7016f03b0d3d047594c799465507829b546542954dc824afb1e82",
+ "paths_checked": 40,
+ "attestations": [],
+ "calendars": [
+  "https://finney.calendar.eternitywall.com",
+  "https://alice.btc.calendar.opentimestamps.org",
+  "https://btc.calendar.catallaxy.com",
+  "https://bob.btc.calendar.opentimestamps.org"
+ ],
+ "earliest": null,
+ "method": "ots info merkle roots vs block headers from two explorers (no local Bitcoin node for ots verify)",
+ "checks": {
+  "receipt_commits_to_manifest": true,
+  "manifest_hashes_match_tag": true,
+  "tag_object_matches": true,
+  "tag_commit_matches": true,
+  "bitcoin_attested": false,
+  "all_attestations_verify": false
+ }
+}
