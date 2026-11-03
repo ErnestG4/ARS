@@ -344,6 +344,17 @@ puts it below anywhere. The two methods disagree at all 16 cells (block arcs 1.6
 Will's rule, no conclusion. If either empirical SE were right, B2's T would be 1.6–3.6 against t = 5.24. **Still open,
 and more pressing:** what the correct noise model is for a deterministic arithmetic set.
 
+**FN1 stage 2 addendum (2026-11-03; Will: "log it as a lead next to L13"; descriptive).** FN1's sealed read-time
+rule measured **4.40×** the same sealed SE model, R·√(2/(cK)) with c = 0.627, at β 0.55 on the fresh slice
+(10¹⁰, 10¹¹]. Stage 1 measured 3.37×.
+- **The rule:** 8 consecutive prime-order segments per field; each segment's relSD scaled to the full K by √(K_seg/K);
+  RMS-pooled over the nine fields (`fn1/FN1_STAGE2_READ_REPORT.md` §1).
+- It includes the within-field drift along prime order. Detrended, it gives 2.25× (stage 1 1.71×).
+- **A third estimate disagrees with it:** the cross-stage offset differences (L16) put the noise at 0.69× the model at
+  β 0.55 (90% 0.49–1.24), 1.33× at β 0.45 and 0.86× at β 0.40.
+- By Will's L13 rule, methods that disagree give no conclusion. The disagreement is recorded. FN1's rank verdicts are
+  exact permutation tests and do not depend on any of these figures.
+
 ## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
 
 **What is seen.** The derived window-average error passes the planted-witness check for α itself, on both witnesses.
@@ -366,6 +377,9 @@ the factorised one, before any new evaluator. A2 itself is closed: no further re
 - The printed-versus-code sign discrepancy is recorded and unresolved.
 - −7's displacement goes on as a stated stage-2 prediction (`fn1/FN1_STAGE2_SEAL.md`). Curvature alone (monotone in
   C_F) predicts a FAIL there.
+- **Stage 2 (2026-11-03):** the −7 arm read "FAIL (one-way arm: FAIL not informative)" (T 0.0137 < m 0.0212). Will
+  closed it with no conclusion and no relabelling from the alternative margins. Its excess is part of the L16
+  pattern, not a separate claim.
 
 **What is seen.** At the sealed FN1 stage-1 read (10¹⁰, β 0.55; primary PASS) the linear residuals of R on C_F are
 U-shaped: −7 +0.035, −163 +0.029, the middle fields negative. −7 alone carries 16 of Σd² = 22. Within every field, R
@@ -380,6 +394,58 @@ falls 6–15% along prime order.
 
 **What would address it.** The stage-2 fresh slice (10¹⁰, 10¹¹]: −7's displacement is a stated prediction there
 (`fn1/FN1_STAGE2_SEAL.md`, proposed). If it persists, the cause is open. −7 is the only field with 2 split.
+
+## L16 — FN1: the offsets from the β 0.55 C_F line are field-specific (2026-11-03; post hoc, labelled, descriptive)
+
+**What is seen (Will).** "The offsets from the β 0.55 fitted line reproduce at +0.977 across stages, so the scatter is
+field-specific and a second variable is acting. −7's excess is part of this pattern, not a separate claim."
+- The nine OLS residuals of R on C_F at stage 1 (rows [0, n₁₀)) and stage 2 (the disjoint fresh slice, 8.05× larger)
+  correlate +0.977. That is the sealed descriptive in `fn1/FN1_STAGE2_READ_REPORT.md` §2.
+- The largest residuals at stage 2: −7 +0.0335, −163 +0.0272, −19 −0.0228, ℤ[ω] −0.0191.
+- At β 0.45 and 0.40 the offsets do not reproduce (r −0.55 and −0.18).
+
+**Done, descriptive only (Will's brief):** estimate the real noise from the stage-1/stage-2 offset differences, scaling
+for the 8× size, and compare it with the SE model.
+- Script: `fn1/lead/fn1_l16_offset_noise.py`, method committed before running (27708918). Output:
+  `fn1/results/stage2/FN1_L16_OFFSET_NOISE.json`.
+- **Model:** e_s,F = μ_F + ε_s,F, in relative units. Then d_F = e₂ − e₁ has variance σ₁² + σ₂²; σ̂_d² = Σd²/7.
+- **Scaling, primary:** the SE model's own, σ_s = r·√(2/(cK_s)) with K₁ = 57,801 and K₂ = 182,016 at β 0.55.
+- **Cross-check:** the script recomputes corr(e₁, e₂) independently and matches the sealed +0.9774510 exactly.
+
+| β | r̂ (SE-model scaling) | χ²₇ 90% | 1/√n scaling: r₁, implied r₂ | Absolute units r̂ | Field-specific SD (rel.) | Share of offset variance (stage 1 / 2) |
+|---|---|---|---|---|---|---|
+| 0.55 | **0.69** | 0.49–1.24 | 0.75, 0.47 | 0.65 | 0.0252 | 0.89 / 1.07 |
+| 0.45 | 1.33 | 0.94–2.38 | 1.48, 0.83 | 1.32 | — (negative cross-moment) | — |
+| 0.40 | 0.86 | 0.60–1.54 | 0.97, 0.52 | 0.85 | — (negative cross-moment) | — |
+
+**Reading (descriptive).**
+- At all three β, the replicate-type noise is consistent with the sealed SE model: every interval contains 1.
+- That is far below the segment rule's 3.37× / 4.40×, and below its detrended 1.71× / 2.25×.
+- At β 0.55 the field-specific part is about 3.4× the stage-1 model SE and 6× the stage-2 one. It accounts for
+  essentially all of the offset variance.
+- **Caveats, stated in the method before running:**
+  - nine fields only;
+  - normal-theory interval;
+  - if μ_F itself changes between the slices (R drifts along prime order in every field), that change raises r̂, so
+    r̂ bounds the pure noise from above under this model;
+  - the β 0.45 / 0.40 rows were added beyond Will's β 0.55 request (labelled extra).
+
+**What would address it.** The second variable is unidentified. The C_F-versus-L(1,χ) question is L17. No design.
+
+## L17 — FN1: separating the conductor from the L-value with h = 2 fields (2026-11-03; RECORDED ONLY, not computed)
+
+**Will (verbatim, 2026-11-03).** "Separating the conductor from the L-value. At h = 1, C_F = log(1/L(1,χ)²) + 2 log π
+exactly, so stages 1–2 can't tell them apart. Within h = 2 they're tied again (w = 2 throughout). Pool the h = 1 and
+h = 2 fields instead: the conductor hypothesis puts the h = 2 fields on the h = 1 line, and the L-value hypothesis
+shifts them by log 4. Use principal prime ideals only. Before any design: confirm the 18 h = 2 discriminants on LMFDB
+and rederive the C_F term for h > 1."
+
+**Prerequisites before any design (not started):**
+1. Confirm the 18 class-number-2 imaginary quadratic discriminants on LMFDB.
+2. Rederive the C_F term for h > 1, including what "principal prime ideals only" does to the angle set and to the
+   matched-N rule.
+
+No compute, no lookup and no design have been done.
 
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with

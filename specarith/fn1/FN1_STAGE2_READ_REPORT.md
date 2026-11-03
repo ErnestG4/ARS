@@ -5,6 +5,14 @@
 **Read:** 2026-11-02 (PST) on spot, through the shared pueue queue. Sealed `fn1_read2.py` sha256 92f9db78…, pins
 `fn1_pins2.json` c511e4a4….
 
+**Bitcoin attestation:** verified on two explorers, blockstream.info and mempool.space. Block height **974305**
+(2026-11-02 21:32:23 UTC). The seal stamp's merkle root matches that block header on both, before any read.
+
+**Double-read cmp:** **byte-identical** (cmp 0). READ1.json = READ2.json, sha256 440c7f87…, on spot and again here.
+
+**Status:** accepted by Will 2026-11-03, with these header lines, the §1 definitions and the §3 scope line added. No
+verdict changed. FN1 is closed.
+
 ## 0. Protocol
 
 | Step | Record |
@@ -41,6 +49,24 @@ Outputs: `results/stage2/read/` (both reads, timing sidecars, logs, status, cmp,
 
 - The primary's power at its read-time noise is 0.995 ≥ 0.80, so a primary FAIL would have counted as informative.
   It passed, and a PASS is informative either way.
+- **What "power 0.995 at 4.40×" means (added 2026-11-03 at Will's request).** 4.40 is a measured ratio, not a stress
+  multiplier. It is the sealed raw read-time rule (§2.1), computed as follows.
+  - Each field's angle sequence is cut into 8 consecutive prime-order segments, and R is computed in each at
+    K_seg = round((2·⌊n/8⌋)^β).
+  - Each field's segment relSD (the SD over the 8 values divided by their mean) is scaled to the full K by
+    √(K_seg/K).
+  - The nine fields are RMS-pooled (0.0184 at β 0.55), then divided by the sealed SE model √(2/(cK)) = 0.00419
+    (c = 0.627, K = 182,016).
+  - Power is the fraction of 200,000 seeded simulations of R_F = B·C_F + 4.40 × SE × ε with Σd² ≤ 26
+    (B = 0.045507, SE = 0.003422, ε independent standard normal across the nine fields).
+  - It decided one thing only: whether a primary FAIL would have counted as informative.
+  - **Caveat.** The segment spread includes the within-field drift along prime order, so it measures drift plus
+    noise, not noise alone. The cross-stage offset differences put the noise near the model, at 0.69× (§4 item 1,
+    lead L16). Logged as a lead next to L13 in `OPEN_LEADS.md`.
+- **The rank verdicts do not depend on the noise model.** The primary and β-arm p-values are exact
+  rank-permutation p-values: the share of all 9! = 362,880 rank orders whose Σd² is at or below the observed. No
+  noise model enters them. The noise model entered only the power (whether a FAIL would have counted) and the −7
+  margin.
 - The secondaries are one-way: their PASS is informative whatever the power. Their power figures use the sealed
   stage-1 slopes B; see §4 item 4.
 
@@ -125,6 +151,8 @@ Outputs: `results/stage2/read/` (both reads, timing sidecars, logs, status, cmp,
 
 ## 3. Attribution (§6, applied)
 
+- **Scope (Will, 2026-11-03).** C_F rank ordering at the matched N of stage 2. R still drifts downward along prime
+  order in all nine fields, so this says nothing about limiting values.
 - **Primary PASS.** The C_F ordering replicates on disjoint data, 8× larger. Across the nine class-number-1
   imaginary quadratic fields, R at matched N on the fresh slice is ordered by C_F = log(|D|(w/2)²) beyond chance,
   under an exact, SE-free null (ρ_s 0.867, p 0.0023).
@@ -136,7 +164,8 @@ Outputs: `results/stage2/read/` (both reads, timing sidecars, logs, status, cmp,
   is their informative branch. At stage 1 both cells were FAIL (β 0.40 UNPOWERED; β 0.45 a plain FAIL under Will's
   annotation). Stage 2 does not relabel the stage-1 cells.
 - **−7: FAIL (one-way arm: FAIL not informative).** This carries no conclusion. It does not show the displacement has
-  gone, and it does not show it persists. The seal tabled a 0.752 PASS chance under persistence, and about 37% if the
+  gone, and it does not show it persists. Closed with no conclusion (Will, 2026-11-03), with no relabelling from the
+  alternative margins. Its excess is part of the L16 pattern, not a separate claim. The seal tabled a 0.752 PASS chance under persistence, and about 37% if the
   stage-1 gaps simply recur (§3a).
 - **ℤ[√2] placement.** Descriptive: reported, with no verdict and no conclusion either way.
 
@@ -150,6 +179,15 @@ Outputs: `results/stage2/read/` (both reads, timing sidecars, logs, status, cmp,
      +0.0194 at stage 1. The stage-2 slope is also steeper (0.0548 against 0.0455), which lifts −8 and −11 relative
      to −7.
    - At β 0.45 and 0.40 the residuals do not replicate (r −0.55 and −0.18), and the rank fit is near-perfect.
+   - **Now lead L16 (Will, 2026-11-03; post hoc, descriptive; `lead/fn1_l16_offset_noise.py` →
+     `results/stage2/FN1_L16_OFFSET_NOISE.json`, method committed before running).** The offset differences
+     between stages give a real-to-model noise ratio, under the SE model's own scaling of K:
+     - β 0.55: **0.69** (χ²₇ 90% interval 0.49–1.24);
+     - β 0.45: 1.33 (0.94–2.38);
+     - β 0.40: 0.86 (0.60–1.54).
+
+     So the noise is near the SE model, well below the segment rule's 3.37× and 4.40×. At β 0.55 the field-specific
+     part (SD 0.025 relative) carries about 90–100% of the offset variance. See `OPEN_LEADS.md` L16.
 2. **Within-field drift along prime order, again in all nine fields at all three β.**
    - Every field's first segment has a higher R than its last: first/last ratio 1.07–1.12 at β 0.55, 1.07–1.13 at
      β 0.45 and 1.04–1.16 at β 0.40.
@@ -170,5 +208,6 @@ Outputs: `results/stage2/read/` (both reads, timing sidecars, logs, status, cmp,
 
 ## 6. Next
 
-- Any further stage, or a lead from §4, is Will's call.
+- **FN1 is closed** (Will, 2026-11-03): items 1–3 of the acceptance brief are in. −7 is closed with no conclusion.
+- Leads: L16 (descriptive, done) and L17 (recorded only) are in `OPEN_LEADS.md`. Any design from them is Will's call.
 - Nothing is pushed. Pushes, including the tags `fn1-seal` and `fn1-seal2`, are Will's.
