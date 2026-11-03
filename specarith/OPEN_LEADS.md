@@ -350,10 +350,31 @@ rule measured **4.40×** the same sealed SE model, R·√(2/(cK)) with c = 0.627
 - **The rule:** 8 consecutive prime-order segments per field; each segment's relSD scaled to the full K by √(K_seg/K);
   RMS-pooled over the nine fields (`fn1/FN1_STAGE2_READ_REPORT.md` §1).
 - It includes the within-field drift along prime order. Detrended, it gives 2.25× (stage 1 1.71×).
-- **A third estimate disagrees with it:** the cross-stage offset differences (L16) put the noise at 0.69× the model at
-  β 0.55 (90% 0.49–1.24), 1.33× at β 0.45 and 0.86× at β 0.40.
-- By Will's L13 rule, methods that disagree give no conclusion. The disagreement is recorded. FN1's rank verdicts are
-  exact permutation tests and do not depend on any of these figures.
+- **Reading (Will, 2026-11-03, verbatim):** "The segment-by-prime-order method includes the drift by construction.
+  Differencing the two stages cancels it, and the noise is then consistent with the SE model at all three β (90%
+  intervals include 1). The segment-based 3.37× and 4.40× are drift-contaminated and are not noise measurements."
+- The differenced figures (L16): 0.69× the model at β 0.55 (90% 0.49–1.24), 1.33× at β 0.45 (0.94–2.38) and 0.86× at
+  β 0.40 (0.60–1.54).
+- **Upper-bound caveat (kept):** if the field-specific part μ_F itself changes between the two slices, that change
+  stays in the difference, so these figures bound the pure noise from above under the model.
+- FN1's rank verdicts are exact permutation tests and do not depend on any of these figures.
+
+**L13 check (Will, 2026-11-03): does L13's "empirical noise above the SE model" use segments by prime order? No.**
+Desk check of `rq1/rq1_l13.py` and the committed `rq1/results/l13/L13.json`; nothing recomputed.
+- **Method A (block arcs)** splits the variance integral of the θ-sorted, mirror-symmetrised set over M equal arcs of
+  *angle* (`var_stream_blocks`). Every arc holds primes from the whole range [2, X], so the drift along prime order is
+  common to all arcs.
+- **Method B (residue classes p mod m, m = 5, 7, 13)** splits the split primes by residue class. Every class spans the
+  whole prime range. The one prime-order element: each class is cut to its first n_min rows (archive order, by p) so
+  that N matches.
+  - That cut drops at most 0.022% of any class (largest gap, from the committed `class_counts`).
+  - Bound: even a drift as large as FN1's largest |drift_total_rel| (0.143, stage 2) over that sliver moves a class's R
+    by at most ~3 × 10⁻⁵, about 0.5% of the smallest class spread L13 measured (relSD 0.0065).
+- So Will's condition ("if yes, recompute with the drift removed") is not met, and nothing was run. L13's result
+  stands as reported: both methods above the model, disagreeing with each other, no conclusion. RQ1 and RQ1-c are not
+  relabelled.
+- L13's own "What would settle it" named a matched disjoint-X-range method. That is L16's design, applied to FN1. Doing
+  the same for ℤ[√2] / ℤ[i] would be a new run, and Will's call.
 
 ## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
 
@@ -420,7 +441,9 @@ for the 8× size, and compare it with the SE model.
 
 **Reading (descriptive).**
 - At all three β, the replicate-type noise is consistent with the sealed SE model: every interval contains 1.
-- That is far below the segment rule's 3.37× / 4.40×, and below its detrended 1.71× / 2.25×.
+- That is far below the segment rule's 3.37× / 4.40×, and below its detrended 1.71× / 2.25×. Will (2026-11-03): the
+  segment-by-prime-order method includes the drift by construction, differencing the two stages cancels it, and "the
+  segment-based 3.37× and 4.40× are drift-contaminated and are not noise measurements."
 - At β 0.55 the field-specific part is about 3.4× the stage-1 model SE and 6× the stage-2 one. It accounts for
   essentially all of the offset variance.
 - **Caveats, stated in the method before running:**
@@ -430,7 +453,8 @@ for the 8× size, and compare it with the SE model.
     r̂ bounds the pure noise from above under this model;
   - the β 0.45 / 0.40 rows were added beyond Will's β 0.55 request (labelled extra).
 
-**What would address it.** The second variable is unidentified. The C_F-versus-L(1,χ) question is L17. No design.
+**What would address it.** The second variable is unidentified. An out-of-sample test (fit on h = 1, predict h = 2)
+is proposed in `fn1/lead/FN1_L17_PREREQS.md` §(c), for Will's review. No design.
 
 ## L17 — FN1: separating the conductor from the L-value with h = 2 fields (2026-11-03; RECORDED ONLY, not computed)
 
@@ -445,7 +469,9 @@ and rederive the C_F term for h > 1."
 2. Rederive the C_F term for h > 1, including what "principal prime ideals only" does to the angle set and to the
    matched-N rule.
 
-No compute, no lookup and no design have been done.
+**Prerequisites done (desk work, 2026-11-03): `fn1/lead/FN1_L17_PREREQS.md`, for Will's review before any seal draft.**
+(a) the 18 fields; (b) the C_F term for h > 1 and both hypotheses' predictions; (c) the L16 out-of-sample proposal. No
+data computed and no design.
 
 ## Status
 L1 and L2 have no theory-fixed prediction yet. The routes in progress: the R₂ phase (`ph2r2/`, pair correlation with

@@ -2575,3 +2575,15 @@ Lead L16 (post-hoc, labelled): the offsets from the β 0.55 fitted line reproduc
 Lead L17 (record only, do not compute): separating the conductor from the L-value. At h = 1, C_F = log(1/L(1,χ)²) + 2 log π exactly, so stages 1–2 can’t tell them apart. Within h = 2 they’re tied again (w = 2 throughout). Pool the h = 1 and h = 2 fields instead: the conductor hypothesis puts the h = 2 fields on the h = 1 line, and the L-value hypothesis shifts them by log 4. Use principal prime ideals only. Before any design: confirm the 18 h = 2 discriminants on LMFDB and rederive the C_F term for h > 1.
 −7 is closed with no conclusion. No relabelling from the alternative margins.
 FN1 is closed once items 1–3 are in. Pushes are Will’s.
+
+### FN1 closed; L16 wording, L13 check and L17 prerequisites (2026-11-03; Will, verbatim)
+FN1: closed. Accepted as reported.
+
+L16 wording. Replace “third disagreeing method, no conclusion” with: “The segment-by-prime-order method includes the drift by construction. Differencing the two stages cancels it, and the noise is then consistent with the SE model at all three β (90% intervals include 1). The segment-based 3.37× and 4.40× are drift-contaminated and are not noise measurements.” Keep the upper-bound caveat.
+L13 check, on data already committed. Does RQ1’s L13 “empirical noise above the SE model” use segments by prime order? If yes, recompute it with the drift removed (detrended segments or a matched-slice difference). Commit the method before running. Descriptive only, and no relabelling of RQ1 or RQ1-c.
+L17 prerequisites (desk work, no compute):
+(a) Confirm the 18 h = 2 discriminants on LMFDB, with w = 2 for each.
+(b) Rederive the C_F term for h > 1, using principal prime ideals only. State what the conductor and L-value hypotheses each predict for the pooled h = 1 + h = 2 set.
+(c) Propose how L16 gets tested out of sample: name candidate second-variable covariates from theory, chosen before any look at the h = 2 data, to be fitted on h = 1 and predicted onto h = 2.
+Bring all three back for review before any seal draft.
+Will does all pushes.
