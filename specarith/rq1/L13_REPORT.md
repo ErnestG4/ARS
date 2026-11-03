@@ -77,3 +77,41 @@ about 10×).
 
 **What would settle it** is a third method whose meaning is unambiguous for a deterministic set, for example the spread
 of D across disjoint X-ranges at matched N. That needs Will's decision.
+
+## Slices: second differences over disjoint matched-N slices (Will, 2026-11-03; descriptive, new run)
+
+Method and cost committed before running (55fe5b23, `rq1_l13_slices.py`); run on spot as pueue 1220 in specarith-scored,
+after ARSv2's first wave had its cores. Cost 0.44 core-h, 0.87× the model. Output: `results/l13/L13_SLICES.json`.
+
+**Design.** Nine consecutive disjoint slices of n = 227,524,967 rows (RQ1's 10¹⁰ matched n) below the 10¹¹ boundary,
+the same rows for both fields. Per slice R at K = round((2n)^β). Then σ̂² = Σ d²/(6·7) from the seven second
+differences d = R_t − 2R_{t+1} + R_{t+2}, which cancel a linear drift in prime order exactly. The 90% interval comes
+from the exact i.i.d.-normal null of the quadratic form (factor 0.65–2.21 on σ). Slice 0 reproduced the sealed 10¹⁰ R
+bit for bit (guard).
+
+| Field | β | K | Slices: model / empirical [90%] | Reading | L13 A (block arcs) | L13 B (residue subsets) [90%] | Drift per slice | Curvature z |
+|---|---|---|---|---|---|---|---|---|
+| ℤ[√2] | 0.40 | 2,906 | 0.955 [0.433, 1.480] | consistent | 0.317 | 0.558 [0.41, 0.70] | −0.0065 | −0.13 |
+| ℤ[√2] | 0.45 | 7,873 | 1.403 [0.636, 2.175] | consistent | 0.204 | 0.317 [0.23, 0.40] | −0.0079 | −0.17 |
+| ℤ[√2] | 0.55 | 57,801 | 1.941 [0.879, 3.008] | consistent | 0.056 | 0.135 [0.10, 0.17] | −0.0101 | +0.76 |
+| ℤ[√2] | 0.60 | 156,616 | 0.316 [0.143, 0.489] | above | 0.043 | 0.195 [0.14, 0.25] | −0.0092 | −0.70 |
+| ℤ[i] | 0.40 | 2,906 | 1.403 [0.636, 2.174] | consistent | 0.273 | 1.093 [0.80, 1.38] | −0.0088 | +0.13 |
+| ℤ[i] | 0.45 | 7,873 | 1.051 [0.476, 1.629] | consistent | 0.219 | 0.742 [0.54, 0.93] | −0.0089 | +0.07 |
+| ℤ[i] | 0.55 | 57,801 | 0.948 [0.430, 1.469] | consistent | 0.120 | 0.244 [0.18, 0.31] | −0.0091 | −0.00 |
+| ℤ[i] | 0.60 | 156,616 | 0.490 [0.222, 0.759] | above | 0.083 | 0.265 [0.19, 0.33] | −0.0097 | −0.36 |
+
+**Reading (descriptive, as declared).**
+- **Slices against the model.** Consistent at 6 of 8 cells, including both fields at β 0.40, 0.45 and 0.55. Above at
+  β 0.60 for both fields, at 2.0–3.2× the model.
+- **The other estimates.**
+  - The curvature-corrected σ and the three disjoint triples alone give the same picture (in the JSON).
+  - The curvature checks are all |z| < 0.8, so no quadratic drift is detected.
+- **Against L13's methods.**
+  - The slices disagree with method A at all 8 cells (intervals do not overlap). They disagree with method B at 3 (ℤ[√2]
+    0.45 and 0.55, ℤ[i] 0.55) and overlap it at 5.
+  - The slices agree with FN1's cross-stage offset differences (L16: 0.69× the model at β 0.55, nine fields).
+- **The drift is real but cancels here.** It runs −0.006 to −0.010 in R per slice, comparable to or larger than the
+  model noise. Methods A and B do not segment by prime order (the L13 check, 2026-11-03), so their excess over the model
+  is not this drift.
+- **What this does not do.** It does not relabel RQ1, RQ1-c or L13's table. The three methods still disagree, so under
+  Will's L13 rule no conclusion is drawn here. That is Will's to read.

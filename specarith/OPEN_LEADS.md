@@ -376,6 +376,13 @@ Desk check of `rq1/rq1_l13.py` and the committed `rq1/results/l13/L13.json`; not
 - L13's own "What would settle it" named a matched disjoint-X-range method. That is L16's design, applied to FN1. Doing
   the same for ℤ[√2] / ℤ[i] would be a new run, and Will's call.
 
+**L13 slices (Will, 2026-11-03; descriptive; method 55fe5b23; `rq1/L13_REPORT.md`, last section).** Nine disjoint
+matched-N slices below 10¹¹ give second differences R₁ − 2R₂ + R₃ that cancel linear drift.
+- Model/empirical is consistent with 1 at 6 of 8 cells: both fields at β 0.40–0.55, e.g. ℤ[i] β 0.55: 0.95 [0.43, 1.47].
+- It is above the model at β 0.60 for both fields (0.32, 0.49).
+- It disagrees with L13 method A at all 8 cells, and with method B at 3.
+- No relabelling, and no conclusion under Will's L13 rule. Will's to read.
+
 ## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
 
 **What is seen.** The derived window-average error passes the planted-witness check for α itself, on both witnesses.
