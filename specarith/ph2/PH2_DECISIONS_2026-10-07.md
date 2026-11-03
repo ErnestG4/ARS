@@ -2564,3 +2564,14 @@ FN1 stage 2: approved after one edit.
 Header → SEALED with the date, in the stamped commit.
 Then stamp → Bitcoin attestation verified on two explorers → sequential double read through the queue → cmp → verdicts (not viewed before the cmp).
 Pushes are Will’s.
+
+### FN1 stage 2: accepted pending three report lines; leads L16 and L17 (2026-11-03; Will, verbatim)
+FN1 stage 2: accepted, pending three report lines.
+
+Report header must show: the Bitcoin attestation verified on two explorers (block height, both explorer names) and the result of the double-read cmp (byte-identical). If they’re already there, quote them back. If not, add them (no verdict changes).
+Define “power 0.995 at 4.40×”. Is 4.40 a stress multiplier or a measured real-to-model noise ratio? If measured, say how, and log it as a lead next to L13. Also note that the primary and β-arm p-values are exact rank-permutation p-values, so those verdicts don’t depend on the noise model.
+Scope line in the attribution: “C_F rank ordering at the matched N of stage 2. R still drifts downward along prime order in all nine fields, so this says nothing about limiting values.”
+Lead L16 (post-hoc, labelled): the offsets from the β 0.55 fitted line reproduce at +0.977 across stages, so the scatter is field-specific and a second variable is acting. −7’s excess is part of this pattern, not a separate claim. Descriptive only: estimate the real noise from the stage-1 and stage-2 offset differences, scaling for the 8× size, and compare it with the SE model.
+Lead L17 (record only, do not compute): separating the conductor from the L-value. At h = 1, C_F = log(1/L(1,χ)²) + 2 log π exactly, so stages 1–2 can’t tell them apart. Within h = 2 they’re tied again (w = 2 throughout). Pool the h = 1 and h = 2 fields instead: the conductor hypothesis puts the h = 2 fields on the h = 1 line, and the L-value hypothesis shifts them by log 4. Use principal prime ideals only. Before any design: confirm the 18 h = 2 discriminants on LMFDB and rederive the C_F term for h > 1.
+−7 is closed with no conclusion. No relabelling from the alternative margins.
+FN1 is closed once items 1–3 are in. Pushes are Will’s.
