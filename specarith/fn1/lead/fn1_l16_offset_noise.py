@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """L16 (post hoc, labelled, descriptive only): real noise from the stage-1 and stage-2 offset differences.
 
-Will's brief (2026-11-03): "the offsets from the β 0.55 fitted line reproduce at +0.977 across stages, so the scatter is
-field-specific and a second variable is acting. ... Descriptive only: estimate the real noise from the stage-1 and
-stage-2 offset differences, scaling for the 8× size, and compare it with the SE model."
+Will's brief (2026-11-03): "... Descriptive only: estimate the real noise from the stage-1 and stage-2 offset
+differences, scaling for the 8× size, and compare it with the SE model." L16's reading, as amended by Will
+(2026-11-03): "The offsets are systematic and field-specific: curvature in C_F (K0) or a second variable. Repeating at
++0.977 doesn't tell these apart." (Docstring only; the method is unchanged.)
 
 Method (committed before running):
 - Inputs: the sealed reads, read-only and pinned. Stage 1 is results/read/READ1.json (sha256 47c19dd2…), rows

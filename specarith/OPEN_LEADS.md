@@ -418,8 +418,8 @@ falls 6–15% along prime order.
 
 ## L16 — FN1: the offsets from the β 0.55 C_F line are field-specific (2026-11-03; post hoc, labelled, descriptive)
 
-**What is seen (Will).** "The offsets from the β 0.55 fitted line reproduce at +0.977 across stages, so the scatter is
-field-specific and a second variable is acting. −7's excess is part of this pattern, not a separate claim."
+**What is seen (Will, amended 2026-11-03).** “The offsets are systematic and field-specific: curvature in C_F (K0) or a second variable. Repeating at +0.977 doesn’t tell these apart.” −7's excess is part of this pattern, not
+a separate claim (Will, 2026-11-03).
 - The nine OLS residuals of R on C_F at stage 1 (rows [0, n₁₀)) and stage 2 (the disjoint fresh slice, 8.05× larger)
   correlate +0.977. That is the sealed descriptive in `fn1/FN1_STAGE2_READ_REPORT.md` §2.
 - The largest residuals at stage 2: −7 +0.0335, −163 +0.0272, −19 −0.0228, ℤ[ω] −0.0191.
@@ -453,7 +453,7 @@ for the 8× size, and compare it with the SE model.
     r̂ bounds the pure noise from above under this model;
   - the β 0.45 / 0.40 rows were added beyond Will's β 0.55 request (labelled extra).
 
-**What would address it.** The second variable is unidentified. An out-of-sample test (fit on h = 1, predict h = 2)
+**What would address it.** Whether it is curvature in C_F or a second variable is open. An out-of-sample test (fit on h = 1, predict h = 2)
 is proposed in `fn1/lead/FN1_L17_PREREQS.md` §(c), for Will's review. No design.
 
 ## L17 — FN1: separating the conductor from the L-value with h = 2 fields (2026-11-03; RECORDED ONLY, not computed)

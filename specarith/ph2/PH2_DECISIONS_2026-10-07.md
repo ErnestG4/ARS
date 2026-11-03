@@ -2587,3 +2587,24 @@ L17 prerequisites (desk work, no compute):
 (c) Propose how L16 gets tested out of sample: name candidate second-variable covariates from theory, chosen before any look at the h = 2 data, to be fitted on h = 1 and predicted onto h = 2.
 Bring all three back for review before any seal draft.
 Will does all pushes.
+
+### L17 prerequisites accepted; seal draft may begin; L13 slices (2026-11-03; Will, verbatim)
+L17 prerequisites: accepted. Seal draft may begin, with these requirements.
+
+Amend L16: “The offsets are systematic and field-specific: curvature in C_F (K0) or a second variable. Repeating at +0.977 doesn’t tell these apart.” Remove “a second variable is acting” wherever it appears.
+Extend the (b) derivation to R itself. Give E[R] for the principal-prime subset to the same order as the h = 1 C_F derivation. State whether the finite-size term runs in N or in X, and whether the (1 + ψ)/2 projection changes the expected excess.
+Thinned h = 1 controls. For each h = 1 field: (i) seeded random half-thinning of the split primes, and (ii) half-thinning by residue class using a quadratic character of an unrelated discriminant. Run both at the h = 2 relation between N and X. Measure the h = 2 displacement against these controls; the conductor hypothesis predicts 0 and the L-value hypothesis predicts −log 4 along C. Also report matched N and matched X descriptively.
+Primary set: the nine h = 2 fields with 28 ≤ |D| ≤ 163, where both hypotheses stay within the h = 1 range. The other nine are descriptive.
+Out-of-sample candidates:
+K0 is the C-only null.
+K1: commit its functional form before any h = 2 compute, or drop it from the out-of-sample test.
+K2 (−15) is descriptive.
+L′/L(1) and Chen’s term are controls.
+Correct for multiplicity across K0 and K1.
+The usual standards:
+D23-calibrated gate;
+every §9.J branch reachable;
+§9.D planted witness, with the predicted −log 4 shift injected into thinned h = 1 controls and its power shown;
+a cost model, with a §9.H stratified first wave.
+Bring the draft for review. No compute before the seal.
+L13 slices (descriptive, new run). For ℤ[√2] and ℤ[i], take consecutive disjoint slices at matched N and form second differences R₁ − 2R₂ + R₃ to cancel linear drift. Commit the method and the cost first. Run it after ARSv2’s first wave has its cores. No relabelling of RQ1 or RQ1-c.

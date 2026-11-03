@@ -116,10 +116,9 @@ fields scatter like h = 1. Each hypothesis needs extrapolation for some fields, 
 The candidates are named here from theory, before any h = 2 data exist; none has been generated. The h = 1 offsets are
 seen data: stages 1 and 2, nine fields.
 
-**One point for Will first.** A field-specific pattern that reproduces at +0.977 shows the offsets are systematic. It
-does not by itself show a second variable. Any nonlinear f(C_F) also reproduces exactly across stages, and the stage-1
-residuals were U-shaped. So the C-only alternative has to be in the candidate set, as the null for "a second variable
-is acting". The h = 2 set tests it, because it puts fields at new C values.
+**L16 as amended (Will, 2026-11-03):** “The offsets are systematic and field-specific: curvature in C_F (K0) or a second variable. Repeating at +0.977 doesn’t tell these apart.” Any nonlinear f(C_F)
+also reproduces exactly across stages, and the stage-1 residuals were U-shaped. So the C-only alternative (K0) is in
+the candidate set as the null. The h = 2 set tests it, because it puts fields at new C values.
 
 **Candidates, in declared order:**
 
