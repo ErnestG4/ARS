@@ -10,7 +10,7 @@
 #             recomputed (the comparison needs them), so it costs one reference pass.
 #   bash run_fn1h2_dry.sh refs | pins | one N | cmp | red-pin | red-refs
 set -u
-CODE=~/tmp/claude/specarith/fn1; OUT=~/tmp/claude/specarith/fn1/h2dry; PY=~/miniforge3/envs/ph6c/bin/python
+CODE=~/tmp/claude/specarith/fn1; OUT=${DRYOUT:-~/tmp/claude/specarith/fn1/h2dry}; PY=~/miniforge3/envs/ph6c/bin/python
 PINS=$OUT/fn1h2_pins_dry.json; XD=2e9; LEAD=~/tmp/claude/specarith/fn1/lead
 cd $CODE || exit 1
 mkdir -p $OUT
