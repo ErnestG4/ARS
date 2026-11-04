@@ -1,10 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """FN1-h2 read (FN1H2_SEAL.md, draft as revised 2026-11-04 after Will's D1–D5 rulings).
 
-  python fn1h2_read.py refs  PINS OUT        pre-seal D2 (b): the nine h = 1 references only (seen data, no h = 2 data)
-  python fn1h2_read.py dry   PINS OUT        §9.F rehearsal: h = 2 sets from the pins file's "dry" block (synthetic
-                                             fixtures, fn1h2_fixtures.py), everything else as the read
-  python fn1h2_read.py read  PINS OUT        the sealed read
+  python fn1h2_read.py refs  PINS OUT [X]    pre-seal D2 (b): the nine h = 1 references only (seen data, no h = 2 data)
+  python fn1h2_read.py dry   PINS OUT [X]    §9.F rehearsal: h = 2 sets from the pins file's "dry" block (synthetic
+                                             fixtures, fn1h2_fixtures.py), everything else as the read; X (default X*)
+                                             lets the rehearsal run the whole pipeline at a smaller cutoff (2·10⁹),
+                                             with its own refs file at that X
+  python fn1h2_read.py read  PINS OUT        the sealed read (X = X* enforced)
 
 Sets (all cut at X* = 2·10¹⁰ by manifest segment, hi ≤ X*):
 - h = 1 reference: the nine class-number-1 fields (fn1_pins2.json's archives; seen data), all split primes p ≤ X*.
@@ -137,11 +139,11 @@ def Rs(th):
     return {b: float(Q.var_stream(th, K) / (N / K)) for b, K in KP.items()}
 
 
-def refs(pins):
+def refs(pins, X):
     out = {}
     for f in H1:
         a = pins["archives"][f]
-        th, _, n = load(a["dir"], f, a["manifest_sha256"])
+        th, _, n = load(a["dir"], f, a["manifest_sha256"], X=X)
         out[f] = dict(n=n, N=2 * n, R=Rs(th))
         del th
     return out
@@ -206,14 +208,16 @@ def rho18(R):
     return dict(rho=r, p_perm_one_sided=float((perm >= r).mean()))
 
 
-def main(mode, pins_path, out):
+def main(mode, pins_path, out, X=XSTAR):
     T0 = time.time()
     assert mode in ("refs", "dry", "read")
+    X = int(float(X))
+    assert mode != "read" or X == XSTAR, "the read runs at X* only"
     assert os.path.ismount("/mnt/data"), "mount guard"
     pins = json.load(open(pins_path))
     timing = {}
-    t = time.time(); ref = refs(pins); timing["refs"] = time.time() - t
-    res = dict(mode=mode, X_star=XSTAR, K_P=KP, h1_refs=ref, pins_sha256=sha_file(pins_path))
+    t = time.time(); ref = refs(pins, X); timing["refs"] = time.time() - t
+    res = dict(mode=mode, X_star=XSTAR, X=X, K_P=KP, h1_refs=ref, pins_sha256=sha_file(pins_path))
     if mode == "refs":
         res["label"] = "FN1-h2 pre-seal D2 (b): the nine h = 1 references at X* and K_P (seen data; no h = 2 data)"
         json.dump(res, open(out, "w"), indent=1, sort_keys=True)
@@ -232,7 +236,7 @@ def main(mode, pins_path, out):
     t = time.time()
     for d in H2:
         a = h2pins[d]
-        th, half, n = load(a["dir"], d, a["manifest_sha256"], keep_half=True)
+        th, half, n = load(a["dir"], d, a["manifest_sha256"], X=X, keep_half=True)
         Rh2[d] = Rs(th); n2[d] = n
         del th
         drift[d] = F2.seg_noise(half, n, KP["0.55"], 0.55)
@@ -272,12 +276,12 @@ def main(mode, pins_path, out):
     chi, mN = {}, {}
     for f in H1:
         a = pins["archives"][f]
-        th, _, n = load(a["dir"], f, a["manifest_sha256"], chi5=True)
+        th, _, n = load(a["dir"], f, a["manifest_sha256"], X=X, chi5=True)
         Rt = Rs(th); del th
         chi[f] = dict(n=n, R=Rt, dR={b: Rt[b] - ref[f]["R"][b] for b in BETAS},
                       pred_dR_runs_in_X={b: pred["h1"][b][f]["dR_runs_in_X"] for b in BETAS},
                       pred_dR_runs_in_N={b: pred["h1"][b][f]["dR_runs_in_N"] for b in BETAS})
-        th, _, n = load(a["dir"], f, a["manifest_sha256"], nmax=nbar)
+        th, _, n = load(a["dir"], f, a["manifest_sha256"], X=X, nmax=nbar)
         mN[f] = dict(n=n, R=Rs(th)); del th
     timing["controls"] = time.time() - t
     res["chi5_control"] = chi
@@ -294,4 +298,4 @@ def main(mode, pins_path, out):
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1], sys.argv[2], sys.argv[3]))
+    sys.exit(main(*sys.argv[1:5]))
