@@ -2649,3 +2649,25 @@ Resume safety: before relaunching, confirm there are no partial or temp segment 
 −148: the final manifest's count check must cover −148 explicitly. Report its segment counts against expectation alongside the others.
 Still waiting before the seal review: 4(a) (which σ the cuts rest on, and what the 0.85–0.87 case means) and 4(b) (what data the dry run read).
 Will does all pushes.
+
+### FN1-h2 seal approved after one addition (2026-11-04; Will, verbatim)
+FN1-h2 seal: approved after one addition.
+
+Before the seal, disclosure only: add two rows to the §12 simulation, committed before running:
+(a) the straight-line primary’s bias in s under curved conductor truth, alongside the −0.24 L-value bias;
+(b) the “runs in N” stress under curved truth (the currently linear-truth 24% wrong CONDUCTOR).
+Put both in the attribution. The cuts and the rule don’t change.
+Accepted:
+K0 descriptive;
+the straight-line primary, with the quadratic as a sensitivity check;
+the 1.5× noise stress (0.94) and the curvature-as-noise bound (0.85–0.87), disclosed, cuts unchanged;
+the archives and the −148 recount;
+the 4(a) and 4(b) answers.
+Pins file:
+the 18 archive manifests and their sha256 hashes;
+the h = 1 reference file (c0ee6cb5);
+the D5 χ′ predictions (ec4f3ac8);
+the control constants (e4e7bf3e);
+the simulation outputs that set D23;
+the code hashes.
+Then: header to SEALED with the date, in the stamped commit, then tag, timestamp, Bitcoin attestation verified on two explorers, the sequential double read through the queue, cmp, and only then the verdicts.

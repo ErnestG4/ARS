@@ -184,10 +184,22 @@ def main(refs_path, refs_sha, pred_path, pred_sha, out):
           ("curved truth, sigma_mu 0.0213: conductor", 0.0, SIG_MU, None, q),
           ("curved truth, sigma_mu 0.0213: L-value", -L4, SIG_MU, None, q),
           ("curved truth, sigma_mu x1.5: conductor", 0.0, 1.5 * SIG_MU, None, q),
-          ("curved truth, sigma_mu x1.5: L-value", -L4, 1.5 * SIG_MU, None, q)]
+          ("curved truth, sigma_mu x1.5: L-value", -L4, 1.5 * SIG_MU, None, q),
+          # added 2026-11-04 for Will's seal addition (b), appended: "runs in N" under curved truth
+          ("curved truth, runs in N, sigma_mu 0.0213: conductor", sN["conductor_N"], SIG_MU, None, q),
+          ("curved truth, runs in N, sigma_mu 0.0213: L-value", sN["Lvalue_N"], SIG_MU, None, q),
+          ("curved truth, runs in N, resid SD: conductor", sN["conductor_N"], resid_sd_q, None, q),
+          ("curved truth, runs in N, resid SD: L-value", sN["Lvalue_N"], resid_sd_q, None, q)]
     res["scenarios"] = {}
     for i, (name, st, sg, mask, curve) in enumerate(sc):
         res["scenarios"][name] = simulate(SEED + i, st, sg, Rbar, mask, curve)
+    # Will's seal addition (a): the straight-line primary's deterministic bias in s under curved truth (no noise):
+    # line fitted to the references' quadratic at the h = 1 C, s_hat = mean(q(C_j + s_true) - line(C_j)) / b_line
+    bl, al = np.polyfit(C1, q[0] + q[1] * C1 + q[2] * C1 * C1, 1)
+    fq = lambda c: q[0] + q[1] * c + q[2] * c * c
+    res["curved_truth_bias"] = {name: float(np.mean(fq(C2 + st) - (al + bl * C2)) / bl - st) for name, st in
+                                (("conductor", 0.0), ("L-value", -L4), ("runs in N conductor", sN["conductor_N"]),
+                                 ("runs in N L-value", sN["Lvalue_N"]))}
     S = res["scenarios"]
     res["D23_nominal"] = dict(conductor=S["nominal conductor"]["P_CONDUCTOR"], Lvalue=S["nominal L-value"]["P_LVALUE"],
                               meets_095=S["nominal conductor"]["P_CONDUCTOR"] >= 0.95 and S["nominal L-value"]["P_LVALUE"] >= 0.95)
