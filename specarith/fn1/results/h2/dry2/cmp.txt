@@ -1,0 +1,3 @@
+d5e74e1e68c00e81fbdd365acd335f98c420a9c56f042c1587c1fce5a9bb7701  /home/combust/tmp/claude/specarith/fn1/h2dry2/DRY1.json
+d5e74e1e68c00e81fbdd365acd335f98c420a9c56f042c1587c1fce5a9bb7701  /home/combust/tmp/claude/specarith/fn1/h2dry2/DRY2.json
+cmp rc 0

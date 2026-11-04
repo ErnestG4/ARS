@@ -1,14 +1,19 @@
-# FN1-h2 seal: conductor or L-value, using the class-number-2 fields. DRAFT 2 for Will's review, NOT SEALED
+# FN1-h2 seal: conductor or L-value, using the class-number-2 fields. SEALED 2026-11-04
 
-**Briefs:** Will, 2026-11-03 ×4 (L17 prerequisites; "seal draft may begin"; thinned controls withdrawn; D1–D5 rulings),
+**Briefs:** Will, 2026-11-03 ×4 (L17 prerequisites; "seal draft may begin"; thinned controls withdrawn; D1–D5 rulings)
+and 2026-11-04 ×3 (archive relaunch; 4(a) / 4(b); seal approval),
 filed verbatim in `ph2/PH2_DECISIONS_2026-10-07.md`. Prerequisites: `lead/FN1_L17_PREREQS.md` (accepted). Derivation:
-`lead/FN1H2_R_DERIVATION.md` (D1 accepted). Draft 1: aa4afbf2.
+`lead/FN1H2_R_DERIVATION.md` (D1 accepted). Draft 1: aa4afbf2. Draft 2: f4d053bf … 51a9feb7.
 
-**Status: draft 2.** Will's rulings D1–D5 are applied (§11). Under D2, the pre-seal compute has been run: (a) the
-parametric simulations, (b) the h = 1 references, committed and hashed, and (c) the generator selftest and the §9.F dry
-run. **No h = 2 statistic has been computed.** The h = 2 archives are being generated under the stage-2 archive rule
-(generation, integrity, counts and hashes only), started per Will's overnight instruction. **§12 lists what changed
-from draft 1 and what needs Will's review.**
+**Status: SEALED 2026-11-04** (Will: "FN1-h2 seal: approved after one addition", 2026-11-04, filed verbatim; the
+addition, two disclosure rows, is in §5 and §9).
+- Pre-seal compute (D2) is done: (a) the parametric simulations, (b) the h = 1 references, committed and hashed, and
+  (c) the generator selftest and two §9.F dry runs (the second on the final read code).
+- The h = 2 archives are complete under the stage-2 archive rule (generation, integrity, counts and hashes only) and
+  pinned (§10). **No h = 2 statistic has been computed.**
+- **Order from here (Will):** this header in the stamped commit → tag `fn1h2-seal` → OpenTimestamps stamp → Bitcoin
+  attestation verified on two explorers → the sequential double read through the queue → cmp → only then the
+  verdicts.
 
 ## 1. Question
 
@@ -57,7 +62,7 @@ one row per p, with θ and 1 − θ mirrored.
 - **Archive rule:** generation, integrity, counts and hashes only, with no statistic of the angles. Manifests carry
   per-segment sha256, row counts, split counts and an integrity flag (each norm equals the segment's principal split
   primes).
-- **Pins:** the 18 manifest sha256s go into `fn1h2_pins.json` before the seal, with the code hashes.
+- **Pins:** the 18 manifest sha256s are in `fn1h2_pins.json` (§10), with the code hashes.
 
 **h = 1 references (seen data).** The nine class-number-1 fields, every split prime p ≤ X*:
 - the w = 2 fields from the stage-2 archives (`fn1_pins2.json`, as sealed for stage 2);
@@ -91,6 +96,8 @@ every set, with each set normalised by its own N/K.
   - else **INCONCLUSIVE**;
   - **VOID (reference slope ≤ 0)** if b ≤ 0.
   - Both informative outcomes are two-way claims (§9.J).
+- **Sensitivity check (descriptive; Will, 2026-11-04):** s against the frozen h = 1 quadratic instead of the line
+  (argmin over s of Σ_primary (R_h2,j − q(C_j + s))²), reported beside the primary. It carries no verdict.
 - **Code:** `fn1h2_read.py` (read mode, locked to X*).
 
 ## 5. D23, §9.J, power: pre-seal results (D2)
@@ -126,7 +133,7 @@ against the line fitted on the other eight.
 - The stand-ins span h = 1's C range (1.95–5.09), not the primary h = 2 range (3.56–5.00).
 
 **(a) Parametric simulations** (`lead/fn1h2_sim.py`, dd033d5d; inputs pinned; 200,000 draws per scenario;
-`results/h2/FN1H2_SIM.json`, d5cf401b). The model:
+`results/h2/FN1H2_SIM.json`, final 51a9feb7, sha256 40c9ee1c…9dfa, pinned). The model:
 - h = 1: R = b·C + μ + e, b = 0.0455;
 - h = 2: R = b·(C + s_true) + μ + e;
 - μ field scatter; e read noise at the SE model (1×).
@@ -148,6 +155,10 @@ against the line fitted on the other eight.
 | Curved truth, σ_μ 0.0213: L-value | −1.386 | −1.63 | 0.20 | 0 | 1.000 | 0 | 0 |
 | Curved truth, σ_μ × 1.5: conductor | 0 | −0.04 | 0.35 | 0.961 | 0.002 | 0.038 | 0 |
 | Curved truth, σ_μ × 1.5: L-value | −1.386 | −1.63 | 0.29 | 0 | 0.998 | 0.002 | 0 |
+| **Curved truth, runs in N, σ_μ 0.0213: conductor** (seal addition (b), 51a9feb7) | +0.662 | +1.38 | 0.39 | 1.000 | 0 | 0 | 0 |
+| **Curved truth, runs in N, σ_μ 0.0213: L-value** | −0.731 | −1.11 | 0.19 | **0.003** | 0.929 | 0.069 | 0 |
+| Curved truth, runs in N, residual SD 0.009: conductor | +0.662 | +1.38 | 0.19 | 1.000 | 0 | 0 | 0 |
+| Curved truth, runs in N, residual SD 0.009: L-value | −0.731 | −1.11 | 0.09 | 0 | 0.999 | 0.001 | 0 |
 | **Runs in N: conductor** | +0.662 | +0.66 | 0.38 | 1.000 | 0 | 0 | 0 |
 | **Runs in N: L-value** | −0.731 | −0.73 | 0.24 | **0.238** | 0.335 | 0.427 | 0 |
 | Zero slope (VOID reachability) | 0 | — | — | 0.187 | 0.284 | 0.029 | 0.500 |
@@ -175,7 +186,17 @@ against the line fitted on the other eight.
   one the references show. The 0.85–0.87 case is the pessimistic bound in which the curvature is not real structure.
   It stays disclosed (D2b).
 
-**K0 (t form, §7):** null false PASS 0.0498 (target 0.05). Planted PASS **0.32** at the references' quadratic and
+**Seal addition (a): the straight-line primary's bias in s under curved truth** (noise-free; the line fitted to the
+references' quadratic at the h = 1 C; `curved_truth_bias` in `results/h2/FN1H2_SIM.json`):
+
+| Truth | s_true | Line-primary ŝ | Bias |
+|---|---|---|---|
+| Conductor | 0 | −0.036 | **−0.036** |
+| L-value | −1.386 | −1.630 | **−0.244** |
+| Runs in N, conductor | +0.662 | +1.383 | +0.721 |
+| Runs in N, L-value | −0.731 | −1.109 | −0.378 |
+
+**K0 (t form, §7; descriptive by Will's ruling):** null false PASS 0.0498 (target 0.05). Planted PASS **0.32** at the references' quadratic and
 residual SD, and **0.14** with residual SD σ_μ. The two rejected Spearman forms: draft (about the h = 1 line) null
 0.065, planted 0.997; detrended null 0.061, planted 0.34.
 
@@ -214,6 +235,9 @@ pipeline ran at X = 2·10⁹, with synthetic h = 2 fixtures and the real h = 1 a
     - That covers the references, the χ′ control and the matched-N reference.
   - **Inputs by file:** its own refs file at 2·10⁹ (`DRY_REFS.json`, from the same h = 1 rows), the committed (★)
     predictions and the committed controls.
+- **Second dry run, on the final read code** (0bd01aca: K0 descriptive, quadratic sensitivity; pueue 2056–2059;
+  `results/h2/dry2/`): same fixtures, same X; double read byte-identical (sha256 d5e74e1e…7701, `cmp` rc 0); 357
+  CPU-seconds per read.
 - **Selftest:** §3 (CHECKRUN EXIT=0).
 
 ## 6. Reported, descriptive (no verdict)
@@ -234,19 +258,16 @@ pipeline ran at X = 2·10⁹, with synthetic h = 2 fixtures and the real h = 1 a
   before the seal (e4e7bf3e, `lead/FN1H2_CONTROLS.json`, sha256 77afddaa…c4b9; the h = 1 values reproduce
   FN1_LPRIME.json exactly). Exact 9! permutation p over the primary nine.
 
-## 7. Out-of-sample arm K0 (one-way; Will D3: K1 dropped, K0 alone, no multiplicity correction)
+## 7. K0 (descriptive; Will 2026-11-04: "K0 descriptive")
 
 Will's L16, as amended: the h = 1 offsets are systematic and field-specific, either curvature in C_F (K0) or a second
-variable. K0 is the C-only null.
+variable. K0 is the C-only null. **It carries no verdict** (Will's ruling; its exact form's power is 0.32 at the
+references' curvature, 0.14 at σ_μ, §5).
 - **Frozen form:** q(C) = a₂ + b₂C + c₂C², OLS over the nine h = 1 references.
-- **What is out of sample.** Inside the nine primary h = 2 fields, once their own level and slope are removed, the
-  prediction's pattern is c₂·(C² minus its line on C), whatever s is. So K0's testable content there is the sign of c₂.
-- **Statistic (amended, §12):** an OLS quadratic over the nine primary (C_j, R_h2,j), and
-  t = sign(c₂)·ĉ₂,h2 / SE(ĉ₂,h2), with 6 df.
-  - **PASS iff t > 1.9432** (one-sided 5%). A PASS is informative: the h = 2 curvature follows h = 1's, out of sample.
-  - Otherwise "FAIL (one-way arm: FAIL not informative)".
-  - c₂ = 0 exactly gives VOID.
-- **Null and power:** from (a), §5.
+- **Reported:** the OLS quadratic over the nine primary (C_j, R_h2,j); ĉ₂,h2 with its SE; t = sign(c₂)·ĉ₂,h2 / SE
+  (6 df) beside the one-sided 5% point 1.9432, as a description only.
+- **History:** draft 1's Spearman form did not hold its size (null 0.065; detrended 0.061). The exact t form held it
+  (0.0498) but had low power. Will made K0 descriptive.
 
 ## 8. Cost
 
@@ -270,7 +291,7 @@ contention. Against it the build was at 0.92×. This is a process fix with no ef
   - the second half generates only missing segments.
 - **Outcome (05:55 PST 11-04):** all 3,600 segments generated, no failures.
   - **Cost:** 60.58 core-h = 60.6 s per segment, **0.990× the price**. The three-quarter check was at 0.967×.
-  - **Manifests:** all 18 integrity-true; copies and sha256 in `results/h2/manifests/`, to be pinned at the seal.
+  - **Manifests:** all 18 integrity-true; copies and sha256 in `results/h2/manifests/`, pinned in `fn1h2_pins.json` (§10).
   - **Counts** (`results/h2/manifests/COUNTS.json`; ALL_OK):
     - each field has 220.54–220.55 million rows;
     - rows / split = 0.49999–0.50000;
@@ -297,26 +318,40 @@ contention. Against it the build was at 0.92×. This is a process fix with no ef
   Rudnick–Sarnak independence for the cross term.
   - If the term ran in N instead, a true conductor effect would sit at s ≈ +0.66 and still read CONDUCTOR.
   - A true L-value effect would sit at s ≈ −0.73, inside the INCONCLUSIVE band, and would read CONDUCTOR 24% of the
-    time (§5).
+    time under a straight-line truth (§5).
+  - **Under the curved truth the references show (seal addition (b)),** the same true L-value effect reads L-VALUE
+    0.93, INCONCLUSIVE 0.07 and CONDUCTOR 0.003 at σ_μ. That comes from the line's curvature bias at that position
+    (−0.38, which moves ŝ from −0.73 to −1.11). It is a compensation, not robustness: it depends on the curvature
+    staying as the references show.
+- **The straight-line primary's bias under curved truth (seal addition (a)):** −0.036 under conductor and −0.244
+  under L-value (§5). Both stay inside their verdict regions, the conductor bias 0.52 from its cut and the L-value
+  bias moving away from the INCONCLUSIVE band. The quadratic sensitivity check (§4) is reported beside the primary.
   - The χ′ control (§6) is the read's own descriptive check of X against N.
-- **K0 PASS:** h = 1's curvature in C predicts the sign of the h = 2 curvature out of sample. It does not exclude a
-  second variable in addition. A K0 FAIL carries no conclusion.
-- **K2, the descriptive nine, the χ′ control, matched N and the controls** carry no conclusion.
+- **K0, the quadratic sensitivity check, K2, the descriptive nine, the χ′ control, matched N and the controls** carry
+  no conclusion.
 
 ## 10. Seal procedure (as stages 1–2)
 
-1. Archives complete, all 18 manifests integrity-true, counts recorded. `fn1h2_pins.json` written:
-   - the archive manifests;
-   - `fn1_pins2.json`'s h = 1 manifests;
-   - the D2 (b) references, (★) predictions and controls files, by sha256;
-   - the sha256 of `fn1h2_read.py`, `fn1h2_archive.py`, `fn1_read2.py`, `fn1_archive.py`, `rq1_read.py` and
-     `rq1_zw.py`.
-2. This document is finalised and tagged `fn1h2-seal`.
-3. OpenTimestamps stamp manifest, then Bitcoin attestation verified on two explorers. **No read before attestation.**
-4. Double read: two separate processes. The output JSON has sorted keys and no timings (timings go to a sidecar).
-   `cmp` must be byte-identical.
+1. **Pins (done):** `fn1h2_pins.json`, sha256 e591fc3f…ce96, built on spot by `fn1h2_make_pins.py read`. It holds:
+   - the 18 h = 2 archive manifests and their sha256 (equal to `results/h2/manifests/`);
+   - the h = 1 archive manifests, as `fn1_pins2.json`;
+   - the h = 1 reference file (c0ee6cb5, f2d390cf…), the D5 χ′ predictions (ec4f3ac8, 7cf50f19…), the control
+     constants (e4e7bf3e, 77afddaa…) and the simulation output that sets D23 (51a9feb7, 40c9ee1c…), each by path and
+     sha256;
+   - the code hashes of `fn1h2_read.py`, `fn1h2_archive.py`, `fn1_read2.py`, `fn1_archive.py`, `rq1_read.py`,
+     `rq1_zw.py`, `rq1_angles.py` and `rq1_archive.py`.
+2. **This document with the SEALED header, in the stamped commit;** tag `fn1h2-seal`.
+3. **Stamp:** the OpenTimestamps manifest lists the sha256 of each sealed path at the tag. Bitcoin attestation verified
+   on two explorers (`verify_fn1h2_stamp.py`). **No read before attestation.**
+4. **Double read:** `queue_fn1h2_read_pueue.sh` queues read 1, then read 2, then cmp, in specarith-scored. Each read
+   (`run_fn1h2_read_one.sh`) refuses unless:
+   - the VERIFY record holds a Bitcoin attestation verified on both explorers;
+   - the pins file's sha256 is the sealed one;
+   - every code file matches the pins file's code block.
+   The output JSON has sorted keys and no timings. Each read prints only "done". `cmp` must be byte-identical; the
+   verdicts are opened only after it.
 5. **VOID conditions:**
-   - any pin mismatch;
+   - any pin or hash mismatch;
    - the references differing from the committed D2 (b) file;
    - `cmp` not identical;
    - the reference slope ≤ 0 (primary).
@@ -333,7 +368,7 @@ contention. Against it the build was at 0.92×. This is a process fix with no ef
 - **D5:** χ′ with D′ = 5, descriptive. (★)'s predictions for each h = 1 field under "runs in X" and "runs in N" were
   committed before computing (ec4f3ac8).
 
-## 12. Changes from draft 1, and what needs Will's review
+## 12. Changes from draft 1, and Will's approval
 
 **Changed from draft 1 (aa4afbf2):**
 1. **Thinned controls removed** (Will's withdrawal). Control (i) and its witness role are gone. The §9.D witness is the
@@ -352,24 +387,13 @@ contention. Against it the build was at 0.92×. This is a process fix with no ef
 8. **"Runs in N" re-evaluated exactly:** under it, a true L-value effect reads CONDUCTOR 0.24, not the derivation's
    linearised 0.16.
 
-**For Will's review:**
-- **K0's power.** The exact t form fires on a planted h = 1-like curvature only 0.32 of the time (0.14 at σ_μ), because
-  the primary C range (3.56–5.00) is narrow for a curvature test. A K0 FAIL is declared uninformative, but with this
-  power the arm can rarely say anything.
-  - **Options:**
-    1. keep it as is;
-    2. use draft 1's Spearman form with its cut calibrated by simulation (power 0.997 at the uncalibrated cut; the
-       calibrated cut is not yet computed). Its size would then rest on the simulated noise model, not on an exact
-       null;
-    3. drop K0 and keep the curvature reading descriptive.
-  - My recommendation is 3: the arm cannot reach §9.J's reachability with useful power.
-- **The references' curvature.** The h = 1 references at X* are convex in C (c₂ 0.027, residual SD 0.009, against a
-  line LOO scatter of 0.046).
-  - The primary still uses the line, as draft 1 declared, to keep it free of K0's form. Under the references' own
-    quadratic as truth, the line-based rule classifies correctly at 1.000 both ways, with an L-value bias of −0.24.
-  - A quadratic reference would remove that bias but import K0's form into the primary. I recommend keeping the line.
-- **D23 below 0.95 under two disclosed scenarios** (stress 0.94; line scatter as noise 0.85–0.87). Per D2b these are
-  disclosed and the cuts are unchanged.
-- **The archive stop (§8):** resolved by Will (relaunch at 24 tasks, check rebased to the approved price).
-- **The h = 2 archives** were started overnight under the stage-2 archive rule (Will's overnight instruction). They are
-  pinned only at the seal.
+9. **K0 descriptive; the quadratic as a sensitivity check; the two seal-addition rows** (Will, 2026-11-04).
+10. **A second §9.F dry run on the final read code** (the K0 and quadratic changes came after the first). Result: §5 (c).
+
+**Will's approval (2026-11-04, filed verbatim). Accepted:**
+- K0 descriptive;
+- the straight-line primary, with the quadratic as a sensitivity check;
+- the 1.5× noise stress (0.94) and the curvature-as-noise bound (0.85–0.87), disclosed, cuts unchanged;
+- the archives and the −148 recount;
+- the 4(a) and 4(b) answers.
+- **Addition:** the two disclosure rows (§5, §9). **The cuts and the rule do not change.**
