@@ -29,9 +29,16 @@ Definitions (declared here, before the ℤ[ω] slice numbers exist):
   Also reported: z / 2 (the seal's 2-SE gating bar), and z_U = ΔR / hypot(u_a·R_a·m, u_b·R_b·m).
 - No verdict changes. The output says only "upgrade" or "keep", with both numbers.
 
-  python rq1_label_check.py OUT_JSON
+TOOLKIT §9.I: safeio.enforce(); the output goes to scratch (OUT_REL under ~/tmp/claude) and is copied into the repo
+by a separate cp + git add.
+
+  python rq1_label_check.py OUT_REL
 """
 import json, math, os, sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+import safeio
+safeio.enforce()
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 C_SE = 0.6271633049515984
@@ -105,7 +112,7 @@ def main(out):
         outcome=("upgrade" if all(d["exceeds"] for d in ineq) else "keep") if done else "pending (zw slices)",
         sign_rule_note="the sealed rule has no SE; under its equal-R null with exchangeable independent noise the "
                        "false-PASS rate is about (1/6)^3 at any noise scale (not the declared reading)")
-    json.dump(res, open(out, "w"), indent=1, sort_keys=True)
+    print("written", safeio.write_json(safeio.scratch(out), res, overwrite=True))
     for k, v in res["verdicts"].items():
         print(k, "flip %.3f" % v["flip_factor"], "U %s" % (("%.3f" % v["U"]) if "U" in v else "-"), v["outcome"])
 

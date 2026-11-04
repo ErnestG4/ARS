@@ -1,0 +1,29 @@
+-15 genus=repr True cornacchia True split/Euler True density 0.2482 True norms True theta in (0, 1/2) True
+-20 genus=repr True cornacchia True split/Euler True density 0.2479 True norms True theta in (0, 1/2) True
+-24 genus=repr True cornacchia True split/Euler True density 0.2493 True norms True theta in (0, 1/2) True
+-35 genus=repr True cornacchia True split/Euler True density 0.2482 True norms True theta in (0, 1/2) True
+-40 genus=repr True cornacchia True split/Euler True density 0.2480 True norms True theta in (0, 1/2) True
+-51 genus=repr True cornacchia True split/Euler True density 0.2481 True norms True theta in (0, 1/2) True
+-52 genus=repr True cornacchia True split/Euler True density 0.2474 True norms True theta in (0, 1/2) True
+-88 genus=repr True cornacchia True split/Euler True density 0.2481 True norms True theta in (0, 1/2) True
+-91 genus=repr True cornacchia True split/Euler True density 0.2492 True norms True theta in (0, 1/2) True
+-115 genus=repr True cornacchia True split/Euler True density 0.2487 True norms True theta in (0, 1/2) True
+-123 genus=repr True cornacchia True split/Euler True density 0.2479 True norms True theta in (0, 1/2) True
+-148 genus=repr True cornacchia True split/Euler True density 0.2476 True norms True theta in (0, 1/2) True
+-187 genus=repr True cornacchia True split/Euler True density 0.2466 True norms True theta in (0, 1/2) True
+-232 genus=repr True cornacchia True split/Euler True density 0.2505 True norms True theta in (0, 1/2) True
+-235 genus=repr True cornacchia True split/Euler True density 0.2473 True norms True theta in (0, 1/2) True
+-267 genus=repr True cornacchia True split/Euler True density 0.2509 True norms True theta in (0, 1/2) True
+-403 genus=repr True cornacchia True split/Euler True density 0.2502 True norms True theta in (0, 1/2) True
+-427 genus=repr True cornacchia True split/Euler True density 0.2495 True norms True theta in (0, 1/2) True
+h = 1 cross-check -7 True
+h = 1 cross-check -11 True
+h = 1 cross-check -19 True
+hand -15 19 (4, 2) True
+hand -20 29 (3, 2) True
+hand -20 3 None True
+hand -24 7 (1, 1) True
+hand -15 2 None True
+hand -40 11 (1, 1) True
+SELFTEST_PASS True
+red path (genus test removed by monkeypatch, 2026-11-03): selftest raises ArithmeticError ('p = 2 principal', -15), rc 1
