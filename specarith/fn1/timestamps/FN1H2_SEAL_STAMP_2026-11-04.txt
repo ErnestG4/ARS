@@ -1,0 +1,120 @@
+FN1-h2 sealing timestamp manifest (OpenTimestamps; order: seal -> stamp -> Bitcoin attestation verified on two
+explorers -> sequential double read through the queue -> cmp -> verdicts). Only this file's sha256 is submitted to the
+OpenTimestamps calendars; the receipt is FN1H2_SEAL_STAMP_2026-11-04.txt.ots.
+Statement: at the time of stamping, no statistic of the h = 2 principal-prime sets (18 fields, p <= 2e10) has been
+computed. Their archives were only generated, integrity-checked, counted and hashed (with an Euler-criterion recount
+of the row counts at three segments of -148 and -52). Every 9.F rehearsal used seeded random fixtures in their place.
+The h = 1 references were computed before the seal on seen data (D2 (b)) and are pinned. Nothing from the h = 2
+archives will be read until this receipt is Bitcoin-attested and verified on two explorers; the read launcher
+refuses without that record.
+
+repo                          criticality_tool, branch specarith
+tag fn1h2-seal                    object afb0cda1f5ed8d2ca05bfecf226c7ab7fdd14bf1
+                              on commit 8bd4221137421b327808154fd3b11adb841f081a
+                              specarith/fn1/FN1H2_SEAL.md
+                              sha256 c5483b23a06eb0df4fcdfac099ef6b636ee2aecf6e2e41c4e5f8901622b694f6
+                              specarith/fn1/fn1h2_read.py
+                              sha256 36fdc6d35deb45e58bd6a45bf1b5f4d4e619c1f0bcdc76af8cbd79876368bbed
+                              specarith/fn1/fn1h2_pins.json
+                              sha256 e591fc3f370880be8b6fd780d6fc3d533989dbe1d53d8f3e49dcec2fa90bce96
+                              specarith/fn1/run_fn1h2_read_one.sh
+                              sha256 1afcf2b307afb6562b9ea2038273bc1160dc829829cf136d73bbef3b805ba1c6
+                              specarith/fn1/run_fn1h2_read_cmp.sh
+                              sha256 fa2607bbd3197057611547bcfbc065a86ca68556ada6beffd98a1ecfc15d5790
+                              specarith/fn1/queue_fn1h2_read_pueue.sh
+                              sha256 a0737f0563ce7d9990a62a053e6050fcb9ed638acaff6c0e5513d9baba8c3a33
+                              specarith/fn1/fn1h2_archive.py
+                              sha256 c5844906d38e791eee3268674cd2b7d9178e27dac8f5337f191d5093ae76ccf4
+                              specarith/fn1/fn1h2_make_pins.py
+                              sha256 06db0b2e3a3f3d0ef526f795f36367e772a1a2afb03ef971785fa95a77f49399
+                              specarith/fn1/fn1h2_costs.py
+                              sha256 a149ff40d2652cfdaa73c169094f05afcd3bcaee4895936260b8bb9a233a6553
+                              specarith/fn1/fn1h2_counts.py
+                              sha256 cc83f40f8484fb6f8786ccd5590fb260e1b2a8eaf8280a79d8dc5b408d912ed1
+                              specarith/fn1/fn1h2_fixtures.py
+                              sha256 051b6b178f677a686fb5f50c76b88e7a4d2465469828866bf8dddd5d7b5627f7
+                              specarith/fn1/run_fn1h2_dry.sh
+                              sha256 750e00c18de2ee299f212068a4c79d242b5c8d59bc34d8ce9a788555a4164cb2
+                              specarith/fn1/fn1_read2.py
+                              sha256 92f9db78fa9e709b2beb64ce56d2b69d37fb316687f6fa12628b68d6fe50f9a8
+                              specarith/fn1/fn1_archive.py
+                              sha256 585a673c9dd0d3e23f0cc69ebb43006f046c91110810688a98223baae85d75e1
+                              specarith/fn1/fn1_pins2.json
+                              sha256 c511e4a4549c14ca0913753d8d32b0822b5840714d9311a17e060a9a74b404ce
+                              specarith/fn1/lead/fn1h2_pred.py
+                              sha256 1aeabeed355dd7bf0b7a784816535e5b7ae80120ef278fb998a426b9271cef0e
+                              specarith/fn1/lead/FN1H2_PRED.json
+                              sha256 7cf50f1903861faba23fc87f641721b0e0a994a32b074fc68972cf8ab6570cda
+                              specarith/fn1/lead/fn1h2_controls.py
+                              sha256 f9a2e15e2de3ede55a9bdd7e1939f37e3593fac83496dcf2033a12451860441e
+                              specarith/fn1/lead/FN1H2_CONTROLS.json
+                              sha256 77afddaafac861b0af79e794dac90e241079690984f1674fef04483b84d5c4b9
+                              specarith/fn1/lead/fn1h2_sim.py
+                              sha256 e41f30f9002448fdacba96ad2fd1fc831e7862839e17e6fb9debc76b1610e8b4
+                              specarith/fn1/lead/FN1H2_R_DERIVATION.md
+                              sha256 be8fe5a0f5a025e52a0c5d86102104f9be8d5b747aa14c83d7ba21f8211f6ba1
+                              specarith/fn1/lead/FN1_L17_PREREQS.md
+                              sha256 9d266ec1c528d66942cfef611c69989a49b7c0075424950ed857aa3a56d5a063
+                              specarith/fn1/results/h2/FN1H2_REFS.json
+                              sha256 f2d390cfef7d383e4aec903c02bc7fe37548c188efa9de3341388fd605a5d4bd
+                              specarith/fn1/results/h2/FN1H2_SIM.json
+                              sha256 40c9ee1cd243cb021569465f9d92b57b7d6c202acb84424d5162bb0728299dfa
+                              specarith/fn1/results/h2/GENERATOR_SELFTEST.txt
+                              sha256 66309b0e4bfd296a587ba7d25e00a638862a7b7d6d71d950e7d3b120b3deec0e
+                              specarith/fn1/results/h2/dry/cmp.txt
+                              sha256 32f7ea9f58bc9d9b368b3591a889971a3720f12cacaed965075ee7b1372ee36b
+                              specarith/fn1/results/h2/dry2/cmp.txt
+                              sha256 0fbe1f65582101ca62758061e222b33de31a9e473f4868e1c76883ffaa44b9e9
+                              specarith/fn1/results/h2/manifests/MANIFEST_D15.json
+                              sha256 271f7cd7d1299976a2b552dd52b2f5aa0dbe464766ce9897f8a53ed9a87682ff
+                              specarith/fn1/results/h2/manifests/MANIFEST_D20.json
+                              sha256 6e1d8a17b37abb97559ac8516dc53606c4459f3ce61533b83eec19b0fe078771
+                              specarith/fn1/results/h2/manifests/MANIFEST_D24.json
+                              sha256 a9cef5dd0604b100304c377cfd4b95e46868750c0caedacef300c30d40645bc1
+                              specarith/fn1/results/h2/manifests/MANIFEST_D35.json
+                              sha256 8c19b639377a68c8050a27f33ca2bf208c20adae4c12f4c921e3127d28be7ee3
+                              specarith/fn1/results/h2/manifests/MANIFEST_D40.json
+                              sha256 7e53ea44f0c99442485d8b44f2878c99e3a34f0d567a9ad6b6426242c249155a
+                              specarith/fn1/results/h2/manifests/MANIFEST_D51.json
+                              sha256 735ccabacb2865079a0de43c4b6e47ebbed83b4d3720a568c976a4dd29c491a4
+                              specarith/fn1/results/h2/manifests/MANIFEST_D52.json
+                              sha256 08db2813a9eca98bfc6b1ae477227ce93b66623591ad58cce8125b714f5824c9
+                              specarith/fn1/results/h2/manifests/MANIFEST_D88.json
+                              sha256 028476db30122e23700a27782c10227b7571b655a345d85e995129b7b0e35018
+                              specarith/fn1/results/h2/manifests/MANIFEST_D91.json
+                              sha256 494ea41609e80d71296ad22b34775aa8ab15ffeadeb27a5dc88c848ee77b332f
+                              specarith/fn1/results/h2/manifests/MANIFEST_D115.json
+                              sha256 83b77b8b585c931c5526f1eaf3a8dc1b0b73971befba65cd8c8d4e8f6ab62df3
+                              specarith/fn1/results/h2/manifests/MANIFEST_D123.json
+                              sha256 75cce3cb765d7ac8f27bb1e417bdae946ef9970ae018e6bddcec9bb32669fabf
+                              specarith/fn1/results/h2/manifests/MANIFEST_D148.json
+                              sha256 dec575bf0da18c2750744dfae8c164a48736eb3d09c092db772587309bc2c793
+                              specarith/fn1/results/h2/manifests/MANIFEST_D187.json
+                              sha256 d21e1cde00efc889ff647620dc01a9e5bc1db14b81eb70a283b081af7168faa1
+                              specarith/fn1/results/h2/manifests/MANIFEST_D232.json
+                              sha256 96ec0d7a4148b20a0a8c3c03fa3ab58547e213ed16654194da51039de077a5c6
+                              specarith/fn1/results/h2/manifests/MANIFEST_D235.json
+                              sha256 a2847ea7892100eec5917ca5e3e10de66f2c621fe0cd6bf4940588ef8e4b764b
+                              specarith/fn1/results/h2/manifests/MANIFEST_D267.json
+                              sha256 65f27e542b765abbfc74ec6208e26020e955e14f80aca26fcbbd55e6eb3b3ab4
+                              specarith/fn1/results/h2/manifests/MANIFEST_D403.json
+                              sha256 551a7f6fa9aa9139cb543a8c0870f1d0a04fda78f3b4913246f4d2b5568f36da
+                              specarith/fn1/results/h2/manifests/MANIFEST_D427.json
+                              sha256 61cc09cbc4b985b7c3643d2a59166760663293fddacf482d523dd8ecd3cd115e
+                              specarith/fn1/results/h2/manifests/MANIFEST_SHA256.txt
+                              sha256 90ad2ad2f8f9cbdbd80aeb87afae588b7e5c9d97b9d1f5f3c6c01b784becf1e3
+                              specarith/fn1/results/h2/manifests/COUNTS.json
+                              sha256 a73d8e6ca621c12430e872c7796dea37b346b6bc1e6443a1b280ada6ff009d38
+                              specarith/rq1/rq1_read.py
+                              sha256 0e328302e974660ed3abd1316cac04aae1483cd1def13546952677bd845bc856
+                              specarith/rq1/rq1_zw.py
+                              sha256 98dd15825933b137bfea99b5f622c725634987d2a8a977efaece2957748366d1
+                              specarith/rq1/rq1_angles.py
+                              sha256 7764c23ef64c1f53efb1fb12bd1152d93f8956745cf623d40af93e108e7d1a0c
+                              specarith/rq1/rq1_archive.py
+                              sha256 eca8eb958945500cee44faedf1229d8aebd9f88b35c23ab92ccf624eed175cc0
+                              specarith/safeio.py
+                              sha256 122795d8a502a15c081210f06a9e7ace7aea5a1421824f335698c324892cf59f
+                              specarith/ph2/PH2_DECISIONS_2026-10-07.md
+                              sha256 2a3422b3ad0901c962bef0f8a5423189b7116faac388a0740208185f9d4123ce
+(sha256 of `git show 8bd4221137421b327808154fd3b11adb841f081a:<path>`; the tag fn1h2-seal resolves to that commit; 53 paths)
