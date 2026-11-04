@@ -73,6 +73,46 @@
    "sd_s_robust": 0.1154835079553613,
    "sig_mu": 0.008959709879285105
   },
+  "curved truth, sigma_mu 0.0213: L-value": {
+   "P_CONDUCTOR": 0.0,
+   "P_INCONCLUSIVE": 1.5e-05,
+   "P_LVALUE": 0.999985,
+   "P_VOID": 0.0,
+   "median_s": -1.630362881400412,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.1976417834766679,
+   "sig_mu": 0.0213
+  },
+  "curved truth, sigma_mu 0.0213: conductor": {
+   "P_CONDUCTOR": 0.994835,
+   "P_INCONCLUSIVE": 0.00516,
+   "P_LVALUE": 5e-06,
+   "P_VOID": 0.0,
+   "median_s": -0.03564622897446138,
+   "s_true": 0.0,
+   "sd_s_robust": 0.23720313912728985,
+   "sig_mu": 0.0213
+  },
+  "curved truth, sigma_mu x1.5: L-value": {
+   "P_CONDUCTOR": 0.00012,
+   "P_INCONCLUSIVE": 0.00192,
+   "P_LVALUE": 0.99796,
+   "P_VOID": 0.0,
+   "median_s": -1.6300246989381812,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.291798829957471,
+   "sig_mu": 0.03195
+  },
+  "curved truth, sigma_mu x1.5: conductor": {
+   "P_CONDUCTOR": 0.960595,
+   "P_INCONCLUSIVE": 0.037465,
+   "P_LVALUE": 0.00194,
+   "P_VOID": 0.0,
+   "median_s": -0.03509090451393594,
+   "s_true": 0.0,
+   "sd_s_robust": 0.3522223264380427,
+   "sig_mu": 0.03195
+  },
   "measured scatter L-value": {
    "P_CONDUCTOR": 0.05477,
    "P_INCONCLUSIVE": 0.075455,

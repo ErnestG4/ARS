@@ -144,9 +144,36 @@ against the line fitted on the other eight.
 | −7 excluded: L-value | −1.386 | −1.39 | 0.25 | 0.000 | 0.990 | 0.010 | 0 |
 | Curved truth (the references' quadratic, residual SD 0.009): conductor | 0 | −0.04 | 0.12 | 1.000 | 0 | 0 | 0 |
 | Curved truth: L-value | −1.386 | −1.63 | 0.10 | 0 | 1.000 | 0 | 0 |
+| Curved truth, σ_μ 0.0213: conductor (added 11-04, 4(a)) | 0 | −0.04 | 0.24 | 0.995 | 0 | 0.005 | 0 |
+| Curved truth, σ_μ 0.0213: L-value | −1.386 | −1.63 | 0.20 | 0 | 1.000 | 0 | 0 |
+| Curved truth, σ_μ × 1.5: conductor | 0 | −0.04 | 0.35 | 0.961 | 0.002 | 0.038 | 0 |
+| Curved truth, σ_μ × 1.5: L-value | −1.386 | −1.63 | 0.29 | 0 | 0.998 | 0.002 | 0 |
 | **Runs in N: conductor** | +0.662 | +0.66 | 0.38 | 1.000 | 0 | 0 | 0 |
 | **Runs in N: L-value** | −0.731 | −0.73 | 0.24 | **0.238** | 0.335 | 0.427 | 0 |
 | Zero slope (VOID reachability) | 0 | — | — | 0.187 | 0.284 | 0.029 | 0.500 |
+
+**Will's 4(a): which σ the cuts rest on, and what the 0.85–0.87 case means.**
+- **The cuts do not rest on a σ.** They sit at fixed fractions of the hypothesis gap, −0.4 and −0.6 of log 4. Only
+  their D23 depends on the noise.
+- **The declared nominal noise** is σ_μ = 0.0213: L16's field-specific scatter, measured about a straight line on C at
+  stage-1/2 N. On top of it is read noise at the SE model (1×; L16 measured 0.69×). That gives SD(ŝ) ≈ 0.30 / 0.23 and
+  D23 0.988 / 0.991 under a straight-line truth.
+- **What the references showed after that choice:** at X* and K_P they are curved (c₂ 0.027). About the line, their
+  leave-one-out residual SD is 0.046; about the quadratic it is 0.009.
+- **The 0.85–0.87 case** puts that 0.046 in as independent random field scatter on every h = 1 and h = 2 field, with a
+  straight-line truth.
+  - So it treats the references' curvature as noise. It is what D23 would be if the h = 2 fields carried their own
+    unexplained offsets as large as h = 1's line residuals, unrelated to C.
+  - The references do not show that: their line residuals are a smooth function of C (−163 +0.106, the middle fields
+    negative), which the quadratic absorbs to 0.009.
+- **The scenario that matches the references** is the curved truth: the line-based rule with the line's misfit
+  entering as a bias (−0.04 conductor, −0.24 L-value), plus random field scatter.
+  - At the quadratic's own residual SD (0.009): 1.000 / 1.000.
+  - At L16's σ_μ (0.0213): 0.995 / 1.000.
+  - At 1.5 σ_μ: 0.961 / 0.998.
+- **So in plain terms:** the cuts meet D23 under both readings of nominal, the declared straight-line one and the curved
+  one the references show. The 0.85–0.87 case is the pessimistic bound in which the curvature is not real structure.
+  It stays disclosed (D2b).
 
 **K0 (t form, §7):** null false PASS 0.0498 (target 0.05). Planted PASS **0.32** at the references' quadratic and
 residual SD, and **0.14** with residual SD σ_μ. The two rejected Spearman forms: draft (about the h = 1 line) null
@@ -174,6 +201,19 @@ pipeline ran at X = 2·10⁹, with synthetic h = 2 fixtures and the real h = 1 a
   - with the refs pin zeroed: `AssertionError ('refs pin', …)`, rc 1, no output.
 - **Cost:** 347 CPU-seconds per read; about 0.2 core-h for the chain including fixtures and red paths.
 - The fixture s (9,287) is meaningless by construction (random rows) and is not a result.
+- **Will's 4(b): what data the dry run read** (pins file `results/h2/dry/fn1h2_pins_dry.json`, committed):
+  - **h = 2: only the synthetic fixtures** in `/mnt/data/fn1h2_dry` (18 directories): seeded random int32 rows, no
+    primes. The read takes h = 2 directories only from the pins file's block (`fn1h2_read.py`, the `h2pins` line);
+    the dry block lists only those fixtures. **No real h = 2 archive was opened**, and the real archives are not in
+    that pins file.
+  - **h = 1: the real archives, at X = 2·10⁹ only.**
+    - The w = 2 fields from the stage-2 archives (`/mnt/data/fn1/archive_1e11_D*`, manifests pinned as in
+      `fn1_pins2.json`).
+    - ℤ[i] and ℤ[ω] from the RQ1-c 10¹² archives, with segments k < 20.
+    - Every row lies inside stage 1's already-read range (p ≤ 2·10⁹ < 10¹⁰).
+    - That covers the references, the χ′ control and the matched-N reference.
+  - **Inputs by file:** its own refs file at 2·10⁹ (`DRY_REFS.json`, from the same h = 1 rows), the committed (★)
+    predictions and the committed controls.
 - **Selftest:** §3 (CHECKRUN EXIT=0).
 
 ## 6. Reported, descriptive (no verdict)
