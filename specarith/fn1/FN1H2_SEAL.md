@@ -3,6 +3,10 @@
 **Briefs:** Will, 2026-11-03 ×2 (L17 prerequisites; "seal draft may begin"), filed verbatim in
 `ph2/PH2_DECISIONS_2026-10-07.md`. Prerequisites: `lead/FN1_L17_PREREQS.md` (accepted).
 
+**Update 2026-11-03 (Will):** the thinned-control requirement is withdrawn. D1's matched-X primary is accepted in
+principle, conditional on the R derivation, now in `lead/FN1H2_R_DERIVATION.md` with the updated D1–D5. This text is
+not yet revised for that; it will be after Will's review.
+
 **Status: draft.** No h = 2 data exist, and no compute has been run for this seal. The numbers in §5 are closed-form
 estimates from committed stage-1 values, to be replaced by the pre-seal simulations listed in §5. **§10 lists the
 decisions this draft needs from Will. The first one changes Will's control predictions, so please read §2 and §10
