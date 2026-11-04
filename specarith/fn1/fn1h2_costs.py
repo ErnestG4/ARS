@@ -2,7 +2,13 @@
 """FN1-h2 archive cost rule (TOOLKIT §9.H; FN1H2_SEAL.md §8). Reads only the archive logs (CPU seconds per segment);
 no archive data.
 
-  python fn1h2_costs.py ROOT wave1|check
+  python fn1h2_costs.py ROOT wave1|check|price
+
+**Rebased 2026-11-04 (Will):** the stop baseline is the approved seal price, 61.2 s CPU per segment (61.2 core-h for
+3,600), which already prices contention. Mode price: cumulative measured CPU over every completed segment (first wave
+included) against 1.25 × 61.2 s × that count; last line OK or EXCEEDS; the total is also printed against the 76.5
+core-h cap. Modes wave1 / check are the original first-wave-interpolated rule (kept for the record; check fired at the
+midpoint at 1.33×).
 
 Model per task: the §9.H first wave's measured CPU (user + sys) at k = 1 / 100 / 199 for the six case fields,
 interpolated linearly in k per field, flat beyond. A field outside the wave takes the case of its Cornacchia type
@@ -56,6 +62,15 @@ def main(root, mode):
     if miss:
         print("first-wave points missing:", miss); print("EXCEEDS"); return 1
     mod = model(m)
+    if mode == "price":
+        tot = sum(m.values())
+        lim = 1.25 * PRICE * len(m)
+        print(f"completed {len(m)} segments: CPU {tot / 3600:.2f} core-h = {tot / len(m):.1f} s/segment, "
+              f"{tot / (PRICE * len(m)):.3f}x the price; stop above 1.25x ({lim / 3600:.2f} core-h at this count; "
+              f"cap {1.25 * PRICE:.1f} core-h for 3,600)")
+        ok = tot <= lim
+        print("OK" if ok else "EXCEEDS")
+        return 0 if ok else 1
     if mode == "wave1":
         w = sum(m[(c, k)] for t in CASES.values() for c in t for k in KS)
         proj = sum(mod.values())

@@ -2641,3 +2641,11 @@ D5: keep D′ = 5, descriptive. Before computing, commit (★)'s prediction for 
 Then bring the full seal draft for review.
 Overnight: run D2 (a)–(c) and the ℤ[ω] slices. If h = 2 archives can be built under the same no-statistic rule stage 2 used (hashes and counts only, §9.I), start them; otherwise they wait for the seal.
 Will does all pushes.
+
+### FN1-h2 archive relaunch; cost check rebased; −148 counts; 4(a) / 4(b) pending (2026-11-04; Will, verbatim)
+h = 2 archives: relaunch approved at 24 tasks.
+Cost check: the baseline is the approved seal price (61.2 s CPU per segment, 61.2 core-h total). Stop at more than 1.25× that, about 76 core-h. Record in §8: "Midpoint stop at 1.33× the first-wave rate. Cause: CPU inflation from VM contention, uniform across fields. Check rebased to the approved price, which already prices contention. Against it the build was at 0.92×. This is a process fix with no effect on any statistic."
+Resume safety: before relaunching, confirm there are no partial or temp segment files from the stop (whole-file writes only). The second half generates only missing segments.
+−148: the final manifest's count check must cover −148 explicitly. Report its segment counts against expectation alongside the others.
+Still waiting before the seal review: 4(a) (which σ the cuts rest on, and what the 0.85–0.87 case means) and 4(b) (what data the dry run read).
+Will does all pushes.
