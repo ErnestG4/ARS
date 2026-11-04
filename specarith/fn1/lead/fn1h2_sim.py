@@ -22,7 +22,8 @@ Scenarios:
 - −7 excluded from the reference line (eight h = 1 fields);
 - "runs in N" (D1 robustness): s_true = (★)'s committed primary mean s under conductor/N and L-value/N (β 0.55);
 - curved truth: the h = 1 truth is the references' own OLS quadratic (K0's form) and h = 2 follows it at C_j + s_true,
-  so the line's misfit at the h = 2 C enters as a bias.
+  so the line's misfit at the h = 2 C enters as a bias; with the quadratic's residual SD (0.009) as field scatter, and
+  (added 2026-11-04, Will's 4(a)) with σ_μ = 0.0213 and 1.5 σ_μ.
 **D23 (judged at nominal, Will D2b):** P(CONDUCTOR | s_true = 0) ≥ 0.95 and P(L-VALUE | s_true = −log 4) ≥ 0.95.
 §9.J: every branch (CONDUCTOR, L-VALUE, INCONCLUSIVE, VOID) reached in some scenario; VOID's rate reported.
 **K0 arm (one-way, α 0.05), the read's form (one-sided t, 6 df, on the h = 2 quadratic coefficient with the sign of
@@ -178,7 +179,12 @@ def main(refs_path, refs_sha, pred_path, pred_sha, out):
           ("runs in N conductor", sN["conductor_N"], SIG_MU, None, None),
           ("runs in N L-value", sN["Lvalue_N"], SIG_MU, None, None),
           ("curved truth conductor", 0.0, resid_sd_q, None, q), ("curved truth L-value", -L4, resid_sd_q, None, q),
-          ("zero slope (VOID reachability)", 0.0, SIG_MU, None, (0.8, 0.0, 0.0))]
+          ("zero slope (VOID reachability)", 0.0, SIG_MU, None, (0.8, 0.0, 0.0)),
+          # added 2026-11-04 for Will's 4(a), appended so earlier rows keep their seeds:
+          ("curved truth, sigma_mu 0.0213: conductor", 0.0, SIG_MU, None, q),
+          ("curved truth, sigma_mu 0.0213: L-value", -L4, SIG_MU, None, q),
+          ("curved truth, sigma_mu x1.5: conductor", 0.0, 1.5 * SIG_MU, None, q),
+          ("curved truth, sigma_mu x1.5: L-value", -L4, 1.5 * SIG_MU, None, q)]
     res["scenarios"] = {}
     for i, (name, st, sg, mask, curve) in enumerate(sc):
         res["scenarios"][name] = simulate(SEED + i, st, sg, Rbar, mask, curve)
