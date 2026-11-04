@@ -114,6 +114,9 @@ at 2× the X of h = 1. So the four combinations give:
   L-VALUE only about half the time, and **wrongly CONDUCTOR about 16%** (P(s > −0.554 | mean −0.84) at SE 0.285).
 - **So the conductor verdict is not fully robust either:** its false rate under a true L-value rises from about 0.00 to
   about 0.16 if the term ran in N. Recorded as a §9.J / D23 consideration under D1.
+- **Update 2026-11-04 (exact (★) instead of the linearisation; `FN1H2_PRED.json`, ec4f3ac8; simulation d5cf401b):**
+  under "runs in N" the primary mean s is +0.66 (conductor) and −0.73 (L-value). A true L-value effect then reads
+  L-VALUE 0.34, INCONCLUSIVE 0.43 and CONDUCTOR 0.24, not the 0.51 / 0.33 / 0.16 above.
 - **The read can check it descriptively.** s_X − s_N is ≈ +0.55 under "runs in X" and under "runs in N" alike, so the
   difference does not separate them. The level does: under "runs in X" the matched-N displacement is −0.55 for
   conductor and −1.94 for L-value.

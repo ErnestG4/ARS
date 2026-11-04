@@ -1,257 +1,306 @@
-# FN1-h2 seal: conductor or L-value, using the class-number-2 fields. DRAFT for Will's review, NOT SEALED
+# FN1-h2 seal: conductor or L-value, using the class-number-2 fields. DRAFT 2 for Will's review, NOT SEALED
 
-**Briefs:** Will, 2026-11-03 ×2 (L17 prerequisites; "seal draft may begin"), filed verbatim in
-`ph2/PH2_DECISIONS_2026-10-07.md`. Prerequisites: `lead/FN1_L17_PREREQS.md` (accepted).
+**Briefs:** Will, 2026-11-03 ×4 (L17 prerequisites; "seal draft may begin"; thinned controls withdrawn; D1–D5 rulings),
+filed verbatim in `ph2/PH2_DECISIONS_2026-10-07.md`. Prerequisites: `lead/FN1_L17_PREREQS.md` (accepted). Derivation:
+`lead/FN1H2_R_DERIVATION.md` (D1 accepted). Draft 1: aa4afbf2.
 
-**Update 2026-11-03 (Will):** the thinned-control requirement is withdrawn. D1's matched-X primary is accepted in
-principle, conditional on the R derivation, now in `lead/FN1H2_R_DERIVATION.md` with the updated D1–D5. This text is
-not yet revised for that; it will be after Will's review.
-
-**Status: draft.** No h = 2 data exist, and no compute has been run for this seal. The numbers in §5 are closed-form
-estimates from committed stage-1 values, to be replaced by the pre-seal simulations listed in §5. **§10 lists the
-decisions this draft needs from Will. The first one changes Will's control predictions, so please read §2 and §10
-first.**
+**Status: draft 2.** Will's rulings D1–D5 are applied (§11). Under D2, the pre-seal compute has been run: (a) the
+parametric simulations, (b) the h = 1 references, committed and hashed, and (c) the generator selftest and the §9.F dry
+run. **No h = 2 statistic has been computed.** The h = 2 archives are being generated under the stage-2 archive rule
+(generation, integrity, counts and hashes only), started per Will's overnight instruction. **§12 lists what changed
+from draft 1 and what needs Will's review.**
 
 ## 1. Question
 
 At h = 1, C_F = log(|D|(w/2)²) and P_L = log(1/L(1,χ_D)²) + 2 log π are identical, so FN1 stages 1–2 could not tell
-the conductor from the L-value. At h = 2, P_L = C_F − log 4 (`lead/FN1_L17_PREREQS.md` (b)). Pooling h = 1 and h = 2
-separates them:
-- **conductor:** the h = 2 fields sit on the h = 1 curve;
-- **L-value:** the h = 2 fields sit −log 4 = −1.386 along C from it.
+the conductor from the L-value. At h = 2, P_L = C_F − log 4 (`lead/FN1_L17_PREREQS.md` (b); asserted numerically for
+all 18 fields in `lead/FN1H2_CONTROLS.json`). Pooling h = 1 and h = 2 separates them:
+- **conductor:** at matched X and K, the h = 2 fields sit on the h = 1 curve;
+- **L-value:** they sit −log 4 = −1.386 along C from it.
 
-## 2. Theory: E[R] for the principal-prime subset (the (b) derivation extended to R; Will's brief)
+## 2. Theory (full text: `lead/FN1H2_R_DERIVATION.md`)
 
-**The order kept is the order of the h = 1 C_F derivation:** Rudnick–Waxman's leading form plus the conductor
-constant (`rq1/RQ1_STEP0.md` §3, `fn1/FN1_STEP0.md` §1). Lower-order arithmetic terms (the C_Φ,L, A′ and C_Φ,ζ type in
-Chen et al.) are not kept at h = 1, and are not kept here either.
-
-**h = 1.** The read's statistic is R = Var_bins/(N/K), with K equal bins of the mirror-symmetrised set (Poisson ⇒ R = 1).
-1. Parseval: Var = Σ_{k≠0}|Î_K(k)|²·|S_k|², with S_k = Σ_𝔭 e(kθ_𝔭) over the split prime ideals of norm ≤ X
-   (conjugates included).
-2. RW's heuristic (explicit formula + RMT for the zeros of L(s, λ_k)): E|S_k|² ≈ N·min(1, log q_k / log X), with
-   q_k ≍ e^{C_F}k² in the k-indexing.
-3. So **E[R] ≈ ⟨min(1, (C_F + 2 log|k|) / log X)⟩_K**, an average over k ≠ 0 with the window weights
-   w_K(k) = K·|Î_K(k)|² (these sum to 1 − 1/K).
-
-**Answer to Will's first question: the finite-size term runs in X, not N.** N cancels from E[R]. The cutoff is the
-prime-norm bound X of the explicit formula.
-- RQ1's earlier "min(1, 2 log K / log N)" replaced log X by log N at leading order. The two differ by
-  log log X + O(1) ≈ 3. That is the same order as C_F, so at this order it must be X.
-- Consequence: two sets with the same K and X have the same E[R], whatever their N.
-
-**h = 2, principal primes.**
-- **The decomposition** (prerequisites (b), point 4): S^P_k = ½(S_k^{(1)} + S_k^{(ψ)}). Here
-  S_k^{(χ)} = Σ_{all split 𝔭} (ξ̃_k χ)(𝔭), ψ is the genus (class-group) character, and N_P ≈ N_all/2.
-- **The two families:** E|S^{(1)}|² ≈ E|S^{(ψ)}|² ≈ N_all·min(1, log q_k/log X). Both have the same conductor,
-  because ψ is unramified over K.
-- **The cross term** E[S^{(1)} S̄^{(ψ)}]:
-  - its diagonal is Σ_𝔭 ψ(𝔭) = (principal − non-principal count) = o(N) by the prime ideal theorem for ψ;
-  - its off-diagonal part is the pair correlation between the zeros of two distinct primitive L-functions, which is
-    absent at leading order (Rudnick–Sarnak independence);
-  - what remains is of Chen's lower-order type, which this order does not keep (L15 put Chen's L-term at about 0.005
-    in R for −7).
-- So E|S^P_k|² ≈ ¼·2·N_all·min(…) = N_P·min(1, log q_k/log X).
-
-**Answer to Will's second question: the (1 + ψ)/2 projection does not change the expected excess at this order.**
-**E[R_P] = ⟨min(1, (C_F + 2 log|k|) / log X)⟩_K, the h = 1 expression with the same C_F, at the same X and K.** The
-class number enters only through X(N): N_P(X) ≈ N_all(X)/2.
-
-**The two thinnings Will specified are not neutral.** They differ from the principal projection, and the difference
-follows from the same algebra.
-
-| Selection (half of the split primes) | Weight | E[R] at the same X and K | Excess 1 − R |
-|---|---|---|---|
-| Principal primes (h = 2) | (1 + ψ)/2, ψ unramified over K | R(C) | unchanged |
-| (i) Seeded random half-thinning | Bernoulli ½ per split p | **(R(C) + 1)/2: exact in expectation** (binomial thinning adds ¼·mean to the bin variance) | **halved** |
-| (ii) Half-thinning by χ′ = (D′/·), D′ coprime to D | (1 + χ′(p))/2; twist λ_k·(χ′∘N) has conductor norm D′² | ½[R(C) + R(C + 2 log\|D′\|)] ≈ R(C + log\|D′\|) where R is linear in C | reduced, by an amount set by log\|D′\| |
-
-So under the conductor hypothesis the h = 2 displacement against these controls is **not 0**. At this order, a selection
-leaves R unchanged only when its character is unramified over K, and for an h = 1 field no such nontrivial character
-exists.
-
-**Predicted displacements** (β 0.55, X = 2·10¹⁰; linearised with b ≈ 0.0455 and R ≈ 0.82; indicative, since RQ1-b found
-that the leading form plus the conductor constant misfits our statistic's level):
-
-| Reference | Conductor hypothesis | L-value hypothesis |
-|---|---|---|
-| **h = 1 unthinned, matched X, at the h = 2 K** (proposed primary, §4) | **0** | **−log 4 = −1.39 along C** |
-| (i) Random half-thinned h = 1, matched N and X | ΔR = (R − 1)/2 ≈ −0.09 (≈ −4 along C on the control's halved slope) | ≈ −0.15 in R |
-| (ii) χ′-thinned h = 1 (D′ = 5), matched N and X | ≈ −log 5 = −1.61 along C | ≈ −3.0 along C |
-| h = 1 unthinned at matched N (X half; stage-1 values) | ≈ −R·log 2/log X ≈ −0.024 in R, i.e. ≈ −0.5 along C | ≈ −1.9 along C |
-
-Against either thinned control, a true conductor hypothesis would land on or beyond the L-value prediction. **So this
-draft does not use the thinned controls as the primary reference (decision D1).** It runs them as Will specified, and
-uses them as follows:
-- **(i) is a witness known by construction:** 2R_rand − 1 is an unbiased stand-in for R at matched X (§7).
-- **(ii) tests the twist-conductor mechanism itself,** the thing the conductor prediction rests on. Under §9.D it is a
-  hypothesis test, reported whichever way it comes out.
-
-Their displacements, and matched N and matched X, are reported as Will asked (§6).
+- **(★)** E[R] ≈ ⟨min(1, (C_F + 2 log|k|) / log X)⟩, averaged over k ≠ 0 with the window weights
+  w_K(k) = K sin²(πk/K)/(πk)².
+- **The finite-size term runs in X**, the prime-norm cutoff of the explicit formula. N cancels.
+- **The principal projection** (1 + ψ)/2, with ψ the genus character (unramified over K), leaves E[R] unchanged at this
+  order. So at matched X and K the h = 2 principal-prime set has the h = 1 expectation at its own C_F.
+- **Two heuristics carry this (D1, as ruled):**
+  1. Rudnick–Waxman's RMT form for the prime-sum mean square, E|S_k|² ≈ N·min(1, log q_k / log X), as at h = 1.
+  2. Rudnick–Sarnak independence of the zeros of the two distinct primitive L-functions L(s, ξ̃_k) and L(s, ξ̃_kψ),
+     for the cross term's off-diagonal part. The cross term's diagonal is controlled by the prime ideal theorem for ψ.
+  - Neither is proved.
+- **Predictions committed before any compute** (ec4f3ac8, `lead/FN1H2_PRED.json`, sha256 7cf50f19…0cda): (★) per field
+  at X* and K_P, under "runs in X" and under "runs in N".
+  - Under "runs in N", X_N = li⁻¹(N), so a half-size set sits at X_N = li⁻¹(li(X*)/2) = 9.68·10⁹.
+  - Evaluated exactly rather than linearised, the primary mean displacement under "runs in N" at β 0.55 is **+0.66
+    (conductor) and −0.73 (L-value)**, against the derivation's linearised +0.55 and −0.84.
+- **Thinning.** Will withdrew the thinned-control requirement (random thinning gives pR + (1 − p); character thinning
+  adds a twisted conductor). Only the χ′ control remains (D5, descriptive, §6).
 
 ## 3. Data
 
-**h = 2 sets (new).** All 18 fields (`lead/FN1_L17_PREREQS.md` (a)): principal split primes p ≤ X* = 2·10¹⁰.
-- Generator `fn1h2_archive.py` (to be written; FN1's `fn1_archive.py` structure):
-  - split iff (D/p) = +1;
-  - principal iff χ_{d₁}(p) = +1 (genus; D = d₁d₂);
-  - D ≡ 1 (mod 4): x² + |D|y² = 4p (principal form x² + xy + ((1 + |D|)/4)y²);
-  - D ≡ 0 (mod 4): x² + (|D|/4)y² = p;
-  - θ = atan2(y√|D|, x)/π, or atan2(y√(|D|/4), x)/π;
-  - ramified primes and 2 handled as FN1 (split primes only; for −15 the primes above 2 are non-principal and drop out).
-- Selftest: brute-force representability for p < 2·10⁵ against the genus rule, Cornacchia succeeding exactly on the
-  principal primes, and hand cases.
-- **Matched N:** every set is cut to the common n_P = min over the 18 h = 2 sets of the principal count below X*, about
-  2.2·10⁸ (π(2·10¹⁰)/4). That matches stage 1's n (2.28·10⁸). Then N_P = 2n_P and K_P = round(N_P^0.55) ≈ 5.7·10⁴.
+**h = 2 sets (new).** All 18 fields (`lead/FN1_L17_PREREQS.md` (a)): every principal split prime p ≤ X* = 2·10¹⁰ (D4),
+one row per p, with θ and 1 − θ mirrored.
+- **Generator** `fn1h2_archive.py` (076c2f5e):
+  - split by the Kronecker symbol mod |D|;
+  - principal by the genus character of the smallest odd prime factor of |D|;
+  - Cornacchia on the principal form (x² + |D|y² = 4p for D ≡ 1 mod 4; x² + (|D|/4)y² = p for D ≡ 0 mod 4).
+- **Selftest** (D2 (c); `results/h2/GENERATOR_SELFTEST.txt`; CHECKRUN EXIT=0), all passing:
+  - for p < 2·10⁵, brute-force representability equals split ∧ genus, for all 18 fields;
+  - Cornacchia equals the unique brute-force solution;
+  - the split rule equals Euler's criterion for p < 10⁶;
+  - principal density 0.247–0.251;
+  - FN1's h = 1 rows are reproduced exactly for −7, −11 and −19;
+  - six hand cases.
+  - **Red path:** with the genus test removed, the selftest raises on −15's prime above 2.
+- **Archive rule:** generation, integrity, counts and hashes only, with no statistic of the angles. Manifests carry
+  per-segment sha256, row counts, split counts and an integrity flag (each norm equals the segment's principal split
+  primes).
+- **Pins:** the 18 manifest sha256s go into `fn1h2_pins.json` before the seal, with the code hashes.
 
-**h = 1 sets (existing archives; seen data).** The nine fields, rows with p ≤ X*: the FN1 archives for w = 2, and
-`rq1/archive_1e12_zi` / `_zw`.
-- **Reference (primary):** unthinned, rows ≤ X*, R at K = K_P (not its own N^β), normalised by its own N/K.
-- **(i) Random half-thinned:** each split p kept with probability ½ (seed 20261103 + field index), cut to n_P.
-- **(ii) χ′-thinned:** p kept iff (5/p) = +1; D′ = 5 is coprime to all nine D. Cut to n_P.
-- **Matched N (descriptive):** stage-1 R at 10¹⁰ (n 2.28·10⁸), already read.
+**h = 1 references (seen data).** The nine class-number-1 fields, every split prime p ≤ X*:
+- the w = 2 fields from the stage-2 archives (`fn1_pins2.json`, as sealed for stage 2);
+- ℤ[i] and ℤ[ω] from the RQ1-c 10¹² archives.
 
-**β:** 0.55 primary. β 0.45 and 0.40 descriptive, at no extra load.
+Their R at X* and K_P was computed before the seal as D2 (b), committed and hashed (§5). The read recomputes them and
+must reproduce that file bit for bit.
+
+**K_P (changed from draft 1).** The fixed K = 57,801 / 7,873 / 2,906 at β 0.55 / 0.45 / 0.40, i.e. stage 1's K, for
+every set, with each set normalised by its own N/K.
+- Draft 1 had K_P = round(N_P^0.55) from the h = 2 count. That would make K depend on h = 2 data, or on a π(X*) value
+  I would have had to source.
+- N_P ≈ π(X*)/2 ≈ 4.4·10⁸ is within 3% of stage 1's N (4.55·10⁸), so stage 1's K is the matched choice, and it is
+  already committed.
+
+**β:** 0.55 primary. β 0.45 and 0.40 are descriptive, at no extra load.
 
 **Primary set (Will):** the nine h = 2 fields with 28 ≤ |D| ≤ 163: −35, −40, −51, −52, −88, −91, −115, −123, −148.
-- C ∈ [3.56, 5.00] and P_L ∈ [2.17, 3.61], both inside the h = 1 range [1.95, 5.09].
+- Their C ∈ [3.56, 5.00] and P_L ∈ [2.17, 3.61] both lie inside the h = 1 range [1.95, 5.09].
 - The other nine (−15, −20, −24, −187, −232, −235, −267, −403, −427) are descriptive.
 
-## 4. Primary test: the displacement s along C
+## 4. Primary test: the displacement s along C (β 0.55)
 
-- **Reference curve:** R_ref(C) = OLS line of the nine h = 1 reference R on C_F. The line, not K0's quadratic, keeps
-  the primary free of the out-of-sample arm.
-- **Statistic:** s = argmin_s Σ_{primary h = 2} (R_h2,j − R_ref(C_j + s))², i.e. s = mean_j(R_h2,j − R_ref(C_j)) / b̂.
+- **Reference line:** OLS of the nine h = 1 references' R on C_F, R = a + b·C.
+- **Statistic:** s = mean over the nine primary fields of (R_h2,j − a − b·C_j), divided by b.
   - Conductor predicts s = 0.
   - L-value predicts s = −log 4 = −1.386.
 - **Three-way rule, cuts at 0.4 and 0.6 of log 4:**
-  - **CONDUCTOR** iff s > −0.554;
-  - **L-VALUE** iff s < −0.832;
-  - else **INCONCLUSIVE**.
-  - Cuts at a third and two thirds were tried first; they give D23 ≈ 0.95 at the closed-form noise (§5), too
-    marginal.
+  - **CONDUCTOR** iff s > −0.5545;
+  - **L-VALUE** iff s < −0.8318;
+  - else **INCONCLUSIVE**;
+  - **VOID (reference slope ≤ 0)** if b ≤ 0.
   - Both informative outcomes are two-way claims (§9.J).
-- **Noise for the D23 and §9.J simulations:**
-  - h = 2 field-specific scatter σ_μ = 0.0213 (L16; taken equal to h = 1);
-  - the reference line's error from nine h = 1 points with the same σ_μ;
-  - b̂ from the line;
-  - read noise at the SE model (L16: 0.69×, so ≤ 1× is conservative).
-  - Stress variants: σ_μ × 1.5, and the h = 1 −7 field excluded from the reference.
+- **Code:** `fn1h2_read.py` (read mode, locked to X*).
 
-## 5. D23, §9.J, power: closed-form estimates now, simulations before the seal
+## 5. D23, §9.J, power: pre-seal results (D2)
 
-**Closed form** (desk arithmetic from committed stage-1 numbers; not the sealed figures):
-- SE of the mean h = 2 offset: 0.0213/3 = 0.0071.
-- Reference-line error at the h = 2 primary fields' mean C (4.30, against the h = 1 mean 3.17;
-  S_xx = 8.63): 0.0213 × √(1/9 + 1.13²/8.63) ≈ 0.0108.
-- Combined about 0.0129 in R, so SE(s) ≈ 0.0129/0.0455 ≈ 0.28 along C. The slope's own error is left to the
-  simulation.
-- The cuts are 1.95 SE from 0 and from −log 4:
-  - P(CONDUCTOR | conductor exact) ≈ 0.974;
-  - P(L-VALUE | L-value exact) ≈ 0.974;
-  - P(INCONCLUSIVE | s = −0.69) ≈ 0.37.
-- So D23 ≥ 0.95 holds for both informative branches, and every §9.J branch is reachable, under this noise.
-- At σ_μ × 1.5: SE(s) ≈ 0.43, so D23 ≈ 0.90 for each. Below 0.95: decision D2b.
+**(b) The h = 1 references** (pueue 1418; wall 34 min, about 0.45 core-h): `results/h2/FN1H2_REFS.json`, sha256
+f2d390cf…d4bd, committed c0ee6cb5 before the seal. No h = 2 data touched. The read must reproduce it bit for bit.
 
-**Pre-seal simulations (to run only on Will's go, decision D2):**
-- **(a) Parametric:** 200,000 draws per scenario (s = 0, −log 4, −log 4/2, and the stress variants). D23 for each
-  informative branch, §9.J reachability, false-classification rates. No data.
-- **(b) Planted witness (§9.D), on seen h = 1 data** (about 2 core-h, §8):
-  - compute the nine h = 1 references and both thinned controls at X* and K_P;
-  - each h = 1 field j stands in for an h = 2 field via 2R_rand,j − 1 (unbiased for R at matched X, by construction),
-    against a reference line fitted on the other eight (leave-one-out, so the real field-specific scatter enters);
-  - **unplanted** (s should read about 0), and **planted:** subtract R_ref(C_j) − R_ref(C_j − log 4), the predicted
-    −log 4 shift, injected into the thinned controls as Will asked;
-  - the gate must return CONDUCTOR unplanted and L-VALUE planted;
-  - its power is shown by repeating over 200 thinning seeds and by the parametric run at the measured scatter.
-- **(c)** the generator selftest (brute force, no data) and the §9.F dry double read on fixtures.
+| Field | C_F | n (split p ≤ X*) | R, β 0.55 | R, β 0.45 | R, β 0.40 |
+|---|---|---|---|---|---|
+| −7 | 1.946 | 441,101,150 | 0.76512 | 0.58578 | 0.49650 |
+| −8 | 2.079 | 441,102,027 | 0.75881 | 0.60520 | 0.52311 |
+| −11 | 2.398 | 441,098,741 | 0.76807 | 0.60848 | 0.52165 |
+| ℤ[i] | 2.773 | 441,101,890 | 0.78025 | 0.61728 | 0.52864 |
+| −19 | 2.944 | 441,106,912 | 0.75954 | 0.61025 | 0.53850 |
+| ℤ[ω] | 3.296 | 441,098,662 | 0.78646 | 0.61381 | 0.51367 |
+| −43 | 3.761 | 441,094,321 | 0.80565 | 0.63431 | 0.55192 |
+| −67 | 4.205 | 441,095,731 | 0.84394 | 0.60805 | 0.52429 |
+| −163 | 5.094 | 441,100,823 | 0.96012 | 0.64059 | 0.54982 |
+
+**What the references show (seen data, pre-seal; descriptive).** At β 0.55 they are clearly convex in C:
+- the OLS quadratic has c₂ = 0.0272, with residual SD 0.0090;
+- about the line, the leave-one-out residuals have SD 0.046, dominated by −163 (+0.106).
+- So at X* most of the h = 1 "offset" scatter about a line is curvature. That bears on L16's two candidates (curvature
+  or a second variable), on h = 1 data only.
+
+**§9.D witness on those references (leave-one-out; D1 as accepted).** Each h = 1 field stands in for an h = 2 field,
+against the line fitted on the other eight.
+
+- **Unplanted:** s = +0.27, which reads **CONDUCTOR**.
+- **Planted** (the predicted −log 4 shift injected on each stand-in): s = −1.12, which reads **L-VALUE**.
+- The gate returns the right branch both ways.
+- **Its power** is not this single realisation but the "curved truth" and "measured scatter" rows of (a) below.
+- The stand-ins span h = 1's C range (1.95–5.09), not the primary h = 2 range (3.56–5.00).
+
+**(a) Parametric simulations** (`lead/fn1h2_sim.py`, dd033d5d; inputs pinned; 200,000 draws per scenario;
+`results/h2/FN1H2_SIM.json`, d5cf401b). The model:
+- h = 1: R = b·C + μ + e, b = 0.0455;
+- h = 2: R = b·(C + s_true) + μ + e;
+- μ field scatter; e read noise at the SE model (1×).
+
+| Scenario | s_true | median ŝ | SD(ŝ) (robust) | P(CONDUCTOR) | P(L-VALUE) | P(INCONCLUSIVE) | P(VOID) |
+|---|---|---|---|---|---|---|---|
+| **Nominal, σ_μ 0.0213 (L16): conductor** | 0 | 0.00 | 0.30 | **0.988** | 0.000 | 0.012 | 0 |
+| **Nominal: L-value** | −1.386 | −1.39 | 0.23 | 0.000 | **0.991** | 0.008 | 0 |
+| Nominal: midpoint | −0.693 | −0.69 | 0.24 | 0.288 | 0.277 | 0.435 | 0 |
+| Stress σ_μ × 1.5: conductor | 0 | 0.00 | 0.44 | 0.937 | 0.008 | 0.055 | 0 |
+| Stress σ_μ × 1.5: L-value | −1.386 | −1.39 | 0.35 | 0.011 | 0.947 | 0.042 | 0 |
+| Line's LOO scatter (0.046) as field noise: conductor | 0 | 0.00 | 0.65 | 0.852 | 0.046 | 0.099 | 0.002 |
+| Line's LOO scatter as field noise: L-value | −1.386 | −1.39 | 0.51 | 0.055 | 0.868 | 0.076 | 0.002 |
+| −7 excluded from the reference: conductor | 0 | 0.00 | 0.30 | 0.987 | 0.000 | 0.013 | 0 |
+| −7 excluded: L-value | −1.386 | −1.39 | 0.25 | 0.000 | 0.990 | 0.010 | 0 |
+| Curved truth (the references' quadratic, residual SD 0.009): conductor | 0 | −0.04 | 0.12 | 1.000 | 0 | 0 | 0 |
+| Curved truth: L-value | −1.386 | −1.63 | 0.10 | 0 | 1.000 | 0 | 0 |
+| **Runs in N: conductor** | +0.662 | +0.66 | 0.38 | 1.000 | 0 | 0 | 0 |
+| **Runs in N: L-value** | −0.731 | −0.73 | 0.24 | **0.238** | 0.335 | 0.427 | 0 |
+| Zero slope (VOID reachability) | 0 | — | — | 0.187 | 0.284 | 0.029 | 0.500 |
+
+**K0 (t form, §7):** null false PASS 0.0498 (target 0.05). Planted PASS **0.32** at the references' quadratic and
+residual SD, and **0.14** with residual SD σ_μ. The two rejected Spearman forms: draft (about the h = 1 line) null
+0.065, planted 0.997; detrended null 0.061, planted 0.34.
+
+**D23 is judged at nominal (D2b).** A stress result below 0.95 is disclosed here, and the cuts are not widened.
+
+- **D23 at nominal: 0.988 (CONDUCTOR | conductor) and 0.991 (L-VALUE | L-value).** Both meet 0.95.
+- **Disclosed below 0.95:**
+  - the σ_μ × 1.5 stress: 0.937 and 0.947;
+  - the line's leave-one-out scatter taken as random field noise: 0.852 and 0.868.
+  - That second scenario counts the references' curvature as noise. Under the curved truth the references actually
+    show, the rule reads correctly at 1.000 and 1.000, with the line's misfit giving biases of −0.04 (conductor) and
+    −0.24 (L-value).
+- **§9.J:** CONDUCTOR, L-VALUE, INCONCLUSIVE and VOID are all reached.
+- **"Runs in N":** a true L-value effect reads L-VALUE 0.34, INCONCLUSIVE 0.43 and **CONDUCTOR 0.24**. Both informative
+  verdicts rest on "runs in X" (§9).
+
+**(c) The §9.F dry run** (`run_fn1h2_dry.sh`, ab7a757f; pueue 1616–1623; records in `results/h2/dry/`). The whole read
+pipeline ran at X = 2·10⁹, with synthetic h = 2 fixtures and the real h = 1 archives cut there.
+- **Double read:** two separate processes, both exit 0; outputs byte-identical (sha256 058d6c5e…2956, `cmp` rc 0).
+- **References:** each read recomputed its references and matched its pinned refs file bit for bit.
+- **Red paths:**
+  - with the −7 manifest pin zeroed: `AssertionError ('manifest pin', …archive_1e11_D7)`, rc 1, no output;
+  - with the refs pin zeroed: `AssertionError ('refs pin', …)`, rc 1, no output.
+- **Cost:** 347 CPU-seconds per read; about 0.2 core-h for the chain including fixtures and red paths.
+- The fixture s (9,287) is meaningless by construction (random rows) and is not a result.
+- **Selftest:** §3 (CHECKRUN EXIT=0).
 
 ## 6. Reported, descriptive (no verdict)
 
-- s and R against each reference:
-  - (i) random-thinned: raw, and after the exact inverse 2R − 1;
-  - (ii) χ′-thinned;
-  - matched N (stage 1);
-  - matched X (the primary).
-- Each beside its §2 predictions under both hypotheses. The (ii) result is the hypothesis test of the twist mechanism.
-- The descriptive nine h = 2 fields: their s (extrapolation, flagged), and the all-18 s.
-- **K2:** −15's offset (2 split, primes above 2 non-principal).
-- **Controls:** the correlation of the h = 2 offsets with L′/L(1,χ_D) and with Chen's L′/L(2,χ_D) term.
-- β 0.45 and 0.40; the h = 2 within-field drift along prime order; the exact Spearman ρ of R_h2 on C over the 18.
+- **The χ′ control (D5; D′ = 5).** Each h = 1 reference restricted to (5/p) = +1. ΔR = R_thin − R_ref per field and
+  β, beside (★)'s committed values under "runs in X" (β 0.55: +0.013 to +0.046) and "runs in N" (+0.018 to +0.062).
+  - It tests the twist-conductor mechanism and, through the level, X against N.
+  - The field-specific offsets of L16 cancel to first order in ΔR. The absolute level of (★) misfits our statistic
+    (RQ1-b), so ΔR is what is compared.
+- **The matched-N reference:** each h = 1 field's first n̄ rows, with n̄ the mean primary h = 2 count, and s against it
+  (predicted ≈ −0.55 under conductor/X).
+- **Other β:** s at β 0.45 and 0.40.
+- **Per field:** s_j for all 18 fields; the mean over all 18 and over the descriptive nine (outside the h = 1 C range,
+  so extrapolation, flagged); **K2:** −15's s_j.
+- **Within-field drift** of each h = 2 set (eight prime-order segments).
+- **Spearman ρ** of R_h2 on C over the 18 (seeded permutation p).
+- **Controls (Will):** Pearson r of s_j with L′/L(1, χ_D) and with Chen's L-term −2·L′/L(2, χ_D). Constants committed
+  before the seal (e4e7bf3e, `lead/FN1H2_CONTROLS.json`, sha256 77afddaa…c4b9; the h = 1 values reproduce
+  FN1_LPRIME.json exactly). Exact 9! permutation p over the primary nine.
 
-## 7. Out-of-sample arm: L16 (one-way)
+## 7. Out-of-sample arm K0 (one-way; Will D3: K1 dropped, K0 alone, no multiplicity correction)
 
 Will's L16, as amended: the h = 1 offsets are systematic and field-specific, either curvature in C_F (K0) or a second
-variable.
-- **K0 (the C-only null), declared form:** R = a + bC + cC² fitted on the nine h = 1 references, then frozen.
-  - The prediction for each primary h = 2 field is K0's offset from the reference line at C_j + s, with s from §4.
-  - **Statistic:** Spearman ρ between the predicted and observed within-h = 2 offsets (observed: R_h2,j − R_ref(C_j + s),
-    minus their mean), over the nine primary fields, with an exact permutation p (9!).
-  - **PASS iff p < α_K0 and ρ > 0.** One-way: a PASS is informative (the h = 2 pattern follows h = 1's curvature out
-    of sample); a FAIL reads "FAIL (one-way arm: FAIL not informative)".
-- **K1, decision D3.** Will: commit its functional form before any h = 2 compute, or drop it.
-  - **Recommendation: drop it.** Its only theory-derived form in our framework is Chen's inert-prime constant A′_Φ(F)
-    (eq. 9.27 with F's inert primes; RQ1B_STEP0 §4). That term comes from Chen's statistic including inert primes at
-    θ = 0. Ours excludes them, so its rationale does not carry over. The L-term C_Φ,L is already a control (L15).
-  - **If kept,** the form is K1 = A′_Φ(F)/C_Φ (Φ = 1_(0,1], contour Re β = 0.1, primes < 10⁵, `rq1b_constants.py`'s
-    method), as a + bC + γ·K1, frozen on h = 1, the same statistic as K0.
-- **Multiplicity:**
-  - with K1 dropped, α_K0 = 0.05;
-  - with K1 kept, Holm over K0 and K1 at familywise 0.05.
-- **Power and §9.J:** the PASS branch's reachability and the null false-PASS rate (≤ 0.05; the exact permutation null
-  holds by construction) are shown in pre-seal simulation (a). The planted case: h = 2 offsets that follow K0's
-  frozen curvature, with h = 1 scatter in the residual.
+variable. K0 is the C-only null.
+- **Frozen form:** q(C) = a₂ + b₂C + c₂C², OLS over the nine h = 1 references.
+- **What is out of sample.** Inside the nine primary h = 2 fields, once their own level and slope are removed, the
+  prediction's pattern is c₂·(C² minus its line on C), whatever s is. So K0's testable content there is the sign of c₂.
+- **Statistic (amended, §12):** an OLS quadratic over the nine primary (C_j, R_h2,j), and
+  t = sign(c₂)·ĉ₂,h2 / SE(ĉ₂,h2), with 6 df.
+  - **PASS iff t > 1.9432** (one-sided 5%). A PASS is informative: the h = 2 curvature follows h = 1's, out of sample.
+  - Otherwise "FAIL (one-way arm: FAIL not informative)".
+  - c₂ = 0 exactly gives VOID.
+- **Null and power:** from (a), §5.
 
-## 8. Cost (model; §9.H stratified first wave)
+## 8. Cost
 
-| Item | Core-h (model) |
-|---|---|
-| h = 2 archives, 18 fields to 2·10¹⁰: 3,600 segments of 10⁸ at ≤ 51 s (FN1's measured, flat in k; the genus test skips Tonelli/Cornacchia on half the split primes, so this is an upper bound), × 1.2 queue contention (stage-2 measured) | **≈ 61** (range 40–61) |
-| Pre-seal (b): h = 1 references + both thinned controls at X*, 9 fields (about 4× stage 1's single read, 0.2) | ≈ 1 |
-| Pre-seal (a) parametric, (c) selftest | < 0.3 |
-| §9.F dry double read on fixtures | ≈ 1 |
-| Sealed double read (18 h = 2 sets + the nine h = 1 reference/control sets) | ≈ 2.5 |
-| **Total** | **≈ 66** |
+| Item | Model | Measured |
+|---|---|---|
+| h = 2 archives, 3,600 segments of 10⁸ | 61.2 core-h (51 s × 1.2 contention per segment) | §9.H first wave: 51.3 s per segment (0.84×); bulk projected 51.4 core-h; 1,331 of 3,600 segments done at 01:03 PST 11-04, no failures; mid check 1523, final + manifests 1614 |
+| D2 (b) references | 0.5 core-h | about 0.45 core-h (wall 34 min) |
+| D2 (a) simulations, controls, predictions | < 0.3 core-h | local, minutes |
+| D2 (c) selftest; dry run at 2·10⁹ | ≈ 0.4 core-h | about 0.2 core-h |
+| Sealed double read (references, 18 h = 2 sets, χ′ control, matched N; ×2) | ≈ 3 core-h | — |
 
-**§9.H first wave (timing only, before the bulk):**
-- Covariates: segment index k (p size), the Cornacchia type (4p for D ≡ 1 mod 4, p for D ≡ 0 mod 4), and |D|.
-- Cases: for each type, the smallest, median and largest |D| (type 1: −15, −115, −427; type 0: −20, −52, −232) × k ∈
-  {1, 100, 199}. That is 18 tasks.
-- Each task's model is interpolated in k per field, flat beyond.
-- Stop rule: 1.25× at the mid and final checks, CPU-costed under pueue (`specarith-filler`).
-
-## 9. Attribution, fixed before the read
+## 9. Attribution, fixed before the read (D1 as ruled)
 
 - **CONDUCTOR:** at matched X and K, the h = 2 principal-prime sets sit on the h = 1 curve. R follows the analytic
-  conductor |D|(w/2)², not L(1,χ_D), which differs from it by log 4 at these fields. This holds within the order kept
-  in §2 (RW leading form + conductor constant).
-- **L-VALUE:** a displacement of about −log 4. The class number enters R, through L(1,χ_D) or something equivalent.
+  conductor |D|(w/2)², not L(1, χ_D), which differs from it by log 4 at these fields. This holds within the order kept
+  (Rudnick–Waxman's leading form plus the conductor constant).
+- **L-VALUE:** a displacement of about −log 4. The class number enters R, through L(1, χ_D) or something equivalent.
 - **INCONCLUSIVE:** no conclusion.
-- **Either informative result assumes** the §2 statement that the genus projection leaves the excess unchanged.
-  Thinned control (ii) tests the mechanism behind it, and is reported either way.
-- **K0 PASS:** h = 1's curvature in C predicts the h = 2 pattern out of sample. It does not exclude a second variable
-  in addition. A K0 FAIL carries no conclusion.
-- **K2, the descriptive nine and the controls** carry no conclusion.
+- **Both informative verdicts rest on "runs in X"** (§2), which rests on two heuristics: Rudnick–Waxman's RMT form, and
+  Rudnick–Sarnak independence for the cross term.
+  - If the term ran in N instead, a true conductor effect would sit at s ≈ +0.66 and still read CONDUCTOR.
+  - A true L-value effect would sit at s ≈ −0.73, inside the INCONCLUSIVE band, and would read CONDUCTOR 24% of the
+    time (§5).
+  - The χ′ control (§6) is the read's own descriptive check of X against N.
+- **K0 PASS:** h = 1's curvature in C predicts the sign of the h = 2 curvature out of sample. It does not exclude a
+  second variable in addition. A K0 FAIL carries no conclusion.
+- **K2, the descriptive nine, the χ′ control, matched N and the controls** carry no conclusion.
 
-## 10. Decisions needed from Will
+## 10. Seal procedure (as stages 1–2)
 
-- **D1: the primary reference.**
-  - The brief asks to measure the h = 2 displacement against the thinned h = 1 controls, with conductor → 0.
-  - §2 shows that random half-thinning halves the excess exactly, and χ′-thinning raises R by about log|D′| along C,
-    while the principal projection changes neither.
-  - So against either thinned control a true conductor hypothesis would read near or beyond the L-value prediction.
-  - **Proposed:** the primary uses the matched-X, matched-K unthinned h = 1 reference (conductor → 0 holds there at
-    the order kept). The thinned controls run as specified: (i) as the by-construction witness and the planted-witness
-    carrier, (ii) as the mechanism test. All displacements are reported with their derived predictions.
-  - The alternative is to keep the thinned controls primary, with the §2 predictions replacing "0".
-- **D2: pre-seal compute.** "No compute before the seal" is read here as no h = 2 data before the seal. The standards
-  Will asked for need:
-  - (a) parametric simulation, no data;
-  - (b) about 1 core-h on seen h = 1 data;
-  - (c) the generator selftest and the fixture dry run.
-  - Go or no-go for each? (D2b: if the σ_μ × 1.5 stress puts D23 below 0.95, widen the cuts or accept it.)
-- **D3: K1.** Drop (recommended), or keep with the A′ form in §7.
-- **D4: X* = 2·10¹⁰.** That is matched N to stage 1 and about 61 core-h. A larger X* shrinks nothing that matters
-  here (the field scatter dominates), at roughly proportional cost.
-- **D5: D′ = 5 for control (ii).** A second D′ (e.g. 13) would test the log|D′| dependence, descriptively, at about
-  0.3 core-h.
+1. Archives complete, all 18 manifests integrity-true, counts recorded. `fn1h2_pins.json` written:
+   - the archive manifests;
+   - `fn1_pins2.json`'s h = 1 manifests;
+   - the D2 (b) references, (★) predictions and controls files, by sha256;
+   - the sha256 of `fn1h2_read.py`, `fn1h2_archive.py`, `fn1_read2.py`, `fn1_archive.py`, `rq1_read.py` and
+     `rq1_zw.py`.
+2. This document is finalised and tagged `fn1h2-seal`.
+3. OpenTimestamps stamp manifest, then Bitcoin attestation verified on two explorers. **No read before attestation.**
+4. Double read: two separate processes. The output JSON has sorted keys and no timings (timings go to a sidecar).
+   `cmp` must be byte-identical.
+5. **VOID conditions:**
+   - any pin mismatch;
+   - the references differing from the committed D2 (b) file;
+   - `cmp` not identical;
+   - the reference slope ≤ 0 (primary).
+
+## 11. Will's rulings (2026-11-03), as applied
+
+- **D1 accepted.** The matched-X, matched-K unthinned h = 1 reference is primary. The attribution names both
+  heuristics and states that both informative verdicts rest on "runs in X" (§9).
+- **D2: go on (a), (b), (c).**
+  - (b) is committed and hashed before the seal, with no h = 2 data touched.
+  - D2b: D23 is judged at nominal; a stress result below 0.95 is disclosed and the cuts are not widened (§5).
+- **D3:** K1 dropped; K0 alone; no multiplicity correction (§7).
+- **D4:** X* = 2·10¹⁰.
+- **D5:** χ′ with D′ = 5, descriptive. (★)'s predictions for each h = 1 field under "runs in X" and "runs in N" were
+  committed before computing (ec4f3ac8).
+
+## 12. Changes from draft 1, and what needs Will's review
+
+**Changed from draft 1 (aa4afbf2):**
+1. **Thinned controls removed** (Will's withdrawal). Control (i) and its witness role are gone. The §9.D witness is the
+   leave-one-out stand-in on the h = 1 references (D1 as accepted).
+2. **K1 dropped; K0 alone, α 0.05, no multiplicity correction** (D3).
+3. **K_P fixed at stage 1's K** (57,801 / 7,873 / 2,906), not round(N_P^0.55) from the h = 2 count (§3).
+4. **h = 2 sets use every principal p ≤ X*,** not a cut to the minimum count. That is matched X, as D1 requires.
+5. **K0's statistic was replaced** after pre-seal simulation (a) showed that draft 1's form did not hold its size:
+   - draft 1's Spearman of predicted against observed offsets about the h = 1 line had null false PASS 0.065, because
+     the h = 1 slope error enters the observed offsets linearly in C;
+   - detrending both within the nine left 0.061, because the residuals are not exchangeable;
+   - the replacement is a one-sided t on the within-h = 2 quadratic coefficient, with the sign of h = 1's: null 0.0498,
+     exact under Gaussian scatter.
+6. **VOID on a reference slope ≤ 0** added as an explicit branch (reachable, §5).
+7. **Controls constants committed** (L′/L(1), Chen's −2·L′/L(2)), and the χ′ predictions committed (D5).
+8. **"Runs in N" re-evaluated exactly:** under it, a true L-value effect reads CONDUCTOR 0.24, not the derivation's
+   linearised 0.16.
+
+**For Will's review:**
+- **K0's power.** The exact t form fires on a planted h = 1-like curvature only 0.32 of the time (0.14 at σ_μ), because
+  the primary C range (3.56–5.00) is narrow for a curvature test. A K0 FAIL is declared uninformative, but with this
+  power the arm can rarely say anything.
+  - **Options:**
+    1. keep it as is;
+    2. use draft 1's Spearman form with its cut calibrated by simulation (power 0.997 at the uncalibrated cut; the
+       calibrated cut is not yet computed). Its size would then rest on the simulated noise model, not on an exact
+       null;
+    3. drop K0 and keep the curvature reading descriptive.
+  - My recommendation is 3: the arm cannot reach §9.J's reachability with useful power.
+- **The references' curvature.** The h = 1 references at X* are convex in C (c₂ 0.027, residual SD 0.009, against a
+  line LOO scatter of 0.046).
+  - The primary still uses the line, as draft 1 declared, to keep it free of K0's form. Under the references' own
+    quadratic as truth, the line-based rule classifies correctly at 1.000 both ways, with an L-value bias of −0.24.
+  - A quadratic reference would remove that bias but import K0's form into the primary. I recommend keeping the line.
+- **D23 below 0.95 under two disclosed scenarios** (stress 0.94; line scatter as noise 0.85–0.87). Per D2b these are
+  disclosed and the cuts are unchanged.
+- **The h = 2 archives** were started overnight under the stage-2 archive rule (Will's overnight instruction). They are
+  pinned only at the seal.

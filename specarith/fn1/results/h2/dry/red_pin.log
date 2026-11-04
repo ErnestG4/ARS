@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/combust/tmp/claude/specarith/fn1/fn1h2_read.py", line 301, in <module>
+    sys.exit(main(*sys.argv[1:5]))
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1h2_read.py", line 219, in main
+    t = time.time(); ref = refs(pins, X); timing["refs"] = time.time() - t
+                           ^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1h2_read.py", line 146, in refs
+    th, _, n = load(a["dir"], f, a["manifest_sha256"], X=X)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1h2_read.py", line 105, in load
+    assert sha_file(mp) == pinned_sha, ("manifest pin", d)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('manifest pin', '/mnt/data/fn1/archive_1e11_D7')
+rc 1; output exists: no

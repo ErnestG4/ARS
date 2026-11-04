@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/combust/tmp/claude/specarith/fn1/fn1h2_read.py", line 301, in <module>
+    sys.exit(main(*sys.argv[1:5]))
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/combust/tmp/claude/specarith/fn1/fn1h2_read.py", line 228, in main
+    assert sha_file(rp) == rs, ("refs pin", rp)
+           ^^^^^^^^^^^^^^^^^^
+AssertionError: ('refs pin', '/home/combust/tmp/claude/specarith/fn1/h2dry/DRY_REFS.json')
+rc 1; output exists: no
