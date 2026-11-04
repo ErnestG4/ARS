@@ -36,7 +36,10 @@ Descriptive (no verdict): s at β 0.45 / 0.40 (their own lines); s_j per field (
 over all 18 and over the descriptive nine (extrapolation outside the h = 1 C range flagged); the matched-N reference
 and s against it; the χ′ control's ΔR = R_thin − R_ref per h = 1 field beside (★)'s committed "runs in X" and "runs
 in N" values; within-field drift of each h = 2 set (8 contiguous prime-order segments, fn1_read2.seg_noise); the
-Spearman ρ of R_h2 on C over the 18 (seeded permutation p, 200,000 draws).
+Spearman ρ of R_h2 on C over the 18 (seeded permutation p, 200,000 draws); the controls (Will: "L′/L(1) and Chen's
+term are controls"): Pearson r of s_j (β 0.55) with L′/L(1, χ_D) and with Chen's L-term −2·L′/L(2, χ_D) from the
+committed `lead/FN1H2_CONTROLS.json` (pinned), over the nine primary fields (exact two-sided permutation p over 9!) and
+over all 18 (r only).
 Output: JSON, sorted keys, no timings (sidecar OUT.timing). stdout prints only "done".
 """
 import hashlib
@@ -179,6 +182,21 @@ def k0_test(Rh2, q):
     return dict(h1_c2=float(q[2]), h2_c2=float(coef[2]), h2_c2_se=se, t=t, t_crit=T95_6, verdict=v)
 
 
+_PERMS = None
+
+
+def corr_perm(x, y):
+    """Pearson r and its exact two-sided permutation p over 9! (descriptive)."""
+    global _PERMS
+    import itertools
+    if _PERMS is None:
+        _PERMS = np.array(list(itertools.permutations(range(9))))
+    x = np.asarray(x) - np.mean(x); y = np.asarray(y) - np.mean(y)
+    d = math.sqrt((x @ x) * (y @ y)); r = (x @ y) / d
+    st = (y[_PERMS] @ x) / d
+    return dict(r=float(r), p_exact_two_sided=float(np.mean(np.abs(st) >= abs(r) - 1e-12)))
+
+
 def rho18(R):
     x = np.array([C2[d] for d in H2]); y = np.array([R[d] for d in H2])
     rx = np.argsort(np.argsort(x)); ry = np.argsort(np.argsort(y))
@@ -239,6 +257,13 @@ def main(mode, pins_path, out):
             o["rho18"] = rho18(R2)
         tests[b] = o
     res["tests"] = tests
+    cp_, cs_ = pins["controls"]["path"], pins["controls"]["sha256"]
+    assert sha_file(cp_) == cs_, ("controls pin", cp_)
+    ctl = json.load(open(cp_))["h2"]
+    sj = tests["0.55"]["s_j"]
+    res["controls"] = {key: dict(primary9=corr_perm([sj[d] for d in PRIMARY], [ctl[d][key] for d in PRIMARY]),
+                                 all18_pearson=float(np.corrcoef([sj[d] for d in H2], [ctl[d][key] for d in H2])[0, 1]))
+                       for key in ("LpL1", "chen_Lterm")}
     res["primary"] = dict(beta=0.55, s=tests["0.55"]["s"], verdict=tests["0.55"]["verdict"],
                           K0=tests["0.55"]["K0"]["verdict"], cuts=[CUT_C, CUT_L])
     # descriptive: χ′ control and matched-N reference
