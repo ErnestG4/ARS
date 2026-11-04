@@ -33,6 +33,12 @@
   "seed": 20261104,
   "sig_mu": 0.0213
  },
+ "curved_truth_bias": {
+  "L-value": -0.24429930146975765,
+  "conductor": -0.035605383960673115,
+  "runs in N L-value": -0.3779848908519047,
+  "runs in N conductor": 0.7209708137096735
+ },
  "inputs": {
   "pred_sha256": "7cf50f1903861faba23fc87f641721b0e0a994a32b074fc68972cf8ab6570cda",
   "refs_sha256": "f2d390cfef7d383e4aec903c02bc7fe37548c188efa9de3341388fd605a5d4bd"
@@ -72,6 +78,46 @@
    "s_true": 0.0,
    "sd_s_robust": 0.1154835079553613,
    "sig_mu": 0.008959709879285105
+  },
+  "curved truth, runs in N, resid SD: L-value": {
+   "P_CONDUCTOR": 0.0,
+   "P_INCONCLUSIVE": 0.001385,
+   "P_LVALUE": 0.998615,
+   "P_VOID": 0.0,
+   "median_s": -1.1090695328130828,
+   "s_true": -0.7312367752615297,
+   "sd_s_robust": 0.09072331676335185,
+   "sig_mu": 0.008959709879285105
+  },
+  "curved truth, runs in N, resid SD: conductor": {
+   "P_CONDUCTOR": 1.0,
+   "P_INCONCLUSIVE": 0.0,
+   "P_LVALUE": 0.0,
+   "P_VOID": 0.0,
+   "median_s": 1.3825814358996893,
+   "s_true": 0.6615371038151272,
+   "sd_s_robust": 0.18827976840049482,
+   "sig_mu": 0.008959709879285105
+  },
+  "curved truth, runs in N, sigma_mu 0.0213: L-value": {
+   "P_CONDUCTOR": 0.002865,
+   "P_INCONCLUSIVE": 0.068495,
+   "P_LVALUE": 0.92864,
+   "P_VOID": 0.0,
+   "median_s": -1.1097563188487856,
+   "s_true": -0.7312367752615297,
+   "sd_s_robust": 0.18709549051894503,
+   "sig_mu": 0.0213
+  },
+  "curved truth, runs in N, sigma_mu 0.0213: conductor": {
+   "P_CONDUCTOR": 1.0,
+   "P_INCONCLUSIVE": 0.0,
+   "P_LVALUE": 0.0,
+   "P_VOID": 0.0,
+   "median_s": 1.3820603342134443,
+   "s_true": 0.6615371038151272,
+   "sd_s_robust": 0.38750100057213405,
+   "sig_mu": 0.0213
   },
   "curved truth, sigma_mu 0.0213: L-value": {
    "P_CONDUCTOR": 0.0,
