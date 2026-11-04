@@ -212,7 +212,7 @@ variable. K0 is the C-only null.
 
 | Item | Model | Measured |
 |---|---|---|
-| h = 2 archives, 3,600 segments of 10⁸ | 61.2 core-h (51 s × 1.2 contention per segment) | §9.H first wave: 51.3 s per segment (0.84×); bulk projected 51.4 core-h; 1,331 of 3,600 segments done at 01:03 PST 11-04, no failures; mid check 1523, final + manifests 1614 |
+| h = 2 archives, 3,600 segments of 10⁸ | 61.2 core-h (51 s × 1.2 contention per segment) | §9.H first wave: 51.3 s per segment (0.84×); bulk projected 51.4 core-h. **Stopped by the declared rule at the mid check (01:34 PST 11-04):** 1,809 of 3,600 segments done, no failures, measured 1.33× the first-wave-interpolated model (0.92× the price); STOPPED written, second half not run (`results/h2/ARCHIVE_COST_MID.txt`). Relaunch is Will's call (§12). |
 | D2 (b) references | 0.5 core-h | about 0.45 core-h (wall 34 min) |
 | D2 (a) simulations, controls, predictions | < 0.3 core-h | local, minutes |
 | D2 (c) selftest; dry run at 2·10⁹ | ≈ 0.4 core-h | about 0.2 core-h |
@@ -302,5 +302,17 @@ variable. K0 is the C-only null.
   - A quadratic reference would remove that bias but import K0's form into the primary. I recommend keeping the line.
 - **D23 below 0.95 under two disclosed scenarios** (stress 0.94; line scatter as noise 0.85–0.87). Per D2b these are
   disclosed and the cuts are unchanged.
+- **The archive stop (§8).** The mid check measured 1.33× the model interpolated from the §9.H first wave, so the rule
+  wrote STOPPED and the second half did not run. 1,809 of 3,600 segments are done, with no failures.
+  - **Cause:** the excess is uniform. Even the six first-wave case fields run 1.27–1.40× their own first-wave values
+    (−148, mapped to −232's case, runs 1.67×). That looks like CPU-time inflation under 24 parallel tasks on the 56-vCPU
+    VM, whereas the first wave ran lightly loaded. It is not a model-structure miss.
+  - **Against the seal's price** (61.2 s per segment, which already allows 1.2× contention) it is 0.92×. With the
+    second half's larger k, the full archive projects to about 63 core-h, near 1.03× the price.
+  - **Options:**
+    1. relaunch the second half against the price (61 core-h) as the stop reference;
+    2. relaunch at lower parallelism (e.g. 12) with the first-wave model;
+    3. hold.
+  - My recommendation is 1, since the price is what was approved.
 - **The h = 2 archives** were started overnight under the stage-2 archive rule (Will's overnight instruction). They are
   pinned only at the seal.
