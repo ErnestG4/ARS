@@ -1,0 +1,2 @@
+completed 3600 segments: CPU 60.58 core-h = 60.6 s/segment, 0.990x the price; stop above 1.25x (76.50 core-h at this count; cap 76.5 core-h for 3,600)
+OK

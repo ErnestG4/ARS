@@ -268,6 +268,19 @@ contention. Against it the build was at 0.92×. This is a process fix with no ef
   - no partial or temp files;
   - all 1,809 segment files load whole (size = header + rows × 8) and equal the done list;
   - the second half generates only missing segments.
+- **Outcome (05:55 PST 11-04):** all 3,600 segments generated, no failures.
+  - **Cost:** 60.58 core-h = 60.6 s per segment, **0.990× the price**. The three-quarter check was at 0.967×.
+  - **Manifests:** all 18 integrity-true; copies and sha256 in `results/h2/manifests/`, to be pinned at the seal.
+  - **Counts** (`results/h2/manifests/COUNTS.json`; ALL_OK):
+    - each field has 220.54–220.55 million rows;
+    - rows / split = 0.49999–0.50000;
+    - rows / (li(X*)/4) = 0.99994–0.99998, all below 1 by 0.3–0.6 √-units, as π < li predicts;
+    - per-segment rows / cross-field median lie in [0.998, 1.002], with none outside ±2%.
+  - **−148 explicitly:**
+    - 220,549,919 rows, rows / split 0.50000, rows / (li/4) 0.99998;
+    - per-segment ratio [0.999, 1.001];
+    - the independent Euler recount equals the manifest at segments 0 / 100 / 199: 1,440,293 / 1,086,006 / 1,054,364.
+    - Its 1.67× CPU in the first half is therefore cost only, not extra or missing rows (−52's recount matches too).
 - **Counts:** the final step writes the 18 manifests and a count report (`fn1h2_counts.py`), with −148 explicit:
   - rows against li(X*)/4 and against the field's split count;
   - per-segment rows against the cross-field median;
