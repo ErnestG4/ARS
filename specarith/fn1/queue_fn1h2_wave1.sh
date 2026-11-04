@@ -14,7 +14,7 @@ mkdir -p $Q $ROOT/logs
 ids=""
 for D in -15 -115 -427 -20 -52 -232; do for k in 1 100 199; do
   f=$Q/w1_D${D#-}_k$k; echo "$D $k" > $f
-  ids="$ids $($PQ add -p -g specarith-filler -w $CODE -l specarith:fn1h2-arch-w1-D${D#-}-k$k -- pq-fill --no-viz archive-generation fn1h2-arch-w1 2 bash $CODE/run_fn1h2_chunk.sh $f)"
+  ids="$ids $($PQ add -p -g specarith-filler -w $CODE -l specarith:fn1h2-arch-w1-D${D#-}-k$k -- pq-fill --no-viz archive-generation fn1h2-arch-w1-D${D#-}-k$k 2 bash $CODE/run_fn1h2_chunk.sh $f)"
 done; done
 echo "$ids" > $Q/wave1_ids.txt
 echo "$(date -Is) [CC specarith] fn1h2 archive §9.H first wave queued (specarith-filler): pueue$ids" >> ~/claude-work.log

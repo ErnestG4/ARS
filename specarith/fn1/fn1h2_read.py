@@ -25,9 +25,13 @@ s = mean_{nine primary h = 2}(R_h2,j − a − b·C_j) / b.
   CONDUCTOR iff s > −0.4·log 4 (−0.5545); L-VALUE iff s < −0.6·log 4 (−0.8318); else INCONCLUSIVE;
   VOID (reference slope ≤ 0) if b ≤ 0.
 K0 (one-way, α 0.05, no multiplicity correction; Will D3): quadratic q(C) = a₂ + b₂C + c₂C² by OLS over the nine h = 1
-references, frozen. Over the nine primary fields: predicted offset q(C_j + s) − (a + b(C_j + s)); observed offset
-R_h2,j − (a + b(C_j + s)). Spearman ρ between them, exact one-sided p over 9! (P(Σd² ≤ observed)). PASS iff p < 0.05
-and ρ > 0, else "FAIL (one-way arm: FAIL not informative)"; exact ties in either list → VOID (ties).
+references, frozen. Its out-of-sample content inside the nine primary h = 2 fields, once their own level and slope are
+removed, is the sign of c₂ (the prediction's pattern is c₂·[C² minus its line on C], whatever s). Test: OLS quadratic
+over the nine primary (C_j, R_h2,j); t = sign(c₂)·ĉ₂,h2 / SE(ĉ₂,h2), 6 df. PASS iff t > 1.9432 (one-sided 5%),
+else "FAIL (one-way arm: FAIL not informative)"; c₂ = 0 exactly → VOID. Exact under Gaussian i.i.d. field scatter.
+(Amended 2026-11-04 after pre-seal simulation (a): the draft's Spearman of predicted against observed offsets about
+the h = 1 line had null false PASS 0.065, because the h = 1 slope error enters the observed offsets linearly in C;
+detrending both within the nine left 0.061, since detrended residuals are not exchangeable.)
 Descriptive (no verdict): s at β 0.45 / 0.40 (their own lines); s_j per field (all 18; K2 = −15 flagged); the mean s
 over all 18 and over the descriptive nine (extrapolation outside the h = 1 C range flagged); the matched-N reference
 and s against it; the χ′ control's ΔR = R_thin − R_ref per h = 1 field beside (★)'s committed "runs in X" and "runs
@@ -158,19 +162,21 @@ def classify(s, b):
     return "CONDUCTOR" if s > CUT_C else ("L-VALUE" if s < CUT_L else "INCONCLUSIVE")
 
 
-def k0_test(Rh2, s, ab, q, counts):
-    a, b = ab
-    xs = [C2[d] + s for d in PRIMARY]
-    pred = [q[0] + q[1] * x + q[2] * x * x - (a + b * x) for x in xs]
-    obs = [Rh2[d] - (a + b * x) for d, x in zip(PRIMARY, xs)]
-    if len(set(pred)) < 9 or len(set(obs)) < 9:
-        return dict(verdict="VOID (ties)")
-    rp = np.argsort(np.argsort(pred)); ro = np.argsort(np.argsort(obs))
-    d2 = int(((rp - ro) ** 2).sum())
-    rho = 1 - 6 * d2 / (9 * 80)
-    p = float(counts[: d2 + 1].sum() / counts.sum())
-    v = "PASS" if (p < ALPHA_K0 and rho > 0) else "FAIL (one-way arm: FAIL not informative)"
-    return dict(pred=dict(zip(PRIMARY, pred)), obs=dict(zip(PRIMARY, obs)), sum_d2=d2, rho=rho, p_exact=p, verdict=v)
+T95_6 = 1.9431802803927816          # one-sided 5% point of Student t, 6 df
+
+
+def k0_test(Rh2, q):
+    """K0: the within-h = 2 curvature has the sign of the frozen h = 1 quadratic's, significantly (one-sided t, 6 df)."""
+    if q[2] == 0:
+        return dict(verdict="VOID (h = 1 quadratic coefficient is 0)")
+    x = np.array([C2[d] for d in PRIMARY]); y = np.array([Rh2[d] for d in PRIMARY])
+    A = np.vstack([np.ones(9), x, x * x]).T
+    coef, rss = np.linalg.lstsq(A, y, rcond=None)[:2]
+    s2 = float(((y - A @ coef) ** 2).sum()) / 6
+    se = math.sqrt(s2 * np.linalg.inv(A.T @ A)[2, 2])
+    t = float(np.sign(q[2]) * coef[2] / se) if se > 0 else float("nan")
+    v = "PASS" if t > T95_6 else "FAIL (one-way arm: FAIL not informative)"
+    return dict(h1_c2=float(q[2]), h2_c2=float(coef[2]), h2_c2_se=se, t=t, t_crit=T95_6, verdict=v)
 
 
 def rho18(R):
@@ -214,7 +220,6 @@ def main(mode, pins_path, out):
         drift[d] = F2.seg_noise(half, n, KP["0.55"], 0.55)
         del half
     timing["h2"] = time.time() - t
-    counts = F2.exact_null_counts(9)
     res["h2"] = {d: dict(n=n2[d], N=2 * n2[d], R=Rh2[d], C=C2[d], primary=d in PRIMARY) for d in H2}
     res["h2_drift_beta055"] = drift
     tests = {}
@@ -230,7 +235,7 @@ def main(mode, pins_path, out):
             o["verdict"] = classify(s, b0)
             q = quad(Rref, C1, H1)
             o["K0_quadratic"] = [float(v) for v in q]
-            o["K0"] = k0_test(R2, s, (a0, b0), q, counts) if b0 > 0 else dict(verdict="VOID (reference slope <= 0)")
+            o["K0"] = k0_test(R2, q)
             o["rho18"] = rho18(R2)
         tests[b] = o
     res["tests"] = tests
