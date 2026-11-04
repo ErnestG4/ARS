@@ -6,6 +6,8 @@ T = 7.443 > t = 5.238 and the guard holds. The rule, the cells and t are as seal
 (`RQ1_SEAL.md`, tag `rq1-seal`), and the double read is byte-identical. The verdict is about **direction**: ℤ[√2] above
 ℤ[i] at matched N in the rigidity regime. It is **conditional on the SE model** (round 91).
 
+**Label check (Will, 2026-11-04; `L13_REPORT.md`, "Label check"): label kept.** B2 used β 0.40 and 0.45 at 10¹⁰ and 10¹¹. It would flip at a noise inflation of **1.42** (T/t). The slice 90% upper bound on noise at those β and fields is **2.31**, so the slices cannot exclude a flip. Verdict unchanged.
+
 The verdict is §2 alone. §3 (size, shape and scaling against the flat-offset heuristic), §4 (open leads) and §5 (the
 post-hoc conductor-scaling check, round 92) are descriptive and carry no verdict. Anything computed after the read is
 labelled post-hoc.

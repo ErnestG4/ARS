@@ -398,6 +398,19 @@ matched-N slices below 10¹¹ give second differences R₁ − 2R₂ + R₃ that
   - **Slices** fail no witness (worst 1.15).
   - The SE model is accurate on iid angles (truth ÷ model 0.93–1.02).
   - No relabelling. Whether L13 is resolved is Will's reading.
+- **L13 reading (Will, 2026-11-04, verbatim; replaces "no conclusion"):** "Slices are the only noise estimator that
+  passed every §9.G witness (36/36). Method A inflates under angular modulation and method B under angle–residue
+  coupling, so both are invalid as noise estimators for this statistic. By slices, the noise is consistent with the SE
+  model at β 0.40–0.55 for ℤ[√2] and ℤ[i], with 2–3× excess at β 0.60. Open: the planted modulation explains only
+  1.15–1.69× of A's 3–23× excess, and coupling in the real data is untested."
+- **ℤ[ω] slices (2026-11-04; fe4dcd54; pueue 1391, 0.91× the model).** The same pattern: consistent at β 0.40–0.55
+  (model/empirical 1.005, 0.866, 0.968), above at β 0.60 (0.437 [0.198, 0.677]).
+- **Label check (2026-11-04; `rq1/L13_REPORT.md`):** no upgrade; all three labels kept, verdicts unchanged.
+  - B2: flip factor 1.42 against a slice upper bound of 2.31.
+  - P1: 1.12 against 2.31.
+  - P4: the ℤ[ω] > ℤ[i] inequality at 10¹⁰ (1.40) and 10¹¹ (1.86), against 2.33.
+- **Still open:** β 0.60 (two candidate causes, recorded); the rest of A's excess; angle–residue coupling in the real
+  data.
 
 ## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
 

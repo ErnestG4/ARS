@@ -20,6 +20,8 @@ in the code).
 | 0.40 | 16,987 | +0.01586 | 0.01129 | 1.40 |
 | 0.45 | 57,395 | +0.02157 | 0.00717 | 3.01 |
 
+**Label check (Will, 2026-11-04; `L13_REPORT.md`): label kept.** P1 used β 0.40 and 0.45 at 10¹². Flip factor **1.12** (T/t), against a slice upper bound of **2.31**. Verdict unchanged.
+
 T = 4.412 against the frozen t = 3.928 (scales 1.0 at both cells); guard holds (no D < −2·SE). Attribution as sealed:
 the field difference's direction replicates at 10¹² (power at the frozen t was 0.87 / 0.79 / 0.32 under the three decay
 laws).
@@ -52,6 +54,8 @@ Recorded alongside (descriptive):
   crossing on the grid.
 
 ## P4 — ℤ[ω] ordering at β = 0.55: PASS-under-ruling; PASS under the sealed SE model; L13 shows empirical fluctuation measures exceed that model (methods disagree); significance unresolved
+**Label check (Will, 2026-11-04; `L13_REPORT.md`): label kept.** P4 used β 0.55 at 10¹⁰, 10¹¹ and 10¹². The rule is sign-only. Per inequality (z/1.645 against the slice bound): ℤ[√2] > ℤ[ω] clears at all three X (3.92 / 6.14 / 8.39 against 2.28). ℤ[ω] > ℤ[i] clears only at 10¹² (3.06 against 2.33); at 10¹⁰ it is **1.40** and at 10¹¹ **1.86**, against **2.33**. Verdict unchanged.
+
 Both inequalities at all three X (SEs from the sealed model, each R independent):
 
 | X | K | R_ℤ[√2] − R_ℤ[ω] | R_ℤ[ω] − R_ℤ[i] | sealed predicted ω–i separation |

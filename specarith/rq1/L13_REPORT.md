@@ -1,5 +1,8 @@
 # L13: RQ1's sealed SE model against empirical SEs on the arithmetic angle sets (descriptive; no seal)
 
+**Current reading (Will, 2026-11-04; replaces "no conclusion"): see "L13 reading" at the end.** The sections in between
+are the record in order; their "no conclusion" lines were correct when written and are superseded by that reading.
+
 Brief: Will, 2026-10-31. Code: `rq1_l13.py` (criteria committed before running, 35d9b579; loader and cost-guard fix
 5c1aa813 after launch 1 stopped, relaunch approved by Will). Data: the already-read 10¹⁰ / 10¹¹ sets, sliced from the
 pinned 10¹² archives. Every R was bit-identical to the sealed read (guard). Cost 1.71 spot core-hours (0.67× the
@@ -198,3 +201,89 @@ Method, cost and failure rule committed before running (88ec5207, `rq1_l13_calib
   Quadratic drift of the planted size moves it 2–6%.
 - **What this does not do.** Nothing in RQ1, RQ1-c or L13's table is relabelled. Whether this resolves L13, with A and
   B invalid and slices standing, is Will's reading.
+
+## L13 reading (Will, 2026-11-04, verbatim; replaces "no conclusion")
+
+"Slices are the only noise estimator that passed every §9.G witness (36/36). Method A inflates under angular
+modulation and method B under angle–residue coupling, so both are invalid as noise estimators for this statistic. By
+slices, the noise is consistent with the SE model at β 0.40–0.55 for ℤ[√2] and ℤ[i], with 2–3× excess at β 0.60.
+Open: the planted modulation explains only 1.15–1.69× of A's 3–23× excess, and coupling in the real data is untested."
+
+§9.G calibration accepted (Will, 2026-11-04).
+
+## Slices for ℤ[ω] (Will, 2026-11-04; descriptive, new run)
+
+Method and cost committed before running (fe4dcd54, `rq1_l13_slices_zw.py`). It reuses 4ed68e0f's functions unchanged
+on the ℤ[ω] archive: the same nine matched-N row ranges below the 10¹¹ matched n, and the same K. Run on spot as pueue
+1391 (specarith-scored): CPU 824 s, **0.91× the model**. The guard held: slice 0's R at β 0.40, 0.45 and 0.55 equals the
+RQ1-c read's 10¹⁰ ℤ[ω] cells bit for bit. Output: `results/l13/L13_SLICES_ZW.json` (with the ℤ[√2] and ℤ[i] tables
+copied from `L13_SLICES.json`, not recomputed).
+
+| β | K | ℤ[ω]: model / empirical [90%] | Reading | Curvature z | ℤ[√2] (4ed68e0f) | ℤ[i] (4ed68e0f) |
+|---|---|---|---|---|---|---|
+| 0.40 | 2,906 | 1.005 [0.455, 1.558] | consistent | +0.18 | 0.955 [0.433, 1.480] | 1.403 [0.636, 2.174] |
+| 0.45 | 7,873 | 0.866 [0.392, 1.343] | consistent | −0.03 | 1.403 [0.636, 2.175] | 1.051 [0.476, 1.629] |
+| 0.55 | 57,801 | 0.968 [0.438, 1.500] | consistent | +0.19 | 1.941 [0.879, 3.008] | 0.948 [0.430, 1.469] |
+| 0.60 | 156,616 | 0.437 [0.198, 0.677] | above | −0.49 | 0.316 [0.143, 0.489] | 0.490 [0.222, 0.759] |
+
+- ℤ[ω] shows the same pattern as the other two fields: consistent with the SE model at β 0.40–0.55, and above it at β
+  0.60 (about 2.3× the model).
+- **Process note (§9.I).** `rq1_l13_slices_zw.py`, like 4ed68e0f's `rq1_l13_slices.py` and the calibration's
+  `rq1_l13_calib.py`, does not call `safeio.enforce()`. All three wrote only under `~/tmp/claude` on spot, and their
+  outputs were copied into the repo by explicit scp + git add. The rule's substance held, but it was not enforced in
+  code as §9.I requires. The ℤ[ω] run was also first started outside pueue (by running `pq-scored` directly over ssh).
+  I killed my own three PIDs after about 2.5 minutes and requeued it as 1391. No output from the aborted start was
+  kept.
+
+## Label check (Will, 2026-11-04; desk arithmetic, no data read)
+
+Definitions committed before the ℤ[ω] numbers existed (fe4dcd54, `rq1_label_check.py`; output
+`results/l13/LABEL_CHECK.json`).
+- **Slice upper bound** u = 1 ÷ the lower end of the slices' 90% interval on model/empirical, at the verdict's β and
+  field.
+- **Caveat:** the slices were taken at the 10¹⁰ matched N. The verdicts' 10¹¹ and 10¹² cells use the same β at larger N
+  and K, and u at that β is applied to them as the brief says.
+
+| Field | u at β 0.40 | 0.45 | 0.55 | 0.60 |
+|---|---|---|---|---|
+| ℤ[√2] | 2.31 | 1.57 | 1.14 | 6.99 |
+| ℤ[i] | 1.57 | 2.10 | 2.33 | 4.51 |
+| ℤ[ω] | 2.20 | 2.55 | 2.28 | 5.06 |
+
+| Verdict | β used (X; K) | Flip factor | Upper bound U | Outcome |
+|---|---|---|---|---|
+| **RQ1 B2** (T rule) | 0.40, 0.45 at 10¹⁰ and 10¹¹ (K 2,906 / 7,873 / 7,013 / 21,213) | **1.42** (T/t = 7.443/5.238) | **2.31** (max over both fields and both β) | **keep** |
+| **RQ1-c P1** (T rule) | 0.40, 0.45 at 10¹² (K 16,987 / 57,395) | **1.12** (4.412/3.928) | **2.31** | **keep** |
+| **RQ1-c P4 ordering** (sign rule) | 0.55 at 10¹⁰, 10¹¹, 10¹² (K 57,801 / 194,125 / 655,245) | **1.40** (weakest inequality) | **2.33** (that inequality) | **keep** |
+
+**How the flip factors are defined.**
+- **B2 and P1:** if the true noise is f × the model at every cell, T in true units is T/f against the same t. So the
+  verdict flips at f* = T/t, compared with the largest u over the verdict's fields and β.
+  - Also computed: B2's T with each cell's SE scaled field by field to its u is 3.93, against t = 5.24.
+- **P4:** the sealed rule is sign-only (R_√2 > R_ω > R_i), so no noise inflation changes the observed ordering.
+  - Under its sealed null (three sets at equal R, exchangeable independent noise), the false-PASS rate is about (1/6)³
+    at any noise scale. This reading is reported, but it does not address what the label is about: whether the
+    separations exceed the noise.
+  - **The declared reading is per inequality:** f* = z/1.645, the inflation at which that inequality stops being
+    one-sided 5% significant, compared with U = max(u_a, u_b) at β 0.55. An upgrade needs all six inequalities to
+    clear their bound.
+
+| X | Inequality | z (model SE) | f* = z/1.645 | U | z at the slice bound | Clears U? |
+|---|---|---|---|---|---|---|
+| 10¹⁰ | ℤ[√2] − ℤ[ω] | 6.45 | 3.92 | 2.28 | 3.65 | yes |
+| 10¹⁰ | ℤ[ω] − ℤ[i] | 2.30 | **1.40** | 2.33 | 1.00 | **no** |
+| 10¹¹ | ℤ[√2] − ℤ[ω] | 10.09 | 6.14 | 2.28 | 5.70 | yes |
+| 10¹¹ | ℤ[ω] − ℤ[i] | 3.06 | **1.86** | 2.33 | 1.33 | **no** |
+| 10¹² | ℤ[√2] − ℤ[ω] | 13.80 | 8.39 | 2.28 | 7.76 | yes |
+| 10¹² | ℤ[ω] − ℤ[i] | 5.03 | 3.06 | 2.33 | 2.18 | yes |
+
+**Result.**
+- **No verdict qualifies for the upgrade.** The labels stay as they are: "PASS under the sealed SE model; L13 shows
+  empirical fluctuation measures exceed that model (methods disagree); significance unresolved". Both numbers are
+  stated beside each label in `RQ1_FINDINGS.md`, `RQ1C_READ_REPORT.md` and `RQ1C_FINDINGS.md`.
+- **No verdict is changed.**
+- **What sits closest:**
+  - **P4's ℤ[√2] > ℤ[ω] half** clears its bound at all three X.
+  - **Its ℤ[ω] > ℤ[i] half** clears it only at 10¹².
+  - **B2 and P1** are bounded by the wide nine-slice intervals at β 0.40 (ℤ[√2], u 2.31). Their flip factors (1.42,
+    1.12) lie inside the range the slices cannot exclude.

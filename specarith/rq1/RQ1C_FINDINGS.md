@@ -7,6 +7,8 @@ accepts double-read equivalence on all non-timing fields, verified by identical 
 only the P1 / P3 / P4 verdict lines had been seen. Details: `RQ1C_READ_VOID.md`. Numbers: `RQ1C_READ_REPORT.md`. Seal:
 `RQ1C_SEAL.md` (tag `rq1c-seal`; Bitcoin blocks 973605 / 973607).
 
+**Label check (Will, 2026-11-04; `L13_REPORT.md`, "Label check"): both labels kept, verdicts unchanged.** P1 (β 0.40, 0.45 at 10¹²): flip factor 1.12 against a slice upper bound of 2.31. P4 (β 0.55 at all three X): the weakest inequality, ℤ[ω] > ℤ[i] at 10¹⁰, has 1.40 against 2.33, and at 10¹¹ 1.86 against 2.33; the other four clear their bound.
+
 Every verdict is conditional on the sealed SE model (calibrated on synthetic mirror-symmetric sets; its validity for
 arithmetic data is assumed, not tested), as in RQ1.
 
