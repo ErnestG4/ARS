@@ -1,0 +1,227 @@
+{
+ "D23_nominal": {
+  "Lvalue": 0.991145,
+  "conductor": 0.98759,
+  "meets_095": true
+ },
+ "K0": {
+  "form": "one-sided t on the h = 2 quadratic coefficient, sign from the h = 1 quadratic (6 df)",
+  "null_false_PASS": 0.04975,
+  "planted_PASS": 0.319,
+  "planted_PASS_at_sig_mu": 0.1394
+ },
+ "K0_rejected_forms": {
+  "spearman_about_h1_line (draft)": {
+   "null_false_PASS": 0.0648,
+   "planted_PASS": 0.9969
+  },
+  "spearman_detrended_within_h2": {
+   "null_false_PASS": 0.06125,
+   "planted_PASS": 0.3367
+  }
+ },
+ "constants": {
+  "B055": 0.04550657297146217,
+  "C_SE": 0.6271633049515984,
+  "K_P": 57801,
+  "NK0": 20000,
+  "NSIM": 200000,
+  "cuts": [
+   -0.5545177444479562,
+   -0.8317766166719344
+  ],
+  "seed": 20261104,
+  "sig_mu": 0.0213
+ },
+ "inputs": {
+  "pred_sha256": "7cf50f1903861faba23fc87f641721b0e0a994a32b074fc68972cf8ab6570cda",
+  "refs_sha256": "f2d390cfef7d383e4aec903c02bc7fe37548c188efa9de3341388fd605a5d4bd"
+ },
+ "label": "FN1-h2 pre-seal D2 (a) parametric simulations and D2 (b) planted witness (no h = 2 data)",
+ "reachable": {
+  "CONDUCTOR": true,
+  "INCONCLUSIVE": true,
+  "LVALUE": true,
+  "VOID": true
+ },
+ "references_quadratic": {
+  "coef": [
+   0.9208282869575153,
+   -0.13163526665801822,
+   0.027227910768616418
+  ],
+  "resid_sd": 0.008959709879285105
+ },
+ "scenarios": {
+  "curved truth L-value": {
+   "P_CONDUCTOR": 0.0,
+   "P_INCONCLUSIVE": 0.0,
+   "P_LVALUE": 1.0,
+   "P_VOID": 0.0,
+   "median_s": -1.6304868475579424,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.09594408279586907,
+   "sig_mu": 0.008959709879285105
+  },
+  "curved truth conductor": {
+   "P_CONDUCTOR": 1.0,
+   "P_INCONCLUSIVE": 0.0,
+   "P_LVALUE": 0.0,
+   "P_VOID": 0.0,
+   "median_s": -0.03617602221811635,
+   "s_true": 0.0,
+   "sd_s_robust": 0.1154835079553613,
+   "sig_mu": 0.008959709879285105
+  },
+  "measured scatter L-value": {
+   "P_CONDUCTOR": 0.05477,
+   "P_INCONCLUSIVE": 0.075455,
+   "P_LVALUE": 0.8677,
+   "P_VOID": 0.002075,
+   "median_s": -1.3854044314054168,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.504538544699593,
+   "sig_mu": 0.046334657511416036
+  },
+  "measured scatter conductor": {
+   "P_CONDUCTOR": 0.852305,
+   "P_INCONCLUSIVE": 0.099435,
+   "P_LVALUE": 0.046075,
+   "P_VOID": 0.002185,
+   "median_s": -0.0029286535154293956,
+   "s_true": 0.0,
+   "sd_s_robust": 0.6477784432538277,
+   "sig_mu": 0.046334657511416036
+  },
+  "no -7 L-value": {
+   "P_CONDUCTOR": 0.000385,
+   "P_INCONCLUSIVE": 0.00956,
+   "P_LVALUE": 0.990055,
+   "P_VOID": 0.0,
+   "median_s": -1.3864517243992776,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.2506797704321242,
+   "sig_mu": 0.0213
+  },
+  "no -7 conductor": {
+   "P_CONDUCTOR": 0.986805,
+   "P_INCONCLUSIVE": 0.01297,
+   "P_LVALUE": 0.000225,
+   "P_VOID": 0.0,
+   "median_s": -2.3515548679145576e-05,
+   "s_true": 0.0,
+   "sd_s_robust": 0.29968275510960446,
+   "sig_mu": 0.0213
+  },
+  "nominal L-value": {
+   "P_CONDUCTOR": 0.000415,
+   "P_INCONCLUSIVE": 0.00844,
+   "P_LVALUE": 0.991145,
+   "P_VOID": 0.0,
+   "median_s": -1.3875596089401805,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.23318038812799852,
+   "sig_mu": 0.0213
+  },
+  "nominal conductor": {
+   "P_CONDUCTOR": 0.98759,
+   "P_INCONCLUSIVE": 0.01224,
+   "P_LVALUE": 0.00017,
+   "P_VOID": 0.0,
+   "median_s": -0.0016939732850256625,
+   "s_true": 0.0,
+   "sd_s_robust": 0.29868324865688317,
+   "sig_mu": 0.0213
+  },
+  "nominal midpoint": {
+   "P_CONDUCTOR": 0.28814,
+   "P_INCONCLUSIVE": 0.43488,
+   "P_LVALUE": 0.27698,
+   "P_VOID": 0.0,
+   "median_s": -0.6933584552417398,
+   "s_true": -0.6931471805599453,
+   "sd_s_robust": 0.24148088992884867,
+   "sig_mu": 0.0213
+  },
+  "runs in N L-value": {
+   "P_CONDUCTOR": 0.23778,
+   "P_INCONCLUSIVE": 0.426995,
+   "P_LVALUE": 0.335225,
+   "P_VOID": 0.0,
+   "median_s": -0.7320624492570841,
+   "s_true": -0.7312367752615297,
+   "sd_s_robust": 0.24011592418976477,
+   "sig_mu": 0.0213
+  },
+  "runs in N conductor": {
+   "P_CONDUCTOR": 1.0,
+   "P_INCONCLUSIVE": 0.0,
+   "P_LVALUE": 0.0,
+   "P_VOID": 0.0,
+   "median_s": 0.6615190555041675,
+   "s_true": 0.6615371038151272,
+   "sd_s_robust": 0.37943786680167346,
+   "sig_mu": 0.0213
+  },
+  "stress x1.5 L-value": {
+   "P_CONDUCTOR": 0.0114,
+   "P_INCONCLUSIVE": 0.04156,
+   "P_LVALUE": 0.94702,
+   "P_VOID": 2e-05,
+   "median_s": -1.3858189957301603,
+   "s_true": -1.3862943611198906,
+   "sd_s_robust": 0.3457057926751234,
+   "sig_mu": 0.03195
+  },
+  "stress x1.5 conductor": {
+   "P_CONDUCTOR": 0.936755,
+   "P_INCONCLUSIVE": 0.055445,
+   "P_LVALUE": 0.00777,
+   "P_VOID": 3e-05,
+   "median_s": 0.0009488504408022643,
+   "s_true": 0.0,
+   "sd_s_robust": 0.442188203771526,
+   "sig_mu": 0.03195
+  },
+  "zero slope (VOID reachability)": {
+   "P_CONDUCTOR": 0.18715,
+   "P_INCONCLUSIVE": 0.02916,
+   "P_LVALUE": 0.28362,
+   "P_VOID": 0.50007,
+   "median_s": -1.126871848858742,
+   "s_true": 0.0,
+   "sd_s_robust": 2.0408773173113697,
+   "sig_mu": 0.0213
+  }
+ },
+ "witness_LOO": {
+  "gate_ok": true,
+  "reads_planted": "L-VALUE",
+  "reads_unplanted": "CONDUCTOR",
+  "resid_j": {
+   "-11": 0.009869884139359408,
+   "-163": 0.10646128620907336,
+   "-19": -0.03523532460480716,
+   "-43": -0.036401816717384294,
+   "-67": -0.02287283417344943,
+   "-7": 0.04261479117699296,
+   "-8": 0.022231655032086017,
+   "zi": -0.0008710790195206597,
+   "zw": -0.026971454631769753
+  },
+  "s_j": {
+   "-11": 0.17308596283112188,
+   "-163": 3.2895324906190626,
+   "-19": -0.6378728900799017,
+   "-43": -0.6206170353272902,
+   "-67": -0.38835372835186327,
+   "-7": 0.6854503517333708,
+   "-8": 0.37716527114327514,
+   "zi": -0.015526000751541855,
+   "zw": -0.47695327192009446
+  },
+  "s_planted": -1.1211931222425422,
+  "s_unplanted": 0.26510123887734877,
+  "sigma_LOO": 0.046334657511416036
+ }
+}
