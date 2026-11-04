@@ -147,3 +147,54 @@ two candidate causes, as Will states them:
 2. **Deterministic oscillation between ranges** that second differences don't cancel.
 
 No action beyond recording it.
+
+## §9.G method calibration: A, B and slices on planted witnesses (Will, 2026-11-03; descriptive)
+
+Method, cost and failure rule committed before running (88ec5207, `rq1_l13_calib.py`). Run on spot in specarith-filler
+(idle weight): chunk 0 first (1.03× its model), then chunks 1–15. 160 replicates per case; total CPU 1.20× the model
+(about 9.4 core-h). Outputs: `results/l13/calib/` (L13_CALIB.json and the 16 chunk files).
+
+**Setup.**
+- Nine ordered slices of 2·10⁶ half-angles per replicate, at L13's 10¹⁰ K values.
+- Truth = the replicate SD of slice 0's R. Each method's estimate is the RMS over replicates, with 90% bootstrap
+  intervals.
+- **Declared failure:** the interval lies wholly outside [0.8, 1.25].
+- (ii) is sized so that ΔR = |1 − R_ℤ[i]| at each cell (0.457 / 0.372 / 0.210 / 0.143), my reading of "the observed R
+  excess". (ii)-small is 0.1× that.
+
+**Estimate ÷ true SE** (A at its primary M; ! = fails the declared band):
+
+| Witness | K 2,906 | K 7,873 | K 57,801 | K 156,616 |
+|---|---|---|---|---|
+| (i) iid: A / B / slices | 0.96 / 0.94 / 0.93 | 0.89 / 0.88 / 0.89 | 0.97 / 0.97 / 0.93 | 0.99 / 0.97 / 0.98 |
+| (ii) modulation, full: A | 1.15 [1.05, 1.27] | **1.36 [1.25, 1.49] !** | 1.24 [1.14, 1.37] | **1.69 [1.55, 1.87] !** |
+| (ii) full: B / slices | 0.99 / 0.95 | 0.99 / 1.02 | 0.94 / 0.96 | 1.08 / 1.15 [1.04, 1.28] |
+| (ii)-small (0.1×): A / B / slices | 0.96 / 0.96 / 0.99 | 1.04 / 1.04 / 1.04 | 1.10 / 1.09 / 1.09 | 0.95 / 0.93 / 0.90 |
+| (iii) linear drift: A / B / slices | 0.95 / 0.93 / 1.00 | 0.99 / 0.96 / 1.00 | 0.95 / 0.92 / 0.96 | 0.98 / 0.95 / 1.01 |
+| (iii) quadratic drift: A / B / slices | 0.96 / 0.98 / 1.02 | 0.97 / 0.98 / 1.03 | 0.98 / 0.97 / 1.06 | 0.97 / 0.95 / 1.06 |
+| (iv) ℤ[i] primes, uncoupled: A / B / slices | 1.08 / 1.07 / 1.09 | 1.11 / 1.08 / 1.09 | 1.02 / 1.01 / 1.00 | 1.05 / 1.04 / 1.00 |
+| (iv) ℤ[i], coupled: B | **2.37 !** | **2.55 !** | **4.38 !** | **4.60 !** |
+| (iv) ℤ[i], coupled: A / slices | 1.06 / 1.07 | 0.93 / 0.89 | 1.10 / 1.03 | 1.04 / 0.98 |
+| (iv) ℤ[√2] primes, uncoupled: A / B / slices | 0.98 / 1.00 / 1.00 | 0.99 / 1.01 / 0.99 | 1.01 / 1.03 / 1.02 | 1.08 / 1.08 / 1.09 |
+| (iv) ℤ[√2], coupled: B | **2.19 !** | **2.99 !** | **3.93 !** | **4.78 !** |
+| (iv) ℤ[√2], coupled: A / slices | 0.99 / 1.03 | 1.08 / 1.07 | 0.98 / 0.98 | 1.10 / 1.12 |
+
+**Further detail** (in the JSON):
+- Truth ÷ model under (i) is 0.93–1.02: at this scale the SE model is accurate on iid angles.
+- **A's inflation under (ii) depends on the arc count.** At M = 250 it is 1.84 (K 57,801) and 2.78 (K 156,616). At the
+  primary M the lower bound is above 1 at all four cells.
+- B's coupled failures come entirely from m = 5, the coupled modulus (5.0–11.8×). The m = 7 and m = 13 parts stay at
+  0.88–1.10, so pooling dilutes the effect.
+
+**Reading, by the declared rule and Will's ("A method that fails its witness is recorded as invalid for L13"):**
+- **Method A: fails witness (ii) at 2 of 4 cells and is inflated at all 4.** Will's named hypothesis, that A inflates
+  under smooth angular structure, is supported. Recorded as invalid for L13.
+  - The planted modulation, sized at |1 − R|, inflates A by 1.15–1.69×. L13 measured A at 3–23× the model, so a
+    modulation of this size accounts for only part of that. Descriptive.
+- **Method B: fails witness (iv)-coupled at 8 of 8 cells** (2.2–4.8× pooled, through the coupled modulus). Passes
+  (i)–(iii) and (iv)-uncoupled. Recorded as invalid for L13: it is not robust to angle–residue coupling. Whether the
+  real angle sets carry such a coupling is not tested here.
+- **Slices: fail no witness** (36 case-cells). The worst is 1.15 [1.04, 1.28] under the full modulation at K 156,616.
+  Quadratic drift of the planted size moves it 2–6%.
+- **What this does not do.** Nothing in RQ1, RQ1-c or L13's table is relabelled. Whether this resolves L13, with A and
+  B invalid and slices standing, is Will's reading.

@@ -390,8 +390,14 @@ matched-N slices below 10¹¹ give second differences R₁ − 2R₂ + R₃ that
   cell.
 - **OPEN ITEM, β 0.60:** recorded only, no action. Two candidate causes (Will): the SE model breaking down at large
   blocks, and deterministic oscillation between ranges that second differences don't cancel.
-- **Next (Will):** a §9.G method calibration of A, B and slices on planted witnesses. A method that fails its witness is
-  recorded as invalid for L13; that is the only route to resolving L13.
+- **§9.G method calibration (done 2026-11-03; 88ec5207; `rq1/L13_REPORT.md`, last section; 160 replicates per case).**
+  Estimate ÷ true SE:
+  - **A** inflates under smooth angular modulation (ii) at all four cells (1.15–1.69), failing the declared band at 2.
+    Recorded as invalid for L13 (Will's rule). Will's hypothesis is supported.
+  - **B** fails angle–residue coupling (iv) at 8 of 8 cells (2.2–4.8×). Recorded as invalid for L13.
+  - **Slices** fail no witness (worst 1.15).
+  - The SE model is accurate on iid angles (truth ÷ model 0.93–1.02).
+  - No relabelling. Whether L13 is resolved is Will's reading.
 
 ## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
 
