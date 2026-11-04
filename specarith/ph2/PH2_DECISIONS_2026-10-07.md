@@ -2622,3 +2622,22 @@ Report each method’s estimate ÷ the true SE in each case. The hypothesis to t
 β 0.60: state which β values every RQ1 and RQ1-c verdict used. Record β 0.60 as an open item with two candidate causes: the SE model breaking down at large blocks, and deterministic oscillation between ranges that second differences don’t cancel. No action beyond that.
 FN1H2: I’ve withdrawn my thinned-control requirement. Random thinning gives R_thin = p·R + (1 − p), so it isn’t neutral, and character thinning adds a twisted conductor. D1’s matched-X primary is accepted in principle, conditional on the R derivation showing the finite-size term runs in X. Send me D1–D5 and that derivation for review.
 Will does all pushes.
+
+### §9.G accepted; L13 reading; label check; ℤ[ω] slices; FN1H2 D1–D5 rulings (2026-11-03; Will, verbatim)
+§9.G calibration: accepted.
+L13 reading (replaces "no conclusion"): "Slices are the only noise estimator that passed every §9.G witness (36/36). Method A inflates under angular modulation and method B under angle–residue coupling, so both are invalid as noise estimators for this statistic. By slices, the noise is consistent with the SE model at β 0.40–0.55 for ℤ[√2] and ℤ[i], with 2–3× excess at β 0.60. Open: the planted modulation explains only 1.15–1.69× of A's 3–23× excess, and coupling in the real data is untested."
+Label check before any relabel. For each RQ1 and RQ1-c verdict, compute the noise-inflation factor at which it would flip. Compare it with the slice 90% upper bound on noise (1 ÷ the lower end of model/empirical) at that verdict's β and field.
+Upgrade "significance unresolved" to "significant under the slice-validated SE model" only where flip factor > upper bound.
+Where it isn't, keep the label and state both numbers.
+State which β each verdict used.
+No change to any verdict itself.
+Tonight: slices for ℤ[ω], same method as 4ed68e0f, β 0.40–0.60. Commit the cost first. P4's ordering needs it.
+FN1-h2 rulings:
+D1: accepted. The attribution names both heuristics (RW's RMT form, and Rudnick–Sarnak independence for the cross term) and states that both informative verdicts rest on "runs in X".
+D2: go on (a), (b) and (c). (b) is committed and hashed before the seal, with no h = 2 data touched. D2b: D23 is judged at nominal; a stress result below 0.95 is disclosed, and the cuts aren't widened.
+D3: drop K1. K0 alone, no multiplicity correction.
+D4: X* = 2·10¹⁰ approved.
+D5: keep D′ = 5, descriptive. Before computing, commit (★)'s prediction for each h = 1 field under "runs in X" and under "runs in N".
+Then bring the full seal draft for review.
+Overnight: run D2 (a)–(c) and the ℤ[ω] slices. If h = 2 archives can be built under the same no-statistic rule stage 2 used (hashes and counts only, §9.I), start them; otherwise they wait for the seal.
+Will does all pushes.
