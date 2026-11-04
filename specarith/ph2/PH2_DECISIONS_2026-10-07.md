@@ -2608,3 +2608,17 @@ every §9.J branch reachable;
 a cost model, with a §9.H stratified first wave.
 Bring the draft for review. No compute before the seal.
 L13 slices (descriptive, new run). For ℤ[√2] and ℤ[i], take consecutive disjoint slices at matched N and form second differences R₁ − 2R₂ + R₃ to cancel linear drift. Commit the method and the cost first. Run it after ARSv2’s first wave has its cores. No relabelling of RQ1 or RQ1-c.
+
+### L13 slices accepted; §9.G method calibration; β 0.60 open item; FN1H2 D1 (2026-11-03; Will, verbatim)
+L13 slices: accepted as descriptive. No relabelling.
+
+Record: “Disjoint-slice second differences and the FN1 L16 stage difference are both drift-cancelled and independent of each other. Both put the noise consistent with the SE model at β 0.40–0.55, with wide intervals (nine slices). At β 0.60 both fields sit at 2–3× the model. Method A disagrees at 8/8 cells and method B at 3/8.” The L13 rule stands: no conclusion yet.
+§9.G method calibration (descriptive; commit the method and cost first; run on free cores now): run methods A, B and slices on planted witnesses whose true SE is known from replicates:
+(i) iid uniform angles, where the model is exact;
+(ii) iid angles with a planted smooth angular modulation sized to give the observed R excess;
+(iii) (i) plus a planted linear and a planted quadratic drift along prime order;
+(iv) real primes’ order and residues with synthetic angles, with and without a planted angle–residue coupling.
+Report each method’s estimate ÷ the true SE in each case. The hypothesis to test: method A inflates under (ii), because angular structure leaks into arc-based noise estimates. A method that fails its witness is recorded as invalid for L13. That is the only route to resolving L13.
+β 0.60: state which β values every RQ1 and RQ1-c verdict used. Record β 0.60 as an open item with two candidate causes: the SE model breaking down at large blocks, and deterministic oscillation between ranges that second differences don’t cancel. No action beyond that.
+FN1H2: I’ve withdrawn my thinned-control requirement. Random thinning gives R_thin = p·R + (1 − p), so it isn’t neutral, and character thinning adds a twisted conductor. D1’s matched-X primary is accepted in principle, conditional on the R derivation showing the finite-size term runs in X. Send me D1–D5 and that derivation for review.
+Will does all pushes.

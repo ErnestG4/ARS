@@ -381,7 +381,17 @@ matched-N slices below 10¹¹ give second differences R₁ − 2R₂ + R₃ that
 - Model/empirical is consistent with 1 at 6 of 8 cells: both fields at β 0.40–0.55, e.g. ℤ[i] β 0.55: 0.95 [0.43, 1.47].
 - It is above the model at β 0.60 for both fields (0.32, 0.49).
 - It disagrees with L13 method A at all 8 cells, and with method B at 3.
-- No relabelling, and no conclusion under Will's L13 rule. Will's to read.
+- No relabelling, and no conclusion under Will's L13 rule.
+- **Will's record (2026-11-03, verbatim):** "Disjoint-slice second differences and the FN1 L16 stage difference are both
+  drift-cancelled and independent of each other. Both put the noise consistent with the SE model at β 0.40–0.55, with
+  wide intervals (nine slices). At β 0.60 both fields sit at 2–3× the model. Method A disagrees at 8/8 cells and method
+  B at 3/8." The L13 rule stands: no conclusion yet.
+- **The β of each verdict** is tabled in `rq1/L13_REPORT.md`. No sealed RQ1, RQ1-c or FN1 verdict rests on a β 0.60
+  cell.
+- **OPEN ITEM, β 0.60:** recorded only, no action. Two candidate causes (Will): the SE model breaking down at large
+  blocks, and deterministic oscillation between ranges that second differences don't cancel.
+- **Next (Will):** a §9.G method calibration of A, B and slices on planted witnesses. A method that fails its witness is
+  recorded as invalid for L13; that is the only route to resolving L13.
 
 ## L14 — the four-point factorisation assumption in GEO1's A2 (2026-10-31; recorded only)
 

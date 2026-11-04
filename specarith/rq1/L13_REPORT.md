@@ -115,3 +115,35 @@ bit for bit (guard).
   is not this drift.
 - **What this does not do.** It does not relabel RQ1, RQ1-c or L13's table. The three methods still disagree, so under
   Will's L13 rule no conclusion is drawn here. That is Will's to read.
+
+### Will's record (2026-11-03, verbatim)
+
+"Disjoint-slice second differences and the FN1 L16 stage difference are both drift-cancelled and independent of each
+other. Both put the noise consistent with the SE model at β 0.40–0.55, with wide intervals (nine slices). At β 0.60
+both fields sit at 2–3× the model. Method A disagrees at 8/8 cells and method B at 3/8." The L13 rule stands: no
+conclusion yet. Accepted as descriptive; no relabelling.
+
+### Which β each RQ1, RQ1-c and FN1 verdict used (Will, 2026-11-03)
+
+| Verdict | Cells (β at X) | Uses the SE model? |
+|---|---|---|
+| RQ1 B2 (`RQ1_FINDINGS.md` §2) | β 0.40, 0.45 at 10¹⁰ and 10¹¹; K 2,906 / 7,873 / 7,013 / 21,213 | yes (T with SE_diff) |
+| RQ1 B1 | dropped as a gate (round 87); D(β) descriptive at every β | — |
+| RQ1-c P1 | β 0.40, 0.45 at 10¹²; K 16,987 / 57,395 | yes |
+| RQ1-c P2 | descriptive, β 0.40–0.60 at 10¹² (the β 0.60 D falls below both logarithmic windows) | descriptive |
+| RQ1-c P3 | crossover location on the fine grid β 0.45–0.65 at 10¹²; the verdict is the first crossing (0.538) | **no** (location only); β 0.60 lies on the grid beyond the crossing and does not decide it |
+| RQ1-c P4 | β 0.55 at 10¹⁰, 10¹¹, 10¹²; K 57,801 / 194,125 / 655,245 | yes |
+| FN1 stages 1–2 | β 0.55 primary; 0.45 and 0.40 secondaries | no for the rank verdicts (exact permutation); power and the −7 margin only |
+
+**No sealed verdict in RQ1, RQ1-c or FN1 rests on a β 0.60 cell.** P4's 10¹¹ and 10¹² cells use larger K (194,125,
+655,245) than the slices' β 0.60 cell (156,616), but far more points per bin (N/K ≈ 2·10⁴ and 5.7·10⁴, against 2,905).
+The slices tested neither combination.
+
+### OPEN ITEM: β 0.60 (Will, 2026-11-03; recorded only, no action)
+
+At β 0.60 (K = 156,616, N/K ≈ 2,905 at the 10¹⁰ slice size) both fields' slice estimates sit at 2–3× the SE model. The
+two candidate causes, as Will states them:
+1. **The SE model breaking down at large blocks.**
+2. **Deterministic oscillation between ranges** that second differences don't cancel.
+
+No action beyond recording it.
