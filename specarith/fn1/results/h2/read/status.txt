@@ -1,0 +1,5 @@
+read1 rc 0
+read2 rc 0
+cmp 0
+4ab297584208ea5084718c9f99e25421aaece688d526a621b3029360e033fa71  /home/combust/tmp/claude/specarith/fn1/h2_read/READ1.json
+4ab297584208ea5084718c9f99e25421aaece688d526a621b3029360e033fa71  /home/combust/tmp/claude/specarith/fn1/h2_read/READ2.json
